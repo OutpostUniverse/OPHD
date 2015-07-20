@@ -62,6 +62,7 @@ public:
 	virtual void onKeyDown(KeyCode key, KeyModifier mod, bool repeat) {};
 	virtual void onKeyUp(KeyCode key, KeyModifier mod) {};
 
+	void size(float _s);
 	void size(float w, float h);
 
 	void width(float w);

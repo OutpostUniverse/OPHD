@@ -1,5 +1,7 @@
 #include "FactoryProduction.h"
 
+#include "../UiConstants.h"
+
 
 FactoryProduction::FactoryProduction(Font& font) : mFactory(nullptr)
 {
@@ -37,7 +39,7 @@ void FactoryProduction::update()
 void FactoryProduction::init()
 {
 	size(380, 115);
-	position(static_cast<int>(Utility<Renderer>::get().screenCenterX() - width() / 2), static_cast<int>((Utility<Renderer>::get().height() - 185) / 2 - height() / 2));
+	position(static_cast<int>(Utility<Renderer>::get().screenCenterX() - width() / 2), static_cast<int>((Utility<Renderer>::get().height() - constants::BOTTOM_UI_HEIGHT) / 2 - height() / 2));
 
 	addControl("mnuProductionList", &mnuProductionList, 5, 25);
 	mnuProductionList.font(font());

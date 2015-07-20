@@ -140,6 +140,13 @@ void Control::size(float w, float h)
 }
 
 
+void Control::size(float _s)
+{
+	width(_s);
+	height(_s);
+}
+
+
 /**
  * Sets the width of the Control.
  * 

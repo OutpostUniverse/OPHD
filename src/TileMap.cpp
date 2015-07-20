@@ -1,5 +1,7 @@
 #include "TileMap.h"
 
+#include "UiConstants.h"
+
 #pragma warning(disable: 4244)
 
 const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
@@ -177,7 +179,7 @@ void TileMap::initMapDrawParams()
 	mEdgeLength = static_cast<int>(screenW) / TILE_WIDTH;
 
 	// FIXME: Magic number in the screenH calculation -- comes from UI height defined in GameState.
-	mMapPosition((screenW / 2 - (TILE_WIDTH / 2)), ((screenH - 185) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT));
+	mMapPosition((screenW / 2 - (TILE_WIDTH / 2)), ((screenH - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT));
 
 	mMapBoundingBox((screenW / 2) - ((TILE_WIDTH * mEdgeLength) / 2), mMapPosition.y(), TILE_WIDTH * mEdgeLength, TILE_HEIGHT * mEdgeLength);
 

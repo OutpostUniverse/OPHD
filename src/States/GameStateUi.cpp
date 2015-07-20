@@ -29,55 +29,57 @@ void GameState::initUi()
 	mTubesPalette.visible(false);
 
 	// Bottom UI
-	BOTTOM_UI_AREA(0, r.height() - 185, r.width(), 185);
-	mMiniMapBoundingBox(MARGIN, BOTTOM_UI_AREA.y() + MARGIN, mMapDisplay.width(), mMapDisplay.height());
-	mResourceInfoBox(mMiniMapBoundingBox.x() + mMiniMapBoundingBox.w() + MARGIN, mMiniMapBoundingBox.y(), 200, mMiniMapBoundingBox.h());
+	BOTTOM_UI_AREA(0, r.height() - constants::BOTTOM_UI_HEIGHT, r.width(), constants::BOTTOM_UI_HEIGHT);
+	mMiniMapBoundingBox(MARGIN, BOTTOM_UI_AREA.y() + constants::MARGIN, mMapDisplay.width(), mMapDisplay.height());
+	
+	mResourceInfoBox(mMiniMapBoundingBox.x() + mMiniMapBoundingBox.w() + constants::MARGIN * 2 + constants::MINI_MAP_BUTTON_SIZE, mMiniMapBoundingBox.y(), constants::RESOURCE_BOX_WIDTH, mMiniMapBoundingBox.h());
 
+	// X Position of the main UI buttons
 	int posX = r.width() - 34;
 
 	// BUTTONS
 	// System
 	mBtnSystem.image("ui/icons/system.png");
-	mBtnSystem.size(30, 30);
+	mBtnSystem.size(constants::MAIN_BUTTON_SIZE);
 	mBtnSystem.position(posX, BOTTOM_UI_AREA.y() + MARGIN);
 	mBtnSystem.click().Connect(this, &GameState::btnSystemClicked);
 
 	mBtnStructurePicker.image("ui/icons/construction.png");
-	mBtnStructurePicker.size(30, 30);
+	mBtnStructurePicker.size(constants::MAIN_BUTTON_SIZE);
 	mBtnStructurePicker.type(Button::BUTTON_TOGGLE);
-	mBtnStructurePicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + 32);
+	mBtnStructurePicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
 	mBtnStructurePicker.click().Connect(this, &GameState::btnStructurePickerClicked);
 
 	mBtnTubePicker.image("ui/icons/tubes.png");
-	mBtnTubePicker.size(30, 30);
+	mBtnTubePicker.size(constants::MAIN_BUTTON_SIZE);
 	mBtnTubePicker.type(Button::BUTTON_TOGGLE);
 	mBtnTubePicker.enabled(false);
-	mBtnTubePicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + 64);
+	mBtnTubePicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT) * 2);
 	mBtnTubePicker.click().Connect(this, &GameState::btnTubesPickerClicked);
 
 	mBtnRobotPicker.image("ui/icons/robot.png");
-	mBtnRobotPicker.size(30, 30);
+	mBtnRobotPicker.size(constants::MAIN_BUTTON_SIZE);
 	mBtnRobotPicker.type(Button::BUTTON_TOGGLE);
 	mBtnRobotPicker.enabled(false);
-	mBtnRobotPicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + 96);
+	mBtnRobotPicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT) * 3);
 	mBtnRobotPicker.click().Connect(this, &GameState::btnRobotPickerClicked);
 
 	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.size(30, 30);
-	mBtnTurns.position(posX, BOTTOM_UI_AREA.y() + MARGIN + 128);
+	mBtnTurns.size(constants::MAIN_BUTTON_SIZE);
+	mBtnTurns.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT) * 4);
 	mBtnTurns.click().Connect(this, &GameState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
 
 
 	// Mini Map
 	mBtnToggleHeightmap.image("ui/icons/height.png");
-	mBtnToggleHeightmap.size(20, 20);
-	mBtnToggleHeightmap.position(mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y() + mMiniMapBoundingBox.h() + 4);
+	mBtnToggleHeightmap.size(constants::MINI_MAP_BUTTON_SIZE);
+	mBtnToggleHeightmap.position(mMiniMapBoundingBox.x() + mMiniMapBoundingBox.w() + constants::MARGIN, mMiniMapBoundingBox.y());
 	mBtnToggleHeightmap.type(Button::BUTTON_TOGGLE);
 
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
-	mBtnToggleConnectedness.size(20, 20);
-	mBtnToggleConnectedness.position(mMiniMapBoundingBox.x() + 22, mMiniMapBoundingBox.y() + mMiniMapBoundingBox.h() + 4);
+	mBtnToggleConnectedness.size(constants::MINI_MAP_BUTTON_SIZE);
+	mBtnToggleConnectedness.position(mMiniMapBoundingBox.x() + mMiniMapBoundingBox.w() + constants::MARGIN, mMiniMapBoundingBox.y() + constants::MINI_MAP_BUTTON_SIZE + constants::MARGIN_TIGHT);
 	mBtnToggleConnectedness.type(Button::BUTTON_TOGGLE);
 	mBtnToggleConnectedness.click().Connect(this, &GameState::btnToggleConnectednessClicked);
 

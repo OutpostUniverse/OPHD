@@ -6,8 +6,17 @@
 
 namespace constants
 {
+	const int BOTTOM_UI_HEIGHT = 175;
 
 	const int MARGIN = 6;
+	const int MARGIN_TIGHT = 2;
+
+	const int MAIN_BUTTON_SIZE = 30;
+	const int MINI_MAP_BUTTON_SIZE = 20;
+
+	const int RESOURCE_ICON_SIZE = 16;
+
+	const int RESOURCE_BOX_WIDTH = 200;
 
 	const float FADE_SPEED = 175.0f;
 

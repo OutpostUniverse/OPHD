@@ -192,41 +192,31 @@ void GameState::drawResourceInfo()
 	r.drawBox(mResourceInfoBox, 0, 0, 0);
 
 	// Resources
-	int x = mResourceInfoBox.x() + 2;
-	int y = mResourceInfoBox.y() + 2;
-	int line = 0, numberX = 100;
-	r.drawText(mTinyFont, "Common Metals Ore:", x, y + line * 10, 255, 255, 255);
-	drawNumber(r, mTinyFont, mPlayerResources.commonMetalsOre, x + numberX, y + line++ * 10, 255, 255, 255);
+	int x = constants::MARGIN_TIGHT;
+	int y = constants::MARGIN_TIGHT + (constants::RESOURCE_ICON_SIZE / 2) - (mTinyFont.height() / 2);
 
-	r.drawText(mTinyFont, "Rare Metals Ore:", x, y + line * 10, 255, 255, 255);
-	drawNumber(r, mTinyFont, mPlayerResources.rareMetalsOre, x + numberX, y + line++ * 10, 255, 255, 255);
+	int textY = 6;
+	int offsetX = constants::RESOURCE_ICON_SIZE + 30;
 
-	r.drawText(mTinyFont, "Common Minerals Ore:", x, y + line * 10, 255, 255, 255);
-	drawNumber(r, mTinyFont, mPlayerResources.commonMineralsOre, x + numberX, y + line++ * 10, 255, 255, 255);
+	r.drawSubImage(mUiIcons, x, y , 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	drawNumber(r, mTinyFont, mPlayerResources.commonMetals, x + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
-	r.drawText(mTinyFont, "Rare Minerals Ore:", x, y + line * 10, 255, 255, 255);
-	drawNumber(r, mTinyFont, mPlayerResources.rareMineralsOre, x + numberX, y + line++ * 10, 255, 255, 255);
+	r.drawSubImage(mUiIcons, x + offsetX, y, 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	drawNumber(r, mTinyFont, mPlayerResources.rareMetals, (x + offsetX) + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
-	line++;
+	r.drawSubImage(mUiIcons, (x + offsetX) * 2, y, 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	drawNumber(r, mTinyFont, mPlayerResources.commonMinerals, (x + offsetX) * 2 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
-	r.drawText(mTinyFont, "Common Metals:", x, y + line * 10, 255, 255, 255);
-	drawNumber(r, mTinyFont, mPlayerResources.commonMetals, x + numberX, y + line++ * 10, 255, 255, 255);
+	r.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	drawNumber(r, mTinyFont, mPlayerResources.rareMinerals, (x + offsetX) * 3 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
-	r.drawText(mTinyFont, "Rare Metals:", x, y + line * 10, 255, 255, 255);
-	drawNumber(r, mTinyFont, mPlayerResources.rareMetals, x + numberX, y + line++ * 10, 255, 255, 255);
 
-	r.drawText(mTinyFont, "Common Minerals:", x, y + line * 10, 255, 255, 255);
-	drawNumber(r, mTinyFont, mPlayerResources.commonMinerals, x + numberX, y + line++ * 10, 255, 255, 255);
+	r.drawSubImage(mUiIcons, (x + offsetX) * 5, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	drawNumber(r, mTinyFont, mPlayerResources.food, (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
-	r.drawText(mTinyFont, "Rare Minerals:", x, y + line * 10, 255, 255, 255);
-	drawNumber(r, mTinyFont, mPlayerResources.rareMinerals, x + numberX, y + line++ * 10, 255, 255, 255);
+	r.drawSubImage(mUiIcons, (x + offsetX) * 6, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	drawNumber(r, mTinyFont, mPlayerResources.energy, (x + offsetX) * 6 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
-	line++;
-
-	r.drawText(mTinyFont, "Energy:", x, y + line * 10, 255, 255, 255);
-	drawNumber(r, mTinyFont, mPlayerResources.energy, x + numberX, y + line++ * 10, 255, 255, 255);
-	r.drawText(mTinyFont, "Food:", x, y + line * 10, 255, 255, 255);
-	drawNumber(r, mTinyFont, mPlayerResources.food, x + numberX, y + line++ * 10, 255, 255, 255);
 }
 
 
@@ -362,7 +352,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 			mTileInspector.tile(_t);
 			mTileInspector.visible(true); 
 		}
-		else if (_t->structure()->isFactory())
+		else if (_t->structure() && _t->structure()->isFactory())
 		{
 			mFactoryProduction.factory(static_cast<Factory*>(_t->structure()));
 			mFactoryProduction.show();
