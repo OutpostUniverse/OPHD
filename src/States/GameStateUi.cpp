@@ -162,10 +162,6 @@ void GameState::drawUI()
 
 	mBtnTurns.update();
 	
-	stringstream str;
-	str << mTurnCount;
-	r.drawText(mTinyFont, str.str(), mBtnTurns.rect().x() + 2, mBtnTurns.rect().y() + mBtnTurns.rect().h() + 2, 0, 0, 0);
-
 	mRobotsMenu.update();
 	mStructureMenu.update();
 

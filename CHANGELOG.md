@@ -13,6 +13,8 @@ This version includes all revisions from r21 to rxx.
 - Added a changeDepth() function to GameState which is called whenever number keys are pressed (code readability).
 - Added convenience functions to Control.
 - Added ID field to Structure. Currently generates an ID based on the address of the Structure object in memory.
+- Added additional UI Constants for code cleanup.
+- Added additional UI icons.
 
 ### Changed
 - Changed the way StructureManager stores its managed Structures so that Structures can be sorted and updated by priority.
@@ -26,12 +28,17 @@ This version includes all revisions from r21 to rxx.
 - Played with the mine yields a bit... still not where I want them to be but better.
 - Tweaked vales in SeedSmelter. No provides better balanced output.
 - Buildings will draw as translucent (72.5% alpha) when 'Idle'.
+- Updated UI Icons to contain resources.
+- Updated Control with a convenience function to set size with a single parameter.
+- Modified UI fields to condense the UI a bit.
 
 ### Fixed
 - Removed some unnecessary data structures in Menu control (defined its own rect when Control already has one).
 - Pulled unused/legacy typedef from GameState.
 - SeedPower now shows itself as destroyed after it reaches its max age.
 - SeedLander will now add resources to the resource pool when bulldozed.
+- Fixed a mistake that would change the depth to level 4 no matter what button was pressed.
+
 
 
 ## [0.4.2] - 2015-10-13

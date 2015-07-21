@@ -143,7 +143,8 @@ State* GameState::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawImageStretched(mBackground, 0, 0, r.width(), r.height());
+	//r.drawImageStretched(mBackground, 0, 0, r.width(), r.height());
+	r.drawBoxFilled(0, 0, r.width(), r.height(), 25, 25, 25);
 
 	mTileMap.injectMouse(mMousePosition.x(), mMousePosition.y());
 	mTileMap.draw();
@@ -188,16 +189,17 @@ void GameState::drawResourceInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawBoxFilled(mResourceInfoBox, 0, 0, 0);
-	r.drawBox(mResourceInfoBox, 0, 0, 0);
+	r.drawBoxFilled(0, 0, r.width(), constants::RESOURCE_ICON_SIZE + 4, 0, 0, 0);
+	//r.drawBox(mResourceInfoBox, 0, 0, 0);
 
 	// Resources
 	int x = constants::MARGIN_TIGHT;
-	int y = constants::MARGIN_TIGHT + (constants::RESOURCE_ICON_SIZE / 2) - (mTinyFont.height() / 2);
+	int y = constants::MARGIN_TIGHT;
 
-	int textY = 6;
+	int textY = 5;
 	int offsetX = constants::RESOURCE_ICON_SIZE + 30;
 
+	// Refined Resources
 	r.drawSubImage(mUiIcons, x, y , 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	drawNumber(r, mTinyFont, mPlayerResources.commonMetals, x + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
@@ -210,13 +212,19 @@ void GameState::drawResourceInfo()
 	r.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	drawNumber(r, mTinyFont, mPlayerResources.rareMinerals, (x + offsetX) * 3 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
-
+	// Food & Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 5, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	drawNumber(r, mTinyFont, mPlayerResources.food, (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 6, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	drawNumber(r, mTinyFont, mPlayerResources.energy, (x + offsetX) * 6 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
+	// Turns
+	r.drawSubImage(mUiIcons, r.width() - 90, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	drawNumber(r, mTinyFont, mTurnCount, r.width() - 72, textY, 255, 255, 255);
+
+	// System
+	r.drawSubImage(mUiIcons, r.width() - constants::MARGIN_TIGHT - constants::RESOURCE_ICON_SIZE, y, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 }
 
 
@@ -310,7 +318,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 
 void GameState::changeDepth(int _d)
 {
-	mTileMap.currentDepth(4);
+	mTileMap.currentDepth(_d);
 	clearMode();
 	populateStructureMenu();
 }

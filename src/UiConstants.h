@@ -6,7 +6,7 @@
 
 namespace constants
 {
-	const int BOTTOM_UI_HEIGHT = 175;
+	const int BOTTOM_UI_HEIGHT = 162;
 
 	const int MARGIN = 6;
 	const int MARGIN_TIGHT = 2;
