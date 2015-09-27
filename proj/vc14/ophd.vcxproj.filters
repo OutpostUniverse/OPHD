@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{4c338eac-6a16-447d-9675-0fb6f6775bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Things">
+      <UniqueIdentifier>{52eb17f3-c971-4ead-bf0c-5c4e384abc52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Things\Robots">
+      <UniqueIdentifier>{131c8505-7c2b-49a2-9a9f-39f18a5b600a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Things\Structures">
+      <UniqueIdentifier>{4ed844e6-1ccb-4e6f-887c-381f36561c0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{53be18b8-eaba-46f1-98d9-72eaaeb9c314}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI\Core">
+      <UniqueIdentifier>{a106ce63-62be-4ae0-956c-53b458bed822}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Population">
+      <UniqueIdentifier>{29417a42-7d48-4e5b-b9b2-732035f05876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\States">
+      <UniqueIdentifier>{402a383d-3f20-4883-b636-09f71bc952da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Things">
+      <UniqueIdentifier>{f1567006-6b53-4e9f-a038-9e5e9d444cb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Things\Robots">
+      <UniqueIdentifier>{affdff4d-cd8d-452b-b49b-b21fe6e4d487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Things\Structures">
+      <UniqueIdentifier>{1d0c1304-94ea-4f94-b1e6-439408414946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{7554b729-89ba-4834-bcb5-d29c59f0d91a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI\Core">
+      <UniqueIdentifier>{50739b22-ad40-4252-9c5d-4fd92dfa3be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Population">
+      <UniqueIdentifier>{e552077e-8be9-4e9c-a427-ebb69e7f5340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Mine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\StructureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TileMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Things\Structures\Structure.cpp">
+      <Filter>Source Files\Things\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\DiggerDirection.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\TileInspector.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\TubesPalette.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\Button.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\Control.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\Menu.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\UIContainer.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Population\PopulationPool.cpp">
+      <Filter>Source Files\Population</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GraphWalker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RobotPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Mine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PopulationPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\RobotPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Strings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\StructureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TileMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TilePositionInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Thing.h">
+      <Filter>Header Files\Things</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Robots\Robodigger.h">
+      <Filter>Header Files\Things\Robots</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Robots\Robodozer.h">
+      <Filter>Header Files\Things\Robots</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Robots\Robominer.h">
+      <Filter>Header Files\Things\Robots</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Robots\Robot.h">
+      <Filter>Header Files\Things\Robots</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Robots\Robots.h">
+      <Filter>Header Files\Things\Robots</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\AirShaft.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\CommandCenter.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\MineFacility.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\SeedFactory.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\SeedLander.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\SeedPower.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\SeedSmelter.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\Structure.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\Structures.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\DiggerDirection.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\TileInspector.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\TubesPalette.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\UI.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\Button.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\Control.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\Menu.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\Pointer.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\UIContainer.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Population\Person.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Population\PopulationPool.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Tube.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GraphWalker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ophd.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="outpost.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

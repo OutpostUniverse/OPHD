@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>OPHD</ProjectName>
+    <ProjectGuid>{230AB062-FDCA-4D56-A781-0D3B9E8AE310}</ProjectGuid>
+    <RootNamespace>isoeng</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.23107.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\..\API\glew-1.13.0\include;..\..\API\physfs-2.0.3\;..\..\API\SDL2-2.0.3\include;..\..\API\SDL2_image-2.0.0\include;..\..\API\SDL2_mixer-2.0.0\include;..\..\API\SDL2_ttf-2.0.12\include;..\..\API\NAS2D\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\API\NAS2D\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\..\API\glew-1.13.0\include;..\..\API\physfs-2.0.3\;..\..\API\SDL2-2.0.3\include;..\..\API\SDL2_image-2.0.0\include;..\..\API\SDL2_mixer-2.0.0\include;..\..\API\SDL2_ttf-2.0.12\include;..\..\API\NAS2D\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\API\NAS2D\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>depend\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>NAS2D_d.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;physfs.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>depend\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ".\$(Configuration)\$(ProjectName).exe" "..\..\$(ProjectName).exe"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>depend\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>NAS2D.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;physfs.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>depend\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ".\$(Configuration)\$(ProjectName).exe" "..\..\$(ProjectName).exe"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\GameState.cpp" />
+    <ClCompile Include="..\..\src\GraphWalker.cpp" />
+    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\Mine.cpp" />
+    <ClCompile Include="..\..\src\Population\PopulationPool.cpp" />
+    <ClCompile Include="..\..\src\RobotPool.cpp" />
+    <ClCompile Include="..\..\src\StructureManager.cpp" />
+    <ClCompile Include="..\..\src\Things\Structures\Structure.cpp" />
+    <ClCompile Include="..\..\src\Tile.cpp" />
+    <ClCompile Include="..\..\src\TileMap.cpp" />
+    <ClCompile Include="..\..\src\UI\Core\Button.cpp" />
+    <ClCompile Include="..\..\src\UI\Core\Control.cpp" />
+    <ClCompile Include="..\..\src\UI\Core\Menu.cpp" />
+    <ClCompile Include="..\..\src\UI\Core\UIContainer.cpp" />
+    <ClCompile Include="..\..\src\UI\DiggerDirection.cpp" />
+    <ClCompile Include="..\..\src\UI\TileInspector.cpp" />
+    <ClCompile Include="..\..\src\UI\TubesPalette.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Common.h" />
+    <ClInclude Include="..\..\src\GameState.h" />
+    <ClInclude Include="..\..\src\GraphWalker.h" />
+    <ClInclude Include="..\..\src\Mine.h" />
+    <ClInclude Include="..\..\src\PopulationPool.h" />
+    <ClInclude Include="..\..\src\Population\Person.h" />
+    <ClInclude Include="..\..\src\Population\PopulationPool.h" />
+    <ClInclude Include="..\..\src\Resources.h" />
+    <ClInclude Include="..\..\src\RobotPool.h" />
+    <ClInclude Include="..\..\src\Strings.h" />
+    <ClInclude Include="..\..\src\StructureManager.h" />
+    <ClInclude Include="..\..\src\Things\Robots\Robodigger.h" />
+    <ClInclude Include="..\..\src\Things\Robots\Robodozer.h" />
+    <ClInclude Include="..\..\src\Things\Robots\Robominer.h" />
+    <ClInclude Include="..\..\src\Things\Robots\Robot.h" />
+    <ClInclude Include="..\..\src\Things\Robots\Robots.h" />
+    <ClInclude Include="..\..\src\Things\Structures\AirShaft.h" />
+    <ClInclude Include="..\..\src\Things\Structures\CommandCenter.h" />
+    <ClInclude Include="..\..\src\Things\Structures\MineFacility.h" />
+    <ClInclude Include="..\..\src\Things\Structures\SeedFactory.h" />
+    <ClInclude Include="..\..\src\Things\Structures\SeedLander.h" />
+    <ClInclude Include="..\..\src\Things\Structures\SeedPower.h" />
+    <ClInclude Include="..\..\src\Things\Structures\SeedSmelter.h" />
+    <ClInclude Include="..\..\src\Things\Structures\Structure.h" />
+    <ClInclude Include="..\..\src\Things\Structures\Structures.h" />
+    <ClInclude Include="..\..\src\Things\Thing.h" />
+    <ClInclude Include="..\..\src\Tile.h" />
+    <ClInclude Include="..\..\src\TileMap.h" />
+    <ClInclude Include="..\..\src\TilePositionInfo.h" />
+    <ClInclude Include="..\..\src\Tube.h" />
+    <ClInclude Include="..\..\src\UI\Core\Button.h" />
+    <ClInclude Include="..\..\src\UI\Core\Control.h" />
+    <ClInclude Include="..\..\src\UI\Core\Menu.h" />
+    <ClInclude Include="..\..\src\UI\Core\Pointer.h" />
+    <ClInclude Include="..\..\src\UI\Core\UIContainer.h" />
+    <ClInclude Include="..\..\src\UI\DiggerDirection.h" />
+    <ClInclude Include="..\..\src\UI\TileInspector.h" />
+    <ClInclude Include="..\..\src\UI\TubesPalette.h" />
+    <ClInclude Include="..\..\src\UI\UI.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ophd.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="outpost.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
