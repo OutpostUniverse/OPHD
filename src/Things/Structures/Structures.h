@@ -2,6 +2,7 @@
 #define __STRUCTURES__
 
 // Includes all Structures
+#include "Agridome.h"
 #include "AirShaft.h"
 #include "CommandCenter.h"
 #include "MineFacility.h"

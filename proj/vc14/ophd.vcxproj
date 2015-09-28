@@ -144,6 +144,7 @@
     <ClInclude Include="..\..\src\Things\Robots\Robots.h" />
     <ClInclude Include="..\..\src\Things\Structures\AirShaft.h" />
     <ClInclude Include="..\..\src\Things\Structures\CommandCenter.h" />
+    <ClInclude Include="..\..\src\Things\Structures\Agridome.h" />
     <ClInclude Include="..\..\src\Things\Structures\MineFacility.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedFactory.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedLander.h" />

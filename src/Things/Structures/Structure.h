@@ -50,6 +50,7 @@ public:
 
 	StructureState state() const { return mStructureState; }
 
+	/** Indicates that the structure can act as a connector (tube) */
 	bool isConnector() const { return mConnector; }
 
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }

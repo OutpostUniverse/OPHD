@@ -40,6 +40,7 @@ enum PointerType
 enum StructureType
 {
 	STRUCTURE_NONE,
+	STRUCTURE_AGRIDOME,
 	STRUCTURE_AIR_SHAFT,
 	STRUCTURE_COMMAND_CENTER,
 	STRUCTURE_SEED_FACTORY,
@@ -125,11 +126,14 @@ private:
 	void initUi();
 	void hideUi();
 
+	void populateStructureMenu();
+
 	void placeRobot();
 	void placeStructure();
 	void placeTubes();
 
 	bool validTubeConnection(Tile *tile, Direction dir);
+	bool validStructurePlacement(Tile *tile, Direction dir);
 
 	void dozerTaskFinished(Robot* _r);
 	void diggerTaskFinished(Robot* _r);

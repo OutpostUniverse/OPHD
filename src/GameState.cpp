@@ -217,6 +217,13 @@ void GameState::hideUi()
 }
 
 
+void GameState::populateStructureMenu()
+{
+	mStructureMenu.dropAllItems();
+
+	mStructureMenu.addItem("Agricultural Dome");
+}
+
 /**
  * 
  */
@@ -563,6 +570,38 @@ bool GameState::validTubeConnection(Tile *tile, Direction dir)
 }
 
 
+/**
+* Checks a tile to see if a valid tube connection is available for structure placement.
+*
+* \todo	It would seem that we can combine this function and the validTubeConnection function
+*		in some way.
+*/
+bool GameState::validStructurePlacement(Tile *tile, Direction dir)
+{
+
+	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure() || !tile->connected())
+		return false;
+
+	// FIXME: FUGLY FUGLY FUGLY!!!!!
+	Structure* _structure = reinterpret_cast<Structure*>(tile->thing());
+	if (!_structure->isConnector())
+		return false;
+
+	if (dir == DIR_EAST || dir == DIR_WEST)
+	{
+		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT)
+			return true;
+	}
+	else // NORTH/SOUTH
+	{
+		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT)
+			return true;
+	}
+
+	return false;
+}
+
+
 void GameState::placeRobot()
 {
 	int x = mTileMap.tileHighlight().x() + mTileMap.mapViewLocation().x();
@@ -797,7 +836,19 @@ void GameState::placeStructure()
 	}
 	else
 	{
-		// Other structures here.
+		if (validStructurePlacement(mTileMap.getTile(x, y - 1), DIR_NORTH) == false &&
+			validStructurePlacement(mTileMap.getTile(x + 1, y), DIR_EAST) == false && 
+			validStructurePlacement(mTileMap.getTile(x, y + 1), DIR_SOUTH) == false && 
+			validStructurePlacement(mTileMap.getTile(x - 1, y), DIR_WEST) == false)
+		{
+			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
+			return;
+		}
+
+		if (mCurrentStructure == STRUCTURE_AGRIDOME)
+		{
+			mStructureManager.addStructure(new Agridome(), tile, x, y, 0, false);
+		}
 	}
 }
 
@@ -1017,6 +1068,15 @@ void GameState::btnTurnsClicked()
 
 	checkConnectedness();
 
+	Structure* cc = reinterpret_cast<Structure*>(mTileMap.getTile(mCCLocation.x(), mCCLocation.y())->thing());
+	if (cc->state() == Structure::OPERATIONAL)
+	{
+		populateStructureMenu();
+		mBtnStructurePicker.enabled(true);
+	}
+	else
+		mBtnStructurePicker.enabled(false);
+
 	mTurnCount++;
 }
 
@@ -1094,6 +1154,10 @@ void GameState::menuRobotsSelectionChanged()
 }
 
 
+/**
+ * Currently uses a text comparison function. Not inherently bad but
+ * should really be turned into a key/value pair table for easier lookups.
+ */
 void GameState::menuStructuresSelectionChanged()
 {
 	mStructureMenu.visible(false);
@@ -1102,9 +1166,14 @@ void GameState::menuStructuresSelectionChanged()
 	if(toLowercase(mStructureMenu.selectionText()) == "seed lander")
 	{
 		mCurrentStructure = STRUCTURE_SEED_LANDER;
-		mInsertMode = INSERT_STRUCTURE;
-		mCurrentPointer = POINTER_PLACE_TILE;
 	}
+	else if(toLowercase(mStructureMenu.selectionText()) == "agricultural dome")
+	{
+		mCurrentStructure = STRUCTURE_AGRIDOME;
+	}
+	
+	mInsertMode = INSERT_STRUCTURE;
+	mCurrentPointer = POINTER_PLACE_TILE;
 }
 
 
