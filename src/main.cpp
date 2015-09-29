@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
 	try
 	{
-		Game game("Outpost: MIA", argv[0]);
+		Game game("OutpostHD", argv[0]);
 		game.go(new GameState("maps/02"));
 	}
 	catch(Exception& e)

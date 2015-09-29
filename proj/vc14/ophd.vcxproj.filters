@@ -218,9 +218,6 @@
     <ClInclude Include="..\..\src\Population\Person.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Population\PopulationPool.h">
-      <Filter>Header Files\Population</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
@@ -231,6 +228,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\Agridome.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Population\PopulationPool.h" />
+    <ClInclude Include="..\..\src\Things\Structures\CHAP.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
   </ItemGroup>

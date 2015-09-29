@@ -4,6 +4,7 @@
 // Includes all Structures
 #include "Agridome.h"
 #include "AirShaft.h"
+#include "CHAP.h"
 #include "CommandCenter.h"
 #include "MineFacility.h"
 #include "SeedFactory.h"

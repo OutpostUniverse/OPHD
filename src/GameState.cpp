@@ -222,6 +222,7 @@ void GameState::populateStructureMenu()
 	mStructureMenu.dropAllItems();
 
 	mStructureMenu.addItem("Agricultural Dome");
+	mStructureMenu.addItem("CHAP Facility");
 }
 
 /**
@@ -849,6 +850,10 @@ void GameState::placeStructure()
 		{
 			mStructureManager.addStructure(new Agridome(), tile, x, y, 0, false);
 		}
+		if (mCurrentStructure == STRUCTURE_CHAP)
+		{
+			mStructureManager.addStructure(new CHAP(), tile, x, y, 0, false);
+		}
 	}
 }
 
@@ -1170,6 +1175,10 @@ void GameState::menuStructuresSelectionChanged()
 	else if(toLowercase(mStructureMenu.selectionText()) == "agricultural dome")
 	{
 		mCurrentStructure = STRUCTURE_AGRIDOME;
+	}
+	else if(toLowercase(mStructureMenu.selectionText()) == "chap facility")
+	{
+		mCurrentStructure = STRUCTURE_CHAP;
 	}
 	
 	mInsertMode = INSERT_STRUCTURE;
