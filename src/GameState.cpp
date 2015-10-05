@@ -560,7 +560,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 
 	TilePositionInfo tpi = mRobotList[_r];
 
-	// FIXME: Fugly cast. Why do we have a robot list and a robot pool?
+	// FIXME: Fugly cast.
 	Direction dir = reinterpret_cast<Robodigger*>(_r)->direction();
 
 	// 
@@ -945,11 +945,7 @@ void GameState::checkConnectedness()
 
 	// Create the initial node so we can instruct it to walk through all
 	// surrounding tiles and start determining connectedness.
-	GraphWalker CommandCenter;
-	CommandCenter.gridPosition(mCCLocation);
-	CommandCenter.depth(0);
-	CommandCenter.tileMap(&mTileMap);
-	CommandCenter.walkGraph();
+	GraphWalker CommandCenter(mCCLocation, 0, &mTileMap);
 
 	cout << "done." << endl;
 }

@@ -200,7 +200,7 @@ private:
 	RobotPool			mRobotPool;					/**< Robots that are currently available for use. */
 
 	ThingMap			mThingList;					/**< List of Thing objects currently in game play */
-	RobotMap			mRobotList;					/**< List of active robots. */
+	RobotMap			mRobotList;					/**< List of active robots and their positions on the map. */
 
 	StructureManager	mStructureManager;			/**< Manager class responsible for managing all structures. */
 

@@ -11,18 +11,17 @@ class GraphWalker
 {
 public:
 
-	GraphWalker();
+	GraphWalker(Point_2d& _p, int _d, TileMap* _t);
 	~GraphWalker();
 
-	void gridPosition(Point_2d& _p);
-	void depth(int _d) { _depth = _d; }
-
-	/** SET THIS LAST! */
-	void tileMap(TileMap* _t);
-
-	void walkGraph();
+	
 
 private:
+	
+	GraphWalker() {}	// No default c'tor
+	GraphWalker(GraphWalker&) {}	// No copy c'tor
+
+	void walkGraph();
 	void check(int x, int y, Direction _d);
 	
 	TileMap*	_tileMap;

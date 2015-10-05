@@ -54,36 +54,19 @@ bool validConnection(Structure* src, Structure* dst, Direction _d)
 }
 
 
-GraphWalker::GraphWalker() :	_tileMap(nullptr),
-								_thisTile(nullptr),
-								_depth(0)
-{}
+GraphWalker::GraphWalker(Point_2d& _p, int _d, TileMap* _t) :	_tileMap(_t),
+																_thisTile(_t->getTile(_p.x(), _p.y(), _d)),
+																_gridPosition(_p),
+																_depth(_d)
+{
+	walkGraph();
+}
 
 
 GraphWalker::~GraphWalker()
 {
 	_tileMap = nullptr;
 }
-
-
-void GraphWalker::gridPosition(Point_2d& _p)
-{
-	_gridPosition = _p;
-}
-
-
-/**
- * Copies the address to a TileMap and sets the internal _thisTile
- * pointer.
- *
- * \warning	Call this function AFTER gridPosition() and depth().
- */
-void GraphWalker::tileMap(TileMap* _t)
-{
-	_tileMap = _t;
-	_thisTile = _tileMap->getTile(_gridPosition.x(), _gridPosition.y(), _depth);
-}
-
 
 void GraphWalker::walkGraph()
 {
@@ -111,10 +94,6 @@ void GraphWalker::check(int x, int y, Direction _d)
 
 	if (validConnection(src, dst, _d))
 	{
-		GraphWalker walker;
-		walker.gridPosition(Point_2d(x, y));
-		walker.depth(_depth);
-		walker.tileMap(_tileMap);
-		walker.walkGraph();
+		GraphWalker walker(Point_2d(x, y), _depth, _tileMap);
 	}
 }
