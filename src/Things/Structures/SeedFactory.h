@@ -6,9 +6,9 @@
 class SeedFactory: public Structure
 {
 public:
-	SeedFactory():	Structure("Seed Factory", "structures/seed_1.sprite")
+	SeedFactory():	Structure(constants::SEED_FACTORY, "structures/seed_1.sprite")
 	{
-		sprite().play("construction");
+		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(100);
 		turnsToBuild(7);
 	}
@@ -23,10 +23,10 @@ public:
 
 		if(age() == turnsToBuild())
 		{
-			sprite().play("operational");
+			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
 		}
 		else if(age() == maxAge())
-			sprite().play("destroyed");
+			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
 	}
 
 protected:

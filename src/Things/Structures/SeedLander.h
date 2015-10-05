@@ -10,10 +10,10 @@ public:
 
 	typedef Gallant::Signal2<int, int> Callback;
 
-	SeedLander(int x, int y):	Structure("Seed Lander", "structures/seed_0.sprite"),
+	SeedLander(int x, int y):	Structure(constants::SEED_LANDER, "structures/seed_0.sprite"),
 								mX(x), mY(y)
 	{
-		sprite().play("construction");
+		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);
 		turnsToBuild(1);
 		repairable(false);
@@ -34,11 +34,11 @@ public:
 
 		if(age() == turnsToBuild())
 		{
-			sprite().play("operational");
+			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
 			mDeploy(mX, mY);
 		}
 		else if(age() == maxAge())
-			sprite().play("destroyed");
+			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
 	}
 
 	Callback& deployCallback() { return mDeploy; }

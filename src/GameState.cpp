@@ -1,16 +1,18 @@
 #include "GameState.h"
 
+#include "GraphWalker.h"
+
 #include "Tile.h"
 
 #include "Things/Robots/Robots.h"
 #include "Things/Structures/Structures.h"
 
-#include "GraphWalker.h"
+#include "UiConstants.h"
 
 #include <sstream>
 #include <vector>
 
-
+// Disable some warnings that can be safely ignored.
 #pragma warning(disable: 4244) // possible loss of data (floats to int and vice versa)
 
 
@@ -21,21 +23,15 @@ using namespace NAS2D;
 const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
 const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 
-const int MARGIN		= 6;
-
-
-const Color_4ub MINE_COLOR(255, 0, 0, 255);
-const Color_4ub ACTIVE_MINE_COLOR(255, 255, 0, 255);
-
 const int MAX_TILESET_INDEX	= 4;
 
-Rectangle_2d	BOTTOM_UI_AREA;
 
 // Throw away string stream for font rendering.
 stringstream str;
 
+
 /**
- * Draws a formatted string. Sort of.
+ * Utility function to cleanly draw a semi-formatted string with an integer value.
  */
 void drawString(Renderer& r, Font& f, std::string s, int i, int x, int y, int red = 0, int green = 0, int blue = 0)
 {
@@ -46,7 +42,7 @@ void drawString(Renderer& r, Font& f, std::string s, int i, int x, int y, int re
 
 
 /**
- * 
+ * Utility function to cleanly draw an integer value;
  */
 void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red = 0, int green = 0, int blue = 0)
 {
@@ -57,7 +53,7 @@ void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red = 0, int gree
 
 
 /**
- * 
+ * C'Tor
  */
 GameState::GameState(const std::string& map_path):	mFont("fonts/Fresca-Regular.ttf", 14),
 													mTinyFont("fonts/Fresca-Regular.ttf", 10),
@@ -79,7 +75,7 @@ GameState::GameState(const std::string& map_path):	mFont("fonts/Fresca-Regular.t
 
 
 /**
- * 
+ * D'Tor
  */
 GameState::~GameState()
 {
@@ -101,7 +97,7 @@ GameState::~GameState()
 
 
 /**
- * 
+ * Initialize values, the UI and set up event handling.
  */
 void GameState::initialize()
 {
@@ -125,108 +121,7 @@ void GameState::initialize()
 
 
 /**
- * Sets up the user interface elements
- */
-void GameState::initUi()
-{
-	EventHandler& e = Utility<EventHandler>::get();
-	Renderer& r = Utility<Renderer>::get();
-
-	mDiggerDirection.directionSelected().Connect(this, &GameState::diggerSelectionDialog);
-	mDiggerDirection.visible(false);
-
-	mTubesPalette.tubeTypeSelected().Connect(this, &GameState::tubePaletteSelection);
-	mTubesPalette.visible(false);
-
-	// Bottom UI
-	BOTTOM_UI_AREA(0, r.height() - 180, r.width(), 180);
-	mMiniMapBoundingBox(MARGIN, BOTTOM_UI_AREA.y() + MARGIN, mMapDisplay.width(), mMapDisplay.height());
-	mResourceInfoBox(mMiniMapBoundingBox.x() + mMiniMapBoundingBox.w() + MARGIN, mMiniMapBoundingBox.y(), 200, mMiniMapBoundingBox.h());
-
-	int posX = r.width() - 34;
-
-	// BUTTONS
-	// System
-	mBtnSystem.image("ui/icons/system.png");
-	mBtnSystem.size(30, 30);
-	mBtnSystem.position(posX, BOTTOM_UI_AREA.y() + MARGIN);
-	mBtnSystem.click().Connect(this, &GameState::btnSystemClicked);
-
-	mBtnStructurePicker.image("ui/icons/construction.png");
-	mBtnStructurePicker.size(30, 30);
-	mBtnStructurePicker.type(Button::BUTTON_TOGGLE);
-	mBtnStructurePicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + 32);
-	mBtnStructurePicker.click().Connect(this, &GameState::btnStructurePickerClicked);
-
-	mBtnTubePicker.image("ui/icons/tubes.png");
-	mBtnTubePicker.size(30, 30);
-	mBtnTubePicker.type(Button::BUTTON_TOGGLE);
-	mBtnTubePicker.enabled(false);
-	mBtnTubePicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + 64);
-	mBtnTubePicker.click().Connect(this, &GameState::btnTubesPickerClicked);
-
-	mBtnRobotPicker.image("ui/icons/robot.png");
-	mBtnRobotPicker.size(30, 30);
-	mBtnRobotPicker.type(Button::BUTTON_TOGGLE);
-	mBtnRobotPicker.enabled(false);
-	mBtnRobotPicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + 96);
-	mBtnRobotPicker.click().Connect(this, &GameState::btnRobotPickerClicked);
-
-	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.size(30, 30);
-	mBtnTurns.position(posX, BOTTOM_UI_AREA.y() + MARGIN + 128);
-	mBtnTurns.click().Connect(this, &GameState::btnTurnsClicked);
-
-
-	// Mini Map
-	mBtnToggleHeightmap.image("ui/icons/height.png");
-	mBtnToggleHeightmap.size(20, 20);
-	mBtnToggleHeightmap.position(mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y() + mMiniMapBoundingBox.h() + 2);
-	mBtnToggleHeightmap.type(Button::BUTTON_TOGGLE);
-
-	// Menus
-	mRobotsMenu.font(mTinyFont);
-	mRobotsMenu.width(200);
-	mRobotsMenu.position(0, 0);
-	mRobotsMenu.visible(false);
-	mRobotsMenu.selectionChanged().Connect(this, &GameState::menuRobotsSelectionChanged);
-
-	mStructureMenu.font(mTinyFont);
-	mStructureMenu.width(200);
-	mStructureMenu.position(0, 0);
-	mStructureMenu.visible(false);
-	mStructureMenu.selectionChanged().Connect(this, &GameState::menuStructuresSelectionChanged);
-
-	// Initial Structure
-	mStructureMenu.addItem("Seed Lander");
-}
-
-
-/**
- * Hides all non-essential UI elements and untoggles
- * all main UI construction buttons.
- */
-void GameState::hideUi()
-{
-	mRobotsMenu.visible(false);
-	mStructureMenu.visible(false);
-	mDiggerDirection.visible(false);
-	mTubesPalette.visible(false);
-	mTileInspector.visible(false);
-	mDiggerDirection.visible(false);
-}
-
-
-void GameState::populateStructureMenu()
-{
-	mStructureMenu.dropAllItems();
-
-	mStructureMenu.addItem("Agricultural Dome");
-	mStructureMenu.addItem("CHAP Facility");
-}
-
-/**
- * 
+ * Updates the entire state of the game.
  */
 State* GameState::update()
 {
@@ -241,43 +136,6 @@ State* GameState::update()
 	if(mDebug) drawDebug();
 
 	return mReturnState;
-}
-
-
-/**
- * Updates and draws the UI.
- */
-void GameState::drawUI()
-{
-	Renderer& r = Utility<Renderer>::get();
-
-	// Bottom UI
-	r.drawBoxFilled(BOTTOM_UI_AREA, 200, 200, 200);
-
-	drawMiniMap();
-	drawResourceInfo();
-
-	// Buttons
-	mBtnToggleHeightmap.update();
-
-	mBtnSystem.update();
-	mBtnStructurePicker.update();
-	mBtnTubePicker.update();
-	mBtnRobotPicker.update();
-
-	mBtnTurns.update();
-	drawString(r, mTinyFont, "", mTurnCount, mBtnTurns.rect().x() + 2, mBtnTurns.rect().y() + mBtnTurns.rect().h() + 2);
-
-	mRobotsMenu.update();
-	mStructureMenu.update();
-
-	// UI Containers
-	mDiggerDirection.update();
-	mTubesPalette.update();
-	mTileInspector.update();
-
-	// Always draw last
-	mPointers[mCurrentPointer].draw(mMousePosition.x(), mMousePosition.y());
 }
 
 
@@ -300,9 +158,9 @@ void GameState::drawMiniMap()
 	for(size_t i = 0; i < mTileMap.mineLocations().size(); i++)
 	{
 		if(mTileMap.getTile(mTileMap.mineLocations()[i].x(), mTileMap.mineLocations()[i].y(), 0)->mine()->active())
-			r.drawBoxFilled(mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 1, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 1, 3, 3, ACTIVE_MINE_COLOR.red(), ACTIVE_MINE_COLOR.green(), ACTIVE_MINE_COLOR.blue());
+			r.drawBoxFilled(mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 1, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 1, 3, 3, constants::ACTIVE_MINE_COLOR.red(), constants::ACTIVE_MINE_COLOR.green(), constants::ACTIVE_MINE_COLOR.blue());
 		else
-			r.drawBoxFilled(mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 1, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 1, 3, 3, MINE_COLOR.red(), MINE_COLOR.green(), MINE_COLOR.blue());
+			r.drawBoxFilled(mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 1, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 1, 3, 3, constants::MINE_COLOR.red(), constants::MINE_COLOR.green(), constants::MINE_COLOR.blue());
 	}
 }
 
@@ -412,12 +270,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 			mTileMap.currentDepth(4);
 			break;
 
-		case KEY_F1:
-			mTileMap.toggleShowConnections();
-			break;
-
 		case KEY_ESCAPE:
-			//mReturnState = NULL;
 			clearMode();
 			break;
 
@@ -613,7 +466,7 @@ void GameState::placeRobot()
 		return;
 
 	// Robodozer has been selected.
-	if(mRobotsMenu.selectionText() == ROBODOZER)
+	if(mRobotsMenu.selectionText() == constants::ROBODOZER)
 	{
 		/**
 		 * \todo	If there's a structure here we want to confirm
@@ -629,14 +482,14 @@ void GameState::placeRobot()
 
 		//clearMode();
 
-		if (mRobotPool.getRobot(RobotPool::ROBO_DOZER) == NULL)
+		if(!mRobotPool.robotAvailable(RobotPool::ROBO_DOZER))
 		{
-			mRobotsMenu.removeItem(ROBODOZER);
+			mRobotsMenu.removeItem(constants::ROBODOZER);
 			clearMode();
 		}
 	}
 	// Robodigger has been selected.
-	else if(mRobotsMenu.selectionText() == ROBODIGGER)
+	else if(mRobotsMenu.selectionText() == constants::ROBODIGGER)
 	{
 		// Die if tile is occupied or not excavated.
 		if(tile->thing() || tile->mine() || !tile->excavated())
@@ -661,7 +514,7 @@ void GameState::placeRobot()
 		clearMode();
 	}
 	// Robominer has been selected.
-	else if(mRobotsMenu.selectionText() == ROBOMINER)
+	else if(mRobotsMenu.selectionText() == constants::ROBOMINER)
 	{
 		if(tile->thing() || !tile->mine() || !tile->excavated())
 			return;
@@ -674,7 +527,7 @@ void GameState::placeRobot()
 		clearMode();
 
 		if(mRobotPool.getRobot(RobotPool::ROBO_MINER) == NULL)
-			mRobotsMenu.removeItem(ROBOMINER);
+			mRobotsMenu.removeItem(constants::ROBOMINER);
 	}
 
 	if(mRobotPool.allRobotsBusy())
@@ -687,9 +540,9 @@ void GameState::placeRobot()
  */
 void GameState::dozerTaskFinished(Robot* _r)
 {
-	if(!mRobotsMenu.itemExists(toLowercase(ROBODOZER)))
+	if(!mRobotsMenu.itemExists(constants::ROBODOZER))
 	{
-		mRobotsMenu.addItem(ROBODOZER);
+		mRobotsMenu.addItem(constants::ROBODOZER);
 
 		if(!mBtnRobotPicker.enabled())
 			mBtnRobotPicker.enabled(true);
@@ -762,9 +615,9 @@ void GameState::diggerTaskFinished(Robot* _r)
 	}
 
 
-	if(!mRobotsMenu.itemExists(ROBODIGGER))
+	if(!mRobotsMenu.itemExists(constants::ROBODIGGER))
 	{
-		mRobotsMenu.addItem(ROBODIGGER);
+		mRobotsMenu.addItem(constants::ROBODIGGER);
 
 		if(!mBtnRobotPicker.enabled())
 			mBtnRobotPicker.enabled(true);
@@ -786,9 +639,9 @@ void GameState::minerTaskFinished(Robot* _r)
 	m->idle(false);
 	mStructureManager.addStructure(m, tpi.tile, tpi.x, tpi.y, tpi.depth, false);
 
-	if(!mRobotsMenu.itemExists(toLowercase(ROBOMINER)))
+	if(!mRobotsMenu.itemExists(constants::ROBOMINER))
 	{
-		mRobotsMenu.addItem(ROBOMINER);
+		mRobotsMenu.addItem(constants::ROBOMINER);
 
 		if(!mBtnRobotPicker.enabled())
 			mBtnRobotPicker.enabled(true);
@@ -1006,9 +859,9 @@ void GameState::deploySeedLander(int x, int y)
 
 	// Robots only become available after the SEED Factor is deployed.
 	mRobotsMenu.sorted(true);
-	mRobotsMenu.addItem(ROBODOZER);
-	mRobotsMenu.addItem(ROBODIGGER);
-	mRobotsMenu.addItem(ROBOMINER);
+	mRobotsMenu.addItem(constants::ROBODOZER);
+	mRobotsMenu.addItem(constants::ROBODIGGER);
+	mRobotsMenu.addItem(constants::ROBOMINER);
 
 	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
 	mRobotPool.addRobot(RobotPool::ROBO_DIGGER)->taskComplete().Connect(this, &GameState::diggerTaskFinished);
@@ -1031,59 +884,6 @@ void GameState::deploySeedLander(int x, int y)
 	mPopulationPool.addScientists(20);
 }
 
-
-/**
- * System button clicked.
- */
-void GameState::btnSystemClicked()
-{
-	NAS2D::postQuitEvent();
-}
-
-
-/**
- * Turns button clicked.
- */
-void GameState::btnTurnsClicked()
-{
-	clearMode();
-
-	int x = 0, y = 0;
-	
-	ThingMap::iterator thing_it = mThingList.begin();
-	while(thing_it != mThingList.end())
-	{
-		
-		thing_it->first->update();
-
-		/**
-		 * Clean up any things that are dead.
-		 */
-		if(thing_it->first->dead())
-		{
-			thing_it->second.tile->deleteThing();
-			thing_it = mThingList.erase(thing_it);
-		}
-		else
-			++thing_it;
-	}
-
-	mStructureManager.update(mPlayerResources);
-	updateRobots();
-
-	checkConnectedness();
-
-	Structure* cc = reinterpret_cast<Structure*>(mTileMap.getTile(mCCLocation.x(), mCCLocation.y())->thing());
-	if (cc->state() == Structure::OPERATIONAL)
-	{
-		populateStructureMenu();
-		mBtnStructurePicker.enabled(true);
-	}
-	else
-		mBtnStructurePicker.enabled(false);
-
-	mTurnCount++;
-}
 
 
 /**
@@ -1113,158 +913,7 @@ void GameState::updateRobots()
 }
 
 
-void GameState::btnRobotPickerClicked()
-{
-	hideUi();
 
-	mBtnStructurePicker.toggle(false);
-	mBtnTubePicker.toggle(false);
-
-	if(mBtnRobotPicker.toggled())
-		mRobotsMenu.visible(true);
-}
-
-
-void GameState::btnStructurePickerClicked()
-{
-	hideUi();
-
-	mBtnRobotPicker.toggle(false);
-	mBtnTubePicker.toggle(false);
-
-	if(mBtnStructurePicker.toggled())
-		mStructureMenu.visible(true);
-}
-
-
-void GameState::btnTubesPickerClicked()
-{
-	hideUi();
-
-	mBtnRobotPicker.toggle(false);
-	mBtnStructurePicker.toggle(false);
-
-	if(mBtnTubePicker.toggled())
-		mTubesPalette.visible(true);
-}
-
-
-void GameState::menuRobotsSelectionChanged()
-{
-	mRobotsMenu.visible(false);
-	mBtnRobotPicker.toggle(false);
-
-	mInsertMode = INSERT_ROBOT;
-	mCurrentPointer = POINTER_PLACE_TILE;
-}
-
-
-/**
- * Currently uses a text comparison function. Not inherently bad but
- * should really be turned into a key/value pair table for easier lookups.
- */
-void GameState::menuStructuresSelectionChanged()
-{
-	mStructureMenu.visible(false);
-	mBtnStructurePicker.toggle(false);
-
-	if(toLowercase(mStructureMenu.selectionText()) == "seed lander")
-	{
-		mCurrentStructure = STRUCTURE_SEED_LANDER;
-	}
-	else if(toLowercase(mStructureMenu.selectionText()) == "agricultural dome")
-	{
-		mCurrentStructure = STRUCTURE_AGRIDOME;
-	}
-	else if(toLowercase(mStructureMenu.selectionText()) == "chap facility")
-	{
-		mCurrentStructure = STRUCTURE_CHAP;
-	}
-	
-	mInsertMode = INSERT_STRUCTURE;
-	mCurrentPointer = POINTER_PLACE_TILE;
-}
-
-
-void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection sel)
-{
-	// Don't dig beyond the dig depth of the planet.
-	if(mTileMap.currentDepth() == mTileMap.maxDepth() && sel == DiggerDirection::SEL_DOWN)
-	{
-		cout << "GameState::diggerSelectionDialog(): Already at the maximum digging depth." << endl;
-		return;
-	}
-  
-	// Ugly
-	Robodigger* r = reinterpret_cast<Robodigger*>(mRobotPool.getRobot(RobotPool::ROBO_DIGGER));
-	r->startTask(mDiggerTile.tile->index() + 5);
-	insertRobot(r, mDiggerTile.tile, mDiggerTile.x, mDiggerTile.y, mDiggerTile.depth);
-
-
-	if(sel == DiggerDirection::SEL_DOWN)
-	{
-		// Don't dig beyond the dig depth of the planet.
-		if(mTileMap.currentDepth() == mTileMap.maxDepth())
-		{
-			cout << "GameState::diggerSelectionDialog(): Already at the maximum digging depth." << endl;
-			return;
-		}
-		else
-			r->direction(DIR_DOWN);
-	}
-	else if(sel == DiggerDirection::SEL_NORTH)
-	{
-		r->direction(DIR_NORTH);
-		mTileMap.getTile(mDiggerTile.x, mDiggerTile.y - 1, mTileMap.currentDepth())->excavated(true);
-	}
-	else if(sel == DiggerDirection::SEL_SOUTH)
-	{
-		r->direction(DIR_SOUTH);
-		mTileMap.getTile(mDiggerTile.x, mDiggerTile.y + 1, mTileMap.currentDepth())->excavated(true);
-	}
-	else if(sel == DiggerDirection::SEL_EAST)
-	{
-		r->direction(DIR_EAST);
-		mTileMap.getTile(mDiggerTile.x + 1, mDiggerTile.y, mTileMap.currentDepth())->excavated(true);
-	}
-	else if(sel == DiggerDirection::SEL_WEST)
-	{
-		r->direction(DIR_WEST);
-		mTileMap.getTile(mDiggerTile.x - 1, mDiggerTile.y, mTileMap.currentDepth())->excavated(true);
-	}
-
-
-	if(mRobotPool.getRobot(RobotPool::ROBO_DIGGER) == NULL)
-		mRobotsMenu.removeItem(ROBODIGGER);
-
-	mDiggerDirection.visible(false);
-}
-
-
-void GameState::tubePaletteSelection(ConnectorDir _t)
-{
-	hideUi();
-
-	mBtnStructurePicker.toggle(false);
-	mBtnTubePicker.toggle(false);
-	mBtnRobotPicker.toggle(false);
-
-	if (_t == CONNECTOR_INTERSECTION)
-		mCurrentStructure = STRUCTURE_TUBE_INTERSECTION;
-	else if (_t == CONNECTOR_RIGHT)
-		mCurrentStructure = STRUCTURE_TUBE_RIGHT;
-	else if (_t == CONNECTOR_LEFT)
-		mCurrentStructure = STRUCTURE_TUBE_LEFT;
-	else
-	{
-		mCurrentStructure = STRUCTURE_NONE;
-		return;
-	}
-
-
-	mInsertMode = INSERT_TUBE;
-	mCurrentPointer = POINTER_PLACE_TILE;
-}
 
 
 /**
@@ -1278,7 +927,10 @@ void GameState::checkConnectedness()
 	// Assumes that a 0,0 location means the CC hasn't yet been placed
 	// as CC's can't be placed on the edges of the map.
 	if (mCCLocation.x() == 0 || mCCLocation.y() == 0)
+	{
+		cout << "CC not yet placed." << endl;
 		return;
+	}
 
 	// Assumes that the 'thing' at mCCLocation is in fact a structure.
 	Tile *t = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), 0);
@@ -1286,7 +938,10 @@ void GameState::checkConnectedness()
 
 	// No point in graph walking if the CC isn't operating normally.
 	if (cc->state() != Structure::OPERATIONAL)
+	{
+		cout << "CC not operational." << endl;
 		return;
+	}
 
 	// Create the initial node so we can instruct it to walk through all
 	// surrounding tiles and start determining connectedness.

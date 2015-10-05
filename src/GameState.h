@@ -161,6 +161,8 @@ private:
 	void btnRobotPickerClicked();
 	void btnStructurePickerClicked();
 
+	void btnToggleConnectednessClicked();
+
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection sel);
 
 	void tubePaletteSelection(ConnectorDir _cd);
@@ -212,6 +214,7 @@ private:
 	Button				mBtnTurns;
 
 	Button				mBtnToggleHeightmap;
+	Button				mBtnToggleConnectedness;
 
 	Menu				mRobotsMenu;
 	Menu				mStructureMenu;

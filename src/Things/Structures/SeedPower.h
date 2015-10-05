@@ -6,9 +6,9 @@
 class SeedPower: public Structure
 {
 public:
-	SeedPower():	Structure("Seed Power", "structures/seed_1.sprite")
+	SeedPower():	Structure(constants::SEED_POWER, "structures/seed_1.sprite")
 	{
-		sprite().play("construction");
+		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(100);
 		turnsToBuild(3);
 	}
@@ -24,12 +24,12 @@ public:
 
 		if(age() == turnsToBuild())
 		{
-			sprite().play("operational");
+			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
 			idle(false);
 			activate();
 		}
 		else if(age() == maxAge())
-			sprite().play("destroyed");
+			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
 	}
 
 protected:

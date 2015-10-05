@@ -6,9 +6,9 @@
 class CommandCenter: public Structure
 {
 public:
-	CommandCenter():	Structure("Command Center", "structures/command_center.sprite")
+	CommandCenter():	Structure(constants::COMMAND_CENTER, "structures/command_center.sprite")
 	{
-		sprite().play("construction");
+		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(0);
 		turnsToBuild(10);
 	}
@@ -22,7 +22,7 @@ public:
 
 		if(age() == turnsToBuild())
 		{
-			sprite().play("operational");
+			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
 			idle(false);
 			activate();
 		}

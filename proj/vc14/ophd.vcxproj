@@ -86,7 +86,7 @@
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>depend\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WINDOWS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader />
@@ -108,6 +108,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\GameState.cpp" />
+    <ClCompile Include="..\..\src\GameStateUi.cpp" />
     <ClCompile Include="..\..\src\GraphWalker.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\Mine.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="..\..\src\TileMap.h" />
     <ClInclude Include="..\..\src\TilePositionInfo.h" />
     <ClInclude Include="..\..\src\Tube.h" />
+    <ClInclude Include="..\..\src\UiConstants.h" />
     <ClInclude Include="..\..\src\UI\Core\Button.h" />
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
     <ClInclude Include="..\..\src\UI\Core\Menu.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="..\..\src\UI\TubesPalette.h" />
     <ClInclude Include="..\..\src\UI\UI.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc" />

@@ -6,9 +6,9 @@
 class Agridome : public Structure
 {
 public:
-	Agridome() : Structure("Agricultural Dome", "structures/agridome.sprite")
+	Agridome() : Structure(constants::AGRIDOME, "structures/agridome.sprite")
 	{
-		sprite().play("construction");
+		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);
 		turnsToBuild(5);
 	}
@@ -24,12 +24,12 @@ public:
 
 		if (age() == turnsToBuild())
 		{
-			sprite().play("operational");
+			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
 			idle(false);
 			activate();
 		}
 		else if (age() == maxAge())
-			sprite().play("destroyed");
+			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
 	}
 
 protected:

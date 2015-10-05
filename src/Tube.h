@@ -4,27 +4,27 @@
 class Tube : public Structure
 {
 public:
-	Tube(ConnectorDir _cd, bool underground) :	Structure("Tube", "structures/tubes.sprite")
+	Tube(ConnectorDir _cd, bool underground) :	Structure(constants::TUBE, "structures/tubes.sprite")
 	{
 		if (underground)
 		{
 			if (_cd == CONNECTOR_INTERSECTION)
-				sprite().play("ug_intersection");
+				sprite().play(constants::UG_TUBE_INTERSECTION);
 			else if (_cd == CONNECTOR_RIGHT)
-				sprite().play("ug_right");
+				sprite().play(constants::UG_TUBE_RIGHT);
 			else if (_cd == CONNECTOR_LEFT)
-				sprite().play("ug_left");
+				sprite().play(constants::UG_TUBE_LEFT);
 			else
 				throw Exception(0, "Bad Connector", "Tried to create a Tube structure with CONNECTOR_NONE paramter.");
 		}
 		else
 		{
 			if (_cd == CONNECTOR_INTERSECTION)
-				sprite().play("ag_intersection");
+				sprite().play(constants::AG_TUBE_INTERSECTION);
 			else if (_cd == CONNECTOR_RIGHT)
-				sprite().play("ag_right");
+				sprite().play(constants::AG_TUBE_RIGHT);
 			else if (_cd == CONNECTOR_LEFT)
-				sprite().play("ag_left");
+				sprite().play(constants::AG_TUBE_LEFT);
 			else
 				throw Exception(0, "Bad Connector", "Tried to create a Tube structure with CONNECTOR_NONE paramter.");
 		}

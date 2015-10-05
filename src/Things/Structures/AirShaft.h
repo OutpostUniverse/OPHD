@@ -7,9 +7,9 @@
 class AirShaft: public Structure
 {
 public:
-	AirShaft():	Structure("Air Shaft", "structures/air_shaft.sprite")
+	AirShaft():	Structure(constants::AIR_SHAFT, "structures/air_shaft.sprite")
 	{
-		sprite().play("operational");
+		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(400);
 	}
 
@@ -22,7 +22,7 @@ public:
 	{
 	}
 
-	void ug() { sprite().play("operational-ug"); }
+	void ug() { sprite().play(constants::STRUCTURE_STATE_OPERATIONAL_UG); }
 
 protected:
 private:

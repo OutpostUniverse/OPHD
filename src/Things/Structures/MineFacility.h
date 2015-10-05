@@ -8,10 +8,13 @@
 class MineFacility: public Structure
 {
 public:
-	MineFacility(Mine* mine):	Structure("Mine Facility", "structures/mine_facility.sprite"),
+	MineFacility(Mine* mine):	Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite"),
 								mMine(mine)
 	{
-		sprite().play("operational");
+		// FIXME:	Currently set to go to operational immediately.
+		//			Should have several turns of construction before
+		//			becoming operational.
+		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
 		maxAge(1200);
 		mMine->active(true);
 	}
@@ -27,6 +30,12 @@ public:
 			idle(true);
 		}
 
+		/** \todo	Currently mine production values are set based on their
+		  *			yeild level. There should be some scalar effect based on
+		  *			age of the mine such that over time the mine becomes less
+		  *			and less productive instead of one day just not producing
+		  *			anything anymore.
+		  */
 		if(mMine->active())
 		{
 			MineProduction mp = mMine->update();

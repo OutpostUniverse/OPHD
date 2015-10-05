@@ -10,6 +10,15 @@ typedef vector<Point_2d> Point2dList;
 class TileMap
 {
 public:
+
+	enum TileMapLevel
+	{
+		LEVEL_SURFACE = 0,
+		LEVEL_UG_1,
+		LEVEL_UG_2,
+		LEVEL_UG_3,
+		LEVEL_UG_4
+	};
 	
 	TileMap(const std::string& path, int maxDepth);
 
