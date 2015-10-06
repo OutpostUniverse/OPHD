@@ -5,6 +5,7 @@
 
 enum Direction
 {
+	DIR_UP,
 	DIR_DOWN,
 	DIR_EAST,
 	DIR_WEST,
@@ -32,7 +33,7 @@ enum ConnectorDir
 	CONNECTOR_INTERSECTION,
 	CONNECTOR_RIGHT,
 	CONNECTOR_LEFT,
-	CONNECTOR_VERTICAL
+	CONNECTOR_VERTICAL			// Functions as an intersection
 };
 
 #endif

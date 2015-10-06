@@ -6,10 +6,16 @@
  */
 bool validConnection(Structure* src, Structure* dst, Direction _d)
 {
-
-	if (dst->isConnector())
+	if (_d == DIR_UP || _d == DIR_DOWN)
 	{
-		if (dst->connectorDirection() == CONNECTOR_INTERSECTION)
+		if (src->isConnector() && src->connectorDirection() == CONNECTOR_VERTICAL)
+			return true;
+		
+		return false;
+	}
+	else if (dst->isConnector())
+	{
+		if (dst->connectorDirection() == CONNECTOR_INTERSECTION || dst->connectorDirection() == CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
@@ -23,14 +29,12 @@ bool validConnection(Structure* src, Structure* dst, Direction _d)
 			if (dst->connectorDirection() == CONNECTOR_LEFT)
 				return true;
 		}
-		else
-		{
-			return false;
-		}
+		
+		return false;
 	}
 	else if(src->isConnector())
 	{
-		if (src->connectorDirection() == CONNECTOR_INTERSECTION)
+		if (src->connectorDirection() == CONNECTOR_INTERSECTION || src->connectorDirection() == CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
@@ -44,10 +48,8 @@ bool validConnection(Structure* src, Structure* dst, Direction _d)
 			if (src->connectorDirection() == CONNECTOR_LEFT)
 				return true;
 		}
-		else
-		{
-			return false;
-		}
+		
+		return false;
 	}
 
 	return false;
@@ -70,30 +72,40 @@ GraphWalker::~GraphWalker()
 
 void GraphWalker::walkGraph()
 {
-	_tileMap->getTile(_gridPosition.x(), _gridPosition.y(), _depth)->connected(true);
+	_thisTile->connected(true);
 
-	check(_gridPosition.x(), _gridPosition.y() - 1, DIR_NORTH);
-	check(_gridPosition.x() + 1, _gridPosition.y(), DIR_EAST);
-	check(_gridPosition.x(), _gridPosition.y() + 1, DIR_SOUTH);
-	check(_gridPosition.x() - 1, _gridPosition.y(), DIR_WEST);
+
+	if (_depth > 0)
+		check(_gridPosition.x(), _gridPosition.y(), _depth - 1, DIR_UP);
+	if(_depth < _tileMap->maxDepth())
+		check(_gridPosition.x(), _gridPosition.y(), _depth + 1, DIR_DOWN);
+
+	check(_gridPosition.x(), _gridPosition.y() - 1, _depth, DIR_NORTH);
+	check(_gridPosition.x() + 1, _gridPosition.y(), _depth, DIR_EAST);
+	check(_gridPosition.x(), _gridPosition.y() + 1, _depth, DIR_SOUTH);
+	check(_gridPosition.x() - 1, _gridPosition.y(), _depth, DIR_WEST);
 }
 
 
-void GraphWalker::check(int x, int y, Direction _d)
+void GraphWalker::check(int x, int y, int depth, Direction _d)
 {
 	if (x < 0 || x > _tileMap->width() - 1 || y < 0 || y > _tileMap->height() - 1)
 		return;
+	if (depth < 0 || depth >= _tileMap->maxDepth())
+		return;
 
-	Tile* t = _tileMap->getTile(x, y);
+
+	Tile* t = _tileMap->getTile(x, y, depth);
 
 	if (t->connected() || t->mine() || !t->excavated() || !t->thingIsStructure())
 		return;
 
+	// FIXME: Really hate these casts... got to be a better way to do this.
 	Structure* src = reinterpret_cast<Structure*>(_thisTile->thing());
 	Structure* dst = reinterpret_cast<Structure*>(t->thing());
 
 	if (validConnection(src, dst, _d))
 	{
-		GraphWalker walker(Point_2d(x, y), _depth, _tileMap);
+		GraphWalker walker(Point_2d(x, y), depth, _tileMap);
 	}
 }

@@ -22,7 +22,7 @@ private:
 	GraphWalker(GraphWalker&) {}	// No copy c'tor
 
 	void walkGraph();
-	void check(int x, int y, Direction _d);
+	void check(int x, int y, int depth, Direction _d);
 	
 	TileMap*	_tileMap;
 

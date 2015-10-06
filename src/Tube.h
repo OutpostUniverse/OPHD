@@ -30,7 +30,6 @@ public:
 		}
 
 		isConnector(true);
-
 		connectorDirection(_cd);
 
 		maxAge(400);

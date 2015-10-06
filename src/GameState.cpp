@@ -25,6 +25,8 @@ const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 
 const int MAX_TILESET_INDEX	= 4;
 
+const int MAX_DEPTH = 4;
+
 
 // Throw away string stream for font rendering.
 stringstream str;
@@ -57,7 +59,7 @@ void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red = 0, int gree
  */
 GameState::GameState(const std::string& map_path):	mFont("fonts/Fresca-Regular.ttf", 14),
 													mTinyFont("fonts/Fresca-Regular.ttf", 10),
-													mTileMap(map_path, 4),
+													mTileMap(map_path, MAX_DEPTH),
 													mBackground("ui/background.png"),
 													mMapDisplay(map_path + MAP_DISPLAY_EXTENSION),
 													mHeightMap(map_path + MAP_TERRAIN_EXTENSION),
@@ -252,22 +254,32 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 
 		case KEY_0:
 			mTileMap.currentDepth(0);
+			clearMode();
+			populateStructureMenu();
 			break;
 
 		case KEY_1:
 			mTileMap.currentDepth(1);
+			clearMode();
+			populateStructureMenu();
 			break;
 
 		case KEY_2:
 			mTileMap.currentDepth(2);
+			clearMode();
+			populateStructureMenu();
 			break;
 
 		case KEY_3:
 			mTileMap.currentDepth(3);
+			clearMode();
+			populateStructureMenu();
 			break;
 
 		case KEY_4:
 			mTileMap.currentDepth(4);
+			clearMode();
+			populateStructureMenu();
 			break;
 
 		case KEY_ESCAPE:
@@ -383,7 +395,6 @@ void GameState::placeTubes()
  */
 bool GameState::validTubeConnection(Tile *tile, Direction dir)
 {
-
 	if(tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure())
 		return false;
 
@@ -394,12 +405,12 @@ bool GameState::validTubeConnection(Tile *tile, Direction dir)
 	{
 		if (dir == DIR_EAST || dir == DIR_WEST)
 		{
-			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT)
+			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
 				return true;
 		}
 		else // NORTH/SOUTH
 		{
-			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT)
+			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
 				return true;
 		}
 	}
@@ -407,7 +418,7 @@ bool GameState::validTubeConnection(Tile *tile, Direction dir)
 	{
 		if (dir == DIR_EAST || dir == DIR_WEST)
 		{
-			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT)
+			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
 				return true;
 		}
 	}
@@ -415,7 +426,7 @@ bool GameState::validTubeConnection(Tile *tile, Direction dir)
 	{
 		if (dir == DIR_NORTH || dir == DIR_SOUTH)
 		{
-			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT)
+			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
 				return true;
 		}
 	}
@@ -913,24 +924,16 @@ void GameState::updateRobots()
 }
 
 
-
-
-
 /**
  * Checks the connectedness of all tiles surrounding
  * the Command Center.
  */
 void GameState::checkConnectedness()
 {
-	cout << "Checking connectedness... ";
-
 	// Assumes that a 0,0 location means the CC hasn't yet been placed
 	// as CC's can't be placed on the edges of the map.
 	if (mCCLocation.x() == 0 || mCCLocation.y() == 0)
-	{
-		cout << "CC not yet placed." << endl;
 		return;
-	}
 
 	// Assumes that the 'thing' at mCCLocation is in fact a structure.
 	Tile *t = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), 0);
@@ -938,14 +941,8 @@ void GameState::checkConnectedness()
 
 	// No point in graph walking if the CC isn't operating normally.
 	if (cc->state() != Structure::OPERATIONAL)
-	{
-		cout << "CC not operational." << endl;
 		return;
-	}
 
-	// Create the initial node so we can instruct it to walk through all
-	// surrounding tiles and start determining connectedness.
-	GraphWalker CommandCenter(mCCLocation, 0, &mTileMap);
-
-	cout << "done." << endl;
+	// Start graph walking at the CC location.
+	GraphWalker graphWalker(mCCLocation, 0, &mTileMap);
 }

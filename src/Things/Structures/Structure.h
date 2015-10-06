@@ -20,7 +20,6 @@ public:
 		DESTROYED
 	};
 
-
 	Structure(const std::string& name, const std::string& sprite_path);
 	virtual ~Structure();
 
@@ -80,26 +79,26 @@ protected:
 	void isConnector(bool _b) { mConnector = _b; }
 	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
 
+	Resources				mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
 
-	Resources	mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
+	Resources				mResourcesInput;			/**< Resources needed to operate the Structure. */
+	Resources				mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */
 
-	Resources	mResourcesInput;			/**< Resources needed to operate the Structure. */
-	Resources	mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */
-
-	Resources	mResourceValue;				/**< Resource reclamation values when dozed. */
+	Resources				mResourceValue;				/**< Resource reclamation values when dozed. */
 
 private:
-	int				mTurnsToBuild;		/**< Number of turns it takes to build the Structure. */
+	int						mTurnsToBuild;				/**< Number of turns it takes to build the Structure. */
 
-	int				mAge;				/**< Age of the Structure in turns. */
-	int				mMaxAge;			/**< Maximum number of turns the Structure can remain in good repair. */
+	int						mAge;						/**< Age of the Structure in turns. */
+	int						mMaxAge;					/**< Maximum number of turns the Structure can remain in good repair. */
 
-	StructureState	mStructureState;	/**< State the structure is in. */
+	StructureState			mStructureState;			/**< State the structure is in. */
 
-	ConnectorDir	mConnectorDirection;	/**< Directions available for connections. */
+	ConnectorDir			mConnectorDirection;		/**< Directions available for connections. */
 
-	bool			mRepairable;		/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures die at the end of their life. */
-	bool			mConnector;			/**< Indicates that the Structure can act as a connector (tube) */
+	bool					mRepairable;				/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures die at the end of their life. */
+	bool					mConnector;					/**< Indicates that the Structure can act as a connector (tube) */
+
 };
 
 

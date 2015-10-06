@@ -118,8 +118,15 @@ void GameState::populateStructureMenu()
 {
 	mStructureMenu.dropAllItems();
 
-	mStructureMenu.addItem(constants::AGRIDOME);
-	mStructureMenu.addItem(constants::CHAP);
+	// Above Ground structures only
+	if (mTileMap.currentDepth() == 0)
+	{
+		mStructureMenu.addItem(constants::AGRIDOME);
+		mStructureMenu.addItem(constants::CHAP);
+	}
+	else
+	{
+	}
 }
 
 

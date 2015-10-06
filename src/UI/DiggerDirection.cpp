@@ -24,6 +24,10 @@ void DiggerDirection::init()
 	btnDown.image("ui/icons/arrow-down.png");
 	btnDown.size(64, 34);
 	btnDown.click().Connect(this, &DiggerDirection::btnDiggerDownClicked);
+	
+	// TODO:	For now no downward digging. Downward digging only allowable if
+	//			digger placed on an existing air shaft.
+	btnDown.enabled(false);
 
 	addControl("btnWest", &btnWest, 5, 48);
 	btnWest.image("ui/icons/arrow-west.png");
