@@ -311,6 +311,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		if(mInsertMode != INSERT_NONE)
 		{
 			clearMode();
+			mTubesPalette.clearToggles();
 		}
 		else
 		{
@@ -318,8 +319,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 			int y = mTileMap.tileHighlight().y() + mTileMap.mapViewLocation().y();
 
 			mTileInspector.tile(mTileMap.getTile(x, y));
-			mTileInspector.visible(true);
-			// bring up tile inspector window
+			mTileInspector.visible(true); 
 		}
 	}
 
@@ -646,9 +646,7 @@ void GameState::minerTaskFinished(Robot* _r)
 
 	TilePositionInfo tpi = mRobotList[_r];
 
-	MineFacility* m = new MineFacility(tpi.tile->mine());
-	m->idle(false);
-	mStructureManager.addStructure(m, tpi.tile, tpi.x, tpi.y, tpi.depth, false);
+	mStructureManager.addStructure(new MineFacility(tpi.tile->mine()), tpi.tile, tpi.x, tpi.y, tpi.depth, false);
 
 	if(!mRobotsMenu.itemExists(constants::ROBOMINER))
 	{

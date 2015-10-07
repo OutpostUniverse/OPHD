@@ -165,7 +165,7 @@ private:
 
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection sel);
 
-	void tubePaletteSelection(ConnectorDir _cd);
+	void tubePaletteSelection(ConnectorDir _cd, bool _b);
 
 	void menuRobotsSelectionChanged();
 	void menuStructuresSelectionChanged();

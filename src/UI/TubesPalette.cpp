@@ -23,16 +23,19 @@ void TubesPalette::init()
 	btnTubesIntersection.image("ui/structures/tube_intersection.png");
 	btnTubesIntersection.size(32, 32);
 	btnTubesIntersection.click().Connect(this, &TubesPalette::btnTubesIntersectionClicked);
+	btnTubesIntersection.type(Button::BUTTON_TOGGLE);
 
 	addControl("btnTubesRight", &btnTubesRight, 39, 5);
 	btnTubesRight.image("ui/structures/tubes_right.png");
 	btnTubesRight.size(32, 32);
 	btnTubesRight.click().Connect(this, &TubesPalette::btnTubesRightClicked);
+	btnTubesRight.type(Button::BUTTON_TOGGLE);
 
 	addControl("btnTubesLeft", &btnTubesLeft, 73, 5);
 	btnTubesLeft.image("ui/structures/tubes_left.png");
 	btnTubesLeft.size(32, 32);
 	btnTubesLeft.click().Connect(this, &TubesPalette::btnTubesLeftClicked);
+	btnTubesLeft.type(Button::BUTTON_TOGGLE);
 
 	addControl("btnCancel", &btnCancel, 31, 40);
 	btnCancel.font(font());
@@ -77,26 +80,42 @@ void TubesPalette::update()
 }
 
 
+void TubesPalette::clearToggles()
+{
+	btnTubesIntersection.toggle(false);
+	btnTubesRight.toggle(false);
+	btnTubesLeft.toggle(false);
+}
+
 void TubesPalette::btnCancelClicked()
 {
 	visible(false);
-	mCallback(CONNECTOR_NONE);
+	mCallback(CONNECTOR_NONE, false);
 }
 
 
 void TubesPalette::btnTubesIntersectionClicked()
 {
-	mCallback(CONNECTOR_INTERSECTION);
+	btnTubesRight.toggle(false);
+	btnTubesLeft.toggle(false);
+
+	mCallback(CONNECTOR_INTERSECTION, btnTubesIntersection.toggled());
 }
 
 
 void TubesPalette::btnTubesRightClicked()
 {
-	mCallback(CONNECTOR_RIGHT);
+	btnTubesIntersection.toggle(false);
+	btnTubesLeft.toggle(false);
+
+	mCallback(CONNECTOR_RIGHT, btnTubesRight.toggled());
 }
 
 
 void TubesPalette::btnTubesLeftClicked()
 {
-	mCallback(CONNECTOR_LEFT);
+	btnTubesRight.toggle(false);
+	btnTubesIntersection.toggle(false);
+
+	mCallback(CONNECTOR_LEFT, btnTubesLeft.toggled());
 }

@@ -11,12 +11,11 @@ public:
 	MineFacility(Mine* mine):	Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite"),
 								mMine(mine)
 	{
-		// FIXME:	Currently set to go to operational immediately.
-		//			Should have several turns of construction before
-		//			becoming operational.
-		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
+		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1200);
-		mMine->active(true);
+		turnsToBuild(2);
+
+		requiresCHAP(false);
 	}
 
 
@@ -25,6 +24,16 @@ public:
 
 	void update()
 	{
+		incrementAge();
+
+		if (age() == turnsToBuild())
+		{
+			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
+			idle(false);
+			activate();
+			mMine->active(true);
+		}
+
 		if(!mMine->active() && state() == Structure::OPERATIONAL)
 		{
 			idle(true);

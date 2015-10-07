@@ -17,6 +17,7 @@ public:
 		maxAge(50);
 		turnsToBuild(1);
 		repairable(false);
+		requiresCHAP(false);
 
 		// Resource value if dmolished.
 		mResourceValue.commonMetals = 10;

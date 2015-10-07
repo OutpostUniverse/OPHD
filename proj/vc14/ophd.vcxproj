@@ -170,7 +170,6 @@
     <ClInclude Include="..\..\src\UI\TubesPalette.h" />
     <ClInclude Include="..\..\src\UI\UI.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="resource1.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc" />

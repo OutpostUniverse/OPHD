@@ -31,6 +31,7 @@ public:
 
 		isConnector(true);
 		connectorDirection(_cd);
+		requiresCHAP(false);
 
 		maxAge(400);
 	}

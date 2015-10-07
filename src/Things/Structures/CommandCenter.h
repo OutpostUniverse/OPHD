@@ -11,6 +11,8 @@ public:
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(0);
 		turnsToBuild(10);
+
+		requiresCHAP(false);
 	}
 
 	~CommandCenter()

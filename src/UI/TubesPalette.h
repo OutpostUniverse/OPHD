@@ -9,7 +9,7 @@ class TubesPalette: public UIContainer
 {
 public:
 
-	typedef Gallant::Signal1<ConnectorDir> Callback;
+	typedef Gallant::Signal2<ConnectorDir, bool> Callback;
 
 	TubesPalette(Font& font);
 	virtual ~TubesPalette();
@@ -17,6 +17,8 @@ public:
 	virtual void update();
 
 	Callback& tubeTypeSelected() { return mCallback; }
+
+	void clearToggles();
 
 protected:
 
@@ -35,7 +37,6 @@ private:
 	TubesPalette();
 	TubesPalette(const TubesPalette&);
 	TubesPalette& operator=(const TubesPalette&);
-
 
 	Button		btnCancel;
 	Button		btnTubesIntersection;

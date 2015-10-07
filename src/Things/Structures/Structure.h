@@ -54,6 +54,9 @@ public:
 
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
+
+	bool requiresCHAP() const { return mRequiresCHAP; }
+
 protected:
 
 	void turnsToBuild(int _t) { mTurnsToBuild = _t; }
@@ -79,6 +82,8 @@ protected:
 	void isConnector(bool _b) { mConnector = _b; }
 	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
 
+	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
+
 	Resources				mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
 
 	Resources				mResourcesInput;			/**< Resources needed to operate the Structure. */
@@ -98,7 +103,7 @@ private:
 
 	bool					mRepairable;				/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures die at the end of their life. */
 	bool					mConnector;					/**< Indicates that the Structure can act as a connector (tube) */
-
+	bool					mRequiresCHAP;				/**< Indicates that the Structure needs to have an active CHAP facilities in order to operate. */
 };
 
 

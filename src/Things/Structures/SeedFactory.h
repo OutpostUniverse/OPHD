@@ -11,6 +11,7 @@ public:
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(100);
 		turnsToBuild(7);
+		requiresCHAP(false);
 	}
 
 	~SeedFactory()

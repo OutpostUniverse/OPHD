@@ -320,13 +320,17 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection sel)
 }
 
 
-void GameState::tubePaletteSelection(ConnectorDir _t)
+void GameState::tubePaletteSelection(ConnectorDir _t, bool _b)
 {
-	//hideUi();
-
 	mBtnStructurePicker.toggle(false);
 	mBtnTubePicker.toggle(false);
 	mBtnRobotPicker.toggle(false);
+
+	if (_b)
+	{
+		mCurrentStructure = STRUCTURE_NONE;
+		clearMode();
+	}
 
 	if (_t == CONNECTOR_INTERSECTION)
 		mCurrentStructure = STRUCTURE_TUBE_INTERSECTION;
@@ -339,7 +343,6 @@ void GameState::tubePaletteSelection(ConnectorDir _t)
 		mCurrentStructure = STRUCTURE_NONE;
 		return;
 	}
-
 
 	mInsertMode = INSERT_TUBE;
 	mCurrentPointer = POINTER_PLACE_TILE;

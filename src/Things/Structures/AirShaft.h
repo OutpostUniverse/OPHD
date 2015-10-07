@@ -14,6 +14,8 @@ public:
 
 		isConnector(true);
 		connectorDirection(CONNECTOR_VERTICAL);
+
+		requiresCHAP(false);
 	}
 
 
