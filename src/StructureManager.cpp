@@ -5,7 +5,6 @@ void StructureManager::update(Resources& _r)
 {
 	StructureMap::iterator struct_it;
 
-	bool buildSeedColony = false;
 	int x = 0, y = 0;
 
 	// Some structures can generate others (like the seed lander)
@@ -119,4 +118,18 @@ bool StructureManager::addStructure(Structure* st, Tile* t, int x, int y, int de
 	t->thingIsStructure(true);
 
 	return true;
+}
+
+
+/**
+* Removes a Structure from the StructureManager.
+*
+* \return	True if removed successfully. False if the structure is not found.
+*/
+bool StructureManager::removeStructure(Structure* st)
+{
+	if (mStructureList.erase(st) > 0)
+		return true;
+
+	return false;
 }

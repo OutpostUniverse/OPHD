@@ -64,6 +64,7 @@ void GameState::initUi()
 	mBtnTurns.size(30, 30);
 	mBtnTurns.position(posX, BOTTOM_UI_AREA.y() + MARGIN + 128);
 	mBtnTurns.click().Connect(this, &GameState::btnTurnsClicked);
+	mBtnTurns.enabled(false);
 
 
 	// Mini Map

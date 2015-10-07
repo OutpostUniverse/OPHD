@@ -479,19 +479,32 @@ void GameState::placeRobot()
 	// Robodozer has been selected.
 	if(mRobotsMenu.selectionText() == constants::ROBODOZER)
 	{
-		/**
-		 * \todo	If there's a structure here we want to confirm
-		 *			with the player that they want to destroy it.
-		 */
-		if(tile->thing() || tile->mine() || tile->index() == 0 || !tile->excavated())
+		if(tile->mine() || !tile->excavated() || tile->thing() && !tile->thingIsStructure())
+			return;
+		else if (tile->thingIsStructure())
+		{
+			// FIXME: FUGLY CAST!
+			Structure* _s = reinterpret_cast<Structure*>(tile->thing());
+			if (_s->name() == constants::COMMAND_CENTER)
+			{
+				cout << "Can't bulldoze a Command Center!" << endl;
+				return;
+			}
+
+			mPlayerResources += _s->resourceValue();
+
+			tile->connected(false);
+			mStructureManager.removeStructure(_s);
+			tile->deleteThing();
+			checkConnectedness();
+		}
+		else if (tile->index() == 0)
 			return;
 
 		Robot* r = mRobotPool.getRobot(RobotPool::ROBO_DOZER);
 		r->startTask(tile->index());
 		insertRobot(r, tile, x, y, mTileMap.currentDepth());
 		tile->index(0);
-
-		//clearMode();
 
 		if(!mRobotPool.robotAvailable(RobotPool::ROBO_DOZER))
 		{
@@ -695,6 +708,7 @@ void GameState::placeStructure()
 			clearMode();
 			mStructureMenu.dropAllItems();
 			mBtnStructurePicker.enabled(false);
+			mBtnTurns.enabled(true);
 		}
 	}
 	else
@@ -928,11 +942,6 @@ void GameState::updateRobots()
  */
 void GameState::checkConnectedness()
 {
-	// Assumes that a 0,0 location means the CC hasn't yet been placed
-	// as CC's can't be placed on the edges of the map.
-	if (mCCLocation.x() == 0 || mCCLocation.y() == 0)
-		return;
-
 	// Assumes that the 'thing' at mCCLocation is in fact a structure.
 	Tile *t = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), 0);
 	Structure *cc = reinterpret_cast<Structure*>(t->thing());

@@ -22,6 +22,7 @@ public:
 	void update(Resources& _r);
 
 	bool addStructure(Structure* st, Tile* t, int x, int y, int depth, bool clear);
+	bool removeStructure(Structure* st);
 
 protected:
 

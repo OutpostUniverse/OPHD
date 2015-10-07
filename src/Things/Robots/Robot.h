@@ -35,7 +35,13 @@ protected:
 	int fuelCellAge() const { return mFuelCellAge; }
 	int incrementFuelCellAge() { mFuelCellAge++; }
 
-	void turnsToCompleteTask(int _i) { mTurnsToCompleteTask = _i; }
+	void turnsToCompleteTask(int _i)
+	{
+		if (_i < 1)
+			mTurnsToCompleteTask = 1;
+		else
+			mTurnsToCompleteTask = _i;
+	}
 
 	void updateTask()
 	{
