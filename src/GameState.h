@@ -63,35 +63,6 @@ enum InsertMode
 };
 
 
-/**
- * Why do I need this? This is honestly a "WTF was I thinking?"
- * moment. This could be done much more simply.
- */
-struct DiggerTile
-{
-	DiggerTile(): tile(0), depth(0), x(0), y(0)
-	{}
-
-	void clear()
-	{
-		tile = 0;
-		depth = 0;
-		x = 0;
-		y = 0;
-	}
-
-	void operator()(Tile* _t, int _d, int _x, int _y)
-	{
-		tile = _t;
-		depth = _d;
-		x = _x;
-		y = _y;
-	}
-
-	Tile* tile;
-	int depth, x, y;
-};
-
 
 class GameState: public State
 {
@@ -163,7 +134,7 @@ private:
 
 	void btnToggleConnectednessClicked();
 
-	void diggerSelectionDialog(DiggerDirection::DiggerSelection sel);
+	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, TilePositionInfo& _tpi);
 
 	void tubePaletteSelection(ConnectorDir _cd, bool _b);
 
@@ -177,8 +148,6 @@ private:
 	Font				mTinyFont;
 
 	TileMap				mTileMap;
-
-	DiggerTile			mDiggerTile;
 
 	Image				mBackground;
 	Image				mMapDisplay;

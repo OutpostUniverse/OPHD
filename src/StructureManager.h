@@ -24,6 +24,8 @@ public:
 	bool addStructure(Structure* st, Tile* t, int x, int y, int depth, bool clear);
 	bool removeStructure(Structure* st);
 
+	void disconnectAll();
+
 protected:
 
 	void copyDeferred();

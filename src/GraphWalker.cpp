@@ -91,7 +91,7 @@ void GraphWalker::check(int x, int y, int depth, Direction _d)
 {
 	if (x < 0 || x > _tileMap->width() - 1 || y < 0 || y > _tileMap->height() - 1)
 		return;
-	if (depth < 0 || depth >= _tileMap->maxDepth())
+	if (depth < 0 || depth > _tileMap->maxDepth())
 		return;
 
 

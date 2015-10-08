@@ -266,56 +266,64 @@ void GameState::menuStructuresSelectionChanged()
 }
 
 
-void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection sel)
+void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, TilePositionInfo& _tpi)
 {
 	// Don't dig beyond the dig depth of the planet.
-	if (mTileMap.currentDepth() == mTileMap.maxDepth() && sel == DiggerDirection::SEL_DOWN)
+	if (mTileMap.currentDepth() == mTileMap.maxDepth() && _sel == DiggerDirection::SEL_DOWN)
 	{
 		cout << "GameState::diggerSelectionDialog(): Already at the maximum digging depth." << endl;
 		return;
 	}
 
+	// Before doing anything, if we're going down and the depth is not the surface,
+	// the assumption is that we've already checked and determined that there's an air shaft
+	// so clear it from the tile, disconnect the tile and run a connectedness search.
+	if (_tpi.depth > 0 && _sel == DiggerDirection::SEL_DOWN)
+	{
+		mStructureManager.removeStructure(reinterpret_cast<Structure*>(_tpi.tile->thing()));
+		mStructureManager.disconnectAll();
+		_tpi.tile->deleteThing();
+		_tpi.tile->connected(false);
+		checkConnectedness();
+	}
+
 	// Ugly
 	Robodigger* r = reinterpret_cast<Robodigger*>(mRobotPool.getRobot(RobotPool::ROBO_DIGGER));
-	r->startTask(mDiggerTile.tile->index() + 5);
-	insertRobot(r, mDiggerTile.tile, mDiggerTile.x, mDiggerTile.y, mDiggerTile.depth);
+	r->startTask(_tpi.tile->index() + 5);
+	insertRobot(r, _tpi.tile, _tpi.x, _tpi.y, _tpi.depth);
 
 
-	if (sel == DiggerDirection::SEL_DOWN)
+	if (_sel == DiggerDirection::SEL_DOWN)
 	{
-		// Don't dig beyond the dig depth of the planet.
-		if (mTileMap.currentDepth() == mTileMap.maxDepth())
-		{
-			cout << "GameState::diggerSelectionDialog(): Already at the maximum digging depth." << endl;
-			return;
-		}
-		else
-			r->direction(DIR_DOWN);
+		r->direction(DIR_DOWN);
 	}
-	else if (sel == DiggerDirection::SEL_NORTH)
+	else if (_sel == DiggerDirection::SEL_NORTH)
 	{
 		r->direction(DIR_NORTH);
-		mTileMap.getTile(mDiggerTile.x, mDiggerTile.y - 1, mTileMap.currentDepth())->excavated(true);
+		mTileMap.getTile(_tpi.x, _tpi.y - 1, _tpi.depth)->excavated(true);
 	}
-	else if (sel == DiggerDirection::SEL_SOUTH)
+	else if (_sel == DiggerDirection::SEL_SOUTH)
 	{
 		r->direction(DIR_SOUTH);
-		mTileMap.getTile(mDiggerTile.x, mDiggerTile.y + 1, mTileMap.currentDepth())->excavated(true);
+		mTileMap.getTile(_tpi.x, _tpi.y + 1, _tpi.depth)->excavated(true);
 	}
-	else if (sel == DiggerDirection::SEL_EAST)
+	else if (_sel == DiggerDirection::SEL_EAST)
 	{
 		r->direction(DIR_EAST);
-		mTileMap.getTile(mDiggerTile.x + 1, mDiggerTile.y, mTileMap.currentDepth())->excavated(true);
+		mTileMap.getTile(_tpi.x + 1, _tpi.y, _tpi.depth)->excavated(true);
 	}
-	else if (sel == DiggerDirection::SEL_WEST)
+	else if (_sel == DiggerDirection::SEL_WEST)
 	{
 		r->direction(DIR_WEST);
-		mTileMap.getTile(mDiggerTile.x - 1, mDiggerTile.y, mTileMap.currentDepth())->excavated(true);
+		mTileMap.getTile(_tpi.x - 1, _tpi.y, _tpi.depth)->excavated(true);
 	}
 
 
 	if (mRobotPool.getRobot(RobotPool::ROBO_DIGGER) == NULL)
+	{
 		mRobotsMenu.removeItem(constants::ROBODIGGER);
+		clearMode();
+	}
 
 	mDiggerDirection.visible(false);
 }

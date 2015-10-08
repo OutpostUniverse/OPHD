@@ -10,8 +10,7 @@ DiggerDirection::DiggerDirection(Font& font)
 
 
 DiggerDirection::~DiggerDirection()
-{
-}
+{}
 
 
 void DiggerDirection::init()
@@ -24,10 +23,6 @@ void DiggerDirection::init()
 	btnDown.image("ui/icons/arrow-down.png");
 	btnDown.size(64, 34);
 	btnDown.click().Connect(this, &DiggerDirection::btnDiggerDownClicked);
-	
-	// TODO:	For now no downward digging. Downward digging only allowable if
-	//			digger placed on an existing air shaft.
-	btnDown.enabled(false);
 
 	addControl("btnWest", &btnWest, 5, 48);
 	btnWest.image("ui/icons/arrow-west.png");
@@ -56,6 +51,44 @@ void DiggerDirection::init()
 	btnCancel.click().Connect(this, &DiggerDirection::btnCancelClicked);
 }
 
+
+void DiggerDirection::setParameters(Tile* _t, int x, int y, int depth)
+{
+	mTilePositionInfo(_t, x, y, depth);
+}
+
+
+void DiggerDirection::downOnlyEnabled()
+{
+	btnDown.enabled(true);
+
+	btnWest.enabled(false);
+	btnNorth.enabled(false);
+	btnSouth.enabled(false);
+	btnEast.enabled(false);
+}
+
+
+void DiggerDirection::cardinalOnlyEnabled()
+{
+	btnDown.enabled(false);
+
+	btnWest.enabled(true);
+	btnNorth.enabled(true);
+	btnSouth.enabled(true);
+	btnEast.enabled(true);
+}
+
+
+void DiggerDirection::allEnabled()
+{
+	btnDown.enabled(true);
+
+	btnWest.enabled(true);
+	btnNorth.enabled(true);
+	btnSouth.enabled(true);
+	btnEast.enabled(true);
+}
 
 void DiggerDirection::btnCancelClicked()
 {
@@ -98,31 +131,37 @@ void DiggerDirection::update()
 }
 
 
+void DiggerDirection::selectDown()
+{
+	btnDiggerDownClicked();
+}
+
+
 void DiggerDirection::btnDiggerDownClicked()
 {
-	mCallback(SEL_DOWN);
+	mCallback(SEL_DOWN, mTilePositionInfo);
 }
 
 
 void DiggerDirection::btnDiggerNorthClicked()
 {
-	mCallback(SEL_NORTH);
+	mCallback(SEL_NORTH, mTilePositionInfo);
 }
 
 
 void DiggerDirection::btnDiggerSouthClicked()
 {
-	mCallback(SEL_SOUTH);
+	mCallback(SEL_SOUTH, mTilePositionInfo);
 }
 
 
 void DiggerDirection::btnDiggerEastClicked()
 {
-	mCallback(SEL_EAST);
+	mCallback(SEL_EAST, mTilePositionInfo);
 }
 
 
 void DiggerDirection::btnDiggerWestClicked()
 {
-	mCallback(SEL_WEST);
+	mCallback(SEL_WEST, mTilePositionInfo);
 }

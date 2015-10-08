@@ -122,14 +122,21 @@ bool StructureManager::addStructure(Structure* st, Tile* t, int x, int y, int de
 
 
 /**
-* Removes a Structure from the StructureManager.
-*
-* \return	True if removed successfully. False if the structure is not found.
-*/
+ * Removes a Structure from the StructureManager.
+ *
+ * \return	True if removed successfully. False if the structure is not found.
+ */
 bool StructureManager::removeStructure(Structure* st)
 {
 	if (mStructureList.erase(st) > 0)
 		return true;
 
 	return false;
+}
+
+
+void StructureManager::disconnectAll()
+{
+	for (auto st_it = mStructureList.begin(); st_it != mStructureList.end(); ++st_it)
+		st_it->second.tile->connected(false);
 }

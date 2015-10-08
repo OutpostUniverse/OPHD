@@ -27,6 +27,14 @@ struct TilePositionInfo
 		return *this;
 	}
 
+	void operator()(Tile* _t, int _x, int _y, int _d)
+	{
+		tile = _t;
+		x = _x;
+		y = _y;
+		depth = _d;
+	}
+
 	Tile*		tile;
 	int			depth;
 	int			x;

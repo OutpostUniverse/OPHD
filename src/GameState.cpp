@@ -496,6 +496,7 @@ void GameState::placeRobot()
 			tile->connected(false);
 			mStructureManager.removeStructure(_s);
 			tile->deleteThing();
+			mStructureManager.disconnectAll();
 			checkConnectedness();
 		}
 		else if (tile->index() == 0)
@@ -515,27 +516,31 @@ void GameState::placeRobot()
 	// Robodigger has been selected.
 	else if(mRobotsMenu.selectionText() == constants::ROBODIGGER)
 	{
-		// Die if tile is occupied or not excavated.
-		if(tile->thing() || tile->mine() || !tile->excavated())
-			return;
-
 		// Keep digger within a safe margin of the map boundaries.
-		if(x < 3 || x > mTileMap.width() - 4 || y < 3 || y > mTileMap.height() - 4)
+		if (x < 3 || x > mTileMap.width() - 4 || y < 3 || y > mTileMap.height() - 4)
 		{
 			cout << "GameState::placeRobot(): Can't place digger within 3 tiles of the edge of a map." << endl;
 			return;
 		}
 
+		// Die if tile is occupied or not excavated.
+		if (tile->thing() && tile->thingIsStructure() && reinterpret_cast<Structure*>(tile->thing())->connectorDirection() != CONNECTOR_VERTICAL)
+			return;
+		else if (tile->mine() || !tile->excavated())
+			return;
+		else if (!tile->thing() && mTileMap.currentDepth() > 0)
+			mDiggerDirection.cardinalOnlyEnabled();
+		else
+			mDiggerDirection.downOnlyEnabled();
+
 		hideUi();
-		mDiggerTile(tile, mTileMap.currentDepth(), x, y);
+		mDiggerDirection.setParameters(tile, x, y, mTileMap.currentDepth());
 
 		// If we're placing on the top level we can only ever go down.
-		if(mTileMap.currentDepth() == 0)
-			diggerSelectionDialog(DiggerDirection::SEL_DOWN);
+		if (mTileMap.currentDepth() == 0)
+			mDiggerDirection.selectDown();
 		else
 			mDiggerDirection.visible(true);
-
-		clearMode();
 	}
 	// Robominer has been selected.
 	else if(mRobotsMenu.selectionText() == constants::ROBOMINER)
@@ -584,6 +589,9 @@ void GameState::diggerTaskFinished(Robot* _r)
 
 	TilePositionInfo tpi = mRobotList[_r];
 
+	if (tpi.depth > mTileMap.maxDepth())
+		throw Exception(0, "Bad Depth", "Digger defines a depth that exceeds the maximum digging depth!");
+
 	// FIXME: Fugly cast.
 	Direction dir = reinterpret_cast<Robodigger*>(_r)->direction();
 
@@ -592,10 +600,13 @@ void GameState::diggerTaskFinished(Robot* _r)
 
 	if(dir == DIR_DOWN)
 	{
-		mStructureManager.addStructure(new AirShaft(), tpi.tile, tpi.x, tpi.y, tpi.depth, false);
-		AirShaft *as = new AirShaft();
-		as->ug();
-		mStructureManager.addStructure(as, mTileMap.getTile(tpi.x, tpi.y, tpi.depth + 1), tpi.x, tpi.y, tpi.depth + 1, false);
+		AirShaft* as1 = new AirShaft();
+		if (tpi.depth > 0) as1->ug();
+		mStructureManager.addStructure(as1, tpi.tile, tpi.x, tpi.y, tpi.depth, false);
+
+		AirShaft* as2 = new AirShaft();
+		as2->ug();
+		mStructureManager.addStructure(as2, mTileMap.getTile(tpi.x, tpi.y, tpi.depth + 1), tpi.x, tpi.y, tpi.depth + 1, false);
 
 		originX = tpi.x;
 		originY = tpi.y;
@@ -898,6 +909,7 @@ void GameState::deploySeedLander(int x, int y)
 	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
 	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
 
+	mRobotPool.addRobot(RobotPool::ROBO_DIGGER)->taskComplete().Connect(this, &GameState::diggerTaskFinished);
 
 	// FIXME: Magic numbers
 	mPlayerResources.commonMetals = 100;
@@ -945,6 +957,7 @@ void GameState::checkConnectedness()
 	// Assumes that the 'thing' at mCCLocation is in fact a structure.
 	Tile *t = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), 0);
 	Structure *cc = reinterpret_cast<Structure*>(t->thing());
+	t->connected(true);
 
 	// No point in graph walking if the CC isn't operating normally.
 	if (cc->state() != Structure::OPERATIONAL)
