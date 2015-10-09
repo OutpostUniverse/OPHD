@@ -37,6 +37,15 @@ enum PointerType
 };
 
 
+enum InsertMode
+{
+	INSERT_NONE,
+	INSERT_ROBOT,
+	INSERT_TUBE,
+	INSERT_STRUCTURE
+};
+
+
 enum StructureType
 {
 	STRUCTURE_NONE,
@@ -51,15 +60,6 @@ enum StructureType
 	STRUCTURE_TUBE_INTERSECTION,
 	STRUCTURE_TUBE_RIGHT,
 	STRUCTURE_TUBE_LEFT
-};
-
-
-enum InsertMode
-{
-	INSERT_NONE,
-	INSERT_ROBOT,
-	INSERT_TUBE,
-	INSERT_STRUCTURE
 };
 
 
@@ -83,6 +83,8 @@ private:
 
 	typedef vector<Pointer> PointerList;
 
+	void onActivate(bool _b);
+
 	void onKeyDown(KeyCode key, KeyModifier mod, bool repeat);
 
 	void onMouseDown(MouseButton button, int x, int y);
@@ -99,6 +101,7 @@ private:
 	void hideUi();
 
 	void populateStructureMenu();
+	void clearMode();
 
 	void placeRobot();
 	void placeStructure();
@@ -118,12 +121,10 @@ private:
 	bool landingSiteSuitable(int x, int y);
 
 	void updateMapView();
-
 	void updateRobots();
 
-	void clearMode();
-
 	void checkConnectedness();
+
 
 	// UI Even Handlers
 	void btnSystemClicked();
@@ -131,15 +132,13 @@ private:
 	void btnTubesPickerClicked();
 	void btnRobotPickerClicked();
 	void btnStructurePickerClicked();
-
 	void btnToggleConnectednessClicked();
-
-	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, TilePositionInfo& _tpi);
-
-	void tubePaletteSelection(ConnectorDir _cd, bool _b);
 
 	void menuRobotsSelectionChanged();
 	void menuStructuresSelectionChanged();
+
+	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, TilePositionInfo& _tpi);
+	void tubePaletteSelection(ConnectorDir _cd, bool _b);
 
 	FpsCounter			mFps;
 	Timer				mMoveTimer;
@@ -157,22 +156,21 @@ private:
 	PointerType			mCurrentPointer;
 
 	Point_2d			mMousePosition;
-
 	Point_2d			mCCLocation;				/**< Location of the Command Center. */
 
 	Rectangle_2d		mMiniMapBoundingBox;
 	Rectangle_2d		mResourceInfoBox;
 
-	Resources			mPlayerResources;
-	PopulationPool		mPopulationPool;			/**< Population available to the Player. */
+	StructureManager	mStructureManager;			/**< Manager class responsible for managing all structures. */
 
+	Resources			mPlayerResources;			/**< Player's current resources. */
+	PopulationPool		mPopulationPool;			/**< Population available to the Player. */
 	RobotPool			mRobotPool;					/**< Robots that are currently available for use. */
 
 	ThingMap			mThingList;					/**< List of Thing objects currently in game play */
 	RobotMap			mRobotList;					/**< List of active robots and their positions on the map. */
 
-	StructureManager	mStructureManager;			/**< Manager class responsible for managing all structures. */
-
+	InsertMode			mInsertMode;				/**< What's being inserted into the TileMap if anything. */
 	StructureType		mCurrentStructure;			/**< Structure being placed. */
 
 	// UI
@@ -189,13 +187,10 @@ private:
 	Menu				mStructureMenu;
 
 	DiggerDirection		mDiggerDirection;
-
 	TubesPalette		mTubesPalette;
-
 	TileInspector		mTileInspector;
 
-	InsertMode			mInsertMode;
-
+	// MISCELLANEOUS
 	int					mTurnCount;
 
 	bool				mDebug;
@@ -203,7 +198,6 @@ private:
 
 	State*				mReturnState;
 };
-
 
 
 #endif

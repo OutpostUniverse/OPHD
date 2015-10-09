@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	try
 	{
 		Game game("OutpostHD", argv[0]);
-		game.go(new GameState("maps/02"));
+		game.go(new GameState("maps/mars_04"));
 	}
 	catch(Exception& e)
 	{

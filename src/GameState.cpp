@@ -106,6 +106,9 @@ void GameState::initialize()
 	mReturnState = this;
 
 	EventHandler& e = Utility<EventHandler>::get();
+
+	e.activate().Connect(this, &GameState::onActivate);
+
 	e.keyDown().Connect(this, &GameState::onKeyDown);
 
 	e.mouseButtonDown().Connect(this, &GameState::onMouseDown);
@@ -220,6 +223,18 @@ void GameState::drawDebug()
 	str.str("");
 	str << "FPS: " << mFps.fps();
 	r.drawText(mTinyFont, str.str(), 10, 10, 255, 255, 255);
+}
+
+
+/**
+ * Window activation handler.
+ */
+void GameState::onActivate(bool _b)
+{
+	if (!_b)
+	{
+		mLeftButtonDown = false;
+	}
 }
 
 
