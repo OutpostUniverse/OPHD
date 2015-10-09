@@ -27,7 +27,7 @@ void GameState::initUi()
 	mTubesPalette.visible(false);
 
 	// Bottom UI
-	BOTTOM_UI_AREA(0, r.height() - 180, r.width(), 180);
+	BOTTOM_UI_AREA(0, r.height() - 185, r.width(), 185);
 	mMiniMapBoundingBox(MARGIN, BOTTOM_UI_AREA.y() + MARGIN, mMapDisplay.width(), mMapDisplay.height());
 	mResourceInfoBox(mMiniMapBoundingBox.x() + mMiniMapBoundingBox.w() + MARGIN, mMiniMapBoundingBox.y(), 200, mMiniMapBoundingBox.h());
 
@@ -70,12 +70,12 @@ void GameState::initUi()
 	// Mini Map
 	mBtnToggleHeightmap.image("ui/icons/height.png");
 	mBtnToggleHeightmap.size(20, 20);
-	mBtnToggleHeightmap.position(mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y() + mMiniMapBoundingBox.h() + 2);
+	mBtnToggleHeightmap.position(mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y() + mMiniMapBoundingBox.h() + 4);
 	mBtnToggleHeightmap.type(Button::BUTTON_TOGGLE);
 
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
 	mBtnToggleConnectedness.size(20, 20);
-	mBtnToggleConnectedness.position(mMiniMapBoundingBox.x() + 22, mMiniMapBoundingBox.y() + mMiniMapBoundingBox.h() + 2);
+	mBtnToggleConnectedness.position(mMiniMapBoundingBox.x() + 22, mMiniMapBoundingBox.y() + mMiniMapBoundingBox.h() + 4);
 	mBtnToggleConnectedness.type(Button::BUTTON_TOGGLE);
 	mBtnToggleConnectedness.click().Connect(this, &GameState::btnToggleConnectednessClicked);
 
@@ -287,7 +287,7 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 		checkConnectedness();
 	}
 
-	// Ugly
+	// FIXME: Fugly cast.
 	Robodigger* r = reinterpret_cast<Robodigger*>(mRobotPool.getRobot(RobotPool::ROBO_DIGGER));
 	r->startTask(_tpi.tile->index() + 5);
 	insertRobot(r, _tpi.tile, _tpi.x, _tpi.y, _tpi.depth);
@@ -329,6 +329,9 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 }
 
 
+/**
+ * Handler for the Tubes Pallette dialog.
+ */
 void GameState::tubePaletteSelection(ConnectorDir _t, bool _b)
 {
 	mBtnStructurePicker.toggle(false);

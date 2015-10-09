@@ -63,6 +63,7 @@ GameState::GameState(const std::string& map_path):	mFont("fonts/Fresca-Regular.t
 													mBackground("ui/background.png"),
 													mMapDisplay(map_path + MAP_DISPLAY_EXTENSION),
 													mHeightMap(map_path + MAP_TERRAIN_EXTENSION),
+													mUiIcons("ui/icons.png"),
 													mCurrentPointer(POINTER_NORMAL),
 													mCurrentStructure(STRUCTURE_NONE),
 													mDiggerDirection(mTinyFont),
@@ -153,7 +154,7 @@ void GameState::drawMiniMap()
 	else
 		r.drawImage(mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y());
 
-	//r.drawBox(mMiniMapBoundingBox, 0, 200, 0);
+	r.drawBox(mMiniMapBoundingBox, 0, 0, 0);
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap.mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap.mapViewLocation().y(), mTileMap.edgeLength(), mTileMap.edgeLength(), 255, 255, 255);
 
 	if(mCCLocation.x() != 0 && mCCLocation.y() != 0)
@@ -162,10 +163,10 @@ void GameState::drawMiniMap()
 
 	for(size_t i = 0; i < mTileMap.mineLocations().size(); i++)
 	{
-		if(mTileMap.getTile(mTileMap.mineLocations()[i].x(), mTileMap.mineLocations()[i].y(), 0)->mine()->active())
-			r.drawBoxFilled(mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 1, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 1, 3, 3, constants::ACTIVE_MINE_COLOR.red(), constants::ACTIVE_MINE_COLOR.green(), constants::ACTIVE_MINE_COLOR.blue());
+		if (mTileMap.getTile(mTileMap.mineLocations()[i].x(), mTileMap.mineLocations()[i].y(), 0)->mine()->active())
+			r.drawSubImage(mUiIcons, mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 8.0f, 0.0f, 5.0f, 5.0f);
 		else
-			r.drawBoxFilled(mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 1, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 1, 3, 3, constants::MINE_COLOR.red(), constants::MINE_COLOR.green(), constants::MINE_COLOR.blue());
+			r.drawSubImage(mUiIcons, mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 5.0f, 5.0f);
 	}
 }
 
@@ -175,7 +176,7 @@ void GameState::drawResourceInfo()
 	Renderer& r = Utility<Renderer>::get();
 
 	r.drawBoxFilled(mResourceInfoBox, 0, 0, 0);
-	r.drawBox(mResourceInfoBox, 0, 200, 0);
+	r.drawBox(mResourceInfoBox, 0, 0, 0);
 
 	// Resources
 	int x = mResourceInfoBox.x() + 2;

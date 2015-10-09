@@ -91,15 +91,15 @@ private:
 
 	Sprite				mMineBeacon;
 
-	Rectangle_2d		mMapBoundingBox;
-
 	Point_2d			mMousePosition;
 	Point_2d			mMapHighlight;
 	Point_2d			mMapViewLocation;
 
-	Point_2df			mMapPosition;
+	Point_2df			mMapPosition;				/** Where to start drawing the TileMap on the screen. */
 
 	Point2dList			mMineLocations;				/**< Location of all mines on the map. */
+
+	Rectangle_2d		mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
 
 	bool				mDebug;
 	bool				mShowConnections;			/**< Flag indicating whether or not to highlight connectedness. */

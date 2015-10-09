@@ -151,6 +151,7 @@ private:
 	Image				mBackground;
 	Image				mMapDisplay;
 	Image				mHeightMap;
+	Image				mUiIcons;
 
 	PointerList			mPointers;
 	PointerType			mCurrentPointer;

@@ -4,7 +4,7 @@
 
 const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
 
-Point_2d			TRANSFORM;
+Point_2d			TRANSFORM;							// FIXME: Document what I do.
 
 const int			MAP_WIDTH					= 300;
 const int			MAP_HEIGHT					= 150;
@@ -171,11 +171,12 @@ void TileMap::buildMouseMap()
 void TileMap::initMapDrawParams()
 {
 	// Set up map draw position
-	float screenW = Utility<Renderer>::get().width();
-
-	mMapPosition((screenW / 2 - (TILE_WIDTH / 2)), 75);
+	float screenW = Utility<Renderer>::get().width(), screenH = Utility<Renderer>::get().height();
 
 	mEdgeLength = static_cast<int>(screenW) / TILE_WIDTH;
+
+	// FIXME: Magic number in the screenH calculation -- comes from UI height defined in GameState.
+	mMapPosition((screenW / 2 - (TILE_WIDTH / 2)), ((screenH - 185) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT));
 
 	mMapBoundingBox((screenW / 2) - ((TILE_WIDTH * mEdgeLength) / 2), mMapPosition.y(), TILE_WIDTH * mEdgeLength, TILE_HEIGHT * mEdgeLength);
 
