@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile() :	mIndex(0),
+Tile::Tile() :	mIndex(TERRAIN_DOZED),
 				mThing(nullptr),
 				mMine(nullptr),
 				mExcavated(true),

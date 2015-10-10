@@ -1,6 +1,25 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.4.2] - UNRELEASED
+### Added
+* Added Tile::structure() to get a pointer to a derived Structure instead of a base. Eliminates some ugly casts.
+* Added Tile::robot() to get a pointer to a derived Robot instead of a base. Eliminates some ugly casts.
+* Added Tile::empty() purely for readability in some parts of the code.
+
+### Changed
+* Moved some of the function definitions from Robot.h to Robot.cpp.
+* Modified RobotPool to get specific types of robots instead of a pointer to a base. Eliminates some ugly casts.
+* Changed the way a few handlers checked for robot availability. Was kind of sloppy testing for a nullptr when when RobotPool::robotAvailable() function should have been used instead.
+* Modified all code that calls Tile::index(int) to take advantage of the TerrainType enumerator. Easer to understand code.
+* Removed command center pointer in StructureManger. Don't need it anymore.
+* Broke StructureManager's update code into several smaller functions.
+
+### Fixed
+* Fixed an issue where the tile position information when inserting a Digger robot could change when the user clicked to select a direction on non-surface levels.
+
+
+
 ## [0.4.1] - 2015-10-09
 ### Added
 * Added a RequiresCHAP field to structures. Updated structures currently defined that don't require a CHAP to operate.

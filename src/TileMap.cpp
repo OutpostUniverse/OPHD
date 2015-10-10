@@ -104,6 +104,7 @@ void TileMap::setupMines()
 			Mine* m = new Mine();
 			
 			// Choose a production rate
+			// FIXME: Kind of a naive approach to this... would be nice to weight things better.
 			Mine::ProductionRate mpr;
 			if(Random::ranged_integer(0, 100) < 60)
 				mpr = Mine::PRODUCTION_RATE_MEDIUM;
@@ -117,7 +118,7 @@ void TileMap::setupMines()
 			mTileMap[0][pt.y()][pt.x()].pushMine(m);
 			
 			// Leave ground smooth
-			mTileMap[0][pt.y()][pt.x()].index(0);
+			mTileMap[0][pt.y()][pt.x()].index(TERRAIN_DOZED);
 
 			mMineLocations.push_back(pt);
 			i++;

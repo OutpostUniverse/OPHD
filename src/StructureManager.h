@@ -13,11 +13,9 @@
 class StructureManager
 {
 public:
-	StructureManager(): mDeferInsert(false)
-	{}
+	StructureManager();
 
-	~StructureManager()
-	{}
+	~StructureManager();
 
 	void update(Resources& _r);
 
@@ -35,15 +33,18 @@ private:
 	typedef map<Structure*, TilePositionInfo> StructureMap;
 	typedef vector<Structure*> StructureList;
 
+
+	void updateStructures();
+	void processResourcesIn(Resources& _r);
+	void processResourcesOut(Resources& _r);
+
 	StructureMap		mStructureList;				/**< List of all structures with positional information. */
 	StructureMap		mDeferredList;				/**< List of deferred insertions. */
 
-	StructureList		mStructuresBuilding;		/**< Structures still under construction. */
-	StructureList		mStructuresOperational;		/**< Structures that are operational. */
-	StructureList		mStructuresIdle;			/**< Structures that are Idle. */
-	StructureList		mStructuresDisabled;		/**< Structures that are disabled. */
-
-	Structure*			mCommandCenter;				/**< Comamand Center handled by the Manager. */
+	//StructureList		mStructuresBuilding;		/**< Structures still under construction. */
+	//StructureList		mStructuresOperational;		/**< Structures that are operational. */
+	//StructureList		mStructuresIdle;			/**< Structures that are Idle. */
+	//StructureList		mStructuresDisabled;		/**< Structures that are disabled. */
 
 	bool				mDeferInsert;				/**< Flag indicating that we're accessing the structure list and insertions should be deferred. */
 };

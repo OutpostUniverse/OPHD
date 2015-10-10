@@ -343,6 +343,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 	{
 		mLeftButtonDown = true;
 
+		// If mouse pointer is within the rects of a a UI element, ignore it.
 		if (isPointInRect(mMousePosition, mDiggerDirection.rect()))
 			return;
 		
@@ -515,13 +516,13 @@ void GameState::placeRobot()
 			mStructureManager.disconnectAll();
 			checkConnectedness();
 		}
-		else if (tile->index() == 0)
+		else if (tile->index() == TERRAIN_DOZED)
 			return;
 
 		Robot* r = mRobotPool.getDozer();
 		r->startTask(tile->index());
 		insertRobot(r, tile, x, y, mTileMap.currentDepth());
-		tile->index(0);
+		tile->index(TERRAIN_DOZED);
 
 		if(!mRobotPool.robotAvailable(RobotPool::ROBO_DOZER))
 		{
@@ -567,7 +568,7 @@ void GameState::placeRobot()
 		Robot* r = mRobotPool.getMiner();
 		r->startTask(6);
 		insertRobot(r, tile, x, y, mTileMap.currentDepth());
-		tile->index(0);
+		tile->index(TERRAIN_DOZED);
 
 		clearMode();
 
@@ -628,8 +629,8 @@ void GameState::diggerTaskFinished(Robot* _r)
 		originY = tpi.y;
 		depthAdjust = 1;
 
-		mTileMap.getTile(originX, originY, tpi.depth)->index(0);
-		mTileMap.getTile(originX, originY, tpi.depth + depthAdjust)->index(0);
+		mTileMap.getTile(originX, originY, tpi.depth)->index(TERRAIN_DOZED);
+		mTileMap.getTile(originX, originY, tpi.depth + depthAdjust)->index(TERRAIN_DOZED);
 	}
 	else if(dir == DIR_NORTH)
 	{
@@ -853,7 +854,7 @@ bool GameState::landingSiteSuitable(int x, int y)
 {
 	for(int offY = y - 1; offY <= y + 1; ++offY)
 		for(int offX = x - 1; offX <= x + 1; ++offX)
-			if(mTileMap.getTile(offX, offY)->index() > 3 || mTileMap.getTile(offX, offY)->mine() || mTileMap.getTile(offX, offY)->thing())
+			if(mTileMap.getTile(offX, offY)->index() > TERRAIN_DIFFICULT || mTileMap.getTile(offX, offY)->mine() || mTileMap.getTile(offX, offY)->thing())
 				return false;
 
 	return true;
@@ -865,27 +866,27 @@ bool GameState::landingSiteSuitable(int x, int y)
  */
 void GameState::deploySeedLander(int x, int y)
 {
-	mTileMap.getTile(x, y)->index(0);
+	mTileMap.getTile(x, y)->index(TERRAIN_DOZED);
 	
 	// TOP ROW
 	mStructureManager.addStructure(new SeedPower(), mTileMap.getTile(x - 1, y - 1), x - 1, y - 1, 0, true);
-	mTileMap.getTile(x - 1, y - 1)->index(0);
+	mTileMap.getTile(x - 1, y - 1)->index(TERRAIN_DOZED);
 
 	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x, y - 1), x, y - 1, 0, true);
-	mTileMap.getTile(x, y - 1)->index(0);
+	mTileMap.getTile(x, y - 1)->index(TERRAIN_DOZED);
 
 	CommandCenter* cc = new CommandCenter();
 	cc->sprite().skip(3);
 	mStructureManager.addStructure(cc, mTileMap.getTile(x + 1, y - 1), x + 1, y - 1, 0, true);
-	mTileMap.getTile(x + 1, y - 1)->index(0);
+	mTileMap.getTile(x + 1, y - 1)->index(TERRAIN_DOZED);
 	mCCLocation(x + 1, y - 1);
 
 
 	// MIDDLE ROW
-	mTileMap.getTile(x - 1, y)->index(0);
+	mTileMap.getTile(x - 1, y)->index(TERRAIN_DOZED);
 	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x - 1, y), x - 1, y, 0, true);
 
-	mTileMap.getTile(x + 1, y)->index(0);
+	mTileMap.getTile(x + 1, y)->index(TERRAIN_DOZED);
 	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x + 1, y), x + 1, y, 0, true);
 
 
@@ -893,15 +894,15 @@ void GameState::deploySeedLander(int x, int y)
 	SeedFactory* sf = new SeedFactory();
 	sf->sprite().skip(7);
 	mStructureManager.addStructure(sf, mTileMap.getTile(x - 1, y + 1), x - 1, y + 1, 0, true);
-	mTileMap.getTile(x - 1, y + 1)->index(0);
+	mTileMap.getTile(x - 1, y + 1)->index(TERRAIN_DOZED);
 
-	mTileMap.getTile(x, y + 1)->index(0);
+	mTileMap.getTile(x, y + 1)->index(TERRAIN_DOZED);
 	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x, y + 1), x, y + 1, 0, true);
 
 	SeedSmelter* ss = new SeedSmelter();
 	ss->sprite().skip(10);
 	mStructureManager.addStructure(ss, mTileMap.getTile(x + 1, y + 1), x + 1, y + 1, 0, true);
-	mTileMap.getTile(x + 1, y + 1)->index(0);
+	mTileMap.getTile(x + 1, y + 1)->index(TERRAIN_DOZED);
 
 	// Enable UI Contruction Buttons
 	mBtnTubePicker.enabled(true);	
