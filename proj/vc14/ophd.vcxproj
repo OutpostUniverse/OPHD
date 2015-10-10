@@ -115,6 +115,7 @@
     <ClCompile Include="..\..\src\Population\PopulationPool.cpp" />
     <ClCompile Include="..\..\src\RobotPool.cpp" />
     <ClCompile Include="..\..\src\StructureManager.cpp" />
+    <ClCompile Include="..\..\src\Things\Robots\Robot.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Structure.cpp" />
     <ClCompile Include="..\..\src\Tile.cpp" />
     <ClCompile Include="..\..\src\TileMap.cpp" />

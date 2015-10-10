@@ -18,7 +18,10 @@ public:
 	~RobotPool();
 
 	Robot* addRobot(RobotType _type);
-	Robot* getRobot(RobotType _type);
+
+	Robodigger* getDigger();
+	Robodozer* getDozer();
+	Robominer* getMiner();
 
 	bool robotAvailable(RobotType _type);
 	bool allRobotsBusy();

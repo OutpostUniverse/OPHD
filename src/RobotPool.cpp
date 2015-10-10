@@ -30,44 +30,8 @@ RobotPool::~RobotPool()
 
 
 /**
- * Gets a robot from the pool of the specified type.
- * 
- * \return	Returns a nullptr if the requested robot type is not available.
- */
-Robot* RobotPool::getRobot(RobotType _type)
-{
-	switch (_type)
-	{
-	case ROBO_DOZER:
-		for (size_t i = 0; i < mDozers.size(); i++)
-		{
-			if (mDozers[i]->idle())
-				return mDozers[i];
-		}
-		break;
-	case ROBO_DIGGER:
-		for (size_t i = 0; i < mDiggers.size(); i++)
-		{
-			if (mDiggers[i]->idle())
-				return mDiggers[i];
-		}
-		break;
-	case ROBO_MINER:
-		for (size_t i = 0; i < mMiners.size(); i++)
-		{
-			if (mMiners[i]->idle())
-				return mMiners[i];
-		}
-		break;
-	}
-
-	return nullptr;
-}
-
-
-/**
  * Adds a robot of specified type to the pool.
- * 
+ *
  * \return Returns a pointer to the recently.
  * \return Returns a nullptr if the robot type was invalid or unsupported.
  */
@@ -94,14 +58,80 @@ Robot* RobotPool::addRobot(RobotType _type)
 
 
 /**
+ * Gets a Robodigger from the pool.
+ * 
+ * \return	Returns a pointer to an available Robodigger. If no digger is available, returns nullptr.
+ */
+Robodigger* RobotPool::getDigger()
+{
+	for (size_t i = 0; i < mDiggers.size(); i++)
+	{
+		if (mDiggers[i]->idle())
+			return mDiggers[i];
+	}
+
+	return nullptr;
+}
+
+
+/**
+ * Gets a Robodozer from the pool.
+ *
+ * \return	Returns a pointer to an available Robodozer. If no dozer is available, returns nullptr.
+ */
+Robodozer* RobotPool::getDozer()
+{
+	for (size_t i = 0; i < mDozers.size(); i++)
+	{
+		if (mDozers[i]->idle())
+			return mDozers[i];
+	}
+
+	return nullptr;
+}
+
+
+/**
+ * Gets a Robominer from the pool.
+ *
+ * \return	Returns a pointer to an available Robominer. If no miner is available, returns nullptr.
+ */
+Robominer* RobotPool::getMiner()
+{
+	for (size_t i = 0; i < mMiners.size(); i++)
+	{
+		if (mMiners[i]->idle())
+			return mMiners[i];
+	}
+
+	return nullptr;
+}
+
+
+/**
  * Determines if a requested robot type is available.
  * 
  * \return	Returns true if the requested robot type is available. False otherwise.
  */
 bool RobotPool::robotAvailable(RobotType _type)
 {
-	Robot* r = getRobot(_type);
-	return r != nullptr;
+	switch(_type)
+	{
+		case ROBO_DIGGER:
+			return getDigger() != nullptr;
+			break;
+		case ROBO_DOZER:
+			return getDozer() != nullptr;
+			break;
+		case ROBO_MINER:
+			return getMiner() != nullptr;
+			break;
+		default:
+			return false;
+			break;
+	}
+
+	return false;
 }
 
 

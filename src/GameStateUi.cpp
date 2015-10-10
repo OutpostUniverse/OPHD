@@ -280,15 +280,15 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
 	if (_tpi.depth > 0 && _sel == DiggerDirection::SEL_DOWN)
 	{
-		mStructureManager.removeStructure(reinterpret_cast<Structure*>(_tpi.tile->thing()));
+		mStructureManager.removeStructure(_tpi.tile->structure());
 		mStructureManager.disconnectAll();
 		_tpi.tile->deleteThing();
 		_tpi.tile->connected(false);
 		checkConnectedness();
 	}
 
-	// FIXME: Fugly cast.
-	Robodigger* r = reinterpret_cast<Robodigger*>(mRobotPool.getRobot(RobotPool::ROBO_DIGGER));
+	// Assumes a digger is available.
+	Robodigger* r = mRobotPool.getDigger();
 	r->startTask(_tpi.tile->index() + 5);
 	insertRobot(r, _tpi.tile, _tpi.x, _tpi.y, _tpi.depth);
 
@@ -319,7 +319,7 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	}
 
 
-	if (mRobotPool.getRobot(RobotPool::ROBO_DIGGER) == NULL)
+	if (!mRobotPool.robotAvailable(RobotPool::ROBO_DIGGER))
 	{
 		mRobotsMenu.removeItem(constants::ROBODIGGER);
 		clearMode();
@@ -393,7 +393,7 @@ void GameState::btnTurnsClicked()
 
 	checkConnectedness();
 
-	Structure* cc = reinterpret_cast<Structure*>(mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->thing());
+	Structure* cc = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();
 	if (cc->state() == Structure::OPERATIONAL)
 	{
 		populateStructureMenu();

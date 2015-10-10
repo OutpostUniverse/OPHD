@@ -342,6 +342,9 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 	if(button == BUTTON_LEFT)
 	{
 		mLeftButtonDown = true;
+
+		if (isPointInRect(mMousePosition, mDiggerDirection.rect()))
+			return;
 		
 		// MiniMap Check
 		if(isPointInRect(mMousePosition, mMiniMapBoundingBox))
@@ -414,8 +417,7 @@ bool GameState::validTubeConnection(Tile *tile, Direction dir)
 	if(tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure())
 		return false;
 
-	// FIXME: FUGLY FUGLY FUGLY!!!!!
-	Structure* _structure = reinterpret_cast<Structure*>(tile->thing());
+	Structure* _structure = tile->structure();
 
 	if(mCurrentStructure == STRUCTURE_TUBE_INTERSECTION)
 	{
@@ -463,8 +465,7 @@ bool GameState::validStructurePlacement(Tile *tile, Direction dir)
 	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure() || !tile->connected())
 		return false;
 
-	// FIXME: FUGLY FUGLY FUGLY!!!!!
-	Structure* _structure = reinterpret_cast<Structure*>(tile->thing());
+	Structure* _structure = tile->structure();
 	if (!_structure->isConnector())
 		return false;
 
@@ -499,8 +500,7 @@ void GameState::placeRobot()
 			return;
 		else if (tile->thingIsStructure())
 		{
-			// FIXME: FUGLY CAST!
-			Structure* _s = reinterpret_cast<Structure*>(tile->thing());
+			Structure* _s = tile->structure();
 			if (_s->name() == constants::COMMAND_CENTER)
 			{
 				cout << "Can't bulldoze a Command Center!" << endl;
@@ -518,7 +518,7 @@ void GameState::placeRobot()
 		else if (tile->index() == 0)
 			return;
 
-		Robot* r = mRobotPool.getRobot(RobotPool::ROBO_DOZER);
+		Robot* r = mRobotPool.getDozer();
 		r->startTask(tile->index());
 		insertRobot(r, tile, x, y, mTileMap.currentDepth());
 		tile->index(0);
@@ -540,7 +540,7 @@ void GameState::placeRobot()
 		}
 
 		// Die if tile is occupied or not excavated.
-		if (tile->thing() && tile->thingIsStructure() && reinterpret_cast<Structure*>(tile->thing())->connectorDirection() != CONNECTOR_VERTICAL)
+		if (!tile->empty() && tile->structure() != nullptr && tile->structure()->connectorDirection() != CONNECTOR_VERTICAL)
 			return;
 		else if (tile->mine() || !tile->excavated())
 			return;
@@ -564,14 +564,14 @@ void GameState::placeRobot()
 		if(tile->thing() || !tile->mine() || !tile->excavated())
 			return;
 
-		Robot* r = mRobotPool.getRobot(RobotPool::ROBO_MINER);
+		Robot* r = mRobotPool.getMiner();
 		r->startTask(6);
 		insertRobot(r, tile, x, y, mTileMap.currentDepth());
 		tile->index(0);
 
 		clearMode();
 
-		if(mRobotPool.getRobot(RobotPool::ROBO_MINER) == NULL)
+		if(!mRobotPool.robotAvailable(RobotPool::ROBO_MINER))
 			mRobotsMenu.removeItem(constants::ROBOMINER);
 	}
 
@@ -609,7 +609,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 		throw Exception(0, "Bad Depth", "Digger defines a depth that exceeds the maximum digging depth!");
 
 	// FIXME: Fugly cast.
-	Direction dir = reinterpret_cast<Robodigger*>(_r)->direction();
+	Direction dir = static_cast<Robodigger*>(_r)->direction();
 
 	// 
 	int originX = 0, originY = 0, depthAdjust = 0;
@@ -970,14 +970,17 @@ void GameState::updateRobots()
  */
 void GameState::checkConnectedness()
 {
-	// Assumes that the 'thing' at mCCLocation is in fact a structure.
+	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
 	Tile *t = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), 0);
-	Structure *cc = reinterpret_cast<Structure*>(t->thing());
-	t->connected(true);
+	Structure *cc = t->structure();
 
-	// No point in graph walking if the CC isn't operating normally.
+	if (!cc)
+		throw Exception(0, "Bad CC Location", "CC coordinates do not actually point to a Command Center.");
+
 	if (cc->state() != Structure::OPERATIONAL)
 		return;
+
+	t->connected(true);
 
 	// Start graph walking at the CC location.
 	GraphWalker graphWalker(mCCLocation, 0, &mTileMap);

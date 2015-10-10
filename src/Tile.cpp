@@ -92,3 +92,21 @@ void Tile::pushMine(Mine* _mine)
 
 	mMine = _mine;
 }
+
+
+Structure* Tile::structure()
+{
+	if (mThingIsStructure)
+		return static_cast<Structure*>(thing());
+	
+	return nullptr;
+}
+
+
+Robot* Tile::robot()
+{
+	if(!empty() && structure() == nullptr)
+		return static_cast<Robot*>(thing());
+
+	return nullptr;
+}

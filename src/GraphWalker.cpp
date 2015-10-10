@@ -101,8 +101,8 @@ void GraphWalker::check(int x, int y, int depth, Direction _d)
 		return;
 
 	// FIXME: Really hate these casts... got to be a better way to do this.
-	Structure* src = reinterpret_cast<Structure*>(_thisTile->thing());
-	Structure* dst = reinterpret_cast<Structure*>(t->thing());
+	Structure* src = _thisTile->structure();
+	Structure* dst = t->structure();
 
 	if (validConnection(src, dst, _d))
 	{
