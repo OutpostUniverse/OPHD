@@ -114,7 +114,6 @@ private:
 	void diggerTaskFinished(Robot* _r);
 	void minerTaskFinished(Robot* _r);
 
-	bool insertThing(Thing* thing, Tile* tile, int x, int y, int depth);
 	bool insertRobot(Robot* robot, Tile* tile, int x, int y, int depth);
 
 	void deploySeedLander(int x, int y);
@@ -168,7 +167,6 @@ private:
 	PopulationPool		mPopulationPool;			/**< Population available to the Player. */
 	RobotPool			mRobotPool;					/**< Robots that are currently available for use. */
 
-	ThingMap			mThingList;					/**< List of Thing objects currently in game play */
 	RobotMap			mRobotList;					/**< List of active robots and their positions on the map. */
 
 	InsertMode			mInsertMode;				/**< What's being inserted into the TileMap if anything. */

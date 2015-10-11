@@ -806,30 +806,6 @@ void GameState::onMouseWheel(int x, int y)
 {}
 
 
-/**
- * Inserts a Thing into a Tile and also adds an entry into the ThingMapInfo list.
- * 
- * \return	Returns false if tile is already occupied by a Thing or Mine.
- *
- * \todo	Currently fails if Tile is occupied. Should add parameters to overwrite
- *			what's in the Tile given several parameters.
- */
-bool GameState::insertThing(Thing* thing, Tile* tile, int x, int y, int depth)
-{
-	if(!tile)
-		return false;
-
-	ThingMap::iterator it = mThingList.find(thing);
-	if(it != mThingList.end())
-		throw Exception(0, "Duplicate Thing", "GameState::insertThing(): Attempting to add a duplicate Thing* pointer.");
-
-	mThingList[thing] = TilePositionInfo(tile, x, y, depth);
-	tile->pushThing(thing);
-
-	return true;
-}
-
-
 bool GameState::insertRobot(Robot* robot, Tile* tile, int x, int y, int depth)
 {
 	if(!tile)
@@ -930,7 +906,7 @@ void GameState::deploySeedLander(int x, int y)
 
 	// FIXME: Magic numbers
 	mPlayerResources.commonMetals = 100;
-	mPlayerResources.commonMinerals = 20;
+	mPlayerResources.commonMinerals = 35;
 
 	mPopulationPool.addWorkers(30);
 	mPopulationPool.addScientists(20);
@@ -971,6 +947,9 @@ void GameState::updateRobots()
  */
 void GameState::checkConnectedness()
 {
+	if (mCCLocation.x() == 0 && mCCLocation.y() == 0)
+		return;
+
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
 	Tile *t = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), 0);
 	Structure *cc = t->structure();
@@ -978,7 +957,7 @@ void GameState::checkConnectedness()
 	if (!cc)
 		throw Exception(0, "Bad CC Location", "CC coordinates do not actually point to a Command Center.");
 
-	if (cc->state() != Structure::OPERATIONAL)
+	if (cc->state() == Structure::UNDER_CONSTRUCTION)
 		return;
 
 	t->connected(true);

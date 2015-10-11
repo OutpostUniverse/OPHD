@@ -368,30 +368,11 @@ void GameState::btnTurnsClicked()
 {
 	clearMode();
 
-	int x = 0, y = 0;
-
-	ThingMap::iterator thing_it = mThingList.begin();
-	while (thing_it != mThingList.end())
-	{
-
-		thing_it->first->update();
-
-		/**
-		* Clean up any things that are dead.
-		*/
-		if (thing_it->first->dead())
-		{
-			thing_it->second.tile->deleteThing();
-			thing_it = mThingList.erase(thing_it);
-		}
-		else
-			++thing_it;
-	}
-
-	mStructureManager.update(mPlayerResources);
-	updateRobots();
-
+	mStructureManager.update();
 	checkConnectedness();
+	mStructureManager.processResources(mPlayerResources);
+
+	updateRobots();
 
 	Structure* cc = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();
 	if (cc->state() == Structure::OPERATIONAL)

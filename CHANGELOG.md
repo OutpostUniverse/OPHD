@@ -2,10 +2,15 @@
 This is the changelog for OutpostHD.
 
 ## [0.4.2] - UNRELEASED
+
+This version includes all revisions from r14.
+
 ### Added
 * Added Tile::structure() to get a pointer to a derived Structure instead of a base. Eliminates some ugly casts.
 * Added Tile::robot() to get a pointer to a derived Robot instead of a base. Eliminates some ugly casts.
 * Added Tile::empty() purely for readability in some parts of the code.
+* Added a naive approach to redirecting console output to a log file. Not crazy about it but it does the job.
+* Added basic resource input and output checking.
 
 ### Changed
 * Moved some of the function definitions from Robot.h to Robot.cpp.
@@ -14,6 +19,9 @@ This is the changelog for OutpostHD.
 * Modified all code that calls Tile::index(int) to take advantage of the TerrainType enumerator. Easer to understand code.
 * Removed command center pointer in StructureManger. Don't need it anymore.
 * Broke StructureManager's update code into several smaller functions.
+* Updated CHAP Facility animation.
+* Removed some unused code from GameState that updated all 'things'.
+* Updated Release mode -- no longer shows the console.
 
 ### Fixed
 * Fixed an issue where the tile position information when inserting a Digger robot could change when the user clicked to select a direction on non-surface levels.
@@ -21,6 +29,9 @@ This is the changelog for OutpostHD.
 
 
 ## [0.4.1] - 2015-10-09
+
+This version includes all revisions up to r14.
+
 ### Added
 * Added a RequiresCHAP field to structures. Updated structures currently defined that don't require a CHAP to operate.
 * Added some comments to Structure::enabled(bool) and Structure::idle(bool) to clarify what and why they are separate and the difference between IDLE and DISABLED states.

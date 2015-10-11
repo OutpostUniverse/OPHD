@@ -34,7 +34,7 @@ protected:
 	
 	virtual void defineResourceInput()
 	{
-		mResourcesInput.energy = 5;
+		//mResourcesInput.energy = 5;
 	}
 
 	virtual void defineResourceOutput()

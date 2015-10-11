@@ -36,13 +36,13 @@ protected:
 
 	virtual void defineResourceInput()
 	{
-		mResourcesInput.commonMinerals = 5;
-		mResourcesInput.energy = 15;
+		mResourcesInput.commonMinerals = 2;
+		mResourcesInput.energy = 10;
 	}
 
 	virtual void defineResourceOutput()
 	{
-		mResourcesOutput.food = 10;
+		mResourcesOutput.food = 2;
 	}
 
 	virtual void defineResourceValue()

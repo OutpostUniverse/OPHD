@@ -9,9 +9,15 @@ StructureManager::~StructureManager()
 {}
 
 
-void StructureManager::update(Resources& _r)
+void StructureManager::update()
 {
 	updateStructures();
+}
+
+
+void StructureManager::processResources(Resources& _r)
+{
+	// Process output resources first as all structures from the previous turn are still operational.
 	processResourcesOut(_r);
 	processResourcesIn(_r);
 }
@@ -43,19 +49,21 @@ void StructureManager::updateStructures()
 }
 
 
+/**
+ * Iterates through all Structures and provides input resources disabling Structures
+ * that don't get the resources they need.
+ */
 void StructureManager::processResourcesIn(Resources& _r)
 {
-	// Get input resources from all structures.
-	/*
-	Resources in;
-	struct_it = mStructureList.begin();
+	auto struct_it = mStructureList.begin();
+
 	while(struct_it != mStructureList.end())
 	{
-		if(!struct_it->first->idle())
+		if(!struct_it->first->idle() && !struct_it->first->underConstruction())
 		{
-			if(struct_it->first->enoughResourcesAvailable(_r))
+			if(struct_it->first->enoughResourcesAvailable(_r) && struct_it->second.tile->connected())
 			{
-				if(!struct_it->first->enabled() && !struct_it->first->underConstruction())
+				if(!struct_it->first->enabled())
 					struct_it->first->enabled(true);
 
 				_r -= struct_it->first->resourcesIn();
@@ -67,7 +75,6 @@ void StructureManager::processResourcesIn(Resources& _r)
 		}
 		++struct_it;
 	}
-	*/
 }
 
 
