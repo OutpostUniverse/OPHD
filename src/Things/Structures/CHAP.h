@@ -11,6 +11,9 @@ public:
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);
 		turnsToBuild(5);
+
+		requiresCHAP(false);
+		providesCHAP(true);
 	}
 
 

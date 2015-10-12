@@ -2,11 +2,12 @@
 #define __SEED_FACTORY__
 
 #include "Structure.h"
+#include "Factory.h"
 
-class SeedFactory: public Structure
+class SeedFactory: public Factory
 {
 public:
-	SeedFactory():	Structure(constants::SEED_FACTORY, "structures/seed_1.sprite")
+	SeedFactory(): Factory(constants::SEED_FACTORY, "structures/seed_1.sprite")
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(100);
@@ -22,17 +23,25 @@ public:
 	{
 		incrementAge();
 
-		if(age() == turnsToBuild())
+		if (age() == turnsToBuild())
 		{
 			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
+			idle(false);
+			activate();
 		}
-		else if(age() == maxAge())
+		else if (age() == maxAge())
+		{
 			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
+		}
 	}
 
 protected:
-private:
 
+private:
+	virtual void defineResourceInput()
+	{
+		mResourcesInput.energy = 15;
+	}
 };
 
 

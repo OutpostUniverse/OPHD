@@ -18,10 +18,6 @@ public:
 		turnsToBuild(1);
 		repairable(false);
 		requiresCHAP(false);
-
-		// Resource value if dmolished.
-		mResourceValue.commonMetals = 10;
-		mResourceValue.rareMetals = 2;
 	}
 
 
@@ -45,6 +41,13 @@ public:
 	Callback& deployCallback() { return mDeploy; }
 
 protected:
+
+	virtual void defineResourceValue()
+	{
+		mResourceValue.commonMetals = 10;
+		mResourceValue.rareMetals = 2;
+	}
+
 private:
 
 	Callback	mDeploy;

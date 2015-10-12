@@ -6,25 +6,30 @@ This is the changelog for OutpostHD.
 This version includes all revisions from r14.
 
 ### Added
-* Added Tile::structure() to get a pointer to a derived Structure instead of a base. Eliminates some ugly casts.
-* Added Tile::robot() to get a pointer to a derived Robot instead of a base. Eliminates some ugly casts.
-* Added Tile::empty() purely for readability in some parts of the code.
-* Added a naive approach to redirecting console output to a log file. Not crazy about it but it does the job.
-* Added basic resource input and output checking.
+- Added Tile::structure() to get a pointer to a derived Structure instead of a base. Eliminates some ugly casts.
+- Added Tile::robot() to get a pointer to a derived Robot instead of a base. Eliminates some ugly casts.
+- Added Tile::empty() purely for readability in some parts of the code.
+- Added a naive approach to redirecting console output to a log file. Not crazy about it but it does the job.
+- Added basic resource input and output checking.
+- Began Factory interface.
+- Added CHAP Requirement check.
 
 ### Changed
-* Moved some of the function definitions from Robot.h to Robot.cpp.
-* Modified RobotPool to get specific types of robots instead of a pointer to a base. Eliminates some ugly casts.
-* Changed the way a few handlers checked for robot availability. Was kind of sloppy testing for a nullptr when when RobotPool::robotAvailable() function should have been used instead.
-* Modified all code that calls Tile::index(int) to take advantage of the TerrainType enumerator. Easer to understand code.
-* Removed command center pointer in StructureManger. Don't need it anymore.
-* Broke StructureManager's update code into several smaller functions.
-* Updated CHAP Facility animation.
-* Removed some unused code from GameState that updated all 'things'.
-* Updated Release mode -- no longer shows the console.
+- Moved some of the function definitions from Robot.h to Robot.cpp.
+- Modified RobotPool to get specific types of robots instead of a pointer to a base. Eliminates some ugly casts.
+- Changed the way a few handlers checked for robot availability. Was kind of sloppy testing for a nullptr when when RobotPool::robotAvailable() function should have been used instead.
+- Modified all code that calls Tile::index(int) to take advantage of the TerrainType enumerator. Easer to understand code.
+- Removed command center pointer in StructureManger. Don't need it anymore.
+- Broke StructureManager's update code into several smaller functions.
+- Updated CHAP Facility animation.
+- Removed some unused code from GameState that updated all 'things'.
+- Updated Release mode -- no longer shows the console.
+- Moved around some of the code in SeedLander to match current structure code formatting guidelines.
+- Game now starts player off with some additional resources.
 
 ### Fixed
-* Fixed an issue where the tile position information when inserting a Digger robot could change when the user clicked to select a direction on non-surface levels.
+- Fixed an issue where the tile position information when inserting a Digger robot could change when the user clicked to select a direction on non-surface levels.
+- SeedFactory now calls its Activate function after it finishes building.
 
 
 
@@ -33,33 +38,33 @@ This version includes all revisions from r14.
 This version includes all revisions up to r14.
 
 ### Added
-* Added a RequiresCHAP field to structures. Updated structures currently defined that don't require a CHAP to operate.
-* Added some comments to Structure::enabled(bool) and Structure::idle(bool) to clarify what and why they are separate and the difference between IDLE and DISABLED states.
-* Added a utility operator () to TilePositionInfo that allows quick setting of values.
-* Added onActivate() to GameState so that when the window loses focus any flags set by event handlers (like mouseDown) can be cleared if the window loses focus before a corresponding event fires (like mouseUp).
-* Added a new map for 1) variety and 2) as proof of concept so we can start dumping OP1's graphics.
-* Added removeStructure() to StructureManager.
-* Added building bulldozing. Bulldozed buildings will add their resource recovery values to the resource pool. Command Center's can never be bulldozed.
-* Added a README to the repository for distribution with releases.
-* Added a CHANGELOG to the repository for distribution with releases.
+- Added a RequiresCHAP field to structures. Updated structures currently defined that don't require a CHAP to operate.
+- Added some comments to Structure::enabled(bool) and Structure::idle(bool) to clarify what and why they are separate and the difference between IDLE and DISABLED states.
+- Added a utility operator () to TilePositionInfo that allows quick setting of values.
+- Added onActivate() to GameState so that when the window loses focus any flags set by event handlers (like mouseDown) can be cleared if the window loses focus before a corresponding event fires (like mouseUp).
+- Added a new map for 1) variety and 2) as proof of concept so we can start dumping OP1's graphics.
+- Added removeStructure() to StructureManager.
+- Added building bulldozing. Bulldozed buildings will add their resource recovery values to the resource pool. Command Center's can never be bulldozed.
+- Added a README to the repository for distribution with releases.
+- Added a CHANGELOG to the repository for distribution with releases.
 
 ### Changed
-* Mine facilities now take several turns to complete construction and go into an operational state. This is something that can probably be adjusted based on difficulty level.
-* Optimized TubesPalette to show which tube type is currently being placed. A right click will clear the mode and reset the toggle states on the TubesPalette buttons.
-* Turn button is now disabled until the SEED Lander is placed.
-* Removed check from checkConnectedness() that is no longer necessary.
-* Removed DiggerTile structure -- less useful clone of TilePositionInfo and ultimately there was a better way to handle it.
-* Diggers will now only dig downward if placed on an existing AirShaft.
-* When a building is bulldozed or a digger bot is placed on an airshaft, connectedness checks are run to immediately update connectedness availability.
-* StructureManager now has a function to quickly set all tiles that structures are on into a disconnected state.
-* Various changes in DiggerDirection UI class to implement correct digger behavior and simplify the storage of tile position information in the GameState class.
-* Moved some stuff around in GameState.h to group like things together and get things in a more sensible state.
-* MiniMap now shows mines using a diamond shaped graphic to more closely resemble OP1's visuals.
-* TileMap now properly centers itself in the vertical viewspace regardless of resolution
-* UI Panel is now 185 pixels tall instead of 180.
+- Mine facilities now take several turns to complete construction and go into an operational state. This is something that can probably be adjusted based on difficulty level.
+- Optimized TubesPalette to show which tube type is currently being placed. A right click will clear the mode and reset the toggle states on the TubesPalette buttons.
+- Turn button is now disabled until the SEED Lander is placed.
+- Removed check from checkConnectedness() that is no longer necessary.
+- Removed DiggerTile structure -- less useful clone of TilePositionInfo and ultimately there was a better way to handle it.
+- Diggers will now only dig downward if placed on an existing AirShaft.
+- When a building is bulldozed or a digger bot is placed on an airshaft, connectedness checks are run to immediately update connectedness availability.
+- StructureManager now has a function to quickly set all tiles that structures are on into a disconnected state.
+- Various changes in DiggerDirection UI class to implement correct digger behavior and simplify the storage of tile position information in the GameState class.
+- Moved some stuff around in GameState.h to group like things together and get things in a more sensible state.
+- MiniMap now shows mines using a diamond shaped graphic to more closely resemble OP1's visuals.
+- TileMap now properly centers itself in the vertical viewspace regardless of resolution
+- UI Panel is now 185 pixels tall instead of 180.
 
 ### Fixed
-* When a digger is placed its mode will now properly be cleared.
-* Fixed a logic mistake in the GraphWalker that prevented the walker from properly seeing the deepest level of structures.
-* Logic error in Robot corrected -- turnsToCompleteTask() assumed that the input value would always be greater than 0 which would lead to the taskComplete callback never getting fired.
-* Found an unused variable in the StructureManager -- cleared it out.
+- When a digger is placed its mode will now properly be cleared.
+- Fixed a logic mistake in the GraphWalker that prevented the walker from properly seeing the deepest level of structures.
+- Logic error in Robot corrected -- turnsToCompleteTask() assumed that the input value would always be greater than 0 which would lead to the taskComplete callback never getting fired.
+- Found an unused variable in the StructureManager -- cleared it out.

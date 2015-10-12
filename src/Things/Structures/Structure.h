@@ -56,6 +56,7 @@ public:
 
 
 	bool requiresCHAP() const { return mRequiresCHAP; }
+	bool providesCHAP() const { return mProvidesCHAP; }
 
 protected:
 
@@ -84,6 +85,8 @@ protected:
 
 	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
 
+	void providesCHAP(bool _b) { mProvidesCHAP = _b; }
+
 	Resources				mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
 
 	Resources				mResourcesInput;			/**< Resources needed to operate the Structure. */
@@ -104,6 +107,7 @@ private:
 	bool					mRepairable;				/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures die at the end of their life. */
 	bool					mConnector;					/**< Indicates that the Structure can act as a connector (tube) */
 	bool					mRequiresCHAP;				/**< Indicates that the Structure needs to have an active CHAP facilities in order to operate. */
+	bool					mProvidesCHAP;				/**< Indicates that the Strcuture provides CHAP. */
 };
 
 

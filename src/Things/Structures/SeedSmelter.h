@@ -14,11 +14,9 @@ public:
 		requiresCHAP(false);
 	}
 
-
 	~SeedSmelter()
 	{
 	}
-
 
 	void update()
 	{

@@ -1,7 +1,9 @@
 #include "StructureManager.h"
 
+#include "Strings.h"
 
-StructureManager::StructureManager() : mDeferInsert(false)
+StructureManager::StructureManager() :	mDeferInsert(false),
+										mChapActive(false)
 {}
 
 
@@ -25,6 +27,8 @@ void StructureManager::processResources(Resources& _r)
 
 void StructureManager::updateStructures()
 {
+	mChapActive = false;
+
 	/* Some structures can generate others (like the seed lander) so we need to make sure that we're
 	not inserting new structures while we're in the middle of iterating through the current list. */
 	setDeferredFlag(true);
@@ -34,6 +38,10 @@ void StructureManager::updateStructures()
 		struct_it->first->update();
 		struct_it->second.tile->connected(false);	// We iterate through this list on every turn; save some time and
 													// reset this flag now so we don't have to do a second loop.
+
+		// FIXME:	Naive approach?
+		if (struct_it->first->providesCHAP() && struct_it->first->enabled())
+			mChapActive = true;
 
 		// Clean up any Structures that are dead.
 		if (struct_it->first->dead())
@@ -63,14 +71,24 @@ void StructureManager::processResourcesIn(Resources& _r)
 		{
 			if(struct_it->first->enoughResourcesAvailable(_r) && struct_it->second.tile->connected())
 			{
-				if(!struct_it->first->enabled())
+				// FIXME: copy paste code, better way to do this.
+				if (struct_it->first->requiresCHAP() && !mChapActive)
+				{
+					struct_it->first->enabled(false);
+					struct_it->first->sprite().color(255, 0, 0, 185);
+				}
+				else
+				{
 					struct_it->first->enabled(true);
+					struct_it->first->sprite().color(255, 255, 255, 255);
 
-				_r -= struct_it->first->resourcesIn();
+					_r -= struct_it->first->resourcesIn();
+				}
 			}
 			else
 			{
 				struct_it->first->enabled(false);
+				struct_it->first->sprite().color(255, 0, 0, 185);
 			}
 		}
 		++struct_it;

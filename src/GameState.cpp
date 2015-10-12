@@ -906,7 +906,9 @@ void GameState::deploySeedLander(int x, int y)
 
 	// FIXME: Magic numbers
 	mPlayerResources.commonMetals = 100;
-	mPlayerResources.commonMinerals = 35;
+	mPlayerResources.commonMinerals = 85;
+	mPlayerResources.rareMetals = 50;
+	mPlayerResources.rareMinerals = 60;
 
 	mPopulationPool.addWorkers(30);
 	mPopulationPool.addScientists(20);

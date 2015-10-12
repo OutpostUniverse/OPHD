@@ -47,6 +47,7 @@ private:
 	StructureList		mStructuresDisabled;		/**< Structures that are disabled. */
 
 	bool				mDeferInsert;				/**< Flag indicating that we're accessing the structure list and insertions should be deferred. */
+	bool				mChapActive;				/**< Flag indicating that there is a functioning CHAP Facility. */
 };
 
 

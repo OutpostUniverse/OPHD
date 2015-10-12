@@ -116,6 +116,7 @@
     <ClCompile Include="..\..\src\RobotPool.cpp" />
     <ClCompile Include="..\..\src\StructureManager.cpp" />
     <ClCompile Include="..\..\src\Things\Robots\Robot.cpp" />
+    <ClCompile Include="..\..\src\Things\Structures\Factory.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Structure.cpp" />
     <ClCompile Include="..\..\src\Tile.cpp" />
     <ClCompile Include="..\..\src\TileMap.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="..\..\src\Things\Structures\CHAP.h" />
     <ClInclude Include="..\..\src\Things\Structures\CommandCenter.h" />
     <ClInclude Include="..\..\src\Things\Structures\Agridome.h" />
+    <ClInclude Include="..\..\src\Things\Structures\Factory.h" />
     <ClInclude Include="..\..\src\Things\Structures\MineFacility.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedFactory.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedLander.h" />

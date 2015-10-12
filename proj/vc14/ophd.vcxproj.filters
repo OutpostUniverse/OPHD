@@ -114,6 +114,9 @@
     <ClCompile Include="..\..\src\Things\Robots\Robot.cpp">
       <Filter>Source Files\Things\Robots</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Things\Structures\Factory.cpp">
+      <Filter>Source Files\Things\Structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -242,6 +245,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UiConstants.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\Factory.h">
+      <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

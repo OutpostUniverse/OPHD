@@ -12,7 +12,8 @@ Structure::Structure(const std::string& name, const std::string& sprite_path):	T
 																				mConnectorDirection(CONNECTOR_INTERSECTION),
 																				mRepairable(true),
 																				mConnector(false),
-																				mRequiresCHAP(true) // Most structures require a CHAP facility in order to operate.
+																				mRequiresCHAP(true), // Most structures require a CHAP facility in order to operate.
+																				mProvidesCHAP(false)
 {}
 
 

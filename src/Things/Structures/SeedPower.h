@@ -36,7 +36,8 @@ public:
 protected:
 
 	virtual void defineResourceInput()
-	{}
+	{
+	}
 
 	virtual void defineResourceOutput()
 	{
