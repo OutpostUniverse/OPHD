@@ -1,5 +1,5 @@
-#include "Things/Structures/Structure.h"
-#include "Common.h"
+#include "Structure.h"
+#include "../../Common.h"
 
 class Tube : public Structure
 {

@@ -22,6 +22,7 @@ public:
 	};
 
 	Button();
+	~Button();
 
 	void type(Type type);
 

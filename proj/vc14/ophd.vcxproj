@@ -107,13 +107,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\GameState.cpp" />
-    <ClCompile Include="..\..\src\GameStateUi.cpp" />
     <ClCompile Include="..\..\src\GraphWalker.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\Mine.cpp" />
     <ClCompile Include="..\..\src\Population\PopulationPool.cpp" />
     <ClCompile Include="..\..\src\RobotPool.cpp" />
+    <ClCompile Include="..\..\src\States\GameState.cpp" />
+    <ClCompile Include="..\..\src\States\GameStateUi.cpp" />
+    <ClCompile Include="..\..\src\States\PlanetSelectState.cpp" />
     <ClCompile Include="..\..\src\StructureManager.cpp" />
     <ClCompile Include="..\..\src\Things\Robots\Robot.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Factory.cpp" />
@@ -130,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h" />
-    <ClInclude Include="..\..\src\GameState.h" />
     <ClInclude Include="..\..\src\GraphWalker.h" />
     <ClInclude Include="..\..\src\Mine.h" />
     <ClInclude Include="..\..\src\PopulationPool.h" />
@@ -138,6 +138,8 @@
     <ClInclude Include="..\..\src\Population\PopulationPool.h" />
     <ClInclude Include="..\..\src\Resources.h" />
     <ClInclude Include="..\..\src\RobotPool.h" />
+    <ClInclude Include="..\..\src\States\GameState.h" />
+    <ClInclude Include="..\..\src\States\PlanetSelectState.h" />
     <ClInclude Include="..\..\src\Strings.h" />
     <ClInclude Include="..\..\src\StructureManager.h" />
     <ClInclude Include="..\..\src\Things\Robots\Robodigger.h" />
@@ -157,11 +159,11 @@
     <ClInclude Include="..\..\src\Things\Structures\SeedSmelter.h" />
     <ClInclude Include="..\..\src\Things\Structures\Structure.h" />
     <ClInclude Include="..\..\src\Things\Structures\Structures.h" />
+    <ClInclude Include="..\..\src\Things\Structures\Tube.h" />
     <ClInclude Include="..\..\src\Things\Thing.h" />
     <ClInclude Include="..\..\src\Tile.h" />
     <ClInclude Include="..\..\src\TileMap.h" />
     <ClInclude Include="..\..\src\TilePositionInfo.h" />
-    <ClInclude Include="..\..\src\Tube.h" />
     <ClInclude Include="..\..\src\UiConstants.h" />
     <ClInclude Include="..\..\src\UI\Core\Button.h" />
     <ClInclude Include="..\..\src\UI\Core\Control.h" />

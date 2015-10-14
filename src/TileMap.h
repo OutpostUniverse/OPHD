@@ -20,7 +20,7 @@ public:
 		LEVEL_UG_4
 	};
 	
-	TileMap(const std::string& path, int maxDepth);
+	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth);
 
 	~TileMap();
 

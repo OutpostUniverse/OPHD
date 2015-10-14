@@ -6,7 +6,9 @@
 
 #include "GameState.h"
 
-#include "UiConstants.h"
+#include "PlanetSelectState.h"
+
+#include "../UiConstants.h"
 
 using namespace constants;
 
@@ -392,5 +394,7 @@ void GameState::btnTurnsClicked()
 */
 void GameState::btnSystemClicked()
 {
-	NAS2D::postQuitEvent();
+	//NAS2D::postQuitEvent();
+	mReturnState = new PlanetSelectState();
+	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 }

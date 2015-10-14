@@ -19,9 +19,8 @@ void StructureManager::update()
 
 void StructureManager::processResources(Resources& _r)
 {
-	// Process output resources first as all structures from the previous turn are still operational.
-	processResourcesOut(_r);
 	processResourcesIn(_r);
+	processResourcesOut(_r);
 }
 
 
@@ -65,12 +64,15 @@ void StructureManager::processResourcesIn(Resources& _r)
 {
 	auto struct_it = mStructureList.begin();
 
+	/* FIXME:	These checks are a little too complicated and there
+				is code duplication.	*/
 	while(struct_it != mStructureList.end())
 	{
 		if(!struct_it->first->idle() && !struct_it->first->underConstruction())
 		{
 			if(struct_it->first->enoughResourcesAvailable(_r) && struct_it->second.tile->connected())
 			{
+
 				// FIXME: copy paste code, better way to do this.
 				if (struct_it->first->requiresCHAP() && !mChapActive)
 				{
@@ -87,8 +89,11 @@ void StructureManager::processResourcesIn(Resources& _r)
 			}
 			else
 			{
-				struct_it->first->enabled(false);
-				struct_it->first->sprite().color(255, 0, 0, 185);
+				if(!struct_it->first->selfSustained())
+				{
+					struct_it->first->enabled(false);
+					struct_it->first->sprite().color(255, 0, 0, 185);
+				}
 			}
 		}
 		++struct_it;

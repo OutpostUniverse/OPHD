@@ -69,9 +69,6 @@
     <ClCompile Include="..\..\src\TileMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\GameState.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Things\Structures\Structure.cpp">
       <Filter>Source Files\Things\Structures</Filter>
     </ClCompile>
@@ -108,14 +105,20 @@
     <ClCompile Include="..\..\src\RobotPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\GameStateUi.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Things\Robots\Robot.cpp">
       <Filter>Source Files\Things\Robots</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Things\Structures\Factory.cpp">
       <Filter>Source Files\Things\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\PlanetSelectState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\GameState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\GameStateUi.cpp">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,9 +151,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\TilePositionInfo.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GameState.h">
-      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Thing.h">
       <Filter>Header Files\Things</Filter>
@@ -230,9 +230,6 @@
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Tube.h">
-      <Filter>Header Files\Things\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\GraphWalker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -247,6 +244,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\Factory.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\States\PlanetSelectState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\States\GameState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\Tube.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,25 +3,25 @@
 
 #include "NAS2D/NAS2D.h"
 
-#include "Population/PopulationPool.h"
+#include "../Population/PopulationPool.h"
 
-#include "Resources.h"
-#include "RobotPool.h"
+#include "../Resources.h"
+#include "../RobotPool.h"
 
-#include "StructureManager.h"
+#include "../StructureManager.h"
 
-#include "Things/Structures/Structure.h"
-#include "Things/Robots/Robots.h"
+#include "../Things/Structures/Structure.h"
+#include "../Things/Robots/Robots.h"
 
-#include "TilePositionInfo.h"
-#include "TileMap.h"
+#include "../TilePositionInfo.h"
+#include "../TileMap.h"
 
-#include "UI/UI.h"
-#include "UI/DiggerDirection.h"
-#include "UI/TileInspector.h"
-#include "UI/TubesPalette.h"
+#include "../UI/UI.h"
+#include "../UI/DiggerDirection.h"
+#include "../UI/TileInspector.h"
+#include "../UI/TubesPalette.h"
 
-#include "Strings.h"
+#include "../Strings.h"
 
 using namespace NAS2D;
 
@@ -68,7 +68,7 @@ class GameState: public State
 {
 public:
 
-	GameState(const std::string& map);
+	GameState(const std::string& map, const std::string& tset);
 	~GameState();
 
 protected:
@@ -90,7 +90,6 @@ private:
 	void onMouseDown(MouseButton button, int x, int y);
 	void onMouseUp(MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
-	void onMouseWheel(int x, int y);
 
 	void drawUI();
 	void drawDebug();

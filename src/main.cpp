@@ -1,5 +1,7 @@
 #include "NAS2D/NAS2D.h"
-#include "GameState.h"
+
+#include "States/GameState.h"
+#include "States/PlanetSelectState.h"
 
 #include <iostream>
 #include <fstream>
@@ -10,7 +12,6 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-
 	//Crude way of redirecting stream buffer when building in release (no console)
 #ifdef NDEBUG
 	std::streambuf *backup;
@@ -24,7 +25,8 @@ int main(int argc, char *argv[])
 	try
 	{
 		Game game("OutpostHD", argv[0]);
-		game.go(new GameState("maps/mars_04"));
+		//game.go(new GameState("maps/mars_04", "tsets/mercury.png"));
+		game.go(new PlanetSelectState());
 	}
 	catch(Exception& e)
 	{

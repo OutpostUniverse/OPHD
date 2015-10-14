@@ -26,6 +26,8 @@ Menu::Menu():	mCurrentHighlight(-1),
  */
 Menu::~Menu()
 {
+	Utility<EventHandler>::get().mouseButtonDown().Disconnect(this, &Menu::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().Disconnect(this, &Menu::onMouseMove);
 }
 
 /**

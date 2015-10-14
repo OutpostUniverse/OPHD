@@ -14,17 +14,17 @@ const int			TILE_HEIGHT					= 46;
 
 const int			MINE_COUNT					= 30; // How many mines exist in the terrain map.
 
-TileMap::TileMap(const std::string& path, int maxDepth):	mEdgeLength(0),
-															mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
-															mMaxDepth(maxDepth),
-															mCurrentDepth(0),
-															mTileSelector("ui/selector.png"),
-															mTileset("tsets/01.png"),
-															mMineBeacon("structures/mine_beacon.sprite"),
-															mDebug(false),
-															mShowConnections(false)
+TileMap::TileMap(const string& map_path, const string& tset_path, int maxDepth):	mEdgeLength(0),
+																					mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
+																					mMaxDepth(maxDepth),
+																					mCurrentDepth(0),
+																					mTileSelector("ui/selector.png"),
+																					mTileset(tset_path),
+																					mMineBeacon("structures/mine_beacon.sprite"),
+																					mDebug(false),
+																					mShowConnections(false)
 {
-	buildTerrainMap(path);
+	buildTerrainMap(map_path);
 	buildMouseMap();
 	initMapDrawParams();
 

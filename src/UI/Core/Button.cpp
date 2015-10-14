@@ -11,6 +11,13 @@ Button::Button():	mState(STATE_NORMAL),
 }
 
 
+Button::~Button()
+{
+	Utility<EventHandler>::get().mouseButtonDown().Disconnect(this, &Button::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonUp().Disconnect(this, &Button::onMouseUp);
+}
+
+
 void Button::type(Type type)
 {
 	type ? mType = BUTTON_TOGGLE : mType = BUTTON_NORMAL;

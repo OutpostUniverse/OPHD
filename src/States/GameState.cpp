@@ -1,13 +1,13 @@
 #include "GameState.h"
 
-#include "GraphWalker.h"
+#include "../GraphWalker.h"
 
-#include "Tile.h"
+#include "../Tile.h"
 
-#include "Things/Robots/Robots.h"
-#include "Things/Structures/Structures.h"
+#include "../Things/Robots/Robots.h"
+#include "../Things/Structures/Structures.h"
 
-#include "UiConstants.h"
+#include "../UiConstants.h"
 
 #include <sstream>
 #include <vector>
@@ -57,23 +57,23 @@ void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red = 0, int gree
 /**
  * C'Tor
  */
-GameState::GameState(const std::string& map_path):	mFont("fonts/Fresca-Regular.ttf", 14),
-													mTinyFont("fonts/Fresca-Regular.ttf", 10),
-													mTileMap(map_path, MAX_DEPTH),
-													mBackground("ui/background.png"),
-													mMapDisplay(map_path + MAP_DISPLAY_EXTENSION),
-													mHeightMap(map_path + MAP_TERRAIN_EXTENSION),
-													mUiIcons("ui/icons.png"),
-													mCurrentPointer(POINTER_NORMAL),
-													mCurrentStructure(STRUCTURE_NONE),
-													mDiggerDirection(mTinyFont),
-													mTubesPalette(mTinyFont),
-													mTileInspector(mTinyFont),
-													mInsertMode(INSERT_NONE),
-													mTurnCount(0),
-													mReturnState(NULL),
-													mLeftButtonDown(false),
-													mDebug(false)
+GameState::GameState(const string& map, const string& tset):	mFont("fonts/Fresca-Regular.ttf", 14),
+																mTinyFont("fonts/Fresca-Regular.ttf", 10),
+																mTileMap(map, tset, MAX_DEPTH),
+																mBackground("ui/background.png"),
+																mMapDisplay(map + MAP_DISPLAY_EXTENSION),
+																mHeightMap(map + MAP_TERRAIN_EXTENSION),
+																mUiIcons("ui/icons.png"),
+																mCurrentPointer(POINTER_NORMAL),
+																mCurrentStructure(STRUCTURE_NONE),
+																mDiggerDirection(mTinyFont),
+																mTubesPalette(mTinyFont),
+																mTileInspector(mTinyFont),
+																mInsertMode(INSERT_NONE),
+																mTurnCount(0),
+																mReturnState(NULL),
+																mLeftButtonDown(false),
+																mDebug(false)
 {}
 
 
@@ -96,6 +96,14 @@ GameState::~GameState()
 		it->second.tile->removeThing();
 		++it;
 	}
+
+	EventHandler& e = Utility<EventHandler>::get();
+	e.activate().Disconnect(this, &GameState::onActivate);
+	e.keyDown().Disconnect(this, &GameState::onKeyDown);
+	e.mouseButtonDown().Disconnect(this, &GameState::onMouseDown);
+	e.mouseButtonUp().Disconnect(this, &GameState::onMouseUp);
+	e.mouseMotion().Disconnect(this, &GameState::onMouseMove);
+
 }
 
 
@@ -115,7 +123,6 @@ void GameState::initialize()
 	e.mouseButtonDown().Connect(this, &GameState::onMouseDown);
 	e.mouseButtonUp().Connect(this, &GameState::onMouseUp);
 	e.mouseMotion().Connect(this, &GameState::onMouseMove);
-	e.mouseWheel().Connect(this, &GameState::onMouseWheel);
 
 	// UI
 	initUi();
@@ -123,6 +130,8 @@ void GameState::initialize()
 	mPointers.push_back(Pointer("ui/pointers/normal.png", 0, 0));
 	mPointers.push_back(Pointer("ui/pointers/place_tile.png", 16, 16));
 	mPointers.push_back(Pointer("ui/pointers/inspect.png", 8, 8));
+
+	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 }
 
 
@@ -140,6 +149,9 @@ State* GameState::update()
 	drawUI();
 
 	if(mDebug) drawDebug();
+
+	if (r.isFading())
+		return this;
 
 	return mReturnState;
 }
@@ -797,13 +809,6 @@ void GameState::updateMapView()
 
 	mTileMap.mapViewLocation(x, y);
 }
-
-
-/**
- * Mouse wheel event handler.
- */
-void GameState::onMouseWheel(int x, int y)
-{}
 
 
 bool GameState::insertRobot(Robot* robot, Tile* tile, int x, int y, int depth)
