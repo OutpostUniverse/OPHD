@@ -1,7 +1,7 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.4.2] - UNRELEASED
+## [0.4.2] - 2015-10-13
 
 This version includes all revisions from r14.
 
@@ -13,6 +13,8 @@ This version includes all revisions from r14.
 - Added basic resource input and output checking.
 - Began Factory interface.
 - Added CHAP Requirement check.
+- Added screen fades for state transitions.
+- Added PlanetSelectState -- users can now choose between three different planet types.
 
 ### Changed
 - Moved some of the function definitions from Robot.h to Robot.cpp.
@@ -26,10 +28,15 @@ This version includes all revisions from r14.
 - Updated Release mode -- no longer shows the console.
 - Moved around some of the code in SeedLander to match current structure code formatting guidelines.
 - Game now starts player off with some additional resources.
+- Moved the GameState.h, GameState.cpp and GameStateUi.cpp files to a States directory.
+- Moved Tube.h to ../Things/Structures/.
+- TileMap's c'tor now takes additional parameters to load different tilesets.
+
 
 ### Fixed
 - Fixed an issue where the tile position information when inserting a Digger robot could change when the user clicked to select a direction on non-surface levels.
 - SeedFactory now calls its Activate function after it finishes building.
+- Updated NAS2D Libraries (fixing an issue that caused event handler issues).
 
 
 
