@@ -2,16 +2,18 @@
 #define __SEED_SMELTER__
 
 #include "Structure.h"
+#include "Factory.h"
 
-class SeedSmelter: public Structure
+class SeedSmelter: public Factory
 {
 public:
-	SeedSmelter():	Structure(constants::SEED_SMELTER, "structures/seed_1.sprite")
+	SeedSmelter(): Factory(constants::SEED_SMELTER, "structures/seed_1.sprite")
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(100);
 		turnsToBuild(9);
 		requiresCHAP(false);
+		isFactory(true);
 	}
 
 	~SeedSmelter()
@@ -31,6 +33,32 @@ public:
 	}
 
 protected:
+
+	virtual void initFactory()
+	{}
+
+
+	virtual void productionComplete()
+	{
+		double resource_temp = 0;
+
+		resourcePool()->commonMetalsOre < 15 ? resource_temp = resourcePool()->commonMetalsOre : resource_temp = 15;
+		resourcePool()->commonMetalsOre -= resource_temp;
+		resourcePool()->commonMetals += resource_temp * 0.75;
+
+		resourcePool()->commonMineralsOre < 15 ? resource_temp = resourcePool()->commonMineralsOre : resource_temp = 15;
+		resourcePool()->commonMineralsOre -= resource_temp;
+		resourcePool()->commonMinerals += resource_temp * 0.45;
+
+		resourcePool()->rareMetalsOre < 15 ? resource_temp = resourcePool()->rareMetalsOre : resource_temp = 15;
+		resourcePool()->rareMetalsOre -= resource_temp;
+		resourcePool()->rareMetals += resource_temp * 0.60;
+
+		resourcePool()->rareMineralsOre < 15 ? resource_temp = resourcePool()->rareMineralsOre : resource_temp = 15;
+		resourcePool()->rareMineralsOre -= resource_temp;
+		resourcePool()->rareMinerals += resource_temp * 0.35;
+	}
+
 private:
 	virtual void defineResourceInput()
 	{

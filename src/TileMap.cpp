@@ -41,7 +41,7 @@ Tile* TileMap::getTile(int x, int y, int level)
 	if(x >= 0 && x < width() && y >= 0 && y < height() && level >= 0 && level <= mMaxDepth)
 		return &mTileMap[level][y][x];
 
-	return NULL;
+	return nullptr;
 }
 
 

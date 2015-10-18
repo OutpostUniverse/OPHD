@@ -13,6 +13,7 @@ public:
 		maxAge(100);
 		turnsToBuild(7);
 		requiresCHAP(false);
+		isFactory(true);
 	}
 
 	~SeedFactory()
@@ -36,6 +37,16 @@ public:
 	}
 
 protected:
+
+	virtual void initFactory()
+	{
+		// Realy this should be dependant on what's being produced.
+		productionLength(5);
+	}
+
+	virtual void productionComplete()
+	{
+	}
 
 private:
 	virtual void defineResourceInput()

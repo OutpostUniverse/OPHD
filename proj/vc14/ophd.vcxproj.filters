@@ -261,6 +261,9 @@
     <ClInclude Include="..\..\src\UI\Core\TextField.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\States\GameStateUi.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

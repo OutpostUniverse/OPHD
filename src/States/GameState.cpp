@@ -281,33 +281,23 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 			break;
 
 		case KEY_0:
-			mTileMap.currentDepth(0);
-			clearMode();
-			populateStructureMenu();
+			changeDepth(0);
 			break;
 
 		case KEY_1:
-			mTileMap.currentDepth(1);
-			clearMode();
-			populateStructureMenu();
+			changeDepth(1);
 			break;
 
 		case KEY_2:
-			mTileMap.currentDepth(2);
-			clearMode();
-			populateStructureMenu();
+			changeDepth(2);
 			break;
 
 		case KEY_3:
-			mTileMap.currentDepth(3);
-			clearMode();
-			populateStructureMenu();
+			changeDepth(3);
 			break;
 
 		case KEY_4:
-			mTileMap.currentDepth(4);
-			clearMode();
-			populateStructureMenu();
+			changeDepth(4);
 			break;
 
 		case KEY_F1:
@@ -316,6 +306,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 
 		case KEY_ESCAPE:
 			clearMode();
+			hideUi();
 			break;
 
 		default:
@@ -323,6 +314,14 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 	}
 
 	mTileMap.mapViewLocation(pt.x(), pt.y());
+}
+
+
+void GameState::changeDepth(int _d)
+{
+	mTileMap.currentDepth(4);
+	clearMode();
+	populateStructureMenu();
 }
 
 
@@ -340,17 +339,22 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 {
 	if(button == BUTTON_RIGHT)
 	{
+		Tile* _t = mTileMap.getTile(mTileMap.tileHighlight().x() + mTileMap.mapViewLocation().x(), mTileMap.tileHighlight().y() + mTileMap.mapViewLocation().y());
+
 		if(mInsertMode != INSERT_NONE)
 		{
 			clearMode();
 			mTubesPalette.clearToggles();
 		}
-		else
-		{
-			int x = mTileMap.tileHighlight().x() + mTileMap.mapViewLocation().x();
-			int y = mTileMap.tileHighlight().y() + mTileMap.mapViewLocation().y();
 
-			mTileInspector.tile(mTileMap.getTile(x, y));
+		if (!_t)
+		{
+			return;
+		}
+		else if(_t->empty() && isPointInRect(mMousePosition, mTileMap.boundingBox()))
+		{
+			hideUi();
+			mTileInspector.tile(_t);
 			mTileInspector.visible(true); 
 		}
 	}
@@ -885,6 +889,7 @@ void GameState::deploySeedLander(int x, int y)
 	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x, y + 1), x, y + 1, 0, true);
 
 	SeedSmelter* ss = new SeedSmelter();
+	ss->resourcePool(&mPlayerResources);
 	ss->sprite().skip(10);
 	mStructureManager.addStructure(ss, mTileMap.getTile(x + 1, y + 1), x + 1, y + 1, 0, true);
 	mTileMap.getTile(x + 1, y + 1)->index(TERRAIN_DOZED);

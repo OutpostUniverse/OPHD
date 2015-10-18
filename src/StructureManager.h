@@ -2,6 +2,8 @@
 #define __STRUCTURE_MANAGER__
 
 #include "Things/Structures/Structure.h"
+#include "Things/Structures/Factory.h"
+
 #include "Resources.h"
 #include "TilePositionInfo.h"
 
@@ -38,10 +40,13 @@ private:
 	typedef vector<Structure*> StructureList;
 
 	void updateStructures();
+	void updateFactories();
+
 	void processResourcesIn(Resources& _r);
 	void processResourcesOut(Resources& _r);
 
 	void addToList(StructureMap& _sm, Structure* _st, TilePositionInfo& _tpi);
+	bool removeStructureFromList(Structure* st, StructureList& list);
 
 	StructureMap		mStructureList;				/**< List of all structures with positional information. */
 	StructureMap		mDeferredList;				/**< List of deferred insertions. */
@@ -50,6 +55,8 @@ private:
 	StructureList		mStructuresOperational;		/**< Structures that are operational. */
 	StructureList		mStructuresIdle;			/**< Structures that are Idle. */
 	StructureList		mStructuresDisabled;		/**< Structures that are disabled. */
+
+	StructureList		mFactoryList;				/**< List of factories. */
 
 	bool				mDeferInsert;				/**< Flag indicating that we're accessing the structure list and insertions should be deferred. */
 	bool				mChapActive;				/**< Flag indicating that there is a functioning CHAP Facility. */

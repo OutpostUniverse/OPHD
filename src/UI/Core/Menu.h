@@ -38,14 +38,10 @@ public:
 	void onMouseDown(MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int relX, int relY);
 
-	const Rectangle_2d& rect() const { return mRect; }
-
 	int currentSelection() const { return mCurrentSelection; }
 	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
 
 	const std::string& selectionText() const { return mItems[mCurrentSelection]; }
-
-	void width(int w) { mRect.w(w); }
 
 	void update();
 
@@ -67,8 +63,6 @@ private:
 	Color_4ub					mText;				/**< Text Color */
 	Color_4ub					mHighlightBg;		/**< Highlight Background color. */
 	Color_4ub					mHighlightText;		/**< Text Color for an item that is currently highlighted. */
-
-	Rectangle_2d				mRect;				/**< Internal rectangle area. */
 
 	SelectionChangedCallback	mSelectionChanged;	/**< Callback for selection changed callback. */
 

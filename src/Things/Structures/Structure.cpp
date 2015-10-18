@@ -15,7 +15,8 @@ Structure::Structure(const std::string& name, const std::string& sprite_path):	T
 																				mConnector(false),
 																				mRequiresCHAP(true), // Most structures require a CHAP facility in order to operate.
 																				mProvidesCHAP(false),
-																				mSelfSustained(false)
+																				mSelfSustained(false),
+																				mIsFactory(false)
 {}
 
 

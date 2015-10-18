@@ -69,6 +69,7 @@ public:
 	bool requiresCHAP() const { return mRequiresCHAP; }
 	bool providesCHAP() const { return mProvidesCHAP; }
 	bool selfSustained() const { return mSelfSustained; }
+	bool isFactory() const { return mIsFactory; }
 
 protected:
 
@@ -101,6 +102,8 @@ protected:
 
 	void selfSustained(bool _b) { mSelfSustained = _b; }
 
+	void isFactory(bool _b) { mIsFactory = _b; }
+
 	void priority(StructurePriority _sp) { mStructurePriority = _sp; }
 
 	Resources				mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
@@ -127,6 +130,7 @@ private:
 	bool					mRequiresCHAP;				/**< Indicates that the Structure needs to have an active CHAP facilities in order to operate. */
 	bool					mProvidesCHAP;				/**< Indicates that the Strcuture provides CHAP. */
 	bool					mSelfSustained;				/**< Indicates that the Strcutre is self contained and can operate by itself. */
+	bool					mIsFactory;					/**< Indicates that the Structure is a factory. */
 };
 
 

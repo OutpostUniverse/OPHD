@@ -140,6 +140,7 @@
     <ClInclude Include="..\..\src\Resources.h" />
     <ClInclude Include="..\..\src\RobotPool.h" />
     <ClInclude Include="..\..\src\States\GameState.h" />
+    <ClInclude Include="..\..\src\States\GameStateUi.h" />
     <ClInclude Include="..\..\src\States\PlanetSelectState.h" />
     <ClInclude Include="..\..\src\Strings.h" />
     <ClInclude Include="..\..\src\StructureManager.h" />

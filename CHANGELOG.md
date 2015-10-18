@@ -1,9 +1,37 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.5.0] - UNRELEASED
+
+This version includes all revisions from r21 to rxx.
+
+### Added
+- Added Factory Production menu.
+- Added a StructurePriority field to Structure for sorting purposes.
+- Added StructureManager::printSortedList() for a quick and easy way to see 1) what's being managed by the StructureManager and 2) to verify that the list is sorted correctly.
+- Structure now has an 'isFactory' field.
+- Added a changeDepth() function to GameState which is called whenever number keys are pressed (code readability).
+
+### Changed
+- Changed the way StructureManager stores its managed Structures so that Structures can be sorted and updated by priority.
+- Updated several structures to adjust from the default priority level.
+- Fleshed out the Factory interface class a bit more. It's now generally functional.
+- SeedFactory and SeedSmelter now derive from Factory instead of Structure.
+- SeedSmelter is now processing raw resources.
+- Tinkered with Agridome and CHAP with their resource consumption. Will require better balancing to be playable.
+- StructureManager now implements a factory update loop.
+- Pulled menuFactoryProduction -- going to go with a full blown window interface instead.
+- Changed Resources structure to store resources as double's instead of int's. Helps to correct for rounding issues and makes more sense in terms of a simulation.
+- Played with the mine yields a bit... still not where I want them to be but better.
+
+### Fixed
+- Removed some unnecessary data structures in Menu control (defined its own rect when Control already has one).
+- Pulled unused/legacy typedef from GameState.
+
+
 ## [0.4.2] - 2015-10-13
 
-This version includes all revisions from r14.
+This version includes all revisions from r14 to r20.
 
 ### Added
 - Added Tile::structure() to get a pointer to a derived Structure instead of a base. Eliminates some ugly casts.
@@ -42,7 +70,7 @@ This version includes all revisions from r14.
 
 ## [0.4.1] - 2015-10-09
 
-This version includes all revisions up to r14.
+This version includes all from r14.
 
 ### Added
 - Added a RequiresCHAP field to structures. Updated structures currently defined that don't require a CHAP to operate.

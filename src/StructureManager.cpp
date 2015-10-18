@@ -40,6 +40,8 @@ void StructureManager::processResources(Resources& _r)
 {
 	processResourcesOut(_r);
 	processResourcesIn(_r);
+
+	updateFactories();
 }
 
 
@@ -139,6 +141,16 @@ void StructureManager::processResourcesOut(Resources& _r)
 }
 
 
+void StructureManager::updateFactories()
+{
+	for (size_t i = 0; i < mFactoryList.size(); ++i)
+	{
+		static_cast<Factory*>(mFactoryList[i])->updateProduction();
+	}
+
+}
+
+
 void StructureManager::copyDeferred()
 {
 	StructureMap::iterator it = mDeferredList.begin();
@@ -186,6 +198,11 @@ bool StructureManager::addStructure(Structure* st, Tile* t, int x, int y, int de
 	t->pushThing(st);
 	t->thingIsStructure(true);
 
+	if (st->isFactory())
+	{
+		mFactoryList.push_back(st);
+	}
+
 	return true;
 }
 
@@ -209,6 +226,12 @@ bool StructureManager::removeStructure(Structure* st)
 	{
 		if (it->first == st)
 		{
+			if (it->first->isFactory())
+			{
+				auto factIt = find(mFactoryList.begin(), mFactoryList.end(), st);
+				if (factIt != mFactoryList.end())
+					mFactoryList.erase(factIt);
+			}
 			mStructureList.erase(it);
 			return true;
 		}

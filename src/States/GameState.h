@@ -78,7 +78,6 @@ protected:
 
 private:
 
-	typedef map<Thing*, TilePositionInfo> ThingMap;
 	typedef map<Robot*, TilePositionInfo> RobotMap;
 
 	typedef vector<Pointer> PointerList;
@@ -123,6 +122,8 @@ private:
 
 	void checkConnectedness();
 
+	void changeDepth(int _d);
+
 
 	// UI Even Handlers
 	void btnSystemClicked();
@@ -134,7 +135,6 @@ private:
 
 	void menuRobotsSelectionChanged();
 	void menuStructuresSelectionChanged();
-	void menuFactoryProductionChanged();
 
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, TilePositionInfo& _tpi);
 	void tubePaletteSelection(ConnectorDir _cd, bool _b);
@@ -184,7 +184,6 @@ private:
 
 	Menu				mRobotsMenu;
 	Menu				mStructureMenu;
-	Menu				mFactoryProductionMenu;
 
 	DiggerDirection		mDiggerDirection;
 	TubesPalette		mTubesPalette;

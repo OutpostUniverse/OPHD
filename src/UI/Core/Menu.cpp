@@ -54,10 +54,10 @@ void Menu::addItem(const string& item)
 {
 	mItems.push_back(item);
 
-	if(font().width(item) > mRect.w())
-		mRect.w() = font().width(item) + 2;
+	if(font().width(item) > _rect().w())
+		_rect().w() = font().width(item) + 2;
 
-	mRect.h() = mItems.size() * (font().height() + 2);
+	_rect().h() = mItems.size() * (font().height() + 2);
 
 	sort();
 }
@@ -83,7 +83,7 @@ void Menu::removeItem(const std::string& item)
 		if(toLowercase((*it)) == toLowercase(item))
 		{
 			mItems.erase(it);
-			mRect.h() = mItems.size() * (font().height() + 2);
+			_rect().h() = mItems.size() * (font().height() + 2);
 			mCurrentSelection = NO_SELECTION;
 			return;
 		}
@@ -130,8 +130,8 @@ void Menu::dropAllItems()
 void Menu::position(int x, int y)
 {
 
-	mRect.x(x);
-	mRect.y(y);
+	_rect().x(x);
+	_rect().y(y);
 }
 
 
@@ -141,7 +141,7 @@ void Menu::onMouseDown(MouseButton button, int x, int y)
 	if(empty() || !visible())
 		return;
 
-	if(!isPointInRect(Point_2d(x, y), mRect) || mCurrentHighlight == NO_SELECTION)
+	if(!isPointInRect(Point_2d(x, y), _rect()) || mCurrentHighlight == NO_SELECTION)
 		return;
 
 	currentSelection(mCurrentHighlight);
@@ -156,13 +156,13 @@ void Menu::onMouseMove(int x, int y, int relX, int relY)
 		return;
 
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
-	if(!isPointInRect(Point_2d(x, y), mRect))
+	if(!isPointInRect(Point_2d(x, y), _rect()))
 	{
 		mCurrentHighlight = NO_SELECTION;
 		return;
 	}
 
-	mCurrentHighlight = ((y - mRect.y()) / (font().height() + 2)) % (mRect.h() / (font().height() + 2));
+	mCurrentHighlight = ((y - (int)_rect().y()) / (font().height() + 2)) % ((int)_rect().h() / (font().height() + 2));
 }
 
 
@@ -176,19 +176,19 @@ void Menu::update()
 
 	int line_height = (font().height() + 2);
 
-	r.drawBox(mRect, 0, 0, 0, 100);
-	r.drawBoxFilled(mRect, 225, 225, 0, 85);
+	r.drawBox(_rect(), 0, 0, 0, 100);
+	r.drawBoxFilled(_rect(), 225, 225, 0, 85);
 
 	//r.drawBoxFilled(mRect.x(), mRect.y() + (mCurrentSelection * line_height), mRect.w(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
 
 	if(mCurrentHighlight != NO_SELECTION)
-		r.drawBox(mRect.x(), mRect.y() + (mCurrentHighlight * line_height), mRect.w(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
+		r.drawBox(_rect().x(), _rect().y() + (mCurrentHighlight * line_height), _rect().w(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
 
 	for(size_t i = 0; i < mItems.size(); i++)
 	{
 		if(i == mCurrentHighlight)
-			r.drawTextShadow(font(), mItems[i], mRect.x(), mRect.y() + (i * line_height), 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
+			r.drawTextShadow(font(), mItems[i], _rect().x(), _rect().y() + (i * line_height), 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
 		else
-			r.drawTextShadow(font(), mItems[i], mRect.x(), mRect.y() + (i * line_height), 1, mText.red(), mText.green(), mText.blue(), 0, 0, 0);
+			r.drawTextShadow(font(), mItems[i], _rect().x(), _rect().y() + (i * line_height), 1, mText.red(), mText.green(), mText.blue(), 0, 0, 0);
 	}
 }

@@ -90,16 +90,16 @@ public:
 	 }
 
 	// Ore
-	int	commonMetalsOre;
-	int	commonMineralsOre;
-	int	rareMetalsOre;
-	int	rareMineralsOre;
+	double commonMetalsOre;
+	double commonMineralsOre;
+	double rareMetalsOre;
+	double rareMineralsOre;
 
 	// Refined Materials
-	int	commonMetals;
-	int	commonMinerals;
-	int	rareMetals;
-	int	rareMinerals;
+	double commonMetals;
+	double commonMinerals;
+	double rareMetals;
+	double rareMinerals;
 
 	// Other
 	int	energy;
