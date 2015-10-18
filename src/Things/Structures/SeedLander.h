@@ -18,6 +18,8 @@ public:
 		turnsToBuild(1);
 		repairable(false);
 		requiresCHAP(false);
+
+		priority(PRIORITY_LOW);
 	}
 
 

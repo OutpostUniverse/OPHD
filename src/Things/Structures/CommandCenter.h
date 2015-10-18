@@ -13,6 +13,7 @@ public:
 		turnsToBuild(10);
 
 		requiresCHAP(false);
+		priority(PRIORITY_CC);
 	}
 
 	~CommandCenter()

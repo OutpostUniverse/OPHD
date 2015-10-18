@@ -9,6 +9,7 @@ Structure::Structure(const std::string& name, const std::string& sprite_path):	T
 																				mAge(0),
 																				mMaxAge(0),
 																				mStructureState(UNDER_CONSTRUCTION),
+																				mStructurePriority(PRIORITY_MEDIUM),
 																				mConnectorDirection(CONNECTOR_INTERSECTION),
 																				mRepairable(true),
 																				mConnector(false),

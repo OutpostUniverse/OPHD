@@ -124,6 +124,7 @@
     <ClCompile Include="..\..\src\UI\Core\Button.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Control.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Menu.cpp" />
+    <ClCompile Include="..\..\src\UI\Core\TextField.cpp" />
     <ClCompile Include="..\..\src\UI\Core\UIContainer.cpp" />
     <ClCompile Include="..\..\src\UI\DiggerDirection.cpp" />
     <ClCompile Include="..\..\src\UI\TileInspector.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
     <ClInclude Include="..\..\src\UI\Core\Menu.h" />
     <ClInclude Include="..\..\src\UI\Core\Pointer.h" />
+    <ClInclude Include="..\..\src\UI\Core\TextField.h" />
     <ClInclude Include="..\..\src\UI\Core\UIContainer.h" />
     <ClInclude Include="..\..\src\UI\DiggerDirection.h" />
     <ClInclude Include="..\..\src\UI\TileInspector.h" />

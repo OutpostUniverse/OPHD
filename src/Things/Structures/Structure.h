@@ -20,8 +20,20 @@ public:
 		DESTROYED
 	};
 
+	enum StructurePriority
+	{
+		PRIORITY_LOW,
+		PRIORITY_MEDIUM,
+		PRIORITY_HIGH,
+		PRIORITY_CC
+	};
+
 	Structure(const std::string& name, const std::string& sprite_path);
 	virtual ~Structure();
+
+	//bool operator< (const Structure& rhs) const { return mStructurePriority > rhs.mStructurePriority; }
+	
+	StructurePriority priority() const { return mStructurePriority; }
 
 	virtual void update() = 0;
 
@@ -53,7 +65,6 @@ public:
 	bool isConnector() const { return mConnector; }
 
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
-
 
 	bool requiresCHAP() const { return mRequiresCHAP; }
 	bool providesCHAP() const { return mProvidesCHAP; }
@@ -90,6 +101,8 @@ protected:
 
 	void selfSustained(bool _b) { mSelfSustained = _b; }
 
+	void priority(StructurePriority _sp) { mStructurePriority = _sp; }
+
 	Resources				mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
 
 	Resources				mResourcesInput;			/**< Resources needed to operate the Structure. */
@@ -104,6 +117,8 @@ private:
 	int						mMaxAge;					/**< Maximum number of turns the Structure can remain in good repair. */
 
 	StructureState			mStructureState;			/**< State the structure is in. */
+
+	StructurePriority		mStructurePriority;			/**< Indicates the priority level that the Structure gets when processing resources. */
 
 	ConnectorDir			mConnectorDirection;		/**< Directions available for connections. */
 

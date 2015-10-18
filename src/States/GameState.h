@@ -134,6 +134,7 @@ private:
 
 	void menuRobotsSelectionChanged();
 	void menuStructuresSelectionChanged();
+	void menuFactoryProductionChanged();
 
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, TilePositionInfo& _tpi);
 	void tubePaletteSelection(ConnectorDir _cd, bool _b);
@@ -183,6 +184,7 @@ private:
 
 	Menu				mRobotsMenu;
 	Menu				mStructureMenu;
+	Menu				mFactoryProductionMenu;
 
 	DiggerDirection		mDiggerDirection;
 	TubesPalette		mTubesPalette;

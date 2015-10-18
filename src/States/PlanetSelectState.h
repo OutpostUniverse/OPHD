@@ -4,6 +4,8 @@
 
 #include "../Strings.h"
 
+#include "../UI/UI.h"
+
 using namespace NAS2D;
 
 

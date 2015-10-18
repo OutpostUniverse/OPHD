@@ -33,7 +33,16 @@ TextField::TextField():	mCursorPosition(0),
 						mBorderVisibility(FOCUS_ONLY),
 						mEditable(true),
 						mShowCursor(false)
-{}
+{
+	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &TextField::onMouseDown);
+	Utility<EventHandler>::get().keyDown().Connect(this, &TextField::onKeyDown);
+	Utility<EventHandler>::get().keyUp().Connect(this, &TextField::onKeyUp);
+}
+
+
+TextField::~TextField()
+{
+}
 
 
 void TextField::onTextChanged()
@@ -50,7 +59,7 @@ void TextField::onFontChanged()
 
 int TextField::textAreaWidth() const
 {
-	return rect().w - FIELD_PADDING * 2;
+	return rect().w() - FIELD_PADDING * 2;
 }
 
 
@@ -81,8 +90,8 @@ void TextField::draw()
 
 	if((mBorderVisibility == ALWAYS) || (hasFocus() && mBorderVisibility != NEVER))
 	{
-		r.drawBoxFilled(rect().x, rect().y, rect().w, rect().h, 0, 0, 0, 65);
-		r.drawBox(rect().x + 1, rect().y + 1, rect().w, rect().h, 0, 0, 0);
+		r.drawBoxFilled(rect().x(), rect().y(), rect().w(), rect().h(), 0, 0, 0, 65);
+		r.drawBox(rect().x() + 1, rect().y() + 1, rect().w(), rect().h(), 0, 0, 0);
 		r.drawBox(rect(), 255, 255, 255);
 	}
 
@@ -91,8 +100,10 @@ void TextField::draw()
 
 	drawCursor();
 
-	if(fontSet())
-		r.drawTextClamped(font(), text(), rect().x + FIELD_PADDING, rect().y + FIELD_PADDING, mScrollOffset, 0, textAreaWidth(), rect().h - FIELD_PADDING, 255, 255, 255);
+	if (fontSet())
+	{
+		r.drawText(font(), text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, 255, 255, 255);
+	}
 }
 
 
@@ -107,8 +118,8 @@ void TextField::drawCursor()
 		{
 			// updateCursor() should be called only on events relating to the cursor so this is temporary.
 			updateCursor();
-			Utility<Renderer>::get().drawLine(mCursorX + 1, rect().y + FIELD_PADDING + 1, mCursorX + 1, rect().y + rect().h - FIELD_PADDING, 0, 0, 0);
-			Utility<Renderer>::get().drawLine(mCursorX, rect().y + FIELD_PADDING, mCursorX, rect().y + rect().h - FIELD_PADDING - 1, 255, 255, 255);
+			Utility<Renderer>::get().drawLine(mCursorX + 1, rect().y() + FIELD_PADDING + 1, mCursorX + 1, rect().y() + rect().h() - FIELD_PADDING, 0, 0, 0);
+			Utility<Renderer>::get().drawLine(mCursorX, rect().y() + FIELD_PADDING, mCursorX, rect().y() + rect().h() - FIELD_PADDING - 1, 255, 255, 255);
 		}
 		
 		if(mCursorTimer.accumulator() > CURSOR_BLINK_DELAY)
@@ -125,7 +136,7 @@ void TextField::drawCursor()
  */
 void TextField::drawTextHighlight()
 {
-	Utility<Renderer>::get().drawBoxFilled(rect().x + FIELD_PADDING, rect().y, font().width(text()), rect().h, 0, 0, 150, 100);
+	Utility<Renderer>::get().drawBoxFilled(rect().x() + FIELD_PADDING, rect().y(), font().width(text()), rect().h(), 0, 0, 150, 100);
 }
 
 
@@ -142,7 +153,7 @@ void TextField::updateCursor()
 		mScrollOffset = 0;
 
 
-	mCursorX = rect().x + FIELD_PADDING + cursorX - mScrollOffset;
+	mCursorX = rect().x() + FIELD_PADDING + cursorX - mScrollOffset;
 }
 
 
@@ -195,7 +206,7 @@ void TextField::update()
 }
 
 
-void TextField::onKeyDown(KeyCode key, KeyModifier mod)
+void TextField::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 {
 	if(hasFocus() && editable())
 	{
@@ -267,8 +278,8 @@ void TextField::onKeyDown(KeyCode key, KeyModifier mod)
 				break;
 
 			// IGNORE ENTER/RETURN KEY
-			case SDLK_RETURN:
-			case SDLK_KP_ENTER:
+			case KEY_ENTER:
+			case KEY_KP_ENTER:
 				break;
 
 			// REGULAR KEYS
@@ -334,7 +345,7 @@ void TextField::onMouseDown(MouseButton button, int x, int y)
 	else
 		hasFocus(true);
 
-	int relativePosition = x - rect().x;
+	int relativePosition = x - rect().x();
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.

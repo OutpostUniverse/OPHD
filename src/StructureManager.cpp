@@ -2,13 +2,32 @@
 
 #include "Strings.h"
 
+#include <algorithm>
+
+
 StructureManager::StructureManager() :	mDeferInsert(false),
 										mChapActive(false)
 {}
 
 
+/**
+ * D'tor
+ * 
+ * Frees memory for all managed Structures.
+ * 
+ * \warning	Any remaining pointers to Structures that have been managed
+ *			by the StructureManager will be invalid.
+ */
 StructureManager::~StructureManager()
-{}
+{
+	if (mStructureList.empty())
+		return;
+
+	for (auto it = mStructureList.begin(); it != mStructureList.end(); ++it)
+		it->second.tile->deleteThing();
+
+	mStructureList.clear();
+}
 
 
 void StructureManager::update()
@@ -19,8 +38,8 @@ void StructureManager::update()
 
 void StructureManager::processResources(Resources& _r)
 {
-	processResourcesIn(_r);
 	processResourcesOut(_r);
+	processResourcesIn(_r);
 }
 
 
@@ -145,27 +164,37 @@ bool StructureManager::addStructure(Structure* st, Tile* t, int x, int y, int de
 	if(!t)
 		return false;
 
+	TilePositionInfo tpi(t, x, y, depth);
+
 	/// We're in the process of updating structures so defer adding until the updates are finished.
 	if(mDeferInsert)
 	{
-		mDeferredList[st] = TilePositionInfo(t, x, y, depth);
+		addToList(mDeferredList, st, tpi);
 		return false;
 	}
 
-	if(mStructureList.find(st) != mStructureList.end())
+	for (auto it = mStructureList.begin(); it != mStructureList.end(); ++it)
 	{
-		cout << "StructureManager::addStructre(): Attempting to add a duplicate Structure* pointer." << endl;
-		return false;
+		if(it->first == st)
+			throw Exception(0, "Duplicate Structure!", "StructureManager::addStructure(): Attempting to add a Structure that's already managed.");
 	}
 
 	if(!clear)
 		t->removeThing();
 
-	mStructureList[st] = TilePositionInfo(t, x, y, depth);
+	addToList(mStructureList, st, tpi);
 	t->pushThing(st);
 	t->thingIsStructure(true);
 
 	return true;
+}
+
+
+void StructureManager::addToList(StructureMap& _sm, Structure* _st, TilePositionInfo& _tpi)
+{
+	_sm.push_back(StructureTilePair(_st, _tpi));
+
+	sort(mStructureList.begin(), mStructureList.end(), [](const StructureTilePair& lhs, const StructureTilePair& rhs) { return lhs.first->priority() > rhs.first->priority(); });
 }
 
 
@@ -176,9 +205,17 @@ bool StructureManager::addStructure(Structure* st, Tile* t, int x, int y, int de
  */
 bool StructureManager::removeStructure(Structure* st)
 {
-	if (mStructureList.erase(st) > 0)
-		return true;
+	for (auto it = mStructureList.begin(); it != mStructureList.end(); ++it)
+	{
+		if (it->first == st)
+		{
+			mStructureList.erase(it);
+			return true;
+		}
+	}
 
+	// If we hit this point we're calling the remove function on a structure that was never added to the manager which == BAD
+	throw Exception(0, "Rogue Structure!", "StructureManager::removeStructure(): Called with a pointer to a Structure that is not managed!");
 	return false;
 }
 
@@ -187,4 +224,14 @@ void StructureManager::disconnectAll()
 {
 	for (auto st_it = mStructureList.begin(); st_it != mStructureList.end(); ++st_it)
 		st_it->second.tile->connected(false);
+}
+
+
+void StructureManager::printSortedList()
+{
+	cout << endl;
+	for (size_t i = 0; i < mStructureList.size(); ++i)
+		cout << mStructureList[i].first->name() << endl;
+
+	cout << endl;
 }

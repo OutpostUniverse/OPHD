@@ -310,6 +310,10 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 			populateStructureMenu();
 			break;
 
+		case KEY_F1:
+			mStructureManager.printSortedList();
+			break;
+
 		case KEY_ESCAPE:
 			clearMode();
 			break;

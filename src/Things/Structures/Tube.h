@@ -33,6 +33,8 @@ public:
 		connectorDirection(_cd);
 		requiresCHAP(false);
 
+		priority(PRIORITY_LOW);
+
 		maxAge(400);
 	}
 

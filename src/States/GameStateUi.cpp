@@ -94,6 +94,13 @@ void GameState::initUi()
 	mStructureMenu.visible(false);
 	mStructureMenu.selectionChanged().Connect(this, &GameState::menuStructuresSelectionChanged);
 
+
+	mFactoryProductionMenu.font(mTinyFont);
+	mFactoryProductionMenu.width(100);
+	mFactoryProductionMenu.position(0, 0);
+	mFactoryProductionMenu.visible(false);
+	mFactoryProductionMenu.selectionChanged().Connect(this, &GameState::menuFactoryProductionChanged);
+
 	// Initial Structure
 	mStructureMenu.addItem(constants::SEED_LANDER);
 }
@@ -227,6 +234,14 @@ void GameState::btnTubesPickerClicked()
 		mTubesPalette.visible(true);
 }
 
+
+/**
+ * Handles menu selection changes in the Factory Production menu.
+ */
+void GameState::menuFactoryProductionChanged()
+{
+
+}
 
 /**
  * Handles clicks of the Robot Selection Menu.

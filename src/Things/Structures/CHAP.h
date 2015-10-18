@@ -14,6 +14,8 @@ public:
 
 		requiresCHAP(false);
 		providesCHAP(true);
+
+		priority(PRIORITY_HIGH);
 	}
 
 

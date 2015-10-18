@@ -18,6 +18,8 @@ public:
 		requiresCHAP(false);
 
 		selfSustained(true);
+
+		priority(PRIORITY_LOW);
 	}
 
 

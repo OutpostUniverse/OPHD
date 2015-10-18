@@ -26,7 +26,7 @@ public:
 		if(age() == turnsToBuild())
 		{
 			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
-			idle(false);
+			enabled(false);
 			activate();
 		}
 		else if(age() == maxAge())

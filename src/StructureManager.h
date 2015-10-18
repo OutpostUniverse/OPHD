@@ -25,18 +25,23 @@ public:
 
 	void disconnectAll();
 
+	void printSortedList();
+
 protected:
 
 	void copyDeferred();
 	void setDeferredFlag(bool _b) { mDeferInsert = _b; }
 
 private:
-	typedef map<Structure*, TilePositionInfo> StructureMap;
+	typedef std::pair<Structure *, TilePositionInfo> StructureTilePair;
+	typedef vector<StructureTilePair> StructureMap;
 	typedef vector<Structure*> StructureList;
 
 	void updateStructures();
 	void processResourcesIn(Resources& _r);
 	void processResourcesOut(Resources& _r);
+
+	void addToList(StructureMap& _sm, Structure* _st, TilePositionInfo& _tpi);
 
 	StructureMap		mStructureList;				/**< List of all structures with positional information. */
 	StructureMap		mDeferredList;				/**< List of deferred insertions. */
