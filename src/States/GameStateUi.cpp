@@ -85,14 +85,16 @@ void GameState::initUi()
 	mRobotsMenu.font(mTinyFont);
 	mRobotsMenu.width(200);
 	mRobotsMenu.position(0, 0);
-	mRobotsMenu.visible(false);
+	mRobotsMenu.hide();
 	mRobotsMenu.selectionChanged().Connect(this, &GameState::menuRobotsSelectionChanged);
 
 	mStructureMenu.font(mTinyFont);
 	mStructureMenu.width(200);
 	mStructureMenu.position(0, 0);
-	mStructureMenu.visible(false);
+	mStructureMenu.hide();
 	mStructureMenu.selectionChanged().Connect(this, &GameState::menuStructuresSelectionChanged);
+
+	mFactoryProduction.hide();
 
 	// Initial Structure
 	mStructureMenu.addItem(constants::SEED_LANDER);
@@ -105,12 +107,13 @@ void GameState::initUi()
 */
 void GameState::hideUi()
 {
-	mRobotsMenu.visible(false);
-	mStructureMenu.visible(false);
-	mDiggerDirection.visible(false);
-	mTubesPalette.visible(false);
-	mTileInspector.visible(false);
-	mDiggerDirection.visible(false);
+	mRobotsMenu.hide();
+	mStructureMenu.hide();
+	mDiggerDirection.hide();
+	mTubesPalette.hide();
+	mTileInspector.hide();
+	mDiggerDirection.hide();
+	mFactoryProduction.hide();
 }
 
 
@@ -168,6 +171,7 @@ void GameState::drawUI()
 	mDiggerDirection.update();
 	mTubesPalette.update();
 	mTileInspector.update();
+	mFactoryProduction.update();
 
 	// Always draw last
 	mPointers[mCurrentPointer].draw(mMousePosition.x(), mMousePosition.y());

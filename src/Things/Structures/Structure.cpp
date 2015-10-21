@@ -5,6 +5,7 @@
  * C'tor
  */
 Structure::Structure(const std::string& name, const std::string& sprite_path):	Thing(name, sprite_path),
+																				mId((int)this),
 																				mTurnsToBuild(0),
 																				mAge(0),
 																				mMaxAge(0),

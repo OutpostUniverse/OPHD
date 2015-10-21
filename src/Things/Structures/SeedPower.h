@@ -29,8 +29,11 @@ public:
 			enabled(false);
 			activate();
 		}
-		else if(age() == maxAge())
+		else if (age() == maxAge())
+		{
 			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
+			mResourcesOutput.energy = 0;
+		}
 	}
 
 protected:

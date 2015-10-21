@@ -18,6 +18,7 @@
 
 #include "../UI/UI.h"
 #include "../UI/DiggerDirection.h"
+#include "../UI/FactoryProduction.h"
 #include "../UI/TileInspector.h"
 #include "../UI/TubesPalette.h"
 
@@ -188,6 +189,7 @@ private:
 	DiggerDirection		mDiggerDirection;
 	TubesPalette		mTubesPalette;
 	TileInspector		mTileInspector;
+	FactoryProduction	mFactoryProduction;
 
 	// MISCELLANEOUS
 	int					mTurnCount;

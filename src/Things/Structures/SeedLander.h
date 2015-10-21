@@ -35,6 +35,7 @@ public:
 		{
 			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
 			mDeploy(mX, mY);
+			activate();
 		}
 		else if(age() == maxAge())
 			sprite().play(constants::STRUCTURE_STATE_DESTROYED);

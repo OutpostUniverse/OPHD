@@ -69,6 +69,7 @@ GameState::GameState(const string& map, const string& tset):	mFont("fonts/Fresca
 																mDiggerDirection(mTinyFont),
 																mTubesPalette(mTinyFont),
 																mTileInspector(mTinyFont),
+																mFactoryProduction(mTinyFont),
 																mInsertMode(INSERT_NONE),
 																mTurnCount(0),
 																mReturnState(NULL),
@@ -337,6 +338,10 @@ void GameState::clearMode()
  */
 void GameState::onMouseDown(MouseButton button, int x, int y)
 {
+	// Cludgy but basically if this dialog is open, fuck everything else.
+	if (mFactoryProduction.visible())
+		return;
+
 	if(button == BUTTON_RIGHT)
 	{
 		Tile* _t = mTileMap.getTile(mTileMap.tileHighlight().x() + mTileMap.mapViewLocation().x(), mTileMap.tileHighlight().y() + mTileMap.mapViewLocation().y());
@@ -356,6 +361,11 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 			hideUi();
 			mTileInspector.tile(_t);
 			mTileInspector.visible(true); 
+		}
+		else if (_t->structure()->isFactory())
+		{
+			mFactoryProduction.factory(static_cast<Factory*>(_t->structure()));
+			mFactoryProduction.show();
 		}
 	}
 

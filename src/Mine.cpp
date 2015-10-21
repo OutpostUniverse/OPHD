@@ -42,14 +42,14 @@ void Mine::productionRate(ProductionRate _rate)
 	{
 		case PRODUCTION_RATE_LOW:
 			yieldsCommonMetals(true);
-			yieldsRareMetals(false);
+			yieldsRareMetals(true);
 			yieldsCommonMinerals(true);
 			yieldsRareMinerals(true);
 
-			commonMetalsRate(6);
-			rareMetalsRate(0);
-			commonMineralsRate(4);
-			rareMineralsRate(1);
+			commonMetalsRate(10);
+			rareMetalsRate(2);
+			commonMineralsRate(8);
+			rareMineralsRate(2);
 			break;
 
 		case PRODUCTION_RATE_MEDIUM:
@@ -58,10 +58,10 @@ void Mine::productionRate(ProductionRate _rate)
 			yieldsCommonMinerals(true);
 			yieldsRareMinerals(true);
 
-			commonMetalsRate(12);
-			rareMetalsRate(5);
-			commonMineralsRate(8);
-			rareMineralsRate(4);
+			commonMetalsRate(15);
+			rareMetalsRate(8);
+			commonMineralsRate(12);
+			rareMineralsRate(8);
 			break;
 
 		case PRODUCTION_RATE_HIGH:
@@ -70,10 +70,10 @@ void Mine::productionRate(ProductionRate _rate)
 			yieldsCommonMinerals(true);
 			yieldsRareMinerals(true);
 
-			commonMetalsRate(18);
-			rareMetalsRate(8);
-			commonMineralsRate(14);
-			rareMineralsRate(6);
+			commonMetalsRate(20);
+			rareMetalsRate(14);
+			commonMineralsRate(18);
+			rareMineralsRate(14);
 			break;
 	}
 }

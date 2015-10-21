@@ -63,6 +63,11 @@ void StructureManager::updateStructures()
 		if (struct_it->first->providesCHAP() && struct_it->first->enabled())
 			mChapActive = true;
 
+		if(struct_it->first->idle())
+			struct_it->first->sprite().color(255, 255, 255, 185);
+		else
+			struct_it->first->sprite().color(255, 255, 255, 255);
+
 		// Clean up any Structures that are dead.
 		if (struct_it->first->dead())
 		{

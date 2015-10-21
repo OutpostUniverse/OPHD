@@ -37,6 +37,8 @@ public:
 
 	virtual void update() = 0;
 
+	int id() const { return mId; }
+
 	int turnsToBuild() const { return mTurnsToBuild; }
 	int age() const { return mAge; }
 	int maxAge() const { return mMaxAge; }
@@ -114,6 +116,8 @@ protected:
 	Resources				mResourceValue;				/**< Resource reclamation values when dozed. */
 
 private:
+	int						mId;						/**< ID of the Structure. */
+
 	int						mTurnsToBuild;				/**< Number of turns it takes to build the Structure. */
 
 	int						mAge;						/**< Age of the Structure in turns. */

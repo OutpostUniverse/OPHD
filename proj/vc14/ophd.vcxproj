@@ -83,7 +83,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>depend\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -127,6 +127,7 @@
     <ClCompile Include="..\..\src\UI\Core\TextField.cpp" />
     <ClCompile Include="..\..\src\UI\Core\UIContainer.cpp" />
     <ClCompile Include="..\..\src\UI\DiggerDirection.cpp" />
+    <ClCompile Include="..\..\src\UI\FactoryProduction.cpp" />
     <ClCompile Include="..\..\src\UI\TileInspector.cpp" />
     <ClCompile Include="..\..\src\UI\TubesPalette.cpp" />
   </ItemGroup>
@@ -174,6 +175,7 @@
     <ClInclude Include="..\..\src\UI\Core\TextField.h" />
     <ClInclude Include="..\..\src\UI\Core\UIContainer.h" />
     <ClInclude Include="..\..\src\UI\DiggerDirection.h" />
+    <ClInclude Include="..\..\src\UI\FactoryProduction.h" />
     <ClInclude Include="..\..\src\UI\TileInspector.h" />
     <ClInclude Include="..\..\src\UI\TubesPalette.h" />
     <ClInclude Include="..\..\src\UI\UI.h" />

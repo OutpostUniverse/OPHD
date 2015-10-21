@@ -45,6 +45,9 @@ public:
 	void visible(bool visible);
 	bool visible() const;
 
+	void hide() { visible(false); }
+	void show() { visible(true); }
+
 	const Rectangle_2df& rect() const;
 
 	void hasFocus(bool focus);
