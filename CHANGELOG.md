@@ -6,11 +6,13 @@ This is the changelog for OutpostHD.
 This version includes all revisions from r21 to rxx.
 
 ### Added
-- Added Factory Production menu.
+- Added a FactorProduction dialog.
 - Added a StructurePriority field to Structure for sorting purposes.
 - Added StructureManager::printSortedList() for a quick and easy way to see 1) what's being managed by the StructureManager and 2) to verify that the list is sorted correctly.
 - Structure now has an 'isFactory' field.
 - Added a changeDepth() function to GameState which is called whenever number keys are pressed (code readability).
+- Added convenience functions to Control.
+- Added ID field to Structure. Currently generates an ID based on the address of the Structure object in memory.
 
 ### Changed
 - Changed the way StructureManager stores its managed Structures so that Structures can be sorted and updated by priority.
@@ -20,13 +22,16 @@ This version includes all revisions from r21 to rxx.
 - SeedSmelter is now processing raw resources.
 - Tinkered with Agridome and CHAP with their resource consumption. Will require better balancing to be playable.
 - StructureManager now implements a factory update loop.
-- Pulled menuFactoryProduction -- going to go with a full blown window interface instead.
 - Changed Resources structure to store resources as double's instead of int's. Helps to correct for rounding issues and makes more sense in terms of a simulation.
 - Played with the mine yields a bit... still not where I want them to be but better.
+- Tweaked vales in SeedSmelter. No provides better balanced output.
+- Buildings will draw as translucent (72.5% alpha) when 'Idle'.
 
 ### Fixed
 - Removed some unnecessary data structures in Menu control (defined its own rect when Control already has one).
 - Pulled unused/legacy typedef from GameState.
+- SeedPower now shows itself as destroyed after it reaches its max age.
+- SeedLander will now add resources to the resource pool when bulldozed.
 
 
 ## [0.4.2] - 2015-10-13
