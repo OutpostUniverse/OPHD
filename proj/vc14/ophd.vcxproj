@@ -133,6 +133,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h" />
+    <ClInclude Include="..\..\src\Constants.h" />
+    <ClInclude Include="..\..\src\Constants\Numbers.h" />
+    <ClInclude Include="..\..\src\Constants\Strings.h" />
+    <ClInclude Include="..\..\src\Constants\UiConstants.h" />
     <ClInclude Include="..\..\src\GraphWalker.h" />
     <ClInclude Include="..\..\src\Mine.h" />
     <ClInclude Include="..\..\src\PopulationPool.h" />
@@ -142,8 +146,8 @@
     <ClInclude Include="..\..\src\RobotPool.h" />
     <ClInclude Include="..\..\src\States\GameState.h" />
     <ClInclude Include="..\..\src\States\GameStateUi.h" />
+    <ClInclude Include="..\..\src\States\Planet.h" />
     <ClInclude Include="..\..\src\States\PlanetSelectState.h" />
-    <ClInclude Include="..\..\src\Strings.h" />
     <ClInclude Include="..\..\src\StructureManager.h" />
     <ClInclude Include="..\..\src\Things\Robots\Robodigger.h" />
     <ClInclude Include="..\..\src\Things\Robots\Robodozer.h" />
@@ -167,7 +171,6 @@
     <ClInclude Include="..\..\src\Tile.h" />
     <ClInclude Include="..\..\src\TileMap.h" />
     <ClInclude Include="..\..\src\TilePositionInfo.h" />
-    <ClInclude Include="..\..\src\UiConstants.h" />
     <ClInclude Include="..\..\src\UI\Core\Button.h" />
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
     <ClInclude Include="..\..\src\UI\Core\Menu.h" />

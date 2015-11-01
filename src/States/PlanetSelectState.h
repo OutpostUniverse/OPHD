@@ -2,7 +2,9 @@
 
 #include "NAS2D/NAS2D.h"
 
-#include "../Strings.h"
+#include "Planet.h"
+
+#include "../Constants.h"
 
 #include "../UI/UI.h"
 
@@ -23,31 +25,20 @@ protected:
 
 private:
 
+	typedef std::vector<Planet*> PlanetPtrList;
+
 	void onKeyDown(KeyCode key, KeyModifier mod, bool repeat);
 
 	void onMouseDown(MouseButton button, int x, int y);
-	void onMouseUp(MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
 
 	Font				mFont;
 
 	Image				mMousePointer;
 
-	Image				mPlanetMerc;
-	Image				mPlanetMars;
-	Image				mPlanetGany;
-
-	Point_2d			mPlanetMercPos;
-	Point_2d			mPlanetMarsPos;
-	Point_2d			mPlanetGanyPos;
-	
 	Point_2d			mMousePosition;
 
-	Timer				mTimer;
-
-	int					mMercTick;
-	int					mMarsTick;
-	int					mGanyTick;
+	PlanetPtrList		mPlanets;
 
 	State*				mReturnState;
 };

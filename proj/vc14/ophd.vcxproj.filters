@@ -55,6 +55,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Header Files\Constants">
+      <UniqueIdentifier>{df1a7586-89dd-467f-b703-58d0b820cd47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -141,9 +144,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\RobotPool.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Strings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\StructureManager.h">
@@ -246,9 +246,6 @@
     <ClInclude Include="..\..\src\Things\Structures\CHAP.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UiConstants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\Factory.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
@@ -269,6 +266,21 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UI\FactoryProduction.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\States\Planet.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Constants\Numbers.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Constants\Strings.h">
+      <Filter>Header Files\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Constants\UiConstants.h">
+      <Filter>Header Files\Constants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

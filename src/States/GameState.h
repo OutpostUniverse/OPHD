@@ -22,7 +22,7 @@
 #include "../UI/TileInspector.h"
 #include "../UI/TubesPalette.h"
 
-#include "../Strings.h"
+#include "../Constants.h"
 
 using namespace NAS2D;
 

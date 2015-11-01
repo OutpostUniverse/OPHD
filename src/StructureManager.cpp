@@ -1,6 +1,6 @@
 #include "StructureManager.h"
 
-#include "Strings.h"
+#include "Constants.h"
 
 #include <algorithm>
 

@@ -41,6 +41,12 @@ namespace constants
 	const string	STRUCTURE_STATE_OPERATIONAL = "operational";
 	const string	STRUCTURE_STATE_OPERATIONAL_UG = "operational-ug";
 	const string	STRUCTURE_STATE_DESTROYED = "destroyed";
+
+	// PLANET SPRITE SHEET PATHS
+	const string	PLANET_TYPE_MERCURY_PATH = "planets/planet_d.png";
+	const string	PLANET_TYPE_MARS_PATH = "planets/planet_c.png";
+	const string	PLANET_TYPE_GANYMEDE_PATH = "planets/planet_e.png";
+
 }
 
 #endif

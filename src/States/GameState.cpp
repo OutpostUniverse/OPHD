@@ -7,7 +7,7 @@
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
 
-#include "../UiConstants.h"
+#include "../Constants.h"
 
 #include <sstream>
 #include <vector>
@@ -423,7 +423,7 @@ void GameState::placeTubes()
 		validTubeConnection(mTileMap.getTile(x, y - 1, mTileMap.currentDepth()), DIR_NORTH)
 		)
 	{
-		// Warning expected. Any non-0 value for depth is considered underground.
+		// Warning "C4800" expected. Any non-0 value for depth is considered underground.
 		if(mCurrentStructure == STRUCTURE_TUBE_INTERSECTION)
 			mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, mTileMap.currentDepth()), mTileMap.getTile(x, y), x, y, mTileMap.currentDepth(), true);
 		else if (mCurrentStructure == STRUCTURE_TUBE_RIGHT)

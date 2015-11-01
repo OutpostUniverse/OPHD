@@ -8,7 +8,7 @@
 
 #include "PlanetSelectState.h"
 
-#include "../UiConstants.h"
+#include "../Constants.h"
 
 using namespace constants;
 
