@@ -127,7 +127,6 @@ private:
 
 
 	// UI Even Handlers
-	void btnSystemClicked();
 	void btnTurnsClicked();
 	void btnTubesPickerClicked();
 	void btnRobotPickerClicked();
@@ -174,7 +173,6 @@ private:
 	StructureType		mCurrentStructure;			/**< Structure being placed. */
 
 	// UI
-	Button				mBtnSystem;
 	Button				mBtnStructurePicker;
 	Button				mBtnTubePicker;
 	Button				mBtnRobotPicker;

@@ -6,8 +6,6 @@
 
 #include "GameState.h"
 
-#include "PlanetSelectState.h"
-
 #include "../Constants.h"
 
 using namespace constants;
@@ -39,34 +37,29 @@ void GameState::initUi()
 
 	// BUTTONS
 	// System
-	mBtnSystem.image("ui/icons/system.png");
-	mBtnSystem.size(constants::MAIN_BUTTON_SIZE);
-	mBtnSystem.position(posX, BOTTOM_UI_AREA.y() + MARGIN);
-	mBtnSystem.click().Connect(this, &GameState::btnSystemClicked);
-
 	mBtnStructurePicker.image("ui/icons/construction.png");
 	mBtnStructurePicker.size(constants::MAIN_BUTTON_SIZE);
 	mBtnStructurePicker.type(Button::BUTTON_TOGGLE);
-	mBtnStructurePicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
+	mBtnStructurePicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN);
 	mBtnStructurePicker.click().Connect(this, &GameState::btnStructurePickerClicked);
 
 	mBtnTubePicker.image("ui/icons/tubes.png");
 	mBtnTubePicker.size(constants::MAIN_BUTTON_SIZE);
 	mBtnTubePicker.type(Button::BUTTON_TOGGLE);
 	mBtnTubePicker.enabled(false);
-	mBtnTubePicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT) * 2);
+	mBtnTubePicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
 	mBtnTubePicker.click().Connect(this, &GameState::btnTubesPickerClicked);
 
 	mBtnRobotPicker.image("ui/icons/robot.png");
 	mBtnRobotPicker.size(constants::MAIN_BUTTON_SIZE);
 	mBtnRobotPicker.type(Button::BUTTON_TOGGLE);
 	mBtnRobotPicker.enabled(false);
-	mBtnRobotPicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT) * 3);
+	mBtnRobotPicker.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT) * 2);
 	mBtnRobotPicker.click().Connect(this, &GameState::btnRobotPickerClicked);
 
 	mBtnTurns.image("ui/icons/turns.png");
 	mBtnTurns.size(constants::MAIN_BUTTON_SIZE);
-	mBtnTurns.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT) * 4);
+	mBtnTurns.position(posX, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT) * 3);
 	mBtnTurns.click().Connect(this, &GameState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
 
@@ -155,7 +148,6 @@ void GameState::drawUI()
 	mBtnToggleHeightmap.update();
 	mBtnToggleConnectedness.update();
 
-	mBtnSystem.update();
 	mBtnStructurePicker.update();
 	mBtnTubePicker.update();
 	mBtnRobotPicker.update();
@@ -388,15 +380,4 @@ void GameState::btnTurnsClicked()
 		mBtnStructurePicker.enabled(false);
 
 	mTurnCount++;
-}
-
-
-/**
-* System button clicked.
-*/
-void GameState::btnSystemClicked()
-{
-	//NAS2D::postQuitEvent();
-	mReturnState = new PlanetSelectState();
-	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 }

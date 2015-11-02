@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "PlanetSelectState.h"
 
 #include "../GraphWalker.h"
 
@@ -26,6 +27,8 @@ const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 const int MAX_TILESET_INDEX	= 4;
 
 const int MAX_DEPTH = 4;
+
+Rectangle_2d MENU_ICON;
 
 
 // Throw away string stream for font rendering.
@@ -128,6 +131,8 @@ void GameState::initialize()
 	// UI
 	initUi();
 
+	MENU_ICON(Utility<Renderer>::get().width() - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
+
 	mPointers.push_back(Pointer("ui/pointers/normal.png", 0, 0));
 	mPointers.push_back(Pointer("ui/pointers/place_tile.png", 16, 16));
 	mPointers.push_back(Pointer("ui/pointers/inspect.png", 8, 8));
@@ -223,8 +228,13 @@ void GameState::drawResourceInfo()
 	r.drawSubImage(mUiIcons, r.width() - 90, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	drawNumber(r, mTinyFont, mTurnCount, r.width() - 72, textY, 255, 255, 255);
 
-	// System
-	r.drawSubImage(mUiIcons, r.width() - constants::MARGIN_TIGHT - constants::RESOURCE_ICON_SIZE, y, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	// ugly
+	if (isPointInRect(mMousePosition, MENU_ICON))
+		r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 144, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	else
+		r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+
+
 }
 
 
@@ -374,6 +384,14 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		// If mouse pointer is within the rects of a a UI element, ignore it.
 		if (isPointInRect(mMousePosition, mDiggerDirection.rect()))
 			return;
+
+		// Ugly
+		if (isPointInRect(mMousePosition, MENU_ICON))
+		{
+			mReturnState = new PlanetSelectState();
+			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+			return;
+		}
 		
 		// MiniMap Check
 		if(isPointInRect(mMousePosition, mMiniMapBoundingBox))
