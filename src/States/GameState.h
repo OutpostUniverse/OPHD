@@ -173,9 +173,9 @@ private:
 	StructureType		mCurrentStructure;			/**< Structure being placed. */
 
 	// UI
-	Button				mBtnStructurePicker;
-	Button				mBtnTubePicker;
-	Button				mBtnRobotPicker;
+	Button				mBtnStructures;
+	Button				mBtnConnections;
+	Button				mBtnRobots;
 	Button				mBtnTurns;
 
 	Button				mBtnToggleHeightmap;

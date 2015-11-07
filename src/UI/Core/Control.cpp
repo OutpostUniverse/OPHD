@@ -86,8 +86,12 @@ void Control::position(const Point_2df& pos)
  */
 void Control::position(float x, float y)
 {
+	float dx = x - mRect.x(), dy = y - mRect.y();
+
 	mRect.x(x);
 	mRect.y(y);
+
+	positionChanged(dx, dy);
 }
 
 

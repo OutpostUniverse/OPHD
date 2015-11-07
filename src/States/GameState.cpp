@@ -623,7 +623,7 @@ void GameState::placeRobot()
 	}
 
 	if(mRobotPool.allRobotsBusy())
-		mBtnRobotPicker.enabled(false);
+		mBtnRobots.enabled(false);
 }
 
 
@@ -636,8 +636,8 @@ void GameState::dozerTaskFinished(Robot* _r)
 	{
 		mRobotsMenu.addItem(constants::ROBODOZER);
 
-		if(!mBtnRobotPicker.enabled())
-			mBtnRobotPicker.enabled(true);
+		if(!mBtnRobots.enabled())
+			mBtnRobots.enabled(true);
 	}
 }
 
@@ -717,8 +717,8 @@ void GameState::diggerTaskFinished(Robot* _r)
 	{
 		mRobotsMenu.addItem(constants::ROBODIGGER);
 
-		if(!mBtnRobotPicker.enabled())
-			mBtnRobotPicker.enabled(true);
+		if(!mBtnRobots.enabled())
+			mBtnRobots.enabled(true);
 	}
 }
 
@@ -739,8 +739,8 @@ void GameState::minerTaskFinished(Robot* _r)
 	{
 		mRobotsMenu.addItem(constants::ROBOMINER);
 
-		if(!mBtnRobotPicker.enabled())
-			mBtnRobotPicker.enabled(true);
+		if(!mBtnRobots.enabled())
+			mBtnRobots.enabled(true);
 	}
 }
 
@@ -781,7 +781,7 @@ void GameState::placeStructure()
 			mStructureManager.addStructure(s, tile, x, y, 0, true); // Can only ever be placed on depth level 0
 			clearMode();
 			mStructureMenu.dropAllItems();
-			mBtnStructurePicker.enabled(false);
+			mBtnStructures.enabled(false);
 			mBtnTurns.enabled(true);
 		}
 	}
@@ -921,8 +921,8 @@ void GameState::deploySeedLander(int x, int y)
 	mTileMap.getTile(x + 1, y + 1)->index(TERRAIN_DOZED);
 
 	// Enable UI Contruction Buttons
-	mBtnTubePicker.enabled(true);	
-	mBtnRobotPicker.enabled(true);
+	mBtnConnections.enabled(true);
+	mBtnRobots.enabled(true);
 
 	// Robots only become available after the SEED Factor is deployed.
 	mRobotsMenu.sorted(true);

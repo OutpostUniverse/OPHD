@@ -75,13 +75,21 @@ public:
 
 protected:
 
+	/**
+	 * Called whenever the Control's position is changed.
+	 * 
+	 * \param	dX	Difference in X Position.
+	 * \param	dY	Difference in Y Position.
+	 */
+	virtual void positionChanged(float dX, float dY) {}
+
+	virtual void visibilityChanged(bool visible) {}
+
 	Font& font();
 	bool fontSet() const;
 
 	Rectangle_2df& _rect();
 	std::string& _text();
-
-	virtual void visibilityChanged(bool visible) {}
 
 private:
 

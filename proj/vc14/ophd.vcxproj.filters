@@ -282,6 +282,9 @@
     <ClInclude Include="..\..\src\Constants\UiConstants.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\UI\IconContainer.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

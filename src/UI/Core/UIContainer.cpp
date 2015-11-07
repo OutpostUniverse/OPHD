@@ -113,8 +113,13 @@ void UIContainer::update()
  */
 void UIContainer::visibilityChanged(bool visible)
 {
-	for(ControlList::iterator it = mControlList.begin(); it != mControlList.end(); ++it)
-	{
+	for(auto it = mControlList.begin(); it != mControlList.end(); ++it)
 		it->second->visible(visible);
-	}
+}
+
+
+void UIContainer::positionChanged(float dX, float dY)
+{
+	for (auto it = mControlList.begin(); it != mControlList.end(); ++it)
+		it->second->position(it->second->positionX() + dX, it->second->positionY() + dY);
 }
