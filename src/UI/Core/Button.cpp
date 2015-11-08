@@ -4,10 +4,12 @@ using namespace std;
 
 Button::Button():	mState(STATE_NORMAL),
 					mType(BUTTON_NORMAL),
-					mUsesImage(false)
+					mUsesImage(false),
+					mMouseHover(false)
 {
 	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().Connect(this, &Button::onMouseUp);
+	Utility<EventHandler>::get().mouseMotion().Connect(this, &Button::onMouseMotion);
 }
 
 
@@ -15,6 +17,7 @@ Button::~Button()
 {
 	Utility<EventHandler>::get().mouseButtonDown().Disconnect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().Disconnect(this, &Button::onMouseUp);
+	Utility<EventHandler>::get().mouseMotion().Disconnect(this, &Button::onMouseMotion);
 }
 
 
@@ -98,6 +101,18 @@ void Button::onMouseUp(MouseButton button, int x, int y)
 }
 
 
+void Button::onMouseMotion(int x, int y, int dX, int dY)
+{
+	if (isPointInRect(x, y, rect().x(), rect().y(), rect().w(), rect().h()))
+	{
+		mMouseHover = true;
+		return;
+	}
+
+	mMouseHover = false;
+}
+
+
 void Button::update()
 {
 	draw();
@@ -113,75 +128,37 @@ void Button::draw()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawBoxFilled(rect(), COLOR_SILVER.red(), COLOR_SILVER.green(), COLOR_SILVER.blue());
-	r.drawBox(rect(), 0, 0, 0);
-
-	// Determine a text position so it's centered within the button.
-	Point_2d pos;
-	if(fontSet())
-		pos = Point_2d((rect().x() + (rect().w() / 2)) - (font().width(text()) / 2), (rect().y() + (rect().h() / 2)) - (font().height() / 2));
-
-	if(!enabled())
+	if (mState == STATE_NORMAL)
 	{
-		drawUp();
-	
-		if(mUsesImage)
-			r.drawImage(mImage, rect().x() + (rect().w() / 2) - (mImage.width() / 2),  rect().y() + (rect().h() / 2) - (mImage.height() / 2));
-		else
-		{
-			if(fontSet())
-				r.drawText(font(), text(), pos.x(), pos.y(), COLOR_GREY.red(), COLOR_GREY.green(), COLOR_GREY.blue());
-		}
-
-		r.drawBoxFilled(rect(), 200, 200, 200, 100);
-	}
-	else if(mState == STATE_NORMAL)
-	{
-		drawUp();
-
-		if(mUsesImage)
-			r.drawImage(mImage, rect().x() + (rect().w() / 2) - (mImage.width() / 2),  rect().y() + (rect().h() / 2) - (mImage.height() / 2));
-		else
-		{
-			if(fontSet())
-				r.drawText(font(), text(), pos.x(), pos.y(), 0, 0, 0);
-		}
+		r.drawBoxFilled(rect(), 225, 225, 225);
+		r.drawBox(rect(), 175, 175, 175);
 	}
 	else //(mState == STATE_PRESSED)
 	{
-		drawDown();
+		if (mType == BUTTON_NORMAL)
+			r.drawBoxFilled(rect(), 200, 215, 245);
+		else //(mType == BUTTON_TOGGLE)
+			r.drawBoxFilled(rect(), 170, 210, 245);
 
-		if(mUsesImage)
-			r.drawImage(mImage, rect().x() + (rect().w() / 2) - (mImage.width() / 2) + 1,  rect().y() + (rect().h() / 2) - (mImage.height() / 2) + 1);
-		else
-		{
-			if(fontSet())
-				r.drawText(font(), text(), pos.x() + 1, pos.y() + 1, 0, 0, 0);
-		}
+		r.drawBox(rect(), 0, 85, 155);
 	}
+
+	if (enabled() && mMouseHover)
+		r.drawBox(rect(), 0, 120, 215);
+
+	// Determine a text position so it's centered within the button.
+	Point_2d pos;
+	if (fontSet())
+		pos = Point_2d((rect().x() + (rect().w() / 2)) - (font().width(text()) / 2), (rect().y() + (rect().h() / 2)) - (font().height() / 2));
+
+	if (mUsesImage)
+		r.drawImage(mImage, rect().x() + (rect().w() / 2) - (mImage.width() / 2), rect().y() + (rect().h() / 2) - (mImage.height() / 2));
+	else
+		if (fontSet())
+			r.drawText(font(), text(), pos.x(), pos.y(), 0, 0, 0);
+
+	if (!enabled())
+		r.drawBoxFilled(rect(), 200, 200, 200, 100);
 }
 
-
-void Button::drawUp()
-{
-	Renderer& r = Utility<Renderer>::get();
-
-	r.drawLine(rect().x() + 1, rect().y() + 1, rect().x() + rect().w() - 1, rect().y() + 1, COLOR_WHITE);
-	r.drawLine(rect().x() + 1, rect().y() + 1, rect().x() + 1, rect().y() + rect().h() - 0.5, COLOR_WHITE);
-
-	r.drawLine(rect().x() + 2, rect().y() + rect().h() - 1, rect().x() + rect().w() - 2, rect().y() + rect().h() - 1, COLOR_GREY);
-	r.drawLine(rect().x() + rect().w() - 1, rect().y() + 2, rect().x() + rect().w() - 1, rect().y() + rect().h() - 0.5, COLOR_GREY);
-}
-
-
-void Button::drawDown()
-{
-	Renderer& r = Utility<Renderer>::get();
-
-	r.drawLine(rect().x() + 1, rect().y() + 1, rect().x() + rect().w() - 1, rect().y() + 1, COLOR_GREY);
-	r.drawLine(rect().x() + 1, rect().y() + 1, rect().x() + 1, rect().y() + rect().h() - 1, COLOR_GREY);
-
-	r.drawLine(rect().x() + 2, rect().y() + rect().h() - 1, rect().x() + rect().w() - 2, rect().y() + rect().h() - 1, COLOR_WHITE);
-	r.drawLine(rect().x() + rect().w() - 1, rect().y() + 2, rect().x() + rect().w() - 1, rect().y() + rect().h() - 1, COLOR_WHITE);
-}
 

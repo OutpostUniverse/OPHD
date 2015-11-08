@@ -39,6 +39,10 @@ public:
 
 	void update();
 
+protected:
+
+	void onMouseMotion(int x, int y, int dX, int dY);
+
 private:
 
 	enum State
@@ -48,18 +52,17 @@ private:
 	};
 
 	void draw();
-	void drawUp();
-	void drawDown();
 
+	State			mState;				/**< Current state of the Button. */
+	Type			mType;				/**< Modifies Button behavior. */
 
-	State			mState;				/**< Current state of the button. */
-	Type			mType;				/**< Modifies button behavior. */
+	Image			mImage;				/**< Image to draw centered on the Button. */
 
-	Image			mImage;				/**< Image to draw centered on the button. */
+	ClickCallback	mCallback;			/**< Object to notify when the Button is activated. */
 
-	ClickCallback	mCallback;			/**< Object to notify when the button is activated. */
+	bool			mUsesImage;			/**< Internal flag indicating that the Button uses an image graphic. */
 
-	bool			mUsesImage;			/**< Internal flag indicating that this button uses an image graphic. */
+	bool			mMouseHover;		/**< Mouse is within the bounds of the Button. */
 };
 
 #endif

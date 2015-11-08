@@ -82,13 +82,13 @@ void GameState::initUi()
 	// Menus
 	mRobotsMenu.font(mTinyFont);
 	mRobotsMenu.width(200);
-	mRobotsMenu.position(0, 0);
+	mRobotsMenu.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
 	mRobotsMenu.hide();
 	mRobotsMenu.selectionChanged().Connect(this, &GameState::menuRobotsSelectionChanged);
 
 	mStructureMenu.font(mTinyFont);
 	mStructureMenu.width(200);
-	mStructureMenu.position(0, 0);
+	mStructureMenu.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
 	mStructureMenu.hide();
 	mStructureMenu.selectionChanged().Connect(this, &GameState::menuStructuresSelectionChanged);
 
@@ -142,7 +142,8 @@ void GameState::drawUI()
 	Renderer& r = Utility<Renderer>::get();
 
 	// Bottom UI
-	r.drawBoxFilled(BOTTOM_UI_AREA, 200, 200, 200);
+	r.drawBoxFilled(BOTTOM_UI_AREA, 240, 240, 240);
+	r.drawBox(BOTTOM_UI_AREA, 25, 130, 215);
 
 	drawMiniMap();
 	drawResourceInfo();
