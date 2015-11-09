@@ -58,6 +58,7 @@ public:
 
 	virtual void onMouseDown(MouseButton button, int x, int y) {};
 	virtual void onMouseUp(MouseButton button, int x, int y) {};
+	virtual void onMouseMotion(int x, int y, int dX, int dY) {};
 
 	virtual void onKeyDown(KeyCode key, KeyModifier mod, bool repeat) {};
 	virtual void onKeyUp(KeyCode key, KeyModifier mod) {};
@@ -84,6 +85,8 @@ protected:
 	virtual void positionChanged(float dX, float dY) {}
 
 	virtual void visibilityChanged(bool visible) {}
+
+	virtual void sizeChanged() {}
 
 	Font& font();
 	bool fontSet() const;

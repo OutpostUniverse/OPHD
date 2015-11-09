@@ -18,6 +18,8 @@ namespace constants
 
 	const int RESOURCE_BOX_WIDTH = 200;
 
+	const int NO_SELECTION = -1;
+
 	const NAS2D::Color_4ub MINE_COLOR(255, 0, 0, 255);
 	const NAS2D::Color_4ub ACTIVE_MINE_COLOR(255, 255, 0, 255);
 }

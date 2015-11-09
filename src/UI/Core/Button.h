@@ -32,16 +32,15 @@ public:
 	void image(const std::string& path);
 	bool hasImage() const;
 	
-	void onMouseDown(MouseButton button, int x, int y);
-	void onMouseUp(MouseButton button, int x, int y);
-
 	ClickCallback& click() { return mCallback; }
 
 	void update();
 
 protected:
 
-	void onMouseMotion(int x, int y, int dX, int dY);
+	virtual void onMouseDown(MouseButton button, int x, int y);
+	virtual void onMouseUp(MouseButton button, int x, int y);
+	virtual void onMouseMotion(int x, int y, int dX, int dY);
 
 private:
 

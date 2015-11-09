@@ -129,6 +129,9 @@
     <ClCompile Include="..\..\src\UI\FactoryProduction.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\IconGrid.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -282,7 +285,7 @@
     <ClInclude Include="..\..\src\Constants\UiConstants.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\IconContainer.h">
+    <ClInclude Include="..\..\src\UI\IconGrid.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

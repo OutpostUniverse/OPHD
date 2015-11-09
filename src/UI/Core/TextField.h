@@ -48,11 +48,13 @@ public:
 
 	void border(BorderVisibility visibility);
 
-	void onMouseDown(MouseButton button, int x, int y);
-	void onKeyDown(KeyCode key, KeyModifier mod, bool repeat);
-	void onKeyUp(KeyCode key, KeyModifier mod);
-
 	void update();
+
+protected:
+
+	virtual void onMouseDown(MouseButton button, int x, int y);
+	virtual void onKeyDown(KeyCode key, KeyModifier mod, bool repeat);
+	virtual void onKeyUp(KeyCode key, KeyModifier mod);
 
 private:
 

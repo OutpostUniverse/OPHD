@@ -27,7 +27,6 @@ public:
 protected:
 
 	virtual void visibilityChanged(bool visible);
-
 	virtual void positionChanged(float dX, float dY);
 
 private:

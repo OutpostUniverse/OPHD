@@ -141,6 +141,8 @@ void Control::size(float w, float h)
 {
 	width(w);
 	height(h);
+	
+	sizeChanged();
 }
 
 

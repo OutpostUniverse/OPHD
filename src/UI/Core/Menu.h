@@ -35,9 +35,6 @@ public:
 	bool itemExists(const std::string& item);
 	void dropAllItems();
 
-	void onMouseDown(MouseButton button, int x, int y);
-	void onMouseMove(int x, int y, int relX, int relY);
-
 	int currentSelection() const { return mCurrentSelection; }
 	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
 
@@ -48,6 +45,11 @@ public:
 	bool empty() const;
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
+
+protected:
+
+	virtual void onMouseDown(MouseButton button, int x, int y);
+	virtual void onMouseMove(int x, int y, int relX, int relY);
 
 private:
 

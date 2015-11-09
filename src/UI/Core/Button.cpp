@@ -143,19 +143,14 @@ void Button::draw()
 		r.drawBox(rect(), 0, 85, 155);
 	}
 
-	if (enabled() && mMouseHover)
+	if (enabled() && mMouseHover && mState != STATE_PRESSED)
 		r.drawBox(rect(), 0, 120, 215);
-
-	// Determine a text position so it's centered within the button.
-	Point_2d pos;
-	if (fontSet())
-		pos = Point_2d((rect().x() + (rect().w() / 2)) - (font().width(text()) / 2), (rect().y() + (rect().h() / 2)) - (font().height() / 2));
 
 	if (mUsesImage)
 		r.drawImage(mImage, rect().x() + (rect().w() / 2) - (mImage.width() / 2), rect().y() + (rect().h() / 2) - (mImage.height() / 2));
 	else
-		if (fontSet())
-			r.drawText(font(), text(), pos.x(), pos.y(), 0, 0, 0);
+		if (fontSet() && !text().empty())
+			r.drawText(font(), text(), rect().x() + (rect().w() / 2) - (font().width(text()) / 2), rect().y() + (rect().h() / 2) - (font().height() / 2), 0, 0, 0);
 
 	if (!enabled())
 		r.drawBoxFilled(rect(), 200, 200, 200, 100);

@@ -19,6 +19,7 @@
 #include "../UI/UI.h"
 #include "../UI/DiggerDirection.h"
 #include "../UI/FactoryProduction.h"
+#include "../UI/IconGrid.h"
 #include "../UI/TileInspector.h"
 #include "../UI/TubesPalette.h"
 
@@ -183,6 +184,8 @@ private:
 
 	Menu				mRobotsMenu;
 	Menu				mStructureMenu;
+
+	IconGrid			mStructures;
 
 	DiggerDirection		mDiggerDirection;
 	TubesPalette		mTubesPalette;

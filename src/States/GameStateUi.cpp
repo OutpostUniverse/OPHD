@@ -92,6 +92,15 @@ void GameState::initUi()
 	mStructureMenu.hide();
 	mStructureMenu.selectionChanged().Connect(this, &GameState::menuStructuresSelectionChanged);
 
+	mStructures.font(mTinyFont);
+	mStructures.sheetPath("ui/structures.png");
+	mStructures.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
+	mStructures.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mStructures.iconSize(46);
+	mStructures.iconMargin(constants::MARGIN_TIGHT);
+
+	mStructures.addItem(constants::SEED_LANDER, 0);
+
 	mFactoryProduction.hide();
 
 	// Initial Structure
@@ -100,9 +109,8 @@ void GameState::initUi()
 
 
 /**
-* Hides all non-essential UI elements and untoggles
-* all main UI construction buttons.
-*/
+ * Hides all non-essential UI elements.
+ */
 void GameState::hideUi()
 {
 	mRobotsMenu.hide();
@@ -160,6 +168,8 @@ void GameState::drawUI()
 	
 	mRobotsMenu.update();
 	mStructureMenu.update();
+
+	mStructures.update();
 
 	// UI Containers
 	mDiggerDirection.update();

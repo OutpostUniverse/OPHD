@@ -128,6 +128,7 @@
     <ClCompile Include="..\..\src\UI\Core\UIContainer.cpp" />
     <ClCompile Include="..\..\src\UI\DiggerDirection.cpp" />
     <ClCompile Include="..\..\src\UI\FactoryProduction.cpp" />
+    <ClCompile Include="..\..\src\UI\IconGrid.cpp" />
     <ClCompile Include="..\..\src\UI\TileInspector.cpp" />
     <ClCompile Include="..\..\src\UI\TubesPalette.cpp" />
   </ItemGroup>
@@ -179,7 +180,7 @@
     <ClInclude Include="..\..\src\UI\Core\UIContainer.h" />
     <ClInclude Include="..\..\src\UI\DiggerDirection.h" />
     <ClInclude Include="..\..\src\UI\FactoryProduction.h" />
-    <ClInclude Include="..\..\src\UI\IconContainer.h" />
+    <ClInclude Include="..\..\src\UI\IconGrid.h" />
     <ClInclude Include="..\..\src\UI\TileInspector.h" />
     <ClInclude Include="..\..\src\UI\TubesPalette.h" />
     <ClInclude Include="..\..\src\UI\UI.h" />
