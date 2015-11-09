@@ -65,6 +65,15 @@ enum StructureType
 };
 
 
+enum RobotType
+{
+	ROBOT_NONE,
+	ROBOT_DIGGER,
+	ROBOT_DOZER,
+	ROBOT_MINER
+};
+
+
 
 class GameState: public State
 {
@@ -98,7 +107,7 @@ private:
 	void drawResourceInfo();
 
 	void initUi();
-	void hideUi();
+	void resetUi();
 
 	void populateStructureMenu();
 	void clearMode();
@@ -134,8 +143,8 @@ private:
 	void btnStructurePickerClicked();
 	void btnToggleConnectednessClicked();
 
-	void menuRobotsSelectionChanged();
-	void menuStructuresSelectionChanged();
+	void robotsSelectionChanged(const std::string& _s);
+	void structuresSelectionChanged(const std::string& _s);
 
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, TilePositionInfo& _tpi);
 	void tubePaletteSelection(ConnectorDir _cd, bool _b);
@@ -172,6 +181,7 @@ private:
 
 	InsertMode			mInsertMode;				/**< What's being inserted into the TileMap if anything. */
 	StructureType		mCurrentStructure;			/**< Structure being placed. */
+	RobotType			mCurrentRobot;				/**< Robot being placed. */
 
 	// UI
 	Button				mBtnStructures;
@@ -182,10 +192,9 @@ private:
 	Button				mBtnToggleHeightmap;
 	Button				mBtnToggleConnectedness;
 
-	Menu				mRobotsMenu;
-	Menu				mStructureMenu;
-
 	IconGrid			mStructures;
+	IconGrid			mRobots;
+	IconGrid			mConnections;
 
 	DiggerDirection		mDiggerDirection;
 	TubesPalette		mTubesPalette;

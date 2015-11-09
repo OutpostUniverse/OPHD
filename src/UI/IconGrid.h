@@ -6,7 +6,7 @@ class IconGrid : public Control
 {
 public:
 
-	typedef Gallant::Signal2<int, const IconGrid&> Callback;
+	typedef Gallant::Signal1<const std::string&> Callback;
 
 	IconGrid();
 	virtual ~IconGrid();
@@ -17,21 +17,28 @@ public:
 	void iconSize(int _size);
 	void iconMargin(int _margin);
 
-	Callback& selectionChanged() { return mCallback; }
+	const std::string& itemName(int _sel) const { return mIconItemList[_sel]._name; }
+
+	bool empty() const { return mIconItemList.empty(); }
 
 	void addItem(const std::string& name, int sheetIndex);
+	void removeItem(const std::string& item);
+	bool itemExists(const std::string& item);
+	void dropAllItems();
+
+	void clearSelection();
+
+	Callback& selectionChanged() { return mCallback; }
+
+	virtual void hide();
 
 protected:
 
 	struct IconGridItem
 	{
-		IconGridItem() : _name("Unnamed") {}
-		~IconGridItem() {}
-
 		Point_2df		_imgSheetCoords;
 		std::string		_name;
 	};
-
 
 	virtual void onMouseDown(MouseButton button, int x, int y);
 	virtual void onMouseMotion(int x, int y, int dX, int dY);
@@ -47,18 +54,17 @@ private:
 
 	int translateCoordsToIndex(int x, int y);
 
-	int					mCurrentSelection;
+
+	int					mHighlightIndex;		/**< Current highlight index. */
+	int					mCurrentSelection;		/**< Currently selected item index. */
 	
-	int					mIconSize;
-	int					mIconMargin;
+	int					mIconSize;				/**< Size of the icons. */
+	int					mIconMargin;			/**< Spacing between icons and edges of the IconGrid. */
 
-	int					mHighlightIndex;
+	Image				mIconSheet;				/**< Image containing the icons. */
+	Point_2d			mGridSize;				/**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
 
-	Point_2d			mGridSize;
+	IconItemList		mIconItemList;			/**< List of items. */
 
-	Image				mIconSheet;
-
-	IconItemList		mIconItemList;
-
-	Callback			mCallback;
+	Callback			mCallback;				/**< Callback whenever a selection is made. */
 };

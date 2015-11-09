@@ -45,8 +45,8 @@ public:
 	void visible(bool visible);
 	bool visible() const;
 
-	void hide() { visible(false); }
-	void show() { visible(true); }
+	virtual void hide() { visible(false); }
+	virtual void show() { visible(true); }
 
 	const Rectangle_2df& rect() const;
 

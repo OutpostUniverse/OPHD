@@ -1,15 +1,16 @@
 #include "Menu.h"
 
+#include "../../Constants.h"
+
 #include <iostream>
 
 using namespace std;
 
-const int NO_SELECTION = -1;
 
 /**
  * C'tor
  */
-Menu::Menu():	mCurrentHighlight(-1),
+Menu::Menu():	mCurrentHighlight(constants::NO_SELECTION),
 				mCurrentSelection(0),
 				mText(COLOR_WHITE),
 				mHighlightBg(COLOR_GREEN),
@@ -84,7 +85,7 @@ void Menu::removeItem(const std::string& item)
 		{
 			mItems.erase(it);
 			_rect().h() = mItems.size() * (font().height() + 2);
-			mCurrentSelection = NO_SELECTION;
+			mCurrentSelection = constants::NO_SELECTION;
 			return;
 		}
 		
@@ -141,7 +142,7 @@ void Menu::onMouseDown(MouseButton button, int x, int y)
 	if(empty() || !visible())
 		return;
 
-	if(!isPointInRect(Point_2d(x, y), _rect()) || mCurrentHighlight == NO_SELECTION)
+	if(!isPointInRect(Point_2d(x, y), _rect()) || mCurrentHighlight == constants::NO_SELECTION)
 		return;
 
 	currentSelection(mCurrentHighlight);
@@ -158,7 +159,7 @@ void Menu::onMouseMove(int x, int y, int relX, int relY)
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
 	if(!isPointInRect(Point_2d(x, y), _rect()))
 	{
-		mCurrentHighlight = NO_SELECTION;
+		mCurrentHighlight = constants::NO_SELECTION;
 		return;
 	}
 
@@ -181,7 +182,7 @@ void Menu::update()
 
 	//r.drawBoxFilled(mRect.x(), mRect.y() + (mCurrentSelection * line_height), mRect.w(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
 
-	if(mCurrentHighlight != NO_SELECTION)
+	if(mCurrentHighlight != constants::NO_SELECTION)
 		r.drawBox(_rect().x(), _rect().y() + (mCurrentHighlight * line_height), _rect().w(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
 
 	for(size_t i = 0; i < mItems.size(); i++)

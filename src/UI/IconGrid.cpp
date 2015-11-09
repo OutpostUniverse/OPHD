@@ -3,10 +3,10 @@
 #include "../Constants.h"
 
 
-IconGrid::IconGrid():	mCurrentSelection(constants::NO_SELECTION),
+IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
+						mCurrentSelection(constants::NO_SELECTION),
 						mIconSize(0),
-						mIconMargin(0),
-						mHighlightIndex(constants::NO_SELECTION)
+						mIconMargin(0)
 {
 	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().Connect(this, &IconGrid::onMouseMotion);
@@ -54,28 +54,25 @@ void IconGrid::updateGrid()
 
 void IconGrid::onMouseDown(MouseButton button, int x, int y)
 {
-	if (mIconItemList.empty())
+	if (!visible())
 		return;
 
-	if (!isPointInRect(x, y, rect().x(), rect().y(), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
-	{
-		mCurrentSelection = -1;
+	if (mIconItemList.empty() || !isPointInRect(x, y, rect().x(), rect().y(), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
 		return;
-	}
 
 	mCurrentSelection = translateCoordsToIndex(x - rect().x(), y - rect().y());
 
 	if (mCurrentSelection >= mIconItemList.size())
 		mCurrentSelection = constants::NO_SELECTION;
+
+	if(mCurrentSelection != constants::NO_SELECTION)
+		mCallback(mIconItemList[mCurrentSelection]._name);
 }
 
 
 void IconGrid::onMouseMotion(int x, int y, int dX, int dY)
 {
-	if (mIconItemList.empty())
-		return;
-
-	if (!isPointInRect(x, y, rect().x(), rect().y(), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
+	if (mIconItemList.empty() || !isPointInRect(x, y, rect().x(), rect().y(), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 		return;
@@ -123,6 +120,65 @@ void IconGrid::addItem(const std::string& name, int sheetIndex)
 }
 
 
+void IconGrid::removeItem(const std::string& item)
+{
+	if (empty())
+		return;
+
+	auto it = mIconItemList.begin();
+
+	while (it != mIconItemList.end())
+	{
+		if (toLowercase((*it)._name) == toLowercase(item))
+		{
+			mIconItemList.erase(it);
+			mCurrentSelection = constants::NO_SELECTION;
+			clearSelection();
+			return;
+		}
+
+		++it;
+	}
+}
+
+
+bool IconGrid::itemExists(const std::string& item)
+{
+	// Ignore if menu is empty
+	if (empty())
+		return false;
+
+	for (size_t i = 0; i < mIconItemList.size(); i++)
+	{
+		if (toLowercase(mIconItemList[i]._name) == toLowercase(item))
+			return true;
+	}
+
+	return false;
+}
+
+
+void IconGrid::dropAllItems()
+{
+	mIconItemList.clear();
+	clearSelection();
+}
+
+
+void IconGrid::clearSelection()
+{
+	mHighlightIndex = constants::NO_SELECTION;
+	mCurrentSelection = constants::NO_SELECTION;
+}
+
+
+void IconGrid::hide()
+{
+	Control::hide();
+	clearSelection();
+}
+
+
 void IconGrid::update()
 {
 	if (!visible())
@@ -140,8 +196,8 @@ void IconGrid::update()
 
 	for (size_t i = 0; i < mIconItemList.size(); ++i)
 	{
-		int x_pos = (i % (mIconSheet.width() / mIconSize));
-		int y_pos = (i / (mIconSheet.width() / mIconSize));
+		int x_pos = i % mGridSize.x();
+		int y_pos = i / mGridSize.x();
 
 		float x = (rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos);
 		float y = (rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos);
@@ -160,11 +216,15 @@ void IconGrid::update()
 	{
 		int x_pos = (mHighlightIndex % mGridSize.x());
 		int y_pos = (mHighlightIndex / mGridSize.x());
-		r.drawBox((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos), (rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos), mIconSize, mIconSize, 0, 180, 0);
 
-		r.drawBoxFilled(rect().x() + x_pos, rect().y() + y_pos - 15, font().width(mIconItemList[mHighlightIndex]._name) + 6, 12, 245, 245, 245);
-		r.drawBox(rect().x() + x_pos, rect().y() + y_pos - 15, font().width(mIconItemList[mHighlightIndex]._name) + 6, 12, 175, 175, 175);
+		int x = (rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos);
+		int y = (rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos);
 
-		r.drawText(font(), mIconItemList[mHighlightIndex]._name, rect().x() + x_pos + 3, rect().y() + y_pos - 15, 0, 0, 0);
+		r.drawBox(x, y, mIconSize, mIconSize, 0, 180, 0);
+
+		// Name Tooltip
+		r.drawBoxFilled(x, y - 15, font().width(mIconItemList[mHighlightIndex]._name) + 4, font().height(), 245, 245, 245);
+		r.drawBox(x, y - 15, font().width(mIconItemList[mHighlightIndex]._name) + 4, font().height(), 175, 175, 175);
+		r.drawText(font(), mIconItemList[mHighlightIndex]._name, x + 2, y - 15, 0, 0, 0);
 	}
 }

@@ -80,17 +80,14 @@ void GameState::initUi()
 	mBtnToggleConnectedness.click().Connect(this, &GameState::btnToggleConnectednessClicked);
 
 	// Menus
-	mRobotsMenu.font(mTinyFont);
-	mRobotsMenu.width(200);
-	mRobotsMenu.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
-	mRobotsMenu.hide();
-	mRobotsMenu.selectionChanged().Connect(this, &GameState::menuRobotsSelectionChanged);
-
-	mStructureMenu.font(mTinyFont);
-	mStructureMenu.width(200);
-	mStructureMenu.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
-	mStructureMenu.hide();
-	mStructureMenu.selectionChanged().Connect(this, &GameState::menuStructuresSelectionChanged);
+	mRobots.font(mTinyFont);
+	mRobots.sheetPath("ui/robots.png");
+	mRobots.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
+	mRobots.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mRobots.iconSize(46);
+	mRobots.iconMargin(constants::MARGIN_TIGHT);
+	mRobots.hide();
+	mRobots.selectionChanged().Connect(this, &GameState::robotsSelectionChanged);
 
 	mStructures.font(mTinyFont);
 	mStructures.sheetPath("ui/structures.png");
@@ -98,28 +95,33 @@ void GameState::initUi()
 	mStructures.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
+	mStructures.hide();
+	mStructures.selectionChanged().Connect(this, &GameState::structuresSelectionChanged);
 
+	// Initial structure
 	mStructures.addItem(constants::SEED_LANDER, 0);
 
 	mFactoryProduction.hide();
-
-	// Initial Structure
-	mStructureMenu.addItem(constants::SEED_LANDER);
 }
 
 
 /**
  * Hides all non-essential UI elements.
  */
-void GameState::hideUi()
+void GameState::resetUi()
 {
-	mRobotsMenu.hide();
-	mStructureMenu.hide();
+	mRobots.hide();
+	mStructures.hide();
+
 	mDiggerDirection.hide();
 	mTubesPalette.hide();
 	mTileInspector.hide();
 	mDiggerDirection.hide();
 	mFactoryProduction.hide();
+
+	mBtnStructures.toggle(false);
+	mBtnConnections.toggle(false);
+	mBtnRobots.toggle(false);
 }
 
 
@@ -128,13 +130,13 @@ void GameState::hideUi()
 */
 void GameState::populateStructureMenu()
 {
-	mStructureMenu.dropAllItems();
+	mStructures.dropAllItems();
 
 	// Above Ground structures only
 	if (mTileMap.currentDepth() == 0)
 	{
-		mStructureMenu.addItem(constants::AGRIDOME);
-		mStructureMenu.addItem(constants::CHAP);
+		mStructures.addItem(constants::AGRIDOME, 5);
+		mStructures.addItem(constants::CHAP, 3);
 	}
 	else
 	{
@@ -163,12 +165,10 @@ void GameState::drawUI()
 	mBtnStructures.update();
 	mBtnConnections.update();
 	mBtnRobots.update();
-
 	mBtnTurns.update();
 	
-	mRobotsMenu.update();
-	mStructureMenu.update();
-
+	// Menus
+	mRobots.update();
 	mStructures.update();
 
 	// UI Containers
@@ -192,32 +192,19 @@ void GameState::btnToggleConnectednessClicked()
 
 
 /**
- * Handles clicks of the Robot Picker button.
- */
-void GameState::btnRobotPickerClicked()
-{
-	hideUi();
-
-	mBtnStructures.toggle(false);
-	mBtnConnections.toggle(false);
-
-	if (mBtnRobots.toggled())
-		mRobotsMenu.visible(true);
-}
-
-
-/**
  * Handles clicks of the Structure Picker button.
  */
 void GameState::btnStructurePickerClicked()
 {
-	hideUi();
+	bool toggled = mBtnStructures.toggled();
+	resetUi();
 
+	mBtnStructures.toggle(toggled);
 	mBtnRobots.toggle(false);
 	mBtnConnections.toggle(false);
 
-	if (mBtnStructures.toggled())
-		mStructureMenu.visible(true);
+	if (toggled)
+		mStructures.show();
 }
 
 
@@ -226,23 +213,53 @@ void GameState::btnStructurePickerClicked()
  */
 void GameState::btnTubesPickerClicked()
 {
-	hideUi();
+	bool toggled = mBtnConnections.toggled();
+	resetUi();
 
+	mBtnConnections.toggle(toggled);
 	mBtnRobots.toggle(false);
 	mBtnStructures.toggle(false);
 
-	if (mBtnConnections.toggled())
+	if (toggled)
 		mTubesPalette.visible(true);
+}
+
+
+/**
+* Handles clicks of the Robot Picker button.
+*/
+void GameState::btnRobotPickerClicked()
+{
+	bool toggled = mBtnRobots.toggled();
+	resetUi();
+
+	mBtnRobots.toggle(toggled);
+	mBtnStructures.toggle(false);
+	mBtnConnections.toggle(false);
+
+	if (toggled)
+		mRobots.visible(true);
 }
 
 
 /**
  * Handles clicks of the Robot Selection Menu.
  */
-void GameState::menuRobotsSelectionChanged()
+void GameState::robotsSelectionChanged(const std::string& _s)
 {
-	mRobotsMenu.visible(false);
-	mBtnRobots.toggle(false);
+	// Robot name is length 0, assume no robots are selected.
+	if (_s.empty())
+	{
+		clearMode();
+		return;
+	}
+
+	if (_s == constants::ROBODIGGER)
+		mCurrentRobot = ROBOT_DIGGER;
+	else if (_s == constants::ROBODOZER)
+		mCurrentRobot = ROBOT_DOZER;
+	else if (_s == constants::ROBOMINER)
+		mCurrentRobot = ROBOT_MINER;
 
 	mInsertMode = INSERT_ROBOT;
 	mCurrentPointer = POINTER_PLACE_TILE;
@@ -253,20 +270,24 @@ void GameState::menuRobotsSelectionChanged()
 * Currently uses a text comparison function. Not inherently bad but
 * should really be turned into a key/value pair table for easier lookups.
 */
-void GameState::menuStructuresSelectionChanged()
+void GameState::structuresSelectionChanged(const std::string& _s)
 {
-	mStructureMenu.visible(false);
-	mBtnStructures.toggle(false);
+	// Structure name is 0 length, assume no structures are selected.
+	if (_s.empty())
+	{
+		clearMode();
+		return;
+	}
 
-	if (mStructureMenu.selectionText() == constants::SEED_LANDER)
+	if (_s == constants::SEED_LANDER)
 	{
 		mCurrentStructure = STRUCTURE_SEED_LANDER;
 	}
-	else if (mStructureMenu.selectionText() == constants::AGRIDOME)
+	else if (_s == constants::AGRIDOME)
 	{
 		mCurrentStructure = STRUCTURE_AGRIDOME;
 	}
-	else if (mStructureMenu.selectionText() == constants::CHAP)
+	else if (_s == constants::CHAP)
 	{
 		mCurrentStructure = STRUCTURE_CHAP;
 	}
@@ -331,7 +352,7 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 
 	if (!mRobotPool.robotAvailable(RobotPool::ROBO_DIGGER))
 	{
-		mRobotsMenu.removeItem(constants::ROBODIGGER);
+		mRobots.removeItem(constants::ROBODIGGER);
 		clearMode();
 	}
 

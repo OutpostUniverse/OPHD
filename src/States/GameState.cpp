@@ -315,7 +315,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 
 		case KEY_ESCAPE:
 			clearMode();
-			hideUi();
+			resetUi();
 			break;
 
 		default:
@@ -338,6 +338,9 @@ void GameState::clearMode()
 {
 	mInsertMode = INSERT_NONE;
 	mCurrentPointer = POINTER_NORMAL;
+
+	mCurrentStructure = STRUCTURE_NONE;
+	mCurrentRobot = ROBOT_NONE;
 }
 
 
@@ -366,7 +369,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		}
 		else if(_t->empty() && isPointInRect(mMousePosition, mTileMap.boundingBox()))
 		{
-			hideUi();
+			resetUi();
 			mTileInspector.tile(_t);
 			mTileInspector.visible(true); 
 		}
@@ -441,13 +444,12 @@ void GameState::placeTubes()
 		validTubeConnection(mTileMap.getTile(x, y - 1, mTileMap.currentDepth()), DIR_NORTH)
 		)
 	{
-		// Warning "C4800" expected. Any non-0 value for depth is considered underground.
 		if(mCurrentStructure == STRUCTURE_TUBE_INTERSECTION)
-			mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, mTileMap.currentDepth()), mTileMap.getTile(x, y), x, y, mTileMap.currentDepth(), true);
+			mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), x, y, mTileMap.currentDepth(), true);
 		else if (mCurrentStructure == STRUCTURE_TUBE_RIGHT)
-			mStructureManager.addStructure(new Tube(CONNECTOR_RIGHT, mTileMap.currentDepth()), mTileMap.getTile(x, y), x, y, mTileMap.currentDepth(), true);
+			mStructureManager.addStructure(new Tube(CONNECTOR_RIGHT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), x, y, mTileMap.currentDepth(), true);
 		else if (mCurrentStructure == STRUCTURE_TUBE_LEFT)
-			mStructureManager.addStructure(new Tube(CONNECTOR_LEFT, mTileMap.currentDepth()), mTileMap.getTile(x, y), x, y, mTileMap.currentDepth(), true);
+			mStructureManager.addStructure(new Tube(CONNECTOR_LEFT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), x, y, mTileMap.currentDepth(), true);
 		else
 			throw Exception(0, "Structure Not a Tube", "GameState::placeTube() called but Current Structure is not a tube!");
 	}
@@ -541,7 +543,7 @@ void GameState::placeRobot()
 		return;
 
 	// Robodozer has been selected.
-	if(mRobotsMenu.selectionText() == constants::ROBODOZER)
+	if(mCurrentRobot == ROBOT_DOZER)
 	{
 		if(tile->mine() || !tile->excavated() || tile->thing() && !tile->thingIsStructure())
 			return;
@@ -572,12 +574,12 @@ void GameState::placeRobot()
 
 		if(!mRobotPool.robotAvailable(RobotPool::ROBO_DOZER))
 		{
-			mRobotsMenu.removeItem(constants::ROBODOZER);
+			mRobots.removeItem(constants::ROBODOZER);
 			clearMode();
 		}
 	}
 	// Robodigger has been selected.
-	else if(mRobotsMenu.selectionText() == constants::ROBODIGGER)
+	else if(mCurrentRobot == ROBOT_DIGGER)
 	{
 		// Keep digger within a safe margin of the map boundaries.
 		if (x < 3 || x > mTileMap.width() - 4 || y < 3 || y > mTileMap.height() - 4)
@@ -596,8 +598,11 @@ void GameState::placeRobot()
 		else
 			mDiggerDirection.downOnlyEnabled();
 
-		hideUi();
+		//hideUi();
 		mDiggerDirection.setParameters(tile, x, y, mTileMap.currentDepth());
+
+		// NOTE:	Unlike the Dozer and Miner, Digger's aren't removed here but instead
+		//			are removed after responses to the DiggerDirection dialog.
 
 		// If we're placing on the top level we can only ever go down.
 		if (mTileMap.currentDepth() == 0)
@@ -606,7 +611,7 @@ void GameState::placeRobot()
 			mDiggerDirection.visible(true);
 	}
 	// Robominer has been selected.
-	else if(mRobotsMenu.selectionText() == constants::ROBOMINER)
+	else if(mCurrentRobot == ROBOT_MINER)
 	{
 		if(tile->thing() || !tile->mine() || !tile->excavated())
 			return;
@@ -619,11 +624,15 @@ void GameState::placeRobot()
 		clearMode();
 
 		if(!mRobotPool.robotAvailable(RobotPool::ROBO_MINER))
-			mRobotsMenu.removeItem(constants::ROBOMINER);
+			mRobots.removeItem(constants::ROBOMINER);
 	}
 
-	if(mRobotPool.allRobotsBusy())
+	if (mRobotPool.allRobotsBusy())
+	{
 		mBtnRobots.enabled(false);
+		//mBtnRobots.toggle(false);
+		//mRobots.hide();
+	}
 }
 
 
@@ -632,9 +641,9 @@ void GameState::placeRobot()
  */
 void GameState::dozerTaskFinished(Robot* _r)
 {
-	if(!mRobotsMenu.itemExists(constants::ROBODOZER))
+	if(!mRobots.itemExists(constants::ROBODOZER))
 	{
-		mRobotsMenu.addItem(constants::ROBODOZER);
+		mRobots.addItem(constants::ROBODOZER, 0);
 
 		if(!mBtnRobots.enabled())
 			mBtnRobots.enabled(true);
@@ -713,9 +722,9 @@ void GameState::diggerTaskFinished(Robot* _r)
 	}
 
 
-	if(!mRobotsMenu.itemExists(constants::ROBODIGGER))
+	if(!mRobots.itemExists(constants::ROBODIGGER))
 	{
-		mRobotsMenu.addItem(constants::ROBODIGGER);
+		mRobots.addItem(constants::ROBODIGGER, 1);
 
 		if(!mBtnRobots.enabled())
 			mBtnRobots.enabled(true);
@@ -735,9 +744,9 @@ void GameState::minerTaskFinished(Robot* _r)
 
 	mStructureManager.addStructure(new MineFacility(tpi.tile->mine()), tpi.tile, tpi.x, tpi.y, tpi.depth, false);
 
-	if(!mRobotsMenu.itemExists(constants::ROBOMINER))
+	if(!mRobots.itemExists(constants::ROBOMINER))
 	{
-		mRobotsMenu.addItem(constants::ROBOMINER);
+		mRobots.addItem(constants::ROBOMINER, 2);
 
 		if(!mBtnRobots.enabled())
 			mBtnRobots.enabled(true);
@@ -780,8 +789,10 @@ void GameState::placeStructure()
 			s->deployCallback().Connect(this, &GameState::deploySeedLander);
 			mStructureManager.addStructure(s, tile, x, y, 0, true); // Can only ever be placed on depth level 0
 			clearMode();
-			mStructureMenu.dropAllItems();
+			mStructures.dropAllItems();
+			mStructures.hide();
 			mBtnStructures.enabled(false);
+			mBtnStructures.toggle(false);
 			mBtnTurns.enabled(true);
 		}
 	}
@@ -925,24 +936,13 @@ void GameState::deploySeedLander(int x, int y)
 	mBtnRobots.enabled(true);
 
 	// Robots only become available after the SEED Factor is deployed.
-	mRobotsMenu.sorted(true);
-	mRobotsMenu.addItem(constants::ROBODOZER);
-	mRobotsMenu.addItem(constants::ROBODIGGER);
-	mRobotsMenu.addItem(constants::ROBOMINER);
+	mRobots.addItem(constants::ROBODOZER, 0);
+	mRobots.addItem(constants::ROBODIGGER, 1);
+	mRobots.addItem(constants::ROBOMINER, 2);
 
 	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
 	mRobotPool.addRobot(RobotPool::ROBO_DIGGER)->taskComplete().Connect(this, &GameState::diggerTaskFinished);
 	mRobotPool.addRobot(RobotPool::ROBO_MINER)->taskComplete().Connect(this, &GameState::minerTaskFinished);
-
-	// FIXME: After debugging remove these extra robots from the beginning
-	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
-	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
-	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
-	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
-	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
-	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
-
-	mRobotPool.addRobot(RobotPool::ROBO_DIGGER)->taskComplete().Connect(this, &GameState::diggerTaskFinished);
 
 	// FIXME: Magic numbers
 	mPlayerResources.commonMetals = 100;
