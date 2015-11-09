@@ -65,8 +65,10 @@ void IconGrid::onMouseDown(MouseButton button, int x, int y)
 	if (mCurrentSelection >= mIconItemList.size())
 		mCurrentSelection = constants::NO_SELECTION;
 
-	if(mCurrentSelection != constants::NO_SELECTION)
+	if (mCurrentSelection != constants::NO_SELECTION)
 		mCallback(mIconItemList[mCurrentSelection]._name);
+	else
+		mCallback("");
 }
 
 

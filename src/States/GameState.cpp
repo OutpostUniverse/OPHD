@@ -70,7 +70,6 @@ GameState::GameState(const string& map, const string& tset):	mFont("fonts/Fresca
 																mCurrentPointer(POINTER_NORMAL),
 																mCurrentStructure(STRUCTURE_NONE),
 																mDiggerDirection(mTinyFont),
-																mTubesPalette(mTinyFont),
 																mTileInspector(mTinyFont),
 																mFactoryProduction(mTinyFont),
 																mInsertMode(INSERT_NONE),
@@ -341,6 +340,8 @@ void GameState::clearMode()
 
 	mCurrentStructure = STRUCTURE_NONE;
 	mCurrentRobot = ROBOT_NONE;
+
+	clearSelections();
 }
 
 
@@ -360,7 +361,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		if(mInsertMode != INSERT_NONE)
 		{
 			clearMode();
-			mTubesPalette.clearToggles();
+			return;
 		}
 
 		if (!_t)
@@ -369,7 +370,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		}
 		else if(_t->empty() && isPointInRect(mMousePosition, mTileMap.boundingBox()))
 		{
-			resetUi();
+			clearSelections();
 			mTileInspector.tile(_t);
 			mTileInspector.visible(true); 
 		}

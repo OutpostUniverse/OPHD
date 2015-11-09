@@ -130,7 +130,6 @@
     <ClCompile Include="..\..\src\UI\FactoryProduction.cpp" />
     <ClCompile Include="..\..\src\UI\IconGrid.cpp" />
     <ClCompile Include="..\..\src\UI\TileInspector.cpp" />
-    <ClCompile Include="..\..\src\UI\TubesPalette.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h" />
@@ -182,7 +181,6 @@
     <ClInclude Include="..\..\src\UI\FactoryProduction.h" />
     <ClInclude Include="..\..\src\UI\IconGrid.h" />
     <ClInclude Include="..\..\src\UI\TileInspector.h" />
-    <ClInclude Include="..\..\src\UI\TubesPalette.h" />
     <ClInclude Include="..\..\src\UI\UI.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

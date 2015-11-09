@@ -21,7 +21,6 @@
 #include "../UI/FactoryProduction.h"
 #include "../UI/IconGrid.h"
 #include "../UI/TileInspector.h"
-#include "../UI/TubesPalette.h"
 
 #include "../Constants.h"
 
@@ -108,6 +107,7 @@ private:
 
 	void initUi();
 	void resetUi();
+	void clearSelections();
 
 	void populateStructureMenu();
 	void clearMode();
@@ -143,11 +143,11 @@ private:
 	void btnStructurePickerClicked();
 	void btnToggleConnectednessClicked();
 
-	void robotsSelectionChanged(const std::string& _s);
 	void structuresSelectionChanged(const std::string& _s);
+	void connectionsSelectionChanged(const std::string& _s);
+	void robotsSelectionChanged(const std::string& _s);
 
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, TilePositionInfo& _tpi);
-	void tubePaletteSelection(ConnectorDir _cd, bool _b);
 
 	FpsCounter			mFps;
 	Timer				mMoveTimer;
@@ -197,7 +197,6 @@ private:
 	IconGrid			mConnections;
 
 	DiggerDirection		mDiggerDirection;
-	TubesPalette		mTubesPalette;
 	TileInspector		mTileInspector;
 	FactoryProduction	mFactoryProduction;
 

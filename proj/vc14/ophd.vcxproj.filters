@@ -81,9 +81,6 @@
     <ClCompile Include="..\..\src\UI\TileInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\TubesPalette.cpp">
-      <Filter>Source Files\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\UI\Core\Button.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
@@ -210,9 +207,6 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\UI\TileInspector.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\UI\TubesPalette.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\UI\UI.h">

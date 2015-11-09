@@ -24,10 +24,6 @@ void GameState::initUi()
 	mDiggerDirection.visible(false);
 	mDiggerDirection.position(r.height() - constants::BOTTOM_UI_HEIGHT + constants::MARGIN, mMiniMapBoundingBox.w() + constants::MARGIN * 3 + constants::MINI_MAP_BUTTON_SIZE);
 
-	mTubesPalette.tubeTypeSelected().Connect(this, &GameState::tubePaletteSelection);
-	mTubesPalette.visible(false);
-	mTubesPalette.position(r.height() - constants::BOTTOM_UI_HEIGHT + constants::MARGIN, mMiniMapBoundingBox.w() + constants::MARGIN * 3 + constants::MINI_MAP_BUTTON_SIZE);
-
 	// Bottom UI
 	BOTTOM_UI_AREA(0, r.height() - constants::BOTTOM_UI_HEIGHT, r.width(), constants::BOTTOM_UI_HEIGHT);
 
@@ -64,7 +60,6 @@ void GameState::initUi()
 	mBtnTurns.click().Connect(this, &GameState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
 
-
 	// Mini Map
 	mMiniMapBoundingBox(r.width() - mMapDisplay.width() - constants::MARGIN, BOTTOM_UI_AREA.y() + constants::MARGIN, mMapDisplay.width(), mMapDisplay.height());
 
@@ -80,15 +75,6 @@ void GameState::initUi()
 	mBtnToggleConnectedness.click().Connect(this, &GameState::btnToggleConnectednessClicked);
 
 	// Menus
-	mRobots.font(mTinyFont);
-	mRobots.sheetPath("ui/robots.png");
-	mRobots.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
-	mRobots.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
-	mRobots.iconSize(46);
-	mRobots.iconMargin(constants::MARGIN_TIGHT);
-	mRobots.hide();
-	mRobots.selectionChanged().Connect(this, &GameState::robotsSelectionChanged);
-
 	mStructures.font(mTinyFont);
 	mStructures.sheetPath("ui/structures.png");
 	mStructures.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
@@ -98,8 +84,30 @@ void GameState::initUi()
 	mStructures.hide();
 	mStructures.selectionChanged().Connect(this, &GameState::structuresSelectionChanged);
 
-	// Initial structure
+	mConnections.font(mTinyFont);
+	mConnections.sheetPath("ui/structures.png");
+	mConnections.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
+	mConnections.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mConnections.iconSize(46);
+	mConnections.iconMargin(constants::MARGIN_TIGHT);
+	mConnections.hide();
+	mConnections.selectionChanged().Connect(this, &GameState::connectionsSelectionChanged);
+
+	mRobots.font(mTinyFont);
+	mRobots.sheetPath("ui/robots.png");
+	mRobots.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
+	mRobots.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mRobots.iconSize(46);
+	mRobots.iconMargin(constants::MARGIN_TIGHT);
+	mRobots.hide();
+	mRobots.selectionChanged().Connect(this, &GameState::robotsSelectionChanged);
+
+	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0);
+
+	mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110);
+	mConnections.addItem(constants::AG_TUBE_LEFT, 111);
+	mConnections.addItem(constants::AG_TUBE_RIGHT, 112);
 
 	mFactoryProduction.hide();
 }
@@ -110,11 +118,13 @@ void GameState::initUi()
  */
 void GameState::resetUi()
 {
-	mRobots.hide();
 	mStructures.hide();
+	mConnections.hide();
+	mRobots.hide();
+
+	clearSelections();
 
 	mDiggerDirection.hide();
-	mTubesPalette.hide();
 	mTileInspector.hide();
 	mDiggerDirection.hide();
 	mFactoryProduction.hide();
@@ -125,21 +135,37 @@ void GameState::resetUi()
 }
 
 
+void GameState::clearSelections()
+{
+	mStructures.clearSelection();
+	mConnections.clearSelection();
+	mRobots.clearSelection();
+}
+
+
 /**
 * Adds selection options to the Structure Menu
 */
 void GameState::populateStructureMenu()
 {
 	mStructures.dropAllItems();
+	mConnections.dropAllItems();
 
 	// Above Ground structures only
 	if (mTileMap.currentDepth() == 0)
 	{
 		mStructures.addItem(constants::AGRIDOME, 5);
 		mStructures.addItem(constants::CHAP, 3);
+
+		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110);
+		mConnections.addItem(constants::AG_TUBE_LEFT, 111);
+		mConnections.addItem(constants::AG_TUBE_RIGHT, 112);
 	}
 	else
 	{
+		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113);
+		mConnections.addItem(constants::UG_TUBE_LEFT, 114);
+		mConnections.addItem(constants::UG_TUBE_RIGHT, 115);
 	}
 }
 
@@ -170,10 +196,10 @@ void GameState::drawUI()
 	// Menus
 	mRobots.update();
 	mStructures.update();
+	mConnections.update();
 
 	// UI Containers
 	mDiggerDirection.update();
-	mTubesPalette.update();
 	mTileInspector.update();
 	mFactoryProduction.update();
 
@@ -221,7 +247,7 @@ void GameState::btnTubesPickerClicked()
 	mBtnStructures.toggle(false);
 
 	if (toggled)
-		mTubesPalette.visible(true);
+		mConnections.visible(true);
 }
 
 
@@ -239,30 +265,6 @@ void GameState::btnRobotPickerClicked()
 
 	if (toggled)
 		mRobots.visible(true);
-}
-
-
-/**
- * Handles clicks of the Robot Selection Menu.
- */
-void GameState::robotsSelectionChanged(const std::string& _s)
-{
-	// Robot name is length 0, assume no robots are selected.
-	if (_s.empty())
-	{
-		clearMode();
-		return;
-	}
-
-	if (_s == constants::ROBODIGGER)
-		mCurrentRobot = ROBOT_DIGGER;
-	else if (_s == constants::ROBODOZER)
-		mCurrentRobot = ROBOT_DOZER;
-	else if (_s == constants::ROBOMINER)
-		mCurrentRobot = ROBOT_MINER;
-
-	mInsertMode = INSERT_ROBOT;
-	mCurrentPointer = POINTER_PLACE_TILE;
 }
 
 
@@ -293,6 +295,59 @@ void GameState::structuresSelectionChanged(const std::string& _s)
 	}
 
 	mInsertMode = INSERT_STRUCTURE;
+	mCurrentPointer = POINTER_PLACE_TILE;
+}
+
+
+/**
+* Handler for the Tubes Pallette dialog.
+*/
+void GameState::connectionsSelectionChanged(const std::string& _s)
+{
+	// Connection name is 0 length, assume no structures are selected.
+	if (_s.empty())
+	{
+		clearMode();
+		return;
+	}
+
+	if (_s == constants::AG_TUBE_INTERSECTION || _s == constants::UG_TUBE_INTERSECTION)
+		mCurrentStructure = STRUCTURE_TUBE_INTERSECTION;
+	else if (_s == constants::AG_TUBE_RIGHT || _s == constants::UG_TUBE_INTERSECTION)
+		mCurrentStructure = STRUCTURE_TUBE_RIGHT;
+	else if (_s == constants::AG_TUBE_LEFT || _s == constants::UG_TUBE_INTERSECTION)
+		mCurrentStructure = STRUCTURE_TUBE_LEFT;
+	else
+	{
+		mCurrentStructure = STRUCTURE_NONE;
+		return;
+	}
+
+	mInsertMode = INSERT_TUBE;
+	mCurrentPointer = POINTER_PLACE_TILE;
+}
+
+
+/**
+* Handles clicks of the Robot Selection Menu.
+*/
+void GameState::robotsSelectionChanged(const std::string& _s)
+{
+	// Robot name is length 0, assume no robots are selected.
+	if (_s.empty())
+	{
+		clearMode();
+		return;
+	}
+
+	if (_s == constants::ROBODIGGER)
+		mCurrentRobot = ROBOT_DIGGER;
+	else if (_s == constants::ROBODOZER)
+		mCurrentRobot = ROBOT_DOZER;
+	else if (_s == constants::ROBOMINER)
+		mCurrentRobot = ROBOT_MINER;
+
+	mInsertMode = INSERT_ROBOT;
 	mCurrentPointer = POINTER_PLACE_TILE;
 }
 
@@ -357,38 +412,6 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	}
 
 	mDiggerDirection.visible(false);
-}
-
-
-/**
- * Handler for the Tubes Pallette dialog.
- */
-void GameState::tubePaletteSelection(ConnectorDir _t, bool _b)
-{
-	mBtnStructures.toggle(false);
-	mBtnConnections.toggle(false);
-	mBtnRobots.toggle(false);
-
-	if (_b)
-	{
-		mCurrentStructure = STRUCTURE_NONE;
-		clearMode();
-	}
-
-	if (_t == CONNECTOR_INTERSECTION)
-		mCurrentStructure = STRUCTURE_TUBE_INTERSECTION;
-	else if (_t == CONNECTOR_RIGHT)
-		mCurrentStructure = STRUCTURE_TUBE_RIGHT;
-	else if (_t == CONNECTOR_LEFT)
-		mCurrentStructure = STRUCTURE_TUBE_LEFT;
-	else
-	{
-		mCurrentStructure = STRUCTURE_NONE;
-		return;
-	}
-
-	mInsertMode = INSERT_TUBE;
-	mCurrentPointer = POINTER_PLACE_TILE;
 }
 
 
