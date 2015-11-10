@@ -3,6 +3,9 @@
 #include "../Constants.h"
 
 
+/**
+ * C'tor
+ */
 IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
 						mCurrentSelection(constants::NO_SELECTION),
 						mIconSize(0),
@@ -13,6 +16,9 @@ IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
 }
 
 
+/**
+ * D'tor
+ */
 IconGrid::~IconGrid()
 {
 	Utility<EventHandler>::get().mouseButtonDown().Disconnect(this, &IconGrid::onMouseDown);
@@ -20,12 +26,18 @@ IconGrid::~IconGrid()
 }
 
 
+/**
+ * Sets the icon sheet path and loads an Image.
+ */
 void IconGrid::sheetPath(const std::string& _path)
 {
 	mIconSheet = Image(_path);
 }
 
 
+/**
+ * Sets the icon dimensions.
+ */
 void  IconGrid::iconSize(int _size)
 {
 	mIconSize = _size;
@@ -33,6 +45,9 @@ void  IconGrid::iconSize(int _size)
 }
 
 
+/** 
+ * Sets the margin used between the edges of the IconGrid and other icons.
+ */
 void IconGrid::iconMargin(int _margin)
 {
 	mIconMargin = _margin;
@@ -52,8 +67,15 @@ void IconGrid::updateGrid()
 }
 
 
+/**
+ * MouseDown event handler.
+ */
 void IconGrid::onMouseDown(MouseButton button, int x, int y)
 {
+	// Don't respond to anything unless it's the left mouse button.
+	if (button != BUTTON_LEFT)
+		return;
+
 	if (!visible())
 		return;
 
@@ -72,8 +94,14 @@ void IconGrid::onMouseDown(MouseButton button, int x, int y)
 }
 
 
+/**
+ * MouseMotion event handler.
+ */
 void IconGrid::onMouseMotion(int x, int y, int dX, int dY)
 {
+	if (!visible())
+		return;
+
 	if (mIconItemList.empty() || !isPointInRect(x, y, rect().x(), rect().y(), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
 	{
 		mHighlightIndex = constants::NO_SELECTION;
@@ -88,18 +116,19 @@ void IconGrid::onMouseMotion(int x, int y, int dX, int dY)
 }
 
 
+/**
+ * Utility function that translates mouse coordinates into
+ * an index value.
+ */
 int IconGrid::translateCoordsToIndex(int x, int y)
 {
 	return (x / (mIconSize + mIconMargin)) + (mGridSize.x() * (y / (mIconSize + mIconMargin)));
 }
 
 
-void IconGrid::positionChanged(float dX, float dY)
-{
-
-}
-
-
+/**
+ * Called whenever the size of the IconGrid is changed.
+ */
 void IconGrid::sizeChanged()
 {
 	updateGrid();
@@ -122,6 +151,9 @@ void IconGrid::addItem(const std::string& name, int sheetIndex)
 }
 
 
+/**
+ * Removes an item from the IconGrid by name.
+ */
 void IconGrid::removeItem(const std::string& item)
 {
 	if (empty())
@@ -144,6 +176,9 @@ void IconGrid::removeItem(const std::string& item)
 }
 
 
+/**
+ * Indicates wether a named item exists in the IconGrid.
+ */
 bool IconGrid::itemExists(const std::string& item)
 {
 	// Ignore if menu is empty
@@ -160,6 +195,9 @@ bool IconGrid::itemExists(const std::string& item)
 }
 
 
+/**
+ * Drops all items from the IconGrid.
+ */
 void IconGrid::dropAllItems()
 {
 	mIconItemList.clear();
@@ -167,6 +205,9 @@ void IconGrid::dropAllItems()
 }
 
 
+/**
+ * Clears the Highlight Index and the Selection Index.
+ */
 void IconGrid::clearSelection()
 {
 	mHighlightIndex = constants::NO_SELECTION;
@@ -174,6 +215,9 @@ void IconGrid::clearSelection()
 }
 
 
+/**
+ * Hide override -- clears selections whenever IconGrid is hidden.
+ */
 void IconGrid::hide()
 {
 	Control::hide();
@@ -181,6 +225,9 @@ void IconGrid::hide()
 }
 
 
+/**
+ * Draws the IconGrid.
+ */
 void IconGrid::update()
 {
 	if (!visible())

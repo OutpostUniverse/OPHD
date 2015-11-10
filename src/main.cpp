@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
 	try
 	{
 		Game game("OutpostHD", argv[0]);
-		//game.go(new GameState("maps/mars_04", "tsets/mercury.png"));
 		game.go(new PlanetSelectState());
 	}
 	catch(Exception& e)

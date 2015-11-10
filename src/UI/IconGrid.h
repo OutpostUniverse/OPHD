@@ -2,6 +2,11 @@
 
 #include "UI.h"
 
+
+/**
+ * \class IconGrid
+ * \brief Represents a 2D grid of Icon items that can be selected with a mouse.
+ */
 class IconGrid : public Control
 {
 public:
@@ -34,6 +39,14 @@ public:
 
 protected:
 
+	/**
+	 * \struct	IconGridItem
+	 * \brief	Represents an individual item within the IconGrid.
+	 * 
+	 * This class really only contains the name and image sheet coordinates of an
+	 * item contained in the IconGrid. This could probably be done using a std::pair
+	 * but this struct may grow in size later.
+	 */
 	struct IconGridItem
 	{
 		Point_2df		_imgSheetCoords;
@@ -43,7 +56,6 @@ protected:
 	virtual void onMouseDown(MouseButton button, int x, int y);
 	virtual void onMouseMotion(int x, int y, int dX, int dY);
 
-	virtual void positionChanged(float dX, float dY);
 	virtual void sizeChanged();
 
 private:
@@ -51,7 +63,6 @@ private:
 	typedef std::vector<IconGridItem> IconItemList;
 
 	void updateGrid();
-
 	int translateCoordsToIndex(int x, int y);
 
 
