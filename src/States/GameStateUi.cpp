@@ -81,6 +81,7 @@ void GameState::initUi()
 	mStructures.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
+	mStructures.showTooltip(true);
 	mStructures.hide();
 	mStructures.selectionChanged().Connect(this, &GameState::structuresSelectionChanged);
 
@@ -99,6 +100,7 @@ void GameState::initUi()
 	mRobots.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
+	mRobots.showTooltip(true);
 	mRobots.hide();
 	mRobots.selectionChanged().Connect(this, &GameState::robotsSelectionChanged);
 

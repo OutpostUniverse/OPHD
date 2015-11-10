@@ -31,6 +31,8 @@ public:
 	bool itemExists(const std::string& item);
 	void dropAllItems();
 
+	void showTooltip(bool _b) { mShowTooltip = _b; }
+
 	void clearSelection();
 
 	Callback& selectionChanged() { return mCallback; }
@@ -71,6 +73,8 @@ private:
 	
 	int					mIconSize;				/**< Size of the icons. */
 	int					mIconMargin;			/**< Spacing between icons and edges of the IconGrid. */
+
+	bool				mShowTooltip;			/**< Flag indicating that we want a tooltip drawn near an icon when hovering over it. */
 
 	Image				mIconSheet;				/**< Image containing the icons. */
 	Point_2d			mGridSize;				/**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */

@@ -9,7 +9,8 @@
 IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
 						mCurrentSelection(constants::NO_SELECTION),
 						mIconSize(0),
-						mIconMargin(0)
+						mIconMargin(0),
+						mShowTooltip(false)
 {
 	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().Connect(this, &IconGrid::onMouseMotion);
@@ -235,13 +236,10 @@ void IconGrid::update()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	Rectangle_2df r2d = rect();
-
 	r.drawBoxFilled(rect(), 0, 0, 0);
 
 	if (mIconItemList.empty())
 		return;
-
 
 	for (size_t i = 0; i < mIconItemList.size(); ++i)
 	{
@@ -271,9 +269,12 @@ void IconGrid::update()
 
 		r.drawBox(x, y, mIconSize, mIconSize, 0, 180, 0);
 
-		// Name Tooltip
-		r.drawBoxFilled(x, y - 15, font().width(mIconItemList[mHighlightIndex]._name) + 4, font().height(), 245, 245, 245);
-		r.drawBox(x, y - 15, font().width(mIconItemList[mHighlightIndex]._name) + 4, font().height(), 175, 175, 175);
-		r.drawText(font(), mIconItemList[mHighlightIndex]._name, x + 2, y - 15, 0, 0, 0);
+		if (mShowTooltip)
+		{
+			// Name Tooltip
+			r.drawBoxFilled(x, y - 15, font().width(mIconItemList[mHighlightIndex]._name) + 4, font().height(), 245, 245, 245);
+			r.drawBox(x, y - 15, font().width(mIconItemList[mHighlightIndex]._name) + 4, font().height(), 175, 175, 175);
+			r.drawText(font(), mIconItemList[mHighlightIndex]._name, x + 2, y - 15, 0, 0, 0);
+		}
 	}
 }
