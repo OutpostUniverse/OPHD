@@ -34,6 +34,7 @@ public:
 	void showTooltip(bool _b) { mShowTooltip = _b; }
 
 	void clearSelection();
+	void selection(int _s);
 
 	Callback& selectionChanged() { return mCallback; }
 

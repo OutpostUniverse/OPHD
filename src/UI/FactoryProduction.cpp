@@ -3,7 +3,7 @@
 #include "../Constants.h"
 
 
-FactoryProduction::FactoryProduction(Font& font) : mFactory(nullptr)
+FactoryProduction::FactoryProduction(Font& font) : mFactory(nullptr), mProductionType(Factory::PRODUCTION_NONE)
 {
 	Control::font(font);
 	init();
@@ -14,70 +14,48 @@ FactoryProduction::~FactoryProduction()
 {}
 
 
-void FactoryProduction::update()
+void FactoryProduction::init()
 {
-	if (!visible())
-		return;
+	size(300, 162);
 
-	Utility<Renderer>::get().drawBoxFilled(rect(), COLOR_SILVER.red(), COLOR_SILVER.green(), COLOR_SILVER.blue());
-	Utility<Renderer>::get().drawBox(rect(), 0, 0, 0);
+	addControl("mProductionGrid", &mProductionGrid, constants::MARGIN, 20);
+	mProductionGrid.font(font());
+	mProductionGrid.sheetPath("ui/surface_factory.png");
+	mProductionGrid.size(140, 110);
+	mProductionGrid.iconSize(32);
+	mProductionGrid.iconMargin(constants::MARGIN_TIGHT);
+	mProductionGrid.showTooltip(true);
+	mProductionGrid.hide();
+	mProductionGrid.selectionChanged().Connect(this, &FactoryProduction::productionSelectionChanged);
 
-	// FIXME: Not efficient.
-	stringstream ss;
-	ss << "Factory Production ID(" << mFactory->id() << ")";
-	Utility<Renderer>::get().drawText(font(), ss.str(), rect().x() + 5, rect().y() + 5, 0, 0, 0);
-	Utility<Renderer>::get().drawText(font(), ss.str(), rect().x() + 5.5, rect().y() + 5.5, 0, 0, 0);
+	addControl("btnIdle", &btnIdle, constants::MARGIN, 136);
+	btnIdle.font(font());
+	btnIdle.text("Idle");
+	btnIdle.size(35, 20);
+	btnIdle.type(Button::BUTTON_TOGGLE);
 
+	addControl("btnOkay", &btnOkay, 70, 136);
+	btnOkay.font(font());
+	btnOkay.text("Okay");
+	btnOkay.size(35, 20);
+	btnOkay.click().Connect(this, &FactoryProduction::btnOkayClicked);
 
-	Utility<Renderer>::get().drawBoxFilled(mnuProductionList.rect(), 0, 0, 0);
+	addControl("btnCancel", &btnCancel, 111, 136);
+	btnCancel.font(font());
+	btnCancel.text("Cancel");
+	btnCancel.size(35, 20);
+	btnCancel.click().Connect(this, &FactoryProduction::btnCancelClicked);
 
-	// Let UIContainer handle the basics.
-	UIContainer::update();
+	position(static_cast<int>(Utility<Renderer>::get().screenCenterX() - width() / 2), static_cast<int>((Utility<Renderer>::get().height() - constants::BOTTOM_UI_HEIGHT) / 2 - height() / 2));
 }
 
 
-void FactoryProduction::init()
+void FactoryProduction::hide()
 {
-	size(380, 115);
-	position(static_cast<int>(Utility<Renderer>::get().screenCenterX() - width() / 2), static_cast<int>((Utility<Renderer>::get().height() - constants::BOTTOM_UI_HEIGHT) / 2 - height() / 2));
-
-	addControl("mnuProductionList", &mnuProductionList, 5, 25);
-	mnuProductionList.font(font());
-	mnuProductionList.width(195);
-
-	mnuProductionList.addItem("Production 1");
-	mnuProductionList.addItem("Production 2");
-	mnuProductionList.addItem("Production 3");
-	mnuProductionList.addItem("Production 4");
-	mnuProductionList.addItem("Production 5");
-	mnuProductionList.addItem("Production 6");
-
-	mnuProductionList.currentSelection(0);
-
-	addControl("btnIdle", &btnIdle, 205, 92);
-	btnIdle.font(font());
-	btnIdle.text("Idle");
-	btnIdle.size(35, 18);
-	btnIdle.click().Connect(this, &FactoryProduction::btnIdleClicked);
-	btnIdle.type(Button::BUTTON_TOGGLE);
-
-	addControl("btnOkay", &btnOkay, 260, 92);
-	btnOkay.font(font());
-	btnOkay.text("Okay");
-	btnOkay.size(35, 18);
-	btnOkay.click().Connect(this, &FactoryProduction::btnOkayClicked);
-
-	addControl("btnCancel", &btnCancel, 300, 92);
-	btnCancel.font(font());
-	btnCancel.text("Cancel");
-	btnCancel.size(35, 18);
-	btnCancel.click().Connect(this, &FactoryProduction::btnCancelClicked);
-
-	addControl("btnApply", &btnApply, 340, 92);
-	btnApply.font(font());
-	btnApply.text("Apply");
-	btnApply.size(35, 18);
-	btnApply.click().Connect(this, &FactoryProduction::btnApplyClicked);
+	Control::hide();
+	mFactory = nullptr;
+	mProductionType = Factory::PRODUCTION_NONE;
+	mProductionGrid.clearSelection();
 }
 
 
@@ -95,25 +73,91 @@ void FactoryProduction::onMouseUp(MouseButton button, int x, int y)
 }
 
 
-void FactoryProduction::btnIdleClicked()
+void FactoryProduction::productionSelectionChanged(const std::string& _s)
 {
+	if (!mFactory)
+		return;
+
+	if (_s.empty())
+		mProductionType = Factory::PRODUCTION_NONE;
+	else if (_s == constants::ROBODIGGER)
+		mProductionType = Factory::PRODUCTION_DIGGER;
+	else if (_s == constants::ROBODOZER)
+		mProductionType = Factory::PRODUCTION_DOZER;
+	else if (_s == constants::ROBOMINER)
+		mProductionType = Factory::PRODUCTION_MINER;
+	else
+		mProductionType = Factory::PRODUCTION_NONE;
 }
 
 
 void FactoryProduction::btnOkayClicked()
 {
-	//hide();
-	//mFactory = nullptr;
-}
-
-
-void FactoryProduction::btnApplyClicked()
-{
+	mFactory->productionType(mProductionType);
+	hide();
 }
 
 
 void FactoryProduction::btnCancelClicked()
 {
-	//hide();
-	//mFactory = nullptr;
+	hide();
+}
+
+
+void FactoryProduction::factory(Factory* _f)
+{
+	mFactory = _f;
+
+	if (mFactory == nullptr)
+		return;
+
+	mProductionGrid.dropAllItems();
+
+	Factory::ProductionTypeList ptlist = mFactory->productionList();
+	
+	// FIXME: Very seriously doubt that this check is needed.
+	if (ptlist.empty())
+		return;
+
+	// FIXME: This is a super naive and ugly way to do this. Don't like it at all.
+	for (size_t i = 0; i < ptlist.size(); ++i)
+	{
+		if(ptlist[i] == Factory::PRODUCTION_DIGGER)
+			mProductionGrid.addItem(constants::ROBODIGGER, 0);
+		else if (ptlist[i] == Factory::PRODUCTION_DOZER)
+			mProductionGrid.addItem(constants::ROBODOZER, 1);
+		else if (ptlist[i] == Factory::PRODUCTION_MINER)
+			mProductionGrid.addItem(constants::ROBOMINER, 2);
+	}
+
+	// FIXME:	The following block assumes that factory items will be in a particular order and
+	//			is prone to break if things aren't supplied in exactly the way it expects. Also,
+	//			it's just another really bad way of doing this (if/else if blocks, blech!)
+	if (mFactory->productionType() == Factory::PRODUCTION_DIGGER)
+		mProductionGrid.selection(0);
+	else if (mFactory->productionType() == Factory::PRODUCTION_DOZER)
+		mProductionGrid.selection(1);
+	else if (mFactory->productionType() == Factory::PRODUCTION_MINER)
+		mProductionGrid.selection(2);
+	else
+		mProductionGrid.clearSelection();
+}
+
+
+void FactoryProduction::update()
+{
+	if (!visible())
+		return;
+
+	Utility<Renderer>::get().drawBoxFilled(rect(), COLOR_SILVER.red(), COLOR_SILVER.green(), COLOR_SILVER.blue());
+	Utility<Renderer>::get().drawBox(rect(), 0, 0, 0);
+
+	// FIXME: Not efficient.
+	stringstream ss;
+	ss << "Factory Production ID(" << mFactory->id() << ")";
+	Utility<Renderer>::get().drawText(font(), ss.str(), rect().x() + constants::MARGIN, rect().y() + constants::MARGIN, 0, 0, 0);
+	Utility<Renderer>::get().drawText(font(), ss.str(), rect().x() + constants::MARGIN + 0.5f, rect().y() + constants::MARGIN + 0.5f, 0, 0, 0);
+
+	// Let UIContainer handle the basics.
+	UIContainer::update();
 }

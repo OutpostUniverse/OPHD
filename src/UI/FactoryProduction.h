@@ -1,7 +1,7 @@
 #pragma once
 
-
 #include "UI.h"
+#include "IconGrid.h"
 
 #include "../Things/Structures/Factory.h"
 
@@ -12,9 +12,11 @@ public:
 	FactoryProduction(Font& font);
 	virtual ~FactoryProduction();
 
-	void factory(Factory* _f) { mFactory = _f; }
+	void factory(Factory* _f);
 
 	virtual void update();
+
+	virtual void hide();
 
 protected:
 
@@ -25,21 +27,22 @@ protected:
 
 private:
 
-	void btnIdleClicked();
 	void btnOkayClicked();
-	void btnApplyClicked();
 	void btnCancelClicked();
 
 	FactoryProduction();
 	FactoryProduction(const FactoryProduction&);
 	FactoryProduction& operator=(const FactoryProduction&);
 
-	Factory*	mFactory;
+	void productionSelectionChanged(const std::string&);
 
-	Menu		mnuProductionList;
+	Factory*					mFactory;
 
-	Button		btnIdle;
-	Button		btnOkay;
-	Button		btnCancel;
-	Button		btnApply;
+	Factory::ProductionType		mProductionType;
+
+	IconGrid					mProductionGrid;
+
+	Button						btnIdle;
+	Button						btnOkay;
+	Button						btnCancel;
 };

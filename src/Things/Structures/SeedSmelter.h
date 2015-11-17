@@ -13,7 +13,7 @@ public:
 		maxAge(100);
 		turnsToBuild(9);
 		requiresCHAP(false);
-		isFactory(true);
+		isFactory(false);
 	}
 
 	~SeedSmelter()
@@ -30,6 +30,9 @@ public:
 			idle(false);
 			activate();
 		}
+
+		if (state() == OPERATIONAL)
+			updateProduction();
 	}
 
 protected:
@@ -38,7 +41,7 @@ protected:
 	{}
 
 
-	virtual void productionComplete()
+	virtual void updateProduction()
 	{
 		double resource_temp = 0;
 

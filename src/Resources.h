@@ -2,10 +2,10 @@
 #define __RESOURCES__
 
 /**
- * Pretty much just an easy container for keeping track of resources.
- * 
- * \note	Plain Jane structure. No sanity checking at all.
- */
+* Pretty much just an easy container for keeping track of resources.
+* 
+* \note	Plain Jane structure. No sanity checking at all.
+*/
 struct Resources
 {
 public:
@@ -35,59 +35,78 @@ public:
 	
 	~Resources() {}
 
-	 Resources& operator=(const Resources& rhs)
-	 {
-		 commonMetalsOre = rhs.commonMetalsOre;
-		 commonMineralsOre = rhs.commonMineralsOre;
-		 rareMetalsOre = rhs.rareMetalsOre;
-		 rareMineralsOre = rhs.rareMineralsOre;
+	Resources& operator=(const Resources& rhs)
+	{
+		commonMetalsOre = rhs.commonMetalsOre;
+		commonMineralsOre = rhs.commonMineralsOre;
+		rareMetalsOre = rhs.rareMetalsOre;
+		rareMineralsOre = rhs.rareMineralsOre;
 
-		 commonMetals = rhs.commonMetals;
-		 commonMinerals = rhs.commonMinerals;
-		 rareMetals = rhs.rareMetals;
-		 rareMinerals = rhs.rareMinerals;
+		commonMetals = rhs.commonMetals;
+		commonMinerals = rhs.commonMinerals;
+		rareMetals = rhs.rareMetals;
+		rareMinerals = rhs.rareMinerals;
 
-		 energy = rhs.energy;
-		 food = rhs.food;
+		energy = rhs.energy;
+		food = rhs.food;
 
-		 return *this;
-	 }
+		return *this;
+	}
 
-	 Resources& operator+=(const Resources& rhs)
-	 {
-		 commonMetalsOre += rhs.commonMetalsOre;
-		 commonMineralsOre += rhs.commonMineralsOre;
-		 rareMetalsOre += rhs.rareMetalsOre;
-		 rareMineralsOre += rhs.rareMineralsOre;
+	Resources& operator+=(const Resources& rhs)
+	{
+		commonMetalsOre += rhs.commonMetalsOre;
+		commonMineralsOre += rhs.commonMineralsOre;
+		rareMetalsOre += rhs.rareMetalsOre;
+		rareMineralsOre += rhs.rareMineralsOre;
 
-		 commonMetals += rhs.commonMetals;
-		 commonMinerals += rhs.commonMinerals;
-		 rareMetals += rhs.rareMetals;
-		 rareMinerals += rhs.rareMinerals;
+		commonMetals += rhs.commonMetals;
+		commonMinerals += rhs.commonMinerals;
+		rareMetals += rhs.rareMetals;
+		rareMinerals += rhs.rareMinerals;
 
-		 energy += rhs.energy;
-		 food += rhs.food;
+		energy += rhs.energy;
+		food += rhs.food;
 
-		 return *this;
-	 }
+		return *this;
+	}
 
- 	 Resources& operator-=(const Resources& rhs)
-	 {
-		 commonMetalsOre -= rhs.commonMetalsOre;
-		 commonMineralsOre -= rhs.commonMineralsOre;
-		 rareMetalsOre -= rhs.rareMetalsOre;
-		 rareMineralsOre -= rhs.rareMineralsOre;
+	Resources& operator-=(const Resources& rhs)
+	{
+		commonMetalsOre -= rhs.commonMetalsOre;
+		commonMineralsOre -= rhs.commonMineralsOre;
+		rareMetalsOre -= rhs.rareMetalsOre;
+		rareMineralsOre -= rhs.rareMineralsOre;
 
-		 commonMetals -= rhs.commonMetals;
-		 commonMinerals -= rhs.commonMinerals;
-		 rareMetals -= rhs.rareMetals;
-		 rareMinerals -= rhs.rareMinerals;
+		commonMetals -= rhs.commonMetals;
+		commonMinerals -= rhs.commonMinerals;
+		rareMetals -= rhs.rareMetals;
+		rareMinerals -= rhs.rareMinerals;
 
-		 energy -= rhs.energy;
-		 food -= rhs.food;
+		energy -= rhs.energy;
+		food -= rhs.food;
 
-		 return *this;
-	 }
+		return *this;
+	}
+
+	/**
+	* Sets all values to 0.
+	*/
+	void clear()
+	{
+		commonMetalsOre = 0;
+		commonMineralsOre = 0;
+		rareMetalsOre = 0;
+		rareMineralsOre = 0;
+
+		commonMetals = 0;
+		commonMinerals = 0;
+		rareMetals = 0;
+		rareMinerals = 0;
+
+		energy = 0;
+		food = 0;
+	}
 
 	// Ore
 	double commonMetalsOre;

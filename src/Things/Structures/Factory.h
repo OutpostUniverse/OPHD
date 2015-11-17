@@ -4,13 +4,39 @@
 
 #include "../../RobotPool.h"
 
+
+/**
+ * \brief	Defines the Factory interface.
+ * 
+ * Factory derives from Structure and provides the basic factory interface and
+ * the underlying factory production code. Exactly what a factory is capable of
+ * producing is up to the derived factory type.
+ * 
+ * \note	The Factory interface defines two public functions: resourcePool() and robotoPool().
+ *			These must be called manually whenever a derived factory type is added to the game as
+ *			there are no manager objects that do this (by design).
+ * 
+ * \warning	There are no sanity checks in the underlying production code to check if resourcePool
+ *			or robotPool have been properly set. It is assumed that they have been.
+ */
 class Factory : public Structure
 {
 
 public:
 
-	Factory(const std::string& name, const std::string& sprite_path);
+	enum ProductionType
+	{
+		PRODUCTION_NONE,
 
+		// Surface Factories
+		PRODUCTION_DIGGER,
+		PRODUCTION_DOZER,
+		PRODUCTION_MINER
+	};
+
+	typedef vector<ProductionType> ProductionTypeList;
+
+	Factory(const std::string& name, const std::string& sprite_path);
 	virtual ~Factory();
 
 	virtual void updateProduction();
@@ -18,28 +44,40 @@ public:
 	void resourcePool(Resources* _r) { mResourcesPool = _r; }
 	void robotPool(RobotPool* _r) { mRobotPool = _r; }
 
+	int turnsToComplete() const { return mTurnsToComplete; }
+	void turnsToComplete(int _l) { mTurnsToComplete = _l; }
+
+	int turnsCompleted() const { return mTurnsCompleted; }
+	void resetTurns() { mTurnsCompleted = 0; }
+
+	ProductionType productionType() const { return mProduction; }
+	void productionType(ProductionType _p);
+
+	const ProductionTypeList& productionList() const { return mAvailableProducts; }
+
+	virtual void initFactory() = 0;
+
 protected:
-	virtual void initFactory() {}
 
-	virtual void productionComplete() {}
+	virtual void productionComplete(ProductionType _p) {}
 
-	int productionLength() const { return mProductionLength; }
-	void productionLength(int _l) { mProductionLength = _l; }
-
-	int productionTime() const { return mProductionTime; }
-
-	void resetProductionTime() { mProductionTime = 0; }
+	void addProduct(ProductionType _p);
+	bool enoughResourcesAvailable();
 
 	Resources* resourcePool() { return mResourcesPool; }
 	RobotPool* robotPool() { return mRobotPool; }
 
 private:
 
-	int								mProductionTime;
-	int								mProductionLength;
+	int								mTurnsCompleted;
+	int								mTurnsToComplete;
+
+	ProductionType					mProduction;
+
+	ProductionTypeList				mAvailableProducts;			/**< List of products that the Factory can produce. */
 
 	Resources						mProductionInput;
 
-	Resources*						mResourcesPool;					/**< Pointer to the player's resource pool. UGLY. */
-	RobotPool*						mRobotPool;						/**< Pointer to the player's robot pool. UGLY. */
+	Resources*						mResourcesPool;				/**< Pointer to the player's resource pool. UGLY. */
+	RobotPool*						mRobotPool;					/**< Pointer to the player's robot pool. UGLY. */
 };

@@ -201,7 +201,7 @@ void GameState::drawResourceInfo()
 	int y = constants::MARGIN_TIGHT;
 
 	int textY = 5;
-	int offsetX = constants::RESOURCE_ICON_SIZE + 30;
+	int offsetX = constants::RESOURCE_ICON_SIZE + 45;
 
 	// Refined Resources
 	r.drawSubImage(mUiIcons, x, y , 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
@@ -376,8 +376,11 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		}
 		else if (_t->structure() && _t->structure()->isFactory())
 		{
-			mFactoryProduction.factory(static_cast<Factory*>(_t->structure()));
-			mFactoryProduction.show();
+			if (_t->structure()->state() == Structure::OPERATIONAL || _t->structure()->state() == Structure::IDLE)
+			{
+				mFactoryProduction.factory(static_cast<Factory*>(_t->structure()));
+				mFactoryProduction.show();
+			}
 		}
 	}
 
@@ -919,6 +922,8 @@ void GameState::deploySeedLander(int x, int y)
 
 	// BOTTOM ROW
 	SeedFactory* sf = new SeedFactory();
+	sf->resourcePool(&mPlayerResources);
+	sf->robotPool(&mRobotPool);
 	sf->sprite().skip(7);
 	mStructureManager.addStructure(sf, mTileMap.getTile(x - 1, y + 1), x - 1, y + 1, 0, true);
 	mTileMap.getTile(x - 1, y + 1)->index(TERRAIN_DOZED);

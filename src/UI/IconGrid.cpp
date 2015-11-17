@@ -217,6 +217,18 @@ void IconGrid::clearSelection()
 
 
 /**
+ * Sets the current selection index.
+ */
+void IconGrid::selection(int _s)
+{
+	if (_s >= mIconItemList.size())
+		return;
+
+	mCurrentSelection = _s;
+}
+
+
+/**
  * Hide override -- clears selections whenever IconGrid is hidden.
  */
 void IconGrid::hide()

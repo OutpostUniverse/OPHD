@@ -150,7 +150,7 @@ void Button::draw()
 		r.drawImage(mImage, rect().x() + (rect().w() / 2) - (mImage.width() / 2), rect().y() + (rect().h() / 2) - (mImage.height() / 2));
 	else
 		if (fontSet() && !text().empty())
-			r.drawText(font(), text(), rect().x() + (rect().w() / 2) - (font().width(text()) / 2), rect().y() + (rect().h() / 2) - (font().height() / 2), 0, 0, 0);
+			r.drawText(font(), text(), static_cast<int>(rect().x() + (rect().w() / 2) - (font().width(text()) / 2)), static_cast<int>(rect().y() + (rect().h() / 2) - (font().height() / 2)), 0, 0, 0);
 
 	if (!enabled())
 		r.drawBoxFilled(rect(), 200, 200, 200, 100);

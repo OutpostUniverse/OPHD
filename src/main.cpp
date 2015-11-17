@@ -25,6 +25,14 @@ int main(int argc, char *argv[])
 	try
 	{
 		Game game("OutpostHD", argv[0]);
+
+		game.mount("fonts.dat");
+		game.mount("maps.dat");
+		game.mount("planets.dat");
+		game.mount("structures.dat");
+		game.mount("robots.dat");
+		game.mount("ui.dat");
+
 		game.go(new PlanetSelectState());
 	}
 	catch(Exception& e)

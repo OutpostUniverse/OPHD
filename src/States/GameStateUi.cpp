@@ -424,7 +424,12 @@ void GameState::btnTurnsClicked()
 {
 	clearMode();
 
+	mPreviousResources = mPlayerResources;	
 	mStructureManager.update();
+
+	mResourcesDifference = mPlayerResources;
+	mResourcesDifference -= mPreviousResources;
+
 	checkConnectedness();
 	mStructureManager.processResources(mPlayerResources);
 

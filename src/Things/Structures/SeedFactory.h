@@ -14,6 +14,8 @@ public:
 		turnsToBuild(7);
 		requiresCHAP(false);
 		isFactory(true);
+
+		initFactory();
 	}
 
 	~SeedFactory()
@@ -34,18 +36,28 @@ public:
 		{
 			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
 		}
-	}
+	} 
 
 protected:
 
 	virtual void initFactory()
 	{
-		// Realy this should be dependant on what's being produced.
-		productionLength(5);
+		addProduct(Factory::PRODUCTION_DIGGER);
+		addProduct(Factory::PRODUCTION_DOZER);
+		addProduct(Factory::PRODUCTION_MINER);
 	}
 
-	virtual void productionComplete()
+	virtual void productionComplete(ProductionType _p)
 	{
+		// FIXME: Use a table approach for this.
+		if (_p == Factory::PRODUCTION_DIGGER)
+			robotPool()->addRobot(RobotPool::ROBO_DIGGER);
+		else if(_p == Factory::PRODUCTION_DOZER)
+			robotPool()->addRobot(RobotPool::ROBO_DOZER);
+		else if (_p == Factory::PRODUCTION_MINER)
+			robotPool()->addRobot(RobotPool::ROBO_MINER);
+		else
+			return;
 	}
 
 private:
