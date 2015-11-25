@@ -5,6 +5,15 @@
 struct ProductionValues
 {
 	ProductionValues() : TurnsToBuild(0) {}
+
+	ProductionValues(int turns, double commonMetals, double commonMinerals, double rareMetals, double rareMinerals) : TurnsToBuild(turns)
+	{
+		CostPerTurn.commonMetals = commonMetals;
+		CostPerTurn.commonMinerals = commonMinerals;
+		CostPerTurn.rareMetals = rareMetals;
+		CostPerTurn.rareMinerals = rareMinerals;
+	}
+
 	~ProductionValues() {}
 
 	Resources	CostPerTurn;
@@ -18,6 +27,14 @@ ProductionTypeTable		PRODUCTION_TYPE_TABLE;
 bool					FACTORY_PRODUCTION_TABLE_FILLED = false;
 
 
+/**
+ * Utility function that fills out a table with production information for each product
+ * that factories can produce.
+ * 
+ * \note	This function defines parameters for -all- products that any factory can
+ *			produce. It is up to the individual factory to determine what they are
+ *			allowed to build.
+ */
 void fillTable()
 {
 	if (FACTORY_PRODUCTION_TABLE_FILLED)
@@ -25,24 +42,9 @@ void fillTable()
 	else
 		FACTORY_PRODUCTION_TABLE_FILLED = true;
 
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER].TurnsToBuild = 6;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER].CostPerTurn.commonMetals = 10;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER].CostPerTurn.commonMinerals = 5;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER].CostPerTurn.rareMetals = 5;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER].CostPerTurn.rareMinerals = 2;
-
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER].TurnsToBuild = 6;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER].CostPerTurn.commonMetals = 10;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER].CostPerTurn.commonMinerals = 5;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER].CostPerTurn.rareMetals = 5;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER].CostPerTurn.rareMinerals = 2;
-
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER].TurnsToBuild = 6;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER].CostPerTurn.commonMetals = 10;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER].CostPerTurn.commonMinerals = 5;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER].CostPerTurn.rareMetals = 5;
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER].CostPerTurn.rareMinerals = 2;
-
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER] = ProductionValues(6, 10.0f, 5.0f, 5.0f, 2.0f);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER] = ProductionValues(6, 10.0f, 5.0f, 5.0f, 2.0f);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER] = ProductionValues(6, 10.0f, 5.0f, 5.0f, 2.0f);
 }
 
 
@@ -123,8 +125,7 @@ bool Factory::enoughResourcesAvailable()
 
 void Factory::addProduct(ProductionType _p)
 {
-	auto it = find(mAvailableProducts.begin(), mAvailableProducts.end(), _p);
-	if (it != mAvailableProducts.end())
+	if (find(mAvailableProducts.begin(), mAvailableProducts.end(), _p) != mAvailableProducts.end())
 		return;
 
 	mAvailableProducts.push_back(_p);

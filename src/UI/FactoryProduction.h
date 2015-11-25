@@ -5,6 +5,10 @@
 
 #include "../Things/Structures/Factory.h"
 
+
+/**
+ * \brief Implements a Factory Production dialog interface.
+ */
 class FactoryProduction : public UIContainer
 {
 public:

@@ -3,6 +3,8 @@
 #include "../Constants.h"
 
 
+std::map<std::string, Factory::ProductionType> PRODUCTION_TRANSLATION_TABLE;
+
 FactoryProduction::FactoryProduction(Font& font) : mFactory(nullptr), mProductionType(Factory::PRODUCTION_NONE)
 {
 	Control::font(font);
@@ -47,6 +49,13 @@ void FactoryProduction::init()
 	btnCancel.click().Connect(this, &FactoryProduction::btnCancelClicked);
 
 	position(static_cast<int>(Utility<Renderer>::get().screenCenterX() - width() / 2), static_cast<int>((Utility<Renderer>::get().height() - constants::BOTTOM_UI_HEIGHT) / 2 - height() / 2));
+
+
+	// Fill production translation table
+	PRODUCTION_TRANSLATION_TABLE[""] = Factory::PRODUCTION_NONE;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROBODIGGER] = Factory::PRODUCTION_DIGGER;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROBODOZER] = Factory::PRODUCTION_DOZER;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROBOMINER] = Factory::PRODUCTION_MINER;
 }
 
 
@@ -78,16 +87,10 @@ void FactoryProduction::productionSelectionChanged(const std::string& _s)
 	if (!mFactory)
 		return;
 
-	if (_s.empty())
-		mProductionType = Factory::PRODUCTION_NONE;
-	else if (_s == constants::ROBODIGGER)
-		mProductionType = Factory::PRODUCTION_DIGGER;
-	else if (_s == constants::ROBODOZER)
-		mProductionType = Factory::PRODUCTION_DOZER;
-	else if (_s == constants::ROBOMINER)
-		mProductionType = Factory::PRODUCTION_MINER;
-	else
-		mProductionType = Factory::PRODUCTION_NONE;
+	if (PRODUCTION_TRANSLATION_TABLE.find(_s) == PRODUCTION_TRANSLATION_TABLE.end())
+		throw Exception(0, "Bad Production Code", "FactoryProduction::productionSelectionChanged() called with an undefined production code: " + _s);
+
+	mProductionType = PRODUCTION_TRANSLATION_TABLE[_s];
 }
 
 
