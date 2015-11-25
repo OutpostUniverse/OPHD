@@ -20,6 +20,7 @@ void FactoryProduction::init()
 {
 	size(300, 162);
 
+	// Set up GUI Layout
 	addControl("mProductionGrid", &mProductionGrid, constants::MARGIN, 20);
 	mProductionGrid.font(font());
 	mProductionGrid.sheetPath("ui/surface_factory.png");
@@ -49,7 +50,6 @@ void FactoryProduction::init()
 	btnCancel.click().Connect(this, &FactoryProduction::btnCancelClicked);
 
 	position(static_cast<int>(Utility<Renderer>::get().screenCenterX() - width() / 2), static_cast<int>((Utility<Renderer>::get().height() - constants::BOTTOM_UI_HEIGHT) / 2 - height() / 2));
-
 
 	// Fill production translation table
 	PRODUCTION_TRANSLATION_TABLE[""] = Factory::PRODUCTION_NONE;
@@ -91,6 +91,14 @@ void FactoryProduction::productionSelectionChanged(const std::string& _s)
 		throw Exception(0, "Bad Production Code", "FactoryProduction::productionSelectionChanged() called with an undefined production code: " + _s);
 
 	mProductionType = PRODUCTION_TRANSLATION_TABLE[_s];
+
+	if (_s.empty())
+	{
+		mProductionCost.clear();
+		return;
+	}
+	
+	mProductionCost = mFactory->productionCost(mProductionType);
 }
 
 
@@ -152,14 +160,41 @@ void FactoryProduction::update()
 	if (!visible())
 		return;
 
-	Utility<Renderer>::get().drawBoxFilled(rect(), COLOR_SILVER.red(), COLOR_SILVER.green(), COLOR_SILVER.blue());
-	Utility<Renderer>::get().drawBox(rect(), 0, 0, 0);
+	Renderer& r = Utility<Renderer>::get();
+	r.drawBoxFilled(rect(), COLOR_SILVER.red(), COLOR_SILVER.green(), COLOR_SILVER.blue());
+	r.drawBox(rect(), 0, 0, 0);
 
 	// FIXME: Not efficient.
-	stringstream ss;
+	static stringstream ss;
+	ss.str("");
 	ss << "Factory Production ID(" << mFactory->id() << ")";
-	Utility<Renderer>::get().drawText(font(), ss.str(), rect().x() + constants::MARGIN, rect().y() + constants::MARGIN, 0, 0, 0);
-	Utility<Renderer>::get().drawText(font(), ss.str(), rect().x() + constants::MARGIN + 0.5f, rect().y() + constants::MARGIN + 0.5f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN, rect().y() + constants::MARGIN, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN + 0.5f, rect().y() + constants::MARGIN + 0.5f, 0, 0, 0);
+
+	ss.str("");
+	ss << mFactory->productionTurnsCompleted() << " of " << mProductionCost.TurnsToBuild;
+	r.drawText(font(), "Production Turns:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 20.0f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 20.0f, 0, 0, 0);
+
+	ss.str("");
+	ss << mProductionCost.CostPerTurn.commonMetals * mProductionCost.TurnsToBuild;
+	r.drawText(font(), "Common Metals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 40.0f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 40.0f, 0, 0, 0);
+
+	ss.str("");
+	ss << mProductionCost.CostPerTurn.commonMinerals * mProductionCost.TurnsToBuild;
+	r.drawText(font(), "Common Minerals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 50.0f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 50.0f, 0, 0, 0);
+
+	ss.str("");
+	ss << mProductionCost.CostPerTurn.rareMetals * mProductionCost.TurnsToBuild;
+	r.drawText(font(), "Rare Metals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 60.0f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 60.0f, 0, 0, 0);
+
+	ss.str("");
+	ss << mProductionCost.CostPerTurn.rareMinerals * mProductionCost.TurnsToBuild;
+	r.drawText(font(), "Rare Minerals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 70.0f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 70.0f, 0, 0, 0);
 
 	// Let UIContainer handle the basics.
 	UIContainer::update();

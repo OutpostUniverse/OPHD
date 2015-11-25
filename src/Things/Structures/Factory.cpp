@@ -1,30 +1,8 @@
 #include "Factory.h"
 
-
-
-struct ProductionValues
-{
-	ProductionValues() : TurnsToBuild(0) {}
-
-	ProductionValues(int turns, double commonMetals, double commonMinerals, double rareMetals, double rareMinerals) : TurnsToBuild(turns)
-	{
-		CostPerTurn.commonMetals = commonMetals;
-		CostPerTurn.commonMinerals = commonMinerals;
-		CostPerTurn.rareMetals = rareMetals;
-		CostPerTurn.rareMinerals = rareMinerals;
-	}
-
-	~ProductionValues() {}
-
-	Resources	CostPerTurn;
-	int			TurnsToBuild;
-};
-
-
-typedef map<Factory::ProductionType, ProductionValues> ProductionTypeTable;
+typedef map<Factory::ProductionType, ProductionCost> ProductionTypeTable;
 
 ProductionTypeTable		PRODUCTION_TYPE_TABLE;
-bool					FACTORY_PRODUCTION_TABLE_FILLED = false;
 
 
 /**
@@ -37,14 +15,12 @@ bool					FACTORY_PRODUCTION_TABLE_FILLED = false;
  */
 void fillTable()
 {
-	if (FACTORY_PRODUCTION_TABLE_FILLED)
+	if (!PRODUCTION_TYPE_TABLE.empty())
 		return;
-	else
-		FACTORY_PRODUCTION_TABLE_FILLED = true;
 
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER] = ProductionValues(6, 10.0f, 5.0f, 5.0f, 2.0f);
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER] = ProductionValues(6, 10.0f, 5.0f, 5.0f, 2.0f);
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER] = ProductionValues(6, 10.0f, 5.0f, 5.0f, 2.0f);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER] = ProductionCost(6, 10.0f, 5.0f, 5.0f, 2.0f);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER] = ProductionCost(6, 10.0f, 5.0f, 5.0f, 2.0f);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER] = ProductionCost(6, 10.0f, 5.0f, 5.0f, 2.0f);
 }
 
 
@@ -70,7 +46,7 @@ void Factory::productionType(ProductionType _p)
 
 	if (_p == Factory::PRODUCTION_NONE)
 	{
-		mProduction = _p;
+		clearProduction();
 		return;
 	}
 
@@ -81,9 +57,19 @@ void Factory::productionType(ProductionType _p)
 
 	mProduction = _p;
 
-	resetTurns();
+	productionResetTurns();
 
 	mTurnsToComplete = PRODUCTION_TYPE_TABLE[mProduction].TurnsToBuild;
+}
+
+
+const ProductionCost& Factory::productionCost(ProductionType _pt) const
+{
+	// Sanity check
+	if (PRODUCTION_TYPE_TABLE.empty())
+		throw Exception(0, "Empty Production Table", "Factory::productionCost() called before production table filled!");
+
+	return PRODUCTION_TYPE_TABLE[_pt];
 }
 
 
@@ -104,7 +90,7 @@ void Factory::updateProduction()
 
 	if (mTurnsCompleted >= mTurnsToComplete)
 	{
-		resetTurns();
+		productionResetTurns();
 		productionComplete(mProduction);
 	}
 
@@ -129,4 +115,12 @@ void Factory::addProduct(ProductionType _p)
 		return;
 
 	mAvailableProducts.push_back(_p);
+}
+
+
+void Factory::clearProduction()
+{
+	mTurnsCompleted = 0;
+	mTurnsToComplete = 0;
+	mProduction = PRODUCTION_NONE;
 }

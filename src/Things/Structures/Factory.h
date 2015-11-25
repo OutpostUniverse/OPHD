@@ -6,6 +6,36 @@
 
 
 /**
+ * FIXME:	Maybe should inherit from Resources and add the TurnsToBuild instead
+ *			of using composition.
+ */
+struct ProductionCost
+{
+	ProductionCost() : TurnsToBuild(0) {}
+
+	ProductionCost(int turns, double commonMetals, double commonMinerals, double rareMetals, double rareMinerals) : TurnsToBuild(turns)
+	{
+		CostPerTurn.commonMetals = commonMetals;
+		CostPerTurn.commonMinerals = commonMinerals;
+		CostPerTurn.rareMetals = rareMetals;
+		CostPerTurn.rareMinerals = rareMinerals;
+	}
+
+	~ProductionCost() {}
+
+	void clear()
+	{
+		CostPerTurn.clear();
+		TurnsToBuild = 0;
+	}
+
+	Resources	CostPerTurn;
+	int			TurnsToBuild;
+};
+
+
+
+/**
  * \brief	Defines the Factory interface.
  * 
  * Factory derives from Structure and provides the basic factory interface and
@@ -44,22 +74,26 @@ public:
 	void resourcePool(Resources* _r) { mResourcesPool = _r; }
 	void robotPool(RobotPool* _r) { mRobotPool = _r; }
 
-	int turnsToComplete() const { return mTurnsToComplete; }
-	void turnsToComplete(int _l) { mTurnsToComplete = _l; }
+	int productionTurnsToComplete() const { return mTurnsToComplete; }
+	void productionTurnsToComplete(int _l) { mTurnsToComplete = _l; }
 
-	int turnsCompleted() const { return mTurnsCompleted; }
-	void resetTurns() { mTurnsCompleted = 0; }
+	int productionTurnsCompleted() const { return mTurnsCompleted; }
+	void productionResetTurns() { mTurnsCompleted = 0; }
 
 	ProductionType productionType() const { return mProduction; }
 	void productionType(ProductionType _p);
 
 	const ProductionTypeList& productionList() const { return mAvailableProducts; }
 
+	const ProductionCost& productionCost(ProductionType) const;
+
 	virtual void initFactory() = 0;
 
 protected:
 
 	virtual void productionComplete(ProductionType _p) {}
+
+	void clearProduction();
 
 	void addProduct(ProductionType _p);
 	bool enoughResourcesAvailable();

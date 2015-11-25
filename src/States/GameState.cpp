@@ -364,6 +364,9 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 			return;
 		}
 
+		if (!mTileMap.tileHighlightVisible())
+			return;
+
 		if (!_t)
 		{
 			return;

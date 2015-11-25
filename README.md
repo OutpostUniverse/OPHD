@@ -7,7 +7,7 @@ For up to the minute information, please visit The Outpost Universe's [online fo
 *For Windows*
 
 * Windows 7 (not tested on Vista or XP)
-* 3GB RAM
+* 2GB RAM
 * 5MB Available Hard Drive Space
 * Graphics card that can support OpenGL 3.0 & GLSL v1.0 (basically any modern non-Intel GPU)
 

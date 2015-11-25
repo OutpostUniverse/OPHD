@@ -43,6 +43,7 @@ private:
 	Factory*					mFactory;
 
 	Factory::ProductionType		mProductionType;
+	ProductionCost				mProductionCost;
 
 	IconGrid					mProductionGrid;
 

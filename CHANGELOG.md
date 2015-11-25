@@ -1,12 +1,12 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.5.0] - UNRELEASED
+## [0.5.0] - 2015-11-25
 
-This version includes all revisions from r21 to rxx.
+This version includes all revisions from r21 to r38.
 
 ### Added
-- Added a FactorProduction dialog.
+- Added a FactoryProduction dialog.
 - Added a StructurePriority field to Structure for sorting purposes.
 - Added StructureManager::printSortedList() for a quick and easy way to see 1) what's being managed by the StructureManager and 2) to verify that the list is sorted correctly.
 - Structure now has an 'isFactory' field.
@@ -31,6 +31,7 @@ This version includes all revisions from r21 to rxx.
 - Updated UI Icons to contain resources.
 - Updated Control with a convenience function to set size with a single parameter.
 - Modified UI fields to condense the UI a bit.
+- Many other changes too numerous to list. See commit notes for additional information.
 
 ### Fixed
 - Removed some unnecessary data structures in Menu control (defined its own rect when Control already has one).

@@ -33,6 +33,7 @@ public:
 	void mapViewLocation(int x, int y) { mMapViewLocation(x, y); }
 
 	const Point_2d& tileHighlight() const { return mMapHighlight; }
+	bool tileHighlightVisible() const;
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
 
@@ -91,9 +92,9 @@ private:
 
 	Sprite				mMineBeacon;
 
-	Point_2d			mMousePosition;
-	Point_2d			mMapHighlight;
-	Point_2d			mMapViewLocation;
+	Point_2d			mMousePosition;		/**< Current mouse position. */
+	Point_2d			mMapHighlight;		/**< Tile the mouse is pointing to. */
+	Point_2d			mMapViewLocation;	/**<  */
 
 	Point_2df			mMapPosition;				/** Where to start drawing the TileMap on the screen. */
 

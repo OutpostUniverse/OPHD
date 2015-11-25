@@ -194,6 +194,15 @@ void TileMap::injectMouse(int x, int y)
 }
 
 
+/**
+ * Returns true if the current tile highlight is actually within the visible diamond map.
+ */
+bool TileMap::tileHighlightVisible() const
+{
+	return isPointInRect(mMapHighlight.x(), mMapHighlight.y(), 0, 0, mEdgeLength, mEdgeLength);
+}
+
+
 void TileMap::draw()
 {
 	Renderer& r = Utility<Renderer>::get();
