@@ -5,8 +5,11 @@
 // ==================================================================================
 
 #include "GameState.h"
+#include "GameStateHelper.h"
 
 #include "../Constants.h"
+
+#include "../StructureTranslator.h"
 
 using namespace constants;
 
@@ -253,6 +256,9 @@ void GameState::btnTubesPickerClicked()
 }
 
 
+
+
+
 /**
 * Handles clicks of the Robot Picker button.
 */
@@ -276,28 +282,7 @@ void GameState::btnRobotPickerClicked()
 */
 void GameState::structuresSelectionChanged(const std::string& _s)
 {
-	// Structure name is 0 length, assume no structures are selected.
-	if (_s.empty())
-	{
-		clearMode();
-		return;
-	}
-
-	if (_s == constants::SEED_LANDER)
-	{
-		mCurrentStructure = STRUCTURE_SEED_LANDER;
-	}
-	else if (_s == constants::AGRIDOME)
-	{
-		mCurrentStructure = STRUCTURE_AGRIDOME;
-	}
-	else if (_s == constants::CHAP)
-	{
-		mCurrentStructure = STRUCTURE_CHAP;
-	}
-
-	mInsertMode = INSERT_STRUCTURE;
-	mCurrentPointer = POINTER_PLACE_TILE;
+	setStructureType(StructureTranslator::translateFromString(_s));
 }
 
 
@@ -306,27 +291,7 @@ void GameState::structuresSelectionChanged(const std::string& _s)
 */
 void GameState::connectionsSelectionChanged(const std::string& _s)
 {
-	// Connection name is 0 length, assume no structures are selected.
-	if (_s.empty())
-	{
-		clearMode();
-		return;
-	}
-
-	if (_s == constants::AG_TUBE_INTERSECTION || _s == constants::UG_TUBE_INTERSECTION)
-		mCurrentStructure = STRUCTURE_TUBE_INTERSECTION;
-	else if (_s == constants::AG_TUBE_RIGHT || _s == constants::UG_TUBE_RIGHT)
-		mCurrentStructure = STRUCTURE_TUBE_RIGHT;
-	else if (_s == constants::AG_TUBE_LEFT || _s == constants::UG_TUBE_LEFT)
-		mCurrentStructure = STRUCTURE_TUBE_LEFT;
-	else
-	{
-		mCurrentStructure = STRUCTURE_NONE;
-		return;
-	}
-
-	mInsertMode = INSERT_TUBE;
-	mCurrentPointer = POINTER_PLACE_TILE;
+	setStructureType(StructureTranslator::translateFromString(_s));
 }
 
 

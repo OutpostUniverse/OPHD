@@ -33,33 +33,6 @@ const int MAX_DEPTH = 4;
 
 Rectangle_2d MENU_ICON;
 
-
-// Throw away string stream for font rendering.
-stringstream str;
-
-
-/**
- * Utility function to cleanly draw a semi-formatted string with an integer value.
- */
-void drawString(Renderer& r, Font& f, std::string s, int i, int x, int y, int red = 0, int green = 0, int blue = 0)
-{
-	str.str("");
-	str << s << i;
-	r.drawText(f, str.str(), x, y, red, green, blue);
-}
-
-
-/**
- * Utility function to cleanly draw an integer value;
- */
-void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red = 0, int green = 0, int blue = 0)
-{
-	str.str("");
-	str << i;
-	r.drawText(f, str.str(), x, y, red, green, blue);
-}
-
-
 /**
  * C'Tor
  */
@@ -245,7 +218,7 @@ void GameState::drawDebug()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	str.str("");
+	stringstream str;
 	str << "FPS: " << mFps.fps();
 	r.drawText(mTinyFont, str.str(), 10, 10, 255, 255, 255);
 }
@@ -961,6 +934,25 @@ void GameState::updateRobots()
 		else
 			++robot_it;
 	}
+}
+
+
+/**
+ * Checks and sets the current structure mode.
+ */
+void GameState::setStructureType(StructureType type)
+{
+
+	if (type == STRUCTURE_NONE)
+	{
+		clearMode();
+		return;
+	}
+
+	mCurrentStructure = type;
+
+	mInsertMode = INSERT_TUBE;
+	mCurrentPointer = POINTER_PLACE_TILE;
 }
 
 

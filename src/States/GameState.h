@@ -3,6 +3,8 @@
 
 #include "NAS2D/NAS2D.h"
 
+#include "../Common.h"
+
 #include "../Population/PopulationPool.h"
 
 #include "../Resources.h"
@@ -45,33 +47,6 @@ enum InsertMode
 	INSERT_TUBE,
 	INSERT_STRUCTURE
 };
-
-
-enum StructureType
-{
-	STRUCTURE_NONE,
-	STRUCTURE_AGRIDOME,
-	STRUCTURE_AIR_SHAFT,
-	STRUCTURE_CHAP,
-	STRUCTURE_COMMAND_CENTER,
-	STRUCTURE_SEED_FACTORY,
-	STRUCTURE_SEED_LANDER,
-	STRUCTURE_SEED_POWER,
-	STRUCTURE_SEED_SMELTER,
-	STRUCTURE_TUBE_INTERSECTION,
-	STRUCTURE_TUBE_RIGHT,
-	STRUCTURE_TUBE_LEFT
-};
-
-
-enum RobotType
-{
-	ROBOT_NONE,
-	ROBOT_DIGGER,
-	ROBOT_DOZER,
-	ROBOT_MINER
-};
-
 
 
 class GameState: public State
@@ -135,8 +110,9 @@ private:
 
 	void changeDepth(int _d);
 
+	void setStructureType(StructureType type);
 
-	// UI Even Handlers
+	// UI Event Handlers
 	void btnTurnsClicked();
 	void btnTubesPickerClicked();
 	void btnRobotPickerClicked();

@@ -1,5 +1,24 @@
 #include "GameStateHelper.h"
 
+// Throw away string stream for font rendering.
+stringstream str;
+
+void drawString(Renderer& r, Font& f, std::string s, int i, int x, int y, int red, int green, int blue)
+{
+	str.str("");
+	str << s << i;
+	r.drawText(f, str.str(), (float)x, (float)y, red, green, blue);
+}
+
+
+void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red, int green, int blue)
+{
+	str.str("");
+	str << i;
+	r.drawText(f, str.str(), (float)x, (float)y, red, green, blue);
+}
+
+
 bool checkTubeConnection(Tile* tile, Direction dir, StructureType type)
 {
 	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure())
@@ -33,3 +52,4 @@ bool checkTubeConnection(Tile* tile, Direction dir, StructureType type)
 
 	return false;
 }
+
