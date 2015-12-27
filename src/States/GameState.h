@@ -116,7 +116,7 @@ private:
 	void placeStructure();
 	void placeTubes();
 
-	bool validTubeConnection(Tile *tile, Direction dir);
+	bool validTubeConnection(int x, int y, StructureType type);
 	bool validStructurePlacement(Tile *tile, Direction dir);
 
 	void dozerTaskFinished(Robot* _r);

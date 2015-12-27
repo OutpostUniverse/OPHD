@@ -64,8 +64,7 @@ protected:
 private:
 
 	virtual void defineResourceOutput()
-	{
-	}
+	{}
 
 	virtual void defineResourceValue()
 	{

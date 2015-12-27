@@ -89,6 +89,42 @@ public:
 		return *this;
 	}
 
+	friend bool operator<(const Resources& lhs, const Resources& rhs)
+	{
+		return (lhs.commonMetalsOre < rhs.commonMetalsOre &&
+				lhs.commonMineralsOre < rhs.commonMineralsOre &&
+				lhs.rareMetalsOre < rhs.rareMetalsOre &&
+				lhs.rareMineralsOre < rhs.rareMineralsOre &&
+
+				lhs.commonMetals < rhs.commonMetals &&
+				lhs.commonMinerals < rhs.commonMinerals &&
+				lhs.rareMetals < rhs.rareMetals &&
+				lhs.rareMinerals < rhs.rareMinerals &&
+
+				lhs.energy < rhs.energy &&
+				lhs.food < rhs.food);
+	}
+
+	friend bool operator>(const Resources& lhs, const Resources& rhs) { return rhs < lhs; }
+
+	friend bool operator<=(const Resources& lhs, const Resources& rhs)
+	{
+		return (lhs.commonMetalsOre <= rhs.commonMetalsOre &&
+				lhs.commonMineralsOre <= rhs.commonMineralsOre &&
+				lhs.rareMetalsOre <= rhs.rareMetalsOre &&
+				lhs.rareMineralsOre <= rhs.rareMineralsOre &&
+
+				lhs.commonMetals <= rhs.commonMetals &&
+				lhs.commonMinerals <= rhs.commonMinerals &&
+				lhs.rareMetals <= rhs.rareMetals &&
+				lhs.rareMinerals <= rhs.rareMinerals &&
+
+				lhs.energy <= rhs.energy &&
+				lhs.food <= rhs.food);
+	}
+
+	friend bool operator>=(const Resources& lhs, const Resources& rhs) { return rhs <= lhs; }
+
 	/**
 	* Sets all values to 0.
 	*/

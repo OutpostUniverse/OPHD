@@ -1,6 +1,9 @@
 #include "GameState.h"
 #include "PlanetSelectState.h"
 
+#include "GameStateHelper.h"
+
+
 #include "../GraphWalker.h"
 
 #include "../Tile.h"
@@ -444,12 +447,7 @@ void GameState::placeTubes()
 	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated())
 		return;
 
-	// FIXME: FUGLY!
-	if (validTubeConnection(mTileMap.getTile(x + 1, y, mTileMap.currentDepth()), DIR_EAST) ||
-		validTubeConnection(mTileMap.getTile(x - 1, y, mTileMap.currentDepth()), DIR_WEST) ||
-		validTubeConnection(mTileMap.getTile(x, y + 1, mTileMap.currentDepth()), DIR_SOUTH) ||
-		validTubeConnection(mTileMap.getTile(x, y - 1, mTileMap.currentDepth()), DIR_NORTH)
-		)
+	if (validTubeConnection(x, y, mCurrentStructure))
 	{
 		if(mCurrentStructure == STRUCTURE_TUBE_INTERSECTION)
 			mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), x, y, mTileMap.currentDepth(), true);
@@ -459,6 +457,11 @@ void GameState::placeTubes()
 			mStructureManager.addStructure(new Tube(CONNECTOR_LEFT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), x, y, mTileMap.currentDepth(), true);
 		else
 			throw Exception(0, "Structure Not a Tube", "GameState::placeTube() called but Current Structure is not a tube!");
+
+		// FIXME:	Naive approach. This will be slow with larger colonies,
+		//			especially colonies that have expanded far underground.
+		mStructureManager.disconnectAll();
+		checkConnectedness();
 	}
 }
 
@@ -468,44 +471,13 @@ void GameState::placeTubes()
  * 
  * \todo	This seems way over complicated... Find a better way to do this check.
  */
-bool GameState::validTubeConnection(Tile *tile, Direction dir)
+bool GameState::validTubeConnection(int x, int y, StructureType type)
 {
-	if(tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure())
-		return false;
 
-	Structure* _structure = tile->structure();
-
-	if(mCurrentStructure == STRUCTURE_TUBE_INTERSECTION)
-	{
-		if (dir == DIR_EAST || dir == DIR_WEST)
-		{
-			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
-				return true;
-		}
-		else // NORTH/SOUTH
-		{
-			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
-				return true;
-		}
-	}
-	else if(mCurrentStructure == STRUCTURE_TUBE_RIGHT)
-	{
-		if (dir == DIR_EAST || dir == DIR_WEST)
-		{
-			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
-				return true;
-		}
-	}
-	else if(mCurrentStructure == STRUCTURE_TUBE_LEFT)
-	{
-		if (dir == DIR_NORTH || dir == DIR_SOUTH)
-		{
-			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
-				return true;
-		}
-	}
-
-	return false;
+	return	checkTubeConnection(mTileMap.getTile(x + 1, y, mTileMap.currentDepth()), DIR_EAST, type) ||
+			checkTubeConnection(mTileMap.getTile(x - 1, y, mTileMap.currentDepth()), DIR_WEST, type) ||
+			checkTubeConnection(mTileMap.getTile(x, y + 1, mTileMap.currentDepth()), DIR_SOUTH, type) ||
+			checkTubeConnection(mTileMap.getTile(x, y - 1, mTileMap.currentDepth()), DIR_NORTH, type);
 }
 
 
@@ -795,11 +767,11 @@ void GameState::placeStructure()
 			SeedLander* s = new SeedLander(x, y);
 			s->deployCallback().Connect(this, &GameState::deploySeedLander);
 			mStructureManager.addStructure(s, tile, x, y, 0, true); // Can only ever be placed on depth level 0
+	
 			clearMode();
+			resetUi();
+
 			mStructures.dropAllItems();
-			mStructures.hide();
-			mBtnStructures.enabled(false);
-			mBtnStructures.toggle(false);
 			mBtnTurns.enabled(true);
 		}
 	}
@@ -814,6 +786,7 @@ void GameState::placeStructure()
 			return;
 		}
 
+		// FIXME: This can be done with a cleaner Factory interface
 		if (mCurrentStructure == STRUCTURE_AGRIDOME)
 		{
 			mStructureManager.addStructure(new Agridome(), tile, x, y, 0, false);

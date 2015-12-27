@@ -94,14 +94,7 @@ void Structure::input(Resources& _resourcePool)
 
 bool Structure::enoughResourcesAvailable(const Resources& r)
 {
-	if(	r.commonMetals >= mResourcesInput.commonMetals &&
-		r.rareMetals >= mResourcesInput.rareMetals &&
-		r.commonMinerals >= mResourcesInput.commonMinerals &&
-		r.rareMinerals >= mResourcesInput.rareMinerals &&
-		r.energy >= mResourcesInput.energy)
-		return true;
-
-	return false;
+	return r >= mResourcesInput;
 }
 
 

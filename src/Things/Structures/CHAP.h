@@ -43,7 +43,7 @@ protected:
 	{
 		mResourcesInput.commonMinerals = 4;
 		mResourcesInput.rareMinerals = 1;
-		mResourcesInput.energy = 20;
+		mResourcesInput.energy = 10;
 	}
 
 	virtual void defineResourceOutput()

@@ -315,9 +315,9 @@ void GameState::connectionsSelectionChanged(const std::string& _s)
 
 	if (_s == constants::AG_TUBE_INTERSECTION || _s == constants::UG_TUBE_INTERSECTION)
 		mCurrentStructure = STRUCTURE_TUBE_INTERSECTION;
-	else if (_s == constants::AG_TUBE_RIGHT || _s == constants::UG_TUBE_INTERSECTION)
+	else if (_s == constants::AG_TUBE_RIGHT || _s == constants::UG_TUBE_RIGHT)
 		mCurrentStructure = STRUCTURE_TUBE_RIGHT;
-	else if (_s == constants::AG_TUBE_LEFT || _s == constants::UG_TUBE_INTERSECTION)
+	else if (_s == constants::AG_TUBE_LEFT || _s == constants::UG_TUBE_LEFT)
 		mCurrentStructure = STRUCTURE_TUBE_LEFT;
 	else
 	{

@@ -99,13 +99,7 @@ void Factory::updateProduction()
 
 bool Factory::enoughResourcesAvailable()
 {
-	if (mResourcesPool->commonMetals >= mProductionInput.commonMetals &&
-		mResourcesPool->rareMetals >= mProductionInput.rareMetals &&
-		mResourcesPool->commonMinerals >= mProductionInput.commonMinerals &&
-		mResourcesPool->rareMinerals >= mProductionInput.rareMinerals)
-		return true;
-
-	return false;
+	return *mResourcesPool >= PRODUCTION_TYPE_TABLE[mProduction].CostPerTurn;
 }
 
 

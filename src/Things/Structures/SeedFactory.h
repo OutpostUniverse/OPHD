@@ -63,7 +63,7 @@ protected:
 private:
 	virtual void defineResourceInput()
 	{
-		mResourcesInput.energy = 15;
+		mResourcesInput.energy = 5;
 	}
 };
 
