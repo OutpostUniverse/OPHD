@@ -176,11 +176,9 @@ void GameState::drawMiniMap()
 		r.drawImage(mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y());
 
 	r.drawBox(mMiniMapBoundingBox, 0, 0, 0);
-	r.drawBox(mMiniMapBoundingBox.x() + mTileMap.mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap.mapViewLocation().y(), mTileMap.edgeLength(), mTileMap.edgeLength(), 255, 255, 255);
 
 	if(mCCLocation.x() != 0 && mCCLocation.y() != 0)
 		r.drawBoxFilled(mCCLocation.x() + mMiniMapBoundingBox.x() - 1, mCCLocation.y() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
-
 
 	for(size_t i = 0; i < mTileMap.mineLocations().size(); i++)
 	{
@@ -189,6 +187,9 @@ void GameState::drawMiniMap()
 		else
 			r.drawSubImage(mUiIcons, mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 5.0f, 5.0f);
 	}
+
+	r.drawBox(mMiniMapBoundingBox.x() + mTileMap.mapViewLocation().x() + 1, mMiniMapBoundingBox.y() + mTileMap.mapViewLocation().y() + 1, mTileMap.edgeLength(), mTileMap.edgeLength(), 0, 0, 0, 180);
+	r.drawBox(mMiniMapBoundingBox.x() + mTileMap.mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap.mapViewLocation().y(), mTileMap.edgeLength(), mTileMap.edgeLength(), 255, 255, 255);
 }
 
 
@@ -467,9 +468,7 @@ void GameState::placeTubes()
 
 
 /**
- * Checks to see if a tile is a valid tile to place a tube against.
- * 
- * \todo	This seems way over complicated... Find a better way to do this check.
+ * Checks to see if a tile is a valid tile to place a tube onto.
  */
 bool GameState::validTubeConnection(int x, int y, StructureType type)
 {
