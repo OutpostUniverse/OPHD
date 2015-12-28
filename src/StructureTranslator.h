@@ -15,10 +15,11 @@ protected:
 
 private:
 
-	StructureTranslator() {} // Explicitly declared private.
-	~StructureTranslator() {} // Explicitly declared private.
+	// Explicitly declared private to prevent instantiation.
+	StructureTranslator() {}
+	~StructureTranslator() {}
 
-	static void buildTable();
+	static void buildStringToStructureTable();
 
-	static std::map<std::string, StructureType>		_structureTable;
+	static std::map<std::string, StructureType>		_stringToStructureTable;
 };

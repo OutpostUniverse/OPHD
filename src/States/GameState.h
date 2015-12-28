@@ -110,7 +110,7 @@ private:
 
 	void changeDepth(int _d);
 
-	void setStructureType(StructureType type);
+	void setStructureType(StructureType type, InsertMode mode);
 
 	// UI Event Handlers
 	void btnTurnsClicked();

@@ -743,6 +743,7 @@ void GameState::placeStructure()
 			clearMode();
 			resetUi();
 
+			mBtnStructures.enabled(false);
 			mStructures.dropAllItems();
 			mBtnTurns.enabled(true);
 		}
@@ -940,7 +941,7 @@ void GameState::updateRobots()
 /**
  * Checks and sets the current structure mode.
  */
-void GameState::setStructureType(StructureType type)
+void GameState::setStructureType(StructureType type, InsertMode mode)
 {
 
 	if (type == STRUCTURE_NONE)
@@ -951,7 +952,7 @@ void GameState::setStructureType(StructureType type)
 
 	mCurrentStructure = type;
 
-	mInsertMode = INSERT_TUBE;
+	mInsertMode = mode;
 	mCurrentPointer = POINTER_PLACE_TILE;
 }
 

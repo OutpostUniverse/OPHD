@@ -112,6 +112,7 @@
     <ClCompile Include="..\..\src\Mine.cpp" />
     <ClCompile Include="..\..\src\Population\PopulationPool.cpp" />
     <ClCompile Include="..\..\src\RobotPool.cpp" />
+    <ClCompile Include="..\..\src\RobotTranslator.cpp" />
     <ClCompile Include="..\..\src\States\GameState.cpp" />
     <ClCompile Include="..\..\src\States\GameStateHelper.cpp" />
     <ClCompile Include="..\..\src\States\GameStateUi.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="..\..\src\Population\PopulationPool.h" />
     <ClInclude Include="..\..\src\Resources.h" />
     <ClInclude Include="..\..\src\RobotPool.h" />
+    <ClInclude Include="..\..\src\RobotTranslator.h" />
     <ClInclude Include="..\..\src\States\GameState.h" />
     <ClInclude Include="..\..\src\States\GameStateHelper.h" />
     <ClInclude Include="..\..\src\States\GameStateUi.h" />

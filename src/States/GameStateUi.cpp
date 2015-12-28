@@ -9,6 +9,7 @@
 
 #include "../Constants.h"
 
+#include "../RobotTranslator.h"
 #include "../StructureTranslator.h"
 
 using namespace constants;
@@ -282,7 +283,7 @@ void GameState::btnRobotPickerClicked()
 */
 void GameState::structuresSelectionChanged(const std::string& _s)
 {
-	setStructureType(StructureTranslator::translateFromString(_s));
+	setStructureType(StructureTranslator::translateFromString(_s), INSERT_STRUCTURE);
 }
 
 
@@ -291,7 +292,7 @@ void GameState::structuresSelectionChanged(const std::string& _s)
 */
 void GameState::connectionsSelectionChanged(const std::string& _s)
 {
-	setStructureType(StructureTranslator::translateFromString(_s));
+	setStructureType(StructureTranslator::translateFromString(_s), INSERT_TUBE);
 }
 
 
@@ -300,19 +301,13 @@ void GameState::connectionsSelectionChanged(const std::string& _s)
 */
 void GameState::robotsSelectionChanged(const std::string& _s)
 {
-	// Robot name is length 0, assume no robots are selected.
-	if (_s.empty())
+	mCurrentRobot = RobotTranslator::translateFromString(_s);
+
+	if(mCurrentRobot == ROBOT_NONE)
 	{
 		clearMode();
 		return;
 	}
-
-	if (_s == constants::ROBODIGGER)
-		mCurrentRobot = ROBOT_DIGGER;
-	else if (_s == constants::ROBODOZER)
-		mCurrentRobot = ROBOT_DOZER;
-	else if (_s == constants::ROBOMINER)
-		mCurrentRobot = ROBOT_MINER;
 
 	mInsertMode = INSERT_ROBOT;
 	mCurrentPointer = POINTER_PLACE_TILE;
