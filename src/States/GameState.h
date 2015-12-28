@@ -94,6 +94,7 @@ private:
 	bool validTubeConnection(int x, int y, StructureType type);
 	bool validStructurePlacement(int x, int y);
 
+	void checkRobotSelectionInterface(const std::string rType, int sheetIndex);
 	void dozerTaskFinished(Robot* _r);
 	void diggerTaskFinished(Robot* _r);
 	void minerTaskFinished(Robot* _r);

@@ -20,6 +20,11 @@ namespace constants
 
 	const int NO_SELECTION = -1;
 
+	// ROBOT SELECTION UI SHEET ID
+	const int ROBODIGGER_SHEET_ID = 1;
+	const int ROBODOZER_SHEET_ID = 0;
+	const int ROBOMINER_SHEET_ID = 2;
+
 	const NAS2D::Color_4ub MINE_COLOR(255, 0, 0, 255);
 	const NAS2D::Color_4ub ACTIVE_MINE_COLOR(255, 255, 0, 255);
 }

@@ -565,18 +565,27 @@ void GameState::placeRobot()
 }
 
 
+/** 
+ * Checks the robot selection interface and if the robot is not available in it, adds
+ * it back in and reeneables the robots button if it's not enabled.
+ */
+void GameState::checkRobotSelectionInterface(const std::string rType, int sheetIndex)
+{
+	if (!mRobots.itemExists(rType))
+	{
+		mRobots.addItem(rType, sheetIndex);
+
+		if (!mBtnRobots.enabled())
+			mBtnRobots.enabled(true);
+	}
+}
+
 /**
  * Called whenever a RoboDozer completes its task.
  */
 void GameState::dozerTaskFinished(Robot* _r)
 {
-	if(!mRobots.itemExists(constants::ROBODOZER))
-	{
-		mRobots.addItem(constants::ROBODOZER, 0);
-
-		if(!mBtnRobots.enabled())
-			mBtnRobots.enabled(true);
-	}
+	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID);
 }
 
 
@@ -650,14 +659,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 		}
 	}
 
-
-	if(!mRobots.itemExists(constants::ROBODIGGER))
-	{
-		mRobots.addItem(constants::ROBODIGGER, 1);
-
-		if(!mBtnRobots.enabled())
-			mBtnRobots.enabled(true);
-	}
+	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID);
 }
 
 
@@ -673,13 +675,7 @@ void GameState::minerTaskFinished(Robot* _r)
 
 	mStructureManager.addStructure(new MineFacility(tpi.tile->mine()), tpi.tile, tpi.x, tpi.y, tpi.depth, false);
 
-	if(!mRobots.itemExists(constants::ROBOMINER))
-	{
-		mRobots.addItem(constants::ROBOMINER, 2);
-
-		if(!mBtnRobots.enabled())
-			mBtnRobots.enabled(true);
-	}
+	checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
 }
 
 
@@ -871,9 +867,9 @@ void GameState::deploySeedLander(int x, int y)
 	mBtnRobots.enabled(true);
 
 	// Robots only become available after the SEED Factor is deployed.
-	mRobots.addItem(constants::ROBODOZER, 0);
-	mRobots.addItem(constants::ROBODIGGER, 1);
-	mRobots.addItem(constants::ROBOMINER, 2);
+	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID);
+	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID);
+	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
 
 	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
 	mRobotPool.addRobot(RobotPool::ROBO_DIGGER)->taskComplete().Connect(this, &GameState::diggerTaskFinished);
