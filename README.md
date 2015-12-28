@@ -50,6 +50,12 @@ Keep in mind that the SEED Lander can't be placed within 3 tiles of any of the e
 
 After you place the SEED Lander, the Turns icon will become available to click on (you must place a SEED Lander before you can do anything else). After you left click on the Advance Turn button, other options will become available to you and the first structures of your colony will be built.
 
+**Q: I have a question that's not answered here. How can I get help?**
+
+A: You can visit The Outpost Universe's Forums (http://forum.outpost2.net) and visit the Main Projects forum.
+
+Alternatively, you can hop onto IRC and join OPU's official IRC channel and ask for help there. The lead developer, leeor_net, is often available during the day (US Eastern Time, UTC-5:00). (IRC Server: irc.quakenet.org, channel #Outpost2).
+
 ##Maintainers
 OutpostHD is developed and maintained by the following contributors:
 

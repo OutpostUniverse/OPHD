@@ -1,6 +1,23 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.5.1] - 2015-12-28
+
+This version includes all revisions from r39 to r45.
+
+### Changed
+- Placing tubes will now check for connectedness.
+- Redefined energy requirements for several structures including the Agridome, Command Center and CHAP.
+- Mini Map now draws the highlighter box above mines and with a shadow to help it stand out from light colored site maps.
+- Numerous internal code changes and cleanup making it much more understandable and maintainable.
+
+### Fixed
+- Fixed a mistake where tube insertion mode would only be updated when the Tube Intersection was selected when displaying underground tubes.
+- Fixed a mistake when the SEED Lander is deployed where the Build Structures button wasn't disabled.
+
+
+
+
 ## [0.5.0] - 2015-11-25
 
 This version includes all revisions from r21 to r38.
