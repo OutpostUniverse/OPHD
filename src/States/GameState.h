@@ -92,7 +92,7 @@ private:
 	void placeTubes();
 
 	bool validTubeConnection(int x, int y, StructureType type);
-	bool validStructurePlacement(Tile *tile, Direction dir);
+	bool validStructurePlacement(int x, int y);
 
 	void dozerTaskFinished(Robot* _r);
 	void diggerTaskFinished(Robot* _r);
@@ -101,6 +101,7 @@ private:
 	bool insertRobot(Robot* robot, Tile* tile, int x, int y, int depth);
 
 	void deploySeedLander(int x, int y);
+	void insertSeedLander(int x, int y);
 	bool landingSiteSuitable(int x, int y);
 
 	void updateMapView();
@@ -141,7 +142,8 @@ private:
 	PointerList			mPointers;
 	PointerType			mCurrentPointer;
 
-	Point_2d			mMousePosition;
+	Point_2d			mMousePosition;				/**< Current position of the mouse pointer. */
+	Point_2d			mTileMapMouseHover;			/**< Tile position the mouse is currently hovering over. */
 	Point_2d			mCCLocation;				/**< Location of the Command Center. */
 
 	Rectangle_2d		mMiniMapBoundingBox;

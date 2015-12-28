@@ -35,6 +35,9 @@ public:
 	const Point_2d& tileHighlight() const { return mMapHighlight; }
 	bool tileHighlightVisible() const;
 
+	int tileMouseHoverX() const { return mMapHighlight.x() + mMapViewLocation.x(); }
+	int tileMouseHoverY() const { return mMapHighlight.y() + mMapViewLocation.y(); }
+
 	const Point2dList& mineLocations() const { return mMineLocations; }
 
 	void toggleShowConnections() { mShowConnections = !mShowConnections; }

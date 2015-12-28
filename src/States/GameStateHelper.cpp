@@ -53,3 +53,26 @@ bool checkTubeConnection(Tile* tile, Direction dir, StructureType type)
 	return false;
 }
 
+
+bool checkStructurePlacement(Tile *tile, Direction dir)
+{
+	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure() || !tile->connected())
+		return false;
+
+	Structure* _structure = tile->structure();
+	if (!_structure->isConnector())
+		return false;
+
+	if (dir == DIR_EAST || dir == DIR_WEST)
+	{
+		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT)
+			return true;
+	}
+	else // NORTH/SOUTH
+	{
+		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT)
+			return true;
+	}
+
+	return false;
+}

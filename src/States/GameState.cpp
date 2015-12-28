@@ -12,6 +12,7 @@
 #include "../Things/Structures/Structures.h"
 
 #include "../Constants.h"
+#include "../StructureFactory.h"
 
 #include <sstream>
 #include <vector>
@@ -390,9 +391,6 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		{
 			if(mInsertMode == INSERT_STRUCTURE)
 			{
-				if(mCurrentStructure == STRUCTURE_NONE)
-					return;
-
 				placeStructure();
 			}
 			else if(mInsertMode == INSERT_ROBOT)
@@ -410,8 +408,8 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 
 void GameState::placeTubes()
 {
-	int x = mTileMap.tileHighlight().x() + mTileMap.mapViewLocation().x();
-	int y = mTileMap.tileHighlight().y() + mTileMap.mapViewLocation().y();
+	int x = mTileMapMouseHover.x();
+	int y = mTileMapMouseHover.y();
 
 	Tile* tile = mTileMap.getTile(x, y, mTileMap.currentDepth());
 	if(!tile)
@@ -423,6 +421,7 @@ void GameState::placeTubes()
 
 	if (validTubeConnection(x, y, mCurrentStructure))
 	{
+		// FIXME:	This can be done a lot better.
 		if(mCurrentStructure == STRUCTURE_TUBE_INTERSECTION)
 			mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), x, y, mTileMap.currentDepth(), true);
 		else if (mCurrentStructure == STRUCTURE_TUBE_RIGHT)
@@ -454,42 +453,21 @@ bool GameState::validTubeConnection(int x, int y, StructureType type)
 
 
 /**
-* Checks a tile to see if a valid tube connection is available for structure placement.
-*
-* \todo	It would seem that we can combine this function and the validTubeConnection function
-*		in some way.
-*/
-bool GameState::validStructurePlacement(Tile *tile, Direction dir)
+ * Checks a tile to see if a valid Tube connection is available for Structure placement.
+ */
+bool GameState::validStructurePlacement(int x, int y)
 {
 
-	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure() || !tile->connected())
-		return false;
-
-	Structure* _structure = tile->structure();
-	if (!_structure->isConnector())
-		return false;
-
-	if (dir == DIR_EAST || dir == DIR_WEST)
-	{
-		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT)
-			return true;
-	}
-	else // NORTH/SOUTH
-	{
-		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT)
-			return true;
-	}
-
-	return false;
+	return	checkStructurePlacement(mTileMap.getTile(x, y - 1), DIR_NORTH) ||
+			checkStructurePlacement(mTileMap.getTile(x + 1, y), DIR_EAST) ||
+			checkStructurePlacement(mTileMap.getTile(x, y + 1), DIR_SOUTH) ||
+			checkStructurePlacement(mTileMap.getTile(x - 1, y), DIR_WEST);
 }
 
 
 void GameState::placeRobot()
 {
-	int x = mTileMap.tileHighlight().x() + mTileMap.mapViewLocation().x();
-	int y = mTileMap.tileHighlight().y() + mTileMap.mapViewLocation().y();
-
-	Tile* tile = mTileMap.getTile(x, y, mTileMap.currentDepth());
+	Tile* tile = mTileMap.getTile(mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap.currentDepth());
 	if(!tile)
 		return;
 
@@ -520,7 +498,7 @@ void GameState::placeRobot()
 
 		Robot* r = mRobotPool.getDozer();
 		r->startTask(tile->index());
-		insertRobot(r, tile, x, y, mTileMap.currentDepth());
+		insertRobot(r, tile, mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap.currentDepth());
 		tile->index(TERRAIN_DOZED);
 
 		if(!mRobotPool.robotAvailable(RobotPool::ROBO_DOZER))
@@ -533,7 +511,7 @@ void GameState::placeRobot()
 	else if(mCurrentRobot == ROBOT_DIGGER)
 	{
 		// Keep digger within a safe margin of the map boundaries.
-		if (x < 3 || x > mTileMap.width() - 4 || y < 3 || y > mTileMap.height() - 4)
+		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap.width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap.height() - 4)
 		{
 			cout << "GameState::placeRobot(): Can't place digger within 3 tiles of the edge of a map." << endl;
 			return;
@@ -550,7 +528,7 @@ void GameState::placeRobot()
 			mDiggerDirection.downOnlyEnabled();
 
 		//hideUi();
-		mDiggerDirection.setParameters(tile, x, y, mTileMap.currentDepth());
+		mDiggerDirection.setParameters(tile, mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap.currentDepth());
 
 		// NOTE:	Unlike the Dozer and Miner, Digger's aren't removed here but instead
 		//			are removed after responses to the DiggerDirection dialog.
@@ -569,7 +547,7 @@ void GameState::placeRobot()
 
 		Robot* r = mRobotPool.getMiner();
 		r->startTask(6);
-		insertRobot(r, tile, x, y, mTileMap.currentDepth());
+		insertRobot(r, tile, mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap.currentDepth());
 		tile->index(TERRAIN_DOZED);
 
 		clearMode();
@@ -710,10 +688,10 @@ void GameState::minerTaskFinished(Robot* _r)
  */
 void GameState::placeStructure()
 {
-	int x = mTileMap.tileHighlight().x() + mTileMap.mapViewLocation().x();
-	int y = mTileMap.tileHighlight().y() + mTileMap.mapViewLocation().y();
+	if (mCurrentStructure == STRUCTURE_NONE)
+		return;
 
-	Tile* tile = mTileMap.getTile(x, y, mTileMap.currentDepth());
+	Tile* tile = mTileMap.getTile(mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap.currentDepth());
 	if(!tile)
 		return;
 
@@ -726,48 +704,19 @@ void GameState::placeStructure()
 	// Seed lander is a special case and only one can ever be placed by the player ever.
 	if(mCurrentStructure == STRUCTURE_SEED_LANDER)
 	{
-		// Has to be built away from the edges of the map
-		if(x > 3 && x < mTileMap.width() - 3 && y > 3 && y < mTileMap.height() - 3)
-		{
-			// check for obstructions
-			if(!landingSiteSuitable(x, y))
-			{
-				cout << "Unable to place SEED Lander. Tiles obstructed." << endl;
-				return;
-			}
-
-			SeedLander* s = new SeedLander(x, y);
-			s->deployCallback().Connect(this, &GameState::deploySeedLander);
-			mStructureManager.addStructure(s, tile, x, y, 0, true); // Can only ever be placed on depth level 0
-	
-			clearMode();
-			resetUi();
-
-			mBtnStructures.enabled(false);
-			mStructures.dropAllItems();
-			mBtnTurns.enabled(true);
-		}
+		insertSeedLander(mTileMapMouseHover.x(), mTileMapMouseHover.y());
 	}
 	else
 	{
-		if (validStructurePlacement(mTileMap.getTile(x, y - 1), DIR_NORTH) == false &&
-			validStructurePlacement(mTileMap.getTile(x + 1, y), DIR_EAST) == false && 
-			validStructurePlacement(mTileMap.getTile(x, y + 1), DIR_SOUTH) == false && 
-			validStructurePlacement(mTileMap.getTile(x - 1, y), DIR_WEST) == false)
+		if (!validStructurePlacement(mTileMapMouseHover.x(), mTileMapMouseHover.y()))
 		{
 			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
 			return;
 		}
 
-		// FIXME: This can be done with a cleaner Factory interface
-		if (mCurrentStructure == STRUCTURE_AGRIDOME)
-		{
-			mStructureManager.addStructure(new Agridome(), tile, x, y, 0, false);
-		}
-		if (mCurrentStructure == STRUCTURE_CHAP)
-		{
-			mStructureManager.addStructure(new CHAP(), tile, x, y, 0, false);
-		}
+		Structure* _s = StructureFactory::get(mCurrentStructure);
+		if (_s)
+			mStructureManager.addStructure(_s, tile, mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap.currentDepth(), false);
 	}
 }
 
@@ -790,6 +739,7 @@ void GameState::onMouseUp(MouseButton button, int x, int y)
 void GameState::onMouseMove(int x, int y, int rX, int rY)
 {
 	mMousePosition(x, y);
+	mTileMapMouseHover(mTileMap.tileMouseHoverX(), mTileMap.tileMouseHoverY());
 
 	if(mLeftButtonDown)
 	{
@@ -822,6 +772,36 @@ bool GameState::insertRobot(Robot* robot, Tile* tile, int x, int y, int depth)
 	tile->pushThing(robot);
 
 	return true;
+}
+
+
+/**
+ * Checks that the clicked tile is a suitable spot for the SEED Lander and
+ * then inserts it into the the TileMap.
+ */
+void GameState::insertSeedLander(int x, int y)
+{
+	// Has to be built away from the edges of the map
+	if (x > 3 && x < mTileMap.width() - 4 && y > 3 && y < mTileMap.height() - 4)
+	{
+		// check for obstructions
+		if (!landingSiteSuitable(x, y))
+		{
+			cout << "Unable to place SEED Lander. Tiles obstructed." << endl;
+			return;
+		}
+
+		SeedLander* s = new SeedLander(x, y);
+		s->deployCallback().Connect(this, &GameState::deploySeedLander);
+		mStructureManager.addStructure(s, mTileMap.getTile(x, y), x, y, 0, true); // Can only ever be placed on depth level 0
+
+		clearMode();
+		resetUi();
+
+		mBtnStructures.enabled(false);
+		mStructures.dropAllItems();
+		mBtnTurns.enabled(true);
+	}
 }
 
 

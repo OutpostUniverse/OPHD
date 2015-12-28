@@ -17,3 +17,9 @@ void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red = 0, int gree
  * Checks to see if a given tube connection is valid.
  */
 bool checkTubeConnection(Tile* tile, Direction dir, StructureType type);
+
+
+/**
+ * Checks to see if the given tile offers the a proper connection for a Structure.
+ */
+bool checkStructurePlacement(Tile *tile, Direction dir);
