@@ -47,7 +47,6 @@ private:
 
 	IconGrid					mProductionGrid;
 
-	Button						btnIdle;
 	Button						btnOkay;
 	Button						btnCancel;
 };

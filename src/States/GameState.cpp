@@ -624,6 +624,10 @@ void GameState::diggerTaskFinished(Robot* _r)
 
 		mTileMap.getTile(originX, originY, tpi.depth)->index(TERRAIN_DOZED);
 		mTileMap.getTile(originX, originY, tpi.depth + depthAdjust)->index(TERRAIN_DOZED);
+
+		// FIXME: Naive approach; will be slow with large colonies.
+		mStructureManager.disconnectAll();
+		checkConnectedness();
 	}
 	else if(dir == DIR_NORTH)
 	{

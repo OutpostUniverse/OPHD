@@ -31,12 +31,6 @@ void FactoryProduction::init()
 	mProductionGrid.hide();
 	mProductionGrid.selectionChanged().Connect(this, &FactoryProduction::productionSelectionChanged);
 
-	addControl("btnIdle", &btnIdle, constants::MARGIN, 136);
-	btnIdle.font(font());
-	btnIdle.text("Idle");
-	btnIdle.size(35, 20);
-	btnIdle.type(Button::BUTTON_TOGGLE);
-
 	addControl("btnOkay", &btnOkay, 70, 136);
 	btnOkay.font(font());
 	btnOkay.text("Okay");
