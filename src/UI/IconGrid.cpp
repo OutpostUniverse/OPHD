@@ -281,9 +281,9 @@ void IconGrid::update()
 
 		r.drawBox(x, y, mIconSize, mIconSize, 0, 180, 0);
 
+		// Name Tooltip
 		if (mShowTooltip)
 		{
-			// Name Tooltip
 			r.drawBoxFilled(x, y - 15, font().width(mIconItemList[mHighlightIndex]._name) + 4, font().height(), 245, 245, 245);
 			r.drawBox(x, y - 15, font().width(mIconItemList[mHighlightIndex]._name) + 4, font().height(), 175, 175, 175);
 			r.drawText(font(), mIconItemList[mHighlightIndex]._name, x + 2, y - 15, 0, 0, 0);

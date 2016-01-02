@@ -4,7 +4,7 @@
 #include "Things/Structures/Structure.h"
 #include "Things/Structures/Factory.h"
 
-#include "Resources.h"
+#include "ResourcePool.h"
 #include "TilePositionInfo.h"
 
 /**
@@ -20,7 +20,7 @@ public:
 	~StructureManager();
 
 	void update();
-	void processResources(Resources& _r);
+	void processResources(ResourcePool& _r);
 
 	bool addStructure(Structure* st, Tile* t, int x, int y, int depth, bool clear);
 	bool removeStructure(Structure* st);
@@ -42,8 +42,8 @@ private:
 	void updateStructures();
 	void updateFactories();
 
-	void processResourcesIn(Resources& _r);
-	void processResourcesOut(Resources& _r);
+	void processResourcesIn(ResourcePool& _r);
+	void processResourcesOut(ResourcePool& _r);
 
 	void addToList(StructureMap& _sm, Structure* _st, TilePositionInfo& _tpi);
 	bool removeStructureFromList(Structure* st, StructureList& list);

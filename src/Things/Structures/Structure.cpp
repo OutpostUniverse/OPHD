@@ -80,7 +80,7 @@ void Structure::idle(bool _b)
 /**
  * 
  */
-void Structure::input(Resources& _resourcePool)
+void Structure::input(ResourcePool& _resourcePool)
 {
 	if(!enoughResourcesAvailable(_resourcePool))
 	{
@@ -92,7 +92,7 @@ void Structure::input(Resources& _resourcePool)
 }
 
 
-bool Structure::enoughResourcesAvailable(const Resources& r)
+bool Structure::enoughResourcesAvailable(const ResourcePool& r)
 {
 	return r >= mResourcesInput;
 }

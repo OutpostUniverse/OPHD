@@ -2,7 +2,7 @@
 #define __STRUCTURE__
 
 #include "../Thing.h"
-#include "../../Resources.h"
+#include "../../ResourcePool.h"
 #include "../../Common.h"
 
 
@@ -54,12 +54,12 @@ public:
 
 	void incrementAge() { mAge++; }
 
-	Resources& resourceValue() { return mResourceValue; }
-	Resources& resourcesIn() { return mResourcesInput; }
-	Resources& resourcesOut() { return mResourcesOutput; }
+	ResourcePool& resourceValue() { return mResourceValue; }
+	ResourcePool& resourcesIn() { return mResourcesInput; }
+	ResourcePool& resourcesOut() { return mResourcesOutput; }
 
-	void input(Resources& _resourcePool);
-	bool enoughResourcesAvailable(const Resources& r);
+	void input(ResourcePool& _resourcePool);
+	bool enoughResourcesAvailable(const ResourcePool& r);
 
 	StructureState state() const { return mStructureState; }
 
@@ -108,12 +108,12 @@ protected:
 
 	void priority(StructurePriority _sp) { mStructurePriority = _sp; }
 
-	Resources				mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
+	ResourcePool			mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
+	
+	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */
+	ResourcePool			mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */
 
-	Resources				mResourcesInput;			/**< Resources needed to operate the Structure. */
-	Resources				mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */
-
-	Resources				mResourceValue;				/**< Resource reclamation values when dozed. */
+	ResourcePool			mResourceValue;				/**< Resource reclamation values when dozed. */
 
 private:
 	int						mId;						/**< ID of the Structure. */

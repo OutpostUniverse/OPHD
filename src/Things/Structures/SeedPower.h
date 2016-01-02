@@ -33,7 +33,7 @@ public:
 		else if (age() == maxAge())
 		{
 			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
-			mResourcesOutput.energy = 0;
+			mResourcesOutput.energy(0);
 		}
 	}
 
@@ -45,14 +45,14 @@ protected:
 
 	virtual void defineResourceOutput()
 	{
-		mResourcesOutput.energy = 50;
+		mResourcesOutput.energy(50);
 	}
 
 	virtual void defineResourceValue()
 	{
 		// Resource value if demolished.
-		mResourceValue.commonMetals = 20;
-		mResourceValue.rareMetals = 5;
+		mResourceValue.commonMetals(20);
+		mResourceValue.rareMetals(5);
 	}
 
 private:

@@ -1,5 +1,4 @@
-#ifndef __STRUCTURE_CHAP__
-#define __STRUCTURE_CHAP__
+#pragma once
 
 #include "Structure.h"
 
@@ -41,9 +40,9 @@ protected:
 
 	virtual void defineResourceInput()
 	{
-		mResourcesInput.commonMinerals = 4;
-		mResourcesInput.rareMinerals = 1;
-		mResourcesInput.energy = 10;
+		mResourcesInput.commonMinerals(4);
+		mResourcesInput.rareMinerals(1);
+		mResourcesInput.energy(10);
 	}
 
 	virtual void defineResourceOutput()
@@ -53,14 +52,12 @@ protected:
 	virtual void defineResourceValue()
 	{
 		// Resource value if demolished.
-		mResourceValue.commonMetals = 20;
-		mResourceValue.rareMetals = 5;
+		mResourceValue.commonMetals(20);
+		mResourceValue.rareMetals(5);
 	}
 
 private:
 
 };
 
-
-#endif // !__STRUCTURE_CHAP__
 

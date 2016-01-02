@@ -7,7 +7,7 @@
 
 #include "../Population/PopulationPool.h"
 
-#include "../Resources.h"
+#include "../ResourcePool.h"
 #include "../RobotPool.h"
 
 #include "../StructureManager.h"
@@ -152,9 +152,9 @@ private:
 
 	StructureManager	mStructureManager;			/**< Manager class responsible for managing all structures. */
 
-	Resources			mPlayerResources;			/**< Player's current resources. */
-	Resources			mPreviousResources;
-	Resources			mResourcesDifference;		
+	ResourcePool		mPlayerResources;			/**< Player's current resources. */
+	ResourcePool		mPreviousResources;
+	ResourcePool		mResourcesDifference;
 
 	PopulationPool		mPopulationPool;			/**< Population available to the Player. */
 	RobotPool			mRobotPool;					/**< Robots that are currently available for use. */

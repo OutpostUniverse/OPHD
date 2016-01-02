@@ -183,23 +183,23 @@ void GameState::drawResourceInfo()
 
 	// Refined Resources
 	r.drawSubImage(mUiIcons, x, y , 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.commonMetals, x + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	drawNumber(r, mTinyFont, mPlayerResources.commonMetals(), x + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, x + offsetX, y, 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.rareMetals, (x + offsetX) + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	drawNumber(r, mTinyFont, mPlayerResources.rareMetals(), (x + offsetX) + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 2, y, 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.commonMinerals, (x + offsetX) * 2 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	drawNumber(r, mTinyFont, mPlayerResources.commonMinerals(), (x + offsetX) * 2 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.rareMinerals, (x + offsetX) * 3 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	drawNumber(r, mTinyFont, mPlayerResources.rareMinerals(), (x + offsetX) * 3 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	// Food & Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 5, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.food, (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	drawNumber(r, mTinyFont, mPlayerResources.food(), (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 6, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.energy, (x + offsetX) * 6 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	drawNumber(r, mTinyFont, mPlayerResources.energy(), (x + offsetX) * 6 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	// Turns
 	r.drawSubImage(mUiIcons, r.width() - 90, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
@@ -880,10 +880,10 @@ void GameState::deploySeedLander(int x, int y)
 	mRobotPool.addRobot(RobotPool::ROBO_MINER)->taskComplete().Connect(this, &GameState::minerTaskFinished);
 
 	// FIXME: Magic numbers
-	mPlayerResources.commonMetals = 100;
-	mPlayerResources.commonMinerals = 85;
-	mPlayerResources.rareMetals = 50;
-	mPlayerResources.rareMinerals = 60;
+	mPlayerResources.commonMetals(100);
+	mPlayerResources.commonMinerals(85);
+	mPlayerResources.rareMetals(50);
+	mPlayerResources.rareMinerals(60);
 
 	mPopulationPool.addWorkers(30);
 	mPopulationPool.addScientists(20);

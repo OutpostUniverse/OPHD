@@ -15,10 +15,10 @@ struct ProductionCost
 
 	ProductionCost(int turns, double commonMetals, double commonMinerals, double rareMetals, double rareMinerals) : TurnsToBuild(turns)
 	{
-		CostPerTurn.commonMetals = commonMetals;
-		CostPerTurn.commonMinerals = commonMinerals;
-		CostPerTurn.rareMetals = rareMetals;
-		CostPerTurn.rareMinerals = rareMinerals;
+		CostPerTurn.commonMetals(commonMetals);
+		CostPerTurn.commonMinerals(commonMinerals);
+		CostPerTurn.rareMetals(rareMetals);
+		CostPerTurn.rareMinerals(rareMinerals);
 	}
 
 	~ProductionCost() {}
@@ -29,8 +29,8 @@ struct ProductionCost
 		TurnsToBuild = 0;
 	}
 
-	Resources	CostPerTurn;
-	int			TurnsToBuild;
+	ResourcePool	CostPerTurn;
+	int				TurnsToBuild;
 };
 
 
@@ -71,7 +71,7 @@ public:
 
 	virtual void updateProduction();
 
-	void resourcePool(Resources* _r) { mResourcesPool = _r; }
+	void resourcePool(ResourcePool* _r) { mResourcesPool = _r; }
 	void robotPool(RobotPool* _r) { mRobotPool = _r; }
 
 	int productionTurnsToComplete() const { return mTurnsToComplete; }
@@ -98,7 +98,7 @@ protected:
 	void addProduct(ProductionType _p);
 	bool enoughResourcesAvailable();
 
-	Resources* resourcePool() { return mResourcesPool; }
+	ResourcePool* resourcePool() { return mResourcesPool; }
 	RobotPool* robotPool() { return mRobotPool; }
 
 private:
@@ -110,8 +110,8 @@ private:
 
 	ProductionTypeList				mAvailableProducts;			/**< List of products that the Factory can produce. */
 
-	Resources						mProductionInput;
+	ResourcePool					mProductionInput;
 
-	Resources*						mResourcesPool;				/**< Pointer to the player's resource pool. UGLY. */
+	ResourcePool*					mResourcesPool;				/**< Pointer to the player's resource pool. UGLY. */
 	RobotPool*						mRobotPool;					/**< Pointer to the player's robot pool. UGLY. */
 };

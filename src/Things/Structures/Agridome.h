@@ -1,5 +1,4 @@
-#ifndef __STRUCTURE_AGRIDOME__
-#define __STRUCTURE_AGRIDOME__
+#pragma once
 
 #include "Structure.h"
 
@@ -36,26 +35,24 @@ protected:
 
 	virtual void defineResourceInput()
 	{
-		mResourcesInput.commonMinerals = 2;
-		mResourcesInput.energy = 1;
+		mResourcesInput.commonMinerals(2);
+		mResourcesInput.energy(1);
 	}
 
 	virtual void defineResourceOutput()
 	{
-		mResourcesOutput.food = 2;
+		mResourcesOutput.food(2);
 	}
 
 	virtual void defineResourceValue()
 	{
 		// Resource value if demolished.
-		mResourceValue.commonMetals = 20;
-		mResourceValue.rareMetals = 5;
+		mResourceValue.commonMetals(20);
+		mResourceValue.rareMetals(5);
 	}
 
 private:
 
 };
 
-
-#endif // !__STRUCTURE_AGRIDOME__
 

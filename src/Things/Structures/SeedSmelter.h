@@ -45,27 +45,27 @@ protected:
 	{
 		double resource_temp = 0;
 
-		resourcePool()->commonMetalsOre < 15 ? resource_temp = resourcePool()->commonMetalsOre : resource_temp = 15;
-		resourcePool()->commonMetalsOre -= resource_temp;
-		resourcePool()->commonMetals += resource_temp * 0.85;
+		resourcePool()->commonMetalsOre() < 15 ? resource_temp = resourcePool()->commonMetalsOre() : resource_temp = 15;
+		resourcePool()->commonMetalsOre(resourcePool()->commonMetalsOre() - resource_temp);
+		resourcePool()->commonMetals(resourcePool()->commonMetals() + resource_temp * 0.85);
 
-		resourcePool()->commonMineralsOre < 15 ? resource_temp = resourcePool()->commonMineralsOre : resource_temp = 15;
-		resourcePool()->commonMineralsOre -= resource_temp;
-		resourcePool()->commonMinerals += resource_temp * 0.60;
+		resourcePool()->commonMineralsOre() < 15 ? resource_temp = resourcePool()->commonMineralsOre() : resource_temp = 15;
+		resourcePool()->commonMineralsOre(resourcePool()->commonMineralsOre() - resource_temp);
+		resourcePool()->commonMinerals(resourcePool()->commonMinerals() + resource_temp * 0.60);
 
-		resourcePool()->rareMetalsOre < 15 ? resource_temp = resourcePool()->rareMetalsOre : resource_temp = 15;
-		resourcePool()->rareMetalsOre -= resource_temp;
-		resourcePool()->rareMetals += resource_temp * 0.60;
+		resourcePool()->rareMetalsOre() < 15 ? resource_temp = resourcePool()->rareMetalsOre() : resource_temp = 15;
+		resourcePool()->rareMetalsOre(resourcePool()->rareMetalsOre() - resource_temp);
+		resourcePool()->rareMetals(resourcePool()->rareMetals() + resource_temp * 0.60);
 
-		resourcePool()->rareMineralsOre < 15 ? resource_temp = resourcePool()->rareMineralsOre : resource_temp = 15;
-		resourcePool()->rareMineralsOre -= resource_temp;
-		resourcePool()->rareMinerals += resource_temp * 0.55;
+		resourcePool()->rareMineralsOre() < 15 ? resource_temp = resourcePool()->rareMineralsOre() : resource_temp = 15;
+		resourcePool()->rareMineralsOre(resourcePool()->rareMineralsOre() - resource_temp);
+		resourcePool()->rareMinerals(resourcePool()->rareMinerals() + resource_temp * 0.55);
 	}
 
 private:
 	virtual void defineResourceInput()
 	{
-		mResourcesInput.energy = 5;
+		mResourcesInput.energy(5);
 	}
 
 	virtual void defineResourceOutput()
@@ -74,8 +74,8 @@ private:
 
 	virtual void defineResourceValue()
 	{
-		mResourceValue.commonMetals = 15;
-		mResourceValue.rareMetals = 3;
+		mResourceValue.commonMetals(15);
+		mResourceValue.rareMetals(3);
 	}
 };
 

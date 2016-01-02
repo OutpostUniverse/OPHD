@@ -36,7 +36,7 @@ void StructureManager::update()
 }
 
 
-void StructureManager::processResources(Resources& _r)
+void StructureManager::processResources(ResourcePool& _r)
 {
 	processResourcesOut(_r);
 	processResourcesIn(_r);
@@ -86,7 +86,7 @@ void StructureManager::updateStructures()
  * Iterates through all Structures and provides input resources disabling Structures
  * that don't get the resources they need.
  */
-void StructureManager::processResourcesIn(Resources& _r)
+void StructureManager::processResourcesIn(ResourcePool& _r)
 {
 	auto struct_it = mStructureList.begin();
 
@@ -127,10 +127,10 @@ void StructureManager::processResourcesIn(Resources& _r)
 }
 
 
-void StructureManager::processResourcesOut(Resources& _r)
+void StructureManager::processResourcesOut(ResourcePool& _r)
 {
 	// RESOURCES OUT
-	Resources out;
+	ResourcePool out;
 	auto struct_it = mStructureList.begin();
 	while (struct_it != mStructureList.end())
 	{
@@ -142,7 +142,7 @@ void StructureManager::processResourcesOut(Resources& _r)
 
 	// Adjust resources
 	_r += out;
-	_r.energy = out.energy; // energy is not cumulative
+	_r.energy(out.energy()); // energy is not cumulative
 }
 
 

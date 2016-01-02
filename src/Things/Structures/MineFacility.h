@@ -53,10 +53,10 @@ public:
 		{
 			MineProduction mp = mMine->update();
 
-			mResourcesOutput.commonMetalsOre = mp.CommonMetalOre;
-			mResourcesOutput.rareMetalsOre = mp.RareMetalOre;
-			mResourcesOutput.commonMineralsOre = mp.CommonMineralOre;
-			mResourcesOutput.rareMineralsOre = mp.RareMineralOre;
+			mResourcesOutput.commonMetalsOre(mp.CommonMetalOre);
+			mResourcesOutput.rareMetalsOre(mp.RareMetalOre);
+			mResourcesOutput.commonMineralsOre(mp.CommonMineralOre);
+			mResourcesOutput.rareMineralsOre(mp.RareMineralOre);
 		}
 	}
 
@@ -69,8 +69,8 @@ private:
 	virtual void defineResourceValue()
 	{
 		// Resource value if demolished.
-		mResourceValue.commonMetals = 20;
-		mResourceValue.rareMetals = 5;
+		mResourceValue.commonMetals(10);
+		mResourceValue.rareMetals(2);
 	}
 
 

@@ -171,22 +171,22 @@ void FactoryProduction::update()
 	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 20.0f, 0, 0, 0);
 
 	ss.str("");
-	ss << mProductionCost.CostPerTurn.commonMetals * mProductionCost.TurnsToBuild;
+	ss << mProductionCost.CostPerTurn.commonMetals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Common Metals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 40.0f, 0, 0, 0);
 	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 40.0f, 0, 0, 0);
 
 	ss.str("");
-	ss << mProductionCost.CostPerTurn.commonMinerals * mProductionCost.TurnsToBuild;
+	ss << mProductionCost.CostPerTurn.commonMinerals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Common Minerals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 50.0f, 0, 0, 0);
 	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 50.0f, 0, 0, 0);
 
 	ss.str("");
-	ss << mProductionCost.CostPerTurn.rareMetals * mProductionCost.TurnsToBuild;
+	ss << mProductionCost.CostPerTurn.rareMetals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Rare Metals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 60.0f, 0, 0, 0);
 	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 60.0f, 0, 0, 0);
 
 	ss.str("");
-	ss << mProductionCost.CostPerTurn.rareMinerals * mProductionCost.TurnsToBuild;
+	ss << mProductionCost.CostPerTurn.rareMinerals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Rare Minerals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 70.0f, 0, 0, 0);
 	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 70.0f, 0, 0, 0);
 
