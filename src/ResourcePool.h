@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 /**
 * Pretty much just an easy container for keeping track of resources.
 * 
@@ -8,6 +10,23 @@
 class ResourcePool
 {
 public:
+
+	enum ResourceType
+	{
+		RESOURCE_COMMON_METALS_ORE,
+		RESOURCE_COMMON_MINERALS_ORE,
+		RESOURCE_RARE_METALS_ORE,
+		RESOURCE_RARE_MINERALS_ORE,
+
+		RESOURCE_COMMON_METALS,
+		RESOURCE_COMMON_MINERALS,
+		RESOURCE_RARE_METALS,
+		RESOURCE_RARE_MINERALS,
+
+		RESOURCE_FOOD,
+		RESOURCE_ENERGY
+	};
+
 	ResourcePool();
 
 	ResourcePool(const ResourcePool& _r);
@@ -15,64 +34,52 @@ public:
 	~ResourcePool();
 
 	ResourcePool& operator=(const ResourcePool& rhs);
-	ResourcePool& operator+=(const ResourcePool& rhs);
-	ResourcePool& operator-=(const ResourcePool& rhs);
+	ResourcePool& operator+=(ResourcePool& rhs);
+	ResourcePool& operator-=(ResourcePool& rhs);
 
-	friend bool operator<(const ResourcePool& lhs, const ResourcePool& rhs);
-	friend bool operator>(const ResourcePool& lhs, const ResourcePool& rhs);
-	friend bool operator<=(const ResourcePool& lhs, const ResourcePool& rhs);
-	friend bool operator>=(const ResourcePool& lhs, const ResourcePool& rhs);
+	friend bool operator<(ResourcePool& lhs, ResourcePool& rhs);
+	friend bool operator>(ResourcePool& lhs, ResourcePool& rhs);
+	friend bool operator<=(ResourcePool& lhs, ResourcePool& rhs);
+	friend bool operator>=(ResourcePool& lhs, ResourcePool& rhs);
 
 	/**
 	* Sets all values to 0.
 	*/
 	void clear();
 
+	double resource(ResourceType _t);
+	void resource(ResourceType _t, double _d);
+
 	// GETTERS
-	double commonMetalsOre() const { return _commonMetalsOre; }
-	double commonMineralsOre() const { return _commonMineralsOre; }
-	double rareMetalsOre() const { return _rareMetalsOre; }
-	double rareMineralsOre() const { return _rareMineralsOre; }
+	double commonMetalsOre();
+	double commonMineralsOre();
+	double rareMetalsOre();
+	double rareMineralsOre();
 
-	double commonMetals() const { return _commonMetals; }
-	double commonMinerals() const { return _commonMinerals; }
-	double rareMetals() const { return _rareMetals; }
-	double rareMinerals() const { return _rareMinerals; }
+	double commonMetals();
+	double commonMinerals();
+	double rareMetals();
+	double rareMinerals();
 
-	int energy() const { return _energy; }
-	int food() const { return _food; }
+	double energy();
+	double food();
 
 	// SETTERS
-	void commonMetalsOre(double _d) { _commonMetalsOre = _d; }
-	void commonMineralsOre(double _d) { _commonMineralsOre = _d; }
-	void rareMetalsOre(double _d) { _rareMetalsOre = _d; }
-	void rareMineralsOre(double _d) { _rareMineralsOre = _d; }
+	void commonMetalsOre(double _d);
+	void commonMineralsOre(double _d);
+	void rareMetalsOre(double _d);
+	void rareMineralsOre(double _d);
 
-	void commonMetals(double _d) { _commonMetals = _d; }
-	void commonMinerals(double _d) { _commonMinerals = _d; }
-	void rareMetals(double _d) { _rareMetals = _d; }
-	void rareMinerals(double _d) { _rareMinerals = _d; }
+	void commonMetals(double _d);
+	void commonMinerals(double _d);
+	void rareMetals(double _d);
+	void rareMinerals(double _d);
 
-	void energy(int _i)  { _energy = _i; }
-	void food(int _i)  { _food = _i; }
-
-protected:
+	void energy(double _d);
+	void food(double _d);
 
 private:
+	typedef std::map<ResourceType, double> ResourceTable;
 
-	// Ore
-	double _commonMetalsOre;
-	double _commonMineralsOre;
-	double _rareMetalsOre;
-	double _rareMineralsOre;
-
-	// Refined Materials
-	double _commonMetals;
-	double _commonMinerals;
-	double _rareMetals;
-	double _rareMinerals;
-
-	// Other
-	int	_energy;
-	int	_food;
+	ResourceTable		_resourceTable;
 };

@@ -1,48 +1,20 @@
 #include "ResourcePool.h"
 
 
-ResourcePool::ResourcePool() :	_commonMetalsOre(0),
-								_commonMineralsOre(0),
-								_rareMetalsOre(0),
-								_rareMineralsOre(0),
-								_commonMetals(0),
-								_commonMinerals(0),
-								_rareMetals(0),
-								_rareMinerals(0),
-								_energy(0),
-								_food(0)
+ResourcePool::ResourcePool()
 {}
 
-ResourcePool::ResourcePool(const ResourcePool& _r) : _commonMetalsOre(_r._commonMetalsOre),
-													_commonMineralsOre(_r._commonMineralsOre),
-													_rareMetalsOre(_r._rareMetalsOre),
-													_rareMineralsOre(_r._rareMineralsOre),
-													_commonMetals(_r._commonMetals),
-													_commonMinerals(_r._commonMinerals),
-													_rareMetals(_r._rareMetals),
-													_rareMinerals(_r._rareMinerals),
-													_energy(_r._energy),
-													_food(_r._food)
+ResourcePool::ResourcePool(const ResourcePool& _r) : _resourceTable(_r._resourceTable)
 {}
+
 
 ResourcePool::~ResourcePool()
 {}
 
+
 ResourcePool& ResourcePool::operator=(const ResourcePool& rhs)
 {
-	_commonMetalsOre = rhs._commonMetalsOre;
-	_commonMineralsOre = rhs._commonMineralsOre;
-	_rareMetalsOre = rhs._rareMetalsOre;
-	_rareMineralsOre = rhs._rareMineralsOre;
-
-	_commonMetals = rhs._commonMetals;
-	_commonMinerals = rhs._commonMinerals;
-	_rareMetals = rhs._rareMetals;
-	_rareMinerals = rhs._rareMinerals;
-
-	_energy = rhs._energy;
-	_food = rhs._food;
-
+	_resourceTable = rhs._resourceTable;
 	return *this;
 }
 
@@ -52,59 +24,88 @@ ResourcePool& ResourcePool::operator=(const ResourcePool& rhs)
 */
 void ResourcePool::clear()
 {
-	_commonMetalsOre = 0;
-	_commonMineralsOre = 0;
-	_rareMetalsOre = 0;
-	_rareMineralsOre = 0;
-
-	_commonMetals = 0;
-	_commonMinerals = 0;
-	_rareMetals = 0;
-	_rareMinerals = 0;
-
-	_energy = 0;
-	_food = 0;
+	_resourceTable.clear();
 }
 
 
-ResourcePool& ResourcePool::operator+=(const ResourcePool& rhs)
+ResourcePool& ResourcePool::operator+=(ResourcePool& rhs)
 {
-	_commonMetalsOre += rhs._commonMetalsOre;
-	_commonMineralsOre += rhs._commonMineralsOre;
-	_rareMetalsOre += rhs._rareMetalsOre;
-	_rareMineralsOre += rhs._rareMineralsOre;
+	_resourceTable[RESOURCE_COMMON_METALS_ORE] += rhs.commonMetalsOre();
+	_resourceTable[RESOURCE_COMMON_MINERALS_ORE] += rhs.commonMineralsOre();
+	_resourceTable[RESOURCE_RARE_METALS_ORE] += rhs.rareMetalsOre();
+	_resourceTable[RESOURCE_RARE_MINERALS_ORE] += rhs.rareMineralsOre();
 
-	_commonMetals += rhs._commonMetals;
-	_commonMinerals += rhs._commonMinerals;
-	_rareMetals += rhs._rareMetals;
-	_rareMinerals += rhs._rareMinerals;
+	_resourceTable[RESOURCE_COMMON_METALS] += rhs.commonMetals();
+	_resourceTable[RESOURCE_COMMON_MINERALS] += rhs.commonMinerals();
+	_resourceTable[RESOURCE_RARE_METALS] += rhs.rareMetals();
+	_resourceTable[RESOURCE_RARE_MINERALS] += rhs.rareMinerals();
 
-	_energy += rhs._energy;
-	_food += rhs._food;
+	_resourceTable[RESOURCE_FOOD] += rhs.energy();
+	_resourceTable[RESOURCE_ENERGY] += rhs.food();
 
 	return *this;
 }
 
-ResourcePool& ResourcePool::operator-=(const ResourcePool& rhs)
+ResourcePool& ResourcePool::operator-=(ResourcePool& rhs)
 {
-	_commonMetalsOre -= rhs._commonMetalsOre;
-	_commonMineralsOre -= rhs._commonMineralsOre;
-	_rareMetalsOre -= rhs._rareMetalsOre;
-	_rareMineralsOre -= rhs._rareMineralsOre;
+	_resourceTable[RESOURCE_COMMON_METALS_ORE] -= rhs.commonMetalsOre();
+	_resourceTable[RESOURCE_COMMON_MINERALS_ORE] -= rhs.commonMineralsOre();
+	_resourceTable[RESOURCE_RARE_METALS_ORE] -= rhs.rareMetalsOre();
+	_resourceTable[RESOURCE_RARE_MINERALS_ORE] -= rhs.rareMineralsOre();
 
-	_commonMetals -= rhs._commonMetals;
-	_commonMinerals -= rhs._commonMinerals;
-	_rareMetals -= rhs._rareMetals;
-	_rareMinerals -= rhs._rareMinerals;
+	_resourceTable[RESOURCE_COMMON_METALS] -= rhs.commonMetals();
+	_resourceTable[RESOURCE_COMMON_MINERALS] -= rhs.commonMinerals();
+	_resourceTable[RESOURCE_RARE_METALS] -= rhs.rareMetals();
+	_resourceTable[RESOURCE_RARE_MINERALS] -= rhs.rareMinerals();
 
-	_energy -= rhs._energy;
-	_food -= rhs._food;
+	_resourceTable[RESOURCE_FOOD] -= rhs.energy();
+	_resourceTable[RESOURCE_ENERGY] -= rhs.food();
 
 	return *this;
 }
 
 
-bool operator<(const ResourcePool& lhs, const ResourcePool& rhs)
+double ResourcePool::resource(ResourceType _t)
+{
+	return _resourceTable[_t];
+}
+
+
+void ResourcePool::resource(ResourceType _t, double _d)
+{
+	_resourceTable[_t] = _d;
+}
+
+
+double ResourcePool::commonMetalsOre() { return resource(RESOURCE_COMMON_METALS_ORE); }
+double ResourcePool::commonMineralsOre() { return resource(RESOURCE_COMMON_MINERALS_ORE); }
+double ResourcePool::rareMetalsOre() { return resource(RESOURCE_RARE_METALS_ORE); }
+double ResourcePool::rareMineralsOre() { return resource(RESOURCE_RARE_MINERALS_ORE); }
+
+double ResourcePool::commonMetals() { return resource(RESOURCE_COMMON_METALS); }
+double ResourcePool::commonMinerals() { return resource(RESOURCE_COMMON_MINERALS); }
+double ResourcePool::rareMetals() { return resource(RESOURCE_RARE_METALS); }
+double ResourcePool::rareMinerals() { return resource(RESOURCE_RARE_MINERALS); }
+
+double ResourcePool::energy() { return resource(RESOURCE_FOOD); }
+double ResourcePool::food() { return resource(RESOURCE_ENERGY); }
+
+void ResourcePool::commonMetalsOre(double _d) { resource(RESOURCE_COMMON_METALS_ORE, _d); }
+void ResourcePool::commonMineralsOre(double _d) { resource(RESOURCE_COMMON_MINERALS_ORE, _d); }
+void ResourcePool::rareMetalsOre(double _d) { resource(RESOURCE_RARE_METALS_ORE, _d); }
+void ResourcePool::rareMineralsOre(double _d) { resource(RESOURCE_RARE_MINERALS_ORE, _d); }
+
+void ResourcePool::commonMetals(double _d) { resource(RESOURCE_COMMON_METALS, _d); }
+void ResourcePool::commonMinerals(double _d) { resource(RESOURCE_COMMON_MINERALS, _d); }
+void ResourcePool::rareMetals(double _d) { resource(RESOURCE_RARE_METALS, _d); }
+void ResourcePool::rareMinerals(double _d) { resource(RESOURCE_RARE_MINERALS, _d); }
+
+void ResourcePool::energy(double _d) { resource(RESOURCE_FOOD, _d); }
+void ResourcePool::food(double _d) { resource(RESOURCE_ENERGY, _d); }
+
+
+
+bool operator<(ResourcePool& lhs, ResourcePool& rhs)
 {
 	return (lhs.commonMetalsOre() < rhs.commonMetalsOre() &&
 		lhs.commonMineralsOre() < rhs.commonMineralsOre() &&
@@ -121,13 +122,13 @@ bool operator<(const ResourcePool& lhs, const ResourcePool& rhs)
 }
 
 
-bool operator>(const ResourcePool& lhs, const ResourcePool& rhs)
+bool operator>(ResourcePool& lhs, ResourcePool& rhs)
 {
 	return rhs < lhs;
 }
 
 
-bool operator<=(const ResourcePool& lhs, const ResourcePool& rhs)
+bool operator<=(ResourcePool& lhs, ResourcePool& rhs)
 {
 	return (lhs.commonMetalsOre() <= rhs.commonMetalsOre() &&
 		lhs.commonMineralsOre() <= rhs.commonMineralsOre() &&
@@ -144,7 +145,7 @@ bool operator<=(const ResourcePool& lhs, const ResourcePool& rhs)
 }
 
 
-bool operator>=(const ResourcePool& lhs, const ResourcePool& rhs)
+bool operator>=(ResourcePool& lhs, ResourcePool& rhs)
 {
 	return rhs <= lhs;
 }

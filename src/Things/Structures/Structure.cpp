@@ -92,7 +92,7 @@ void Structure::input(ResourcePool& _resourcePool)
 }
 
 
-bool Structure::enoughResourcesAvailable(const ResourcePool& r)
+bool Structure::enoughResourcesAvailable(ResourcePool& r)
 {
 	return r >= mResourcesInput;
 }

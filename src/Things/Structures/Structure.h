@@ -59,7 +59,7 @@ public:
 	ResourcePool& resourcesOut() { return mResourcesOutput; }
 
 	void input(ResourcePool& _resourcePool);
-	bool enoughResourcesAvailable(const ResourcePool& r);
+	bool enoughResourcesAvailable(ResourcePool& r);
 
 	StructureState state() const { return mStructureState; }
 
