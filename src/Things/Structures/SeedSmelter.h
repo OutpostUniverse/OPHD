@@ -43,23 +43,32 @@ protected:
 
 	virtual void updateProduction()
 	{
-		double resource_temp = 0;
+		int resource_units = constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING;
 
-		resourcePool()->commonMetalsOre() < 15 ? resource_temp = resourcePool()->commonMetalsOre() : resource_temp = 15;
-		resourcePool()->commonMetalsOre(resourcePool()->commonMetalsOre() - resource_temp);
-		resourcePool()->commonMetals(resourcePool()->commonMetals() + resource_temp * 0.85);
+		if (resourcePool()->commonMetalsOre() >= resource_units)
+		{
+			resourcePool()->commonMetalsOre(resourcePool()->commonMetalsOre() - 10);
+			resourcePool()->commonMetals(resourcePool()->commonMetals() + (resource_units / 2));
+		}
 
-		resourcePool()->commonMineralsOre() < 15 ? resource_temp = resourcePool()->commonMineralsOre() : resource_temp = 15;
-		resourcePool()->commonMineralsOre(resourcePool()->commonMineralsOre() - resource_temp);
-		resourcePool()->commonMinerals(resourcePool()->commonMinerals() + resource_temp * 0.60);
+		if (resourcePool()->commonMineralsOre() >= resource_units)
+		{
+			resourcePool()->commonMineralsOre(resourcePool()->commonMineralsOre() - 10);
+			resourcePool()->commonMinerals(resourcePool()->commonMinerals() + (resource_units / 2));
+		}
 
-		resourcePool()->rareMetalsOre() < 15 ? resource_temp = resourcePool()->rareMetalsOre() : resource_temp = 15;
-		resourcePool()->rareMetalsOre(resourcePool()->rareMetalsOre() - resource_temp);
-		resourcePool()->rareMetals(resourcePool()->rareMetals() + resource_temp * 0.60);
+		if (resourcePool()->rareMetalsOre() >= resource_units)
+		{
+			resourcePool()->rareMetalsOre(resourcePool()->rareMetalsOre() - 10);
+			resourcePool()->rareMetals(resourcePool()->rareMetals() + (resource_units / 3));
+		}
 
-		resourcePool()->rareMineralsOre() < 15 ? resource_temp = resourcePool()->rareMineralsOre() : resource_temp = 15;
-		resourcePool()->rareMineralsOre(resourcePool()->rareMineralsOre() - resource_temp);
-		resourcePool()->rareMinerals(resourcePool()->rareMinerals() + resource_temp * 0.55);
+		if (resourcePool()->rareMineralsOre() >= resource_units)
+		{
+			resourcePool()->rareMineralsOre(resourcePool()->rareMineralsOre() - 10);
+			resourcePool()->rareMinerals(resourcePool()->rareMinerals() + (resource_units / 3));
+		}
+
 	}
 
 private:

@@ -18,9 +18,9 @@ void fillTable()
 	if (!PRODUCTION_TYPE_TABLE.empty())
 		return;
 
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER] = ProductionCost(6, 10.0f, 5.0f, 5.0f, 2.0f);
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER] = ProductionCost(6, 10.0f, 5.0f, 5.0f, 2.0f);
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER] = ProductionCost(6, 10.0f, 5.0f, 5.0f, 2.0f);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER] = ProductionCost(6, 10, 5, 5, 2);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER] = ProductionCost(6, 10, 5, 5, 2);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER] = ProductionCost(6, 10, 5, 5, 2);
 }
 
 

@@ -13,7 +13,7 @@ struct ProductionCost
 {
 	ProductionCost() : TurnsToBuild(0) {}
 
-	ProductionCost(int turns, double commonMetals, double commonMinerals, double rareMetals, double rareMinerals) : TurnsToBuild(turns)
+	ProductionCost(int turns, int commonMetals, int commonMinerals, int rareMetals, int rareMinerals) : TurnsToBuild(turns)
 	{
 		CostPerTurn.commonMetals(commonMetals);
 		CostPerTurn.commonMinerals(commonMinerals);
