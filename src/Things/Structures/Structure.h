@@ -58,6 +58,8 @@ public:
 	ResourcePool& resourcesIn() { return mResourcesInput; }
 	ResourcePool& resourcesOut() { return mResourcesOutput; }
 
+	ResourcePool& storage() { return mStoragePool; }
+
 	void input(ResourcePool& _resourcePool);
 	bool enoughResourcesAvailable(ResourcePool& r);
 
@@ -81,7 +83,7 @@ protected:
 	/**
 	 * Set the current age of the Structure.
 	 * 
-	 * \note	Available to reset current age to to simulate repairs to extend
+	 * \note	Available to reset current age to simulate repairs to extend
 	 *			the life of the Structure.
 	 */
 	void age(int _age) { mAge = _age; }
@@ -112,6 +114,8 @@ protected:
 	
 	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */
 	ResourcePool			mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */
+
+	ResourcePool			mStoragePool;				/**< Resource storage pool. */
 
 	ResourcePool			mResourceValue;				/**< Resource reclamation values when dozed. */
 

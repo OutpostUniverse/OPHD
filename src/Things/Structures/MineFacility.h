@@ -66,13 +66,7 @@ public:
 			mProductionPool.pushResource(ResourcePool::RESOURCE_RARE_METALS_ORE, mMine->rareMetalsRate());
 			mProductionPool.pushResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, mMine->rareMineralsRate());
 
-			mStoragePool.pushResources(mProductionPool);
-
-			//mResourcesOutput.commonMetalsOre(mMine->commonMetalsRate());
-			//mResourcesOutput.rareMetalsOre(mMine->rareMetalsRate());
-			//mResourcesOutput.commonMineralsOre(mMine->commonMetalsRate());
-			//mResourcesOutput.rareMineralsOre(mMine->rareMineralsRate());
-
+			storage().pushResources(mProductionPool);
 		}
 	}
 
@@ -93,8 +87,6 @@ private:
 	Mine*			mMine;
 
 	ResourcePool	mProductionPool;
-	ResourcePool	mStoragePool;
-
 };
 
 #endif

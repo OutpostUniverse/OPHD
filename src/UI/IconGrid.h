@@ -2,6 +2,7 @@
 
 #include "UI.h"
 
+#include <algorithm>
 
 /**
  * \class IconGrid
@@ -22,7 +23,7 @@ public:
 	void iconSize(int _size);
 	void iconMargin(int _margin);
 
-	const std::string& itemName(int _sel) const { return mIconItemList[_sel]._name; }
+	const std::string& itemName(int _sel) const { return mIconItemList[_sel].first; }
 
 	bool empty() const { return mIconItemList.empty(); }
 
@@ -40,21 +41,11 @@ public:
 
 	virtual void hide();
 
+	void sort();
+
 protected:
 
-	/**
-	 * \struct	IconGridItem
-	 * \brief	Represents an individual item within the IconGrid.
-	 * 
-	 * This class really only contains the name and image sheet coordinates of an
-	 * item contained in the IconGrid. This could probably be done using a std::pair
-	 * but this struct may grow in size later.
-	 */
-	struct IconGridItem
-	{
-		Point_2df		_imgSheetCoords;
-		std::string		_name;
-	};
+	typedef std::pair<string, Point_2df> IconGridItem;
 
 	virtual void onMouseDown(MouseButton button, int x, int y);
 	virtual void onMouseMotion(int x, int y, int dX, int dY);

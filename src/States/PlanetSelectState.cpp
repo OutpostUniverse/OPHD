@@ -37,9 +37,9 @@ void PlanetSelectState::initialize()
 	mPlanets.push_back(new Planet(PLANET_TYPE_MARS));
 	mPlanets.push_back(new Planet(PLANET_TYPE_GANYMEDE));
 
-	mPlanets[0]->position(r.width() / 4 - 64, r.height() / 2 - 64);
-	mPlanets[1]->position(r.width() / 2 - 64, r.height() / 2 - 64);
-	mPlanets[2]->position(((r.width() / 4) * 3) - 64, r.height() / 2 - 64);
+	mPlanets[0]->position((int)r.width() / 4 - 64, (int)r.height() / 2 - 64);
+	mPlanets[1]->position((int)r.width() / 2 - 64, (int)r.height() / 2 - 64);
+	mPlanets[2]->position((((int)r.width() / 4) * 3) - 64, (int)r.height() / 2 - 64);
 
 	PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 

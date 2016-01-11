@@ -89,7 +89,7 @@ void IconGrid::onMouseDown(MouseButton button, int x, int y)
 		mCurrentSelection = constants::NO_SELECTION;
 
 	if (mCurrentSelection != constants::NO_SELECTION)
-		mCallback(mIconItemList[mCurrentSelection]._name);
+		mCallback(mIconItemList[mCurrentSelection].first);
 	else
 		mCallback("");
 }
@@ -147,8 +147,10 @@ void IconGrid::addItem(const std::string& name, int sheetIndex)
 	int y_pos = (sheetIndex / (mIconSheet.width() / mIconSize)) * mIconSize;
 
 	mIconItemList.push_back(IconGridItem());
-	mIconItemList.back()._imgSheetCoords((float)x_pos, (float)y_pos);
-	mIconItemList.back()._name = name;
+	mIconItemList.back().first = name;
+	mIconItemList.back().second((float)x_pos, (float)y_pos);
+
+	sort();
 }
 
 
@@ -164,11 +166,12 @@ void IconGrid::removeItem(const std::string& item)
 
 	while (it != mIconItemList.end())
 	{
-		if (toLowercase((*it)._name) == toLowercase(item))
+		if (toLowercase((*it).first) == toLowercase(item))
 		{
 			mIconItemList.erase(it);
 			mCurrentSelection = constants::NO_SELECTION;
 			clearSelection();
+			sort();
 			return;
 		}
 
@@ -188,7 +191,7 @@ bool IconGrid::itemExists(const std::string& item)
 
 	for (size_t i = 0; i < mIconItemList.size(); i++)
 	{
-		if (toLowercase(mIconItemList[i]._name) == toLowercase(item))
+		if (toLowercase(mIconItemList[i].first) == toLowercase(item))
 			return true;
 	}
 
@@ -261,7 +264,7 @@ void IconGrid::update()
 		float x = (rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos);
 		float y = (rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos);
 
-		r.drawSubImage(mIconSheet, x, y, mIconItemList[i]._imgSheetCoords.x(), mIconItemList[i]._imgSheetCoords.y(), mIconSize, mIconSize);
+		r.drawSubImage(mIconSheet, x, y, mIconItemList[i].second.x(), mIconItemList[i].second.y(), mIconSize, mIconSize);
 	}
 
 	if (mCurrentSelection != constants::NO_SELECTION)
@@ -284,9 +287,21 @@ void IconGrid::update()
 		// Name Tooltip
 		if (mShowTooltip)
 		{
-			r.drawBoxFilled(x, y - 15, font().width(mIconItemList[mHighlightIndex]._name) + 4, font().height(), 245, 245, 245);
-			r.drawBox(x, y - 15, font().width(mIconItemList[mHighlightIndex]._name) + 4, font().height(), 175, 175, 175);
-			r.drawText(font(), mIconItemList[mHighlightIndex]._name, x + 2, y - 15, 0, 0, 0);
+			r.drawBoxFilled(x, y - 15, font().width(mIconItemList[mHighlightIndex].first) + 4, font().height(), 245, 245, 245);
+			r.drawBox(x, y - 15, font().width(mIconItemList[mHighlightIndex].first) + 4, font().height(), 175, 175, 175);
+			r.drawText(font(), mIconItemList[mHighlightIndex].first, x + 2, y - 15, 0, 0, 0);
 		}
 	}
+}
+
+
+bool iconItemCompare(const std::pair<string, Point_2df>& left, const std::pair<string, Point_2df>& right)
+{
+	return left.first < right.first;
+}
+
+
+void IconGrid::sort()
+{
+	std::sort(mIconItemList.begin(), mIconItemList.end(), &iconItemCompare);
 }

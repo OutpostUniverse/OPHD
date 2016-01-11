@@ -10,6 +10,8 @@ public:
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);
 		turnsToBuild(5);
+
+		storage().capacity(1000);
 	}
 
 
@@ -28,7 +30,24 @@ public:
 			activate();
 		}
 		else if (age() == maxAge())
+		{
+			enabled(false);
 			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
+		}
+
+		/** \todo	At the moment we're only adding one food unit per turn. In
+		 *			the future we'll want to add modifiers based on research,
+		 *			difficulty and hostility level of the planet.
+		 */
+		if (storage().atCapacity())
+		{
+			idle(true);
+		}
+		else
+		{
+			if (storage().pushResource(ResourcePool::RESOURCE_FOOD, 1) != 0)
+				idle(true);
+		}
 	}
 
 protected:
@@ -40,9 +59,7 @@ protected:
 	}
 
 	virtual void defineResourceOutput()
-	{
-		mResourcesOutput.food(2);
-	}
+	{}
 
 	virtual void defineResourceValue()
 	{
