@@ -79,14 +79,7 @@ void Mine::productionRate(ProductionRate _rate)
 }
 
 
-MineProduction Mine::update()
+void Mine::update()
 {
-	MineProduction mp;
-
-	mp.CommonMetalOre = commonMetalsRate();
-	mp.RareMetalOre = rareMetalsRate();
-	mp.CommonMineralOre = commonMineralsRate();
-	mp.RareMineralOre = rareMineralsRate();
-
-	return mp;
+	// FIXME: Make this gradually degrade the output of the Mine.
 }

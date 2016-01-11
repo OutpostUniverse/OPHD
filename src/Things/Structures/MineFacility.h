@@ -16,8 +16,10 @@ public:
 		turnsToBuild(2);
 
 		requiresCHAP(false);
-
 		selfSustained(true);
+
+		mProductionPool.capacity(500);
+		mStoragePool.capacity(500);
 
 		priority(PRIORITY_LOW);
 	}
@@ -43,20 +45,34 @@ public:
 			idle(true);
 		}
 
-		/** \todo	Currently mine production values are set based on their
-		  *			yeild level. There should be some scalar effect based on
-		  *			age of the mine such that over time the mine becomes less
-		  *			and less productive instead of one day just not producing
-		  *			anything anymore.
-		  */
+		if (idle() && mMine->active())
+		{
+			if (!mStoragePool.atCapacity())
+				idle(false);
+		}
+
 		if(mMine->active())
 		{
-			MineProduction mp = mMine->update();
+			if (mStoragePool.atCapacity())
+			{
+				idle(true);
+				return;
+			}
 
-			mResourcesOutput.commonMetalsOre(mp.CommonMetalOre);
-			mResourcesOutput.rareMetalsOre(mp.RareMetalOre);
-			mResourcesOutput.commonMineralsOre(mp.CommonMineralOre);
-			mResourcesOutput.rareMineralsOre(mp.RareMineralOre);
+			mMine->update();
+
+			mProductionPool.pushResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, mMine->commonMetalsRate());
+			mProductionPool.pushResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, mMine->commonMineralsRate());
+			mProductionPool.pushResource(ResourcePool::RESOURCE_RARE_METALS_ORE, mMine->rareMetalsRate());
+			mProductionPool.pushResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, mMine->rareMineralsRate());
+
+			mStoragePool.pushResources(mProductionPool);
+
+			//mResourcesOutput.commonMetalsOre(mMine->commonMetalsRate());
+			//mResourcesOutput.rareMetalsOre(mMine->rareMetalsRate());
+			//mResourcesOutput.commonMineralsOre(mMine->commonMetalsRate());
+			//mResourcesOutput.rareMineralsOre(mMine->rareMineralsRate());
+
 		}
 	}
 
@@ -74,7 +90,10 @@ private:
 	}
 
 
-	Mine*		mMine;
+	Mine*			mMine;
+
+	ResourcePool	mProductionPool;
+	ResourcePool	mStoragePool;
 
 };
 

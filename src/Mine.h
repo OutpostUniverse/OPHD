@@ -2,18 +2,6 @@
 #define __MINE__
 
 
-/**
- * Provides the production yields from the mine
- * during a turn.
- */
-struct MineProduction
-{
-	int CommonMetalOre;		/**<  */
-	int RareMetalOre;		/**<  */
-	int CommonMineralOre;	/**<  */
-	int RareMineralOre;		/**<  */
-};
-
 class Mine
 {
 public:
@@ -49,7 +37,7 @@ public:
 
 	int age() const { return mAge; }
 
-	MineProduction update();
+	void update();
 
 	void commonMetalsRate(int _rate) { mCommonMetalYieldRate = _rate; }
 	void rareMetalsRate(int _rate) { mRareMetalYieldRate = _rate; };
