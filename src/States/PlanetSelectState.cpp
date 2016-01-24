@@ -67,7 +67,7 @@ State* PlanetSelectState::update()
 	else if (PLANET_TYPE_SELECTION != PLANET_TYPE_NONE)
 	{
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MERCURY)
-			return new GameState("maps/mercury_01", "tsets/mercury.png");
+			return new GameState("maps/merc_01", "tsets/mercury.png");
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MARS)
 			return new GameState("maps/mars_04", "tsets/mars.png");
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_GANYMEDE)

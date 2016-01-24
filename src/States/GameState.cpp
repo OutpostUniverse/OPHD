@@ -370,7 +370,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		mLeftButtonDown = true;
 
 		// If mouse pointer is within the rects of a a UI element, ignore it.
-		if (isPointInRect(mMousePosition, mDiggerDirection.rect()))
+		if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
 			return;
 
 		// Ugly
