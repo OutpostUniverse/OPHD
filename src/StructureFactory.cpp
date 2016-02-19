@@ -1,6 +1,6 @@
 #include "StructureFactory.h"
 
-Structure* StructureFactory::get(StructureType type)
+Structure* StructureFactory::get(StructureID type)
 {
 	Structure* _st = nullptr;
 

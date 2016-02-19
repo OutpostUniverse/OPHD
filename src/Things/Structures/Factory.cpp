@@ -24,7 +24,7 @@ void fillTable()
 }
 
 
-Factory::Factory(const string& name, const string& sprite_path):	Structure(name, sprite_path),
+Factory::Factory(const string& name, const string& sprite_path):	Structure(name, sprite_path, STRUCTURE_FACTORY),
 																	mTurnsCompleted(0),
 																	mTurnsToComplete(0),
 																	mProduction(PRODUCTION_NONE),

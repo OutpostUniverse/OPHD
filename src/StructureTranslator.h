@@ -9,7 +9,7 @@ class StructureTranslator
 {
 public:
 
-	static StructureType translateFromString(const std::string& _s);
+	static StructureID translateFromString(const std::string& _s);
 
 protected:
 
@@ -21,5 +21,5 @@ private:
 
 	static void buildStringToStructureTable();
 
-	static std::map<std::string, StructureType>		_stringToStructureTable;
+	static std::map<std::string, StructureID>		_stringToStructureTable;
 };

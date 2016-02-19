@@ -5,7 +5,7 @@
 class Agridome : public Structure
 {
 public:
-	Agridome() : Structure(constants::AGRIDOME, "structures/agridome.sprite")
+	Agridome() : Structure(constants::AGRIDOME, "structures/agridome.sprite", STRUCTURE_FOOD_PRODUCTION)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);

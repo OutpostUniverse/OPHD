@@ -37,7 +37,7 @@ enum ConnectorDir
 };
 
 
-enum StructureType
+enum StructureID
 {
 	STRUCTURE_NONE,
 	STRUCTURE_AGRIDOME,

@@ -28,12 +28,33 @@ public:
 		PRIORITY_CC
 	};
 
-	Structure(const std::string& name, const std::string& sprite_path);
+	enum StructureType
+	{
+		STRUCTURE_ATMOSPHERE_PRODUCTION,
+		STRUCTURE_COMMAND,
+		STRUCTURE_COMM,
+		STRUCTURE_ENERGY_PRODUCTION,
+		STRUCTURE_FACTORY,
+		STRUCTURE_FOOD_PRODUCTION,
+		STRUCTURE_LABORATORY,
+		STRUCTURE_LANDER,
+		STRUCTURE_MINE,
+		STRUCTURE_RECYCLING,
+		STRUCTURE_RESIDENCE,
+		STRUCTURE_SMELTER,
+		STRUCTURE_STORAGE,
+		STRUCTURE_TUBE,
+		STRUCTURE_UNDEFINED
+	};
+
+	Structure(const std::string& name, const std::string& sprite_path, StructureType _t);
 	virtual ~Structure();
 
 	//bool operator< (const Structure& rhs) const { return mStructurePriority > rhs.mStructurePriority; }
 	
 	StructurePriority priority() const { return mStructurePriority; }
+
+	StructureType type() const { return mStructureType; }
 
 	virtual void update() = 0;
 
@@ -109,6 +130,7 @@ protected:
 	void isFactory(bool _b) { mIsFactory = _b; }
 
 	void priority(StructurePriority _sp) { mStructurePriority = _sp; }
+	void type(StructureType _t) { mStructureType = _t; }
 
 	ResourcePool			mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
 	
@@ -120,6 +142,9 @@ protected:
 	ResourcePool			mResourceValue;				/**< Resource reclamation values when dozed. */
 
 private:
+
+	Structure();	// Excplicitly declared private
+
 	int						mId;						/**< ID of the Structure. */
 
 	int						mTurnsToBuild;				/**< Number of turns it takes to build the Structure. */
@@ -130,6 +155,8 @@ private:
 	StructureState			mStructureState;			/**< State the structure is in. */
 
 	StructurePriority		mStructurePriority;			/**< Indicates the priority level that the Structure gets when processing resources. */
+
+	StructureType			mStructureType;				/**< Indicates the Structure's Type. */
 
 	ConnectorDir			mConnectorDirection;		/**< Directions available for connections. */
 

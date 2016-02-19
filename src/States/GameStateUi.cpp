@@ -283,7 +283,7 @@ void GameState::btnRobotPickerClicked()
 */
 void GameState::structuresSelectionChanged(const std::string& _s)
 {
-	setStructureType(StructureTranslator::translateFromString(_s), INSERT_STRUCTURE);
+	setStructureID(StructureTranslator::translateFromString(_s), INSERT_STRUCTURE);
 }
 
 
@@ -292,7 +292,7 @@ void GameState::structuresSelectionChanged(const std::string& _s)
 */
 void GameState::connectionsSelectionChanged(const std::string& _s)
 {
-	setStructureType(StructureTranslator::translateFromString(_s), INSERT_TUBE);
+	setStructureID(StructureTranslator::translateFromString(_s), INSERT_TUBE);
 }
 
 

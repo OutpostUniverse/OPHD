@@ -10,7 +10,7 @@ class StructureFactory
 {
 public:
 
-	static Structure* get(StructureType type);
+	static Structure* get(StructureID type);
 
 protected:
 

@@ -19,7 +19,7 @@ void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red, int green, i
 }
 
 
-bool checkTubeConnection(Tile* tile, Direction dir, StructureType type)
+bool checkTubeConnection(Tile* tile, Direction dir, StructureID type)
 {
 	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure())
 		return false;

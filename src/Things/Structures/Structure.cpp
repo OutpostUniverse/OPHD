@@ -1,24 +1,26 @@
 #include "Structure.h"
 
+using namespace std;
 
 /**
  * C'tor
  */
-Structure::Structure(const std::string& name, const std::string& sprite_path):	Thing(name, sprite_path),
-																				mId((int)this), // naive
-																				mTurnsToBuild(0),
-																				mAge(0),
-																				mMaxAge(0),
-																				mStructureState(UNDER_CONSTRUCTION),
-																				mStructurePriority(PRIORITY_MEDIUM),
-																				mConnectorDirection(CONNECTOR_INTERSECTION),
-																				mRepairable(true),
-																				mConnector(false),
-																				mRequiresCHAP(true), // Most structures require a CHAP facility in order to operate.
-																				mProvidesCHAP(false),
-																				mSelfSustained(false),
-																				mIsFactory(false)
-{}
+Structure::Structure(const string& name, const string& sprite_path, StructureType _t):	Thing(name, sprite_path),
+																						mId((int)this), // naive
+																						mTurnsToBuild(0),
+																						mAge(0),
+																						mMaxAge(0),
+																						mStructureState(UNDER_CONSTRUCTION),
+																						mStructurePriority(PRIORITY_MEDIUM),
+																						mStructureType(_t),
+																						mConnectorDirection(CONNECTOR_INTERSECTION),
+																						mRepairable(true),
+																						mConnector(false),
+																						mRequiresCHAP(true), // Most structures require a CHAP facility in order to operate.
+																						mProvidesCHAP(false),
+																						mSelfSustained(false),
+																						mIsFactory(false)
+		{}
 
 
 /**

@@ -8,7 +8,7 @@
 class MineFacility: public Structure
 {
 public:
-	MineFacility(Mine* mine):	Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite"),
+	MineFacility(Mine* mine):	Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite", STRUCTURE_MINE),
 								mMine(mine)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);

@@ -91,7 +91,7 @@ private:
 	void placeStructure();
 	void placeTubes();
 
-	bool validTubeConnection(int x, int y, StructureType type);
+	bool validTubeConnection(int x, int y, StructureID type);
 	bool validStructurePlacement(int x, int y);
 
 	void checkRobotSelectionInterface(const std::string rType, int sheetIndex);
@@ -112,7 +112,7 @@ private:
 
 	void changeDepth(int _d);
 
-	void setStructureType(StructureType type, InsertMode mode);
+	void setStructureID(StructureID type, InsertMode mode);
 
 	// UI Event Handlers
 	void btnTurnsClicked();
@@ -162,7 +162,7 @@ private:
 	RobotMap			mRobotList;					/**< List of active robots and their positions on the map. */
 
 	InsertMode			mInsertMode;				/**< What's being inserted into the TileMap if anything. */
-	StructureType		mCurrentStructure;			/**< Structure being placed. */
+	StructureID			mCurrentStructure;			/**< Structure being placed. */
 	RobotType			mCurrentRobot;				/**< Robot being placed. */
 
 	// UI

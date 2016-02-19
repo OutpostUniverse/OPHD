@@ -442,7 +442,7 @@ void GameState::placeTubes()
 /**
  * Checks to see if a tile is a valid tile to place a tube onto.
  */
-bool GameState::validTubeConnection(int x, int y, StructureType type)
+bool GameState::validTubeConnection(int x, int y, StructureID type)
 {
 
 	return	checkTubeConnection(mTileMap.getTile(x + 1, y, mTileMap.currentDepth()), DIR_EAST, type) ||
@@ -921,7 +921,7 @@ void GameState::updateRobots()
 /**
  * Checks and sets the current structure mode.
  */
-void GameState::setStructureType(StructureType type, InsertMode mode)
+void GameState::setStructureID(StructureID type, InsertMode mode)
 {
 
 	if (type == STRUCTURE_NONE)

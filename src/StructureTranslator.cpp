@@ -2,9 +2,9 @@
 
 #include "Constants.h"
 
-std::map<std::string, StructureType> StructureTranslator::_stringToStructureTable;
+std::map<std::string, StructureID> StructureTranslator::_stringToStructureTable;
 
-StructureType StructureTranslator::translateFromString(const std::string& _s)
+StructureID StructureTranslator::translateFromString(const std::string& _s)
 {
 	if (_stringToStructureTable.empty())
 		buildStringToStructureTable();
