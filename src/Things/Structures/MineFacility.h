@@ -32,14 +32,6 @@ public:
 	{
 		incrementAge();
 
-		if (age() == turnsToBuild())
-		{
-			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
-			idle(false);
-			activate();
-			mMine->active(true);
-		}
-
 		if(!mMine->active() && state() == Structure::OPERATIONAL)
 		{
 			idle(true);

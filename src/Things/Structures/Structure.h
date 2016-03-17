@@ -71,9 +71,11 @@ public:
 	bool idle() const { return mStructureState == IDLE; }
 	void idle(bool _b);
 
+	bool destroyed() const { return mStructureState == DESTROYED; }
+
 	bool underConstruction() const { return mStructureState == UNDER_CONSTRUCTION; }
 
-	void incrementAge() { mAge++; }
+	void incrementAge();
 
 	ResourcePool& resourceValue() { return mResourceValue; }
 	ResourcePool& resourcesIn() { return mResourcesInput; }
@@ -131,6 +133,14 @@ protected:
 
 	void priority(StructurePriority _sp) { mStructurePriority = _sp; }
 	void type(StructureType _t) { mStructureType = _t; }
+
+	/**
+	 * Sets a destroyed state. 
+	 * 
+	 * \fixme	I don't particluarly like the name here but it fits considering it's not intended
+	 *			to be used outside of the Structure class.
+	 */
+	void setDestroyed();
 
 	ResourcePool			mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
 	

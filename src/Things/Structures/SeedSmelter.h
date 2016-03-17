@@ -24,15 +24,9 @@ public:
 	{
 		incrementAge();
 
-		if(age() == turnsToBuild())
-		{
-			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
-			idle(false);
-			activate();
-		}
-
 		if (state() == OPERATIONAL)
 			updateProduction();
+
 	}
 
 protected:

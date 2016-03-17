@@ -96,7 +96,7 @@ void StructureManager::processResourcesIn(ResourcePool& _r)
 	{
 		if(!struct_it->first->idle() && !struct_it->first->underConstruction())
 		{
-			if(struct_it->first->enoughResourcesAvailable(_r) && struct_it->second.tile->connected())
+			if(struct_it->first->enoughResourcesAvailable(_r) && struct_it->second.tile->connected() && !struct_it->first->destroyed())
 			{
 
 				// FIXME: copy paste code, better way to do this.
@@ -117,7 +117,9 @@ void StructureManager::processResourcesIn(ResourcePool& _r)
 			{
 				if(!struct_it->first->selfSustained())
 				{
-					struct_it->first->enabled(false);
+					if(!struct_it->first->destroyed())
+						struct_it->first->enabled(false);
+					
 					struct_it->first->sprite().color(255, 0, 0, 185);
 				}
 			}

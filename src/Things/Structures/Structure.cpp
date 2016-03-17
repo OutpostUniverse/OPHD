@@ -1,6 +1,7 @@
 #include "Structure.h"
 
 using namespace std;
+#include "../../Constants.h"
 
 /**
  * C'tor
@@ -109,4 +110,39 @@ void Structure::activate()
 	defineResourceInput();
 	defineResourceOutput();
 	defineResourceValue();
+}
+
+
+/**
+ * Updates age of the structure and performs some basic age management logic.
+ */
+void Structure::incrementAge()
+{
+	mAge++;
+
+	if (age() == turnsToBuild())
+	{
+		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
+		enabled(true);
+		activate();
+	}
+	else if (age() == maxAge())
+	{
+		setDestroyed();
+	}
+}
+
+
+/**
+* Sets a destroyed state.
+*
+* \fixme	I don't particluarly like the name here but it fits considering it's not intended
+*			to be used outside of the Structure class.
+*/
+void Structure::setDestroyed()
+{
+	sprite().play(constants::STRUCTURE_STATE_DESTROYED);
+	mStructureState = DESTROYED;
+
+
 }

@@ -18,6 +18,9 @@ public:
 		turnsToBuild(1);
 		repairable(false);
 		requiresCHAP(false);
+		selfSustained(true);
+
+		enabled(true);
 
 		priority(PRIORITY_LOW);
 	}
@@ -31,14 +34,8 @@ public:
 	{
 		incrementAge();
 
-		if(age() == turnsToBuild())
-		{
-			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
+		if (age() == turnsToBuild())
 			mDeploy(mX, mY);
-			activate();
-		}
-		else if(age() == maxAge())
-			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
 	}
 
 	Callback& deployCallback() { return mDeploy; }

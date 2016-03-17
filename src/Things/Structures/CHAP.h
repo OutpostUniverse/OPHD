@@ -25,15 +25,6 @@ public:
 	void update()
 	{
 		incrementAge();
-
-		if (age() == turnsToBuild())
-		{
-			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
-			idle(false);
-			activate();
-		}
-		else if (age() == maxAge())
-			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
 	}
 
 protected:

@@ -23,18 +23,6 @@ public:
 	{
 		incrementAge();
 
-		if (age() == turnsToBuild())
-		{
-			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
-			idle(false);
-			activate();
-		}
-		else if (age() == maxAge())
-		{
-			enabled(false);
-			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
-		}
-
 		/** \todo	At the moment we're only adding one food unit per turn. In
 		 *			the future we'll want to add modifiers based on research,
 		 *			difficulty and hostility level of the planet.

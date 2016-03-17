@@ -9,8 +9,8 @@ public:
 	CommandCenter():	Structure(constants::COMMAND_CENTER, "structures/command_center.sprite", STRUCTURE_COMMAND)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
-		maxAge(0);
-		turnsToBuild(10);
+		maxAge(500);
+		turnsToBuild(3);
 
 		requiresCHAP(false);
 		priority(PRIORITY_CC);
@@ -22,13 +22,6 @@ public:
 	void update()
 	{
 		incrementAge();
-
-		if(age() == turnsToBuild())
-		{
-			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
-			idle(false);
-			activate();
-		}
 	}
 
 protected:

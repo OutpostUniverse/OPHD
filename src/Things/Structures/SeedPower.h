@@ -10,7 +10,7 @@ public:
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(100);
-		turnsToBuild(3);
+		turnsToBuild(5);
 		requiresCHAP(false);
 		priority(PRIORITY_HIGH);
 	}
@@ -23,18 +23,6 @@ public:
 	void update()
 	{
 		incrementAge();
-
-		if(age() == turnsToBuild())
-		{
-			sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
-			enabled(false);
-			activate();
-		}
-		else if (age() == maxAge())
-		{
-			sprite().play(constants::STRUCTURE_STATE_DESTROYED);
-			mResourcesOutput.energy(0);
-		}
 	}
 
 protected:
