@@ -5,7 +5,7 @@
 #include "Things/Structures/Factory.h"
 
 #include "ResourcePool.h"
-#include "TilePositionInfo.h"
+#include "Tile.h"
 
 /**
  * Handles structure updating and resource management for structures.
@@ -22,7 +22,7 @@ public:
 	void update();
 	void processResources(ResourcePool& _r);
 
-	bool addStructure(Structure* st, Tile* t, int x, int y, int depth, bool clear);
+	bool addStructure(Structure* st, Tile* t, bool clear);
 	bool removeStructure(Structure* st);
 
 	void disconnectAll();
@@ -35,7 +35,7 @@ protected:
 	void setDeferredFlag(bool _b) { mDeferInsert = _b; }
 
 private:
-	typedef std::pair<Structure *, TilePositionInfo> StructureTilePair;
+	typedef std::pair<Structure*, Tile*> StructureTilePair;
 	typedef vector<StructureTilePair> StructureMap;
 	typedef vector<Structure*> StructureList;
 
@@ -45,7 +45,7 @@ private:
 	void processResourcesIn(ResourcePool& _r);
 	void processResourcesOut(ResourcePool& _r);
 
-	void addToList(StructureMap& _sm, Structure* _st, TilePositionInfo& _tpi);
+	void addToList(StructureMap& _sm, Structure* _st, Tile* _t);
 	bool removeStructureFromList(Structure* st, StructureList& list);
 
 	StructureMap		mStructureList;				/**< List of all structures with positional information. */

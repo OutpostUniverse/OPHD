@@ -1,19 +1,12 @@
 #include "Tile.h"
 
-Tile::Tile() :	mIndex(TERRAIN_DOZED),
+Tile::Tile() :	mIndex(0),
+				mX(0), mY(0), mDepth(0),
 				mThing(nullptr),
 				mMine(nullptr),
 				mExcavated(true),
 				mConnected(false),
 				mThingIsStructure(false)
-{}
-
-Tile::Tile(int idx) :	mIndex(idx),
-						mThing(nullptr),
-						mMine(nullptr),
-						mExcavated(false),
-						mConnected(false),
-						mThingIsStructure(false)
 {}
 
 Tile::~Tile()
@@ -31,12 +24,25 @@ Tile::~Tile()
 	}
 }
 
+
 /**
-* Adds a new Thing to the tile.
-*
-* \param	thing		Pointer to a Thing.
-* \param	overwrite	Overwrite any existing Thing's that may already be in the Tile.
-*/
+ * Convenience function that inits the Tile with all pertinent information.
+ */
+void Tile::init(int _x, int _y, int _depth, int _index)
+{
+	x(_x);
+	y(_y);
+	depth(_depth);
+	index(_index);
+}
+
+
+/**
+ * Adds a new Thing to the tile.
+ *
+ * \param	thing		Pointer to a Thing.
+ * \param	overwrite	Overwrite any existing Thing's that may already be in the Tile.
+ */
 void Tile::pushThing(Thing* thing, bool overwrite)
 {
 	if (mThing)
@@ -59,10 +65,10 @@ void Tile::pushThing(Thing* thing, bool overwrite)
 
 
 /**
-* Clears a Thing from the Tile.
-*
-* \note	Garbage collects the Thing. Deletes and frees memory.
-*/
+ * Clears a Thing from the Tile.
+ *
+ * \note	Garbage collects the Thing. Deletes and frees memory.
+ */
 void Tile::deleteThing()
 {
 	delete mThing;
@@ -71,10 +77,10 @@ void Tile::deleteThing()
 
 
 /**
-* Removes a Thing from the Tile.
-*
-* \note	Does NOT delete or free memory. Simply clears the pointer, not the memory.
-*/
+ * Removes a Thing from the Tile.
+ *
+ * \note	Does NOT delete or free memory. Simply clears the pointer, not the memory.
+ */
 void Tile::removeThing()
 {
 	mThing = nullptr;
@@ -87,7 +93,7 @@ void Tile::pushMine(Mine* _mine)
 	if (mMine)
 	{
 		delete mMine;
-		mMine = NULL;
+		mMine = nullptr;
 	}
 
 	mMine = _mine;

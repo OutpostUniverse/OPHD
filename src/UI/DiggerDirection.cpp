@@ -52,9 +52,9 @@ void DiggerDirection::init()
 }
 
 
-void DiggerDirection::setParameters(Tile* _t, int x, int y, int depth)
+void DiggerDirection::setParameters(Tile* _t)
 {
-	mTilePositionInfo(_t, x, y, depth);
+	mTile = _t;
 }
 
 
@@ -139,29 +139,29 @@ void DiggerDirection::selectDown()
 
 void DiggerDirection::btnDiggerDownClicked()
 {
-	mCallback(SEL_DOWN, mTilePositionInfo);
+	mCallback(SEL_DOWN, mTile);
 }
 
 
 void DiggerDirection::btnDiggerNorthClicked()
 {
-	mCallback(SEL_NORTH, mTilePositionInfo);
+	mCallback(SEL_NORTH, mTile);
 }
 
 
 void DiggerDirection::btnDiggerSouthClicked()
 {
-	mCallback(SEL_SOUTH, mTilePositionInfo);
+	mCallback(SEL_SOUTH, mTile);
 }
 
 
 void DiggerDirection::btnDiggerEastClicked()
 {
-	mCallback(SEL_EAST, mTilePositionInfo);
+	mCallback(SEL_EAST, mTile);
 }
 
 
 void DiggerDirection::btnDiggerWestClicked()
 {
-	mCallback(SEL_WEST, mTilePositionInfo);
+	mCallback(SEL_WEST, mTile);
 }

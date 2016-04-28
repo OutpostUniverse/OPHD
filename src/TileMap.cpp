@@ -67,16 +67,17 @@ void TileMap::buildTerrainMap(const std::string& path)
 	}
 
 	// Build map based on terrain map
-	for(int level = 0; level <= mMaxDepth; level++)
+	for(int depth = 0; depth <= mMaxDepth; depth++)
 	{
 		for(int row = 0; row < height(); row++)
 		{
 			for(int col = 0; col < width(); col++)
 			{
 				Color_4ub c = heightmap.pixelColor(col, row);
-				mTileMap[level][row][col].index(c.red() / 50);
-				if(level > 0)
-					mTileMap[level][row][col].excavated(false);
+				Tile& t = mTileMap[depth][row][col];
+				t.init(col, row, depth, c.red() / 50);
+				if (depth > 0)
+					t.excavated(false);
 			}
 		}
 	}

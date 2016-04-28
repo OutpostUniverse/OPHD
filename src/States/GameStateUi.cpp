@@ -314,7 +314,7 @@ void GameState::robotsSelectionChanged(const std::string& _s)
 }
 
 
-void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, TilePositionInfo& _tpi)
+void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t)
 {
 	// Don't dig beyond the dig depth of the planet.
 	if (mTileMap.currentDepth() == mTileMap.maxDepth() && _sel == DiggerDirection::SEL_DOWN)
@@ -326,19 +326,19 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
-	if (_tpi.depth > 0 && _sel == DiggerDirection::SEL_DOWN)
+	if (_t->depth() > 0 && _sel == DiggerDirection::SEL_DOWN)
 	{
-		mStructureManager.removeStructure(_tpi.tile->structure());
+		mStructureManager.removeStructure(_t->structure());
 		mStructureManager.disconnectAll();
-		_tpi.tile->deleteThing();
-		_tpi.tile->connected(false);
+		_t->deleteThing();
+		_t->connected(false);
 		checkConnectedness();
 	}
 
 	// Assumes a digger is available.
 	Robodigger* r = mRobotPool.getDigger();
-	r->startTask(_tpi.tile->index() + 5);
-	insertRobot(r, _tpi.tile, _tpi.x, _tpi.y, _tpi.depth);
+	r->startTask(_t->index() + 5); // FIXME: Magic Number
+	insertRobot(r, _t);
 
 
 	if (_sel == DiggerDirection::SEL_DOWN)
@@ -348,22 +348,22 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	else if (_sel == DiggerDirection::SEL_NORTH)
 	{
 		r->direction(DIR_NORTH);
-		mTileMap.getTile(_tpi.x, _tpi.y - 1, _tpi.depth)->excavated(true);
+		mTileMap.getTile(_t->x(), _t->y() - 1, _t->depth())->excavated(true);
 	}
 	else if (_sel == DiggerDirection::SEL_SOUTH)
 	{
 		r->direction(DIR_SOUTH);
-		mTileMap.getTile(_tpi.x, _tpi.y + 1, _tpi.depth)->excavated(true);
+		mTileMap.getTile(_t->x(), _t->y() + 1, _t->depth())->excavated(true);
 	}
 	else if (_sel == DiggerDirection::SEL_EAST)
 	{
 		r->direction(DIR_EAST);
-		mTileMap.getTile(_tpi.x + 1, _tpi.y, _tpi.depth)->excavated(true);
+		mTileMap.getTile(_t->x() + 1, _t->y(), _t->depth())->excavated(true);
 	}
 	else if (_sel == DiggerDirection::SEL_WEST)
 	{
 		r->direction(DIR_WEST);
-		mTileMap.getTile(_tpi.x - 1, _tpi.y, _tpi.depth)->excavated(true);
+		mTileMap.getTile(_t->x() - 1, _t->y(), _t->depth())->excavated(true);
 	}
 
 

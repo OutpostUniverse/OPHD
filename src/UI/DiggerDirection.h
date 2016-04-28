@@ -3,7 +3,7 @@
 
 #include "UI.h"
 
-#include "../TilePositionInfo.h"
+#include "../Tile.h"
 
 class DiggerDirection: public UIContainer
 {
@@ -18,7 +18,7 @@ public:
 		SEL_WEST
 	};
 
-	typedef Gallant::Signal2<DiggerSelection, TilePositionInfo&> Callback;
+	typedef Gallant::Signal2<DiggerSelection, Tile*> Callback;
 
 	DiggerDirection(Font& font);
 	virtual ~DiggerDirection();
@@ -27,7 +27,7 @@ public:
 
 	Callback& directionSelected() { return mCallback; }
 
-	void setParameters(Tile* _t, int x, int y, int depth);
+	void setParameters(Tile* _t);
 
 	void selectDown();
 
@@ -66,7 +66,7 @@ private:
 
 	Callback			mCallback;
 
-	TilePositionInfo	mTilePositionInfo;
+	Tile*				mTile;
 };
 
 

@@ -14,13 +14,24 @@ class Tile
 public:
 
 	Tile();
-	Tile(int idx);
+	//Tile(int idx, int x, int y, int d);
 
 	~Tile();
 
 	int index() const { return mIndex; }
 	void index(int index) { mIndex = index; }
 
+	int x() const { return mX; }
+	void x(int i) { mX = i; }
+
+	int y() const { return mY; }
+	void y(int i) { mY = i; }
+
+	int depth() const { return mDepth; }
+	void depth(int i) { mDepth = i; }
+
+	void init(int x, int y, int depth, int index);
+	
 	bool bulldozed() const { return mIndex == 0; }
 
 	bool excavated() const { return mExcavated; }
@@ -56,6 +67,12 @@ protected:
 private:
 
 	int				mIndex;
+
+	int				mX;					/**< Tile Position Information */
+	int				mY;					/**< Tile Position Information */
+	int				mDepth;				/**< Tile Position Information */
+
+
 	Thing*			mThing;
 
 	Mine*			mMine;

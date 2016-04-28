@@ -24,7 +24,7 @@ StructureManager::~StructureManager()
 		return;
 
 	for (auto it = mStructureList.begin(); it != mStructureList.end(); ++it)
-		it->second.tile->deleteThing();
+		it->second->deleteThing();
 
 	mStructureList.clear();
 }
@@ -56,7 +56,7 @@ void StructureManager::updateStructures()
 	while (struct_it != mStructureList.end())
 	{
 		struct_it->first->update();
-		struct_it->second.tile->connected(false);	// We iterate through this list on every turn; save some time and
+		struct_it->second->connected(false);	// We iterate through this list on every turn; save some time and
 													// reset this flag now so we don't have to do a second loop.
 
 		// FIXME:	Naive approach?
@@ -71,7 +71,7 @@ void StructureManager::updateStructures()
 		// Clean up any Structures that are dead.
 		if (struct_it->first->dead())
 		{
-			struct_it->second.tile->deleteThing();
+			struct_it->second->deleteThing();
 			struct_it = mStructureList.erase(struct_it);
 		}
 		else
@@ -96,7 +96,7 @@ void StructureManager::processResourcesIn(ResourcePool& _r)
 	{
 		if(!struct_it->first->idle() && !struct_it->first->underConstruction())
 		{
-			if(struct_it->first->enoughResourcesAvailable(_r) && struct_it->second.tile->connected() && !struct_it->first->destroyed())
+			if(struct_it->first->enoughResourcesAvailable(_r) && struct_it->second->connected() && !struct_it->first->destroyed())
 			{
 
 				// FIXME: copy paste code, better way to do this.
@@ -160,10 +160,10 @@ void StructureManager::updateFactories()
 
 void StructureManager::copyDeferred()
 {
-	StructureMap::iterator it = mDeferredList.begin();
+	auto it = mDeferredList.begin();
 	while(it != mDeferredList.end())
 	{
-		addStructure(it->first, it->second.tile, it->second.x, it->second.y, it->second.depth, true);
+		addStructure(it->first, it->second, true);
 		++it;
 	}
 
@@ -178,17 +178,15 @@ void StructureManager::copyDeferred()
  * 
  * \param	Call tile method that frees memory or not.
  */
-bool StructureManager::addStructure(Structure* st, Tile* t, int x, int y, int depth, bool clear)
+bool StructureManager::addStructure(Structure* st, Tile* t, bool clear)
 {
 	if(!t)
 		return false;
 
-	TilePositionInfo tpi(t, x, y, depth);
-
 	/// We're in the process of updating structures so defer adding until the updates are finished.
 	if(mDeferInsert)
 	{
-		addToList(mDeferredList, st, tpi);
+		addToList(mDeferredList, st, t);
 		return false;
 	}
 
@@ -201,7 +199,7 @@ bool StructureManager::addStructure(Structure* st, Tile* t, int x, int y, int de
 	if(!clear)
 		t->removeThing();
 
-	addToList(mStructureList, st, tpi);
+	addToList(mStructureList, st, t);
 	t->pushThing(st);
 	t->thingIsStructure(true);
 
@@ -214,9 +212,9 @@ bool StructureManager::addStructure(Structure* st, Tile* t, int x, int y, int de
 }
 
 
-void StructureManager::addToList(StructureMap& _sm, Structure* _st, TilePositionInfo& _tpi)
+void StructureManager::addToList(StructureMap& _sm, Structure* _st, Tile* _t)
 {
-	_sm.push_back(StructureTilePair(_st, _tpi));
+	_sm.push_back(StructureTilePair(_st, _t));
 
 	sort(mStructureList.begin(), mStructureList.end(), [](const StructureTilePair& lhs, const StructureTilePair& rhs) { return lhs.first->priority() > rhs.first->priority(); });
 }
@@ -253,7 +251,7 @@ bool StructureManager::removeStructure(Structure* st)
 void StructureManager::disconnectAll()
 {
 	for (auto st_it = mStructureList.begin(); st_it != mStructureList.end(); ++st_it)
-		st_it->second.tile->connected(false);
+		st_it->second->connected(false);
 }
 
 

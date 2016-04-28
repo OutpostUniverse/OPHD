@@ -15,7 +15,7 @@
 #include "../Things/Structures/Structure.h"
 #include "../Things/Robots/Robots.h"
 
-#include "../TilePositionInfo.h"
+#include "../Tile.h"
 #include "../TileMap.h"
 
 #include "../UI/UI.h"
@@ -63,7 +63,7 @@ protected:
 
 private:
 
-	typedef map<Robot*, TilePositionInfo> RobotMap;
+	typedef map<Robot*, Tile*> RobotMap;
 
 	typedef vector<Pointer> PointerList;
 
@@ -99,7 +99,7 @@ private:
 	void diggerTaskFinished(Robot* _r);
 	void minerTaskFinished(Robot* _r);
 
-	bool insertRobot(Robot* robot, Tile* tile, int x, int y, int depth);
+	bool insertRobot(Robot* robot, Tile* tile);
 
 	void deploySeedLander(int x, int y);
 	void insertSeedLander(int x, int y);
@@ -125,7 +125,7 @@ private:
 	void connectionsSelectionChanged(const std::string& _s);
 	void robotsSelectionChanged(const std::string& _s);
 
-	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, TilePositionInfo& _tpi);
+	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t);
 
 	FpsCounter			mFps;
 	Timer				mMoveTimer;
