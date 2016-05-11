@@ -6,6 +6,15 @@
  */
 bool validConnection(Structure* src, Structure* dst, Direction _d)
 {
+	if(src == nullptr || dst == nullptr)
+	{
+		#ifdef DEBUG
+		throw Exception(0, "GraphWalker NULL Pointer", "GraphWalker::validConnection() was passed a NULL Pointer.");
+		#endif
+		
+		// in release mode silently ignore this call.
+		return false;
+	}
 	if (_d == DIR_UP || _d == DIR_DOWN)
 	{
 		if (src->isConnector() && src->connectorDirection() == CONNECTOR_VERTICAL)
@@ -87,6 +96,13 @@ void GraphWalker::walkGraph()
 }
 
 
+/**
+ * Checks a given map location for a valid connection.
+ * 
+ * \todo	With Tile being updated to include position information, this function can be modified
+ *			to take a source and destination tile instead of looking them up. By using the internal
+ * 			positional information in the Tiles we can deduce direction between source and destination.
+ */
 void GraphWalker::check(int x, int y, int depth, Direction _d)
 {
 	if (x < 0 || x > _tileMap->width() - 1 || y < 0 || y > _tileMap->height() - 1)
@@ -94,17 +110,12 @@ void GraphWalker::check(int x, int y, int depth, Direction _d)
 	if (depth < 0 || depth > _tileMap->maxDepth())
 		return;
 
-
 	Tile* t = _tileMap->getTile(x, y, depth);
 
 	if (t->connected() || t->mine() || !t->excavated() || !t->thingIsStructure())
 		return;
 
-	// FIXME: Really hate these casts... got to be a better way to do this.
-	Structure* src = _thisTile->structure();
-	Structure* dst = t->structure();
-
-	if (validConnection(src, dst, _d))
+	if (validConnection(_thisTile->structure(), t->structure(), _d))
 	{
 		GraphWalker walker(Point_2d(x, y), depth, _tileMap);
 	}

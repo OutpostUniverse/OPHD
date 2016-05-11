@@ -1,5 +1,4 @@
-#ifndef __GRAPHWALKER__
-#define __GRAPHWALKER__
+#pragma once
 
 #include "TileMap.h"
 
@@ -32,4 +31,3 @@ private:
 	int			_depth;
 };
 
-#endif
