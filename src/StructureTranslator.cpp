@@ -7,7 +7,7 @@ std::map<std::string, StructureID> StructureTranslator::_stringToStructureTable;
 StructureID StructureTranslator::translateFromString(const std::string& _s)
 {
 	if (_stringToStructureTable.empty())
-		buildStringToStructureTable();
+		buildTables();
 
 	if (_stringToStructureTable.find(_s) == _stringToStructureTable.end())
 		return STRUCTURE_NONE;
@@ -16,8 +16,20 @@ StructureID StructureTranslator::translateFromString(const std::string& _s)
 }
 
 
-void StructureTranslator::buildStringToStructureTable()
+const StructureTranslator::std::string& translateToString(StructureID _s)
 {
+	if (_structureToStringTable.empty())
+		buildTables();
+
+	if (_structureToStringTable.find(_s) == _structureToStringTable.end())
+		return STRUCTURE_NONE;
+
+	return _structureToStringTable[_s];	
+}
+
+void StructureTranslator::buildTables()
+{
+	// String to ID
 	_stringToStructureTable[constants::AGRIDOME] = STRUCTURE_AGRIDOME;
 	_stringToStructureTable[constants::AIR_SHAFT] = STRUCTURE_AIR_SHAFT;
 	_stringToStructureTable[constants::CHAP] = STRUCTURE_CHAP;
@@ -34,4 +46,19 @@ void StructureTranslator::buildStringToStructureTable()
 	_stringToStructureTable[constants::UG_TUBE_RIGHT] = STRUCTURE_TUBE_RIGHT;
 	_stringToStructureTable[constants::AG_TUBE_LEFT] = STRUCTURE_TUBE_LEFT;
 	_stringToStructureTable[constants::UG_TUBE_LEFT] = STRUCTURE_TUBE_LEFT;
+	
+	// ID To String
+	_structureToStringTable[STRUCTURE_AGRIDOME] = constants::AGRIDOME;
+	_structureToStringTable[STRUCTURE_AIR_SHAFT] = constants::AIR_SHAFT;
+	_structureToStringTable[STRUCTURE_CHAP] = constants::CHAP;
+	_structureToStringTable[STRUCTURE_COMMAND_CENTER] = constants::COMMAND_CENTER;
+	_structureToStringTable[STRUCTURE_MINE_FACILITY] = constants::MINE_FACILITY;
+	_structureToStringTable[STRUCTURE_SEED_FACTORY] = constants::SEED_FACTORY;
+	_structureToStringTable[STRUCTURE_SEED_LANDER] = constants::SEED_LANDER;
+	_structureToStringTable[STRUCTURE_SEED_POWER] = constants::SEED_POWER;
+	_structureToStringTable[STRUCTURE_SEED_SMELTER] = constants::SEED_SMELTER;
+
+	_structureToStringTable[STRUCTURE_TUBE_INTERSECTION] = constants::AG_TUBE_INTERSECTION;
+	_structureToStringTable[STRUCTURE_TUBE_RIGHT] = constants::AG_TUBE_RIGHT;
+	_structureToStringTable[STRUCTURE_TUBE_LEFT] = constants::AG_TUBE_LEFT;
 }
