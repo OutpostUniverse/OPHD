@@ -19,12 +19,6 @@ public:
 	~SeedPower()
 	{}
 
-
-	void update()
-	{
-		incrementAge();
-	}
-
 protected:
 
 	virtual void defineResourceInput()

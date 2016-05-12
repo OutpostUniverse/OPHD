@@ -128,21 +128,27 @@ void Structure::incrementAge()
 	}
 	else if (age() == maxAge())
 	{
-		setDestroyed();
+		destroy();
 	}
 }
 
 
+void Structure::update()
+{
+	incrementAge();
+	think();
+}
+
 /**
 * Sets a destroyed state.
 *
-* \fixme	I don't particluarly like the name here but it fits considering it's not intended
-*			to be used outside of the Structure class.
+* \note		This is permanent.
 */
-void Structure::setDestroyed()
+void Structure::destroy()
 {
 	sprite().play(constants::STRUCTURE_STATE_DESTROYED);
 	mStructureState = DESTROYED;
 
-
+	// Destroyed buildings just need to be rebuilt right?
+	repairable(false);
 }

@@ -3,6 +3,7 @@
 #include "Constants.h"
 
 std::map<std::string, StructureID> StructureTranslator::_stringToStructureTable;
+std::map<StructureID, std::string> StructureTranslator::_structureToStringTable;
 
 StructureID StructureTranslator::translateFromString(const std::string& _s)
 {
@@ -16,13 +17,13 @@ StructureID StructureTranslator::translateFromString(const std::string& _s)
 }
 
 
-const StructureTranslator::std::string& translateToString(StructureID _s)
+const std::string& StructureTranslator::translateToString(StructureID _s)
 {
 	if (_structureToStringTable.empty())
 		buildTables();
 
 	if (_structureToStringTable.find(_s) == _structureToStringTable.end())
-		return STRUCTURE_NONE;
+		return "";
 
 	return _structureToStringTable[_s];	
 }

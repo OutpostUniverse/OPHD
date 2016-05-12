@@ -20,7 +20,9 @@ public:
 	{
 	}
 
-	void update()
+protected:
+
+	virtual void think()
 	{
 		incrementAge();
 
@@ -28,8 +30,6 @@ public:
 			updateProduction();
 
 	}
-
-protected:
 
 	virtual void initFactory()
 	{}

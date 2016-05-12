@@ -27,12 +27,15 @@ public:
 
 	~MineFacility()
 	{}
+	
 
-	void update()
+protected:
+
+	virtual void think()
 	{
 		incrementAge();
 
-		if(!mMine->active() && state() == Structure::OPERATIONAL)
+		if (!mMine->active() && state() == Structure::OPERATIONAL)
 		{
 			idle(true);
 		}
@@ -43,7 +46,7 @@ public:
 				idle(false);
 		}
 
-		if(mMine->active())
+		if (mMine->active())
 		{
 			if (mStoragePool.atCapacity())
 			{
@@ -62,7 +65,6 @@ public:
 		}
 	}
 
-protected:
 private:
 
 	virtual void defineResourceOutput()

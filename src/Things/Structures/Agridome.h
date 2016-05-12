@@ -18,15 +18,14 @@ public:
 	~Agridome()
 	{}
 
+protected:
 
-	void update()
+	virtual void think()
 	{
-		incrementAge();
-
 		/** \todo	At the moment we're only adding one food unit per turn. In
-		 *			the future we'll want to add modifiers based on research,
-		 *			difficulty and hostility level of the planet.
-		 */
+		*			the future we'll want to add modifiers based on research,
+		*			difficulty and hostility level of the planet.
+		*/
 		if (storage().atCapacity())
 		{
 			idle(true);
@@ -36,9 +35,8 @@ public:
 			if (storage().pushResource(ResourcePool::RESOURCE_FOOD, 1) != 0)
 				idle(true);
 		}
-	}
 
-protected:
+	}
 
 	virtual void defineResourceInput()
 	{

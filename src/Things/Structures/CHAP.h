@@ -21,12 +21,6 @@ public:
 	~CHAP()
 	{}
 
-
-	void update()
-	{
-		incrementAge();
-	}
-
 protected:
 
 	virtual void defineResourceInput()

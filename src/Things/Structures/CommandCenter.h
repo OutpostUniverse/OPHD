@@ -19,11 +19,6 @@ public:
 	~CommandCenter()
 	{}
 
-	void update()
-	{
-		incrementAge();
-	}
-
 protected:
 	
 	virtual void defineResourceInput()

@@ -19,13 +19,7 @@ public:
 	}
 
 	~SeedFactory()
-	{
-	}
-
-	void update()
-	{
-		incrementAge();
-	} 
+	{}
 
 protected:
 

@@ -57,7 +57,7 @@ void StructureManager::updateStructures()
 	{
 		struct_it->first->update();
 		struct_it->second->connected(false);	// We iterate through this list on every turn; save some time and
-													// reset this flag now so we don't have to do a second loop.
+												// reset this flag now so we don't have to do a second loop.
 
 		// FIXME:	Naive approach?
 		if (struct_it->first->providesCHAP() && struct_it->first->enabled())

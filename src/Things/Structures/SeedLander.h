@@ -27,20 +27,19 @@ public:
 
 
 	~SeedLander()
-	{
-	}
+	{}
 
-	void update()
+	Callback& deployCallback() { return mDeploy; }
+
+protected:
+
+	virtual void think()
 	{
 		incrementAge();
 
 		if (age() == turnsToBuild())
 			mDeploy(mX, mY);
 	}
-
-	Callback& deployCallback() { return mDeploy; }
-
-protected:
 
 	virtual void defineResourceValue()
 	{

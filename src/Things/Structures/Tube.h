@@ -20,12 +20,7 @@ public:
 
 
 	~Tube()
-	{
-	}
-
-	void update()
-	{
-	}
+	{}
 
 protected:
 private:

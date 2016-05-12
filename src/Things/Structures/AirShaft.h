@@ -23,10 +23,6 @@ public:
 	{
 	}
 
-	void update()
-	{
-	}
-
 	void ug() { sprite().play(constants::STRUCTURE_STATE_OPERATIONAL_UG); }
 
 protected:

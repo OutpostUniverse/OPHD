@@ -52,18 +52,8 @@ public:
 
 	//bool operator< (const Structure& rhs) const { return mStructurePriority > rhs.mStructurePriority; }
 	
-	StructurePriority priority() const { return mStructurePriority; }
-
-	StructureType type() const { return mStructureType; }
-
-	virtual void update() = 0;
-
-	int id() const { return mId; }
-
-	int turnsToBuild() const { return mTurnsToBuild; }
-	int age() const { return mAge; }
-	int maxAge() const { return mMaxAge; }
-	bool repairable() const { return mRepairable; }
+	// STATES & STATE MANAGEMENT
+	StructureState state() const { return mStructureState; }
 
 	bool enabled() const { return mStructureState == OPERATIONAL; }
 	void enabled(bool _b);
@@ -72,11 +62,12 @@ public:
 	void idle(bool _b);
 
 	bool destroyed() const { return mStructureState == DESTROYED; }
+	void destroy();
 
 	bool underConstruction() const { return mStructureState == UNDER_CONSTRUCTION; }
 
-	void incrementAge();
 
+	// RESOURCES AND RESOURCE MANAGEMENT
 	ResourcePool& resourceValue() { return mResourceValue; }
 	ResourcePool& resourcesIn() { return mResourcesInput; }
 	ResourcePool& resourcesOut() { return mResourcesOutput; }
@@ -86,19 +77,35 @@ public:
 	void input(ResourcePool& _resourcePool);
 	bool enoughResourcesAvailable(ResourcePool& r);
 
-	StructureState state() const { return mStructureState; }
 
-	/** Indicates that the structure can act as a connector (tube) */
-	bool isConnector() const { return mConnector; }
+	// ATTRIBUTES
+	StructurePriority priority() const { return mStructurePriority; }
 
+	StructureType type() const { return mStructureType; }
+
+	int id() const { return mId; }
+	int turnsToBuild() const { return mTurnsToBuild; }
+	int age() const { return mAge; }
+	int maxAge() const { return mMaxAge; }
+
+	bool repairable() const { return mRepairable; }
+
+	bool isConnector() const { return mConnector; } /** Indicates that the structure can act as a connector (tube) */
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
+	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
 	bool providesCHAP() const { return mProvidesCHAP; }
 	bool selfSustained() const { return mSelfSustained; }
 	bool isFactory() const { return mIsFactory; }
 
+	void update();
+
 protected:
+
+	virtual void think() {}
+
+	void incrementAge();
 
 	void turnsToBuild(int _t) { mTurnsToBuild = _t; }
 	void maxAge(int _age) { mMaxAge = _age; }
@@ -107,13 +114,12 @@ protected:
 	 * Set the current age of the Structure.
 	 * 
 	 * \note	Available to reset current age to simulate repairs to extend
-	 *			the life of the Structure.
+	 *			the life of the Structure and for loading games.
 	 */
 	void age(int _age) { mAge = _age; }
 
 	void repairable(bool _r) { mRepairable = _r; }
 
-	/// \todo Make these pure virtual
 	virtual void defineResourceInput() {}
 	virtual void defineResourceOutput() {}
 	virtual void defineResourceValue() {}
@@ -133,14 +139,6 @@ protected:
 
 	void priority(StructurePriority _sp) { mStructurePriority = _sp; }
 	void type(StructureType _t) { mStructureType = _t; }
-
-	/**
-	 * Sets a destroyed state. 
-	 * 
-	 * \fixme	I don't particluarly like the name here but it fits considering it's not intended
-	 *			to be used outside of the Structure class.
-	 */
-	void setDestroyed();
 
 	ResourcePool			mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
 	
