@@ -33,8 +33,6 @@ protected:
 
 	virtual void think()
 	{
-		incrementAge();
-
 		if (!mMine->active() && state() == Structure::OPERATIONAL)
 		{
 			idle(true);

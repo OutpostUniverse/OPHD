@@ -105,8 +105,6 @@ protected:
 
 	virtual void think() {}
 
-	void incrementAge();
-
 	void turnsToBuild(int _t) { mTurnsToBuild = _t; }
 	void maxAge(int _age) { mMaxAge = _age; }
 	
@@ -152,6 +150,8 @@ protected:
 private:
 
 	Structure();	// Excplicitly declared private
+
+	void incrementAge();
 
 	int						mId;						/**< ID of the Structure. */
 

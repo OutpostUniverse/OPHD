@@ -35,8 +35,6 @@ protected:
 
 	virtual void think()
 	{
-		incrementAge();
-
 		if (age() == turnsToBuild())
 			mDeploy(mX, mY);
 	}

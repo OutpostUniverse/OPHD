@@ -24,8 +24,6 @@ protected:
 
 	virtual void think()
 	{
-		incrementAge();
-
 		if (state() == OPERATIONAL)
 			updateProduction();
 
