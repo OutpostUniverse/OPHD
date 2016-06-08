@@ -1,5 +1,4 @@
-#ifndef __START_STATE__
-#define __START_STATE__
+#pragma once
 
 #include "NAS2D/NAS2D.h"
 
@@ -190,6 +189,3 @@ private:
 
 	State*				mReturnState;
 };
-
-
-#endif

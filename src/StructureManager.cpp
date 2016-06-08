@@ -60,13 +60,10 @@ void StructureManager::updateStructures()
 												// reset this flag now so we don't have to do a second loop.
 
 		// FIXME:	Naive approach?
-		if (struct_it->first->providesCHAP() && struct_it->first->enabled())
+		if (struct_it->first->providesCHAP() && struct_it->first->operational())
 			mChapActive = true;
 
-		if(struct_it->first->idle())
-			struct_it->first->sprite().color(255, 255, 255, 185);
-		else
-			struct_it->first->sprite().color(255, 255, 255, 255);
+
 
 		// Clean up any Structures that are dead.
 		if (struct_it->first->dead())
@@ -94,7 +91,7 @@ void StructureManager::processResourcesIn(ResourcePool& _r)
 				is code duplication.	*/
 	while(struct_it != mStructureList.end())
 	{
-		if(!struct_it->first->idle() && !struct_it->first->underConstruction())
+		if(!struct_it->first->isIdle() && !struct_it->first->underConstruction())
 		{
 			if(struct_it->first->enoughResourcesAvailable(_r) && struct_it->second->connected() && !struct_it->first->destroyed())
 			{
@@ -102,14 +99,11 @@ void StructureManager::processResourcesIn(ResourcePool& _r)
 				// FIXME: copy paste code, better way to do this.
 				if (struct_it->first->requiresCHAP() && !mChapActive)
 				{
-					struct_it->first->enabled(false);
-					struct_it->first->sprite().color(255, 0, 0, 185);
+					struct_it->first->disable();
 				}
 				else
 				{
-					struct_it->first->enabled(true);
-					struct_it->first->sprite().color(255, 255, 255, 255);
-
+					struct_it->first->enable();
 					_r -= struct_it->first->resourcesIn();
 				}
 			}
@@ -118,9 +112,7 @@ void StructureManager::processResourcesIn(ResourcePool& _r)
 				if(!struct_it->first->selfSustained())
 				{
 					if(!struct_it->first->destroyed())
-						struct_it->first->enabled(false);
-					
-					struct_it->first->sprite().color(255, 0, 0, 185);
+						struct_it->first->disable();
 				}
 			}
 		}
@@ -136,7 +128,7 @@ void StructureManager::processResourcesOut(ResourcePool& _r)
 	auto struct_it = mStructureList.begin();
 	while (struct_it != mStructureList.end())
 	{
-		if (!struct_it->first->underConstruction() && !struct_it->first->idle() && struct_it->first->enabled())
+		if (struct_it->first->operational())
 			out += struct_it->first->resourcesOut();
 
 		++struct_it;
@@ -160,6 +152,8 @@ void StructureManager::updateFactories()
 
 void StructureManager::copyDeferred()
 {
+	// could just use std::vector.insert() but addStructure()
+	// performs a number of checks that vector.insert() doesn't.
 	auto it = mDeferredList.begin();
 	while(it != mDeferredList.end())
 	{
@@ -212,10 +206,19 @@ bool StructureManager::addStructure(Structure* st, Tile* t, bool clear)
 }
 
 
+/**
+ * Adds a Structure to a references list.
+ * 
+ * \param _sm	Reference to a StructureMap list.
+ * \param _st	Pointer to a Structure. TODO: Note assumptions about ownership of this pointer.
+ * \param _t	Pointer to a Tile. NOTE: Pointer not owned by StructureManager -- memory managed by TileMap.
+ * 
+ * \note	Sorts the list by Structure Priority in ascending order. Higher priority structures (like the CC)
+ *			will appear at the beginning of the list.
+ */
 void StructureManager::addToList(StructureMap& _sm, Structure* _st, Tile* _t)
 {
 	_sm.push_back(StructureTilePair(_st, _t));
-
 	sort(mStructureList.begin(), mStructureList.end(), [](const StructureTilePair& lhs, const StructureTilePair& rhs) { return lhs.first->priority() > rhs.first->priority(); });
 }
 
@@ -248,6 +251,9 @@ bool StructureManager::removeStructure(Structure* st)
 }
 
 
+/**
+ * Resets the 'connected' flag on all structures in the primary structure list.
+ */
 void StructureManager::disconnectAll()
 {
 	for (auto st_it = mStructureList.begin(); st_it != mStructureList.end(); ++st_it)
@@ -255,11 +261,15 @@ void StructureManager::disconnectAll()
 }
 
 
+/**
+ * Outputs the primary structure list.
+ * 
+ * Debug aid to demonstrate structure priority sorting is correct.
+ */
 void StructureManager::printSortedList()
 {
 	cout << endl;
 	for (size_t i = 0; i < mStructureList.size(); ++i)
 		cout << mStructureList[i].first->name() << endl;
-
 	cout << endl;
 }

@@ -1,5 +1,4 @@
-#ifndef __STRUCTURE_MANAGER__
-#define __STRUCTURE_MANAGER__
+#pragma once
 
 #include "Things/Structures/Structure.h"
 #include "Things/Structures/Factory.h"
@@ -61,6 +60,3 @@ private:
 	bool				mDeferInsert;				/**< Flag indicating that we're accessing the structure list and insertions should be deferred. */
 	bool				mChapActive;				/**< Flag indicating that there is a functioning CHAP Facility. */
 };
-
-
-#endif

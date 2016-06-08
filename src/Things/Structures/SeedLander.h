@@ -20,7 +20,7 @@ public:
 		requiresCHAP(false);
 		selfSustained(true);
 
-		enabled(true);
+		enable();
 
 		priority(PRIORITY_LOW);
 	}

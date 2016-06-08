@@ -28,12 +28,12 @@ protected:
 		*/
 		if (storage().atCapacity())
 		{
-			idle(true);
+			idle();
 		}
 		else
 		{
 			if (storage().pushResource(ResourcePool::RESOURCE_FOOD, 1) != 0)
-				idle(true);
+				idle();
 		}
 
 	}

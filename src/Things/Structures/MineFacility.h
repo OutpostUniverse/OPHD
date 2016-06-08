@@ -33,22 +33,18 @@ protected:
 
 	virtual void think()
 	{
-		if (!mMine->active() && state() == Structure::OPERATIONAL)
-		{
-			idle(true);
-		}
 
-		if (idle() && mMine->active())
+		if (isIdle() && mMine->active())
 		{
 			if (!mStoragePool.atCapacity())
-				idle(false);
+				enable();
 		}
 
 		if (mMine->active())
 		{
 			if (mStoragePool.atCapacity())
 			{
-				idle(true);
+				idle();
 				return;
 			}
 
@@ -60,6 +56,10 @@ protected:
 			mProductionPool.pushResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, mMine->rareMineralsRate());
 
 			storage().pushResources(mProductionPool);
+		}
+		else if(!isIdle())
+		{
+			idle();
 		}
 	}
 
@@ -73,6 +73,10 @@ private:
 		// Resource value if demolished.
 		mResourceValue.commonMetals(10);
 		mResourceValue.rareMetals(2);
+
+		// This function is called when the Mine Facility activates so
+		// I'm activating the mine here.
+		mMine->active(true);
 	}
 
 

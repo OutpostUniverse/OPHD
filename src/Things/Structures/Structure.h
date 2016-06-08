@@ -1,5 +1,4 @@
-#ifndef __STRUCTURE__
-#define __STRUCTURE__
+#pragma once
 
 #include "../Thing.h"
 #include "../../ResourcePool.h"
@@ -55,11 +54,14 @@ public:
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }
 
-	bool enabled() const { return mStructureState == OPERATIONAL; }
-	void enabled(bool _b);
+	bool disabled() const { return mStructureState == DISABLED; }
+	void disable();
 
-	bool idle() const { return mStructureState == IDLE; }
-	void idle(bool _b);
+	bool operational() const { return mStructureState == OPERATIONAL; }
+	void enable();
+
+	bool isIdle() const { return mStructureState == IDLE; }
+	void idle();
 
 	bool destroyed() const { return mStructureState == DESTROYED; }
 	void destroy();
@@ -122,15 +124,15 @@ protected:
 	virtual void defineResourceOutput() {}
 	virtual void defineResourceValue() {}
 
+	void state(StructureState _s) { mStructureState = _s; }
+
 	void activate();
 
 	void isConnector(bool _b) { mConnector = _b; }
 	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
 
 	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
-
 	void providesCHAP(bool _b) { mProvidesCHAP = _b; }
-
 	void selfSustained(bool _b) { mSelfSustained = _b; }
 
 	void isFactory(bool _b) { mIsFactory = _b; }
@@ -175,6 +177,3 @@ private:
 	bool					mSelfSustained;				/**< Indicates that the Strcutre is self contained and can operate by itself. */
 	bool					mIsFactory;					/**< Indicates that the Structure is a factory. */
 };
-
-
-#endif

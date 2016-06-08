@@ -1,6 +1,4 @@
-#ifndef __MINE__
-#define __MINE__
-
+#pragma once
 
 class Mine
 {
@@ -69,6 +67,3 @@ private:
 	bool					mActive;						/**< Flag indicating whether this mine is active or not. */
 	bool					mExhausted;						/**< Flag indicating that this mine can no longer produce anything. */
 };
-
-
-#endif

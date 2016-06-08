@@ -32,51 +32,35 @@ Structure::~Structure()
 
 
 /**
- * Sets enabled state of the Structure.
- * 
- * Enabled is distinctly different than Idle even though the Structure ultimately
- * isn't producing. Disabled structures are disabled either due to damage or not
- * enough resources. In either case, this will have a negative effect on morale.
- * 
- * \param	_b	True starts animation playback and sets operational state. Otherwise stops animation and sets disabled state.
+ * Sets a Disabled state for the Structure.
  */
-void Structure::enabled(bool _b)
+void Structure::disable()
 {
-	if(_b)
-	{
-		sprite().resume();
-		mStructureState = OPERATIONAL;
-	}
-	else
-	{
-		sprite().pause();
-		mStructureState = DISABLED;
-	}
+	sprite().pause();
+	sprite().color(255, 0, 0, 185);
+	state(DISABLED);
+}
+
+
+/**
+* Sets an Operational state for the Structure.
+*/
+void Structure::enable()
+{
+	sprite().resume();
+	sprite().color(255, 255, 255, 255);
+	state(OPERATIONAL);
 }
 
 
 /**
 * Sets idle state of the Structure.
-* 
-* Idle is distinctly different than disabled even though the Structure ultimately
-* isn't producing. Idle Structures have been put into a state of low energy consumption
-* by the Player and not because they have been damaged or lack resources. Structures in
-* this state have no effect on Morale.
-* 
-* \param	_b	True starts animation playback and sets operational state. Otherwise stops animation and sets idle state.
 */
-void Structure::idle(bool _b)
+void Structure::idle()
 {
-	if(_b)
-	{
-		mStructureState = IDLE;
-		sprite().pause();
-	}
-	else
-	{
-		sprite().resume();
-		mStructureState = OPERATIONAL;
-	}
+	sprite().pause();
+	sprite().color(255, 255, 255, 185);
+	state(IDLE);
 }
 
 
@@ -87,7 +71,7 @@ void Structure::input(ResourcePool& _resourcePool)
 {
 	if(!enoughResourcesAvailable(_resourcePool))
 	{
-		enabled(false);
+		disable();
 		return;
 	}
 
@@ -102,11 +86,17 @@ bool Structure::enoughResourcesAvailable(ResourcePool& r)
 
 
 /**
- * Called when a building is finished being built and its
- * resource requirements are defined.
+ * Called when a building is finished being built.
+ * 
+ * Sets the animation state of the Structure to Operational,
+ * sets the building state to Opeational and sets resource
+ * requirements.
  */
 void Structure::activate()
 {
+	sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
+	enable();
+
 	defineResourceInput();
 	defineResourceOutput();
 	defineResourceValue();
@@ -122,8 +112,6 @@ void Structure::incrementAge()
 
 	if (age() == turnsToBuild())
 	{
-		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
-		enabled(true);
 		activate();
 	}
 	else if (age() == maxAge())
@@ -135,6 +123,9 @@ void Structure::incrementAge()
 
 void Structure::update()
 {
+	if (destroyed())
+		return;
+
 	incrementAge();
 	think();
 }
@@ -147,7 +138,7 @@ void Structure::update()
 void Structure::destroy()
 {
 	sprite().play(constants::STRUCTURE_STATE_DESTROYED);
-	mStructureState = DESTROYED;
+	state(DESTROYED);
 
 	// Destroyed buildings just need to be rebuilt right?
 	repairable(false);

@@ -55,6 +55,8 @@ void Tile::pushThing(Thing* thing, bool overwrite)
 		{
 			// Clean up the thing passed into this function
 			// as they're not references but newly created objects.
+			//
+			// fixme:	This is a hell of an assumption -- is it correct?
 			delete thing;
 			return;
 		}
