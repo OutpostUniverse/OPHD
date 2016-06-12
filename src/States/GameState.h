@@ -152,10 +152,7 @@ private:
 	StructureManager	mStructureManager;			/**< Manager class responsible for managing all structures. */
 
 	ResourcePool		mPlayerResources;			/**< Player's current resources. */
-	ResourcePool		mPreviousResources;
-	ResourcePool		mResourcesDifference;
 
-	PopulationPool		mPopulationPool;			/**< Population available to the Player. */
 	RobotPool			mRobotPool;					/**< Robots that are currently available for use. */
 
 	RobotMap			mRobotList;					/**< List of active robots and their positions on the map. */

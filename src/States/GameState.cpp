@@ -897,8 +897,8 @@ void GameState::deploySeedLander(int x, int y)
 	mPlayerResources.rareMetals(50);
 	mPlayerResources.rareMinerals(60);
 
-	mPopulationPool.addWorkers(30);
-	mPopulationPool.addScientists(20);
+	//mPopulationPool.addWorkers(30);
+	//mPopulationPool.addScientists(20);
 }
 
 

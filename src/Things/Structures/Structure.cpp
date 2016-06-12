@@ -143,3 +143,12 @@ void Structure::destroy()
 	// Destroyed buildings just need to be rebuilt right?
 	repairable(false);
 }
+
+
+void Structure::die()
+{
+	Thing::die();
+	cout << "Holy shit, a Structure died!!!" << endl;
+
+	throw Exception(666, "Dead Structure", "Thing::die() was called on a Structure!");
+}

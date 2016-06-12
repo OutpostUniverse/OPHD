@@ -384,14 +384,8 @@ void GameState::btnTurnsClicked()
 {
 	clearMode();
 
-	mPreviousResources = mPlayerResources;	
-	mStructureManager.update();
-
-	mResourcesDifference = mPlayerResources;
-	mResourcesDifference -= mPreviousResources;
-
+	mStructureManager.update(mPlayerResources);
 	checkConnectedness();
-	mStructureManager.processResources(mPlayerResources);
 
 	updateRobots();
 

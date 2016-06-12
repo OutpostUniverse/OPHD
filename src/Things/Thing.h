@@ -44,7 +44,7 @@ public:
 	 */
 	Sprite& sprite() { return mSprite; }
 
-	void die() { mIsDead = true; mDieCallback(this); }
+	virtual void die() { mIsDead = true; mDieCallback(this); }
 	bool dead() const { return mIsDead; }
 
 	DieCallback& onDie() { return mDieCallback; }

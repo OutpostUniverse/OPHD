@@ -155,6 +155,9 @@ private:
 
 	void incrementAge();
 
+
+	virtual void die();
+
 	int						mId;						/**< ID of the Structure. */
 
 	int						mTurnsToBuild;				/**< Number of turns it takes to build the Structure. */

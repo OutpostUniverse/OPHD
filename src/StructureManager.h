@@ -18,8 +18,7 @@ public:
 
 	~StructureManager();
 
-	void update();
-	void processResources(ResourcePool& _r);
+	void update(ResourcePool& _r);
 
 	bool addStructure(Structure* st, Tile* t, bool clear);
 	bool removeStructure(Structure* st);
@@ -34,28 +33,25 @@ protected:
 	void setDeferredFlag(bool _b) { mDeferInsert = _b; }
 
 private:
-	typedef std::pair<Structure*, Tile*> StructureTilePair;
-	typedef vector<StructureTilePair> StructureMap;
+	typedef map<Structure*, Tile*> StructureMap;
 	typedef vector<Structure*> StructureList;
+	typedef vector<Factory*> FactoryList;
 
 	void updateStructures();
 	void updateFactories();
 
-	void processResourcesIn(ResourcePool& _r);
-	void processResourcesOut(ResourcePool& _r);
+	void addToList(StructureList& _list, StructureMap& _map, Structure* _st, Tile* _t);
 
-	void addToList(StructureMap& _sm, Structure* _st, Tile* _t);
-	bool removeStructureFromList(Structure* st, StructureList& list);
+	void removeFactory(Factory* _f);
 
-	StructureMap		mStructureList;				/**< List of all structures with positional information. */
-	StructureMap		mDeferredList;				/**< List of deferred insertions. */
 
-	StructureList		mStructuresBuilding;		/**< Structures still under construction. */
-	StructureList		mStructuresOperational;		/**< Structures that are operational. */
-	StructureList		mStructuresIdle;			/**< Structures that are Idle. */
-	StructureList		mStructuresDisabled;		/**< Structures that are disabled. */
+	StructureList		mStructureList;				/**< List of all structures. */
+	StructureList		mDeferredList;				/**< List of deferred insertions. */
 
-	StructureList		mFactoryList;				/**< List of factories. */
+	FactoryList			mFactoryList;				/**< List of factories. */
+
+	StructureMap		mStructureTileTable;		/**< List mapping Structure's to a particular tile. */
+	StructureMap		mDeferredTileTable;			/**< Deferred list mapping Structure's to a particular tile. */
 
 	bool				mDeferInsert;				/**< Flag indicating that we're accessing the structure list and insertions should be deferred. */
 	bool				mChapActive;				/**< Flag indicating that there is a functioning CHAP Facility. */

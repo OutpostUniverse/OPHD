@@ -24,23 +24,19 @@ StructureManager::~StructureManager()
 		return;
 
 	for (auto it = mStructureList.begin(); it != mStructureList.end(); ++it)
-		it->second->deleteThing();
+	{
+		mStructureTileTable[*it]->deleteThing();
+	}
 
-	mStructureList.clear();
+	mStructureList.clear(); // Redundant?
+	mStructureTileTable.clear(); // Redundant?
 }
 
 
-void StructureManager::update()
+void StructureManager::update(ResourcePool& _r)
 {
+	disconnectAll();
 	updateStructures();
-}
-
-
-void StructureManager::processResources(ResourcePool& _r)
-{
-	processResourcesOut(_r);
-	processResourcesIn(_r);
-
 	updateFactories();
 }
 
@@ -49,102 +45,39 @@ void StructureManager::updateStructures()
 {
 	mChapActive = false;
 
-	/* Some structures can generate others (like the seed lander) so we need to make sure that we're
-	not inserting new structures while we're in the middle of iterating through the current list. */
+	// Some structures can generate others (like the seed lander) so we need to make sure that we're
+	// not inserting new structures while we're in the middle of iterating through the current list.
 	setDeferredFlag(true);
-	auto struct_it = mStructureList.begin();
-	while (struct_it != mStructureList.end())
+
+	Structure* structure = nullptr;
+	for (size_t i = 0; i < mStructureList.size(); ++i)
 	{
-		struct_it->first->update();
-		struct_it->second->connected(false);	// We iterate through this list on every turn; save some time and
-												// reset this flag now so we don't have to do a second loop.
+		structure = mStructureList[i];
+
+		structure->update();
 
 		// FIXME:	Naive approach?
-		if (struct_it->first->providesCHAP() && struct_it->first->operational())
+		if (structure->providesCHAP() && structure->operational())
 			mChapActive = true;
 
-
-
-		// Clean up any Structures that are dead.
-		if (struct_it->first->dead())
-		{
-			struct_it->second->deleteThing();
-			struct_it = mStructureList.erase(struct_it);
-		}
-		else
-			++struct_it;
+		// FIXME: Are there any situations -at all- where a Structure's parent dead flag would be called?
+		if (structure->dead())
+			removeStructure(structure);
 	}
+
 	setDeferredFlag(false);
 	copyDeferred();
 }
 
 
-/**
- * Iterates through all Structures and provides input resources disabling Structures
- * that don't get the resources they need.
- */
-void StructureManager::processResourcesIn(ResourcePool& _r)
-{
-	auto struct_it = mStructureList.begin();
 
-	/* FIXME:	These checks are a little too complicated and there
-				is code duplication.	*/
-	while(struct_it != mStructureList.end())
-	{
-		if(!struct_it->first->isIdle() && !struct_it->first->underConstruction())
-		{
-			if(struct_it->first->enoughResourcesAvailable(_r) && struct_it->second->connected() && !struct_it->first->destroyed())
-			{
-
-				// FIXME: copy paste code, better way to do this.
-				if (struct_it->first->requiresCHAP() && !mChapActive)
-				{
-					struct_it->first->disable();
-				}
-				else
-				{
-					struct_it->first->enable();
-					_r -= struct_it->first->resourcesIn();
-				}
-			}
-			else
-			{
-				if(!struct_it->first->selfSustained())
-				{
-					if(!struct_it->first->destroyed())
-						struct_it->first->disable();
-				}
-			}
-		}
-		++struct_it;
-	}
-}
-
-
-void StructureManager::processResourcesOut(ResourcePool& _r)
-{
-	// RESOURCES OUT
-	ResourcePool out;
-	auto struct_it = mStructureList.begin();
-	while (struct_it != mStructureList.end())
-	{
-		if (struct_it->first->operational())
-			out += struct_it->first->resourcesOut();
-
-		++struct_it;
-	}
-
-	// Adjust resources
-	_r += out;
-	_r.energy(out.energy()); // energy is not cumulative
-}
 
 
 void StructureManager::updateFactories()
 {
 	for (size_t i = 0; i < mFactoryList.size(); ++i)
 	{
-		static_cast<Factory*>(mFactoryList[i])->updateProduction();
+		mFactoryList[i]->updateProduction();
 	}
 
 }
@@ -157,11 +90,12 @@ void StructureManager::copyDeferred()
 	auto it = mDeferredList.begin();
 	while(it != mDeferredList.end())
 	{
-		addStructure(it->first, it->second, true);
+		addStructure((*it), mDeferredTileTable[(*it)], true);
 		++it;
 	}
 
 	mDeferredList.clear();
+	mDeferredTileTable.clear();
 }
 
 
@@ -177,29 +111,29 @@ bool StructureManager::addStructure(Structure* st, Tile* t, bool clear)
 	if(!t)
 		return false;
 
-	/// We're in the process of updating structures so defer adding until the updates are finished.
+	// We're in the process of updating structures so defer adding until the updates are finished.
 	if(mDeferInsert)
 	{
-		addToList(mDeferredList, st, t);
+		addToList(mDeferredList, mDeferredTileTable, st, t);
 		return false;
 	}
 
-	for (auto it = mStructureList.begin(); it != mStructureList.end(); ++it)
+	for (size_t i = 0; i < mStructureList.size(); ++i)
 	{
-		if(it->first == st)
+		if(mStructureList[i] == st)
 			throw Exception(0, "Duplicate Structure!", "StructureManager::addStructure(): Attempting to add a Structure that's already managed.");
 	}
 
 	if(!clear)
 		t->removeThing();
 
-	addToList(mStructureList, st, t);
+	addToList(mStructureList, mStructureTileTable, st, t);
 	t->pushThing(st);
 	t->thingIsStructure(true);
 
 	if (st->isFactory())
 	{
-		mFactoryList.push_back(st);
+		mFactoryList.push_back(static_cast<Factory*>(st));
 	}
 
 	return true;
@@ -209,39 +143,62 @@ bool StructureManager::addStructure(Structure* st, Tile* t, bool clear)
 /**
  * Adds a Structure to a references list.
  * 
- * \param _sm	Reference to a StructureMap list.
- * \param _st	Pointer to a Structure. TODO: Note assumptions about ownership of this pointer.
+ * \param _list	Reference to a StructureList.
+ * \param _map	Reference to a StructureMap.
+ * \param _st	Pointer to a Structure. NOTE: Structure now becomes owned by StructureManager -- upon destruction memory allocated for the pointers is freed.
  * \param _t	Pointer to a Tile. NOTE: Pointer not owned by StructureManager -- memory managed by TileMap.
  * 
  * \note	Sorts the list by Structure Priority in ascending order. Higher priority structures (like the CC)
  *			will appear at the beginning of the list.
  */
-void StructureManager::addToList(StructureMap& _sm, Structure* _st, Tile* _t)
+void StructureManager::addToList(StructureList& _list, StructureMap& _map, Structure* _st, Tile* _t)
 {
-	_sm.push_back(StructureTilePair(_st, _t));
-	sort(mStructureList.begin(), mStructureList.end(), [](const StructureTilePair& lhs, const StructureTilePair& rhs) { return lhs.first->priority() > rhs.first->priority(); });
+	_list.push_back(_st);
+	sort(mStructureList.begin(), mStructureList.end(), [](const Structure* lhs, const Structure* rhs) { return lhs->priority() > rhs->priority(); });
+
+	_map[_st] = _t;
 }
 
 
 /**
  * Removes a Structure from the StructureManager.
+ * 
+ * \warning	A Structure removed from the StructureManager will be freed.
+ *			Remaining pointers and references will be invalidated.
  *
  * \return	True if removed successfully. False if the structure is not found.
  */
 bool StructureManager::removeStructure(Structure* st)
 {
-	for (auto it = mStructureList.begin(); it != mStructureList.end(); ++it)
+	for (size_t i = 0; i < mStructureList.size(); ++i)
 	{
-		if (it->first == st)
+		if (mStructureList[i] == st)
 		{
-			if (it->first->isFactory())
+			Structure* structure = mStructureList[i];
+
+			auto it = mStructureTileTable.find(st);
+			if (it != mStructureTileTable.end())
 			{
-				auto factIt = find(mFactoryList.begin(), mFactoryList.end(), st);
-				if (factIt != mFactoryList.end())
-					mFactoryList.erase(factIt);
+
+				if (structure->isFactory())
+					removeFactory(static_cast<Factory*>(structure));
+
+				delete structure;
+				structure = nullptr; // seems moot since entry is removed literally on the next line.
+				mStructureList.erase(mStructureList.begin() + i);
+
+				it->second->deleteThing();
+				mStructureTileTable.erase(it);
+
+				return true;
 			}
-			mStructureList.erase(it);
-			return true;
+			else
+			{
+				// If the structure is in the structure list but not in the structure to tile mapping table,
+				// this should be considered a serious problem and we should barf immediately.
+				throw Exception(0, "Rogue Structure!", "StructureManager::removeStructure(): Called with a pointer to a Structure that is not mapped to a Tile!");
+				return false;
+			}
 		}
 	}
 
@@ -251,12 +208,26 @@ bool StructureManager::removeStructure(Structure* st)
 }
 
 
+
+void StructureManager::removeFactory(Factory* _f)
+{
+	for (size_t i = 0; i < mFactoryList.size(); ++i)
+	{
+		if (mFactoryList[i] == _f)
+		{
+			mFactoryList.erase(mFactoryList.begin() + i);
+			return;
+		}
+	}
+}
+
+
 /**
  * Resets the 'connected' flag on all structures in the primary structure list.
  */
 void StructureManager::disconnectAll()
 {
-	for (auto st_it = mStructureList.begin(); st_it != mStructureList.end(); ++st_it)
+	for (auto st_it = mStructureTileTable.begin(); st_it != mStructureTileTable.end(); ++st_it)
 		st_it->second->connected(false);
 }
 
@@ -270,6 +241,6 @@ void StructureManager::printSortedList()
 {
 	cout << endl;
 	for (size_t i = 0; i < mStructureList.size(); ++i)
-		cout << mStructureList[i].first->name() << endl;
+		cout << mStructureList[i]->name() << endl;
 	cout << endl;
 }
