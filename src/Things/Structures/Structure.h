@@ -102,10 +102,10 @@ public:
 	bool isFactory() const { return mIsFactory; }
 
 	void update();
+	virtual void think() {}
+
 
 protected:
-
-	virtual void think() {}
 
 	void turnsToBuild(int _t) { mTurnsToBuild = _t; }
 	void maxAge(int _age) { mMaxAge = _age; }

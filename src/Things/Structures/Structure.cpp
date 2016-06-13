@@ -21,7 +21,7 @@ Structure::Structure(const string& name, const string& sprite_path, StructureTyp
 																						mProvidesCHAP(false),
 																						mSelfSustained(false),
 																						mIsFactory(false)
-		{}
+{}
 
 
 /**
@@ -103,6 +103,15 @@ void Structure::activate()
 }
 
 
+void Structure::update()
+{
+	if (disabled() || destroyed())
+		return;
+
+	incrementAge();
+}
+
+
 /**
  * Updates age of the structure and performs some basic age management logic.
  */
@@ -121,15 +130,6 @@ void Structure::incrementAge()
 }
 
 
-void Structure::update()
-{
-	if (destroyed())
-		return;
-
-	incrementAge();
-	think();
-}
-
 /**
 * Sets a destroyed state.
 *
@@ -145,10 +145,25 @@ void Structure::destroy()
 }
 
 
+/**
+ * Special overidding of Thing::die for Structure.
+ * 
+ * There is no conceivable situation in which a Structure should be marked as 'dead' or have its
+ * 'die' function be called. Such cases should be treated as bad logic and immediately and very
+ * loudly fail.
+ * 
+ * This function exists purely for debug purposes as it was noticed in StructureManager testing
+ * for this flag when there should never be a need to do so.
+ * 
+ * \note	This is for debug purposes only. Release modes will silently ignore this condition
+ *			and simply act as a passthrough.
+ */
 void Structure::die()
 {
 	Thing::die();
-	cout << "Holy shit, a Structure died!!!" << endl;
 
+	#ifdef _DEBUG
+	cout << "Holy shit, a Structure died!!!" << endl;
 	throw Exception(666, "Dead Structure", "Thing::die() was called on a Structure!");
+	#endif
 }

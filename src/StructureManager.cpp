@@ -33,44 +33,73 @@ StructureManager::~StructureManager()
 }
 
 
+bool StructureManager::CHAPAvailable() const
+{
+	for (size_t i = 0; i < mCHAPList.size(); ++i)
+		if (mCHAPList[i]->operational())
+			return true;
+
+	return false;
+}
+
+
 void StructureManager::update(ResourcePool& _r)
 {
-	disconnectAll();
-	updateStructures();
+	//disconnectAll();
+
+	updateStructures(_r);
 	updateFactories();
 }
 
 
-void StructureManager::updateStructures()
+void StructureManager::updateStructures(ResourcePool& _r)
 {
-	mChapActive = false;
+	// Captured here to avoid multiple list searches and to capture CHAP availability at the
+	// beginning of the turn, something that could change during structure update loop.
+	mChapActive = CHAPAvailable();
 
-	// Some structures can generate others (like the seed lander) so we need to make sure that we're
-	// not inserting new structures while we're in the middle of iterating through the current list.
+
 	setDeferredFlag(true);
-
 	Structure* structure = nullptr;
 	for (size_t i = 0; i < mStructureList.size(); ++i)
 	{
 		structure = mStructureList[i];
-
 		structure->update();
 
-		// FIXME:	Naive approach?
-		if (structure->providesCHAP() && structure->operational())
-			mChapActive = true;
+		// State Check
+		// ASSUMPTION:	Construction sites are considered self sufficient until they are
+		//				completed and connected to the rest of the colony.
+		if (structure->underConstruction())
+			continue; // FIXME: smells of bad code, consider a different control path.
 
-		// FIXME: Are there any situations -at all- where a Structure's parent dead flag would be called?
-		if (structure->dead())
-			removeStructure(structure);
+		// Connection Check
+		if (!structure->selfSustained() && !mStructureTileTable[structure]->connected())
+		{
+			structure->disable();
+			continue; // FIXME: smells of bad code, consider a different control path.
+		}
+
+
+		// CHAP Check
+		if (structure->requiresCHAP() && !mChapActive)
+			structure->disable();
+
+		// handle input resources
+		if (structure->resourcesIn().empty() || structure->enoughResourcesAvailable(_r))
+			structure->enable();
+		else
+			structure->disable();
+
+
+		if(structure->operational())
+			structure->think();
+
+		// handle output resources
+
 	}
-
 	setDeferredFlag(false);
 	copyDeferred();
 }
-
-
-
 
 
 void StructureManager::updateFactories()
@@ -80,6 +109,18 @@ void StructureManager::updateFactories()
 		mFactoryList[i]->updateProduction();
 	}
 
+}
+
+
+/**
+ * Sets the deffered insertion flag.
+ * 
+ * Some structures can generated others during their update function (such as the SEED Lander) so
+ * this flag is used to defer structure insertion until after the update loop has completed.
+ */
+void StructureManager::setDeferredFlag(bool _b)
+{
+	mDeferInsert = _b;
 }
 
 
@@ -136,6 +177,9 @@ bool StructureManager::addStructure(Structure* st, Tile* t, bool clear)
 		mFactoryList.push_back(static_cast<Factory*>(st));
 	}
 
+	if (st->providesCHAP())
+		mCHAPList.push_back(st);
+
 	return true;
 }
 
@@ -179,14 +223,17 @@ bool StructureManager::removeStructure(Structure* st)
 			auto it = mStructureTileTable.find(st);
 			if (it != mStructureTileTable.end())
 			{
-
+				
+				// Maintain Factory List
 				if (structure->isFactory())
 					removeFactory(static_cast<Factory*>(structure));
 
-				delete structure;
-				structure = nullptr; // seems moot since entry is removed literally on the next line.
-				mStructureList.erase(mStructureList.begin() + i);
+				// Maintain CHAP List
+				if (structure->providesCHAP())
+					removeStructure(mCHAPList, structure);
 
+				removeStructure(mStructureList, structure);
+				
 				it->second->deleteThing();
 				mStructureTileTable.erase(it);
 
@@ -209,6 +256,11 @@ bool StructureManager::removeStructure(Structure* st)
 
 
 
+/**
+ * Removes a Factory from the Factory List.
+ * 
+ * \note	Does not free memory associated with the Factory.
+ */
 void StructureManager::removeFactory(Factory* _f)
 {
 	for (size_t i = 0; i < mFactoryList.size(); ++i)
@@ -216,6 +268,24 @@ void StructureManager::removeFactory(Factory* _f)
 		if (mFactoryList[i] == _f)
 		{
 			mFactoryList.erase(mFactoryList.begin() + i);
+			return;
+		}
+	}
+}
+
+
+/**
+* Removes a Structure from a given StructureList.
+*
+* \note	Does not free memory associated with the Structure.
+*/
+void StructureManager::removeStructure(StructureList& _sl, Structure* _s)
+{
+	for (size_t i = 0; i < _sl.size(); ++i)
+	{
+		if (_sl[i] == _s)
+		{
+			_sl.erase(_sl.begin() + i);
 			return;
 		}
 	}

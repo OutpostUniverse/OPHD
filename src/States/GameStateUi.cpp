@@ -384,8 +384,13 @@ void GameState::btnTurnsClicked()
 {
 	clearMode();
 
-	mStructureManager.update(mPlayerResources);
+
+	mStructureManager.disconnectAll();
+
 	checkConnectedness();
+
+	mStructureManager.update(mPlayerResources);
+
 
 	updateRobots();
 

@@ -14,6 +14,11 @@
 class StructureManager
 {
 public:
+
+	typedef vector<Structure*> StructureList;
+
+public:
+
 	StructureManager();
 
 	~StructureManager();
@@ -23,6 +28,10 @@ public:
 	bool addStructure(Structure* st, Tile* t, bool clear);
 	bool removeStructure(Structure* st);
 
+	bool CHAPAvailable() const;
+
+	StructureList& CHAPFacilities() { return mCHAPList; }
+
 	void disconnectAll();
 
 	void printSortedList();
@@ -30,23 +39,26 @@ public:
 protected:
 
 	void copyDeferred();
-	void setDeferredFlag(bool _b) { mDeferInsert = _b; }
+	void setDeferredFlag(bool _b);
 
 private:
+
 	typedef map<Structure*, Tile*> StructureMap;
-	typedef vector<Structure*> StructureList;
 	typedef vector<Factory*> FactoryList;
 
-	void updateStructures();
+	void updateStructures(ResourcePool& _r);
 	void updateFactories();
 
 	void addToList(StructureList& _list, StructureMap& _map, Structure* _st, Tile* _t);
 
 	void removeFactory(Factory* _f);
+	void removeStructure(StructureList& _sl, Structure* _s);
 
 
 	StructureList		mStructureList;				/**< List of all structures. */
 	StructureList		mDeferredList;				/**< List of deferred insertions. */
+
+	StructureList		mCHAPList;					/**< List of all CHAP Facilities. */
 
 	FactoryList			mFactoryList;				/**< List of factories. */
 

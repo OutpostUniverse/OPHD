@@ -159,6 +159,12 @@ bool ResourcePool::atCapacity()
 }
 
 
+bool ResourcePool::empty()
+{
+	return currentLevel() == 0;
+}
+
+
 /**
  * Attempt to push the defined amount of a specified resource into a ResourcePool.
  * 

@@ -13,6 +13,8 @@ public:
 		turnsToBuild(3);
 
 		requiresCHAP(false);
+		selfSustained(true);
+
 		priority(PRIORITY_CC);
 	}
 

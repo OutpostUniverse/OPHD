@@ -93,6 +93,8 @@ public:
 
 	bool atCapacity();
 
+	bool empty();
+
 private:
 	typedef std::map<ResourceType, int> ResourceTable;
 

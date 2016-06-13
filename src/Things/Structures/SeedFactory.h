@@ -48,6 +48,13 @@ private:
 	{
 		mResourcesInput.energy(5);
 	}
+
+	virtual void defineResourceValue()
+	{
+		// Resource value if demolished.
+		mResourceValue.commonMetals(20);
+		mResourceValue.rareMetals(5);
+	}
 };
 
 
