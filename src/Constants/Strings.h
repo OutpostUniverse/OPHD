@@ -9,6 +9,9 @@ using namespace std;
 
 namespace constants
 {
+	// MISCELLANEOUS
+	const string	EMPTY_STR = "";
+
 	// ROBOTS
 	const string	ROBODIGGER = "Robodigger";
 	const string	ROBODOZER = "Robodozer";

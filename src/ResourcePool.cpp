@@ -137,6 +137,8 @@ int ResourcePool::currentLevel()
 	cc += resource(RESOURCE_RARE_METALS);
 	cc += resource(RESOURCE_RARE_MINERALS);
 
+	cc += resource(RESOURCE_ENERGY);
+
 	cc += resource(RESOURCE_FOOD);
 
 	return cc;

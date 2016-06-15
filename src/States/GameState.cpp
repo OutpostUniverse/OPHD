@@ -224,8 +224,17 @@ void GameState::drawDebug()
 	r.drawText(mFont, str.str(), 10, 25, 255, 255, 255);
 
 	str.str("");
-	str << "Structure Count: " << mStructureManager.count();
+	str << "Map Dimensions: " << mTileMap.width() << ", " << mTileMap.height();
 	r.drawText(mFont, str.str(), 10, 25 + mFont.height(), 255, 255, 255);
+
+	str.str("");
+	str << "Max Digging Depth: " << mTileMap.maxDepth();
+	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 2, 255, 255, 255);
+
+
+	str.str("");
+	str << "Structure Count: " << mStructureManager.count();
+	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 4, 255, 255, 255);
 }
 
 
@@ -288,10 +297,6 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 
 		case KEY_4:
 			changeDepth(4);
-			break;
-
-		case KEY_F1:
-			mStructureManager.printSortedList();
 			break;
 
 		case KEY_F10:
@@ -431,11 +436,11 @@ void GameState::placeTubes()
 	{
 		// FIXME:	This can be done a lot better.
 		if(mCurrentStructure == SID_TUBE_INTERSECTION)
-			mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), true);
+			mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y));
 		else if (mCurrentStructure == SID_TUBE_RIGHT)
-			mStructureManager.addStructure(new Tube(CONNECTOR_RIGHT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), true);
+			mStructureManager.addStructure(new Tube(CONNECTOR_RIGHT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y));
 		else if (mCurrentStructure == SID_TUBE_LEFT)
-			mStructureManager.addStructure(new Tube(CONNECTOR_LEFT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), true);
+			mStructureManager.addStructure(new Tube(CONNECTOR_LEFT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y));
 		else
 			throw Exception(0, "Structure Not a Tube", "GameState::placeTube() called but Current Structure is not a tube!");
 
@@ -620,11 +625,11 @@ void GameState::diggerTaskFinished(Robot* _r)
 	{
 		AirShaft* as1 = new AirShaft();
 		if (t->depth() > 0) as1->ug();
-		mStructureManager.addStructure(as1, t, false);
+		mStructureManager.addStructure(as1, t);
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
-		mStructureManager.addStructure(as2, mTileMap.getTile(t->x(), t->y(), t->depth() + 1), false);
+		mStructureManager.addStructure(as2, mTileMap.getTile(t->x(), t->y(), t->depth() + 1));
 
 		originX = t->x();
 		originY = t->y();
@@ -685,7 +690,7 @@ void GameState::minerTaskFinished(Robot* _r)
 
 	Tile* t = mRobotList[_r];
 
-	mStructureManager.addStructure(new MineFacility(t->mine()), t, false);
+	mStructureManager.addStructure(new MineFacility(t->mine()), t);
 
 	checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
 }
@@ -736,7 +741,7 @@ void GameState::placeStructure()
 
 		Structure* _s = StructureFactory::get(mCurrentStructure);
 		if (_s)
-			mStructureManager.addStructure(_s, t, false);
+			mStructureManager.addStructure(_s, t);
 	}
 }
 
@@ -813,7 +818,7 @@ void GameState::insertSeedLander(int x, int y)
 
 		SeedLander* s = new SeedLander(x, y);
 		s->deployCallback().Connect(this, &GameState::deploySeedLander);
-		mStructureManager.addStructure(s, mTileMap.getTile(x, y), true); // Can only ever be placed on depth level 0
+		mStructureManager.addStructure(s, mTileMap.getTile(x, y)); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();
@@ -848,25 +853,25 @@ void GameState::deploySeedLander(int x, int y)
 	mTileMap.getTile(x, y)->index(TERRAIN_DOZED);
 	
 	// TOP ROW
-	mStructureManager.addStructure(new SeedPower(), mTileMap.getTile(x - 1, y - 1), true);
+	mStructureManager.addStructure(new SeedPower(), mTileMap.getTile(x - 1, y - 1));
 	mTileMap.getTile(x - 1, y - 1)->index(TERRAIN_DOZED);
 
-	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x, y - 1), true);
+	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x, y - 1));
 	mTileMap.getTile(x, y - 1)->index(TERRAIN_DOZED);
 
 	CommandCenter* cc = new CommandCenter();
 	cc->sprite().skip(3);
-	mStructureManager.addStructure(cc, mTileMap.getTile(x + 1, y - 1), true);
+	mStructureManager.addStructure(cc, mTileMap.getTile(x + 1, y - 1));
 	mTileMap.getTile(x + 1, y - 1)->index(TERRAIN_DOZED);
 	mCCLocation(x + 1, y - 1);
 
 
 	// MIDDLE ROW
 	mTileMap.getTile(x - 1, y)->index(TERRAIN_DOZED);
-	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x - 1, y), true);
+	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x - 1, y));
 
 	mTileMap.getTile(x + 1, y)->index(TERRAIN_DOZED);
-	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x + 1, y), true);
+	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x + 1, y));
 
 
 	// BOTTOM ROW
@@ -874,16 +879,16 @@ void GameState::deploySeedLander(int x, int y)
 	sf->resourcePool(&mPlayerResources);
 	sf->robotPool(&mRobotPool);
 	sf->sprite().skip(7);
-	mStructureManager.addStructure(sf, mTileMap.getTile(x - 1, y + 1), true);
+	mStructureManager.addStructure(sf, mTileMap.getTile(x - 1, y + 1));
 	mTileMap.getTile(x - 1, y + 1)->index(TERRAIN_DOZED);
 
 	mTileMap.getTile(x, y + 1)->index(TERRAIN_DOZED);
-	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x, y + 1), true);
+	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x, y + 1));
 
 	SeedSmelter* ss = new SeedSmelter();
 	ss->resourcePool(&mPlayerResources);
 	ss->sprite().skip(10);
-	mStructureManager.addStructure(ss, mTileMap.getTile(x + 1, y + 1), true);
+	mStructureManager.addStructure(ss, mTileMap.getTile(x + 1, y + 1));
 	mTileMap.getTile(x + 1, y + 1)->index(TERRAIN_DOZED);
 
 	// Enable UI Contruction Buttons

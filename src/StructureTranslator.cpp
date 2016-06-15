@@ -22,10 +22,8 @@ const std::string& StructureTranslator::translateToString(StructureID _s)
 	if (_structureToStringTable.empty())
 		buildTables();
 
-	// Compiler warning -- this is/will be a bug at some point that will probably manifest as
-	// a null pointer or bad access crash (dangling pointer).
 	if (_structureToStringTable.find(_s) == _structureToStringTable.end())
-		return "";
+		return constants::EMPTY_STR;
 
 	return _structureToStringTable[_s];	
 }

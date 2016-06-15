@@ -14,65 +14,41 @@
 class StructureManager
 {
 public:
-
 	typedef vector<Structure*> StructureList;
 
 public:
-
 	StructureManager();
-
 	~StructureManager();
 
-	void update(ResourcePool& _r);
-
-	void addStructure(Structure* st, Tile* t, bool clear);
+	void addStructure(Structure* st, Tile* t);
 	void removeStructure(Structure* st);
 
-	bool CHAPAvailable() const;
-
-	StructureList& CHAPFacilities() { return mCHAPFacilities; }
+	StructureList& structureList(Structure::StructureType _st) { return mStructureLists[_st]; }
 
 	void disconnectAll();
 
-	void printSortedList();
+	bool CHAPAvailable();
+	int count() const;
 
-	int count() const { return mStructures.size(); }
+	void update(ResourcePool& _r);
 
 protected:
 
-	void copyDeferred();
-	void setDeferredFlag(bool _b);
-
 private:
-	typedef map<Structure*, Tile*> StructureMap;
 	typedef vector<Factory*> FactoryList;
+	typedef map<Structure*, Tile*> StructureTileTable;
+	typedef map<Structure::StructureType, StructureList> StructureTypeTable;
+
 
 private:
-	void updateStructures(ResourcePool& _r);
-	void updateFactories();
-
-	void addToList(StructureList& _list, StructureMap& _map, Structure* _st, Tile* _t);
-	void addToSpecialtyLists(Structure* st);
-
-	void removeFactory(Factory* _f);
-	void removeStructure(StructureList& _sl, Structure* _s);
-
-	void cleanSpecialtyLists(Structure* st);
+	void updateStructures(ResourcePool& _r, StructureList& _sl);
+	void updateFactoryProduction();
 
 	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }
 
 private:
-	StructureList		mStructures;				/**< List of all structures. */
-	StructureList		mDeferredList;				/**< List of deferred insertions. */
+	StructureTileTable	mStructureTileTable;		/**< List mapping Structure's to a particular tile. */
+	StructureTypeTable	mStructureLists;			/**< Map containing all of the structure list types available. */
 
-	StructureList		mCHAPFacilities;			/**< List of all CHAP Facilities. */
-	StructureList		mEnergyProducers;			/**< List of all Energy Producing structures. */
-
-	FactoryList			mFactories;					/**< List of factories. */
-
-	StructureMap		mStructureTileTable;		/**< List mapping Structure's to a particular tile. */
-	StructureMap		mDeferredTileTable;			/**< Deferred list mapping Structure's to a particular tile. */
-
-	bool				mDeferInsert;				/**< Flag indicating that we're accessing the structure list and insertions should be deferred. */
 	bool				mChapActive;				/**< Flag indicating that there is a functioning CHAP Facility. */
 };

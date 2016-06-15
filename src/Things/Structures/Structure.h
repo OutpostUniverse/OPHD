@@ -80,18 +80,13 @@ public:
 
 	// ATTRIBUTES
 	StructurePriority priority() const { return mStructurePriority; }
-
 	StructureType type() const { return mStructureType; }
+	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
 	int id() const { return mId; }
 	int turnsToBuild() const { return mTurnsToBuild; }
 	int age() const { return mAge; }
 	int maxAge() const { return mMaxAge; }
-
-	bool repairable() const { return mRepairable; }
-
-	bool isConnector() const { return type() == STRUCTURE_TUBE; } /** Indicates that the structure can act as a connector (tube) */
-	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
@@ -99,7 +94,10 @@ public:
 	bool selfSustained() const { return mSelfSustained; }
 	bool isFactory() const { return type() == STRUCTURE_FACTORY; }
 	bool energyProducer() const { return type() == STRUCTURE_ENERGY_PRODUCTION; }
+	bool repairable() const { return mRepairable; }
+	bool isConnector() const { return type() == STRUCTURE_TUBE; } /** Indicates that the structure can act as a connector (tube) */
 
+	// BASIC FUNCTIONS
 	void update();
 	virtual void think() {}
 
