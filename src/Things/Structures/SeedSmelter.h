@@ -13,7 +13,6 @@ public:
 		maxAge(100);
 		turnsToBuild(9);
 		requiresCHAP(false);
-		isFactory(false);
 	}
 
 	~SeedSmelter()

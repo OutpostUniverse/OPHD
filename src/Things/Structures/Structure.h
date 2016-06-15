@@ -97,9 +97,10 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
-	bool providesCHAP() const { return mProvidesCHAP; }
+	bool providesCHAP() const { return type() == STRUCTURE_ATMOSPHERE_PRODUCTION; }
 	bool selfSustained() const { return mSelfSustained; }
-	bool isFactory() const { return mIsFactory; }
+	bool isFactory() const { return type() == STRUCTURE_FACTORY; }
+	bool energyProducer() const { return type() == STRUCTURE_ENERGY_PRODUCTION; }
 
 	void update();
 	virtual void think() {}
@@ -132,13 +133,10 @@ protected:
 	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
 
 	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
-	void providesCHAP(bool _b) { mProvidesCHAP = _b; }
 	void selfSustained(bool _b) { mSelfSustained = _b; }
 
-	void isFactory(bool _b) { mIsFactory = _b; }
-
 	void priority(StructurePriority _sp) { mStructurePriority = _sp; }
-	void type(StructureType _t) { mStructureType = _t; }
+	//void type(StructureType _t) { mStructureType = _t; }
 
 	ResourcePool			mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
 	
@@ -176,7 +174,5 @@ private:
 	bool					mRepairable;				/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures die at the end of their life. */
 	bool					mConnector;					/**< Indicates that the Structure can act as a connector (tube) */
 	bool					mRequiresCHAP;				/**< Indicates that the Structure needs to have an active CHAP facilities in order to operate. */
-	bool					mProvidesCHAP;				/**< Indicates that the Strcuture provides CHAP. */
 	bool					mSelfSustained;				/**< Indicates that the Strcutre is self contained and can operate by itself. */
-	bool					mIsFactory;					/**< Indicates that the Structure is a factory. */
 };

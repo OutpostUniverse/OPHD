@@ -13,7 +13,6 @@ public:
 		maxAge(200);
 		turnsToBuild(7);
 		requiresCHAP(false);
-		isFactory(true);
 
 		initFactory();
 	}

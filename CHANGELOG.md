@@ -11,7 +11,7 @@ This version includes all revisions from r46 to rXX.
 - Added a sanity check to GraphWalker class to avoid or note potential null pointer accesses.
 - Added a CHAP Structure List to StructureManager to maintain a list of CHAP facilities. Necessary changes to maintain list (add structure, remove structure, clear) were made.
 - StructureManager now provides a list of CHAP Facilities.
-- 
+- Added an energyProducer() identifier function to Structure.
 
 ### Changed
 - Moved sprite coloration calls from StructureManager to Structure.
@@ -28,6 +28,9 @@ This version includes all revisions from r46 to rXX.
 - Modified StructureManager such that we can use dependency injection to provide the player's resource pool to structures without having to make it a global variable.
 - Added several convenience functions to help manage lists of specific types of structures within the StructureManager.
 - Updated StructureManager interfaces for addStructure() and removeStructure() -- these functions no longer return a boolean value (never used, overcomplicates the logic, etc.)
+- Renamed elements in StructureID to prevent future naming conflicts with StructureType enumeration.
+- Updated all code to reflect the change in StructureID naming.
+- Updated Structure to take advantage of the StructureType enumerator instead of storing and setting boolean flags for things like isFactory, providesCHAP, etc.
 
 ### Fixed
 - Fixed a mistake in GameState in which clicks within the digger direction dialog were ignored when the dialog was hidden.

@@ -12,7 +12,6 @@ public:
 		turnsToBuild(5);
 
 		requiresCHAP(false);
-		providesCHAP(true);
 
 		priority(PRIORITY_HIGH);
 	}
