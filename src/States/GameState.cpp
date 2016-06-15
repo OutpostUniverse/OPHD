@@ -221,7 +221,11 @@ void GameState::drawDebug()
 
 	stringstream str;
 	str << "FPS: " << mFps.fps();
-	r.drawText(mTinyFont, str.str(), 10, 10, 255, 255, 255);
+	r.drawText(mFont, str.str(), 10, 25, 255, 255, 255);
+
+	str.str("");
+	str << "Structure Count: " << mStructureManager.count();
+	r.drawText(mFont, str.str(), 10, 25 + mFont.height(), 255, 255, 255);
 }
 
 
@@ -288,6 +292,10 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 
 		case KEY_F1:
 			mStructureManager.printSortedList();
+			break;
+
+		case KEY_F10:
+			mDebug = !mDebug;
 			break;
 
 		case KEY_ESCAPE:

@@ -48,8 +48,6 @@ public:
 
 	Structure(const std::string& name, const std::string& sprite_path, StructureType _t);
 	virtual ~Structure();
-
-	//bool operator< (const Structure& rhs) const { return mStructurePriority > rhs.mStructurePriority; }
 	
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }
@@ -92,7 +90,7 @@ public:
 
 	bool repairable() const { return mRepairable; }
 
-	bool isConnector() const { return mConnector; } /** Indicates that the structure can act as a connector (tube) */
+	bool isConnector() const { return type() == STRUCTURE_TUBE; } /** Indicates that the structure can act as a connector (tube) */
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
 	// FLAGS
@@ -129,7 +127,6 @@ protected:
 
 	void activate();
 
-	void isConnector(bool _b) { mConnector = _b; }
 	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
 
 	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
@@ -171,8 +168,7 @@ private:
 
 	ConnectorDir			mConnectorDirection;		/**< Directions available for connections. */
 
-	bool					mRepairable;				/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures die at the end of their life. */
-	bool					mConnector;					/**< Indicates that the Structure can act as a connector (tube) */
-	bool					mRequiresCHAP;				/**< Indicates that the Structure needs to have an active CHAP facilities in order to operate. */
-	bool					mSelfSustained;				/**< Indicates that the Strcutre is self contained and can operate by itself. */
+	bool					mRepairable;				/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
+	bool					mRequiresCHAP;				/**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
+	bool					mSelfSustained;				/**< Indicates that the Structure is self contained and can operate by itself. */
 };

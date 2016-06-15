@@ -13,30 +13,18 @@ StructureManager::StructureManager() :	mDeferInsert(false),
 /**
  * D'tor
  * 
- * Frees memory for all managed Structures.
- * 
- * \warning	Any remaining pointers to Structures that have been managed
- *			by the StructureManager will be invalid.
+ * \note	Things (aka Structures) are deleted whenever a Tile
+ *			is deleted so this d'tor really doesn't need to do
+ *			anything special.
  */
 StructureManager::~StructureManager()
-{
-	if (mStructureList.empty())
-		return;
-
-	for (auto it = mStructureList.begin(); it != mStructureList.end(); ++it)
-	{
-		mStructureTileTable[*it]->deleteThing();
-	}
-
-	mStructureList.clear(); // Redundant?
-	mStructureTileTable.clear(); // Redundant?
-}
+{}
 
 
 bool StructureManager::CHAPAvailable() const
 {
-	for (size_t i = 0; i < mCHAPList.size(); ++i)
-		if (mCHAPList[i]->operational())
+	for (size_t i = 0; i < mCHAPFacilities.size(); ++i)
+		if (mCHAPFacilities[i]->operational())
 			return true;
 
 	return false;
@@ -45,8 +33,6 @@ bool StructureManager::CHAPAvailable() const
 
 void StructureManager::update(ResourcePool& _r)
 {
-	//disconnectAll();
-
 	updateStructures(_r);
 	updateFactories();
 }
@@ -61,9 +47,9 @@ void StructureManager::updateStructures(ResourcePool& _r)
 
 	setDeferredFlag(true);
 	Structure* structure = nullptr;
-	for (size_t i = 0; i < mStructureList.size(); ++i)
+	for (size_t i = 0; i < mStructures.size(); ++i)
 	{
-		structure = mStructureList[i];
+		structure = mStructures[i];
 		structure->update();
 
 		// State Check
@@ -73,12 +59,11 @@ void StructureManager::updateStructures(ResourcePool& _r)
 			continue; // FIXME: smells of bad code, consider a different control path.
 
 		// Connection Check
-		if (!structure->selfSustained() && !mStructureTileTable[structure]->connected())
+		if (!structure->selfSustained() && !structureConnected(structure))
 		{
 			structure->disable();
 			continue; // FIXME: smells of bad code, consider a different control path.
 		}
-
 
 		// CHAP Check
 		if (structure->requiresCHAP() && !mChapActive)
@@ -89,7 +74,6 @@ void StructureManager::updateStructures(ResourcePool& _r)
 			structure->enable();
 		else
 			structure->disable();
-
 
 		if(structure->operational())
 			structure->think();
@@ -104,9 +88,9 @@ void StructureManager::updateStructures(ResourcePool& _r)
 
 void StructureManager::updateFactories()
 {
-	for (size_t i = 0; i < mFactoryList.size(); ++i)
+	for (size_t i = 0; i < mFactories.size(); ++i)
 	{
-		mFactoryList[i]->updateProduction();
+		mFactories[i]->updateProduction();
 	}
 
 }
@@ -157,26 +141,33 @@ void StructureManager::addStructure(Structure* st, Tile* t, bool clear)
 		return;
 	}
 
-	for (size_t i = 0; i < mStructureList.size(); ++i)
+	for (size_t i = 0; i < mStructures.size(); ++i)
 	{
-		if(mStructureList[i] == st)
+		if(mStructures[i] == st)
 			throw Exception(0, "Duplicate Structure!", "StructureManager::addStructure(): Attempting to add a Structure that's already managed.");
 	}
 
 	if(!clear)
 		t->removeThing();
 
-	addToList(mStructureList, mStructureTileTable, st, t);
+	addToList(mStructures, mStructureTileTable, st, t);
 	t->pushThing(st);
 	t->thingIsStructure(true);
 
+	addToSpecialtyLists(st);
+}
+
+
+void StructureManager::addToSpecialtyLists(Structure* st)
+{
 	if (st->isFactory())
-	{
-		mFactoryList.push_back(static_cast<Factory*>(st));
-	}
+		mFactories.push_back(static_cast<Factory*>(st));
 
 	if (st->providesCHAP())
-		mCHAPList.push_back(st);
+		mCHAPFacilities.push_back(st);
+
+	if (st->energyProducer())
+		mEnergyProducers.push_back(st);
 }
 
 
@@ -194,7 +185,7 @@ void StructureManager::addStructure(Structure* st, Tile* t, bool clear)
 void StructureManager::addToList(StructureList& _list, StructureMap& _map, Structure* _st, Tile* _t)
 {
 	_list.push_back(_st);
-	sort(mStructureList.begin(), mStructureList.end(), [](const Structure* lhs, const Structure* rhs) { return lhs->priority() > rhs->priority(); });
+	sort(_list.begin(), _list.end(), [](const Structure* lhs, const Structure* rhs) { return lhs->priority() > rhs->priority(); });
 
 	_map[_st] = _t;
 }
@@ -210,24 +201,18 @@ void StructureManager::addToList(StructureList& _list, StructureMap& _map, Struc
  */
 void StructureManager::removeStructure(Structure* st)
 {
-	for (size_t i = 0; i < mStructureList.size(); ++i)
+	for (size_t i = 0; i < mStructures.size(); ++i)
 	{
-		if (mStructureList[i] == st)
+		if (mStructures[i] == st)
 		{
-			Structure* structure = mStructureList[i];
+			Structure* structure = mStructures[i];
 
 			auto it = mStructureTileTable.find(st);
 			if (it != mStructureTileTable.end())
 			{
 				
-				// Maintain Specialzied Lists
-				if (structure->isFactory())
-					removeFactory(static_cast<Factory*>(structure));
-
-				if (structure->providesCHAP())
-					removeStructure(mCHAPList, structure);
-
-				removeStructure(mStructureList, structure);
+				cleanSpecialtyLists(structure);
+				removeStructure(mStructures, structure);
 				
 				it->second->deleteThing();
 				mStructureTileTable.erase(it);
@@ -248,7 +233,6 @@ void StructureManager::removeStructure(Structure* st)
 }
 
 
-
 /**
  * Removes a Factory from the Factory List.
  * 
@@ -259,14 +243,31 @@ void StructureManager::removeStructure(Structure* st)
  */
 void StructureManager::removeFactory(Factory* _f)
 {
-	for (size_t i = 0; i < mFactoryList.size(); ++i)
+	for (size_t i = 0; i < mFactories.size(); ++i)
 	{
-		if (mFactoryList[i] == _f)
+		if (mFactories[i] == _f)
 		{
-			mFactoryList.erase(mFactoryList.begin() + i);
+			mFactories.erase(mFactories.begin() + i);
 			return;
 		}
 	}
+}
+
+
+/**
+ * Removes 
+ */
+void StructureManager::cleanSpecialtyLists(Structure* st)
+{
+	if (st->isFactory())
+		removeFactory(static_cast<Factory*>(st));
+
+	if (st->providesCHAP())
+		removeStructure(mCHAPFacilities, st);
+
+	if (st->energyProducer())
+		removeStructure(mEnergyProducers, st);
+
 }
 
 
@@ -277,14 +278,10 @@ void StructureManager::removeFactory(Factory* _f)
 */
 void StructureManager::removeStructure(StructureList& _sl, Structure* _s)
 {
-	for (size_t i = 0; i < _sl.size(); ++i)
-	{
-		if (_sl[i] == _s)
-		{
-			_sl.erase(_sl.begin() + i);
-			return;
-		}
-	}
+	auto it = find(_sl.begin(), _sl.end(), _s);
+	
+	if (it != _sl.end())
+	_sl.erase(it);
 }
 
 
@@ -301,12 +298,14 @@ void StructureManager::disconnectAll()
 /**
  * Outputs the primary structure list.
  * 
- * Debug aid to demonstrate structure priority sorting is correct.
+ * Debug aid to demonstrate structure priority sorting is correct. Does nothing in Release mode.
  */
 void StructureManager::printSortedList()
 {
+	#ifdef _DEBUG
 	cout << endl;
-	for (size_t i = 0; i < mStructureList.size(); ++i)
-		cout << mStructureList[i]->name() << endl;
+	for (size_t i = 0; i < mStructures.size(); ++i)
+		cout << mStructures[i]->name() << endl;
 	cout << endl;
+	#endif
 }

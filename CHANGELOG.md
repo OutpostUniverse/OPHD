@@ -31,6 +31,8 @@ This version includes all revisions from r46 to rXX.
 - Renamed elements in StructureID to prevent future naming conflicts with StructureType enumeration.
 - Updated all code to reflect the change in StructureID naming.
 - Updated Structure to take advantage of the StructureType enumerator instead of storing and setting boolean flags for things like isFactory, providesCHAP, etc.
+- StructureManager now handles energy producing structures.
+- Debug information can be turned on and off with the F10 key (defaults to off).
 
 ### Fixed
 - Fixed a mistake in GameState in which clicks within the digger direction dialog were ignored when the dialog was hidden.

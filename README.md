@@ -59,5 +59,6 @@ Alternatively, you can hop onto IRC and join OPU's official IRC channel and ask 
 ##Maintainers
 OutpostHD is developed and maintained by the following contributors:
 
-Leeor Dicker (aka leeor_net)
-	- *Design & Programming*
+- Leeor Dicker (aka leeor_net): *Design & Programming*
+- Hooman: *Design & Programming Assistance*
+- Casper van Heck (aka vomov): *Research Tree & Design*

@@ -127,7 +127,6 @@ private:
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t);
 
 	FpsCounter			mFps;
-	Timer				mMoveTimer;
 
 	Font				mFont;
 	Font				mTinyFont;

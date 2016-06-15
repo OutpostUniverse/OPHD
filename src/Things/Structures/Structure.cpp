@@ -16,7 +16,6 @@ Structure::Structure(const string& name, const string& sprite_path, StructureTyp
 																						mStructureType(_t),
 																						mConnectorDirection(CONNECTOR_INTERSECTION),
 																						mRepairable(true),
-																						mConnector(false),
 																						mRequiresCHAP(true), // Most structures require a CHAP facility in order to operate.
 																						mSelfSustained(false)
 {}

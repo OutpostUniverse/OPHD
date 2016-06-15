@@ -30,11 +30,13 @@ public:
 
 	bool CHAPAvailable() const;
 
-	StructureList& CHAPFacilities() { return mCHAPList; }
+	StructureList& CHAPFacilities() { return mCHAPFacilities; }
 
 	void disconnectAll();
 
 	void printSortedList();
+
+	int count() const { return mStructures.size(); }
 
 protected:
 
@@ -42,25 +44,31 @@ protected:
 	void setDeferredFlag(bool _b);
 
 private:
-
 	typedef map<Structure*, Tile*> StructureMap;
 	typedef vector<Factory*> FactoryList;
 
+private:
 	void updateStructures(ResourcePool& _r);
 	void updateFactories();
 
 	void addToList(StructureList& _list, StructureMap& _map, Structure* _st, Tile* _t);
+	void addToSpecialtyLists(Structure* st);
 
 	void removeFactory(Factory* _f);
 	void removeStructure(StructureList& _sl, Structure* _s);
 
+	void cleanSpecialtyLists(Structure* st);
 
-	StructureList		mStructureList;				/**< List of all structures. */
+	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }
+
+private:
+	StructureList		mStructures;				/**< List of all structures. */
 	StructureList		mDeferredList;				/**< List of deferred insertions. */
 
-	StructureList		mCHAPList;					/**< List of all CHAP Facilities. */
+	StructureList		mCHAPFacilities;			/**< List of all CHAP Facilities. */
+	StructureList		mEnergyProducers;			/**< List of all Energy Producing structures. */
 
-	FactoryList			mFactoryList;				/**< List of factories. */
+	FactoryList			mFactories;					/**< List of factories. */
 
 	StructureMap		mStructureTileTable;		/**< List mapping Structure's to a particular tile. */
 	StructureMap		mDeferredTileTable;			/**< Deferred list mapping Structure's to a particular tile. */

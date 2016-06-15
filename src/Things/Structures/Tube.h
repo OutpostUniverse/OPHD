@@ -7,7 +7,6 @@ public:
 	Tube(ConnectorDir _cd, bool underground) :	Structure(constants::TUBE, "structures/tubes.sprite", STRUCTURE_TUBE),
 												mUnderground(underground)
 	{
-		isConnector(true);
 		connectorDirection(_cd);
 		requiresCHAP(false);
 

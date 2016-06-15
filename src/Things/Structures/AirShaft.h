@@ -12,7 +12,6 @@ public:
 		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
 		maxAge(400);
 
-		isConnector(true);
 		connectorDirection(CONNECTOR_VERTICAL);
 
 		requiresCHAP(false);
