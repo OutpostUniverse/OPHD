@@ -45,7 +45,7 @@ GameState::GameState(const string& map, const string& tset):	mFont("fonts/Fresca
 																mHeightMap(map + MAP_TERRAIN_EXTENSION),
 																mUiIcons("ui/icons.png"),
 																mCurrentPointer(POINTER_NORMAL),
-																mCurrentStructure(STRUCTURE_NONE),
+																mCurrentStructure(SID_NONE),
 																mDiggerDirection(mTinyFont),
 																mTileInspector(mTinyFont),
 																mFactoryProduction(mTinyFont),
@@ -316,7 +316,7 @@ void GameState::clearMode()
 	mInsertMode = INSERT_NONE;
 	mCurrentPointer = POINTER_NORMAL;
 
-	mCurrentStructure = STRUCTURE_NONE;
+	mCurrentStructure = SID_NONE;
 	mCurrentRobot = ROBOT_NONE;
 
 	clearSelections();
@@ -422,11 +422,11 @@ void GameState::placeTubes()
 	if (validTubeConnection(x, y, mCurrentStructure))
 	{
 		// FIXME:	This can be done a lot better.
-		if(mCurrentStructure == STRUCTURE_TUBE_INTERSECTION)
+		if(mCurrentStructure == SID_TUBE_INTERSECTION)
 			mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), true);
-		else if (mCurrentStructure == STRUCTURE_TUBE_RIGHT)
+		else if (mCurrentStructure == SID_TUBE_RIGHT)
 			mStructureManager.addStructure(new Tube(CONNECTOR_RIGHT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), true);
-		else if (mCurrentStructure == STRUCTURE_TUBE_LEFT)
+		else if (mCurrentStructure == SID_TUBE_LEFT)
 			mStructureManager.addStructure(new Tube(CONNECTOR_LEFT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y), true);
 		else
 			throw Exception(0, "Structure Not a Tube", "GameState::placeTube() called but Current Structure is not a tube!");
@@ -688,7 +688,7 @@ void GameState::minerTaskFinished(Robot* _r)
  */
 void GameState::placeStructure()
 {
-	if (mCurrentStructure == STRUCTURE_NONE)
+	if (mCurrentStructure == SID_NONE)
 	{
 		#ifdef _DEBUG
 		throw Exception(0, "Invalid call to placeStructure()", "GameState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE");
@@ -703,7 +703,7 @@ void GameState::placeStructure()
 	if(!t)
 		return;
 
-	if(t->mine() || t->thing() || !t->bulldozed() && mCurrentStructure != STRUCTURE_SEED_LANDER)
+	if(t->mine() || t->thing() || !t->bulldozed() && mCurrentStructure != SID_SEED_LANDER)
 	{
 		// TODO: Make this issue obvious to the user in the game's UI so there is no
 		// confusion as to why the structure wasn't placed.
@@ -712,7 +712,7 @@ void GameState::placeStructure()
 	}
 
 	// Seed lander is a special case and only one can ever be placed by the player ever.
-	if(mCurrentStructure == STRUCTURE_SEED_LANDER)
+	if(mCurrentStructure == SID_SEED_LANDER)
 	{
 		insertSeedLander(mTileMapMouseHover.x(), mTileMapMouseHover.y());
 	}
@@ -936,7 +936,7 @@ void GameState::updateRobots()
 void GameState::setStructureID(StructureID type, InsertMode mode)
 {
 
-	if (type == STRUCTURE_NONE)
+	if (type == SID_NONE)
 	{
 		clearMode();
 		return;

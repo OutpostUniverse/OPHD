@@ -26,7 +26,7 @@ bool checkTubeConnection(Tile* tile, Direction dir, StructureID type)
 
 	Structure* _structure = tile->structure();
 
-	if (type == STRUCTURE_TUBE_INTERSECTION)
+	if (type == SID_TUBE_INTERSECTION)
 	{
 		if (dir == DIR_EAST || dir == DIR_WEST)
 		{
@@ -39,12 +39,12 @@ bool checkTubeConnection(Tile* tile, Direction dir, StructureID type)
 				return true;
 		}
 	}
-	else if (type == STRUCTURE_TUBE_RIGHT && (dir == DIR_EAST || dir == DIR_WEST))
+	else if (type == SID_TUBE_RIGHT && (dir == DIR_EAST || dir == DIR_WEST))
 	{
 		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
 			return true;
 	}
-	else if (type == STRUCTURE_TUBE_LEFT && (dir == DIR_NORTH || dir == DIR_SOUTH))
+	else if (type == SID_TUBE_LEFT && (dir == DIR_NORTH || dir == DIR_SOUTH))
 	{
 		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
 			return true;

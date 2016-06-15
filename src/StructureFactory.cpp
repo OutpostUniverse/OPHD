@@ -9,28 +9,28 @@ Structure* StructureFactory::get(StructureID type)
 	// derived types.
 	switch (type)
 	{
-		case STRUCTURE_NONE:
+		case SID_NONE:
 			break;
 
-		case STRUCTURE_AGRIDOME:
+		case SID_AGRIDOME:
 			_st = new Agridome();
 			break;
-		case STRUCTURE_AIR_SHAFT:
+		case SID_AIR_SHAFT:
 			_st = new AirShaft();
 			break;
-		case STRUCTURE_CHAP:
+		case SID_CHAP:
 			_st = new CHAP();
 			break;
-		case STRUCTURE_COMMAND_CENTER:
+		case SID_COMMAND_CENTER:
 			_st = new CommandCenter();
 			break;
-		case STRUCTURE_SEED_FACTORY:
+		case SID_SEED_FACTORY:
 			_st = new SeedFactory();
 			break;
-		case STRUCTURE_SEED_POWER:
+		case SID_SEED_POWER:
 			_st = new SeedPower();
 			break;
-		case STRUCTURE_SEED_SMELTER:
+		case SID_SEED_SMELTER:
 			_st = new SeedSmelter();
 			break;
 		default:
