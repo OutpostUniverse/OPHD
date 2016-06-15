@@ -105,8 +105,8 @@ int ResourcePool::commonMinerals() { return resource(RESOURCE_COMMON_MINERALS); 
 int ResourcePool::rareMetals() { return resource(RESOURCE_RARE_METALS); }
 int ResourcePool::rareMinerals() { return resource(RESOURCE_RARE_MINERALS); }
 
-int ResourcePool::energy() { return resource(RESOURCE_FOOD); }
-int ResourcePool::food() { return resource(RESOURCE_ENERGY); }
+int ResourcePool::energy() { return resource(RESOURCE_ENERGY); }
+int ResourcePool::food() { return resource(RESOURCE_FOOD); }
 
 void ResourcePool::commonMetalsOre(int _i) { resource(RESOURCE_COMMON_METALS_ORE, _i); }
 void ResourcePool::commonMineralsOre(int _i) { resource(RESOURCE_COMMON_MINERALS_ORE, _i); }
@@ -118,8 +118,8 @@ void ResourcePool::commonMinerals(int _i) { resource(RESOURCE_COMMON_MINERALS, _
 void ResourcePool::rareMetals(int _i) { resource(RESOURCE_RARE_METALS, _i); }
 void ResourcePool::rareMinerals(int _i) { resource(RESOURCE_RARE_MINERALS, _i); }
 
-void ResourcePool::energy(int _i) { resource(RESOURCE_FOOD, _i); }
-void ResourcePool::food(int _i) { resource(RESOURCE_ENERGY, _i); }
+void ResourcePool::energy(int _i) { resource(RESOURCE_ENERGY, _i); }
+void ResourcePool::food(int _i) { resource(RESOURCE_FOOD, _i); }
 
 
 /**

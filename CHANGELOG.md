@@ -38,6 +38,7 @@ This version includes all revisions from r46 to rXX.
 - Fixed a mistake in GameState in which clicks within the digger direction dialog were ignored when the dialog was hidden.
 - Fixed a mistake in the logic of several Structures that would make inappropriate calls to incrementAge().
 - Fixed a logic mistake in MineFacility that would set the building to Idle as soon as it became active.
+- Fixed a mistake in ResourcePool where reporting and setting food and energy values were swapped.
 
 
 
