@@ -143,20 +143,18 @@ void StructureManager::copyDeferred()
 /**
  * Adds a new Structure to the StructureManager.
  * 
- * \return	True if added successfully. False if the structure is a duplicated.
- * 
  * \param	Call tile method that frees memory or not.
  */
-bool StructureManager::addStructure(Structure* st, Tile* t, bool clear)
+void StructureManager::addStructure(Structure* st, Tile* t, bool clear)
 {
 	if(!t)
-		return false;
+		return;
 
 	// We're in the process of updating structures so defer adding until the updates are finished.
 	if(mDeferInsert)
 	{
 		addToList(mDeferredList, mDeferredTileTable, st, t);
-		return false;
+		return;
 	}
 
 	for (size_t i = 0; i < mStructureList.size(); ++i)
@@ -179,8 +177,6 @@ bool StructureManager::addStructure(Structure* st, Tile* t, bool clear)
 
 	if (st->providesCHAP())
 		mCHAPList.push_back(st);
-
-	return true;
 }
 
 
@@ -212,7 +208,7 @@ void StructureManager::addToList(StructureList& _list, StructureMap& _map, Struc
  *
  * \return	True if removed successfully. False if the structure is not found.
  */
-bool StructureManager::removeStructure(Structure* st)
+void StructureManager::removeStructure(Structure* st)
 {
 	for (size_t i = 0; i < mStructureList.size(); ++i)
 	{
@@ -224,11 +220,10 @@ bool StructureManager::removeStructure(Structure* st)
 			if (it != mStructureTileTable.end())
 			{
 				
-				// Maintain Factory List
+				// Maintain Specialzied Lists
 				if (structure->isFactory())
 					removeFactory(static_cast<Factory*>(structure));
 
-				// Maintain CHAP List
 				if (structure->providesCHAP())
 					removeStructure(mCHAPList, structure);
 
@@ -237,21 +232,19 @@ bool StructureManager::removeStructure(Structure* st)
 				it->second->deleteThing();
 				mStructureTileTable.erase(it);
 
-				return true;
+				return;
 			}
 			else
 			{
 				// If the structure is in the structure list but not in the structure to tile mapping table,
 				// this should be considered a serious problem and we should barf immediately.
 				throw Exception(0, "Rogue Structure!", "StructureManager::removeStructure(): Called with a pointer to a Structure that is not mapped to a Tile!");
-				return false;
 			}
 		}
 	}
 
 	// If we hit this point we're calling the remove function on a structure that was never added to the manager which == BAD
 	throw Exception(0, "Rogue Structure!", "StructureManager::removeStructure(): Called with a pointer to a Structure that is not managed!");
-	return false;
 }
 
 
@@ -260,6 +253,9 @@ bool StructureManager::removeStructure(Structure* st)
  * Removes a Factory from the Factory List.
  * 
  * \note	Does not free memory associated with the Factory.
+ * 
+ * \note	This function purely because the Factory list stores pointers to
+ *			Factory objects, not Structure objects.
  */
 void StructureManager::removeFactory(Factory* _f)
 {

@@ -25,8 +25,8 @@ public:
 
 	void update(ResourcePool& _r);
 
-	bool addStructure(Structure* st, Tile* t, bool clear);
-	bool removeStructure(Structure* st);
+	void addStructure(Structure* st, Tile* t, bool clear);
+	void removeStructure(Structure* st);
 
 	bool CHAPAvailable() const;
 
