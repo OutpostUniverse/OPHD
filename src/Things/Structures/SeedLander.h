@@ -21,8 +21,6 @@ public:
 		selfSustained(true);
 
 		enable();
-
-		priority(PRIORITY_LOW);
 	}
 
 

@@ -12,7 +12,6 @@ public:
 		maxAge(100);
 		turnsToBuild(5);
 		requiresCHAP(false);
-		priority(PRIORITY_HIGH);
 	}
 
 

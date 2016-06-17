@@ -20,8 +20,6 @@ public:
 
 		mProductionPool.capacity(500);
 		mStoragePool.capacity(500);
-
-		priority(PRIORITY_LOW);
 	}
 
 

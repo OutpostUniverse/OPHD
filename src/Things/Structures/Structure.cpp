@@ -12,7 +12,6 @@ Structure::Structure(const string& name, const string& sprite_path, StructureTyp
 																						mAge(0),
 																						mMaxAge(0),
 																						mStructureState(UNDER_CONSTRUCTION),
-																						mStructurePriority(PRIORITY_MEDIUM),
 																						mStructureType(_t),
 																						mConnectorDirection(CONNECTOR_INTERSECTION),
 																						mRepairable(true),

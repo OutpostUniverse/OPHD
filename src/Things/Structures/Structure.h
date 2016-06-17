@@ -19,14 +19,6 @@ public:
 		DESTROYED
 	};
 
-	enum StructurePriority
-	{
-		PRIORITY_LOW,
-		PRIORITY_MEDIUM,
-		PRIORITY_HIGH,
-		PRIORITY_CC
-	};
-
 	enum StructureType
 	{
 		STRUCTURE_ATMOSPHERE_PRODUCTION,
@@ -79,7 +71,6 @@ public:
 
 
 	// ATTRIBUTES
-	StructurePriority priority() const { return mStructurePriority; }
 	StructureType type() const { return mStructureType; }
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
@@ -130,9 +121,6 @@ protected:
 	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
 	void selfSustained(bool _b) { mSelfSustained = _b; }
 
-	void priority(StructurePriority _sp) { mStructurePriority = _sp; }
-	//void type(StructureType _t) { mStructureType = _t; }
-
 	ResourcePool			mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
 	
 	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */
@@ -159,8 +147,6 @@ private:
 	int						mMaxAge;					/**< Maximum number of turns the Structure can remain in good repair. */
 
 	StructureState			mStructureState;			/**< State the structure is in. */
-
-	StructurePriority		mStructurePriority;			/**< Indicates the priority level that the Structure gets when processing resources. */
 
 	StructureType			mStructureType;				/**< Indicates the Structure's Type. */
 

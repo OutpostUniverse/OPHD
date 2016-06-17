@@ -14,8 +14,6 @@ public:
 
 		requiresCHAP(false);
 		selfSustained(true);
-
-		priority(PRIORITY_CC);
 	}
 
 	~CommandCenter()
