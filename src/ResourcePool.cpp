@@ -52,8 +52,8 @@ ResourcePool& ResourcePool::operator+=(ResourcePool& rhs)
 	_resourceTable[RESOURCE_RARE_METALS] += rhs.rareMetals();
 	_resourceTable[RESOURCE_RARE_MINERALS] += rhs.rareMinerals();
 
-	_resourceTable[RESOURCE_FOOD] += rhs.energy();
-	_resourceTable[RESOURCE_ENERGY] += rhs.food();
+	_resourceTable[RESOURCE_FOOD] += rhs.food();
+	_resourceTable[RESOURCE_ENERGY] += rhs.energy();
 
 	return *this;
 }
@@ -76,8 +76,8 @@ ResourcePool& ResourcePool::operator-=(ResourcePool& rhs)
 	_resourceTable[RESOURCE_RARE_METALS] -= rhs.rareMetals();
 	_resourceTable[RESOURCE_RARE_MINERALS] -= rhs.rareMinerals();
 
-	_resourceTable[RESOURCE_FOOD] -= rhs.energy();
-	_resourceTable[RESOURCE_ENERGY] -= rhs.food();
+	_resourceTable[RESOURCE_FOOD] -= rhs.food();
+	_resourceTable[RESOURCE_ENERGY] -= rhs.energy();
 
 	return *this;
 }

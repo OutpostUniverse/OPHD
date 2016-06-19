@@ -23,22 +23,22 @@ This version includes all revisions from r46 to rXX.
 - Moved tile position information into the Tile class itself. Perhaps not the most elegant design but it offers a much easier to understand interface, a lot less potential for bugs and makes it a lot easier to make determinations in the structure graph.
 - incrementAge() function made a private, internal only member of Structure -- prevents future logic mistakes.
 - Tweaked resource processing of the smelter to make for more balanced resource income. Will likely need future adjustments
-- StructureManager internal interface and logic improvements.
 - Command Centers are now flagged as self-sustained.
 - Modified StructureManager such that we can use dependency injection to provide the player's resource pool to structures without having to make it a global variable.
-- Added several convenience functions to help manage lists of specific types of structures within the StructureManager.
 - Updated StructureManager interfaces for addStructure() and removeStructure() -- these functions no longer return a boolean value (never used, overcomplicates the logic, etc.)
 - Renamed elements in StructureID to prevent future naming conflicts with StructureType enumeration.
 - Updated all code to reflect the change in StructureID naming.
 - Updated Structure to take advantage of the StructureType enumerator instead of storing and setting boolean flags for things like isFactory, providesCHAP, etc.
-- StructureManager now handles energy producing structures.
 - Debug information can be turned on and off with the F10 key (defaults to off).
+- Completely rebuilt how StructureManager identifies and manages structures between different lists.
 
 ### Fixed
 - Fixed a mistake in GameState in which clicks within the digger direction dialog were ignored when the dialog was hidden.
 - Fixed a mistake in the logic of several Structures that would make inappropriate calls to incrementAge().
 - Fixed a logic mistake in MineFacility that would set the building to Idle as soon as it became active.
 - Fixed a mistake in ResourcePool where reporting and setting food and energy values were swapped.
+- Fixed another mistake in ResourcePool's operator-=() and operator+=() that was swapping food and energy resources.
+- Fixed a crash bug waiting to happen in StructureTranslator.
 
 
 
