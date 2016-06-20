@@ -386,10 +386,11 @@ void GameState::btnTurnsClicked()
 
 
 	mStructureManager.disconnectAll();
-
 	checkConnectedness();
-
 	mStructureManager.update(mPlayerResources);
+
+	// Move ore from mines to smelters
+	// Move refined resources from smelters to storage tanks
 
 	updateRobots();
 

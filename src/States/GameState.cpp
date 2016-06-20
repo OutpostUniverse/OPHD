@@ -925,9 +925,7 @@ void GameState::updateRobots()
 	{
 		robot_it->first->update();
 
-		/**
-		 * Clear Idle robots from tiles.
-		 */
+		// Clear Idle robots from tiles.
 		if(robot_it->first->idle())
 		{
 			// Make sure that we're the robot from a Tile and not something else
