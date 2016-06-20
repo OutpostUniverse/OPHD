@@ -22,9 +22,9 @@ protected:
 
 	virtual void defineResourceInput()
 	{
-		mResourcesInput.commonMinerals(4);
-		mResourcesInput.rareMinerals(1);
-		mResourcesInput.energy(10);
+		resourcesIn().commonMinerals(4);
+		resourcesIn().rareMinerals(1);
+		resourcesIn().energy(10);
 	}
 
 	virtual void defineResourceOutput()
@@ -34,8 +34,8 @@ protected:
 	virtual void defineResourceValue()
 	{
 		// Resource value if demolished.
-		mResourceValue.commonMetals(20);
-		mResourceValue.rareMetals(5);
+		resourcesValue().commonMetals(20);
+		resourcesValue().rareMetals(5);
 	}
 
 private:

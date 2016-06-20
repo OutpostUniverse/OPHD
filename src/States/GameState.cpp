@@ -498,7 +498,7 @@ void GameState::placeRobot()
 				return;
 			}
 
-			mPlayerResources += _s->resourceValue();
+			mPlayerResources += _s->resourcesValue();
 
 			tile->connected(false);
 			mStructureManager.removeStructure(_s);

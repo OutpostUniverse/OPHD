@@ -60,10 +60,9 @@ public:
 
 
 	// RESOURCES AND RESOURCE MANAGEMENT
-	ResourcePool& resourceValue() { return mResourceValue; }
+	ResourcePool& resourcesValue() { return mResourceValue; }
 	ResourcePool& resourcesIn() { return mResourcesInput; }
 	ResourcePool& resourcesOut() { return mResourcesOutput; }
-
 	ResourcePool& storage() { return mStoragePool; }
 
 	void input(ResourcePool& _resourcePool);
@@ -121,36 +120,32 @@ protected:
 	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
 	void selfSustained(bool _b) { mSelfSustained = _b; }
 
-	ResourcePool			mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
-	
-	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */
-	ResourcePool			mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */
-
-	ResourcePool			mStoragePool;				/**< Resource storage pool. */
-
-	ResourcePool			mResourceValue;				/**< Resource reclamation values when dozed. */
-
 private:
 
 	Structure();	// Excplicitly declared private
 
 	void incrementAge();
 
-
 	virtual void die();
+
+private:
+
 
 	int						mId;						/**< ID of the Structure. */
 
 	int						mTurnsToBuild;				/**< Number of turns it takes to build the Structure. */
-
 	int						mAge;						/**< Age of the Structure in turns. */
 	int						mMaxAge;					/**< Maximum number of turns the Structure can remain in good repair. */
 
 	StructureState			mStructureState;			/**< State the structure is in. */
-
 	StructureType			mStructureType;				/**< Indicates the Structure's Type. */
-
 	ConnectorDir			mConnectorDirection;		/**< Directions available for connections. */
+
+	ResourcePool			mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
+	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */
+	ResourcePool			mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */
+	ResourcePool			mStoragePool;				/**< Resource storage pool. */
+	ResourcePool			mResourceValue;				/**< Resource reclamation values when dozed. */
 
 	bool					mRepairable;				/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
 	bool					mRequiresCHAP;				/**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */

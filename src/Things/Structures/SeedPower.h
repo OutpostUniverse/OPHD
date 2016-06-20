@@ -26,14 +26,14 @@ protected:
 
 	virtual void defineResourceOutput()
 	{
-		mResourcesOutput.energy(50);
+		resourcesOut().energy(50);
 	}
 
 	virtual void defineResourceValue()
 	{
 		// Resource value if demolished.
-		mResourceValue.commonMetals(20);
-		mResourceValue.rareMetals(5);
+		resourcesValue().commonMetals(20);
+		resourcesValue().rareMetals(5);
 	}
 
 private:

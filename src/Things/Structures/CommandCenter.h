@@ -31,8 +31,8 @@ protected:
 
 	virtual void defineResourceValue()
 	{
-		mResourceValue.commonMetals(20);
-		mResourceValue.rareMetals(5);
+		resourcesValue().commonMetals(20);
+		resourcesValue().rareMetals(5);
 	}
 
 private:

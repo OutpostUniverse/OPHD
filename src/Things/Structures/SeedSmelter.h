@@ -65,7 +65,7 @@ protected:
 private:
 	virtual void defineResourceInput()
 	{
-		mResourcesInput.energy(5);
+		resourcesIn().energy(5);
 	}
 
 	virtual void defineResourceOutput()
@@ -74,8 +74,8 @@ private:
 
 	virtual void defineResourceValue()
 	{
-		mResourceValue.commonMetals(15);
-		mResourceValue.rareMetals(3);
+		resourcesValue().commonMetals(15);
+		resourcesValue().rareMetals(3);
 	}
 };
 

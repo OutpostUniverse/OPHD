@@ -18,8 +18,8 @@ public:
 		requiresCHAP(false);
 		selfSustained(true);
 
-		mProductionPool.capacity(500);
-		mStoragePool.capacity(500);
+		mProductionPool.capacity(500); 
+		storage().capacity(500);
 	}
 
 
@@ -34,13 +34,13 @@ protected:
 
 		if (isIdle() && mMine->active())
 		{
-			if (!mStoragePool.atCapacity())
+			if (!storage().atCapacity())
 				enable();
 		}
 
 		if (mMine->active())
 		{
-			if (mStoragePool.atCapacity())
+			if (storage().atCapacity())
 			{
 				idle();
 				return;
@@ -69,8 +69,8 @@ private:
 	virtual void defineResourceValue()
 	{
 		// Resource value if demolished.
-		mResourceValue.commonMetals(10);
-		mResourceValue.rareMetals(2);
+		resourcesValue().commonMetals(10);
+		resourcesValue().rareMetals(2);
 
 		// This function is called when the Mine Facility activates so
 		// I'm activating the mine here.
