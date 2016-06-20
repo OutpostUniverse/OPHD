@@ -886,7 +886,6 @@ void GameState::deploySeedLander(int x, int y)
 	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x, y + 1));
 
 	SeedSmelter* ss = new SeedSmelter();
-	ss->resourcePool(&mPlayerResources);
 	ss->sprite().skip(10);
 	mStructureManager.addStructure(ss, mTileMap.getTile(x + 1, y + 1));
 	mTileMap.getTile(x + 1, y + 1)->index(TERRAIN_DOZED);

@@ -4,20 +4,31 @@
 #include "Structure.h"
 #include "Factory.h"
 
-class SeedSmelter: public Factory
+class SeedSmelter: public Structure
 {
 public:
-	SeedSmelter(): Factory(constants::SEED_SMELTER, "structures/seed_1.sprite")
+	SeedSmelter(): Structure(constants::SEED_SMELTER, "structures/seed_1.sprite", STRUCTURE_SMELTER)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(100);
 		turnsToBuild(9);
 		requiresCHAP(false);
+		
+		oreStorage().capacity(250);
+
 	}
 
 	~SeedSmelter()
+	{}
+
+	virtual void input(ResourcePool& _resourcePool)
 	{
+		oreStorage().pushResources(_resourcePool);
 	}
+
+protected:
+
+	ResourcePool& oreStorage() { return mOreStorage; }
 
 protected:
 
@@ -25,39 +36,34 @@ protected:
 	{
 		if (state() == OPERATIONAL)
 			updateProduction();
-
 	}
-
-	virtual void initFactory()
-	{}
-
 
 	virtual void updateProduction()
 	{
 		int resource_units = constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING;
 
-		if (resourcePool()->commonMetalsOre() >= resource_units)
+		if (oreStorage().commonMetalsOre() >= resource_units)
 		{
-			resourcePool()->commonMetalsOre(resourcePool()->commonMetalsOre() - 10);
-			resourcePool()->commonMetals(resourcePool()->commonMetals() + (resource_units / 2));
+			oreStorage().commonMetalsOre(oreStorage().commonMetalsOre() - resource_units);
+			storage().commonMetals(storage().commonMetals() + (resource_units / 2));
 		}
 
-		if (resourcePool()->commonMineralsOre() >= resource_units)
+		if (oreStorage().commonMineralsOre() >= resource_units)
 		{
-			resourcePool()->commonMineralsOre(resourcePool()->commonMineralsOre() - 10);
-			resourcePool()->commonMinerals(resourcePool()->commonMinerals() + (resource_units / 2));
+			oreStorage().commonMineralsOre(oreStorage().commonMineralsOre() - resource_units);
+			storage().commonMinerals(storage().commonMinerals() + (resource_units / 2));
 		}
 
-		if (resourcePool()->rareMetalsOre() >= resource_units)
+		if (oreStorage().rareMetalsOre() >= resource_units)
 		{
-			resourcePool()->rareMetalsOre(resourcePool()->rareMetalsOre() - 10);
-			resourcePool()->rareMetals(resourcePool()->rareMetals() + (resource_units / 3));
+			oreStorage().rareMetalsOre(oreStorage().rareMetalsOre() - resource_units);
+			storage().rareMetals(storage().rareMetals() + (resource_units / 3));
 		}
 
-		if (resourcePool()->rareMineralsOre() >= resource_units)
+		if (oreStorage().rareMineralsOre() >= resource_units)
 		{
-			resourcePool()->rareMineralsOre(resourcePool()->rareMineralsOre() - 10);
-			resourcePool()->rareMinerals(resourcePool()->rareMinerals() + (resource_units / 3));
+			oreStorage().rareMineralsOre(oreStorage().rareMineralsOre() - resource_units);
+			storage().rareMinerals(storage().rareMinerals() + (resource_units / 3));
 		}
 
 	}
@@ -77,6 +83,8 @@ private:
 		resourcesValue().commonMetals(15);
 		resourcesValue().rareMetals(3);
 	}
+
+	ResourcePool	mOreStorage;
 };
 
 

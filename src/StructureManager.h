@@ -50,6 +50,4 @@ private:
 private:
 	StructureTileTable	mStructureTileTable;		/**< List mapping Structure's to a particular tile. */
 	StructureTypeTable	mStructureLists;			/**< Map containing all of the structure list types available. */
-
-	bool				mChapActive;				/**< Flag indicating that there is a functioning CHAP Facility. */
 };

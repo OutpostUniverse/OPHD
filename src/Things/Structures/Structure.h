@@ -65,7 +65,7 @@ public:
 	ResourcePool& resourcesOut() { return mResourcesOutput; }
 	ResourcePool& storage() { return mStoragePool; }
 
-	void input(ResourcePool& _resourcePool);
+	virtual void input(ResourcePool& _resourcePool) {}
 	bool enoughResourcesAvailable(ResourcePool& r);
 
 

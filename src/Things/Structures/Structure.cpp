@@ -60,24 +60,9 @@ void Structure::idle()
 }
 
 
-/**
- * 
- */
-void Structure::input(ResourcePool& _resourcePool)
-{
-	if(!enoughResourcesAvailable(_resourcePool))
-	{
-		disable();
-		return;
-	}
-
-	_resourcePool -= resourcesIn();
-}
-
-
 bool Structure::enoughResourcesAvailable(ResourcePool& r)
 {
-	return r >= mResourcesInput;
+	return r >= resourcesIn();
 }
 
 
@@ -103,7 +88,7 @@ void Structure::update()
 {
 	if (disabled() || destroyed())
 		return;
-
+	
 	incrementAge();
 }
 

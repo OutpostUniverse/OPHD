@@ -3,10 +3,8 @@
 #include <map>
 
 /**
-* Pretty much just an easy container for keeping track of resources.
-* 
-* \note	Plain Jane structure. No sanity checking at all.
-*/
+ * Pretty much just an easy container for keeping track of resources.
+ */
 class ResourcePool
 {
 public:
@@ -43,8 +41,8 @@ public:
 	friend bool operator>=(ResourcePool& lhs, ResourcePool& rhs);
 
 	/**
-	* Sets all values to 0.
-	*/
+	 * Sets all values to 0.
+	 */
 	void clear();
 
 	int resource(ResourceType _t);

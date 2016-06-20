@@ -5,7 +5,7 @@
 #include <algorithm>
 
 
-StructureManager::StructureManager() :	mChapActive(false)
+StructureManager::StructureManager()
 {}
 
 
@@ -34,13 +34,15 @@ void StructureManager::update(ResourcePool& _r)
 {
 	// Captured here to avoid multiple list searches and to capture CHAP availability at the
 	// beginning of the turn, something that could change during structure update loop.
-	mChapActive = CHAPAvailable();
-
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LANDER]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_COMMAND]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION]);
 
 	updateEnergyProduction(_r);
+
+	// Basic resource production
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_MINE]);
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_SMELTER]);
 
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LIFE_SUPPORT]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FACTORY]);
@@ -64,6 +66,8 @@ void StructureManager::updateEnergyProduction(ResourcePool& _r)
 
 void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 {
+	bool chapAvailable = CHAPAvailable();
+
 	Structure* structure = nullptr;
 	for (size_t i = 0; i < _sl.size(); ++i)
 	{
@@ -84,7 +88,7 @@ void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 		}
 
 		// CHAP Check
-		if (structure->requiresCHAP() && !mChapActive)
+		if (structure->requiresCHAP() && !chapAvailable)
 			structure->disable();
 
 		// handle input resources
