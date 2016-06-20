@@ -21,7 +21,6 @@ public:
 
 	enum StructureType
 	{
-		STRUCTURE_ATMOSPHERE_PRODUCTION,
 		STRUCTURE_COMMAND,
 		STRUCTURE_COMM,
 		STRUCTURE_ENERGY_PRODUCTION,
@@ -29,6 +28,7 @@ public:
 		STRUCTURE_FOOD_PRODUCTION,
 		STRUCTURE_LABORATORY,
 		STRUCTURE_LANDER,
+		STRUCTURE_LIFE_SUPPORT,
 		STRUCTURE_MINE,
 		STRUCTURE_RECYCLING,
 		STRUCTURE_RESIDENCE,
@@ -81,7 +81,7 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
-	bool providesCHAP() const { return type() == STRUCTURE_ATMOSPHERE_PRODUCTION; }
+	bool providesCHAP() const { return type() == STRUCTURE_LIFE_SUPPORT; }
 	bool selfSustained() const { return mSelfSustained; }
 	bool isFactory() const { return type() == STRUCTURE_FACTORY; }
 	bool energyProducer() const { return type() == STRUCTURE_ENERGY_PRODUCTION; }

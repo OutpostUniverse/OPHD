@@ -35,7 +35,6 @@ public:
 protected:
 
 private:
-	typedef vector<Factory*> FactoryList;
 	typedef map<Structure*, Tile*> StructureTileTable;
 	typedef map<Structure::StructureType, StructureList> StructureTypeTable;
 
@@ -45,6 +44,8 @@ private:
 	void updateFactoryProduction();
 
 	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }
+
+	void updateEnergyProduction(ResourcePool& _r);
 
 private:
 	StructureTileTable	mStructureTileTable;		/**< List mapping Structure's to a particular tile. */

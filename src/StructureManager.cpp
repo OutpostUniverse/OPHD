@@ -22,8 +22,8 @@ StructureManager::~StructureManager()
 
 bool StructureManager::CHAPAvailable()
 {
-	for (size_t i = 0; i < mStructureLists[Structure::STRUCTURE_ATMOSPHERE_PRODUCTION].size(); ++i)
-		if (mStructureLists[Structure::STRUCTURE_ATMOSPHERE_PRODUCTION][i]->operational())
+	for (size_t i = 0; i < mStructureLists[Structure::STRUCTURE_LIFE_SUPPORT].size(); ++i)
+		if (mStructureLists[Structure::STRUCTURE_LIFE_SUPPORT][i]->operational())
 			return true;
 
 	return false;
@@ -39,21 +39,26 @@ void StructureManager::update(ResourcePool& _r)
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LANDER]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_COMMAND]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_ATMOSPHERE_PRODUCTION]);
+
+	updateEnergyProduction(_r);
+
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LIFE_SUPPORT]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FACTORY]);
 
-	/*
+	updateFactoryProduction();
+}
+
+
+void StructureManager::updateEnergyProduction(ResourcePool& _r)
+{
 	int energyCount = 0;
-	for (size_t i = 0; i < mEnergyProducers.size(); ++i)
+	for (size_t i = 0; i < mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION].size(); ++i)
 	{
-		if (mEnergyProducers[i]->operational())
-			energyCount += mEnergyProducers[i]->resourcesOut().energy();
+		if (mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION][i]->operational())
+			energyCount += mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION][i]->resourcesOut().energy();
 	}
 
 	_r.energy(energyCount);
-	*/
-
-	updateFactoryProduction();
 }
 
 
@@ -84,7 +89,10 @@ void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 
 		// handle input resources
 		if (structure->resourcesIn().empty() || structure->enoughResourcesAvailable(_r))
+		{
 			structure->enable();
+			_r -= structure->resourcesIn();
+		}
 		else
 			structure->disable();
 
@@ -113,14 +121,8 @@ void StructureManager::updateFactoryProduction()
 void StructureManager::addStructure(Structure* st, Tile* t)
 {
 	// Sanity checks
-	if(!t)
+	if(t == nullptr)
 		return;
-
-	if (!t->empty())
-	{
-		throw Exception(0, "Tile Not Empty", "StructureManager::addStructure(): Attempting to add a structure to a Tile that is not empty.");
-		return;
-	}
 
 	if (mStructureTileTable.find(st) != mStructureTileTable.end())
 	{
@@ -128,6 +130,10 @@ void StructureManager::addStructure(Structure* st, Tile* t)
 		return;
 	}
 
+	// Remove thing's from tile only if we know we're adding a structure.
+	if (!t->empty())
+		t->removeThing();
+	
 	mStructureTileTable[st] = t;
 	
 	mStructureLists[st->type()].push_back(st);
