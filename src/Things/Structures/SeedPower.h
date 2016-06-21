@@ -1,5 +1,4 @@
-#ifndef __SEED_POWER__
-#define __SEED_POWER__
+#pragma once
 
 #include "Structure.h"
 
@@ -39,6 +38,3 @@ protected:
 private:
 
 };
-
-
-#endif

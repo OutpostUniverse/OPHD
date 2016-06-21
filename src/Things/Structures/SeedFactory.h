@@ -1,5 +1,4 @@
-#ifndef __SEED_FACTORY__
-#define __SEED_FACTORY__
+#pragma once
 
 #include "Structure.h"
 #include "Factory.h"
@@ -10,7 +9,7 @@ public:
 	SeedFactory(): Factory(constants::SEED_FACTORY, "structures/seed_1.sprite")
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
-		maxAge(200);
+		maxAge(150);
 		turnsToBuild(7);
 		requiresCHAP(false);
 
@@ -55,6 +54,3 @@ private:
 		resourcesValue().rareMetals(5);
 	}
 };
-
-
-#endif
