@@ -63,7 +63,9 @@ public:
 	ResourcePool& resourcesValue() { return mResourceValue; }
 	ResourcePool& resourcesIn() { return mResourcesInput; }
 	ResourcePool& resourcesOut() { return mResourcesOutput; }
+
 	ResourcePool& storage() { return mStoragePool; }
+	ResourcePool& production() { return mProductionPool; }
 
 	virtual void input(ResourcePool& _resourcePool) {}
 	bool enoughResourcesAvailable(ResourcePool& r);
@@ -144,8 +146,10 @@ private:
 	ResourcePool			mResourcesNeededToBuild;	/**< Resource needed to build the Structure */
 	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */
 	ResourcePool			mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */
-	ResourcePool			mStoragePool;				/**< Resource storage pool. */
 	ResourcePool			mResourceValue;				/**< Resource reclamation values when dozed. */
+
+	ResourcePool			mProductionPool;			/**< Resource pool used for production. */
+	ResourcePool			mStoragePool;				/**< Resource storage pool. */
 
 	bool					mRepairable;				/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
 	bool					mRequiresCHAP;				/**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
