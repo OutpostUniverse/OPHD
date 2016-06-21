@@ -151,8 +151,12 @@ void GameState::drawMiniMap()
 
 	r.drawBox(mMiniMapBoundingBox, 0, 0, 0);
 
-	if(mCCLocation.x() != 0 && mCCLocation.y() != 0)
+	if (mCCLocation.x() != 0 && mCCLocation.y() != 0)
+	{
 		r.drawBoxFilled(mCCLocation.x() + mMiniMapBoundingBox.x() - 1, mCCLocation.y() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
+		//r.drawCircle(mCCLocation.x() + mMiniMapBoundingBox.x(), mCCLocation.y() + mMiniMapBoundingBox.y(), 15, 255, 255, 0, 255, 16);
+	}
+
 
 	for(size_t i = 0; i < mTileMap.mineLocations().size(); i++)
 	{
@@ -498,7 +502,7 @@ void GameState::placeRobot()
 				return;
 			}
 
-			mPlayerResources += _s->resourcesValue();
+			mPlayerResources += _s->resourcesRecyclingValue();
 
 			tile->connected(false);
 			mStructureManager.removeStructure(_s);

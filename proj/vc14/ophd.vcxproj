@@ -172,6 +172,7 @@
     <ClInclude Include="..\..\src\Things\Structures\SeedLander.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedPower.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedSmelter.h" />
+    <ClInclude Include="..\..\src\things\structures\StorageTanks.h" />
     <ClInclude Include="..\..\src\Things\Structures\Structure.h" />
     <ClInclude Include="..\..\src\Things\Structures\Structures.h" />
     <ClInclude Include="..\..\src\Things\Structures\Tube.h" />

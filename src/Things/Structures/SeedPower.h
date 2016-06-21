@@ -11,6 +11,8 @@ public:
 		maxAge(100);
 		turnsToBuild(5);
 		requiresCHAP(false);
+
+		defineResourceCostToBuild();
 	}
 
 
@@ -28,11 +30,14 @@ protected:
 		resourcesOut().energy(50);
 	}
 
-	virtual void defineResourceValue()
+	// Counterintuitive because these structures can't be build directly but
+	// basically this is defined so we can get a recycling value.
+	virtual void defineResourceCostToBuild()
 	{
-		// Resource value if demolished.
-		resourcesValue().commonMetals(20);
-		resourcesValue().rareMetals(5);
+		resourcesCostToBuild().commonMetals(15);
+		resourcesCostToBuild().rareMetals(10);
+		resourcesCostToBuild().commonMinerals(10);
+		resourcesCostToBuild().rareMinerals(8);
 	}
 
 private:

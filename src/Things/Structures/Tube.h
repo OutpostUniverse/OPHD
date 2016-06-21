@@ -13,6 +13,8 @@ public:
 		maxAge(400);
 
 		setAnimationState();
+
+		defineResourceCostToBuild();
 	}
 
 
@@ -46,6 +48,14 @@ private:
 			else
 				throw Exception(0, "Bad Connector", "Tried to create a Tube structure with CONNECTOR_NONE paramter.");
 		}
+	}
+
+	virtual void defineResourceCostToBuild()
+	{
+		resourcesCostToBuild().commonMetals(5);
+		resourcesCostToBuild().rareMetals(2);
+		resourcesCostToBuild().commonMinerals(2);
+		resourcesCostToBuild().rareMinerals(0);
 	}
 
 	bool			mUnderground;

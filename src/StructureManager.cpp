@@ -47,6 +47,8 @@ void StructureManager::update(ResourcePool& _r)
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LIFE_SUPPORT]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FACTORY]);
 
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_STORAGE]);
+
 	updateFactoryProduction();
 }
 

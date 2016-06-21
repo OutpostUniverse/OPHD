@@ -33,6 +33,9 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_SEED_SMELTER:
 			_st = new SeedSmelter();
 			break;
+		case SID_STORAGE_TANKS:
+			_st = new StorageTanks();
+			break;
 		default:
 			cout << "StructureFactory::get(): Unsupported structure type called." << endl;
 			break;

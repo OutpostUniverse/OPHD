@@ -15,6 +15,7 @@ public:
 		connectorDirection(CONNECTOR_VERTICAL);
 
 		requiresCHAP(false);
+		defineResourceCostToBuild();
 	}
 
 
@@ -26,6 +27,14 @@ public:
 
 protected:
 private:
+
+	virtual void defineResourceCostToBuild()
+	{
+		resourcesCostToBuild().commonMetals(10);
+		resourcesCostToBuild().rareMetals(2);
+		resourcesCostToBuild().commonMinerals(10);
+		resourcesCostToBuild().rareMinerals(0);
+	}
 };
 
 

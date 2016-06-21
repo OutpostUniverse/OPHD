@@ -11,6 +11,7 @@
 #include "SeedLander.h"
 #include "SeedPower.h"
 #include "SeedSmelter.h"
+#include "StorageTanks.h"
 #include "Tube.h"
 
 #endif

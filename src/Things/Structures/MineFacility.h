@@ -20,6 +20,7 @@ public:
 
 		mProductionPool.capacity(500); 
 		storage().capacity(500);
+		defineResourceCostToBuild();
 	}
 
 
@@ -63,18 +64,22 @@ protected:
 
 private:
 
+	virtual void defineResourceInput()
+	{
+		mMine->active(true);
+	}
+
 	virtual void defineResourceOutput()
 	{}
 
-	virtual void defineResourceValue()
+	// Counterintuitive because these structures can't be build directly but
+	// basically this is defined so we can get a recycling value.
+	virtual void defineResourceCostToBuild()
 	{
-		// Resource value if demolished.
-		resourcesValue().commonMetals(10);
-		resourcesValue().rareMetals(2);
-
-		// This function is called when the Mine Facility activates so
-		// I'm activating the mine here.
-		mMine->active(true);
+		resourcesCostToBuild().commonMetals(20);
+		resourcesCostToBuild().rareMetals(5);
+		resourcesCostToBuild().commonMinerals(10);
+		resourcesCostToBuild().rareMinerals(0);
 	}
 
 

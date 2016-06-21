@@ -28,6 +28,7 @@ namespace constants
 	const string	SEED_LANDER = "SEED Lander";
 	const string	SEED_POWER = "SEED Power";
 	const string	SEED_SMELTER = "SEED Smelter";
+	const string	STORAGE_TANKS = "Storage Tanks";
 	const string	TUBE = "Tube";
 
 	// TUBE STATES

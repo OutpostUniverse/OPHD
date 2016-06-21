@@ -12,6 +12,7 @@ public:
 		turnsToBuild(5);
 
 		requiresCHAP(false);
+		defineResourceCostToBuild();
 	}
 
 
@@ -31,11 +32,12 @@ protected:
 	{
 	}
 
-	virtual void defineResourceValue()
+	virtual void defineResourceCostToBuild()
 	{
-		// Resource value if demolished.
-		resourcesValue().commonMetals(20);
-		resourcesValue().rareMetals(5);
+		resourcesCostToBuild().commonMetals(50);
+		resourcesCostToBuild().rareMetals(20);
+		resourcesCostToBuild().commonMinerals(10);
+		resourcesCostToBuild().rareMinerals(5);
 	}
 
 private:

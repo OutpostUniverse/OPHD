@@ -40,6 +40,7 @@ void StructureTranslator::buildTables()
 	_stringToStructureTable[constants::SEED_LANDER] = SID_SEED_LANDER;
 	_stringToStructureTable[constants::SEED_POWER] = SID_SEED_POWER;
 	_stringToStructureTable[constants::SEED_SMELTER] = SID_SEED_SMELTER;
+	_stringToStructureTable[constants::STORAGE_TANKS] = SID_STORAGE_TANKS;
 
 	_stringToStructureTable[constants::AG_TUBE_INTERSECTION] = SID_TUBE_INTERSECTION;
 	_stringToStructureTable[constants::UG_TUBE_INTERSECTION] = SID_TUBE_INTERSECTION;
