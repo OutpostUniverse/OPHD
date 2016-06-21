@@ -22,6 +22,9 @@ protected:
 
 	virtual void think()
 	{
+		if (isIdle())
+			return;
+
 		/** \todo	At the moment we're only adding one food unit per turn. In
 		*			the future we'll want to add modifiers based on research,
 		*			difficulty and hostility level of the planet.

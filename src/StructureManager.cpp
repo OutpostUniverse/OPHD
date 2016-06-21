@@ -77,11 +77,11 @@ void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 		// State Check
 		// ASSUMPTION:	Construction sites are considered self sufficient until they are
 		//				completed and connected to the rest of the colony.
-		if (structure->underConstruction())
+		if (structure->underConstruction() || structure->destroyed())
 			continue; // FIXME: smells of bad code, consider a different control path.
 
 		// Connection Check
-		if (!structure->selfSustained() && !structureConnected(structure))
+		if (!structureConnected(structure) && !structure->selfSustained())
 		{
 			structure->disable();
 			continue; // FIXME: smells of bad code, consider a different control path.
@@ -92,15 +92,18 @@ void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 			structure->disable();
 
 		// handle input resources
-		if (structure->resourcesIn().empty() || structure->enoughResourcesAvailable(_r))
+		if (structure->resourcesIn().empty() || structure->enoughResourcesAvailable(_r) && !structure->isIdle())
 		{
 			structure->enable();
 			_r -= structure->resourcesIn();
 		}
 		else
-			structure->disable();
+		{
+			if(!structure->isIdle())
+				structure->disable();
+		}
 
-		if(structure->operational())
+		if(structure->operational() || structure->isIdle())
 			structure->think();
 
 		// handle output resources
