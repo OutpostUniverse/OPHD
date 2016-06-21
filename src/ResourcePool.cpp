@@ -150,8 +150,12 @@ int ResourcePool::currentLevel()
  */
 int ResourcePool::remainingCapacity()
 {
+	#ifdef _DEBUG
 	int ret = capacity() - currentLevel();
 	return ret;
+	#else
+	return capacity() - currentLevel();
+	#endif
 }
 
 
@@ -191,9 +195,8 @@ int ResourcePool::pushResource(ResourceType type, int amount)
 	}
 	else
 	{
-		int remainder = amount - remainingCapacity();
 		_resourceTable[type] += remainingCapacity();
-		return remainder;
+		return amount - remainingCapacity();
 	}
 }
 
@@ -210,6 +213,17 @@ int ResourcePool::pullResource(ResourceType type, int amount)
 		return 0;
 	}
 
+	if (amount <= _resourceTable[type])
+	{
+		_resourceTable[type] -= amount;
+		return amount;
+	}
+	else if (amount > _resourceTable[type])
+	{
+		_resourceTable[type] = 0;
+		return amount - _resourceTable[type];
+	}
+
 	return 0;
 }
 
@@ -218,8 +232,8 @@ int ResourcePool::pullResource(ResourceType type, int amount)
  * 
  * \param rp The ResourcePool to push resources from.
  * 
- * \return	Returns a reference to a ResourcePool with the remainder of
- *			any resources that couldn't be pushed into the ResourcePool.
+ * \note	Any resources that can't be fit in ResourcePool are left in
+ *			the source ResourcePool.
  */
 void ResourcePool::pushResources(ResourcePool& rp)
 {
