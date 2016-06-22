@@ -5,7 +5,7 @@
 #include <algorithm>
 
 
-StructureManager::StructureManager()
+StructureManager::StructureManager(): mTotalEnergyOutput(0)
 {}
 
 
@@ -55,14 +55,14 @@ void StructureManager::update(ResourcePool& _r)
 
 void StructureManager::updateEnergyProduction(ResourcePool& _r)
 {
-	int energyCount = 0;
+	mTotalEnergyOutput = 0;
 	for (size_t i = 0; i < mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION].size(); ++i)
 	{
 		if (mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION][i]->operational())
-			energyCount += mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION][i]->resourcesOut().energy();
+			mTotalEnergyOutput += mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION][i]->resourcesOut().energy();
 	}
 
-	_r.energy(energyCount);
+	_r.energy(mTotalEnergyOutput);
 }
 
 

@@ -32,6 +32,8 @@ public:
 
 	void update(ResourcePool& _r);
 
+	int totalEnergyProduction() const { return mTotalEnergyOutput; }
+
 protected:
 
 private:
@@ -50,4 +52,6 @@ private:
 private:
 	StructureTileTable	mStructureTileTable;		/**< List mapping Structure's to a particular tile. */
 	StructureTypeTable	mStructureLists;			/**< Map containing all of the structure list types available. */
+
+	int					mTotalEnergyOutput;			/**< Total energy output of all energy producers in the structure list. */
 };

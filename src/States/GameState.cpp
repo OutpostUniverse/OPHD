@@ -34,6 +34,8 @@ const int MAX_DEPTH = 4;
 
 Rectangle_2d MENU_ICON;
 
+stringstream str_scratch;		// Used in a few places to avoid construction/destruction every frame when drawing resource stats.
+
 /**
  * C'Tor
  */
@@ -113,6 +115,8 @@ void GameState::initialize()
 	mPointers.push_back(Pointer("ui/pointers/place_tile.png", 16, 16));
 	mPointers.push_back(Pointer("ui/pointers/inspect.png", 8, 8));
 
+	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
+
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 }
 
@@ -183,7 +187,7 @@ void GameState::drawResourceInfo()
 	int y = constants::MARGIN_TIGHT;
 
 	int textY = 5;
-	int offsetX = constants::RESOURCE_ICON_SIZE + 45;
+	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
 
 	// Refined Resources
 	r.drawSubImage(mUiIcons, x, y , 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
@@ -198,12 +202,25 @@ void GameState::drawResourceInfo()
 	r.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	drawNumber(r, mTinyFont, mPlayerResources.rareMinerals(), (x + offsetX) * 3 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
-	// Food & Energy
-	r.drawSubImage(mUiIcons, (x + offsetX) * 5, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.food(), (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	// Storage Capacity
+	r.drawSubImage(mUiIcons, (x + offsetX) * 5, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	
+	str_scratch.str("");
+	str_scratch << mPlayerResources.currentLevel() << " / " << mPlayerResources.capacity();
+	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
-	r.drawSubImage(mUiIcons, (x + offsetX) * 6, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.energy(), (x + offsetX) * 6 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+
+	// Food & Energy
+	r.drawSubImage(mUiIcons, (x + offsetX) * 7, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	drawNumber(r, mTinyFont, mPlayerResources.food(), (x + offsetX) * 7 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+
+	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	
+	str_scratch.str("");
+	str_scratch << mPlayerResources.energy() << " / " << mStructureManager.totalEnergyProduction();
+	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 8 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	
+	//drawNumber(r, mTinyFont, mPlayerResources.energy(), (x + offsetX) * 8 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	// Turns
 	r.drawSubImage(mUiIcons, r.width() - 90, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
@@ -502,7 +519,7 @@ void GameState::placeRobot()
 				return;
 			}
 
-			mPlayerResources += _s->resourcesRecyclingValue();
+			mPlayerResources.pushResources(_s->resourcesRecyclingValue());
 
 			tile->connected(false);
 			mStructureManager.removeStructure(_s);
@@ -908,10 +925,10 @@ void GameState::deploySeedLander(int x, int y)
 	mRobotPool.addRobot(RobotPool::ROBO_MINER)->taskComplete().Connect(this, &GameState::minerTaskFinished);
 
 	// FIXME: Magic numbers
-	mPlayerResources.commonMetals(100);
-	mPlayerResources.commonMinerals(85);
-	mPlayerResources.rareMetals(50);
-	mPlayerResources.rareMinerals(60);
+	mPlayerResources.commonMetals(50);
+	mPlayerResources.commonMinerals(50);
+	mPlayerResources.rareMetals(30);
+	mPlayerResources.rareMinerals(30);
 
 	//mPopulationPool.addWorkers(30);
 	//mPopulationPool.addScientists(20);

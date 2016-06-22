@@ -12,6 +12,9 @@ This version includes all revisions from r46 to rXX.
 - Added a CHAP Structure List to StructureManager to maintain a list of CHAP facilities. Necessary changes to maintain list (add structure, remove structure, clear) were made.
 - StructureManager now provides a list of CHAP Facilities.
 - Added an energyProducer() identifier function to Structure.
+- Added Storage Tanks structure.
+- Added current resource storage vs. total storage available to UI status bar.
+- New colonies now come with a base storage capacity of 250. This can be expanded with storage tanks.
 
 ### Changed
 - Moved sprite coloration calls from StructureManager to Structure.
@@ -31,6 +34,7 @@ This version includes all revisions from r46 to rXX.
 - Updated Structure to take advantage of the StructureType enumerator instead of storing and setting boolean flags for things like isFactory, providesCHAP, etc.
 - Debug information can be turned on and off with the F10 key (defaults to off).
 - Completely rebuilt how StructureManager identifies and manages structures between different lists.
+- Updated energy UI status bar to show available energy vs. total energy capacity.
 
 ### Fixed
 - Fixed a mistake in GameState in which clicks within the digger direction dialog were ignored when the dialog was hidden.

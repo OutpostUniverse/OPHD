@@ -385,10 +385,19 @@ void GameState::btnTurnsClicked()
 {
 	clearMode();
 
-
 	mStructureManager.disconnectAll();
 	checkConnectedness();
 	mStructureManager.update(mPlayerResources);
+
+	// Update storage capacity
+	auto storageList = mStructureManager.structureList(Structure::STRUCTURE_STORAGE);
+
+	int storage = 0;
+	for (size_t i = 0; i < storageList.size(); ++i)
+		if(storageList[i]->operational())
+			storage += storageList[i]->storage().capacity();
+	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY + storage);
+	
 
 	// Move ore from mines to smelters
 	// Move refined resources from smelters to storage tanks

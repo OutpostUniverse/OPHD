@@ -61,11 +61,10 @@ protected:
 	State* update();
 
 private:
-
 	typedef map<Robot*, Tile*> RobotMap;
-
 	typedef vector<Pointer> PointerList;
 
+private:
 	void onActivate(bool _b);
 
 	void onKeyDown(KeyCode key, KeyModifier mod, bool repeat);
@@ -126,6 +125,7 @@ private:
 
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t);
 
+private:
 	FpsCounter			mFps;
 
 	Font				mFont;

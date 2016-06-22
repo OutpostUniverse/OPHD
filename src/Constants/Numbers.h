@@ -8,4 +8,6 @@ namespace constants
 	const int PLANET_ANIMATION_SPEED = 65;
 
 	const int MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING = 10;
+
+	const int BASE_STORAGE_CAPACITY = 250;
 }

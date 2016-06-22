@@ -60,11 +60,11 @@ ResourcePool& ResourcePool::operator+=(ResourcePool& rhs)
 
 ResourcePool& ResourcePool::operator-=(ResourcePool& rhs)
 {
-	if (_capacity != 0)
-	{
-		cout << "ResourcePool::operator-=(): Incorrect use of operator. This ResourcePool has a capacity. Use pullResource() or pullResources() instead." << endl;
-		return *this;
-	}
+	//if (_capacity != 0)
+	//{
+	//	cout << "ResourcePool::operator-=(): Incorrect use of operator. This ResourcePool has a capacity. Use pullResource() or pullResources() instead." << endl;
+	//	return *this;
+	//}
 
 	_resourceTable[RESOURCE_COMMON_METALS_ORE] -= rhs.commonMetalsOre();
 	_resourceTable[RESOURCE_COMMON_MINERALS_ORE] -= rhs.commonMineralsOre();
@@ -137,9 +137,9 @@ int ResourcePool::currentLevel()
 	cc += resource(RESOURCE_RARE_METALS);
 	cc += resource(RESOURCE_RARE_MINERALS);
 
-	cc += resource(RESOURCE_ENERGY);
-
-	cc += resource(RESOURCE_FOOD);
+	// food and energy need to be handled differently
+	//cc += resource(RESOURCE_ENERGY);
+	//cc += resource(RESOURCE_FOOD);
 
 	return cc;
 }
@@ -260,15 +260,34 @@ void ResourcePool::pushResources(ResourcePool& rp)
 /**
  * Attempts to pull all available resources from a ResourcePool.
  * 
- * \param rp The ResourcePool to pull resources into.
+ * \param rp The ResourcePool to pull resources to.
  */
-void ResourcePool::pullResources(ResourcePool& rp)
+void ResourcePool::pullResources(ResourcePool& _rp)
 {
 	if (_capacity == 0)
 	{
 		cout << "ResourcePool::pullResources(): Incorrect use of operator. This ResourcePool has no capacity. Use operator-=() instead." << endl;
 		return;
 	}
+
+	// Energy is not part of the capacity check and needs to be transfered first.
+	_rp.energy(_rp.energy() + pullResource(RESOURCE_ENERGY, energy()));
+
+	// sanity checks
+	if (_rp.atCapacity() || empty())
+		return;
+
+	_rp.pushResource(RESOURCE_COMMON_METALS_ORE, pullResource(RESOURCE_COMMON_METALS_ORE, commonMetalsOre()));
+	_rp.pushResource(RESOURCE_COMMON_MINERALS_ORE, pullResource(RESOURCE_COMMON_MINERALS_ORE, commonMineralsOre()));
+	_rp.pushResource(RESOURCE_RARE_METALS_ORE, pullResource(RESOURCE_RARE_METALS_ORE, rareMetalsOre()));
+	_rp.pushResource(RESOURCE_RARE_MINERALS_ORE, pullResource(RESOURCE_RARE_MINERALS_ORE, rareMineralsOre()));
+
+	_rp.pushResource(RESOURCE_COMMON_METALS, pullResource(RESOURCE_COMMON_METALS, commonMetals()));
+	_rp.pushResource(RESOURCE_COMMON_MINERALS, pullResource(RESOURCE_COMMON_MINERALS, commonMinerals()));
+	_rp.pushResource(RESOURCE_RARE_METALS, pullResource(RESOURCE_RARE_METALS, rareMetals()));
+	_rp.pushResource(RESOURCE_RARE_MINERALS, pullResource(RESOURCE_RARE_MINERALS, rareMinerals()));
+
+	_rp.pushResource(RESOURCE_FOOD, pullResource(RESOURCE_FOOD, food()));
 }
 
 /**
