@@ -49,6 +49,8 @@ void StructureManager::update(ResourcePool& _r)
 
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_STORAGE]);
 
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FOOD_PRODUCTION]);
+
 	updateFactoryProduction();
 }
 
