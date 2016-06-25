@@ -93,7 +93,10 @@ void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 
 		// CHAP Check
 		if (structure->requiresCHAP() && !chapAvailable)
+		{
 			structure->disable();
+			continue; // FIXME: smells of bad code, consider a different control path.
+		}
 
 		// handle input resources
 		if (structure->resourcesIn().empty() || structure->enoughResourcesAvailable(_r) && !structure->isIdle())

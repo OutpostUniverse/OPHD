@@ -390,17 +390,57 @@ void GameState::btnTurnsClicked()
 	mStructureManager.update(mPlayerResources);
 
 	// Update storage capacity
-	auto storageList = mStructureManager.structureList(Structure::STRUCTURE_STORAGE);
-
-	int storage = 0;
-	for (size_t i = 0; i < storageList.size(); ++i)
-		if(storageList[i]->operational())
-			storage += storageList[i]->storage().capacity();
-	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY + storage);
+	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::STRUCTURE_STORAGE)));
 	
+	ResourcePool truck;
+	truck.capacity(100);
+
+	auto mines = mStructureManager.structureList(Structure::STRUCTURE_MINE);
+	auto smelters = mStructureManager.structureList(Structure::STRUCTURE_SMELTER);
 
 	// Move ore from mines to smelters
+	for (size_t m = 0; m < mines.size(); ++m)
+	{
+		if (!mines[m]->operational())
+			continue; // smells of bad code, consider a different control path.
+
+		truck.commonMetalsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, 25));
+		truck.commonMineralsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, 25));
+		truck.rareMetalsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_RARE_METALS_ORE, 25));
+		truck.rareMineralsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, 25));
+
+		for (size_t s = 0; s < smelters.size(); ++s)
+		{
+			if(smelters[s]->operational())
+				smelters[s]->production().pushResources(truck);
+		}
+
+		if (!truck.empty())
+			mines[m]->storage().pushResources(truck);
+	}
+
 	// Move refined resources from smelters to storage tanks
+	for (size_t s = 0; s < smelters.size(); ++s)
+	{
+		if (!smelters[s]->operational())
+			continue; // consider a different control path.
+
+		truck.commonMetals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_COMMON_METALS, 25));
+		truck.commonMinerals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_COMMON_MINERALS, 25));
+		truck.rareMetals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_RARE_METALS, 25));
+		truck.rareMinerals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_RARE_MINERALS, 25));
+
+		mPlayerResources.pushResources(truck);
+
+		if (!truck.empty())
+		{
+			smelters[s]->storage().pushResources(truck);
+			break;	// we're at max capacity in our storage, dump what's left in the smelter it came from and barf.
+		}
+	}
+
+
+
 
 	updateRobots();
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Common.h"
+#include "../StructureManager.h"
 #include "../Tile.h"
 
 /**
@@ -23,3 +24,6 @@ bool checkTubeConnection(Tile* tile, Direction dir, StructureID type);
  * Checks to see if the given tile offers the a proper connection for a Structure.
  */
 bool checkStructurePlacement(Tile *tile, Direction dir);
+
+
+int totalStorage(StructureManager::StructureList& _sl);

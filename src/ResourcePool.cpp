@@ -127,19 +127,13 @@ void ResourcePool::food(int _i) { resource(RESOURCE_FOOD, _i); }
  */
 int ResourcePool::currentLevel()
 {
-	int cc = resource(RESOURCE_COMMON_METALS_ORE);
-	cc += resource(RESOURCE_COMMON_MINERALS_ORE);
-	cc += resource(RESOURCE_RARE_METALS_ORE);
-	cc += resource(RESOURCE_RARE_MINERALS_ORE);
-
-	cc += resource(RESOURCE_COMMON_METALS);
-	cc += resource(RESOURCE_COMMON_MINERALS);
-	cc += resource(RESOURCE_RARE_METALS);
-	cc += resource(RESOURCE_RARE_MINERALS);
-
-	// food and energy need to be handled differently
-	//cc += resource(RESOURCE_ENERGY);
-	//cc += resource(RESOURCE_FOOD);
+	int cc = 0;
+	for (auto it = _resourceTable.begin(); it != _resourceTable.end(); ++it)
+	{
+		// Food and energy are handled differently than mineral resources.
+		if(it->first != ResourcePool::RESOURCE_ENERGY && it->first != ResourcePool::RESOURCE_FOOD)
+			cc += it->second;
+	}
 
 	return cc;
 }
@@ -167,7 +161,8 @@ bool ResourcePool::atCapacity()
 
 bool ResourcePool::empty()
 {
-	return currentLevel() == 0;
+	// energy and food are handled differently than other resources.
+	return currentLevel() == 0 && energy() == 0 && food() == 0;
 }
 
 
@@ -213,6 +208,7 @@ int ResourcePool::pullResource(ResourceType type, int amount)
 		return 0;
 	}
 
+	
 	if (amount <= _resourceTable[type])
 	{
 		_resourceTable[type] -= amount;
@@ -220,8 +216,9 @@ int ResourcePool::pullResource(ResourceType type, int amount)
 	}
 	else if (amount > _resourceTable[type])
 	{
+		int ret = _resourceTable[type];
 		_resourceTable[type] = 0;
-		return amount - _resourceTable[type];
+		return ret;
 	}
 
 	return 0;

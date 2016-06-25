@@ -1,5 +1,7 @@
 #include "GameStateHelper.h"
 
+#include "../Constants.h"
+
 // Throw away string stream for font rendering.
 stringstream str;
 
@@ -75,4 +77,15 @@ bool checkStructurePlacement(Tile *tile, Direction dir)
 	}
 
 	return false;
+}
+
+
+int totalStorage(StructureManager::StructureList& _sl)
+{
+	int storage = 0;
+	for (size_t i = 0; i < _sl.size(); ++i)
+		if (_sl[i]->operational())
+			storage += _sl[i]->storage().capacity();
+
+	return constants::BASE_STORAGE_CAPACITY + storage;
 }

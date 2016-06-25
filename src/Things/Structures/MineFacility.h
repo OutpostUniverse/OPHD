@@ -18,7 +18,7 @@ public:
 		requiresCHAP(false);
 		selfSustained(true);
 
-		mProductionPool.capacity(500); 
+		production().capacity(500);
 		storage().capacity(500);
 		defineResourceCostToBuild();
 	}
@@ -49,12 +49,12 @@ protected:
 
 			mMine->update();
 
-			mProductionPool.pushResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, mMine->commonMetalsRate());
-			mProductionPool.pushResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, mMine->commonMineralsRate());
-			mProductionPool.pushResource(ResourcePool::RESOURCE_RARE_METALS_ORE, mMine->rareMetalsRate());
-			mProductionPool.pushResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, mMine->rareMineralsRate());
+			production().pushResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, mMine->commonMetalsRate());
+			production().pushResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, mMine->commonMineralsRate());
+			production().pushResource(ResourcePool::RESOURCE_RARE_METALS_ORE, mMine->rareMetalsRate());
+			production().pushResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, mMine->rareMineralsRate());
 
-			storage().pushResources(mProductionPool);
+			storage().pushResources(production());
 		}
 		else if(!isIdle())
 		{
@@ -84,8 +84,6 @@ private:
 
 
 	Mine*			mMine;
-
-	ResourcePool	mProductionPool;
 };
 
 #endif

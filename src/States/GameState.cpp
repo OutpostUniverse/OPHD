@@ -175,6 +175,36 @@ void GameState::drawMiniMap()
 }
 
 
+int GameState::foodInStorage()
+{
+	int food_count = 0;
+
+	auto sl = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
+	for (size_t i = 0; i < sl.size(); ++i)
+	{
+		if (sl[i]->operational() || sl[i]->isIdle())
+			food_count += sl[i]->storage().food();
+	}
+
+	return food_count;
+}
+
+
+int GameState::foodTotalStorage()
+{
+	int food_storage = 0;
+
+	auto sl = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
+	for (size_t i = 0; i < sl.size(); ++i)
+	{
+		if (sl[i]->operational() || sl[i]->isIdle())
+			food_storage += sl[i]->storage().capacity();
+	}
+
+	return food_storage;
+}
+
+
 void GameState::drawResourceInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
@@ -212,10 +242,12 @@ void GameState::drawResourceInfo()
 
 	// Food & Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 7, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.food(), (x + offsetX) * 7 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
-
-	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	str_scratch.str("");
+	str_scratch << foodInStorage() << " / " << foodTotalStorage();
+	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 7 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 	
+	
+	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	str_scratch.str("");
 	str_scratch << mPlayerResources.energy() << " / " << mStructureManager.totalEnergyProduction();
 	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 8 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);

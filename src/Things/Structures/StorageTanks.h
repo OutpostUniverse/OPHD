@@ -11,6 +11,8 @@ public:
 		maxAge(500);
 		turnsToBuild(2);
 
+		requiresCHAP(false);
+
 		storage().capacity(1000);
 
 		defineResourceCostToBuild();

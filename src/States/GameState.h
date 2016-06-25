@@ -125,6 +125,9 @@ private:
 
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t);
 
+	int foodInStorage();
+	int foodTotalStorage();
+
 private:
 	FpsCounter			mFps;
 
