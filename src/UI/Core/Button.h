@@ -1,5 +1,4 @@
-#ifndef __BUTTON__
-#define __BUTTON__
+#pragma once
 
 #include "NAS2D/NAS2D.h"
 
@@ -63,5 +62,3 @@ private:
 
 	bool			mMouseHover;		/**< Mouse is within the bounds of the Button. */
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef __COMMAND_CENTER__
-#define __COMMAND_CENTER__
+#pragma once
 
 #include "Structure.h"
 
@@ -41,6 +40,3 @@ protected:
 private:
 
 };
-
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef __THING__
-#define __THING__
+#pragma once
 
 #include "NAS2D/NAS2D.h"
 
@@ -63,6 +62,3 @@ private:
 
 	DieCallback		mDieCallback;	/**<  */
 };
-
-
-#endif

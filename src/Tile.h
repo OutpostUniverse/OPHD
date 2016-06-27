@@ -1,5 +1,4 @@
-#ifndef __TILE__
-#define __TILE__
+#pragma once
 
 #include "Common.h"
 
@@ -81,5 +80,3 @@ private:
 	bool			mConnected;			/**< Flag indicating that this tile is connected to the Command Center. */
 	bool			mThingIsStructure;	/**< Flag indicating that the Thing in the tile is a Structure. */
 };
-
-#endif

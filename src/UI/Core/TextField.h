@@ -5,8 +5,7 @@
 // = This file is part of the NAS2D+GUI library.
 // ==================================================================================
 
-#ifndef __TEXTFIELD__
-#define __TEXTFIELD__
+#pragma once
 
 #include "NAS2D/NAS2D.h"
 #include "Control.h"
@@ -103,5 +102,3 @@ private:
 	bool				mEditable;			/**< Toggle editing of the field. */
 	bool				mShowCursor;		/**< Flag indicating whether or not to draw the cursor. */
 };
-
-#endif

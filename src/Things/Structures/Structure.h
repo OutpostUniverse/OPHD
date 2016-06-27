@@ -4,8 +4,6 @@
 #include "../../ResourcePool.h"
 #include "../../Common.h"
 
-
-
 class Structure: public Thing
 {
 public:
@@ -132,8 +130,7 @@ private:
 	virtual void die();
 
 private:
-
-
+	
 	int						mId;						/**< ID of the Structure. */
 
 	int						mTurnsToBuild;				/**< Number of turns it takes to build the Structure. */

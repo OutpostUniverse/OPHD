@@ -1,8 +1,6 @@
-#ifndef __AIR_SHAFT__
-#define __AIR_SHAFT__
+#pragma once
 
 #include "Structure.h"
-
 
 class AirShaft: public Structure
 {
@@ -29,6 +27,3 @@ protected:
 private:
 
 };
-
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef __TILEMAP__
-#define __TILEMAP__
+#pragma once
 
 #include "Tile.h"
 
@@ -109,5 +108,3 @@ private:
 	bool				mShowConnections;			/**< Flag indicating whether or not to highlight connectedness. */
 
 };
-
-#endif

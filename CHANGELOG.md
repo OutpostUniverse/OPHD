@@ -1,30 +1,30 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.5.2] - PENDING RELEASE
+## [0.5.2] - 2016-06-27
 
-This version includes all revisions from r46 to rXX.
+This version includes all revisions from r46 to r88.
 
 ### Added
-
+- Added Storage Tanks structure.
+- Added a Residence Structure.
 - Added ResourcePool interfaces to Structure for resource management of structures that offer resource storage and production.
 - Added a sanity check to GraphWalker class to avoid or note potential null pointer accesses.
-- Added a CHAP Structure List to StructureManager to maintain a list of CHAP facilities. Necessary changes to maintain list (add structure, remove structure, clear) were made.
-- StructureManager now provides a list of CHAP Facilities.
-- Added an energyProducer() identifier function to Structure.
-- Added Storage Tanks structure.
 - Added current resource storage vs. total storage available to UI status bar.
 - New colonies now come with a base storage capacity of 250. This can be expanded with storage tanks.
+- Automatic trucking of resources implemented.
+- StructureManager now maintains lists of typed structures.
 
 ### Changed
+- Massive internal code cleanup and refactoring too numerous to list here -- see commit history for details.
 - Moved sprite coloration calls from StructureManager to Structure.
 - Decoupled update and think logic in Structure such that the StructureManager handles how and when structures are updated.
-- Massive internal code cleanup and refactoring too numerous to list here -- see commit history for details.
 - IconGrid now sorts items it contains.
 - Pulled old map data files that are no longer used.
 - Pulled TilePositionInfo structure from the code.
 - Moved tile position information into the Tile class itself. Perhaps not the most elegant design but it offers a much easier to understand interface, a lot less potential for bugs and makes it a lot easier to make determinations in the structure graph.
 - incrementAge() function made a private, internal only member of Structure -- prevents future logic mistakes.
+- Updated smelter's resource processing to avoid race condition where only common metals would be updated.
 - Tweaked resource processing of the smelter to make for more balanced resource income. Will likely need future adjustments
 - Command Centers are now flagged as self-sustained.
 - Modified StructureManager such that we can use dependency injection to provide the player's resource pool to structures without having to make it a global variable.
@@ -35,6 +35,7 @@ This version includes all revisions from r46 to rXX.
 - Debug information can be turned on and off with the F10 key (defaults to off).
 - Completely rebuilt how StructureManager identifies and manages structures between different lists.
 - Updated energy UI status bar to show available energy vs. total energy capacity.
+- Structures now cost resources to build.
 
 ### Fixed
 - Fixed a mistake in GameState in which clicks within the digger direction dialog were ignored when the dialog was hidden.

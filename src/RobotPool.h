@@ -1,5 +1,4 @@
-#ifndef __ROBOT_POOL__
-#define __ROBOT_POOL__
+#pragma once
 
 #include "Things/Robots/Robots.h"
 
@@ -37,5 +36,3 @@ private:
 	vector<Robodigger*>		mDiggers;
 	vector<Robominer*>		mMiners;
 };
-
-#endif

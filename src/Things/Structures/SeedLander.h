@@ -1,5 +1,4 @@
-#ifndef __SEED_LANDER__
-#define __SEED_LANDER__
+#pragma once
 
 #include "Structure.h"
 
@@ -55,6 +54,3 @@ private:
 
 	int			mX, mY;
 };
-
-
-#endif

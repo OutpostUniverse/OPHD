@@ -180,7 +180,6 @@
     <ClInclude Include="..\..\src\Things\Thing.h" />
     <ClInclude Include="..\..\src\Tile.h" />
     <ClInclude Include="..\..\src\TileMap.h" />
-    <ClInclude Include="..\..\src\TilePositionInfo.h" />
     <ClInclude Include="..\..\src\UI\Core\Button.h" />
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
     <ClInclude Include="..\..\src\UI\Core\Menu.h" />

@@ -1,5 +1,4 @@
-#ifndef __UI_CONTAINER__
-#define __UI_CONTAINER__
+#pragma once
 
 #include "Control.h"
 
@@ -37,5 +36,3 @@ private:
 
 	bool					mDebug;			/**< Debug flag. */
 };
-
-#endif

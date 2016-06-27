@@ -1,9 +1,6 @@
-#ifndef __ROBOTS__
-#define __ROBOTS__
+#pragma once
 
 // Incldues all Robots
 #include "Robodozer.h"
 #include "Robodigger.h"
 #include "Robominer.h"
-
-#endif

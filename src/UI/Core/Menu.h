@@ -1,5 +1,4 @@
-#ifndef __MENU__
-#define __MENU__
+#pragma once
 
 #include "NAS2D/NAS2D.h"
 
@@ -70,5 +69,3 @@ private:
 
 	bool						mSorted;			/**< Flag indicating that all Items should be sorted. */
 };
-
-#endif

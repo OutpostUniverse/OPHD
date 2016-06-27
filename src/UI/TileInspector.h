@@ -1,5 +1,4 @@
-#ifndef __TILE_INSPECTOR__
-#define __TILE_INSPECTOR__
+#pragma once
 
 #include "UI.h"
 
@@ -36,6 +35,3 @@ private:
 	Tile*		mTile;
 
 };
-
-
-#endif

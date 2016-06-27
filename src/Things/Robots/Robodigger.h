@@ -1,5 +1,4 @@
-#ifndef __ROBODIGGER__
-#define __ROBODIGGER__
+#pragma once
 
 #include "Robot.h"
 
@@ -33,6 +32,3 @@ private:
 
 	Direction		mDirection;
 };
-
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef __DIGGER_DIRECTION__
-#define __DIGGER_DIRECTION__
+#pragma once
 
 #include "UI.h"
 
@@ -68,6 +67,3 @@ private:
 
 	Tile*				mTile;
 };
-
-
-#endif

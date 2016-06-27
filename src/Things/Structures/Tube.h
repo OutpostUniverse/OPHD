@@ -1,4 +1,7 @@
+#pragma once
+
 #include "Structure.h"
+
 #include "../../Common.h"
 
 class Tube : public Structure

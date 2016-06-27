@@ -1,5 +1,4 @@
-#ifndef __ROBODOZER__
-#define __ROBODOZER__
+#pragma once
 
 #include "Robot.h"
 
@@ -25,6 +24,3 @@ public:
 protected:
 private:
 };
-
-
-#endif

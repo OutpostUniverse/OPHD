@@ -1,5 +1,4 @@
-#ifndef __ROBOMINER__
-#define __ROBOMINER__
+#pragma once
 
 #include "Robot.h"
 
@@ -27,6 +26,3 @@ public:
 protected:
 private:
 };
-
-
-#endif

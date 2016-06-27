@@ -164,9 +164,6 @@
     <ClInclude Include="..\..\src\TileMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\TilePositionInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Things\Thing.h">
       <Filter>Header Files\Things</Filter>
     </ClInclude>

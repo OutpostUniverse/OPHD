@@ -1,6 +1,4 @@
-#ifndef __CONTROL__
-#define __CONTROL__
-
+#pragma once
 
 #include "NAS2D/NAS2D.h"
 
@@ -113,6 +111,3 @@ private:
 	bool			mHighlight;		/**< Flag indicating that this Control is highlighted. */
 
 };
-
-
-#endif

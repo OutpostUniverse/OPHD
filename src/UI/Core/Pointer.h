@@ -1,5 +1,4 @@
-#ifndef __POINTER__
-#define __POINTER__
+#pragma once
 
 #include "NAS2D/NAS2D.h"
 #include <sstream>
@@ -33,5 +32,3 @@ private:
 	NAS2D::Image		mPointerImage;
 	NAS2D::Point_2d		mOffset;
 };
-
-#endif

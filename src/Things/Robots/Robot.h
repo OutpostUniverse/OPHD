@@ -1,5 +1,4 @@
-#ifndef __ROBOT__
-#define __ROBOT__
+#pragma once
 
 #include "../Thing.h"
 
@@ -40,6 +39,3 @@ private:
 	TaskCallback	mTaskCompleteCallback;
 	Callback		mSelfDestructCallback;
 };
-
-
-#endif
