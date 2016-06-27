@@ -3,7 +3,7 @@ This is the changelog for OutpostHD.
 
 ## [0.5.2] - 2016-06-27
 
-This version includes all revisions from r46 to r88.
+This version includes all revisions from r46 to r89.
 
 ### Added
 - Added Storage Tanks structure.

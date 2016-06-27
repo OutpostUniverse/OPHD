@@ -784,7 +784,10 @@ void GameState::placeStructure()
 	}
 	else
 	{
-		if (mPlayerResources < StructureFactory::costToBuild(mCurrentStructure))
+		// Check build cost
+		ResourcePool rp = StructureFactory::costToBuild(mCurrentStructure);
+		if (mPlayerResources.commonMetals() < rp.commonMetals() || mPlayerResources.commonMinerals() < rp.commonMinerals() ||
+			mPlayerResources.rareMetals() < rp.rareMetals() || mPlayerResources.rareMinerals() < rp.rareMinerals())
 		{
 			// TODO: Make this issue obvious to the user in the game's UI so there is no
 			// confusion as to why the structure wasn't placed.
@@ -804,7 +807,7 @@ void GameState::placeStructure()
 		if (_s)
 			mStructureManager.addStructure(_s, t);
 
-		mPlayerResources -= StructureFactory::costToBuild(mCurrentStructure);
+		mPlayerResources -= rp;
 	}
 }
 
