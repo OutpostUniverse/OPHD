@@ -24,6 +24,7 @@ namespace constants
 	const string	CHAP = "CHAP Facility";
 	const string	COMMAND_CENTER = "Command Center";
 	const string	MINE_FACILITY = "Mine Facility";
+	const string	RESIDENCE = "Residential Facility";
 	const string	SEED_FACTORY = "SEED Factory";
 	const string	SEED_LANDER = "SEED Lander";
 	const string	SEED_POWER = "SEED Power";

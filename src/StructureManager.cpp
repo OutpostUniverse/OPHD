@@ -32,8 +32,9 @@ bool StructureManager::CHAPAvailable()
 
 void StructureManager::update(ResourcePool& _r)
 {
-	// Captured here to avoid multiple list searches and to capture CHAP availability at the
-	// beginning of the turn, something that could change during structure update loop.
+	// Called separately so that 1) high priority structures can be updated first and
+	// 2) so that resource handling code (like energy) can be handled between update
+	// calls to lower priority structures.
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LANDER]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_COMMAND]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION]);
@@ -45,11 +46,12 @@ void StructureManager::update(ResourcePool& _r)
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_SMELTER]);
 
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LIFE_SUPPORT]);
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FOOD_PRODUCTION]);
+
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FACTORY]);
 
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_STORAGE]);
-
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FOOD_PRODUCTION]);
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_RESIDENCE]);
 
 	updateFactoryProduction();
 }

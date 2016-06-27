@@ -7,6 +7,7 @@
 #include "CHAP.h"
 #include "CommandCenter.h"
 #include "MineFacility.h"
+#include "Residence.h"
 #include "SeedFactory.h"
 #include "SeedLander.h"
 #include "SeedPower.h"

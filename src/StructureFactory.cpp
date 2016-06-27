@@ -24,6 +24,9 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_COMMAND_CENTER:
 			_st = new CommandCenter();
 			break;
+		case SID_RESIDENCE:
+			_st = new Residence();
+			break;
 		case SID_SEED_FACTORY:
 			_st = new SeedFactory();
 			break;
@@ -42,4 +45,10 @@ Structure* StructureFactory::get(StructureID type)
 	}
 
 	return _st;
+}
+
+
+ResourcePool StructureFactory::costToBuild(StructureID type)
+{
+	return ResourcePool();
 }

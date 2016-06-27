@@ -12,6 +12,8 @@ public:
 
 	static Structure* get(StructureID type);
 
+	static ResourcePool costToBuild(StructureID type);
+
 protected:
 
 private:

@@ -170,6 +170,8 @@ void GameState::populateStructureMenu()
 	}
 	else
 	{
+		mStructures.addItem(constants::RESIDENCE, 55);
+
 		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113);
 		mConnections.addItem(constants::UG_TUBE_LEFT, 114);
 		mConnections.addItem(constants::UG_TUBE_RIGHT, 115);
