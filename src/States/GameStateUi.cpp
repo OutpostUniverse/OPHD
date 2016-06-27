@@ -401,8 +401,8 @@ void GameState::btnTurnsClicked()
 	// Move ore from mines to smelters
 	for (size_t m = 0; m < mines.size(); ++m)
 	{
-		if (!mines[m]->operational())
-			continue; // smells of bad code, consider a different control path.
+		if (mines[m]->disabled() || mines[m]->destroyed())
+			continue; // consider a different control path.
 
 		truck.commonMetalsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, 25));
 		truck.commonMineralsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, 25));
@@ -422,7 +422,7 @@ void GameState::btnTurnsClicked()
 	// Move refined resources from smelters to storage tanks
 	for (size_t s = 0; s < smelters.size(); ++s)
 	{
-		if (!smelters[s]->operational())
+		if (smelters[s]->disabled() || smelters[s]->destroyed())
 			continue; // consider a different control path.
 
 		truck.commonMetals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_COMMON_METALS, 25));
