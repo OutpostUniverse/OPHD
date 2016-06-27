@@ -1,7 +1,4 @@
-#ifndef __OPHD_COMMON__
-#define __OPHD_COMMON__
-
-
+#pragma once
 
 enum Direction
 {
@@ -64,5 +61,3 @@ enum RobotType
 	ROBOT_DOZER,
 	ROBOT_MINER
 };
-
-#endif

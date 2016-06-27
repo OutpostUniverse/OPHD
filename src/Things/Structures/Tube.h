@@ -50,13 +50,5 @@ private:
 		}
 	}
 
-	virtual void defineResourceCostToBuild()
-	{
-		resourcesCostToBuild().commonMetals(5);
-		resourcesCostToBuild().rareMetals(2);
-		resourcesCostToBuild().commonMinerals(2);
-		resourcesCostToBuild().rareMinerals(0);
-	}
-
-	bool			mUnderground;
+	bool	mUnderground;
 };

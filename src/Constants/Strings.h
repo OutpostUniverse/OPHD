@@ -1,11 +1,8 @@
-#ifndef __OPHD_STRINGS__
-#define __OPHD_STRINGS__
-
+#pragma once
 
 #include <iostream>
 
 using namespace std;
-
 
 namespace constants
 {
@@ -53,5 +50,3 @@ namespace constants
 	const string	PLANET_TYPE_GANYMEDE_PATH = "planets/planet_e.png";
 
 }
-
-#endif

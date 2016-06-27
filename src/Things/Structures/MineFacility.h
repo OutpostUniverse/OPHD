@@ -1,5 +1,4 @@
-#ifndef __MINE_FACILITY__
-#define __MINE_FACILITY__
+#pragma once
 
 #include "Structure.h"
 
@@ -85,5 +84,3 @@ private:
 
 	Mine*			mMine;
 };
-
-#endif

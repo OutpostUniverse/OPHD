@@ -50,5 +50,25 @@ Structure* StructureFactory::get(StructureID type)
 
 ResourcePool StructureFactory::costToBuild(StructureID type)
 {
-	return ResourcePool();
+	/*
+	 * FIXME: Horribly inefficient.
+	 * 
+	 * Better way to do this would be to define the structure costs in a lookup table.
+	 * Question being that currently this is implemented by having the derived Structure
+	 * class defining the resource cost to build.
+	 * 
+	 * Two possibilities -- either build a table by instantiating, copying and destroying
+	 * derived object types, or move definitions from the derived class and move them to
+	 * the StructureFactory class while building the table.
+	 */
+
+	/*
+	 * FIXME: Prone to break if we request a cost to build on a structure that isn't,
+	 * defined. We end up with a null pointer and explode the second we try to get
+	 * resources.
+	 */
+	Structure* _st = StructureFactory::get(type);
+	ResourcePool rp = _st->resourcesCostToBuild();
+	delete _st;
+	return rp;
 }

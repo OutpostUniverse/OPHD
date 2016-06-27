@@ -1,5 +1,4 @@
-#ifndef __STRUCTURES__
-#define __STRUCTURES__
+#pragma once
 
 // Includes all Structures
 #include "Agridome.h"
@@ -14,5 +13,3 @@
 #include "SeedSmelter.h"
 #include "StorageTanks.h"
 #include "Tube.h"
-
-#endif

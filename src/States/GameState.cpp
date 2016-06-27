@@ -784,6 +784,14 @@ void GameState::placeStructure()
 	}
 	else
 	{
+		if (mPlayerResources < StructureFactory::costToBuild(mCurrentStructure))
+		{
+			// TODO: Make this issue obvious to the user in the game's UI so there is no
+			// confusion as to why the structure wasn't placed.
+			cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
+			return;
+		}
+
 		if (!validStructurePlacement(mTileMapMouseHover.x(), mTileMapMouseHover.y()))
 		{
 			// TODO: Make this issue obvious to the user in the game's UI so there is no
@@ -795,6 +803,8 @@ void GameState::placeStructure()
 		Structure* _s = StructureFactory::get(mCurrentStructure);
 		if (_s)
 			mStructureManager.addStructure(_s, t);
+
+		mPlayerResources -= StructureFactory::costToBuild(mCurrentStructure);
 	}
 }
 

@@ -53,11 +53,8 @@ protected:
 	void convertOre(ResourcePool::ResourceType _ore, ResourcePool::ResourceType _refined, int _amount)
 	{
 		oreStorage().resource(_ore, oreStorage().resource(_ore) - constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING);
-		int rem = storage().pushResource(_refined, _amount);
-		if (rem != 0)
+		if (storage().pushResource(_refined, _amount) != 0)
 			idle();
-
-		cout << "Remainder: " << rem << endl << "Current Level: " << storage().currentLevel() << endl << "Remaining Capacity: " << storage().remainingCapacity() << endl << endl;
 	}
 
 	virtual void updateProduction()

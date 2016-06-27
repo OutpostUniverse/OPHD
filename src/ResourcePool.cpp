@@ -60,12 +60,6 @@ ResourcePool& ResourcePool::operator+=(ResourcePool& rhs)
 
 ResourcePool& ResourcePool::operator-=(ResourcePool& rhs)
 {
-	//if (_capacity != 0)
-	//{
-	//	cout << "ResourcePool::operator-=(): Incorrect use of operator. This ResourcePool has a capacity. Use pullResource() or pullResources() instead." << endl;
-	//	return *this;
-	//}
-
 	_resourceTable[RESOURCE_COMMON_METALS_ORE] -= rhs.commonMetalsOre();
 	_resourceTable[RESOURCE_COMMON_MINERALS_ORE] -= rhs.commonMineralsOre();
 	_resourceTable[RESOURCE_RARE_METALS_ORE] -= rhs.rareMetalsOre();
