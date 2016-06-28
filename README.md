@@ -50,6 +50,12 @@ Keep in mind that the SEED Lander can't be placed within 3 tiles of any of the e
 
 After you place the SEED Lander, the Turns icon will become available to click on (you must place a SEED Lander before you can do anything else). After you left click on the Advance Turn button, other options will become available to you and the first structures of your colony will be built.
 
+**Q: The resolution is low or how can I run in full screen mode? **
+
+A: By default OutpostHD sets itself to 800x600 windowed mode. Eventually you'll be able to make changes in the game via an options menu but for now if you want to change the resolution you can open "data/config.xml" and modify the screenwidth and screenheight values. There is no sanity checking so set this to a sane value or you could get weird behavior including crashing.
+
+To set fullscreen mode, simply change 'fullscreen="false"' to 'fullscreen="true"'.
+
 **Q: I have a question that's not answered here. How can I get help?**
 
 A: You can visit The Outpost Universe's Forums (http://forum.outpost2.net) and visit the Main Projects forum.

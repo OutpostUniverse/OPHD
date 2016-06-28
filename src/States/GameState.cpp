@@ -42,7 +42,6 @@ stringstream str_scratch;		// Used in a few places to avoid construction/destruc
 GameState::GameState(const string& map, const string& tset):	mFont("fonts/Fresca-Regular.ttf", 14),
 																mTinyFont("fonts/Fresca-Regular.ttf", 10),
 																mTileMap(map, tset, MAX_DEPTH),
-																mBackground("ui/background.png"),
 																mMapDisplay(map + MAP_DISPLAY_EXTENSION),
 																mHeightMap(map + MAP_TERRAIN_EXTENSION),
 																mUiIcons("ui/icons.png"),

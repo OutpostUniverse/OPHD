@@ -136,7 +136,6 @@ private:
 
 	TileMap				mTileMap;
 
-	Image				mBackground;
 	Image				mMapDisplay;
 	Image				mHeightMap;
 	Image				mUiIcons;
