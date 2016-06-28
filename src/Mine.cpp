@@ -6,10 +6,10 @@ using namespace std;
 
 Mine::Mine(ProductionRate _rate):	mAge(0),
 									mDepth(0),
-									mCommonMetalYieldRate(0),
-									mRareMetalYieldRate(0),
-									mCommonMineralYieldRate(0),
-									mRareMineralYieldRate(0),
+									mCommonMetalYield(0),
+									mRareMetalYield(0),
+									mCommonMineralYield(0),
+									mRareMineralYield(0),
 									mProductionRate(_rate),
 									mActive(false),
 									mExhausted(false)
@@ -56,4 +56,14 @@ void Mine::productionRate(ProductionRate _rate)
 void Mine::update()
 {
 	// FIXME: Make this gradually degrade the output of the Mine.
+}
+
+
+void Mine::serialize(TiXmlElement* _ti)
+{
+	_ti->SetAttribute("age", age());
+	_ti->SetAttribute("depth", depth());
+	_ti->SetAttribute("active", active());
+	_ti->SetAttribute("exhausted", exhausted());
+	_ti->SetAttribute("yield", productionRate());
 }

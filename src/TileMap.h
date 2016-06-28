@@ -18,6 +18,7 @@ public:
 		LEVEL_UG_3,
 		LEVEL_UG_4
 	};
+
 	
 	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth);
 
@@ -54,6 +55,8 @@ public:
 
 	void draw();
 
+	void serialize(TiXmlElement* _ti);
+
 protected:
 	enum MouseMapRegion
 	{
@@ -87,6 +90,9 @@ private:
 	int					mMaxDepth;			/**< Maximum digging depth. */
 	int					mCurrentDepth;		/**< Current depth level to view. */
 
+	string				mMapPath;
+	string				mTsetPath;
+
 	TileArray			mTileMap;
 
 	Image				mTileSelector;
@@ -98,13 +104,13 @@ private:
 	Point_2d			mMapHighlight;		/**< Tile the mouse is pointing to. */
 	Point_2d			mMapViewLocation;	/**<  */
 
-	Point_2df			mMapPosition;				/** Where to start drawing the TileMap on the screen. */
+	Point_2df			mMapPosition;		/** Where to start drawing the TileMap on the screen. */
 
-	Point2dList			mMineLocations;				/**< Location of all mines on the map. */
+	Point2dList			mMineLocations;		/**< Location of all mines on the map. */
 
-	Rectangle_2d		mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
+	Rectangle_2d		mMapBoundingBox;	/** Area that the TileMap fills when drawn. */
 
 	bool				mDebug;
-	bool				mShowConnections;			/**< Flag indicating whether or not to highlight connectedness. */
+	bool				mShowConnections;	/**< Flag indicating whether or not to highlight connectedness. */
 
 };

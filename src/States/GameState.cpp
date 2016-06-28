@@ -355,6 +355,10 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 			mDebug = !mDebug;
 			break;
 
+		case KEY_F7:
+			save("test.xml");
+			break;
+
 		case KEY_ESCAPE:
 			clearMode();
 			resetUi();
@@ -1047,4 +1051,24 @@ void GameState::checkConnectedness()
 
 	// Start graph walking at the CC location.
 	GraphWalker graphWalker(mCCLocation, 0, &mTileMap);
+}
+
+void GameState::save(const std::string& _path)
+{
+	TiXmlDocument doc;
+
+	//TiXmlComment *comment = new TiXmlComment("Automatically generated Configuration file. This is best left untouched.");
+	//doc->LinkEndChild(comment);
+
+	TiXmlElement* root = new TiXmlElement("OutpostHD_SaveGame");
+	root->SetAttribute("version", constants::SAVE_GAME_VERSION);
+	doc.LinkEndChild(root);
+
+	mTileMap.serialize(root);
+
+	// Write out the XML file.
+	TiXmlPrinter printer;
+	doc.Accept(&printer);
+
+	Utility<Filesystem>::get().write(File(printer.Str(), _path));
 }

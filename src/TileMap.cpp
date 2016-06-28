@@ -31,6 +31,9 @@ TileMap::TileMap(const string& map_path, const string& tset_path, int maxDepth):
 	initMapDrawParams();
 
 	mMineBeacon.play("glow");
+
+	mMapPath = map_path;
+	mTsetPath = tset_path;
 }
 
 
@@ -174,9 +177,7 @@ void TileMap::initMapDrawParams()
 
 	mEdgeLength = static_cast<int>(screenW) / TILE_WIDTH;
 
-	// FIXME: Magic number in the screenH calculation -- comes from UI height defined in GameState.
 	mMapPosition((screenW / 2 - (TILE_WIDTH / 2)), ((screenH - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT));
-
 	mMapBoundingBox((screenW / 2) - ((TILE_WIDTH * mEdgeLength) / 2), mMapPosition.y(), TILE_WIDTH * mEdgeLength, TILE_HEIGHT * mEdgeLength);
 
 	int transform = (mMapPosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
@@ -301,4 +302,87 @@ void TileMap::updateTileHighlight()
 TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 {
 	return mMouseMap[y][x];
+}
+
+
+void TileMap::serialize(TiXmlElement* _ti)
+{
+	// ==========================================
+	// MAP PROPERTIES
+	// ==========================================
+	TiXmlElement *properties = new TiXmlElement("properties");
+	_ti->LinkEndChild(properties);
+
+	properties->SetAttribute("planetname", "Planet Name -- DUMMY");
+	properties->SetAttribute("sitemap", mMapPath);
+	properties->SetAttribute("sitemapname", "Sitemap Name -- DUMMY");
+	properties->SetAttribute("tset", mTsetPath);
+	properties->SetAttribute("diggingdepth", mMaxDepth);
+
+	// ==========================================
+	// VIEW PARAMETERS
+	// ==========================================
+	TiXmlElement *viewparams = new TiXmlElement("view_parameters");
+	_ti->LinkEndChild(viewparams);
+
+	viewparams->SetAttribute("currentdepth", mCurrentDepth);
+	viewparams->SetAttribute("viewlocation_x", mMapViewLocation.x());
+	viewparams->SetAttribute("viewlocation_y", mMapViewLocation.y());
+
+
+	// ==========================================
+	// MINES
+	// ==========================================
+	TiXmlElement *mines = new TiXmlElement("mines");
+	_ti->LinkEndChild(mines);
+
+	for (size_t i = 0; i < mMineLocations.size(); ++i)
+	{
+		TiXmlElement *mine = new TiXmlElement("mine");
+		mine->SetAttribute("x", mMineLocations[i].x());
+		mine->SetAttribute("y", mMineLocations[i].y());
+		getTile(mMineLocations[i].x(), mMineLocations[i].y(), LEVEL_SURFACE)->mine()->serialize(mine);
+		mines->LinkEndChild(mine);
+	}
+
+
+	// ==========================================
+	// TILES
+	// ==========================================
+	TiXmlElement *tiles = new TiXmlElement("tiles");
+	_ti->LinkEndChild(tiles);
+
+	// We're only writing out tiles that don't have structures or robots in them that are
+	// underground and excavated or surface and bulldozed.
+	Tile* tile = nullptr;
+	for (size_t depth = 0; depth < maxDepth(); ++depth)
+	{
+		for (size_t x = 0; x < width(); ++x)
+		{
+			for (size_t y = 0; y < height(); ++y)
+			{
+				tile = getTile(x, y, depth);
+				if (depth > 0 && tile->excavated() && tile->empty() && tile->mine() == nullptr)
+				{
+					TiXmlElement* _t = new TiXmlElement("tile");
+					_t->SetAttribute("x", x);
+					_t->SetAttribute("y", y);
+					_t->SetAttribute("depth", depth);
+					_t->SetAttribute("index", tile->index());
+
+					tiles->LinkEndChild(_t);
+				}
+				else if (tile->index() == 0 && tile->empty() && tile->mine() == nullptr)
+				{
+					TiXmlElement* _t = new TiXmlElement("tile");
+					_t->SetAttribute("x", x);
+					_t->SetAttribute("y", y);
+					_t->SetAttribute("depth", depth);
+					_t->SetAttribute("index", 0);
+
+					tiles->LinkEndChild(_t);
+				}
+			}
+		}
+	}
 }

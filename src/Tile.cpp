@@ -113,6 +113,8 @@ Structure* Tile::structure()
 
 Robot* Tile::robot()
 {
+	// Assumption: Things in a tile can only be a Robot or a Structure. If the thing is not a
+	// structure, it can only be a robot.
 	if(!empty() && structure() == nullptr)
 		return static_cast<Robot*>(thing());
 

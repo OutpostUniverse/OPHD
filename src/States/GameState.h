@@ -112,6 +112,8 @@ private:
 
 	void setStructureID(StructureID type, InsertMode mode);
 
+	void save(const std::string& _path);
+
 	// UI Event Handlers
 	void btnTurnsClicked();
 	void btnTubesPickerClicked();

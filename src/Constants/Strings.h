@@ -8,6 +8,7 @@ namespace constants
 {
 	// MISCELLANEOUS
 	const string	EMPTY_STR = "";
+	const string	SAVE_GAME_VERSION = "0.01";
 
 	// ROBOTS
 	const string	ROBODIGGER = "Robodigger";

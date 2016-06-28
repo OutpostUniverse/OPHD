@@ -31,7 +31,7 @@ public:
 
 	void init(int x, int y, int depth, int index);
 	
-	bool bulldozed() const { return mIndex == 0; }
+	bool bulldozed() const { return index() == 0; }
 
 	bool excavated() const { return mExcavated; }
 	void excavated(bool _b) { mExcavated = _b; }
@@ -55,6 +55,7 @@ public:
 
 	Mine* mine() { return mMine; }
 	void pushMine(Mine* _mine);
+
 
 protected:
 	friend class StructureManager;
