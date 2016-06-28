@@ -4,30 +4,19 @@
 
 using namespace std;
 
-Mine::Mine():	mAge(0),
-				mDepth(0),
-				mProductionRate(PRODUCTION_RATE_MEDIUM),
-				mYieldsCommonMetals(false),
-				mYieldsRareMetals(false),
-				mYieldsCommonMinerals(false),
-				mYieldsRareMinerals(false),
-				mActive(false),
-				mExhausted(false)
-
-{}
-
-
 Mine::Mine(ProductionRate _rate):	mAge(0),
 									mDepth(0),
+									mCommonMetalYieldRate(0),
+									mRareMetalYieldRate(0),
+									mCommonMineralYieldRate(0),
+									mRareMineralYieldRate(0),
 									mProductionRate(_rate),
-									mYieldsCommonMetals(false),
-									mYieldsRareMetals(false),
-									mYieldsCommonMinerals(false),
-									mYieldsRareMinerals(false),
 									mActive(false),
 									mExhausted(false)
 
-{}
+{
+	productionRate(_rate);
+}
 
 
 Mine::~Mine()
@@ -41,11 +30,6 @@ void Mine::productionRate(ProductionRate _rate)
 	switch(mProductionRate)
 	{
 		case PRODUCTION_RATE_LOW:
-			yieldsCommonMetals(true);
-			yieldsRareMetals(true);
-			yieldsCommonMinerals(true);
-			yieldsRareMinerals(true);
-
 			commonMetalsRate(10);
 			rareMetalsRate(2);
 			commonMineralsRate(8);
@@ -53,11 +37,6 @@ void Mine::productionRate(ProductionRate _rate)
 			break;
 
 		case PRODUCTION_RATE_MEDIUM:
-			yieldsCommonMetals(true);
-			yieldsRareMetals(true);
-			yieldsCommonMinerals(true);
-			yieldsRareMinerals(true);
-
 			commonMetalsRate(15);
 			rareMetalsRate(8);
 			commonMineralsRate(12);
@@ -65,11 +44,6 @@ void Mine::productionRate(ProductionRate _rate)
 			break;
 
 		case PRODUCTION_RATE_HIGH:
-			yieldsCommonMetals(true);
-			yieldsRareMetals(true);
-			yieldsCommonMinerals(true);
-			yieldsRareMinerals(true);
-
 			commonMetalsRate(20);
 			rareMetalsRate(14);
 			commonMineralsRate(18);

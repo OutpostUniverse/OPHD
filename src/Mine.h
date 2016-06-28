@@ -11,44 +11,42 @@ public:
 		PRODUCTION_RATE_HIGH,
 	};
 
-	Mine();
 	Mine(ProductionRate _rate);
 	~Mine();
 
 	bool active() const { return mActive; }
 	void active(bool _b) { mActive = _b; }
 
-	bool yieldsCommonMetals() const { return mYieldsCommonMetals; }
-	void yieldsCommonMetals(bool _b) { mYieldsCommonMetals = _b; }
-
-	bool yieldsRareMetals() const { return mYieldsRareMetals; }
-	void yieldsRareMetals(bool _b) { mYieldsRareMetals = _b; }
-
-	bool yieldsCommonMinerals() const { return mYieldsCommonMinerals; }
-	void yieldsCommonMinerals(bool _b) { mYieldsCommonMinerals = _b; }
-
-	bool yieldsRareMinerals() const { return mYieldsRareMinerals; }
-	void yieldsRareMinerals(bool _b) { mYieldsRareMinerals = _b; }
+	bool yieldsCommonMetals() const { return commonMetalsRate() > 0; }
+	bool yieldsRareMetals() const { return rareMetalsRate() > 0; }
+	bool yieldsCommonMinerals() const { return commonMineralsRate() > 0; }
+	bool yieldsRareMinerals() const { return rareMineralsRate() > 0; }
 
 	ProductionRate productionRate() { return mProductionRate; }
-	void productionRate(ProductionRate _rate);
 
 	int age() const { return mAge; }
 
-	void update();
-
-	void commonMetalsRate(int _rate) { mCommonMetalYieldRate = _rate; }
-	void rareMetalsRate(int _rate) { mRareMetalYieldRate = _rate; };
-	void commonMineralsRate(int _rate) { mCommonMineralYieldRate = _rate; };
-	void rareMineralsRate(int _rate) { mRareMineralYieldRate = _rate; };
+	int depth() const { return mDepth; }
+	void depth(int _d) { mDepth = _d; }
 
 	int commonMetalsRate() const { return mCommonMetalYieldRate; }
 	int rareMetalsRate() const { return mRareMetalYieldRate; };
 	int commonMineralsRate() const { return mCommonMineralYieldRate; };
 	int rareMineralsRate() const { return mRareMineralYieldRate; };
 
-private:
+	void update();
 
+private:
+	Mine();
+
+	void productionRate(ProductionRate _rate);
+
+	void commonMetalsRate(int _rate) { mCommonMetalYieldRate = _rate; }
+	void rareMetalsRate(int _rate) { mRareMetalYieldRate = _rate; };
+	void commonMineralsRate(int _rate) { mCommonMineralYieldRate = _rate; };
+	void rareMineralsRate(int _rate) { mRareMineralYieldRate = _rate; };
+
+private:
 	int						mAge;							/**< Age of the mine in turns. */
 	int						mDepth;							/**< Depth of the Mine. */
 
@@ -58,11 +56,6 @@ private:
 	int						mRareMineralYieldRate;			/**<  */
 
 	ProductionRate			mProductionRate;				/**< Mine's production rate. */
-
-	bool					mYieldsCommonMetals;			/**< The Mine will produce Common Metals Ore. */
-	bool					mYieldsRareMetals;				/**< The Mine will produce Rare Metals Ore. */
-	bool					mYieldsCommonMinerals;			/**< The Mine will produce Common Minerals Ore. */
-	bool					mYieldsRareMinerals;			/**< The Mine will produce Rare Mineral Ore. */
 
 	bool					mActive;						/**< Flag indicating whether this mine is active or not. */
 	bool					mExhausted;						/**< Flag indicating that this mine can no longer produce anything. */
