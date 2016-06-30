@@ -218,3 +218,61 @@ int StructureManager::count() const
 	
 	return count;
 }
+
+
+void serializeResourcePool(TiXmlElement* _ti, ResourcePool& _rp, const std::string name)
+{
+	TiXmlElement* pool = new TiXmlElement(name);
+	_rp.serialize(pool);
+	_ti->LinkEndChild(pool);
+}
+
+void serializeStructure(TiXmlElement* _ti, Structure* _s, Tile* _t)
+{
+	_ti->SetAttribute("x", _t->x());
+	_ti->SetAttribute("y", _t->y());
+	_ti->SetAttribute("depth", _t->depth());
+
+	_ti->SetAttribute("id", _s->id());
+	_ti->SetAttribute("age", _s->age());
+	_ti->SetAttribute("state", _s->state());
+	_ti->SetAttribute("type", _s->type());
+	_ti->SetAttribute("direction", _s->connectorDirection());
+
+	if (!_s->production().empty())
+		serializeResourcePool(_ti, _s->production(), "production");
+
+	if (!_s->storage().empty())
+		serializeResourcePool(_ti, _s->storage(), "storage");
+}
+
+
+void StructureManager::serialize(TiXmlElement* _ti)
+{
+	TiXmlElement* structures = new TiXmlElement("structures");
+	TiXmlElement* factories = new TiXmlElement("factories");
+
+
+	for (auto it = mStructureTileTable.begin(); it != mStructureTileTable.end(); ++it)
+	{
+
+		if (it->first->isFactory())
+		{
+			TiXmlElement* factory = new TiXmlElement("factory");
+			serializeStructure(factory, it->first, it->second);
+			Factory* f = static_cast<Factory*>(it->first);
+			factory->SetAttribute("production_completed", f->productionTurnsCompleted());
+			factory->SetAttribute("production_type", f->productionType());
+			factories->LinkEndChild(factory);
+		}
+		else
+		{
+			TiXmlElement* structure = new TiXmlElement("structure");
+			serializeStructure(structure, it->first, it->second);
+			structures->LinkEndChild(structure);
+		}
+	}
+
+	_ti->LinkEndChild(structures);
+	_ti->LinkEndChild(factories);
+}

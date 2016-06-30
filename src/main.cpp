@@ -38,7 +38,6 @@ int main(int argc, char *argv[])
 		if (!f.exists(constants::SAVE_GAME_PATH))
 			f.makeDirectory(constants::SAVE_GAME_PATH);
 
-
 		game.go(new PlanetSelectState());
 	}
 	catch(Exception& e)

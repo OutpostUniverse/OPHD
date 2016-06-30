@@ -1068,6 +1068,7 @@ void GameState::save(const std::string& _path)
 	doc.LinkEndChild(root);
 
 	mTileMap.serialize(root);
+	mStructureManager.serialize(root);
 
 	// Write out the XML file.
 	TiXmlPrinter printer;

@@ -110,8 +110,6 @@ private:
 
 	ProductionTypeList				mAvailableProducts;			/**< List of products that the Factory can produce. */
 
-	ResourcePool					mProductionInput;
-
 	ResourcePool*					mResourcesPool;				/**< Pointer to the player's resource pool. UGLY. */
 	RobotPool*						mRobotPool;					/**< Pointer to the player's robot pool. UGLY. */
 };

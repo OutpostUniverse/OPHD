@@ -294,6 +294,23 @@ void ResourcePool::capacity(int _i)
 }
 
 
+void ResourcePool::serialize(TiXmlElement* _ti)
+{
+	_ti->SetAttribute("common_metals_ore", commonMetalsOre());
+	_ti->SetAttribute("common_minerals_ore", commonMineralsOre());
+	_ti->SetAttribute("rare_metals_ore", rareMetalsOre());
+	_ti->SetAttribute("rare_minerals_ore", rareMineralsOre());
+
+	_ti->SetAttribute("common_metals", commonMetals());
+	_ti->SetAttribute("common_mminerals", commonMinerals());
+	_ti->SetAttribute("rare_metals", rareMetals());
+	_ti->SetAttribute("rare_mminerals", rareMinerals());
+
+	_ti->SetAttribute("energy", energy());
+	_ti->SetAttribute("food", food());
+}
+
+
 // =======================================================================================================
 // = Comparison operators.
 // =======================================================================================================

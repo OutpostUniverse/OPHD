@@ -2,6 +2,8 @@
 
 #include <map>
 
+#include "NAS2D/NAS2D.h"
+
 /**
  * Pretty much just an easy container for keeping track of resources.
  */
@@ -92,6 +94,8 @@ public:
 	bool atCapacity();
 
 	bool empty();
+
+	void serialize(TiXmlElement* _ti);
 
 private:
 	typedef std::map<ResourceType, int> ResourceTable;

@@ -1,6 +1,23 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.6.0] - UNRELEASED
+
+This version includes all revisions from r90 to rXX.
+
+### Added
+- Current state of the game can now be saved.
+
+### Changed
+- Pulled old UI data files.
+- Updated code for Mine interface and implementation.
+- OutpostHD will now create a 'savegame' directory under 'data' if one doesn't exist.
+
+### Fixed
+- 
+
+
+
 ## [0.5.2] - 2016-06-27
 
 This version includes all revisions from r46 to r89.
