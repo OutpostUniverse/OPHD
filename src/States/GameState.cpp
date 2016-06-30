@@ -355,10 +355,13 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 			mDebug = !mDebug;
 			break;
 
-		case KEY_F7:
+		case KEY_F2:
 			save("test.xml");
 			break;
 
+		case KEY_F3:
+			//load("test.xml");
+			break;
 		case KEY_ESCAPE:
 			clearMode();
 			resetUi();

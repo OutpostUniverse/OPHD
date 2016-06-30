@@ -305,6 +305,18 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 }
 
 
+void serializeTile(TiXmlElement* _ti, int x, int y, int depth, int index)
+{
+	TiXmlElement* t = new TiXmlElement("tile");
+	t->SetAttribute("x", x);
+	t->SetAttribute("y", y);
+	t->SetAttribute("depth", depth);
+	t->SetAttribute("index", index);
+
+	_ti->LinkEndChild(t);
+}
+
+
 void TileMap::serialize(TiXmlElement* _ti)
 {
 	// ==========================================
@@ -364,23 +376,11 @@ void TileMap::serialize(TiXmlElement* _ti)
 				tile = getTile(x, y, depth);
 				if (depth > 0 && tile->excavated() && tile->empty() && tile->mine() == nullptr)
 				{
-					TiXmlElement* _t = new TiXmlElement("tile");
-					_t->SetAttribute("x", x);
-					_t->SetAttribute("y", y);
-					_t->SetAttribute("depth", depth);
-					_t->SetAttribute("index", tile->index());
-
-					tiles->LinkEndChild(_t);
+					serializeTile(tiles, x, y, depth, tile->index());
 				}
 				else if (tile->index() == 0 && tile->empty() && tile->mine() == nullptr)
 				{
-					TiXmlElement* _t = new TiXmlElement("tile");
-					_t->SetAttribute("x", x);
-					_t->SetAttribute("y", y);
-					_t->SetAttribute("depth", depth);
-					_t->SetAttribute("index", 0);
-
-					tiles->LinkEndChild(_t);
+					serializeTile(tiles, x, y, depth, tile->index());
 				}
 			}
 		}
