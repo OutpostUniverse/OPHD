@@ -33,6 +33,12 @@ int main(int argc, char *argv[])
 		game.mount("robots.dat");
 		game.mount("ui.dat");
 
+		Filesystem& f = Utility<Filesystem>::get();
+		
+		if (!f.exists(constants::SAVE_GAME_PATH))
+			f.makeDirectory(constants::SAVE_GAME_PATH);
+
+
 		game.go(new PlanetSelectState());
 	}
 	catch(Exception& e)

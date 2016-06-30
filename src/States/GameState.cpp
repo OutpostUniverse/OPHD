@@ -356,7 +356,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 			break;
 
 		case KEY_F2:
-			save("test.xml");
+			save(constants::SAVE_GAME_PATH + "test.xml");
 			break;
 
 		case KEY_F3:

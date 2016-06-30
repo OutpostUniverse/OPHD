@@ -10,6 +10,8 @@ namespace constants
 	const string	EMPTY_STR = "";
 	const string	SAVE_GAME_VERSION = "0.01";
 
+	const string	SAVE_GAME_PATH = "savegames/";
+
 	// ROBOTS
 	const string	ROBODIGGER = "Robodigger";
 	const string	ROBODOZER = "Robodozer";
