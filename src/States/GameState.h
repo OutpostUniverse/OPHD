@@ -4,8 +4,6 @@
 
 #include "../Common.h"
 
-#include "../Population/PopulationPool.h"
-
 #include "../ResourcePool.h"
 #include "../RobotPool.h"
 

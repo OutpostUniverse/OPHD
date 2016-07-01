@@ -110,7 +110,6 @@
     <ClCompile Include="..\..\src\GraphWalker.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\Mine.cpp" />
-    <ClCompile Include="..\..\src\Population\PopulationPool.cpp" />
     <ClCompile Include="..\..\src\ResourcePool.cpp" />
     <ClCompile Include="..\..\src\RobotPool.cpp" />
     <ClCompile Include="..\..\src\RobotTranslator.cpp" />
@@ -144,7 +143,6 @@
     <ClInclude Include="..\..\src\Constants\UiConstants.h" />
     <ClInclude Include="..\..\src\GraphWalker.h" />
     <ClInclude Include="..\..\src\Mine.h" />
-    <ClInclude Include="..\..\src\Population\Person.h" />
     <ClInclude Include="..\..\src\Population\PopulationPool.h" />
     <ClInclude Include="..\..\src\ResourcePool.h" />
     <ClInclude Include="..\..\src\RobotPool.h" />
