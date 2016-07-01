@@ -1085,6 +1085,7 @@ void GameState::checkConnectedness()
 // Convenience functions
 void checkRobotDeployment(TiXmlElement* _ti, GameState::RobotMap& _rm, Robot* _r, RobotType _type);
 void writeRobots(TiXmlElement* _ti, RobotPool& _rp, GameState::RobotMap& _rm);
+void writeResources(TiXmlElement* _ti, ResourcePool& _rp);
 
 
 void GameState::save(const std::string& _path)
@@ -1100,8 +1101,12 @@ void GameState::save(const std::string& _path)
 
 	mTileMap.serialize(root);
 	mStructureManager.serialize(root);
-	
 	writeRobots(root, mRobotPool, mRobotList);
+	writeResources(root, mPlayerResources);
+
+	TiXmlElement* turns = new TiXmlElement("turns");
+	turns->SetAttribute("count", mTurnCount);
+	root->LinkEndChild(turns);
 
 	// Write out the XML file.
 	TiXmlPrinter printer;
@@ -1113,9 +1118,9 @@ void GameState::save(const std::string& _path)
 
 
 
-// ==============================================
-// = CONVENIENCE FUNCTIONS FOR WRITING OUT ROBOTS
-// ==============================================
+// ==============================================================
+// = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
+// ==============================================================
 void checkRobotDeployment(TiXmlElement* _ti, GameState::RobotMap& _rm, Robot* _r, RobotType _type)
 {
 	_ti->SetAttribute("type", _type);
@@ -1130,7 +1135,7 @@ void checkRobotDeployment(TiXmlElement* _ti, GameState::RobotMap& _rm, Robot* _r
 			_ti->SetAttribute("deployed", true);
 			_ti->SetAttribute("x", it->second->x());
 			_ti->SetAttribute("y", it->second->y());
-			_ti->SetAttribute("f", it->second->depth());
+			_ti->SetAttribute("depth", it->second->depth());
 		}
 	}
 
@@ -1167,4 +1172,12 @@ void writeRobots(TiXmlElement* _ti, RobotPool& _rp, GameState::RobotMap& _rm)
 	}
 
 	_ti->LinkEndChild(robots);
+}
+
+
+void writeResources(TiXmlElement* _ti, ResourcePool& _rp)
+{
+	TiXmlElement* resources = new TiXmlElement("resources");
+	_rp.serialize(resources);
+	_ti->LinkEndChild(resources);
 }

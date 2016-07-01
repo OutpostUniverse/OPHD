@@ -325,9 +325,7 @@ void TileMap::serialize(TiXmlElement* _ti)
 	TiXmlElement *properties = new TiXmlElement("properties");
 	_ti->LinkEndChild(properties);
 
-	properties->SetAttribute("planetname", "Planet Name -- DUMMY");
 	properties->SetAttribute("sitemap", mMapPath);
-	properties->SetAttribute("sitemapname", "Sitemap Name -- DUMMY");
 	properties->SetAttribute("tset", mTsetPath);
 	properties->SetAttribute("diggingdepth", mMaxDepth);
 
