@@ -13,6 +13,7 @@
 
 #include "../Constants.h"
 #include "../StructureFactory.h"
+#include "../StructureTranslator.h"
 
 #include <sstream>
 #include <vector>
@@ -283,10 +284,47 @@ void GameState::drawDebug()
 	str << "Max Digging Depth: " << mTileMap.maxDepth();
 	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 2, 255, 255, 255);
 
+	str.str("");
+	str << "Map Mouse Hover Coords: " << mTileMap.tileMouseHoverX() << ", " << mTileMap.tileMouseHoverY();
+	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 3, 255, 255, 255);
+
+	str.str("");
+	str << "Current Depth: " << mTileMap.currentDepth();
+	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 4, 255, 255, 255);
+
 
 	str.str("");
 	str << "Structure Count: " << mStructureManager.count();
-	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 4, 255, 255, 255);
+	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 6, 255, 255, 255);
+
+	Tile* tile = mTileMap.getTile(mTileMap.tileMouseHoverX(), mTileMap.tileMouseHoverY(), mTileMap.currentDepth());
+	if (tile->thingIsStructure())
+	{
+		Structure* s = tile->structure();
+		str.str("");
+		str << "Structure ID: " << s->id();
+		r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 8, 255, 255, 255);
+
+		str.str("");
+		str << "Structure Type: " << s->type();
+		r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 9, 255, 255, 255);
+
+		str.str("");
+		str << "Has Storage: " << !s->storage().empty();
+		r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 10, 255, 255, 255);
+
+		if (!s->storage().empty())
+		{
+			str.str("");
+			str << "Storage: (cm)" << s->storage().commonMetalsOre() << "/" << s->storage().commonMetals() << ", (cmn)" << s->storage().commonMineralsOre() << "/" << s->storage().commonMinerals() << ", (rm)" << s->storage().rareMetalsOre() << "/" << s->storage().rareMetals() << ", (rmn)" << s->storage().rareMineralsOre() << "/" << s->storage().rareMinerals() << ", (f) " << s->storage().food();
+			r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 11, 255, 255, 255);
+
+			str.str("");
+			str << "Production: (cm)" << s->production().commonMetalsOre() << "/" << s->production().commonMetals() << ", (cmn)" << s->production().commonMineralsOre() << "/" << s->production().commonMinerals() << ", (rm)" << s->production().rareMetalsOre() << "/" << s->production().rareMetals() << ", (rmn)" << s->production().rareMineralsOre() << "/" << s->production().rareMinerals() << ", (f) " << s->production().food();
+			r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 12, 255, 255, 255);
+
+		}
+	}
 }
 
 
