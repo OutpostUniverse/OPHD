@@ -5,6 +5,11 @@
 class RobotPool
 {
 public:
+	typedef vector<Robodigger*> DiggerList;
+	typedef vector<Robodozer*> DozerList;
+	typedef vector<Robominer*> MinerList;
+
+public:
 
 	RobotPool();
 	~RobotPool();
@@ -18,10 +23,14 @@ public:
 	bool robotAvailable(RobotType _type);
 	bool allRobotsBusy();
 
+	DiggerList& diggers() { return mDiggers; }
+	DozerList& dozers() { return mDozers; }
+	MinerList& miners() { return mMiners; }
+
 protected:
 private:
 
-	vector<Robodozer*>		mDozers;
-	vector<Robodigger*>		mDiggers;
-	vector<Robominer*>		mMiners;
+	DiggerList		mDiggers;
+	DozerList		mDozers;
+	MinerList		mMiners;
 };

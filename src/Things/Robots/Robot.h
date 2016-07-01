@@ -15,17 +15,19 @@ public:
 
 	void startTask(int turns);
 
+	int fuelCellAge() const { return mFuelCellAge; }
+	int turnsToCompleteTask() const { return mTurnsToCompleteTask; }
+
 	bool selfDestruct() const { return mSelfDestruct; }
 	void seldDestruct(bool _b) { mSelfDestruct = _b; }
+
+	bool idle() const { return turnsToCompleteTask() == 0; }
 
 	TaskCallback& taskComplete() { return mTaskCompleteCallback; }
 	Callback& selfDestruct() { return mSelfDestructCallback; }
 
-	bool idle() const { return mTurnsToCompleteTask == 0; }
-
 protected:
 
-	int fuelCellAge() const { return mFuelCellAge; }
 	int incrementFuelCellAge() { mFuelCellAge++; }
 
 	void updateTask();

@@ -1081,6 +1081,12 @@ void GameState::checkConnectedness()
 	GraphWalker graphWalker(mCCLocation, 0, &mTileMap);
 }
 
+
+// Convenience functions
+void checkRobotDeployment(TiXmlElement* _ti, GameState::RobotMap& _rm, Robot* _r, RobotType _type);
+void writeRobots(TiXmlElement* _ti, RobotPool& _rp, GameState::RobotMap& _rm);
+
+
 void GameState::save(const std::string& _path)
 {
 	TiXmlDocument doc;
@@ -1094,10 +1100,71 @@ void GameState::save(const std::string& _path)
 
 	mTileMap.serialize(root);
 	mStructureManager.serialize(root);
+	
+	writeRobots(root, mRobotPool, mRobotList);
 
 	// Write out the XML file.
 	TiXmlPrinter printer;
 	doc.Accept(&printer);
 
 	Utility<Filesystem>::get().write(File(printer.Str(), _path));
+}
+
+
+
+
+// ==============================================
+// = CONVENIENCE FUNCTIONS FOR WRITING OUT ROBOTS
+// ==============================================
+void checkRobotDeployment(TiXmlElement* _ti, GameState::RobotMap& _rm, Robot* _r, RobotType _type)
+{
+	_ti->SetAttribute("type", _type);
+	_ti->SetAttribute("age", _r->fuelCellAge());
+	_ti->SetAttribute("production", _r->turnsToCompleteTask());
+	_ti->SetAttribute("deployed", false);
+
+	for (auto it = _rm.begin(); it != _rm.end(); ++it)
+	{
+		if (it->first == _r)
+		{
+			_ti->SetAttribute("deployed", true);
+			_ti->SetAttribute("x", it->second->x());
+			_ti->SetAttribute("y", it->second->y());
+			_ti->SetAttribute("f", it->second->depth());
+		}
+	}
+
+}
+
+// Convenience function
+void writeRobots(TiXmlElement* _ti, RobotPool& _rp, GameState::RobotMap& _rm)
+{
+	TiXmlElement* robots = new TiXmlElement("robots");
+
+	RobotPool::DiggerList& diggers = _rp.diggers();
+	for (size_t i = 0; i < diggers.size(); ++i)
+	{
+		TiXmlElement* robot = new TiXmlElement("robot");
+		checkRobotDeployment(robot, _rm, static_cast<Robot*>(diggers[i]), ROBOT_DIGGER);
+		robot->SetAttribute("direction", diggers[i]->direction());
+		robots->LinkEndChild(robot);
+	}
+
+	RobotPool::DozerList& dozers = _rp.dozers();
+	for (size_t i = 0; i < dozers.size(); ++i)
+	{
+		TiXmlElement* robot = new TiXmlElement("robot");
+		checkRobotDeployment(robot, _rm, static_cast<Robot*>(dozers[i]), ROBOT_DOZER);
+		robots->LinkEndChild(robot);
+	}
+
+	RobotPool::MinerList& miners = _rp.miners();
+	for (size_t i = 0; i < miners.size(); ++i)
+	{
+		TiXmlElement* robot = new TiXmlElement("robot");
+		checkRobotDeployment(robot, _rm, static_cast<Robot*>(miners[i]), ROBOT_MINER);
+		robots->LinkEndChild(robot);
+	}
+
+	_ti->LinkEndChild(robots);
 }

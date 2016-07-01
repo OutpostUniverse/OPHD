@@ -49,6 +49,9 @@ enum InsertMode
 class GameState: public State
 {
 public:
+	typedef map<Robot*, Tile*> RobotMap;
+
+public:
 
 	GameState(const std::string& map, const std::string& tset);
 	~GameState();
@@ -59,7 +62,6 @@ protected:
 	State* update();
 
 private:
-	typedef map<Robot*, Tile*> RobotMap;
 	typedef vector<Pointer> PointerList;
 
 private:
