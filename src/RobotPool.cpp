@@ -39,17 +39,19 @@ Robot* RobotPool::addRobot(RobotType _type)
 {
 	switch (_type)
 	{
-	case ROBO_DOZER:
+	case ROBOT_DOZER:
 		mDozers.push_back(new Robodozer());
 		return mDozers.back();
 		break;
-	case ROBO_DIGGER:
+	case ROBOT_DIGGER:
 		mDiggers.push_back(new Robodigger());
 		return mDiggers.back();
 		break;
-	case ROBO_MINER:
+	case ROBOT_MINER:
 		mMiners.push_back(new Robominer());
 		return mMiners.back();
+		break;
+	default:
 		break;
 	}
 
@@ -117,13 +119,13 @@ bool RobotPool::robotAvailable(RobotType _type)
 {
 	switch(_type)
 	{
-		case ROBO_DIGGER:
+		case ROBOT_DIGGER:
 			return getDigger() != nullptr;
 			break;
-		case ROBO_DOZER:
+		case ROBOT_DOZER:
 			return getDozer() != nullptr;
 			break;
-		case ROBO_MINER:
+		case ROBOT_MINER:
 			return getMiner() != nullptr;
 			break;
 		default:
@@ -157,15 +159,3 @@ bool RobotPool::allRobotsBusy()
 	return true;
 }
 
-
-void RobotPool::dozerSelfDestruct()
-{
-}
-
-void RobotPool::diggerSelfDestruct()
-{
-}
-
-void RobotPool::minerSelfDestruct()
-{
-}

@@ -14,7 +14,7 @@ This version includes all revisions from r90 to rXX.
 - OutpostHD will now create a 'savegame' directory under 'data' if one doesn't exist.
 
 ### Fixed
-- 
+- Fixed a mistake in the way robots were handled in the UI when deployed. Robot selection UI will now properly update itself when any robot in the field completes its task instead of the original robots created when the SEED Lander is deployed.
 
 
 

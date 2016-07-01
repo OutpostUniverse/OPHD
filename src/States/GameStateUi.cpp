@@ -370,7 +370,7 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	}
 
 
-	if (!mRobotPool.robotAvailable(RobotPool::ROBO_DIGGER))
+	if (!mRobotPool.robotAvailable(ROBOT_DIGGER))
 	{
 		mRobots.removeItem(constants::ROBODIGGER);
 		clearMode();

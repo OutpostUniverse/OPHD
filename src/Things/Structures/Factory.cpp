@@ -28,8 +28,7 @@ Factory::Factory(const string& name, const string& sprite_path):	Structure(name,
 																	mTurnsCompleted(0),
 																	mTurnsToComplete(0),
 																	mProduction(PRODUCTION_NONE),
-																	mResourcesPool(nullptr),
-																	mRobotPool(nullptr)
+																	mResourcesPool(nullptr)
 {
 	fillTable();
 }
@@ -94,6 +93,12 @@ void Factory::updateProduction()
 		productionComplete(mProduction);
 	}
 
+}
+
+
+void Factory::productionComplete(ProductionType _p)
+{
+	mProductionComplete(_p);
 }
 
 

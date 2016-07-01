@@ -95,6 +95,8 @@ private:
 	void diggerTaskFinished(Robot* _r);
 	void minerTaskFinished(Robot* _r);
 
+	void factoryProductionComplete(Factory::ProductionType _p);
+
 	bool insertRobot(Robot* robot, Tile* tile);
 
 	void deploySeedLander(int x, int y);

@@ -64,7 +64,11 @@ public:
 		PRODUCTION_MINER
 	};
 
+	typedef Gallant::Signal1<ProductionType> ProductionCallback;
+
 	typedef vector<ProductionType> ProductionTypeList;
+
+public:
 
 	Factory(const std::string& name, const std::string& sprite_path);
 	virtual ~Factory();
@@ -72,7 +76,6 @@ public:
 	virtual void updateProduction();
 
 	void resourcePool(ResourcePool* _r) { mResourcesPool = _r; }
-	void robotPool(RobotPool* _r) { mRobotPool = _r; }
 
 	int productionTurnsToComplete() const { return mTurnsToComplete; }
 	void productionTurnsToComplete(int _l) { mTurnsToComplete = _l; }
@@ -89,9 +92,11 @@ public:
 
 	virtual void initFactory() = 0;
 
+	ProductionCallback& productionComplete() { return mProductionComplete; }
+
 protected:
 
-	virtual void productionComplete(ProductionType _p) {}
+	void productionComplete(ProductionType _p);
 
 	void clearProduction();
 
@@ -99,7 +104,6 @@ protected:
 	bool enoughResourcesAvailable();
 
 	ResourcePool* resourcePool() { return mResourcesPool; }
-	RobotPool* robotPool() { return mRobotPool; }
 
 private:
 
@@ -110,6 +114,7 @@ private:
 
 	ProductionTypeList				mAvailableProducts;			/**< List of products that the Factory can produce. */
 
+	ProductionCallback				mProductionComplete;		/**< Callback used when production is complete. */
+
 	ResourcePool*					mResourcesPool;				/**< Pointer to the player's resource pool. UGLY. */
-	RobotPool*						mRobotPool;					/**< Pointer to the player's robot pool. UGLY. */
 };

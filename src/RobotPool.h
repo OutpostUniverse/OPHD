@@ -6,13 +6,6 @@ class RobotPool
 {
 public:
 
-	enum RobotType
-	{
-		ROBO_DOZER,
-		ROBO_DIGGER,
-		ROBO_MINER
-	};
-
 	RobotPool();
 	~RobotPool();
 
@@ -27,10 +20,6 @@ public:
 
 protected:
 private:
-
-	void dozerSelfDestruct();
-	void diggerSelfDestruct();
-	void minerSelfDestruct();
 
 	vector<Robodozer*>		mDozers;
 	vector<Robodigger*>		mDiggers;

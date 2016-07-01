@@ -29,19 +29,6 @@ protected:
 		addProduct(Factory::PRODUCTION_MINER);
 	}
 
-	virtual void productionComplete(ProductionType _p)
-	{
-		// FIXME: Use a table approach for this.
-		if (_p == Factory::PRODUCTION_DIGGER)
-			robotPool()->addRobot(RobotPool::ROBO_DIGGER);
-		else if(_p == Factory::PRODUCTION_DOZER)
-			robotPool()->addRobot(RobotPool::ROBO_DOZER);
-		else if (_p == Factory::PRODUCTION_MINER)
-			robotPool()->addRobot(RobotPool::ROBO_MINER);
-		else
-			return;
-	}
-
 private:
 	virtual void defineResourceInput()
 	{

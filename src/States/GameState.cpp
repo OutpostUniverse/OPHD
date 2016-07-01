@@ -573,7 +573,7 @@ void GameState::placeRobot()
 		insertRobot(r, tile);
 		tile->index(TERRAIN_DOZED);
 
-		if(!mRobotPool.robotAvailable(RobotPool::ROBO_DOZER))
+		if(!mRobotPool.robotAvailable(ROBOT_DOZER))
 		{
 			mRobots.removeItem(constants::ROBODOZER);
 			clearMode();
@@ -624,7 +624,7 @@ void GameState::placeRobot()
 
 		clearMode();
 
-		if(!mRobotPool.robotAvailable(RobotPool::ROBO_MINER))
+		if(!mRobotPool.robotAvailable(ROBOT_MINER))
 			mRobots.removeItem(constants::ROBOMINER);
 	}
 
@@ -756,6 +756,27 @@ void GameState::minerTaskFinished(Robot* _r)
 
 
 /**
+ * Called whenever a Factory's production is complete.
+ */
+void GameState::factoryProductionComplete(Factory::ProductionType _p)
+{
+	switch (_p)
+	{
+	case Factory::PRODUCTION_DIGGER:
+		mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().Connect(this, &GameState::diggerTaskFinished);
+		break;
+	case Factory::PRODUCTION_DOZER:
+		mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
+		break;
+	case Factory::PRODUCTION_MINER:
+		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().Connect(this, &GameState::minerTaskFinished);
+		break;
+	default:
+		break;
+	}
+}
+
+/**
  * Places a structure into the map.
  */
 void GameState::placeStructure()
@@ -812,6 +833,10 @@ void GameState::placeStructure()
 		Structure* _s = StructureFactory::get(mCurrentStructure);
 		if (_s)
 			mStructureManager.addStructure(_s, t);
+
+		// FIXME: Ugly
+		if (_s->isFactory())
+			static_cast<Factory*>(_s)->productionComplete().Connect(this, &GameState::factoryProductionComplete);
 
 		mPlayerResources -= rp;
 	}
@@ -949,7 +974,7 @@ void GameState::deploySeedLander(int x, int y)
 	// BOTTOM ROW
 	SeedFactory* sf = new SeedFactory();
 	sf->resourcePool(&mPlayerResources);
-	sf->robotPool(&mRobotPool);
+	sf->productionComplete().Connect(this, &GameState::factoryProductionComplete);
 	sf->sprite().skip(7);
 	mStructureManager.addStructure(sf, mTileMap.getTile(x - 1, y + 1));
 	mTileMap.getTile(x - 1, y + 1)->index(TERRAIN_DOZED);
@@ -971,9 +996,9 @@ void GameState::deploySeedLander(int x, int y)
 	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID);
 	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
 
-	mRobotPool.addRobot(RobotPool::ROBO_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
-	mRobotPool.addRobot(RobotPool::ROBO_DIGGER)->taskComplete().Connect(this, &GameState::diggerTaskFinished);
-	mRobotPool.addRobot(RobotPool::ROBO_MINER)->taskComplete().Connect(this, &GameState::minerTaskFinished);
+	mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
+	mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().Connect(this, &GameState::diggerTaskFinished);
+	mRobotPool.addRobot(ROBOT_MINER)->taskComplete().Connect(this, &GameState::minerTaskFinished);
 
 	// FIXME: Magic numbers
 	mPlayerResources.commonMetals(50);
