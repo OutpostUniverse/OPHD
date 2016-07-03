@@ -4,6 +4,8 @@
 #include "../StructureManager.h"
 #include "../Tile.h"
 
+typedef map<Robot*, Tile*> RobotTileTable;
+
 /**
  * Utility function to cleanly draw a semi-formatted string with an integer value.
  */
@@ -27,3 +29,11 @@ bool checkStructurePlacement(Tile *tile, Direction dir);
 
 
 int totalStorage(StructureManager::StructureList& _sl);
+
+
+bool insertRobotIntoTable(RobotTileTable& _rm, Robot* robot, Tile* tile);
+
+// Serialize / Deserialize
+void checkRobotDeployment(TiXmlElement* _ti, RobotTileTable& _rm, Robot* _r, RobotType _type);
+void writeRobots(TiXmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);
+void writeResources(TiXmlElement* _ti, ResourcePool& _rp);

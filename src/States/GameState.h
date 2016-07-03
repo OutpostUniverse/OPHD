@@ -23,6 +23,9 @@
 
 #include "../Constants.h"
 
+#include "GameStateHelper.h"
+
+
 using namespace NAS2D;
 
 /**
@@ -49,7 +52,6 @@ enum InsertMode
 class GameState: public State
 {
 public:
-	typedef map<Robot*, Tile*> RobotMap;
 
 public:
 
@@ -98,8 +100,6 @@ private:
 	void minerTaskFinished(Robot* _r);
 
 	void factoryProductionComplete(Factory::ProductionType _p);
-
-	bool insertRobot(Robot* robot, Tile* tile);
 
 	void deploySeedLander(int x, int y);
 	void insertSeedLander(int x, int y);
@@ -160,7 +160,7 @@ private:
 
 	RobotPool			mRobotPool;					/**< Robots that are currently available for use. */
 
-	RobotMap			mRobotList;					/**< List of active robots and their positions on the map. */
+	RobotTileTable		mRobotList;					/**< List of active robots and their positions on the map. */
 
 	InsertMode			mInsertMode;				/**< What's being inserted into the TileMap if anything. */
 	StructureID			mCurrentStructure;			/**< Structure being placed. */

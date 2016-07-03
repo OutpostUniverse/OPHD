@@ -1,9 +1,6 @@
 #include "GameState.h"
 #include "PlanetSelectState.h"
 
-#include "GameStateHelper.h"
-
-
 #include "../GraphWalker.h"
 
 #include "../Tile.h"
@@ -72,7 +69,7 @@ GameState::~GameState()
 	 * \note	Structures are not specially handled by a
 	 *			manager object so Tile can safely free those.
 	 */
-	RobotMap::iterator it = mRobotList.begin();
+	auto it = mRobotList.begin();
 	while(it != mRobotList.end())
 	{
 		it->second->removeThing();
@@ -608,7 +605,7 @@ void GameState::placeRobot()
 
 		Robot* r = mRobotPool.getDozer();
 		r->startTask(tile->index());
-		insertRobot(r, tile);
+		insertRobotIntoTable(mRobotList, r, tile);
 		tile->index(TERRAIN_DOZED);
 
 		if(!mRobotPool.robotAvailable(ROBOT_DOZER))
@@ -657,7 +654,7 @@ void GameState::placeRobot()
 
 		Robot* r = mRobotPool.getMiner();
 		r->startTask(6);
-		insertRobot(r, tile);
+		insertRobotIntoTable(mRobotList, r, tile);
 		tile->index(TERRAIN_DOZED);
 
 		clearMode();
@@ -919,20 +916,7 @@ void GameState::updateMapView()
 }
 
 
-bool GameState::insertRobot(Robot* robot, Tile* tile)
-{
-	if(!tile)
-		return false;
 
-	RobotMap::iterator it = mRobotList.find(robot);
-	if(it != mRobotList.end())
-		throw Exception(0, "Duplicate Robot", "GameState::insertRobot(): Attempting to add a duplicate Robot* pointer.");
-
-	mRobotList[robot] = tile;
-	tile->pushThing(robot);
-
-	return true;
-}
 
 
 /**
@@ -1055,7 +1039,7 @@ void GameState::deploySeedLander(int x, int y)
  */
 void GameState::updateRobots()
 {
-	RobotMap::iterator robot_it = mRobotList.begin();
+	auto robot_it = mRobotList.begin();
 	while(robot_it != mRobotList.end())
 	{
 		robot_it->first->update();
@@ -1120,12 +1104,6 @@ void GameState::checkConnectedness()
 }
 
 
-// Convenience functions
-void checkRobotDeployment(TiXmlElement* _ti, GameState::RobotMap& _rm, Robot* _r, RobotType _type);
-void writeRobots(TiXmlElement* _ti, RobotPool& _rp, GameState::RobotMap& _rm);
-void writeResources(TiXmlElement* _ti, ResourcePool& _rp);
-
-
 void GameState::save(const std::string& _path)
 {
 	TiXmlDocument doc;
@@ -1151,71 +1129,4 @@ void GameState::save(const std::string& _path)
 	doc.Accept(&printer);
 
 	Utility<Filesystem>::get().write(File(printer.Str(), _path));
-}
-
-
-
-
-// ==============================================================
-// = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
-// ==============================================================
-void checkRobotDeployment(TiXmlElement* _ti, GameState::RobotMap& _rm, Robot* _r, RobotType _type)
-{
-	_ti->SetAttribute("type", _type);
-	_ti->SetAttribute("age", _r->fuelCellAge());
-	_ti->SetAttribute("production", _r->turnsToCompleteTask());
-	_ti->SetAttribute("deployed", false);
-
-	for (auto it = _rm.begin(); it != _rm.end(); ++it)
-	{
-		if (it->first == _r)
-		{
-			_ti->SetAttribute("deployed", true);
-			_ti->SetAttribute("x", it->second->x());
-			_ti->SetAttribute("y", it->second->y());
-			_ti->SetAttribute("depth", it->second->depth());
-		}
-	}
-
-}
-
-// Convenience function
-void writeRobots(TiXmlElement* _ti, RobotPool& _rp, GameState::RobotMap& _rm)
-{
-	TiXmlElement* robots = new TiXmlElement("robots");
-
-	RobotPool::DiggerList& diggers = _rp.diggers();
-	for (size_t i = 0; i < diggers.size(); ++i)
-	{
-		TiXmlElement* robot = new TiXmlElement("robot");
-		checkRobotDeployment(robot, _rm, static_cast<Robot*>(diggers[i]), ROBOT_DIGGER);
-		robot->SetAttribute("direction", diggers[i]->direction());
-		robots->LinkEndChild(robot);
-	}
-
-	RobotPool::DozerList& dozers = _rp.dozers();
-	for (size_t i = 0; i < dozers.size(); ++i)
-	{
-		TiXmlElement* robot = new TiXmlElement("robot");
-		checkRobotDeployment(robot, _rm, static_cast<Robot*>(dozers[i]), ROBOT_DOZER);
-		robots->LinkEndChild(robot);
-	}
-
-	RobotPool::MinerList& miners = _rp.miners();
-	for (size_t i = 0; i < miners.size(); ++i)
-	{
-		TiXmlElement* robot = new TiXmlElement("robot");
-		checkRobotDeployment(robot, _rm, static_cast<Robot*>(miners[i]), ROBOT_MINER);
-		robots->LinkEndChild(robot);
-	}
-
-	_ti->LinkEndChild(robots);
-}
-
-
-void writeResources(TiXmlElement* _ti, ResourcePool& _rp)
-{
-	TiXmlElement* resources = new TiXmlElement("resources");
-	_rp.serialize(resources);
-	_ti->LinkEndChild(resources);
 }
