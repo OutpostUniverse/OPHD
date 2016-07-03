@@ -1,5 +1,7 @@
 #include "ResourcePool.h"
 
+#include "Constants.h"
+
 #include <iostream>
 
 using namespace std;
@@ -296,18 +298,35 @@ void ResourcePool::capacity(int _i)
 
 void ResourcePool::serialize(TiXmlElement* _ti)
 {
-	_ti->SetAttribute("common_metals_ore", commonMetalsOre());
-	_ti->SetAttribute("common_minerals_ore", commonMineralsOre());
-	_ti->SetAttribute("rare_metals_ore", rareMetalsOre());
-	_ti->SetAttribute("rare_minerals_ore", rareMineralsOre());
+	_ti->SetAttribute(constants::SAVE_GAME_COMMON_METAL_ORE, commonMetalsOre());
+	_ti->SetAttribute(constants::SAVE_GAME_COMMON_MINERAL_ORE, commonMineralsOre());
+	_ti->SetAttribute(constants::SAVE_GAME_RARE_METAL_ORE, rareMetalsOre());
+	_ti->SetAttribute(constants::SAVE_GAME_RARE_MINERAL_ORE, rareMineralsOre());
 
-	_ti->SetAttribute("common_metals", commonMetals());
-	_ti->SetAttribute("common_mminerals", commonMinerals());
-	_ti->SetAttribute("rare_metals", rareMetals());
-	_ti->SetAttribute("rare_mminerals", rareMinerals());
+	_ti->SetAttribute(constants::SAVE_GAME_COMMON_METAL, commonMetals());
+	_ti->SetAttribute(constants::SAVE_GAME_COMMON_MINERAL, commonMinerals());
+	_ti->SetAttribute(constants::SAVE_GAME_RARE_METAL, rareMetals());
+	_ti->SetAttribute(constants::SAVE_GAME_RARE_MINERAL, rareMinerals());
 
-	_ti->SetAttribute("energy", energy());
-	_ti->SetAttribute("food", food());
+	_ti->SetAttribute(constants::SAVE_GAME_ENERGY, energy());
+	_ti->SetAttribute(constants::SAVE_GAME_FOOD, food());
+}
+
+
+void ResourcePool::deserialize(TiXmlElement* _ti)
+{
+	_ti->Attribute(constants::SAVE_GAME_COMMON_METAL_ORE, &_resourceTable[RESOURCE_COMMON_METALS_ORE]);
+	_ti->Attribute(constants::SAVE_GAME_COMMON_MINERAL_ORE, &_resourceTable[RESOURCE_COMMON_MINERALS_ORE]);
+	_ti->Attribute(constants::SAVE_GAME_RARE_METAL_ORE, &_resourceTable[RESOURCE_RARE_METALS_ORE]);
+	_ti->Attribute(constants::SAVE_GAME_RARE_MINERAL_ORE, &_resourceTable[RESOURCE_RARE_MINERALS_ORE]);
+
+	_ti->Attribute(constants::SAVE_GAME_COMMON_METAL, &_resourceTable[RESOURCE_COMMON_METALS]);
+	_ti->Attribute(constants::SAVE_GAME_COMMON_MINERAL, &_resourceTable[RESOURCE_COMMON_MINERALS]);
+	_ti->Attribute(constants::SAVE_GAME_RARE_METAL, &_resourceTable[RESOURCE_RARE_METALS]);
+	_ti->Attribute(constants::SAVE_GAME_RARE_MINERAL, &_resourceTable[RESOURCE_RARE_MINERALS]);
+
+	_ti->Attribute(constants::SAVE_GAME_ENERGY, &_resourceTable[RESOURCE_ENERGY]);
+	_ti->Attribute(constants::SAVE_GAME_FOOD, &_resourceTable[RESOURCE_FOOD]);
 }
 
 

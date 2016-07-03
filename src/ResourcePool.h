@@ -96,6 +96,7 @@ public:
 	bool empty();
 
 	void serialize(TiXmlElement* _ti);
+	void deserialize(TiXmlElement* _ti);
 
 private:
 	typedef std::map<ResourceType, int> ResourceTable;

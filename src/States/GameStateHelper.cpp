@@ -130,6 +130,7 @@ void checkRobotDeployment(TiXmlElement* _ti, RobotTileTable& _rm, Robot* _r, Rob
 
 }
 
+
 // Convenience function
 void writeRobots(TiXmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm)
 {
@@ -169,4 +170,16 @@ void writeResources(TiXmlElement* _ti, ResourcePool& _rp)
 	TiXmlElement* resources = new TiXmlElement("resources");
 	_rp.serialize(resources);
 	_ti->LinkEndChild(resources);
+}
+
+
+void readRobots(TiXmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm)
+{
+}
+
+
+void readResources(TiXmlElement* _ti, ResourcePool& _rp)
+{
+	if (_ti)
+		_rp.deserialize(_ti);
 }

@@ -7,6 +7,7 @@ This version includes all revisions from r90 to rXX.
 
 ### Added
 - Current state of the game can now be saved.
+- Current state of the game can now be loaded.
 - Added mouse hover coordinates to debug.
 - Added Structure information to debug.
 

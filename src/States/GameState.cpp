@@ -395,7 +395,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 			break;
 
 		case KEY_F3:
-			//load("test.xml");
+			load(constants::SAVE_GAME_PATH + "test.xml");
 			break;
 		case KEY_ESCAPE:
 			clearMode();
@@ -1111,7 +1111,7 @@ void GameState::save(const std::string& _path)
 	//TiXmlComment *comment = new TiXmlComment("Automatically generated Configuration file. This is best left untouched.");
 	//doc->LinkEndChild(comment);
 
-	TiXmlElement* root = new TiXmlElement("OutpostHD_SaveGame");
+	TiXmlElement* root = new TiXmlElement(constants::SAVE_GAME_ROOT_NODE);
 	root->SetAttribute("version", constants::SAVE_GAME_VERSION);
 	doc.LinkEndChild(root);
 
@@ -1129,4 +1129,46 @@ void GameState::save(const std::string& _path)
 	doc.Accept(&printer);
 
 	Utility<Filesystem>::get().write(File(printer.Str(), _path));
+}
+
+
+void GameState::load(const std::string& _path)
+{
+	File xmlFile = Utility<Filesystem>::get().open(_path);
+
+	TiXmlDocument doc;
+	TiXmlElement  *root = nullptr;
+
+	// Load the XML document and handle any errors if occuring
+	doc.Parse(xmlFile.raw_bytes());
+	if (doc.Error())
+	{
+		cout << "Malformed savegame ('" << _path << "'). Error on Row " << doc.ErrorRow() << ", Column " << doc.ErrorCol() << ": " << doc.ErrorDesc() << endl;
+		return;
+	}
+
+	root = doc.FirstChildElement(constants::SAVE_GAME_ROOT_NODE);
+	if (root == nullptr)
+	{
+		cout << "Root element in '" << _path << "' is not '" << constants::SAVE_GAME_ROOT_NODE << "'." << endl;
+		return;
+	}
+
+	std::string sg_version = root->Attribute("version");
+	if(sg_version != constants::SAVE_GAME_VERSION)
+	{
+		cout << "Savegame version mismatch: '" << _path << "'. Expected " << constants::SAVE_GAME_VERSION << ", found " << sg_version << "." << endl;
+		return;
+	}
+
+	mTileMap.deserialize(root);
+
+	TiXmlElement* ti = root->FirstChildElement("turns");
+	if (ti)
+	{
+		ti->Attribute("count", &mTurnCount);
+	}
+
+	readResources(root->FirstChildElement("resources"), mPlayerResources);
+
 }

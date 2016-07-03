@@ -114,6 +114,7 @@ private:
 
 	void setStructureID(StructureID type, InsertMode mode);
 
+	void load(const std::string& _path);
 	void save(const std::string& _path);
 
 	// UI Event Handlers

@@ -56,6 +56,7 @@ public:
 	void draw();
 
 	void serialize(TiXmlElement* _ti);
+	void deserialize(TiXmlElement* _ti);
 
 protected:
 	enum MouseMapRegion
@@ -74,6 +75,11 @@ private:
 	typedef vector<vector<Tile> >	TileGrid;
 	typedef vector<TileGrid>		TileArray;
 	
+private:
+	
+	TileMap(const TileMap&) {} // Explicitely private, don't want it to be copyable.
+	TileMap& operator=(const TileMap&) {} // Explicitely private, don't want it to be copyable.
+
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
 	void setupMines();
@@ -84,6 +90,7 @@ private:
 
 	MouseMapRegion getMouseMapRegion(int x, int y);
 
+private:
 	int					mEdgeLength;
 	int					mWidth, mHeight;
 
@@ -99,6 +106,7 @@ private:
 	Image				mTileset;
 
 	Sprite				mMineBeacon;
+
 
 	Point_2d			mMousePosition;		/**< Current mouse position. */
 	Point_2d			mMapHighlight;		/**< Tile the mouse is pointing to. */

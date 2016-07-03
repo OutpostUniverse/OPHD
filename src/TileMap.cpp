@@ -384,3 +384,15 @@ void TileMap::serialize(TiXmlElement* _ti)
 		}
 	}
 }
+
+
+void TileMap::deserialize(TiXmlElement* _ti)
+{
+
+
+
+	//buildTerrainMap(map_path);
+
+	//mMapPath = map_path;
+	//mTsetPath = tset_path;
+}

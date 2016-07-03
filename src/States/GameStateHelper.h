@@ -34,6 +34,8 @@ int totalStorage(StructureManager::StructureList& _sl);
 bool insertRobotIntoTable(RobotTileTable& _rm, Robot* robot, Tile* tile);
 
 // Serialize / Deserialize
-void checkRobotDeployment(TiXmlElement* _ti, RobotTileTable& _rm, Robot* _r, RobotType _type);
 void writeRobots(TiXmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);
 void writeResources(TiXmlElement* _ti, ResourcePool& _rp);
+
+void readRobots(TiXmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);
+void readResources(TiXmlElement* _ti, ResourcePool& _rp);

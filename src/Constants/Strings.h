@@ -8,9 +8,24 @@ namespace constants
 {
 	// MISCELLANEOUS
 	const string	EMPTY_STR = "";
-	const string	SAVE_GAME_VERSION = "0.01";
 
+	// SAVE GAMES
 	const string	SAVE_GAME_PATH = "savegames/";
+	const string	SAVE_GAME_VERSION = "0.01";
+	const string	SAVE_GAME_ROOT_NODE = "OutpostHD_SaveGame";
+
+	const string	SAVE_GAME_COMMON_METAL_ORE = "common_metal_ore";
+	const string	SAVE_GAME_COMMON_MINERAL_ORE = "common_mineral_ore";
+	const string	SAVE_GAME_RARE_METAL_ORE = "rare_metal_ore";
+	const string	SAVE_GAME_RARE_MINERAL_ORE = "rare_mineral_ore";
+
+	const string	SAVE_GAME_COMMON_METAL = "common_metal";
+	const string	SAVE_GAME_COMMON_MINERAL = "common_mineral";
+	const string	SAVE_GAME_RARE_METAL = "rare_metal";
+	const string	SAVE_GAME_RARE_MINERAL = "rare_mineral";
+
+	const string	SAVE_GAME_ENERGY = "energy";
+	const string	SAVE_GAME_FOOD = "food";
 
 	// ROBOTS
 	const string	ROBODIGGER = "Robodigger";
