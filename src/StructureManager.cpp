@@ -1,6 +1,7 @@
 #include "StructureManager.h"
 
 #include "Constants.h"
+#include "StructureTranslator.h"
 
 #include <algorithm>
 
@@ -236,7 +237,8 @@ void serializeStructure(TiXmlElement* _ti, Structure* _s, Tile* _t)
 	_ti->SetAttribute("id", _s->id());
 	_ti->SetAttribute("age", _s->age());
 	_ti->SetAttribute("state", _s->state());
-	_ti->SetAttribute("type", _s->type());
+	//_ti->SetAttribute("type", StructureTranslator::translateFromString(_s->name()));
+	_ti->SetAttribute("type", _s->name());
 	_ti->SetAttribute("direction", _s->connectorDirection());
 
 	if (!_s->production().empty())

@@ -114,6 +114,8 @@ private:
 
 	void setStructureID(StructureID type, InsertMode mode);
 
+	void readRobots(TiXmlElement* _ti);
+
 	void load(const std::string& _path);
 	void save(const std::string& _path);
 

@@ -15,6 +15,7 @@ public:
 
 	void startTask(int turns);
 
+	void fuelCellAge(int age) { mFuelCellAge = age; }
 	int fuelCellAge() const { return mFuelCellAge; }
 	int turnsToCompleteTask() const { return mTurnsToCompleteTask; }
 

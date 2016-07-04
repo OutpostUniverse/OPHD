@@ -1169,6 +1169,59 @@ void GameState::load(const std::string& _path)
 		ti->Attribute("count", &mTurnCount);
 	}
 
+	readRobots(root->FirstChildElement("robots"));
 	readResources(root->FirstChildElement("resources"), mPlayerResources);
 
+}
+
+
+void GameState::readRobots(TiXmlElement* _ti)
+{
+	mRobotPool.clear();
+
+	TiXmlNode* robot = _ti->FirstChild();
+	for (robot; robot != nullptr; robot = robot->NextSibling())
+	{
+		int type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
+		robot->ToElement()->Attribute("type", &type);
+		robot->ToElement()->Attribute("age", &age);
+		robot->ToElement()->Attribute("production", &production_time);
+
+		robot->ToElement()->Attribute("x", &x);
+		robot->ToElement()->Attribute("y", &y);
+		robot->ToElement()->Attribute("depth", &depth);
+		robot->ToElement()->Attribute("direction", &direction);
+
+		Robot* r = nullptr;
+		RobotType rt = static_cast<RobotType>(type);
+		switch (rt)
+		{
+		case ROBOT_DIGGER:
+			r = mRobotPool.addRobot(ROBOT_DIGGER);
+			r->taskComplete().Connect(this, &GameState::diggerTaskFinished);
+			static_cast<Robodigger*>(r)->direction(static_cast<Direction>(direction));
+			break;
+		case ROBOT_DOZER:
+			r = mRobotPool.addRobot(ROBOT_DOZER);
+			r->taskComplete().Connect(this, &GameState::dozerTaskFinished);
+			break;
+		case ROBOT_MINER:
+			r = mRobotPool.addRobot(ROBOT_MINER);
+			r->taskComplete().Connect(this, &GameState::minerTaskFinished);
+			break;
+		default:
+			cout << "Unknown robot type in savegame." << endl;
+			break;
+		}
+
+		r->fuelCellAge(age);
+
+		if (production_time > 0)
+		{
+			r->startTask(production_time);
+			insertRobotIntoTable(mRobotList, r, mTileMap.getTile(x, y, depth));
+			if (static_cast<RobotType>(type) == ROBOT_DOZER)
+				mRobotList[r]->index(0);
+		}
+	}
 }

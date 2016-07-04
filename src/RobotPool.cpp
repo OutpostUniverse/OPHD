@@ -18,14 +18,24 @@ RobotPool::RobotPool()
  */
 RobotPool::~RobotPool()
 {
-	for (size_t i = 0; i < mDozers.size(); i++)
-		delete mDozers[i];
+	clear();
+}
 
+
+void RobotPool::clear()
+{
 	for (size_t i = 0; i < mDiggers.size(); i++)
 		delete mDiggers[i];
 
+	for (size_t i = 0; i < mDozers.size(); i++)
+		delete mDozers[i];
+
 	for (size_t i = 0; i < mMiners.size(); i++)
 		delete mMiners[i];
+
+	mDiggers.clear();
+	mDozers.clear();
+	mMiners.clear();
 }
 
 

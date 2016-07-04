@@ -27,6 +27,8 @@ public:
 	DozerList& dozers() { return mDozers; }
 	MinerList& miners() { return mMiners; }
 
+	void clear();
+
 protected:
 private:
 

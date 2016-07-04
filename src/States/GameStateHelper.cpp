@@ -115,13 +115,11 @@ void checkRobotDeployment(TiXmlElement* _ti, RobotTileTable& _rm, Robot* _r, Rob
 	_ti->SetAttribute("type", _type);
 	_ti->SetAttribute("age", _r->fuelCellAge());
 	_ti->SetAttribute("production", _r->turnsToCompleteTask());
-	_ti->SetAttribute("deployed", false);
 
 	for (auto it = _rm.begin(); it != _rm.end(); ++it)
 	{
 		if (it->first == _r)
 		{
-			_ti->SetAttribute("deployed", true);
 			_ti->SetAttribute("x", it->second->x());
 			_ti->SetAttribute("y", it->second->y());
 			_ti->SetAttribute("depth", it->second->depth());
@@ -170,11 +168,6 @@ void writeResources(TiXmlElement* _ti, ResourcePool& _rp)
 	TiXmlElement* resources = new TiXmlElement("resources");
 	_rp.serialize(resources);
 	_ti->LinkEndChild(resources);
-}
-
-
-void readRobots(TiXmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm)
-{
 }
 
 
