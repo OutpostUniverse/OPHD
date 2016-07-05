@@ -441,9 +441,6 @@ void GameState::btnTurnsClicked()
 		}
 	}
 
-
-
-
 	updateRobots();
 
 	Structure* cc = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();

@@ -278,3 +278,10 @@ void StructureManager::serialize(TiXmlElement* _ti)
 	_ti->LinkEndChild(structures);
 	_ti->LinkEndChild(factories);
 }
+
+
+void StructureManager::deserialize(TiXmlElement* _ti)
+{
+
+
+}

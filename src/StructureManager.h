@@ -35,6 +35,7 @@ public:
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
 
 	void serialize(TiXmlElement* _ti);
+	void deserialize(TiXmlElement* _ti);
 
 protected:
 

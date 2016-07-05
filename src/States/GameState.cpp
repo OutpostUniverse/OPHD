@@ -167,6 +167,9 @@ void GameState::drawMiniMap()
 			r.drawSubImage(mUiIcons, mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 5.0f, 5.0f);
 	}
 
+	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
+		r.drawPixel(it->second->x()  + mMiniMapBoundingBox.x(), it->second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
+
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap.mapViewLocation().x() + 1, mMiniMapBoundingBox.y() + mTileMap.mapViewLocation().y() + 1, mTileMap.edgeLength(), mTileMap.edgeLength(), 0, 0, 0, 180);
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap.mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap.mapViewLocation().y(), mTileMap.edgeLength(), mTileMap.edgeLength(), 255, 255, 255);
 }
@@ -1134,6 +1137,8 @@ void GameState::save(const std::string& _path)
 
 void GameState::load(const std::string& _path)
 {
+	resetUi();
+
 	File xmlFile = Utility<Filesystem>::get().open(_path);
 
 	TiXmlDocument doc;
@@ -1167,11 +1172,29 @@ void GameState::load(const std::string& _path)
 	if (ti)
 	{
 		ti->Attribute("count", &mTurnCount);
+
+		if (mTurnCount > 0)
+		{
+			mBtnConnections.enabled(true);
+			mBtnRobots.enabled(true);
+			mBtnStructures.enabled(true);
+			mBtnTurns.enabled(true);
+
+			populateStructureMenu();
+		}
 	}
 
-	readRobots(root->FirstChildElement("robots"));
-	readResources(root->FirstChildElement("resources"), mPlayerResources);
+	mStructureManager.deserialize(root);
 
+	readRobots(root->FirstChildElement("robots"));
+	if(mRobotPool.robotAvailable(ROBOT_DIGGER))
+		checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID);
+	if (mRobotPool.robotAvailable(ROBOT_DOZER))
+		checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID);
+	if (mRobotPool.robotAvailable(ROBOT_MINER))
+		checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
+
+	readResources(root->FirstChildElement("resources"), mPlayerResources);
 }
 
 
@@ -1220,8 +1243,7 @@ void GameState::readRobots(TiXmlElement* _ti)
 		{
 			r->startTask(production_time);
 			insertRobotIntoTable(mRobotList, r, mTileMap.getTile(x, y, depth));
-			if (static_cast<RobotType>(type) == ROBOT_DOZER)
-				mRobotList[r]->index(0);
+			mRobotList[r]->index(0);
 		}
 	}
 }
