@@ -104,9 +104,9 @@ private:
 
 	Image				mTileSelector;
 	Image				mTileset;
+	Image				mMineBeacon;
 
-	Sprite				mMineBeacon;
-
+	Timer				mTimer;
 
 	Point_2d			mMousePosition;		/**< Current mouse position. */
 	Point_2d			mMapHighlight;		/**< Tile the mouse is pointing to. */
@@ -120,5 +120,4 @@ private:
 
 	bool				mDebug;
 	bool				mShowConnections;	/**< Flag indicating whether or not to highlight connectedness. */
-
 };

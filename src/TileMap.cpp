@@ -2,6 +2,7 @@
 
 #include "Constants.h"
 
+
 #pragma warning(disable: 4244)
 
 const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
@@ -16,13 +17,15 @@ const int			TILE_HEIGHT					= 46;
 
 const int			MINE_COUNT					= 30; // How many mines exist in the terrain map.
 
+const double		THROB_SPEED					= 250.0f; // Throb speed of mine beacon
+
 TileMap::TileMap(const string& map_path, const string& tset_path, int maxDepth, bool _s):	mEdgeLength(0),
 																							mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
 																							mMaxDepth(maxDepth),
 																							mCurrentDepth(0),
 																							mTileSelector("ui/selector.png"),
 																							mTileset(tset_path),
-																							mMineBeacon("structures/mine_beacon.sprite"),
+																							mMineBeacon("structures/mine_beacon.png"),
 																							mDebug(false),
 																							mShowConnections(false)
 {
@@ -32,8 +35,6 @@ TileMap::TileMap(const string& map_path, const string& tset_path, int maxDepth, 
 
 	if(_s)
 		setupMines();
-
-	mMineBeacon.play("glow");
 
 	mMapPath = map_path;
 	mTsetPath = tset_path;
@@ -238,8 +239,13 @@ void TileMap::draw()
 												mMapPosition.y() + (mMapHighlight.x() + mMapHighlight.y()) * (TILE_HEIGHT / 2));
 
 				// Draw a beacon on an unoccupied tile with a mine
-				if(tile->mine() != NULL && !tile->thing())
-					mMineBeacon.update(x, y);
+				if (tile->mine() != NULL && !tile->thing())
+				{
+					int glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57, loc_x = x + (TILE_WIDTH >> 1) - 6, loc_y = y + (TILE_HEIGHT >> 1) - 22;
+
+					r.drawImage(mMineBeacon, loc_x, loc_y);
+					r.drawSubImage(mMineBeacon, loc_x, loc_y, 0, 0, 10, 5, glow, glow, glow, 255);
+				}
 
 				// Tell an occupying thing to update itself.
 				if(tile->thing())
