@@ -126,6 +126,31 @@ void Structure::destroy()
 
 
 /**
+ * Provided for loading purposes.
+ */
+void Structure::forced_state_change(StructureState _s)
+{
+	defineResourceInput();
+	defineResourceOutput();
+
+	if (age() > turnsToBuild())
+	{
+		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
+		//enable();
+	}
+
+	if (_s == OPERATIONAL)
+		enable();
+	if (_s == IDLE)
+		idle();
+	if (_s == DISABLED)
+		disable();
+	if (_s == DESTROYED)
+		destroy();
+}
+
+
+/**
  * Returns a ResourcePool containing recycling values for the Structure.
  * 
  * \note	Not very efficient but it's not called often so whatever.

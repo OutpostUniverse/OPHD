@@ -92,6 +92,12 @@ public:
 	void update();
 	virtual void think() {}
 
+	// FIXME: Not terribly thrilled with these being accessible.
+	void id(int _id) { mId = _id; }
+	void age(int _age) { mAge = _age; }
+	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
+
+	virtual void forced_state_change(StructureState _s);
 
 protected:
 
@@ -104,7 +110,6 @@ protected:
 	 * \note	Available to reset current age to simulate repairs to extend
 	 *			the life of the Structure and for loading games.
 	 */
-	void age(int _age) { mAge = _age; }
 
 	void repairable(bool _r) { mRepairable = _r; }
 
@@ -112,11 +117,9 @@ protected:
 	virtual void defineResourceOutput() {}
 	virtual void defineResourceCostToBuild() {};
 
-	void state(StructureState _s) { mStructureState = _s; }
-
 	void activate();
 
-	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
+	void state(StructureState _s) { mStructureState = _s; }
 
 	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
 	void selfSustained(bool _b) { mSelfSustained = _b; }

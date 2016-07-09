@@ -35,7 +35,13 @@ protected:
 	virtual void think()
 	{
 		if (age() == turnsToBuild())
+		{
+			// Logic guard, probably not necessary.
+			if (mX == 0 && mY == 0)
+				return;
+
 			mDeploy(mX, mY);
+		}
 	}
 
 	// Counterintuitive because these structures can't be build directly but
