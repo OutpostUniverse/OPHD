@@ -37,6 +37,9 @@ public:
 	void clearSelection();
 	void selection(int _s);
 
+	void incrementSelection();
+	void decrementSelection();
+
 	Callback& selectionChanged() { return mCallback; }
 
 	virtual void hide();
@@ -59,6 +62,9 @@ private:
 	void updateGrid();
 	int translateCoordsToIndex(int x, int y);
 
+	void raiseChangedEvent();
+
+private:
 
 	int					mHighlightIndex;		/**< Current highlight index. */
 	int					mCurrentSelection;		/**< Currently selected item index. */

@@ -88,10 +88,7 @@ void IconGrid::onMouseDown(MouseButton button, int x, int y)
 	if (mCurrentSelection >= mIconItemList.size())
 		mCurrentSelection = constants::NO_SELECTION;
 
-	if (mCurrentSelection != constants::NO_SELECTION)
-		mCallback(mIconItemList[mCurrentSelection].first);
-	else
-		mCallback("");
+	raiseChangedEvent();
 }
 
 
@@ -230,6 +227,36 @@ void IconGrid::selection(int _s)
 	mCurrentSelection = _s;
 }
 
+
+void IconGrid::incrementSelection()
+{
+	++mCurrentSelection;
+
+	if (mCurrentSelection >= mIconItemList.size())
+		mCurrentSelection = 0;
+
+	raiseChangedEvent();
+}
+
+
+void IconGrid::decrementSelection()
+{
+	--mCurrentSelection;
+
+	if (mCurrentSelection < 0)
+		mCurrentSelection = mIconItemList.size() - 1;
+
+	raiseChangedEvent();
+}
+
+
+void IconGrid::raiseChangedEvent()
+{
+	if (mCurrentSelection != constants::NO_SELECTION)
+		mCallback(mIconItemList[mCurrentSelection].first);
+	else
+		mCallback("");
+}
 
 /**
  * Hide override -- clears selections whenever IconGrid is hidden.

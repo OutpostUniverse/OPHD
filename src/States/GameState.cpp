@@ -102,6 +102,7 @@ void GameState::initialize()
 	e.mouseButtonDown().Connect(this, &GameState::onMouseDown);
 	e.mouseButtonUp().Connect(this, &GameState::onMouseUp);
 	e.mouseMotion().Connect(this, &GameState::onMouseMove);
+	e.mouseWheel().Connect(this, &GameState::onMouseWheel);
 
 	// UI
 	initUi();
@@ -516,6 +517,28 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 }
 
 
+Structure* GameState::insertTube(StructureID _id, int _depth, Tile* _t)
+{
+	if (_id == SID_TUBE_INTERSECTION)
+	{
+		mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, _depth != 0), _t);
+	}
+	else if (_id == SID_TUBE_RIGHT)
+	{
+		mStructureManager.addStructure(new Tube(CONNECTOR_RIGHT, _depth != 0), _t);
+	}
+	else if (_id == SID_TUBE_LEFT)
+	{
+		mStructureManager.addStructure(new Tube(CONNECTOR_LEFT, _depth != 0), _t);
+	}
+	else
+	{
+		throw Exception(0, "Structure Not a Tube", "GameState::placeTube() called but Current Structure is not a tube!");
+	}
+
+	return nullptr;
+}
+
 void GameState::placeTubes()
 {
 	int x = mTileMapMouseHover.x();
@@ -531,15 +554,7 @@ void GameState::placeTubes()
 
 	if (validTubeConnection(x, y, mCurrentStructure))
 	{
-		// FIXME:	This can be done a lot better.
-		if(mCurrentStructure == SID_TUBE_INTERSECTION)
-			mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y));
-		else if (mCurrentStructure == SID_TUBE_RIGHT)
-			mStructureManager.addStructure(new Tube(CONNECTOR_RIGHT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y));
-		else if (mCurrentStructure == SID_TUBE_LEFT)
-			mStructureManager.addStructure(new Tube(CONNECTOR_LEFT, mTileMap.currentDepth() != 0), mTileMap.getTile(x, y));
-		else
-			throw Exception(0, "Structure Not a Tube", "GameState::placeTube() called but Current Structure is not a tube!");
+		insertTube(mCurrentStructure, mTileMap.currentDepth(), mTileMap.getTile(x, y));
 
 		// FIXME:	Naive approach. This will be slow with larger colonies,
 		//			especially colonies that have expanded far underground.
@@ -910,6 +925,19 @@ void GameState::onMouseMove(int x, int y, int rX, int rY)
 	}
 }
 
+
+void GameState::onMouseWheel(int x, int y)
+{
+	if (mInsertMode != INSERT_TUBE)
+		return;
+
+	if (y > 0)
+		mConnections.incrementSelection();
+	else
+		mConnections.decrementSelection();
+}
+
+
 void GameState::updateMapView()
 {
 	int x = clamp(mMousePosition.x() - mMiniMapBoundingBox.x() - mTileMap.edgeLength() / 2, 0, mTileMap.width() - mTileMap.edgeLength());
@@ -1168,31 +1196,9 @@ void GameState::load(const std::string& _path)
 
 	mTileMap.deserialize(root);
 
-	TiXmlElement* ti = root->FirstChildElement("turns");
-	if (ti)
-	{
-		ti->Attribute("count", &mTurnCount);
-
-		if (mTurnCount > 0)
-		{
-			mBtnConnections.enabled(true);
-			mBtnRobots.enabled(true);
-			mBtnStructures.enabled(true);
-			mBtnTurns.enabled(true);
-
-			populateStructureMenu();
-		}
-	}
-
-	mStructureManager.deserialize(root);
-
+	readTurns(root->FirstChildElement("turns"));
+	readStructures(root->FirstChildElement("structures"));
 	readRobots(root->FirstChildElement("robots"));
-	if(mRobotPool.robotAvailable(ROBOT_DIGGER))
-		checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID);
-	if (mRobotPool.robotAvailable(ROBOT_DOZER))
-		checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID);
-	if (mRobotPool.robotAvailable(ROBOT_MINER))
-		checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
 
 	readResources(root->FirstChildElement("resources"), mPlayerResources);
 }
@@ -1244,6 +1250,85 @@ void GameState::readRobots(TiXmlElement* _ti)
 			r->startTask(production_time);
 			insertRobotIntoTable(mRobotList, r, mTileMap.getTile(x, y, depth));
 			mRobotList[r]->index(0);
+		}
+	}
+
+	if (mRobotPool.robotAvailable(ROBOT_DIGGER))
+		checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID);
+	if (mRobotPool.robotAvailable(ROBOT_DOZER))
+		checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID);
+	if (mRobotPool.robotAvailable(ROBOT_MINER))
+		checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
+}
+
+
+void GameState::readStructures(TiXmlElement* _ti)
+{
+	mStructureManager.dropAllStructures();
+
+	TiXmlNode* structure = _ti->FirstChild();
+	for (structure; structure != nullptr; structure = structure->NextSibling())
+	{
+		int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0;
+		structure->ToElement()->Attribute("x", &x);
+		structure->ToElement()->Attribute("y", &y);
+		structure->ToElement()->Attribute("depth", &depth);
+		structure->ToElement()->Attribute("id", &id);
+		structure->ToElement()->Attribute("age", &age);
+		structure->ToElement()->Attribute("state", &state);
+		structure->ToElement()->Attribute("direction", &direction);
+
+		Tile* t = mTileMap.getTile(x, y, depth);
+		t->index(0);
+
+		Structure* st = nullptr;
+		string type = structure->ToElement()->Attribute("type");
+		StructureID type_id = SID_NONE;
+		// case for tubes
+		if (type == constants::TUBE)
+		{
+			ConnectorDir cd = static_cast<ConnectorDir>(direction);
+			if(cd == CONNECTOR_INTERSECTION)
+				insertTube(SID_TUBE_INTERSECTION, depth, mTileMap.getTile(x, y, depth));
+			else if(cd == CONNECTOR_LEFT)
+				insertTube(SID_TUBE_LEFT, mTileMap.currentDepth(), mTileMap.getTile(x, y, depth));
+			else if (cd == CONNECTOR_RIGHT)
+				insertTube(SID_TUBE_RIGHT, mTileMap.currentDepth(), mTileMap.getTile(x, y, depth));
+			else
+				throw Exception(0, "Bad Direction", "Tube connector direction in savegame is invalid.");
+			return;
+		}
+		else
+			st = StructureFactory::get(type_id);
+				
+		type_id = StructureTranslator::translateFromString(type);
+		if (type_id == SID_COMMAND_CENTER)
+			mCCLocation(x, y);
+
+		st->age(age);
+		st->id(id);
+		st->state(static_cast<Structure::StructureState>(state));
+		st->connectorDirection(static_cast<ConnectorDir>(direction));
+
+		mStructureManager.addStructure(st, t);
+	}
+}
+
+
+void GameState::readTurns(TiXmlElement* _ti)
+{
+	if (_ti)
+	{
+		_ti->Attribute("count", &mTurnCount);
+
+		if (mTurnCount > 0)
+		{
+			mBtnConnections.enabled(true);
+			mBtnRobots.enabled(true);
+			mBtnStructures.enabled(true);
+			mBtnTurns.enabled(true);
+
+			populateStructureMenu();
 		}
 	}
 }
