@@ -74,6 +74,7 @@ private:
 	void onMouseDown(MouseButton button, int x, int y);
 	void onMouseUp(MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
+	void onMouseWheel(int x, int y);
 
 	void drawUI();
 	void drawDebug();
@@ -91,7 +92,9 @@ private:
 	void placeStructure();
 	void placeTubes();
 
-	bool validTubeConnection(int x, int y, StructureID type);
+	void insertTube(ConnectorDir _dir, int depth, Tile* t);
+
+	bool validTubeConnection(int x, int y);
 	bool validStructurePlacement(int x, int y);
 
 	void checkRobotSelectionInterface(const std::string rType, int sheetIndex);
@@ -115,6 +118,10 @@ private:
 	void setStructureID(StructureID type, InsertMode mode);
 
 	void readRobots(TiXmlElement* _ti);
+	void readStructures(TiXmlElement* _ti);
+	void readTurns(TiXmlElement* _ti);
+
+	void scrubRobotList();
 
 	void load(const std::string& _path);
 	void save(const std::string& _path);
@@ -141,7 +148,7 @@ private:
 	Font				mFont;
 	Font				mTinyFont;
 
-	TileMap				mTileMap;
+	TileMap*			mTileMap;
 
 	Image				mMapDisplay;
 	Image				mHeightMap;

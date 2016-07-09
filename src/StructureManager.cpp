@@ -221,6 +221,17 @@ int StructureManager::count() const
 }
 
 
+void StructureManager::dropAllStructures()
+{
+	for (auto map_it = mStructureTileTable.begin(); map_it != mStructureTileTable.end(); ++map_it)
+	{
+		map_it->second->deleteThing();
+	}
+
+	mStructureTileTable.clear();
+}
+
+
 void serializeResourcePool(TiXmlElement* _ti, ResourcePool& _rp, const std::string name)
 {
 	TiXmlElement* pool = new TiXmlElement(name);
@@ -277,11 +288,4 @@ void StructureManager::serialize(TiXmlElement* _ti)
 
 	_ti->LinkEndChild(structures);
 	_ti->LinkEndChild(factories);
-}
-
-
-void StructureManager::deserialize(TiXmlElement* _ti)
-{
-
-
 }

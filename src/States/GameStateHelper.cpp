@@ -21,14 +21,14 @@ void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red, int green, i
 }
 
 
-bool checkTubeConnection(Tile* tile, Direction dir, StructureID type)
+bool checkTubeConnection(Tile* tile, Direction dir)
 {
 	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure())
 		return false;
 
 	Structure* _structure = tile->structure();
 
-	if (type == SID_TUBE_INTERSECTION)
+	if (_structure->connectorDirection() == CONNECTOR_INTERSECTION)
 	{
 		if (dir == DIR_EAST || dir == DIR_WEST)
 		{
@@ -41,12 +41,12 @@ bool checkTubeConnection(Tile* tile, Direction dir, StructureID type)
 				return true;
 		}
 	}
-	else if (type == SID_TUBE_RIGHT && (dir == DIR_EAST || dir == DIR_WEST))
+	else if (_structure->connectorDirection() == CONNECTOR_RIGHT && (dir == DIR_EAST || dir == DIR_WEST))
 	{
 		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
 			return true;
 	}
-	else if (type == SID_TUBE_LEFT && (dir == DIR_NORTH || dir == DIR_SOUTH))
+	else if (_structure->connectorDirection() == CONNECTOR_LEFT && (dir == DIR_NORTH || dir == DIR_SOUTH))
 	{
 		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
 			return true;

@@ -35,7 +35,10 @@ public:
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
 
 	void serialize(TiXmlElement* _ti);
-	void deserialize(TiXmlElement* _ti);
+
+	void dropAllStructures();
+
+	void updateEnergyProduction(ResourcePool& _r);
 
 protected:
 
@@ -49,8 +52,6 @@ private:
 	void updateFactoryProduction();
 
 	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }
-
-	void updateEnergyProduction(ResourcePool& _r);
 
 private:
 	StructureTileTable	mStructureTileTable;		/**< List mapping Structure's to a particular tile. */

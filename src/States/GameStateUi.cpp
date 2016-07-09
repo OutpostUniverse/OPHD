@@ -97,6 +97,7 @@ void GameState::initUi()
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
 	mConnections.hide();
 	mConnections.selectionChanged().Connect(this, &GameState::connectionsSelectionChanged);
+	mConnections.sorted(false);
 
 	mRobots.font(mTinyFont);
 	mRobots.sheetPath("ui/robots.png");
@@ -124,6 +125,8 @@ void GameState::initUi()
  */
 void GameState::resetUi()
 {
+	clearMode();
+
 	mStructures.hide();
 	mConnections.hide();
 	mRobots.hide();
@@ -158,23 +161,23 @@ void GameState::populateStructureMenu()
 	mConnections.dropAllItems();
 
 	// Above Ground structures only
-	if (mTileMap.currentDepth() == 0)
+	if (mTileMap->currentDepth() == 0)
 	{
 		mStructures.addItem(constants::AGRIDOME, 5);
 		mStructures.addItem(constants::CHAP, 3);
 		mStructures.addItem(constants::STORAGE_TANKS, 8);
 
 		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110);
-		mConnections.addItem(constants::AG_TUBE_LEFT, 111);
 		mConnections.addItem(constants::AG_TUBE_RIGHT, 112);
+		mConnections.addItem(constants::AG_TUBE_LEFT, 111);
 	}
 	else
 	{
 		mStructures.addItem(constants::RESIDENCE, 55);
 
 		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113);
-		mConnections.addItem(constants::UG_TUBE_LEFT, 114);
 		mConnections.addItem(constants::UG_TUBE_RIGHT, 115);
+		mConnections.addItem(constants::UG_TUBE_LEFT, 114);
 	}
 }
 
@@ -222,7 +225,7 @@ void GameState::drawUI()
  */
 void GameState::btnToggleConnectednessClicked()
 {
-	mTileMap.toggleShowConnections();
+	mTileMap->toggleShowConnections();
 }
 
 
@@ -295,7 +298,7 @@ void GameState::structuresSelectionChanged(const std::string& _s)
 */
 void GameState::connectionsSelectionChanged(const std::string& _s)
 {
-	setStructureID(StructureTranslator::translateFromString(_s), INSERT_TUBE);
+	setStructureID(SID_TUBE, INSERT_TUBE);
 }
 
 
@@ -320,7 +323,7 @@ void GameState::robotsSelectionChanged(const std::string& _s)
 void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t)
 {
 	// Don't dig beyond the dig depth of the planet.
-	if (mTileMap.currentDepth() == mTileMap.maxDepth() && _sel == DiggerDirection::SEL_DOWN)
+	if (mTileMap->currentDepth() == mTileMap->maxDepth() && _sel == DiggerDirection::SEL_DOWN)
 	{
 		cout << "GameState::diggerSelectionDialog(): Already at the maximum digging depth." << endl;
 		return;
@@ -351,22 +354,22 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	else if (_sel == DiggerDirection::SEL_NORTH)
 	{
 		r->direction(DIR_NORTH);
-		mTileMap.getTile(_t->x(), _t->y() - 1, _t->depth())->excavated(true);
+		mTileMap->getTile(_t->x(), _t->y() - 1, _t->depth())->excavated(true);
 	}
 	else if (_sel == DiggerDirection::SEL_SOUTH)
 	{
 		r->direction(DIR_SOUTH);
-		mTileMap.getTile(_t->x(), _t->y() + 1, _t->depth())->excavated(true);
+		mTileMap->getTile(_t->x(), _t->y() + 1, _t->depth())->excavated(true);
 	}
 	else if (_sel == DiggerDirection::SEL_EAST)
 	{
 		r->direction(DIR_EAST);
-		mTileMap.getTile(_t->x() + 1, _t->y(), _t->depth())->excavated(true);
+		mTileMap->getTile(_t->x() + 1, _t->y(), _t->depth())->excavated(true);
 	}
 	else if (_sel == DiggerDirection::SEL_WEST)
 	{
 		r->direction(DIR_WEST);
-		mTileMap.getTile(_t->x() - 1, _t->y(), _t->depth())->excavated(true);
+		mTileMap->getTile(_t->x() - 1, _t->y(), _t->depth())->excavated(true);
 	}
 
 
@@ -443,7 +446,7 @@ void GameState::btnTurnsClicked()
 
 	updateRobots();
 
-	Structure* cc = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();
+	Structure* cc = mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();
 	if (cc->state() == Structure::OPERATIONAL)
 	{
 		populateStructureMenu();

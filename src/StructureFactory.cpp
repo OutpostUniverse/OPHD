@@ -24,11 +24,17 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_COMMAND_CENTER:
 			_st = new CommandCenter();
 			break;
+		case SID_MINE_FACILITY: // only here for loading games
+			_st = new MineFacility(nullptr);
+			break;
 		case SID_RESIDENCE:
 			_st = new Residence();
 			break;
 		case SID_SEED_FACTORY:
 			_st = new SeedFactory();
+			break;
+		case SID_SEED_LANDER: // only here for loading games
+			_st = new SeedLander(0, 0);
 			break;
 		case SID_SEED_POWER:
 			_st = new SeedPower();

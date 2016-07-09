@@ -43,12 +43,7 @@ void StructureTranslator::buildTables()
 	_stringToStructureTable[constants::SEED_SMELTER] = SID_SEED_SMELTER;
 	_stringToStructureTable[constants::STORAGE_TANKS] = SID_STORAGE_TANKS;
 
-	_stringToStructureTable[constants::AG_TUBE_INTERSECTION] = SID_TUBE_INTERSECTION;
-	_stringToStructureTable[constants::UG_TUBE_INTERSECTION] = SID_TUBE_INTERSECTION;
-	_stringToStructureTable[constants::AG_TUBE_RIGHT] = SID_TUBE_RIGHT;
-	_stringToStructureTable[constants::UG_TUBE_RIGHT] = SID_TUBE_RIGHT;
-	_stringToStructureTable[constants::AG_TUBE_LEFT] = SID_TUBE_LEFT;
-	_stringToStructureTable[constants::UG_TUBE_LEFT] = SID_TUBE_LEFT;
+	_stringToStructureTable[constants::TUBE] = SID_TUBE;
 	
 	// ID To String
 	_structureToStringTable[SID_AGRIDOME] = constants::AGRIDOME;
@@ -62,7 +57,5 @@ void StructureTranslator::buildTables()
 	_structureToStringTable[SID_SEED_POWER] = constants::SEED_POWER;
 	_structureToStringTable[SID_SEED_SMELTER] = constants::SEED_SMELTER;
 
-	_structureToStringTable[SID_TUBE_INTERSECTION] = constants::AG_TUBE_INTERSECTION;
-	_structureToStringTable[SID_TUBE_RIGHT] = constants::AG_TUBE_RIGHT;
-	_structureToStringTable[SID_TUBE_LEFT] = constants::AG_TUBE_LEFT;
+	_structureToStringTable[SID_TUBE] = constants::TUBE;
 }

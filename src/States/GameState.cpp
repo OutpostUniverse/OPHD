@@ -39,7 +39,7 @@ stringstream str_scratch;		// Used in a few places to avoid construction/destruc
  */
 GameState::GameState(const string& map, const string& tset):	mFont("fonts/Fresca-Regular.ttf", 14),
 																mTinyFont("fonts/Fresca-Regular.ttf", 10),
-																mTileMap(map, tset, MAX_DEPTH),
+																mTileMap(new TileMap(map, tset, MAX_DEPTH)),
 																mMapDisplay(map + MAP_DISPLAY_EXTENSION),
 																mHeightMap(map + MAP_TERRAIN_EXTENSION),
 																mUiIcons("ui/icons.png"),
@@ -61,20 +61,8 @@ GameState::GameState(const string& map, const string& tset):	mFont("fonts/Fresca
  */
 GameState::~GameState()
 {
-	/**
-	 * Robots are managed by the Robot Pool. Remove them from
-	 * Tile's before Tile decides to free memory it shouldn't
-	 * be freeing.
-	 * 
-	 * \note	Structures are not specially handled by a
-	 *			manager object so Tile can safely free those.
-	 */
-	auto it = mRobotList.begin();
-	while(it != mRobotList.end())
-	{
-		it->second->removeThing();
-		++it;
-	}
+	scrubRobotList();
+	delete mTileMap;
 
 	EventHandler& e = Utility<EventHandler>::get();
 	e.activate().Disconnect(this, &GameState::onActivate);
@@ -129,8 +117,8 @@ State* GameState::update()
 	//r.drawImageStretched(mBackground, 0, 0, r.width(), r.height());
 	r.drawBoxFilled(0, 0, r.width(), r.height(), 25, 25, 25);
 
-	mTileMap.injectMouse(mMousePosition.x(), mMousePosition.y());
-	mTileMap.draw();
+	mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
+	mTileMap->draw();
 	drawUI();
 
 	if(mDebug) drawDebug();
@@ -160,19 +148,19 @@ void GameState::drawMiniMap()
 	}
 
 
-	for(size_t i = 0; i < mTileMap.mineLocations().size(); i++)
+	for(size_t i = 0; i < mTileMap->mineLocations().size(); i++)
 	{
-		if (mTileMap.getTile(mTileMap.mineLocations()[i].x(), mTileMap.mineLocations()[i].y(), 0)->mine()->active())
-			r.drawSubImage(mUiIcons, mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 8.0f, 0.0f, 5.0f, 5.0f);
+		if (mTileMap->getTile(mTileMap->mineLocations()[i].x(), mTileMap->mineLocations()[i].y(), 0)->mine()->active())
+			r.drawSubImage(mUiIcons, mTileMap->mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap->mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 8.0f, 0.0f, 5.0f, 5.0f);
 		else
-			r.drawSubImage(mUiIcons, mTileMap.mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap.mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 5.0f, 5.0f);
+			r.drawSubImage(mUiIcons, mTileMap->mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap->mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 5.0f, 5.0f);
 	}
 
 	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
 		r.drawPixel(it->second->x()  + mMiniMapBoundingBox.x(), it->second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
 
-	r.drawBox(mMiniMapBoundingBox.x() + mTileMap.mapViewLocation().x() + 1, mMiniMapBoundingBox.y() + mTileMap.mapViewLocation().y() + 1, mTileMap.edgeLength(), mTileMap.edgeLength(), 0, 0, 0, 180);
-	r.drawBox(mMiniMapBoundingBox.x() + mTileMap.mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap.mapViewLocation().y(), mTileMap.edgeLength(), mTileMap.edgeLength(), 255, 255, 255);
+	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x() + 1, mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
+	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
 }
 
 
@@ -278,19 +266,19 @@ void GameState::drawDebug()
 	r.drawText(mFont, str.str(), 10, 25, 255, 255, 255);
 
 	str.str("");
-	str << "Map Dimensions: " << mTileMap.width() << ", " << mTileMap.height();
+	str << "Map Dimensions: " << mTileMap->width() << ", " << mTileMap->height();
 	r.drawText(mFont, str.str(), 10, 25 + mFont.height(), 255, 255, 255);
 
 	str.str("");
-	str << "Max Digging Depth: " << mTileMap.maxDepth();
+	str << "Max Digging Depth: " << mTileMap->maxDepth();
 	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 2, 255, 255, 255);
 
 	str.str("");
-	str << "Map Mouse Hover Coords: " << mTileMap.tileMouseHoverX() << ", " << mTileMap.tileMouseHoverY();
+	str << "Map Mouse Hover Coords: " << mTileMap->tileMouseHoverX() << ", " << mTileMap->tileMouseHoverY();
 	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 3, 255, 255, 255);
 
 	str.str("");
-	str << "Current Depth: " << mTileMap.currentDepth();
+	str << "Current Depth: " << mTileMap->currentDepth();
 	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 4, 255, 255, 255);
 
 
@@ -298,7 +286,7 @@ void GameState::drawDebug()
 	str << "Structure Count: " << mStructureManager.count();
 	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 6, 255, 255, 255);
 
-	Tile* tile = mTileMap.getTile(mTileMap.tileMouseHoverX(), mTileMap.tileMouseHoverY(), mTileMap.currentDepth());
+	Tile* tile = mTileMap->getTile(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY(), mTileMap->currentDepth());
 	if (tile->thingIsStructure())
 	{
 		Structure* s = tile->structure();
@@ -307,7 +295,7 @@ void GameState::drawDebug()
 		r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 8, 255, 255, 255);
 
 		str.str("");
-		str << "Structure Type: " << s->type();
+		str << "Structure Type: " << s->name();
 		r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 9, 255, 255, 255);
 
 		str.str("");
@@ -346,47 +334,57 @@ void GameState::onActivate(bool _b)
  */
 void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 {
-	Point_2d pt = mTileMap.mapViewLocation();
+	bool viewUpdated = false; // don't like flaggy code like this
+	Point_2d pt = mTileMap->mapViewLocation();
 
 	switch(key)
 	{
 		case KEY_w:
 		case KEY_UP:
-			pt.y(clamp(--pt.y(), 0, mTileMap.height() - mTileMap.edgeLength()));
+			viewUpdated = true;
+			pt.y(clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			break;
 
 		case KEY_s:
 		case KEY_DOWN:
-			pt.y(clamp(++pt.y(), 0, mTileMap.height() - mTileMap.edgeLength()));
+			viewUpdated = true;
+			pt.y(clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			break;
 
 		case KEY_a:
 		case KEY_LEFT:
-			pt.x(clamp(--pt.x(), 0, mTileMap.width() - mTileMap.edgeLength()));
+			viewUpdated = true;
+			pt.x(clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			break;
 
 		case KEY_d:
 		case KEY_RIGHT:
-			pt.x(clamp(++pt.x(), 0, mTileMap.width() - mTileMap.edgeLength()));
+			viewUpdated = true;
+			pt.x(clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			break;
 
 		case KEY_0:
+			viewUpdated = true;
 			changeDepth(0);
 			break;
 
 		case KEY_1:
+			viewUpdated = true;
 			changeDepth(1);
 			break;
 
 		case KEY_2:
+			viewUpdated = true;
 			changeDepth(2);
 			break;
 
 		case KEY_3:
+			viewUpdated = true;
 			changeDepth(3);
 			break;
 
 		case KEY_4:
+			viewUpdated = true;
 			changeDepth(4);
 			break;
 
@@ -410,13 +408,14 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 			break;
 	}
 
-	mTileMap.mapViewLocation(pt.x(), pt.y());
+	if(viewUpdated)
+		mTileMap->mapViewLocation(pt.x(), pt.y());
 }
 
 
 void GameState::changeDepth(int _d)
 {
-	mTileMap.currentDepth(_d);
+	mTileMap->currentDepth(_d);
 	clearMode();
 	populateStructureMenu();
 }
@@ -445,7 +444,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 
 	if(button == BUTTON_RIGHT)
 	{
-		Tile* _t = mTileMap.getTile(mTileMap.tileHighlight().x() + mTileMap.mapViewLocation().x(), mTileMap.tileHighlight().y() + mTileMap.mapViewLocation().y());
+		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
 
 		if(mInsertMode != INSERT_NONE)
 		{
@@ -453,14 +452,14 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 			return;
 		}
 
-		if (!mTileMap.tileHighlightVisible())
+		if (!mTileMap->tileHighlightVisible())
 			return;
 
 		if (!_t)
 		{
 			return;
 		}
-		else if(_t->empty() && isPointInRect(mMousePosition, mTileMap.boundingBox()))
+		else if(_t->empty() && isPointInRect(mMousePosition, mTileMap->boundingBox()))
 		{
 			clearSelections();
 			mTileInspector.tile(_t);
@@ -498,7 +497,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 			updateMapView();
 		}
 		// Click was within the bounds of the TileMap.
-		else if(isPointInRect(mMousePosition, mTileMap.boundingBox()))
+		else if(isPointInRect(mMousePosition, mTileMap->boundingBox()))
 		{
 			if(mInsertMode == INSERT_STRUCTURE)
 			{
@@ -517,17 +516,17 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 }
 
 
-Structure* GameState::insertTube(StructureID _id, int _depth, Tile* _t)
+void GameState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
 {
-	if (_id == SID_TUBE_INTERSECTION)
+	if (_dir == CONNECTOR_INTERSECTION)
 	{
 		mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, _depth != 0), _t);
 	}
-	else if (_id == SID_TUBE_RIGHT)
+	else if (_dir == CONNECTOR_RIGHT)
 	{
 		mStructureManager.addStructure(new Tube(CONNECTOR_RIGHT, _depth != 0), _t);
 	}
-	else if (_id == SID_TUBE_LEFT)
+	else if (_dir == CONNECTOR_LEFT)
 	{
 		mStructureManager.addStructure(new Tube(CONNECTOR_LEFT, _depth != 0), _t);
 	}
@@ -536,7 +535,7 @@ Structure* GameState::insertTube(StructureID _id, int _depth, Tile* _t)
 		throw Exception(0, "Structure Not a Tube", "GameState::placeTube() called but Current Structure is not a tube!");
 	}
 
-	return nullptr;
+	//return nullptr;
 }
 
 void GameState::placeTubes()
@@ -544,7 +543,7 @@ void GameState::placeTubes()
 	int x = mTileMapMouseHover.x();
 	int y = mTileMapMouseHover.y();
 
-	Tile* tile = mTileMap.getTile(x, y, mTileMap.currentDepth());
+	Tile* tile = mTileMap->getTile(x, y, mTileMap->currentDepth());
 	if(!tile)
 		return;
 
@@ -552,9 +551,9 @@ void GameState::placeTubes()
 	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated())
 		return;
 
-	if (validTubeConnection(x, y, mCurrentStructure))
+	if (validTubeConnection(x, y))
 	{
-		insertTube(mCurrentStructure, mTileMap.currentDepth(), mTileMap.getTile(x, y));
+		insertTube(static_cast<ConnectorDir>(mConnections.selectionIndex() + 1), mTileMap->currentDepth(), mTileMap->getTile(x, y));
 
 		// FIXME:	Naive approach. This will be slow with larger colonies,
 		//			especially colonies that have expanded far underground.
@@ -567,13 +566,13 @@ void GameState::placeTubes()
 /**
  * Checks to see if a tile is a valid tile to place a tube onto.
  */
-bool GameState::validTubeConnection(int x, int y, StructureID type)
+bool GameState::validTubeConnection(int x, int y)
 {
 
-	return	checkTubeConnection(mTileMap.getTile(x + 1, y, mTileMap.currentDepth()), DIR_EAST, type) ||
-			checkTubeConnection(mTileMap.getTile(x - 1, y, mTileMap.currentDepth()), DIR_WEST, type) ||
-			checkTubeConnection(mTileMap.getTile(x, y + 1, mTileMap.currentDepth()), DIR_SOUTH, type) ||
-			checkTubeConnection(mTileMap.getTile(x, y - 1, mTileMap.currentDepth()), DIR_NORTH, type);
+	return	checkTubeConnection(mTileMap->getTile(x + 1, y, mTileMap->currentDepth()), DIR_EAST) ||
+			checkTubeConnection(mTileMap->getTile(x - 1, y, mTileMap->currentDepth()), DIR_WEST) ||
+			checkTubeConnection(mTileMap->getTile(x, y + 1, mTileMap->currentDepth()), DIR_SOUTH) ||
+			checkTubeConnection(mTileMap->getTile(x, y - 1, mTileMap->currentDepth()), DIR_NORTH);
 }
 
 
@@ -583,16 +582,16 @@ bool GameState::validTubeConnection(int x, int y, StructureID type)
 bool GameState::validStructurePlacement(int x, int y)
 {
 
-	return	checkStructurePlacement(mTileMap.getTile(x, y - 1), DIR_NORTH) ||
-			checkStructurePlacement(mTileMap.getTile(x + 1, y), DIR_EAST) ||
-			checkStructurePlacement(mTileMap.getTile(x, y + 1), DIR_SOUTH) ||
-			checkStructurePlacement(mTileMap.getTile(x - 1, y), DIR_WEST);
+	return	checkStructurePlacement(mTileMap->getTile(x, y - 1), DIR_NORTH) ||
+			checkStructurePlacement(mTileMap->getTile(x + 1, y), DIR_EAST) ||
+			checkStructurePlacement(mTileMap->getTile(x, y + 1), DIR_SOUTH) ||
+			checkStructurePlacement(mTileMap->getTile(x - 1, y), DIR_WEST);
 }
 
 
 void GameState::placeRobot()
 {
-	Tile* tile = mTileMap.getTile(mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap.currentDepth());
+	Tile* tile = mTileMap->getTile(mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap->currentDepth());
 	if(!tile)
 		return;
 
@@ -636,7 +635,7 @@ void GameState::placeRobot()
 	else if(mCurrentRobot == ROBOT_DIGGER)
 	{
 		// Keep digger within a safe margin of the map boundaries.
-		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap.width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap.height() - 4)
+		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
 		{
 			cout << "GameState::placeRobot(): Can't place digger within 3 tiles of the edge of a map." << endl;
 			return;
@@ -647,7 +646,7 @@ void GameState::placeRobot()
 			return;
 		else if (tile->mine() || !tile->excavated())
 			return;
-		else if (!tile->thing() && mTileMap.currentDepth() > 0)
+		else if (!tile->thing() && mTileMap->currentDepth() > 0)
 			mDiggerDirection.cardinalOnlyEnabled();
 		else
 			mDiggerDirection.downOnlyEnabled();
@@ -659,7 +658,7 @@ void GameState::placeRobot()
 		//			are removed after responses to the DiggerDirection dialog.
 
 		// If we're placing on the top level we can only ever go down.
-		if (mTileMap.currentDepth() == 0)
+		if (mTileMap->currentDepth() == 0)
 			mDiggerDirection.selectDown();
 		else
 			mDiggerDirection.visible(true);
@@ -724,7 +723,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 
 	Tile* t = mRobotList[_r];
 
-	if (t->depth() > mTileMap.maxDepth())
+	if (t->depth() > mTileMap->maxDepth())
 		throw Exception(0, "Bad Depth", "Digger defines a depth that exceeds the maximum digging depth!");
 
 	// FIXME: Fugly cast.
@@ -741,14 +740,14 @@ void GameState::diggerTaskFinished(Robot* _r)
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
-		mStructureManager.addStructure(as2, mTileMap.getTile(t->x(), t->y(), t->depth() + 1));
+		mStructureManager.addStructure(as2, mTileMap->getTile(t->x(), t->y(), t->depth() + 1));
 
 		originX = t->x();
 		originY = t->y();
 		depthAdjust = 1;
 
-		mTileMap.getTile(originX, originY, t->depth())->index(TERRAIN_DOZED);
-		mTileMap.getTile(originX, originY, t->depth() + depthAdjust)->index(TERRAIN_DOZED);
+		mTileMap->getTile(originX, originY, t->depth())->index(TERRAIN_DOZED);
+		mTileMap->getTile(originX, originY, t->depth() + depthAdjust)->index(TERRAIN_DOZED);
 
 		// FIXME: Naive approach; will be slow with large colonies.
 		mStructureManager.disconnectAll();
@@ -784,7 +783,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 	{
 		for(int x = originX - 1; x <= originX + 1; ++x)
 		{
-			mTileMap.getTile(x, y, t->depth() + depthAdjust)->excavated(true);
+			mTileMap->getTile(x, y, t->depth() + depthAdjust)->excavated(true);
 		}
 	}
 
@@ -845,7 +844,7 @@ void GameState::placeStructure()
 	}
 
 	// Mouse is outside of the boundaries of the map so ignore this call.
-	Tile* t = mTileMap.getTile(mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap.currentDepth());
+	Tile* t = mTileMap->getTile(mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap->currentDepth());
 	if(!t)
 		return;
 
@@ -914,7 +913,7 @@ void GameState::onMouseUp(MouseButton button, int x, int y)
 void GameState::onMouseMove(int x, int y, int rX, int rY)
 {
 	mMousePosition(x, y);
-	mTileMapMouseHover(mTileMap.tileMouseHoverX(), mTileMap.tileMouseHoverY());
+	mTileMapMouseHover(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY());
 
 	if(mLeftButtonDown)
 	{
@@ -940,14 +939,11 @@ void GameState::onMouseWheel(int x, int y)
 
 void GameState::updateMapView()
 {
-	int x = clamp(mMousePosition.x() - mMiniMapBoundingBox.x() - mTileMap.edgeLength() / 2, 0, mTileMap.width() - mTileMap.edgeLength());
-	int y = clamp(mMousePosition.y() - mMiniMapBoundingBox.y() - mTileMap.edgeLength() / 2, 0, mTileMap.height() - mTileMap.edgeLength());
+	int x = clamp(mMousePosition.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
+	int y = clamp(mMousePosition.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
 
-	mTileMap.mapViewLocation(x, y);
+	mTileMap->mapViewLocation(x, y);
 }
-
-
-
 
 
 /**
@@ -957,7 +953,7 @@ void GameState::updateMapView()
 void GameState::insertSeedLander(int x, int y)
 {
 	// Has to be built away from the edges of the map
-	if (x > 3 && x < mTileMap.width() - 4 && y > 3 && y < mTileMap.height() - 4)
+	if (x > 3 && x < mTileMap->width() - 4 && y > 3 && y < mTileMap->height() - 4)
 	{
 		// check for obstructions
 		if (!landingSiteSuitable(x, y))
@@ -968,7 +964,7 @@ void GameState::insertSeedLander(int x, int y)
 
 		SeedLander* s = new SeedLander(x, y);
 		s->deployCallback().Connect(this, &GameState::deploySeedLander);
-		mStructureManager.addStructure(s, mTileMap.getTile(x, y)); // Can only ever be placed on depth level 0
+		mStructureManager.addStructure(s, mTileMap->getTile(x, y)); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();
@@ -988,7 +984,7 @@ bool GameState::landingSiteSuitable(int x, int y)
 {
 	for(int offY = y - 1; offY <= y + 1; ++offY)
 		for(int offX = x - 1; offX <= x + 1; ++offX)
-			if(mTileMap.getTile(offX, offY)->index() > TERRAIN_DIFFICULT || mTileMap.getTile(offX, offY)->mine() || mTileMap.getTile(offX, offY)->thing())
+			if(mTileMap->getTile(offX, offY)->index() > TERRAIN_DIFFICULT || mTileMap->getTile(offX, offY)->mine() || mTileMap->getTile(offX, offY)->thing())
 				return false;
 
 	return true;
@@ -1000,28 +996,28 @@ bool GameState::landingSiteSuitable(int x, int y)
  */
 void GameState::deploySeedLander(int x, int y)
 {
-	mTileMap.getTile(x, y)->index(TERRAIN_DOZED);
+	mTileMap->getTile(x, y)->index(TERRAIN_DOZED);
 	
 	// TOP ROW
-	mStructureManager.addStructure(new SeedPower(), mTileMap.getTile(x - 1, y - 1));
-	mTileMap.getTile(x - 1, y - 1)->index(TERRAIN_DOZED);
+	mStructureManager.addStructure(new SeedPower(), mTileMap->getTile(x - 1, y - 1));
+	mTileMap->getTile(x - 1, y - 1)->index(TERRAIN_DOZED);
 
-	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x, y - 1));
-	mTileMap.getTile(x, y - 1)->index(TERRAIN_DOZED);
+	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y - 1));
+	mTileMap->getTile(x, y - 1)->index(TERRAIN_DOZED);
 
 	CommandCenter* cc = new CommandCenter();
 	cc->sprite().skip(3);
-	mStructureManager.addStructure(cc, mTileMap.getTile(x + 1, y - 1));
-	mTileMap.getTile(x + 1, y - 1)->index(TERRAIN_DOZED);
+	mStructureManager.addStructure(cc, mTileMap->getTile(x + 1, y - 1));
+	mTileMap->getTile(x + 1, y - 1)->index(TERRAIN_DOZED);
 	mCCLocation(x + 1, y - 1);
 
 
 	// MIDDLE ROW
-	mTileMap.getTile(x - 1, y)->index(TERRAIN_DOZED);
-	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x - 1, y));
+	mTileMap->getTile(x - 1, y)->index(TERRAIN_DOZED);
+	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x - 1, y));
 
-	mTileMap.getTile(x + 1, y)->index(TERRAIN_DOZED);
-	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x + 1, y));
+	mTileMap->getTile(x + 1, y)->index(TERRAIN_DOZED);
+	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x + 1, y));
 
 
 	// BOTTOM ROW
@@ -1029,16 +1025,16 @@ void GameState::deploySeedLander(int x, int y)
 	sf->resourcePool(&mPlayerResources);
 	sf->productionComplete().Connect(this, &GameState::factoryProductionComplete);
 	sf->sprite().skip(7);
-	mStructureManager.addStructure(sf, mTileMap.getTile(x - 1, y + 1));
-	mTileMap.getTile(x - 1, y + 1)->index(TERRAIN_DOZED);
+	mStructureManager.addStructure(sf, mTileMap->getTile(x - 1, y + 1));
+	mTileMap->getTile(x - 1, y + 1)->index(TERRAIN_DOZED);
 
-	mTileMap.getTile(x, y + 1)->index(TERRAIN_DOZED);
-	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap.getTile(x, y + 1));
+	mTileMap->getTile(x, y + 1)->index(TERRAIN_DOZED);
+	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y + 1));
 
 	SeedSmelter* ss = new SeedSmelter();
 	ss->sprite().skip(10);
-	mStructureManager.addStructure(ss, mTileMap.getTile(x + 1, y + 1));
-	mTileMap.getTile(x + 1, y + 1)->index(TERRAIN_DOZED);
+	mStructureManager.addStructure(ss, mTileMap->getTile(x + 1, y + 1));
+	mTileMap->getTile(x + 1, y + 1)->index(TERRAIN_DOZED);
 
 	// Enable UI Contruction Buttons
 	mBtnConnections.enabled(true);
@@ -1119,7 +1115,7 @@ void GameState::checkConnectedness()
 		return;
 
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
-	Tile *t = mTileMap.getTile(mCCLocation.x(), mCCLocation.y(), 0);
+	Tile *t = mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0);
 	Structure *cc = t->structure();
 
 	if (!cc)
@@ -1131,7 +1127,7 @@ void GameState::checkConnectedness()
 	t->connected(true);
 
 	// Start graph walking at the CC location.
-	GraphWalker graphWalker(mCCLocation, 0, &mTileMap);
+	GraphWalker graphWalker(mCCLocation, 0, mTileMap);
 }
 
 
@@ -1139,14 +1135,11 @@ void GameState::save(const std::string& _path)
 {
 	TiXmlDocument doc;
 
-	//TiXmlComment *comment = new TiXmlComment("Automatically generated Configuration file. This is best left untouched.");
-	//doc->LinkEndChild(comment);
-
 	TiXmlElement* root = new TiXmlElement(constants::SAVE_GAME_ROOT_NODE);
 	root->SetAttribute("version", constants::SAVE_GAME_VERSION);
 	doc.LinkEndChild(root);
 
-	mTileMap.serialize(root);
+	mTileMap->serialize(root);
 	mStructureManager.serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
 	writeResources(root, mPlayerResources);
@@ -1193,20 +1186,37 @@ void GameState::load(const std::string& _path)
 		cout << "Savegame version mismatch: '" << _path << "'. Expected " << constants::SAVE_GAME_VERSION << ", found " << sg_version << "." << endl;
 		return;
 	}
+	
+	// remove all robots currently deployed
+	scrubRobotList();
+	mPlayerResources.clear();
+	mStructureManager.dropAllStructures();
 
-	mTileMap.deserialize(root);
+	delete mTileMap;
+	mTileMap = nullptr;
 
-	readTurns(root->FirstChildElement("turns"));
+	//mTileMap->deserialize(root);
+	TiXmlElement* map = root->FirstChildElement("properties");
+	int depth = 0;
+	map->Attribute("diggingdepth", &depth);
+	string sitemap = map->Attribute("sitemap"), heightmap = map->Attribute("sitemap");
+	mMapDisplay = Image(sitemap + MAP_DISPLAY_EXTENSION);
+	mHeightMap = Image(sitemap + MAP_TERRAIN_EXTENSION);
+	mTileMap = new TileMap(sitemap, map->Attribute("tset"), depth, false);
+	mTileMap->deserialize(root);
+
 	readStructures(root->FirstChildElement("structures"));
 	readRobots(root->FirstChildElement("robots"));
 
 	readResources(root->FirstChildElement("resources"), mPlayerResources);
+	readTurns(root->FirstChildElement("turns"));
 }
 
 
 void GameState::readRobots(TiXmlElement* _ti)
 {
 	mRobotPool.clear();
+	mRobotList.clear();
 
 	TiXmlNode* robot = _ti->FirstChild();
 	for (robot; robot != nullptr; robot = robot->NextSibling())
@@ -1245,10 +1255,11 @@ void GameState::readRobots(TiXmlElement* _ti)
 
 		r->fuelCellAge(age);
 
+
 		if (production_time > 0)
 		{
 			r->startTask(production_time);
-			insertRobotIntoTable(mRobotList, r, mTileMap.getTile(x, y, depth));
+			insertRobotIntoTable(mRobotList, r, mTileMap->getTile(x, y, depth));
 			mRobotList[r]->index(0);
 		}
 	}
@@ -1264,8 +1275,6 @@ void GameState::readRobots(TiXmlElement* _ti)
 
 void GameState::readStructures(TiXmlElement* _ti)
 {
-	mStructureManager.dropAllStructures();
-
 	TiXmlNode* structure = _ti->FirstChild();
 	for (structure; structure != nullptr; structure = structure->NextSibling())
 	{
@@ -1278,40 +1287,49 @@ void GameState::readStructures(TiXmlElement* _ti)
 		structure->ToElement()->Attribute("state", &state);
 		structure->ToElement()->Attribute("direction", &direction);
 
-		Tile* t = mTileMap.getTile(x, y, depth);
+		Tile* t = mTileMap->getTile(x, y, depth);
 		t->index(0);
+		t->excavated(true);
+
 
 		Structure* st = nullptr;
 		string type = structure->ToElement()->Attribute("type");
-		StructureID type_id = SID_NONE;
 		// case for tubes
 		if (type == constants::TUBE)
 		{
 			ConnectorDir cd = static_cast<ConnectorDir>(direction);
-			if(cd == CONNECTOR_INTERSECTION)
-				insertTube(SID_TUBE_INTERSECTION, depth, mTileMap.getTile(x, y, depth));
-			else if(cd == CONNECTOR_LEFT)
-				insertTube(SID_TUBE_LEFT, mTileMap.currentDepth(), mTileMap.getTile(x, y, depth));
-			else if (cd == CONNECTOR_RIGHT)
-				insertTube(SID_TUBE_RIGHT, mTileMap.currentDepth(), mTileMap.getTile(x, y, depth));
-			else
-				throw Exception(0, "Bad Direction", "Tube connector direction in savegame is invalid.");
-			return;
+			insertTube(cd, depth, mTileMap->getTile(x, y, depth));
+			continue; // FIXME: ugly
 		}
-		else
-			st = StructureFactory::get(type_id);
+
+		StructureID type_id = StructureTranslator::translateFromString(type);
+		st = StructureFactory::get(StructureTranslator::translateFromString(type));
 				
-		type_id = StructureTranslator::translateFromString(type);
 		if (type_id == SID_COMMAND_CENTER)
 			mCCLocation(x, y);
 
+		if (type_id == SID_MINE_FACILITY)
+		{
+			Mine* m = mTileMap->getTile(x, y)->mine();
+			if (m == nullptr)
+				throw Exception(0, "No Mine", "Mine Facility is located on a Tile with no Mine.");
+
+			static_cast<MineFacility*>(st)->mine(m);
+		}
+
+		if (type_id == SID_AIR_SHAFT && depth > 0)
+			static_cast<AirShaft*>(st)->ug();
+
 		st->age(age);
 		st->id(id);
-		st->state(static_cast<Structure::StructureState>(state));
+		st->forced_state_change(static_cast<Structure::StructureState>(state));
 		st->connectorDirection(static_cast<ConnectorDir>(direction));
 
 		mStructureManager.addStructure(st, t);
 	}
+
+	checkConnectedness();
+	mStructureManager.updateEnergyProduction(mPlayerResources);
 }
 
 
@@ -1331,4 +1349,15 @@ void GameState::readTurns(TiXmlElement* _ti)
 			populateStructureMenu();
 		}
 	}
+}
+
+
+/**
+ * Removes deployed robots from the TileMap to
+ * prevent dangling pointers. Yay for raw memory!
+ */
+void GameState::scrubRobotList()
+{
+	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
+		it->second->removeThing();
 }
