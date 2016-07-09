@@ -16,19 +16,22 @@ const int			TILE_HEIGHT					= 46;
 
 const int			MINE_COUNT					= 30; // How many mines exist in the terrain map.
 
-TileMap::TileMap(const string& map_path, const string& tset_path, int maxDepth):	mEdgeLength(0),
-																					mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
-																					mMaxDepth(maxDepth),
-																					mCurrentDepth(0),
-																					mTileSelector("ui/selector.png"),
-																					mTileset(tset_path),
-																					mMineBeacon("structures/mine_beacon.sprite"),
-																					mDebug(false),
-																					mShowConnections(false)
+TileMap::TileMap(const string& map_path, const string& tset_path, int maxDepth, bool _s):	mEdgeLength(0),
+																							mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
+																							mMaxDepth(maxDepth),
+																							mCurrentDepth(0),
+																							mTileSelector("ui/selector.png"),
+																							mTileset(tset_path),
+																							mMineBeacon("structures/mine_beacon.sprite"),
+																							mDebug(false),
+																							mShowConnections(false)
 {
 	buildTerrainMap(map_path);
 	buildMouseMap();
 	initMapDrawParams();
+
+	if(_s)
+		setupMines();
 
 	mMineBeacon.play("glow");
 
@@ -84,8 +87,6 @@ void TileMap::buildTerrainMap(const std::string& path)
 			}
 		}
 	}
-	
-	setupMines();
 }
 
 
@@ -388,11 +389,52 @@ void TileMap::serialize(TiXmlElement* _ti)
 
 void TileMap::deserialize(TiXmlElement* _ti)
 {
+	// VIEW PARAMETERS
+	TiXmlElement* view_parameters = _ti->FirstChildElement("view_parameters");
+	int view_x = 0, view_y = 0, view_depth = 0;
+	view_parameters->Attribute("viewlocation_x", &view_x);
+	view_parameters->Attribute("viewlocation_y", &view_y);
+	view_parameters->Attribute("currentdepth", &view_depth);
 
+	mapViewLocation(view_x, view_y);
+	currentDepth(view_depth);
 
+	for (TiXmlNode* mine = _ti->FirstChildElement("mines")->FirstChildElement("mine"); mine != nullptr; mine = mine->NextSibling())
+	{
+		int x = 0, y = 0, age = 0, depth = 0, active = 0, exhausted = 0, yield = 0;
 
-	//buildTerrainMap(map_path);
+		mine->ToElement()->Attribute("x", &x);
+		mine->ToElement()->Attribute("y", &y);
+		mine->ToElement()->Attribute("age", &age);
+		mine->ToElement()->Attribute("depth", &depth);
+		mine->ToElement()->Attribute("active", &active);
+		mine->ToElement()->Attribute("exhausted", &exhausted);
+		mine->ToElement()->Attribute("yield", &yield);
 
-	//mMapPath = map_path;
-	//mTsetPath = tset_path;
+		Mine* m = new Mine(static_cast<Mine::ProductionRate>(yield));
+		m->age(age);
+		m->depth(depth);
+		m->active(active > 0);
+		m->exhausted(exhausted > 0);
+
+		mTileMap[0][y][x].pushMine(m);
+		mTileMap[0][y][x].index(TERRAIN_DOZED);
+
+		mMineLocations.push_back(Point_2d(x, y));
+	}
+
+	// TILES AT INDEX 0 WITH NO THING'S
+	for (TiXmlNode* tile = _ti->FirstChildElement("tiles")->FirstChildElement("tile"); tile != nullptr; tile = tile->NextSibling())
+	{
+		int x = 0, y = 0, depth = 0, index = 0;
+		tile->ToElement()->Attribute("x", &x);
+		tile->ToElement()->Attribute("y", &y);
+		tile->ToElement()->Attribute("depth", &depth);
+		tile->ToElement()->Attribute("index", &index);
+
+		mTileMap[depth][y][x].index(static_cast<TerrainType>(index));
+
+		if (depth > 0)
+			mTileMap[depth][y][x].excavated(true);
+	}
 }

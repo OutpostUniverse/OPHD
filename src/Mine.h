@@ -20,6 +20,7 @@ public:
 	void active(bool _b) { mActive = _b; }
 
 	bool exhausted() const { return mExhausted; }
+	void exhausted(bool _b) { mExhausted = _b; }
 
 	bool yieldsCommonMetals() const { return commonMetalsRate() > 0; }
 	bool yieldsRareMetals() const { return rareMetalsRate() > 0; }
@@ -29,6 +30,7 @@ public:
 	ProductionRate productionRate() { return mProductionRate; }
 
 	int age() const { return mAge; }
+	void age(int _a) { mAge = _a; }
 
 	int depth() const { return mDepth; }
 	void depth(int _d) { mDepth = _d; }
