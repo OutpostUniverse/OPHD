@@ -25,7 +25,12 @@ public:
 
 	const std::string& itemName(int _sel) const { return mIconItemList[_sel].first; }
 
+	int selectionIndex() const { return mCurrentSelection; }
+
 	bool empty() const { return mIconItemList.empty(); }
+
+	bool sorted() const { return mSorted; }
+	void sorted(bool _b) { mSorted = _b; }
 
 	void addItem(const std::string& name, int sheetIndex);
 	void removeItem(const std::string& item);
@@ -73,6 +78,7 @@ private:
 	int					mIconMargin;			/**< Spacing between icons and edges of the IconGrid. */
 
 	bool				mShowTooltip;			/**< Flag indicating that we want a tooltip drawn near an icon when hovering over it. */
+	bool				mSorted;				/**< Flag indicating that the IconGrid should be sorted. */
 
 	Image				mIconSheet;				/**< Image containing the icons. */
 	Point_2d			mGridSize;				/**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */

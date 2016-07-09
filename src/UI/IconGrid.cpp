@@ -10,7 +10,8 @@ IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
 						mCurrentSelection(constants::NO_SELECTION),
 						mIconSize(0),
 						mIconMargin(0),
-						mShowTooltip(false)
+						mShowTooltip(false),
+						mSorted(true)
 {
 	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().Connect(this, &IconGrid::onMouseMotion);
@@ -330,5 +331,6 @@ bool iconItemCompare(const std::pair<string, Point_2df>& left, const std::pair<s
 
 void IconGrid::sort()
 {
-	std::sort(mIconItemList.begin(), mIconItemList.end(), &iconItemCompare);
+	if(sorted())
+		std::sort(mIconItemList.begin(), mIconItemList.end(), &iconItemCompare);
 }
