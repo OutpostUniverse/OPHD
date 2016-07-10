@@ -146,6 +146,8 @@ void FactoryProduction::factory(Factory* _f)
 		mProductionGrid.selection(2);
 	else
 		mProductionGrid.clearSelection();
+
+	mProductionCost = mFactory->productionCost(mFactory->productionType());
 }
 
 

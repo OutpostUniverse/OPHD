@@ -81,6 +81,7 @@ public:
 	void productionTurnsToComplete(int _l) { mTurnsToComplete = _l; }
 
 	int productionTurnsCompleted() const { return mTurnsCompleted; }
+	void productionTurnsCompleted(int _t) { mTurnsCompleted = _t; }
 	void productionResetTurns() { mTurnsCompleted = 0; }
 
 	ProductionType productionType() const { return mProduction; }

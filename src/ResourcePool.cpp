@@ -315,6 +315,9 @@ void ResourcePool::serialize(TiXmlElement* _ti)
 
 void ResourcePool::deserialize(TiXmlElement* _ti)
 {
+	if (_ti == nullptr)
+		return;
+
 	_ti->Attribute(constants::SAVE_GAME_COMMON_METAL_ORE, &_resourceTable[RESOURCE_COMMON_METALS_ORE]);
 	_ti->Attribute(constants::SAVE_GAME_COMMON_MINERAL_ORE, &_resourceTable[RESOURCE_COMMON_MINERALS_ORE]);
 	_ti->Attribute(constants::SAVE_GAME_RARE_METAL_ORE, &_resourceTable[RESOURCE_RARE_METALS_ORE]);

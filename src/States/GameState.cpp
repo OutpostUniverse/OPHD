@@ -27,7 +27,6 @@ const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
 const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 
 const int MAX_TILESET_INDEX	= 4;
-
 const int MAX_DEPTH = 4;
 
 Rectangle_2d MENU_ICON;
@@ -1275,8 +1274,7 @@ void GameState::readRobots(TiXmlElement* _ti)
 
 void GameState::readStructures(TiXmlElement* _ti)
 {
-	TiXmlNode* structure = _ti->FirstChild();
-	for (structure; structure != nullptr; structure = structure->NextSibling())
+	for (TiXmlNode* structure = _ti->FirstChild(); structure != nullptr; structure = structure->NextSibling())
 	{
 		int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0;
 		structure->ToElement()->Attribute("x", &x);
@@ -1325,12 +1323,29 @@ void GameState::readStructures(TiXmlElement* _ti)
 		st->forced_state_change(static_cast<Structure::StructureState>(state));
 		st->connectorDirection(static_cast<ConnectorDir>(direction));
 
+		st->production().deserialize(structure->FirstChildElement("production"));
+		st->storage().deserialize(structure->FirstChildElement("storage"));
+
+		if (st->isFactory())
+		{
+			int production_completed = 0, production_type = 0;
+			structure->ToElement()->Attribute("production_completed", &production_completed);
+			structure->ToElement()->Attribute("production_type", &production_type);
+
+			Factory* f = static_cast<Factory*>(st);
+			f->productionType(static_cast<Factory::ProductionType>(production_type));
+			f->productionTurnsCompleted(production_completed);
+			f->resourcePool(&mPlayerResources);
+			f->productionComplete().Connect(this, &GameState::factoryProductionComplete);
+		}
+
 		mStructureManager.addStructure(st, t);
 	}
 
 	checkConnectedness();
 	mStructureManager.updateEnergyProduction(mPlayerResources);
 }
+
 
 
 void GameState::readTurns(TiXmlElement* _ti)

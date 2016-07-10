@@ -26,26 +26,24 @@ public:
 	StructureList& structureList(Structure::StructureType _st) { return mStructureLists[_st]; }
 
 	void disconnectAll();
+	void dropAllStructures();
+
+	int count() const;
 
 	bool CHAPAvailable();
-	int count() const;
+
+	void updateEnergyProduction(ResourcePool& _r);
+	int totalEnergyProduction() const { return mTotalEnergyOutput; }
 
 	void update(ResourcePool& _r);
 
-	int totalEnergyProduction() const { return mTotalEnergyOutput; }
-
 	void serialize(TiXmlElement* _ti);
-
-	void dropAllStructures();
-
-	void updateEnergyProduction(ResourcePool& _r);
 
 protected:
 
 private:
 	typedef map<Structure*, Tile*> StructureTileTable;
 	typedef map<Structure::StructureType, StructureList> StructureTypeTable;
-
 
 private:
 	void updateStructures(ResourcePool& _r, StructureList& _sl);

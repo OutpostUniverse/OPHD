@@ -263,29 +263,20 @@ void serializeStructure(TiXmlElement* _ti, Structure* _s, Tile* _t)
 void StructureManager::serialize(TiXmlElement* _ti)
 {
 	TiXmlElement* structures = new TiXmlElement("structures");
-	TiXmlElement* factories = new TiXmlElement("factories");
-
 
 	for (auto it = mStructureTileTable.begin(); it != mStructureTileTable.end(); ++it)
 	{
+		TiXmlElement* structure = new TiXmlElement("structure");
+		serializeStructure(structure, it->first, it->second);
 
 		if (it->first->isFactory())
 		{
-			TiXmlElement* factory = new TiXmlElement("factory");
-			serializeStructure(factory, it->first, it->second);
-			Factory* f = static_cast<Factory*>(it->first);
-			factory->SetAttribute("production_completed", f->productionTurnsCompleted());
-			factory->SetAttribute("production_type", f->productionType());
-			factories->LinkEndChild(factory);
+			structure->SetAttribute("production_completed", static_cast<Factory*>(it->first)->productionTurnsCompleted());
+			structure->SetAttribute("production_type", static_cast<Factory*>(it->first)->productionType());
 		}
-		else
-		{
-			TiXmlElement* structure = new TiXmlElement("structure");
-			serializeStructure(structure, it->first, it->second);
-			structures->LinkEndChild(structure);
-		}
+
+		structures->LinkEndChild(structure);
 	}
 
 	_ti->LinkEndChild(structures);
-	_ti->LinkEndChild(factories);
 }
