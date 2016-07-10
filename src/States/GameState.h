@@ -94,7 +94,7 @@ private:
 
 	void insertTube(ConnectorDir _dir, int depth, Tile* t);
 
-	bool validTubeConnection(int x, int y);
+	bool validTubeConnection(int x, int y, ConnectorDir _cd);
 	bool validStructurePlacement(int x, int y);
 
 	void checkRobotSelectionInterface(const std::string rType, int sheetIndex);

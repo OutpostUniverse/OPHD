@@ -558,10 +558,11 @@ void GameState::placeTubes()
 	// Check the basics.
 	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated())
 		return;
-
-	if (validTubeConnection(x, y))
+	
+	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
+	if (validTubeConnection(x, y, cd))
 	{
-		insertTube(static_cast<ConnectorDir>(mConnections.selectionIndex() + 1), mTileMap->currentDepth(), mTileMap->getTile(x, y));
+		insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(x, y));
 
 		// FIXME:	Naive approach. This will be slow with larger colonies,
 		//			especially colonies that have expanded far underground.
@@ -574,13 +575,12 @@ void GameState::placeTubes()
 /**
  * Checks to see if a tile is a valid tile to place a tube onto.
  */
-bool GameState::validTubeConnection(int x, int y)
+bool GameState::validTubeConnection(int x, int y, ConnectorDir _cd)
 {
-
-	return	checkTubeConnection(mTileMap->getTile(x + 1, y, mTileMap->currentDepth()), DIR_EAST) ||
-			checkTubeConnection(mTileMap->getTile(x - 1, y, mTileMap->currentDepth()), DIR_WEST) ||
-			checkTubeConnection(mTileMap->getTile(x, y + 1, mTileMap->currentDepth()), DIR_SOUTH) ||
-			checkTubeConnection(mTileMap->getTile(x, y - 1, mTileMap->currentDepth()), DIR_NORTH);
+	return	checkTubeConnection(mTileMap->getTile(x + 1, y, mTileMap->currentDepth()), DIR_EAST, _cd) ||
+			checkTubeConnection(mTileMap->getTile(x - 1, y, mTileMap->currentDepth()), DIR_WEST, _cd) ||
+			checkTubeConnection(mTileMap->getTile(x, y + 1, mTileMap->currentDepth()), DIR_SOUTH, _cd) ||
+			checkTubeConnection(mTileMap->getTile(x, y - 1, mTileMap->currentDepth()), DIR_NORTH, _cd);
 }
 
 
@@ -1270,6 +1270,8 @@ void GameState::readRobots(TiXmlElement* _ti)
 			insertRobotIntoTable(mRobotList, r, mTileMap->getTile(x, y, depth));
 			mRobotList[r]->index(0);
 		}
+		if (depth > 0)
+			mRobotList[r]->excavated(true);
 	}
 
 	if (mRobotPool.robotAvailable(ROBOT_DIGGER))

@@ -21,34 +21,34 @@ void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red, int green, i
 }
 
 
-bool checkTubeConnection(Tile* tile, Direction dir)
+bool checkTubeConnection(Tile* _tile, Direction _dir, ConnectorDir _source_connector_dir)
 {
-	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure())
+	if (_tile->mine() || !_tile->bulldozed() || !_tile->excavated() || !_tile->thingIsStructure())
 		return false;
 
-	Structure* _structure = tile->structure();
+	Structure* structure = _tile->structure();
 
-	if (_structure->connectorDirection() == CONNECTOR_INTERSECTION)
+	if (_source_connector_dir == CONNECTOR_INTERSECTION)
 	{
-		if (dir == DIR_EAST || dir == DIR_WEST)
+		if (_dir == DIR_EAST || _dir == DIR_WEST)
 		{
-			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
+			if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_RIGHT || structure->connectorDirection() == CONNECTOR_VERTICAL)
 				return true;
 		}
 		else // NORTH/SOUTH
 		{
-			if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
+			if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_LEFT || structure->connectorDirection() == CONNECTOR_VERTICAL)
 				return true;
 		}
 	}
-	else if (_structure->connectorDirection() == CONNECTOR_RIGHT && (dir == DIR_EAST || dir == DIR_WEST))
+	else if (_source_connector_dir == CONNECTOR_RIGHT && (_dir == DIR_EAST || _dir == DIR_WEST))
 	{
-		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
+		if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_RIGHT || structure->connectorDirection() == CONNECTOR_VERTICAL)
 			return true;
 	}
-	else if (_structure->connectorDirection() == CONNECTOR_LEFT && (dir == DIR_NORTH || dir == DIR_SOUTH))
+	else if (_source_connector_dir == CONNECTOR_LEFT && (_dir == DIR_NORTH || _dir == DIR_SOUTH))
 	{
-		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT || _structure->connectorDirection() == CONNECTOR_VERTICAL)
+		if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_LEFT || structure->connectorDirection() == CONNECTOR_VERTICAL)
 			return true;
 	}
 
