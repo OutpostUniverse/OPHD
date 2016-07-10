@@ -56,6 +56,14 @@ namespace constants
 	const string	UG_TUBE_RIGHT = "ug_right";
 	const string	UG_TUBE_LEFT = "ug_left";
 
+	// CURRENT LEVEL
+
+	const string	LEVEL_SURFACE = "Surface";
+	const string	LEVEL_UG1 = "Underground 1";
+	const string	LEVEL_UG2 = "Underground 2";
+	const string	LEVEL_UG3 = "Underground 3";
+	const string	LEVEL_UG4 = "Underground 4";
+
 	// STRUCTURE ANIMATION STATES
 	const string	STRUCTURE_STATE_CONSTRUCTION = "construction";
 	const string	STRUCTURE_STATE_OPERATIONAL = "operational";

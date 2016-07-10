@@ -26,6 +26,8 @@ using namespace NAS2D;
 const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
 const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 
+std::string			CURRENT_LEVEL_STRING		= constants::LEVEL_SURFACE;
+
 const int MAX_TILESET_INDEX	= 4;
 const int MAX_DEPTH = 4;
 
@@ -119,6 +121,8 @@ State* GameState::update()
 	mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
 	mTileMap->draw();
 	drawUI();
+
+	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING), mMiniMapBoundingBox.y() - mFont.height() - 5, 255, 255, 255);
 
 	if(mDebug) drawDebug();
 
@@ -365,26 +369,31 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 		case KEY_0:
 			viewUpdated = true;
 			changeDepth(0);
+			CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
 			break;
 
 		case KEY_1:
 			viewUpdated = true;
 			changeDepth(1);
+			CURRENT_LEVEL_STRING = constants::LEVEL_UG1;
 			break;
 
 		case KEY_2:
 			viewUpdated = true;
 			changeDepth(2);
+			CURRENT_LEVEL_STRING = constants::LEVEL_UG2;
 			break;
 
 		case KEY_3:
 			viewUpdated = true;
 			changeDepth(3);
+			CURRENT_LEVEL_STRING = constants::LEVEL_UG3;
 			break;
 
 		case KEY_4:
 			viewUpdated = true;
 			changeDepth(4);
+			CURRENT_LEVEL_STRING = constants::LEVEL_UG4;
 			break;
 
 		case KEY_F10:
@@ -1308,7 +1317,7 @@ void GameState::readStructures(TiXmlElement* _ti)
 
 		if (type_id == SID_MINE_FACILITY)
 		{
-			Mine* m = mTileMap->getTile(x, y)->mine();
+			Mine* m = mTileMap->getTile(x, y, 0)->mine();
 			if (m == nullptr)
 				throw Exception(0, "No Mine", "Mine Facility is located on a Tile with no Mine.");
 
