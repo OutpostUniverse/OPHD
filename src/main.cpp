@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
 	std::cout.rdbuf(filestr.rdbuf());
 #endif
 
-	//try
-	//{
+	try
+	{
 		Game game("OutpostHD", argv[0]);
 
 		game.mount("fonts.dat");
@@ -39,11 +39,11 @@ int main(int argc, char *argv[])
 			f.makeDirectory(constants::SAVE_GAME_PATH);
 
 		game.go(new PlanetSelectState());
-	//}
-	//catch(Exception& e)
-	//{
-	//	cout << "EXCEPTION (" << e.getBriefDescription() << "): " << e.getDescription() << endl;
-	//}
+	}
+	catch(Exception& e)
+	{
+		cout << "EXCEPTION (" << e.getBriefDescription() << "): " << e.getDescription() << endl;
+	}
 
 #ifdef NDEBUG
 	filestr.close();
