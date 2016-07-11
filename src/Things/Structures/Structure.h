@@ -58,8 +58,6 @@ public:
 
 
 	// RESOURCES AND RESOURCE MANAGEMENT
-	ResourcePool& resourcesCostToBuild() { return mResourcesCostToBuild; }
-	ResourcePool resourcesRecyclingValue();
 	ResourcePool& resourcesIn() { return mResourcesInput; }
 	ResourcePool& resourcesOut() { return mResourcesOutput; }
 
@@ -115,7 +113,6 @@ protected:
 
 	virtual void defineResourceInput() {}
 	virtual void defineResourceOutput() {}
-	virtual void defineResourceCostToBuild() {};
 
 	void activate();
 
@@ -144,7 +141,6 @@ private:
 	StructureType			mStructureType;				/**< Indicates the Structure's Type. */
 	ConnectorDir			mConnectorDirection;		/**< Directions available for connections. */
 
-	ResourcePool			mResourcesCostToBuild;		/**< Resource needed to build the Structure */
 	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */
 	ResourcePool			mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */
 

@@ -13,7 +13,6 @@ public:
 		connectorDirection(CONNECTOR_VERTICAL);
 
 		requiresCHAP(false);
-		defineResourceCostToBuild();
 	}
 
 

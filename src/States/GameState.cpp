@@ -617,7 +617,14 @@ void GameState::placeRobot()
 				return;
 			}
 
-			mPlayerResources.pushResources(_s->resourcesRecyclingValue());
+#ifdef NDEBUG
+			mPlayerResources.pushResources(StructureFactory::recyclingValue(StructureTranslator::translateFromString(_s->name())));
+#else
+			StructureID s_id = StructureTranslator::translateFromString(_s->name());
+			ResourcePool rp = StructureFactory::recyclingValue(s_id);
+			mPlayerResources.pushResources(rp);
+#endif
+
 
 			tile->connected(false);
 			mStructureManager.removeStructure(_s);

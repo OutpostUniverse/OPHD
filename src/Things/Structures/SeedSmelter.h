@@ -15,8 +15,6 @@ public:
 
 		oreStorage().capacity(250);
 		storage().capacity(250);
-
-		defineResourceCostToBuild();
 	}
 
 	~SeedSmelter()
@@ -84,13 +82,4 @@ private:
 	{
 	}
 
-	// Counterintuitive because these structures can't be build directly but
-	// basically this is defined so we can get a recycling value.
-	virtual void defineResourceCostToBuild()
-	{
-		resourcesCostToBuild().commonMetals(25);
-		resourcesCostToBuild().rareMetals(10);
-		resourcesCostToBuild().commonMinerals(20);
-		resourcesCostToBuild().rareMinerals(5);
-	}
 };

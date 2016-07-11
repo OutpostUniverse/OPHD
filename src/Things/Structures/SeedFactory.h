@@ -14,7 +14,6 @@ public:
 		requiresCHAP(false);
 
 		initFactory();
-		defineResourceCostToBuild();
 	}
 
 	~SeedFactory()
@@ -33,15 +32,5 @@ private:
 	virtual void defineResourceInput()
 	{
 		resourcesIn().energy(5);
-	}
-
-	// Counterintuitive because these structures can't be build directly but
-	// basically this is defined so we can get a recycling value.
-	virtual void defineResourceCostToBuild()
-	{
-		resourcesCostToBuild().commonMetals(20);
-		resourcesCostToBuild().rareMetals(10);
-		resourcesCostToBuild().commonMinerals(10);
-		resourcesCostToBuild().rareMinerals(5);
 	}
 };

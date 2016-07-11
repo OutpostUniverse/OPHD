@@ -14,8 +14,6 @@ public:
 		turnsToBuild(2);
 
 		requiresCHAP(true);
-
-		defineResourceCostToBuild();
 	}
 
 
@@ -35,14 +33,6 @@ protected:
 
 	virtual void defineResourceOutput()
 	{}
-
-	virtual void defineResourceCostToBuild()
-	{
-		resourcesCostToBuild().commonMetals(25);
-		resourcesCostToBuild().rareMetals(2);
-		resourcesCostToBuild().commonMinerals(5);
-		resourcesCostToBuild().rareMinerals(0);
-	}
 
 private:
 

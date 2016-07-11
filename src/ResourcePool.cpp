@@ -7,6 +7,23 @@
 using namespace std;
 
 
+ResourcePool::ResourcePool(int cmo, int cmno, int rmo, int rmno, int cm, int cmn, int rm, int rmn, int f, int e): _capacity(0)
+{
+	commonMetalsOre(cmo);
+	commonMineralsOre(cmno);
+	rareMetalsOre(rmo);
+	rareMineralsOre(rmno);
+
+	commonMetals(cm);
+	commonMinerals(cmn);
+	rareMetals(rm);
+	rareMinerals(rmn);
+
+	food(f);
+	energy(e);
+}
+
+
 ResourcePool::ResourcePool(): _capacity(0)
 {}
 

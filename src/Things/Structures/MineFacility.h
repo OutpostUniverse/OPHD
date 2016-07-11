@@ -19,7 +19,6 @@ public:
 
 		production().capacity(500);
 		storage().capacity(500);
-		defineResourceCostToBuild();
 	}
 
 
@@ -71,17 +70,6 @@ private:
 
 	virtual void defineResourceOutput()
 	{}
-
-	// Counterintuitive because these structures can't be build directly but
-	// basically this is defined so we can get a recycling value.
-	virtual void defineResourceCostToBuild()
-	{
-		resourcesCostToBuild().commonMetals(20);
-		resourcesCostToBuild().rareMetals(5);
-		resourcesCostToBuild().commonMinerals(10);
-		resourcesCostToBuild().rareMinerals(0);
-	}
-
 
 	Mine*			mMine;
 };

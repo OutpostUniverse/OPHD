@@ -13,7 +13,6 @@ public:
 
 		requiresCHAP(false);
 		selfSustained(true);
-		defineResourceCostToBuild();
 	}
 
 	~CommandCenter()
@@ -27,14 +26,6 @@ protected:
 
 	virtual void defineResourceOutput()
 	{
-	}
-
-	virtual void defineResourceCostToBuild()
-	{
-		resourcesCostToBuild().commonMetals(100);
-		resourcesCostToBuild().rareMetals(65);
-		resourcesCostToBuild().commonMinerals(75);
-		resourcesCostToBuild().rareMinerals(35);
 	}
 
 private:

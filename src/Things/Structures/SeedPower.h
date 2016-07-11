@@ -11,8 +11,6 @@ public:
 		maxAge(150);
 		turnsToBuild(5);
 		requiresCHAP(false);
-
-		defineResourceCostToBuild();
 	}
 
 
@@ -28,16 +26,6 @@ protected:
 	virtual void defineResourceOutput()
 	{
 		resourcesOut().energy(50);
-	}
-
-	// Counterintuitive because these structures can't be build directly but
-	// basically this is defined so we can get a recycling value.
-	virtual void defineResourceCostToBuild()
-	{
-		resourcesCostToBuild().commonMetals(15);
-		resourcesCostToBuild().rareMetals(10);
-		resourcesCostToBuild().commonMinerals(10);
-		resourcesCostToBuild().rareMinerals(8);
 	}
 
 private:

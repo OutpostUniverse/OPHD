@@ -14,7 +14,6 @@ public:
 		requiresCHAP(true);
 
 		storage().capacity(1000);
-		defineResourceCostToBuild();
 	}
 
 
@@ -52,14 +51,6 @@ protected:
 
 	virtual void defineResourceOutput()
 	{}
-
-	virtual void defineResourceCostToBuild()
-	{
-		resourcesCostToBuild().commonMetals(20);
-		resourcesCostToBuild().rareMetals(5);
-		resourcesCostToBuild().commonMinerals(10);
-		resourcesCostToBuild().rareMinerals(0);
-	}
 
 private:
 

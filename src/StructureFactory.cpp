@@ -1,5 +1,7 @@
 #include "StructureFactory.h"
 
+StructureFactory::StructureCostTable StructureFactory::mStructureCostTable;
+
 Structure* StructureFactory::get(StructureID type)
 {
 	Structure* _st = nullptr;
@@ -54,27 +56,45 @@ Structure* StructureFactory::get(StructureID type)
 }
 
 
-ResourcePool StructureFactory::costToBuild(StructureID type)
+const ResourcePool& StructureFactory::costToBuild(StructureID type)
 {
-	/*
-	 * FIXME: Horribly inefficient.
-	 * 
-	 * Better way to do this would be to define the structure costs in a lookup table.
-	 * Question being that currently this is implemented by having the derived Structure
-	 * class defining the resource cost to build.
-	 * 
-	 * Two possibilities -- either build a table by instantiating, copying and destroying
-	 * derived object types, or move definitions from the derived class and move them to
-	 * the StructureFactory class while building the table.
-	 */
+	if (mStructureCostTable.empty())
+		buildCostTable();
 
-	/*
-	 * FIXME: Prone to break if we request a cost to build on a structure that isn't,
-	 * defined. We end up with a null pointer and explode the second we try to get
-	 * resources.
-	 */
-	Structure* _st = StructureFactory::get(type);
-	ResourcePool rp = _st->resourcesCostToBuild();
-	delete _st;
-	return rp;
+	return mStructureCostTable[type];
+}
+
+
+void StructureFactory::buildCostTable()
+{
+	mStructureCostTable[SID_AGRIDOME] = ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
+	mStructureCostTable[SID_AIR_SHAFT] = ResourcePool();
+	mStructureCostTable[SID_CHAP] = ResourcePool(0, 0, 0, 0, 50, 10, 20, 5, 0, 0);
+	mStructureCostTable[SID_COMMAND_CENTER] = ResourcePool(0, 0, 0, 0, 100, 75, 65, 35, 0, 0);
+	mStructureCostTable[SID_MINE_FACILITY] = ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
+	mStructureCostTable[SID_RESIDENCE] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_SEED_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
+	mStructureCostTable[SID_SEED_LANDER] = ResourcePool(0, 0, 0, 0, 10, 10, 5, 5, 0, 0);
+	mStructureCostTable[SID_SEED_POWER] = ResourcePool(0, 0, 0, 0, 15, 10, 10, 8, 0, 0);
+	mStructureCostTable[SID_SEED_SMELTER] = ResourcePool(0, 0, 0, 0, 25, 20, 10, 5, 0, 0);
+	mStructureCostTable[SID_STORAGE_TANKS] = ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
+	mStructureCostTable[SID_TUBE] = ResourcePool();
+}
+
+
+ResourcePool StructureFactory::recyclingValue(StructureID type)
+{
+	if (mStructureCostTable.empty())
+		buildCostTable();
+
+	return ResourcePool(	mStructureCostTable[type].commonMetalsOre() * 0.9f,
+							mStructureCostTable[type].commonMineralsOre() * 0.9f,
+							mStructureCostTable[type].rareMetalsOre() * 0.9f,
+							mStructureCostTable[type].rareMineralsOre() * 0.9f,
+							mStructureCostTable[type].commonMetals() * 0.9f,
+							mStructureCostTable[type].commonMinerals() * 0.9f,
+							mStructureCostTable[type].rareMetals() * 0.9f,
+							mStructureCostTable[type].rareMinerals() * 0.9f,
+							mStructureCostTable[type].food() * 0.9f,
+							mStructureCostTable[type].energy() * 0.9f);
 }

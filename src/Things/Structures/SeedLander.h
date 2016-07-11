@@ -20,8 +20,6 @@ public:
 		selfSustained(true);
 
 		enable();
-
-		defineResourceCostToBuild();
 	}
 
 
@@ -42,16 +40,6 @@ protected:
 
 			mDeploy(mX, mY);
 		}
-	}
-
-	// Counterintuitive because these structures can't be build directly but
-	// basically this is defined so we can get a recycling value.
-	virtual void defineResourceCostToBuild()
-	{
-		resourcesCostToBuild().commonMetals(10);
-		resourcesCostToBuild().rareMetals(5);
-		resourcesCostToBuild().commonMinerals(10);
-		resourcesCostToBuild().rareMinerals(5);
 	}
 
 private:

@@ -16,8 +16,6 @@ public:
 		maxAge(400);
 
 		setAnimationState();
-
-		defineResourceCostToBuild();
 	}
 
 

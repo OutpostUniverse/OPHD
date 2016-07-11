@@ -151,22 +151,6 @@ void Structure::forced_state_change(StructureState _s)
 
 
 /**
- * Returns a ResourcePool containing recycling values for the Structure.
- * 
- * \note	Not very efficient but it's not called often so whatever.
- */
-ResourcePool Structure::resourcesRecyclingValue()
-{
-	ResourcePool rp;
-	rp.commonMetals(resourcesCostToBuild().commonMetals() * 0.9f);
-	rp.rareMetals(resourcesCostToBuild().rareMetals() * 0.9f);
-	rp.commonMinerals(resourcesCostToBuild().commonMinerals() * 0.9f);
-	rp.rareMinerals(resourcesCostToBuild().rareMinerals() * 0.9f);
-
-	return rp;
-}
-
-/**
  * Special overidding of Thing::die for Structure.
  * 
  * There is no conceivable situation in which a Structure should be marked as 'dead' or have its
