@@ -154,6 +154,8 @@ private:
 	Image				mHeightMap;
 	Image				mUiIcons;
 
+	Sound*				mInsufficientResources;
+
 	PointerList			mPointers;
 	PointerType			mCurrentPointer;
 

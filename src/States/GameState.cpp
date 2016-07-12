@@ -44,6 +44,7 @@ GameState::GameState(const string& map, const string& tset):	mFont("fonts/Fresca
 																mMapDisplay(map + MAP_DISPLAY_EXTENSION),
 																mHeightMap(map + MAP_TERRAIN_EXTENSION),
 																mUiIcons("ui/icons.png"),
+																mInsufficientResources(new Sound("sfx/insufficient_resources_f.ogg")),
 																mCurrentPointer(POINTER_NORMAL),
 																mCurrentStructure(SID_NONE),
 																mDiggerDirection(mTinyFont),
@@ -72,6 +73,8 @@ GameState::~GameState()
 	e.mouseButtonUp().Disconnect(this, &GameState::onMouseUp);
 	e.mouseMotion().Disconnect(this, &GameState::onMouseMove);
 
+	if (mInsufficientResources)
+		delete mInsufficientResources;
 }
 
 
@@ -878,22 +881,23 @@ void GameState::placeStructure()
 	}
 	else
 	{
-		// Check build cost
-		ResourcePool rp = StructureFactory::costToBuild(mCurrentStructure);
-		if (mPlayerResources.commonMetals() < rp.commonMetals() || mPlayerResources.commonMinerals() < rp.commonMinerals() ||
-			mPlayerResources.rareMetals() < rp.rareMetals() || mPlayerResources.rareMinerals() < rp.rareMinerals())
-		{
-			// TODO: Make this issue obvious to the user in the game's UI so there is no
-			// confusion as to why the structure wasn't placed.
-			cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
-			return;
-		}
-
 		if (!validStructurePlacement(mTileMapMouseHover.x(), mTileMapMouseHover.y()))
 		{
 			// TODO: Make this issue obvious to the user in the game's UI so there is no
 			// confusion as to why the structure wasn't placed.
 			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
+			return;
+		}
+
+		// Check build cost
+		ResourcePool rp = StructureFactory::costToBuild(mCurrentStructure);
+		if (mPlayerResources.commonMetals() < rp.commonMetals() || mPlayerResources.commonMinerals() < rp.commonMinerals() ||
+			mPlayerResources.rareMetals() < rp.rareMetals() || mPlayerResources.rareMinerals() < rp.rareMinerals())
+		{
+			Utility<Mixer>::get().playSound(*mInsufficientResources);
+			// TODO: Make this issue obvious to the user in the game's UI so there is no
+			// confusion as to why the structure wasn't placed.
+			cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
 			return;
 		}
 

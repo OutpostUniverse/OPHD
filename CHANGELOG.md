@@ -11,6 +11,7 @@ This version includes all revisions from r90 to rXX.
 - Added mouse hover coordinates to debug.
 - Added Structure information to debug.
 - Added a current level indicator.
+- Added voice indicators for tile placement.
 
 ### Changed
 - Pulled old UI data files.
