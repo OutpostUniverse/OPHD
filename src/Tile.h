@@ -43,6 +43,8 @@ public:
 
 	bool empty() const { return mThing == nullptr; }
 
+	bool hasMine() const { return mMine != nullptr; }
+
 	Structure*	structure();
 	Robot* robot();
 

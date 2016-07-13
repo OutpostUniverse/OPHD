@@ -29,6 +29,9 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_MINE_FACILITY: // only here for loading games
 			_st = new MineFacility(nullptr);
 			break;
+		case SID_MINE_SHAFT: // only here for loading games
+			_st = new MineShaft();
+			break;
 		case SID_RESIDENCE:
 			_st = new Residence();
 			break;

@@ -814,12 +814,26 @@ void GameState::diggerTaskFinished(Robot* _r)
  */
 void GameState::minerTaskFinished(Robot* _r)
 {
-	if(mRobotList.find(_r) == mRobotList.end())
+	if (mRobotList.find(_r) == mRobotList.end())
 		throw Exception(0, "Renegade Robot", "GameState::minerTaskFinished() called with a Robot not in the Robot List!");
 
 	Tile* t = mRobotList[_r];
 
-	mStructureManager.addStructure(new MineFacility(t->mine()), t);
+	if (t->depth() == 0)
+	{
+		mStructureManager.addStructure(new MineFacility(t->mine()), t);
+	}
+	else
+	{
+		mStructureManager.addStructure(new MineShaft(), t);
+	}
+
+	Tile* t2 = mTileMap->getTile(t->x(), t->y(), t->depth() + 1);
+	mStructureManager.addStructure(new MineShaft(), t2);
+
+	t->index(0);
+	t2->index(0);
+	t2->excavated(true);
 
 	checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
 }
