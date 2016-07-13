@@ -158,6 +158,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\AiVoiceNotifier.cpp" />
     <ClCompile Include="..\..\src\GraphWalker.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\Mine.cpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="..\..\src\UI\TileInspector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\AiVoiceNotifier.h" />
     <ClInclude Include="..\..\src\Common.h" />
     <ClInclude Include="..\..\src\Constants.h" />
     <ClInclude Include="..\..\src\Constants\Numbers.h" />

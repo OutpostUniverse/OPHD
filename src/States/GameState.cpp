@@ -44,7 +44,7 @@ GameState::GameState(const string& map, const string& tset):	mFont("fonts/Fresca
 																mMapDisplay(map + MAP_DISPLAY_EXTENSION),
 																mHeightMap(map + MAP_TERRAIN_EXTENSION),
 																mUiIcons("ui/icons.png"),
-																mInsufficientResources(new Sound("sfx/insufficient_resources_f.ogg")),
+																mAiVoiceNotifier(AiVoiceNotifier::MALE),
 																mCurrentPointer(POINTER_NORMAL),
 																mCurrentStructure(SID_NONE),
 																mDiggerDirection(mTinyFont),
@@ -72,9 +72,6 @@ GameState::~GameState()
 	e.mouseButtonDown().Disconnect(this, &GameState::onMouseDown);
 	e.mouseButtonUp().Disconnect(this, &GameState::onMouseUp);
 	e.mouseMotion().Disconnect(this, &GameState::onMouseMove);
-
-	if (mInsufficientResources)
-		delete mInsufficientResources;
 }
 
 
@@ -572,6 +569,8 @@ void GameState::placeTubes()
 		mStructureManager.disconnectAll();
 		checkConnectedness();
 	}
+	else
+		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
 }
 
 
@@ -616,18 +615,18 @@ void GameState::placeRobot()
 			Structure* _s = tile->structure();
 			if (_s->name() == constants::COMMAND_CENTER)
 			{
+				mAiVoiceNotifier.notify(AiVoiceNotifier::CC_NO_BULLDOZE);
 				cout << "Can't bulldoze a Command Center!" << endl;
 				return;
 			}
 
-#ifdef NDEBUG
+			#ifdef NDEBUG
 			mPlayerResources.pushResources(StructureFactory::recyclingValue(StructureTranslator::translateFromString(_s->name())));
-#else
+			#else
 			StructureID s_id = StructureTranslator::translateFromString(_s->name());
 			ResourcePool rp = StructureFactory::recyclingValue(s_id);
 			mPlayerResources.pushResources(rp);
-#endif
-
+			#endif
 
 			tile->connected(false);
 			mStructureManager.removeStructure(_s);
@@ -655,13 +654,17 @@ void GameState::placeRobot()
 		// Keep digger within a safe margin of the map boundaries.
 		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
 		{
+			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
 			cout << "GameState::placeRobot(): Can't place digger within 3 tiles of the edge of a map." << endl;
 			return;
 		}
 
 		// Die if tile is occupied or not excavated.
 		if (!tile->empty() && tile->structure() != nullptr && tile->structure()->connectorDirection() != CONNECTOR_VERTICAL)
+		{
+			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
 			return;
+		}
 		else if (tile->mine() || !tile->excavated())
 			return;
 		else if (!tile->thing() && mTileMap->currentDepth() > 0)
@@ -684,8 +687,11 @@ void GameState::placeRobot()
 	// Robominer has been selected.
 	else if(mCurrentRobot == ROBOT_MINER)
 	{
-		if(tile->thing() || !tile->mine() || !tile->excavated())
+		if (tile->thing() || !tile->mine() || !tile->excavated())
+		{
+			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_MINER_PLACEMENT);
 			return;
+		}
 
 		Robot* r = mRobotPool.getMiner();
 		r->startTask(6);
@@ -701,8 +707,6 @@ void GameState::placeRobot()
 	if (mRobotPool.allRobotsBusy())
 	{
 		mBtnRobots.enabled(false);
-		//mBtnRobots.toggle(false);
-		//mRobots.hide();
 	}
 }
 
@@ -882,8 +886,7 @@ void GameState::placeStructure()
 
 	if(t->mine() || t->thing() || !t->bulldozed() && mCurrentStructure != SID_SEED_LANDER)
 	{
-		// TODO: Make this issue obvious to the user in the game's UI so there is no
-		// confusion as to why the structure wasn't placed.
+		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		cout << "GameState::placeStructure(): Tile is unsuitable to place a structure." << endl;
 		return;
 	}
@@ -897,8 +900,7 @@ void GameState::placeStructure()
 	{
 		if (!validStructurePlacement(mTileMapMouseHover.x(), mTileMapMouseHover.y()))
 		{
-			// TODO: Make this issue obvious to the user in the game's UI so there is no
-			// confusion as to why the structure wasn't placed.
+			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
 			return;
 		}
@@ -908,9 +910,7 @@ void GameState::placeStructure()
 		if (mPlayerResources.commonMetals() < rp.commonMetals() || mPlayerResources.commonMinerals() < rp.commonMinerals() ||
 			mPlayerResources.rareMetals() < rp.rareMetals() || mPlayerResources.rareMinerals() < rp.rareMinerals())
 		{
-			Utility<Mixer>::get().playSound(*mInsufficientResources);
-			// TODO: Make this issue obvious to the user in the game's UI so there is no
-			// confusion as to why the structure wasn't placed.
+			mAiVoiceNotifier.notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
 			cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
 			return;
 		}
@@ -991,6 +991,7 @@ void GameState::insertSeedLander(int x, int y)
 		// check for obstructions
 		if (!landingSiteSuitable(x, y))
 		{
+			mAiVoiceNotifier.notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
 			cout << "Unable to place SEED Lander. Tiles obstructed." << endl;
 			return;
 		}
@@ -1006,6 +1007,10 @@ void GameState::insertSeedLander(int x, int y)
 		mStructures.dropAllItems();
 		mBtnTurns.enabled(true);
 	}
+	else
+	{
+		mAiVoiceNotifier.notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
+	}
 }
 
 
@@ -1017,7 +1022,7 @@ bool GameState::landingSiteSuitable(int x, int y)
 {
 	for(int offY = y - 1; offY <= y + 1; ++offY)
 		for(int offX = x - 1; offX <= x + 1; ++offX)
-			if(mTileMap->getTile(offX, offY)->index() > TERRAIN_DIFFICULT || mTileMap->getTile(offX, offY)->mine() || mTileMap->getTile(offX, offY)->thing())
+			if (mTileMap->getTile(offX, offY)->index() > TERRAIN_DIFFICULT || mTileMap->getTile(offX, offY)->mine() || mTileMap->getTile(offX, offY)->thing())
 				return false;
 
 	return true;

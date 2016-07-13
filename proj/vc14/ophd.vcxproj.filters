@@ -135,6 +135,9 @@
     <ClCompile Include="..\..\src\ResourcePool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\AiVoiceNotifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -298,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\MineShaft.h">
       <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\AiVoiceNotifier.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

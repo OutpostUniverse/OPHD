@@ -2,6 +2,8 @@
 
 #include "NAS2D/NAS2D.h"
 
+#include "../AiVoiceNotifier.h"
+
 #include "../Common.h"
 
 #include "../ResourcePool.h"
@@ -154,8 +156,6 @@ private:
 	Image				mHeightMap;
 	Image				mUiIcons;
 
-	Sound*				mInsufficientResources;
-
 	PointerList			mPointers;
 	PointerType			mCurrentPointer;
 
@@ -177,6 +177,8 @@ private:
 	InsertMode			mInsertMode;				/**< What's being inserted into the TileMap if anything. */
 	StructureID			mCurrentStructure;			/**< Structure being placed. */
 	RobotType			mCurrentRobot;				/**< Robot being placed. */
+
+	AiVoiceNotifier		mAiVoiceNotifier;
 
 	// UI
 	Button				mBtnStructures;

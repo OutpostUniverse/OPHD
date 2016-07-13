@@ -5,7 +5,7 @@ This is the changelog for OutpostHD.
 
 This version includes all revisions from r90 to rXX.
 
-### Added
+### Added 
 - Current state of the game can now be saved.
 - Current state of the game can now be loaded.
 - Added mouse hover coordinates to debug.
