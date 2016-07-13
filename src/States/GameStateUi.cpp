@@ -26,7 +26,9 @@ void GameState::initUi()
 
 	mDiggerDirection.directionSelected().Connect(this, &GameState::diggerSelectionDialog);
 	mDiggerDirection.visible(false);
-	mDiggerDirection.position(r.height() - constants::BOTTOM_UI_HEIGHT + constants::MARGIN, mMiniMapBoundingBox.w() + constants::MARGIN * 3 + constants::MINI_MAP_BUTTON_SIZE);
+	mDiggerDirection.position(r.width() / 2 - mDiggerDirection.width() / 2, r.height() / 2 - 125);
+
+	mTileInspector.position(r.width() / 2 - mTileInspector.width() / 2, r.height() / 2 - 175);
 
 	// Bottom UI
 	BOTTOM_UI_AREA(0, r.height() - constants::BOTTOM_UI_HEIGHT, r.width(), constants::BOTTOM_UI_HEIGHT);

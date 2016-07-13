@@ -27,14 +27,21 @@ private:
 
 	typedef std::vector<Planet*> PlanetPtrList;
 
+private:
 	void onKeyDown(KeyCode key, KeyModifier mod, bool repeat);
 
 	void onMouseDown(MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
 
+	void onMousePlanetEnter();
+
+private:
 	Font				mFont;
 
 	Image				mMousePointer;
+
+	Sound				mSelect;
+	Sound				mHover;
 
 	Point_2d			mMousePosition;
 

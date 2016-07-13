@@ -29,8 +29,9 @@ int main(int argc, char *argv[])
 		game.mount("fonts.dat");
 		game.mount("maps.dat");
 		game.mount("planets.dat");
-		game.mount("structures.dat");
 		game.mount("robots.dat");
+		game.mount("sfx.dat");
+		game.mount("structures.dat");
 		game.mount("ui.dat");
 
 		Filesystem& f = Utility<Filesystem>::get();

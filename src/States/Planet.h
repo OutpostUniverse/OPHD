@@ -19,6 +19,9 @@ enum PlanetType
 class Planet
 {
 public:
+	typedef Gallant::Signal0<void> MouseEnterCallback;
+
+public:
 	Planet(PlanetType type) : mTick(0), mImage(), mType(type), mMouseInArea(false)
 	{
 		switch (mType)
@@ -58,6 +61,7 @@ public:
 
 	bool mouseHovering() const { return mMouseInArea; }
 
+	MouseEnterCallback& mouseEnter() { return mMouseEnterCallback; }
 
 	void update()
 	{
@@ -90,7 +94,12 @@ protected:
 	void onMouseMove(int x, int y, int rX, int rY)
 	{
 		if (pointInArea(x, y))
+		{
+			if (!mMouseInArea)
+				mMouseEnterCallback();
+
 			mMouseInArea = true;
+		}
 		else
 		{
 			mMouseInArea = false;
@@ -105,14 +114,16 @@ private:
 	Planet& operator=(const Planet&) {}; // Explicitely declared private.
 
 
-	int				mTick;
+	int					mTick;
 
-	NAS2D::Image	mImage;
-	NAS2D::Point_2d	mPosition;
+	NAS2D::Image		mImage;
+	NAS2D::Point_2d		mPosition;
 	
-	PlanetType		mType;
+	PlanetType			mType;
 
-	bool			mMouseInArea;
+	MouseEnterCallback	mMouseEnterCallback;
 
-	NAS2D::Timer	mTimer;
+	bool				mMouseInArea;
+
+	NAS2D::Timer		mTimer;
 };

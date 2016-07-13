@@ -5,7 +5,9 @@
 PlanetType PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
 PlanetSelectState::PlanetSelectState():	mFont("fonts/Fresca-Regular.ttf", 16),
-										mMousePointer("ui/pointers/normal.png")
+										mMousePointer("ui/pointers/normal.png"),
+										mSelect("sfx/click.ogg"),
+										mHover("sfx/menu4.ogg")
 {}
 
 
@@ -38,8 +40,13 @@ void PlanetSelectState::initialize()
 	mPlanets.push_back(new Planet(PLANET_TYPE_GANYMEDE));
 
 	mPlanets[0]->position((int)r.width() / 4 - 64, (int)r.height() / 2 - 64);
+	mPlanets[0]->mouseEnter().Connect(this, &PlanetSelectState::onMousePlanetEnter);
+
 	mPlanets[1]->position((int)r.width() / 2 - 64, (int)r.height() / 2 - 64);
+	mPlanets[1]->mouseEnter().Connect(this, &PlanetSelectState::onMousePlanetEnter);
+
 	mPlanets[2]->position((((int)r.width() / 4) * 3) - 64, (int)r.height() / 2 - 64);
+	mPlanets[2]->mouseEnter().Connect(this, &PlanetSelectState::onMousePlanetEnter);
 
 	PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
@@ -91,6 +98,7 @@ void PlanetSelectState::onMouseDown(MouseButton button, int x, int y)
 	{
 		if (mPlanets[i]->mouseHovering())
 		{
+			Utility<Mixer>::get().playSound(mSelect);
 			PLANET_TYPE_SELECTION = mPlanets[i]->type();
 			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 			return;
@@ -105,4 +113,8 @@ void PlanetSelectState::onMouseMove(int x, int y, int rX, int rY)
 }
 
 
+void PlanetSelectState::onMousePlanetEnter()
+{
+	Utility<Mixer>::get().playSound(mHover);
+}
 
