@@ -5,7 +5,7 @@ This is the changelog for OutpostHD.
 
 This version includes all revisions from r90 to rXX.
 
-### Added 
+### Added
 - Current state of the game can now be saved.
 - Current state of the game can now be loaded.
 - Added mouse hover coordinates to debug.
@@ -22,6 +22,8 @@ This version includes all revisions from r90 to rXX.
 - Using the mouse's scroll wheel when in tube insertion mode will now switch which tube piece is being placed.
 - Improved mine beacon glow effect.
 - Mine robots now build a mine shaft underneath the surface facility.
+- Fonts have been replaced with easier to read and more predictable bitmap based fonts.
+- Tile Inspector is much more fleshed out.
 
 ### Fixed
 - Fixed a mistake in the way robots were handled in the UI when deployed. Robot selection UI will now properly update itself when any robot in the field completes its task instead of the original robots created when the SEED Lander is deployed.

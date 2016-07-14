@@ -32,6 +32,7 @@ private:
 
 	Button		btnClose;
 
-	Tile*		mTile;
+	Font		mBold;
 
+	Tile*		mTile;
 };

@@ -4,7 +4,7 @@
 
 PlanetType PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
-PlanetSelectState::PlanetSelectState():	mFont("fonts/Fresca-Regular.ttf", 16),
+PlanetSelectState::PlanetSelectState():	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
 										mMousePointer("ui/pointers/normal.png"),
 										mSelect("sfx/click.ogg"),
 										mHover("sfx/menu4.ogg")

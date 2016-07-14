@@ -38,8 +38,9 @@ stringstream str_scratch;		// Used in a few places to avoid construction/destruc
 /**
  * C'Tor
  */
-GameState::GameState(const string& map, const string& tset):	mFont("fonts/Fresca-Regular.ttf", 14),
-																mTinyFont("fonts/Fresca-Regular.ttf", 10),
+GameState::GameState(const string& map, const string& tset):	//mFont(("fonts/Gidolinya-Regular.otf", 14),
+																mFont("fonts/mig6800_8x16.png", 8, 16, 0),
+																mTinyFont("fonts/ui-normal.png", 7, 9, -1),
 																mTileMap(new TileMap(map, tset, MAX_DEPTH)),
 																mMapDisplay(map + MAP_DISPLAY_EXTENSION),
 																mHeightMap(map + MAP_TERRAIN_EXTENSION),
@@ -122,7 +123,7 @@ State* GameState::update()
 	mTileMap->draw();
 	drawUI();
 
-	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING), mMiniMapBoundingBox.y() - mFont.height() - 5, 255, 255, 255);
+	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - mFont.height() - 10, 255, 255, 255);
 
 	if(mDebug) drawDebug();
 
@@ -208,7 +209,7 @@ void GameState::drawResourceInfo()
 	int x = constants::MARGIN_TIGHT;
 	int y = constants::MARGIN_TIGHT;
 
-	int textY = 5;
+	int textY = 6;
 	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
 
 	// Refined Resources
@@ -228,20 +229,20 @@ void GameState::drawResourceInfo()
 	r.drawSubImage(mUiIcons, (x + offsetX) * 5, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	
 	str_scratch.str("");
-	str_scratch << mPlayerResources.currentLevel() << " / " << mPlayerResources.capacity();
+	str_scratch << mPlayerResources.currentLevel() << "/" << mPlayerResources.capacity();
 	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 
 	// Food & Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 7, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	str_scratch.str("");
-	str_scratch << foodInStorage() << " / " << foodTotalStorage();
+	str_scratch << foodInStorage() << "/" << foodTotalStorage();
 	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 7 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 	
 	
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	str_scratch.str("");
-	str_scratch << mPlayerResources.energy() << " / " << mStructureManager.totalEnergyProduction();
+	str_scratch << mPlayerResources.energy() << "/" << mStructureManager.totalEnergyProduction();
 	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 8 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 	
 	//drawNumber(r, mTinyFont, mPlayerResources.energy(), (x + offsetX) * 8 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
