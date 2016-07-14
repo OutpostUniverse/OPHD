@@ -21,6 +21,7 @@
 #include "../UI/DiggerDirection.h"
 #include "../UI/FactoryProduction.h"
 #include "../UI/IconGrid.h"
+#include "../UI/StructureInspector.h"
 #include "../UI/TileInspector.h"
 
 #include "../Constants.h"
@@ -194,8 +195,9 @@ private:
 	IconGrid			mConnections;
 
 	DiggerDirection		mDiggerDirection;
-	TileInspector		mTileInspector;
+	StructureInspector	mStructureInspector;
 	FactoryProduction	mFactoryProduction;
+	TileInspector		mTileInspector;
 
 	// MISCELLANEOUS
 	int					mTurnCount;

@@ -38,8 +38,7 @@ stringstream str_scratch;		// Used in a few places to avoid construction/destruc
 /**
  * C'Tor
  */
-GameState::GameState(const string& map, const string& tset):	//mFont(("fonts/Gidolinya-Regular.otf", 14),
-																mFont("fonts/mig6800_8x16.png", 8, 16, 0),
+GameState::GameState(const string& map, const string& tset) :	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
 																mTinyFont("fonts/ui-normal.png", 7, 9, -1),
 																mTileMap(new TileMap(map, tset, MAX_DEPTH)),
 																mMapDisplay(map + MAP_DISPLAY_EXTENSION),
@@ -49,8 +48,9 @@ GameState::GameState(const string& map, const string& tset):	//mFont(("fonts/Gid
 																mCurrentPointer(POINTER_NORMAL),
 																mCurrentStructure(SID_NONE),
 																mDiggerDirection(mTinyFont),
-																mTileInspector(mTinyFont),
 																mFactoryProduction(mTinyFont),
+																mStructureInspector(mTinyFont),
+																mTileInspector(mTinyFont),
 																mInsertMode(INSERT_NONE),
 																mTurnCount(0),
 																mReturnState(NULL),
@@ -447,9 +447,22 @@ void GameState::clearMode()
  */
 void GameState::onMouseDown(MouseButton button, int x, int y)
 {
+	// If mouse pointer is within the rects of a a UI element, ignore it.
+	// FIXME: This is getting out of hand. Find a better way to do this.
+	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
+		return;
+	if (mStructureInspector.visible() && isPointInRect(mMousePosition, mStructureInspector.rect()))
+		return;
+	if (mFactoryProduction.visible() && isPointInRect(mMousePosition, mFactoryProduction.rect()))
+		return;
+	if (mTileInspector.visible() && isPointInRect(mMousePosition, mTileInspector.rect()))
+		return;
+
 	// Cludgy but basically if this dialog is open, fuck everything else.
+	// FIXME: Double check logic to make sure this is a necessary check given the above statements.
 	if (mFactoryProduction.visible())
 		return;
+
 
 	if(button == BUTTON_RIGHT)
 	{
@@ -472,14 +485,19 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		{
 			clearSelections();
 			mTileInspector.tile(_t);
-			mTileInspector.visible(true); 
+			mTileInspector.show(); 
 		}
-		else if (_t->structure() && _t->structure()->isFactory())
+		else if (_t->structure())
 		{
-			if (_t->structure()->state() == Structure::OPERATIONAL || _t->structure()->state() == Structure::IDLE)
+			if (_t->structure()->isFactory() && _t->structure()->state() == Structure::OPERATIONAL || _t->structure()->state() == Structure::IDLE)
 			{
 				mFactoryProduction.factory(static_cast<Factory*>(_t->structure()));
 				mFactoryProduction.show();
+			}
+			else if (_t->thingIsStructure())
+			{
+				mStructureInspector.structure(_t->structure());
+				mStructureInspector.show();
 			}
 		}
 	}
@@ -487,10 +505,6 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 	if(button == BUTTON_LEFT)
 	{
 		mLeftButtonDown = true;
-
-		// If mouse pointer is within the rects of a a UI element, ignore it.
-		if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
-			return;
 
 		// Ugly
 		if (isPointInRect(mMousePosition, MENU_ICON))

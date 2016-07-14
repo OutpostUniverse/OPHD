@@ -25,10 +25,17 @@ void GameState::initUi()
 	Renderer& r = Utility<Renderer>::get();
 
 	mDiggerDirection.directionSelected().Connect(this, &GameState::diggerSelectionDialog);
-	mDiggerDirection.visible(false);
-	mDiggerDirection.position(r.width() / 2 - mDiggerDirection.width() / 2, r.height() / 2 - 125);
+	mDiggerDirection.hide();
+	mDiggerDirection.position(r.screenCenterX() - mDiggerDirection.width() / 2, r.height() / 2 - 125);
 
-	mTileInspector.position(r.width() / 2 - mTileInspector.width() / 2, r.height() / 2 - 175);
+	mTileInspector.position(r.screenCenterX() - mTileInspector.width() / 2, r.height() / 2 - 175);
+	mTileInspector.hide();
+
+	mStructureInspector.position(r.screenCenterX() - mStructureInspector.width() / 2, r.height() / 2 - 175);
+	mStructureInspector.hide();
+
+	mFactoryProduction.position(r.screenCenterX() - mFactoryProduction.width() / 2, r.height() - constants::BOTTOM_UI_HEIGHT / 2 - mFactoryProduction.height() / 2);
+	mFactoryProduction.hide();
 
 	// Bottom UI
 	BOTTOM_UI_AREA(0, r.height() - constants::BOTTOM_UI_HEIGHT, r.width(), constants::BOTTOM_UI_HEIGHT);
@@ -117,8 +124,6 @@ void GameState::initUi()
 	mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110);
 	mConnections.addItem(constants::AG_TUBE_LEFT, 111);
 	mConnections.addItem(constants::AG_TUBE_RIGHT, 112);
-
-	mFactoryProduction.hide();
 }
 
 
@@ -136,9 +141,9 @@ void GameState::resetUi()
 	clearSelections();
 
 	mDiggerDirection.hide();
-	mTileInspector.hide();
-	mDiggerDirection.hide();
 	mFactoryProduction.hide();
+	mStructureInspector.hide();
+	mTileInspector.hide();
 
 	mBtnStructures.toggle(false);
 	mBtnConnections.toggle(false);
@@ -214,8 +219,9 @@ void GameState::drawUI()
 
 	// UI Containers
 	mDiggerDirection.update();
-	mTileInspector.update();
 	mFactoryProduction.update();
+	mStructureInspector.update();
+	mTileInspector.update();
 
 	// Always draw last
 	mPointers[mCurrentPointer].draw(mMousePosition.x(), mMousePosition.y());

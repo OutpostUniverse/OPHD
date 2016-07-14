@@ -31,17 +31,17 @@ UIContainer::~UIContainer()
 Control* UIContainer::addControl(const std::string& name, Control* c, float x, float y)
 {
 	// Naturally barf if NULL.
-	if(c == NULL)
+	if(c == nullptr)
 	{
 		cout << "UIContainer::addControl(): Attempting to add a NULL Control." << endl;
-		return NULL;
+		return nullptr;
 	}
 
 	ControlList::iterator it = mControlList.find(toLowercase(name));
 	if(it != mControlList.end())
 	{
 		cout << "UIContainer::addControl(): Attempting to add a duplicate Control '" << name << "'." << endl;
-		return NULL;
+		return nullptr;
 	}
 
 	mControlList[toLowercase(name)] = c;

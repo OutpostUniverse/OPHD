@@ -43,8 +43,6 @@ void FactoryProduction::init()
 	btnCancel.size(35, 20);
 	btnCancel.click().Connect(this, &FactoryProduction::btnCancelClicked);
 
-	position(static_cast<int>(Utility<Renderer>::get().screenCenterX() - width() / 2), static_cast<int>((Utility<Renderer>::get().height() - constants::BOTTOM_UI_HEIGHT) / 2 - height() / 2));
-
 	// Fill production translation table
 	PRODUCTION_TRANSLATION_TABLE[""] = Factory::PRODUCTION_NONE;
 	PRODUCTION_TRANSLATION_TABLE[constants::ROBODIGGER] = Factory::PRODUCTION_DIGGER;

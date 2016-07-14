@@ -138,6 +138,9 @@
     <ClCompile Include="..\..\src\AiVoiceNotifier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ui\StructureInspector.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\AiVoiceNotifier.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ui\StructureInspector.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
