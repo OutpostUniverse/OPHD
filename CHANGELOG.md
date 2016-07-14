@@ -12,6 +12,7 @@ This version includes all revisions from r90 to rXX.
 - Added Structure information to debug.
 - Added a current level indicator.
 - Added voice indicators for tile placement.
+- Added a Structure Inspector UI. Not a whole lot of information in it yet but the basics are there.
 
 ### Changed
 - Pulled old UI data files.
@@ -30,6 +31,7 @@ This version includes all revisions from r90 to rXX.
 - Fixed a dangling pointer bug when deserializing robots.
 - Fixed a dangling pointer bug when deserializing structures.
 - Fixed a mistake that would cause the FactoryProduction UI to not be properly updated when viewing a factory.
+- Fixed a mistake that would cause some mouse clicks to be ignored until the TileInspector window has been pulled up at least once.
 
 
 

@@ -34,7 +34,7 @@ void GameState::initUi()
 	mStructureInspector.position(r.screenCenterX() - mStructureInspector.width() / 2, r.height() / 2 - 175);
 	mStructureInspector.hide();
 
-	mFactoryProduction.position(r.screenCenterX() - mFactoryProduction.width() / 2, r.height() - constants::BOTTOM_UI_HEIGHT / 2 - mFactoryProduction.height() / 2);
+	mFactoryProduction.position(r.screenCenterX() - mFactoryProduction.width() / 2, 175);
 	mFactoryProduction.hide();
 
 	// Bottom UI

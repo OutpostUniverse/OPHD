@@ -34,5 +34,7 @@ private:
 
 	Font		mBold;
 
+	Image		mIcons;
+
 	Structure*	mStructure;
 };

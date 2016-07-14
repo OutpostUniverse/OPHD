@@ -106,6 +106,8 @@ void GameState::initialize()
 	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
 
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
+
+	CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
 }
 
 
@@ -240,10 +242,10 @@ void GameState::drawResourceInfo()
 	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 7 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 	
 	
-	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawSubImage(mUiIcons, (x + offsetX) * 9, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	str_scratch.str("");
 	str_scratch << mPlayerResources.energy() << "/" << mStructureManager.totalEnergyProduction();
-	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 8 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 9 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 	
 	//drawNumber(r, mTinyFont, mPlayerResources.energy(), (x + offsetX) * 8 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
@@ -487,14 +489,14 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 			mTileInspector.tile(_t);
 			mTileInspector.show(); 
 		}
-		else if (_t->structure())
+		else if (_t->thingIsStructure())
 		{
-			if (_t->structure()->isFactory() && _t->structure()->state() == Structure::OPERATIONAL || _t->structure()->state() == Structure::IDLE)
+			if (_t->structure()->isFactory() && (_t->structure()->operational() || _t->structure()->isIdle()))
 			{
 				mFactoryProduction.factory(static_cast<Factory*>(_t->structure()));
 				mFactoryProduction.show();
 			}
-			else if (_t->thingIsStructure())
+			else
 			{
 				mStructureInspector.structure(_t->structure());
 				mStructureInspector.show();
@@ -1263,6 +1265,19 @@ void GameState::load(const std::string& _path)
 
 	readResources(root->FirstChildElement("resources"), mPlayerResources);
 	readTurns(root->FirstChildElement("turns"));
+
+	// set level indicator string
+	// FIXME: Cludgy.
+	if(mTileMap->currentDepth() == 0)
+		CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
+	else if (mTileMap->currentDepth() == 1)
+		CURRENT_LEVEL_STRING = constants::LEVEL_UG1;
+	else if (mTileMap->currentDepth() == 2)
+		CURRENT_LEVEL_STRING = constants::LEVEL_UG2;
+	else if (mTileMap->currentDepth() == 3)
+		CURRENT_LEVEL_STRING = constants::LEVEL_UG3;
+	else if (mTileMap->currentDepth() == 4)
+		CURRENT_LEVEL_STRING = constants::LEVEL_UG4;
 }
 
 

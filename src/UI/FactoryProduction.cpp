@@ -31,16 +31,16 @@ void FactoryProduction::init()
 	mProductionGrid.hide();
 	mProductionGrid.selectionChanged().Connect(this, &FactoryProduction::productionSelectionChanged);
 
-	addControl("btnOkay", &btnOkay, 70, 136);
+	addControl("btnOkay", &btnOkay, 63, 136);
 	btnOkay.font(font());
 	btnOkay.text("Okay");
-	btnOkay.size(35, 20);
+	btnOkay.size(40, 20);
 	btnOkay.click().Connect(this, &FactoryProduction::btnOkayClicked);
 
-	addControl("btnCancel", &btnCancel, 111, 136);
+	addControl("btnCancel", &btnCancel, 106, 136);
 	btnCancel.font(font());
 	btnCancel.text("Cancel");
-	btnCancel.size(35, 20);
+	btnCancel.size(40, 20);
 	btnCancel.click().Connect(this, &FactoryProduction::btnCancelClicked);
 
 	// Fill production translation table
@@ -167,28 +167,28 @@ void FactoryProduction::update()
 
 	ss.str("");
 	ss << mFactory->productionTurnsCompleted() << " of " << mProductionCost.TurnsToBuild;
-	r.drawText(font(), "Production Turns:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 20.0f, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 20.0f, 0, 0, 0);
+	r.drawText(font(), "Turns Remaining:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 20.0f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 20.0f, 0, 0, 0);
 
 	ss.str("");
 	ss << mProductionCost.CostPerTurn.commonMetals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Common Metals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 40.0f, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 40.0f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 40.0f, 0, 0, 0);
 
 	ss.str("");
 	ss << mProductionCost.CostPerTurn.commonMinerals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Common Minerals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 50.0f, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 50.0f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 50.0f, 0, 0, 0);
 
 	ss.str("");
 	ss << mProductionCost.CostPerTurn.rareMetals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Rare Metals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 60.0f, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 60.0f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 60.0f, 0, 0, 0);
 
 	ss.str("");
 	ss << mProductionCost.CostPerTurn.rareMinerals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Rare Minerals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 70.0f, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 95, rect().y() + 70.0f, 0, 0, 0);
+	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 70.0f, 0, 0, 0);
 
 	// Let UIContainer handle the basics.
 	UIContainer::update();
