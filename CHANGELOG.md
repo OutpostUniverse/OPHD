@@ -1,9 +1,9 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.6.0] - UNRELEASED
+## [0.6.0] - 2016-07-14
 
-This version includes all revisions from r90 to rXX.
+This version includes all revisions from r90 to r126.
 
 ### Added
 - Current state of the game can now be saved.
