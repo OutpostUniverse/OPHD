@@ -5,9 +5,11 @@
 PlanetType PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
 PlanetSelectState::PlanetSelectState():	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
+										mTinyFont("fonts/ui-normal.png", 7, 9, -1),
 										mMousePointer("ui/pointers/normal.png"),
 										mSelect("sfx/click.ogg"),
-										mHover("sfx/menu4.ogg")
+										mHover("sfx/menu4.ogg"),
+										mAiGender(AiVoiceNotifier::AiGender::MALE)
 {}
 
 
@@ -50,6 +52,22 @@ void PlanetSelectState::initialize()
 
 	PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
+
+	mMale.type(Button::BUTTON_TOGGLE);
+	mMale.font(mTinyFont);
+	mMale.text("Male");
+	mMale.size(50, 20);
+	mMale.position(5, 30);
+	mMale.toggle(true);
+	mMale.click().Connect(this, &PlanetSelectState::btnMaleClicked);
+
+	mFemale.type(Button::BUTTON_TOGGLE);
+	mFemale.font(mTinyFont);
+	mFemale.text("Female");
+	mFemale.size(50, 20);
+	mFemale.position(60, 30);
+	mFemale.click().Connect(this, &PlanetSelectState::btnFemaleClicked);
+
 	Utility<Renderer>::get().fadeIn(175.0f);
 }
 
@@ -67,6 +85,11 @@ State* PlanetSelectState::update()
 	r.drawText(mFont, "Mars Type", mPlanets[1]->x() + 64 - (mFont.width("Mars Type") / 2), mPlanets[1]->y() - mFont.height() - 10, 255, 255, 255);
 	r.drawText(mFont, "Ganymede Type", mPlanets[2]->x() + 64 - (mFont.width("Ganymede Type") / 2), mPlanets[2]->y() - mFont.height() - 10, 255, 255, 255);
 
+
+	r.drawText(mFont, "AI Gender", 5, 5, 255, 255, 255);
+	mMale.update();
+	mFemale.update();
+
 	r.drawImage(mMousePointer, mMousePosition.x(), mMousePosition.y());
 
 	if (r.isFading())
@@ -74,11 +97,11 @@ State* PlanetSelectState::update()
 	else if (PLANET_TYPE_SELECTION != PLANET_TYPE_NONE)
 	{
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MERCURY)
-			return new GameState("maps/merc_01", "tsets/mercury.png");
+			return new GameState("maps/merc_01", "tsets/mercury.png", mAiGender);
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MARS)
-			return new GameState("maps/mars_04", "tsets/mars.png");
+			return new GameState("maps/mars_04", "tsets/mars.png", mAiGender);
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_GANYMEDE)
-			return new GameState("maps/ganymede_01", "tsets/ganymede.png");
+			return new GameState("maps/ganymede_01", "tsets/ganymede.png", mAiGender);
 	}
 
 	return this;
@@ -118,3 +141,34 @@ void PlanetSelectState::onMousePlanetEnter()
 	Utility<Mixer>::get().playSound(mHover);
 }
 
+
+void PlanetSelectState::btnMaleClicked()
+{
+	Utility<Mixer>::get().playSound(mSelect);
+	if (mMale.toggled())
+	{
+		mFemale.toggle(false);
+		mAiGender = AiVoiceNotifier::AiGender::MALE;
+	}
+	else
+	{
+		mFemale.toggle(true);
+		mAiGender = AiVoiceNotifier::AiGender::FEMALE;
+	}
+}
+
+
+void PlanetSelectState::btnFemaleClicked()
+{
+	Utility<Mixer>::get().playSound(mSelect);
+	if (mFemale.toggled())
+	{
+		mMale.toggle(false);
+		mAiGender = AiVoiceNotifier::AiGender::FEMALE;
+	}
+	else
+	{
+		mMale.toggle(true);
+		mAiGender = AiVoiceNotifier::AiGender::MALE;
+	}
+}

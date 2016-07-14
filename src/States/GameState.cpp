@@ -38,24 +38,24 @@ stringstream str_scratch;		// Used in a few places to avoid construction/destruc
 /**
  * C'Tor
  */
-GameState::GameState(const string& map, const string& tset) :	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
-																mTinyFont("fonts/ui-normal.png", 7, 9, -1),
-																mTileMap(new TileMap(map, tset, MAX_DEPTH)),
-																mMapDisplay(map + MAP_DISPLAY_EXTENSION),
-																mHeightMap(map + MAP_TERRAIN_EXTENSION),
-																mUiIcons("ui/icons.png"),
-																mAiVoiceNotifier(AiVoiceNotifier::MALE),
-																mCurrentPointer(POINTER_NORMAL),
-																mCurrentStructure(SID_NONE),
-																mDiggerDirection(mTinyFont),
-																mFactoryProduction(mTinyFont),
-																mStructureInspector(mTinyFont),
-																mTileInspector(mTinyFont),
-																mInsertMode(INSERT_NONE),
-																mTurnCount(0),
-																mReturnState(NULL),
-																mLeftButtonDown(false),
-																mDebug(false)
+GameState::GameState(const string& map, const string& tset, AiVoiceNotifier::AiGender _g) :	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
+																							mTinyFont("fonts/ui-normal.png", 7, 9, -1),
+																							mTileMap(new TileMap(map, tset, MAX_DEPTH)),
+																							mMapDisplay(map + MAP_DISPLAY_EXTENSION),
+																							mHeightMap(map + MAP_TERRAIN_EXTENSION),
+																							mUiIcons("ui/icons.png"),
+																							mAiVoiceNotifier(_g),
+																							mCurrentPointer(POINTER_NORMAL),
+																							mCurrentStructure(SID_NONE),
+																							mDiggerDirection(mTinyFont),
+																							mFactoryProduction(mTinyFont),
+																							mStructureInspector(mTinyFont),
+																							mTileInspector(mTinyFont),
+																							mInsertMode(INSERT_NONE),
+																							mTurnCount(0),
+																							mReturnState(NULL),
+																							mLeftButtonDown(false),
+																							mDebug(false)
 {}
 
 
@@ -1203,6 +1203,11 @@ void GameState::save(const std::string& _path)
 	turns->SetAttribute("count", mTurnCount);
 	root->LinkEndChild(turns);
 
+	TiXmlElement* ai = new TiXmlElement("ai");
+	ai->SetAttribute("gender", mAiVoiceNotifier.gender());
+	root->LinkEndChild(ai);
+
+
 	// Write out the XML file.
 	TiXmlPrinter printer;
 	doc.Accept(&printer);
@@ -1265,6 +1270,17 @@ void GameState::load(const std::string& _path)
 
 	readResources(root->FirstChildElement("resources"), mPlayerResources);
 	readTurns(root->FirstChildElement("turns"));
+
+
+	TiXmlElement* ai = root->FirstChildElement("ai");
+	
+	if(ai)
+	{
+		int gender = 0;
+		ai->Attribute("gender", &gender);
+		mAiVoiceNotifier.gender(static_cast<AiVoiceNotifier::AiGender>(gender));
+	}
+
 
 	// set level indicator string
 	// FIXME: Cludgy.

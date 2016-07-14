@@ -38,6 +38,7 @@ public:
 	void notify(AiMessage _msg);
 
 	AiGender gender() const { return mGender; }
+	void gender(AiGender _g) { mGender = _g; }
 
 protected:
 

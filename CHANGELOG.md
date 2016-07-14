@@ -12,7 +12,9 @@ This version includes all revisions from r90 to rXX.
 - Added Structure information to debug.
 - Added a current level indicator.
 - Added voice indicators for tile placement.
+- Added AI Voice Gender Selection.
 - Added a Structure Inspector UI. Not a whole lot of information in it yet but the basics are there.
+- Added some UI Blips and beeps to the Planet Select screen for basic feedback.
 
 ### Changed
 - Pulled old UI data files.

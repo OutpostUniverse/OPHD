@@ -8,6 +8,8 @@
 
 #include "../UI/UI.h"
 
+#include "../AiVoiceNotifier.h"
+
 using namespace NAS2D;
 
 
@@ -35,8 +37,12 @@ private:
 
 	void onMousePlanetEnter();
 
+	void btnMaleClicked();
+	void btnFemaleClicked();
+
 private:
 	Font				mFont;
+	Font				mTinyFont;
 
 	Image				mMousePointer;
 
@@ -46,6 +52,11 @@ private:
 	Point_2d			mMousePosition;
 
 	PlanetPtrList		mPlanets;
+
+	Button				mMale;
+	Button				mFemale;
+
+	AiVoiceNotifier::AiGender	mAiGender;
 
 	State*				mReturnState;
 };
