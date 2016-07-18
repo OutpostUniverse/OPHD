@@ -1,6 +1,22 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.6.5] - UNRELEASED
+
+This version includes all revisions from r90 to r126.
+
+### Added
+- Added a Fusion Reactor structure.
+- Added a Splash Screen and a user configurable option to skip the splash screen after the first time the game is run.
+
+### Changed
+- 
+
+### Fixed
+- Fixed a mistake in StructureManager which forgot to drop all of the structure lists whenever StructureManager::dropAllStructures() was called.
+
+
+
 ## [0.6.0] - 2016-07-14
 
 This version includes all revisions from r90 to r126.
