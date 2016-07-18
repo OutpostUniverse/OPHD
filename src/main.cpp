@@ -31,6 +31,19 @@ void createRenderer()
 	}
 }
 
+// Makes sure video resolution is never less than 800x600
+void validateVideoResolution()
+{
+	Configuration& cf = Utility<Configuration>::get();
+
+	if (cf.graphicsWidth() < 800 || cf.graphicsHeight() < 600)
+	{
+		cf.graphicsWidth(800);
+		cf.graphicsHeight(600);
+	}
+}
+
+
 int main(int argc, char *argv[])
 {
 	//Crude way of redirecting stream buffer when building in release (no console)
@@ -70,10 +83,15 @@ int main(int argc, char *argv[])
 		}
 					
 		cf.load("config.xml");
+
+		if (cf.option("skip-splash").empty())
+			cf.option("skip-splash", "false");
+
+		validateVideoResolution();
+
 		cf.save();
 
 		Utility<Mixer>::instantiateDerived(new Mixer_SDL());
-		
 		createRenderer();
 
 		f.addToSearchPath("fonts.dat");
@@ -89,7 +107,11 @@ int main(int argc, char *argv[])
 			f.makeDirectory(constants::SAVE_GAME_PATH);
 
 		StateManager stateManager;
-		stateManager.setState(new SplashState());
+
+		if(cf.option("skip-splash") == "false")
+			stateManager.setState(new SplashState());
+		else
+			stateManager.setState(new PlanetSelectState());
 
 		// Game Loop
 		while (stateManager.update())
