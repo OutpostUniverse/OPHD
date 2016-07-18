@@ -173,6 +173,7 @@ void GameState::populateStructureMenu()
 		mStructures.addItem(constants::AGRIDOME, 5);
 		mStructures.addItem(constants::CHAP, 3);
 		mStructures.addItem(constants::STORAGE_TANKS, 8);
+		mStructures.addItem(constants::FUSION_REACTOR, 21);
 
 		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110);
 		mConnections.addItem(constants::AG_TUBE_RIGHT, 112);

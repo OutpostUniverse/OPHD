@@ -133,7 +133,7 @@ void Structure::forced_state_change(StructureState _s)
 	defineResourceInput();
 	defineResourceOutput();
 
-	if (age() > turnsToBuild())
+	if (age() >= turnsToBuild())
 	{
 		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
 		//enable();

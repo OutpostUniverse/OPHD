@@ -26,6 +26,9 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_COMMAND_CENTER:
 			_st = new CommandCenter();
 			break;
+		case SID_FUSION_REACTOR:
+			_st = new FusionReactor();
+			break;
 		case SID_MINE_FACILITY: // only here for loading games
 			_st = new MineFacility(nullptr);
 			break;
@@ -74,6 +77,7 @@ void StructureFactory::buildCostTable()
 	mStructureCostTable[SID_AIR_SHAFT] = ResourcePool();
 	mStructureCostTable[SID_CHAP] = ResourcePool(0, 0, 0, 0, 50, 10, 20, 5, 0, 0);
 	mStructureCostTable[SID_COMMAND_CENTER] = ResourcePool(0, 0, 0, 0, 100, 75, 65, 35, 0, 0);
+	mStructureCostTable[SID_FUSION_REACTOR] = ResourcePool(0, 0, 0, 0, 75, 25, 50, 30, 0, 0);
 	mStructureCostTable[SID_MINE_FACILITY] = ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
 	mStructureCostTable[SID_RESIDENCE] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_SEED_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);

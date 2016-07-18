@@ -317,6 +317,9 @@
     <ClInclude Include="..\..\src\states\SplashState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\FusionReactor.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

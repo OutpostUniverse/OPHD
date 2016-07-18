@@ -5,6 +5,7 @@
 #include "AirShaft.h"
 #include "CHAP.h"
 #include "CommandCenter.h"
+#include "FusionReactor.h"
 #include "MineFacility.h"
 #include "MineShaft.h"
 #include "Residence.h"

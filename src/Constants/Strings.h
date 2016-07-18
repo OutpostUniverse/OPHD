@@ -11,7 +11,7 @@ namespace constants
 
 	// SAVE GAMES
 	const string	SAVE_GAME_PATH = "savegames/";
-	const string	SAVE_GAME_VERSION = "0.01";
+	const string	SAVE_GAME_VERSION = "0.20";
 	const string	SAVE_GAME_ROOT_NODE = "OutpostHD_SaveGame";
 
 	const string	SAVE_GAME_COMMON_METAL_ORE = "common_metal_ore";
@@ -38,6 +38,7 @@ namespace constants
 	const string	AIR_SHAFT = "Air Shaft";
 	const string	CHAP = "CHAP Facility";
 	const string	COMMAND_CENTER = "Command Center";
+	const string	FUSION_REACTOR = "Fusion Reactor";
 	const string	MINE_FACILITY = "Mine Facility";
 	const string	MINE_SHAFT = "Mine Shaft";
 	const string	RESIDENCE = "Residential Facility";

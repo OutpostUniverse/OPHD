@@ -35,6 +35,7 @@ void StructureTranslator::buildTables()
 	_stringToStructureTable[constants::AIR_SHAFT] = SID_AIR_SHAFT;
 	_stringToStructureTable[constants::CHAP] = SID_CHAP;
 	_stringToStructureTable[constants::COMMAND_CENTER] = SID_COMMAND_CENTER;
+	_stringToStructureTable[constants::FUSION_REACTOR] = SID_FUSION_REACTOR;
 	_stringToStructureTable[constants::MINE_FACILITY] = SID_MINE_FACILITY;
 	_stringToStructureTable[constants::MINE_SHAFT] = SID_MINE_SHAFT;
 	_stringToStructureTable[constants::SEED_FACTORY] = SID_SEED_FACTORY;
@@ -51,6 +52,7 @@ void StructureTranslator::buildTables()
 	_structureToStringTable[SID_AIR_SHAFT] = constants::AIR_SHAFT;
 	_structureToStringTable[SID_CHAP] = constants::CHAP;
 	_structureToStringTable[SID_COMMAND_CENTER] = constants::COMMAND_CENTER;
+	_structureToStringTable[SID_FUSION_REACTOR] = constants::FUSION_REACTOR;
 	_structureToStringTable[SID_MINE_FACILITY] = constants::MINE_FACILITY;
 	_structureToStringTable[SID_MINE_SHAFT] = constants::MINE_SHAFT;
 	_structureToStringTable[SID_RESIDENCE] = constants::RESIDENCE;

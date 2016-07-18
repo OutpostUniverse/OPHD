@@ -14,6 +14,7 @@ This version includes all revisions from r90 to r126.
 
 ### Fixed
 - Fixed a mistake in StructureManager which forgot to drop all of the structure lists whenever StructureManager::dropAllStructures() was called.
+- Fixed a mistake in Structure's forced_state_change() that would leave a structure that had just reached its build age in a construction animation state.
 
 
 

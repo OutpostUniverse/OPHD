@@ -1408,6 +1408,11 @@ void GameState::readStructures(TiXmlElement* _ti)
 		if (type_id == SID_AIR_SHAFT && depth > 0)
 			static_cast<AirShaft*>(st)->ug();
 
+		if (type_id == SID_FUSION_REACTOR)
+		{
+			cout << " asdads " << endl;
+		}
+
 		st->age(age);
 		st->id(id);
 		st->forced_state_change(static_cast<Structure::StructureState>(state));
