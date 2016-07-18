@@ -45,6 +45,7 @@ GameState::GameState(const string& map, const string& tset, AiVoiceNotifier::AiG
 																							mHeightMap(map + MAP_TERRAIN_EXTENSION),
 																							mUiIcons("ui/icons.png"),
 																							mAiVoiceNotifier(_g),
+																							mBgMusic("music/track_01.ogg"),
 																							mCurrentPointer(POINTER_NORMAL),
 																							mCurrentStructure(SID_NONE),
 																							mDiggerDirection(mTinyFont),
@@ -108,6 +109,8 @@ void GameState::initialize()
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 
 	CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
+
+	Utility<Mixer>::get().fadeInMusic(mBgMusic);
 }
 
 

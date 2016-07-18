@@ -1,7 +1,11 @@
 #include "NAS2D/NAS2D.h"
 
+#include "NAS2D/Mixer/Mixer_SDL.h"
+#include "NAS2D/Renderer/OGL_Renderer.h"
+
 #include "States/GameState.h"
 #include "States/PlanetSelectState.h"
+#include "States/SplashState.h"
 
 #include <iostream>
 #include <fstream>
@@ -9,6 +13,23 @@
 using namespace NAS2D;
 using namespace std;
 
+#include "SDL.h"
+
+void createRenderer()
+{
+	try
+	{
+		Utility<Renderer>::instantiateDerived(new OGL_Renderer("OutpostHD"));
+	}
+	catch (Exception e)
+	{
+		throw Exception(0, "OpenGL Renderer", "Unable to create a Renderer:\n\n" + e.getDescription());
+	}
+	catch (...)
+	{
+		throw Exception(0, "OpenGL Renderer", "Unhandled exception occured while creating a Renderer.");
+	}
+}
 
 int main(int argc, char *argv[])
 {
@@ -24,22 +45,56 @@ int main(int argc, char *argv[])
 
 	try
 	{
-		Game game("OutpostHD", argv[0]);
-
-		game.mount("fonts.dat");
-		game.mount("maps.dat");
-		game.mount("planets.dat");
-		game.mount("robots.dat");
-		game.mount("sfx.dat");
-		game.mount("structures.dat");
-		game.mount("ui.dat");
-
 		Filesystem& f = Utility<Filesystem>::get();
+		f.init(argv[0], "data");
+
+		Utility<EventHandler>::get();
+
+		Configuration& cf = Utility<Configuration>::get();
+		
+		// If no config file, set defaults.
+		if (!f.exists("config.xml"))
+		{
+			// FIXME: Hacky as hell!
+			SDL_Init(SDL_INIT_VIDEO);
+			SDL_DisplayMode dm;
+			if (SDL_GetDesktopDisplayMode(0, &dm) != 0)
+			{
+				cout << "SDL_GetDesktopDisplayMode failed: " << SDL_GetError();
+				return 1;
+			}
+
+			cf.graphicsWidth(dm.w);
+			cf.graphicsHeight(dm.h);
+			cf.fullscreen(true);
+		}
+					
+		cf.load("config.xml");
+		cf.save();
+
+		Utility<Mixer>::instantiateDerived(new Mixer_SDL());
+		
+		createRenderer();
+
+		f.addToSearchPath("fonts.dat");
+		f.addToSearchPath("maps.dat");
+		f.addToSearchPath("planets.dat");
+		f.addToSearchPath("robots.dat");
+		f.addToSearchPath("sfx.dat");
+		f.addToSearchPath("structures.dat");
+		f.addToSearchPath("sys.dat");
+		f.addToSearchPath("ui.dat");
 		
 		if (!f.exists(constants::SAVE_GAME_PATH))
 			f.makeDirectory(constants::SAVE_GAME_PATH);
 
-		game.go(new PlanetSelectState());
+		StateManager stateManager;
+		stateManager.setState(new SplashState());
+
+		// Game Loop
+		while (stateManager.update())
+			Utility<Renderer>::get().update();
+
 	}
 	catch(Exception& e)
 	{
@@ -49,6 +104,8 @@ int main(int argc, char *argv[])
 #ifdef NDEBUG
 	filestr.close();
 #endif
+
+	SDL_Quit();
 
 	return 0;
 }

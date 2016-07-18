@@ -169,6 +169,7 @@
     <ClCompile Include="..\..\src\States\GameStateHelper.cpp" />
     <ClCompile Include="..\..\src\States\GameStateUi.cpp" />
     <ClCompile Include="..\..\src\States\PlanetSelectState.cpp" />
+    <ClCompile Include="..\..\src\states\SplashState.cpp" />
     <ClCompile Include="..\..\src\StructureFactory.cpp" />
     <ClCompile Include="..\..\src\StructureManager.cpp" />
     <ClCompile Include="..\..\src\StructureTranslator.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="..\..\src\States\GameStateUi.h" />
     <ClInclude Include="..\..\src\States\Planet.h" />
     <ClInclude Include="..\..\src\States\PlanetSelectState.h" />
+    <ClInclude Include="..\..\src\states\SplashState.h" />
     <ClInclude Include="..\..\src\StructureFactory.h" />
     <ClInclude Include="..\..\src\StructureManager.h" />
     <ClInclude Include="..\..\src\StructureTranslator.h" />
