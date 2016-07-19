@@ -84,7 +84,9 @@ protected:
 
 	virtual void visibilityChanged(bool visible) {}
 
-	virtual void sizeChanged() {}
+	virtual void onSizeChanged() {}
+	virtual void onTextChanged() {};
+	virtual void onFontChanged() {};
 
 	Font& font();
 	bool fontSet() const;
@@ -94,8 +96,6 @@ protected:
 
 private:
 
-	virtual void onTextChanged() {};
-	virtual void onFontChanged() {};
 
 	virtual void draw() {};
 

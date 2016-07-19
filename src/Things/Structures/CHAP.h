@@ -22,7 +22,7 @@ protected:
 
 	virtual void defineResourceInput()
 	{
-		resourcesIn().commonMinerals(4);
+		resourcesIn().commonMinerals(2);
 		resourcesIn().rareMinerals(1);
 		resourcesIn().rareMetals(1);
 		resourcesIn().energy(10);

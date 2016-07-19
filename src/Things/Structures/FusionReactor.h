@@ -25,7 +25,7 @@ protected:
 	{
 		resourcesIn().commonMetals(2);
 		resourcesIn().commonMinerals(2);
-		resourcesIn().rareMinerals(2);
+		resourcesIn().rareMinerals(1);
 		resourcesIn().rareMetals(1);
 	}
 

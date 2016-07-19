@@ -3,18 +3,20 @@ This is the changelog for OutpostHD.
 
 ## [0.6.5] - UNRELEASED
 
-This version includes all revisions from r90 to r126.
+This version includes all revisions from r127 to rXXX.
 
 ### Added
 - Added a Fusion Reactor structure.
 - Added a Splash Screen and a user configurable option to skip the splash screen after the first time the game is run.
+- Added a TextArea UI control. It's crude but does the job.
 
 ### Changed
-- 
+- Planet Select state now shows basic flavor text for each planet.
 
 ### Fixed
 - Fixed a mistake in StructureManager which forgot to drop all of the structure lists whenever StructureManager::dropAllStructures() was called.
 - Fixed a mistake in Structure's forced_state_change() that would leave a structure that had just reached its build age in a construction animation state.
+- Fixed a mistake in Control that would not call onSizeChanged() when any of Control's size functions were called.
 
 
 

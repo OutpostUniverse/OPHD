@@ -52,7 +52,7 @@ Font& Control::font()
  */
 bool Control::fontSet() const
 {
-	return mFont != NULL;
+	return mFont != nullptr;
 }
 
 
@@ -142,7 +142,7 @@ void Control::size(float w, float h)
 	width(w);
 	height(h);
 	
-	sizeChanged();
+	onSizeChanged();
 }
 
 
@@ -150,6 +150,7 @@ void Control::size(float _s)
 {
 	width(_s);
 	height(_s);
+	onSizeChanged();
 }
 
 
@@ -162,6 +163,7 @@ void Control::size(float _s)
 void Control::width(float w)
 {
 	mRect.w(w);
+	onSizeChanged();
 }
 
 
@@ -174,6 +176,7 @@ void Control::width(float w)
 void Control::height(float h)
 {
 	mRect.h(h);
+	onSizeChanged();
 }
 
 

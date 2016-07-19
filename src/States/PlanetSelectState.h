@@ -36,6 +36,7 @@ private:
 	void onMouseMove(int x, int y, int rX, int rY);
 
 	void onMousePlanetEnter();
+	void onMousePlanetExit();
 
 	void btnMaleClicked();
 	void btnFemaleClicked();
@@ -55,6 +56,8 @@ private:
 
 	Button				mMale;
 	Button				mFemale;
+	
+	TextArea			mPlanetDescription;
 
 	AiVoiceNotifier::AiGender	mAiGender;
 

@@ -19,7 +19,7 @@ enum PlanetType
 class Planet
 {
 public:
-	typedef Gallant::Signal0<void> MouseEnterCallback;
+	typedef Gallant::Signal0<void> MouseCallback;
 
 public:
 	Planet(PlanetType type) : mTick(0), mImage(), mType(type), mMouseInArea(false)
@@ -61,7 +61,8 @@ public:
 
 	bool mouseHovering() const { return mMouseInArea; }
 
-	MouseEnterCallback& mouseEnter() { return mMouseEnterCallback; }
+	MouseCallback& mouseEnter() { return mMouseEnterCallback; }
+	MouseCallback& mouseExit() { return mMouseExitCallback; }
 
 	void update()
 	{
@@ -96,12 +97,21 @@ protected:
 		if (pointInArea(x, y))
 		{
 			if (!mMouseInArea)
+			{
+				mMouseInArea = true;
 				mMouseEnterCallback();
+			}
 
 			mMouseInArea = true;
 		}
 		else
 		{
+			if (mMouseInArea)
+			{
+				mMouseInArea = false;
+				mMouseExitCallback();
+			}
+
 			mMouseInArea = false;
 			mTimer.reset(); // keep accumulator at 0 so frame tick doesn't update while mouse is not hovering over Planet.
 		}
@@ -121,7 +131,8 @@ private:
 	
 	PlanetType			mType;
 
-	MouseEnterCallback	mMouseEnterCallback;
+	MouseCallback		mMouseEnterCallback;
+	MouseCallback		mMouseExitCallback;
 
 	bool				mMouseInArea;
 

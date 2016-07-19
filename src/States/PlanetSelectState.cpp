@@ -43,15 +43,17 @@ void PlanetSelectState::initialize()
 
 	mPlanets[0]->position((int)r.width() / 4 - 64, (int)r.height() / 2 - 64);
 	mPlanets[0]->mouseEnter().Connect(this, &PlanetSelectState::onMousePlanetEnter);
+	mPlanets[0]->mouseExit().Connect(this, &PlanetSelectState::onMousePlanetExit);
 
 	mPlanets[1]->position((int)r.width() / 2 - 64, (int)r.height() / 2 - 64);
 	mPlanets[1]->mouseEnter().Connect(this, &PlanetSelectState::onMousePlanetEnter);
+	mPlanets[1]->mouseExit().Connect(this, &PlanetSelectState::onMousePlanetExit);
 
 	mPlanets[2]->position((((int)r.width() / 4) * 3) - 64, (int)r.height() / 2 - 64);
 	mPlanets[2]->mouseEnter().Connect(this, &PlanetSelectState::onMousePlanetEnter);
+	mPlanets[2]->mouseExit().Connect(this, &PlanetSelectState::onMousePlanetExit);
 
 	PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
-
 
 	mMale.type(Button::BUTTON_TOGGLE);
 	mMale.font(mTinyFont);
@@ -67,6 +69,11 @@ void PlanetSelectState::initialize()
 	mFemale.size(50, 20);
 	mFemale.position(60, 30);
 	mFemale.click().Connect(this, &PlanetSelectState::btnFemaleClicked);
+
+	mPlanetDescription.text("");
+	mPlanetDescription.font(mFont);
+	mPlanetDescription.size(500, 150);
+	mPlanetDescription.position(r.screenCenterX() - 250, r.height() - 175);
 
 	Utility<Renderer>::get().fadeIn(175.0f);
 }
@@ -89,6 +96,8 @@ State* PlanetSelectState::update()
 	r.drawText(mFont, "AI Gender", 5, 5, 255, 255, 255);
 	mMale.update();
 	mFemale.update();
+
+	mPlanetDescription.update();
 
 	r.drawImage(mMousePointer, mMousePosition.x(), mMousePosition.y());
 
@@ -133,12 +142,34 @@ void PlanetSelectState::onMouseDown(MouseButton button, int x, int y)
 void PlanetSelectState::onMouseMove(int x, int y, int rX, int rY)
 {
 	mMousePosition(x, y);
+
+	
 }
 
 
 void PlanetSelectState::onMousePlanetEnter()
 {
 	Utility<Mixer>::get().playSound(mHover);
+
+	for (size_t i = 0; i < mPlanets.size(); ++i)
+	{
+		if (mPlanets[i]->mouseHovering())
+		{
+			if (mPlanets[i]->type() == PLANET_TYPE_GANYMEDE)
+				mPlanetDescription.text(constants::PLANET_DESCRIPTION_GANYMEDE);
+			if (mPlanets[i]->type() == PLANET_TYPE_MARS)
+				mPlanetDescription.text(constants::PLANET_DESCRIPTION_MARS);
+			if (mPlanets[i]->type() == PLANET_TYPE_MERCURY)
+				mPlanetDescription.text(constants::PLANET_DESCRIPTION_MERCURY);
+		}
+	}
+}
+
+
+
+void PlanetSelectState::onMousePlanetExit()
+{
+	mPlanetDescription.text("");
 }
 
 
