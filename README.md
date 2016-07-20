@@ -32,10 +32,23 @@ See your distribution's readme files for information on how to download and inst
 ##Configuration
 At the moment there are very few configurable options for OutpostHD. All of it must be done via the XML configuration file (config.xml) located in the 'data' subdirectory.
 
-Please use SANE values as there is no sanity checking. You can set the video resolution to whatever you want but if your monitor or graphics card doesn't support it don't expect things to work.
+Please use SANE values as there is no sanity checking except for minimum resolution (800x600). You can set the video resolution to whatever you want but if your monitor or graphics card doesn't support it don't expect things to work.
+
+When OutpostHD first starts it will start in full screen mode in the native resolution of your desktop. After the first time you run the game, a configuration file will be saved. From there you can change your video resolution and whether or not you want to skip the splash screen.
 
 ##Troubleshooting
 OutpostHD is in an early state of development so there's not much to say other than make sure you have the latest graphics drivers. Head on over to [the forums](http://forum.outpost2.net) for help getting OutpostHD running if you run into trouble.
+
+##Key Bindings
+
+F2: Save Game
+F3: Load Game
+
+0: Go to Surface
+1: Go to Underground 1
+2: Go to Underground 2
+3: Go to Underground 3
+4: Go to Underground 4
 
 ##FAQ
 **Q: When I try to launch OutpostHD, I'm told that I'm missing "msvcp140.dll" and "vcruntime140.dll". How do I fix this?**

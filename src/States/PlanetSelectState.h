@@ -40,6 +40,7 @@ private:
 
 	void btnMaleClicked();
 	void btnFemaleClicked();
+	void btnQuitClicked();
 
 private:
 	Font				mFont;
@@ -56,7 +57,9 @@ private:
 
 	Button				mMale;
 	Button				mFemale;
-	
+
+	Button				mQuit;
+
 	TextArea			mPlanetDescription;
 
 	AiVoiceNotifier::AiGender	mAiGender;

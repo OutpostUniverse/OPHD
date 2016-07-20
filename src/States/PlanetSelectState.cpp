@@ -70,6 +70,12 @@ void PlanetSelectState::initialize()
 	mFemale.position(60, 30);
 	mFemale.click().Connect(this, &PlanetSelectState::btnFemaleClicked);
 
+	mQuit.font(mTinyFont);
+	mQuit.text("Quit");
+	mQuit.size(50, 20);
+	mQuit.position(r.width() - 55, 30);
+	mQuit.click().Connect(this, &PlanetSelectState::btnQuitClicked);
+
 	mPlanetDescription.text("");
 	mPlanetDescription.font(mFont);
 	mPlanetDescription.size(500, 200);
@@ -96,8 +102,11 @@ State* PlanetSelectState::update()
 	r.drawText(mFont, "AI Gender", 5, 5, 255, 255, 255);
 	mMale.update();
 	mFemale.update();
+	mQuit.update();
 
 	mPlanetDescription.update();
+
+	r.drawText(mTinyFont, "v0.6.5", r.width() - mTinyFont.width("v0.6.5") - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
 
 	r.drawImage(mMousePointer, mMousePosition.x(), mMousePosition.y());
 
@@ -203,4 +212,10 @@ void PlanetSelectState::btnFemaleClicked()
 		mMale.toggle(true);
 		mAiGender = AiVoiceNotifier::AiGender::MALE;
 	}
+}
+
+
+void PlanetSelectState::btnQuitClicked()
+{
+	NAS2D::postQuitEvent();
 }

@@ -1,17 +1,20 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.6.5] - UNRELEASED
+## [0.6.5] - 2016-07-19
 
-This version includes all revisions from r127 to rXXX.
+This version includes all revisions from r127 to r134.
 
 ### Added
 - Added a Fusion Reactor structure.
 - Added a Splash Screen and a user configurable option to skip the splash screen after the first time the game is run.
 - Added a TextArea UI control. It's crude but does the job.
+- Added a Quit button to Planet Select State.
 
 ### Changed
 - Planet Select state now shows basic flavor text for each planet.
+- Choosing a planet now affects mine count and max digging depth in addition to tileset and landing site changes.
+- The game now automatically sets its resolution to the native desktop resolution and full screen. This can be changed after the first run in the configuration file.
 
 ### Fixed
 - Fixed a mistake in StructureManager which forgot to drop all of the structure lists whenever StructureManager::dropAllStructures() was called.

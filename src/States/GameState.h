@@ -181,7 +181,7 @@ private:
 
 	AiVoiceNotifier		mAiVoiceNotifier;
 
-	Music				mBgMusic;
+	//Music				mBgMusic;
 
 	// UI
 	Button				mBtnStructures;
