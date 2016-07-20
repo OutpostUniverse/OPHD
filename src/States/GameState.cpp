@@ -374,32 +374,32 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 
 		case KEY_0:
 			viewUpdated = true;
-			changeDepth(0);
-			CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
+			if(changeDepth(0))
+				CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
 			break;
 
 		case KEY_1:
 			viewUpdated = true;
-			changeDepth(1);
-			CURRENT_LEVEL_STRING = constants::LEVEL_UG1;
+			if(changeDepth(1))
+				CURRENT_LEVEL_STRING = constants::LEVEL_UG1;
 			break;
 
 		case KEY_2:
 			viewUpdated = true;
-			changeDepth(2);
-			CURRENT_LEVEL_STRING = constants::LEVEL_UG2;
+			if(changeDepth(2))
+				CURRENT_LEVEL_STRING = constants::LEVEL_UG2;
 			break;
 
 		case KEY_3:
 			viewUpdated = true;
-			changeDepth(3);
-			CURRENT_LEVEL_STRING = constants::LEVEL_UG3;
+			if(changeDepth(3))
+				CURRENT_LEVEL_STRING = constants::LEVEL_UG3;
 			break;
 
 		case KEY_4:
 			viewUpdated = true;
-			changeDepth(4);
-			CURRENT_LEVEL_STRING = constants::LEVEL_UG4;
+			if(changeDepth(4))
+				CURRENT_LEVEL_STRING = constants::LEVEL_UG4;
 			break;
 
 		case KEY_F10:
@@ -427,11 +427,17 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 }
 
 
-void GameState::changeDepth(int _d)
+bool GameState::changeDepth(int _d)
 {
 	mTileMap->currentDepth(_d);
+
+	if (mTileMap->currentDepth() != _d)
+		return false;
+
 	clearMode();
 	populateStructureMenu();
+
+	return true;
 }
 
 

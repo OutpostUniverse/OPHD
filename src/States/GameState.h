@@ -116,7 +116,7 @@ private:
 
 	void checkConnectedness();
 
-	void changeDepth(int _d);
+	bool changeDepth(int _d);
 
 	void setStructureID(StructureID type, InsertMode mode);
 
