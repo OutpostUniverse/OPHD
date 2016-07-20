@@ -15,26 +15,24 @@ const int			MAP_HEIGHT					= 150;
 const int			TILE_WIDTH					= 107;
 const int			TILE_HEIGHT					= 46;
 
-const int			MINE_COUNT					= 30; // How many mines exist in the terrain map.
-
 const double		THROB_SPEED					= 250.0f; // Throb speed of mine beacon
 
-TileMap::TileMap(const string& map_path, const string& tset_path, int maxDepth, bool _s):	mEdgeLength(0),
-																							mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
-																							mMaxDepth(maxDepth),
-																							mCurrentDepth(0),
-																							mTileSelector("ui/selector.png"),
-																							mTileset(tset_path),
-																							mMineBeacon("structures/mine_beacon.png"),
-																							mDebug(false),
-																							mShowConnections(false)
+TileMap::TileMap(const string& map_path, const string& tset_path, int _md, int _mc, bool _s):	mEdgeLength(0),
+																								mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
+																								mMaxDepth(_md),
+																								mCurrentDepth(0),
+																								mTileSelector("ui/selector.png"),
+																								mTileset(tset_path),
+																								mMineBeacon("structures/mine_beacon.png"),
+																								mDebug(false),
+																								mShowConnections(false)
 {
 	buildTerrainMap(map_path);
 	buildMouseMap();
 	initMapDrawParams();
 
 	if(_s)
-		setupMines();
+		setupMines(_mc);
 
 	mMapPath = map_path;
 	mTsetPath = tset_path;
@@ -94,10 +92,10 @@ void TileMap::buildTerrainMap(const std::string& path)
 /**
  * Creates mining locations around the map area.
  */
-void TileMap::setupMines()
+void TileMap::setupMines(int mineCount)
 {
 	int i = 0;
-	while(i < MINE_COUNT)
+	while(i < mineCount)
 	{
 		Point_2d pt(Random::ranged_integer(5, MAP_WIDTH - 5), Random::ranged_integer(5, MAP_HEIGHT - 5));
 

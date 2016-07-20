@@ -10,7 +10,7 @@ namespace constants
 	const string	EMPTY_STR = "";
 
 	const string	PLANET_DESCRIPTION_GANYMEDE = "Like Jupiter's moon Ganymede, this planet contains a sub-surface ocean and a magnetic field. Despite having a magnetic field indicating a liquid core, there is no atpmosphere. \n \n This planet tends to be farther from the host star so solar satellites aren't going to be very useful.";
-	const string	PLANET_DESCRIPTION_MARS = "This planet is a lot like our very own Mars. It is a relatively easy planet to colonize with a marginal atmosphere, lots of potential mining locations and you can dig deep. \n \n This unfortunately leads to the problem that, while mines are plentiful, they don't yield a lot of resources.";
+	const string	PLANET_DESCRIPTION_MARS = "This planet is a lot like our very own Mars. It is a relatively easy planet to colonize with a marginal atmosphere, lots of potential mining locations and you can dig deep. \n \n This leads to the problem that, while mines are plentiful, they don't yield a lot of resources.";
 	const string	PLANET_DESCRIPTION_MERCURY = "Small, hot and not very friendly. This planet resembles our very own Mercury. Close to its parent star, few potential mine locations, very shallow dig depth, no magnetic field and no atmpsphere. \n \n The Payoff? The few mines you do get are higher yield and you get plenty of solar energy.";
 
 	// SAVE GAMES

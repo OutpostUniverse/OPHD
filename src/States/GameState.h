@@ -58,7 +58,7 @@ public:
 
 public:
 
-	GameState(const std::string& map, const std::string& tset, AiVoiceNotifier::AiGender _g);
+	GameState(const std::string& map, const std::string& tset, int _d, int _minecount, AiVoiceNotifier::AiGender _g);
 	~GameState();
 
 protected:

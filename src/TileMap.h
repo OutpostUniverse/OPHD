@@ -20,7 +20,7 @@ public:
 	};
 
 	
-	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, bool setupMines = true);
+	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, bool setupMines = true);
 
 	~TileMap();
 
@@ -82,7 +82,7 @@ private:
 
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
-	void setupMines();
+	void setupMines(int mineCount);
 
 	void initMapDrawParams();
 

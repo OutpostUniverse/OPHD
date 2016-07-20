@@ -29,34 +29,34 @@ const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 std::string			CURRENT_LEVEL_STRING		= constants::LEVEL_SURFACE;
 
 const int MAX_TILESET_INDEX	= 4;
-const int MAX_DEPTH = 4;
 
 Rectangle_2d MENU_ICON;
 
 stringstream str_scratch;		// Used in a few places to avoid construction/destruction every frame when drawing resource stats.
 
+
 /**
  * C'Tor
  */
-GameState::GameState(const string& map, const string& tset, AiVoiceNotifier::AiGender _g) :	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
-																							mTinyFont("fonts/ui-normal.png", 7, 9, -1),
-																							mTileMap(new TileMap(map, tset, MAX_DEPTH)),
-																							mMapDisplay(map + MAP_DISPLAY_EXTENSION),
-																							mHeightMap(map + MAP_TERRAIN_EXTENSION),
-																							mUiIcons("ui/icons.png"),
-																							mAiVoiceNotifier(_g),
-																							mBgMusic("music/track_01.ogg"),
-																							mCurrentPointer(POINTER_NORMAL),
-																							mCurrentStructure(SID_NONE),
-																							mDiggerDirection(mTinyFont),
-																							mFactoryProduction(mTinyFont),
-																							mStructureInspector(mTinyFont),
-																							mTileInspector(mTinyFont),
-																							mInsertMode(INSERT_NONE),
-																							mTurnCount(0),
-																							mReturnState(NULL),
-																							mLeftButtonDown(false),
-																							mDebug(false)
+GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoiceNotifier::AiGender _g) :	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
+																											mTinyFont("fonts/ui-normal.png", 7, 9, -1),
+																											mTileMap(new TileMap(_m, _t, _d, _mc)),
+																											mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
+																											mHeightMap(_m + MAP_TERRAIN_EXTENSION),
+																											mUiIcons("ui/icons.png"),
+																											mAiVoiceNotifier(_g),
+																											mBgMusic("music/track_01.ogg"),
+																											mCurrentPointer(POINTER_NORMAL),
+																											mCurrentStructure(SID_NONE),
+																											mDiggerDirection(mTinyFont),
+																											mFactoryProduction(mTinyFont),
+																											mStructureInspector(mTinyFont),
+																											mTileInspector(mTinyFont),
+																											mInsertMode(INSERT_NONE),
+																											mTurnCount(0),
+																											mReturnState(NULL),
+																											mLeftButtonDown(false),
+																											mDebug(false)
 {}
 
 

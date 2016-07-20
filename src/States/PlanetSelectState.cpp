@@ -72,8 +72,8 @@ void PlanetSelectState::initialize()
 
 	mPlanetDescription.text("");
 	mPlanetDescription.font(mFont);
-	mPlanetDescription.size(500, 150);
-	mPlanetDescription.position(r.screenCenterX() - 250, r.height() - 175);
+	mPlanetDescription.size(500, 200);
+	mPlanetDescription.position(r.screenCenterX() - 250, r.height() - 225);
 
 	Utility<Renderer>::get().fadeIn(175.0f);
 }
@@ -106,11 +106,11 @@ State* PlanetSelectState::update()
 	else if (PLANET_TYPE_SELECTION != PLANET_TYPE_NONE)
 	{
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MERCURY)
-			return new GameState("maps/merc_01", "tsets/mercury.png", mAiGender);
+			return new GameState("maps/merc_01", "tsets/mercury.png", mPlanets[0]->digDepth(), mPlanets[0]->maxMines(), mAiGender);
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MARS)
-			return new GameState("maps/mars_04", "tsets/mars.png", mAiGender);
+			return new GameState("maps/mars_04", "tsets/mars.png", mPlanets[1]->digDepth(), mPlanets[1]->maxMines(), mAiGender);
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_GANYMEDE)
-			return new GameState("maps/ganymede_01", "tsets/ganymede.png", mAiGender);
+			return new GameState("maps/ganymede_01", "tsets/ganymede.png", mPlanets[2]->digDepth(), mPlanets[2]->maxMines(), mAiGender);
 	}
 
 	return this;
@@ -153,6 +153,7 @@ void PlanetSelectState::onMousePlanetEnter()
 
 	for (size_t i = 0; i < mPlanets.size(); ++i)
 	{
+		// FIXME: Ugly, will be difficult to maintain in the future.
 		if (mPlanets[i]->mouseHovering())
 		{
 			if (mPlanets[i]->type() == PLANET_TYPE_GANYMEDE)

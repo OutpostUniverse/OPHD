@@ -22,17 +22,23 @@ public:
 	typedef Gallant::Signal0<void> MouseCallback;
 
 public:
-	Planet(PlanetType type) : mTick(0), mImage(), mType(type), mMouseInArea(false)
+	Planet(PlanetType type) : mTick(0), mMaxMines(0), mMaxDigDepth(0), mImage(), mType(type), mMouseInArea(false)
 	{
 		switch (mType)
 		{
 		case PLANET_TYPE_MERCURY:
 			mImage = NAS2D::Image(constants::PLANET_TYPE_MERCURY_PATH);
+			mMaxMines = 10;
+			mMaxDigDepth = 1;
 			break;
 		case PLANET_TYPE_MARS:
 			mImage = NAS2D::Image(constants::PLANET_TYPE_MARS_PATH);
+			mMaxMines = 30;
+			mMaxDigDepth = 4;
 			break;
 		case PLANET_TYPE_GANYMEDE:
+			mMaxMines = 15;
+			mMaxDigDepth = 2;
 			mImage = NAS2D::Image(constants::PLANET_TYPE_GANYMEDE_PATH);
 			break;
 		default:
@@ -58,6 +64,9 @@ public:
 
 	int x() const { return mPosition.x(); }
 	int y() const { return mPosition.y(); }
+
+	int digDepth() const { return mMaxDigDepth; }
+	int maxMines() const { return mMaxMines; }
 
 	bool mouseHovering() const { return mMouseInArea; }
 
@@ -125,6 +134,9 @@ private:
 
 
 	int					mTick;
+	
+	int					mMaxMines;
+	int					mMaxDigDepth;
 
 	NAS2D::Image		mImage;
 	NAS2D::Point_2d		mPosition;
