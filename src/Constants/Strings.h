@@ -15,7 +15,7 @@ namespace constants
 
 	// SAVE GAMES
 	const string	SAVE_GAME_PATH = "savegames/";
-	const string	SAVE_GAME_VERSION = "0.20";
+	const string	SAVE_GAME_VERSION = "0.21";
 	const string	SAVE_GAME_ROOT_NODE = "OutpostHD_SaveGame";
 
 	const string	SAVE_GAME_COMMON_METAL_ORE = "common_metal_ore";
@@ -50,7 +50,9 @@ namespace constants
 	const string	SEED_LANDER = "SEED Lander";
 	const string	SEED_POWER = "SEED Power";
 	const string	SEED_SMELTER = "SEED Smelter";
+	const string	SMELTER = "Smelter";
 	const string	STORAGE_TANKS = "Storage Tanks";
+	const string	SURFACE_FACTORY = "Surface Factory";
 	const string	TUBE = "Tube";
 
 	// TUBE STATES

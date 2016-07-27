@@ -50,8 +50,14 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_SEED_SMELTER:
 			_st = new SeedSmelter();
 			break;
+		case SID_SMELTER:
+			_st = new Smelter();
+			break;
 		case SID_STORAGE_TANKS:
 			_st = new StorageTanks();
+			break;
+		case SID_SURFACE_FACTORY:
+			_st = new SurfaceFactory();
 			break;
 		default:
 			cout << "StructureFactory::get(): Unsupported structure type called." << endl;
@@ -84,7 +90,9 @@ void StructureFactory::buildCostTable()
 	mStructureCostTable[SID_SEED_LANDER] = ResourcePool(0, 0, 0, 0, 10, 10, 5, 5, 0, 0);
 	mStructureCostTable[SID_SEED_POWER] = ResourcePool(0, 0, 0, 0, 15, 10, 10, 8, 0, 0);
 	mStructureCostTable[SID_SEED_SMELTER] = ResourcePool(0, 0, 0, 0, 25, 20, 10, 5, 0, 0);
+	mStructureCostTable[SID_SMELTER] = ResourcePool(0, 0, 0, 0, 30, 20, 10, 5, 0, 0);
 	mStructureCostTable[SID_STORAGE_TANKS] = ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
+	mStructureCostTable[SID_SURFACE_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 	mStructureCostTable[SID_TUBE] = ResourcePool();
 }
 

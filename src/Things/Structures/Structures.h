@@ -13,5 +13,7 @@
 #include "SeedLander.h"
 #include "SeedPower.h"
 #include "SeedSmelter.h"
+#include "Smelter.h"
 #include "StorageTanks.h"
+#include "SurfaceFactory.h"
 #include "Tube.h"

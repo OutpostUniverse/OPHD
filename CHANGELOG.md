@@ -1,6 +1,25 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+
+## [0.6.6] - 2016-07-27
+
+This version includes all revisions in r135.
+
+### Added
+- Added a Smelter structure.
+- Added a Surface Factory structure.
+
+### Changed
+- Modified all structure graphics to pad them to power of two sizes.
+- Updated code license to a BSD 3-Clause license.
+
+### Fixed
+- Fixed a mistake in the game save code that would skip saving tile states on the lowest possible underground level.
+- Fixed a mistake in load logic that would force airshafts on subsurface levels to the surface animation state.
+
+
+
 ## [0.6.5] - 2016-07-19
 
 This version includes all revisions from r127 to r134.

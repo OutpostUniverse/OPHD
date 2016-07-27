@@ -326,6 +326,12 @@
     <ClInclude Include="..\..\src\UI\Core\TextArea.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\Smelter.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

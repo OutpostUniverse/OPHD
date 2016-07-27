@@ -228,10 +228,12 @@
     <ClInclude Include="..\..\src\Things\Structures\SeedLander.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedPower.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedSmelter.h" />
+    <ClInclude Include="..\..\src\Things\Structures\Smelter.h" />
     <ClInclude Include="..\..\src\things\structures\StorageTanks.h" />
     <ClInclude Include="..\..\src\Things\Structures\Structure.h" />
     <ClInclude Include="..\..\src\Things\Structures\Structures.h" />
     <ClInclude Include="..\..\src\Things\Structures\FusionReactor.h" />
+    <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h" />
     <ClInclude Include="..\..\src\Things\Structures\Tube.h" />
     <ClInclude Include="..\..\src\Things\Thing.h" />
     <ClInclude Include="..\..\src\Tile.h" />

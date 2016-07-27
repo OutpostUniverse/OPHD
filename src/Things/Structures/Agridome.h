@@ -37,7 +37,7 @@ protected:
 		}
 		else
 		{
-			if (storage().pushResource(ResourcePool::RESOURCE_FOOD, 1) != 0)
+			if (storage().pushResource(ResourcePool::RESOURCE_FOOD, 10) != 0)
 				idle();
 		}
 
