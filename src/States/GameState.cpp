@@ -947,7 +947,10 @@ void GameState::placeStructure()
 
 		// FIXME: Ugly
 		if (_s->isFactory())
+		{
 			static_cast<Factory*>(_s)->productionComplete().Connect(this, &GameState::factoryProductionComplete);
+			static_cast<Factory*>(_s)->resourcePool(&mPlayerResources);
+		}
 
 		mPlayerResources -= rp;
 	}

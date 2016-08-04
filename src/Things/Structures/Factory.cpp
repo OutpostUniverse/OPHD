@@ -104,6 +104,11 @@ void Factory::productionComplete(ProductionType _p)
 
 bool Factory::enoughResourcesAvailable()
 {
+#ifdef _DEBUG
+	if (mResourcesPool == nullptr)
+		throw Exception(0, "Null Resource Pool", "Factor::enoughResourcesAvailable() called with a null Resource Pool set");
+#endif
+
 	return *mResourcesPool >= PRODUCTION_TYPE_TABLE[mProduction].CostPerTurn;
 }
 

@@ -2,6 +2,21 @@
 This is the changelog for OutpostHD.
 
 
+## [0.7.0] - UNRELEASED
+
+This version includes all revisions from r136 to rXXX.
+
+### Added
+- 
+
+### Changed
+- 
+
+### Fixed
+- Fixed a mistake in GameState that would forget to set a pointer to the players resource pool when the surface factory was placed.
+
+
+
 ## [0.6.6] - 2016-07-27
 
 This version includes all revisions in r135.
