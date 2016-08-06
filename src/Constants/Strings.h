@@ -54,6 +54,7 @@ namespace constants
 	const string	STORAGE_TANKS = "Storage Tanks";
 	const string	SURFACE_FACTORY = "Surface Factory";
 	const string	TUBE = "Tube";
+	const string	UNDERGROUND_FACTORY = "Underground Factory";
 
 	// TUBE STATES
 	const string	AG_TUBE_INTERSECTION = "ag_intersection";

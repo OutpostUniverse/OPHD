@@ -59,6 +59,9 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_SURFACE_FACTORY:
 			_st = new SurfaceFactory();
 			break;
+		case SID_UNDERGROUND_FACTORY:
+			_st = new UndergroundFactory();
+			break;
 		default:
 			cout << "StructureFactory::get(): Unsupported structure type called." << endl;
 			break;
@@ -94,6 +97,7 @@ void StructureFactory::buildCostTable()
 	mStructureCostTable[SID_STORAGE_TANKS] = ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
 	mStructureCostTable[SID_SURFACE_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 	mStructureCostTable[SID_TUBE] = ResourcePool();
+	mStructureCostTable[SID_UNDERGROUND_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 }
 
 

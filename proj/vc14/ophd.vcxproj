@@ -235,6 +235,7 @@
     <ClInclude Include="..\..\src\Things\Structures\FusionReactor.h" />
     <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h" />
     <ClInclude Include="..\..\src\Things\Structures\Tube.h" />
+    <ClInclude Include="..\..\src\Things\Structures\UndergroundFactory.h" />
     <ClInclude Include="..\..\src\Things\Thing.h" />
     <ClInclude Include="..\..\src\Tile.h" />
     <ClInclude Include="..\..\src\TileMap.h" />

@@ -184,6 +184,7 @@ void GameState::populateStructureMenu()
 	else
 	{
 		mStructures.addItem(constants::RESIDENCE, 55);
+		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69);
 
 		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113);
 		mConnections.addItem(constants::UG_TUBE_RIGHT, 115);
