@@ -7,7 +7,8 @@ This is the changelog for OutpostHD.
 This version includes all revisions from r136 to rXXX.
 
 ### Added
-- 
+- Added the Park / Reservoir Structure.
+- Added the Underground Factory Structure.
 
 ### Changed
 - 
@@ -153,7 +154,6 @@ This version includes all revisions from r39 to r45.
 ### Fixed
 - Fixed a mistake where tube insertion mode would only be updated when the Tube Intersection was selected when displaying underground tubes.
 - Fixed a mistake when the SEED Lander is deployed where the Build Structures button wasn't disabled.
-
 
 
 
