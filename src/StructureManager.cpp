@@ -53,6 +53,7 @@ void StructureManager::update(ResourcePool& _r)
 
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_STORAGE]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_PARK]);
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_RECREATION_CENTER]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_RESIDENCE]);
 
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_UNDEFINED]);

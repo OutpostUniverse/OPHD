@@ -42,6 +42,7 @@ void StructureTranslator::buildTables()
 	_stringToStructureTable[constants::SEED_FACTORY] = SID_SEED_FACTORY;
 	_stringToStructureTable[constants::SEED_LANDER] = SID_SEED_LANDER;
 	_stringToStructureTable[constants::SEED_POWER] = SID_SEED_POWER;
+	_stringToStructureTable[constants::RECREATION_CENTER] = SID_RECREATION_CENTER;
 	_stringToStructureTable[constants::RESIDENCE] = SID_RESIDENCE;
 	_stringToStructureTable[constants::SEED_SMELTER] = SID_SEED_SMELTER;
 	_stringToStructureTable[constants::STORAGE_TANKS] = SID_STORAGE_TANKS;
@@ -60,6 +61,7 @@ void StructureTranslator::buildTables()
 	_structureToStringTable[SID_MINE_FACILITY] = constants::MINE_FACILITY;
 	_structureToStringTable[SID_MINE_SHAFT] = constants::MINE_SHAFT;
 	_structureToStringTable[SID_PARK] = constants::PARK;
+	_structureToStringTable[SID_RECREATION_CENTER] = constants::RECREATION_CENTER;
 	_structureToStringTable[SID_RESIDENCE] = constants::RESIDENCE;
 	_structureToStringTable[SID_SURFACE_FACTORY] = constants::SURFACE_FACTORY;
 	_structureToStringTable[SID_SEED_LANDER] = constants::SEED_LANDER;

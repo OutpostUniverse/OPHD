@@ -38,6 +38,9 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_PARK:
 			_st = new Park();
 			break;
+		case SID_RECREATION_CENTER:
+			_st = new RecreationCenter();
+			break;
 		case SID_RESIDENCE:
 			_st = new Residence();
 			break;
@@ -92,6 +95,7 @@ void StructureFactory::buildCostTable()
 	mStructureCostTable[SID_FUSION_REACTOR] = ResourcePool(0, 0, 0, 0, 75, 25, 50, 30, 0, 0);
 	mStructureCostTable[SID_MINE_FACILITY] = ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
 	mStructureCostTable[SID_PARK] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_RECREATION_CENTER] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_RESIDENCE] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_SEED_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 	mStructureCostTable[SID_SEED_LANDER] = ResourcePool(0, 0, 0, 0, 10, 10, 5, 5, 0, 0);

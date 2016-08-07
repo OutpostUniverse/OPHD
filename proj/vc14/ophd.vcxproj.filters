@@ -338,6 +338,9 @@
     <ClInclude Include="..\..\src\Things\Structures\Park.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\RecreationCenter.h">
+      <Filter>Header Files\Things</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">
