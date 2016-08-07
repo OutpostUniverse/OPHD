@@ -45,6 +45,7 @@ namespace constants
 	const string	FUSION_REACTOR = "Fusion Reactor";
 	const string	MINE_FACILITY = "Mine Facility";
 	const string	MINE_SHAFT = "Mine Shaft";
+	const string	PARK = "Park / Reservoir ";
 	const string	RESIDENCE = "Residential Facility";
 	const string	SEED_FACTORY = "SEED Factory";
 	const string	SEED_LANDER = "SEED Lander";

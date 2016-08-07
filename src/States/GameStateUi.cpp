@@ -183,6 +183,7 @@ void GameState::populateStructureMenu()
 	}
 	else
 	{
+		mStructures.addItem(constants::PARK, 75);
 		mStructures.addItem(constants::RESIDENCE, 55);
 		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69);
 

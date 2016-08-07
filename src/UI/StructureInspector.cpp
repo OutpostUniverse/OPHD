@@ -48,6 +48,7 @@ void StructureInspector::init()
 	TypeTranslationTable[Structure::STRUCTURE_LANDER] = "Lander";
 	TypeTranslationTable[Structure::STRUCTURE_LIFE_SUPPORT] = "Life Support";
 	TypeTranslationTable[Structure::STRUCTURE_MINE] = "Mine Facility";
+	TypeTranslationTable[Structure::STRUCTURE_PARK] = "Park / Reservoir";
 	TypeTranslationTable[Structure::STRUCTURE_RECYCLING] = "Recycling";
 	TypeTranslationTable[Structure::STRUCTURE_RESIDENCE] = "Residential";
 	TypeTranslationTable[Structure::STRUCTURE_SMELTER] = "Raw Ore Processing";

@@ -223,6 +223,7 @@
     <ClInclude Include="..\..\src\Things\Structures\Factory.h" />
     <ClInclude Include="..\..\src\Things\Structures\MineFacility.h" />
     <ClInclude Include="..\..\src\Things\Structures\MineShaft.h" />
+    <ClInclude Include="..\..\src\Things\Structures\Park.h" />
     <ClInclude Include="..\..\src\Things\Structures\Residence.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedFactory.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedLander.h" />

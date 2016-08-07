@@ -8,6 +8,7 @@
 #include "FusionReactor.h"
 #include "MineFacility.h"
 #include "MineShaft.h"
+#include "Park.h"
 #include "Residence.h"
 #include "SeedFactory.h"
 #include "SeedLander.h"
