@@ -46,6 +46,8 @@ namespace constants
 	const string	MINE_FACILITY = "Mine Facility";
 	const string	MINE_SHAFT = "Mine Shaft";
 	const string	PARK = "Park / Reservoir ";
+	const string	UNDERGROUND_POLICE = "Police";
+	const string	SURFACE_POLICE = "Police";
 	const string	RECREATION_CENTER = "Recreation Center";
 	const string	RESIDENCE = "Residential Facility";
 	const string	SEED_FACTORY = "SEED Factory";

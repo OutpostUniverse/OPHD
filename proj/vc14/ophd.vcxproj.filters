@@ -344,6 +344,9 @@
     <ClInclude Include="..\..\src\Things\Structures\SolarPlant.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\Police.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

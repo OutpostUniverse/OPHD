@@ -173,6 +173,7 @@ void GameState::populateStructureMenu()
 		mStructures.addItem(constants::AGRIDOME, 5);
 		mStructures.addItem(constants::CHAP, 3);
 		mStructures.addItem(constants::FUSION_REACTOR, 21);
+		mStructures.addItem(constants::SURFACE_POLICE, 23);
 		mStructures.addItem(constants::SMELTER, 4);
 		mStructures.addItem(constants::SOLAR_PLANT, 10);
 		mStructures.addItem(constants::STORAGE_TANKS, 8);
@@ -185,6 +186,7 @@ void GameState::populateStructureMenu()
 	else
 	{
 		mStructures.addItem(constants::PARK, 75);
+		mStructures.addItem(constants::UNDERGROUND_POLICE, 61);
 		mStructures.addItem(constants::RECREATION_CENTER, 73);
 		mStructures.addItem(constants::RESIDENCE, 55);
 		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69);

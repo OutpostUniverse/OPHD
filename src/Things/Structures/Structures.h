@@ -9,6 +9,7 @@
 #include "MineFacility.h"
 #include "MineShaft.h"
 #include "Park.h"
+#include "Police.h"
 #include "RecreationCenter.h"
 #include "Residence.h"
 #include "SeedFactory.h"
