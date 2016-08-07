@@ -296,7 +296,7 @@ void GameState::drawDebug()
 	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 6, 255, 255, 255);
 
 	Tile* tile = mTileMap->getTile(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY(), mTileMap->currentDepth());
-	if (tile->thingIsStructure())
+	if (tile != nullptr && tile->thingIsStructure())
 	{
 		Structure* s = tile->structure();
 		str.str("");

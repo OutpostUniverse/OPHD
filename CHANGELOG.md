@@ -14,6 +14,7 @@ This version includes all revisions from r136 to rXXX.
 
 ### Fixed
 - Fixed a mistake in GameState that would forget to set a pointer to the players resource pool when the surface factory was placed.
+- Fixed a mistake that causes a game crash when turning on the Debug information when the view is at the edges of the map.
 
 
 
