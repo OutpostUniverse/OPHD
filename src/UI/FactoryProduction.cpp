@@ -158,37 +158,22 @@ void FactoryProduction::update()
 	r.drawBoxFilled(rect(), COLOR_SILVER.red(), COLOR_SILVER.green(), COLOR_SILVER.blue());
 	r.drawBox(rect(), 0, 0, 0);
 
-	// FIXME: Not efficient.
-	static stringstream ss;
-	ss.str("");
-	ss << "Factory Production ID(" << mFactory->id() << ")";
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN, rect().y() + constants::MARGIN, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN + 0.5f, rect().y() + constants::MARGIN + 0.5f, 0, 0, 0);
+	r.drawText(font(), string_format("Factory Production ID(%i)", mFactory->id()), rect().x() + constants::MARGIN, rect().y() + constants::MARGIN, 0, 0, 0);
 
-	ss.str("");
-	ss << mFactory->productionTurnsCompleted() << " of " << mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Turns Remaining:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 20.0f, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 20.0f, 0, 0, 0);
+	r.drawText(font(), string_format("%i of %i", mFactory->productionTurnsCompleted(), mProductionCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 20.0f, 0, 0, 0);
 
-	ss.str("");
-	ss << mProductionCost.CostPerTurn.commonMetals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Common Metals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 40.0f, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 40.0f, 0, 0, 0);
+	r.drawText(font(), string_format("%i", mProductionCost.CostPerTurn.commonMetals() * mProductionCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 40.0f, 0, 0, 0);
 
-	ss.str("");
-	ss << mProductionCost.CostPerTurn.commonMinerals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Common Minerals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 50.0f, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 50.0f, 0, 0, 0);
+	r.drawText(font(), string_format("%i", mProductionCost.CostPerTurn.commonMinerals() * mProductionCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 50.0f, 0, 0, 0);
 
-	ss.str("");
-	ss << mProductionCost.CostPerTurn.rareMetals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Rare Metals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 60.0f, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 60.0f, 0, 0, 0);
+	r.drawText(font(), string_format("%i", mProductionCost.CostPerTurn.rareMetals() * mProductionCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 60.0f, 0, 0, 0);
 
-	ss.str("");
-	ss << mProductionCost.CostPerTurn.rareMinerals() * mProductionCost.TurnsToBuild;
 	r.drawText(font(), "Rare Minerals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 70.0f, 0, 0, 0);
-	r.drawText(font(), ss.str(), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 70.0f, 0, 0, 0);
+	r.drawText(font(), string_format("%i", mProductionCost.CostPerTurn.rareMinerals() * mProductionCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 100, rect().y() + 70.0f, 0, 0, 0);
 
 	// Let UIContainer handle the basics.
 	UIContainer::update();

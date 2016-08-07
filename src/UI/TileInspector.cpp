@@ -3,8 +3,6 @@
 #include <map>
 #include <sstream>
 
-extern std::stringstream str_scratch; // FIXME: Ugly hack
-
 std::map<int, std::string> TileIndexTranslation;
 std::map<Mine::ProductionRate, std::string> MineProductionTranslation;
 
@@ -100,15 +98,11 @@ void TileInspector::update()
 		r.drawText(font(), "No", rect().x() + 5 + mBold.width("Has Mine: "), rect().y() + 25, 0, 0, 0);
 	}
 
-	str_scratch.str("");
-	str_scratch << mTile->x() << ", " << mTile->y();
-	r.drawText(font(), str_scratch.str(), rect().x() + 5 + mBold.width("Location: "), rect().y() + 65, 0, 0, 0);
 	r.drawText(mBold, "Location:", rect().x() + 5, rect().y() + 65, 0, 0, 0);
+	r.drawText(font(), string_format("%i, %i", mTile->x(), mTile->y()), rect().x() + 5 + mBold.width("Location: "), rect().y() + 65, 0, 0, 0);
 
-	str_scratch.str("");
-	str_scratch << TileIndexTranslation[mTile->index()];
-	r.drawText(font(), str_scratch.str(), rect().x() + 5 + mBold.width("Terrain: "), rect().y() + 75, 0, 0, 0);
 	r.drawText(mBold, "Terrain:", rect().x() + 5, rect().y() + 75, 0, 0, 0);
+	r.drawText(font(), TileIndexTranslation[mTile->index()], rect().x() + 5 + mBold.width("Terrain: "), rect().y() + 75, 0, 0, 0);
 
 
 	// Let UIContainer handle the basics.

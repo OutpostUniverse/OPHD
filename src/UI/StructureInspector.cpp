@@ -3,9 +3,6 @@
 #include <map>
 #include <sstream>
 
-extern std::stringstream str_scratch; // FIXME: Ugly hack
-
-
 // FIXME: Find a sane place for this as these are usefull throughout the code.
 std::map<Structure::StructureType, std::string> TypeTranslationTable;
 std::map<Structure::StructureState, std::string> StateTranslationTable;
@@ -78,6 +75,46 @@ void StructureInspector::onMouseUp(MouseButton button, int x, int y)
 }
 
 
+/**
+ * Draws resource icons
+ */
+void drawResourceIcons(Renderer& r, Image& sheet, int x, int y, int sheet_offset)
+{
+	r.drawSubImage(sheet, x, y + 10, 64, sheet_offset, 16, 16);
+	r.drawSubImage(sheet, x, y + 26, 80, sheet_offset, 16, 16);
+	r.drawSubImage(sheet, x, y + 42, 96, sheet_offset, 16, 16);
+	r.drawSubImage(sheet, x, y + 58, 112, sheet_offset, 16, 16);
+}
+
+
+/**
+ * Draws resource values
+ */
+void drawResourceStrings(Renderer& r, Font& f, int x, int y, int res1, int res2, int res3, int res4)
+{
+	r.drawText(f, string_format("%i", res1), x + 21, y + 13, 0, 0, 0);
+	r.drawText(f, string_format("%i", res2), x + 21, y + 29, 0, 0, 0);
+	r.drawText(f, string_format("%i", res3), x + 21, y + 45, 0, 0, 0);
+	r.drawText(f, string_format("%i", res4), x + 21, y + 61, 0, 0, 0);
+}
+
+
+void StructureInspector::drawResourcePool(const std::string& title, ResourcePool& rp, int x, int y)
+{
+	Renderer& r = Utility<Renderer>::get();
+
+	r.drawText(mBold, title, x, y, 0, 0, 0);
+	
+	// Ore
+	drawResourceIcons(r, mIcons, x, y, 0);
+	drawResourceStrings(r, font(), x, y, rp.commonMetalsOre(), rp.rareMetalsOre(), rp.commonMineralsOre(), rp.rareMineralsOre());
+
+	// Refined
+	drawResourceIcons(r, mIcons, x + 60, y, 16);
+	drawResourceStrings(r, font(), x + 60, y, rp.commonMetals(), rp.rareMetals(), rp.commonMinerals(), rp.rareMinerals());
+}
+
+
 void StructureInspector::update()
 {
 	if (!visible())
@@ -100,71 +137,16 @@ void StructureInspector::update()
 	r.drawText(mBold, mStructure->name(), rect().x() + 5, rect().y() + 25, 0, 0, 0);
 	r.drawText(mBold, "Structure ID:", rect().x() + 190, rect().y() + 25, 0, 0, 0);
 
-	str_scratch.str("");
-	str_scratch << mStructure->id();
-	r.drawText(font(), str_scratch.str(), rect().x() + 190 + mBold.width("Structure ID: "), rect().y() + 25, 0, 0, 0);
+	r.drawText(font(), string_format("%i", mStructure->id()), rect().x() + 190 + mBold.width("Structure ID: "), rect().y() + 25, 0, 0, 0);
 
 	r.drawText(mBold, "Type:", rect().x() + 5, rect().y() + 45, 0, 0, 0);
 	r.drawText(font(), TypeTranslationTable[mStructure->type()], rect().x() + 5 + mBold.width("Type: "), rect().y() + 45, 0, 0, 0);
 
 	r.drawText(mBold, "State:", rect().x() + 190, rect().y() + 45, 0, 0, 0);
 	r.drawText(font(), StateTranslationTable[mStructure->state()], rect().x() + 190 + mBold.width("Type: "), rect().y() + 45, 0, 0, 0);
-
-
-	// Cludgy as fuck, holy shit. But I'm lazy so, whatever.
-	r.drawText(mBold, "Production Pool", rect().x() + 5, rect().y() + 65, 0, 0, 0);
-	r.drawSubImage(mIcons, rect().x() + 5, rect().y() + 75, 64, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 5, rect().y() + 91, 80, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 5, rect().y() + 107, 96, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 5, rect().y() + 123, 112, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 60, rect().y() + 75, 64, 16, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 60, rect().y() + 91, 80, 16, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 60, rect().y() + 107, 96, 16, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 60, rect().y() + 123, 112, 16, 16, 16);
-
-	str_scratch.str("");                                        // SUPER LAZY!!!!!
-	str_scratch << mStructure->production().commonMetalsOre() << "        " << mStructure->production().commonMetals();
-	r.drawText(font(), str_scratch.str(), rect().x() + 25, rect().y() + 78, 0, 0, 0);
-
-	str_scratch.str("");
-	str_scratch << mStructure->production().rareMetalsOre() << "        " << mStructure->production().rareMetals();
-	r.drawText(font(), str_scratch.str(), rect().x() + 25, rect().y() + 94, 0, 0, 0);
-
-	str_scratch.str("");
-	str_scratch << mStructure->production().commonMineralsOre() << "        " << mStructure->production().commonMinerals();
-	r.drawText(font(), str_scratch.str(), rect().x() + 25, rect().y() + 110, 0, 0, 0);
-
-	str_scratch.str("");
-	str_scratch << mStructure->production().rareMineralsOre() << "        " << mStructure->production().rareMinerals();
-	r.drawText(font(), str_scratch.str(), rect().x() + 25, rect().y() + 126, 0, 0, 0);
-
-
-	r.drawText(mBold, "Storage Pool", rect().x() + 190, rect().y() + 65, 0, 0, 0);
-	r.drawSubImage(mIcons, rect().x() + 190, rect().y() + 75, 64, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 190, rect().y() + 91, 80, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 190, rect().y() + 107, 96, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 190, rect().y() + 123, 112, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 250, rect().y() + 75, 64, 16, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 250, rect().y() + 91, 80, 16, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 250, rect().y() + 107, 96, 16, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + 250, rect().y() + 123, 112, 16, 16, 16);
-
-	str_scratch.str("");
-	str_scratch << mStructure->storage().commonMetalsOre() << "        " << mStructure->storage().commonMetals();
-	r.drawText(font(), str_scratch.str(), rect().x() + 215, rect().y() + 78, 0, 0, 0);
-
-	str_scratch.str("");
-	str_scratch << mStructure->storage().rareMetalsOre() << "        " << mStructure->storage().rareMetals();
-	r.drawText(font(), str_scratch.str(), rect().x() + 215, rect().y() + 94, 0, 0, 0);
-
-	str_scratch.str("");
-	str_scratch << mStructure->storage().commonMineralsOre() << "        " << mStructure->storage().commonMinerals();
-	r.drawText(font(), str_scratch.str(), rect().x() + 215, rect().y() + 110, 0, 0, 0);
-
-	str_scratch.str("");
-	str_scratch << mStructure->storage().rareMineralsOre() << "        " << mStructure->storage().rareMinerals();
-	r.drawText(font(), str_scratch.str(), rect().x() + 215, rect().y() + 126, 0, 0, 0);
-
+	
+	drawResourcePool("Production Pool", mStructure->production(), rect().x() + 5, rect().y() + 65);
+	drawResourcePool("Storage Pool", mStructure->storage(), rect().x() + 190, rect().y() + 65);
 
 	UIContainer::update();
 }

@@ -32,8 +32,6 @@ const int MAX_TILESET_INDEX	= 4;
 
 Rectangle_2d MENU_ICON;
 
-stringstream str_scratch;		// Used in a few places to avoid construction/destruction every frame when drawing resource stats.
-
 
 /**
  * C'Tor
@@ -219,110 +217,52 @@ void GameState::drawResourceInfo()
 
 	// Refined Resources
 	r.drawSubImage(mUiIcons, x, y , 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.commonMetals(), x + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMetals()), x + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, x + offsetX, y, 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.rareMetals(), (x + offsetX) + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 2, y, 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.commonMinerals(), (x + offsetX) * 2 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mPlayerResources.rareMinerals(), (x + offsetX) * 3 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	// Storage Capacity
 	r.drawSubImage(mUiIcons, (x + offsetX) * 5, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	
-	str_scratch.str("");
-	str_scratch << mPlayerResources.currentLevel() << "/" << mPlayerResources.capacity();
-	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
-
+	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	// Food & Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 7, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	str_scratch.str("");
-	str_scratch << foodInStorage() << "/" << foodTotalStorage();
-	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 7 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
-	
-	
-	r.drawSubImage(mUiIcons, (x + offsetX) * 9, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	str_scratch.str("");
-	str_scratch << mPlayerResources.energy() << "/" << mStructureManager.totalEnergyProduction();
-	r.drawText(mTinyFont, str_scratch.str(), (x + offsetX) * 9 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
-	
-	//drawNumber(r, mTinyFont, mPlayerResources.energy(), (x + offsetX) * 8 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 7 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
+	// Energy
+	r.drawSubImage(mUiIcons, (x + offsetX) * 9, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), mStructureManager.totalEnergyProduction()), (x + offsetX) * 9 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	
 	// Turns
-	r.drawSubImage(mUiIcons, r.width() - 90, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	drawNumber(r, mTinyFont, mTurnCount, r.width() - 72, textY, 255, 255, 255);
+	r.drawSubImage(mUiIcons, r.width() - 80, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawText(mTinyFont, string_format("%i", mTurnCount), r.width() - 80 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
 	// ugly
 	if (isPointInRect(mMousePosition, MENU_ICON))
 		r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 144, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	else
 		r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-
-
 }
 
 
 void GameState::drawDebug()
 {
 	Renderer& r = Utility<Renderer>::get();
+	
+	r.drawText(mFont, string_format("FPS: %i", mFps.fps()), 10, 25, 255, 255, 255);
+	r.drawText(mFont, string_format("Map Dimensions: %i, %i", mTileMap->width(), mTileMap->height()), 10, 25 + mFont.height(), 255, 255, 255);
+	r.drawText(mFont, string_format("Max Digging Depth: %i", mTileMap->maxDepth()), 10, 25 + mFont.height() * 2, 255, 255, 255);
+	r.drawText(mFont, string_format("Map Mouse Hover Coords: %i, %i", mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY()), 10, 25 + mFont.height() * 3, 255, 255, 255);
+	r.drawText(mFont, string_format("Current Depth: %i", mTileMap->currentDepth()), 10, 25 + mFont.height() * 4, 255, 255, 255);
 
-	stringstream str;
-	str << "FPS: " << mFps.fps();
-	r.drawText(mFont, str.str(), 10, 25, 255, 255, 255);
-
-	str.str("");
-	str << "Map Dimensions: " << mTileMap->width() << ", " << mTileMap->height();
-	r.drawText(mFont, str.str(), 10, 25 + mFont.height(), 255, 255, 255);
-
-	str.str("");
-	str << "Max Digging Depth: " << mTileMap->maxDepth();
-	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 2, 255, 255, 255);
-
-	str.str("");
-	str << "Map Mouse Hover Coords: " << mTileMap->tileMouseHoverX() << ", " << mTileMap->tileMouseHoverY();
-	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 3, 255, 255, 255);
-
-	str.str("");
-	str << "Current Depth: " << mTileMap->currentDepth();
-	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 4, 255, 255, 255);
-
-
-	str.str("");
-	str << "Structure Count: " << mStructureManager.count();
-	r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 6, 255, 255, 255);
-
-	Tile* tile = mTileMap->getTile(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY(), mTileMap->currentDepth());
-	if (tile != nullptr && tile->thingIsStructure())
-	{
-		Structure* s = tile->structure();
-		str.str("");
-		str << "Structure ID: " << s->id();
-		r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 8, 255, 255, 255);
-
-		str.str("");
-		str << "Structure Type: " << s->name();
-		r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 9, 255, 255, 255);
-
-		str.str("");
-		str << "Has Storage: " << !s->storage().empty();
-		r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 10, 255, 255, 255);
-
-		if (!s->storage().empty())
-		{
-			str.str("");
-			str << "Storage: (cm)" << s->storage().commonMetalsOre() << "/" << s->storage().commonMetals() << ", (cmn)" << s->storage().commonMineralsOre() << "/" << s->storage().commonMinerals() << ", (rm)" << s->storage().rareMetalsOre() << "/" << s->storage().rareMetals() << ", (rmn)" << s->storage().rareMineralsOre() << "/" << s->storage().rareMinerals() << ", (f) " << s->storage().food();
-			r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 11, 255, 255, 255);
-
-			str.str("");
-			str << "Production: (cm)" << s->production().commonMetalsOre() << "/" << s->production().commonMetals() << ", (cmn)" << s->production().commonMineralsOre() << "/" << s->production().commonMinerals() << ", (rm)" << s->production().rareMetalsOre() << "/" << s->production().rareMetals() << ", (rmn)" << s->production().rareMineralsOre() << "/" << s->production().rareMinerals() << ", (f) " << s->production().food();
-			r.drawText(mFont, str.str(), 10, 25 + mFont.height() * 12, 255, 255, 255);
-
-		}
-	}
+	r.drawText(mFont, string_format("Structure Count: %i", mStructureManager.count()), 10, 25 + mFont.height() * 6, 255, 255, 255);
 }
 
 

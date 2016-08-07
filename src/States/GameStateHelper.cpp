@@ -2,25 +2,6 @@
 
 #include "../Constants.h"
 
-// Throw away string stream for font rendering.
-stringstream str;
-
-void drawString(Renderer& r, Font& f, std::string s, int i, int x, int y, int red, int green, int blue)
-{
-	str.str("");
-	str << s << i;
-	r.drawText(f, str.str(), (float)x, (float)y, red, green, blue);
-}
-
-
-void drawNumber(Renderer& r, Font& f, int i, int x, int y, int red, int green, int blue)
-{
-	str.str("");
-	str << i;
-	r.drawText(f, str.str(), (float)x, (float)y, red, green, blue);
-}
-
-
 bool checkTubeConnection(Tile* _tile, Direction _dir, ConnectorDir _source_connector_dir)
 {
 	if (_tile->mine() || !_tile->bulldozed() || !_tile->excavated() || !_tile->thingIsStructure())
