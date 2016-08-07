@@ -48,6 +48,7 @@ void StructureTranslator::buildTables()
 	_stringToStructureTable[constants::STORAGE_TANKS] = SID_STORAGE_TANKS;
 	_stringToStructureTable[constants::SURFACE_FACTORY] = SID_SURFACE_FACTORY;
 	_stringToStructureTable[constants::SMELTER] = SID_SMELTER;
+	_stringToStructureTable[constants::SOLAR_PLANT] = SID_SOLAR_PLANT;
 	_stringToStructureTable[constants::UNDERGROUND_FACTORY] = SID_UNDERGROUND_FACTORY;
 
 	_stringToStructureTable[constants::TUBE] = SID_TUBE;
@@ -67,6 +68,8 @@ void StructureTranslator::buildTables()
 	_structureToStringTable[SID_SEED_LANDER] = constants::SEED_LANDER;
 	_structureToStringTable[SID_SEED_POWER] = constants::SEED_POWER;
 	_structureToStringTable[SID_SEED_SMELTER] = constants::SEED_SMELTER;
+	_structureToStringTable[SID_SMELTER] = constants::SMELTER;
+	_structureToStringTable[SID_SOLAR_PLANT] = constants::SOLAR_PLANT;
 	_structureToStringTable[SID_UNDERGROUND_FACTORY] = constants::UNDERGROUND_FACTORY;
 
 	_structureToStringTable[SID_TUBE] = constants::TUBE;

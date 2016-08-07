@@ -59,6 +59,9 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_SMELTER:
 			_st = new Smelter();
 			break;
+		case SID_SOLAR_PLANT:
+			_st = new SolarPlant();
+			break;
 		case SID_STORAGE_TANKS:
 			_st = new StorageTanks();
 			break;
@@ -102,6 +105,7 @@ void StructureFactory::buildCostTable()
 	mStructureCostTable[SID_SEED_POWER] = ResourcePool(0, 0, 0, 0, 15, 10, 10, 8, 0, 0);
 	mStructureCostTable[SID_SEED_SMELTER] = ResourcePool(0, 0, 0, 0, 25, 20, 10, 5, 0, 0);
 	mStructureCostTable[SID_SMELTER] = ResourcePool(0, 0, 0, 0, 30, 20, 10, 5, 0, 0);
+	mStructureCostTable[SID_SOLAR_PLANT] = ResourcePool(0, 0, 0, 0, 50, 25, 50, 20, 0, 0);
 	mStructureCostTable[SID_STORAGE_TANKS] = ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
 	mStructureCostTable[SID_SURFACE_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 	mStructureCostTable[SID_TUBE] = ResourcePool();

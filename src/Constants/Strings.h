@@ -53,6 +53,7 @@ namespace constants
 	const string	SEED_POWER = "SEED Power";
 	const string	SEED_SMELTER = "SEED Smelter";
 	const string	SMELTER = "Smelter";
+	const string	SOLAR_PLANT = "Solar Powersat Receiver Array";
 	const string	STORAGE_TANKS = "Storage Tanks";
 	const string	SURFACE_FACTORY = "Surface Factory";
 	const string	TUBE = "Tube";
