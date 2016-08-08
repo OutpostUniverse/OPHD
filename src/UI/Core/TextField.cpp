@@ -37,6 +37,7 @@ TextField::TextField():	mCursorPosition(0),
 	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &TextField::onMouseDown);
 	Utility<EventHandler>::get().keyDown().Connect(this, &TextField::onKeyDown);
 	Utility<EventHandler>::get().keyUp().Connect(this, &TextField::onKeyUp);
+	hasFocus(true);
 }
 
 

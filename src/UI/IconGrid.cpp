@@ -15,6 +15,7 @@ IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
 {
 	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().Connect(this, &IconGrid::onMouseMotion);
+	hasFocus(true);
 }
 
 

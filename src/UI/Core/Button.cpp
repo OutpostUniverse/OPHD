@@ -10,6 +10,7 @@ Button::Button():	mState(STATE_NORMAL),
 	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().Connect(this, &Button::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().Connect(this, &Button::onMouseMotion);
+	hasFocus(true);
 }
 
 
