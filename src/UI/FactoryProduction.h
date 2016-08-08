@@ -9,10 +9,9 @@
 /**
  * \brief Implements a Factory Production dialog interface.
  */
-class FactoryProduction : public UIContainer
+class FactoryProduction : public Window
 {
 public:
-
 	FactoryProduction(Font& font);
 	virtual ~FactoryProduction();
 
@@ -23,14 +22,9 @@ public:
 	virtual void hide();
 
 protected:
-
 	virtual void init();
 
-	virtual void onMouseDown(MouseButton button, int x, int y);
-	virtual void onMouseUp(MouseButton button, int x, int y);
-
 private:
-
 	void btnOkayClicked();
 	void btnCancelClicked();
 
@@ -40,10 +34,13 @@ private:
 
 	void productionSelectionChanged(const std::string&);
 
+private:
 	Factory*					mFactory;
 
 	Factory::ProductionType		mProductionType;
 	ProductionCost				mProductionCost;
+
+	Font						mBold;
 
 	IconGrid					mProductionGrid;
 

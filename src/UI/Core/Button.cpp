@@ -57,7 +57,7 @@ bool Button::hasImage() const
 
 void Button::onMouseDown(MouseButton button, int x, int y)
 {
-	if(!enabled() || !visible())
+	if(!enabled() || !visible() || !hasFocus())
 		return;
 
 	if(button == BUTTON_LEFT)
@@ -83,7 +83,7 @@ void Button::onMouseDown(MouseButton button, int x, int y)
 
 void Button::onMouseUp(MouseButton button, int x, int y)
 {
-	if(!enabled() || !visible())
+	if(!enabled() || !visible() || !hasFocus())
 		return;
 
 	if(button == BUTTON_LEFT)

@@ -9,9 +9,12 @@ This version includes all revisions from r136 to rXXX.
 ### Added
 - Added the Park / Reservoir Structure.
 - Added the Underground Factory Structure.
+- Added Surface and UG Police Structures.
+- 
 
 ### Changed
-- 
+- Windows (tile inspector, structure inspector and factory production) are now drag-able.
+- Windows will now arrange themselves according to their position in a 'stack'.
 
 ### Fixed
 - Fixed a mistake in GameState that would forget to set a pointer to the players resource pool when the surface factory was placed.

@@ -89,4 +89,8 @@ namespace constants
 	const string	PLANET_TYPE_MARS_PATH = "planets/planet_c.png";
 	const string	PLANET_TYPE_GANYMEDE_PATH = "planets/planet_e.png";
 
+	// UI STRINGS
+	const string	WINDOW_FACTORY_PRODUCTION = "Factory Production";
+	const string	WINDOW_STRUCTURE_INSPECTOR = "Structure Inspector";
+	const string	WINDOW_TILE_INSPECTOR = "Tile Inspector";
 }

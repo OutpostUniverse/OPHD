@@ -197,6 +197,7 @@ const Rectangle_2df& Control::rect() const
 void Control::hasFocus(bool focus)
 {
 	mHasFocus = focus;
+	onFocusChanged();
 }
 
 

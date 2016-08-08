@@ -1,5 +1,7 @@
 #include "StructureInspector.h"
 
+#include "../Constants.h"
+
 #include <map>
 #include <sstream>
 
@@ -14,6 +16,7 @@ StructureInspector::StructureInspector(Font& font) :	mBold("fonts/ui-bold.png", 
 														mStructure(nullptr)
 {
 	Control::font(font);
+	text(constants::WINDOW_STRUCTURE_INSPECTOR);
 	init();
 }
 
@@ -64,20 +67,6 @@ void StructureInspector::init()
 }
 
 
-void StructureInspector::onMouseDown(MouseButton button, int x, int y)
-{
-	if (!visible())
-		return;
-}
-
-
-void StructureInspector::onMouseUp(MouseButton button, int x, int y)
-{
-	if (!visible())
-		return;
-}
-
-
 /**
  * Draws resource icons
  */
@@ -123,23 +112,19 @@ void StructureInspector::update()
 	if (!visible())
 		return;
 
+	Window::update();
+
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawBoxFilled(rect(), COLOR_SILVER.red(), COLOR_SILVER.green(), COLOR_SILVER.blue());
-	r.drawBoxFilled(rect().x(), rect().y(), rect().w(), 19.0f, COLOR_SILVER.red() + 25, COLOR_SILVER.green() + 25, COLOR_SILVER.blue() + 25);
-	r.drawBox(rect(), 0, 0, 0);
-
-	r.drawText(mBold, "Structure Inspector", rect().x() + 5, rect().y() + 5, 0, 0, 0);
-
-	if (!mStructure)
+	if (mStructure == nullptr)
 	{
 		r.drawText(mBold, "NULLPTR!", rect().x() + 5, rect().y() + 25, 0, 0, 0);
 		return;
 	}
 
 	r.drawText(mBold, mStructure->name(), rect().x() + 5, rect().y() + 25, 0, 0, 0);
-	r.drawText(mBold, "Structure ID:", rect().x() + 190, rect().y() + 25, 0, 0, 0);
 
+	r.drawText(mBold, "Structure ID:", rect().x() + 190, rect().y() + 25, 0, 0, 0);
 	r.drawText(font(), string_format("%i", mStructure->id()), rect().x() + 190 + mBold.width("Structure ID: "), rect().y() + 25, 0, 0, 0);
 
 	r.drawText(mBold, "Type:", rect().x() + 5, rect().y() + 45, 0, 0, 0);
@@ -150,8 +135,6 @@ void StructureInspector::update()
 	
 	drawResourcePool("Production Pool", mStructure->production(), rect().x() + 5, rect().y() + 65);
 	drawResourcePool("Storage Pool", mStructure->storage(), rect().x() + 190, rect().y() + 65);
-
-	UIContainer::update();
 }
 
 

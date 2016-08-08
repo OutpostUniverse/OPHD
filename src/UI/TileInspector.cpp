@@ -1,5 +1,7 @@
 #include "TileInspector.h"
 
+#include "../Constants.h"
+
 #include <map>
 #include <sstream>
 
@@ -10,6 +12,7 @@ TileInspector::TileInspector(Font& font):	mBold("fonts/ui-bold.png", 7, 9, 0),
 											mTile(nullptr)
 {
 	Control::font(font);
+	text(constants::WINDOW_TILE_INSPECTOR);
 	init();
 }
 
@@ -43,20 +46,6 @@ void TileInspector::init()
 }
 
 
-void TileInspector::onMouseDown(MouseButton button, int x, int y)
-{
-	if(!visible())
-		return;
-}
-
-
-void TileInspector::onMouseUp(MouseButton button, int x, int y)
-{
-	if(!visible())
-		return;
-}
-
-
 void TileInspector::update()
 {
 	if(!visible())
@@ -65,13 +54,9 @@ void TileInspector::update()
 	if(!mTile)
 		return;
 
+	Window::update();
+
 	Renderer& r = Utility<Renderer>::get();
-
-	r.drawBoxFilled(rect(), COLOR_SILVER.red(), COLOR_SILVER.green(), COLOR_SILVER.blue());
-	r.drawBoxFilled(rect().x(), rect().y(), rect().w(), 19.0f, COLOR_SILVER.red() + 25, COLOR_SILVER.green() + 25, COLOR_SILVER.blue() + 25);
-	r.drawBox(rect(), 0, 0, 0);
-
-	r.drawText(mBold, "Tile Inspector", rect().x() + 5, rect().y() + 5, 0, 0, 0);
 
 	r.drawText(mBold, "Has Mine:", rect().x() + 5, rect().y() + 25, 0, 0, 0);
 
@@ -103,10 +88,6 @@ void TileInspector::update()
 
 	r.drawText(mBold, "Terrain:", rect().x() + 5, rect().y() + 75, 0, 0, 0);
 	r.drawText(font(), TileIndexTranslation[mTile->index()], rect().x() + 5 + mBold.width("Terrain: "), rect().y() + 75, 0, 0, 0);
-
-
-	// Let UIContainer handle the basics.
-	UIContainer::update();
 }
 
 

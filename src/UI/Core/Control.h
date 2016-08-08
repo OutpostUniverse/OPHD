@@ -22,7 +22,6 @@ class Control
 public:
 
 	Control();
-
 	virtual ~Control();
 
 	void font(Font& font);
@@ -48,7 +47,7 @@ public:
 
 	const Rectangle_2df& rect() const;
 
-	void hasFocus(bool focus);
+	virtual void hasFocus(bool focus);
 	bool hasFocus() const;
 
 	void text(const std::string& text);
@@ -83,6 +82,8 @@ protected:
 	virtual void positionChanged(float dX, float dY) {}
 
 	virtual void visibilityChanged(bool visible) {}
+
+	virtual void onFocusChanged() {};
 
 	virtual void onSizeChanged() {}
 	virtual void onTextChanged() {};

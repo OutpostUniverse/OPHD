@@ -123,3 +123,11 @@ void UIContainer::positionChanged(float dX, float dY)
 	for (auto it = mControlList.begin(); it != mControlList.end(); ++it)
 		it->second->position(it->second->positionX() + dX, it->second->positionY() + dY);
 }
+
+
+void UIContainer::onFocusChanged()
+{
+	for (auto it = mControlList.begin(); it != mControlList.end(); ++it)
+		it->second->hasFocus(hasFocus());
+
+}

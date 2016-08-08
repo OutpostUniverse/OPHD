@@ -4,7 +4,7 @@
 
 #include "../Tile.h"
 
-class TileInspector: public UIContainer
+class TileInspector: public Window
 {
 public:
 
@@ -18,9 +18,6 @@ public:
 protected:
 
 	virtual void init();
-
-	virtual void onMouseDown(MouseButton button, int x, int y);
-	virtual void onMouseUp(MouseButton button, int x, int y);
 
 private:
 

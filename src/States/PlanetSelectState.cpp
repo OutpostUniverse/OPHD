@@ -106,7 +106,7 @@ State* PlanetSelectState::update()
 
 	mPlanetDescription.update();
 
-	r.drawText(mTinyFont, "v0.6.5", r.width() - mTinyFont.width("v0.6.5") - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
+	r.drawText(mTinyFont, "v0.7.0", r.width() - mTinyFont.width("v0.6.5") - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
 
 	r.drawImage(mMousePointer, mMousePosition.x(), mMousePosition.y());
 

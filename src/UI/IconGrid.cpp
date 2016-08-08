@@ -74,6 +74,9 @@ void IconGrid::updateGrid()
  */
 void IconGrid::onMouseDown(MouseButton button, int x, int y)
 {
+	if (!visible() || !hasFocus())
+		return;
+
 	// Don't respond to anything unless it's the left mouse button.
 	if (button != BUTTON_LEFT)
 		return;
@@ -98,7 +101,7 @@ void IconGrid::onMouseDown(MouseButton button, int x, int y)
  */
 void IconGrid::onMouseMotion(int x, int y, int dX, int dY)
 {
-	if (!visible())
+	if (!visible() || !hasFocus())
 		return;
 
 	if (mIconItemList.empty() || !isPointInRect(x, y, rect().x(), rect().y(), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))

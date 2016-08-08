@@ -197,9 +197,12 @@ private:
 	IconGrid			mConnections;
 
 	DiggerDirection		mDiggerDirection;
+
 	StructureInspector	mStructureInspector;
 	FactoryProduction	mFactoryProduction;
 	TileInspector		mTileInspector;
+
+	WindowStack			mWindowStack;
 
 	// MISCELLANEOUS
 	int					mTurnCount;

@@ -37,6 +37,12 @@ void GameState::initUi()
 	mFactoryProduction.position(r.screenCenterX() - mFactoryProduction.width() / 2, 175);
 	mFactoryProduction.hide();
 
+
+	mWindowStack.addWindow(&mTileInspector);
+	mWindowStack.addWindow(&mStructureInspector);
+	mWindowStack.addWindow(&mFactoryProduction);
+
+
 	// Bottom UI
 	BOTTOM_UI_AREA(0, r.height() - constants::BOTTOM_UI_HEIGHT, r.width(), constants::BOTTOM_UI_HEIGHT);
 
@@ -228,9 +234,8 @@ void GameState::drawUI()
 
 	// UI Containers
 	mDiggerDirection.update();
-	mFactoryProduction.update();
-	mStructureInspector.update();
-	mTileInspector.update();
+
+	mWindowStack.update();
 
 	// Always draw last
 	mPointers[mCurrentPointer].draw(mMousePosition.x(), mMousePosition.y());

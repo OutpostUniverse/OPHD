@@ -4,7 +4,7 @@
 
 #include "../Tile.h"
 
-class StructureInspector : public UIContainer
+class StructureInspector : public Window
 {
 public:
 
@@ -17,9 +17,6 @@ public:
 
 protected:
 	virtual void init();
-
-	virtual void onMouseDown(MouseButton button, int x, int y);
-	virtual void onMouseUp(MouseButton button, int x, int y);
 
 private:
 	StructureInspector();

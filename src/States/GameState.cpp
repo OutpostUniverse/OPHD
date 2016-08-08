@@ -398,22 +398,14 @@ void GameState::clearMode()
  */
 void GameState::onMouseDown(MouseButton button, int x, int y)
 {
-	// If mouse pointer is within the rects of a a UI element, ignore it.
-	// FIXME: This is getting out of hand. Find a better way to do this.
 	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
 		return;
-	if (mStructureInspector.visible() && isPointInRect(mMousePosition, mStructureInspector.rect()))
-		return;
-	if (mFactoryProduction.visible() && isPointInRect(mMousePosition, mFactoryProduction.rect()))
-		return;
-	if (mTileInspector.visible() && isPointInRect(mMousePosition, mTileInspector.rect()))
-		return;
 
-	// Cludgy but basically if this dialog is open, fuck everything else.
-	// FIXME: Double check logic to make sure this is a necessary check given the above statements.
-	if (mFactoryProduction.visible())
+	if (mWindowStack.pointInWindow(mMousePosition) && button == BUTTON_LEFT)
+	{
+		mWindowStack.updateStack(mMousePosition);
 		return;
-
+	}
 
 	if(button == BUTTON_RIGHT)
 	{
@@ -436,7 +428,8 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		{
 			clearSelections();
 			mTileInspector.tile(_t);
-			mTileInspector.show(); 
+			mTileInspector.show();
+			mWindowStack.bringToFront(&mTileInspector);
 		}
 		else if (_t->thingIsStructure())
 		{
@@ -444,11 +437,13 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 			{
 				mFactoryProduction.factory(static_cast<Factory*>(_t->structure()));
 				mFactoryProduction.show();
+				mWindowStack.bringToFront(&mFactoryProduction);
 			}
 			else
 			{
 				mStructureInspector.structure(_t->structure());
 				mStructureInspector.show();
+				mWindowStack.bringToFront(&mFactoryProduction);
 			}
 		}
 	}
@@ -456,6 +451,8 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 	if(button == BUTTON_LEFT)
 	{
 		mLeftButtonDown = true;
+
+		mWindowStack.updateStack(mMousePosition);
 
 		// Ugly
 		if (isPointInRect(mMousePosition, MENU_ICON))
@@ -466,7 +463,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		}
 		
 		// MiniMap Check
-		if(isPointInRect(mMousePosition, mMiniMapBoundingBox))
+		if(isPointInRect(mMousePosition, mMiniMapBoundingBox) && !mWindowStack.pointInWindow(mMousePosition))
 		{
 			updateMapView();
 		}
@@ -915,7 +912,6 @@ void GameState::onMouseUp(MouseButton button, int x, int y)
 void GameState::onMouseMove(int x, int y, int rX, int rY)
 {
 	mMousePosition(x, y);
-	mTileMapMouseHover(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY());
 
 	if(mLeftButtonDown)
 	{
@@ -924,6 +920,8 @@ void GameState::onMouseMove(int x, int y, int rX, int rY)
 			updateMapView();
 		}
 	}
+
+	mTileMapMouseHover(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY());
 }
 
 
