@@ -29,6 +29,12 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_FUSION_REACTOR:
 			_st = new FusionReactor();
 			break;
+		case SID_HOT_LABORATORY:
+			_st = new HotLaboratory();
+			break;
+		case SID_LABORATORY:
+			_st = new Laboratory();
+			break;
 		case SID_MINE_FACILITY: // only here for loading games
 			_st = new MineFacility(nullptr);
 			break;
@@ -49,6 +55,9 @@ Structure* StructureFactory::get(StructureID type)
 			break;
 		case SID_RESIDENCE:
 			_st = new Residence();
+			break;
+		case SID_ROBOT_COMMAND:
+			_st = new RobotCommand();
 			break;
 		case SID_SEED_FACTORY:
 			_st = new SeedFactory();
@@ -77,6 +86,9 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_UNDERGROUND_FACTORY:
 			_st = new UndergroundFactory();
 			break;
+		case SID_WAREHOUSE:
+			_st = new Warehouse();
+			break;
 		default:
 			cout << "StructureFactory::get(): Unsupported structure type called." << endl;
 			break;
@@ -102,12 +114,15 @@ void StructureFactory::buildCostTable()
 	mStructureCostTable[SID_CHAP] = ResourcePool(0, 0, 0, 0, 50, 10, 20, 5, 0, 0);
 	mStructureCostTable[SID_COMMAND_CENTER] = ResourcePool(0, 0, 0, 0, 100, 75, 65, 35, 0, 0);
 	mStructureCostTable[SID_FUSION_REACTOR] = ResourcePool(0, 0, 0, 0, 75, 25, 50, 30, 0, 0);
+	mStructureCostTable[SID_HOT_LABORATORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
+	mStructureCostTable[SID_LABORATORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 	mStructureCostTable[SID_MINE_FACILITY] = ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
 	mStructureCostTable[SID_PARK] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_SURFACE_POLICE] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_UNDERGROUND_POLICE] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_RECREATION_CENTER] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_RESIDENCE] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_ROBOT_COMMAND] = ResourcePool(0, 0, 0, 0, 75, 50, 45, 25, 0, 0);
 	mStructureCostTable[SID_SEED_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 	mStructureCostTable[SID_SEED_LANDER] = ResourcePool(0, 0, 0, 0, 10, 10, 5, 5, 0, 0);
 	mStructureCostTable[SID_SEED_POWER] = ResourcePool(0, 0, 0, 0, 15, 10, 10, 8, 0, 0);
@@ -118,6 +133,7 @@ void StructureFactory::buildCostTable()
 	mStructureCostTable[SID_SURFACE_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 	mStructureCostTable[SID_TUBE] = ResourcePool();
 	mStructureCostTable[SID_UNDERGROUND_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
+	mStructureCostTable[SID_WAREHOUSE] = ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
 }
 
 

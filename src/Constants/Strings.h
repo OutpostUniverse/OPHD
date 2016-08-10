@@ -43,6 +43,8 @@ namespace constants
 	const string	CHAP = "CHAP Facility";
 	const string	COMMAND_CENTER = "Command Center";
 	const string	FUSION_REACTOR = "Fusion Reactor";
+	const string	LABORATORY = "Laboratory";
+	const string	HOT_LABORATORY = "Hot Laboratory";
 	const string	MINE_FACILITY = "Mine Facility";
 	const string	MINE_SHAFT = "Mine Shaft";
 	const string	PARK = "Park / Reservoir ";
@@ -50,6 +52,7 @@ namespace constants
 	const string	SURFACE_POLICE = "Police";
 	const string	RECREATION_CENTER = "Recreation Center";
 	const string	RESIDENCE = "Residential Facility";
+	const string	ROBOT_COMMAND = "Robot Command";
 	const string	SEED_FACTORY = "SEED Factory";
 	const string	SEED_LANDER = "SEED Lander";
 	const string	SEED_POWER = "SEED Power";
@@ -60,6 +63,7 @@ namespace constants
 	const string	SURFACE_FACTORY = "Surface Factory";
 	const string	TUBE = "Tube";
 	const string	UNDERGROUND_FACTORY = "Underground Factory";
+	const string	WAREHOUSE = "Warehouse";
 
 	// TUBE STATES
 	const string	AG_TUBE_INTERSECTION = "ag_intersection";
