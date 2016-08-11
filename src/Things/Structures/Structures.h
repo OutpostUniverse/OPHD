@@ -5,6 +5,7 @@
 #include "AirShaft.h"
 #include "CHAP.h"
 #include "CommandCenter.h"
+#include "Commercial.h"
 #include "FusionReactor.h"
 #include "Laboratory.h"
 #include "MineFacility.h"
@@ -12,6 +13,7 @@
 #include "Park.h"
 #include "Police.h"
 #include "RecreationCenter.h"
+#include "RedLightDistrict.h"
 #include "Residence.h"
 #include "RobotCommand.h"
 #include "SeedFactory.h"
@@ -24,4 +26,6 @@
 #include "SurfaceFactory.h"
 #include "Tube.h"
 #include "UndergroundFactory.h"
+#include "University.h"
 #include "Warehouse.h"
+

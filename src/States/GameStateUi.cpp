@@ -200,6 +200,9 @@ void GameState::populateStructureMenu()
 		mStructures.addItem(constants::RECREATION_CENTER, 73);
 		mStructures.addItem(constants::RESIDENCE, 55);
 		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69);
+		mStructures.addItem(constants::COMMERCIAL, 66);
+		mStructures.addItem(constants::RED_LIGHT_DISTRICT, 76);
+		mStructures.addItem(constants::UNIVERSITY, 63);
 
 		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113);
 		mConnections.addItem(constants::UG_TUBE_RIGHT, 115);

@@ -60,6 +60,8 @@ void StructureManager::update(ResourcePool& _r)
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_ROBOT_COMMAND]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_WAREHOUSE]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LABORATORY]);
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_COMMERCIAL]);
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_UNIVERSITY]);
 
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_UNDEFINED]);
 

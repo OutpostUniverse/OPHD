@@ -41,6 +41,7 @@ void StructureInspector::init()
 	// Build translation tables.
 	TypeTranslationTable[Structure::STRUCTURE_COMMAND] = "Command";
 	TypeTranslationTable[Structure::STRUCTURE_COMM] = "Communication";
+	TypeTranslationTable[Structure::STRUCTURE_COMMERCIAL] = "Commercial";
 	TypeTranslationTable[Structure::STRUCTURE_ENERGY_PRODUCTION] = "Energy Production";
 	TypeTranslationTable[Structure::STRUCTURE_FACTORY] = "Factory";
 	TypeTranslationTable[Structure::STRUCTURE_FOOD_PRODUCTION] = "Food Production";
@@ -58,6 +59,7 @@ void StructureInspector::init()
 	TypeTranslationTable[Structure::STRUCTURE_STORAGE] = "Storage";
 	TypeTranslationTable[Structure::STRUCTURE_TUBE] = "Tube";
 	TypeTranslationTable[Structure::STRUCTURE_UNDEFINED] = "UNDEFINED";
+	TypeTranslationTable[Structure::STRUCTURE_UNIVERSITY] = "University";
 
 	StateTranslationTable[Structure::UNDER_CONSTRUCTION] = "Under Construction";
 	StateTranslationTable[Structure::OPERATIONAL] = "Operational";

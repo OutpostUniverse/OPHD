@@ -222,6 +222,7 @@
     <ClInclude Include="..\..\src\Things\Structures\CHAP.h" />
     <ClInclude Include="..\..\src\Things\Structures\CommandCenter.h" />
     <ClInclude Include="..\..\src\Things\Structures\Agridome.h" />
+    <ClInclude Include="..\..\src\Things\Structures\Commercial.h" />
     <ClInclude Include="..\..\src\Things\Structures\Factory.h" />
     <ClInclude Include="..\..\src\Things\Structures\Laboratory.h" />
     <ClInclude Include="..\..\src\Things\Structures\MineFacility.h" />
@@ -229,6 +230,7 @@
     <ClInclude Include="..\..\src\Things\Structures\Park.h" />
     <ClInclude Include="..\..\src\Things\Structures\Police.h" />
     <ClInclude Include="..\..\src\Things\Structures\RecreationCenter.h" />
+    <ClInclude Include="..\..\src\Things\Structures\RedLightDistrict.h" />
     <ClInclude Include="..\..\src\Things\Structures\Residence.h" />
     <ClInclude Include="..\..\src\Things\Structures\RobotCommand.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedFactory.h" />
@@ -244,6 +246,7 @@
     <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h" />
     <ClInclude Include="..\..\src\Things\Structures\Tube.h" />
     <ClInclude Include="..\..\src\Things\Structures\UndergroundFactory.h" />
+    <ClInclude Include="..\..\src\Things\Structures\University.h" />
     <ClInclude Include="..\..\src\Things\Structures\Warehouse.h" />
     <ClInclude Include="..\..\src\Things\Thing.h" />
     <ClInclude Include="..\..\src\Tile.h" />
