@@ -146,12 +146,16 @@ void GameState::drawMiniMap()
 	else
 		r.drawImage(mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y());
 
-	r.drawBox(mMiniMapBoundingBox, 0, 0, 0);
-
 	if (mCCLocation.x() != 0 && mCCLocation.y() != 0)
 	{
+		// fixme: find a more efficient way to do this.
+		int xClip = clamp(15 - mCCLocation.x(), 0, 15);
+		int yClip = clamp(15 - mCCLocation.y(), 0, 15);
+		int wClip = clamp((mCCLocation.x() + 15) - mMiniMapBoundingBox.w(), 0, 15);
+		int hClip = clamp((mCCLocation.y() + 15) - mMiniMapBoundingBox.h(), 0, 15);;
+
+		r.drawSubImage(mUiIcons, mCCLocation.x() + mMiniMapBoundingBox.x() - 15 + xClip, mCCLocation.y() + mMiniMapBoundingBox.y() - 15 + yClip, xClip, yClip + 5, 30 - xClip - wClip, 30 - yClip - hClip);
 		r.drawBoxFilled(mCCLocation.x() + mMiniMapBoundingBox.x() - 1, mCCLocation.y() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
-		//r.drawCircle(mCCLocation.x() + mMiniMapBoundingBox.x(), mCCLocation.y() + mMiniMapBoundingBox.y(), 15, 255, 255, 0, 255, 16);
 	}
 
 
@@ -165,6 +169,8 @@ void GameState::drawMiniMap()
 
 	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
 		r.drawPixel(it->second->x()  + mMiniMapBoundingBox.x(), it->second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
+
+	//r.drawBox(mMiniMapBoundingBox, 0, 0, 0);
 
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x() + 1, mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);

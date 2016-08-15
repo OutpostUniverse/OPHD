@@ -24,6 +24,7 @@ public:
 public:
 	Planet(PlanetType type) : mTick(0), mMaxMines(0), mMaxDigDepth(0), mImage(), mType(type), mMouseInArea(false)
 	{
+		// Fixme: This should be in a table vs. a giant switch statement.
 		switch (mType)
 		{
 		case PLANET_TYPE_MERCURY:

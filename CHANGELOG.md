@@ -7,10 +7,19 @@ This is the changelog for OutpostHD.
 This version includes all revisions from r136 to rXXX.
 
 ### Added
-- Added the Park / Reservoir Structure.
-- Added the Underground Factory Structure.
-- Added Surface and UG Police Structures.
-- 
+- Site Map now shows Command Center's influence radius.
+- Added the following structures:
+    - Park / Reservoir
+	- Recreation Facility
+	- Red Light District
+	- Solor Power Receiver Arrawy
+	- University
+	- Underground Factory
+	- Surface and UG Police
+	- UG Laboratory
+	- Hot Laboratory
+	- Robot Command
+	- Warehouse
 
 ### Changed
 - Windows (tile inspector, structure inspector and factory production) are now drag-able.
