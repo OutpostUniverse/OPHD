@@ -2,6 +2,9 @@
 
 #include "Structure.h"
 
+const int AGRIDOME_CAPACITY = 1000;
+const int AGRIDOME_BASE_PRODUCUCTION = 10;
+
 class Agridome : public Structure
 {
 public:
@@ -13,7 +16,7 @@ public:
 
 		requiresCHAP(true);
 
-		storage().capacity(1000);
+		//storage().capacity(1000);
 	}
 
 
@@ -27,18 +30,22 @@ protected:
 		if (isIdle())
 			return;
 
-		/** \todo	At the moment we're only adding one food unit per turn. In
-		*			the future we'll want to add modifiers based on research,
-		*			difficulty and hostility level of the planet.
-		*/
-		if (storage().atCapacity())
+		if (storage().food() == AGRIDOME_CAPACITY)
 		{
 			idle();
 		}
 		else
 		{
-			if (storage().pushResource(ResourcePool::RESOURCE_FOOD, 10) != 0)
+			//if (storage().pushResource(ResourcePool::RESOURCE_FOOD, 10) != 0)
+			//	idle();
+
+			int curr_food = storage().food();
+			if (curr_food > AGRIDOME_CAPACITY - AGRIDOME_BASE_PRODUCUCTION)
+			{
+				storage().food(AGRIDOME_CAPACITY);
 				idle();
+			}
+			else(storage().food(curr_food + AGRIDOME_BASE_PRODUCUCTION));
 		}
 
 	}

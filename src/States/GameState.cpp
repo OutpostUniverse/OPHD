@@ -200,7 +200,7 @@ int GameState::foodTotalStorage()
 	for (size_t i = 0; i < sl.size(); ++i)
 	{
 		if (sl[i]->operational() || sl[i]->isIdle())
-			food_storage += sl[i]->storage().capacity();
+			food_storage += AGRIDOME_CAPACITY;
 	}
 
 	return food_storage;
@@ -238,7 +238,7 @@ void GameState::drawResourceInfo()
 	r.drawSubImage(mUiIcons, (x + offsetX) * 5, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
-	// Food & Energy
+	// Food
 	r.drawSubImage(mUiIcons, (x + offsetX) * 7, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(mTinyFont, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 7 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
 
@@ -1237,7 +1237,8 @@ void GameState::load(const std::string& _path)
 		mAiVoiceNotifier.gender(static_cast<AiVoiceNotifier::AiGender>(gender));
 	}
 
-
+	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::STRUCTURE_STORAGE)));
+	
 	// set level indicator string
 	// FIXME: Cludgy.
 	if(mTileMap->currentDepth() == 0)

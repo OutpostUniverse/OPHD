@@ -28,6 +28,8 @@ This version includes all revisions from r136 to rXXX.
 ### Fixed
 - Fixed a mistake in GameState that would forget to set a pointer to the players resource pool when the surface factory was placed.
 - Fixed a mistake that causes a game crash when turning on the Debug information when the view is at the edges of the map.
+- Fixed an issue in the Agricultural Dome that would cause food production and storage to continue past storage capacity.
+- Fixed an issue in the savegame load code that neglected to update the current storage availability until a turn was completed.
 
 
 
