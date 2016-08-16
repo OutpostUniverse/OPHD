@@ -111,7 +111,8 @@ private:
 	void insertSeedLander(int x, int y);
 	bool landingSiteSuitable(int x, int y);
 
-	void updateMapView();
+	void setMinimapView();
+
 	void updateRobots();
 
 	void checkConnectedness();
@@ -206,6 +207,8 @@ private:
 
 	// MISCELLANEOUS
 	int					mTurnCount;
+
+	int					mCurrentMorale;
 
 	bool				mDebug;
 	bool				mLeftButtonDown;		/**< Used for mouse drags on the mini map. */

@@ -52,6 +52,7 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mTileInspector(mTinyFont),
 																											mInsertMode(INSERT_NONE),
 																											mTurnCount(0),
+																											mCurrentMorale(800),
 																											mReturnState(NULL),
 																											mLeftButtonDown(false),
 																											mDebug(false)
@@ -220,35 +221,41 @@ void GameState::drawResourceInfo()
 
 	int textY = 6;
 	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
+	int margin = constants::RESOURCE_ICON_SIZE + constants::MARGIN;
 
 	// Refined Resources
 	r.drawSubImage(mUiIcons, x, y , 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMetals()), x + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, x + offsetX, y, 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 2, y, 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, 255, 255);
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, 255, 255);
 
 	// Storage Capacity
-	r.drawSubImage(mUiIcons, (x + offsetX) * 5, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 5 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawSubImage(mUiIcons, (x + offsetX) * 4, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, 255, 255);
 
 	// Food
-	r.drawSubImage(mUiIcons, (x + offsetX) * 7, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 7 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawSubImage(mUiIcons, (x + offsetX) * 6, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawText(mTinyFont, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, 255, 255);
 
 	// Energy
-	r.drawSubImage(mUiIcons, (x + offsetX) * 9, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), mStructureManager.totalEnergyProduction()), (x + offsetX) * 9 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), mStructureManager.totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 	
+	// Population / Morale
+	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (mCurrentMorale / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawText(mTinyFont, "100", (x + offsetX) * 10 + margin, textY, 255, 255, 255);
+
+
 	// Turns
 	r.drawSubImage(mUiIcons, r.width() - 80, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mTurnCount), r.width() - 80 + (constants::RESOURCE_ICON_SIZE + constants::MARGIN), textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i", mTurnCount), r.width() - 80 + margin, textY, 255, 255, 255);
 
 	// ugly
 	if (isPointInRect(mMousePosition, MENU_ICON))
@@ -373,6 +380,143 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 }
 
 
+/**
+* Mouse Down event handler.
+*/
+void GameState::onMouseDown(MouseButton button, int x, int y)
+{
+	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
+		return;
+
+	if (mWindowStack.pointInWindow(mMousePosition) && button == BUTTON_LEFT)
+	{
+		mWindowStack.updateStack(mMousePosition);
+		return;
+	}
+
+	if (button == BUTTON_RIGHT)
+	{
+		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
+
+		if (mInsertMode != INSERT_NONE)
+		{
+			clearMode();
+			return;
+		}
+
+		if (!mTileMap->tileHighlightVisible())
+			return;
+
+		if (!_t)
+		{
+			return;
+		}
+		else if (_t->empty() && isPointInRect(mMousePosition, mTileMap->boundingBox()))
+		{
+			clearSelections();
+			mTileInspector.tile(_t);
+			mTileInspector.show();
+			mWindowStack.bringToFront(&mTileInspector);
+		}
+		else if (_t->thingIsStructure())
+		{
+			if (_t->structure()->isFactory() && (_t->structure()->operational() || _t->structure()->isIdle()))
+			{
+				mFactoryProduction.factory(static_cast<Factory*>(_t->structure()));
+				mFactoryProduction.show();
+				mWindowStack.bringToFront(&mFactoryProduction);
+			}
+			else
+			{
+				mStructureInspector.structure(_t->structure());
+				mStructureInspector.show();
+				mWindowStack.bringToFront(&mFactoryProduction);
+			}
+		}
+	}
+
+	if (button == BUTTON_LEFT)
+	{
+		mLeftButtonDown = true;
+
+		mWindowStack.updateStack(mMousePosition);
+
+		// Ugly
+		if (isPointInRect(mMousePosition, MENU_ICON))
+		{
+			mReturnState = new PlanetSelectState();
+			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+			return;
+		}
+
+		// MiniMap Check
+		if (isPointInRect(mMousePosition, mMiniMapBoundingBox) && !mWindowStack.pointInWindow(mMousePosition))
+		{
+			setMinimapView();
+		}
+		// Click was within the bounds of the TileMap.
+		else if (isPointInRect(mMousePosition, mTileMap->boundingBox()))
+		{
+			if (mInsertMode == INSERT_STRUCTURE)
+			{
+				placeStructure();
+			}
+			else if (mInsertMode == INSERT_ROBOT)
+			{
+				placeRobot();
+			}
+			else if (mInsertMode == INSERT_TUBE)
+			{
+				placeTubes();
+			}
+		}
+	}
+}
+
+
+/**
+* Mouse Up event handler.
+*/
+void GameState::onMouseUp(MouseButton button, int x, int y)
+{
+	if (button == BUTTON_LEFT)
+	{
+		mLeftButtonDown = false;
+	}
+}
+
+
+/**
+* Mouse motion event handler.
+*/
+void GameState::onMouseMove(int x, int y, int rX, int rY)
+{
+	mMousePosition(x, y);
+
+	if (mLeftButtonDown)
+	{
+		if (isPointInRect(mMousePosition, mMiniMapBoundingBox))
+		{
+			setMinimapView();
+		}
+	}
+
+	mTileMapMouseHover(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY());
+}
+
+
+void GameState::onMouseWheel(int x, int y)
+{
+	if (mInsertMode != INSERT_TUBE)
+		return;
+
+	if (y > 0)
+		mConnections.incrementSelection();
+	else
+		mConnections.decrementSelection();
+}
+
+
 bool GameState::changeDepth(int _d)
 {
 	mTileMap->currentDepth(_d);
@@ -399,100 +543,6 @@ void GameState::clearMode()
 }
 
 
-/**
- * Mouse Down event handler.
- */
-void GameState::onMouseDown(MouseButton button, int x, int y)
-{
-	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
-		return;
-
-	if (mWindowStack.pointInWindow(mMousePosition) && button == BUTTON_LEFT)
-	{
-		mWindowStack.updateStack(mMousePosition);
-		return;
-	}
-
-	if(button == BUTTON_RIGHT)
-	{
-		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
-
-		if(mInsertMode != INSERT_NONE)
-		{
-			clearMode();
-			return;
-		}
-
-		if (!mTileMap->tileHighlightVisible())
-			return;
-
-		if (!_t)
-		{
-			return;
-		}
-		else if(_t->empty() && isPointInRect(mMousePosition, mTileMap->boundingBox()))
-		{
-			clearSelections();
-			mTileInspector.tile(_t);
-			mTileInspector.show();
-			mWindowStack.bringToFront(&mTileInspector);
-		}
-		else if (_t->thingIsStructure())
-		{
-			if (_t->structure()->isFactory() && (_t->structure()->operational() || _t->structure()->isIdle()))
-			{
-				mFactoryProduction.factory(static_cast<Factory*>(_t->structure()));
-				mFactoryProduction.show();
-				mWindowStack.bringToFront(&mFactoryProduction);
-			}
-			else
-			{
-				mStructureInspector.structure(_t->structure());
-				mStructureInspector.show();
-				mWindowStack.bringToFront(&mFactoryProduction);
-			}
-		}
-	}
-
-	if(button == BUTTON_LEFT)
-	{
-		mLeftButtonDown = true;
-
-		mWindowStack.updateStack(mMousePosition);
-
-		// Ugly
-		if (isPointInRect(mMousePosition, MENU_ICON))
-		{
-			mReturnState = new PlanetSelectState();
-			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
-			return;
-		}
-		
-		// MiniMap Check
-		if(isPointInRect(mMousePosition, mMiniMapBoundingBox) && !mWindowStack.pointInWindow(mMousePosition))
-		{
-			updateMapView();
-		}
-		// Click was within the bounds of the TileMap.
-		else if(isPointInRect(mMousePosition, mTileMap->boundingBox()))
-		{
-			if(mInsertMode == INSERT_STRUCTURE)
-			{
-				placeStructure();
-			}
-			else if(mInsertMode == INSERT_ROBOT)
-			{
-				placeRobot();
-			}
-			else if(mInsertMode == INSERT_TUBE)
-			{
-				placeTubes();
-			}
-		}
-	}
-}
-
-
 void GameState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
 {
 	if (_dir == CONNECTOR_INTERSECTION)
@@ -511,8 +561,6 @@ void GameState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
 	{
 		throw Exception(0, "Structure Not a Tube", "GameState::placeTube() called but Current Structure is not a tube!");
 	}
-
-	//return nullptr;
 }
 
 void GameState::placeTubes()
@@ -533,8 +581,7 @@ void GameState::placeTubes()
 	{
 		insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(x, y));
 
-		// FIXME:	Naive approach. This will be slow with larger colonies,
-		//			especially colonies that have expanded far underground.
+		// FIXME: Naive approach -- will be slow with larger colonies.
 		mStructureManager.disconnectAll();
 		checkConnectedness();
 	}
@@ -560,7 +607,6 @@ bool GameState::validTubeConnection(int x, int y, ConnectorDir _cd)
  */
 bool GameState::validStructurePlacement(int x, int y)
 {
-
 	return	checkStructurePlacement(mTileMap->getTile(x, y - 1), DIR_NORTH) ||
 			checkStructurePlacement(mTileMap->getTile(x + 1, y), DIR_EAST) ||
 			checkStructurePlacement(mTileMap->getTile(x, y + 1), DIR_SOUTH) ||
@@ -589,13 +635,7 @@ void GameState::placeRobot()
 				return;
 			}
 
-			#ifdef NDEBUG
 			mPlayerResources.pushResources(StructureFactory::recyclingValue(StructureTranslator::translateFromString(_s->name())));
-			#else
-			StructureID s_id = StructureTranslator::translateFromString(_s->name());
-			ResourcePool rp = StructureFactory::recyclingValue(s_id);
-			mPlayerResources.pushResources(rp);
-			#endif
 
 			tile->connected(false);
 			mStructureManager.removeStructure(_s);
@@ -620,6 +660,10 @@ void GameState::placeRobot()
 	// Robodigger has been selected.
 	else if(mCurrentRobot == ROBOT_DIGGER)
 	{
+		// FIXME: Make this more obvious as to what it does.
+		if (tile->thing() || (tile->depth() != mTileMap->maxDepth() && mTileMap->getTile(tile->x(), tile->y(), tile->depth() + 1)->thing()))
+			return;
+
 		// Keep digger within a safe margin of the map boundaries.
 		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
 		{
@@ -641,7 +685,6 @@ void GameState::placeRobot()
 		else
 			mDiggerDirection.downOnlyEnabled();
 
-		//hideUi();
 		mDiggerDirection.setParameters(tile);
 
 		// NOTE:	Unlike the Dozer and Miner, Digger's aren't removed here but instead
@@ -829,6 +872,7 @@ void GameState::factoryProductionComplete(Factory::ProductionType _p)
 		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().Connect(this, &GameState::minerTaskFinished);
 		break;
 	default:
+		cout << "Unknown production type." << endl;
 		break;
 	}
 }
@@ -900,56 +944,16 @@ void GameState::placeStructure()
 }
 
 
-/**
- * Mouse Up event handler.
- */
-void GameState::onMouseUp(MouseButton button, int x, int y)
-{
-	if(button == BUTTON_LEFT)
-	{
-		mLeftButtonDown = false;
-	}
-}
-
-
-/**
- * Mouse motion event handler.
- */
-void GameState::onMouseMove(int x, int y, int rX, int rY)
-{
-	mMousePosition(x, y);
-
-	if(mLeftButtonDown)
-	{
-		if(isPointInRect(mMousePosition, mMiniMapBoundingBox))
-		{
-			updateMapView();
-		}
-	}
-
-	mTileMapMouseHover(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY());
-}
-
-
-void GameState::onMouseWheel(int x, int y)
-{
-	if (mInsertMode != INSERT_TUBE)
-		return;
-
-	if (y > 0)
-		mConnections.incrementSelection();
-	else
-		mConnections.decrementSelection();
-}
-
-
-void GameState::updateMapView()
+void GameState::setMinimapView()
 {
 	int x = clamp(mMousePosition.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
 	int y = clamp(mMousePosition.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
 
 	mTileMap->mapViewLocation(x, y);
 }
+
+
+
 
 
 /**

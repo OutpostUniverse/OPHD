@@ -74,10 +74,10 @@ void StructureInspector::init()
  */
 void drawResourceIcons(Renderer& r, Image& sheet, int x, int y, int sheet_offset)
 {
-	r.drawSubImage(sheet, x, y + 10, 64, sheet_offset, 16, 16);
-	r.drawSubImage(sheet, x, y + 26, 80, sheet_offset, 16, 16);
-	r.drawSubImage(sheet, x, y + 42, 96, sheet_offset, 16, 16);
-	r.drawSubImage(sheet, x, y + 58, 112, sheet_offset, 16, 16);
+	r.drawSubImage(sheet, x, y + 10, 64, sheet_offset, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawSubImage(sheet, x, y + 26, 80, sheet_offset, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawSubImage(sheet, x, y + 42, 96, sheet_offset, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawSubImage(sheet, x, y + 58, 112, sheet_offset, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 }
 
 

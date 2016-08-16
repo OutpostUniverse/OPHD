@@ -412,10 +412,22 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	mDiggerDirection.visible(false);
 }
 
+int moraleChange(StructureManager& _sm, Structure::StructureType _type)
+{
+	int count = 0;
+	for (auto it = _sm.structureList(_type).begin(); it != _sm.structureList(_type).end(); ++it)
+		if ((*it)->operational())
+			++count;
+		else if ((*it)->disabled())
+			--count;
+
+	return count;
+}
+
 
 /**
-* Turns button clicked.
-*/
+ * Turns button clicked.
+ */
 void GameState::btnTurnsClicked()
 {
 	clearMode();
@@ -484,6 +496,15 @@ void GameState::btnTurnsClicked()
 	}
 	else
 		mBtnStructures.enabled(false);
+
+	// Update Morale
+	int moraleDelta = 0;
+	moraleDelta += moraleChange(mStructureManager, Structure::STRUCTURE_PARK);
+	moraleDelta += moraleChange(mStructureManager, Structure::STRUCTURE_RECREATION_CENTER);
+	moraleDelta += moraleChange(mStructureManager, Structure::STRUCTURE_FOOD_PRODUCTION);
+
+
+
 
 	mTurnCount++;
 }
