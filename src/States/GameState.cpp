@@ -660,10 +660,6 @@ void GameState::placeRobot()
 	// Robodigger has been selected.
 	else if(mCurrentRobot == ROBOT_DIGGER)
 	{
-		// FIXME: Make this more obvious as to what it does.
-		if (tile->thing() || (tile->depth() != mTileMap->maxDepth() && mTileMap->getTile(tile->x(), tile->y(), tile->depth() + 1)->thing()))
-			return;
-
 		// Keep digger within a safe margin of the map boundaries.
 		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
 		{
@@ -672,15 +668,45 @@ void GameState::placeRobot()
 			return;
 		}
 
-		// Die if tile is occupied or not excavated.
-		if (!tile->empty() && tile->structure() != nullptr && tile->structure()->connectorDirection() != CONNECTOR_VERTICAL)
+		if (!tile->excavated())
 		{
 			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
 			return;
 		}
-		else if (tile->mine() || !tile->excavated())
+
+		// Check for obstructions underneath the the digger location.
+		if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->x(), tile->y(), tile->depth() + 1)->empty())
+		{
+			cout << "Digger blocked underneath." << endl;
+			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
 			return;
-		else if (!tile->thing() && mTileMap->currentDepth() > 0)
+		}
+
+		// Die if tile is occupied or not excavated.
+		if (!tile->empty())
+		{
+			
+			if (tile->depth() > 0)
+			{
+				if (tile->thingIsStructure() && tile->structure()->connectorDirection() != CONNECTOR_VERTICAL) //air shaft
+				{
+					mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
+					return;
+				}
+				else if (tile->thingIsStructure() && tile->structure()->connectorDirection() == CONNECTOR_VERTICAL && tile->depth() == mTileMap->maxDepth())
+				{
+					mAiVoiceNotifier.notify(AiVoiceNotifier::MAX_DIGGING_DEPTH_REACHED);
+					return;
+				}
+			}
+			else
+			{
+				mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT); // tile occupied
+				return;
+			}
+		}
+		
+		if (!tile->thing() && mTileMap->currentDepth() > 0)
 			mDiggerDirection.cardinalOnlyEnabled();
 		else
 			mDiggerDirection.downOnlyEnabled();
@@ -710,10 +736,11 @@ void GameState::placeRobot()
 		insertRobotIntoTable(mRobotList, r, tile);
 		tile->index(TERRAIN_DOZED);
 
-		clearMode();
-
-		if(!mRobotPool.robotAvailable(ROBOT_MINER))
+		if (!mRobotPool.robotAvailable(ROBOT_MINER))
+		{
 			mRobots.removeItem(constants::ROBOMINER);
+			clearMode();
+		}
 	}
 
 	if (mRobotPool.allRobotsBusy())
