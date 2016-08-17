@@ -24,6 +24,9 @@ This version includes all revisions from r136 to rXXX.
 ### Changed
 - Windows (tile inspector, structure inspector and factory production) are now drag-able.
 - Windows will now arrange themselves according to their position in a 'stack'.
+- Updated Digger placement logic to account for additional use cases that caused weird behavior.
+- Updated Miner bot placement logic so that insertion mode isn't cleared if more miner's are available.
+- Save/Load now handles Morale.
 
 ### Fixed
 - Fixed a mistake in GameState that would forget to set a pointer to the players resource pool when the surface factory was placed.

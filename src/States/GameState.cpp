@@ -52,7 +52,7 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mTileInspector(mTinyFont),
 																											mInsertMode(INSERT_NONE),
 																											mTurnCount(0),
-																											mCurrentMorale(800),
+																											mCurrentMorale(600),
 																											mReturnState(NULL),
 																											mLeftButtonDown(false),
 																											mDebug(false)
@@ -1190,6 +1190,10 @@ void GameState::save(const std::string& _path)
 	turns->SetAttribute("count", mTurnCount);
 	root->LinkEndChild(turns);
 
+	TiXmlElement* population = new TiXmlElement("population");
+	turns->SetAttribute("morale", mCurrentMorale);
+	root->LinkEndChild(population);
+
 	TiXmlElement* ai = new TiXmlElement("ai");
 	ai->SetAttribute("gender", mAiVoiceNotifier.gender());
 	root->LinkEndChild(ai);
@@ -1257,6 +1261,7 @@ void GameState::load(const std::string& _path)
 
 	readResources(root->FirstChildElement("resources"), mPlayerResources);
 	readTurns(root->FirstChildElement("turns"));
+	readPopulation(root->FirstChildElement("population"));
 
 
 	TiXmlElement* ai = root->FirstChildElement("ai");
@@ -1438,6 +1443,19 @@ void GameState::readTurns(TiXmlElement* _ti)
 
 			populateStructureMenu();
 		}
+	}
+}
+
+
+/**
+ * Reads the population tag.
+ */
+void GameState::readPopulation(TiXmlElement* _ti)
+{
+	if (_ti)
+	{
+		_ti->Attribute("morale", &mCurrentMorale);
+
 	}
 }
 

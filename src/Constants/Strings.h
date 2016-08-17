@@ -44,13 +44,11 @@ namespace constants
 	const string	COMMAND_CENTER = "Command Center";
 	const string	COMMERCIAL = "Commercial";
 	const string	FUSION_REACTOR = "Fusion Reactor";
-	const string	LABORATORY = "Laboratory";
 	const string	HOT_LABORATORY = "Hot Laboratory";
+	const string	LABORATORY = "Laboratory";
 	const string	MINE_FACILITY = "Mine Facility";
 	const string	MINE_SHAFT = "Mine Shaft";
 	const string	PARK = "Park / Reservoir ";
-	const string	UNDERGROUND_POLICE = "Police (UG)";
-	const string	SURFACE_POLICE = "Police";
 	const string	RECREATION_CENTER = "Recreation Center";
 	const string	RED_LIGHT_DISTRICT = "Red Light District";
 	const string	RESIDENCE = "Residential Facility";
@@ -63,8 +61,10 @@ namespace constants
 	const string	SOLAR_PLANT = "Solar Powersat Receiver Array";
 	const string	STORAGE_TANKS = "Storage Tanks";
 	const string	SURFACE_FACTORY = "Surface Factory";
+	const string	SURFACE_POLICE = "Police";
 	const string	TUBE = "Tube";
 	const string	UNDERGROUND_FACTORY = "Underground Factory";
+	const string	UNDERGROUND_POLICE = "Police (UG)";
 	const string	UNIVERSITY = "University";
 	const string	WAREHOUSE = "Warehouse";
 

@@ -124,6 +124,7 @@ private:
 	void readRobots(TiXmlElement* _ti);
 	void readStructures(TiXmlElement* _ti);
 	void readTurns(TiXmlElement* _ti);
+	void readPopulation(TiXmlElement* _ti);
 
 	void scrubRobotList();
 
@@ -207,7 +208,6 @@ private:
 
 	// MISCELLANEOUS
 	int					mTurnCount;
-
 	int					mCurrentMorale;
 
 	bool				mDebug;
