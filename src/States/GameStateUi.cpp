@@ -104,10 +104,6 @@ void GameState::initUi()
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0);
-
-	mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110);
-	mConnections.addItem(constants::AG_TUBE_LEFT, 111);
-	mConnections.addItem(constants::AG_TUBE_RIGHT, 112);
 }
 
 

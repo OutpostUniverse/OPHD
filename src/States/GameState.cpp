@@ -529,9 +529,9 @@ void GameState::onMouseWheel(int x, int y)
 		return;
 
 	if (y > 0)
-		mConnections.incrementSelection();
-	else
 		mConnections.decrementSelection();
+	else
+		mConnections.incrementSelection();
 }
 
 
