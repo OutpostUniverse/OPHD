@@ -22,6 +22,7 @@ public:
 
 	bool robotAvailable(RobotType _type);
 	bool allRobotsBusy();
+	int getAvailableCount(RobotType _type);
 
 	DiggerList& diggers() { return mDiggers; }
 	DozerList& dozers() { return mDozers; }

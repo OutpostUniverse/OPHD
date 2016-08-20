@@ -262,6 +262,24 @@ void GameState::drawResourceInfo()
 		r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 144, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	else
 		r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+
+	// Robots
+	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border) 
+	y = (int)r.height() - constants::BOTTOM_UI_HEIGHT - 25 - 8;
+	textY = y + 10;	// Same position + 10 to center the text with the graphics
+	margin = 28;	// Margin of 28 px from the graphics to the text
+	x = 0; offsetX = 1;	// Start a the left side of the screen + an offset of 1 to detatch from the border
+	// Miner (last one)
+	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 18, 25, 25);
+	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
+	// Dozer (Midle one)
+	textY -= 25; y -= 25;
+	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 206, 18, 25, 25);
+	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
+	// Digger (First one)
+	textY -= 25; y -= 25;
+	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 181, 18, 25, 25);
+	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER),mRobotPool.diggers().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 }
 
 

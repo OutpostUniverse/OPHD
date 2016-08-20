@@ -169,3 +169,28 @@ bool RobotPool::allRobotsBusy()
 	return true;
 }
 
+ int RobotPool::getAvailableCount(RobotType _type)
+ {
+	 int count = 0;
+	 switch (_type)
+	 {
+		 case ROBOT_DIGGER:
+			 for (size_t i = 0; i < mDiggers.size(); i++)
+				 if (mDiggers[i]->idle()) count++;
+			 break;
+		 case ROBOT_DOZER:
+			 for (size_t i = 0; i < mDozers.size(); i++)
+				 if (mDozers[i]->idle()) count++;
+			 break;
+		 case ROBOT_MINER:
+			 for (size_t i = 0; i < mMiners.size(); i++)
+				 if (mMiners[i]->idle()) count++;
+			 break;
+		 default:
+			 return 0;
+			 break;
+	 }
+	 
+	 return count;
+ }
+
