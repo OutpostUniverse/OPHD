@@ -345,32 +345,29 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 
 		case KEY_0:
 			viewUpdated = true;
-			if(changeDepth(0))
-				CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
+			changeDepth(0);
+//			if(changeDepth(0))
+//				updateCurrentLevelString(0);
 			break;
 
 		case KEY_1:
 			viewUpdated = true;
-			if(changeDepth(1))
-				CURRENT_LEVEL_STRING = constants::LEVEL_UG1;
+			changeDepth(1);
 			break;
 
 		case KEY_2:
 			viewUpdated = true;
-			if(changeDepth(2))
-				CURRENT_LEVEL_STRING = constants::LEVEL_UG2;
+			changeDepth(2);
 			break;
 
 		case KEY_3:
 			viewUpdated = true;
-			if(changeDepth(3))
-				CURRENT_LEVEL_STRING = constants::LEVEL_UG3;
+			changeDepth(3);
 			break;
 
 		case KEY_4:
 			viewUpdated = true;
-			if(changeDepth(4))
-				CURRENT_LEVEL_STRING = constants::LEVEL_UG4;
+			changeDepth(4);
 			break;
 
 		case KEY_F10:
@@ -537,14 +534,15 @@ void GameState::onMouseWheel(int x, int y)
 
 bool GameState::changeDepth(int _d)
 {
+	int mPrevious = mTileMap->currentDepth();
 	mTileMap->currentDepth(_d);
 
-	if (mTileMap->currentDepth() != _d)
+	if (mTileMap->currentDepth() == mPrevious)
 		return false;
 
 	clearMode();
 	populateStructureMenu();
-
+	updateCurrentLevelString(mTileMap->currentDepth());
 	return true;
 }
 
@@ -1470,4 +1468,33 @@ void GameState::scrubRobotList()
 {
 	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
 		it->second->removeThing();
+}
+
+/**
+* Update the value of the current level string
+*/
+void GameState::updateCurrentLevelString(int currentDepth)
+{
+
+	switch (currentDepth)
+	{
+	case 0:
+		CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
+		break;
+	case 1:
+		CURRENT_LEVEL_STRING = constants::LEVEL_UG1;
+		break;
+	case 2:
+		CURRENT_LEVEL_STRING = constants::LEVEL_UG2;
+		break;
+	case 3:
+		CURRENT_LEVEL_STRING = constants::LEVEL_UG3;
+		break;
+	case 4:
+		CURRENT_LEVEL_STRING = constants::LEVEL_UG4;
+		break;
+	default:
+		CURRENT_LEVEL_STRING = "";
+		break;
+	}
 }

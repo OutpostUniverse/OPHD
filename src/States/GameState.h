@@ -134,6 +134,9 @@ private:
 	// UI Event Handlers
 	void btnTurnsClicked();
 	void btnToggleConnectednessClicked();
+	
+	void updateCurrentLevelString(int currentDepth);
+	
 
 	void structuresSelectionChanged(const std::string& _s);
 	void connectionsSelectionChanged(const std::string& _s);
