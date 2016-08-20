@@ -133,9 +133,6 @@ private:
 
 	// UI Event Handlers
 	void btnTurnsClicked();
-	void btnTubesPickerClicked();
-	void btnRobotPickerClicked();
-	void btnStructurePickerClicked();
 	void btnToggleConnectednessClicked();
 
 	void structuresSelectionChanged(const std::string& _s);
@@ -186,9 +183,6 @@ private:
 	//Music				mBgMusic;
 
 	// UI
-	Button				mBtnStructures;
-	Button				mBtnConnections;
-	Button				mBtnRobots;
 	Button				mBtnTurns;
 
 	Button				mBtnToggleHeightmap;

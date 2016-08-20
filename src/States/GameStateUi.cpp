@@ -51,78 +51,56 @@ void GameState::initUi()
 	// X Position of the main UI buttons
 	int posX = r.width() - 34;
 
-	// BUTTONS
-	// System
-	mBtnStructures.image("ui/icons/construction.png");
-	mBtnStructures.size(constants::MAIN_BUTTON_SIZE);
-	mBtnStructures.type(Button::BUTTON_TOGGLE);
-	mBtnStructures.position(constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN);
-	mBtnStructures.click().Connect(this, &GameState::btnStructurePickerClicked);
-
-	mBtnConnections.image("ui/icons/tubes.png");
-	mBtnConnections.size(constants::MAIN_BUTTON_SIZE);
-	mBtnConnections.type(Button::BUTTON_TOGGLE);
-	mBtnConnections.enabled(false);
-	mBtnConnections.position(constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN));
-	mBtnConnections.click().Connect(this, &GameState::btnTubesPickerClicked);
-
-	mBtnRobots.image("ui/icons/robot.png");
-	mBtnRobots.size(constants::MAIN_BUTTON_SIZE);
-	mBtnRobots.type(Button::BUTTON_TOGGLE);
-	mBtnRobots.enabled(false);
-	mBtnRobots.position(constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN + (constants::MAIN_BUTTON_SIZE + constants::MARGIN) * 2);
-	mBtnRobots.click().Connect(this, &GameState::btnRobotPickerClicked);
-
-	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.size(constants::MAIN_BUTTON_SIZE);
-	mBtnTurns.position(constants::MARGIN, r.height() - constants::MARGIN - MAIN_BUTTON_SIZE);
-	mBtnTurns.click().Connect(this, &GameState::btnTurnsClicked);
-	mBtnTurns.enabled(false);
-
 	// Mini Map
 	mMiniMapBoundingBox(r.width() - mMapDisplay.width() - constants::MARGIN, BOTTOM_UI_AREA.y() + constants::MARGIN, mMapDisplay.width(), mMapDisplay.height());
 
+	// BUTTONS
+	// System
+	mBtnTurns.image("ui/icons/turns.png");
+	mBtnTurns.size(constants::MAIN_BUTTON_SIZE);
+	mBtnTurns.position(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, r.height() - constants::MARGIN - MAIN_BUTTON_SIZE);
+	mBtnTurns.click().Connect(this, &GameState::btnTurnsClicked);
+	mBtnTurns.enabled(false);
+
 	mBtnToggleHeightmap.image("ui/icons/height.png");
-	mBtnToggleHeightmap.size(constants::MINI_MAP_BUTTON_SIZE);
-	mBtnToggleHeightmap.position(mMiniMapBoundingBox.x() - constants::MINI_MAP_BUTTON_SIZE - constants::MARGIN_TIGHT, mMiniMapBoundingBox.y());
+	mBtnToggleHeightmap.size(constants::MAIN_BUTTON_SIZE);
+	mBtnToggleHeightmap.position(mBtnTurns.positionX(), mMiniMapBoundingBox.y());
 	mBtnToggleHeightmap.type(Button::BUTTON_TOGGLE);
 
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
-	mBtnToggleConnectedness.size(constants::MINI_MAP_BUTTON_SIZE);
-	mBtnToggleConnectedness.position(mMiniMapBoundingBox.x() - constants::MINI_MAP_BUTTON_SIZE - constants::MARGIN_TIGHT, mMiniMapBoundingBox.y() + constants::MINI_MAP_BUTTON_SIZE + constants::MARGIN_TIGHT);
+	mBtnToggleConnectedness.size(constants::MAIN_BUTTON_SIZE);
+	mBtnToggleConnectedness.position(mBtnTurns.positionX(), mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT);
 	mBtnToggleConnectedness.type(Button::BUTTON_TOGGLE);
 	mBtnToggleConnectedness.click().Connect(this, &GameState::btnToggleConnectednessClicked);
 
 	// Menus
-	mStructures.font(mTinyFont);
-	mStructures.sheetPath("ui/structures.png");
-	mStructures.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
-	mStructures.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
-	mStructures.iconSize(46);
-	mStructures.iconMargin(constants::MARGIN_TIGHT);
-	mStructures.showTooltip(true);
-	mStructures.hide();
-	mStructures.selectionChanged().Connect(this, &GameState::structuresSelectionChanged);
-
-	mConnections.font(mTinyFont);
-	mConnections.sheetPath("ui/structures.png");
-	mConnections.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
-	mConnections.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
-	mConnections.iconSize(46);
-	mConnections.iconMargin(constants::MARGIN_TIGHT);
-	mConnections.hide();
-	mConnections.selectionChanged().Connect(this, &GameState::connectionsSelectionChanged);
-	mConnections.sorted(false);
-
 	mRobots.font(mTinyFont);
 	mRobots.sheetPath("ui/robots.png");
-	mRobots.position(constants::MARGIN * 2 + constants::MAIN_BUTTON_SIZE, BOTTOM_UI_AREA.y() + MARGIN);
-	mRobots.size(r.width() - constants::MARGIN * 4 - constants::MARGIN_TIGHT - constants::MAIN_BUTTON_SIZE - constants::MINI_MAP_BUTTON_SIZE - mMiniMapBoundingBox.w(), BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mRobots.position(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, BOTTOM_UI_AREA.y() + MARGIN);
+	mRobots.size(52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
 	mRobots.showTooltip(true);
-	mRobots.hide();
 	mRobots.selectionChanged().Connect(this, &GameState::robotsSelectionChanged);
+
+	mConnections.font(mTinyFont);
+	mConnections.sheetPath("ui/structures.png");
+	mConnections.position(mRobots.positionX() - constants::MARGIN_TIGHT - 52, BOTTOM_UI_AREA.y() + MARGIN);
+	mConnections.size(52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mConnections.iconSize(46);
+	mConnections.iconMargin(constants::MARGIN_TIGHT);
+	mConnections.selectionChanged().Connect(this, &GameState::connectionsSelectionChanged);
+	mConnections.sorted(false);
+
+	mStructures.font(mTinyFont);
+	mStructures.sheetPath("ui/structures.png");
+	mStructures.position(constants::MARGIN , BOTTOM_UI_AREA.y() + MARGIN);
+	mStructures.size( mConnections.positionX() -  constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mStructures.iconSize(46);
+	mStructures.iconMargin(constants::MARGIN_TIGHT);
+	mStructures.showTooltip(true);
+	mStructures.selectionChanged().Connect(this, &GameState::structuresSelectionChanged);
+	
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0);
@@ -140,10 +118,6 @@ void GameState::resetUi()
 {
 	clearMode();
 
-	mStructures.hide();
-	mConnections.hide();
-	mRobots.hide();
-
 	clearSelections();
 
 	mDiggerDirection.hide();
@@ -151,9 +125,6 @@ void GameState::resetUi()
 	mStructureInspector.hide();
 	mTileInspector.hide();
 
-	mBtnStructures.toggle(false);
-	mBtnConnections.toggle(false);
-	mBtnRobots.toggle(false);
 }
 
 
@@ -229,9 +200,6 @@ void GameState::drawUI()
 	mBtnToggleHeightmap.update();
 	mBtnToggleConnectedness.update();
 
-	mBtnStructures.update();
-	mBtnConnections.update();
-	mBtnRobots.update();
 	mBtnTurns.update();
 	
 	// Menus
@@ -255,60 +223,6 @@ void GameState::drawUI()
 void GameState::btnToggleConnectednessClicked()
 {
 	mTileMap->toggleShowConnections();
-}
-
-
-/**
- * Handles clicks of the Structure Picker button.
- */
-void GameState::btnStructurePickerClicked()
-{
-	bool toggled = mBtnStructures.toggled();
-	resetUi();
-
-	mBtnStructures.toggle(toggled);
-	mBtnRobots.toggle(false);
-	mBtnConnections.toggle(false);
-
-	if (toggled)
-		mStructures.show();
-}
-
-
-/**
- * Handles clicks of the Tubes Picker button.
- */
-void GameState::btnTubesPickerClicked()
-{
-	bool toggled = mBtnConnections.toggled();
-	resetUi();
-
-	mBtnConnections.toggle(toggled);
-	mBtnRobots.toggle(false);
-	mBtnStructures.toggle(false);
-
-	if (toggled)
-		mConnections.visible(true);
-}
-
-
-
-
-
-/**
-* Handles clicks of the Robot Picker button.
-*/
-void GameState::btnRobotPickerClicked()
-{
-	bool toggled = mBtnRobots.toggled();
-	resetUi();
-
-	mBtnRobots.toggle(toggled);
-	mBtnStructures.toggle(false);
-	mBtnConnections.toggle(false);
-
-	if (toggled)
-		mRobots.visible(true);
 }
 
 
@@ -492,19 +406,13 @@ void GameState::btnTurnsClicked()
 	if (cc->state() == Structure::OPERATIONAL)
 	{
 		populateStructureMenu();
-		mBtnStructures.enabled(true);
 	}
-	else
-		mBtnStructures.enabled(false);
 
 	// Update Morale
 	int moraleDelta = 0;
 	moraleDelta += moraleChange(mStructureManager, Structure::STRUCTURE_PARK);
 	moraleDelta += moraleChange(mStructureManager, Structure::STRUCTURE_RECREATION_CENTER);
 	moraleDelta += moraleChange(mStructureManager, Structure::STRUCTURE_FOOD_PRODUCTION);
-
-
-
 
 	mTurnCount++;
 }

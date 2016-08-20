@@ -760,11 +760,6 @@ void GameState::placeRobot()
 			clearMode();
 		}
 	}
-
-	if (mRobotPool.allRobotsBusy())
-	{
-		mBtnRobots.enabled(false);
-	}
 }
 
 
@@ -777,9 +772,6 @@ void GameState::checkRobotSelectionInterface(const std::string rType, int sheetI
 	if (!mRobots.itemExists(rType))
 	{
 		mRobots.addItem(rType, sheetIndex);
-
-		if (!mBtnRobots.enabled())
-			mBtnRobots.enabled(true);
 	}
 }
 
@@ -1025,7 +1017,6 @@ void GameState::insertSeedLander(int x, int y)
 		clearMode();
 		resetUi();
 
-		mBtnStructures.enabled(false);
 		mStructures.dropAllItems();
 		mBtnTurns.enabled(true);
 	}
@@ -1095,10 +1086,6 @@ void GameState::deploySeedLander(int x, int y)
 	ss->sprite().skip(10);
 	mStructureManager.addStructure(ss, mTileMap->getTile(x + 1, y + 1));
 	mTileMap->getTile(x + 1, y + 1)->index(TERRAIN_DOZED);
-
-	// Enable UI Contruction Buttons
-	mBtnConnections.enabled(true);
-	mBtnRobots.enabled(true);
 
 	// Robots only become available after the SEED Factor is deployed.
 	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID);
@@ -1454,9 +1441,6 @@ void GameState::readTurns(TiXmlElement* _ti)
 
 		if (mTurnCount > 0)
 		{
-			mBtnConnections.enabled(true);
-			mBtnRobots.enabled(true);
-			mBtnStructures.enabled(true);
 			mBtnTurns.enabled(true);
 
 			populateStructureMenu();
