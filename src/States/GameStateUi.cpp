@@ -141,7 +141,7 @@ void GameState::populateStructureMenu()
 	mConnections.dropAllItems();
 
 	// Above Ground structures only
-	if (mTileMap->currentDepth() == 0)
+	if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 	{
 		mStructures.addItem(constants::AGRIDOME, 5);
 		mStructures.addItem(constants::CHAP, 3);

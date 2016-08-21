@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Common.h"
+#include "../Common.h"
 
-#include "Mine.h"
+#include "../Mine.h"
 
-#include "Things/Thing.h"
-#include "Things/Structures/Structure.h"
-#include "Things/Robots/Robot.h"
+#include "../Things/Thing.h"
+#include "../Things/Structures/Structure.h"
+#include "../Things/Robots/Robot.h"
 
 class Tile
 {

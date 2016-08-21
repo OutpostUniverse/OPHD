@@ -2,7 +2,7 @@
 
 #include "Tile.h"
 
-#include "Things/Structures/Structure.h"
+#include "../Things/Structures/Structure.h"
 
 typedef vector<Point_2d> Point2dList;
 

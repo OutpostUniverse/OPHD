@@ -161,7 +161,10 @@
     <ClCompile Include="..\..\src\AiVoiceNotifier.cpp" />
     <ClCompile Include="..\..\src\GraphWalker.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\Map\Tile.cpp" />
+    <ClCompile Include="..\..\src\Map\TileMap.cpp" />
     <ClCompile Include="..\..\src\Mine.cpp" />
+    <ClCompile Include="..\..\src\Population\Population.cpp" />
     <ClCompile Include="..\..\src\ResourcePool.cpp" />
     <ClCompile Include="..\..\src\RobotPool.cpp" />
     <ClCompile Include="..\..\src\RobotTranslator.cpp" />
@@ -176,8 +179,6 @@
     <ClCompile Include="..\..\src\Things\Robots\Robot.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Factory.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Structure.cpp" />
-    <ClCompile Include="..\..\src\Tile.cpp" />
-    <ClCompile Include="..\..\src\TileMap.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Button.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Control.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Menu.cpp" />
@@ -200,7 +201,11 @@
     <ClInclude Include="..\..\src\Constants\Strings.h" />
     <ClInclude Include="..\..\src\Constants\UiConstants.h" />
     <ClInclude Include="..\..\src\GraphWalker.h" />
+    <ClInclude Include="..\..\src\Map\Tile.h" />
+    <ClInclude Include="..\..\src\Map\TileMap.h" />
     <ClInclude Include="..\..\src\Mine.h" />
+    <ClInclude Include="..\..\src\Population\Person.h" />
+    <ClInclude Include="..\..\src\Population\Population.h" />
     <ClInclude Include="..\..\src\ResourcePool.h" />
     <ClInclude Include="..\..\src\RobotPool.h" />
     <ClInclude Include="..\..\src\RobotTranslator.h" />
@@ -249,8 +254,6 @@
     <ClInclude Include="..\..\src\Things\Structures\University.h" />
     <ClInclude Include="..\..\src\Things\Structures\Warehouse.h" />
     <ClInclude Include="..\..\src\Things\Thing.h" />
-    <ClInclude Include="..\..\src\Tile.h" />
-    <ClInclude Include="..\..\src\TileMap.h" />
     <ClInclude Include="..\..\src\UI\Core\Button.h" />
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
     <ClInclude Include="..\..\src\UI\Core\Menu.h" />

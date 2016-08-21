@@ -52,6 +52,18 @@
     <Filter Include="Header Files\Constants">
       <UniqueIdentifier>{df1a7586-89dd-467f-b703-58d0b820cd47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Population">
+      <UniqueIdentifier>{964e7130-2144-43ab-a0c0-ff1f199d1c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Population">
+      <UniqueIdentifier>{d903cae4-8bc6-462c-afb0-c731298b8840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{ef0f2f7d-e0aa-47f6-a564-6a2de9a2cef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{8013e5ff-baf7-4499-bff7-a7e38570a994}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -61,9 +73,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\StructureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\TileMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Things\Structures\Structure.cpp">
@@ -86,9 +95,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\UI\Core\UIContainer.cpp">
       <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Tile.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\GraphWalker.cpp">
       <Filter>Source Files</Filter>
@@ -153,6 +159,15 @@
     <ClCompile Include="..\..\src\UI\Core\WindowStack.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Population\Population.cpp">
+      <Filter>Source Files\Population</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Map\Tile.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Map\TileMap.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -165,12 +180,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\StructureManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\TileMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Thing.h">
@@ -376,6 +385,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\University.h">
       <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Population\Person.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Population\Population.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Map\Tile.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Map\TileMap.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

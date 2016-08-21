@@ -10,4 +10,10 @@ namespace constants
 	const int MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING = 20;
 
 	const int BASE_STORAGE_CAPACITY = 250;
+
+	const int DEPTH_SURFACE = 0;
+	const int DEPTH_UNDERGROUND_1 = 1;
+	const int DEPTH_UNDERGROUND_2 = 2;
+	const int DEPTH_UNDERGROUND_3 = 3;
+	const int DEPTH_UNDERGROUND_4 = 4;
 }

@@ -1,6 +1,6 @@
 #include "TileMap.h"
 
-#include "Constants.h"
+#include "../Constants.h"
 
 
 #pragma warning(disable: 4244)

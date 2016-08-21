@@ -2,7 +2,7 @@
 
 #include "../Common.h"
 #include "../StructureManager.h"
-#include "../Tile.h"
+#include "../Map/Tile.h"
 
 typedef map<Robot*, Tile*> RobotTileTable;
 

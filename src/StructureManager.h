@@ -4,7 +4,7 @@
 #include "Things/Structures/Factory.h"
 
 #include "ResourcePool.h"
-#include "Tile.h"
+#include "Map/Tile.h"
 
 /**
  * Handles structure updating and resource management for structures.

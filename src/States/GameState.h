@@ -14,8 +14,8 @@
 #include "../Things/Structures/Structure.h"
 #include "../Things/Robots/Robots.h"
 
-#include "../Tile.h"
-#include "../TileMap.h"
+#include "../Map/Tile.h"
+#include "../Map/TileMap.h"
 
 #include "../UI/UI.h"
 #include "../UI/DiggerDirection.h"

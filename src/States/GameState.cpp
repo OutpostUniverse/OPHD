@@ -1,16 +1,15 @@
 #include "GameState.h"
 #include "PlanetSelectState.h"
 
+#include "../Constants.h"
 #include "../GraphWalker.h"
+#include "../StructureFactory.h"
+#include "../StructureTranslator.h"
 
-#include "../Tile.h"
+#include "../Map/Tile.h"
 
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
-
-#include "../Constants.h"
-#include "../StructureFactory.h"
-#include "../StructureTranslator.h"
 
 #include <sstream>
 #include <vector>
@@ -26,12 +25,14 @@ using namespace NAS2D;
 const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
 const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 
-std::string			CURRENT_LEVEL_STRING		= constants::LEVEL_SURFACE;
-
 const int MAX_TILESET_INDEX	= 4;
+
 
 Rectangle_2d MENU_ICON;
 
+
+std::string					CURRENT_LEVEL_STRING;
+std::map <int, std::string>	LEVEL_STRING_TABLE;
 
 /**
  * C'Tor
@@ -110,6 +111,15 @@ void GameState::initialize()
 	CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
 
 	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
+
+	if (LEVEL_STRING_TABLE.empty())
+	{
+		LEVEL_STRING_TABLE[constants::DEPTH_SURFACE] = constants::LEVEL_SURFACE;
+		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_1] = constants::LEVEL_UG1;
+		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_2] = constants::LEVEL_UG2;
+		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_3] = constants::LEVEL_UG3;
+		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_4] = constants::LEVEL_UG4;
+	}
 }
 
 
@@ -702,7 +712,7 @@ void GameState::placeRobot()
 		if (!tile->empty())
 		{
 			
-			if (tile->depth() > 0)
+			if (tile->depth() > constants::DEPTH_SURFACE)
 			{
 				if (tile->thingIsStructure() && tile->structure()->connectorDirection() != CONNECTOR_VERTICAL) //air shaft
 				{
@@ -733,7 +743,7 @@ void GameState::placeRobot()
 		//			are removed after responses to the DiggerDirection dialog.
 
 		// If we're placing on the top level we can only ever go down.
-		if (mTileMap->currentDepth() == 0)
+		if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 			mDiggerDirection.selectDown();
 		else
 			mDiggerDirection.visible(true);
@@ -870,7 +880,7 @@ void GameState::minerTaskFinished(Robot* _r)
 
 	Tile* t = mRobotList[_r];
 
-	if (t->depth() == 0)
+	if (t->depth() == constants::DEPTH_SURFACE)
 	{
 		mStructureManager.addStructure(new MineFacility(t->mine()), t);
 	}
@@ -1279,17 +1289,7 @@ void GameState::load(const std::string& _path)
 	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::STRUCTURE_STORAGE)));
 	
 	// set level indicator string
-	// FIXME: Cludgy.
-	if(mTileMap->currentDepth() == 0)
-		CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
-	else if (mTileMap->currentDepth() == 1)
-		CURRENT_LEVEL_STRING = constants::LEVEL_UG1;
-	else if (mTileMap->currentDepth() == 2)
-		CURRENT_LEVEL_STRING = constants::LEVEL_UG2;
-	else if (mTileMap->currentDepth() == 3)
-		CURRENT_LEVEL_STRING = constants::LEVEL_UG3;
-	else if (mTileMap->currentDepth() == 4)
-		CURRENT_LEVEL_STRING = constants::LEVEL_UG4;
+	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
 }
 
 
@@ -1471,30 +1471,9 @@ void GameState::scrubRobotList()
 }
 
 /**
-* Update the value of the current level string
-*/
+ * Update the value of the current level string
+ */
 void GameState::updateCurrentLevelString(int currentDepth)
 {
-
-	switch (currentDepth)
-	{
-	case 0:
-		CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
-		break;
-	case 1:
-		CURRENT_LEVEL_STRING = constants::LEVEL_UG1;
-		break;
-	case 2:
-		CURRENT_LEVEL_STRING = constants::LEVEL_UG2;
-		break;
-	case 3:
-		CURRENT_LEVEL_STRING = constants::LEVEL_UG3;
-		break;
-	case 4:
-		CURRENT_LEVEL_STRING = constants::LEVEL_UG4;
-		break;
-	default:
-		CURRENT_LEVEL_STRING = "";
-		break;
-	}
+	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[currentDepth];
 }

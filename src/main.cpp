@@ -56,6 +56,8 @@ int main(int argc, char *argv[])
 	std::cout.rdbuf(filestr.rdbuf());
 #endif
 
+	srand((unsigned int)time(nullptr));
+
 	try
 	{
 		Filesystem& f = Utility<Filesystem>::get();
