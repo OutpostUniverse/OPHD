@@ -20,7 +20,7 @@ public:
 	}
 
 
-	~MineShaft()
+	virtual ~MineShaft()
 	{}
 
 protected:

@@ -42,11 +42,25 @@ private:
 	void btnFemaleClicked();
 	void btnQuitClicked();
 
+	void drawStar(int x, int y);
+
 private:
 	Font				mFont;
+	Font				mFontBold;
 	Font				mTinyFont;
 
 	Image				mMousePointer;
+
+	Image				mBg;
+
+	Image				mStarFlare;
+	Image				mDetailFlare;
+	Image				mDetailFlare2;
+
+	Image				mCloud1;
+	Image				mCloud2;
+
+	Music				mBgMusic;
 
 	Sound				mSelect;
 	Sound				mHover;
@@ -61,6 +75,8 @@ private:
 	Button				mQuit;
 
 	TextArea			mPlanetDescription;
+
+	Timer				mTimer;
 
 	AiVoiceNotifier::AiGender	mAiGender;
 

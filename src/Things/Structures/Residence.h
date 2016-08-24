@@ -17,7 +17,7 @@ public:
 	}
 
 
-	~Residence()
+	virtual ~Residence()
 	{}
 
 protected:

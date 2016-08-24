@@ -19,7 +19,7 @@ public:
 	}
 
 
-	~Tube()
+	virtual ~Tube()
 	{}
 
 protected:

@@ -23,6 +23,9 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_CHAP:
 			_st = new CHAP();
 			break;
+		case SID_COLONIST_LANDER:
+			_st = new ColonistLander();
+			break;
 		case SID_COMMAND_CENTER:
 			_st = new CommandCenter();
 			break;

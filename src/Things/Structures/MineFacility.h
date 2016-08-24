@@ -22,7 +22,7 @@ public:
 	}
 
 
-	~MineFacility()
+	virtual ~MineFacility()
 	{}
 	
 	void mine(Mine* _m) { mMine = _m; }

@@ -1,8 +1,9 @@
 #include "Population.h"
 
-
 #include <algorithm>
 #include <iostream>
+
+#include <NAS2D/NAS2D.h>
 
 
 const int CHILD_BEARING_AGE_MIN = 240;			// months, basically 20.
@@ -305,10 +306,37 @@ void Population::check_females()
 }
 
 
+
+int Population::killPopulation(Population::PersonList& _pl, Population::PersonRole _pr, int count)
+{
+	int c = 0;
+	for (size_t i = 0; i < _pl.size() && i < count; ++i)
+	{
+		deletePerson(_pl[0], _pr);
+		++c;
+	}
+
+	return c;
+}
+
+
+
 /**
- *
+ * Determine how much food should be consumed and kill off any population that
+ * starves.
+ * 
+ * \return	Actual amount of food consumed.
  */
-void Population::update(int _morale)
+int Population::consume_food(int _food)
+{
+	return 0;
+}
+
+
+/**
+ * \return	Actual amount of food consumed.
+ */
+int Population::update(int _morale, int _food)
 {
 	mBirthCount = 0;
 	mDeathCount = 0;
@@ -327,4 +355,6 @@ void Population::update(int _morale)
 	check_students();
 	check_females();
 	check_retired();
+
+	return consume_food(_food);
 }

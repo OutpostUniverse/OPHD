@@ -17,7 +17,7 @@ public:
 	}
 
 
-	~University()
+	virtual ~University()
 	{}
 
 protected:

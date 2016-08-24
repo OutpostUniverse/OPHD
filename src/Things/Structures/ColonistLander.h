@@ -2,15 +2,15 @@
 
 #include "Structure.h"
 
+#include "../../Constants.h"
 
-class SeedLander: public Structure
+class ColonistLander : public Structure
 {
 public:
 
-	typedef Gallant::Signal2<int, int> Callback;
+	typedef Gallant::Signal0<void> Callback;
 
-	SeedLander(int x, int y):	Structure(constants::SEED_LANDER, "structures/seed_0.sprite", STRUCTURE_LANDER),
-								mX(x), mY(y)
+	ColonistLander() : Structure(constants::SEED_LANDER, "structures/lander_1.sprite", STRUCTURE_LANDER)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);
@@ -22,8 +22,7 @@ public:
 		enable();
 	}
 
-
-	virtual ~SeedLander()
+	virtual ~ColonistLander()
 	{}
 
 	Callback& deployCallback() { return mDeploy; }
@@ -34,17 +33,11 @@ protected:
 	{
 		if (age() == turnsToBuild())
 		{
-			// Logic guard, probably not necessary.
-			if (mX == 0 && mY == 0)
-				return;
-
-			mDeploy(mX, mY);
+			mDeploy();
 		}
 	}
 
 private:
 
 	Callback	mDeploy;
-
-	int			mX, mY;
 };

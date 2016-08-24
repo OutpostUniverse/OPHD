@@ -30,6 +30,11 @@ public:
 
 	int count() const;
 
+	int getCountInState(Structure::StructureType _st, Structure::StructureState _state);
+
+	int disabled();
+	int destroyed();
+
 	bool CHAPAvailable();
 
 	void updateEnergyProduction(ResourcePool& _r);

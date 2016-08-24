@@ -16,7 +16,7 @@ public:
 	}
 
 
-	~SolarPlant()
+	virtual ~SolarPlant()
 	{}
 
 protected:

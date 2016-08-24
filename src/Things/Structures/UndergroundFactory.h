@@ -17,7 +17,7 @@ public:
 		initFactory();
 	}
 
-	~UndergroundFactory()
+	virtual ~UndergroundFactory()
 	{}
 
 protected:

@@ -17,7 +17,7 @@ public:
 		storage().capacity(750);
 	}
 
-	~Smelter()
+	virtual ~Smelter()
 	{}
 
 	virtual void input(ResourcePool& _resourcePool)

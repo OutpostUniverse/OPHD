@@ -37,6 +37,12 @@ void GameState::initUi()
 	mFactoryProduction.position(r.screenCenterX() - mFactoryProduction.width() / 2, 175);
 	mFactoryProduction.hide();
 
+	mPopulationPanel.position(580, constants::RESOURCE_ICON_SIZE + 4 + constants::MARGIN_TIGHT);
+	mPopulationPanel.font(mTinyFont);
+	mPopulationPanel.population(&mPopulation);
+	mPopulationPanel.morale(&mCurrentMorale);
+
+
 
 	mWindowStack.addWindow(&mTileInspector);
 	mWindowStack.addWindow(&mStructureInspector);
@@ -350,6 +356,32 @@ void GameState::btnTurnsClicked()
 	mStructureManager.disconnectAll();
 	checkConnectedness();
 	mStructureManager.update(mPlayerResources);
+
+	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage());
+	
+	StructureManager::StructureList& food_producers = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
+	for (size_t i = 0; i < food_producers.size(); ++i)
+	{
+
+	}
+	
+	// Positive Effects
+	mCurrentMorale += mPopulation.birthCount();
+	mCurrentMorale += mStructureManager.getCountInState(Structure::STRUCTURE_PARK, Structure::OPERATIONAL);
+	mCurrentMorale += mStructureManager.getCountInState(Structure::STRUCTURE_RECREATION_CENTER, Structure::OPERATIONAL);
+
+	int food_production = mStructureManager.getCountInState(Structure::STRUCTURE_FOOD_PRODUCTION, Structure::OPERATIONAL);
+	food_production > 0 ? mCurrentMorale += food_production : mCurrentMorale -= 5;
+
+	//mCurrentMorale += mStructureManager.getCountInState(Structure::STRUCTURE_COMMERCIAL, Structure::OPERATIONAL);
+
+	// Negative Effects
+	mCurrentMorale -= mPopulation.deathCount();
+	mCurrentMorale -= mStructureManager.disabled();
+	mCurrentMorale -= mStructureManager.destroyed();
+
+	mCurrentMorale = clamp(mCurrentMorale, 0, 1000);
+
 
 	// Update storage capacity
 	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::STRUCTURE_STORAGE)));

@@ -34,6 +34,7 @@ void StructureTranslator::buildTables()
 	_stringToStructureTable[constants::AGRIDOME] = SID_AGRIDOME;
 	_stringToStructureTable[constants::AIR_SHAFT] = SID_AIR_SHAFT;
 	_stringToStructureTable[constants::CHAP] = SID_CHAP;
+	_stringToStructureTable[constants::COLONIST_LANDER] = SID_COLONIST_LANDER;
 	_stringToStructureTable[constants::COMMAND_CENTER] = SID_COMMAND_CENTER;
 	_stringToStructureTable[constants::COMMERCIAL] = SID_COMMERCIAL;
 	_stringToStructureTable[constants::FUSION_REACTOR] = SID_FUSION_REACTOR;
@@ -66,6 +67,7 @@ void StructureTranslator::buildTables()
 	_structureToStringTable[SID_AGRIDOME] = constants::AGRIDOME;
 	_structureToStringTable[SID_AIR_SHAFT] = constants::AIR_SHAFT;
 	_structureToStringTable[SID_CHAP] = constants::CHAP;
+	_structureToStringTable[SID_COLONIST_LANDER] = constants::COLONIST_LANDER;
 	_structureToStringTable[SID_COMMAND_CENTER] = constants::COMMAND_CENTER;
 	_structureToStringTable[SID_COMMERCIAL] = constants::COMMERCIAL;
 	_structureToStringTable[SID_FUSION_REACTOR] = constants::FUSION_REACTOR;

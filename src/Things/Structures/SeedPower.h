@@ -14,7 +14,7 @@ public:
 	}
 
 
-	~SeedPower()
+	virtual ~SeedPower()
 	{}
 
 protected:

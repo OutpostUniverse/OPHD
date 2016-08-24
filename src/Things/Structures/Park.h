@@ -17,7 +17,7 @@ public:
 	}
 
 
-	~Park()
+	virtual ~Park()
 	{}
 
 protected:

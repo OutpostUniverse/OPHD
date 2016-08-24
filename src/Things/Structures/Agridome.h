@@ -12,7 +12,7 @@ public:
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);
-		turnsToBuild(5);
+		turnsToBuild(3);
 
 		requiresCHAP(true);
 
@@ -20,7 +20,7 @@ public:
 	}
 
 
-	~Agridome()
+	virtual ~Agridome()
 	{}
 
 protected:

@@ -16,7 +16,7 @@ public:
 	}
 
 
-	~FusionReactor()
+	virtual ~FusionReactor()
 	{}
 
 protected:

@@ -2,34 +2,37 @@
 
 #include "NAS2D/NAS2D.h"
 
+#include "GameStateHelper.h"
+
 #include "../AiVoiceNotifier.h"
 
 #include "../Common.h"
+#include "../Constants.h"
 
 #include "../ResourcePool.h"
 #include "../RobotPool.h"
 
 #include "../StructureManager.h"
 
-#include "../Things/Structures/Structure.h"
-#include "../Things/Robots/Robots.h"
-
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
+
+#include "../Population/Population.h"
+
+#include "../Things/Structures/Structure.h"
+#include "../Things/Robots/Robots.h"
 
 #include "../UI/UI.h"
 #include "../UI/DiggerDirection.h"
 #include "../UI/FactoryProduction.h"
 #include "../UI/IconGrid.h"
+#include "../UI/PopulationPanel.h"
 #include "../UI/StructureInspector.h"
 #include "../UI/TileInspector.h"
 
-#include "../Constants.h"
-
-#include "GameStateHelper.h"
-
 
 using namespace NAS2D;
+
 
 /**
  * Needs to match insertion order in GameState::initialize()
@@ -134,9 +137,8 @@ private:
 	// UI Event Handlers
 	void btnTurnsClicked();
 	void btnToggleConnectednessClicked();
-	
+
 	void updateCurrentLevelString(int currentDepth);
-	
 
 	void structuresSelectionChanged(const std::string& _s);
 	void connectionsSelectionChanged(const std::string& _s);
@@ -183,6 +185,8 @@ private:
 
 	AiVoiceNotifier		mAiVoiceNotifier;
 
+	Population			mPopulation;
+
 	//Music				mBgMusic;
 
 	// UI
@@ -197,8 +201,9 @@ private:
 
 	DiggerDirection		mDiggerDirection;
 
-	StructureInspector	mStructureInspector;
 	FactoryProduction	mFactoryProduction;
+	PopulationPanel		mPopulationPanel;
+	StructureInspector	mStructureInspector;
 	TileInspector		mTileInspector;
 
 	WindowStack			mWindowStack;

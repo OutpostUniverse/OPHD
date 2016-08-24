@@ -4,6 +4,7 @@
 #include "Agridome.h"
 #include "AirShaft.h"
 #include "CHAP.h"
+#include "ColonistLander.h"
 #include "CommandCenter.h"
 #include "Commercial.h"
 #include "FusionReactor.h"

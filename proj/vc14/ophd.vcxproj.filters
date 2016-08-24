@@ -398,6 +398,12 @@
     <ClInclude Include="..\..\src\Map\TileMap.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Ui\PopulationPanel.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\ColonistLander.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

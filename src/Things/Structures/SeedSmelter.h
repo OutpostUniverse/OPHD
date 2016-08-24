@@ -10,14 +10,14 @@ public:
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(150);
-		turnsToBuild(9);
+		turnsToBuild(6);
 		requiresCHAP(false);
 
 		oreStorage().capacity(250);
 		storage().capacity(250);
 	}
 
-	~SeedSmelter()
+	virtual ~SeedSmelter()
 	{}
 
 	virtual void input(ResourcePool& _resourcePool)

@@ -17,7 +17,7 @@ public:
 	}
 
 
-	~SurfacePolice()
+	virtual ~SurfacePolice()
 	{}
 
 protected:

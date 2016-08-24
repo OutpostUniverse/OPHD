@@ -16,7 +16,7 @@ public:
 	}
 
 
-	~AirShaft()
+	virtual ~AirShaft()
 	{
 	}
 

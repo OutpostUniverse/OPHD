@@ -220,14 +220,51 @@ void StructureManager::disconnectAll()
 
 
 /**
-* Returns the number of structures currently being managed by the StructureManager.
-*/
+ * Returns the number of structures currently being managed by the StructureManager.
+ */
 int StructureManager::count() const
 {
 	int count = 0;
 	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
 		count += it->second.size();
 	
+	return count;
+}
+
+
+int StructureManager::getCountInState(Structure::StructureType _st, Structure::StructureState _state)
+{
+	int count = 0;
+	for (auto i = 0; i < structureList(_st).size(); ++i)
+		if (structureList(_st)[i]->disabled())
+			++count;
+
+	return count;
+}
+
+
+/**
+ * Gets a count of the number of disabled buildings.
+ */
+int StructureManager::disabled()
+{
+	int count = 0;
+	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+		count += getCountInState(it->first, Structure::DISABLED);
+
+	return count;
+}
+
+
+/**
+ * Gets a count of the number of destroyed buildings.
+ */
+int StructureManager::destroyed()
+{
+	int count = 0;
+	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+		count += getCountInState(it->first, Structure::DESTROYED);
+
 	return count;
 }
 

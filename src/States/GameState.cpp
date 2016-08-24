@@ -207,6 +207,10 @@ int GameState::foodTotalStorage()
 {
 	int food_storage = 0;
 
+	// Command Center has a limited amount of food storage for when colonists first land.
+	if (mCCLocation.x() != 0)
+		food_storage += constants::BASE_STORAGE_CAPACITY;
+
 	auto sl = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
 	for (size_t i = 0; i < sl.size(); ++i)
 	{
@@ -223,7 +227,6 @@ void GameState::drawResourceInfo()
 	Renderer& r = Utility<Renderer>::get();
 
 	r.drawBoxFilled(0, 0, r.width(), constants::RESOURCE_ICON_SIZE + 4, 0, 0, 0);
-	//r.drawBox(mResourceInfoBox, 0, 0, 0);
 
 	// Resources
 	int x = constants::MARGIN_TIGHT;
@@ -260,8 +263,10 @@ void GameState::drawResourceInfo()
 	
 	// Population / Morale
 	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (mCurrentMorale / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, "100", (x + offsetX) * 10 + margin, textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
 
+	if (isPointInRect(mMousePosition.x(), mMousePosition.y(), 580, 0, 35, 20))
+		mPopulationPanel.update();
 
 	// Turns
 	r.drawSubImage(mUiIcons, r.width() - 80, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
@@ -1112,6 +1117,13 @@ void GameState::deploySeedLander(int x, int y)
 
 	//mPopulationPool.addWorkers(30);
 	//mPopulationPool.addScientists(20);
+	
+	// 180 == weeks == 15 years, 36 == jitter == 3 years
+	mPopulation.populateList(Population::ROLE_STUDENT, 180, 36, 20);
+	// 360 == weeks == 30 years, 120 == jitter == 10 years
+	mPopulation.populateList(Population::ROLE_WORKER, 360, 120, 40);
+	// 360 == weeks == 30 years, 120 == jitter == 10 years
+	mPopulation.populateList(Population::ROLE_SCIENTIST, 360, 120, 40);
 }
 
 

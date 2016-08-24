@@ -15,7 +15,7 @@ public:
 	}
 
 
-	~HotLaboratory()
+	virtual ~HotLaboratory()
 	{}
 
 protected:
@@ -49,7 +49,7 @@ public:
 	}
 
 
-	~Laboratory()
+	virtual ~Laboratory()
 	{}
 
 protected:

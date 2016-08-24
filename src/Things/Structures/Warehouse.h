@@ -19,7 +19,7 @@ public:
 	}
 
 
-	~Warehouse()
+	virtual ~Warehouse()
 	{}
 
 protected:

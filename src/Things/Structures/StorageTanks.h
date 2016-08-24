@@ -17,7 +17,7 @@ public:
 	}
 
 
-	~StorageTanks()
+	virtual ~StorageTanks()
 	{}
 
 protected:

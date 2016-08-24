@@ -17,7 +17,7 @@ public:
 	}
 
 
-	~Commercial()
+	virtual ~Commercial()
 	{}
 
 protected:

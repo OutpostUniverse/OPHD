@@ -17,7 +17,7 @@ public:
 	}
 
 
-	~RecreationCenter()
+	virtual ~RecreationCenter()
 	{}
 
 protected:

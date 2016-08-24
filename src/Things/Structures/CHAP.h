@@ -15,7 +15,7 @@ public:
 	}
 
 
-	~CHAP()
+	virtual ~CHAP()
 	{}
 
 protected:

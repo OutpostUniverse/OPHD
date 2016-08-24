@@ -4,9 +4,17 @@
 
 PlanetType PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
-PlanetSelectState::PlanetSelectState():	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
+PlanetSelectState::PlanetSelectState():	mFont("fonts/mig6800_8x16_light.png", 8, 16, 0),
+										mFontBold("fonts/mig6800_8x16.png", 8, 16, 0),
 										mTinyFont("fonts/ui-normal.png", 7, 9, -1),
 										mMousePointer("ui/pointers/normal.png"),
+										mBg("sys/bg1.png"),
+										mStarFlare("sys/flare_1.png"),
+										mDetailFlare("sys/flare_2.png"),
+										mDetailFlare2("sys/flare_3.png"),
+										mCloud1("sys/cloud_1.png"),
+										mCloud2("sys/cloud_2.png"),
+										mBgMusic("music/menu.ogg"),
 										mSelect("sfx/click.ogg"),
 										mHover("sfx/menu4.ogg"),
 										mAiGender(AiVoiceNotifier::AiGender::MALE)
@@ -22,6 +30,8 @@ PlanetSelectState::~PlanetSelectState()
 
 	for (size_t i = 0; i < mPlanets.size(); ++i)
 		delete mPlanets[i];
+
+	Utility<Mixer>::get().stopAllAudio();
 }
 
 
@@ -78,25 +88,43 @@ void PlanetSelectState::initialize()
 
 	mPlanetDescription.text("");
 	mPlanetDescription.font(mFont);
-	mPlanetDescription.size(500, 200);
-	mPlanetDescription.position(r.screenCenterX() - 250, r.height() - 225);
+	mPlanetDescription.size(550, 200);
+	mPlanetDescription.position(r.screenCenterX() - 275, r.height() - 225);
 
 	Utility<Renderer>::get().fadeIn(175.0f);
+
+	Utility<Mixer>::get().playMusic(mBgMusic);
 }
 
+
+void PlanetSelectState::drawStar(int x, int y)
+{
+	float rotation = (mTimer.tick() / 125.0f);
+	Renderer& r = Utility<Renderer>::get();
+	r.drawImageRotated(mStarFlare, x, y, -rotation * 0.75f, 255, 255, 0, 180);
+	r.drawImageRotated(mDetailFlare2, x, y, -rotation * 0.25f, 255, 255, 100, 255);
+	r.drawImageRotated(mDetailFlare, x, y, rotation, 255, 255, 255, 255);
+}
 
 State* PlanetSelectState::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawBoxFilled(0, 0, r.getScreenResolution().x(), r.getScreenResolution().y(), 0, 0, 0);
+	//r.drawBoxFilled(0, 0, r.getScreenResolution().x(), r.getScreenResolution().y(), 0, 0, 0);
+
+	r.drawImageStretched(mBg, 0, 0, r.width(), r.height());
+
+	r.drawImageRotated(mCloud1, -256, -256, mTimer.tick() / 1200.0f, 100, 255, 0, 135);
+	r.drawImageRotated(mCloud1, r.width() - 800, -256, -mTimer.tick() / 1200.0f, 180, 0, 255, 150);
+
+	drawStar(-40, -55);
 
 	for (size_t i = 0; i < mPlanets.size(); ++i)
 		mPlanets[i]->update();
 	
-	r.drawText(mFont, "Mercury Type", mPlanets[0]->x() + 64 - (mFont.width("Mercury Type") / 2), mPlanets[0]->y() - mFont.height() - 10, 255, 255, 255);
-	r.drawText(mFont, "Mars Type", mPlanets[1]->x() + 64 - (mFont.width("Mars Type") / 2), mPlanets[1]->y() - mFont.height() - 10, 255, 255, 255);
-	r.drawText(mFont, "Ganymede Type", mPlanets[2]->x() + 64 - (mFont.width("Ganymede Type") / 2), mPlanets[2]->y() - mFont.height() - 10, 255, 255, 255);
+	r.drawText(mFontBold, "Mercury Type", mPlanets[0]->x() + 64 - (mFont.width("Mercury Type") / 2), mPlanets[0]->y() - mFont.height() - 10, 255, 255, 255);
+	r.drawText(mFontBold, "Mars Type", mPlanets[1]->x() + 64 - (mFont.width("Mars Type") / 2), mPlanets[1]->y() - mFont.height() - 10, 255, 255, 255);
+	r.drawText(mFontBold, "Ganymede Type", mPlanets[2]->x() + 64 - (mFont.width("Ganymede Type") / 2), mPlanets[2]->y() - mFont.height() - 10, 255, 255, 255);
 
 
 	r.drawText(mFont, "AI Gender", 5, 5, 255, 255, 255);
@@ -106,7 +134,7 @@ State* PlanetSelectState::update()
 
 	mPlanetDescription.update();
 
-	r.drawText(mTinyFont, "v0.7.0", r.width() - mTinyFont.width("v0.6.5") - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
+	r.drawText(mTinyFont, "v0.7.0", r.width() - mTinyFont.width("v0.7.0") - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
 
 	r.drawImage(mMousePointer, mMousePosition.x(), mMousePosition.y());
 
@@ -142,6 +170,7 @@ void PlanetSelectState::onMouseDown(MouseButton button, int x, int y)
 			Utility<Mixer>::get().playSound(mSelect);
 			PLANET_TYPE_SELECTION = mPlanets[i]->type();
 			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+			Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 			return;
 		}
 	}

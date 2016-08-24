@@ -15,7 +15,7 @@ public:
 		selfSustained(true);
 	}
 
-	~CommandCenter()
+	virtual ~CommandCenter()
 	{}
 
 protected:

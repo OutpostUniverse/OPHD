@@ -34,7 +34,7 @@ public:
 
 	void populateList(PersonRole _role, int _base_age, int _age_jitter, unsigned int _count);
 
-	void update(int _morale);
+	int update(int _morale, int _food);
 
 protected:
 
@@ -51,6 +51,10 @@ private:
 	void check_students();
 	void check_females();
 	void check_retired();
+
+	int consume_food(int _food);
+
+	int killPopulation(Population::PersonList& _pl, Population::PersonRole _pr, int count);
 
 private:
 	typedef std::map<PersonRole, PersonList> PopulationTable;

@@ -10,13 +10,13 @@ public:
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(150);
-		turnsToBuild(7);
+		turnsToBuild(8);
 		requiresCHAP(false);
 
 		initFactory();
 	}
 
-	~SeedFactory()
+	virtual ~SeedFactory()
 	{}
 
 protected:

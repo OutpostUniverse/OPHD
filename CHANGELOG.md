@@ -9,17 +9,21 @@ This version includes all revisions from r136 to rXXX.
 ### Added
 - Site Map now shows Command Center's influence radius.
 - Added the following structures:
+	- Hot Laboratory
     - Park / Reservoir
 	- Recreation Facility
 	- Red Light District
+	- Robot Command
 	- Solor Power Receiver Arrawy
+	- Surface and UG Police
 	- University
 	- Underground Factory
-	- Surface and UG Police
 	- UG Laboratory
-	- Hot Laboratory
-	- Robot Command
 	- Warehouse
+- Added Robot Counts to the display.
+- Added an almost perfect haunting track to the planet select state. Really sets the mood.
+- Added a background and some visual flare to the planet select state. Again, really sets the mood.
+- Added a PopulationPanel to the UI in the HUD.
 
 ### Changed
 - Windows (tile inspector, structure inspector and factory production) are now drag-able.
@@ -27,12 +31,21 @@ This version includes all revisions from r136 to rXXX.
 - Updated Digger placement logic to account for additional use cases that caused weird behavior.
 - Updated Miner bot placement logic so that insertion mode isn't cleared if more miner's are available.
 - Save/Load now handles Morale.
+- Reworked UI
+	- Structures/Robots/Tubes menus are now displayed all at once.
+	- The buttons made to toggle between the menus are removed.
+	- The count of robots available/total for each type of robot has been added on screen above the structure menu in the lower left corner.
+	- The other buttons were moved/rearranged to avoid space loss.
+- Changed the Splash Screen jingle. Little less creepy, little more appropriate, still hardly perfect.
+- Command Center now provides bare bones food storage.
 
 ### Fixed
 - Fixed a mistake in GameState that would forget to set a pointer to the players resource pool when the surface factory was placed.
 - Fixed a mistake that causes a game crash when turning on the Debug information when the view is at the edges of the map.
 - Fixed an issue in the Agricultural Dome that would cause food production and storage to continue past storage capacity.
 - Fixed an issue in the savegame load code that neglected to update the current storage availability until a turn was completed.
+- Fixed a mistake which caused the underground build menu to show surface structures if you attempted to go to a depth level below the max planetary depth.
+- Fixed an oversight that caused the structure build menu to populate with structures when underground before placing a SEED Lander.
 
 
 

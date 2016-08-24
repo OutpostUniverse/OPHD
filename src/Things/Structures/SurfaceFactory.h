@@ -16,7 +16,7 @@ public:
 		initFactory();
 	}
 
-	~SurfaceFactory()
+	virtual ~SurfaceFactory()
 	{}
 
 protected:

@@ -15,7 +15,7 @@ public:
 	}
 
 
-	~RobotCommand()
+	virtual ~RobotCommand()
 	{}
 
 protected:

@@ -17,7 +17,7 @@ public:
 	}
 
 
-	~RedLightDistrict()
+	virtual ~RedLightDistrict()
 	{}
 
 protected:
