@@ -154,6 +154,7 @@ private:
 
 	Font				mFont;
 	Font				mTinyFont;
+	Font				mTinyFontBold;
 
 	TileMap*			mTileMap;
 

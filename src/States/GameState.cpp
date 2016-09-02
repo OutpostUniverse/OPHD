@@ -39,6 +39,7 @@ std::map <int, std::string>	LEVEL_STRING_TABLE;
  */
 GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoiceNotifier::AiGender _g) :	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
 																											mTinyFont("fonts/ui-normal.png", 7, 9, -1),
+																											mTinyFontBold("fonts/ui-bold.png", 7, 9, 0),
 																											mTileMap(new TileMap(_m, _t, _d, _mc)),
 																											mBackground("sys/bg1.png"),
 																											mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
@@ -138,8 +139,33 @@ State* GameState::update()
 	mTileMap->draw();
 	drawUI();
 
-	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - mFont.height() - 10, 255, 255, 255);
 
+	string sLevels;
+	string sLevel;
+
+	// Construct level string (except for current level)
+	sLevels = "";
+	for (int i = 0; i <= mTileMap->maxDepth(); i++)
+	{
+		sLevel = string_format("%i", i);
+		if (i == 0) sLevel = "S";
+		if (i == mTileMap->currentDepth()) sLevel = " ";
+		sLevels += " "+sLevel;
+	}
+	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5 , mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 200, 200, 200);
+	// Construct current level string 
+	sLevels = "";
+	for (int i = 0; i <= mTileMap->maxDepth(); i++)
+	{
+		sLevel = string_format("%i", i);
+		if (i == 0) sLevel = "S";
+		if (i != mTileMap->currentDepth()) sLevel = " ";
+		sLevels += " "+sLevel;
+	}
+	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5 , mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 255, 0,0);
+	
+	// explicit current level
+	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - mFont.height() - mTinyFontBold.height() - 12, 255, 255, 255);
 	if(mDebug) drawDebug();
 
 	if (r.isFading())
@@ -367,8 +393,6 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 		case KEY_0:
 			viewUpdated = true;
 			changeDepth(0);
-//			if(changeDepth(0))
-//				updateCurrentLevelString(0);
 			break;
 
 		case KEY_1:
