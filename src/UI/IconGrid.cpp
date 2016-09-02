@@ -16,6 +16,16 @@ IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
 	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().Connect(this, &IconGrid::onMouseMotion);
 	hasFocus(true);
+
+	mSkin.push_back(Image("ui/skin/textbox_top_left.png"));
+	mSkin.push_back(Image("ui/skin/textbox_top_middle.png"));
+	mSkin.push_back(Image("ui/skin/textbox_top_right.png"));
+	mSkin.push_back(Image("ui/skin/textbox_middle_left.png"));
+	mSkin.push_back(Image("ui/skin/textbox_middle_middle.png"));
+	mSkin.push_back(Image("ui/skin/textbox_middle_right.png"));
+	mSkin.push_back(Image("ui/skin/textbox_bottom_left.png"));
+	mSkin.push_back(Image("ui/skin/textbox_bottom_middle.png"));
+	mSkin.push_back(Image("ui/skin/textbox_bottom_right.png"));
 }
 
 
@@ -283,7 +293,8 @@ void IconGrid::update()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawBoxFilled(rect(), 0, 0, 0);
+	//r.drawBoxFilled(rect(), 0, 0, 0);
+	r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkin);
 
 	if (mIconItemList.empty())
 		return;

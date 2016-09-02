@@ -81,6 +81,9 @@ private:
 	bool				mSorted;				/**< Flag indicating that the IconGrid should be sorted. */
 
 	Image				mIconSheet;				/**< Image containing the icons. */
+
+	ImageList			mSkin;
+
 	Point_2d			mGridSize;				/**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
 
 	IconItemList		mIconItemList;			/**< List of items. */
