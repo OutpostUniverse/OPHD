@@ -40,6 +40,7 @@ std::map <int, std::string>	LEVEL_STRING_TABLE;
 GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoiceNotifier::AiGender _g) :	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
 																											mTinyFont("fonts/ui-normal.png", 7, 9, -1),
 																											mTileMap(new TileMap(_m, _t, _d, _mc)),
+																											mBackground("sys/bg1.png"),
 																											mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
 																											mHeightMap(_m + MAP_TERRAIN_EXTENSION),
 																											mUiIcons("ui/icons.png"),
@@ -130,8 +131,8 @@ State* GameState::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	//r.drawImageStretched(mBackground, 0, 0, r.width(), r.height());
-	r.drawBoxFilled(0, 0, r.width(), r.height(), 25, 25, 25);
+	r.drawImageStretched(mBackground, 0, 0, r.width(), r.height());
+	//r.drawBoxFilled(0, 0, r.width(), r.height(), 25, 25, 25);
 
 	mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
 	mTileMap->draw();
@@ -226,7 +227,12 @@ void GameState::drawResourceInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawBoxFilled(0, 0, r.width(), constants::RESOURCE_ICON_SIZE + 4, 0, 0, 0);
+	//r.drawBoxFilled(0, 0, r.width(), constants::RESOURCE_ICON_SIZE + 4, 0, 0, 0);
+
+	r.drawBoxFilled(0, 0, r.width(), constants::RESOURCE_ICON_SIZE + 4, 39, 39, 39);
+	r.drawBox(0, 0, r.width(), constants::RESOURCE_ICON_SIZE + 4, 21, 21, 21);
+	r.drawLine(1, 0, r.width() - 2, 0, 56, 56, 56);
+
 
 	// Resources
 	int x = constants::MARGIN_TIGHT;
@@ -430,7 +436,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 
 		if (mInsertMode != INSERT_NONE)
 		{
-			clearMode();
+			resetUi();
 			return;
 		}
 
@@ -751,7 +757,10 @@ void GameState::placeRobot()
 		if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 			mDiggerDirection.selectDown();
 		else
-			mDiggerDirection.visible(true);
+		{
+			mDiggerDirection.show();
+			mWindowStack.bringToFront(&mDiggerDirection);
+		}
 	}
 	// Robominer has been selected.
 	else if(mCurrentRobot == ROBOT_MINER)

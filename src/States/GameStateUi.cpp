@@ -43,10 +43,10 @@ void GameState::initUi()
 	mPopulationPanel.morale(&mCurrentMorale);
 
 
-
 	mWindowStack.addWindow(&mTileInspector);
 	mWindowStack.addWindow(&mStructureInspector);
 	mWindowStack.addWindow(&mFactoryProduction);
+	mWindowStack.addWindow(&mDiggerDirection);
 
 
 	// Bottom UI
@@ -197,8 +197,9 @@ void GameState::drawUI()
 	Renderer& r = Utility<Renderer>::get();
 
 	// Bottom UI
-	r.drawBoxFilled(BOTTOM_UI_AREA, 240, 240, 240);
-	r.drawBox(BOTTOM_UI_AREA, 25, 130, 215);
+	r.drawBoxFilled(BOTTOM_UI_AREA, 39, 39, 39);
+	r.drawBox(BOTTOM_UI_AREA, 21, 21, 21);
+	r.drawLine(BOTTOM_UI_AREA.x() + 1, BOTTOM_UI_AREA.y(), BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.w() - 2, BOTTOM_UI_AREA.y(), 56, 56, 56);
 
 	drawMiniMap();
 	drawResourceInfo();

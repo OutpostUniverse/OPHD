@@ -18,9 +18,9 @@ void fillTable()
 	if (!PRODUCTION_TYPE_TABLE.empty())
 		return;
 
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER] = ProductionCost(6, 10, 5, 5, 2);
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER] = ProductionCost(6, 10, 5, 5, 2);
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER] = ProductionCost(6, 10, 5, 5, 2);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DIGGER] = ProductionCost(5, 10, 5, 5, 2);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_DOZER] = ProductionCost(5, 10, 5, 5, 2);
+	PRODUCTION_TYPE_TABLE[Factory::PRODUCTION_MINER] = ProductionCost(5, 10, 5, 5, 2);
 }
 
 
@@ -87,7 +87,7 @@ void Factory::updateProduction()
 	*mResourcesPool -= PRODUCTION_TYPE_TABLE[mProduction].CostPerTurn;
 	++mTurnsCompleted;
 
-	if (mTurnsCompleted >= mTurnsToComplete)
+	if (mTurnsCompleted > mTurnsToComplete)
 	{
 		productionResetTurns();
 		productionComplete(mProduction);

@@ -86,10 +86,10 @@ void drawResourceIcons(Renderer& r, Image& sheet, int x, int y, int sheet_offset
  */
 void drawResourceStrings(Renderer& r, Font& f, int x, int y, int res1, int res2, int res3, int res4)
 {
-	r.drawText(f, string_format("%i", res1), x + 21, y + 13, 0, 0, 0);
-	r.drawText(f, string_format("%i", res2), x + 21, y + 29, 0, 0, 0);
-	r.drawText(f, string_format("%i", res3), x + 21, y + 45, 0, 0, 0);
-	r.drawText(f, string_format("%i", res4), x + 21, y + 61, 0, 0, 0);
+	r.drawText(f, string_format("%i", res1), x + 21, y + 13, 255, 255, 255);
+	r.drawText(f, string_format("%i", res2), x + 21, y + 29, 255, 255, 255);
+	r.drawText(f, string_format("%i", res3), x + 21, y + 45, 255, 255, 255);
+	r.drawText(f, string_format("%i", res4), x + 21, y + 61, 255, 255, 255);
 }
 
 
@@ -97,7 +97,7 @@ void StructureInspector::drawResourcePool(const std::string& title, ResourcePool
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawText(mBold, title, x, y, 0, 0, 0);
+	//r.drawText(mBold, title, x, y, 0, 0, 0);
 	
 	// Ore
 	drawResourceIcons(r, mIcons, x, y, 0);
@@ -120,20 +120,20 @@ void StructureInspector::update()
 
 	if (mStructure == nullptr)
 	{
-		r.drawText(mBold, "NULLPTR!", rect().x() + 5, rect().y() + 25, 0, 0, 0);
+		r.drawText(mBold, "NULLPTR!", rect().x() + 5, rect().y() + 25, 255, 255, 255);
 		return;
 	}
 
-	r.drawText(mBold, mStructure->name(), rect().x() + 5, rect().y() + 25, 0, 0, 0);
+	r.drawText(mBold, mStructure->name(), rect().x() + 5, rect().y() + 25, 255, 255, 255);
 
-	r.drawText(mBold, "Structure ID:", rect().x() + 190, rect().y() + 25, 0, 0, 0);
-	r.drawText(font(), string_format("%i", mStructure->id()), rect().x() + 190 + mBold.width("Structure ID: "), rect().y() + 25, 0, 0, 0);
+	r.drawText(mBold, "Structure ID:", rect().x() + 190, rect().y() + 25, 255, 255, 255);
+	r.drawText(font(), string_format("%i", mStructure->id()), rect().x() + 190 + mBold.width("Structure ID: "), rect().y() + 25, 255, 255, 255);
 
-	r.drawText(mBold, "Type:", rect().x() + 5, rect().y() + 45, 0, 0, 0);
-	r.drawText(font(), TypeTranslationTable[mStructure->type()], rect().x() + 5 + mBold.width("Type: "), rect().y() + 45, 0, 0, 0);
+	r.drawText(mBold, "Type:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
+	r.drawText(font(), TypeTranslationTable[mStructure->type()], rect().x() + 5 + mBold.width("Type: "), rect().y() + 45, 255, 255, 255);
 
-	r.drawText(mBold, "State:", rect().x() + 190, rect().y() + 45, 0, 0, 0);
-	r.drawText(font(), StateTranslationTable[mStructure->state()], rect().x() + 190 + mBold.width("Type: "), rect().y() + 45, 0, 0, 0);
+	r.drawText(mBold, "State:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
+	r.drawText(font(), StateTranslationTable[mStructure->state()], rect().x() + 190 + mBold.width("Type: "), rect().y() + 45, 255, 255, 255);
 	
 	drawResourcePool("Production Pool", mStructure->production(), rect().x() + 5, rect().y() + 65);
 	drawResourcePool("Storage Pool", mStructure->storage(), rect().x() + 190, rect().y() + 65);

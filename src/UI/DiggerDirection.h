@@ -4,7 +4,7 @@
 
 #include "../Map/Tile.h"
 
-class DiggerDirection: public UIContainer
+class DiggerDirection: public Window
 {
 public:
 
@@ -37,9 +37,6 @@ public:
 protected:
 
 	virtual void init();
-
-	virtual void onMouseDown(MouseButton button, int x, int y);
-	virtual void onMouseUp(MouseButton button, int x, int y);
 
 	void btnCancelClicked();
 

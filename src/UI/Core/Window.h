@@ -24,4 +24,7 @@ private:
 	Font		mBold;
 
 	bool		mMouseDrag;
+
+	ImageList	mTitle;
+	ImageList	mBody;
 };

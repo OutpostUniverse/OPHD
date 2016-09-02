@@ -56,6 +56,10 @@ private:
 
 	Image			mImage;				/**< Image to draw centered on the Button. */
 
+	ImageList		mSkinNormal;
+	ImageList		mSkinHover;
+	ImageList		mSkinPressed;
+
 	ClickCallback	mCallback;			/**< Object to notify when the Button is activated. */
 
 	bool			mUsesImage;			/**< Internal flag indicating that the Button uses an image graphic. */

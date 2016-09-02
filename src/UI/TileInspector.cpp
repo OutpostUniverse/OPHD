@@ -8,6 +8,7 @@
 std::map<int, std::string> TileIndexTranslation;
 std::map<Mine::ProductionRate, std::string> MineProductionTranslation;
 
+
 TileInspector::TileInspector(Font& font):	mBold("fonts/ui-bold.png", 7, 9, 0),
 											mTile(nullptr)
 {
@@ -58,36 +59,36 @@ void TileInspector::update()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawText(mBold, "Has Mine:", rect().x() + 5, rect().y() + 25, 0, 0, 0);
+	r.drawText(mBold, "Has Mine:", rect().x() + 5, rect().y() + 25, 255, 255, 255);
 
 	if(mTile->mine())
 	{
-		r.drawText(font(), "Yes", rect().x() + 5 + mBold.width("Has Mine: "), rect().y() + 25, 0, 0, 0);
+		r.drawText(font(), "Yes", rect().x() + 5 + mBold.width("Has Mine: "), rect().y() + 25, 255, 255, 255);
 
-		r.drawText(mBold, "Active:", rect().x() + 5, rect().y() + 35, 0, 0, 0);
+		r.drawText(mBold, "Active:", rect().x() + 5, rect().y() + 35, 255, 255, 255);
 
 		if (mTile->mine()->active())
 		{
-			r.drawText(font(), "Yes", rect().x() + 5 + mBold.width("Active: "), rect().y() + 35, 0, 0, 0);
+			r.drawText(font(), "Yes", rect().x() + 5 + mBold.width("Active: "), rect().y() + 35, 255, 255, 255);
 		}
 		else
 		{
-			r.drawText(font(), "No", rect().x() + 5 + mBold.width("Active: "), rect().y() + 35, 0, 0, 0);
+			r.drawText(font(), "No", rect().x() + 5 + mBold.width("Active: "), rect().y() + 35, 255, 255, 255);
 		}
 
-		r.drawText(mBold, "Production Rate:", rect().x() + 5, rect().y() + 45, 0, 0, 0);
-		r.drawText(font(), MineProductionTranslation[mTile->mine()->productionRate()], rect().x() + 5 + mBold.width("Production Rate: "), rect().y() + 45, 0, 0, 0);
+		r.drawText(mBold, "Production Rate:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
+		r.drawText(font(), MineProductionTranslation[mTile->mine()->productionRate()], rect().x() + 5 + mBold.width("Production Rate: "), rect().y() + 45, 255, 255, 255);
 	}
 	else
 	{
-		r.drawText(font(), "No", rect().x() + 5 + mBold.width("Has Mine: "), rect().y() + 25, 0, 0, 0);
+		r.drawText(font(), "No", rect().x() + 5 + mBold.width("Has Mine: "), rect().y() + 25, 255, 255, 255);
 	}
 
-	r.drawText(mBold, "Location:", rect().x() + 5, rect().y() + 65, 0, 0, 0);
-	r.drawText(font(), string_format("%i, %i", mTile->x(), mTile->y()), rect().x() + 5 + mBold.width("Location: "), rect().y() + 65, 0, 0, 0);
+	r.drawText(mBold, "Location:", rect().x() + 5, rect().y() + 65, 255, 255, 255);
+	r.drawText(font(), string_format("%i, %i", mTile->x(), mTile->y()), rect().x() + 5 + mBold.width("Location: "), rect().y() + 65, 255, 255, 255);
 
-	r.drawText(mBold, "Terrain:", rect().x() + 5, rect().y() + 75, 0, 0, 0);
-	r.drawText(font(), TileIndexTranslation[mTile->index()], rect().x() + 5 + mBold.width("Terrain: "), rect().y() + 75, 0, 0, 0);
+	r.drawText(mBold, "Terrain:", rect().x() + 5, rect().y() + 75, 255, 255, 255);
+	r.drawText(font(), TileIndexTranslation[mTile->index()], rect().x() + 5 + mBold.width("Terrain: "), rect().y() + 75, 255, 255, 255);
 }
 
 

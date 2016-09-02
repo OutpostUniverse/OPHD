@@ -24,9 +24,10 @@ This version includes all revisions from r136 to rXXX.
 - Added an almost perfect haunting track to the planet select state. Really sets the mood.
 - Added a background and some visual flare to the planet select state. Again, really sets the mood.
 - Added a PopulationPanel to the UI in the HUD.
+- Added UI skinning. Pretty basic skin but adds a an air of refinement to the overall look and feel.
 
 ### Changed
-- Windows (tile inspector, structure inspector and factory production) are now drag-able.
+- Windows (tile inspector, structure inspector, digger direction and factory production) are now drag-able.
 - Windows will now arrange themselves according to their position in a 'stack'.
 - Updated Digger placement logic to account for additional use cases that caused weird behavior.
 - Updated Miner bot placement logic so that insertion mode isn't cleared if more miner's are available.
