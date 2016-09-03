@@ -877,6 +877,13 @@ void GameState::placeRobot()
 		{
 			mDiggerDirection.show();
 			mWindowStack.bringToFront(&mDiggerDirection);
+
+			int x = mMousePosition.x() + 20;
+
+			if (x + mDiggerDirection.width() > Utility<Renderer>::get().width())
+				x = mMousePosition.x() - mDiggerDirection.width() - 20;
+
+			mDiggerDirection.position(x, mMousePosition.y() - 32);
 		}
 	}
 	// Robominer has been selected.
