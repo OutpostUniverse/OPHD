@@ -163,6 +163,15 @@ private:
 	Image				mHeightMap;
 	Image				mUiIcons;
 
+	// /*
+	Image				mUiIconsUp;
+	Image				mUiIconsDown;
+	Image				mUiIconsNorth;
+	Image				mUiIconsSouth;
+	Image				mUiIconsEast;
+	Image				mUiIconsWest;
+	//*/
+
 	PointerList			mPointers;
 	PointerType			mCurrentPointer;
 

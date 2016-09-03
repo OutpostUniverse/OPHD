@@ -30,6 +30,13 @@ const int MAX_TILESET_INDEX	= 4;
 
 Rectangle_2d MENU_ICON;
 
+Rectangle_2d MOVE_NORTH_ICON;
+Rectangle_2d MOVE_SOUTH_ICON;
+Rectangle_2d MOVE_EAST_ICON;
+Rectangle_2d MOVE_WEST_ICON;
+Rectangle_2d MOVE_UP_ICON;
+Rectangle_2d MOVE_DOWN_ICON;
+
 
 std::string					CURRENT_LEVEL_STRING;
 std::map <int, std::string>	LEVEL_STRING_TABLE;
@@ -45,6 +52,12 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
 																											mHeightMap(_m + MAP_TERRAIN_EXTENSION),
 																											mUiIcons("ui/icons.png"),
+																											mUiIconsUp("ui/icons/arrow-up.png"),
+																											mUiIconsDown("ui/icons/arrow-down.png"),
+																											mUiIconsNorth("ui/icons/arrow-north.png"),
+																											mUiIconsSouth("ui/icons/arrow-south.png"),
+																											mUiIconsEast("ui/icons/arrow-east.png"),
+																											mUiIconsWest("ui/icons/arrow-west.png"),
 																											mAiVoiceNotifier(_g),
 																											//mBgMusic("music/track_01.ogg"),
 																											mCurrentPointer(POINTER_NORMAL),
@@ -101,6 +114,23 @@ void GameState::initialize()
 	initUi();
 
 	MENU_ICON(Utility<Renderer>::get().width() - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
+	{
+		int xs = Utility<Renderer>::get().width() - constants::MARGIN - constants::MINI_MAP_BUTTON_SIZE;
+		int ys = Utility<Renderer>::get().height() - 2 * constants::MARGIN - constants::MINI_MAP_BUTTON_SIZE - constants::BOTTOM_UI_HEIGHT - mFont.height() - mTinyFontBold.height() - constants::MARGIN_TIGHT;
+		int ws = constants::MINI_MAP_BUTTON_SIZE + constants::MARGIN_TIGHT;
+		int hs = constants::MINI_MAP_BUTTON_SIZE + constants::MARGIN_TIGHT;
+		// Bottom line
+		MOVE_DOWN_ICON( xs, ys, ws, hs);
+		MOVE_EAST_ICON( xs - (ws + constants::MARGIN_TIGHT), ys, ws, hs);
+		MOVE_SOUTH_ICON( xs - 2 * (ws + constants::MARGIN_TIGHT), ys, ws, hs);
+		// Top line
+		ys = ys - hs - constants::MARGIN_TIGHT;
+		MOVE_UP_ICON( xs, ys, ws, hs);
+		MOVE_NORTH_ICON( xs - (ws + constants::MARGIN_TIGHT), ys, ws, hs);
+		MOVE_WEST_ICON( xs - 2 * (ws + constants::MARGIN_TIGHT), ys, ws, hs);
+		
+		
+	}
 
 	mPointers.push_back(Pointer("ui/pointers/normal.png", 0, 0));
 	mPointers.push_back(Pointer("ui/pointers/place_tile.png", 16, 16));
@@ -136,9 +166,39 @@ State* GameState::update()
 	//r.drawBoxFilled(0, 0, r.width(), r.height(), 25, 25, 25);
 
 	mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
-	mTileMap->draw();
-	drawUI();
+	
 
+	// Place move / Depth butons
+	if (isPointInRect(mMousePosition, MOVE_DOWN_ICON))
+		r.drawSubImage(mUiIconsDown, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 0, 0, MOVE_DOWN_ICON.w(), MOVE_DOWN_ICON.h(), 255, 100, 100, 255);
+	else
+		r.drawSubImage(mUiIconsDown, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 0, 0, MOVE_DOWN_ICON.w(), MOVE_DOWN_ICON.h());
+
+	if (isPointInRect(mMousePosition, MOVE_EAST_ICON))
+		r.drawSubImage(mUiIconsEast, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 0, 0, MOVE_EAST_ICON.w(), MOVE_EAST_ICON.h(), 255, 100, 100, 255);
+	else
+		r.drawSubImage(mUiIconsEast, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 0, 0, MOVE_EAST_ICON.w(), MOVE_EAST_ICON.h());
+
+	if (isPointInRect(mMousePosition, MOVE_SOUTH_ICON))
+		r.drawSubImage(mUiIconsSouth, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 0, MOVE_SOUTH_ICON.w(), MOVE_SOUTH_ICON.h(), 255, 100, 100, 255);
+	else
+		r.drawSubImage(mUiIconsSouth, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 0, MOVE_SOUTH_ICON.w(), MOVE_SOUTH_ICON.h());
+
+	if (isPointInRect(mMousePosition, MOVE_UP_ICON))
+		r.drawSubImage(mUiIconsUp, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 0, 0, MOVE_UP_ICON.w(), MOVE_UP_ICON.h(), 255, 100, 100, 255);
+	else
+		r.drawSubImage(mUiIconsUp, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 0, 0, MOVE_UP_ICON.w(), MOVE_UP_ICON.h());
+
+	if (isPointInRect(mMousePosition, MOVE_NORTH_ICON))
+		r.drawSubImage(mUiIconsNorth, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 0, MOVE_NORTH_ICON.w(), MOVE_NORTH_ICON.h(), 255, 100, 100, 255);
+	else
+		r.drawSubImage(mUiIconsNorth, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 0, MOVE_NORTH_ICON.w(), MOVE_NORTH_ICON.h());
+
+	if (isPointInRect(mMousePosition, MOVE_WEST_ICON))
+		r.drawSubImage(mUiIconsWest, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 0, 0, MOVE_WEST_ICON.w(), MOVE_WEST_ICON.h(), 255, 100, 100, 255);
+	else	
+		r.drawSubImage(mUiIconsWest, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 0, 0, MOVE_WEST_ICON.w(), MOVE_WEST_ICON.h());
+	
 
 	string sLevels;
 	string sLevel;
@@ -167,6 +227,9 @@ State* GameState::update()
 	// explicit current level
 	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - mFont.height() - mTinyFontBold.height() - 12, 255, 255, 255);
 	if(mDebug) drawDebug();
+	
+	mTileMap->draw();
+	drawUI();
 
 	if (r.isFading())
 		return this;
@@ -500,6 +563,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		mLeftButtonDown = true;
 
 		mWindowStack.updateStack(mMousePosition);
+		Point_2d pt = mTileMap->mapViewLocation();
 
 		// Ugly
 		if (isPointInRect(mMousePosition, MENU_ICON))
@@ -507,6 +571,35 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 			mReturnState = new PlanetSelectState();
 			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 			return;
+		}
+
+		if (isPointInRect(mMousePosition, MOVE_NORTH_ICON))
+		{
+			pt.y(clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
+			mTileMap->mapViewLocation(pt.x(), pt.y());
+		}
+		else if (isPointInRect(mMousePosition, MOVE_SOUTH_ICON))
+		{
+			pt.y(clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
+			mTileMap->mapViewLocation(pt.x(), pt.y());
+		}
+		else if (isPointInRect(mMousePosition, MOVE_EAST_ICON))
+		{
+			pt.x(clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
+			mTileMap->mapViewLocation(pt.x(), pt.y());
+		}
+		else if (isPointInRect(mMousePosition, MOVE_WEST_ICON))
+		{
+			pt.x(clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
+			mTileMap->mapViewLocation(pt.x(), pt.y());
+		}
+		else if (isPointInRect(mMousePosition, MOVE_UP_ICON))
+		{
+			changeDepth(mTileMap->currentDepth() - 1);
+		}
+		else if (isPointInRect(mMousePosition, MOVE_DOWN_ICON))
+		{
+			changeDepth(mTileMap->currentDepth()+1);
 		}
 
 		// MiniMap Check
