@@ -722,6 +722,9 @@ void GameState::placeTubes()
 	int x = mTileMapMouseHover.x();
 	int y = mTileMapMouseHover.y();
 
+	if (!mTileMap->tileHighlightVisible())
+		return;
+
 	Tile* tile = mTileMap->getTile(x, y, mTileMap->currentDepth());
 	if(!tile)
 		return;
@@ -774,19 +777,8 @@ void GameState::placeRobot()
 	if(!tile)
 		return;
 
-	// Check if it's a displayed tile
-	{
-		NAS2D::Point_2d View = mTileMap->mapViewLocation();
-		int x1 = View.x();
-		int x2 = View.x() + mTileMap->edgeLength() - 1;
-		int y1 = View.y();
-		int y2 = View.y() + mTileMap->edgeLength() - 1;
-		if (tile->x() < x1) return;
-		if (tile->x() > x2) return;
-		if (tile->y() < y1) return;
-		if (tile->y() > y2) return;
-	}
-	
+	if (!mTileMap->tileHighlightVisible())
+		return;
 
 	// Robodozer has been selected.
 	if(mCurrentRobot == ROBOT_DOZER)
@@ -1088,6 +1080,9 @@ void GameState::placeStructure()
 		// When not in Debug just silently swallow this.
 		return;
 	}
+
+	if (!mTileMap->tileHighlightVisible())
+		return;
 
 	// Mouse is outside of the boundaries of the map so ignore this call.
 	Tile* t = mTileMap->getTile(mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap->currentDepth());

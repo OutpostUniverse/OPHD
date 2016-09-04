@@ -10,21 +10,24 @@ This version includes all revisions from r136 to rXXX.
 - Site Map now shows Command Center's influence radius.
 - Added the following structures:
 	- Hot Laboratory
-    - Park / Reservoir
+	- Park / Reservoir
 	- Recreation Facility
 	- Red Light District
 	- Robot Command
-	- Solor Power Receiver Arrawy
-	- Surface and UG Police
+	- Solar Power Receiver Arrawy
+	- Surface Police
 	- University
-	- Underground Factory
+	- UG Factory
 	- UG Laboratory
+	- UG Police
 	- Warehouse
 - Added Robot Counts to the display.
 - Added an almost perfect haunting track to the planet select state. Really sets the mood.
 - Added a background and some visual flare to the planet select state. Again, really sets the mood.
 - Added a PopulationPanel to the UI in the HUD.
 - Added UI skinning. Pretty basic skin but adds a an air of refinement to the overall look and feel.
+- Added a method to switch between levels and move around the map using the mouse.
+- Added a check when placing robots, structures or tubes so that these objects aren't placed unless the tile being pointed at is actually visible.
 
 ### Changed
 - Windows (tile inspector, structure inspector, digger direction and factory production) are now drag-able.
@@ -39,6 +42,7 @@ This version includes all revisions from r136 to rXXX.
 	- The other buttons were moved/rearranged to avoid space loss.
 - Changed the Splash Screen jingle. Little less creepy, little more appropriate, still hardly perfect.
 - Command Center now provides bare bones food storage.
+- Digger direction dialog is repositioned when placing a digger bot on an underground level. This prevents the user from accidentally selection a direction they may not have intended.
 
 ### Fixed
 - Fixed a mistake in GameState that would forget to set a pointer to the players resource pool when the surface factory was placed.

@@ -42,12 +42,18 @@ OutpostHD is in an early state of development so there's not much to say other t
 ##Key Bindings
 
 F2: Save Game
+
 F3: Load Game
 
+
 0: Go to Surface
+
 1: Go to Underground 1
+
 2: Go to Underground 2
+
 3: Go to Underground 3
+
 4: Go to Underground 4
 
 ##FAQ
@@ -57,17 +63,21 @@ A: You are missing some dependencies that OutpostHD requires in order to run. Se
 
 **Q: How do I get started?**
 
-A: Click on the Build Structure button (this is the first button on the bottom left side of your screen that looks like a wrench and screw driver). When you click on this button, the Build Window will be displayed showing you what structures are available. On your first turn, the only available option is the SEED Lander. When you left click on this, the mouse pointer will change to the diamond shaped 'place structure' pointer. Left click anywhere you think is a suitable landing location.
+A: When you first start the game, the only structure available to you is the SEED Lander which can be found in the Structure Panel at the bottom left of the screen. When you select the SEED Lander from the panel, the mouse pointer will change to the diamond shaped 'place structure' pointer. Left click anywhere you think is a suitable landing location.
 
 Keep in mind that the SEED Lander can't be placed within 3 tiles of any of the edges of the map and must have all tiles surrounding it be free of obstructions like Mines and Impassable Terrain.
 
-After you place the SEED Lander, the Turns icon will become available to click on (you must place a SEED Lander before you can do anything else). After you left click on the Advance Turn button, other options will become available to you and the first structures of your colony will be built.
+After you place the SEED Lander, the Advance Turn button will become available to click on (you must place a SEED Lander before you can do anything else). After you left click on the Advance Turn button, other options will become available to you and the first structures of your colony will be built.
 
-**Q: The resolution is low or how can I run in full screen mode? **
+**Q: How can I lower the resolution or turn off fullscreen mode? **
 
-A: By default OutpostHD sets itself to 800x600 windowed mode. Eventually you'll be able to make changes in the game via an options menu but for now if you want to change the resolution you can open "data/config.xml" and modify the screenwidth and screenheight values. There is no sanity checking so set this to a sane value or you could get weird behavior including crashing.
+A: By default OutpostHD sets itself to the native screen resolution of your desktop with a minimum resolution of 800x600. Eventually you'll be able to make changes in the game via an options menu but for now if you want to change the resolution you can open "data/config.xml" and modify the screenwidth and screenheight values. There is no sanity checking so set this to a sane value or you could get weird behavior including crashing.
 
-To set fullscreen mode, simply change 'fullscreen="false"' to 'fullscreen="true"'.
+To turn off fullscreen mode, simply change 'fullscreen="true"' to 'fullscreen="false"'.
+
+**Q: Can I automatically skip the splash/logo screens?**
+
+A: Yes. After the first time the game runs, an automatically generated configuration file is saved in the 'data' folder. Open this file in a text editor, look for the line that says 'skip-splash' and change 'value' from 'false' to 'true'.
 
 **Q: I have a question that's not answered here. How can I get help?**
 
@@ -79,5 +89,6 @@ Alternatively, you can hop onto IRC and join OPU's official IRC channel and ask 
 OutpostHD is developed and maintained by the following contributors:
 
 - Leeor Dicker (aka leeor_net): *Design & Programming*
+- Goof: *Programming*
 - Hooman: *Design & Programming Assistance*
 - Casper van Heck (aka vomov): *Research Tree & Design*

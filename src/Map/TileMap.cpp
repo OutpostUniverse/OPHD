@@ -196,7 +196,7 @@ void TileMap::injectMouse(int x, int y)
  */
 bool TileMap::tileHighlightVisible() const
 {
-	return isPointInRect(mMapHighlight.x(), mMapHighlight.y(), 0, 0, mEdgeLength, mEdgeLength);
+	return isPointInRect(mMapHighlight.x(), mMapHighlight.y(), 0, 0, mEdgeLength - 1, mEdgeLength - 1);
 }
 
 
