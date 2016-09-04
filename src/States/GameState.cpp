@@ -774,6 +774,20 @@ void GameState::placeRobot()
 	if(!tile)
 		return;
 
+	// Check if it's a displayed tile
+	{
+		NAS2D::Point_2d View = mTileMap->mapViewLocation();
+		int x1 = View.x();
+		int x2 = View.x() + mTileMap->edgeLength() - 1;
+		int y1 = View.y();
+		int y2 = View.y() + mTileMap->edgeLength() - 1;
+		if (tile->x() < x1) return;
+		if (tile->x() > x2) return;
+		if (tile->y() < y1) return;
+		if (tile->y() > y2) return;
+	}
+	
+
 	// Robodozer has been selected.
 	if(mCurrentRobot == ROBOT_DOZER)
 	{
