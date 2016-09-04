@@ -240,6 +240,11 @@ void GameState::btnToggleConnectednessClicked()
 */
 void GameState::structuresSelectionChanged(const std::string& _s)
 {
+	// clear the others selectors 
+	mConnections.clearSelection();
+	mRobots.clearSelection();
+
+	// set the new structure Id
 	setStructureID(StructureTranslator::translateFromString(_s), INSERT_STRUCTURE);
 }
 
@@ -249,6 +254,11 @@ void GameState::structuresSelectionChanged(const std::string& _s)
 */
 void GameState::connectionsSelectionChanged(const std::string& _s)
 {
+	// clear the others selectors 
+	mRobots.clearSelection();
+	mStructures.clearSelection();
+	
+	// set the new structure Id
 	setStructureID(SID_TUBE, INSERT_TUBE);
 }
 
@@ -258,6 +268,10 @@ void GameState::connectionsSelectionChanged(const std::string& _s)
 */
 void GameState::robotsSelectionChanged(const std::string& _s)
 {
+	// clear the others selectors
+	mConnections.clearSelection();
+	mStructures.clearSelection();
+
 	mCurrentRobot = RobotTranslator::translateFromString(_s);
 
 	if(mCurrentRobot == ROBOT_NONE)
