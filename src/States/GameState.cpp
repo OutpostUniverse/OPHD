@@ -722,10 +722,7 @@ void GameState::placeTubes()
 	int x = mTileMapMouseHover.x();
 	int y = mTileMapMouseHover.y();
 
-	if (!mTileMap->tileHighlightVisible())
-		return;
-
-	Tile* tile = mTileMap->getTile(x, y, mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
 	if(!tile)
 		return;
 
@@ -773,11 +770,8 @@ bool GameState::validStructurePlacement(int x, int y)
 
 void GameState::placeRobot()
 {
-	Tile* tile = mTileMap->getTile(mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile();
 	if(!tile)
-		return;
-
-	if (!mTileMap->tileHighlightVisible())
 		return;
 
 	// Robodozer has been selected.
@@ -1081,11 +1075,9 @@ void GameState::placeStructure()
 		return;
 	}
 
-	if (!mTileMap->tileHighlightVisible())
-		return;
 
 	// Mouse is outside of the boundaries of the map so ignore this call.
-	Tile* t = mTileMap->getTile(mTileMapMouseHover.x(), mTileMapMouseHover.y(), mTileMap->currentDepth());
+	Tile* t = mTileMap->getVisibleTile();
 	if(!t)
 		return;
 
@@ -1143,9 +1135,6 @@ void GameState::setMinimapView()
 
 	mTileMap->mapViewLocation(x, y);
 }
-
-
-
 
 
 /**
@@ -1609,7 +1598,6 @@ void GameState::readPopulation(TiXmlElement* _ti)
 	if (_ti)
 	{
 		_ti->Attribute("morale", &mCurrentMorale);
-
 	}
 }
 

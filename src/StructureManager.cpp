@@ -236,7 +236,7 @@ int StructureManager::getCountInState(Structure::StructureType _st, Structure::S
 {
 	int count = 0;
 	for (auto i = 0; i < structureList(_st).size(); ++i)
-		if (structureList(_st)[i]->disabled())
+		if (structureList(_st)[i]->state() == _state)
 			++count;
 
 	return count;

@@ -27,6 +27,7 @@ TileMap::TileMap(const string& map_path, const string& tset_path, int _md, int _
 																								mDebug(false),
 																								mShowConnections(false)
 {
+	cout << "Loading '" << map_path << "'... ";
 	buildTerrainMap(map_path);
 	buildMouseMap();
 	initMapDrawParams();
@@ -36,6 +37,7 @@ TileMap::TileMap(const string& map_path, const string& tset_path, int _md, int _
 
 	mMapPath = map_path;
 	mTsetPath = tset_path;
+	cout << "finished!" << endl;
 }
 
 
@@ -442,3 +444,23 @@ void TileMap::deserialize(TiXmlElement* _ti)
 			mTileMap[depth][y][x].excavated(true);
 	}
 }
+
+
+Tile* TileMap::getVisibleTile(int x, int y, int level)
+{
+	if (!isVisibleTile(x,y,level))
+		return nullptr;
+	return getTile(x, y, level);
+}
+
+bool TileMap::isVisibleTile(int _x, int _y, int _d)
+{
+	if (!isPointInRect(_x, _y, mMapViewLocation.x(), mMapViewLocation.y(), mEdgeLength - 1, mEdgeLength - 1))
+		return false;
+	if (_d != mCurrentDepth)
+		return false;
+	
+	return true;
+}
+
+

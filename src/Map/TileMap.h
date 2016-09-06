@@ -26,7 +26,15 @@ public:
 
 	Tile* getTile(int x, int y, int level);
 	Tile* getTile(int x, int y) { return getTile(x, y, mCurrentDepth); }
-
+	
+	Tile* getVisibleTile(int x, int y, int level);
+	Tile* getVisibleTile(int x, int y) { return getVisibleTile(x, y, mCurrentDepth); }
+	Tile* getVisibleTile() { return getVisibleTile(tileMouseHoverX(), tileMouseHoverY(), mCurrentDepth); }
+	
+	bool isVisibleTile(int _x, int _y, int _d);
+	bool isVisibleTile(int _x, int _y) { return isVisibleTile(_x, _y, mCurrentDepth); }
+	bool isVisibleTile(Tile _t) { return isVisibleTile(_t.x(), _t.y(), _t.depth()); }
+	
 	const Rectangle_2d& boundingBox() const { return mMapBoundingBox; }
 
 	const Point_2d& mapViewLocation() const { return mMapViewLocation; }
