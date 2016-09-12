@@ -1348,7 +1348,12 @@ void GameState::save(const std::string& _path)
 	root->LinkEndChild(turns);
 
 	TiXmlElement* population = new TiXmlElement("population");
-	turns->SetAttribute("morale", mCurrentMorale);
+	population->SetAttribute("morale", mCurrentMorale);
+	population->SetAttribute("children", mPopulation.size(Population::ROLE_CHILD));
+	population->SetAttribute("students", mPopulation.size(Population::ROLE_STUDENT));
+	population->SetAttribute("workers", mPopulation.size(Population::ROLE_WORKER));
+	population->SetAttribute("scientists", mPopulation.size(Population::ROLE_SCIENTIST));
+	population->SetAttribute("retired", mPopulation.size(Population::ROLE_RETIRED));
 	root->LinkEndChild(population);
 
 	TiXmlElement* ai = new TiXmlElement("ai");
@@ -1419,7 +1424,6 @@ void GameState::load(const std::string& _path)
 	readResources(root->FirstChildElement("resources"), mPlayerResources);
 	readTurns(root->FirstChildElement("turns"));
 	readPopulation(root->FirstChildElement("population"));
-
 
 	TiXmlElement* ai = root->FirstChildElement("ai");
 	
@@ -1598,7 +1602,23 @@ void GameState::readPopulation(TiXmlElement* _ti)
 {
 	if (_ti)
 	{
+		mPopulation.clear();
+
 		_ti->Attribute("morale", &mCurrentMorale);
+
+		int children = 0, students = 0, workers = 0, scientists = 0, retired = 0;
+
+		_ti->Attribute("children", &children);
+		_ti->Attribute("students", &students);
+		_ti->Attribute("workers", &workers);
+		_ti->Attribute("scientists", &scientists);
+		_ti->Attribute("retired", &retired);
+
+		mPopulation.populateList(Population::ROLE_CHILD, 0, 119, children);
+		mPopulation.populateList(Population::ROLE_STUDENT, 120, 96, students);
+		mPopulation.populateList(Population::ROLE_WORKER, 216, 500, workers);
+		mPopulation.populateList(Population::ROLE_SCIENTIST, 235, 500, scientists);
+		mPopulation.populateList(Population::ROLE_RETIRED, 720, 120, retired);
 	}
 }
 

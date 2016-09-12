@@ -25,7 +25,7 @@ public:
 	void conceive() { if(!mMale) ++mConceptionCounter; }
 	int conceived() const { return mConceptionCounter; }
 
-	void birth_jitter(int _j) { mConceptionJitter = _j; }
+	void birth_jitter(int _j) { mConceptionJitter = _j; mConceptionCounter = WAIT_TIME_TILL_NEXT_BIRTH; }
 
 	bool pregnant()
 	{
