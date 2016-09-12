@@ -45,7 +45,10 @@ protected:
 				storage().food(AGRIDOME_CAPACITY);
 				idle();
 			}
-			else(storage().food(curr_food + AGRIDOME_BASE_PRODUCUCTION));
+			else
+			{
+				storage().food(curr_food + AGRIDOME_BASE_PRODUCUCTION);
+			}
 		}
 
 	}

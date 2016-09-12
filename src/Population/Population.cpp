@@ -329,7 +329,37 @@ int Population::killPopulation(Population::PersonList& _pl, Population::PersonRo
  */
 int Population::consume_food(int _food)
 {
-	return 0;
+	int population_fed = _food * 10;
+	if (population_fed > size())
+	{
+		return size() / 10;
+	}
+
+	/* Really not a good way to do this... whatever. Gets really slow with
+	 * large population counts.
+	 * 
+	 * FIXME:	The float in the following equation is used to modify how many of the population starves.
+	 *			It should change based on difficulty level.
+	 * 
+	 * NOTE:	Larger number means more of the population dies.
+	 */
+	int population_to_kill = (size() - population_fed) * (0.50f);
+	for (int population_killed = 0; population_killed < population_to_kill;)
+	{
+		if (size() <= 0)
+			break;
+
+		PersonRole pr = static_cast<PersonRole>(rand() % ROLE_RETIRED);
+		PersonList& pl = mPopulationTable[pr];
+		
+		if (!pl.empty())
+		{
+			deletePerson(pl.back(), pr);
+			++population_killed;
+		}
+	}
+
+	return population_fed;
 }
 
 

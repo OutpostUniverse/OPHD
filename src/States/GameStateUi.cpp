@@ -361,6 +361,22 @@ int moraleChange(StructureManager& _sm, Structure::StructureType _type)
 }
 
 
+int pullFood(ResourcePool& _rp, int amount)
+{
+	if (amount <= _rp.food())
+	{
+		_rp.food(_rp.food() - amount);
+		return amount;
+	}
+	else
+	{
+		int ret = _rp.food();
+		_rp.food(0);
+		return ret;
+	}
+}
+
+
 /**
  * Turns button clicked.
  */
@@ -372,14 +388,23 @@ void GameState::btnTurnsClicked()
 	checkConnectedness();
 	mStructureManager.update(mPlayerResources);
 
+	// FOOD CONSUMPTION
 	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage());
+	StructureManager::StructureList &foodproducers = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
+	int remainder = food_consumed;	
 	
-	StructureManager::StructureList& food_producers = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
-	for (size_t i = 0; i < food_producers.size(); ++i)
+	if (mPlayerResources.food() > 0)
+		remainder -= pullFood(mPlayerResources, remainder);
+	
+	for (size_t i = 0; i < foodproducers.size(); ++i)
 	{
+		if (remainder <= 0)
+			break;
 
+		remainder -= pullFood(foodproducers[i]->storage(), remainder);
 	}
 	
+	// MORALE
 	// Positive Effects
 	mCurrentMorale += mPopulation.birthCount();
 	mCurrentMorale += mStructureManager.getCountInState(Structure::STRUCTURE_PARK, Structure::OPERATIONAL);
@@ -455,12 +480,6 @@ void GameState::btnTurnsClicked()
 	{
 		populateStructureMenu();
 	}
-
-	// Update Morale
-	int moraleDelta = 0;
-	moraleDelta += moraleChange(mStructureManager, Structure::STRUCTURE_PARK);
-	moraleDelta += moraleChange(mStructureManager, Structure::STRUCTURE_RECREATION_CENTER);
-	moraleDelta += moraleChange(mStructureManager, Structure::STRUCTURE_FOOD_PRODUCTION);
 
 	mTurnCount++;
 }

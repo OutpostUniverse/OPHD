@@ -289,6 +289,8 @@ int GameState::foodInStorage()
 			food_count += sl[i]->storage().food();
 	}
 
+	food_count += mPlayerResources.food();
+
 	return food_count;
 }
 
@@ -1246,9 +1248,8 @@ void GameState::deploySeedLander(int x, int y)
 	mPlayerResources.rareMetals(30);
 	mPlayerResources.rareMinerals(30);
 
-	//mPopulationPool.addWorkers(30);
-	//mPopulationPool.addScientists(20);
-	
+	mPlayerResources.food(250);
+
 	// 180 == weeks == 15 years, 36 == jitter == 3 years
 	mPopulation.populateList(Population::ROLE_STUDENT, 180, 36, 20);
 	// 360 == weeks == 30 years, 120 == jitter == 10 years
