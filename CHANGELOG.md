@@ -2,9 +2,9 @@
 This is the changelog for OutpostHD.
 
 
-## [0.7.0] - UNRELEASED
+## [0.7.0] - 2016-09-12
 
-This version includes all revisions from r136 to rXXX.
+This version includes all revisions from r136 to r190.
 
 ### Added
 - Site Map now shows Command Center's influence radius.
@@ -14,9 +14,10 @@ This version includes all revisions from r136 to rXXX.
 	- Recreation Facility
 	- Red Light District
 	- Robot Command
-	- Solar Power Receiver Arrawy
+	- Solar Power Receiver Array
 	- Surface Police
 	- University
+	- UG Commercial
 	- UG Factory
 	- UG Laboratory
 	- UG Police
@@ -35,6 +36,7 @@ This version includes all revisions from r136 to rXXX.
 - Updated Digger placement logic to account for additional use cases that caused weird behavior.
 - Updated Miner bot placement logic so that insertion mode isn't cleared if more miner's are available.
 - Save/Load now handles Morale.
+- Save/Load now handles Population.
 - Reworked UI
 	- Structures/Robots/Tubes menus are now displayed all at once.
 	- The buttons made to toggle between the menus are removed.
