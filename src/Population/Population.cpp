@@ -344,6 +344,10 @@ int Population::consume_food(int _food)
 	 * NOTE:	Larger number means more of the population dies.
 	 */
 	int population_to_kill = (size() - population_fed) * (0.50f);
+
+	if (size() == 1)
+		population_to_kill = 1;
+
 	for (int population_killed = 0; population_killed < population_to_kill;)
 	{
 		if (size() <= 0)
