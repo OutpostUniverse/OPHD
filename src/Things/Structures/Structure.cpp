@@ -35,6 +35,7 @@ void Structure::disable()
 	sprite().pause();
 	sprite().color(255, 0, 0, 185);
 	state(DISABLED);
+	disabledStateSet();
 }
 
 

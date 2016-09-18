@@ -124,6 +124,8 @@ protected:
 
 	void activate();
 
+	virtual void disabledStateSet() {};
+
 	void state(StructureState _s) { mStructureState = _s; }
 
 	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }

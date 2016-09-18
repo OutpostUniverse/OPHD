@@ -2,6 +2,21 @@
 This is the changelog for OutpostHD.
 
 
+## [0.7.1] - UNRELEASED
+
+This version includes all revisions from r191 to rXXX.
+
+### Added
+- 
+
+### Changed
+- Agridomes will now dump their entire storage of food when they go disabled. This effectively simulates a failure of the food storage units which leads to spoilage.
+
+### Fixed
+- Fixed an issue that would keep one colonist alive regardless of how much food was available.
+
+
+
 ## [0.7.0] - 2016-09-12
 
 This version includes all revisions from r136 to r190.

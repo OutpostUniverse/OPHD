@@ -15,8 +15,6 @@ public:
 		turnsToBuild(3);
 
 		requiresCHAP(true);
-
-		//storage().capacity(1000);
 	}
 
 
@@ -36,9 +34,6 @@ protected:
 		}
 		else
 		{
-			//if (storage().pushResource(ResourcePool::RESOURCE_FOOD, 10) != 0)
-			//	idle();
-
 			int curr_food = storage().food();
 			if (curr_food > AGRIDOME_CAPACITY - AGRIDOME_BASE_PRODUCUCTION)
 			{
@@ -61,6 +56,12 @@ protected:
 
 	virtual void defineResourceOutput()
 	{}
+
+	virtual void disabledStateSet()
+	{
+		// Clear food store when disabled.
+		storage().food(0);
+	}
 
 private:
 
