@@ -2,7 +2,7 @@
 
 const int WINDOW_TITLE_BAR_HEIGHT = 20;
 
-Window::Window() : mBold("fonts/ui-bold.png", 7, 9, 0), mMouseDrag(false)
+Window::Window() : mBold("fonts/ui-bold.png", 7, 9, 0), mMouseDrag(false), mAnchored(false)
 {
 	EventHandler& e = Utility<EventHandler>::get();
 	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &Window::onMouseDown);
@@ -56,10 +56,15 @@ void Window::onMouseMotion(int x, int y, int dX, int dY)
 	if (!visible() || !hasFocus())
 		return;
 
-	if (mMouseDrag)
+	if (mMouseDrag && !mAnchored)
 		position(positionX() + dX, positionY() + dY);
 }
 
+
+void Window::anchored(bool _a)
+{
+	mAnchored = _a;
+}
 
 
 void Window::update()

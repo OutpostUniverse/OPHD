@@ -25,6 +25,7 @@
 #include "../UI/UI.h"
 #include "../UI/DiggerDirection.h"
 #include "../UI/FactoryProduction.h"
+#include "../UI/GameOverDialog.h"
 #include "../UI/IconGrid.h"
 #include "../UI/PopulationPanel.h"
 #include "../UI/StructureInspector.h"
@@ -59,10 +60,18 @@ class GameState: public State
 {
 public:
 
+	enum PopulationLevel
+	{
+		POPULATION_SMALL = 1,
+		POPULATION_LARGE = 2
+	};
+
 public:
 
 	GameState(const std::string& map, const std::string& tset, int _d, int _minecount, AiVoiceNotifier::AiGender _g);
 	~GameState();
+
+	void setPopulationLevel(PopulationLevel _level);
 
 protected:
 
@@ -137,6 +146,8 @@ private:
 	// UI Event Handlers
 	void btnTurnsClicked();
 	void btnToggleConnectednessClicked();
+
+	void btnGameOverClicked();
 
 	void updateCurrentLevelString(int currentDepth);
 
@@ -213,6 +224,7 @@ private:
 	DiggerDirection		mDiggerDirection;
 
 	FactoryProduction	mFactoryProduction;
+	GameOverDialog		mGameOverDialog;
 	PopulationPanel		mPopulationPanel;
 	StructureInspector	mStructureInspector;
 	TileInspector		mTileInspector;
@@ -222,6 +234,8 @@ private:
 	// MISCELLANEOUS
 	int					mTurnCount;
 	int					mCurrentMorale;
+
+	int					mLandersColonist;
 
 	bool				mDebug;
 	bool				mLeftButtonDown;		/**< Used for mouse drags on the mini map. */

@@ -17,7 +17,6 @@ public:
 		requiresCHAP(true);
 	}
 
-
 	virtual ~Agridome()
 	{}
 

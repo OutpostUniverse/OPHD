@@ -12,6 +12,8 @@ public:
 
 	virtual void update();
 
+	void anchored(bool _a);
+
 protected:
 
 	void onMouseDown(MouseButton button, int x, int y);
@@ -24,6 +26,7 @@ private:
 	Font		mBold;
 
 	bool		mMouseDrag;
+	bool		mAnchored;
 
 	ImageList	mTitle;
 	ImageList	mBody;

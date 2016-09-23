@@ -7,6 +7,8 @@
 #include "GameState.h"
 #include "GameStateHelper.h"
 
+#include "PlanetSelectState.h"
+
 #include "../Constants.h"
 
 #include "../RobotTranslator.h"
@@ -42,11 +44,15 @@ void GameState::initUi()
 	mPopulationPanel.population(&mPopulation);
 	mPopulationPanel.morale(&mCurrentMorale);
 
+	mGameOverDialog.position(r.screenCenterX() - mGameOverDialog.width() / 2, r.screenCenterY() - mGameOverDialog.height() / 2 - 100);
+	mGameOverDialog.returnToMainMenu().Connect(this, &GameState::btnGameOverClicked);
+	mGameOverDialog.hide();
 
 	mWindowStack.addWindow(&mTileInspector);
 	mWindowStack.addWindow(&mStructureInspector);
 	mWindowStack.addWindow(&mFactoryProduction);
 	mWindowStack.addWindow(&mDiggerDirection);
+	mWindowStack.addWindow(&mGameOverDialog);
 
 
 	// Bottom UI
@@ -346,6 +352,13 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	}
 
 	mDiggerDirection.visible(false);
+}
+
+
+void GameState::btnGameOverClicked()
+{
+	mReturnState = new PlanetSelectState();
+	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 }
 
 int moraleChange(StructureManager& _sm, Structure::StructureType _type)

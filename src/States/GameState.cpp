@@ -64,11 +64,13 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mCurrentStructure(SID_NONE),
 																											mDiggerDirection(mTinyFont),
 																											mFactoryProduction(mTinyFont),
+																											mGameOverDialog(mTinyFont),
 																											mStructureInspector(mTinyFont),
 																											mTileInspector(mTinyFont),
 																											mInsertMode(INSERT_NONE),
 																											mTurnCount(0),
 																											mCurrentMorale(600),
+																											mLandersColonist(0),
 																											mReturnState(NULL),
 																											mLeftButtonDown(false),
 																											mDebug(false)
@@ -89,6 +91,12 @@ GameState::~GameState()
 	e.mouseButtonDown().Disconnect(this, &GameState::onMouseDown);
 	e.mouseButtonUp().Disconnect(this, &GameState::onMouseUp);
 	e.mouseMotion().Disconnect(this, &GameState::onMouseMove);
+}
+
+
+void GameState::setPopulationLevel(PopulationLevel _level)
+{
+	mLandersColonist = static_cast<int>(_level);
 }
 
 

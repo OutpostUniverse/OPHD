@@ -168,6 +168,9 @@
     <ClCompile Include="..\..\src\Map\TileMap.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ui\GameOverDialog.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -403,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\ColonistLander.h">
       <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ui\GameOverDialog.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

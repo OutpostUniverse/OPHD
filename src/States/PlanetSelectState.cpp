@@ -106,6 +106,7 @@ void PlanetSelectState::drawStar(int x, int y)
 	r.drawImageRotated(mDetailFlare, x, y, rotation, 255, 255, 255, 255);
 }
 
+
 State* PlanetSelectState::update()
 {
 	Renderer& r = Utility<Renderer>::get();
@@ -143,11 +144,23 @@ State* PlanetSelectState::update()
 	else if (PLANET_TYPE_SELECTION != PLANET_TYPE_NONE)
 	{
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MERCURY)
-			return new GameState("maps/merc_01", "tsets/mercury.png", mPlanets[0]->digDepth(), mPlanets[0]->maxMines(), mAiGender);
+		{
+			GameState* gs = new GameState("maps/merc_01", "tsets/mercury.png", mPlanets[0]->digDepth(), mPlanets[0]->maxMines(), mAiGender);
+			gs->setPopulationLevel(GameState::POPULATION_LARGE);
+			return gs;
+		}
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MARS)
-			return new GameState("maps/mars_04", "tsets/mars.png", mPlanets[1]->digDepth(), mPlanets[1]->maxMines(), mAiGender);
+		{
+			GameState* gs = new GameState("maps/mars_04", "tsets/mars.png", mPlanets[1]->digDepth(), mPlanets[1]->maxMines(), mAiGender);
+			gs->setPopulationLevel(GameState::POPULATION_LARGE);
+			return gs;
+		}
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_GANYMEDE)
-			return new GameState("maps/ganymede_01", "tsets/ganymede.png", mPlanets[2]->digDepth(), mPlanets[2]->maxMines(), mAiGender);
+		{
+			GameState* gs = new GameState("maps/ganymede_01", "tsets/ganymede.png", mPlanets[2]->digDepth(), mPlanets[2]->maxMines(), mAiGender);
+			gs->setPopulationLevel(GameState::POPULATION_LARGE);
+			return gs;
+		}
 	}
 
 	return this;
