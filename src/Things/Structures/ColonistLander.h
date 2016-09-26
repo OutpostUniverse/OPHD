@@ -3,6 +3,7 @@
 #include "Structure.h"
 
 #include "../../Constants.h"
+#include "../../Map/Tile.h"
 
 class ColonistLander : public Structure
 {
@@ -10,7 +11,7 @@ public:
 
 	typedef Gallant::Signal0<void> Callback;
 
-	ColonistLander() : Structure(constants::SEED_LANDER, "structures/lander_1.sprite", STRUCTURE_LANDER)
+	ColonistLander(Tile* t) : Structure(constants::SEED_LANDER, "structures/lander_1.sprite", STRUCTURE_LANDER), mTile(t)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);
@@ -34,10 +35,13 @@ protected:
 		if (age() == turnsToBuild())
 		{
 			mDeploy();
+			mTile->index(0);
 		}
 	}
 
 private:
 
 	Callback	mDeploy;
+
+	Tile*		mTile;
 };

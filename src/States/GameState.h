@@ -119,6 +119,8 @@ private:
 
 	void factoryProductionComplete(Factory::ProductionType _p);
 
+	void deployColonistLander();
+
 	void deploySeedLander(int x, int y);
 	void insertSeedLander(int x, int y);
 	bool landingSiteSuitable(int x, int y);

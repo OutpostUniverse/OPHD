@@ -695,6 +695,15 @@ bool GameState::changeDepth(int _d)
 }
 
 
+void GameState::setMinimapView()
+{
+	int x = clamp(mMousePosition.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
+	int y = clamp(mMousePosition.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
+
+	mTileMap->mapViewLocation(x, y);
+}
+
+
 void GameState::clearMode()
 {
 	mInsertMode = INSERT_NONE;
@@ -726,6 +735,7 @@ void GameState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
 		throw Exception(0, "Structure Not a Tube", "GameState::placeTube() called but Current Structure is not a tube!");
 	}
 }
+
 
 void GameState::placeTubes()
 {
@@ -1070,6 +1080,7 @@ void GameState::factoryProductionComplete(Factory::ProductionType _p)
 	}
 }
 
+
 /**
  * Places a structure into the map.
  */
@@ -1091,21 +1102,44 @@ void GameState::placeStructure()
 	if(!t)
 		return;
 
-	if(t->mine() || t->thing() || !t->bulldozed() && mCurrentStructure != SID_SEED_LANDER)
+	if(t->mine() || t->thing() || !t->bulldozed() && mCurrentStructure != SID_SEED_LANDER && mCurrentStructure != SID_COLONIST_LANDER)
 	{
 		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		cout << "GameState::placeStructure(): Tile is unsuitable to place a structure." << endl;
 		return;
 	}
 
+	int tile_x = mTileMapMouseHover.x(), tile_y = mTileMapMouseHover.y();
+
 	// Seed lander is a special case and only one can ever be placed by the player ever.
 	if(mCurrentStructure == SID_SEED_LANDER)
 	{
-		insertSeedLander(mTileMapMouseHover.x(), mTileMapMouseHover.y());
+		insertSeedLander(tile_x, tile_y);
+	}
+	else if (mCurrentStructure == SID_COLONIST_LANDER)
+	{
+		if (!t->empty() && t->index() < 4) // fixme: magic number, tile index 4 == impassable terrain
+		{
+			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
+			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
+			return;
+		}
+
+		ColonistLander* s = new ColonistLander(t);
+		s->deployCallback().Connect(this, &GameState::deployColonistLander);
+		mStructureManager.addStructure(s, t);
+
+		--mLandersColonist;
+		if (mLandersColonist == 0)
+		{
+			clearMode();
+			resetUi();
+			populateStructureMenu();
+		}
 	}
 	else
 	{
-		if (!validStructurePlacement(mTileMapMouseHover.x(), mTileMapMouseHover.y()))
+		if (!validStructurePlacement(tile_x, tile_y))
 		{
 			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
@@ -1135,15 +1169,6 @@ void GameState::placeStructure()
 
 		mPlayerResources -= rp;
 	}
-}
-
-
-void GameState::setMinimapView()
-{
-	int x = clamp(mMousePosition.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
-	int y = clamp(mMousePosition.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
-
-	mTileMap->mapViewLocation(x, y);
 }
 
 
@@ -1197,7 +1222,23 @@ bool GameState::landingSiteSuitable(int x, int y)
 
 
 /**
+ * Lands colonists on the surfaces and adds them to the population pool.
+ *
+ * \param	_cl	Pointer to the deploying ColonistLander object so we can properly disconnect
+ *				GameState from the callback.
+ */
+void GameState::deployColonistLander()
+{
+
+}
+
+
+/**
  * Sets up the initial colony deployment.
+ * 
+ * \note	The deploy callback only gets called once so there is really no
+ *			need to disconnect the callback since it will automatically be
+ *			released when the seed lander is destroyed.
  */
 void GameState::deploySeedLander(int x, int y)
 {

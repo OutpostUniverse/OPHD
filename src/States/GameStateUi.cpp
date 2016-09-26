@@ -175,6 +175,11 @@ void GameState::populateStructureMenu()
 		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110);
 		mConnections.addItem(constants::AG_TUBE_RIGHT, 112);
 		mConnections.addItem(constants::AG_TUBE_LEFT, 111);
+
+
+		// Special case code, not thrilled with this
+		if(mLandersColonist > 0)
+			mStructures.addItem(constants::COLONIST_LANDER, 2);
 	}
 	else
 	{
