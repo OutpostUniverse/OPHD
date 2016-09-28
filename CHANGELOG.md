@@ -7,10 +7,14 @@ This is the changelog for OutpostHD.
 This version includes all revisions from r191 to rXXX.
 
 ### Added
-- 
+- Added a Game Over window.
+- Added Colonist Lander.
+- Added an Announcement window for major events in the colony. Not polished but does the job.
 
 ### Changed
 - Agridomes will now dump their entire storage of food when they go disabled. This effectively simulates a failure of the food storage units which leads to spoilage.
+- Game will go into a Game Over state when population reaches 0.
+- Population will now only become active when dropped to the surface with a lander. 50 colonists per lander.
 
 ### Fixed
 - Fixed an issue that would keep one colonist alive regardless of how much food was available.

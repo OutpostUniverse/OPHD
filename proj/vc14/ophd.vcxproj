@@ -191,6 +191,7 @@
     <ClCompile Include="..\..\src\UI\FactoryProduction.cpp" />
     <ClCompile Include="..\..\src\ui\GameOverDialog.cpp" />
     <ClCompile Include="..\..\src\UI\IconGrid.cpp" />
+    <ClCompile Include="..\..\src\UI\MajorEventAnnouncement.cpp" />
     <ClCompile Include="..\..\src\ui\StructureInspector.cpp" />
     <ClCompile Include="..\..\src\UI\TileInspector.cpp" />
   </ItemGroup>
@@ -269,6 +270,7 @@
     <ClInclude Include="..\..\src\UI\FactoryProduction.h" />
     <ClInclude Include="..\..\src\ui\GameOverDialog.h" />
     <ClInclude Include="..\..\src\UI\IconGrid.h" />
+    <ClInclude Include="..\..\src\UI\MajorEventAnnouncement.h" />
     <ClInclude Include="..\..\src\Ui\PopulationPanel.h" />
     <ClInclude Include="..\..\src\ui\StructureInspector.h" />
     <ClInclude Include="..\..\src\UI\TileInspector.h" />

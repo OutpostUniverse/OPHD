@@ -107,6 +107,13 @@ void WindowStack::sendToBack(Window* _w)
 }
 
 
+void WindowStack::hide()
+{
+	for (auto it = mWindowList.rbegin(); it != mWindowList.rend(); ++it)
+		(*it)->hide();
+}
+
+
 void WindowStack::update()
 {
 	for (auto it = mWindowList.rbegin(); it != mWindowList.rend(); ++it)

@@ -65,15 +65,17 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mDiggerDirection(mTinyFont),
 																											mFactoryProduction(mTinyFont),
 																											mGameOverDialog(mTinyFont),
+																											mAnnouncement(mTinyFont),
 																											mStructureInspector(mTinyFont),
 																											mTileInspector(mTinyFont),
 																											mInsertMode(INSERT_NONE),
 																											mTurnCount(0),
 																											mCurrentMorale(600),
 																											mLandersColonist(0),
-																											mReturnState(NULL),
+																											mDebug(false),
 																											mLeftButtonDown(false),
-																											mDebug(false)
+																											mGameOver(false),
+																											mReturnState(NULL)
 {}
 
 
@@ -171,10 +173,19 @@ State* GameState::update()
 	Renderer& r = Utility<Renderer>::get();
 
 	r.drawImageStretched(mBackground, 0, 0, r.width(), r.height());
-	//r.drawBoxFilled(0, 0, r.width(), r.height(), 25, 25, 25);
 
-	mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
-	
+	if (mGameOver)
+	{
+		r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 125);
+		mGameOverDialog.update();
+		mPointers[POINTER_NORMAL].draw(mMousePosition.x(), mMousePosition.y());
+
+		if (r.isFading())
+			return this;
+
+		return mReturnState;
+	}
+
 
 	// Place move / Depth butons
 	if (isPointInRect(mMousePosition, MOVE_DOWN_ICON))
@@ -235,7 +246,8 @@ State* GameState::update()
 	// explicit current level
 	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - mFont.height() - mTinyFontBold.height() - 12, 255, 255, 255);
 	if(mDebug) drawDebug();
-	
+
+	mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
 	mTileMap->draw();
 	drawUI();
 
@@ -514,10 +526,13 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 
 
 /**
-* Mouse Down event handler.
-*/
+ * Mouse Down event handler.
+ */
 void GameState::onMouseDown(MouseButton button, int x, int y)
 {
+	if (mGameOver)
+		return;
+
 	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
 		return;
 
@@ -1229,7 +1244,12 @@ bool GameState::landingSiteSuitable(int x, int y)
  */
 void GameState::deployColonistLander()
 {
-
+	// 180 == weeks == 15 years, 36 == jitter == 3 years
+	mPopulation.populateList(Population::ROLE_STUDENT, 180, 36, 10);
+	// 360 == weeks == 30 years, 120 == jitter == 10 years
+	mPopulation.populateList(Population::ROLE_WORKER, 360, 120, 20);
+	// 360 == weeks == 30 years, 120 == jitter == 10 years
+	mPopulation.populateList(Population::ROLE_SCIENTIST, 360, 120, 20);
 }
 
 
@@ -1292,19 +1312,13 @@ void GameState::deploySeedLander(int x, int y)
 	mRobotPool.addRobot(ROBOT_MINER)->taskComplete().Connect(this, &GameState::minerTaskFinished);
 
 	// FIXME: Magic numbers
+	// FIXME: Move to Cargo Lander landing code.
 	mPlayerResources.commonMetals(50);
 	mPlayerResources.commonMinerals(50);
 	mPlayerResources.rareMetals(30);
 	mPlayerResources.rareMinerals(30);
 
 	mPlayerResources.food(250);
-
-	// 180 == weeks == 15 years, 36 == jitter == 3 years
-	mPopulation.populateList(Population::ROLE_STUDENT, 180, 36, 20);
-	// 360 == weeks == 30 years, 120 == jitter == 10 years
-	mPopulation.populateList(Population::ROLE_WORKER, 360, 120, 40);
-	// 360 == weeks == 30 years, 120 == jitter == 10 years
-	mPopulation.populateList(Population::ROLE_SCIENTIST, 360, 120, 40);
 }
 
 

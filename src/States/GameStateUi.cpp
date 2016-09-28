@@ -48,11 +48,14 @@ void GameState::initUi()
 	mGameOverDialog.returnToMainMenu().Connect(this, &GameState::btnGameOverClicked);
 	mGameOverDialog.hide();
 
+	mAnnouncement.position(r.screenCenterX() - mGameOverDialog.width() / 2, r.screenCenterY() - mGameOverDialog.height() / 2 - 100);
+	mAnnouncement.hide();
+
 	mWindowStack.addWindow(&mTileInspector);
 	mWindowStack.addWindow(&mStructureInspector);
 	mWindowStack.addWindow(&mFactoryProduction);
 	mWindowStack.addWindow(&mDiggerDirection);
-	mWindowStack.addWindow(&mGameOverDialog);
+	mWindowStack.addWindow(&mAnnouncement);
 
 
 	// Bottom UI
@@ -116,6 +119,24 @@ void GameState::initUi()
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0);
+}
+
+
+/**
+ * Hides ALL UI elements.
+ */
+void GameState::hideUi()
+{
+	mBtnTurns;
+
+	mBtnToggleHeightmap.hide();
+	mBtnToggleConnectedness.hide();
+
+	mStructures.hide();
+	mRobots.hide();
+	mConnections.hide();
+
+	mWindowStack.hide();
 }
 
 
@@ -366,6 +387,7 @@ void GameState::btnGameOverClicked()
 	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 }
 
+
 int moraleChange(StructureManager& _sm, Structure::StructureType _type)
 {
 	int count = 0;
@@ -500,4 +522,40 @@ void GameState::btnTurnsClicked()
 	}
 
 	mTurnCount++;
+
+
+	// Check for colony ship deorbiting; if any colonists are remaining, kill
+	// them and reduce morale by an appropriate amount.
+	if (mTurnCount == COLONY_SHIP_ORBIT_TIME)
+	{
+		if (mLandersColonist > 0)
+		{
+			mCurrentMorale -= (mLandersColonist * 50) * 6; // TODO: apply a modifier to multiplier based on difficulty level.
+			if (mCurrentMorale < 0)
+				mCurrentMorale == 0;
+
+			mLandersColonist = 0;
+
+			populateStructureMenu();
+
+			mWindowStack.bringToFront(&mAnnouncement);
+			mAnnouncement.announcement(MajorEventAnnouncement::ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS);
+			mAnnouncement.show();
+		}
+		else
+		{
+			mWindowStack.bringToFront(&mAnnouncement);
+			mAnnouncement.announcement(MajorEventAnnouncement::ANNOUNCEMENT_COLONY_SHIP_CRASH);
+			mAnnouncement.show();
+		}
+	}
+
+
+	// Check for Game Over conditions
+	if (mPopulation.size() < 1 && mLandersColonist == 0)
+	{
+		mGameOver = true;
+		hideUi();
+		mGameOverDialog.show();
+	}
 }

@@ -27,6 +27,7 @@
 #include "../UI/FactoryProduction.h"
 #include "../UI/GameOverDialog.h"
 #include "../UI/IconGrid.h"
+#include "../UI/MajorEventAnnouncement.h"
 #include "../UI/PopulationPanel.h"
 #include "../UI/StructureInspector.h"
 #include "../UI/TileInspector.h"
@@ -96,6 +97,7 @@ private:
 	void drawMiniMap();
 	void drawResourceInfo();
 
+	void hideUi();
 	void initUi();
 	void resetUi();
 	void clearSelections();
@@ -224,9 +226,9 @@ private:
 	IconGrid			mConnections;
 
 	DiggerDirection		mDiggerDirection;
-
 	FactoryProduction	mFactoryProduction;
 	GameOverDialog		mGameOverDialog;
+	MajorEventAnnouncement	mAnnouncement;
 	PopulationPanel		mPopulationPanel;
 	StructureInspector	mStructureInspector;
 	TileInspector		mTileInspector;
@@ -241,6 +243,7 @@ private:
 
 	bool				mDebug;
 	bool				mLeftButtonDown;		/**< Used for mouse drags on the mini map. */
+	bool				mGameOver;				/**< Flag indicating that a game over condition has been met. */
 
 	State*				mReturnState;
 };

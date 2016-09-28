@@ -171,6 +171,9 @@
     <ClCompile Include="..\..\src\ui\GameOverDialog.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\MajorEventAnnouncement.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -408,6 +411,9 @@
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ui\GameOverDialog.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\MajorEventAnnouncement.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

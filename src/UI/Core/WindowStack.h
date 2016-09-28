@@ -26,6 +26,8 @@ public:
 	void bringToFront(Window* _w);
 	void sendToBack(Window* _w);
 
+	void hide();
+
 	void update();
 
 protected:

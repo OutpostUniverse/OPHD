@@ -16,4 +16,6 @@ namespace constants
 	const int DEPTH_UNDERGROUND_2 = 2;
 	const int DEPTH_UNDERGROUND_3 = 3;
 	const int DEPTH_UNDERGROUND_4 = 4;
+
+	const int COLONY_SHIP_ORBIT_TIME = 24;
 }
