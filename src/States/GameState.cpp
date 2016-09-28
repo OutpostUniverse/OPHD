@@ -1120,7 +1120,7 @@ void GameState::placeStructure()
 	{
 		if (!t->empty() && t->index() < 4) // fixme: magic number, tile index 4 == impassable terrain
 		{
-			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
+			mAiVoiceNotifier.notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
 			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
 			return;
 		}
