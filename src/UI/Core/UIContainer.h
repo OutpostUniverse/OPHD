@@ -32,7 +32,6 @@ protected:
 
 private:
 	typedef std::map<std::string, Control*> ControlList;
-	//typedef std::vector<Control*> ControlList;
 
 	ControlList				mControlList;	/**<  */
 

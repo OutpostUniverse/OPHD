@@ -50,7 +50,7 @@ void initNas2d(const std::string& argv_0, const std::string& startPath, const st
 
 
 
-void updateWindowHandlePositions(Control* w, NAS2D::Rectangle_2d& top_left, NAS2D::Rectangle_2d& top_right, NAS2D::Rectangle_2d& bottom_left, NAS2D::Rectangle_2d& bottom_right)
+void updateHandlePositions(Control* w, NAS2D::Rectangle_2d& top_left, NAS2D::Rectangle_2d& top_right, NAS2D::Rectangle_2d& bottom_left, NAS2D::Rectangle_2d& bottom_right)
 {
 	top_left(w->positionX() - (HANDLE_SIZE + HANDLE_MARGIN), w->positionY() - (HANDLE_SIZE + HANDLE_MARGIN), HANDLE_SIZE, HANDLE_SIZE);
 	top_right(w->positionX() + w->width() + HANDLE_MARGIN, w->rect().y() - (HANDLE_SIZE + HANDLE_MARGIN), HANDLE_SIZE, HANDLE_SIZE);

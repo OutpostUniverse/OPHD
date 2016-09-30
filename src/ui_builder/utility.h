@@ -20,7 +20,7 @@ void createRenderer();
 
 void initNas2d(const std::string& argv_0, const std::string& startPath, const std::string& config_path);
 
-void updateWindowHandlePositions(Control* c, NAS2D::Rectangle_2d& top_left, NAS2D::Rectangle_2d& top_right, NAS2D::Rectangle_2d& bottom_left, NAS2D::Rectangle_2d& bottom_right);
+void updateHandlePositions(Control* c, NAS2D::Rectangle_2d& top_left, NAS2D::Rectangle_2d& top_right, NAS2D::Rectangle_2d& bottom_left, NAS2D::Rectangle_2d& bottom_right);
 
 void updateRectPosition(NAS2D::Rectangle_2d& p, int dX, int dY);
 
