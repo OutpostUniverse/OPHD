@@ -67,6 +67,13 @@ void Window::anchored(bool _a)
 }
 
 
+void Window::show()
+{
+	Control::show();
+	hasFocus(true);
+}
+
+
 void Window::update()
 {
 	if (!visible())

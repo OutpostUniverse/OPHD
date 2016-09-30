@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{1c0ee372-119b-4373-9e63-f05affaecec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{70922a35-916a-4a34-90fd-26992e0241ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI\Core">
+      <UniqueIdentifier>{5bfe7fc3-d3dc-4150-b062-7c618389f797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI\Core">
+      <UniqueIdentifier>{d1ef6228-f0d6-423e-a6b7-b68798b46dfe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\UI\Core\Button.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\Control.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\Menu.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\TextArea.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\TextField.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\UIContainer.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\Window.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\WindowStack.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ui_builder\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ui_builder\utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\ui_builder\utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\UI.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\Button.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\Control.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\Menu.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\Pointer.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\TextArea.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\TextField.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\UIContainer.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\Window.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\WindowStack.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="editor.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ui_builder.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

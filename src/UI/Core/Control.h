@@ -21,6 +21,11 @@ class Control
 {
 public:
 
+	typedef Gallant::Signal0<void> ResizeCallback;
+	typedef Gallant::Signal2<float, float> PositionChangedCallback;
+
+public:
+
 	Control();
 	virtual ~Control();
 
@@ -32,6 +37,8 @@ public:
 
 	float positionX();
 	float positionY();
+
+	PositionChangedCallback& moved();
 
 	void highlight(bool highlight);
 	bool highlight() const;
@@ -69,6 +76,8 @@ public:
 	float width() const;
 	float height() const;
 
+	ResizeCallback& resized();
+
 	virtual void update() {};
 
 protected:
@@ -79,13 +88,13 @@ protected:
 	 * \param	dX	Difference in X Position.
 	 * \param	dY	Difference in Y Position.
 	 */
-	virtual void positionChanged(float dX, float dY) {}
+	virtual void positionChanged(float dX, float dY) { mPositionChanged(dX, dY); }
 
 	virtual void visibilityChanged(bool visible) {}
 
 	virtual void onFocusChanged() {};
 
-	virtual void onSizeChanged() {}
+	virtual void onSizeChanged() { mResized(); }
 	virtual void onTextChanged() {};
 	virtual void onFontChanged() {};
 
@@ -94,6 +103,11 @@ protected:
 
 	Rectangle_2df& _rect();
 	std::string& _text();
+
+protected:
+
+	PositionChangedCallback		mPositionChanged;	/**< Callback fired whenever the position of the Control changes. */
+	ResizeCallback				mResized;
 
 private:
 
@@ -110,5 +124,4 @@ private:
 	bool			mHasFocus;		/**< Flag indicating that the Control has input focus. */
 	bool			mVisible;		/**< Flag indicating visibility of the Control. */
 	bool			mHighlight;		/**< Flag indicating that this Control is highlighted. */
-
 };

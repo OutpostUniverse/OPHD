@@ -114,6 +114,15 @@ float Control::positionY()
 
 
 /**
+ * Callback fired whenever the Control's position changes.
+ */
+Control::PositionChangedCallback& Control::moved()
+{
+	return mPositionChanged;
+}
+
+
+/**
  * Gets the width of the Control
  */
 float Control::width() const
@@ -177,6 +186,12 @@ void Control::height(float h)
 {
 	mRect.h(h);
 	onSizeChanged();
+}
+
+
+Control::ResizeCallback& Control::resized()
+{
+	return mResized;
 }
 
 

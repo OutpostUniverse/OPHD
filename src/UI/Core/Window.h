@@ -9,10 +9,11 @@ public:
 	Window();
 	virtual ~Window();
 
+	void anchored(bool _a);
+
+	virtual void show();
 
 	virtual void update();
-
-	void anchored(bool _a);
 
 protected:
 
