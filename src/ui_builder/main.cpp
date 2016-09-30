@@ -4,6 +4,8 @@
 
 #include "../UI/UI.h"
 
+#include <vector>
+
 
 using namespace NAS2D;
 using namespace std;
@@ -14,11 +16,23 @@ Point_2df MOUSE_POSITION;
 bool running = true;
 
 
-Font*		TINY_FONT = nullptr;
+Renderer*	R = nullptr;
 
+
+// Assets/Resources
+Font*		TINY_FONT = nullptr;
 Image*		MOUSE_POINTER = nullptr;
 
+// Window to be worked on
 Window*		WINDOW = nullptr;
+
+// Editor UI
+Menu*		CONTROLS_MENU = nullptr;
+Button*		BTN_ADD_CONTROL = nullptr;
+Control*	UI_CONTROL_EDIT = nullptr;		// Control currently being worked on.
+
+// List of controls added to the Window.
+vector<Control*>	CONTROL_LIST;
 
 
 Rectangle_2d	WINDOW_HANDLE_TOP_L(0, 0, 10, 10);
@@ -82,45 +96,57 @@ void onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 }
 
 
-void resizeWindow(int dX, int dY)
+void resizeControl(Control* c, int dX, int dY)
 {
-	int x = WINDOW->positionX();
-	int y = WINDOW->positionY();
-	int width = WINDOW->width();
-	int height = WINDOW->height();
+	int x = c->positionX();
+	int y = c->positionY();
+	int width = c->width();
+	int height = c->height();
 
 	if (HANDLE == RESIZE_TOP_LEFT)
 	{
-		WINDOW->position(x + dX, y + dY);
-		WINDOW->size(clamp(width - dX, MINIMUM_WINDOW_SIZE, MAXIMUM_WINDOW_SIZE), clamp(height - dY, MINIMUM_WINDOW_SIZE, MAXIMUM_WINDOW_SIZE));
+		c->position(x + dX, y + dY);
+		c->size(width - dX, height - dY);
 	}
 
 	if (HANDLE == RESIZE_TOP_RIGHT)
 	{
-		WINDOW->position(x, y + dY);
-		WINDOW->size(clamp(width + dX, MINIMUM_WINDOW_SIZE, MAXIMUM_WINDOW_SIZE), clamp(height - dY, MINIMUM_WINDOW_SIZE, MAXIMUM_WINDOW_SIZE));
+		c->position(x, y + dY);
+		c->size(width + dX, height - dY);
 	}
 
 	if (HANDLE == RESIZE_BOTTOM_LEFT)
 	{
-		WINDOW->position(x + dX, y);
-		WINDOW->size(clamp(width - dX, MINIMUM_WINDOW_SIZE, MAXIMUM_WINDOW_SIZE), clamp(height + dY, MINIMUM_WINDOW_SIZE, MAXIMUM_WINDOW_SIZE));
-
+		c->position(x + dX, y);
+		c->size(width - dX, height + dY);
 	}
 
 	if (HANDLE == RESIZE_BOTTOM_RIGHT)
 	{
-		WINDOW->size(clamp(width + dX, MINIMUM_WINDOW_SIZE, MAXIMUM_WINDOW_SIZE), clamp(height + dY, MINIMUM_WINDOW_SIZE, MAXIMUM_WINDOW_SIZE));
+		c->size(width + dX, height + dY);
 	}
 }
+
+
+void repositionControl(Control* c, int relX, int relY)
+{
+	c->position(c->positionX() + relX, c->positionY() + relY);
+}
+
 
 void onMouseMotion(int x, int y, int relX, int relY)
 {
 	MOUSE_POSITION(static_cast<float>(x), static_cast<float>(y));
 
-	if (MOUSE_LEFT_DOWN && HANDLE != RESIZE_NONE)
+	if (!UI_CONTROL_EDIT)
+		return;
+
+	if (MOUSE_LEFT_DOWN)
 	{
-		resizeWindow(relX, relY);
+		if (HANDLE != RESIZE_NONE)
+			resizeControl(UI_CONTROL_EDIT, relX, relY);
+		else
+			repositionControl(UI_CONTROL_EDIT, relX, relY);
 	}
 }
 
@@ -129,12 +155,24 @@ void onMouseDown(MouseButton button, int x, int y)
 {
 	if (button == BUTTON_LEFT)
 	{
-		WINDOW->hasFocus(isPointInRect(MOUSE_POSITION, WINDOW->rect()) || mouseInHandles());
+
 		MOUSE_LEFT_DOWN = true;
 
-		if (mouseInHandles())
+		if (UI_CONTROL_EDIT && mouseInHandles())
 		{
 			HANDLE = getHandle();
+			return;
+		}
+	
+		UI_CONTROL_EDIT = nullptr;
+		for (vector<Control*>::reverse_iterator it = CONTROL_LIST.rbegin(); it != CONTROL_LIST.rend(); ++it)
+		{
+			if (isPointInRect(MOUSE_POSITION, (*it)->rect()))
+			{
+				UI_CONTROL_EDIT = (*it);
+				updateWindowHandlePositions(UI_CONTROL_EDIT, WINDOW_HANDLE_TOP_L, WINDOW_HANDLE_TOP_R, WINDOW_HANDLE_BOT_L, WINDOW_HANDLE_BOT_R);
+				break;
+			}
 		}
 	}
 }
@@ -170,25 +208,23 @@ void initEventHandlers()
 }
 
 
-void drawWindowHandles(Window* w)
+void drawHandles()
 {
-	Renderer& r = Utility<Renderer>::get();
+	R->drawBoxFilled(WINDOW_HANDLE_TOP_L, 255, 255, 255);
+	R->drawBox(WINDOW_HANDLE_TOP_L, 0, 0, 0);
 
-	r.drawBoxFilled(WINDOW_HANDLE_TOP_L, 255, 255, 255);
-	r.drawBox(WINDOW_HANDLE_TOP_L, 0, 0, 0);
+	R->drawBoxFilled(WINDOW_HANDLE_TOP_R, 255, 255, 255);
+	R->drawBox(WINDOW_HANDLE_TOP_R, 0, 0, 0);
 
-	r.drawBoxFilled(WINDOW_HANDLE_TOP_R, 255, 255, 255);
-	r.drawBox(WINDOW_HANDLE_TOP_R, 0, 0, 0);
+	R->drawBoxFilled(WINDOW_HANDLE_BOT_L, 255, 255, 255);
+	R->drawBox(WINDOW_HANDLE_BOT_L, 0, 0, 0);
 
-	r.drawBoxFilled(WINDOW_HANDLE_BOT_L, 255, 255, 255);
-	r.drawBox(WINDOW_HANDLE_BOT_L, 0, 0, 0);
-
-	r.drawBoxFilled(WINDOW_HANDLE_BOT_R, 255, 255, 255);
-	r.drawBox(WINDOW_HANDLE_BOT_R, 0, 0, 0);
+	R->drawBoxFilled(WINDOW_HANDLE_BOT_R, 255, 255, 255);
+	R->drawBox(WINDOW_HANDLE_BOT_R, 0, 0, 0);
 }
 
 
-void updateWindowHandles(float dX, float dY)
+void updateHandles(float dX, float dY)
 {
 	updateRectPosition(WINDOW_HANDLE_TOP_L, static_cast<int>(dX), static_cast<int>(dY));
 	updateRectPosition(WINDOW_HANDLE_TOP_R, static_cast<int>(dX), static_cast<int>(dY));
@@ -197,11 +233,76 @@ void updateWindowHandles(float dX, float dY)
 }
 
 
-void windowResized()
+void controlResized(Control* c)
 {
-	updateWindowHandlePositions(WINDOW, WINDOW_HANDLE_TOP_L, WINDOW_HANDLE_TOP_R, WINDOW_HANDLE_BOT_L, WINDOW_HANDLE_BOT_R);
+	updateWindowHandlePositions(c, WINDOW_HANDLE_TOP_L, WINDOW_HANDLE_TOP_R, WINDOW_HANDLE_BOT_L, WINDOW_HANDLE_BOT_R);
 }
 
+
+void addControlClicked()
+{
+	cout << "Adding control: " << CONTROLS_MENU->selectionText() << endl;
+
+	if (CONTROLS_MENU->selectionText() == "Button")
+	{
+		Button* btn = new Button();
+		btn->font(*TINY_FONT);
+		btn->text("Button");
+		btn->size(50, 20);
+		
+		WINDOW->addControl("Button", btn, 5, 25);
+		CONTROL_LIST.push_back(btn);
+		CONTROL_LIST.back()->resized().Connect(&controlResized);
+		CONTROL_LIST.back()->moved().Connect(&updateHandles);
+	}
+}
+
+void initUi()
+{
+	cout << "Setting up UI... ";
+
+	WINDOW = new Window();
+	WINDOW->size(250, 150);
+	WINDOW->position(R->screenCenterX() - 125, R->screenCenterY() - 75);
+	WINDOW->font(*TINY_FONT);
+	WINDOW->text("Window Title");
+	WINDOW->show();
+	WINDOW->moved().Connect(&updateHandles);
+	WINDOW->resized().Connect(&controlResized);
+	WINDOW->anchored(true);
+
+	CONTROL_LIST.push_back(WINDOW);
+
+	updateWindowHandlePositions(WINDOW, WINDOW_HANDLE_TOP_L, WINDOW_HANDLE_TOP_R, WINDOW_HANDLE_BOT_L, WINDOW_HANDLE_BOT_R);
+
+	CONTROLS_MENU = new Menu();
+	CONTROLS_MENU->font(*TINY_FONT);
+
+	CONTROLS_MENU->addItem("Button");
+	CONTROLS_MENU->addItem("Image");
+	CONTROLS_MENU->addItem("TextArea");
+	CONTROLS_MENU->addItem("TextField");
+	CONTROLS_MENU->size(100, 44);
+	CONTROLS_MENU->position(2, 2);
+
+	BTN_ADD_CONTROL = new Button();
+	BTN_ADD_CONTROL->font(*TINY_FONT);
+	BTN_ADD_CONTROL->text("Add Control");
+	BTN_ADD_CONTROL->size(100, 17);
+	BTN_ADD_CONTROL->position(CONTROLS_MENU->positionX(), CONTROLS_MENU->positionY() + CONTROLS_MENU->height() + 11);
+	BTN_ADD_CONTROL->click().Connect(&addControlClicked);
+
+	cout << "done." << endl;
+}
+
+
+void drawUi()
+{
+	CONTROLS_MENU->update();
+	BTN_ADD_CONTROL->update();
+
+	R->drawImage(*MOUSE_POINTER, MOUSE_POSITION.x(), MOUSE_POSITION.y());
+}
 
 int main(int argc, char *argv[])
 {
@@ -209,41 +310,34 @@ int main(int argc, char *argv[])
 	{
 		initNas2d(argv[0], "data", "builder.xml");
 
-		initEventHandlers();
+		R = &Utility<Renderer>::get();
 
-		Renderer& r = Utility<Renderer>::get();
+		initEventHandlers();
 
 		MOUSE_POINTER = new Image("ui/pointers/normal.png");
 		TINY_FONT = new Font("fonts/ui-normal.png", 7, 9, -1);
 
-		WINDOW = new Window();
-		WINDOW->size(250, 150);
-		WINDOW->position(r.screenCenterX() - 125, r.screenCenterY() - 75);
-		WINDOW->font(*TINY_FONT);
-		WINDOW->text("Window Title");
-		WINDOW->show();
-		WINDOW->moved().Connect(&updateWindowHandles);
-		WINDOW->resized().Connect(&windowResized);
-
-		updateWindowHandlePositions(WINDOW, WINDOW_HANDLE_TOP_L, WINDOW_HANDLE_TOP_R, WINDOW_HANDLE_BOT_L, WINDOW_HANDLE_BOT_R);
+		initUi();
 
 		cout << "Entering main loop..." << endl << endl;
 
 		// Main Loop
 
+
 		while (running)
 		{
 			Utility<EventHandler>::get().pump();
-
-			r.drawBoxFilled(0, 0, r.width(), r.height(), 50, 50, 50);
+			R->drawBoxFilled(0, 0, R->width(), R->height(), 30, 30, 30);
 
 			WINDOW->update();
 
-			if (WINDOW->hasFocus())
-				drawWindowHandles(WINDOW);
+			if (UI_CONTROL_EDIT)
+				drawHandles();
 
-			r.drawImage(*MOUSE_POINTER, MOUSE_POSITION.x(), MOUSE_POSITION.y());
-			r.update();
+
+			drawUi();
+
+			R->update();
 		}
 
 	}

@@ -180,7 +180,7 @@ void Menu::update()
 	r.drawBox(_rect(), 0, 0, 0, 100);
 	r.drawBoxFilled(_rect(), 225, 225, 0, 85);
 
-	//r.drawBoxFilled(mRect.x(), mRect.y() + (mCurrentSelection * line_height), mRect.w(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
+	r.drawBoxFilled(rect().x(), rect().y() + (mCurrentSelection * line_height), rect().w(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
 
 	if(mCurrentHighlight != constants::NO_SELECTION)
 		r.drawBox(_rect().x(), _rect().y() + (mCurrentHighlight * line_height), _rect().w(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());

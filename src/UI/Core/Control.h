@@ -21,7 +21,7 @@ class Control
 {
 public:
 
-	typedef Gallant::Signal0<void> ResizeCallback;
+	typedef Gallant::Signal1<Control*> ResizeCallback;
 	typedef Gallant::Signal2<float, float> PositionChangedCallback;
 
 public:
@@ -94,7 +94,7 @@ protected:
 
 	virtual void onFocusChanged() {};
 
-	virtual void onSizeChanged() { mResized(); }
+	virtual void onSizeChanged() { mResized(this); }
 	virtual void onTextChanged() {};
 	virtual void onFontChanged() {};
 
