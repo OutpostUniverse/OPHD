@@ -313,6 +313,15 @@ const string& Control::text() const
 
 
 /**
+ * Gets callback for text changed events.
+ */
+Control::TextChangedCallback& Control::textChanged()
+{
+	return mTextChanged;
+}
+
+
+/**
  * Internal version of the rect() function which allows
  * non-const access to the rectangle information.
  * 

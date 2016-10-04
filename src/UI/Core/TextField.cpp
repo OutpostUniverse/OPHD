@@ -45,8 +45,7 @@ TextField::~TextField()
 {
 }
 
-
-void TextField::onTextChanged()
+void TextField::resetCursorPosition()
 {
 	mCursorPosition = 0;
 }
@@ -175,6 +174,7 @@ void TextField::update()
 		{
 			case ACTION_INSERT:
 				addCharacter(mInsertChar.c_str());
+				onTextChanged();
 				break;
 
 			case ACTION_BACKSPACE:
@@ -182,12 +182,16 @@ void TextField::update()
 				{
 					mCursorPosition--;
 					_text().erase(mCursorPosition, 1);
+					onTextChanged();
 				}
 				break;
 
 			case ACTION_DELETE:
-				if(text().length() > 0)
+				if (text().length() > 0)
+				{
 					_text() = _text().erase(mCursorPosition, 1);
+					onTextChanged();
+				}
 				break;
 
 			case ACTION_MOVE_LEFT:
@@ -221,6 +225,7 @@ void TextField::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 					// STL '.end()' iterators are the end of the container, not the last element.
 					_text().erase(mCursorPosition, 1);
 					setAction(ACTION_BACKSPACE);
+					onTextChanged();
 				}
 				break;
 
@@ -237,6 +242,7 @@ void TextField::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 				{
 					_text() = _text().erase(mCursorPosition, 1);
 					setAction(ACTION_DELETE);
+					onTextChanged();
 				}
 				break;
 
@@ -313,6 +319,7 @@ void TextField::addCharacter(const char* character)
 {
 	int prvLen = text().length();
 	_text() = _text().insert(mCursorPosition, character);
+	onTextChanged();
 
 	if(text().length() - prvLen)
 		mCursorPosition++;

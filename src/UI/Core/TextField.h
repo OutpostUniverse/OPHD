@@ -49,6 +49,8 @@ public:
 
 	void update();
 
+	void resetCursorPosition();
+
 protected:
 
 	virtual void onMouseDown(MouseButton button, int x, int y);
@@ -67,7 +69,6 @@ private:
 		ACTION_MOVE_RIGHT
 	};
 
-	void onTextChanged();
 	void onFontChanged();
 
 	void drawCursor();

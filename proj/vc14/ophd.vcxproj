@@ -64,6 +64,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>..\..\API\glew-1.13.0\include;..\..\API\physfs-2.0.3\;..\..\API\SDL2-2.0.3\include;..\..\API\SDL2_image-2.0.0\include;..\..\API\SDL2_mixer-2.0.0\include;..\..\API\SDL2_ttf-2.0.12\include;..\..\API\NAS2D\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\API\NAS2D\lib\x86;$(LibraryPath)</LibraryPath>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>

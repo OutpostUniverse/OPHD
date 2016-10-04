@@ -22,6 +22,7 @@ class Control
 public:
 
 	typedef Gallant::Signal1<Control*> ResizeCallback;
+	typedef Gallant::Signal1<Control*> TextChangedCallback;
 	typedef Gallant::Signal2<float, float> PositionChangedCallback;
 
 public:
@@ -59,6 +60,7 @@ public:
 
 	void text(const std::string& text);
 	const std::string& text() const;
+	TextChangedCallback& textChanged();
 
 	virtual void onMouseDown(MouseButton button, int x, int y) {};
 	virtual void onMouseUp(MouseButton button, int x, int y) {};
@@ -95,7 +97,7 @@ protected:
 	virtual void onFocusChanged() {};
 
 	virtual void onSizeChanged() { mResized(this); }
-	virtual void onTextChanged() {};
+	virtual void onTextChanged() { mTextChanged(this); };
 	virtual void onFontChanged() {};
 
 	Font& font();
@@ -108,6 +110,7 @@ protected:
 
 	PositionChangedCallback		mPositionChanged;	/**< Callback fired whenever the position of the Control changes. */
 	ResizeCallback				mResized;
+	TextChangedCallback			mTextChanged;
 
 private:
 

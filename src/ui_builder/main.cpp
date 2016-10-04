@@ -21,7 +21,6 @@ bool RUNNING = true;
 
 Renderer*	R = nullptr;
 
-
 // Assets/Resources
 Font*		TINY_FONT = nullptr;
 Image*		MOUSE_POINTER = nullptr;
@@ -32,6 +31,9 @@ Window*		WINDOW = nullptr;
 // Editor UI
 Menu*		CONTROLS_MENU = nullptr;
 Button*		BTN_ADD_CONTROL = nullptr;
+TextField*	TXT_CONTROL_NAME = nullptr;
+TextField*	TXT_CONTROL_TEXT = nullptr;
+
 Control*	UI_CONTROL_EDIT = nullptr;		// Control currently being worked on.
 
 int			UI_CONTROL_COUNTER = 0;
@@ -40,11 +42,10 @@ int			UI_CONTROL_COUNTER = 0;
 vector<Control*>	CONTROL_LIST;
 map<Control*, std::string> CONTROL_NAME_TABLE;
 
-
-Rectangle_2d	WINDOW_HANDLE_TOP_L(0, 0, 10, 10);
-Rectangle_2d	WINDOW_HANDLE_TOP_R(0, 0, 10, 10);
-Rectangle_2d	WINDOW_HANDLE_BOT_L(0, 0, 10, 10);
-Rectangle_2d	WINDOW_HANDLE_BOT_R(0, 0, 10, 10);
+Rectangle_2d	HANDLE_TOP_L(0, 0, 10, 10);
+Rectangle_2d	HANDLE_TOP_R(0, 0, 10, 10);
+Rectangle_2d	HANDLE_BOT_L(0, 0, 10, 10);
+Rectangle_2d	HANDLE_BOT_R(0, 0, 10, 10);
 
 bool		MOUSE_LEFT_DOWN = false;
 
@@ -54,16 +55,22 @@ ResizeHandle HANDLE = RESIZE_NONE;
 ResizeHandle getHandle()
 {
 	// fixme: Kind of ugly.
-	if (isPointInRect(MOUSE_POSITION, WINDOW_HANDLE_TOP_L))
+	if (isPointInRect(MOUSE_POSITION, HANDLE_TOP_L))
 		return RESIZE_TOP_LEFT;
-	else if (isPointInRect(MOUSE_POSITION, WINDOW_HANDLE_TOP_R))
+	else if (isPointInRect(MOUSE_POSITION, HANDLE_TOP_R))
 		return RESIZE_TOP_RIGHT;
-	else if (isPointInRect(MOUSE_POSITION, WINDOW_HANDLE_BOT_L))
+	else if (isPointInRect(MOUSE_POSITION, HANDLE_BOT_L))
 		return RESIZE_BOTTOM_LEFT;
-	else if (isPointInRect(MOUSE_POSITION, WINDOW_HANDLE_BOT_R))
+	else if (isPointInRect(MOUSE_POSITION, HANDLE_BOT_R))
 		return RESIZE_BOTTOM_RIGHT;
 
 	return RESIZE_NONE;
+}
+
+
+void repositionControl(Control* c, int relX, int relY)
+{
+	c->position(c->positionX() + relX, c->positionY() + relY);
 }
 
 
@@ -99,9 +106,10 @@ void resizeControl(Control* c, int dX, int dY)
 }
 
 
-void repositionControl(Control* c, int relX, int relY)
+void controlTextChanged(Control* c)
 {
-	c->position(c->positionX() + relX, c->positionY() + relY);
+	if (UI_CONTROL_EDIT)
+		UI_CONTROL_EDIT->text(c->text());
 }
 
 
@@ -119,7 +127,7 @@ void deleteControl(Control *c)
 	CONTROL_LIST.erase(find(CONTROL_LIST.begin(), CONTROL_LIST.end(), c));
 	delete c;
 
-	UI_CONTROL_EDIT = nullptr;
+	setSelectedControl(nullptr);
 }
 
 
@@ -137,15 +145,32 @@ void addControl(Control* c, const std::string& name)
 bool mouseInHandles()
 {
 	return (WINDOW->hasFocus() &&
-			(isPointInRect(MOUSE_POSITION, WINDOW_HANDLE_TOP_L) ||
-			isPointInRect(MOUSE_POSITION, WINDOW_HANDLE_TOP_R) ||
-			isPointInRect(MOUSE_POSITION, WINDOW_HANDLE_BOT_L) ||
-			isPointInRect(MOUSE_POSITION, WINDOW_HANDLE_BOT_R)));
+			(isPointInRect(MOUSE_POSITION, HANDLE_TOP_L) ||
+			isPointInRect(MOUSE_POSITION, HANDLE_TOP_R) ||
+			isPointInRect(MOUSE_POSITION, HANDLE_BOT_L) ||
+			isPointInRect(MOUSE_POSITION, HANDLE_BOT_R)));
+}
+
+
+void setSelectedControl(Control* c)
+{
+	UI_CONTROL_EDIT = c;
+
+	if (c)
+		TXT_CONTROL_TEXT->text(c->text());
+	else
+		TXT_CONTROL_TEXT->text("");
+
+	TXT_CONTROL_TEXT->resetCursorPosition();
 }
 
 
 void onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 {
+	int modifier = 1;
+	if (mod == KEY_MOD_LSHIFT || mod == KEY_MOD_RSHIFT)
+		modifier = 5;
+
 	switch (key)
 	{
 	case KEY_ESCAPE:
@@ -154,7 +179,34 @@ void onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 	case KEY_DELETE:
 	case KEY_BACKSPACE:
 		if (UI_CONTROL_EDIT)
-			deleteControl(UI_CONTROL_EDIT);
+		{
+			if(!TXT_CONTROL_TEXT->hasFocus())
+				deleteControl(UI_CONTROL_EDIT);
+		}
+		break;
+	case KEY_LEFT:
+	case KEY_KP4:
+		if (UI_CONTROL_EDIT)
+			if (!TXT_CONTROL_TEXT->hasFocus())
+				UI_CONTROL_EDIT->position(UI_CONTROL_EDIT->positionX() - modifier, UI_CONTROL_EDIT->positionY());
+		break;
+	case KEY_RIGHT:
+	case KEY_KP6:
+		if (UI_CONTROL_EDIT)
+			if (!TXT_CONTROL_TEXT->hasFocus())
+				UI_CONTROL_EDIT->position(UI_CONTROL_EDIT->positionX() + modifier, UI_CONTROL_EDIT->positionY());
+		break;
+	case KEY_UP:
+	case KEY_KP8:
+		if (UI_CONTROL_EDIT)
+			if (!TXT_CONTROL_TEXT->hasFocus())
+				UI_CONTROL_EDIT->position(UI_CONTROL_EDIT->positionX(), UI_CONTROL_EDIT->positionY() - modifier);
+		break;
+	case KEY_DOWN:
+	case KEY_2:
+		if (UI_CONTROL_EDIT)
+			if (!TXT_CONTROL_TEXT->hasFocus())
+				UI_CONTROL_EDIT->position(UI_CONTROL_EDIT->positionX(), UI_CONTROL_EDIT->positionY() + modifier);
 		break;
 	default:
 		break;
@@ -186,21 +238,34 @@ void onMouseDown(MouseButton button, int x, int y)
 
 		MOUSE_LEFT_DOWN = true;
 
+		if (isPointInRect(MOUSE_POSITION, TXT_CONTROL_TEXT->rect()))
+			return;
+
 		if (UI_CONTROL_EDIT && mouseInHandles())
 		{
 			HANDLE = getHandle();
 			return;
 		}
 	
-		UI_CONTROL_EDIT = nullptr;
-		for (vector<Control*>::reverse_iterator it = CONTROL_LIST.rbegin(); it != CONTROL_LIST.rend(); ++it)
+		auto it = CONTROL_LIST.rbegin();
+		for (;;)
 		{
-			if (isPointInRect(MOUSE_POSITION, (*it)->rect()))
+			if (it == CONTROL_LIST.rend())
 			{
-				UI_CONTROL_EDIT = (*it);
-				updateHandlePositions(UI_CONTROL_EDIT, WINDOW_HANDLE_TOP_L, WINDOW_HANDLE_TOP_R, WINDOW_HANDLE_BOT_L, WINDOW_HANDLE_BOT_R);
+				setSelectedControl(nullptr);
 				break;
 			}
+
+			if (isPointInRect(MOUSE_POSITION, (*it)->rect()))
+			{
+				if (UI_CONTROL_EDIT == (*it))
+					break;
+
+				setSelectedControl(*it);
+				updateHandlePositions(UI_CONTROL_EDIT, HANDLE_TOP_L, HANDLE_TOP_R, HANDLE_BOT_L, HANDLE_BOT_R);
+				break;
+			}
+			++it;
 		}
 	}
 }
@@ -238,29 +303,29 @@ void initEventHandlers()
 
 void drawHandles()
 {
-	R->drawBoxFilled(WINDOW_HANDLE_TOP_L, 255, 255, 255);
-	R->drawBox(WINDOW_HANDLE_TOP_L, 0, 0, 0);
+	R->drawBoxFilled(HANDLE_TOP_L, 255, 255, 255);
+	R->drawBox(HANDLE_TOP_L, 0, 0, 0);
 
-	R->drawBoxFilled(WINDOW_HANDLE_TOP_R, 255, 255, 255);
-	R->drawBox(WINDOW_HANDLE_TOP_R, 0, 0, 0);
+	R->drawBoxFilled(HANDLE_TOP_R, 255, 255, 255);
+	R->drawBox(HANDLE_TOP_R, 0, 0, 0);
 
-	R->drawBoxFilled(WINDOW_HANDLE_BOT_L, 255, 255, 255);
-	R->drawBox(WINDOW_HANDLE_BOT_L, 0, 0, 0);
+	R->drawBoxFilled(HANDLE_BOT_L, 255, 255, 255);
+	R->drawBox(HANDLE_BOT_L, 0, 0, 0);
 
-	R->drawBoxFilled(WINDOW_HANDLE_BOT_R, 255, 255, 255);
-	R->drawBox(WINDOW_HANDLE_BOT_R, 0, 0, 0);
+	R->drawBoxFilled(HANDLE_BOT_R, 255, 255, 255);
+	R->drawBox(HANDLE_BOT_R, 0, 0, 0);
 }
 
 
 void updateHandles(float dX, float dY)
 {
-	updateHandlePositions(UI_CONTROL_EDIT, WINDOW_HANDLE_TOP_L, WINDOW_HANDLE_TOP_R, WINDOW_HANDLE_BOT_L, WINDOW_HANDLE_BOT_R);
+	updateHandlePositions(UI_CONTROL_EDIT, HANDLE_TOP_L, HANDLE_TOP_R, HANDLE_BOT_L, HANDLE_BOT_R);
 }
 
 
 void controlResized(Control* c)
 {
-	updateHandlePositions(c, WINDOW_HANDLE_TOP_L, WINDOW_HANDLE_TOP_R, WINDOW_HANDLE_BOT_L, WINDOW_HANDLE_BOT_R);
+	updateHandlePositions(c, HANDLE_TOP_L, HANDLE_TOP_R, HANDLE_BOT_L, HANDLE_BOT_R);
 }
 
 
@@ -293,7 +358,7 @@ void initUi()
 
 	CONTROL_LIST.push_back(WINDOW);
 
-	updateHandlePositions(WINDOW, WINDOW_HANDLE_TOP_L, WINDOW_HANDLE_TOP_R, WINDOW_HANDLE_BOT_L, WINDOW_HANDLE_BOT_R);
+	updateHandlePositions(WINDOW, HANDLE_TOP_L, HANDLE_TOP_R, HANDLE_BOT_L, HANDLE_BOT_R);
 
 	CONTROLS_MENU = new Menu();
 	CONTROLS_MENU->font(*TINY_FONT);
@@ -312,6 +377,14 @@ void initUi()
 	BTN_ADD_CONTROL->position(CONTROLS_MENU->positionX(), CONTROLS_MENU->positionY() + CONTROLS_MENU->height() + 11);
 	BTN_ADD_CONTROL->click().Connect(&addControlClicked);
 
+	TXT_CONTROL_TEXT = new TextField();
+	TXT_CONTROL_TEXT->font(*TINY_FONT);
+	TXT_CONTROL_TEXT->size(100, 17);
+	TXT_CONTROL_TEXT->position(BTN_ADD_CONTROL->positionX(), BTN_ADD_CONTROL->positionY() + BTN_ADD_CONTROL->height() + 15);
+	TXT_CONTROL_TEXT->textChanged().Connect(&controlTextChanged);
+	TXT_CONTROL_TEXT->border(TextField::ALWAYS);
+	TXT_CONTROL_TEXT->hasFocus(false);
+
 	cout << "done." << endl;
 }
 
@@ -320,6 +393,8 @@ void drawUi()
 {
 	CONTROLS_MENU->update();
 	BTN_ADD_CONTROL->update();
+
+	TXT_CONTROL_TEXT->update();
 
 	R->drawImage(*MOUSE_POINTER, MOUSE_POSITION.x(), MOUSE_POSITION.y());
 }
