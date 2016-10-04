@@ -43,6 +43,7 @@ void GameState::initUi()
 	mPopulationPanel.font(mTinyFont);
 	mPopulationPanel.population(&mPopulation);
 	mPopulationPanel.morale(&mCurrentMorale);
+	mPopulationPanel.old_morale(&mPreviousMorale);
 
 	mGameOverDialog.position(r.screenCenterX() - mGameOverDialog.width() / 2, r.screenCenterY() - mGameOverDialog.height() / 2 - 100);
 	mGameOverDialog.returnToMainMenu().Connect(this, &GameState::btnGameOverClicked);
@@ -428,6 +429,8 @@ void GameState::btnTurnsClicked()
 	checkConnectedness();
 	mStructureManager.update(mPlayerResources);
 
+	mPreviousMorale = mCurrentMorale;
+
 	// FOOD CONSUMPTION
 	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage());
 	StructureManager::StructureList &foodproducers = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
@@ -532,7 +535,7 @@ void GameState::btnTurnsClicked()
 		{
 			mCurrentMorale -= (mLandersColonist * 50) * 6; // TODO: apply a modifier to multiplier based on difficulty level.
 			if (mCurrentMorale < 0)
-				mCurrentMorale == 0;
+				mCurrentMorale = 0;
 
 			mLandersColonist = 0;
 

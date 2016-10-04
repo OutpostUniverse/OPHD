@@ -238,6 +238,7 @@ private:
 	// MISCELLANEOUS
 	int					mTurnCount;
 	int					mCurrentMorale;
+	int					mPreviousMorale;
 
 	int					mLandersColonist;
 

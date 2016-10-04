@@ -71,6 +71,7 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mInsertMode(INSERT_NONE),
 																											mTurnCount(0),
 																											mCurrentMorale(600),
+																											mPreviousMorale(mCurrentMorale),
 																											mLandersColonist(0),
 																											mDebug(false),
 																											mLeftButtonDown(false),
