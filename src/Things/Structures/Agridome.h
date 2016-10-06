@@ -49,7 +49,7 @@ protected:
 
 	virtual void defineResourceInput()
 	{
-		resourcesIn().commonMinerals(2);
+		resourcesIn().commonMinerals(1);
 		resourcesIn().energy(1);
 	}
 

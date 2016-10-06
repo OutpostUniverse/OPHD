@@ -31,23 +31,23 @@ void Mine::productionRate(ProductionRate _rate)
 	{
 		case PRODUCTION_RATE_LOW:
 			commonMetalsRate(10);
-			rareMetalsRate(5);
+			rareMetalsRate(7);
 			commonMineralsRate(10);
-			rareMineralsRate(5);
+			rareMineralsRate(7);
 			break;
 
 		case PRODUCTION_RATE_MEDIUM:
 			commonMetalsRate(15);
-			rareMetalsRate(9);
+			rareMetalsRate(10);
 			commonMineralsRate(13);
-			rareMineralsRate(9);
+			rareMineralsRate(10);
 			break;
 
 		case PRODUCTION_RATE_HIGH:
 			commonMetalsRate(20);
-			rareMetalsRate(14);
+			rareMetalsRate(16);
 			commonMineralsRate(20);
-			rareMineralsRate(14);
+			rareMineralsRate(16);
 			break;
 	}
 }

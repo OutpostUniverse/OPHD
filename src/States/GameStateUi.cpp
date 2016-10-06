@@ -154,7 +154,6 @@ void GameState::resetUi()
 	mFactoryProduction.hide();
 	mStructureInspector.hide();
 	mTileInspector.hide();
-
 }
 
 

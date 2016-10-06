@@ -380,6 +380,13 @@ void GameState::drawResourceInfo()
 	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), mStructureManager.totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 	
 	// Population / Morale
+	if(mCurrentMorale > mPreviousMorale)
+		r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 16, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	else if(mCurrentMorale < mPreviousMorale)
+		r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 0, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	else
+		r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 32, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+
 	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (mCurrentMorale / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(mTinyFont, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
 
@@ -512,6 +519,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 		case KEY_F3:
 			load(constants::SAVE_GAME_PATH + "test.xml");
 			break;
+
 		case KEY_ESCAPE:
 			clearMode();
 			resetUi();
@@ -1413,6 +1421,8 @@ void GameState::save(const std::string& _path)
 
 	TiXmlElement* population = new TiXmlElement("population");
 	population->SetAttribute("morale", mCurrentMorale);
+	population->SetAttribute("prev_morale", mPreviousMorale);
+	population->SetAttribute("colonist_landers", mLandersColonist);
 	population->SetAttribute("children", mPopulation.size(Population::ROLE_CHILD));
 	population->SetAttribute("students", mPopulation.size(Population::ROLE_STUDENT));
 	population->SetAttribute("workers", mPopulation.size(Population::ROLE_WORKER));
@@ -1486,8 +1496,8 @@ void GameState::load(const std::string& _path)
 	readRobots(root->FirstChildElement("robots"));
 
 	readResources(root->FirstChildElement("resources"), mPlayerResources);
-	readTurns(root->FirstChildElement("turns"));
 	readPopulation(root->FirstChildElement("population"));
+	readTurns(root->FirstChildElement("turns"));
 
 	TiXmlElement* ai = root->FirstChildElement("ai");
 	
@@ -1499,6 +1509,9 @@ void GameState::load(const std::string& _path)
 	}
 
 	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::STRUCTURE_STORAGE)));
+
+	checkConnectedness();
+	mStructureManager.updateEnergyProduction(mPlayerResources);
 	
 	// set level indicator string
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
@@ -1636,9 +1649,6 @@ void GameState::readStructures(TiXmlElement* _ti)
 
 		mStructureManager.addStructure(st, t);
 	}
-
-	checkConnectedness();
-	mStructureManager.updateEnergyProduction(mPlayerResources);
 }
 
 
@@ -1652,7 +1662,6 @@ void GameState::readTurns(TiXmlElement* _ti)
 		if (mTurnCount > 0)
 		{
 			mBtnTurns.enabled(true);
-
 			populateStructureMenu();
 		}
 	}
@@ -1669,6 +1678,9 @@ void GameState::readPopulation(TiXmlElement* _ti)
 		mPopulation.clear();
 
 		_ti->Attribute("morale", &mCurrentMorale);
+		_ti->Attribute("prev_morale", &mPreviousMorale);
+
+		_ti->Attribute("colonist_landers", &mLandersColonist);
 
 		int children = 0, students = 0, workers = 0, scientists = 0, retired = 0;
 
