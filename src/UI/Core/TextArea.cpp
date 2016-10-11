@@ -44,8 +44,11 @@ void TextArea::processString()
 		{
 			int tokenWidth = font().width(tokenList[i] + " ");
 			w += tokenWidth;
-			if (w > width())
+			if (w >= width())
+			{
+				++i;
 				break;
+			}
 
 			line += (tokenList[i] + " ");
 			if (tokenList[i] == "\n")
@@ -67,6 +70,7 @@ void TextArea::processString()
 
 void TextArea::onSizeChanged()
 {
+	Control::onSizeChanged();
 	processString();
 }
 
@@ -93,7 +97,8 @@ void TextArea::draw()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	//r.drawBox(rect(), 255, 255, 255);
+	if(highlight())
+		r.drawBox(rect(), 255, 255, 255);
 
 	for (size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
 		r.drawText(font(), mFormattedList[i], positionX(), positionY() + (font().height() * i), 255, 255, 255);

@@ -42,10 +42,10 @@ int			UI_CONTROL_COUNTER = 0;
 vector<Control*>	CONTROL_LIST;
 map<Control*, std::string> CONTROL_NAME_TABLE;
 
-Rectangle_2d	HANDLE_TOP_L(0, 0, 10, 10);
-Rectangle_2d	HANDLE_TOP_R(0, 0, 10, 10);
-Rectangle_2d	HANDLE_BOT_L(0, 0, 10, 10);
-Rectangle_2d	HANDLE_BOT_R(0, 0, 10, 10);
+Rectangle_2d	HANDLE_TOP_L(0, 0, HANDLE_SIZE, HANDLE_SIZE);
+Rectangle_2d	HANDLE_TOP_R(0, 0, HANDLE_SIZE, HANDLE_SIZE);
+Rectangle_2d	HANDLE_BOT_L(0, 0, HANDLE_SIZE, HANDLE_SIZE);
+Rectangle_2d	HANDLE_BOT_R(0, 0, HANDLE_SIZE, HANDLE_SIZE);
 
 bool		MOUSE_LEFT_DOWN = false;
 
@@ -340,6 +340,25 @@ void addControlClicked()
 		
 		addControl(btn, string_format("Button_%i", ++UI_CONTROL_COUNTER));
 	}
+	else if(CONTROLS_MENU->selectionText() == "TextArea")
+	{
+		TextArea* ta = new TextArea();
+		ta->font(*TINY_FONT);
+		ta->text("This is a Text Area.");
+		ta->size(100, 50);
+		ta->highlight(true);
+
+		addControl(ta, string_format("TextArea_%i", ++UI_CONTROL_COUNTER));
+	}
+	else if (CONTROLS_MENU->selectionText() == "TextField")
+	{
+		TextField* ta = new TextField();
+		ta->font(*TINY_FONT);
+		ta->text("TextField");
+		ta->size(100, 20);
+
+		addControl(ta, string_format("TextField_%i", ++UI_CONTROL_COUNTER));
+	}
 }
 
 void initUi()
@@ -416,10 +435,6 @@ int main(int argc, char *argv[])
 		initUi();
 
 		cout << "Entering main loop..." << endl << endl;
-
-		// Main Loop
-
-
 		while (RUNNING)
 		{
 			Utility<EventHandler>::get().pump();

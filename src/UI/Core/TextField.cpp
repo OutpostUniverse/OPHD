@@ -43,6 +43,9 @@ TextField::TextField():	mCursorPosition(0),
 
 TextField::~TextField()
 {
+	Utility<EventHandler>::get().mouseButtonDown().Disconnect(this, &TextField::onMouseDown);
+	Utility<EventHandler>::get().keyDown().Disconnect(this, &TextField::onKeyDown);
+	Utility<EventHandler>::get().keyUp().Disconnect(this, &TextField::onKeyUp);
 }
 
 void TextField::resetCursorPosition()
