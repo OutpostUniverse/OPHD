@@ -445,9 +445,7 @@ int main(int argc, char *argv[])
 			if (UI_CONTROL_EDIT)
 				drawHandles();
 
-
 			drawUi();
-
 			R->update();
 		}
 

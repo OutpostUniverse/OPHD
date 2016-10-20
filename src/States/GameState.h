@@ -22,16 +22,8 @@
 #include "../Things/Structures/Structure.h"
 #include "../Things/Robots/Robots.h"
 
+#include "../UI/Gui.h"
 #include "../UI/UI.h"
-#include "../UI/DiggerDirection.h"
-#include "../UI/FactoryProduction.h"
-#include "../UI/GameOverDialog.h"
-#include "../UI/IconGrid.h"
-#include "../UI/MajorEventAnnouncement.h"
-#include "../UI/PopulationPanel.h"
-#include "../UI/StructureInspector.h"
-#include "../UI/TileInspector.h"
-
 
 using namespace NAS2D;
 
@@ -95,7 +87,9 @@ private:
 	void drawUI();
 	void drawDebug();
 	void drawMiniMap();
+	void drawNavInfo();
 	void drawResourceInfo();
+	void drawRobotInfo();
 
 	void hideUi();
 	void initUi();
@@ -160,6 +154,8 @@ private:
 	void robotsSelectionChanged(const std::string& _s);
 
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t);
+
+	void fileIoAction(const std::string& _file, FileIo::FileOperation _op);
 
 	int foodInStorage();
 	int foodTotalStorage();
@@ -227,6 +223,7 @@ private:
 
 	DiggerDirection		mDiggerDirection;
 	FactoryProduction	mFactoryProduction;
+	FileIo				mFileIoDialog;
 	GameOverDialog		mGameOverDialog;
 	MajorEventAnnouncement	mAnnouncement;
 	PopulationPanel		mPopulationPanel;
@@ -244,7 +241,6 @@ private:
 
 	bool				mDebug;
 	bool				mLeftButtonDown;		/**< Used for mouse drags on the mini map. */
-	bool				mGameOver;				/**< Flag indicating that a game over condition has been met. */
 
 	State*				mReturnState;
 };

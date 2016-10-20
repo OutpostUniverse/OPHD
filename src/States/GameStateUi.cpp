@@ -39,6 +39,12 @@ void GameState::initUi()
 	mFactoryProduction.position(r.screenCenterX() - mFactoryProduction.width() / 2, 175);
 	mFactoryProduction.hide();
 
+	mFileIoDialog.position(r.screenCenterX() - mFileIoDialog.width() / 2, 50);
+	mFileIoDialog.setMode(FileIo::FILE_SAVE);
+	mFileIoDialog.fileOperation().Connect(this, &GameState::fileIoAction);
+	mFileIoDialog.anchored(true);
+	mFileIoDialog.hide();
+
 	mPopulationPanel.position(580, constants::RESOURCE_ICON_SIZE + 4 + constants::MARGIN_TIGHT);
 	mPopulationPanel.font(mTinyFont);
 	mPopulationPanel.population(&mPopulation);
@@ -235,6 +241,8 @@ void GameState::drawUI()
 
 	drawMiniMap();
 	drawResourceInfo();
+	drawNavInfo();
+	drawRobotInfo();
 
 	// Buttons
 	mBtnToggleHeightmap.update();
@@ -247,9 +255,8 @@ void GameState::drawUI()
 	mStructures.update();
 	mConnections.update();
 
-	// UI Containers
-	mDiggerDirection.update();
-
+	// Windows
+	mFileIoDialog.update();
 	mWindowStack.update();
 
 	// Always draw last
@@ -385,6 +392,14 @@ void GameState::btnGameOverClicked()
 {
 	mReturnState = new PlanetSelectState();
 	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+}
+
+
+void GameState::fileIoAction(const std::string& _file, FileIo::FileOperation _op)
+{
+	_op == FileIo::FILE_LOAD ? load(constants::SAVE_GAME_PATH + _file + ".xml") : save(constants::SAVE_GAME_PATH + _file + ".xml");
+
+	mFileIoDialog.hide();
 }
 
 
@@ -556,7 +571,6 @@ void GameState::btnTurnsClicked()
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)
 	{
-		mGameOver = true;
 		hideUi();
 		mGameOverDialog.show();
 	}

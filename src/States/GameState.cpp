@@ -64,6 +64,7 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mCurrentStructure(SID_NONE),
 																											mDiggerDirection(mTinyFont),
 																											mFactoryProduction(mTinyFont),
+																											mFileIoDialog(mTinyFont),
 																											mGameOverDialog(mTinyFont),
 																											mAnnouncement(mTinyFont),
 																											mStructureInspector(mTinyFont),
@@ -75,7 +76,6 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mLandersColonist(0),
 																											mDebug(false),
 																											mLeftButtonDown(false),
-																											mGameOver(false),
 																											mReturnState(NULL)
 {}
 
@@ -175,7 +175,8 @@ State* GameState::update()
 
 	r.drawImageStretched(mBackground, 0, 0, r.width(), r.height());
 
-	if (mGameOver)
+	// FIXME: Ugly Hack
+	if (mGameOverDialog.visible())
 	{
 		r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 125);
 		mGameOverDialog.update();
@@ -187,69 +188,13 @@ State* GameState::update()
 		return mReturnState;
 	}
 
-
-	// Place move / Depth butons
-	if (isPointInRect(mMousePosition, MOVE_DOWN_ICON))
-		r.drawSubImage(mUiIconsDown, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 0, 0, MOVE_DOWN_ICON.w(), MOVE_DOWN_ICON.h(), 255, 100, 100, 255);
-	else
-		r.drawSubImage(mUiIconsDown, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 0, 0, MOVE_DOWN_ICON.w(), MOVE_DOWN_ICON.h());
-
-	if (isPointInRect(mMousePosition, MOVE_EAST_ICON))
-		r.drawSubImage(mUiIconsEast, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 0, 0, MOVE_EAST_ICON.w(), MOVE_EAST_ICON.h(), 255, 100, 100, 255);
-	else
-		r.drawSubImage(mUiIconsEast, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 0, 0, MOVE_EAST_ICON.w(), MOVE_EAST_ICON.h());
-
-	if (isPointInRect(mMousePosition, MOVE_SOUTH_ICON))
-		r.drawSubImage(mUiIconsSouth, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 0, MOVE_SOUTH_ICON.w(), MOVE_SOUTH_ICON.h(), 255, 100, 100, 255);
-	else
-		r.drawSubImage(mUiIconsSouth, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 0, MOVE_SOUTH_ICON.w(), MOVE_SOUTH_ICON.h());
-
-	if (isPointInRect(mMousePosition, MOVE_UP_ICON))
-		r.drawSubImage(mUiIconsUp, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 0, 0, MOVE_UP_ICON.w(), MOVE_UP_ICON.h(), 255, 100, 100, 255);
-	else
-		r.drawSubImage(mUiIconsUp, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 0, 0, MOVE_UP_ICON.w(), MOVE_UP_ICON.h());
-
-	if (isPointInRect(mMousePosition, MOVE_NORTH_ICON))
-		r.drawSubImage(mUiIconsNorth, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 0, MOVE_NORTH_ICON.w(), MOVE_NORTH_ICON.h(), 255, 100, 100, 255);
-	else
-		r.drawSubImage(mUiIconsNorth, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 0, MOVE_NORTH_ICON.w(), MOVE_NORTH_ICON.h());
-
-	if (isPointInRect(mMousePosition, MOVE_WEST_ICON))
-		r.drawSubImage(mUiIconsWest, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 0, 0, MOVE_WEST_ICON.w(), MOVE_WEST_ICON.h(), 255, 100, 100, 255);
-	else	
-		r.drawSubImage(mUiIconsWest, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 0, 0, MOVE_WEST_ICON.w(), MOVE_WEST_ICON.h());
-	
-
-	string sLevels;
-	string sLevel;
-
-	// Construct level string (except for current level)
-	sLevels = "";
-	for (int i = 0; i <= mTileMap->maxDepth(); i++)
-	{
-		sLevel = string_format("%i", i);
-		if (i == 0) sLevel = "S";
-		if (i == mTileMap->currentDepth()) sLevel = " ";
-		sLevels += " "+sLevel;
-	}
-	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5 , mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 200, 200, 200);
-	// Construct current level string 
-	sLevels = "";
-	for (int i = 0; i <= mTileMap->maxDepth(); i++)
-	{
-		sLevel = string_format("%i", i);
-		if (i == 0) sLevel = "S";
-		if (i != mTileMap->currentDepth()) sLevel = " ";
-		sLevels += " "+sLevel;
-	}
-	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5 , mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 255, 0,0);
-	
 	// explicit current level
 	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - mFont.height() - mTinyFontBold.height() - 12, 255, 255, 255);
 	if(mDebug) drawDebug();
 
 	mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
 	mTileMap->draw();
+
 	drawUI();
 
 	if (r.isFading())
@@ -402,6 +347,18 @@ void GameState::drawResourceInfo()
 		r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 144, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	else
 		r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+}
+
+
+void GameState::drawRobotInfo()
+{
+	Renderer& r = Utility<Renderer>::get();
+
+	int x = constants::MARGIN_TIGHT;
+	int y = constants::MARGIN_TIGHT;
+	int textY = 6;
+	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
+	int margin = constants::RESOURCE_ICON_SIZE + constants::MARGIN;
 
 	// Robots
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border) 
@@ -409,7 +366,7 @@ void GameState::drawResourceInfo()
 	textY = y + 10;	// Same position + 10 to center the text with the graphics
 	margin = 28;	// Margin of 28 px from the graphics to the text
 	x = 0; offsetX = 1;	// Start a the left side of the screen + an offset of 1 to detatch from the border
-	// Miner (last one)
+						// Miner (last one)
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 18, 25, 25);
 	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 	// Dozer (Midle one)
@@ -419,7 +376,70 @@ void GameState::drawResourceInfo()
 	// Digger (First one)
 	textY -= 25; y -= 25;
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 181, 18, 25, 25);
-	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER),mRobotPool.diggers().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
+}
+
+
+void GameState::drawNavInfo()
+{
+	Renderer& r = Utility<Renderer>::get();
+
+	// Place move / Depth butons
+	if (isPointInRect(mMousePosition, MOVE_DOWN_ICON))
+		r.drawSubImage(mUiIconsDown, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 0, 0, MOVE_DOWN_ICON.w(), MOVE_DOWN_ICON.h(), 255, 0, 0, 255);
+	else
+		r.drawSubImage(mUiIconsDown, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 0, 0, MOVE_DOWN_ICON.w(), MOVE_DOWN_ICON.h());
+
+	if (isPointInRect(mMousePosition, MOVE_EAST_ICON))
+		r.drawSubImage(mUiIconsEast, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 0, 0, MOVE_EAST_ICON.w(), MOVE_EAST_ICON.h(), 255, 0, 0, 255);
+	else
+		r.drawSubImage(mUiIconsEast, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 0, 0, MOVE_EAST_ICON.w(), MOVE_EAST_ICON.h());
+
+	if (isPointInRect(mMousePosition, MOVE_SOUTH_ICON))
+		r.drawSubImage(mUiIconsSouth, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 0, MOVE_SOUTH_ICON.w(), MOVE_SOUTH_ICON.h(), 255, 0, 0, 255);
+	else
+		r.drawSubImage(mUiIconsSouth, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 0, MOVE_SOUTH_ICON.w(), MOVE_SOUTH_ICON.h());
+
+	if (isPointInRect(mMousePosition, MOVE_UP_ICON))
+		r.drawSubImage(mUiIconsUp, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 0, 0, MOVE_UP_ICON.w(), MOVE_UP_ICON.h(), 255, 0, 0, 255);
+	else
+		r.drawSubImage(mUiIconsUp, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 0, 0, MOVE_UP_ICON.w(), MOVE_UP_ICON.h());
+
+	if (isPointInRect(mMousePosition, MOVE_NORTH_ICON))
+		r.drawSubImage(mUiIconsNorth, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 0, MOVE_NORTH_ICON.w(), MOVE_NORTH_ICON.h(), 255, 0, 0, 255);
+	else
+		r.drawSubImage(mUiIconsNorth, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 0, MOVE_NORTH_ICON.w(), MOVE_NORTH_ICON.h());
+
+	if (isPointInRect(mMousePosition, MOVE_WEST_ICON))
+		r.drawSubImage(mUiIconsWest, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 0, 0, MOVE_WEST_ICON.w(), MOVE_WEST_ICON.h(), 255, 0, 0, 255);
+	else
+		r.drawSubImage(mUiIconsWest, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 0, 0, MOVE_WEST_ICON.w(), MOVE_WEST_ICON.h());
+
+
+	string sLevels;
+	string sLevel;
+
+	// Construct level string (except for current level)
+	sLevels = "";
+	for (int i = 0; i <= mTileMap->maxDepth(); i++)
+	{
+		sLevel = string_format("%i", i);
+		if (i == 0) sLevel = "S";
+		if (i == mTileMap->currentDepth()) sLevel = " ";
+		sLevels += " " + sLevel;
+	}
+	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5, mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 200, 200, 200);
+	// Construct current level string 
+	sLevels = "";
+	for (int i = 0; i <= mTileMap->maxDepth(); i++)
+	{
+		sLevel = string_format("%i", i);
+		if (i == 0) sLevel = "S";
+		if (i != mTileMap->currentDepth()) sLevel = " ";
+		sLevels += " " + sLevel;
+	}
+	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5, mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 255, 0, 0);
+
 }
 
 
@@ -454,6 +474,10 @@ void GameState::onActivate(bool _b)
  */
 void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 {
+	// FIXME: Ugly hack
+	if (mFileIoDialog.visible())
+		return;
+
 	bool viewUpdated = false; // don't like flaggy code like this
 	Point_2d pt = mTileMap->mapViewLocation();
 
@@ -513,11 +537,17 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 			break;
 
 		case KEY_F2:
-			save(constants::SAVE_GAME_PATH + "test.xml");
+			//save(constants::SAVE_GAME_PATH + "test.xml");
+			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
+			mFileIoDialog.setMode(FileIo::FILE_SAVE);
+			mFileIoDialog.show();
 			break;
 
 		case KEY_F3:
-			load(constants::SAVE_GAME_PATH + "test.xml");
+			//load(constants::SAVE_GAME_PATH + "test.xml");
+			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
+			mFileIoDialog.setMode(FileIo::FILE_LOAD);
+			mFileIoDialog.show();
 			break;
 
 		case KEY_ESCAPE:
@@ -539,7 +569,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
  */
 void GameState::onMouseDown(MouseButton button, int x, int y)
 {
-	if (mGameOver)
+	if (mGameOverDialog.visible() || mFileIoDialog.visible())
 		return;
 
 	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
@@ -1447,6 +1477,9 @@ void GameState::load(const std::string& _path)
 {
 	resetUi();
 
+	if (!Utility<Filesystem>::get().exists(_path))
+		return;
+
 	File xmlFile = Utility<Filesystem>::get().open(_path);
 
 	TiXmlDocument doc;
@@ -1708,6 +1741,7 @@ void GameState::scrubRobotList()
 	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
 		it->second->removeThing();
 }
+
 
 /**
  * Update the value of the current level string

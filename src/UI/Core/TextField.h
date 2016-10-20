@@ -100,6 +100,9 @@ private:
 
 	BorderVisibility	mBorderVisibility;	/**< Border visibility flag. */
 
+	ImageList			mSkinNormal;
+	ImageList			mSkinFocus;
+
 	bool				mEditable;			/**< Toggle editing of the field. */
 	bool				mShowCursor;		/**< Flag indicating whether or not to draw the cursor. */
 };

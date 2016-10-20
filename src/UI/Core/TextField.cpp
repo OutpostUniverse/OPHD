@@ -38,6 +38,26 @@ TextField::TextField():	mCursorPosition(0),
 	Utility<EventHandler>::get().keyDown().Connect(this, &TextField::onKeyDown);
 	Utility<EventHandler>::get().keyUp().Connect(this, &TextField::onKeyUp);
 	hasFocus(true);
+
+	mSkinNormal.push_back(Image("ui/skin/textbox_top_left.png"));
+	mSkinNormal.push_back(Image("ui/skin/textbox_top_middle.png"));
+	mSkinNormal.push_back(Image("ui/skin/textbox_top_right.png"));
+	mSkinNormal.push_back(Image("ui/skin/textbox_middle_left.png"));
+	mSkinNormal.push_back(Image("ui/skin/textbox_middle_middle.png"));
+	mSkinNormal.push_back(Image("ui/skin/textbox_middle_right.png"));
+	mSkinNormal.push_back(Image("ui/skin/textbox_bottom_left.png"));
+	mSkinNormal.push_back(Image("ui/skin/textbox_bottom_middle.png"));
+	mSkinNormal.push_back(Image("ui/skin/textbox_bottom_right.png"));
+
+	mSkinFocus.push_back(Image("ui/skin/textbox_top_left_highlight.png"));
+	mSkinFocus.push_back(Image("ui/skin/textbox_top_middle_highlight.png"));
+	mSkinFocus.push_back(Image("ui/skin/textbox_top_right_highlight.png"));
+	mSkinFocus.push_back(Image("ui/skin/textbox_middle_left_highlight.png"));
+	mSkinFocus.push_back(Image("ui/skin/textbox_middle_middle_highlight.png"));
+	mSkinFocus.push_back(Image("ui/skin/textbox_middle_right_highlight.png"));
+	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_left_highlight.png"));
+	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_middle_highlight.png"));
+	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_right_highlight.png"));
 }
 
 
@@ -91,12 +111,12 @@ void TextField::draw()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	if((mBorderVisibility == ALWAYS) || (hasFocus() && mBorderVisibility != NEVER))
-	{
-		r.drawBoxFilled(rect().x(), rect().y(), rect().w(), rect().h(), 0, 0, 0, 65);
-		r.drawBox(rect().x() + 1, rect().y() + 1, rect().w(), rect().h(), 0, 0, 0);
-		r.drawBox(rect(), 255, 255, 255);
-	}
+	if(hasFocus())
+		r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkinFocus);
+	else
+		r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkinNormal);
+
+
 
 	if(highlight())
 		r.drawBox(rect(), 255, 255, 0);

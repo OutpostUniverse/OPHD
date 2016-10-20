@@ -190,6 +190,7 @@
     <ClCompile Include="..\..\src\UI\Core\WindowStack.cpp" />
     <ClCompile Include="..\..\src\UI\DiggerDirection.cpp" />
     <ClCompile Include="..\..\src\UI\FactoryProduction.cpp" />
+    <ClCompile Include="..\..\src\ui\FileIo.cpp" />
     <ClCompile Include="..\..\src\ui\GameOverDialog.cpp" />
     <ClCompile Include="..\..\src\UI\IconGrid.cpp" />
     <ClCompile Include="..\..\src\UI\MajorEventAnnouncement.cpp" />
@@ -269,7 +270,9 @@
     <ClInclude Include="..\..\src\UI\Core\WindowStack.h" />
     <ClInclude Include="..\..\src\UI\DiggerDirection.h" />
     <ClInclude Include="..\..\src\UI\FactoryProduction.h" />
+    <ClInclude Include="..\..\src\ui\FileIo.h" />
     <ClInclude Include="..\..\src\ui\GameOverDialog.h" />
+    <ClInclude Include="..\..\src\ui\Gui.h" />
     <ClInclude Include="..\..\src\UI\IconGrid.h" />
     <ClInclude Include="..\..\src\UI\MajorEventAnnouncement.h" />
     <ClInclude Include="..\..\src\Ui\PopulationPanel.h" />
