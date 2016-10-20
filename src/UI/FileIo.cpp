@@ -91,6 +91,8 @@ void FileIo::update()
 void FileIo::btnCloseClicked()
 {
 	visible(false);
+	txtFileName.text("");
+	txtFileName.resetCursorPosition();
 }
 
 
@@ -98,4 +100,5 @@ void FileIo::btnFileIoClicked()
 {
 	mCallback(txtFileName.text() , mMode);
 	txtFileName.text("");
+	txtFileName.resetCursorPosition();
 }
