@@ -11,7 +11,7 @@ public:
 
 	typedef Gallant::Signal0<void> Callback;
 
-	ColonistLander(Tile* t) : Structure(constants::SEED_LANDER, "structures/lander_1.sprite", STRUCTURE_LANDER), mTile(t)
+	ColonistLander(Tile* t) : Structure(constants::COLONIST_LANDER, "structures/lander_1.sprite", STRUCTURE_LANDER), mTile(t)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);

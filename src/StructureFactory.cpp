@@ -23,6 +23,9 @@ Structure* StructureFactory::get(StructureID type)
 		case SID_CHAP:
 			_st = new CHAP();
 			break;
+		case SID_COLONIST_LANDER: // only here for loading games
+			_st = new ColonistLander(nullptr);
+			break;
 		case SID_COMMAND_CENTER:
 			_st = new CommandCenter();
 			break;
