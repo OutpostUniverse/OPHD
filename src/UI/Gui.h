@@ -4,6 +4,7 @@
 #include "FactoryProduction.h"
 #include "FileIo.h"
 #include "GameOverDialog.h"
+#include "GameOptionsDialog.h"
 #include "IconGrid.h"
 #include "MajorEventAnnouncement.h"
 #include "PopulationPanel.h"

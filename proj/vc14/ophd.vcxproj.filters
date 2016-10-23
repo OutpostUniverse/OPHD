@@ -177,6 +177,9 @@
     <ClCompile Include="..\..\src\ui\FileIo.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\GameOptionsDialog.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -423,6 +426,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ui\Gui.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\GameOptionsDialog.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

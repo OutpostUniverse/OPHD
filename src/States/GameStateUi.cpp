@@ -55,6 +55,13 @@ void GameState::initUi()
 	mGameOverDialog.returnToMainMenu().Connect(this, &GameState::btnGameOverClicked);
 	mGameOverDialog.hide();
 
+	mGameOptionsDialog.position(r.screenCenterX() - mGameOptionsDialog.width() / 2, r.screenCenterY() - mGameOptionsDialog.height() / 2 - 100);
+	mGameOptionsDialog.SaveGame().Connect(this, &GameState::btnSaveGameClicked);
+	mGameOptionsDialog.LoadGame().Connect(this, &GameState::btnLoadGameClicked);
+	mGameOptionsDialog.returnToGame().Connect(this, &GameState::btnReturnToGameClicked);
+	mGameOptionsDialog.returnToMainMenu().Connect(this, &GameState::btnGameOverClicked);
+	mGameOptionsDialog.hide();
+
 	mAnnouncement.position(r.screenCenterX() - mGameOverDialog.width() / 2, r.screenCenterY() - mGameOverDialog.height() / 2 - 100);
 	mAnnouncement.hide();
 
@@ -387,13 +394,35 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	mDiggerDirection.visible(false);
 }
 
+void GameState::btnSaveGameClicked()
+{
+	mGameOptionsDialog.hide();
+	//save(constants::SAVE_GAME_PATH + "test.xml");
+	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
+	mFileIoDialog.setMode(FileIo::FILE_SAVE);
+	mFileIoDialog.show();
+}
+
+void GameState::btnLoadGameClicked()
+{
+	mGameOptionsDialog.hide();
+	//load(constants::SAVE_GAME_PATH + "test.xml");
+	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
+	mFileIoDialog.setMode(FileIo::FILE_LOAD);
+	mFileIoDialog.show();
+
+}
+
+void GameState::btnReturnToGameClicked()
+{
+	mGameOptionsDialog.hide();
+}
 
 void GameState::btnGameOverClicked()
 {
 	mReturnState = new PlanetSelectState();
 	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 }
-
 
 void GameState::fileIoAction(const std::string& _file, FileIo::FileOperation _op)
 {

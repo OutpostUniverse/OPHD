@@ -66,6 +66,7 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mFactoryProduction(mTinyFont),
 																											mFileIoDialog(mTinyFont),
 																											mGameOverDialog(mTinyFont),
+																											mGameOptionsDialog(mTinyFont),
 																											mAnnouncement(mTinyFont),
 																											mStructureInspector(mTinyFont),
 																											mTileInspector(mTinyFont),
@@ -192,10 +193,20 @@ State* GameState::update()
 	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - mFont.height() - mTinyFontBold.height() - 12, 255, 255, 255);
 	if(mDebug) drawDebug();
 
-	mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
+	if (!mGameOptionsDialog.visible() && !mGameOverDialog.visible() && !mFileIoDialog.visible())
+		mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
 	mTileMap->draw();
 
 	drawUI();
+
+	// Option menu
+	// FIXME: Ugly Hack
+	if (mGameOptionsDialog.visible())
+	{
+		r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 165);
+		mGameOptionsDialog.update();
+		mPointers[POINTER_NORMAL].draw(mMousePosition.x(), mMousePosition.y());
+	}
 
 	if (r.isFading())
 		return this;
@@ -475,7 +486,7 @@ void GameState::onActivate(bool _b)
 void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 {
 	// FIXME: Ugly hack
-	if (mFileIoDialog.visible())
+	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
 		return;
 
 	bool viewUpdated = false; // don't like flaggy code like this
@@ -569,7 +580,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
  */
 void GameState::onMouseDown(MouseButton button, int x, int y)
 {
-	if (mGameOverDialog.visible() || mFileIoDialog.visible())
+	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
 		return;
 
 	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
@@ -632,9 +643,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		// Ugly
 		if (isPointInRect(mMousePosition, MENU_ICON))
 		{
-			mReturnState = new PlanetSelectState();
-			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
-			return;
+			mGameOptionsDialog.show();
 		}
 
 		if (isPointInRect(mMousePosition, MOVE_NORTH_ICON))

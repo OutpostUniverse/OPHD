@@ -145,6 +145,9 @@ private:
 	void btnTurnsClicked();
 	void btnToggleConnectednessClicked();
 
+	void btnSaveGameClicked();
+	void btnLoadGameClicked();
+	void btnReturnToGameClicked();
 	void btnGameOverClicked();
 
 	void updateCurrentLevelString(int currentDepth);
@@ -225,6 +228,7 @@ private:
 	FactoryProduction	mFactoryProduction;
 	FileIo				mFileIoDialog;
 	GameOverDialog		mGameOverDialog;
+	GameOptionsDialog	mGameOptionsDialog;
 	MajorEventAnnouncement	mAnnouncement;
 	PopulationPanel		mPopulationPanel;
 	StructureInspector	mStructureInspector;
