@@ -38,6 +38,7 @@ private:
 	void btnFileIoClicked();
 
 	void fileSelected();
+	void fileNameModified(Control* _ctrl);
 
 	FileIo();
 	FileIo(const FileIo&);

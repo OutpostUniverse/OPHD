@@ -35,6 +35,7 @@ void FileIo::init()
 	addControl("txtFileName", &txtFileName, 5, 302);
 	txtFileName.font(font());
 	txtFileName.size(490, 18);
+	txtFileName.textChanged().Connect(this,&FileIo::fileNameModified);
 
 	addControl("mnuFileList", &mnuFileList, 5, 25);
 	mnuFileList.font(font());
@@ -74,6 +75,35 @@ void FileIo::scanDirectory(const std::string& _dir)
 void FileIo::fileSelected()
 {
 	txtFileName.text(mnuFileList.selectionText());
+}
+
+
+void FileIo::fileNameModified(Control* _ctrl)
+{
+	string sFile = _ctrl->text();
+
+	if (sFile == "")	// no blank filename
+		btnFileOp.enabled(false);
+	else if ((int)sFile.find('\\')>-1)	// no \ in the filename
+		btnFileOp.enabled(false);
+	else if ((int)sFile.find('/')>-1)	// no / in the filename
+		btnFileOp.enabled(false);
+	else if ((int)sFile.find(':')>-1)	// no : in the filename
+		btnFileOp.enabled(false);
+	else if ((int)sFile.find('*')>-1)	// no * in the filename
+		btnFileOp.enabled(false);
+	else if ((int)sFile.find('?')>-1)	// no ? in the filename
+		btnFileOp.enabled(false);
+	else if ((int)sFile.find('"')>-1)	// no " in the filename
+		btnFileOp.enabled(false);
+	else if ((int)sFile.find('<')>-1)	// no < in the filename
+		btnFileOp.enabled(false);
+	else if ((int)sFile.find('>')>-1)	// no > in the filename
+		btnFileOp.enabled(false);
+	else if ((int)sFile.find('|')>-1)	// no | in the filename
+		btnFileOp.enabled(false);
+	else
+		btnFileOp.enabled(true);
 }
 
 
