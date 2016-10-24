@@ -47,6 +47,7 @@ void StructureManager::update(ResourcePool& _r)
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_SMELTER]);
 
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LIFE_SUPPORT]);
+	updateStructures(_r, mStructureLists[Structure::STRUCTURE_MEDICAL_CENTER]);
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FOOD_PRODUCTION]);
 
 	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FACTORY]);

@@ -47,6 +47,7 @@ namespace constants
 	const string	FUSION_REACTOR = "Fusion Reactor";
 	const string	HOT_LABORATORY = "Hot Laboratory";
 	const string	LABORATORY = "Laboratory";
+	const string	MEDICAL_CENTER = "Medical Center";
 	const string	MINE_FACILITY = "Mine Facility";
 	const string	MINE_SHAFT = "Mine Shaft";
 	const string	PARK = "Park / Reservoir ";

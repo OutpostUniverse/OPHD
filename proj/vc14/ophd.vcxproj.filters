@@ -431,6 +431,9 @@
     <ClInclude Include="..\..\src\UI\GameOptionsDialog.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\MedicalCenter.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

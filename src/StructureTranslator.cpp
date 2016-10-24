@@ -40,6 +40,7 @@ void StructureTranslator::buildTables()
 	_stringToStructureTable[constants::FUSION_REACTOR] = SID_FUSION_REACTOR;
 	_stringToStructureTable[constants::HOT_LABORATORY] = SID_HOT_LABORATORY;
 	_stringToStructureTable[constants::LABORATORY] = SID_LABORATORY;
+	_stringToStructureTable[constants::MEDICAL_CENTER] = SID_MEDICAL_CENTER;
 	_stringToStructureTable[constants::MINE_FACILITY] = SID_MINE_FACILITY;
 	_stringToStructureTable[constants::MINE_SHAFT] = SID_MINE_SHAFT;
 	_stringToStructureTable[constants::PARK] = SID_PARK;
@@ -73,6 +74,7 @@ void StructureTranslator::buildTables()
 	_structureToStringTable[SID_FUSION_REACTOR] = constants::FUSION_REACTOR;
 	_structureToStringTable[SID_HOT_LABORATORY] = constants::HOT_LABORATORY;
 	_structureToStringTable[SID_LABORATORY] = constants::LABORATORY;
+	_structureToStringTable[SID_MEDICAL_CENTER] = constants::MEDICAL_CENTER;
 	_structureToStringTable[SID_MINE_FACILITY] = constants::MINE_FACILITY;
 	_structureToStringTable[SID_MINE_SHAFT] = constants::MINE_SHAFT;
 	_structureToStringTable[SID_PARK] = constants::PARK;

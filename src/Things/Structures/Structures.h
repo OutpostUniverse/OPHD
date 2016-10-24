@@ -9,6 +9,7 @@
 #include "Commercial.h"
 #include "FusionReactor.h"
 #include "Laboratory.h"
+#include "MedicalCenter.h"
 #include "MineFacility.h"
 #include "MineShaft.h"
 #include "Park.h"
