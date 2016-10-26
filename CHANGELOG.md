@@ -10,14 +10,19 @@ This version includes all revisions from r191 to rXXX.
 - Added a Game Over window.
 - Added Colonist Lander.
 - Added an Announcement window for major events in the colony. Not polished but does the job.
+- Added a System menu to visually access the Save/Load interface and return to the menu.
+- Added a Save/Load interface.
 
 ### Changed
 - Agridomes will now dump their entire storage of food when they go disabled. This effectively simulates a failure of the food storage units which leads to spoilage.
 - Game will go into a Game Over state when population reaches 0.
 - Population will now only become active when dropped to the surface with a lander. 50 colonists per lander.
+- The game will alert the player that the colony ship has deorbited and crashed after 24 turns (basically two years).
+- Player must now drop their colonists before the ship deorbits or they will lose their colonists.
 
 ### Fixed
 - Fixed an issue that would keep one colonist alive regardless of how much food was available.
+- Fixed a mistake that would cause the morale indicator icon to disappear when the player reaches the maximum morale level.
 
 
 
