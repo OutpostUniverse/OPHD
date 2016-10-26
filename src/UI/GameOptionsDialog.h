@@ -6,10 +6,7 @@ class GameOptionsDialog : public Window
 {
 public:
 
-	typedef Gallant::Signal0<void> ClickCallbackSave;
-	typedef Gallant::Signal0<void> ClickCallbackLoad;
-	typedef Gallant::Signal0<void> ClickCallbackReturn;
-	typedef Gallant::Signal0<void> ClickCallbackQuit;
+	typedef Gallant::Signal0<void> ClickCallback;
 
 public:
 
@@ -18,10 +15,10 @@ public:
 
 	virtual void update();
 
-	ClickCallbackSave& SaveGame() { return mCallbackSave; }
-	ClickCallbackLoad& LoadGame() { return mCallbackLoad; }
-	ClickCallbackReturn& returnToGame() { return mCallbackReturn; }
-	ClickCallbackQuit& returnToMainMenu() { return mCallbackClose; }
+	ClickCallback& SaveGame() { return mCallbackSave; }
+	ClickCallback& LoadGame() { return mCallbackLoad; }
+	ClickCallback& returnToGame() { return mCallbackReturn; }
+	ClickCallback& returnToMainMenu() { return mCallbackClose; }
 	
 
 protected:
@@ -44,8 +41,8 @@ private:
 	Button			btnReturn;
 	Button			btnClose;
 
-	ClickCallbackSave	mCallbackSave;
-	ClickCallbackLoad	mCallbackLoad;
-	ClickCallbackReturn	mCallbackReturn;
-	ClickCallbackQuit	mCallbackClose;
+	ClickCallback	mCallbackSave;
+	ClickCallback	mCallbackLoad;
+	ClickCallback	mCallbackReturn;
+	ClickCallback	mCallbackClose;
 };

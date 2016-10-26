@@ -265,6 +265,7 @@ void GameState::drawUI()
 
 	// Windows
 	mFileIoDialog.update();
+	mGameOptionsDialog.update();
 	mWindowStack.update();
 
 	// Always draw last

@@ -18,7 +18,7 @@ GameOptionsDialog::~GameOptionsDialog()
 void GameOptionsDialog::init()
 {
 	position(0, 0);
-	size(210, 159);
+	size(210, 160);
 	
 	addControl("btnSave", &btnSave, 5, 25);
 	btnSave.font(font());

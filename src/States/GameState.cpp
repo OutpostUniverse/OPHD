@@ -176,10 +176,10 @@ State* GameState::update()
 
 	r.drawImageStretched(mBackground, 0, 0, r.width(), r.height());
 
-	// FIXME: Ugly Hack
+	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible())
 	{
-		r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 125);
+		r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 255);
 		mGameOverDialog.update();
 		mPointers[POINTER_NORMAL].draw(mMousePosition.x(), mMousePosition.y());
 
@@ -197,16 +197,13 @@ State* GameState::update()
 		mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
 	mTileMap->draw();
 
-	drawUI();
-
-	// Option menu
-	// FIXME: Ugly Hack
-	if (mGameOptionsDialog.visible())
+	// FIXME: Ugly / hacky
+	if (mGameOptionsDialog.visible() || mFileIoDialog.visible())
 	{
 		r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 165);
-		mGameOptionsDialog.update();
-		mPointers[POINTER_NORMAL].draw(mMousePosition.x(), mMousePosition.y());
 	}
+
+	drawUI();
 
 	if (r.isFading())
 		return this;
@@ -247,8 +244,6 @@ void GameState::drawMiniMap()
 
 	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
 		r.drawPixel(it->second->x()  + mMiniMapBoundingBox.x(), it->second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
-
-	//r.drawBox(mMiniMapBoundingBox, 0, 0, 0);
 
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x() + 1, mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
@@ -485,7 +480,7 @@ void GameState::onActivate(bool _b)
  */
 void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 {
-	// FIXME: Ugly hack
+	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
 		return;
 
@@ -580,6 +575,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
  */
 void GameState::onMouseDown(MouseButton button, int x, int y)
 {
+	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
 		return;
 
