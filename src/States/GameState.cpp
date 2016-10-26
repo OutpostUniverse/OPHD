@@ -338,7 +338,7 @@ void GameState::drawResourceInfo()
 	else
 		r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 32, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 
-	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (mCurrentMorale / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(mTinyFont, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
 
 	if (isPointInRect(mMousePosition.x(), mMousePosition.y(), 580, 0, 35, 20))
