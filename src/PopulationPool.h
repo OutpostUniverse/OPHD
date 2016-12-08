@@ -17,6 +17,10 @@ public:
 
 	void clear();
 
+	int scientistsEmployed();
+	int workersEmployed();
+	int populationEmployed();
+
 private:
 
 	int				mScientistsUsed;

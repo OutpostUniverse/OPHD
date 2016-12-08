@@ -69,3 +69,21 @@ void PopulationPool::clear()
 	mScientistsUsed = 0;
 	mWorkersUsed = 0;
 }
+
+
+int PopulationPool::scientistsEmployed()
+{
+	return mScientistsUsed;
+}
+
+
+int PopulationPool::workersEmployed()
+{
+	return mWorkersUsed;
+}
+
+
+int PopulationPool::populationEmployed()
+{
+	return scientistsEmployed() + workersEmployed();
+}
