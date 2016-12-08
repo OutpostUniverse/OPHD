@@ -24,22 +24,36 @@ void PopulationPool::population(Population* pop)
 
 
 /**
- * Gets wheather the specified amount of a particular population role is available.
- * 
- * \returns	True if available is the same or greater than what is being asked for. False otherwise.
+ * Gets the amount of population available for a given role.
  */
-bool PopulationPool::populationAvailable(Population::PersonRole _role, int _amount)
+int PopulationPool::populationAvailable(Population::PersonRole _role)
 {
 	#ifdef _DEBUG // only care if we're in debug mode, fail silently in release modes
 	if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
 		throw NAS2D::Exception(0, "Unhandled Role", "PopulationPool::populationAvailable(): Checking a population role that is not handled by the PopulationPool.");
 	#endif
 
-	int assigned = 0;
+	int employed = 0;
 
-	_role == Population::ROLE_SCIENTIST ? assigned = mScientistsUsed : assigned = mWorkersUsed;
+	_role == Population::ROLE_SCIENTIST ? employed = scientistsEmployed() : employed = populationEmployed();
 
-	return _amount + assigned <= mPopulation->size(_role);
+	return mPopulation->size(_role) - employed;
+}
+
+
+/**
+ * Gets wheather the specified amount of a particular population role is available.
+ * 
+ * \returns	True if available is the same or greater than what is being asked for. False otherwise.
+ */
+bool PopulationPool::enoughPopulationAvailable(Population::PersonRole _role, int _amount)
+{
+	#ifdef _DEBUG // only care if we're in debug mode, fail silently in release modes
+	if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
+		throw NAS2D::Exception(0, "Unhandled Role", "PopulationPool::populationAvailable(): Checking a population role that is not handled by the PopulationPool.");
+	#endif
+
+	return populationAvailable(_role) >= _amount;
 }
 
 

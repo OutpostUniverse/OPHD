@@ -12,7 +12,8 @@ public:
 
 	void population(Population* pop);
 
-	bool populationAvailable(Population::PersonRole _role, int _amount);
+	int populationAvailable(Population::PersonRole _role);
+	bool enoughPopulationAvailable(Population::PersonRole _role, int _amount);
 	void usePopulation(Population::PersonRole _role, int _amount);
 
 	void clear();
