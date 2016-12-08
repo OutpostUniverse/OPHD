@@ -30,36 +30,34 @@ void PopulationPool::population(Population* pop)
  */
 bool PopulationPool::populationAvailable(Population::PersonRole _role, int _amount)
 {
-	return _amount <= mPopulation->size(_role);
+	#ifdef _DEBUG // only care if we're in debug mode, fail silently in release modes
+	if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
+		throw NAS2D::Exception(0, "Unhandled Role", "PopulationPool::populationAvailable(): Checking a population role that is not handled by the PopulationPool.");
+	#endif
+
+	int assigned = 0;
+
+	_role == Population::ROLE_SCIENTIST ? assigned = mScientistsUsed : assigned = mWorkersUsed;
+
+	return _amount + assigned <= mPopulation->size(_role);
 }
 
 
 /**
  * Marks a given amount of the population as set.
  * 
- * \note	If the amount asked for exceeds what's available, an exception will be thrown. This is for debug purposes.
+ * \warning	Does not check if the requested amount of population exists. User is required to perform this check.
  * 
- * \note	Does not check for 
+ * \warning	Will throw an exception if any role other than Population::ROLE_SCIENTIST or Population::ROLE_WORKER is specified.
  */
 void PopulationPool::usePopulation(Population::PersonRole _role, int _amount)
 {
-	// Basic checks
-	switch (_role)
-	{
-	case Population::ROLE_SCIENTIST:
-		 
-		break;
-	case Population::ROLE_WORKER:
-		break;
-	default:
-		#ifdef _DEBUG // only care if we're in debug mode, fail silently in release modes
-		if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
-			throw NAS2D::Exception(0, "Unhandled Role", "PopulationPool::usePopulation(): Requested a population role that is not handled by the PopulationPool.");
-		#endif
-		break;
-	}
+	#ifdef _DEBUG // only care if we're in debug mode, fail silently in release modes
+	if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
+		throw NAS2D::Exception(0, "Unhandled Role", "PopulationPool::usePopulation(): Requested a population role that is not handled by the PopulationPool.");
+	#endif
 
-
+	_role == Population::ROLE_SCIENTIST ? mScientistsUsed += _amount : mWorkersUsed += _amount;
 }
 
 
