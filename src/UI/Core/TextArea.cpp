@@ -46,7 +46,13 @@ void TextArea::processString()
 			w += tokenWidth;
 			if (w >= width())
 			{
-				++i;
+				/**
+				 * \todo	In some edge cases where the width of the TextArea is too
+				 *			narrow for a single word/token, this will result in an infinite
+				 *			loop. This edge case will need to be resolved either by splitting
+				 *			the token that's too wide or by simply rendering it as is.
+				 */
+				//++i;
 				break;
 			}
 
