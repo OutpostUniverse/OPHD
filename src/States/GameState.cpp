@@ -52,12 +52,6 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
 																											mHeightMap(_m + MAP_TERRAIN_EXTENSION),
 																											mUiIcons("ui/icons.png"),
-																											mUiIconsUp("ui/icons/arrow-up.png"),
-																											mUiIconsDown("ui/icons/arrow-down.png"),
-																											mUiIconsNorth("ui/icons/arrow-north.png"),
-																											mUiIconsSouth("ui/icons/arrow-south.png"),
-																											mUiIconsEast("ui/icons/arrow-east.png"),
-																											mUiIconsWest("ui/icons/arrow-west.png"),
 																											mAiVoiceNotifier(_g),
 																											//mBgMusic("music/track_01.ogg"),
 																											mCurrentPointer(POINTER_NORMAL),
@@ -111,6 +105,7 @@ void GameState::initialize()
 {
 	mReturnState = this;
 
+	// EVENT HANDLERS
 	EventHandler& e = Utility<EventHandler>::get();
 
 	e.activate().Connect(this, &GameState::onActivate);
@@ -126,35 +121,26 @@ void GameState::initialize()
 	initUi();
 
 	MENU_ICON(Utility<Renderer>::get().width() - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
-	{
-		int xs = Utility<Renderer>::get().width() - constants::MARGIN - constants::MINI_MAP_BUTTON_SIZE;
-		int ys = Utility<Renderer>::get().height() - 2 * constants::MARGIN - constants::MINI_MAP_BUTTON_SIZE - constants::BOTTOM_UI_HEIGHT - mFont.height() - mTinyFontBold.height() - constants::MARGIN_TIGHT;
-		int ws = constants::MINI_MAP_BUTTON_SIZE + constants::MARGIN_TIGHT;
-		int hs = constants::MINI_MAP_BUTTON_SIZE + constants::MARGIN_TIGHT;
-		// Bottom line
-		MOVE_DOWN_ICON( xs, ys, ws, hs);
-		MOVE_EAST_ICON( xs - (ws + constants::MARGIN_TIGHT), ys, ws, hs);
-		MOVE_SOUTH_ICON( xs - 2 * (ws + constants::MARGIN_TIGHT), ys, ws, hs);
-		// Top line
-		ys = ys - hs - constants::MARGIN_TIGHT;
-		MOVE_UP_ICON( xs, ys, ws, hs);
-		MOVE_NORTH_ICON( xs - (ws + constants::MARGIN_TIGHT), ys, ws, hs);
-		MOVE_WEST_ICON( xs - 2 * (ws + constants::MARGIN_TIGHT), ys, ws, hs);
-		
-		
-	}
+	
+	// NAVIGATION BUTTONS
+	// Bottom line
+	MOVE_DOWN_ICON(Utility<Renderer>::get().width() - constants::MARGIN - 32, Utility<Renderer>::get().height() - constants::BOTTOM_UI_HEIGHT - 65, 32, 32);
+	MOVE_EAST_ICON(MOVE_DOWN_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
+	MOVE_SOUTH_ICON(MOVE_DOWN_ICON.x() - 2*(32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
 
+	// Top line
+	MOVE_UP_ICON(MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y() - constants::MARGIN_TIGHT - 32, 32, 32);
+	MOVE_NORTH_ICON(MOVE_UP_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
+	MOVE_WEST_ICON(MOVE_UP_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
+
+	// POINTERS
 	mPointers.push_back(Pointer("ui/pointers/normal.png", 0, 0));
 	mPointers.push_back(Pointer("ui/pointers/place_tile.png", 16, 16));
 	mPointers.push_back(Pointer("ui/pointers/inspect.png", 8, 8));
 
 	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
 
-	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
-
 	CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
-
-	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
 
 	if (LEVEL_STRING_TABLE.empty())
 	{
@@ -164,6 +150,9 @@ void GameState::initialize()
 		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_3] = constants::LEVEL_UG3;
 		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_4] = constants::LEVEL_UG4;
 	}
+
+	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
+	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 }
 
 
@@ -390,36 +379,37 @@ void GameState::drawNavInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	// Place move / Depth butons
+	// Up / Down
 	if (isPointInRect(mMousePosition, MOVE_DOWN_ICON))
-		r.drawSubImage(mUiIconsDown, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 0, 0, MOVE_DOWN_ICON.w(), MOVE_DOWN_ICON.h(), 255, 0, 0, 255);
+		r.drawSubImage(mUiIcons, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 64, 128, 32, 32, 255, 0, 0, 255);
 	else
-		r.drawSubImage(mUiIconsDown, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 0, 0, MOVE_DOWN_ICON.w(), MOVE_DOWN_ICON.h());
-
-	if (isPointInRect(mMousePosition, MOVE_EAST_ICON))
-		r.drawSubImage(mUiIconsEast, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 0, 0, MOVE_EAST_ICON.w(), MOVE_EAST_ICON.h(), 255, 0, 0, 255);
-	else
-		r.drawSubImage(mUiIconsEast, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 0, 0, MOVE_EAST_ICON.w(), MOVE_EAST_ICON.h());
-
-	if (isPointInRect(mMousePosition, MOVE_SOUTH_ICON))
-		r.drawSubImage(mUiIconsSouth, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 0, MOVE_SOUTH_ICON.w(), MOVE_SOUTH_ICON.h(), 255, 0, 0, 255);
-	else
-		r.drawSubImage(mUiIconsSouth, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 0, MOVE_SOUTH_ICON.w(), MOVE_SOUTH_ICON.h());
+		r.drawSubImage(mUiIcons, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 64, 128, 32, 32);
 
 	if (isPointInRect(mMousePosition, MOVE_UP_ICON))
-		r.drawSubImage(mUiIconsUp, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 0, 0, MOVE_UP_ICON.w(), MOVE_UP_ICON.h(), 255, 0, 0, 255);
+		r.drawSubImage(mUiIcons, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 96, 128, 32, 32, 255, 0, 0, 255);
 	else
-		r.drawSubImage(mUiIconsUp, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 0, 0, MOVE_UP_ICON.w(), MOVE_UP_ICON.h());
+		r.drawSubImage(mUiIcons, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 96, 128, 32, 32);
 
-	if (isPointInRect(mMousePosition, MOVE_NORTH_ICON))
-		r.drawSubImage(mUiIconsNorth, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 0, MOVE_NORTH_ICON.w(), MOVE_NORTH_ICON.h(), 255, 0, 0, 255);
+	// East / West / North / South
+	if (isPointInRect(mMousePosition, MOVE_EAST_ICON))
+		r.drawSubImage(mUiIcons, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 32, 128, 32, 16, 255, 0, 0, 255);
 	else
-		r.drawSubImage(mUiIconsNorth, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 0, MOVE_NORTH_ICON.w(), MOVE_NORTH_ICON.h());
+		r.drawSubImage(mUiIcons, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 32, 128, 32, 16);
 
 	if (isPointInRect(mMousePosition, MOVE_WEST_ICON))
-		r.drawSubImage(mUiIconsWest, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 0, 0, MOVE_WEST_ICON.w(), MOVE_WEST_ICON.h(), 255, 0, 0, 255);
+		r.drawSubImage(mUiIcons, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 32, 144, 32, 16, 255, 0, 0, 255);
 	else
-		r.drawSubImage(mUiIconsWest, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 0, 0, MOVE_WEST_ICON.w(), MOVE_WEST_ICON.h());
+		r.drawSubImage(mUiIcons, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 32, 144, 32, 16);
+
+	if (isPointInRect(mMousePosition, MOVE_NORTH_ICON))
+		r.drawSubImage(mUiIcons, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 128, 32, 16, 255, 0, 0, 255);
+	else
+		r.drawSubImage(mUiIcons, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 128, 32, 16);
+
+	if (isPointInRect(mMousePosition, MOVE_SOUTH_ICON))
+		r.drawSubImage(mUiIcons, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 144, 32, 16, 255, 0, 0, 255);
+	else
+		r.drawSubImage(mUiIcons, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 144, 32, 16);
 
 
 	string sLevels;
@@ -445,7 +435,6 @@ void GameState::drawNavInfo()
 		sLevels += " " + sLevel;
 	}
 	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5, mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 255, 0, 0);
-
 }
 
 

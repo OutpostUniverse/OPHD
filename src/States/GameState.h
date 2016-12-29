@@ -9,15 +9,16 @@
 #include "../Common.h"
 #include "../Constants.h"
 
+#include "../Map/Tile.h"
+#include "../Map/TileMap.h"
+
+#include "../PopulationPool.h"
+#include "../Population/Population.h"
+
 #include "../ResourcePool.h"
 #include "../RobotPool.h"
 
 #include "../StructureManager.h"
-
-#include "../Map/Tile.h"
-#include "../Map/TileMap.h"
-
-#include "../Population/Population.h"
 
 #include "../Things/Structures/Structure.h"
 #include "../Things/Robots/Robots.h"
@@ -177,15 +178,6 @@ private:
 	Image				mHeightMap;
 	Image				mUiIcons;
 
-	// /*
-	Image				mUiIconsUp;
-	Image				mUiIconsDown;
-	Image				mUiIconsNorth;
-	Image				mUiIconsSouth;
-	Image				mUiIconsEast;
-	Image				mUiIconsWest;
-	//*/
-
 	PointerList			mPointers;
 	PointerType			mCurrentPointer;
 
@@ -198,9 +190,10 @@ private:
 
 	StructureManager	mStructureManager;			/**< Manager class responsible for managing all structures. */
 
+	// POOL'S
 	ResourcePool		mPlayerResources;			/**< Player's current resources. */
-
 	RobotPool			mRobotPool;					/**< Robots that are currently available for use. */
+	PopulationPool		mPopulationPool;
 
 	RobotTileTable		mRobotList;					/**< List of active robots and their positions on the map. */
 
