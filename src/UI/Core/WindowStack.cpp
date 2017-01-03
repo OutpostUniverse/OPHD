@@ -55,9 +55,7 @@ bool WindowStack::pointInWindow(int x, int y) const
 
 
 /**
- * fixme	This function rolls together updating the stack during a click and returning whether or
- *			not said point is within the bounds of a window. Not sure if these two functions can be
- *			combined or if they should remain seperate?
+ * 
  */
 void WindowStack::updateStack(int x, int y)
 {

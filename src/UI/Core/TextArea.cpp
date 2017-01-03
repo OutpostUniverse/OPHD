@@ -36,7 +36,7 @@ void TextArea::processString()
 
 	StringList tokenList = split(text().c_str());
 	
-	int w = 0, i = 0;
+	size_t w = 0, i = 0;
 	while (i < tokenList.size())
 	{
 		string line;
@@ -70,7 +70,7 @@ void TextArea::processString()
 		mFormattedList.push_back(line);
 	}
 
-	mNumLines = height() / font().height();
+	mNumLines = static_cast<size_t>(height() / font().height());
 }
 
 

@@ -86,7 +86,11 @@ void Population::clear()
 void Population::clearPopulationList(PersonRole _role)
 {
 	for (size_t i = 0; i < mPopulationTable[_role].size(); ++i)
-		deletePerson(mPopulationTable[_role][i], _role);
+	{
+		delete mPopulationTable[_role][i];
+		mPopulationTable[_role][i] = nullptr;
+	}
+	mPopulationTable[_role].clear();
 }
 
 
@@ -234,7 +238,6 @@ void Population::checkRole(PersonRole source_role, PersonRole destination_role, 
 }
 
 
-
 /**
  * Iterates through all students, determines if they live or die based on a given mortality
  * rate and transfers them to Worker or Scientist.
@@ -276,6 +279,7 @@ void Population::check_retired()
 	}
 }
 
+
 /**
  * Iterates through list of female colonists and updates their conception status.
  */
@@ -306,7 +310,6 @@ void Population::check_females()
 }
 
 
-
 int Population::killPopulation(Population::PersonList& _pl, Population::PersonRole _pr, int count)
 {
 	int c = 0;
@@ -320,7 +323,6 @@ int Population::killPopulation(Population::PersonList& _pl, Population::PersonRo
 }
 
 
-
 /**
  * Determine how much food should be consumed and kill off any population that
  * starves.
@@ -329,6 +331,13 @@ int Population::killPopulation(Population::PersonList& _pl, Population::PersonRo
  */
 int Population::consume_food(int _food)
 {
+	// If there's no food everybody dies.
+	if (_food == 0)
+	{
+		clear();
+		return 0;
+	}
+
 	int population_fed = _food * 10;
 	if (population_fed > size())
 	{
@@ -353,7 +362,7 @@ int Population::consume_food(int _food)
 		if (size() <= 0)
 			break;
 
-		PersonRole pr = static_cast<PersonRole>(rand() % ROLE_RETIRED);
+		PersonRole pr = static_cast<PersonRole>(rand() % ROLE_RETIRED + 1);
 		PersonList& pl = mPopulationTable[pr];
 		
 		if (!pl.empty())

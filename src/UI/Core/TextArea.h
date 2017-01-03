@@ -37,5 +37,5 @@ private:
 private:
 	StringList	mFormattedList;
 
-	int			mNumLines;
+	size_t		mNumLines;
 };
