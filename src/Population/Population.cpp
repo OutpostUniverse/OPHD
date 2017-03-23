@@ -331,7 +331,7 @@ int Population::killPopulation(Population::PersonList& _pl, Population::PersonRo
  */
 int Population::consume_food(int _food)
 {
-	// If there's no food everybody dies.
+	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
 	if (_food == 0)
 	{
 		clear();

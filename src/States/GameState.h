@@ -209,7 +209,6 @@ private:
 
 	// UI
 	Button				mBtnTurns;
-
 	Button				mBtnToggleHeightmap;
 	Button				mBtnToggleConnectedness;
 
