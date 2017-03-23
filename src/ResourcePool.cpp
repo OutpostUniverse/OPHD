@@ -5,6 +5,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace NAS2D::Xml;
 
 
 ResourcePool::ResourcePool(int cmo, int cmno, int rmo, int rmno, int cm, int cmn, int rm, int rmn, int f, int e): _capacity(0)
@@ -313,40 +314,46 @@ void ResourcePool::capacity(int _i)
 }
 
 
-void ResourcePool::serialize(TiXmlElement* _ti)
+void ResourcePool::serialize(XmlElement* _ti)
 {
-	_ti->SetAttribute(constants::SAVE_GAME_COMMON_METAL_ORE, commonMetalsOre());
-	_ti->SetAttribute(constants::SAVE_GAME_COMMON_MINERAL_ORE, commonMineralsOre());
-	_ti->SetAttribute(constants::SAVE_GAME_RARE_METAL_ORE, rareMetalsOre());
-	_ti->SetAttribute(constants::SAVE_GAME_RARE_MINERAL_ORE, rareMineralsOre());
+	_ti->attribute(constants::SAVE_GAME_COMMON_METAL_ORE, commonMetalsOre());
+	_ti->attribute(constants::SAVE_GAME_COMMON_MINERAL_ORE, commonMineralsOre());
+	_ti->attribute(constants::SAVE_GAME_RARE_METAL_ORE, rareMetalsOre());
+	_ti->attribute(constants::SAVE_GAME_RARE_MINERAL_ORE, rareMineralsOre());
 
-	_ti->SetAttribute(constants::SAVE_GAME_COMMON_METAL, commonMetals());
-	_ti->SetAttribute(constants::SAVE_GAME_COMMON_MINERAL, commonMinerals());
-	_ti->SetAttribute(constants::SAVE_GAME_RARE_METAL, rareMetals());
-	_ti->SetAttribute(constants::SAVE_GAME_RARE_MINERAL, rareMinerals());
+	_ti->attribute(constants::SAVE_GAME_COMMON_METAL, commonMetals());
+	_ti->attribute(constants::SAVE_GAME_COMMON_MINERAL, commonMinerals());
+	_ti->attribute(constants::SAVE_GAME_RARE_METAL, rareMetals());
+	_ti->attribute(constants::SAVE_GAME_RARE_MINERAL, rareMinerals());
 
-	_ti->SetAttribute(constants::SAVE_GAME_ENERGY, energy());
-	_ti->SetAttribute(constants::SAVE_GAME_FOOD, food());
+	_ti->attribute(constants::SAVE_GAME_ENERGY, energy());
+	_ti->attribute(constants::SAVE_GAME_FOOD, food());
 }
 
 
-void ResourcePool::deserialize(TiXmlElement* _ti)
+void ResourcePool::deserialize(XmlElement* _ti)
 {
 	if (_ti == nullptr)
 		return;
 
-	_ti->Attribute(constants::SAVE_GAME_COMMON_METAL_ORE, &_resourceTable[RESOURCE_COMMON_METALS_ORE]);
-	_ti->Attribute(constants::SAVE_GAME_COMMON_MINERAL_ORE, &_resourceTable[RESOURCE_COMMON_MINERALS_ORE]);
-	_ti->Attribute(constants::SAVE_GAME_RARE_METAL_ORE, &_resourceTable[RESOURCE_RARE_METALS_ORE]);
-	_ti->Attribute(constants::SAVE_GAME_RARE_MINERAL_ORE, &_resourceTable[RESOURCE_RARE_MINERALS_ORE]);
+	XmlAttribute* attribute = _ti->firstAttribute();
+	while (attribute)
+	{
+		if (attribute->name() == constants::SAVE_GAME_COMMON_METAL_ORE) attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_METALS_ORE]);
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL_ORE) attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_MINERALS_ORE]);
+		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL_ORE) attribute->queryIntValue(_resourceTable[RESOURCE_RARE_METALS_ORE]);
+		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL_ORE) attribute->queryIntValue(_resourceTable[RESOURCE_RARE_MINERALS_ORE]);
 
-	_ti->Attribute(constants::SAVE_GAME_COMMON_METAL, &_resourceTable[RESOURCE_COMMON_METALS]);
-	_ti->Attribute(constants::SAVE_GAME_COMMON_MINERAL, &_resourceTable[RESOURCE_COMMON_MINERALS]);
-	_ti->Attribute(constants::SAVE_GAME_RARE_METAL, &_resourceTable[RESOURCE_RARE_METALS]);
-	_ti->Attribute(constants::SAVE_GAME_RARE_MINERAL, &_resourceTable[RESOURCE_RARE_MINERALS]);
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_METAL) attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_METALS]);
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL) attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_MINERALS]);
+		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL) attribute->queryIntValue(_resourceTable[RESOURCE_RARE_METALS]);
+		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL) attribute->queryIntValue(_resourceTable[RESOURCE_RARE_MINERALS]);
 
-	_ti->Attribute(constants::SAVE_GAME_ENERGY, &_resourceTable[RESOURCE_ENERGY]);
-	_ti->Attribute(constants::SAVE_GAME_FOOD, &_resourceTable[RESOURCE_FOOD]);
+		else if (attribute->name() == constants::SAVE_GAME_ENERGY) attribute->queryIntValue(_resourceTable[RESOURCE_ENERGY]);
+		else if (attribute->name() == constants::SAVE_GAME_FOOD) attribute->queryIntValue(_resourceTable[RESOURCE_FOOD]);
+
+		attribute = attribute->next();
+	}
 }
 
 

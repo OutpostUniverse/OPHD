@@ -12,7 +12,7 @@ class Button: public Control
 {
 public:
 
-	typedef Gallant::Signal0<void> ClickCallback;
+	typedef NAS2D::Signals::Signal0<void> ClickCallback;
 
 	enum Type
 	{
@@ -37,8 +37,8 @@ public:
 
 protected:
 
-	virtual void onMouseDown(MouseButton button, int x, int y);
-	virtual void onMouseUp(MouseButton button, int x, int y);
+	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	virtual void onMouseUp(EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMotion(int x, int y, int dX, int dY);
 
 private:

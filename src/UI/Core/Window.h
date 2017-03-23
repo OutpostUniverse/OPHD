@@ -17,8 +17,8 @@ public:
 
 protected:
 
-	void onMouseDown(MouseButton button, int x, int y);
-	void onMouseUp(MouseButton button, int x, int y);
+	void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	void onMouseUp(EventHandler::MouseButton button, int x, int y);
 	void onMouseMotion(int x, int y, int dX, int dY);
 
 private:

@@ -7,9 +7,9 @@ Button::Button():	mState(STATE_NORMAL),
 					mUsesImage(false),
 					mMouseHover(false)
 {
-	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &Button::onMouseDown);
-	Utility<EventHandler>::get().mouseButtonUp().Connect(this, &Button::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().Connect(this, &Button::onMouseMotion);
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Button::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Button::onMouseUp);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMotion);
 	hasFocus(true);
 
 	mSkinNormal.push_back(Image("ui/skin/button_top_left.png"));
@@ -47,9 +47,9 @@ Button::Button():	mState(STATE_NORMAL),
 
 Button::~Button()
 {
-	Utility<EventHandler>::get().mouseButtonDown().Disconnect(this, &Button::onMouseDown);
-	Utility<EventHandler>::get().mouseButtonUp().Disconnect(this, &Button::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().Disconnect(this, &Button::onMouseMotion);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Button::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Button::onMouseUp);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Button::onMouseMotion);
 }
 
 
@@ -87,12 +87,12 @@ bool Button::hasImage() const
 }
 
 
-void Button::onMouseDown(MouseButton button, int x, int y)
+void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if(!enabled() || !visible() || !hasFocus())
 		return;
 
-	if(button == BUTTON_LEFT)
+	if(button == EventHandler::BUTTON_LEFT)
 	{
 		Point_2d click(x, y);
 
@@ -113,12 +113,12 @@ void Button::onMouseDown(MouseButton button, int x, int y)
 }
 
 
-void Button::onMouseUp(MouseButton button, int x, int y)
+void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
 	if(!enabled() || !visible() || !hasFocus())
 		return;
 
-	if(button == BUTTON_LEFT)
+	if(button == EventHandler::BUTTON_LEFT)
 	{
 		Point_2d click(x, y);
 		
@@ -135,7 +135,7 @@ void Button::onMouseUp(MouseButton button, int x, int y)
 
 void Button::onMouseMotion(int x, int y, int dX, int dY)
 {
-	if (isPointInRect(x, y, rect().x(), rect().y(), rect().w(), rect().h()))
+	if (isPointInRect(x, y, rect().x(), rect().y(), rect().width(), rect().height()))
 	{
 		mMouseHover = true;
 		return;
@@ -165,29 +165,29 @@ void Button::draw()
 		//r.drawBoxFilled(rect(), 225, 225, 225);
 		//r.drawBox(rect(), 175, 175, 175);
 
-		r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkinNormal);
+		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal);
 	}
 	else //(mState == STATE_PRESSED)
 	{
 		if (mType == BUTTON_NORMAL)
 			//r.drawBoxFilled(rect(), 200, 215, 245);
-			r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkinNormal);
+			r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal);
 		else //(mType == BUTTON_TOGGLE)
 			//r.drawBoxFilled(rect(), 170, 210, 245);
-			r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkinPressed);
+			r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinPressed);
 
 		//r.drawBox(rect(), 0, 85, 155);
 	}
 
 	if (enabled() && mMouseHover && mState != STATE_PRESSED)
-		r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkinHover);
+		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinHover);
 		//r.drawBox(rect(), 0, 120, 215);
 
 	if (mUsesImage)
-		r.drawImage(mImage, rect().x() + (rect().w() / 2) - (mImage.width() / 2), rect().y() + (rect().h() / 2) - (mImage.height() / 2));
+		r.drawImage(mImage, rect().x() + (rect().width() / 2) - (mImage.width() / 2), rect().y() + (rect().height() / 2) - (mImage.height() / 2));
 	else
 		if (fontSet() && !text().empty())
-			r.drawText(font(), text(), static_cast<int>(rect().x() + (rect().w() / 2) - (font().width(text()) / 2)), static_cast<int>(rect().y() + (rect().h() / 2) - (font().height() / 2)), 255, 255, 255);
+			r.drawText(font(), text(), static_cast<int>(rect().x() + (rect().width() / 2) - (font().width(text()) / 2)), static_cast<int>(rect().y() + (rect().height() / 2) - (font().height() / 2)), 255, 255, 255);
 
 	if (!enabled())
 		r.drawBoxFilled(rect(), 125, 125, 125, 100);

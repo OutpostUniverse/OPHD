@@ -17,8 +17,8 @@ Menu::Menu():	mCurrentHighlight(constants::NO_SELECTION),
 				mHighlightText(COLOR_WHITE),
 				mSorted(false)
 {
-	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &Menu::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().Connect(this, &Menu::onMouseMove);
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Menu::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &Menu::onMouseMove);
 }
 
 
@@ -27,8 +27,8 @@ Menu::Menu():	mCurrentHighlight(constants::NO_SELECTION),
  */
 Menu::~Menu()
 {
-	Utility<EventHandler>::get().mouseButtonDown().Disconnect(this, &Menu::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().Disconnect(this, &Menu::onMouseMove);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Menu::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Menu::onMouseMove);
 }
 
 /**
@@ -55,10 +55,10 @@ void Menu::addItem(const string& item)
 {
 	mItems.push_back(item);
 
-	if(font().width(item) > _rect().w())
-		_rect().w() = font().width(item) + 2;
+	if(font().width(item) > _rect().width())
+		_rect().width() = font().width(item) + 2;
 
-	_rect().h() = mItems.size() * (font().height() + 2);
+	_rect().height() = mItems.size() * (font().height() + 2);
 
 	sort();
 }
@@ -84,7 +84,7 @@ void Menu::removeItem(const std::string& item)
 		if(toLowercase((*it)) == toLowercase(item))
 		{
 			mItems.erase(it);
-			_rect().h() = mItems.size() * (font().height() + 2);
+			_rect().height() = mItems.size() * (font().height() + 2);
 			mCurrentSelection = constants::NO_SELECTION;
 			return;
 		}
@@ -136,7 +136,7 @@ void Menu::position(int x, int y)
 }
 
 
-void Menu::onMouseDown(MouseButton button, int x, int y)
+void Menu::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	// Ignore if menu is empty or invisible
 	if(empty() || !visible())
@@ -163,7 +163,7 @@ void Menu::onMouseMove(int x, int y, int relX, int relY)
 		return;
 	}
 
-	mCurrentHighlight = ((y - (int)_rect().y()) / (font().height() + 2)) % ((int)_rect().h() / (font().height() + 2));
+	mCurrentHighlight = ((y - (int)_rect().y()) / (font().height() + 2)) % ((int)_rect().height() / (font().height() + 2));
 }
 
 
@@ -180,10 +180,10 @@ void Menu::update()
 	r.drawBox(_rect(), 0, 0, 0, 100);
 	r.drawBoxFilled(_rect(), 225, 225, 0, 85);
 
-	r.drawBoxFilled(rect().x(), rect().y() + (mCurrentSelection * line_height), rect().w(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
+	r.drawBoxFilled(rect().x(), rect().y() + (mCurrentSelection * line_height), rect().width(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
 
 	if(mCurrentHighlight != constants::NO_SELECTION)
-		r.drawBox(_rect().x(), _rect().y() + (mCurrentHighlight * line_height), _rect().w(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
+		r.drawBox(_rect().x(), _rect().y() + (mCurrentHighlight * line_height), _rect().width(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
 
 	for(size_t i = 0; i < mItems.size(); i++)
 	{

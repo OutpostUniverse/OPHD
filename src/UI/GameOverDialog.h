@@ -6,7 +6,7 @@ class GameOverDialog : public Window
 {
 public:
 
-	typedef Gallant::Signal0<void> ClickCallback;
+	typedef NAS2D::Signals::Signal0<void> ClickCallback;
 
 public:
 

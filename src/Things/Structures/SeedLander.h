@@ -7,7 +7,7 @@ class SeedLander: public Structure
 {
 public:
 
-	typedef Gallant::Signal2<int, int> Callback;
+	typedef NAS2D::Signals::Signal2<int, int> Callback;
 
 	SeedLander(int x, int y):	Structure(constants::SEED_LANDER, "structures/seed_0.sprite", STRUCTURE_LANDER),
 								mX(x), mY(y)

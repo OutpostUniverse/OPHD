@@ -13,7 +13,7 @@ public:
 		FILE_SAVE
 	};
 
-	typedef Gallant::Signal2<const std::string&, FileOperation> FileOperationCallback;
+	typedef NAS2D::Signals::Signal2<const std::string&, FileOperation> FileOperationCallback;
 
 	void setMode(FileOperation _m);
 

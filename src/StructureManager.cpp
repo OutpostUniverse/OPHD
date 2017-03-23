@@ -5,6 +5,7 @@
 
 #include <algorithm>
 
+using namespace NAS2D::Xml;
 
 StructureManager::StructureManager(): mTotalEnergyOutput(0)
 {}
@@ -155,7 +156,7 @@ void StructureManager::addStructure(Structure* st, Tile* t)
 
 	if (mStructureTileTable.find(st) != mStructureTileTable.end())
 	{
-		throw Exception(0, "Duplicate Structure", "StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
+		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
 		return;
 	}
 
@@ -183,7 +184,7 @@ void StructureManager::removeStructure(Structure* st)
 
 	if (sl.empty())
 	{
-		throw Exception(0, "Rogue Structure", "StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
+		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 		return; //overkill?
 	}
 
@@ -199,7 +200,7 @@ void StructureManager::removeStructure(Structure* st)
 	auto tileTableIt = mStructureTileTable.find(st);
 	if (tileTableIt == mStructureTileTable.end())
 	{
-		throw Exception(0, "Rogue Structure", "StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
+		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 		return; //overkill?
 	}
 	else
@@ -283,25 +284,25 @@ void StructureManager::dropAllStructures()
 }
 
 
-void serializeResourcePool(TiXmlElement* _ti, ResourcePool& _rp, const std::string name)
+void serializeResourcePool(XmlElement* _ti, ResourcePool& _rp, const std::string name)
 {
-	TiXmlElement* pool = new TiXmlElement(name);
+	XmlElement* pool = new XmlElement(name);
 	_rp.serialize(pool);
-	_ti->LinkEndChild(pool);
+	_ti->linkEndChild(pool);
 }
 
-void serializeStructure(TiXmlElement* _ti, Structure* _s, Tile* _t)
+void serializeStructure(XmlElement* _ti, Structure* _s, Tile* _t)
 {
-	_ti->SetAttribute("x", _t->x());
-	_ti->SetAttribute("y", _t->y());
-	_ti->SetAttribute("depth", _t->depth());
+	_ti->attribute("x", _t->x());
+	_ti->attribute("y", _t->y());
+	_ti->attribute("depth", _t->depth());
 
-	_ti->SetAttribute("id", _s->id());
-	_ti->SetAttribute("age", _s->age());
-	_ti->SetAttribute("state", _s->state());
+	_ti->attribute("id", _s->id());
+	_ti->attribute("age", _s->age());
+	_ti->attribute("state", _s->state());
 	//_ti->SetAttribute("type", StructureTranslator::translateFromString(_s->name()));
-	_ti->SetAttribute("type", _s->name());
-	_ti->SetAttribute("direction", _s->connectorDirection());
+	_ti->attribute("type", _s->name());
+	_ti->attribute("direction", _s->connectorDirection());
 
 	if (!_s->production().empty())
 		serializeResourcePool(_ti, _s->production(), "production");
@@ -311,23 +312,23 @@ void serializeStructure(TiXmlElement* _ti, Structure* _s, Tile* _t)
 }
 
 
-void StructureManager::serialize(TiXmlElement* _ti)
+void StructureManager::serialize(XmlElement* _ti)
 {
-	TiXmlElement* structures = new TiXmlElement("structures");
+	XmlElement* structures = new XmlElement("structures");
 
 	for (auto it = mStructureTileTable.begin(); it != mStructureTileTable.end(); ++it)
 	{
-		TiXmlElement* structure = new TiXmlElement("structure");
+		XmlElement* structure = new XmlElement("structure");
 		serializeStructure(structure, it->first, it->second);
 
 		if (it->first->isFactory())
 		{
-			structure->SetAttribute("production_completed", static_cast<Factory*>(it->first)->productionTurnsCompleted());
-			structure->SetAttribute("production_type", static_cast<Factory*>(it->first)->productionType());
+			structure->attribute("production_completed", static_cast<Factory*>(it->first)->productionTurnsCompleted());
+			structure->attribute("production_type", static_cast<Factory*>(it->first)->productionType());
 		}
 
-		structures->LinkEndChild(structure);
+		structures->linkEndChild(structure);
 	}
 
-	_ti->LinkEndChild(structures);
+	_ti->linkEndChild(structures);
 }

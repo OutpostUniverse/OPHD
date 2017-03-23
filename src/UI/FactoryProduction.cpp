@@ -30,19 +30,19 @@ void FactoryProduction::init()
 	mProductionGrid.iconMargin(constants::MARGIN_TIGHT);
 	mProductionGrid.showTooltip(true);
 	mProductionGrid.hide();
-	mProductionGrid.selectionChanged().Connect(this, &FactoryProduction::productionSelectionChanged);
+	mProductionGrid.selectionChanged().connect(this, &FactoryProduction::productionSelectionChanged);
 
 	addControl("btnOkay", &btnOkay, 63, 136);
 	btnOkay.font(font());
 	btnOkay.text("Okay");
 	btnOkay.size(40, 20);
-	btnOkay.click().Connect(this, &FactoryProduction::btnOkayClicked);
+	btnOkay.click().connect(this, &FactoryProduction::btnOkayClicked);
 
 	addControl("btnCancel", &btnCancel, 106, 136);
 	btnCancel.font(font());
 	btnCancel.text("Cancel");
 	btnCancel.size(40, 20);
-	btnCancel.click().Connect(this, &FactoryProduction::btnCancelClicked);
+	btnCancel.click().connect(this, &FactoryProduction::btnCancelClicked);
 
 	// Fill production translation table
 	PRODUCTION_TRANSLATION_TABLE[""] = Factory::PRODUCTION_NONE;
@@ -67,7 +67,7 @@ void FactoryProduction::productionSelectionChanged(const std::string& _s)
 		return;
 
 	if (PRODUCTION_TRANSLATION_TABLE.find(_s) == PRODUCTION_TRANSLATION_TABLE.end())
-		throw Exception(0, "Bad Production Code", "FactoryProduction::productionSelectionChanged() called with an undefined production code: " + _s);
+		throw std::runtime_error("FactoryProduction::productionSelectionChanged() called with an undefined production code: " + _s);
 
 	mProductionType = PRODUCTION_TRANSLATION_TABLE[_s];
 

@@ -35,7 +35,7 @@ void StructureInspector::init()
 	btnClose.font(font());
 	btnClose.text("Close");
 	btnClose.size(50, 20);
-	btnClose.click().Connect(this, &StructureInspector::btnCloseClicked);
+	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
 
 
 	// Build translation tables.

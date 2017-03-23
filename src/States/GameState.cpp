@@ -20,6 +20,7 @@
 
 using namespace std;
 using namespace NAS2D;
+using namespace NAS2D::Xml;
 
 
 const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
@@ -84,11 +85,11 @@ GameState::~GameState()
 	delete mTileMap;
 
 	EventHandler& e = Utility<EventHandler>::get();
-	e.activate().Disconnect(this, &GameState::onActivate);
-	e.keyDown().Disconnect(this, &GameState::onKeyDown);
-	e.mouseButtonDown().Disconnect(this, &GameState::onMouseDown);
-	e.mouseButtonUp().Disconnect(this, &GameState::onMouseUp);
-	e.mouseMotion().Disconnect(this, &GameState::onMouseMove);
+	e.activate().disconnect(this, &GameState::onActivate);
+	e.keyDown().disconnect(this, &GameState::onKeyDown);
+	e.mouseButtonDown().disconnect(this, &GameState::onMouseDown);
+	e.mouseButtonUp().disconnect(this, &GameState::onMouseUp);
+	e.mouseMotion().disconnect(this, &GameState::onMouseMove);
 }
 
 
@@ -108,14 +109,14 @@ void GameState::initialize()
 	// EVENT HANDLERS
 	EventHandler& e = Utility<EventHandler>::get();
 
-	e.activate().Connect(this, &GameState::onActivate);
+	e.activate().connect(this, &GameState::onActivate);
 
-	e.keyDown().Connect(this, &GameState::onKeyDown);
+	e.keyDown().connect(this, &GameState::onKeyDown);
 
-	e.mouseButtonDown().Connect(this, &GameState::onMouseDown);
-	e.mouseButtonUp().Connect(this, &GameState::onMouseUp);
-	e.mouseMotion().Connect(this, &GameState::onMouseMove);
-	e.mouseWheel().Connect(this, &GameState::onMouseWheel);
+	e.mouseButtonDown().connect(this, &GameState::onMouseDown);
+	e.mouseButtonUp().connect(this, &GameState::onMouseUp);
+	e.mouseMotion().connect(this, &GameState::onMouseMove);
+	e.mouseWheel().connect(this, &GameState::onMouseWheel);
 
 	// UI
 	initUi();
@@ -150,6 +151,8 @@ void GameState::initialize()
 		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_3] = constants::LEVEL_UG3;
 		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_4] = constants::LEVEL_UG4;
 	}
+
+	e.textInputMode(true);
 
 	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
@@ -215,8 +218,8 @@ void GameState::drawMiniMap()
 		// fixme: find a more efficient way to do this.
 		int xClip = clamp(15 - mCCLocation.x(), 0, 15);
 		int yClip = clamp(15 - mCCLocation.y(), 0, 15);
-		int wClip = clamp((mCCLocation.x() + 15) - mMiniMapBoundingBox.w(), 0, 15);
-		int hClip = clamp((mCCLocation.y() + 15) - mMiniMapBoundingBox.h(), 0, 15);;
+		int wClip = clamp((mCCLocation.x() + 15) - mMiniMapBoundingBox.width(), 0, 15);
+		int hClip = clamp((mCCLocation.y() + 15) - mMiniMapBoundingBox.height(), 0, 15);;
 
 		r.drawSubImage(mUiIcons, mCCLocation.x() + mMiniMapBoundingBox.x() - 15 + xClip, mCCLocation.y() + mMiniMapBoundingBox.y() - 15 + yClip, xClip, yClip + 5, 30 - xClip - wClip, 30 - yClip - hClip);
 		r.drawBoxFilled(mCCLocation.x() + mMiniMapBoundingBox.x() - 1, mCCLocation.y() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
@@ -232,7 +235,7 @@ void GameState::drawMiniMap()
 	}
 
 	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
-		r.drawPixel(it->second->x()  + mMiniMapBoundingBox.x(), it->second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
+		r.drawPoint(it->second->x()  + mMiniMapBoundingBox.x(), it->second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
 
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x() + 1, mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
@@ -467,7 +470,7 @@ void GameState::onActivate(bool _b)
 /**
  * Key down event handler.
  */
-void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
+void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
 	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
@@ -478,74 +481,74 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 
 	switch(key)
 	{
-		case KEY_w:
-		case KEY_UP:
+		case EventHandler::KEY_w:
+		case EventHandler::KEY_UP:
 			viewUpdated = true;
 			pt.y(clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			break;
 
-		case KEY_s:
-		case KEY_DOWN:
+		case EventHandler::KEY_s:
+		case EventHandler::KEY_DOWN:
 			viewUpdated = true;
 			pt.y(clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			break;
 
-		case KEY_a:
-		case KEY_LEFT:
+		case EventHandler::KEY_a:
+		case EventHandler::KEY_LEFT:
 			viewUpdated = true;
 			pt.x(clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			break;
 
-		case KEY_d:
-		case KEY_RIGHT:
+		case EventHandler::KEY_d:
+		case EventHandler::KEY_RIGHT:
 			viewUpdated = true;
 			pt.x(clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			break;
 
-		case KEY_0:
+		case EventHandler::KEY_0:
 			viewUpdated = true;
 			changeDepth(0);
 			break;
 
-		case KEY_1:
+		case EventHandler::KEY_1:
 			viewUpdated = true;
 			changeDepth(1);
 			break;
 
-		case KEY_2:
+		case EventHandler::KEY_2:
 			viewUpdated = true;
 			changeDepth(2);
 			break;
 
-		case KEY_3:
+		case EventHandler::KEY_3:
 			viewUpdated = true;
 			changeDepth(3);
 			break;
 
-		case KEY_4:
+		case EventHandler::KEY_4:
 			viewUpdated = true;
 			changeDepth(4);
 			break;
 
-		case KEY_F10:
+		case EventHandler::KEY_F10:
 			mDebug = !mDebug;
 			break;
 
-		case KEY_F2:
+		case EventHandler::KEY_F2:
 			//save(constants::SAVE_GAME_PATH + "test.xml");
 			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 			mFileIoDialog.setMode(FileIo::FILE_SAVE);
 			mFileIoDialog.show();
 			break;
 
-		case KEY_F3:
+		case EventHandler::KEY_F3:
 			//load(constants::SAVE_GAME_PATH + "test.xml");
 			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 			mFileIoDialog.setMode(FileIo::FILE_LOAD);
 			mFileIoDialog.show();
 			break;
 
-		case KEY_ESCAPE:
+		case EventHandler::KEY_ESCAPE:
 			clearMode();
 			resetUi();
 			break;
@@ -562,7 +565,7 @@ void GameState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
 /**
  * Mouse Down event handler.
  */
-void GameState::onMouseDown(MouseButton button, int x, int y)
+void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
@@ -571,13 +574,13 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
 		return;
 
-	if (mWindowStack.pointInWindow(mMousePosition) && button == BUTTON_LEFT)
+	if (mWindowStack.pointInWindow(mMousePosition) && button == EventHandler::BUTTON_LEFT)
 	{
 		mWindowStack.updateStack(mMousePosition);
 		return;
 	}
 
-	if (button == BUTTON_RIGHT)
+	if (button == EventHandler::BUTTON_RIGHT)
 	{
 		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
 
@@ -618,7 +621,7 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 		}
 	}
 
-	if (button == BUTTON_LEFT)
+	if (button == EventHandler::BUTTON_LEFT)
 	{
 		mLeftButtonDown = true;
 
@@ -688,9 +691,9 @@ void GameState::onMouseDown(MouseButton button, int x, int y)
 /**
 * Mouse Up event handler.
 */
-void GameState::onMouseUp(MouseButton button, int x, int y)
+void GameState::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
-	if (button == BUTTON_LEFT)
+	if (button == EventHandler::BUTTON_LEFT)
 	{
 		mLeftButtonDown = false;
 	}
@@ -780,7 +783,7 @@ void GameState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
 	}
 	else
 	{
-		throw Exception(0, "Structure Not a Tube", "GameState::placeTube() called but Current Structure is not a tube!");
+		throw std::runtime_error("GameState::placeTube() called but Current Structure is not a tube!");
 	}
 }
 
@@ -1004,12 +1007,12 @@ void GameState::dozerTaskFinished(Robot* _r)
 void GameState::diggerTaskFinished(Robot* _r)
 {
 	if(mRobotList.find(_r) == mRobotList.end())
-		throw Exception(0, "Renegade Robot", "GameState::diggerTaskFinished() called with a Robot not in the Robot List!");
+		throw std::runtime_error("GameState::diggerTaskFinished() called with a Robot not in the Robot List!");
 
 	Tile* t = mRobotList[_r];
 
 	if (t->depth() > mTileMap->maxDepth())
-		throw Exception(0, "Bad Depth", "Digger defines a depth that exceeds the maximum digging depth!");
+		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 
 	// FIXME: Fugly cast.
 	Direction dir = static_cast<Robodigger*>(_r)->direction();
@@ -1082,7 +1085,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 void GameState::minerTaskFinished(Robot* _r)
 {
 	if (mRobotList.find(_r) == mRobotList.end())
-		throw Exception(0, "Renegade Robot", "GameState::minerTaskFinished() called with a Robot not in the Robot List!");
+		throw std::runtime_error("GameState::minerTaskFinished() called with a Robot not in the Robot List!");
 
 	Tile* t = mRobotList[_r];
 
@@ -1114,13 +1117,13 @@ void GameState::factoryProductionComplete(Factory::ProductionType _p)
 	switch (_p)
 	{
 	case Factory::PRODUCTION_DIGGER:
-		mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().Connect(this, &GameState::diggerTaskFinished);
+		mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
 		break;
 	case Factory::PRODUCTION_DOZER:
-		mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
+		mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
 		break;
 	case Factory::PRODUCTION_MINER:
-		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().Connect(this, &GameState::minerTaskFinished);
+		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
 		break;
 	default:
 		cout << "Unknown production type." << endl;
@@ -1137,7 +1140,7 @@ void GameState::placeStructure()
 	if (mCurrentStructure == SID_NONE)
 	{
 		#ifdef _DEBUG
-		throw Exception(0, "Invalid call to placeStructure()", "GameState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE");
+		throw std::runtime_error("GameState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE");
 		#endif
 
 		// When not in Debug just silently swallow this.
@@ -1174,7 +1177,7 @@ void GameState::placeStructure()
 		}
 
 		ColonistLander* s = new ColonistLander(t);
-		s->deployCallback().Connect(this, &GameState::deployColonistLander);
+		s->deployCallback().connect(this, &GameState::deployColonistLander);
 		mStructureManager.addStructure(s, t);
 
 		--mLandersColonist;
@@ -1211,7 +1214,7 @@ void GameState::placeStructure()
 		// FIXME: Ugly
 		if (_s->isFactory())
 		{
-			static_cast<Factory*>(_s)->productionComplete().Connect(this, &GameState::factoryProductionComplete);
+			static_cast<Factory*>(_s)->productionComplete().connect(this, &GameState::factoryProductionComplete);
 			static_cast<Factory*>(_s)->resourcePool(&mPlayerResources);
 		}
 
@@ -1238,7 +1241,7 @@ void GameState::insertSeedLander(int x, int y)
 		}
 
 		SeedLander* s = new SeedLander(x, y);
-		s->deployCallback().Connect(this, &GameState::deploySeedLander);
+		s->deployCallback().connect(this, &GameState::deploySeedLander);
 		mStructureManager.addStructure(s, mTileMap->getTile(x, y)); // Can only ever be placed on depth level 0
 
 		clearMode();
@@ -1322,7 +1325,7 @@ void GameState::deploySeedLander(int x, int y)
 	// BOTTOM ROW
 	SeedFactory* sf = new SeedFactory();
 	sf->resourcePool(&mPlayerResources);
-	sf->productionComplete().Connect(this, &GameState::factoryProductionComplete);
+	sf->productionComplete().connect(this, &GameState::factoryProductionComplete);
 	sf->sprite().skip(7);
 	mStructureManager.addStructure(sf, mTileMap->getTile(x - 1, y + 1));
 	mTileMap->getTile(x - 1, y + 1)->index(TERRAIN_DOZED);
@@ -1340,9 +1343,9 @@ void GameState::deploySeedLander(int x, int y)
 	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID);
 	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
 
-	mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().Connect(this, &GameState::dozerTaskFinished);
-	mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().Connect(this, &GameState::diggerTaskFinished);
-	mRobotPool.addRobot(ROBOT_MINER)->taskComplete().Connect(this, &GameState::minerTaskFinished);
+	mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
+	mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
+	mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
 
 	// FIXME: Magic numbers
 	// FIXME: Move to Cargo Lander landing code.
@@ -1414,7 +1417,7 @@ void GameState::checkConnectedness()
 	Structure *cc = t->structure();
 
 	if (!cc)
-		throw Exception(0, "Bad CC Location", "CC coordinates do not actually point to a Command Center.");
+		throw std::runtime_error("CC coordinates do not actually point to a Command Center.");
 
 	if (cc->state() == Structure::UNDER_CONSTRUCTION)
 		return;
@@ -1428,42 +1431,42 @@ void GameState::checkConnectedness()
 
 void GameState::save(const std::string& _path)
 {
-	TiXmlDocument doc;
+	XmlDocument doc;
 
-	TiXmlElement* root = new TiXmlElement(constants::SAVE_GAME_ROOT_NODE);
-	root->SetAttribute("version", constants::SAVE_GAME_VERSION);
-	doc.LinkEndChild(root);
+	XmlElement* root = new XmlElement(constants::SAVE_GAME_ROOT_NODE);
+	root->attribute("version", constants::SAVE_GAME_VERSION);
+	doc.linkEndChild(root);
 
 	mTileMap->serialize(root);
 	mStructureManager.serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
 	writeResources(root, mPlayerResources);
 
-	TiXmlElement* turns = new TiXmlElement("turns");
-	turns->SetAttribute("count", mTurnCount);
-	root->LinkEndChild(turns);
+	XmlElement* turns = new XmlElement("turns");
+	turns->attribute("count", mTurnCount);
+	root->linkEndChild(turns);
 
-	TiXmlElement* population = new TiXmlElement("population");
-	population->SetAttribute("morale", mCurrentMorale);
-	population->SetAttribute("prev_morale", mPreviousMorale);
-	population->SetAttribute("colonist_landers", mLandersColonist);
-	population->SetAttribute("children", mPopulation.size(Population::ROLE_CHILD));
-	population->SetAttribute("students", mPopulation.size(Population::ROLE_STUDENT));
-	population->SetAttribute("workers", mPopulation.size(Population::ROLE_WORKER));
-	population->SetAttribute("scientists", mPopulation.size(Population::ROLE_SCIENTIST));
-	population->SetAttribute("retired", mPopulation.size(Population::ROLE_RETIRED));
-	root->LinkEndChild(population);
+	XmlElement* population = new XmlElement("population");
+	population->attribute("morale", mCurrentMorale);
+	population->attribute("prev_morale", mPreviousMorale);
+	population->attribute("colonist_landers", mLandersColonist);
+	population->attribute("children", mPopulation.size(Population::ROLE_CHILD));
+	population->attribute("students", mPopulation.size(Population::ROLE_STUDENT));
+	population->attribute("workers", mPopulation.size(Population::ROLE_WORKER));
+	population->attribute("scientists", mPopulation.size(Population::ROLE_SCIENTIST));
+	population->attribute("retired", mPopulation.size(Population::ROLE_RETIRED));
+	root->linkEndChild(population);
 
-	TiXmlElement* ai = new TiXmlElement("ai");
-	ai->SetAttribute("gender", mAiVoiceNotifier.gender());
-	root->LinkEndChild(ai);
+	XmlElement* ai = new XmlElement("ai");
+	ai->attribute("gender", mAiVoiceNotifier.gender());
+	root->linkEndChild(ai);
 
 
 	// Write out the XML file.
-	TiXmlPrinter printer;
-	doc.Accept(&printer);
+	XmlMemoryBuffer buff;
+	doc.accept(&buff);
 
-	Utility<Filesystem>::get().write(File(printer.Str(), _path));
+	Utility<Filesystem>::get().write(File(buff.buffer(), _path));
 }
 
 
@@ -1476,25 +1479,25 @@ void GameState::load(const std::string& _path)
 
 	File xmlFile = Utility<Filesystem>::get().open(_path);
 
-	TiXmlDocument doc;
-	TiXmlElement  *root = nullptr;
+	XmlDocument doc;
+	XmlElement  *root = nullptr;
 
 	// Load the XML document and handle any errors if occuring
-	doc.Parse(xmlFile.raw_bytes());
-	if (doc.Error())
+	doc.parse(xmlFile.raw_bytes());
+	if (doc.error())
 	{
-		cout << "Malformed savegame ('" << _path << "'). Error on Row " << doc.ErrorRow() << ", Column " << doc.ErrorCol() << ": " << doc.ErrorDesc() << endl;
+		cout << "Malformed savegame ('" << _path << "'). Error on Row " << doc.errorRow() << ", Column " << doc.errorCol() << ": " << doc.errorDesc() << endl;
 		return;
 	}
 
-	root = doc.FirstChildElement(constants::SAVE_GAME_ROOT_NODE);
+	root = doc.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
 	if (root == nullptr)
 	{
 		cout << "Root element in '" << _path << "' is not '" << constants::SAVE_GAME_ROOT_NODE << "'." << endl;
 		return;
 	}
 
-	std::string sg_version = root->Attribute("version");
+	std::string sg_version = root->attribute("version");
 	if(sg_version != constants::SAVE_GAME_VERSION)
 	{
 		cout << "Savegame version mismatch: '" << _path << "'. Expected " << constants::SAVE_GAME_VERSION << ", found " << sg_version << "." << endl;
@@ -1510,28 +1513,35 @@ void GameState::load(const std::string& _path)
 	mTileMap = nullptr;
 
 	//mTileMap->deserialize(root);
-	TiXmlElement* map = root->FirstChildElement("properties");
+	XmlElement* map = root->firstChildElement("properties");
 	int depth = 0;
-	map->Attribute("diggingdepth", &depth);
-	string sitemap = map->Attribute("sitemap"), heightmap = map->Attribute("sitemap");
+	std::string sitemap;
+	XmlAttribute* attribute = map->firstAttribute();
+	while (attribute)
+	{
+		if (attribute->name() == "diggingdepth") attribute->queryIntValue(depth);
+		else if (attribute->name() == "sitemap") sitemap = attribute->value();
+
+		attribute = attribute->next();
+	}
+
 	mMapDisplay = Image(sitemap + MAP_DISPLAY_EXTENSION);
 	mHeightMap = Image(sitemap + MAP_TERRAIN_EXTENSION);
-	mTileMap = new TileMap(sitemap, map->Attribute("tset"), depth, false);
+	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, false);
 	mTileMap->deserialize(root);
 
-	readStructures(root->FirstChildElement("structures"));
-	readRobots(root->FirstChildElement("robots"));
+	readStructures(root->firstChildElement("structures"));
+	readRobots(root->firstChildElement("robots"));
 
-	readResources(root->FirstChildElement("resources"), mPlayerResources);
-	readPopulation(root->FirstChildElement("population"));
-	readTurns(root->FirstChildElement("turns"));
+	readResources(root->firstChildElement("resources"), mPlayerResources);
+	readPopulation(root->firstChildElement("population"));
+	readTurns(root->firstChildElement("turns"));
 
-	TiXmlElement* ai = root->FirstChildElement("ai");
-	
+	XmlElement* ai = root->firstChildElement("ai");
 	if(ai)
 	{
 		int gender = 0;
-		ai->Attribute("gender", &gender);
+		ai->firstAttribute()->queryIntValue(gender);
 		mAiVoiceNotifier.gender(static_cast<AiVoiceNotifier::AiGender>(gender));
 	}
 
@@ -1545,40 +1555,45 @@ void GameState::load(const std::string& _path)
 }
 
 
-void GameState::readRobots(TiXmlElement* _ti)
+void GameState::readRobots(XmlElement* _ti)
 {
 	mRobotPool.clear();
 	mRobotList.clear();
 
-	TiXmlNode* robot = _ti->FirstChild();
-	for (robot; robot != nullptr; robot = robot->NextSibling())
+	int type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
+	XmlAttribute* attribute = nullptr;
+	for (XmlNode* robot = _ti->firstChild(); robot; robot = robot->nextSibling())
 	{
-		int type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
-		robot->ToElement()->Attribute("type", &type);
-		robot->ToElement()->Attribute("age", &age);
-		robot->ToElement()->Attribute("production", &production_time);
+		type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
+		attribute = robot->toElement()->firstAttribute();
+		while (attribute)
+		{
+			if (attribute->name() == "type") attribute->queryIntValue(type);
+			else if (attribute->name() == "age") attribute->queryIntValue(age);
+			else if (attribute->name() == "production") attribute->queryIntValue(production_time);
+			else if (attribute->name() == "x") attribute->queryIntValue(x);
+			else if (attribute->name() == "y") attribute->queryIntValue(y);
+			else if (attribute->name() == "depth") attribute->queryIntValue(depth);
+			else if (attribute->name() == "direction") attribute->queryIntValue(direction);
 
-		robot->ToElement()->Attribute("x", &x);
-		robot->ToElement()->Attribute("y", &y);
-		robot->ToElement()->Attribute("depth", &depth);
-		robot->ToElement()->Attribute("direction", &direction);
+			attribute = attribute->next();
+		}
 
 		Robot* r = nullptr;
-		RobotType rt = static_cast<RobotType>(type);
-		switch (rt)
+		switch (static_cast<RobotType>(type))
 		{
 		case ROBOT_DIGGER:
 			r = mRobotPool.addRobot(ROBOT_DIGGER);
-			r->taskComplete().Connect(this, &GameState::diggerTaskFinished);
+			r->taskComplete().connect(this, &GameState::diggerTaskFinished);
 			static_cast<Robodigger*>(r)->direction(static_cast<Direction>(direction));
 			break;
 		case ROBOT_DOZER:
 			r = mRobotPool.addRobot(ROBOT_DOZER);
-			r->taskComplete().Connect(this, &GameState::dozerTaskFinished);
+			r->taskComplete().connect(this, &GameState::dozerTaskFinished);
 			break;
 		case ROBOT_MINER:
 			r = mRobotPool.addRobot(ROBOT_MINER);
-			r->taskComplete().Connect(this, &GameState::minerTaskFinished);
+			r->taskComplete().connect(this, &GameState::minerTaskFinished);
 			break;
 		default:
 			cout << "Unknown robot type in savegame." << endl;
@@ -1607,26 +1622,38 @@ void GameState::readRobots(TiXmlElement* _ti)
 }
 
 
-void GameState::readStructures(TiXmlElement* _ti)
+void GameState::readStructures(XmlElement* _ti)
 {
-	for (TiXmlNode* structure = _ti->FirstChild(); structure != nullptr; structure = structure->NextSibling())
+	std::string type;
+	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0;
+	int production_completed = 0, production_type = 0;
+	XmlAttribute* attribute = nullptr;
+	for (XmlNode* structure = _ti->firstChild(); structure != nullptr; structure = structure->nextSibling())
 	{
-		int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0;
-		structure->ToElement()->Attribute("x", &x);
-		structure->ToElement()->Attribute("y", &y);
-		structure->ToElement()->Attribute("depth", &depth);
-		structure->ToElement()->Attribute("id", &id);
-		structure->ToElement()->Attribute("age", &age);
-		structure->ToElement()->Attribute("state", &state);
-		structure->ToElement()->Attribute("direction", &direction);
+		x = y = depth = id = age = state = direction = production_completed = production_type = 0;
+		attribute = structure->toElement()->firstAttribute();
+		while (attribute)
+		{
+			if (attribute->name() == "x") attribute->queryIntValue(x);
+			else if (attribute->name() == "y") attribute->queryIntValue(y);
+			else if (attribute->name() == "depth") attribute->queryIntValue(depth);
+			else if (attribute->name() == "id") attribute->queryIntValue(id);
+			else if (attribute->name() == "age") attribute->queryIntValue(age);
+			else if (attribute->name() == "state") attribute->queryIntValue(state);
+			else if (attribute->name() == "direction") attribute->queryIntValue(direction);
+			else if (attribute->name() == "type") type = attribute->value();
+
+			else if (attribute->name() == "production_completed") attribute->queryIntValue(production_completed);
+			else if (attribute->name() == "production_type") attribute->queryIntValue(production_type);
+
+			attribute = attribute->next();
+		}
 
 		Tile* t = mTileMap->getTile(x, y, depth);
 		t->index(0);
 		t->excavated(true);
 
-
 		Structure* st = nullptr;
-		string type = structure->ToElement()->Attribute("type");
 		// case for tubes
 		if (type == constants::TUBE)
 		{
@@ -1645,7 +1672,7 @@ void GameState::readStructures(TiXmlElement* _ti)
 		{
 			Mine* m = mTileMap->getTile(x, y, 0)->mine();
 			if (m == nullptr)
-				throw Exception(0, "No Mine", "Mine Facility is located on a Tile with no Mine.");
+				throw runtime_error("Mine Facility is located on a Tile with no Mine.");
 
 			static_cast<MineFacility*>(st)->mine(m);
 		}
@@ -1658,20 +1685,16 @@ void GameState::readStructures(TiXmlElement* _ti)
 		st->forced_state_change(static_cast<Structure::StructureState>(state));
 		st->connectorDirection(static_cast<ConnectorDir>(direction));
 
-		st->production().deserialize(structure->FirstChildElement("production"));
-		st->storage().deserialize(structure->FirstChildElement("storage"));
+		st->production().deserialize(structure->firstChildElement("production"));
+		st->storage().deserialize(structure->firstChildElement("storage"));
 
 		if (st->isFactory())
 		{
-			int production_completed = 0, production_type = 0;
-			structure->ToElement()->Attribute("production_completed", &production_completed);
-			structure->ToElement()->Attribute("production_type", &production_type);
-
 			Factory* f = static_cast<Factory*>(st);
 			f->productionType(static_cast<Factory::ProductionType>(production_type));
 			f->productionTurnsCompleted(production_completed);
 			f->resourcePool(&mPlayerResources);
-			f->productionComplete().Connect(this, &GameState::factoryProductionComplete);
+			f->productionComplete().connect(this, &GameState::factoryProductionComplete);
 		}
 
 		mStructureManager.addStructure(st, t);
@@ -1680,11 +1703,11 @@ void GameState::readStructures(TiXmlElement* _ti)
 
 
 
-void GameState::readTurns(TiXmlElement* _ti)
+void GameState::readTurns(XmlElement* _ti)
 {
 	if (_ti)
 	{
-		_ti->Attribute("count", &mTurnCount);
+		_ti->firstAttribute()->queryIntValue(mTurnCount);
 
 		if (mTurnCount > 0)
 		{
@@ -1698,24 +1721,29 @@ void GameState::readTurns(TiXmlElement* _ti)
 /**
  * Reads the population tag.
  */
-void GameState::readPopulation(TiXmlElement* _ti)
+void GameState::readPopulation(XmlElement* _ti)
 {
 	if (_ti)
 	{
 		mPopulation.clear();
 
-		_ti->Attribute("morale", &mCurrentMorale);
-		_ti->Attribute("prev_morale", &mPreviousMorale);
-
-		_ti->Attribute("colonist_landers", &mLandersColonist);
-
 		int children = 0, students = 0, workers = 0, scientists = 0, retired = 0;
 
-		_ti->Attribute("children", &children);
-		_ti->Attribute("students", &students);
-		_ti->Attribute("workers", &workers);
-		_ti->Attribute("scientists", &scientists);
-		_ti->Attribute("retired", &retired);
+		XmlAttribute* attribute = _ti->firstAttribute();
+		while (attribute)
+		{
+			if (attribute->name() == "morale") attribute->queryIntValue(mCurrentMorale);
+			else if (attribute->name() == "prev_morale") attribute->queryIntValue(mPreviousMorale);
+			else if (attribute->name() == "colonist_landers") attribute->queryIntValue(mLandersColonist);
+
+			else if (attribute->name() == "children") attribute->queryIntValue(children);
+			else if (attribute->name() == "students") attribute->queryIntValue(students);
+			else if (attribute->name() == "workers") attribute->queryIntValue(workers);
+			else if (attribute->name() == "scientists") attribute->queryIntValue(scientists);
+			else if (attribute->name() == "retired") attribute->queryIntValue(retired);
+
+			attribute = attribute->next();
+		}
 
 		mPopulation.populateList(Population::ROLE_CHILD, 0, 119, children);
 		mPopulation.populateList(Population::ROLE_STUDENT, 120, 96, students);

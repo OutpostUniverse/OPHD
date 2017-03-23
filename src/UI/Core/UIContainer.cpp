@@ -1,5 +1,6 @@
 #include "UIContainer.h"
 
+#include <iostream>
 
 /**
  * C'tor
@@ -33,14 +34,14 @@ Control* UIContainer::addControl(const std::string& name, Control* c, float x, f
 	// Naturally barf if NULL.
 	if(c == nullptr)
 	{
-		cout << "UIContainer::addControl(): Attempting to add a NULL Control." << endl;
+		std::cout << "UIContainer::addControl(): Attempting to add a NULL Control." << std::endl;
 		return nullptr;
 	}
 
 	ControlList::iterator it = mControlList.find(toLowercase(name));
 	if(it != mControlList.end())
 	{
-		cout << "UIContainer::addControl(): Attempting to add a duplicate Control '" << name << "'." << endl;
+		std::cout << "UIContainer::addControl(): Attempting to add a duplicate Control '" << name << "'." << std::endl;
 		return nullptr;
 	}
 
@@ -65,7 +66,7 @@ bool UIContainer::deleteControl(const std::string& name)
 	ControlList::iterator it = mControlList.find(toLowercase(name));
 	if(it == mControlList.end())
 	{
-		cout << "UIContainer::deleteControl(): No Control found by name '" << name << "'." << endl;
+		std::cout << "UIContainer::deleteControl(): No Control found by name '" << name << "'." << std::endl;
 		return false;
 	}
 	else

@@ -32,7 +32,7 @@ void TileInspector::init()
 	btnClose.font(font());
 	btnClose.text("Close");
 	btnClose.size(50, 20);
-	btnClose.click().Connect(this, &TileInspector::btnCloseClicked);
+	btnClose.click().connect(this, &TileInspector::btnCloseClicked);
 
 	// Build translation tables.
 	TileIndexTranslation[0] = "Bulldozed";

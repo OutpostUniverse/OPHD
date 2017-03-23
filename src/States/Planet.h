@@ -19,7 +19,7 @@ enum PlanetType
 class Planet
 {
 public:
-	typedef Gallant::Signal0<void> MouseCallback;
+	typedef NAS2D::Signals::Signal0<void> MouseCallback;
 
 public:
 	Planet(PlanetType type) : mTick(0), mMaxMines(0), mMaxDigDepth(0), mImage(), mType(type), mMouseInArea(false)
@@ -43,17 +43,17 @@ public:
 			mImage = NAS2D::Image(constants::PLANET_TYPE_GANYMEDE_PATH);
 			break;
 		default:
-			throw NAS2D::Exception(0, "Bad Planet Type", "Instantiated Planet class without a valid planet type.");
+			throw std::runtime_error("Instantiated Planet class without a valid planet type.");
 			break;
 		}
 
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().Connect(this, &Planet::onMouseMove);
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect(this, &Planet::onMouseMove);
 	}
 
 
 	~Planet()
 	{
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().Disconnect(this, &Planet::onMouseMove);
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect(this, &Planet::onMouseMove);
 	}
 
 

@@ -24,9 +24,9 @@ PlanetSelectState::PlanetSelectState():	mFont("fonts/mig6800_8x16_light.png", 8,
 PlanetSelectState::~PlanetSelectState()
 {
 	EventHandler& e = Utility<EventHandler>::get();
-	e.keyDown().Disconnect(this, &PlanetSelectState::onKeyDown);
-	e.mouseButtonDown().Disconnect(this, &PlanetSelectState::onMouseDown);
-	e.mouseMotion().Disconnect(this, &PlanetSelectState::onMouseMove);
+	e.keyDown().disconnect(this, &PlanetSelectState::onKeyDown);
+	e.mouseButtonDown().disconnect(this, &PlanetSelectState::onMouseDown);
+	e.mouseMotion().disconnect(this, &PlanetSelectState::onMouseMove);
 
 	for (size_t i = 0; i < mPlanets.size(); ++i)
 		delete mPlanets[i];
@@ -41,10 +41,10 @@ void PlanetSelectState::initialize()
 
 	EventHandler& e = Utility<EventHandler>::get();
 
-	e.keyDown().Connect(this, &PlanetSelectState::onKeyDown);
+	e.keyDown().connect(this, &PlanetSelectState::onKeyDown);
 
-	e.mouseButtonDown().Connect(this, &PlanetSelectState::onMouseDown);
-	e.mouseMotion().Connect(this, &PlanetSelectState::onMouseMove);
+	e.mouseButtonDown().connect(this, &PlanetSelectState::onMouseDown);
+	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 
 	Renderer& r = Utility<Renderer>::get();
 	mPlanets.push_back(new Planet(PLANET_TYPE_MERCURY));
@@ -52,16 +52,16 @@ void PlanetSelectState::initialize()
 	mPlanets.push_back(new Planet(PLANET_TYPE_GANYMEDE));
 
 	mPlanets[0]->position((int)r.width() / 4 - 64, (int)r.height() / 2 - 64);
-	mPlanets[0]->mouseEnter().Connect(this, &PlanetSelectState::onMousePlanetEnter);
-	mPlanets[0]->mouseExit().Connect(this, &PlanetSelectState::onMousePlanetExit);
+	mPlanets[0]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
+	mPlanets[0]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
 	mPlanets[1]->position((int)r.width() / 2 - 64, (int)r.height() / 2 - 64);
-	mPlanets[1]->mouseEnter().Connect(this, &PlanetSelectState::onMousePlanetEnter);
-	mPlanets[1]->mouseExit().Connect(this, &PlanetSelectState::onMousePlanetExit);
+	mPlanets[1]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
+	mPlanets[1]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
 	mPlanets[2]->position((((int)r.width() / 4) * 3) - 64, (int)r.height() / 2 - 64);
-	mPlanets[2]->mouseEnter().Connect(this, &PlanetSelectState::onMousePlanetEnter);
-	mPlanets[2]->mouseExit().Connect(this, &PlanetSelectState::onMousePlanetExit);
+	mPlanets[2]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
+	mPlanets[2]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
 	PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
@@ -71,20 +71,20 @@ void PlanetSelectState::initialize()
 	mMale.size(50, 20);
 	mMale.position(5, 30);
 	mMale.toggle(true);
-	mMale.click().Connect(this, &PlanetSelectState::btnMaleClicked);
+	mMale.click().connect(this, &PlanetSelectState::btnMaleClicked);
 
 	mFemale.type(Button::BUTTON_TOGGLE);
 	mFemale.font(mTinyFont);
 	mFemale.text("Female");
 	mFemale.size(50, 20);
 	mFemale.position(60, 30);
-	mFemale.click().Connect(this, &PlanetSelectState::btnFemaleClicked);
+	mFemale.click().connect(this, &PlanetSelectState::btnFemaleClicked);
 
 	mQuit.font(mTinyFont);
 	mQuit.text("Quit");
 	mQuit.size(50, 20);
 	mQuit.position(r.width() - 55, 30);
-	mQuit.click().Connect(this, &PlanetSelectState::btnQuitClicked);
+	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
 
 	mPlanetDescription.text("");
 	mPlanetDescription.font(mFont);
@@ -167,15 +167,14 @@ State* PlanetSelectState::update()
 }
 
 
-void PlanetSelectState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
+void PlanetSelectState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
 
 }
 
 
-void PlanetSelectState::onMouseDown(MouseButton button, int x, int y)
+void PlanetSelectState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	
 	for (size_t i = 0; i < mPlanets.size(); ++i)
 	{
 		if (mPlanets[i]->mouseHovering())

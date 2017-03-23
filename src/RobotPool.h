@@ -5,9 +5,9 @@
 class RobotPool
 {
 public:
-	typedef vector<Robodigger*> DiggerList;
-	typedef vector<Robodozer*> DozerList;
-	typedef vector<Robominer*> MinerList;
+	typedef std::vector<Robodigger*> DiggerList;
+	typedef std::vector<Robodozer*> DozerList;
+	typedef std::vector<Robominer*> MinerList;
 
 public:
 

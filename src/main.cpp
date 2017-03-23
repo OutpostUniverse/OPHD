@@ -17,18 +17,7 @@ using namespace std;
 
 void createRenderer()
 {
-	try
-	{
-		Utility<Renderer>::instantiateDerived(new OGL_Renderer("OutpostHD"));
-	}
-	catch (Exception e)
-	{
-		throw Exception(0, "OpenGL Renderer", "Unable to create a Renderer:\n\n" + e.getDescription());
-	}
-	catch (...)
-	{
-		throw Exception(0, "OpenGL Renderer", "Unhandled exception occured while creating a Renderer.");
-	}
+	Utility<Renderer>::instantiateDerived(new OGL_Renderer("OutpostHD"));
 }
 
 // Makes sure video resolution is never less than 800x600
@@ -47,16 +36,14 @@ void validateVideoResolution()
 int main(int argc, char *argv[])
 {
 	//Crude way of redirecting stream buffer when building in release (no console)
-#ifdef NDEBUG
+	#ifdef NDEBUG
 	std::streambuf *backup;
 	std::ofstream filestr;
 	filestr.open("ophd.log");
 
 	backup = std::cout.rdbuf();
 	std::cout.rdbuf(filestr.rdbuf());
-#endif
-
-	srand((unsigned int)time(nullptr));
+	#endif
 
 	try
 	{
@@ -93,7 +80,15 @@ int main(int argc, char *argv[])
 
 		cf.save();
 
-		Utility<Mixer>::instantiateDerived(new Mixer_SDL());
+		try
+		{
+			Utility<Mixer>::instantiateDerived(new Mixer_SDL());
+		}
+		catch (...)
+		{
+			Utility<Mixer>::instantiateDerived(new Mixer());
+		}
+
 		createRenderer();
 
 		f.addToSearchPath("fonts.dat");
@@ -120,9 +115,9 @@ int main(int argc, char *argv[])
 			Utility<Renderer>::get().update();
 
 	}
-	catch(Exception& e)
+	catch(const std::exception& e)
 	{
-		cout << "EXCEPTION (" << e.getBriefDescription() << "): " << e.getDescription() << endl;
+		cout << e.what() << endl;
 	}
 
 #ifdef NDEBUG

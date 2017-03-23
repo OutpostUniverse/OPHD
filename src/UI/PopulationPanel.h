@@ -31,7 +31,7 @@ public:
 		Renderer& r = Utility<Renderer>::get();
 
 		//r.drawBoxFilled(rect(), 0, 0, 0);
-		r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkin);
+		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkin);
 
 		r.drawText(font(), string_format("Morale: %i", *mMorale), positionX() + 5, positionY() + 5, 255, 255, 255);
 		r.drawText(font(), string_format("Previous: %i", *mPreviousMorale), positionX() + 5, positionY() + 15, 255, 255, 255);

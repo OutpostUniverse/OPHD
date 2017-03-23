@@ -1,5 +1,7 @@
 #include "WindowStack.h"
 
+#include <iostream>
+
 WindowStack::WindowStack()
 {}
 
@@ -17,7 +19,7 @@ void WindowStack::addWindow(Window* _w)
 {
 	if (find(mWindowList.begin(), mWindowList.end(), _w) != mWindowList.end())
 	{
-		cout << "WindowStack::addWindow(): Attempting to add a Window that's already in this stack." << endl;
+		std::cout << "WindowStack::addWindow(): Attempting to add a Window that's already in this stack." << std::endl;
 		return;
 	}
 
@@ -46,7 +48,7 @@ bool WindowStack::pointInWindow(int x, int y) const
 	for (auto it = mWindowList.begin(); it != mWindowList.end(); ++it)
 	{
 		Window* w = *(it);
-		if (w->visible() && isPointInRect(x, y, w->rect().x(), w->rect().y(), w->rect().w(), w->rect().h()))
+		if (w->visible() && isPointInRect(x, y, w->rect().x(), w->rect().y(), w->rect().width(), w->rect().height()))
 			return true;
 	}
 
@@ -62,7 +64,7 @@ void WindowStack::updateStack(int x, int y)
 	for (auto it = mWindowList.begin(); it != mWindowList.end(); ++it)
 	{
 		Window* w = (*it);
-		if (w->visible() && isPointInRect(x, y, w->rect().x(), w->rect().y(), w->rect().w(), w->rect().h()))
+		if (w->visible() && isPointInRect(x, y, w->rect().x(), w->rect().y(), w->rect().width(), w->rect().height()))
 		{
 			if (it == mWindowList.begin())
 				return;
@@ -78,7 +80,7 @@ void WindowStack::bringToFront(Window* _w)
 {
 	if (find(mWindowList.begin(), mWindowList.end(), _w) == mWindowList.end())
 	{
-		cout << "WindowStack::bringToFront(): Window is not managed by this stack." << endl;
+		std::cout << "WindowStack::bringToFront(): Window is not managed by this stack." << std::endl;
 		return;
 	}
 
@@ -94,7 +96,7 @@ void WindowStack::sendToBack(Window* _w)
 {
 	if (find(mWindowList.begin(), mWindowList.end(), _w) == mWindowList.end())
 	{
-		cout << "WindowStack::bringToFront(): Window is not managed by this stack." << endl;
+		std::cout << "WindowStack::bringToFront(): Window is not managed by this stack." << std::endl;
 		return;
 	}
 

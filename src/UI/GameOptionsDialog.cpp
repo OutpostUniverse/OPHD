@@ -24,25 +24,25 @@ void GameOptionsDialog::init()
 	btnSave.font(font());
 	btnSave.text("Save current game");
 	btnSave.size(200, 25);
-	btnSave.click().Connect(this, &GameOptionsDialog::btnSaveClicked);
+	btnSave.click().connect(this, &GameOptionsDialog::btnSaveClicked);
 
 	addControl("btnLoad", &btnLoad, 5, 53);
 	btnLoad.font(font());
 	btnLoad.text("Load a saved game");
 	btnLoad.size(200, 25);
-	btnLoad.click().Connect(this, &GameOptionsDialog::btnLoadClicked);
+	btnLoad.click().connect(this, &GameOptionsDialog::btnLoadClicked);
 
 	addControl("btnReturn", &btnReturn, 5, 91);
 	btnReturn.font(font());
 	btnReturn.text("Return to current game");
 	btnReturn.size(200, 25);
-	btnReturn.click().Connect(this, &GameOptionsDialog::btnReturnClicked);
+	btnReturn.click().connect(this, &GameOptionsDialog::btnReturnClicked);
 
 	addControl("btnClose", &btnClose, 5, 129);
 	btnClose.font(font());
 	btnClose.text("Return to Main Menu");
 	btnClose.size(200, 25);
-	btnClose.click().Connect(this, &GameOptionsDialog::btnCloseClicked);
+	btnClose.click().connect(this, &GameOptionsDialog::btnCloseClicked);
 
 	anchored(true);
 }

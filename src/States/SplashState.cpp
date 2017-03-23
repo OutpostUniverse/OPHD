@@ -31,9 +31,9 @@ SplashState::SplashState() :	mMousePointer("ui/pointers/normal.png"),
 SplashState::~SplashState()
 {
 	EventHandler& e = Utility<EventHandler>::get();
-	e.keyDown().Disconnect(this, &SplashState::onKeyDown);
-	e.mouseButtonDown().Disconnect(this, &SplashState::onMouseDown);
-	e.mouseMotion().Disconnect(this, &SplashState::onMouseMove);
+	e.keyDown().disconnect(this, &SplashState::onKeyDown);
+	e.mouseButtonDown().disconnect(this, &SplashState::onMouseDown);
+	e.mouseMotion().disconnect(this, &SplashState::onMouseMove);
 }
 
 
@@ -43,10 +43,10 @@ void SplashState::initialize()
 
 	EventHandler& e = Utility<EventHandler>::get();
 
-	e.keyDown().Connect(this, &SplashState::onKeyDown);
+	e.keyDown().connect(this, &SplashState::onKeyDown);
 
-	e.mouseButtonDown().Connect(this, &SplashState::onMouseDown);
-	e.mouseMotion().Connect(this, &SplashState::onMouseMove);
+	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
+	e.mouseMotion().connect(this, &SplashState::onMouseMove);
 
 	Utility<Mixer>::get().fadeInMusic(mSplash, -1, 1000);
 	Utility<Renderer>::get().fadeOut(0.0f);
@@ -100,9 +100,9 @@ State* SplashState::update()
 	}
 
 	if(CURRENT_STATE == LOGO_OUTPOSTHD)
-		r.drawBoxFilled(0, 0, r.getScreenResolution().x(), r.getScreenResolution().y(), 0, 0, 0);
+		r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0);
 	else
-		r.drawBoxFilled(0, 0, r.getScreenResolution().x(), r.getScreenResolution().y(), 255, 255, 255);
+		r.drawBoxFilled(0, 0, r.width(), r.height(), 255, 255, 255);
 
 	if (CURRENT_STATE == LOGO_LAIRWORKS)
 		r.drawImage(mLogoLairworks, r.screenCenterX() - mLogoLairworks.width() / 2, r.screenCenterY() - mLogoLairworks.height() / 2);
@@ -135,13 +135,13 @@ State* SplashState::update()
 }
 
 
-void SplashState::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
+void SplashState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
 	skipSplash();
 }
 
 
-void SplashState::onMouseDown(MouseButton button, int x, int y)
+void SplashState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	skipSplash();
 }

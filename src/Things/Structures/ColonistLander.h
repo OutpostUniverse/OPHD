@@ -9,7 +9,7 @@ class ColonistLander : public Structure
 {
 public:
 
-	typedef Gallant::Signal0<void> Callback;
+	typedef NAS2D::Signals::Signal0<void> Callback;
 
 	ColonistLander(Tile* t) : Structure(constants::COLONIST_LANDER, "structures/lander_1.sprite", STRUCTURE_LANDER), mTile(t)
 	{

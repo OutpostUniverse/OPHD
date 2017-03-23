@@ -17,7 +17,7 @@ public:
 		SEL_WEST
 	};
 
-	typedef Gallant::Signal2<DiggerSelection, Tile*> Callback;
+	typedef NAS2D::Signals::Signal2<DiggerSelection, Tile*> Callback;
 
 	DiggerDirection(Font& font);
 	virtual ~DiggerDirection();

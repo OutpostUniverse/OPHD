@@ -24,7 +24,7 @@ void GameOverDialog::init()
 	btnClose.font(font());
 	btnClose.text("Return to Main Menu");
 	btnClose.size(512, 25);
-	btnClose.click().Connect(this, &GameOverDialog::btnCloseClicked);
+	btnClose.click().connect(this, &GameOverDialog::btnCloseClicked);
 
 	anchored(true);
 }

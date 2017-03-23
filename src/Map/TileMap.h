@@ -4,7 +4,7 @@
 
 #include "../Things/Structures/Structure.h"
 
-typedef vector<Point_2d> Point2dList;
+typedef std::vector<Point_2d> Point2dList;
 
 class TileMap
 {
@@ -63,8 +63,8 @@ public:
 
 	void draw();
 
-	void serialize(TiXmlElement* _ti);
-	void deserialize(TiXmlElement* _ti);
+	void serialize(NAS2D::Xml::XmlElement* _ti);
+	void deserialize(NAS2D::Xml::XmlElement* _ti);
 
 protected:
 	enum MouseMapRegion
@@ -76,12 +76,12 @@ protected:
 		MMR_BOTTOM_LEFT
 	};
 	
-	vector<vector<MouseMapRegion> > mMouseMap;
+	std::vector<std::vector<MouseMapRegion> > mMouseMap;
 
 private:
 
-	typedef vector<vector<Tile> >	TileGrid;
-	typedef vector<TileGrid>		TileArray;
+	typedef std::vector<std::vector<Tile> >	TileGrid;
+	typedef std::vector<TileGrid>		TileArray;
 	
 private:
 	
@@ -105,8 +105,8 @@ private:
 	int					mMaxDepth;			/**< Maximum digging depth. */
 	int					mCurrentDepth;		/**< Current depth level to view. */
 
-	string				mMapPath;
-	string				mTsetPath;
+	std::string			mMapPath;
+	std::string			mTsetPath;
 
 	TileArray			mTileMap;
 

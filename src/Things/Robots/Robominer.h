@@ -2,8 +2,6 @@
 
 #include "Robot.h"
 
-#include <sstream>
-
 class Robominer: public Robot
 {
 public:

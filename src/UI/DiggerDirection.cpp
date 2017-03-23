@@ -23,33 +23,33 @@ void DiggerDirection::init()
 	addControl("btnDown", &btnDown, 5, 25);
 	btnDown.image("ui/icons/arrow-down.png");
 	btnDown.size(64, 34);
-	btnDown.click().Connect(this, &DiggerDirection::btnDiggerDownClicked);
+	btnDown.click().connect(this, &DiggerDirection::btnDiggerDownClicked);
 
 	addControl("btnWest", &btnWest, 5, 68);
 	btnWest.image("ui/icons/arrow-west.png");
 	btnWest.size(32, 32);
-	btnWest.click().Connect(this, &DiggerDirection::btnDiggerWestClicked);
+	btnWest.click().connect(this, &DiggerDirection::btnDiggerWestClicked);
 
 	addControl("btnNorth", &btnNorth, 38, 68);
 	btnNorth.image("ui/icons/arrow-north.png");
 	btnNorth.size(32, 32);
-	btnNorth.click().Connect(this, &DiggerDirection::btnDiggerNorthClicked);
+	btnNorth.click().connect(this, &DiggerDirection::btnDiggerNorthClicked);
 
 	addControl("btnSouth", &btnSouth, 5, 101);
 	btnSouth.image("ui/icons/arrow-south.png");
 	btnSouth.size(32, 32);
-	btnSouth.click().Connect(this, &DiggerDirection::btnDiggerSouthClicked);
+	btnSouth.click().connect(this, &DiggerDirection::btnDiggerSouthClicked);
 
 	addControl("btnEast", &btnEast, 38, 101);
 	btnEast.image("ui/icons/arrow-east.png");
 	btnEast.size(32, 32);
-	btnEast.click().Connect(this, &DiggerDirection::btnDiggerEastClicked);
+	btnEast.click().connect(this, &DiggerDirection::btnDiggerEastClicked);
 
 	addControl("btnCancel", &btnCancel, 5, 140);
 	btnCancel.font(font());
 	btnCancel.text("Cancel");
 	btnCancel.size(64, 25);
-	btnCancel.click().Connect(this, &DiggerDirection::btnCancelClicked);
+	btnCancel.click().connect(this, &DiggerDirection::btnCancelClicked);
 }
 
 

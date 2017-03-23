@@ -12,7 +12,7 @@ class IconGrid : public Control
 {
 public:
 
-	typedef Gallant::Signal1<const std::string&> Callback;
+	typedef NAS2D::Signals::Signal1<const std::string&> Callback;
 
 	IconGrid();
 	virtual ~IconGrid();
@@ -53,9 +53,9 @@ public:
 
 protected:
 
-	typedef std::pair<string, Point_2df> IconGridItem;
+	typedef std::pair<std::string, Point_2df> IconGridItem;
 
-	virtual void onMouseDown(MouseButton button, int x, int y);
+	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMotion(int x, int y, int dX, int dY);
 
 	virtual void sizeChanged();

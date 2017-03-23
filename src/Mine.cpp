@@ -3,6 +3,8 @@
 #include <iostream>
 
 using namespace std;
+using namespace NAS2D::Xml;
+
 
 Mine::Mine(ProductionRate _rate):	mAge(0),
 									mDepth(0),
@@ -59,11 +61,11 @@ void Mine::update()
 }
 
 
-void Mine::serialize(TiXmlElement* _ti)
+void Mine::serialize(XmlElement* _ti)
 {
-	_ti->SetAttribute("age", age());
-	_ti->SetAttribute("depth", depth());
-	_ti->SetAttribute("active", active());
-	_ti->SetAttribute("exhausted", exhausted());
-	_ti->SetAttribute("yield", productionRate());
+	_ti->attribute("age", age());
+	_ti->attribute("depth", depth());
+	_ti->attribute("active", active());
+	_ti->attribute("exhausted", exhausted());
+	_ti->attribute("yield", productionRate());
 }

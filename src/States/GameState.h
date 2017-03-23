@@ -78,10 +78,10 @@ private:
 private:
 	void onActivate(bool _b);
 
-	void onKeyDown(KeyCode key, KeyModifier mod, bool repeat);
+	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
 
-	void onMouseDown(MouseButton button, int x, int y);
-	void onMouseUp(MouseButton button, int x, int y);
+	void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	void onMouseUp(EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
 	void onMouseWheel(int x, int y);
 
@@ -132,10 +132,10 @@ private:
 
 	void setStructureID(StructureID type, InsertMode mode);
 
-	void readRobots(TiXmlElement* _ti);
-	void readStructures(TiXmlElement* _ti);
-	void readTurns(TiXmlElement* _ti);
-	void readPopulation(TiXmlElement* _ti);
+	void readRobots(Xml::XmlElement* _ti);
+	void readStructures(Xml::XmlElement* _ti);
+	void readTurns(Xml::XmlElement* _ti);
+	void readPopulation(Xml::XmlElement* _ti);
 
 	void scrubRobotList();
 

@@ -7,8 +7,7 @@
 
 #include "TextField.h"
 
-#include "NAS2D/KeyTranslator.h"
-
+#include <locale>
 
 const int MIN_WIDTH		= 16;
 const int MIN_HEIGHT	= 16;
@@ -22,22 +21,24 @@ const int REPEAT_WAIT	= 20;
 
 const int FIELD_PADDING = 4;
 
-
 const int CURSOR_BLINK_DELAY = 250;
+
+std::locale LOC;
 
 TextField::TextField():	mCursorPosition(0),
 						mCursorX(0),
 						mScrollOffset(0),
 						mMaxScrollOffset(0),
-						mLastAction(ACTION_NONE),
 						mBorderVisibility(FOCUS_ONLY),
 						mEditable(true),
-						mShowCursor(false)
+						mShowCursor(false),
+						mNumbersOnly(false)
 {
-	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &TextField::onMouseDown);
-	Utility<EventHandler>::get().keyDown().Connect(this, &TextField::onKeyDown);
-	Utility<EventHandler>::get().keyUp().Connect(this, &TextField::onKeyUp);
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &TextField::onMouseDown);
+	Utility<EventHandler>::get().keyDown().connect(this, &TextField::onKeyDown);
+	Utility<EventHandler>::get().textInput().connect(this, &TextField::onTextInput);
 	hasFocus(true);
+	Utility<EventHandler>::get().textInputMode(true);
 
 	mSkinNormal.push_back(Image("ui/skin/textbox_top_left.png"));
 	mSkinNormal.push_back(Image("ui/skin/textbox_top_middle.png"));
@@ -63,9 +64,9 @@ TextField::TextField():	mCursorPosition(0),
 
 TextField::~TextField()
 {
-	Utility<EventHandler>::get().mouseButtonDown().Disconnect(this, &TextField::onMouseDown);
-	Utility<EventHandler>::get().keyDown().Disconnect(this, &TextField::onKeyDown);
-	Utility<EventHandler>::get().keyUp().Disconnect(this, &TextField::onKeyUp);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &TextField::onMouseDown);
+	Utility<EventHandler>::get().keyDown().disconnect(this, &TextField::onKeyDown);
+	Utility<EventHandler>::get().textInput().disconnect(this, &TextField::onTextInput);
 }
 
 void TextField::resetCursorPosition()
@@ -74,15 +75,26 @@ void TextField::resetCursorPosition()
 }
 
 
+/**
+ * When set, will only allow numbers to be entered into the TextField.
+ * 
+ * \param _b True or False.
+ */
+void TextField::numbers_only(bool _b)
+{
+	mNumbersOnly = _b;
+}
+
+
 void TextField::onFontChanged()
 {
-	height(font().height() + FIELD_PADDING * 2);
+	height(static_cast<float>(font().height() + FIELD_PADDING * 2));
 }
 
 
 int TextField::textAreaWidth() const
 {
-	return rect().w() - FIELD_PADDING * 2;
+	return static_cast<int>(rect().width()) - FIELD_PADDING * 2;
 }
 
 
@@ -112,9 +124,9 @@ void TextField::draw()
 	Renderer& r = Utility<Renderer>::get();
 
 	if(hasFocus())
-		r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkinFocus);
+		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus);
 	else
-		r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkinNormal);
+		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal);
 
 
 
@@ -141,8 +153,8 @@ void TextField::drawCursor()
 		{
 			// updateCursor() should be called only on events relating to the cursor so this is temporary.
 			updateCursor();
-			Utility<Renderer>::get().drawLine(mCursorX + 1, rect().y() + FIELD_PADDING + 1, mCursorX + 1, rect().y() + rect().h() - FIELD_PADDING, 0, 0, 0);
-			Utility<Renderer>::get().drawLine(mCursorX, rect().y() + FIELD_PADDING, mCursorX, rect().y() + rect().h() - FIELD_PADDING - 1, 255, 255, 255);
+			Utility<Renderer>::get().drawLine(mCursorX + 1, rect().y() + FIELD_PADDING + 1, mCursorX + 1, rect().y() + rect().height() - FIELD_PADDING, 0, 0, 0);
+			Utility<Renderer>::get().drawLine(mCursorX, rect().y() + FIELD_PADDING, mCursorX, rect().y() + rect().height() - FIELD_PADDING - 1, 255, 255, 255);
 		}
 		
 		if(mCursorTimer.accumulator() > CURSOR_BLINK_DELAY)
@@ -159,7 +171,7 @@ void TextField::drawCursor()
  */
 void TextField::drawTextHighlight()
 {
-	Utility<Renderer>::get().drawBoxFilled(rect().x() + FIELD_PADDING, rect().y(), font().width(text()), rect().h(), 0, 0, 150, 100);
+	Utility<Renderer>::get().drawBoxFilled(rect().x() + FIELD_PADDING, rect().y(), font().width(text()), rect().height(), 0, 0, 150, 100);
 }
 
 
@@ -182,187 +194,107 @@ void TextField::updateCursor()
 
 void TextField::update()
 {
-	if(!visible())
+	if (!visible())
 		return;
 
 	draw();
+}
 
-	if((mLastAction == ACTION_NONE) || (mActionTimer.accumulator() < REPEAT_DELAY))
+
+/**
+ * Handles text input events.
+ */
+void TextField::onTextInput(const std::string& _s)
+{
+	if (!hasFocus() || !visible() || !editable() || _s.empty())
 		return;
 
-	if(mRepeatTimer.accumulator() > REPEAT_WAIT)
-	{
-		mRepeatTimer.reset();
-		switch(mLastAction)
-		{
-			case ACTION_INSERT:
-				addCharacter(mInsertChar.c_str());
-				onTextChanged();
-				break;
-
-			case ACTION_BACKSPACE:
-				if(!text().empty() && mCursorPosition > 0)
-				{
-					mCursorPosition--;
-					_text().erase(mCursorPosition, 1);
-					onTextChanged();
-				}
-				break;
-
-			case ACTION_DELETE:
-				if (text().length() > 0)
-				{
-					_text() = _text().erase(mCursorPosition, 1);
-					onTextChanged();
-				}
-				break;
-
-			case ACTION_MOVE_LEFT:
-				if(mCursorPosition > 0)
-					mCursorPosition--;
-				break;
-
-			case ACTION_MOVE_RIGHT:
-				if(static_cast<size_t>(mCursorPosition) < text().length())
-					mCursorPosition++;
-				break;
-
-			default:
-				break;
-		}
-	}
-}
-
-
-void TextField::onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
-{
-	if(hasFocus() && editable())
-	{
-		switch(key)
-		{	
-			// COMMAND KEYS
-			case KEY_BACKSPACE:
-				if(!text().empty() && mCursorPosition > 0)
-				{
-					mCursorPosition--;
-					// STL '.end()' iterators are the end of the container, not the last element.
-					_text().erase(mCursorPosition, 1);
-					setAction(ACTION_BACKSPACE);
-					onTextChanged();
-				}
-				break;
-
-			case KEY_HOME:
-				mCursorPosition = 0;
-				break;
-
-			case KEY_END:
-				mCursorPosition = text().length();
-				break;
-
-			case KEY_DELETE:
-				if(text().length() > 0)
-				{
-					_text() = _text().erase(mCursorPosition, 1);
-					setAction(ACTION_DELETE);
-					onTextChanged();
-				}
-				break;
-
-			// ARROW KEYS
-			case KEY_LEFT:
-				if(mCursorPosition > 0)
-				{
-					mCursorPosition--;
-					setAction(ACTION_MOVE_LEFT);
-				}
-				break;
-
-			case KEY_RIGHT:
-				if(static_cast<size_t>(mCursorPosition) < text().length())
-				{
-					mCursorPosition++;
-					setAction(ACTION_MOVE_RIGHT);
-				}
-				break;
-
-			// KEYPAD ARROWS
-			case KEY_KP4:
-				if((mCursorPosition > 0) && !KeyTranslator::numlock(mod))
-				{
-					mCursorPosition--;
-					setAction(ACTION_MOVE_LEFT);
-				}
-				else
-					insertChar(key, mod);
-				break;
-
-			case KEY_KP6:
-				if((static_cast<size_t>(mCursorPosition) < text().length()) && !KeyTranslator::numlock(mod))
-				{
-					mCursorPosition++;
-					setAction(ACTION_MOVE_RIGHT);
-				}
-				else
-					insertChar(key, mod);
-				break;
-
-			// IGNORE ENTER/RETURN KEY
-			case KEY_ENTER:
-			case KEY_KP_ENTER:
-				break;
-
-			// REGULAR KEYS
-			default:
-				insertChar(key, mod);
-				break;
-		}
-	}
-}
-
-
-void TextField::onKeyUp(KeyCode key, KeyModifier mod)
-{
-	mLastAction = ACTION_NONE;
-}
-
-
-void TextField::insertChar(KeyCode key, KeyModifier mod)
-{
-	mInsertChar = KeyTranslator::translate(key, mod);
-	addCharacter(mInsertChar.c_str());
-	setAction(ACTION_INSERT);
-}
-
-
-/**
- * Adds a character to the TextField's text.
- */
-void TextField::addCharacter(const char* character)
-{
 	int prvLen = text().length();
-	_text() = _text().insert(mCursorPosition, character);
-	onTextChanged();
 
-	if(text().length() - prvLen)
+	if (mNumbersOnly && !std::isdigit(_s[0], LOC))
+		return;
+
+	_text() = _text().insert(mCursorPosition, _s);
+
+	if (text().length() - prvLen)
+	{
+		onTextChanged();
 		mCursorPosition++;
+	}
 }
 
 
-/**
- * Set the current action and reset the action timer.
- */
-void TextField::setAction(ActionType aType)
+void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
-	mLastAction = aType;
-	mActionTimer.reset();
+	if (!hasFocus() || !editable() || !visible())
+		return;
+
+	switch(key)
+	{	
+		// COMMAND KEYS
+		case EventHandler::KEY_BACKSPACE:
+			if(!text().empty() && mCursorPosition > 0)
+			{
+				mCursorPosition--;
+				_text().erase(mCursorPosition, 1);
+				onTextChanged();
+			}
+			break;
+
+		case EventHandler::KEY_HOME:
+			mCursorPosition = 0;
+			break;
+
+		case EventHandler::KEY_END:
+			mCursorPosition = text().length();
+			break;
+
+		case EventHandler::KEY_DELETE:
+			if (text().length() > 0)
+			{
+				_text() = _text().erase(mCursorPosition, 1);
+				onTextChanged();
+			}
+			break;
+
+		// ARROW KEYS
+		case EventHandler::KEY_LEFT:
+			if(mCursorPosition > 0)
+				--mCursorPosition;
+			break;
+
+		case EventHandler::KEY_RIGHT:
+			if(static_cast<size_t>(mCursorPosition) < text().length())
+				++mCursorPosition;
+			break;
+
+		// KEYPAD ARROWS
+		case EventHandler::KEY_KP4:
+			if((mCursorPosition > 0) && !Utility<EventHandler>::get().query_numlock())
+				--mCursorPosition;
+			break;
+
+		case EventHandler::KEY_KP6:
+			if((static_cast<size_t>(mCursorPosition) < text().length()) && !Utility<EventHandler>::get().query_numlock())
+				++mCursorPosition;
+			break;
+
+		// IGNORE ENTER/RETURN KEY
+		case EventHandler::KEY_ENTER:
+		case EventHandler::KEY_KP_ENTER:
+			break;
+
+		// REGULAR KEYS
+		default:
+			break;
+	}
 }
 
 
 /**
  * Mouse down even handler.
  */
-void TextField::onMouseDown(MouseButton button, int x, int y)
+void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	// If font is not available, back out now to prevent issues.
 	if(!fontSet())
@@ -391,7 +323,7 @@ void TextField::onMouseDown(MouseButton button, int x, int y)
 	int i = 0;
 	while(static_cast<size_t>(i) <= text().size() - mScrollOffset)
 	{
-		string cmpStr = text().substr(mScrollOffset, i);
+		std::string cmpStr = text().substr(mScrollOffset, i);
 		int strLen = font().width(cmpStr);
 		if(strLen > relativePosition)
 		{

@@ -83,16 +83,3 @@ enum RobotType
 	ROBOT_DOZER,
 	ROBOT_MINER
 };
-
-
-/**
- * Simple helper function to provide a printf like function.
- */
-template<typename ... Args>
-std::string string_format(const std::string& format, Args ... args)
-{
-	size_t size = snprintf(nullptr, 0, format.c_str(), args ...) + 1;
-	unique_ptr<char[]> buffer(new char[size]);
-	snprintf(buffer.get(), size, format.c_str(), args ...);
-	return string(buffer.get(), buffer.get() + size - 1);
-}

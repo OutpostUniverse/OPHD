@@ -26,7 +26,7 @@ void GameState::initUi()
 	EventHandler& e = Utility<EventHandler>::get();
 	Renderer& r = Utility<Renderer>::get();
 
-	mDiggerDirection.directionSelected().Connect(this, &GameState::diggerSelectionDialog);
+	mDiggerDirection.directionSelected().connect(this, &GameState::diggerSelectionDialog);
 	mDiggerDirection.hide();
 	mDiggerDirection.position(r.screenCenterX() - mDiggerDirection.width() / 2, r.height() / 2 - 125);
 
@@ -41,7 +41,7 @@ void GameState::initUi()
 
 	mFileIoDialog.position(r.screenCenterX() - mFileIoDialog.width() / 2, 50);
 	mFileIoDialog.setMode(FileIo::FILE_SAVE);
-	mFileIoDialog.fileOperation().Connect(this, &GameState::fileIoAction);
+	mFileIoDialog.fileOperation().connect(this, &GameState::fileIoAction);
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
@@ -52,14 +52,14 @@ void GameState::initUi()
 	mPopulationPanel.old_morale(&mPreviousMorale);
 
 	mGameOverDialog.position(r.screenCenterX() - mGameOverDialog.width() / 2, r.screenCenterY() - mGameOverDialog.height() / 2 - 100);
-	mGameOverDialog.returnToMainMenu().Connect(this, &GameState::btnGameOverClicked);
+	mGameOverDialog.returnToMainMenu().connect(this, &GameState::btnGameOverClicked);
 	mGameOverDialog.hide();
 
 	mGameOptionsDialog.position(r.screenCenterX() - mGameOptionsDialog.width() / 2, r.screenCenterY() - mGameOptionsDialog.height() / 2 - 100);
-	mGameOptionsDialog.SaveGame().Connect(this, &GameState::btnSaveGameClicked);
-	mGameOptionsDialog.LoadGame().Connect(this, &GameState::btnLoadGameClicked);
-	mGameOptionsDialog.returnToGame().Connect(this, &GameState::btnReturnToGameClicked);
-	mGameOptionsDialog.returnToMainMenu().Connect(this, &GameState::btnGameOverClicked);
+	mGameOptionsDialog.SaveGame().connect(this, &GameState::btnSaveGameClicked);
+	mGameOptionsDialog.LoadGame().connect(this, &GameState::btnLoadGameClicked);
+	mGameOptionsDialog.returnToGame().connect(this, &GameState::btnReturnToGameClicked);
+	mGameOptionsDialog.returnToMainMenu().connect(this, &GameState::btnGameOverClicked);
 	mGameOptionsDialog.hide();
 
 	mAnnouncement.position(r.screenCenterX() - mGameOverDialog.width() / 2, r.screenCenterY() - mGameOverDialog.height() / 2 - 100);
@@ -75,7 +75,7 @@ void GameState::initUi()
 	// Bottom UI
 	BOTTOM_UI_AREA(0, r.height() - constants::BOTTOM_UI_HEIGHT, r.width(), constants::BOTTOM_UI_HEIGHT);
 
-	mResourceInfoBox(mMiniMapBoundingBox.x() + mMiniMapBoundingBox.w() + constants::MARGIN * 2 + constants::MINI_MAP_BUTTON_SIZE, mMiniMapBoundingBox.y(), constants::RESOURCE_BOX_WIDTH, mMiniMapBoundingBox.h());
+	mResourceInfoBox(mMiniMapBoundingBox.x() + mMiniMapBoundingBox.width() + constants::MARGIN * 2 + constants::MINI_MAP_BUTTON_SIZE, mMiniMapBoundingBox.y(), constants::RESOURCE_BOX_WIDTH, mMiniMapBoundingBox.height());
 
 	// X Position of the main UI buttons
 	int posX = r.width() - 34;
@@ -88,7 +88,7 @@ void GameState::initUi()
 	mBtnTurns.image("ui/icons/turns.png");
 	mBtnTurns.size(constants::MAIN_BUTTON_SIZE);
 	mBtnTurns.position(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, r.height() - constants::MARGIN - MAIN_BUTTON_SIZE);
-	mBtnTurns.click().Connect(this, &GameState::btnTurnsClicked);
+	mBtnTurns.click().connect(this, &GameState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
 
 	mBtnToggleHeightmap.image("ui/icons/height.png");
@@ -100,7 +100,7 @@ void GameState::initUi()
 	mBtnToggleConnectedness.size(constants::MAIN_BUTTON_SIZE);
 	mBtnToggleConnectedness.position(mBtnTurns.positionX(), mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT);
 	mBtnToggleConnectedness.type(Button::BUTTON_TOGGLE);
-	mBtnToggleConnectedness.click().Connect(this, &GameState::btnToggleConnectednessClicked);
+	mBtnToggleConnectedness.click().connect(this, &GameState::btnToggleConnectednessClicked);
 
 	// Menus
 	mRobots.font(mTinyFont);
@@ -110,7 +110,7 @@ void GameState::initUi()
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
 	mRobots.showTooltip(true);
-	mRobots.selectionChanged().Connect(this, &GameState::robotsSelectionChanged);
+	mRobots.selectionChanged().connect(this, &GameState::robotsSelectionChanged);
 
 	mConnections.font(mTinyFont);
 	mConnections.sheetPath("ui/structures.png");
@@ -118,7 +118,7 @@ void GameState::initUi()
 	mConnections.size(52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
 	mConnections.iconSize(46);
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
-	mConnections.selectionChanged().Connect(this, &GameState::connectionsSelectionChanged);
+	mConnections.selectionChanged().connect(this, &GameState::connectionsSelectionChanged);
 	mConnections.sorted(false);
 
 	mStructures.font(mTinyFont);
@@ -128,7 +128,7 @@ void GameState::initUi()
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 	mStructures.showTooltip(true);
-	mStructures.selectionChanged().Connect(this, &GameState::structuresSelectionChanged);
+	mStructures.selectionChanged().connect(this, &GameState::structuresSelectionChanged);
 	
 
 	// Initial Structures
@@ -245,7 +245,7 @@ void GameState::drawUI()
 	// Bottom UI
 	r.drawBoxFilled(BOTTOM_UI_AREA, 39, 39, 39);
 	r.drawBox(BOTTOM_UI_AREA, 21, 21, 21);
-	r.drawLine(BOTTOM_UI_AREA.x() + 1, BOTTOM_UI_AREA.y(), BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.w() - 2, BOTTOM_UI_AREA.y(), 56, 56, 56);
+	r.drawLine(BOTTOM_UI_AREA.x() + 1, BOTTOM_UI_AREA.y(), BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.width() - 2, BOTTOM_UI_AREA.y(), 56, 56, 56);
 
 	drawMiniMap();
 	drawResourceInfo();

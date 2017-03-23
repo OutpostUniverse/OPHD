@@ -97,8 +97,8 @@ public:
 
 	bool empty();
 
-	void serialize(TiXmlElement* _ti);
-	void deserialize(TiXmlElement* _ti);
+	void serialize(NAS2D::Xml::XmlElement* _ti);
+	void deserialize(NAS2D::Xml::XmlElement* _ti);
 
 private:
 	typedef std::map<ResourceType, int> ResourceTable;

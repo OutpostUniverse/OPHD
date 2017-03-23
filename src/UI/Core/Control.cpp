@@ -127,7 +127,7 @@ Control::PositionChangedCallback& Control::moved()
  */
 float Control::width() const
 {
-	return mRect.w();
+	return mRect.width();
 }
 
 
@@ -136,7 +136,7 @@ float Control::width() const
  */
 float Control::height() const
 {
-	return mRect.h();
+	return mRect.height();
 }
 
 
@@ -171,7 +171,7 @@ void Control::size(float _s)
  */
 void Control::width(float w)
 {
-	mRect.w(w);
+	mRect.width(w);
 	onSizeChanged();
 }
 
@@ -184,7 +184,7 @@ void Control::width(float w)
  */
 void Control::height(float h)
 {
-	mRect.h(h);
+	mRect.height(h);
 	onSizeChanged();
 }
 
@@ -306,7 +306,7 @@ void Control::text(const std::string& text)
 /**
  * Gets the text of the Control.
  */
-const string& Control::text() const
+const std::string& Control::text() const
 {
 	return mText;
 }
@@ -341,7 +341,7 @@ Rectangle_2df& Control::_rect()
  * \note	This is an internal function and may not be
  *			called outside of the Control class.
  */
-string& Control::_text()
+std::string& Control::_text()
 {
 	return mText;
 }

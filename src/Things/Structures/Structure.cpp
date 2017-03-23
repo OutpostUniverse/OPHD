@@ -170,6 +170,6 @@ void Structure::die()
 
 	#ifdef _DEBUG
 	cout << "Holy shit, a Structure died!!!" << endl;
-	throw Exception(666, "Dead Structure", "Thing::die() was called on a Structure!");
+	throw std::runtime_error("Thing::die() was called on a Structure!");
 	#endif
 }

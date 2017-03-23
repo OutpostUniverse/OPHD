@@ -21,9 +21,9 @@ class Control
 {
 public:
 
-	typedef Gallant::Signal1<Control*> ResizeCallback;
-	typedef Gallant::Signal1<Control*> TextChangedCallback;
-	typedef Gallant::Signal2<float, float> PositionChangedCallback;
+	typedef NAS2D::Signals::Signal1<Control*> ResizeCallback;
+	typedef NAS2D::Signals::Signal1<Control*> TextChangedCallback;
+	typedef NAS2D::Signals::Signal2<float, float> PositionChangedCallback;
 
 public:
 
@@ -62,12 +62,12 @@ public:
 	const std::string& text() const;
 	TextChangedCallback& textChanged();
 
-	virtual void onMouseDown(MouseButton button, int x, int y) {};
-	virtual void onMouseUp(MouseButton button, int x, int y) {};
+	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y) {};
+	virtual void onMouseUp(EventHandler::MouseButton button, int x, int y) {};
 	virtual void onMouseMotion(int x, int y, int dX, int dY) {};
 
-	virtual void onKeyDown(KeyCode key, KeyModifier mod, bool repeat) {};
-	virtual void onKeyUp(KeyCode key, KeyModifier mod) {};
+	virtual void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat) {};
+	virtual void onKeyUp(EventHandler::KeyCode key, EventHandler::KeyModifier mod) {};
 
 	void size(float _s);
 	void size(float w, float h);

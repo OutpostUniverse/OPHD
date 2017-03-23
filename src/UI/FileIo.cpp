@@ -24,24 +24,24 @@ void FileIo::init()
 	btnFileOp.font(font());
 	btnFileOp.text("FileOp");
 	btnFileOp.size(50, 20);
-	btnFileOp.click().Connect(this, &FileIo::btnFileIoClicked);
+	btnFileOp.click().connect(this, &FileIo::btnFileIoClicked);
 
 	addControl("btnClose", &btnClose, 390, 325);
 	btnClose.font(font());
 	btnClose.text("Cancel");
 	btnClose.size(50, 20);
-	btnClose.click().Connect(this, &FileIo::btnCloseClicked);
+	btnClose.click().connect(this, &FileIo::btnCloseClicked);
 
 	addControl("txtFileName", &txtFileName, 5, 302);
 	txtFileName.font(font());
 	txtFileName.size(490, 18);
-	txtFileName.textChanged().Connect(this,&FileIo::fileNameModified);
+	txtFileName.textChanged().connect(this,&FileIo::fileNameModified);
 
 	addControl("mnuFileList", &mnuFileList, 5, 25);
 	mnuFileList.font(font());
 	mnuFileList.size(490, 300);
 	mnuFileList.visible(true);
-	mnuFileList.selectionChanged().Connect(this, &FileIo::fileSelected);
+	mnuFileList.selectionChanged().connect(this, &FileIo::fileSelected);
 }
 
 

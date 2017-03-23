@@ -13,8 +13,8 @@ IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
 						mShowTooltip(false),
 						mSorted(true)
 {
-	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &IconGrid::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().Connect(this, &IconGrid::onMouseMotion);
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &IconGrid::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMotion);
 	hasFocus(true);
 
 	mSkin.push_back(Image("ui/skin/textbox_top_left.png"));
@@ -34,8 +34,8 @@ IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
  */
 IconGrid::~IconGrid()
 {
-	Utility<EventHandler>::get().mouseButtonDown().Disconnect(this, &IconGrid::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().Disconnect(this, &IconGrid::onMouseMotion);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &IconGrid::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &IconGrid::onMouseMotion);
 }
 
 
@@ -73,8 +73,8 @@ void IconGrid::iconMargin(int _margin)
  */
 void IconGrid::updateGrid()
 {
-	int cols = (rect().w() - (mIconMargin * 2)) / (mIconSize + mIconMargin);
-	int rows = (rect().h() - (mIconMargin * 2)) / (mIconSize + mIconMargin);
+	int cols = (rect().width() - (mIconMargin * 2)) / (mIconSize + mIconMargin);
+	int rows = (rect().height() - (mIconMargin * 2)) / (mIconSize + mIconMargin);
 
 	mGridSize(cols, rows);
 }
@@ -83,13 +83,13 @@ void IconGrid::updateGrid()
 /**
  * MouseDown event handler.
  */
-void IconGrid::onMouseDown(MouseButton button, int x, int y)
+void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!visible() || !hasFocus())
 		return;
 
 	// Don't respond to anything unless it's the left mouse button.
-	if (button != BUTTON_LEFT)
+	if (button != EventHandler::BUTTON_LEFT)
 		return;
 
 	if (!visible())
@@ -294,7 +294,7 @@ void IconGrid::update()
 	Renderer& r = Utility<Renderer>::get();
 
 	//r.drawBoxFilled(rect(), 0, 0, 0);
-	r.drawImageRect(rect().x(), rect().y(), rect().w(), rect().h(), mSkin);
+	r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkin);
 
 	if (mIconItemList.empty())
 		return;

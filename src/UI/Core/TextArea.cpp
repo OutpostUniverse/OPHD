@@ -1,5 +1,6 @@
 #include "TextArea.h"
 
+#include <vector>
 
 TextArea::TextArea() : mNumLines(0)
 {}
@@ -11,7 +12,7 @@ TextArea::~TextArea()
 
 StringList TextArea::split(const char *str, char delim)
 {
-	vector<string> result;
+	std::vector<std::string> result;
 
 	do
 	{
@@ -20,7 +21,7 @@ StringList TextArea::split(const char *str, char delim)
 		while (*str != delim && *str)
 			str++;
 
-		result.push_back(string(begin, str));
+		result.push_back(std::string(begin, str));
 	} while (0 != *str++);
 
 	return result;
@@ -39,7 +40,7 @@ void TextArea::processString()
 	size_t w = 0, i = 0;
 	while (i < tokenList.size())
 	{
-		string line;
+		std::string line;
 		while (w < width() && i < tokenList.size())
 		{
 			int tokenWidth = font().width(tokenList[i] + " ");

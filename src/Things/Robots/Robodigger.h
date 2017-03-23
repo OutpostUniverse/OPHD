@@ -4,8 +4,6 @@
 
 #include "../../Common.h"
 
-#include <sstream>
-
 class Robodigger: public Robot
 {
 public:

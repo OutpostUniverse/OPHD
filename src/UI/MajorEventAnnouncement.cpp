@@ -24,7 +24,7 @@ void MajorEventAnnouncement::init()
 	btnClose.font(font());
 	btnClose.text("Okay");
 	btnClose.size(512, 25);
-	btnClose.click().Connect(this, &MajorEventAnnouncement::btnCloseClicked);
+	btnClose.click().connect(this, &MajorEventAnnouncement::btnCloseClicked);
 
 	anchored(true);
 }
@@ -49,7 +49,7 @@ void MajorEventAnnouncement::announcement(AnnouncementType a)
 		mMessage = "Colony ship deorbited and crashed on the surface but you left colonists on board!";
 		break;
 	default:
-		throw Exception(0, "Bad Announcement", "MajorEventAnnouncement::announcement(): Called with invalid announcement type.");
+		throw std::runtime_error("MajorEventAnnouncement::announcement(): Called with invalid announcement type.");
 		break;
 	}
 }

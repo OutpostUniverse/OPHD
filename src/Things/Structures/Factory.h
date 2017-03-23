@@ -64,9 +64,9 @@ public:
 		PRODUCTION_MINER
 	};
 
-	typedef Gallant::Signal1<ProductionType> ProductionCallback;
+	typedef NAS2D::Signals::Signal1<ProductionType> ProductionCallback;
 
-	typedef vector<ProductionType> ProductionTypeList;
+	typedef std::vector<ProductionType> ProductionTypeList;
 
 public:
 

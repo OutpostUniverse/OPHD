@@ -36,7 +36,7 @@ private:
 			else if (connectorDirection() == CONNECTOR_LEFT)
 				sprite().play(constants::UG_TUBE_LEFT);
 			else
-				throw Exception(0, "Bad Connector", "Tried to create a Tube structure with CONNECTOR_NONE paramter.");
+				throw std::runtime_error("Tried to create a Tube structure with CONNECTOR_NONE paramter.");
 		}
 		else
 		{
@@ -47,7 +47,7 @@ private:
 			else if (connectorDirection() == CONNECTOR_LEFT)
 				sprite().play(constants::AG_TUBE_LEFT);
 			else
-				throw Exception(0, "Bad Connector", "Tried to create a Tube structure with CONNECTOR_NONE paramter.");
+				throw std::runtime_error("Tried to create a Tube structure with CONNECTOR_NONE paramter.");
 		}
 	}
 

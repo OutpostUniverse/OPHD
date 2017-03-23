@@ -22,13 +22,12 @@ using namespace NAS2D;
 class TextField: public Control
 {
 public:
-
 	/**
-	 * \enum	BorderVisiblity
-	 * \brief	Enumerates border visibility options.
-	 * 
-	 * \note	TextField defaults to a FOCUS_ONLY setting.
-	 */
+	* \enum	BorderVisiblity
+	* \brief	Enumerates border visibility options.
+	*
+	* \note	TextField defaults to a FOCUS_ONLY setting.
+	*/
 	enum BorderVisibility
 	{
 		NEVER,
@@ -36,8 +35,8 @@ public:
 		FOCUS_ONLY
 	};
 
+public:
 	TextField();
-	
 	virtual ~TextField();
 
 	void editable(bool editable);
@@ -46,29 +45,17 @@ public:
 	bool empty() const { return text().empty(); }
 
 	void border(BorderVisibility visibility);
+	void resetCursorPosition();
+	void numbers_only(bool);
 
 	void update();
 
-	void resetCursorPosition();
-
 protected:
-
-	virtual void onMouseDown(MouseButton button, int x, int y);
-	virtual void onKeyDown(KeyCode key, KeyModifier mod, bool repeat);
-	virtual void onKeyUp(KeyCode key, KeyModifier mod);
+	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	virtual void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
+	void onTextInput(const std::string&);
 
 private:
-
-	enum ActionType
-	{
-		ACTION_NONE,
-		ACTION_INSERT,
-		ACTION_BACKSPACE,
-		ACTION_DELETE,
-		ACTION_MOVE_LEFT,
-		ACTION_MOVE_RIGHT
-	};
-
 	void onFontChanged();
 
 	void drawCursor();
@@ -76,27 +63,17 @@ private:
 
 	int textAreaWidth() const;
 
-	void insertChar(KeyCode key, KeyModifier mod);
-	void addCharacter(const char* character);
-	
 	void updateCursor();
 
 	void draw();
 
-	void setAction(ActionType type);
-	
+private:
 	Timer				mCursorTimer;		/**< Timer for the cursor blink. */
-	Timer				mActionTimer;		/**< Timer used as a delay between an action and when it should start repeating. */
-	Timer				mRepeatTimer;		/**< Timer used for repeating an action. */
 
 	int 				mCursorPosition;	/**< Position of the Insertion Cursor. */
 	int 				mCursorX;			/**< Pixel position of the Cursor. */
 	int 				mScrollOffset;		/**< Scroller offset. */
 	int					mMaxScrollOffset;	/**< Maximum allowable offset. */
-
-	ActionType			mLastAction;		/**< Last action involving insertion, deletion and moving the cursor. */
-
-	std::string			mInsertChar;		/**< Character to insert when repeating character insertion. */
 
 	BorderVisibility	mBorderVisibility;	/**< Border visibility flag. */
 
@@ -105,4 +82,5 @@ private:
 
 	bool				mEditable;			/**< Toggle editing of the field. */
 	bool				mShowCursor;		/**< Flag indicating whether or not to draw the cursor. */
+	bool				mNumbersOnly;		/**< Flag indicating that only numerals should be used */
 };

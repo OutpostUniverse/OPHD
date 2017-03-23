@@ -218,7 +218,6 @@
     <ClInclude Include="..\..\src\RobotTranslator.h" />
     <ClInclude Include="..\..\src\States\GameState.h" />
     <ClInclude Include="..\..\src\States\GameStateHelper.h" />
-    <ClInclude Include="..\..\src\States\GameStateUi.h" />
     <ClInclude Include="..\..\src\States\Planet.h" />
     <ClInclude Include="..\..\src\States\PlanetSelectState.h" />
     <ClInclude Include="..\..\src\states\SplashState.h" />

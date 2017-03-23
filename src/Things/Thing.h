@@ -6,12 +6,13 @@ class Tile;
 
 using namespace NAS2D;
 
+#include <iostream>
 #include <string>
 
 class Thing
 {
 public:
-	typedef Gallant::Signal1<Thing*> DieCallback;
+	typedef NAS2D::Signals::Signal1<Thing*> DieCallback;
 
 	Thing(const std::string& name, const std::string& sprite_path):	mName(name),
 																	mSprite(sprite_path),
@@ -24,7 +25,7 @@ public:
 	virtual ~Thing()
 	{
 		#ifdef _DEBUG
-		cout << mName << ": He's dead Jim!" << endl;
+		std::cout << mName << ": He's dead Jim!" << std::endl;
 		#endif
 	}
 

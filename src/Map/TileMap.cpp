@@ -2,6 +2,10 @@
 
 #include "../Constants.h"
 
+#include <functional>
+#include <random>
+
+using namespace NAS2D::Xml;
 
 #pragma warning(disable: 4244)
 
@@ -16,6 +20,17 @@ const int			TILE_WIDTH					= 107;
 const int			TILE_HEIGHT					= 46;
 
 const double		THROB_SPEED					= 250.0f; // Throb speed of mine beacon
+
+
+std::mt19937 generator;
+std::uniform_int_distribution<int> map_width(5, MAP_WIDTH - 5);
+std::uniform_int_distribution<int> map_height(5, MAP_HEIGHT - 5);
+std::uniform_int_distribution<int> mine_yield(0, 100);
+
+auto mwidth = std::bind(map_width, generator);
+auto mheight = std::bind(map_height, generator);
+auto myield = std::bind(mine_yield, generator);
+
 
 TileMap::TileMap(const string& map_path, const string& tset_path, int _md, int _mc, bool _s):	mEdgeLength(0),
 																								mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
@@ -60,7 +75,7 @@ Tile* TileMap::getTile(int x, int y, int level)
 void TileMap::buildTerrainMap(const std::string& path)
 {
 	if(!Utility<Filesystem>::get().exists(path + MAP_TERRAIN_EXTENSION))
-		throw Exception(0, "Map Not Found", "Given map file does not exist.");
+		throw std::runtime_error("Given map file does not exist.");
 
 	Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
@@ -99,7 +114,7 @@ void TileMap::setupMines(int mineCount)
 	int i = 0;
 	while(i < mineCount)
 	{
-		Point_2d pt(Random::ranged_integer(5, MAP_WIDTH - 5), Random::ranged_integer(5, MAP_HEIGHT - 5));
+		Point_2d pt(mwidth(), mheight());
 
 		// Ugly
 		if(mTileMap[0][pt.y()][pt.x()].mine())
@@ -107,15 +122,15 @@ void TileMap::setupMines(int mineCount)
 
 		float probability = 0.05f * mTileMap[0][pt.y()][pt.x()].index();
 
-		if(Random::ranged_integer(0, 100) <= (int)(probability * 100))
+		if(myield() <= (int)(probability * 100))
 		{
 			Mine* m = nullptr;
 			
 			// Choose a production rate
 			// FIXME: Kind of a naive approach to this... would be nice to weight things better.
-			if(Random::ranged_integer(0, 100) < 60)
+			if(myield() < 60)
 				m = new Mine(Mine::PRODUCTION_RATE_MEDIUM);
-			else if(Random::ranged_integer(0, 100) < 30)
+			else if(myield() < 30)
 				m = new Mine(Mine::PRODUCTION_RATE_HIGH);
 			else
 				m = new Mine(Mine::PRODUCTION_RATE_LOW);
@@ -137,13 +152,13 @@ void TileMap::buildMouseMap()
 {
 	// Sanity checks
 	if(!Utility<Filesystem>::get().exists("ui/mouse_map.png"))
-		throw Exception(0, "System File Error", "Unable to find the mouse map file.");
+		throw std::runtime_error("Unable to find the mouse map file.");
 
 	Image mousemap("ui/mouse_map.png");
 
 	// More sanity checks (mousemap should match dimensions of tile)
 	if(mousemap.width() != TILE_WIDTH || mousemap.height() != TILE_HEIGHT)
-		throw Exception(0, "System File Error", "Mouse map is the wrong dimensions.");
+		throw std::runtime_error("Mouse map is the wrong dimensions.");
 	
 	mMouseMap.resize(TILE_HEIGHT);
 	for(size_t i = 0; i < mMouseMap.size(); i++)
@@ -312,62 +327,62 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 }
 
 
-void serializeTile(TiXmlElement* _ti, int x, int y, int depth, int index)
+void serializeTile(XmlElement* _ti, int x, int y, int depth, int index)
 {
-	TiXmlElement* t = new TiXmlElement("tile");
-	t->SetAttribute("x", x);
-	t->SetAttribute("y", y);
-	t->SetAttribute("depth", depth);
-	t->SetAttribute("index", index);
+	XmlElement* t = new XmlElement("tile");
+	t->attribute("x", x);
+	t->attribute("y", y);
+	t->attribute("depth", depth);
+	t->attribute("index", index);
 
-	_ti->LinkEndChild(t);
+	_ti->linkEndChild(t);
 }
 
 
-void TileMap::serialize(TiXmlElement* _ti)
+void TileMap::serialize(XmlElement* _ti)
 {
 	// ==========================================
 	// MAP PROPERTIES
 	// ==========================================
-	TiXmlElement *properties = new TiXmlElement("properties");
-	_ti->LinkEndChild(properties);
+	XmlElement *properties = new XmlElement("properties");
+	_ti->linkEndChild(properties);
 
-	properties->SetAttribute("sitemap", mMapPath);
-	properties->SetAttribute("tset", mTsetPath);
-	properties->SetAttribute("diggingdepth", mMaxDepth);
+	properties->attribute("sitemap", mMapPath);
+	properties->attribute("tset", mTsetPath);
+	properties->attribute("diggingdepth", mMaxDepth);
 
 	// ==========================================
 	// VIEW PARAMETERS
 	// ==========================================
-	TiXmlElement *viewparams = new TiXmlElement("view_parameters");
-	_ti->LinkEndChild(viewparams);
+	XmlElement *viewparams = new XmlElement("view_parameters");
+	_ti->linkEndChild(viewparams);
 
-	viewparams->SetAttribute("currentdepth", mCurrentDepth);
-	viewparams->SetAttribute("viewlocation_x", mMapViewLocation.x());
-	viewparams->SetAttribute("viewlocation_y", mMapViewLocation.y());
+	viewparams->attribute("currentdepth", mCurrentDepth);
+	viewparams->attribute("viewlocation_x", mMapViewLocation.x());
+	viewparams->attribute("viewlocation_y", mMapViewLocation.y());
 
 
 	// ==========================================
 	// MINES
 	// ==========================================
-	TiXmlElement *mines = new TiXmlElement("mines");
-	_ti->LinkEndChild(mines);
+	XmlElement *mines = new XmlElement("mines");
+	_ti->linkEndChild(mines);
 
 	for (size_t i = 0; i < mMineLocations.size(); ++i)
 	{
-		TiXmlElement *mine = new TiXmlElement("mine");
-		mine->SetAttribute("x", mMineLocations[i].x());
-		mine->SetAttribute("y", mMineLocations[i].y());
+		XmlElement *mine = new XmlElement("mine");
+		mine->attribute("x", mMineLocations[i].x());
+		mine->attribute("y", mMineLocations[i].y());
 		getTile(mMineLocations[i].x(), mMineLocations[i].y(), LEVEL_SURFACE)->mine()->serialize(mine);
-		mines->LinkEndChild(mine);
+		mines->linkEndChild(mine);
 	}
 
 
 	// ==========================================
 	// TILES
 	// ==========================================
-	TiXmlElement *tiles = new TiXmlElement("tiles");
-	_ti->LinkEndChild(tiles);
+	XmlElement *tiles = new XmlElement("tiles");
+	_ti->linkEndChild(tiles);
 
 	// We're only writing out tiles that don't have structures or robots in them that are
 	// underground and excavated or surface and bulldozed.
@@ -393,29 +408,38 @@ void TileMap::serialize(TiXmlElement* _ti)
 }
 
 
-void TileMap::deserialize(TiXmlElement* _ti)
+void TileMap::deserialize(XmlElement* _ti)
 {
 	// VIEW PARAMETERS
-	TiXmlElement* view_parameters = _ti->FirstChildElement("view_parameters");
 	int view_x = 0, view_y = 0, view_depth = 0;
-	view_parameters->Attribute("viewlocation_x", &view_x);
-	view_parameters->Attribute("viewlocation_y", &view_y);
-	view_parameters->Attribute("currentdepth", &view_depth);
+	XmlElement* view_parameters = _ti->firstChildElement("view_parameters");
+	XmlAttribute* attribute = view_parameters->firstAttribute();
+	while (attribute)
+	{
+		if (attribute->name() == "viewlocation_x") attribute->queryIntValue(view_x);
+		else if (attribute->name() == "viewlocation_y") attribute->queryIntValue(view_y);
+		else if (attribute->name() == "currentdepth") attribute->queryIntValue(view_depth);
+		attribute = attribute->next();
+	}
 
 	mapViewLocation(view_x, view_y);
 	currentDepth(view_depth);
-
-	for (TiXmlNode* mine = _ti->FirstChildElement("mines")->FirstChildElement("mine"); mine != nullptr; mine = mine->NextSibling())
+	for (XmlNode* mine = _ti->firstChildElement("mines")->firstChildElement("mine"); mine; mine = mine->nextSibling())
 	{
 		int x = 0, y = 0, age = 0, depth = 0, active = 0, exhausted = 0, yield = 0;
+		attribute = mine->toElement()->firstAttribute();
+		while (attribute)
+		{
+			if (attribute->name() == "x") attribute->queryIntValue(x);
+			else if (attribute->name() == "y") attribute->queryIntValue(y);
+			else if (attribute->name() == "age") attribute->queryIntValue(age);
+			else if (attribute->name() == "depth") attribute->queryIntValue(depth);
+			else if (attribute->name() == "active") attribute->queryIntValue(active);
+			else if (attribute->name() == "exhausted") attribute->queryIntValue(exhausted);
+			else if (attribute->name() == "yield") attribute->queryIntValue(yield);
 
-		mine->ToElement()->Attribute("x", &x);
-		mine->ToElement()->Attribute("y", &y);
-		mine->ToElement()->Attribute("age", &age);
-		mine->ToElement()->Attribute("depth", &depth);
-		mine->ToElement()->Attribute("active", &active);
-		mine->ToElement()->Attribute("exhausted", &exhausted);
-		mine->ToElement()->Attribute("yield", &yield);
+			attribute = attribute->next();
+		}
 
 		Mine* m = new Mine(static_cast<Mine::ProductionRate>(yield));
 		m->age(age);
@@ -430,13 +454,20 @@ void TileMap::deserialize(TiXmlElement* _ti)
 	}
 
 	// TILES AT INDEX 0 WITH NO THING'S
-	for (TiXmlNode* tile = _ti->FirstChildElement("tiles")->FirstChildElement("tile"); tile != nullptr; tile = tile->NextSibling())
+	for (XmlNode* tile = _ti->firstChildElement("tiles")->firstChildElement("tile"); tile; tile = tile->nextSibling())
 	{
 		int x = 0, y = 0, depth = 0, index = 0;
-		tile->ToElement()->Attribute("x", &x);
-		tile->ToElement()->Attribute("y", &y);
-		tile->ToElement()->Attribute("depth", &depth);
-		tile->ToElement()->Attribute("index", &index);
+
+		attribute = tile->toElement()->firstAttribute();
+		while (attribute)
+		{
+			if (attribute->name() == "x") attribute->queryIntValue(x);
+			else if (attribute->name() == "y") attribute->queryIntValue(y);
+			else if (attribute->name() == "depth") attribute->queryIntValue(depth);
+			else if (attribute->name() == "index") attribute->queryIntValue(index);
+
+			attribute = attribute->next();
+		}
 
 		mTileMap[depth][y][x].index(static_cast<TerrainType>(index));
 
@@ -453,6 +484,7 @@ Tile* TileMap::getVisibleTile(int x, int y, int level)
 	return getTile(x, y, level);
 }
 
+
 bool TileMap::isVisibleTile(int _x, int _y, int _d)
 {
 	if (!isPointInRect(_x, _y, mMapViewLocation.x(), mMapViewLocation.y(), mEdgeLength - 1, mEdgeLength - 1))
@@ -462,5 +494,3 @@ bool TileMap::isVisibleTile(int _x, int _y, int _d)
 	
 	return true;
 }
-
-

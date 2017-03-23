@@ -1,6 +1,6 @@
 #include "Factory.h"
 
-typedef map<Factory::ProductionType, ProductionCost> ProductionTypeTable;
+typedef std::map<Factory::ProductionType, ProductionCost> ProductionTypeTable;
 
 ProductionTypeTable		PRODUCTION_TYPE_TABLE;
 
@@ -24,7 +24,7 @@ void fillTable()
 }
 
 
-Factory::Factory(const string& name, const string& sprite_path):	Structure(name, sprite_path, STRUCTURE_FACTORY),
+Factory::Factory(const std::string& name, const std::string& sprite_path):	Structure(name, sprite_path, STRUCTURE_FACTORY),
 																	mTurnsCompleted(0),
 																	mTurnsToComplete(0),
 																	mProduction(PRODUCTION_NONE),
@@ -66,7 +66,7 @@ const ProductionCost& Factory::productionCost(ProductionType _pt) const
 {
 	// Sanity check
 	if (PRODUCTION_TYPE_TABLE.empty())
-		throw Exception(0, "Empty Production Table", "Factory::productionCost() called before production table filled!");
+		throw std::runtime_error("Factory::productionCost() called before production table filled!");
 
 	return PRODUCTION_TYPE_TABLE[_pt];
 }
@@ -106,7 +106,7 @@ bool Factory::enoughResourcesAvailable()
 {
 #ifdef _DEBUG
 	if (mResourcesPool == nullptr)
-		throw Exception(0, "Null Resource Pool", "Factor::enoughResourcesAvailable() called with a null Resource Pool set");
+		throw std::runtime_error("Factory::enoughResourcesAvailable() called with a null Resource Pool set");
 #endif
 
 	return *mResourcesPool >= PRODUCTION_TYPE_TABLE[mProduction].CostPerTurn;

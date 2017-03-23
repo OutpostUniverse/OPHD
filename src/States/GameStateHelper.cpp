@@ -2,6 +2,8 @@
 
 #include "../Constants.h"
 
+using namespace NAS2D::Xml;
+
 bool checkTubeConnection(Tile* _tile, Direction _dir, ConnectorDir _source_connector_dir)
 {
 	if (_tile->mine() || !_tile->bulldozed() || !_tile->excavated() || !_tile->thingIsStructure())
@@ -79,7 +81,7 @@ bool insertRobotIntoTable(RobotTileTable& _rm, Robot* _r, Tile* _t)
 
 	auto it = _rm.find(_r);
 	if (it != _rm.end())
-		throw Exception(0, "Duplicate Robot", "GameState::insertRobot(): Attempting to add a duplicate Robot* pointer.");
+		throw std::runtime_error("GameState::insertRobot(): Attempting to add a duplicate Robot* pointer.");
 
 	_rm[_r] = _t;
 	_t->pushThing(_r);
@@ -91,19 +93,19 @@ bool insertRobotIntoTable(RobotTileTable& _rm, Robot* _r, Tile* _t)
 // ==============================================================
 // = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
 // ==============================================================
-void checkRobotDeployment(TiXmlElement* _ti, RobotTileTable& _rm, Robot* _r, RobotType _type)
+void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, RobotType _type)
 {
-	_ti->SetAttribute("type", _type);
-	_ti->SetAttribute("age", _r->fuelCellAge());
-	_ti->SetAttribute("production", _r->turnsToCompleteTask());
+	_ti->attribute("type", _type);
+	_ti->attribute("age", _r->fuelCellAge());
+	_ti->attribute("production", _r->turnsToCompleteTask());
 
 	for (auto it = _rm.begin(); it != _rm.end(); ++it)
 	{
 		if (it->first == _r)
 		{
-			_ti->SetAttribute("x", it->second->x());
-			_ti->SetAttribute("y", it->second->y());
-			_ti->SetAttribute("depth", it->second->depth());
+			_ti->attribute("x", it->second->x());
+			_ti->attribute("y", it->second->y());
+			_ti->attribute("depth", it->second->depth());
 		}
 	}
 
@@ -111,48 +113,48 @@ void checkRobotDeployment(TiXmlElement* _ti, RobotTileTable& _rm, Robot* _r, Rob
 
 
 // Convenience function
-void writeRobots(TiXmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm)
+void writeRobots(XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm)
 {
-	TiXmlElement* robots = new TiXmlElement("robots");
+	XmlElement* robots = new XmlElement("robots");
 
 	RobotPool::DiggerList& diggers = _rp.diggers();
 	for (size_t i = 0; i < diggers.size(); ++i)
 	{
-		TiXmlElement* robot = new TiXmlElement("robot");
+		XmlElement* robot = new XmlElement("robot");
 		checkRobotDeployment(robot, _rm, static_cast<Robot*>(diggers[i]), ROBOT_DIGGER);
-		robot->SetAttribute("direction", diggers[i]->direction());
-		robots->LinkEndChild(robot);
+		robot->attribute("direction", diggers[i]->direction());
+		robots->linkEndChild(robot);
 	}
 
 	RobotPool::DozerList& dozers = _rp.dozers();
 	for (size_t i = 0; i < dozers.size(); ++i)
 	{
-		TiXmlElement* robot = new TiXmlElement("robot");
+		XmlElement* robot = new XmlElement("robot");
 		checkRobotDeployment(robot, _rm, static_cast<Robot*>(dozers[i]), ROBOT_DOZER);
-		robots->LinkEndChild(robot);
+		robots->linkEndChild(robot);
 	}
 
 	RobotPool::MinerList& miners = _rp.miners();
 	for (size_t i = 0; i < miners.size(); ++i)
 	{
-		TiXmlElement* robot = new TiXmlElement("robot");
+		XmlElement* robot = new XmlElement("robot");
 		checkRobotDeployment(robot, _rm, static_cast<Robot*>(miners[i]), ROBOT_MINER);
-		robots->LinkEndChild(robot);
+		robots->linkEndChild(robot);
 	}
 
-	_ti->LinkEndChild(robots);
+	_ti->linkEndChild(robots);
 }
 
 
-void writeResources(TiXmlElement* _ti, ResourcePool& _rp)
+void writeResources(XmlElement* _ti, ResourcePool& _rp)
 {
-	TiXmlElement* resources = new TiXmlElement("resources");
+	XmlElement* resources = new XmlElement("resources");
 	_rp.serialize(resources);
-	_ti->LinkEndChild(resources);
+	_ti->linkEndChild(resources);
 }
 
 
-void readResources(TiXmlElement* _ti, ResourcePool& _rp)
+void readResources(XmlElement* _ti, ResourcePool& _rp)
 {
 	if (_ti)
 		_rp.deserialize(_ti);

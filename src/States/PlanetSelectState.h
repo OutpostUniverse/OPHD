@@ -30,9 +30,9 @@ private:
 	typedef std::vector<Planet*> PlanetPtrList;
 
 private:
-	void onKeyDown(KeyCode key, KeyModifier mod, bool repeat);
+	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
 
-	void onMouseDown(MouseButton button, int x, int y);
+	void onMouseDown(EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
 
 	void onMousePlanetEnter();

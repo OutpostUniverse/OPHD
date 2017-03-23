@@ -42,7 +42,7 @@ public:
 
 	void update();
 
-	void serialize(TiXmlElement* _ti);
+	void serialize(NAS2D::Xml::XmlElement* _ti);
 
 private:
 	Mine();

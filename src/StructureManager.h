@@ -14,7 +14,7 @@
 class StructureManager
 {
 public:
-	typedef vector<Structure*> StructureList;
+	typedef std::vector<Structure*> StructureList;
 
 public:
 	StructureManager();
@@ -42,13 +42,13 @@ public:
 
 	void update(ResourcePool& _r);
 
-	void serialize(TiXmlElement* _ti);
+	void serialize(NAS2D::Xml::XmlElement* _ti);
 
 protected:
 
 private:
-	typedef map<Structure*, Tile*> StructureTileTable;
-	typedef map<Structure::StructureType, StructureList> StructureTypeTable;
+	typedef std::map<Structure*, Tile*> StructureTileTable;
+	typedef std::map<Structure::StructureType, StructureList> StructureTypeTable;
 
 private:
 	void updateStructures(ResourcePool& _r, StructureList& _sl);

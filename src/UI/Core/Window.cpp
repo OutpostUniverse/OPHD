@@ -5,9 +5,9 @@ const int WINDOW_TITLE_BAR_HEIGHT = 20;
 Window::Window() : mBold("fonts/ui-bold.png", 7, 9, 0), mMouseDrag(false), mAnchored(false)
 {
 	EventHandler& e = Utility<EventHandler>::get();
-	Utility<EventHandler>::get().mouseButtonDown().Connect(this, &Window::onMouseDown);
-	Utility<EventHandler>::get().mouseButtonUp().Connect(this, &Window::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().Connect(this, &Window::onMouseMotion);
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Window::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMotion);
 
 	mBody.push_back(Image("ui/skin/window_top_left.png"));
 	mBody.push_back(Image("ui/skin/window_top_middle.png"));
@@ -29,23 +29,23 @@ Window::Window() : mBold("fonts/ui-bold.png", 7, 9, 0), mMouseDrag(false), mAnch
 
 Window::~Window()
 {
-	Utility<EventHandler>::get().mouseButtonDown().Disconnect(this, &Window::onMouseDown);
-	Utility<EventHandler>::get().mouseButtonUp().Disconnect(this, &Window::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().Disconnect(this, &Window::onMouseMotion);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Window::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Window::onMouseUp);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Window::onMouseMotion);
 }
 
 
-void Window::onMouseDown(MouseButton button, int x, int y)
+void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!visible() || !hasFocus())
 		return;
 
-	if(button == BUTTON_LEFT && isPointInRect(x, y, rect().x(), rect().y(), rect().w(), WINDOW_TITLE_BAR_HEIGHT))
+	if(button == EventHandler::BUTTON_LEFT && isPointInRect(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT))
 		mMouseDrag = true;
 }
 
 
-void Window::onMouseUp(MouseButton button, int x, int y)
+void Window::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
 	mMouseDrag = false;
 }
@@ -82,10 +82,10 @@ void Window::update()
 	Renderer& r = Utility<Renderer>::get();
 
 	r.drawImage(mTitle[0], rect().x(), rect().y());
-	r.drawImageRepeated(mTitle[1], rect().x() + 4, rect().y(), rect().w() - 8, WINDOW_TITLE_BAR_HEIGHT);
-	r.drawImage(mTitle[2], rect().x() + rect().w() - 4, rect().y());
+	r.drawImageRepeated(mTitle[1], rect().x() + 4, rect().y(), rect().width() - 8, WINDOW_TITLE_BAR_HEIGHT);
+	r.drawImage(mTitle[2], rect().x() + rect().width() - 4, rect().y());
 
-	r.drawImageRect(rect().x(), rect().y() + 20, rect().w(), rect().h() - 20, mBody);
+	r.drawImageRect(rect().x(), rect().y() + 20, rect().width(), rect().height() - 20, mBody);
 	
 	r.drawText(mBold, text(), rect().x() + 5, rect().y() + 5, 255, 255, 255);
 
