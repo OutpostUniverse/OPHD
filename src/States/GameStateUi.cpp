@@ -28,18 +28,18 @@ void GameState::initUi()
 
 	mDiggerDirection.directionSelected().connect(this, &GameState::diggerSelectionDialog);
 	mDiggerDirection.hide();
-	mDiggerDirection.position(r.screenCenterX() - mDiggerDirection.width() / 2, r.height() / 2 - 125);
+	mDiggerDirection.position(r.center_x() - mDiggerDirection.width() / 2, r.height() / 2 - 125);
 
-	mTileInspector.position(r.screenCenterX() - mTileInspector.width() / 2, r.height() / 2 - 175);
+	mTileInspector.position(r.center_x() - mTileInspector.width() / 2, r.height() / 2 - 175);
 	mTileInspector.hide();
 
-	mStructureInspector.position(r.screenCenterX() - mStructureInspector.width() / 2, r.height() / 2 - 175);
+	mStructureInspector.position(r.center_x() - mStructureInspector.width() / 2, r.height() / 2 - 175);
 	mStructureInspector.hide();
 
-	mFactoryProduction.position(r.screenCenterX() - mFactoryProduction.width() / 2, 175);
+	mFactoryProduction.position(r.center_x() - mFactoryProduction.width() / 2, 175);
 	mFactoryProduction.hide();
 
-	mFileIoDialog.position(r.screenCenterX() - mFileIoDialog.width() / 2, 50);
+	mFileIoDialog.position(r.center_x() - mFileIoDialog.width() / 2, 50);
 	mFileIoDialog.setMode(FileIo::FILE_SAVE);
 	mFileIoDialog.fileOperation().connect(this, &GameState::fileIoAction);
 	mFileIoDialog.anchored(true);
@@ -51,18 +51,18 @@ void GameState::initUi()
 	mPopulationPanel.morale(&mCurrentMorale);
 	mPopulationPanel.old_morale(&mPreviousMorale);
 
-	mGameOverDialog.position(r.screenCenterX() - mGameOverDialog.width() / 2, r.screenCenterY() - mGameOverDialog.height() / 2 - 100);
+	mGameOverDialog.position(r.center_x() - mGameOverDialog.width() / 2, r.center_y() - mGameOverDialog.height() / 2 - 100);
 	mGameOverDialog.returnToMainMenu().connect(this, &GameState::btnGameOverClicked);
 	mGameOverDialog.hide();
 
-	mGameOptionsDialog.position(r.screenCenterX() - mGameOptionsDialog.width() / 2, r.screenCenterY() - mGameOptionsDialog.height() / 2 - 100);
+	mGameOptionsDialog.position(r.center_x() - mGameOptionsDialog.width() / 2, r.center_y() - mGameOptionsDialog.height() / 2 - 100);
 	mGameOptionsDialog.SaveGame().connect(this, &GameState::btnSaveGameClicked);
 	mGameOptionsDialog.LoadGame().connect(this, &GameState::btnLoadGameClicked);
 	mGameOptionsDialog.returnToGame().connect(this, &GameState::btnReturnToGameClicked);
 	mGameOptionsDialog.returnToMainMenu().connect(this, &GameState::btnGameOverClicked);
 	mGameOptionsDialog.hide();
 
-	mAnnouncement.position(r.screenCenterX() - mGameOverDialog.width() / 2, r.screenCenterY() - mGameOverDialog.height() / 2 - 100);
+	mAnnouncement.position(r.center_x() - mGameOverDialog.width() / 2, r.center_y() - mGameOverDialog.height() / 2 - 100);
 	mAnnouncement.hide();
 
 	mWindowStack.addWindow(&mTileInspector);

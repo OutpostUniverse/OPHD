@@ -2,7 +2,7 @@
 
 #include "../Constants.h"
 
-FileIo::FileIo(Font& font) : mBold("fonts/ui-bold.png", 7, 9, 0)
+FileIo::FileIo(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
 {
 	Control::font(font);
 	text("File I/O");

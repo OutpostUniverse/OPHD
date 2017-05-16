@@ -56,16 +56,14 @@ void TextArea::processString()
 				//++i;
 				break;
 			}
-
-			line += (tokenList[i] + " ");
+			
 			if (tokenList[i] == "\n")
 			{
 				++i;
 				break;
 			}
-
+			line += (tokenList[i] + " ");
 			++i;
-
 		}
 		w = 0;
 		mFormattedList.push_back(line);

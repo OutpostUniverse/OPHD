@@ -5,7 +5,7 @@
 
 std::map<std::string, Factory::ProductionType> PRODUCTION_TRANSLATION_TABLE;
 
-FactoryProduction::FactoryProduction(Font& font) : mFactory(nullptr), mProductionType(Factory::PRODUCTION_NONE), mBold("fonts/ui-bold.png", 7, 9, 0)
+FactoryProduction::FactoryProduction(Font& font) : mFactory(nullptr), mProductionType(Factory::PRODUCTION_NONE), mBold("fonts/opensans-bold.ttf", 10)
 {
 	Control::font(font);
 	text(constants::WINDOW_FACTORY_PRODUCTION);

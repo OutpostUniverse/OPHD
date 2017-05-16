@@ -105,11 +105,11 @@ State* SplashState::update()
 		r.drawBoxFilled(0, 0, r.width(), r.height(), 255, 255, 255);
 
 	if (CURRENT_STATE == LOGO_LAIRWORKS)
-		r.drawImage(mLogoLairworks, r.screenCenterX() - mLogoLairworks.width() / 2, r.screenCenterY() - mLogoLairworks.height() / 2);
+		r.drawImage(mLogoLairworks, r.center_x() - mLogoLairworks.width() / 2, r.center_y() - mLogoLairworks.height() / 2);
 	if (CURRENT_STATE == LOGO_NAS2D)
-		r.drawImage(mLogoNas2d, r.screenCenterX() - mLogoNas2d.width() / 2, r.screenCenterY() - mLogoNas2d.height() / 2);
+		r.drawImage(mLogoNas2d, r.center_x() - mLogoNas2d.width() / 2, r.center_y() - mLogoNas2d.height() / 2);
 	if (CURRENT_STATE == LOGO_OUTPOSTHD)
-		r.drawImage(mLogoOutpostHd, r.screenCenterX() - ((mLogoOutpostHd.width() + 250 * LOGO_SCALE)) / 2, r.screenCenterY() - mLogoOutpostHd.height() / 2, LOGO_SCALE);
+		r.drawImage(mLogoOutpostHd, r.center_x() - ((mLogoOutpostHd.width() + 250 * LOGO_SCALE)) / 2, r.center_y() - mLogoOutpostHd.height() / 2, LOGO_SCALE);
 
 
 	r.drawImage(mMousePointer, mMousePosition.x(), mMousePosition.y());

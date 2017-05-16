@@ -2,7 +2,7 @@
 
 const int WINDOW_TITLE_BAR_HEIGHT = 20;
 
-Window::Window() : mBold("fonts/ui-bold.png", 7, 9, 0), mMouseDrag(false), mAnchored(false)
+Window::Window() : mBold("fonts/opensans-bold.ttf", 10), mMouseDrag(false), mAnchored(false)
 {
 	EventHandler& e = Utility<EventHandler>::get();
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Window::onMouseDown);

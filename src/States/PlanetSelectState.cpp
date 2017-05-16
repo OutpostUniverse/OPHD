@@ -4,9 +4,9 @@
 
 PlanetType PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
-PlanetSelectState::PlanetSelectState():	mFont("fonts/mig6800_8x16_light.png", 8, 16, 0),
-										mFontBold("fonts/mig6800_8x16.png", 8, 16, 0),
-										mTinyFont("fonts/ui-normal.png", 7, 9, -1),
+PlanetSelectState::PlanetSelectState():	mFont("fonts/opensans.ttf", 14),
+										mFontBold("fonts/opensans-bold.ttf", 14),
+										mTinyFont("fonts/opensans.ttf", 10),
 										mMousePointer("ui/pointers/normal.png"),
 										mBg("sys/bg1.png"),
 										mStarFlare("sys/flare_1.png"),
@@ -89,7 +89,7 @@ void PlanetSelectState::initialize()
 	mPlanetDescription.text("");
 	mPlanetDescription.font(mFont);
 	mPlanetDescription.size(550, 200);
-	mPlanetDescription.position(r.screenCenterX() - 275, r.height() - 225);
+	mPlanetDescription.position(r.center_x() - 275, r.height() - 225);
 
 	Utility<Renderer>::get().fadeIn(175.0f);
 
@@ -116,7 +116,7 @@ State* PlanetSelectState::update()
 	r.drawImageStretched(mBg, 0, 0, r.width(), r.height());
 
 	r.drawImageRotated(mCloud1, -256, -256, mTimer.tick() / 1200.0f, 100, 255, 0, 135);
-	r.drawImageRotated(mCloud1, r.width() - 800, -256, -mTimer.tick() / 1200.0f, 180, 0, 255, 150);
+	r.drawImageRotated(mCloud1, r.width() - 800, -256, mTimer.tick() / 1200.0f, 180, 0, 255, 150);
 
 	drawStar(-40, -55);
 

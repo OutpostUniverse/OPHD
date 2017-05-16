@@ -11,7 +11,7 @@ std::map<Structure::StructureState, std::string> StateTranslationTable;
 
 
 
-StructureInspector::StructureInspector(Font& font) :	mBold("fonts/ui-bold.png", 7, 9, 0),
+StructureInspector::StructureInspector(Font& font) :	mBold("fonts/opensans-bold.ttf", 10),
 														mIcons("ui/icons.png"),
 														mStructure(nullptr)
 {

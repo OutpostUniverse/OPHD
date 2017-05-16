@@ -9,7 +9,7 @@ std::map<int, std::string> TileIndexTranslation;
 std::map<Mine::ProductionRate, std::string> MineProductionTranslation;
 
 
-TileInspector::TileInspector(Font& font):	mBold("fonts/ui-bold.png", 7, 9, 0),
+TileInspector::TileInspector(Font& font):	mBold("fonts/opensans-bold.ttf", 10),
 											mTile(nullptr)
 {
 	Control::font(font);

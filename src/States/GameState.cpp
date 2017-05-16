@@ -45,9 +45,9 @@ std::map <int, std::string>	LEVEL_STRING_TABLE;
 /**
  * C'Tor
  */
-GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoiceNotifier::AiGender _g) :	mFont("fonts/mig6800_8x16.png", 8, 16, 0),
-																											mTinyFont("fonts/ui-normal.png", 7, 9, -1),
-																											mTinyFontBold("fonts/ui-bold.png", 7, 9, 0),
+GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoiceNotifier::AiGender _g) :	mFont("fonts/opensans-bold.ttf", 14),
+																											mTinyFont("fonts/opensans.ttf", 10),
+																											mTinyFontBold("fonts/opensans-bold.ttf", 10),
 																											mTileMap(new TileMap(_m, _t, _d, _mc)),
 																											mBackground("sys/bg1.png"),
 																											mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
