@@ -105,10 +105,13 @@ int main(int argc, char *argv[])
 
 		StateManager stateManager;
 
+		/*
 		if(cf.option("skip-splash") == "false")
 			stateManager.setState(new SplashState());
-		else
+		else*/
 			stateManager.setState(new PlanetSelectState());
+		
+
 
 		// Game Loop
 		while (stateManager.update())

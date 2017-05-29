@@ -87,7 +87,7 @@ void Window::update()
 
 	r.drawImageRect(rect().x(), rect().y() + 20, rect().width(), rect().height() - 20, mBody);
 	
-	r.drawText(mBold, text(), rect().x() + 5, rect().y() + 5, 255, 255, 255);
+	r.drawText(mBold, text(), rect().x() + 5, rect().y() + 2, 255, 255, 255);
 
 	UIContainer::update();
 }
