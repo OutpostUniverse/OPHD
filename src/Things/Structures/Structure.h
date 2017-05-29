@@ -101,6 +101,13 @@ public:
 
 	// FIXME: Not terribly thrilled with these being accessible.
 	void id(int _id) { mId = _id; }
+
+	/**
+	 * Set the current age of the Structure.
+	 * 
+	 * \note	Available to reset current age to simulate repairs to extend
+	 *			the life of the Structure and for loading games.
+	 */
 	void age(int _age) { mAge = _age; }
 	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
 
@@ -111,13 +118,6 @@ protected:
 	void turnsToBuild(int _t) { mTurnsToBuild = _t; }
 	void maxAge(int _age) { mMaxAge = _age; }
 	
-	/**
-	 * Set the current age of the Structure.
-	 * 
-	 * \note	Available to reset current age to simulate repairs to extend
-	 *			the life of the Structure and for loading games.
-	 */
-
 	void repairable(bool _r) { mRepairable = _r; }
 
 	virtual void defineResourceInput() {}

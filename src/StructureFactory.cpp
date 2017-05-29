@@ -1,6 +1,6 @@
 #include "StructureFactory.h"
 
-StructureFactory::StructureCostTable StructureFactory::mStructureCostTable;
+vector<ResourcePool> StructureFactory::mStructureCostTable;
 
 Structure* StructureFactory::get(StructureID type)
 {
@@ -124,6 +124,8 @@ const ResourcePool& StructureFactory::costToBuild(StructureID type)
 
 void StructureFactory::buildCostTable()
 {
+	mStructureCostTable.resize(SID_COUNT);
+
 	mStructureCostTable[SID_AGRIDOME] = ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
 	mStructureCostTable[SID_AIR_SHAFT] = ResourcePool();
 	mStructureCostTable[SID_CHAP] = ResourcePool(0, 0, 0, 0, 50, 10, 20, 5, 0, 0);

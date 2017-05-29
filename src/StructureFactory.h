@@ -18,11 +18,6 @@ public:
 protected:
 
 private:
-
-	typedef std::map<StructureID, ResourcePool> StructureCostTable;
-
-private:
-
 	// Explicitly declared private to prevent instantiation.
 	StructureFactory() {}
 	~StructureFactory() {}
@@ -30,6 +25,5 @@ private:
 	static void buildCostTable();
 
 private:
-
-	static StructureCostTable	mStructureCostTable;
+	static vector<ResourcePool> mStructureCostTable;
 };
