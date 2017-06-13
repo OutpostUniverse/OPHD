@@ -415,29 +415,24 @@ void GameState::drawNavInfo()
 		r.drawSubImage(mUiIcons, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 144, 32, 16);
 
 
-	string sLevels;
+	// display the levels "bar"
+	int iWidth;
 	string sLevel;
-
-	// Construct level string (except for current level)
-	sLevels = "";
-	for (int i = 0; i <= mTileMap->maxDepth(); i++)
+	int iPosX;
+	int iPosY;
+	iWidth = mTinyFontBold.width("IX");								// set steps character patern width
+	iPosX = r.width() - 5;											// set start position from right border
+	iPosY = mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10;	// set vertical position
+	for (int i = mTileMap->maxDepth(); i >= 0; i--)					// 
 	{
-		sLevel = string_format("%i", i);
-		if (i == 0) sLevel = "S";
-		if (i == mTileMap->currentDepth()) sLevel = " ";
-		sLevels += " " + sLevel;
+		sLevel = string_format("%i", i);	// Set string for current level
+		if (i == 0) sLevel = "S";			// surface level
+		if (i == mTileMap->currentDepth())
+			r.drawText(mTinyFontBold, sLevel, iPosX - mTinyFontBold.width(sLevel) , iPosY, 200, 200, 200);	// current one in red
+		else
+			r.drawText(mTinyFontBold, sLevel, iPosX - mTinyFontBold.width(sLevel) , iPosY, 255, 0, 0);		// Others in white
+		iPosX = iPosX - iWidth;				// Shift position by one step left
 	}
-	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5, mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 200, 200, 200);
-	// Construct current level string 
-	sLevels = "";
-	for (int i = 0; i <= mTileMap->maxDepth(); i++)
-	{
-		sLevel = string_format("%i", i);
-		if (i == 0) sLevel = "S";
-		if (i != mTileMap->currentDepth()) sLevel = " ";
-		sLevels += " " + sLevel;
-	}
-	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5, mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 255, 0, 0);
 }
 
 
