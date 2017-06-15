@@ -1,5 +1,6 @@
 #include "WindowStack.h"
 
+#include <algorithm>
 #include <iostream>
 
 WindowStack::WindowStack()
@@ -12,7 +13,7 @@ WindowStack::~WindowStack()
 
 /**
  * Adds a Window to be handled by the WindowStack.
- * 
+ *
  * \note	Pointer is not owned by WindowStack, it is up to the caller to properly handle memory.
  */
 void WindowStack::addWindow(Window* _w)
@@ -29,7 +30,7 @@ void WindowStack::addWindow(Window* _w)
 
 /**
  * Removes a Window from the WindowStack.
- * 
+ *
  * \note Pointer is not owned by WindowStack, it is up to the caller to properly handle memory.
  */
 void WindowStack::removeWindow(Window* _w)
@@ -57,7 +58,7 @@ bool WindowStack::pointInWindow(int x, int y) const
 
 
 /**
- * 
+ *
  */
 void WindowStack::updateStack(int x, int y)
 {
@@ -68,7 +69,7 @@ void WindowStack::updateStack(int x, int y)
 		{
 			if (it == mWindowList.begin())
 				return;
-			
+
 			bringToFront(w);
 			return;
 		}

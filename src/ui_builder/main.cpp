@@ -135,8 +135,8 @@ void addControl(Control* c, const std::string& name)
 {
 	WINDOW->addControl(name, c, 5, 25);
 	CONTROL_LIST.push_back(c);
-	CONTROL_LIST.back()->resized().Connect(&controlResized);
-	CONTROL_LIST.back()->moved().Connect(&updateHandles);
+	CONTROL_LIST.back()->resized().connect(&controlResized);
+	CONTROL_LIST.back()->moved().connect(&updateHandles);
 
 	CONTROL_NAME_TABLE[c] = name;
 }
@@ -165,45 +165,45 @@ void setSelectedControl(Control* c)
 }
 
 
-void onKeyDown(KeyCode key, KeyModifier mod, bool repeat)
+void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
 	int modifier = 1;
-	if (mod == KEY_MOD_LSHIFT || mod == KEY_MOD_RSHIFT)
+	if (mod == EventHandler::KEY_MOD_LSHIFT || mod == EventHandler::KEY_MOD_RSHIFT)
 		modifier = 5;
 
 	switch (key)
 	{
-	case KEY_ESCAPE:
+	case EventHandler::KEY_ESCAPE:
 		postQuitEvent();
 		break;
-	case KEY_DELETE:
-	case KEY_BACKSPACE:
+	case EventHandler::KEY_DELETE:
+	case EventHandler::KEY_BACKSPACE:
 		if (UI_CONTROL_EDIT)
 		{
 			if(!TXT_CONTROL_TEXT->hasFocus())
 				deleteControl(UI_CONTROL_EDIT);
 		}
 		break;
-	case KEY_LEFT:
-	case KEY_KP4:
+	case EventHandler::KEY_LEFT:
+	case EventHandler::KEY_KP4:
 		if (UI_CONTROL_EDIT)
 			if (!TXT_CONTROL_TEXT->hasFocus())
 				UI_CONTROL_EDIT->position(UI_CONTROL_EDIT->positionX() - modifier, UI_CONTROL_EDIT->positionY());
 		break;
-	case KEY_RIGHT:
-	case KEY_KP6:
+	case EventHandler::KEY_RIGHT:
+	case EventHandler::KEY_KP6:
 		if (UI_CONTROL_EDIT)
 			if (!TXT_CONTROL_TEXT->hasFocus())
 				UI_CONTROL_EDIT->position(UI_CONTROL_EDIT->positionX() + modifier, UI_CONTROL_EDIT->positionY());
 		break;
-	case KEY_UP:
-	case KEY_KP8:
+	case EventHandler::KEY_UP:
+	case EventHandler::KEY_KP8:
 		if (UI_CONTROL_EDIT)
 			if (!TXT_CONTROL_TEXT->hasFocus())
 				UI_CONTROL_EDIT->position(UI_CONTROL_EDIT->positionX(), UI_CONTROL_EDIT->positionY() - modifier);
 		break;
-	case KEY_DOWN:
-	case KEY_2:
+	case EventHandler::KEY_DOWN:
+	case EventHandler::KEY_2:
 		if (UI_CONTROL_EDIT)
 			if (!TXT_CONTROL_TEXT->hasFocus())
 				UI_CONTROL_EDIT->position(UI_CONTROL_EDIT->positionX(), UI_CONTROL_EDIT->positionY() + modifier);
@@ -231,9 +231,9 @@ void onMouseMotion(int x, int y, int relX, int relY)
 }
 
 
-void onMouseDown(MouseButton button, int x, int y)
+void onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (button == BUTTON_LEFT)
+	if (button == EventHandler::BUTTON_LEFT)
 	{
 
 		MOUSE_LEFT_DOWN = true;
@@ -246,7 +246,7 @@ void onMouseDown(MouseButton button, int x, int y)
 			HANDLE = getHandle();
 			return;
 		}
-	
+
 		auto it = CONTROL_LIST.rbegin();
 		for (;;)
 		{
@@ -271,9 +271,9 @@ void onMouseDown(MouseButton button, int x, int y)
 }
 
 
-void onMouseUp(MouseButton button, int x, int y)
+void onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
-	if (button == BUTTON_LEFT)
+	if (button == EventHandler::BUTTON_LEFT)
 	{
 		MOUSE_LEFT_DOWN = false;
 		HANDLE = RESIZE_NONE;
@@ -290,12 +290,12 @@ void onQuit()
 void initEventHandlers()
 {
 	cout << "Initializing event handlers... ";
-	
-	Utility<EventHandler>::get().keyDown().Connect(&onKeyDown);
-	Utility<EventHandler>::get().mouseButtonDown().Connect(&onMouseDown);
-	Utility<EventHandler>::get().mouseButtonUp().Connect(&onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().Connect(&onMouseMotion);
-	Utility<EventHandler>::get().quit().Connect(&onQuit);
+
+	Utility<EventHandler>::get().keyDown().connect(&onKeyDown);
+	Utility<EventHandler>::get().mouseButtonDown().connect(&onMouseDown);
+	Utility<EventHandler>::get().mouseButtonUp().connect(&onMouseUp);
+	Utility<EventHandler>::get().mouseMotion().connect(&onMouseMotion);
+	Utility<EventHandler>::get().quit().connect(&onQuit);
 
 	cout << "done." << endl;
 }
@@ -337,7 +337,7 @@ void addControlClicked()
 		btn->font(*TINY_FONT);
 		btn->text("Button");
 		btn->size(50, 20);
-		
+
 		addControl(btn, string_format("Button_%i", ++UI_CONTROL_COUNTER));
 	}
 	else if(CONTROLS_MENU->selectionText() == "TextArea")
@@ -367,12 +367,12 @@ void initUi()
 
 	WINDOW = new Window();
 	WINDOW->size(250, 150);
-	WINDOW->position(R->screenCenterX() - 125, R->screenCenterY() - 75);
+	WINDOW->position(R->center_x() - 125, R->center_y() - 75);
 	WINDOW->font(*TINY_FONT);
 	WINDOW->text("Window Title");
 	WINDOW->show();
-	WINDOW->moved().Connect(&updateHandles);
-	WINDOW->resized().Connect(&controlResized);
+	WINDOW->moved().connect(&updateHandles);
+	WINDOW->resized().connect(&controlResized);
 	WINDOW->anchored(true);
 
 	CONTROL_LIST.push_back(WINDOW);
@@ -394,13 +394,13 @@ void initUi()
 	BTN_ADD_CONTROL->text("Add Control");
 	BTN_ADD_CONTROL->size(100, 17);
 	BTN_ADD_CONTROL->position(CONTROLS_MENU->positionX(), CONTROLS_MENU->positionY() + CONTROLS_MENU->height() + 11);
-	BTN_ADD_CONTROL->click().Connect(&addControlClicked);
+	BTN_ADD_CONTROL->click().connect(&addControlClicked);
 
 	TXT_CONTROL_TEXT = new TextField();
 	TXT_CONTROL_TEXT->font(*TINY_FONT);
 	TXT_CONTROL_TEXT->size(100, 17);
 	TXT_CONTROL_TEXT->position(BTN_ADD_CONTROL->positionX(), BTN_ADD_CONTROL->positionY() + BTN_ADD_CONTROL->height() + 15);
-	TXT_CONTROL_TEXT->textChanged().Connect(&controlTextChanged);
+	TXT_CONTROL_TEXT->textChanged().connect(&controlTextChanged);
 	TXT_CONTROL_TEXT->border(TextField::ALWAYS);
 	TXT_CONTROL_TEXT->hasFocus(false);
 
@@ -450,9 +450,9 @@ int main(int argc, char *argv[])
 		}
 
 	}
-	catch (Exception& e)
+	catch (std::exception e)
 	{
-		cout << "EXCEPTION (" << e.getBriefDescription() << "): " << e.getDescription() << endl;
+		cout << "EXCEPTION: " << e.what() << endl;
 	}
 
 	delete MOUSE_POINTER;

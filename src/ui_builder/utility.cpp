@@ -20,20 +20,20 @@ void createRenderer()
 	{
 		Utility<Renderer>::instantiateDerived(new OGL_Renderer("UI Builder"));
 	}
-	catch (Exception e)
+	catch (std::exception e)
 	{
-		throw Exception(0, "OpenGL Renderer", "Unable to create a Renderer:\n\n" + e.getDescription());
+		throw;
 	}
 	catch (...)
 	{
-		throw Exception(0, "OpenGL Renderer", "Unhandled exception occured while creating a Renderer.");
+		throw std::runtime_error("Unhandled exception occured while creating a Renderer.");
 	}
 }
 
 
 void initNas2d(const std::string& argv_0, const std::string& startPath, const std::string& config_path)
 {
-	cout << "Starting NAS2D:" << endl << "==============================" << endl << endl;
+	std::cout << "Starting NAS2D:" << std::endl << "==============================" << std::endl << std::endl;
 
 	Utility<Filesystem>::get().init(argv_0, startPath);
 
@@ -45,7 +45,7 @@ void initNas2d(const std::string& argv_0, const std::string& startPath, const st
 	createMixer();
 	createRenderer();
 
-	cout << endl << "==============================" << endl << endl;
+	std::cout << std::endl << "==============================" << std::endl << std::endl;
 }
 
 

@@ -122,7 +122,7 @@ void GameState::initialize()
 	initUi();
 
 	MENU_ICON(Utility<Renderer>::get().width() - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
-	
+
 	// NAVIGATION BUTTONS
 	// Bottom line
 	MOVE_DOWN_ICON(Utility<Renderer>::get().width() - constants::MARGIN - 32, Utility<Renderer>::get().height() - constants::BOTTOM_UI_HEIGHT - 65, 32, 32);
@@ -321,7 +321,7 @@ void GameState::drawResourceInfo()
 	// Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), mStructureManager.totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
-	
+
 	// Population / Morale
 	if(mCurrentMorale > mPreviousMorale)
 		r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 16, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
@@ -359,7 +359,7 @@ void GameState::drawRobotInfo()
 	int margin = constants::RESOURCE_ICON_SIZE + constants::MARGIN;
 
 	// Robots
-	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border) 
+	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
 	y = (int)r.height() - constants::BOTTOM_UI_HEIGHT - 25 - 8;
 	textY = y + 10;	// Same position + 10 to center the text with the graphics
 	margin = 28;	// Margin of 28 px from the graphics to the text
@@ -433,13 +433,25 @@ void GameState::drawNavInfo()
 			r.drawText(mTinyFontBold, sLevel, iPosX - mTinyFontBold.width(sLevel) , iPosY, 255, 0, 0);		// Others in white
 		iPosX = iPosX - iWidth;				// Shift position by one step left
 	}
+	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5, mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 200, 200, 200);
+	// Construct current level string
+	sLevels = "";
+	for (int i = 0; i <= mTileMap->maxDepth(); i++)
+	{
+		sLevel = string_format("%i", i);
+		if (i == 0) sLevel = "S";
+		if (i != mTileMap->currentDepth()) sLevel = " ";
+		sLevels += " " + sLevel;
+	}
+	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5, mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 255, 0, 0);
+}
 }
 
 
 void GameState::drawDebug()
 {
 	Renderer& r = Utility<Renderer>::get();
-	
+
 	r.drawText(mFont, string_format("FPS: %i", mFps.fps()), 10, 25, 255, 255, 255);
 	r.drawText(mFont, string_format("Map Dimensions: %i, %i", mTileMap->width(), mTileMap->height()), 10, 25 + mFont.height(), 255, 255, 255);
 	r.drawText(mFont, string_format("Max Digging Depth: %i", mTileMap->maxDepth()), 10, 25 + mFont.height() * 2, 255, 255, 255);
@@ -795,7 +807,7 @@ void GameState::placeTubes()
 	// Check the basics.
 	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated())
 		return;
-	
+
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 	if (validTubeConnection(x, y, cd))
 	{
@@ -855,7 +867,8 @@ void GameState::placeRobot()
 				return;
 			}
 
-			mPlayerResources.pushResources(StructureFactory::recyclingValue(StructureTranslator::translateFromString(_s->name())));
+			ResourcePool resPool = StructureFactory::recyclingValue(StructureTranslator::translateFromString(_s->name()));
+			mPlayerResources.pushResources(resPool);
 
 			tile->connected(false);
 			mStructureManager.removeStructure(_s);
@@ -905,7 +918,7 @@ void GameState::placeRobot()
 		// Die if tile is occupied or not excavated.
 		if (!tile->empty())
 		{
-			
+
 			if (tile->depth() > constants::DEPTH_SURFACE)
 			{
 				if (tile->thingIsStructure() && tile->structure()->connectorDirection() != CONNECTOR_VERTICAL) //air shaft
@@ -925,7 +938,7 @@ void GameState::placeRobot()
 				return;
 			}
 		}
-		
+
 		if (!tile->thing() && mTileMap->currentDepth() > 0)
 			mDiggerDirection.cardinalOnlyEnabled();
 		else
@@ -975,7 +988,7 @@ void GameState::placeRobot()
 }
 
 
-/** 
+/**
  * Checks the robot selection interface and if the robot is not available in it, adds
  * it back in and reeneables the robots button if it's not enabled.
  */
@@ -1012,7 +1025,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 	// FIXME: Fugly cast.
 	Direction dir = static_cast<Robodigger*>(_r)->direction();
 
-	// 
+	//
 	int originX = 0, originY = 0, depthAdjust = 0;
 
 	if(dir == DIR_DOWN)
@@ -1286,7 +1299,7 @@ void GameState::deployColonistLander()
 
 /**
  * Sets up the initial colony deployment.
- * 
+ *
  * \note	The deploy callback only gets called once so there is really no
  *			need to disconnect the callback since it will automatically be
  *			released when the seed lander is destroyed.
@@ -1294,7 +1307,7 @@ void GameState::deployColonistLander()
 void GameState::deploySeedLander(int x, int y)
 {
 	mTileMap->getTile(x, y)->index(TERRAIN_DOZED);
-	
+
 	// TOP ROW
 	mStructureManager.addStructure(new SeedPower(), mTileMap->getTile(x - 1, y - 1));
 	mTileMap->getTile(x - 1, y - 1)->index(TERRAIN_DOZED);
@@ -1370,7 +1383,7 @@ void GameState::updateRobots()
 			// Make sure that we're the robot from a Tile and not something else
 			if(robot_it->second->thing() == robot_it->first)
 				robot_it->second->removeThing();
-	
+
 			robot_it = mRobotList.erase(robot_it);
 		}
 		else
@@ -1498,7 +1511,7 @@ void GameState::load(const std::string& _path)
 		cout << "Savegame version mismatch: '" << _path << "'. Expected " << constants::SAVE_GAME_VERSION << ", found " << sg_version << "." << endl;
 		return;
 	}
-	
+
 	// remove all robots currently deployed
 	scrubRobotList();
 	mPlayerResources.clear();
@@ -1544,7 +1557,7 @@ void GameState::load(const std::string& _path)
 
 	checkConnectedness();
 	mStructureManager.updateEnergyProduction(mPlayerResources);
-	
+
 	// set level indicator string
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
 }
@@ -1659,7 +1672,7 @@ void GameState::readStructures(XmlElement* _ti)
 
 		StructureID type_id = StructureTranslator::translateFromString(type);
 		st = StructureFactory::get(StructureTranslator::translateFromString(type));
-				
+
 		if (type_id == SID_COMMAND_CENTER)
 			mCCLocation(x, y);
 

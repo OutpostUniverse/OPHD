@@ -65,7 +65,6 @@ public:
 
 	bool underConstruction() const { return mStructureState == UNDER_CONSTRUCTION; }
 
-
 	// RESOURCES AND RESOURCE MANAGEMENT
 	ResourcePool& resourcesIn() { return mResourcesInput; }
 	ResourcePool& resourcesOut() { return mResourcesOutput; }

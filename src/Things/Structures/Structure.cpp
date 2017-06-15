@@ -7,7 +7,7 @@ using namespace std;
  * C'tor
  */
 Structure::Structure(const string& name, const string& sprite_path, StructureType _t):	Thing(name, sprite_path),
-																						mId((int)this), // naive
+																						mId((long)(this)), // naive
 																						mTurnsToBuild(0),
 																						mAge(0),
 																						mMaxAge(0),
@@ -69,7 +69,7 @@ bool Structure::enoughResourcesAvailable(ResourcePool& r)
 
 /**
  * Called when a building is finished being built.
- * 
+ *
  * Sets the animation state of the Structure to Operational,
  * sets the building state to Opeational and sets resource
  * requirements.
@@ -88,7 +88,7 @@ void Structure::update()
 {
 	if (disabled() || destroyed())
 		return;
-	
+
 	incrementAge();
 }
 
@@ -153,14 +153,14 @@ void Structure::forced_state_change(StructureState _s)
 
 /**
  * Special overidding of Thing::die for Structure.
- * 
+ *
  * There is no conceivable situation in which a Structure should be marked as 'dead' or have its
  * 'die' function be called. Such cases should be treated as bad logic and immediately and very
  * loudly fail.
- * 
+ *
  * This function exists purely for debug purposes as it was noticed in StructureManager testing
  * for this flag when there should never be a need to do so.
- * 
+ *
  * \note	This is for debug purposes only. Release modes will silently ignore this condition
  *			and simply act as a passthrough.
  */

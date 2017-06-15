@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 		Utility<EventHandler>::get();
 
 		Configuration& cf = Utility<Configuration>::get();
-		
+
 		// If no config file, set defaults.
 		if (!f.exists("config.xml"))
 		{
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 			cf.graphicsHeight(dm.h);
 			cf.fullscreen(true);
 		}
-					
+
 		cf.load("config.xml");
 
 		if (cf.option("skip-splash").empty())
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 		f.addToSearchPath("structures.dat");
 		f.addToSearchPath("sys.dat");
 		f.addToSearchPath("ui.dat");
-		
+
 		if (!f.exists(constants::SAVE_GAME_PATH))
 			f.makeDirectory(constants::SAVE_GAME_PATH);
 
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 			stateManager.setState(new SplashState());
 		else*/
 			stateManager.setState(new PlanetSelectState());
-		
+
 
 
 		// Game Loop

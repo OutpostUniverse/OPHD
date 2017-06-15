@@ -2,6 +2,7 @@
 
 #include "NAS2D/NAS2D.h"
 
+#include <iostream>
 #include <string>
 
 #include "../UI/UI.h"

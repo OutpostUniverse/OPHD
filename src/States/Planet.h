@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include <NAS2D\NAS2D.h>
+#include <NAS2D/NAS2D.h>
 
 #include "../Constants.h"
 
@@ -135,13 +135,13 @@ private:
 
 
 	int					mTick;
-	
+
 	int					mMaxMines;
 	int					mMaxDigDepth;
 
 	NAS2D::Image		mImage;
 	NAS2D::Point_2d		mPosition;
-	
+
 	PlanetType			mType;
 
 	MouseCallback		mMouseEnterCallback;

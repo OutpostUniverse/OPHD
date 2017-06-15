@@ -35,10 +35,10 @@ void controlTextChanged(Control* c);
 bool mouseInHandles();
 void setSelectedControl(Control* c);
 
-void onKeyDown(KeyCode key, KeyModifier mod, bool repeat);
+void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
 void onMouseMotion(int x, int y, int relX, int relY);
-void onMouseDown(MouseButton button, int x, int y);
-void onMouseUp(MouseButton button, int x, int y);
+void onMouseDown(EventHandler::MouseButton button, int x, int y);
+void onMouseUp(EventHandler::MouseButton button, int x, int y);
 void onQuit();
 
 void initUi();

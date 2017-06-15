@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "Factory.h"
 
 typedef std::map<Factory::ProductionType, ProductionCost> ProductionTypeTable;
@@ -8,7 +10,7 @@ ProductionTypeTable		PRODUCTION_TYPE_TABLE;
 /**
  * Utility function that fills out a table with production information for each product
  * that factories can produce.
- * 
+ *
  * \note	This function defines parameters for -all- products that any factory can
  *			produce. It is up to the individual factory to determine what they are
  *			allowed to build.

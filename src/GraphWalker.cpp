@@ -11,7 +11,7 @@ bool validConnection(Structure* src, Structure* dst, Direction _d)
 		#ifdef DEBUG
 		throw Exception(0, "GraphWalker NULL Pointer", "GraphWalker::validConnection() was passed a NULL Pointer.");
 		#endif
-		
+
 		// in release mode silently ignore this call.
 		return false;
 	}
@@ -19,7 +19,7 @@ bool validConnection(Structure* src, Structure* dst, Direction _d)
 	{
 		if (src->isConnector() && src->connectorDirection() == CONNECTOR_VERTICAL)
 			return true;
-		
+
 		return false;
 	}
 	else if (dst->isConnector())
@@ -38,7 +38,7 @@ bool validConnection(Structure* src, Structure* dst, Direction _d)
 			if (dst->connectorDirection() == CONNECTOR_LEFT)
 				return true;
 		}
-		
+
 		return false;
 	}
 	else if(src->isConnector())
@@ -57,7 +57,7 @@ bool validConnection(Structure* src, Structure* dst, Direction _d)
 			if (src->connectorDirection() == CONNECTOR_LEFT)
 				return true;
 		}
-		
+
 		return false;
 	}
 
@@ -65,7 +65,7 @@ bool validConnection(Structure* src, Structure* dst, Direction _d)
 }
 
 
-GraphWalker::GraphWalker(Point_2d& _p, int _d, TileMap* _t) :	_tileMap(_t),
+GraphWalker::GraphWalker(const Point_2d& _p, int _d, TileMap* _t) :	_tileMap(_t),
 																_thisTile(_t->getTile(_p.x(), _p.y(), _d)),
 																_gridPosition(_p),
 																_depth(_d)
@@ -98,7 +98,7 @@ void GraphWalker::walkGraph()
 
 /**
  * Checks a given map location for a valid connection.
- * 
+ *
  * \todo	With Tile being updated to include position information, this function can be modified
  *			to take a source and destination tile instead of looking them up. By using the internal
  * 			positional information in the Tiles we can deduce direction between source and destination.
