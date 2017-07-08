@@ -428,23 +428,11 @@ void GameState::drawNavInfo()
 		sLevel = string_format("%i", i);	// Set string for current level
 		if (i == 0) sLevel = "S";			// surface level
 		if (i == mTileMap->currentDepth())
-			r.drawText(mTinyFontBold, sLevel, iPosX - mTinyFontBold.width(sLevel) , iPosY, 200, 200, 200);	// current one in red
+			r.drawText(mTinyFontBold, sLevel, iPosX - mTinyFontBold.width(sLevel), iPosY, 255, 0, 0);		// Others in white
 		else
-			r.drawText(mTinyFontBold, sLevel, iPosX - mTinyFontBold.width(sLevel) , iPosY, 255, 0, 0);		// Others in white
+			r.drawText(mTinyFontBold, sLevel, iPosX - mTinyFontBold.width(sLevel), iPosY, 200, 200, 200);	// current one in red
 		iPosX = iPosX - iWidth;				// Shift position by one step left
 	}
-	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5, mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 200, 200, 200);
-	// Construct current level string
-	sLevels = "";
-	for (int i = 0; i <= mTileMap->maxDepth(); i++)
-	{
-		sLevel = string_format("%i", i);
-		if (i == 0) sLevel = "S";
-		if (i != mTileMap->currentDepth()) sLevel = " ";
-		sLevels += " " + sLevel;
-	}
-	r.drawText(mTinyFontBold, sLevels, r.width() - mTinyFontBold.width(sLevels) - 5, mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10, 255, 0, 0);
-}
 }
 
 
@@ -535,6 +523,27 @@ void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 		case EventHandler::KEY_4:
 			viewUpdated = true;
 			changeDepth(4);
+			break;
+
+		case EventHandler::KEY_PAGEUP:
+			viewUpdated = true;
+			changeDepth(mTileMap->currentDepth() - 1);
+			break;
+
+		case EventHandler::KEY_PAGEDOWN:
+			viewUpdated = true;
+			changeDepth(mTileMap->currentDepth() + 1);
+			break;
+
+
+		case EventHandler::KEY_FIRST:
+			viewUpdated = true;
+			changeDepth(0);
+			break;
+
+		case EventHandler::KEY_END:
+			viewUpdated = true;
+			changeDepth(mTileMap->maxDepth());
 			break;
 
 		case EventHandler::KEY_F10:
