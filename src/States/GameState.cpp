@@ -536,7 +536,7 @@ void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 			break;
 
 
-		case EventHandler::KEY_FIRST:
+		case EventHandler::KEY_HOME:
 			viewUpdated = true;
 			changeDepth(0);
 			break;
