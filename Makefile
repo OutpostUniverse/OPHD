@@ -4,7 +4,7 @@ DIR_OBJ		=	./obj
 DIR_BIN		=	./bin
 EXCLUDE		=	ui_builder/
 
-CFLAGS		=	-g -Wall -I./API/NAS2D/include `sdl-config --cflags`
+CFLAGS		=	--std=c++11 -g -Wall -I./API/NAS2D/include `sdl-config --cflags`
 LDFLAGS		=	-lstdc++ -lm -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lphysfs -lGLU -lGL -lGLEW -L./API/NAS2D/lib/ -lnas2d
 
 SRC			=	$(filter-out ./src/ui_builder/%.cpp,$(shell find ${DIR_SRC} -name "*.cpp"))
