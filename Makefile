@@ -21,7 +21,7 @@ ${TARGET}: ${OBJ} ./API/NAS2D/lib/libnas2d.a
 ${DIR_OBJ}/%.o: ${DIR_SRC}/%.cpp ${INC_H}# ${INC_CPP}
 	@mkdir -p ${@D}
 	@dirs=$(dir $<); \
-	if [ "$${dirs#*ui_builder/}" == "$$dirs" ]; \
+	if [ "$${dirs#*ui_builder/}" = "$$dirs" ]; \
 		then ${CXX} -c $< ${CFLAGS} -o $@; \
 	fi
 
