@@ -112,7 +112,7 @@ State* SplashState::update()
 		r.drawImage(mLogoOutpostHd, r.center_x() - ((mLogoOutpostHd.width() + 250 * LOGO_SCALE)) / 2, r.center_y() - mLogoOutpostHd.height() / 2, LOGO_SCALE);
 
 
-	r.drawImage(mMousePointer, mMousePosition.x(), mMousePosition.y());
+	r.drawImage(mMousePointer, static_cast<float>(mMousePosition.x()), static_cast<float>(mMousePosition.y()));
 
 	if (r.isFading())
 		return this;
