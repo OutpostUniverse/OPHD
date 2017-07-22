@@ -73,9 +73,6 @@ protected:
 	State* update();
 
 private:
-	typedef vector<Pointer> PointerList;
-
-private:
 	void onActivate(bool _b);
 
 	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
