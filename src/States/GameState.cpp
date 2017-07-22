@@ -875,6 +875,12 @@ void GameState::placeRobot()
 				cout << "Can't bulldoze a Command Center!" << endl;
 				return;
 			}
+			if (_s->name() == constants::COLONIST_LANDER && _s->age() == 0)
+			{
+				mAiVoiceNotifier.notify(AiVoiceNotifier::CC_NO_BULLDOZE); ///\fixme Change this to an invalid dozer warning.
+				cout << "Can't place a bulldozer on a landing site!" << endl;
+				return;
+			}
 
 			ResourcePool resPool = StructureFactory::recyclingValue(StructureTranslator::translateFromString(_s->name()));
 			mPlayerResources.pushResources(resPool);
