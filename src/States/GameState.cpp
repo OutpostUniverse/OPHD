@@ -55,7 +55,6 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 																											mUiIcons("ui/icons.png"),
 																											mAiVoiceNotifier(_g),
 																											//mBgMusic("music/track_01.ogg"),
-																											mCurrentPointer(POINTER_NORMAL),
 																											mCurrentStructure(SID_NONE),
 																											mDiggerDirection(mTinyFont),
 																											mFactoryProduction(mTinyFont),
@@ -120,12 +119,13 @@ void GameState::initialize()
 
 	// UI
 	initUi();
+	Renderer& r = Utility<Renderer>::get();
 
-	MENU_ICON(Utility<Renderer>::get().width() - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
+	MENU_ICON(r.width() - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
 
 	// NAVIGATION BUTTONS
 	// Bottom line
-	MOVE_DOWN_ICON(Utility<Renderer>::get().width() - constants::MARGIN - 32, Utility<Renderer>::get().height() - constants::BOTTOM_UI_HEIGHT - 65, 32, 32);
+	MOVE_DOWN_ICON(r.width() - constants::MARGIN - 32, r.height() - constants::BOTTOM_UI_HEIGHT - 65, 32, 32);
 	MOVE_EAST_ICON(MOVE_DOWN_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
 	MOVE_SOUTH_ICON(MOVE_DOWN_ICON.x() - 2*(32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
 
@@ -135,9 +135,10 @@ void GameState::initialize()
 	MOVE_WEST_ICON(MOVE_UP_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
 
 	// POINTERS
-	mPointers.push_back(Pointer("ui/pointers/normal.png", 0, 0));
-	mPointers.push_back(Pointer("ui/pointers/place_tile.png", 16, 16));
-	mPointers.push_back(Pointer("ui/pointers/inspect.png", 8, 8));
+	r.addCursor("ui/pointers/normal.png", POINTER_NORMAL, 0, 0);
+	r.addCursor("ui/pointers/place_tile.png", POINTER_PLACE_TILE, 16, 16);
+	r.addCursor("ui/pointers/inspect.png", POINTER_INSPECT, 8, 8);
+	r.setCursor(POINTER_NORMAL);
 
 	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
 
@@ -155,7 +156,7 @@ void GameState::initialize()
 	e.textInputMode(true);
 
 	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
-	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
+	r.fadeIn(constants::FADE_SPEED);
 }
 
 
@@ -173,7 +174,6 @@ State* GameState::update()
 	{
 		r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 255);
 		mGameOverDialog.update();
-		mPointers[POINTER_NORMAL].draw(mMousePosition.x(), mMousePosition.y());
 
 		if (r.isFading())
 			return this;
@@ -774,7 +774,7 @@ void GameState::setMinimapView()
 void GameState::clearMode()
 {
 	mInsertMode = INSERT_NONE;
-	mCurrentPointer = POINTER_NORMAL;
+	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
 
 	mCurrentStructure = SID_NONE;
 	mCurrentRobot = ROBOT_NONE;
@@ -1416,7 +1416,8 @@ void GameState::setStructureID(StructureID type, InsertMode mode)
 	mCurrentStructure = type;
 
 	mInsertMode = mode;
-	mCurrentPointer = POINTER_PLACE_TILE;
+	Utility<Renderer>::get().setCursor(POINTER_PLACE_TILE);
+
 }
 
 

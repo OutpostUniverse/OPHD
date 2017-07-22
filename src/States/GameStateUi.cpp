@@ -267,9 +267,6 @@ void GameState::drawUI()
 	mFileIoDialog.update();
 	mGameOptionsDialog.update();
 	mWindowStack.update();
-
-	// Always draw last
-	mPointers[mCurrentPointer].draw(mMousePosition.x(), mMousePosition.y());
 }
 
 
@@ -329,7 +326,7 @@ void GameState::robotsSelectionChanged(const std::string& _s)
 	}
 
 	mInsertMode = INSERT_ROBOT;
-	mCurrentPointer = POINTER_PLACE_TILE;
+	Utility<Renderer>::get().setCursor(POINTER_PLACE_TILE);
 }
 
 

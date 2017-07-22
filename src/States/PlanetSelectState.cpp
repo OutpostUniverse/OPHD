@@ -47,6 +47,9 @@ void PlanetSelectState::initialize()
 	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 
 	Renderer& r = Utility<Renderer>::get();
+	r.addCursor(mMousePointer, POINTER_NORMAL, 0, 0);
+	r.setCursor(POINTER_NORMAL);
+
 	mPlanets.push_back(new Planet(PLANET_TYPE_MERCURY));
 	mPlanets.push_back(new Planet(PLANET_TYPE_MARS));
 	mPlanets.push_back(new Planet(PLANET_TYPE_GANYMEDE));
@@ -136,8 +139,6 @@ State* PlanetSelectState::update()
 	mPlanetDescription.update();
 
 	r.drawText(mTinyFont, "v0.7.0", r.width() - mTinyFont.width("v0.7.0") - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
-
-	r.drawImage(mMousePointer, mMousePosition.x(), mMousePosition.y());
 
 	if (r.isFading())
 		return this;

@@ -49,7 +49,7 @@ private:
 	Font				mFontBold;
 	Font				mTinyFont;
 
-	Image				mMousePointer;
+	std::string			mMousePointer;
 
 	Image				mBg;
 
