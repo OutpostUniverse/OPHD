@@ -183,6 +183,9 @@
     <ClCompile Include="..\..\src\PopulationPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\ProgressBar.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -439,6 +442,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\ProductPool.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\ProgressBar.h">
+      <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

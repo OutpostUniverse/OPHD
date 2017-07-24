@@ -184,6 +184,7 @@
     <ClCompile Include="..\..\src\UI\Core\Button.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Control.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Menu.cpp" />
+    <ClCompile Include="..\..\src\UI\Core\ProgressBar.cpp" />
     <ClCompile Include="..\..\src\UI\Core\TextArea.cpp" />
     <ClCompile Include="..\..\src\UI\Core\TextField.cpp" />
     <ClCompile Include="..\..\src\UI\Core\UIContainer.cpp" />
@@ -267,6 +268,7 @@
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
     <ClInclude Include="..\..\src\UI\Core\Menu.h" />
     <ClInclude Include="..\..\src\UI\Core\Pointer.h" />
+    <ClInclude Include="..\..\src\UI\Core\ProgressBar.h" />
     <ClInclude Include="..\..\src\UI\Core\TextArea.h" />
     <ClInclude Include="..\..\src\UI\Core\TextField.h" />
     <ClInclude Include="..\..\src\UI\Core\UIContainer.h" />
