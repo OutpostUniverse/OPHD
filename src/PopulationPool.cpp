@@ -1,12 +1,22 @@
 #include "PopulationPool.h"
 
-#include "NAS2D/NAS2D.h"
+
+void BasicCheck(Population::PersonRole _role);
 
 
-PopulationPool::PopulationPool() : mScientistsUsed(0), mWorkersUsed(0), mPopulation(nullptr)
+/**
+ * C'tor
+ */
+PopulationPool::PopulationPool() :	mScientistsAsWorkers(0),
+									mScientistsUsed(0),
+									mWorkersUsed(0),
+									mPopulation(nullptr)
 {}
 
 
+/**
+ * D'tor
+ */
 PopulationPool::~PopulationPool()
 {}
 
@@ -14,7 +24,7 @@ PopulationPool::~PopulationPool()
 /**
  * Sets a pointer to a Population object.
  * 
- * \note	Note that PopulationPool expects a valid object and does no checking
+ * \note	PopulationPool expects a valid object and does no checking
  *			for invalid states.
  */
 void PopulationPool::population(Population* pop)
@@ -28,14 +38,10 @@ void PopulationPool::population(Population* pop)
  */
 int PopulationPool::populationAvailable(Population::PersonRole _role)
 {
-	#ifdef _DEBUG // only care if we're in debug mode, fail silently in release modes
-	if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
-		throw std::runtime_error("PopulationPool::populationAvailable(): Checking a population role that is not handled by the PopulationPool.");
-	#endif
+	BasicCheck(_role);
 
 	int employed = 0;
-
-	_role == Population::ROLE_SCIENTIST ? employed = scientistsEmployed() : employed = populationEmployed();
+	_role == Population::ROLE_SCIENTIST ? employed = scientistsEmployed() : employed = workersEmployed();
 
 	return mPopulation->size(_role) - employed;
 }
@@ -48,11 +54,7 @@ int PopulationPool::populationAvailable(Population::PersonRole _role)
  */
 bool PopulationPool::enoughPopulationAvailable(Population::PersonRole _role, int _amount)
 {
-	#ifdef _DEBUG // only care if we're in debug mode, fail silently in release modes
-	if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
-		throw std::runtime_error("PopulationPool::populationAvailable(): Checking a population role that is not handled by the PopulationPool.");
-	#endif
-
+	BasicCheck(_role);
 	return populationAvailable(_role) >= _amount;
 }
 
@@ -60,18 +62,43 @@ bool PopulationPool::enoughPopulationAvailable(Population::PersonRole _role, int
 /**
  * Marks a given amount of the population as set.
  * 
- * \warning	Does not check if the requested amount of population exists. User is required to perform this check.
- * 
  * \warning	Will throw an exception if any role other than Population::ROLE_SCIENTIST or Population::ROLE_WORKER is specified.
+ * 
+ * \return	Returns true if population was assigned. False if insufficient population.
  */
-void PopulationPool::usePopulation(Population::PersonRole _role, int _amount)
+bool PopulationPool::usePopulation(Population::PersonRole _role, int _amount)
 {
-	#ifdef _DEBUG // only care if we're in debug mode, fail silently in release modes
-	if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
-		throw std::runtime_error("PopulationPool::usePopulation(): Requested a population role that is not handled by the PopulationPool.");
-	#endif
+	BasicCheck(_role);
+	int scientistsAvailable = mPopulation->size(Population::ROLE_SCIENTIST) - (mScientistsAsWorkers + mScientistsUsed);
+	int workersAvailable = mPopulation->size(Population::ROLE_WORKER) - mWorkersUsed;
 
-	_role == Population::ROLE_SCIENTIST ? mScientistsUsed += _amount : mWorkersUsed += _amount;
+
+	if (_role == Population::ROLE_SCIENTIST)
+	{
+		if (_amount <= scientistsAvailable)
+		{
+			mScientistsUsed += _amount;
+			return true;
+		}
+	}
+	else if (_role == Population::ROLE_WORKER)
+	{
+		if (_amount <= workersAvailable + scientistsAvailable)
+		{
+			if (_amount <= workersAvailable)
+			{
+				mWorkersUsed += _amount;
+				return true;
+			}
+
+			int remainder = _amount - workersAvailable;
+			mWorkersUsed += _amount - remainder;
+			mScientistsAsWorkers += remainder;
+			return true;
+		}
+	}
+
+	return false;
 }
 
 
@@ -80,24 +107,76 @@ void PopulationPool::usePopulation(Population::PersonRole _role, int _amount)
  */
 void PopulationPool::clear()
 {
+	mScientistsAsWorkers = 0;
 	mScientistsUsed = 0;
 	mWorkersUsed = 0;
 }
 
 
+/**
+ * Amount of Scientists employed as Workers.
+ */
+int PopulationPool::scientistsAsWorkers()
+{
+	return mScientistsAsWorkers;
+}
+
+
+/**
+ * Amount of Scientists currently employed.
+ */
 int PopulationPool::scientistsEmployed()
 {
 	return mScientistsUsed;
 }
 
 
+/**
+ * Amount of Workers currently employed.
+ */
 int PopulationPool::workersEmployed()
 {
 	return mWorkersUsed;
 }
 
 
+/**
+ * Amount of population currently employed.
+ */
 int PopulationPool::populationEmployed()
 {
-	return scientistsEmployed() + workersEmployed();
+	return scientistsEmployed() + scientistsAsWorkers() + workersEmployed();
+}
+
+
+// ===============================================================================
+
+
+/**
+* Does a basic check to ensure that we're only trying to pull population that can be employed.
+*
+* Generally speaking the only 'workable' population is for Workers and Scientists. Children, Students
+* and Retirees won't be pulled for labor/research so attempting to pull this should be considered
+* a mistake and should fail very loudly. In this case throws a std::runtime_error.
+*
+* In the future this may change but for now this is almost strictly a debugging aid. This failure
+* would indicate a very significant problem with the calling code.
+*
+* \throws	std::runtime_exception if Child/Student/Retired is asked for.
+*/
+void BasicCheck(Population::PersonRole _role)
+{
+	if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
+	{
+		std::string _popRole;
+		switch (_role)
+		{
+		case Population::ROLE_CHILD: _popRole = "Population::ROLE_CHILD"; break;
+		case Population::ROLE_STUDENT: _popRole = "Population::ROLE_STUDENT"; break;
+		case Population::ROLE_RETIRED: _popRole = "Population::ROLE_RETIRED"; break;
+		default: break;
+		}
+
+		throw std::runtime_error("PopulationPool::BasicCheck(): Invalid population role specified (" + _popRole + ").");
+	}
 }
