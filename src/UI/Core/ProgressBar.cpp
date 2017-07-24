@@ -23,6 +23,8 @@ ProgressBar::ProgressBar() : mUsesImage(false), mCurrent(0), mEnd(0)
 	mSkinIn.push_back(Image("ui/skin/button_pressed_bottom_left.png"));
 	mSkinIn.push_back(Image("ui/skin/button_pressed_bottom_middle.png"));
 	mSkinIn.push_back(Image("ui/skin/button_pressed_bottom_right.png"));
+
+	setColor(255, 0, 0);
 }
 ProgressBar::ProgressBar(Uint32 _End) : mUsesImage(false), mCurrent(0)
 {
