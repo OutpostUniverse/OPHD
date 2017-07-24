@@ -104,9 +104,9 @@ void PlanetSelectState::drawStar(int x, int y)
 {
 	float rotation = (mTimer.tick() / 125.0f);
 	Renderer& r = Utility<Renderer>::get();
-	r.drawImageRotated(mStarFlare, x, y, -rotation * 0.75f, 255, 255, 0, 180);
-	r.drawImageRotated(mDetailFlare2, x, y, -rotation * 0.25f, 255, 255, 100, 255);
-	r.drawImageRotated(mDetailFlare, x, y, rotation, 255, 255, 255, 255);
+	r.drawImageRotated(mStarFlare, static_cast<float>(x), static_cast<float>(y), -rotation * 0.75f, 255, 255, 0, 180);
+	r.drawImageRotated(mDetailFlare2, static_cast<float>(x), static_cast<float>(y), -rotation * 0.25f, 255, 255, 100, 255);
+	r.drawImageRotated(mDetailFlare, static_cast<float>(x), static_cast<float>(y), rotation, 255, 255, 255, 255);
 }
 
 
@@ -126,10 +126,9 @@ State* PlanetSelectState::update()
 	for (size_t i = 0; i < mPlanets.size(); ++i)
 		mPlanets[i]->update();
 	
-	r.drawText(mFontBold, "Mercury Type", mPlanets[0]->x() + 64 - (mFont.width("Mercury Type") / 2), mPlanets[0]->y() - mFont.height() - 10, 255, 255, 255);
-	r.drawText(mFontBold, "Mars Type", mPlanets[1]->x() + 64 - (mFont.width("Mars Type") / 2), mPlanets[1]->y() - mFont.height() - 10, 255, 255, 255);
-	r.drawText(mFontBold, "Ganymede Type", mPlanets[2]->x() + 64 - (mFont.width("Ganymede Type") / 2), mPlanets[2]->y() - mFont.height() - 10, 255, 255, 255);
-
+	r.drawText(mFontBold, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (mFont.width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - mFont.height() - 10), 255, 255, 255);
+	r.drawText(mFontBold, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (mFont.width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - mFont.height() - 10), 255, 255, 255);
+	r.drawText(mFontBold, "Ganymede Type", static_cast<float>(mPlanets[2]->x() + 64 - (mFont.width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - mFont.height() - 10), 255, 255, 255);
 
 	r.drawText(mFont, "AI Gender", 5, 5, 255, 255, 255);
 	mMale.update();
@@ -138,7 +137,7 @@ State* PlanetSelectState::update()
 
 	mPlanetDescription.update();
 
-	r.drawText(mTinyFont, "v0.7.0", r.width() - mTinyFont.width("v0.7.0") - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
+	r.drawText(mTinyFont, "v0.7.0", r.width() - mTinyFont.width("v0.7.1") - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
 
 	if (r.isFading())
 		return this;

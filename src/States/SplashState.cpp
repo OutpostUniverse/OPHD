@@ -5,7 +5,7 @@
 
 const int PAUSE_TIME = 5800;
 
-const float FADE_LENGTH = 800.0f;
+const int FADE_LENGTH = 800;
 
 float LOGO_SCALE = 1.0f;
 

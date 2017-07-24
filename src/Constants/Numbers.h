@@ -3,7 +3,7 @@
 
 namespace constants
 {
-	const float FADE_SPEED = 175.0f;
+	const int FADE_SPEED = 175;
 
 	const int PLANET_ANIMATION_SPEED = 65;
 
