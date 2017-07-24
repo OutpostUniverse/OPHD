@@ -35,6 +35,7 @@ void FileIo::init()
 	addControl("txtFileName", &txtFileName, 5, 302);
 	txtFileName.font(font());
 	txtFileName.size(490, 18);
+	txtFileName.maxCharacters(50);
 	txtFileName.textChanged().connect(this,&FileIo::fileNameModified);
 
 	addControl("mnuFileList", &mnuFileList, 5, 25);

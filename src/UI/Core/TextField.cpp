@@ -29,6 +29,7 @@ TextField::TextField():	mCursorPosition(0),
 						mCursorX(0),
 						mScrollOffset(0),
 						mMaxScrollOffset(0),
+						mMaxCharacters(0),
 						mBorderVisibility(FOCUS_ONLY),
 						mEditable(true),
 						mShowCursor(false),
@@ -83,6 +84,20 @@ void TextField::resetCursorPosition()
 void TextField::numbers_only(bool _b)
 {
 	mNumbersOnly = _b;
+}
+
+
+
+/**
+ * Sets the maximum number of characters allowed in the text field.
+ * 
+ * \param	Count	Number of characters allowed in the field.
+ * 
+ * \note	Calling this with \c 0 will clear character limit.
+ */
+void TextField::maxCharacters(size_t count)
+{
+	mMaxCharacters = count;
 }
 
 
@@ -207,6 +222,9 @@ void TextField::update()
 void TextField::onTextInput(const std::string& _s)
 {
 	if (!hasFocus() || !visible() || !editable() || _s.empty())
+		return;
+
+	if (mMaxCharacters > 0 && text().length() == mMaxCharacters)
 		return;
 
 	int prvLen = text().length();

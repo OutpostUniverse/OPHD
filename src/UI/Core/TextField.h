@@ -48,6 +48,8 @@ public:
 	void resetCursorPosition();
 	void numbers_only(bool);
 
+	void maxCharacters(size_t count);
+
 	void update();
 
 protected:
@@ -74,6 +76,8 @@ private:
 	int 				mCursorX;			/**< Pixel position of the Cursor. */
 	int 				mScrollOffset;		/**< Scroller offset. */
 	int					mMaxScrollOffset;	/**< Maximum allowable offset. */
+
+	size_t				mMaxCharacters;		/**< Max number of characters allowed in the text field. */
 
 	BorderVisibility	mBorderVisibility;	/**< Border visibility flag. */
 
