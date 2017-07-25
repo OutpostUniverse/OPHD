@@ -3,9 +3,12 @@
 #include "NAS2D/Mixer/Mixer_SDL.h"
 #include "NAS2D/Renderer/OGL_Renderer.h"
 
+#include "StructureFactory.h"
+
 #include "States/GameState.h"
 #include "States/PlanetSelectState.h"
 #include "States/SplashState.h"
+
 
 #include <iostream>
 #include <fstream>
@@ -44,6 +47,8 @@ int main(int argc, char *argv[])
 	backup = std::cout.rdbuf();
 	std::cout.rdbuf(filestr.rdbuf());
 	#endif
+
+	StructureFactory::init();	// only needs to be done once at the start of the program.
 
 	try
 	{
