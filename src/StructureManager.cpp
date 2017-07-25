@@ -237,7 +237,7 @@ int StructureManager::count() const
 int StructureManager::getCountInState(Structure::StructureType _st, Structure::StructureState _state)
 {
 	int count = 0;
-	for (auto i = 0; i < structureList(_st).size(); ++i)
+	for (size_t i = 0; i < structureList(_st).size(); ++i)
 	{
 		if (structureList(_st)[i]->state() == _state)
 			++count;
