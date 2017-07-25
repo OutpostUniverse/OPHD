@@ -100,8 +100,13 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	mCurrentSelection = translateCoordsToIndex(x - rect().x(), y - rect().y());
 
-	if (mCurrentSelection >= mIconItemList.size())
+	if (mCurrentSelection >= mIconItemList.size()) {
 		mCurrentSelection = constants::NO_SELECTION;
+	}/* else if (!mIconItemList[mCurrentSelection].available) {
+		cout << "Insufficient resources" <<endl;
+		mCurrentSelection = constants::NO_SELECTION;
+		return;
+	} */
 
 	raiseChangedEvent();
 }
@@ -182,6 +187,24 @@ void IconGrid::itemAvailable(const std::string& item, bool _b)
 			return;
 		}
 	}
+}
+
+
+/**
+ * Get item availability
+ */
+bool IconGrid::itemAvailable(const std::string& item)
+{
+	// Ignore if menu is empty
+	if (empty())
+		return false;
+
+	for (auto &_iconItem : mIconItemList)
+	{
+		if (toLowercase(_iconItem.name) == toLowercase(item))
+			return _iconItem.available;
+	}
+	return false;
 }
 
 

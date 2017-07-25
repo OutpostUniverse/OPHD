@@ -293,6 +293,13 @@ void GameState::structuresSelectionChanged(const std::string& _s)
 	mConnections.clearSelection();
 	mRobots.clearSelection();
 
+	// Check availability
+	if (!mStructures.itemAvailable(_s)) {
+		mAiVoiceNotifier.notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
+		cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
+		mStructures.clearSelection();
+		return;
+	}
 	// set the new structure Id
 	setStructureID(StructureTranslator::translateFromString(_s), INSERT_STRUCTURE);
 }

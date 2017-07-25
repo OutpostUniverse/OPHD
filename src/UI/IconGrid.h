@@ -43,7 +43,11 @@ public:
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
 	void dropAllItems();
+
+	/* Setter */
 	void itemAvailable(const std::string& item, bool _b);
+	/* Getter */
+	bool itemAvailable(const std::string& item);
 
 	void showTooltip(bool _b) { mShowTooltip = _b; }
 
