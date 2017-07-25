@@ -147,8 +147,10 @@ private:
 	void btnLoadGameClicked();
 	void btnReturnToGameClicked();
 	void btnGameOverClicked();
+	void playerResourcePoolModified();
 
 	void updateCurrentLevelString(int currentDepth);
+	void updateStructuresAvailability();
 
 	void structuresSelectionChanged(const std::string& _s);
 	void connectionsSelectionChanged(const std::string& _s);

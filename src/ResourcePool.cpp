@@ -75,6 +75,7 @@ ResourcePool& ResourcePool::operator+=(ResourcePool& rhs)
 	_resourceTable[RESOURCE_FOOD] += rhs.food();
 	_resourceTable[RESOURCE_ENERGY] += rhs.energy();
 
+	_observerCallback();
 	return *this;
 }
 
@@ -93,6 +94,7 @@ ResourcePool& ResourcePool::operator-=(ResourcePool& rhs)
 	_resourceTable[RESOURCE_FOOD] -= rhs.food();
 	_resourceTable[RESOURCE_ENERGY] -= rhs.energy();
 
+	_observerCallback();
 	return *this;
 }
 
@@ -106,6 +108,7 @@ int ResourcePool::resource(ResourceType _t)
 void ResourcePool::resource(ResourceType _t, int _i)
 {
 	_resourceTable[_t] = _i;
+	_observerCallback();
 }
 
 
@@ -182,7 +185,7 @@ bool ResourcePool::empty()
 
 /**
  * Attempt to push the defined amount of a specified resource into a ResourcePool.
- * 
+ *
  * \return Returns the remainder of the resource if any.
  */
 int ResourcePool::pushResource(ResourceType type, int amount)
@@ -200,18 +203,20 @@ int ResourcePool::pushResource(ResourceType type, int amount)
 	else if (remainingCapacity() >= amount)
 	{
 		_resourceTable[type] += amount;
+		_observerCallback();
 		return 0;
 	}
 	else
 	{
 		_resourceTable[type] += remainingCapacity();
+		_observerCallback();
 		return amount - remainingCapacity();
 	}
 }
 
 /**
  * Attempt to pull the defined amount of a specified resource.
- * 
+ *
  * \return Returns the amount of resources actually pulled.
  */
 int ResourcePool::pullResource(ResourceType type, int amount)
@@ -222,16 +227,18 @@ int ResourcePool::pullResource(ResourceType type, int amount)
 		return 0;
 	}
 
-	
+
 	if (amount <= _resourceTable[type])
 	{
 		_resourceTable[type] -= amount;
+		_observerCallback();
 		return amount;
 	}
 	else if (amount > _resourceTable[type])
 	{
 		int ret = _resourceTable[type];
 		_resourceTable[type] = 0;
+		_observerCallback();
 		return ret;
 	}
 
@@ -240,9 +247,9 @@ int ResourcePool::pullResource(ResourceType type, int amount)
 
 /**
  * Attempts to push all available resources into a ResourcePool.
- * 
+ *
  * \param rp The ResourcePool to push resources from.
- * 
+ *
  * \note	Any resources that can't be fit in ResourcePool are left in
  *			the source ResourcePool.
  */
@@ -253,7 +260,7 @@ void ResourcePool::pushResources(ResourcePool& rp)
 		cout << "ResourcePool::pushResources(): Incorrect use of operator. This ResourcePool has no capacity. Use operator+=() instead." << endl;
 		return;
 	}
-	
+
 	rp.commonMetalsOre(pushResource(RESOURCE_COMMON_METALS_ORE, rp.commonMetalsOre()));
 	rp.commonMineralsOre(pushResource(RESOURCE_COMMON_MINERALS_ORE, rp.commonMineralsOre()));
 	rp.rareMetalsOre(pushResource(RESOURCE_RARE_METALS_ORE, rp.rareMetalsOre()));
@@ -270,7 +277,7 @@ void ResourcePool::pushResources(ResourcePool& rp)
 
 /**
  * Attempts to pull all available resources from a ResourcePool.
- * 
+ *
  * \param rp The ResourcePool to pull resources to.
  */
 void ResourcePool::pullResources(ResourcePool& _rp)

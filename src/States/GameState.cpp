@@ -423,7 +423,7 @@ void GameState::drawNavInfo()
 	iWidth = mTinyFontBold.width("IX");								// set steps character patern width
 	iPosX = r.width() - 5;											// set start position from right border
 	iPosY = mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10;	// set vertical position
-	for (int i = mTileMap->maxDepth(); i >= 0; i--)					// 
+	for (int i = mTileMap->maxDepth(); i >= 0; i--)					//
 	{
 		sLevel = string_format("%i", i);	// Set string for current level
 		if (i == 0) sLevel = "S";			// surface level
@@ -1231,8 +1231,12 @@ void GameState::placeStructure()
 		}
 
 		Structure* _s = StructureFactory::get(mCurrentStructure);
-		if (_s)
-			mStructureManager.addStructure(_s, t);
+		if (!_s)
+		{
+			cout << "GameState::placeStructure(): Unknown structure type." << endl;
+			return;
+		}
+		mStructureManager.addStructure(_s, t);
 
 		// FIXME: Ugly
 		if (_s->isFactory())

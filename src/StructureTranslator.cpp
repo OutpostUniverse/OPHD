@@ -16,7 +16,7 @@ StructureID StructureTranslator::translateFromString(const std::string& _s)
 
 const std::string& StructureTranslator::translateToString(StructureID _s)
 {
-	return _structureToStringTable[_s];	
+	return _structureToStringTable[_s];
 }
 
 
@@ -61,7 +61,7 @@ void StructureTranslator::buildTables()
 	_stringToStructureTable[constants::WAREHOUSE] = SID_WAREHOUSE;
 
 	_stringToStructureTable[constants::TUBE] = SID_TUBE;
-	
+
 	// ID To String
 	_structureToStringTable[SID_AGRIDOME] = constants::AGRIDOME;
 	_structureToStringTable[SID_AIR_SHAFT] = constants::AIR_SHAFT;
@@ -82,12 +82,14 @@ void StructureTranslator::buildTables()
 	_structureToStringTable[SID_RED_LIGHT_DISTRICT] = constants::RED_LIGHT_DISTRICT;
 	_structureToStringTable[SID_RESIDENCE] = constants::RESIDENCE;
 	_structureToStringTable[SID_ROBOT_COMMAND] = constants::ROBOT_COMMAND;
-	_structureToStringTable[SID_SURFACE_FACTORY] = constants::SURFACE_FACTORY;
+	_structureToStringTable[SID_SEED_FACTORY] = constants::SEED_FACTORY;
 	_structureToStringTable[SID_SEED_LANDER] = constants::SEED_LANDER;
 	_structureToStringTable[SID_SEED_POWER] = constants::SEED_POWER;
 	_structureToStringTable[SID_SEED_SMELTER] = constants::SEED_SMELTER;
 	_structureToStringTable[SID_SMELTER] = constants::SMELTER;
 	_structureToStringTable[SID_SOLAR_PLANT] = constants::SOLAR_PLANT;
+	_structureToStringTable[SID_STORAGE_TANKS] = constants::STORAGE_TANKS;
+	_structureToStringTable[SID_SURFACE_FACTORY] = constants::SURFACE_FACTORY;
 	_structureToStringTable[SID_UNDERGROUND_FACTORY] = constants::UNDERGROUND_FACTORY;
 	_structureToStringTable[SID_UNIVERSITY] = constants::UNIVERSITY;
 	_structureToStringTable[SID_WAREHOUSE] = constants::WAREHOUSE;

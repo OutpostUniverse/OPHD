@@ -58,7 +58,7 @@ void  IconGrid::iconSize(int _size)
 }
 
 
-/** 
+/**
  * Sets the margin used between the edges of the IconGrid and other icons.
  */
 void IconGrid::iconMargin(int _margin)
@@ -150,7 +150,7 @@ void IconGrid::sizeChanged()
 
 /**
  * Adds an Icon Item to the IconGrid.
- * 
+ *
  * \note	This function does no sanity checking.
  */
 void IconGrid::addItem(const std::string& name, int sheetIndex)
@@ -159,10 +159,29 @@ void IconGrid::addItem(const std::string& name, int sheetIndex)
 	int y_pos = (sheetIndex / (mIconSheet.width() / mIconSize)) * mIconSize;
 
 	mIconItemList.push_back(IconGridItem());
-	mIconItemList.back().first = name;
-	mIconItemList.back().second((float)x_pos, (float)y_pos);
+	mIconItemList.back().name = name;
+	mIconItemList.back().pos((float)x_pos, (float)y_pos);
 
 	sort();
+}
+
+
+/**
+ * Set item availability
+ */
+void IconGrid::itemAvailable(const std::string& item, bool _b)
+{
+	// Ignore if menu is empty
+	if (empty())
+		return;
+
+	for (auto &_iconItem : mIconItemList)
+	{
+		if (toLowercase(_iconItem.name) == toLowercase(item)) {
+			_iconItem.available = _b;
+			return;
+		}
+	}
 }
 
 
@@ -178,7 +197,7 @@ void IconGrid::removeItem(const std::string& item)
 
 	while (it != mIconItemList.end())
 	{
-		if (toLowercase((*it).first) == toLowercase(item))
+		if (toLowercase((*it).name) == toLowercase(item))
 		{
 			mIconItemList.erase(it);
 			mCurrentSelection = constants::NO_SELECTION;
@@ -203,7 +222,7 @@ bool IconGrid::itemExists(const std::string& item)
 
 	for (size_t i = 0; i < mIconItemList.size(); i++)
 	{
-		if (toLowercase(mIconItemList[i].first) == toLowercase(item))
+		if (toLowercase(mIconItemList[i].name) == toLowercase(item))
 			return true;
 	}
 
@@ -268,7 +287,7 @@ void IconGrid::decrementSelection()
 void IconGrid::raiseChangedEvent()
 {
 	if (mCurrentSelection != constants::NO_SELECTION)
-		mCallback(mIconItemList[mCurrentSelection].first);
+		mCallback(mIconItemList[mCurrentSelection].name);
 	else
 		mCallback("");
 }
@@ -307,7 +326,10 @@ void IconGrid::update()
 		float x = (rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos);
 		float y = (rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos);
 
-		r.drawSubImage(mIconSheet, x, y, mIconItemList[i].second.x(), mIconItemList[i].second.y(), mIconSize, mIconSize);
+		if (mIconItemList[i].available)
+			r.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x(), mIconItemList[i].pos.y(), mIconSize, mIconSize);
+		else
+			r.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x(), mIconItemList[i].pos.y(), mIconSize, mIconSize, 255, 0, 0, 255);
 	}
 
 	if (mCurrentSelection != constants::NO_SELECTION)
@@ -330,17 +352,17 @@ void IconGrid::update()
 		// Name Tooltip
 		if (mShowTooltip)
 		{
-			r.drawBoxFilled(x, y - 15, font().width(mIconItemList[mHighlightIndex].first) + 4, font().height(), 245, 245, 245);
-			r.drawBox(x, y - 15, font().width(mIconItemList[mHighlightIndex].first) + 4, font().height(), 175, 175, 175);
-			r.drawText(font(), mIconItemList[mHighlightIndex].first, x + 2, y - 15, 0, 0, 0);
+			r.drawBoxFilled(x, y - 15, font().width(mIconItemList[mHighlightIndex].name) + 4, font().height(), 245, 245, 245);
+			r.drawBox(x, y - 15, font().width(mIconItemList[mHighlightIndex].name) + 4, font().height(), 175, 175, 175);
+			r.drawText(font(), mIconItemList[mHighlightIndex].name, x + 2, y - 15, 0, 0, 0);
 		}
 	}
 }
 
 
-bool iconItemCompare(const std::pair<string, Point_2df>& left, const std::pair<string, Point_2df>& right)
+bool iconItemCompare(const IconGrid::IconGridItem& left, const IconGrid::IconGridItem& right)
 {
-	return left.first < right.first;
+	return left.name < right.name;
 }
 
 

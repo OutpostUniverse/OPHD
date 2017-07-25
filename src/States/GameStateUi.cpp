@@ -12,6 +12,7 @@
 #include "../Constants.h"
 
 #include "../RobotTranslator.h"
+#include "../StructureFactory.h"
 #include "../StructureTranslator.h"
 
 using namespace constants;
@@ -129,7 +130,9 @@ void GameState::initUi()
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 	mStructures.showTooltip(true);
 	mStructures.selectionChanged().connect(this, &GameState::structuresSelectionChanged);
-	
+
+	mPlayerResources.resourceObserver().connect(this, &GameState::playerResourcePoolModified);
+
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0);
@@ -232,6 +235,7 @@ void GameState::populateStructureMenu()
 		mConnections.addItem(constants::UG_TUBE_RIGHT, 115);
 		mConnections.addItem(constants::UG_TUBE_LEFT, 114);
 	}
+	updateStructuresAvailability();
 }
 
 
@@ -257,7 +261,7 @@ void GameState::drawUI()
 	mBtnToggleConnectedness.update();
 
 	mBtnTurns.update();
-	
+
 	// Menus
 	mRobots.update();
 	mStructures.update();
@@ -285,7 +289,7 @@ void GameState::btnToggleConnectednessClicked()
 */
 void GameState::structuresSelectionChanged(const std::string& _s)
 {
-	// clear the others selectors 
+	// clear the others selectors
 	mConnections.clearSelection();
 	mRobots.clearSelection();
 
@@ -299,10 +303,10 @@ void GameState::structuresSelectionChanged(const std::string& _s)
 */
 void GameState::connectionsSelectionChanged(const std::string& _s)
 {
-	// clear the others selectors 
+	// clear the others selectors
 	mRobots.clearSelection();
 	mStructures.clearSelection();
-	
+
 	// set the new structure Id
 	setStructureID(SID_TUBE, INSERT_TUBE);
 }
@@ -476,11 +480,11 @@ void GameState::btnTurnsClicked()
 	// FOOD CONSUMPTION
 	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage());
 	StructureManager::StructureList &foodproducers = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
-	int remainder = food_consumed;	
-	
+	int remainder = food_consumed;
+
 	if (mPlayerResources.food() > 0)
 		remainder -= pullFood(mPlayerResources, remainder);
-	
+
 	for (size_t i = 0; i < foodproducers.size(); ++i)
 	{
 		if (remainder <= 0)
@@ -488,7 +492,7 @@ void GameState::btnTurnsClicked()
 
 		remainder -= pullFood(foodproducers[i]->storage(), remainder);
 	}
-	
+
 	// MORALE
 	// Positive Effects
 	mCurrentMorale += mPopulation.birthCount();
@@ -510,7 +514,7 @@ void GameState::btnTurnsClicked()
 
 	// Update storage capacity
 	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::STRUCTURE_STORAGE)));
-	
+
 	ResourcePool truck;
 	truck.capacity(100);
 
@@ -601,5 +605,36 @@ void GameState::btnTurnsClicked()
 	{
 		hideUi();
 		mGameOverDialog.show();
+	}
+}
+
+
+/**
+ * Player ResourcePool modified, we update the IconGrid
+ */
+void GameState::playerResourcePoolModified()
+{
+	updateStructuresAvailability();
+}
+
+
+/**
+ * Update IconGridItems availability
+ */
+void GameState::updateStructuresAvailability()
+{
+	std::string structure;
+	for (int sid = 0; sid < SID_COUNT; ++sid) {
+		structure = StructureTranslator::translateToString(static_cast<StructureID>(sid));
+		if (structure == constants::EMPTY_STR)
+			continue;
+
+		ResourcePool rp = StructureFactory::costToBuild(static_cast<StructureID>(sid));
+		if (mPlayerResources.commonMetals() < rp.commonMetals() || mPlayerResources.commonMinerals() < rp.commonMinerals() ||
+			mPlayerResources.rareMetals() < rp.rareMetals() || mPlayerResources.rareMinerals() < rp.rareMinerals()) {
+			mStructures.itemAvailable(structure, false);
+		} else {
+			mStructures.itemAvailable(structure, true);
+		}
 	}
 }

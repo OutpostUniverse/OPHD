@@ -14,6 +14,13 @@ public:
 
 	typedef NAS2D::Signals::Signal1<const std::string&> Callback;
 
+	typedef struct IconGridItem {
+		IconGridItem() : available(true) {}
+		std::string name;
+		Point_2df pos;
+		bool available;
+	} IconGridItem;
+
 	IconGrid();
 	virtual ~IconGrid();
 
@@ -23,7 +30,7 @@ public:
 	void iconSize(int _size);
 	void iconMargin(int _margin);
 
-	const std::string& itemName(int _sel) const { return mIconItemList[_sel].first; }
+	const std::string& itemName(int _sel) const { return mIconItemList[_sel].name; }
 
 	int selectionIndex() const { return mCurrentSelection; }
 
@@ -36,6 +43,7 @@ public:
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
 	void dropAllItems();
+	void itemAvailable(const std::string& item, bool _b);
 
 	void showTooltip(bool _b) { mShowTooltip = _b; }
 
@@ -52,8 +60,6 @@ public:
 	void sort();
 
 protected:
-
-	typedef std::pair<std::string, Point_2df> IconGridItem;
 
 	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMotion(int x, int y, int dX, int dY);
@@ -73,7 +79,7 @@ private:
 
 	int					mHighlightIndex;		/**< Current highlight index. */
 	int					mCurrentSelection;		/**< Currently selected item index. */
-	
+
 	int					mIconSize;				/**< Size of the icons. */
 	int					mIconMargin;			/**< Spacing between icons and edges of the IconGrid. */
 

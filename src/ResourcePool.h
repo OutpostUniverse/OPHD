@@ -10,6 +10,7 @@
 class ResourcePool
 {
 public:
+	typedef NAS2D::Signals::Signal0<void> Callback;
 
 	enum ResourceType
 	{
@@ -32,7 +33,7 @@ public:
 	ResourcePool();
 
 	ResourcePool(const ResourcePool& _r);
-	
+
 	~ResourcePool();
 
 	ResourcePool& operator=(const ResourcePool& rhs);
@@ -100,10 +101,14 @@ public:
 	void serialize(NAS2D::Xml::XmlElement* _ti);
 	void deserialize(NAS2D::Xml::XmlElement* _ti);
 
+	Callback& resourceObserver() {return _observerCallback; }
+
 private:
 	typedef std::map<ResourceType, int> ResourceTable;
 
 	ResourceTable		_resourceTable;
 
 	int					_capacity;			// Maximum available capacity of the ResourcePool.
+
+	Callback			_observerCallback;
 };
