@@ -26,16 +26,20 @@ ProgressBar::ProgressBar() : mUsesImage(false), mCurrent(0), mEnd(0)
 
 	setColor(255, 0, 0);
 }
-ProgressBar::ProgressBar(Uint32 _End) : mUsesImage(false), mCurrent(0)
+
+
+ProgressBar::ProgressBar(size_t end) : mUsesImage(false), mCurrent(0)
 {
 	ProgressBar();
-	mEnd = _End;
+	mEnd = end;
 }
+
 
 ProgressBar::~ProgressBar()
 {
 
 }
+
 
 void ProgressBar::image(const std::string& _path, ImageMode _m)
 {
@@ -50,10 +54,12 @@ bool ProgressBar::hasImage() const
 	return mImage.loaded();
 }
 
+
 void ProgressBar::update()
 {
 	draw();
 }
+
 
 /**
  * Draws the button.
@@ -62,7 +68,9 @@ void ProgressBar::draw()
 {
 	if (!visible())
 		return;
-	Uint32	iWidth = 0;
+
+	size_t	iWidth = 0;
+	
 	Renderer& r = Utility<Renderer>::get();
 
 	r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinOut);
@@ -70,18 +78,17 @@ void ProgressBar::draw()
 
 	iWidth = 0;
 	if (mEnd > 0)
-		iWidth = (rect().width() - 8) * mCurrent / mEnd;
-	if (iWidth <= 0) return;
+		iWidth = static_cast<size_t>((rect().width() - 8) * mCurrent / mEnd);
+
+	if (iWidth <= 0)
+		return;
+
 	if (hasImage() && mImageMode == ImageMode::Repeating)
-	{
-		r.drawImageRepeated(mImage, rect().x() + 4, rect().y() + 4, iWidth, rect().height() - 8);
-	} else if (hasImage() && mImageMode == ImageMode::Stretching){
-		r.drawImageStretched(mImage, rect().x() + 4, rect().y() + 4, iWidth, rect().height() - 8);
-	} else if (hasImage() && mImageMode == ImageMode::Straight) {
-		r.drawSubImage(mImage, rect().x() + 4, rect().y() + 4, 0, 0, iWidth, rect().height() - 8);
-	} else {
-		r.drawBoxFilled(rect().x() + 4, rect().y() + 4, iWidth, rect().height() - 8, mColorR, mColorG, mColorB, mColorAlpha);
-	}
+		r.drawImageRepeated(mImage, rect().x() + 4, rect().y() + 4, static_cast<float>(iWidth), rect().height() - 8);
+	else if (hasImage() && mImageMode == ImageMode::Stretching)
+		r.drawImageStretched(mImage, rect().x() + 4, rect().y() + 4, static_cast<float>(iWidth), rect().height() - 8);
+	else if (hasImage() && mImageMode == ImageMode::Straight)
+		r.drawSubImage(mImage, rect().x() + 4, rect().y() + 4, 0, 0, static_cast<float>(iWidth), rect().height() - 8);
+	else
+		r.drawBoxFilled(rect().x() + 4, rect().y() + 4, static_cast<float>(iWidth), rect().height() - 8, mColorR, mColorG, mColorB, mColorAlpha);
 }
-
-

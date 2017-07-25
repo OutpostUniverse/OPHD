@@ -19,10 +19,12 @@ public:
 		Straight
 	};
 
+public:
 	typedef NAS2D::Signals::Signal0<void> ClickCallback;
 
+public:
 	ProgressBar();
-	ProgressBar(Uint32 _End);
+	ProgressBar(size_t end);
 	~ProgressBar();
 
 	void setColor(Uint8 _r, Uint8 _g, Uint8 _b) { setColor(_r, _g, _b,255); }
@@ -31,20 +33,21 @@ public:
 	void image(const std::string& _path, ImageMode _m);
 	bool hasImage() const;
 	
+	void End(size_t _End) { mEnd = _End; }
+	size_t End() { return mEnd; }
+	void Cursor(size_t _Cursor) { mCurrent = _Cursor; }
+	size_t Cursor() { return mCurrent; }
 
 	void update();
 
-	void End(Uint32 _End) { mEnd = _End; }
-	Uint32 End() { return mEnd; }
-	void Cursor(Uint32 _Cursor) { mCurrent = _Cursor; }
-	Uint32 Cursor() { return mCurrent; }
 protected:
-	Uint32 mCurrent;
-	Uint32 mEnd;
-private:
+	size_t mCurrent;
+	size_t mEnd;
 
+private:
 	void draw();
 
+private:
 	Uint8			mColorR;
 	Uint8			mColorG;
 	Uint8			mColorB;
