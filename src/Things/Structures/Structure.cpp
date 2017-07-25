@@ -163,13 +163,13 @@ void Structure::forced_state_change(StructureState _s)
  *
  * \note	This is for debug purposes only. Release modes will silently ignore this condition
  *			and simply act as a passthrough.
+ * 
+ * \throws	Throws \c std::runtime_error
  */
 void Structure::die()
 {
 	Thing::die();
 
-	#ifdef _DEBUG
 	cout << "Holy shit, a Structure died!!!" << endl;
 	throw std::runtime_error("Thing::die() was called on a Structure!");
-	#endif
 }

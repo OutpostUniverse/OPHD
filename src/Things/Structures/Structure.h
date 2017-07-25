@@ -1,13 +1,14 @@
 #pragma once
 
 #include "../Thing.h"
-#include "../../ResourcePool.h"
+
 #include "../../Common.h"
+#include "../../PopulationPool.h"
+#include "../../ResourcePool.h"
 
 class Structure: public Thing
 {
 public:
-
 	enum StructureState
 	{
 		UNDER_CONSTRUCTION,
@@ -45,6 +46,8 @@ public:
 		STRUCTURE_WAREHOUSE
 	};
 
+
+public:
 	Structure(const std::string& name, const std::string& sprite_path, StructureType _t);
 	virtual ~Structure();
 	
@@ -113,7 +116,6 @@ public:
 	virtual void forced_state_change(StructureState _s);
 
 protected:
-
 	void turnsToBuild(int _t) { mTurnsToBuild = _t; }
 	void maxAge(int _age) { mMaxAge = _age; }
 	
@@ -131,16 +133,15 @@ protected:
 	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
 	void selfSustained(bool _b) { mSelfSustained = _b; }
 
-private:
 
+private:
 	Structure();	// Excplicitly declared private
 
 	void incrementAge();
-
 	virtual void die();
 
+
 private:
-	
 	int						mId;						/**< ID of the Structure. */
 
 	int						mTurnsToBuild;				/**< Number of turns it takes to build the Structure. */
