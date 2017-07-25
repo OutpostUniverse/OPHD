@@ -4,6 +4,7 @@
 #include "NAS2D/Renderer/OGL_Renderer.h"
 
 #include "StructureFactory.h"
+#include "StructureTranslator.h"
 
 #include "States/GameState.h"
 #include "States/PlanetSelectState.h"
@@ -48,7 +49,8 @@ int main(int argc, char *argv[])
 	std::cout.rdbuf(filestr.rdbuf());
 	#endif
 
-	StructureFactory::init();	// only needs to be done once at the start of the program.
+	StructureFactory::init();		// only needs to be done once at the start of the program.
+	StructureTranslator::init();	// only needs to be done once at the start of the program.
 
 	try
 	{

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <string>
 #include <map>
 
@@ -21,6 +22,8 @@ public:
 	static StructureID translateFromString(const std::string& _s);
 	static const std::string& translateToString(StructureID _s);
 
+	static void init();
+
 protected:
 
 private:
@@ -32,5 +35,5 @@ private:
 	static void buildTables();
 
 	static std::map<std::string, StructureID>		_stringToStructureTable;
-	static std::map<StructureID, std::string>		_structureToStringTable;
+	static std::array<std::string, SID_COUNT>		_structureToStringTable;
 };
