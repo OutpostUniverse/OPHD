@@ -22,7 +22,7 @@ void FactoryProduction::init()
 	size(320, 162);
 
 	// Set up GUI Layout
-	addControl("mProductionGrid", &mProductionGrid, constants::MARGIN, 25);
+	addControl("mProductionGrid", &mProductionGrid, static_cast<float>(constants::MARGIN), 25);
 	mProductionGrid.font(font());
 	mProductionGrid.sheetPath("ui/surface_factory.png");
 	mProductionGrid.size(140, 110);
