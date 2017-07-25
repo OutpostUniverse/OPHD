@@ -4,7 +4,7 @@
 //vector<ResourcePool> StructureFactory::mStructureCostTable;
 std::array<ResourcePool, SID_COUNT> StructureFactory::mStructureCostTable;
 std::array<ResourcePool, SID_COUNT> StructureFactory::mStructureRecycleValueTable;
-std::array<PopulationRequirements, SID_COUNT> StructureFactory::mPopulationRequirementsTable;
+std::array<PopulationRequirements, SID_COUNT> StructureFactory::mPopulationRequirementsTable = { 0 };
 
 
 /**
@@ -163,9 +163,6 @@ Structure* StructureFactory::get(StructureID type)
  */
 const PopulationRequirements& StructureFactory::populationRequirements(StructureID type)
 {
-	if (mPopulationRequirementsTable.empty())
-		buildPopulationRequirementsTable();
-
 	return mPopulationRequirementsTable[type];
 }
 
@@ -177,9 +174,6 @@ const PopulationRequirements& StructureFactory::populationRequirements(Structure
  */
 const ResourcePool& StructureFactory::costToBuild(StructureID type)
 {
-	if (mStructureCostTable.empty())
-		buildCostTable();
-
 	return mStructureCostTable[type];
 }
 
@@ -191,9 +185,6 @@ const ResourcePool& StructureFactory::costToBuild(StructureID type)
  */
 ResourcePool& StructureFactory::recyclingValue(StructureID type)
 {
-	if (mStructureCostTable.empty())
-		buildCostTable();
-
 	return mStructureCostTable[type];
 }
 
@@ -257,32 +248,6 @@ void StructureFactory::buildRecycleValueTable()
 
 
 /**
- * Calculates the base recycling value of a given structure.
- * 
- * \param	type	A valid StructureID value.
- */
-ResourcePool StructureFactory::recycleValue(StructureID type)
-{
-	if (mStructureCostTable.empty())
-		throw std::runtime_error("StructureFactory::recycleValue() called before StructureFactory::buildCostTable().");
-
-	ResourcePool _rp = mStructureCostTable[type];
-
-	/** Truncation of value from float to int cast is intended and desired behavior. */
-	return ResourcePool(static_cast<int>(_rp.commonMetalsOre() * 0.9f),
-						static_cast<int>(_rp.commonMineralsOre() * 0.9f),
-						static_cast<int>(_rp.rareMetalsOre() * 0.9f),
-						static_cast<int>(_rp.rareMineralsOre() * 0.9f),
-						static_cast<int>(_rp.commonMetals() * 0.9f),
-						static_cast<int>(_rp.commonMinerals() * 0.9f),
-						static_cast<int>(_rp.rareMetals() * 0.9f),
-						static_cast<int>(_rp.rareMinerals() * 0.9f),
-						static_cast<int>(_rp.food() * 0.9f),
-						static_cast<int>(_rp.energy() * 0.9f));
-}
-
-
-/**
  * Fills out the population requirements for all structures.
  */
 void StructureFactory::buildPopulationRequirementsTable()
@@ -316,4 +281,30 @@ void StructureFactory::buildPopulationRequirementsTable()
 	mPopulationRequirementsTable[SID_UNDERGROUND_FACTORY] = { 0 };
 	mPopulationRequirementsTable[SID_UNIVERSITY] = { 0 };
 	mPopulationRequirementsTable[SID_WAREHOUSE] = { 0 };
+}
+
+
+/**
+ * Calculates the base recycling value of a given structure.
+ * 
+ * \param	type	A valid StructureID value.
+ */
+ResourcePool StructureFactory::recycleValue(StructureID type)
+{
+	if (mStructureCostTable.empty())
+		throw std::runtime_error("StructureFactory::recycleValue() called before StructureFactory::buildCostTable().");
+
+	ResourcePool _rp = mStructureCostTable[type];
+
+	/** Truncation of value from float to int cast is intended and desired behavior. */
+	return ResourcePool(static_cast<int>(_rp.commonMetalsOre() * 0.9f),
+						static_cast<int>(_rp.commonMineralsOre() * 0.9f),
+						static_cast<int>(_rp.rareMetalsOre() * 0.9f),
+						static_cast<int>(_rp.rareMineralsOre() * 0.9f),
+						static_cast<int>(_rp.commonMetals() * 0.9f),
+						static_cast<int>(_rp.commonMinerals() * 0.9f),
+						static_cast<int>(_rp.rareMetals() * 0.9f),
+						static_cast<int>(_rp.rareMinerals() * 0.9f),
+						static_cast<int>(_rp.food() * 0.9f),
+						static_cast<int>(_rp.energy() * 0.9f));
 }
