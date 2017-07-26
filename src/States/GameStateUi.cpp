@@ -289,42 +289,39 @@ void GameState::btnToggleConnectednessClicked()
 */
 void GameState::structuresSelectionChanged(const std::string& _s)
 {
-	// clear the others selectors
 	mConnections.clearSelection();
 	mRobots.clearSelection();
 
 	// Check availability
-	if (!mStructures.itemAvailable(_s)) {
+	if (!mStructures.itemAvailable(_s))
+	{
 		mAiVoiceNotifier.notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
 		cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
 		mStructures.clearSelection();
 		return;
 	}
-	// set the new structure Id
+
 	setStructureID(StructureTranslator::translateFromString(_s), INSERT_STRUCTURE);
 }
 
 
 /**
-* Handler for the Tubes Pallette dialog.
-*/
+ * Handler for the Tubes Pallette dialog.
+ */
 void GameState::connectionsSelectionChanged(const std::string& _s)
 {
-	// clear the others selectors
 	mRobots.clearSelection();
 	mStructures.clearSelection();
 
-	// set the new structure Id
 	setStructureID(SID_TUBE, INSERT_TUBE);
 }
 
 
 /**
-* Handles clicks of the Robot Selection Menu.
-*/
+ * Handles clicks of the Robot Selection Menu.
+ */
 void GameState::robotsSelectionChanged(const std::string& _s)
 {
-	// clear the others selectors
 	mConnections.clearSelection();
 	mStructures.clearSelection();
 
@@ -573,12 +570,9 @@ void GameState::btnTurnsClicked()
 
 	Structure* cc = mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();
 	if (cc->state() == Structure::OPERATIONAL)
-	{
 		populateStructureMenu();
-	}
 
 	mTurnCount++;
-
 
 	// Check for colony ship deorbiting; if any colonists are remaining, kill
 	// them and reduce morale by an appropriate amount.
@@ -618,6 +612,10 @@ void GameState::btnTurnsClicked()
 
 /**
  * Player ResourcePool modified, we update the IconGrid
+ * 
+ * \todo	Could be removed and have updateStructureAvailability() used
+ *			as the listener instead, but we may want to perform other
+ *			functions here so I'm leaving it in - Lee
  */
 void GameState::playerResourcePoolModified()
 {
@@ -631,17 +629,15 @@ void GameState::playerResourcePoolModified()
 void GameState::updateStructuresAvailability()
 {
 	std::string structure;
-	for (int sid = 0; sid < SID_COUNT; ++sid) {
+	for (int sid = 0; sid < SID_COUNT; ++sid)
+	{
 		structure = StructureTranslator::translateToString(static_cast<StructureID>(sid));
-		if (structure == constants::EMPTY_STR)
+		if (structure.empty())
 			continue;
 
-		ResourcePool rp = StructureFactory::costToBuild(static_cast<StructureID>(sid));
-		if (mPlayerResources.commonMetals() < rp.commonMetals() || mPlayerResources.commonMinerals() < rp.commonMinerals() ||
-			mPlayerResources.rareMetals() < rp.rareMetals() || mPlayerResources.rareMinerals() < rp.rareMinerals()) {
-			mStructures.itemAvailable(structure, false);
-		} else {
+		if (StructureFactory::canBuild(mPlayerResources, static_cast<StructureID>(sid)))
 			mStructures.itemAvailable(structure, true);
-		}
+		else
+			mStructures.itemAvailable(structure, false);
 	}
 }

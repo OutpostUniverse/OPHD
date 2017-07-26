@@ -1160,15 +1160,9 @@ void GameState::factoryProductionComplete(Factory::ProductionType _p)
  */
 void GameState::placeStructure()
 {
+	// SID_NONE is a logic error and should fail as loudly as possible.
 	if (mCurrentStructure == SID_NONE)
-	{
-		#ifdef _DEBUG
 		throw std::runtime_error("GameState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE");
-		#endif
-
-		// When not in Debug just silently swallow this.
-		return;
-	}
 
 
 	// Mouse is outside of the boundaries of the map so ignore this call.
@@ -1221,9 +1215,7 @@ void GameState::placeStructure()
 		}
 
 		// Check build cost
-		ResourcePool rp = StructureFactory::costToBuild(mCurrentStructure);
-		if (mPlayerResources.commonMetals() < rp.commonMetals() || mPlayerResources.commonMinerals() < rp.commonMinerals() ||
-			mPlayerResources.rareMetals() < rp.rareMetals() || mPlayerResources.rareMinerals() < rp.rareMinerals())
+		if (!StructureFactory::canBuild(mPlayerResources, static_cast<StructureID>(mCurrentStructure)))
 		{
 			mAiVoiceNotifier.notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
 			cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
@@ -1245,7 +1237,7 @@ void GameState::placeStructure()
 			static_cast<Factory*>(_s)->resourcePool(&mPlayerResources);
 		}
 
-		mPlayerResources -= rp;
+		mPlayerResources -= StructureFactory::costToBuild(mCurrentStructure);
 	}
 }
 

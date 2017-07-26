@@ -43,6 +43,8 @@ public:
 	static const ResourcePool& costToBuild(StructureID type);
 	static ResourcePool& recyclingValue(StructureID type);
 
+	static bool canBuild(const ResourcePool& source, StructureID type);
+
 	static void init();
 
 private:

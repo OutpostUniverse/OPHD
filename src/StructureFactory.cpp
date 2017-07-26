@@ -201,6 +201,22 @@ void StructureFactory::init()
 
 
 /**
+ * Indicates that the source ResourcePool has enough resources to accommodate
+ * the resource requirements of the specificed structure.
+ */
+bool StructureFactory::canBuild(const ResourcePool& source, StructureID type)
+{
+	ResourcePool _rp = StructureFactory::costToBuild(type);
+
+	if (source.commonMetals() < _rp.commonMetals() || source.commonMinerals() < _rp.commonMinerals() ||
+		source.rareMetals() < _rp.rareMetals() || source.rareMinerals() < _rp.rareMinerals())
+		return false;
+
+	return true;
+}
+
+
+/**
  * Fills out the build costs for all structures.
  */
 void StructureFactory::buildCostTable()
