@@ -26,7 +26,10 @@ ResourcePool::ResourcePool(int cmo, int cmno, int rmo, int rmno, int cm, int cmn
 
 
 ResourcePool::ResourcePool(): _capacity(0)
-{}
+{
+	_resourceTable.fill(0);
+}
+
 
 ResourcePool::ResourcePool(const ResourcePool& _r) : _resourceTable(_r._resourceTable), _capacity(_r._capacity)
 {}
@@ -46,15 +49,18 @@ ResourcePool& ResourcePool::operator=(const ResourcePool& rhs)
 
 
 /**
-* Sets all values to 0.
-*/
+ * Sets all values to 0.
+ */
 void ResourcePool::clear()
 {
-	_resourceTable.clear();
+	_resourceTable.fill(0);
 }
 
 
-ResourcePool& ResourcePool::operator+=(ResourcePool& rhs)
+/**
+ *
+ */
+ResourcePool& ResourcePool::operator+=(const ResourcePool& rhs)
 {
 	if (_capacity != 0)
 	{
@@ -79,7 +85,27 @@ ResourcePool& ResourcePool::operator+=(ResourcePool& rhs)
 	return *this;
 }
 
-ResourcePool& ResourcePool::operator-=(ResourcePool& rhs)
+
+/*
+ResourcePool& ResourcePool::operator-=(const ResourcePool& rhs)
+{
+	/**
+	 * This is a HEINOUS act of lying but simplifies code in other
+	 * parts of the game that would otherwise need to make a copy
+	 * of 'rhs' and then pass that.
+	 * 
+	 * Ultimately while calling this operator _can_ change the state
+	 * of the object (use of [] operator in map can create a new
+	 * key/value pair) the behavior is not catastrophic.
+	
+	*this -= const_cast<ResourcePool&>(rhs);
+
+	return *this;
+}
+*/
+
+
+ResourcePool& ResourcePool::operator-=(const ResourcePool& rhs)
 {
 	_resourceTable[RESOURCE_COMMON_METALS_ORE] -= rhs.commonMetalsOre();
 	_resourceTable[RESOURCE_COMMON_MINERALS_ORE] -= rhs.commonMineralsOre();
@@ -99,7 +125,7 @@ ResourcePool& ResourcePool::operator-=(ResourcePool& rhs)
 }
 
 
-int ResourcePool::resource(ResourceType _t)
+int ResourcePool::resource(ResourceType _t) const
 {
 	return _resourceTable[_t];
 }
@@ -112,18 +138,18 @@ void ResourcePool::resource(ResourceType _t, int _i)
 }
 
 
-int ResourcePool::commonMetalsOre() { return resource(RESOURCE_COMMON_METALS_ORE); }
-int ResourcePool::commonMineralsOre() { return resource(RESOURCE_COMMON_MINERALS_ORE); }
-int ResourcePool::rareMetalsOre() { return resource(RESOURCE_RARE_METALS_ORE); }
-int ResourcePool::rareMineralsOre() { return resource(RESOURCE_RARE_MINERALS_ORE); }
+int ResourcePool::commonMetalsOre() const { return resource(RESOURCE_COMMON_METALS_ORE); }
+int ResourcePool::commonMineralsOre() const { return resource(RESOURCE_COMMON_MINERALS_ORE); }
+int ResourcePool::rareMetalsOre() const { return resource(RESOURCE_RARE_METALS_ORE); }
+int ResourcePool::rareMineralsOre() const { return resource(RESOURCE_RARE_MINERALS_ORE); }
 
-int ResourcePool::commonMetals() { return resource(RESOURCE_COMMON_METALS); }
-int ResourcePool::commonMinerals() { return resource(RESOURCE_COMMON_MINERALS); }
-int ResourcePool::rareMetals() { return resource(RESOURCE_RARE_METALS); }
-int ResourcePool::rareMinerals() { return resource(RESOURCE_RARE_MINERALS); }
+int ResourcePool::commonMetals() const { return resource(RESOURCE_COMMON_METALS); }
+int ResourcePool::commonMinerals() const { return resource(RESOURCE_COMMON_MINERALS); }
+int ResourcePool::rareMetals() const { return resource(RESOURCE_RARE_METALS); }
+int ResourcePool::rareMinerals() const { return resource(RESOURCE_RARE_MINERALS); }
 
-int ResourcePool::energy() { return resource(RESOURCE_ENERGY); }
-int ResourcePool::food() { return resource(RESOURCE_FOOD); }
+int ResourcePool::energy() const { return resource(RESOURCE_ENERGY); }
+int ResourcePool::food() const { return resource(RESOURCE_FOOD); }
 
 void ResourcePool::commonMetalsOre(int _i) { resource(RESOURCE_COMMON_METALS_ORE, _i); }
 void ResourcePool::commonMineralsOre(int _i) { resource(RESOURCE_COMMON_MINERALS_ORE, _i); }
@@ -142,14 +168,14 @@ void ResourcePool::food(int _i) { resource(RESOURCE_FOOD, _i); }
 /**
  * Returns the current amount of resources in the ResourcePool.
  */
-int ResourcePool::currentLevel()
+int ResourcePool::currentLevel() const
 {
 	int cc = 0;
-	for (auto it = _resourceTable.begin(); it != _resourceTable.end(); ++it)
+	for (size_t i = 0; i < RESOURCE_COUNT; ++i)
 	{
-		// Food and energy are handled differently than mineral resources.
-		if(it->first != ResourcePool::RESOURCE_ENERGY && it->first != ResourcePool::RESOURCE_FOOD)
-			cc += it->second;
+		ResourceType _rt = static_cast<ResourceType>(i);
+		if (_rt != RESOURCE_ENERGY && _rt != RESOURCE_FOOD)
+			cc += _resourceTable[_rt];
 	}
 
 	return cc;
@@ -159,24 +185,20 @@ int ResourcePool::currentLevel()
 /**
  * Returns the remaining capacity of the ResourcePool.
  */
-int ResourcePool::remainingCapacity()
+int ResourcePool::remainingCapacity() const
 {
-	#ifdef _DEBUG
 	int ret = capacity() - currentLevel();
 	return ret;
-	#else
-	return capacity() - currentLevel();
-	#endif
 }
 
 
-bool ResourcePool::atCapacity()
+bool ResourcePool::atCapacity()  const
 {
 	return remainingCapacity() <= 0;
 }
 
 
-bool ResourcePool::empty()
+bool ResourcePool::empty() const
 {
 	// energy and food are handled differently than other resources.
 	return currentLevel() == 0 && energy() == 0 && food() == 0;
@@ -367,7 +389,7 @@ void ResourcePool::deserialize(XmlElement* _ti)
 // =======================================================================================================
 // = Comparison operators.
 // =======================================================================================================
-bool operator<(ResourcePool& lhs, ResourcePool& rhs)
+bool operator<(const ResourcePool& lhs, const ResourcePool& rhs)
 {
 	return (lhs.commonMetalsOre() < rhs.commonMetalsOre() &&
 		lhs.commonMineralsOre() < rhs.commonMineralsOre() &&
@@ -384,13 +406,13 @@ bool operator<(ResourcePool& lhs, ResourcePool& rhs)
 }
 
 
-bool operator>(ResourcePool& lhs, ResourcePool& rhs)
+bool operator>(const ResourcePool& lhs, const ResourcePool& rhs)
 {
 	return rhs < lhs;
 }
 
 
-bool operator<=(ResourcePool& lhs, ResourcePool& rhs)
+bool operator<=(const ResourcePool& lhs, const ResourcePool& rhs)
 {
 	return (lhs.commonMetalsOre() <= rhs.commonMetalsOre() &&
 		lhs.commonMineralsOre() <= rhs.commonMineralsOre() &&
@@ -407,7 +429,7 @@ bool operator<=(ResourcePool& lhs, ResourcePool& rhs)
 }
 
 
-bool operator>=(ResourcePool& lhs, ResourcePool& rhs)
+bool operator>=(const ResourcePool& lhs, const ResourcePool& rhs)
 {
 	return rhs <= lhs;
 }

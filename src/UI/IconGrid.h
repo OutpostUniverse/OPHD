@@ -11,16 +11,18 @@
 class IconGrid : public Control
 {
 public:
-
 	typedef NAS2D::Signals::Signal1<const std::string&> Callback;
 
-	typedef struct IconGridItem {
+	typedef struct IconGridItem
+	{
 		IconGridItem() : available(true) {}
+
 		std::string name;
 		Point_2df pos;
 		bool available;
 	} IconGridItem;
 
+public:
 	IconGrid();
 	virtual ~IconGrid();
 
@@ -44,9 +46,9 @@ public:
 	bool itemExists(const std::string& item);
 	void dropAllItems();
 
-	/* Setter */
+	// Setter
 	void itemAvailable(const std::string& item, bool _b);
-	/* Getter */
+	// Getter
 	bool itemAvailable(const std::string& item);
 
 	void showTooltip(bool _b) { mShowTooltip = _b; }
@@ -71,16 +73,15 @@ protected:
 	virtual void sizeChanged();
 
 private:
-
 	typedef std::vector<IconGridItem> IconItemList;
-
+	
+private:
 	void updateGrid();
 	int translateCoordsToIndex(int x, int y);
 
 	void raiseChangedEvent();
 
 private:
-
 	int					mHighlightIndex;		/**< Current highlight index. */
 	int					mCurrentSelection;		/**< Currently selected item index. */
 
