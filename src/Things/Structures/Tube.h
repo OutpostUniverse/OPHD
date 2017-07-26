@@ -7,7 +7,7 @@
 class Tube : public Structure
 {
 public:
-	Tube(ConnectorDir _cd, bool underground) :	Structure(constants::TUBE, "structures/tubes.sprite", STRUCTURE_TUBE),
+	Tube(ConnectorDir _cd, bool underground) :	Structure(constants::TUBE, "structures/tubes.sprite", CLASS_TUBE),
 												mUnderground(underground)
 	{
 		connectorDirection(_cd);

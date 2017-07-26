@@ -310,7 +310,7 @@ void Population::check_females()
 }
 
 
-int Population::killPopulation(Population::PersonList& _pl, Population::PersonRole _pr, int count)
+int Population::killPopulation(Population::PersonList& _pl, Population::PersonRole _pr, size_t count)
 {
 	int c = 0;
 	for (size_t i = 0; i < _pl.size() && i < count; ++i)
@@ -352,7 +352,7 @@ int Population::consume_food(int _food)
 	 * 
 	 * NOTE:	Larger number means more of the population dies.
 	 */
-	int population_to_kill = (size() - population_fed) * (0.50f);
+	int population_to_kill = static_cast<int>((size() - population_fed) * (0.5f));
 
 	if (size() == 1)
 		population_to_kill = 1;

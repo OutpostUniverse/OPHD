@@ -388,11 +388,11 @@ void TileMap::serialize(XmlElement* _ti)
 	// We're only writing out tiles that don't have structures or robots in them that are
 	// underground and excavated or surface and bulldozed.
 	Tile* tile = nullptr;
-	for (size_t depth = 0; depth <= maxDepth(); ++depth)
+	for (int depth = 0; depth <= maxDepth(); ++depth)
 	{
-		for (size_t x = 0; x < width(); ++x)
+		for (int x = 0; x < width(); ++x)
 		{
-			for (size_t y = 0; y < height(); ++y)
+			for (int y = 0; y < height(); ++y)
 			{
 				tile = getTile(x, y, depth);
 				if (depth > 0 && tile->excavated() && tile->empty() && tile->mine() == nullptr)

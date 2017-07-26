@@ -23,14 +23,14 @@ public:
 	void addStructure(Structure* st, Tile* t);
 	void removeStructure(Structure* st);
 
-	StructureList& structureList(Structure::StructureType _st) { return mStructureLists[_st]; }
+	StructureList& structureList(Structure::StructureClass _st) { return mStructureLists[_st]; }
 
 	void disconnectAll();
 	void dropAllStructures();
 
 	int count() const;
 
-	int getCountInState(Structure::StructureType _st, Structure::StructureState _state);
+	int getCountInState(Structure::StructureClass _st, Structure::StructureState _state);
 
 	int disabled();
 	int destroyed();
@@ -48,7 +48,7 @@ protected:
 
 private:
 	typedef std::map<Structure*, Tile*> StructureTileTable;
-	typedef std::map<Structure::StructureType, StructureList> StructureTypeTable;
+	typedef std::map<Structure::StructureClass, StructureList> StructureClassTable;
 
 private:
 	void updateStructures(ResourcePool& _r, StructureList& _sl);
@@ -58,7 +58,7 @@ private:
 
 private:
 	StructureTileTable	mStructureTileTable;		/**< List mapping Structure's to a particular tile. */
-	StructureTypeTable	mStructureLists;			/**< Map containing all of the structure list types available. */
+	StructureClassTable	mStructureLists;			/**< Map containing all of the structure list types available. */
 
 	int					mTotalEnergyOutput;			/**< Total energy output of all energy producers in the structure list. */
 };

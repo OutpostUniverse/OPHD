@@ -18,37 +18,37 @@ public:
 		DESTROYED
 	};
 
-	enum StructureType
+	enum StructureClass
 	{
-		STRUCTURE_COMMAND,
-		STRUCTURE_COMM,
-		STRUCTURE_COMMERCIAL,
-		STRUCTURE_ENERGY_PRODUCTION,
-		STRUCTURE_FACTORY,
-		STRUCTURE_FOOD_PRODUCTION,
-		STRUCTURE_LABORATORY,
-		STRUCTURE_LANDER,
-		STRUCTURE_LIFE_SUPPORT,
-		STRUCTURE_MINE,
-		STRUCTURE_MEDICAL_CENTER,
-		STRUCTURE_PARK,
-		STRUCTURE_SURFACE_POLICE,
-		STRUCTURE_UNDERGROUND_POLICE,
-		STRUCTURE_RECREATION_CENTER,
-		STRUCTURE_RECYCLING,
-		STRUCTURE_RESIDENCE,
-		STRUCTURE_ROBOT_COMMAND,
-		STRUCTURE_SMELTER,
-		STRUCTURE_STORAGE,
-		STRUCTURE_TUBE,
-		STRUCTURE_UNDEFINED,
-		STRUCTURE_UNIVERSITY,
-		STRUCTURE_WAREHOUSE
+		CLASS_COMMAND,
+		CLASS_COMM,
+		CLASS_COMMERCIAL,
+		CLASS_ENERGY_PRODUCTION,
+		CLASS_FACTORY,
+		CLASS_FOOD_PRODUCTION,
+		CLASS_LABORATORY,
+		CLASS_LANDER,
+		CLASS_LIFE_SUPPORT,
+		CLASS_MINE,
+		CLASS_MEDICAL_CENTER,
+		CLASS_PARK,
+		CLASS_SURFACE_POLICE,
+		CLASS_UNDERGROUND_POLICE,
+		CLASS_RECREATION_CENTER,
+		CLASS_RECYCLING,
+		CLASS_RESIDENCE,
+		CLASS_ROBOT_COMMAND,
+		CLASS_SMELTER,
+		CLASS_STORAGE,
+		CLASS_TUBE,
+		CLASS_UNDEFINED,
+		CLASS_UNIVERSITY,
+		CLASS_WAREHOUSE
 	};
 
 
 public:
-	Structure(const std::string& name, const std::string& sprite_path, StructureType _t);
+	Structure(const std::string& name, const std::string& sprite_path, StructureClass _t);
 	virtual ~Structure();
 	
 	// STATES & STATE MANAGEMENT
@@ -80,7 +80,7 @@ public:
 
 
 	// ATTRIBUTES
-	StructureType type() const { return mStructureType; }
+	StructureClass type() const { return mStructureClass; }
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
 	int id() const { return mId; }
@@ -90,12 +90,12 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
-	bool providesCHAP() const { return type() == STRUCTURE_LIFE_SUPPORT; }
+	bool providesCHAP() const { return type() == CLASS_LIFE_SUPPORT; }
 	bool selfSustained() const { return mSelfSustained; }
-	bool isFactory() const { return type() == STRUCTURE_FACTORY; }
-	bool energyProducer() const { return type() == STRUCTURE_ENERGY_PRODUCTION; }
+	bool isFactory() const { return type() == CLASS_FACTORY; }
+	bool energyProducer() const { return type() == CLASS_ENERGY_PRODUCTION; }
 	bool repairable() const { return mRepairable; }
-	bool isConnector() const { return type() == STRUCTURE_TUBE; } /** Indicates that the structure can act as a connector (tube) */
+	bool isConnector() const { return type() == CLASS_TUBE; } /** Indicates that the structure can act as a connector (tube) */
 
 	// BASIC FUNCTIONS
 	void update();
@@ -149,7 +149,7 @@ private:
 	int						mMaxAge;					/**< Maximum number of turns the Structure can remain in good repair. */
 
 	StructureState			mStructureState;			/**< State the structure is in. */
-	StructureType			mStructureType;				/**< Indicates the Structure's Type. */
+	StructureClass			mStructureClass;				/**< Indicates the Structure's Type. */
 	ConnectorDir			mConnectorDirection;		/**< Directions available for connections. */
 
 	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */

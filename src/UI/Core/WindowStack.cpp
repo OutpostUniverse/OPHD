@@ -3,6 +3,18 @@
 #include <algorithm>
 #include <iostream>
 
+/**
+ * Convenience function to pass a Rectangle_2df to \c isPointInRect()
+ */
+bool pointInRect_f(int x, int y, const Rectangle_2df& rect)
+{
+	return isPointInRect(x, y,	static_cast<int>(rect.x()),
+								static_cast<int>(rect.y()),
+								static_cast<int>(rect.width()),
+								static_cast<int>(rect.height()));
+}
+
+
 WindowStack::WindowStack()
 {}
 
@@ -49,7 +61,7 @@ bool WindowStack::pointInWindow(int x, int y) const
 	for (auto it = mWindowList.begin(); it != mWindowList.end(); ++it)
 	{
 		Window* w = *(it);
-		if (w->visible() && isPointInRect(x, y, w->rect().x(), w->rect().y(), w->rect().width(), w->rect().height()))
+		if (w->visible() && pointInRect_f(x, y,	w->rect()))
 			return true;
 	}
 
@@ -65,7 +77,7 @@ void WindowStack::updateStack(int x, int y)
 	for (auto it = mWindowList.begin(); it != mWindowList.end(); ++it)
 	{
 		Window* w = (*it);
-		if (w->visible() && isPointInRect(x, y, w->rect().x(), w->rect().y(), w->rect().width(), w->rect().height()))
+		if (w->visible() && pointInRect_f(x, y, w->rect()))
 		{
 			if (it == mWindowList.begin())
 				return;

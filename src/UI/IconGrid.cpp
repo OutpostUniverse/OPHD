@@ -100,9 +100,12 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	mCurrentSelection = translateCoordsToIndex(x - rect().x(), y - rect().y());
 
-	if (mCurrentSelection >= mIconItemList.size()) {
+	if (static_cast<size_t>(mCurrentSelection) >= mIconItemList.size())
+	{
 		mCurrentSelection = constants::NO_SELECTION;
-	}/* else if (!mIconItemList[mCurrentSelection].available) {
+	}
+	/* else if (!mIconItemList[mCurrentSelection].available)
+	{
 		cout << "Insufficient resources" <<endl;
 		mCurrentSelection = constants::NO_SELECTION;
 		return;
@@ -129,7 +132,7 @@ void IconGrid::onMouseMotion(int x, int y, int dX, int dY)
 	// Assumes all coordinates are not negative.
 	mHighlightIndex = translateCoordsToIndex(x - rect().x(), y - rect().y());
 
-	if (mHighlightIndex >= mIconItemList.size())
+	if (static_cast<size_t>(mHighlightIndex) >= mIconItemList.size())
 		mHighlightIndex = constants::NO_SELECTION;
 }
 
@@ -182,7 +185,8 @@ void IconGrid::itemAvailable(const std::string& item, bool _b)
 
 	for (auto &_iconItem : mIconItemList)
 	{
-		if (toLowercase(_iconItem.name) == toLowercase(item)) {
+		if (toLowercase(_iconItem.name) == toLowercase(item))
+		{
 			_iconItem.available = _b;
 			return;
 		}
@@ -278,7 +282,7 @@ void IconGrid::clearSelection()
  */
 void IconGrid::selection(int _s)
 {
-	if (_s >= mIconItemList.size())
+	if (static_cast<size_t>(_s) >= mIconItemList.size())
 		return;
 
 	mCurrentSelection = _s;
@@ -289,7 +293,7 @@ void IconGrid::incrementSelection()
 {
 	++mCurrentSelection;
 
-	if (mCurrentSelection >= mIconItemList.size())
+	if (static_cast<size_t>(mCurrentSelection) >= mIconItemList.size())
 		mCurrentSelection = 0;
 
 	raiseChangedEvent();

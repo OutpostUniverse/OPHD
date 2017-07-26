@@ -181,7 +181,7 @@ void PlanetSelectState::onMouseDown(EventHandler::MouseButton button, int x, int
 		{
 			Utility<Mixer>::get().playSound(mSelect);
 			PLANET_TYPE_SELECTION = mPlanets[i]->type();
-			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+			Utility<Renderer>::get().fadeOut((float)constants::FADE_SPEED);
 			Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 			return;
 		}

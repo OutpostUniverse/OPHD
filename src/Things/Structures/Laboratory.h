@@ -5,7 +5,7 @@
 class HotLaboratory : public Structure
 {
 public:
-	HotLaboratory() : Structure(constants::HOT_LABORATORY, "structures/labo_surface.sprite", STRUCTURE_LABORATORY)
+	HotLaboratory() : Structure(constants::HOT_LABORATORY, "structures/labo_surface.sprite", CLASS_LABORATORY)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);
@@ -39,7 +39,7 @@ private:
 class Laboratory : public Structure
 {
 public:
-	Laboratory() : Structure(constants::LABORATORY, "structures/laboratory_underground.sprite", STRUCTURE_LABORATORY)
+	Laboratory() : Structure(constants::LABORATORY, "structures/laboratory_underground.sprite", CLASS_LABORATORY)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);

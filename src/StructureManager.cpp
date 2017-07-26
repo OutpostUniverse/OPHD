@@ -24,8 +24,8 @@ StructureManager::~StructureManager()
 
 bool StructureManager::CHAPAvailable()
 {
-	for (size_t i = 0; i < mStructureLists[Structure::STRUCTURE_LIFE_SUPPORT].size(); ++i)
-		if (mStructureLists[Structure::STRUCTURE_LIFE_SUPPORT][i]->operational())
+	for (size_t i = 0; i < mStructureLists[Structure::CLASS_LIFE_SUPPORT].size(); ++i)
+		if (mStructureLists[Structure::CLASS_LIFE_SUPPORT][i]->operational())
 			return true;
 
 	return false;
@@ -37,35 +37,35 @@ void StructureManager::update(ResourcePool& _r)
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
 	// calls to lower priority structures.
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LANDER]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_COMMAND]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_LANDER]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_COMMAND]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_ENERGY_PRODUCTION]);
 
 	updateEnergyProduction(_r);
 
 	// Basic resource production
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_MINE]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_SMELTER]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_MINE]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_SMELTER]);
 
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LIFE_SUPPORT]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_MEDICAL_CENTER]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FOOD_PRODUCTION]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_LIFE_SUPPORT]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_MEDICAL_CENTER]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_FOOD_PRODUCTION]);
 
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_FACTORY]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_FACTORY]);
 
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_STORAGE]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_PARK]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_SURFACE_POLICE]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_UNDERGROUND_POLICE]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_RECREATION_CENTER]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_RESIDENCE]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_ROBOT_COMMAND]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_WAREHOUSE]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_LABORATORY]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_COMMERCIAL]);
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_UNIVERSITY]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_STORAGE]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_PARK]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_SURFACE_POLICE]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_UNDERGROUND_POLICE]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_RECREATION_CENTER]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_RESIDENCE]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_ROBOT_COMMAND]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_WAREHOUSE]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_LABORATORY]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_COMMERCIAL]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_UNIVERSITY]);
 
-	updateStructures(_r, mStructureLists[Structure::STRUCTURE_UNDEFINED]);
+	updateStructures(_r, mStructureLists[Structure::CLASS_UNDEFINED]);
 
 	updateFactoryProduction();
 }
@@ -74,10 +74,10 @@ void StructureManager::update(ResourcePool& _r)
 void StructureManager::updateEnergyProduction(ResourcePool& _r)
 {
 	mTotalEnergyOutput = 0;
-	for (size_t i = 0; i < mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION].size(); ++i)
+	for (size_t i = 0; i < mStructureLists[Structure::CLASS_ENERGY_PRODUCTION].size(); ++i)
 	{
-		if (mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION][i]->operational())
-			mTotalEnergyOutput += mStructureLists[Structure::STRUCTURE_ENERGY_PRODUCTION][i]->resourcesOut().energy();
+		if (mStructureLists[Structure::CLASS_ENERGY_PRODUCTION][i]->operational())
+			mTotalEnergyOutput += mStructureLists[Structure::CLASS_ENERGY_PRODUCTION][i]->resourcesOut().energy();
 	}
 
 	_r.energy(mTotalEnergyOutput);
@@ -136,7 +136,7 @@ void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 
 void StructureManager::updateFactoryProduction()
 {
-	StructureList& sl = mStructureLists[Structure::STRUCTURE_FACTORY];
+	StructureList& sl = mStructureLists[Structure::CLASS_FACTORY];
 
 	for (size_t i = 0; i < sl.size(); ++i)
 	{
@@ -234,7 +234,7 @@ int StructureManager::count() const
 }
 
 
-int StructureManager::getCountInState(Structure::StructureType _st, Structure::StructureState _state)
+int StructureManager::getCountInState(Structure::StructureClass _st, Structure::StructureState _state)
 {
 	int count = 0;
 	for (size_t i = 0; i < structureList(_st).size(); ++i)

@@ -7,7 +7,7 @@
 class University : public Structure
 {
 public:
-	University() : Structure(constants::UNIVERSITY, "structures/university.sprite", STRUCTURE_UNIVERSITY)
+	University() : Structure(constants::UNIVERSITY, "structures/university.sprite", CLASS_UNIVERSITY)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);

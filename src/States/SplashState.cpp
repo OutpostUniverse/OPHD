@@ -81,7 +81,7 @@ void setNextState(LogoState& _ls)
 void SplashState::skipSplash()
 {
 	Utility<Mixer>::get().fadeOutMusic(FADE_LENGTH);
-	Utility<Renderer>::get().fadeOut(FADE_LENGTH);
+	Utility<Renderer>::get().fadeOut((float)FADE_LENGTH);
 	mReturnState = new PlanetSelectState();
 }
 
@@ -95,7 +95,7 @@ State* SplashState::update()
 			return mReturnState;
 
 		setNextState(CURRENT_STATE);
-		r.fadeIn(FADE_LENGTH);
+		r.fadeIn((float)FADE_LENGTH);
 		mTimer.reset();
 	}
 
@@ -127,7 +127,7 @@ State* SplashState::update()
 	}
 	else if (mTimer.accumulator() > PAUSE_TIME)
 	{
-		r.fadeOut(FADE_LENGTH);
+		r.fadeOut((float)FADE_LENGTH);
 		mTimer.reset();
 	}
 

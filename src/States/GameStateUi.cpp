@@ -439,7 +439,7 @@ void GameState::fileIoAction(const std::string& _file, FileIo::FileOperation _op
 }
 
 
-int moraleChange(StructureManager& _sm, Structure::StructureType _type)
+int moraleChange(StructureManager& _sm, Structure::StructureClass _type)
 {
 	int count = 0;
 	for (auto it = _sm.structureList(_type).begin(); it != _sm.structureList(_type).end(); ++it)
@@ -483,7 +483,7 @@ void GameState::btnTurnsClicked()
 
 	// FOOD CONSUMPTION
 	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage());
-	StructureManager::StructureList &foodproducers = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
+	StructureManager::StructureList &foodproducers = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
 	int remainder = food_consumed;
 
 	if (mPlayerResources.food() > 0)
@@ -500,10 +500,10 @@ void GameState::btnTurnsClicked()
 	// MORALE
 	// Positive Effects
 	mCurrentMorale += mPopulation.birthCount();
-	mCurrentMorale += mStructureManager.getCountInState(Structure::STRUCTURE_PARK, Structure::OPERATIONAL);
-	mCurrentMorale += mStructureManager.getCountInState(Structure::STRUCTURE_RECREATION_CENTER, Structure::OPERATIONAL);
+	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_PARK, Structure::OPERATIONAL);
+	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_RECREATION_CENTER, Structure::OPERATIONAL);
 
-	int food_production = mStructureManager.getCountInState(Structure::STRUCTURE_FOOD_PRODUCTION, Structure::OPERATIONAL);
+	int food_production = mStructureManager.getCountInState(Structure::CLASS_FOOD_PRODUCTION, Structure::OPERATIONAL);
 	food_production > 0 ? mCurrentMorale += food_production : mCurrentMorale -= 5;
 
 	//mCurrentMorale += mStructureManager.getCountInState(Structure::STRUCTURE_COMMERCIAL, Structure::OPERATIONAL);
@@ -517,13 +517,13 @@ void GameState::btnTurnsClicked()
 
 
 	// Update storage capacity
-	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::STRUCTURE_STORAGE)));
+	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::CLASS_STORAGE)));
 
 	ResourcePool truck;
 	truck.capacity(100);
 
-	auto mines = mStructureManager.structureList(Structure::STRUCTURE_MINE);
-	auto smelters = mStructureManager.structureList(Structure::STRUCTURE_SMELTER);
+	auto mines = mStructureManager.structureList(Structure::CLASS_MINE);
+	auto smelters = mStructureManager.structureList(Structure::CLASS_SMELTER);
 
 	// Move ore from mines to smelters
 	for (size_t m = 0; m < mines.size(); ++m)

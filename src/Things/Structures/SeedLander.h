@@ -9,7 +9,7 @@ public:
 
 	typedef NAS2D::Signals::Signal2<int, int> Callback;
 
-	SeedLander(int x, int y):	Structure(constants::SEED_LANDER, "structures/seed_0.sprite", STRUCTURE_LANDER),
+	SeedLander(int x, int y):	Structure(constants::SEED_LANDER, "structures/seed_0.sprite", CLASS_LANDER),
 								mX(x), mY(y)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);

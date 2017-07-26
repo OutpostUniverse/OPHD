@@ -5,7 +5,7 @@
 class CommandCenter: public Structure
 {
 public:
-	CommandCenter():	Structure(constants::COMMAND_CENTER, "structures/command_center.sprite", STRUCTURE_COMMAND)
+	CommandCenter():	Structure(constants::COMMAND_CENTER, "structures/command_center.sprite", CLASS_COMMAND)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);

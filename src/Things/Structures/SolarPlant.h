@@ -7,7 +7,7 @@
 class SolarPlant : public Structure
 {
 public:
-	SolarPlant() : Structure(constants::SOLAR_PLANT, "structures/solar_plant.sprite", STRUCTURE_ENERGY_PRODUCTION)
+	SolarPlant() : Structure(constants::SOLAR_PLANT, "structures/solar_plant.sprite", CLASS_ENERGY_PRODUCTION)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);

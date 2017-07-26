@@ -7,7 +7,7 @@
 class SurfacePolice : public Structure
 {
 public:
-	SurfacePolice() : Structure(constants::SURFACE_POLICE, "structures/police_surface.sprite", STRUCTURE_SURFACE_POLICE)
+	SurfacePolice() : Structure(constants::SURFACE_POLICE, "structures/police_surface.sprite", CLASS_SURFACE_POLICE)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);
@@ -41,7 +41,7 @@ private:
 class UndergroundPolice : public Structure
 {
 public:
-	UndergroundPolice() : Structure(constants::UNDERGROUND_POLICE, "structures/police_underground.sprite", STRUCTURE_UNDERGROUND_POLICE)
+	UndergroundPolice() : Structure(constants::UNDERGROUND_POLICE, "structures/police_underground.sprite", CLASS_UNDERGROUND_POLICE)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);

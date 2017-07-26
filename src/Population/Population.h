@@ -54,7 +54,7 @@ private:
 
 	int consume_food(int _food);
 
-	int killPopulation(Population::PersonList& _pl, Population::PersonRole _pr, int count);
+	int killPopulation(Population::PersonList& _pl, Population::PersonRole _pr, size_t count);
 
 private:
 	typedef std::map<PersonRole, PersonList> PopulationTable;

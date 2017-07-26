@@ -6,7 +6,7 @@
 #include <sstream>
 
 // FIXME: Find a sane place for this as these are usefull throughout the code.
-std::map<Structure::StructureType, std::string> TypeTranslationTable;
+std::map<Structure::StructureClass, std::string> TypeTranslationTable;
 std::map<Structure::StructureState, std::string> StateTranslationTable;
 
 
@@ -39,27 +39,27 @@ void StructureInspector::init()
 
 
 	// Build translation tables.
-	TypeTranslationTable[Structure::STRUCTURE_COMMAND] = "Command";
-	TypeTranslationTable[Structure::STRUCTURE_COMM] = "Communication";
-	TypeTranslationTable[Structure::STRUCTURE_COMMERCIAL] = "Commercial";
-	TypeTranslationTable[Structure::STRUCTURE_ENERGY_PRODUCTION] = "Energy Production";
-	TypeTranslationTable[Structure::STRUCTURE_FACTORY] = "Factory";
-	TypeTranslationTable[Structure::STRUCTURE_FOOD_PRODUCTION] = "Food Production";
-	TypeTranslationTable[Structure::STRUCTURE_LABORATORY] = "Laboratory";
-	TypeTranslationTable[Structure::STRUCTURE_LANDER] = "Lander";
-	TypeTranslationTable[Structure::STRUCTURE_LIFE_SUPPORT] = "Life Support";
-	TypeTranslationTable[Structure::STRUCTURE_MINE] = "Mine Facility";
-	TypeTranslationTable[Structure::STRUCTURE_PARK] = "Park / Reservoir";
-	TypeTranslationTable[Structure::STRUCTURE_SURFACE_POLICE] = "Police";
-	TypeTranslationTable[Structure::STRUCTURE_UNDERGROUND_POLICE] = "Police";
-	TypeTranslationTable[Structure::STRUCTURE_RECREATION_CENTER] = "Recreation Center";
-	TypeTranslationTable[Structure::STRUCTURE_RECYCLING] = "Recycling";
-	TypeTranslationTable[Structure::STRUCTURE_RESIDENCE] = "Residential";
-	TypeTranslationTable[Structure::STRUCTURE_SMELTER] = "Raw Ore Processing";
-	TypeTranslationTable[Structure::STRUCTURE_STORAGE] = "Storage";
-	TypeTranslationTable[Structure::STRUCTURE_TUBE] = "Tube";
-	TypeTranslationTable[Structure::STRUCTURE_UNDEFINED] = "UNDEFINED";
-	TypeTranslationTable[Structure::STRUCTURE_UNIVERSITY] = "University";
+	TypeTranslationTable[Structure::CLASS_COMMAND] = "Command";
+	TypeTranslationTable[Structure::CLASS_COMM] = "Communication";
+	TypeTranslationTable[Structure::CLASS_COMMERCIAL] = "Commercial";
+	TypeTranslationTable[Structure::CLASS_ENERGY_PRODUCTION] = "Energy Production";
+	TypeTranslationTable[Structure::CLASS_FACTORY] = "Factory";
+	TypeTranslationTable[Structure::CLASS_FOOD_PRODUCTION] = "Food Production";
+	TypeTranslationTable[Structure::CLASS_LABORATORY] = "Laboratory";
+	TypeTranslationTable[Structure::CLASS_LANDER] = "Lander";
+	TypeTranslationTable[Structure::CLASS_LIFE_SUPPORT] = "Life Support";
+	TypeTranslationTable[Structure::CLASS_MINE] = "Mine Facility";
+	TypeTranslationTable[Structure::CLASS_PARK] = "Park / Reservoir";
+	TypeTranslationTable[Structure::CLASS_SURFACE_POLICE] = "Police";
+	TypeTranslationTable[Structure::CLASS_UNDERGROUND_POLICE] = "Police";
+	TypeTranslationTable[Structure::CLASS_RECREATION_CENTER] = "Recreation Center";
+	TypeTranslationTable[Structure::CLASS_RECYCLING] = "Recycling";
+	TypeTranslationTable[Structure::CLASS_RESIDENCE] = "Residential";
+	TypeTranslationTable[Structure::CLASS_SMELTER] = "Raw Ore Processing";
+	TypeTranslationTable[Structure::CLASS_STORAGE] = "Storage";
+	TypeTranslationTable[Structure::CLASS_TUBE] = "Tube";
+	TypeTranslationTable[Structure::CLASS_UNDEFINED] = "UNDEFINED";
+	TypeTranslationTable[Structure::CLASS_UNIVERSITY] = "University";
 
 	StateTranslationTable[Structure::UNDER_CONSTRUCTION] = "Under Construction";
 	StateTranslationTable[Structure::OPERATIONAL] = "Operational";

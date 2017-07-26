@@ -6,13 +6,13 @@ using namespace std;
 /**
  * C'tor
  */
-Structure::Structure(const string& name, const string& sprite_path, StructureType _t):	Thing(name, sprite_path),
+Structure::Structure(const string& name, const string& sprite_path, StructureClass _t):	Thing(name, sprite_path),
 																						mId((long)(this)), // naive
 																						mTurnsToBuild(0),
 																						mAge(0),
 																						mMaxAge(0),
 																						mStructureState(UNDER_CONSTRUCTION),
-																						mStructureType(_t),
+																						mStructureClass(_t),
 																						mConnectorDirection(CONNECTOR_INTERSECTION),
 																						mRepairable(true),
 																						mRequiresCHAP(true), // Most structures require a CHAP facility in order to operate.

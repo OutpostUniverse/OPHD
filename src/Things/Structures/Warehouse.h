@@ -5,7 +5,7 @@
 class Warehouse : public Structure
 {
 public:
-	Warehouse() : Structure(constants::WAREHOUSE, "structures/warehouse.sprite", STRUCTURE_WAREHOUSE)
+	Warehouse() : Structure(constants::WAREHOUSE, "structures/warehouse.sprite", CLASS_WAREHOUSE)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);

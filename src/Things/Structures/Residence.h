@@ -7,7 +7,7 @@
 class Residence : public Structure
 {
 public:
-	Residence() : Structure(constants::RESIDENCE, "structures/residential_1.sprite", STRUCTURE_RESIDENCE)
+	Residence() : Structure(constants::RESIDENCE, "structures/residential_1.sprite", CLASS_RESIDENCE)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);

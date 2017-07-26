@@ -246,7 +246,7 @@ int GameState::foodInStorage()
 {
 	int food_count = 0;
 
-	auto sl = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
+	auto sl = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
 	for (size_t i = 0; i < sl.size(); ++i)
 	{
 		if (sl[i]->operational() || sl[i]->isIdle())
@@ -267,7 +267,7 @@ int GameState::foodTotalStorage()
 	if (mCCLocation.x() != 0)
 		food_storage += constants::BASE_STORAGE_CAPACITY;
 
-	auto sl = mStructureManager.structureList(Structure::STRUCTURE_FOOD_PRODUCTION);
+	auto sl = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
 	for (size_t i = 0; i < sl.size(); ++i)
 	{
 		if (sl[i]->operational() || sl[i]->isIdle())
@@ -1565,7 +1565,7 @@ void GameState::load(const std::string& _path)
 		mAiVoiceNotifier.gender(static_cast<AiVoiceNotifier::AiGender>(gender));
 	}
 
-	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::STRUCTURE_STORAGE)));
+	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::CLASS_STORAGE)));
 
 	checkConnectedness();
 	mStructureManager.updateEnergyProduction(mPlayerResources);
