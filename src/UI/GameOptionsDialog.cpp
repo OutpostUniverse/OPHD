@@ -12,7 +12,12 @@ GameOptionsDialog::GameOptionsDialog(Font& font)
 
 
 GameOptionsDialog::~GameOptionsDialog()
-{}
+{
+	btnSave.click().disconnect(this, &GameOptionsDialog::btnSaveClicked);
+	btnLoad.click().disconnect(this, &GameOptionsDialog::btnLoadClicked);
+	btnReturn.click().disconnect(this, &GameOptionsDialog::btnReturnClicked);
+	btnClose.click().disconnect(this, &GameOptionsDialog::btnCloseClicked);
+}
 
 
 void GameOptionsDialog::init()
