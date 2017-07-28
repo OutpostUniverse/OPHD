@@ -6,6 +6,8 @@ std::array<ResourcePool, SID_COUNT> StructureFactory::mStructureCostTable;
 std::array<ResourcePool, SID_COUNT> StructureFactory::mStructureRecycleValueTable;
 std::array<PopulationRequirements, SID_COUNT> StructureFactory::mPopulationRequirementsTable = { 0 };
 
+const float	DEFAULT_RECYCLE_VALUE = 0.9f;
+
 
 /**
  * Gets a new Structure object given a StructureID.
@@ -152,6 +154,7 @@ Structure* StructureFactory::get(StructureID type)
 			break;
 	}
 
+	_st->setPopulationRequirements(StructureFactory::populationRequirements(type));
 	return _st;
 }
 
@@ -221,35 +224,35 @@ bool StructureFactory::canBuild(const ResourcePool& source, StructureID type)
  */
 void StructureFactory::buildCostTable()
 {
-	mStructureCostTable[SID_AGRIDOME] = ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
-	mStructureCostTable[SID_AIR_SHAFT] = ResourcePool();
-	mStructureCostTable[SID_CHAP] = ResourcePool(0, 0, 0, 0, 50, 10, 20, 5, 0, 0);
-	mStructureCostTable[SID_COMMAND_CENTER] = ResourcePool(0, 0, 0, 0, 100, 75, 65, 35, 0, 0);
-	mStructureCostTable[SID_COMMERCIAL] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
-	mStructureCostTable[SID_FUSION_REACTOR] = ResourcePool(0, 0, 0, 0, 75, 25, 50, 30, 0, 0);
-	mStructureCostTable[SID_HOT_LABORATORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
-	mStructureCostTable[SID_LABORATORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
-	mStructureCostTable[SID_MEDICAL_CENTER] = ResourcePool(0, 0, 0, 0, 20, 5, 2, 0, 0, 0);
-	mStructureCostTable[SID_MINE_FACILITY] = ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
-	mStructureCostTable[SID_PARK] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
-	mStructureCostTable[SID_SURFACE_POLICE] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
-	mStructureCostTable[SID_UNDERGROUND_POLICE] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
-	mStructureCostTable[SID_RECREATION_CENTER] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
-	mStructureCostTable[SID_RED_LIGHT_DISTRICT] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
-	mStructureCostTable[SID_RESIDENCE] = ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
-	mStructureCostTable[SID_ROBOT_COMMAND] = ResourcePool(0, 0, 0, 0, 75, 50, 45, 25, 0, 0);
-	mStructureCostTable[SID_SEED_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
-	mStructureCostTable[SID_SEED_LANDER] = ResourcePool(0, 0, 0, 0, 10, 10, 5, 5, 0, 0);
-	mStructureCostTable[SID_SEED_POWER] = ResourcePool(0, 0, 0, 0, 15, 10, 10, 8, 0, 0);
-	mStructureCostTable[SID_SEED_SMELTER] = ResourcePool(0, 0, 0, 0, 25, 20, 10, 5, 0, 0);
-	mStructureCostTable[SID_SMELTER] = ResourcePool(0, 0, 0, 0, 30, 20, 10, 5, 0, 0);
-	mStructureCostTable[SID_SOLAR_PLANT] = ResourcePool(0, 0, 0, 0, 50, 25, 50, 20, 0, 0);
-	mStructureCostTable[SID_STORAGE_TANKS] = ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
-	mStructureCostTable[SID_SURFACE_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
-	mStructureCostTable[SID_TUBE] = ResourcePool();
-	mStructureCostTable[SID_UNDERGROUND_FACTORY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
-	mStructureCostTable[SID_UNIVERSITY] = ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
-	mStructureCostTable[SID_WAREHOUSE] = ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
+	// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
+	mStructureCostTable[SID_AGRIDOME]				= ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
+	mStructureCostTable[SID_AIR_SHAFT]				= ResourcePool();
+	mStructureCostTable[SID_CHAP]					= ResourcePool(0, 0, 0, 0, 50, 10, 20, 5, 0, 0);
+	mStructureCostTable[SID_COMMAND_CENTER]			= ResourcePool(0, 0, 0, 0, 100, 75, 65, 35, 0, 0);
+	mStructureCostTable[SID_COMMERCIAL]				= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_FUSION_REACTOR]			= ResourcePool(0, 0, 0, 0, 75, 25, 50, 30, 0, 0);
+	mStructureCostTable[SID_HOT_LABORATORY]			= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
+	mStructureCostTable[SID_LABORATORY]				= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
+	mStructureCostTable[SID_MEDICAL_CENTER]			= ResourcePool(0, 0, 0, 0, 20, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_MINE_FACILITY]			= ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
+	mStructureCostTable[SID_PARK]					= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_SURFACE_POLICE]			= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_UNDERGROUND_POLICE]		= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_RECREATION_CENTER]		= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_RED_LIGHT_DISTRICT]		= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_RESIDENCE]				= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_ROBOT_COMMAND]			= ResourcePool(0, 0, 0, 0, 75, 50, 45, 25, 0, 0);
+	mStructureCostTable[SID_SEED_FACTORY]			= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
+	mStructureCostTable[SID_SEED_POWER]				= ResourcePool(0, 0, 0, 0, 15, 10, 10, 8, 0, 0);
+	mStructureCostTable[SID_SEED_SMELTER]			= ResourcePool(0, 0, 0, 0, 25, 20, 10, 5, 0, 0);
+	mStructureCostTable[SID_SMELTER]				= ResourcePool(0, 0, 0, 0, 30, 20, 10, 5, 0, 0);
+	mStructureCostTable[SID_SOLAR_PLANT]			= ResourcePool(0, 0, 0, 0, 50, 25, 50, 20, 0, 0);
+	mStructureCostTable[SID_STORAGE_TANKS]			= ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
+	mStructureCostTable[SID_SURFACE_FACTORY]		= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
+	mStructureCostTable[SID_TUBE]					= ResourcePool();
+	mStructureCostTable[SID_UNDERGROUND_FACTORY]	= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
+	mStructureCostTable[SID_UNIVERSITY]				= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
+	mStructureCostTable[SID_WAREHOUSE]				= ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
 }
 
 
@@ -259,7 +262,12 @@ void StructureFactory::buildCostTable()
 void StructureFactory::buildRecycleValueTable()
 {
 	for (size_t i = 0; i < SID_COUNT; ++i)
-		mStructureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i));
+		mStructureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), DEFAULT_RECYCLE_VALUE);
+
+	// Landers don't cost anything but build but they do have a case resource value when scrapped.
+	// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
+	mStructureRecycleValueTable[SID_COLONIST_LANDER]	= ResourcePool(0, 0, 0, 0, 20, 10, 5, 5, 0, 0);
+	mStructureRecycleValueTable[SID_SEED_LANDER]		= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
 }
 
 
@@ -268,35 +276,34 @@ void StructureFactory::buildRecycleValueTable()
  */
 void StructureFactory::buildPopulationRequirementsTable()
 {
-	mPopulationRequirementsTable[SID_AGRIDOME] = { 0 };
-	mPopulationRequirementsTable[SID_AIR_SHAFT] = { 0 };
-	mPopulationRequirementsTable[SID_CHAP] = { 0 };
-	mPopulationRequirementsTable[SID_COMMAND_CENTER] = { 0 };
-	mPopulationRequirementsTable[SID_COMMERCIAL] = { 0 };
-	mPopulationRequirementsTable[SID_FUSION_REACTOR] = { 0 };
-	mPopulationRequirementsTable[SID_HOT_LABORATORY] = { 0 };
-	mPopulationRequirementsTable[SID_LABORATORY] = { 0 };
-	mPopulationRequirementsTable[SID_MEDICAL_CENTER] = { 0 };
-	mPopulationRequirementsTable[SID_MINE_FACILITY] = { 0 };
-	mPopulationRequirementsTable[SID_PARK] = { 0 };
-	mPopulationRequirementsTable[SID_SURFACE_POLICE] = { 0 };
-	mPopulationRequirementsTable[SID_UNDERGROUND_POLICE] = { 0 };
-	mPopulationRequirementsTable[SID_RECREATION_CENTER] = { 0 };
-	mPopulationRequirementsTable[SID_RED_LIGHT_DISTRICT] = { 0 };
-	mPopulationRequirementsTable[SID_RESIDENCE] = { 0 };
-	mPopulationRequirementsTable[SID_ROBOT_COMMAND] = { 0 };
-	mPopulationRequirementsTable[SID_SEED_FACTORY] = { 0 };
-	mPopulationRequirementsTable[SID_SEED_LANDER] = { 0 };
-	mPopulationRequirementsTable[SID_SEED_POWER] = { 0 };
-	mPopulationRequirementsTable[SID_SEED_SMELTER] = { 0 };
-	mPopulationRequirementsTable[SID_SMELTER] = { 0 };
-	mPopulationRequirementsTable[SID_SOLAR_PLANT] = { 0 };
-	mPopulationRequirementsTable[SID_STORAGE_TANKS] = { 0 };
-	mPopulationRequirementsTable[SID_SURFACE_FACTORY] = { 0 };
-	mPopulationRequirementsTable[SID_TUBE] = { 0 };
-	mPopulationRequirementsTable[SID_UNDERGROUND_FACTORY] = { 0 };
-	mPopulationRequirementsTable[SID_UNIVERSITY] = { 0 };
-	mPopulationRequirementsTable[SID_WAREHOUSE] = { 0 };
+	mPopulationRequirementsTable[SID_AGRIDOME]				= { 0 };
+	mPopulationRequirementsTable[SID_AIR_SHAFT]				= { 0 };
+	mPopulationRequirementsTable[SID_CHAP]					= { 0 };
+	mPopulationRequirementsTable[SID_COMMAND_CENTER]		= { 0 };
+	mPopulationRequirementsTable[SID_COMMERCIAL]			= { 0 };
+	mPopulationRequirementsTable[SID_FUSION_REACTOR]		= { 0 };
+	mPopulationRequirementsTable[SID_HOT_LABORATORY]		= { 0 };
+	mPopulationRequirementsTable[SID_LABORATORY]			= { 0 };
+	mPopulationRequirementsTable[SID_MEDICAL_CENTER]		= { 0 };
+	mPopulationRequirementsTable[SID_MINE_FACILITY]			= { 0 };
+	mPopulationRequirementsTable[SID_PARK]					= { 0 };
+	mPopulationRequirementsTable[SID_SURFACE_POLICE]		= { 0 };
+	mPopulationRequirementsTable[SID_UNDERGROUND_POLICE]	= { 0 };
+	mPopulationRequirementsTable[SID_RECREATION_CENTER]		= { 0 };
+	mPopulationRequirementsTable[SID_RED_LIGHT_DISTRICT]	= { 0 };
+	mPopulationRequirementsTable[SID_RESIDENCE]				= { 0 };
+	mPopulationRequirementsTable[SID_ROBOT_COMMAND]			= { 0 };
+	mPopulationRequirementsTable[SID_SEED_FACTORY]			= { 0 };
+	mPopulationRequirementsTable[SID_SEED_POWER]			= { 0 };
+	mPopulationRequirementsTable[SID_SEED_SMELTER]			= { 0 };
+	mPopulationRequirementsTable[SID_SMELTER]				= { 0 };
+	mPopulationRequirementsTable[SID_SOLAR_PLANT]			= { 0 };
+	mPopulationRequirementsTable[SID_STORAGE_TANKS]			= { 0 };
+	mPopulationRequirementsTable[SID_SURFACE_FACTORY]		= { 0 };
+	mPopulationRequirementsTable[SID_TUBE]					= { 0 };
+	mPopulationRequirementsTable[SID_UNDERGROUND_FACTORY]	= { 0 };
+	mPopulationRequirementsTable[SID_UNIVERSITY]			= { 0 };
+	mPopulationRequirementsTable[SID_WAREHOUSE]				= { 0 };
 }
 
 
@@ -305,7 +312,7 @@ void StructureFactory::buildPopulationRequirementsTable()
  * 
  * \param	type	A valid StructureID value.
  */
-ResourcePool StructureFactory::recycleValue(StructureID type)
+ResourcePool StructureFactory::recycleValue(StructureID type, float percent)
 {
 	if (mStructureCostTable.empty())
 		throw std::runtime_error("StructureFactory::recycleValue() called before StructureFactory::buildCostTable().");
@@ -313,14 +320,14 @@ ResourcePool StructureFactory::recycleValue(StructureID type)
 	ResourcePool _rp = mStructureCostTable[type];
 
 	/** Truncation of value from float to int cast is intended and desired behavior. */
-	return ResourcePool(static_cast<int>(_rp.commonMetalsOre() * 0.9f),
-						static_cast<int>(_rp.commonMineralsOre() * 0.9f),
-						static_cast<int>(_rp.rareMetalsOre() * 0.9f),
-						static_cast<int>(_rp.rareMineralsOre() * 0.9f),
-						static_cast<int>(_rp.commonMetals() * 0.9f),
-						static_cast<int>(_rp.commonMinerals() * 0.9f),
-						static_cast<int>(_rp.rareMetals() * 0.9f),
-						static_cast<int>(_rp.rareMinerals() * 0.9f),
-						static_cast<int>(_rp.food() * 0.9f),
-						static_cast<int>(_rp.energy() * 0.9f));
+	return ResourcePool(static_cast<int>(_rp.commonMetalsOre() * percent),
+						static_cast<int>(_rp.commonMineralsOre() * percent),
+						static_cast<int>(_rp.rareMetalsOre() * percent),
+						static_cast<int>(_rp.rareMineralsOre() * percent),
+						static_cast<int>(_rp.commonMetals() * percent),
+						static_cast<int>(_rp.commonMinerals() * percent),
+						static_cast<int>(_rp.rareMetals() * percent),
+						static_cast<int>(_rp.rareMinerals() * percent),
+						static_cast<int>(_rp.food() * percent),
+						static_cast<int>(_rp.energy() * percent));
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <memory>
 #include <string>
 
@@ -83,3 +84,14 @@ enum RobotType
 	ROBOT_DOZER,
 	ROBOT_MINER
 };
+
+
+/**
+ * Contains population requirements for a given Structure.
+ * 
+ * Index 0: Workers.
+ * Index 1: Scientists.
+ * 
+ * Any other index will result in exceptions being thrown.
+ */
+typedef std::array<int, 2> PopulationRequirements;

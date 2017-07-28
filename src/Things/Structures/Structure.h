@@ -80,7 +80,7 @@ public:
 
 
 	// ATTRIBUTES
-	StructureClass type() const { return mStructureClass; }
+	StructureClass structureClass() const { return mStructureClass; }
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
 	int id() const { return mId; }
@@ -90,12 +90,12 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
-	bool providesCHAP() const { return type() == CLASS_LIFE_SUPPORT; }
+	bool providesCHAP() const { return structureClass() == CLASS_LIFE_SUPPORT; }
 	bool selfSustained() const { return mSelfSustained; }
-	bool isFactory() const { return type() == CLASS_FACTORY; }
-	bool energyProducer() const { return type() == CLASS_ENERGY_PRODUCTION; }
+	bool isFactory() const { return structureClass() == CLASS_FACTORY; }
+	bool energyProducer() const { return structureClass() == CLASS_ENERGY_PRODUCTION; }
 	bool repairable() const { return mRepairable; }
-	bool isConnector() const { return type() == CLASS_TUBE; } /** Indicates that the structure can act as a connector (tube) */
+	bool isConnector() const { return structureClass() == CLASS_TUBE; } /** Indicates that the structure can act as a connector (tube) */
 
 	// BASIC FUNCTIONS
 	void update();
@@ -115,7 +115,11 @@ public:
 
 	virtual void forced_state_change(StructureState _s);
 
+	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
+
 protected:
+	friend class StructureFactory;
+
 	void turnsToBuild(int _t) { mTurnsToBuild = _t; }
 	void maxAge(int _age) { mMaxAge = _age; }
 	
@@ -133,6 +137,7 @@ protected:
 	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
 	void selfSustained(bool _b) { mSelfSustained = _b; }
 
+	void setPopulationRequirements(const PopulationRequirements& pr) { mPopulationRequirements = pr; }
 
 private:
 	Structure();	// Excplicitly declared private
@@ -149,8 +154,10 @@ private:
 	int						mMaxAge;					/**< Maximum number of turns the Structure can remain in good repair. */
 
 	StructureState			mStructureState;			/**< State the structure is in. */
-	StructureClass			mStructureClass;				/**< Indicates the Structure's Type. */
+	StructureClass			mStructureClass;			/**< Indicates the Structure's Type. */
 	ConnectorDir			mConnectorDirection;		/**< Directions available for connections. */
+
+	PopulationRequirements	mPopulationRequirements;	/**< Population requirements for structure operation. */
 
 	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */
 	ResourcePool			mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */

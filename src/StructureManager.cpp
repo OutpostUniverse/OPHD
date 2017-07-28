@@ -87,6 +87,7 @@ void StructureManager::updateEnergyProduction(ResourcePool& _r)
 void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 {
 	bool chapAvailable = CHAPAvailable();
+	PopulationPool* _populationRequired = nullptr;
 
 	Structure* structure = nullptr;
 	for (size_t i = 0; i < _sl.size(); ++i)
@@ -125,6 +126,9 @@ void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 			if(!structure->isIdle())
 				structure->disable();
 		}
+
+		// Population Check
+		//_populationRequired = StructureFactory::populationRequirements(structure->structureClass());
 
 		if(structure->operational() || structure->isIdle())
 			structure->think();
@@ -166,7 +170,7 @@ void StructureManager::addStructure(Structure* st, Tile* t)
 	
 	mStructureTileTable[st] = t;
 	
-	mStructureLists[st->type()].push_back(st);
+	mStructureLists[st->structureClass()].push_back(st);
 	t->pushThing(st);
 	t->thingIsStructure(true);
 }
@@ -180,7 +184,7 @@ void StructureManager::addStructure(Structure* st, Tile* t)
  */
 void StructureManager::removeStructure(Structure* st)
 {
-	StructureList& sl = mStructureLists[st->type()];
+	StructureList& sl = mStructureLists[st->structureClass()];
 
 	if (sl.empty())
 	{

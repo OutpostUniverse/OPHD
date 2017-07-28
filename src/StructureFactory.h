@@ -5,18 +5,6 @@
 
 #include "Things/Structures/Structures.h"
 
-#include <array>
-
-/**
- * Contains population requirements for a given Structure.
- * 
- * Index 0: Workers.
- * Index 1: Scientists.
- * 
- * Any other index will result in exceptions being thrown.
- */
-typedef std::array<int, 2> PopulationRequirements;
-
 
 /** 
  * \class	StructureFactory
@@ -54,7 +42,7 @@ private:
 	static void buildCostTable();
 	static void buildPopulationRequirementsTable();
 	static void buildRecycleValueTable();
-	static ResourcePool recycleValue(StructureID type);
+	static ResourcePool recycleValue(StructureID type, float percent);
 
 private:
 	//static vector<ResourcePool> mStructureCostTable;

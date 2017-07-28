@@ -130,7 +130,7 @@ void StructureInspector::update()
 	r.drawText(font(), string_format("%i", mStructure->id()), rect().x() + 190 + mBold.width("Structure ID: "), rect().y() + 25, 255, 255, 255);
 
 	r.drawText(mBold, "Type:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
-	r.drawText(font(), TypeTranslationTable[mStructure->type()], rect().x() + 5 + mBold.width("Type: "), rect().y() + 45, 255, 255, 255);
+	r.drawText(font(), TypeTranslationTable[mStructure->structureClass()], rect().x() + 5 + mBold.width("Type: "), rect().y() + 45, 255, 255, 255);
 
 	r.drawText(mBold, "State:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
 	r.drawText(font(), StateTranslationTable[mStructure->state()], rect().x() + 190 + mBold.width("Type: "), rect().y() + 45, 255, 255, 255);
