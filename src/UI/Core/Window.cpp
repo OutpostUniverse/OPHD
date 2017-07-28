@@ -1,6 +1,9 @@
 #include "Window.h"
 
-const int WINDOW_TITLE_BAR_HEIGHT = 20;
+#include "../../Common.h"
+
+const float WINDOW_TITLE_BAR_HEIGHT = 20.0f;
+
 
 Window::Window() : mBold("fonts/opensans-bold.ttf", 10), mMouseDrag(false), mAnchored(false)
 {
@@ -40,7 +43,7 @@ void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	if (!visible() || !hasFocus())
 		return;
 
-	if(button == EventHandler::BUTTON_LEFT && isPointInRect(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT))
+	if(button == EventHandler::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT))
 		mMouseDrag = true;
 }
 

@@ -4,6 +4,10 @@
 #include <memory>
 #include <string>
 
+
+#include <NAS2D/NAS2D.h>
+
+
 enum Direction
 {
 	DIR_UP,
@@ -95,3 +99,15 @@ enum RobotType
  * Any other index will result in exceptions being thrown.
  */
 typedef std::array<int, 2> PopulationRequirements;
+
+
+/**
+ * Convenience function to pass a Rectangle_2df to \c isPointInRect()
+ */
+bool pointInRect_f(int x, int y, const NAS2D::Rectangle_2df& rect);
+
+
+/**
+ * Convenience function to pass a \c float's to \c isPointInRect()
+ */
+bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float rectH);

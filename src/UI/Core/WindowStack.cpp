@@ -1,18 +1,9 @@
 #include "WindowStack.h"
 
+#include "../../Common.h"
+
 #include <algorithm>
 #include <iostream>
-
-/**
- * Convenience function to pass a Rectangle_2df to \c isPointInRect()
- */
-bool pointInRect_f(int x, int y, const Rectangle_2df& rect)
-{
-	return isPointInRect(x, y,	static_cast<int>(rect.x()),
-								static_cast<int>(rect.y()),
-								static_cast<int>(rect.width()),
-								static_cast<int>(rect.height()));
-}
 
 
 WindowStack::WindowStack()

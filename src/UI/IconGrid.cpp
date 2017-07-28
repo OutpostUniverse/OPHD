@@ -73,8 +73,9 @@ void IconGrid::iconMargin(int _margin)
  */
 void IconGrid::updateGrid()
 {
-	int cols = (rect().width() - (mIconMargin * 2)) / (mIconSize + mIconMargin);
-	int rows = (rect().height() - (mIconMargin * 2)) / (mIconSize + mIconMargin);
+	// explicit cast, intentional trunctation of floating point data.
+	int cols = static_cast<int>((rect().width() - (mIconMargin * 2)) / (mIconSize + mIconMargin));
+	int rows = static_cast<int>((rect().height() - (mIconMargin * 2)) / (mIconSize + mIconMargin));
 
 	mGridSize(cols, rows);
 }
@@ -95,10 +96,10 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	if (!visible())
 		return;
 
-	if (mIconItemList.empty() || !isPointInRect(x, y, rect().x(), rect().y(), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
+	if (mIconItemList.empty() || !isPointInRect(x, y, static_cast<int>(rect().x()), static_cast<int>(rect().y()), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
 		return;
 
-	mCurrentSelection = translateCoordsToIndex(x - rect().x(), y - rect().y());
+	mCurrentSelection = translateCoordsToIndex(x - static_cast<int>(rect().x()), y - static_cast<int>(rect().y()));
 
 	if (static_cast<size_t>(mCurrentSelection) >= mIconItemList.size())
 	{
@@ -123,14 +124,14 @@ void IconGrid::onMouseMotion(int x, int y, int dX, int dY)
 	if (!visible() || !hasFocus())
 		return;
 
-	if (mIconItemList.empty() || !isPointInRect(x, y, rect().x(), rect().y(), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
+	if (mIconItemList.empty() || !isPointInRect(x, y, static_cast<int>(rect().x()), static_cast<int>(rect().y()), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 		return;
 	}
 
 	// Assumes all coordinates are not negative.
-	mHighlightIndex = translateCoordsToIndex(x - rect().x(), y - rect().y());
+	mHighlightIndex = translateCoordsToIndex(x - static_cast<int>(rect().x()), y - static_cast<int>(rect().y()));
 
 	if (static_cast<size_t>(mHighlightIndex) >= mIconItemList.size())
 		mHighlightIndex = constants::NO_SELECTION;
@@ -354,16 +355,19 @@ void IconGrid::update()
 		float y = (rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos);
 
 		if (mIconItemList[i].available)
-			r.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x(), mIconItemList[i].pos.y(), mIconSize, mIconSize);
+			r.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x(), mIconItemList[i].pos.y(), static_cast<float>(mIconSize), static_cast<float>(mIconSize));
 		else
-			r.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x(), mIconItemList[i].pos.y(), mIconSize, mIconSize, 255, 0, 0, 255);
+			r.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x(), mIconItemList[i].pos.y(), static_cast<float>(mIconSize), static_cast<float>(mIconSize), 255, 0, 0, 255);
 	}
 
 	if (mCurrentSelection != constants::NO_SELECTION)
 	{
 		int x_pos = (mCurrentSelection % mGridSize.x());
 		int y_pos = (mCurrentSelection / mGridSize.x());
-		r.drawBox((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos), (rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos), mIconSize, mIconSize, 0, 100, 255);
+		r.drawBox((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos),
+			(rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos),
+			static_cast<float>(mIconSize),
+			static_cast<float>(mIconSize), 0, 100, 255);
 	}
 
 	if (mHighlightIndex != constants::NO_SELECTION)
@@ -371,17 +375,25 @@ void IconGrid::update()
 		int x_pos = (mHighlightIndex % mGridSize.x());
 		int y_pos = (mHighlightIndex / mGridSize.x());
 
-		int x = (rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos);
-		int y = (rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos);
+		int x = static_cast<int>((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
+		int y = static_cast<int>((rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
 
-		r.drawBox(x, y, mIconSize, mIconSize, 0, 180, 0);
+		r.drawBox(static_cast<float>(x), static_cast<float>(y), static_cast<float>(mIconSize), static_cast<float>(mIconSize), 0, 180, 0);
 
 		// Name Tooltip
 		if (mShowTooltip)
 		{
-			r.drawBoxFilled(x, y - 15, font().width(mIconItemList[mHighlightIndex].name) + 4, font().height(), 245, 245, 245);
-			r.drawBox(x, y - 15, font().width(mIconItemList[mHighlightIndex].name) + 4, font().height(), 175, 175, 175);
-			r.drawText(font(), mIconItemList[mHighlightIndex].name, x + 2, y - 15, 0, 0, 0);
+			r.drawBoxFilled(static_cast<float>(x),
+							static_cast<float>(y - 15),
+							static_cast<float>(font().width(mIconItemList[mHighlightIndex].name) + 4),
+							static_cast<float>(font().height()), 245, 245, 245);
+			
+			r.drawBox(	static_cast<float>(x),
+						static_cast<float>(y - 15),
+						static_cast<float>(font().width(mIconItemList[mHighlightIndex].name) + 4),
+						static_cast<float>(font().height()), 175, 175, 175);
+			
+			r.drawText(font(), mIconItemList[mHighlightIndex].name, static_cast<float>(x + 2), static_cast<float>(y - 15), 0, 0, 0);
 		}
 	}
 }
