@@ -6,7 +6,9 @@ std::array<ResourcePool, SID_COUNT> StructureFactory::mStructureCostTable;
 std::array<ResourcePool, SID_COUNT> StructureFactory::mStructureRecycleValueTable;
 std::array<PopulationRequirements, SID_COUNT> StructureFactory::mPopulationRequirementsTable = { 0 };
 
-const float	DEFAULT_RECYCLE_VALUE = 0.9f;
+
+const float	DEFAULT_RECYCLE_VALUE = 0.9f;	/**	Default recycle value. Currently set at 90% but this should probably be
+											 *	lowered for actual gameplay with modifiers to improve efficiency. */
 
 
 /**
