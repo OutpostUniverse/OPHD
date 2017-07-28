@@ -12,7 +12,7 @@
 #include "../Constants.h"
 
 #include "../RobotTranslator.h"
-#include "../StructureFactory.h"
+#include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
 using namespace constants;
@@ -74,39 +74,39 @@ void GameState::initUi()
 
 
 	// Bottom UI
-	BOTTOM_UI_AREA(0, r.height() - constants::BOTTOM_UI_HEIGHT, r.width(), constants::BOTTOM_UI_HEIGHT);
+	BOTTOM_UI_AREA(0, static_cast<int>(r.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(r.width()), constants::BOTTOM_UI_HEIGHT);
 
 	mResourceInfoBox(mMiniMapBoundingBox.x() + mMiniMapBoundingBox.width() + constants::MARGIN * 2 + constants::MINI_MAP_BUTTON_SIZE, mMiniMapBoundingBox.y(), constants::RESOURCE_BOX_WIDTH, mMiniMapBoundingBox.height());
 
 	// X Position of the main UI buttons
-	int posX = r.width() - 34;
+	int posX = static_cast<int>(r.width()) - 34;
 
 	// Mini Map
-	mMiniMapBoundingBox(r.width() - mMapDisplay.width() - constants::MARGIN, BOTTOM_UI_AREA.y() + constants::MARGIN, mMapDisplay.width(), mMapDisplay.height());
+	mMiniMapBoundingBox(static_cast<int>(r.width() - mMapDisplay.width() - constants::MARGIN), static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), mMapDisplay.width(), mMapDisplay.height());
 
 	// BUTTONS
 	// System
 	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.size(constants::MAIN_BUTTON_SIZE);
-	mBtnTurns.position(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, r.height() - constants::MARGIN - MAIN_BUTTON_SIZE);
+	mBtnTurns.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
+	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(r.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
 	mBtnTurns.click().connect(this, &GameState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
 
 	mBtnToggleHeightmap.image("ui/icons/height.png");
-	mBtnToggleHeightmap.size(constants::MAIN_BUTTON_SIZE);
-	mBtnToggleHeightmap.position(mBtnTurns.positionX(), mMiniMapBoundingBox.y());
+	mBtnToggleHeightmap.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
+	mBtnToggleHeightmap.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y()));
 	mBtnToggleHeightmap.type(Button::BUTTON_TOGGLE);
 
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
-	mBtnToggleConnectedness.size(constants::MAIN_BUTTON_SIZE);
-	mBtnToggleConnectedness.position(mBtnTurns.positionX(), mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT);
+	mBtnToggleConnectedness.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
+	mBtnToggleConnectedness.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
 	mBtnToggleConnectedness.type(Button::BUTTON_TOGGLE);
 	mBtnToggleConnectedness.click().connect(this, &GameState::btnToggleConnectednessClicked);
 
 	// Menus
 	mRobots.font(mTinyFont);
 	mRobots.sheetPath("ui/robots.png");
-	mRobots.position(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, BOTTOM_UI_AREA.y() + MARGIN);
+	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mRobots.size(52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
@@ -115,7 +115,7 @@ void GameState::initUi()
 
 	mConnections.font(mTinyFont);
 	mConnections.sheetPath("ui/structures.png");
-	mConnections.position(mRobots.positionX() - constants::MARGIN_TIGHT - 52, BOTTOM_UI_AREA.y() + MARGIN);
+	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mConnections.size(52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
 	mConnections.iconSize(46);
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
@@ -124,8 +124,8 @@ void GameState::initUi()
 
 	mStructures.font(mTinyFont);
 	mStructures.sheetPath("ui/structures.png");
-	mStructures.position(constants::MARGIN , BOTTOM_UI_AREA.y() + MARGIN);
-	mStructures.size( mConnections.positionX() -  constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mStructures.size(mConnections.positionX() -  constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 	mStructures.showTooltip(true);
@@ -249,7 +249,7 @@ void GameState::drawUI()
 	// Bottom UI
 	r.drawBoxFilled(BOTTOM_UI_AREA, 39, 39, 39);
 	r.drawBox(BOTTOM_UI_AREA, 21, 21, 21);
-	r.drawLine(BOTTOM_UI_AREA.x() + 1, BOTTOM_UI_AREA.y(), BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.width() - 2, BOTTOM_UI_AREA.y(), 56, 56, 56);
+	r.drawLine(static_cast<float>(BOTTOM_UI_AREA.x() + 1), static_cast<float>(BOTTOM_UI_AREA.y()), static_cast<float>(BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.width() - 2), static_cast<float>(BOTTOM_UI_AREA.y()), 56, 56, 56);
 
 	drawMiniMap();
 	drawResourceInfo();
@@ -428,7 +428,7 @@ void GameState::btnReturnToGameClicked()
 void GameState::btnGameOverClicked()
 {
 	mReturnState = new PlanetSelectState();
-	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
 }
 
 void GameState::fileIoAction(const std::string& _file, FileIo::FileOperation _op)
@@ -635,7 +635,7 @@ void GameState::updateStructuresAvailability()
 		if (structure.empty())
 			continue;
 
-		if (StructureFactory::canBuild(mPlayerResources, static_cast<StructureID>(sid)))
+		if (StructureCatalogue::canBuild(mPlayerResources, static_cast<StructureID>(sid)))
 			mStructures.itemAvailable(structure, true);
 		else
 			mStructures.itemAvailable(structure, false);

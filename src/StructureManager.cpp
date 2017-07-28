@@ -128,7 +128,7 @@ void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 		}
 
 		// Population Check
-		//_populationRequired = StructureFactory::populationRequirements(structure->structureClass());
+		//_populationRequired = StructureCatalogue::populationRequirements(structure->structureClass());
 
 		if(structure->operational() || structure->isIdle())
 			structure->think();

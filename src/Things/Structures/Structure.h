@@ -118,7 +118,7 @@ public:
 	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
 
 protected:
-	friend class StructureFactory;
+	friend class StructureCatalogue;
 
 	void turnsToBuild(int _t) { mTurnsToBuild = _t; }
 	void maxAge(int _age) { mMaxAge = _age; }

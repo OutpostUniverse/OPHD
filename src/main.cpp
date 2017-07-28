@@ -3,7 +3,7 @@
 #include "NAS2D/Mixer/Mixer_SDL.h"
 #include "NAS2D/Renderer/OGL_Renderer.h"
 
-#include "StructureFactory.h"
+#include "StructureCatalogue.h"
 #include "StructureTranslator.h"
 
 #include "States/GameState.h"
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	std::cout.rdbuf(filestr.rdbuf());
 	#endif
 
-	StructureFactory::init();		// only needs to be done once at the start of the program.
+	StructureCatalogue::init();		// only needs to be done once at the start of the program.
 	StructureTranslator::init();	// only needs to be done once at the start of the program.
 
 	try

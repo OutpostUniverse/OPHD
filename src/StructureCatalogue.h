@@ -7,21 +7,21 @@
 
 
 /** 
- * \class	StructureFactory
+ * \class	StructureCatalogue
  * \brief	Provides a means of instantiating new structures and getting build
  *			cost / recycle value / population requirements.
  * 
- * StructureFactory is implemented as a static class and should never be
+ * StructureCatalogue is implemented as a static class and should never be
  * instantiated.
  * 
- * \note	StructureFactory::init() must be called prior to use.
+ * \note	StructureCatalogue::init() must be called prior to use.
  * 
  * \code{.cpp}
- * ResourcePool _rp = StructureFactory::costToBuild(SID_AGRIDOME);
- * PopulationRequirements _pr = StructureFactory::populationRequirements(SID_AGRIDOME);
+ * ResourcePool _rp = StructureCatalogue::costToBuild(SID_AGRIDOME);
+ * PopulationRequirements _pr = StructureCatalogue::populationRequirements(SID_AGRIDOME);
  * \endcode
  */
-class StructureFactory
+class StructureCatalogue
 {
 
 public:
@@ -36,8 +36,8 @@ public:
 	static void init();
 
 private:
-	StructureFactory() {}	// Explicitly declared private to prevent instantiation.
-	~StructureFactory() {}	// Explicitly declared private to prevent instantiation.
+	StructureCatalogue() {}	// Explicitly declared private to prevent instantiation.
+	~StructureCatalogue() {}	// Explicitly declared private to prevent instantiation.
 
 	static void buildCostTable();
 	static void buildPopulationRequirementsTable();

@@ -3,7 +3,7 @@
 
 #include "../Constants.h"
 #include "../GraphWalker.h"
-#include "../StructureFactory.h"
+#include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
 #include "../Map/Tile.h"
@@ -882,7 +882,7 @@ void GameState::placeRobot()
 				return;
 			}
 
-			ResourcePool resPool = StructureFactory::recyclingValue(StructureTranslator::translateFromString(_s->name()));
+			ResourcePool resPool = StructureCatalogue::recyclingValue(StructureTranslator::translateFromString(_s->name()));
 			mPlayerResources.pushResources(resPool);
 
 			tile->connected(false);
@@ -1215,14 +1215,14 @@ void GameState::placeStructure()
 		}
 
 		// Check build cost
-		if (!StructureFactory::canBuild(mPlayerResources, static_cast<StructureID>(mCurrentStructure)))
+		if (!StructureCatalogue::canBuild(mPlayerResources, static_cast<StructureID>(mCurrentStructure)))
 		{
 			mAiVoiceNotifier.notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
 			cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
 			return;
 		}
 
-		Structure* _s = StructureFactory::get(mCurrentStructure);
+		Structure* _s = StructureCatalogue::get(mCurrentStructure);
 		if (!_s)
 		{
 			cout << "GameState::placeStructure(): Unknown structure type." << endl;
@@ -1237,7 +1237,7 @@ void GameState::placeStructure()
 			static_cast<Factory*>(_s)->resourcePool(&mPlayerResources);
 		}
 
-		mPlayerResources -= StructureFactory::costToBuild(mCurrentStructure);
+		mPlayerResources -= StructureCatalogue::costToBuild(mCurrentStructure);
 	}
 }
 
@@ -1683,7 +1683,7 @@ void GameState::readStructures(XmlElement* _ti)
 		}
 
 		StructureID type_id = StructureTranslator::translateFromString(type);
-		st = StructureFactory::get(StructureTranslator::translateFromString(type));
+		st = StructureCatalogue::get(StructureTranslator::translateFromString(type));
 
 		if (type_id == SID_COMMAND_CENTER)
 			mCCLocation(x, y);

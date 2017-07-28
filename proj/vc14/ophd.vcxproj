@@ -175,7 +175,7 @@
     <ClCompile Include="..\..\src\States\GameStateUi.cpp" />
     <ClCompile Include="..\..\src\States\PlanetSelectState.cpp" />
     <ClCompile Include="..\..\src\states\SplashState.cpp" />
-    <ClCompile Include="..\..\src\StructureFactory.cpp" />
+    <ClCompile Include="..\..\src\StructureCatalogue.cpp" />
     <ClCompile Include="..\..\src\StructureManager.cpp" />
     <ClCompile Include="..\..\src\StructureTranslator.cpp" />
     <ClCompile Include="..\..\src\Things\Robots\Robot.cpp" />
@@ -223,7 +223,7 @@
     <ClInclude Include="..\..\src\States\Planet.h" />
     <ClInclude Include="..\..\src\States\PlanetSelectState.h" />
     <ClInclude Include="..\..\src\states\SplashState.h" />
-    <ClInclude Include="..\..\src\StructureFactory.h" />
+    <ClInclude Include="..\..\src\StructureCatalogue.h" />
     <ClInclude Include="..\..\src\StructureManager.h" />
     <ClInclude Include="..\..\src\StructureTranslator.h" />
     <ClInclude Include="..\..\src\Things\Robots\Robodigger.h" />
@@ -258,7 +258,6 @@
     <ClInclude Include="..\..\src\Things\Structures\Structure.h" />
     <ClInclude Include="..\..\src\Things\Structures\Structures.h" />
     <ClInclude Include="..\..\src\Things\Structures\FusionReactor.h" />
-    <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h" />
     <ClInclude Include="..\..\src\Things\Structures\Tube.h" />
     <ClInclude Include="..\..\src\Things\Structures\UndergroundFactory.h" />
     <ClInclude Include="..\..\src\Things\Structures\University.h" />

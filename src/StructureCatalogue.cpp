@@ -1,10 +1,10 @@
-#include "StructureFactory.h"
+#include "StructureCatalogue.h"
 
 
-//vector<ResourcePool> StructureFactory::mStructureCostTable;
-std::array<ResourcePool, SID_COUNT> StructureFactory::mStructureCostTable;
-std::array<ResourcePool, SID_COUNT> StructureFactory::mStructureRecycleValueTable;
-std::array<PopulationRequirements, SID_COUNT> StructureFactory::mPopulationRequirementsTable = { 0 };
+//vector<ResourcePool> StructureCatalogue::mStructureCostTable;
+std::array<ResourcePool, SID_COUNT> StructureCatalogue::mStructureCostTable;
+std::array<ResourcePool, SID_COUNT> StructureCatalogue::mStructureRecycleValueTable;
+std::array<PopulationRequirements, SID_COUNT> StructureCatalogue::mPopulationRequirementsTable = { 0 };
 
 
 const float	DEFAULT_RECYCLE_VALUE = 0.9f;	/**	Default recycle value. Currently set at 90% but this should probably be
@@ -19,7 +19,7 @@ const float	DEFAULT_RECYCLE_VALUE = 0.9f;	/**	Default recycle value. Currently s
  * \return	Pointer to a newly constructed Structure or
  *			\c nullptr if structure type unsupported/invalid.
  */
-Structure* StructureFactory::get(StructureID type)
+Structure* StructureCatalogue::get(StructureID type)
 {
 	Structure* _st = nullptr;
 
@@ -152,11 +152,11 @@ Structure* StructureFactory::get(StructureID type)
 			break;
 
 		default:
-			cout << "StructureFactory::get(): Unsupported structure type called." << endl;
+			cout << "StructureCatalogue::get(): Unsupported structure type called." << endl;
 			break;
 	}
 
-	_st->setPopulationRequirements(StructureFactory::populationRequirements(type));
+	_st->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
 	return _st;
 }
 
@@ -166,7 +166,7 @@ Structure* StructureFactory::get(StructureID type)
  * 
  * \param	type	A valid StructureID value.
  */
-const PopulationRequirements& StructureFactory::populationRequirements(StructureID type)
+const PopulationRequirements& StructureCatalogue::populationRequirements(StructureID type)
 {
 	return mPopulationRequirementsTable[type];
 }
@@ -177,7 +177,7 @@ const PopulationRequirements& StructureFactory::populationRequirements(Structure
  * 
  * \param	type	A valid StructureID value.
  */
-const ResourcePool& StructureFactory::costToBuild(StructureID type)
+const ResourcePool& StructureCatalogue::costToBuild(StructureID type)
 {
 	return mStructureCostTable[type];
 }
@@ -188,16 +188,16 @@ const ResourcePool& StructureFactory::costToBuild(StructureID type)
  * 
  * \param	type	A valid StructureID value.
  */
-ResourcePool& StructureFactory::recyclingValue(StructureID type)
+ResourcePool& StructureCatalogue::recyclingValue(StructureID type)
 {
 	return mStructureCostTable[type];
 }
 
 
 /**
- * Initializes StructureFactory and builds the requirements tables.
+ * Initializes StructureCatalogue and builds the requirements tables.
  */
-void StructureFactory::init()
+void StructureCatalogue::init()
 {
 	buildCostTable();
 	buildRecycleValueTable();
@@ -209,9 +209,9 @@ void StructureFactory::init()
  * Indicates that the source ResourcePool has enough resources to accommodate
  * the resource requirements of the specificed structure.
  */
-bool StructureFactory::canBuild(const ResourcePool& source, StructureID type)
+bool StructureCatalogue::canBuild(const ResourcePool& source, StructureID type)
 {
-	ResourcePool _rp = StructureFactory::costToBuild(type);
+	ResourcePool _rp = StructureCatalogue::costToBuild(type);
 
 	if (source.commonMetals() < _rp.commonMetals() || source.commonMinerals() < _rp.commonMinerals() ||
 		source.rareMetals() < _rp.rareMetals() || source.rareMinerals() < _rp.rareMinerals())
@@ -224,7 +224,7 @@ bool StructureFactory::canBuild(const ResourcePool& source, StructureID type)
 /**
  * Fills out the build costs for all structures.
  */
-void StructureFactory::buildCostTable()
+void StructureCatalogue::buildCostTable()
 {
 	// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
 	mStructureCostTable[SID_AGRIDOME]				= ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
@@ -261,7 +261,7 @@ void StructureFactory::buildCostTable()
 /**
  * Fills out the recycle value for all structures.
  */
-void StructureFactory::buildRecycleValueTable()
+void StructureCatalogue::buildRecycleValueTable()
 {
 	for (size_t i = 0; i < SID_COUNT; ++i)
 		mStructureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), DEFAULT_RECYCLE_VALUE);
@@ -276,7 +276,7 @@ void StructureFactory::buildRecycleValueTable()
 /**
  * Fills out the population requirements for all structures.
  */
-void StructureFactory::buildPopulationRequirementsTable()
+void StructureCatalogue::buildPopulationRequirementsTable()
 {
 	mPopulationRequirementsTable[SID_AGRIDOME]				= { 0 };
 	mPopulationRequirementsTable[SID_AIR_SHAFT]				= { 0 };
@@ -314,10 +314,10 @@ void StructureFactory::buildPopulationRequirementsTable()
  * 
  * \param	type	A valid StructureID value.
  */
-ResourcePool StructureFactory::recycleValue(StructureID type, float percent)
+ResourcePool StructureCatalogue::recycleValue(StructureID type, float percent)
 {
 	if (mStructureCostTable.empty())
-		throw std::runtime_error("StructureFactory::recycleValue() called before StructureFactory::buildCostTable().");
+		throw std::runtime_error("StructureCatalogue::recycleValue() called before StructureCatalogue::buildCostTable().");
 
 	ResourcePool _rp = mStructureCostTable[type];
 

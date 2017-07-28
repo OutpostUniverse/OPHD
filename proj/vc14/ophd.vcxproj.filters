@@ -135,9 +135,6 @@
     <ClCompile Include="..\..\src\RobotTranslator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\StructureFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\ResourcePool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -185,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\UI\Core\ProgressBar.cpp">
       <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\StructureCatalogue.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -326,9 +326,6 @@
     <ClInclude Include="..\..\src\RobotTranslator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\StructureFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\ResourcePool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -357,9 +354,6 @@
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\Smelter.h">
-      <Filter>Header Files\Things\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\UndergroundFactory.h">
@@ -445,6 +439,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UI\Core\ProgressBar.h">
       <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\StructureCatalogue.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
