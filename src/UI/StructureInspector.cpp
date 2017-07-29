@@ -74,10 +74,10 @@ void StructureInspector::init()
  */
 void drawResourceIcons(Renderer& r, Image& sheet, int x, int y, int sheet_offset)
 {
-	r.drawSubImage(sheet, x, y + 10, 64, sheet_offset, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawSubImage(sheet, x, y + 26, 80, sheet_offset, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawSubImage(sheet, x, y + 42, 96, sheet_offset, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawSubImage(sheet, x, y + 58, 112, sheet_offset, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawSubImage(sheet, static_cast<float>(x), static_cast<float>(y + 10), 64, static_cast<float>(sheet_offset), static_cast<float>(constants::RESOURCE_ICON_SIZE), static_cast<float>(constants::RESOURCE_ICON_SIZE));
+	r.drawSubImage(sheet, static_cast<float>(x), static_cast<float>(y + 26), 80, static_cast<float>(sheet_offset), static_cast<float>(constants::RESOURCE_ICON_SIZE), static_cast<float>(constants::RESOURCE_ICON_SIZE));
+	r.drawSubImage(sheet, static_cast<float>(x), static_cast<float>(y + 42), 96, static_cast<float>(sheet_offset), static_cast<float>(constants::RESOURCE_ICON_SIZE), static_cast<float>(constants::RESOURCE_ICON_SIZE));
+	r.drawSubImage(sheet, static_cast<float>(x), static_cast<float>(y + 58), 112, static_cast<float>(sheet_offset), static_cast<float>(constants::RESOURCE_ICON_SIZE), static_cast<float>(constants::RESOURCE_ICON_SIZE));
 }
 
 
@@ -86,10 +86,10 @@ void drawResourceIcons(Renderer& r, Image& sheet, int x, int y, int sheet_offset
  */
 void drawResourceStrings(Renderer& r, Font& f, int x, int y, int res1, int res2, int res3, int res4)
 {
-	r.drawText(f, string_format("%i", res1), x + 21, y + 13, 255, 255, 255);
-	r.drawText(f, string_format("%i", res2), x + 21, y + 29, 255, 255, 255);
-	r.drawText(f, string_format("%i", res3), x + 21, y + 45, 255, 255, 255);
-	r.drawText(f, string_format("%i", res4), x + 21, y + 61, 255, 255, 255);
+	r.drawText(f, string_format("%i", res1), static_cast<float>(x + 21), static_cast<float>(y + 13), 255, 255, 255);
+	r.drawText(f, string_format("%i", res2), static_cast<float>(x + 21), static_cast<float>(y + 29), 255, 255, 255);
+	r.drawText(f, string_format("%i", res3), static_cast<float>(x + 21), static_cast<float>(y + 45), 255, 255, 255);
+	r.drawText(f, string_format("%i", res4), static_cast<float>(x + 21), static_cast<float>(y + 61), 255, 255, 255);
 }
 
 
@@ -135,8 +135,8 @@ void StructureInspector::update()
 	r.drawText(mBold, "State:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
 	r.drawText(font(), StateTranslationTable[mStructure->state()], rect().x() + 190 + mBold.width("Type: "), rect().y() + 45, 255, 255, 255);
 	
-	drawResourcePool("Production Pool", mStructure->production(), rect().x() + 5, rect().y() + 65);
-	drawResourcePool("Storage Pool", mStructure->storage(), rect().x() + 190, rect().y() + 65);
+	drawResourcePool("Production Pool", mStructure->production(), static_cast<int>(rect().x() + 5), static_cast<int>(rect().y() + 65));
+	drawResourcePool("Storage Pool", mStructure->storage(), static_cast<int>(rect().x() + 190), static_cast<int>(rect().y() + 65));
 }
 
 
