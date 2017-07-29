@@ -37,10 +37,10 @@ public:
 
 	bool CHAPAvailable();
 
-	void updateEnergyProduction(ResourcePool& _r);
+	void updateEnergyProduction(ResourcePool& _r, PopulationPool& _p);
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
 
-	void update(ResourcePool& _r);
+	void update(ResourcePool& _r, PopulationPool& _p);
 
 	void serialize(NAS2D::Xml::XmlElement* _ti);
 
@@ -51,7 +51,7 @@ private:
 	typedef std::map<Structure::StructureClass, StructureList> StructureClassTable;
 
 private:
-	void updateStructures(ResourcePool& _r, StructureList& _sl);
+	void updateStructures(ResourcePool& _r, PopulationPool& _p, StructureList& _sl);
 	void updateFactoryProduction();
 
 	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }

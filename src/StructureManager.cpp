@@ -32,46 +32,46 @@ bool StructureManager::CHAPAvailable()
 }
 
 
-void StructureManager::update(ResourcePool& _r)
+void StructureManager::update(ResourcePool& _r, PopulationPool& _p)
 {
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
 	// calls to lower priority structures.
-	updateStructures(_r, mStructureLists[Structure::CLASS_LANDER]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_COMMAND]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_ENERGY_PRODUCTION]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LANDER]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_COMMAND]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_ENERGY_PRODUCTION]);
 
-	updateEnergyProduction(_r);
+	updateEnergyProduction(_r, _p);
 
 	// Basic resource production
-	updateStructures(_r, mStructureLists[Structure::CLASS_MINE]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_SMELTER]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_MINE]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_SMELTER]);
 
-	updateStructures(_r, mStructureLists[Structure::CLASS_LIFE_SUPPORT]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_MEDICAL_CENTER]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_FOOD_PRODUCTION]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LIFE_SUPPORT]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_MEDICAL_CENTER]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_FOOD_PRODUCTION]);
 
-	updateStructures(_r, mStructureLists[Structure::CLASS_FACTORY]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_FACTORY]);
 
-	updateStructures(_r, mStructureLists[Structure::CLASS_STORAGE]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_PARK]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_SURFACE_POLICE]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_UNDERGROUND_POLICE]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_RECREATION_CENTER]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_RESIDENCE]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_ROBOT_COMMAND]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_WAREHOUSE]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_LABORATORY]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_COMMERCIAL]);
-	updateStructures(_r, mStructureLists[Structure::CLASS_UNIVERSITY]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_STORAGE]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_PARK]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_SURFACE_POLICE]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_UNDERGROUND_POLICE]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_RECREATION_CENTER]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_RESIDENCE]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_ROBOT_COMMAND]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_WAREHOUSE]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LABORATORY]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_COMMERCIAL]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_UNIVERSITY]);
 
-	updateStructures(_r, mStructureLists[Structure::CLASS_UNDEFINED]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_UNDEFINED]);
 
 	updateFactoryProduction();
 }
 
 
-void StructureManager::updateEnergyProduction(ResourcePool& _r)
+void StructureManager::updateEnergyProduction(ResourcePool& _r, PopulationPool& _p)
 {
 	mTotalEnergyOutput = 0;
 	for (size_t i = 0; i < mStructureLists[Structure::CLASS_ENERGY_PRODUCTION].size(); ++i)
@@ -84,10 +84,10 @@ void StructureManager::updateEnergyProduction(ResourcePool& _r)
 }
 
 
-void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
+void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, StructureList& _sl)
 {
 	bool chapAvailable = CHAPAvailable();
-	PopulationPool* _populationRequired = nullptr;
+	const PopulationRequirements* _populationRequired = nullptr;
 
 	Structure* structure = nullptr;
 	for (size_t i = 0; i < _sl.size(); ++i)
@@ -99,39 +99,56 @@ void StructureManager::updateStructures(ResourcePool& _r, StructureList& _sl)
 		// ASSUMPTION:	Construction sites are considered self sufficient until they are
 		//				completed and connected to the rest of the colony.
 		if (structure->underConstruction() || structure->destroyed())
-			continue; // FIXME: smells of bad code, consider a different control path.
+			continue;
 
 		// Connection Check
 		if (!structureConnected(structure) && !structure->selfSustained())
 		{
 			structure->disable();
-			continue; // FIXME: smells of bad code, consider a different control path.
+			continue;
 		}
 
 		// CHAP Check
 		if (structure->requiresCHAP() && !chapAvailable)
 		{
 			structure->disable();
-			continue; // FIXME: smells of bad code, consider a different control path.
+			continue;
 		}
 
-		// handle input resources
-		if (structure->resourcesIn().empty() || structure->enoughResourcesAvailable(_r) && !structure->isIdle())
-		{
-			structure->enable();
-			_r -= structure->resourcesIn();
-		}
-		else
-		{
-			if(!structure->isIdle())
-				structure->disable();
-		}
 
 		// Population Check
-		//_populationRequired = StructureCatalogue::populationRequirements(structure->structureClass());
+		_populationRequired = &structure->populationRequirements();
+		if (!_p.enoughPopulationAvailable(Population::ROLE_WORKER, (*_populationRequired)[0]) ||
+			!_p.enoughPopulationAvailable(Population::ROLE_SCIENTIST, (*_populationRequired)[1]))
+		{
+			structure->disable();
+			continue;
+		}
+		else
+			structure->enable();
 
-		if(structure->operational() || structure->isIdle())
+		// Check that enough resources are available for input.
+		if (!structure->resourcesIn().empty() && !structure->enoughResourcesAvailable(_r) && !structure->isIdle())
+		{
+			if (!structure->isIdle())
+			{
+				structure->disable();
+				continue;
+			}
+		}
+		else
+			structure->enable();
+
+
+		if (structure->operational() || structure->isIdle())
+		{
+			_p.usePopulation(Population::ROLE_WORKER, (*_populationRequired)[0]);
+			_p.usePopulation(Population::ROLE_SCIENTIST, (*_populationRequired)[1]);
+
+			_r -= structure->resourcesIn();
+
 			structure->think();
+		}
 
 		// handle output resources
 	}

@@ -155,6 +155,8 @@ void GameState::initialize()
 
 	e.textInputMode(true);
 
+	mPopulationPool.population(&mPopulation);
+
 	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
 	r.fadeIn(constants::FADE_SPEED);
 }
@@ -1568,7 +1570,7 @@ void GameState::load(const std::string& _path)
 	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::CLASS_STORAGE)));
 
 	checkConnectedness();
-	mStructureManager.updateEnergyProduction(mPlayerResources);
+	mStructureManager.updateEnergyProduction(mPlayerResources, mPopulationPool);
 
 	// set level indicator string
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];

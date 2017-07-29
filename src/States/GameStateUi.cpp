@@ -475,9 +475,11 @@ void GameState::btnTurnsClicked()
 {
 	clearMode();
 
+	mPopulationPool.clear();
+
 	mStructureManager.disconnectAll();
 	checkConnectedness();
-	mStructureManager.update(mPlayerResources);
+	mStructureManager.update(mPlayerResources, mPopulationPool);
 
 	mPreviousMorale = mCurrentMorale;
 
