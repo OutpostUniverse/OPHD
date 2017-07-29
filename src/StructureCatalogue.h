@@ -25,6 +25,8 @@ class StructureCatalogue
 {
 
 public:
+	static void init();
+
 	static Structure* get(StructureID type);
 
 	static const PopulationRequirements& populationRequirements(StructureID type);
@@ -33,8 +35,6 @@ public:
 
 	static bool canBuild(const ResourcePool& source, StructureID type);
 
-	static void init();
-
 private:
 	StructureCatalogue() {}	// Explicitly declared private to prevent instantiation.
 	~StructureCatalogue() {}	// Explicitly declared private to prevent instantiation.
@@ -42,6 +42,7 @@ private:
 	static void buildCostTable();
 	static void buildPopulationRequirementsTable();
 	static void buildRecycleValueTable();
+	
 	static ResourcePool recycleValue(StructureID type, float percent);
 
 private:

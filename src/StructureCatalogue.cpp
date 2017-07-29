@@ -228,7 +228,6 @@ void StructureCatalogue::buildCostTable()
 {
 	// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
 	mStructureCostTable[SID_AGRIDOME]				= ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
-	mStructureCostTable[SID_AIR_SHAFT]				= ResourcePool();
 	mStructureCostTable[SID_CHAP]					= ResourcePool(0, 0, 0, 0, 50, 10, 20, 5, 0, 0);
 	mStructureCostTable[SID_COMMAND_CENTER]			= ResourcePool(0, 0, 0, 0, 100, 75, 65, 35, 0, 0);
 	mStructureCostTable[SID_COMMERCIAL]				= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
@@ -251,7 +250,6 @@ void StructureCatalogue::buildCostTable()
 	mStructureCostTable[SID_SOLAR_PLANT]			= ResourcePool(0, 0, 0, 0, 50, 25, 50, 20, 0, 0);
 	mStructureCostTable[SID_STORAGE_TANKS]			= ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
 	mStructureCostTable[SID_SURFACE_FACTORY]		= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
-	mStructureCostTable[SID_TUBE]					= ResourcePool();
 	mStructureCostTable[SID_UNDERGROUND_FACTORY]	= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 	mStructureCostTable[SID_UNIVERSITY]				= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 	mStructureCostTable[SID_WAREHOUSE]				= ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
@@ -280,7 +278,7 @@ void StructureCatalogue::buildPopulationRequirementsTable()
 {
 	mPopulationRequirementsTable[SID_AGRIDOME]				= { 0 };
 	mPopulationRequirementsTable[SID_AIR_SHAFT]				= { 0 };
-	mPopulationRequirementsTable[SID_CHAP]					= { 0 };
+	mPopulationRequirementsTable[SID_CHAP]					= { 2, 0 };
 	mPopulationRequirementsTable[SID_COMMAND_CENTER]		= { 0 };
 	mPopulationRequirementsTable[SID_COMMERCIAL]			= { 0 };
 	mPopulationRequirementsTable[SID_FUSION_REACTOR]		= { 0 };
