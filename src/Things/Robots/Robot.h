@@ -29,8 +29,7 @@ public:
 
 protected:
 
-	int incrementFuelCellAge() { mFuelCellAge++; }
-
+	void incrementFuelCellAge() { mFuelCellAge++; }
 	void updateTask();
 
 private:
