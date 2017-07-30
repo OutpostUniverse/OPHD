@@ -20,6 +20,7 @@ This version includes all revisions from r191 to rXXX.
 - The game will alert the player that the colony ship has deorbited and crashed after 24 turns (basically two years).
 - Player must now drop their colonists before the ship deorbits or they will lose their colonists.
 - File dialog text field will now only allow 50 characters total.
+- Buildings will go disabled if insufficient population is available to them.
 
 ### Fixed
 - Fixed an issue that would keep one colonist alive regardless of how much food was available.
