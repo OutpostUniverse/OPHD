@@ -81,6 +81,7 @@ private:
 	void onMouseUp(EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
 	void onMouseWheel(int x, int y);
+	void onWindowResized(int w, int h);
 
 	void drawUI();
 	void drawDebug();
@@ -93,6 +94,7 @@ private:
 	void initUi();
 	void resetUi();
 	void clearSelections();
+	void setupUiPositions();
 
 	void populateStructureMenu();
 	void clearMode();
@@ -182,7 +184,6 @@ private:
 	Point_2d			mCCLocation;				/**< Location of the Command Center. */
 
 	Rectangle_2d		mMiniMapBoundingBox;
-	Rectangle_2d		mResourceInfoBox;
 
 	StructureManager	mStructureManager;			/**< Manager class responsible for managing all structures. */
 

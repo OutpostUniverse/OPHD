@@ -45,33 +45,34 @@ std::map <int, std::string>	LEVEL_STRING_TABLE;
 /**
  * C'Tor
  */
-GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoiceNotifier::AiGender _g) :	mFont("fonts/opensans-bold.ttf", 14),
-																											mTinyFont("fonts/opensans.ttf", 10),
-																											mTinyFontBold("fonts/opensans-bold.ttf", 10),
-																											mTileMap(new TileMap(_m, _t, _d, _mc)),
-																											mBackground("sys/bg1.png"),
-																											mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
-																											mHeightMap(_m + MAP_TERRAIN_EXTENSION),
-																											mUiIcons("ui/icons.png"),
-																											mAiVoiceNotifier(_g),
-																											//mBgMusic("music/track_01.ogg"),
-																											mCurrentStructure(SID_NONE),
-																											mDiggerDirection(mTinyFont),
-																											mFactoryProduction(mTinyFont),
-																											mFileIoDialog(mTinyFont),
-																											mGameOverDialog(mTinyFont),
-																											mGameOptionsDialog(mTinyFont),
-																											mAnnouncement(mTinyFont),
-																											mStructureInspector(mTinyFont),
-																											mTileInspector(mTinyFont),
-																											mInsertMode(INSERT_NONE),
-																											mTurnCount(0),
-																											mCurrentMorale(600),
-																											mPreviousMorale(mCurrentMorale),
-																											mLandersColonist(0),
-																											mDebug(false),
-																											mLeftButtonDown(false),
-																											mReturnState(NULL)
+GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoiceNotifier::AiGender _g) :
+	mFont("fonts/opensans-bold.ttf", 14),
+	mTinyFont("fonts/opensans.ttf", 10),
+	mTinyFontBold("fonts/opensans-bold.ttf", 10),
+	mTileMap(new TileMap(_m, _t, _d, _mc)),
+	mBackground("sys/bg1.png"),
+	mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
+	mHeightMap(_m + MAP_TERRAIN_EXTENSION),
+	mUiIcons("ui/icons.png"),
+	mAiVoiceNotifier(_g),
+	//mBgMusic("music/track_01.ogg"),
+	mCurrentStructure(SID_NONE),
+	mDiggerDirection(mTinyFont),
+	mFactoryProduction(mTinyFont),
+	mFileIoDialog(mTinyFont),
+	mGameOverDialog(mTinyFont),
+	mGameOptionsDialog(mTinyFont),
+	mAnnouncement(mTinyFont),
+	mStructureInspector(mTinyFont),
+	mTileInspector(mTinyFont),
+	mInsertMode(INSERT_NONE),
+	mTurnCount(0),
+	mCurrentMorale(600),
+	mPreviousMorale(mCurrentMorale),
+	mLandersColonist(0),
+	mDebug(false),
+	mLeftButtonDown(false),
+	mReturnState(NULL)
 {}
 
 
@@ -89,6 +90,7 @@ GameState::~GameState()
 	e.mouseButtonDown().disconnect(this, &GameState::onMouseDown);
 	e.mouseButtonUp().disconnect(this, &GameState::onMouseUp);
 	e.mouseMotion().disconnect(this, &GameState::onMouseMove);
+	e.windowResized().disconnect(this, &GameState::onWindowResized);
 }
 
 
@@ -117,22 +119,13 @@ void GameState::initialize()
 	e.mouseMotion().connect(this, &GameState::onMouseMove);
 	e.mouseWheel().connect(this, &GameState::onMouseWheel);
 
+	e.windowResized().connect(this, &GameState::onWindowResized);
+
 	// UI
 	initUi();
 	Renderer& r = Utility<Renderer>::get();
 
-	MENU_ICON(r.width() - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
-
-	// NAVIGATION BUTTONS
-	// Bottom line
-	MOVE_DOWN_ICON(r.width() - constants::MARGIN - 32, r.height() - constants::BOTTOM_UI_HEIGHT - 65, 32, 32);
-	MOVE_EAST_ICON(MOVE_DOWN_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
-	MOVE_SOUTH_ICON(MOVE_DOWN_ICON.x() - 2*(32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
-
-	// Top line
-	MOVE_UP_ICON(MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y() - constants::MARGIN_TIGHT - 32, 32, 32);
-	MOVE_NORTH_ICON(MOVE_UP_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
-	MOVE_WEST_ICON(MOVE_UP_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
+	setupUiPositions();
 
 	// POINTERS
 	r.addCursor("ui/pointers/normal.png", POINTER_NORMAL, 0, 0);
@@ -461,6 +454,15 @@ void GameState::onActivate(bool _b)
 	{
 		mLeftButtonDown = false;
 	}
+}
+
+
+/**
+ * 
+ */
+void GameState::onWindowResized(int w, int h)
+{
+
 }
 
 

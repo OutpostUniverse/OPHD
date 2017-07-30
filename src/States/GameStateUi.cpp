@@ -19,9 +19,22 @@ using namespace constants;
 
 NAS2D::Rectangle_2d	BOTTOM_UI_AREA;
 
+
 /**
-* Sets up the user interface elements
-*/
+ * \fixme	Yuck, not thrilled with this but whatever, it works.
+ */
+extern Rectangle_2d MENU_ICON;
+extern Rectangle_2d MOVE_NORTH_ICON;
+extern Rectangle_2d MOVE_SOUTH_ICON;
+extern Rectangle_2d MOVE_EAST_ICON;
+extern Rectangle_2d MOVE_WEST_ICON;
+extern Rectangle_2d MOVE_UP_ICON;
+extern Rectangle_2d MOVE_DOWN_ICON;
+
+
+/**
+ * Sets up the user interface elements
+ */
 void GameState::initUi()
 {
 	EventHandler& e = Utility<EventHandler>::get();
@@ -63,7 +76,7 @@ void GameState::initUi()
 	mGameOptionsDialog.returnToMainMenu().connect(this, &GameState::btnGameOverClicked);
 	mGameOptionsDialog.hide();
 
-	mAnnouncement.position(r.center_x() - mGameOverDialog.width() / 2, r.center_y() - mGameOverDialog.height() / 2 - 100);
+	mAnnouncement.position(r.center_x() - mAnnouncement.width() / 2, r.center_y() - mAnnouncement.height() / 2 - 100);
 	mAnnouncement.hide();
 
 	mWindowStack.addWindow(&mTileInspector);
@@ -75,8 +88,6 @@ void GameState::initUi()
 
 	// Bottom UI
 	BOTTOM_UI_AREA(0, static_cast<int>(r.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(r.width()), constants::BOTTOM_UI_HEIGHT);
-
-	mResourceInfoBox(mMiniMapBoundingBox.x() + mMiniMapBoundingBox.width() + constants::MARGIN * 2 + constants::MINI_MAP_BUTTON_SIZE, mMiniMapBoundingBox.y(), constants::RESOURCE_BOX_WIDTH, mMiniMapBoundingBox.height());
 
 	// X Position of the main UI buttons
 	int posX = static_cast<int>(r.width()) - 34;
@@ -136,6 +147,25 @@ void GameState::initUi()
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0);
+}
+
+
+void GameState::setupUiPositions()
+{
+	Renderer& r = Utility<Renderer>::get();
+
+	MENU_ICON(r.width() - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
+
+	// NAVIGATION BUTTONS
+	// Bottom line
+	MOVE_DOWN_ICON(r.width() - constants::MARGIN - 32, r.height() - constants::BOTTOM_UI_HEIGHT - 65, 32, 32);
+	MOVE_EAST_ICON(MOVE_DOWN_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
+	MOVE_SOUTH_ICON(MOVE_DOWN_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
+
+	// Top line
+	MOVE_UP_ICON(MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y() - constants::MARGIN_TIGHT - 32, 32, 32);
+	MOVE_NORTH_ICON(MOVE_UP_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
+	MOVE_WEST_ICON(MOVE_UP_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
 }
 
 
