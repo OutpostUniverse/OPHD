@@ -276,34 +276,28 @@ void StructureCatalogue::buildRecycleValueTable()
  */
 void StructureCatalogue::buildPopulationRequirementsTable()
 {
-	mPopulationRequirementsTable[SID_AGRIDOME]				= { 0 };
-	mPopulationRequirementsTable[SID_AIR_SHAFT]				= { 0 };
+	//												WORKERS, SCIENTISTS
+	mPopulationRequirementsTable[SID_AGRIDOME]				= { 1, 0 };
 	mPopulationRequirementsTable[SID_CHAP]					= { 2, 0 };
-	mPopulationRequirementsTable[SID_COMMAND_CENTER]		= { 0 };
-	mPopulationRequirementsTable[SID_COMMERCIAL]			= { 0 };
-	mPopulationRequirementsTable[SID_FUSION_REACTOR]		= { 0 };
-	mPopulationRequirementsTable[SID_HOT_LABORATORY]		= { 0 };
-	mPopulationRequirementsTable[SID_LABORATORY]			= { 0 };
-	mPopulationRequirementsTable[SID_MEDICAL_CENTER]		= { 0 };
-	mPopulationRequirementsTable[SID_MINE_FACILITY]			= { 0 };
-	mPopulationRequirementsTable[SID_PARK]					= { 0 };
-	mPopulationRequirementsTable[SID_SURFACE_POLICE]		= { 0 };
-	mPopulationRequirementsTable[SID_UNDERGROUND_POLICE]	= { 0 };
-	mPopulationRequirementsTable[SID_RECREATION_CENTER]		= { 0 };
-	mPopulationRequirementsTable[SID_RED_LIGHT_DISTRICT]	= { 0 };
-	mPopulationRequirementsTable[SID_RESIDENCE]				= { 0 };
-	mPopulationRequirementsTable[SID_ROBOT_COMMAND]			= { 0 };
-	mPopulationRequirementsTable[SID_SEED_FACTORY]			= { 0 };
-	mPopulationRequirementsTable[SID_SEED_POWER]			= { 0 };
-	mPopulationRequirementsTable[SID_SEED_SMELTER]			= { 0 };
-	mPopulationRequirementsTable[SID_SMELTER]				= { 0 };
-	mPopulationRequirementsTable[SID_SOLAR_PLANT]			= { 0 };
-	mPopulationRequirementsTable[SID_STORAGE_TANKS]			= { 0 };
-	mPopulationRequirementsTable[SID_SURFACE_FACTORY]		= { 0 };
-	mPopulationRequirementsTable[SID_TUBE]					= { 0 };
-	mPopulationRequirementsTable[SID_UNDERGROUND_FACTORY]	= { 0 };
-	mPopulationRequirementsTable[SID_UNIVERSITY]			= { 0 };
-	mPopulationRequirementsTable[SID_WAREHOUSE]				= { 0 };
+	mPopulationRequirementsTable[SID_COMMAND_CENTER]		= { 3, 0 };
+	mPopulationRequirementsTable[SID_COMMERCIAL]			= { 1, 0 };
+	mPopulationRequirementsTable[SID_FUSION_REACTOR]		= { 1, 2 };
+	mPopulationRequirementsTable[SID_HOT_LABORATORY]		= { 1, 5 };
+	mPopulationRequirementsTable[SID_LABORATORY]			= { 1, 5 };
+	mPopulationRequirementsTable[SID_MEDICAL_CENTER]		= { 1, 2 };
+	mPopulationRequirementsTable[SID_PARK]					= { 1, 0 };
+	mPopulationRequirementsTable[SID_SURFACE_POLICE]		= { 5, 0 };
+	mPopulationRequirementsTable[SID_UNDERGROUND_POLICE]	= { 5, 0 };
+	mPopulationRequirementsTable[SID_RECREATION_CENTER]		= { 2, 0 };
+	mPopulationRequirementsTable[SID_RED_LIGHT_DISTRICT]	= { 2, 0 };
+	mPopulationRequirementsTable[SID_ROBOT_COMMAND]			= { 4, 0 };
+	mPopulationRequirementsTable[SID_SEED_FACTORY]			= { 2, 0 };
+	mPopulationRequirementsTable[SID_SEED_SMELTER]			= { 2, 0 };
+	mPopulationRequirementsTable[SID_SMELTER]				= { 4, 0 };
+	mPopulationRequirementsTable[SID_SURFACE_FACTORY]		= { 4, 0 };
+	mPopulationRequirementsTable[SID_UNDERGROUND_FACTORY]	= { 2, 0 };
+	mPopulationRequirementsTable[SID_UNIVERSITY]			= { 1, 3 };
+	mPopulationRequirementsTable[SID_WAREHOUSE]				= { 1, 0 };
 }
 
 
