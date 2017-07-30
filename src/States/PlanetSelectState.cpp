@@ -137,7 +137,7 @@ State* PlanetSelectState::update()
 
 	mPlanetDescription.update();
 
-	r.drawText(mTinyFont, "v0.7.0", r.width() - mTinyFont.width("v0.7.1") - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
+	r.drawText(mTinyFont, constants::VERSION, r.width() - mTinyFont.width(constants::VERSION) - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
 
 	if (r.isFading())
 		return this;
