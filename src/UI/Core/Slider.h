@@ -1,27 +1,25 @@
-#pragma once
-#include "Button.h"
-#include "Control.h"
-#include "../../Common.h"
 /*!
  * \file	Slider.h
  * \brief	Header for sliding controls.
  * \author Goof
  */
+#pragma once
+#include "Button.h"
+#include "Control.h"
+#include "../../Common.h"
 
-using namespace std;
 
-
+ /**
+ * \class	Slider
+ * \brief	Base class for all sliding controls.
+ * 
+ * Handle horizontal and vertical slide bar.
+ * The handle could go backward or forward.
+ * the handle width/height depend on the max value.
+ * the minimum width/height is the height/width of the slide bar
+ */
 class Slider : public Control
 {
-	/*!
-	 * \class	Slider
-	 * \brief	Base class for all sliding controls.
-	 * 
-	 * Handle horizontal and vertical slide barre.
-	 * The handle could go backward or forward.
-	 * the handle width/height depend on the max value.
-	 * the minimum width/height is the height/width of the slide bar
-	 */
 public:
 
 
@@ -64,23 +62,16 @@ private:
 		SLIDER_HORIZONTAL	/*!< Horizontal slider. */
 	};
 	
-	double positionInternal() { return mPosition; } /*!< Get internal slider position. */
-	
-	/*!
-	 *  \brief set internal slider position
-     */
-	void positionInternal(double _pos) { 
-		if (_pos < 0.0)
-			_pos = 0.0;
-		else if (_pos > mLenght)
-			_pos = mLenght;
-		mPosition = _pos;
-	}
+private:
+	double positionInternal();
+	void positionInternal(double _pos);
+
 	void setSkins();	/*!< Helper function that load the gui skin on the first update call. */
 	void draw();		/*!< Draw the widget on screen. */
 	void logic();		/*!< Compute some values before drawing the control. */
 	
-	ValueChangedCallback	mCallback; /*!< Callback executed when the value is changed. */
+private:
+	ValueChangedCallback	mCallback;	/*!< Callback executed when the value is changed. */
 
 	SliderType	mSliderType;		/*!< Type of the Slider. */
 	
@@ -103,7 +94,6 @@ private:
 	
 	ImageList	mSkinSlider;		/*!< Skin for the slider. */
 	bool		mDisplayPosition;	/*!< Indicate if the slider display the value on mouse over. */
-
 	
 	Rectangle_2df	mButton1;		/*!< Area on screen where the second button is displayed. (Down/Left) */
 	Rectangle_2df	mButton2;		/*!< Area on screen where the first button is displayed. (Up/Right)*/
