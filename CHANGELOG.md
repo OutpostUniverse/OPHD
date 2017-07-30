@@ -2,9 +2,9 @@
 This is the changelog for OutpostHD.
 
 
-## [0.7.1] - UNRELEASED
+## [0.7.1] - 2017-07-30
 
-This version includes all revisions from r191 to rXXX.
+This version includes all revisions from r191 to r276.
 
 ### Added
 - Added a Game Over window.
@@ -21,10 +21,12 @@ This version includes all revisions from r191 to rXXX.
 - Player must now drop their colonists before the ship deorbits or they will lose their colonists.
 - File dialog text field will now only allow 50 characters total.
 - Buildings will go disabled if insufficient population is available to them.
+- Structure Panel will now disallow selecting structures if there are insufficient resources. These structures will be highlighted in red.
 
 ### Fixed
 - Fixed an issue that would keep one colonist alive regardless of how much food was available.
 - Fixed a mistake that would cause the morale indicator icon to disappear when the player reaches the maximum morale level.
+- Fixed a crash when switching between game states -- was an oversight in the UI handling code.
 
 
 
