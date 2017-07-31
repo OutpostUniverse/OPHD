@@ -38,6 +38,8 @@ private:
 	void onMousePlanetEnter();
 	void onMousePlanetExit();
 
+	void onWindowResized(int width, int height);
+
 	void btnMaleClicked();
 	void btnFemaleClicked();
 	void btnQuitClicked();

@@ -27,6 +27,7 @@ PlanetSelectState::~PlanetSelectState()
 	e.keyDown().disconnect(this, &PlanetSelectState::onKeyDown);
 	e.mouseButtonDown().disconnect(this, &PlanetSelectState::onMouseDown);
 	e.mouseMotion().disconnect(this, &PlanetSelectState::onMouseMove);
+	e.windowResized().disconnect(this, &PlanetSelectState::onWindowResized);
 
 	for (size_t i = 0; i < mPlanets.size(); ++i)
 		delete mPlanets[i];
@@ -45,6 +46,8 @@ void PlanetSelectState::initialize()
 
 	e.mouseButtonDown().connect(this, &PlanetSelectState::onMouseDown);
 	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
+
+	e.windowResized().connect(this, &PlanetSelectState::onWindowResized);
 
 	Renderer& r = Utility<Renderer>::get();
 	r.addCursor(mMousePointer, POINTER_NORMAL, 0, 0);
@@ -217,10 +220,22 @@ void PlanetSelectState::onMousePlanetEnter()
 }
 
 
-
 void PlanetSelectState::onMousePlanetExit()
 {
 	mPlanetDescription.text("");
+}
+
+
+void PlanetSelectState::onWindowResized(int width, int height)
+{
+	Renderer& r = Utility<Renderer>::get();
+
+	mPlanets[0]->position((int)r.width() / 4 - 64, (int)r.height() / 2 - 64);
+	mPlanets[1]->position((int)r.width() / 2 - 64, (int)r.height() / 2 - 64);
+	mPlanets[2]->position((((int)r.width() / 4) * 3) - 64, (int)r.height() / 2 - 64);
+
+	mQuit.position(r.width() - 55, 30);
+	mPlanetDescription.position(r.center_x() - 275, r.height() - 225);
 }
 
 
