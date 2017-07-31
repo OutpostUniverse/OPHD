@@ -129,9 +129,11 @@ protected:
 
 private:
 
-	Planet() {}	// Explicitely declared private.
-	Planet(const Planet&) {}; // Explicitely declared private.
-	Planet& operator=(const Planet&) {}; // Explicitely declared private.
+	// No default constructor, copy constructor, or copy operator
+	// Calling these should result in an error
+	Planet() = delete;
+	Planet(const Planet&) = delete;
+	Planet& operator=(const Planet&) = delete;
 
 
 	int					mTick;

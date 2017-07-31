@@ -48,9 +48,11 @@ private:
 
 private:
 
-	AiVoiceNotifier() {}									// Explicitely Declared Private
-	AiVoiceNotifier(const AiVoiceNotifier&) {}				// Explicitely Declared Private
-	AiVoiceNotifier& operator=(const AiVoiceNotifier&) {}	// Explicitely Declared Private
+	// No default constructor, copy constructor, or copy operator
+	// Calling these should result in an error
+	AiVoiceNotifier() = delete;
+	AiVoiceNotifier(const AiVoiceNotifier&) = delete;
+	AiVoiceNotifier& operator=(const AiVoiceNotifier&) = delete;
 
 	void buildVoiceTables();
 

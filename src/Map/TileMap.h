@@ -85,9 +85,11 @@ private:
 	typedef std::vector<TileGrid>		TileArray;
 	
 private:
-	
-	TileMap(const TileMap&) {} // Explicitely private, don't want it to be copyable.
-	TileMap& operator=(const TileMap&) {} // Explicitely private, don't want it to be copyable.
+
+	// No default copy constructor, or copy operator
+	// Calling these should result in an error
+	TileMap(const TileMap&) = delete;
+	TileMap& operator=(const TileMap&) = delete;
 
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);

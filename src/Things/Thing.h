@@ -53,8 +53,10 @@ protected:
 
 private:
 
-	Thing(const Thing& thing) {} // Explicitely defined private
-	Thing& operator=(const Thing& thing) {} // Explicitely defined private
+	// No default copy constructor, or copy operator
+	// Calling these should result in an error
+	Thing(const Thing& thing) = delete;
+	Thing& operator=(const Thing& thing) = delete;
 
 	std::string		mName;			/**< Name of the Thing. */
 	Sprite			mSprite;		/**< Sprite used to represent the Thing. */
