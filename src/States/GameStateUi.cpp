@@ -33,6 +33,31 @@ extern Rectangle_2d MOVE_DOWN_ICON;
 
 
 /**
+ * Performs common computations for window centering and casts the resulting
+ * fractional value to an int.
+ * 
+ * \note	Truncating the fractional value is intentional.
+ */
+int centerWindowWidth(float width)
+{
+	return static_cast<int>(Utility<Renderer>::get().center_x() - width / 2);
+}
+
+
+/**
+ * Performs common computations for window centering and casts the resulting
+ * fractional value to an int.
+ * 
+ * \note	Truncating the fractional value is intentional.
+ */
+int centerWindowHeight(float height)
+{
+	return static_cast<int>(Utility<Renderer>::get().center_y() - height / 2);
+}
+
+
+
+/**
  * Sets up the user interface elements
  */
 void GameState::initUi()
@@ -42,7 +67,6 @@ void GameState::initUi()
 
 	mDiggerDirection.directionSelected().connect(this, &GameState::diggerSelectionDialog);
 	mDiggerDirection.hide();
-	mDiggerDirection.position(r.center_x() - mDiggerDirection.width() / 2, r.height() / 2 - 125);
 
 	mTileInspector.position(r.center_x() - mTileInspector.width() / 2, r.height() / 2 - 175);
 	mTileInspector.hide();
@@ -53,7 +77,6 @@ void GameState::initUi()
 	mFactoryProduction.position(r.center_x() - mFactoryProduction.width() / 2, 175);
 	mFactoryProduction.hide();
 
-	mFileIoDialog.position(r.center_x() - mFileIoDialog.width() / 2, 50);
 	mFileIoDialog.setMode(FileIo::FILE_SAVE);
 	mFileIoDialog.fileOperation().connect(this, &GameState::fileIoAction);
 	mFileIoDialog.anchored(true);
@@ -65,18 +88,15 @@ void GameState::initUi()
 	mPopulationPanel.morale(&mCurrentMorale);
 	mPopulationPanel.old_morale(&mPreviousMorale);
 
-	mGameOverDialog.position(r.center_x() - mGameOverDialog.width() / 2, r.center_y() - mGameOverDialog.height() / 2 - 100);
 	mGameOverDialog.returnToMainMenu().connect(this, &GameState::btnGameOverClicked);
 	mGameOverDialog.hide();
 
-	mGameOptionsDialog.position(r.center_x() - mGameOptionsDialog.width() / 2, r.center_y() - mGameOptionsDialog.height() / 2 - 100);
 	mGameOptionsDialog.SaveGame().connect(this, &GameState::btnSaveGameClicked);
 	mGameOptionsDialog.LoadGame().connect(this, &GameState::btnLoadGameClicked);
 	mGameOptionsDialog.returnToGame().connect(this, &GameState::btnReturnToGameClicked);
 	mGameOptionsDialog.returnToMainMenu().connect(this, &GameState::btnGameOverClicked);
 	mGameOptionsDialog.hide();
 
-	mAnnouncement.position(r.center_x() - mAnnouncement.width() / 2, r.center_y() - mAnnouncement.height() / 2 - 100);
 	mAnnouncement.hide();
 
 	mWindowStack.addWindow(&mTileInspector);
@@ -85,32 +105,21 @@ void GameState::initUi()
 	mWindowStack.addWindow(&mDiggerDirection);
 	mWindowStack.addWindow(&mAnnouncement);
 
-
-	// Bottom UI
 	BOTTOM_UI_AREA(0, static_cast<int>(r.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(r.width()), constants::BOTTOM_UI_HEIGHT);
-
-	// X Position of the main UI buttons
-	int posX = static_cast<int>(r.width()) - 34;
-
-	// Mini Map
-	mMiniMapBoundingBox(static_cast<int>(r.width() - mMapDisplay.width() - constants::MARGIN), static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), mMapDisplay.width(), mMapDisplay.height());
-
+	
 	// BUTTONS
-	// System
 	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
 	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(r.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
+	mBtnTurns.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
 	mBtnTurns.click().connect(this, &GameState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
 
 	mBtnToggleHeightmap.image("ui/icons/height.png");
 	mBtnToggleHeightmap.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
-	mBtnToggleHeightmap.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y()));
 	mBtnToggleHeightmap.type(Button::BUTTON_TOGGLE);
 
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
 	mBtnToggleConnectedness.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
-	mBtnToggleConnectedness.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
 	mBtnToggleConnectedness.type(Button::BUTTON_TOGGLE);
 	mBtnToggleConnectedness.click().connect(this, &GameState::btnToggleConnectednessClicked);
 
@@ -143,8 +152,7 @@ void GameState::initUi()
 	mStructures.selectionChanged().connect(this, &GameState::structuresSelectionChanged);
 
 	mPlayerResources.resourceObserver().connect(this, &GameState::playerResourcePoolModified);
-
-
+	
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0);
 }
@@ -154,6 +162,10 @@ void GameState::setupUiPositions()
 {
 	Renderer& r = Utility<Renderer>::get();
 
+	// Bottom UI Area
+	BOTTOM_UI_AREA(0, static_cast<int>(r.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(r.width()), constants::BOTTOM_UI_HEIGHT);
+
+	// Menu / System Icon
 	MENU_ICON(r.width() - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
 
 	// NAVIGATION BUTTONS
@@ -166,6 +178,30 @@ void GameState::setupUiPositions()
 	MOVE_UP_ICON(MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y() - constants::MARGIN_TIGHT - 32, 32, 32);
 	MOVE_NORTH_ICON(MOVE_UP_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
 	MOVE_WEST_ICON(MOVE_UP_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
+
+	// Mini Map
+	mMiniMapBoundingBox(static_cast<int>(r.width() - mMapDisplay.width() - constants::MARGIN), static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), mMapDisplay.width(), mMapDisplay.height());
+
+	// Position UI Buttons
+	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(r.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
+	mBtnToggleHeightmap.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y()));
+	mBtnToggleConnectedness.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
+	
+	// UI Panels
+	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+
+	mStructures.size(mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mStructures.iconMargin(constants::MARGIN_TIGHT);
+
+	// Anchored window positions
+	mFileIoDialog.position(centerWindowWidth(mFileIoDialog.width()), 50);
+	mGameOverDialog.position(centerWindowWidth(mGameOverDialog.width()), centerWindowHeight(mGameOverDialog.height()) - 100);
+	mAnnouncement.position(centerWindowWidth(mAnnouncement.width()), centerWindowHeight(mAnnouncement.height()) - 100);
+	mGameOptionsDialog.position(centerWindowWidth(mGameOptionsDialog.width()), centerWindowHeight(mGameOptionsDialog.height()) - 100);
+
+	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), static_cast<int>(r.height() / 2) - 125);
 }
 
 

@@ -123,11 +123,10 @@ void GameState::initialize()
 
 	// UI
 	initUi();
-	Renderer& r = Utility<Renderer>::get();
-
 	setupUiPositions();
 
 	// POINTERS
+	Renderer& r = Utility<Renderer>::get();
 	r.addCursor("ui/pointers/normal.png", POINTER_NORMAL, 0, 0);
 	r.addCursor("ui/pointers/place_tile.png", POINTER_PLACE_TILE, 16, 16);
 	r.addCursor("ui/pointers/inspect.png", POINTER_INSPECT, 8, 8);
@@ -462,7 +461,7 @@ void GameState::onActivate(bool _b)
  */
 void GameState::onWindowResized(int w, int h)
 {
-
+	setupUiPositions();
 }
 
 

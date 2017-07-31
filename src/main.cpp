@@ -97,6 +97,8 @@ int main(int argc, char *argv[])
 		}
 
 		createRenderer();
+		Utility<Renderer>::get().minimum_size(800, 600);
+		Utility<Renderer>::get().resizeable(true);
 
 		f.addToSearchPath("fonts.dat");
 		f.addToSearchPath("maps.dat");
