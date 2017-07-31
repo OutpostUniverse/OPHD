@@ -117,8 +117,6 @@ State* PlanetSelectState::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	//r.drawBoxFilled(0, 0, r.getScreenResolution().x(), r.getScreenResolution().y(), 0, 0, 0);
-
 	r.drawImageStretched(mBg, 0, 0, r.width(), r.height());
 
 	float _rotation = mTimer.tick() / 1200.0f;
@@ -173,7 +171,11 @@ State* PlanetSelectState::update()
 
 void PlanetSelectState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
-
+	if (key == EventHandler::KEY_ENTER)
+	{
+		if (mod | EventHandler::KEY_MOD_LALT || mod | EventHandler::KEY_MOD_RALT)
+			Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
+	}
 }
 
 
