@@ -471,6 +471,16 @@ void GameState::onWindowResized(int w, int h)
  */
 void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
+	if (key == EventHandler::KEY_ENTER)
+	{
+		if (mod | EventHandler::KEY_MOD_LALT || mod | EventHandler::KEY_MOD_RALT)
+		{
+			Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
+			Utility<Configuration>::get().fullscreen(Utility<Renderer>::get().fullscreen());
+			return;
+		}
+	}
+
 	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
 		return;

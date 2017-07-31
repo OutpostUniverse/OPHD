@@ -174,7 +174,10 @@ void PlanetSelectState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyMo
 	if (key == EventHandler::KEY_ENTER)
 	{
 		if (mod | EventHandler::KEY_MOD_LALT || mod | EventHandler::KEY_MOD_RALT)
+		{
 			Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
+			Utility<Configuration>::get().fullscreen(Utility<Renderer>::get().fullscreen());
+		}
 	}
 }
 
