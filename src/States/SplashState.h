@@ -22,20 +22,12 @@ protected:
 	State* update();
 
 private:
-
-
-
-private:
 	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
-
 	void onMouseDown(EventHandler::MouseButton button, int x, int y);
-	void onMouseMove(int x, int y, int rX, int rY);
 
 	void skipSplash();
 
 private:
-	Image				mMousePointer;
-
 	Image				mLogoLairworks;
 	Image				mLogoNas2d;
 	Image				mLogoOutpostHd;

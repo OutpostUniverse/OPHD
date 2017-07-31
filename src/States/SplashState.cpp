@@ -20,8 +20,7 @@ enum LogoState
 LogoState CURRENT_STATE = LOGO_NONE;
 
 
-SplashState::SplashState() :	mMousePointer("ui/pointers/normal.png"),
-								mLogoLairworks("sys/lairworks-logo.png"),
+SplashState::SplashState() :	mLogoLairworks("sys/lairworks-logo.png"),
 								mLogoNas2d("sys/nas2d_logo.png"),
 								mLogoOutpostHd("sys/ophd_large.png"),
 								mSplash("music/splash.ogg")
@@ -33,7 +32,6 @@ SplashState::~SplashState()
 	EventHandler& e = Utility<EventHandler>::get();
 	e.keyDown().disconnect(this, &SplashState::onKeyDown);
 	e.mouseButtonDown().disconnect(this, &SplashState::onMouseDown);
-	e.mouseMotion().disconnect(this, &SplashState::onMouseMove);
 }
 
 
@@ -42,11 +40,8 @@ void SplashState::initialize()
 	mReturnState = this;
 
 	EventHandler& e = Utility<EventHandler>::get();
-
 	e.keyDown().connect(this, &SplashState::onKeyDown);
-
 	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
-	e.mouseMotion().connect(this, &SplashState::onMouseMove);
 
 	Utility<Mixer>::get().fadeInMusic(mSplash, -1, 1000);
 	Utility<Renderer>::get().fadeOut(0.0f);
@@ -111,9 +106,6 @@ State* SplashState::update()
 	if (CURRENT_STATE == LOGO_OUTPOSTHD)
 		r.drawImage(mLogoOutpostHd, r.center_x() - ((mLogoOutpostHd.width() + 250 * LOGO_SCALE)) / 2, r.center_y() - mLogoOutpostHd.height() / 2, LOGO_SCALE);
 
-
-	r.drawImage(mMousePointer, static_cast<float>(mMousePosition.x()), static_cast<float>(mMousePosition.y()));
-
 	if (r.isFading())
 		return this;
 
@@ -145,14 +137,4 @@ void SplashState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	skipSplash();
 }
-
-
-void SplashState::onMouseMove(int x, int y, int rX, int rY)
-{
-	mMousePosition(x, y);
-}
-
-
-
-
 
