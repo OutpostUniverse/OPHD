@@ -61,6 +61,8 @@ public:
 
 	void injectMouse(int x, int y);
 
+	void initMapDrawParams();
+	
 	void draw();
 
 	void serialize(NAS2D::Xml::XmlElement* _ti);
@@ -79,7 +81,6 @@ protected:
 	std::vector<std::vector<MouseMapRegion> > mMouseMap;
 
 private:
-
 	typedef std::vector<std::vector<Tile> >	TileGrid;
 	typedef std::vector<TileGrid>		TileArray;
 	
@@ -91,8 +92,6 @@ private:
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
 	void setupMines(int mineCount);
-
-	void initMapDrawParams();
 
 	void updateTileHighlight();
 

@@ -462,6 +462,7 @@ void GameState::onActivate(bool _b)
 void GameState::onWindowResized(int w, int h)
 {
 	setupUiPositions();
+	mTileMap->initMapDrawParams();
 }
 
 
