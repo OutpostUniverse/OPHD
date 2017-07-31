@@ -121,8 +121,9 @@ State* PlanetSelectState::update()
 
 	r.drawImageStretched(mBg, 0, 0, r.width(), r.height());
 
-	r.drawImageRotated(mCloud1, -256, -256, mTimer.tick() / 1200.0f, 100, 255, 0, 135);
-	r.drawImageRotated(mCloud1, r.width() - 800, -256, mTimer.tick() / 1200.0f, 180, 0, 255, 150);
+	float _rotation = mTimer.tick() / 1200.0f;
+	r.drawImageRotated(mCloud1, -256, -256, _rotation, 100, 255, 0, 135);
+	r.drawImageRotated(mCloud1, r.width() - 800, -256, _rotation, 180, 0, 255, 150);
 
 	drawStar(-40, -55);
 
