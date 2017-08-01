@@ -171,12 +171,12 @@ State* PlanetSelectState::update()
 
 void PlanetSelectState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
+	
 	if (key == EventHandler::KEY_ENTER)
 	{
-		if (mod | EventHandler::KEY_MOD_LALT || mod | EventHandler::KEY_MOD_RALT)
+		if (Utility<EventHandler>::get().alt(mod))
 		{
 			Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
-			Utility<Configuration>::get().fullscreen(Utility<Renderer>::get().fullscreen());
 		}
 	}
 }

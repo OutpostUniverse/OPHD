@@ -457,6 +457,7 @@ void GameState::onActivate(bool _b)
 
 
 /**
+ * 
  *
  */
 void GameState::onWindowResized(int w, int h)
@@ -473,10 +474,9 @@ void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 {
 	if (key == EventHandler::KEY_ENTER)
 	{
-		if (mod | EventHandler::KEY_MOD_LALT || mod | EventHandler::KEY_MOD_RALT)
+		if (Utility<EventHandler>::get().alt(mod))
 		{
 			Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
-			Utility<Configuration>::get().fullscreen(Utility<Renderer>::get().fullscreen());
 			return;
 		}
 	}
@@ -878,8 +878,10 @@ void GameState::placeRobot()
 	// Robodozer has been selected.
 	if(mCurrentRobot == ROBOT_DOZER)
 	{
-		if(tile->mine() || !tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
+		if (tile->mine() || !tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
+		{
 			return;
+		}
 		else if (tile->thingIsStructure())
 		{
 			Structure* _s = tile->structure();
@@ -889,6 +891,7 @@ void GameState::placeRobot()
 				cout << "Can't bulldoze a Command Center!" << endl;
 				return;
 			}
+
 			if (_s->name() == constants::COLONIST_LANDER && _s->age() == 0)
 			{
 				mAiVoiceNotifier.notify(AiVoiceNotifier::CC_NO_BULLDOZE); ///\fixme Change this to an invalid dozer warning.
@@ -906,7 +909,9 @@ void GameState::placeRobot()
 			checkConnectedness();
 		}
 		else if (tile->index() == TERRAIN_DOZED)
+		{
 			return;
+		}
 
 		Robot* r = mRobotPool.getDozer();
 		r->startTask(tile->index());
@@ -968,10 +973,8 @@ void GameState::placeRobot()
 			}
 		}
 
-		if (!tile->thing() && mTileMap->currentDepth() > 0)
-			mDiggerDirection.cardinalOnlyEnabled();
-		else
-			mDiggerDirection.downOnlyEnabled();
+		if (!tile->thing() && mTileMap->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
+		else { mDiggerDirection.downOnlyEnabled(); }
 
 		mDiggerDirection.setParameters(tile);
 
@@ -980,7 +983,9 @@ void GameState::placeRobot()
 
 		// If we're placing on the top level we can only ever go down.
 		if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
+		{
 			mDiggerDirection.selectDown();
+		}
 		else
 		{
 			mDiggerDirection.show();
@@ -989,7 +994,9 @@ void GameState::placeRobot()
 			int x = mMousePosition.x() + 20;
 
 			if (x + mDiggerDirection.width() > Utility<Renderer>::get().width())
+			{
 				x = mMousePosition.x() - mDiggerDirection.width() - 20;
+			}
 
 			mDiggerDirection.position(x, mMousePosition.y() - 32);
 		}

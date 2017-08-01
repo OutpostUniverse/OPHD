@@ -42,6 +42,7 @@ void SplashState::initialize()
 	EventHandler& e = Utility<EventHandler>::get();
 	e.keyDown().connect(this, &SplashState::onKeyDown);
 	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
+	e.windowResized().connect(this, &SplashState::onWindowResized);
 
 	Utility<Mixer>::get().fadeInMusic(mSplash, -1, 1000);
 	Utility<Renderer>::get().fadeOut(0.0f);
@@ -129,6 +130,15 @@ State* SplashState::update()
 
 void SplashState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
+	if (key == EventHandler::KEY_ENTER)
+	{
+		if (Utility<EventHandler>::get().alt(mod))
+		{
+			Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
+			return;
+		}
+	}
+
 	skipSplash();
 }
 
@@ -138,3 +148,8 @@ void SplashState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	skipSplash();
 }
 
+
+void SplashState::onWindowResized(int width, int height)
+{
+
+}
