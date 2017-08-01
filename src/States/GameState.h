@@ -165,6 +165,8 @@ private:
 	int foodInStorage();
 	int foodTotalStorage();
 
+	void nextTurn();
+
 private:
 	FpsCounter			mFps;
 

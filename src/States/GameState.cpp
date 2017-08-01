@@ -457,7 +457,7 @@ void GameState::onActivate(bool _b)
 
 
 /**
- * 
+ *
  *
  */
 void GameState::onWindowResized(int w, int h)
@@ -472,13 +472,10 @@ void GameState::onWindowResized(int w, int h)
  */
 void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
-	if (key == EventHandler::KEY_ENTER)
+	if (key == EventHandler::KEY_F11)
 	{
-		if (Utility<EventHandler>::get().alt(mod))
-		{
-			Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
-			return;
-		}
+		Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
+		return;
 	}
 
 	// FIXME: Ugly / hacky
@@ -581,6 +578,10 @@ void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 		case EventHandler::KEY_ESCAPE:
 			clearMode();
 			resetUi();
+			break;
+
+		case EventHandler::KEY_ENTER:
+			nextTurn();
 			break;
 
 		default:
@@ -1812,4 +1813,174 @@ void GameState::scrubRobotList()
 void GameState::updateCurrentLevelString(int currentDepth)
 {
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[currentDepth];
+}
+
+
+int moraleChange(StructureManager& _sm, Structure::StructureClass _type)
+{
+	int count = 0;
+	for (auto it = _sm.structureList(_type).begin(); it != _sm.structureList(_type).end(); ++it)
+		if ((*it)->operational())
+			++count;
+		else if ((*it)->disabled())
+			--count;
+
+	return count;
+}
+
+
+int pullFood(ResourcePool& _rp, int amount)
+{
+	if (amount <= _rp.food())
+	{
+		_rp.food(_rp.food() - amount);
+		return amount;
+	}
+	else
+	{
+		int ret = _rp.food();
+		_rp.food(0);
+		return ret;
+	}
+}
+
+
+void GameState::nextTurn()
+{
+	clearMode();
+
+	mPopulationPool.clear();
+
+	mStructureManager.disconnectAll();
+	checkConnectedness();
+	mStructureManager.update(mPlayerResources, mPopulationPool);
+
+	mPreviousMorale = mCurrentMorale;
+
+	// FOOD CONSUMPTION
+	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage());
+	StructureManager::StructureList &foodproducers = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
+	int remainder = food_consumed;
+
+	if (mPlayerResources.food() > 0)
+		remainder -= pullFood(mPlayerResources, remainder);
+
+	for (size_t i = 0; i < foodproducers.size(); ++i)
+	{
+		if (remainder <= 0)
+			break;
+
+		remainder -= pullFood(foodproducers[i]->storage(), remainder);
+	}
+
+	// MORALE
+	// Positive Effects
+	mCurrentMorale += mPopulation.birthCount();
+	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_PARK, Structure::OPERATIONAL);
+	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_RECREATION_CENTER, Structure::OPERATIONAL);
+
+	int food_production = mStructureManager.getCountInState(Structure::CLASS_FOOD_PRODUCTION, Structure::OPERATIONAL);
+	food_production > 0 ? mCurrentMorale += food_production : mCurrentMorale -= 5;
+
+	//mCurrentMorale += mStructureManager.getCountInState(Structure::STRUCTURE_COMMERCIAL, Structure::OPERATIONAL);
+
+	// Negative Effects
+	mCurrentMorale -= mPopulation.deathCount();
+	mCurrentMorale -= mStructureManager.disabled();
+	mCurrentMorale -= mStructureManager.destroyed();
+
+	mCurrentMorale = clamp(mCurrentMorale, 0, 1000);
+
+
+	// Update storage capacity
+	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::CLASS_STORAGE)));
+
+	ResourcePool truck;
+	truck.capacity(100);
+
+	auto mines = mStructureManager.structureList(Structure::CLASS_MINE);
+	auto smelters = mStructureManager.structureList(Structure::CLASS_SMELTER);
+
+	// Move ore from mines to smelters
+	for (size_t m = 0; m < mines.size(); ++m)
+	{
+		if (mines[m]->disabled() || mines[m]->destroyed())
+			continue; // consider a different control path.
+
+		truck.commonMetalsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, 25));
+		truck.commonMineralsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, 25));
+		truck.rareMetalsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_RARE_METALS_ORE, 25));
+		truck.rareMineralsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, 25));
+
+		for (size_t s = 0; s < smelters.size(); ++s)
+		{
+			if(smelters[s]->operational())
+				smelters[s]->production().pushResources(truck);
+		}
+
+		if (!truck.empty())
+			mines[m]->storage().pushResources(truck);
+	}
+
+	// Move refined resources from smelters to storage tanks
+	for (size_t s = 0; s < smelters.size(); ++s)
+	{
+		if (smelters[s]->disabled() || smelters[s]->destroyed())
+			continue; // consider a different control path.
+
+		truck.commonMetals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_COMMON_METALS, 25));
+		truck.commonMinerals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_COMMON_MINERALS, 25));
+		truck.rareMetals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_RARE_METALS, 25));
+		truck.rareMinerals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_RARE_MINERALS, 25));
+
+		mPlayerResources.pushResources(truck);
+
+		if (!truck.empty())
+		{
+			smelters[s]->storage().pushResources(truck);
+			break;	// we're at max capacity in our storage, dump what's left in the smelter it came from and barf.
+		}
+	}
+
+	updateRobots();
+
+	Structure* cc = mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();
+	if (cc->state() == Structure::OPERATIONAL)
+		populateStructureMenu();
+
+	mTurnCount++;
+
+	// Check for colony ship deorbiting; if any colonists are remaining, kill
+	// them and reduce morale by an appropriate amount.
+	if (mTurnCount == constants::COLONY_SHIP_ORBIT_TIME)
+	{
+		if (mLandersColonist > 0)
+		{
+			mCurrentMorale -= (mLandersColonist * 50) * 6; // TODO: apply a modifier to multiplier based on difficulty level.
+			if (mCurrentMorale < 0)
+				mCurrentMorale = 0;
+
+			mLandersColonist = 0;
+
+			populateStructureMenu();
+
+			mWindowStack.bringToFront(&mAnnouncement);
+			mAnnouncement.announcement(MajorEventAnnouncement::ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS);
+			mAnnouncement.show();
+		}
+		else
+		{
+			mWindowStack.bringToFront(&mAnnouncement);
+			mAnnouncement.announcement(MajorEventAnnouncement::ANNOUNCEMENT_COLONY_SHIP_CRASH);
+			mAnnouncement.show();
+		}
+	}
+
+
+	// Check for Game Over conditions
+	if (mPopulation.size() < 1 && mLandersColonist == 0)
+	{
+		hideUi();
+		mGameOverDialog.show();
+	}
 }
