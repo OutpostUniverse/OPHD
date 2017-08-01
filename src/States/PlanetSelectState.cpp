@@ -127,7 +127,7 @@ State* PlanetSelectState::update()
 
 	for (size_t i = 0; i < mPlanets.size(); ++i)
 		mPlanets[i]->update();
-	
+
 	r.drawText(mFontBold, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (mFont.width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - mFont.height() - 10), 255, 255, 255);
 	r.drawText(mFontBold, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (mFont.width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - mFont.height() - 10), 255, 255, 255);
 	r.drawText(mFontBold, "Ganymede Type", static_cast<float>(mPlanets[2]->x() + 64 - (mFont.width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - mFont.height() - 10), 255, 255, 255);
@@ -171,13 +171,10 @@ State* PlanetSelectState::update()
 
 void PlanetSelectState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
-	
-	if (key == EventHandler::KEY_ENTER)
+
+	if (key == EventHandler::KEY_F11)
 	{
-		if (Utility<EventHandler>::get().alt(mod))
-		{
-			Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
-		}
+		Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
 	}
 }
 
@@ -202,7 +199,7 @@ void PlanetSelectState::onMouseMove(int x, int y, int rX, int rY)
 {
 	mMousePosition(x, y);
 
-	
+
 }
 
 

@@ -130,13 +130,10 @@ State* SplashState::update()
 
 void SplashState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
-	if (key == EventHandler::KEY_ENTER)
+	if (key == EventHandler::KEY_F11)
 	{
-		if (Utility<EventHandler>::get().alt(mod))
-		{
-			Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
-			return;
-		}
+		Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
+		return;
 	}
 
 	skipSplash();
