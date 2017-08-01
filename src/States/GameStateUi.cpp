@@ -35,7 +35,7 @@ extern Rectangle_2d MOVE_DOWN_ICON;
 /**
  * Performs common computations for window centering and casts the resulting
  * fractional value to an int.
- * 
+ *
  * \note	Truncating the fractional value is intentional.
  */
 int centerWindowWidth(float width)
@@ -47,7 +47,7 @@ int centerWindowWidth(float width)
 /**
  * Performs common computations for window centering and casts the resulting
  * fractional value to an int.
- * 
+ *
  * \note	Truncating the fractional value is intentional.
  */
 int centerWindowHeight(float height)
@@ -62,7 +62,6 @@ int centerWindowHeight(float height)
  */
 void GameState::initUi()
 {
-	EventHandler& e = Utility<EventHandler>::get();
 	Renderer& r = Utility<Renderer>::get();
 
 	mDiggerDirection.directionSelected().connect(this, &GameState::diggerSelectionDialog);
@@ -106,7 +105,7 @@ void GameState::initUi()
 	mWindowStack.addWindow(&mAnnouncement);
 
 	BOTTOM_UI_AREA(0, static_cast<int>(r.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(r.width()), constants::BOTTOM_UI_HEIGHT);
-	
+
 	// BUTTONS
 	mBtnTurns.image("ui/icons/turns.png");
 	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(r.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
@@ -152,7 +151,7 @@ void GameState::initUi()
 	mStructures.selectionChanged().connect(this, &GameState::structuresSelectionChanged);
 
 	mPlayerResources.resourceObserver().connect(this, &GameState::playerResourcePoolModified);
-	
+
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0);
 }
@@ -186,7 +185,7 @@ void GameState::setupUiPositions()
 	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(r.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
 	mBtnToggleHeightmap.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y()));
 	mBtnToggleConnectedness.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
-	
+
 	// UI Panels
 	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
@@ -210,7 +209,7 @@ void GameState::setupUiPositions()
  */
 void GameState::hideUi()
 {
-	mBtnTurns;
+	mBtnTurns.hide();
 
 	mBtnToggleHeightmap.hide();
 	mBtnToggleConnectedness.hide();
@@ -680,7 +679,7 @@ void GameState::btnTurnsClicked()
 
 /**
  * Player ResourcePool modified, we update the IconGrid
- * 
+ *
  * \todo	Could be removed and have updateStructureAvailability() used
  *			as the listener instead, but we may want to perform other
  *			functions here so I'm leaving it in - Lee

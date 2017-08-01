@@ -281,8 +281,6 @@ void TileMap::draw()
  */
 void TileMap::updateTileHighlight()
 {
-	Renderer& r = Utility<Renderer>::get();
-
 	if(isPointInRect(mMousePosition, mMapBoundingBox))
 	{
 		int offsetX = (mMousePosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;

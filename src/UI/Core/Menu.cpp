@@ -42,12 +42,12 @@ bool Menu::empty() const
 
 /**
  * Adds an item to the Menu.
- * 
+ *
  * \param	item	Item to add.
- * 
+ *
  * \warning	Menu::font(Font& font) must have been called with a valid Font
  *			before this function can be safely called.
- * 
+ *
  * \todo	Make this function safe to call regardless of whether a font
  *			has been defined or not.
  */
@@ -66,9 +66,9 @@ void Menu::addItem(const string& item)
 
 /**
  * Removes a named item from the Menu.
- * 
+ *
  * \todo	Complete this function.
- * 
+ *
  * \note	Safe to call if Menu is empty.
  */
 void Menu::removeItem(const std::string& item)
@@ -88,7 +88,7 @@ void Menu::removeItem(const std::string& item)
 			mCurrentSelection = constants::NO_SELECTION;
 			return;
 		}
-		
+
 		++it;
 	}
 
@@ -124,7 +124,7 @@ void Menu::dropAllItems()
 
 /**
  * Sets the position of the menu.
- * 
+ *
  * \note	The Height of the menu is determined by the number of items
  *			items and not by the height of the rectangle.
  */
@@ -185,7 +185,7 @@ void Menu::update()
 	if(mCurrentHighlight != constants::NO_SELECTION)
 		r.drawBox(_rect().x(), _rect().y() + (mCurrentHighlight * line_height), _rect().width(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
 
-	for(size_t i = 0; i < mItems.size(); i++)
+	for(int i = 0; (unsigned)i < mItems.size(); i++)
 	{
 		if(i == mCurrentHighlight)
 			r.drawTextShadow(font(), mItems[i], _rect().x(), _rect().y() + (i * line_height), 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);

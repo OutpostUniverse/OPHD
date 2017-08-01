@@ -106,19 +106,6 @@ void DiggerDirection::update()
 		return;
 
 	Window::update();
-
-	Renderer& r = Utility<Renderer>::get();
-
-	/*
-	r.drawBoxFilled(rect(), COLOR_SILVER.red(), COLOR_SILVER.green(), COLOR_SILVER.blue());
-	r.drawBox(rect(), 0, 0, 0);
-
-	r.drawLine(rect().x() + 1, rect().y() + 1, rect().x() + rect().w() - 1, rect().y() + 1, COLOR_WHITE);
-	r.drawLine(rect().x() + 1, rect().y() + 1, rect().x() + 1, rect().y() + rect().h() - 0.5f, COLOR_WHITE);
-
-	r.drawLine(rect().x() + 2, rect().y() + rect().h() - 1, rect().x() + rect().w() - 2, rect().y() + rect().h() - 1, COLOR_GREY);
-	r.drawLine(rect().x() + rect().w() - 1, rect().y() + 2, rect().x() + rect().w() - 1, rect().y() + rect().h() - 0.5f, COLOR_GREY);
-	*/
 }
 
 

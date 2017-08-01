@@ -54,9 +54,10 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 	mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
 	mHeightMap(_m + MAP_TERRAIN_EXTENSION),
 	mUiIcons("ui/icons.png"),
-	mAiVoiceNotifier(_g),
+	mInsertMode(INSERT_NONE),
 	//mBgMusic("music/track_01.ogg"),
 	mCurrentStructure(SID_NONE),
+	mAiVoiceNotifier(_g),
 	mDiggerDirection(mTinyFont),
 	mFactoryProduction(mTinyFont),
 	mFileIoDialog(mTinyFont),
@@ -65,7 +66,6 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 	mAnnouncement(mTinyFont),
 	mStructureInspector(mTinyFont),
 	mTileInspector(mTinyFont),
-	mInsertMode(INSERT_NONE),
 	mTurnCount(0),
 	mCurrentMorale(600),
 	mPreviousMorale(mCurrentMorale),
@@ -457,7 +457,7 @@ void GameState::onActivate(bool _b)
 
 
 /**
- * 
+ *
  */
 void GameState::onWindowResized(int w, int h)
 {
@@ -878,7 +878,7 @@ void GameState::placeRobot()
 	// Robodozer has been selected.
 	if(mCurrentRobot == ROBOT_DOZER)
 	{
-		if(tile->mine() || !tile->excavated() || tile->thing() && !tile->thingIsStructure())
+		if(tile->mine() || !tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
 			return;
 		else if (tile->thingIsStructure())
 		{
@@ -1184,7 +1184,7 @@ void GameState::placeStructure()
 	if(!t)
 		return;
 
-	if(t->mine() || t->thing() || !t->bulldozed() && mCurrentStructure != SID_SEED_LANDER && mCurrentStructure != SID_COLONIST_LANDER)
+	if(t->mine() || t->thing() || (!t->bulldozed() && mCurrentStructure != SID_SEED_LANDER && mCurrentStructure != SID_COLONIST_LANDER))
 	{
 		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		cout << "GameState::placeStructure(): Tile is unsuitable to place a structure." << endl;

@@ -7,7 +7,6 @@ const float WINDOW_TITLE_BAR_HEIGHT = 20.0f;
 
 Window::Window() : mBold("fonts/opensans-bold.ttf", 10), mMouseDrag(false), mAnchored(false)
 {
-	EventHandler& e = Utility<EventHandler>::get();
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Window::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMotion);
@@ -89,7 +88,7 @@ void Window::update()
 	r.drawImage(mTitle[2], rect().x() + rect().width() - 4, rect().y());
 
 	r.drawImageRect(rect().x(), rect().y() + 20, rect().width(), rect().height() - 20, mBody);
-	
+
 	r.drawText(mBold, text(), rect().x() + 5, rect().y() + 2, 255, 255, 255);
 
 	UIContainer::update();

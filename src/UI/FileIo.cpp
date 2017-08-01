@@ -114,8 +114,6 @@ void FileIo::update()
 		return;
 
 	Window::update();
-
-	Renderer& r = Utility<Renderer>::get();
 }
 
 

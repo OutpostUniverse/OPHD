@@ -24,7 +24,7 @@ void GameOptionsDialog::init()
 {
 	position(0, 0);
 	size(210, 160);
-	
+
 	addControl("btnSave", &btnSave, 5, 25);
 	btnSave.font(font());
 	btnSave.text("Save current game");
@@ -59,8 +59,6 @@ void GameOptionsDialog::update()
 		return;
 
 	Window::update();
-
-	Renderer& r = Utility<Renderer>::get();
 }
 
 void GameOptionsDialog::btnSaveClicked()

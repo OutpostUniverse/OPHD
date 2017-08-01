@@ -14,11 +14,11 @@ using namespace std;
  */
 Slider::Slider() :	Control(),
 					mMouseX(0), mMouseY(0),
-					mPosition(0.0),
-					mThumbPressed(false),
 					mMouseHover(0),
-					mDisplayPosition(0),
-					mBackward(false)
+					mThumbPressed(false),
+					mPosition(0.0),
+					mBackward(false),
+					mDisplayPosition(0)
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
@@ -41,7 +41,7 @@ Slider::~Slider()
 
 
 /**
- * 
+ *
  */
 void Slider::size(float w, float h)
 {
@@ -56,7 +56,7 @@ void Slider::size(float w, float h)
 
 
 /**
- * 
+ *
  */
 void Slider::setSkins()
 {
@@ -175,7 +175,7 @@ void Slider::positionInternal(double _pos)
 
 
 /**
- * 
+ *
  */
 void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
@@ -191,7 +191,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 
 /**
- * 
+ *
  */
 void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
@@ -236,7 +236,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 
 /**
- * 
+ *
  */
 void Slider::onMouseMotion(int x, int y, int dX, int dY)
 {
@@ -286,7 +286,7 @@ void Slider::onMouseMotion(int x, int y, int dX, int dY)
 
 
 /**
- * 
+ *
  */
 void Slider::logic()
 {
@@ -329,7 +329,7 @@ void Slider::logic()
 
 
 /**
- * 
+ *
  */
 void Slider::update()
 {
@@ -340,7 +340,7 @@ void Slider::update()
 
 
 /**
- * 
+ *
  */
 void Slider::draw()
 {
@@ -360,11 +360,11 @@ void Slider::draw()
 
 		// Slider
 		mSlider.width(mSlideBar.width()); // height = slide bar height
-		mSlider.height(static_cast<int>(mSlideBar.height() / mLenght)); //relative width 
+		mSlider.height(static_cast<int>(mSlideBar.height() / mLenght)); //relative width
 		if (mSlider.height() < mSlider.width()) // not too relative. Minimum = Heigt itself
 			mSlider.height(mSlider.width());
 
-		thumbPosition = (mSlideBar.height() - mSlider.height())  * (mPosition / mLenght); //relative width 
+		thumbPosition = (mSlideBar.height() - mSlider.height())  * (mPosition / mLenght); //relative width
 
 		mSlider.x(mSlideBar.x());
 		mSlider.y(mSlideBar.y() + thumbPosition);
@@ -378,11 +378,11 @@ void Slider::draw()
 
 		// Slider
 		mSlider.height(mSlideBar.height());	// height = slide bar height
-		mSlider.width(static_cast<int>(mSlideBar.width() / (mLenght + 1))); //relative width 
+		mSlider.width(static_cast<int>(mSlideBar.width() / (mLenght + 1))); //relative width
 		if (mSlider.width() < mSlider.height())	// not too relative. Minimum = Heigt itself
 			mSlider.width(mSlider.height());
 
-		thumbPosition = (mSlideBar.width() - mSlider.width())  * (mPosition / mLenght); //relative width 
+		thumbPosition = (mSlideBar.width() - mSlider.width())  * (mPosition / mLenght); //relative width
 
 		mSlider.x(mSlideBar.x() + thumbPosition);
 		mSlider.y(mSlideBar.y());

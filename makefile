@@ -11,7 +11,7 @@ DEPDIR := $(BUILDDIR)/deps
 #EXE := $(BINDIR)/OPHD
 EXE := OPHD
 
-CFLAGS := -std=c++11 -g -Wall -I$(INCDIR) $(shell sdl2-config --cflags)
+CFLAGS := -std=c++11 -g -Wall -Wno-unknown-pragmas -I$(INCDIR) $(shell sdl2-config --cflags)
 LDFLAGS := -lstdc++ -lm -L$(LIBDIR) -lnas2d \
 	$(shell sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf \
 	-lphysfs -lGLU -lGL -lGLEW

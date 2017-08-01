@@ -2,7 +2,7 @@
 
 using namespace std;
 
-ProgressBar::ProgressBar() : mUsesImage(false), mCurrent(0), mEnd(0)
+ProgressBar::ProgressBar() : mCurrent(0), mEnd(0), mUsesImage(false)
 {
 	mSkinOut.push_back(Image("ui/skin/button_top_left.png"));
 	mSkinOut.push_back(Image("ui/skin/button_top_middle.png"));
@@ -28,7 +28,7 @@ ProgressBar::ProgressBar() : mUsesImage(false), mCurrent(0), mEnd(0)
 }
 
 
-ProgressBar::ProgressBar(size_t end) : mUsesImage(false), mCurrent(0)
+ProgressBar::ProgressBar(size_t end) : mCurrent(0), mUsesImage(false)
 {
 	ProgressBar();
 	mEnd = end;
@@ -70,7 +70,7 @@ void ProgressBar::draw()
 		return;
 
 	size_t	iWidth = 0;
-	
+
 	Renderer& r = Utility<Renderer>::get();
 
 	r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinOut);

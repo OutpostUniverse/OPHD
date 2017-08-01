@@ -31,7 +31,7 @@ ResourcePool::ResourcePool(): _capacity(0)
 }
 
 
-ResourcePool::ResourcePool(const ResourcePool& _r) : _resourceTable(_r._resourceTable), _capacity(_r._capacity)
+ResourcePool::ResourcePool(const ResourcePool& _r) : _capacity(_r._capacity), _resourceTable(_r._resourceTable)
 {}
 
 
@@ -84,25 +84,6 @@ ResourcePool& ResourcePool::operator+=(const ResourcePool& rhs)
 	_observerCallback();
 	return *this;
 }
-
-
-/*
-ResourcePool& ResourcePool::operator-=(const ResourcePool& rhs)
-{
-	/**
-	 * This is a HEINOUS act of lying but simplifies code in other
-	 * parts of the game that would otherwise need to make a copy
-	 * of 'rhs' and then pass that.
-	 * 
-	 * Ultimately while calling this operator _can_ change the state
-	 * of the object (use of [] operator in map can create a new
-	 * key/value pair) the behavior is not catastrophic.
-	
-	*this -= const_cast<ResourcePool&>(rhs);
-
-	return *this;
-}
-*/
 
 
 ResourcePool& ResourcePool::operator-=(const ResourcePool& rhs)

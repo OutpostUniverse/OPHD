@@ -32,9 +32,9 @@ const int MORALE_MODIFIER = -2;
 
 /**
  * Calls Person::update() on a Person.
- * 
+ *
  * \param	_p	Pointer to a Person.
- * 
+ *
  * \note	Built specifically for use with std::for_each()
  */
 void update_person(Person* _p)
@@ -55,7 +55,7 @@ inline int morale_modifier(int morale)
 /**
  * C'tor
  */
-Population::Population(): mDeathCount(0), mBirthCount(0), mCurrentMorale(0)
+Population::Population(): mBirthCount(0), mDeathCount(0), mCurrentMorale(0)
 {}
 
 
@@ -96,7 +96,7 @@ void Population::clearPopulationList(PersonRole _role)
 
 /**
  * Updates a specified segment of the population.
- * 
+ *
  * \param _role	Population segment to update.
  */
 void Population::updatePersonList(PersonRole _role)
@@ -107,9 +107,9 @@ void Population::updatePersonList(PersonRole _role)
 
 /**
  * Deletes a specified Person from the list of female colonists.
- * 
+ *
  * \param	_p	Pointer to a Person.
- * 
+ *
  * \note	Checks if the given Person is male. If the Person is male, this function
  *			will fail.
  */
@@ -132,7 +132,7 @@ void Population::deleteFemale(Person* _p)
 
 /**
  * Deletes a given person from a specified Role.
- * 
+ *
  * \param	_p	Pointer to a Person.
  * \param	_r	Role of the Person specified in _p.
  */
@@ -156,7 +156,7 @@ void Population::deletePerson(Person* _p, PersonRole _r)
 
 /**
  * Populates a given population with a specified number of colonists given some base values.
- * 
+ *
  * \param	_role		Segment of the population to populate.
  * \param	_base_age	Base age in months of the population to populated.
  * \param	_age_jitter	Maximum difference from the Base Age of the colonist.
@@ -212,7 +212,7 @@ int Population::size_female()
 /**
  * Iterates through all colonists of a given segment, determines if they live or die based on a given mortality
  * rate and moves them to a new segment of the population if they've reached the given transfer age.
- * 
+ *
  * \param	source_role			Role the Person is currently in.
  * \param	destination_role	Role the Person will be moved to if they've reached the transfer age.
  * \param	mortality			Mortality rate.
@@ -246,7 +246,7 @@ void Population::check_students()
 {
 	for (size_t i = 0; i < mPopulationTable[ROLE_STUDENT].size(); ++i)
 	{
-		
+
 		if (rand() % DIVISOR <= STUDENT_MORTALITY_RATE - morale_modifier(mCurrentMorale))
 		{
 			deletePerson(mPopulationTable[ROLE_STUDENT][i], ROLE_STUDENT);
@@ -326,7 +326,7 @@ int Population::killPopulation(Population::PersonList& _pl, Population::PersonRo
 /**
  * Determine how much food should be consumed and kill off any population that
  * starves.
- * 
+ *
  * \return	Actual amount of food consumed.
  */
 int Population::consume_food(int _food)
@@ -346,10 +346,10 @@ int Population::consume_food(int _food)
 
 	/* Really not a good way to do this... whatever. Gets really slow with
 	 * large population counts.
-	 * 
+	 *
 	 * FIXME:	The float in the following equation is used to modify how many of the population starves.
 	 *			It should change based on difficulty level.
-	 * 
+	 *
 	 * NOTE:	Larger number means more of the population dies.
 	 */
 	int population_to_kill = static_cast<int>((size() - population_fed) * (0.5f));
@@ -364,7 +364,7 @@ int Population::consume_food(int _food)
 
 		PersonRole pr = static_cast<PersonRole>(rand() % ROLE_RETIRED + 1);
 		PersonList& pl = mPopulationTable[pr];
-		
+
 		if (!pl.empty())
 		{
 			deletePerson(pl.back(), pr);
