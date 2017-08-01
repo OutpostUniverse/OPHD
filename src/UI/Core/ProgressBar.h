@@ -27,8 +27,8 @@ public:
 	ProgressBar(size_t end);
 	~ProgressBar();
 
-	void setColor(Uint8 _r, Uint8 _g, Uint8 _b) { setColor(_r, _g, _b,255); }
-	void setColor(Uint8 _r, Uint8 _g, Uint8 _b, Uint8 _a) { mColorR = _r; mColorG = _g; mColorB = _b; mColorAlpha = _a; }
+	void setColor(unsigned char _r, unsigned char _g, unsigned char _b) { setColor(_r, _g, _b,255); }
+	void setColor(unsigned char _r, unsigned char _g, unsigned char _b, unsigned char _a) { mColorR = _r; mColorG = _g; mColorB = _b; mColorAlpha = _a; }
 	void image(const std::string& _path) { image(_path, ImageMode::Repeating); }
 	void image(const std::string& _path, ImageMode _m);
 	bool hasImage() const;
@@ -48,10 +48,10 @@ private:
 	void draw();
 
 private:
-	Uint8			mColorR;
-	Uint8			mColorG;
-	Uint8			mColorB;
-	Uint8			mColorAlpha;
+	unsigned char			mColorR;
+	unsigned char			mColorG;
+	unsigned char			mColorB;
+	unsigned char			mColorAlpha;
 
 	Image			mImage;
 	ImageMode		mImageMode;
