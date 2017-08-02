@@ -36,6 +36,8 @@ void RobotPool::clear()
 	mDiggers.clear();
 	mDozers.clear();
 	mMiners.clear();
+	mRobotControlCount	= 0;
+	mRobotControlMax	= 0;
 }
 
 
@@ -194,3 +196,49 @@ bool RobotPool::allRobotsBusy()
 	 return count;
  }
 
+ void RobotPool::InitRobotCtrl(uint32_t maxRobotCtrl)
+ {
+	 mRobotControlMax = maxRobotCtrl;
+	 mRobotControlCount = 0;
+
+	 for (size_t i = 0; i < mDiggers.size(); ++i)
+	 {
+		 if (!mDiggers[i]->idle() && !mDiggers[i]->dead()) { mRobotControlCount++; }
+	 }
+
+	 for (size_t i = 0; i < mDozers.size(); ++i)
+	 {
+		 if (!mDozers[i]->idle() && !mDozers[i]->dead()) { mRobotControlCount++; }
+	 }
+
+	 for (size_t i = 0; i < mMiners.size(); ++i)
+	 {
+		 if (!mMiners[i]->idle() && !mMiners[i]->dead()) { mRobotControlCount++; }
+	 }
+ }
+
+ void RobotPool::AddRobotCtrl()
+ {
+	 if (mRobotControlMax>mRobotControlCount)
+	 {
+		 mRobotControlCount++;
+	 }
+ }
+
+ bool RobotPool::insertRobotIntoTable(RobotTileTable& _rm, Robot* _r, Tile* _t)
+ {
+	 if (!_t)
+		 return false;
+
+	 auto it = _rm.find(_r);
+	 if (it != _rm.end())
+		 throw std::runtime_error("GameState::insertRobot(): Attempting to add a duplicate Robot* pointer.");
+
+	 _rm[_r] = _t;
+	 _t->pushThing(_r);
+
+
+	 AddRobotCtrl();
+
+	 return true;
+ }

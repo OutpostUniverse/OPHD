@@ -21,8 +21,6 @@ bool checkStructurePlacement(Tile *tile, Direction dir);
 int totalStorage(StructureManager::StructureList& _sl);
 
 
-bool insertRobotIntoTable(RobotTileTable& _rm, Robot* robot, Tile* tile);
-
 // Serialize / Deserialize
 void writeRobots(NAS2D::Xml::XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);
 void writeResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp);

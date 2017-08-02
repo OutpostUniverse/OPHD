@@ -431,7 +431,7 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	// Assumes a digger is available.
 	Robodigger* r = mRobotPool.getDigger();
 	r->startTask(_t->index() + 5); // FIXME: Magic Number
-	insertRobotIntoTable(mRobotList, r, _t);
+	mRobotPool.insertRobotIntoTable(mRobotList, r, _t);
 
 
 	if (_sel == DiggerDirection::SEL_DOWN)

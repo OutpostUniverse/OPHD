@@ -368,8 +368,8 @@ void GameState::drawRobotInfo()
 	// Robots
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
 	y = (int)r.height() - constants::BOTTOM_UI_HEIGHT - 25 - 8;
-	textY = y + 10;	// Same position + 10 to center the text with the graphics
-	margin = 28;	// Margin of 28 px from the graphics to the text
+	textY = y + 7;	// Same position + 10 to center the text with the graphics
+	margin = 30;	// Margin of 28 px from the graphics to the text
 	x = 0; offsetX = 1;	// Start a the left side of the screen + an offset of 1 to detatch from the border
 						// Miner (last one)
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 18, 25, 25);
@@ -382,6 +382,10 @@ void GameState::drawRobotInfo()
 	textY -= 25; y -= 25;
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 181, 18, 25, 25);
 	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
+	// robot control summary
+	textY -= 25; y -= 25;
+	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 43, 25, 25);
+	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 }
 
 
@@ -887,7 +891,9 @@ void GameState::placeRobot()
 {
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
-
+	if(!mRobotPool.robotCtrlAvailable())
+		return;
+	
 	// Check that the robot is in range of the Command Center
 	/// \todo	implement support for Com tower and robot command
 	
@@ -940,7 +946,7 @@ void GameState::placeRobot()
 
 		Robot* r = mRobotPool.getDozer();
 		r->startTask(tile->index());
-		insertRobotIntoTable(mRobotList, r, tile);
+		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
 		tile->index(TERRAIN_DOZED);
 
 		if(!mRobotPool.robotAvailable(ROBOT_DOZER))
@@ -1037,7 +1043,7 @@ void GameState::placeRobot()
 
 		Robot* r = mRobotPool.getMiner();
 		r->startTask(6);
-		insertRobotIntoTable(mRobotList, r, tile);
+		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
 		tile->index(TERRAIN_DOZED);
 
 		if (!mRobotPool.robotAvailable(ROBOT_MINER))
@@ -1437,6 +1443,7 @@ void GameState::deploySeedLander(int x, int y)
  */
 void GameState::updateRobots()
 {
+	uint32_t MaxRobots = 0;
 	auto robot_it = mRobotList.begin();
 	while(robot_it != mRobotList.end())
 	{
@@ -1454,6 +1461,20 @@ void GameState::updateRobots()
 		else
 			++robot_it;
 	}
+
+	
+	auto CommandCenter = mStructureManager.structureList(Structure::CLASS_COMMAND);
+	auto RobotCommand = mStructureManager.structureList(Structure::CLASS_ROBOT_COMMAND);
+
+	// 3 for the first command center
+	if(CommandCenter.size()>0) MaxRobots += 3;
+	// the 10 per robot command facility
+	for (size_t s = 0; s < RobotCommand.size(); ++s)
+	{
+		if (RobotCommand[s]->operational()) MaxRobots += 10;
+	}
+
+	mRobotPool.InitRobotCtrl(MaxRobots);
 }
 
 
@@ -1680,7 +1701,7 @@ void GameState::readRobots(XmlElement* _ti)
 		if (production_time > 0)
 		{
 			r->startTask(production_time);
-			insertRobotIntoTable(mRobotList, r, mTileMap->getTile(x, y, depth));
+			mRobotPool.insertRobotIntoTable(mRobotList, r, mTileMap->getTile(x, y, depth));
 			mRobotList[r]->index(0);
 		}
 		if (depth > 0)
@@ -1699,6 +1720,7 @@ void GameState::readRobots(XmlElement* _ti)
 void GameState::readStructures(XmlElement* _ti)
 {
 	std::string type;
+	uint32_t MaxRobotCtrl = 0;
 	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
@@ -1740,7 +1762,14 @@ void GameState::readStructures(XmlElement* _ti)
 		st = StructureCatalogue::get(StructureTranslator::translateFromString(type));
 
 		if (type_id == SID_COMMAND_CENTER)
+		{ 
 			mCCLocation(x, y);
+			MaxRobotCtrl += 3;
+		}
+		if (type_id == SID_ROBOT_COMMAND)
+		{
+			MaxRobotCtrl += 10;
+		}
 
 		if (type_id == SID_MINE_FACILITY)
 		{
@@ -1773,6 +1802,7 @@ void GameState::readStructures(XmlElement* _ti)
 
 		mStructureManager.addStructure(st, t);
 	}
+	mRobotPool.InitRobotCtrl(MaxRobotCtrl);
 }
 
 
