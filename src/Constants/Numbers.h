@@ -19,5 +19,5 @@ namespace constants
 
 	const int COLONY_SHIP_ORBIT_TIME = 24;
 
-	const float ROBOT_COM_RANGE = 30.0;
+	const float ROBOT_COM_RANGE = 15.0;
 }

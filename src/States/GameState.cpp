@@ -215,21 +215,26 @@ void GameState::drawMiniMap()
 		int wClip = clamp((mCCLocation.x() + 15) - mMiniMapBoundingBox.width(), 0, 15);
 		int hClip = clamp((mCCLocation.y() + 15) - mMiniMapBoundingBox.height(), 0, 15);;
 
-		r.drawSubImage(mUiIcons, mCCLocation.x() + mMiniMapBoundingBox.x() - 15 + xClip, mCCLocation.y() + mMiniMapBoundingBox.y() - 15 + yClip, xClip, yClip + 5, 30 - xClip - wClip, 30 - yClip - hClip);
+		r.drawSubImage(mUiIcons, mCCLocation.x() + mMiniMapBoundingBox.x() - 15 + xClip, mCCLocation.y() + mMiniMapBoundingBox.y() - 15 + yClip, xClip + 166, yClip + 226, 30 - xClip - wClip, 30 - yClip - hClip);
 		r.drawBoxFilled(mCCLocation.x() + mMiniMapBoundingBox.x() - 1, mCCLocation.y() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
 	}
-
 
 	for(size_t i = 0; i < mTileMap->mineLocations().size(); i++)
 	{
 		if (mTileMap->getTile(mTileMap->mineLocations()[i].x(), mTileMap->mineLocations()[i].y(), 0)->mine()->active())
+		{
 			r.drawSubImage(mUiIcons, mTileMap->mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap->mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 8.0f, 0.0f, 5.0f, 5.0f);
+		}
 		else
+		{
 			r.drawSubImage(mUiIcons, mTileMap->mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap->mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 5.0f, 5.0f);
+		}
 	}
 
 	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
-		r.drawPoint(it->second->x()  + mMiniMapBoundingBox.x(), it->second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
+	{
+		r.drawPoint(it->second->x() + mMiniMapBoundingBox.x(), it->second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
+	}
 
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x() + 1, mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
 	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
@@ -878,19 +883,10 @@ void GameState::placeRobot()
 
 	// Check that the robot is in range of the Command Center
 	// TODO : implement support for Com tower and robot command
-	bool robotInRange = false;
-	for (Structure* _st : mStructureManager.structureList(Structure::CLASS_COMMAND))
-	{
-		Tile* commandCenter = mStructureManager.tileFromStructure(_st);
-		if (commandCenter && tile->distanceTo(commandCenter) < constants::ROBOT_COM_RANGE)
-		{
-			robotInRange = true;
-			break;
-		}
-	}
-	if (!robotInRange)
+	if (tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE)
 	{
 		cout << "Robot out of range!" << endl;
+		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
 		return;
 	}
 
