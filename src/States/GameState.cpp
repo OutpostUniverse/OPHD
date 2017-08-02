@@ -878,8 +878,7 @@ bool GameState::validStructurePlacement(int x, int y)
 void GameState::placeRobot()
 {
 	Tile* tile = mTileMap->getVisibleTile();
-	if(!tile)
-		return;
+	if (!tile) { return; }
 
 	// Check that the robot is in range of the Command Center
 	/// \todo	implement support for Com tower and robot command
@@ -1201,15 +1200,23 @@ void GameState::placeStructure()
 {
 	// SID_NONE is a logic error and should fail as loudly as possible.
 	if (mCurrentStructure == SID_NONE)
+	{
 		throw std::runtime_error("GameState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE");
+	}
 
+	Tile* tile = mTileMap->getVisibleTile();
+	if (!tile) { return; }
 
-	// Mouse is outside of the boundaries of the map so ignore this call.
-	Tile* t = mTileMap->getVisibleTile();
-	if(!t)
+	// NOTE:	This function will never be called until the seed lander is deployed so there
+	//			is no need to check that the CC Location is anything other than { 0, 0 }.
+	if (tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE)
+	{
+		cout << "Cannot build structures more than 15 tiles away from Command Center." << endl;
+		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		return;
+	}
 
-	if(t->mine() || t->thing() || (!t->bulldozed() && mCurrentStructure != SID_SEED_LANDER && mCurrentStructure != SID_COLONIST_LANDER))
+	if(tile->mine() || tile->thing() || (!tile->bulldozed() && mCurrentStructure != SID_SEED_LANDER && mCurrentStructure != SID_COLONIST_LANDER))
 	{
 		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		cout << "GameState::placeStructure(): Tile is unsuitable to place a structure." << endl;
@@ -1225,16 +1232,16 @@ void GameState::placeStructure()
 	}
 	else if (mCurrentStructure == SID_COLONIST_LANDER)
 	{
-		if (!t->empty() && t->index() < 4) // fixme: magic number, tile index 4 == impassable terrain
+		if (!tile->empty() && tile->index() < 4) // fixme: magic number, tile index 4 == impassable terrain
 		{
 			mAiVoiceNotifier.notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
 			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
 			return;
 		}
 
-		ColonistLander* s = new ColonistLander(t);
+		ColonistLander* s = new ColonistLander(tile);
 		s->deployCallback().connect(this, &GameState::deployColonistLander);
-		mStructureManager.addStructure(s, t);
+		mStructureManager.addStructure(s, tile);
 
 		--mLandersColonist;
 		if (mLandersColonist == 0)
@@ -1267,7 +1274,7 @@ void GameState::placeStructure()
 			cout << "GameState::placeStructure(): Unknown structure type." << endl;
 			return;
 		}
-		mStructureManager.addStructure(_s, t);
+		mStructureManager.addStructure(_s, tile);
 
 		// FIXME: Ugly
 		if (_s->isFactory())
