@@ -59,6 +59,9 @@ int centerWindowHeight(float height)
 
 /**
  * Sets up the user interface elements
+ * 
+ * \note	The explicit casts to int to truncate floating point values to force
+ *			window positions to a whole number.
  */
 void GameState::initUi()
 {
@@ -67,13 +70,13 @@ void GameState::initUi()
 	mDiggerDirection.directionSelected().connect(this, &GameState::diggerSelectionDialog);
 	mDiggerDirection.hide();
 
-	mTileInspector.position(r.center_x() - mTileInspector.width() / 2, r.height() / 2 - 175);
+	mTileInspector.position(static_cast<int>(r.center_x() - mTileInspector.width() / 2), static_cast<int>(r.height() / 2 - 175));
 	mTileInspector.hide();
 
-	mStructureInspector.position(r.center_x() - mStructureInspector.width() / 2, r.height() / 2 - 175);
+	mStructureInspector.position(static_cast<int>(r.center_x() - mStructureInspector.width() / 2), static_cast<int>(r.height() / 2 - 175));
 	mStructureInspector.hide();
 
-	mFactoryProduction.position(r.center_x() - mFactoryProduction.width() / 2, 175);
+	mFactoryProduction.position(static_cast<int>(r.center_x() - mFactoryProduction.width() / 2), 175);
 	mFactoryProduction.hide();
 
 	mFileIoDialog.setMode(FileIo::FILE_SAVE);
