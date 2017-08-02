@@ -42,6 +42,13 @@ Rectangle_2d MOVE_DOWN_ICON;
 std::string					CURRENT_LEVEL_STRING;
 std::map <int, std::string>	LEVEL_STRING_TABLE;
 
+
+bool structureIsLander(StructureID id)
+{
+	return id == SID_SEED_LANDER || id == SID_COLONIST_LANDER;
+}
+
+
 /**
  * C'Tor
  */
@@ -54,6 +61,7 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 	mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
 	mHeightMap(_m + MAP_TERRAIN_EXTENSION),
 	mUiIcons("ui/icons.png"),
+	mLoadingPlaque("sys/loading.png"),
 	mInsertMode(INSERT_NONE),
 	//mBgMusic("music/track_01.ogg"),
 	mCurrentStructure(SID_NONE),
@@ -1209,14 +1217,14 @@ void GameState::placeStructure()
 
 	// NOTE:	This function will never be called until the seed lander is deployed so there
 	//			is no need to check that the CC Location is anything other than { 0, 0 }.
-	if (tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE)
+	if (!structureIsLander(mCurrentStructure) && (tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE))
 	{
 		cout << "Cannot build structures more than 15 tiles away from Command Center." << endl;
 		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		return;
 	}
 
-	if(tile->mine() || tile->thing() || (!tile->bulldozed() && mCurrentStructure != SID_SEED_LANDER && mCurrentStructure != SID_COLONIST_LANDER))
+	if(tile->mine() || tile->thing() || (!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
 	{
 		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		cout << "GameState::placeStructure(): Tile is unsuitable to place a structure." << endl;

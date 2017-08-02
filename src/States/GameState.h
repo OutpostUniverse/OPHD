@@ -181,6 +181,8 @@ private:
 	Image				mHeightMap;
 	Image				mUiIcons;
 
+	Image				mLoadingPlaque;
+
 	Point_2d			mMousePosition;				/**< Current position of the mouse pointer. */
 	Point_2d			mTileMapMouseHover;			/**< Tile position the mouse is currently hovering over. */
 	Point_2d			mCCLocation;				/**< Location of the Command Center. */
