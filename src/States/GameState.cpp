@@ -882,7 +882,10 @@ void GameState::placeRobot()
 		return;
 
 	// Check that the robot is in range of the Command Center
-	// TODO : implement support for Com tower and robot command
+	/// \todo	implement support for Com tower and robot command
+	
+	// NOTE:	This function will never be called until the seed lander is deployed so there
+	//			is no need to check that the CC Location is anything other than { 0, 0 }.
 	if (tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE)
 	{
 		cout << "Robot out of range!" << endl;
