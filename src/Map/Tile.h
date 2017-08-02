@@ -30,7 +30,7 @@ public:
 	void depth(int i) { mDepth = i; }
 
 	void init(int x, int y, int depth, int index);
-	
+
 	bool bulldozed() const { return index() == 0; }
 
 	bool excavated() const { return mExcavated; }
@@ -57,6 +57,8 @@ public:
 
 	Mine* mine() { return mMine; }
 	void pushMine(Mine* _mine);
+
+	float distanceTo(Tile* _t);
 
 
 protected:

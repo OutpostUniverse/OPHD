@@ -13,7 +13,7 @@ StructureManager::StructureManager(): mTotalEnergyOutput(0)
 
 /**
  * D'tor
- * 
+ *
  * \note	Things (aka Structures) are deleted whenever a Tile
  *			is deleted so this d'tor really doesn't need to do
  *			anything special.
@@ -184,9 +184,9 @@ void StructureManager::addStructure(Structure* st, Tile* t)
 	// Remove thing's from tile only if we know we're adding a structure.
 	if (!t->empty())
 		t->removeThing();
-	
+
 	mStructureTileTable[st] = t;
-	
+
 	mStructureLists[st->structureClass()].push_back(st);
 	t->pushThing(st);
 	t->thingIsStructure(true);
@@ -195,7 +195,7 @@ void StructureManager::addStructure(Structure* st, Tile* t)
 
 /**
  * Removes a Structure from the StructureManager.
- * 
+ *
  * \warning	A Structure removed from the StructureManager will be freed.
  *			Remaining pointers and references will be invalidated.
  */
@@ -250,7 +250,7 @@ int StructureManager::count() const
 	int count = 0;
 	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
 		count += it->second.size();
-	
+
 	return count;
 }
 
@@ -304,6 +304,15 @@ void StructureManager::dropAllStructures()
 	mStructureTileTable.clear();
 
 	mStructureLists.clear();
+}
+
+
+Tile* StructureManager::tileFromStructure(Structure* _st)
+{
+	auto it = mStructureTileTable.find(_st);
+		return it->second;
+
+	return nullptr;
 }
 
 

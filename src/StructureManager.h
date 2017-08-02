@@ -8,7 +8,7 @@
 
 /**
  * Handles structure updating and resource management for structures.
- * 
+ *
  * Keeps track of which structures are operational, idle and disabled.
  */
 class StructureManager
@@ -24,6 +24,7 @@ public:
 	void removeStructure(Structure* st);
 
 	StructureList& structureList(Structure::StructureClass _st) { return mStructureLists[_st]; }
+	Tile* tileFromStructure(Structure* _st);
 
 	void disconnectAll();
 	void dropAllStructures();

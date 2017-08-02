@@ -876,6 +876,24 @@ void GameState::placeRobot()
 	if(!tile)
 		return;
 
+	// Check that the robot is in range of the Command Center
+	// TODO : implement support for Com tower and robot command
+	bool robotInRange = false;
+	for (Structure* _st : mStructureManager.structureList(Structure::CLASS_COMMAND))
+	{
+		Tile* commandCenter = mStructureManager.tileFromStructure(_st);
+		if (commandCenter && tile->distanceTo(commandCenter) < constants::ROBOT_COM_RANGE)
+		{
+			robotInRange = true;
+			break;
+		}
+	}
+	if (!robotInRange)
+	{
+		cout << "Robot out of range!" << endl;
+		return;
+	}
+
 	// Robodozer has been selected.
 	if(mCurrentRobot == ROBOT_DOZER)
 	{

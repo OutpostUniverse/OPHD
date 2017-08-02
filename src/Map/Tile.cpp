@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "Tile.h"
 
 Tile::Tile() :	mIndex(0),
@@ -106,7 +108,7 @@ Structure* Tile::structure()
 {
 	if (mThingIsStructure)
 		return static_cast<Structure*>(thing());
-	
+
 	return nullptr;
 }
 
@@ -119,4 +121,12 @@ Robot* Tile::robot()
 		return static_cast<Robot*>(thing());
 
 	return nullptr;
+}
+
+
+float Tile::distanceTo(Tile* _t)
+{
+	int _x = _t->x() - x();
+	int _y = _t->y() - y();
+	return sqrt(_x*_x + _y*_y);
 }
