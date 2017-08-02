@@ -2,6 +2,9 @@
 
 #include "../Constants.h"
 
+/**
+ * D'tor
+ */
 FileIo::FileIo(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
 {
 	Control::font(font);
@@ -10,11 +13,16 @@ FileIo::FileIo(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
 }
 
 
+/**
+ * D'tor
+ */
 FileIo::~FileIo()
-{
-}
+{}
 
 
+/**
+ * 
+ */
 void FileIo::init()
 {
 	position(0, 0);
@@ -25,6 +33,7 @@ void FileIo::init()
 	btnFileOp.text("FileOp");
 	btnFileOp.size(50, 20);
 	btnFileOp.click().connect(this, &FileIo::btnFileIoClicked);
+	btnFileOp.enabled(false);
 
 	addControl("btnClose", &btnClose, 390, 325);
 	btnClose.font(font());
@@ -46,6 +55,9 @@ void FileIo::init()
 }
 
 
+/**
+ * 
+ */
 void FileIo::setMode(FileOperation _m)
 {
 	mMode = _m;
@@ -54,6 +66,9 @@ void FileIo::setMode(FileOperation _m)
 }
 
 
+/**
+ * 
+ */
 void FileIo::scanDirectory(const std::string& _dir)
 {
 	Filesystem& f = Utility<Filesystem>::get();
@@ -73,12 +88,18 @@ void FileIo::scanDirectory(const std::string& _dir)
 }
 
 
+/**
+ * 
+ */
 void FileIo::fileSelected()
 {
 	txtFileName.text(mnuFileList.selectionText());
 }
 
 
+/**
+ * 
+ */
 void FileIo::fileNameModified(Control* _ctrl)
 {
 	string sFile = _ctrl->text();
@@ -108,6 +129,9 @@ void FileIo::fileNameModified(Control* _ctrl)
 }
 
 
+/**
+ * 
+ */
 void FileIo::update()
 {
 	if (!visible())
@@ -117,6 +141,9 @@ void FileIo::update()
 }
 
 
+/**
+ * 
+ */
 void FileIo::btnCloseClicked()
 {
 	visible(false);
@@ -125,9 +152,13 @@ void FileIo::btnCloseClicked()
 }
 
 
+/**
+ * 
+ */
 void FileIo::btnFileIoClicked()
 {
 	mCallback(txtFileName.text() , mMode);
 	txtFileName.text("");
 	txtFileName.resetCursorPosition();
+	btnFileOp.enabled(false);
 }
