@@ -188,9 +188,9 @@ const ResourcePool& StructureCatalogue::costToBuild(StructureID type)
  * 
  * \param	type	A valid StructureID value.
  */
-ResourcePool& StructureCatalogue::recyclingValue(StructureID type)
+const ResourcePool& StructureCatalogue::recyclingValue(StructureID type)
 {
-	return mStructureCostTable[type];
+	return mStructureRecycleValueTable[type];
 }
 
 
@@ -215,7 +215,9 @@ bool StructureCatalogue::canBuild(const ResourcePool& source, StructureID type)
 
 	if (source.commonMetals() < _rp.commonMetals() || source.commonMinerals() < _rp.commonMinerals() ||
 		source.rareMetals() < _rp.rareMetals() || source.rareMinerals() < _rp.rareMinerals())
+	{
 		return false;
+	}
 
 	return true;
 }
@@ -243,9 +245,6 @@ void StructureCatalogue::buildCostTable()
 	mStructureCostTable[SID_RED_LIGHT_DISTRICT]		= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_RESIDENCE]				= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_ROBOT_COMMAND]			= ResourcePool(0, 0, 0, 0, 75, 50, 45, 25, 0, 0);
-	mStructureCostTable[SID_SEED_FACTORY]			= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
-	mStructureCostTable[SID_SEED_POWER]				= ResourcePool(0, 0, 0, 0, 15, 10, 10, 8, 0, 0);
-	mStructureCostTable[SID_SEED_SMELTER]			= ResourcePool(0, 0, 0, 0, 25, 20, 10, 5, 0, 0);
 	mStructureCostTable[SID_SMELTER]				= ResourcePool(0, 0, 0, 0, 30, 20, 10, 5, 0, 0);
 	mStructureCostTable[SID_SOLAR_PLANT]			= ResourcePool(0, 0, 0, 0, 50, 25, 50, 20, 0, 0);
 	mStructureCostTable[SID_STORAGE_TANKS]			= ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
@@ -262,12 +261,18 @@ void StructureCatalogue::buildCostTable()
 void StructureCatalogue::buildRecycleValueTable()
 {
 	for (size_t i = 0; i < SID_COUNT; ++i)
+	{
 		mStructureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), DEFAULT_RECYCLE_VALUE);
+	}
 
-	// Landers don't cost anything but build but they do have a case resource value when scrapped.
+	// Set recycling values for landers and automatically built structures.
 	// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
-	mStructureRecycleValueTable[SID_COLONIST_LANDER]	= ResourcePool(0, 0, 0, 0, 20, 10, 5, 5, 0, 0);
-	mStructureRecycleValueTable[SID_SEED_LANDER]		= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
+	mStructureRecycleValueTable[SID_COLONIST_LANDER]	= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
+	mStructureRecycleValueTable[SID_SEED_LANDER]		= ResourcePool(0, 0, 0, 0, 10, 5, 5, 5, 0, 0);
+	mStructureRecycleValueTable[SID_SEED_FACTORY]		= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
+	mStructureRecycleValueTable[SID_SEED_POWER]			= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
+	mStructureRecycleValueTable[SID_SEED_SMELTER]		= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
+
 }
 
 
