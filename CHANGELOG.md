@@ -1,6 +1,19 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.7.5] - UNRELEASED
+
+### Added
+- Robot Command Center is now fully functional.
+
+### Changed
+- Robots can now only be placed within the area of influence of the Command Center and Comm. Towers.
+- 
+
+### Fixed
+- FileOP button (Save/Load) in FileIO window will now start off disabled when first displayed.
+
+
 
 ## [0.7.1] - 2017-07-30
 
