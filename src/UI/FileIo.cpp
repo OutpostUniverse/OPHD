@@ -47,11 +47,11 @@ void FileIo::init()
 	txtFileName.maxCharacters(50);
 	txtFileName.textChanged().connect(this,&FileIo::fileNameModified);
 
-	addControl("mnuFileList", &mnuFileList, 5, 25);
-	mnuFileList.font(font());
-	mnuFileList.size(490, 300);
-	mnuFileList.visible(true);
-	mnuFileList.selectionChanged().connect(this, &FileIo::fileSelected);
+	addControl("mListBox", &mListBox, 5, 25);
+	mListBox.font(font());
+	mListBox.size(490, 273);
+	mListBox.visible(true);
+	mListBox.selectionChanged().connect(this, &FileIo::fileSelected);
 }
 
 
@@ -74,7 +74,7 @@ void FileIo::scanDirectory(const std::string& _dir)
 	Filesystem& f = Utility<Filesystem>::get();
 	StringList dirList = f.directoryList(_dir);
 
-	mnuFileList.dropAllItems();
+	mListBox.dropAllItems();
 
 	for (size_t i = 0; i < dirList.size(); ++i)
 	{
@@ -82,7 +82,7 @@ void FileIo::scanDirectory(const std::string& _dir)
 		{
 			dirList[i].resize(dirList[i].size() - 4);	// Assumes a file save extension of 3 characters.
 														// This is a naive approach.
-			mnuFileList.addItem(dirList[i]);
+			mListBox.addItem(dirList[i]);
 		}
 	}
 }
@@ -93,7 +93,7 @@ void FileIo::scanDirectory(const std::string& _dir)
  */
 void FileIo::fileSelected()
 {
-	txtFileName.text(mnuFileList.selectionText());
+	txtFileName.text(mListBox.selectionText());
 }
 
 

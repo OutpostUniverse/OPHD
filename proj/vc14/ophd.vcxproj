@@ -186,6 +186,7 @@
     <ClCompile Include="..\..\src\Things\Structures\Structure.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Button.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Control.cpp" />
+    <ClCompile Include="..\..\src\UI\Core\ListBox.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Menu.cpp" />
     <ClCompile Include="..\..\src\UI\Core\ProgressBar.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Slider.cpp" />
@@ -269,6 +270,7 @@
     <ClInclude Include="..\..\src\Things\Thing.h" />
     <ClInclude Include="..\..\src\UI\Core\Button.h" />
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
+    <ClInclude Include="..\..\src\UI\Core\ListBox.h" />
     <ClInclude Include="..\..\src\UI\Core\Menu.h" />
     <ClInclude Include="..\..\src\UI\Core\Pointer.h" />
     <ClInclude Include="..\..\src\UI\Core\ProgressBar.h" />

@@ -192,6 +192,9 @@
     <ClCompile Include="..\..\src\UI\Core\Slider.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\ListBox.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -450,6 +453,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\UI\Core\Slider.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\ListBox.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
   </ItemGroup>

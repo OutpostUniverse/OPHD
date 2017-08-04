@@ -53,7 +53,7 @@ private:
 
 	TextField	txtFileName;
 
-	Menu		mnuFileList;
+	ListBox		mListBox;
 
 	Font		mBold;
 };
