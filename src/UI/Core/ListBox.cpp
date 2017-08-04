@@ -9,16 +9,16 @@ using namespace std;
  * C'tor
  */
 ListBox::ListBox():	mCurrentHighlight(constants::NO_SELECTION),
-				mCurrentSelection(0),
-	mCurrentOffset(0),
-				mText(COLOR_WHITE),
-				mHighlightBg(COLOR_GREEN),
-				mHighlightText(COLOR_WHITE),
-				mSorted(false)
+					mCurrentSelection(0),
+					mCurrentOffset(0),
+					mText(COLOR_WHITE),
+					mHighlightBg(COLOR_GREEN),
+					mHighlightText(COLOR_WHITE),
+					mSorted(false)
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
-
+	
 	init();
 }
 
@@ -30,6 +30,7 @@ ListBox::~ListBox()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().disconnect(this, &ListBox::onMouseMove);
+
 	mSlider.change().disconnect(this, &ListBox::slideChanged);
 }
 
@@ -178,6 +179,8 @@ void ListBox::onMouseMove(int x, int y, int relX, int relY)
 	}
 
 	mCurrentHighlight = ((y - (int)rect().y()) / (font().height() + 2)) % ((int)rect().height() / (font().height() + 2)) + mCurrentOffset;
+	if (mCurrentHighlight >= mItems.size())
+		mCurrentHighlight = constants::NO_SELECTION;
 }
 
 

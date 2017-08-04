@@ -37,6 +37,8 @@ public:
 	int currentSelection() const { return mCurrentSelection; }
 	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
 
+	int currentHighlight() const { return mCurrentHighlight; }
+
 	const std::string& selectionText() const { return mItems[mCurrentSelection]; }
 
 	void update();

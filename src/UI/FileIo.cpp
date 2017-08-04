@@ -7,6 +7,8 @@
  */
 FileIo::FileIo(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
 {
+	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
+
 	Control::font(font);
 	text("File I/O");
 	init();
@@ -17,7 +19,9 @@ FileIo::FileIo(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
  * D'tor
  */
 FileIo::~FileIo()
-{}
+{
+	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &FileIo::onDoubleClick);
+}
 
 
 /**
@@ -52,6 +56,18 @@ void FileIo::init()
 	mListBox.size(490, 273);
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect(this, &FileIo::fileSelected);
+}
+
+
+void FileIo::onDoubleClick(EventHandler::MouseButton button, int x, int y)
+{
+	if (isPointInRect(x, y, mListBox.rect().x(), mListBox.rect().y(), mListBox.rect().width(), mListBox.rect().height()))
+	{
+		if (mListBox.currentHighlight() != constants::NO_SELECTION && !txtFileName.empty())
+		{
+			btnFileIoClicked();
+		}
+	}
 }
 
 

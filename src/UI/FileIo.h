@@ -6,7 +6,6 @@
 class FileIo : public Window
 {
 public:
-
 	enum FileOperation
 	{
 		FILE_LOAD,
@@ -15,25 +14,22 @@ public:
 
 	typedef NAS2D::Signals::Signal2<const std::string&, FileOperation> FileOperationCallback;
 
-	void setMode(FileOperation _m);
-
-	void scanDirectory(const std::string& _dir);
-
 public:
-
 	FileIo(Font& font);
 	virtual ~FileIo();
-
+	
+	void setMode(FileOperation _m);
+	void scanDirectory(const std::string& _dir);
+	
 	virtual void update();
-
 	FileOperationCallback& fileOperation() { return mCallback; }
 
 protected:
-
 	virtual void init();
 
-private:
+	virtual void onDoubleClick(EventHandler::MouseButton button, int x, int y);
 
+private:
 	void btnCloseClicked();
 	void btnFileIoClicked();
 
