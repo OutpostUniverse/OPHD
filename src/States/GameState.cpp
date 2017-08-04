@@ -1920,7 +1920,7 @@ void GameState::nextTurn()
 
 	int residences = mStructureManager.getCountInState(Structure::CLASS_RESIDENCE, Structure::OPERATIONAL);
 	int universities = mStructureManager.getCountInState(Structure::CLASS_UNIVERSITY, Structure::OPERATIONAL);
-	int nurseries = 0;
+	int nurseries = mStructureManager.getCountInState(Structure::CLASS_NURSERY, Structure::OPERATIONAL);
 	int hospitals = mStructureManager.getCountInState(Structure::CLASS_MEDICAL_CENTER, Structure::OPERATIONAL);
 
 	// FOOD CONSUMPTION

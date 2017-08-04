@@ -12,6 +12,7 @@
 #include "MedicalCenter.h"
 #include "MineFacility.h"
 #include "MineShaft.h"
+#include "Nursery.h"
 #include "Park.h"
 #include "Police.h"
 #include "RecreationCenter.h"

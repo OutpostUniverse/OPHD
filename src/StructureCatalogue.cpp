@@ -79,6 +79,10 @@ Structure* StructureCatalogue::get(StructureID type)
 			_st = new MineShaft();
 			break;
 
+		case SID_NURSERY:
+			_st = new Nursery();
+			break;
+
 		case SID_PARK:
 			_st = new Park();
 			break;
@@ -238,6 +242,7 @@ void StructureCatalogue::buildCostTable()
 	mStructureCostTable[SID_LABORATORY]				= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
 	mStructureCostTable[SID_MEDICAL_CENTER]			= ResourcePool(0, 0, 0, 0, 20, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_MINE_FACILITY]			= ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
+	mStructureCostTable[SID_NURSERY]				= ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
 	mStructureCostTable[SID_PARK]					= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_SURFACE_POLICE]			= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_UNDERGROUND_POLICE]		= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
@@ -290,6 +295,7 @@ void StructureCatalogue::buildPopulationRequirementsTable()
 	mPopulationRequirementsTable[SID_HOT_LABORATORY]		= { 1, 5 };
 	mPopulationRequirementsTable[SID_LABORATORY]			= { 1, 5 };
 	mPopulationRequirementsTable[SID_MEDICAL_CENTER]		= { 1, 2 };
+	mPopulationRequirementsTable[SID_NURSERY]				= { 1, 1 };
 	mPopulationRequirementsTable[SID_PARK]					= { 1, 0 };
 	mPopulationRequirementsTable[SID_SURFACE_POLICE]		= { 5, 0 };
 	mPopulationRequirementsTable[SID_UNDERGROUND_POLICE]	= { 5, 0 };

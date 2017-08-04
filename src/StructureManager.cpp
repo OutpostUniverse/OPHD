@@ -37,19 +37,21 @@ void StructureManager::update(ResourcePool& _r, PopulationPool& _p)
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
 	// calls to lower priority structures.
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LANDER]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_COMMAND]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_ENERGY_PRODUCTION]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LANDER]);				// No resource needs
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_COMMAND]);			// Self sufficient
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_ENERGY_PRODUCTION]);	// Nothing can work without energy
 
 	updateEnergyProduction(_r, _p);
 
 	// Basic resource production
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_MINE]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_MINE]);				// Can't operate without resources.
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_SMELTER]);
 
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LIFE_SUPPORT]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_MEDICAL_CENTER]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LIFE_SUPPORT]);		// Air, water food must come before others
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_FOOD_PRODUCTION]);
+
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_MEDICAL_CENTER]);		// No medical facilities, people die
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_NURSERY]);
 
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_FACTORY]);
 

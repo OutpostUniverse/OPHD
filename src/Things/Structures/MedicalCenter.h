@@ -23,8 +23,7 @@ public:
 protected:
 
 	virtual void think()
-	{
-	}
+	{}
 
 	virtual void defineResourceInput()
 	{

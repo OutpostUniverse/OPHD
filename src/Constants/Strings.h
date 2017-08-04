@@ -51,6 +51,7 @@ namespace constants
 	const string	MEDICAL_CENTER = "Medical Center";
 	const string	MINE_FACILITY = "Mine Facility";
 	const string	MINE_SHAFT = "Mine Shaft";
+	const string	NURSERY = "Nursery";
 	const string	PARK = "Park / Reservoir ";
 	const string	RECREATION_CENTER = "Recreation Center";
 	const string	RED_LIGHT_DISTRICT = "Red Light District";

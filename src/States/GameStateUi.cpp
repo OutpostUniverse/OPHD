@@ -295,6 +295,7 @@ void GameState::populateStructureMenu()
 		mStructures.addItem(constants::RESIDENCE, 55);
 		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69);
 		mStructures.addItem(constants::MEDICAL_CENTER, 62);
+		mStructures.addItem(constants::NURSERY, 77);
 		mStructures.addItem(constants::COMMERCIAL, 66);
 		mStructures.addItem(constants::RED_LIGHT_DISTRICT, 76);
 		mStructures.addItem(constants::UNIVERSITY, 63);

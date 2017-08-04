@@ -5,9 +5,15 @@ This is the changelog for OutpostHD.
 
 ### Added
 - Robot Command Center is now fully functional.
+- Added a Nursery structure. Required to keep infant mortality rate at a reasonable level.
 
 ### Changed
 - Robots can now only be placed within the area of influence of the Command Center and Comm. Towers.
+- FileIO window includes a new ListBox that shows a scroll bar when the list of files is too long to display.
+- FileIO window now responds to double clicks.
+- Structures can now only be placed within 15 tiles of the command center.
+- Robots can now only be placed within 15 tiles of the command center.
+- The population model has been completely rewritten. It now accounts for morale, residences, universities and hospitals.
 - 
 
 ### Fixed
