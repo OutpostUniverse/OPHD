@@ -1,62 +1,43 @@
 #include "Population.h"
 
 #include <algorithm>
+#include <functional>
 #include <iostream>
+#include <random>
 
 #include <NAS2D/NAS2D.h>
 
 
-const int CHILD_BEARING_AGE_MIN = 240;			// months, basically 20.
-const int CHILD_BEARING_AGE_MAX = 600;			// months, basically 45.
+const int STUDENT_TO_SCIENTIST_RATE = 35;
 
-const int CHILD_TO_STUDENT = 120;				// months, basically 10.
-const int STUDENT_TO_ADULT = 216;				// months, basically 20.
+const int CHILD_TO_STUDENT_BASE = 120;
+const int STUDENT_TO_ADULT_BASE = 190;
+const int ADULT_TO_RETIREE_BASE = 2000;
 
-const int WORKER_TO_RETIRE = 720;				// months, basically 60.
-const int SCIENTIST_TO_RETIRE = 780;			// months, basically 65.
 
-const int STUDENT_TO_SCIENTIST_PERCENT = 35;	// Percent of students that train into scientists.
+std::default_random_engine pop_generator;
+std::uniform_int_distribution<int> pop_distribution(0, 100);
 
-const int BIRTH_CHANCE_JITTER = 9;
-
-const int CHILD_MORTALITY_RATE = 5;				// Percent chance of child dying during a turn.
-const int STUDENT_MORTALITY_RATE = 3;			// Percent chance of a student dying during a turn.
-const int ADULT_MORTALITY_RATE = 2;				// Percent chance of adult dying during a turn.
-
-const int AVERAGE_RETIRED_DEATH_AGE = 840;		// Avergae age at which people naturally die.
-
-const int DIVISOR = 1000;
-
-const int MORALE_MODIFIER = -2;
-
+auto random_0_100 = std::bind(pop_distribution, pop_generator);
 
 /**
- * Calls Person::update() on a Person.
- *
- * \param	_p	Pointer to a Person.
- *
- * \note	Built specifically for use with std::for_each()
+ * Convenience function to cast a MoraleLevel enumerator
+ * into an array index.
  */
-void update_person(Person* _p)
+int moraleIndex(uint32_t morale)
 {
-	_p->update();
+	return NAS2D::clamp(morale, 1, 999) / 200;
 }
 
-
-/**
- * Returns a morale modifier value. Ranges between -2 and 2.
- */
-inline int morale_modifier(int morale)
-{
-	return MORALE_MODIFIER + (morale / 200);
-}
 
 
 /**
  * C'tor
  */
-Population::Population(): mBirthCount(0), mDeathCount(0), mCurrentMorale(0)
-{}
+Population::Population() : mBirthCount(0), mDeathCount(0), mStarveRate(0.5f)
+{
+	init();
+}
 
 
 /**
@@ -68,14 +49,30 @@ Population::~Population()
 }
 
 
+void Population::init()
+{
+	mPopulation.fill(0);
+	mPopulationGrowth.fill(0);
+	mPopulationDeath.fill(0);
+
+	mModifiers[0] = MoraleModifier(50, 50, 110, 80);	// Excellent
+	mModifiers[1] = MoraleModifier(25, 25, 90, 75);		// Good
+	mModifiers[2] = MoraleModifier(0, 0, 60, 40);		// Fair
+	mModifiers[3] = MoraleModifier(-25, -25, 40, 20);	// Poor
+	mModifiers[4] = MoraleModifier(-50, -50, 20, 10);	// Terrible
+}
+
+
 /**
  * Clears entire population and frees all associated resources.
  */
 void Population::clear()
 {
-	// This is sooooooo hacky it's not even funny.
-	for (int i = 0; i < ROLE_RETIRED + 1; ++i)
-		clearPopulationList(static_cast<PersonRole>(i));
+	clearPopulationList(ROLE_CHILD);
+	clearPopulationList(ROLE_STUDENT);
+	clearPopulationList(ROLE_WORKER);
+	clearPopulationList(ROLE_SCIENTIST);
+	clearPopulationList(ROLE_RETIRED);
 }
 
 
@@ -85,96 +82,19 @@ void Population::clear()
  */
 void Population::clearPopulationList(PersonRole _role)
 {
-	for (size_t i = 0; i < mPopulationTable[_role].size(); ++i)
-	{
-		delete mPopulationTable[_role][i];
-		mPopulationTable[_role][i] = nullptr;
-	}
-	mPopulationTable[_role].clear();
-}
-
-
-/**
- * Updates a specified segment of the population.
- *
- * \param _role	Population segment to update.
- */
-void Population::updatePersonList(PersonRole _role)
-{
-	for_each(mPopulationTable[_role].begin(), mPopulationTable[_role].end(), update_person);
-}
-
-
-/**
- * Deletes a specified Person from the list of female colonists.
- *
- * \param	_p	Pointer to a Person.
- *
- * \note	Checks if the given Person is male. If the Person is male, this function
- *			will fail.
- */
-void Population::deleteFemale(Person* _p)
-{
-	if (_p->male())
-		return;
-
-	auto it = find(mPopulationFemale.begin(), mPopulationFemale.end(), _p);
-
-	if (it == mPopulationFemale.end())
-	{
-		std::cout << "Population::deleteFemale(): Called on a non-female Person" << std::endl;
-		return;
-	}
-
-	mPopulationFemale.erase(it);
-}
-
-
-/**
- * Deletes a given person from a specified Role.
- *
- * \param	_p	Pointer to a Person.
- * \param	_r	Role of the Person specified in _p.
- */
-void Population::deletePerson(Person* _p, PersonRole _r)
-{
-	deleteFemale(_p);
-
-	auto it = find(mPopulationTable[_r].begin(), mPopulationTable[_r].end(), _p);
-	if (it == mPopulationTable[_r].end())
-	{
-		std::cout << "Population::deletePerson(): Person object doesn't exist in the specified list." << std::endl;
-		return;
-	}
-
-	mPopulationTable[_r].erase(it);
-	delete _p;
-
-	++mDeathCount;
+	mPopulation[_role] = 0;
 }
 
 
 /**
  * Populates a given population with a specified number of colonists given some base values.
  *
- * \param	_role		Segment of the population to populate.
- * \param	_base_age	Base age in months of the population to populated.
- * \param	_age_jitter	Maximum difference from the Base Age of the colonist.
- * \param	_count		Number of colonists to create.
+ * \param	role		Segment of the population to populate.
+ * \param	count		Base age in months of the population to populated.
  */
-void Population::populateList(PersonRole _role, int _base_age, int _age_jitter, unsigned int _count)
+void Population::addPopulation(PersonRole role, uint32_t count)
 {
-	for (unsigned int i = 0; i < _count; ++i)
-	{
-		Person* p = new Person(_base_age + (rand() % _age_jitter), i % 2 == 0);
-		mPopulationTable[_role].push_back(p);
-
-		if (!p->male())
-		{
-			p->birth_jitter(rand() % BIRTH_CHANCE_JITTER);
-			mPopulationFemale.push_back(p);
-		}
-	}
+	mPopulation[role] += count;
 }
 
 
@@ -183,9 +103,11 @@ void Population::populateList(PersonRole _role, int _base_age, int _age_jitter, 
  */
 int Population::size()
 {
-	int count = 0;
-	for (auto it = mPopulationTable.begin(); it != mPopulationTable.end(); ++it)
-		count += it->second.size();
+	uint32_t count = 0;
+	for (size_t i = 0; i < mPopulation.size(); ++i)
+	{
+		count += mPopulation[i];
+	}
 
 	return count;
 }
@@ -196,128 +118,24 @@ int Population::size()
  */
 int Population::size(PersonRole _pr)
 {
-	return static_cast<int>(mPopulationTable[_pr].size());
+	return mPopulation[_pr];
 }
 
 
-/**
- * Gets the size of the female segment of the population.
- */
-int Population::size_female()
-{
-	return mPopulationFemale.size();
-}
 
-
-/**
- * Iterates through all colonists of a given segment, determines if they live or die based on a given mortality
- * rate and moves them to a new segment of the population if they've reached the given transfer age.
- *
- * \param	source_role			Role the Person is currently in.
- * \param	destination_role	Role the Person will be moved to if they've reached the transfer age.
- * \param	mortality			Mortality rate.
- * \param	transfer_age		Age, in weeks, at which the Person will be transferred to the destination role.
- */
-void Population::checkRole(PersonRole source_role, PersonRole destination_role, int mortality, int transfer_age)
+uint32_t Population::killPopulation(Population::PersonRole _pr, size_t count)
 {
-	for (size_t i = 0; i < mPopulationTable[source_role].size(); ++i)
+	uint32_t c = 0;
+	if (mPopulation[_pr] < count)
 	{
-
-		if (rand() % DIVISOR <= mortality - morale_modifier(mCurrentMorale))
-		{
-			deletePerson(mPopulationTable[source_role][i], source_role);
-			continue;
-		}
-
-		if (mPopulationTable[source_role][i]->age() >= transfer_age)
-		{
-			mPopulationTable[destination_role].push_back(mPopulationTable[source_role][i]);
-			mPopulationTable[source_role].erase(mPopulationTable[source_role].begin() + i);
-		}
+		c = count - mPopulation[_pr];
 	}
-}
-
-
-/**
- * Iterates through all students, determines if they live or die based on a given mortality
- * rate and transfers them to Worker or Scientist.
- */
-void Population::check_students()
-{
-	for (size_t i = 0; i < mPopulationTable[ROLE_STUDENT].size(); ++i)
+	else
 	{
-
-		if (rand() % DIVISOR <= STUDENT_MORTALITY_RATE - morale_modifier(mCurrentMorale))
-		{
-			deletePerson(mPopulationTable[ROLE_STUDENT][i], ROLE_STUDENT);
-			continue;
-		}
-
-		if (mPopulationTable[ROLE_STUDENT][i]->age() >= STUDENT_TO_ADULT)
-		{
-			if (rand() % 100 > STUDENT_TO_SCIENTIST_PERCENT)
-				mPopulationTable[ROLE_WORKER].push_back(mPopulationTable[ROLE_STUDENT][i]);
-			else
-				mPopulationTable[ROLE_SCIENTIST].push_back(mPopulationTable[ROLE_STUDENT][i]);
-
-			mPopulationTable[ROLE_STUDENT].erase(mPopulationTable[ROLE_STUDENT].begin() + i);
-		}
+		c = count;
 	}
-}
 
-
-void Population::check_retired()
-{
-	for (size_t i = 0; i < mPopulationTable[ROLE_RETIRED].size(); ++i)
-	{
-		int modifier = 0;
-
-		mPopulationTable[ROLE_RETIRED][i]->age() < AVERAGE_RETIRED_DEATH_AGE ? modifier = 0 : modifier = mPopulationTable[ROLE_RETIRED][i]->age() - AVERAGE_RETIRED_DEATH_AGE;
-
-		if (rand() % DIVISOR <= ADULT_MORTALITY_RATE + modifier - morale_modifier(mCurrentMorale))
-			deletePerson(mPopulationTable[ROLE_RETIRED][i], ROLE_RETIRED);
-	}
-}
-
-
-/**
- * Iterates through list of female colonists and updates their conception status.
- */
-void Population::check_females()
-{
-	for (size_t i = 0; i < mPopulationFemale.size(); ++i)
-	{
-		Person* _f = mPopulationFemale[i];
-		if (_f->age() >= CHILD_BEARING_AGE_MIN && _f->age() <= CHILD_BEARING_AGE_MAX)
-		{
-			if (_f->pregnant() && _f->conceived() == 9)
-			{
-				++mBirthCount;
-
-				mPopulationTable[ROLE_CHILD].push_back(new Person(0, (rand() % 100) % 2 != 0));
-
-				if (!mPopulationTable[ROLE_CHILD].back()->male())
-					mPopulationFemale.push_back(mPopulationTable[ROLE_CHILD].back());
-
-				_f->birth_jitter(rand() % BIRTH_CHANCE_JITTER);
-			}
-			else if (!_f->pregnant())
-			{
-				_f->conceive();
-			}
-		}
-	}
-}
-
-
-int Population::killPopulation(Population::PersonList& _pl, Population::PersonRole _pr, size_t count)
-{
-	int c = 0;
-	for (size_t i = 0; i < _pl.size() && i < count; ++i)
-	{
-		deletePerson(_pl[0], _pr);
-		++c;
-	}
+	mPopulation[_pr] -= c;
 
 	return c;
 }
@@ -329,75 +147,223 @@ int Population::killPopulation(Population::PersonList& _pl, Population::PersonRo
  *
  * \return	Actual amount of food consumed.
  */
-int Population::consume_food(int _food)
+uint32_t Population::consume_food(uint32_t food)
 {
 	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
-	if (_food == 0)
+	if (food == 0)
 	{
 		clear();
 		return 0;
 	}
 
-	int population_fed = _food * 10;
-	if (population_fed > size())
+	uint32_t population_fed = food * 10;
+	if (population_fed > static_cast<uint32_t>(size()))
 	{
 		return size() / 10;
 	}
 
-	/* Really not a good way to do this... whatever. Gets really slow with
-	 * large population counts.
-	 *
-	 * FIXME:	The float in the following equation is used to modify how many of the population starves.
-	 *			It should change based on difficulty level.
-	 *
-	 * NOTE:	Larger number means more of the population dies.
-	 */
-	int population_to_kill = static_cast<int>((size() - population_fed) * (0.5f));
 
-	if (size() == 1)
-		population_to_kill = 1;
+	uint32_t population_to_kill = static_cast<int>((size() - population_fed) * mStarveRate);
 
-	for (int population_killed = 0; population_killed < population_to_kill;)
-	{
-		if (size() <= 0)
-			break;
+	if (size() == 1) { population_to_kill = 1; }
 
-		PersonRole pr = static_cast<PersonRole>(rand() % ROLE_RETIRED + 1);
-		PersonList& pl = mPopulationTable[pr];
-
-		if (!pl.empty())
-		{
-			deletePerson(pl.back(), pr);
-			++population_killed;
-		}
-	}
+	/** Kill population here. */
+	std::cout << "need to kill " << population_to_kill << std::endl;
 
 	return population_fed;
 }
 
 
 /**
+ * Population check for new children.
+ * 
+ * \todo	Account for nurseries when implemented.
+ */
+void Population::spawn_children(int morale, int residences, int nurseries)
+{
+	if (residences < 1 && nurseries < 1) { return; }
+
+	// This should be adjusted to maybe two or three kids per couple to allow for higher growth rates.
+	if (mPopulation[ROLE_SCIENTIST] + mPopulation[ROLE_WORKER] > mPopulation[ROLE_CHILD])
+	{
+		mPopulationGrowth[ROLE_CHILD] += mPopulation[ROLE_SCIENTIST] / 4 + mPopulation[ROLE_WORKER] / 2;
+
+		int divisor = mModifiers[moraleIndex(morale)].fertilityRate;
+
+		int newChildren = mPopulationGrowth[ROLE_CHILD] / divisor;
+		mPopulationGrowth[ROLE_CHILD] = mPopulationGrowth[ROLE_CHILD] % divisor;
+
+		mPopulation[ROLE_CHILD] += newChildren;
+		mBirthCount = newChildren;
+	}
+}
+
+
+void Population::spawn_students()
+{
+	if (mPopulation[ROLE_CHILD] > 0)
+	{
+		mPopulationGrowth[ROLE_STUDENT] += mPopulation[ROLE_CHILD];
+
+		int divisor = mPopulation[ROLE_STUDENT] + mPopulation[ROLE_WORKER] + mPopulation[ROLE_SCIENTIST] + mPopulation[ROLE_CHILD];
+		if (divisor <= STUDENT_TO_ADULT_BASE) { divisor = STUDENT_TO_ADULT_BASE; }
+		divisor = ((divisor / 40) * 3 + 16) * 4;
+
+		int newStudents = mPopulationGrowth[ROLE_STUDENT] / divisor;
+		mPopulationGrowth[ROLE_STUDENT] = mPopulationGrowth[ROLE_STUDENT] % divisor;
+
+		mPopulation[ROLE_STUDENT] += newStudents;
+		mPopulation[ROLE_CHILD] -= newStudents;
+	}
+}
+
+
+void Population::spawn_adults(int universities)
+{
+	//-- New Adults --//
+	if (mPopulation[ROLE_STUDENT] > 0)
+	{
+		mPopulationGrowth[ROLE_WORKER] += mPopulation[ROLE_STUDENT];
+
+		int divisor = mPopulation[ROLE_STUDENT] + mPopulation[ROLE_WORKER] + mPopulation[ROLE_SCIENTIST] + mPopulation[ROLE_CHILD];
+		if (divisor <= STUDENT_TO_ADULT_BASE) { divisor = STUDENT_TO_ADULT_BASE; }
+
+		divisor = ((divisor / 40) * 3 + 45) * 4;
+
+		int newAdult = mPopulationGrowth[ROLE_WORKER] / divisor;
+		mPopulationGrowth[ROLE_WORKER] = mPopulationGrowth[ROLE_WORKER] % divisor;
+
+		// account for universities
+		if (universities > 0 && random_0_100() <= STUDENT_TO_SCIENTIST_RATE)
+		{
+			mPopulation[ROLE_SCIENTIST] += newAdult;
+		}
+		else
+		{
+			mPopulation[ROLE_WORKER] += newAdult;
+		}
+
+		mPopulation[ROLE_STUDENT] -= newAdult;
+	}
+}
+
+
+void Population::spawn_retiree()
+{
+	int total_adults = mPopulation[ROLE_WORKER] + mPopulation[ROLE_SCIENTIST];
+	if (total_adults > 0)
+	{
+		mPopulationGrowth[ROLE_RETIRED] += total_adults / 10;
+
+		int divisor = total_adults;
+		if (divisor <= ADULT_TO_RETIREE_BASE) { divisor = ADULT_TO_RETIREE_BASE; }
+
+		divisor = ((divisor / 40) * 3 + 40) * 4;
+
+		int retiree = mPopulationGrowth[ROLE_RETIRED] / divisor;
+		mPopulationGrowth[ROLE_RETIRED] = mPopulationGrowth[ROLE_RETIRED] % divisor;
+
+		mPopulation[ROLE_RETIRED] += retiree;
+
+		/** Workers retire earlier than scientists. */
+		if (random_0_100() <= 45) { if (mPopulation[ROLE_SCIENTIST] > 0) { mPopulation[ROLE_SCIENTIST] -= retiree; } }
+		else { if (mPopulation[ROLE_WORKER] > 0) { mPopulation[ROLE_WORKER] -= retiree; } }
+	}
+}
+
+
+void Population::kill_children(int morale, int nurseries)
+{
+	if (mPopulation[ROLE_CHILD] > 0)
+	{
+		mPopulationDeath[ROLE_CHILD] = mPopulation[ROLE_CHILD];
+
+		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + (nurseries * 10);
+
+		int deaths = mPopulationDeath[ROLE_CHILD] / divisor;
+		mPopulationDeath[ROLE_CHILD] = mPopulationDeath[ROLE_CHILD] % divisor;
+
+		mPopulation[ROLE_CHILD] -= deaths;
+		mDeathCount += deaths;
+
+		if (mPopulation[ROLE_CHILD] <= 0)
+		{
+			mPopulationDeath[ROLE_CHILD] = 0;
+			mPopulationGrowth[ROLE_STUDENT] = 0;
+		}
+	}
+}
+
+
+void Population::kill_students(int morale, int hospitals)
+{
+	if (mPopulation[ROLE_CHILD] > 0)
+	{
+		mPopulationDeath[ROLE_STUDENT] = mPopulation[ROLE_STUDENT];
+
+		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + (hospitals * 65);
+
+		int deaths = mPopulationDeath[ROLE_STUDENT] / divisor;
+		mPopulationDeath[ROLE_STUDENT] = mPopulationDeath[ROLE_CHILD] % divisor;
+
+		mPopulation[ROLE_STUDENT] -= deaths;
+		mDeathCount += deaths;
+
+		if (mPopulation[ROLE_STUDENT] <= 0)
+		{
+			mPopulationDeath[ROLE_STUDENT] = 0;
+			mPopulationGrowth[ROLE_WORKER] = 0;
+		}
+	}
+}
+
+
+void Population::kill_adults(Population::PersonRole role, int morale, int hospitals)
+{
+	// Worker Deaths
+	if (mPopulation[role] > 0)
+	{
+		mPopulationDeath[role] += mPopulation[role];
+		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
+
+		int deaths = mPopulationDeath[role] / divisor;
+		mPopulationDeath[role] = mPopulationDeath[role] % divisor;
+
+		mPopulation[role] -= deaths;
+		mDeathCount += deaths;
+
+		if (mPopulation[role] == 0)
+		{
+			mPopulationDeath[role] = 0;
+		}
+	}
+}
+
+
+/**
  * \return	Actual amount of food consumed.
  */
-int Population::update(int _morale, int _food)
+int Population::update(int morale, int food, int residences, int universities, int nurseries, int hospitals)
 {
 	mBirthCount = 0;
 	mDeathCount = 0;
-	mCurrentMorale = _morale;
 
-	updatePersonList(ROLE_CHILD);
-	updatePersonList(ROLE_STUDENT);
-	updatePersonList(ROLE_WORKER);
-	updatePersonList(ROLE_SCIENTIST);
-	updatePersonList(ROLE_RETIRED);
+	PopulationTable newPopulation = { 0 };
+	PopulationTable deadPopulation = { 0 };
 
-	checkRole(ROLE_CHILD, ROLE_STUDENT, CHILD_MORTALITY_RATE, CHILD_TO_STUDENT);
-	checkRole(ROLE_WORKER, ROLE_RETIRED, ADULT_MORTALITY_RATE, WORKER_TO_RETIRE);
-	checkRole(ROLE_SCIENTIST, ROLE_RETIRED, ADULT_MORTALITY_RATE, SCIENTIST_TO_RETIRE);
+	spawn_children(morale, residences, nurseries);
+	spawn_students();
+	spawn_adults(universities);
+	spawn_retiree();
 
-	check_students();
-	check_females();
-	check_retired();
+	kill_children(morale, nurseries);
+	kill_students(morale, hospitals);
 
-	return consume_food(_food);
+	// Workers will die more often than scientists.
+	if (random_0_100() <= 45) { kill_adults(ROLE_SCIENTIST, morale, hospitals); }
+	else { kill_adults(ROLE_WORKER, morale, hospitals); }
+
+	kill_adults(ROLE_RETIRED, morale, hospitals);
+
+	return consume_food(food);
 }

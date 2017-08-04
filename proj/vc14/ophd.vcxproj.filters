@@ -404,9 +404,6 @@
     <ClInclude Include="..\..\src\Things\Structures\University.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Population\Person.h">
-      <Filter>Header Files\Population</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Population\Population.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
@@ -454,6 +451,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UI\Core\Slider.h">
       <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Population\Morale.h">
+      <Filter>Header Files\Population</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\UI\Core\ListBox.h">
       <Filter>Header Files\UI\Core</Filter>

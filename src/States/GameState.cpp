@@ -1359,12 +1359,9 @@ bool GameState::landingSiteSuitable(int x, int y)
  */
 void GameState::deployColonistLander()
 {
-	// 180 == weeks == 15 years, 36 == jitter == 3 years
-	mPopulation.populateList(Population::ROLE_STUDENT, 180, 36, 10);
-	// 360 == weeks == 30 years, 120 == jitter == 10 years
-	mPopulation.populateList(Population::ROLE_WORKER, 360, 120, 20);
-	// 360 == weeks == 30 years, 120 == jitter == 10 years
-	mPopulation.populateList(Population::ROLE_SCIENTIST, 360, 120, 20);
+	mPopulation.addPopulation(Population::ROLE_STUDENT, 10);
+	mPopulation.addPopulation(Population::ROLE_WORKER, 20);
+	mPopulation.addPopulation(Population::ROLE_SCIENTIST, 20);
 }
 
 
@@ -1849,11 +1846,11 @@ void GameState::readPopulation(XmlElement* _ti)
 			attribute = attribute->next();
 		}
 
-		mPopulation.populateList(Population::ROLE_CHILD, 0, 119, children);
-		mPopulation.populateList(Population::ROLE_STUDENT, 120, 96, students);
-		mPopulation.populateList(Population::ROLE_WORKER, 216, 500, workers);
-		mPopulation.populateList(Population::ROLE_SCIENTIST, 235, 500, scientists);
-		mPopulation.populateList(Population::ROLE_RETIRED, 720, 120, retired);
+		mPopulation.addPopulation(Population::ROLE_CHILD, children);
+		mPopulation.addPopulation(Population::ROLE_STUDENT, students);
+		mPopulation.addPopulation(Population::ROLE_WORKER, workers);
+		mPopulation.addPopulation(Population::ROLE_SCIENTIST, scientists);
+		mPopulation.addPopulation(Population::ROLE_RETIRED, retired);
 	}
 }
 
@@ -1882,10 +1879,12 @@ int moraleChange(StructureManager& _sm, Structure::StructureClass _type)
 {
 	int count = 0;
 	for (auto it = _sm.structureList(_type).begin(); it != _sm.structureList(_type).end(); ++it)
+	{
 		if ((*it)->operational())
 			++count;
 		else if ((*it)->disabled())
 			--count;
+	}
 
 	return count;
 }
@@ -1919,18 +1918,24 @@ void GameState::nextTurn()
 
 	mPreviousMorale = mCurrentMorale;
 
+	int residences = mStructureManager.getCountInState(Structure::CLASS_RESIDENCE, Structure::OPERATIONAL);
+	int universities = mStructureManager.getCountInState(Structure::CLASS_UNIVERSITY, Structure::OPERATIONAL);
+	int nurseries = 0;
+	int hospitals = mStructureManager.getCountInState(Structure::CLASS_MEDICAL_CENTER, Structure::OPERATIONAL);
+
 	// FOOD CONSUMPTION
-	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage());
+	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage(), residences, universities, nurseries, hospitals);
 	StructureManager::StructureList &foodproducers = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
 	int remainder = food_consumed;
 
 	if (mPlayerResources.food() > 0)
+	{
 		remainder -= pullFood(mPlayerResources, remainder);
+	}
 
 	for (size_t i = 0; i < foodproducers.size(); ++i)
 	{
-		if (remainder <= 0)
-			break;
+		if (remainder <= 0) { break; }
 
 		remainder -= pullFood(foodproducers[i]->storage(), remainder);
 	}
@@ -1952,7 +1957,6 @@ void GameState::nextTurn()
 	mCurrentMorale -= mStructureManager.destroyed();
 
 	mCurrentMorale = clamp(mCurrentMorale, 0, 1000);
-
 
 	// Update storage capacity
 	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::CLASS_STORAGE)));

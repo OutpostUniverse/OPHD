@@ -1,15 +1,13 @@
 #pragma once
 
-#include "Person.h"
+#include "Morale.h"
 
-#include <map>
+#include <array>
 #include <vector>
 
 class Population
 {
 public:
-	typedef std::vector<Person*> PersonList;
-
 	enum PersonRole
 	{
 		ROLE_CHILD,
@@ -25,47 +23,49 @@ public:
 
 	int size();
 	int size(PersonRole);
-	int size_female();
 
 	int birthCount() const { return mBirthCount; }
 	int deathCount() const { return mDeathCount; }
 
 	void clear();
 
-	void populateList(PersonRole _role, int _base_age, int _age_jitter, unsigned int _count);
+	void addPopulation(PersonRole role, uint32_t count);
 
-	int update(int _morale, int _food);
+	int update(int morale, int food, int residences, int universities, int nurseries, int hospitals);
+
+	void starveRate(float r) { mStarveRate = r; }
 
 protected:
 
 private:
+	void init();
 	void clearPopulationList(PersonRole);
 
-	void updatePersonList(PersonRole);
+	void spawn_children(int morale, int residences, int nurseries);
+	void spawn_students();
+	void spawn_adults(int universities);
+	void spawn_retiree();
 
-	void deleteFemale(Person* _p);
-	void deletePerson(Person* _p, PersonRole _r);
+	void kill_children(int morale, int nurseries);
+	void kill_students(int morale, int hospitals);
+	void kill_adults(Population::PersonRole role, int morale, int hospitals);
 
-	void checkRole(PersonRole source_role, PersonRole destination_role, int mortality, int trasnfer_age);
-
-	void check_students();
-	void check_females();
-	void check_retired();
-
-	int consume_food(int _food);
-
-	int killPopulation(Population::PersonList& _pl, Population::PersonRole _pr, size_t count);
+	uint32_t consume_food(uint32_t _food);
+	uint32_t killPopulation(Population::PersonRole _pr, size_t count);
 
 private:
-	typedef std::map<PersonRole, PersonList> PopulationTable;
+	typedef std::array<uint32_t, 5>		PopulationTable;
+	typedef std::array<MoraleModifier, 5> MoraleModifiers;
 
 private:
+	uint32_t			mBirthCount;				/**<  */
+	uint32_t			mDeathCount;				/**<  */
 
-	int					mBirthCount;
-	int					mDeathCount;
-	int					mCurrentMorale;
+	float				mStarveRate;				/**< Amount of population that dies during food shortages in percent. */
 
-	PopulationTable		mPopulationTable;
+	PopulationTable		mPopulation;				/**< Current population. */
+	PopulationTable		mPopulationGrowth;			/**< Population growth table. */
+	PopulationTable		mPopulationDeath;			/**< Population death table. */
 
-	PersonList			mPopulationFemale;
+	MoraleModifiers		mModifiers;					/**< Morale modifier table */
 };
