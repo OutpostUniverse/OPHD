@@ -10,6 +10,7 @@ using namespace std;
  */
 ListBox::ListBox():	mCurrentHighlight(constants::NO_SELECTION),
 				mCurrentSelection(0),
+	mCurrentOffset(0),
 				mText(COLOR_WHITE),
 				mHighlightBg(COLOR_GREEN),
 				mHighlightText(COLOR_WHITE),
@@ -143,26 +144,27 @@ void ListBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	if(empty() || !visible())
 		return;
 
-	
 	if(!isPointInRect(Point_2d(x, y), rect()) || mCurrentHighlight == constants::NO_SELECTION)
 		return;
 
 	if (mSlider.visible() && isPointInRect(Point_2d(x, y), mSlider.rect()))
 		return;		// if the mouse is on the slider then the slider should handle that
 
+	if (mCurrentHighlight < 0 || mCurrentHighlight >= mItems.size())
+		return;
+
 	currentSelection(mCurrentHighlight);
-	//mCurrentSelection = mCurrentHighlight;
 }
 
 
 void ListBox::onMouseMove(int x, int y, int relX, int relY)
 {
 	// Ignore if menu is empty or invisible
-	if(empty() || !visible())
+	if (empty() || !visible())
 		return;
 
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
-	if(!isPointInRect(Point_2d(x, y), rect()))
+	if (!isPointInRect(Point_2d(x, y), rect()))
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 		return;
@@ -172,10 +174,10 @@ void ListBox::onMouseMove(int x, int y, int relX, int relY)
 	if (mSlider.visible() && isPointInRect(Point_2d(x, y), mSlider.rect()))
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
-		return;		
+		return;
 	}
 
-	mCurrentHighlight = ((y - (int)rect().y()) / (font().height() + 2)) % ((int)rect().height() / (font().height() + 2))+ mCurrentOffset;
+	mCurrentHighlight = ((y - (int)rect().y()) / (font().height() + 2)) % ((int)rect().height() / (font().height() + 2)) + mCurrentOffset;
 }
 
 
@@ -197,7 +199,7 @@ void ListBox::update()
 	if ((line_height*mItems.size()) > rect().height())
 	{
 		iItemsDisplayable = static_cast<int>(rect().height() / line_height);
-		if (iItemsDisplayable < mItems.size())
+		if (iItemsDisplayable < static_cast<int>(mItems.size()))
 		{
 			mSlider.length(mItems.size() - iItemsDisplayable);
 			mSlider.visible(true);
@@ -232,7 +234,7 @@ void ListBox::update()
 
 	
 	// display actuals values that are ment to be
-	for(int i = iMin; (unsigned)i < iMax; i++)
+	for(int i = iMin; i < iMax; i++)
 	{
 		itemY = rect().y() + ((i-iMin) * line_height);
 		if(i == mCurrentHighlight)
