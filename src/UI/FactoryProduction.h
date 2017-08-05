@@ -32,17 +32,17 @@ private:
 	FactoryProduction(const FactoryProduction&);
 	FactoryProduction& operator=(const FactoryProduction&);
 
-	void productionSelectionChanged(const std::string&);
+	void productSelectionChanged(const std::string&);
 
 private:
 	Factory*					mFactory;
 
-	Factory::ProductionType		mProductionType;
-	ProductionCost				mProductionCost;
+	Factory::ProductType		mProduct;
+	ProductionCost				mProductCost;
 
 	Font						mBold;
 
-	IconGrid					mProductionGrid;
+	IconGrid					mProductGrid;
 
 	Button						btnOkay;
 	Button						btnCancel;

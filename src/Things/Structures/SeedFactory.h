@@ -23,9 +23,9 @@ protected:
 
 	virtual void initFactory()
 	{
-		addProduct(Factory::PRODUCTION_DIGGER);
-		addProduct(Factory::PRODUCTION_DOZER);
-		addProduct(Factory::PRODUCTION_MINER);
+		addProduct(Factory::PRODUCT_DIGGER);
+		addProduct(Factory::PRODUCT_DOZER);
+		addProduct(Factory::PRODUCT_MINER);
 	}
 
 private:

@@ -3,9 +3,9 @@
 #include "../Constants.h"
 
 
-std::map<std::string, Factory::ProductionType> PRODUCTION_TRANSLATION_TABLE;
+std::map<std::string, Factory::ProductType> PRODUCTION_TRANSLATION_TABLE;
 
-FactoryProduction::FactoryProduction(Font& font) : mFactory(nullptr), mProductionType(Factory::PRODUCTION_NONE), mBold("fonts/opensans-bold.ttf", 10)
+FactoryProduction::FactoryProduction(Font& font) : mFactory(nullptr), mProduct(Factory::PRODUCT_NONE), mBold("fonts/opensans-bold.ttf", 10)
 {
 	Control::font(font);
 	text(constants::WINDOW_FACTORY_PRODUCTION);
@@ -22,15 +22,15 @@ void FactoryProduction::init()
 	size(320, 162);
 
 	// Set up GUI Layout
-	addControl("mProductionGrid", &mProductionGrid, static_cast<float>(constants::MARGIN), 25);
-	mProductionGrid.font(font());
-	mProductionGrid.sheetPath("ui/surface_factory.png");
-	mProductionGrid.size(140, 110);
-	mProductionGrid.iconSize(32);
-	mProductionGrid.iconMargin(constants::MARGIN_TIGHT);
-	mProductionGrid.showTooltip(true);
-	mProductionGrid.hide();
-	mProductionGrid.selectionChanged().connect(this, &FactoryProduction::productionSelectionChanged);
+	addControl("mProductionGrid", &mProductGrid, static_cast<float>(constants::MARGIN), 25);
+	mProductGrid.font(font());
+	mProductGrid.sheetPath("ui/surface_factory.png");
+	mProductGrid.size(140, 110);
+	mProductGrid.iconSize(32);
+	mProductGrid.iconMargin(constants::MARGIN_TIGHT);
+	mProductGrid.showTooltip(true);
+	mProductGrid.hide();
+	mProductGrid.selectionChanged().connect(this, &FactoryProduction::productSelectionChanged);
 
 	addControl("btnOkay", &btnOkay, 63, 136);
 	btnOkay.font(font());
@@ -45,10 +45,10 @@ void FactoryProduction::init()
 	btnCancel.click().connect(this, &FactoryProduction::btnCancelClicked);
 
 	// Fill production translation table
-	PRODUCTION_TRANSLATION_TABLE[""] = Factory::PRODUCTION_NONE;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROBODIGGER] = Factory::PRODUCTION_DIGGER;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROBODOZER] = Factory::PRODUCTION_DOZER;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROBOMINER] = Factory::PRODUCTION_MINER;
+	PRODUCTION_TRANSLATION_TABLE[""] = Factory::PRODUCT_NONE;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROBODIGGER] = Factory::PRODUCT_DIGGER;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROBODOZER] = Factory::PRODUCT_DOZER;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROBOMINER] = Factory::PRODUCT_MINER;
 }
 
 
@@ -56,12 +56,12 @@ void FactoryProduction::hide()
 {
 	Control::hide();
 	mFactory = nullptr;
-	mProductionType = Factory::PRODUCTION_NONE;
-	mProductionGrid.clearSelection();
+	mProduct = Factory::PRODUCT_NONE;
+	mProductGrid.clearSelection();
 }
 
 
-void FactoryProduction::productionSelectionChanged(const std::string& _s)
+void FactoryProduction::productSelectionChanged(const std::string& _s)
 {
 	if (!mFactory)
 		return;
@@ -69,21 +69,21 @@ void FactoryProduction::productionSelectionChanged(const std::string& _s)
 	if (PRODUCTION_TRANSLATION_TABLE.find(_s) == PRODUCTION_TRANSLATION_TABLE.end())
 		throw std::runtime_error("FactoryProduction::productionSelectionChanged() called with an undefined production code: " + _s);
 
-	mProductionType = PRODUCTION_TRANSLATION_TABLE[_s];
+	mProduct = PRODUCTION_TRANSLATION_TABLE[_s];
 
 	if (_s.empty())
 	{
-		mProductionCost.clear();
+		mProductCost.clear();
 		return;
 	}
 	
-	mProductionCost = mFactory->productionCost(mProductionType);
+	mProductCost = mFactory->productCost(mProduct);
 }
 
 
 void FactoryProduction::btnOkayClicked()
 {
-	mFactory->productionType(mProductionType);
+	mFactory->productType(mProduct);
 	hide();
 }
 
@@ -101,9 +101,9 @@ void FactoryProduction::factory(Factory* _f)
 	if (mFactory == nullptr)
 		return;
 
-	mProductionGrid.dropAllItems();
+	mProductGrid.dropAllItems();
 
-	Factory::ProductionTypeList ptlist = mFactory->productionList();
+	Factory::ProductionTypeList ptlist = mFactory->productList();
 	
 	// FIXME: Very seriously doubt that this check is needed.
 	if (ptlist.empty())
@@ -112,27 +112,27 @@ void FactoryProduction::factory(Factory* _f)
 	// FIXME: This is a super naive and ugly way to do this. Don't like it at all.
 	for (size_t i = 0; i < ptlist.size(); ++i)
 	{
-		if(ptlist[i] == Factory::PRODUCTION_DIGGER)
-			mProductionGrid.addItem(constants::ROBODIGGER, 0);
-		else if (ptlist[i] == Factory::PRODUCTION_DOZER)
-			mProductionGrid.addItem(constants::ROBODOZER, 1);
-		else if (ptlist[i] == Factory::PRODUCTION_MINER)
-			mProductionGrid.addItem(constants::ROBOMINER, 2);
+		if(ptlist[i] == Factory::PRODUCT_DIGGER)
+			mProductGrid.addItem(constants::ROBODIGGER, 0);
+		else if (ptlist[i] == Factory::PRODUCT_DOZER)
+			mProductGrid.addItem(constants::ROBODOZER, 1);
+		else if (ptlist[i] == Factory::PRODUCT_MINER)
+			mProductGrid.addItem(constants::ROBOMINER, 2);
 	}
 
 	// FIXME:	The following block assumes that factory items will be in a particular order and
 	//			is prone to break if things aren't supplied in exactly the way it expects. Also,
 	//			it's just another really bad way of doing this (if/else if blocks, blech!)
-	if (mFactory->productionType() == Factory::PRODUCTION_DIGGER)
-		mProductionGrid.selection(0);
-	else if (mFactory->productionType() == Factory::PRODUCTION_DOZER)
-		mProductionGrid.selection(1);
-	else if (mFactory->productionType() == Factory::PRODUCTION_MINER)
-		mProductionGrid.selection(2);
+	if (mFactory->productType() == Factory::PRODUCT_DIGGER)
+		mProductGrid.selection(0);
+	else if (mFactory->productType() == Factory::PRODUCT_DOZER)
+		mProductGrid.selection(1);
+	else if (mFactory->productType() == Factory::PRODUCT_MINER)
+		mProductGrid.selection(2);
 	else
-		mProductionGrid.clearSelection();
+		mProductGrid.clearSelection();
 
-	mProductionCost = mFactory->productionCost(mFactory->productionType());
+	mProductCost = mFactory->productCost(mFactory->productType());
 }
 
 
@@ -145,18 +145,18 @@ void FactoryProduction::update()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawText(mBold, "Turns Completed:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 25.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i of %i", mFactory->productionTurnsCompleted(), mProductionCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 120, rect().y() + 25.0f, 255, 255, 255);
+	r.drawText(mBold, "Turns Completed:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 25.0f, 255, 255, 255);
+	r.drawText(font(), string_format("%i of %i", mFactory->productionTurnsCompleted(), mProductCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 25.0f, 255, 255, 255);
 
-	r.drawText(mBold, "Common Metals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 45.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i", mProductionCost.CostPerTurn.commonMetals() * mProductionCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 120, rect().y() + 45.0f, 255, 255, 255);
+	r.drawText(mBold, "Common Metals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 45.0f, 255, 255, 255);
+	r.drawText(font(), string_format("%i", mProductCost.CostPerTurn.commonMetals() * mProductCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 45.0f, 255, 255, 255);
 
-	r.drawText(mBold, "Common Minerals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 55.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i", mProductionCost.CostPerTurn.commonMinerals() * mProductionCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 120, rect().y() + 55.0f, 255, 255, 255);
+	r.drawText(mBold, "Common Minerals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 55.0f, 255, 255, 255);
+	r.drawText(font(), string_format("%i", mProductCost.CostPerTurn.commonMinerals() * mProductCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 55.0f, 255, 255, 255);
 
-	r.drawText(mBold, "Rare Metals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 65.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i", mProductionCost.CostPerTurn.rareMetals() * mProductionCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 120, rect().y() + 65.0f, 255, 255, 255);
+	r.drawText(mBold, "Rare Metals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 65.0f, 255, 255, 255);
+	r.drawText(font(), string_format("%i", mProductCost.CostPerTurn.rareMetals() * mProductCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 65.0f, 255, 255, 255);
 
-	r.drawText(mBold, "Rare Minerals:", rect().x() + constants::MARGIN * 2 + mProductionGrid.width(), rect().y() + 75.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i", mProductionCost.CostPerTurn.rareMinerals() * mProductionCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductionGrid.width() + 120, rect().y() + 75.0f, 255, 255, 255);
+	r.drawText(mBold, "Rare Minerals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 75.0f, 255, 255, 255);
+	r.drawText(font(), string_format("%i", mProductCost.CostPerTurn.rareMinerals() * mProductCost.TurnsToBuild), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 75.0f, 255, 255, 255);
 }

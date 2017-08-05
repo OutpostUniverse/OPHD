@@ -1187,17 +1187,17 @@ void GameState::minerTaskFinished(Robot* _r)
 /**
  * Called whenever a Factory's production is complete.
  */
-void GameState::factoryProductionComplete(Factory::ProductionType _p)
+void GameState::factoryProductionComplete(Factory::ProductType _p)
 {
 	switch (_p)
 	{
-	case Factory::PRODUCTION_DIGGER:
+	case Factory::PRODUCT_DIGGER:
 		mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
 		break;
-	case Factory::PRODUCTION_DOZER:
+	case Factory::PRODUCT_DOZER:
 		mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
 		break;
-	case Factory::PRODUCTION_MINER:
+	case Factory::PRODUCT_MINER:
 		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
 		break;
 	default:
@@ -1791,7 +1791,7 @@ void GameState::readStructures(XmlElement* _ti)
 		if (st->isFactory())
 		{
 			Factory* f = static_cast<Factory*>(st);
-			f->productionType(static_cast<Factory::ProductionType>(production_type));
+			f->productType(static_cast<Factory::ProductType>(production_type));
 			f->productionTurnsCompleted(production_completed);
 			f->resourcePool(&mPlayerResources);
 			f->productionComplete().connect(this, &GameState::factoryProductionComplete);

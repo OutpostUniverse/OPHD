@@ -358,7 +358,7 @@ void StructureManager::serialize(XmlElement* _ti)
 		if (it->first->isFactory())
 		{
 			structure->attribute("production_completed", static_cast<Factory*>(it->first)->productionTurnsCompleted());
-			structure->attribute("production_type", static_cast<Factory*>(it->first)->productionType());
+			structure->attribute("production_type", static_cast<Factory*>(it->first)->productType());
 		}
 
 		structures->linkEndChild(structure);

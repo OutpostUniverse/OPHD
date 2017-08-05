@@ -54,19 +54,19 @@ class Factory : public Structure
 
 public:
 
-	enum ProductionType
+	enum ProductType
 	{
-		PRODUCTION_NONE,
+		PRODUCT_NONE,
 
 		// Surface Factories
-		PRODUCTION_DIGGER,
-		PRODUCTION_DOZER,
-		PRODUCTION_MINER
+		PRODUCT_DIGGER,
+		PRODUCT_DOZER,
+		PRODUCT_MINER
 	};
 
-	typedef NAS2D::Signals::Signal1<ProductionType> ProductionCallback;
+	typedef NAS2D::Signals::Signal1<ProductType> ProductionCallback;
 
-	typedef std::vector<ProductionType> ProductionTypeList;
+	typedef std::vector<ProductType> ProductionTypeList;
 
 public:
 
@@ -84,12 +84,12 @@ public:
 	void productionTurnsCompleted(int _t) { mTurnsCompleted = _t; }
 	void productionResetTurns() { mTurnsCompleted = 0; }
 
-	ProductionType productionType() const { return mProduction; }
-	void productionType(ProductionType _p);
+	ProductType productType() const { return mProduct; }
+	void productType(ProductType _p);
 
-	const ProductionTypeList& productionList() const { return mAvailableProducts; }
+	const ProductionTypeList& productList() const { return mAvailableProducts; }
 
-	const ProductionCost& productionCost(ProductionType) const;
+	const ProductionCost& productCost(ProductType) const;
 
 	virtual void initFactory() = 0;
 
@@ -97,11 +97,11 @@ public:
 
 protected:
 
-	void productionComplete(ProductionType _p);
+	void productionComplete(ProductType _p);
 
 	void clearProduction();
 
-	void addProduct(ProductionType _p);
+	void addProduct(ProductType _p);
 	bool enoughResourcesAvailable();
 
 	ResourcePool* resourcePool() { return mResourcesPool; }
@@ -111,7 +111,7 @@ private:
 	int								mTurnsCompleted;
 	int								mTurnsToComplete;
 
-	ProductionType					mProduction;
+	ProductType						mProduct;
 
 	ProductionTypeList				mAvailableProducts;			/**< List of products that the Factory can produce. */
 
