@@ -51,7 +51,6 @@ private:
 	void kill_adults(Population::PersonRole role, int morale, int hospitals);
 
 	uint32_t consume_food(uint32_t _food);
-	uint32_t killPopulation(Population::PersonRole _pr, size_t count);
 
 private:
 	typedef std::array<uint32_t, 5>		PopulationTable;

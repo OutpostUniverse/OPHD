@@ -122,58 +122,6 @@ int Population::size(PersonRole _pr)
 }
 
 
-
-uint32_t Population::killPopulation(Population::PersonRole _pr, size_t count)
-{
-	uint32_t c = 0;
-	if (mPopulation[_pr] < count)
-	{
-		c = count - mPopulation[_pr];
-	}
-	else
-	{
-		c = count;
-	}
-
-	mPopulation[_pr] -= c;
-
-	return c;
-}
-
-
-/**
- * Determine how much food should be consumed and kill off any population that
- * starves.
- *
- * \return	Actual amount of food consumed.
- */
-uint32_t Population::consume_food(uint32_t food)
-{
-	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
-	if (food == 0)
-	{
-		clear();
-		return 0;
-	}
-
-	uint32_t population_fed = food * 10;
-	if (population_fed > static_cast<uint32_t>(size()))
-	{
-		return size() / 10;
-	}
-
-
-	uint32_t population_to_kill = static_cast<int>((size() - population_fed) * mStarveRate);
-
-	if (size() == 1) { population_to_kill = 1; }
-
-	/** Kill population here. */
-	std::cout << "need to kill " << population_to_kill << std::endl;
-
-	return population_fed;
-}
-
-
 /**
  * Population check for new children.
  * 
@@ -337,6 +285,49 @@ void Population::kill_adults(Population::PersonRole role, int morale, int hospit
 			mPopulationDeath[role] = 0;
 		}
 	}
+}
+
+
+/**
+ * Determine how much food should be consumed and kill off any population that
+ * starves.
+ *
+ * \return	Actual amount of food consumed.
+ */
+uint32_t Population::consume_food(uint32_t food)
+{
+	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
+	if (food == 0)
+	{
+		mDeathCount = size();
+		clear();
+		return 0;
+	}
+
+	uint32_t population_fed = food * 10;
+	if (population_fed > static_cast<uint32_t>(size()))
+	{
+		return size() / 10;
+	}
+
+
+	uint32_t population_to_kill = static_cast<int>((size() - population_fed) * mStarveRate);
+	if (size() == 1) { population_to_kill = 1; }
+
+	for (int i = 0; i < population_to_kill; /**/ )
+	{
+		PersonRole role = static_cast<PersonRole>(i % 5);
+		if (mPopulation[role] > 0)
+		{
+			--mPopulation[role];
+			++i;
+		}
+	}
+
+	mDeathCount = population_to_kill;
+
+	// actual amount of population fed.
+	return population_fed;
 }
 
 
