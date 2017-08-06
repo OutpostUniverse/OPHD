@@ -1193,21 +1193,26 @@ void GameState::minerTaskFinished(Robot* _r)
 /**
  * Called whenever a Factory's production is complete.
  */
-void GameState::factoryProductionComplete(Factory::ProductType _p)
+void GameState::factoryProductionComplete(Factory::ProductType _p, int id)
 {
+	cout << "Factory '" << id << "' has finished producing a";
+	
 	switch (_p)
 	{
 	case Factory::PRODUCT_DIGGER:
+		cout << " RoboDigger" << endl;
 		mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
 		break;
 	case Factory::PRODUCT_DOZER:
+		cout << " RoboDozer" << endl;
 		mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
 		break;
 	case Factory::PRODUCT_MINER:
+		cout << " RoboMiner" << endl;
 		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
 		break;
 	default:
-		cout << "Unknown production type." << endl;
+		cout << "n Unknown Product." << endl;
 		break;
 	}
 }
@@ -1731,17 +1736,17 @@ void GameState::readStructures(XmlElement* _ti)
 		attribute = structure->toElement()->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "x") attribute->queryIntValue(x);
-			else if (attribute->name() == "y") attribute->queryIntValue(y);
-			else if (attribute->name() == "depth") attribute->queryIntValue(depth);
-			else if (attribute->name() == "id") attribute->queryIntValue(id);
-			else if (attribute->name() == "age") attribute->queryIntValue(age);
-			else if (attribute->name() == "state") attribute->queryIntValue(state);
-			else if (attribute->name() == "direction") attribute->queryIntValue(direction);
-			else if (attribute->name() == "type") type = attribute->value();
+			if (attribute->name() == "x") { attribute->queryIntValue(x); }
+			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
+			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
+			else if (attribute->name() == "id") { attribute->queryIntValue(id); }
+			else if (attribute->name() == "age") { attribute->queryIntValue(age); }
+			else if (attribute->name() == "state") { attribute->queryIntValue(state); }
+			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
+			else if (attribute->name() == "type") { type = attribute->value(); }
 
-			else if (attribute->name() == "production_completed") attribute->queryIntValue(production_completed);
-			else if (attribute->name() == "production_type") attribute->queryIntValue(production_type);
+			else if (attribute->name() == "production_completed") { attribute->queryIntValue(production_completed); }
+			else if (attribute->name() == "production_type") { attribute->queryIntValue(production_type); }
 
 			attribute = attribute->next();
 		}
@@ -1761,6 +1766,11 @@ void GameState::readStructures(XmlElement* _ti)
 
 		StructureID type_id = StructureTranslator::translateFromString(type);
 		st = StructureCatalogue::get(StructureTranslator::translateFromString(type));
+
+		if (type_id == SID_COMMAND_CENTER)
+		{
+			mCCLocation(x, y);
+		}
 
 		if (type_id == SID_MINE_FACILITY)
 		{
@@ -1800,7 +1810,9 @@ void GameState::readStructures(XmlElement* _ti)
 }
 
 
-
+/**
+ * 
+ */
 void GameState::readTurns(XmlElement* _ti)
 {
 	if (_ti)
@@ -1830,15 +1842,15 @@ void GameState::readPopulation(XmlElement* _ti)
 		XmlAttribute* attribute = _ti->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "morale") attribute->queryIntValue(mCurrentMorale);
-			else if (attribute->name() == "prev_morale") attribute->queryIntValue(mPreviousMorale);
-			else if (attribute->name() == "colonist_landers") attribute->queryIntValue(mLandersColonist);
+			if (attribute->name() == "morale") { attribute->queryIntValue(mCurrentMorale); }
+			else if (attribute->name() == "prev_morale") { attribute->queryIntValue(mPreviousMorale); }
+			else if (attribute->name() == "colonist_landers") { attribute->queryIntValue(mLandersColonist); }
 
-			else if (attribute->name() == "children") attribute->queryIntValue(children);
-			else if (attribute->name() == "students") attribute->queryIntValue(students);
-			else if (attribute->name() == "workers") attribute->queryIntValue(workers);
-			else if (attribute->name() == "scientists") attribute->queryIntValue(scientists);
-			else if (attribute->name() == "retired") attribute->queryIntValue(retired);
+			else if (attribute->name() == "children") { attribute->queryIntValue(children); }
+			else if (attribute->name() == "students") { attribute->queryIntValue(students); }
+			else if (attribute->name() == "workers") { attribute->queryIntValue(workers); }
+			else if (attribute->name() == "scientists") { attribute->queryIntValue(scientists); }
+			else if (attribute->name() == "retired") { attribute->queryIntValue(retired); }
 
 			attribute = attribute->next();
 		}

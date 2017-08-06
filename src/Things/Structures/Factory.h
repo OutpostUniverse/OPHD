@@ -11,7 +11,7 @@
  */
 struct ProductionCost
 {
-	ProductionCost() : TurnsToBuild(0) {}
+	ProductionCost() {}
 
 	ProductionCost(int turns, int commonMetals, int commonMinerals, int rareMetals, int rareMinerals) : TurnsToBuild(turns)
 	{
@@ -30,7 +30,7 @@ struct ProductionCost
 	}
 
 	ResourcePool	CostPerTurn;
-	int				TurnsToBuild;
+	int				TurnsToBuild = 0;
 };
 
 
@@ -51,7 +51,6 @@ struct ProductionCost
  */
 class Factory : public Structure
 {
-
 public:
 
 	enum ProductType
@@ -64,7 +63,8 @@ public:
 		PRODUCT_MINER
 	};
 
-	typedef NAS2D::Signals::Signal1<ProductType> ProductionCallback;
+	// Callback providing what was complete and the ID of the factory.
+	typedef NAS2D::Signals::Signal2<ProductType, int> ProductionCallback;
 
 	typedef std::vector<ProductType> ProductionTypeList;
 

@@ -100,7 +100,7 @@ void Factory::updateProduction()
 
 void Factory::productionComplete(ProductType _p)
 {
-	mProductionComplete(_p);
+	mProductionComplete(_p, id());
 }
 
 
