@@ -5,8 +5,7 @@
  * C'tor
  */
 RobotPool::RobotPool()
-{
-}
+{}
 
 
 /**
@@ -22,22 +21,31 @@ RobotPool::~RobotPool()
 }
 
 
+/**
+ * 
+ */
 void RobotPool::clear()
 {
 	for (size_t i = 0; i < mDiggers.size(); i++)
+	{
 		delete mDiggers[i];
+	}
 
 	for (size_t i = 0; i < mDozers.size(); i++)
+	{
 		delete mDozers[i];
+	}
 
 	for (size_t i = 0; i < mMiners.size(); i++)
+	{
 		delete mMiners[i];
+	}
 
 	mDiggers.clear();
 	mDozers.clear();
 	mMiners.clear();
-	mRobotControlCount	= 0;
-	mRobotControlMax	= 0;
+	mRobotControlCount = 0;
+	mRobotControlMax = 0;
 }
 
 
@@ -55,14 +63,17 @@ Robot* RobotPool::addRobot(RobotType _type)
 		mDozers.push_back(new Robodozer());
 		return mDozers.back();
 		break;
+
 	case ROBOT_DIGGER:
 		mDiggers.push_back(new Robodigger());
 		return mDiggers.back();
 		break;
+
 	case ROBOT_MINER:
 		mMiners.push_back(new Robominer());
 		return mMiners.back();
 		break;
+
 	default:
 		break;
 	}
@@ -80,8 +91,7 @@ Robodigger* RobotPool::getDigger()
 {
 	for (size_t i = 0; i < mDiggers.size(); i++)
 	{
-		if (mDiggers[i]->idle())
-			return mDiggers[i];
+		if (mDiggers[i]->idle()) { return mDiggers[i]; }
 	}
 
 	return nullptr;
@@ -97,8 +107,7 @@ Robodozer* RobotPool::getDozer()
 {
 	for (size_t i = 0; i < mDozers.size(); i++)
 	{
-		if (mDozers[i]->idle())
-			return mDozers[i];
+		if (mDozers[i]->idle()) { return mDozers[i]; }
 	}
 
 	return nullptr;
@@ -114,8 +123,7 @@ Robominer* RobotPool::getMiner()
 {
 	for (size_t i = 0; i < mMiners.size(); i++)
 	{
-		if (mMiners[i]->idle())
-			return mMiners[i];
+		if (mMiners[i]->idle()) { return mMiners[i]; }
 	}
 
 	return nullptr;
@@ -129,20 +137,23 @@ Robominer* RobotPool::getMiner()
  */
 bool RobotPool::robotAvailable(RobotType _type)
 {
-	switch(_type)
+	switch (_type)
 	{
-		case ROBOT_DIGGER:
-			return getDigger() != nullptr;
-			break;
-		case ROBOT_DOZER:
-			return getDozer() != nullptr;
-			break;
-		case ROBOT_MINER:
-			return getMiner() != nullptr;
-			break;
-		default:
-			return false;
-			break;
+	case ROBOT_DIGGER:
+		return getDigger() != nullptr;
+		break;
+
+	case ROBOT_DOZER:
+		return getDozer() != nullptr;
+		break;
+
+	case ROBOT_MINER:
+		return getMiner() != nullptr;
+		break;
+
+	default:
+		return false;
+		break;
 	}
 
 	return false;
@@ -157,88 +168,113 @@ bool RobotPool::robotAvailable(RobotType _type)
 bool RobotPool::allRobotsBusy()
 {
 	for (size_t i = 0; i < mDozers.size(); i++)
-		if (mDozers[i]->idle())
-			return false;
+	{
+		if (mDozers[i]->idle()) { return false; }
+	}
 
 	for (size_t i = 0; i < mDiggers.size(); i++)
-		if (mDiggers[i]->idle())
-			return false;
+	{
+		if (mDiggers[i]->idle()) { return false; }
+	}
 
 	for (size_t i = 0; i < mMiners.size(); i++)
-		if (mMiners[i]->idle())
-			return false;
+	{
+		if (mMiners[i]->idle()) { return false; }
+	}
 
 	return true;
 }
 
- int RobotPool::getAvailableCount(RobotType _type)
- {
-	 int count = 0;
-	 switch (_type)
-	 {
-		 case ROBOT_DIGGER:
-			 for (size_t i = 0; i < mDiggers.size(); i++)
-				 if (mDiggers[i]->idle()) count++;
-			 break;
-		 case ROBOT_DOZER:
-			 for (size_t i = 0; i < mDozers.size(); i++)
-				 if (mDozers[i]->idle()) count++;
-			 break;
-		 case ROBOT_MINER:
-			 for (size_t i = 0; i < mMiners.size(); i++)
-				 if (mMiners[i]->idle()) count++;
-			 break;
-		 default:
-			 return 0;
-			 break;
-	 }
-	 
-	 return count;
- }
 
- void RobotPool::InitRobotCtrl(uint32_t maxRobotCtrl)
- {
-	 mRobotControlMax = maxRobotCtrl;
-	 mRobotControlCount = 0;
+/**
+ * 
+ */
+int RobotPool::getAvailableCount(RobotType _type)
+{
+	int count = 0;
+	switch (_type)
+	{
+	case ROBOT_DIGGER:
+		for (size_t i = 0; i < mDiggers.size(); i++)
+		{
+			if (mDiggers[i]->idle()) count++;
+		}
+		break;
 
-	 for (size_t i = 0; i < mDiggers.size(); ++i)
-	 {
-		 if (!mDiggers[i]->idle() && !mDiggers[i]->dead()) { mRobotControlCount++; }
-	 }
+	case ROBOT_DOZER:
+		for (size_t i = 0; i < mDozers.size(); i++)
+		{
+			if (mDozers[i]->idle()) count++;
+		}
+		break;
 
-	 for (size_t i = 0; i < mDozers.size(); ++i)
-	 {
-		 if (!mDozers[i]->idle() && !mDozers[i]->dead()) { mRobotControlCount++; }
-	 }
+	case ROBOT_MINER:
+		for (size_t i = 0; i < mMiners.size(); i++)
+		{
+			if (mMiners[i]->idle()) count++;
+		}
+		break;
 
-	 for (size_t i = 0; i < mMiners.size(); ++i)
-	 {
-		 if (!mMiners[i]->idle() && !mMiners[i]->dead()) { mRobotControlCount++; }
-	 }
- }
+	default:
+		return 0;
+		break;
+	}
 
- void RobotPool::AddRobotCtrl()
- {
-	 if (mRobotControlMax>mRobotControlCount)
-	 {
-		 mRobotControlCount++;
-	 }
- }
-
- bool RobotPool::insertRobotIntoTable(RobotTileTable& _rm, Robot* _r, Tile* _t)
- {
-	 if (!_t)
-		 return false;
-
-	 auto it = _rm.find(_r);
-	 if (it != _rm.end())
-		 throw std::runtime_error("GameState::insertRobot(): Attempting to add a duplicate Robot* pointer.");
-
-	 _rm[_r] = _t;
-	 _t->pushThing(_r);
+	return count;
+}
 
 
-	 AddRobotCtrl();
+/**
+ * 
+ */
+void RobotPool::InitRobotCtrl(uint32_t maxRobotCtrl)
+{
+	mRobotControlMax = maxRobotCtrl;
+	mRobotControlCount = 0;
 
-	 return true;
- }
+	for (size_t i = 0; i < mDiggers.size(); ++i)
+	{
+		if (!mDiggers[i]->idle() && !mDiggers[i]->dead()) { mRobotControlCount++; }
+	}
+
+	for (size_t i = 0; i < mDozers.size(); ++i)
+	{
+		if (!mDozers[i]->idle() && !mDozers[i]->dead()) { mRobotControlCount++; }
+	}
+
+	for (size_t i = 0; i < mMiners.size(); ++i)
+	{
+		if (!mMiners[i]->idle() && !mMiners[i]->dead()) { mRobotControlCount++; }
+	}
+}
+
+
+/**
+ * 
+ */
+void RobotPool::AddRobotCtrl()
+{
+	if (mRobotControlMax > mRobotControlCount)
+	{
+		mRobotControlCount++;
+	}
+}
+
+
+/**
+ * 
+ */
+bool RobotPool::insertRobotIntoTable(RobotTileTable& _rm, Robot* _r, Tile* _t)
+{
+	if (!_t) { return false; }
+
+	auto it = _rm.find(_r);
+	if (it != _rm.end()) { throw std::runtime_error("GameState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
+
+	_rm[_r] = _t;
+	_t->pushThing(_r);
+
+	AddRobotCtrl();
+
+	return true;
+}
