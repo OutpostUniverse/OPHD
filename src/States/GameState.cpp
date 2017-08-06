@@ -1468,19 +1468,7 @@ void GameState::updateRobots()
 		}
 	}
 
-	auto CommandCenter = mStructureManager.structureList(Structure::CLASS_COMMAND);
-	auto RobotCommand = mStructureManager.structureList(Structure::CLASS_ROBOT_COMMAND);
-
-	// 3 for the first command center
-	uint32_t _maxRobots = 0;
-	if (CommandCenter.size() > 0) { _maxRobots += 3; }
-	// the 10 per robot command facility
-	for (size_t s = 0; s < RobotCommand.size(); ++s)
-	{
-		if (RobotCommand[s]->operational()) { _maxRobots += 10; }
-	}
-
-	mRobotPool.InitRobotCtrl(_maxRobots);
+	updateRobotControl(mRobotPool, mStructureManager);
 }
 
 
@@ -1626,8 +1614,8 @@ void GameState::load(const std::string& _path)
 	XmlAttribute* attribute = map->firstAttribute();
 	while (attribute)
 	{
-		if (attribute->name() == "diggingdepth") attribute->queryIntValue(depth);
-		else if (attribute->name() == "sitemap") sitemap = attribute->value();
+		if (attribute->name() == "diggingdepth") { attribute->queryIntValue(depth); }
+		else if (attribute->name() == "sitemap") { sitemap = attribute->value(); }
 
 		attribute = attribute->next();
 	}
@@ -1656,6 +1644,8 @@ void GameState::load(const std::string& _path)
 
 	checkConnectedness();
 	mStructureManager.updateEnergyProduction(mPlayerResources, mPopulationPool);
+
+	updateRobotControl(mRobotPool, mStructureManager);
 
 	// set level indicator string
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
@@ -1732,7 +1722,6 @@ void GameState::readRobots(XmlElement* _ti)
 void GameState::readStructures(XmlElement* _ti)
 {
 	std::string type;
-	uint32_t _maxRobotCtrl = 0;
 	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
@@ -1773,16 +1762,6 @@ void GameState::readStructures(XmlElement* _ti)
 		StructureID type_id = StructureTranslator::translateFromString(type);
 		st = StructureCatalogue::get(StructureTranslator::translateFromString(type));
 
-		if (type_id == SID_COMMAND_CENTER)
-		{ 
-			mCCLocation(x, y);
-			_maxRobotCtrl += 3;
-		}
-		if (type_id == SID_ROBOT_COMMAND)
-		{
-			_maxRobotCtrl += 10;
-		}
-
 		if (type_id == SID_MINE_FACILITY)
 		{
 			Mine* m = mTileMap->getTile(x, y, 0)->mine();
@@ -1818,8 +1797,6 @@ void GameState::readStructures(XmlElement* _ti)
 
 		mStructureManager.addStructure(st, t);
 	}
-
-	mRobotPool.InitRobotCtrl(_maxRobotCtrl);
 }
 
 
@@ -1882,7 +1859,9 @@ void GameState::readPopulation(XmlElement* _ti)
 void GameState::scrubRobotList()
 {
 	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
+	{
 		it->second->removeThing();
+	}
 }
 
 

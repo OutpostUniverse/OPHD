@@ -1,7 +1,9 @@
 #pragma once
 
+
 #include "Things/Robots/Robots.h"
 #include "Map/Tile.h"
+
 
 class RobotPool
 {
@@ -10,8 +12,8 @@ public:
 	typedef std::vector<Robodozer*> DozerList;
 	typedef std::vector<Robominer*> MinerList;
 	typedef std::map<Robot*, Tile*> RobotTileTable;
-public:
 
+public:
 	RobotPool();
 	~RobotPool();
 
@@ -39,15 +41,11 @@ public:
 	uint32_t robotControlMax() { return mRobotControlMax; };
 	uint32_t currentControlCount() { return mRobotControlCount; };
 
-protected:
-
 private:
-
 	DiggerList		mDiggers;
 	DozerList		mDozers;
 	MinerList		mMiners;
 
 	uint32_t		mRobotControlMax = 0;
 	uint32_t		mRobotControlCount = 0;
-
 };

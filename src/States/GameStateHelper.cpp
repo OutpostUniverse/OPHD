@@ -67,10 +67,32 @@ int totalStorage(StructureManager::StructureList& _sl)
 {
 	int storage = 0;
 	for (size_t i = 0; i < _sl.size(); ++i)
+	{
 		if (_sl[i]->operational())
+		{
 			storage += _sl[i]->storage().capacity();
+		}
+	}
 
 	return constants::BASE_STORAGE_CAPACITY + storage;
+}
+
+
+void updateRobotControl(RobotPool& _rp, StructureManager& _sm)
+{
+	auto CommandCenter = _sm.structureList(Structure::CLASS_COMMAND);
+	auto RobotCommand = _sm.structureList(Structure::CLASS_ROBOT_COMMAND);
+
+	// 3 for the first command center
+	uint32_t _maxRobots = 0;
+	if (CommandCenter.size() > 0) { _maxRobots += 3; }
+	// the 10 per robot command facility
+	for (size_t s = 0; s < RobotCommand.size(); ++s)
+	{
+		if (RobotCommand[s]->operational()) { _maxRobots += 10; }
+	}
+
+	_rp.InitRobotCtrl(_maxRobots);
 }
 
 
