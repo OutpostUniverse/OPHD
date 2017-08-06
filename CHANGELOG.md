@@ -6,6 +6,7 @@ This is the changelog for OutpostHD.
 ### Added
 - Robot Command Center is now fully functional.
 - Added a Nursery structure. Required to keep infant mortality rate at a reasonable level.
+- New Surface Construction Site graphics.
 
 ### Changed
 - Robots can now only be placed within the area of influence of the Command Center and Comm. Towers.

@@ -257,7 +257,9 @@ int GameState::foodInStorage()
 	for (size_t i = 0; i < sl.size(); ++i)
 	{
 		if (sl[i]->operational() || sl[i]->isIdle())
+		{
 			food_count += sl[i]->storage().food();
+		}
 	}
 
 	food_count += mPlayerResources.food();
@@ -272,13 +274,17 @@ int GameState::foodTotalStorage()
 
 	// Command Center has a limited amount of food storage for when colonists first land.
 	if (mCCLocation.x() != 0)
+	{
 		food_storage += constants::BASE_STORAGE_CAPACITY;
+	}
 
 	auto sl = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
 	for (size_t i = 0; i < sl.size(); ++i)
 	{
 		if (sl[i]->operational() || sl[i]->isIdle())
+		{
 			food_storage += AGRIDOME_CAPACITY;
+		}
 	}
 
 	return food_storage;
@@ -1880,10 +1886,8 @@ int moraleChange(StructureManager& _sm, Structure::StructureClass _type)
 	int count = 0;
 	for (auto it = _sm.structureList(_type).begin(); it != _sm.structureList(_type).end(); ++it)
 	{
-		if ((*it)->operational())
-			++count;
-		else if ((*it)->disabled())
-			--count;
+		//if ((*it)->operational()) { ++count; }
+		if ((*it)->disabled()) { --count; }
 	}
 
 	return count;
