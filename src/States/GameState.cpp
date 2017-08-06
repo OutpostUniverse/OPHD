@@ -1575,12 +1575,14 @@ void GameState::load(const std::string& _path)
 	resetUi();
 
 	if (!Utility<Filesystem>::get().exists(_path))
+	{
 		return;
+	}
 
 	File xmlFile = Utility<Filesystem>::get().open(_path);
 
 	XmlDocument doc;
-	XmlElement  *root = nullptr;
+	XmlElement* root = nullptr;
 
 	// Load the XML document and handle any errors if occuring
 	doc.parse(xmlFile.raw_bytes());
@@ -1727,7 +1729,7 @@ void GameState::readRobots(XmlElement* _ti)
 void GameState::readStructures(XmlElement* _ti)
 {
 	std::string type;
-	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0;
+	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0, forced_idle = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
 	for (XmlNode* structure = _ti->firstChild(); structure != nullptr; structure = structure->nextSibling())
@@ -1744,6 +1746,7 @@ void GameState::readStructures(XmlElement* _ti)
 			else if (attribute->name() == "state") { attribute->queryIntValue(state); }
 			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
 			else if (attribute->name() == "type") { type = attribute->value(); }
+			else if (attribute->name() == "forced_idle") { attribute->queryIntValue(forced_idle); }
 
 			else if (attribute->name() == "production_completed") { attribute->queryIntValue(production_completed); }
 			else if (attribute->name() == "production_type") { attribute->queryIntValue(production_type); }
@@ -1792,6 +1795,7 @@ void GameState::readStructures(XmlElement* _ti)
 		st->id(id);
 		st->forced_state_change(static_cast<Structure::StructureState>(state));
 		st->connectorDirection(static_cast<ConnectorDir>(direction));
+		st->forceIdle(forced_idle != 0);
 
 		st->production().deserialize(structure->firstChildElement("production"));
 		st->storage().deserialize(structure->firstChildElement("storage"));

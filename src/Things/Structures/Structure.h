@@ -69,6 +69,9 @@ public:
 
 	bool underConstruction() const { return mStructureState == UNDER_CONSTRUCTION; }
 
+	void forceIdle(bool force);
+	bool forceIdle() const { return mForcedIdle; }
+
 	// RESOURCES AND RESOURCE MANAGEMENT
 	ResourcePool& resourcesIn() { return mResourcesInput; }
 	ResourcePool& resourcesOut() { return mResourcesOutput; }
@@ -146,17 +149,16 @@ private:
 	void incrementAge();
 	virtual void die();
 
-
 private:
 	int						mId;						/**< ID of the Structure. */
 
-	int						mTurnsToBuild;				/**< Number of turns it takes to build the Structure. */
-	int						mAge;						/**< Age of the Structure in turns. */
-	int						mMaxAge;					/**< Maximum number of turns the Structure can remain in good repair. */
+	int						mTurnsToBuild = 0;			/**< Number of turns it takes to build the Structure. */
+	int						mAge = 0;					/**< Age of the Structure in turns. */
+	int						mMaxAge = 0;				/**< Maximum number of turns the Structure can remain in good repair. */
 
-	StructureState			mStructureState;			/**< State the structure is in. */
+	StructureState			mStructureState = UNDER_CONSTRUCTION;	/**< State the structure is in. */
 	StructureClass			mStructureClass;			/**< Indicates the Structure's Type. */
-	ConnectorDir			mConnectorDirection;		/**< Directions available for connections. */
+	ConnectorDir			mConnectorDirection = CONNECTOR_INTERSECTION;		/**< Directions available for connections. */
 
 	PopulationRequirements	mPopulationRequirements;	/**< Population requirements for structure operation. */
 
@@ -166,7 +168,8 @@ private:
 	ResourcePool			mProductionPool;			/**< Resource pool used for production. */
 	ResourcePool			mStoragePool;				/**< Resource storage pool. */
 
-	bool					mRepairable;				/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
-	bool					mRequiresCHAP;				/**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
-	bool					mSelfSustained;				/**< Indicates that the Structure is self contained and can operate by itself. */
+	bool					mRepairable = true;			/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
+	bool					mRequiresCHAP = true;		/**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
+	bool					mSelfSustained = false;		/**< Indicates that the Structure is self contained and can operate by itself. */
+	bool					mForcedIdle = false;		/**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };

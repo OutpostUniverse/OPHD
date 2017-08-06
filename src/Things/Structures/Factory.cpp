@@ -26,11 +26,7 @@ void fillTable()
 }
 
 
-Factory::Factory(const std::string& name, const std::string& sprite_path):	Structure(name, sprite_path, CLASS_FACTORY),
-																	mTurnsCompleted(0),
-																	mTurnsToComplete(0),
-																	mProduct(PRODUCT_NONE),
-																	mResourcesPool(nullptr)
+Factory::Factory(const std::string& name, const std::string& sprite_path):	Structure(name, sprite_path, CLASS_FACTORY)
 {
 	fillTable();
 }

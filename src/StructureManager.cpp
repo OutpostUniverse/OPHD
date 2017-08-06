@@ -25,8 +25,12 @@ StructureManager::~StructureManager()
 bool StructureManager::CHAPAvailable()
 {
 	for (size_t i = 0; i < mStructureLists[Structure::CLASS_LIFE_SUPPORT].size(); ++i)
+	{
 		if (mStructureLists[Structure::CLASS_LIFE_SUPPORT][i]->operational())
+		{
 			return true;
+		}
+	}
 
 	return false;
 }
@@ -127,7 +131,9 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 			continue;
 		}
 		else
+		{
 			structure->enable();
+		}
 
 		// Check that enough resources are available for input.
 		if (!structure->resourcesIn().empty() && !structure->enoughResourcesAvailable(_r) && !structure->isIdle())
@@ -139,7 +145,9 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 			}
 		}
 		else
+		{
 			structure->enable();
+		}
 
 
 		if (structure->operational() || structure->isIdle())
@@ -335,6 +343,7 @@ void serializeStructure(XmlElement* _ti, Structure* _s, Tile* _t)
 	_ti->attribute("age", _s->age());
 	_ti->attribute("state", _s->state());
 	//_ti->SetAttribute("type", StructureTranslator::translateFromString(_s->name()));
+	_ti->attribute("forced_idle", _s->forceIdle());
 	_ti->attribute("type", _s->name());
 	_ti->attribute("direction", _s->connectorDirection());
 

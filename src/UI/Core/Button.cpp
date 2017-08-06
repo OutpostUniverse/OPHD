@@ -69,10 +69,7 @@ void Button::toggle(bool toggle)
 
 bool Button::toggled() const
 {
-	if(mState == STATE_PRESSED)
-		return true;
-
-	return false;
+	return mState == STATE_PRESSED;
 }
 
 

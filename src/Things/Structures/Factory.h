@@ -69,7 +69,6 @@ public:
 	typedef std::vector<ProductType> ProductionTypeList;
 
 public:
-
 	Factory(const std::string& name, const std::string& sprite_path);
 	virtual ~Factory();
 
@@ -96,7 +95,6 @@ public:
 	ProductionCallback& productionComplete() { return mProductionComplete; }
 
 protected:
-
 	void productionComplete(ProductType _p);
 
 	void clearProduction();
@@ -107,15 +105,14 @@ protected:
 	ResourcePool* resourcePool() { return mResourcesPool; }
 
 private:
+	int								mTurnsCompleted = 0;
+	int								mTurnsToComplete = 0;
 
-	int								mTurnsCompleted;
-	int								mTurnsToComplete;
-
-	ProductType						mProduct;
+	ProductType						mProduct = PRODUCT_NONE;
 
 	ProductionTypeList				mAvailableProducts;			/**< List of products that the Factory can produce. */
 
 	ProductionCallback				mProductionComplete;		/**< Callback used when production is complete. */
 
-	ResourcePool*					mResourcesPool;				/**< Pointer to the player's resource pool. UGLY. */
+	ResourcePool*					mResourcesPool = nullptr;	/**< Pointer to the player's resource pool. UGLY. */
 };

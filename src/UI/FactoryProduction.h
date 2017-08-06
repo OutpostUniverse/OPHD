@@ -27,6 +27,10 @@ protected:
 private:
 	void btnOkayClicked();
 	void btnCancelClicked();
+	void btnClearSelectionClicked();
+	void btnIdleClicked();
+
+	void clearProduct();
 
 	FactoryProduction();
 	FactoryProduction(const FactoryProduction&);
@@ -35,9 +39,9 @@ private:
 	void productSelectionChanged(const std::string&);
 
 private:
-	Factory*					mFactory;
+	Factory*					mFactory = nullptr;
 
-	Factory::ProductType		mProduct;
+	Factory::ProductType		mProduct = Factory::PRODUCT_NONE;
 	ProductionCost				mProductCost;
 
 	Font						mBold;
@@ -46,4 +50,6 @@ private:
 
 	Button						btnOkay;
 	Button						btnCancel;
+	Button						btnClearSelection;
+	Button						btnIdle;
 };

@@ -8,15 +8,7 @@ using namespace std;
  */
 Structure::Structure(const string& name, const string& sprite_path, StructureClass _t):	Thing(name, sprite_path),
 																						mId((long)(this)), // naive
-																						mTurnsToBuild(0),
-																						mAge(0),
-																						mMaxAge(0),
-																						mStructureState(UNDER_CONSTRUCTION),
-																						mStructureClass(_t),
-																						mConnectorDirection(CONNECTOR_INTERSECTION),
-																						mRepairable(true),
-																						mRequiresCHAP(true), // Most structures require a CHAP facility in order to operate.
-																						mSelfSustained(false)
+																						mStructureClass(_t)
 {
 	mPopulationRequirements.fill(0);
 }
@@ -46,6 +38,8 @@ void Structure::disable()
 */
 void Structure::enable()
 {
+	if (forceIdle()) { idle(); return; }
+
 	sprite().resume();
 	sprite().color(255, 255, 255, 255);
 	state(OPERATIONAL);
@@ -57,9 +51,34 @@ void Structure::enable()
 */
 void Structure::idle()
 {
+	if (forceIdle()) { return; }
+
 	sprite().pause();
 	sprite().color(255, 255, 255, 185);
 	state(IDLE);
+}
+
+
+/**
+ * Forces an idle state. Used to prevent automatic enabling of the
+ * Structure.
+ */
+void Structure::forceIdle(bool force)
+{
+	if (disabled() || destroyed()) { return; }
+
+	// Note that the order in which the flag is set matters
+	// in terms of the logic involved here.
+	if (force)
+	{
+		idle();
+		mForcedIdle = true;
+	}
+	else
+	{
+		mForcedIdle = false;
+		enable();
+	}
 }
 
 
