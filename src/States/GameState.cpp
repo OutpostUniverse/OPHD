@@ -433,21 +433,25 @@ void GameState::drawNavInfo()
 
 
 	// display the levels "bar"
-	int iWidth;
 	string sLevel;
-	int iPosX;
-	int iPosY;
-	iWidth = mTinyFontBold.width("IX");								// set steps character patern width
-	iPosX = r.width() - 5;											// set start position from right border
-	iPosY = mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10;	// set vertical position
+
+	int iWidth = mTinyFontBold.width("IX");								// set steps character patern width
+	int iPosX = r.width() - 5;											// set start position from right border
+	int iPosY = mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10;	// set vertical position
+	
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)					//
 	{
 		sLevel = string_format("%i", i);	// Set string for current level
 		if (i == 0) sLevel = "S";			// surface level
 		if (i == mTileMap->currentDepth())
+		{
 			r.drawText(mTinyFontBold, sLevel, iPosX - mTinyFontBold.width(sLevel), iPosY, 255, 0, 0);		// Others in white
+		}
 		else
+		{
 			r.drawText(mTinyFontBold, sLevel, iPosX - mTinyFontBold.width(sLevel), iPosY, 200, 200, 200);	// current one in red
+		}
+
 		iPosX = iPosX - iWidth;				// Shift position by one step left
 	}
 }
@@ -585,14 +589,12 @@ void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 			break;
 
 		case EventHandler::KEY_F2:
-			//save(constants::SAVE_GAME_PATH + "test.xml");
 			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 			mFileIoDialog.setMode(FileIo::FILE_SAVE);
 			mFileIoDialog.show();
 			break;
 
 		case EventHandler::KEY_F3:
-			//load(constants::SAVE_GAME_PATH + "test.xml");
 			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 			mFileIoDialog.setMode(FileIo::FILE_LOAD);
 			mFileIoDialog.show();
@@ -604,7 +606,7 @@ void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 			break;
 
 		case EventHandler::KEY_ENTER:
-			nextTurn();
+			if (mBtnTurns.enabled()) { nextTurn(); }
 			break;
 
 		default:
