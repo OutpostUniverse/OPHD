@@ -25,9 +25,7 @@ https://www.microsoft.com/en-us/download/details.aspx?id=48145
 The only current build of OutpostHD is Windows but as I understand MacOS X development and program distribution, MacOS distributions come as a 'bundle' with all necessary dependencies packaged in.
 
 ### Linux
-The only current build of OutpostHD is Windows but should, with a few minor modifications to some of its underlying libraries, build a run on Linux. As I have no experience with Linux and providing prebuilt binaries for said system, any and all libraries that OutpostHD links against will need to be installed. In the past I had to do this manually so you may need to as well.
-
-See your distribution's readme files for information on how to download and install the necessary dependencies.
+OutpostHD does build and run under Linux. Some of the contributing maintainers have been able to build and run OPHD on Arch Linux and Ubuntu Linux. No official Linux build is available yet but we're working on it!
 
 ## Configuration
 At the moment there are very few configurable options for OutpostHD. All of it must be done via the XML configuration file (config.xml) located in the 'data' subdirectory.
@@ -103,6 +101,9 @@ A: Yes. After the first time the game runs, an automatically generated configura
 A: You can visit The Outpost Universe's Forums (http://forum.outpost2.net) and visit the Main Projects forum.
 
 Alternatively, you can hop onto IRC and join OPU's official IRC channel and ask for help there. The lead developer, leeor_net, is often available during the day (US Eastern Time, UTC-5:00). (IRC Server: irc.quakenet.org, channel #Outpost2).
+
+## License
+OutpostHD is distributed under a BSD 3-clause license. See LICENSE.txt for details.
 
 ## Maintainers
 OutpostHD is developed and maintained by the following contributors:
