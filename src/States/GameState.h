@@ -129,8 +129,19 @@ private:
 
 	bool changeDepth(int _d);
 
+	int foodInStorage();
+	int foodTotalStorage();
+
 	void setStructureID(StructureID type, InsertMode mode);
 
+	// TURN LOGIC
+	void nextTurn();
+	void updatePopulation();
+	void updateMorale();
+	void updateResources();
+	void checkColonyShip();
+
+	// Savegame Loading / Saving
 	void readRobots(Xml::XmlElement* _ti);
 	void readStructures(Xml::XmlElement* _ti);
 	void readTurns(Xml::XmlElement* _ti);
@@ -161,11 +172,6 @@ private:
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t);
 
 	void fileIoAction(const std::string& _file, FileIo::FileOperation _op);
-
-	int foodInStorage();
-	int foodTotalStorage();
-
-	void nextTurn();
 
 private:
 	FpsCounter			mFps;

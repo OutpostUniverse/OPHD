@@ -1446,7 +1446,6 @@ void GameState::deploySeedLander(int x, int y)
  */
 void GameState::updateRobots()
 {
-	uint32_t MaxRobots = 0;
 	auto robot_it = mRobotList.begin();
 	while(robot_it != mRobotList.end())
 	{
@@ -1456,28 +1455,32 @@ void GameState::updateRobots()
 		if(robot_it->first->idle())
 		{
 			// Make sure that we're the robot from a Tile and not something else
-			if(robot_it->second->thing() == robot_it->first)
+			if (robot_it->second->thing() == robot_it->first)
+			{
 				robot_it->second->removeThing();
+			}
 
 			robot_it = mRobotList.erase(robot_it);
 		}
 		else
+		{
 			++robot_it;
+		}
 	}
 
-	
 	auto CommandCenter = mStructureManager.structureList(Structure::CLASS_COMMAND);
 	auto RobotCommand = mStructureManager.structureList(Structure::CLASS_ROBOT_COMMAND);
 
 	// 3 for the first command center
-	if(CommandCenter.size()>0) MaxRobots += 3;
+	uint32_t _maxRobots = 0;
+	if (CommandCenter.size() > 0) { _maxRobots += 3; }
 	// the 10 per robot command facility
 	for (size_t s = 0; s < RobotCommand.size(); ++s)
 	{
-		if (RobotCommand[s]->operational()) MaxRobots += 10;
+		if (RobotCommand[s]->operational()) { _maxRobots += 10; }
 	}
 
-	mRobotPool.InitRobotCtrl(MaxRobots);
+	mRobotPool.InitRobotCtrl(_maxRobots);
 }
 
 
@@ -1508,17 +1511,23 @@ void GameState::setStructureID(StructureID type, InsertMode mode)
 void GameState::checkConnectedness()
 {
 	if (mCCLocation.x() == 0 && mCCLocation.y() == 0)
+	{
 		return;
+	}
 
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
 	Tile *t = mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0);
 	Structure *cc = t->structure();
 
 	if (!cc)
+	{
 		throw std::runtime_error("CC coordinates do not actually point to a Command Center.");
+	}
 
 	if (cc->state() == Structure::UNDER_CONSTRUCTION)
+	{
 		return;
+	}
 
 	t->connected(true);
 
@@ -1723,7 +1732,7 @@ void GameState::readRobots(XmlElement* _ti)
 void GameState::readStructures(XmlElement* _ti)
 {
 	std::string type;
-	uint32_t MaxRobotCtrl = 0;
+	uint32_t _maxRobotCtrl = 0;
 	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
@@ -1767,24 +1776,28 @@ void GameState::readStructures(XmlElement* _ti)
 		if (type_id == SID_COMMAND_CENTER)
 		{ 
 			mCCLocation(x, y);
-			MaxRobotCtrl += 3;
+			_maxRobotCtrl += 3;
 		}
 		if (type_id == SID_ROBOT_COMMAND)
 		{
-			MaxRobotCtrl += 10;
+			_maxRobotCtrl += 10;
 		}
 
 		if (type_id == SID_MINE_FACILITY)
 		{
 			Mine* m = mTileMap->getTile(x, y, 0)->mine();
 			if (m == nullptr)
+			{
 				throw runtime_error("Mine Facility is located on a Tile with no Mine.");
+			}
 
 			static_cast<MineFacility*>(st)->mine(m);
 		}
 
 		if (type_id == SID_AIR_SHAFT && depth > 0)
-			static_cast<AirShaft*>(st)->ug();
+		{
+			static_cast<AirShaft*>(st)->ug(); // force underground state
+		}
 
 		st->age(age);
 		st->id(id);
@@ -1805,7 +1818,8 @@ void GameState::readStructures(XmlElement* _ti)
 
 		mStructureManager.addStructure(st, t);
 	}
-	mRobotPool.InitRobotCtrl(MaxRobotCtrl);
+
+	mRobotPool.InitRobotCtrl(_maxRobotCtrl);
 }
 
 
@@ -1881,19 +1895,6 @@ void GameState::updateCurrentLevelString(int currentDepth)
 }
 
 
-int moraleChange(StructureManager& _sm, Structure::StructureClass _type)
-{
-	int count = 0;
-	for (auto it = _sm.structureList(_type).begin(); it != _sm.structureList(_type).end(); ++it)
-	{
-		//if ((*it)->operational()) { ++count; }
-		if ((*it)->disabled()) { --count; }
-	}
-
-	return count;
-}
-
-
 int pullFood(ResourcePool& _rp, int amount)
 {
 	if (amount <= _rp.food())
@@ -1910,18 +1911,8 @@ int pullFood(ResourcePool& _rp, int amount)
 }
 
 
-void GameState::nextTurn()
+void GameState::updatePopulation()
 {
-	clearMode();
-
-	mPopulationPool.clear();
-
-	mStructureManager.disconnectAll();
-	checkConnectedness();
-	mStructureManager.update(mPlayerResources, mPopulationPool);
-
-	mPreviousMorale = mCurrentMorale;
-
 	int residences = mStructureManager.getCountInState(Structure::CLASS_RESIDENCE, Structure::OPERATIONAL);
 	int universities = mStructureManager.getCountInState(Structure::CLASS_UNIVERSITY, Structure::OPERATIONAL);
 	int nurseries = mStructureManager.getCountInState(Structure::CLASS_NURSERY, Structure::OPERATIONAL);
@@ -1943,8 +1934,11 @@ void GameState::nextTurn()
 
 		remainder -= pullFood(foodproducers[i]->storage(), remainder);
 	}
+}
 
-	// MORALE
+
+void GameState::updateMorale()
+{
 	// Positive Effects
 	mCurrentMorale += mPopulation.birthCount();
 	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_PARK, Structure::OPERATIONAL);
@@ -1961,7 +1955,11 @@ void GameState::nextTurn()
 	mCurrentMorale -= mStructureManager.destroyed();
 
 	mCurrentMorale = clamp(mCurrentMorale, 0, 1000);
+}
 
+
+void GameState::updateResources()
+{
 	// Update storage capacity
 	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::CLASS_STORAGE)));
 
@@ -1984,7 +1982,7 @@ void GameState::nextTurn()
 
 		for (size_t s = 0; s < smelters.size(); ++s)
 		{
-			if(smelters[s]->operational())
+			if (smelters[s]->operational())
 				smelters[s]->production().pushResources(truck);
 		}
 
@@ -2011,24 +2009,21 @@ void GameState::nextTurn()
 			break;	// we're at max capacity in our storage, dump what's left in the smelter it came from and barf.
 		}
 	}
+}
 
-	updateRobots();
 
-	Structure* cc = mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();
-	if (cc->state() == Structure::OPERATIONAL)
-		populateStructureMenu();
-
-	mTurnCount++;
-
-	// Check for colony ship deorbiting; if any colonists are remaining, kill
-	// them and reduce morale by an appropriate amount.
+/**
+ * Check for colony ship deorbiting; if any colonists are remaining, kill
+ * them and reduce morale by an appropriate amount.
+ */
+void GameState::checkColonyShip()
+{
 	if (mTurnCount == constants::COLONY_SHIP_ORBIT_TIME)
 	{
 		if (mLandersColonist > 0)
 		{
-			mCurrentMorale -= (mLandersColonist * 50) * 6; // TODO: apply a modifier to multiplier based on difficulty level.
-			if (mCurrentMorale < 0)
-				mCurrentMorale = 0;
+			mCurrentMorale -= (mLandersColonist * 50) * 6; /// \todo apply a modifier to multiplier based on difficulty level.
+			if (mCurrentMorale < 0) { mCurrentMorale = 0; }
 
 			mLandersColonist = 0;
 
@@ -2046,6 +2041,32 @@ void GameState::nextTurn()
 		}
 	}
 
+}
+
+
+void GameState::nextTurn()
+{
+	clearMode();
+
+	mPopulationPool.clear();
+
+	mStructureManager.disconnectAll();
+	checkConnectedness();
+	mStructureManager.update(mPlayerResources, mPopulationPool);
+
+	mPreviousMorale = mCurrentMorale;
+
+	updatePopulation();
+	updateMorale();
+	updateRobots();
+
+	Structure* cc = mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();
+	if (cc->state() == Structure::OPERATIONAL)
+	{
+		populateStructureMenu();
+	}
+
+	checkColonyShip();
 
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)
@@ -2053,4 +2074,6 @@ void GameState::nextTurn()
 		hideUi();
 		mGameOverDialog.show();
 	}
+
+	mTurnCount++;
 }

@@ -540,11 +540,17 @@ void GameState::updateStructuresAvailability()
 	{
 		structure = StructureTranslator::translateToString(static_cast<StructureID>(sid));
 		if (structure.empty())
+		{
 			continue;
+		}
 
 		if (StructureCatalogue::canBuild(mPlayerResources, static_cast<StructureID>(sid)))
+		{
 			mStructures.itemAvailable(structure, true);
+		}
 		else
+		{
 			mStructures.itemAvailable(structure, false);
+		}
 	}
 }
