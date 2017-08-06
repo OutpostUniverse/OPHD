@@ -7,6 +7,8 @@ This is the changelog for OutpostHD.
 - Robot Command Center is now fully functional.
 - Added a Nursery structure. Required to keep infant mortality rate at a reasonable level.
 - New Surface Construction Site graphics.
+- F11 keybinding to switch between fullscreen and windowed mode.
+- Game window is resizable (minimum size 800x600).
 
 ### Changed
 - Robots can now only be placed within the area of influence of the Command Center and Comm. Towers.
@@ -15,7 +17,8 @@ This is the changelog for OutpostHD.
 - Structures can now only be placed within 15 tiles of the command center.
 - Robots can now only be placed within 15 tiles of the command center.
 - The population model has been completely rewritten. It now accounts for morale, residences, universities and hospitals.
-- 
+- Factory Production window now allows the user to set a factory to Idle. This is not undone until the user explicitely states it.
+- Factory Production window now has a "Clear Selection" button. This provides a much more obvious way to clear the selection vs. clicking outside a product icon in the product grid.
 
 ### Fixed
 - FileOP button (Save/Load) in FileIO window will now start off disabled when first displayed.
