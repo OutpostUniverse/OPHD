@@ -7,6 +7,7 @@
 #include "ColonistLander.h"
 #include "CommandCenter.h"
 #include "Commercial.h"
+#include "CommTower.h"
 #include "FusionReactor.h"
 #include "Laboratory.h"
 #include "MedicalCenter.h"

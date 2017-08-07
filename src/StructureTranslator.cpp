@@ -35,6 +35,7 @@ void StructureTranslator::buildTables()
 	_stringToStructureTable[constants::COLONIST_LANDER] = SID_COLONIST_LANDER;
 	_stringToStructureTable[constants::COMMAND_CENTER] = SID_COMMAND_CENTER;
 	_stringToStructureTable[constants::COMMERCIAL] = SID_COMMERCIAL;
+	_stringToStructureTable[constants::COMM_TOWER] = SID_COMM_TOWER;
 	_stringToStructureTable[constants::FUSION_REACTOR] = SID_FUSION_REACTOR;
 	_stringToStructureTable[constants::HOT_LABORATORY] = SID_HOT_LABORATORY;
 	_stringToStructureTable[constants::LABORATORY] = SID_LABORATORY;
@@ -70,6 +71,7 @@ void StructureTranslator::buildTables()
 	_structureToStringTable[SID_COLONIST_LANDER] = constants::COLONIST_LANDER;
 	_structureToStringTable[SID_COMMAND_CENTER] = constants::COMMAND_CENTER;
 	_structureToStringTable[SID_COMMERCIAL] = constants::COMMERCIAL;
+	_structureToStringTable[SID_COMM_TOWER] = constants::COMM_TOWER;
 	_structureToStringTable[SID_FUSION_REACTOR] = constants::FUSION_REACTOR;
 	_structureToStringTable[SID_HOT_LABORATORY] = constants::HOT_LABORATORY;
 	_structureToStringTable[SID_LABORATORY] = constants::LABORATORY;

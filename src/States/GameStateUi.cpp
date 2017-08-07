@@ -270,6 +270,7 @@ void GameState::populateStructureMenu()
 		mStructures.addItem(constants::FUSION_REACTOR, 21);
 		mStructures.addItem(constants::HOT_LABORATORY, 18);
 		mStructures.addItem(constants::ROBOT_COMMAND, 14);
+		mStructures.addItem(constants::COMM_TOWER, 22);
 		mStructures.addItem(constants::SURFACE_POLICE, 23);
 		mStructures.addItem(constants::SMELTER, 4);
 		mStructures.addItem(constants::SOLAR_PLANT, 10);

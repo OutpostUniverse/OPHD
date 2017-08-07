@@ -7,7 +7,7 @@ using namespace std;
 namespace constants
 {
 	// MISCELLANEOUS
-	const string	VERSION = "v0.7.1";
+	const string	VERSION = "v0.7.5";
 	const string	EMPTY_STR = "";
 
 	const string	PLANET_DESCRIPTION_GANYMEDE = "Like Jupiter's moon Ganymede, this planet contains a sub-surface ocean and a magnetic field. Despite having a magnetic field indicating a liquid core, there is no atpmosphere. \n \n This planet tends to be farther from the host star so solar satellites aren't going to be very useful.";
@@ -45,6 +45,7 @@ namespace constants
 	const string	COLONIST_LANDER = "Colonist Lander";
 	const string	COMMAND_CENTER = "Command Center";
 	const string	COMMERCIAL = "Commercial";
+	const string	COMM_TOWER = "Communications Tower";
 	const string	FUSION_REACTOR = "Fusion Reactor";
 	const string	HOT_LABORATORY = "Hot Laboratory";
 	const string	LABORATORY = "Laboratory";

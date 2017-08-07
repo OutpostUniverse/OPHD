@@ -70,6 +70,7 @@ void StructureManager::update(ResourcePool& _r, PopulationPool& _p)
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LABORATORY]);
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_COMMERCIAL]);
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_UNIVERSITY]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_COMM]);
 
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_UNDEFINED]);
 

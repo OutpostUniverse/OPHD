@@ -55,6 +55,10 @@ Structure* StructureCatalogue::get(StructureID type)
 			_st = new Commercial();
 			break;
 
+		case SID_COMM_TOWER:
+			_st = new CommTower();
+			break;
+
 		case SID_FUSION_REACTOR:
 			_st = new FusionReactor();
 			break;
@@ -237,17 +241,17 @@ void StructureCatalogue::buildCostTable()
 	mStructureCostTable[SID_CHAP]					= ResourcePool(0, 0, 0, 0, 50, 10, 20, 5, 0, 0);
 	mStructureCostTable[SID_COMMAND_CENTER]			= ResourcePool(0, 0, 0, 0, 100, 75, 65, 35, 0, 0);
 	mStructureCostTable[SID_COMMERCIAL]				= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_COMM_TOWER]				= ResourcePool(0, 0, 0, 0, 30, 10, 5, 5, 0, 0);
 	mStructureCostTable[SID_FUSION_REACTOR]			= ResourcePool(0, 0, 0, 0, 75, 25, 50, 30, 0, 0);
-	mStructureCostTable[SID_HOT_LABORATORY]			= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
+	mStructureCostTable[SID_HOT_LABORATORY]			= ResourcePool(0, 0, 0, 0, 45, 10, 15, 5, 0, 0);
 	mStructureCostTable[SID_LABORATORY]				= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
-	mStructureCostTable[SID_MEDICAL_CENTER]			= ResourcePool(0, 0, 0, 0, 20, 5, 2, 0, 0, 0);
-	mStructureCostTable[SID_MINE_FACILITY]			= ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
+	mStructureCostTable[SID_MEDICAL_CENTER]			= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_NURSERY]				= ResourcePool(0, 0, 0, 0, 20, 10, 5, 0, 0, 0);
 	mStructureCostTable[SID_PARK]					= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_SURFACE_POLICE]			= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_UNDERGROUND_POLICE]		= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_RECREATION_CENTER]		= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
-	mStructureCostTable[SID_RED_LIGHT_DISTRICT]		= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
+	mStructureCostTable[SID_RED_LIGHT_DISTRICT]		= ResourcePool(0, 0, 0, 0, 20, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_RESIDENCE]				= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_ROBOT_COMMAND]			= ResourcePool(0, 0, 0, 0, 75, 50, 45, 25, 0, 0);
 	mStructureCostTable[SID_SMELTER]				= ResourcePool(0, 0, 0, 0, 30, 20, 10, 5, 0, 0);
@@ -272,6 +276,7 @@ void StructureCatalogue::buildRecycleValueTable()
 
 	// Set recycling values for landers and automatically built structures.
 	// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
+	mStructureRecycleValueTable[SID_MINE_FACILITY]		= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
 	mStructureRecycleValueTable[SID_COLONIST_LANDER]	= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
 	mStructureRecycleValueTable[SID_SEED_LANDER]		= ResourcePool(0, 0, 0, 0, 10, 5, 5, 5, 0, 0);
 	mStructureRecycleValueTable[SID_SEED_FACTORY]		= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);

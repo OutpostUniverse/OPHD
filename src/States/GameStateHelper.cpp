@@ -96,6 +96,44 @@ void updateRobotControl(RobotPool& _rp, StructureManager& _sm)
 }
 
 
+bool structureIsLander(StructureID id)
+{
+	return id == SID_SEED_LANDER || id == SID_COLONIST_LANDER;
+}
+
+
+bool selfSustained(StructureID id)
+{
+	return id == SID_COMM_TOWER;
+}
+
+
+bool outOfCommRange(StructureManager& sm, Point_2d& cc_location, TileMap* tile_map, Tile* current_tile)
+{
+	Tile* tile = tile_map->getVisibleTile();
+
+	if (tile->distanceTo(tile_map->getTile(cc_location.x(), cc_location.y(), 0)) <= constants::ROBOT_COM_RANGE)
+		return false;
+
+	Tile* _comm_t = nullptr;
+	for (auto _tower : sm.structureList(Structure::CLASS_COMM))
+	{
+		if (!_tower->operational())
+		{
+			continue;
+		}
+
+		_comm_t = sm.tileFromStructure(_tower);
+		if (_comm_t->distanceTo(current_tile) <= constants::COMM_TOWER_BASE_RANGE)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+
 // ==============================================================
 // = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
 // ==============================================================

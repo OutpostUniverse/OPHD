@@ -242,6 +242,7 @@
     <ClInclude Include="..\..\src\Things\Structures\CommandCenter.h" />
     <ClInclude Include="..\..\src\Things\Structures\Agridome.h" />
     <ClInclude Include="..\..\src\Things\Structures\Commercial.h" />
+    <ClInclude Include="..\..\src\Things\Structures\CommTower.h" />
     <ClInclude Include="..\..\src\Things\Structures\Factory.h" />
     <ClInclude Include="..\..\src\Things\Structures\Laboratory.h" />
     <ClInclude Include="..\..\src\Things\Structures\MedicalCenter.h" />

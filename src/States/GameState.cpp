@@ -43,12 +43,6 @@ std::string					CURRENT_LEVEL_STRING;
 std::map <int, std::string>	LEVEL_STRING_TABLE;
 
 
-bool structureIsLander(StructureID id)
-{
-	return id == SID_SEED_LANDER || id == SID_COLONIST_LANDER;
-}
-
-
 /**
  * C'Tor
  */
@@ -206,26 +200,49 @@ State* GameState::update()
 }
 
 
+void drawRange(Rectangle_2d& clipRect, Image& src, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight)
+{
+	int halfWidth = srcWidth / 2;
+	int halfHeight = srcHeight / 2;
+
+	// fixme: find a more efficient way to do this.
+	int xClip = clamp(halfWidth - x, 0, halfWidth);
+	int yClip = clamp(halfHeight - y, 0, halfHeight);
+	int wClip = clamp((x + halfWidth) - clipRect.width(), 0, halfWidth);
+	int hClip = clamp((y + halfHeight) - clipRect.height(), 0, halfHeight);
+
+	Utility<Renderer>::get().drawSubImage(	src,
+											x + clipRect.x() - halfWidth + xClip,
+											y + clipRect.y() - halfHeight + yClip,
+											xClip + srcX,
+											yClip + srcY,
+											srcWidth - xClip - wClip,
+											srcHeight - yClip - hClip);
+}
+
+
 void GameState::drawMiniMap()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	if(mBtnToggleHeightmap.toggled())
-		r.drawImage(mHeightMap, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y());
-	else
-		r.drawImage(mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y());
+	if (mBtnToggleHeightmap.toggled()) { r.drawImage(mHeightMap, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y()); }
+	else { r.drawImage(mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y()); }
 
 	if (mCCLocation.x() != 0 && mCCLocation.y() != 0)
 	{
-		// fixme: find a more efficient way to do this.
-		int xClip = clamp(15 - mCCLocation.x(), 0, 15);
-		int yClip = clamp(15 - mCCLocation.y(), 0, 15);
-		int wClip = clamp((mCCLocation.x() + 15) - mMiniMapBoundingBox.width(), 0, 15);
-		int hClip = clamp((mCCLocation.y() + 15) - mMiniMapBoundingBox.height(), 0, 15);;
-
-		r.drawSubImage(mUiIcons, mCCLocation.x() + mMiniMapBoundingBox.x() - 15 + xClip, mCCLocation.y() + mMiniMapBoundingBox.y() - 15 + yClip, xClip + 166, yClip + 226, 30 - xClip - wClip, 30 - yClip - hClip);
+		drawRange(mMiniMapBoundingBox, mUiIcons, mCCLocation.x(), mCCLocation.y(), 166, 226, 30, 30);
 		r.drawBoxFilled(mCCLocation.x() + mMiniMapBoundingBox.x() - 1, mCCLocation.y() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
 	}
+
+	for (auto _tower : mStructureManager.structureList(Structure::CLASS_COMM))
+	{
+		if (_tower->operational())
+		{
+			Tile* t = mStructureManager.tileFromStructure(_tower);
+			drawRange(mMiniMapBoundingBox, mUiIcons, t->x(), t->y(), 146, 236, 20, 20);
+		}
+	}
+
 
 	for(size_t i = 0; i < mTileMap->mineLocations().size(); i++)
 	{
@@ -624,11 +641,9 @@ void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	// FIXME: Ugly / hacky
-	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
-		return;
+	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible()) { return; }
 
-	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect()))
-		return;
+	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect())) { return; }
 
 	if (mWindowStack.pointInWindow(mMousePosition) && button == EventHandler::BUTTON_LEFT)
 	{
@@ -899,15 +914,11 @@ void GameState::placeRobot()
 {
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
-	if(!mRobotPool.robotCtrlAvailable())
-		return;
-	
-	// Check that the robot is in range of the Command Center
-	/// \todo	implement support for Com tower and robot command
+	if (!mRobotPool.robotCtrlAvailable()) { return; }
 	
 	// NOTE:	This function will never be called until the seed lander is deployed so there
 	//			is no need to check that the CC Location is anything other than { 0, 0 }.
-	if (tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE)
+	if (outOfCommRange(mStructureManager, mCCLocation, mTileMap, tile))
 	{
 		cout << "Robot out of range!" << endl;
 		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
@@ -1236,11 +1247,19 @@ void GameState::placeStructure()
 
 	// NOTE:	This function will never be called until the seed lander is deployed so there
 	//			is no need to check that the CC Location is anything other than { 0, 0 }.
-	if (!structureIsLander(mCurrentStructure) && (tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE))
+	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
+		(tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE))
 	{
 		cout << "Cannot build structures more than 15 tiles away from Command Center." << endl;
 		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		return;
+	}
+
+	///\fixme	Is there a cleaner way to do this besides special case code?
+	if (mCurrentStructure == SID_COMM_TOWER &&
+		(tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE))
+	{
+
 	}
 
 	if(tile->mine() || tile->thing() || (!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
@@ -1280,7 +1299,7 @@ void GameState::placeStructure()
 	}
 	else
 	{
-		if (!validStructurePlacement(tile_x, tile_y))
+		if (!validStructurePlacement(tile_x, tile_y) && !selfSustained(mCurrentStructure))
 		{
 			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 			cout << "GameState::placeStructure(): Invalid structure placement." << endl;

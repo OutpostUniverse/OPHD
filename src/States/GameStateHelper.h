@@ -2,7 +2,7 @@
 
 #include "../Common.h"
 #include "../StructureManager.h"
-#include "../Map/Tile.h"
+#include "../Map/TileMap.h"
 
 typedef std::map<Robot*, Tile*> RobotTileTable;
 
@@ -20,6 +20,18 @@ bool checkStructurePlacement(Tile *tile, Direction dir);
 
 int totalStorage(StructureManager::StructureList& _sl);
 
+
+bool structureIsLander(StructureID id);
+bool outOfCommRange(StructureManager& sm, Point_2d& cc_location, TileMap* tile_map, Tile* current_tile);
+
+/**
+* Determines if the structure requires a tube connection or not.
+*
+* \note	At the moment this is really just a check for comm towers
+*			as all other structures that are self contained are not
+*			placeable by the user.
+*/
+bool selfSustained(StructureID id);
 
 // Serialize / Deserialize
 void writeRobots(NAS2D::Xml::XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);
