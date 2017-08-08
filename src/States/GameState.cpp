@@ -1789,7 +1789,7 @@ void GameState::readStructures(XmlElement* _ti)
 		}
 
 		StructureID type_id = StructureTranslator::translateFromString(type);
-		st = StructureCatalogue::get(StructureTranslator::translateFromString(type));
+		st = StructureCatalogue::get(type_id);
 
 		if (type_id == SID_COMMAND_CENTER)
 		{
@@ -2075,6 +2075,8 @@ void GameState::nextTurn()
 	updatePopulation();
 	updateMorale();
 	updateRobots();
+
+	updateResources();
 
 	Structure* cc = mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();
 	if (cc->state() == Structure::OPERATIONAL)
