@@ -5,7 +5,7 @@ namespace constants
 {
 	const int FADE_SPEED = 175;
 
-	const int PLANET_ANIMATION_SPEED = 65;
+	const int PLANET_ANIMATION_SPEED = 50;
 
 	const int MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING = 20;
 
