@@ -6,7 +6,7 @@
 class UndergroundFactory: public Factory
 {
 public:
-	UndergroundFactory(): Factory(constants::SURFACE_FACTORY, "structures/factory_underground.sprite")
+	UndergroundFactory(): Factory(constants::UNDERGROUND_FACTORY, "structures/factory_underground.sprite")
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);
