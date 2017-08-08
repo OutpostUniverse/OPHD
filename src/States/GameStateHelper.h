@@ -18,6 +18,25 @@ bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir _source_connect
 bool checkStructurePlacement(Tile *tile, Direction dir);
 
 
+/**
+* Checks to see if a tile is a valid tile to place a tube onto.
+*/
+bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir _cd);
+
+
+/**
+* Checks a tile to see if a valid Tube connection is available for Structure placement.
+*/
+bool validStructurePlacement(TileMap* tilemap, int x, int y);
+
+
+/**
+* Check landing site for obstructions such as mining beacons, things
+* and impassable terrain.
+*/
+bool landingSiteSuitable(TileMap* tilemap, int x, int y);
+
+
 int totalStorage(StructureManager::StructureList& _sl);
 
 

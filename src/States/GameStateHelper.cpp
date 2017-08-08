@@ -63,6 +63,30 @@ bool checkStructurePlacement(Tile *tile, Direction dir)
 }
 
 
+/**
+* Checks to see if a tile is a valid tile to place a tube onto.
+*/
+bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir _cd)
+{
+	return	checkTubeConnection(tilemap->getTile(x + 1, y, tilemap->currentDepth()), DIR_EAST, _cd) ||
+		checkTubeConnection(tilemap->getTile(x - 1, y, tilemap->currentDepth()), DIR_WEST, _cd) ||
+		checkTubeConnection(tilemap->getTile(x, y + 1, tilemap->currentDepth()), DIR_SOUTH, _cd) ||
+		checkTubeConnection(tilemap->getTile(x, y - 1, tilemap->currentDepth()), DIR_NORTH, _cd);
+}
+
+
+/**
+* Checks a tile to see if a valid Tube connection is available for Structure placement.
+*/
+bool validStructurePlacement(TileMap* tilemap, int x, int y)
+{
+	return	checkStructurePlacement(tilemap->getTile(x, y - 1, tilemap->currentDepth()), DIR_NORTH) ||
+		checkStructurePlacement(tilemap->getTile(x + 1, y, tilemap->currentDepth()), DIR_EAST) ||
+		checkStructurePlacement(tilemap->getTile(x, y + 1, tilemap->currentDepth()), DIR_SOUTH) ||
+		checkStructurePlacement(tilemap->getTile(x - 1, y, tilemap->currentDepth()), DIR_WEST);
+}
+
+
 int totalStorage(StructureManager::StructureList& _sl)
 {
 	int storage = 0;
@@ -75,6 +99,28 @@ int totalStorage(StructureManager::StructureList& _sl)
 	}
 
 	return constants::BASE_STORAGE_CAPACITY + storage;
+}
+
+
+/**
+* Check landing site for obstructions such as mining beacons, things
+* and impassable terrain.
+*/
+bool landingSiteSuitable(TileMap* tilemap, int x, int y)
+{
+	for (int offY = y - 1; offY <= y + 1; ++offY)
+	{
+		for (int offX = x - 1; offX <= x + 1; ++offX)
+		{
+			Tile* tile = tilemap->getTile(offX, offY);
+			if (tile->index() == TERRAIN_IMPASSABLE || tile->mine() || tile->thing())
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
 }
 
 

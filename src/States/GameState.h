@@ -103,9 +103,6 @@ private:
 
 	void insertTube(ConnectorDir _dir, int depth, Tile* t);
 
-	bool validTubeConnection(int x, int y, ConnectorDir _cd);
-	bool validStructurePlacement(int x, int y);
-
 	void checkRobotSelectionInterface(const std::string rType, int sheetIndex);
 	void dozerTaskFinished(Robot* _r);
 	void diggerTaskFinished(Robot* _r);
@@ -117,7 +114,6 @@ private:
 
 	void deploySeedLander(int x, int y);
 	void insertSeedLander(int x, int y);
-	bool landingSiteSuitable(int x, int y);
 
 	void setMinimapView();
 

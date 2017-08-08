@@ -858,7 +858,7 @@ void GameState::placeTubes()
 	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
 
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
-	if (validTubeConnection(x, y, cd))
+	if (validTubeConnection(mTileMap, x, y, cd))
 	{
 		insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(x, y));
 
@@ -870,30 +870,6 @@ void GameState::placeTubes()
 	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
 	}
-}
-
-
-/**
- * Checks to see if a tile is a valid tile to place a tube onto.
- */
-bool GameState::validTubeConnection(int x, int y, ConnectorDir _cd)
-{
-	return	checkTubeConnection(mTileMap->getTile(x + 1, y, mTileMap->currentDepth()), DIR_EAST, _cd) ||
-			checkTubeConnection(mTileMap->getTile(x - 1, y, mTileMap->currentDepth()), DIR_WEST, _cd) ||
-			checkTubeConnection(mTileMap->getTile(x, y + 1, mTileMap->currentDepth()), DIR_SOUTH, _cd) ||
-			checkTubeConnection(mTileMap->getTile(x, y - 1, mTileMap->currentDepth()), DIR_NORTH, _cd);
-}
-
-
-/**
- * Checks a tile to see if a valid Tube connection is available for Structure placement.
- */
-bool GameState::validStructurePlacement(int x, int y)
-{
-	return	checkStructurePlacement(mTileMap->getTile(x, y - 1), DIR_NORTH) ||
-			checkStructurePlacement(mTileMap->getTile(x + 1, y), DIR_EAST) ||
-			checkStructurePlacement(mTileMap->getTile(x, y + 1), DIR_SOUTH) ||
-			checkStructurePlacement(mTileMap->getTile(x - 1, y), DIR_WEST);
 }
 
 
@@ -1259,7 +1235,7 @@ void GameState::placeStructure()
 	}
 	else if (mCurrentStructure == SID_COLONIST_LANDER)
 	{
-		if (!tile->empty() && tile->index() < 4) // fixme: magic number, tile index 4 == impassable terrain
+		if (!tile->empty() || (tile->index() == TERRAIN_IMPASSABLE))
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
 			cout << "GameState::placeStructure(): Unsuitable landing site -- Impassable Terrain." << endl;
@@ -1280,7 +1256,7 @@ void GameState::placeStructure()
 	}
 	else
 	{
-		if (!validStructurePlacement(tile_x, tile_y) && !selfSustained(mCurrentStructure))
+		if (!validStructurePlacement(mTileMap, tile_x, tile_y) && !selfSustained(mCurrentStructure))
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
@@ -1322,7 +1298,7 @@ void GameState::insertSeedLander(int x, int y)
 	if (x > 3 && x < mTileMap->width() - 4 && y > 3 && y < mTileMap->height() - 4)
 	{
 		// check for obstructions
-		if (!landingSiteSuitable(x, y))
+		if (!landingSiteSuitable(mTileMap, x, y))
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
 			cout << "Unable to place SEED Lander. Tiles obstructed." << endl;
@@ -1346,25 +1322,7 @@ void GameState::insertSeedLander(int x, int y)
 }
 
 
-/**
- * Check landing site for obstructions such as mining beacons, things
- * and impassable terrain.
- */
-bool GameState::landingSiteSuitable(int x, int y)
-{
-	for (int offY = y - 1; offY <= y + 1; ++offY)
-	{
-		for (int offX = x - 1; offX <= x + 1; ++offX)
-		{
-			if (mTileMap->getTile(offX, offY)->index() > TERRAIN_DIFFICULT || mTileMap->getTile(offX, offY)->mine() || mTileMap->getTile(offX, offY)->thing())
-			{
-				return false;
-			}
-		}
-	}
 
-	return true;
-}
 
 
 /**
