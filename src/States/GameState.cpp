@@ -783,13 +783,10 @@ void GameState::onMouseMove(int x, int y, int rX, int rY)
 
 void GameState::onMouseWheel(int x, int y)
 {
-	if (mInsertMode != INSERT_TUBE)
-		return;
+	if (mInsertMode != INSERT_TUBE) { return; }
 
-	if (y > 0)
-		mConnections.decrementSelection();
-	else
-		mConnections.incrementSelection();
+	if (y > 0) { mConnections.decrementSelection(); }
+	else { mConnections.incrementSelection(); }
 }
 
 
@@ -798,8 +795,7 @@ bool GameState::changeDepth(int _d)
 	int mPrevious = mTileMap->currentDepth();
 	mTileMap->currentDepth(_d);
 
-	if (mTileMap->currentDepth() == mPrevious)
-		return false;
+	if (mTileMap->currentDepth() == mPrevious) { return false; }
 
 	clearMode();
 	populateStructureMenu();
@@ -856,12 +852,10 @@ void GameState::placeTubes()
 	int y = mTileMapMouseHover.y();
 
 	Tile* tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
-	if(!tile)
-		return;
+	if (!tile) { return; }
 
 	// Check the basics.
-	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated())
-		return;
+	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
 
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 	if (validTubeConnection(x, y, cd))
@@ -873,7 +867,9 @@ void GameState::placeTubes()
 		checkConnectedness();
 	}
 	else
+	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
+	}
 }
 
 
@@ -912,7 +908,7 @@ void GameState::placeRobot()
 	if (outOfCommRange(mStructureManager, mCCLocation, mTileMap, tile))
 	{
 		cout << "Robot out of range!" << endl;
-		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
+		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::OUT_OF_COMM_RANGE);
 		return;
 	}
 
@@ -935,7 +931,7 @@ void GameState::placeRobot()
 
 			if (_s->name() == constants::COLONIST_LANDER && _s->age() == 0)
 			{
-				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::CC_NO_BULLDOZE); ///\fixme Change this to an invalid dozer warning.
+				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::LANDER_NO_BULLDOZE); ///\fixme Change this to an invalid dozer warning.
 				cout << "Can't place a bulldozer on a landing site!" << endl;
 				return;
 			}
@@ -951,6 +947,7 @@ void GameState::placeRobot()
 		}
 		else if (tile->index() == TERRAIN_DOZED)
 		{
+			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::TILE_BULLDOZED);
 			return;
 		}
 
@@ -1091,13 +1088,14 @@ void GameState::dozerTaskFinished(Robot* _r)
  */
 void GameState::diggerTaskFinished(Robot* _r)
 {
-	if(mRobotList.find(_r) == mRobotList.end())
-		throw std::runtime_error("GameState::diggerTaskFinished() called with a Robot not in the Robot List!");
+	if (mRobotList.find(_r) == mRobotList.end()) { throw std::runtime_error("GameState::diggerTaskFinished() called with a Robot not in the Robot List!"); }
 
 	Tile* t = mRobotList[_r];
 
 	if (t->depth() > mTileMap->maxDepth())
+	{
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
+	}
 
 	// FIXME: Fugly cast.
 	Direction dir = static_cast<Robodigger*>(_r)->direction();
@@ -1108,7 +1106,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 	if(dir == DIR_DOWN)
 	{
 		AirShaft* as1 = new AirShaft();
-		if (t->depth() > 0) as1->ug();
+		if (t->depth() > 0) { as1->ug(); }
 		mStructureManager.addStructure(as1, t);
 
 		AirShaft* as2 = new AirShaft();
@@ -1169,8 +1167,7 @@ void GameState::diggerTaskFinished(Robot* _r)
  */
 void GameState::minerTaskFinished(Robot* _r)
 {
-	if (mRobotList.find(_r) == mRobotList.end())
-		throw std::runtime_error("GameState::minerTaskFinished() called with a Robot not in the Robot List!");
+	if (mRobotList.find(_r) == mRobotList.end()) { throw std::runtime_error("GameState::minerTaskFinished() called with a Robot not in the Robot List!"); }
 
 	Tile* t = mRobotList[_r];
 
@@ -1207,14 +1204,17 @@ void GameState::factoryProductionComplete(Factory::ProductType _p, int id)
 		cout << " RoboDigger" << endl;
 		mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
 		break;
+
 	case Factory::PRODUCT_DOZER:
 		cout << " RoboDozer" << endl;
 		mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
 		break;
+
 	case Factory::PRODUCT_MINER:
 		cout << " RoboMiner" << endl;
 		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
 		break;
+
 	default:
 		cout << "n Unknown Product." << endl;
 		break;
@@ -1228,10 +1228,7 @@ void GameState::factoryProductionComplete(Factory::ProductType _p, int id)
 void GameState::placeStructure()
 {
 	// SID_NONE is a logic error and should fail as loudly as possible.
-	if (mCurrentStructure == SID_NONE)
-	{
-		throw std::runtime_error("GameState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE");
-	}
+	if (mCurrentStructure == SID_NONE) { throw std::runtime_error("GameState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
 
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
@@ -1244,13 +1241,6 @@ void GameState::placeStructure()
 		cout << "Cannot build structures more than 15 tiles away from Command Center." << endl;
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		return;
-	}
-
-	///\fixme	Is there a cleaner way to do this besides special case code?
-	if (mCurrentStructure == SID_COMM_TOWER &&
-		(tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE))
-	{
-
 	}
 
 	if(tile->mine() || tile->thing() || (!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
@@ -1272,7 +1262,7 @@ void GameState::placeStructure()
 		if (!tile->empty() && tile->index() < 4) // fixme: magic number, tile index 4 == impassable terrain
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
-			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
+			cout << "GameState::placeStructure(): Unsuitable landing site -- Impassable Terrain." << endl;
 			return;
 		}
 
@@ -1306,11 +1296,8 @@ void GameState::placeStructure()
 		}
 
 		Structure* _s = StructureCatalogue::get(mCurrentStructure);
-		if (!_s)
-		{
-			cout << "GameState::placeStructure(): Unknown structure type." << endl;
-			return;
-		}
+		if (!_s) { throw std::runtime_error("GameState::placeStructure(): NULL Structure returned from StructureCatalog."); }
+
 		mStructureManager.addStructure(_s, tile);
 
 		// FIXME: Ugly
@@ -1365,10 +1352,16 @@ void GameState::insertSeedLander(int x, int y)
  */
 bool GameState::landingSiteSuitable(int x, int y)
 {
-	for(int offY = y - 1; offY <= y + 1; ++offY)
-		for(int offX = x - 1; offX <= x + 1; ++offX)
+	for (int offY = y - 1; offY <= y + 1; ++offY)
+	{
+		for (int offX = x - 1; offX <= x + 1; ++offX)
+		{
 			if (mTileMap->getTile(offX, offY)->index() > TERRAIN_DIFFICULT || mTileMap->getTile(offX, offY)->mine() || mTileMap->getTile(offX, offY)->thing())
+			{
 				return false;
+			}
+		}
+	}
 
 	return true;
 }

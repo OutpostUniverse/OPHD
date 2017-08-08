@@ -87,7 +87,9 @@ int main(int argc, char *argv[])
 		cf.load("config.xml");
 
 		if (cf.option("skip-splash").empty())
+		{
 			cf.option("skip-splash", "false");
+		}
 
 		validateVideoResolution();
 
@@ -120,20 +122,26 @@ int main(int argc, char *argv[])
 		f.addToSearchPath("ui.dat");
 
 		if (!f.exists(constants::SAVE_GAME_PATH))
+		{
 			f.makeDirectory(constants::SAVE_GAME_PATH);
+		}
 
 		StateManager stateManager;
 
-		if(cf.option("skip-splash") == "false")
+		if (cf.option("skip-splash") == "false")
+		{
 			stateManager.setState(new SplashState());
+		}
 		else
+		{
 			stateManager.setState(new PlanetSelectState());
-
-
+		}
 
 		// Game Loop
 		while (stateManager.update())
+		{
 			Utility<Renderer>::get().update();
+		}
 
 	}
 	catch(const std::exception& e)
@@ -141,9 +149,9 @@ int main(int argc, char *argv[])
 		cout << e.what() << endl;
 	}
 
-#ifdef NDEBUG
+	#ifdef NDEBUG
 	filestr.close();
-#endif
+	#endif
 
 	SDL_Quit();
 
