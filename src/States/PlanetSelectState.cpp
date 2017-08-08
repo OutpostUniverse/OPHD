@@ -7,7 +7,6 @@ PlanetType PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 PlanetSelectState::PlanetSelectState():	mFont("fonts/opensans.ttf", 14),
 										mFontBold("fonts/opensans-bold.ttf", 14),
 										mTinyFont("fonts/opensans.ttf", 10),
-										mMousePointer("ui/pointers/normal.png"),
 										mBg("sys/bg1.png"),
 										mStarFlare("sys/flare_1.png"),
 										mDetailFlare("sys/flare_2.png"),
@@ -48,14 +47,11 @@ void PlanetSelectState::initialize()
 
 	e.windowResized().connect(this, &PlanetSelectState::onWindowResized);
 
-	Renderer& r = Utility<Renderer>::get();
-	r.addCursor(mMousePointer, POINTER_NORMAL, 0, 0);
-	r.setCursor(POINTER_NORMAL);
-
 	mPlanets.push_back(new Planet(PLANET_TYPE_MERCURY));
 	mPlanets.push_back(new Planet(PLANET_TYPE_MARS));
 	mPlanets.push_back(new Planet(PLANET_TYPE_GANYMEDE));
 
+	Renderer& r = Utility<Renderer>::get();
 	mPlanets[0]->position((int)r.width() / 4 - 64, (int)r.height() / 2 - 64);
 	mPlanets[0]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[0]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
@@ -96,9 +92,9 @@ void PlanetSelectState::initialize()
 	mPlanetDescription.size(550, 200);
 	mPlanetDescription.position(r.center_x() - 275, r.height() - 225);
 
-	Utility<AiVoiceNotifier>::get().gender(AiVoiceNotifier::MALE);
-	
-	Utility<Renderer>::get().fadeIn(175.0f);
+	r.showSystemPointer(true);
+	r.fadeIn(175.0f);
+
 	Utility<Mixer>::get().playMusic(mBgMusic);
 }
 
@@ -121,12 +117,14 @@ State* PlanetSelectState::update()
 
 	float _rotation = mTimer.tick() / 1200.0f;
 	r.drawImageRotated(mCloud1, -256, -256, _rotation, 100, 255, 0, 135);
-	r.drawImageRotated(mCloud1, r.width() - 800, -256, _rotation, 180, 0, 255, 150);
+	r.drawImageRotated(mCloud1, r.width() - 800, -256, -_rotation, 180, 0, 255, 150);
 
 	drawStar(-40, -55);
 
 	for (size_t i = 0; i < mPlanets.size(); ++i)
+	{
 		mPlanets[i]->update();
+	}
 
 	r.drawText(mFontBold, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (mFont.width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - mFont.height() - 10), 255, 255, 255);
 	r.drawText(mFontBold, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (mFont.width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - mFont.height() - 10), 255, 255, 255);
@@ -171,7 +169,6 @@ State* PlanetSelectState::update()
 
 void PlanetSelectState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
-
 	if (key == EventHandler::KEY_F11)
 	{
 		Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());

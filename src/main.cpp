@@ -19,9 +19,15 @@ using namespace std;
 
 #include "SDL.h"
 
-void createRenderer()
+/**
+ * Safe to return a reference as the instantiation will either succeed
+ * or will fail and throw an exception.
+ */
+NAS2D::Renderer& createRenderer()
 {
 	Utility<Renderer>::instantiateDerived(new OGL_Renderer("OutpostHD"));
+
+	return Utility<Renderer>::get();
 }
 
 // Makes sure video resolution is never less than 800x600
@@ -96,9 +102,13 @@ int main(int argc, char *argv[])
 			Utility<Mixer>::instantiateDerived(new Mixer());
 		}
 
-		createRenderer();
-		Utility<Renderer>::get().minimum_size(800, 600);
-		Utility<Renderer>::get().resizeable(true);
+		Renderer& r = createRenderer();
+		r.minimum_size(800, 600);
+		r.resizeable(true);
+		r.addCursor(constants::MOUSE_POINTER_NORMAL, POINTER_NORMAL, 0, 0);
+		r.addCursor(constants::MOUSE_POINTER_PLACE_TILE, POINTER_PLACE_TILE, 16, 16);
+		r.addCursor(constants::MOUSE_POINTER_INSPECT, POINTER_INSPECT, 8, 8);
+		r.setCursor(POINTER_NORMAL);
 
 		f.addToSearchPath("fonts.dat");
 		f.addToSearchPath("maps.dat");

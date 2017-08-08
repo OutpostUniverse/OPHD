@@ -25,4 +25,9 @@ namespace constants
 
 	const NAS2D::Color_4ub MINE_COLOR(255, 0, 0, 255);
 	const NAS2D::Color_4ub ACTIVE_MINE_COLOR(255, 255, 0, 255);
+
+	// Mouse pointers
+	const std::string MOUSE_POINTER_NORMAL		= "ui/pointers/normal.png";
+	const std::string MOUSE_POINTER_PLACE_TILE	= "ui/pointers/place_tile.png";
+	const std::string MOUSE_POINTER_INSPECT		= "ui/pointers/inspect.png";
 }

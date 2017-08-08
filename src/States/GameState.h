@@ -61,14 +61,12 @@ public:
 	};
 
 public:
-
 	GameState(const std::string& map, const std::string& tset, int _d, int _minecount);
 	~GameState();
 
 	void setPopulationLevel(PopulationLevel _level);
 
 protected:
-
 	void initialize();
 	State* update();
 

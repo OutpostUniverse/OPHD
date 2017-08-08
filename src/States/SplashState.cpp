@@ -46,6 +46,7 @@ void SplashState::initialize()
 
 	Utility<Mixer>::get().fadeInMusic(mSplash, -1, 1000);
 	Utility<Renderer>::get().fadeOut(0.0f);
+	Utility<Renderer>::get().showSystemPointer(false);
 
 	if (mLogoOutpostHd.width() > Utility<Renderer>::get().width())
 	{

@@ -151,7 +151,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	if (mSlider.visible() && isPointInRect(Point_2d(x, y), mSlider.rect()))
 		return;		// if the mouse is on the slider then the slider should handle that
 
-	if (mCurrentHighlight < 0 || mCurrentHighlight >= mItems.size())
+	if (mCurrentHighlight < 0 || static_cast<size_t>(mCurrentHighlight) >= mItems.size())
 		return;
 
 	currentSelection(mCurrentHighlight);
@@ -179,8 +179,10 @@ void ListBox::onMouseMove(int x, int y, int relX, int relY)
 	}
 
 	mCurrentHighlight = ((y - (int)rect().y()) / (font().height() + 2)) % ((int)rect().height() / (font().height() + 2)) + mCurrentOffset;
-	if (mCurrentHighlight >= mItems.size())
+	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size())
+	{
 		mCurrentHighlight = constants::NO_SELECTION;
+	}
 }
 
 

@@ -87,6 +87,8 @@ GameState::~GameState()
 	e.mouseButtonUp().disconnect(this, &GameState::onMouseUp);
 	e.mouseMotion().disconnect(this, &GameState::onMouseMove);
 	e.windowResized().disconnect(this, &GameState::onWindowResized);
+
+	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
 }
 
 
@@ -121,12 +123,7 @@ void GameState::initialize()
 	initUi();
 	setupUiPositions();
 
-	// POINTERS
-	Renderer& r = Utility<Renderer>::get();
-	r.addCursor("ui/pointers/normal.png", POINTER_NORMAL, 0, 0);
-	r.addCursor("ui/pointers/place_tile.png", POINTER_PLACE_TILE, 16, 16);
-	r.addCursor("ui/pointers/inspect.png", POINTER_INSPECT, 8, 8);
-	r.setCursor(POINTER_NORMAL);
+	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
 
 	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
 
@@ -146,7 +143,7 @@ void GameState::initialize()
 	mPopulationPool.population(&mPopulation);
 
 	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
-	r.fadeIn(constants::FADE_SPEED);
+	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 }
 
 

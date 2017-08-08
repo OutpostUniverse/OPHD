@@ -16,17 +16,14 @@ using namespace NAS2D;
 class PlanetSelectState : public State
 {
 public:
-
 	PlanetSelectState();
 	~PlanetSelectState();
 
 protected:
-
 	void initialize();
 	State* update();
 
 private:
-
 	typedef std::vector<Planet*> PlanetPtrList;
 
 private:
@@ -47,38 +44,36 @@ private:
 	void drawStar(int x, int y);
 
 private:
-	Font				mFont;
-	Font				mFontBold;
-	Font				mTinyFont;
+	Font			mFont;
+	Font			mFontBold;
+	Font			mTinyFont;
 
-	std::string			mMousePointer;
+	Image			mBg;
 
-	Image				mBg;
+	Image			mStarFlare;
+	Image			mDetailFlare;
+	Image			mDetailFlare2;
 
-	Image				mStarFlare;
-	Image				mDetailFlare;
-	Image				mDetailFlare2;
+	Image			mCloud1;
+	Image			mCloud2;
 
-	Image				mCloud1;
-	Image				mCloud2;
+	Music			mBgMusic;
 
-	Music				mBgMusic;
+	Sound			mSelect;
+	Sound			mHover;
 
-	Sound				mSelect;
-	Sound				mHover;
+	Point_2d		mMousePosition;
 
-	Point_2d			mMousePosition;
+	PlanetPtrList	mPlanets;
 
-	PlanetPtrList		mPlanets;
+	Button			mMale;
+	Button			mFemale;
 
-	Button				mMale;
-	Button				mFemale;
+	Button			mQuit;
 
-	Button				mQuit;
+	TextArea		mPlanetDescription;
 
-	TextArea			mPlanetDescription;
+	Timer			mTimer;
 
-	Timer				mTimer;
-
-	State*				mReturnState;
+	State*			mReturnState;
 };
