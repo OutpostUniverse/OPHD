@@ -180,14 +180,12 @@ private:
 	Font				mTinyFont;
 	Font				mTinyFontBold;
 
-	TileMap*			mTileMap;
+	TileMap*			mTileMap = nullptr;
 
 	Image				mBackground;
 	Image				mMapDisplay;
 	Image				mHeightMap;
 	Image				mUiIcons;
-
-	Image				mLoadingPlaque;
 
 	Point_2d			mMousePosition;				/**< Current position of the mouse pointer. */
 	Point_2d			mTileMapMouseHover;			/**< Tile position the mouse is currently hovering over. */
@@ -204,9 +202,9 @@ private:
 
 	RobotTileTable		mRobotList;					/**< List of active robots and their positions on the map. */
 
-	InsertMode			mInsertMode;				/**< What's being inserted into the TileMap if anything. */
-	StructureID			mCurrentStructure;			/**< Structure being placed. */
-	RobotType			mCurrentRobot;				/**< Robot being placed. */
+	InsertMode			mInsertMode = INSERT_NONE;		/**< What's being inserted into the TileMap if anything. */
+	StructureID			mCurrentStructure = SID_NONE;	/**< Structure being placed. */
+	RobotType			mCurrentRobot = ROBOT_NONE;		/**< Robot being placed. */
 
 	AiVoiceNotifier		mAiVoiceNotifier;
 
@@ -236,14 +234,14 @@ private:
 	WindowStack			mWindowStack;
 
 	// MISCELLANEOUS
-	int					mTurnCount;
-	int					mCurrentMorale;
-	int					mPreviousMorale;
+	int					mTurnCount = 0;
+	int					mCurrentMorale = constants::DEFAULT_STARTING_MORALE;
+	int					mPreviousMorale = constants::DEFAULT_STARTING_MORALE;
 
-	int					mLandersColonist;
+	int					mLandersColonist = 0;
 
-	bool				mDebug;
-	bool				mLeftButtonDown;		/**< Used for mouse drags on the mini map. */
+	bool				mDebug = false;
+	bool				mLeftButtonDown = false;		/**< Used for mouse drags on the mini map. */
 
-	State*				mReturnState;
+	State*				mReturnState = nullptr;
 };

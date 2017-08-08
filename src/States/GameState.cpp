@@ -45,21 +45,24 @@ std::map <int, std::string>	LEVEL_STRING_TABLE;
 
 /**
  * C'Tor
+ * 
+ * \param	sm	Site map to load.
+ * \param	t	Tileset to use.
+ * \param	d	Depth of the site map.
+ * \param	mc	Mine Count - Number of mines to generate.
+ * \param	g	Gender of the AI notifier voice (male or female)
  */
-GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoiceNotifier::AiGender _g) :
+GameState::GameState(const string& sm, const string& t, int d, int mc, AiVoiceNotifier::AiGender g) :
 	mFont("fonts/opensans-bold.ttf", 14),
 	mTinyFont("fonts/opensans.ttf", 10),
 	mTinyFontBold("fonts/opensans-bold.ttf", 10),
-	mTileMap(new TileMap(_m, _t, _d, _mc)),
+	mTileMap(new TileMap(sm, t, d, mc)),
 	mBackground("sys/bg1.png"),
-	mMapDisplay(_m + MAP_DISPLAY_EXTENSION),
-	mHeightMap(_m + MAP_TERRAIN_EXTENSION),
+	mMapDisplay(sm + MAP_DISPLAY_EXTENSION),
+	mHeightMap(sm + MAP_TERRAIN_EXTENSION),
 	mUiIcons("ui/icons.png"),
-	mLoadingPlaque("sys/loading.png"),
-	mInsertMode(INSERT_NONE),
 	//mBgMusic("music/track_01.ogg"),
-	mCurrentStructure(SID_NONE),
-	mAiVoiceNotifier(_g),
+	mAiVoiceNotifier(g),
 	mDiggerDirection(mTinyFont),
 	mFactoryProduction(mTinyFont),
 	mFileIoDialog(mTinyFont),
@@ -67,14 +70,7 @@ GameState::GameState(const string& _m, const string& _t, int _d, int _mc, AiVoic
 	mGameOptionsDialog(mTinyFont),
 	mAnnouncement(mTinyFont),
 	mStructureInspector(mTinyFont),
-	mTileInspector(mTinyFont),
-	mTurnCount(0),
-	mCurrentMorale(600),
-	mPreviousMorale(mCurrentMorale),
-	mLandersColonist(0),
-	mDebug(false),
-	mLeftButtonDown(false),
-	mReturnState(NULL)
+	mTileInspector(mTinyFont)
 {}
 
 
