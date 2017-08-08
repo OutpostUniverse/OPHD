@@ -365,7 +365,7 @@ void GameState::structuresSelectionChanged(const std::string& _s)
 	// Check availability
 	if (!mStructures.itemAvailable(_s))
 	{
-		mAiVoiceNotifier.notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
+		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
 		cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
 		mStructures.clearSelection();
 		return;
@@ -413,7 +413,7 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	// Don't dig beyond the dig depth of the planet.
 	if (mTileMap->currentDepth() == mTileMap->maxDepth() && _sel == DiggerDirection::SEL_DOWN)
 	{
-		mAiVoiceNotifier.notify(AiVoiceNotifier::MAX_DIGGING_DEPTH_REACHED);
+		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::MAX_DIGGING_DEPTH_REACHED);
 		cout << "GameState::diggerSelectionDialog(): Already at the maximum digging depth." << endl;
 		return;
 	}

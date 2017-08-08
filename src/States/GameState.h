@@ -62,7 +62,7 @@ public:
 
 public:
 
-	GameState(const std::string& map, const std::string& tset, int _d, int _minecount, AiVoiceNotifier::AiGender _g);
+	GameState(const std::string& map, const std::string& tset, int _d, int _minecount);
 	~GameState();
 
 	void setPopulationLevel(PopulationLevel _level);
@@ -205,8 +205,6 @@ private:
 	InsertMode			mInsertMode = INSERT_NONE;		/**< What's being inserted into the TileMap if anything. */
 	StructureID			mCurrentStructure = SID_NONE;	/**< Structure being placed. */
 	RobotType			mCurrentRobot = ROBOT_NONE;		/**< Robot being placed. */
-
-	AiVoiceNotifier		mAiVoiceNotifier;
 
 	Population			mPopulation;
 

@@ -50,9 +50,8 @@ std::map <int, std::string>	LEVEL_STRING_TABLE;
  * \param	t	Tileset to use.
  * \param	d	Depth of the site map.
  * \param	mc	Mine Count - Number of mines to generate.
- * \param	g	Gender of the AI notifier voice (male or female)
  */
-GameState::GameState(const string& sm, const string& t, int d, int mc, AiVoiceNotifier::AiGender g) :
+GameState::GameState(const string& sm, const string& t, int d, int mc) :
 	mFont("fonts/opensans-bold.ttf", 14),
 	mTinyFont("fonts/opensans.ttf", 10),
 	mTinyFontBold("fonts/opensans-bold.ttf", 10),
@@ -62,7 +61,6 @@ GameState::GameState(const string& sm, const string& t, int d, int mc, AiVoiceNo
 	mHeightMap(sm + MAP_TERRAIN_EXTENSION),
 	mUiIcons("ui/icons.png"),
 	//mBgMusic("music/track_01.ogg"),
-	mAiVoiceNotifier(g),
 	mDiggerDirection(mTinyFont),
 	mFactoryProduction(mTinyFont),
 	mFileIoDialog(mTinyFont),
@@ -878,7 +876,7 @@ void GameState::placeTubes()
 		checkConnectedness();
 	}
 	else
-		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
+		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
 }
 
 
@@ -917,7 +915,7 @@ void GameState::placeRobot()
 	if (outOfCommRange(mStructureManager, mCCLocation, mTileMap, tile))
 	{
 		cout << "Robot out of range!" << endl;
-		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
+		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
 		return;
 	}
 
@@ -933,14 +931,14 @@ void GameState::placeRobot()
 			Structure* _s = tile->structure();
 			if (_s->name() == constants::COMMAND_CENTER)
 			{
-				mAiVoiceNotifier.notify(AiVoiceNotifier::CC_NO_BULLDOZE);
+				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::CC_NO_BULLDOZE);
 				cout << "Can't bulldoze a Command Center!" << endl;
 				return;
 			}
 
 			if (_s->name() == constants::COLONIST_LANDER && _s->age() == 0)
 			{
-				mAiVoiceNotifier.notify(AiVoiceNotifier::CC_NO_BULLDOZE); ///\fixme Change this to an invalid dozer warning.
+				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::CC_NO_BULLDOZE); ///\fixme Change this to an invalid dozer warning.
 				cout << "Can't place a bulldozer on a landing site!" << endl;
 				return;
 			}
@@ -976,14 +974,14 @@ void GameState::placeRobot()
 		// Keep digger within a safe margin of the map boundaries.
 		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
 		{
-			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
+			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
 			cout << "GameState::placeRobot(): Can't place digger within 3 tiles of the edge of a map." << endl;
 			return;
 		}
 
 		if (!tile->excavated())
 		{
-			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
+			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
 			return;
 		}
 
@@ -991,7 +989,7 @@ void GameState::placeRobot()
 		if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->x(), tile->y(), tile->depth() + 1)->empty())
 		{
 			cout << "Digger blocked underneath." << endl;
-			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
+			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
 			return;
 		}
 
@@ -1003,18 +1001,18 @@ void GameState::placeRobot()
 			{
 				if (tile->thingIsStructure() && tile->structure()->connectorDirection() != CONNECTOR_VERTICAL) //air shaft
 				{
-					mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
+					Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
 					return;
 				}
 				else if (tile->thingIsStructure() && tile->structure()->connectorDirection() == CONNECTOR_VERTICAL && tile->depth() == mTileMap->maxDepth())
 				{
-					mAiVoiceNotifier.notify(AiVoiceNotifier::MAX_DIGGING_DEPTH_REACHED);
+					Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::MAX_DIGGING_DEPTH_REACHED);
 					return;
 				}
 			}
 			else
 			{
-				mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT); // tile occupied
+				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT); // tile occupied
 				return;
 			}
 		}
@@ -1052,7 +1050,7 @@ void GameState::placeRobot()
 	{
 		if (tile->thing() || !tile->mine() || !tile->excavated())
 		{
-			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_MINER_PLACEMENT);
+			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_MINER_PLACEMENT);
 			return;
 		}
 
@@ -1247,7 +1245,7 @@ void GameState::placeStructure()
 		(tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE))
 	{
 		cout << "Cannot build structures more than 15 tiles away from Command Center." << endl;
-		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
+		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		return;
 	}
 
@@ -1260,7 +1258,7 @@ void GameState::placeStructure()
 
 	if(tile->mine() || tile->thing() || (!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
 	{
-		mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
+		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		cout << "GameState::placeStructure(): Tile is unsuitable to place a structure." << endl;
 		return;
 	}
@@ -1276,7 +1274,7 @@ void GameState::placeStructure()
 	{
 		if (!tile->empty() && tile->index() < 4) // fixme: magic number, tile index 4 == impassable terrain
 		{
-			mAiVoiceNotifier.notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
+			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
 			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
 			return;
 		}
@@ -1297,7 +1295,7 @@ void GameState::placeStructure()
 	{
 		if (!validStructurePlacement(tile_x, tile_y) && !selfSustained(mCurrentStructure))
 		{
-			mAiVoiceNotifier.notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
+			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
 			return;
 		}
@@ -1305,7 +1303,7 @@ void GameState::placeStructure()
 		// Check build cost
 		if (!StructureCatalogue::canBuild(mPlayerResources, static_cast<StructureID>(mCurrentStructure)))
 		{
-			mAiVoiceNotifier.notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
+			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
 			cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
 			return;
 		}
@@ -1342,7 +1340,7 @@ void GameState::insertSeedLander(int x, int y)
 		// check for obstructions
 		if (!landingSiteSuitable(x, y))
 		{
-			mAiVoiceNotifier.notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
+			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
 			cout << "Unable to place SEED Lander. Tiles obstructed." << endl;
 			return;
 		}
@@ -1359,7 +1357,7 @@ void GameState::insertSeedLander(int x, int y)
 	}
 	else
 	{
-		mAiVoiceNotifier.notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
+		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
 	}
 }
 
@@ -1575,7 +1573,7 @@ void GameState::save(const std::string& _path)
 	root->linkEndChild(population);
 
 	XmlElement* ai = new XmlElement("ai");
-	ai->attribute("gender", mAiVoiceNotifier.gender());
+	ai->attribute("gender", Utility<AiVoiceNotifier>::get().gender());
 	root->linkEndChild(ai);
 
 
@@ -1661,7 +1659,7 @@ void GameState::load(const std::string& _path)
 	{
 		int gender = 0;
 		ai->firstAttribute()->queryIntValue(gender);
-		mAiVoiceNotifier.gender(static_cast<AiVoiceNotifier::AiGender>(gender));
+		Utility<AiVoiceNotifier>::get().gender(static_cast<AiVoiceNotifier::AiGender>(gender));
 	}
 
 	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::CLASS_STORAGE)));

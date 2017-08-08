@@ -2,6 +2,13 @@
 
 using namespace NAS2D;
 
+
+AiVoiceNotifier::AiVoiceNotifier()
+{
+	buildVoiceTables();
+}
+
+
 AiVoiceNotifier::AiVoiceNotifier(AiGender _g): mGender(_g)
 {
 	buildVoiceTables();

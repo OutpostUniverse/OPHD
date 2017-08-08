@@ -80,7 +80,5 @@ private:
 
 	Timer				mTimer;
 
-	AiVoiceNotifier::AiGender	mAiGender;
-
 	State*				mReturnState;
 };

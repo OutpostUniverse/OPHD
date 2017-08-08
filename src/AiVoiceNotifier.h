@@ -31,7 +31,7 @@ public:
 	};
 
 public:
-
+	AiVoiceNotifier();
 	AiVoiceNotifier(AiGender _g);
 	~AiVoiceNotifier();
 
@@ -50,7 +50,6 @@ private:
 
 	// No default constructor, copy constructor, or copy operator
 	// Calling these should result in an error
-	AiVoiceNotifier() = delete;
 	AiVoiceNotifier(const AiVoiceNotifier&) = delete;
 	AiVoiceNotifier& operator=(const AiVoiceNotifier&) = delete;
 
@@ -58,7 +57,7 @@ private:
 
 private:
 
-	AiGender				mGender;
+	AiGender								mGender = MALE;
 
 	std::map<AiGender, MessageSoundTable>	mVoiceTable;
 };

@@ -16,8 +16,7 @@ PlanetSelectState::PlanetSelectState():	mFont("fonts/opensans.ttf", 14),
 										mCloud2("sys/cloud_2.png"),
 										mBgMusic("music/menu.ogg"),
 										mSelect("sfx/click.ogg"),
-										mHover("sfx/menu4.ogg"),
-										mAiGender(AiVoiceNotifier::AiGender::MALE)
+										mHover("sfx/menu4.ogg")
 {}
 
 
@@ -97,8 +96,9 @@ void PlanetSelectState::initialize()
 	mPlanetDescription.size(550, 200);
 	mPlanetDescription.position(r.center_x() - 275, r.height() - 225);
 
+	Utility<AiVoiceNotifier>::get().gender(AiVoiceNotifier::MALE);
+	
 	Utility<Renderer>::get().fadeIn(175.0f);
-
 	Utility<Mixer>::get().playMusic(mBgMusic);
 }
 
@@ -147,19 +147,19 @@ State* PlanetSelectState::update()
 	{
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MERCURY)
 		{
-			GameState* gs = new GameState("maps/merc_01", "tsets/mercury.png", mPlanets[0]->digDepth(), mPlanets[0]->maxMines(), mAiGender);
+			GameState* gs = new GameState("maps/merc_01", "tsets/mercury.png", mPlanets[0]->digDepth(), mPlanets[0]->maxMines());
 			gs->setPopulationLevel(GameState::POPULATION_LARGE);
 			return gs;
 		}
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MARS)
 		{
-			GameState* gs = new GameState("maps/mars_04", "tsets/mars.png", mPlanets[1]->digDepth(), mPlanets[1]->maxMines(), mAiGender);
+			GameState* gs = new GameState("maps/mars_04", "tsets/mars.png", mPlanets[1]->digDepth(), mPlanets[1]->maxMines());
 			gs->setPopulationLevel(GameState::POPULATION_LARGE);
 			return gs;
 		}
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_GANYMEDE)
 		{
-			GameState* gs = new GameState("maps/ganymede_01", "tsets/ganymede.png", mPlanets[2]->digDepth(), mPlanets[2]->maxMines(), mAiGender);
+			GameState* gs = new GameState("maps/ganymede_01", "tsets/ganymede.png", mPlanets[2]->digDepth(), mPlanets[2]->maxMines());
 			gs->setPopulationLevel(GameState::POPULATION_LARGE);
 			return gs;
 		}
@@ -248,12 +248,12 @@ void PlanetSelectState::btnMaleClicked()
 	if (mMale.toggled())
 	{
 		mFemale.toggle(false);
-		mAiGender = AiVoiceNotifier::AiGender::MALE;
+		Utility<AiVoiceNotifier>::get().gender(AiVoiceNotifier::AiGender::MALE);
 	}
 	else
 	{
 		mFemale.toggle(true);
-		mAiGender = AiVoiceNotifier::AiGender::FEMALE;
+		Utility<AiVoiceNotifier>::get().gender(AiVoiceNotifier::AiGender::FEMALE);
 	}
 }
 
@@ -264,12 +264,12 @@ void PlanetSelectState::btnFemaleClicked()
 	if (mFemale.toggled())
 	{
 		mMale.toggle(false);
-		mAiGender = AiVoiceNotifier::AiGender::FEMALE;
+		Utility<AiVoiceNotifier>::get().gender(AiVoiceNotifier::AiGender::FEMALE);
 	}
 	else
 	{
 		mMale.toggle(true);
-		mAiGender = AiVoiceNotifier::AiGender::MALE;
+		Utility<AiVoiceNotifier>::get().gender(AiVoiceNotifier::AiGender::MALE);
 	}
 }
 
