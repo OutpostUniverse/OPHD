@@ -63,7 +63,21 @@ int main(int argc, char *argv[])
 		Filesystem& f = Utility<Filesystem>::get();
 		f.init(argv[0], "data");
 
-		Utility<EventHandler>::get();
+		f.addToSearchPath("fonts.dat");
+		f.addToSearchPath("maps.dat");
+		f.addToSearchPath("planets.dat");
+		f.addToSearchPath("robots.dat");
+		f.addToSearchPath("sfx.dat");
+		f.addToSearchPath("structures.dat");
+		f.addToSearchPath("sys.dat");
+		f.addToSearchPath("ui.dat");
+
+		if (!f.exists(constants::SAVE_GAME_PATH))
+		{
+			f.makeDirectory(constants::SAVE_GAME_PATH);
+		}
+
+		//Utility<EventHandler>::get();
 
 		Configuration& cf = Utility<Configuration>::get();
 
@@ -112,19 +126,8 @@ int main(int argc, char *argv[])
 		r.addCursor(constants::MOUSE_POINTER_INSPECT, POINTER_INSPECT, 8, 8);
 		r.setCursor(POINTER_NORMAL);
 
-		f.addToSearchPath("fonts.dat");
-		f.addToSearchPath("maps.dat");
-		f.addToSearchPath("planets.dat");
-		f.addToSearchPath("robots.dat");
-		f.addToSearchPath("sfx.dat");
-		f.addToSearchPath("structures.dat");
-		f.addToSearchPath("sys.dat");
-		f.addToSearchPath("ui.dat");
-
-		if (!f.exists(constants::SAVE_GAME_PATH))
-		{
-			f.makeDirectory(constants::SAVE_GAME_PATH);
-		}
+		// Force notifier to build its tables.
+		Utility<AiVoiceNotifier>::get();
 
 		StateManager stateManager;
 

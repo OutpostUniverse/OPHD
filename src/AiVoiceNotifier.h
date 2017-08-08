@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <array>
 
 #include "NAS2D/NAS2D.h"
 
@@ -44,11 +44,9 @@ public:
 	AiGender gender() const { return mGender; }
 	void gender(AiGender _g) { mGender = _g; }
 
-protected:
-
 private:
+	typedef std::array<NAS2D::Sound*, NOT_IMPLEMENTED + 1> MessageSoundTable;
 
-	typedef std::map<AiMessage, NAS2D::Sound*> MessageSoundTable; 
 
 private:
 

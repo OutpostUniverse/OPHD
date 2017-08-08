@@ -19,16 +19,16 @@ AiVoiceNotifier::~AiVoiceNotifier()
 {
 	for (auto voice_it = mVoiceTable.begin(); voice_it != mVoiceTable.end(); ++voice_it)
 	{
-		for (auto it = voice_it->second.begin(); it != voice_it->second.end(); ++it)
+		for (size_t i = 0; i <= NOT_IMPLEMENTED; ++i)
 		{
-			delete it->second;
+			delete voice_it->second[i];
 		}
 	}
 }
 
-void AiVoiceNotifier::notify(AiMessage _msg)
+void AiVoiceNotifier::notify(AiMessage msg)
 {
-	Utility<Mixer>::get().playSound(*mVoiceTable[gender()][_msg]);
+	Utility<Mixer>::get().playSound(*mVoiceTable[gender()][msg]);
 }
 
 
