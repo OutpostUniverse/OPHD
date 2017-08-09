@@ -251,9 +251,6 @@ void Slider::onMouseMotion(int x, int y, int dX, int dY)
 			mMouseHoverSlide = pointInRect_f(x, y, mSlideBar);
 	}
 
-	if (!pointInRect_f(x, y, rect()))
-		return;
-
 	mMouseX = x;
 	mMouseY = y;
 
@@ -473,4 +470,7 @@ double Slider::length()
 void Slider::length(double _lenght)
 {
 	mLenght = _lenght;
+	
+	if (mPosition > mLenght)
+		position(mLenght);
 }

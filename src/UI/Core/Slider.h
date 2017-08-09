@@ -22,6 +22,16 @@ class Slider : public Control
 {
 public:
 
+	/*!
+	* \enum 	SliderType
+	* \brief	List the types of slider that could be used
+	*/
+	enum SliderType
+	{
+		SLIDER_VERTICAL,	/*!< Vertical slider. */
+		SLIDER_HORIZONTAL	/*!< Horizontal slider. */
+	};
+public:
 
 	typedef NAS2D::Signals::Signal1<double> ValueChangedCallback; /*!< type for Callback on value changed. */
 
@@ -50,17 +60,6 @@ protected:
 	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y); 	/*!< Event raised on mouse button down. */
 	virtual void onMouseUp(EventHandler::MouseButton button, int x, int y); 	/*!< Event raised on mouse button up. */
 	virtual void onMouseMotion(int x, int y, int dX, int dY); 	/*!< Event raised on mouse move. */
-
-private:
-	/*!
-	 * \enum 	SliderType
-	 * \brief	List the types of slider that could be used
-	 */
-	enum SliderType
-	{
-		SLIDER_VERTICAL,	/*!< Vertical slider. */
-		SLIDER_HORIZONTAL	/*!< Horizontal slider. */
-	};
 	
 private:
 	double positionInternal();

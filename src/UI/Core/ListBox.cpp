@@ -177,8 +177,12 @@ void ListBox::onMouseMove(int x, int y, int relX, int relY)
 		mCurrentHighlight = constants::NO_SELECTION;
 		return;
 	}
+	
+	mCurrentHighlight = (y - (int)rect().y() + mCurrentOffset) / (font().height() + 2);
 
-	mCurrentHighlight = ((y - (int)rect().y()) / (font().height() + 2)) % ((int)rect().height() / (font().height() + 2)) + mCurrentOffset;
+	if (mCurrentHighlight<0)
+		mCurrentHighlight = constants::NO_SELECTION;
+
 	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size())
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
@@ -193,7 +197,7 @@ void ListBox::update()
 		return;
 
 	Renderer& r = Utility<Renderer>::get();
-
+	r.clipRect(rect());
 	int line_height = (font().height() + 2);
 	int itemY;
 	int itemWidth = rect().width();
@@ -206,16 +210,15 @@ void ListBox::update()
 		iItemsDisplayable = static_cast<int>(rect().height() / line_height);
 		if (iItemsDisplayable < static_cast<int>(mItems.size()))
 		{
-			mSlider.length(mItems.size() - iItemsDisplayable);
+			mSlider.length((line_height*mItems.size())-rect().height());
 			mSlider.visible(true);
 			mCurrentOffset = mSlider.position();
-			iMin = mCurrentOffset;
-			iMax = mCurrentOffset + iItemsDisplayable;
 			itemWidth = rect().width() - mSlider.rect().width();
 		}
 	}
 	else
 	{
+		mCurrentOffset = 0;
 		mSlider.visible(false);
 	}
 
@@ -224,24 +227,22 @@ void ListBox::update()
 	r.drawBoxFilled(rect().x(), rect().y(), itemWidth, rect().height(), 225, 225, 0, 85);
 
 	// Highlight currently selected file
-	if (iMin<=mCurrentSelection && mCurrentSelection<iMax )
-	{
-		itemY = rect().y() + ((mCurrentSelection - mCurrentOffset)  * line_height);
-		r.drawBoxFilled(rect().x(), itemY, itemWidth, line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
-	}
-
+	itemY = rect().y() + (mCurrentSelection*line_height) - mCurrentOffset;
+	r.drawBoxFilled(rect().x(), itemY, itemWidth, line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
+	
 	// Highlight On mouse Over
-	if(mCurrentHighlight != constants::NO_SELECTION && iMin <= mCurrentSelection && mCurrentSelection < iMax)
+
+	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
-		itemY = rect().y() + ((mCurrentHighlight - mCurrentOffset)  * line_height);
+		itemY = rect().y() + (mCurrentHighlight* line_height) - mCurrentOffset;
 		r.drawBox(rect().x(), itemY, itemWidth, line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
 	}
-
+	
 	
 	// display actuals values that are ment to be
 	for(int i = iMin; i < iMax; i++)
 	{
-		itemY = rect().y() + ((i-iMin) * line_height);
+		itemY = rect().y() + (i * line_height) - mCurrentOffset;
 		if(i == mCurrentHighlight)
 			r.drawTextShadow(font(), mItems[i], rect().x(), itemY, 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
 		else
@@ -250,6 +251,7 @@ void ListBox::update()
 
 	// draw the slider if needed
 	mSlider.update();
+	r.clipRectClear();
 }
 
 void ListBox::slideChanged(double _position)
