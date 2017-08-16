@@ -1076,7 +1076,6 @@ void GameState::diggerTaskFinished(Robot* _r)
 	// FIXME: Fugly cast.
 	Direction dir = static_cast<Robodigger*>(_r)->direction();
 
-	//
 	int originX = 0, originY = 0, depthAdjust = 0;
 
 	if(dir == DIR_DOWN)
@@ -1320,9 +1319,6 @@ void GameState::insertSeedLander(int x, int y)
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
 	}
 }
-
-
-
 
 
 /**

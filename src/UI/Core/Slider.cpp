@@ -12,20 +12,12 @@ using namespace std;
 /**
  * C'tor
  */
-Slider::Slider() :	Control(),
-					mMouseX(0), mMouseY(0),
-					mMouseHover(0),
-					mThumbPressed(false),
-					mPosition(0.0),
-					mBackward(false),
-					mDisplayPosition(0)
+Slider::Slider() :	Control()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMotion);
 	hasFocus(true);
-
-
 }
 
 
@@ -49,9 +41,13 @@ void Slider::size(float w, float h)
 
 	// deduce the type of slider from the ratio.
 	if (rect().height() > rect().width())
+	{
 		mSliderType = SLIDER_VERTICAL;
+	}
 	else
+	{
 		mSliderType = SLIDER_HORIZONTAL;
+	}
 }
 
 
@@ -60,8 +56,7 @@ void Slider::size(float w, float h)
  */
 void Slider::setSkins()
 {
-	if (!mSkinButton1.empty())
-		return;
+	if (!mSkinButton1.empty()) { return; }
 
 	if (mSliderType == SLIDER_VERTICAL)
 	{
@@ -164,13 +159,22 @@ double Slider::positionInternal()
  */
 void Slider::positionInternal(double _pos)
 {
-	if (_pos < 0.0)
-		_pos = 0.0;
+	mPosition = clamp(_pos, 0.0f, mLenght);
+	mCallback(mPosition);
+}
 
-	else if (_pos > mLenght)
-		_pos = mLenght;
 
-	mPosition = _pos;
+void Slider::_buttonCheck(bool& buttonFlag, Rectangle_2df& rect, double value)
+{
+	if (pointInRect_f(mMousePosition.x(), mMousePosition.y(), rect))
+	{
+		changeThumbPosition(value);
+		buttonFlag = true;
+
+		mTimer.reset();
+		mPressedAccumulator = 300;
+		return;
+	}
 }
 
 
@@ -179,13 +183,18 @@ void Slider::positionInternal(double _pos)
  */
 void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!enabled() || !visible() || !hasFocus())
-		return;
+	if (!enabled() || !visible() || !hasFocus()) { return; }
 
 	if (button == EventHandler::BUTTON_LEFT)
 	{
-		if (pointInRect_f(x,y, mSlider))
+		if (pointInRect_f(x, y, mSlider))
+		{
 			mThumbPressed = true;
+			return;
+		}
+
+		_buttonCheck(mButton1Held, mButton1, -1.0);
+		_buttonCheck(mButton2Held, mButton2, 1.0);
 	}
 }
 
@@ -195,41 +204,39 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
-	if (button != EventHandler::BUTTON_LEFT)
-		return;
-
+	if (button != EventHandler::BUTTON_LEFT) { return; }
+	
+	mButton1Held = false;
+	mButton2Held = false;
 	mThumbPressed = false;
 
-	if (!enabled() || !visible() || !hasFocus())
-		return;
+	if (!enabled() || !visible() || !hasFocus()) { return; }
 
 	if (pointInRect_f(x, y, mSlider))
 	{
 		// nothing
 	}
+	/*
 	else if (pointInRect_f(x, y, mButton2))
 	{
-		changePosition(+1.0);
+		changeThumbPosition(+1.0);
 	}
 	else if (pointInRect_f(x, y, mButton1))
 	{
-		changePosition(-1.0);
+		changeThumbPosition(-1.0);
 	}
+	*/
 	else if (pointInRect_f(x, y, mSlideBar))
 	{
 		if (mSliderType == SLIDER_VERTICAL)
 		{
-			if (y < mSlider.y())
-				changePosition(-3.0);
-			else
-				changePosition(+3.0);
+			if (y < mSlider.y()) { changeThumbPosition(-3.0); }
+			else { changeThumbPosition(+3.0); }
 		}
 		else
 		{
-			if (x < mSlider.x())
-				changePosition(-3.0);
-			else
-				changePosition(+3.0);
+			if (x < mSlider.x()) { changeThumbPosition(-3.0); }
+			else { changeThumbPosition(+3.0); }
 		}
 	}
 }
@@ -240,42 +247,39 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
  */
 void Slider::onMouseMotion(int x, int y, int dX, int dY)
 {
-	if (!enabled() || !visible() || !hasFocus())
-		return;
+	if (!enabled() || !visible() || !hasFocus()) { return; }
+
+	mMousePosition(x, y);
 
 	if (mDisplayPosition)
 	{
 		if (mSliderType == SLIDER_VERTICAL)
+		{
 			mMouseHoverSlide = pointInRect_f(x, y, mSlideBar);
+		}
 		else
+		{
 			mMouseHoverSlide = pointInRect_f(x, y, mSlideBar);
+		}
 	}
 
-	mMouseX = x;
-	mMouseY = y;
-
-	if (!mThumbPressed)
-		return;
-
-	if (mSliderType == SLIDER_VERTICAL)
-		mMouseHover = pointInRect_f(x, y, mSlideBar.x() - mSlideBar.width(), mSlideBar.y(), mSlideBar.width() * 3, mSlideBar.height());
-	else
-		mMouseHover = pointInRect_f(x, y, mSlideBar.x(), mSlideBar.y() - mSlideBar.height(), mSlideBar.width(), mSlideBar.height() * 3);
-
-	if (!mMouseHover)
-		return;
+	if (!mThumbPressed) { return; }
 
 	if (mSliderType == SLIDER_VERTICAL)
 	{
-		if (y < mSlideBar.y() || y > (mSlideBar.y() + mSlideBar.height()))
+		if (y < mSlideBar.y() || y >(mSlideBar.y() + mSlideBar.height()))
+		{
 			return;
+		}
 
 		positionInternal(mLenght * ((y - mSlideBar.y()) / mSlideBar.height()));
 	}
 	else
 	{
-		if (x < mSlideBar.x() || x > (mSlideBar.x() + mSlideBar.width()))
+		if (x < mSlideBar.x() || x >(mSlideBar.x() + mSlideBar.width()))
+		{
 			return;
+		}
 
 		positionInternal(mLenght * (x - mSlideBar.x()) / mSlideBar.width());
 	}
@@ -330,6 +334,17 @@ void Slider::logic()
  */
 void Slider::update()
 {
+	if (mButton1Held || mButton2Held)
+	{
+		if (mTimer.accumulator() >= mPressedAccumulator)
+		{
+			mPressedAccumulator = 75;
+			mTimer.reset();
+			if (mButton1Held) { changeThumbPosition(-1.0); }
+			else { changeThumbPosition(1.0); }
+		}
+	}
+
 	logic();
 	setSkins();
 	draw();
@@ -341,13 +356,12 @@ void Slider::update()
  */
 void Slider::draw()
 {
-	if (!visible())
-		return;
+	if (!visible()) { return; }
 
 	Renderer& r = Utility<Renderer>::get();
 	string textHover;
 	int _x = 0, _y = 0, _w = 0, _h = 0;
-	float thumbPosition = 0.0f;
+	float _thumbPosition = 0.0f;
 
 	if (mSliderType == SLIDER_VERTICAL)
 	{
@@ -359,12 +373,14 @@ void Slider::draw()
 		mSlider.width(mSlideBar.width()); // height = slide bar height
 		mSlider.height(static_cast<int>(mSlideBar.height() / mLenght)); //relative width
 		if (mSlider.height() < mSlider.width()) // not too relative. Minimum = Heigt itself
+		{
 			mSlider.height(mSlider.width());
+		}
 
-		thumbPosition = (mSlideBar.height() - mSlider.height())  * (mPosition / mLenght); //relative width
+		_thumbPosition = (mSlideBar.height() - mSlider.height())  * (mPosition / mLenght); //relative width
 
 		mSlider.x(mSlideBar.x());
-		mSlider.y(mSlideBar.y() + thumbPosition);
+		mSlider.y(mSlideBar.y() + _thumbPosition);
 		r.drawImageRect(mSlider.x(), mSlider.y(), mSlider.width(), mSlider.height(), mSkinSlider);
 	}
 	else
@@ -377,29 +393,31 @@ void Slider::draw()
 		mSlider.height(mSlideBar.height());	// height = slide bar height
 		mSlider.width(static_cast<int>(mSlideBar.width() / (mLenght + 1))); //relative width
 		if (mSlider.width() < mSlider.height())	// not too relative. Minimum = Heigt itself
+		{
 			mSlider.width(mSlider.height());
+		}
 
-		thumbPosition = (mSlideBar.width() - mSlider.width())  * (mPosition / mLenght); //relative width
+		_thumbPosition = (mSlideBar.width() - mSlider.width())  * (mPosition / mLenght); //relative width
 
-		mSlider.x(mSlideBar.x() + thumbPosition);
+		mSlider.x(mSlideBar.x() + _thumbPosition);
 		mSlider.y(mSlideBar.y());
 		r.drawImageRect(mSlider.x(), mSlider.y(), mSlider.width(), mSlider.height(), mSkinSlider);
 	}
 
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
-		textHover = string_format("%i / %i", static_cast<int>(position()), static_cast<int>(mLenght));
+		textHover = string_format("%i / %i", static_cast<int>(thumbPosition()), static_cast<int>(mLenght));
 		_w = font().width(textHover) + 4;
 		_h = font().height() + 4;
 
 		if (mSliderType == SLIDER_VERTICAL)
 		{
 			_x = mSlideBar.x() + mSlideBar.width() + 2;
-			_y = mMouseY - _h;
+			_y = mMousePosition.y() - _h;
 		}
 		else
 		{
-			_x = mMouseX + 2;
+			_x = mMousePosition.x() + 2;
 			_y = mSlideBar.y() - 2 - _h;
 		}
 
@@ -413,30 +431,35 @@ void Slider::draw()
 /**
  * Set the current value
  */
-void Slider::position(double value)
+void Slider::thumbPosition(double value)
 {
-	if (mBackward)
-		value = mLenght - value;
+	if (mBackward) { value = mLenght - value; }
 
 	mPosition = value;
 
 	if (mPosition < 0.0)
+	{
 		mPosition = 0.0;
+	}
 	else if (mPosition > mLenght)
+	{
 		mPosition = mLenght;
+	}
 
-	mCallback(position());
+	mCallback(thumbPosition());
 }
 
 
 /**
 * Gets the current value of position
 */
-double Slider::position()
+double Slider::thumbPosition()
 {
 	double value = mPosition;
 	if (mBackward)
+	{
 		value = mLenght - value;
+	}
 
 	return value;
 }
@@ -449,7 +472,7 @@ double Slider::position()
  *					slider's position. Must be between 0.0
  *					1.0.
  */
-void Slider::changePosition(double change)
+void Slider::changeThumbPosition(double change)
 {
 	positionInternal(mPosition + change);
 }
@@ -470,7 +493,8 @@ double Slider::length()
 void Slider::length(double _lenght)
 {
 	mLenght = _lenght;
-	
 	if (mPosition > mLenght)
-		position(mLenght);
+	{
+		thumbPosition(mLenght);
+	}
 }

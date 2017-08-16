@@ -19,7 +19,6 @@ public:
 	~ListBox();
 
 	void init();
-	void font(Font& font) { mFont = &font; }
 
 	void sorted(bool _b) { mSorted = _b; }
 	bool sorted(bool) const { return mSorted; }
@@ -54,23 +53,27 @@ protected:
 	virtual void slideChanged(double _position);
 
 private:
-	Font& font() { return *mFont; }
+	virtual void onFontChanged() final;
+
+	void _updateItemDisplay();
 
 private:
-	int							mCurrentHighlight;	/**< Currently highlighted selection index. */
-	int							mCurrentSelection;	/**< Current selection index. */
-	int							mCurrentOffset;		/**< Current selection index. */
+	int							mCurrentHighlight = 0;	/**< Currently highlighted selection index. */
+	int							mCurrentSelection = 0;	/**< Current selection index. */
+	int							mCurrentOffset = 0;		/**< Current selection index. */
 
-	Font*						mFont;				/**< Internal font to use for the menu. */
+	int							mItemWidth = 0;			/**< Width of items. */
+	int							mLineHeight = 0;		/**< Height of an item line. */
+	int							mLineCount = 0;			/**< Number of lines that can be displayed. */
 
-	StringList					mItems;				/**< List of items preserved in the order in which they're added. */
+	StringList					mItems;					/**< List of items preserved in the order in which they're added. */
 
-	Color_4ub					mText;				/**< Text Color */
-	Color_4ub					mHighlightBg;		/**< Highlight Background color. */
-	Color_4ub					mHighlightText;		/**< Text Color for an item that is currently highlighted. */
+	Color_4ub					mText;					/**< Text Color */
+	Color_4ub					mHighlightBg;			/**< Highlight Background color. */
+	Color_4ub					mHighlightText;			/**< Text Color for an item that is currently highlighted. */
 
-	SelectionChangedCallback	mSelectionChanged;	/**< Callback for selection changed callback. */
-	Slider						mSlider;			/**<  */
+	SelectionChangedCallback	mSelectionChanged;		/**< Callback for selection changed callback. */
+	Slider						mSlider;				/**<  */
 	
-	bool						mSorted;			/**< Flag indicating that all Items should be sorted. */
+	bool						mSorted;				/**< Flag indicating that all Items should be sorted. */
 };
