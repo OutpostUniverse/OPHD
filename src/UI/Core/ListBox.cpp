@@ -163,8 +163,7 @@ bool ListBox::itemExists(const std::string& item)
 
 	for(size_t i = 0; i < mItems.size(); i++)
 	{
-		if(toLowercase(mItems[i]) == toLowercase(item))
-			return true;
+		if (toLowercase(mItems[i]) == toLowercase(item)) { return true; }
 	}
 
 	return false;
@@ -293,7 +292,8 @@ void ListBox::update()
 		}
 	}
 
-	mSlider.update();
+	mSlider.update();		// Shouldn't need this since it's in a UIContainer. Noticing that Slider
+							// doesn't play nice with the UIContainer.
 	r.clipRectClear();
 }
 
