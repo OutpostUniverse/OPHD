@@ -334,11 +334,13 @@ void Slider::logic()
  */
 void Slider::update()
 {
+	if (!visible()) { return; }
+
 	if (mButton1Held || mButton2Held)
 	{
 		if (mTimer.accumulator() >= mPressedAccumulator)
 		{
-			mPressedAccumulator = 75;
+			mPressedAccumulator = 30;
 			mTimer.reset();
 			if (mButton1Held) { changeThumbPosition(-1.0); }
 			else { changeThumbPosition(1.0); }
@@ -356,8 +358,6 @@ void Slider::update()
  */
 void Slider::draw()
 {
-	if (!visible()) { return; }
-
 	Renderer& r = Utility<Renderer>::get();
 	string textHover;
 	int _x = 0, _y = 0, _w = 0, _h = 0;

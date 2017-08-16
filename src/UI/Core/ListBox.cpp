@@ -18,6 +18,7 @@ ListBox::ListBox():	mCurrentHighlight(constants::NO_SELECTION),
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
+	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
 	
 	init();
 }
@@ -30,6 +31,7 @@ ListBox::~ListBox()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().disconnect(this, &ListBox::onMouseMove);
+	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ListBox::onMouseWheel);
 
 	mSlider.change().disconnect(this, &ListBox::slideChanged);
 }
@@ -42,14 +44,14 @@ void ListBox::init()
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBox::slideChanged);
+	_updateItemDisplay();
 }
 
-void ListBox::size(float w, float h)
+
+void ListBox::onSizeChanged()
 {
-	Control::size(w, h);
 	deleteControl("mSlider");
 	addControl("mSlider", &mSlider, rect().width() - 14, 0);
-	mSlider.font(font());
 	mSlider.displayPosition(false);
 	mSlider.size(14, rect().height());
 	_updateItemDisplay();
@@ -58,7 +60,15 @@ void ListBox::size(float w, float h)
 
 void ListBox::onFontChanged()
 {
+	mSlider.font(font());
 	mLineHeight = (font().height() + 2);
+	mLineCount = static_cast<int>(rect().height() / mLineHeight);
+	_updateItemDisplay();
+}
+
+
+void ListBox::visibilityChanged(bool visible)
+{
 	_updateItemDisplay();
 }
 
@@ -67,20 +77,21 @@ void ListBox::_updateItemDisplay()
 {
 	mItemWidth = rect().width();
 
-	if ((mLineHeight * mItems.size()) > rect().height())
+	if ((mLineHeight * mItems.size()) > height())
 	{
-		mLineCount = static_cast<int>(rect().height() / mLineHeight);
+		mLineCount = static_cast<int>(height() / mLineHeight);
 		if (mLineCount < static_cast<int>(mItems.size()))
 		{
-			mSlider.length((mLineHeight * mItems.size()) - rect().height());
-			mSlider.visible(true);
+			mSlider.length((mLineHeight * mItems.size()) - height());
 			mCurrentOffset = mSlider.thumbPosition();
-			mItemWidth = rect().width() - mSlider.rect().width();
+			mItemWidth = width() - mSlider.width();
+			mSlider.visible(true);
 		}
 	}
 	else
 	{
 		mCurrentOffset = 0;
+		mSlider.length(0);
 		mSlider.visible(false);
 	}
 }
@@ -167,6 +178,7 @@ void ListBox::dropAllItems()
 {
 	mItems.clear();
 	mCurrentSelection = 0;
+	_updateItemDisplay();
 }
 
 
@@ -227,6 +239,22 @@ void ListBox::onMouseMove(int x, int y, int relX, int relY)
 }
 
 
+/**
+ * \todo	Make the scroll amount configurable.
+ */
+void ListBox::onMouseWheel(int x, int y)
+{
+	if (y < 0)
+	{
+		mSlider.changeThumbPosition(16.0);
+	}
+	else if (y > 0)
+	{
+		mSlider.changeThumbPosition(-16.0);
+	}
+}
+
+
 void ListBox::update()
 {
 	// Ignore if menu is empty or invisible
@@ -251,12 +279,8 @@ void ListBox::update()
 		r.drawBox(rect().x(), itemY, mItemWidth, mLineHeight, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
 	}
 	
-	
-	//int iMin = 0;
-	//int iMax = mItems.size();
-
 	// display actuals values that are meant to be
-	for(int i = 0; i < mItems.size(); i++)
+	for(int i = 0; i < (int)mItems.size(); i++)
 	{
 		itemY = rect().y() + (i * mLineHeight) - mCurrentOffset;
 		if (i == mCurrentHighlight)
@@ -269,7 +293,6 @@ void ListBox::update()
 		}
 	}
 
-	// draw the slider if needed
 	mSlider.update();
 	r.clipRectClear();
 }
@@ -277,10 +300,10 @@ void ListBox::update()
 
 void ListBox::slideChanged(double _position)
 {
+	_updateItemDisplay();
 	int pos = static_cast<int>(_position);
 	if (static_cast<float>(pos) != _position)
 	{
 		mSlider.thumbPosition(static_cast<double>(pos));
 	}
-	_updateItemDisplay();
 }

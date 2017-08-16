@@ -41,7 +41,6 @@ public:
 	const std::string& selectionText() const { return mItems[mCurrentSelection]; }
 
 	void update();
-	virtual void size(float w, float h); 	/*!< Set the slider size. */
 
 	bool empty() const;
 
@@ -50,10 +49,14 @@ public:
 protected:
 	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int relX, int relY);
+	void onMouseWheel(int x, int y);
 	virtual void slideChanged(double _position);
+
+	virtual void visibilityChanged(bool visible) final;
 
 private:
 	virtual void onFontChanged() final;
+	virtual void onSizeChanged() final;
 
 	void _updateItemDisplay();
 
