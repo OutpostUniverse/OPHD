@@ -2,7 +2,7 @@
 
 #include "Factory.h"
 
-typedef std::map<Factory::ProductType, ProductionCost> ProductionTypeTable;
+typedef std::map<ProductType, ProductionCost> ProductionTypeTable;
 
 ProductionTypeTable PRODUCTION_TYPE_TABLE;
 
@@ -20,9 +20,9 @@ void fillTable()
 	if (!PRODUCTION_TYPE_TABLE.empty())
 		return;
 
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCT_DIGGER] = ProductionCost(5, 10, 5, 5, 2);
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCT_DOZER] = ProductionCost(5, 10, 5, 5, 2);
-	PRODUCTION_TYPE_TABLE[Factory::PRODUCT_MINER] = ProductionCost(5, 10, 5, 5, 2);
+	PRODUCTION_TYPE_TABLE[PRODUCT_DIGGER] = ProductionCost(5, 10, 5, 5, 2);
+	PRODUCTION_TYPE_TABLE[PRODUCT_DOZER] = ProductionCost(5, 10, 5, 5, 2);
+	PRODUCTION_TYPE_TABLE[PRODUCT_MINER] = ProductionCost(5, 10, 5, 5, 2);
 }
 
 
@@ -41,7 +41,7 @@ void Factory::productType(ProductType _p)
 	if (_p == mProduct)
 		return;
 
-	if (_p == Factory::PRODUCT_NONE)
+	if (_p == PRODUCT_NONE)
 	{
 		clearProduction();
 		return;

@@ -3,7 +3,7 @@
 #include "../Constants.h"
 
 
-std::map<std::string, Factory::ProductType> PRODUCTION_TRANSLATION_TABLE;
+std::map<std::string, ProductType> PRODUCTION_TRANSLATION_TABLE;
 
 FactoryProduction::FactoryProduction(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
 {
@@ -60,16 +60,16 @@ void FactoryProduction::init()
 
 
 	// Fill production translation table
-	PRODUCTION_TRANSLATION_TABLE[""] = Factory::PRODUCT_NONE;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROBODIGGER] = Factory::PRODUCT_DIGGER;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROBODOZER] = Factory::PRODUCT_DOZER;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROBOMINER] = Factory::PRODUCT_MINER;
+	PRODUCTION_TRANSLATION_TABLE[""] = PRODUCT_NONE;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROBODIGGER] = PRODUCT_DIGGER;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROBODOZER] = PRODUCT_DOZER;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROBOMINER] = PRODUCT_MINER;
 }
 
 
 void FactoryProduction::clearProduct()
 {
-	mProduct = Factory::PRODUCT_NONE;
+	mProduct = PRODUCT_NONE;
 	mProductCost.clear();
 	mProductGrid.clearSelection();
 }
@@ -157,15 +157,15 @@ void FactoryProduction::factory(Factory* _f)
 	// FIXME: This is a super naive and ugly way to do this. Don't like it at all.
 	for (size_t i = 0; i < ptlist.size(); ++i)
 	{
-		if (ptlist[i] == Factory::PRODUCT_DIGGER)
+		if (ptlist[i] == PRODUCT_DIGGER)
 		{
 			mProductGrid.addItem(constants::ROBODIGGER, 0);
 		}
-		else if (ptlist[i] == Factory::PRODUCT_DOZER)
+		else if (ptlist[i] == PRODUCT_DOZER)
 		{
 			mProductGrid.addItem(constants::ROBODOZER, 1);
 		}
-		else if (ptlist[i] == Factory::PRODUCT_MINER)
+		else if (ptlist[i] == PRODUCT_MINER)
 		{
 			mProductGrid.addItem(constants::ROBOMINER, 2);
 		}
@@ -174,15 +174,15 @@ void FactoryProduction::factory(Factory* _f)
 	// FIXME:	The following block assumes that factory items will be in a particular order and
 	//			is prone to break if things aren't supplied in exactly the way it expects. Also,
 	//			it's just another really bad way of doing this (if/else if blocks, blech!)
-	if (mFactory->productType() == Factory::PRODUCT_DIGGER)
+	if (mFactory->productType() == PRODUCT_DIGGER)
 	{
 		mProductGrid.selection(0);
 	}
-	else if (mFactory->productType() == Factory::PRODUCT_DOZER)
+	else if (mFactory->productType() == PRODUCT_DOZER)
 	{
 		mProductGrid.selection(1);
 	}
-	else if (mFactory->productType() == Factory::PRODUCT_MINER)
+	else if (mFactory->productType() == PRODUCT_MINER)
 	{
 		mProductGrid.selection(2);
 	}

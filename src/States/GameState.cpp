@@ -1169,23 +1169,23 @@ void GameState::minerTaskFinished(Robot* _r)
 /**
  * Called whenever a Factory's production is complete.
  */
-void GameState::factoryProductionComplete(Factory::ProductType _p, int id)
+void GameState::factoryProductionComplete(ProductType _p, int id)
 {
 	cout << "Factory '" << id << "' has finished producing a";
 	
 	switch (_p)
 	{
-	case Factory::PRODUCT_DIGGER:
+	case PRODUCT_DIGGER:
 		cout << " RoboDigger" << endl;
 		mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
 		break;
 
-	case Factory::PRODUCT_DOZER:
+	case PRODUCT_DOZER:
 		cout << " RoboDozer" << endl;
 		mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
 		break;
 
-	case Factory::PRODUCT_MINER:
+	case PRODUCT_MINER:
 		cout << " RoboMiner" << endl;
 		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
 		break;
@@ -1762,7 +1762,7 @@ void GameState::readStructures(XmlElement* _ti)
 		if (st->isFactory())
 		{
 			Factory* f = static_cast<Factory*>(st);
-			f->productType(static_cast<Factory::ProductType>(production_type));
+			f->productType(static_cast<ProductType>(production_type));
 			f->productionTurnsCompleted(production_completed);
 			f->resourcePool(&mPlayerResources);
 			f->productionComplete().connect(this, &GameState::factoryProductionComplete);

@@ -2,8 +2,7 @@
 
 #include "Structure.h"
 
-#include "../../RobotPool.h"
-
+#include "../../Common.h"
 
 /**
  * FIXME:	Maybe should inherit from Resources and add the TurnsToBuild instead
@@ -52,17 +51,6 @@ struct ProductionCost
 class Factory : public Structure
 {
 public:
-
-	enum ProductType
-	{
-		PRODUCT_NONE,
-
-		// Surface Factories
-		PRODUCT_DIGGER,
-		PRODUCT_DOZER,
-		PRODUCT_MINER
-	};
-
 	// Callback providing what was complete and the ID of the factory.
 	typedef NAS2D::Signals::Signal2<ProductType, int> ProductionCallback;
 

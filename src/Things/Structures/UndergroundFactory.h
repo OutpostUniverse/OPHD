@@ -26,7 +26,7 @@ protected:
 	{
 		// Robot digger for now. Need to be replaced by non robot/surface goods
 		// Produces luxuries, clothing, or medicine 
-		addProduct(Factory::PRODUCT_DIGGER);
+		addProduct(PRODUCT_DIGGER);
 	}
 
 private:

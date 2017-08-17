@@ -92,6 +92,17 @@ enum RobotType
 };
 
 
+enum ProductType
+{
+	PRODUCT_NONE,
+
+	// Surface Factories
+	PRODUCT_DIGGER,
+	PRODUCT_DOZER,
+	PRODUCT_MINER
+};
+
+
 /**
  * Contains population requirements for a given Structure.
  * 

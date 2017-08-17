@@ -108,7 +108,7 @@ private:
 	void diggerTaskFinished(Robot* _r);
 	void minerTaskFinished(Robot* _r);
 
-	void factoryProductionComplete(Factory::ProductType _p, int id);
+	void factoryProductionComplete(ProductType _p, int id);
 
 	void deployColonistLander();
 

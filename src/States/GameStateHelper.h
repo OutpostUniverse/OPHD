@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Common.h"
+#include "../RobotPool.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 

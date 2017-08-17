@@ -39,17 +39,17 @@ private:
 	void productSelectionChanged(const std::string&);
 
 private:
-	Factory*					mFactory = nullptr;
+	Factory*			mFactory = nullptr;
 
-	Factory::ProductType		mProduct = Factory::PRODUCT_NONE;
-	ProductionCost				mProductCost;
+	ProductType			mProduct = PRODUCT_NONE;
+	ProductionCost		mProductCost;
 
-	Font						mBold;
+	Font				mBold;
 
-	IconGrid					mProductGrid;
+	IconGrid			mProductGrid;
 
-	Button						btnOkay;
-	Button						btnCancel;
-	Button						btnClearSelection;
-	Button						btnIdle;
+	Button				btnOkay;
+	Button				btnCancel;
+	Button				btnClearSelection;
+	Button				btnIdle;
 };
