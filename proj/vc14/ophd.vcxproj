@@ -170,6 +170,7 @@
     <ClCompile Include="..\..\src\Mine.cpp" />
     <ClCompile Include="..\..\src\PopulationPool.cpp" />
     <ClCompile Include="..\..\src\Population\Population.cpp" />
+    <ClCompile Include="..\..\src\ProductPool.cpp" />
     <ClCompile Include="..\..\src\ResourcePool.cpp" />
     <ClCompile Include="..\..\src\RobotPool.cpp" />
     <ClCompile Include="..\..\src\RobotTranslator.cpp" />

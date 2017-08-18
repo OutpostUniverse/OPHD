@@ -195,6 +195,9 @@
     <ClCompile Include="..\..\src\UI\Core\ListBox.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ProductPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">

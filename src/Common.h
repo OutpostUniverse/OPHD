@@ -99,7 +99,9 @@ enum ProductType
 	// Surface Factories
 	PRODUCT_DIGGER,
 	PRODUCT_DOZER,
-	PRODUCT_MINER
+	PRODUCT_MINER,
+
+	PRODUCT_COUNT
 };
 
 

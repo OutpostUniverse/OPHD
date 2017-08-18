@@ -11,6 +11,8 @@ namespace constants
 
 	const int BASE_STORAGE_CAPACITY = 250;
 
+	const int BASE_PRODUCT_CAPACITY = 100;
+
 	const int DEPTH_SURFACE = 0;
 	const int DEPTH_UNDERGROUND_1 = 1;
 	const int DEPTH_UNDERGROUND_2 = 2;

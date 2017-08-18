@@ -2,6 +2,8 @@
 
 #include "Structure.h"
 
+#include "../../ProductPool.h"
+
 class Warehouse : public Structure
 {
 public:
@@ -19,23 +21,17 @@ public:
 	}
 
 
-	virtual ~Warehouse()
-	{}
+	virtual ~Warehouse() {}
+
+	const ProductPool& products() const { return mProducts; }
 
 protected:
-
-	virtual void think()
-	{
-	}
 
 	virtual void defineResourceInput()
 	{
 		resourcesIn().energy(1);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
+	
 private:
-
+	ProductPool			mProducts;
 };
