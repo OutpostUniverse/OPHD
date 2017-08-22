@@ -9,19 +9,35 @@ using namespace NAS2D::Xml;
 
 #pragma warning(disable: 4244)
 
-const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
-
-Point_2d			TRANSFORM;							// FIXME: Document what I do.
+// ===============================================================================
+// = CONSTANTS
+// ===============================================================================
+const std::string	MAP_TERRAIN_EXTENSION = "_a.png";
 
 const int			MAP_WIDTH					= 300;
 const int			MAP_HEIGHT					= 150;
 
-const int			TILE_WIDTH					= 107;
-const int			TILE_HEIGHT					= 46;
+const int			TILE_WIDTH					= 128;
+const int			TILE_HEIGHT					= 64;
+
+const int			TILE_HALF_WIDTH				= TILE_WIDTH / 2;
+
+const int			TILE_HEIGHT_OFFSET			= 9;
+const int			TILE_HEIGHT_ABSOLUTE		= TILE_HEIGHT - TILE_HEIGHT_OFFSET;
+const int			TILE_HEIGHT_HALF_ABSOLUTE	= TILE_HEIGHT_ABSOLUTE / 2;
 
 const double		THROB_SPEED					= 250.0f; // Throb speed of mine beacon
 
 
+// ===============================================================================
+// = LOCAL VARIABLES
+// ===============================================================================
+Point_2d			TRANSFORM; /**< Used to adjust mouse and screen spaces based on position of the map field. */
+
+
+// ===============================================================================
+// = RANDOM NUMBER GENERATION
+// ===============================================================================
 std::random_device rd;
 std::mt19937 generator(rd());
 std::uniform_int_distribution<int> map_width(5, MAP_WIDTH - 5);
@@ -33,23 +49,22 @@ auto mheight = std::bind(map_height, std::ref(generator));
 auto myield = std::bind(mine_yield, std::ref(generator));
 
 
-TileMap::TileMap(const string& map_path, const string& tset_path, int _md, int _mc, bool _s):	mEdgeLength(0),
-																								mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
-																								mMaxDepth(_md),
-																								mCurrentDepth(0),
-																								mTileSelector("ui/selector.png"),
-																								mTileset(tset_path),
-																								mMineBeacon("structures/mine_beacon.png"),
-																								mDebug(false),
-																								mShowConnections(false)
+/**
+ * C'tor
+ */
+TileMap::TileMap(const string& map_path, const string& tset_path, int _md, int _mc, bool _s) :
+	mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
+	mMaxDepth(_md),
+	mTileSelector("ui/selector.png"),
+	mTileset(tset_path),
+	mMineBeacon("structures/mine_beacon.png")
 {
 	cout << "Loading '" << map_path << "'... ";
 	buildTerrainMap(map_path);
 	buildMouseMap();
 	initMapDrawParams();
 
-	if(_s)
-		setupMines(_mc);
+	if (_s) { setupMines(_mc); }
 
 	mMapPath = map_path;
 	mTsetPath = tset_path;
@@ -63,8 +78,10 @@ TileMap::~TileMap()
 
 Tile* TileMap::getTile(int x, int y, int level)
 {
-	if(x >= 0 && x < width() && y >= 0 && y < height() && level >= 0 && level <= mMaxDepth)
+	if (x >= 0 && x < width() && y >= 0 && y < height() && level >= 0 && level <= mMaxDepth)
+	{
 		return &mTileMap[level][y][x];
+	}
 
 	return nullptr;
 }
@@ -75,21 +92,31 @@ Tile* TileMap::getTile(int x, int y, int level)
  */
 void TileMap::buildTerrainMap(const std::string& path)
 {
-	if(!Utility<Filesystem>::get().exists(path + MAP_TERRAIN_EXTENSION))
+	if (!Utility<Filesystem>::get().exists(path + MAP_TERRAIN_EXTENSION))
+	{
 		throw std::runtime_error("Given map file does not exist.");
+	}
 
 	Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
 	mTileMap.resize(mMaxDepth + 1);
-
 	for(int level = 0; level <= mMaxDepth; level++)
 	{
 		mTileMap[level].resize(height());
-		for(size_t i = 0; i < mTileMap[level].size(); i++)
+		for (size_t i = 0; i < mTileMap[level].size(); i++)
+		{
 			mTileMap[level][i].resize(width());
+		}
 	}
 
-	// Build map based on terrain map
+	/**
+	 * Builds a terrain map based on the pixel color values in
+	 * a maps height map.
+	 * 
+	 * Height maps by default are in grey-scale. This method assumes
+	 * that all channels are the same value so it only looks at the red.
+	 * Color values are divided by 50 to get a height value from 1 - 4.
+	 */
 	for(int depth = 0; depth <= mMaxDepth; depth++)
 	{
 		for(int row = 0; row < height(); row++)
@@ -99,8 +126,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 				Color_4ub c = heightmap.pixelColor(col, row);
 				Tile& t = mTileMap[depth][row][col];
 				t.init(col, row, depth, c.red() / 50);
-				if (depth > 0)
-					t.excavated(false);
+				if (depth > 0) { t.excavated(false); }
 			}
 		}
 	}
@@ -152,20 +178,26 @@ void TileMap::setupMines(int mineCount)
 void TileMap::buildMouseMap()
 {
 	// Sanity checks
-	if(!Utility<Filesystem>::get().exists("ui/mouse_map.png"))
+	if (!Utility<Filesystem>::get().exists("ui/mouse_map.png"))
+	{
 		throw std::runtime_error("Unable to find the mouse map file.");
+	}
 
 	Image mousemap("ui/mouse_map.png");
 
 	// More sanity checks (mousemap should match dimensions of tile)
-	if(mousemap.width() != TILE_WIDTH || mousemap.height() != TILE_HEIGHT)
+	if (mousemap.width() != TILE_WIDTH || mousemap.height() != TILE_HEIGHT_ABSOLUTE)
+	{
 		throw std::runtime_error("Mouse map is the wrong dimensions.");
+	}
 	
-	mMouseMap.resize(TILE_HEIGHT);
-	for(size_t i = 0; i < mMouseMap.size(); i++)
+	mMouseMap.resize(TILE_HEIGHT_ABSOLUTE);
+	for (size_t i = 0; i < mMouseMap.size(); i++)
+	{
 		mMouseMap[i].resize(TILE_WIDTH);
+	}
 
-	for(size_t row = 0; row < TILE_HEIGHT; row++)
+	for(size_t row = 0; row < TILE_HEIGHT_ABSOLUTE; row++)
 	{
 		for(size_t col = 0; col < TILE_WIDTH; col++)
 		{
@@ -195,8 +227,8 @@ void TileMap::initMapDrawParams()
 
 	mEdgeLength = static_cast<int>(screenW) / TILE_WIDTH;
 
-	mMapPosition((screenW / 2 - (TILE_WIDTH / 2)), ((screenH - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT));
-	mMapBoundingBox((screenW / 2) - ((TILE_WIDTH * mEdgeLength) / 2), mMapPosition.y(), TILE_WIDTH * mEdgeLength, TILE_HEIGHT * mEdgeLength);
+	mMapPosition((screenW / 2 - (TILE_WIDTH / 2)), ((screenH - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT_ABSOLUTE));
+	mMapBoundingBox((screenW / 2) - ((TILE_WIDTH * mEdgeLength) / 2), mMapPosition.y(), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength);
 
 	int transform = (mMapPosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
 	TRANSFORM(-transform, transform);
@@ -223,18 +255,18 @@ void TileMap::draw()
 	Renderer& r = Utility<Renderer>::get();
 
 	int x = 0, y = 0;
-	Tile* tile = NULL;
+	Tile* tile = nullptr;
 
 	int tsetOffset = 0;
 
-	mCurrentDepth > 0 ? tsetOffset = 1 : tsetOffset = 0;
+	mCurrentDepth > 0 ? tsetOffset = TILE_HEIGHT : tsetOffset = 0;
 
 	for(int row = 0; row < mEdgeLength; row ++)
 	{
 		for(int col = 0; col < mEdgeLength; col++)
 		{
-			x = mMapPosition.x() + ((col - row) * (TILE_WIDTH / 2));
-			y = mMapPosition.y() + (col + row) * (TILE_HEIGHT / 2);
+			x = mMapPosition.x() + ((col - row) * TILE_HALF_WIDTH);
+			y = mMapPosition.y() + ((col + row) * TILE_HEIGHT_HALF_ABSOLUTE);
 
 			tile = &mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
 
@@ -243,29 +275,35 @@ void TileMap::draw()
 				if (mShowConnections)
 				{
 					if (tile->connected())
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, 0, 255, 0, 255);
+						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 0, 255, 0, 255);
 					else
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT);
 				}
 				else
-					r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+				{
+					r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT);
+				}
 
-				if(row == mMapHighlight.y() && col == mMapHighlight.x())
-					r.drawImage(mTileSelector,	mMapPosition.x() + ((mMapHighlight.x() - mMapHighlight.y()) * (TILE_WIDTH / 2)),
-												mMapPosition.y() + (mMapHighlight.x() + mMapHighlight.y()) * (TILE_HEIGHT / 2));
+				if (row == mMapHighlight.y() && col == mMapHighlight.x())
+				{
+					r.drawImage(mTileSelector,
+								mMapPosition.x() + ((mMapHighlight.x() - mMapHighlight.y()) * TILE_HALF_WIDTH),
+								mMapPosition.y() + (mMapHighlight.x() + mMapHighlight.y()) * TILE_HEIGHT_HALF_ABSOLUTE);
+				}
 
 				// Draw a beacon on an unoccupied tile with a mine
-				if (tile->mine() != NULL && !tile->thing())
+				if (tile->mine() != nullptr && !tile->thing())
 				{
-					int glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57, loc_x = x + (TILE_WIDTH >> 1) - 6, loc_y = y + (TILE_HEIGHT >> 1) - 22;
+					int glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57;
+					int loc_x = x + TILE_HALF_WIDTH - 6;
+					int loc_y = y + 15;
 
 					r.drawImage(mMineBeacon, loc_x, loc_y);
 					r.drawSubImage(mMineBeacon, loc_x, loc_y, 0, 0, 10, 5, glow, glow, glow, 255);
 				}
 
 				// Tell an occupying thing to update itself.
-				if(tile->thing())
-					tile->thing()->sprite().update(x, y);
+				if (tile->thing()) { tile->thing()->sprite().update(x, y); }
 			}
 		}
 	}
@@ -281,36 +319,36 @@ void TileMap::draw()
  */
 void TileMap::updateTileHighlight()
 {
-	if(isPointInRect(mMousePosition, mMapBoundingBox))
+	if (isPointInRect(mMousePosition, mMapBoundingBox))
 	{
 		int offsetX = (mMousePosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
-		int offsetY = (mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT;
+		int offsetY = (mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE;
 		mMapHighlight(TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX);
 
-		//Point_2d pt((mMousePosition.x() - mMapBoundingBox.x()) % TILE_WIDTH, (mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT);
-		MouseMapRegion mmr = getMouseMapRegion((mMousePosition.x() - mMapBoundingBox.x()) % TILE_WIDTH, (mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT);
+		MouseMapRegion mmr = getMouseMapRegion(	(mMousePosition.x() - mMapBoundingBox.x()) % TILE_WIDTH,
+												(mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE);
 
-		switch(mmr)
+		switch (mmr)
 		{
-			case MMR_TOP_RIGHT:
-				mMapHighlight.y(--mMapHighlight.y());
-				break;
-			case MMR_TOP_LEFT:
-				mMapHighlight.x(--mMapHighlight.x());
-				break;
-			case MMR_BOTTOM_RIGHT:
-				mMapHighlight.x(++mMapHighlight.x());
-				break;
-			case MMR_BOTTOM_LEFT:
-				mMapHighlight.y(++mMapHighlight.y());
-				break;
-			default:
-				break;
-		};
+		case MMR_TOP_RIGHT:
+			mMapHighlight.y(--mMapHighlight.y());
+			break;
 
-		//if(mMapHighlight.x() >= 0 && mMapHighlight.x() < mEdgeLength && mMapHighlight.y() >= 0 && mMapHighlight.y() < mEdgeLength)
-			//r.drawImage(mTileSelector,	mMapPosition.x() + ((mMapHighlight.x() - mMapHighlight.y()) * (TILE_WIDTH / 2)),
-										//mMapPosition.y() + (mMapHighlight.x() + mMapHighlight.y()) * (TILE_HEIGHT / 2));
+		case MMR_TOP_LEFT:
+			mMapHighlight.x(--mMapHighlight.x());
+			break;
+
+		case MMR_BOTTOM_RIGHT:
+			mMapHighlight.x(++mMapHighlight.x());
+			break;
+
+		case MMR_BOTTOM_LEFT:
+			mMapHighlight.y(++mMapHighlight.y());
+			break;
+
+		default:
+			break;
+		};
 	}
 }
 

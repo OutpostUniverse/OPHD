@@ -9,7 +9,9 @@ typedef std::vector<Point_2d> Point2dList;
 class TileMap
 {
 public:
-
+	/**
+	 * 
+	 */
 	enum TileMapLevel
 	{
 		LEVEL_SURFACE = 0,
@@ -19,9 +21,8 @@ public:
 		LEVEL_UG_4
 	};
 
-	
+public:
 	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, bool setupMines = true);
-
 	~TileMap();
 
 	Tile* getTile(int x, int y, int level);
@@ -69,6 +70,9 @@ public:
 	void deserialize(NAS2D::Xml::XmlElement* _ti);
 
 protected:
+	/**
+	 * 
+	 */
 	enum MouseMapRegion
 	{
 		MMR_MIDDLE,
@@ -78,18 +82,15 @@ protected:
 		MMR_BOTTOM_LEFT
 	};
 	
-	std::vector<std::vector<MouseMapRegion> > mMouseMap;
+	std::vector<std::vector<MouseMapRegion> > mMouseMap;	/**<  */
 
 private:
-	typedef std::vector<std::vector<Tile> >	TileGrid;
-	typedef std::vector<TileGrid>		TileArray;
+	typedef std::vector<std::vector<Tile> >	TileGrid;		/**<  */
+	typedef std::vector<TileGrid>			TileArray;		/**<  */
 	
 private:
-
-	// No default copy constructor, or copy operator
-	// Calling these should result in an error
-	TileMap(const TileMap&) = delete;
-	TileMap& operator=(const TileMap&) = delete;
+	TileMap(const TileMap&) = delete;						/**< Not Allowed */
+	TileMap& operator=(const TileMap&) = delete;			/**< Not allowed */
 
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
@@ -100,33 +101,34 @@ private:
 	MouseMapRegion getMouseMapRegion(int x, int y);
 
 private:
-	int					mEdgeLength;
-	int					mWidth, mHeight;
+	int					mEdgeLength = 0;			/**<  */
+	int					mWidth = 0;					/**<  */
+	int					mHeight = 0;				/**<  */
 
-	int					mMaxDepth;			/**< Maximum digging depth. */
-	int					mCurrentDepth;		/**< Current depth level to view. */
+	int					mMaxDepth = 0;				/**< Maximum digging depth. */
+	int					mCurrentDepth = 0;			/**< Current depth level to view. */
 
-	std::string			mMapPath;
-	std::string			mTsetPath;
+	std::string			mMapPath;					/**<  */
+	std::string			mTsetPath;					/**<  */
 
-	TileArray			mTileMap;
+	TileArray			mTileMap;					/**<  */
 
-	Image				mTileSelector;
-	Image				mTileset;
-	Image				mMineBeacon;
+	Image				mTileSelector;				/**<  */
+	Image				mTileset;					/**<  */
+	Image				mMineBeacon;				/**<  */
 
-	Timer				mTimer;
+	Timer				mTimer;						/**<  */
 
-	Point_2d			mMousePosition;		/**< Current mouse position. */
-	Point_2d			mMapHighlight;		/**< Tile the mouse is pointing to. */
-	Point_2d			mMapViewLocation;	/**<  */
+	Point_2d			mMousePosition;				/**< Current mouse position. */
+	Point_2d			mMapHighlight;				/**< Tile the mouse is pointing to. */
+	Point_2d			mMapViewLocation;			/**<  */
 
-	Point_2df			mMapPosition;		/** Where to start drawing the TileMap on the screen. */
+	Point_2df			mMapPosition;				/** Where to start drawing the TileMap on the screen. */
 
-	Point2dList			mMineLocations;		/**< Location of all mines on the map. */
+	Point2dList			mMineLocations;				/**< Location of all mines on the map. */
 
-	Rectangle_2d		mMapBoundingBox;	/** Area that the TileMap fills when drawn. */
+	Rectangle_2d		mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
 
-	bool				mDebug;
-	bool				mShowConnections;	/**< Flag indicating whether or not to highlight connectedness. */
+	bool				mDebug = false;
+	bool				mShowConnections = false;	/**< Flag indicating whether or not to highlight connectedness. */
 };

@@ -26,11 +26,23 @@ ListBox*	FILE_LIST = nullptr;
 bool		SELECTING_FILE = true;
 bool		RUNNING = false;
 
-int			OFFSET_X = 0;
-int			OFFSET_Y = 0;
-
 // Stuff
 std::string	SELECTED_FILE;
+
+
+int	OFFSET_X = 0;
+int	OFFSET_Y = 0;
+
+const int	TILE_WIDTH = 128;
+const int	TILE_HEIGHT = 64;
+
+const int	TILE_HALF_WIDTH = TILE_WIDTH / 2;
+const int	TILE_HALF_HEIGHT = TILE_HEIGHT / 2;
+
+const int	TILE_HEIGHT_OFFSET = 10;
+const int	TILE_HEIGHT_ABSOLUTE = TILE_HEIGHT - TILE_HEIGHT_OFFSET;
+const int	TILE_HEIGHT_HALF_ABSOLUTE = TILE_HEIGHT_ABSOLUTE / 2;
+
 
 
 void fillFileList();
@@ -210,22 +222,28 @@ int main(int argc, char *argv[])
 			R->drawText(*TINY_FONT, "Use arrow keys to align the structure, then copy the offsets to the sprite file.", 10, 25, 255, 255, 255);
 
 
-			R->drawText(*TINY_FONT, string_format("X: %i  Y: %i", OFFSET_X - STRUCTURE->originX(0), OFFSET_Y + STRUCTURE->originY(0)), 10, 55, 255, 255, 255);
+			R->drawText(*TINY_FONT, string_format("X: %i  Y: %i", -(OFFSET_X - STRUCTURE->originX(0)), -(OFFSET_Y + STRUCTURE->originY(0))), 10, 55, 255, 255, 255);
 
 			// Upper Row
-			R->drawSubImage(*TILESET, R->center_x() - 107, R->center_y() - 46, 0, 0, 107, 46);
-			R->drawSubImage(*TILESET, R->center_x(), R->center_y() - 46, 0, 0, 107, 46);
-			TUBES->update(R->center_x() - 107, R->center_y() - 46);
-			TUBES->update(R->center_x(), R->center_y() - 46);
+			R->drawSubImage(*TILESET, R->center_x() - TILE_WIDTH, R->center_y() - TILE_HEIGHT_ABSOLUTE, 0, 0, TILE_WIDTH, TILE_HEIGHT);
+			R->drawSubImage(*TILESET, R->center_x(), R->center_y() - TILE_HEIGHT_ABSOLUTE, 0, 0, TILE_WIDTH, TILE_HEIGHT);
+			
+			TUBES->update(R->center_x() - TILE_WIDTH, R->center_y() - TILE_HEIGHT_ABSOLUTE);
+			TUBES->update(R->center_x(), R->center_y() - TILE_HEIGHT_ABSOLUTE);
 
 			// Center Tile
-			R->drawSubImage(*TILESET, R->center_x() - 53, R->center_y() - 23, 0, 0, 107, 46);
-			STRUCTURE->update(R->center_x() - 53 + OFFSET_X, R->center_y() - 23 + OFFSET_Y);
+			R->drawSubImage(*TILESET, R->center_x() - TILE_HALF_WIDTH, R->center_y() - TILE_HEIGHT_HALF_ABSOLUTE, 0, 0, TILE_WIDTH, TILE_HEIGHT);
 			
+			STRUCTURE->update(R->center_x() - TILE_HALF_WIDTH + OFFSET_X, R->center_y() - TILE_HEIGHT_HALF_ABSOLUTE + OFFSET_Y);
+			
+			//TUBES->update(R->center_x() - TILE_HALF_WIDTH, R->center_y() - TILE_HEIGHT_HALF_ABSOLUTE);
+
 			// Lower Row
-			R->drawSubImage(*TILESET, R->center_x() - 107, R->center_y(), 0, 0, 107, 46);
-			R->drawSubImage(*TILESET, R->center_x(), R->center_y(), 0, 0, 107, 46);
-			TUBES->update(R->center_x() - 107, R->center_y());
+			R->drawSubImage(*TILESET, R->center_x() - TILE_WIDTH, R->center_y(), 0, 0, TILE_WIDTH, TILE_HEIGHT);
+			R->drawSubImage(*TILESET, R->center_x(), R->center_y(), 0, 0, TILE_WIDTH, TILE_HEIGHT);
+			
+			
+			TUBES->update(R->center_x() - TILE_WIDTH, R->center_y());
 			TUBES->update(R->center_x(), R->center_y());
 
 		}
