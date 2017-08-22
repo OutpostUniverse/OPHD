@@ -9,6 +9,7 @@ This is the changelog for OutpostHD.
 - New visuals for some of the surface structures.
 - F11 keybinding to switch between fullscreen and windowed mode.
 - Game window is resizable (minimum size 800x600).
+- New higher resolution tile sets.
 
 ### Changed
 - Robots can now only be placed within the area of influence of the Command Center and Comm. Towers.
