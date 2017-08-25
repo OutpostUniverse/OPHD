@@ -321,12 +321,19 @@ void TileMap::updateTileHighlight()
 {
 	if (isPointInRect(mMousePosition, mMapBoundingBox))
 	{
-		int offsetX = (mMousePosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
-		int offsetY = (mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE;
+		/// In the case of even edge lengths, we need to adjust the mouse picking code a bit.
+		int even_edge_length_adjust = 0;
+		if (edgeLength() % 2 == 0) { even_edge_length_adjust = TILE_HALF_WIDTH; }
+
+		int offsetX = ((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) / TILE_WIDTH);
+		int offsetY = ((mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE);
 		mMapHighlight(TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX);
 
-		MouseMapRegion mmr = getMouseMapRegion(	(mMousePosition.x() - mMapBoundingBox.x()) % TILE_WIDTH,
-												(mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE);
+		int mmOffsetX = clamp((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
+		int mmOffsetY = (mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE;
+
+		MouseMapRegion mmr = getMouseMapRegion(mmOffsetX, mmOffsetY);
+
 
 		switch (mmr)
 		{
