@@ -1042,13 +1042,14 @@ void GameState::placeRobot()
  * Checks the robot selection interface and if the robot is not available in it, adds
  * it back in and reeneables the robots button if it's not enabled.
  */
-void GameState::checkRobotSelectionInterface(const std::string rType, int sheetIndex)
+void GameState::checkRobotSelectionInterface(const std::string& rType, int sheetIndex)
 {
 	if (!mRobots.itemExists(rType))
 	{
 		mRobots.addItem(rType, sheetIndex);
 	}
 }
+
 
 /**
  * Called whenever a RoboDozer completes its task.

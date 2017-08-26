@@ -25,6 +25,7 @@ This is the changelog for OutpostHD.
 ### Fixed
 - FileOP button (Save/Load) in FileIO window will now start off disabled when first displayed.
 - Fixed a mistake in UndergroundFactory that would cause it to be saved as a SurfaceFactory.
+- Fixed an issue with tile picking that caused inaccuracies when map edge lengths were even.
 
 
 

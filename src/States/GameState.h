@@ -53,7 +53,6 @@ enum InsertMode
 class GameState: public State
 {
 public:
-
 	enum PopulationLevel
 	{
 		POPULATION_SMALL = 1,
@@ -71,16 +70,21 @@ protected:
 	State* update();
 
 private:
+	// EVENT HANDLERS
 	void onActivate(bool _b);
-
 	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
-
 	void onMouseDown(EventHandler::MouseButton button, int x, int y);
 	void onMouseUp(EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
 	void onMouseWheel(int x, int y);
 	void onWindowResized(int w, int h);
 
+	// ROBOT EVENT HANDLERS
+	void dozerTaskFinished(Robot* _r);
+	void diggerTaskFinished(Robot* _r);
+	void minerTaskFinished(Robot* _r);
+
+	// DRAWING FUNCTIONS
 	void drawUI();
 	void drawDebug();
 	void drawMiniMap();
@@ -88,54 +92,38 @@ private:
 	void drawResourceInfo();
 	void drawRobotInfo();
 
-	void hideUi();
-	void initUi();
-	void resetUi();
-	void clearSelections();
-	void setupUiPositions();
-
-	void populateStructureMenu();
-	void clearMode();
+	// INSERT OBJECT HANDLING
+	void deployColonistLander();
+	void deploySeedLander(int x, int y);
+	void insertSeedLander(int x, int y);
+	void insertTube(ConnectorDir _dir, int depth, Tile* t);
 
 	void placeRobot();
 	void placeStructure();
 	void placeTubes();
 
-	void insertTube(ConnectorDir _dir, int depth, Tile* t);
+	void setStructureID(StructureID type, InsertMode mode);
 
-	void checkRobotSelectionInterface(const std::string rType, int sheetIndex);
-	void dozerTaskFinished(Robot* _r);
-	void diggerTaskFinished(Robot* _r);
-	void minerTaskFinished(Robot* _r);
+	// MISCELLANEOUS UTILITY FUNCTIONS
+	int foodInStorage();
+	int foodTotalStorage();
+	void setMinimapView();
+
+	void checkConnectedness();
+	bool changeDepth(int _d);
 
 	void factoryProductionComplete(ProductType _p, int id);
 
-	void deployColonistLander();
-
-	void deploySeedLander(int x, int y);
-	void insertSeedLander(int x, int y);
-
-	void setMinimapView();
-
-	void updateRobots();
-
-	void checkConnectedness();
-
-	bool changeDepth(int _d);
-
-	int foodInStorage();
-	int foodTotalStorage();
-
-	void setStructureID(StructureID type, InsertMode mode);
-
 	// TURN LOGIC
+	void checkColonyShip();
 	void nextTurn();
 	void updatePopulation();
 	void updateMorale();
 	void updateResources();
-	void checkColonyShip();
+	void updateRobots();
 
-	// Savegame Loading / Saving
+
+	// SAVE GAME MANAGEMENT FUNCTIONS
 	void readRobots(Xml::XmlElement* _ti);
 	void readStructures(Xml::XmlElement* _ti);
 	void readTurns(Xml::XmlElement* _ti);
@@ -146,7 +134,24 @@ private:
 	void load(const std::string& _path);
 	void save(const std::string& _path);
 
-	// UI Event Handlers
+	// UI MANAGEMENT FUNCTIONS
+	void clearMode();
+	void clearSelections();
+
+	void hideUi();
+	void initUi();
+	void resetUi();
+
+	void setupUiPositions();
+
+	void checkRobotSelectionInterface(const std::string& rType, int sheetIndex);
+
+	void populateStructureMenu();
+
+	void updateCurrentLevelString(int currentDepth);
+	void updateStructuresAvailability();
+
+	// UI EVENT HANDLERS
 	void btnTurnsClicked();
 	void btnToggleConnectednessClicked();
 
@@ -155,9 +160,6 @@ private:
 	void btnReturnToGameClicked();
 	void btnGameOverClicked();
 	void playerResourcePoolModified();
-
-	void updateCurrentLevelString(int currentDepth);
-	void updateStructuresAvailability();
 
 	void structuresSelectionChanged(const std::string& _s);
 	void connectionsSelectionChanged(const std::string& _s);
@@ -168,72 +170,73 @@ private:
 	void fileIoAction(const std::string& _file, FileIo::FileOperation _op);
 
 private:
-	FpsCounter			mFps;
+	FpsCounter			mFps;							/**< Main FPS Counter. */
 
-	Font				mFont;
-	Font				mTinyFont;
-	Font				mTinyFontBold;
+	Font				mFont;							/**< Large Font. */
+	Font				mTinyFont;						/**< Small Font. */
+	Font				mTinyFontBold;					/**< Small Bold Font. */
 
-	TileMap*			mTileMap = nullptr;
+	TileMap*			mTileMap = nullptr;				/**<  */
 
-	Image				mBackground;
-	Image				mMapDisplay;
-	Image				mHeightMap;
-	Image				mUiIcons;
+	Image				mBackground;					/**< Background image drawn behind the tile map. */
+	Image				mMapDisplay;					/**< Satellite view of the Site Map. */
+	Image				mHeightMap;						/**< Height view of the Site Map. */
+	Image				mUiIcons;						/**< User interface icons. */
 
-	Point_2d			mMousePosition;				/**< Current position of the mouse pointer. */
-	Point_2d			mTileMapMouseHover;			/**< Tile position the mouse is currently hovering over. */
-	Point_2d			mCCLocation;				/**< Location of the Command Center. */
+	Point_2d			mMousePosition;					/**< Current position of the mouse pointer. */
+	Point_2d			mTileMapMouseHover;				/**< Tile position the mouse is currently hovering over. */
+	Point_2d			mCCLocation;					/**< Location of the Command Center. */
 
-	Rectangle_2d		mMiniMapBoundingBox;
+	Rectangle_2d		mMiniMapBoundingBox;			/**< Area of the site map display. */
 
-	StructureManager	mStructureManager;			/**< Manager class responsible for managing all structures. */
+	StructureManager	mStructureManager;				/**< Manager class responsible for managing all structures. */
 
 	// POOL'S
-	ResourcePool		mPlayerResources;			/**< Player's current resources. */
-	RobotPool			mRobotPool;					/**< Robots that are currently available for use. */
-	PopulationPool		mPopulationPool;
+	ResourcePool		mPlayerResources;				/**< Player's current resources. */
+	RobotPool			mRobotPool;						/**< Robots that are currently available for use. */
+	PopulationPool		mPopulationPool;				/**<  */
 
-	RobotTileTable		mRobotList;					/**< List of active robots and their positions on the map. */
+	RobotTileTable		mRobotList;						/**< List of active robots and their positions on the map. */
 
 	InsertMode			mInsertMode = INSERT_NONE;		/**< What's being inserted into the TileMap if anything. */
 	StructureID			mCurrentStructure = SID_NONE;	/**< Structure being placed. */
 	RobotType			mCurrentRobot = ROBOT_NONE;		/**< Robot being placed. */
 
-	Population			mPopulation;
+	Population			mPopulation;					/**<  */
 
-	//Music				mBgMusic;
+	//Music				mBgMusic;						/**<  */
 
-	// UI
-	Button				mBtnTurns;
-	Button				mBtnToggleHeightmap;
-	Button				mBtnToggleConnectedness;
+	// USER INTERFACE
+	Button				mBtnTurns;						/**< Turns Button. */
+	Button				mBtnToggleHeightmap;			/**< Height Map Toggle Button. */
+	Button				mBtnToggleConnectedness;		/**< Connectedness view toggle button. */
 
-	IconGrid			mStructures;
-	IconGrid			mRobots;
-	IconGrid			mConnections;
+	IconGrid			mStructures;					/**< Structures pick view. */
+	IconGrid			mRobots;						/**< Robots pick view. */
+	IconGrid			mConnections;					/**< Tubes pick view. */
 
-	DiggerDirection		mDiggerDirection;
-	FactoryProduction	mFactoryProduction;
-	FileIo				mFileIoDialog;
-	GameOverDialog		mGameOverDialog;
-	GameOptionsDialog	mGameOptionsDialog;
-	MajorEventAnnouncement	mAnnouncement;
-	PopulationPanel		mPopulationPanel;
-	StructureInspector	mStructureInspector;
-	TileInspector		mTileInspector;
+	DiggerDirection		mDiggerDirection;				/**< Digger direction window. */
+	FactoryProduction	mFactoryProduction;				/**< Factory Production window. */
+	FileIo				mFileIoDialog;					/**< File IO production window. */
+	GameOverDialog		mGameOverDialog;				/**< Game over window. */
+	GameOptionsDialog	mGameOptionsDialog;				/**< Options List window. */
+	MajorEventAnnouncement	mAnnouncement;				/**< Announcements window. */
+	PopulationPanel		mPopulationPanel;				/**< Population panel. */
+	StructureInspector	mStructureInspector;			/**< Structure Inspector window. */
+	TileInspector		mTileInspector;					/**< Tile Inspector window. */
 
-	WindowStack			mWindowStack;
+	WindowStack			mWindowStack;					/**< Window stack manager. */
 
 	// MISCELLANEOUS
-	int					mTurnCount = 0;
+	int					mTurnCount = 0;					/**<  */
 	int					mCurrentMorale = constants::DEFAULT_STARTING_MORALE;
 	int					mPreviousMorale = constants::DEFAULT_STARTING_MORALE;
 
-	int					mLandersColonist = 0;
+	int					mLandersColonist = 0;			/**<  */
+	int					mLandersCargo = 0;				/**<  */
 
-	bool				mDebug = false;
+	bool				mDebug = false;					/**< Display debug information. */
 	bool				mLeftButtonDown = false;		/**< Used for mouse drags on the mini map. */
 
-	State*				mReturnState = nullptr;
+	State*				mReturnState = nullptr;			/**<  */
 };
