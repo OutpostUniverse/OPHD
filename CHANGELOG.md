@@ -22,6 +22,7 @@ This is the changelog for OutpostHD.
 - Factory Production window now allows the user to set a factory to Idle. This is not undone until the user explicitely states it.
 - Factory Production window now has a "Clear Selection" button. This provides a much more obvious way to clear the selection vs. clicking outside a product icon in the product grid.
 - Updated keybindings -- see README.md for details.
+- Population panel now shows residential capacity.
 
 ### Fixed
 - FileOP button (Save/Load) in FileIO window will now start off disabled when first displayed.

@@ -120,6 +120,7 @@ private:
 	void nextTurn();
 	void updatePopulation();
 	void updateMorale();
+	void updateResidentialCapacity();
 	void updateResources();
 	void updateRobots();
 
@@ -230,11 +231,14 @@ private:
 
 	// MISCELLANEOUS
 	int					mTurnCount = 0;					/**<  */
+
 	int					mCurrentMorale = constants::DEFAULT_STARTING_MORALE;
 	int					mPreviousMorale = constants::DEFAULT_STARTING_MORALE;
 
 	int					mLandersColonist = 0;			/**<  */
 	int					mLandersCargo = 0;				/**<  */
+
+	int					mResidentialCapacity = 0;		/**<  */
 
 	bool				mDebug = false;					/**< Display debug information. */
 	bool				mLeftButtonDown = false;		/**< Used for mouse drags on the mini map. */

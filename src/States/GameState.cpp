@@ -1629,6 +1629,7 @@ void GameState::load(const std::string& _path)
 	mStructureManager.updateEnergyProduction(mPlayerResources, mPopulationPool);
 
 	updateRobotControl(mRobotPool, mStructureManager);
+	updateResidentialCapacity();
 
 	// set level indicator string
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
@@ -2013,7 +2014,21 @@ void GameState::checkColonyShip()
 			mAnnouncement.show();
 		}
 	}
+}
 
+
+/**
+ * 
+ */
+void GameState::updateResidentialCapacity()
+{
+	mResidentialCapacity = 0;
+	auto residences = mStructureManager.structureList(Structure::CLASS_RESIDENCE);
+	for (auto residence : residences)
+	{
+		if (residence->operational()) { mResidentialCapacity += static_cast<Residence*>(residence)->capacity(); }
+	}
+	mPopulationPanel.residential_capacity(mResidentialCapacity);
 }
 
 
@@ -2028,6 +2043,8 @@ void GameState::nextTurn()
 	mStructureManager.update(mPlayerResources, mPopulationPool);
 
 	mPreviousMorale = mCurrentMorale;
+
+	updateResidentialCapacity();
 
 	updatePopulation();
 	updateMorale();
