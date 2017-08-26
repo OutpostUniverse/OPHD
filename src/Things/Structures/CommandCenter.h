@@ -9,7 +9,7 @@ public:
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);
-		turnsToBuild(3);
+		turnsToBuild(4);
 
 		requiresCHAP(false);
 		selfSustained(true);

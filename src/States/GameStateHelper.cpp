@@ -1,5 +1,6 @@
 #include "GameStateHelper.h"
 
+#include "../AiVoiceNotifier.h"
 #include "../Constants.h"
 
 using namespace NAS2D::Xml;
@@ -87,6 +88,23 @@ bool validStructurePlacement(TileMap* tilemap, int x, int y)
 }
 
 
+/**
+ * Indicates that the selected landing site is clear of obstructions.
+ */
+bool validLanderSite(Tile* t)
+{
+	if (!t->empty() || (t->index() == TERRAIN_IMPASSABLE))
+	{
+		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
+		cout << "GameState::placeStructure(): Unsuitable landing site -- Impassable Terrain." << endl;
+		return false;
+	}
+
+	return true;
+}
+
+
+
 int totalStorage(StructureManager::StructureList& _sl)
 {
 	int storage = 0;
@@ -103,9 +121,11 @@ int totalStorage(StructureManager::StructureList& _sl)
 
 
 /**
-* Check landing site for obstructions such as mining beacons, things
-* and impassable terrain.
-*/
+ * Check landing site for obstructions such as mining beacons, things
+ * and impassable terrain.
+ * 
+ * This is used for the SEED Lander only
+ */
 bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 {
 	for (int offY = y - 1; offY <= y + 1; ++offY)
@@ -144,7 +164,7 @@ void updateRobotControl(RobotPool& _rp, StructureManager& _sm)
 
 bool structureIsLander(StructureID id)
 {
-	return id == SID_SEED_LANDER || id == SID_COLONIST_LANDER;
+	return id == SID_SEED_LANDER || id == SID_COLONIST_LANDER || SID_CARGO_LANDER;
 }
 
 

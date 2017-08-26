@@ -93,6 +93,7 @@ private:
 	void drawRobotInfo();
 
 	// INSERT OBJECT HANDLING
+	void deployCargoLander();
 	void deployColonistLander();
 	void deploySeedLander(int x, int y);
 	void insertSeedLander(int x, int y);

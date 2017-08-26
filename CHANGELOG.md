@@ -6,6 +6,7 @@ This is the changelog for OutpostHD.
 ### Added
 - Robot Command Center is now fully functional.
 - Added a Nursery structure. Required to keep infant mortality rate at a reasonable level.
+- Added the Cargo Lander.
 - New visuals for some of the surface structures.
 - F11 keybinding to switch between fullscreen and windowed mode.
 - Game window is resizable (minimum size 800x600).

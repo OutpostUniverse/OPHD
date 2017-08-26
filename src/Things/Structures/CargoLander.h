@@ -5,14 +5,13 @@
 #include "../../Constants.h"
 #include "../../Map/Tile.h"
 
-class ColonistLander : public Structure
+class CargoLander : public Structure
 {
 public:
+
 	typedef NAS2D::Signals::Signal0<void> Callback;
 
-public:
-
-	ColonistLander(Tile* t) : Structure(constants::COLONIST_LANDER, "structures/lander_1.sprite", CLASS_LANDER), mTile(t)
+	CargoLander(Tile* t) : Structure(constants::CARGO_LANDER, "structures/lander_0.sprite", CLASS_LANDER), mTile(t)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);
@@ -24,13 +23,12 @@ public:
 		enable();
 	}
 
-	virtual ~ColonistLander()
+	virtual ~CargoLander()
 	{}
 
 	Callback& deployCallback() { return mDeploy; }
 
 protected:
-
 	virtual void think()
 	{
 		if (age() == turnsToBuild())
@@ -41,7 +39,11 @@ protected:
 	}
 
 private:
-	Callback	mDeploy;
+	CargoLander() = delete;
+	CargoLander(const CargoLander&) = delete;
+	CargoLander& operator=(const CargoLander&) = delete;
 
-	Tile*		mTile;
+private:
+	Callback	mDeploy;
+	Tile*		mTile = nullptr;
 };

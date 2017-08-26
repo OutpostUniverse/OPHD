@@ -5,6 +5,9 @@
 std::map<std::string, StructureID> StructureTranslator::_stringToStructureTable;
 std::array<std::string, SID_COUNT> StructureTranslator::_structureToStringTable;
 
+/**
+ * 
+ */
 StructureID StructureTranslator::translateFromString(const std::string& _s)
 {
 	if (_stringToStructureTable.find(_s) == _stringToStructureTable.end())
@@ -14,23 +17,33 @@ StructureID StructureTranslator::translateFromString(const std::string& _s)
 }
 
 
+/**
+ * 
+ */
 const std::string& StructureTranslator::translateToString(StructureID _s)
 {
 	return _structureToStringTable[_s];
 }
 
 
+/**
+ * 
+ */
 void StructureTranslator::init()
 {
 	buildTables();
 }
 
 
+/**
+ * 
+ */
 void StructureTranslator::buildTables()
 {
 	// String to ID
 	_stringToStructureTable[constants::AGRIDOME] = SID_AGRIDOME;
 	_stringToStructureTable[constants::AIR_SHAFT] = SID_AIR_SHAFT;
+	_stringToStructureTable[constants::CARGO_LANDER] = SID_CARGO_LANDER;
 	_stringToStructureTable[constants::CHAP] = SID_CHAP;
 	_stringToStructureTable[constants::COLONIST_LANDER] = SID_COLONIST_LANDER;
 	_stringToStructureTable[constants::COMMAND_CENTER] = SID_COMMAND_CENTER;
@@ -67,6 +80,7 @@ void StructureTranslator::buildTables()
 	// ID To String
 	_structureToStringTable[SID_AGRIDOME] = constants::AGRIDOME;
 	_structureToStringTable[SID_AIR_SHAFT] = constants::AIR_SHAFT;
+	_structureToStringTable[SID_CARGO_LANDER] = constants::CARGO_LANDER;
 	_structureToStringTable[SID_CHAP] = constants::CHAP;
 	_structureToStringTable[SID_COLONIST_LANDER] = constants::COLONIST_LANDER;
 	_structureToStringTable[SID_COMMAND_CENTER] = constants::COMMAND_CENTER;

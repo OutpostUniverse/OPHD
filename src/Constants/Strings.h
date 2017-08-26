@@ -41,6 +41,7 @@ namespace constants
 	// STRUCTURES
 	const string	AGRIDOME = "Agricultural Dome";
 	const string	AIR_SHAFT = "Air Shaft";
+	const string	CARGO_LANDER = "Cargo Lander";
 	const string	CHAP = "CHAP Facility";
 	const string	COLONIST_LANDER = "Colonist Lander";
 	const string	COMMAND_CENTER = "Command Center";

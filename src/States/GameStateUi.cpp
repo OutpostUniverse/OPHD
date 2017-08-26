@@ -284,8 +284,8 @@ void GameState::populateStructureMenu()
 
 
 		// Special case code, not thrilled with this
-		if(mLandersColonist > 0)
-			mStructures.addItem(constants::COLONIST_LANDER, 2);
+		if (mLandersColonist > 0) { mStructures.addItem(constants::COLONIST_LANDER, 2); }
+		if (mLandersCargo > 0) { mStructures.addItem(constants::CARGO_LANDER, 1); }
 	}
 	else
 	{

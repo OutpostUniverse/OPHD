@@ -39,6 +39,10 @@ Structure* StructureCatalogue::get(StructureID type)
 			_st = new AirShaft();
 			break;
 
+		case SID_CARGO_LANDER: // only here for loading games
+			_st = new CargoLander(nullptr);
+			break;
+
 		case SID_CHAP:
 			_st = new CHAP();
 			break;
@@ -277,6 +281,7 @@ void StructureCatalogue::buildRecycleValueTable()
 	// Set recycling values for landers and automatically built structures.
 	// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
 	mStructureRecycleValueTable[SID_MINE_FACILITY]		= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
+	mStructureRecycleValueTable[SID_CARGO_LANDER]		= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
 	mStructureRecycleValueTable[SID_COLONIST_LANDER]	= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
 	mStructureRecycleValueTable[SID_SEED_LANDER]		= ResourcePool(0, 0, 0, 0, 10, 5, 5, 5, 0, 0);
 	mStructureRecycleValueTable[SID_SEED_FACTORY]		= ResourcePool(0, 0, 0, 0, 15, 10, 5, 5, 0, 0);
@@ -325,7 +330,9 @@ void StructureCatalogue::buildPopulationRequirementsTable()
 ResourcePool StructureCatalogue::recycleValue(StructureID type, float percent)
 {
 	if (mStructureCostTable.empty())
+	{
 		throw std::runtime_error("StructureCatalogue::recycleValue() called before StructureCatalogue::buildCostTable().");
+	}
 
 	ResourcePool _rp = mStructureCostTable[type];
 

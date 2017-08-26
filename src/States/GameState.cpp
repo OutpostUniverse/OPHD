@@ -95,6 +95,7 @@ GameState::~GameState()
 void GameState::setPopulationLevel(PopulationLevel _level)
 {
 	mLandersColonist = static_cast<int>(_level);
+	mLandersCargo = 2;	///\todo This should be set based on difficulty level.
 }
 
 
@@ -1235,12 +1236,7 @@ void GameState::placeStructure()
 	}
 	else if (mCurrentStructure == SID_COLONIST_LANDER)
 	{
-		if (!tile->empty() || (tile->index() == TERRAIN_IMPASSABLE))
-		{
-			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
-			cout << "GameState::placeStructure(): Unsuitable landing site -- Impassable Terrain." << endl;
-			return;
-		}
+		if (!validLanderSite(tile)) { return; }
 
 		ColonistLander* s = new ColonistLander(tile);
 		s->deployCallback().connect(this, &GameState::deployColonistLander);
@@ -1248,6 +1244,22 @@ void GameState::placeStructure()
 
 		--mLandersColonist;
 		if (mLandersColonist == 0)
+		{
+			clearMode();
+			resetUi();
+			populateStructureMenu();
+		}
+	}
+	else if (mCurrentStructure == SID_CARGO_LANDER)
+	{
+		if (!validLanderSite(tile)) { return; }
+
+		CargoLander* _lander = new CargoLander(tile);
+		_lander->deployCallback().connect(this, &GameState::deployCargoLander);
+		mStructureManager.addStructure(_lander, tile);
+
+		--mLandersCargo;
+		if (mLandersCargo == 0)
 		{
 			clearMode();
 			resetUi();
@@ -1324,15 +1336,27 @@ void GameState::insertSeedLander(int x, int y)
 
 /**
  * Lands colonists on the surfaces and adds them to the population pool.
- *
- * \param	_cl	Pointer to the deploying ColonistLander object so we can properly disconnect
- *				GameState from the callback.
  */
 void GameState::deployColonistLander()
 {
 	mPopulation.addPopulation(Population::ROLE_STUDENT, 10);
 	mPopulation.addPopulation(Population::ROLE_WORKER, 20);
 	mPopulation.addPopulation(Population::ROLE_SCIENTIST, 20);
+}
+
+
+/**
+ * Lands cargo on the surface and adds resources to the resource pool.
+ */
+void GameState::deployCargoLander()
+{
+	///\fixme Magic numbers
+	mPlayerResources.commonMetals(mPlayerResources.commonMetals() + 25);
+	mPlayerResources.commonMinerals(mPlayerResources.commonMinerals() + 25);
+	mPlayerResources.rareMetals(mPlayerResources.rareMetals() + 15);
+	mPlayerResources.rareMinerals(mPlayerResources.rareMinerals() + 15);
+
+	mPlayerResources.food(mPlayerResources.food() + 125);
 }
 
 
@@ -1393,15 +1417,6 @@ void GameState::deploySeedLander(int x, int y)
 	mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
 	mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
 	mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
-
-	// FIXME: Magic numbers
-	// FIXME: Move to Cargo Lander landing code.
-	mPlayerResources.commonMetals(50);
-	mPlayerResources.commonMinerals(50);
-	mPlayerResources.rareMetals(30);
-	mPlayerResources.rareMinerals(30);
-
-	mPlayerResources.food(250);
 }
 
 
@@ -1510,6 +1525,7 @@ void GameState::save(const std::string& _path)
 	population->attribute("morale", mCurrentMorale);
 	population->attribute("prev_morale", mPreviousMorale);
 	population->attribute("colonist_landers", mLandersColonist);
+	population->attribute("cargo_landers", mLandersCargo);
 	population->attribute("children", mPopulation.size(Population::ROLE_CHILD));
 	population->attribute("students", mPopulation.size(Population::ROLE_STUDENT));
 	population->attribute("workers", mPopulation.size(Population::ROLE_WORKER));
@@ -1809,6 +1825,7 @@ void GameState::readPopulation(XmlElement* _ti)
 			if (attribute->name() == "morale") { attribute->queryIntValue(mCurrentMorale); }
 			else if (attribute->name() == "prev_morale") { attribute->queryIntValue(mPreviousMorale); }
 			else if (attribute->name() == "colonist_landers") { attribute->queryIntValue(mLandersColonist); }
+			else if (attribute->name() == "cargo_landers") { attribute->queryIntValue(mLandersCargo); }
 
 			else if (attribute->name() == "children") { attribute->queryIntValue(children); }
 			else if (attribute->name() == "students") { attribute->queryIntValue(students); }
@@ -1975,12 +1992,13 @@ void GameState::checkColonyShip()
 {
 	if (mTurnCount == constants::COLONY_SHIP_ORBIT_TIME)
 	{
-		if (mLandersColonist > 0)
+		if (mLandersColonist > 0 || mLandersCargo > 0)
 		{
 			mCurrentMorale -= (mLandersColonist * 50) * 6; /// \todo apply a modifier to multiplier based on difficulty level.
 			if (mCurrentMorale < 0) { mCurrentMorale = 0; }
 
 			mLandersColonist = 0;
+			mLandersCargo = 0;
 
 			populateStructureMenu();
 

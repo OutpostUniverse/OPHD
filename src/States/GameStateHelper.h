@@ -20,21 +20,27 @@ bool checkStructurePlacement(Tile *tile, Direction dir);
 
 
 /**
-* Checks to see if a tile is a valid tile to place a tube onto.
-*/
+ * Checks to see if a tile is a valid tile to place a tube onto.
+ */
 bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir _cd);
 
 
 /**
-* Checks a tile to see if a valid Tube connection is available for Structure placement.
-*/
+ * Checks a tile to see if a valid Tube connection is available for Structure placement.
+ */
 bool validStructurePlacement(TileMap* tilemap, int x, int y);
 
 
 /**
-* Check landing site for obstructions such as mining beacons, things
-* and impassable terrain.
-*/
+ * Indicates that the selected landing site is clear of obstructions.
+ */
+bool validLanderSite(Tile* t);
+
+
+/**
+ * Check landing site for obstructions such as mining beacons, things
+ * and impassable terrain.
+ */
 bool landingSiteSuitable(TileMap* tilemap, int x, int y);
 
 

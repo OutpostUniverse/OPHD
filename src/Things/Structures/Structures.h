@@ -3,6 +3,7 @@
 // Includes all Structures
 #include "Agridome.h"
 #include "AirShaft.h"
+#include "CargoLander.h"
 #include "CHAP.h"
 #include "ColonistLander.h"
 #include "CommandCenter.h"
@@ -32,4 +33,3 @@
 #include "UndergroundFactory.h"
 #include "University.h"
 #include "Warehouse.h"
-
