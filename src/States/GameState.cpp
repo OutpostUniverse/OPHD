@@ -1927,6 +1927,22 @@ void GameState::updateMorale()
 	mCurrentMorale -= mStructureManager.disabled();
 	mCurrentMorale -= mStructureManager.destroyed();
 
+	///\todo	Add a multiplier here based on difficulty level and research
+	if (mPopulationPanel.capacity() > 100.0f)
+	{
+		mCurrentMorale -= static_cast<int>(mPopulationPanel.capacity() - 100.0f);
+	}
+	else if (mResidentialCapacity == 0)
+	{
+		/**
+		 * No residences indicates early game, so penalize the player but don't
+		 * make it too painful because people kinda get how this goes... that
+		 * and as soon as a residence is built they're going to start getting
+		 * even worse as calculations will default to the above morale decay.
+		 */
+		mCurrentMorale -= mPopulation.size() / 2;
+	}
+
 	mCurrentMorale = clamp(mCurrentMorale, 0, 1000);
 }
 

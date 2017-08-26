@@ -23,6 +23,7 @@ This is the changelog for OutpostHD.
 - Factory Production window now has a "Clear Selection" button. This provides a much more obvious way to clear the selection vs. clicking outside a product icon in the product grid.
 - Updated keybindings -- see README.md for details.
 - Population panel now shows residential capacity.
+- Morale is now affected by overcrowding in residences.
 
 ### Fixed
 - FileOP button (Save/Load) in FileIO window will now start off disabled when first displayed.

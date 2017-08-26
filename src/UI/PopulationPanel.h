@@ -28,6 +28,8 @@ public:
 
 	void residential_capacity(int m) { mResidentialCapacity = m; }
 
+	float capacity() const { return mCapacity; }
+
 	virtual void update()
 	{
 		Renderer& r = Utility<Renderer>::get();
@@ -42,8 +44,8 @@ public:
 		}
 		else
 		{
-			float capacity = (float)mPopulation->size() / (float)mResidentialCapacity;
-			r.drawText(font(), string_format("Housing: %i / %i  (%i%%)", mPopulation->size(), mResidentialCapacity, static_cast<int>(capacity * 100)), positionX() + 5, positionY() + 30, 255, 255, 255);
+			mCapacity = (static_cast<float>(mPopulation->size()) / static_cast<float>(mResidentialCapacity)) * 100.0f;
+			r.drawText(font(), string_format("Housing: %i / %i  (%i%%)", mPopulation->size(), mResidentialCapacity, static_cast<int>(mCapacity)), positionX() + 5, positionY() + 30, 255, 255, 255);
 
 		}
 
@@ -72,4 +74,6 @@ private:
 
 	int*		mMorale = nullptr;
 	int*		mPreviousMorale = nullptr;
+
+	float		mCapacity = 0.0f;
 };
