@@ -7,7 +7,9 @@
 class DiggerDirection: public Window
 {
 public:
-
+	/**
+	 * 
+	 */
 	enum DiggerSelection
 	{
 		SEL_DOWN,
@@ -19,6 +21,7 @@ public:
 
 	typedef NAS2D::Signals::Signal2<DiggerSelection, Tile*> Callback;
 
+public:
 	DiggerDirection(Font& font);
 	virtual ~DiggerDirection();
 
@@ -35,24 +38,21 @@ public:
 	void allEnabled();
 
 protected:
-
 	virtual void init();
-
 	void btnCancelClicked();
 
 private:
-
 	void btnDiggerDownClicked();
 	void btnDiggerNorthClicked();
 	void btnDiggerSouthClicked();
 	void btnDiggerEastClicked();
 	void btnDiggerWestClicked();
 
-	DiggerDirection();
-	DiggerDirection(const DiggerDirection&);
-	DiggerDirection& operator=(const DiggerDirection&);
+	DiggerDirection() = delete;										/**< Not allowed. */
+	DiggerDirection(const DiggerDirection&) = delete;				/**< Not allowed. */
+	DiggerDirection& operator=(const DiggerDirection&) = delete;	/**< Not allowed. */
 
-
+private:
 	Button				btnDown;
 	Button				btnNorth;
 	Button				btnEast;
@@ -62,5 +62,5 @@ private:
 
 	Callback			mCallback;
 
-	Tile*				mTile;
+	Tile*				mTile = nullptr;
 };

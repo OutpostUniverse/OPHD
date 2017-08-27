@@ -99,12 +99,7 @@ void DiggerDirection::btnCancelClicked()
 
 void DiggerDirection::update()
 {
-	if (!visible())
-		return;
-
-	if (!mTile)
-		return;
-
+	if (!visible() || !mTile) { return; }
 	Window::update();
 }
 
