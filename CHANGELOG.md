@@ -29,7 +29,7 @@ This is the changelog for OutpostHD.
 - FileOP button (Save/Load) in FileIO window will now start off disabled when first displayed.
 - Fixed a mistake in UndergroundFactory that would cause it to be saved as a SurfaceFactory.
 - Fixed an issue with tile picking that caused inaccuracies when map edge lengths were even.
-
+- Fixed an issue which left unavailable robot selections available when loading a saved game from a game that had said robots available.
 
 
 ## [0.7.1] - 2017-07-30

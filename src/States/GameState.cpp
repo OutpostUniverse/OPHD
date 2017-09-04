@@ -1640,6 +1640,7 @@ void GameState::readRobots(XmlElement* _ti)
 {
 	mRobotPool.clear();
 	mRobotList.clear();
+	mRobots.dropAllItems();
 
 	int type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
 	XmlAttribute* attribute = nullptr;
