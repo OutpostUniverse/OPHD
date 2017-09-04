@@ -17,7 +17,7 @@ public:
 
 		// for now general capacity
 		// Need to be converted in specific capacity for robots and luxury goods
-		storage().capacity(1000);
+		storage().capacity(100);
 	}
 
 
