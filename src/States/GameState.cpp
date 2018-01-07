@@ -1929,7 +1929,8 @@ void GameState::updatePopulation()
 
 void GameState::updateMorale()
 {
-	// Positive Effects
+	// POSITIVE MORALE EFFECTS
+	// =========================================
 	mCurrentMorale += mPopulation.birthCount();
 	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_PARK, Structure::OPERATIONAL);
 	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_RECREATION_CENTER, Structure::OPERATIONAL);
@@ -1939,26 +1940,18 @@ void GameState::updateMorale()
 
 	//mCurrentMorale += mStructureManager.getCountInState(Structure::STRUCTURE_COMMERCIAL, Structure::OPERATIONAL);
 
-	// Negative Effects
+	// NEGATIVE MORALE EFFECTS
+	// =========================================
 	mCurrentMorale -= mPopulation.deathCount();
 	mCurrentMorale -= mStructureManager.disabled();
 	mCurrentMorale -= mStructureManager.destroyed();
 
-	///\todo	Add a multiplier here based on difficulty level and research
-	if (mPopulationPanel.capacity() > 100.0f)
-	{
-		mCurrentMorale -= static_cast<int>(mPopulationPanel.capacity() - 100.0f);
-	}
-	else if (mResidentialCapacity == 0)
-	{
-		/**
-		 * No residences indicates early game, so penalize the player but don't
-		 * make it too painful because people kinda get how this goes... that
-		 * and as soon as a residence is built they're going to start getting
-		 * even worse as calculations will default to the above morale decay.
-		 */
-		mCurrentMorale -= mPopulation.size() / 2;
-	}
+	int residentialMoraleHit = static_cast<int>(mPopulationPanel.capacity() / 100.0f);
+
+	// Ensure that there is always a morale hit if residential capacity is more than 100%.
+	if (mPopulationPanel.capacity() > 100.0f && residentialMoraleHit < 1) { residentialMoraleHit = 1; }
+
+	mCurrentMorale -= residentialMoraleHit;
 
 	mCurrentMorale = clamp(mCurrentMorale, 0, 1000);
 }
@@ -2061,6 +2054,9 @@ void GameState::updateResidentialCapacity()
 	{
 		if (residence->operational()) { mResidentialCapacity += static_cast<Residence*>(residence)->capacity(); }
 	}
+
+	if (residences.empty()) { mResidentialCapacity = constants::COMMAND_CENTER_POPULATION_CAPACITY; }
+
 	mPopulationPanel.residential_capacity(mResidentialCapacity);
 }
 

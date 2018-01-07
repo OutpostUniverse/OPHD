@@ -42,16 +42,8 @@ public:
 		r.drawText(font(), string_format("Morale: %i", *mMorale), positionX() + 5, positionY() + 5, 255, 255, 255);
 		r.drawText(font(), string_format("Previous: %i", *mPreviousMorale), positionX() + 5, positionY() + 15, 255, 255, 255);
 
-		if (mResidentialCapacity == 0)
-		{
-			r.drawText(font(), string_format("Housing: %i / %i  (0%%)", mPopulation->size(), mResidentialCapacity), positionX() + 5, positionY() + 30, 255, 255, 255);
-		}
-		else
-		{
-			mCapacity = (static_cast<float>(mPopulation->size()) / static_cast<float>(mResidentialCapacity)) * 100.0f;
-			r.drawText(font(), string_format("Housing: %i / %i  (%i%%)", mPopulation->size(), mResidentialCapacity, static_cast<int>(mCapacity)), positionX() + 5, positionY() + 30, 255, 255, 255);
-
-		}
+		mCapacity = (static_cast<float>(mPopulation->size()) / static_cast<float>(mResidentialCapacity)) * 100.0f;
+		r.drawText(font(), string_format("Housing: %i / %i  (%i%%)", mPopulation->size(), mResidentialCapacity, static_cast<int>(mCapacity)), positionX() + 5, positionY() + 30, 255, 255, 255);
 
 		r.drawSubImage(mIcons, positionX() + 5, positionY() + 45, 0, 96, 32, 32);		// Infant
 		r.drawSubImage(mIcons, positionX() + 5, positionY() + 79, 32, 96, 32, 32);		// Student

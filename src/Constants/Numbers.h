@@ -21,6 +21,9 @@ namespace constants
 
 	const int COLONY_SHIP_ORBIT_TIME = 24;
 
+	const int COMMAND_CENTER_POPULATION_CAPACITY = 10;
+	const int MINIMUM_RESIDENCE_OVERCAPACITY_HIT = 1;
+
 	const int DEFAULT_STARTING_MORALE = 600;
 
 	const float ROBOT_COM_RANGE = 15.0;
