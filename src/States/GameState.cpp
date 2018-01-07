@@ -1949,7 +1949,7 @@ void GameState::updateMorale()
 	int residentialMoraleHit = static_cast<int>(mPopulationPanel.capacity() / 100.0f);
 
 	// Ensure that there is always a morale hit if residential capacity is more than 100%.
-	if (mPopulationPanel.capacity() > 100.0f && residentialMoraleHit < 1) { residentialMoraleHit = 1; }
+	if (mPopulationPanel.capacity() > 100.0f && residentialMoraleHit < constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT) { residentialMoraleHit = constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT; }
 
 	mCurrentMorale -= residentialMoraleHit;
 
