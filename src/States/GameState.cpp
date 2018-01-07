@@ -44,6 +44,43 @@ std::map <int, std::string>	LEVEL_STRING_TABLE;
 
 
 /**
+ * Draws a circular comm range on the minimap.
+ * 
+ * \fixme	Comm ranges haven't yet been fully decided upon so this function is way more flexible than it needs
+ *			to be. Once comm ranges have been set in stone and the graphics are done, this function should be
+ *			changed to do much faster table lookups instead of several expensive computations.
+ * 
+ *			By using a table lookup many of the paramters can be eliminated and instead just have the raster X/Y
+ *			coords and the comm range itself. Something like this:
+ * 
+ *			\c drawRange(Rectangle_2d& clipRect, Image& src, int x, int y, int range);
+ * 
+ *			Table should look something like this:
+ * 
+ *			RANGE (KEY) |  SOURCE RECTANGLE
+ */
+static void drawRange(Rectangle_2d& clipRect, Image& src, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight)
+{
+	int halfWidth = srcWidth / 2;
+	int halfHeight = srcHeight / 2;
+
+	// fixme: find a more efficient way to do this.
+	int xClip = clamp(halfWidth - x, 0, halfWidth);
+	int yClip = clamp(halfHeight - y, 0, halfHeight);
+	int wClip = clamp((x + halfWidth) - clipRect.width(), 0, halfWidth);
+	int hClip = clamp((y + halfHeight) - clipRect.height(), 0, halfHeight);
+
+	Utility<Renderer>::get().drawSubImage(src,
+		x + clipRect.x() - halfWidth + xClip,
+		y + clipRect.y() - halfHeight + yClip,
+		xClip + srcX,
+		yClip + srcY,
+		srcWidth - xClip - wClip,
+		srcHeight - yClip - hClip);
+}
+
+
+/**
  * C'Tor
  * 
  * \param	sm	Site map to load.
@@ -189,27 +226,6 @@ State* GameState::update()
 		return this;
 
 	return mReturnState;
-}
-
-
-void drawRange(Rectangle_2d& clipRect, Image& src, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight)
-{
-	int halfWidth = srcWidth / 2;
-	int halfHeight = srcHeight / 2;
-
-	// fixme: find a more efficient way to do this.
-	int xClip = clamp(halfWidth - x, 0, halfWidth);
-	int yClip = clamp(halfHeight - y, 0, halfHeight);
-	int wClip = clamp((x + halfWidth) - clipRect.width(), 0, halfWidth);
-	int hClip = clamp((y + halfHeight) - clipRect.height(), 0, halfHeight);
-
-	Utility<Renderer>::get().drawSubImage(	src,
-											x + clipRect.x() - halfWidth + xClip,
-											y + clipRect.y() - halfHeight + yClip,
-											xClip + srcX,
-											yClip + srcY,
-											srcWidth - xClip - wClip,
-											srcHeight - yClip - hClip);
 }
 
 
