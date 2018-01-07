@@ -38,7 +38,7 @@ extern Rectangle_2d MOVE_DOWN_ICON;
  *
  * \note	Truncating the fractional value is intentional.
  */
-int centerWindowWidth(float width)
+static inline int centerWindowWidth(float width)
 {
 	return static_cast<int>(Utility<Renderer>::get().center_x() - width / 2);
 }
@@ -50,7 +50,7 @@ int centerWindowWidth(float width)
  *
  * \note	Truncating the fractional value is intentional.
  */
-int centerWindowHeight(float height)
+static inline int centerWindowHeight(float height)
 {
 	return static_cast<int>(Utility<Renderer>::get().center_y() - height / 2);
 }
