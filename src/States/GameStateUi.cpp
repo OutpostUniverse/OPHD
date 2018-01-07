@@ -204,6 +204,11 @@ void GameState::setupUiPositions()
 	mGameOptionsDialog.position(centerWindowWidth(mGameOptionsDialog.width()), centerWindowHeight(mGameOptionsDialog.height()) - 100);
 
 	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), static_cast<int>(r.height() / 2) - 125);
+
+	/**
+	 * \note	We are not setting the tile inspector window's position here because it's something that can be
+	 *			move arround by the user. Re-centering it here could annoy the user.
+	 */
 }
 
 
