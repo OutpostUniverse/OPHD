@@ -29,7 +29,7 @@ private:
 	int _availableStorage() const;
 
 private:
-	ProductTypeCount	mProducts = { 0 };
+	ProductTypeCount	mProducts = {{ 0 }};
 
 	int					mCapacity = constants::BASE_PRODUCT_CAPACITY;
 };
