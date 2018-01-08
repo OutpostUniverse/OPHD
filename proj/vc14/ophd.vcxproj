@@ -176,6 +176,7 @@
     <ClCompile Include="..\..\src\RobotTranslator.cpp" />
     <ClCompile Include="..\..\src\States\GameState.cpp" />
     <ClCompile Include="..\..\src\States\GameStateHelper.cpp" />
+    <ClCompile Include="..\..\src\States\GameStateIO.cpp" />
     <ClCompile Include="..\..\src\States\GameStateUi.cpp" />
     <ClCompile Include="..\..\src\States\PlanetSelectState.cpp" />
     <ClCompile Include="..\..\src\states\SplashState.cpp" />
