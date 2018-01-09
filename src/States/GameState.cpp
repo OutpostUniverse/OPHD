@@ -747,7 +747,7 @@ void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			{
 				mStructureInspector.structure(_t->structure());
 				mStructureInspector.show();
-				mWindowStack.bringToFront(&mFactoryProduction);
+				mWindowStack.bringToFront(&mStructureInspector);
 			}
 		}
 	}
