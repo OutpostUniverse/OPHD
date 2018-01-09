@@ -15,7 +15,7 @@ ProductionTypeTable PRODUCTION_TYPE_TABLE;
  *			produce. It is up to the individual factory to determine what they are
  *			allowed to build.
  */
-void fillTable()
+static void fillTable()
 {
 	if (!PRODUCTION_TYPE_TABLE.empty())
 		return;
@@ -38,8 +38,7 @@ Factory::~Factory()
 
 void Factory::productType(ProductType _p)
 {
-	if (_p == mProduct)
-		return;
+	if (_p == mProduct) { return; }
 
 	if (_p == PRODUCT_NONE)
 	{
@@ -50,7 +49,9 @@ void Factory::productType(ProductType _p)
 	// Ensure we're only setting a product that the Factory is capable of producing.
 	auto it = find(mAvailableProducts.begin(), mAvailableProducts.end(), _p);
 	if (it == mAvailableProducts.end())
+	{
 		return;
+	}
 
 	mProduct = _p;
 

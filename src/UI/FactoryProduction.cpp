@@ -3,7 +3,12 @@
 #include "../Constants.h"
 
 
+#include <array>
+
+
 std::map<std::string, ProductType> PRODUCTION_TRANSLATION_TABLE;
+std::array<std::string, PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE;
+
 
 FactoryProduction::FactoryProduction(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
 {
@@ -64,6 +69,11 @@ void FactoryProduction::init()
 	PRODUCTION_TRANSLATION_TABLE[constants::ROBODIGGER] = PRODUCT_DIGGER;
 	PRODUCTION_TRANSLATION_TABLE[constants::ROBODOZER] = PRODUCT_DOZER;
 	PRODUCTION_TRANSLATION_TABLE[constants::ROBOMINER] = PRODUCT_MINER;
+
+	// Fill product description table
+	PRODUCT_DESCRIPTION_TABLE[PRODUCT_DIGGER] = constants::ROBODIGGER;
+	PRODUCT_DESCRIPTION_TABLE[PRODUCT_DOZER] = constants::ROBODOZER;
+	PRODUCT_DESCRIPTION_TABLE[PRODUCT_MINER] = constants::ROBOMINER;
 }
 
 
@@ -139,57 +149,24 @@ void FactoryProduction::factory(Factory* _f)
 	mProductGrid.dropAllItems();
 	clearProduct();
 
-
-	btnIdle.toggle(mFactory->isIdle());
 	// destroyed factories can't produce anything at all ever.
 	if (mFactory->destroyed())
 	{
 		btnIdle.enabled(false);
 		return;
 	}
+
 	btnIdle.toggle(mFactory->isIdle());
 
-	Factory::ProductionTypeList ptlist = mFactory->productList();
+	const Factory::ProductionTypeList& ptlist = mFactory->productList();
 
 	// FIXME: Very seriously doubt that this check is needed.
 	if (ptlist.empty()) { return; }
 
-	// FIXME: This is a super naive and ugly way to do this. Don't like it at all.
-	for (size_t i = 0; i < ptlist.size(); ++i)
-	{
-		if (ptlist[i] == PRODUCT_DIGGER)
-		{
-			mProductGrid.addItem(constants::ROBODIGGER, 0);
-		}
-		else if (ptlist[i] == PRODUCT_DOZER)
-		{
-			mProductGrid.addItem(constants::ROBODOZER, 1);
-		}
-		else if (ptlist[i] == PRODUCT_MINER)
-		{
-			mProductGrid.addItem(constants::ROBOMINER, 2);
-		}
-	}
+	for (size_t i = 0; i < ptlist.size(); ++i) { mProductGrid.addItem(PRODUCT_DESCRIPTION_TABLE[ptlist[i]], i); }
 
-	// FIXME:	The following block assumes that factory items will be in a particular order and
-	//			is prone to break if things aren't supplied in exactly the way it expects. Also,
-	//			it's just another really bad way of doing this (if/else if blocks, blech!)
-	if (mFactory->productType() == PRODUCT_DIGGER)
-	{
-		mProductGrid.selection(0);
-	}
-	else if (mFactory->productType() == PRODUCT_DOZER)
-	{
-		mProductGrid.selection(1);
-	}
-	else if (mFactory->productType() == PRODUCT_MINER)
-	{
-		mProductGrid.selection(2);
-	}
-	else
-	{
-		mProductGrid.clearSelection();
-	}
+	if (mFactory->productType() == PRODUCT_NONE) { mProductGrid.clearSelection(); }
+	else { mProductGrid.selection(static_cast<int>(mFactory->productType())); }
 
 	mProductCost = mFactory->productCost(mFactory->productType());
 }

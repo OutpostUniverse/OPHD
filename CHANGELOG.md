@@ -24,6 +24,7 @@ This is the changelog for OutpostHD.
 - Updated keybindings -- see README.md for details.
 - Population panel now shows residential capacity.
 - Morale is now affected by overcrowding in residences.
+- Internal modifications to ProductType valuation -- this is a breaking change for older save games.
 
 ### Fixed
 - FileOP button (Save/Load) in FileIO window will now start off disabled when first displayed.
