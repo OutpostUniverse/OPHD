@@ -29,7 +29,7 @@ void FactoryProduction::init()
 	// Set up GUI Layout
 	addControl("mProductionGrid", &mProductGrid, static_cast<float>(constants::MARGIN), 25);
 	mProductGrid.font(font());
-	mProductGrid.sheetPath("ui/surface_factory.png");
+	mProductGrid.sheetPath("ui/factory.png");
 	mProductGrid.size(140, 110);
 	mProductGrid.iconSize(32);
 	mProductGrid.iconMargin(constants::MARGIN_TIGHT);
@@ -68,12 +68,18 @@ void FactoryProduction::init()
 	PRODUCTION_TRANSLATION_TABLE[""] = PRODUCT_NONE;
 	PRODUCTION_TRANSLATION_TABLE[constants::ROBODIGGER] = PRODUCT_DIGGER;
 	PRODUCTION_TRANSLATION_TABLE[constants::ROBODOZER] = PRODUCT_DOZER;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROBOEXPLORER] = PRODUCT_EXPLORER;
 	PRODUCTION_TRANSLATION_TABLE[constants::ROBOMINER] = PRODUCT_MINER;
+	PRODUCTION_TRANSLATION_TABLE[constants::ROAD_MATERIALS] = PRODUCT_ROAD_MATERIALS;
+	PRODUCTION_TRANSLATION_TABLE[constants::TRUCK] = PRODUCT_TRUCK;
 
 	// Fill product description table
 	PRODUCT_DESCRIPTION_TABLE[PRODUCT_DIGGER] = constants::ROBODIGGER;
 	PRODUCT_DESCRIPTION_TABLE[PRODUCT_DOZER] = constants::ROBODOZER;
+	PRODUCT_DESCRIPTION_TABLE[PRODUCT_EXPLORER] = constants::ROBOEXPLORER;
 	PRODUCT_DESCRIPTION_TABLE[PRODUCT_MINER] = constants::ROBOMINER;
+	PRODUCT_DESCRIPTION_TABLE[PRODUCT_ROAD_MATERIALS] = constants::ROAD_MATERIALS;
+	PRODUCT_DESCRIPTION_TABLE[PRODUCT_TRUCK] = constants::TRUCK;
 }
 
 
@@ -160,10 +166,17 @@ void FactoryProduction::factory(Factory* _f)
 
 	const Factory::ProductionTypeList& ptlist = mFactory->productList();
 
-	// FIXME: Very seriously doubt that this check is needed.
-	if (ptlist.empty()) { return; }
+	// The production type list from the factory should never, ever be empty. If it is there is
+	// a clear logic error somewhere so fail very loudly and conspicuously here.
+	if (ptlist.empty())
+	{
+		throw std::runtime_error("FactoryProduction::factory(): Factory provided with an empty production type list.");
+	}
 
-	for (size_t i = 0; i < ptlist.size(); ++i) { mProductGrid.addItem(PRODUCT_DESCRIPTION_TABLE[ptlist[i]], i); }
+	for (size_t i = 0; i < ptlist.size(); ++i)
+	{
+		mProductGrid.addItem(PRODUCT_DESCRIPTION_TABLE[ptlist[i]], ptlist[i]);
+	}
 
 	if (mFactory->productType() == PRODUCT_NONE) { mProductGrid.clearSelection(); }
 	else { mProductGrid.selection(static_cast<int>(mFactory->productType())); }

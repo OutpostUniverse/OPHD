@@ -35,7 +35,11 @@ namespace constants
 	// ROBOTS
 	const string	ROBODIGGER = "Robodigger";
 	const string	ROBODOZER = "Robodozer";
+	const string	ROBOEXPLORER = "Roboexplorer";
 	const string	ROBOMINER = "Robominer";
+	const string	ROAD_MATERIALS = "Road Materials";
+
+	const string	TRUCK = "Truck";
 
 
 	// STRUCTURES

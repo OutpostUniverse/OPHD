@@ -17,12 +17,15 @@ ProductionTypeTable PRODUCTION_TYPE_TABLE;
  */
 static void fillTable()
 {
-	if (!PRODUCTION_TYPE_TABLE.empty())
-		return;
+	if (!PRODUCTION_TYPE_TABLE.empty()) { return; }
 
 	PRODUCTION_TYPE_TABLE[PRODUCT_DIGGER] = ProductionCost(5, 10, 5, 5, 2);
 	PRODUCTION_TYPE_TABLE[PRODUCT_DOZER] = ProductionCost(5, 10, 5, 5, 2);
+	PRODUCTION_TYPE_TABLE[PRODUCT_EXPLORER] = ProductionCost(5, 10, 5, 5, 2);
 	PRODUCTION_TYPE_TABLE[PRODUCT_MINER] = ProductionCost(5, 10, 5, 5, 2);
+	PRODUCTION_TYPE_TABLE[PRODUCT_ROAD_MATERIALS] = ProductionCost(2, 2, 5, 0, 0);
+	PRODUCTION_TYPE_TABLE[PRODUCT_TRUCK] = ProductionCost(5, 10, 5, 5, 2);
+
 }
 
 
