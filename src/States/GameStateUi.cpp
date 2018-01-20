@@ -11,7 +11,6 @@
 
 #include "../Constants.h"
 
-#include "../RobotTranslator.h"
 #include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
@@ -156,7 +155,7 @@ void GameState::initUi()
 	mPlayerResources.resourceObserver().connect(this, &GameState::playerResourcePoolModified);
 
 	// Initial Structures
-	mStructures.addItem(constants::SEED_LANDER, 0);
+	mStructures.addItem(constants::SEED_LANDER, 0, SID_SEED_LANDER);
 }
 
 
@@ -265,51 +264,54 @@ void GameState::populateStructureMenu()
 	// Above Ground structures only
 	if (mStructureManager.count() == 0)
 	{
-		if(mTileMap->currentDepth() == constants::DEPTH_SURFACE)
-			mStructures.addItem(constants::SEED_LANDER, 0);
+		if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
+		{
+			mStructures.addItem(constants::SEED_LANDER, 0, SID_SEED_LANDER);
+		}
 	}
 	else if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 	{
-		mStructures.addItem(constants::AGRIDOME, 5);
-		mStructures.addItem(constants::CHAP, 3);
-		mStructures.addItem(constants::FUSION_REACTOR, 21);
-		mStructures.addItem(constants::HOT_LABORATORY, 18);
-		mStructures.addItem(constants::ROBOT_COMMAND, 14);
-		mStructures.addItem(constants::COMM_TOWER, 22);
-		mStructures.addItem(constants::SURFACE_POLICE, 23);
-		mStructures.addItem(constants::SMELTER, 4);
-		mStructures.addItem(constants::SOLAR_PLANT, 10);
-		mStructures.addItem(constants::STORAGE_TANKS, 8);
-		mStructures.addItem(constants::SURFACE_FACTORY, 11);
-		mStructures.addItem(constants::WAREHOUSE, 9);
+		mStructures.addItem(constants::AGRIDOME, 5, SID_AGRIDOME);
+		mStructures.addItem(constants::CHAP, 3, SID_CHAP);
+		mStructures.addItem(constants::FUSION_REACTOR, 21, SID_FUSION_REACTOR);
+		mStructures.addItem(constants::HOT_LABORATORY, 18, SID_HOT_LABORATORY);
+		mStructures.addItem(constants::ROBOT_COMMAND, 14, SID_ROBOT_COMMAND);
+		mStructures.addItem(constants::COMM_TOWER, 22, SID_COMM_TOWER);
+		mStructures.addItem(constants::SURFACE_POLICE, 23, SID_SURFACE_POLICE);
+		mStructures.addItem(constants::SMELTER, 4, SID_SMELTER);
+		mStructures.addItem(constants::SOLAR_PLANT, 10, SID_SOLAR_PLANT);
+		mStructures.addItem(constants::STORAGE_TANKS, 8, SID_STORAGE_TANKS);
+		mStructures.addItem(constants::SURFACE_FACTORY, 11, SID_SURFACE_FACTORY);
+		mStructures.addItem(constants::WAREHOUSE, 9, SID_WAREHOUSE);
 
-		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110);
-		mConnections.addItem(constants::AG_TUBE_RIGHT, 112);
-		mConnections.addItem(constants::AG_TUBE_LEFT, 111);
+		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110, CONNECTOR_INTERSECTION);
+		mConnections.addItem(constants::AG_TUBE_RIGHT, 112, CONNECTOR_RIGHT);
+		mConnections.addItem(constants::AG_TUBE_LEFT, 111, CONNECTOR_LEFT);
 
 
 		// Special case code, not thrilled with this
-		if (mLandersColonist > 0) { mStructures.addItem(constants::COLONIST_LANDER, 2); }
-		if (mLandersCargo > 0) { mStructures.addItem(constants::CARGO_LANDER, 1); }
+		if (mLandersColonist > 0) { mStructures.addItem(constants::COLONIST_LANDER, 2, SID_COLONIST_LANDER); }
+		if (mLandersCargo > 0) { mStructures.addItem(constants::CARGO_LANDER, 1, SID_CARGO_LANDER); }
 	}
 	else
 	{
-		mStructures.addItem(constants::LABORATORY, 58);
-		mStructures.addItem(constants::PARK, 75);
-		mStructures.addItem(constants::UNDERGROUND_POLICE, 61);
-		mStructures.addItem(constants::RECREATION_CENTER, 73);
-		mStructures.addItem(constants::RESIDENCE, 55);
-		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69);
-		mStructures.addItem(constants::MEDICAL_CENTER, 62);
-		mStructures.addItem(constants::NURSERY, 77);
-		mStructures.addItem(constants::COMMERCIAL, 66);
-		mStructures.addItem(constants::RED_LIGHT_DISTRICT, 76);
-		mStructures.addItem(constants::UNIVERSITY, 63);
+		mStructures.addItem(constants::LABORATORY, 58, SID_LABORATORY);
+		mStructures.addItem(constants::PARK, 75, SID_PARK);
+		mStructures.addItem(constants::UNDERGROUND_POLICE, 61, SID_UNDERGROUND_POLICE);
+		mStructures.addItem(constants::RECREATION_CENTER, 73, SID_RECREATION_CENTER);
+		mStructures.addItem(constants::RESIDENCE, 55, SID_RESIDENCE);
+		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69, SID_UNDERGROUND_FACTORY);
+		mStructures.addItem(constants::MEDICAL_CENTER, 62, SID_MEDICAL_CENTER);
+		mStructures.addItem(constants::NURSERY, 77, SID_NURSERY);
+		mStructures.addItem(constants::COMMERCIAL, 66, SID_COMMERCIAL);
+		mStructures.addItem(constants::RED_LIGHT_DISTRICT, 76, SID_RED_LIGHT_DISTRICT);
+		mStructures.addItem(constants::UNIVERSITY, 63, SID_UNIVERSITY);
 
-		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113);
-		mConnections.addItem(constants::UG_TUBE_RIGHT, 115);
-		mConnections.addItem(constants::UG_TUBE_LEFT, 114);
+		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113, CONNECTOR_INTERSECTION);
+		mConnections.addItem(constants::UG_TUBE_RIGHT, 115, CONNECTOR_RIGHT);
+		mConnections.addItem(constants::UG_TUBE_LEFT, 114, CONNECTOR_LEFT);
 	}
+
 	updateStructuresAvailability();
 }
 
@@ -362,13 +364,15 @@ void GameState::btnToggleConnectednessClicked()
 * Currently uses a text comparison function. Not inherently bad but
 * should really be turned into a key/value pair table for easier lookups.
 */
-void GameState::structuresSelectionChanged(const std::string& _s)
+void GameState::structuresSelectionChanged(const IconGrid::IconGridItem* _item)
 {
 	mConnections.clearSelection();
 	mRobots.clearSelection();
 
+	if (!_item) { return; }
+
 	// Check availability
-	if (!mStructures.itemAvailable(_s))
+	if (!_item->available)
 	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
 		cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
@@ -376,14 +380,14 @@ void GameState::structuresSelectionChanged(const std::string& _s)
 		return;
 	}
 
-	setStructureID(StructureTranslator::translateFromString(_s), INSERT_STRUCTURE);
+	setStructureID(static_cast<StructureID>(_item->meta), INSERT_STRUCTURE);
 }
 
 
 /**
  * Handler for the Tubes Pallette dialog.
  */
-void GameState::connectionsSelectionChanged(const std::string& _s)
+void GameState::connectionsSelectionChanged(const IconGrid::IconGridItem* _item)
 {
 	mRobots.clearSelection();
 	mStructures.clearSelection();
@@ -395,18 +399,18 @@ void GameState::connectionsSelectionChanged(const std::string& _s)
 /**
  * Handles clicks of the Robot Selection Menu.
  */
-void GameState::robotsSelectionChanged(const std::string& _s)
+void GameState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 {
 	mConnections.clearSelection();
 	mStructures.clearSelection();
 
-	mCurrentRobot = RobotTranslator::translateFromString(_s);
-
-	if(mCurrentRobot == ROBOT_NONE)
+	if (!_item)
 	{
 		clearMode();
 		return;
 	}
+
+	mCurrentRobot = static_cast<RobotType>(_item->meta);
 
 	mInsertMode = INSERT_ROBOT;
 	Utility<Renderer>::get().setCursor(POINTER_PLACE_TILE);

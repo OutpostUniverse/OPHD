@@ -99,22 +99,17 @@ void FactoryProduction::hide()
 }
 
 
-void FactoryProduction::productSelectionChanged(const std::string& _s)
+void FactoryProduction::productSelectionChanged(const IconGrid::IconGridItem* _item)
 {
 	if (!mFactory) { return; }
-	if (PRODUCTION_TRANSLATION_TABLE.find(_s) == PRODUCTION_TRANSLATION_TABLE.end())
-	{
-		throw std::runtime_error("FactoryProduction::productionSelectionChanged() called with an undefined production code: " + _s);
-	}
 
-	mProduct = PRODUCTION_TRANSLATION_TABLE[_s];
-
-	if (_s.empty())
+	if (!_item)
 	{
 		mProductCost.clear();
 		return;
 	}
-	
+
+	mProduct = static_cast<ProductType>(_item->meta);
 	mProductCost = mFactory->productCost(mProduct);
 }
 
@@ -175,7 +170,7 @@ void FactoryProduction::factory(Factory* _f)
 
 	for (size_t i = 0; i < ptlist.size(); ++i)
 	{
-		mProductGrid.addItem(PRODUCT_DESCRIPTION_TABLE[ptlist[i]], ptlist[i]);
+		mProductGrid.addItem(PRODUCT_DESCRIPTION_TABLE[ptlist[i]], ptlist[i], ptlist[i]);
 	}
 
 	if (mFactory->productType() == PRODUCT_NONE) { mProductGrid.clearSelection(); }

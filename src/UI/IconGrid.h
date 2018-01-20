@@ -11,16 +11,31 @@
 class IconGrid : public Control
 {
 public:
-	typedef NAS2D::Signals::Signal1<const std::string&> Callback;
 
-	typedef struct IconGridItem
+	/**
+	 * Item used within the IconGrid.
+	 * 
+	 * \note	Have made some changes to IconGrid that effectively makes this class
+	 *			completely transparent. Bad for encapsulation but vastly improves
+	 *			flexibility in using the IconGrid.
+	 */
+	class IconGridItem
 	{
-		IconGridItem() : available(true) {}
+	public:
+		IconGridItem() {}
 
-		std::string name;
+		std::string name;			/**< Name of the Item. Can be empty. */
+
+		int meta = 0;				/**< User defined integer value. Optional. */
+		bool available = true;		/**<  */
+
+	protected:
+		friend class IconGrid;
+
 		Point_2df pos;
-		bool available;
-	} IconGridItem;
+	};
+
+	typedef NAS2D::Signals::Signal1<const IconGridItem*> Callback;
 
 public:
 	IconGrid();
@@ -41,7 +56,7 @@ public:
 	bool sorted() const { return mSorted; }
 	void sorted(bool _b) { mSorted = _b; }
 
-	void addItem(const std::string& name, int sheetIndex);
+	void addItem(const std::string& name, int sheetIndex, int meta);
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
 	void dropAllItems();

@@ -30,6 +30,7 @@ protected:
 	}
 
 private:
+
 	virtual void defineResourceInput()
 	{
 		resourcesIn().energy(5);

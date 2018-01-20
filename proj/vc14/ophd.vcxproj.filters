@@ -132,9 +132,6 @@
     <ClCompile Include="..\..\src\StructureTranslator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\RobotTranslator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\ResourcePool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -336,9 +333,6 @@
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\StructureTranslator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\RobotTranslator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ResourcePool.h">

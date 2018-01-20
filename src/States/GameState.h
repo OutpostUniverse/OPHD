@@ -146,7 +146,7 @@ private:
 
 	void setupUiPositions();
 
-	void checkRobotSelectionInterface(const std::string& rType, int sheetIndex);
+	void checkRobotSelectionInterface(const std::string& rType, int sheetIndex, RobotType);
 
 	void populateStructureMenu();
 
@@ -163,9 +163,9 @@ private:
 	void btnGameOverClicked();
 	void playerResourcePoolModified();
 
-	void structuresSelectionChanged(const std::string& _s);
-	void connectionsSelectionChanged(const std::string& _s);
-	void robotsSelectionChanged(const std::string& _s);
+	void structuresSelectionChanged(const IconGrid::IconGridItem*);
+	void connectionsSelectionChanged(const IconGrid::IconGridItem*);
+	void robotsSelectionChanged(const IconGrid::IconGridItem*);
 
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t);
 

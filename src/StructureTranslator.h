@@ -11,9 +11,13 @@
  * \class	StructureTranslator
  * \brief	Helper class to translate between structure name strings and enumerated ID values.
  * 
- * Honestly, translating from a string constant to a numeric ID is super inefficient. The other
- * way around makes way more sense. I want to refactor the code to eliminate the need for a
- * translation from a string to a numeric value (the other way around is perfectly reasonable.)
+ * Legacy class that's not really needed since the updates to using strictly structure ID's. I'm
+ * keeping it intact as it's making reading from and writing to save game files way easier especially
+ * as the structure ID's change during development.
+ * 
+ * \note	This class will remain during development and debugging periods only. After the structure
+ *			list is finalized this class will be deprecated in favor of numerical structure ID's (SID_'s).
+ * 
  */
 class StructureTranslator
 {

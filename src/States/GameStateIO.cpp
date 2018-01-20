@@ -230,9 +230,9 @@ void GameState::readRobots(XmlElement* _ti)
 		}
 	}
 
-	if (mRobotPool.robotAvailable(ROBOT_DIGGER)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID); }
-	if (mRobotPool.robotAvailable(ROBOT_DOZER)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID); }
-	if (mRobotPool.robotAvailable(ROBOT_MINER)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID); }
+	if (mRobotPool.robotAvailable(ROBOT_DIGGER)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER); }
+	if (mRobotPool.robotAvailable(ROBOT_DOZER)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER); }
+	if (mRobotPool.robotAvailable(ROBOT_MINER)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER); }
 }
 
 

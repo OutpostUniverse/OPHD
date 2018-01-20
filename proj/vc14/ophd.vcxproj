@@ -173,7 +173,6 @@
     <ClCompile Include="..\..\src\ProductPool.cpp" />
     <ClCompile Include="..\..\src\ResourcePool.cpp" />
     <ClCompile Include="..\..\src\RobotPool.cpp" />
-    <ClCompile Include="..\..\src\RobotTranslator.cpp" />
     <ClCompile Include="..\..\src\States\GameState.cpp" />
     <ClCompile Include="..\..\src\States\GameStateHelper.cpp" />
     <ClCompile Include="..\..\src\States\GameStateIO.cpp" />
@@ -224,7 +223,6 @@
     <ClInclude Include="..\..\src\ProductPool.h" />
     <ClInclude Include="..\..\src\ResourcePool.h" />
     <ClInclude Include="..\..\src\RobotPool.h" />
-    <ClInclude Include="..\..\src\RobotTranslator.h" />
     <ClInclude Include="..\..\src\States\GameState.h" />
     <ClInclude Include="..\..\src\States\GameStateHelper.h" />
     <ClInclude Include="..\..\src\States\Planet.h" />

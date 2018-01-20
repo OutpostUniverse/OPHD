@@ -8,6 +8,9 @@
 #include <NAS2D/NAS2D.h>
 
 
+/**
+ * Digger robot digging direction.
+ */
 enum Direction
 {
 	DIR_UP,
@@ -30,8 +33,8 @@ enum TerrainType
 
 
 /**
-* Connector Direction.
-*/
+ * Connector Direction.
+ */
 enum ConnectorDir
 {
 	CONNECTOR_NONE,
@@ -42,6 +45,13 @@ enum ConnectorDir
 };
 
 
+/**
+ * Unique identifier code for each structure.
+ * 
+ * \note	Each individual structure is identified using a SID_ code as opposed
+ *			the structure CLASS_ code which is used to group like structures into
+ *			lists for structure updates.
+ */
 enum StructureID
 {
 	SID_NONE,
@@ -104,6 +114,7 @@ enum ProductType
 	PRODUCT_EXPLORER,
 	PRODUCT_TRUCK,
 	PRODUCT_ROAD_MATERIALS,
+	PRODUCT_MAINTENANCE_PARTS,
 
 	// Underground Factories
 	PRODUCT_CLOTHING,

@@ -86,18 +86,20 @@ void IconGrid::updateGrid()
  */
 void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!visible() || !hasFocus())
-		return;
+	if (!visible() || !hasFocus()) { return; }
 
 	// Don't respond to anything unless it's the left mouse button.
-	if (button != EventHandler::BUTTON_LEFT)
-		return;
+	if (button != EventHandler::BUTTON_LEFT) { return; }
 
 	if (!visible())
+	{
 		return;
+	}
 
 	if (mIconItemList.empty() || !isPointInRect(x, y, static_cast<int>(rect().x()), static_cast<int>(rect().y()), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
+	{
 		return;
+	}
 
 	mCurrentSelection = translateCoordsToIndex(x - static_cast<int>(rect().x()), y - static_cast<int>(rect().y()));
 
@@ -121,8 +123,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void IconGrid::onMouseMotion(int x, int y, int dX, int dY)
 {
-	if (!visible() || !hasFocus())
-		return;
+	if (!visible() || !hasFocus()) { return; }
 
 	if (mIconItemList.empty() || !isPointInRect(x, y, static_cast<int>(rect().x()), static_cast<int>(rect().y()), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
 	{
@@ -134,7 +135,9 @@ void IconGrid::onMouseMotion(int x, int y, int dX, int dY)
 	mHighlightIndex = translateCoordsToIndex(x - static_cast<int>(rect().x()), y - static_cast<int>(rect().y()));
 
 	if (static_cast<size_t>(mHighlightIndex) >= mIconItemList.size())
+	{
 		mHighlightIndex = constants::NO_SELECTION;
+	}
 }
 
 
@@ -159,10 +162,12 @@ void IconGrid::sizeChanged()
 
 /**
  * Adds an Icon Item to the IconGrid.
+ * 
+ * \param	meta	User defined integer value. Defaults to 0.
  *
  * \note	This function does no sanity checking.
  */
-void IconGrid::addItem(const std::string& name, int sheetIndex)
+void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
 {
 	int x_pos = (sheetIndex % (mIconSheet.width() / mIconSize)) * mIconSize;
 	int y_pos = (sheetIndex / (mIconSheet.width() / mIconSize)) * mIconSize;
@@ -170,6 +175,7 @@ void IconGrid::addItem(const std::string& name, int sheetIndex)
 	mIconItemList.push_back(IconGridItem());
 	mIconItemList.back().name = name;
 	mIconItemList.back().pos((float)x_pos, (float)y_pos);
+	mIconItemList.back().meta = meta;
 
 	sort();
 }
@@ -182,7 +188,9 @@ void IconGrid::itemAvailable(const std::string& item, bool _b)
 {
 	// Ignore if menu is empty
 	if (empty())
+	{
 		return;
+	}
 
 	for (auto &_iconItem : mIconItemList)
 	{
@@ -202,12 +210,16 @@ bool IconGrid::itemAvailable(const std::string& item)
 {
 	// Ignore if menu is empty
 	if (empty())
+	{
 		return false;
+	}
 
 	for (auto &_iconItem : mIconItemList)
 	{
 		if (toLowercase(_iconItem.name) == toLowercase(item))
+		{
 			return _iconItem.available;
+		}
 	}
 	return false;
 }
@@ -219,7 +231,9 @@ bool IconGrid::itemAvailable(const std::string& item)
 void IconGrid::removeItem(const std::string& item)
 {
 	if (empty())
+	{
 		return;
+	}
 
 	auto it = mIconItemList.begin();
 
@@ -246,12 +260,16 @@ bool IconGrid::itemExists(const std::string& item)
 {
 	// Ignore if menu is empty
 	if (empty())
+	{
 		return false;
+	}
 
 	for (size_t i = 0; i < mIconItemList.size(); i++)
 	{
 		if (toLowercase(mIconItemList[i].name) == toLowercase(item))
+		{
 			return true;
+		}
 	}
 
 	return false;
@@ -306,7 +324,9 @@ void IconGrid::decrementSelection()
 	--mCurrentSelection;
 
 	if (mCurrentSelection < 0)
+	{
 		mCurrentSelection = mIconItemList.size() - 1;
+	}
 
 	raiseChangedEvent();
 }
@@ -315,9 +335,13 @@ void IconGrid::decrementSelection()
 void IconGrid::raiseChangedEvent()
 {
 	if (mCurrentSelection != constants::NO_SELECTION)
-		mCallback(mIconItemList[mCurrentSelection].name);
+	{
+		mCallback(&mIconItemList[mCurrentSelection]);
+	}
 	else
-		mCallback("");
+	{
+		mCallback(nullptr);
+	}
 }
 
 /**
@@ -335,16 +359,14 @@ void IconGrid::hide()
  */
 void IconGrid::update()
 {
-	if (!visible())
-		return;
+	if (!visible()) { return; }
 
 	Renderer& r = Utility<Renderer>::get();
 
 	//r.drawBoxFilled(rect(), 0, 0, 0);
 	r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkin);
 
-	if (mIconItemList.empty())
-		return;
+	if (mIconItemList.empty()) { return; }
 
 	for (size_t i = 0; i < mIconItemList.size(); ++i)
 	{
@@ -407,6 +429,8 @@ bool iconItemCompare(const IconGrid::IconGridItem& left, const IconGrid::IconGri
 
 void IconGrid::sort()
 {
-	if(sorted())
+	if (sorted())
+	{
 		std::sort(mIconItemList.begin(), mIconItemList.end(), &iconItemCompare);
+	}
 }

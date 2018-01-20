@@ -34,9 +34,9 @@ private:
 
 	FactoryProduction();
 	FactoryProduction(const FactoryProduction&);
-	FactoryProduction& operator=(const FactoryProduction&);
+	FactoryProduction& operator=(const FactoryProduction&) = delete;
 
-	void productSelectionChanged(const std::string&);
+	void productSelectionChanged(const IconGrid::IconGridItem*);
 
 private:
 	Factory*			mFactory = nullptr;

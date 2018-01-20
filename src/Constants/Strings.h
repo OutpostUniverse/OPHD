@@ -38,6 +38,7 @@ namespace constants
 	const string	ROBOEXPLORER = "Roboexplorer";
 	const string	ROBOMINER = "Robominer";
 	const string	ROAD_MATERIALS = "Road Materials";
+	const string	MAINTENANCE_SUPPLIES = "Maintenance Supplies";
 
 	const string	TRUCK = "Truck";
 

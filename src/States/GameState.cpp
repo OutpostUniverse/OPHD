@@ -944,7 +944,11 @@ void GameState::placeTubes()
 	// Check the basics.
 	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
 
+	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
+	 *			Should instead take advantage of the updated meta data in the IconGridItem.
+	 */
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
+
 	if (validTubeConnection(mTileMap, x, y, cd))
 	{
 		insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(x, y));
@@ -1002,6 +1006,11 @@ void GameState::placeRobot()
 				return;
 			}
 
+			/**
+			 * \fixme	Since the StructureTranslator class will be deprecated in the future, there needs to be a better
+			 * 			way to determine this. I may go back to defining recycling values in the individual structures
+			 * 			themselves but I'm still not sure I love that idea. Will have to think about that one a bit.
+			 */
 			ResourcePool resPool = StructureCatalogue::recyclingValue(StructureTranslator::translateFromString(_s->name()));
 			mPlayerResources.pushResources(resPool);
 
@@ -1132,11 +1141,11 @@ void GameState::placeRobot()
  * Checks the robot selection interface and if the robot is not available in it, adds
  * it back in and reeneables the robots button if it's not enabled.
  */
-void GameState::checkRobotSelectionInterface(const std::string& rType, int sheetIndex)
+void GameState::checkRobotSelectionInterface(const std::string& rType, int sheetIndex, RobotType _rid)
 {
 	if (!mRobots.itemExists(rType))
 	{
-		mRobots.addItem(rType, sheetIndex);
+		mRobots.addItem(rType, sheetIndex, _rid);
 	}
 }
 
@@ -1146,7 +1155,7 @@ void GameState::checkRobotSelectionInterface(const std::string& rType, int sheet
  */
 void GameState::dozerTaskFinished(Robot* _r)
 {
-	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID);
+	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
 }
 
 
@@ -1224,7 +1233,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 		}
 	}
 
-	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID);
+	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
 }
 
 
@@ -1253,7 +1262,7 @@ void GameState::minerTaskFinished(Robot* _r)
 	t2->index(0);
 	t2->excavated(true);
 
-	checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
+	checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
 }
 
 
@@ -1497,9 +1506,9 @@ void GameState::deploySeedLander(int x, int y)
 	mTileMap->getTile(x + 1, y + 1)->index(TERRAIN_DOZED);
 
 	// Robots only become available after the SEED Factor is deployed.
-	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID);
-	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID);
-	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID);
+	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
+	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
+	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
 
 	mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
 	mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
