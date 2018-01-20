@@ -11,6 +11,7 @@ This is the changelog for OutpostHD.
 - F11 keybinding to switch between fullscreen and windowed mode.
 - Game window is resizable (minimum size 800x600).
 - New higher resolution tile sets.
+- Added a drop shadow to mine beacons on the minimap to help them stand out better.
 
 ### Changed
 - Robots can now only be placed within the area of influence of the Command Center and Comm. Towers.
@@ -25,6 +26,7 @@ This is the changelog for OutpostHD.
 - Population panel now shows residential capacity.
 - Morale is now affected by overcrowding in residences.
 - Internal modifications to ProductType valuation -- this is a breaking change for older save games.
+- Updated resource icons.
 
 ### Fixed
 - FileOP button (Save/Load) in FileIO window will now start off disabled when first displayed.
