@@ -467,6 +467,9 @@
     <ClInclude Include="..\..\src\Things\Structures\CargoLander.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\ProductionCost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

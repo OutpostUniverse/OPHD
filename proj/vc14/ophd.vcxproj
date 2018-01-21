@@ -220,6 +220,7 @@
     <ClInclude Include="..\..\src\PopulationPool.h" />
     <ClInclude Include="..\..\src\Population\Morale.h" />
     <ClInclude Include="..\..\src\Population\Population.h" />
+    <ClInclude Include="..\..\src\ProductionCost.h" />
     <ClInclude Include="..\..\src\ProductPool.h" />
     <ClInclude Include="..\..\src\ResourcePool.h" />
     <ClInclude Include="..\..\src\RobotPool.h" />
