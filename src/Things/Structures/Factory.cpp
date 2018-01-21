@@ -60,7 +60,7 @@ void Factory::productType(ProductType _p)
 
 	productionResetTurns();
 
-	mTurnsToComplete = PRODUCTION_TYPE_TABLE[mProduct].TurnsToBuild;
+	mTurnsToComplete = PRODUCTION_TYPE_TABLE[mProduct].turnsToBuild();
 }
 
 
@@ -86,7 +86,11 @@ void Factory::updateProduction()
 		return;
 	}
 
-	*mResourcesPool -= PRODUCTION_TYPE_TABLE[mProduct].CostPerTurn;
+	mResourcesPool->commonMetals(mResourcesPool->commonMetals() - PRODUCTION_TYPE_TABLE[mProduct].commonMetals());
+	mResourcesPool->commonMinerals(mResourcesPool->commonMinerals() - PRODUCTION_TYPE_TABLE[mProduct].commonMinerals());
+	mResourcesPool->rareMetals(mResourcesPool->rareMetals() - PRODUCTION_TYPE_TABLE[mProduct].rareMetals());
+	mResourcesPool->rareMinerals(mResourcesPool->rareMinerals() - PRODUCTION_TYPE_TABLE[mProduct].rareMinerals());
+
 	++mTurnsCompleted;
 
 	if (mTurnsCompleted > mTurnsToComplete)
@@ -110,7 +114,15 @@ bool Factory::enoughResourcesAvailable()
 	if (mResourcesPool == nullptr) { throw std::runtime_error("Factory::enoughResourcesAvailable() called with a null Resource Pool set"); }
 	#endif
 
-	return *mResourcesPool >= PRODUCTION_TYPE_TABLE[mProduct].CostPerTurn;
+	if (mResourcesPool->commonMetals() >= PRODUCTION_TYPE_TABLE[mProduct].commonMetals() &&
+		mResourcesPool->commonMinerals() >= PRODUCTION_TYPE_TABLE[mProduct].commonMinerals() &&
+		mResourcesPool->rareMetals() >= PRODUCTION_TYPE_TABLE[mProduct].rareMetals() &&
+		mResourcesPool->rareMinerals() >= PRODUCTION_TYPE_TABLE[mProduct].rareMinerals())
+	{
+		return true;
+	}
+
+	return false;
 }
 
 

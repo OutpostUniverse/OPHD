@@ -8,43 +8,61 @@
  * FIXME:	Maybe should inherit from Resources and add the TurnsToBuild instead
  *			of using composition.
  */
-struct ProductionCost
+class ProductionCost
 {
+public:
 	ProductionCost() {}
 
-	ProductionCost(int turns, int commonMetals, int commonMinerals, int rareMetals, int rareMinerals) : TurnsToBuild(turns)
-	{
-		CostPerTurn.commonMetals(commonMetals);
-		CostPerTurn.commonMinerals(commonMinerals);
-		CostPerTurn.rareMetals(rareMetals);
-		CostPerTurn.rareMinerals(rareMinerals);
-	}
+	ProductionCost(int turns, int commonMetals, int commonMinerals, int rareMetals, int rareMinerals) :
+		mTurnsToBuild(turns),
+		mCommonMetals(commonMetals),
+		mCommonMinerals(commonMinerals),
+		mRareMetals(rareMetals),
+		mRareMinerals(rareMinerals)
+	{}
 
 	~ProductionCost() {}
 
 	void clear()
 	{
-		CostPerTurn.clear();
-		TurnsToBuild = 0;
+		mCommonMetals = 0;
+		mCommonMinerals = 0;
+		mRareMetals = 0;
+		mRareMinerals = 0;
+		mTurnsToBuild = 0;
 	}
 
-	ResourcePool	CostPerTurn;
-	int				TurnsToBuild = 0;
+	int commonMetals() const { return mCommonMetals; }
+	int commonMinerals() const { return mCommonMinerals; }
+	int rareMetals() const { return mRareMetals; }
+	int rareMinerals() const { return mRareMinerals; }
+	int turnsToBuild() const { return mTurnsToBuild; }
+
+private:
+	ProductionCost& operator=(const ProductionCost&) = delete;
+	ProductionCost(const ProductionCost&) = delete;
+
+private:
+	int				mCommonMetals = 0;
+	int				mCommonMinerals = 0;
+	int				mRareMetals = 0;
+	int 			mRareMinerals = 0;
+	int				mTurnsToBuild = 0;
 };
 
 
 
 /**
  * \brief	Defines the Factory interface.
- * 
+ *
  * Factory derives from Structure and provides the basic factory interface and
  * the underlying factory production code. Exactly what a factory is capable of
  * producing is up to the derived factory type.
- * 
+ *
  * \note	The Factory interface defines two public functions: resourcePool() and robotoPool().
  *			These must be called manually whenever a derived factory type is added to the game as
  *			there are no manager objects that do this (by design).
- * 
+ *
  * \warning	There are no sanity checks in the underlying production code to check if resourcePool
  *			or robotPool have been properly set. It is assumed that they have been.
  */
