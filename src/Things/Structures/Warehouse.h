@@ -14,16 +14,11 @@ public:
 		turnsToBuild(2);
 
 		requiresCHAP(false);
-
-		// for now general capacity
-		// Need to be converted in specific capacity for robots and luxury goods
-		storage().capacity(100);
 	}
-
 
 	virtual ~Warehouse() {}
 
-	const ProductPool& products() const { return mProducts; }
+	ProductPool& products() { return mProducts; }
 
 protected:
 

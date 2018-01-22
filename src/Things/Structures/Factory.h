@@ -2,7 +2,6 @@
 
 #include "Structure.h"
 
-//#include "../../Common.h"
 #include "../../ProductionCost.h"
 
 /**

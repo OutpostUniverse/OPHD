@@ -12,21 +12,39 @@ using namespace NAS2D;
  *			of that enumeration changes that this order is updated
  *			accordingly.
  */
-std::array<int, PRODUCT_COUNT>	PRODUCT_STORAGE_VALUE = 
+std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
 {
-	0,		// PRODUCT_NONE
-	10,		// PRODUCT_DIGGER
-	10,		// PRODUCT_DOZER
-	10		// PRODUCT_MINER
+	{ PRODUCT_DIGGER, 10 },
+	{ PRODUCT_DOZER, 10 },
+	{ PRODUCT_MINER, 10 },
+	{ PRODUCT_EXPLORER, 10 },
+	{ PRODUCT_TRUCK, 10 },
+
+	{ PRODUCT_ROAD_MATERIALS, 1 },
+	{ PRODUCT_MAINTENANCE_PARTS, 1 },
+
+	{ PRODUCT_CLOTHING, 1 },
+	{ PRODUCT_MEDICINE, 1 },
+	{ PRODUCT_RESERVED00, 1 },
+	{ PRODUCT_RESERVED01, 1 },
+	{ PRODUCT_RESERVED02, 1 },
+	{ PRODUCT_RESERVED03, 1 },
+	{ PRODUCT_RESERVED04, 1 },
+	{ PRODUCT_RESERVED05, 1 },
+	{ PRODUCT_RESERVED06, 1 },
+	{ PRODUCT_RESERVED07, 1 },
+	{ PRODUCT_RESERVED08, 1 },
+	{ PRODUCT_RESERVED09, 1 },
+	{ PRODUCT_RESERVED10, 1 }
 };
 
 
 /**
- * 
+ * Simple utility function that helps reduce syntax verbosity.
  */
-int productStorage(ProductType type)
+static inline int productStorage(ProductType type)
 {
-	return PRODUCT_STORAGE_VALUE[static_cast<int>(type)];
+	return PRODUCT_STORAGE_VALUE[type];
 }
 
 
