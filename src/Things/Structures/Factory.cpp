@@ -4,35 +4,43 @@
 
 typedef std::map<ProductType, ProductionCost> ProductionTypeTable;
 
-ProductionTypeTable PRODUCTION_TYPE_TABLE;
-
 
 /**
- * Utility function that fills out a table with production information for each product
- * that factories can produce.
+ * Table with production information for each product that factories can produce.
  *
- * \note	This function defines parameters for -all- products that any factory can
+ * \note	This table defines parameters for -all- products that any factory can
  *			produce. It is up to the individual factory to determine what they are
  *			allowed to build.
  */
-static void fillTable()
+ProductionTypeTable PRODUCTION_TYPE_TABLE = 
 {
-	if (!PRODUCTION_TYPE_TABLE.empty()) { return; }
+	{ PRODUCT_DIGGER, ProductionCost(5, 10, 5, 5, 2) },
+	{ PRODUCT_DOZER, ProductionCost(5, 10, 5, 5, 2) },
+	{ PRODUCT_EXPLORER, ProductionCost(5, 10, 5, 5, 2) },
+	{ PRODUCT_MINER, ProductionCost(5, 10, 5, 5, 2) },
+	{ PRODUCT_ROAD_MATERIALS, ProductionCost(2, 2, 5, 0, 0) },
+	{ PRODUCT_TRUCK, ProductionCost(5, 10, 5, 5, 2) },
 
-	PRODUCTION_TYPE_TABLE[PRODUCT_DIGGER] = ProductionCost(5, 10, 5, 5, 2);
-	PRODUCTION_TYPE_TABLE[PRODUCT_DOZER] = ProductionCost(5, 10, 5, 5, 2);
-	PRODUCTION_TYPE_TABLE[PRODUCT_EXPLORER] = ProductionCost(5, 10, 5, 5, 2);
-	PRODUCTION_TYPE_TABLE[PRODUCT_MINER] = ProductionCost(5, 10, 5, 5, 2);
-	PRODUCTION_TYPE_TABLE[PRODUCT_ROAD_MATERIALS] = ProductionCost(2, 2, 5, 0, 0);
-	PRODUCTION_TYPE_TABLE[PRODUCT_TRUCK] = ProductionCost(5, 10, 5, 5, 2);
+	{ PRODUCT_MAINTENANCE_PARTS, ProductionCost(2, 2, 2, 1, 1) },
 
-}
+	{ PRODUCT_CLOTHING, ProductionCost(1, 0, 1, 0, 0) },
+	{ PRODUCT_MEDICINE, ProductionCost(1, 0, 2, 0, 1) },
+	{ PRODUCT_RESERVED00, ProductionCost(1, 0, 0, 0, 0) },
+	{ PRODUCT_RESERVED01, ProductionCost(1, 0, 0, 0, 0) },
+	{ PRODUCT_RESERVED02, ProductionCost(1, 0, 0, 0, 0) },
+	{ PRODUCT_RESERVED03, ProductionCost(1, 0, 0, 0, 0) },
+	{ PRODUCT_RESERVED04, ProductionCost(1, 0, 0, 0, 0) },
+	{ PRODUCT_RESERVED05, ProductionCost(1, 0, 0, 0, 0) },
+	{ PRODUCT_RESERVED06, ProductionCost(1, 0, 0, 0, 0) },
+	{ PRODUCT_RESERVED07, ProductionCost(1, 0, 0, 0, 0) },
+	{ PRODUCT_RESERVED08, ProductionCost(1, 0, 0, 0, 0) },
+	{ PRODUCT_RESERVED09, ProductionCost(1, 0, 0, 0, 0) },
+	{ PRODUCT_RESERVED10, ProductionCost(1, 0, 0, 0, 0) }
+};
 
 
 Factory::Factory(const std::string& name, const std::string& sprite_path):	Structure(name, sprite_path, CLASS_FACTORY)
-{
-	fillTable();
-}
+{}
 
 
 Factory::~Factory()
@@ -104,7 +112,7 @@ void Factory::updateProduction()
 
 void Factory::productionComplete(ProductType _p)
 {
-	mProductionComplete(_p, id());
+	mProductionComplete(_p, *this);
 }
 
 

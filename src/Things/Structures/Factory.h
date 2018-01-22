@@ -21,8 +21,8 @@
 class Factory : public Structure
 {
 public:
-	// Callback providing what was complete and the ID of the factory.
-	typedef NAS2D::Signals::Signal2<ProductType, int> ProductionCallback;
+	// Callback providing what was complete and a reference to the Factory.
+	typedef NAS2D::Signals::Signal2<ProductType, Factory&> ProductionCallback;
 
 	typedef std::vector<ProductType> ProductionTypeList;
 

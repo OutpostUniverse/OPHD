@@ -1269,9 +1269,9 @@ void GameState::minerTaskFinished(Robot* _r)
 /**
  * Called whenever a Factory's production is complete.
  */
-void GameState::factoryProductionComplete(ProductType _p, int id)
+void GameState::factoryProductionComplete(ProductType _p, Factory& factory)
 {
-	cout << "Factory '" << id << "' has finished producing a";
+	cout << "Factory '" << factory.id() << "' has finished producing a";
 	
 	switch (_p)
 	{
