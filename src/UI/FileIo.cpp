@@ -120,7 +120,7 @@ void FileIo::fileNameModified(Control* _ctrl)
 {
 	string sFile = _ctrl->text();
 
-	if (sFile == "")	// no blank filename
+	if (sFile.empty())	// no blank filename
 		btnFileOp.enabled(false);
 	else if ((int)sFile.find('\\')>-1)	// no \ in the filename
 		btnFileOp.enabled(false);

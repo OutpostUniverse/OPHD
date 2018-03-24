@@ -173,9 +173,12 @@ void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
 	int y_pos = (sheetIndex / (mIconSheet.width() / mIconSize)) * mIconSize;
 
 	mIconItemList.push_back(IconGridItem());
-	mIconItemList.back().name = name;
-	mIconItemList.back().pos((float)x_pos, (float)y_pos);
-	mIconItemList.back().meta = meta;
+
+	IconGrid::IconGridItem& _item = mIconItemList.back();
+
+	_item.name = name;
+	_item.pos((float)x_pos, (float)y_pos);
+	_item.meta = meta;
 
 	sort();
 }
@@ -371,7 +374,7 @@ void IconGrid::update()
 	for (size_t i = 0; i < mIconItemList.size(); ++i)
 	{
 		int x_pos = i % mGridSize.x();
-		int y_pos = i / mGridSize.x();
+		int y_pos = i / mGridSize.x(); //-V537
 
 		float x = (rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos);
 		float y = (rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos);
@@ -385,7 +388,7 @@ void IconGrid::update()
 	if (mCurrentSelection != constants::NO_SELECTION)
 	{
 		int x_pos = (mCurrentSelection % mGridSize.x());
-		int y_pos = (mCurrentSelection / mGridSize.x());
+		int y_pos = (mCurrentSelection / mGridSize.x()); //-V537
 		r.drawBox((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos),
 			(rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos),
 			static_cast<float>(mIconSize),
@@ -395,7 +398,7 @@ void IconGrid::update()
 	if (mHighlightIndex != constants::NO_SELECTION)
 	{
 		int x_pos = (mHighlightIndex % mGridSize.x());
-		int y_pos = (mHighlightIndex / mGridSize.x());
+		int y_pos = (mHighlightIndex / mGridSize.x()); //-V537
 
 		int x = static_cast<int>((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
 		int y = static_cast<int>((rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));

@@ -1,0 +1,114 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="SuppressVersion">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CurrentVersion" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="OPHD">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="FileName" type="xs:string" default="" />
+                <xs:element name="ErrorCode" type="xs:string" default="" />
+                <xs:element name="Message" type="xs:string" default="" />
+                <xs:element name="CodePrev" type="xs:unsignedInt" default="0" />
+                <xs:element name="CodeCurrent" type="xs:unsignedInt" default="0" />
+                <xs:element name="CodeNext" type="xs:unsignedInt" default="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//OPHD" />
+        <xs:field xpath="FileName" />
+        <xs:field xpath="ErrorCode" />
+        <xs:field xpath="Message" />
+        <xs:field xpath="CodePrev" />
+        <xs:field xpath="CodeCurrent" />
+        <xs:field xpath="CodeNext" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <SuppressVersion>
+    <CurrentVersion>2</CurrentVersion>
+  </SuppressVersion>
+  <OPHD>
+    <FileName>sdl_audio.h</FileName>
+    <ErrorCode>V1003</ErrorCode>
+    <Message>The macro 'SDL_AUDIO_BITSIZE' is a dangerous expression. The parameter 'x' must be surrounded by parentheses.</Message>
+    <CodePrev>2771988871</CodePrev>
+    <CodeCurrent>1688950487</CodeCurrent>
+    <CodeNext>156675226</CodeNext>
+  </OPHD>
+  <OPHD>
+    <FileName>sdl_audio.h</FileName>
+    <ErrorCode>V1003</ErrorCode>
+    <Message>The macro 'SDL_AUDIO_ISFLOAT' is a dangerous expression. The parameter 'x' must be surrounded by parentheses.</Message>
+    <CodePrev>1688950487</CodePrev>
+    <CodeCurrent>156675226</CodeCurrent>
+    <CodeNext>1648379029</CodeNext>
+  </OPHD>
+  <OPHD>
+    <FileName>sdl_audio.h</FileName>
+    <ErrorCode>V1003</ErrorCode>
+    <Message>The macro 'SDL_AUDIO_ISBIGENDIAN' is a dangerous expression. The parameter 'x' must be surrounded by parentheses.</Message>
+    <CodePrev>156675226</CodePrev>
+    <CodeCurrent>1648379029</CodeCurrent>
+    <CodeNext>39219282</CodeNext>
+  </OPHD>
+  <OPHD>
+    <FileName>sdl_audio.h</FileName>
+    <ErrorCode>V1003</ErrorCode>
+    <Message>The macro 'SDL_AUDIO_ISSIGNED' is a dangerous expression. The parameter 'x' must be surrounded by parentheses.</Message>
+    <CodePrev>1648379029</CodePrev>
+    <CodeCurrent>39219282</CodeCurrent>
+    <CodeNext>608846046</CodeNext>
+  </OPHD>
+  <OPHD>
+    <FileName>sdl_keycode.h</FileName>
+    <ErrorCode>V1003</ErrorCode>
+    <Message>The macro 'SDL_SCANCODE_TO_KEYCODE' is a dangerous expression. The parameter 'X' must be surrounded by parentheses.</Message>
+    <CodePrev>401974789</CodePrev>
+    <CodeCurrent>1050493770</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </OPHD>
+  <OPHD>
+    <FileName>file.h</FileName>
+    <ErrorCode>V815</ErrorCode>
+    <Message>Decreased performance. Consider replacing the expression 'mByteStream = ""' with 'mByteStream.clear()'.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3076524547</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </OPHD>
+  <OPHD>
+    <FileName>file.h</FileName>
+    <ErrorCode>V815</ErrorCode>
+    <Message>Decreased performance. Consider replacing the expression 'mFileName = ""' with 'mFileName.clear()'.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3076524547</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </OPHD>
+  <OPHD>
+    <FileName>eventhandler.h</FileName>
+    <ErrorCode>V1003</ErrorCode>
+    <Message>The macro 'SCANCODE_TO_KEYCODE' is a dangerous expression. The parameter 'X' must be surrounded by parentheses.</Message>
+    <CodePrev>11904517</CodePrev>
+    <CodeCurrent>167023397</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </OPHD>
+  <OPHD>
+    <FileName>sdl_haptic.h</FileName>
+    <ErrorCode>V802</ErrorCode>
+    <Message>On _-bit platform, structure size can be reduced from _ to _ bytes by rearranging the fields according to their sizes in decreasing order.</Message>
+    <CodePrev>923534730</CodePrev>
+    <CodeCurrent>123</CodeCurrent>
+    <CodeNext>16827</CodeNext>
+  </OPHD>
+</NewDataSet>

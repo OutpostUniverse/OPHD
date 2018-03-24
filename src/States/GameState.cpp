@@ -436,19 +436,14 @@ void GameState::drawRobotInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	int x = constants::MARGIN_TIGHT;
-	int y = constants::MARGIN_TIGHT;
-	int textY = 6;
-	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
-	int margin = constants::RESOURCE_ICON_SIZE + constants::MARGIN;
-
 	// Robots
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
-	y = (int)r.height() - constants::BOTTOM_UI_HEIGHT - 25 - 8;
-	textY = y + 7;	// Same position + 10 to center the text with the graphics
-	margin = 30;	// Margin of 28 px from the graphics to the text
-	x = 0; offsetX = 1;	// Start a the left side of the screen + an offset of 1 to detatch from the border
-						// Miner (last one)
+	int y = (int)r.height() - constants::BOTTOM_UI_HEIGHT - 25 - 8;
+	int textY = y + 7;	// Same position + 10 to center the text with the graphics
+	int margin = 30;	// Margin of 28 px from the graphics to the text
+	int x = 0, offsetX = 1;	// Start a the left side of the screen + an offset of 1 to detatch from the border
+	
+	// Miner (last one)
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 18, 25, 25);
 	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 	// Dozer (Midle one)
@@ -737,15 +732,17 @@ void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		}
 		else if (_t->thingIsStructure())
 		{
-			if (_t->structure()->isFactory() && (_t->structure()->operational() || _t->structure()->isIdle()))
+			Structure* _s = _t->structure();
+
+			if (_s->isFactory() && (_s->operational() || _s->isIdle()))
 			{
-				mFactoryProduction.factory(static_cast<Factory*>(_t->structure()));
+				mFactoryProduction.factory(static_cast<Factory*>(_s));
 				mFactoryProduction.show();
 				mWindowStack.bringToFront(&mFactoryProduction);
 			}
 			else
 			{
-				mStructureInspector.structure(_t->structure());
+				mStructureInspector.structure(_s);
 				mStructureInspector.show();
 				mWindowStack.bringToFront(&mStructureInspector);
 			}

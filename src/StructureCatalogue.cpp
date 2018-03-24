@@ -168,7 +168,11 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 	}
 
-	_st->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
+	if (_st)
+	{
+		_st->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
+	}
+
 	return _st;
 }
 

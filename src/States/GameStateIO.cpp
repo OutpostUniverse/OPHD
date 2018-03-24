@@ -85,7 +85,6 @@ void GameState::load(const std::string& _path)
 	File xmlFile = Utility<Filesystem>::get().open(_path);
 
 	XmlDocument doc;
-	XmlElement* root = nullptr;
 
 	// Load the XML document and handle any errors if occuring
 	doc.parse(xmlFile.raw_bytes());
@@ -95,7 +94,7 @@ void GameState::load(const std::string& _path)
 		return;
 	}
 
-	root = doc.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
+	XmlElement* root = doc.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
 	if (root == nullptr)
 	{
 		cout << "Root element in '" << _path << "' is not '" << constants::SAVE_GAME_ROOT_NODE << "'." << endl;
@@ -132,7 +131,7 @@ void GameState::load(const std::string& _path)
 
 	mMapDisplay = Image(sitemap + MAP_DISPLAY_EXTENSION);
 	mHeightMap = Image(sitemap + MAP_TERRAIN_EXTENSION);
-	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, false);
+	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, 0, false);
 	mTileMap->deserialize(root);
 
 	readStructures(root->firstChildElement("structures"));
@@ -214,6 +213,9 @@ void GameState::readRobots(XmlElement* _ti)
 			cout << "Unknown robot type in savegame." << endl;
 			break;
 		}
+
+		if (!r) { continue; }	// Could be done in the default handler in the above switch
+								// but may be better here as an explicit statement.
 
 		r->fuelCellAge(age);
 
