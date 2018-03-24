@@ -258,7 +258,7 @@ void Slider::onMouseMotion(int x, int y, int dX, int dY)
 			mMouseHoverSlide = pointInRect_f(x, y, mSlideBar);
 		}
 		else
-		{
+		{ /// \fixme V523 https://www.viva64.com/en/w/v523/ These two conditionals do the same thing.
 			mMouseHoverSlide = pointInRect_f(x, y, mSlideBar);
 		}
 	}

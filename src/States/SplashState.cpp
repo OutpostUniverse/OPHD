@@ -23,7 +23,8 @@ LogoState CURRENT_STATE = LOGO_NONE;
 SplashState::SplashState() :	mLogoLairworks("sys/lairworks-logo.png"),
 								mLogoNas2d("sys/nas2d_logo.png"),
 								mLogoOutpostHd("sys/ophd_large.png"),
-								mSplash("music/splash.ogg")
+								mSplash("music/splash.ogg"),
+								mReturnState(this)
 {}
 
 
@@ -37,8 +38,6 @@ SplashState::~SplashState()
 
 void SplashState::initialize()
 {
-	mReturnState = this;
-
 	EventHandler& e = Utility<EventHandler>::get();
 	e.keyDown().connect(this, &SplashState::onKeyDown);
 	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
@@ -109,7 +108,7 @@ State* SplashState::update()
 	}
 	if (CURRENT_STATE == LOGO_OUTPOSTHD)
 	{
-		r.drawImage(mLogoOutpostHd, static_cast<int>(r.center_x() - ((mLogoOutpostHd.width() + 250 * LOGO_SCALE)) / 2), static_cast<int>(r.center_y() - mLogoOutpostHd.height() / 2, LOGO_SCALE));
+		r.drawImage(mLogoOutpostHd, static_cast<int>(r.center_x() - ((mLogoOutpostHd.width() + 250 * LOGO_SCALE) / 2)), static_cast<int>(r.center_y() - mLogoOutpostHd.height() / 2, LOGO_SCALE));
 	}
 
 	

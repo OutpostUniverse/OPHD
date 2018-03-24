@@ -111,4 +111,20 @@
     <CodeCurrent>123</CodeCurrent>
     <CodeNext>16827</CodeNext>
   </OPHD>
+  <OPHD>
+    <FileName>sdl_haptic.h</FileName>
+    <ErrorCode>V802</ErrorCode>
+    <Message>On _-bit platform, structure size can be reduced from _ to _ bytes by rearranging the fields according to their sizes in decreasing order.</Message>
+    <CodePrev>461769438</CodePrev>
+    <CodeCurrent>123</CodeCurrent>
+    <CodeNext>16827</CodeNext>
+  </OPHD>
+  <OPHD>
+    <FileName>sdl_haptic.h</FileName>
+    <ErrorCode>V802</ErrorCode>
+    <Message>On _-bit platform, structure size can be reduced from _ to _ bytes by rearranging the fields according to their sizes in decreasing order.</Message>
+    <CodePrev>1907908783</CodePrev>
+    <CodeCurrent>123</CodeCurrent>
+    <CodeNext>16827</CodeNext>
+  </OPHD>
 </NewDataSet>

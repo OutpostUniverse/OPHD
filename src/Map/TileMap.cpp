@@ -53,8 +53,8 @@ auto myield = std::bind(mine_yield, std::ref(generator));
  * C'tor
  */
 TileMap::TileMap(const string& map_path, const string& tset_path, int _md, int _mc, bool _s) :
-	mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),
-	mMaxDepth(_md),
+	mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),	mMaxDepth(_md),
+	mMapPath(map_path), mTsetPath(tset_path),
 	mTileSelector("ui/selector.png"),
 	mTileset(tset_path),
 	mMineBeacon("structures/mine_beacon.png")
@@ -65,9 +65,6 @@ TileMap::TileMap(const string& map_path, const string& tset_path, int _md, int _
 	initMapDrawParams();
 
 	if (_s) { setupMines(_mc); }
-
-	mMapPath = map_path;
-	mTsetPath = tset_path;
 	cout << "finished!" << endl;
 }
 
@@ -523,18 +520,26 @@ void TileMap::deserialize(XmlElement* _ti)
 
 Tile* TileMap::getVisibleTile(int x, int y, int level)
 {
-	if (!isVisibleTile(x,y,level))
+	if (!isVisibleTile(x, y, level))
+	{
 		return nullptr;
+	}
+
 	return getTile(x, y, level);
 }
 
 
-bool TileMap::isVisibleTile(int _x, int _y, int _d)
+bool TileMap::isVisibleTile(int _x, int _y, int _d) const
 {
 	if (!isPointInRect(_x, _y, mMapViewLocation.x(), mMapViewLocation.y(), mEdgeLength - 1, mEdgeLength - 1))
+	{
 		return false;
+	}
+
 	if (_d != mCurrentDepth)
+	{
 		return false;
+	}
 	
 	return true;
 }

@@ -339,9 +339,6 @@ int Population::update(int morale, int food, int residences, int universities, i
 	mBirthCount = 0;
 	mDeathCount = 0;
 
-	PopulationTable newPopulation = { 0 };
-	PopulationTable deadPopulation = { 0 };
-
 	spawn_children(morale, residences, nurseries);
 	spawn_students();
 	spawn_adults(universities);

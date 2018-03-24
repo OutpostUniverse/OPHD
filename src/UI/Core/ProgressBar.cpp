@@ -2,7 +2,24 @@
 
 using namespace std;
 
-ProgressBar::ProgressBar() : mCurrent(0), mEnd(0), mUsesImage(false)
+ProgressBar::ProgressBar() : mCurrent(0), mEnd(0), mImageMode(ProgressBar::Repeating), mUsesImage(false)
+{
+	init();
+}
+
+
+ProgressBar::ProgressBar(size_t end) : mCurrent(0), mImageMode(ProgressBar::Repeating), mUsesImage(false)
+{
+	init();
+	mEnd = end;
+}
+
+
+ProgressBar::~ProgressBar()
+{}
+
+
+void ProgressBar::init()
 {
 	mSkinOut.push_back(Image("ui/skin/button_top_left.png"));
 	mSkinOut.push_back(Image("ui/skin/button_top_middle.png"));
@@ -25,19 +42,6 @@ ProgressBar::ProgressBar() : mCurrent(0), mEnd(0), mUsesImage(false)
 	mSkinIn.push_back(Image("ui/skin/button_pressed_bottom_right.png"));
 
 	setColor(255, 0, 0);
-}
-
-
-ProgressBar::ProgressBar(size_t end) : mCurrent(0), mUsesImage(false)
-{
-	ProgressBar();
-	mEnd = end;
-}
-
-
-ProgressBar::~ProgressBar()
-{
-
 }
 
 

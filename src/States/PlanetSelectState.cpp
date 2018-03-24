@@ -15,7 +15,8 @@ PlanetSelectState::PlanetSelectState():	mFont("fonts/opensans.ttf", 14),
 										mCloud2("sys/cloud_2.png"),
 										mBgMusic("music/menu.ogg"),
 										mSelect("sfx/click.ogg"),
-										mHover("sfx/menu4.ogg")
+										mHover("sfx/menu4.ogg"),
+										mReturnState(this)
 {}
 
 
@@ -36,8 +37,6 @@ PlanetSelectState::~PlanetSelectState()
 
 void PlanetSelectState::initialize()
 {
-	mReturnState = this;
-
 	EventHandler& e = Utility<EventHandler>::get();
 
 	e.keyDown().connect(this, &PlanetSelectState::onKeyDown);

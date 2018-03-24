@@ -139,7 +139,7 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 		// Check that enough resources are available for input.
 		if (!structure->resourcesIn().empty() && !structure->enoughResourcesAvailable(_r) && !structure->isIdle())
 		{
-			if (!structure->isIdle())
+			if (!structure->isIdle()) //-V571
 			{
 				structure->disable();
 				continue;
@@ -327,7 +327,7 @@ Tile* StructureManager::tileFromStructure(Structure* _st)
 }
 
 
-void serializeResourcePool(XmlElement* _ti, ResourcePool& _rp, const std::string name)
+void serializeResourcePool(XmlElement* _ti, ResourcePool& _rp, const std::string& name)
 {
 	XmlElement* pool = new XmlElement(name);
 	_rp.serialize(pool);

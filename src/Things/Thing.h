@@ -15,8 +15,7 @@ public:
 	typedef NAS2D::Signals::Signal1<Thing*> DieCallback;
 
 	Thing(const std::string& name, const std::string& sprite_path):	mName(name),
-																	mSprite(sprite_path),
-																	mIsDead(false)
+																	mSprite(sprite_path)
 	{}
 
 	Thing():	mName("Unknown")
@@ -61,7 +60,7 @@ private:
 	std::string		mName;			/**< Name of the Thing. */
 	Sprite			mSprite;		/**< Sprite used to represent the Thing. */
 
-	bool			mIsDead;		/**< Thing is dead and should be cleaned up. */
+	bool			mIsDead = false;/**< Thing is dead and should be cleaned up. */
 
 	DieCallback		mDieCallback;	/**<  */
 };

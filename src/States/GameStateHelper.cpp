@@ -164,7 +164,7 @@ void updateRobotControl(RobotPool& _rp, StructureManager& _sm)
 
 bool structureIsLander(StructureID id)
 {
-	return id == SID_SEED_LANDER || id == SID_COLONIST_LANDER || SID_CARGO_LANDER;
+	return id == SID_SEED_LANDER || id == SID_COLONIST_LANDER || id == SID_CARGO_LANDER;
 }
 
 

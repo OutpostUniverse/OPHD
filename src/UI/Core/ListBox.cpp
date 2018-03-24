@@ -241,7 +241,7 @@ void ListBox::onMouseMove(int x, int y, int relX, int relY)
 /**
  * \todo	Make the scroll amount configurable.
  */
-void ListBox::onMouseWheel(int x, int y)
+void ListBox::onMouseWheel(int x, int y) //-V751
 {
 	if (y < 0)
 	{

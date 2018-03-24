@@ -45,6 +45,7 @@ protected:
 	size_t mEnd;
 
 private:
+	void init();
 	void draw();
 
 private:
