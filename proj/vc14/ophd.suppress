@@ -127,4 +127,12 @@
     <CodeCurrent>123</CodeCurrent>
     <CodeNext>16827</CodeNext>
   </OPHD>
+  <OPHD>
+    <FileName>delegate.h</FileName>
+    <ErrorCode>V568</ErrorCode>
+    <Message>It's odd that 'sizeof()' operator evaluates the size of a pointer to a class, but not the size of the 'u_.virtfunc' class object.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>414232470</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </OPHD>
 </NewDataSet>

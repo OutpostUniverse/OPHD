@@ -120,7 +120,7 @@ protected:
 				mMouseExitCallback();
 			}
 
-			mMouseInArea = false;
+			mMouseInArea = false; //-V519	This is necessary because of the order of access when the signal is emitted. This indicates an issue with the design and could be done better.
 			mTimer.reset(); // keep accumulator at 0 so frame tick doesn't update while mouse is not hovering over Planet.
 		}
 	}

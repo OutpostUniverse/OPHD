@@ -33,8 +33,8 @@ void Robot::updateTask()
 {
 	if (mSelfDestruct)
 	{
-		die();
 		mSelfDestructCallback();
+		die();
 	}
 
 	mTurnsToCompleteTask--;
@@ -45,5 +45,7 @@ void Robot::updateTask()
 	mFuelCellAge++;
 
 	if (mFuelCellAge == 200)
+	{
 		die();
+	}
 }

@@ -297,8 +297,10 @@ void GameState::drawMiniMap()
 		r.drawPoint(it->second->x() + mMiniMapBoundingBox.x(), it->second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
 	}
 
-	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x() + 1, mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
-	r.drawBox(mMiniMapBoundingBox.x() + mTileMap->mapViewLocation().x(), mMiniMapBoundingBox.y() + mTileMap->mapViewLocation().y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
+	const Point_2d& _pt = mTileMap->mapViewLocation();
+
+	r.drawBox(mMiniMapBoundingBox.x() + _pt.x() + 1, mMiniMapBoundingBox.y() + _pt.y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
+	r.drawBox(mMiniMapBoundingBox.x() + _pt.x(), mMiniMapBoundingBox.y() + _pt.y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
 }
 
 
@@ -1701,15 +1703,18 @@ void GameState::updateResources()
 	// Move ore from mines to smelters
 	for (size_t m = 0; m < mines.size(); ++m)
 	{
-		if (mines[m]->disabled() || mines[m]->destroyed())
+		Structure* _mine = mines[m];
+		if (_mine->disabled() || _mine->destroyed())
 		{
 			continue; // consider a different control path.
 		}
 
-		truck.commonMetalsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, 25));
-		truck.commonMineralsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, 25));
-		truck.rareMetalsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_RARE_METALS_ORE, 25));
-		truck.rareMineralsOre(mines[m]->storage().pullResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, 25));
+		ResourcePool& _rp = _mine->storage();
+
+		truck.commonMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, 25));
+		truck.commonMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, 25));
+		truck.rareMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS_ORE, 25));
+		truck.rareMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, 25));
 
 		for (size_t s = 0; s < smelters.size(); ++s)
 		{
@@ -1721,28 +1726,30 @@ void GameState::updateResources()
 
 		if (!truck.empty())
 		{
-			mines[m]->storage().pushResources(truck);
+			_mine->storage().pushResources(truck);
 		}
 	}
 
 	// Move refined resources from smelters to storage tanks
 	for (size_t s = 0; s < smelters.size(); ++s)
 	{
-		if (smelters[s]->disabled() || smelters[s]->destroyed())
+		Structure* _smelter = smelters[s];
+		if (_smelter->disabled() || _smelter->destroyed())
 		{
 			continue; // consider a different control path.
 		}
 
-		truck.commonMetals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_COMMON_METALS, 25));
-		truck.commonMinerals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_COMMON_MINERALS, 25));
-		truck.rareMetals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_RARE_METALS, 25));
-		truck.rareMinerals(smelters[s]->storage().pullResource(ResourcePool::RESOURCE_RARE_MINERALS, 25));
+		ResourcePool& _rp = _smelter->storage();
+		truck.commonMetals(_rp.pullResource(ResourcePool::RESOURCE_COMMON_METALS, 25));
+		truck.commonMinerals(_rp.pullResource(ResourcePool::RESOURCE_COMMON_MINERALS, 25));
+		truck.rareMetals(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS, 25));
+		truck.rareMinerals(_rp.pullResource(ResourcePool::RESOURCE_RARE_MINERALS, 25));
 
 		mPlayerResources.pushResources(truck);
 
 		if (!truck.empty())
 		{
-			smelters[s]->storage().pushResources(truck);
+			_smelter->storage().pushResources(truck);
 			break;	// we're at max capacity in our storage, dump what's left in the smelter it came from and barf.
 		}
 	}

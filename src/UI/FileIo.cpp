@@ -64,7 +64,8 @@ void FileIo::init()
 
 void FileIo::onDoubleClick(EventHandler::MouseButton button, int x, int y)
 {
-	if (isPointInRect(x, y, mListBox.rect().x(), mListBox.rect().y(), mListBox.rect().width(), mListBox.rect().height()))
+	const Rectangle_2d& _rect = mListBox.rect();
+	if (isPointInRect(x, y, _rect.x(), _rect.y(), _rect.width(), _rect.height()))
 	{
 		if (mListBox.currentHighlight() != constants::NO_SELECTION && !txtFileName.empty())
 		{

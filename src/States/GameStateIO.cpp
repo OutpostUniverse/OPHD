@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 // ==================================================================================
 // = This file implements the File Input/Outpost used by GameState. I separated it
 // = into its own file because the GameState.cpp file was starting to get a little

@@ -379,8 +379,8 @@ void IconGrid::update()
 		int x_pos = i % mGridSize.x();
 		int y_pos = i / mGridSize.x(); //-V537
 
-		float x = (rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos);
-		float y = (rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos);
+		float x = static_cast<float>((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
+		float y = static_cast<float>((rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
 
 		if (mIconItemList[i].available)
 			r.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x(), mIconItemList[i].pos.y(), static_cast<float>(mIconSize), static_cast<float>(mIconSize));

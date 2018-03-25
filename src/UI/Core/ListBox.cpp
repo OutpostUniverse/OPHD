@@ -80,7 +80,7 @@ void ListBox::_updateItemDisplay()
 {
 	mItemWidth = rect().width();
 
-	if ((mLineHeight * mItems.size()) > static_cast<int>(height()))
+	if ((mLineHeight * mItems.size()) > static_cast<size_t>(height()))
 	{
 		mLineCount = static_cast<int>(height() / mLineHeight);
 		if (mLineCount < static_cast<int>(mItems.size()))

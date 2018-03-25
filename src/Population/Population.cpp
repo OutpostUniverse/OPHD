@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 #include "Population.h"
 
 #include <algorithm>
@@ -314,7 +317,7 @@ uint32_t Population::consume_food(uint32_t food)
 	uint32_t population_to_kill = static_cast<int>((size() - population_fed) * mStarveRate);
 	if (size() == 1) { population_to_kill = 1; }
 
-	for (int i = 0; i < population_to_kill; /**/ )
+	for (uint32_t i = 0; i < population_to_kill; /**/ )
 	{
 		PersonRole role = static_cast<PersonRole>(i % 5);
 		if (mPopulation[role] > 0)

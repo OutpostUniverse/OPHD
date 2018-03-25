@@ -61,7 +61,7 @@ void Menu::addItem(const string& item)
 	if(font().width(item) > _rect().width())
 		_rect().width() = font().width(item) + 2;
 
-	_rect().height() = mItems.size() * (font().height() + 2);
+	_rect().height() = static_cast<float>(mItems.size() * (font().height() + 2));
 
 	sort();
 }
@@ -87,7 +87,7 @@ void Menu::removeItem(const std::string& item)
 		if(toLowercase((*it)) == toLowercase(item))
 		{
 			mItems.erase(it);
-			_rect().height() = mItems.size() * (font().height() + 2);
+			_rect().height() = static_cast<float>(mItems.size() * (font().height() + 2));
 			mCurrentSelection = constants::NO_SELECTION;
 			return;
 		}
