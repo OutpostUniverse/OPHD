@@ -9,11 +9,6 @@ using namespace NAS2D;
 
 /**
  * Space required to store a Product.
- * 
- * \note	For simplicity's sake this is arranged in the same order
- *			as the ProductType enumeration. Ensure that if the order
- *			of that enumeration changes that this order is updated
- *			accordingly.
  */
 std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
 {
