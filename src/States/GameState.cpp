@@ -1292,6 +1292,14 @@ void GameState::factoryProductionComplete(ProductType _p, Factory& factory)
 		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
 		break;
 
+	case PRODUCT_CLOTHING:
+		cout << " Clothing" << endl;
+		break;
+
+	case PRODUCT_MEDICINE:
+		cout << " Medicine" << endl;
+		break;
+
 	default:
 		cout << "n Unknown Product." << endl;
 		break;

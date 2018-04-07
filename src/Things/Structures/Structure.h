@@ -18,6 +18,17 @@ public:
 		DESTROYED
 	};
 
+
+	/**
+	 * Class of a Structure.
+	 * 
+	 * Structures are grouped by 'class'. Basically it's just an easy
+	 * way to know how to sort structures so that they can be updated
+	 * based on priority.
+	 * 
+	 * \note	Some structure classes will only have one structure
+	 *			that uses it. This is intended behavior.
+	 */
 	enum StructureClass
 	{
 		CLASS_COMMAND,
@@ -42,7 +53,7 @@ public:
 		CLASS_SMELTER,
 		CLASS_STORAGE,
 		CLASS_TUBE,
-		CLASS_UNDEFINED,
+		CLASS_UNDEFINED,			/**< Used for structures that have no need for classification. */
 		CLASS_UNIVERSITY,
 		CLASS_WAREHOUSE
 	};

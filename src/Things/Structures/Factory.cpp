@@ -28,17 +28,6 @@ ProductionTypeTable PRODUCTION_TYPE_TABLE =
 
 	{ PRODUCT_CLOTHING, ProductionCost(1, 0, 1, 0, 0) },
 	{ PRODUCT_MEDICINE, ProductionCost(1, 0, 2, 0, 1) },
-	{ PRODUCT_RESERVED00, ProductionCost(1, 0, 0, 0, 0) },
-	{ PRODUCT_RESERVED01, ProductionCost(1, 0, 0, 0, 0) },
-	{ PRODUCT_RESERVED02, ProductionCost(1, 0, 0, 0, 0) },
-	{ PRODUCT_RESERVED03, ProductionCost(1, 0, 0, 0, 0) },
-	{ PRODUCT_RESERVED04, ProductionCost(1, 0, 0, 0, 0) },
-	{ PRODUCT_RESERVED05, ProductionCost(1, 0, 0, 0, 0) },
-	{ PRODUCT_RESERVED06, ProductionCost(1, 0, 0, 0, 0) },
-	{ PRODUCT_RESERVED07, ProductionCost(1, 0, 0, 0, 0) },
-	{ PRODUCT_RESERVED08, ProductionCost(1, 0, 0, 0, 0) },
-	{ PRODUCT_RESERVED09, ProductionCost(1, 0, 0, 0, 0) },
-	{ PRODUCT_RESERVED10, ProductionCost(1, 0, 0, 0, 0) }
 };
 
 
@@ -90,7 +79,6 @@ void Factory::updateProduction()
 	{
 		return;
 	}
-
 
 	if (mProduct == PRODUCT_NONE || !enoughResourcesAvailable())
 	{

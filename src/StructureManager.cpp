@@ -60,9 +60,9 @@ void StructureManager::update(ResourcePool& _r, PopulationPool& _p)
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_MEDICAL_CENTER]);		// No medical facilities, people die
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_NURSERY]);
 
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_FACTORY]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_FACTORY]);			// Production
 
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_STORAGE]);
+	updateStructures(_r, _p, mStructureLists[Structure::CLASS_STORAGE]);			// Everything else.
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_PARK]);
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_SURFACE_POLICE]);
 	updateStructures(_r, _p, mStructureLists[Structure::CLASS_UNDERGROUND_POLICE]);
