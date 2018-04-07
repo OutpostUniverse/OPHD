@@ -1,0 +1,11 @@
+*.dll
+/data
+/API
+/proj/vc14/Debug
+/proj/vc14/*.opendb
+/proj/vc14/*.db
+/proj/vc14/Release Gold
+/proj/vc14/Release
+/*.exe
+/proj/vc14/.vs/OPHD/v14/*.suo
+/*.log
