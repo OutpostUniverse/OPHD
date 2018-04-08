@@ -10,6 +10,9 @@
 
 using namespace NAS2D::Xml;
 
+/**
+ * C'tor
+ */
 StructureManager::StructureManager(): mTotalEnergyOutput(0)
 {}
 
@@ -25,6 +28,9 @@ StructureManager::~StructureManager()
 {}
 
 
+/**
+ *
+ */
 bool StructureManager::CHAPAvailable()
 {
 	for (size_t i = 0; i < mStructureLists[Structure::CLASS_LIFE_SUPPORT].size(); ++i)
@@ -39,6 +45,9 @@ bool StructureManager::CHAPAvailable()
 }
 
 
+/**
+ *
+ */
 void StructureManager::update(ResourcePool& _r, PopulationPool& _p)
 {
 	// Called separately so that 1) high priority structures can be updated first and
@@ -81,19 +90,27 @@ void StructureManager::update(ResourcePool& _r, PopulationPool& _p)
 }
 
 
+/**
+ *
+ */
 void StructureManager::updateEnergyProduction(ResourcePool& _r, PopulationPool& _p)
 {
 	mTotalEnergyOutput = 0;
 	for (size_t i = 0; i < mStructureLists[Structure::CLASS_ENERGY_PRODUCTION].size(); ++i)
 	{
 		if (mStructureLists[Structure::CLASS_ENERGY_PRODUCTION][i]->operational())
+		{
 			mTotalEnergyOutput += mStructureLists[Structure::CLASS_ENERGY_PRODUCTION][i]->resourcesOut().energy();
+		}
 	}
 
 	_r.energy(mTotalEnergyOutput);
 }
 
 
+/**
+ *
+ */
 void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, StructureList& _sl)
 {
 	bool chapAvailable = CHAPAvailable();
@@ -169,6 +186,9 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 }
 
 
+/**
+ * 
+ */
 void StructureManager::updateFactoryProduction()
 {
 	StructureList& sl = mStructureLists[Structure::CLASS_FACTORY];
@@ -186,8 +206,10 @@ void StructureManager::updateFactoryProduction()
 void StructureManager::addStructure(Structure* st, Tile* t)
 {
 	// Sanity checks
-	if(t == nullptr)
+	if (t == nullptr)
+	{
 		return;
+	}
 
 	if (mStructureTileTable.find(st) != mStructureTileTable.end())
 	{
@@ -197,7 +219,9 @@ void StructureManager::addStructure(Structure* st, Tile* t)
 
 	// Remove thing's from tile only if we know we're adding a structure.
 	if (!t->empty())
+	{
 		t->removeThing();
+	}
 
 	mStructureTileTable[st] = t;
 
@@ -252,7 +276,9 @@ void StructureManager::removeStructure(Structure* st)
 void StructureManager::disconnectAll()
 {
 	for (auto st_it = mStructureTileTable.begin(); st_it != mStructureTileTable.end(); ++st_it)
+	{
 		st_it->second->connected(false);
+	}
 }
 
 
@@ -263,19 +289,26 @@ int StructureManager::count() const
 {
 	int count = 0;
 	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+	{
 		count += it->second.size();
+	}
 
 	return count;
 }
 
 
+/**
+ *
+ */
 int StructureManager::getCountInState(Structure::StructureClass _st, Structure::StructureState _state)
 {
 	int count = 0;
 	for (size_t i = 0; i < structureList(_st).size(); ++i)
 	{
 		if (structureList(_st)[i]->state() == _state)
+		{
 			++count;
+		}
 	}
 
 	return count;
@@ -289,7 +322,9 @@ int StructureManager::disabled()
 {
 	int count = 0;
 	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+	{
 		count += getCountInState(it->first, Structure::DISABLED);
+	}
 
 	return count;
 }
@@ -302,12 +337,17 @@ int StructureManager::destroyed()
 {
 	int count = 0;
 	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+	{
 		count += getCountInState(it->first, Structure::DESTROYED);
+	}
 
 	return count;
 }
 
 
+/**
+ *
+ */
 void StructureManager::dropAllStructures()
 {
 	for (auto map_it = mStructureTileTable.begin(); map_it != mStructureTileTable.end(); ++map_it)
@@ -321,15 +361,23 @@ void StructureManager::dropAllStructures()
 }
 
 
+/**
+ * 
+ */
 Tile* StructureManager::tileFromStructure(Structure* _st)
 {
 	auto it = mStructureTileTable.find(_st);
+	{
 		return it->second;
+	}
 
 	return nullptr;
 }
 
 
+/**
+ * 
+ */
 void serializeResourcePool(XmlElement* _ti, ResourcePool& _rp, const std::string& name)
 {
 	XmlElement* pool = new XmlElement(name);
@@ -337,6 +385,10 @@ void serializeResourcePool(XmlElement* _ti, ResourcePool& _rp, const std::string
 	_ti->linkEndChild(pool);
 }
 
+
+/**
+ *
+ */
 void serializeStructure(XmlElement* _ti, Structure* _s, Tile* _t)
 {
 	_ti->attribute("x", _t->x());
@@ -352,13 +404,20 @@ void serializeStructure(XmlElement* _ti, Structure* _s, Tile* _t)
 	_ti->attribute("direction", _s->connectorDirection());
 
 	if (!_s->production().empty())
+	{
 		serializeResourcePool(_ti, _s->production(), "production");
+	}
 
 	if (!_s->storage().empty())
+	{
 		serializeResourcePool(_ti, _s->storage(), "storage");
+	}
 }
 
 
+/**
+ * 
+ */
 void StructureManager::serialize(XmlElement* _ti)
 {
 	XmlElement* structures = new XmlElement("structures");
