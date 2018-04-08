@@ -42,6 +42,9 @@ namespace constants
 
 	const string	TRUCK = "Truck";
 
+	const string	CLOTHING = "Clothing";
+	const string	MEDICINE = "Medicine";
+
 
 	// STRUCTURES
 	const string	AGRIDOME = "Agricultural Dome";

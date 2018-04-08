@@ -9,10 +9,15 @@
 #include <array>
 
 
-std::map<std::string, ProductType> PRODUCTION_TRANSLATION_TABLE;
+/**
+ * Description table for products.
+ */
 std::array<std::string, PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE;
 
 
+/**
+ * 
+ */
 FactoryProduction::FactoryProduction(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
 {
 	Control::font(font);
@@ -21,10 +26,16 @@ FactoryProduction::FactoryProduction(Font& font) : mBold("fonts/opensans-bold.tt
 }
 
 
+/**
+ * D'tor
+ */
 FactoryProduction::~FactoryProduction()
 {}
 
 
+/**
+ * 
+ */
 void FactoryProduction::init()
 {
 	size(320, 162);
@@ -58,7 +69,6 @@ void FactoryProduction::init()
 	btnClearSelection.size(90, 20);
 	btnClearSelection.click().connect(this, &FactoryProduction::btnClearSelectionClicked);
 
-
 	addControl("btnIdle", &btnIdle, mProductGrid.positionX() + mProductGrid.width() - 40, 138);
 	btnIdle.font(font());
 	btnIdle.text("Idle");
@@ -66,15 +76,12 @@ void FactoryProduction::init()
 	btnIdle.click().connect(this, &FactoryProduction::btnIdleClicked);
 	btnIdle.type(Button::BUTTON_TOGGLE);
 
+	addControl("btnApply", &btnApply, btnIdle.positionX() + btnIdle.width() + 10, btnIdle.positionY());
+	btnApply.font(font());
+	btnApply.text("Apply");
+	btnApply.size(40, 20);
+	btnApply.click().connect(this, &FactoryProduction::btnApplyClicked);
 
-	// Fill production translation table
-	PRODUCTION_TRANSLATION_TABLE[""] = PRODUCT_NONE;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROBODIGGER] = PRODUCT_DIGGER;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROBODOZER] = PRODUCT_DOZER;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROBOEXPLORER] = PRODUCT_EXPLORER;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROBOMINER] = PRODUCT_MINER;
-	PRODUCTION_TRANSLATION_TABLE[constants::ROAD_MATERIALS] = PRODUCT_ROAD_MATERIALS;
-	PRODUCTION_TRANSLATION_TABLE[constants::TRUCK] = PRODUCT_TRUCK;
 
 	// Fill product description table
 	PRODUCT_DESCRIPTION_TABLE[PRODUCT_DIGGER] = constants::ROBODIGGER;
@@ -83,9 +90,17 @@ void FactoryProduction::init()
 	PRODUCT_DESCRIPTION_TABLE[PRODUCT_MINER] = constants::ROBOMINER;
 	PRODUCT_DESCRIPTION_TABLE[PRODUCT_ROAD_MATERIALS] = constants::ROAD_MATERIALS;
 	PRODUCT_DESCRIPTION_TABLE[PRODUCT_TRUCK] = constants::TRUCK;
+	PRODUCT_DESCRIPTION_TABLE[PRODUCT_MAINTENANCE_PARTS] = constants::MAINTENANCE_SUPPLIES;
+
+	PRODUCT_DESCRIPTION_TABLE[PRODUCT_CLOTHING] = constants::CLOTHING;
+	PRODUCT_DESCRIPTION_TABLE[PRODUCT_MEDICINE] = constants::MEDICINE;
+
 }
 
 
+/**
+ * 
+ */
 void FactoryProduction::clearProduct()
 {
 	mProduct = PRODUCT_NONE;
@@ -94,6 +109,9 @@ void FactoryProduction::clearProduct()
 }
 
 
+/**
+ * 
+ */
 void FactoryProduction::hide()
 {
 	Control::hide();
@@ -102,6 +120,9 @@ void FactoryProduction::hide()
 }
 
 
+/**
+ * 
+ */
 void FactoryProduction::productSelectionChanged(const IconGrid::IconGridItem* _item)
 {
 	if (!mFactory) { return; }
@@ -117,6 +138,9 @@ void FactoryProduction::productSelectionChanged(const IconGrid::IconGridItem* _i
 }
 
 
+/**
+ * 
+ */
 void FactoryProduction::btnOkayClicked()
 {
 	mFactory->productType(mProduct);
@@ -124,18 +148,36 @@ void FactoryProduction::btnOkayClicked()
 }
 
 
+/**
+ * 
+ */
+void FactoryProduction::btnApplyClicked()
+{
+	mFactory->productType(mProduct);
+}
+
+
+/**
+ * 
+ */
 void FactoryProduction::btnCancelClicked()
 {
 	hide();
 }
 
 
+/**
+ * 
+ */
 void FactoryProduction::btnClearSelectionClicked()
 {
 	clearProduct();
 }
 
 
+/**
+ * 
+ */
 void FactoryProduction::btnIdleClicked()
 {
 	if (!mFactory) { return; }
@@ -144,6 +186,9 @@ void FactoryProduction::btnIdleClicked()
 }
 
 
+/**
+ * 
+ */
 void FactoryProduction::factory(Factory* _f)
 {
 	mFactory = _f;
@@ -183,6 +228,9 @@ void FactoryProduction::factory(Factory* _f)
 }
 
 
+/**
+ * 
+ */
 void FactoryProduction::update()
 {
 	if (!visible()) { return; }

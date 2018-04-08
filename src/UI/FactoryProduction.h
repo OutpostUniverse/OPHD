@@ -29,6 +29,7 @@ private:
 	void btnCancelClicked();
 	void btnClearSelectionClicked();
 	void btnIdleClicked();
+	void btnApplyClicked();
 
 	void clearProduct();
 
@@ -52,4 +53,5 @@ private:
 	Button				btnCancel;
 	Button				btnClearSelection;
 	Button				btnIdle;
+	Button				btnApply;
 };
