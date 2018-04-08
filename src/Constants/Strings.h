@@ -6,7 +6,9 @@ using namespace std;
 
 namespace constants
 {
-	// MISCELLANEOUS
+	// =====================================
+	// = MISCELLANEOUS
+	// =====================================
 	const string	VERSION = "v0.7.5";
 	const string	EMPTY_STR = "";
 
@@ -14,11 +16,18 @@ namespace constants
 	const string	PLANET_DESCRIPTION_MARS = "This planet is a lot like our very own Mars. It is a relatively easy planet to colonize with a marginal atmosphere, lots of potential mining locations and you can dig deep. \n \n This leads to the problem that, while mines are plentiful, they don't yield a lot of resources.";
 	const string	PLANET_DESCRIPTION_MERCURY = "Small, hot and not very friendly. This planet resembles our very own Mercury. Close to its parent star, few potential mine locations, very shallow dig depth, no magnetic field and no atmpsphere. \n \n The Payoff? The few mines you do get are higher yield and you get plenty of solar energy.";
 
-	// SAVE GAMES
+
+	// =====================================
+	// = SAVE GAMES
+	// =====================================
 	const string	SAVE_GAME_PATH = "savegames/";
 	const string	SAVE_GAME_VERSION = "0.25";
 	const string	SAVE_GAME_ROOT_NODE = "OutpostHD_SaveGame";
 
+
+	// =====================================
+	// = RESOURCES
+	// =====================================
 	const string	SAVE_GAME_COMMON_METAL_ORE = "common_metal_ore";
 	const string	SAVE_GAME_COMMON_MINERAL_ORE = "common_mineral_ore";
 	const string	SAVE_GAME_RARE_METAL_ORE = "rare_metal_ore";
@@ -32,7 +41,10 @@ namespace constants
 	const string	SAVE_GAME_ENERGY = "energy";
 	const string	SAVE_GAME_FOOD = "food";
 
-	// ROBOTS
+
+	// =====================================
+	// = FACTORY PRODUCTS
+	// =====================================
 	const string	ROBODIGGER = "Robodigger";
 	const string	ROBODOZER = "Robodozer";
 	const string	ROBOEXPLORER = "Roboexplorer";
@@ -46,7 +58,9 @@ namespace constants
 	const string	MEDICINE = "Medicine";
 
 
-	// STRUCTURES
+	// =====================================
+	// = STRUCTURES
+	// =====================================
 	const string	AGRIDOME = "Agricultural Dome";
 	const string	AIR_SHAFT = "Air Shaft";
 	const string	CARGO_LANDER = "Cargo Lander";
@@ -82,7 +96,10 @@ namespace constants
 	const string	UNIVERSITY = "University";
 	const string	WAREHOUSE = "Warehouse";
 
-	// TUBE STATES
+
+	// =====================================
+	// = TUBE STATES
+	// =====================================
 	const string	AG_TUBE_INTERSECTION = "ag_intersection";
 	const string	AG_TUBE_RIGHT = "ag_right";
 	const string	AG_TUBE_LEFT = "ag_left";
@@ -91,26 +108,37 @@ namespace constants
 	const string	UG_TUBE_RIGHT = "ug_right";
 	const string	UG_TUBE_LEFT = "ug_left";
 
-	// CURRENT LEVEL
 
+	// =====================================
+	// = SUB LEVEL STRINGS
+	// =====================================
 	const string	LEVEL_SURFACE = "Surface";
 	const string	LEVEL_UG1 = "Underground 1";
 	const string	LEVEL_UG2 = "Underground 2";
 	const string	LEVEL_UG3 = "Underground 3";
 	const string	LEVEL_UG4 = "Underground 4";
 
-	// STRUCTURE ANIMATION STATES
+
+	// =====================================
+	// = STRUCTURE ANIMATION STATES
+	// =====================================
 	const string	STRUCTURE_STATE_CONSTRUCTION = "construction";
 	const string	STRUCTURE_STATE_OPERATIONAL = "operational";
 	const string	STRUCTURE_STATE_OPERATIONAL_UG = "operational-ug";
 	const string	STRUCTURE_STATE_DESTROYED = "destroyed";
 
-	// PLANET SPRITE SHEET PATHS
+
+	// =====================================
+	// = PLANET SPRITE SHEETS
+	// =====================================
 	const string	PLANET_TYPE_MERCURY_PATH = "planets/planet_d.png";
 	const string	PLANET_TYPE_MARS_PATH = "planets/planet_c.png";
 	const string	PLANET_TYPE_GANYMEDE_PATH = "planets/planet_e.png";
 
-	// UI STRINGS
+
+	// =====================================
+	// = UI STRINGS
+	// =====================================
 	const string	WINDOW_FACTORY_PRODUCTION = "Factory Production";
 	const string	WINDOW_GAME_OVER = "Game Over";
 	const string	WINDOW_STRUCTURE_INSPECTOR = "Structure Inspector";

@@ -4,6 +4,9 @@
 
 #include "../../Common.h"
 
+/**
+ * Implements a Tube Structure.
+ */
 class Tube : public Structure
 {
 public:
@@ -19,10 +22,8 @@ public:
 	}
 
 
-	virtual ~Tube()
-	{}
+	virtual ~Tube()	{}
 
-protected:
 private:
 
 	void setAnimationState()
@@ -30,26 +31,43 @@ private:
 		if (mUnderground)
 		{
 			if (connectorDirection() == CONNECTOR_INTERSECTION)
+			{
 				sprite().play(constants::UG_TUBE_INTERSECTION);
+			}
 			else if (connectorDirection() == CONNECTOR_RIGHT)
+			{
 				sprite().play(constants::UG_TUBE_RIGHT);
+			}
 			else if (connectorDirection() == CONNECTOR_LEFT)
+			{
 				sprite().play(constants::UG_TUBE_LEFT);
+			}
 			else
-				throw std::runtime_error("Tried to create a Tube structure with CONNECTOR_NONE paramter.");
+			{
+				throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter.");
+			}
 		}
 		else
 		{
 			if (connectorDirection() == CONNECTOR_INTERSECTION)
+			{
 				sprite().play(constants::AG_TUBE_INTERSECTION);
+			}
 			else if (connectorDirection() == CONNECTOR_RIGHT)
+			{
 				sprite().play(constants::AG_TUBE_RIGHT);
+			}
 			else if (connectorDirection() == CONNECTOR_LEFT)
+			{
 				sprite().play(constants::AG_TUBE_LEFT);
+			}
 			else
-				throw std::runtime_error("Tried to create a Tube structure with CONNECTOR_NONE paramter.");
+			{
+				throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter.");
+			}
 		}
 	}
 
+private:
 	bool	mUnderground;
 };

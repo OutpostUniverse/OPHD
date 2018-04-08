@@ -168,9 +168,9 @@ private:
 	int						mAge = 0;					/**< Age of the Structure in turns. */
 	int						mMaxAge = 0;				/**< Maximum number of turns the Structure can remain in good repair. */
 
-	StructureState			mStructureState = UNDER_CONSTRUCTION;	/**< State the structure is in. */
-	StructureClass			mStructureClass;			/**< Indicates the Structure's Type. */
-	ConnectorDir			mConnectorDirection = CONNECTOR_INTERSECTION;		/**< Directions available for connections. */
+	StructureState			mStructureState = UNDER_CONSTRUCTION;			/**< State the structure is in. */
+	StructureClass			mStructureClass;								/**< Indicates the Structure's Type. */
+	ConnectorDir			mConnectorDirection = CONNECTOR_INTERSECTION;	/**< Directions available for connections. */
 
 	PopulationRequirements	mPopulationRequirements;	/**< Population requirements for structure operation. */
 

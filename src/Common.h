@@ -22,6 +22,9 @@ enum Direction
 };
 
 
+/**
+ * Terrain type enumeration
+ */
 enum TerrainType
 {
 	TERRAIN_DOZED,
@@ -34,13 +37,15 @@ enum TerrainType
 
 /**
  * Connector Direction.
+ * 
+ * \note	CONNECTOR_INTERSECTION is explicitely set to '1' to prevent
+ *			breaking changes with save files.
  */
 enum ConnectorDir
 {
-	CONNECTOR_NONE,
 	CONNECTOR_INTERSECTION = 1,
-	CONNECTOR_RIGHT = 2,
-	CONNECTOR_LEFT = 3,
+	CONNECTOR_RIGHT,
+	CONNECTOR_LEFT,
 	CONNECTOR_VERTICAL			// Functions as an intersection
 };
 
@@ -51,10 +56,13 @@ enum ConnectorDir
  * \note	Each individual structure is identified using a SID_ code as opposed
  *			the structure CLASS_ code which is used to group like structures into
  *			lists for structure updates.
+ * 
+ * \remark	
  */
 enum StructureID
 {
 	SID_NONE,
+
 	SID_AGRIDOME,
 	SID_AIR_SHAFT,
 	SID_CHAP,
@@ -94,6 +102,9 @@ enum StructureID
 };
 
 
+/**
+ * Robot type enumeration
+ */
 enum RobotType
 {
 	ROBOT_NONE,
@@ -103,6 +114,22 @@ enum RobotType
 };
 
 
+/**
+ * Factory Product enumeration
+ * 
+ * \note	Products are arranged to match the order in which they appear
+ *			in the icon atlas (data/ui/factory.png). In order to allow
+ *			for easy future additions, the icons are grouped into two
+ *			sets of 32 icons. The first 32 are for above ground products,
+ *			the second set for underground products.
+ * 
+ *			To easily map to icons in the atlas, padding entries with a
+ *			'reserved' naming convention have been added. These can be
+ *			replaced as additional products are added.
+ * 
+ * \remark	ASSUMPTION: Factories will never have more than 32 individual
+ *			products that they can produce.
+ */
 enum ProductType
 {
 	PRODUCT_NONE = -1,
@@ -210,6 +237,6 @@ bool pointInRect_f(int x, int y, const NAS2D::Rectangle_2df& rect);
 
 
 /**
- * Convenience function to pass a \c float's to \c isPointInRect()
+ * Convenience function to pass \c float's to \c isPointInRect()
  */
 bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float rectH);
