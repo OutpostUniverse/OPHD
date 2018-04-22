@@ -1,13 +1,31 @@
 // This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
+/**
+ * GameStateHelper.h / GameStateHelper.cpp
+ * 
+ * These are files that are used exclusively by the GameState class. They are here
+ * in an effort to reduce the size/complexity of the GameState object as most of these
+ * functions do not require access to internal parts of the GameState class (and if
+ * they do, require use of a specific object).
+ */
+
 #include "GameStateHelper.h"
 
 #include "../AiVoiceNotifier.h"
 #include "../Constants.h"
 
+#include "../Things/Structures/Warehouse.h"
+
+
 using namespace NAS2D::Xml;
 
+
+/**
+ * Checks to see if a given tube connection is valid.
+ * 
+ * \warning		Assumes \c tile is never nullptr.
+ */
 bool checkTubeConnection(Tile* _tile, Direction _dir, ConnectorDir _source_connector_dir)
 {
 	if (_tile->mine() || !_tile->bulldozed() || !_tile->excavated() || !_tile->thingIsStructure())
@@ -43,7 +61,12 @@ bool checkTubeConnection(Tile* _tile, Direction _dir, ConnectorDir _source_conne
 }
 
 
-bool checkStructurePlacement(Tile *tile, Direction dir)
+/**
+ * Checks to see if the given tile offers the a proper connection for a Structure.
+ * 
+ * \warning		Assumes \c tile is never nullptr.
+ */
+bool checkStructurePlacement(Tile* tile, Direction dir)
 {
 	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure() || !tile->connected())
 		return false;
@@ -68,11 +91,13 @@ bool checkStructurePlacement(Tile *tile, Direction dir)
 
 
 /**
-* Checks to see if a tile is a valid tile to place a tube onto.
-*/
+ * Checks to see if a tile is a valid tile to place a tube onto.
+ * 
+ * \warning		Assumes \c tilemap is never nullptr.
+ */
 bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir _cd)
 {
-	return	checkTubeConnection(tilemap->getTile(x + 1, y, tilemap->currentDepth()), DIR_EAST, _cd) ||
+	return checkTubeConnection(tilemap->getTile(x + 1, y, tilemap->currentDepth()), DIR_EAST, _cd) ||
 		checkTubeConnection(tilemap->getTile(x - 1, y, tilemap->currentDepth()), DIR_WEST, _cd) ||
 		checkTubeConnection(tilemap->getTile(x, y + 1, tilemap->currentDepth()), DIR_SOUTH, _cd) ||
 		checkTubeConnection(tilemap->getTile(x, y - 1, tilemap->currentDepth()), DIR_NORTH, _cd);
@@ -80,8 +105,10 @@ bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir _cd)
 
 
 /**
-* Checks a tile to see if a valid Tube connection is available for Structure placement.
-*/
+ * Checks a tile to see if a valid Tube connection is available for Structure placement.
+ *
+ * \warning		Assumes \c tilemap is never nullptr.
+ */
 bool validStructurePlacement(TileMap* tilemap, int x, int y)
 {
 	return	checkStructurePlacement(tilemap->getTile(x, y - 1, tilemap->currentDepth()), DIR_NORTH) ||
@@ -93,6 +120,8 @@ bool validStructurePlacement(TileMap* tilemap, int x, int y)
 
 /**
  * Indicates that the selected landing site is clear of obstructions.
+ *
+ * \warning		Assumes \c tile is never nullptr.
  */
 bool validLanderSite(Tile* t)
 {
@@ -107,7 +136,9 @@ bool validLanderSite(Tile* t)
 }
 
 
-
+/**
+ * Document me!
+ */
 int totalStorage(StructureManager::StructureList& _sl)
 {
 	int storage = 0;
@@ -147,6 +178,9 @@ bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 }
 
 
+/**
+ * Document me!
+ */
 void updateRobotControl(RobotPool& _rp, StructureManager& _sm)
 {
 	auto CommandCenter = _sm.structureList(Structure::CLASS_COMMAND);
@@ -165,18 +199,31 @@ void updateRobotControl(RobotPool& _rp, StructureManager& _sm)
 }
 
 
+/** 
+ * Indicates that a given StructureID is a Lander of sorts.
+ */
 bool structureIsLander(StructureID id)
 {
 	return id == SID_SEED_LANDER || id == SID_COLONIST_LANDER || id == SID_CARGO_LANDER;
 }
 
 
+/**
+ * Determines if the structure requires a tube connection or not.
+ *
+ * \note	At the moment this is really just a check for comm towers
+ *			as all other structures that are self contained are not
+ *			placeable by the user.
+ */
 bool selfSustained(StructureID id)
 {
 	return id == SID_COMM_TOWER;
 }
 
 
+/** 
+ * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
+ */
 bool outOfCommRange(StructureManager& sm, Point_2d& cc_location, TileMap* tile_map, Tile* current_tile)
 {
 	Tile* tile = tile_map->getVisibleTile();
@@ -203,9 +250,39 @@ bool outOfCommRange(StructureManager& sm, Point_2d& cc_location, TileMap* tile_m
 }
 
 
+/**
+ * Gets a pointer to a Warehouse structure that has the specified
+ * amount of storage available.
+ * 
+ * \param	_sm		Reference to a StructureManager.
+ * \param	_pt		Product to store. Use value from ProductType enumerator.
+ * \param	_ct		Count of products that need to be stored.
+ * 
+ * \return	Returns a pointer to a Warehouse structure or \c nullptr if
+ *			there are no warehouses available with the required space.
+ */
+Warehouse* getAvailableWarehouse(StructureManager& _sm, ProductType _pt, size_t _ct)
+{
+	for (auto _st : _sm.structureList(Structure::CLASS_WAREHOUSE))
+	{
+		Warehouse* _wh = static_cast<Warehouse*>(_st);
+		if (_wh->products().canStore(_pt, _ct))
+		{
+			return _wh;
+		}
+	}
+
+	return nullptr;
+}
+
+
 // ==============================================================
 // = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
 // ==============================================================
+
+/** 
+ * Document me!
+ */
 void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, RobotType _type)
 {
 	_ti->attribute("type", _type);
@@ -225,7 +302,11 @@ void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot
 }
 
 
-// Convenience function
+/** 
+ * Document me!
+ * 
+ * Convenience function
+ */
 void writeRobots(XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm)
 {
 	XmlElement* robots = new XmlElement("robots");
@@ -259,6 +340,9 @@ void writeRobots(XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm)
 }
 
 
+/** 
+ * Document me!
+ */
 void writeResources(XmlElement* _ti, ResourcePool& _rp)
 {
 	XmlElement* resources = new XmlElement("resources");
@@ -267,6 +351,9 @@ void writeResources(XmlElement* _ti, ResourcePool& _rp)
 }
 
 
+/** 
+ * Document me!
+ */
 void readResources(XmlElement* _ti, ResourcePool& _rp)
 {
 	if (_ti)

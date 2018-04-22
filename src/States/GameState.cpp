@@ -42,8 +42,16 @@ Rectangle_2d MOVE_UP_ICON;
 Rectangle_2d MOVE_DOWN_ICON;
 
 
-std::string					CURRENT_LEVEL_STRING;
-std::map <int, std::string>	LEVEL_STRING_TABLE;
+std::string CURRENT_LEVEL_STRING;
+
+std::map <int, std::string>	LEVEL_STRING_TABLE = 
+{
+	{ constants::DEPTH_SURFACE,  constants::LEVEL_SURFACE },
+	{ constants::DEPTH_UNDERGROUND_1, constants::LEVEL_UG1 },
+	{ constants::DEPTH_UNDERGROUND_2, constants::LEVEL_UG2 },
+	{ constants::DEPTH_UNDERGROUND_3, constants::LEVEL_UG3 },
+	{ constants::DEPTH_UNDERGROUND_4, constants::LEVEL_UG4 }
+};
 
 
 /**
@@ -191,15 +199,6 @@ void GameState::initialize()
 	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
 
 	CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
-
-	if (LEVEL_STRING_TABLE.empty())
-	{
-		LEVEL_STRING_TABLE[constants::DEPTH_SURFACE] = constants::LEVEL_SURFACE;
-		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_1] = constants::LEVEL_UG1;
-		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_2] = constants::LEVEL_UG2;
-		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_3] = constants::LEVEL_UG3;
-		LEVEL_STRING_TABLE[constants::DEPTH_UNDERGROUND_4] = constants::LEVEL_UG4;
-	}
 
 	e.textInputMode(true);
 
@@ -1275,6 +1274,8 @@ void GameState::factoryProductionComplete(ProductType _p, Factory& factory)
 {
 	cout << "Factory '" << factory.id() << "' has finished producing a";
 	
+	StructureManager::StructureList& warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
+
 	switch (_p)
 	{
 	case PRODUCT_DIGGER:
