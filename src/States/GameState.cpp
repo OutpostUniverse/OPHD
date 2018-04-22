@@ -1677,13 +1677,10 @@ void GameState::updateResources()
 	auto smelters = mStructureManager.structureList(Structure::CLASS_SMELTER);
 
 	// Move ore from mines to smelters
-	for (size_t m = 0; m < mines.size(); ++m)
+	for (auto _mine : mines)
 	{
-		Structure* _mine = mines[m];
-		if (_mine->disabled() || _mine->destroyed())
-		{
-			continue; // consider a different control path.
-		}
+		// consider a different control path.
+		if (_mine->disabled() || _mine->destroyed()) { continue; }
 
 		ResourcePool& _rp = _mine->storage();
 
@@ -1692,11 +1689,11 @@ void GameState::updateResources()
 		truck.rareMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS_ORE, 25));
 		truck.rareMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, 25));
 
-		for (size_t s = 0; s < smelters.size(); ++s)
+		for (auto _smelter : smelters)
 		{
-			if (smelters[s]->operational())
+			if (_smelter->operational())
 			{
-				smelters[s]->production().pushResources(truck);
+				_smelter->production().pushResources(truck);
 			}
 		}
 
@@ -1707,13 +1704,10 @@ void GameState::updateResources()
 	}
 
 	// Move refined resources from smelters to storage tanks
-	for (size_t s = 0; s < smelters.size(); ++s)
+	for (auto _smelter : smelters)
 	{
-		Structure* _smelter = smelters[s];
-		if (_smelter->disabled() || _smelter->destroyed())
-		{
-			continue; // consider a different control path.
-		}
+		// consider a different control path.
+		if (_smelter->disabled() || _smelter->destroyed()) { continue; }
 
 		ResourcePool& _rp = _smelter->storage();
 		truck.commonMetals(_rp.pullResource(ResourcePool::RESOURCE_COMMON_METALS, 25));
