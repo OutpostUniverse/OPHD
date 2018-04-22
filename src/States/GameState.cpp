@@ -55,43 +55,6 @@ std::map <int, std::string>	LEVEL_STRING_TABLE =
 
 
 /**
- * Draws a circular comm range on the minimap.
- * 
- * \fixme	Comm ranges haven't yet been fully decided upon so this function is way more flexible than it needs
- *			to be. Once comm ranges have been set in stone and the graphics are done, this function should be
- *			changed to do much faster table lookups instead of several expensive computations.
- * 
- *			By using a table lookup many of the paramters can be eliminated and instead just have the raster X/Y
- *			coords and the comm range itself. Something like this:
- * 
- *			\c drawRange(Rectangle_2d& clipRect, Image& src, int x, int y, int range);
- * 
- *			Table should look something like this:
- * 
- *			RANGE (KEY) |  SOURCE RECTANGLE
- */
-static void drawRange(Rectangle_2d& clipRect, Image& src, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight)
-{
-	int halfWidth = srcWidth / 2;
-	int halfHeight = srcHeight / 2;
-
-	// fixme: find a more efficient way to do this.
-	int xClip = clamp(halfWidth - x, 0, halfWidth);
-	int yClip = clamp(halfHeight - y, 0, halfHeight);
-	int wClip = clamp((x + halfWidth) - clipRect.width(), 0, halfWidth);
-	int hClip = clamp((y + halfHeight) - clipRect.height(), 0, halfHeight);
-
-	Utility<Renderer>::get().drawSubImage(src,
-		x + clipRect.x() - halfWidth + xClip,
-		y + clipRect.y() - halfHeight + yClip,
-		xClip + srcX,
-		yClip + srcY,
-		srcWidth - xClip - wClip,
-		srcHeight - yClip - hClip);
-}
-
-
-/**
  * 
  */
 static int pullFood(ResourcePool& _rp, int amount)
@@ -260,13 +223,14 @@ State* GameState::update()
 void GameState::drawMiniMap()
 {
 	Renderer& r = Utility<Renderer>::get();
+	r.clipRect(mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y(), mMiniMapBoundingBox.width(), mMiniMapBoundingBox.height());
 
 	if (mBtnToggleHeightmap.toggled()) { r.drawImage(mHeightMap, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y()); }
 	else { r.drawImage(mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y()); }
 
 	if (mCCLocation.x() != 0 && mCCLocation.y() != 0)
 	{
-		drawRange(mMiniMapBoundingBox, mUiIcons, mCCLocation.x(), mCCLocation.y(), 166, 226, 30, 30);
+		r.drawSubImage(mUiIcons, mCCLocation.x() + mMiniMapBoundingBox.x() - 15, mCCLocation.y() + mMiniMapBoundingBox.y() - 15, 166, 226, 30, 30);
 		r.drawBoxFilled(mCCLocation.x() + mMiniMapBoundingBox.x() - 1, mCCLocation.y() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
 	}
 
@@ -275,31 +239,33 @@ void GameState::drawMiniMap()
 		if (_tower->operational())
 		{
 			Tile* t = mStructureManager.tileFromStructure(_tower);
-			drawRange(mMiniMapBoundingBox, mUiIcons, t->x(), t->y(), 146, 236, 20, 20);
+			r.drawSubImage(mUiIcons, t->x() + mMiniMapBoundingBox.x() - 10, t->y() + mMiniMapBoundingBox.y() - 10, 146, 236, 20, 20);
 		}
 	}
 
-	for(size_t i = 0; i < mTileMap->mineLocations().size(); i++)
+	for (auto _mine : mTileMap->mineLocations())
 	{
-		if (mTileMap->getTile(mTileMap->mineLocations()[i].x(), mTileMap->mineLocations()[i].y(), 0)->mine()->active())
+		if (mTileMap->getTile(_mine.x(), _mine.y(), 0)->mine()->active())
 		{
-			r.drawSubImage(mUiIcons, mTileMap->mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap->mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 8.0f, 0.0f, 7.0f, 7.0f);
+			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 8.0f, 0.0f, 7.0f, 7.0f);
 		}
 		else
 		{
-			r.drawSubImage(mUiIcons, mTileMap->mineLocations()[i].x() + mMiniMapBoundingBox.x() - 2, mTileMap->mineLocations()[i].y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 7.0f, 7.0f);
+			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 7.0f, 7.0f);
 		}
 	}
 
-	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
+	for (auto _robot : mRobotList)
 	{
-		r.drawPoint(it->second->x() + mMiniMapBoundingBox.x(), it->second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
+		r.drawPoint(_robot.second->x() + mMiniMapBoundingBox.x(), _robot.second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
 	}
 
 	const Point_2d& _pt = mTileMap->mapViewLocation();
 
 	r.drawBox(mMiniMapBoundingBox.x() + _pt.x() + 1, mMiniMapBoundingBox.y() + _pt.y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
 	r.drawBox(mMiniMapBoundingBox.x() + _pt.x(), mMiniMapBoundingBox.y() + _pt.y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
+
+	r.clipRectClear();
 }
 
 
@@ -311,11 +277,12 @@ int GameState::foodInStorage()
 	int food_count = 0;
 
 	auto sl = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
-	for (size_t i = 0; i < sl.size(); ++i)
+
+	for (auto _st : sl)
 	{
-		if (sl[i]->operational() || sl[i]->isIdle())
+		if (_st->operational() || _st->isIdle())
 		{
-			food_count += sl[i]->storage().food();
+			food_count += _st->storage().food();
 		}
 	}
 
@@ -339,9 +306,9 @@ int GameState::foodTotalStorage()
 	}
 
 	auto sl = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
-	for (size_t i = 0; i < sl.size(); ++i)
+	for (auto _st : sl)
 	{
-		if (sl[i]->operational() || sl[i]->isIdle())
+		if (_st->operational() || _st->isIdle())
 		{
 			food_storage += AGRIDOME_CAPACITY;
 		}
@@ -1617,9 +1584,9 @@ void GameState::checkConnectedness()
  */
 void GameState::scrubRobotList()
 {
-	for (auto it = mRobotList.begin(); it != mRobotList.end(); ++it)
+	for (auto it : mRobotList)
 	{
-		it->second->removeThing();
+		it.second->removeThing();
 	}
 }
 
