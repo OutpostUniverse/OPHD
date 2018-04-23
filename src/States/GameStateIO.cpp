@@ -28,11 +28,20 @@ extern std::string CURRENT_LEVEL_STRING;
 extern std::map <int, std::string> LEVEL_STRING_TABLE;
 
 
+extern NAS2D::Image* IMG_LOADING;	/// \fixme	Hate having these as externs.
+extern NAS2D::Image* IMG_SAVING;
+
+
 /**
  * 
  */
 void GameState::save(const std::string& _path)
 {
+	Renderer& r = Utility<Renderer>::get();
+	r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 100);
+	r.drawImage(*IMG_SAVING, r.center_x() - (IMG_SAVING->width() / 2), r.center_y() - (IMG_SAVING->height() / 2));
+	r.update();
+
 	XmlDocument doc;
 
 	XmlElement* root = new XmlElement(constants::SAVE_GAME_ROOT_NODE);
@@ -79,6 +88,12 @@ void GameState::save(const std::string& _path)
 void GameState::load(const std::string& _path)
 {
 	resetUi();
+
+	Renderer& r = Utility<Renderer>::get();
+	r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 100);
+	r.drawImage(*IMG_LOADING, r.center_x() - (IMG_LOADING->width() / 2), r.center_y() - (IMG_LOADING->height() / 2));
+	r.update();
+
 
 	if (!Utility<Filesystem>::get().exists(_path))
 	{

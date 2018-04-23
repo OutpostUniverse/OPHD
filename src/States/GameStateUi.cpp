@@ -34,6 +34,10 @@ extern Rectangle_2d MOVE_UP_ICON;
 extern Rectangle_2d MOVE_DOWN_ICON;
 
 
+NAS2D::Image* IMG_LOADING = nullptr;
+NAS2D::Image* IMG_SAVING = nullptr;
+
+
 /**
  * Performs common computations for window centering and casts the resulting
  * fractional value to an int.
@@ -159,6 +163,10 @@ void GameState::initUi()
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, SID_SEED_LANDER);
+
+	// Loading/Saving plaque's
+	IMG_LOADING = new Image("sys/loading.png");
+	IMG_SAVING = new Image("sys/saving.png");
 }
 
 
@@ -420,6 +428,9 @@ void GameState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 }
 
 
+/**
+ * 
+ */
 void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t)
 {
 	// Don't dig beyond the dig depth of the planet.
@@ -483,6 +494,10 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 	mDiggerDirection.visible(false);
 }
 
+
+/**
+ * Click handler for the main menu Save Game button.
+ */
 void GameState::btnSaveGameClicked()
 {
 	mGameOptionsDialog.hide();
@@ -492,6 +507,10 @@ void GameState::btnSaveGameClicked()
 	mFileIoDialog.show();
 }
 
+
+/**
+ * Click handler for the main menu Load Game button.
+ */
 void GameState::btnLoadGameClicked()
 {
 	mGameOptionsDialog.hide();
@@ -502,17 +521,33 @@ void GameState::btnLoadGameClicked()
 
 }
 
+
+/**
+ * Click handler for the main menu Return to Game button.
+ */
 void GameState::btnReturnToGameClicked()
 {
 	mGameOptionsDialog.hide();
 }
 
+
+/**
+ * Click handler for the main menu Return to Main Menu Screen button.
+ */
 void GameState::btnGameOverClicked()
 {
 	mReturnState = new PlanetSelectState();
+
+	delete IMG_LOADING;
+	delete IMG_SAVING;
+
 	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
 }
 
+
+/**
+ * Handler for File I/O actions.
+ */
 void GameState::fileIoAction(const std::string& _file, FileIo::FileOperation _op)
 {
 	_op == FileIo::FILE_LOAD ? load(constants::SAVE_GAME_PATH + _file + ".xml") : save(constants::SAVE_GAME_PATH + _file + ".xml");

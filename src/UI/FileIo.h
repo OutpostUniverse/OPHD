@@ -27,7 +27,13 @@ public:
 protected:
 	virtual void init();
 
-	virtual void onDoubleClick(EventHandler::MouseButton button, int x, int y);
+	virtual void onDoubleClick(EventHandler::MouseButton button, int x, int y) final;
+	virtual void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat) final;
+
+private:
+	FileIo() = delete;
+	FileIo(const FileIo&) = delete;
+	FileIo& operator=(const FileIo&) = delete;
 
 private:
 	void btnCloseClicked();
@@ -36,20 +42,17 @@ private:
 	void fileSelected();
 	void fileNameModified(Control* _ctrl);
 
-	FileIo();
-	FileIo(const FileIo&);
-	FileIo& operator=(const FileIo&);
-
+private:
 	FileOperationCallback	mCallback;
 
 	FileOperation			mMode;
 
-	Button		btnClose;
-	Button		btnFileOp;
+	Button					btnClose;
+	Button					btnFileOp;
 
-	TextField	txtFileName;
+	TextField				txtFileName;
 
-	ListBox		mListBox;
+	ListBox					mListBox;
 
-	Font		mBold;
+	Font					mBold;
 };

@@ -11,6 +11,7 @@
 FileIo::FileIo(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
 {
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
+	Utility<EventHandler>::get().keyDown().connect(this, &FileIo::onKeyDown);
 
 	Control::font(font);
 	text("File I/O");
@@ -24,6 +25,7 @@ FileIo::FileIo(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
 FileIo::~FileIo()
 {
 	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &FileIo::onDoubleClick);
+	Utility<EventHandler>::get().keyDown().disconnect(this, &FileIo::onKeyDown);
 }
 
 
@@ -62,8 +64,13 @@ void FileIo::init()
 }
 
 
+/**
+ * Event handler for mouse double click.
+ */
 void FileIo::onDoubleClick(EventHandler::MouseButton button, int x, int y)
 {
+	if (!visible()) { return; }	// ignore key presses when hidden.
+
 	const Rectangle_2d& _rect = mListBox.rect();
 	if (isPointInRect(x, y, _rect.x(), _rect.y(), _rect.width(), _rect.height()))
 	{
@@ -71,6 +78,27 @@ void FileIo::onDoubleClick(EventHandler::MouseButton button, int x, int y)
 		{
 			btnFileIoClicked();
 		}
+	}
+}
+
+
+/**
+ * Event handler for Key Down.
+ */
+void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
+{
+	if (!visible()) { return; }	// ignore key presses when hidden.
+
+	if (key == EventHandler::KEY_ENTER || key == EventHandler::KEY_KP_ENTER)
+	{
+		if (!txtFileName.empty())
+		{
+			btnFileIoClicked();
+		}
+	}
+	else if (key == EventHandler::KEY_ESCAPE)
+	{
+		btnCloseClicked();
 	}
 }
 
