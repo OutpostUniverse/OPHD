@@ -34,7 +34,6 @@ int totalStorage(StructureManager::StructureList& _sl);
 
 Warehouse* getAvailableWarehouse(StructureManager& _sm, ProductType _pt, size_t _ct);
 
-
 // Serialize / Deserialize
 void writeRobots(NAS2D::Xml::XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);
 void writeResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp);

@@ -70,6 +70,7 @@ public:
 
 	void clearSelection();
 	void selection(int _s);
+	void selection_meta(int _s);
 
 	void incrementSelection();
 	void decrementSelection();

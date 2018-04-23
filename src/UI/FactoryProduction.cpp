@@ -172,6 +172,7 @@ void FactoryProduction::btnCancelClicked()
 void FactoryProduction::btnClearSelectionClicked()
 {
 	clearProduct();
+	btnApplyClicked();
 }
 
 
@@ -222,7 +223,7 @@ void FactoryProduction::factory(Factory* _f)
 	}
 
 	if (mFactory->productType() == PRODUCT_NONE) { mProductGrid.clearSelection(); }
-	else { mProductGrid.selection(static_cast<int>(mFactory->productType())); }
+	else { mProductGrid.selection_meta(static_cast<int>(mFactory->productType())); }
 
 	mProductCost = mFactory->productCost(mFactory->productType());
 }

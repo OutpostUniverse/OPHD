@@ -74,7 +74,13 @@ bool ProductPool::canStore(ProductType type, int count)
 
 
 /**
+ * Stores a specified amount of a ProductType.
  * 
+ * \param	type	ProductType enumerator.
+ * \param	count	Number of products to store.
+ * 
+ * \note	This is an all or nothing call. Products will only be
+ *			stored if the entire specified amount will fit.
  */
 void ProductPool::store(ProductType type, int count)
 {

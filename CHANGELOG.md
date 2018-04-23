@@ -3,6 +3,8 @@ This is the changelog for OutpostHD.
 
 ## [0.7.5] - UNRELEASED
 
+This version of OutpostHD has moved to Git. See tag #____ for details.
+
 ### Added
 - Robot Command Center is now fully functional.
 - Added a Nursery structure. Required to keep infant mortality rate at a reasonable level.
@@ -12,6 +14,7 @@ This is the changelog for OutpostHD.
 - Game window is resizable (minimum size 800x600).
 - New higher resolution tile sets.
 - Added a drop shadow to mine beacons on the minimap to help them stand out better.
+- Added a new method to IconGrid to set the current selection using an IconGridItem's 'meta' value.
 
 ### Changed
 - Robots can now only be placed within the area of influence of the Command Center and Comm. Towers.
@@ -22,11 +25,13 @@ This is the changelog for OutpostHD.
 - The population model has been completely rewritten. It now accounts for morale, residences, universities and hospitals.
 - Factory Production window now allows the user to set a factory to Idle. This is not undone until the user explicitely states it.
 - Factory Production window now has a "Clear Selection" button. This provides a much more obvious way to clear the selection vs. clicking outside a product icon in the product grid.
+- Factory Production window now has an "Apply" button which works the same as the "Okay" button but doesn't hide the window after clicked.
 - Updated keybindings -- see README.md for details.
 - Population panel now shows residential capacity.
 - Morale is now affected by overcrowding in residences.
 - Internal modifications to ProductType valuation -- this is a breaking change for older save games.
 - Updated resource icons.
+- MiniMap internal drawing code has been simplified using NAS2D's new clip rectangle functions. This should improve performance for games with a lot of things going on in the minimap.
 
 ### Fixed
 - FileOP button (Save/Load) in FileIO window will now start off disabled when first displayed.

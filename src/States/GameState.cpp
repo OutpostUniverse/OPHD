@@ -1163,7 +1163,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 		mTileMap->getTile(originX, originY, t->depth())->index(TERRAIN_DOZED);
 		mTileMap->getTile(originX, originY, t->depth() + depthAdjust)->index(TERRAIN_DOZED);
 
-		// FIXME: Naive approach; will be slow with large colonies.
+		/// \fixme Naive approach; will be slow with large colonies.
 		mStructureManager.disconnectAll();
 		checkConnectedness();
 	}
@@ -1239,37 +1239,41 @@ void GameState::minerTaskFinished(Robot* _r)
  */
 void GameState::factoryProductionComplete(ProductType _p, Factory& factory)
 {
-	cout << "Factory '" << factory.id() << "' has finished producing a";
+	cout << "Factory '" << factory.id() << "' has finished producing ";
 	
 	StructureManager::StructureList& warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
 
 	switch (_p)
 	{
 	case PRODUCT_DIGGER:
-		cout << " RoboDigger" << endl;
+		cout << "RoboDigger" << endl;
 		mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
 		break;
 
 	case PRODUCT_DOZER:
-		cout << " RoboDozer" << endl;
+		cout << "RoboDozer" << endl;
 		mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
 		break;
 
 	case PRODUCT_MINER:
-		cout << " RoboMiner" << endl;
+		cout << "RoboMiner" << endl;
 		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
 		break;
 
 	case PRODUCT_CLOTHING:
-		cout << " Clothing" << endl;
-		break;
+		cout << "Clothing" << endl;
 
 	case PRODUCT_MEDICINE:
-		cout << " Medicine" << endl;
+		cout << "Medicine" << endl;
+	{
+		Warehouse* _wh = getAvailableWarehouse(mStructureManager, _p, 1);
+		if (_wh) { _wh->products().store(_p, 1); }
+		else { factory.forceIdle(true); }
 		break;
+	}
 
 	default:
-		cout << "n Unknown Product." << endl;
+		cout << "Unknown Product." << endl;
 		break;
 	}
 }

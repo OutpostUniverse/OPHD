@@ -314,6 +314,30 @@ void IconGrid::selection(int _s)
 }
 
 
+/**
+ * Sets the current selection index to the first item with
+ * a matching meta value.
+ * 
+ * \note	If no items in the list contain a matching meta value,
+ *			the current selection index will remain unchanged.
+ * 
+ * \remark	IconGridItem::meta is initialized to 0 so passing a value
+ *			of 0 for IconGridItem's that don't use a meta value will
+ *			effectively set the index to 0.
+ */
+void IconGrid::selection_meta(int _s)
+{
+	for (size_t i = 0; i < mIconItemList.size(); ++i)
+	{
+		if (mIconItemList[i].meta == _s)
+		{
+			mCurrentSelection = i;
+			return;
+		}
+	}
+}
+
+
 void IconGrid::incrementSelection()
 {
 	++mCurrentSelection;
