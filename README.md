@@ -32,7 +32,9 @@ At the moment there are very few configurable options for OutpostHD. All of it m
 
 Please use SANE values as there is no sanity checking except for minimum resolution (800x600). You can set the video resolution to whatever you want but if your monitor or graphics card doesn't support it don't expect things to work.
 
-When OutpostHD first starts it will start in full screen mode in the native resolution of your desktop. After the first time you run the game, a configuration file will be saved. From there you can change your video resolution and whether or not you want to skip the splash screen.
+When OutpostHD first starts it will start in full screen mode in the native resolution of your desktop. After the first time you run the game, a configuration file will be saved ('data/config.xml'). From there you can change your video resolution and whether or not you want to skip the splash screen.
+
+As a note, in windowed mode, the game window is resizable. Minimum window size is 800x600 but can theoretically be expanded to any modern resolution (this has been tested up to 1920x1080).
 
 ## Troubleshooting
 OutpostHD is in an early state of development so there's not much to say other than make sure you have the latest graphics drivers. Head on over to [the forums](http://forum.outpost2.net) for help getting OutpostHD running if you run into trouble.
@@ -86,15 +88,17 @@ Keep in mind that the SEED Lander can't be placed within 3 tiles of any of the e
 
 After you place the SEED Lander, the Advance Turn button will become available to click on (you must place a SEED Lander before you can do anything else). After you left click on the Advance Turn button, other options will become available to you and the first structures of your colony will be built.
 
-**Q: How can I lower the resolution or turn off fullscreen mode? **
+**Q: How can I lower the resolution or turn off fullscreen mode?**
 
 A: By default OutpostHD sets itself to the native screen resolution of your desktop with a minimum resolution of 800x600. Eventually you'll be able to make changes in the game via an options menu but for now if you want to change the resolution you can open "data/config.xml" and modify the screenwidth and screenheight values. There is no sanity checking so set this to a sane value or you could get weird behavior including crashing.
 
 To turn off fullscreen mode, simply change 'fullscreen="true"' to 'fullscreen="false"'.
 
+When in-game, you can press F11 to toggle between fullscreen and windowed modes. As a note, if you're running the game for the first time and you haven't set a resolution less than your native desktop resolution, pressing F11 may appear to have no effect. You will need to modify your config.xml file after which you will see the window border.
+
 **Q: Can I automatically skip the splash/logo screens?**
 
-A: Yes. After the first time the game runs, an automatically generated configuration file is saved in the 'data' folder. Open this file in a text editor, look for the line that says 'skip-splash' and change 'value' from 'false' to 'true'.
+A: Yes. After the first time the game runs, an automatically generated configuration file is saved in the 'data' folder ('data/config.xml'). Open this file in a text editor, look for the line that says 'skip-splash' and change 'value' from 'false' to 'true'.
 
 **Q: I have a question that's not answered here. How can I get help?**
 
