@@ -113,7 +113,7 @@ private:
 	void checkConnectedness();
 	bool changeDepth(int _d);
 
-	void factoryProductionComplete(ProductType _p, Factory& factory);
+	void factoryProductionComplete(Factory& factory);
 
 	// TURN LOGIC
 	void checkColonyShip();

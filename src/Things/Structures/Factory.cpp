@@ -73,18 +73,69 @@ const ProductionCost& Factory::productCost(ProductType _pt) const
 }
 
 
+/**
+ * Pulls a product that is in the waiting queue.
+ * 
+ * \throws	std::runtime_error if the product waiting queue is empty.
+ */
+ProductType Factory::pullProduct()
+{
+	if (mProductWaiting == PRODUCT_NONE)
+	{
+		/**
+		 * Exception here is overkill but this indicates a logic error
+		 * somewhere else in the code and should fail as loudly as possible.
+		 */
+		throw std::runtime_error("Factory::pullProduct(): Pull product called with an empty product queue!");
+	}
+
+	ProductType returnProduct = mProductWaiting;
+	mProductWaiting = PRODUCT_NONE;
+	return returnProduct;
+}
+
+
+/**
+ * Production update loop.
+ */
 void Factory::updateProduction()
 {
+	/**
+	 * A few check conditions to see if we're doing any processing.
+	 * 
+	 * \fixme	Most of these can be combined into a single
+	 *			compound conditional statement.
+	 */
 	if (state() != StructureState::OPERATIONAL)
 	{
 		return;
 	}
 
-	if (mProduct == PRODUCT_NONE || !enoughResourcesAvailable())
+	if (mProduct == PRODUCT_NONE)
 	{
 		return;
 	}
 
+	if (mProductWaiting != PRODUCT_NONE)
+	{
+		mProductionComplete(*this);
+		idle();
+		return;
+	}
+
+	if (!enoughResourcesAvailable())
+	{
+		idle();
+		return;
+	}
+	
+	/**
+	 * Using explicit calls here instead of ResourcePool::operator-=() because the production
+	 * table doesn't use ResourcePool objects.
+	 * 
+	 * \todo	Add an operator-=() to ResourcePool that takes type ProductionCost to improve
+	 *			readability of below code. Not thrilled with polluting the namespace but eh.
+	 */
 	mResourcesPool->commonMetals(mResourcesPool->commonMetals() - PRODUCTION_TYPE_TABLE[mProduct].commonMetals());
 	mResourcesPool->commonMinerals(mResourcesPool->commonMinerals() - PRODUCTION_TYPE_TABLE[mProduct].commonMinerals());
 	mResourcesPool->rareMetals(mResourcesPool->rareMetals() - PRODUCTION_TYPE_TABLE[mProduct].rareMetals());
@@ -95,15 +146,9 @@ void Factory::updateProduction()
 	if (mTurnsCompleted > mTurnsToComplete)
 	{
 		productionResetTurns();
-		productionComplete(mProduct);
+		mProductWaiting = mProduct;
+		mProductionComplete(*this);
 	}
-
-}
-
-
-void Factory::productionComplete(ProductType _p)
-{
-	mProductionComplete(_p, *this);
 }
 
 

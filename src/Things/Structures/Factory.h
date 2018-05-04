@@ -22,7 +22,7 @@ class Factory : public Structure
 {
 public:
 	// Callback providing what was complete and a reference to the Factory.
-	typedef NAS2D::Signals::Signal2<ProductType, Factory&> ProductionCallback;
+	typedef NAS2D::Signals::Signal1<Factory&> ProductionCallback;
 
 	typedef std::vector<ProductType> ProductionTypeList;
 
@@ -44,6 +44,9 @@ public:
 	ProductType productType() const { return mProduct; }
 	void productType(ProductType _p);
 
+	ProductType productWaiting() const { return mProductWaiting; }
+	ProductType pullProduct();
+
 	const ProductionTypeList& productList() const { return mAvailableProducts; }
 
 	const ProductionCost& productCost(ProductType) const;
@@ -53,8 +56,6 @@ public:
 	ProductionCallback& productionComplete() { return mProductionComplete; }
 
 protected:
-	void productionComplete(ProductType _p);
-
 	void clearProduction();
 
 	void addProduct(ProductType _p);
@@ -67,6 +68,7 @@ private:
 	int								mTurnsToComplete = 0;
 
 	ProductType						mProduct = PRODUCT_NONE;
+	ProductType						mProductWaiting = PRODUCT_NONE;	/**< Product that is waiting to be pulled from the factory. */
 
 	ProductionTypeList				mAvailableProducts;			/**< List of products that the Factory can produce. */
 

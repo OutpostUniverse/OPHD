@@ -1237,40 +1237,40 @@ void GameState::minerTaskFinished(Robot* _r)
 /**
  * Called whenever a Factory's production is complete.
  */
-void GameState::factoryProductionComplete(ProductType _p, Factory& factory)
+void GameState::factoryProductionComplete(Factory& factory)
 {
 	cout << "Factory '" << factory.id() << "' has finished producing ";
 	
 	StructureManager::StructureList& warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
 
-	switch (_p)
+	switch (factory.productWaiting())
 	{
 	case PRODUCT_DIGGER:
 		cout << "RoboDigger" << endl;
 		mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
+		factory.pullProduct();	/// \todo	robots need to be checked against robot storage, see issue #7
 		break;
 
 	case PRODUCT_DOZER:
 		cout << "RoboDozer" << endl;
 		mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
+		factory.pullProduct();	/// \todo	robots need to be checked against robot storage, see issue #7
 		break;
 
 	case PRODUCT_MINER:
 		cout << "RoboMiner" << endl;
 		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
+		factory.pullProduct();	/// \todo	robots need to be checked against robot storage, see issue #7
 		break;
 
 	case PRODUCT_CLOTHING:
-		cout << "Clothing" << endl;
-
 	case PRODUCT_MEDICINE:
-		cout << "Medicine" << endl;
-	{
-		Warehouse* _wh = getAvailableWarehouse(mStructureManager, _p, 1);
-		if (_wh) { _wh->products().store(_p, 1); }
-		else { factory.forceIdle(true); }
-		break;
-	}
+		{
+			Warehouse* _wh = getAvailableWarehouse(mStructureManager, factory.productWaiting(), 1);
+			if (_wh) { _wh->products().store(factory.productWaiting(), 1); factory.pullProduct(); }
+			else { factory.idle(); }
+			break;
+		}
 
 	default:
 		cout << "Unknown Product." << endl;
