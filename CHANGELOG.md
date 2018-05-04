@@ -16,6 +16,8 @@ This version of OutpostHD has moved to Git. See tag #____ for details.
 - Added a drop shadow to mine beacons on the minimap to help them stand out better.
 - Added a new method to IconGrid to set the current selection using an IconGridItem's 'meta' value.
 - Added Loading/Saving plaque's during file operations for save games.
+- Added 'processing turn' plaque whenever a turn is processed.
+- Factory production now stores products in Warehouses.
 
 ### Changed
 - Robots can now only be placed within the area of influence of the Command Center and Comm. Towers.
@@ -34,6 +36,7 @@ This version of OutpostHD has moved to Git. See tag #____ for details.
 - Updated resource icons.
 - MiniMap internal drawing code has been simplified using NAS2D's new clip rectangle functions. This should improve performance for games with a lot of things going on in the minimap.
 - FileIO window now responds to Enter/Escape keys.
+- Factories will go idle if there is insufficient storage for products they are producing.
 
 ### Fixed
 - FileOP button (Save/Load) in FileIO window will now start off disabled when first displayed.

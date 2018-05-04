@@ -31,6 +31,7 @@ const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 
 const int MAX_TILESET_INDEX	= 4;
 
+extern NAS2D::Image* IMG_PROCESSING_TURN;	/// \fixme Find a sane place for this.
 
 Rectangle_2d MENU_ICON;
 
@@ -1785,6 +1786,10 @@ void GameState::updateResidentialCapacity()
  */
 void GameState::nextTurn()
 {
+	Renderer& r = Utility<Renderer>::get();
+	r.drawImage(*IMG_PROCESSING_TURN, r.center_x() - (IMG_PROCESSING_TURN->width() / 2), r.center_y() - (IMG_PROCESSING_TURN->height() / 2));
+	r.update();
+
 	clearMode();
 
 	mPopulationPool.clear();
