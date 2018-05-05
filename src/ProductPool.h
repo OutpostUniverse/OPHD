@@ -15,6 +15,8 @@ public:
 
 	bool canStore(ProductType type, int count);
 
+	bool empty() const { return (capacity() == 0); }
+
 	void store(ProductType type, int count);
 	int pull(ProductType type, int count);
 	int count(ProductType type);

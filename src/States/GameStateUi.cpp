@@ -267,8 +267,8 @@ void GameState::clearSelections()
 
 
 /**
-* Adds selection options to the Structure Menu
-*/
+ * Adds selection options to the Structure Menu
+ */
 void GameState::populateStructureMenu()
 {
 	mStructures.dropAllItems();

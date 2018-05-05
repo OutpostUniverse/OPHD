@@ -119,6 +119,7 @@ private:
 	void checkColonyShip();
 	void nextTurn();
 	void updatePopulation();
+	void updateCommercial();
 	void updateMorale();
 	void updateResidentialCapacity();
 	void updateResources();

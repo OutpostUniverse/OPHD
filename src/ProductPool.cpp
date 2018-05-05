@@ -89,6 +89,7 @@ void ProductPool::store(ProductType type, int count)
 	if (storageRequired <= _availableStorage())
 	{
 		mProducts[static_cast<int>(type)] += count;
+		mCapacity -= storageRequired;
 	}
 }
 

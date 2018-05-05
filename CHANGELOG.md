@@ -18,6 +18,7 @@ This version of OutpostHD has moved to Git. See tag #____ for details.
 - Added Loading/Saving plaque's during file operations for save games.
 - Added 'processing turn' plaque whenever a turn is processed.
 - Factory production now stores products in Warehouses.
+- Commercial structures now draw luxury products from warehouses each turn. +1 morale for each commercial structure that has access to luxury products.
 
 ### Changed
 - Robots can now only be placed within the area of influence of the Command Center and Comm. Towers.

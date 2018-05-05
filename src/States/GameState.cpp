@@ -1637,6 +1637,65 @@ void GameState::updatePopulation()
 /**
  * 
  */
+void GameState::updateCommercial()
+{
+	// Get list of warehouses and commercial.
+	StructureManager::StructureList& _warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
+	StructureManager::StructureList& _commercial = mStructureManager.structureList(Structure::CLASS_COMMERCIAL);
+
+	// No need to do anything if there are no commercial structures.
+	if (_commercial.empty()) { return; }
+
+	int luxuryCount = mStructureManager.getCountInState(Structure::CLASS_COMMERCIAL, Structure::OPERATIONAL);
+	int commercialCount = luxuryCount;
+
+	for (auto warehouse : _warehouses)
+	{
+		ProductPool& _pl = static_cast<Warehouse*>(warehouse)->products();
+
+		/**
+		 * inspect for luxury products.
+		 * 
+		 * \fixme	I feel like this could be done better. At the moment there
+		 *			is only one luxury item, clothing, but as this changes more
+		 *			items may be seen as luxury.
+		 */
+		int clothing = _pl.count(PRODUCT_CLOTHING);
+
+		if (clothing >= luxuryCount)
+		{
+			_pl.pull(PRODUCT_CLOTHING, luxuryCount);
+			luxuryCount = 0;
+			break;
+		}
+		else if (clothing < luxuryCount)
+		{
+			_pl.pull(PRODUCT_CLOTHING, clothing);
+			luxuryCount -= clothing;
+		}
+
+		if (luxuryCount == 0)
+		{
+			break;
+		}
+	}
+
+	auto _comm_r_it = _commercial.rbegin();
+	for (size_t i = 0; i < luxuryCount && _comm_r_it != _commercial.rend(); ++i, ++_comm_r_it)
+	{
+		if ((*_comm_r_it)->operational())
+		{
+			(*_comm_r_it)->idle();
+		}
+	}
+
+	mCurrentMorale += commercialCount - luxuryCount;
+}
+
+
+/**
+ * 
+ */
 void GameState::updateMorale()
 {
 	// POSITIVE MORALE EFFECTS
@@ -1648,7 +1707,7 @@ void GameState::updateMorale()
 	int food_production = mStructureManager.getCountInState(Structure::CLASS_FOOD_PRODUCTION, Structure::OPERATIONAL);
 	food_production > 0 ? mCurrentMorale += food_production : mCurrentMorale -= 5;
 
-	//mCurrentMorale += mStructureManager.getCountInState(Structure::STRUCTURE_COMMERCIAL, Structure::OPERATIONAL);
+	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_COMMERCIAL, Structure::OPERATIONAL);
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================
@@ -1803,6 +1862,7 @@ void GameState::nextTurn()
 	updateResidentialCapacity();
 
 	updatePopulation();
+	updateCommercial();
 	updateMorale();
 	updateRobots();
 
