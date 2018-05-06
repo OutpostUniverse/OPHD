@@ -100,6 +100,10 @@ When in-game, you can press F11 to toggle between fullscreen and windowed modes.
 
 A: Yes. After the first time the game runs, an automatically generated configuration file is saved in the 'data' folder ('data/config.xml'). Open this file in a text editor, look for the line that says 'skip-splash' and change 'value' from 'false' to 'true'.
 
+**Q: The keybindings for movement (WASD) don't work well on my keyboard layout, can this be changed?**
+
+A: At the moment no; keybindings are hard coded. This will, however, change in the future to configurable keybindings.
+
 **Q: I have a question that's not answered here. How can I get help?**
 
 A: You can visit The Outpost Universe's Forums (http://forum.outpost2.net) and visit the Main Projects forum.
