@@ -21,14 +21,14 @@ public:
 	int pull(ProductType type, int count);
 	int count(ProductType type);
 
+	int availableStorage() const;
+
 private:
 	typedef std::array<int, PRODUCT_COUNT>	ProductTypeCount;
 
 private:
 	ProductPool(const ProductPool&) = delete;
 	ProductPool& operator=(const ProductPool&) = delete;
-
-	int _availableStorage() const;
 
 private:
 	ProductTypeCount	mProducts = {{ 0 }};

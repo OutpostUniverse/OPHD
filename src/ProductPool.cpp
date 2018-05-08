@@ -47,7 +47,7 @@ int ProductPool::capacity() const
 /**
  * 
  */
-int ProductPool::_availableStorage() const
+int ProductPool::availableStorage() const
 {
 	int stored = 0;
 	for (size_t i = 0; i < static_cast<size_t>(PRODUCT_COUNT); ++i)
@@ -64,7 +64,7 @@ int ProductPool::_availableStorage() const
  */
 bool ProductPool::canStore(ProductType type, int count)
 {
-	if (count * productStorage(type) <= _availableStorage())
+	if (count * productStorage(type) <= availableStorage())
 	{
 		return true;
 	}
@@ -86,7 +86,7 @@ void ProductPool::store(ProductType type, int count)
 {
 	int storageRequired = count * productStorage(type);
 
-	if (storageRequired <= _availableStorage())
+	if (storageRequired <= availableStorage())
 	{
 		mProducts[static_cast<int>(type)] += count;
 		mCapacity -= storageRequired;

@@ -17,9 +17,8 @@ public:
 
 	void warehouse(Warehouse* _wh);
 
-	virtual void update() final;
-
 	virtual void hide() final;
+	virtual void update() final;
 
 protected:
 	virtual void init() final;

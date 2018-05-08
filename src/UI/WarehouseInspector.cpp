@@ -30,7 +30,7 @@ void WarehouseInspector::init()
 {
 	size(250, 350);
 
-	addControl("btnClose", &btnClose, 233, 138);
+	addControl("btnClose", &btnClose, 105, 325);
 	btnClose.font(font());
 	btnClose.text("Okay");
 	btnClose.size(40, 20);
@@ -44,6 +44,15 @@ void WarehouseInspector::init()
 void WarehouseInspector::warehouse(Warehouse* _wh)
 {
 	mWarehouse = _wh;
+}
+
+
+/**
+ *
+ */
+void WarehouseInspector::btnCloseClicked()
+{
+	hide();
 }
 
 
@@ -68,14 +77,15 @@ void WarehouseInspector::update()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawText(mBold, "Stuff", rect().x() + constants::MARGIN, rect().y() + 25.0f, 255, 255, 255);
-}
+	r.drawText(mBold, "Storage", rect().x() + constants::MARGIN, rect().y() + 25.0f, 255, 255, 255);
+	r.drawText(font(), string_format("%i / 100", mWarehouse->products().capacity()), rect().x() + constants::MARGIN + font().width("Storage") + 20, rect().y() + 25.0f, 255, 255, 255);
 
+	r.drawText(mBold, "Clothing:", rect().x() + constants::MARGIN, rect().y() + 50.0f, 255, 255, 255);
+	r.drawText(font(), to_string(mWarehouse->products().count(PRODUCT_CLOTHING)), rect().x() + constants::MARGIN + 100, rect().y() + 50.0f, 255, 255, 255);
 
-/**
- * 
- */
-void WarehouseInspector::btnCloseClicked()
-{
-	hide();
+	r.drawText(mBold, "Medicine:", rect().x() + constants::MARGIN, rect().y() + 65.0f, 255, 255, 255);
+	r.drawText(font(), to_string(mWarehouse->products().count(PRODUCT_MEDICINE)), rect().x() + constants::MARGIN + 100, rect().y() + 65.0f, 255, 255, 255);
+
+	r.drawText(mBold, "Road Materials:", rect().x() + constants::MARGIN, rect().y() + 80.0f, 255, 255, 255);
+	r.drawText(font(), to_string(mWarehouse->products().count(PRODUCT_ROAD_MATERIALS)), rect().x() + constants::MARGIN + 100, rect().y() + 80.0f, 255, 255, 255);
 }

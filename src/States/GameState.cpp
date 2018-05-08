@@ -1271,8 +1271,10 @@ void GameState::factoryProductionComplete(Factory& factory)
 		factory.pullProduct();	/// \todo	robots need to be checked against robot storage, see issue #7
 		break;
 
+	case PRODUCT_ROAD_MATERIALS:
 	case PRODUCT_CLOTHING:
 	case PRODUCT_MEDICINE:
+		cout << endl;
 		{
 			Warehouse* _wh = getAvailableWarehouse(mStructureManager, factory.productWaiting(), 1);
 			if (_wh) { _wh->products().store(factory.productWaiting(), 1); factory.pullProduct(); }
