@@ -19,6 +19,7 @@ This version of OutpostHD has moved to Git. See tag #____ for details.
 - Added 'processing turn' plaque whenever a turn is processed.
 - Factory production now stores products in Warehouses.
 - Commercial structures now draw luxury products from warehouses each turn. +1 morale for each commercial structure that has access to luxury products.
+- Added Warehouse Inspector window. Primitive but does the job.
 
 ### Changed
 - Robots can now only be placed within the area of influence of the Command Center and Comm. Towers.
