@@ -143,4 +143,5 @@ namespace constants
 	const string	WINDOW_GAME_OVER = "Game Over";
 	const string	WINDOW_STRUCTURE_INSPECTOR = "Structure Inspector";
 	const string	WINDOW_TILE_INSPECTOR = "Tile Inspector";
+	const string	WINDOW_WH_INSPECTOR = "Warehouse Inspector";
 }

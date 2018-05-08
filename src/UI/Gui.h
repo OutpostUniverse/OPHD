@@ -10,3 +10,4 @@
 #include "PopulationPanel.h"
 #include "StructureInspector.h"
 #include "TileInspector.h"
+#include "WarehouseInspector.h"
