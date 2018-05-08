@@ -99,7 +99,8 @@ GameState::GameState(const string& sm, const string& t, int d, int mc) :
 	mGameOptionsDialog(mTinyFont),
 	mAnnouncement(mTinyFont),
 	mStructureInspector(mTinyFont),
-	mTileInspector(mTinyFont)
+	mTileInspector(mTinyFont),
+	mWarehouseInspector(mTinyFont)
 {}
 
 
@@ -711,6 +712,12 @@ void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 				mFactoryProduction.factory(static_cast<Factory*>(_s));
 				mFactoryProduction.show();
 				mWindowStack.bringToFront(&mFactoryProduction);
+			}
+			else if (_s->isWarehouse())
+			{
+				mWarehouseInspector.warehouse(static_cast<Warehouse*>(_s));
+				mWarehouseInspector.show();
+				mWindowStack.bringToFront(&mWarehouseInspector);
 			}
 			else
 			{

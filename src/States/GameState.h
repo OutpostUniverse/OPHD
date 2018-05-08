@@ -227,6 +227,7 @@ private:
 	PopulationPanel		mPopulationPanel;				/**< Population panel. */
 	StructureInspector	mStructureInspector;			/**< Structure Inspector window. */
 	TileInspector		mTileInspector;					/**< Tile Inspector window. */
+	WarehouseInspector	mWarehouseInspector;			/**< Warehouse Inspector window. */
 
 	WindowStack			mWindowStack;					/**< Window stack manager. */
 

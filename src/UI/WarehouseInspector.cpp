@@ -28,7 +28,7 @@ WarehouseInspector::~WarehouseInspector()
  */
 void WarehouseInspector::init()
 {
-	size(320, 500);
+	size(250, 350);
 
 	addControl("btnClose", &btnClose, 233, 138);
 	btnClose.font(font());
