@@ -1,9 +1,9 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.7.5] - UNRELEASED
+## [0.7.5] - 2018-05-11
 
-This version of OutpostHD has moved to Git. See tag #____ for details.
+This version of OutpostHD has moved to Git.
 
 ### Added
 - Robot Command Center is now fully functional.
