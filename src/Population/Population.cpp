@@ -319,12 +319,25 @@ uint32_t Population::consume_food(uint32_t food)
 
 	for (uint32_t i = 0; i < population_to_kill; /**/ )
 	{
-		PersonRole role = static_cast<PersonRole>(i % 5);
-		if (mPopulation[role] > 0)
+		int role_idx = i % 5;
+
+		int counter = 0;
+		for (;;)
 		{
-			--mPopulation[role];
-			++i;
+			role_idx = role_idx + counter;
+			if (role_idx > 4) { role_idx = 0; }
+			
+			if (mPopulation[role_idx] > 0)
+			{
+				break;
+			}
+
+			++counter;
+			if (counter > 4) { counter = 0; }
 		}
+
+		--mPopulation[role_idx];
+		++i;
 	}
 
 	mDeathCount = population_to_kill;

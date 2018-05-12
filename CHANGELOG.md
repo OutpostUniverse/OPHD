@@ -46,6 +46,7 @@ This version of OutpostHD has moved to Git. See tag #____ for details.
 - Fixed an issue with tile picking that caused inaccuracies when map edge lengths were even.
 - Fixed an issue which left unavailable robot selections available when loading a saved game from a game that had said robots available.
 - Fixed a mistake that would fail to bring the Structure Inspector window to the front of the window stack.
+- Fixed an issue in the population food consumption/starvation code that could result in an infinite loop causing the game to hang.
 
 
 ## [0.7.1] - 2017-07-30
