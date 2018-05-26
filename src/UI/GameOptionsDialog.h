@@ -5,11 +5,9 @@
 class GameOptionsDialog : public Window
 {
 public:
-
 	typedef NAS2D::Signals::Signal0<void> ClickCallback;
 
 public:
-
 	GameOptionsDialog(Font& font);
 	virtual ~GameOptionsDialog();
 
@@ -22,19 +20,18 @@ public:
 	
 
 protected:
-
 	virtual void init();
 
 private:
+	GameOptionsDialog() = delete;
+	GameOptionsDialog(const GameOptionsDialog&) = delete;
+	GameOptionsDialog& operator=(const GameOptionsDialog&) = delete;
 
+private:
 	void btnLoadClicked();
 	void btnSaveClicked();
 	void btnReturnClicked();
 	void btnCloseClicked();
-
-	GameOptionsDialog();
-	GameOptionsDialog(const GameOptionsDialog&);
-	GameOptionsDialog& operator=(const GameOptionsDialog&);
 
 	Button			btnSave;
 	Button			btnLoad;

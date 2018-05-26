@@ -24,10 +24,8 @@
 #include "../Things/Robots/Robots.h"
 
 #include "../UI/Gui.h"
-#include "../UI/UI.h"
 
 using namespace NAS2D;
-
 
 /**
  * Needs to match insertion order in GameState::initialize()
@@ -220,7 +218,7 @@ private:
 
 	DiggerDirection		mDiggerDirection;				/**< Digger direction window. */
 	FactoryProduction	mFactoryProduction;				/**< Factory Production window. */
-	FileIo				mFileIoDialog;					/**< File IO production window. */
+	FileIo				mFileIoDialog;					/**< File IO window. */
 	GameOverDialog		mGameOverDialog;				/**< Game over window. */
 	GameOptionsDialog	mGameOptionsDialog;				/**< Options List window. */
 	MajorEventAnnouncement	mAnnouncement;				/**< Announcements window. */

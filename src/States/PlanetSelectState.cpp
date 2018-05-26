@@ -4,6 +4,7 @@
 #include "PlanetSelectState.h"
 
 #include "GameState.h"
+#include "MainMenuState.h"
 
 PlanetType PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
@@ -18,8 +19,7 @@ PlanetSelectState::PlanetSelectState():	mFont("fonts/opensans.ttf", 14),
 										mCloud2("sys/cloud_2.png"),
 										mBgMusic("music/menu.ogg"),
 										mSelect("sfx/click.ogg"),
-										mHover("sfx/menu4.ogg"),
-										mReturnState(this)
+										mHover("sfx/menu4.ogg")
 {}
 
 
@@ -32,7 +32,9 @@ PlanetSelectState::~PlanetSelectState()
 	e.windowResized().disconnect(this, &PlanetSelectState::onWindowResized);
 
 	for (size_t i = 0; i < mPlanets.size(); ++i)
+	{
 		delete mPlanets[i];
+	}
 
 	Utility<Mixer>::get().stopAllAudio();
 }
@@ -84,9 +86,9 @@ void PlanetSelectState::initialize()
 	mFemale.click().connect(this, &PlanetSelectState::btnFemaleClicked);
 
 	mQuit.font(mTinyFont);
-	mQuit.text("Quit");
-	mQuit.size(50, 20);
-	mQuit.position(r.width() - 55, 30);
+	mQuit.text("Main Menu");
+	mQuit.size(100, 20);
+	mQuit.position(r.width() - 105, 30);
 	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
 
 	mPlanetDescription.text("");
@@ -95,7 +97,7 @@ void PlanetSelectState::initialize()
 	mPlanetDescription.position(r.center_x() - 275, r.height() - 225);
 
 	r.showSystemPointer(true);
-	r.fadeIn(175.0f);
+	r.fadeIn(constants::FADE_SPEED);
 
 	Utility<Mixer>::get().playMusic(mBgMusic);
 }
@@ -142,7 +144,9 @@ State* PlanetSelectState::update()
 	r.drawText(mTinyFont, constants::VERSION, r.width() - mTinyFont.width(constants::VERSION) - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
 
 	if (r.isFading())
+	{
 		return this;
+	}
 	else if (PLANET_TYPE_SELECTION != PLANET_TYPE_NONE)
 	{
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MERCURY)
@@ -165,7 +169,7 @@ State* PlanetSelectState::update()
 		}
 	}
 
-	return this;
+	return mReturnState;
 }
 
 
@@ -197,8 +201,6 @@ void PlanetSelectState::onMouseDown(EventHandler::MouseButton button, int x, int
 void PlanetSelectState::onMouseMove(int x, int y, int rX, int rY)
 {
 	mMousePosition(x, y);
-
-
 }
 
 
@@ -275,5 +277,6 @@ void PlanetSelectState::btnFemaleClicked()
 
 void PlanetSelectState::btnQuitClicked()
 {
-	NAS2D::postQuitEvent();
+	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+	mReturnState = new MainMenuState();
 }

@@ -3,7 +3,7 @@
 
 #include "SplashState.h"
 
-#include "PlanetSelectState.h"
+#include "MainMenuState.h"
 
 
 const int PAUSE_TIME = 5800;
@@ -81,8 +81,9 @@ void SplashState::skipSplash()
 {
 	Utility<Mixer>::get().fadeOutMusic(FADE_LENGTH);
 	Utility<Renderer>::get().fadeOut((float)FADE_LENGTH);
-	mReturnState = new PlanetSelectState();
+	mReturnState = new MainMenuState();
 }
+
 
 State* SplashState::update()
 {
@@ -111,7 +112,10 @@ State* SplashState::update()
 	}
 	if (CURRENT_STATE == LOGO_OUTPOSTHD)
 	{
-		r.drawImage(mLogoOutpostHd, static_cast<int>(r.center_x() - ((mLogoOutpostHd.width() + 250 * LOGO_SCALE) / 2)), static_cast<int>(r.center_y() - mLogoOutpostHd.height() / 2, LOGO_SCALE));
+		float _x = r.center_x() - ((mLogoOutpostHd.width() * LOGO_SCALE) / 2) - (100 * LOGO_SCALE);
+		float _y = r.center_y() - ((mLogoOutpostHd.height() * LOGO_SCALE) / 2);
+		
+		r.drawImage(mLogoOutpostHd, static_cast<int>(_x), static_cast<int>(_y), LOGO_SCALE);
 	}
 
 	
@@ -154,4 +158,13 @@ void SplashState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 
 void SplashState::onWindowResized(int width, int height)
-{}
+{
+	if (mLogoOutpostHd.width() > Utility<Renderer>::get().width())
+	{
+		LOGO_SCALE = Utility<Renderer>::get().width() / mLogoOutpostHd.width();
+	}
+	else
+	{
+		LOGO_SCALE = 1.0f;
+	}
+}

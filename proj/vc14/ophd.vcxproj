@@ -179,6 +179,7 @@
     <ClCompile Include="..\..\src\States\GameStateHelper.cpp" />
     <ClCompile Include="..\..\src\States\GameStateIO.cpp" />
     <ClCompile Include="..\..\src\States\GameStateUi.cpp" />
+    <ClCompile Include="..\..\src\States\MainMenuState.cpp" />
     <ClCompile Include="..\..\src\States\PlanetSelectState.cpp" />
     <ClCompile Include="..\..\src\states\SplashState.cpp" />
     <ClCompile Include="..\..\src\StructureCatalogue.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="..\..\src\RobotPool.h" />
     <ClInclude Include="..\..\src\States\GameState.h" />
     <ClInclude Include="..\..\src\States\GameStateHelper.h" />
+    <ClInclude Include="..\..\src\States\MainMenuState.h" />
     <ClInclude Include="..\..\src\States\Planet.h" />
     <ClInclude Include="..\..\src\States\PlanetSelectState.h" />
     <ClInclude Include="..\..\src\states\SplashState.h" />

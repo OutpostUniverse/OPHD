@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 #include "GameState.h"
-#include "PlanetSelectState.h"
+#include "MainMenuState.h"
 
 #include "../Constants.h"
 #include "../GraphWalker.h"

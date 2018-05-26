@@ -75,5 +75,5 @@ private:
 
 	Timer			mTimer;
 
-	State*			mReturnState;
+	State*			mReturnState = this;
 };

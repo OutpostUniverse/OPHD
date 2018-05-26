@@ -201,6 +201,9 @@
     <ClCompile Include="..\..\src\UI\WarehouseInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\States\MainMenuState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -475,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UI\WarehouseInspector.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\States\MainMenuState.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

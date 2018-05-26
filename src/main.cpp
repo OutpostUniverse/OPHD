@@ -10,7 +10,7 @@
 #include "StructureTranslator.h"
 
 #include "States/GameState.h"
-#include "States/PlanetSelectState.h"
+#include "States/MainMenuState.h"
 #include "States/SplashState.h"
 
 
@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			stateManager.setState(new PlanetSelectState());
+			stateManager.setState(new MainMenuState());
 		}
 
 		// Game Loop

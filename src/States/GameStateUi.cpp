@@ -10,7 +10,7 @@
 #include "GameState.h"
 #include "GameStateHelper.h"
 
-#include "PlanetSelectState.h"
+#include "MainMenuState.h"
 
 #include "../Constants.h"
 
@@ -543,7 +543,7 @@ void GameState::btnReturnToGameClicked()
  */
 void GameState::btnGameOverClicked()
 {
-	mReturnState = new PlanetSelectState();
+	mReturnState = new MainMenuState();
 
 	delete IMG_LOADING;
 	delete IMG_SAVING;
