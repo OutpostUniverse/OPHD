@@ -192,7 +192,7 @@ void GameState::setupUiPositions()
 	MOVE_WEST_ICON(MOVE_UP_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
 
 	// Mini Map
-	mMiniMapBoundingBox(static_cast<int>(r.width() - mMapDisplay.width() - constants::MARGIN), static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), mMapDisplay.width(), mMapDisplay.height());
+	mMiniMapBoundingBox(static_cast<int>(r.width() - 300 - constants::MARGIN), static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), 300, 150);
 
 	// Position UI Buttons
 	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(r.height() - constants::MARGIN - MAIN_BUTTON_SIZE));

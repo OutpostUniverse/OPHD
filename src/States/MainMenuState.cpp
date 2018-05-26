@@ -83,6 +83,8 @@ void MainMenuState::positionButtons()
 	btnContinueGame.position(start_x, start_y + 35);
 	btnOptions.position(start_x, start_y + 70);
 	btnQuit.position(start_x, start_y + 105);
+
+	mFileIoDialog.position(static_cast<int>(r.center_x() - mFileIoDialog.width() / 2), static_cast<int>(r.center_y() - mFileIoDialog.height() / 2));
 }
 
 
