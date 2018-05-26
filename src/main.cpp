@@ -22,6 +22,12 @@ using namespace std;
 
 #include "SDL.h"
 
+/** Not thrilled with placement but this seems to be the easiest way to deal with it. */
+NAS2D::Image* IMG_LOADING = nullptr;
+NAS2D::Image* IMG_SAVING = nullptr;
+NAS2D::Image* IMG_PROCESSING_TURN = nullptr;
+
+
 /**
  * Safe to return a reference as the instantiation will either succeed
  * or will fail and throw an exception.
@@ -33,7 +39,10 @@ NAS2D::Renderer& createRenderer()
 	return Utility<Renderer>::get();
 }
 
-// Makes sure video resolution is never less than 800x600
+
+/**
+ * Makes sure video resolution is never less than 800x600
+ */
 void validateVideoResolution()
 {
 	Configuration& cf = Utility<Configuration>::get();
@@ -131,6 +140,11 @@ int main(int argc, char *argv[])
 
 		// Force notifier to build its tables.
 		Utility<AiVoiceNotifier>::get();
+
+		// Loading/Saving plaque's
+		IMG_LOADING = new Image("sys/loading.png");
+		IMG_SAVING = new Image("sys/saving.png");
+		IMG_PROCESSING_TURN = new Image("sys/processing_turn.png");
 
 		StateManager stateManager;
 

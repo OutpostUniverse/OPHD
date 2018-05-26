@@ -34,9 +34,9 @@ extern Rectangle_2d MOVE_UP_ICON;
 extern Rectangle_2d MOVE_DOWN_ICON;
 
 
-NAS2D::Image* IMG_LOADING = nullptr;
-NAS2D::Image* IMG_SAVING = nullptr;
-NAS2D::Image* IMG_PROCESSING_TURN = nullptr;
+extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.
+extern NAS2D::Image* IMG_SAVING;	/// \fixme Find a sane place for this.
+extern NAS2D::Image* IMG_PROCESSING_TURN;	/// \fixme Find a sane place for this.
 
 
 /**
@@ -167,11 +167,6 @@ void GameState::initUi()
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, SID_SEED_LANDER);
-
-	// Loading/Saving plaque's
-	IMG_LOADING = new Image("sys/loading.png");
-	IMG_SAVING = new Image("sys/saving.png");
-	IMG_PROCESSING_TURN = new Image("sys/processing_turn.png");
 }
 
 
@@ -544,11 +539,6 @@ void GameState::btnReturnToGameClicked()
 void GameState::btnGameOverClicked()
 {
 	mReturnState = new MainMenuState();
-
-	delete IMG_LOADING;
-	delete IMG_SAVING;
-	delete IMG_PROCESSING_TURN;
-
 	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
 }
 

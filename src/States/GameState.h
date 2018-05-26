@@ -58,6 +58,7 @@ public:
 	};
 
 public:
+	GameState(const std::string& savegame);
 	GameState(const std::string& map, const std::string& tset, int _d, int _minecount);
 	~GameState();
 
@@ -242,6 +243,9 @@ private:
 
 	bool				mDebug = false;					/**< Display debug information. */
 	bool				mLeftButtonDown = false;		/**< Used for mouse drags on the mini map. */
+	bool				mLoadingExisting = false;		/**< Flag used for loading an existing game. */
 
-	State*				mReturnState = nullptr;			/**<  */
+	std::string			mExistingToLoad;				/**< Filename of the existing game to load. */
+
+	State*				mReturnState = this;			/**<  */
 };

@@ -31,6 +31,8 @@ const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 
 const int MAX_TILESET_INDEX	= 4;
 
+extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.
+extern NAS2D::Image* IMG_SAVING;	/// \fixme Find a sane place for this.
 extern NAS2D::Image* IMG_PROCESSING_TURN;	/// \fixme Find a sane place for this.
 
 Rectangle_2d MENU_ICON;
@@ -72,6 +74,31 @@ static int pullFood(ResourcePool& _rp, int amount)
 		return ret;
 	}
 }
+
+
+/**
+* C'Tor
+*
+* \param	savegame	Save game filename to load.
+*/
+GameState::GameState(const string& savegame) :
+	mFont("fonts/opensans-bold.ttf", 14),
+	mTinyFont("fonts/opensans.ttf", 10),
+	mTinyFontBold("fonts/opensans-bold.ttf", 10),
+	mBackground("sys/bg1.png"),
+	mUiIcons("ui/icons.png"),
+	mDiggerDirection(mTinyFont),
+	mFactoryProduction(mTinyFont),
+	mFileIoDialog(mTinyFont),
+	mGameOverDialog(mTinyFont),
+	mGameOptionsDialog(mTinyFont),
+	mAnnouncement(mTinyFont),
+	mStructureInspector(mTinyFont),
+	mTileInspector(mTinyFont),
+	mWarehouseInspector(mTinyFont),
+	mLoadingExisting(true),
+	mExistingToLoad(savegame)
+{}
 
 
 /**
@@ -139,8 +166,6 @@ void GameState::setPopulationLevel(PopulationLevel _level)
  */
 void GameState::initialize()
 {
-	mReturnState = this;
-
 	// EVENT HANDLERS
 	EventHandler& e = Utility<EventHandler>::get();
 
@@ -168,6 +193,8 @@ void GameState::initialize()
 	e.textInputMode(true);
 
 	mPopulationPool.population(&mPopulation);
+
+	if (mLoadingExisting) { load(mExistingToLoad); }
 
 	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
@@ -197,7 +224,7 @@ State* GameState::update()
 	// explicit current level
 	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - mFont.height() - mTinyFontBold.height() - 12, 255, 255, 255);
 	if (mDebug) { drawDebug(); }
-
+	
 	if (!mGameOptionsDialog.visible() && !mGameOverDialog.visible() && !mFileIoDialog.visible())
 	{
 		mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());

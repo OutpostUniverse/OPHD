@@ -131,10 +131,12 @@ void GameState::load(const std::string& _path)
 	mPlayerResources.clear();
 	mStructureManager.dropAllStructures();
 
-	delete mTileMap;
-	mTileMap = nullptr;
+	if (mTileMap)
+	{
+		delete mTileMap;
+		mTileMap = nullptr;
+	}
 
-	//mTileMap->deserialize(root);
 	XmlElement* map = root->firstChildElement("properties");
 	int depth = 0;
 	std::string sitemap;

@@ -118,8 +118,8 @@ void MainMenuState::fileIoAction(const std::string& _file, FileIo::FileOperation
 	if (_op != FileIo::FILE_LOAD) { return; }
 	if (_file.empty()) { return; }
 
-	// mReturnState = new GameState(_file):
-	// Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+	mReturnState = new GameState(constants::SAVE_GAME_PATH + _file + ".xml");
+	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 }
 
 
