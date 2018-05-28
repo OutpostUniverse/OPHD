@@ -137,6 +137,7 @@ int main(int argc, char *argv[])
 		r.addCursor(constants::MOUSE_POINTER_PLACE_TILE, POINTER_PLACE_TILE, 16, 16);
 		r.addCursor(constants::MOUSE_POINTER_INSPECT, POINTER_INSPECT, 8, 8);
 		r.setCursor(POINTER_NORMAL);
+		r.fadeOut(0.0f);
 
 		// Force notifier to build its tables.
 		Utility<AiVoiceNotifier>::get();
