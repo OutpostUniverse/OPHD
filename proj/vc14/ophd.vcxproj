@@ -176,8 +176,11 @@
     <ClCompile Include="..\..\src\ResourcePool.cpp" />
     <ClCompile Include="..\..\src\RobotPool.cpp" />
     <ClCompile Include="..\..\src\States\GameState.cpp" />
+    <ClCompile Include="..\..\src\States\GameStateDraw.cpp" />
+    <ClCompile Include="..\..\src\States\GameStateEvent.cpp" />
     <ClCompile Include="..\..\src\States\GameStateHelper.cpp" />
     <ClCompile Include="..\..\src\States\GameStateIO.cpp" />
+    <ClCompile Include="..\..\src\States\GameStateTurn.cpp" />
     <ClCompile Include="..\..\src\States\GameStateUi.cpp" />
     <ClCompile Include="..\..\src\States\MainMenuState.cpp" />
     <ClCompile Include="..\..\src\States\PlanetSelectState.cpp" />
