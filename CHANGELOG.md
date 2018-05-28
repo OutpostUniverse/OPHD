@@ -1,6 +1,20 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.7.6] - UNRELEASED
+
+Maintenance release with some features polished.
+
+### Added
+- Added a Main Menu state which allows for starting a new game, continuing an old game or quitting (options menu slated for a future release).
+
+### Changed
+- Tweaked fade transitions between states.
+
+### Fixed
+- Fixed an issue in the Factory Production window which would fail to set the current production type when selecting a Factory leading to production queue being cleared when hitting the Okay button.
+
+
 ## [0.7.5] - 2018-05-11
 
 This version of OutpostHD has moved to Git.
