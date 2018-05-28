@@ -224,6 +224,7 @@ void FactoryProduction::factory(Factory* _f)
 	if (mFactory->productType() == PRODUCT_NONE) { mProductGrid.clearSelection(); }
 	else { mProductGrid.selection_meta(static_cast<int>(mFactory->productType())); }
 
+	mProduct = mFactory->productType();
 	mProductCost = mFactory->productCost(mFactory->productType());
 }
 
