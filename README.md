@@ -6,10 +6,10 @@ For up to the minute information, please visit The Outpost Universe's [online fo
 ## Requirements
 *For Windows*
 
-* Windows 7 (not tested on Vista or XP)
+* Windows 7 (not tested on Vista or XP but probably works)
 * 2GB RAM
-* 5MB Available Hard Drive Space
-* Graphics card that can support OpenGL 3.0 & GLSL v1.0 (basically any modern non-Intel GPU)
+* 32MB Available Hard Drive Space
+* Graphics card that can support OpenGL 3.0 & GLSL v1.0 (basically any modern GPU)
 
 ## Installation
 Installation is simple: Extract the contents of the ZIP Archive into any folder. Double-click on OPHD.exe to launch the game.
@@ -22,7 +22,7 @@ OutpostHD is built using Microsoft's Visual C++ 2015. If you haven't already, yo
 https://www.microsoft.com/en-us/download/details.aspx?id=48145
 
 ### MacOS X Dependencies
-The only current build of OutpostHD is Windows but as I understand MacOS X development and program distribution, MacOS distributions come as a 'bundle' with all necessary dependencies packaged in.
+The only current build of OutpostHD is Windows but as I understand MacOS X development and program distribution, MacOS distributions come as a 'bundle' with all necessary dependencies packaged in. That stated, there aren't any official osX builds (yet) but we're working on it!
 
 ### Linux
 OutpostHD does build and run under Linux. Some of the contributing maintainers have been able to build and run OPHD on Arch Linux and Ubuntu Linux. No official Linux build is available yet but we're working on it!
@@ -31,6 +31,8 @@ OutpostHD does build and run under Linux. Some of the contributing maintainers h
 At the moment there are very few configurable options for OutpostHD. All of it must be done via the XML configuration file (config.xml) located in the 'data' subdirectory.
 
 Please use SANE values as there is no sanity checking except for minimum resolution (800x600). You can set the video resolution to whatever you want but if your monitor or graphics card doesn't support it don't expect things to work.
+
+Audio options are limited to mixrate quality (currently only 11025, 22050 and 44100 are supported, please stay with one of these three options), channels (1 for mono, 2 for stereo), sfxvolume and musicvolume (between 0 and 128) and bufferlength. Aside for volume levels and mixrate, you should leave the rest of the options alone.
 
 When OutpostHD first starts it will start in full screen mode in the native resolution of your desktop. After the first time you run the game, a configuration file will be saved ('data/config.xml'). From there you can change your video resolution and whether or not you want to skip the splash screen.
 
@@ -104,6 +106,12 @@ A: Yes. After the first time the game runs, an automatically generated configura
 
 A: At the moment no; keybindings are hard coded. This will, however, change in the future to configurable keybindings.
 
+**Q: The game generally works but there are some graphics problems like missing or corrupt textures. How can I fix this?**
+
+A: This is a result of some budget GPU drivers attempting and failing to accommodate for texture resolutions that are not a power of two (e.g., 16x16, 32x32, 128x128, etc.). There really isn't a way to fix this as generally these issues show up on budget laptops and mobile devices with integrated Intel GPU's.
+
+This is something that will improve over time -- the game is still under heavy development and a lot changes under the hood. While we've made considerable effort to align all visuals to power of two textures, it's likely we're going to miss some here and there. We're working on it though it would be helpful if you could point it out for us on the discussion boards.
+
 **Q: I have a question that's not answered here. How can I get help?**
 
 A: You can visit The Outpost Universe's Forums (http://forum.outpost2.net) and visit the Main Projects forum.
@@ -122,3 +130,17 @@ OutpostHD is developed and maintained by the following contributors:
 - White Claw: *Graphics*
 - Hooman: *Design & Programming Assistance*
 - Casper van Heck (aka vomov): *Research Tree & Design*
+
+## Special Thanks
+I'd like to give a special thanks and shout out to the following contributers who have helped to shape the direction of OutpostHD and provide extremely valuable insight in alphabetical order:
+
+- dave_erald
+- FallTime
+- havkyp
+- JetMech1999
+- lordpalandus
+- macksting
+- Sirbomber
+- Vagabond
+
+Thanks for all of your support! Without your feedback I could never have accomplished what I have!
