@@ -334,7 +334,8 @@ void GameState::readStructures(XmlElement* _ti)
 		st->id(id);
 		st->forced_state_change(static_cast<Structure::StructureState>(state));
 		st->connectorDirection(static_cast<ConnectorDir>(direction));
-		st->forceIdle(forced_idle != 0);
+		
+		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }
 
 		st->production().deserialize(structure->firstChildElement("production"));
 		st->storage().deserialize(structure->firstChildElement("storage"));

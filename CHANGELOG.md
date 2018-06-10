@@ -11,12 +11,15 @@ Maintenance release with some features polished.
 
 ### Changed
 - Tweaked fade transitions between states.
+- Minor performance improvements regarding item sorting in the IconGrid UI panels.
 
 ### Fixed
 - Fixed an issue in the Factory Production window which would fail to set the current production type when selecting a Factory leading to production queue being cleared when hitting the Okay button.
 - Fixed an oversight where warehouses didn't save/load any products that were stored in them.
 - Fixed an issue in loading code that would lead to a crash if loading a savegame where the SEED lander hasn't been placed yet after being in a game with a command center somewhere on the map.
 - Fixed an oversight that didn't reset all of the UI control states when switching to a new map when already in a game.
+- Fixed an issue regarding loading games in which structure states were not properly set.
+- Fixed an issue when first starting a colony that would fail to set population requirements for initial structures.
 
 
 ## [0.7.5] - 2018-05-11

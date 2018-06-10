@@ -164,14 +164,11 @@ void Structure::forced_state_change(StructureState _s)
 		//enable();
 	}
 
-	if (_s == OPERATIONAL)
-		enable();
-	if (_s == IDLE)
-		idle();
-	if (_s == DISABLED)
-		disable();
-	if (_s == DESTROYED)
-		destroy();
+	if (_s == OPERATIONAL)				{ enable(); }
+	else if (_s == IDLE)				{ idle(); }
+	else if (_s == DISABLED)			{ disable(); }
+	else if (_s == DESTROYED)			{ destroy(); }
+	else if (_s == UNDER_CONSTRUCTION)	{ mStructureState = UNDER_CONSTRUCTION; } // Kludge
 }
 
 

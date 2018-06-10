@@ -7,6 +7,8 @@
 // ==================================================================================
 #include "GameState.h"
 
+#include "../StructureCatalogue.h"
+
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
 
@@ -130,7 +132,7 @@ void GameState::deploySeedLander(int x, int y)
 	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y - 1));
 	mTileMap->getTile(x, y - 1)->index(TERRAIN_DOZED);
 
-	CommandCenter* cc = new CommandCenter();
+	CommandCenter* cc = static_cast<CommandCenter*>(StructureCatalogue::get(SID_COMMAND_CENTER));
 	cc->sprite().skip(3);
 	mStructureManager.addStructure(cc, mTileMap->getTile(x + 1, y - 1));
 	mTileMap->getTile(x + 1, y - 1)->index(TERRAIN_DOZED);
@@ -144,7 +146,7 @@ void GameState::deploySeedLander(int x, int y)
 	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x + 1, y));
 
 	// BOTTOM ROW
-	SeedFactory* sf = new SeedFactory();
+	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(SID_SEED_FACTORY));
 	sf->resourcePool(&mPlayerResources);
 	sf->productionComplete().connect(this, &GameState::factoryProductionComplete);
 	sf->sprite().skip(7);
@@ -154,7 +156,7 @@ void GameState::deploySeedLander(int x, int y)
 	mTileMap->getTile(x, y + 1)->index(TERRAIN_DOZED);
 	mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y + 1));
 
-	SeedSmelter* ss = new SeedSmelter();
+	SeedSmelter* ss = static_cast<SeedSmelter*>(StructureCatalogue::get(SID_SEED_SMELTER));
 	ss->sprite().skip(10);
 	mStructureManager.addStructure(ss, mTileMap->getTile(x + 1, y + 1));
 	mTileMap->getTile(x + 1, y + 1)->index(TERRAIN_DOZED);
@@ -163,6 +165,7 @@ void GameState::deploySeedLander(int x, int y)
 	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
 	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
 	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
+	mRobots.sort();
 
 	mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
 	mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
