@@ -2,6 +2,16 @@
 
 #include "Structure.h"
 
+#include "../Robots/Robot.h"
+
+#include "../../Constants.h"
+
+#include <vector>
+
+
+/**
+ * Implements the Robot Command structure.
+ */
 class RobotCommand : public Structure
 {
 public:
@@ -14,15 +24,18 @@ public:
 		requiresCHAP(false);
 	}
 
+	virtual ~RobotCommand()	{}
 
-	virtual ~RobotCommand()
-	{}
+	bool commandedByThis(Robot* _r) const;
+
+	bool commandCapacityAvailable() const;
+	void addRobot(Robot* _r);
+	void removeRobot(Robot* _r);
 
 protected:
 
 	virtual void think()
-	{
-	}
+	{}
 
 	virtual void defineResourceInput()
 	{
@@ -33,5 +46,5 @@ protected:
 	{}
 
 private:
-
+	std::vector<Robot*>		mRobotList;
 };

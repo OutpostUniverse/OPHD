@@ -23,6 +23,9 @@ public:
 
 	int availableStorage() const;
 
+	void serialize(NAS2D::Xml::XmlElement* _ti);
+	void deserialize(NAS2D::Xml::XmlElement* _ti);
+
 private:
 	typedef std::array<int, PRODUCT_COUNT>	ProductTypeCount;
 

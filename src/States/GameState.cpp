@@ -57,10 +57,10 @@ std::map <int, std::string>	LEVEL_STRING_TABLE =
 
 
 /**
-* C'Tor
-*
-* \param	savegame	Save game filename to load.
-*/
+ * C'Tor
+ *
+ * \param	savegame	Save game filename to load.
+ */
 GameState::GameState(const string& savegame) :
 	mFont("fonts/opensans-bold.ttf", 14),
 	mTinyFont("fonts/opensans.ttf", 10),

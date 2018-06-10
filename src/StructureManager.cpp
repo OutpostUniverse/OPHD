@@ -4,7 +4,10 @@
 #include "StructureManager.h"
 
 #include "Constants.h"
+#include "ProductPool.h"
 #include "StructureTranslator.h"
+
+#include "Things/Structures/Structures.h"
 
 #include <algorithm>
 
@@ -431,6 +434,13 @@ void StructureManager::serialize(XmlElement* _ti)
 		{
 			structure->attribute("production_completed", static_cast<Factory*>(it->first)->productionTurnsCompleted());
 			structure->attribute("production_type", static_cast<Factory*>(it->first)->productType());
+		}
+
+		if (it->first->isWarehouse())
+		{
+			XmlElement* warehouse_products = new XmlElement("warehouse_products");
+			static_cast<Warehouse*>(it->first)->products().serialize(warehouse_products);
+			structure->linkEndChild(warehouse_products);
 		}
 
 		structures->linkEndChild(structure);

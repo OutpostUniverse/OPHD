@@ -216,7 +216,7 @@ NAS2D::State* MainMenuState::update()
 
 	mFileIoDialog.update();
 
-	r.drawText(mTinyFont, constants::VERSION, r.width() - mTinyFont.width(constants::VERSION), r.height() - mTinyFont.height() - 5, 255, 255, 255);
+	r.drawText(mTinyFont, constants::VERSION, r.width() - mTinyFont.width(constants::VERSION) - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
 
 	if (r.isFading())
 	{

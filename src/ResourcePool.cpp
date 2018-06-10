@@ -346,24 +346,24 @@ void ResourcePool::serialize(XmlElement* _ti)
 
 void ResourcePool::deserialize(XmlElement* _ti)
 {
-	if (_ti == nullptr)
-		return;
+	/// \todo	This should probably trigger an exception.
+	if (_ti == nullptr) { return; }
 
 	XmlAttribute* attribute = _ti->firstAttribute();
 	while (attribute)
 	{
-		if (attribute->name() == constants::SAVE_GAME_COMMON_METAL_ORE) attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_METALS_ORE]);
-		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL_ORE) attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_MINERALS_ORE]);
-		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL_ORE) attribute->queryIntValue(_resourceTable[RESOURCE_RARE_METALS_ORE]);
-		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL_ORE) attribute->queryIntValue(_resourceTable[RESOURCE_RARE_MINERALS_ORE]);
+		if (attribute->name() == constants::SAVE_GAME_COMMON_METAL_ORE) { attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_METALS_ORE]); }
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL_ORE){ attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_MINERALS_ORE]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL_ORE) { attribute->queryIntValue(_resourceTable[RESOURCE_RARE_METALS_ORE]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL_ORE) { attribute->queryIntValue(_resourceTable[RESOURCE_RARE_MINERALS_ORE]); }
 
-		else if (attribute->name() == constants::SAVE_GAME_COMMON_METAL) attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_METALS]);
-		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL) attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_MINERALS]);
-		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL) attribute->queryIntValue(_resourceTable[RESOURCE_RARE_METALS]);
-		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL) attribute->queryIntValue(_resourceTable[RESOURCE_RARE_MINERALS]);
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_METAL) { attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_METALS]); }
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL) { attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_MINERALS]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL) { attribute->queryIntValue(_resourceTable[RESOURCE_RARE_METALS]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL) { attribute->queryIntValue(_resourceTable[RESOURCE_RARE_MINERALS]); }
 
-		else if (attribute->name() == constants::SAVE_GAME_ENERGY) attribute->queryIntValue(_resourceTable[RESOURCE_ENERGY]);
-		else if (attribute->name() == constants::SAVE_GAME_FOOD) attribute->queryIntValue(_resourceTable[RESOURCE_FOOD]);
+		else if (attribute->name() == constants::SAVE_GAME_ENERGY) { attribute->queryIntValue(_resourceTable[RESOURCE_ENERGY]); }
+		else if (attribute->name() == constants::SAVE_GAME_FOOD) { attribute->queryIntValue(_resourceTable[RESOURCE_FOOD]); }
 
 		attribute = attribute->next();
 	}

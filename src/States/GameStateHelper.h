@@ -17,7 +17,8 @@
 
 typedef std::map<Robot*, Tile*> RobotTileTable; /**<  */
 
-class Warehouse; /**< Forward declaration for getAvailableWarehouse() function. */
+class Warehouse;	/**< Forward declaration for getAvailableWarehouse() function. */
+class RobotCommand;	/**< Forward declaration for getAvailableRobotCommand() function. */
 
 
 bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir _source_connector_dir);
@@ -33,6 +34,8 @@ bool selfSustained(StructureID id);
 int totalStorage(StructureManager::StructureList& _sl);
 
 Warehouse* getAvailableWarehouse(StructureManager& _sm, ProductType _pt, size_t _ct);
+RobotCommand* getAvailableRobotCommand(StructureManager& _sm);
+
 
 // Serialize / Deserialize
 void writeRobots(NAS2D::Xml::XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);

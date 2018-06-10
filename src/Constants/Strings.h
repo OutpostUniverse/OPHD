@@ -43,6 +43,20 @@ namespace constants
 
 
 	// =====================================
+	// = PRODUCT POOL
+	// =====================================
+	const string	SAVE_GAME_PRODUCT_DIGGER = "digger";
+	const string	SAVE_GAME_PRODUCT_DOZER = "dozer";
+	const string	SAVE_GAME_PRODUCT_MINER = "miner";
+	const string	SAVE_GAME_PRODUCT_EXPLORER = "explorer";
+	const string	SAVE_GAME_PRODUCT_TRUCK = "truck";
+	const string	SAVE_GAME_PRODUCT_ROAD_MATERIALS = "road_materials";
+	const string	SAVE_GAME_MAINTENANCE_PARTS = "maintenance_parts";
+
+	const string	SAVE_GAME_PRODUCT_CLOTHING = "clothing";
+	const string	SAVE_GAME_PRODUCT_MEDICINE = "medicine";
+
+	// =====================================
 	// = FACTORY PRODUCTS
 	// =====================================
 	const string	ROBODIGGER = "Robodigger";
@@ -87,6 +101,7 @@ namespace constants
 	const string	SEED_SMELTER = "SEED Smelter";
 	const string	SMELTER = "Smelter";
 	const string	SOLAR_PLANT = "Solar Powersat Receiver Array";
+	const string	SOLAR_PANEL1 = "Solar Panel Array";
 	const string	STORAGE_TANKS = "Storage Tanks";
 	const string	SURFACE_FACTORY = "Surface Factory";
 	const string	SURFACE_POLICE = "Police";

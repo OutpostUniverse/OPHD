@@ -142,6 +142,10 @@ Structure* StructureCatalogue::get(StructureID type)
 			_st = new Smelter();
 			break;
 
+		case SID_SOLAR_PANEL1:
+			_st = new SolarPanelArray();
+			break;
+
 		case SID_SOLAR_PLANT:
 			_st = new SolarPlant();
 			break;
@@ -266,6 +270,7 @@ void StructureCatalogue::buildCostTable()
 	mStructureCostTable[SID_RESIDENCE]				= ResourcePool(0, 0, 0, 0, 25, 5, 2, 0, 0, 0);
 	mStructureCostTable[SID_ROBOT_COMMAND]			= ResourcePool(0, 0, 0, 0, 75, 50, 45, 25, 0, 0);
 	mStructureCostTable[SID_SMELTER]				= ResourcePool(0, 0, 0, 0, 30, 20, 10, 5, 0, 0);
+	mStructureCostTable[SID_SOLAR_PANEL1]			= ResourcePool(0, 0, 0, 0, 10, 20, 5, 5, 0, 0);
 	mStructureCostTable[SID_SOLAR_PLANT]			= ResourcePool(0, 0, 0, 0, 50, 25, 50, 20, 0, 0);
 	mStructureCostTable[SID_STORAGE_TANKS]			= ResourcePool(0, 0, 0, 0, 15, 5, 6, 1, 0, 0);
 	mStructureCostTable[SID_SURFACE_FACTORY]		= ResourcePool(0, 0, 0, 0, 20, 10, 10, 5, 0, 0);
@@ -322,6 +327,7 @@ void StructureCatalogue::buildPopulationRequirementsTable()
 	mPopulationRequirementsTable[SID_SEED_FACTORY]			= { 2, 0 };
 	mPopulationRequirementsTable[SID_SEED_SMELTER]			= { 2, 0 };
 	mPopulationRequirementsTable[SID_SMELTER]				= { 4, 0 };
+	mPopulationRequirementsTable[SID_SOLAR_PANEL1]			= { 1, 0 };
 	mPopulationRequirementsTable[SID_SURFACE_FACTORY]		= { 4, 0 };
 	mPopulationRequirementsTable[SID_UNDERGROUND_FACTORY]	= { 2, 0 };
 	mPopulationRequirementsTable[SID_UNIVERSITY]			= { 1, 3 };

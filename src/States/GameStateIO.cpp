@@ -130,6 +130,7 @@ void GameState::load(const std::string& _path)
 	scrubRobotList();
 	mPlayerResources.clear();
 	mStructureManager.dropAllStructures();
+	mCCLocation(0, 0);
 
 	if (mTileMap)
 	{
@@ -331,6 +332,12 @@ void GameState::readStructures(XmlElement* _ti)
 
 		st->production().deserialize(structure->firstChildElement("production"));
 		st->storage().deserialize(structure->firstChildElement("storage"));
+
+		if (st->isWarehouse())
+		{
+			Warehouse* w = static_cast<Warehouse*>(st);
+			w->products().deserialize(structure->firstChildElement("warehouse_products"));
+		}
 
 		if (st->isFactory())
 		{

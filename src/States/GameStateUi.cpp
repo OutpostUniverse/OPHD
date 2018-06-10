@@ -292,6 +292,7 @@ void GameState::populateStructureMenu()
 		mStructures.addItem(constants::COMM_TOWER, 22, SID_COMM_TOWER);
 		mStructures.addItem(constants::SURFACE_POLICE, 23, SID_SURFACE_POLICE);
 		mStructures.addItem(constants::SMELTER, 4, SID_SMELTER);
+		mStructures.addItem(constants::SOLAR_PANEL1, 33, SID_SOLAR_PANEL1);
 		mStructures.addItem(constants::SOLAR_PLANT, 10, SID_SOLAR_PLANT);
 		mStructures.addItem(constants::STORAGE_TANKS, 8, SID_STORAGE_TANKS);
 		mStructures.addItem(constants::SURFACE_FACTORY, 11, SID_SURFACE_FACTORY);

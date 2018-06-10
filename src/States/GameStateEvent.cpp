@@ -10,6 +10,35 @@
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
 
+
+static void pullRobotFromFactory(ProductType pt, RobotPool& rp, Factory& factory, StructureManager& sm)
+{
+	RobotCommand* _rc = getAvailableRobotCommand(sm);
+	if (_rc)
+	{
+		Robot* r = nullptr;
+		
+		switch (pt)
+		{
+		case PRODUCT_DIGGER:
+		case PRODUCT_DOZER:
+		case PRODUCT_MINER:
+			break;
+
+		default:
+			throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
+		}
+		//mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
+		_rc->addRobot(nullptr);
+	}
+	else
+	{
+		factory.idle();
+	}
+
+}
+
+
 /**
  * Called whenever a Factory's production is complete.
  */

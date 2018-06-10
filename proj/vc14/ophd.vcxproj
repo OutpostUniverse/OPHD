@@ -190,6 +190,7 @@
     <ClCompile Include="..\..\src\StructureTranslator.cpp" />
     <ClCompile Include="..\..\src\Things\Robots\Robot.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Factory.cpp" />
+    <ClCompile Include="..\..\src\Things\Structures\RobotCommand.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Structure.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Button.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Control.cpp" />
@@ -270,11 +271,13 @@
     <ClInclude Include="..\..\src\Things\Structures\SeedPower.h" />
     <ClInclude Include="..\..\src\Things\Structures\SeedSmelter.h" />
     <ClInclude Include="..\..\src\Things\Structures\Smelter.h" />
+    <ClInclude Include="..\..\src\Things\Structures\SolarPanelArray.h" />
     <ClInclude Include="..\..\src\Things\Structures\SolarPlant.h" />
     <ClInclude Include="..\..\src\things\structures\StorageTanks.h" />
     <ClInclude Include="..\..\src\Things\Structures\Structure.h" />
     <ClInclude Include="..\..\src\Things\Structures\Structures.h" />
     <ClInclude Include="..\..\src\Things\Structures\FusionReactor.h" />
+    <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h" />
     <ClInclude Include="..\..\src\Things\Structures\Tube.h" />
     <ClInclude Include="..\..\src\Things\Structures\UndergroundFactory.h" />
     <ClInclude Include="..\..\src\Things\Structures\University.h" />

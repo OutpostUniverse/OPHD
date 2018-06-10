@@ -1,6 +1,9 @@
 #pragma once
 
 
+/**
+ * Numeric constants
+ */
 namespace constants
 {
 	const int FADE_SPEED = 175;
@@ -23,6 +26,8 @@ namespace constants
 
 	const int COMMAND_CENTER_POPULATION_CAPACITY = 10;
 	const int MINIMUM_RESIDENCE_OVERCAPACITY_HIT = 1;
+
+	const int ROBOT_COMMAND_CAPACITY = 10;
 
 	const int DEFAULT_STARTING_MORALE = 600;
 

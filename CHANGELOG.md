@@ -7,12 +7,15 @@ Maintenance release with some features polished.
 
 ### Added
 - Added a Main Menu state which allows for starting a new game, continuing an old game or quitting (options menu slated for a future release).
+- Added the Solar Panel Array structure. This is a cheap power structure most useful in the early game that generates a small amount of power.
 
 ### Changed
 - Tweaked fade transitions between states.
 
 ### Fixed
 - Fixed an issue in the Factory Production window which would fail to set the current production type when selecting a Factory leading to production queue being cleared when hitting the Okay button.
+- Fixed an oversight where warehouses didn't save/load any products that were stored in them.
+- Fixed an issue in loading code that would lead to a crash if loading a savegame where the SEED lander hasn't been placed yet after being in a game with a command center somewhere on the map.
 
 
 ## [0.7.5] - 2018-05-11

@@ -6,6 +6,7 @@
 #include <NAS2D/NAS2D.h>
 
 using namespace NAS2D;
+using namespace NAS2D::Xml;
 
 /**
  * Space required to store a Product.
@@ -114,4 +115,48 @@ int ProductPool::pull(ProductType type, int c)
 int ProductPool::count(ProductType type)
 {
 	return mProducts[static_cast<int>(type)];
+}
+
+
+/**
+ * 
+ */
+void ProductPool::serialize(NAS2D::Xml::XmlElement* _ti)
+{
+	_ti->attribute(constants::SAVE_GAME_PRODUCT_DIGGER,				count(PRODUCT_DIGGER));
+	_ti->attribute(constants::SAVE_GAME_PRODUCT_DOZER,				count(PRODUCT_DOZER));
+	_ti->attribute(constants::SAVE_GAME_PRODUCT_MINER,				count(PRODUCT_MINER));
+	_ti->attribute(constants::SAVE_GAME_PRODUCT_EXPLORER,			count(PRODUCT_EXPLORER));
+	_ti->attribute(constants::SAVE_GAME_PRODUCT_TRUCK,				count(PRODUCT_TRUCK));
+	_ti->attribute(constants::SAVE_GAME_PRODUCT_ROAD_MATERIALS,		count(PRODUCT_ROAD_MATERIALS));
+	_ti->attribute(constants::SAVE_GAME_MAINTENANCE_PARTS,			count(PRODUCT_MAINTENANCE_PARTS));
+	_ti->attribute(constants::SAVE_GAME_PRODUCT_CLOTHING,			count(PRODUCT_CLOTHING));
+	_ti->attribute(constants::SAVE_GAME_PRODUCT_MEDICINE,			count(PRODUCT_MEDICINE));
+}
+
+
+/**
+ * 
+ */
+void ProductPool::deserialize(NAS2D::Xml::XmlElement* _ti)
+{
+	/// \todo	This should probably trigger an exception.
+	if (_ti == nullptr) { return; }
+
+	XmlAttribute* attribute = _ti->firstAttribute();
+	while (attribute)
+	{
+		if (attribute->name() == constants::SAVE_GAME_PRODUCT_DIGGER)				{ attribute->queryIntValue(mProducts[PRODUCT_DIGGER]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_DOZER)			{ attribute->queryIntValue(mProducts[PRODUCT_DOZER]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_MINER)			{ attribute->queryIntValue(mProducts[PRODUCT_MINER]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_EXPLORER)		{ attribute->queryIntValue(mProducts[PRODUCT_EXPLORER]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_TRUCK)			{ attribute->queryIntValue(mProducts[PRODUCT_TRUCK]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_ROAD_MATERIALS)	{ attribute->queryIntValue(mProducts[PRODUCT_ROAD_MATERIALS]); }
+		else if (attribute->name() == constants::SAVE_GAME_MAINTENANCE_PARTS)		{ attribute->queryIntValue(mProducts[PRODUCT_MAINTENANCE_PARTS]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_CLOTHING)		{ attribute->queryIntValue(mProducts[PRODUCT_CLOTHING]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_MEDICINE)		{ attribute->queryIntValue(mProducts[PRODUCT_MEDICINE]); }
+
+		attribute = attribute->next();
+	}
+
 }

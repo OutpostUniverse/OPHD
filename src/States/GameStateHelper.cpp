@@ -15,6 +15,7 @@
 #include "../AiVoiceNotifier.h"
 #include "../Constants.h"
 
+#include "../Things/Structures/RobotCommand.h"
 #include "../Things/Structures/Warehouse.h"
 
 
@@ -269,6 +270,32 @@ Warehouse* getAvailableWarehouse(StructureManager& _sm, ProductType _pt, size_t 
 		if (_wh->products().canStore(_pt, _ct))
 		{
 			return _wh;
+		}
+	}
+
+	return nullptr;
+}
+
+
+/**
+ * Gets a RobotCommand structure that has available command capacity
+ * to house additional robots.
+ * 
+ * \note	Assumes a check for only one robot at any given time.
+ * 
+ * \param	_sm		Reference to a StructureManager.
+ * 
+ * \return	Returns a pointer to a Warehouse structure or \c nullptr if
+ *			there are no warehouses available with the required space.
+ */
+RobotCommand* getAvailableRobotCommand(StructureManager& _sm)
+{
+	for (auto _st : _sm.structureList(Structure::CLASS_WAREHOUSE))
+	{
+		RobotCommand* _rc = static_cast<RobotCommand*>(_st);
+		if (_rc->commandCapacityAvailable())
+		{
+			return _rc;
 		}
 	}
 

@@ -281,11 +281,11 @@ void GameState::drawDebug()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawText(mFont, string_format("FPS: %i", mFps.fps()), 10, 25, 255, 255, 255);
-	r.drawText(mFont, string_format("Map Dimensions: %i, %i", mTileMap->width(), mTileMap->height()), 10, 25 + mFont.height(), 255, 255, 255);
-	r.drawText(mFont, string_format("Max Digging Depth: %i", mTileMap->maxDepth()), 10, 25 + mFont.height() * 2, 255, 255, 255);
-	r.drawText(mFont, string_format("Map Mouse Hover Coords: %i, %i", mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY()), 10, 25 + mFont.height() * 3, 255, 255, 255);
-	r.drawText(mFont, string_format("Current Depth: %i", mTileMap->currentDepth()), 10, 25 + mFont.height() * 4, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("FPS: %i", mFps.fps()), 10, 25, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("Map Dimensions: %i, %i", mTileMap->width(), mTileMap->height()), 10, 25 + mTinyFont.height(), 255, 255, 255);
+	r.drawText(mTinyFont, string_format("Max Digging Depth: %i", mTileMap->maxDepth()), 10, 25 + mTinyFont.height() * 2, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("Map Mouse Hover Coords: %i, %i", mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY()), 10, 25 + mTinyFont.height() * 3, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("Current Depth: %i", mTileMap->currentDepth()), 10, 25 + mTinyFont.height() * 4, 255, 255, 255);
 
-	r.drawText(mFont, string_format("Structure Count: %i", mStructureManager.count()), 10, 25 + mFont.height() * 6, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("Structure Count: %i", mStructureManager.count()), 10, 25 + mTinyFont.height() * 6, 255, 255, 255);
 }

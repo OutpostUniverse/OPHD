@@ -26,6 +26,7 @@
 #include "SeedPower.h"
 #include "SeedSmelter.h"
 #include "Smelter.h"
+#include "SolarPanelArray.h"
 #include "SolarPlant.h"
 #include "StorageTanks.h"
 #include "SurfaceFactory.h"
