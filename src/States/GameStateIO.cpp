@@ -94,6 +94,9 @@ void GameState::load(const std::string& _path)
 	r.drawImage(*IMG_LOADING, r.center_x() - (IMG_LOADING->width() / 2), r.center_y() - (IMG_LOADING->height() / 2));
 	r.update();
 
+	mBtnToggleConnectedness.toggle(false);
+	mBtnToggleHeightmap.toggle(false);
+
 
 	if (!Utility<Filesystem>::get().exists(_path))
 	{
@@ -126,11 +129,10 @@ void GameState::load(const std::string& _path)
 		return;
 	}
 
-	// remove all robots currently deployed
 	scrubRobotList();
 	mPlayerResources.clear();
 	mStructureManager.dropAllStructures();
-	mCCLocation(0, 0);
+	mCCLocation(0, 0);	// Reset CC location 
 
 	if (mTileMap)
 	{
@@ -177,6 +179,10 @@ void GameState::load(const std::string& _path)
 
 	updateRobotControl(mRobotPool, mStructureManager);
 	updateResidentialCapacity();
+
+	if (mTurnCount == 0) { mBtnTurns.enabled(false); }
+
+	populateStructureMenu();
 
 	// set level indicator string
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];

@@ -16,6 +16,7 @@ Maintenance release with some features polished.
 - Fixed an issue in the Factory Production window which would fail to set the current production type when selecting a Factory leading to production queue being cleared when hitting the Okay button.
 - Fixed an oversight where warehouses didn't save/load any products that were stored in them.
 - Fixed an issue in loading code that would lead to a crash if loading a savegame where the SEED lander hasn't been placed yet after being in a game with a command center somewhere on the map.
+- Fixed an oversight that didn't reset all of the UI control states when switching to a new map when already in a game.
 
 
 ## [0.7.5] - 2018-05-11
