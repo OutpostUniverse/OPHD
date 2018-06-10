@@ -1,5 +1,5 @@
 # OutpostHD Readme
-OutpostHD is a remake of the original Outpost published by Siera On-Line in 1994. It is not a clone. It is complete redesign of the game taking the core concepts and build the game that Outpost should have been.
+OutpostHD is a reimplementation of OUTPOST published by Siera On-Line in 1994. It is not a clone. It's a complete redesign of OUTPOST taking the core concepts and reimplementing them in a much more fun and more responsive game.
 
 For up to the minute information, please visit The Outpost Universe's [online forum](http://forum.outpost2.net). You may also view [OutpostHD's Forum Thread](http://forum.outpost2.net/index.php/topic,5718.0.html) for additional details or to participate in the discussion.
 
