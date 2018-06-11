@@ -28,7 +28,7 @@ protected:
 
 	virtual void defineResourceInput()
 	{
-		resourcesIn().energy(1);
+		resourcesIn().energy(5);
 	}
 
 	virtual void defineResourceOutput()

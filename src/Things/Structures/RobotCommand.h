@@ -34,15 +34,15 @@ public:
 
 protected:
 
-	virtual void think()
+	virtual void think() final
 	{}
 
-	virtual void defineResourceInput()
+	virtual void defineResourceInput() final
 	{
-		resourcesIn().energy(1);
+		resourcesIn().energy(5);
 	}
 
-	virtual void defineResourceOutput()
+	virtual void defineResourceOutput() final
 	{}
 
 private:

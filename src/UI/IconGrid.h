@@ -56,6 +56,7 @@ public:
 	bool sorted() const { return mSorted; }
 	void sorted(bool _b) { mSorted = _b; }
 
+	void addItemSorted(const std::string& name, int sheetIndex, int meta);
 	void addItem(const std::string& name, int sheetIndex, int meta);
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);

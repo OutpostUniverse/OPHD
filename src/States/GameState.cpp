@@ -880,7 +880,7 @@ void GameState::checkRobotSelectionInterface(const std::string& rType, int sheet
 {
 	if (!mRobots.itemExists(rType))
 	{
-		mRobots.addItem(rType, sheetIndex, _rid);
+		mRobots.addItemSorted(rType, sheetIndex, _rid);
 	}
 }
 

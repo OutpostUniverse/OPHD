@@ -164,6 +164,20 @@ void IconGrid::sizeChanged()
 
 
 /**
+ * Adds an Icon Item to the IconGrid and sorts the list after addition.
+ * 
+ * \param	meta	User defined integer value. Defaults to 0.
+ *
+ * \note	This function does no sanity checking.
+ */
+void IconGrid::addItemSorted(const std::string& name, int sheetIndex, int meta)
+{
+	addItem(name, sheetIndex, meta);
+	sort();
+}
+
+
+/**
  * Adds an Icon Item to the IconGrid.
  * 
  * \param	meta	User defined integer value. Defaults to 0.
@@ -182,8 +196,6 @@ void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
 	_item.name = name;
 	_item.pos((float)x_pos, (float)y_pos);
 	_item.meta = meta;
-
-	sort();
 }
 
 

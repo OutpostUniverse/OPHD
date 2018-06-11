@@ -302,7 +302,6 @@ void GameState::populateStructureMenu()
 		mConnections.addItem(constants::AG_TUBE_RIGHT, 112, CONNECTOR_RIGHT);
 		mConnections.addItem(constants::AG_TUBE_LEFT, 111, CONNECTOR_LEFT);
 
-
 		// Special case code, not thrilled with this
 		if (mLandersColonist > 0) { mStructures.addItem(constants::COLONIST_LANDER, 2, SID_COLONIST_LANDER); }
 		if (mLandersCargo > 0) { mStructures.addItem(constants::CARGO_LANDER, 1, SID_CARGO_LANDER); }
@@ -327,6 +326,9 @@ void GameState::populateStructureMenu()
 	}
 
 	updateStructuresAvailability();
+
+	mStructures.sort();
+	mConnections.sort();
 }
 
 

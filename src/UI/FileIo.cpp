@@ -133,6 +133,7 @@ void FileIo::scanDirectory(const std::string& _dir)
 			mListBox.addItem(dirList[i]);
 		}
 	}
+	mListBox.sort();
 }
 
 

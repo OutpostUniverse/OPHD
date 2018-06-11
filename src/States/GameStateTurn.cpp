@@ -296,11 +296,7 @@ void GameState::nextTurn()
 
 	updateResources();
 
-	Structure* cc = mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), TileMap::LEVEL_SURFACE)->structure();
-	if (cc->state() == Structure::OPERATIONAL)
-	{
-		populateStructureMenu();
-	}
+	populateStructureMenu();
 
 	checkColonyShip();
 
