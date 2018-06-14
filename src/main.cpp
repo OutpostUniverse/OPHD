@@ -167,7 +167,7 @@ int main(int argc, char *argv[])
 	}
 	catch(const std::exception& e)
 	{
-		cout << e.what() << endl;
+		doNonFatalErrorMessage("Application Error", e.what());
 	}
 
 	#ifdef NDEBUG
