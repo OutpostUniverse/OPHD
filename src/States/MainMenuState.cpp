@@ -120,8 +120,25 @@ void MainMenuState::fileIoAction(const std::string& _file, FileIo::FileOperation
 	if (_op != FileIo::FILE_LOAD) { return; }
 	if (_file.empty()) { return; }
 
-	mReturnState = new GameState(constants::SAVE_GAME_PATH + _file + ".xml");
-	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+	std::string filename = constants::SAVE_GAME_PATH + _file + ".xml";
+
+	if (!Utility<Filesystem>::get().exists(filename))
+	{
+		doNonFatalErrorMessage("Load Failed", "File '" + filename + "' was not found.");
+		return;
+	}
+
+	try
+	{
+		checkSavegameVersion(filename);
+		mReturnState = new GameState(filename);
+		Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+	}
+	catch (const std::exception& e)
+	{
+		mReturnState = this;
+		doNonFatalErrorMessage("Load Failed", e.what());
+	}
 }
 
 
