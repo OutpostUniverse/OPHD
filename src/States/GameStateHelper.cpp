@@ -22,6 +22,9 @@
 using namespace NAS2D::Xml;
 
 
+extern int ROBOT_ID_COUNTER; /// \fixme Kludge
+
+
 /**
  * Checks to see if a given tube connection is valid.
  * 
@@ -312,6 +315,7 @@ RobotCommand* getAvailableRobotCommand(StructureManager& _sm)
  */
 void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, RobotType _type)
 {
+	_ti->attribute("id", _r->id());
 	_ti->attribute("type", _type);
 	_ti->attribute("age", _r->fuelCellAge());
 	_ti->attribute("production", _r->turnsToCompleteTask());
@@ -337,29 +341,31 @@ void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot
 void writeRobots(XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm)
 {
 	XmlElement* robots = new XmlElement("robots");
+	robots->attribute("id_counter", ROBOT_ID_COUNTER);
 
 	RobotPool::DiggerList& diggers = _rp.diggers();
-	for (size_t i = 0; i < diggers.size(); ++i)
+
+	for (auto digger : diggers)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, _rm, static_cast<Robot*>(diggers[i]), ROBOT_DIGGER);
-		robot->attribute("direction", diggers[i]->direction());
+		checkRobotDeployment(robot, _rm, digger, ROBOT_DIGGER);
+		robot->attribute("direction", digger->direction());
 		robots->linkEndChild(robot);
 	}
 
 	RobotPool::DozerList& dozers = _rp.dozers();
-	for (size_t i = 0; i < dozers.size(); ++i)
+	for (auto dozer : dozers)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, _rm, static_cast<Robot*>(dozers[i]), ROBOT_DOZER);
+		checkRobotDeployment(robot, _rm, dozer, ROBOT_DOZER);
 		robots->linkEndChild(robot);
 	}
 
 	RobotPool::MinerList& miners = _rp.miners();
-	for (size_t i = 0; i < miners.size(); ++i)
+	for (auto miner : miners)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, _rm, static_cast<Robot*>(miners[i]), ROBOT_MINER);
+		checkRobotDeployment(robot, _rm, miner, ROBOT_MINER);
 		robots->linkEndChild(robot);
 	}
 

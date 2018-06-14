@@ -32,6 +32,9 @@ extern NAS2D::Image* IMG_LOADING;	/// \fixme	Hate having these as externs.
 extern NAS2D::Image* IMG_SAVING;
 
 
+extern int ROBOT_ID_COUNTER; /// \fixme Kludge
+
+
 /**
  * 
  */
@@ -100,7 +103,7 @@ void GameState::load(const std::string& _path)
 
 	if (!Utility<Filesystem>::get().exists(_path))
 	{
-		return;
+		throw std::runtime_error("File '" + _path + "' was not found.");
 	}
 
 	File xmlFile = Utility<Filesystem>::get().open(_path);
@@ -111,28 +114,25 @@ void GameState::load(const std::string& _path)
 	doc.parse(xmlFile.raw_bytes());
 	if (doc.error())
 	{
-		cout << "Malformed savegame ('" << _path << "'). Error on Row " << doc.errorRow() << ", Column " << doc.errorCol() << ": " << doc.errorDesc() << endl;
-		return;
+		throw std::runtime_error("Malformed savegame ('" + _path + "'). Error on Row " + std::to_string(doc.errorRow()) + ", Column " + std::to_string(doc.errorCol()) + ": " + doc.errorDesc());
 	}
 
 	XmlElement* root = doc.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
 	if (root == nullptr)
 	{
-		cout << "Root element in '" << _path << "' is not '" << constants::SAVE_GAME_ROOT_NODE << "'." << endl;
-		return;
+		throw std::runtime_error("Root element in '" + _path + "' is not '" + constants::SAVE_GAME_ROOT_NODE + "'.");
 	}
 
 	std::string sg_version = root->attribute("version");
 	if (sg_version != constants::SAVE_GAME_VERSION)
 	{
-		cout << "Savegame version mismatch: '" << _path << "'. Expected " << constants::SAVE_GAME_VERSION << ", found " << sg_version << "." << endl;
-		return;
+		throw std::runtime_error("Savegame version mismatch: '" + _path + "'. Expected " + constants::SAVE_GAME_VERSION + ", found " + sg_version + ".");
 	}
 
 	scrubRobotList();
 	mPlayerResources.clear();
 	mStructureManager.dropAllStructures();
-	mCCLocation(0, 0);	// Reset CC location 
+	mCCLocation(0, 0);	// Reset CC location
 
 	if (mTileMap)
 	{
@@ -198,21 +198,27 @@ void GameState::readRobots(XmlElement* _ti)
 	mRobotList.clear();
 	mRobots.dropAllItems();
 
-	int type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
+	/**
+	 * \fixme	This is fragile and prone to break if the savegame file is malformed.
+	 */
+	_ti->firstAttribute()->queryIntValue(ROBOT_ID_COUNTER);
+
+	int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
 	XmlAttribute* attribute = nullptr;
 	for (XmlNode* robot = _ti->firstChild(); robot; robot = robot->nextSibling())
 	{
-		type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
+		id = type = age = production_time = x = y = depth = direction = 0;
 		attribute = robot->toElement()->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "type") { attribute->queryIntValue(type); }
-			else if (attribute->name() == "age") { attribute->queryIntValue(age); }
-			else if (attribute->name() == "production") { attribute->queryIntValue(production_time); }
-			else if (attribute->name() == "x") { attribute->queryIntValue(x); }
-			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
-			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
-			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
+			if (attribute->name() == "id")				{ attribute->queryIntValue(id); }
+			else if (attribute->name() == "type")		{ attribute->queryIntValue(type); }
+			else if (attribute->name() == "age")		{ attribute->queryIntValue(age); }
+			else if (attribute->name() == "production")	{ attribute->queryIntValue(production_time); }
+			else if (attribute->name() == "x")			{ attribute->queryIntValue(x); }
+			else if (attribute->name() == "y")			{ attribute->queryIntValue(y); }
+			else if (attribute->name() == "depth")		{ attribute->queryIntValue(depth); }
+			else if (attribute->name() == "direction")	{ attribute->queryIntValue(direction); }
 
 			attribute = attribute->next();
 		}
@@ -221,18 +227,18 @@ void GameState::readRobots(XmlElement* _ti)
 		switch (static_cast<RobotType>(type))
 		{
 		case ROBOT_DIGGER:
-			r = mRobotPool.addRobot(ROBOT_DIGGER);
+			r = mRobotPool.addRobot(ROBOT_DIGGER, id);
 			r->taskComplete().connect(this, &GameState::diggerTaskFinished);
 			static_cast<Robodigger*>(r)->direction(static_cast<Direction>(direction));
 			break;
 
 		case ROBOT_DOZER:
-			r = mRobotPool.addRobot(ROBOT_DOZER);
+			r = mRobotPool.addRobot(ROBOT_DOZER, id);
 			r->taskComplete().connect(this, &GameState::dozerTaskFinished);
 			break;
 
 		case ROBOT_MINER:
-			r = mRobotPool.addRobot(ROBOT_MINER);
+			r = mRobotPool.addRobot(ROBOT_MINER, id);
 			r->taskComplete().connect(this, &GameState::minerTaskFinished);
 			break;
 

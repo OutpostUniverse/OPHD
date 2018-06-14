@@ -4,6 +4,8 @@
 #include "RobotPool.h"
 
 
+extern int ROBOT_ID_COUNTER; /// \fixme	Kludge
+
 /**
  * C'tor
  */
@@ -58,22 +60,29 @@ void RobotPool::clear()
  * \return Returns a pointer to the recently.
  * \return Returns a nullptr if the robot type was invalid or unsupported.
  */
-Robot* RobotPool::addRobot(RobotType _type)
+Robot* RobotPool::addRobot(RobotType _type, int id)
 {
+	int _id = 0;
+	if (id == 0) { _id = ++ROBOT_ID_COUNTER; }
+	else { _id = id; }
+
 	switch (_type)
 	{
 	case ROBOT_DOZER:
 		mDozers.push_back(new Robodozer());
+		mDozers.back()->id(_id);
 		return mDozers.back();
 		break;
 
 	case ROBOT_DIGGER:
 		mDiggers.push_back(new Robodigger());
+		mDiggers.back()->id(_id);
 		return mDiggers.back();
 		break;
 
 	case ROBOT_MINER:
 		mMiners.push_back(new Robominer());
+		mMiners.back()->id(_id);
 		return mMiners.back();
 		break;
 

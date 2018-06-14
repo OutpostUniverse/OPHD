@@ -5,12 +5,8 @@
 
 using namespace std;
 
-Robot::Robot(const string& name, const string& sprite_path) :	Thing(name, sprite_path),
-																mFuelCellAge(0),
-																mTurnsToCompleteTask(0),
-																mSelfDestruct(false)
-{
-}
+Robot::Robot(const string& name, const string& sprite_path) :	Thing(name, sprite_path)
+{}
 
 
 Robot::~Robot()

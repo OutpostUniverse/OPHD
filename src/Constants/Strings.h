@@ -21,7 +21,7 @@ namespace constants
 	// = SAVE GAMES
 	// =====================================
 	const string	SAVE_GAME_PATH = "savegames/";
-	const string	SAVE_GAME_VERSION = "0.25";
+	const string	SAVE_GAME_VERSION = "0.30";
 	const string	SAVE_GAME_ROOT_NODE = "OutpostHD_SaveGame";
 
 

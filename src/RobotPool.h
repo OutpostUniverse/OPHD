@@ -17,7 +17,7 @@ public:
 	RobotPool();
 	~RobotPool();
 
-	Robot* addRobot(RobotType _type);
+	Robot* addRobot(RobotType _type, int id = 0);
 
 	Robodigger* getDigger();
 	Robodozer* getDozer();

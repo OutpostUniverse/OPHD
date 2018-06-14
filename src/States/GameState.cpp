@@ -34,6 +34,8 @@ const int MAX_TILESET_INDEX	= 4;
 extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.
 extern NAS2D::Image* IMG_SAVING;	/// \fixme Find a sane place for this.
 
+int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
+
 Rectangle_2d MENU_ICON;
 
 Rectangle_2d MOVE_NORTH_ICON;
@@ -42,7 +44,6 @@ Rectangle_2d MOVE_EAST_ICON;
 Rectangle_2d MOVE_WEST_ICON;
 Rectangle_2d MOVE_UP_ICON;
 Rectangle_2d MOVE_DOWN_ICON;
-
 
 std::string CURRENT_LEVEL_STRING;
 
