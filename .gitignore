@@ -10,3 +10,5 @@
 /proj/vc14/.vs/OPHD/v14/*.suo
 /*.log
 /proj/vc14/*.user
+/proj/vc14/StructureAligner/Release
+/proj/vc14/StructureAligner/Debug
