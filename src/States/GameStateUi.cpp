@@ -551,7 +551,22 @@ void GameState::btnGameOverClicked()
  */
 void GameState::fileIoAction(const std::string& _file, FileIo::FileOperation _op)
 {
-	_op == FileIo::FILE_LOAD ? load(constants::SAVE_GAME_PATH + _file + ".xml") : save(constants::SAVE_GAME_PATH + _file + ".xml");
+	if (_op == FileIo::FILE_LOAD)
+	{
+		try
+		{
+			load(constants::SAVE_GAME_PATH + _file + ".xml");
+		}
+		catch (const std::exception& e)
+		{
+			doNonFatalErrorMessage("Load Failed", e.what());
+			return;
+		}
+	}
+	else
+	{
+		save(constants::SAVE_GAME_PATH + _file + ".xml");
+	}
 
 	mFileIoDialog.hide();
 }
