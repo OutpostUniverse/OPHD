@@ -9,11 +9,15 @@ using namespace NAS2D;
 #include <iostream>
 #include <string>
 
+/**
+ * Class implementing a Thing interface.
+ */
 class Thing
 {
 public:
 	typedef NAS2D::Signals::Signal1<Thing*> DieCallback;
 
+public:
 	Thing(const std::string& name, const std::string& sprite_path):	mName(name),
 																	mSprite(sprite_path)
 	{}
@@ -48,15 +52,13 @@ public:
 
 	DieCallback& onDie() { return mDieCallback; }
 
-protected:
-
 private:
-
 	// No default copy constructor, or copy operator
 	// Calling these should result in an error
 	Thing(const Thing& thing) = delete;
 	Thing& operator=(const Thing& thing) = delete;
 
+private:
 	std::string		mName;			/**< Name of the Thing. */
 	Sprite			mSprite;		/**< Sprite used to represent the Thing. */
 
