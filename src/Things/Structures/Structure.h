@@ -156,10 +156,10 @@ protected:
 	void setPopulationRequirements(const PopulationRequirements& pr) { mPopulationRequirements = pr; }
 
 private:
-	Structure();	// Excplicitly declared private
+	Structure() = delete;
 
 	void incrementAge();
-	virtual void die();
+	virtual void die() final;
 
 private:
 	int						mId;						/**< ID of the Structure. */

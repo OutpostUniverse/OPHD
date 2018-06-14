@@ -33,17 +33,13 @@ public:
 	void removeRobot(Robot* _r);
 
 protected:
-
-	virtual void think() final
-	{}
+	virtual void think() final {}
+	virtual void defineResourceOutput() final {}
 
 	virtual void defineResourceInput() final
 	{
 		resourcesIn().energy(5);
 	}
-
-	virtual void defineResourceOutput() final
-	{}
 
 private:
 	std::vector<Robot*>		mRobotList;
