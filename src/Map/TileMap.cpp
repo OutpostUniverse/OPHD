@@ -275,21 +275,34 @@ void TileMap::draw()
 				if (mShowConnections)
 				{
 					if (tile->connected())
+					{
 						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 0, 255, 0, 255);
+					}
 					else
+					{
 						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT);
+					}
 				}
 				else
 				{
-					r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT);
+					if (row == mMapHighlight.y() && col == mMapHighlight.x())
+					{
+						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 125, 200, 255, 255);
+					}
+					else
+					{
+						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT);
+					}
 				}
 
+				/*
 				if (row == mMapHighlight.y() && col == mMapHighlight.x())
 				{
 					r.drawImage(mTileSelector,
 								mMapPosition.x() + ((mMapHighlight.x() - mMapHighlight.y()) * TILE_HALF_WIDTH),
 								mMapPosition.y() + (mMapHighlight.x() + mMapHighlight.y()) * TILE_HEIGHT_HALF_ABSOLUTE);
 				}
+				*/
 
 				// Draw a beacon on an unoccupied tile with a mine
 				if (tile->mine() != nullptr && !tile->thing())

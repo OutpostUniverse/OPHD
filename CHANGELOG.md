@@ -12,6 +12,10 @@ Maintenance release with some features polished.
 ### Changed
 - Tweaked fade transitions between states.
 - Minor performance improvements regarding item sorting in the IconGrid UI panels.
+- TileMap selector has been changed from an image outline highlight to highlighting the entire tile.
+- Tweaked energy requirements for most structures to make energy requirements more realistic and something to genuinely contend with in gameplay.
+- Errors when loading savegames will now display an OS dialog box letting the user know about the issue (currently only works on Windows, Mac and Linux code will need to be updated to conform).
+- Savegame protocol updated to 0.30 (from 0.25) due to breaking changes in data saved. Savegame's from older versions will no longer load.
 
 ### Fixed
 - Fixed an issue in the Factory Production window which would fail to set the current production type when selecting a Factory leading to production queue being cleared when hitting the Okay button.
