@@ -232,6 +232,7 @@
     <ClInclude Include="..\..\src\ProductPool.h" />
     <ClInclude Include="..\..\src\ResourcePool.h" />
     <ClInclude Include="..\..\src\RobotPool.h" />
+    <ClInclude Include="..\..\src\RobotPoolHelper.h" />
     <ClInclude Include="..\..\src\States\GameState.h" />
     <ClInclude Include="..\..\src\States\GameStateHelper.h" />
     <ClInclude Include="..\..\src\States\MainMenuState.h" />

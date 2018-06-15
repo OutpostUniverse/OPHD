@@ -2,9 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 #include "RobotPool.h"
-
+#include "RobotPoolHelper.h"
 
 extern int ROBOT_ID_COUNTER; /// \fixme	Kludge
+
 
 /**
  * C'tor
@@ -31,24 +32,10 @@ RobotPool::~RobotPool()
  */
 void RobotPool::clear()
 {
-	for (size_t i = 0; i < mDiggers.size(); i++)
-	{
-		delete mDiggers[i];
-	}
+	clearRobots(mDiggers);
+	clearRobots(mDozers);
+	clearRobots(mMiners);
 
-	for (size_t i = 0; i < mDozers.size(); i++)
-	{
-		delete mDozers[i];
-	}
-
-	for (size_t i = 0; i < mMiners.size(); i++)
-	{
-		delete mMiners[i];
-	}
-
-	mDiggers.clear();
-	mDozers.clear();
-	mMiners.clear();
 	mRobotControlCount = 0;
 	mRobotControlMax = 0;
 }
@@ -101,12 +88,7 @@ Robot* RobotPool::addRobot(RobotType _type, int id)
  */
 Robodigger* RobotPool::getDigger()
 {
-	for (size_t i = 0; i < mDiggers.size(); i++)
-	{
-		if (mDiggers[i]->idle()) { return mDiggers[i]; }
-	}
-
-	return nullptr;
+	return static_cast<Robodigger*>(getRobot(mDiggers));
 }
 
 
@@ -117,12 +99,7 @@ Robodigger* RobotPool::getDigger()
  */
 Robodozer* RobotPool::getDozer()
 {
-	for (size_t i = 0; i < mDozers.size(); i++)
-	{
-		if (mDozers[i]->idle()) { return mDozers[i]; }
-	}
-
-	return nullptr;
+	return static_cast<Robodozer*>(getRobot(mDozers));
 }
 
 
@@ -133,12 +110,7 @@ Robodozer* RobotPool::getDozer()
  */
 Robominer* RobotPool::getMiner()
 {
-	for (size_t i = 0; i < mMiners.size(); i++)
-	{
-		if (mMiners[i]->idle()) { return mMiners[i]; }
-	}
-
-	return nullptr;
+	return static_cast<Robominer*>(getRobot(mMiners));
 }
 
 
@@ -173,66 +145,24 @@ bool RobotPool::robotAvailable(RobotType _type)
 
 
 /**
- * Determines if all robotos of all types are busy.
- * 
- * \todo	Is this function really necessary?
- */
-bool RobotPool::allRobotsBusy()
-{
-	for (size_t i = 0; i < mDozers.size(); i++)
-	{
-		if (mDozers[i]->idle()) { return false; }
-	}
-
-	for (size_t i = 0; i < mDiggers.size(); i++)
-	{
-		if (mDiggers[i]->idle()) { return false; }
-	}
-
-	for (size_t i = 0; i < mMiners.size(); i++)
-	{
-		if (mMiners[i]->idle()) { return false; }
-	}
-
-	return true;
-}
-
-
-/**
  * 
  */
 int RobotPool::getAvailableCount(RobotType _type)
 {
-	int count = 0;
 	switch (_type)
 	{
 	case ROBOT_DIGGER:
-		for (size_t i = 0; i < mDiggers.size(); i++)
-		{
-			if (mDiggers[i]->idle()) count++;
-		}
-		break;
+		return getIdleCount(mDiggers);
 
 	case ROBOT_DOZER:
-		for (size_t i = 0; i < mDozers.size(); i++)
-		{
-			if (mDozers[i]->idle()) count++;
-		}
-		break;
+		return getIdleCount(mDozers);
 
 	case ROBOT_MINER:
-		for (size_t i = 0; i < mMiners.size(); i++)
-		{
-			if (mMiners[i]->idle()) count++;
-		}
-		break;
+		return getIdleCount(mMiners);
 
 	default:
 		return 0;
-		break;
 	}
-
-	return count;
 }
 
 
@@ -244,20 +174,9 @@ void RobotPool::InitRobotCtrl(uint32_t maxRobotCtrl)
 	mRobotControlMax = maxRobotCtrl;
 	mRobotControlCount = 0;
 
-	for (size_t i = 0; i < mDiggers.size(); ++i)
-	{
-		if (!mDiggers[i]->idle() && !mDiggers[i]->dead()) { mRobotControlCount++; }
-	}
-
-	for (size_t i = 0; i < mDozers.size(); ++i)
-	{
-		if (!mDozers[i]->idle() && !mDozers[i]->dead()) { mRobotControlCount++; }
-	}
-
-	for (size_t i = 0; i < mMiners.size(); ++i)
-	{
-		if (!mMiners[i]->idle() && !mMiners[i]->dead()) { mRobotControlCount++; }
-	}
+	updateRobotControlCount(mDiggers, mRobotControlCount);
+	updateRobotControlCount(mDozers, mRobotControlCount);
+	updateRobotControlCount(mMiners, mRobotControlCount);
 }
 
 
@@ -268,7 +187,7 @@ void RobotPool::AddRobotCtrl()
 {
 	if (mRobotControlMax > mRobotControlCount)
 	{
-		mRobotControlCount++;
+		++mRobotControlCount;
 	}
 }
 

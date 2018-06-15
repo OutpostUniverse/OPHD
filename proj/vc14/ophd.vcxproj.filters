@@ -500,6 +500,9 @@
     <ClInclude Include="..\..\src\Things\Structures\SolarPanelArray.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\RobotPoolHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

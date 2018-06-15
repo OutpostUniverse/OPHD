@@ -24,7 +24,6 @@ public:
 	Robominer* getMiner();
 
 	bool robotAvailable(RobotType _type);
-	bool allRobotsBusy();
 	int getAvailableCount(RobotType _type);
 
 	void InitRobotCtrl(uint32_t MaxRobotCtrl);
