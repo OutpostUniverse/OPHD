@@ -143,9 +143,8 @@ void TileMap::setupMines(int mineCount)
 	{
 		Point_2d pt(mwidth(), mheight());
 
-		// Ugly
-		if(mTileMap[0][pt.y()][pt.x()].mine())
-			continue;
+		
+		if (mTileMap[0][pt.y()][pt.x()].mine()) { continue; } // Ugly
 
 		float probability = 0.05f * mTileMap[0][pt.y()][pt.x()].index();
 
@@ -155,12 +154,9 @@ void TileMap::setupMines(int mineCount)
 			
 			// Choose a production rate
 			// FIXME: Kind of a naive approach to this... would be nice to weight things better.
-			if(myield() < 60)
-				m = new Mine(Mine::PRODUCTION_RATE_MEDIUM);
-			else if(myield() < 30)
-				m = new Mine(Mine::PRODUCTION_RATE_HIGH);
-			else
-				m = new Mine(Mine::PRODUCTION_RATE_LOW);
+			if (myield() < 60) { m = new Mine(Mine::PRODUCTION_RATE_MEDIUM); }
+			else if (myield() < 30) { m = new Mine(Mine::PRODUCTION_RATE_HIGH); }
+			else { m = new Mine(Mine::PRODUCTION_RATE_LOW); }
 			
 			mTileMap[0][pt.y()][pt.x()].pushMine(m);
 			mTileMap[0][pt.y()][pt.x()].index(TERRAIN_DOZED);
@@ -202,16 +198,11 @@ void TileMap::buildMouseMap()
 		for(size_t col = 0; col < TILE_WIDTH; col++)
 		{
 			Color_4ub c = mousemap.pixelColor(col, row);
-			if(c.red() == 255 && c.green() == 255)
-				mMouseMap[row][col] = MMR_BOTTOM_RIGHT;
-			else if(c.red() == 255)
-				mMouseMap[row][col] = MMR_TOP_LEFT;
-			else if(c.blue() == 255)
-				mMouseMap[row][col] = MMR_TOP_RIGHT;
-			else if(c.green() == 255)
-				mMouseMap[row][col] = MMR_BOTTOM_LEFT;
-			else
-				mMouseMap[row][col] = MMR_MIDDLE;
+			if (c.red() == 255 && c.green() == 255)	{ mMouseMap[row][col] = MMR_BOTTOM_RIGHT; }
+			else if (c.red() == 255)				{ mMouseMap[row][col] = MMR_TOP_LEFT; }
+			else if (c.blue() == 255)				{ mMouseMap[row][col] = MMR_TOP_RIGHT; }
+			else if (c.green() == 255)				{ mMouseMap[row][col] = MMR_BOTTOM_LEFT; }
+			else									{ mMouseMap[row][col] = MMR_MIDDLE; }
 		}
 	}
 }
@@ -332,44 +323,45 @@ void TileMap::draw()
  */
 void TileMap::updateTileHighlight()
 {
-	if (isPointInRect(mMousePosition, mMapBoundingBox))
+	if (!isPointInRect(mMousePosition, mMapBoundingBox))
 	{
-		/// In the case of even edge lengths, we need to adjust the mouse picking code a bit.
-		int even_edge_length_adjust = 0;
-		if (edgeLength() % 2 == 0) { even_edge_length_adjust = TILE_HALF_WIDTH; }
-
-		int offsetX = ((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) / TILE_WIDTH);
-		int offsetY = ((mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE);
-		mMapHighlight(TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX);
-
-		int mmOffsetX = clamp((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
-		int mmOffsetY = (mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE;
-
-		MouseMapRegion mmr = getMouseMapRegion(mmOffsetX, mmOffsetY);
-
-
-		switch (mmr)
-		{
-		case MMR_TOP_RIGHT:
-			mMapHighlight.y(--mMapHighlight.y());
-			break;
-
-		case MMR_TOP_LEFT:
-			mMapHighlight.x(--mMapHighlight.x());
-			break;
-
-		case MMR_BOTTOM_RIGHT:
-			mMapHighlight.x(++mMapHighlight.x());
-			break;
-
-		case MMR_BOTTOM_LEFT:
-			mMapHighlight.y(++mMapHighlight.y());
-			break;
-
-		default:
-			break;
-		};
+		return;
 	}
+
+	/// In the case of even edge lengths, we need to adjust the mouse picking code a bit.
+	int even_edge_length_adjust = 0;
+	if (edgeLength() % 2 == 0) { even_edge_length_adjust = TILE_HALF_WIDTH; }
+
+	int offsetX = ((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) / TILE_WIDTH);
+	int offsetY = ((mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE);
+	mMapHighlight(TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX);
+
+	int mmOffsetX = clamp((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
+	int mmOffsetY = (mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE;
+
+	MouseMapRegion mmr = getMouseMapRegion(mmOffsetX, mmOffsetY);
+
+	switch (mmr)
+	{
+	case MMR_TOP_RIGHT:
+		mMapHighlight.y(--mMapHighlight.y());
+		break;
+
+	case MMR_TOP_LEFT:
+		mMapHighlight.x(--mMapHighlight.x());
+		break;
+
+	case MMR_BOTTOM_RIGHT:
+		mMapHighlight.x(++mMapHighlight.x());
+		break;
+
+	case MMR_BOTTOM_LEFT:
+		mMapHighlight.y(++mMapHighlight.y());
+		break;
+
+	default:
+		break;
+	};
 }
 
 
@@ -473,9 +465,9 @@ void TileMap::deserialize(XmlElement* _ti)
 	XmlAttribute* attribute = view_parameters->firstAttribute();
 	while (attribute)
 	{
-		if (attribute->name() == "viewlocation_x") attribute->queryIntValue(view_x);
-		else if (attribute->name() == "viewlocation_y") attribute->queryIntValue(view_y);
-		else if (attribute->name() == "currentdepth") attribute->queryIntValue(view_depth);
+		if (attribute->name() == "viewlocation_x")		{ attribute->queryIntValue(view_x); }
+		else if (attribute->name() == "viewlocation_y")	{ attribute->queryIntValue(view_y); }
+		else if (attribute->name() == "currentdepth")	{ attribute->queryIntValue(view_depth); }
 		attribute = attribute->next();
 	}
 
@@ -487,13 +479,13 @@ void TileMap::deserialize(XmlElement* _ti)
 		attribute = mine->toElement()->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "x") attribute->queryIntValue(x);
-			else if (attribute->name() == "y") attribute->queryIntValue(y);
-			else if (attribute->name() == "age") attribute->queryIntValue(age);
-			else if (attribute->name() == "depth") attribute->queryIntValue(depth);
-			else if (attribute->name() == "active") attribute->queryIntValue(active);
-			else if (attribute->name() == "exhausted") attribute->queryIntValue(exhausted);
-			else if (attribute->name() == "yield") attribute->queryIntValue(yield);
+			if (attribute->name() == "x")				{ attribute->queryIntValue(x); }
+			else if (attribute->name() == "y")			{ attribute->queryIntValue(y); }
+			else if (attribute->name() == "age")		{ attribute->queryIntValue(age); }
+			else if (attribute->name() == "depth")		{ attribute->queryIntValue(depth); }
+			else if (attribute->name() == "active")		{ attribute->queryIntValue(active); }
+			else if (attribute->name() == "exhausted")	{ attribute->queryIntValue(exhausted); }
+			else if (attribute->name() == "yield")		{ attribute->queryIntValue(yield); }
 
 			attribute = attribute->next();
 		}
@@ -518,18 +510,17 @@ void TileMap::deserialize(XmlElement* _ti)
 		attribute = tile->toElement()->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "x") attribute->queryIntValue(x);
-			else if (attribute->name() == "y") attribute->queryIntValue(y);
-			else if (attribute->name() == "depth") attribute->queryIntValue(depth);
-			else if (attribute->name() == "index") attribute->queryIntValue(index);
+			if (attribute->name() == "x")			{ attribute->queryIntValue(x); }
+			else if (attribute->name() == "y")		{ attribute->queryIntValue(y); }
+			else if (attribute->name() == "depth")	{ attribute->queryIntValue(depth); }
+			else if (attribute->name() == "index")	{ attribute->queryIntValue(index); }
 
 			attribute = attribute->next();
 		}
 
 		mTileMap[depth][y][x].index(static_cast<TerrainType>(index));
 
-		if (depth > 0)
-			mTileMap[depth][y][x].excavated(true);
+		if (depth > 0) { mTileMap[depth][y][x].excavated(true); }
 	}
 }
 
