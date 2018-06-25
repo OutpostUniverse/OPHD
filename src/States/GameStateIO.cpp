@@ -366,6 +366,11 @@ void GameState::readStructures(XmlElement* _ti)
 			f->productionComplete().connect(this, &GameState::factoryProductionComplete);
 		}
 
+		/**
+		 * This is a little fragile in that it assumes that everything it expects is
+		 * encoded in the XML savegame. While there are some basic guards in place when
+		 * loading the code doesn't do any checking for garbage for the sake of brevity.
+		 */
 		if (st->isRobotCommand())
 		{
 			RobotCommand* rcc = static_cast<RobotCommand*>(st);

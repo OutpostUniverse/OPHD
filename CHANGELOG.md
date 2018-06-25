@@ -16,6 +16,8 @@ Maintenance release with some features polished.
 - Tweaked energy requirements for most structures to make energy requirements more realistic and something to genuinely contend with in gameplay.
 - Errors when loading savegames will now display an OS dialog box letting the user know about the issue (currently only works on Windows, Mac and Linux code will need to be updated to conform).
 - Savegame protocol updated to 0.30 (from 0.25) due to breaking changes in data saved. Savegame's from older versions will no longer load.
+- Robots beyond the first three robots are now stored within a Robot Command Center.
+- Factories producing robots will go Idle if no Robot Command Capacity is available.
 
 ### Fixed
 - Fixed an issue in the Factory Production window which would fail to set the current production type when selecting a Factory leading to production queue being cleared when hitting the Okay button.
@@ -24,6 +26,7 @@ Maintenance release with some features polished.
 - Fixed an oversight that didn't reset all of the UI control states when switching to a new map when already in a game.
 - Fixed an issue regarding loading games in which structure states were not properly set.
 - Fixed an issue when first starting a colony that would fail to set population requirements for initial structures.
+- Fixed a mistake that allowed the user to bulldoze the landing site for a Cargo Lander.
 
 
 ## [0.7.5] - 2018-05-11

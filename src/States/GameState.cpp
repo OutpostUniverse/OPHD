@@ -735,7 +735,7 @@ void GameState::placeRobot()
 				return;
 			}
 
-			if (_s->name() == constants::COLONIST_LANDER && _s->age() == 0)
+			if ((_s->name() == constants::COLONIST_LANDER || _s->name() == constants::CARGO_LANDER) && _s->age() == 0)
 			{
 				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::LANDER_NO_BULLDOZE); ///\fixme Change this to an invalid dozer warning.
 				cout << "Can't place a bulldozer on a landing site!" << endl;
