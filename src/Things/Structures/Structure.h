@@ -109,6 +109,7 @@ public:
 	bool selfSustained() const { return mSelfSustained; }
 	bool isFactory() const { return structureClass() == CLASS_FACTORY; }
 	bool isWarehouse() const { return structureClass() == CLASS_WAREHOUSE; }
+	bool isRobotCommand() const { return structureClass() == CLASS_ROBOT_COMMAND; }
 	bool energyProducer() const { return structureClass() == CLASS_ENERGY_PRODUCTION; }
 	bool repairable() const { return mRepairable; }
 	bool isConnector() const { return structureClass() == CLASS_TUBE; } /** Indicates that the structure can act as a connector (tube) */

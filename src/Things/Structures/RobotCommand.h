@@ -32,6 +32,8 @@ public:
 	void addRobot(Robot* _r);
 	void removeRobot(Robot* _r);
 
+	const RobotList& robots() { return mRobotList; }
+
 protected:
 	virtual void think() final {}
 	virtual void defineResourceOutput() final {}
@@ -42,5 +44,5 @@ protected:
 	}
 
 private:
-	std::vector<Robot*>		mRobotList;
+	RobotList	mRobotList;
 };

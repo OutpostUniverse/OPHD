@@ -157,8 +157,13 @@ void GameState::load(const std::string& _path)
 	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, 0, false);
 	mTileMap->deserialize(root);
 
+	/**
+	 * In the case of loading a game, the Robot Command Center depends on the robot list
+	 * having already been loaded in order to match up the robots in the save game to
+	 * the RCC.
+	 */
+	readRobots(root->firstChildElement("robots"));	
 	readStructures(root->firstChildElement("structures"));
-	readRobots(root->firstChildElement("robots"));
 
 	readResources(root->firstChildElement("resources"), mPlayerResources);
 	readPopulation(root->firstChildElement("population"));
@@ -359,6 +364,29 @@ void GameState::readStructures(XmlElement* _ti)
 			f->productionTurnsCompleted(production_completed);
 			f->resourcePool(&mPlayerResources);
 			f->productionComplete().connect(this, &GameState::factoryProductionComplete);
+		}
+
+		if (st->isRobotCommand())
+		{
+			RobotCommand* rcc = static_cast<RobotCommand*>(st);
+			XmlAttribute* robots = structure->firstChildElement("robots")->firstAttribute();
+
+			StringList rl_str = split_string(robots->value().c_str(), ',');
+
+			const RobotList& rl = mRobotPool.robots();
+
+			for (size_t i = 0; i < rl_str.size(); ++i)
+			{
+				int _rid = std::stoi(rl_str[i]);
+				for (size_t ri = 0; ri < rl.size(); ++ri)
+				{
+					if (rl[ri]->id() == _rid)
+					{
+						rcc->addRobot(rl[ri]);
+						break;
+					}
+				}
+			}
 		}
 
 		mStructureManager.addStructure(st, t);

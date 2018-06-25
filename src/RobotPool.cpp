@@ -35,6 +35,7 @@ void RobotPool::clear()
 	clearRobots(mDiggers);
 	clearRobots(mDozers);
 	clearRobots(mMiners);
+	mRobots.clear();
 
 	mRobotControlCount = 0;
 	mRobotControlMax = 0;
@@ -58,18 +59,21 @@ Robot* RobotPool::addRobot(RobotType _type, int id)
 	case ROBOT_DOZER:
 		mDozers.push_back(new Robodozer());
 		mDozers.back()->id(_id);
+		mRobots.push_back(mDozers.back());
 		return mDozers.back();
 		break;
 
 	case ROBOT_DIGGER:
 		mDiggers.push_back(new Robodigger());
 		mDiggers.back()->id(_id);
+		mRobots.push_back(mDiggers.back());
 		return mDiggers.back();
 		break;
 
 	case ROBOT_MINER:
 		mMiners.push_back(new Robominer());
 		mMiners.back()->id(_id);
+		mRobots.push_back(mMiners.back());
 		return mMiners.back();
 		break;
 
@@ -88,7 +92,8 @@ Robot* RobotPool::addRobot(RobotType _type, int id)
  */
 Robodigger* RobotPool::getDigger()
 {
-	return static_cast<Robodigger*>(getRobot(mDiggers));
+	Robodigger* _r = static_cast<Robodigger*>(getRobot(mDiggers));
+	return _r;
 }
 
 
@@ -99,7 +104,8 @@ Robodigger* RobotPool::getDigger()
  */
 Robodozer* RobotPool::getDozer()
 {
-	return static_cast<Robodozer*>(getRobot(mDozers));
+	Robodozer* _r = static_cast<Robodozer*>(getRobot(mDozers));
+	return _r;
 }
 
 
@@ -110,7 +116,8 @@ Robodozer* RobotPool::getDozer()
  */
 Robominer* RobotPool::getMiner()
 {
-	return static_cast<Robominer*>(getRobot(mMiners));
+	Robominer* _r = static_cast<Robominer*>(getRobot(mMiners));
+	return _r;
 }
 
 

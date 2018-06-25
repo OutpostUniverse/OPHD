@@ -10,6 +10,7 @@
 #include "Things/Structures/Structures.h"
 
 #include <algorithm>
+#include <sstream>
 
 using namespace NAS2D::Xml;
 
@@ -441,6 +442,23 @@ void StructureManager::serialize(XmlElement* _ti)
 			XmlElement* warehouse_products = new XmlElement("warehouse_products");
 			static_cast<Warehouse*>(it->first)->products().serialize(warehouse_products);
 			structure->linkEndChild(warehouse_products);
+		}
+
+		if (it->first->isRobotCommand())
+		{
+			XmlElement* robots = new XmlElement("robots");
+
+			const RobotList& rl = static_cast<RobotCommand*>(it->first)->robots();
+
+			std::stringstream str;
+			for (size_t i = 0; i < rl.size(); ++i)
+			{
+				str << rl[i]->id();
+				if (i != rl.size() - 1) { str << ","; }	// kind of a kludge
+			}
+
+			robots->attribute("robots", str.str());
+			structure->linkEndChild(robots);
 		}
 
 		structures->linkEndChild(structure);

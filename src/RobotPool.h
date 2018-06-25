@@ -40,10 +40,14 @@ public:
 	uint32_t robotControlMax() { return mRobotControlMax; };
 	uint32_t currentControlCount() { return mRobotControlCount; };
 
+	const RobotList& robots() const { return mRobots; }
+
 private:
 	DiggerList		mDiggers;
 	DozerList		mDozers;
 	MinerList		mMiners;
+
+	RobotList		mRobots;	// List of all robots by pointer to base class
 
 	uint32_t		mRobotControlMax = 0;
 	uint32_t		mRobotControlCount = 0;

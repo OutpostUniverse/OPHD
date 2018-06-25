@@ -30,8 +30,6 @@ private:
 	virtual void onFontChanged();
 
 	virtual void draw();
-
-	StringList split(const char *str, char delim = ' ');
 	void processString();
 
 private:

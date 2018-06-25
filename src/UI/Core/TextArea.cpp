@@ -3,6 +3,8 @@
 
 #include "TextArea.h"
 
+#include "../../Common.h"
+
 #include <vector>
 
 TextArea::TextArea() : mNumLines(0)
@@ -13,24 +15,6 @@ TextArea::~TextArea()
 {}
 
 
-StringList TextArea::split(const char *str, char delim)
-{
-	std::vector<std::string> result;
-
-	do
-	{
-		const char *begin = str;
-
-		while (*str != delim && *str)
-			str++;
-
-		result.push_back(std::string(begin, str));
-	} while (0 != *str++);
-
-	return result;
-}
-
-
 void TextArea::processString()
 {
 	mFormattedList.clear();
@@ -38,7 +22,7 @@ void TextArea::processString()
 	if (width() < 1 || !fontSet() || text().empty())
 		return;
 
-	StringList tokenList = split(text().c_str());
+	StringList tokenList = split_string(text().c_str(), ' ');
 	
 	size_t w = 0, i = 0;
 	while (i < tokenList.size())

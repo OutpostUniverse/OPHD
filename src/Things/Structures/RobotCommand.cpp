@@ -44,6 +44,7 @@ void RobotCommand::addRobot(Robot* _r)
 		throw std::runtime_error("RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility.");
 	}
 
+	mRobotList.push_back(_r);
 }
 
 
