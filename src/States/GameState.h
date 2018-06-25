@@ -112,6 +112,7 @@ private:
 	void checkConnectedness();
 	bool changeDepth(int _d);
 
+	void GameState::pullRobotFromFactory(ProductType pt, Factory& factory);
 	void factoryProductionComplete(Factory& factory);
 
 	// TURN LOGIC

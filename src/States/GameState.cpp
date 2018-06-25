@@ -743,6 +743,10 @@ void GameState::placeRobot()
 			}
 
 			/**
+			 * \todo	Add check for RCC deletion.
+			 */
+
+			/**
 			 * \fixme	Since the StructureTranslator class will be deprecated in the future, there needs to be a better
 			 * 			way to determine this. I may go back to defining recycling values in the individual structures
 			 * 			themselves but I'm still not sure I love that idea. Will have to think about that one a bit.

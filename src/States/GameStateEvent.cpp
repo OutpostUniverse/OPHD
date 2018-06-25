@@ -13,9 +13,9 @@
 #include "../Things/Structures/Structures.h"
 
 
-static void pullRobotFromFactory(ProductType pt, RobotPool& rp, Factory& factory, StructureManager& sm)
+void GameState::pullRobotFromFactory(ProductType pt, Factory& factory)
 {
-	RobotCommand* _rc = getAvailableRobotCommand(sm);
+	RobotCommand* _rc = getAvailableRobotCommand(mStructureManager);
 	if (_rc)
 	{
 		Robot* r = nullptr;
@@ -23,15 +23,28 @@ static void pullRobotFromFactory(ProductType pt, RobotPool& rp, Factory& factory
 		switch (pt)
 		{
 		case PRODUCT_DIGGER:
+			r = mRobotPool.addRobot(ROBOT_DIGGER);
+			r->taskComplete().connect(this, &GameState::diggerTaskFinished);
+			factory.pullProduct();
+			break;
+
 		case PRODUCT_DOZER:
+			r = mRobotPool.addRobot(ROBOT_DOZER);
+			r->taskComplete().connect(this, &GameState::dozerTaskFinished);
+			factory.pullProduct();
+			break;
+
 		case PRODUCT_MINER:
+			r = mRobotPool.addRobot(ROBOT_MINER);
+			r->taskComplete().connect(this, &GameState::minerTaskFinished);
+			factory.pullProduct();
 			break;
 
 		default:
 			throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
 		}
-		//mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
-		_rc->addRobot(nullptr);
+
+		_rc->addRobot(r);
 	}
 	else
 	{
@@ -45,35 +58,26 @@ static void pullRobotFromFactory(ProductType pt, RobotPool& rp, Factory& factory
  * Called whenever a Factory's production is complete.
  */
 void GameState::factoryProductionComplete(Factory& factory)
-{
-	cout << "Factory '" << factory.id() << "' has finished producing ";
-	
+{	
 	StructureManager::StructureList& warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
 
 	switch (factory.productWaiting())
 	{
 	case PRODUCT_DIGGER:
-		cout << "RoboDigger" << endl;
-		mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
-		factory.pullProduct();	/// \todo	robots need to be checked against robot storage, see issue #7
+		pullRobotFromFactory(PRODUCT_DIGGER, factory);
 		break;
 
 	case PRODUCT_DOZER:
-		cout << "RoboDozer" << endl;
-		mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
-		factory.pullProduct();	/// \todo	robots need to be checked against robot storage, see issue #7
+		pullRobotFromFactory(PRODUCT_DOZER, factory);
 		break;
 
 	case PRODUCT_MINER:
-		cout << "RoboMiner" << endl;
-		mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
-		factory.pullProduct();	/// \todo	robots need to be checked against robot storage, see issue #7
+		pullRobotFromFactory(PRODUCT_MINER, factory);
 		break;
 
 	case PRODUCT_ROAD_MATERIALS:
 	case PRODUCT_CLOTHING:
 	case PRODUCT_MEDICINE:
-		cout << endl;
 		{
 			Warehouse* _wh = getAvailableWarehouse(mStructureManager, factory.productWaiting(), 1);
 			if (_wh) { _wh->products().store(factory.productWaiting(), 1); factory.pullProduct(); }

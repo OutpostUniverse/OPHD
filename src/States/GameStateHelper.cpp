@@ -293,7 +293,7 @@ Warehouse* getAvailableWarehouse(StructureManager& _sm, ProductType _pt, size_t 
  */
 RobotCommand* getAvailableRobotCommand(StructureManager& _sm)
 {
-	for (auto _st : _sm.structureList(Structure::CLASS_WAREHOUSE))
+	for (auto _st : _sm.structureList(Structure::CLASS_ROBOT_COMMAND))
 	{
 		RobotCommand* _rc = static_cast<RobotCommand*>(_st);
 		if (_rc->commandCapacityAvailable())
