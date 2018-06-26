@@ -50,11 +50,11 @@ void TileInspector::update()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawText(mBold, "Has Mine:", rect().x() + 5, rect().y() + 23, 255, 255, 255);
+	r.drawText(mBold, "Has Mine:", rect().x() + 5, rect().y() + 25, 255, 255, 255);
 
 	if(mTile->mine())
 	{
-		r.drawText(font(), "Yes", rect().x() + 5 + mBold.width("Has Mine: "), rect().y() + 23, 255, 255, 255);
+		r.drawText(font(), "Yes", rect().x() + 5 + mBold.width("Has Mine: "), rect().y() + 25, 255, 255, 255);
 
 		r.drawText(mBold, "Active:", rect().x() + 5, rect().y() + 35, 255, 255, 255);
 
