@@ -149,6 +149,7 @@ int main(int argc, char *argv[])
 
 		StateManager stateManager;
 
+		/*
 		if (cf.option("skip-splash") == "false")
 		{
 			stateManager.setState(new SplashState());
@@ -157,6 +158,8 @@ int main(int argc, char *argv[])
 		{
 			stateManager.setState(new MainMenuState());
 		}
+		*/
+		stateManager.setState(new GameState( "savegames/Mine Interface Test.xml"));
 
 		// Game Loop
 		while (stateManager.update())

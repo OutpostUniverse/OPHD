@@ -26,26 +26,32 @@ void Mine::productionRate(MineProductionRate _rate)
 	switch(mProductionRate)
 	{
 		case PRODUCTION_RATE_LOW:
-			commonMetalsRate(10);
-			rareMetalsRate(7);
-			commonMineralsRate(10);
-			rareMineralsRate(7);
+			commonMetalsRate(150);
+			rareMetalsRate(125);
+			commonMineralsRate(150);
+			rareMineralsRate(125);
 			break;
 
 		case PRODUCTION_RATE_MEDIUM:
-			commonMetalsRate(15);
-			rareMetalsRate(10);
-			commonMineralsRate(13);
-			rareMineralsRate(10);
+			commonMetalsRate(200);
+			rareMetalsRate(175);
+			commonMineralsRate(200);
+			rareMineralsRate(175);
 			break;
 
 		case PRODUCTION_RATE_HIGH:
-			commonMetalsRate(20);
-			rareMetalsRate(16);
-			commonMineralsRate(20);
-			rareMineralsRate(16);
+			commonMetalsRate(250);
+			rareMetalsRate(200);
+			commonMineralsRate(250);
+			rareMineralsRate(200);
 			break;
 	}
+}
+
+
+bool Mine::exhausted() const
+{
+	return mCommonMetalYield == 0 && mRareMetalYield == 0 && mCommonMineralYield == 0 && mRareMineralYield == 0;
 }
 
 
@@ -57,9 +63,7 @@ void Mine::update()
 
 void Mine::serialize(XmlElement* _ti)
 {
-	_ti->attribute("age", age());
 	_ti->attribute("depth", depth());
 	_ti->attribute("active", active());
-	_ti->attribute("exhausted", exhausted());
 	_ti->attribute("yield", productionRate());
 }

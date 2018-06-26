@@ -13,8 +13,7 @@ public:
 	bool active() const { return mActive; }
 	void active(bool _b) { mActive = _b; }
 
-	bool exhausted() const { return mExhausted; }
-	void exhausted(bool _b) { mExhausted = _b; }
+	bool exhausted() const;
 
 	bool yieldsCommonMetals() const { return commonMetalsRate() > 0; }
 	bool yieldsRareMetals() const { return rareMetalsRate() > 0; }
@@ -22,9 +21,6 @@ public:
 	bool yieldsRareMinerals() const { return rareMineralsRate() > 0; }
 
 	MineProductionRate productionRate() { return mProductionRate; }
-
-	int age() const { return mAge; }
-	void age(int _a) { mAge = _a; }
 
 	int depth() const { return mDepth; }
 	void depth(int _d) { mDepth = _d; }
@@ -52,16 +48,14 @@ private:
 	Mine& operator=(const Mine&) = delete;
 
 private:
-	int						mAge = 0;								/**< Age of the mine in turns. */
-	int						mDepth = 0;								/**< Depth of the Mine. */
+	int					mDepth = 0;								/**< Depth of the Mine. */
 
-	int						mCommonMetalYield = 0;					/**<  */
-	int						mRareMetalYield = 0;					/**<  */
-	int						mCommonMineralYield = 0;				/**<  */
-	int						mRareMineralYield = 0;					/**<  */
+	int					mCommonMetalYield = 0;					/**< Total per level of the mine. */
+	int					mRareMetalYield = 0;					/**< Total per level of the mine. */
+	int					mCommonMineralYield = 0;				/**< Total per level of the mine. */
+	int					mRareMineralYield = 0;					/**< Total per level of the mine. */
 
-	MineProductionRate		mProductionRate = PRODUCTION_RATE_LOW;	/**< Mine's production rate. */
+	MineProductionRate	mProductionRate = PRODUCTION_RATE_LOW;	/**< Mine's production rate. */
 
-	bool					mActive = false;						/**< Flag indicating whether this mine is active or not. */
-	bool					mExhausted = false;						/**< Flag indicating that this mine can no longer produce anything. */
+	bool				mActive = false;						/**< Flag indicating whether this mine is active or not. */
 };
