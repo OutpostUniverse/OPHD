@@ -216,6 +216,9 @@
     <ClCompile Include="..\..\src\Things\Structures\RobotCommand.cpp">
       <Filter>Source Files\Things\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Things\Structures\MineFacility.cpp">
+      <Filter>Source Files\Things\Structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">

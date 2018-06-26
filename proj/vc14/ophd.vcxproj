@@ -190,6 +190,7 @@
     <ClCompile Include="..\..\src\StructureTranslator.cpp" />
     <ClCompile Include="..\..\src\Things\Robots\Robot.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Factory.cpp" />
+    <ClCompile Include="..\..\src\Things\Structures\MineFacility.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\RobotCommand.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Structure.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Button.cpp" />
