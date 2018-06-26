@@ -52,16 +52,16 @@ private:
 	Mine& operator=(const Mine&) = delete;
 
 private:
-	int						mAge;						/**< Age of the mine in turns. */
-	int						mDepth;						/**< Depth of the Mine. */
+	int						mAge = 0;								/**< Age of the mine in turns. */
+	int						mDepth = 0;								/**< Depth of the Mine. */
 
-	int						mCommonMetalYield;			/**<  */
-	int						mRareMetalYield;			/**<  */
-	int						mCommonMineralYield;		/**<  */
-	int						mRareMineralYield;			/**<  */
+	int						mCommonMetalYield = 0;					/**<  */
+	int						mRareMetalYield = 0;					/**<  */
+	int						mCommonMineralYield = 0;				/**<  */
+	int						mRareMineralYield = 0;					/**<  */
 
-	MineProductionRate		mProductionRate;			/**< Mine's production rate. */
+	MineProductionRate		mProductionRate = PRODUCTION_RATE_LOW;	/**< Mine's production rate. */
 
-	bool					mActive;					/**< Flag indicating whether this mine is active or not. */
-	bool					mExhausted;					/**< Flag indicating that this mine can no longer produce anything. */
+	bool					mActive = false;						/**< Flag indicating whether this mine is active or not. */
+	bool					mExhausted = false;						/**< Flag indicating that this mine can no longer produce anything. */
 };
