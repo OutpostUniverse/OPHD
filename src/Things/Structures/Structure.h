@@ -107,12 +107,15 @@ public:
 	bool requiresCHAP() const { return mRequiresCHAP; }
 	bool providesCHAP() const { return structureClass() == CLASS_LIFE_SUPPORT; }
 	bool selfSustained() const { return mSelfSustained; }
+	bool repairable() const { return mRepairable; }
+
+	// CONVENIENCE FUCNTIONS
 	bool isFactory() const { return structureClass() == CLASS_FACTORY; }
 	bool isWarehouse() const { return structureClass() == CLASS_WAREHOUSE; }
 	bool isRobotCommand() const { return structureClass() == CLASS_ROBOT_COMMAND; }
+	bool isMineFacility() const { return structureClass() == CLASS_MINE; }
 	bool energyProducer() const { return structureClass() == CLASS_ENERGY_PRODUCTION; }
-	bool repairable() const { return mRepairable; }
-	bool isConnector() const { return structureClass() == CLASS_TUBE; } /** Indicates that the structure can act as a connector (tube) */
+	bool isConnector() const { return structureClass() == CLASS_TUBE; }	/** Indicates that the structure can act as a connector (tube) */
 
 	// BASIC FUNCTIONS
 	void update();

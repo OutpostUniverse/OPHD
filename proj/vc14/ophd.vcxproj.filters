@@ -219,6 +219,9 @@
     <ClCompile Include="..\..\src\Things\Structures\MineFacility.cpp">
       <Filter>Source Files\Things\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\MineOperationsWindow.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -505,6 +508,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\RobotPoolHelper.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\MineOperationsWindow.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

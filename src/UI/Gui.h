@@ -7,6 +7,7 @@
 #include "GameOptionsDialog.h"
 #include "IconGrid.h"
 #include "MajorEventAnnouncement.h"
+#include "MineOperationsWindow.h"
 #include "PopulationPanel.h"
 #include "StructureInspector.h"
 #include "TileInspector.h"

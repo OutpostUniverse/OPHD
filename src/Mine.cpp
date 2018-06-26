@@ -9,16 +9,7 @@ using namespace std;
 using namespace NAS2D::Xml;
 
 
-Mine::Mine(ProductionRate _rate):	mAge(0),
-									mDepth(0),
-									mCommonMetalYield(0),
-									mRareMetalYield(0),
-									mCommonMineralYield(0),
-									mRareMineralYield(0),
-									mProductionRate(_rate),
-									mActive(false),
-									mExhausted(false)
-
+Mine::Mine(MineProductionRate _rate) : mProductionRate(_rate)
 {
 	productionRate(_rate);
 }
@@ -28,7 +19,7 @@ Mine::~Mine()
 {}
 
 
-void Mine::productionRate(ProductionRate _rate)
+void Mine::productionRate(MineProductionRate _rate)
 {
 	mProductionRate = _rate;
 

@@ -1,19 +1,13 @@
 #pragma once
 
+#include "Common.h"
+
 #include "NAS2D/NAS2D.h"
 
 class Mine
 {
 public:
-
-	enum ProductionRate
-	{
-		PRODUCTION_RATE_LOW,
-		PRODUCTION_RATE_MEDIUM,
-		PRODUCTION_RATE_HIGH,
-	};
-
-	Mine(ProductionRate _rate);
+	Mine(MineProductionRate _rate);
 	~Mine();
 
 	bool active() const { return mActive; }
@@ -27,7 +21,7 @@ public:
 	bool yieldsCommonMinerals() const { return commonMineralsRate() > 0; }
 	bool yieldsRareMinerals() const { return rareMineralsRate() > 0; }
 
-	ProductionRate productionRate() { return mProductionRate; }
+	MineProductionRate productionRate() { return mProductionRate; }
 
 	int age() const { return mAge; }
 	void age(int _a) { mAge = _a; }
@@ -45,14 +39,17 @@ public:
 	void serialize(NAS2D::Xml::XmlElement* _ti);
 
 private:
-	Mine();
-
-	void productionRate(ProductionRate _rate);
+	void productionRate(MineProductionRate _rate);
 
 	void commonMetalsRate(int _rate) { mCommonMetalYield = _rate; }
 	void rareMetalsRate(int _rate) { mRareMetalYield = _rate; };
 	void commonMineralsRate(int _rate) { mCommonMineralYield = _rate; };
 	void rareMineralsRate(int _rate) { mRareMineralYield = _rate; };
+
+private:
+	Mine() = delete;
+	Mine(const Mine&) = delete;
+	Mine& operator=(const Mine&) = delete;
 
 private:
 	int						mAge;						/**< Age of the mine in turns. */
@@ -63,7 +60,7 @@ private:
 	int						mCommonMineralYield;		/**<  */
 	int						mRareMineralYield;			/**<  */
 
-	ProductionRate			mProductionRate;			/**< Mine's production rate. */
+	MineProductionRate		mProductionRate;			/**< Mine's production rate. */
 
 	bool					mActive;					/**< Flag indicating whether this mine is active or not. */
 	bool					mExhausted;					/**< Flag indicating that this mine can no longer produce anything. */

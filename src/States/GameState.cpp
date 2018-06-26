@@ -74,6 +74,7 @@ GameState::GameState(const string& savegame) :
 	mGameOverDialog(mTinyFont),
 	mGameOptionsDialog(mTinyFont),
 	mAnnouncement(mTinyFont),
+	mMineOperationsWindow(mTinyFont),
 	mStructureInspector(mTinyFont),
 	mTileInspector(mTinyFont),
 	mWarehouseInspector(mTinyFont),
@@ -106,6 +107,7 @@ GameState::GameState(const string& sm, const string& t, int d, int mc) :
 	mGameOverDialog(mTinyFont),
 	mGameOptionsDialog(mTinyFont),
 	mAnnouncement(mTinyFont),
+	mMineOperationsWindow(mTinyFont),
 	mStructureInspector(mTinyFont),
 	mTileInspector(mTinyFont),
 	mWarehouseInspector(mTinyFont)
@@ -441,7 +443,7 @@ void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if (button == EventHandler::BUTTON_RIGHT)
 	{
-		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
+		if (mWindowStack.pointInWindow(mMousePosition)) { return; }
 
 		if (mInsertMode != INSERT_NONE)
 		{
@@ -449,9 +451,9 @@ void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			return;
 		}
 
-		if (!mTileMap->tileHighlightVisible())
-			return;
+		if (!mTileMap->tileHighlightVisible()) { return; }
 
+		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
 		if (!_t)
 		{
 			return;
@@ -478,6 +480,12 @@ void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 				mWarehouseInspector.warehouse(static_cast<Warehouse*>(_s));
 				mWarehouseInspector.show();
 				mWindowStack.bringToFront(&mWarehouseInspector);
+			}
+			else if (_s->isMineFacility())
+			{
+				mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(_s));
+				mMineOperationsWindow.show();
+				mWindowStack.bringToFront(&mMineOperationsWindow);
 			}
 			else
 			{

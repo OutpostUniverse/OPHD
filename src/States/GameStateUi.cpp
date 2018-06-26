@@ -107,7 +107,7 @@ void GameState::initUi()
 	mGameOptionsDialog.hide();
 
 	mAnnouncement.hide();
-
+	mMineOperationsWindow.hide();
 	mWarehouseInspector.hide();
 
 	mWindowStack.addWindow(&mTileInspector);
@@ -116,6 +116,7 @@ void GameState::initUi()
 	mWindowStack.addWindow(&mDiggerDirection);
 	mWindowStack.addWindow(&mAnnouncement);
 	mWindowStack.addWindow(&mWarehouseInspector);
+	mWindowStack.addWindow(&mMineOperationsWindow);
 
 	BOTTOM_UI_AREA(0, static_cast<int>(r.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(r.width()), constants::BOTTOM_UI_HEIGHT);
 
@@ -216,6 +217,7 @@ void GameState::setupUiPositions()
 	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), static_cast<int>(r.height() / 2) - 125);
 
 	mWarehouseInspector.position(centerWindowWidth(mWarehouseInspector.width()), centerWindowHeight(mWarehouseInspector.height()) - 100);
+	mMineOperationsWindow.position(centerWindowWidth(mMineOperationsWindow.width()), centerWindowHeight(mMineOperationsWindow.height()) - 100);
 
 	/**
 	 * \note	We are not setting the tile inspector window's position here because it's something that can be

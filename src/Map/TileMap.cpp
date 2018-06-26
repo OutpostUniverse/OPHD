@@ -154,9 +154,9 @@ void TileMap::setupMines(int mineCount)
 			
 			// Choose a production rate
 			// FIXME: Kind of a naive approach to this... would be nice to weight things better.
-			if (myield() < 60) { m = new Mine(Mine::PRODUCTION_RATE_MEDIUM); }
-			else if (myield() < 30) { m = new Mine(Mine::PRODUCTION_RATE_HIGH); }
-			else { m = new Mine(Mine::PRODUCTION_RATE_LOW); }
+			if (myield() < 60) { m = new Mine(PRODUCTION_RATE_MEDIUM); }
+			else if (myield() < 30) { m = new Mine(PRODUCTION_RATE_HIGH); }
+			else { m = new Mine(PRODUCTION_RATE_LOW); }
 			
 			mTileMap[0][pt.y()][pt.x()].pushMine(m);
 			mTileMap[0][pt.y()][pt.x()].index(TERRAIN_DOZED);
@@ -490,7 +490,7 @@ void TileMap::deserialize(XmlElement* _ti)
 			attribute = attribute->next();
 		}
 
-		Mine* m = new Mine(static_cast<Mine::ProductionRate>(yield));
+		Mine* m = new Mine(static_cast<MineProductionRate>(yield));
 		m->age(age);
 		m->depth(depth);
 		m->active(active > 0);

@@ -4,9 +4,7 @@
 #include <memory>
 #include <string>
 
-
 #include <NAS2D/NAS2D.h>
-
 
 /**
  * Digger robot digging direction.
@@ -32,6 +30,14 @@ enum TerrainType
 	TERRAIN_ROUGH,
 	TERRAIN_DIFFICULT,
 	TERRAIN_IMPASSABLE
+};
+
+
+enum MineProductionRate
+{
+	PRODUCTION_RATE_LOW,
+	PRODUCTION_RATE_MEDIUM,
+	PRODUCTION_RATE_HIGH,
 };
 
 
@@ -232,6 +238,10 @@ typedef std::array<int, 2> PopulationRequirements;
 
 class Robot;
 typedef std::vector<Robot*> RobotList;
+
+extern std::map<int, std::string> TILE_INDEX_TRANSLATION;
+extern std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
+
 
 /**
  * Convenience function to pass a Rectangle_2df to \c isPointInRect()

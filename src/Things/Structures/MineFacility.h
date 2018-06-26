@@ -18,6 +18,11 @@ public:
 protected:
 	virtual void think();
 
+protected:
+	friend class MineOperationsWindow;
+
+	Mine* mine() { return mMine; }
+
 private:
 	MineFacility() = delete;
 	MineFacility(const MineFacility&) = delete;

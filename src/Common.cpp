@@ -15,6 +15,25 @@
 
 using namespace NAS2D;
 
+
+std::map<int, std::string> TILE_INDEX_TRANSLATION =
+{
+	{ 0, "Bulldozed" },
+	{ 1, "Clear" },
+	{ 2, "Rough" },
+	{ 3, "Difficult" },
+	{ 4, "Impassable" },
+};
+
+
+std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
+{
+	{ PRODUCTION_RATE_HIGH , "High" },
+	{ PRODUCTION_RATE_LOW , "Low" },
+	{ PRODUCTION_RATE_MEDIUM , "Medium" }
+};
+
+
 /**
  * Convenience function to pass a Rectangle_2df to \c isPointInRect()
  */

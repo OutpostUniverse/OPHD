@@ -8,8 +8,7 @@
 #include <map>
 #include <sstream>
 
-std::map<int, std::string> TileIndexTranslation;
-std::map<Mine::ProductionRate, std::string> MineProductionTranslation;
+
 
 
 TileInspector::TileInspector(Font& font):	mBold("fonts/opensans-bold.ttf", 10),
@@ -36,17 +35,6 @@ void TileInspector::init()
 	btnClose.text("Close");
 	btnClose.size(50, 20);
 	btnClose.click().connect(this, &TileInspector::btnCloseClicked);
-
-	// Build translation tables.
-	TileIndexTranslation[0] = "Bulldozed";
-	TileIndexTranslation[1] = "Clear";
-	TileIndexTranslation[2] = "Rough";
-	TileIndexTranslation[3] = "Difficult";
-	TileIndexTranslation[4] = "Impassable";
-
-	MineProductionTranslation[Mine::ProductionRate::PRODUCTION_RATE_HIGH] = "High";
-	MineProductionTranslation[Mine::ProductionRate::PRODUCTION_RATE_LOW] = "Low";
-	MineProductionTranslation[Mine::ProductionRate::PRODUCTION_RATE_MEDIUM] = "Medium";
 }
 
 
@@ -80,7 +68,7 @@ void TileInspector::update()
 		}
 
 		r.drawText(mBold, "Production Rate:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
-		r.drawText(font(), MineProductionTranslation[mTile->mine()->productionRate()], rect().x() + 5 + mBold.width("Production Rate: "), rect().y() + 45, 255, 255, 255);
+		r.drawText(font(), MINE_YIELD_TRANSLATION[mTile->mine()->productionRate()], rect().x() + 5 + mBold.width("Production Rate: "), rect().y() + 45, 255, 255, 255);
 	}
 	else
 	{
@@ -91,7 +79,7 @@ void TileInspector::update()
 	r.drawText(font(), string_format("%i, %i", mTile->x(), mTile->y()), rect().x() + 5 + mBold.width("Location: "), rect().y() + 62, 255, 255, 255);
 
 	r.drawText(mBold, "Terrain:", rect().x() + 5, rect().y() + 72, 255, 255, 255);
-	r.drawText(font(), TileIndexTranslation[mTile->index()], rect().x() + 5 + mBold.width("Terrain: "), rect().y() + 72, 255, 255, 255);
+	r.drawText(font(), TILE_INDEX_TRANSLATION[mTile->index()], rect().x() + 5 + mBold.width("Terrain: "), rect().y() + 72, 255, 255, 255);
 }
 
 

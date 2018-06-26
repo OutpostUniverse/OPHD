@@ -224,6 +224,7 @@ private:
 	GameOverDialog		mGameOverDialog;				/**< Game over window. */
 	GameOptionsDialog	mGameOptionsDialog;				/**< Options List window. */
 	MajorEventAnnouncement	mAnnouncement;				/**< Announcements window. */
+	MineOperationsWindow	mMineOperationsWindow;		/**< Mine Operations window. */
 	PopulationPanel		mPopulationPanel;				/**< Population panel. */
 	StructureInspector	mStructureInspector;			/**< Structure Inspector window. */
 	TileInspector		mTileInspector;					/**< Tile Inspector window. */
