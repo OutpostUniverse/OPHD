@@ -18,19 +18,19 @@ using namespace NAS2D;
 
 std::map<int, std::string> TILE_INDEX_TRANSLATION =
 {
-	{ 0, "Bulldozed" },
-	{ 1, "Clear" },
-	{ 2, "Rough" },
-	{ 3, "Difficult" },
-	{ 4, "Impassable" },
+	{ 0, constants::TILE_INDEX_TRANSLATION_BULLDOZED },
+	{ 1, constants::TILE_INDEX_TRANSLATION_CLEAR },
+	{ 2, constants::TILE_INDEX_TRANSLATION_ROUGH },
+	{ 3, constants::TILE_INDEX_TRANSLATION_DIFFICULT },
+	{ 4, constants::TILE_INDEX_TRANSLATION_IMPASSABLE },
 };
 
 
 std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 {
-	{ PRODUCTION_RATE_HIGH , "High" },
-	{ PRODUCTION_RATE_LOW , "Low" },
-	{ PRODUCTION_RATE_MEDIUM , "Medium" }
+	{ PRODUCTION_RATE_HIGH , constants::MINE_YIELD_HIGH },
+	{ PRODUCTION_RATE_LOW , constants::MINE_YIELD_LOW },
+	{ PRODUCTION_RATE_MEDIUM , constants::MINE_YIELD_MEDIUM }
 };
 
 
