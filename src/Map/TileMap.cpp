@@ -475,27 +475,26 @@ void TileMap::deserialize(XmlElement* _ti)
 	currentDepth(view_depth);
 	for (XmlNode* mine = _ti->firstChildElement("mines")->firstChildElement("mine"); mine; mine = mine->nextSibling())
 	{
-		int x = 0, y = 0, depth = 0, active = 0, yield = 0;
+		int x = 0, y = 0;
+	
 		attribute = mine->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x")				{ attribute->queryIntValue(x); }
 			else if (attribute->name() == "y")			{ attribute->queryIntValue(y); }
-			else if (attribute->name() == "depth")		{ attribute->queryIntValue(depth); }
-			else if (attribute->name() == "active")		{ attribute->queryIntValue(active); }
-			else if (attribute->name() == "yield")		{ attribute->queryIntValue(yield); }
-
 			attribute = attribute->next();
 		}
 
-		Mine* m = new Mine(static_cast<MineProductionRate>(yield));
-		m->depth(depth);
-		m->active(active > 0);
+		Mine* m = new Mine();
+		m->deserialize(mine->toElement());
 
 		mTileMap[0][y][x].pushMine(m);
 		mTileMap[0][y][x].index(TERRAIN_DOZED);
 
 		mMineLocations.push_back(Point_2d(x, y));
+
+		/// \fixme	Legacy code to assist in updating older versions of save games between 0.7.5 and 0.7.6. Remove in 0.8.0
+		if (m->depth() == 0 && m->active()) { m->increaseDepth(); }
 	}
 
 	// TILES AT INDEX 0 WITH NO THING'S

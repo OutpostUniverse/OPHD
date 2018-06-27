@@ -42,12 +42,12 @@ void MineFacility::think()
 			return;
 		}
 
-		mMine->update();
-
+		/*
 		production().pushResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, mMine->commonMetalsRate());
 		production().pushResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, mMine->commonMineralsRate());
 		production().pushResource(ResourcePool::RESOURCE_RARE_METALS_ORE, mMine->rareMetalsRate());
 		production().pushResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, mMine->rareMineralsRate());
+		*/
 
 		storage().pushResources(production());
 	}
