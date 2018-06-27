@@ -27,6 +27,7 @@ protected:
 private:
 	void btnOkayClicked();
 	void btnCancelClicked();
+	void btnExtendShaftClicked();
 
 
 	MineOperationsWindow() = delete;
@@ -43,4 +44,6 @@ private:
 
 	Button				btnOkay;
 	Button				btnCancel;
+
+	Button				btnExtendShaft;
 };

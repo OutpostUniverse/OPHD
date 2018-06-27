@@ -7,6 +7,13 @@
 
 
 static std::string		MINE_YIELD;
+static std::string		MINE_DEPTH;
+
+static const int		MINE_YIELD_POSITION = 148;
+static int				MINE_YIELD_DESCRIPTION_POSITION = 0;
+
+static const int		MINE_DEPTH_POSITION = 300;
+static int				MINE_DEPTH_VALUE_POSITION;
 
 
 /**
@@ -32,20 +39,26 @@ MineOperationsWindow::~MineOperationsWindow()
  */
 void MineOperationsWindow::init()
 {
-	size(450, 275);
+	size(450, 250);
 
 	// Set up GUI Layout
-	addControl("btnOkay", &btnOkay, 233, 138);
-	btnOkay.font(font());
-	btnOkay.text("Okay");
-	btnOkay.size(40, 20);
-	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
-
-	addControl("btnCancel", &btnCancel, 276, 138);
+	addControl("btnCancel", &btnCancel, width() - 70, 210);
 	btnCancel.font(font());
 	btnCancel.text("Cancel");
-	btnCancel.size(40, 20);
+	btnCancel.size(60, 30);
 	btnCancel.click().connect(this, &MineOperationsWindow::btnCancelClicked);
+
+	addControl("btnOkay", &btnOkay, btnCancel.positionX() - 62, 210);
+	btnOkay.font(font());
+	btnOkay.text("Okay");
+	btnOkay.size(60, 30);
+	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
+
+	addControl("btnExtendShaft", &btnExtendShaft, btnOkay.positionX() - 102, 210);
+	btnExtendShaft.font(font());
+	btnExtendShaft.text("Dig New Level");
+	btnExtendShaft.size(100, 30);
+	btnExtendShaft.click().connect(this, &MineOperationsWindow::btnExtendShaftClicked);
 }
 
 
@@ -67,7 +80,11 @@ void MineOperationsWindow::mineFacility(MineFacility* _mf)
 	mFacility = _mf;
 	if (!mFacility) { return; }
 
-	//MINE_YIELD = mFacility->mine()->
+	MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
+	MINE_DEPTH = std::to_string(mFacility->mine()->depth());
+
+	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + mBold.width("Mine Yield") + 5;
+	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + mBold.width("Depth") + 5;
 }
 
 
@@ -92,6 +109,15 @@ void MineOperationsWindow::btnCancelClicked()
 /**
  * 
  */
+void MineOperationsWindow::btnExtendShaftClicked()
+{
+
+}
+
+
+/**
+ * 
+ */
 void MineOperationsWindow::update()
 {
 	if (!visible()) { return; }
@@ -102,5 +128,9 @@ void MineOperationsWindow::update()
 
 	r.drawImage(mUiIcon, rect().x() + 10, rect().y() + 30);
 
-	r.drawText(mBold, "Mine Yield:", rect().x() + 148, rect().y() + 30, 255, 255, 255);
+	r.drawText(mBold, "Mine Yield:", rect().x() + MINE_YIELD_POSITION, rect().y() + 30, 255, 255, 255);
+	r.drawText(font(), MINE_YIELD, rect().x() + MINE_YIELD_DESCRIPTION_POSITION, rect().y() + 30, 255, 255, 255);
+
+	r.drawText(mBold, "Depth:", rect().x() + MINE_DEPTH_POSITION, rect().y() + 30, 255, 255, 255);
+	r.drawText(font(), MINE_DEPTH, rect().x() + MINE_DEPTH_VALUE_POSITION, rect().y() + 30, 255, 255, 255);
 }
