@@ -76,7 +76,6 @@ void GameState::save(const std::string& _path)
 	ai->attribute("gender", Utility<AiVoiceNotifier>::get().gender());
 	root->linkEndChild(ai);
 
-
 	// Write out the XML file.
 	XmlMemoryBuffer buff;
 	doc.accept(&buff);
@@ -148,7 +147,6 @@ void GameState::load(const std::string& _path)
 	{
 		if (attribute->name() == "diggingdepth") { attribute->queryIntValue(depth); }
 		else if (attribute->name() == "sitemap") { sitemap = attribute->value(); }
-
 		attribute = attribute->next();
 	}
 
