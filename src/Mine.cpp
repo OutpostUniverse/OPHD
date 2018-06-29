@@ -23,19 +23,32 @@ static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, size_t d
 }
 
 
+static void setDefaultFlags(std::bitset<5>& flags)
+{
+	flags[Mine::ORE_COMMON_METALS] = true;
+	flags[Mine::ORE_COMMON_MINERALS] = true;
+	flags[Mine::ORE_RARE_METALS] = true;
+	flags[Mine::ORE_RARE_MINERALS] = true;
+	flags[4] = false;
+}
+
 
 /**
  * C'tor
  */
-Mine::Mine() : mFlags("11110")
-{}
+Mine::Mine()
+{
+	setDefaultFlags(mFlags);
+}
 
 
 /**
  * C'tor
  */
-Mine::Mine(MineProductionRate rate) : mProductionRate(rate), mFlags("11110")
-{}
+Mine::Mine(MineProductionRate rate) : mProductionRate(rate)
+{
+	setDefaultFlags(mFlags);
+}
 
 
 /**
@@ -43,7 +56,7 @@ Mine::Mine(MineProductionRate rate) : mProductionRate(rate), mFlags("11110")
  */
 bool Mine::active() const
 {
-	return mFlags[4] != 0;
+	return mFlags[4];
 }
 
 
@@ -52,7 +65,79 @@ bool Mine::active() const
  */
 void Mine::active(bool _b)
 {
-	_b == true ? mFlags[4] = 1 : mFlags[4] = 0;
+	mFlags[4] = _b;
+}
+
+
+/**
+ * 
+ */
+bool Mine::miningCommonMetals() const
+{
+	return mFlags[ORE_COMMON_METALS];
+}
+
+
+/**
+ * 
+ */
+bool Mine::miningCommonMinerals() const
+{
+	return mFlags[ORE_COMMON_MINERALS];
+}
+
+
+/**
+ * 
+ */
+bool Mine::miningRareMetals() const
+{
+	return mFlags[ORE_RARE_METALS];
+}
+
+
+/**
+ * 
+ */
+bool Mine::miningRareMinerals() const
+{
+	return mFlags[ORE_RARE_MINERALS];
+}
+
+
+/**
+ * 
+ */
+void Mine::miningCommonMetals(bool _b)
+{
+	mFlags[ORE_COMMON_METALS] = _b;
+}
+
+
+/**
+ * 
+ */
+void Mine::miningCommonMinerals(bool _b)
+{
+	mFlags[ORE_COMMON_MINERALS] = _b;
+}
+
+
+/**
+ * 
+ */
+void Mine::miningRareMetals(bool _b)
+{
+	mFlags[ORE_RARE_METALS] = _b;
+}
+
+
+/**
+ * 
+ */
+void Mine::miningRareMinerals(bool _b)
+{
+	mFlags[ORE_RARE_MINERALS] = _b;
 }
 
 
@@ -163,6 +248,39 @@ bool Mine::exhausted() const
 
 
 /**
+ * Pulls the specified quantity of Ore from the Mine. If
+ * insufficient ore is available, only pulls what's available.
+ */
+int Mine::pull(OreType type, int quantity)
+{
+	int pulled_count = 0, to_pull = quantity;
+
+	for (size_t i = 0; i < mVeins.size(); ++i)
+	{
+		MineVein& vein = mVeins[i];
+
+		if (vein[type] >= to_pull)
+		{
+			pulled_count = to_pull;
+			vein[type] -= to_pull;
+			break;
+		}
+		else if (vein[type] < to_pull)
+		{
+			pulled_count += vein[type];
+			to_pull = to_pull - vein[type];
+			vein[type] = 0;
+		}
+	}
+
+	return pulled_count;
+}
+
+
+// ===============================================================================
+
+
+/**
  * Serializes current mine information.
  */
 void Mine::serialize(XmlElement* _ti)
@@ -170,6 +288,7 @@ void Mine::serialize(XmlElement* _ti)
 	_ti->attribute("depth", depth());
 	_ti->attribute("active", active());
 	_ti->attribute("yield", productionRate());
+	_ti->attribute("flags", mFlags.to_string());
 
 	for (size_t i = 0; i < mVeins.size(); ++i)
 	{
@@ -194,6 +313,7 @@ void Mine::serialize(XmlElement* _ti)
 void Mine::deserialize(NAS2D::Xml::XmlElement* _ti)
 {
 	int active = 0, yield = 0, depth = 0;
+	std::string flags;
 
 	XmlAttribute* attribute = _ti->firstAttribute();
 	while (attribute)
@@ -201,6 +321,7 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* _ti)
 		if (attribute->name() == "active") { attribute->queryIntValue(active); }
 		else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
 		else if (attribute->name() == "yield") { attribute->queryIntValue(yield); }
+		else if (attribute->name() == "flags") { mFlags = std::bitset<5>(attribute->value()); }
 		attribute = attribute->next();
 	}
 

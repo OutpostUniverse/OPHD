@@ -44,6 +44,19 @@ public:
 	int rareMetalsAvailable() const;
 	int rareMineralsAvailable() const;
 
+	bool miningCommonMetals() const;
+	bool miningCommonMinerals() const;
+	bool miningRareMetals() const;
+	bool miningRareMinerals() const;
+
+	void miningCommonMetals(bool _b);
+	void miningCommonMinerals(bool _b);
+	void miningRareMetals(bool _b);
+	void miningRareMinerals(bool _b);
+
+	int pull(OreType type, int quantity);
+
+public:
 	void serialize(NAS2D::Xml::XmlElement* _ti);
 	void deserialize(NAS2D::Xml::XmlElement* _ti);
 
