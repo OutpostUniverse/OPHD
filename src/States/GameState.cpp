@@ -1043,8 +1043,15 @@ void GameState::updateRobots()
 	{
 		robot_it->first->update();
 
-		// Clear Idle robots from tiles.
-		if(robot_it->first->idle())
+		if (robot_it->first->dead())
+		{
+			cout << "dead robot" << endl;
+
+			mRobotPool.erase(robot_it->first);
+			delete robot_it->first;
+			robot_it = mRobotList.erase(robot_it);
+		}
+		else if(robot_it->first->idle())
 		{
 			// Make sure that we're the robot from a Tile and not something else
 			if (robot_it->second->thing() == robot_it->first)
