@@ -154,24 +154,24 @@ void Mine::increaseDepth()
 	switch (productionRate())
 	{
 	case PRODUCTION_RATE_LOW:
-		vein[ORE_COMMON_METALS] = 150;
-		vein[ORE_COMMON_MINERALS] = 125;
-		vein[ORE_RARE_METALS] = 150;
-		vein[ORE_RARE_MINERALS] = 125;
+		vein[ORE_COMMON_METALS] = 600;
+		vein[ORE_COMMON_MINERALS] = 500;
+		vein[ORE_RARE_METALS] = 600;
+		vein[ORE_RARE_MINERALS] = 500;
 		break;
 
 	case PRODUCTION_RATE_MEDIUM:
-		vein[ORE_COMMON_METALS] = 200;
-		vein[ORE_COMMON_MINERALS] = 175;
-		vein[ORE_RARE_METALS] = 200;
-		vein[ORE_RARE_MINERALS] = 175;
+		vein[ORE_COMMON_METALS] = 700;
+		vein[ORE_COMMON_MINERALS] = 550;
+		vein[ORE_RARE_METALS] = 700;
+		vein[ORE_RARE_MINERALS] = 550;
 		break;
 
 	case PRODUCTION_RATE_HIGH:
-		vein[ORE_COMMON_METALS] = 250;
-		vein[ORE_COMMON_MINERALS] = 200;
-		vein[ORE_RARE_METALS] = 250;
-		vein[ORE_RARE_MINERALS] = 200;
+		vein[ORE_COMMON_METALS] = 850;
+		vein[ORE_COMMON_MINERALS] = 600;
+		vein[ORE_RARE_METALS] = 850;
+		vein[ORE_RARE_MINERALS] = 600;
 		break;
 	}
 

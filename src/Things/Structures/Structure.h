@@ -165,6 +165,8 @@ private:
 	void incrementAge();
 	virtual void die() final;
 
+	virtual void activated() {};
+
 private:
 	int						mId;						/**< ID of the Structure. */
 

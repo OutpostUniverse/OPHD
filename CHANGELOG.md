@@ -8,16 +8,21 @@ Maintenance release with some features polished.
 ### Added
 - Added a Main Menu state which allows for starting a new game, continuing an old game or quitting (options menu slated for a future release).
 - Added the Solar Panel Array structure. This is a cheap power structure most useful in the early game that generates a small amount of power.
+- Added Mine Operations Window to allow for halting and resuming production of mines and specific ore threads within it.
 
 ### Changed
+- Savegame protocol updated to 0.30 (from 0.25) due to breaking changes. Savegame's from older versions will no longer load.
 - Tweaked fade transitions between states.
 - Minor performance improvements regarding item sorting in the IconGrid UI panels.
 - TileMap selector has been changed from an image outline highlight to highlighting the entire tile.
 - Tweaked energy requirements for most structures to make energy requirements more realistic and something to genuinely contend with in gameplay.
 - Errors when loading savegames will now display an OS dialog box letting the user know about the issue (currently only works on Windows, Mac and Linux code will need to be updated to conform).
-- Savegame protocol updated to 0.30 (from 0.25) due to breaking changes in data saved. Savegame's from older versions will no longer load.
 - Robots beyond the first three robots are now stored within a Robot Command Center.
 - Factories producing robots will go Idle if no Robot Command Capacity is available.
+- Mine shafts can now be extended using the new Mine Operations Window.
+- Mine ore processing can be controlled much more finely using the new Mine Operations Window.
+- Mines no longer operate indefinitely. They now have a finite amount of resources based on yield.
+- Robominer's are now single use robots. Once they finish digging the initial mine shaft they use themselves as the base to build the mine facility.
 
 ### Fixed
 - Fixed an issue in the Factory Production window which would fail to set the current production type when selecting a Factory leading to production queue being cleared when hitting the Okay button.

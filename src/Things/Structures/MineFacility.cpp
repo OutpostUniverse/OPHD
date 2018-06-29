@@ -5,6 +5,26 @@
 
 #include "../../Constants.h"
 
+/**
+ * Computes how many units of ore should be pulled.
+ */
+static int push_count(MineFacility* _mf)
+{
+	int push_count = 0;
+
+	if (_mf->production().remainingCapacity() >= constants::BASE_MINE_PRODUCTION_RATE)
+	{
+		push_count = constants::BASE_MINE_PRODUCTION_RATE;
+	}
+	else
+	{
+		push_count = _mf->production().remainingCapacity();
+	}
+
+	return push_count;
+}
+
+
 
 MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite", CLASS_MINE),
 mMine(mine)
@@ -25,6 +45,12 @@ MineFacility::~MineFacility()
 {}
 
 
+void MineFacility::activated()
+{
+	mMine->increaseDepth();
+}
+
+
 void MineFacility::think()
 {
 
@@ -42,12 +68,25 @@ void MineFacility::think()
 			return;
 		}
 
-		/*
-		production().pushResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, mMine->commonMetalsRate());
-		production().pushResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, mMine->commonMineralsRate());
-		production().pushResource(ResourcePool::RESOURCE_RARE_METALS_ORE, mMine->rareMetalsRate());
-		production().pushResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, mMine->rareMineralsRate());
-		*/
+		if (mMine->miningCommonMetals())
+		{
+			production().pushResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, mMine->pull(Mine::ORE_COMMON_METALS, push_count(this)));
+		}
+		
+		if (mMine->miningCommonMinerals())
+		{
+			production().pushResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, mMine->pull(Mine::ORE_COMMON_MINERALS, push_count(this)));
+		}
+		
+		if (mMine->miningRareMetals())
+		{
+			production().pushResource(ResourcePool::RESOURCE_RARE_METALS_ORE, mMine->pull(Mine::ORE_RARE_METALS, push_count(this)));
+		}
+		
+		if (mMine->miningRareMinerals())
+		{
+			production().pushResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, mMine->pull(Mine::ORE_RARE_MINERALS, push_count(this)));
+		}
 
 		storage().pushResources(production());
 	}

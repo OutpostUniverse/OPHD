@@ -32,6 +32,8 @@ private:
 	virtual void defineResourceInput() { mMine->active(true); }
 	virtual void defineResourceOutput()	{}
 
+	virtual void activated() final;
+
 private:
 	Mine*			mMine;
 };
