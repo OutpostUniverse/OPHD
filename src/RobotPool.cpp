@@ -42,6 +42,16 @@ void RobotPool::clear()
 }
 
 
+void RobotPool::erase(Robot* _r)
+{
+	mRobots.erase(find(mRobots.begin(), mRobots.end(), _r));
+
+	eraseRobot(mDiggers, _r);
+	eraseRobot(mDozers, _r);
+	eraseRobot(mMiners, _r);
+}
+
+
 /**
  * Adds a robot of specified type to the pool.
  *

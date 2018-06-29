@@ -51,3 +51,14 @@ void updateRobotControlCount(const T& t, uint32_t& controlCounter)
 		if (!robot->idle() && !robot->dead()) { ++controlCounter; }
 	}
 }
+
+
+template <class T>
+void eraseRobot(T& t, Robot* _r)
+{
+	auto it = find(t.begin(), t.end(), _r);
+	if (it != t.end())
+	{
+		t.erase(it);
+	}
+}

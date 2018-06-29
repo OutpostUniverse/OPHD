@@ -27,7 +27,8 @@ public:
 	int getAvailableCount(RobotType _type);
 
 	void InitRobotCtrl(uint32_t MaxRobotCtrl);
-	bool robotCtrlAvailable() { return mRobotControlCount < mRobotControlMax; };
+	bool robotCtrlAvailable() { return mRobotControlCount < mRobotControlMax; }
+	bool commandCapacityAvailable() { return mRobots.size() < mRobotControlMax; }
 	void AddRobotCtrl();
 
 	DiggerList& diggers() { return mDiggers; }
@@ -35,10 +36,12 @@ public:
 	MinerList& miners() { return mMiners; }
 
 	void clear();
+	void erase(Robot* _r);
 	bool insertRobotIntoTable(RobotTileTable& _rm, Robot* _r, Tile* _t);
 
-	uint32_t robotControlMax() { return mRobotControlMax; };
-	uint32_t currentControlCount() { return mRobotControlCount; };
+	uint32_t robotControlMax() { return mRobotControlMax; }
+	uint32_t currentControlCount() { return mRobotControlCount; }
+	uint32_t availableControlCount() { return robotControlMax() - currentControlCount(); }
 
 	const RobotList& robots() const { return mRobots; }
 
