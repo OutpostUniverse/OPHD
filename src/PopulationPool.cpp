@@ -156,17 +156,17 @@ int PopulationPool::populationEmployed()
 
 
 /**
-* Does a basic check to ensure that we're only trying to pull population that can be employed.
-*
-* Generally speaking the only 'workable' population is for Workers and Scientists. Children, Students
-* and Retirees won't be pulled for labor/research so attempting to pull this should be considered
-* a mistake and should fail very loudly. In this case throws a std::runtime_error.
-*
-* In the future this may change but for now this is almost strictly a debugging aid. This failure
-* would indicate a very significant problem with the calling code.
-*
-* \throws	std::runtime_exception if Child/Student/Retired is asked for.
-*/
+ * Does a basic check to ensure that we're only trying to pull population that can be employed.
+ *
+ * Generally speaking the only 'workable' population is for Workers and Scientists. Children, Students
+ * and Retirees won't be pulled for labor/research so attempting to pull this should be considered
+ * a mistake and should fail very loudly. In this case throws a std::runtime_error.
+ *
+ * In the future this may change but for now this is almost strictly a debugging aid. This failure
+ * would indicate a very significant problem with the calling code.
+ *
+ * \throws	std::runtime_exception if Child/Student/Retired is asked for.
+ */
 void BasicCheck(Population::PersonRole _role)
 {
 	if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
