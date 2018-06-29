@@ -410,7 +410,6 @@ void TileMap::serialize(XmlElement* _ti)
 	viewparams->attribute("viewlocation_x", mMapViewLocation.x());
 	viewparams->attribute("viewlocation_y", mMapViewLocation.y());
 
-
 	// ==========================================
 	// MINES
 	// ==========================================
@@ -480,8 +479,8 @@ void TileMap::deserialize(XmlElement* _ti)
 		attribute = mine->toElement()->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "x")				{ attribute->queryIntValue(x); }
-			else if (attribute->name() == "y")			{ attribute->queryIntValue(y); }
+			if (attribute->name() == "x")		{ attribute->queryIntValue(x); }
+			else if (attribute->name() == "y")	{ attribute->queryIntValue(y); }
 			attribute = attribute->next();
 		}
 

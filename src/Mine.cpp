@@ -23,6 +23,39 @@ static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, size_t d
 }
 
 
+
+/**
+ * C'tor
+ */
+Mine::Mine() : mFlags("11110")
+{}
+
+
+/**
+ * C'tor
+ */
+Mine::Mine(MineProductionRate rate) : mProductionRate(rate), mFlags("11110")
+{}
+
+
+/**
+ * 
+ */
+bool Mine::active() const
+{
+	return mFlags[4] != 0;
+}
+
+
+/**
+ * 
+ */
+void Mine::active(bool _b)
+{
+	_b == true ? mFlags[4] = 1 : mFlags[4] = 0;
+}
+
+
 /**
  * Increases the depth of the mine.
  * 
