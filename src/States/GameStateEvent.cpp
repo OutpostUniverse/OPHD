@@ -16,7 +16,8 @@
 void GameState::pullRobotFromFactory(ProductType pt, Factory& factory)
 {
 	RobotCommand* _rc = getAvailableRobotCommand(mStructureManager);
-	if (_rc)
+
+	if ((_rc != nullptr) || mRobotPool.commandCapacityAvailable())
 	{
 		Robot* r = nullptr;
 		
@@ -26,25 +27,28 @@ void GameState::pullRobotFromFactory(ProductType pt, Factory& factory)
 			r = mRobotPool.addRobot(ROBOT_DIGGER);
 			r->taskComplete().connect(this, &GameState::diggerTaskFinished);
 			factory.pullProduct();
+			checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
 			break;
 
 		case PRODUCT_DOZER:
 			r = mRobotPool.addRobot(ROBOT_DOZER);
 			r->taskComplete().connect(this, &GameState::dozerTaskFinished);
 			factory.pullProduct();
+			checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
 			break;
 
 		case PRODUCT_MINER:
 			r = mRobotPool.addRobot(ROBOT_MINER);
 			r->taskComplete().connect(this, &GameState::minerTaskFinished);
 			factory.pullProduct();
+			checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
 			break;
 
 		default:
 			throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
 		}
 
-		_rc->addRobot(r);
+		if (_rc != nullptr) { _rc->addRobot(r); }
 	}
 	else
 	{
@@ -272,6 +276,7 @@ void GameState::minerTaskFinished(Robot* _r)
 	if (mRobotList.find(_r) == mRobotList.end()) { throw std::runtime_error("GameState::minerTaskFinished() called with a Robot not in the Robot List!"); }
 
 	Tile* t = mRobotList[_r];
+	t->mine()->increaseDepth();
 
 	if (t->depth() == constants::DEPTH_SURFACE)
 	{
@@ -289,5 +294,5 @@ void GameState::minerTaskFinished(Robot* _r)
 	t2->index(0);
 	t2->excavated(true);
 
-	checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
+	_r->die();
 }

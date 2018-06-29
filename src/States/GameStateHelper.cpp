@@ -296,7 +296,7 @@ RobotCommand* getAvailableRobotCommand(StructureManager& _sm)
 	for (auto _st : _sm.structureList(Structure::CLASS_ROBOT_COMMAND))
 	{
 		RobotCommand* _rc = static_cast<RobotCommand*>(_st);
-		if (_rc->commandCapacityAvailable())
+		if (_rc->operational() && _rc->commandCapacityAvailable())
 		{
 			return _rc;
 		}
