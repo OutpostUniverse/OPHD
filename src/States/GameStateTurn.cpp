@@ -171,6 +171,8 @@ void GameState::updateResources()
 	// Move ore from mines to smelters
 	for (auto _mine : mines)
 	{
+		static_cast<MineFacility*>(_mine)->mine()->checkExhausted();
+
 		// consider a different control path.
 		if (_mine->disabled() || _mine->destroyed()) { continue; }
 

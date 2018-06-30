@@ -23,13 +23,14 @@ static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, size_t d
 }
 
 
-static void setDefaultFlags(std::bitset<5>& flags)
+static void setDefaultFlags(std::bitset<6>& flags)
 {
 	flags[Mine::ORE_COMMON_METALS] = true;
 	flags[Mine::ORE_COMMON_MINERALS] = true;
 	flags[Mine::ORE_RARE_METALS] = true;
 	flags[Mine::ORE_RARE_MINERALS] = true;
 	flags[4] = false;
+	flags[5] = false;
 }
 
 
@@ -233,8 +234,15 @@ int Mine::rareMineralsAvailable() const
  */
 bool Mine::exhausted() const
 {
-	int ore_count = 0;
+	return mFlags[5];
+}
 
+
+void Mine::checkExhausted()
+{
+	if (!active()) { return; }
+	
+	int ore_count = 0;
 	for (auto vein : mVeins)
 	{
 		ore_count += vein[ORE_COMMON_METALS];
@@ -243,7 +251,7 @@ bool Mine::exhausted() const
 		ore_count += vein[ORE_RARE_MINERALS];
 	}
 
-	return (ore_count == 0);
+	mFlags[5] = (ore_count == 0);
 }
 
 
@@ -321,7 +329,7 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* _ti)
 		if (attribute->name() == "active") { attribute->queryIntValue(active); }
 		else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
 		else if (attribute->name() == "yield") { attribute->queryIntValue(yield); }
-		else if (attribute->name() == "flags") { mFlags = std::bitset<5>(attribute->value()); }
+		else if (attribute->name() == "flags") { mFlags = std::bitset<6>(attribute->value()); }
 		attribute = attribute->next();
 	}
 

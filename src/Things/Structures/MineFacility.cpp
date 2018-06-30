@@ -53,11 +53,18 @@ void MineFacility::activated()
 
 void MineFacility::think()
 {
-
 	if (isIdle() && mMine->active())
 	{
 		if (!storage().atCapacity())
+		{
 			enable();
+		}
+	}
+
+	if (mMine->exhausted())
+	{
+		idle();
+		return;
 	}
 
 	if (mMine->active())

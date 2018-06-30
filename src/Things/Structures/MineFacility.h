@@ -15,13 +15,10 @@ public:
 	
 	void mine(Mine* _m) { mMine = _m; }
 
+	Mine* mine() { return mMine; }
+
 protected:
 	virtual void think();
-
-protected:
-	friend class MineOperationsWindow;
-
-	Mine* mine() { return mMine; }
 
 private:
 	MineFacility() = delete;
