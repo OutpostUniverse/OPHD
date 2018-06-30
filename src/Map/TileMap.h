@@ -48,6 +48,7 @@ public:
 	int tileMouseHoverY() const { return mMapHighlight.y() + mMapViewLocation.y(); }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
+	void removeMineLocation(const NAS2D::Point_2d& pt);
 
 	void toggleShowConnections() { mShowConnections = !mShowConnections; }
 

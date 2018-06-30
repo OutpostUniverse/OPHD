@@ -23,6 +23,8 @@ Maintenance release with some features polished.
 - Mine ore processing can be controlled much more finely using the new Mine Operations Window.
 - Mines no longer operate indefinitely. They now have a finite amount of resources based on yield.
 - Robominer's are now single use robots. Once they finish digging the initial mine shaft they use themselves as the base to build the mine facility.
+- Exhausted mines will now be indicated on the minimap using a light grayish-blue color.
+- Placing a robodigger on a mine will now destroy the mine.
 
 ### Fixed
 - Fixed an issue in the Factory Production window which would fail to set the current production type when selecting a Factory leading to production queue being cleared when hitting the Okay button.

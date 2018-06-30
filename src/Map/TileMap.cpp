@@ -76,6 +76,19 @@ TileMap::~TileMap()
 {}
 
 
+/**
+ * Removes a mine location from the tilemap.
+ * 
+ * \note	Does no sanity checking, assumes that the point provided
+ *			corresponds to a valid location.
+ */
+void TileMap::removeMineLocation(const NAS2D::Point_2d& pt)
+{
+	mMineLocations.erase(find(mMineLocations.begin(), mMineLocations.end(), pt));
+	getTile(pt.x(), pt.y(), 0)->pushMine(nullptr);
+}
+
+
 Tile* TileMap::getTile(int x, int y, int level)
 {
 	if (x >= 0 && x < width() && y >= 0 && y < height() && level >= 0 && level <= mMaxDepth)

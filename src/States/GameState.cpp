@@ -810,6 +810,12 @@ void GameState::placeRobot()
 			return;
 		}
 
+		if (tile->hasMine())
+		{
+			cout << "Digger destroyed a mine." << endl;
+			mTileMap->removeMineLocation(Point_2d(tile->x(), tile->y()));
+		}
+
 		// Die if tile is occupied or not excavated.
 		if (!tile->empty())
 		{
