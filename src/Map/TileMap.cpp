@@ -5,6 +5,7 @@
 
 #include "../Constants.h"
 
+#include <algorithm>
 #include <functional>
 #include <random>
 
