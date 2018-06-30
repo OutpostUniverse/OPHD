@@ -4,6 +4,8 @@
 #include "RobotPool.h"
 #include "RobotPoolHelper.h"
 
+#include <algorithm>
+
 extern int ROBOT_ID_COUNTER; /// \fixme	Kludge
 
 

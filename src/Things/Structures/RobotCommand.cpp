@@ -4,6 +4,8 @@
 
 #include "../../Constants.h"
 
+#include <algorithm>
+
 
 /**
  * Gets whether the command facility has additional command capacity remaining.
