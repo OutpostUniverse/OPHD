@@ -37,9 +37,9 @@ public:
 	int turnsToBuild() const { return mTurnsToBuild; }
 
 private:
+	int				mTurnsToBuild = 0;
 	int				mCommonMetals = 0;
 	int				mCommonMinerals = 0;
 	int				mRareMetals = 0;
 	int 			mRareMinerals = 0;
-	int				mTurnsToBuild = 0;
 };
