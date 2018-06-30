@@ -41,5 +41,5 @@ private:
 	int				mCommonMetals = 0;
 	int				mCommonMinerals = 0;
 	int				mRareMetals = 0;
-	int 			mRareMinerals = 0;
+	int				mRareMinerals = 0;
 };
