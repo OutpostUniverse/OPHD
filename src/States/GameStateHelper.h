@@ -44,3 +44,4 @@ void writeResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp);
 void readResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp);
 
 void updateRobotControl(RobotPool& _rp, StructureManager& _sm);
+void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTable& rtt, Tile* tile);

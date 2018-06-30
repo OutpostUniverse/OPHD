@@ -185,6 +185,33 @@ bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 /**
  * Document me!
  */
+void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTable& rtt, Tile* tile)
+{
+	if (rcc->commandedByThis(r))
+	{
+		std::cout << "Cannot bulldoze Robot Command Center by a Robot under its command." << endl;
+		return;
+	}
+
+	const RobotList& rl = rcc->robots();
+
+	for (auto robot : rl)
+	{
+		if (rtt.find(robot) != rtt.end())
+		{
+			robot->die();
+			continue;
+		}
+
+		rp.erase(robot);
+		delete robot;
+	}
+}
+
+
+/**
+ * Document me!
+ */
 void updateRobotControl(RobotPool& _rp, StructureManager& _sm)
 {
 	auto CommandCenter = _sm.structureList(Structure::CLASS_COMMAND);

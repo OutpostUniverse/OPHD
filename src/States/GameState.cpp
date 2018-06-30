@@ -729,6 +729,8 @@ void GameState::placeRobot()
 	// Robodozer has been selected.
 	if(mCurrentRobot == ROBOT_DOZER)
 	{
+		Robot* r = mRobotPool.getDozer();
+
 		if (!tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
 		{
 			return;
@@ -757,9 +759,10 @@ void GameState::placeRobot()
 				return;
 			}
 
-			/**
-			 * \todo	Add check for RCC deletion.
-			 */
+			if (_s->isRobotCommand())
+			{
+				deleteRobotsInRCC(r, static_cast<RobotCommand*>(_s), mRobotPool, mRobotList, tile);
+			}
 
 			/**
 			 * \fixme	Since the StructureTranslator class will be deprecated in the future, there needs to be a better
@@ -781,7 +784,6 @@ void GameState::placeRobot()
 			return;
 		}
 
-		Robot* r = mRobotPool.getDozer();
 		r->startTask(tile->index());
 		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
 		tile->index(TERRAIN_DOZED);
