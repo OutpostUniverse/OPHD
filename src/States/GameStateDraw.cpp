@@ -50,6 +50,8 @@ void GameState::drawMiniMap()
 	for (auto _mine : mTileMap->mineLocations())
 	{
 		Mine* mine = mTileMap->getTile(_mine.x(), _mine.y(), 0)->mine();
+		if (!mine) { break; } // avoids potential race condition where a mine is destroyed during an updated cycle.
+
 		if (!mine->active())
 		{
 			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 7.0f, 7.0f);

@@ -93,7 +93,6 @@ public:
 	virtual void input(ResourcePool& _resourcePool) {}
 	bool enoughResourcesAvailable(ResourcePool& r);
 
-
 	// ATTRIBUTES
 	StructureClass structureClass() const { return mStructureClass; }
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }

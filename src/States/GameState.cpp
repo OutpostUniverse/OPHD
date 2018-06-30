@@ -729,21 +729,28 @@ void GameState::placeRobot()
 	// Robodozer has been selected.
 	if(mCurrentRobot == ROBOT_DOZER)
 	{
-		if (tile->mine() || !tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
+		if (!tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
 		{
 			return;
+		}
+		else if (tile->mine() && tile->mine()->depth() == mTileMap->maxDepth() && tile->mine()->exhausted())
+		{
+			mStructureManager.removeStructure(tile->structure());
+			tile->pushMine(nullptr);
 		}
 		else if (tile->thingIsStructure())
 		{
 			Structure* _s = tile->structure();
-			if (_s->name() == constants::COMMAND_CENTER)
+			if (_s->isMineFacility()) { return; }
+			
+			if (_s->structureClass() == Structure::CLASS_COMMAND)
 			{
 				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::CC_NO_BULLDOZE);
 				cout << "Can't bulldoze a Command Center!" << endl;
 				return;
 			}
 
-			if ((_s->name() == constants::COLONIST_LANDER || _s->name() == constants::CARGO_LANDER) && _s->age() == 0)
+			if (_s->structureClass() == Structure::CLASS_LANDER && _s->age() == 0)
 			{
 				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::LANDER_NO_BULLDOZE); ///\fixme Change this to an invalid dozer warning.
 				cout << "Can't place a bulldozer on a landing site!" << endl;
