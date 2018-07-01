@@ -165,45 +165,40 @@ void GameState::updateResources()
 	ResourcePool truck;
 	truck.capacity(100);
 
-	auto mines = mStructureManager.structureList(Structure::CLASS_MINE);
-	auto smelters = mStructureManager.structureList(Structure::CLASS_SMELTER);
-
 	// Move ore from mines to smelters
-	for (auto _mine : mines)
+	for (auto mine : mStructureManager.structureList(Structure::CLASS_MINE))
 	{
-		static_cast<MineFacility*>(_mine)->mine()->checkExhausted();
+		static_cast<MineFacility*>(mine)->mine()->checkExhausted();
 
-		// consider a different control path.
-		if (_mine->disabled() || _mine->destroyed()) { continue; }
+		if (!mine->operational()) { continue; } // consider a different control path.
 
-		ResourcePool& _rp = _mine->storage();
+		ResourcePool& _rp = mine->storage();
 
 		truck.commonMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, 25));
 		truck.commonMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, 25));
 		truck.rareMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS_ORE, 25));
 		truck.rareMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, 25));
 
-		for (auto _smelter : smelters)
+		for (auto smelter : mStructureManager.structureList(Structure::CLASS_SMELTER))
 		{
-			if (_smelter->operational())
+			if (smelter->operational())
 			{
-				_smelter->production().pushResources(truck);
+				smelter->production().pushResources(truck);
 			}
 		}
 
 		if (!truck.empty())
 		{
-			_mine->storage().pushResources(truck);
+			mine->storage().pushResources(truck);
 		}
 	}
 
 	// Move refined resources from smelters to storage tanks
-	for (auto _smelter : smelters)
+	for (auto smelter : mStructureManager.structureList(Structure::CLASS_SMELTER))
 	{
-		// consider a different control path.
-		if (_smelter->disabled() || _smelter->destroyed()) { continue; }
+		if (!smelter->operational()) { continue; } // consider a different control path.
 
-		ResourcePool& _rp = _smelter->storage();
+		ResourcePool& _rp = smelter->storage();
 		truck.commonMetals(_rp.pullResource(ResourcePool::RESOURCE_COMMON_METALS, 25));
 		truck.commonMinerals(_rp.pullResource(ResourcePool::RESOURCE_COMMON_MINERALS, 25));
 		truck.rareMetals(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS, 25));
@@ -213,7 +208,7 @@ void GameState::updateResources()
 
 		if (!truck.empty())
 		{
-			_smelter->storage().pushResources(truck);
+			smelter->storage().pushResources(truck);
 			break;	// we're at max capacity in our storage, dump what's left in the smelter it came from and barf.
 		}
 	}
@@ -301,6 +296,8 @@ void GameState::nextTurn()
 	populateStructureMenu();
 
 	checkColonyShip();
+
+	mMineOperationsWindow.updateCounts();
 
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)
