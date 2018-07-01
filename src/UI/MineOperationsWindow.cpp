@@ -5,6 +5,20 @@
 
 #include "../Constants.h"
 
+/**
+ * These static variables are here to avoid unnecessary computations
+ * during frame updates to improve overall performance (basically, to avoid
+ * expensive string operations).
+ */
+static std::string		COMMON_METALS_COUNT;
+static std::string		COMMON_MINERALS_COUNT;
+static std::string		RARE_METALS_COUNT;
+static std::string		RARE_MINERALS_COUNT;
+
+static int				COMMON_METALS_ORE_POSITION;
+static int				COMMON_MINERALS_ORE_POSITION;
+static int				RARE_METALS_ORE_POSITION;
+static int				RARE_MINERALS_ORE_POSITION;
 
 static std::string		MINE_YIELD;
 static std::string		MINE_DEPTH;
@@ -16,10 +30,19 @@ static const int		MINE_DEPTH_POSITION = 300;
 static int				MINE_DEPTH_VALUE_POSITION;
 
 
+/** 
+ * Positional constants used in several places.
+ */
+const int				COMMON_METALS_POS = 46;
+const int				COMMON_MINERALS_POS = 135;
+const int				RARE_METALS_POS = 224;
+const int				RARE_MINERALS_POS = 312;
+
+
 /**
  * 
  */
-MineOperationsWindow::MineOperationsWindow(Font& font) : mBold("fonts/opensans-bold.ttf", 10), mUiIcon("ui/interface/mine.png")
+MineOperationsWindow::MineOperationsWindow(Font& font) : mBold("fonts/opensans-bold.ttf", 10), mUiIcon("ui/interface/mine.png"), mIcons("ui/icons.png")
 {
 	Control::font(font);
 	text(constants::WINDOW_MINE_OPERATIONS);
@@ -39,26 +62,66 @@ MineOperationsWindow::~MineOperationsWindow()
  */
 void MineOperationsWindow::init()
 {
-	size(450, 250);
+	size(375, 270);
 
 	// Set up GUI Layout
-	addControl("btnCancel", &btnCancel, width() - 70, 210);
-	btnCancel.font(font());
-	btnCancel.text("Cancel");
-	btnCancel.size(60, 30);
-	btnCancel.click().connect(this, &MineOperationsWindow::btnCancelClicked);
+	addControl("btnIdle", &btnIdle, 10, 230);
+	btnIdle.type(Button::BUTTON_TOGGLE);
+	btnIdle.font(font());
+	btnIdle.text("Idle");
+	btnIdle.size(60, 30);
+	btnIdle.click().connect(this, &MineOperationsWindow::btnIdleClicked);
 
-	addControl("btnOkay", &btnOkay, btnCancel.positionX() - 62, 210);
-	btnOkay.font(font());
-	btnOkay.text("Okay");
-	btnOkay.size(60, 30);
-	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
-
-	addControl("btnExtendShaft", &btnExtendShaft, btnOkay.positionX() - 102, 210);
+	addControl("btnExtendShaft", &btnExtendShaft, 72, 230);
 	btnExtendShaft.font(font());
 	btnExtendShaft.text("Dig New Level");
 	btnExtendShaft.size(100, 30);
 	btnExtendShaft.click().connect(this, &MineOperationsWindow::btnExtendShaftClicked);
+
+	addControl("btnOkay", &btnOkay, width() - 70, 230);
+	btnOkay.font(font());
+	btnOkay.text("Close");
+	btnOkay.size(60, 30);
+	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
+
+	// ORE TOGGLE BUTTONS
+	addControl("btnCommonMetals", &btnCommonMetals, 148, 93);
+	btnCommonMetals.type(Button::BUTTON_TOGGLE);
+	btnCommonMetals.font(font());
+	btnCommonMetals.text("Common Metals");
+	btnCommonMetals.size(106, 30);
+	btnCommonMetals.click().connect(this, &MineOperationsWindow::btnCommonMetalsClicked);
+
+	addControl("btnCommonMinerals", &btnCommonMinerals, 259, 93);
+	btnCommonMinerals.type(Button::BUTTON_TOGGLE);
+	btnCommonMinerals.font(font());
+	btnCommonMinerals.text("Common Minerals");
+	btnCommonMinerals.size(106, 30);
+	btnCommonMinerals.click().connect(this, &MineOperationsWindow::btnCommonMineralsClicked);
+
+	addControl("btnRareMetals", &btnRareMetals, 148, 128);
+	btnRareMetals.type(Button::BUTTON_TOGGLE);
+	btnRareMetals.font(font());
+	btnRareMetals.text("Rare Metals");
+	btnRareMetals.size(106, 30);
+	btnRareMetals.click().connect(this, &MineOperationsWindow::btnRareMetalsClicked);
+
+	addControl("btnRareMinerals", &btnRareMinerals, 259, 128);
+	btnRareMinerals.type(Button::BUTTON_TOGGLE);
+	btnRareMinerals.font(font());
+	btnRareMinerals.text("Rare Minerals");
+	btnRareMinerals.size(106, 30);
+	btnRareMinerals.click().connect(this, &MineOperationsWindow::btnRareMineralsClicked);
+
+	mPanel.push_back(Image("ui/skin/textbox_top_left.png"));
+	mPanel.push_back(Image("ui/skin/textbox_top_middle.png"));
+	mPanel.push_back(Image("ui/skin/textbox_top_right.png"));
+	mPanel.push_back(Image("ui/skin/textbox_middle_left.png"));
+	mPanel.push_back(Image("ui/skin/textbox_middle_middle.png"));
+	mPanel.push_back(Image("ui/skin/textbox_middle_right.png"));
+	mPanel.push_back(Image("ui/skin/textbox_bottom_left.png"));
+	mPanel.push_back(Image("ui/skin/textbox_bottom_middle.png"));
+	mPanel.push_back(Image("ui/skin/textbox_bottom_right.png"));
 }
 
 
@@ -85,6 +148,35 @@ void MineOperationsWindow::mineFacility(MineFacility* _mf)
 
 	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + mBold.width("Mine Yield") + 5;
 	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + mBold.width("Depth") + 5;
+
+	btnCommonMetals.toggle(mFacility->mine()->miningCommonMetals());
+	btnCommonMinerals.toggle(mFacility->mine()->miningCommonMinerals());
+	btnRareMetals.toggle(mFacility->mine()->miningRareMetals());
+	btnRareMinerals.toggle(mFacility->mine()->miningRareMinerals());
+
+	btnIdle.toggle(mFacility->forceIdle());
+
+	updateCounts();
+}
+
+
+/**
+ * Called at the end of each turn after mine processing
+ * to update the static strings for ore remaining.
+ */
+void MineOperationsWindow::updateCounts()
+{
+	if (!visible() && !mFacility) { return; }
+	
+	COMMON_METALS_COUNT = std::to_string(mFacility->mine()->commonMetalsAvailable());
+	COMMON_MINERALS_COUNT = std::to_string(mFacility->mine()->commonMineralsAvailable());
+	RARE_METALS_COUNT = std::to_string(mFacility->mine()->rareMetalsAvailable());
+	RARE_MINERALS_COUNT = std::to_string(mFacility->mine()->rareMineralsAvailable());
+
+	COMMON_METALS_ORE_POSITION = COMMON_METALS_POS - (font().width(COMMON_METALS_COUNT) / 2) + 8;
+	COMMON_MINERALS_ORE_POSITION = COMMON_MINERALS_POS - (font().width(COMMON_MINERALS_COUNT) / 2) + 8;
+	RARE_METALS_ORE_POSITION = RARE_METALS_POS - (font().width(RARE_METALS_COUNT) / 2) + 8;
+	RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (font().width(RARE_MINERALS_COUNT) / 2) + 8;
 }
 
 
@@ -100,18 +192,54 @@ void MineOperationsWindow::btnOkayClicked()
 /**
  * 
  */
-void MineOperationsWindow::btnCancelClicked()
+void MineOperationsWindow::btnExtendShaftClicked()
 {
-	hide();
+
 }
 
 
 /**
  * 
  */
-void MineOperationsWindow::btnExtendShaftClicked()
+void MineOperationsWindow::btnIdleClicked()
 {
+	mFacility->forceIdle(btnIdle.toggled());
+}
 
+
+/**
+ * 
+ */
+void MineOperationsWindow::btnCommonMetalsClicked()
+{
+	mFacility->mine()->miningCommonMetals(btnCommonMetals.toggled());
+}
+
+
+/**
+ * 
+ */
+void MineOperationsWindow::btnCommonMineralsClicked()
+{
+	mFacility->mine()->miningCommonMinerals(btnCommonMinerals.toggled());
+}
+
+
+/**
+ * 
+ */
+void MineOperationsWindow::btnRareMetalsClicked()
+{
+	mFacility->mine()->miningRareMetals(btnRareMetals.toggled());
+}
+
+
+/**
+ * 
+ */
+void MineOperationsWindow::btnRareMineralsClicked()
+{
+	mFacility->mine()->miningRareMinerals(btnRareMinerals.toggled());
 }
 
 
@@ -133,4 +261,25 @@ void MineOperationsWindow::update()
 
 	r.drawText(mBold, "Depth:", rect().x() + MINE_DEPTH_POSITION, rect().y() + 30, 255, 255, 255);
 	r.drawText(font(), MINE_DEPTH, rect().x() + MINE_DEPTH_VALUE_POSITION, rect().y() + 30, 255, 255, 255);
+
+	// REMAINING ORE PANEL
+	r.drawText(mBold, "Remaining Resources", rect().x() + 10, rect().y() + 164, 255, 255, 255);
+
+	r.drawImageRect(rect().x() + 10, rect().y() + 180, rect().width() - 20, 40, mPanel);
+
+	r.drawLine(rect().x() + 98, rect().y() + 180, rect().x() + 98, rect().y() + 219, 22, 22, 22);
+	r.drawLine(rect().x() + 187, rect().y() + 180, rect().x() + 187, rect().y() + 219, 22, 22, 22);
+	r.drawLine(rect().x() + 275, rect().y() + 180, rect().x() + 275, rect().y() + 219, 22, 22, 22);
+	
+	r.drawLine(rect().x() + 11, rect().y() + 200, rect().x() + rect().width() - 11, rect().y() + 200, 22, 22, 22);
+
+	r.drawSubImage(mIcons, rect().x() + COMMON_METALS_POS, rect().y() + 183, 64, 0, 16, 16);
+	r.drawSubImage(mIcons, rect().x() + COMMON_MINERALS_POS, rect().y() + 183, 96, 0, 16, 16);
+	r.drawSubImage(mIcons, rect().x() + RARE_METALS_POS, rect().y() + 183, 80, 0, 16, 16);
+	r.drawSubImage(mIcons, rect().x() + RARE_MINERALS_POS, rect().y() + 183, 112, 0, 16, 16);
+
+	r.drawText(font(), COMMON_METALS_COUNT, rect().x() + COMMON_METALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	r.drawText(font(), COMMON_MINERALS_COUNT, rect().x() + COMMON_MINERALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	r.drawText(font(), RARE_METALS_COUNT, rect().x() + RARE_METALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	r.drawText(font(), RARE_MINERALS_COUNT, rect().x() + RARE_MINERALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
 }

@@ -16,24 +16,28 @@ public:
 	virtual ~MineOperationsWindow() final;
 
 	void mineFacility(MineFacility* _mf);
+	void updateCounts();
 
 	virtual void update() final;
-
 	virtual void hide() final;
 
 protected:
 	virtual void init() final;
 
 private:
-	void btnOkayClicked();
-	void btnCancelClicked();
-	void btnExtendShaftClicked();
-
-
 	MineOperationsWindow() = delete;
 	MineOperationsWindow(const MineOperationsWindow&) = delete;
 	MineOperationsWindow& operator=(const MineOperationsWindow&) = delete;
 
+private:
+	void btnCommonMetalsClicked();
+	void btnCommonMineralsClicked();
+	void btnRareMetalsClicked();
+	void btnRareMineralsClicked();
+
+	void btnOkayClicked();
+	void btnExtendShaftClicked();
+	void btnIdleClicked();
 
 private:
 	MineFacility*		mFacility = nullptr;
@@ -41,9 +45,16 @@ private:
 	Font				mBold;
 
 	Image				mUiIcon;
+	Image				mIcons;
 
-	Button				btnOkay;
-	Button				btnCancel;
+	ImageList			mPanel;
 
+	Button				btnCommonMetals;
+	Button				btnCommonMinerals;
+	Button				btnRareMetals;
+	Button				btnRareMinerals;
+
+	Button				btnIdle;
 	Button				btnExtendShaft;
+	Button				btnOkay;
 };
