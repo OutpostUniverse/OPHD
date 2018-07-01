@@ -21,6 +21,34 @@ extern Rectangle_2d MOVE_DOWN_ICON;
 std::string		S_LEVEL;
 
 
+NAS2D::Timer	GLOW_TIMER;
+const int		GLOW_STEP_SIZE = 20;
+
+int				GLOW_STEP;
+int				GLOW_STEP_DIRECTION = 1;
+
+
+static void updateGlowTimer()
+{
+	if (GLOW_TIMER.accumulator() >= 10)
+	{
+		GLOW_STEP += GLOW_STEP_SIZE * GLOW_STEP_DIRECTION;
+		GLOW_TIMER.reset();
+	}
+
+	if (GLOW_STEP >= 255)
+	{
+		GLOW_STEP = 255;
+		GLOW_STEP_DIRECTION = -1;
+	}
+	else if (GLOW_STEP <= 0)
+	{
+		GLOW_STEP = 0;
+		GLOW_STEP_DIRECTION = 1;
+	}
+}
+
+
 /**
  * Draws the minimap and all icons/overlays for it.
  */
@@ -91,75 +119,68 @@ void GameState::drawResourceInfo()
 	r.drawBoxFilled(0, 0, r.width(), constants::RESOURCE_ICON_SIZE + 4, 39, 39, 39);
 	r.drawBox(0, 0, r.width(), constants::RESOURCE_ICON_SIZE + 4, 21, 21, 21);
 	r.drawLine(1, 0, r.width() - 2, 0, 56, 56, 56);
-	
+
 	// Resources
 	int x = constants::MARGIN_TIGHT;
 	int y = constants::MARGIN_TIGHT;
 
-	int textY = 6;
+	int textY = 3;
 	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
 	int margin = constants::RESOURCE_ICON_SIZE + constants::MARGIN;
 
-	// Refined Resources
+	updateGlowTimer();
+
+	// Common Metals
 	r.drawSubImage(mUiIcons, x, y , 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, 255, 255);
+	if (mPlayerResources.commonMetals() <= 10) { r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, 255, 255); }
 
+	// Rare Metals
 	r.drawSubImage(mUiIcons, x + offsetX, y, 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, 255, 255);
+	if (mPlayerResources.rareMetals() <= 10) { r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, 255, 255); }
 
+	// Common Minerals
 	r.drawSubImage(mUiIcons, (x + offsetX) * 2, y, 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, 255, 255);
+	if (mPlayerResources.commonMinerals() <= 10) { r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, 255, 255); }
 
+	// Rare Minerals
 	r.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, 255, 255);
+	if (mPlayerResources.rareMinerals() <= 10) { r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, 255, 255); }
 
 	// Storage Capacity
 	r.drawSubImage(mUiIcons, (x + offsetX) * 4, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, 255, 255);
+	if (mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100) { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, 255, 255); }
 
 	// Food
 	r.drawSubImage(mUiIcons, (x + offsetX) * 6, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, 255, 255);
+	if (foodInStorage() <= 10) { r.drawText(mTinyFont, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(mTinyFont, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, 255, 255); }
 
 	// Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), mStructureManager.totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
+	if (mPlayerResources.energy() <= 5) { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), mStructureManager.totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), mStructureManager.totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, 255, 255); }
 
 	// Population / Morale
-	if (mCurrentMorale > mPreviousMorale)
-	{
-		r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 16, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	}
-	else if (mCurrentMorale < mPreviousMorale)
-	{
-		r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 0, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 32, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	}
+	if (mCurrentMorale > mPreviousMorale) { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 16, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
+	else if (mCurrentMorale < mPreviousMorale) { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 0, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
+	else { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 32, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(mTinyFont, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
 
-	if (isPointInRect(mMousePosition.x(), mMousePosition.y(), 580, 0, 35, 20))
-	{
-		mPopulationPanel.update();
-	}
+	if (isPointInRect(mMousePosition.x(), mMousePosition.y(), 580, 0, 35, 20)) { mPopulationPanel.update(); }
 
 	// Turns
 	r.drawSubImage(mUiIcons, r.width() - 80, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(mTinyFont, string_format("%i", mTurnCount), r.width() - 80 + margin, textY, 255, 255, 255);
 
-	// ugly
-	if (isPointInRect(mMousePosition, MENU_ICON))
-	{
-		r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 144, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	}
+	if (isPointInRect(mMousePosition, MENU_ICON)) { r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 144, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
+	else { r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
 }
 
 
