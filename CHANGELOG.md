@@ -16,7 +16,7 @@ Maintenance release with some features polished.
 - Minor performance improvements regarding item sorting in the IconGrid UI panels.
 - TileMap selector has been changed from an image outline highlight to highlighting the entire tile.
 - Tweaked energy requirements for most structures to make energy requirements more realistic and something to genuinely contend with in gameplay.
-- Errors when loading savegames will now display an OS dialog box letting the user know about the issue (currently only works on Windows, Mac and Linux code will need to be updated to conform).
+- Errors when loading savegames will now display an OS dialog box letting the user know about the issue.
 - Robots beyond the first three robots are now stored within a Robot Command Center.
 - Factories producing robots will go Idle if no Robot Command Capacity is available.
 - Mine shafts can now be extended using the new Mine Operations Window.
