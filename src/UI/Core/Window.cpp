@@ -81,8 +81,7 @@ void Window::show()
 
 void Window::update()
 {
-	if (!visible())
-		return;
+	if (!visible()) { return; }
 
 	Renderer& r = Utility<Renderer>::get();
 
