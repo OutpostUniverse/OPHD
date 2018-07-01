@@ -91,13 +91,11 @@ bool Button::hasImage() const
 
 void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if(!enabled() || !visible() || !hasFocus())
-		return;
+	if (!enabled() || !visible() || !hasFocus()) { return; }
 
 	if(button == EventHandler::BUTTON_LEFT)
 	{
 		Point_2d click(x, y);
-
 
 		if(isPointInRect(click, rect()))
 		{
@@ -117,8 +115,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
-	if(!enabled() || !visible() || !hasFocus())
-		return;
+	if(!enabled() || !visible() || !hasFocus()) { return; }
 
 	if(button == EventHandler::BUTTON_LEFT)
 	{
@@ -128,8 +125,10 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 		{
 			mState = STATE_NORMAL;
 
-			if(isPointInRect(click, rect()))
+			if (isPointInRect(click, rect()))
+			{
 				mCallback();
+			}
 		}
 	}
 }
@@ -137,13 +136,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 void Button::onMouseMotion(int x, int y, int dX, int dY)
 {
-	if (pointInRect_f(x, y, rect()))
-	{
-		mMouseHover = true;
-		return;
-	}
-
-	mMouseHover = false;
+	mMouseHover = pointInRect_f(x, y, rect());
 }
 
 
@@ -152,47 +145,45 @@ void Button::update()
 	draw();
 }
 
+
 /**
  * Draws the button.
  */
 void Button::draw()
 {
-	if(!visible())
-		return;
+	if (!visible()) { return; }
 
 	Renderer& r = Utility<Renderer>::get();
 
-	if (mState == STATE_NORMAL)
+	if (enabled() && mMouseHover && mState != STATE_PRESSED)
 	{
-		//r.drawBoxFilled(rect(), 225, 225, 225);
-		//r.drawBox(rect(), 175, 175, 175);
-
+		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinHover);
+	}
+	else if (mState == STATE_NORMAL)
+	{
 		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal);
 	}
-	else //(mState == STATE_PRESSED)
+	else
 	{
-		if (mType == BUTTON_NORMAL)
-			//r.drawBoxFilled(rect(), 200, 215, 245);
-			r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal);
-		else //(mType == BUTTON_TOGGLE)
-			//r.drawBoxFilled(rect(), 170, 210, 245);
-			r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinPressed);
-
-		//r.drawBox(rect(), 0, 85, 155);
+		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinPressed);
 	}
 
-	if (enabled() && mMouseHover && mState != STATE_PRESSED)
-		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinHover);
-		//r.drawBox(rect(), 0, 120, 215);
-
 	if (mUsesImage)
+	{
 		r.drawImage(mImage, rect().x() + (rect().width() / 2) - (mImage.width() / 2), rect().y() + (rect().height() / 2) - (mImage.height() / 2));
+	}
 	else
+	{
 		if (fontSet() && !text().empty())
+		{
 			r.drawText(font(), text(), static_cast<int>(rect().x() + (rect().width() / 2) - (font().width(text()) / 2)), static_cast<int>(rect().y() + (rect().height() / 2) - (font().height() / 2)), 255, 255, 255);
+		}
+	}
 
 	if (!enabled())
+	{
 		r.drawBoxFilled(rect(), 125, 125, 125, 100);
+	}
 }
 
 

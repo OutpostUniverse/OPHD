@@ -3,15 +3,10 @@
 
 #include "Control.h"
 
-
 /**
  * C'tor
  */
-Control::Control():		mFont(NULL),
-						mEnabled(true),
-						mHasFocus(false),
-						mVisible(true),
-						mHighlight(false)
+Control::Control()
 {}
 
 
@@ -153,7 +148,6 @@ void Control::size(float w, float h)
 {
 	width(w);
 	height(h);
-	
 	onSizeChanged();
 }
 
@@ -282,7 +276,6 @@ bool Control::enabled() const
 void Control::visible(bool visible)
 {
 	mVisible = visible;
-
 	visibilityChanged(mVisible);
 }
 
