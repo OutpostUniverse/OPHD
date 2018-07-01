@@ -35,6 +35,7 @@ Maintenance release with some features polished.
 - Fixed an issue regarding loading games in which structure states were not properly set.
 - Fixed an issue when first starting a colony that would fail to set population requirements for initial structures.
 - Fixed a mistake that allowed the user to bulldoze the landing site for a Cargo Lander.
+- Fixed an issue that caused Button's to not show their 'pressed' stated.
 
 
 ## [0.7.5] - 2018-05-11

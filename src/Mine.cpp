@@ -238,6 +238,14 @@ bool Mine::exhausted() const
 }
 
 
+/**
+ * Checks if the mine is exhausted and if it is sets the exhausted flag.
+ * 
+ * \note	This function is provided so that this computation is only
+ *			done once per turn instead of being done every frame. The
+ *			issue came up after updating the minimap code to indicate
+ *			exhausted mines.
+ */
 void Mine::checkExhausted()
 {
 	if (!active()) { return; }
