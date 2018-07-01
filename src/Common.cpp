@@ -12,6 +12,7 @@
 #include <Windows.h>
 #endif
 
+#include "SDL.h"
 
 using namespace NAS2D;
 
@@ -59,8 +60,10 @@ void doNonFatalErrorMessage(const std::string& title, const std::string& msg)
 {
 #if defined(WINDOWS) || defined(WIN32)
 	MessageBoxA(NULL, msg.c_str(), title.c_str(), MB_OK | MB_ICONERROR | MB_TASKMODAL);
+#else
+	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title.c_str(), msg.c_str(), NULL);
 #endif
-
+	
 	std::cout << msg << std::endl;
 }
 
