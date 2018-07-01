@@ -280,7 +280,9 @@ void GameState::minerTaskFinished(Robot* _r)
 
 	if (t->depth() == constants::DEPTH_SURFACE)
 	{
-		mStructureManager.addStructure(new MineFacility(t->mine()), t);
+		MineFacility* _mf = new MineFacility(t->mine());
+		_mf->maxDepth(mTileMap->maxDepth());
+		mStructureManager.addStructure(_mf, t);
 	}
 	else
 	{

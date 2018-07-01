@@ -14,6 +14,9 @@ public:
 	virtual ~MineFacility();
 	
 	void mine(Mine* _m) { mMine = _m; }
+	void maxDepth(int depth) { mMaxDepth = depth; }
+
+	bool canExtend() const;
 
 	Mine* mine() { return mMine; }
 
@@ -32,5 +35,8 @@ private:
 	virtual void activated() final;
 
 private:
-	Mine*			mMine;
+	int		mMaxDepth = 0;
+	int		mDigTurnsRemaining = 0;
+
+	Mine*	mMine = nullptr;
 };

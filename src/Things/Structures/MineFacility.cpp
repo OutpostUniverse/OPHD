@@ -104,3 +104,9 @@ void MineFacility::think()
 		idle();
 	}
 }
+
+
+bool MineFacility::canExtend() const
+{
+	return mMine->depth() < mMaxDepth;
+}

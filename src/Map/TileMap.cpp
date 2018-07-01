@@ -390,7 +390,7 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 }
 
 
-void serializeTile(XmlElement* _ti, int x, int y, int depth, int index)
+static void serializeTile(XmlElement* _ti, int x, int y, int depth, int index)
 {
 	XmlElement* t = new XmlElement("tile");
 	t->attribute("x", x);
