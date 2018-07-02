@@ -26,6 +26,7 @@ Maintenance release with some features polished.
 - Exhausted mines will now be indicated on the minimap using a light grayish-blue color.
 - Placing a robodigger on a mine will now destroy the mine.
 - Robodozers can now be placed on exhausted mines that have reached their maximum digging depth.
+- Resource counts will throb red in the Resource HUD when resources are critically low.
 
 ### Fixed
 - Fixed an issue in the Factory Production window which would fail to set the current production type when selecting a Factory leading to production queue being cleared when hitting the Okay button.
@@ -36,6 +37,8 @@ Maintenance release with some features polished.
 - Fixed an issue when first starting a colony that would fail to set population requirements for initial structures.
 - Fixed a mistake that allowed the user to bulldoze the landing site for a Cargo Lander.
 - Fixed an issue that caused Button's to not show their 'pressed' stated.
+- Fixed an issue that would cause a crash if the Structure Inspector Window was open and the structure it was detailing is bulldozed.
+- Fixed an issue that would cause a crash if the Factory Production Window was open if the factory being modified is bulldozed.
 
 
 ## [0.7.5] - 2018-05-11

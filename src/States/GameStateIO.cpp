@@ -331,7 +331,10 @@ void GameState::readStructures(XmlElement* _ti)
 				throw runtime_error("Mine Facility is located on a Tile with no Mine.");
 			}
 
-			static_cast<MineFacility*>(st)->mine(m);
+			MineFacility* mf = static_cast<MineFacility*>(st);
+			mf->mine(m);
+			mf->maxDepth(mTileMap->maxDepth());
+			mf->extensionComplete().connect(this, &GameState::mineFacilityExtended);
 		}
 
 		if (type_id == SID_AIR_SHAFT && depth > 0)

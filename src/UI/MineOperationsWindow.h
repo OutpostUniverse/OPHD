@@ -16,6 +16,8 @@ public:
 	virtual ~MineOperationsWindow() final;
 
 	void mineFacility(MineFacility* _mf);
+	MineFacility* mineFacility() { return mFacility; }
+	
 	void updateCounts();
 
 	virtual void update() final;

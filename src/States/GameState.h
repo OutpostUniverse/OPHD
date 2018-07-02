@@ -115,6 +115,8 @@ private:
 	void pullRobotFromFactory(ProductType pt, Factory& factory);
 	void factoryProductionComplete(Factory& factory);
 
+	void mineFacilityExtended(MineFacility* mf);
+
 	// TURN LOGIC
 	void checkColonyShip();
 	void nextTurn();

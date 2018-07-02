@@ -17,6 +17,7 @@ namespace constants
 	const int BASE_PRODUCT_CAPACITY = 100;
 
 	const int BASE_MINE_PRODUCTION_RATE = 10;
+	const int BASE_MINE_SHAFT_EXTENSION_TIME = 10;
 
 	const int DEPTH_SURFACE = 0;
 	const int DEPTH_UNDERGROUND_1 = 1;

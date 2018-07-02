@@ -283,6 +283,7 @@ void GameState::minerTaskFinished(Robot* _r)
 		MineFacility* _mf = new MineFacility(t->mine());
 		_mf->maxDepth(mTileMap->maxDepth());
 		mStructureManager.addStructure(_mf, t);
+		_mf->extensionComplete().connect(this, &GameState::mineFacilityExtended);
 	}
 	else
 	{
@@ -297,4 +298,16 @@ void GameState::minerTaskFinished(Robot* _r)
 	t2->excavated(true);
 
 	_r->die();
+}
+
+
+void GameState::mineFacilityExtended(MineFacility* mf)
+{
+	if (mMineOperationsWindow.mineFacility() == mf) { mMineOperationsWindow.mineFacility(mf); }
+	
+	Tile* mf_tile = mStructureManager.tileFromStructure(mf);
+	Tile* t = mTileMap->getTile(mf_tile->x(), mf_tile->y(), mf->mine()->depth());
+	mStructureManager.addStructure(new MineShaft(), t);
+	t->index(0);
+	t->excavated(true);
 }

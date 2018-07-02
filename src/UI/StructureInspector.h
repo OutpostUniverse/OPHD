@@ -14,18 +14,19 @@ public:
 	virtual void update();
 
 	void structure(Structure* _st) { mStructure = _st; }
+	Structure* structure() { return mStructure; }
 
 protected:
 	virtual void init();
 
 private:
-	StructureInspector();
-	StructureInspector(const StructureInspector&);
-	StructureInspector& operator=(const StructureInspector&);
-
 	void btnCloseClicked();
-
 	void drawResourcePool(const std::string& title, ResourcePool& rp, int x, int y);
+
+private:
+	StructureInspector() = delete;
+	StructureInspector(const StructureInspector&) = delete;
+	StructureInspector& operator=(const StructureInspector&) = delete;
 
 private:
 	Button		btnClose;

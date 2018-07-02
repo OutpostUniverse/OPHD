@@ -146,8 +146,8 @@ void MineOperationsWindow::mineFacility(MineFacility* _mf)
 	MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
 	MINE_DEPTH = std::to_string(mFacility->mine()->depth());
 
-	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + mBold.width("Mine Yield") + 5;
-	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + mBold.width("Depth") + 5;
+	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + mBold.width("Mine Yield:") + 10;
+	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + mBold.width("Depth:") + 10;
 
 	btnCommonMetals.toggle(mFacility->mine()->miningCommonMetals());
 	btnCommonMinerals.toggle(mFacility->mine()->miningCommonMinerals());
@@ -155,6 +155,7 @@ void MineOperationsWindow::mineFacility(MineFacility* _mf)
 	btnRareMinerals.toggle(mFacility->mine()->miningRareMinerals());
 
 	btnIdle.toggle(mFacility->forceIdle());
+	btnExtendShaft.enabled(mFacility->canExtend());
 
 	updateCounts();
 }
@@ -194,7 +195,8 @@ void MineOperationsWindow::btnOkayClicked()
  */
 void MineOperationsWindow::btnExtendShaftClicked()
 {
-
+	mFacility->extend();
+	btnExtendShaft.enabled(false);
 }
 
 

@@ -737,11 +737,14 @@ void GameState::placeRobot()
 		}
 		else if (tile->mine() && tile->mine()->depth() == mTileMap->maxDepth() && tile->mine()->exhausted())
 		{
+			mMineOperationsWindow.hide();
 			mStructureManager.removeStructure(tile->structure());
 			tile->pushMine(nullptr);
 		}
 		else if (tile->thingIsStructure())
 		{
+			if (mStructureInspector.structure() == tile->structure()) { mStructureInspector.hide(); }
+			
 			Structure* _s = tile->structure();
 			if (_s->isMineFacility()) { return; }
 			
@@ -759,10 +762,8 @@ void GameState::placeRobot()
 				return;
 			}
 
-			if (_s->isRobotCommand())
-			{
-				deleteRobotsInRCC(r, static_cast<RobotCommand*>(_s), mRobotPool, mRobotList, tile);
-			}
+			if (_s->isRobotCommand()) { deleteRobotsInRCC(r, static_cast<RobotCommand*>(_s), mRobotPool, mRobotList, tile); }
+			if (_s->isFactory() && static_cast<Factory*>(_s) == mFactoryProduction.factory()) { mFactoryProduction.hide(); }
 
 			/**
 			 * \fixme	Since the StructureTranslator class will be deprecated in the future, there needs to be a better

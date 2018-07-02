@@ -25,9 +25,10 @@ static int push_count(MineFacility* _mf)
 }
 
 
-
-MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite", CLASS_MINE),
-mMine(mine)
+/**
+ * 
+ */
+MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite", CLASS_MINE), mMine(mine)
 {
 	sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 	maxAge(1200);
@@ -41,19 +42,35 @@ mMine(mine)
 }
 
 
-MineFacility::~MineFacility()
-{}
-
-
+/**
+ * 
+ */
 void MineFacility::activated()
 {
 	mMine->increaseDepth();
+	mMine->active(true);
 }
 
 
+/**
+ * 
+ */
 void MineFacility::think()
 {
 	if (forceIdle()) { return; }
+
+	if (mDigTurnsRemaining > 0)
+	{
+		--mDigTurnsRemaining;
+
+		if (mDigTurnsRemaining == 0)
+		{
+			mMine->increaseDepth();
+			mExtensionComplete(this);
+		}
+
+		return;
+	}
 
 	if (isIdle() && mMine->active())
 	{
@@ -106,7 +123,38 @@ void MineFacility::think()
 }
 
 
+/**
+ * 
+ */
 bool MineFacility::canExtend() const
 {
-	return mMine->depth() < mMaxDepth;
+	return (mMine->depth() < mMaxDepth) && (mDigTurnsRemaining == 0);
+}
+
+
+/**
+ * 
+ */
+void MineFacility::extend()
+{
+	if (!canExtend()) { return; }
+	mDigTurnsRemaining = constants::BASE_MINE_SHAFT_EXTENSION_TIME;
+}
+
+
+/**
+ * 
+ */
+bool MineFacility::extending() const
+{
+	return mDigTurnsRemaining > 0;
+}
+
+
+/**
+ * 
+ */
+int MineFacility::digTimeRemaining() const
+{
+	return mDigTurnsRemaining;
 }

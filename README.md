@@ -140,6 +140,7 @@ I'd like to give a special thanks and shout out to the following contributers wh
 - JetMech1999
 - lordpalandus
 - macksting
+- singthemuse
 - Sirbomber
 - Vagabond
 

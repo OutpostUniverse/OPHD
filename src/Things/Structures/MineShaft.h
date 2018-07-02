@@ -19,17 +19,6 @@ public:
 		selfSustained(true);
 	}
 
-
 	virtual ~MineShaft()
 	{}
-
-protected:
-
-	virtual void think()
-	{
-
-	}
-
-private:
-
 };

@@ -16,9 +16,9 @@ public:
 	virtual ~FactoryProduction();
 
 	void factory(Factory* _f);
+	Factory* factory() { return mFactory; }
 
 	virtual void update();
-
 	virtual void hide();
 
 protected:
@@ -33,11 +33,12 @@ private:
 
 	void clearProduct();
 
-	FactoryProduction();
-	FactoryProduction(const FactoryProduction&);
-	FactoryProduction& operator=(const FactoryProduction&) = delete;
-
 	void productSelectionChanged(const IconGrid::IconGridItem*);
+
+private:
+	FactoryProduction() = delete;
+	FactoryProduction(const FactoryProduction&) = delete;
+	FactoryProduction& operator=(const FactoryProduction&) = delete;
 
 private:
 	Factory*			mFactory = nullptr;
