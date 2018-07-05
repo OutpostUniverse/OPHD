@@ -28,11 +28,36 @@ std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
 
 
 /**
- * Simple utility function that helps reduce syntax verbosity.
+ * Gets the amount of storage required for one unit of a Product.
  */
-static inline int productStorage(ProductType type)
+inline int storageRequiredPerUnit(ProductType type)
 {
 	return PRODUCT_STORAGE_VALUE[type];
+}
+
+
+/**
+ * Gets the amount of storage required for a given number of Products.
+ */
+int storageRequired(ProductType type, int count)
+{
+	return PRODUCT_STORAGE_VALUE[type] * count;
+}
+
+
+/**
+ * Internal helper function.
+ */
+static int computeCurrentStorage(const ProductPool::ProductTypeCount& products)
+{
+	int stored = 0;
+
+	for (size_t i = 0; i < static_cast<size_t>(PRODUCT_COUNT); ++i)
+	{
+		stored +=storageRequired(static_cast<ProductType>(i), products[i]);
+	}
+
+	return stored;
 }
 
 
@@ -50,13 +75,7 @@ int ProductPool::capacity() const
  */
 int ProductPool::availableStorage() const
 {
-	int stored = 0;
-	for (size_t i = 0; i < static_cast<size_t>(PRODUCT_COUNT); ++i)
-	{
-		stored += mProducts[i] * productStorage(static_cast<ProductType>(i));
-	}
-
-	return mCapacity - stored;
+	return mCapacity - mCurrentStorageCount;
 }
 
 
@@ -65,7 +84,7 @@ int ProductPool::availableStorage() const
  */
 bool ProductPool::canStore(ProductType type, int count)
 {
-	if (count * productStorage(type) <= availableStorage())
+	if (count * storageRequiredPerUnit(type) <= availableStorage())
 	{
 		return true;
 	}
@@ -85,13 +104,12 @@ bool ProductPool::canStore(ProductType type, int count)
  */
 void ProductPool::store(ProductType type, int count)
 {
-	int storageRequired = count * productStorage(type);
-
-	if (storageRequired <= availableStorage())
+	if (storageRequired(type, count) <= availableStorage())
 	{
 		mProducts[static_cast<int>(type)] += count;
-		mCapacity -= storageRequired;
 	}
+
+	mCurrentStorageCount = computeCurrentStorage(mProducts);
 }
 
 
@@ -102,8 +120,7 @@ int ProductPool::pull(ProductType type, int c)
 {
 	int pulledCount = clamp(c, 0, mProducts[static_cast<int>(type)]);
 	mProducts[static_cast<int>(type)] -= pulledCount;
-
-	mCapacity += pulledCount * productStorage(type);
+	mCurrentStorageCount = computeCurrentStorage(mProducts);
 
 	return pulledCount;
 }
@@ -158,5 +175,5 @@ void ProductPool::deserialize(NAS2D::Xml::XmlElement* _ti)
 
 		attribute = attribute->next();
 	}
-
+	mCurrentStorageCount = computeCurrentStorage(mProducts);
 }

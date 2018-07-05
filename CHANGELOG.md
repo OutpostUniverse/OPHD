@@ -41,6 +41,7 @@ Maintenance release with some features polished.
 - Fixed an issue that would cause a crash if the Factory Production Window was open if the factory being modified is bulldozed.
 - Fixed a mistake in the WarehouseInspector which would display incorrect storage values.
 - Fixed a hidden mistake which failed to call derived activation logic when a structure became active.
+- Fixed an issue that caused incorrect reporting of storage use in ProductPool (affected warehouses).
 
 
 ## [0.7.5] - 2018-05-11
