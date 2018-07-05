@@ -39,6 +39,8 @@ Maintenance release with some features polished.
 - Fixed an issue that caused Button's to not show their 'pressed' stated.
 - Fixed an issue that would cause a crash if the Structure Inspector Window was open and the structure it was detailing is bulldozed.
 - Fixed an issue that would cause a crash if the Factory Production Window was open if the factory being modified is bulldozed.
+- Fixed a mistake in the WarehouseInspector which would display incorrect storage values.
+- Fixed a hidden mistake which failed to call derived activation logic when a structure became active.
 
 
 ## [0.7.5] - 2018-05-11

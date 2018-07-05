@@ -105,14 +105,14 @@ void Structure::activate()
 
 	defineResourceInput();
 	defineResourceOutput();
+
+	activated();
 }
 
 
 void Structure::update()
 {
-	if (disabled() || destroyed())
-		return;
-
+	if (disabled() || destroyed()) { return; }
 	incrementAge();
 }
 

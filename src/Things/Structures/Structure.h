@@ -164,6 +164,10 @@ private:
 	void incrementAge();
 	virtual void die() final;
 
+	/**
+	 * Provided so that structures that need to do something upon
+	 * activation can do so without overriding void activate();
+	 */
 	virtual void activated() {};
 
 private:
