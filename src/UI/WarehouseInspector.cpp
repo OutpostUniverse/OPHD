@@ -78,7 +78,7 @@ void WarehouseInspector::update()
 	Renderer& r = Utility<Renderer>::get();
 
 	r.drawText(mBold, "Storage", rect().x() + constants::MARGIN, rect().y() + 25.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i / 100", mWarehouse->products().capacity()), rect().x() + constants::MARGIN + font().width("Storage") + 20, rect().y() + 25.0f, 255, 255, 255);
+	r.drawText(font(), string_format("%i / %i", mWarehouse->products().availableStorage(), mWarehouse->products().capacity()), rect().x() + constants::MARGIN + font().width("Storage") + 20, rect().y() + 25.0f, 255, 255, 255);
 
 	r.drawText(mBold, "Clothing:", rect().x() + constants::MARGIN, rect().y() + 50.0f, 255, 255, 255);
 	r.drawText(font(), to_string(mWarehouse->products().count(PRODUCT_CLOTHING)), rect().x() + constants::MARGIN + 100, rect().y() + 50.0f, 255, 255, 255);
