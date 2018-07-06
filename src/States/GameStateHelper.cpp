@@ -333,6 +333,27 @@ RobotCommand* getAvailableRobotCommand(StructureManager& _sm)
 }
 
 
+/**
+ * Attempts to move all products from a Warehouse into any remaining warehouses.
+ */
+void moveProducts(Warehouse* wh, StructureManager& _sm)
+{
+	StructureManager::StructureList& structures = _sm.structureList(Structure::CLASS_WAREHOUSE);
+	for (auto structure : structures)
+	{
+		if (structure->operational())
+		{
+			Warehouse* warehouse = static_cast<Warehouse*>(structure);
+			if (warehouse != wh)
+			{
+				transferProducts(wh, warehouse);
+			}
+		}
+	}
+}
+
+
+
 // ==============================================================
 // = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
 // ==============================================================

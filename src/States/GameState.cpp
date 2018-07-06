@@ -710,26 +710,6 @@ void GameState::placeTubes()
 
 
 /**
- * Attempts to move all products from a Warehouse into any remaining warehouses.
- */
-static void moveProducts(Warehouse* wh, StructureManager& _sm)
-{
-	StructureManager::StructureList& structures = _sm.structureList(Structure::CLASS_WAREHOUSE);
-	for (auto structure : structures)
-	{
-		if (structure->operational())
-		{
-			Warehouse* warehouse = static_cast<Warehouse*>(structure);
-			if (warehouse != wh)
-			{
-				transferProducts(wh, warehouse);
-			}
-		}
-	}
-}
-
-
-/**
  * 
  */
 void GameState::placeRobot()

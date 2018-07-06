@@ -35,6 +35,7 @@ int totalStorage(StructureManager::StructureList& _sl);
 
 Warehouse* getAvailableWarehouse(StructureManager& _sm, ProductType _pt, size_t _ct);
 RobotCommand* getAvailableRobotCommand(StructureManager& _sm);
+void moveProducts(Warehouse* wh, StructureManager& _sm);
 
 
 // Serialize / Deserialize
