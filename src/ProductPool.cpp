@@ -93,6 +93,19 @@ bool ProductPool::canStore(ProductType type, int count)
 }
 
 
+bool ProductPool::empty() const
+{
+	return (availableStorage() == capacity());
+}
+
+
+bool ProductPool::atCapacity() const
+{
+	return (availableStorage() == 0);
+}
+
+
+
 /**
  * Stores a specified amount of a ProductType.
  * 
@@ -132,6 +145,12 @@ int ProductPool::pull(ProductType type, int c)
 int ProductPool::count(ProductType type)
 {
 	return mProducts[static_cast<int>(type)];
+}
+
+
+void ProductPool::verifyCount()
+{
+	mCurrentStorageCount = computeCurrentStorage(mProducts);
 }
 
 

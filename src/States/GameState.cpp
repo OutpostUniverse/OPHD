@@ -507,6 +507,7 @@ void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		if (isPointInRect(mMousePosition, MENU_ICON))
 		{
 			mGameOptionsDialog.show();
+			resetUi();
 		}
 
 		if (isPointInRect(mMousePosition, MOVE_NORTH_ICON))
@@ -709,6 +710,26 @@ void GameState::placeTubes()
 
 
 /**
+ * Attempts to move all products from a Warehouse into any remaining warehouses.
+ */
+static void moveProducts(Warehouse* wh, StructureManager& _sm)
+{
+	StructureManager::StructureList& structures = _sm.structureList(Structure::CLASS_WAREHOUSE);
+	for (auto structure : structures)
+	{
+		if (structure->operational())
+		{
+			Warehouse* warehouse = static_cast<Warehouse*>(structure);
+			if (warehouse != wh)
+			{
+				transferProducts(wh, warehouse);
+			}
+		}
+	}
+}
+
+
+/**
  * 
  */
 void GameState::placeRobot()
@@ -746,8 +767,8 @@ void GameState::placeRobot()
 			if (mStructureInspector.structure() == tile->structure()) { mStructureInspector.hide(); }
 			
 			Structure* _s = tile->structure();
+
 			if (_s->isMineFacility()) { return; }
-			
 			if (_s->structureClass() == Structure::CLASS_COMMAND)
 			{
 				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::CC_NO_BULLDOZE);
@@ -764,6 +785,7 @@ void GameState::placeRobot()
 
 			if (_s->isRobotCommand()) { deleteRobotsInRCC(r, static_cast<RobotCommand*>(_s), mRobotPool, mRobotList, tile); }
 			if (_s->isFactory() && static_cast<Factory*>(_s) == mFactoryProduction.factory()) { mFactoryProduction.hide(); }
+			if (_s->isWarehouse()) { moveProducts(static_cast<Warehouse*>(_s), mStructureManager); }
 
 			/**
 			 * \fixme	Since the StructureTranslator class will be deprecated in the future, there needs to be a better

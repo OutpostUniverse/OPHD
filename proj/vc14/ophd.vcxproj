@@ -244,6 +244,7 @@
     <ClInclude Include="..\..\src\StructureCatalogue.h" />
     <ClInclude Include="..\..\src\StructureManager.h" />
     <ClInclude Include="..\..\src\StructureTranslator.h" />
+    <ClInclude Include="..\..\src\Templates.h" />
     <ClInclude Include="..\..\src\Things\Robots\Robodigger.h" />
     <ClInclude Include="..\..\src\Things\Robots\Robodozer.h" />
     <ClInclude Include="..\..\src\Things\Robots\Robominer.h" />

@@ -250,13 +250,9 @@ void GameState::hideUi()
 void GameState::resetUi()
 {
 	clearMode();
-
 	clearSelections();
 
-	mDiggerDirection.hide();
-	mFactoryProduction.hide();
-	mStructureInspector.hide();
-	mTileInspector.hide();
+	mWindowStack.hide();
 }
 
 

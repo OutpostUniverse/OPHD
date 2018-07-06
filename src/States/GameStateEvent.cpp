@@ -204,8 +204,7 @@ void GameState::diggerTaskFinished(Robot* _r)
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
-	// FIXME: Fugly cast.
-	Direction dir = static_cast<Robodigger*>(_r)->direction();
+	Direction dir = static_cast<Robodigger*>(_r)->direction(); // fugly
 
 	int originX = 0, originY = 0, depthAdjust = 0;
 

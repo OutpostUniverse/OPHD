@@ -2,8 +2,10 @@
 
 #include "Common.h"
 #include "Constants.h"
+#include "Templates.h"
 
 #include <array>
+
 
 class ProductPool
 {
@@ -17,8 +19,8 @@ public:
 	int capacity() const;
 
 	bool canStore(ProductType type, int count);
-
-	bool empty() const { return (capacity() == 0); }
+	bool empty() const;
+	bool atCapacity() const;
 
 	void store(ProductType type, int count);
 	int pull(ProductType type, int count);
@@ -29,7 +31,11 @@ public:
 	void serialize(NAS2D::Xml::XmlElement* _ti);
 	void deserialize(NAS2D::Xml::XmlElement* _ti);
 
-	ProductTypeCount& productList() { return mProducts; }
+	void verifyCount();
+
+private:
+	template <class T>
+	friend void transferProducts(T& source, T& destination);
 
 private:
 	ProductPool(const ProductPool&) = delete;
