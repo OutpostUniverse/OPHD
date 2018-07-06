@@ -168,6 +168,8 @@ void MineOperationsWindow::mineFacility(MineFacility* _mf)
 void MineOperationsWindow::updateCounts()
 {
 	if (!visible() && !mFacility) { return; }
+
+	MINE_DEPTH = std::to_string(mFacility->mine()->depth());
 	
 	COMMON_METALS_COUNT = std::to_string(mFacility->mine()->commonMetalsAvailable());
 	COMMON_MINERALS_COUNT = std::to_string(mFacility->mine()->commonMineralsAvailable());
