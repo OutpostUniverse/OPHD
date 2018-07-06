@@ -1,9 +1,9 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.7.6] - UNRELEASED
+## [0.7.6] - 2018-07-06
 
-Maintenance release with some features polished.
+Numerous bug fixes, rounding out some features introduced in v0.7.5 and introduces the new Mine Operations Window.
 
 ### Added
 - Added a Main Menu state which allows for starting a new game, continuing an old game or quitting (options menu slated for a future release).
