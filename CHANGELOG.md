@@ -42,6 +42,7 @@ Maintenance release with some features polished.
 - Fixed a mistake in the WarehouseInspector which would display incorrect storage values.
 - Fixed a hidden mistake which failed to call derived activation logic when a structure became active.
 - Fixed an issue that caused incorrect reporting of storage use in ProductPool (affected warehouses).
+- Fixed an issue that would leave UI windows open when interacting with the system interfaces (main menus, fileIO, etc.).
 
 
 ## [0.7.5] - 2018-05-11
