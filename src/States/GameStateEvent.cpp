@@ -275,7 +275,6 @@ void GameState::minerTaskFinished(Robot* _r)
 	if (mRobotList.find(_r) == mRobotList.end()) { throw std::runtime_error("GameState::minerTaskFinished() called with a Robot not in the Robot List!"); }
 
 	Tile* t = mRobotList[_r];
-	t->mine()->increaseDepth();
 
 	if (t->depth() == constants::DEPTH_SURFACE)
 	{
