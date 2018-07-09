@@ -108,6 +108,7 @@ protected:
 		{
 			if (!mMouseInArea)
 			{
+				mMouseInArea = true;
 				mMouseEnterCallback();
 			}
 			mMouseInArea = true;

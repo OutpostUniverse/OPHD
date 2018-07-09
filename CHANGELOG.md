@@ -1,6 +1,20 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.7.9] - UNKNOWN
+
+User interface overhaul.
+
+### Added
+- 
+
+### Changed
+- 
+
+### Fixed
+- Fixed an issue that prevented the planet description from displaying.
+
+
 ## [0.7.6] - 2018-07-06
 
 Numerous bug fixes, rounding out some features introduced in v0.7.5 and introduces the new Mine Operations Window.

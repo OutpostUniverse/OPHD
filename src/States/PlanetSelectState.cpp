@@ -213,12 +213,9 @@ void PlanetSelectState::onMousePlanetEnter()
 		// FIXME: Ugly, will be difficult to maintain in the future.
 		if (mPlanets[i]->mouseHovering())
 		{
-			if (mPlanets[i]->type() == PLANET_TYPE_GANYMEDE)
-				mPlanetDescription.text(constants::PLANET_DESCRIPTION_GANYMEDE);
-			if (mPlanets[i]->type() == PLANET_TYPE_MARS)
-				mPlanetDescription.text(constants::PLANET_DESCRIPTION_MARS);
-			if (mPlanets[i]->type() == PLANET_TYPE_MERCURY)
-				mPlanetDescription.text(constants::PLANET_DESCRIPTION_MERCURY);
+			if (mPlanets[i]->type() == PLANET_TYPE_GANYMEDE) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_GANYMEDE); }
+			if (mPlanets[i]->type() == PLANET_TYPE_MARS) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MARS); }
+			if (mPlanets[i]->type() == PLANET_TYPE_MERCURY) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MERCURY); }
 		}
 	}
 }
