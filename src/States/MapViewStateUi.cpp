@@ -539,7 +539,7 @@ void MapViewState::btnReturnToGameClicked()
  */
 void MapViewState::btnGameOverClicked()
 {
-	mReturnState = new MainMenuState();
+	mReturnState = nullptr;
 	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
 }
 

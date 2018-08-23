@@ -17,6 +17,8 @@ extern Rectangle_2d MOVE_WEST_ICON;
 extern Rectangle_2d MOVE_UP_ICON;
 extern Rectangle_2d MOVE_DOWN_ICON;
 
+extern Point_2d MOUSE_COORDS;
+
 
 std::string		S_LEVEL;
 
@@ -173,13 +175,13 @@ void MapViewState::drawResourceInfo()
 	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(mTinyFont, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
 
-	if (isPointInRect(mMousePosition.x(), mMousePosition.y(), 580, 0, 35, 20)) { mPopulationPanel.update(); }
+	if (isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 580, 0, 35, 20)) { mPopulationPanel.update(); }
 
 	// Turns
 	r.drawSubImage(mUiIcons, r.width() - 80, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(mTinyFont, string_format("%i", mTurnCount), r.width() - 80 + margin, textY, 255, 255, 255);
 
-	if (isPointInRect(mMousePosition, MENU_ICON)) { r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 144, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
+	if (isPointInRect(MOUSE_COORDS, MENU_ICON)) { r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 144, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
 	else { r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
 }
 
@@ -224,7 +226,7 @@ void MapViewState::drawNavInfo()
 	Renderer& r = Utility<Renderer>::get();
 
 	// Up / Down
-	if (isPointInRect(mMousePosition, MOVE_DOWN_ICON))
+	if (isPointInRect(MOUSE_COORDS, MOVE_DOWN_ICON))
 	{
 		r.drawSubImage(mUiIcons, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 64, 128, 32, 32, 255, 0, 0, 255);
 	}
@@ -233,7 +235,7 @@ void MapViewState::drawNavInfo()
 		r.drawSubImage(mUiIcons, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 64, 128, 32, 32);
 	}
 
-	if (isPointInRect(mMousePosition, MOVE_UP_ICON))
+	if (isPointInRect(MOUSE_COORDS, MOVE_UP_ICON))
 	{
 		r.drawSubImage(mUiIcons, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 96, 128, 32, 32, 255, 0, 0, 255);
 	}
@@ -243,7 +245,7 @@ void MapViewState::drawNavInfo()
 	}
 
 	// East / West / North / South
-	if (isPointInRect(mMousePosition, MOVE_EAST_ICON))
+	if (isPointInRect(MOUSE_COORDS, MOVE_EAST_ICON))
 	{
 		r.drawSubImage(mUiIcons, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 32, 128, 32, 16, 255, 0, 0, 255);
 	}
@@ -252,7 +254,7 @@ void MapViewState::drawNavInfo()
 		r.drawSubImage(mUiIcons, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 32, 128, 32, 16);
 	}
 
-	if (isPointInRect(mMousePosition, MOVE_WEST_ICON))
+	if (isPointInRect(MOUSE_COORDS, MOVE_WEST_ICON))
 	{
 		r.drawSubImage(mUiIcons, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 32, 144, 32, 16, 255, 0, 0, 255);
 	}
@@ -261,7 +263,7 @@ void MapViewState::drawNavInfo()
 		r.drawSubImage(mUiIcons, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 32, 144, 32, 16);
 	}
 
-	if (isPointInRect(mMousePosition, MOVE_NORTH_ICON))
+	if (isPointInRect(MOUSE_COORDS, MOVE_NORTH_ICON))
 	{
 		r.drawSubImage(mUiIcons, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 128, 32, 16, 255, 0, 0, 255);
 	}
@@ -270,7 +272,7 @@ void MapViewState::drawNavInfo()
 		r.drawSubImage(mUiIcons, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 128, 32, 16);
 	}
 
-	if (isPointInRect(mMousePosition, MOVE_SOUTH_ICON))
+	if (isPointInRect(MOUSE_COORDS, MOVE_SOUTH_ICON))
 	{
 		r.drawSubImage(mUiIcons, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 144, 32, 16, 255, 0, 0, 255);
 	}

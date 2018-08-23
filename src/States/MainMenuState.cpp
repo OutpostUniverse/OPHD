@@ -1,9 +1,11 @@
 // This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
+#include "GameState.h"
 #include "MapViewState.h"
 #include "MainMenuState.h"
 #include "PlanetSelectState.h"
+#include "Wrapper.h"
 
 
 /**
@@ -131,7 +133,12 @@ void MainMenuState::fileIoAction(const std::string& _file, FileIo::FileOperation
 	try
 	{
 		checkSavegameVersion(filename);
-		mReturnState = new MapViewState(filename);
+
+		Utility<WrapperStack>::get().push(new MapViewState(filename));
+		Utility<WrapperStack>::get().top()->_initialize();
+		Utility<WrapperStack>::get().top()->activate();
+
+		mReturnState = new GameState();
 		Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 	}
 	catch (const std::exception& e)

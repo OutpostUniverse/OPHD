@@ -33,6 +33,8 @@ const int MAX_TILESET_INDEX	= 4;
 
 extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.
 extern NAS2D::Image* IMG_SAVING;	/// \fixme Find a sane place for this.
+extern Point_2d MOUSE_COORDS;
+
 
 int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
 
@@ -222,7 +224,7 @@ State* MapViewState::update()
 	
 	if (!mGameOptionsDialog.visible() && !mGameOverDialog.visible() && !mFileIoDialog.visible())
 	{
-		mTileMap->injectMouse(mMousePosition.x(), mMousePosition.y());
+		mTileMap->injectMouse(MOUSE_COORDS.x(), MOUSE_COORDS.y());
 	}
 
 	mTileMap->draw();
@@ -445,17 +447,17 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible()) { return; }
 
-	if (mDiggerDirection.visible() && isPointInRect(mMousePosition, mDiggerDirection.rect())) { return; }
+	if (mDiggerDirection.visible() && isPointInRect(MOUSE_COORDS, mDiggerDirection.rect())) { return; }
 
-	if (mWindowStack.pointInWindow(mMousePosition) && button == EventHandler::BUTTON_LEFT)
+	if (mWindowStack.pointInWindow(MOUSE_COORDS) && button == EventHandler::BUTTON_LEFT)
 	{
-		mWindowStack.updateStack(mMousePosition);
+		mWindowStack.updateStack(MOUSE_COORDS);
 		return;
 	}
 
 	if (button == EventHandler::BUTTON_RIGHT)
 	{
-		if (mWindowStack.pointInWindow(mMousePosition)) { return; }
+		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 
 		if (mInsertMode != INSERT_NONE)
 		{
@@ -470,7 +472,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		{
 			return;
 		}
-		else if (_t->empty() && isPointInRect(mMousePosition, mTileMap->boundingBox()))
+		else if (_t->empty() && isPointInRect(MOUSE_COORDS, mTileMap->boundingBox()))
 		{
 			clearSelections();
 			mTileInspector.tile(_t);
@@ -512,52 +514,52 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	{
 		mLeftButtonDown = true;
 
-		mWindowStack.updateStack(mMousePosition);
+		mWindowStack.updateStack(MOUSE_COORDS);
 		Point_2d pt = mTileMap->mapViewLocation();
 
 		// Ugly
-		if (isPointInRect(mMousePosition, MENU_ICON))
+		if (isPointInRect(MOUSE_COORDS, MENU_ICON))
 		{
 			mGameOptionsDialog.show();
 			resetUi();
 		}
 
-		if (isPointInRect(mMousePosition, MOVE_NORTH_ICON))
+		if (isPointInRect(MOUSE_COORDS, MOVE_NORTH_ICON))
 		{
 			pt.y(clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			mTileMap->mapViewLocation(pt.x(), pt.y());
 		}
-		else if (isPointInRect(mMousePosition, MOVE_SOUTH_ICON))
+		else if (isPointInRect(MOUSE_COORDS, MOVE_SOUTH_ICON))
 		{
 			pt.y(clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			mTileMap->mapViewLocation(pt.x(), pt.y());
 		}
-		else if (isPointInRect(mMousePosition, MOVE_EAST_ICON))
+		else if (isPointInRect(MOUSE_COORDS, MOVE_EAST_ICON))
 		{
 			pt.x(clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			mTileMap->mapViewLocation(pt.x(), pt.y());
 		}
-		else if (isPointInRect(mMousePosition, MOVE_WEST_ICON))
+		else if (isPointInRect(MOUSE_COORDS, MOVE_WEST_ICON))
 		{
 			pt.x(clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			mTileMap->mapViewLocation(pt.x(), pt.y());
 		}
-		else if (isPointInRect(mMousePosition, MOVE_UP_ICON))
+		else if (isPointInRect(MOUSE_COORDS, MOVE_UP_ICON))
 		{
 			changeDepth(mTileMap->currentDepth() - 1);
 		}
-		else if (isPointInRect(mMousePosition, MOVE_DOWN_ICON))
+		else if (isPointInRect(MOUSE_COORDS, MOVE_DOWN_ICON))
 		{
 			changeDepth(mTileMap->currentDepth()+1);
 		}
 
 		// MiniMap Check
-		if (isPointInRect(mMousePosition, mMiniMapBoundingBox) && !mWindowStack.pointInWindow(mMousePosition))
+		if (isPointInRect(MOUSE_COORDS, mMiniMapBoundingBox) && !mWindowStack.pointInWindow(MOUSE_COORDS))
 		{
 			setMinimapView();
 		}
 		// Click was within the bounds of the TileMap.
-		else if (isPointInRect(mMousePosition, mTileMap->boundingBox()))
+		else if (isPointInRect(MOUSE_COORDS, mTileMap->boundingBox()))
 		{
 			if (mInsertMode == INSERT_STRUCTURE)
 			{
@@ -593,11 +595,9 @@ void MapViewState::onMouseUp(EventHandler::MouseButton button, int x, int y)
 */
 void MapViewState::onMouseMove(int x, int y, int rX, int rY)
 {
-	mMousePosition(x, y);
-
 	if (mLeftButtonDown)
 	{
-		if (isPointInRect(mMousePosition, mMiniMapBoundingBox))
+		if (isPointInRect(MOUSE_COORDS, mMiniMapBoundingBox))
 		{
 			setMinimapView();
 		}
@@ -641,8 +641,8 @@ bool MapViewState::changeDepth(int _d)
  */
 void MapViewState::setMinimapView()
 {
-	int x = clamp(mMousePosition.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
-	int y = clamp(mMousePosition.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
+	int x = clamp(MOUSE_COORDS.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
+	int y = clamp(MOUSE_COORDS.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
 
 	mTileMap->mapViewLocation(x, y);
 }
@@ -882,14 +882,14 @@ void MapViewState::placeRobot()
 			mDiggerDirection.show();
 			mWindowStack.bringToFront(&mDiggerDirection);
 
-			int x = mMousePosition.x() + 20;
+			int x = MOUSE_COORDS.x() + 20;
 
 			if (x + mDiggerDirection.width() > Utility<Renderer>::get().width())
 			{
-				x = mMousePosition.x() - mDiggerDirection.width() - 20;
+				x = MOUSE_COORDS.x() - mDiggerDirection.width() - 20;
 			}
 
-			mDiggerDirection.position(x, mMousePosition.y() - 32);
+			mDiggerDirection.position(x, MOUSE_COORDS.y() - 32);
 		}
 	}
 	// Robominer has been selected.

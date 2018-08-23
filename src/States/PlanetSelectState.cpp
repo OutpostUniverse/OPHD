@@ -3,6 +3,7 @@
 
 #include "PlanetSelectState.h"
 
+#include "GameState.h"
 #include "MapViewState.h"
 #include "MainMenuState.h"
 
@@ -149,24 +150,45 @@ State* PlanetSelectState::update()
 	}
 	else if (PLANET_TYPE_SELECTION != PLANET_TYPE_NONE)
 	{
-		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MERCURY)
+		std::string map, tileset;
+		int dig_depth = 0, max_mines = 0;
+
+		switch (PLANET_TYPE_SELECTION)
 		{
-			MapViewState* gs = new MapViewState("maps/merc_01", "tsets/mercury.png", mPlanets[0]->digDepth(), mPlanets[0]->maxMines());
-			gs->setPopulationLevel(MapViewState::POPULATION_LARGE);
-			return gs;
+		case PLANET_TYPE_MERCURY:
+			map = "maps/merc_01";
+			tileset = "tsets/mercury.png";
+			dig_depth = mPlanets[0]->digDepth();
+			max_mines = mPlanets[0]->maxMines();
+			break;
+
+		case PLANET_TYPE_MARS:
+			map = "maps/mars_04";
+			tileset = "tsets/mars.png";
+			dig_depth = mPlanets[1]->digDepth();
+			max_mines = mPlanets[1]->maxMines();
+			break;
+
+		case PLANET_TYPE_GANYMEDE:
+			map = "maps/ganymede_01";
+			tileset = "tsets/ganymede.png";
+			dig_depth = mPlanets[2]->digDepth();
+			max_mines = mPlanets[2]->maxMines();
+			break;
+
+		default:
+			return mReturnState;
+			break;
 		}
-		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MARS)
-		{
-			MapViewState* gs = new MapViewState("maps/mars_04", "tsets/mars.png", mPlanets[1]->digDepth(), mPlanets[1]->maxMines());
-			gs->setPopulationLevel(MapViewState::POPULATION_LARGE);
-			return gs;
-		}
-		if (PLANET_TYPE_SELECTION == PLANET_TYPE_GANYMEDE)
-		{
-			MapViewState* gs = new MapViewState("maps/ganymede_01", "tsets/ganymede.png", mPlanets[2]->digDepth(), mPlanets[2]->maxMines());
-			gs->setPopulationLevel(MapViewState::POPULATION_LARGE);
-			return gs;
-		}
+
+		MapViewState* _state = new MapViewState(map, tileset, dig_depth, max_mines);
+		_state->setPopulationLevel(MapViewState::POPULATION_LARGE);
+
+		Utility<WrapperStack>::get().push(_state);
+		Utility<WrapperStack>::get().top()->_initialize();
+		Utility<WrapperStack>::get().top()->activate();
+
+		return new GameState();
 	}
 
 	return mReturnState;

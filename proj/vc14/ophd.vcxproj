@@ -176,6 +176,7 @@
     <ClCompile Include="..\..\src\ProductPool.cpp" />
     <ClCompile Include="..\..\src\ResourcePool.cpp" />
     <ClCompile Include="..\..\src\RobotPool.cpp" />
+    <ClCompile Include="..\..\src\States\GameState.cpp" />
     <ClCompile Include="..\..\src\States\MapViewState.cpp" />
     <ClCompile Include="..\..\src\States\MainMenuState.cpp" />
     <ClCompile Include="..\..\src\States\MainReportsUiState.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="..\..\src\ResourcePool.h" />
     <ClInclude Include="..\..\src\RobotPool.h" />
     <ClInclude Include="..\..\src\RobotPoolHelper.h" />
+    <ClInclude Include="..\..\src\States\GameState.h" />
     <ClInclude Include="..\..\src\States\MapViewState.h" />
     <ClInclude Include="..\..\src\States\MainMenuState.h" />
     <ClInclude Include="..\..\src\States\MainReportsUiState.h" />
