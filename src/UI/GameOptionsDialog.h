@@ -33,6 +33,10 @@ private:
 	void btnReturnClicked();
 	void btnCloseClicked();
 
+	virtual void enabledChanged() final;
+
+private:
+
 	Button			btnSave;
 	Button			btnLoad;
 	Button			btnReturn;

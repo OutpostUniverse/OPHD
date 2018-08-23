@@ -55,8 +55,10 @@ bool WindowStack::pointInWindow(int x, int y) const
 	for (auto it = mWindowList.begin(); it != mWindowList.end(); ++it)
 	{
 		Window* w = *(it);
-		if (w->visible() && pointInRect_f(x, y,	w->rect()))
+		if (w->visible() && pointInRect_f(x, y, w->rect()))
+		{
 			return true;
+		}
 	}
 
 	return false;
@@ -73,9 +75,7 @@ void WindowStack::updateStack(int x, int y)
 		Window* w = (*it);
 		if (w->visible() && pointInRect_f(x, y, w->rect()))
 		{
-			if (it == mWindowList.begin())
-				return;
-
+			if (it == mWindowList.begin()) { return; }
 			bringToFront(w);
 			return;
 		}
@@ -117,12 +117,16 @@ void WindowStack::sendToBack(Window* _w)
 void WindowStack::hide()
 {
 	for (auto it = mWindowList.rbegin(); it != mWindowList.rend(); ++it)
+	{
 		(*it)->hide();
+	}
 }
 
 
 void WindowStack::update()
 {
 	for (auto it = mWindowList.rbegin(); it != mWindowList.rend(); ++it)
+	{
 		(*it)->update();
+	}
 }

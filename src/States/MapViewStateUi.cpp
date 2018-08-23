@@ -244,6 +244,27 @@ void MapViewState::hideUi()
 }
 
 
+
+/**
+ * Unhide's the UI.
+ */
+void MapViewState::unhideUi()
+{
+	mBtnTurns.visible(true);
+
+	mBtnToggleHeightmap.visible(true);
+	mBtnToggleConnectedness.visible(true);
+
+	mStructures.visible(true);
+	mRobots.visible(true);
+	mConnections.visible(true);
+
+	mGameOverDialog.enabled(true);
+	mGameOptionsDialog.enabled(true);
+
+}
+
+
 /**
  * Hides all non-essential UI elements.
  */

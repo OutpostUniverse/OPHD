@@ -42,11 +42,12 @@ Window::~Window()
 
 void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!visible() || !hasFocus())
-		return;
-
-	if(button == EventHandler::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT))
+	if (!visible() || !hasFocus()) { return; }
+	
+	if (button == EventHandler::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT))
+	{
 		mMouseDrag = true;
+	}
 }
 
 
@@ -58,11 +59,12 @@ void Window::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 void Window::onMouseMotion(int x, int y, int dX, int dY)
 {
-	if (!visible() || !hasFocus())
-		return;
+	if (!visible() || !hasFocus()) { return; }
 
 	if (mMouseDrag && !mAnchored)
+	{
 		position(positionX() + dX, positionY() + dY);
+	}
 }
 
 

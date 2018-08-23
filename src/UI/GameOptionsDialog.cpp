@@ -56,10 +56,18 @@ void GameOptionsDialog::init()
 }
 
 
+void GameOptionsDialog::enabledChanged()
+{
+	btnSave.enabled(enabled());
+	btnLoad.enabled(enabled());
+	btnReturn.enabled(enabled());
+	btnClose.enabled(enabled());
+}
+
+
 void GameOptionsDialog::update()
 {
-	if (!visible())
-		return;
+	if (!visible()) { return; }
 
 	Window::update();
 }

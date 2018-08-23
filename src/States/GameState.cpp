@@ -27,6 +27,7 @@ GameState::~GameState()
 	WrapperStack& _stack = Utility<WrapperStack>::get();
 	while (!_stack.empty())
 	{
+		_stack.top()->deactivate();
 		if (_stack.top() == MAIN_REPORTS_UI) { MAIN_REPORTS_UI = nullptr; } // kludge
 		delete _stack.top();
 		_stack.pop();
@@ -47,6 +48,7 @@ void GameState::initialize()
 
 
 	MAIN_REPORTS_UI = new MainReportsUiState();
+	MAIN_REPORTS_UI->_initialize();
 
 	Utility<Renderer>::get().fadeComplete().connect(this, &GameState::fadeComplete);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);

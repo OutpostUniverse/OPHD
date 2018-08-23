@@ -254,6 +254,7 @@ bool Control::highlight() const
 void Control::enabled(bool enabled)
 {
 	mEnabled = enabled;
+	enabledChanged();
 }
 
 

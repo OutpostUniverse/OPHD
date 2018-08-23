@@ -150,6 +150,7 @@ private:
 	void clearSelections();
 
 	void hideUi();
+	void unhideUi();
 	void initUi();
 	void resetUi();
 

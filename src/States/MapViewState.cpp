@@ -34,6 +34,7 @@ const int MAX_TILESET_INDEX	= 4;
 extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.
 extern NAS2D::Image* IMG_SAVING;	/// \fixme Find a sane place for this.
 extern Point_2d MOUSE_COORDS;
+extern MainReportsUiState* MAIN_REPORTS_UI;
 
 
 int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
@@ -124,14 +125,6 @@ MapViewState::~MapViewState()
 	scrubRobotList();
 	delete mTileMap;
 
-	EventHandler& e = Utility<EventHandler>::get();
-	e.activate().disconnect(this, &MapViewState::onActivate);
-	e.keyDown().disconnect(this, &MapViewState::onKeyDown);
-	e.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
-	e.mouseButtonUp().disconnect(this, &MapViewState::onMouseUp);
-	e.mouseMotion().disconnect(this, &MapViewState::onMouseMove);
-	e.windowResized().disconnect(this, &MapViewState::onWindowResized);
-
 	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
 }
 
@@ -151,6 +144,29 @@ void MapViewState::setPopulationLevel(PopulationLevel _level)
  */
 void MapViewState::initialize()
 {
+	// UI
+	initUi();
+	setupUiPositions();
+
+	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
+
+	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
+
+	CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
+
+	mPopulationPool.population(&mPopulation);
+
+	if (mLoadingExisting) { load(mExistingToLoad); }
+
+	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
+	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
+}
+
+
+void MapViewState::_activate()
+{
+	mReturnState = this;
+
 	// EVENT HANDLERS
 	EventHandler& e = Utility<EventHandler>::get();
 
@@ -165,36 +181,26 @@ void MapViewState::initialize()
 
 	e.windowResized().connect(this, &MapViewState::onWindowResized);
 
-	// UI
-	initUi();
-	setupUiPositions();
-
-	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
-
-	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
-
-	CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
-
 	e.textInputMode(true);
 
-	mPopulationPool.population(&mPopulation);
-
-	if (mLoadingExisting) { load(mExistingToLoad); }
-
-	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
-	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
-}
-
-
-void MapViewState::_activate()
-{
-	// hook main event handlers
+	unhideUi();
 }
 
 
 void MapViewState::_deactivate()
 {
-	// unhook main event handlers
+	EventHandler& e = Utility<EventHandler>::get();
+	e.activate().disconnect(this, &MapViewState::onActivate);
+	e.keyDown().disconnect(this, &MapViewState::onKeyDown);
+	e.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
+	e.mouseButtonUp().disconnect(this, &MapViewState::onMouseUp);
+	e.mouseMotion().disconnect(this, &MapViewState::onMouseMove);
+	e.windowResized().disconnect(this, &MapViewState::onWindowResized);
+
+	mGameOverDialog.enabled(false);
+	mGameOptionsDialog.enabled(false);
+
+	hideUi();
 }
 
 
@@ -325,6 +331,12 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
 	{
+		return;
+	}
+
+	if (key == EventHandler::KEY_F1)
+	{
+		mReturnState = MAIN_REPORTS_UI;
 		return;
 	}
 
