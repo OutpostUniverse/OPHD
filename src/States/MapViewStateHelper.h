@@ -1,9 +1,9 @@
 /**
- * GameStateHelper.h / GameStateHelper.cpp
+ * MapViewStateHelper.h / MapViewStateHelper.cpp
  * 
- * These are files that are used exclusively by the GameState class. They are here
- * in an effort to reduce the size/complexity of the GameState object as most of these
- * functions do not require access to internal parts of the GameState class (and if
+ * These are files that are used exclusively by the MapViewState class. They are here
+ * in an effort to reduce the size/complexity of the MapViewState object as most of these
+ * functions do not require access to internal parts of the MapViewState class (and if
  * they do, require use of a specific object).
  */
 

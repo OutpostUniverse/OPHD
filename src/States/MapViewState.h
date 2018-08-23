@@ -2,7 +2,9 @@
 
 #include "NAS2D/NAS2D.h"
 
-#include "GameStateHelper.h"
+#include "MapViewStateHelper.h"
+#include "MainReportsUiState.h"
+#include "Wrapper.h"
 
 #include "../AiVoiceNotifier.h"
 
@@ -28,7 +30,7 @@
 using namespace NAS2D;
 
 /**
- * Needs to match insertion order in GameState::initialize()
+ * Needs to match insertion order in MapViewState::initialize()
  */
 enum PointerType
 {
@@ -48,7 +50,7 @@ enum InsertMode
 };
 
 
-class GameState: public State
+class MapViewState : public Wrapper
 {
 public:
 	enum PopulationLevel
@@ -58,9 +60,9 @@ public:
 	};
 
 public:
-	GameState(const std::string& savegame);
-	GameState(const std::string& map, const std::string& tset, int _d, int _minecount);
-	~GameState();
+	MapViewState(const std::string& savegame);
+	MapViewState(const std::string& map, const std::string& tset, int _d, int _minecount);
+	~MapViewState();
 
 	void setPopulationLevel(PopulationLevel _level);
 
@@ -69,6 +71,10 @@ protected:
 	State* update();
 
 private:
+
+	virtual void _deactivate() final;
+	virtual void _activate() final;
+	
 	// EVENT HANDLERS
 	void onActivate(bool _b);
 	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);

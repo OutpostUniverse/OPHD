@@ -1,7 +1,7 @@
 // This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
-#include "GameState.h"
+#include "MapViewState.h"
 #include "MainMenuState.h"
 
 #include "../Constants.h"
@@ -62,7 +62,7 @@ std::map <int, std::string>	LEVEL_STRING_TABLE =
  *
  * \param	savegame	Save game filename to load.
  */
-GameState::GameState(const string& savegame) :
+MapViewState::MapViewState(const string& savegame) :
 	mFont("fonts/opensans-bold.ttf", 14),
 	mTinyFont("fonts/opensans.ttf", 10),
 	mTinyFontBold("fonts/opensans-bold.ttf", 10),
@@ -91,7 +91,7 @@ GameState::GameState(const string& savegame) :
  * \param	d	Depth of the site map.
  * \param	mc	Mine Count - Number of mines to generate.
  */
-GameState::GameState(const string& sm, const string& t, int d, int mc) :
+MapViewState::MapViewState(const string& sm, const string& t, int d, int mc) :
 	mFont("fonts/opensans-bold.ttf", 14),
 	mTinyFont("fonts/opensans.ttf", 10),
 	mTinyFontBold("fonts/opensans-bold.ttf", 10),
@@ -117,18 +117,18 @@ GameState::GameState(const string& sm, const string& t, int d, int mc) :
 /**
  * D'Tor
  */
-GameState::~GameState()
+MapViewState::~MapViewState()
 {
 	scrubRobotList();
 	delete mTileMap;
 
 	EventHandler& e = Utility<EventHandler>::get();
-	e.activate().disconnect(this, &GameState::onActivate);
-	e.keyDown().disconnect(this, &GameState::onKeyDown);
-	e.mouseButtonDown().disconnect(this, &GameState::onMouseDown);
-	e.mouseButtonUp().disconnect(this, &GameState::onMouseUp);
-	e.mouseMotion().disconnect(this, &GameState::onMouseMove);
-	e.windowResized().disconnect(this, &GameState::onWindowResized);
+	e.activate().disconnect(this, &MapViewState::onActivate);
+	e.keyDown().disconnect(this, &MapViewState::onKeyDown);
+	e.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
+	e.mouseButtonUp().disconnect(this, &MapViewState::onMouseUp);
+	e.mouseMotion().disconnect(this, &MapViewState::onMouseMove);
+	e.windowResized().disconnect(this, &MapViewState::onWindowResized);
 
 	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
 }
@@ -137,7 +137,7 @@ GameState::~GameState()
 /**
  * 
  */
-void GameState::setPopulationLevel(PopulationLevel _level)
+void MapViewState::setPopulationLevel(PopulationLevel _level)
 {
 	mLandersColonist = static_cast<int>(_level);
 	mLandersCargo = 2;	///\todo This should be set based on difficulty level.
@@ -147,21 +147,21 @@ void GameState::setPopulationLevel(PopulationLevel _level)
 /**
  * Initialize values, the UI and set up event handling.
  */
-void GameState::initialize()
+void MapViewState::initialize()
 {
 	// EVENT HANDLERS
 	EventHandler& e = Utility<EventHandler>::get();
 
-	e.activate().connect(this, &GameState::onActivate);
+	e.activate().connect(this, &MapViewState::onActivate);
 
-	e.keyDown().connect(this, &GameState::onKeyDown);
+	e.keyDown().connect(this, &MapViewState::onKeyDown);
 
-	e.mouseButtonDown().connect(this, &GameState::onMouseDown);
-	e.mouseButtonUp().connect(this, &GameState::onMouseUp);
-	e.mouseMotion().connect(this, &GameState::onMouseMove);
-	e.mouseWheel().connect(this, &GameState::onMouseWheel);
+	e.mouseButtonDown().connect(this, &MapViewState::onMouseDown);
+	e.mouseButtonUp().connect(this, &MapViewState::onMouseUp);
+	e.mouseMotion().connect(this, &MapViewState::onMouseMove);
+	e.mouseWheel().connect(this, &MapViewState::onMouseWheel);
 
-	e.windowResized().connect(this, &GameState::onWindowResized);
+	e.windowResized().connect(this, &MapViewState::onWindowResized);
 
 	// UI
 	initUi();
@@ -184,10 +184,22 @@ void GameState::initialize()
 }
 
 
+void MapViewState::_activate()
+{
+	// hook main event handlers
+}
+
+
+void MapViewState::_deactivate()
+{
+	// unhook main event handlers
+}
+
+
 /**
  * Updates the entire state of the game.
  */
-State* GameState::update()
+State* MapViewState::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
@@ -232,7 +244,7 @@ State* GameState::update()
 /**
  * Convenience function to get the amount of food currently in storage.
  */
-int GameState::foodInStorage()
+int MapViewState::foodInStorage()
 {
 	int food_count = 0;
 
@@ -255,7 +267,7 @@ int GameState::foodInStorage()
 /**
  * Convenience function to get the total amount of food storage.
  */
-int GameState::foodTotalStorage()
+int MapViewState::foodTotalStorage()
 {
 	int food_storage = 0;
 
@@ -281,7 +293,7 @@ int GameState::foodTotalStorage()
 /**
  * Window activation handler.
  */
-void GameState::onActivate(bool _b)
+void MapViewState::onActivate(bool _b)
 {
 	mLeftButtonDown = false;
 }
@@ -290,7 +302,7 @@ void GameState::onActivate(bool _b)
 /**
  *
  */
-void GameState::onWindowResized(int w, int h)
+void MapViewState::onWindowResized(int w, int h)
 {
 	setupUiPositions();
 	mTileMap->initMapDrawParams();
@@ -300,7 +312,7 @@ void GameState::onWindowResized(int w, int h)
 /**
  * Key down event handler.
  */
-void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
+void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
 	if (key == EventHandler::KEY_F11)
 	{
@@ -428,7 +440,7 @@ void GameState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 /**
  * Mouse Down event handler.
  */
-void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
+void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible()) { return; }
@@ -567,7 +579,7 @@ void GameState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 /**
 * Mouse Up event handler.
 */
-void GameState::onMouseUp(EventHandler::MouseButton button, int x, int y)
+void MapViewState::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
 	if (button == EventHandler::BUTTON_LEFT)
 	{
@@ -579,7 +591,7 @@ void GameState::onMouseUp(EventHandler::MouseButton button, int x, int y)
 /**
 * Mouse motion event handler.
 */
-void GameState::onMouseMove(int x, int y, int rX, int rY)
+void MapViewState::onMouseMove(int x, int y, int rX, int rY)
 {
 	mMousePosition(x, y);
 
@@ -598,7 +610,7 @@ void GameState::onMouseMove(int x, int y, int rX, int rY)
 /**
  * Mouse wheel event handler.
  */
-void GameState::onMouseWheel(int x, int y)
+void MapViewState::onMouseWheel(int x, int y)
 {
 	if (mInsertMode != INSERT_TUBE) { return; }
 
@@ -610,7 +622,7 @@ void GameState::onMouseWheel(int x, int y)
 /**
  * Changes the current view depth.
  */
-bool GameState::changeDepth(int _d)
+bool MapViewState::changeDepth(int _d)
 {
 	int mPrevious = mTileMap->currentDepth();
 	mTileMap->currentDepth(_d);
@@ -627,7 +639,7 @@ bool GameState::changeDepth(int _d)
 /**
  * 
  */
-void GameState::setMinimapView()
+void MapViewState::setMinimapView()
 {
 	int x = clamp(mMousePosition.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
 	int y = clamp(mMousePosition.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
@@ -639,7 +651,7 @@ void GameState::setMinimapView()
 /**
  * Clears the build mode.
  */
-void GameState::clearMode()
+void MapViewState::clearMode()
 {
 	mInsertMode = INSERT_NONE;
 	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
@@ -654,7 +666,7 @@ void GameState::clearMode()
 /**
  * 
  */
-void GameState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
+void MapViewState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
 {
 	if (_dir == CONNECTOR_INTERSECTION)
 	{
@@ -670,7 +682,7 @@ void GameState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
 	}
 	else
 	{
-		throw std::runtime_error("GameState::placeTube() called but Current Structure is not a tube!");
+		throw std::runtime_error("MapViewState::placeTube() called but Current Structure is not a tube!");
 	}
 }
 
@@ -678,7 +690,7 @@ void GameState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
 /**
  * 
  */
-void GameState::placeTubes()
+void MapViewState::placeTubes()
 {
 	int x = mTileMapMouseHover.x();
 	int y = mTileMapMouseHover.y();
@@ -712,7 +724,7 @@ void GameState::placeTubes()
 /**
  * 
  */
-void GameState::placeRobot()
+void MapViewState::placeRobot()
 {
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
@@ -804,7 +816,7 @@ void GameState::placeRobot()
 		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
-			cout << "GameState::placeRobot(): Can't place digger within 3 tiles of the edge of a map." << endl;
+			cout << "MapViewState::placeRobot(): Can't place digger within 3 tiles of the edge of a map." << endl;
 			return;
 		}
 
@@ -907,7 +919,7 @@ void GameState::placeRobot()
  * Checks the robot selection interface and if the robot is not available in it, adds
  * it back in and reeneables the robots button if it's not enabled.
  */
-void GameState::checkRobotSelectionInterface(const std::string& rType, int sheetIndex, RobotType _rid)
+void MapViewState::checkRobotSelectionInterface(const std::string& rType, int sheetIndex, RobotType _rid)
 {
 	if (!mRobots.itemExists(rType))
 	{
@@ -919,10 +931,10 @@ void GameState::checkRobotSelectionInterface(const std::string& rType, int sheet
 /**
  * Places a structure into the map.
  */
-void GameState::placeStructure()
+void MapViewState::placeStructure()
 {
 	// SID_NONE is a logic error and should fail as loudly as possible.
-	if (mCurrentStructure == SID_NONE) { throw std::runtime_error("GameState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
+	if (mCurrentStructure == SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
 
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
@@ -940,7 +952,7 @@ void GameState::placeStructure()
 	if(tile->mine() || tile->thing() || (!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
 	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
-		cout << "GameState::placeStructure(): Tile is unsuitable to place a structure." << endl;
+		cout << "MapViewState::placeStructure(): Tile is unsuitable to place a structure." << endl;
 		return;
 	}
 
@@ -956,7 +968,7 @@ void GameState::placeStructure()
 		if (!validLanderSite(tile)) { return; }
 
 		ColonistLander* s = new ColonistLander(tile);
-		s->deployCallback().connect(this, &GameState::deployColonistLander);
+		s->deployCallback().connect(this, &MapViewState::deployColonistLander);
 		mStructureManager.addStructure(s, tile);
 
 		--mLandersColonist;
@@ -972,7 +984,7 @@ void GameState::placeStructure()
 		if (!validLanderSite(tile)) { return; }
 
 		CargoLander* _lander = new CargoLander(tile);
-		_lander->deployCallback().connect(this, &GameState::deployCargoLander);
+		_lander->deployCallback().connect(this, &MapViewState::deployCargoLander);
 		mStructureManager.addStructure(_lander, tile);
 
 		--mLandersCargo;
@@ -988,7 +1000,7 @@ void GameState::placeStructure()
 		if (!validStructurePlacement(mTileMap, tile_x, tile_y) && !selfSustained(mCurrentStructure))
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
-			cout << "GameState::placeStructure(): Invalid structure placement." << endl;
+			cout << "MapViewState::placeStructure(): Invalid structure placement." << endl;
 			return;
 		}
 
@@ -996,19 +1008,19 @@ void GameState::placeStructure()
 		if (!StructureCatalogue::canBuild(mPlayerResources, static_cast<StructureID>(mCurrentStructure)))
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
-			cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
+			cout << "MapViewState::placeStructure(): Insufficient resources to build structure." << endl;
 			return;
 		}
 
 		Structure* _s = StructureCatalogue::get(mCurrentStructure);
-		if (!_s) { throw std::runtime_error("GameState::placeStructure(): NULL Structure returned from StructureCatalog."); }
+		if (!_s) { throw std::runtime_error("MapViewState::placeStructure(): NULL Structure returned from StructureCatalog."); }
 
 		mStructureManager.addStructure(_s, tile);
 
 		// FIXME: Ugly
 		if (_s->isFactory())
 		{
-			static_cast<Factory*>(_s)->productionComplete().connect(this, &GameState::factoryProductionComplete);
+			static_cast<Factory*>(_s)->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 			static_cast<Factory*>(_s)->resourcePool(&mPlayerResources);
 		}
 
@@ -1021,7 +1033,7 @@ void GameState::placeStructure()
  * Checks that the clicked tile is a suitable spot for the SEED Lander and
  * then inserts it into the the TileMap.
  */
-void GameState::insertSeedLander(int x, int y)
+void MapViewState::insertSeedLander(int x, int y)
 {
 	// Has to be built away from the edges of the map
 	if (x > 3 && x < mTileMap->width() - 4 && y > 3 && y < mTileMap->height() - 4)
@@ -1035,7 +1047,7 @@ void GameState::insertSeedLander(int x, int y)
 		}
 
 		SeedLander* s = new SeedLander(x, y);
-		s->deployCallback().connect(this, &GameState::deploySeedLander);
+		s->deployCallback().connect(this, &MapViewState::deploySeedLander);
 		mStructureManager.addStructure(s, mTileMap->getTile(x, y)); // Can only ever be placed on depth level 0
 
 		clearMode();
@@ -1054,7 +1066,7 @@ void GameState::insertSeedLander(int x, int y)
 /**
  * Updates all robots.
  */
-void GameState::updateRobots()
+void MapViewState::updateRobots()
 {
 	auto robot_it = mRobotList.begin();
 	while(robot_it != mRobotList.end())
@@ -1092,7 +1104,7 @@ void GameState::updateRobots()
 /**
  * Checks and sets the current structure mode.
  */
-void GameState::setStructureID(StructureID type, InsertMode mode)
+void MapViewState::setStructureID(StructureID type, InsertMode mode)
 {
 
 	if (type == SID_NONE)
@@ -1113,7 +1125,7 @@ void GameState::setStructureID(StructureID type, InsertMode mode)
  * Checks the connectedness of all tiles surrounding
  * the Command Center.
  */
-void GameState::checkConnectedness()
+void MapViewState::checkConnectedness()
 {
 	if (mCCLocation.x() == 0 && mCCLocation.y() == 0)
 	{
@@ -1145,7 +1157,7 @@ void GameState::checkConnectedness()
  * Removes deployed robots from the TileMap to
  * prevent dangling pointers. Yay for raw memory!
  */
-void GameState::scrubRobotList()
+void MapViewState::scrubRobotList()
 {
 	for (auto it : mRobotList)
 	{
@@ -1157,7 +1169,7 @@ void GameState::scrubRobotList()
 /**
  * Update the value of the current level string
  */
-void GameState::updateCurrentLevelString(int currentDepth)
+void MapViewState::updateCurrentLevelString(int currentDepth)
 {
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[currentDepth];
 }

@@ -5,8 +5,8 @@
 // = This file implements the functions that handle processing a turn.
 // ==================================================================================
 
-#include "GameState.h"
-#include "GameStateHelper.h"
+#include "MapViewState.h"
+#include "MapViewStateHelper.h"
 
 #include "../Things/Structures/Structures.h"
 
@@ -36,7 +36,7 @@ static int pullFood(ResourcePool& _rp, int amount)
 /**
  * 
  */
-void GameState::updatePopulation()
+void MapViewState::updatePopulation()
 {
 	int residences = mStructureManager.getCountInState(Structure::CLASS_RESIDENCE, Structure::OPERATIONAL);
 	int universities = mStructureManager.getCountInState(Structure::CLASS_UNIVERSITY, Structure::OPERATIONAL);
@@ -65,7 +65,7 @@ void GameState::updatePopulation()
 /**
  * 
  */
-void GameState::updateCommercial()
+void MapViewState::updateCommercial()
 {
 	// Get list of warehouses and commercial.
 	StructureManager::StructureList& _warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
@@ -124,7 +124,7 @@ void GameState::updateCommercial()
 /**
  * 
  */
-void GameState::updateMorale()
+void MapViewState::updateMorale()
 {
 	// POSITIVE MORALE EFFECTS
 	// =========================================
@@ -157,7 +157,7 @@ void GameState::updateMorale()
 /**
  * 
  */
-void GameState::updateResources()
+void MapViewState::updateResources()
 {
 	// Update storage capacity
 	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::CLASS_STORAGE)));
@@ -219,7 +219,7 @@ void GameState::updateResources()
  * Check for colony ship deorbiting; if any colonists are remaining, kill
  * them and reduce morale by an appropriate amount.
  */
-void GameState::checkColonyShip()
+void MapViewState::checkColonyShip()
 {
 	if (mTurnCount == constants::COLONY_SHIP_ORBIT_TIME)
 	{
@@ -250,7 +250,7 @@ void GameState::checkColonyShip()
 /**
  * 
  */
-void GameState::updateResidentialCapacity()
+void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
 	auto residences = mStructureManager.structureList(Structure::CLASS_RESIDENCE);
@@ -268,7 +268,7 @@ void GameState::updateResidentialCapacity()
 /**
  * 
  */
-void GameState::nextTurn()
+void MapViewState::nextTurn()
 {
 	Renderer& r = Utility<Renderer>::get();
 	r.drawImage(*IMG_PROCESSING_TURN, r.center_x() - (IMG_PROCESSING_TURN->width() / 2), r.center_y() - (IMG_PROCESSING_TURN->height() / 2));

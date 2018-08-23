@@ -2,12 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 // ==================================================================================
-// = This file implements the File Input/Outpost used by GameState. I separated it
-// = into its own file because the GameState.cpp file was starting to get a little
+// = This file implements the File Input/Outpost used by MapViewState. I separated it
+// = into its own file because the MapViewState.cpp file was starting to get a little
 // = out of control.
 // ==================================================================================
 
-#include "GameState.h"
+#include "MapViewState.h"
 
 
 #include "../Constants.h"
@@ -38,7 +38,7 @@ extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 /**
  * 
  */
-void GameState::save(const std::string& _path)
+void MapViewState::save(const std::string& _path)
 {
 	Renderer& r = Utility<Renderer>::get();
 	r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 100);
@@ -87,7 +87,7 @@ void GameState::save(const std::string& _path)
 /**
  * 
  */
-void GameState::load(const std::string& _path)
+void MapViewState::load(const std::string& _path)
 {
 	resetUi();
 
@@ -195,7 +195,7 @@ void GameState::load(const std::string& _path)
 /**
  * 
  */
-void GameState::readRobots(XmlElement* _ti)
+void MapViewState::readRobots(XmlElement* _ti)
 {
 	mRobotPool.clear();
 	mRobotList.clear();
@@ -231,18 +231,18 @@ void GameState::readRobots(XmlElement* _ti)
 		{
 		case ROBOT_DIGGER:
 			r = mRobotPool.addRobot(ROBOT_DIGGER, id);
-			r->taskComplete().connect(this, &GameState::diggerTaskFinished);
+			r->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			static_cast<Robodigger*>(r)->direction(static_cast<Direction>(direction));
 			break;
 
 		case ROBOT_DOZER:
 			r = mRobotPool.addRobot(ROBOT_DOZER, id);
-			r->taskComplete().connect(this, &GameState::dozerTaskFinished);
+			r->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			break;
 
 		case ROBOT_MINER:
 			r = mRobotPool.addRobot(ROBOT_MINER, id);
-			r->taskComplete().connect(this, &GameState::minerTaskFinished);
+			r->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			break;
 
 		default:
@@ -274,7 +274,7 @@ void GameState::readRobots(XmlElement* _ti)
 }
 
 
-void GameState::readStructures(XmlElement* _ti)
+void MapViewState::readStructures(XmlElement* _ti)
 {
 	std::string type;
 	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0, forced_idle = 0;
@@ -334,7 +334,7 @@ void GameState::readStructures(XmlElement* _ti)
 			MineFacility* mf = static_cast<MineFacility*>(st);
 			mf->mine(m);
 			mf->maxDepth(mTileMap->maxDepth());
-			mf->extensionComplete().connect(this, &GameState::mineFacilityExtended);
+			mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 		}
 
 		if (type_id == SID_AIR_SHAFT && depth > 0)
@@ -364,7 +364,7 @@ void GameState::readStructures(XmlElement* _ti)
 			f->productType(static_cast<ProductType>(production_type));
 			f->productionTurnsCompleted(production_completed);
 			f->resourcePool(&mPlayerResources);
-			f->productionComplete().connect(this, &GameState::factoryProductionComplete);
+			f->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 		}
 
 		/**
@@ -403,7 +403,7 @@ void GameState::readStructures(XmlElement* _ti)
 /**
  * 
  */
-void GameState::readTurns(XmlElement* _ti)
+void MapViewState::readTurns(XmlElement* _ti)
 {
 	if (_ti)
 	{
@@ -421,7 +421,7 @@ void GameState::readTurns(XmlElement* _ti)
 /**
  * Reads the population tag.
  */
-void GameState::readPopulation(XmlElement* _ti)
+void MapViewState::readPopulation(XmlElement* _ti)
 {
 	if (_ti)
 	{

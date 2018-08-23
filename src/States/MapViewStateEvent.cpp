@@ -5,7 +5,7 @@
 // = This file implements the non-UI event handlers like factory production, robot
 // = task completeion, etc.
 // ==================================================================================
-#include "GameState.h"
+#include "MapViewState.h"
 
 #include "../StructureCatalogue.h"
 
@@ -13,7 +13,7 @@
 #include "../Things/Structures/Structures.h"
 
 
-void GameState::pullRobotFromFactory(ProductType pt, Factory& factory)
+void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 {
 	RobotCommand* _rc = getAvailableRobotCommand(mStructureManager);
 
@@ -25,21 +25,21 @@ void GameState::pullRobotFromFactory(ProductType pt, Factory& factory)
 		{
 		case PRODUCT_DIGGER:
 			r = mRobotPool.addRobot(ROBOT_DIGGER);
-			r->taskComplete().connect(this, &GameState::diggerTaskFinished);
+			r->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			factory.pullProduct();
 			checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
 			break;
 
 		case PRODUCT_DOZER:
 			r = mRobotPool.addRobot(ROBOT_DOZER);
-			r->taskComplete().connect(this, &GameState::dozerTaskFinished);
+			r->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			factory.pullProduct();
 			checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
 			break;
 
 		case PRODUCT_MINER:
 			r = mRobotPool.addRobot(ROBOT_MINER);
-			r->taskComplete().connect(this, &GameState::minerTaskFinished);
+			r->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			factory.pullProduct();
 			checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
 			break;
@@ -61,7 +61,7 @@ void GameState::pullRobotFromFactory(ProductType pt, Factory& factory)
 /**
  * Called whenever a Factory's production is complete.
  */
-void GameState::factoryProductionComplete(Factory& factory)
+void MapViewState::factoryProductionComplete(Factory& factory)
 {	
 	StructureManager::StructureList& warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
 
@@ -99,7 +99,7 @@ void GameState::factoryProductionComplete(Factory& factory)
 /**
  * Lands colonists on the surfaces and adds them to the population pool.
  */
-void GameState::deployColonistLander()
+void MapViewState::deployColonistLander()
 {
 	mPopulation.addPopulation(Population::ROLE_STUDENT, 10);
 	mPopulation.addPopulation(Population::ROLE_WORKER, 20);
@@ -110,7 +110,7 @@ void GameState::deployColonistLander()
 /**
  * Lands cargo on the surface and adds resources to the resource pool.
  */
-void GameState::deployCargoLander()
+void MapViewState::deployCargoLander()
 {
 	///\fixme Magic numbers
 	mPlayerResources.commonMetals(mPlayerResources.commonMetals() + 25);
@@ -129,7 +129,7 @@ void GameState::deployCargoLander()
  *			need to disconnect the callback since it will automatically be
  *			released when the seed lander is destroyed.
  */
-void GameState::deploySeedLander(int x, int y)
+void MapViewState::deploySeedLander(int x, int y)
 {
 	mTileMap->getTile(x, y)->index(TERRAIN_DOZED);
 
@@ -156,7 +156,7 @@ void GameState::deploySeedLander(int x, int y)
 	// BOTTOM ROW
 	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(SID_SEED_FACTORY));
 	sf->resourcePool(&mPlayerResources);
-	sf->productionComplete().connect(this, &GameState::factoryProductionComplete);
+	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 	sf->sprite().skip(7);
 	mStructureManager.addStructure(sf, mTileMap->getTile(x - 1, y + 1));
 	mTileMap->getTile(x - 1, y + 1)->index(TERRAIN_DOZED);
@@ -175,16 +175,16 @@ void GameState::deploySeedLander(int x, int y)
 	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
 	mRobots.sort();
 
-	mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &GameState::dozerTaskFinished);
-	mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &GameState::diggerTaskFinished);
-	mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &GameState::minerTaskFinished);
+	mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+	mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+	mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 }
 
 
 /**
  * Called whenever a RoboDozer completes its task.
  */
-void GameState::dozerTaskFinished(Robot* _r)
+void MapViewState::dozerTaskFinished(Robot* _r)
 {
 	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
 }
@@ -193,9 +193,9 @@ void GameState::dozerTaskFinished(Robot* _r)
 /**
  * Called whenever a RoboDigger completes its task.
  */
-void GameState::diggerTaskFinished(Robot* _r)
+void MapViewState::diggerTaskFinished(Robot* _r)
 {
-	if (mRobotList.find(_r) == mRobotList.end()) { throw std::runtime_error("GameState::diggerTaskFinished() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(_r) == mRobotList.end()) { throw std::runtime_error("MapViewState::diggerTaskFinished() called with a Robot not in the Robot List!"); }
 
 	Tile* t = mRobotList[_r];
 
@@ -270,9 +270,9 @@ void GameState::diggerTaskFinished(Robot* _r)
 /**
  * Called whenever a RoboMiner completes its task.
  */
-void GameState::minerTaskFinished(Robot* _r)
+void MapViewState::minerTaskFinished(Robot* _r)
 {
-	if (mRobotList.find(_r) == mRobotList.end()) { throw std::runtime_error("GameState::minerTaskFinished() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(_r) == mRobotList.end()) { throw std::runtime_error("MapViewState::minerTaskFinished() called with a Robot not in the Robot List!"); }
 
 	Tile* t = mRobotList[_r];
 
@@ -281,7 +281,7 @@ void GameState::minerTaskFinished(Robot* _r)
 		MineFacility* _mf = new MineFacility(t->mine());
 		_mf->maxDepth(mTileMap->maxDepth());
 		mStructureManager.addStructure(_mf, t);
-		_mf->extensionComplete().connect(this, &GameState::mineFacilityExtended);
+		_mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 	}
 	else
 	{
@@ -299,7 +299,7 @@ void GameState::minerTaskFinished(Robot* _r)
 }
 
 
-void GameState::mineFacilityExtended(MineFacility* mf)
+void MapViewState::mineFacilityExtended(MineFacility* mf)
 {
 	if (mMineOperationsWindow.mineFacility() == mf) { mMineOperationsWindow.mineFacility(mf); }
 	

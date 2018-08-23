@@ -5,7 +5,7 @@
 // = This file implements the functions that handle processing a turn.
 // ==================================================================================
 
-#include "GameState.h"
+#include "MapViewState.h"
 
 
 extern Rectangle_2d MENU_ICON;
@@ -52,7 +52,7 @@ static void updateGlowTimer()
 /**
  * Draws the minimap and all icons/overlays for it.
  */
-void GameState::drawMiniMap()
+void MapViewState::drawMiniMap()
 {
 	Renderer& r = Utility<Renderer>::get();
 	r.clipRect(mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y(), mMiniMapBoundingBox.width(), mMiniMapBoundingBox.height());
@@ -112,7 +112,7 @@ void GameState::drawMiniMap()
 /**
  * Draws the resource information bar.
  */
-void GameState::drawResourceInfo()
+void MapViewState::drawResourceInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
 
@@ -187,7 +187,7 @@ void GameState::drawResourceInfo()
 /**
  * Draws robot deployment information.
  */
-void GameState::drawRobotInfo()
+void MapViewState::drawRobotInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
 
@@ -219,7 +219,7 @@ void GameState::drawRobotInfo()
 /**
  * Draws navigation UI.
  */
-void GameState::drawNavInfo()
+void MapViewState::drawNavInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
 
@@ -306,7 +306,7 @@ void GameState::drawNavInfo()
 /**
  * Displays debug information.
  */
-void GameState::drawDebug()
+void MapViewState::drawDebug()
 {
 	Renderer& r = Utility<Renderer>::get();
 

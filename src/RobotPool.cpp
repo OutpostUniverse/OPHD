@@ -219,7 +219,7 @@ bool RobotPool::insertRobotIntoTable(RobotTileTable& _rm, Robot* _r, Tile* _t)
 	if (!_t) { return false; }
 
 	auto it = _rm.find(_r);
-	if (it != _rm.end()) { throw std::runtime_error("GameState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
+	if (it != _rm.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
 	_rm[_r] = _t;
 	_t->pushThing(_r);

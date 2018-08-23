@@ -2,13 +2,13 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 // ==================================================================================
-// = This file implements the UI and UI Event Handlers used by GameState. I separated
-// = it into its own file because the GameState.cpp file was starting to get a little
+// = This file implements the UI and UI Event Handlers used by MapViewState. I separated
+// = it into its own file because the MapViewState.cpp file was starting to get a little
 // = out of control.
 // ==================================================================================
 
-#include "GameState.h"
-#include "GameStateHelper.h"
+#include "MapViewState.h"
+#include "MapViewStateHelper.h"
 
 #include "MainMenuState.h"
 
@@ -70,11 +70,11 @@ static inline int centerWindowHeight(float height)
  * \note	The explicit casts to int to truncate floating point values to force
  *			window positions to a whole number.
  */
-void GameState::initUi()
+void MapViewState::initUi()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	mDiggerDirection.directionSelected().connect(this, &GameState::diggerSelectionDialog);
+	mDiggerDirection.directionSelected().connect(this, &MapViewState::diggerSelectionDialog);
 	mDiggerDirection.hide();
 
 	mTileInspector.position(static_cast<int>(r.center_x() - mTileInspector.width() / 2), static_cast<int>(r.height() / 2 - 175));
@@ -87,7 +87,7 @@ void GameState::initUi()
 	mFactoryProduction.hide();
 
 	mFileIoDialog.setMode(FileIo::FILE_SAVE);
-	mFileIoDialog.fileOperation().connect(this, &GameState::fileIoAction);
+	mFileIoDialog.fileOperation().connect(this, &MapViewState::fileIoAction);
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
@@ -97,13 +97,13 @@ void GameState::initUi()
 	mPopulationPanel.morale(&mCurrentMorale);
 	mPopulationPanel.old_morale(&mPreviousMorale);
 
-	mGameOverDialog.returnToMainMenu().connect(this, &GameState::btnGameOverClicked);
+	mGameOverDialog.returnToMainMenu().connect(this, &MapViewState::btnGameOverClicked);
 	mGameOverDialog.hide();
 
-	mGameOptionsDialog.SaveGame().connect(this, &GameState::btnSaveGameClicked);
-	mGameOptionsDialog.LoadGame().connect(this, &GameState::btnLoadGameClicked);
-	mGameOptionsDialog.returnToGame().connect(this, &GameState::btnReturnToGameClicked);
-	mGameOptionsDialog.returnToMainMenu().connect(this, &GameState::btnGameOverClicked);
+	mGameOptionsDialog.SaveGame().connect(this, &MapViewState::btnSaveGameClicked);
+	mGameOptionsDialog.LoadGame().connect(this, &MapViewState::btnLoadGameClicked);
+	mGameOptionsDialog.returnToGame().connect(this, &MapViewState::btnReturnToGameClicked);
+	mGameOptionsDialog.returnToMainMenu().connect(this, &MapViewState::btnGameOverClicked);
 	mGameOptionsDialog.hide();
 
 	mAnnouncement.hide();
@@ -124,7 +124,7 @@ void GameState::initUi()
 	mBtnTurns.image("ui/icons/turns.png");
 	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(r.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
 	mBtnTurns.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
-	mBtnTurns.click().connect(this, &GameState::btnTurnsClicked);
+	mBtnTurns.click().connect(this, &MapViewState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
 
 	mBtnToggleHeightmap.image("ui/icons/height.png");
@@ -134,7 +134,7 @@ void GameState::initUi()
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
 	mBtnToggleConnectedness.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
 	mBtnToggleConnectedness.type(Button::BUTTON_TOGGLE);
-	mBtnToggleConnectedness.click().connect(this, &GameState::btnToggleConnectednessClicked);
+	mBtnToggleConnectedness.click().connect(this, &MapViewState::btnToggleConnectednessClicked);
 
 	// Menus
 	mRobots.font(mTinyFont);
@@ -144,7 +144,7 @@ void GameState::initUi()
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
 	mRobots.showTooltip(true);
-	mRobots.selectionChanged().connect(this, &GameState::robotsSelectionChanged);
+	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
 
 	mConnections.font(mTinyFont);
 	mConnections.sheetPath("ui/structures.png");
@@ -152,7 +152,7 @@ void GameState::initUi()
 	mConnections.size(52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
 	mConnections.iconSize(46);
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
-	mConnections.selectionChanged().connect(this, &GameState::connectionsSelectionChanged);
+	mConnections.selectionChanged().connect(this, &MapViewState::connectionsSelectionChanged);
 	mConnections.sorted(false);
 
 	mStructures.font(mTinyFont);
@@ -162,16 +162,16 @@ void GameState::initUi()
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 	mStructures.showTooltip(true);
-	mStructures.selectionChanged().connect(this, &GameState::structuresSelectionChanged);
+	mStructures.selectionChanged().connect(this, &MapViewState::structuresSelectionChanged);
 
-	mPlayerResources.resourceObserver().connect(this, &GameState::playerResourcePoolModified);
+	mPlayerResources.resourceObserver().connect(this, &MapViewState::playerResourcePoolModified);
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, SID_SEED_LANDER);
 }
 
 
-void GameState::setupUiPositions()
+void MapViewState::setupUiPositions()
 {
 	Renderer& r = Utility<Renderer>::get();
 
@@ -229,7 +229,7 @@ void GameState::setupUiPositions()
 /**
  * Hides ALL UI elements.
  */
-void GameState::hideUi()
+void MapViewState::hideUi()
 {
 	mBtnTurns.hide();
 
@@ -247,7 +247,7 @@ void GameState::hideUi()
 /**
  * Hides all non-essential UI elements.
  */
-void GameState::resetUi()
+void MapViewState::resetUi()
 {
 	clearMode();
 	clearSelections();
@@ -256,7 +256,7 @@ void GameState::resetUi()
 }
 
 
-void GameState::clearSelections()
+void MapViewState::clearSelections()
 {
 	mStructures.clearSelection();
 	mConnections.clearSelection();
@@ -267,7 +267,7 @@ void GameState::clearSelections()
 /**
  * Adds selection options to the Structure Menu
  */
-void GameState::populateStructureMenu()
+void MapViewState::populateStructureMenu()
 {
 	mStructures.dropAllItems();
 	mConnections.dropAllItems();
@@ -333,7 +333,7 @@ void GameState::populateStructureMenu()
 /**
 * Updates and draws the UI.
 */
-void GameState::drawUI()
+void MapViewState::drawUI()
 {
 	Renderer& r = Utility<Renderer>::get();
 
@@ -368,7 +368,7 @@ void GameState::drawUI()
 /**
  * Handles clicks of the Connectedness Overlay button.
  */
-void GameState::btnToggleConnectednessClicked()
+void MapViewState::btnToggleConnectednessClicked()
 {
 	mTileMap->toggleShowConnections();
 }
@@ -378,7 +378,7 @@ void GameState::btnToggleConnectednessClicked()
 * Currently uses a text comparison function. Not inherently bad but
 * should really be turned into a key/value pair table for easier lookups.
 */
-void GameState::structuresSelectionChanged(const IconGrid::IconGridItem* _item)
+void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _item)
 {
 	mConnections.clearSelection();
 	mRobots.clearSelection();
@@ -389,7 +389,7 @@ void GameState::structuresSelectionChanged(const IconGrid::IconGridItem* _item)
 	if (!_item->available)
 	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
-		cout << "GameState::placeStructure(): Insufficient resources to build structure." << endl;
+		cout << "MapViewState::placeStructure(): Insufficient resources to build structure." << endl;
 		mStructures.clearSelection();
 		return;
 	}
@@ -401,7 +401,7 @@ void GameState::structuresSelectionChanged(const IconGrid::IconGridItem* _item)
 /**
  * Handler for the Tubes Pallette dialog.
  */
-void GameState::connectionsSelectionChanged(const IconGrid::IconGridItem* _item)
+void MapViewState::connectionsSelectionChanged(const IconGrid::IconGridItem* _item)
 {
 	mRobots.clearSelection();
 	mStructures.clearSelection();
@@ -413,7 +413,7 @@ void GameState::connectionsSelectionChanged(const IconGrid::IconGridItem* _item)
 /**
  * Handles clicks of the Robot Selection Menu.
  */
-void GameState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
+void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 {
 	mConnections.clearSelection();
 	mStructures.clearSelection();
@@ -434,13 +434,13 @@ void GameState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 /**
  * 
  */
-void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t)
+void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t)
 {
 	// Don't dig beyond the dig depth of the planet.
 	if (mTileMap->currentDepth() == mTileMap->maxDepth() && _sel == DiggerDirection::SEL_DOWN)
 	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::MAX_DIGGING_DEPTH_REACHED);
-		cout << "GameState::diggerSelectionDialog(): Already at the maximum digging depth." << endl;
+		cout << "MapViewState::diggerSelectionDialog(): Already at the maximum digging depth." << endl;
 		return;
 	}
 
@@ -501,7 +501,7 @@ void GameState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Til
 /**
  * Click handler for the main menu Save Game button.
  */
-void GameState::btnSaveGameClicked()
+void MapViewState::btnSaveGameClicked()
 {
 	mGameOptionsDialog.hide();
 	//save(constants::SAVE_GAME_PATH + "test.xml");
@@ -514,7 +514,7 @@ void GameState::btnSaveGameClicked()
 /**
  * Click handler for the main menu Load Game button.
  */
-void GameState::btnLoadGameClicked()
+void MapViewState::btnLoadGameClicked()
 {
 	mGameOptionsDialog.hide();
 	//load(constants::SAVE_GAME_PATH + "test.xml");
@@ -528,7 +528,7 @@ void GameState::btnLoadGameClicked()
 /**
  * Click handler for the main menu Return to Game button.
  */
-void GameState::btnReturnToGameClicked()
+void MapViewState::btnReturnToGameClicked()
 {
 	mGameOptionsDialog.hide();
 }
@@ -537,7 +537,7 @@ void GameState::btnReturnToGameClicked()
 /**
  * Click handler for the main menu Return to Main Menu Screen button.
  */
-void GameState::btnGameOverClicked()
+void MapViewState::btnGameOverClicked()
 {
 	mReturnState = new MainMenuState();
 	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
@@ -547,7 +547,7 @@ void GameState::btnGameOverClicked()
 /**
  * Handler for File I/O actions.
  */
-void GameState::fileIoAction(const std::string& _file, FileIo::FileOperation _op)
+void MapViewState::fileIoAction(const std::string& _file, FileIo::FileOperation _op)
 {
 	if (_op == FileIo::FILE_LOAD)
 	{
@@ -573,7 +573,7 @@ void GameState::fileIoAction(const std::string& _file, FileIo::FileOperation _op
 /**
  * Turns button clicked.
  */
-void GameState::btnTurnsClicked()
+void MapViewState::btnTurnsClicked()
 {
 	nextTurn();
 }
@@ -586,7 +586,7 @@ void GameState::btnTurnsClicked()
  *			as the listener instead, but we may want to perform other
  *			functions here so I'm leaving it in - Lee
  */
-void GameState::playerResourcePoolModified()
+void MapViewState::playerResourcePoolModified()
 {
 	updateStructuresAvailability();
 }
@@ -595,7 +595,7 @@ void GameState::playerResourcePoolModified()
 /**
  * Update IconGridItems availability
  */
-void GameState::updateStructuresAvailability()
+void MapViewState::updateStructuresAvailability()
 {
 	std::string structure;
 	for (int sid = 0; sid < SID_COUNT; ++sid)

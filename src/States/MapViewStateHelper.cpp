@@ -2,15 +2,15 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 /**
- * GameStateHelper.h / GameStateHelper.cpp
+ * MapViewStateHelper.h / MapViewStateHelper.cpp
  * 
- * These are files that are used exclusively by the GameState class. They are here
- * in an effort to reduce the size/complexity of the GameState object as most of these
- * functions do not require access to internal parts of the GameState class (and if
+ * These are files that are used exclusively by the MapViewState class. They are here
+ * in an effort to reduce the size/complexity of the MapViewState object as most of these
+ * functions do not require access to internal parts of the MapViewState class (and if
  * they do, require use of a specific object).
  */
 
-#include "GameStateHelper.h"
+#include "MapViewStateHelper.h"
 
 #include "../AiVoiceNotifier.h"
 #include "../Constants.h"
@@ -132,7 +132,7 @@ bool validLanderSite(Tile* t)
 	if (!t->empty() || (t->index() == TERRAIN_IMPASSABLE))
 	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
-		cout << "GameState::placeStructure(): Unsuitable landing site -- Impassable Terrain." << endl;
+		cout << "MapViewState::placeStructure(): Unsuitable landing site -- Impassable Terrain." << endl;
 		return false;
 	}
 

@@ -111,12 +111,6 @@
     <ClCompile Include="..\..\src\States\PlanetSelectState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\GameState.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\States\GameStateUi.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\UI\Core\TextField.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
@@ -125,9 +119,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\UI\IconGrid.cpp">
       <Filter>Source Files\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\States\GameStateHelper.cpp">
-      <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\StructureTranslator.cpp">
       <Filter>Source Files</Filter>
@@ -195,22 +186,10 @@
     <ClCompile Include="..\..\src\ProductPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\GameStateIO.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\UI\WarehouseInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\States\MainMenuState.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\States\GameStateEvent.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\States\GameStateTurn.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\States\GameStateDraw.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Things\Structures\RobotCommand.cpp">
@@ -221,6 +200,30 @@
     </ClCompile>
     <ClCompile Include="..\..\src\UI\MineOperationsWindow.cpp">
       <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\MainReportsUiState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\MapViewState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\MapViewStateDraw.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\MapViewStateEvent.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\MapViewStateHelper.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\MapViewStateIO.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\MapViewStateTurn.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\States\MapViewStateUi.cpp">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,9 +326,6 @@
     <ClInclude Include="..\..\src\States\PlanetSelectState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\States\GameState.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\Tube.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
@@ -352,9 +352,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UI\IconGrid.h">
       <Filter>Header Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\States\GameStateHelper.h">
-      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\StructureTranslator.h">
       <Filter>Header Files</Filter>
@@ -514,6 +511,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Templates.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\States\Wrapper.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\States\MainReportsUiState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\States\MapViewState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\States\MapViewStateHelper.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

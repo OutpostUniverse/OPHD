@@ -3,7 +3,7 @@
 
 #include "PlanetSelectState.h"
 
-#include "GameState.h"
+#include "MapViewState.h"
 #include "MainMenuState.h"
 
 PlanetType PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
@@ -151,20 +151,20 @@ State* PlanetSelectState::update()
 	{
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MERCURY)
 		{
-			GameState* gs = new GameState("maps/merc_01", "tsets/mercury.png", mPlanets[0]->digDepth(), mPlanets[0]->maxMines());
-			gs->setPopulationLevel(GameState::POPULATION_LARGE);
+			MapViewState* gs = new MapViewState("maps/merc_01", "tsets/mercury.png", mPlanets[0]->digDepth(), mPlanets[0]->maxMines());
+			gs->setPopulationLevel(MapViewState::POPULATION_LARGE);
 			return gs;
 		}
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_MARS)
 		{
-			GameState* gs = new GameState("maps/mars_04", "tsets/mars.png", mPlanets[1]->digDepth(), mPlanets[1]->maxMines());
-			gs->setPopulationLevel(GameState::POPULATION_LARGE);
+			MapViewState* gs = new MapViewState("maps/mars_04", "tsets/mars.png", mPlanets[1]->digDepth(), mPlanets[1]->maxMines());
+			gs->setPopulationLevel(MapViewState::POPULATION_LARGE);
 			return gs;
 		}
 		if (PLANET_TYPE_SELECTION == PLANET_TYPE_GANYMEDE)
 		{
-			GameState* gs = new GameState("maps/ganymede_01", "tsets/ganymede.png", mPlanets[2]->digDepth(), mPlanets[2]->maxMines());
-			gs->setPopulationLevel(GameState::POPULATION_LARGE);
+			MapViewState* gs = new MapViewState("maps/ganymede_01", "tsets/ganymede.png", mPlanets[2]->digDepth(), mPlanets[2]->maxMines());
+			gs->setPopulationLevel(MapViewState::POPULATION_LARGE);
 			return gs;
 		}
 	}

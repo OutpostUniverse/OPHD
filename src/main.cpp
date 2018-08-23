@@ -9,7 +9,7 @@
 #include "StructureCatalogue.h"
 #include "StructureTranslator.h"
 
-#include "States/GameState.h"
+#include "States/MapViewState.h"
 #include "States/MainMenuState.h"
 #include "States/SplashState.h"
 

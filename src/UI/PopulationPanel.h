@@ -30,7 +30,7 @@ public:
 
 	/**
 	 * \fixme	This class/function is use to store residence capacity
-	 *			by the GameState. Probably not be an appropriate place.
+	 *			by the MapViewState. Probably not be an appropriate place.
 	 */
 	float capacity() const { return mCapacity; }
 
