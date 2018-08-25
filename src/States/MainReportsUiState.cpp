@@ -13,6 +13,7 @@ extern Point_2d		MOUSE_COORDS;
 
 static Image*		WINDOW_BACKGROUND = nullptr;
 
+static Font*		MAIN_FONT = nullptr;
 static Font*		BIG_FONT = nullptr;
 static Font*		BIG_FONT_BOLD = nullptr;
 
@@ -151,6 +152,7 @@ MainReportsUiState::~MainReportsUiState()
 	delete WINDOW_BACKGROUND;
 	delete BIG_FONT;
 	delete BIG_FONT_BOLD;
+	delete MAIN_FONT;
 
 	for (auto panel : Panels)
 	{
@@ -168,6 +170,7 @@ void MainReportsUiState::initialize()
 
 	BIG_FONT = new Font("fonts/opensans.ttf", 16);
 	BIG_FONT_BOLD = new Font("fonts/opensans-bold.ttf", 16);
+	MAIN_FONT = new Font("fonts/opensans.ttf", 10);
 
 	Panels[PANEL_EXIT].Img = new Image("ui/icons/exit.png");
 
@@ -187,6 +190,20 @@ void MainReportsUiState::initialize()
 	Panels[PANEL_SPACEPORT].Name = "Space Ports";
 
 	setPanelRects();
+
+	cboTestBox.font(*MAIN_FONT);
+	cboTestBox.position(100, 100);
+	cboTestBox.size(200, 20);
+
+	cboTestBox.addItem("Clothing");
+	cboTestBox.addItem("Maintenance Supplies");
+	cboTestBox.addItem("Medicine");
+	cboTestBox.addItem("Robodigger");
+	cboTestBox.addItem("Robodozer");
+	cboTestBox.addItem("Roboexplorer");
+	cboTestBox.addItem("Robominer");
+	cboTestBox.addItem("Road Materials");
+	cboTestBox.addItem("Truck");
 }
 
 
@@ -263,6 +280,8 @@ State* MainReportsUiState::update()
 	r.drawBoxFilled(0, 0, r.width(), 48, 0, 0, 0);
 
 	for (auto panel : Panels) { drawPanel(r, panel); }
+
+	cboTestBox.update();
 	
 	return mReturnState;
 }
