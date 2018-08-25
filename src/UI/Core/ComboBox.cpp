@@ -127,6 +127,8 @@ void ComboBox::maxDisplayItems(int count)
 void ComboBox::addItem(const std::string& item)
 {
 	lstItems.addItem(item);
+
+	if (lstItems.count() > mMaxDisplayItems) { return; }
 	lstItems.height(lstItems.count() * lstItems.lineHeight());
 }
 
