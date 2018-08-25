@@ -197,6 +197,7 @@
     <ClCompile Include="..\..\src\Things\Structures\RobotCommand.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Structure.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Button.cpp" />
+    <ClCompile Include="..\..\src\UI\Core\ComboBox.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Control.cpp" />
     <ClCompile Include="..\..\src\UI\Core\ListBox.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Menu.cpp" />

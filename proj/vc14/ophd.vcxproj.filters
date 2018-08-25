@@ -228,6 +228,9 @@
     <ClCompile Include="..\..\src\States\GameState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\ComboBox.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
