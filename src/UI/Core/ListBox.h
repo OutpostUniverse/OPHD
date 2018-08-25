@@ -9,6 +9,11 @@
 #include "UIContainer.h"
 #include "Slider.h"
 
+#include "../../Constants/UiConstants.h"
+
+/**
+ * Implements a ListBox control.
+ */
 class ListBox: public UIContainer
 {
 public:
