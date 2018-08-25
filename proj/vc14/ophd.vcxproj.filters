@@ -305,9 +305,6 @@
     <ClInclude Include="..\..\src\UI\Core\Menu.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\Pointer.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\UI\Core\UIContainer.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
@@ -529,6 +526,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\States\GameState.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\ComboBox.h">
+      <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

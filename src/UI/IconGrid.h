@@ -83,7 +83,6 @@ public:
 	void sort();
 
 protected:
-
 	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMotion(int x, int y, int dX, int dY);
 

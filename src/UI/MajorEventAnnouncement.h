@@ -13,7 +13,6 @@ public:
 	};
 
 public:
-
 	MajorEventAnnouncement(Font& font);
 	virtual ~MajorEventAnnouncement();
 
@@ -22,17 +21,17 @@ public:
 	virtual void update();
 
 protected:
-
 	virtual void init();
 
 private:
-
 	void btnCloseClicked();
 
-	MajorEventAnnouncement();
-	MajorEventAnnouncement(const MajorEventAnnouncement&);
-	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&);
+private:
+	MajorEventAnnouncement() = delete;
+	MajorEventAnnouncement(const MajorEventAnnouncement&) = delete;
+	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
 
+private:
 	Image			mHeader;
 
 	std::string		mMessage;

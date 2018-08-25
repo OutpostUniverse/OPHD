@@ -35,7 +35,7 @@ public:
 
 public:
 	Slider();
-	~Slider();
+	virtual ~Slider();
 
 	void thumbPosition(double value);		/*!< Set the current position. */
 	double thumbPosition();					/*!< Get the current position. */

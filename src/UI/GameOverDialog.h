@@ -5,30 +5,28 @@
 class GameOverDialog : public Window
 {
 public:
-
 	typedef NAS2D::Signals::Signal0<void> ClickCallback;
 
 public:
-
 	GameOverDialog(Font& font);
 	virtual ~GameOverDialog();
 
-	virtual void update();
-
 	ClickCallback& returnToMainMenu() { return mCallback; }
 
-protected:
+	virtual void update();
 
+protected:
 	virtual void init();
 
 private:
+	GameOverDialog() = delete;
+	GameOverDialog(const GameOverDialog&) = delete;
+	GameOverDialog& operator=(const GameOverDialog&) = delete;
 
+private:
 	void btnCloseClicked();
 
-	GameOverDialog();
-	GameOverDialog(const GameOverDialog&);
-	GameOverDialog& operator=(const GameOverDialog&);
-
+private:
 	Image			mHeader;
 
 	Button			btnClose;

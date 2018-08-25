@@ -16,7 +16,7 @@ public:
 
 public:
 	ListBox();
-	~ListBox();
+	virtual ~ListBox();
 
 	void init();
 
@@ -61,22 +61,22 @@ private:
 	void _updateItemDisplay();
 
 private:
-	int							mCurrentHighlight = 0;	/**< Currently highlighted selection index. */
-	int							mCurrentSelection = 0;	/**< Current selection index. */
-	int							mCurrentOffset = 0;		/**< Current selection index. */
+	int							mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
+	int							mCurrentSelection = 0;							/**< Current selection index. */
+	int							mCurrentOffset = 0;								/**< Current selection index. */
 
-	int							mItemWidth = 0;			/**< Width of items. */
-	int							mLineHeight = 0;		/**< Height of an item line. */
-	int							mLineCount = 0;			/**< Number of lines that can be displayed. */
+	int							mItemWidth = 0;									/**< Width of items. */
+	int							mLineHeight = 0;								/**< Height of an item line. */
+	int							mLineCount = 0;									/**< Number of lines that can be displayed. */
 
-	StringList					mItems;					/**< List of items preserved in the order in which they're added. */
+	StringList					mItems;											/**< List of items preserved in the order in which they're added. */
 
-	Color_4ub					mText;					/**< Text Color */
-	Color_4ub					mHighlightBg;			/**< Highlight Background color. */
-	Color_4ub					mHighlightText;			/**< Text Color for an item that is currently highlighted. */
+	Color_4ub					mText = COLOR_WHITE;							/**< Text Color */
+	Color_4ub					mHighlightBg = COLOR_GREEN;						/**< Highlight Background color. */
+	Color_4ub					mHighlightText = COLOR_WHITE;					/**< Text Color for an item that is currently highlighted. */
 
-	SelectionChangedCallback	mSelectionChanged;		/**< Callback for selection changed callback. */
-	Slider						mSlider;				/**<  */
+	SelectionChangedCallback	mSelectionChanged;								/**< Callback for selection changed callback. */
+	Slider						mSlider;										/**<  */
 	
-	bool						mSorted;				/**< Flag indicating that all Items should be sorted. */
+	bool						mSorted = false;								/**< Flag indicating that all Items should be sorted. */
 };

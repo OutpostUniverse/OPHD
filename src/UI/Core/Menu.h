@@ -15,7 +15,7 @@ public:
 	typedef NAS2D::Signals::Signal0<void> SelectionChangedCallback;
 
 	Menu();
-	~Menu();
+	virtual ~Menu();
 
 	void font(Font& font) { mFont = &font; }
 

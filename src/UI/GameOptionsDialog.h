@@ -36,7 +36,6 @@ private:
 	virtual void enabledChanged() final;
 
 private:
-
 	Button			btnSave;
 	Button			btnLoad;
 	Button			btnReturn;

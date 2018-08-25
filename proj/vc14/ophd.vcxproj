@@ -294,10 +294,10 @@
     <ClInclude Include="..\..\src\Things\Structures\Warehouse.h" />
     <ClInclude Include="..\..\src\Things\Thing.h" />
     <ClInclude Include="..\..\src\UI\Core\Button.h" />
+    <ClInclude Include="..\..\src\UI\Core\ComboBox.h" />
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
     <ClInclude Include="..\..\src\UI\Core\ListBox.h" />
     <ClInclude Include="..\..\src\UI\Core\Menu.h" />
-    <ClInclude Include="..\..\src\UI\Core\Pointer.h" />
     <ClInclude Include="..\..\src\UI\Core\ProgressBar.h" />
     <ClInclude Include="..\..\src\UI\Core\Slider.h" />
     <ClInclude Include="..\..\src\UI\Core\TextArea.h" />

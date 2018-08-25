@@ -25,7 +25,7 @@ public:
 public:
 	ProgressBar();
 	ProgressBar(size_t end);
-	~ProgressBar();
+	virtual ~ProgressBar();
 
 	void setColor(unsigned char _r, unsigned char _g, unsigned char _b) { setColor(_r, _g, _b,255); }
 	void setColor(unsigned char _r, unsigned char _g, unsigned char _b, unsigned char _a) { mColorR = _r; mColorG = _g; mColorB = _b; mColorAlpha = _a; }
