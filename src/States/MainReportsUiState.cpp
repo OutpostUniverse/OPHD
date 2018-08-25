@@ -117,17 +117,21 @@ static void setPanelRects()
  */
 static void drawPanel(Renderer& _r, Panel& _p)
 {
+	if (isPointInRect(MOUSE_COORDS, _p.Rect)) { _r.drawBoxFilled(_p.Rect, 0, 185, 185, 100); }
+
 	if (_p.Selected())
 	{
 		_r.drawBoxFilled(_p.Rect, 0, 85, 0);
 
 		if (_p.UiPanel) { _p.UiPanel->update(); }
+		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition.x(), _p.TextPosition.y(), 185, 185, 0);
+		_r.drawImage(*_p.Img, _p.IconPosition.x(), _p.IconPosition.y(), 1.0f, 185, 185, 0, 255);
 	}
-
-	_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition.x(), _p.TextPosition.y(), 0, 185, 0);
-	_r.drawImage(*_p.Img, _p.IconPosition.x(), _p.IconPosition.y(), 1.0f, 0, 185, 0, 255);
-
-	if (isPointInRect(MOUSE_COORDS, _p.Rect)) { _r.drawBoxFilled(_p.Rect, 0, 185, 185, 100); }
+	else
+	{
+		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition.x(), _p.TextPosition.y(), 0, 185, 0);
+		_r.drawImage(*_p.Img, _p.IconPosition.x(), _p.IconPosition.y(), 1.0f, 0, 185, 0, 255);
+	}
 }
 
 
