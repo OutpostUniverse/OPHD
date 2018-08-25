@@ -13,6 +13,7 @@
 #include "States/MainMenuState.h"
 #include "States/SplashState.h"
 
+#include "States/MainReportsUiState.h"
 
 #include <iostream>
 #include <fstream>
@@ -149,6 +150,7 @@ int main(int argc, char *argv[])
 
 		StateManager stateManager;
 
+		/*
 		if (cf.option("skip-splash") == "false")
 		{
 			stateManager.setState(new SplashState());
@@ -157,6 +159,12 @@ int main(int argc, char *argv[])
 		{
 			stateManager.setState(new MainMenuState());
 		}
+		*/
+
+		r.fadeIn(0.0f);
+		Wrapper* uistuff = new MainReportsUiState();
+		uistuff->activate();
+		stateManager.setState(uistuff);
 
 		// Game Loop
 		while (stateManager.update())
