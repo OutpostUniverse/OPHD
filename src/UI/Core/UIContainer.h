@@ -35,5 +35,5 @@ private:
 
 	ControlList				mControlList;	/**<  */
 
-	bool					mDebug;			/**< Debug flag. */
+	bool					mDebug = false;	/**< Debug flag. */
 };

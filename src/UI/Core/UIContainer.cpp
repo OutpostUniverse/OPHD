@@ -8,9 +8,8 @@
 /**
  * C'tor
  */
-UIContainer::UIContainer():		mDebug(false)
-{
-}
+UIContainer::UIContainer()
+{}
 
 
 /**
@@ -34,15 +33,13 @@ UIContainer::~UIContainer()
  */
 Control* UIContainer::addControl(const std::string& name, Control* c, float x, float y)
 {
-	// Naturally barf if NULL.
 	if(c == nullptr)
 	{
 		std::cout << "UIContainer::addControl(): Attempting to add a NULL Control." << std::endl;
 		return nullptr;
 	}
 
-	ControlList::iterator it = mControlList.find(toLowercase(name));
-	if(it != mControlList.end())
+	if(mControlList.find(toLowercase(name)) != mControlList.end())
 	{
 		std::cout << "UIContainer::addControl(): Attempting to add a duplicate Control '" << name << "'." << std::endl;
 		return nullptr;
@@ -73,18 +70,24 @@ bool UIContainer::deleteControl(const std::string& name)
 		return false;
 	}
 	else
+	{
 		mControlList.erase(it);
+	}
 
 	return true;
 }
 
 
+/**
+ * Gets a pointer to a Control by name.
+ * 
+ * \return	Returns a pointer to a Control or nullptr if the named control wasn't found.
+ */
 Control* UIContainer::control(const std::string& name)
 {
 	ControlList::iterator it = mControlList.find(toLowercase(name));
 
-	if(it == mControlList.end())
-		return NULL;
+	if (it == mControlList.end()) { return nullptr; }
 
 	return it->second;
 }
@@ -99,16 +102,11 @@ Control* UIContainer::control(const std::string& name)
  */
 void UIContainer::update()
 {
-	if(!visible())
-		return;
-	
-	if(mDebug)
-		Utility<Renderer>::get().drawBox(rect(), 200, 200, 200);
+	if (!visible()) { return; }
 
-	for(ControlList::iterator it = mControlList.begin(); it != mControlList.end(); ++it)
-	{
-		it->second->update();
-	}
+	if (mDebug) { Utility<Renderer>::get().drawBox(rect(), 200, 200, 200); }
+
+	for (auto control : mControlList) { control.second->update(); }
 }
 
 
@@ -117,8 +115,7 @@ void UIContainer::update()
  */
 void UIContainer::visibilityChanged(bool visible)
 {
-	for(auto it = mControlList.begin(); it != mControlList.end(); ++it)
-		it->second->visible(visible);
+	for (auto control : mControlList) { control.second->visible(visible); }
 }
 
 
@@ -126,14 +123,14 @@ void UIContainer::positionChanged(float dX, float dY)
 {
 	Control::positionChanged(dX, dY);
 
-	for (auto it = mControlList.begin(); it != mControlList.end(); ++it)
-		it->second->position(it->second->positionX() + dX, it->second->positionY() + dY);
+	for (auto control : mControlList)
+	{
+		control.second->position(control.second->positionX() + dX, control.second->positionY() + dY);
+	}
 }
 
 
 void UIContainer::onFocusChanged()
 {
-	for (auto it = mControlList.begin(); it != mControlList.end(); ++it)
-		it->second->hasFocus(hasFocus());
-
+	for (auto control : mControlList) { control.second->hasFocus(hasFocus()); }
 }
