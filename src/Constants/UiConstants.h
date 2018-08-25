@@ -18,6 +18,8 @@ namespace constants
 
 	const int NO_SELECTION = -1;
 
+	const int MINIMUM_DISPLAY_ITEMS = 5;
+
 	// ROBOT SELECTION UI SHEET ID
 	const int ROBODIGGER_SHEET_ID = 1;
 	const int ROBODOZER_SHEET_ID = 0;

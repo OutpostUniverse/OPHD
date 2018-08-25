@@ -141,15 +141,12 @@ void TextField::draw()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	if(hasFocus())
-		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus);
-	else
-		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal);
+	if (hasFocus() && editable()) { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus); }
+	else { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal); }
 
 
 
-	if(highlight())
-		r.drawBox(rect(), 255, 255, 0);
+	if (highlight()) { r.drawBox(rect(), 255, 255, 0); }
 
 	drawCursor();
 
@@ -165,7 +162,7 @@ void TextField::draw()
  */
 void TextField::drawCursor()
 {
-	if(hasFocus())
+	if(hasFocus() && editable())
 	{
 		if(mShowCursor)
 		{

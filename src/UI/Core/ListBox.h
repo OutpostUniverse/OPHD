@@ -22,9 +22,7 @@ public:
 public:
 	ListBox();
 	virtual ~ListBox();
-
-	void init();
-
+	
 	void sorted(bool _b) { mSorted = _b; }
 	bool sorted(bool) const { return mSorted; }
 
@@ -37,6 +35,9 @@ public:
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
 	void dropAllItems();
+
+	int count() const { return mItems.size(); }
+	int lineHeight() const { return mLineHeight; }
 
 	int currentSelection() const { return mCurrentSelection; }
 	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
@@ -64,6 +65,8 @@ private:
 	virtual void onSizeChanged() final;
 
 	void _updateItemDisplay();
+
+	void init();
 
 private:
 	int							mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
