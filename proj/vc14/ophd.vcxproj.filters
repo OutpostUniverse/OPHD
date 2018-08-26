@@ -64,6 +64,12 @@
     <Filter Include="Source Files\Map">
       <UniqueIdentifier>{8013e5ff-baf7-4499-bff7-a7e38570a994}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\UI\Reports">
+      <UniqueIdentifier>{a44c6715-e1af-4914-a179-42b503304355}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI\Reports">
+      <UniqueIdentifier>{463384e6-546b-4f3c-adda-f9c094bc326e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -230,6 +236,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\UI\Core\ComboBox.cpp">
       <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Reports\FactoryReports.cpp">
+      <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -532,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UI\Core\ComboBox.h">
       <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Reports\FactoryReport.h">
+      <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

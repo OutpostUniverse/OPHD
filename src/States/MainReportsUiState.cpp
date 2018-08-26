@@ -5,6 +5,8 @@
 
 #include "../UI/Core/UIContainer.h"
 
+#include "../UI/Reports/FactoryReport.h"
+
 #include <array>
 
 using namespace NAS2D;
@@ -13,7 +15,7 @@ extern Point_2d		MOUSE_COORDS;
 
 static Image*		WINDOW_BACKGROUND = nullptr;
 
-static Font*		MAIN_FONT = nullptr;
+Font*		MAIN_FONT = nullptr;
 static Font*		BIG_FONT = nullptr;
 static Font*		BIG_FONT_BOLD = nullptr;
 
@@ -95,6 +97,7 @@ static void setPanelRects()
 	Panels[PANEL_PRODUCTION].Rect(Panels[PANEL_RESEARCH].Rect.x() + panel_width, 0, panel_width, 48);
 	Panels[PANEL_PRODUCTION].TextPosition(Panels[PANEL_PRODUCTION].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[PANEL_PRODUCTION].Name) / 2 + 20, text_y_position);
 	Panels[PANEL_PRODUCTION].IconPosition(Panels[PANEL_PRODUCTION].TextPosition.x() - 40, 8);
+	Panels[PANEL_PRODUCTION].Selected(true);
 
 
 	Panels[PANEL_MINING].Rect(Panels[PANEL_PRODUCTION].Rect.x() + panel_width, 0, panel_width, 48);
@@ -125,6 +128,7 @@ static void drawPanel(Renderer& _r, Panel& _p)
 		_r.drawBoxFilled(_p.Rect, 0, 85, 0);
 
 		if (_p.UiPanel) { _p.UiPanel->update(); }
+
 		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition.x(), _p.TextPosition.y(), 185, 185, 0);
 		_r.drawImage(*_p.Img, _p.IconPosition.x(), _p.IconPosition.y(), 1.0f, 185, 185, 0, 255);
 	}
@@ -154,9 +158,10 @@ MainReportsUiState::~MainReportsUiState()
 	delete BIG_FONT_BOLD;
 	delete MAIN_FONT;
 
-	for (auto panel : Panels)
+	for (Panel& panel : Panels)
 	{
-		if (panel.Img) { delete panel.Img; }
+		if (panel.Img) { delete panel.Img; panel.Img = nullptr; }
+		if (panel.UiPanel) { delete panel.UiPanel; panel.UiPanel = nullptr; }
 	}
 }
 
@@ -191,19 +196,14 @@ void MainReportsUiState::initialize()
 
 	setPanelRects();
 
-	cboTestBox.font(*MAIN_FONT);
-	cboTestBox.position(100, 100);
-	cboTestBox.size(200, 20);
+	Renderer& r = Utility<Renderer>::get();
 
-	cboTestBox.addItem("Clothing");
-	cboTestBox.addItem("Maintenance Supplies");
-	cboTestBox.addItem("Medicine");
-	cboTestBox.addItem("Robodigger");
-	cboTestBox.addItem("Robodozer");
-	cboTestBox.addItem("Roboexplorer");
-	cboTestBox.addItem("Robominer");
-	cboTestBox.addItem("Road Materials");
-	cboTestBox.addItem("Truck");
+	
+	Panels[PANEL_PRODUCTION].UiPanel = new FactoryReport();
+	Panels[PANEL_PRODUCTION].UiPanel->font(*MAIN_FONT);
+
+	Panels[PANEL_PRODUCTION].UiPanel->position(0, 40);
+	Panels[PANEL_PRODUCTION].UiPanel->size(r.width(), r.height() - 40);
 }
 
 
@@ -245,6 +245,8 @@ void MainReportsUiState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyM
  */
 void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	if (!isPointInRect(x, y, 0, 0, Utility<Renderer>::get().width(), 40)) { return; } // ignore clicks in the UI area.
+
 	if (button == EventHandler::BUTTON_LEFT)
 	{
 		for (Panel& panel : Panels) { panel.Selected(isPointInRect(MOUSE_COORDS, panel.Rect)); }
@@ -276,12 +278,10 @@ State* MainReportsUiState::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawImageRepeated(*WINDOW_BACKGROUND, 0, 0, r.width(), r.height());
+	r.clearScreen(35, 35, 35);
 	r.drawBoxFilled(0, 0, r.width(), 48, 0, 0, 0);
 
-	for (auto panel : Panels) { drawPanel(r, panel); }
+	for (Panel& panel : Panels) { drawPanel(r, panel); }
 
-	cboTestBox.update();
-	
 	return mReturnState;
 }

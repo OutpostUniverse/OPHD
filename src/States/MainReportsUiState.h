@@ -25,8 +25,5 @@ private:
 	void onWindowResized(int w, int h);
 
 private:
-
-	ComboBox	cboTestBox;
-
 	NAS2D::State*	mReturnState = this;
 };

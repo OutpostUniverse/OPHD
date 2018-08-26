@@ -25,7 +25,7 @@ UIContainer::~UIContainer()
  * \return	A pointer to the Control that was just added.
  * 
  * \warning	If adding failed (usually due to a duplicate Control
- *			reference, the returned pointer will be NULL.
+ *			reference, the returned pointer will be nullptr.
  *
  * \note	UIContainer only uses the provided pointer as a reference.
  *			It does no memory management and assumes the user is
