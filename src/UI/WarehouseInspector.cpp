@@ -77,15 +77,17 @@ void WarehouseInspector::update()
 
 	Renderer& r = Utility<Renderer>::get();
 
+	ProductPool& _pool = mWarehouse->products();
+
 	r.drawText(mBold, "Storage", rect().x() + constants::MARGIN, rect().y() + 25.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i / %i", mWarehouse->products().availableStorage(), mWarehouse->products().capacity()), rect().x() + constants::MARGIN + font().width("Storage") + 20, rect().y() + 25.0f, 255, 255, 255);
+	r.drawText(font(), string_format("%i / %i", _pool.availableStorage(), _pool.capacity()), rect().x() + constants::MARGIN + font().width("Storage") + 20, rect().y() + 25.0f, 255, 255, 255);
 
 	r.drawText(mBold, "Clothing:", rect().x() + constants::MARGIN, rect().y() + 50.0f, 255, 255, 255);
-	r.drawText(font(), to_string(mWarehouse->products().count(PRODUCT_CLOTHING)), rect().x() + constants::MARGIN + 100, rect().y() + 50.0f, 255, 255, 255);
+	r.drawText(font(), to_string(_pool.count(PRODUCT_CLOTHING)), rect().x() + constants::MARGIN + 100, rect().y() + 50.0f, 255, 255, 255);
 
 	r.drawText(mBold, "Medicine:", rect().x() + constants::MARGIN, rect().y() + 65.0f, 255, 255, 255);
-	r.drawText(font(), to_string(mWarehouse->products().count(PRODUCT_MEDICINE)), rect().x() + constants::MARGIN + 100, rect().y() + 65.0f, 255, 255, 255);
+	r.drawText(font(), to_string(_pool.count(PRODUCT_MEDICINE)), rect().x() + constants::MARGIN + 100, rect().y() + 65.0f, 255, 255, 255);
 
 	r.drawText(mBold, "Road Materials:", rect().x() + constants::MARGIN, rect().y() + 80.0f, 255, 255, 255);
-	r.drawText(font(), to_string(mWarehouse->products().count(PRODUCT_ROAD_MATERIALS)), rect().x() + constants::MARGIN + 100, rect().y() + 80.0f, 255, 255, 255);
+	r.drawText(font(), to_string(_pool.count(PRODUCT_ROAD_MATERIALS)), rect().x() + constants::MARGIN + 100, rect().y() + 80.0f, 255, 255, 255);
 }

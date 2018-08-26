@@ -198,12 +198,11 @@ void MainReportsUiState::initialize()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	
-	Panels[PANEL_PRODUCTION].UiPanel = new FactoryReport();
-	Panels[PANEL_PRODUCTION].UiPanel->font(*MAIN_FONT);
-
-	Panels[PANEL_PRODUCTION].UiPanel->position(0, 40);
-	Panels[PANEL_PRODUCTION].UiPanel->size(r.width(), r.height() - 40);
+	UIContainer* factory_report = new FactoryReport();
+	Panels[PANEL_PRODUCTION].UiPanel = factory_report;
+	factory_report->font(*MAIN_FONT);
+	factory_report->position(0, 40);
+	factory_report->size(r.width(), r.height() - 40);
 }
 
 

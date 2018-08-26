@@ -135,4 +135,12 @@
     <CodeCurrent>414232470</CodeCurrent>
     <CodeNext>0</CodeNext>
   </OPHD>
+  <OPHD>
+    <FileName>listbox.cpp</FileName>
+    <ErrorCode>V550</ErrorCode>
+    <Message>An odd precise comparison: static_cast&lt;float&gt; (pos) != _position. It's probably better to use a comparison with defined precision: fabs(A - B) &gt; Epsilon.</Message>
+    <CodePrev>2913139545</CodePrev>
+    <CodeCurrent>3495045711</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </OPHD>
 </NewDataSet>

@@ -41,7 +41,5 @@ void FactoryReport::init()
 void FactoryReport::update()
 {
 	UIContainer::update();
-	//btnButton1.update();
-	//cboFilterByProduct.update();
 }
 
