@@ -103,9 +103,6 @@ Control* UIContainer::control(const std::string& name)
 void UIContainer::update()
 {
 	if (!visible()) { return; }
-
-	if (mDebug) { Utility<Renderer>::get().drawBox(rect(), 200, 200, 200); }
-
 	for (auto control : mControlList) { control.second->update(); }
 }
 

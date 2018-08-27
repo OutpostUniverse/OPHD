@@ -19,12 +19,9 @@ public:
 
 	Control* control(const std::string& name);
 
-	void debug(bool _d) { mDebug = _d; }
-
 	virtual void update();
 
 protected:
-
 	virtual void visibilityChanged(bool visible);
 	virtual void positionChanged(float dX, float dY);
 
@@ -34,6 +31,4 @@ private:
 	typedef std::map<std::string, Control*> ControlList;
 
 	ControlList				mControlList;	/**<  */
-
-	bool					mDebug = false;	/**< Debug flag. */
 };
