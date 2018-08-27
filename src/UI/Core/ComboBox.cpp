@@ -39,6 +39,7 @@ void ComboBox::init()
 	txtField.editable(false);
 	lstItems.visible(false);
 	lstItems.height(300);
+	lstItems.sorted(false);
 
 	resized().connect(this, &ComboBox::resizedHandler);
 	moved().connect(this, &ComboBox::repositioned);

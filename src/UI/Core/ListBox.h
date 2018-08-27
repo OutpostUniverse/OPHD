@@ -26,7 +26,7 @@ public:
 	void sorted(bool _b) { mSorted = _b; }
 	bool sorted(bool) const { return mSorted; }
 
-	void sort() { std::sort(mItems.begin(), mItems.end()); }
+	void sort() { if (mSorted) { std::sort(mItems.begin(), mItems.end()); } }
 
 	void textColor(const Color_4ub& color)	{ mText = color; }
 	void selectColor(const Color_4ub& color)	{ mHighlightBg = color; }

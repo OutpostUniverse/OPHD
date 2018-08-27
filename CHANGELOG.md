@@ -13,6 +13,7 @@ User interface overhaul.
 
 ### Fixed
 - Fixed an issue that prevented the planet description from displaying.
+- Fixed an oversight that caused ListBox to sort all of its items regardless of whether it was in sorted mode or not.
 
 
 ## [0.7.6] - 2018-07-06

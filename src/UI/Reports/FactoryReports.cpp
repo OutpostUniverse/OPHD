@@ -80,6 +80,7 @@ void FactoryReport::init()
 	cboFilterByProduct.font(*MAIN_FONT);
 	cboFilterByProduct.size(200, 20);
 
+	cboFilterByProduct.addItem("None");
 	cboFilterByProduct.addItem("Clothing");
 	cboFilterByProduct.addItem("Maintenance Supplies");
 	cboFilterByProduct.addItem("Medicine");
@@ -160,12 +161,11 @@ void FactoryReport::btnShowDisabledClicked()
 
 void FactoryReport::update()
 {
-	UIContainer::update();
-
 	Renderer& r = Utility<Renderer>::get();
+	//r.drawBox(FACTORY_LISTBOX, 255, 255, 255);
+
 	r.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + rect().height() - 10, 255, 255, 255);
-
-	r.drawBox(FACTORY_LISTBOX, 255, 255, 255);
-
 	r.drawText(*MAIN_FONT, "Filter by Product", SORT_BY_PRODUCT_POSITION, rect().y() + 10, 0, 185, 0);
+
+	UIContainer::update();
 }
