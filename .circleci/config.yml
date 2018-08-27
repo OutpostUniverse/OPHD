@@ -1,0 +1,15 @@
+version: 2.0
+jobs:
+  build:
+    docker:
+      - image: outpostuniverse/ubuntu-18.04-circleci-gcc-sdl2
+    steps:
+      - checkout
+      - run:
+          name: "Pull Submodules"
+          command: |
+            git submodule init
+            git submodule update
+      - run:
+          name: "Build"
+          command: make -k
