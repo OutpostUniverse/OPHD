@@ -1,15 +1,13 @@
 # Source http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 
 SRCDIR := src
-INCDIR := API/NAS2D/include/
-LIBDIR := API/NAS2D/lib
-#LIBDIR := ../nas2d-core/build/lib
+INCDIR := nas2d-core/include
+LIBDIR := nas2d-core/lib
 BUILDDIR := build
-BINDIR := $(BUILDDIR)/bin
+BINDIR := .
 OBJDIR := $(BUILDDIR)/obj
 DEPDIR := $(BUILDDIR)/deps
-#EXE := $(BINDIR)/OPHD
-EXE := OPHD
+EXE := $(BINDIR)/OPHD
 
 CFLAGS := -std=c++11 -g -Wall -Wno-unknown-pragmas -I$(INCDIR) $(shell sdl2-config --cflags)
 LDFLAGS := -lstdc++ -lm -L$(LIBDIR) -lnas2d \
