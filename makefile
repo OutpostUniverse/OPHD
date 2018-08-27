@@ -1,18 +1,18 @@
 # Source http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 
 SRCDIR := src
-INCDIR := API/NAS2D/include/
-LIBDIR := API/NAS2D/lib
-#LIBDIR := ../nas2d-core/build/lib
 BUILDDIR := build
-BINDIR := $(BUILDDIR)/bin
+BINDIR := .
 OBJDIR := $(BUILDDIR)/obj
 DEPDIR := $(BUILDDIR)/deps
-#EXE := $(BINDIR)/OPHD
-EXE := OPHD
+EXE := $(BINDIR)/OPHD
+NAS2DDIR := nas2d-core
+NAS2DINCLUDEDIR := $(NAS2DDIR)/include
+NAS2DLIBDIR := $(NAS2DDIR)/lib
+NAS2DLIB := $(NAS2DLIBDIR)/libnas2d.a
 
-CFLAGS := -std=c++11 -g -Wall -Wno-unknown-pragmas -I$(INCDIR) $(shell sdl2-config --cflags)
-LDFLAGS := -lstdc++ -lm -L$(LIBDIR) -lnas2d \
+CFLAGS := -std=c++11 -g -Wall -Wno-unknown-pragmas -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
+LDFLAGS := -lstdc++ -lm -L$(NAS2DLIBDIR) -lnas2d \
 	$(shell sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf \
 	-lphysfs -lGLU -lGL -lGLEW
 
@@ -28,9 +28,15 @@ FOLDERS := $(sort $(dir $(SRCS)))
 
 all: $(EXE)
 
-$(EXE): $(OBJS)
+$(EXE): $(NAS2DLIB) $(OBJS)
 	@mkdir -p ${@D}
 	$(CXX) $^ $(LDFLAGS) -o $@
+
+$(NAS2DLIB): nas2d
+
+.PHONY:nas2d
+nas2d:
+	$(MAKE) -C nas2d-core
 
 $(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp $(DEPDIR)/%.d | build-folder
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
