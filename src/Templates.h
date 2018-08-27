@@ -1,5 +1,8 @@
 #pragma once
 
+int storageRequired(ProductType type, int count);
+int storageRequiredPerUnit(ProductType type);
+
 /**
  * Transfers products from source to destination.
  */
