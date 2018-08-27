@@ -264,7 +264,7 @@ void TileMap::draw()
 
 	int tsetOffset = 0;
 
-	mCurrentDepth > 0 ? tsetOffset = TILE_HEIGHT : tsetOffset = 0;
+	tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
 
 	for(int row = 0; row < mEdgeLength; row ++)
 	{
