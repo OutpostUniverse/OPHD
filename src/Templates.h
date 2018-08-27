@@ -8,9 +8,9 @@ void transferProducts(T& source, T& destination)
 {
 	if (source->products().empty() || destination->products().atCapacity()) { return; }
 
-	ProductPool::ProductTypeCount& src = source->products().mProducts;
+	auto& src = source->products().mProducts;
 
-	ProductPool& dest = destination->products();
+	auto& dest = destination->products();
 
 	for (size_t i = 0; i < PRODUCT_COUNT; ++i)
 	{
