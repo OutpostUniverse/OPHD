@@ -8,6 +8,7 @@ BINDIR := .
 OBJDIR := $(BUILDDIR)/obj
 DEPDIR := $(BUILDDIR)/deps
 EXE := $(BINDIR)/OPHD
+NAS2DLIB := $(LIBDIR)/libnas2d.a
 
 CFLAGS := -std=c++11 -g -Wall -Wno-unknown-pragmas -I$(INCDIR) $(shell sdl2-config --cflags)
 LDFLAGS := -lstdc++ -lm -L$(LIBDIR) -lnas2d \
@@ -26,9 +27,15 @@ FOLDERS := $(sort $(dir $(SRCS)))
 
 all: $(EXE)
 
-$(EXE): $(OBJS)
+$(EXE): $(NAS2DLIB) $(OBJS)
 	@mkdir -p ${@D}
 	$(CXX) $^ $(LDFLAGS) -o $@
+
+$(NAS2DLIB): nas2d
+
+.PHONY:nas2d
+nas2d:
+	$(MAKE) -C nas2d-core
 
 $(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp $(DEPDIR)/%.d | build-folder
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
