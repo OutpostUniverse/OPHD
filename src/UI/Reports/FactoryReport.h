@@ -15,8 +15,22 @@ public:
 private:
 	void init();
 
+	void btnShowAllClicked();
+	void btnShowSurfaceClicked();
+	void btnShowUndergroundClicked();
+	void btnShowActiveClicked();
+	void btnShowIdleClicked();
+	void btnShowDisabledClicked();
+
+	void filterButtonClicked();
+
 private:
-	Button			btnButton1;
+	Button			btnShowAll;
+	Button			btnShowSurface;
+	Button			btnShowUnderground;
+	Button			btnShowActive;
+	Button			btnShowIdle;
+	Button			btnShowDisabled;
 
 	ComboBox		cboFilterByProduct;
 };
