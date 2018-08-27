@@ -15,9 +15,9 @@ extern Point_2d		MOUSE_COORDS;
 
 static Image*		WINDOW_BACKGROUND = nullptr;
 
-Font*		MAIN_FONT = nullptr;
-static Font*		BIG_FONT = nullptr;
-static Font*		BIG_FONT_BOLD = nullptr;
+Font*				MAIN_FONT = nullptr;
+Font*				BIG_FONT = nullptr;
+Font*				BIG_FONT_BOLD = nullptr;
 
 
 /**
@@ -201,8 +201,8 @@ void MainReportsUiState::initialize()
 	UIContainer* factory_report = new FactoryReport();
 	Panels[PANEL_PRODUCTION].UiPanel = factory_report;
 	factory_report->font(*MAIN_FONT);
-	factory_report->position(0, 40);
-	factory_report->size(r.width(), r.height() - 40);
+	factory_report->position(0, 48);
+	factory_report->size(r.width(), r.height() - 48);
 }
 
 
@@ -248,7 +248,13 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 
 	if (button == EventHandler::BUTTON_LEFT)
 	{
-		for (Panel& panel : Panels) { panel.Selected(isPointInRect(MOUSE_COORDS, panel.Rect)); }
+		for (Panel& panel : Panels)
+		{
+			bool selected = isPointInRect(MOUSE_COORDS, panel.Rect);
+			panel.Selected(selected);
+
+			if(panel.UiPanel) { panel.UiPanel->visible(selected); }
+		}
 	}
 
 	if (Panels[PANEL_EXIT].Selected()) { mReturnState = nullptr; }
