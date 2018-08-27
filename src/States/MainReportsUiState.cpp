@@ -77,14 +77,12 @@ static std::array<Panel, PANEL_COUNT> Panels;	/**< Array of UI navigation panels
 /**
  * Computes the panel rectangles for the top nav bar.
  */
-static void setPanelRects()
+static void setPanelRects(int width, int height)
 {
-	Renderer& r = Utility<Renderer>::get();
-
-	Panels[PANEL_EXIT].Rect(r.width() - 48, 0, 48, 48);
-	Panels[PANEL_EXIT].IconPosition(r.width() - 40, 8);
+	Panels[PANEL_EXIT].Rect(width - 48, 0, 48, 48);
+	Panels[PANEL_EXIT].IconPosition(width - 40, 8);
 	
-	int remaining_width = r.width() - Panels[PANEL_EXIT].Rect.width();
+	int remaining_width = width - Panels[PANEL_EXIT].Rect.width();
 	int panel_width = remaining_width / 5;
 	int text_y_position = 24 - BIG_FONT->height() / 2;
 
@@ -194,9 +192,8 @@ void MainReportsUiState::initialize()
 	Panels[PANEL_SPACEPORT].Img = new Image("ui/icons/spaceport.png");
 	Panels[PANEL_SPACEPORT].Name = "Space Ports";
 
-	setPanelRects();
-
 	Renderer& r = Utility<Renderer>::get();
+	setPanelRects(r.width(), r.height());
 
 	UIContainer* factory_report = new FactoryReport();
 	Panels[PANEL_PRODUCTION].UiPanel = factory_report;
@@ -272,7 +269,8 @@ void MainReportsUiState::onMouseMotion(int x, int y, int dx, int dy)
  */
 void MainReportsUiState::onWindowResized(int w, int h)
 {
-	setPanelRects();
+	setPanelRects(w, h);
+	for (Panel& panel : Panels) { if (panel.UiPanel) { panel.UiPanel->size(w, h - 48); } }
 }
 
 
