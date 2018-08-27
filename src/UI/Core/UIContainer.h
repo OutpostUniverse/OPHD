@@ -17,6 +17,8 @@ public:
 	Control* addControl(const std::string& name, Control* c, float x, float y);
 	bool deleteControl(const std::string& name);
 
+	void dropAllControls();
+
 	Control* control(const std::string& name);
 
 	virtual void update();

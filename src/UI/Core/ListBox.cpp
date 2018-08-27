@@ -47,7 +47,8 @@ void ListBox::init()
 
 void ListBox::onSizeChanged()
 {
-	deleteControl("mSlider");
+	//deleteControl("mSlider");
+	dropAllControls();
 	addControl("mSlider", &mSlider, rect().width() - 14, 0);
 	mSlider.displayPosition(false);
 	mSlider.size(14, rect().height());

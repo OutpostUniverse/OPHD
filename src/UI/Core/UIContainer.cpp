@@ -79,6 +79,15 @@ bool UIContainer::deleteControl(const std::string& name)
 
 
 /**
+ * Drops all controls.
+ */
+void UIContainer::dropAllControls()
+{
+	mControlList.clear();
+}
+
+
+/**
  * Gets a pointer to a Control by name.
  * 
  * \return	Returns a pointer to a Control or nullptr if the named control wasn't found.
