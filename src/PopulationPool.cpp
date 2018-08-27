@@ -44,7 +44,7 @@ int PopulationPool::populationAvailable(Population::PersonRole _role)
 	BasicCheck(_role);
 
 	int employed = 0;
-	_role == Population::ROLE_SCIENTIST ? employed = scientistsEmployed() : employed = workersEmployed();
+	employed = _role == Population::ROLE_SCIENTIST ? scientistsEmployed() : workersEmployed();
 
 	return mPopulation->size(_role) - employed;
 }
