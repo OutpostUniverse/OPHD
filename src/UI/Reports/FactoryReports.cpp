@@ -9,17 +9,28 @@ extern Font* MAIN_FONT;	// yuck
 
 static int SORT_BY_PRODUCT_POSITION = 0;
 
+static Rectangle_2d	FACTORY_LISTBOX;
 
+
+/**
+ * C'tor
+ */
 FactoryReport::FactoryReport()
 {
 	init();
 }
 
 
+/**
+ * D'tor
+ */
 FactoryReport::~FactoryReport()
 {}
 
 
+/**
+ * Sets up UI positions.
+ */
 void FactoryReport::init()
 {
 	addControl("btnShowAll", &btnShowAll, 10, 10);
@@ -79,8 +90,19 @@ void FactoryReport::init()
 	cboFilterByProduct.addItem("Road Materials");
 	cboFilterByProduct.addItem("Truck");
 
-
 	SORT_BY_PRODUCT_POSITION = cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() - MAIN_FONT->width("Filter by Product");
+
+	Control::resized().connect(this, &FactoryReport::resized);
+}
+
+
+void FactoryReport::resized(Control* c)
+{
+	int h = height();
+	FACTORY_LISTBOX.x(positionX() + 10);
+	FACTORY_LISTBOX.y(cboFilterByProduct.positionY() + cboFilterByProduct.height() + 10);
+	FACTORY_LISTBOX.width(cboFilterByProduct.positionX() + cboFilterByProduct.width() - 10);
+	FACTORY_LISTBOX.height(height() - 74);
 }
 
 
@@ -141,7 +163,9 @@ void FactoryReport::update()
 	UIContainer::update();
 
 	Renderer& r = Utility<Renderer>::get();
-	r.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + rect().height() - 20, 255, 255, 255);
+	r.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + rect().height() - 10, 255, 255, 255);
+
+	r.drawBox(FACTORY_LISTBOX, 255, 255, 255);
 
 	r.drawText(*MAIN_FONT, "Filter by Product", SORT_BY_PRODUCT_POSITION, rect().y() + 10, 0, 185, 0);
 }

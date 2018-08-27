@@ -24,6 +24,8 @@ private:
 
 	void filterButtonClicked();
 
+	void resized(Control*);
+
 private:
 	Button			btnShowAll;
 	Button			btnShowSurface;
