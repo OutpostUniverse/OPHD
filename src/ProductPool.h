@@ -47,7 +47,3 @@ private:
 	int					mCapacity = constants::BASE_PRODUCT_CAPACITY;
 	int					mCurrentStorageCount = 0;
 };
-
-
-int storageRequired(ProductType type, int count);
-int storageRequiredPerUnit(ProductType type);

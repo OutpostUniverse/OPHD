@@ -109,8 +109,8 @@ void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod,
 void FileIo::setMode(FileOperation _m)
 {
 	mMode = _m;
-	mMode == FILE_LOAD ? text("Load Game") : text("Save Game");
-	mMode == FILE_LOAD ? btnFileOp.text("Load") : btnFileOp.text("Save");
+	text(mMode == FILE_LOAD ? "Load Game" : "Save Game");
+	btnFileOp.text(mMode == FILE_LOAD ? "Load" : "Save");
 }
 
 
