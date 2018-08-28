@@ -3,6 +3,7 @@
 #include "../Core/Button.h"
 #include "../Core/ComboBox.h"
 #include "../Core/UIContainer.h"
+#include "../FactoryListBox.h"
 
 
 class FactoryReport : public UIContainer
@@ -35,4 +36,6 @@ private:
 	Button			btnShowDisabled;
 
 	ComboBox		cboFilterByProduct;
+
+	FactoryListBox	lstFactoryList;
 };

@@ -7,12 +7,21 @@
 #include "../../FontManager.h"
 
 
+#include "../../Things/Structures/SurfaceFactory.h"
+#include "../../Things/Structures/SeedFactory.h"
+#include "../../Things/Structures/UndergroundFactory.h"
+
+
 static int SORT_BY_PRODUCT_POSITION = 0;
 
 static Rectangle_2d	FACTORY_LISTBOX;
 
 
 static Font* FONT;
+
+Factory* factory1;
+Factory* factory2;
+Factory* factory3;
 
 
 /**
@@ -37,6 +46,19 @@ FactoryReport::~FactoryReport()
 void FactoryReport::init()
 {
 	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 10);
+
+	// Controls are drawn in the order in which they were inserted -- so this is here
+	// to ensure that the combobox is drawn above everything else.
+	addControl("lstFactoryList", &lstFactoryList, 10, 63);
+	lstFactoryList.font(*FONT);
+
+	factory1 = new SurfaceFactory();
+	factory2 = new SeedFactory();
+	factory3 = new UndergroundFactory();
+
+	lstFactoryList.addItem(factory1);
+	lstFactoryList.addItem(factory2);
+	lstFactoryList.addItem(factory3);
 
 	addControl("btnShowAll", &btnShowAll, 10, 10);
 	btnShowAll.font(*FONT);
@@ -81,7 +103,7 @@ void FactoryReport::init()
 	btnShowDisabled.text("Disabled");
 	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
 
-	addControl("cboTestBox", &cboFilterByProduct, 250, 33);
+	addControl("cboFilterByProduct", &cboFilterByProduct, 250, 33);
 	cboFilterByProduct.font(*FONT);
 	cboFilterByProduct.size(200, 20);
 
@@ -96,6 +118,7 @@ void FactoryReport::init()
 	cboFilterByProduct.addItem("Road Materials");
 	cboFilterByProduct.addItem("Truck");
 
+
 	SORT_BY_PRODUCT_POSITION = cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() - FONT->width("Filter by Product");
 
 	Control::resized().connect(this, &FactoryReport::resized);
@@ -109,6 +132,8 @@ void FactoryReport::resized(Control* c)
 	FACTORY_LISTBOX.y(cboFilterByProduct.positionY() + cboFilterByProduct.height() + 10);
 	FACTORY_LISTBOX.width(cboFilterByProduct.positionX() + cboFilterByProduct.width() - 10);
 	FACTORY_LISTBOX.height(height() - 74);
+
+	lstFactoryList.size(FACTORY_LISTBOX.width(), FACTORY_LISTBOX.height());
 }
 
 
