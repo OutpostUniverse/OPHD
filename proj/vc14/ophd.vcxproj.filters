@@ -512,9 +512,6 @@
     <ClInclude Include="..\..\src\States\MainMenuState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\SolarPanelArray.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
@@ -553,6 +550,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\FontManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h">
+      <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
