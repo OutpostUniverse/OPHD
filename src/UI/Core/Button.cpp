@@ -105,7 +105,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			}
 			else
 			{
-				mState = mState == STATE_PRESSED ? STATE_NORMAL : STATE_PRESSED;
+				mState = (mState == STATE_PRESSED ? STATE_NORMAL : STATE_PRESSED);
 				mCallback();
 			}
 		}

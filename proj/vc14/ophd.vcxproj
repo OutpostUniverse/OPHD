@@ -209,6 +209,7 @@
     <ClCompile Include="..\..\src\UI\Core\Window.cpp" />
     <ClCompile Include="..\..\src\UI\Core\WindowStack.cpp" />
     <ClCompile Include="..\..\src\UI\DiggerDirection.cpp" />
+    <ClCompile Include="..\..\src\UI\FactoryListBox.cpp" />
     <ClCompile Include="..\..\src\UI\FactoryProduction.cpp" />
     <ClCompile Include="..\..\src\ui\FileIo.cpp" />
     <ClCompile Include="..\..\src\UI\GameOptionsDialog.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="..\..\src\Constants\Numbers.h" />
     <ClInclude Include="..\..\src\Constants\Strings.h" />
     <ClInclude Include="..\..\src\Constants\UiConstants.h" />
+    <ClInclude Include="..\..\src\FontManager.h" />
     <ClInclude Include="..\..\src\GraphWalker.h" />
     <ClInclude Include="..\..\src\Map\Tile.h" />
     <ClInclude Include="..\..\src\Map\TileMap.h" />
@@ -319,6 +321,7 @@
     <ClInclude Include="..\..\src\Ui\PopulationPanel.h" />
     <ClInclude Include="..\..\src\UI\Reports\FactoryReport.h" />
     <ClInclude Include="..\..\src\ui\StructureInspector.h" />
+    <ClInclude Include="..\..\src\UI\FactoryListBox.h" />
     <ClInclude Include="..\..\src\UI\TileInspector.h" />
     <ClInclude Include="..\..\src\UI\UI.h" />
     <ClInclude Include="..\..\src\UI\WarehouseInspector.h" />

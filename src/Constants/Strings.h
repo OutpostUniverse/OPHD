@@ -160,6 +160,12 @@ namespace constants
 
 
 	// =====================================
+	// = FONT STRINGS
+	// =====================================
+	const string	FONT_PRIMARY						= "fonts/opensans.ttf";
+	const string	FONT_PRIMARY_BOLD					= "fonts/opensans-bold.ttf";
+
+	// =====================================
 	// = UI STRINGS
 	// =====================================
 	const string	WINDOW_FACTORY_PRODUCTION			= "Factory Production";

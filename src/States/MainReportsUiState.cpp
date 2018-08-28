@@ -16,6 +16,7 @@ extern Point_2d		MOUSE_COORDS;
 static Image*		WINDOW_BACKGROUND = nullptr;
 
 Font*				MAIN_FONT = nullptr;
+Font*				MAIN_FONT_BOLD = nullptr;
 Font*				BIG_FONT = nullptr;
 Font*				BIG_FONT_BOLD = nullptr;
 
@@ -155,6 +156,7 @@ MainReportsUiState::~MainReportsUiState()
 	delete BIG_FONT;
 	delete BIG_FONT_BOLD;
 	delete MAIN_FONT;
+	delete MAIN_FONT_BOLD;
 
 	for (Panel& panel : Panels)
 	{
@@ -174,6 +176,7 @@ void MainReportsUiState::initialize()
 	BIG_FONT = new Font("fonts/opensans.ttf", 16);
 	BIG_FONT_BOLD = new Font("fonts/opensans-bold.ttf", 16);
 	MAIN_FONT = new Font("fonts/opensans.ttf", 10);
+	MAIN_FONT_BOLD = new Font("fonts/opensans-bold.ttf", 10);
 
 	Panels[PANEL_EXIT].Img = new Image("ui/icons/exit.png");
 
