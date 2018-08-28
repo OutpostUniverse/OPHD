@@ -137,20 +137,19 @@ void ListBox::removeItem(const std::string& item)
 
 	StringList::iterator it = mItems.begin();
 
-	while(it != mItems.end())
+	while (it != mItems.end())
 	{
-		if(toLowercase((*it)) == toLowercase(item))
+		if (toLowercase((*it)) == toLowercase(item))
 		{
 			mItems.erase(it);
 			mCurrentSelection = constants::NO_SELECTION;
+			sort();
+			_updateItemDisplay();
 			return;
 		}
 
 		++it;
 	}
-
-	sort();
-	_updateItemDisplay();
 }
 
 
@@ -239,16 +238,11 @@ void ListBox::onMouseMove(int x, int y, int relX, int relY)
 /**
  * \todo	Make the scroll amount configurable.
  */
-void ListBox::onMouseWheel(int x, int y) //-V751
+void ListBox::onMouseWheel(int x, int y)
 {
-	if (y < 0)
-	{
-		mSlider.changeThumbPosition(16.0);
-	}
-	else if (y > 0)
-	{
-		mSlider.changeThumbPosition(-16.0);
-	}
+	if (empty() || !visible()) { return; }
+
+	mSlider.changeThumbPosition((y < 0 ? 16.0 : -16.0));
 }
 
 
