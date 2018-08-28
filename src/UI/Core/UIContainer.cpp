@@ -48,6 +48,9 @@ Control* UIContainer::addControl(const std::string& name, Control* c, float x, f
 	mControlList[toLowercase(name)] = c;
 	c->position(rect().x() + x, rect().y() + y);
 
+
+	mDrawOrder.push_back(c);
+
 	/// todo\	Add validation to contain controls within a UIContainer.
 
 	return c;
@@ -71,6 +74,7 @@ bool UIContainer::deleteControl(const std::string& name)
 	}
 	else
 	{
+		mDrawOrder.erase(find(mDrawOrder.begin(), mDrawOrder.end(), it->second));
 		mControlList.erase(it);
 	}
 
@@ -112,7 +116,7 @@ Control* UIContainer::control(const std::string& name)
 void UIContainer::update()
 {
 	if (!visible()) { return; }
-	for (auto control : mControlList) { control.second->update(); }
+	for (auto control : mDrawOrder) { control->update(); }
 }
 
 
