@@ -133,7 +133,7 @@ void MapViewState::updateMorale()
 	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_RECREATION_CENTER, Structure::OPERATIONAL);
 
 	int food_production = mStructureManager.getCountInState(Structure::CLASS_FOOD_PRODUCTION, Structure::OPERATIONAL);
-	food_production > 0 ? mCurrentMorale += food_production : mCurrentMorale -= 5;
+	mCurrentMorale += food_production > 0 ? food_production : -5;
 
 	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_COMMERCIAL, Structure::OPERATIONAL);
 

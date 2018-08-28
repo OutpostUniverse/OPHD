@@ -60,13 +60,13 @@ Button::~Button()
 
 void Button::type(Type type)
 {
-	type ? mType = BUTTON_TOGGLE : mType = BUTTON_NORMAL;
+	mType = type ? BUTTON_TOGGLE : BUTTON_NORMAL;
 }
 
 
 void Button::toggle(bool toggle)
 {
-	toggle ? mState = STATE_PRESSED : mState = STATE_NORMAL;
+	mState = toggle ? STATE_PRESSED : STATE_NORMAL;
 }
 
 
@@ -105,7 +105,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			}
 			else
 			{
-				mState == STATE_PRESSED ? mState = STATE_NORMAL : mState = STATE_PRESSED;
+				mState = mState == STATE_PRESSED ? STATE_NORMAL : STATE_PRESSED;
 				mCallback();
 			}
 		}
