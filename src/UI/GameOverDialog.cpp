@@ -23,7 +23,7 @@ void GameOverDialog::init()
 	position(0, 0);
 	size(522, 340);
 
-	addControl("btnClose", &btnClose, 5, 310);
+	add(&btnClose, 5, 310);
 	btnClose.font(font());
 	btnClose.text("Return to Main Menu");
 	btnClose.size(512, 25);

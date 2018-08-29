@@ -41,7 +41,7 @@ void FactoryProduction::init()
 	size(320, 162);
 
 	// Set up GUI Layout
-	addControl("mProductionGrid", &mProductGrid, static_cast<float>(constants::MARGIN), 25);
+	add(&mProductGrid, static_cast<float>(constants::MARGIN), 25);
 	mProductGrid.font(font());
 	mProductGrid.sheetPath("ui/factory.png");
 	mProductGrid.size(140, 110);
@@ -51,32 +51,32 @@ void FactoryProduction::init()
 	mProductGrid.hide();
 	mProductGrid.selectionChanged().connect(this, &FactoryProduction::productSelectionChanged);
 
-	addControl("btnOkay", &btnOkay, 233, 138);
+	add(&btnOkay, 233, 138);
 	btnOkay.font(font());
 	btnOkay.text("Okay");
 	btnOkay.size(40, 20);
 	btnOkay.click().connect(this, &FactoryProduction::btnOkayClicked);
 
-	addControl("btnCancel", &btnCancel, 276, 138);
+	add(&btnCancel, 276, 138);
 	btnCancel.font(font());
 	btnCancel.text("Cancel");
 	btnCancel.size(40, 20);
 	btnCancel.click().connect(this, &FactoryProduction::btnCancelClicked);
 
-	addControl("btnClearSelection", &btnClearSelection, 5, 138);
+	add(&btnClearSelection, 5, 138);
 	btnClearSelection.font(font());
 	btnClearSelection.text("Clear Selection");
 	btnClearSelection.size(90, 20);
 	btnClearSelection.click().connect(this, &FactoryProduction::btnClearSelectionClicked);
 
-	addControl("btnIdle", &btnIdle, mProductGrid.positionX() + mProductGrid.width() - 40, 138);
+	add(&btnIdle, mProductGrid.positionX() + mProductGrid.width() - 40, 138);
 	btnIdle.font(font());
 	btnIdle.text("Idle");
 	btnIdle.size(40, 20);
 	btnIdle.click().connect(this, &FactoryProduction::btnIdleClicked);
 	btnIdle.type(Button::BUTTON_TOGGLE);
 
-	addControl("btnApply", &btnApply, btnIdle.positionX() + btnIdle.width() + 10, btnIdle.positionY());
+	add(&btnApply, btnIdle.positionX() + btnIdle.width() + 10, btnIdle.positionY());
 	btnApply.font(font());
 	btnApply.text("Apply");
 	btnApply.size(40, 20);

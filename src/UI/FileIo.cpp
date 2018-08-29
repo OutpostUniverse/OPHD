@@ -37,26 +37,26 @@ void FileIo::init()
 	position(0, 0);
 	size(500, 350);
 
-	addControl("btnFileOp", &btnFileOp, 445, 325);
+	add(&btnFileOp, 445, 325);
 	btnFileOp.font(font());
 	btnFileOp.text("FileOp");
 	btnFileOp.size(50, 20);
 	btnFileOp.click().connect(this, &FileIo::btnFileIoClicked);
 	btnFileOp.enabled(false);
 
-	addControl("btnClose", &btnClose, 390, 325);
+	add(&btnClose, 390, 325);
 	btnClose.font(font());
 	btnClose.text("Cancel");
 	btnClose.size(50, 20);
 	btnClose.click().connect(this, &FileIo::btnCloseClicked);
 
-	addControl("txtFileName", &txtFileName, 5, 302);
+	add(&txtFileName, 5, 302);
 	txtFileName.font(font());
 	txtFileName.size(490, 18);
 	txtFileName.maxCharacters(50);
 	txtFileName.textChanged().connect(this,&FileIo::fileNameModified);
 
-	addControl("mListBox", &mListBox, 5, 25);
+	add(&mListBox, 5, 25);
 	mListBox.font(font());
 	mListBox.size(490, 273);
 	mListBox.visible(true);

@@ -34,7 +34,7 @@ void StructureInspector::init()
 	position(0, 0);
 	size(350, 200);
 
-	addControl("btnClose", &btnClose, 295, 175);
+	add(&btnClose, 295, 175);
 	btnClose.font(font());
 	btnClose.text("Close");
 	btnClose.size(50, 20);

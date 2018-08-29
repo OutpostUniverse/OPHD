@@ -30,7 +30,7 @@ void TileInspector::init()
 	position(0, 0);
 	size(200, 88);
 
-	addControl("btnClose", &btnClose, 145, 63);
+	add(&btnClose, 145, 63);
 	btnClose.font(font());
 	btnClose.text("Close");
 	btnClose.size(50, 20);

@@ -49,7 +49,7 @@ void FactoryReport::init()
 
 	// Controls are drawn in the order in which they were inserted -- so this is here
 	// to ensure that the combobox is drawn above everything else.
-	addControl("lstFactoryList", &lstFactoryList, 10, 63);
+	add(&lstFactoryList, 10, 63);
 	lstFactoryList.font(*FONT);
 
 	factory1 = new SurfaceFactory();
@@ -60,7 +60,7 @@ void FactoryReport::init()
 	lstFactoryList.addItem(factory2);
 	lstFactoryList.addItem(factory3);
 
-	addControl("btnShowAll", &btnShowAll, 10, 10);
+	add(&btnShowAll, 10, 10);
 	btnShowAll.font(*FONT);
 	btnShowAll.size(75, 20);
 	btnShowAll.type(Button::BUTTON_TOGGLE);
@@ -68,42 +68,42 @@ void FactoryReport::init()
 	btnShowAll.text("All");
 	btnShowAll.click().connect(this, &FactoryReport::btnShowAllClicked);
 
-	addControl("btnShowSurface", &btnShowSurface, 87, 10);
+	add(&btnShowSurface, 87, 10);
 	btnShowSurface.font(*FONT);
 	btnShowSurface.size(75, 20);
 	btnShowSurface.type(Button::BUTTON_TOGGLE);
 	btnShowSurface.text("Surface");
 	btnShowSurface.click().connect(this, &FactoryReport::btnShowSurfaceClicked);
 
-	addControl("btnShowUnderground", &btnShowUnderground, 164, 10);
+	add(&btnShowUnderground, 164, 10);
 	btnShowUnderground.font(*FONT);
 	btnShowUnderground.size(75, 20);
 	btnShowUnderground.type(Button::BUTTON_TOGGLE);
 	btnShowUnderground.text("Underground");
 	btnShowUnderground.click().connect(this, &FactoryReport::btnShowUndergroundClicked);
 
-	addControl("btnShowActive", &btnShowActive, 10, 33);
+	add(&btnShowActive, 10, 33);
 	btnShowActive.font(*FONT);
 	btnShowActive.size(75, 20);
 	btnShowActive.type(Button::BUTTON_TOGGLE);
 	btnShowActive.text("Active");
 	btnShowActive.click().connect(this, &FactoryReport::btnShowActiveClicked);
 
-	addControl("btnShowIdle", &btnShowIdle, 87, 33);
+	add(&btnShowIdle, 87, 33);
 	btnShowIdle.font(*FONT);
 	btnShowIdle.size(75, 20);
 	btnShowIdle.type(Button::BUTTON_TOGGLE);
 	btnShowIdle.text("Idle");
 	btnShowIdle.click().connect(this, &FactoryReport::btnShowIdleClicked);
 
-	addControl("btnShowDisabled", &btnShowDisabled, 164, 33);
+	add(&btnShowDisabled, 164, 33);
 	btnShowDisabled.font(*FONT);
 	btnShowDisabled.size(75, 20);
 	btnShowDisabled.type(Button::BUTTON_TOGGLE);
 	btnShowDisabled.text("Disabled");
 	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
 
-	addControl("cboFilterByProduct", &cboFilterByProduct, 250, 33);
+	add(&cboFilterByProduct, 250, 33);
 	cboFilterByProduct.font(*FONT);
 	cboFilterByProduct.size(200, 20);
 

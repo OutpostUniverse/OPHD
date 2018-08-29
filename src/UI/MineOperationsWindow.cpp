@@ -65,48 +65,48 @@ void MineOperationsWindow::init()
 	size(375, 270);
 
 	// Set up GUI Layout
-	addControl("btnIdle", &btnIdle, 10, 230);
+	add(&btnIdle, 10, 230);
 	btnIdle.type(Button::BUTTON_TOGGLE);
 	btnIdle.font(font());
 	btnIdle.text("Idle");
 	btnIdle.size(60, 30);
 	btnIdle.click().connect(this, &MineOperationsWindow::btnIdleClicked);
 
-	addControl("btnExtendShaft", &btnExtendShaft, 72, 230);
+	add(&btnExtendShaft, 72, 230);
 	btnExtendShaft.font(font());
 	btnExtendShaft.text("Dig New Level");
 	btnExtendShaft.size(100, 30);
 	btnExtendShaft.click().connect(this, &MineOperationsWindow::btnExtendShaftClicked);
 
-	addControl("btnOkay", &btnOkay, width() - 70, 230);
+	add(&btnOkay, width() - 70, 230);
 	btnOkay.font(font());
 	btnOkay.text("Close");
 	btnOkay.size(60, 30);
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
 
 	// ORE TOGGLE BUTTONS
-	addControl("btnCommonMetals", &btnCommonMetals, 148, 93);
+	add(&btnCommonMetals, 148, 93);
 	btnCommonMetals.type(Button::BUTTON_TOGGLE);
 	btnCommonMetals.font(font());
 	btnCommonMetals.text("Common Metals");
 	btnCommonMetals.size(106, 30);
 	btnCommonMetals.click().connect(this, &MineOperationsWindow::btnCommonMetalsClicked);
 
-	addControl("btnCommonMinerals", &btnCommonMinerals, 259, 93);
+	add(&btnCommonMinerals, 259, 93);
 	btnCommonMinerals.type(Button::BUTTON_TOGGLE);
 	btnCommonMinerals.font(font());
 	btnCommonMinerals.text("Common Minerals");
 	btnCommonMinerals.size(106, 30);
 	btnCommonMinerals.click().connect(this, &MineOperationsWindow::btnCommonMineralsClicked);
 
-	addControl("btnRareMetals", &btnRareMetals, 148, 128);
+	add(&btnRareMetals, 148, 128);
 	btnRareMetals.type(Button::BUTTON_TOGGLE);
 	btnRareMetals.font(font());
 	btnRareMetals.text("Rare Metals");
 	btnRareMetals.size(106, 30);
 	btnRareMetals.click().connect(this, &MineOperationsWindow::btnRareMetalsClicked);
 
-	addControl("btnRareMinerals", &btnRareMinerals, 259, 128);
+	add(&btnRareMinerals, 259, 128);
 	btnRareMinerals.type(Button::BUTTON_TOGGLE);
 	btnRareMinerals.font(font());
 	btnRareMinerals.text("Rare Minerals");

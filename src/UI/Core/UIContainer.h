@@ -14,7 +14,7 @@ public:
 	UIContainer();
 	virtual ~UIContainer();
 
-	Control* addControl(const std::string& name, Control* c, float x, float y);
+	void add(Control* c, float x, float y);
 
 	void dropAllControls();
 
@@ -24,11 +24,6 @@ protected:
 	virtual void visibilityChanged(bool visible);
 	virtual void positionChanged(float dX, float dY);
 
-	virtual void onFocusChanged();
-
 private:
-	typedef std::map<std::string, Control*> ControlList;
-
-	std::vector<Control*>	mDrawOrder;
-	ControlList				mControlList;	/**<  */
+	std::vector<Control*>	mControls;
 };
