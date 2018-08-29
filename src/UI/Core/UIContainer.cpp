@@ -58,51 +58,11 @@ Control* UIContainer::addControl(const std::string& name, Control* c, float x, f
 
 
 /**
- * Deletes a given Control from the UIContainer.
- * 
- * \param	c	Pointer to a Control to delete.
- * 
- * \return	Returns true of Control is deleted. Otherwise returns false.
- */
-bool UIContainer::deleteControl(const std::string& name)
-{
-	ControlList::iterator it = mControlList.find(toLowercase(name));
-	if(it == mControlList.end())
-	{
-		std::cout << "UIContainer::deleteControl(): No Control found by name '" << name << "'." << std::endl;
-		return false;
-	}
-	else
-	{
-		mDrawOrder.erase(find(mDrawOrder.begin(), mDrawOrder.end(), it->second));
-		mControlList.erase(it);
-	}
-
-	return true;
-}
-
-
-/**
  * Drops all controls.
  */
 void UIContainer::dropAllControls()
 {
 	mControlList.clear();
-}
-
-
-/**
- * Gets a pointer to a Control by name.
- * 
- * \return	Returns a pointer to a Control or nullptr if the named control wasn't found.
- */
-Control* UIContainer::control(const std::string& name)
-{
-	ControlList::iterator it = mControlList.find(toLowercase(name));
-
-	if (it == mControlList.end()) { return nullptr; }
-
-	return it->second;
 }
 
 
