@@ -21,6 +21,7 @@ ComboBox::~ComboBox()
 	moved().disconnect(this, &ComboBox::repositioned);
 	lstItems.selectionChanged().disconnect(this, &ComboBox::selectionChanged);
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ComboBox::onMouseDown);
+	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ComboBox::onMouseWheel);
 }
 
 
@@ -32,6 +33,7 @@ ComboBox::~ComboBox()
 void ComboBox::init()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ComboBox::onMouseDown);
+	Utility<EventHandler>::get().mouseWheel().connect(this, &ComboBox::onMouseWheel);
 
 	btnDown.image("ui/icons/down.png");
 	btnDown.size(20, 20);
@@ -71,6 +73,8 @@ void ComboBox::resizedHandler(Control* c)
 	txtField.height(height());
 	lstItems.width(width());
 	lstItems.position(positionX(), positionY() + height());
+
+	mBaseArea(positionX(), positionY(), width(), btnDown.height());
 }
 
 
@@ -82,6 +86,8 @@ void ComboBox::repositioned(float, float)
 	btnDown.position(positionX() + width() - btnDown.width(), positionY());
 	txtField.position(positionX(), positionY());
 	lstItems.position(positionX(), positionY() + height());
+
+	mBaseArea(positionX(), positionY(), width(), btnDown.height());
 }
 
 
@@ -90,11 +96,24 @@ void ComboBox::repositioned(float, float)
  */
 void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (button == EventHandler::BUTTON_LEFT)
+	if (button != EventHandler::BUTTON_LEFT) { return; }
+
+	if (isPointInRect(Point_2d(x, y), mBaseArea))
 	{
-		if (isPointInRect(x, y, rect().x(), rect().y(), rect().width(), rect().height())) { lstItems.visible(!lstItems.visible()); }
-		else if (!isPointInRect(x, y, lstItems.rect().x(), lstItems.rect().y(), lstItems.rect().width(), lstItems.rect().height())) { lstItems.visible(false); }
+		lstItems.visible(!lstItems.visible());
+		lstItems.visible() ? _rect().height(height() + lstItems.height()) : _rect()(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
 	}
+	else if (!isPointInRect(Point_2d(x, y), lstItems.rect()))
+	{
+		lstItems.visible(false);
+		_rect()(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
+	}
+}
+
+
+void ComboBox::onMouseWheel(int x, int y)
+{
+
 }
 
 
@@ -103,8 +122,9 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void ComboBox::selectionChanged()
 {
-	lstItems.visible(false);
 	txtField.text(lstItems.selectionText());
+	lstItems.visible(false);
+	_rect()(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
 }
 
 

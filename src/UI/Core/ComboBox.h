@@ -9,12 +9,12 @@ public:
 	ComboBox();
 	virtual ~ComboBox();
 
-	virtual void update();
-
 	void addItem(const std::string& item);
 
 	int maxDisplayItems() const { return mMaxDisplayItems; }
 	void maxDisplayItems(int count);
+
+	virtual void update();
 
 private:
 	void init();
@@ -23,13 +23,17 @@ private:
 	void repositioned(float, float);
 	void selectionChanged();
 
+	void onMouseWheel(int x, int y);
 	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y) final;
 	virtual void onFontChanged() final;
+	//virtual void onFocusChanged() final;
 
 private:
 	Button				btnDown;
 	ListBox				lstItems;
 	TextField			txtField;
+
+	Rectangle_2d		mBaseArea;
 
 	int					mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
 };
