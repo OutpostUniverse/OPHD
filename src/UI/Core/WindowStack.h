@@ -7,10 +7,6 @@
 class WindowStack
 {
 public:
-	typedef std::list<Window*> WindowList;
-
-public:
-
 	WindowStack();
 	~WindowStack();
 
@@ -30,8 +26,9 @@ public:
 
 	void update();
 
-protected:
-	
+private:
+	typedef std::list<Window*> WindowList;
+
 private:
 	WindowList		mWindowList;
 };
