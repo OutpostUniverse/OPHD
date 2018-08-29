@@ -223,20 +223,10 @@ void FactoryListBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		return;
 	}
 
-	if (!isPointInRect(Point_2d(x, y), rect()) || mCurrentHighlight == constants::NO_SELECTION)
-	{
-		return;
-	}
-
-	if (mSlider.visible() && isPointInRect(Point_2d(x, y), mSlider.rect()))
-	{
-		return; // if the mouse is on the slider then the slider should handle that
-	}
-
-	if (mCurrentHighlight < 0 || static_cast<size_t>(mCurrentHighlight) >= mItems.size())
-	{
-		return;
-	}
+	// A few basic checks
+	if (!isPointInRect(Point_2d(x, y), rect()) || mCurrentHighlight == constants::NO_SELECTION) { return; }
+	if (mSlider.visible() && isPointInRect(Point_2d(x, y), mSlider.rect())) { return; }
+	if (mCurrentHighlight < 0 || static_cast<size_t>(mCurrentHighlight) >= mItems.size()) { return; }
 
 	currentSelection(mCurrentHighlight);
 }

@@ -3,20 +3,26 @@
 
 #include "UIContainer.h"
 
+#include "../../Common.h"
+
 #include <iostream>
 
 /**
  * C'tor
  */
 UIContainer::UIContainer()
-{}
+{
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &UIContainer::onMouseDown);
+}
 
 
 /**
  * D'tor
  */
 UIContainer::~UIContainer()
-{}
+{
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &UIContainer::onMouseDown);
+}
 
 
 /**
@@ -36,10 +42,12 @@ void UIContainer::add(Control* c, float x, float y)
 		return;
 	}
 
+	if (mControls.size() > 0) { mControls.back()->hasFocus(false); }
 	mControls.push_back(c);
 
 	c->position(rect().x() + x, rect().y() + y);
 	c->visible(visible());
+	c->hasFocus(true);
 
 	/// todo\	Add validation to contain controls within a UIContainer.
 }
@@ -72,20 +80,6 @@ void UIContainer::bringToFront(Control* _c)
 
 
 /**
- * Updates all Control's in the UIContainer.
- * 
- * \note	This function can be overridden in derived types
- *			but if done, don't forget to update all contained
- *			Control's.
- */
-void UIContainer::update()
-{
-	if (!visible()) { return; }
-	for (auto control : mControls) { control->update(); }
-}
-
-
-/**
  * 
  */
 void UIContainer::visibilityChanged(bool visible)
@@ -101,5 +95,40 @@ void UIContainer::positionChanged(float dX, float dY)
 	for (auto control : mControls)
 	{
 		control->position(control->positionX() + dX, control->positionY() + dY);
+	}
+}
+
+
+void UIContainer::onMouseDown(EventHandler::MouseButton button, int x, int y)
+{
+	for (auto control : mControls)
+	{
+		if (control->visible() && pointInRect_f(x, y, control->rect()))
+		{
+			if (control == mControls.back()) { return; }
+			bringToFront(control);
+			return;
+		}
+	}
+}
+
+
+/**
+ * Updates all Control's in the UIContainer.
+ * 
+ * \note	This function can be overridden in derived types
+ *			but if done, don't forget to update all contained
+ *			Control's.
+ */
+void UIContainer::update()
+{
+	if (!visible()) { return; }
+	for (auto control : mControls)
+	{
+		control->update();
+		if (control->hasFocus())
+		{
+			Utility<Renderer>::get().drawBox(control->rect(), 255, 0, 255);
+		}
 	}
 }
