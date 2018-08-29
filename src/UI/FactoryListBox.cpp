@@ -99,6 +99,27 @@ void FactoryListBox::_update_item_display()
 
 
 /**
+ * Internal function called during certain events
+ * to hook or unhook input event handlers.
+ */
+void FactoryListBox::_hook_events(bool hook)
+{
+	if (hook)
+	{
+		Utility<EventHandler>::get().mouseButtonDown().connect(this, &FactoryListBox::onMouseDown);
+		Utility<EventHandler>::get().mouseMotion().connect(this, &FactoryListBox::onMouseMove);
+		Utility<EventHandler>::get().mouseWheel().connect(this, &FactoryListBox::onMouseWheel);
+	}
+	else
+	{
+		Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &FactoryListBox::onMouseDown);
+		Utility<EventHandler>::get().mouseMotion().disconnect(this, &FactoryListBox::onMouseMove);
+		Utility<EventHandler>::get().mouseWheel().disconnect(this, &FactoryListBox::onMouseWheel);
+	}
+}
+
+
+/**
  * Adds a Factory to the FactoryListBox.
  */
 void FactoryListBox::addItem(Factory* factory)
@@ -151,7 +172,7 @@ void FactoryListBox::removeItem(Factory* factory)
 /**
  * Clears all items from the list.
  */
-void FactoryListBox::clear()
+void FactoryListBox::clearItems()
 {
 	mItems.clear();
 	_update_item_display();
@@ -163,7 +184,7 @@ void FactoryListBox::clear()
  */
 void FactoryListBox::onSizeChanged()
 {
-	dropAllControls();
+	clear();
 	add(&mSlider, rect().width() - 14, 0);
 	mSlider.displayPosition(false);
 	mSlider.size(14, rect().height());
@@ -179,18 +200,13 @@ void FactoryListBox::onSizeChanged()
  */
 void FactoryListBox::visibilityChanged(bool visible)
 {
-	if (visible)
-	{
-		Utility<EventHandler>::get().mouseButtonDown().connect(this, &FactoryListBox::onMouseDown);
-		Utility<EventHandler>::get().mouseMotion().connect(this, &FactoryListBox::onMouseMove);
-		Utility<EventHandler>::get().mouseWheel().connect(this, &FactoryListBox::onMouseWheel);
-	}
-	else
-	{
-		Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &FactoryListBox::onMouseDown);
-		Utility<EventHandler>::get().mouseMotion().disconnect(this, &FactoryListBox::onMouseMove);
-		Utility<EventHandler>::get().mouseWheel().disconnect(this, &FactoryListBox::onMouseWheel);
-	}
+	_hook_events(visible);
+}
+
+
+void FactoryListBox::onFocusChanged()
+{
+	_hook_events(hasFocus());
 }
 
 

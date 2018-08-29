@@ -15,8 +15,9 @@ public:
 	virtual ~UIContainer();
 
 	void add(Control* c, float x, float y);
+	void clear();
 
-	void dropAllControls();
+	void bringToFront(Control* _c);
 
 	virtual void update();
 
@@ -25,5 +26,5 @@ protected:
 	virtual void positionChanged(float dX, float dY);
 
 private:
-	std::vector<Control*>	mControls;
+	std::vector<Control*> mControls;
 };

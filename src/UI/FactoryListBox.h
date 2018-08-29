@@ -42,7 +42,7 @@ public:
 
 	void addItem(Factory* factory);
 	void removeItem(Factory* factory);
-	void clear();
+	void clearItems();
 
 	int count() const { return mItems.size(); }
 	bool empty() const { return mItems.empty(); }
@@ -63,12 +63,14 @@ protected:
 	void onMouseWheel(int x, int y);
 	virtual void slideChanged(double _position);
 
-	virtual void visibilityChanged(bool visible) final;
-
 private:
 	void _init();
 	void _update_item_display();
+	void _hook_events(bool hook);
 
+	virtual void visibilityChanged(bool visible) final;
+
+	virtual void onFocusChanged() final;
 	virtual void onSizeChanged() final;
 
 private:

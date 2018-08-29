@@ -48,9 +48,26 @@ void UIContainer::add(Control* c, float x, float y)
 /**
  * Drops all controls.
  */
-void UIContainer::dropAllControls()
+void UIContainer::clear()
 {
 	mControls.clear();
+}
+
+
+void UIContainer::bringToFront(Control* _c)
+{
+	auto control_iterator = find(mControls.begin(), mControls.end(), _c);
+	if (control_iterator == mControls.end())
+	{
+		std::cout << "UIContainer::bringToFront(): Control is not managed by this container." << std::endl; // debug aid, can be pulled in release modes.
+		return;
+	}
+
+	mControls.back()->hasFocus(false);
+
+	mControls.erase(control_iterator);
+	mControls.push_back(_c);
+	_c->hasFocus(true);
 }
 
 

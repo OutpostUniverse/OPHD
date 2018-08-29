@@ -16,12 +16,7 @@ static int SORT_BY_PRODUCT_POSITION = 0;
 
 static Rectangle_2d	FACTORY_LISTBOX;
 
-
 static Font* FONT;
-
-Factory* factory1;
-Factory* factory2;
-Factory* factory3;
 
 
 /**
@@ -52,13 +47,9 @@ void FactoryReport::init()
 	add(&lstFactoryList, 10, 63);
 	lstFactoryList.font(*FONT);
 
-	factory1 = new SurfaceFactory();
-	factory2 = new SeedFactory();
-	factory3 = new UndergroundFactory();
-
-	lstFactoryList.addItem(factory1);
-	lstFactoryList.addItem(factory2);
-	lstFactoryList.addItem(factory3);
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new SeedFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
 
 	add(&btnShowAll, 10, 10);
 	btnShowAll.font(*FONT);
