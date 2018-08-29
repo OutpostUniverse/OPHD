@@ -200,12 +200,14 @@ void FactoryListBox::onSizeChanged()
  */
 void FactoryListBox::visibilityChanged(bool visible)
 {
+	if (!hasFocus()) { return; }
 	_hook_events(visible);
 }
 
 
 void FactoryListBox::onFocusChanged()
 {
+	if (!visible()) { return; }
 	_hook_events(hasFocus());
 }
 
