@@ -99,21 +99,6 @@ void WindowStack::bringToFront(Window* _w)
 }
 
 
-void WindowStack::sendToBack(Window* _w)
-{
-	if (find(mWindowList.begin(), mWindowList.end(), _w) == mWindowList.end())
-	{
-		std::cout << "WindowStack::bringToFront(): Window is not managed by this stack." << std::endl;
-		return;
-	}
-
-	mWindowList.remove(_w);
-	mWindowList.push_back(_w);
-	_w->hasFocus(false);
-	(*mWindowList.begin())->hasFocus(true);
-}
-
-
 void WindowStack::hide()
 {
 	for (auto it = mWindowList.rbegin(); it != mWindowList.rend(); ++it)

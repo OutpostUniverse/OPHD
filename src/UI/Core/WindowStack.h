@@ -20,7 +20,6 @@ public:
 	void updateStack(int x, int y);
 
 	void bringToFront(Window* _w);
-	void sendToBack(Window* _w);
 
 	void hide();
 
