@@ -51,7 +51,7 @@ public:
 	int currentSelection() const { return mCurrentSelection; }
 	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
 
-	const std::string& FactoryListBox::selectionText() const { return mItems[mCurrentSelection].factory->name(); }
+	const std::string& selectionText() const { return mItems[mCurrentSelection].factory->name(); }
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 
