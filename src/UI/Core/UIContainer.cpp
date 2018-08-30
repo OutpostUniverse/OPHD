@@ -5,7 +5,9 @@
 
 #include "../../Common.h"
 
+#include <algorithm>
 #include <iostream>
+
 
 /**
  * C'tor
@@ -36,7 +38,7 @@ void UIContainer::add(Control* c, float x, float y)
 		return;
 	}
 
-	if (find(mControls.begin(), mControls.end(), c) != mControls.end())
+	if (std::find(mControls.begin(), mControls.end(), c) != mControls.end())
 	{
 		std::cout << "UIContainer::addControl(): Duplicate control." << std::endl;
 		return;
@@ -64,7 +66,7 @@ void UIContainer::clear()
 
 void UIContainer::bringToFront(Control* _c)
 {
-	auto control_iterator = find(mControls.begin(), mControls.end(), _c);
+	auto control_iterator = std::find(mControls.begin(), mControls.end(), _c);
 	if (control_iterator == mControls.end())
 	{
 		std::cout << "UIContainer::bringToFront(): Control is not managed by this container." << std::endl; // debug aid, can be pulled in release modes.
