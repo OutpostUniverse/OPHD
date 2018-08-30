@@ -21,9 +21,6 @@ void transferProducts(T& source, T& destination)
 	{
 		if (dest.availableStorage() == 0) { return; }
 
-		int storage_needed = storageRequired(static_cast<ProductType>(i), src[i]);
-		int storage_available_at_destination = dest.availableStorage();
-
 		if (dest.availableStorage() >= storageRequired(static_cast<ProductType>(i), src[i]))
 		{
 			dest.store(static_cast<ProductType>(i), src[i]);
