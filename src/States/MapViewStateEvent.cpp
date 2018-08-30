@@ -88,7 +88,7 @@ void MapViewState::factoryProductionComplete(Factory& factory)
 		}
 
 	default:
-		cout << "Unknown Product." << endl;
+		std::cout << "Unknown Product." << std::endl;
 		break;
 	}
 }

@@ -6,13 +6,12 @@
 #include "../Constants.h"
 #include "../FontManager.h"
 
+
 using namespace NAS2D;
-using namespace std;
 
 
 const int LIST_ITEM_HEIGHT = 58;
 Image* STRUCTURE_ICONS = nullptr;
-
 
 static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
@@ -176,6 +175,43 @@ void FactoryListBox::clearItems()
 {
 	mItems.clear();
 	_update_item_display();
+}
+
+
+int FactoryListBox::count() const
+{
+	return mItems.size();
+}
+
+
+bool FactoryListBox::empty() const
+{
+	return mItems.empty();
+}
+
+
+int FactoryListBox::currentHighlight() const
+{
+	return mCurrentHighlight;
+}
+
+
+int FactoryListBox::currentSelection() const
+{
+	return mCurrentSelection;
+}
+
+
+void FactoryListBox::currentSelection(int selection)
+{
+	mCurrentSelection = selection;
+	mSelectionChanged();
+}
+
+
+const std::string& FactoryListBox::selectionText() const
+{
+	return mItems[mCurrentSelection].factory->name();
 }
 
 

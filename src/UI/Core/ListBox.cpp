@@ -5,8 +5,6 @@
 
 #include "../../Constants.h"
 
-using namespace std;
-
 
 /**
  * C'tor
@@ -114,7 +112,7 @@ bool ListBox::empty() const
  * \todo	Make this function safe to call regardless of whether a font
  *			has been defined or not.
  */
-void ListBox::addItem(const string& item)
+void ListBox::addItem(const std::string& item)
 {
 	mItems.push_back(item);
 	sort();

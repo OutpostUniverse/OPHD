@@ -21,7 +21,6 @@
 #pragma warning(disable: 4244) // possible loss of data (floats to int and vice versa)
 
 
-using namespace std;
 using namespace NAS2D;
 using namespace NAS2D::Xml;
 
@@ -65,7 +64,7 @@ std::map <int, std::string>	LEVEL_STRING_TABLE =
  *
  * \param	savegame	Save game filename to load.
  */
-MapViewState::MapViewState(const string& savegame) :
+MapViewState::MapViewState(const std::string& savegame) :
 	mFont("fonts/opensans-bold.ttf", 14),
 	mTinyFont("fonts/opensans.ttf", 10),
 	mTinyFontBold("fonts/opensans-bold.ttf", 10),
@@ -94,7 +93,7 @@ MapViewState::MapViewState(const string& savegame) :
  * \param	d	Depth of the site map.
  * \param	mc	Mine Count - Number of mines to generate.
  */
-MapViewState::MapViewState(const string& sm, const string& t, int d, int mc) :
+MapViewState::MapViewState(const std::string& sm, const std::string& t, int d, int mc) :
 	mFont("fonts/opensans-bold.ttf", 14),
 	mTinyFont("fonts/opensans.ttf", 10),
 	mTinyFontBold("fonts/opensans-bold.ttf", 10),
@@ -746,7 +745,7 @@ void MapViewState::placeRobot()
 	//			is no need to check that the CC Location is anything other than { 0, 0 }.
 	if (outOfCommRange(mStructureManager, mCCLocation, mTileMap, tile))
 	{
-		cout << "Robot out of range!" << endl;
+		std::cout << "Robot out of range!" << std::endl;
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::OUT_OF_COMM_RANGE);
 		return;
 	}
@@ -776,14 +775,14 @@ void MapViewState::placeRobot()
 			if (_s->structureClass() == Structure::CLASS_COMMAND)
 			{
 				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::CC_NO_BULLDOZE);
-				cout << "Can't bulldoze a Command Center!" << endl;
+				std::cout << "Can't bulldoze a Command Center!" << std::endl;
 				return;
 			}
 
 			if (_s->structureClass() == Structure::CLASS_LANDER && _s->age() == 0)
 			{
 				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::LANDER_NO_BULLDOZE); ///\fixme Change this to an invalid dozer warning.
-				cout << "Can't place a bulldozer on a landing site!" << endl;
+				std::cout << "Can't place a bulldozer on a landing site!" << std::endl;
 				return;
 			}
 
@@ -828,7 +827,7 @@ void MapViewState::placeRobot()
 		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
-			cout << "MapViewState::placeRobot(): Can't place digger within 3 tiles of the edge of a map." << endl;
+			std::cout << "MapViewState::placeRobot(): Can't place digger within 3 tiles of the edge of a map." << std::endl;
 			return;
 		}
 
@@ -841,14 +840,14 @@ void MapViewState::placeRobot()
 		// Check for obstructions underneath the the digger location.
 		if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->x(), tile->y(), tile->depth() + 1)->empty())
 		{
-			cout << "Digger blocked underneath." << endl;
+			std::cout << "Digger blocked underneath." << std::endl;
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
 			return;
 		}
 
 		if (tile->hasMine())
 		{
-			cout << "Digger destroyed a mine." << endl;
+			std::cout << "Digger destroyed a mine." << std::endl;
 			mTileMap->removeMineLocation(Point_2d(tile->x(), tile->y()));
 		}
 
@@ -956,7 +955,7 @@ void MapViewState::placeStructure()
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
 		(tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE))
 	{
-		cout << "Cannot build structures more than " << constants::ROBOT_COM_RANGE << " tiles away from Command Center." << endl;
+		std::cout << "Cannot build structures more than " << constants::ROBOT_COM_RANGE << " tiles away from Command Center." << std::endl;
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
 		return;
 	}
@@ -964,7 +963,7 @@ void MapViewState::placeStructure()
 	if(tile->mine() || tile->thing() || (!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
 	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
-		cout << "MapViewState::placeStructure(): Tile is unsuitable to place a structure." << endl;
+		std::cout << "MapViewState::placeStructure(): Tile is unsuitable to place a structure." << std::endl;
 		return;
 	}
 
@@ -1012,7 +1011,7 @@ void MapViewState::placeStructure()
 		if (!validStructurePlacement(mTileMap, tile_x, tile_y) && !selfSustained(mCurrentStructure))
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
-			cout << "MapViewState::placeStructure(): Invalid structure placement." << endl;
+			std::cout << "MapViewState::placeStructure(): Invalid structure placement." << std::endl;
 			return;
 		}
 
@@ -1020,7 +1019,7 @@ void MapViewState::placeStructure()
 		if (!StructureCatalogue::canBuild(mPlayerResources, static_cast<StructureID>(mCurrentStructure)))
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
-			cout << "MapViewState::placeStructure(): Insufficient resources to build structure." << endl;
+			std::cout << "MapViewState::placeStructure(): Insufficient resources to build structure." << std::endl;
 			return;
 		}
 
@@ -1054,7 +1053,7 @@ void MapViewState::insertSeedLander(int x, int y)
 		if (!landingSiteSuitable(mTileMap, x, y))
 		{
 			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
-			cout << "Unable to place SEED Lander. Tiles obstructed." << endl;
+			std::cout << "Unable to place SEED Lander. Tiles obstructed." << std::endl;
 			return;
 		}
 
@@ -1087,7 +1086,7 @@ void MapViewState::updateRobots()
 
 		if (robot_it->first->dead())
 		{
-			cout << "dead robot" << endl;
+			std::cout << "dead robot" << std::endl;
 
 			mRobotPool.erase(robot_it->first);
 			delete robot_it->first;

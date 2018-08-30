@@ -52,17 +52,16 @@ private:
 	virtual void draw();
 
 private:
-	State			mState;				/**< Current state of the Button. */
-	Type			mType;				/**< Modifies Button behavior. */
+	State			mState = STATE_NORMAL;		/**< Current state of the Button. */
+	Type			mType = BUTTON_NORMAL;		/**< Modifies Button behavior. */
 
-	Image			mImage;				/**< Image to draw centered on the Button. */
+	Image*			mImage = nullptr;			/**< Image to draw centered on the Button. */
 
 	ImageList		mSkinNormal;
 	ImageList		mSkinHover;
 	ImageList		mSkinPressed;
 
-	ClickCallback	mCallback;			/**< Object to notify when the Button is activated. */
+	ClickCallback	mCallback;					/**< Object to notify when the Button is activated. */
 
-	bool			mUsesImage;			/**< Internal flag indicating that the Button uses an image graphic. */
-	bool			mMouseHover;		/**< Mouse is within the bounds of the Button. */
+	bool			mMouseHover = false;		/**< Mouse is within the bounds of the Button. */
 };

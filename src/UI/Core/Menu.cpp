@@ -5,20 +5,14 @@
 
 #include "../../Constants.h"
 
+#include <algorithm>
 #include <iostream>
-
-using namespace std;
 
 
 /**
  * C'tor
  */
-Menu::Menu():	mCurrentHighlight(constants::NO_SELECTION),
-				mCurrentSelection(0),
-				mText(COLOR_WHITE),
-				mHighlightBg(COLOR_GREEN),
-				mHighlightText(COLOR_WHITE),
-				mSorted(false)
+Menu::Menu()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Menu::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Menu::onMouseMove);
@@ -34,12 +28,43 @@ Menu::~Menu()
 	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Menu::onMouseMove);
 }
 
+
 /**
  * Gets whether the menu is empty or not.
  */
 bool Menu::empty() const
 {
 	return mItems.empty();
+}
+
+
+int Menu::currentSelection() const
+{
+	return mCurrentSelection;
+}
+
+
+void Menu::currentSelection(int selection)
+{
+	mCurrentSelection = selection; mSelectionChanged();
+}
+
+
+const std::string& Menu::selectionText() const
+{
+	return mItems[mCurrentSelection];
+}
+
+
+void Menu::textColor(const Color_4ub& color)
+{
+	mText = color;
+}
+
+
+void Menu::selectColor(const Color_4ub& color)
+{
+	mHighlightBg = color;
 }
 
 
@@ -54,15 +79,16 @@ bool Menu::empty() const
  * \todo	Make this function safe to call regardless of whether a font
  *			has been defined or not.
  */
-void Menu::addItem(const string& item)
+void Menu::addItem(const std::string& item)
 {
 	mItems.push_back(item);
 
-	if(font().width(item) > _rect().width())
+	if (font().width(item) > _rect().width())
+	{
 		_rect().width() = font().width(item) + 2;
+	}
 
 	_rect().height() = static_cast<float>(mItems.size() * (font().height() + 2));
-
 	sort();
 }
 
@@ -77,8 +103,7 @@ void Menu::addItem(const string& item)
 void Menu::removeItem(const std::string& item)
 {
 	// Ignore if menu is empty
-	if(empty())
-		return;
+	if (empty()) { return; }
 
 	StringList::iterator it = mItems.begin();
 
@@ -99,11 +124,16 @@ void Menu::removeItem(const std::string& item)
 }
 
 
+void Menu::sort()
+{
+	std::sort(mItems.begin(), mItems.end());
+}
+
+
 bool Menu::itemExists(const std::string& item)
 {
 	// Ignore if menu is empty
-	if(empty())
-		return false;
+	if (empty()) { return false; }
 
 	for(size_t i = 0; i < mItems.size(); i++)
 	{
@@ -118,48 +148,27 @@ bool Menu::itemExists(const std::string& item)
 /**
  * Drops all items from the list.
  */
-void Menu::dropAllItems()
+void Menu::clear()
 {
 	mItems.clear();
-	mCurrentSelection = 0;
-}
-
-
-/**
- * Sets the position of the menu.
- *
- * \note	The Height of the menu is determined by the number of items
- *			items and not by the height of the rectangle.
- */
-void Menu::position(int x, int y)
-{
-
-	_rect().x(x);
-	_rect().y(y);
+	mCurrentSelection = constants::NO_SELECTION;
 }
 
 
 void Menu::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	// Ignore if menu is empty or invisible
-	if(empty() || !visible())
-		return;
+	if (empty() || !visible()) { return; }
 
-	if(!isPointInRect(Point_2d(x, y), _rect()) || mCurrentHighlight == constants::NO_SELECTION)
-		return;
+	if (!isPointInRect(Point_2d(x, y), _rect()) || mCurrentHighlight == constants::NO_SELECTION) { return; }
 
 	currentSelection(mCurrentHighlight);
-	//mCurrentSelection = mCurrentHighlight;
 }
 
 
 void Menu::onMouseMove(int x, int y, int relX, int relY)
 {
-	// Ignore if menu is empty or invisible
-	if(empty() || !visible())
-		return;
+	if (empty() || !visible()) { return; }
 
-	// Ignore mouse motion events if the pointer isn't within the menu rect.
 	if(!isPointInRect(Point_2d(x, y), _rect()))
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
@@ -172,9 +181,7 @@ void Menu::onMouseMove(int x, int y, int relX, int relY)
 
 void Menu::update()
 {
-	// Ignore if menu is empty or invisible
-	if(empty() || !visible())
-		return;
+	if (empty() || !visible()) { return; }
 
 	Renderer& r = Utility<Renderer>::get();
 
@@ -183,16 +190,25 @@ void Menu::update()
 	r.drawBox(_rect(), 0, 0, 0, 100);
 	r.drawBoxFilled(_rect(), 225, 225, 0, 85);
 
-	r.drawBoxFilled(rect().x(), rect().y() + (mCurrentSelection * line_height), rect().width(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
+	if (mCurrentSelection != constants::NO_SELECTION)
+	{
+		r.drawBoxFilled(rect().x(), rect().y() + (mCurrentSelection * line_height), rect().width(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
+	}
 
-	if(mCurrentHighlight != constants::NO_SELECTION)
+	if (mCurrentHighlight != constants::NO_SELECTION)
+	{
 		r.drawBox(_rect().x(), _rect().y() + (mCurrentHighlight * line_height), _rect().width(), line_height, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
+	}
 
 	for(int i = 0; (unsigned)i < mItems.size(); i++)
 	{
-		if(i == mCurrentHighlight)
+		if (i == mCurrentHighlight)
+		{
 			r.drawTextShadow(font(), mItems[i], _rect().x(), _rect().y() + (i * line_height), 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
+		}
 		else
+		{
 			r.drawTextShadow(font(), mItems[i], _rect().x(), _rect().y() + (i * line_height), 1, mText.red(), mText.green(), mText.blue(), 0, 0, 0);
+		}
 	}
 }

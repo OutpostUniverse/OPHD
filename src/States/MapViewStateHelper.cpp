@@ -132,7 +132,7 @@ bool validLanderSite(Tile* t)
 	if (!t->empty() || (t->index() == TERRAIN_IMPASSABLE))
 	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
-		cout << "MapViewState::placeStructure(): Unsuitable landing site -- Impassable Terrain." << endl;
+		std::cout << "MapViewState::placeStructure(): Unsuitable landing site -- Impassable Terrain." << std::endl;
 		return false;
 	}
 
@@ -189,7 +189,7 @@ void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTabl
 {
 	if (rcc->commandedByThis(r))
 	{
-		std::cout << "Cannot bulldoze Robot Command Center by a Robot under its command." << endl;
+		std::cout << "Cannot bulldoze Robot Command Center by a Robot under its command." << std::endl;
 		return;
 	}
 

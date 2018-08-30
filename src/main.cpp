@@ -19,7 +19,6 @@
 #include <fstream>
 
 using namespace NAS2D;
-using namespace std;
 
 #include "SDL.h"
 
@@ -102,7 +101,7 @@ int main(int argc, char *argv[])
 			SDL_DisplayMode dm;
 			if (SDL_GetDesktopDisplayMode(0, &dm) != 0)
 			{
-				cout << "SDL_GetDesktopDisplayMode failed: " << SDL_GetError();
+				std::cout << "SDL_GetDesktopDisplayMode failed: " << SDL_GetError();
 				return 1;
 			}
 

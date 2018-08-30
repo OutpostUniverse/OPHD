@@ -56,20 +56,20 @@ auto myield = std::bind(mine_yield, std::ref(generator));
 /**
  * C'tor
  */
-TileMap::TileMap(const string& map_path, const string& tset_path, int _md, int _mc, bool _s) :
+TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int _md, int _mc, bool _s) :
 	mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),	mMaxDepth(_md),
 	mMapPath(map_path), mTsetPath(tset_path),
 	mTileSelector("ui/selector.png"),
 	mTileset(tset_path),
 	mMineBeacon("structures/mine_beacon.png")
 {
-	cout << "Loading '" << map_path << "'... ";
+	std::cout << "Loading '" << map_path << "'... ";
 	buildTerrainMap(map_path);
 	buildMouseMap();
 	initMapDrawParams();
 
 	if (_s) { setupMines(_mc); }
-	cout << "finished!" << endl;
+	std::cout << "finished!" << std::endl;
 }
 
 

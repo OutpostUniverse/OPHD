@@ -9,8 +9,6 @@
 #include "Slider.h"
 
 
-using namespace std;
-
 
 /**
  * C'tor
@@ -362,7 +360,7 @@ void Slider::update()
 void Slider::draw()
 {
 	Renderer& r = Utility<Renderer>::get();
-	string textHover;
+	std::string textHover;
 	int _x = 0, _y = 0, _w = 0, _h = 0;
 	float _thumbPosition = 0.0f;
 
@@ -370,7 +368,8 @@ void Slider::draw()
 	{
 		r.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle);// slide area
 		r.drawImageRect(mButton1.x(), mButton1.y(), mButton1.height(), mButton1.height(), mSkinButton1);// top button
-		r.drawImageRect(mButton2.x(), mButton2.y(), mButton2.height(), mButton2.height(), mSkinButton2);// bottom button																											   //r.drawImageRect(mButtonUp.x(), mButtonUp.y(), mButtonUp.height(), mButtonUp.height(), mSkinButtonLeft);// top button
+		r.drawImageRect(mButton2.x(), mButton2.y(), mButton2.height(), mButton2.height(), mSkinButton2);// bottom button
+		//r.drawImageRect(mButtonUp.x(), mButtonUp.y(), mButtonUp.height(), mButtonUp.height(), mSkinButtonLeft);// top button
 
 		// Slider
 		mSlider.width(mSlideBar.width()); // height = slide bar height

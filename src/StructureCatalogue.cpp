@@ -171,7 +171,7 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 
 		default:
-			cout << "StructureCatalogue::get(): Unsupported structure type called." << endl;
+			std::cout << "StructureCatalogue::get(): Unsupported structure type called." << std::endl;
 			break;
 	}
 

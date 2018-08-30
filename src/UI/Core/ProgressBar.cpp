@@ -3,7 +3,6 @@
 
 #include "ProgressBar.h"
 
-using namespace std;
 
 ProgressBar::ProgressBar() : mCurrent(0), mEnd(0), mImageMode(ProgressBar::Repeating), mUsesImage(false)
 {

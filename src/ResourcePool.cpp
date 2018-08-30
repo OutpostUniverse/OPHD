@@ -7,7 +7,6 @@
 
 #include <iostream>
 
-using namespace std;
 using namespace NAS2D::Xml;
 
 
@@ -67,7 +66,7 @@ ResourcePool& ResourcePool::operator+=(const ResourcePool& rhs)
 {
 	if (_capacity != 0)
 	{
-		cout << "ResourcePool::operator+=(): Incorrect use of operator. This ResourcePool has a capacity. Use pushResource() or pushResources() instead." << endl;
+		std::cout << "ResourcePool::operator+=(): Incorrect use of operator. This ResourcePool has a capacity. Use pushResource() or pushResources() instead." << std::endl;
 		return *this;
 	}
 
@@ -198,7 +197,7 @@ int ResourcePool::pushResource(ResourceType type, int amount)
 {
 	if (_capacity == 0)
 	{
-		cout << "ResourcePool::pushResource(): Incorrect use of operator. This ResourcePool has no capacity. Use operator+=() instead." << endl;
+		std::cout << "ResourcePool::pushResource(): Incorrect use of operator. This ResourcePool has no capacity. Use operator+=() instead." << std::endl;
 		return 0;
 	}
 
@@ -229,7 +228,7 @@ int ResourcePool::pullResource(ResourceType type, int amount)
 {
 	if (_capacity == 0)
 	{
-		cout << "ResourcePool::pullResource(): Incorrect use of operator. This ResourcePool has no capacity. Use operator-=() instead." << endl;
+		std::cout << "ResourcePool::pullResource(): Incorrect use of operator. This ResourcePool has no capacity. Use operator-=() instead." << std::endl;
 		return 0;
 	}
 
@@ -263,7 +262,7 @@ void ResourcePool::pushResources(ResourcePool& rp)
 {
 	if (_capacity == 0)
 	{
-		cout << "ResourcePool::pushResources(): Incorrect use of operator. This ResourcePool has no capacity. Use operator+=() instead." << endl;
+		std::cout << "ResourcePool::pushResources(): Incorrect use of operator. This ResourcePool has no capacity. Use operator+=() instead." << std::endl;
 		return;
 	}
 
@@ -290,7 +289,7 @@ void ResourcePool::pullResources(ResourcePool& _rp)
 {
 	if (_capacity == 0)
 	{
-		cout << "ResourcePool::pullResources(): Incorrect use of operator. This ResourcePool has no capacity. Use operator-=() instead." << endl;
+		std::cout << "ResourcePool::pullResources(): Incorrect use of operator. This ResourcePool has no capacity. Use operator-=() instead." << std::endl;
 		return;
 	}
 

@@ -5,12 +5,8 @@
 
 #include "../../Common.h"
 
-using namespace std;
 
-Button::Button():	mState(STATE_NORMAL),
-					mType(BUTTON_NORMAL),
-					mUsesImage(false),
-					mMouseHover(false)
+Button::Button()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Button::onMouseUp);
@@ -55,6 +51,8 @@ Button::~Button()
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Button::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Button::onMouseMotion);
+
+	delete mImage;
 }
 
 
@@ -78,14 +76,13 @@ bool Button::toggled() const
 
 void Button::image(const std::string& path)
 {
-	mImage = Image(path);
-	mUsesImage = true;
+	mImage = new Image(path);
 }
 
 
 bool Button::hasImage() const
 {
-	return mImage.loaded();
+	return mImage->loaded();
 }
 
 
@@ -168,18 +165,19 @@ void Button::draw()
 		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinPressed);
 	}
 
-	if (mUsesImage)
+	if (mImage)
 	{
-		r.drawImage(mImage, rect().x() + (rect().width() / 2) - (mImage.width() / 2), rect().y() + (rect().height() / 2) - (mImage.height() / 2));
+		r.drawImage(*mImage, rect().x() + (rect().width() / 2) - (mImage->width() / 2), rect().y() + (rect().height() / 2) - (mImage->height() / 2));
 	}
 	else
 	{
-		if (fontSet() && !text().empty())
+		if (fontSet())
 		{
 			r.drawText(font(), text(), static_cast<int>(rect().x() + (rect().width() / 2) - (font().width(text()) / 2)), static_cast<int>(rect().y() + (rect().height() / 2) - (font().height() / 2)), 255, 255, 255);
 		}
 	}
 
+	/// \fixme	Naive... would rather set a b&w shader instead.
 	if (!enabled())
 	{
 		r.drawBoxFilled(rect(), 125, 125, 125, 100);

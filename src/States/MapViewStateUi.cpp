@@ -410,7 +410,7 @@ void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _ite
 	if (!_item->available)
 	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
-		cout << "MapViewState::placeStructure(): Insufficient resources to build structure." << endl;
+		std::cout << "MapViewState::placeStructure(): Insufficient resources to build structure." << std::endl;
 		mStructures.clearSelection();
 		return;
 	}
@@ -461,7 +461,7 @@ void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, 
 	if (mTileMap->currentDepth() == mTileMap->maxDepth() && _sel == DiggerDirection::SEL_DOWN)
 	{
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::MAX_DIGGING_DEPTH_REACHED);
-		cout << "MapViewState::diggerSelectionDialog(): Already at the maximum digging depth." << endl;
+		std::cout << "MapViewState::diggerSelectionDialog(): Already at the maximum digging depth." << std::endl;
 		return;
 	}
 

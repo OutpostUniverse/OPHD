@@ -1,8 +1,9 @@
 #pragma once
 
 #include <array>
-#include <memory>
+#include <map>
 #include <string>
+#include <vector>
 
 #include <NAS2D/NAS2D.h>
 

@@ -2,15 +2,14 @@
 
 #include "NAS2D/NAS2D.h"
 
-#include <map>
-#include <string>
-#include <algorithm>
-
 #include "Core/UIContainer.h"
 #include "Core/Slider.h"
 
 #include "../Constants/UiConstants.h"
 #include "../Things/Structures/Factory.h"
+
+#include <string>
+#include <vector>
 
 
 /**
@@ -44,14 +43,14 @@ public:
 	void removeItem(Factory* factory);
 	void clearItems();
 
-	int count() const { return mItems.size(); }
-	bool empty() const { return mItems.empty(); }
+	int count() const;
+	bool empty() const;
 
-	int currentHighlight() const { return mCurrentHighlight; }
-	int currentSelection() const { return mCurrentSelection; }
-	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
+	int currentHighlight() const;
+	int currentSelection() const;
+	void currentSelection(int selection);
 
-	const std::string& selectionText() const { return mItems[mCurrentSelection].factory->name(); }
+	const std::string& selectionText() const;
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 

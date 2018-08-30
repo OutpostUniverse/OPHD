@@ -151,7 +151,7 @@ void FileIo::fileSelected()
  */
 void FileIo::fileNameModified(Control* _ctrl)
 {
-	string sFile = _ctrl->text();
+	std::string sFile = _ctrl->text();
 
 	if (sFile.empty())	// no blank filename
 		btnFileOp.enabled(false);

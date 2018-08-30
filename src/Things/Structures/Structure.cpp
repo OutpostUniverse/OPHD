@@ -3,15 +3,14 @@
 
 #include "Structure.h"
 
-using namespace std;
 #include "../../Constants.h"
 
 /**
  * C'tor
  */
-Structure::Structure(const string& name, const string& sprite_path, StructureClass _t):	Thing(name, sprite_path),
-																						mId((long)(this)), // naive
-																						mStructureClass(_t)
+Structure::Structure(const std::string& name, const std::string& sprite_path, StructureClass _t):	Thing(name, sprite_path),
+	mStructureClass(_t)
+
 {
 	mPopulationRequirements.fill(0);
 }
@@ -192,7 +191,7 @@ void Structure::die()
 	Thing::die();
 
 	#if defined(_DEBUG)
-	cout << "Holy shit, a Structure died!!!" << endl;
+	std::cout << "Holy shit, a Structure died!!!" << std::endl;
 	throw std::runtime_error("Thing::die() was called on a Structure!");
 	#endif
 }

@@ -171,7 +171,7 @@ private:
 	virtual void activated() {};
 
 private:
-	int						mId;						/**< ID of the Structure. */
+	int						mId = (long)(this);			/**< ID of the Structure. */
 
 	int						mTurnsToBuild = 0;			/**< Number of turns it takes to build the Structure. */
 	int						mAge = 0;					/**< Age of the Structure in turns. */

@@ -3,9 +3,7 @@
 
 #include "Robot.h"
 
-using namespace std;
-
-Robot::Robot(const string& name, const string& sprite_path) :	Thing(name, sprite_path)
+Robot::Robot(const std::string& name, const std::string& sprite_path) :	Thing(name, sprite_path)
 {}
 
 
@@ -36,7 +34,9 @@ void Robot::updateTask()
 	mTurnsToCompleteTask--;
 
 	if (mTurnsToCompleteTask == 0)
+	{
 		mTaskCompleteCallback(this);
+	}
 
 	mFuelCellAge++;
 

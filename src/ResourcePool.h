@@ -4,6 +4,7 @@
 
 #include "NAS2D/NAS2D.h"
 
+
 /**
  * Pretty much just an easy container for keeping track of resources.
  */
@@ -26,7 +27,7 @@ public:
 
 		RESOURCE_FOOD,
 		RESOURCE_ENERGY,
-		
+
 		RESOURCE_COUNT					/**< Number of available resource types. */
 	};
 
@@ -103,13 +104,13 @@ public:
 	void serialize(NAS2D::Xml::XmlElement* _ti);
 	void deserialize(NAS2D::Xml::XmlElement* _ti);
 
-	Callback& resourceObserver() {return _observerCallback; }
+	Callback& resourceObserver() { return _observerCallback; }
 
 private:
 	typedef std::array<int, RESOURCE_COUNT> ResourceTable;
 
 private:
-	int					_capacity;			// Maximum available capacity of the ResourcePool.
+	int					_capacity = 0;			/**< Maximum available capacity of the ResourcePool. */
 
 	ResourceTable		_resourceTable;
 

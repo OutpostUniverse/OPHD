@@ -15,7 +15,6 @@
 #include "../StructureTranslator.h"
 
 
-using namespace std;
 using namespace NAS2D;
 using namespace NAS2D::Xml;
 
@@ -246,7 +245,7 @@ void MapViewState::readRobots(XmlElement* _ti)
 			break;
 
 		default:
-			cout << "Unknown robot type in savegame." << endl;
+			std::cout << "Unknown robot type in savegame." << std::endl;
 			break;
 		}
 
@@ -328,7 +327,7 @@ void MapViewState::readStructures(XmlElement* _ti)
 			Mine* m = mTileMap->getTile(x, y, 0)->mine();
 			if (m == nullptr)
 			{
-				throw runtime_error("Mine Facility is located on a Tile with no Mine.");
+				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");
 			}
 
 			MineFacility* mf = static_cast<MineFacility*>(st);
