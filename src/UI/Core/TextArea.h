@@ -11,15 +11,10 @@ using namespace NAS2D;
 class TextArea : public Control
 {
 public:
-
-	typedef NAS2D::Signals::Signal0<void> ClickCallback;
-
 	TextArea();
 	virtual ~TextArea();
 
 	void update();
-
-protected:
 
 private:
 	typedef std::vector<std::string> StringList;
@@ -35,5 +30,5 @@ private:
 private:
 	StringList	mFormattedList;
 
-	size_t		mNumLines;
+	size_t		mNumLines = 0;
 };

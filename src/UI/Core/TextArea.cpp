@@ -7,7 +7,7 @@
 
 #include <vector>
 
-TextArea::TextArea() : mNumLines(0)
+TextArea::TextArea()
 {}
 
 
@@ -19,8 +19,7 @@ void TextArea::processString()
 {
 	mFormattedList.clear();
 
-	if (width() < 1 || !fontSet() || text().empty())
-		return;
+	if (width() < 1 || !fontSet() || text().empty()) { return; }
 
 	StringList tokenList = split_string(text().c_str(), ' ');
 	
@@ -89,9 +88,10 @@ void TextArea::draw()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	if(highlight())
-		r.drawBox(rect(), 255, 255, 255);
+	if (highlight()) { r.drawBox(rect(), 255, 255, 255); }
 
 	for (size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
+	{
 		r.drawText(font(), mFormattedList[i], positionX(), positionY() + (font().height() * i), 255, 255, 255);
+	}
 }

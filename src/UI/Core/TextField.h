@@ -70,21 +70,21 @@ private:
 	void draw();
 
 private:
-	Timer				mCursorTimer;		/**< Timer for the cursor blink. */
+	Timer				mCursorTimer;					/**< Timer for the cursor blink. */
 
-	int 				mCursorPosition;	/**< Position of the Insertion Cursor. */
-	int 				mCursorX;			/**< Pixel position of the Cursor. */
-	int 				mScrollOffset;		/**< Scroller offset. */
-	int					mMaxScrollOffset;	/**< Maximum allowable offset. */
+	int 				mCursorPosition = 0;			/**< Position of the Insertion Cursor. */
+	int 				mCursorX = 0;					/**< Pixel position of the Cursor. */
+	int 				mScrollOffset = 0;				/**< Scroller offset. */
+	int					mMaxScrollOffset = 0;			/**< Maximum allowable offset. */
 
-	size_t				mMaxCharacters;		/**< Max number of characters allowed in the text field. */
+	size_t				mMaxCharacters = 0;				/**< Max number of characters allowed in the text field. */
 
-	BorderVisibility	mBorderVisibility;	/**< Border visibility flag. */
+	BorderVisibility	mBorderVisibility = FOCUS_ONLY;	/**< Border visibility flag. */
 
 	ImageList			mSkinNormal;
 	ImageList			mSkinFocus;
 
-	bool				mEditable;			/**< Toggle editing of the field. */
-	bool				mShowCursor;		/**< Flag indicating whether or not to draw the cursor. */
-	bool				mNumbersOnly;		/**< Flag indicating that only numerals should be used */
+	bool				mEditable = true;				/**< Toggle editing of the field. */
+	bool				mShowCursor = true;				/**< Flag indicating whether or not to draw the cursor. */
+	bool				mNumbersOnly = false;			/**< Flag indicating that only numerals should be used */
 };

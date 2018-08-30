@@ -28,19 +28,12 @@ const int CURSOR_BLINK_DELAY = 250;
 
 std::locale LOC;
 
-TextField::TextField():	mCursorPosition(0),
-						mCursorX(0),
-						mScrollOffset(0),
-						mMaxScrollOffset(0),
-						mMaxCharacters(0),
-						mBorderVisibility(FOCUS_ONLY),
-						mEditable(true),
-						mShowCursor(false),
-						mNumbersOnly(false)
+TextField::TextField()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &TextField::onMouseDown);
 	Utility<EventHandler>::get().keyDown().connect(this, &TextField::onKeyDown);
 	Utility<EventHandler>::get().textInput().connect(this, &TextField::onTextInput);
+
 	hasFocus(true);
 	Utility<EventHandler>::get().textInputMode(true);
 
@@ -73,6 +66,7 @@ TextField::~TextField()
 	Utility<EventHandler>::get().textInput().disconnect(this, &TextField::onTextInput);
 }
 
+
 void TextField::resetCursorPosition()
 {
 	mCursorPosition = 0;
@@ -88,7 +82,6 @@ void TextField::numbers_only(bool _b)
 {
 	mNumbersOnly = _b;
 }
-
 
 
 /**
@@ -137,100 +130,18 @@ void TextField::border(BorderVisibility visibility)
 }
 
 
-void TextField::draw()
-{
-	Renderer& r = Utility<Renderer>::get();
-
-	if (hasFocus() && editable()) { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus); }
-	else { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal); }
-
-
-
-	if (highlight()) { r.drawBox(rect(), 255, 255, 0); }
-
-	drawCursor();
-
-	if (fontSet())
-	{
-		r.drawText(font(), text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, 255, 255, 255);
-	}
-}
-
-
-/**
- * Draws the insertion point cursor.
- */
-void TextField::drawCursor()
-{
-	if(hasFocus() && editable())
-	{
-		if(mShowCursor)
-		{
-			// updateCursor() should be called only on events relating to the cursor so this is temporary.
-			updateCursor();
-			Utility<Renderer>::get().drawLine(static_cast<float>(mCursorX + 1), rect().y() + FIELD_PADDING + 1, static_cast<float>(mCursorX + 1), rect().y() + rect().height() - FIELD_PADDING, 0, 0, 0);
-			Utility<Renderer>::get().drawLine(static_cast<float>(mCursorX), rect().y() + FIELD_PADDING, static_cast<float>(mCursorX), rect().y() + rect().height() - FIELD_PADDING - 1, 255, 255, 255);
-		}
-		
-		if(mCursorTimer.accumulator() > CURSOR_BLINK_DELAY)
-		{
-			mCursorTimer.reset();
-			mShowCursor = !mShowCursor;
-		}
-	}
-}
-
-
-/**
- * Draws a highlight over selected text.
- */
-void TextField::drawTextHighlight()
-{
-	Utility<Renderer>::get().drawBoxFilled(rect().x() + FIELD_PADDING, rect().y(), static_cast<float>(font().width(text())), rect().height(), 0, 0, 150, 100);
-}
-
-
-void TextField::updateCursor()
-{
-	int cursorX = font().width(text().substr(0, mCursorPosition));
-
-	if(cursorX - mScrollOffset >= textAreaWidth())
-		mScrollOffset = cursorX - textAreaWidth();
-	if(cursorX - mScrollOffset <= 0)
-		mScrollOffset = cursorX - textAreaWidth() / 2;
-
-	if(mScrollOffset < 0)
-		mScrollOffset = 0;
-
-
-	mCursorX = static_cast<int>(rect().x() + FIELD_PADDING + cursorX - mScrollOffset);
-}
-
-
-void TextField::update()
-{
-	if (!visible())
-		return;
-
-	draw();
-}
-
-
 /**
  * Handles text input events.
  */
 void TextField::onTextInput(const std::string& _s)
 {
-	if (!hasFocus() || !visible() || !editable() || _s.empty())
-		return;
+	if (!hasFocus() || !visible() || !editable() || _s.empty()) { return; }
 
-	if (mMaxCharacters > 0 && text().length() == mMaxCharacters)
-		return;
+	if (mMaxCharacters > 0 && text().length() == mMaxCharacters) { return; }
 
 	int prvLen = text().length();
 
-	if (mNumbersOnly && !std::isdigit(_s[0], LOC))
-		return;
+	if (mNumbersOnly && !std::isdigit(_s[0], LOC)) { return; }
 
 	_text() = _text().insert(mCursorPosition, _s);
 
@@ -244,8 +155,7 @@ void TextField::onTextInput(const std::string& _s)
 
 void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
-	if (!hasFocus() || !editable() || !visible())
-		return;
+	if (!hasFocus() || !editable() || !visible()) { return; }
 
 	switch(key)
 	{	
@@ -315,8 +225,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	// If font is not available, back out now to prevent issues.
-	if(!fontSet())
-		return;
+	if (!fontSet()) { return; }
 
 	if(!isPointInRect(Point_2d(x, y), rect()))
 	{
@@ -324,7 +233,9 @@ void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		return;
 	}
 	else
+	{
 		hasFocus(true);
+	}
 
 	int relativePosition = static_cast<int>(x - rect().x());
 
@@ -351,4 +262,85 @@ void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 		i++;
 	}
+}
+
+
+void TextField::draw()
+{
+	Renderer& r = Utility<Renderer>::get();
+
+	if (hasFocus() && editable()) { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus); }
+	else { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal); }
+
+	if (highlight()) { r.drawBox(rect(), 255, 255, 0); }
+
+	drawCursor();
+
+	if (fontSet())
+	{
+		r.drawText(font(), text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, 255, 255, 255);
+	}
+}
+
+
+/**
+ * Draws the insertion point cursor.
+ */
+void TextField::drawCursor()
+{
+	if(hasFocus() && editable())
+	{
+		if(mShowCursor)
+		{
+			// updateCursor() should be called only on events relating to the cursor so this is temporary.
+			updateCursor();
+			Utility<Renderer>::get().drawLine(static_cast<float>(mCursorX + 1), rect().y() + FIELD_PADDING + 1, static_cast<float>(mCursorX + 1), rect().y() + rect().height() - FIELD_PADDING, 0, 0, 0);
+			Utility<Renderer>::get().drawLine(static_cast<float>(mCursorX), rect().y() + FIELD_PADDING, static_cast<float>(mCursorX), rect().y() + rect().height() - FIELD_PADDING - 1, 255, 255, 255);
+		}
+		
+		if(mCursorTimer.accumulator() > CURSOR_BLINK_DELAY)
+		{
+			mCursorTimer.reset();
+			mShowCursor = !mShowCursor;
+		}
+	}
+}
+
+
+/**
+ * Draws a highlight over selected text.
+ */
+void TextField::drawTextHighlight()
+{
+	Utility<Renderer>::get().drawBoxFilled(rect().x() + FIELD_PADDING, rect().y(), static_cast<float>(font().width(text())), rect().height(), 0, 0, 150, 100);
+}
+
+
+void TextField::updateCursor()
+{
+	int cursorX = font().width(text().substr(0, mCursorPosition));
+
+	if (cursorX - mScrollOffset >= textAreaWidth())
+	{
+		mScrollOffset = cursorX - textAreaWidth();
+	}
+
+	if (cursorX - mScrollOffset <= 0)
+	{
+		mScrollOffset = cursorX - textAreaWidth() / 2;
+	}
+
+	if (mScrollOffset < 0)
+	{
+		mScrollOffset = 0;
+	}
+
+	mCursorX = static_cast<int>(rect().x() + FIELD_PADDING + cursorX - mScrollOffset);
+}
+
+
+void TextField::update()
+{
+	if (!visible()) { return; }
+	draw();
 }
