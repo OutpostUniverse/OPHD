@@ -63,8 +63,6 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
  */
 void MapViewState::factoryProductionComplete(Factory& factory)
 {	
-	StructureManager::StructureList& warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
-
 	switch (factory.productWaiting())
 	{
 	case PRODUCT_DIGGER:
