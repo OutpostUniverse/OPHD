@@ -66,6 +66,7 @@ namespace constants
 	// =====================================
 	// = FACTORY PRODUCTS
 	// =====================================
+	const std::string NONE									= "None";
 	const std::string ROBODIGGER							= "Robodigger";
 	const std::string ROBODOZER								= "Robodozer";
 	const std::string ROBOEXPLORER							= "Roboexplorer";

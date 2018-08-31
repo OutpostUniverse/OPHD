@@ -52,13 +52,6 @@ public:
 	const std::string& text() const;
 	TextChangedCallback& textChanged();
 
-	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y) {};
-	virtual void onMouseUp(EventHandler::MouseButton button, int x, int y) {};
-	virtual void onMouseMotion(int x, int y, int dX, int dY) {};
-
-	virtual void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat) {};
-	virtual void onKeyUp(EventHandler::KeyCode key, EventHandler::KeyModifier mod) {};
-
 	void size(float _s);
 	void size(float w, float h);
 

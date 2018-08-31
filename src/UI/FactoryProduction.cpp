@@ -6,15 +6,6 @@
 #include "../Constants.h"
 
 
-#include <array>
-
-
-/**
- * Description table for products.
- */
-std::array<std::string, PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE;
-
-
 /**
  * 
  */
@@ -81,19 +72,6 @@ void FactoryProduction::init()
 	btnApply.text("Apply");
 	btnApply.size(40, 20);
 	btnApply.click().connect(this, &FactoryProduction::btnApplyClicked);
-
-
-	// Fill product description table
-	PRODUCT_DESCRIPTION_TABLE[PRODUCT_DIGGER] = constants::ROBODIGGER;
-	PRODUCT_DESCRIPTION_TABLE[PRODUCT_DOZER] = constants::ROBODOZER;
-	PRODUCT_DESCRIPTION_TABLE[PRODUCT_EXPLORER] = constants::ROBOEXPLORER;
-	PRODUCT_DESCRIPTION_TABLE[PRODUCT_MINER] = constants::ROBOMINER;
-	PRODUCT_DESCRIPTION_TABLE[PRODUCT_ROAD_MATERIALS] = constants::ROAD_MATERIALS;
-	PRODUCT_DESCRIPTION_TABLE[PRODUCT_TRUCK] = constants::TRUCK;
-	PRODUCT_DESCRIPTION_TABLE[PRODUCT_MAINTENANCE_PARTS] = constants::MAINTENANCE_SUPPLIES;
-
-	PRODUCT_DESCRIPTION_TABLE[PRODUCT_CLOTHING] = constants::CLOTHING;
-	PRODUCT_DESCRIPTION_TABLE[PRODUCT_MEDICINE] = constants::MEDICINE;
 }
 
 
@@ -218,7 +196,7 @@ void FactoryProduction::factory(Factory* _f)
 
 	for (size_t i = 0; i < ptlist.size(); ++i)
 	{
-		mProductGrid.addItem(PRODUCT_DESCRIPTION_TABLE[ptlist[i]], ptlist[i], ptlist[i]);
+		mProductGrid.addItem(productDescription(ptlist[i]), ptlist[i], ptlist[i]);
 	}
 
 	if (mFactory->productType() == PRODUCT_NONE) { mProductGrid.clearSelection(); }

@@ -23,10 +23,27 @@ static void drawItem(FactoryListBox::FactoryListBoxItem& item, int x, int y, int
 
 	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, 0, 185, 0, 75); }
 
-	r.drawBox(x + 2, y + 2, w - 4, LIST_ITEM_HEIGHT - 4, 0, 185, 0);
+	Factory* f = item.factory;
 
-	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8, item.icon_slice.x(), item.icon_slice.y(), 46, 46);
-	r.drawText(*MAIN_FONT_BOLD, item.factory->name(), x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset, 0, 185, 0);
+	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, 0, 185, 0);
+	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, item.icon_slice.x(), item.icon_slice.y(), 46, 46);
+	r.drawText(*MAIN_FONT_BOLD, f->name(), x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset, 0, 185, 0);
+
+	r.drawText(*MAIN_FONT, productDescription(f->productType()), x + w - 112, ((y + 19) - MAIN_FONT_BOLD->height() / 2) - offset, 0, 185, 0);
+	r.drawBox(x + w - 112, y + 30 - offset, 105, 11, 0, 185, 0);
+	
+	int bar_width = 0;
+
+	if (f->productType() != PRODUCT_NONE)
+	{
+		float turnsComplete = f->productionTurnsCompleted();
+		float turnsToComplete = f->productionTurnsToComplete();
+		float percentage = turnsComplete / turnsToComplete;
+
+		bar_width = 100.0f * percentage;
+	}
+
+	r.drawBoxFilled(x + w - 110, y + 33 - offset, bar_width, 6, 255, 255, 0);
 }
 
 
@@ -48,6 +65,8 @@ FactoryListBox::~FactoryListBox()
 {
 	mSlider.change().disconnect(this, &FactoryListBox::slideChanged);
 	delete STRUCTURE_ICONS;
+
+	Utility<EventHandler>::get().mouseWheel().disconnect(this, &FactoryListBox::onMouseWheel);
 }
 
 
@@ -56,6 +75,8 @@ FactoryListBox::~FactoryListBox()
  */
 void FactoryListBox::_init()
 {
+	Utility<EventHandler>::get().mouseWheel().connect(this, &FactoryListBox::onMouseWheel);
+
 	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 12);
 	MAIN_FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 12);
 
@@ -64,6 +85,7 @@ void FactoryListBox::_init()
 	mSlider.change().connect(this, &FactoryListBox::slideChanged);
 
 	STRUCTURE_ICONS = new Image("ui/structures.png");
+
 
 	_update_item_display();
 }
@@ -107,13 +129,11 @@ void FactoryListBox::_hook_events(bool hook)
 	{
 		Utility<EventHandler>::get().mouseButtonDown().connect(this, &FactoryListBox::onMouseDown);
 		Utility<EventHandler>::get().mouseMotion().connect(this, &FactoryListBox::onMouseMove);
-		Utility<EventHandler>::get().mouseWheel().connect(this, &FactoryListBox::onMouseWheel);
 	}
 	else
 	{
 		Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &FactoryListBox::onMouseDown);
 		Utility<EventHandler>::get().mouseMotion().disconnect(this, &FactoryListBox::onMouseMove);
-		Utility<EventHandler>::get().mouseWheel().disconnect(this, &FactoryListBox::onMouseWheel);
 	}
 }
 
@@ -123,7 +143,7 @@ void FactoryListBox::_hook_events(bool hook)
  */
 void FactoryListBox::addItem(Factory* factory)
 {
-	// basic fuckup check.
+	/// \fixme	Could be much more elegant via a lambda expression
 	for (auto& item : mItems)
 	{
 		if (item.factory == factory)
@@ -135,7 +155,7 @@ void FactoryListBox::addItem(Factory* factory)
 
 	mItems.push_back(FactoryListBoxItem(factory));
 
-	/// \fixme super sloppy, make this way more elegant.
+	/// \fixme super sloppy
 	FactoryListBoxItem& item = mItems.back();
 	if (factory->name() == constants::SURFACE_FACTORY) { item.icon_slice(0, 46); }
 	else if (factory->name() == constants::UNDERGROUND_FACTORY) { item.icon_slice(138, 276); }
@@ -163,7 +183,6 @@ void FactoryListBox::removeItem(Factory* factory)
 		}
 	}
 
-	// basic fuckup check.
 	std::cout << "FactoryListBox::removeItem(): annoying bug, fix it." << std::endl;
 }
 
@@ -278,15 +297,17 @@ void FactoryListBox::onMouseMove(int x, int y, int relX, int relY)
 	// Ignore if menu is empty or invisible
 	if (empty()) { return; }
 
+	mMousePosition(x, y);
+
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
-	if (!isPointInRect(Point_2d(x, y), rect()))
+	if (!isPointInRect(mMousePosition, rect()))
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 		return;
 	}
 
 	// if the mouse is on the slider then the slider should handle that
-	if (mSlider.visible() && isPointInRect(Point_2d(x, y), mSlider.rect()))
+	if (mSlider.visible() && isPointInRect(mMousePosition, mSlider.rect()))
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 		return;
@@ -313,7 +334,9 @@ void FactoryListBox::onMouseMove(int x, int y, int relX, int relY)
  */
 void FactoryListBox::onMouseWheel(int x, int y)
 {
-	mSlider.changeThumbPosition((y < 0 ? 16.0 : -16.0));
+	if (!isPointInRect(mMousePosition, rect())) { return; }
+
+	mSlider.changeThumbPosition((y < 0 ? LIST_ITEM_HEIGHT : -LIST_ITEM_HEIGHT));
 }
 
 

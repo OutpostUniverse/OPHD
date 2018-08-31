@@ -261,3 +261,8 @@ void doNonFatalErrorMessage(const std::string& title, const std::string& msg);
 void checkSavegameVersion(const std::string& filename);
 
 NAS2D::StringList split_string(const char *str, char delim);
+
+/**
+ * Translates a ProductType enumerator into a string.
+ */
+const std::string& productDescription(ProductType type);

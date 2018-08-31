@@ -36,6 +36,91 @@ std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 
 
 /**
+ * Description table for products.
+ */
+std::array<std::string, PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
+{
+	constants::ROBODIGGER,
+	constants::ROBODOZER,
+	constants::ROBOMINER,
+	constants::ROBOEXPLORER,
+	constants::TRUCK,
+
+	"PRODUCT_RESERVED_AG_05",
+	"PRODUCT_RESERVED_AG_06",
+	"PRODUCT_RESERVED_AG_07",
+
+	constants::ROAD_MATERIALS,
+	constants::MAINTENANCE_SUPPLIES,
+
+	"PRODUCT_RESERVED_AG_10",
+	"PRODUCT_RESERVED_AG_11",
+	"PRODUCT_RESERVED_AG_12",
+	"PRODUCT_RESERVED_AG_13",
+	"PRODUCT_RESERVED_AG_14",
+	"PRODUCT_RESERVED_AG_15",
+
+	"PRODUCT_RESERVED_AG_16",
+	"PRODUCT_RESERVED_AG_17",
+	"PRODUCT_RESERVED_AG_18",
+	"PRODUCT_RESERVED_AG_19",
+	"PRODUCT_RESERVED_AG_20",
+	"PRODUCT_RESERVED_AG_21",
+	"PRODUCT_RESERVED_AG_22",
+	"PRODUCT_RESERVED_AG_23",
+
+	"PRODUCT_RESERVED_AG_24",
+	"PRODUCT_RESERVED_AG_25",
+	"PRODUCT_RESERVED_AG_26",
+	"PRODUCT_RESERVED_AG_27",
+	"PRODUCT_RESERVED_AG_28",
+	"PRODUCT_RESERVED_AG_29",
+	"PRODUCT_RESERVED_AG_30",
+	"PRODUCT_RESERVED_AG_31",
+
+
+	// =====================================
+	// = UNDERGROUND FACTORIES
+	// =====================================
+	constants::CLOTHING,
+	constants::MEDICINE,
+	"PRODUCT_RESERVED_UG_34",
+	"PRODUCT_RESERVED_UG_35",
+	"PRODUCT_RESERVED_UG_36",
+	"PRODUCT_RESERVED_UG_37",
+	"PRODUCT_RESERVED_UG_38",
+	"PRODUCT_RESERVED_UG_39",
+
+	"PRODUCT_RESERVED_UG_40",
+	"PRODUCT_RESERVED_UG_41",
+	"PRODUCT_RESERVED_UG_42",
+	"PRODUCT_RESERVED_UG_43",
+	"PRODUCT_RESERVED_UG_44",
+	"PRODUCT_RESERVED_UG_45",
+	"PRODUCT_RESERVED_UG_46",
+	"PRODUCT_RESERVED_UG_47",
+
+	"PRODUCT_RESERVED_UG_48",
+	"PRODUCT_RESERVED_UG_49",
+	"PRODUCT_RESERVED_UG_50",
+	"PRODUCT_RESERVED_UG_51",
+	"PRODUCT_RESERVED_UG_52",
+	"PRODUCT_RESERVED_UG_53",
+	"PRODUCT_RESERVED_UG_54",
+	"PRODUCT_RESERVED_UG_55",
+
+	"PRODUCT_RESERVED_UG_56",
+	"PRODUCT_RESERVED_UG_57",
+	"PRODUCT_RESERVED_UG_58",
+	"PRODUCT_RESERVED_UG_59",
+	"PRODUCT_RESERVED_UG_60",
+	"PRODUCT_RESERVED_UG_61",
+	"PRODUCT_RESERVED_UG_62",
+	"PRODUCT_RESERVED_UG_63"
+};
+
+
+/**
  * Convenience function to pass a Rectangle_2df to \c isPointInRect()
  */
 bool pointInRect_f(int x, int y, const Rectangle_2df& rect)
@@ -50,6 +135,14 @@ bool pointInRect_f(int x, int y, const Rectangle_2df& rect)
 bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float rectH)
 {
 	return isPointInRect(x, y,	static_cast<int>(rectX), static_cast<int>(rectY), static_cast<int>(rectW), static_cast<int>(rectH));
+}
+
+
+const std::string& productDescription(ProductType type)
+{
+	if (type == PRODUCT_NONE) { return constants::NONE; }
+
+	return PRODUCT_DESCRIPTION_TABLE[static_cast<size_t>(type)];
 }
 
 

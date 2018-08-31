@@ -25,7 +25,6 @@ public:
 	{
 	public:
 		FactoryListBoxItem(Factory* _f) : factory(_f) {}
-
 		~FactoryListBoxItem() {}
 
 	public:
@@ -57,10 +56,11 @@ public:
 	void update();
 
 protected:
-	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
-	virtual void onMouseMove(int x, int y, int relX, int relY);
+	void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
-	virtual void slideChanged(double _position);
+
+	void slideChanged(double _position);
 
 private:
 	void _init();
@@ -82,6 +82,8 @@ private:
 
 	int							mItemWidth = 0;									/**< Width of items. */
 	int							mLineCount = 0;									/**< Number of lines that can be displayed. */
+
+	Point_2d					mMousePosition;									/**< Mouse coordinates. */
 
 	FactoryItemList				mItems;											/**< List of items preserved in the order in which they're added. */
 

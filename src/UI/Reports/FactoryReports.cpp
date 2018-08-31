@@ -47,9 +47,42 @@ void FactoryReport::init()
 	add(&lstFactoryList, 10, 63);
 	lstFactoryList.font(*FONT);
 
-	lstFactoryList.addItem(new SurfaceFactory());
 	lstFactoryList.addItem(new SeedFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
 	lstFactoryList.addItem(new UndergroundFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
+
+	Factory* f0 = new SurfaceFactory();
+	f0->productType(PRODUCT_DOZER);
+	lstFactoryList.addItem(f0);
+
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	
+	Factory* f1 = new UndergroundFactory();
+	f1->disabled();
+	lstFactoryList.addItem(f1);
+	lstFactoryList.addItem(new UndergroundFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new SurfaceFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
+	lstFactoryList.addItem(new UndergroundFactory());
+
 
 	add(&btnShowAll, 10, 10);
 	btnShowAll.font(*FONT);
@@ -183,7 +216,6 @@ void FactoryReport::btnShowDisabledClicked()
 void FactoryReport::update()
 {
 	Renderer& r = Utility<Renderer>::get();
-	//r.drawBox(FACTORY_LISTBOX, 255, 255, 255);
 
 	r.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + rect().height() - 10, 255, 255, 255);
 	r.drawText(*FONT, "Filter by Product", SORT_BY_PRODUCT_POSITION, rect().y() + 10, 0, 185, 0);
