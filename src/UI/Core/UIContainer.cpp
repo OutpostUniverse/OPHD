@@ -103,6 +103,8 @@ void UIContainer::positionChanged(float dX, float dY)
 
 void UIContainer::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	if (!visible()) { return; }
+
 	Control* control = nullptr;
 	for (auto it = mControls.rbegin(); it != mControls.rend(); ++it)
 	{
@@ -127,5 +129,5 @@ void UIContainer::onMouseDown(EventHandler::MouseButton button, int x, int y)
 void UIContainer::update()
 {
 	if (!visible()) { return; }
-	for (auto control : mControls) { control->update(); }
+	for (auto control : mControls) { control->update(); /*Utility<Renderer>::get().drawBox(control->rect(), 255, 0, 255);*/ }
 }

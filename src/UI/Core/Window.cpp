@@ -10,7 +10,6 @@ const float WINDOW_TITLE_BAR_HEIGHT = 20.0f;
 
 Window::Window() : mBold("fonts/opensans-bold.ttf", 10), mMouseDrag(false), mAnchored(false)
 {
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Window::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMotion);
 
@@ -34,7 +33,6 @@ Window::Window() : mBold("fonts/opensans-bold.ttf", 10), mMouseDrag(false), mAnc
 
 Window::~Window()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Window::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Window::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Window::onMouseMotion);
 }
@@ -43,7 +41,9 @@ Window::~Window()
 void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!visible() || !hasFocus()) { return; }
-	
+
+	UIContainer::onMouseDown(button, x, y);
+
 	if (button == EventHandler::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT))
 	{
 		mMouseDrag = true;
