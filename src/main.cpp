@@ -75,14 +75,14 @@ int main(int argc, char *argv[])
 		Filesystem& f = Utility<Filesystem>::get();
 		f.init(argv[0], "data");
 
-		f.addToSearchPath("fonts.dat");
-		f.addToSearchPath("maps.dat");
-		f.addToSearchPath("planets.dat");
-		f.addToSearchPath("robots.dat");
-		f.addToSearchPath("sfx.dat");
-		f.addToSearchPath("structures.dat");
-		f.addToSearchPath("sys.dat");
-		f.addToSearchPath("ui.dat");
+		//f.addToSearchPath("fonts.dat");
+		//f.addToSearchPath("maps.dat");
+		//f.addToSearchPath("planets.dat");
+		//f.addToSearchPath("robots.dat");
+		//f.addToSearchPath("sfx.dat");
+		//f.addToSearchPath("structures.dat");
+		//f.addToSearchPath("sys.dat");
+		//f.addToSearchPath("ui.dat");
 
 		if (!f.exists(constants::SAVE_GAME_PATH))
 		{
@@ -130,7 +130,11 @@ int main(int argc, char *argv[])
 			Utility<Mixer>::instantiateDerived(new Mixer());
 		}
 
+
 		Renderer& r = createRenderer();
+
+		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
+
 		r.minimum_size(1024, 728);
 		r.resizeable(true);
 		r.addCursor(constants::MOUSE_POINTER_NORMAL, POINTER_NORMAL, 0, 0);
@@ -148,7 +152,7 @@ int main(int argc, char *argv[])
 		IMG_PROCESSING_TURN = new Image("sys/processing_turn.png");
 
 		StateManager stateManager;
-
+		
 		/*
 		if (cf.option("skip-splash") == "false")
 		{
@@ -159,7 +163,7 @@ int main(int argc, char *argv[])
 			stateManager.setState(new MainMenuState());
 		}
 		*/
-
+		
 		r.fadeIn(0.0f);
 		Wrapper* uistuff = new MainReportsUiState();
 		uistuff->activate();
