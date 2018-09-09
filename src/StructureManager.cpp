@@ -399,10 +399,8 @@ void serializeStructure(XmlElement* _ti, Structure* _s, Tile* _t)
 	_ti->attribute("y", _t->y());
 	_ti->attribute("depth", _t->depth());
 
-	_ti->attribute("id", _s->id());
 	_ti->attribute("age", _s->age());
 	_ti->attribute("state", _s->state());
-	//_ti->SetAttribute("type", StructureTranslator::translateFromString(_s->name()));
 	_ti->attribute("forced_idle", _s->forceIdle());
 	_ti->attribute("type", _s->name());
 	_ti->attribute("direction", _s->connectorDirection());

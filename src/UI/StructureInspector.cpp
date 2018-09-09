@@ -126,9 +126,6 @@ void StructureInspector::update()
 
 	r.drawText(*FONT_BOLD, mStructure->name(), rect().x() + 5, rect().y() + 25, 255, 255, 255);
 
-	r.drawText(*FONT_BOLD, "Structure ID:", rect().x() + 190, rect().y() + 25, 255, 255, 255);
-	r.drawText(font(), string_format("%i", mStructure->id()), rect().x() + 190 + FONT_BOLD->width("Structure ID: "), rect().y() + 25, 255, 255, 255);
-
 	r.drawText(*FONT_BOLD, "Type:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
 	r.drawText(font(), mStructureClass, rect().x() + 5 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
 

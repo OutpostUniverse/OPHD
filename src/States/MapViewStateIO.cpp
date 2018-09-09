@@ -281,14 +281,13 @@ void MapViewState::readStructures(XmlElement* _ti)
 	XmlAttribute* attribute = nullptr;
 	for (XmlNode* structure = _ti->firstChild(); structure != nullptr; structure = structure->nextSibling())
 	{
-		x = y = depth = id = age = state = direction = production_completed = production_type = 0;
+		x = y = depth = age = state = direction = production_completed = production_type = 0;
 		attribute = structure->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
 			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
 			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
-			else if (attribute->name() == "id") { attribute->queryIntValue(id); }
 			else if (attribute->name() == "age") { attribute->queryIntValue(age); }
 			else if (attribute->name() == "state") { attribute->queryIntValue(state); }
 			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
@@ -342,7 +341,6 @@ void MapViewState::readStructures(XmlElement* _ti)
 		}
 
 		st->age(age);
-		st->id(id);
 		st->forced_state_change(static_cast<Structure::StructureState>(state));
 		st->connectorDirection(static_cast<ConnectorDir>(direction));
 		

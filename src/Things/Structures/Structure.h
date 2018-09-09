@@ -9,6 +9,9 @@
 class Structure: public Thing
 {
 public:
+	/**
+	 * State of an individual Structure.
+	 */
 	enum StructureState
 	{
 		UNDER_CONSTRUCTION,
@@ -17,7 +20,6 @@ public:
 		DISABLED,
 		DESTROYED
 	};
-
 
 	/**
 	 * Class of a Structure.
@@ -58,7 +60,6 @@ public:
 		CLASS_WAREHOUSE
 	};
 
-
 public:
 	Structure(const std::string& name, const std::string& sprite_path, StructureClass _t);
 	virtual ~Structure();
@@ -97,7 +98,6 @@ public:
 	StructureClass structureClass() const { return mStructureClass; }
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
-	int id() const { return mId; }
 	int turnsToBuild() const { return mTurnsToBuild; }
 	int age() const { return mAge; }
 	int maxAge() const { return mMaxAge; }
@@ -116,13 +116,6 @@ public:
 	bool energyProducer() const { return structureClass() == CLASS_ENERGY_PRODUCTION; }
 	bool isConnector() const { return structureClass() == CLASS_TUBE; }	/** Indicates that the structure can act as a connector (tube) */
 
-	// BASIC FUNCTIONS
-	void update();
-	virtual void think() {}
-
-	// FIXME: Not terribly thrilled with these being accessible.
-	void id(int _id) { mId = _id; }
-
 	/**
 	 * Set the current age of the Structure.
 	 * 
@@ -135,6 +128,9 @@ public:
 	virtual void forced_state_change(StructureState _s);
 
 	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
+
+	void update();
+	virtual void think() {}
 
 protected:
 	friend class StructureCatalogue;
@@ -171,8 +167,6 @@ private:
 	virtual void activated() {};
 
 private:
-	int						mId = (long)(this);			/**< ID of the Structure. */
-
 	int						mTurnsToBuild = 0;			/**< Number of turns it takes to build the Structure. */
 	int						mAge = 0;					/**< Age of the Structure in turns. */
 	int						mMaxAge = 0;				/**< Maximum number of turns the Structure can remain in good repair. */
