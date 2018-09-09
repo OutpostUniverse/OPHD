@@ -111,7 +111,7 @@ void FactoryProduction::productSelectionChanged(const IconGrid::IconGridItem* _i
 	}
 
 	mProduct = static_cast<ProductType>(_item->meta);
-	mProductCost = mFactory->productCost(mProduct);
+	mProductCost = productCost(mProduct);
 }
 
 
@@ -203,7 +203,7 @@ void FactoryProduction::factory(Factory* _f)
 	else { mProductGrid.selection_meta(static_cast<int>(mFactory->productType())); }
 
 	mProduct = mFactory->productType();
-	mProductCost = mFactory->productCost(mFactory->productType());
+	mProductCost = productCost(mFactory->productType());
 }
 
 
