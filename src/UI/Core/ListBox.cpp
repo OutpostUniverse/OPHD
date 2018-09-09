@@ -253,7 +253,7 @@ void ListBox::update()
 
 	// draw boundaries of the widget
 	r.drawBox(rect().x(), rect().y(), mItemWidth, rect().height(), 0, 0, 0, 100);
-	r.drawBoxFilled(rect().x(), rect().y(), mItemWidth, rect().height(), 225, 225, 0, 85);
+	r.drawBoxFilled(rect().x(), rect().y(), mItemWidth, rect().height(), 0, 85, 0, 220);
 
 	// Highlight currently selected file
 	int itemY = rect().y() + (mCurrentSelection * mLineHeight) - mCurrentOffset;
