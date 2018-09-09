@@ -17,21 +17,53 @@ static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
 
-static void drawItem(FactoryListBox::FactoryListBoxItem& item, int x, int y, int w, int offset, bool highlight)
+
+std::map<Structure::StructureState, Color_4ub> StructureColorTable
 {
-	Renderer& r = Utility<Renderer>::get();
+	{ Structure::UNDER_CONSTRUCTION,	Color_4ub(150, 150, 150, 100) },
+	{ Structure::OPERATIONAL,			Color_4ub(0, 185, 0, 255) },
+	{ Structure::IDLE,					Color_4ub(0, 185, 0, 100) },
+	{ Structure::DISABLED,				Color_4ub(220, 0, 0, 255) },
+	{ Structure::DESTROYED,				Color_4ub(220, 0, 0, 255) }
+};
 
-	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, 0, 185, 0, 75); }
 
+std::map<Structure::StructureState, Color_4ub> StructureTextColorTable
+{
+	{ Structure::UNDER_CONSTRUCTION,	Color_4ub(185, 185, 185, 100) },
+	{ Structure::OPERATIONAL,			Color_4ub(0, 185, 0, 255) },
+	{ Structure::IDLE,					Color_4ub(0, 185, 0, 100) },
+	{ Structure::DISABLED,				Color_4ub(220, 0, 0, 255) },
+	{ Structure::DESTROYED,				Color_4ub(220, 0, 0, 255) }
+};
+
+
+
+static Color_4ub*	STRUCTURE_COLOR;
+static Color_4ub*	STRUCTURE_TEXT_COLOR;
+
+
+static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, int x, int y, int w, int offset, bool highlight)
+{
 	Factory* f = item.factory;
 
-	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, 0, 185, 0);
-	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, item.icon_slice.x(), item.icon_slice.y(), 46, 46);
-	r.drawText(*MAIN_FONT_BOLD, f->name(), x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset, 0, 185, 0);
+	STRUCTURE_COLOR = &StructureColorTable[f->state()];
+	STRUCTURE_TEXT_COLOR = &StructureTextColorTable[f->state()];
 
-	r.drawText(*MAIN_FONT, productDescription(f->productType()), x + w - 112, ((y + 19) - MAIN_FONT_BOLD->height() / 2) - offset, 0, 185, 0);
-	r.drawBox(x + w - 112, y + 30 - offset, 105, 11, 0, 185, 0);
+	// draw highlight rect so as not to tint/hue colors of everything else
+	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), 75); }
+
+	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), STRUCTURE_COLOR->alpha());
+	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, item.icon_slice.x(), item.icon_slice.y(), 46, 46);
+
+	r.drawText(*MAIN_FONT_BOLD, f->name(), x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset,
+				STRUCTURE_TEXT_COLOR->red(), STRUCTURE_TEXT_COLOR->green(), STRUCTURE_TEXT_COLOR->blue(), STRUCTURE_TEXT_COLOR->alpha());
+
+	r.drawText(*MAIN_FONT, productDescription(f->productType()), x + w - 112, ((y + 19) - MAIN_FONT_BOLD->height() / 2) - offset,
+				STRUCTURE_TEXT_COLOR->red(), STRUCTURE_TEXT_COLOR->green(), STRUCTURE_TEXT_COLOR->blue(), STRUCTURE_TEXT_COLOR->alpha());
 	
+	// PROGRESS BAR
+	r.drawBox(x + w - 112, y + 30 - offset, 105, 11, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), STRUCTURE_COLOR->alpha());
 	int bar_width = 0;
 
 	if (f->productType() != PRODUCT_NONE)
@@ -160,6 +192,8 @@ void FactoryListBox::addItem(Factory* factory)
 	if (factory->name() == constants::SURFACE_FACTORY) { item.icon_slice(0, 46); }
 	else if (factory->name() == constants::UNDERGROUND_FACTORY) { item.icon_slice(138, 276); }
 	else if (factory->name() == constants::SEED_FACTORY) { item.icon_slice(460, 368); }
+	
+	if (factory->state() == Structure::DESTROYED) { item.icon_slice(414, 368); }
 
 	_update_item_display();
 }
@@ -171,7 +205,7 @@ void FactoryListBox::addItem(Factory* factory)
 void FactoryListBox::removeItem(Factory* factory)
 {
 	// I know, not as neat as the range based loop or as elegant as a find() call
-	// but necessary because I don't feel like building a proper functor.
+	// but necessary because I don't feel like building a proper functor / lambda.
 	for (auto it = mItems.begin(); it != mItems.end(); ++it)
 	{
 		if (it->factory == factory)
@@ -224,7 +258,13 @@ int FactoryListBox::currentSelection() const
 void FactoryListBox::currentSelection(int selection)
 {
 	mCurrentSelection = selection;
-	mSelectionChanged();
+	mSelectionChanged(selectedFactory());
+}
+
+
+Factory* FactoryListBox::selectedFactory()
+{
+	return (mCurrentSelection == constants::NO_SELECTION) ? nullptr : mItems[mCurrentSelection].factory;
 }
 
 
@@ -377,7 +417,7 @@ void FactoryListBox::update()
 	// ITEMS
 	for (size_t i = 0; i < mItems.size(); ++i)
 	{
-		drawItem(mItems[i], positionX(), positionY() + (i * LIST_ITEM_HEIGHT), mItemWidth, mCurrentOffset, i == mCurrentSelection);
+		drawItem(r, mItems[i], positionX(), positionY() + (i * LIST_ITEM_HEIGHT), mItemWidth, mCurrentOffset, i == mCurrentSelection);
 	}
 	
 

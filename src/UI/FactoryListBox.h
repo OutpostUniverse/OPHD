@@ -18,7 +18,7 @@
 class FactoryListBox : public UIContainer
 {
 public:
-	typedef NAS2D::Signals::Signal0<void> SelectionChangedCallback;
+	typedef NAS2D::Signals::Signal1<Factory*> SelectionChangedCallback;
 
 public:
 	class FactoryListBoxItem
@@ -50,6 +50,8 @@ public:
 	void currentSelection(int selection);
 
 	const std::string& selectionText() const;
+
+	Factory* selectedFactory();
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 
