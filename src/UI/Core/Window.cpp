@@ -4,14 +4,31 @@
 #include "Window.h"
 
 #include "../../Common.h"
+#include "../../Constants.h"
+#include "../../FontManager.h"
 
 const float WINDOW_TITLE_BAR_HEIGHT = 20.0f;
+static Font* FONT;
+
+Window::Window()
+{
+	_init();
+}
 
 
-Window::Window() : mBold("fonts/opensans-bold.ttf", 10), mMouseDrag(false), mAnchored(false)
+Window::~Window()
+{
+	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Window::onMouseUp);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Window::onMouseMotion);
+}
+
+
+void Window::_init()
 {
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMotion);
+
+	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 10);
 
 	mBody.push_back(Image("ui/skin/window_top_left.png"));
 	mBody.push_back(Image("ui/skin/window_top_middle.png"));
@@ -27,14 +44,6 @@ Window::Window() : mBold("fonts/opensans-bold.ttf", 10), mMouseDrag(false), mAnc
 	mTitle.push_back(Image("ui/skin/window_title_left.png"));
 	mTitle.push_back(Image("ui/skin/window_title_middle.png"));
 	mTitle.push_back(Image("ui/skin/window_title_right.png"));
-
-}
-
-
-Window::~Window()
-{
-	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Window::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Window::onMouseMotion);
 }
 
 
@@ -44,10 +53,7 @@ void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	UIContainer::onMouseDown(button, x, y);
 
-	if (button == EventHandler::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT))
-	{
-		mMouseDrag = true;
-	}
+	mMouseDrag = (button == EventHandler::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT));
 }
 
 
@@ -93,7 +99,7 @@ void Window::update()
 
 	r.drawImageRect(rect().x(), rect().y() + 20, rect().width(), rect().height() - 20, mBody);
 
-	r.drawText(mBold, text(), rect().x() + 5, rect().y() + 2, 255, 255, 255);
+	r.drawText(*FONT, text(), rect().x() + 5, rect().y() + 2, 255, 255, 255);
 
 	UIContainer::update();
 }
