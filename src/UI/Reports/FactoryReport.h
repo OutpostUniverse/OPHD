@@ -13,6 +13,7 @@ public:
 	virtual ~FactoryReport();
 
 	virtual void update() final;
+
 private:
 	void init();
 
@@ -25,7 +26,11 @@ private:
 
 	void filterButtonClicked();
 
+	void lstFactoryListSelectionChanged(Factory*);
+
 	void resized(Control*);
+
+	void drawDetailPane(Renderer& r);
 
 private:
 	Button			btnShowAll;
