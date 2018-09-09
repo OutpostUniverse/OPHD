@@ -88,7 +88,9 @@ void FactoryReport::init()
 	lstFactoryList.addItem(f8);
 
 	Factory* f0 = new SurfaceFactory();
+	f0->forced_state_change(Structure::OPERATIONAL);
 	f0->productType(PRODUCT_DOZER);
+	f0->productionTurnsCompleted(3);
 	lstFactoryList.addItem(f0);
 
 	Factory* f1 = new UndergroundFactory();
@@ -202,6 +204,8 @@ void FactoryReport::filterButtonClicked()
 	btnShowActive.toggle(false);
 	btnShowIdle.toggle(false);
 	btnShowDisabled.toggle(false);
+
+	cboFilterByProduct.clearSelection();
 }
 
 
@@ -290,6 +294,8 @@ void FactoryReport::drawDetailPane(Renderer& r)
 	r.drawBox(DETAIL_PANEL, 255, 255, 0);
 	r.drawImage(*FACTORY_IMAGE, DETAIL_PANEL.x(), DETAIL_PANEL.y());
 	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), DETAIL_PANEL.x() + 138, DETAIL_PANEL.y(), 0, 185, 0);
+
+
 }
 
 

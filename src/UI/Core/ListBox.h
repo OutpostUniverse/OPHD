@@ -41,6 +41,7 @@ public:
 
 	int currentSelection() const { return mCurrentSelection; }
 	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
+	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
 
 	int currentHighlight() const { return mCurrentHighlight; }
 

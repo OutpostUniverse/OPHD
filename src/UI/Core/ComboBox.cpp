@@ -117,6 +117,13 @@ void ComboBox::onMouseWheel(int x, int y)
 }
 
 
+void ComboBox::clearSelection()
+{
+	lstItems.clearSelection();
+	txtField.clear();
+}
+
+
 /**
  * ListBox selection changed event handler.
  */

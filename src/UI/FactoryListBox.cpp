@@ -54,7 +54,7 @@ static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, int 
 	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), 75); }
 
 	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), STRUCTURE_COLOR->alpha());
-	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, item.icon_slice.x(), item.icon_slice.y(), 46, 46);
+	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, item.icon_slice.x(), item.icon_slice.y(), 46, 46, 255, 255, 255, STRUCTURE_COLOR->alpha());
 
 	r.drawText(*MAIN_FONT_BOLD, f->name(), x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset,
 				STRUCTURE_TEXT_COLOR->red(), STRUCTURE_TEXT_COLOR->green(), STRUCTURE_TEXT_COLOR->blue(), STRUCTURE_TEXT_COLOR->alpha());

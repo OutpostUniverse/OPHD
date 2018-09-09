@@ -14,6 +14,8 @@ public:
 	int maxDisplayItems() const { return mMaxDisplayItems; }
 	void maxDisplayItems(int count);
 
+	void clearSelection();
+
 	virtual void update();
 
 private:

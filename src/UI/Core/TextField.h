@@ -43,6 +43,7 @@ public:
 	bool editable() const;
 
 	bool empty() const { return text().empty(); }
+	void clear() { _text().clear(); }
 
 	void border(BorderVisibility visibility);
 	void resetCursorPosition();
