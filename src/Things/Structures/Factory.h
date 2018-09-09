@@ -49,8 +49,6 @@ public:
 
 	const ProductionTypeList& productList() const { return mAvailableProducts; }
 
-	const ProductionCost& productCost(ProductType) const;
-
 	virtual void initFactory() = 0;
 
 	ProductionCallback& productionComplete() { return mProductionComplete; }
@@ -76,3 +74,5 @@ private:
 
 	ResourcePool*					mResourcesPool = nullptr;	/**< Pointer to the player's resource pool. UGLY. */
 };
+
+const ProductionCost& productCost(ProductType);

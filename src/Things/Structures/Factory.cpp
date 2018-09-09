@@ -31,6 +31,16 @@ ProductionTypeTable PRODUCTION_TYPE_TABLE =
 };
 
 
+const ProductionCost& productCost(ProductType _pt)
+{
+	// Sanity check
+	if (PRODUCTION_TYPE_TABLE.empty()) { throw std::runtime_error("Factory::productionCost() called before production table filled!"); }
+
+	return PRODUCTION_TYPE_TABLE[_pt];
+}
+
+
+
 Factory::Factory(const std::string& name, const std::string& sprite_path):	Structure(name, sprite_path, CLASS_FACTORY)
 {}
 
@@ -61,15 +71,6 @@ void Factory::productType(ProductType _p)
 	productionResetTurns();
 
 	mTurnsToComplete = PRODUCTION_TYPE_TABLE[mProduct].turnsToBuild();
-}
-
-
-const ProductionCost& Factory::productCost(ProductType _pt) const
-{
-	// Sanity check
-	if (PRODUCTION_TYPE_TABLE.empty()) { throw std::runtime_error("Factory::productionCost() called before production table filled!"); }
-
-	return PRODUCTION_TYPE_TABLE[_pt];
 }
 
 
