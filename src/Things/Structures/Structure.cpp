@@ -5,6 +5,61 @@
 
 #include "../../Constants.h"
 
+
+/**
+ * Translation table for Structure States.
+ */
+std::map<Structure::StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
+{
+	{ Structure::UNDER_CONSTRUCTION,	"Under Construction" },
+	{ Structure::OPERATIONAL,			"Operational" },
+	{ Structure::IDLE,					"Idle" },
+	{ Structure::DISABLED,				"Disabled" },
+	{ Structure::DESTROYED,				"Destroyed" },
+};
+
+
+/**
+ * Translation table for Structure Classes.
+ */
+std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
+{
+	{ Structure::CLASS_COMMAND,				"Command" },
+	{ Structure::CLASS_COMM,				"Communication" },
+	{ Structure::CLASS_COMMERCIAL,			"Commercial" },
+	{ Structure::CLASS_ENERGY_PRODUCTION,	"Energy Production" },
+	{ Structure::CLASS_FACTORY,				"Factory" },
+	{ Structure::CLASS_FOOD_PRODUCTION,		"Food Production" },
+	{ Structure::CLASS_LABORATORY,			"Laboratory" },
+	{ Structure::CLASS_LANDER,				"Lander" },
+	{ Structure::CLASS_LIFE_SUPPORT,		"Life Support" },
+	{ Structure::CLASS_MINE,				"Mine Facility" },
+	{ Structure::CLASS_PARK,				"Park / Reservoir" },
+	{ Structure::CLASS_SURFACE_POLICE,		"Police" },
+	{ Structure::CLASS_UNDERGROUND_POLICE,	"Police" },
+	{ Structure::CLASS_RECREATION_CENTER,	"Recreation Center" },
+	{ Structure::CLASS_RECYCLING,			"Recycling" },
+	{ Structure::CLASS_RESIDENCE,			"Residential" },
+	{ Structure::CLASS_SMELTER,				"Raw Ore Processing" },
+	{ Structure::CLASS_STORAGE,				"Storage" },
+	{ Structure::CLASS_TUBE,				"Tube" },
+	{ Structure::CLASS_UNDEFINED,			"UNDEFINED" },
+	{ Structure::CLASS_UNIVERSITY,			"University" }
+};
+
+
+const std::string& structureStateDescription(Structure::StructureState _state)
+{
+	return STRUCTURE_STATE_TRANSLATION[_state];
+}
+
+
+const std::string& structureClassDescription(Structure::StructureClass _class)
+{
+	return STRUCTURE_CLASS_TRANSLATION[_class];
+}
+
+
 /**
  * C'tor
  */

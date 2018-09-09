@@ -13,7 +13,7 @@ public:
 
 	virtual void update();
 
-	void structure(Structure* _st) { mStructure = _st; }
+	void structure(Structure* _st);
 	Structure* structure() { return mStructure; }
 
 protected:
@@ -31,9 +31,10 @@ private:
 private:
 	Button		btnClose;
 
-	Font		mBold;
-
 	Image		mIcons;
 
-	Structure*	mStructure;
+	std::string	mStructureClass;
+	std::string	mStructureState;
+
+	Structure*	mStructure = nullptr;
 };

@@ -4,78 +4,19 @@
 #include "StructureInspector.h"
 
 #include "../Constants.h"
+#include "../FontManager.h"
 
 #include <map>
 #include <sstream>
 
-// FIXME: Find a sane place for this as these are usefull throughout the code.
-std::map<Structure::StructureClass, std::string> TypeTranslationTable;
-std::map<Structure::StructureState, std::string> StateTranslationTable;
 
-
-
-StructureInspector::StructureInspector(Font& font) :	mBold("fonts/opensans-bold.ttf", 10),
-														mIcons("ui/icons.png"),
-														mStructure(nullptr)
-{
-	Control::font(font);
-	text(constants::WINDOW_STRUCTURE_INSPECTOR);
-	init();
-}
-
-
-StructureInspector::~StructureInspector()
-{
-}
-
-
-void StructureInspector::init()
-{
-	position(0, 0);
-	size(350, 200);
-
-	add(&btnClose, 295, 175);
-	btnClose.font(font());
-	btnClose.text("Close");
-	btnClose.size(50, 20);
-	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
-
-
-	// Build translation tables.
-	TypeTranslationTable[Structure::CLASS_COMMAND] = "Command";
-	TypeTranslationTable[Structure::CLASS_COMM] = "Communication";
-	TypeTranslationTable[Structure::CLASS_COMMERCIAL] = "Commercial";
-	TypeTranslationTable[Structure::CLASS_ENERGY_PRODUCTION] = "Energy Production";
-	TypeTranslationTable[Structure::CLASS_FACTORY] = "Factory";
-	TypeTranslationTable[Structure::CLASS_FOOD_PRODUCTION] = "Food Production";
-	TypeTranslationTable[Structure::CLASS_LABORATORY] = "Laboratory";
-	TypeTranslationTable[Structure::CLASS_LANDER] = "Lander";
-	TypeTranslationTable[Structure::CLASS_LIFE_SUPPORT] = "Life Support";
-	TypeTranslationTable[Structure::CLASS_MINE] = "Mine Facility";
-	TypeTranslationTable[Structure::CLASS_PARK] = "Park / Reservoir";
-	TypeTranslationTable[Structure::CLASS_SURFACE_POLICE] = "Police";
-	TypeTranslationTable[Structure::CLASS_UNDERGROUND_POLICE] = "Police";
-	TypeTranslationTable[Structure::CLASS_RECREATION_CENTER] = "Recreation Center";
-	TypeTranslationTable[Structure::CLASS_RECYCLING] = "Recycling";
-	TypeTranslationTable[Structure::CLASS_RESIDENCE] = "Residential";
-	TypeTranslationTable[Structure::CLASS_SMELTER] = "Raw Ore Processing";
-	TypeTranslationTable[Structure::CLASS_STORAGE] = "Storage";
-	TypeTranslationTable[Structure::CLASS_TUBE] = "Tube";
-	TypeTranslationTable[Structure::CLASS_UNDEFINED] = "UNDEFINED";
-	TypeTranslationTable[Structure::CLASS_UNIVERSITY] = "University";
-
-	StateTranslationTable[Structure::UNDER_CONSTRUCTION] = "Under Construction";
-	StateTranslationTable[Structure::OPERATIONAL] = "Operational";
-	StateTranslationTable[Structure::IDLE] = "Idle";
-	StateTranslationTable[Structure::DISABLED] = "Disabled";
-	StateTranslationTable[Structure::DESTROYED] = "Destroyed";
-}
+static Font*	FONT_BOLD = nullptr;
 
 
 /**
  * Draws resource icons
  */
-void drawResourceIcons(Renderer& r, Image& sheet, int x, int y, int sheet_offset)
+static void drawResourceIcons(Renderer& r, Image& sheet, int x, int y, int sheet_offset)
 {
 	r.drawSubImage(sheet, static_cast<float>(x), static_cast<float>(y + 10), 64, static_cast<float>(sheet_offset), static_cast<float>(constants::RESOURCE_ICON_SIZE), static_cast<float>(constants::RESOURCE_ICON_SIZE));
 	r.drawSubImage(sheet, static_cast<float>(x), static_cast<float>(y + 26), 80, static_cast<float>(sheet_offset), static_cast<float>(constants::RESOURCE_ICON_SIZE), static_cast<float>(constants::RESOURCE_ICON_SIZE));
@@ -87,7 +28,7 @@ void drawResourceIcons(Renderer& r, Image& sheet, int x, int y, int sheet_offset
 /**
  * Draws resource values
  */
-void drawResourceStrings(Renderer& r, Font& f, int x, int y, int res1, int res2, int res3, int res4)
+static void drawResourceStrings(Renderer& r, Font& f, int x, int y, int res1, int res2, int res3, int res4)
 {
 	r.drawText(f, string_format("%i", res1), static_cast<float>(x + 21), static_cast<float>(y + 13), 255, 255, 255);
 	r.drawText(f, string_format("%i", res2), static_cast<float>(x + 21), static_cast<float>(y + 29), 255, 255, 255);
@@ -96,12 +37,67 @@ void drawResourceStrings(Renderer& r, Font& f, int x, int y, int res1, int res2,
 }
 
 
+
+StructureInspector::StructureInspector(Font& font) : mIcons("ui/icons.png")
+{
+	Control::font(font);
+	text(constants::WINDOW_STRUCTURE_INSPECTOR);
+	init();
+}
+
+
+/**
+ * 
+ */
+StructureInspector::~StructureInspector()
+{}
+
+
+/**
+ * 
+ */
+void StructureInspector::init()
+{
+	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 10);
+
+	position(0, 0);
+	size(350, 200);
+
+	add(&btnClose, 295, 175);
+	btnClose.font(font());
+	btnClose.text("Close");
+	btnClose.size(50, 20);
+	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
+}
+
+
+/**
+ * 
+ */
+void StructureInspector::structure(Structure* _st)
+{
+	mStructure = _st;
+	mStructureClass = structureClassDescription(mStructure->structureClass());
+	mStructureState = structureStateDescription(mStructure->state());
+}
+
+
+/**
+ * 
+ */
+void StructureInspector::btnCloseClicked()
+{
+	visible(false);
+}
+
+
+/**
+ * 
+ */
 void StructureInspector::drawResourcePool(const std::string& title, ResourcePool& rp, int x, int y)
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	//r.drawText(mBold, title, x, y, 0, 0, 0);
-	
 	// Ore
 	drawResourceIcons(r, mIcons, x, y, 0);
 	drawResourceStrings(r, font(), x, y, rp.commonMetalsOre(), rp.rareMetalsOre(), rp.commonMineralsOre(), rp.rareMineralsOre());
@@ -112,39 +108,33 @@ void StructureInspector::drawResourcePool(const std::string& title, ResourcePool
 }
 
 
+/**
+ * 
+ */
 void StructureInspector::update()
 {
-	if (!visible())
-		return;
-
+	if (!visible()) { return; }
 	Window::update();
 
 	Renderer& r = Utility<Renderer>::get();
 
 	if (mStructure == nullptr)
 	{
-		r.drawText(mBold, "NULLPTR!", rect().x() + 5, rect().y() + 25, 255, 255, 255);
+		r.drawText(*FONT_BOLD, "NULLPTR!", rect().x() + 5, rect().y() + 25, 255, 255, 255);
 		return;
 	}
 
-	r.drawText(mBold, mStructure->name(), rect().x() + 5, rect().y() + 25, 255, 255, 255);
+	r.drawText(*FONT_BOLD, mStructure->name(), rect().x() + 5, rect().y() + 25, 255, 255, 255);
 
-	r.drawText(mBold, "Structure ID:", rect().x() + 190, rect().y() + 25, 255, 255, 255);
-	r.drawText(font(), string_format("%i", mStructure->id()), rect().x() + 190 + mBold.width("Structure ID: "), rect().y() + 25, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Structure ID:", rect().x() + 190, rect().y() + 25, 255, 255, 255);
+	r.drawText(font(), string_format("%i", mStructure->id()), rect().x() + 190 + FONT_BOLD->width("Structure ID: "), rect().y() + 25, 255, 255, 255);
 
-	r.drawText(mBold, "Type:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
-	r.drawText(font(), TypeTranslationTable[mStructure->structureClass()], rect().x() + 5 + mBold.width("Type: "), rect().y() + 45, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Type:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
+	r.drawText(font(), mStructureClass, rect().x() + 5 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
 
-	r.drawText(mBold, "State:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
-	r.drawText(font(), StateTranslationTable[mStructure->state()], rect().x() + 190 + mBold.width("Type: "), rect().y() + 45, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "State:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
+	r.drawText(font(), mStructureState, rect().x() + 190 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
 	
 	drawResourcePool("Production Pool", mStructure->production(), static_cast<int>(rect().x() + 5), static_cast<int>(rect().y() + 65));
 	drawResourcePool("Storage Pool", mStructure->storage(), static_cast<int>(rect().x() + 190), static_cast<int>(rect().y() + 65));
 }
-
-
-void StructureInspector::btnCloseClicked()
-{
-	visible(false);
-}
-

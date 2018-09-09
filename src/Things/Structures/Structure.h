@@ -194,3 +194,7 @@ private:
 	bool					mSelfSustained = false;		/**< Indicates that the Structure is self contained and can operate by itself. */
 	bool					mForcedIdle = false;		/**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };
+
+
+const std::string& structureStateDescription(Structure::StructureState);
+const std::string& structureClassDescription(Structure::StructureClass);
