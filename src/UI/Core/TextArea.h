@@ -14,6 +14,8 @@ public:
 	TextArea();
 	virtual ~TextArea();
 
+	void textColor(int r, int g, int b, int a = 255) { mTextColor(r, g, b, a); }
+
 	void update();
 
 private:
@@ -29,6 +31,8 @@ private:
 
 private:
 	StringList	mFormattedList;
+
+	Color_4ub	mTextColor = COLOR_WHITE;
 
 	size_t		mNumLines = 0;
 };

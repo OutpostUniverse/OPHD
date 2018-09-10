@@ -226,6 +226,11 @@ void FactoryReport::init()
 	add(&lstProducts, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20, rect().y() + 230);
 	lstProducts.font(*FONT);
 
+	txtProductDescription.font(*FONT);
+	txtProductDescription.height(128);
+	txtProductDescription.textColor(0, 185, 0);
+	txtProductDescription.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+
 	SORT_BY_PRODUCT_POSITION = cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() - FONT->width("Filter by Product");
 	WIDTH_RESOURCES_REQUIRED_LABEL = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
 
@@ -259,6 +264,12 @@ void FactoryReport::resized(Control* c)
 	btnTakeMeThere.position(position_x, btnTakeMeThere.positionY());
 
 	lstProducts.size(DETAIL_PANEL.width() / 3, DETAIL_PANEL.height() - 219);
+
+	txtProductDescription.position(lstProducts.positionX() + lstProducts.width() + 158, lstProducts.positionY());
+	txtProductDescription.width(rect().width() - txtProductDescription.positionX() - 30);
+
+	//prgProductProgress.position(lstProducts.positionX() + lstProducts.width() + 20, DETAIL_PANEL.y() + 388);
+	//prgProductProgress.size(rect().width() - txtProductDescription.positionX() - 30, 30);
 }
 
 
@@ -445,6 +456,30 @@ void FactoryReport::drawProductPane(Renderer& r)
 {
 	r.drawText(*FONT_BIG_BOLD, "Production", DETAIL_PANEL.x(), DETAIL_PANEL.y() + 180, 0, 185, 0);
 
+	if (SELECTED_FACTORY->productType() == PRODUCT_NONE) { return; }
+
+	int position_x = DETAIL_PANEL.x() + lstProducts.width() + 20;
+	r.drawText(*FONT_BIG_BOLD, productDescription(SELECTED_FACTORY->productType()), position_x, DETAIL_PANEL.y() + 180, 0, 185, 0);
+	r.drawImage(*PRODUCT_IMAGE_ARRAY[SELECTED_FACTORY->productType()], position_x, lstProducts.positionY());
+	txtProductDescription.update();
+
+	r.drawText(*FONT_BIG_BOLD, "Progress", position_x, DETAIL_PANEL.y() + 358, 0, 185, 0);
+	//prgProductProgress.update();
+
+
+	r.drawBox(position_x, DETAIL_PANEL.y() + 393, rect().width() - position_x - 10, 30, 0, 185, 0);
+	int bar_width = 0;
+
+	if (SELECTED_FACTORY->productType() != PRODUCT_NONE)
+	{
+		float turnsComplete = SELECTED_FACTORY->productionTurnsCompleted();
+		float turnsToComplete = SELECTED_FACTORY->productionTurnsToComplete();
+		float percentage = turnsComplete / turnsToComplete;
+
+		bar_width = static_cast<float>(rect().width() - position_x - 18) * percentage;
+	}
+
+	r.drawBoxFilled(position_x + 4, DETAIL_PANEL.y() + 397, bar_width, 22, 0, 100, 0);
 }
 
 

@@ -2,7 +2,9 @@
 
 #include "../Core/Button.h"
 #include "../Core/ComboBox.h"
+//#include "../Core/ProgressBar.h"
 #include "../Core/UIContainer.h"
+#include "../Core/TextArea.h"
 #include "../FactoryListBox.h"
 
 
@@ -54,4 +56,6 @@ private:
 	FactoryListBox	lstFactoryList;
 
 	ListBox			lstProducts;
+
+	TextArea		txtProductDescription;
 };

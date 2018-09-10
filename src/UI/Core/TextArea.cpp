@@ -92,6 +92,6 @@ void TextArea::draw()
 
 	for (size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
 	{
-		r.drawText(font(), mFormattedList[i], positionX(), positionY() + (font().height() * i), 255, 255, 255);
+		r.drawText(font(), mFormattedList[i], positionX(), positionY() + (font().height() * i), mTextColor.red(), mTextColor.green(), mTextColor.blue(), mTextColor.alpha());
 	}
 }
