@@ -405,21 +405,20 @@ void FactoryListBox::update()
 
 	// CONTROL EXTENTS
 	r.drawBoxFilled(rect().x(), rect().y(), mItemWidth, rect().height(), 0, 0, 0, 255);
-	r.drawBox(rect().x(), rect().y(), mItemWidth, rect().height(), 75, 75, 75, 255);
+	
+	hasFocus() ? r.drawBox(rect().x(), rect().y(), mItemWidth, rect().height(), 0, 185, 0, 255) : r.drawBox(rect().x(), rect().y(), mItemWidth, rect().height(), 75, 75, 75, 255);
 
 	r.clipRect(rect());
 	
 	// MOUSE HIGHLIGHT
 	int highlight_y = positionY() + (mCurrentHighlight * LIST_ITEM_HEIGHT) - mCurrentOffset;
 	r.drawBoxFilled(positionX(), highlight_y, mItemWidth, LIST_ITEM_HEIGHT, 0, 185, 0, 50);
-
 	
 	// ITEMS
 	for (size_t i = 0; i < mItems.size(); ++i)
 	{
 		drawItem(r, mItems[i], positionX(), positionY() + (i * LIST_ITEM_HEIGHT), mItemWidth, mCurrentOffset, i == mCurrentSelection);
 	}
-	
 
 	mSlider.update();		// Shouldn't need this since it's in a UIContainer. Noticing that Slider
 							// doesn't play nice with the UIContainer.
