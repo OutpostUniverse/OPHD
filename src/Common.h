@@ -235,7 +235,7 @@ enum ProductType
  * 
  * Any other index will result in exceptions being thrown.
  */
-typedef std::array<int, 2> PopulationRequirements;
+using PopulationRequirements = std::array<int, 2>;
 
 class Robot;
 typedef std::vector<Robot*> RobotList;

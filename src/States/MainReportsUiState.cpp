@@ -3,9 +3,11 @@
 
 #include "MainReportsUiState.h"
 
+#include "../Constants.h"
+#include "../FontManager.h"
 #include "../UI/Core/UIContainer.h"
-
 #include "../UI/Reports/FactoryReport.h"
+
 
 #include <array>
 
@@ -15,8 +17,6 @@ extern Point_2d		MOUSE_COORDS;
 
 static Image*		WINDOW_BACKGROUND = nullptr;
 
-Font*				MAIN_FONT = nullptr;
-Font*				MAIN_FONT_BOLD = nullptr;
 Font*				BIG_FONT = nullptr;
 Font*				BIG_FONT_BOLD = nullptr;
 
@@ -28,6 +28,7 @@ enum NavigationPanel
 {
 	PANEL_RESEARCH,
 	PANEL_PRODUCTION,
+	PANEL_WAREHOUSE,
 	PANEL_MINING,
 	PANEL_SATELLITES,
 	PANEL_SPACEPORT,
@@ -84,7 +85,7 @@ static void setPanelRects(int width, int height)
 	Panels[PANEL_EXIT].IconPosition(width - 40, 8);
 	
 	int remaining_width = width - Panels[PANEL_EXIT].Rect.width();
-	int panel_width = remaining_width / 5;
+	int panel_width = remaining_width / 6;
 	int text_y_position = 24 - BIG_FONT->height() / 2;
 
 	
@@ -99,7 +100,12 @@ static void setPanelRects(int width, int height)
 	Panels[PANEL_PRODUCTION].Selected(true);
 
 
-	Panels[PANEL_MINING].Rect(Panels[PANEL_PRODUCTION].Rect.x() + panel_width, 0, panel_width, 48);
+	Panels[PANEL_WAREHOUSE].Rect(Panels[PANEL_PRODUCTION].Rect.x() + panel_width, 0, panel_width, 48);
+	Panels[PANEL_WAREHOUSE].TextPosition(Panels[PANEL_WAREHOUSE].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[PANEL_WAREHOUSE].Name) / 2 + 20, text_y_position);
+	Panels[PANEL_WAREHOUSE].IconPosition(Panels[PANEL_WAREHOUSE].TextPosition.x() - 40, 8);
+
+
+	Panels[PANEL_MINING].Rect(Panels[PANEL_WAREHOUSE].Rect.x() + panel_width, 0, panel_width, 48);
 	Panels[PANEL_MINING].TextPosition(Panels[PANEL_MINING].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[PANEL_MINING].Name) / 2 + 20, text_y_position);
 	Panels[PANEL_MINING].IconPosition(Panels[PANEL_MINING].TextPosition.x() - 40, 8);
 
@@ -153,10 +159,6 @@ MainReportsUiState::MainReportsUiState()
 MainReportsUiState::~MainReportsUiState()
 {
 	delete WINDOW_BACKGROUND;
-	delete BIG_FONT;
-	delete BIG_FONT_BOLD;
-	delete MAIN_FONT;
-	delete MAIN_FONT_BOLD;
 
 	for (Panel& panel : Panels)
 	{
@@ -173,10 +175,8 @@ void MainReportsUiState::initialize()
 {
 	WINDOW_BACKGROUND = new Image("ui/skin/window_middle_middle.png");
 
-	BIG_FONT = new Font("fonts/opensans.ttf", 16);
-	BIG_FONT_BOLD = new Font("fonts/opensans-bold.ttf", 16);
-	MAIN_FONT = new Font("fonts/opensans.ttf", 10);
-	MAIN_FONT_BOLD = new Font("fonts/opensans-bold.ttf", 10);
+	BIG_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 16);
+	BIG_FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 16);
 
 	Panels[PANEL_EXIT].Img = new Image("ui/icons/exit.png");
 
@@ -185,6 +185,9 @@ void MainReportsUiState::initialize()
 
 	Panels[PANEL_PRODUCTION].Img = new Image("ui/icons/production.png");
 	Panels[PANEL_PRODUCTION].Name = "Factories";
+
+	Panels[PANEL_WAREHOUSE].Img = new Image("ui/icons/warehouse.png");
+	Panels[PANEL_WAREHOUSE].Name = "Warehouses";
 
 	Panels[PANEL_MINING].Img = new Image("ui/icons/mine.png");
 	Panels[PANEL_MINING].Name = "Mines";
@@ -200,7 +203,6 @@ void MainReportsUiState::initialize()
 
 	UIContainer* factory_report = new FactoryReport();
 	Panels[PANEL_PRODUCTION].UiPanel = factory_report;
-	factory_report->font(*MAIN_FONT);
 	factory_report->position(0, 48);
 	factory_report->size(r.width(), r.height() - 48);
 }
