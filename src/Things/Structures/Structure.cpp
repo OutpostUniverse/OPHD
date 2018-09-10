@@ -68,6 +68,7 @@ Structure::Structure(const std::string& name, const std::string& sprite_path, St
 
 {
 	mPopulationRequirements.fill(0);
+	mPopulationAvailable.fill(0);
 }
 
 

@@ -94,6 +94,9 @@ public:
 	virtual void input(ResourcePool& _resourcePool) {}
 	bool enoughResourcesAvailable(ResourcePool& r);
 
+	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
+	PopulationRequirements& populationAvailable() { return mPopulationAvailable; }
+
 	// ATTRIBUTES
 	StructureClass structureClass() const { return mStructureClass; }
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
@@ -126,8 +129,6 @@ public:
 	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
 
 	virtual void forced_state_change(StructureState _s);
-
-	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
 
 	void update();
 	virtual void think() {}
@@ -176,6 +177,7 @@ private:
 	ConnectorDir			mConnectorDirection = CONNECTOR_INTERSECTION;	/**< Directions available for connections. */
 
 	PopulationRequirements	mPopulationRequirements;	/**< Population requirements for structure operation. */
+	PopulationRequirements	mPopulationAvailable;		/**< Determine how many of each type of population required was actually supplied to the structure. */
 
 	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */
 	ResourcePool			mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */

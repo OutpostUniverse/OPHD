@@ -119,6 +119,7 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 {
 	bool chapAvailable = CHAPAvailable();
 	const PopulationRequirements* _populationRequired = nullptr;
+	PopulationRequirements* _populationAvailable = nullptr;
 
 	Structure* structure = nullptr;
 	for (size_t i = 0; i < _sl.size(); ++i)
@@ -149,9 +150,14 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 
 		// Population Check
 		_populationRequired = &structure->populationRequirements();
+		_populationAvailable = &structure->populationAvailable();
 		if (!_p.enoughPopulationAvailable(Population::ROLE_WORKER, (*_populationRequired)[0]) ||
 			!_p.enoughPopulationAvailable(Population::ROLE_SCIENTIST, (*_populationRequired)[1]))
 		{
+			// yeesh, kind of verbose but avoids large if/else statements.
+			_p.enoughPopulationAvailable(Population::ROLE_WORKER, (*_populationRequired)[0]) ? (*_populationAvailable)[0] = (*_populationRequired)[0] : (*_populationAvailable)[0] = _p.populationAvailable(Population::ROLE_WORKER);
+			_p.enoughPopulationAvailable(Population::ROLE_SCIENTIST, (*_populationRequired)[1]) ? (*_populationAvailable)[1] = (*_populationRequired)[1] : (*_populationAvailable)[1] = _p.populationAvailable(Population::ROLE_SCIENTIST);
+
 			structure->disable();
 			continue;
 		}
