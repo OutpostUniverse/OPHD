@@ -246,9 +246,17 @@ void ListBox::onMouseWheel(int x, int y)
 void ListBox::update()
 {
 	// Ignore if menu is empty or invisible
-	if (empty() || !visible()) { return; }
+	if (!visible()) { return; }
 
 	Renderer& r = Utility<Renderer>::get();
+
+	if (empty())
+	{
+		r.drawBoxFilled(rect(), 0, 0, 0);
+		hasFocus() ? r.drawBox(rect(), 0, 185, 0) : r.drawBox(rect(), 75, 75, 75);
+		return;
+	}
+
 	r.clipRect(rect());
 
 	// draw boundaries of the widget
