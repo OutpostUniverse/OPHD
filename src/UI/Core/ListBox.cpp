@@ -257,7 +257,7 @@ void ListBox::update()
 		return;
 	}
 
-	r.clipRect(rect());
+	r.clipRect(rect().x() - 1, rect().y(), rect().width() + 1, rect().height() + 1);
 
 	// draw boundaries of the widget
 	r.drawBox(rect().x(), rect().y(), mItemWidth, rect().height(), 0, 0, 0, 100);
