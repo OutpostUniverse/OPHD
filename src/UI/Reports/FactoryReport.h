@@ -24,6 +24,10 @@ private:
 	void btnShowIdleClicked();
 	void btnShowDisabledClicked();
 
+	void btnIdleClicked();
+	void btnClearProductionClicked();
+	void btnTakeMeThereClicked();
+
 	void filterButtonClicked();
 
 	void lstFactoryListSelectionChanged(Factory*);
@@ -31,6 +35,7 @@ private:
 	void resized(Control*);
 
 	void drawDetailPane(Renderer& r);
+	void drawProductPane(Renderer& r);
 
 private:
 	Button			btnShowAll;
@@ -40,7 +45,13 @@ private:
 	Button			btnShowIdle;
 	Button			btnShowDisabled;
 
+	Button			btnIdle;
+	Button			btnClearProduction;
+	Button			btnTakeMeThere;
+
 	ComboBox		cboFilterByProduct;
 
 	FactoryListBox	lstFactoryList;
+
+	ListBox			lstProducts;
 };

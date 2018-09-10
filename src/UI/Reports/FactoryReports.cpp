@@ -6,18 +6,23 @@
 #include "../../Constants.h"
 #include "../../FontManager.h"
 
-
 #include "../../Things/Structures/SurfaceFactory.h"
 #include "../../Things/Structures/SeedFactory.h"
 #include "../../Things/Structures/UndergroundFactory.h"
 
+#include <array>
 
 static int SORT_BY_PRODUCT_POSITION = 0;
+static int STATUS_LABEL_POSITION = 0;
+static int WIDTH_RESOURCES_REQUIRED_LABEL = 0;
 
 static Rectangle_2d	FACTORY_LISTBOX;
 static Rectangle_2d DETAIL_PANEL;
 
 static Font* FONT = nullptr;
+static Font* FONT_BOLD = nullptr;
+static Font* FONT_MED = nullptr;
+static Font* FONT_MED_BOLD = nullptr;
 static Font* FONT_BIG = nullptr;
 static Font* FONT_BIG_BOLD = nullptr;
 
@@ -27,7 +32,14 @@ static Image* FACTORY_SEED = nullptr;
 static Image* FACTORY_AG = nullptr;
 static Image* FACTORY_UG = nullptr;
 static Image* FACTORY_IMAGE = nullptr;
+static Image* FACTORY_PRODUCT = nullptr;
 
+std::array<Image*, PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
+static Image* _PRODUCT_NONE = nullptr;
+
+
+static std::string FACTORY_STATUS;
+static const std::string RESOURCES_REQUIRED = "Resources Required";
 
 /**
  * C'tor
@@ -46,6 +58,9 @@ FactoryReport::~FactoryReport()
 	delete FACTORY_SEED;
 	delete FACTORY_AG;
 	delete FACTORY_UG;
+	delete _PRODUCT_NONE;
+
+	for (auto img : PRODUCT_IMAGE_ARRAY) { delete img; }
 }
 
 
@@ -55,12 +70,31 @@ FactoryReport::~FactoryReport()
 void FactoryReport::init()
 {
 	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 10);
+	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 10);
+
+	FONT_MED = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 14);
+	FONT_MED_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 14);
+
 	FONT_BIG = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 20);
 	FONT_BIG_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 20);
 
-	FACTORY_SEED = new Image("ui/interface/factory_seed.png");
-	FACTORY_AG = new Image("ui/interface/factory_ag.png");
-	FACTORY_UG = new Image("ui/interface/factory_ug.png");
+	FACTORY_SEED	= new Image("ui/interface/factory_seed.png");
+	FACTORY_AG		= new Image("ui/interface/factory_ag.png");
+	FACTORY_UG		= new Image("ui/interface/factory_ug.png");
+
+	/// \todo Decide if this is the best place to have these images live or if it should be done at program start.
+	PRODUCT_IMAGE_ARRAY.fill(nullptr);
+	PRODUCT_IMAGE_ARRAY[PRODUCT_DIGGER]				= new Image("ui/interface/product_robodigger.png");
+	PRODUCT_IMAGE_ARRAY[PRODUCT_DOZER]				= new Image("ui/interface/product_robodozer.png");
+	PRODUCT_IMAGE_ARRAY[PRODUCT_MINER]				= new Image("ui/interface/product_robominer.png");
+	PRODUCT_IMAGE_ARRAY[PRODUCT_EXPLORER]			= new Image("ui/interface/product_roboexplorer.png");
+	PRODUCT_IMAGE_ARRAY[PRODUCT_TRUCK]				= new Image("ui/interface/product_truck.png");
+	PRODUCT_IMAGE_ARRAY[PRODUCT_ROAD_MATERIALS]		= new Image("ui/interface/product_road_materials.png");
+	PRODUCT_IMAGE_ARRAY[PRODUCT_MAINTENANCE_PARTS]	= new Image("ui/interface/product_maintenance_parts.png");
+	PRODUCT_IMAGE_ARRAY[PRODUCT_CLOTHING]			= new Image("ui/interface/product_clothing.png");
+	PRODUCT_IMAGE_ARRAY[PRODUCT_MEDICINE]			= new Image("ui/interface/product_medicine.png");
+
+	_PRODUCT_NONE = new Image("ui/interface/product_none.png");
 
 	// Controls are drawn in the order in which they were inserted -- so this is here
 	// to ensure that the combobox is drawn above everything else.
@@ -152,6 +186,28 @@ void FactoryReport::init()
 	btnShowDisabled.text("Disabled");
 	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
 
+
+	int position_x = Utility<Renderer>::get().width() - 110;
+	add(&btnIdle, position_x, 35);
+	btnIdle.type(Button::BUTTON_TOGGLE);
+	btnIdle.font(*FONT);
+	btnIdle.size(100, 20);
+	btnIdle.text("Idle");
+	btnIdle.click().connect(this, &FactoryReport::btnIdleClicked);
+
+	add(&btnClearProduction, position_x, 65);
+	btnClearProduction.font(*FONT);
+	btnClearProduction.size(100, 20);
+	btnClearProduction.text("Clear Production");
+	btnClearProduction.click().connect(this, &FactoryReport::btnClearProductionClicked);
+
+	add(&btnTakeMeThere, position_x, 95);
+	btnTakeMeThere.font(*FONT);
+	btnTakeMeThere.size(100, 20);
+	btnTakeMeThere.text("Take Me There");
+	btnTakeMeThere.click().connect(this, &FactoryReport::btnTakeMeThereClicked);
+
+
 	add(&cboFilterByProduct, 250, 33);
 	cboFilterByProduct.font(*FONT);
 	cboFilterByProduct.size(200, 20);
@@ -167,7 +223,11 @@ void FactoryReport::init()
 	cboFilterByProduct.addItem("Road Materials");
 	cboFilterByProduct.addItem("Truck");
 
+	add(&lstProducts, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20, rect().y() + 230);
+	lstProducts.font(*FONT);
+
 	SORT_BY_PRODUCT_POSITION = cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() - FONT->width("Filter by Product");
+	WIDTH_RESOURCES_REQUIRED_LABEL = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
 
 	Control::resized().connect(this, &FactoryReport::resized);
 }
@@ -190,6 +250,15 @@ void FactoryReport::resized(Control* c)
 		rect().y() + 10,
 		rect().width() - (cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width()) - 30,
 		rect().y() + rect().height() - 69);
+
+	STATUS_LABEL_POSITION = DETAIL_PANEL.x() + FONT_MED_BOLD->width("Status") + 158;
+	
+	int position_x = c->width() - 110;
+	btnIdle.position(position_x, btnIdle.positionY());
+	btnClearProduction.position(position_x, btnClearProduction.positionY());
+	btnTakeMeThere.position(position_x, btnTakeMeThere.positionY());
+
+	lstProducts.size(DETAIL_PANEL.width() / 3, DETAIL_PANEL.height() - 219);
 }
 
 
@@ -272,6 +341,35 @@ void FactoryReport::btnShowDisabledClicked()
 /**
  * 
  */
+void FactoryReport::btnIdleClicked()
+{
+	SELECTED_FACTORY->forceIdle(btnIdle.toggled());
+	FACTORY_STATUS = structureStateDescription(SELECTED_FACTORY->state());
+}
+
+
+/**
+ * 
+ */
+void FactoryReport::btnClearProductionClicked()
+{
+
+}
+
+
+/**
+ * 
+ */
+void FactoryReport::btnTakeMeThereClicked()
+{
+
+}
+
+
+
+/**
+ * 
+ */
 void FactoryReport::lstFactoryListSelectionChanged(Factory* _f)
 {
 	SELECTED_FACTORY = _f;
@@ -282,6 +380,22 @@ void FactoryReport::lstFactoryListSelectionChanged(Factory* _f)
 	if (SELECTED_FACTORY->name() == constants::SEED_FACTORY) { FACTORY_IMAGE = FACTORY_SEED; }
 	else if (SELECTED_FACTORY->name() == constants::SURFACE_FACTORY) { FACTORY_IMAGE = FACTORY_AG; }
 	else if (SELECTED_FACTORY->name() == constants::UNDERGROUND_FACTORY) { FACTORY_IMAGE = FACTORY_UG; }
+
+	FACTORY_STATUS = structureStateDescription(_f->state());
+
+	btnIdle.toggle(_f->state() == Structure::IDLE);
+	btnIdle.enabled(_f->state() == Structure::OPERATIONAL || _f->state() == Structure::IDLE);
+
+	btnClearProduction.enabled(_f->state() == Structure::OPERATIONAL || _f->state() == Structure::IDLE);
+
+
+	lstProducts.dropAllItems();
+	const Factory::ProductionTypeList& _pl = _f->productList();
+	for (auto item : _pl)
+	{
+		lstProducts.addItem(productDescription(item));
+	}
+	lstProducts.clearSelection();
 }
 
 
@@ -291,10 +405,45 @@ void FactoryReport::lstFactoryListSelectionChanged(Factory* _f)
  */
 void FactoryReport::drawDetailPane(Renderer& r)
 {
-	r.drawBox(DETAIL_PANEL, 255, 255, 0);
-	r.drawImage(*FACTORY_IMAGE, DETAIL_PANEL.x(), DETAIL_PANEL.y());
-	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), DETAIL_PANEL.x() + 138, DETAIL_PANEL.y(), 0, 185, 0);
+	//r.drawBox(DETAIL_PANEL, 255, 255, 0);
 
+	Color_4ub text_color(0, 185, 0, 255);
+
+	r.drawImage(*FACTORY_IMAGE, DETAIL_PANEL.x(), DETAIL_PANEL.y() + 25);
+	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), DETAIL_PANEL.x(), DETAIL_PANEL.y() - 8, text_color.red(), text_color.green(), text_color.blue());
+
+	r.drawText(*FONT_MED_BOLD, "Status", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 25, text_color.red(), text_color.green(), text_color.blue());
+	r.drawText(*FONT_MED, FACTORY_STATUS, STATUS_LABEL_POSITION, DETAIL_PANEL.y() + 25, text_color.red(), text_color.green(), text_color.blue());
+
+	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 55, text_color.red(), text_color.green(), text_color.blue());
+
+	r.drawText(*FONT_BOLD, "Common Metals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 75, text_color.red(), text_color.green(), text_color.blue());
+	r.drawText(*FONT_BOLD, "Common Minerals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 90, text_color.red(), text_color.green(), text_color.blue());
+	r.drawText(*FONT_BOLD, "Rare Metals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 105, text_color.red(), text_color.green(), text_color.blue());
+	r.drawText(*FONT_BOLD, "Rare Minerals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 120, text_color.red(), text_color.green(), text_color.blue());
+
+	r.drawText(*FONT, "0", DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width("0"), DETAIL_PANEL.y() + 75, text_color.red(), text_color.green(), text_color.blue());
+	r.drawText(*FONT, "0", DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width("0"), DETAIL_PANEL.y() + 90, text_color.red(), text_color.green(), text_color.blue());
+	r.drawText(*FONT, "0", DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width("0"), DETAIL_PANEL.y() + 105, text_color.red(), text_color.green(), text_color.blue());
+	r.drawText(*FONT, "0", DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width("0"), DETAIL_PANEL.y() + 120, text_color.red(), text_color.green(), text_color.blue());
+	
+	std::string population = string_format("%i/%i", SELECTED_FACTORY->populationAvailable()[0], SELECTED_FACTORY->populationRequirements()[0]);
+
+	SELECTED_FACTORY->populationAvailable()[0] == SELECTED_FACTORY->populationRequirements()[0] ? text_color(0, 185, 0, 255) : text_color(255, 0, 0, 255);
+
+	r.drawBoxFilled(DETAIL_PANEL.x() + 136, DETAIL_PANEL.y() + 135, WIDTH_RESOURCES_REQUIRED_LABEL + 4, 15, 150, 0, 0, 255);
+
+	r.drawText(*FONT_BOLD, "Workers", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 135, text_color.red(), text_color.green(), text_color.blue());
+	r.drawText(*FONT, population, DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(population), DETAIL_PANEL.y() + 135, text_color.red(), text_color.green(), text_color.blue());
+}
+
+
+/**
+ * 
+ */
+void FactoryReport::drawProductPane(Renderer& r)
+{
+	r.drawText(*FONT_BIG_BOLD, "Production", DETAIL_PANEL.x(), DETAIL_PANEL.y() + 180, 0, 185, 0);
 
 }
 
@@ -306,10 +455,10 @@ void FactoryReport::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + rect().height() - 10, 255, 255, 255);
+	r.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + rect().height() - 10, 0, 185, 0);
 	r.drawText(*FONT, "Filter by Product", SORT_BY_PRODUCT_POSITION, rect().y() + 10, 0, 185, 0);
 
-	if (SELECTED_FACTORY) { drawDetailPane(r); }
+	if (SELECTED_FACTORY) { drawDetailPane(r); drawProductPane(r); }
 
 	UIContainer::update();
 }
