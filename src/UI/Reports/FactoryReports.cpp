@@ -42,6 +42,10 @@ static const std::string RESOURCES_REQUIRED = "Resources Required";
 
 static ProductType SELECTED_PRODUCT_TYPE = PRODUCT_NONE;
 
+
+
+
+
 /**
  * C'tor
  */
@@ -276,9 +280,6 @@ void FactoryReport::resized(Control* c)
 
 	txtProductDescription.position(lstProducts.positionX() + lstProducts.width() + 158, lstProducts.positionY());
 	txtProductDescription.width(rect().width() - txtProductDescription.positionX() - 30);
-
-	//prgProductProgress.position(lstProducts.positionX() + lstProducts.width() + 20, DETAIL_PANEL.y() + 388);
-	//prgProductProgress.size(rect().width() - txtProductDescription.positionX() - 30, 30);
 }
 
 
@@ -428,9 +429,7 @@ void FactoryReport::lstFactoryListSelectionChanged(Factory* _f)
 
 	btnClearProduction.enabled(_f->state() == Structure::OPERATIONAL || _f->state() == Structure::IDLE);
 
-
 	lstProducts.dropAllItems();
-
 	if (SELECTED_FACTORY->state() != Structure::DESTROYED)
 	{
 		const Factory::ProductionTypeList& _pl = _f->productList();
@@ -459,8 +458,6 @@ void FactoryReport::lstProductsSelectionChanged()
  */
 void FactoryReport::drawDetailPane(Renderer& r)
 {
-	//r.drawBox(DETAIL_PANEL, 255, 255, 0);
-
 	Color_4ub text_color(0, 185, 0, 255);
 
 	r.drawImage(*FACTORY_IMAGE, DETAIL_PANEL.x(), DETAIL_PANEL.y() + 25);
@@ -476,17 +473,14 @@ void FactoryReport::drawDetailPane(Renderer& r)
 	r.drawText(*FONT_BOLD, "Rare Metals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 105, text_color.red(), text_color.green(), text_color.blue());
 	r.drawText(*FONT_BOLD, "Rare Minerals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 120, text_color.red(), text_color.green(), text_color.blue());
 
-
 	const ProductionCost& _pc = productCost(SELECTED_FACTORY->productType());
 	r.drawText(*FONT, std::to_string(_pc.commonMetals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.commonMetals())), DETAIL_PANEL.y() + 75, text_color.red(), text_color.green(), text_color.blue());
 	r.drawText(*FONT, std::to_string(_pc.commonMinerals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.commonMinerals())), DETAIL_PANEL.y() + 90, text_color.red(), text_color.green(), text_color.blue());
 	r.drawText(*FONT, std::to_string(_pc.rareMetals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.rareMetals())), DETAIL_PANEL.y() + 105, text_color.red(), text_color.green(), text_color.blue());
 	r.drawText(*FONT, std::to_string(_pc.rareMinerals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.rareMinerals())), DETAIL_PANEL.y() + 120, text_color.red(), text_color.green(), text_color.blue());
-	
 
 	SELECTED_FACTORY->populationAvailable()[0] == SELECTED_FACTORY->populationRequirements()[0] ? text_color(0, 185, 0, 255) : text_color(255, 0, 0, 255);
 
-	//r.drawBoxFilled(DETAIL_PANEL.x() + 136, DETAIL_PANEL.y() + 135, WIDTH_RESOURCES_REQUIRED_LABEL + 4, 15, 150, 0, 0, 255);
 	r.drawText(*FONT_BOLD, "Workers", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 135, text_color.red(), text_color.green(), text_color.blue());
 
 	std::string _scratch = string_format("%i / %i", SELECTED_FACTORY->populationAvailable()[0], SELECTED_FACTORY->populationRequirements()[0]);
@@ -513,26 +507,19 @@ void FactoryReport::drawProductPane(Renderer& r)
 	if (SELECTED_FACTORY->productType() == PRODUCT_NONE) { return; }
 	
 	r.drawText(*FONT_BIG_BOLD, "Progress", position_x, DETAIL_PANEL.y() + 358, 0, 185, 0);
+	r.drawText(*FONT_MED, "Building " + productDescription(SELECTED_FACTORY->productType()), position_x, DETAIL_PANEL.y() + 393, 0, 185, 0);
 
-	r.drawBox(position_x, DETAIL_PANEL.y() + 393, rect().width() - position_x - 10, 30, 0, 185, 0);
-	int bar_width = 0;
-
+	r.drawBox(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10, 30, 0, 185, 0);
 	if (SELECTED_FACTORY->productType() != PRODUCT_NONE)
 	{
-		float turnsComplete = SELECTED_FACTORY->productionTurnsCompleted();
-		float turnsToComplete = SELECTED_FACTORY->productionTurnsToComplete();
-		float percentage = turnsComplete / turnsToComplete;
-
-		bar_width = static_cast<float>(rect().width() - position_x - 18) * percentage;
+		float percentage = static_cast<float>(SELECTED_FACTORY->productionTurnsCompleted()) / static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete());
+		int bar_width = static_cast<float>(rect().width() - position_x - 18) * percentage;
+		r.drawBoxFilled(position_x + 4, DETAIL_PANEL.y() + 417, bar_width, 22, 0, 100, 0);
 	}
 
-	r.drawBoxFilled(position_x + 4, DETAIL_PANEL.y() + 397, bar_width, 22, 0, 100, 0);
-
-	r.drawText(*FONT_MED_BOLD, "Turns", position_x, DETAIL_PANEL.y() + 429, 0, 185, 0);
-
 	std::string _turns = string_format("%i / %i", SELECTED_FACTORY->productionTurnsCompleted(), SELECTED_FACTORY->productionTurnsToComplete());
-
-	r.drawText(*FONT_MED, _turns, rect().width() - FONT_MED->width(_turns) - 10, DETAIL_PANEL.y() + 429, 0, 185, 0);
+	r.drawText(*FONT_MED_BOLD, "Turns", position_x, DETAIL_PANEL.y() + 449, 0, 185, 0);
+	r.drawText(*FONT_MED, _turns, rect().width() - FONT_MED->width(_turns) - 10, DETAIL_PANEL.y() + 449, 0, 185, 0);
 }
 
 

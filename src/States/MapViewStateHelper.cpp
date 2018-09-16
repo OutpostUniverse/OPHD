@@ -143,7 +143,7 @@ bool validLanderSite(Tile* t)
 /**
  * Document me!
  */
-int totalStorage(StructureManager::StructureList& _sl)
+int totalStorage(StructureList& _sl)
 {
 	int storage = 0;
 	for (size_t i = 0; i < _sl.size(); ++i)
@@ -338,7 +338,7 @@ RobotCommand* getAvailableRobotCommand(StructureManager& _sm)
  */
 void moveProducts(Warehouse* wh, StructureManager& _sm)
 {
-	StructureManager::StructureList& structures = _sm.structureList(Structure::CLASS_WAREHOUSE);
+	StructureList& structures = _sm.structureList(Structure::CLASS_WAREHOUSE);
 	for (auto structure : structures)
 	{
 		if (structure->operational())

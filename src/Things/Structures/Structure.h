@@ -192,5 +192,7 @@ private:
 };
 
 
+using StructureList = std::vector<Structure*>;
+
 const std::string& structureStateDescription(Structure::StructureState);
 const std::string& structureClassDescription(Structure::StructureClass);

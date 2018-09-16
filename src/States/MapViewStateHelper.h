@@ -31,7 +31,7 @@ bool structureIsLander(StructureID id);
 bool outOfCommRange(StructureManager& sm, Point_2d& cc_location, TileMap* tile_map, Tile* current_tile);
 bool selfSustained(StructureID id);
 
-int totalStorage(StructureManager::StructureList& _sl);
+int totalStorage(StructureList& _sl);
 
 Warehouse* getAvailableWarehouse(StructureManager& _sm, ProductType _pt, size_t _ct);
 RobotCommand* getAvailableRobotCommand(StructureManager& _sm);

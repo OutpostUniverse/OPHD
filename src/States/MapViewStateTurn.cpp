@@ -45,7 +45,7 @@ void MapViewState::updatePopulation()
 
 	// FOOD CONSUMPTION
 	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage(), residences, universities, nurseries, hospitals);
-	StructureManager::StructureList &foodproducers = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
+	StructureList &foodproducers = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
 	int remainder = food_consumed;
 
 	if (mPlayerResources.food() > 0)
@@ -68,8 +68,8 @@ void MapViewState::updatePopulation()
 void MapViewState::updateCommercial()
 {
 	// Get list of warehouses and commercial.
-	StructureManager::StructureList& _warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
-	StructureManager::StructureList& _commercial = mStructureManager.structureList(Structure::CLASS_COMMERCIAL);
+	StructureList& _warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
+	StructureList& _commercial = mStructureManager.structureList(Structure::CLASS_COMMERCIAL);
 
 	// No need to do anything if there are no commercial structures.
 	if (_commercial.empty()) { return; }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Things/Structures/Structure.h"
-#include "Things/Structures/Factory.h"
 
 #include "ResourcePool.h"
 #include "Map/Tile.h"
@@ -13,9 +12,6 @@
  */
 class StructureManager
 {
-public:
-	typedef std::vector<Structure*> StructureList;
-
 public:
 	StructureManager();
 	~StructureManager();

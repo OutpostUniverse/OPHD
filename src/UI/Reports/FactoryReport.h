@@ -14,6 +14,8 @@ public:
 	FactoryReport();
 	virtual ~FactoryReport();
 
+	void factoryList(StructureList&);
+
 	virtual void update() final;
 
 private:
