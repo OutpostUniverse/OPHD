@@ -265,4 +265,5 @@ NAS2D::StringList split_string(const char *str, char delim);
 /**
  * Translates a ProductType enumerator into a string.
  */
-const std::string& productDescription(ProductType type);
+const std::string& productDescription(ProductType);
+ProductType productTypeFromDescription(const std::string&);

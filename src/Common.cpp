@@ -146,6 +146,21 @@ const std::string& productDescription(ProductType type)
 }
 
 
+ProductType productTypeFromDescription(const std::string& description)
+{
+	for (size_t i = 0; i < PRODUCT_DESCRIPTION_TABLE.size(); ++i)
+	{
+		if (PRODUCT_DESCRIPTION_TABLE[i] == description)
+		{
+			// dubious (and slow)
+			return static_cast<ProductType>(i);
+		}
+	}
+
+	return PRODUCT_NONE;
+}
+
+
 /**
  * Shows a message dialog box.
  */
@@ -196,14 +211,10 @@ void checkSavegameVersion(const std::string& filename)
 NAS2D::StringList split_string(const char *str, char delim)
 {
 	std::vector<std::string> result;
-
 	do
 	{
 		const char *begin = str;
-
-		while (*str != delim && *str)
-			str++;
-
+		while (*str != delim && *str) { str++; }
 		result.push_back(std::string(begin, str));
 	} while (0 != *str++);
 
