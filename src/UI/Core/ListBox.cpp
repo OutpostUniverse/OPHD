@@ -112,9 +112,9 @@ bool ListBox::empty() const
  * \todo	Make this function safe to call regardless of whether a font
  *			has been defined or not.
  */
-void ListBox::addItem(const std::string& item)
+void ListBox::addItem(const std::string& item, int tag)
 {
-	mItems.push_back(item);
+	mItems.push_back(ListBoxItem(item, tag));
 	sort();
 	_updateItemDisplay();
 }
@@ -129,38 +129,35 @@ void ListBox::addItem(const std::string& item)
  */
 void ListBox::removeItem(const std::string& item)
 {
-	// Ignore if menu is empty
 	if (empty()) { return; }
 
-	StringList::iterator it = mItems.begin();
+	auto it = std::find(mItems.begin(), mItems.end(), item);
 
-	while (it != mItems.end())
+	if (it != mItems.end())
 	{
-		if (toLowercase((*it)) == toLowercase(item))
-		{
-			mItems.erase(it);
-			mCurrentSelection = constants::NO_SELECTION;
-			sort();
-			_updateItemDisplay();
-			return;
-		}
-
-		++it;
+		mItems.erase(it);
+		mCurrentSelection = constants::NO_SELECTION;
+		sort();
+		_updateItemDisplay();
 	}
 }
 
 
 bool ListBox::itemExists(const std::string& item)
 {
-	// Ignore if menu is empty
-	if (empty()) { return false; }
+	return std::find(mItems.begin(), mItems.end(), item) != mItems.end();
+}
 
-	for(size_t i = 0; i < mItems.size(); i++)
+
+/**
+ * 
+ */
+void ListBox::setSelectionByName(const std::string& item)
+{
+	for (size_t i = 0; i < mItems.size(); i++)
 	{
-		if (toLowercase(mItems[i]) == toLowercase(item)) { return true; }
+		if (toLowercase(mItems[i].Text) == toLowercase(item)) { mCurrentSelection = i; return; }
 	}
-
-	return false;
 }
 
 
@@ -281,11 +278,11 @@ void ListBox::update()
 		itemY = rect().y() + (i * mLineHeight) - mCurrentOffset;
 		if (i == mCurrentHighlight)
 		{
-			r.drawTextShadow(font(), mItems[i], rect().x(), itemY, 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
+			r.drawTextShadow(font(), mItems[i].Text, rect().x(), itemY, 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
 		}
 		else
 		{
-			r.drawTextShadow(font(), mItems[i], rect().x(), itemY, 1, mText.red(), mText.green(), mText.blue(), 0, 0, 0);
+			r.drawTextShadow(font(), mItems[i].Text, rect().x(), itemY, 1, mText.red(), mText.green(), mText.blue(), 0, 0, 0);
 		}
 	}
 

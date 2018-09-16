@@ -19,6 +19,19 @@ class ListBox: public UIContainer
 public:
 	typedef NAS2D::Signals::Signal0<void> SelectionChangedCallback;
 
+	struct ListBoxItem
+	{
+		ListBoxItem(const std::string text, int tag) : Text(text), Tag(tag) {}
+
+		bool operator==(const std::string rhs) { return Text == rhs; }
+		bool operator<(const ListBoxItem& lhs) { return Text < lhs.Text; }
+
+		std::string		Text;			/**< Text of the ListBoxItem. */
+		int				Tag = 0;		/**< User defined int data attached to the item. */
+	};
+
+	using ListBoxItems = std::vector<ListBoxItem>;
+
 public:
 	ListBox();
 	virtual ~ListBox();
@@ -31,7 +44,7 @@ public:
 	void textColor(const Color_4ub& color)	{ mText = color; }
 	void selectColor(const Color_4ub& color)	{ mHighlightBg = color; }
 
-	void addItem(const std::string& item);
+	void addItem(const std::string& item, int tag = 0);
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
 	void dropAllItems();
@@ -43,9 +56,12 @@ public:
 	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
 	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
 
+	void setSelectionByName(const std::string& item);
+
 	int currentHighlight() const { return mCurrentHighlight; }
 
-	const std::string& selectionText() const { return mItems[mCurrentSelection]; }
+	const std::string& selectionText() const { return mItems[mCurrentSelection].Text; }
+	int selectionTag() const { return mItems[mCurrentSelection].Tag; }
 
 	void update();
 
@@ -78,7 +94,7 @@ private:
 	int							mLineHeight = 0;								/**< Height of an item line. */
 	int							mLineCount = 0;									/**< Number of lines that can be displayed. */
 
-	StringList					mItems;											/**< List of items preserved in the order in which they're added. */
+	ListBoxItems				mItems;											/**< List of items preserved in the order in which they're added. */
 
 	Color_4ub					mText = COLOR_WHITE;							/**< Text Color */
 	Color_4ub					mHighlightBg = COLOR_GREEN;						/**< Highlight Background color. */
