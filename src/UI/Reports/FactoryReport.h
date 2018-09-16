@@ -30,14 +30,19 @@ private:
 	void btnClearProductionClicked();
 	void btnTakeMeThereClicked();
 
+	void btnApplyClicked();
+
 	void filterButtonClicked();
 
 	void lstFactoryListSelectionChanged(Factory*);
+	void lstProductsSelectionChanged();
 
 	void resized(Control*);
 
 	void drawDetailPane(Renderer& r);
 	void drawProductPane(Renderer& r);
+
+	virtual void visibilityChanged(bool visible) final;
 
 private:
 	Button			btnShowAll;
@@ -50,6 +55,8 @@ private:
 	Button			btnIdle;
 	Button			btnClearProduction;
 	Button			btnTakeMeThere;
+
+	Button			btnApply;
 
 	ComboBox		cboFilterByProduct;
 
