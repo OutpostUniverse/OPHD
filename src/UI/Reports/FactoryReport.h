@@ -21,6 +21,9 @@ public:
 private:
 	void init();
 
+	void fillFactoryList();
+	void fillFactoryList(ProductType);
+
 	void btnShowAllClicked();
 	void btnShowSurfaceClicked();
 	void btnShowUndergroundClicked();
@@ -34,10 +37,11 @@ private:
 
 	void btnApplyClicked();
 
-	void filterButtonClicked();
+	void filterButtonClicked(bool clearCbo);
 
 	void lstFactoryListSelectionChanged(Factory*);
 	void lstProductsSelectionChanged();
+	void cboFilterByProductSelectionChanged();
 
 	void resized(Control*);
 
@@ -67,4 +71,6 @@ private:
 	ListBox			lstProducts;
 
 	TextArea		txtProductDescription;
+
+	StructureList	mFactories;
 };

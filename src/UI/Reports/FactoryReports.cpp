@@ -43,9 +43,6 @@ static const std::string RESOURCES_REQUIRED = "Resources Required";
 static ProductType SELECTED_PRODUCT_TYPE = PRODUCT_NONE;
 
 
-
-
-
 /**
  * C'tor
  */
@@ -101,52 +98,9 @@ void FactoryReport::init()
 
 	_PRODUCT_NONE = new Image("ui/interface/product_none.png");
 
-	// Controls are drawn in the order in which they were inserted -- so this is here
-	// to ensure that the combobox is drawn above everything else.
 	add(&lstFactoryList, 10, 63);
 	lstFactoryList.font(*FONT);
 	lstFactoryList.selectionChanged().connect(this, &FactoryReport::lstFactoryListSelectionChanged);
-
-
-	// SAMPLE DATA
-	Factory* f5 = new SeedFactory();
-	f5->productType(PRODUCT_DOZER);
-	f5->forced_state_change(Structure::OPERATIONAL);
-	lstFactoryList.addItem(f5);
-
-	Factory* f6 = new SurfaceFactory();
-	f6->forced_state_change(Structure::OPERATIONAL);
-	lstFactoryList.addItem(f6);
-
-	Factory* f7 = new SurfaceFactory();
-	f7->forced_state_change(Structure::OPERATIONAL);
-	lstFactoryList.addItem(f7);
-
-	Factory* f8 = new UndergroundFactory();
-	f8->forced_state_change(Structure::IDLE);
-	lstFactoryList.addItem(f8);
-
-	Factory* f0 = new SurfaceFactory();
-	f0->forced_state_change(Structure::OPERATIONAL);
-	f0->productType(PRODUCT_DOZER);
-	f0->productionTurnsCompleted(3);
-	lstFactoryList.addItem(f0);
-
-	Factory* f1 = new UndergroundFactory();
-	f1->forced_state_change(Structure::DISABLED);
-	lstFactoryList.addItem(f1);
-
-	Factory* f2 = new UndergroundFactory();
-	f2->forced_state_change(Structure::DESTROYED);
-	lstFactoryList.addItem(f2);
-
-	Factory* f3 = new SurfaceFactory();
-	f3->forced_state_change(Structure::DESTROYED);
-	lstFactoryList.addItem(f3);
-	// END SAMPLE DATA
-
-	lstFactoryList.currentSelection(0);
-
 
 	add(&btnShowAll, 10, 10);
 	btnShowAll.font(*FONT);
@@ -222,16 +176,18 @@ void FactoryReport::init()
 	cboFilterByProduct.font(*FONT);
 	cboFilterByProduct.size(200, 20);
 
-	cboFilterByProduct.addItem("None");
-	cboFilterByProduct.addItem("Clothing");
-	cboFilterByProduct.addItem("Maintenance Supplies");
-	cboFilterByProduct.addItem("Medicine");
-	cboFilterByProduct.addItem("Robodigger");
-	cboFilterByProduct.addItem("Robodozer");
-	cboFilterByProduct.addItem("Roboexplorer");
-	cboFilterByProduct.addItem("Robominer");
-	cboFilterByProduct.addItem("Road Materials");
-	cboFilterByProduct.addItem("Truck");
+	cboFilterByProduct.addItem("None", PRODUCT_NONE);
+	cboFilterByProduct.addItem("Clothing", PRODUCT_CLOTHING);
+	cboFilterByProduct.addItem("Maintenance Supplies", PRODUCT_MAINTENANCE_PARTS);
+	cboFilterByProduct.addItem("Medicine", PRODUCT_MEDICINE);
+	cboFilterByProduct.addItem("Robodigger", PRODUCT_DIGGER);
+	cboFilterByProduct.addItem("Robodozer", PRODUCT_DOZER);
+	cboFilterByProduct.addItem("Roboexplorer", PRODUCT_EXPLORER);
+	cboFilterByProduct.addItem("Robominer", PRODUCT_MINER);
+	cboFilterByProduct.addItem("Road Materials", PRODUCT_ROAD_MATERIALS);
+	cboFilterByProduct.addItem("Truck", PRODUCT_TRUCK);
+
+	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::cboFilterByProductSelectionChanged);
 
 	add(&lstProducts, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20, rect().y() + 230);
 	lstProducts.font(*FONT);
@@ -246,6 +202,56 @@ void FactoryReport::init()
 
 	Control::resized().connect(this, &FactoryReport::resized);
 }
+
+
+/**
+ * Takes a StructureList and populates internal fields.
+ * 
+ * \note	Expects that the list of structures are, in fact, factories.
+ */
+void FactoryReport::factoryList(StructureList& _list)
+{
+	mFactories = _list;
+	for (auto factory : mFactories)
+	{
+		lstFactoryList.addItem(static_cast<Factory*>(factory));
+	}
+}
+
+
+void FactoryReport::fillFactoryList()
+{
+	SELECTED_FACTORY = nullptr;
+	lstFactoryList.clearItems();
+	for (auto factory : mFactories)
+	{
+		lstFactoryList.addItem(static_cast<Factory*>(factory));
+	}
+	lstFactoryList.currentSelection(0);
+
+	if (lstFactoryList.empty())
+	{
+
+	}
+}
+
+
+void FactoryReport::fillFactoryList(ProductType type)
+{
+	SELECTED_FACTORY = nullptr;
+	lstFactoryList.clearItems();
+	for (auto f : mFactories)
+	{
+		Factory* factory = static_cast<Factory*>(f);
+		if (factory->productType() == type)
+		{
+			lstFactoryList.addItem(factory);
+		}
+	}
+
+	lstFactoryList.currentSelection(0);
+}
+
 
 
 /**
@@ -297,7 +303,7 @@ void FactoryReport::visibilityChanged(bool visible)
 /**
  * 
  */
-void FactoryReport::filterButtonClicked()
+void FactoryReport::filterButtonClicked(bool clearCbo)
 {
 	btnShowAll.toggle(false);
 	btnShowSurface.toggle(false);
@@ -306,7 +312,7 @@ void FactoryReport::filterButtonClicked()
 	btnShowIdle.toggle(false);
 	btnShowDisabled.toggle(false);
 
-	cboFilterByProduct.clearSelection();
+	if (clearCbo) { cboFilterByProduct.clearSelection(); }
 }
 
 
@@ -315,8 +321,10 @@ void FactoryReport::filterButtonClicked()
  */
 void FactoryReport::btnShowAllClicked()
 {
-	filterButtonClicked();
+	filterButtonClicked(true);
 	btnShowAll.toggle(true);
+
+	fillFactoryList();
 }
 
 
@@ -325,7 +333,7 @@ void FactoryReport::btnShowAllClicked()
  */
 void FactoryReport::btnShowSurfaceClicked()
 {
-	filterButtonClicked();
+	filterButtonClicked(true);
 	btnShowSurface.toggle(true);
 }
 
@@ -335,7 +343,7 @@ void FactoryReport::btnShowSurfaceClicked()
  */
 void FactoryReport::btnShowUndergroundClicked()
 {
-	filterButtonClicked();
+	filterButtonClicked(true);
 	btnShowUnderground.toggle(true);
 }
 
@@ -345,7 +353,7 @@ void FactoryReport::btnShowUndergroundClicked()
  */
 void FactoryReport::btnShowActiveClicked()
 {
-	filterButtonClicked();
+	filterButtonClicked(true);
 	btnShowActive.toggle(true);
 }
 
@@ -355,7 +363,7 @@ void FactoryReport::btnShowActiveClicked()
  */
 void FactoryReport::btnShowIdleClicked()
 {
-	filterButtonClicked();
+	filterButtonClicked(true);
 	btnShowIdle.toggle(true);
 }
 
@@ -365,7 +373,7 @@ void FactoryReport::btnShowIdleClicked()
  */
 void FactoryReport::btnShowDisabledClicked()
 {
-	filterButtonClicked();
+	filterButtonClicked(true);
 	btnShowDisabled.toggle(true);
 }
 
@@ -405,6 +413,7 @@ void FactoryReport::btnTakeMeThereClicked()
 void FactoryReport::btnApplyClicked()
 {
 	SELECTED_FACTORY->productType(SELECTED_PRODUCT_TYPE);
+	cboFilterByProductSelectionChanged();
 }
 
 
@@ -447,9 +456,22 @@ void FactoryReport::lstFactoryListSelectionChanged(Factory* _f)
 }
 
 
+/**
+ * 
+ */
 void FactoryReport::lstProductsSelectionChanged()
 {
 	SELECTED_PRODUCT_TYPE = static_cast<ProductType>(lstProducts.selectionTag());
+}
+
+
+/**
+ * 
+ */
+void FactoryReport::cboFilterByProductSelectionChanged()
+{
+	filterButtonClicked(false);
+	fillFactoryList(static_cast<ProductType>(cboFilterByProduct.selectionTag()));
 }
 
 

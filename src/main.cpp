@@ -9,6 +9,8 @@
 #include "StructureCatalogue.h"
 #include "StructureTranslator.h"
 
+#include "Things/Structures/Structure.h"
+
 #include "States/MapViewState.h"
 #include "States/MainMenuState.h"
 #include "States/SplashState.h"
@@ -52,6 +54,50 @@ void validateVideoResolution()
 		cf.graphicsWidth(1024);
 		cf.graphicsHeight(728);
 	}
+}
+
+
+StructureList sampleFactoryList()
+{
+	StructureList list;
+
+	// SAMPLE DATA
+	Factory* f5 = new SeedFactory();
+	f5->productType(PRODUCT_DOZER);
+	f5->forced_state_change(Structure::OPERATIONAL);
+	list.push_back(f5);
+
+	Factory* f6 = new SurfaceFactory();
+	f6->forced_state_change(Structure::OPERATIONAL);
+	list.push_back(f6);
+
+	Factory* f7 = new SurfaceFactory();
+	f7->forced_state_change(Structure::OPERATIONAL);
+	list.push_back(f7);
+
+	Factory* f8 = new UndergroundFactory();
+	f8->forced_state_change(Structure::IDLE);
+	list.push_back(f8);
+
+	Factory* f0 = new SurfaceFactory();
+	f0->forced_state_change(Structure::OPERATIONAL);
+	f0->productType(PRODUCT_DOZER);
+	f0->productionTurnsCompleted(3);
+	list.push_back(f0);
+
+	Factory* f1 = new UndergroundFactory();
+	f1->forced_state_change(Structure::DISABLED);
+	list.push_back(f1);
+
+	Factory* f2 = new UndergroundFactory();
+	f2->forced_state_change(Structure::DESTROYED);
+	list.push_back(f2);
+
+	Factory* f3 = new SurfaceFactory();
+	f3->forced_state_change(Structure::DESTROYED);
+	list.push_back(f3);
+
+	return list;
 }
 
 
@@ -165,9 +211,10 @@ int main(int argc, char *argv[])
 		*/
 		
 		r.fadeIn(0.0f);
-		Wrapper* uistuff = new MainReportsUiState();
+		MainReportsUiState* uistuff = new MainReportsUiState();
 		uistuff->activate();
 		stateManager.setState(uistuff);
+		uistuff->addFactories(sampleFactoryList());
 
 		// Game Loop
 		while (stateManager.update())

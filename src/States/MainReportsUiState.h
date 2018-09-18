@@ -4,11 +4,15 @@
 
 #include "../UI/Core/ComboBox.h"
 
+#include "../Things/Structures/Structure.h"
+
 class MainReportsUiState : public Wrapper
 {
 public:
 	MainReportsUiState();
 	virtual ~MainReportsUiState();
+
+	void addFactories(StructureList&);
 
 protected:
 	void initialize();
