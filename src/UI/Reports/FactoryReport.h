@@ -15,6 +15,7 @@ public:
 	virtual ~FactoryReport();
 
 	void selectFactory(Factory*);
+	void showAll();
 
 	virtual void update() final;
 

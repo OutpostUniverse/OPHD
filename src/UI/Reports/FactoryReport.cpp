@@ -213,6 +213,15 @@ void FactoryReport::selectFactory(Factory* f)
 
 
 /**
+ * Pass-through function to simulate clicking on the Show All button.
+ */
+void FactoryReport::showAll()
+{
+	btnShowAllClicked();
+}
+
+
+/**
  * Fills the factory list with all available factories.
  */
 void FactoryReport::fillFactoryList()

@@ -297,6 +297,7 @@ void MainReportsUiState::selectFactoryPanel(Structure* f)
 	Panels[PANEL_PRODUCTION].Selected(true);
 	Panels[PANEL_PRODUCTION].UiPanel->visible(true);
 
+	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->showAll();
 	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->selectFactory(static_cast<Factory*>(f));
 }
 
