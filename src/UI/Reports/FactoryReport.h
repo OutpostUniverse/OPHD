@@ -43,6 +43,8 @@ private:
 	void lstProductsSelectionChanged();
 	void cboFilterByProductSelectionChanged();
 
+	void checkFactoryActionControls();
+
 	void resized(Control*);
 
 	void drawDetailPane(Renderer& r);

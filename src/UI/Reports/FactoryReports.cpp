@@ -216,6 +216,7 @@ void FactoryReport::factoryList(StructureList& _list)
 	{
 		lstFactoryList.addItem(static_cast<Factory*>(factory));
 	}
+	checkFactoryActionControls();
 }
 
 
@@ -229,10 +230,7 @@ void FactoryReport::fillFactoryList()
 	}
 	lstFactoryList.currentSelection(0);
 
-	if (lstFactoryList.empty())
-	{
-
-	}
+	checkFactoryActionControls();
 }
 
 
@@ -250,8 +248,25 @@ void FactoryReport::fillFactoryList(ProductType type)
 	}
 
 	lstFactoryList.currentSelection(0);
+	checkFactoryActionControls();
 }
 
+
+/**
+ * Sets visibility for factory action controls.
+ */
+void FactoryReport::checkFactoryActionControls()
+{
+	bool actionControlVisible = !lstFactoryList.empty();
+
+	btnIdle.visible(actionControlVisible);
+	btnClearProduction.visible(actionControlVisible);
+	btnTakeMeThere.visible(actionControlVisible);
+	btnApply.visible(actionControlVisible);
+	lstProducts.visible(actionControlVisible);
+
+	if (actionControlVisible) { lstFactoryList.currentSelection(0); }
+}
 
 
 /**
@@ -295,8 +310,11 @@ void FactoryReport::resized(Control* c)
  */
 void FactoryReport::visibilityChanged(bool visible)
 {
+	if (!SELECTED_FACTORY) { return; }
+
 	Structure::StructureState _state = SELECTED_FACTORY->state();
 	btnApply.visible(visible && (_state == Structure::OPERATIONAL || _state == Structure::IDLE));
+	checkFactoryActionControls();
 }
 
 
