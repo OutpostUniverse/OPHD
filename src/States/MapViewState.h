@@ -20,8 +20,6 @@
 #include "../ResourcePool.h"
 #include "../RobotPool.h"
 
-#include "../StructureManager.h"
-
 #include "../Things/Structures/Structure.h"
 #include "../Things/Robots/Robots.h"
 
@@ -62,7 +60,7 @@ public:
 public:
 	MapViewState(const std::string& savegame);
 	MapViewState(const std::string& map, const std::string& tset, int _d, int _minecount);
-	~MapViewState();
+	virtual ~MapViewState();
 
 	void setPopulationLevel(PopulationLevel _level);
 
@@ -199,8 +197,6 @@ private:
 	Point_2d			mCCLocation;					/**< Location of the Command Center. */
 
 	Rectangle_2d		mMiniMapBoundingBox;			/**< Area of the site map display. */
-
-	StructureManager	mStructureManager;				/**< Manager class responsible for managing all structures. */
 
 	// POOL'S
 	ResourcePool		mPlayerResources;				/**< Player's current resources. */

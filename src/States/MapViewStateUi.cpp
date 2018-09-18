@@ -294,7 +294,7 @@ void MapViewState::populateStructureMenu()
 	mConnections.dropAllItems();
 
 	// Above Ground structures only
-	if (mStructureManager.count() == 0)
+	if (Utility<StructureManager>::get().count() == 0)
 	{
 		if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 		{
@@ -470,8 +470,8 @@ void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, 
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
 	if (_t->depth() > 0 && _sel == DiggerDirection::SEL_DOWN)
 	{
-		mStructureManager.removeStructure(_t->structure());
-		mStructureManager.disconnectAll();
+		Utility<StructureManager>::get().removeStructure(_t->structure());
+		Utility<StructureManager>::get().disconnectAll();
 		_t->deleteThing();
 		_t->connected(false);
 		checkConnectedness();

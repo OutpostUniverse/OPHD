@@ -22,6 +22,5 @@ private:
 	void musicComplete();
 
 private:
-
 	NAS2D::State*	mReturnState = this;
 };

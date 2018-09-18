@@ -212,10 +212,10 @@ void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTabl
 /**
  * Document me!
  */
-void updateRobotControl(RobotPool& _rp, StructureManager& _sm)
+void updateRobotControl(RobotPool& _rp)
 {
-	auto CommandCenter = _sm.structureList(Structure::CLASS_COMMAND);
-	auto RobotCommand = _sm.structureList(Structure::CLASS_ROBOT_COMMAND);
+	auto CommandCenter = Utility<StructureManager>::get().structureList(Structure::CLASS_COMMAND);
+	auto RobotCommand = Utility<StructureManager>::get().structureList(Structure::CLASS_ROBOT_COMMAND);
 
 	// 3 for the first command center
 	uint32_t _maxRobots = 0;
@@ -255,7 +255,7 @@ bool selfSustained(StructureID id)
 /** 
  * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
  */
-bool outOfCommRange(StructureManager& sm, Point_2d& cc_location, TileMap* tile_map, Tile* current_tile)
+bool outOfCommRange(Point_2d& cc_location, TileMap* tile_map, Tile* current_tile)
 {
 	Tile* tile = tile_map->getVisibleTile();
 
@@ -263,14 +263,14 @@ bool outOfCommRange(StructureManager& sm, Point_2d& cc_location, TileMap* tile_m
 		return false;
 
 	Tile* _comm_t = nullptr;
-	for (auto _tower : sm.structureList(Structure::CLASS_COMM))
+	for (auto _tower : Utility<StructureManager>::get().structureList(Structure::CLASS_COMM))
 	{
 		if (!_tower->operational())
 		{
 			continue;
 		}
 
-		_comm_t = sm.tileFromStructure(_tower);
+		_comm_t = Utility<StructureManager>::get().tileFromStructure(_tower);
 		if (_comm_t->distanceTo(current_tile) <= constants::COMM_TOWER_BASE_RANGE)
 		{
 			return false;
@@ -285,16 +285,15 @@ bool outOfCommRange(StructureManager& sm, Point_2d& cc_location, TileMap* tile_m
  * Gets a pointer to a Warehouse structure that has the specified
  * amount of storage available.
  * 
- * \param	_sm		Reference to a StructureManager.
  * \param	_pt		Product to store. Use value from ProductType enumerator.
  * \param	_ct		Count of products that need to be stored.
  * 
  * \return	Returns a pointer to a Warehouse structure or \c nullptr if
  *			there are no warehouses available with the required space.
  */
-Warehouse* getAvailableWarehouse(StructureManager& _sm, ProductType _pt, size_t _ct)
+Warehouse* getAvailableWarehouse(ProductType _pt, size_t _ct)
 {
-	for (auto _st : _sm.structureList(Structure::CLASS_WAREHOUSE))
+	for (auto _st : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
 	{
 		Warehouse* _wh = static_cast<Warehouse*>(_st);
 		if (_wh->products().canStore(_pt, _ct))
@@ -313,14 +312,12 @@ Warehouse* getAvailableWarehouse(StructureManager& _sm, ProductType _pt, size_t 
  * 
  * \note	Assumes a check for only one robot at any given time.
  * 
- * \param	_sm		Reference to a StructureManager.
- * 
  * \return	Returns a pointer to a Warehouse structure or \c nullptr if
  *			there are no warehouses available with the required space.
  */
-RobotCommand* getAvailableRobotCommand(StructureManager& _sm)
+RobotCommand* getAvailableRobotCommand()
 {
-	for (auto _st : _sm.structureList(Structure::CLASS_ROBOT_COMMAND))
+	for (auto _st : Utility<StructureManager>::get().structureList(Structure::CLASS_ROBOT_COMMAND))
 	{
 		RobotCommand* _rc = static_cast<RobotCommand*>(_st);
 		if (_rc->operational() && _rc->commandCapacityAvailable())
@@ -336,9 +333,9 @@ RobotCommand* getAvailableRobotCommand(StructureManager& _sm)
 /**
  * Attempts to move all products from a Warehouse into any remaining warehouses.
  */
-void moveProducts(Warehouse* wh, StructureManager& _sm)
+void moveProducts(Warehouse* wh)
 {
-	StructureList& structures = _sm.structureList(Structure::CLASS_WAREHOUSE);
+	StructureList& structures = Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE);
 	for (auto structure : structures)
 	{
 		if (structure->operational())

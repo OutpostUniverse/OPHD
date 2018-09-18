@@ -28,14 +28,14 @@ bool validStructurePlacement(TileMap* tilemap, int x, int y);
 bool validLanderSite(Tile* t);
 bool landingSiteSuitable(TileMap* tilemap, int x, int y);
 bool structureIsLander(StructureID id);
-bool outOfCommRange(StructureManager& sm, Point_2d& cc_location, TileMap* tile_map, Tile* current_tile);
+bool outOfCommRange(Point_2d& cc_location, TileMap* tile_map, Tile* current_tile);
 bool selfSustained(StructureID id);
 
 int totalStorage(StructureList& _sl);
 
-Warehouse* getAvailableWarehouse(StructureManager& _sm, ProductType _pt, size_t _ct);
-RobotCommand* getAvailableRobotCommand(StructureManager& _sm);
-void moveProducts(Warehouse* wh, StructureManager& _sm);
+Warehouse* getAvailableWarehouse(ProductType _pt, size_t _ct);
+RobotCommand* getAvailableRobotCommand();
+void moveProducts(Warehouse* wh);
 
 
 // Serialize / Deserialize
@@ -44,5 +44,5 @@ void writeResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp);
 
 void readResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp);
 
-void updateRobotControl(RobotPool& _rp, StructureManager& _sm);
+void updateRobotControl(RobotPool& _rp);
 void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTable& rtt, Tile* tile);

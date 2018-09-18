@@ -51,7 +51,7 @@ void MapViewState::save(const std::string& _path)
 	doc.linkEndChild(root);
 
 	mTileMap->serialize(root);
-	mStructureManager.serialize(root);
+	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
 	writeResources(root, mPlayerResources);
 
@@ -129,7 +129,7 @@ void MapViewState::load(const std::string& _path)
 
 	scrubRobotList();
 	mPlayerResources.clear();
-	mStructureManager.dropAllStructures();
+	Utility<StructureManager>::get().dropAllStructures();
 	mCCLocation(0, 0);	// Reset CC location
 
 	if (mTileMap)
@@ -174,12 +174,12 @@ void MapViewState::load(const std::string& _path)
 		Utility<AiVoiceNotifier>::get().gender(static_cast<AiVoiceNotifier::AiGender>(gender));
 	}
 
-	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::CLASS_STORAGE)));
+	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::CLASS_STORAGE)));
 
 	checkConnectedness();
-	mStructureManager.updateEnergyProduction(mPlayerResources, mPopulationPool);
+	Utility<StructureManager>::get().updateEnergyProduction(mPlayerResources, mPopulationPool);
 
-	updateRobotControl(mRobotPool, mStructureManager);
+	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
 
 	if (mTurnCount == 0) { mBtnTurns.enabled(false); }
@@ -392,7 +392,7 @@ void MapViewState::readStructures(XmlElement* _ti)
 			}
 		}
 
-		mStructureManager.addStructure(st, t);
+		Utility<StructureManager>::get().addStructure(st, t);
 	}
 }
 

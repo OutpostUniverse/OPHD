@@ -255,7 +255,7 @@ int MapViewState::foodInStorage()
 {
 	int food_count = 0;
 
-	auto sl = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
+	auto sl = Utility<StructureManager>::get().structureList(Structure::CLASS_FOOD_PRODUCTION);
 
 	for (auto _st : sl)
 	{
@@ -284,7 +284,7 @@ int MapViewState::foodTotalStorage()
 		food_storage += constants::BASE_STORAGE_CAPACITY;
 	}
 
-	auto sl = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
+	auto sl = Utility<StructureManager>::get().structureList(Structure::CLASS_FOOD_PRODUCTION);
 	for (auto _st : sl)
 	{
 		if (_st->operational() || _st->isIdle())
@@ -681,15 +681,15 @@ void MapViewState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
 {
 	if (_dir == CONNECTOR_INTERSECTION)
 	{
-		mStructureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, _depth != 0), _t);
+		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, _depth != 0), _t);
 	}
 	else if (_dir == CONNECTOR_RIGHT)
 	{
-		mStructureManager.addStructure(new Tube(CONNECTOR_RIGHT, _depth != 0), _t);
+		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_RIGHT, _depth != 0), _t);
 	}
 	else if (_dir == CONNECTOR_LEFT)
 	{
-		mStructureManager.addStructure(new Tube(CONNECTOR_LEFT, _depth != 0), _t);
+		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_LEFT, _depth != 0), _t);
 	}
 	else
 	{
@@ -722,7 +722,7 @@ void MapViewState::placeTubes()
 		insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(x, y));
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
-		mStructureManager.disconnectAll();
+		Utility<StructureManager>::get().disconnectAll();
 		checkConnectedness();
 	}
 	else
@@ -743,7 +743,7 @@ void MapViewState::placeRobot()
 	
 	// NOTE:	This function will never be called until the seed lander is deployed so there
 	//			is no need to check that the CC Location is anything other than { 0, 0 }.
-	if (outOfCommRange(mStructureManager, mCCLocation, mTileMap, tile))
+	if (outOfCommRange(mCCLocation, mTileMap, tile))
 	{
 		std::cout << "Robot out of range!" << std::endl;
 		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::OUT_OF_COMM_RANGE);
@@ -762,7 +762,7 @@ void MapViewState::placeRobot()
 		else if (tile->mine() && tile->mine()->depth() == mTileMap->maxDepth() && tile->mine()->exhausted())
 		{
 			mMineOperationsWindow.hide();
-			mStructureManager.removeStructure(tile->structure());
+			Utility<StructureManager>::get().removeStructure(tile->structure());
 			tile->pushMine(nullptr);
 		}
 		else if (tile->thingIsStructure())
@@ -788,7 +788,7 @@ void MapViewState::placeRobot()
 
 			if (_s->isRobotCommand()) { deleteRobotsInRCC(r, static_cast<RobotCommand*>(_s), mRobotPool, mRobotList, tile); }
 			if (_s->isFactory() && static_cast<Factory*>(_s) == mFactoryProduction.factory()) { mFactoryProduction.hide(); }
-			if (_s->isWarehouse()) { moveProducts(static_cast<Warehouse*>(_s), mStructureManager); }
+			if (_s->isWarehouse()) { moveProducts(static_cast<Warehouse*>(_s)); }
 
 			/**
 			 * \fixme	Since the StructureTranslator class will be deprecated in the future, there needs to be a better
@@ -799,9 +799,9 @@ void MapViewState::placeRobot()
 			mPlayerResources.pushResources(resPool);
 
 			tile->connected(false);
-			mStructureManager.removeStructure(_s);
+			Utility<StructureManager>::get().removeStructure(_s);
 			tile->deleteThing();
-			mStructureManager.disconnectAll();
+			Utility<StructureManager>::get().disconnectAll();
 			checkConnectedness();
 		}
 		else if (tile->index() == TERRAIN_DOZED)
@@ -980,7 +980,7 @@ void MapViewState::placeStructure()
 
 		ColonistLander* s = new ColonistLander(tile);
 		s->deployCallback().connect(this, &MapViewState::deployColonistLander);
-		mStructureManager.addStructure(s, tile);
+		Utility<StructureManager>::get().addStructure(s, tile);
 
 		--mLandersColonist;
 		if (mLandersColonist == 0)
@@ -996,7 +996,7 @@ void MapViewState::placeStructure()
 
 		CargoLander* _lander = new CargoLander(tile);
 		_lander->deployCallback().connect(this, &MapViewState::deployCargoLander);
-		mStructureManager.addStructure(_lander, tile);
+		Utility<StructureManager>::get().addStructure(_lander, tile);
 
 		--mLandersCargo;
 		if (mLandersCargo == 0)
@@ -1026,7 +1026,7 @@ void MapViewState::placeStructure()
 		Structure* _s = StructureCatalogue::get(mCurrentStructure);
 		if (!_s) { throw std::runtime_error("MapViewState::placeStructure(): NULL Structure returned from StructureCatalog."); }
 
-		mStructureManager.addStructure(_s, tile);
+		Utility<StructureManager>::get().addStructure(_s, tile);
 
 		// FIXME: Ugly
 		if (_s->isFactory())
@@ -1059,7 +1059,7 @@ void MapViewState::insertSeedLander(int x, int y)
 
 		SeedLander* s = new SeedLander(x, y);
 		s->deployCallback().connect(this, &MapViewState::deploySeedLander);
-		mStructureManager.addStructure(s, mTileMap->getTile(x, y)); // Can only ever be placed on depth level 0
+		Utility<StructureManager>::get().addStructure(s, mTileMap->getTile(x, y)); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();
@@ -1108,7 +1108,7 @@ void MapViewState::updateRobots()
 		}
 	}
 
-	updateRobotControl(mRobotPool, mStructureManager);
+	updateRobotControl(mRobotPool);
 }
 
 

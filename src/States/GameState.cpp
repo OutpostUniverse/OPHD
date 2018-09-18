@@ -39,6 +39,7 @@ GameState::~GameState()
 	delete MAIN_REPORTS_UI;
 
 	Utility<Mixer>::get().musicComplete().disconnect(this, &GameState::musicComplete);
+	Utility<StructureManager>::get().dropAllStructures();
 }
 
 

@@ -38,14 +38,16 @@ static int pullFood(ResourcePool& _rp, int amount)
  */
 void MapViewState::updatePopulation()
 {
-	int residences = mStructureManager.getCountInState(Structure::CLASS_RESIDENCE, Structure::OPERATIONAL);
-	int universities = mStructureManager.getCountInState(Structure::CLASS_UNIVERSITY, Structure::OPERATIONAL);
-	int nurseries = mStructureManager.getCountInState(Structure::CLASS_NURSERY, Structure::OPERATIONAL);
-	int hospitals = mStructureManager.getCountInState(Structure::CLASS_MEDICAL_CENTER, Structure::OPERATIONAL);
+	StructureManager& sm = Utility<StructureManager>::get();
+	
+	int residences = sm.getCountInState(Structure::CLASS_RESIDENCE, Structure::OPERATIONAL);
+	int universities = sm.getCountInState(Structure::CLASS_UNIVERSITY, Structure::OPERATIONAL);
+	int nurseries = sm.getCountInState(Structure::CLASS_NURSERY, Structure::OPERATIONAL);
+	int hospitals = sm.getCountInState(Structure::CLASS_MEDICAL_CENTER, Structure::OPERATIONAL);
 
 	// FOOD CONSUMPTION
 	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage(), residences, universities, nurseries, hospitals);
-	StructureList &foodproducers = mStructureManager.structureList(Structure::CLASS_FOOD_PRODUCTION);
+	StructureList &foodproducers = sm.structureList(Structure::CLASS_FOOD_PRODUCTION);
 	int remainder = food_consumed;
 
 	if (mPlayerResources.food() > 0)
@@ -67,14 +69,15 @@ void MapViewState::updatePopulation()
  */
 void MapViewState::updateCommercial()
 {
-	// Get list of warehouses and commercial.
-	StructureList& _warehouses = mStructureManager.structureList(Structure::CLASS_WAREHOUSE);
-	StructureList& _commercial = mStructureManager.structureList(Structure::CLASS_COMMERCIAL);
+	StructureManager& sm = Utility<StructureManager>::get();
+
+	StructureList& _warehouses = sm.structureList(Structure::CLASS_WAREHOUSE);
+	StructureList& _commercial = sm.structureList(Structure::CLASS_COMMERCIAL);
 
 	// No need to do anything if there are no commercial structures.
 	if (_commercial.empty()) { return; }
 
-	int luxuryCount = mStructureManager.getCountInState(Structure::CLASS_COMMERCIAL, Structure::OPERATIONAL);
+	int luxuryCount = sm.getCountInState(Structure::CLASS_COMMERCIAL, Structure::OPERATIONAL);
 	int commercialCount = luxuryCount;
 
 	for (auto warehouse : _warehouses)
@@ -126,22 +129,24 @@ void MapViewState::updateCommercial()
  */
 void MapViewState::updateMorale()
 {
+	StructureManager& sm = Utility<StructureManager>::get();
+
 	// POSITIVE MORALE EFFECTS
 	// =========================================
 	mCurrentMorale += mPopulation.birthCount();
-	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_PARK, Structure::OPERATIONAL);
-	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_RECREATION_CENTER, Structure::OPERATIONAL);
+	mCurrentMorale += sm.getCountInState(Structure::CLASS_PARK, Structure::OPERATIONAL);
+	mCurrentMorale += sm.getCountInState(Structure::CLASS_RECREATION_CENTER, Structure::OPERATIONAL);
 
-	int food_production = mStructureManager.getCountInState(Structure::CLASS_FOOD_PRODUCTION, Structure::OPERATIONAL);
+	int food_production = sm.getCountInState(Structure::CLASS_FOOD_PRODUCTION, Structure::OPERATIONAL);
 	mCurrentMorale += food_production > 0 ? food_production : -5;
 
-	mCurrentMorale += mStructureManager.getCountInState(Structure::CLASS_COMMERCIAL, Structure::OPERATIONAL);
+	mCurrentMorale += sm.getCountInState(Structure::CLASS_COMMERCIAL, Structure::OPERATIONAL);
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================
 	mCurrentMorale -= mPopulation.deathCount();
-	mCurrentMorale -= mStructureManager.disabled();
-	mCurrentMorale -= mStructureManager.destroyed();
+	mCurrentMorale -= sm.disabled();
+	mCurrentMorale -= sm.destroyed();
 
 	int residentialMoraleHit = static_cast<int>(mPopulationPanel.capacity() / 100.0f);
 
@@ -160,13 +165,13 @@ void MapViewState::updateMorale()
 void MapViewState::updateResources()
 {
 	// Update storage capacity
-	mPlayerResources.capacity(totalStorage(mStructureManager.structureList(Structure::CLASS_STORAGE)));
+	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::CLASS_STORAGE)));
 
 	ResourcePool truck;
 	truck.capacity(100);
 
 	// Move ore from mines to smelters
-	for (auto mine : mStructureManager.structureList(Structure::CLASS_MINE))
+	for (auto mine : Utility<StructureManager>::get().structureList(Structure::CLASS_MINE))
 	{
 		static_cast<MineFacility*>(mine)->mine()->checkExhausted();
 
@@ -179,7 +184,7 @@ void MapViewState::updateResources()
 		truck.rareMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS_ORE, 25));
 		truck.rareMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, 25));
 
-		for (auto smelter : mStructureManager.structureList(Structure::CLASS_SMELTER))
+		for (auto smelter : Utility<StructureManager>::get().structureList(Structure::CLASS_SMELTER))
 		{
 			if (smelter->operational())
 			{
@@ -194,7 +199,7 @@ void MapViewState::updateResources()
 	}
 
 	// Move refined resources from smelters to storage tanks
-	for (auto smelter : mStructureManager.structureList(Structure::CLASS_SMELTER))
+	for (auto smelter : Utility<StructureManager>::get().structureList(Structure::CLASS_SMELTER))
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
@@ -253,7 +258,7 @@ void MapViewState::checkColonyShip()
 void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
-	auto residences = mStructureManager.structureList(Structure::CLASS_RESIDENCE);
+	auto residences = Utility<StructureManager>::get().structureList(Structure::CLASS_RESIDENCE);
 	for (auto residence : residences)
 	{
 		if (residence->operational()) { mResidentialCapacity += static_cast<Residence*>(residence)->capacity(); }
@@ -278,9 +283,9 @@ void MapViewState::nextTurn()
 
 	mPopulationPool.clear();
 
-	mStructureManager.disconnectAll();
+	Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
-	mStructureManager.update(mPlayerResources, mPopulationPool);
+	Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
 
 	mPreviousMorale = mCurrentMorale;
 

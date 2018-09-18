@@ -68,11 +68,11 @@ void MapViewState::drawMiniMap()
 		r.drawBoxFilled(mCCLocation.x() + mMiniMapBoundingBox.x() - 1, mCCLocation.y() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
 	}
 
-	for (auto _tower : mStructureManager.structureList(Structure::CLASS_COMM))
+	for (auto _tower : Utility<StructureManager>::get().structureList(Structure::CLASS_COMM))
 	{
 		if (_tower->operational())
 		{
-			Tile* t = mStructureManager.tileFromStructure(_tower);
+			Tile* t = Utility<StructureManager>::get().tileFromStructure(_tower);
 			r.drawSubImage(mUiIcons, t->x() + mMiniMapBoundingBox.x() - 10, t->y() + mMiniMapBoundingBox.y() - 10, 146, 236, 20, 20);
 		}
 	}
@@ -164,8 +164,8 @@ void MapViewState::drawResourceInfo()
 
 	// Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.energy() <= 5) { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), mStructureManager.totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), mStructureManager.totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, 255, 255); }
+	if (mPlayerResources.energy() <= 5) { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, 255, 255); }
 
 	// Population / Morale
 	if (mCurrentMorale > mPreviousMorale) { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 16, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
@@ -318,5 +318,5 @@ void MapViewState::drawDebug()
 	r.drawText(mTinyFont, string_format("Map Mouse Hover Coords: %i, %i", mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY()), 10, 25 + mTinyFont.height() * 3, 255, 255, 255);
 	r.drawText(mTinyFont, string_format("Current Depth: %i", mTileMap->currentDepth()), 10, 25 + mTinyFont.height() * 4, 255, 255, 255);
 
-	r.drawText(mTinyFont, string_format("Structure Count: %i", mStructureManager.count()), 10, 25 + mTinyFont.height() * 6, 255, 255, 255);
+	r.drawText(mTinyFont, string_format("Structure Count: %i", Utility<StructureManager>::get().count()), 10, 25 + mTinyFont.height() * 6, 255, 255, 255);
 }
