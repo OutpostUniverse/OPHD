@@ -24,6 +24,8 @@ public:
 	const std::string& selectionText() const;
 	int selectionTag() const;
 
+	int currentSelection() { return lstItems.currentSelection(); }
+
 	virtual void update();
 
 private:

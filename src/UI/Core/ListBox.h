@@ -52,16 +52,16 @@ public:
 	int count() const { return mItems.size(); }
 	int lineHeight() const { return mLineHeight; }
 
+	void setSelectionByName(const std::string& item);
+
 	int currentSelection() const { return mCurrentSelection; }
 	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
 	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
 
-	void setSelectionByName(const std::string& item);
-
 	int currentHighlight() const { return mCurrentHighlight; }
 
-	const std::string& selectionText() const { return mItems[mCurrentSelection].Text; }
-	int selectionTag() const { return mItems[mCurrentSelection].Tag; }
+	const std::string& selectionText() const;
+	int selectionTag() const;
 
 	void update();
 
