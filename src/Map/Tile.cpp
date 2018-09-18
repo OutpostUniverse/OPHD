@@ -5,28 +5,21 @@
 
 #include "Tile.h"
 
-Tile::Tile() :	mIndex(0),
-				mX(0), mY(0), mDepth(0),
-				mThing(nullptr),
-				mMine(nullptr),
-				mExcavated(true),
-				mConnected(false),
-				mThingIsStructure(false)
+
+/**
+ * C'tor
+ */
+Tile::Tile()
 {}
 
+
+/**
+ * D'tor
+ */
 Tile::~Tile()
 {
-	if (mMine)
-	{
-		delete mMine;
-		mMine = nullptr;
-	}
-
-	if (mThing)
-	{
-		delete mThing;
-		mThing = nullptr;
-	}
+	delete mMine;
+	delete mThing;
 }
 
 
@@ -95,38 +88,43 @@ void Tile::removeThing()
 }
 
 
+/**
+ * 
+ */
 void Tile::pushMine(Mine* _mine)
 {
-	if (mMine)
-	{
-		delete mMine;
-		mMine = nullptr;
-	}
-
+	delete mMine;
 	mMine = _mine;
 }
 
 
+/**
+ * 
+ */
 Structure* Tile::structure()
 {
-	if (mThingIsStructure)
-		return static_cast<Structure*>(thing());
+	if (mThingIsStructure) { return static_cast<Structure*>(thing()); }
 
 	return nullptr;
 }
 
 
+/**
+ * 
+ */
 Robot* Tile::robot()
 {
 	// Assumption: Things in a tile can only be a Robot or a Structure. If the thing is not a
 	// structure, it can only be a robot.
-	if(!empty() && structure() == nullptr)
-		return static_cast<Robot*>(thing());
+	if (!empty() && structure() == nullptr) { return static_cast<Robot*>(thing()); }
 
 	return nullptr;
 }
 
 
+/**
+ * 
+ */
 float Tile::distanceTo(Tile* _t)
 {
 	int _x = _t->x() - x();

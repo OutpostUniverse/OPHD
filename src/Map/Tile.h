@@ -11,10 +11,7 @@
 class Tile
 {
 public:
-
 	Tile();
-	//Tile(int idx, int x, int y, int d);
-
 	~Tile();
 
 	int index() const { return mIndex; }
@@ -67,21 +64,19 @@ protected:
 	// Access to this function should be very, very limited.
 	void thingIsStructure(bool _b) { mThingIsStructure = _b; }
 
-
 private:
+	int				mIndex = 0;					/**<  */
 
-	int				mIndex;
-
-	int				mX;					/**< Tile Position Information */
-	int				mY;					/**< Tile Position Information */
-	int				mDepth;				/**< Tile Position Information */
+	int				mX = 0;						/**< Tile Position Information */
+	int				mY = 0;						/**< Tile Position Information */
+	int				mDepth = 0;					/**< Tile Position Information */
 
 
-	Thing*			mThing;
+	Thing*			mThing = nullptr;			/**<  */
 
-	Mine*			mMine;
+	Mine*			mMine = nullptr;			/**<  */
 
-	bool			mExcavated;			/**< Used when a Digger uncovers underground tiles. */
-	bool			mConnected;			/**< Flag indicating that this tile is connected to the Command Center. */
-	bool			mThingIsStructure;	/**< Flag indicating that the Thing in the tile is a Structure. */
+	bool			mExcavated = true;			/**< Used when a Digger uncovers underground tiles. */
+	bool			mConnected = false;			/**< Flag indicating that this tile is connected to the Command Center. */
+	bool			mThingIsStructure = false;	/**< Flag indicating that the Thing in the tile is a Structure. */
 };
