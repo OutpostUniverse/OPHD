@@ -19,6 +19,8 @@ GameState::GameState()
 
 GameState::~GameState()
 {
+	Utility<StructureManager>::get().dropAllStructures();
+
 	EventHandler& e = Utility<EventHandler>::get();
 
 	e.mouseMotion().disconnect(this, &GameState::onMouseMotion);
@@ -39,7 +41,6 @@ GameState::~GameState()
 	delete MAIN_REPORTS_UI;
 
 	Utility<Mixer>::get().musicComplete().disconnect(this, &GameState::musicComplete);
-	Utility<StructureManager>::get().dropAllStructures();
 }
 
 

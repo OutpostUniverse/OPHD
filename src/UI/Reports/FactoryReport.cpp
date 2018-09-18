@@ -202,6 +202,7 @@ void FactoryReport::init()
 	WIDTH_RESOURCES_REQUIRED_LABEL = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
 
 	Control::resized().connect(this, &FactoryReport::resized);
+	fillFactoryList();
 }
 
 

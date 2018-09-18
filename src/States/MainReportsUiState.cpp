@@ -208,12 +208,6 @@ void MainReportsUiState::initialize()
 }
 
 
-void MainReportsUiState::addFactories(StructureList& _list)
-{
-	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->factoryList(_list);
-}
-
-
 /**
  * Wrapper activate handler.
  */

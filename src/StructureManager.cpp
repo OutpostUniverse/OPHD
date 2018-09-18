@@ -366,7 +366,6 @@ void StructureManager::dropAllStructures()
 	}
 
 	mStructureTileTable.clear();
-
 	mStructureLists.clear();
 }
 

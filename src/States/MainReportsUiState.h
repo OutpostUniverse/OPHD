@@ -12,8 +12,6 @@ public:
 	MainReportsUiState();
 	virtual ~MainReportsUiState();
 
-	void addFactories(StructureList&);
-
 protected:
 	void initialize();
 	State* update();
