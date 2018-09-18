@@ -19,7 +19,7 @@ ComboBox::~ComboBox()
 {
 	resized().disconnect(this, &ComboBox::resizedHandler);
 	moved().disconnect(this, &ComboBox::repositioned);
-	lstItems.selectionChanged().disconnect(this, &ComboBox::selectionChanged);
+	lstItems.selectionChanged().disconnect(this, &ComboBox::lstItemsSelectionChanged);
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ComboBox::onMouseDown);
 	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ComboBox::onMouseWheel);
 }
@@ -45,7 +45,7 @@ void ComboBox::init()
 
 	resized().connect(this, &ComboBox::resizedHandler);
 	moved().connect(this, &ComboBox::repositioned);
-	lstItems.selectionChanged().connect(this, &ComboBox::selectionChanged);
+	lstItems.selectionChanged().connect(this, &ComboBox::lstItemsSelectionChanged);
 }
 
 
@@ -127,11 +127,12 @@ void ComboBox::clearSelection()
 /**
  * ListBox selection changed event handler.
  */
-void ComboBox::selectionChanged()
+void ComboBox::lstItemsSelectionChanged()
 {
 	txtField.text(lstItems.selectionText());
 	lstItems.visible(false);
 	_rect()(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
+	mSelectionChanged();
 }
 
 
@@ -152,14 +153,32 @@ void ComboBox::maxDisplayItems(int count)
 /**
  * Adds an item to the list.
  */
-void ComboBox::addItem(const std::string& item)
+void ComboBox::addItem(const std::string& item, int tag)
 {
-	lstItems.addItem(item);
+	lstItems.addItem(item, tag);
 
 	if (lstItems.count() > mMaxDisplayItems) { return; }
 	lstItems.height(lstItems.count() * lstItems.lineHeight());
 
 	lstItems.clearSelection();
+}
+
+
+/**
+ * Gets the text of the selection.
+ */
+const std::string& ComboBox::selectionText() const
+{
+	return lstItems.selectionText();
+}
+
+
+/**
+ * Gets the tag value of the selected item.
+ */
+int ComboBox::selectionTag() const
+{
+	return lstItems.selectionTag();
 }
 
 

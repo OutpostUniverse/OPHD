@@ -227,6 +227,7 @@ void FactoryListBox::removeItem(Factory* factory)
 void FactoryListBox::clearItems()
 {
 	mItems.clear();
+	mCurrentSelection = constants::NO_SELECTION;
 	_update_item_display();
 }
 
@@ -257,7 +258,7 @@ int FactoryListBox::currentSelection() const
 
 void FactoryListBox::currentSelection(int selection)
 {
-	mCurrentSelection = selection;
+	mItems.empty() ? mCurrentSelection == constants::NO_SELECTION : mCurrentSelection = selection;
 	mSelectionChanged(selectedFactory());
 }
 

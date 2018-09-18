@@ -6,15 +6,23 @@
 class ComboBox : public Control
 {
 public:
+	using SelectionChanged = NAS2D::Signals::Signal0<void>;
+
+public:
 	ComboBox();
 	virtual ~ComboBox();
 
-	void addItem(const std::string& item);
+	void addItem(const std::string& item, int tag = 0);
 
 	int maxDisplayItems() const { return mMaxDisplayItems; }
 	void maxDisplayItems(int count);
 
 	void clearSelection();
+
+	SelectionChanged& selectionChanged() { return mSelectionChanged; }
+
+	const std::string& selectionText() const;
+	int selectionTag() const;
 
 	virtual void update();
 
@@ -23,12 +31,11 @@ private:
 
 	void resizedHandler(Control*);
 	void repositioned(float, float);
-	void selectionChanged();
+	void lstItemsSelectionChanged();
 
 	void onMouseWheel(int x, int y);
 	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y) final;
 	virtual void onFontChanged() final;
-	//virtual void onFocusChanged() final;
 
 private:
 	Button				btnDown;
@@ -36,6 +43,8 @@ private:
 	TextField			txtField;
 
 	Rectangle_2d		mBaseArea;
+
+	SelectionChanged	mSelectionChanged;
 
 	int					mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
 };
