@@ -5,6 +5,7 @@
 
 #include "../../Constants.h"
 #include "../../FontManager.h"
+#include "../../StructureManager.h"
 
 #include "../../Things/Structures/SurfaceFactory.h"
 #include "../../Things/Structures/SeedFactory.h"
@@ -205,29 +206,13 @@ void FactoryReport::init()
 
 
 /**
- * Takes a StructureList and populates internal fields.
- * 
- * \note	Expects that the list of structures are, in fact, factories.
- */
-void FactoryReport::factoryList(StructureList& _list)
-{
-	mFactories = _list;
-	for (auto factory : mFactories)
-	{
-		lstFactoryList.addItem(static_cast<Factory*>(factory));
-	}
-	checkFactoryActionControls();
-}
-
-
-/**
  * Fills the factory list with all available factories.
  */
 void FactoryReport::fillFactoryList()
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
-	for (auto factory : mFactories)
+	for (auto factory : Utility<StructureManager>::get().structureList(Structure::CLASS_FACTORY))
 	{
 		lstFactoryList.addItem(static_cast<Factory*>(factory));
 	}
@@ -242,7 +227,7 @@ void FactoryReport::fillFactoryList(ProductType type)
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
-	for (auto f : mFactories)
+	for (auto f : Utility<StructureManager>::get().structureList(Structure::CLASS_FACTORY))
 	{
 		Factory* factory = static_cast<Factory*>(f);
 		if (factory->productType() == type)
@@ -262,7 +247,7 @@ void FactoryReport::fillFactoryList(bool surface)
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
-	for (auto f : mFactories)
+	for (auto f : Utility<StructureManager>::get().structureList(Structure::CLASS_FACTORY))
 	{
 		Factory* factory = static_cast<Factory*>(f);
 		if (surface && (factory->name() == constants::SURFACE_FACTORY || factory->name() == constants::SEED_FACTORY))
@@ -286,7 +271,7 @@ void FactoryReport::fillFactoryList(Structure::StructureState state)
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
-	for (auto f : mFactories)
+	for (auto f : Utility<StructureManager>::get().structureList(Structure::CLASS_FACTORY))
 	{
 		if (f->state() == state)
 		{
