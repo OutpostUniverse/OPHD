@@ -23,6 +23,8 @@ private:
 
 	void fillFactoryList();
 	void fillFactoryList(ProductType);
+	void fillFactoryList(bool);
+	void fillFactoryList(Structure::StructureState);
 
 	void btnShowAllClicked();
 	void btnShowSurfaceClicked();

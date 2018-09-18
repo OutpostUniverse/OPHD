@@ -220,6 +220,9 @@ void FactoryReport::factoryList(StructureList& _list)
 }
 
 
+/**
+ * Fills the factory list with all available factories.
+ */
 void FactoryReport::fillFactoryList()
 {
 	SELECTED_FACTORY = nullptr;
@@ -228,12 +231,13 @@ void FactoryReport::fillFactoryList()
 	{
 		lstFactoryList.addItem(static_cast<Factory*>(factory));
 	}
-	lstFactoryList.currentSelection(0);
-
 	checkFactoryActionControls();
 }
 
 
+/**
+ * Fills the factory list based on product type.
+ */
 void FactoryReport::fillFactoryList(ProductType type)
 {
 	SELECTED_FACTORY = nullptr;
@@ -247,7 +251,48 @@ void FactoryReport::fillFactoryList(ProductType type)
 		}
 	}
 
-	lstFactoryList.currentSelection(0);
+	checkFactoryActionControls();
+}
+
+
+/**
+ * Fills the factory list based on surface/subterranean
+ */
+void FactoryReport::fillFactoryList(bool surface)
+{
+	SELECTED_FACTORY = nullptr;
+	lstFactoryList.clearItems();
+	for (auto f : mFactories)
+	{
+		Factory* factory = static_cast<Factory*>(f);
+		if (surface && (factory->name() == constants::SURFACE_FACTORY || factory->name() == constants::SEED_FACTORY))
+		{
+			lstFactoryList.addItem(factory);
+		}
+		else if (!surface && factory->name() == constants::UNDERGROUND_FACTORY)
+		{
+			lstFactoryList.addItem(factory);
+		}
+	}
+
+	checkFactoryActionControls();
+}
+
+
+/**
+ * Fills the factory list based on structure state.
+ */
+void FactoryReport::fillFactoryList(Structure::StructureState state)
+{
+	SELECTED_FACTORY = nullptr;
+	lstFactoryList.clearItems();
+	for (auto f : mFactories)
+	{
+		if (f->state() == state)
+		{
+			lstFactoryList.addItem(static_cast<Factory*>(f));
+		}
+	}
 	checkFactoryActionControls();
 }
 
@@ -353,6 +398,7 @@ void FactoryReport::btnShowSurfaceClicked()
 {
 	filterButtonClicked(true);
 	btnShowSurface.toggle(true);
+	fillFactoryList(true);
 }
 
 
@@ -363,6 +409,7 @@ void FactoryReport::btnShowUndergroundClicked()
 {
 	filterButtonClicked(true);
 	btnShowUnderground.toggle(true);
+	fillFactoryList(false);
 }
 
 
@@ -373,6 +420,7 @@ void FactoryReport::btnShowActiveClicked()
 {
 	filterButtonClicked(true);
 	btnShowActive.toggle(true);
+	fillFactoryList(Structure::OPERATIONAL);
 }
 
 
@@ -383,6 +431,7 @@ void FactoryReport::btnShowIdleClicked()
 {
 	filterButtonClicked(true);
 	btnShowIdle.toggle(true);
+	fillFactoryList(Structure::IDLE);
 }
 
 
@@ -393,6 +442,7 @@ void FactoryReport::btnShowDisabledClicked()
 {
 	filterButtonClicked(true);
 	btnShowDisabled.toggle(true);
+	fillFactoryList(Structure::DISABLED);
 }
 
 
@@ -413,6 +463,7 @@ void FactoryReport::btnClearProductionClicked()
 {
 	SELECTED_FACTORY->productType(PRODUCT_NONE);
 	lstProducts.clearSelection();
+	cboFilterByProductSelectionChanged();
 }
 
 
@@ -488,6 +539,7 @@ void FactoryReport::lstProductsSelectionChanged()
  */
 void FactoryReport::cboFilterByProductSelectionChanged()
 {
+	if (cboFilterByProduct.currentSelection() == constants::NO_SELECTION) { return; }
 	filterButtonClicked(false);
 	fillFactoryList(static_cast<ProductType>(cboFilterByProduct.selectionTag()));
 }
