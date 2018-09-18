@@ -14,6 +14,8 @@ public:
 	FactoryReport();
 	virtual ~FactoryReport();
 
+	void selectFactory(Factory*);
+
 	virtual void update() final;
 
 private:

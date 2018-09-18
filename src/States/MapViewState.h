@@ -77,6 +77,7 @@ private:
 	void onActivate(bool _b);
 	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
 	void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	void onMouseDoubleClick(EventHandler::MouseButton button, int x, int y);
 	void onMouseUp(EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
 	void onMouseWheel(int x, int y);

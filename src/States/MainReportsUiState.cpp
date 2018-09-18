@@ -97,7 +97,7 @@ static void setPanelRects(int width, int height)
 	Panels[PANEL_PRODUCTION].Rect(Panels[PANEL_RESEARCH].Rect.x() + panel_width, 0, panel_width, 48);
 	Panels[PANEL_PRODUCTION].TextPosition(Panels[PANEL_PRODUCTION].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[PANEL_PRODUCTION].Name) / 2 + 20, text_y_position);
 	Panels[PANEL_PRODUCTION].IconPosition(Panels[PANEL_PRODUCTION].TextPosition.x() - 40, 8);
-	Panels[PANEL_PRODUCTION].Selected(true);
+	//Panels[PANEL_PRODUCTION].Selected(true);
 
 
 	Panels[PANEL_WAREHOUSE].Rect(Panels[PANEL_PRODUCTION].Rect.x() + panel_width, 0, panel_width, 48);
@@ -150,7 +150,9 @@ static void drawPanel(Renderer& _r, Panel& _p)
  * C'tor
  */
 MainReportsUiState::MainReportsUiState()
-{}
+{
+	Utility<EventHandler>::get().windowResized().connect(this, &MainReportsUiState::onWindowResized);
+}
 
 
 /**
@@ -158,6 +160,8 @@ MainReportsUiState::MainReportsUiState()
  */
 MainReportsUiState::~MainReportsUiState()
 {
+	Utility<EventHandler>::get().windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
+
 	delete WINDOW_BACKGROUND;
 
 	for (Panel& panel : Panels)
@@ -215,8 +219,6 @@ void MainReportsUiState::_activate()
 {
 	Utility<EventHandler>::get().keyDown().connect(this, &MainReportsUiState::onKeyDown);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &MainReportsUiState::onMouseMotion);
-	Utility<EventHandler>::get().windowResized().connect(this, &MainReportsUiState::onWindowResized);
 	mReturnState = this;
 }
 
@@ -228,7 +230,7 @@ void MainReportsUiState::_deactivate()
 {
 	Utility<EventHandler>::get().keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
-	Utility<EventHandler>::get().windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
+	//Utility<EventHandler>::get().windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
 }
 
 
@@ -259,13 +261,11 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 		}
 	}
 
-	if (Panels[PANEL_EXIT].Selected()) { mReturnState = nullptr; }
-}
-
-
-void MainReportsUiState::onMouseMotion(int x, int y, int dx, int dy)
-{
-	MOUSE_COORDS(x, y);
+	if (Panels[PANEL_EXIT].Selected())
+	{
+		mReturnState = nullptr;
+		Panels[PANEL_EXIT].Selected(false);
+	}
 }
 
 
@@ -276,6 +276,28 @@ void MainReportsUiState::onWindowResized(int w, int h)
 {
 	setPanelRects(w, h);
 	for (Panel& panel : Panels) { if (panel.UiPanel) { panel.UiPanel->size(w, h - 48); } }
+}
+
+
+/**
+ * 
+ */
+void MainReportsUiState::deselectAllPanels()
+{
+	for (auto& panel : Panels) { panel.Selected(false); }
+}
+
+
+/**
+ * Structure pointer is assumed to be a factory.
+ */
+void MainReportsUiState::selectFactoryPanel(Structure* f)
+{
+	deselectAllPanels();
+	Panels[PANEL_PRODUCTION].Selected(true);
+	Panels[PANEL_PRODUCTION].UiPanel->visible(true);
+
+	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->selectFactory(static_cast<Factory*>(f));
 }
 
 

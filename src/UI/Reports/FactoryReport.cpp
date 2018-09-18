@@ -206,6 +206,12 @@ void FactoryReport::init()
 }
 
 
+void FactoryReport::selectFactory(Factory* f)
+{
+	lstFactoryList.currentSelection(f);
+}
+
+
 /**
  * Fills the factory list with all available factories.
  */

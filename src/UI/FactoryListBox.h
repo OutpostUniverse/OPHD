@@ -49,6 +49,8 @@ public:
 	int currentSelection() const;
 	void currentSelection(int selection);
 
+	void currentSelection(Factory*);
+
 	const std::string& selectionText() const;
 
 	Factory* selectedFactory();

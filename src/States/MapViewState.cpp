@@ -82,7 +82,9 @@ MapViewState::MapViewState(const std::string& savegame) :
 	mWarehouseInspector(mTinyFont),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
-{}
+{
+	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
+}
 
 
 /**
@@ -113,7 +115,9 @@ MapViewState::MapViewState(const std::string& sm, const std::string& t, int d, i
 	mStructureInspector(mTinyFont),
 	mTileInspector(mTinyFont),
 	mWarehouseInspector(mTinyFont)
-{}
+{
+	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
+}
 
 
 /**
@@ -175,10 +179,9 @@ void MapViewState::_activate()
 
 	e.mouseButtonDown().connect(this, &MapViewState::onMouseDown);
 	e.mouseButtonUp().connect(this, &MapViewState::onMouseUp);
+	e.mouseDoubleClick().connect(this, &MapViewState::onMouseDoubleClick);
 	e.mouseMotion().connect(this, &MapViewState::onMouseMove);
 	e.mouseWheel().connect(this, &MapViewState::onMouseWheel);
-
-	e.windowResized().connect(this, &MapViewState::onWindowResized);
 
 	e.textInputMode(true);
 
@@ -193,8 +196,8 @@ void MapViewState::_deactivate()
 	e.keyDown().disconnect(this, &MapViewState::onKeyDown);
 	e.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
 	e.mouseButtonUp().disconnect(this, &MapViewState::onMouseUp);
+	e.mouseDoubleClick().disconnect(this, &MapViewState::onMouseDoubleClick);
 	e.mouseMotion().disconnect(this, &MapViewState::onMouseMove);
-	e.windowResized().disconnect(this, &MapViewState::onWindowResized);
 
 	mGameOverDialog.enabled(false);
 	mGameOptionsDialog.enabled(false);
@@ -583,6 +586,37 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			else if (mInsertMode == INSERT_TUBE)
 			{
 				placeTubes();
+			}
+		}
+	}
+}
+
+
+void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int x, int y)
+{
+	if (button == EventHandler::BUTTON_LEFT)
+	{
+		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
+		if (!mTileMap->tileHighlightVisible()) { return; }
+
+		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
+		if (_t && _t->thingIsStructure())
+		{
+			Structure* _s = _t->structure();
+
+			if (_s->isFactory())
+			{
+				MAIN_REPORTS_UI->selectFactoryPanel(_s);
+				mReturnState = MAIN_REPORTS_UI;
+			}
+			else if (_s->isWarehouse())
+			{
+			}
+			else if (_s->isMineFacility())
+			{
+			}
+			else
+			{
 			}
 		}
 	}

@@ -263,6 +263,20 @@ void FactoryListBox::currentSelection(int selection)
 }
 
 
+void FactoryListBox::currentSelection(Factory* f)
+{
+	if (mItems.empty()) { return; }
+	for (size_t i = 0; i < mItems.size(); ++i)
+	{
+		if (mItems[i].factory == f)
+		{
+			currentSelection(i);
+			return;
+		}
+	}
+}
+
+
 Factory* FactoryListBox::selectedFactory()
 {
 	return (mCurrentSelection == constants::NO_SELECTION) ? nullptr : mItems[mCurrentSelection].factory;
