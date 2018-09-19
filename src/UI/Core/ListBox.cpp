@@ -5,6 +5,7 @@
 
 #include "../../Constants.h"
 
+using namespace NAS2D;
 
 /**
  * C'tor

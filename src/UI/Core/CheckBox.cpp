@@ -124,8 +124,8 @@ void CheckBox::onTextChanged()
  */
 void CheckBox::onSizeChanged()
 {
-	height(clamp(height(), 14.0f, 14.0f));
-	if (width() < 14.0f) { width(14.0f); }
+	_rect().height(clamp(height(), 13.0f, 13.0f));
+	if (width() < 13.0f) { _rect().width(13.0f); }
 }
 
 
@@ -147,6 +147,6 @@ void CheckBox::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawSubImage(mSkin, positionX(), positionY(), mChecked ? 14.0f : 0.0f, 0.0f, 14.0f, 14.0f);
+	r.drawSubImage(mSkin, positionX(), positionY(), mChecked ? 13.0f : 0.0f, 0.0f, 13.0f, 13.0f);
 	r.drawText(*CBOX_FONT, text(), positionX() + 20.0f, positionY(), 255, 255, 255);
 }

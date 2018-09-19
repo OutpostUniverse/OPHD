@@ -13,10 +13,10 @@ public:
 	void addWindow(Window* _w);
 	void removeWindow(Window* _w);
 
-	bool pointInWindow(const Point_2d& _p) const { return pointInWindow(_p.x(), _p.y()); }
+	bool pointInWindow(const NAS2D::Point_2d& _p) const { return pointInWindow(_p.x(), _p.y()); }
 	bool pointInWindow(int x, int y) const;
 
-	void updateStack(const Point_2d& _p) { updateStack(_p.x(), _p.y()); }
+	void updateStack(const NAS2D::Point_2d& _p) { updateStack(_p.x(), _p.y()); }
 	void updateStack(int x, int y);
 
 	void bringToFront(Window* _w);
@@ -26,7 +26,7 @@ public:
 	void update();
 
 private:
-	typedef std::list<Window*> WindowList;
+	using WindowList = std::list<Window*>;
 
 private:
 	WindowList		mWindowList;

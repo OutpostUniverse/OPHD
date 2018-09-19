@@ -2,7 +2,6 @@
 
 #include "UIContainer.h"
 
-
 class Window : public UIContainer
 {
 public:
@@ -15,17 +14,17 @@ public:
 	virtual void update();
 
 protected:
-	void onMouseDown(EventHandler::MouseButton button, int x, int y);
-	void onMouseUp(EventHandler::MouseButton button, int x, int y);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMotion(int x, int y, int dX, int dY);
 
 private:
 	void _init();
 
 private:
-	bool		mMouseDrag = false;
-	bool		mAnchored = false;
+	bool				mMouseDrag = false;
+	bool				mAnchored = false;
 
-	ImageList	mTitle;
-	ImageList	mBody;
+	NAS2D::ImageList	mTitle;
+	NAS2D::ImageList	mBody;
 };

@@ -85,33 +85,21 @@ void MineOperationsWindow::init()
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
 
 	// ORE TOGGLE BUTTONS
-	add(&btnCommonMetals, 148, 93);
-	btnCommonMetals.type(Button::BUTTON_TOGGLE);
-	btnCommonMetals.font(font());
-	btnCommonMetals.text("Common Metals");
-	btnCommonMetals.size(106, 30);
-	btnCommonMetals.click().connect(this, &MineOperationsWindow::btnCommonMetalsClicked);
+	add(&chkCommonMetals, 148, 93);
+	chkCommonMetals.text("Common Metals");
+	chkCommonMetals.click().connect(this, &MineOperationsWindow::chkCommonMetalsClicked);
 
-	add(&btnCommonMinerals, 259, 93);
-	btnCommonMinerals.type(Button::BUTTON_TOGGLE);
-	btnCommonMinerals.font(font());
-	btnCommonMinerals.text("Common Minerals");
-	btnCommonMinerals.size(106, 30);
-	btnCommonMinerals.click().connect(this, &MineOperationsWindow::btnCommonMineralsClicked);
+	add(&chkCommonMinerals, 259, 93);
+	chkCommonMinerals.text("Common Minerals");
+	chkCommonMinerals.click().connect(this, &MineOperationsWindow::chkCommonMineralsClicked);
 
-	add(&btnRareMetals, 148, 128);
-	btnRareMetals.type(Button::BUTTON_TOGGLE);
-	btnRareMetals.font(font());
-	btnRareMetals.text("Rare Metals");
-	btnRareMetals.size(106, 30);
-	btnRareMetals.click().connect(this, &MineOperationsWindow::btnRareMetalsClicked);
+	add(&chkRareMetals, 148, 128);
+	chkRareMetals.text("Rare Metals");
+	chkRareMetals.click().connect(this, &MineOperationsWindow::chkRareMetalsClicked);
 
-	add(&btnRareMinerals, 259, 128);
-	btnRareMinerals.type(Button::BUTTON_TOGGLE);
-	btnRareMinerals.font(font());
-	btnRareMinerals.text("Rare Minerals");
-	btnRareMinerals.size(106, 30);
-	btnRareMinerals.click().connect(this, &MineOperationsWindow::btnRareMineralsClicked);
+	add(&chkRareMinerals, 259, 128);
+	chkRareMinerals.text("Rare Minerals");
+	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
 
 	mPanel.push_back(Image("ui/skin/textbox_top_left.png"));
 	mPanel.push_back(Image("ui/skin/textbox_top_middle.png"));
@@ -149,10 +137,10 @@ void MineOperationsWindow::mineFacility(MineFacility* _mf)
 	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + mBold.width("Mine Yield:") + 10;
 	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + mBold.width("Depth:") + 10;
 
-	btnCommonMetals.toggle(mFacility->mine()->miningCommonMetals());
-	btnCommonMinerals.toggle(mFacility->mine()->miningCommonMinerals());
-	btnRareMetals.toggle(mFacility->mine()->miningRareMetals());
-	btnRareMinerals.toggle(mFacility->mine()->miningRareMinerals());
+	chkCommonMetals.checked(mFacility->mine()->miningCommonMetals());
+	chkCommonMinerals.checked(mFacility->mine()->miningCommonMinerals());
+	chkRareMetals.checked(mFacility->mine()->miningRareMetals());
+	chkRareMinerals.checked(mFacility->mine()->miningRareMinerals());
 
 	btnIdle.toggle(mFacility->forceIdle());
 	btnExtendShaft.enabled(mFacility->canExtend());
@@ -214,36 +202,36 @@ void MineOperationsWindow::btnIdleClicked()
 /**
  * 
  */
-void MineOperationsWindow::btnCommonMetalsClicked()
+void MineOperationsWindow::chkCommonMetalsClicked()
 {
-	mFacility->mine()->miningCommonMetals(btnCommonMetals.toggled());
+	mFacility->mine()->miningCommonMetals(chkCommonMetals.checked());
 }
 
 
 /**
  * 
  */
-void MineOperationsWindow::btnCommonMineralsClicked()
+void MineOperationsWindow::chkCommonMineralsClicked()
 {
-	mFacility->mine()->miningCommonMinerals(btnCommonMinerals.toggled());
+	mFacility->mine()->miningCommonMinerals(chkCommonMinerals.checked());
 }
 
 
 /**
  * 
  */
-void MineOperationsWindow::btnRareMetalsClicked()
+void MineOperationsWindow::chkRareMetalsClicked()
 {
-	mFacility->mine()->miningRareMetals(btnRareMetals.toggled());
+	mFacility->mine()->miningRareMetals(chkRareMetals.checked());
 }
 
 
 /**
  * 
  */
-void MineOperationsWindow::btnRareMineralsClicked()
+void MineOperationsWindow::chkRareMineralsClicked()
 {
-	mFacility->mine()->miningRareMinerals(btnRareMinerals.toggled());
+	mFacility->mine()->miningRareMinerals(chkRareMinerals.checked());
 }
 
 

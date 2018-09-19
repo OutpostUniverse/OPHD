@@ -32,10 +32,10 @@ private:
 	MineOperationsWindow& operator=(const MineOperationsWindow&) = delete;
 
 private:
-	void btnCommonMetalsClicked();
-	void btnCommonMineralsClicked();
-	void btnRareMetalsClicked();
-	void btnRareMineralsClicked();
+	void chkCommonMetalsClicked();
+	void chkCommonMineralsClicked();
+	void chkRareMetalsClicked();
+	void chkRareMineralsClicked();
 
 	void btnOkayClicked();
 	void btnExtendShaftClicked();
@@ -51,10 +51,10 @@ private:
 
 	ImageList			mPanel;
 
-	Button				btnCommonMetals;
-	Button				btnCommonMinerals;
-	Button				btnRareMetals;
-	Button				btnRareMinerals;
+	CheckBox			chkCommonMetals;
+	CheckBox			chkCommonMinerals;
+	CheckBox			chkRareMetals;
+	CheckBox			chkRareMinerals;
 
 	Button				btnIdle;
 	Button				btnExtendShaft;

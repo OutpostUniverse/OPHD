@@ -41,8 +41,8 @@ public:
 
 	void sort() { if (mSorted) { std::sort(mItems.begin(), mItems.end()); } }
 
-	void textColor(const Color_4ub& color)	{ mText = color; }
-	void selectColor(const Color_4ub& color)	{ mHighlightBg = color; }
+	void textColor(const NAS2D::Color_4ub& color)	{ mText = color; }
+	void selectColor(const NAS2D::Color_4ub& color)	{ mHighlightBg = color; }
 
 	void addItem(const std::string& item, int tag = 0);
 	void removeItem(const std::string& item);
@@ -70,7 +70,7 @@ public:
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 
 protected:
-	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
 	virtual void slideChanged(double _position);
@@ -96,9 +96,9 @@ private:
 
 	ListBoxItems				mItems;											/**< List of items preserved in the order in which they're added. */
 
-	Color_4ub					mText = COLOR_WHITE;							/**< Text Color */
-	Color_4ub					mHighlightBg = COLOR_GREEN;						/**< Highlight Background color. */
-	Color_4ub					mHighlightText = COLOR_WHITE;					/**< Text Color for an item that is currently highlighted. */
+	NAS2D::Color_4ub			mText = NAS2D::COLOR_WHITE;						/**< Text Color */
+	NAS2D::Color_4ub			mHighlightBg = NAS2D::COLOR_GREEN;				/**< Highlight Background color. */
+	NAS2D::Color_4ub			mHighlightText = NAS2D::COLOR_WHITE;			/**< Text Color for an item that is currently highlighted. */
 
 	SelectionChangedCallback	mSelectionChanged;								/**< Callback for selection changed callback. */
 	Slider						mSlider;										/**<  */

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Core/Button.h"
+#include "Core/CheckBox.h"
+#include "Core/ComboBox.h"
 #include "Core/ListBox.h"
 #include "Core/Menu.h"
 #include "Core/ProgressBar.h"

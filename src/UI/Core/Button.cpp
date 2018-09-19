@@ -5,6 +5,7 @@
 
 #include "../../Common.h"
 
+using namespace NAS2D;
 
 Button::Button()
 {

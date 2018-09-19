@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <iostream>
 
+using namespace NAS2D;
 
 /**
  * C'tor

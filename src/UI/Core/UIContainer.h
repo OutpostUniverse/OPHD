@@ -25,7 +25,7 @@ protected:
 	virtual void visibilityChanged(bool visible);
 	virtual void positionChanged(float dX, float dY);
 
-	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
 private:
 	std::vector<Control*> mControls;

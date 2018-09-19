@@ -7,6 +7,8 @@
 #include "../../Constants.h"
 #include "../../FontManager.h"
 
+using namespace NAS2D;
+
 const float WINDOW_TITLE_BAR_HEIGHT = 20.0f;
 static Font* FONT;
 

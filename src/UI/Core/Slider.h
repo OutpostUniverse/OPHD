@@ -56,8 +56,8 @@ public:
 	ValueChangedCallback& change() { return mCallback; } 	/*!< Give the callback to enable another control or a window to dis/connect to this event call. */
 
 protected:
-	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y); 	/*!< Event raised on mouse button down. */
-	virtual void onMouseUp(EventHandler::MouseButton button, int x, int y); 	/*!< Event raised on mouse button up. */
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y); 	/*!< Event raised on mouse button down. */
+	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y); 	/*!< Event raised on mouse button up. */
 	virtual void onMouseMotion(int x, int y, int dX, int dY); 	/*!< Event raised on mouse move. */
 	
 private:
@@ -68,17 +68,17 @@ private:
 	void draw();		/*!< Draw the widget on screen. */
 	void logic();		/*!< Compute some values before drawing the control. */
 
-	void _buttonCheck(bool& buttonFlag, Rectangle_2df& rect, double value);
+	void _buttonCheck(bool& buttonFlag, NAS2D::Rectangle_2df& rect, double value);
 
 private:
-	Timer					mTimer;
+	NAS2D::Timer			mTimer;
 
 	ValueChangedCallback	mCallback;					/*!< Callback executed when the value is changed. */
 
 	SliderType				mSliderType;				/*!< Type of the Slider. */
 	
 	// mouse event related vars
-	Point_2d				mMousePosition;				/**< Mouse coordinates. */
+	NAS2D::Point_2d			mMousePosition;				/**< Mouse coordinates. */
 
 	bool					mMouseHoverSlide = false;	/*!< Mouse is within the bounds of the Button. */
 	bool					mThumbPressed = false;		/*!< Flag to indicate if this control is pressed. */
@@ -96,15 +96,15 @@ private:
 
 
 	// drawing vars
-	ImageList				mSkinButton1;				/*!< Skin for button 1 (Up or Left). */
-	ImageList				mSkinButton2;				/*!< Skin for button 2 (Down or Right). */
-	ImageList				mSkinMiddle;				/*!< Skin for the slide area. */
+	NAS2D::ImageList		mSkinButton1;				/*!< Skin for button 1 (Up or Left). */
+	NAS2D::ImageList		mSkinButton2;				/*!< Skin for button 2 (Down or Right). */
+	NAS2D::ImageList		mSkinMiddle;				/*!< Skin for the slide area. */
 	
-	ImageList				mSkinSlider;				/*!< Skin for the slider. */
+	NAS2D::ImageList		mSkinSlider;				/*!< Skin for the slider. */
 	bool					mDisplayPosition = false;	/*!< Indicate if the slider display the value on mouse over. */
 	
-	Rectangle_2df			mButton1;					/*!< Area on screen where the second button is displayed. (Down/Left) */
-	Rectangle_2df			mButton2;					/*!< Area on screen where the first button is displayed. (Up/Right)*/
-	Rectangle_2df			mSlideBar;					/*!< Area on screen where the slide area is displayed. */
-	Rectangle_2df			mSlider;					/*!< Area on screen where the slider is displayed. */
+	NAS2D::Rectangle_2df	mButton1;					/*!< Area on screen where the second button is displayed. (Down/Left) */
+	NAS2D::Rectangle_2df	mButton2;					/*!< Area on screen where the first button is displayed. (Up/Right)*/
+	NAS2D::Rectangle_2df	mSlideBar;					/*!< Area on screen where the slide area is displayed. */
+	NAS2D::Rectangle_2df	mSlider;					/*!< Area on screen where the slider is displayed. */
 };
