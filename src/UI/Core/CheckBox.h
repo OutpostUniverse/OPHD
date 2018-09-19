@@ -19,12 +19,12 @@ public:
 	void checked(bool toggle);
 	bool checked() const;
 
-	ClickCallback& click() { return mCallback; }
+	ClickCallback& click();
 
 	virtual void update() final;
 
 protected:
-	void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
 	virtual void onFocusChanged() final;
 	virtual void onSizeChanged() final;
