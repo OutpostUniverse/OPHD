@@ -6,10 +6,11 @@ This is the changelog for OutpostHD.
 User interface overhaul.
 
 ### Added
-- 
+- CheckBox Control.
+- Full-screen Factory/Production UI.
 
 ### Changed
-- 
+- MineOperationsWindow now uses CheckBox controls instead of toggle buttons.
 
 ### Fixed
 - Fixed an issue that prevented the planet description from displaying.
