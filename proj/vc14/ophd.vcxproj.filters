@@ -243,6 +243,9 @@
     <ClCompile Include="..\..\src\UI\Reports\FactoryReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\CheckBox.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -553,6 +556,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h">
       <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\CheckBox.h">
+      <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

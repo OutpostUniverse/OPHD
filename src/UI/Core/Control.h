@@ -2,12 +2,12 @@
 
 #include "NAS2D/NAS2D.h"
 
-using namespace NAS2D;
-
-
 /**
  * \class Control
  * \brief Implements a base for all GUI Controls to derive from.
+ * 
+ * The Control class is the base class from which all GUI controls inherit
+ * from.
  */
 class Control
 {
@@ -20,10 +20,10 @@ public:
 	Control();
 	virtual ~Control();
 
-	void font(Font& font);
+	void font(NAS2D::Font& font);
 
-	void position(const Point_2d& pos);
-	void position(const Point_2df& pos);
+	void position(const NAS2D::Point_2d& pos);
+	void position(const NAS2D::Point_2df& pos);
 	void position(float x, float y);
 
 	float positionX();
@@ -43,7 +43,7 @@ public:
 	virtual void hide() { visible(false); }
 	virtual void show() { visible(true); }
 
-	const Rectangle_2df& rect() const;
+	const NAS2D::Rectangle_2df& rect() const;
 
 	virtual void hasFocus(bool focus);
 	bool hasFocus() const;
@@ -84,10 +84,10 @@ protected:
 	virtual void onTextChanged() { mTextChanged(this); };
 	virtual void onFontChanged() {};
 
-	Font& font();
+	NAS2D::Font& font();
 	bool fontSet() const;
 
-	Rectangle_2df& _rect();
+	NAS2D::Rectangle_2df& _rect();
 	std::string& _text();
 
 protected:
@@ -99,14 +99,14 @@ private:
 	virtual void draw() {};
 
 private:
-	std::string		mText;				/**< Internal text string. */
+	std::string				mText;				/**< Internal text string. */
 
-	Rectangle_2df	mRect;				/**< Area of the Control. */
+	NAS2D::Rectangle_2df	mRect;				/**< Area of the Control. */
 
-	Font*			mFont = nullptr;	/**< Pointer to a Font object. Control DOES NOT own the pointer. */
+	NAS2D::Font*			mFont = nullptr;	/**< Pointer to a Font object. Control DOES NOT own the pointer. */
 
-	bool			mEnabled = true;	/**< Flag indicating whether or not the Control is enabled. */
-	bool			mHasFocus = false;	/**< Flag indicating that the Control has input focus. */
-	bool			mVisible = true;	/**< Flag indicating visibility of the Control. */
-	bool			mHighlight = false;	/**< Flag indicating that this Control is highlighted. */
+	bool					mEnabled = true;	/**< Flag indicating whether or not the Control is enabled. */
+	bool					mHasFocus = false;	/**< Flag indicating that the Control has input focus. */
+	bool					mVisible = true;	/**< Flag indicating visibility of the Control. */
+	bool					mHighlight = false;	/**< Flag indicating that this Control is highlighted. */
 };

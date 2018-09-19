@@ -197,6 +197,7 @@
     <ClCompile Include="..\..\src\Things\Structures\RobotCommand.cpp" />
     <ClCompile Include="..\..\src\Things\Structures\Structure.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Button.cpp" />
+    <ClCompile Include="..\..\src\UI\Core\CheckBox.cpp" />
     <ClCompile Include="..\..\src\UI\Core\ComboBox.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Control.cpp" />
     <ClCompile Include="..\..\src\UI\Core\ListBox.cpp" />
@@ -298,6 +299,7 @@
     <ClInclude Include="..\..\src\Things\Structures\Warehouse.h" />
     <ClInclude Include="..\..\src\Things\Thing.h" />
     <ClInclude Include="..\..\src\UI\Core\Button.h" />
+    <ClInclude Include="..\..\src\UI\Core\CheckBox.h" />
     <ClInclude Include="..\..\src\UI\Core\ComboBox.h" />
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
     <ClInclude Include="..\..\src\UI\Core\ListBox.h" />
