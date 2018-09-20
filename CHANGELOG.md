@@ -11,6 +11,8 @@ User interface overhaul.
 
 ### Changed
 - MineOperationsWindow now uses CheckBox controls instead of toggle buttons.
+- Double-clicking on Factories will bull up the full-screen UI.
+- Lots of internal cleanup that should improve memory usage.
 
 ### Fixed
 - Fixed an issue that prevented the planet description from displaying.

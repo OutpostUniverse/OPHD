@@ -92,7 +92,7 @@ After you place the SEED Lander, the Advance Turn button will become available t
 
 **Q: How can I lower the resolution or turn off fullscreen mode?**
 
-A: By default OutpostHD sets itself to the native screen resolution of your desktop with a minimum resolution of 800x600. Eventually you'll be able to make changes in the game via an options menu but for now if you want to change the resolution you can open "data/config.xml" and modify the screenwidth and screenheight values. There is no sanity checking so set this to a sane value or you could get weird behavior including crashing.
+A: By default OutpostHD sets itself to the native screen resolution of your desktop with a minimum resolution of 1024x768. Eventually you'll be able to make changes in the game via an options menu but for now if you want to change the resolution you can open "data/config.xml" and modify the screenwidth and screenheight values. There is no sanity checking so set this to a sane value or you could get weird behavior including crashing.
 
 To turn off fullscreen mode, simply change 'fullscreen="true"' to 'fullscreen="false"'.
 
@@ -104,7 +104,7 @@ A: Yes. After the first time the game runs, an automatically generated configura
 
 **Q: The keybindings for movement (WASD) don't work well on my keyboard layout, can this be changed?**
 
-A: At the moment no; keybindings are hard coded. This will, however, change in the future to configurable keybindings.
+A: Not yet; keybindings are hard coded. This will, however, change in the future to configurable keybindings.
 
 **Q: The game generally works but there are some graphics problems like missing or corrupt textures. How can I fix this?**
 
