@@ -9,6 +9,7 @@
 #include <functional>
 #include <random>
 
+using namespace NAS2D;
 using namespace NAS2D::Xml;
 
 #pragma warning(disable: 4244)
@@ -16,7 +17,7 @@ using namespace NAS2D::Xml;
 // ===============================================================================
 // = CONSTANTS
 // ===============================================================================
-const std::string	MAP_TERRAIN_EXTENSION = "_a.png";
+const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
 
 const int			MAP_WIDTH					= 300;
 const int			MAP_HEIGHT					= 150;

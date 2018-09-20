@@ -8,7 +8,7 @@ public:
 	typedef NAS2D::Signals::Signal0<void> ClickCallback;
 
 public:
-	GameOverDialog(Font& font);
+	GameOverDialog();
 	virtual ~GameOverDialog();
 
 	ClickCallback& returnToMainMenu() { return mCallback; }
@@ -19,7 +19,6 @@ protected:
 	virtual void init();
 
 private:
-	GameOverDialog() = delete;
 	GameOverDialog(const GameOverDialog&) = delete;
 	GameOverDialog& operator=(const GameOverDialog&) = delete;
 
@@ -27,7 +26,7 @@ private:
 	void btnCloseClicked();
 
 private:
-	Image			mHeader;
+	NAS2D::Image	mHeader;
 
 	Button			btnClose;
 

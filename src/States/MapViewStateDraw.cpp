@@ -7,6 +7,8 @@
 
 #include "MapViewState.h"
 
+#include "../Constants.h"
+#include "../FontManager.h"
 
 extern Rectangle_2d MENU_ICON;
 
@@ -20,14 +22,17 @@ extern Rectangle_2d MOVE_DOWN_ICON;
 extern Point_2d MOUSE_COORDS;
 
 
-std::string		S_LEVEL;
+std::string S_LEVEL;
 
 
-NAS2D::Timer	GLOW_TIMER;
-const int		GLOW_STEP_SIZE = 20;
+Timer GLOW_TIMER;
+const int GLOW_STEP_SIZE = 20;
 
-int				GLOW_STEP;
-int				GLOW_STEP_DIRECTION = 1;
+int GLOW_STEP;
+int GLOW_STEP_DIRECTION = 1;
+
+
+extern Font* MAIN_FONT; /// yuck
 
 
 static void updateGlowTimer()
@@ -134,38 +139,38 @@ void MapViewState::drawResourceInfo()
 
 	// Common Metals
 	r.drawSubImage(mUiIcons, x, y , 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.commonMetals() <= 10) { r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, 255, 255); }
+	if (mPlayerResources.commonMetals() <= 10) { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, 255, 255); }
 
 	// Rare Metals
 	r.drawSubImage(mUiIcons, x + offsetX, y, 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.rareMetals() <= 10) { r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, 255, 255); }
+	if (mPlayerResources.rareMetals() <= 10) { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, 255, 255); }
 
 	// Common Minerals
 	r.drawSubImage(mUiIcons, (x + offsetX) * 2, y, 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.commonMinerals() <= 10) { r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(mTinyFont, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, 255, 255); }
+	if (mPlayerResources.commonMinerals() <= 10) { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, 255, 255); }
 
 	// Rare Minerals
 	r.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.rareMinerals() <= 10) { r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(mTinyFont, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, 255, 255); }
+	if (mPlayerResources.rareMinerals() <= 10) { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, 255, 255); }
 
 	// Storage Capacity
 	r.drawSubImage(mUiIcons, (x + offsetX) * 4, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100) { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, 255, 255); }
+	if (mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100) { r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, 255, 255); }
 
 	// Food
 	r.drawSubImage(mUiIcons, (x + offsetX) * 6, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (foodInStorage() <= 10) { r.drawText(mTinyFont, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(mTinyFont, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, 255, 255); }
+	if (foodInStorage() <= 10) { r.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, 255, 255); }
 
 	// Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.energy() <= 5) { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(mTinyFont, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, 255, 255); }
+	if (mPlayerResources.energy() <= 5) { r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
+	else { r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, 255, 255); }
 
 	// Population / Morale
 	if (mCurrentMorale > mPreviousMorale) { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 16, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
@@ -173,13 +178,13 @@ void MapViewState::drawResourceInfo()
 	else { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 32, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
 
 	if (isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 580, 0, 35, 20)) { mPopulationPanel.update(); }
 
 	// Turns
 	r.drawSubImage(mUiIcons, r.width() - 80, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	r.drawText(mTinyFont, string_format("%i", mTurnCount), r.width() - 80 + margin, textY, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("%i", mTurnCount), r.width() - 80 + margin, textY, 255, 255, 255);
 
 	if (isPointInRect(MOUSE_COORDS, MENU_ICON)) { r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 144, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
 	else { r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
@@ -202,19 +207,19 @@ void MapViewState::drawRobotInfo()
 	
 	// Miner (last one)
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 18, 25, 25);
-	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 	// Dozer (Midle one)
 	textY -= 25; y -= 25;
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 206, 18, 25, 25);
-	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 	// Digger (First one)
 	textY -= 25; y -= 25;
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 181, 18, 25, 25);
-	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 	// robot control summary
 	textY -= 25; y -= 25;
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 43, 25, 25);
-	r.drawText(mTinyFont, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 }
 
 
@@ -283,9 +288,9 @@ void MapViewState::drawNavInfo()
 
 
 	// display the levels "bar"
-	int iWidth = mTinyFontBold.width("IX");								// set steps character patern width
+	int iWidth = MAIN_FONT->width("IX");								// set steps character patern width
 	int iPosX = r.width() - 5;											// set start position from right border
-	int iPosY = mMiniMapBoundingBox.y() - mTinyFontBold.height() - 10;	// set vertical position
+	int iPosY = mMiniMapBoundingBox.y() - MAIN_FONT->height() - 30;	// set vertical position
 	
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)
 	{
@@ -293,11 +298,11 @@ void MapViewState::drawNavInfo()
 		if (i == 0) { S_LEVEL = "S"; }		// surface level
 		if (i == mTileMap->currentDepth())
 		{
-			r.drawText(mTinyFontBold, S_LEVEL, iPosX - mTinyFontBold.width(S_LEVEL), iPosY, 255, 0, 0);		// Others in white
+			r.drawText(*MAIN_FONT, S_LEVEL, iPosX - MAIN_FONT->width(S_LEVEL), iPosY, 255, 0, 0);		// Others in white
 		}
 		else
 		{
-			r.drawText(mTinyFontBold, S_LEVEL, iPosX - mTinyFontBold.width(S_LEVEL), iPosY, 200, 200, 200);	// current one in red
+			r.drawText(*MAIN_FONT, S_LEVEL, iPosX - MAIN_FONT->width(S_LEVEL), iPosY, 200, 200, 200);	// current one in red
 		}
 
 		iPosX = iPosX - iWidth;				// Shift position by one step left
@@ -312,11 +317,11 @@ void MapViewState::drawDebug()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawText(mTinyFont, string_format("FPS: %i", mFps.fps()), 10, 25, 255, 255, 255);
-	r.drawText(mTinyFont, string_format("Map Dimensions: %i, %i", mTileMap->width(), mTileMap->height()), 10, 25 + mTinyFont.height(), 255, 255, 255);
-	r.drawText(mTinyFont, string_format("Max Digging Depth: %i", mTileMap->maxDepth()), 10, 25 + mTinyFont.height() * 2, 255, 255, 255);
-	r.drawText(mTinyFont, string_format("Map Mouse Hover Coords: %i, %i", mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY()), 10, 25 + mTinyFont.height() * 3, 255, 255, 255);
-	r.drawText(mTinyFont, string_format("Current Depth: %i", mTileMap->currentDepth()), 10, 25 + mTinyFont.height() * 4, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("FPS: %i", mFps.fps()), 10, 25, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("Map Dimensions: %i, %i", mTileMap->width(), mTileMap->height()), 10, 25 + MAIN_FONT->height(), 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("Max Digging Depth: %i", mTileMap->maxDepth()), 10, 25 + MAIN_FONT->height() * 2, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("Map Mouse Hover Coords: %i, %i", mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY()), 10, 25 + MAIN_FONT->height() * 3, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("Current Depth: %i", mTileMap->currentDepth()), 10, 25 + MAIN_FONT->height() * 4, 255, 255, 255);
 
-	r.drawText(mTinyFont, string_format("Structure Count: %i", Utility<StructureManager>::get().count()), 10, 25 + mTinyFont.height() * 6, 255, 255, 255);
+	r.drawText(*MAIN_FONT, string_format("Structure Count: %i", Utility<StructureManager>::get().count()), 10, 25 + MAIN_FONT->height() * 6, 255, 255, 255);
 }

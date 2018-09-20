@@ -92,7 +92,6 @@ void MapViewState::initUi()
 	mFileIoDialog.hide();
 
 	mPopulationPanel.position(580, constants::RESOURCE_ICON_SIZE + 4 + constants::MARGIN_TIGHT);
-	mPopulationPanel.font(mTinyFont);
 	mPopulationPanel.population(&mPopulation);
 	mPopulationPanel.morale(&mCurrentMorale);
 	mPopulationPanel.old_morale(&mPreviousMorale);
@@ -137,7 +136,6 @@ void MapViewState::initUi()
 	mBtnToggleConnectedness.click().connect(this, &MapViewState::btnToggleConnectednessClicked);
 
 	// Menus
-	mRobots.font(mTinyFont);
 	mRobots.sheetPath("ui/robots.png");
 	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mRobots.size(52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
@@ -146,7 +144,6 @@ void MapViewState::initUi()
 	mRobots.showTooltip(true);
 	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
 
-	mConnections.font(mTinyFont);
 	mConnections.sheetPath("ui/structures.png");
 	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mConnections.size(52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
@@ -155,7 +152,6 @@ void MapViewState::initUi()
 	mConnections.selectionChanged().connect(this, &MapViewState::connectionsSelectionChanged);
 	mConnections.sorted(false);
 
-	mStructures.font(mTinyFont);
 	mStructures.sheetPath("ui/structures.png");
 	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mStructures.size(mConnections.positionX() -  constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);

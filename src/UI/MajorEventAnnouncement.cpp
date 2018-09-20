@@ -4,12 +4,12 @@
 #include "MajorEventAnnouncement.h"
 
 #include "../Constants.h"
+#include "../FontManager.h"
 
+using namespace NAS2D;
 
-MajorEventAnnouncement::MajorEventAnnouncement(Font& font)
+MajorEventAnnouncement::MajorEventAnnouncement()
 {
-	Control::font(font);
-	//text(constants::WINDOW_GAME_OVER);
 	init();
 }
 
@@ -24,7 +24,6 @@ void MajorEventAnnouncement::init()
 	size(522, 340);
 
 	add(&btnClose, 5, 310);
-	btnClose.font(font());
 	btnClose.text("Okay");
 	btnClose.size(512, 25);
 	btnClose.click().connect(this, &MajorEventAnnouncement::btnCloseClicked);
@@ -60,8 +59,7 @@ void MajorEventAnnouncement::announcement(AnnouncementType a)
 
 void MajorEventAnnouncement::update()
 {
-	if (!visible())
-		return;
+	if (!visible()) { return; }
 
 	Window::update();
 
@@ -69,5 +67,7 @@ void MajorEventAnnouncement::update()
 
 	r.drawImage(mHeader, rect().x() + 5, rect().y() + 25);
 
-	r.drawText(font(), mMessage, rect().x() + 5, rect().y() + 290, 255, 255, 255);
+	// Yeah, I know. I hate it too but it made more sense than holding onto a static pointer.
+	r.drawText(	*Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL),
+				mMessage, rect().x() + 5, rect().y() + 290, 255, 255, 255);
 }

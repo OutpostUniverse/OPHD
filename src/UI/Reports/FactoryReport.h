@@ -17,6 +17,8 @@ public:
 	void selectFactory(Factory*);
 	void showAll();
 
+	void clearSelection();
+
 	virtual void update() final;
 
 private:
@@ -50,8 +52,8 @@ private:
 
 	void resized(Control*);
 
-	void drawDetailPane(Renderer& r);
-	void drawProductPane(Renderer& r);
+	void drawDetailPane(NAS2D::Renderer& r);
+	void drawProductPane(NAS2D::Renderer& r);
 
 	virtual void visibilityChanged(bool visible) final;
 

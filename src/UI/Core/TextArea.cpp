@@ -4,8 +4,10 @@
 #include "TextArea.h"
 
 #include "../../Common.h"
+#include "../../Constants.h"
+#include "../../FontManager.h"
 
-#include <vector>
+using namespace NAS2D;
 
 TextArea::TextArea()
 {}
@@ -15,11 +17,18 @@ TextArea::~TextArea()
 {}
 
 
+
+void TextArea::font(const std::string font, size_t size)
+{
+	mFont = Utility<FontManager>::get().font(font, size);
+}
+
+
 void TextArea::processString()
 {
 	mFormattedList.clear();
 
-	if (width() < 1 || !fontSet() || text().empty()) { return; }
+	if (width() < 10 || !mFont || text().empty()) { return; }
 
 	StringList tokenList = split_string(text().c_str(), ' ');
 	
@@ -29,7 +38,7 @@ void TextArea::processString()
 		std::string line;
 		while (w < width() && i < tokenList.size())
 		{
-			int tokenWidth = font().width(tokenList[i] + " ");
+			int tokenWidth = mFont->width(tokenList[i] + " ");
 			w += tokenWidth;
 			if (w >= width())
 			{
@@ -55,7 +64,7 @@ void TextArea::processString()
 		mFormattedList.push_back(line);
 	}
 
-	mNumLines = static_cast<size_t>(height() / font().height());
+	mNumLines = static_cast<size_t>(height() / mFont->height());
 }
 
 
@@ -90,8 +99,10 @@ void TextArea::draw()
 
 	if (highlight()) { r.drawBox(rect(), 255, 255, 255); }
 
+	if (!mFont) { return; }
+	
 	for (size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
 	{
-		r.drawText(font(), mFormattedList[i], positionX(), positionY() + (font().height() * i), mTextColor.red(), mTextColor.green(), mTextColor.blue(), mTextColor.alpha());
+		r.drawText(*mFont, mFormattedList[i], positionX(), positionY() + (mFont->height() * i), mTextColor.red(), mTextColor.green(), mTextColor.blue(), mTextColor.alpha());
 	}
 }

@@ -15,23 +15,23 @@ public:
 	typedef NAS2D::Signals::Signal2<const std::string&, FileOperation> FileOperationCallback;
 
 public:
-	FileIo(Font& font);
+	FileIo();
 	virtual ~FileIo();
-	
+
 	void setMode(FileOperation _m);
 	void scanDirectory(const std::string& _dir);
-	
-	virtual void update();
+
 	FileOperationCallback& fileOperation() { return mCallback; }
 
-protected:
-	virtual void init();
+	virtual void update() final;
 
-	virtual void onDoubleClick(EventHandler::MouseButton button, int x, int y) final;
-	virtual void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat) final;
+protected:
+	void init();
+
+	virtual void onDoubleClick(NAS2D::EventHandler::MouseButton button, int x, int y) final;
+	virtual void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat) final;
 
 private:
-	FileIo() = delete;
 	FileIo(const FileIo&) = delete;
 	FileIo& operator=(const FileIo&) = delete;
 
@@ -53,6 +53,4 @@ private:
 	TextField				txtFileName;
 
 	ListBox					mListBox;
-
-	Font					mBold;
 };

@@ -4,17 +4,19 @@
 #include "TileInspector.h"
 
 #include "../Constants.h"
+#include "../FontManager.h"
 
 #include <map>
 #include <sstream>
 
+using namespace NAS2D;
+
+static Font* FONT = nullptr;
+static Font* FONT_BOLD = nullptr;
 
 
-
-TileInspector::TileInspector(Font& font):	mBold("fonts/opensans-bold.ttf", 10),
-											mTile(nullptr)
+TileInspector::TileInspector()
 {
-	Control::font(font);
 	text(constants::WINDOW_TILE_INSPECTOR);
 	init();
 }
@@ -27,14 +29,15 @@ TileInspector::~TileInspector()
 
 void TileInspector::init()
 {
-	position(0, 0);
 	size(200, 88);
 
 	add(&btnClose, 145, 63);
-	btnClose.font(font());
 	btnClose.text("Close");
 	btnClose.size(50, 20);
 	btnClose.click().connect(this, &TileInspector::btnCloseClicked);
+
+	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -50,36 +53,36 @@ void TileInspector::update()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawText(mBold, "Has Mine:", rect().x() + 5, rect().y() + 25, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Has Mine:", rect().x() + 5, rect().y() + 25, 255, 255, 255);
 
 	if(mTile->mine())
 	{
-		r.drawText(font(), "Yes", rect().x() + 5 + mBold.width("Has Mine: "), rect().y() + 25, 255, 255, 255);
+		r.drawText(*FONT, "Yes", rect().x() + 5 + FONT_BOLD->width("Has Mine: "), rect().y() + 25, 255, 255, 255);
 
-		r.drawText(mBold, "Active:", rect().x() + 5, rect().y() + 35, 255, 255, 255);
+		r.drawText(*FONT_BOLD, "Active:", rect().x() + 5, rect().y() + 35, 255, 255, 255);
 
 		if (mTile->mine()->active())
 		{
-			r.drawText(font(), "Yes", rect().x() + 5 + mBold.width("Active: "), rect().y() + 35, 255, 255, 255);
+			r.drawText(*FONT, "Yes", rect().x() + 5 + FONT_BOLD->width("Active: "), rect().y() + 35, 255, 255, 255);
 		}
 		else
 		{
-			r.drawText(font(), "No", rect().x() + 5 + mBold.width("Active: "), rect().y() + 35, 255, 255, 255);
+			r.drawText(*FONT, "No", rect().x() + 5 + FONT_BOLD->width("Active: "), rect().y() + 35, 255, 255, 255);
 		}
 
-		r.drawText(mBold, "Production Rate:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
-		r.drawText(font(), MINE_YIELD_TRANSLATION[mTile->mine()->productionRate()], rect().x() + 5 + mBold.width("Production Rate: "), rect().y() + 45, 255, 255, 255);
+		r.drawText(*FONT_BOLD, "Production Rate:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
+		r.drawText(*FONT, MINE_YIELD_TRANSLATION[mTile->mine()->productionRate()], rect().x() + 5 + FONT_BOLD->width("Production Rate: "), rect().y() + 45, 255, 255, 255);
 	}
 	else
 	{
-		r.drawText(font(), "No", rect().x() + 5 + mBold.width("Has Mine: "), rect().y() + 25, 255, 255, 255);
+		r.drawText(*FONT, "No", rect().x() + 5 + FONT_BOLD->width("Has Mine: "), rect().y() + 25, 255, 255, 255);
 	}
 
-	r.drawText(mBold, "Location:", rect().x() + 5, rect().y() + 62, 255, 255, 255);
-	r.drawText(font(), string_format("%i, %i", mTile->x(), mTile->y()), rect().x() + 5 + mBold.width("Location: "), rect().y() + 62, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Location:", rect().x() + 5, rect().y() + 62, 255, 255, 255);
+	r.drawText(*FONT, string_format("%i, %i", mTile->x(), mTile->y()), rect().x() + 5 + FONT_BOLD->width("Location: "), rect().y() + 62, 255, 255, 255);
 
-	r.drawText(mBold, "Terrain:", rect().x() + 5, rect().y() + 72, 255, 255, 255);
-	r.drawText(font(), TILE_INDEX_TRANSLATION[mTile->index()], rect().x() + 5 + mBold.width("Terrain: "), rect().y() + 72, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Terrain:", rect().x() + 5, rect().y() + 72, 255, 255, 255);
+	r.drawText(*FONT, TILE_INDEX_TRANSLATION[mTile->index()], rect().x() + 5 + FONT_BOLD->width("Terrain: "), rect().y() + 72, 255, 255, 255);
 }
 
 

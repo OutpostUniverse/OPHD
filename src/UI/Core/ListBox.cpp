@@ -4,19 +4,20 @@
 #include "ListBox.h"
 
 #include "../../Constants.h"
+#include "../../FontManager.h"
 
 using namespace NAS2D;
+
+
+static Font* LST_FONT = nullptr;
+
 
 /**
  * C'tor
  */
 ListBox::ListBox()
 {
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
-	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
-	
-	init();
+	_init();
 }
 
 
@@ -35,11 +36,21 @@ ListBox::~ListBox()
 /**
 *
 */
-void ListBox::init()
+void ListBox::_init()
 {
+	LST_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
+	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
+
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBox::slideChanged);
+	_updateItemDisplay();
+
+	mLineHeight = (LST_FONT->height() + 2);
+	mLineCount = static_cast<int>(rect().height() / mLineHeight);
 	_updateItemDisplay();
 }
 
@@ -50,15 +61,6 @@ void ListBox::onSizeChanged()
 	add(&mSlider, rect().width() - 14, 0);
 	mSlider.displayPosition(false);
 	mSlider.size(14, rect().height());
-	_updateItemDisplay();
-}
-
-
-void ListBox::onFontChanged()
-{
-	mSlider.font(font());
-	mLineHeight = (font().height() + 2);
-	mLineCount = static_cast<int>(rect().height() / mLineHeight);
 	_updateItemDisplay();
 }
 
@@ -236,7 +238,7 @@ void ListBox::onMouseMove(int x, int y, int relX, int relY)
 		return;
 	}
 	
-	mCurrentHighlight = (y - (int)rect().y() + mCurrentOffset) / (font().height() + 2);
+	mCurrentHighlight = (y - (int)rect().y() + mCurrentOffset) / (LST_FONT->height() + 2);
 
 	if (mCurrentHighlight < 0)
 	{
@@ -299,11 +301,11 @@ void ListBox::update()
 		itemY = rect().y() + (i * mLineHeight) - mCurrentOffset;
 		if (i == mCurrentHighlight)
 		{
-			r.drawTextShadow(font(), mItems[i].Text, rect().x(), itemY, 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
+			r.drawTextShadow(*LST_FONT, mItems[i].Text, rect().x(), itemY, 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
 		}
 		else
 		{
-			r.drawTextShadow(font(), mItems[i].Text, rect().x(), itemY, 1, mText.red(), mText.green(), mText.blue(), 0, 0, 0);
+			r.drawTextShadow(*LST_FONT, mItems[i].Text, rect().x(), itemY, 1, mText.red(), mText.green(), mText.blue(), 0, 0, 0);
 		}
 	}
 

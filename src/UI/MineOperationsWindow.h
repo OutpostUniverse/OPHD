@@ -12,7 +12,7 @@
 class MineOperationsWindow : public Window
 {
 public:
-	MineOperationsWindow(Font& font);
+	MineOperationsWindow();
 	virtual ~MineOperationsWindow() final;
 
 	void mineFacility(MineFacility* _mf);
@@ -27,7 +27,6 @@ protected:
 	virtual void init() final;
 
 private:
-	MineOperationsWindow() = delete;
 	MineOperationsWindow(const MineOperationsWindow&) = delete;
 	MineOperationsWindow& operator=(const MineOperationsWindow&) = delete;
 
@@ -44,12 +43,10 @@ private:
 private:
 	MineFacility*		mFacility = nullptr;
 
-	Font				mBold;
+	NAS2D::Image		mUiIcon;
+	NAS2D::Image		mIcons;
 
-	Image				mUiIcon;
-	Image				mIcons;
-
-	ImageList			mPanel;
+	NAS2D::ImageList	mPanel;
 
 	CheckBox			chkCommonMetals;
 	CheckBox			chkCommonMinerals;

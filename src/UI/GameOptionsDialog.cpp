@@ -6,10 +6,9 @@
 #include "../Constants.h"
 
 
-GameOptionsDialog::GameOptionsDialog(Font& font)
+GameOptionsDialog::GameOptionsDialog()
 {
-	Control::font(font);
-	text("Options");
+	text(constants::WINDOW_SYSTEM_TITLE);
 	init();
 }
 
@@ -29,25 +28,21 @@ void GameOptionsDialog::init()
 	size(210, 160);
 
 	add(&btnSave, 5, 25);
-	btnSave.font(font());
 	btnSave.text("Save current game");
 	btnSave.size(200, 25);
 	btnSave.click().connect(this, &GameOptionsDialog::btnSaveClicked);
 
 	add(&btnLoad, 5, 53);
-	btnLoad.font(font());
 	btnLoad.text("Load a saved game");
 	btnLoad.size(200, 25);
 	btnLoad.click().connect(this, &GameOptionsDialog::btnLoadClicked);
 
 	add(&btnReturn, 5, 91);
-	btnReturn.font(font());
 	btnReturn.text("Return to current game");
 	btnReturn.size(200, 25);
 	btnReturn.click().connect(this, &GameOptionsDialog::btnReturnClicked);
 
 	add(&btnClose, 5, 129);
-	btnClose.font(font());
 	btnClose.text("Return to Main Menu");
 	btnClose.size(200, 25);
 	btnClose.click().connect(this, &GameOptionsDialog::btnCloseClicked);

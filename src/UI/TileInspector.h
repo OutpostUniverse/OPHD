@@ -7,19 +7,17 @@
 class TileInspector: public Window
 {
 public:
-
-	TileInspector(Font& font);
+	TileInspector();
 	virtual ~TileInspector();
-
-	virtual void update();
 
 	void tile(Tile* t) { mTile = t; }
 
+	virtual void update();
+
 protected:
-	virtual void init();
+	void init();
 
 private:
-	TileInspector() = delete;
 	TileInspector(const TileInspector&) = delete;
 	TileInspector& operator=(const TileInspector&) = delete;
 
@@ -28,6 +26,5 @@ private:
 
 private:
 	Button		btnClose;
-	Font		mBold;
-	Tile*		mTile;
+	Tile*		mTile = nullptr;
 };

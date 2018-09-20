@@ -78,12 +78,10 @@ protected:
 	virtual void visibilityChanged(bool visible) final;
 
 private:
-	virtual void onFontChanged() final;
 	virtual void onSizeChanged() final;
 
 	void _updateItemDisplay();
-
-	void init();
+	void _init();
 
 private:
 	int							mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */

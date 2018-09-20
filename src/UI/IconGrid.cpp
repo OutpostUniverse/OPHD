@@ -4,17 +4,16 @@
 #include "IconGrid.h"
 
 #include "../Constants.h"
+#include "../FontManager.h"
 
+using namespace NAS2D;
+
+static Font* FONT = nullptr;
 
 /**
  * C'tor
  */
-IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
-						mCurrentSelection(constants::NO_SELECTION),
-						mIconSize(0),
-						mIconMargin(0),
-						mShowTooltip(false),
-						mSorted(true)
+IconGrid::IconGrid()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMotion);
@@ -29,6 +28,8 @@ IconGrid::IconGrid():	mHighlightIndex(constants::NO_SELECTION),
 	mSkin.push_back(Image("ui/skin/textbox_bottom_left.png"));
 	mSkin.push_back(Image("ui/skin/textbox_bottom_middle.png"));
 	mSkin.push_back(Image("ui/skin/textbox_bottom_right.png"));
+
+	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -449,15 +450,15 @@ void IconGrid::update()
 		{
 			r.drawBoxFilled(static_cast<float>(x),
 							static_cast<float>(y - 15),
-							static_cast<float>(font().width(mIconItemList[mHighlightIndex].name) + 4),
-							static_cast<float>(font().height()), 245, 245, 245);
+							static_cast<float>(FONT->width(mIconItemList[mHighlightIndex].name) + 4),
+							static_cast<float>(FONT->height()), 245, 245, 245);
 			
 			r.drawBox(	static_cast<float>(x),
 						static_cast<float>(y - 15),
-						static_cast<float>(font().width(mIconItemList[mHighlightIndex].name) + 4),
-						static_cast<float>(font().height()), 175, 175, 175);
+						static_cast<float>(FONT->width(mIconItemList[mHighlightIndex].name) + 4),
+						static_cast<float>(FONT->height()), 175, 175, 175);
 			
-			r.drawText(font(), mIconItemList[mHighlightIndex].name, static_cast<float>(x + 2), static_cast<float>(y - 15), 0, 0, 0);
+			r.drawText(*FONT, mIconItemList[mHighlightIndex].name, static_cast<float>(x + 2), static_cast<float>(y - 15), 0, 0, 0);
 		}
 	}
 }

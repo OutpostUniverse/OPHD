@@ -10,7 +10,7 @@
 using namespace NAS2D;
 
 const float WINDOW_TITLE_BAR_HEIGHT = 20.0f;
-static Font* FONT;
+static Font* WINDOW_TITLE_FONT;
 
 Window::Window()
 {
@@ -30,7 +30,7 @@ void Window::_init()
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMotion);
 
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 10);
+	WINDOW_TITLE_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
 	mBody.push_back(Image("ui/skin/window_top_left.png"));
 	mBody.push_back(Image("ui/skin/window_top_middle.png"));
@@ -101,7 +101,7 @@ void Window::update()
 
 	r.drawImageRect(rect().x(), rect().y() + 20, rect().width(), rect().height() - 20, mBody);
 
-	r.drawText(*FONT, text(), rect().x() + 5, rect().y() + 2, 255, 255, 255);
+	r.drawText(*WINDOW_TITLE_FONT, text(), rect().x() + 5, rect().y() + 2, 255, 255, 255);
 
 	UIContainer::update();
 }

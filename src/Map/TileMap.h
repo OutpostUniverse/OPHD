@@ -4,7 +4,7 @@
 
 #include "../Things/Structures/Structure.h"
 
-typedef std::vector<Point_2d> Point2dList;
+using Point2dList = std::vector<NAS2D::Point_2d>;
 
 class TileMap
 {
@@ -36,12 +36,12 @@ public:
 	bool isVisibleTile(int _x, int _y) const { return isVisibleTile(_x, _y, mCurrentDepth); }
 	bool isVisibleTile(const Tile& _t) { return isVisibleTile(_t.x(), _t.y(), _t.depth()); }
 	
-	const Rectangle_2d& boundingBox() const { return mMapBoundingBox; }
+	const NAS2D::Rectangle_2d& boundingBox() const { return mMapBoundingBox; }
 
-	const Point_2d& mapViewLocation() const { return mMapViewLocation; }
+	const NAS2D::Point_2d& mapViewLocation() const { return mMapViewLocation; }
 	void mapViewLocation(int x, int y) { mMapViewLocation(x, y); }
 
-	const Point_2d& tileHighlight() const { return mMapHighlight; }
+	const NAS2D::Point_2d& tileHighlight() const { return mMapHighlight; }
 	bool tileHighlightVisible() const;
 
 	int tileMouseHoverX() const { return mMapHighlight.x() + mMapViewLocation.x(); }
@@ -57,7 +57,7 @@ public:
 	int height() const { return mHeight; }
 
 	int currentDepth() const { return mCurrentDepth; }
-	void currentDepth(int _i) { mCurrentDepth = clamp(_i, 0, mMaxDepth); }
+	void currentDepth(int _i) { mCurrentDepth = NAS2D::clamp(_i, 0, mMaxDepth); }
 
 	int maxDepth() const { return mMaxDepth; }
 
@@ -114,21 +114,21 @@ private:
 
 	TileArray			mTileMap;					/**<  */
 
-	Image				mTileSelector;				/**<  */
-	Image				mTileset;					/**<  */
-	Image				mMineBeacon;				/**<  */
+	NAS2D::Image		mTileSelector;				/**<  */
+	NAS2D::Image		mTileset;					/**<  */
+	NAS2D::Image		mMineBeacon;				/**<  */
 
-	Timer				mTimer;						/**<  */
+	NAS2D::Timer		mTimer;						/**<  */
 
-	Point_2d			mMousePosition;				/**< Current mouse position. */
-	Point_2d			mMapHighlight;				/**< Tile the mouse is pointing to. */
-	Point_2d			mMapViewLocation;			/**<  */
+	NAS2D::Point_2d		mMousePosition;				/**< Current mouse position. */
+	NAS2D::Point_2d		mMapHighlight;				/**< Tile the mouse is pointing to. */
+	NAS2D::Point_2d		mMapViewLocation;			/**<  */
 
-	Point_2df			mMapPosition;				/** Where to start drawing the TileMap on the screen. */
+	NAS2D::Point_2df	mMapPosition;				/** Where to start drawing the TileMap on the screen. */
 
 	Point2dList			mMineLocations;				/**< Location of all mines on the map. */
 
-	Rectangle_2d		mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
+	NAS2D::Rectangle_2d	mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
 
 	bool				mDebug = false;
 	bool				mShowConnections = false;	/**< Flag indicating whether or not to highlight connectedness. */

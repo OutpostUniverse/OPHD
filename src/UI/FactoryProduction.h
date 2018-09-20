@@ -5,24 +5,24 @@
 
 #include "../Things/Structures/Factory.h"
 
-
 /**
  * \brief Implements a Factory Production dialog interface.
  */
 class FactoryProduction : public Window
 {
 public:
-	FactoryProduction(Font& font);
+	FactoryProduction();
 	virtual ~FactoryProduction();
 
 	void factory(Factory* _f);
 	Factory* factory() { return mFactory; }
 
-	virtual void update();
 	virtual void hide();
+	
+	virtual void update();
 
 protected:
-	virtual void init();
+	void init();
 
 private:
 	void btnOkayClicked();
@@ -36,7 +36,6 @@ private:
 	void productSelectionChanged(const IconGrid::IconGridItem*);
 
 private:
-	FactoryProduction() = delete;
 	FactoryProduction(const FactoryProduction&) = delete;
 	FactoryProduction& operator=(const FactoryProduction&) = delete;
 
@@ -45,8 +44,6 @@ private:
 
 	ProductType			mProduct = PRODUCT_NONE;
 	ProductionCost		mProductCost;
-
-	Font				mBold;
 
 	IconGrid			mProductGrid;
 

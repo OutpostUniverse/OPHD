@@ -8,7 +8,7 @@ public:
 	typedef NAS2D::Signals::Signal0<void> ClickCallback;
 
 public:
-	GameOptionsDialog(Font& font);
+	GameOptionsDialog();
 	virtual ~GameOptionsDialog();
 
 	virtual void update();
@@ -23,7 +23,6 @@ protected:
 	virtual void init();
 
 private:
-	GameOptionsDialog() = delete;
 	GameOptionsDialog(const GameOptionsDialog&) = delete;
 	GameOptionsDialog& operator=(const GameOptionsDialog&) = delete;
 

@@ -8,13 +8,20 @@
  */
 #include "Slider.h"
 
+#include "../../Constants.h"
+#include "../../FontManager.h"
+
 using namespace NAS2D;
+
+
+static Font* SLD_FONT = nullptr;
 
 /**
  * C'tor
  */
 Slider::Slider() :	Control()
 {
+	SLD_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMotion);
@@ -409,8 +416,8 @@ void Slider::draw()
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
 		textHover = string_format("%i / %i", static_cast<int>(thumbPosition()), static_cast<int>(mLenght));
-		_w = font().width(textHover) + 4;
-		_h = font().height() + 4;
+		_w = SLD_FONT->width(textHover) + 4;
+		_h = SLD_FONT->height() + 4;
 
 		if (mSliderType == SLIDER_VERTICAL)
 		{
@@ -425,7 +432,7 @@ void Slider::draw()
 
 		r.drawBox(_x, _y, _w, _h, 255, 255, 255, 180);
 		r.drawBoxFilled(_x + 1, _y + 1, _w - 2, _h - 2, 0, 0, 0, 180);
-		r.drawText(font(), textHover, _x + 2, _y + 2, 220, 220, 220);
+		r.drawText(*SLD_FONT, textHover, _x + 2, _y + 2, 220, 220, 220);
 	}
 }
 

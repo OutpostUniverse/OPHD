@@ -3,6 +3,8 @@
 
 #include "ProgressBar.h"
 
+using namespace NAS2D;
+
 
 ProgressBar::ProgressBar() : mCurrent(0), mEnd(0), mImageMode(ProgressBar::Repeating), mUsesImage(false)
 {

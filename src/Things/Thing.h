@@ -4,8 +4,6 @@
 
 class Tile;
 
-using namespace NAS2D;
-
 #include <iostream>
 #include <string>
 
@@ -22,7 +20,7 @@ public:
 																	mSprite(sprite_path)
 	{}
 
-	Thing():	mName("Unknown")
+	Thing(): mName("Unknown")
 	{}
 
 	virtual ~Thing()
@@ -45,7 +43,7 @@ public:
 	 * the code as it requires that the Thing have screen positional
 	 * information included in it.
 	 */
-	Sprite& sprite() { return mSprite; }
+	NAS2D::Sprite& sprite() { return mSprite; }
 
 	virtual void die() { mIsDead = true; mDieCallback(this); }
 	bool dead() const { return mIsDead; }
@@ -60,7 +58,7 @@ private:
 
 private:
 	std::string		mName;			/**< Name of the Thing. */
-	Sprite			mSprite;		/**< Sprite used to represent the Thing. */
+	NAS2D::Sprite	mSprite;		/**< Sprite used to represent the Thing. */
 
 	bool			mIsDead = false;/**< Thing is dead and should be cleaned up. */
 

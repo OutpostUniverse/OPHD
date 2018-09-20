@@ -37,9 +37,6 @@ private:
 	void fileIoAction(const std::string& _file, FileIo::FileOperation _op);
 
 private:
-	NAS2D::Font			mFont;							/**<  */
-	NAS2D::Font			mTinyFont;						/**<  */
-
 	NAS2D::Image		mBgImage;						/**<  */
 
 	FileIo				mFileIoDialog;					/**< File IO window. */

@@ -201,7 +201,6 @@
     <ClCompile Include="..\..\src\UI\Core\ComboBox.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Control.cpp" />
     <ClCompile Include="..\..\src\UI\Core\ListBox.cpp" />
-    <ClCompile Include="..\..\src\UI\Core\Menu.cpp" />
     <ClCompile Include="..\..\src\UI\Core\ProgressBar.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Slider.cpp" />
     <ClCompile Include="..\..\src\UI\Core\TextArea.cpp" />
@@ -218,6 +217,7 @@
     <ClCompile Include="..\..\src\UI\IconGrid.cpp" />
     <ClCompile Include="..\..\src\UI\MajorEventAnnouncement.cpp" />
     <ClCompile Include="..\..\src\UI\MineOperationsWindow.cpp" />
+    <ClCompile Include="..\..\src\UI\PopulationPanel.cpp" />
     <ClCompile Include="..\..\src\UI\Reports\FactoryReport.cpp" />
     <ClCompile Include="..\..\src\ui\StructureInspector.cpp" />
     <ClCompile Include="..\..\src\UI\TileInspector.cpp" />
@@ -303,7 +303,6 @@
     <ClInclude Include="..\..\src\UI\Core\ComboBox.h" />
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
     <ClInclude Include="..\..\src\UI\Core\ListBox.h" />
-    <ClInclude Include="..\..\src\UI\Core\Menu.h" />
     <ClInclude Include="..\..\src\UI\Core\ProgressBar.h" />
     <ClInclude Include="..\..\src\UI\Core\Slider.h" />
     <ClInclude Include="..\..\src\UI\Core\TextArea.h" />

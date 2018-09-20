@@ -22,7 +22,7 @@ public:
 	typedef NAS2D::Signals::Signal2<DiggerSelection, Tile*> Callback;
 
 public:
-	DiggerDirection(Font& font);
+	DiggerDirection();
 	virtual ~DiggerDirection();
 
 	virtual void update();
@@ -49,7 +49,6 @@ private:
 	void btnDiggerWestClicked();
 
 private:
-	DiggerDirection() = delete;										/**< Not allowed. */
 	DiggerDirection(const DiggerDirection&) = delete;				/**< Not allowed. */
 	DiggerDirection& operator=(const DiggerDirection&) = delete;	/**< Not allowed. */
 

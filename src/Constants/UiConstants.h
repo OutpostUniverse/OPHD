@@ -28,8 +28,26 @@ namespace constants
 	const NAS2D::Color_4ub MINE_COLOR(255, 0, 0, 255);
 	const NAS2D::Color_4ub ACTIVE_MINE_COLOR(255, 255, 0, 255);
 
-	// Mouse pointers
+	// =====================================
+	// = MOUSE POINTERS
+	// =====================================
 	const std::string MOUSE_POINTER_NORMAL		= "ui/pointers/normal.png";
 	const std::string MOUSE_POINTER_PLACE_TILE	= "ui/pointers/place_tile.png";
 	const std::string MOUSE_POINTER_INSPECT		= "ui/pointers/inspect.png";
+
+
+	// =====================================
+	// = FONT STRINGS
+	// =====================================
+	const std::string FONT_PRIMARY = "fonts/opensans.ttf";
+	const std::string FONT_PRIMARY_BOLD = "fonts/opensans-bold.ttf";
+
+
+	// =====================================
+	// = FONT SIZES
+	// =====================================
+	const int FONT_PRIMARY_NORMAL = 10;
+	const int FONT_PRIMARY_MEDIUM = 14;
+	const int FONT_PRIMARY_LARGE = 16;
+	const int FONT_PRIMARY_HUGE = 20;
 }

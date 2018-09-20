@@ -183,10 +183,6 @@ private:
 private:
 	FpsCounter			mFps;							/**< Main FPS Counter. */
 
-	Font				mFont;							/**< Large Font. */
-	Font				mTinyFont;						/**< Small Font. */
-	Font				mTinyFontBold;					/**< Small Bold Font. */
-
 	TileMap*			mTileMap = nullptr;				/**<  */
 
 	Image				mBackground;					/**< Background image drawn behind the tile map. */

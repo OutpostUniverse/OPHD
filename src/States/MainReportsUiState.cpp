@@ -231,6 +231,8 @@ void MainReportsUiState::_deactivate()
 	Utility<EventHandler>::get().keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
 	//Utility<EventHandler>::get().windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
+
+	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
 }
 
 

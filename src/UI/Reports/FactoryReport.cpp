@@ -13,6 +13,8 @@
 
 #include <array>
 
+using namespace NAS2D;
+
 static int SORT_BY_PRODUCT_POSITION = 0;
 static int STATUS_LABEL_POSITION = 0;
 static int WIDTH_RESOURCES_REQUIRED_LABEL = 0;
@@ -63,6 +65,8 @@ FactoryReport::~FactoryReport()
 	delete FACTORY_UG;
 	delete _PRODUCT_NONE;
 
+	SELECTED_FACTORY = nullptr;
+
 	for (auto img : PRODUCT_IMAGE_ARRAY) { delete img; }
 }
 
@@ -72,14 +76,14 @@ FactoryReport::~FactoryReport()
  */
 void FactoryReport::init()
 {
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 10);
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 10);
+	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
-	FONT_MED = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 14);
-	FONT_MED_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 14);
+	FONT_MED = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
+	FONT_MED_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 
-	FONT_BIG = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 20);
-	FONT_BIG_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 20);
+	FONT_BIG = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
+	FONT_BIG_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
 
 	FACTORY_SEED	= new Image("ui/interface/factory_seed.png");
 	FACTORY_AG		= new Image("ui/interface/factory_ag.png");
@@ -100,11 +104,9 @@ void FactoryReport::init()
 	_PRODUCT_NONE = new Image("ui/interface/product_none.png");
 
 	add(&lstFactoryList, 10, 63);
-	lstFactoryList.font(*FONT);
 	lstFactoryList.selectionChanged().connect(this, &FactoryReport::lstFactoryListSelectionChanged);
 
 	add(&btnShowAll, 10, 10);
-	btnShowAll.font(*FONT);
 	btnShowAll.size(75, 20);
 	btnShowAll.type(Button::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
@@ -112,69 +114,58 @@ void FactoryReport::init()
 	btnShowAll.click().connect(this, &FactoryReport::btnShowAllClicked);
 
 	add(&btnShowSurface, 87, 10);
-	btnShowSurface.font(*FONT);
 	btnShowSurface.size(75, 20);
 	btnShowSurface.type(Button::BUTTON_TOGGLE);
 	btnShowSurface.text("Surface");
 	btnShowSurface.click().connect(this, &FactoryReport::btnShowSurfaceClicked);
 
 	add(&btnShowUnderground, 164, 10);
-	btnShowUnderground.font(*FONT);
 	btnShowUnderground.size(75, 20);
 	btnShowUnderground.type(Button::BUTTON_TOGGLE);
 	btnShowUnderground.text("Underground");
 	btnShowUnderground.click().connect(this, &FactoryReport::btnShowUndergroundClicked);
 
 	add(&btnShowActive, 10, 33);
-	btnShowActive.font(*FONT);
 	btnShowActive.size(75, 20);
 	btnShowActive.type(Button::BUTTON_TOGGLE);
 	btnShowActive.text("Active");
 	btnShowActive.click().connect(this, &FactoryReport::btnShowActiveClicked);
 
 	add(&btnShowIdle, 87, 33);
-	btnShowIdle.font(*FONT);
 	btnShowIdle.size(75, 20);
 	btnShowIdle.type(Button::BUTTON_TOGGLE);
 	btnShowIdle.text("Idle");
 	btnShowIdle.click().connect(this, &FactoryReport::btnShowIdleClicked);
 
 	add(&btnShowDisabled, 164, 33);
-	btnShowDisabled.font(*FONT);
 	btnShowDisabled.size(75, 20);
 	btnShowDisabled.type(Button::BUTTON_TOGGLE);
 	btnShowDisabled.text("Disabled");
 	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
 
-
 	int position_x = Utility<Renderer>::get().width() - 110;
 	add(&btnIdle, position_x, 35);
 	btnIdle.type(Button::BUTTON_TOGGLE);
-	btnIdle.font(*FONT_MED);
 	btnIdle.size(140, 30);
 	btnIdle.text("Idle");
 	btnIdle.click().connect(this, &FactoryReport::btnIdleClicked);
 
 	add(&btnClearProduction, position_x, 75);
-	btnClearProduction.font(*FONT_MED);
 	btnClearProduction.size(140, 30);
 	btnClearProduction.text("Clear Production");
 	btnClearProduction.click().connect(this, &FactoryReport::btnClearProductionClicked);
 
 	add(&btnTakeMeThere, position_x, 115);
-	btnTakeMeThere.font(*FONT_MED);
 	btnTakeMeThere.size(140, 30);
 	btnTakeMeThere.text("Take Me There");
 	btnTakeMeThere.click().connect(this, &FactoryReport::btnTakeMeThereClicked);
 
 	add(&btnApply, 0, 0);
-	btnApply.font(*FONT_MED);
 	btnApply.size(140, 30);
 	btnApply.text("Apply");
 	btnApply.click().connect(this, &FactoryReport::btnApplyClicked);
 
 	add(&cboFilterByProduct, 250, 33);
-	cboFilterByProduct.font(*FONT);
 	cboFilterByProduct.size(200, 20);
 
 	cboFilterByProduct.addItem("None", PRODUCT_NONE);
@@ -191,9 +182,8 @@ void FactoryReport::init()
 	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::cboFilterByProductSelectionChanged);
 
 	add(&lstProducts, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20, rect().y() + 230);
-	lstProducts.font(*FONT);
 
-	txtProductDescription.font(*FONT);
+	txtProductDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	txtProductDescription.height(128);
 	txtProductDescription.textColor(0, 185, 0);
 	txtProductDescription.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
@@ -209,6 +199,12 @@ void FactoryReport::init()
 void FactoryReport::selectFactory(Factory* f)
 {
 	lstFactoryList.currentSelection(f);
+}
+
+
+void FactoryReport::clearSelection()
+{
+	SELECTED_FACTORY = nullptr;
 }
 
 

@@ -7,34 +7,32 @@
 class StructureInspector : public Window
 {
 public:
-
-	StructureInspector(Font& font);
+	StructureInspector();
 	virtual ~StructureInspector();
-
-	virtual void update();
 
 	void structure(Structure* _st);
 	Structure* structure() { return mStructure; }
 
+	virtual void update() final;
+
 protected:
-	virtual void init();
+	void init();
 
 private:
 	void btnCloseClicked();
 	void drawResourcePool(const std::string& title, ResourcePool& rp, int x, int y);
 
 private:
-	StructureInspector() = delete;
 	StructureInspector(const StructureInspector&) = delete;
 	StructureInspector& operator=(const StructureInspector&) = delete;
 
 private:
-	Button		btnClose;
+	Button			btnClose;
 
-	Image		mIcons;
+	NAS2D::Image	mIcons;
 
-	std::string	mStructureClass;
-	std::string	mStructureState;
+	std::string		mStructureClass;
+	std::string		mStructureState;
 
-	Structure*	mStructure = nullptr;
+	Structure*		mStructure = nullptr;
 };

@@ -3,6 +3,8 @@
 
 #include "ComboBox.h"
 
+using namespace NAS2D;
+
 /**
  * C'tor
  */
@@ -46,16 +48,6 @@ void ComboBox::init()
 	resized().connect(this, &ComboBox::resizedHandler);
 	moved().connect(this, &ComboBox::repositioned);
 	lstItems.selectionChanged().connect(this, &ComboBox::lstItemsSelectionChanged);
-}
-
-
-/**
- * Font changed event handler.
- */
-void ComboBox::onFontChanged()
-{
-	txtField.font(font());
-	lstItems.font(font());
 }
 
 

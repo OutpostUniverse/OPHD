@@ -36,15 +36,14 @@ private:
 	void lstItemsSelectionChanged();
 
 	void onMouseWheel(int x, int y);
-	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y) final;
-	virtual void onFontChanged() final;
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) final;
 
 private:
 	Button				btnDown;
 	ListBox				lstItems;
 	TextField			txtField;
 
-	Rectangle_2d		mBaseArea;
+	NAS2D::Rectangle_2d	mBaseArea;
 
 	SelectionChanged	mSelectionChanged;
 

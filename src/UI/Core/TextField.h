@@ -10,7 +10,6 @@
 #include "NAS2D/NAS2D.h"
 #include "Control.h"
 
-using namespace NAS2D;
 
 /**
  * \class TextField
@@ -54,13 +53,11 @@ public:
 	void update();
 
 protected:
-	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
-	virtual void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	virtual void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string&);
 
 private:
-	void onFontChanged();
-
 	void drawCursor();
 	void drawTextHighlight();
 
@@ -68,10 +65,8 @@ private:
 
 	void updateCursor();
 
-	void draw();
-
 private:
-	Timer				mCursorTimer;					/**< Timer for the cursor blink. */
+	NAS2D::Timer		mCursorTimer;					/**< Timer for the cursor blink. */
 
 	int 				mCursorPosition = 0;			/**< Position of the Insertion Cursor. */
 	int 				mCursorX = 0;					/**< Pixel position of the Cursor. */
@@ -82,8 +77,8 @@ private:
 
 	BorderVisibility	mBorderVisibility = FOCUS_ONLY;	/**< Border visibility flag. */
 
-	ImageList			mSkinNormal;
-	ImageList			mSkinFocus;
+	NAS2D::ImageList	mSkinNormal;
+	NAS2D::ImageList	mSkinFocus;
 
 	bool				mEditable = true;				/**< Toggle editing of the field. */
 	bool				mShowCursor = true;				/**< Flag indicating whether or not to draw the cursor. */

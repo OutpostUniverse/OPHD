@@ -7,14 +7,16 @@
 #include "PlanetSelectState.h"
 #include "Wrapper.h"
 
+#include "../Constants.h"
+#include "../FontManager.h"
+
+using namespace NAS2D;
+
 
 /**
  * C'tor
  */
-MainMenuState::MainMenuState() :	mFont("fonts/opensans.ttf", 14),
-									mTinyFont("fonts/opensans.ttf", 10),
-									mBgImage("sys/mainmenu.png"),
-									mFileIoDialog(mTinyFont)
+MainMenuState::MainMenuState() : mBgImage("sys/mainmenu.png")
 {}
 
 
@@ -38,24 +40,24 @@ void MainMenuState::initialize()
 	e.windowResized().connect(this, &MainMenuState::onWindowResized);
 	e.keyDown().connect(this, &MainMenuState::onKeyDown);
 
-	btnNewGame.font(mFont);
-	btnNewGame.text("New Game");
+	btnNewGame.text(constants::MAIN_MENU_NEW_GAME);
+	btnNewGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnNewGame.size(200, 30);
 	btnNewGame.click().connect(this, &MainMenuState::btnNewGameClicked);
 
-	btnContinueGame.font(mFont);
-	btnContinueGame.text("Continue");
+	btnContinueGame.text(constants::MAIN_MENU_CONTINUE);
+	btnContinueGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnContinueGame.size(200, 30);
 	btnContinueGame.click().connect(this, &MainMenuState::btnContinueGameClicked);
 
-	btnOptions.font(mFont);
-	btnOptions.text("Options");
+	btnOptions.text(constants::MAIN_MENU_OPTIONS);
+	btnOptions.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnOptions.size(200, 30);
 	btnOptions.enabled(false);
 	btnOptions.click().connect(this, &MainMenuState::btnOptionsClicked);
 
-	btnQuit.font(mFont);
-	btnQuit.text("Quit");
+	btnQuit.text(constants::MAIN_MENU_QUIT);
+	btnQuit.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnQuit.size(200, 30);
 	btnQuit.click().connect(this, &MainMenuState::btnQuitClicked);
 
@@ -240,7 +242,9 @@ NAS2D::State* MainMenuState::update()
 
 	mFileIoDialog.update();
 
-	r.drawText(mTinyFont, constants::VERSION, r.width() - mTinyFont.width(constants::VERSION) - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
+	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+
+	r.drawText(*tiny_font, constants::VERSION, r.width() - tiny_font->width(constants::VERSION) - 5, r.height() - tiny_font->height() - 5, 255, 255, 255);
 
 	if (r.isFading())
 	{

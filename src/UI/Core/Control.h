@@ -20,8 +20,6 @@ public:
 	Control();
 	virtual ~Control();
 
-	void font(NAS2D::Font& font);
-
 	void position(const NAS2D::Point_2d& pos);
 	void position(const NAS2D::Point_2df& pos);
 	void position(float x, float y);
@@ -82,10 +80,6 @@ protected:
 
 	virtual void onSizeChanged() { mResized(this); }
 	virtual void onTextChanged() { mTextChanged(this); };
-	virtual void onFontChanged() {};
-
-	NAS2D::Font& font();
-	bool fontSet() const;
 
 	NAS2D::Rectangle_2df& _rect();
 	std::string& _text();
@@ -102,8 +96,6 @@ private:
 	std::string				mText;				/**< Internal text string. */
 
 	NAS2D::Rectangle_2df	mRect;				/**< Area of the Control. */
-
-	NAS2D::Font*			mFont = nullptr;	/**< Pointer to a Font object. Control DOES NOT own the pointer. */
 
 	bool					mEnabled = true;	/**< Flag indicating whether or not the Control is enabled. */
 	bool					mHasFocus = false;	/**< Flag indicating that the Control has input focus. */

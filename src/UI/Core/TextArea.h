@@ -1,12 +1,11 @@
 #pragma once
 
-#include "NAS2D/NAS2D.h"
-
 #include "Control.h"
+
+#include "NAS2D/NAS2D.h"
 
 #include <string>
 
-using namespace NAS2D;
 
 class TextArea : public Control
 {
@@ -15,6 +14,8 @@ public:
 	virtual ~TextArea();
 
 	void textColor(int r, int g, int b, int a = 255) { mTextColor(r, g, b, a); }
+
+	void font(const std::string, size_t);
 
 	void update();
 
@@ -30,9 +31,11 @@ private:
 	void processString();
 
 private:
+	size_t		mNumLines = 0;
+
 	StringList	mFormattedList;
 
-	Color_4ub	mTextColor = COLOR_WHITE;
+	NAS2D::Color_4ub	mTextColor = NAS2D::COLOR_WHITE;
 
-	size_t		mNumLines = 0;
+	NAS2D::Font*		mFont = nullptr;
 };

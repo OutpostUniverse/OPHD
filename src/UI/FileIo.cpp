@@ -5,15 +5,17 @@
 
 #include "../Constants.h"
 
+using namespace NAS2D;
+
+
 /**
  * D'tor
  */
-FileIo::FileIo(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
+FileIo::FileIo()
 {
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
 	Utility<EventHandler>::get().keyDown().connect(this, &FileIo::onKeyDown);
 
-	Control::font(font);
 	text("File I/O");
 	init();
 }
@@ -34,30 +36,25 @@ FileIo::~FileIo()
  */
 void FileIo::init()
 {
-	position(0, 0);
 	size(500, 350);
 
 	add(&btnFileOp, 445, 325);
-	btnFileOp.font(font());
 	btnFileOp.text("FileOp");
 	btnFileOp.size(50, 20);
 	btnFileOp.click().connect(this, &FileIo::btnFileIoClicked);
 	btnFileOp.enabled(false);
 
 	add(&btnClose, 390, 325);
-	btnClose.font(font());
 	btnClose.text("Cancel");
 	btnClose.size(50, 20);
 	btnClose.click().connect(this, &FileIo::btnCloseClicked);
 
 	add(&txtFileName, 5, 302);
-	txtFileName.font(font());
 	txtFileName.size(490, 18);
 	txtFileName.maxCharacters(50);
 	txtFileName.textChanged().connect(this,&FileIo::fileNameModified);
 
 	add(&mListBox, 5, 25);
-	mListBox.font(font());
 	mListBox.size(490, 273);
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect(this, &FileIo::fileSelected);
@@ -108,9 +105,9 @@ void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod,
  */
 void FileIo::setMode(FileOperation _m)
 {
-	mMode = _m;
-	text(mMode == FILE_LOAD ? "Load Game" : "Save Game");
-	btnFileOp.text(mMode == FILE_LOAD ? "Load" : "Save");
+	mMode = _m; 
+	text(mMode == FILE_LOAD ? constants::WINDOW_FILEIO_TITLE_LOAD : constants::WINDOW_FILEIO_TITLE_SAVE);
+	btnFileOp.text(mMode == FILE_LOAD ? constants::WINDOW_FILEIO_LOAD : constants::WINDOW_FILEIO_SAVE);
 }
 
 
@@ -181,18 +178,6 @@ void FileIo::fileNameModified(Control* _ctrl)
 /**
  * 
  */
-void FileIo::update()
-{
-	if (!visible())
-		return;
-
-	Window::update();
-}
-
-
-/**
- * 
- */
 void FileIo::btnCloseClicked()
 {
 	visible(false);
@@ -210,4 +195,15 @@ void FileIo::btnFileIoClicked()
 	txtFileName.text("");
 	txtFileName.resetCursorPosition();
 	btnFileOp.enabled(false);
+}
+
+
+/**
+ * 
+ */
+void FileIo::update()
+{
+	if (!visible()) { return; }
+
+	Window::update();
 }

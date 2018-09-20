@@ -6,8 +6,6 @@
 
 #include <string>
 
-using namespace NAS2D;
-
 class ProgressBar : public Control
 {
 public:
@@ -49,16 +47,16 @@ private:
 	void draw();
 
 private:
-	unsigned char			mColorR;
-	unsigned char			mColorG;
-	unsigned char			mColorB;
-	unsigned char			mColorAlpha;
+	unsigned char		mColorR;
+	unsigned char		mColorG;
+	unsigned char		mColorB;
+	unsigned char		mColorAlpha;
 
-	Image			mImage;
-	ImageMode		mImageMode;
+	NAS2D::Image		mImage;
+	ImageMode			mImageMode;
 
-	ImageList		mSkinOut;
-	ImageList		mSkinIn;
+	NAS2D::ImageList	mSkinOut;
+	NAS2D::ImageList	mSkinIn;
 
-	bool			mUsesImage;			/**< Internal flag indicating that the Button uses an image graphic. */
+	bool				mUsesImage;		/**< Internal flag indicating that the Button uses an image graphic. */
 };

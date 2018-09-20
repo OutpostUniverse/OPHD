@@ -20,43 +20,6 @@ Control::~Control()
 
 
 /**
- * Sets the internal font.
- *
- * \param	font		A reference to a Font object.
- * 
- * \warning	Control stores the set font in a pointer. This pointer is NOT owned
- *			by Control. The Font passed to Control should not be allowed to go
- *			out of scope until the Control is destroyed.
- */
-void Control::font(Font& font)
-{
-	mFont = &font;
-
-	onFontChanged();
-}
-
-
-/**
- * Internal function to provide access to the Font object
- * to derived objects.
- */
-Font& Control::font()
-{
-	return *mFont;
-}
-
-
-/**
- * Internal funtion used to determine if a Font is available
- * for use.
- */
-bool Control::fontSet() const
-{
-	return mFont != nullptr;
-}
-
-
-/**
  * Sets the position of the Control.
  * 
  * \param pos	2D Coordinate to position the Control at.

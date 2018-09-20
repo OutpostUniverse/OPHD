@@ -4,14 +4,18 @@
 #include "FactoryProduction.h"
 
 #include "../Constants.h"
+#include "../FontManager.h"
 
+using namespace NAS2D;
+
+static Font* FONT = nullptr;
+static Font* FONT_BOLD = nullptr;
 
 /**
  * 
  */
-FactoryProduction::FactoryProduction(Font& font) : mBold("fonts/opensans-bold.ttf", 10)
+FactoryProduction::FactoryProduction()
 {
-	Control::font(font);
 	text(constants::WINDOW_FACTORY_PRODUCTION);
 	init();
 }
@@ -33,7 +37,6 @@ void FactoryProduction::init()
 
 	// Set up GUI Layout
 	add(&mProductGrid, static_cast<float>(constants::MARGIN), 25);
-	mProductGrid.font(font());
 	mProductGrid.sheetPath("ui/factory.png");
 	mProductGrid.size(140, 110);
 	mProductGrid.iconSize(32);
@@ -43,35 +46,33 @@ void FactoryProduction::init()
 	mProductGrid.selectionChanged().connect(this, &FactoryProduction::productSelectionChanged);
 
 	add(&btnOkay, 233, 138);
-	btnOkay.font(font());
 	btnOkay.text("Okay");
 	btnOkay.size(40, 20);
 	btnOkay.click().connect(this, &FactoryProduction::btnOkayClicked);
 
 	add(&btnCancel, 276, 138);
-	btnCancel.font(font());
 	btnCancel.text("Cancel");
 	btnCancel.size(40, 20);
 	btnCancel.click().connect(this, &FactoryProduction::btnCancelClicked);
 
 	add(&btnClearSelection, 5, 138);
-	btnClearSelection.font(font());
 	btnClearSelection.text("Clear Selection");
 	btnClearSelection.size(90, 20);
 	btnClearSelection.click().connect(this, &FactoryProduction::btnClearSelectionClicked);
 
 	add(&btnIdle, mProductGrid.positionX() + mProductGrid.width() - 40, 138);
-	btnIdle.font(font());
 	btnIdle.text("Idle");
 	btnIdle.size(40, 20);
 	btnIdle.click().connect(this, &FactoryProduction::btnIdleClicked);
 	btnIdle.type(Button::BUTTON_TOGGLE);
 
 	add(&btnApply, btnIdle.positionX() + btnIdle.width() + 10, btnIdle.positionY());
-	btnApply.font(font());
 	btnApply.text("Apply");
 	btnApply.size(40, 20);
 	btnApply.click().connect(this, &FactoryProduction::btnApplyClicked);
+
+	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -171,7 +172,7 @@ void FactoryProduction::factory(Factory* _f)
 {
 	mFactory = _f;
 
-	if (mFactory == nullptr) { return; }
+	if (!mFactory) { return; }
 
 	mProductGrid.dropAllItems();
 	clearProduct();
@@ -218,18 +219,18 @@ void FactoryProduction::update()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawText(mBold, "Turns Completed:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 25.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i of %i", mFactory->productionTurnsCompleted(), mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 25.0f, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Turns Completed:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 25.0f, 255, 255, 255);
+	r.drawText(*FONT, string_format("%i of %i", mFactory->productionTurnsCompleted(), mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 25.0f, 255, 255, 255);
 
-	r.drawText(mBold, "Common Metals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 45.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i", mProductCost.commonMetals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 45.0f, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Common Metals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 45.0f, 255, 255, 255);
+	r.drawText(*FONT, string_format("%i", mProductCost.commonMetals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 45.0f, 255, 255, 255);
 
-	r.drawText(mBold, "Common Minerals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 55.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i", mProductCost.commonMinerals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 55.0f, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Common Minerals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 55.0f, 255, 255, 255);
+	r.drawText(*FONT, string_format("%i", mProductCost.commonMinerals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 55.0f, 255, 255, 255);
 
-	r.drawText(mBold, "Rare Metals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 65.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i", mProductCost.rareMetals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 65.0f, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Rare Metals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 65.0f, 255, 255, 255);
+	r.drawText(*FONT, string_format("%i", mProductCost.rareMetals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 65.0f, 255, 255, 255);
 
-	r.drawText(mBold, "Rare Minerals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 75.0f, 255, 255, 255);
-	r.drawText(font(), string_format("%i", mProductCost.rareMinerals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 75.0f, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Rare Minerals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 75.0f, 255, 255, 255);
+	r.drawText(*FONT, string_format("%i", mProductCost.rareMinerals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 75.0f, 255, 255, 255);
 }

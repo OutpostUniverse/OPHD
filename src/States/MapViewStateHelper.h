@@ -28,7 +28,7 @@ bool validStructurePlacement(TileMap* tilemap, int x, int y);
 bool validLanderSite(Tile* t);
 bool landingSiteSuitable(TileMap* tilemap, int x, int y);
 bool structureIsLander(StructureID id);
-bool outOfCommRange(Point_2d& cc_location, TileMap* tile_map, Tile* current_tile);
+bool outOfCommRange(NAS2D::Point_2d& cc_location, TileMap* tile_map, Tile* current_tile);
 bool selfSustained(StructureID id);
 
 int totalStorage(StructureList& _sl);

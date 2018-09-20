@@ -10,7 +10,10 @@
 #include <sstream>
 
 
-static Font*	FONT_BOLD = nullptr;
+using namespace NAS2D;
+
+static Font* FONT = nullptr;
+static Font* FONT_BOLD = nullptr;
 
 
 /**
@@ -28,19 +31,18 @@ static void drawResourceIcons(Renderer& r, Image& sheet, int x, int y, int sheet
 /**
  * Draws resource values
  */
-static void drawResourceStrings(Renderer& r, Font& f, int x, int y, int res1, int res2, int res3, int res4)
+static void drawResourceStrings(Renderer& r, Font* f, int x, int y, int res1, int res2, int res3, int res4)
 {
-	r.drawText(f, string_format("%i", res1), static_cast<float>(x + 21), static_cast<float>(y + 13), 255, 255, 255);
-	r.drawText(f, string_format("%i", res2), static_cast<float>(x + 21), static_cast<float>(y + 29), 255, 255, 255);
-	r.drawText(f, string_format("%i", res3), static_cast<float>(x + 21), static_cast<float>(y + 45), 255, 255, 255);
-	r.drawText(f, string_format("%i", res4), static_cast<float>(x + 21), static_cast<float>(y + 61), 255, 255, 255);
+	r.drawText(*f, string_format("%i", res1), static_cast<float>(x + 21), static_cast<float>(y + 13), 255, 255, 255);
+	r.drawText(*f, string_format("%i", res2), static_cast<float>(x + 21), static_cast<float>(y + 29), 255, 255, 255);
+	r.drawText(*f, string_format("%i", res3), static_cast<float>(x + 21), static_cast<float>(y + 45), 255, 255, 255);
+	r.drawText(*f, string_format("%i", res4), static_cast<float>(x + 21), static_cast<float>(y + 61), 255, 255, 255);
 }
 
 
 
-StructureInspector::StructureInspector(Font& font) : mIcons("ui/icons.png")
+StructureInspector::StructureInspector() : mIcons("ui/icons.png")
 {
-	Control::font(font);
 	text(constants::WINDOW_STRUCTURE_INSPECTOR);
 	init();
 }
@@ -58,16 +60,15 @@ StructureInspector::~StructureInspector()
  */
 void StructureInspector::init()
 {
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 10);
-
-	position(0, 0);
 	size(350, 200);
 
 	add(&btnClose, 295, 175);
-	btnClose.font(font());
 	btnClose.text("Close");
 	btnClose.size(50, 20);
 	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
+
+	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -100,11 +101,11 @@ void StructureInspector::drawResourcePool(const std::string& title, ResourcePool
 
 	// Ore
 	drawResourceIcons(r, mIcons, x, y, 0);
-	drawResourceStrings(r, font(), x, y, rp.commonMetalsOre(), rp.rareMetalsOre(), rp.commonMineralsOre(), rp.rareMineralsOre());
+	drawResourceStrings(r, FONT, x, y, rp.commonMetalsOre(), rp.rareMetalsOre(), rp.commonMineralsOre(), rp.rareMineralsOre());
 
 	// Refined
 	drawResourceIcons(r, mIcons, x + 60, y, 16);
-	drawResourceStrings(r, font(), x + 60, y, rp.commonMetals(), rp.rareMetals(), rp.commonMinerals(), rp.rareMinerals());
+	drawResourceStrings(r, FONT, x + 60, y, rp.commonMetals(), rp.rareMetals(), rp.commonMinerals(), rp.rareMinerals());
 }
 
 
@@ -127,10 +128,10 @@ void StructureInspector::update()
 	r.drawText(*FONT_BOLD, mStructure->name(), rect().x() + 5, rect().y() + 25, 255, 255, 255);
 
 	r.drawText(*FONT_BOLD, "Type:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
-	r.drawText(font(), mStructureClass, rect().x() + 5 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
+	r.drawText(*FONT, mStructureClass, rect().x() + 5 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
 
 	r.drawText(*FONT_BOLD, "State:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
-	r.drawText(font(), mStructureState, rect().x() + 190 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
+	r.drawText(*FONT, mStructureState, rect().x() + 190 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
 	
 	drawResourcePool("Production Pool", mStructure->production(), static_cast<int>(rect().x() + 5), static_cast<int>(rect().y() + 65));
 	drawResourcePool("Storage Pool", mStructure->storage(), static_cast<int>(rect().x() + 190), static_cast<int>(rect().y() + 65));

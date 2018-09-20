@@ -9,7 +9,7 @@
 class GraphWalker
 {
 public:
-	GraphWalker(const Point_2d& _p, int _d, TileMap* _t);
+	GraphWalker(const NAS2D::Point_2d& _p, int _d, TileMap* _t);
 	~GraphWalker();
 	
 private:
@@ -22,11 +22,11 @@ private:
 	void check(int x, int y, int depth, Direction _d);
 
 private:
-	TileMap*	_tileMap;
+	TileMap*		_tileMap;
 
-	Tile*		_thisTile;
+	Tile*			_thisTile;
 
-	Point_2d	_gridPosition;
-	int			_depth;
+	NAS2D::Point_2d	_gridPosition;
+	int				_depth;
 };
 

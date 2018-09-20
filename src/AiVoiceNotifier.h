@@ -5,7 +5,6 @@
 #include "NAS2D/NAS2D.h"
 
 
-
 class AiVoiceNotifier
 {
 public:
@@ -47,9 +46,7 @@ public:
 private:
 	typedef std::array<NAS2D::Sound*, NOT_IMPLEMENTED + 1> MessageSoundTable;
 
-
 private:
-
 	// No default constructor, copy constructor, or copy operator
 	// Calling these should result in an error
 	AiVoiceNotifier(const AiVoiceNotifier&) = delete;
@@ -58,7 +55,6 @@ private:
 	void buildVoiceTables();
 
 private:
-
 	AiGender								mGender = MALE;
 
 	std::map<AiGender, MessageSoundTable>	mVoiceTable;

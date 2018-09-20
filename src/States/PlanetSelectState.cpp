@@ -7,12 +7,19 @@
 #include "MapViewState.h"
 #include "MainMenuState.h"
 
+#include "../Constants.h"
+#include "../FontManager.h"
+
+using namespace NAS2D;
+
 PlanetType PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
-PlanetSelectState::PlanetSelectState():	mFont("fonts/opensans.ttf", 14),
-										mFontBold("fonts/opensans-bold.ttf", 14),
-										mTinyFont("fonts/opensans.ttf", 10),
-										mBg("sys/bg1.png"),
+static Font* FONT = nullptr;
+static Font* FONT_BOLD = nullptr;
+static Font* FONT_TINY = nullptr;
+
+
+PlanetSelectState::PlanetSelectState():	mBg("sys/bg1.png"),
 										mStarFlare("sys/flare_1.png"),
 										mDetailFlare("sys/flare_2.png"),
 										mDetailFlare2("sys/flare_3.png"),
@@ -72,7 +79,6 @@ void PlanetSelectState::initialize()
 	PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
 
 	mMale.type(Button::BUTTON_TOGGLE);
-	mMale.font(mTinyFont);
 	mMale.text("Male");
 	mMale.size(50, 20);
 	mMale.position(5, 30);
@@ -80,25 +86,27 @@ void PlanetSelectState::initialize()
 	mMale.click().connect(this, &PlanetSelectState::btnMaleClicked);
 
 	mFemale.type(Button::BUTTON_TOGGLE);
-	mFemale.font(mTinyFont);
 	mFemale.text("Female");
 	mFemale.size(50, 20);
 	mFemale.position(60, 30);
 	mFemale.click().connect(this, &PlanetSelectState::btnFemaleClicked);
 
-	mQuit.font(mTinyFont);
 	mQuit.text("Main Menu");
 	mQuit.size(100, 20);
 	mQuit.position(r.width() - 105, 30);
 	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
 
 	mPlanetDescription.text("");
-	mPlanetDescription.font(mFont);
+	mPlanetDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
 	mPlanetDescription.size(550, 200);
 	mPlanetDescription.position(r.center_x() - 275, r.height() - 225);
 
 	r.showSystemPointer(true);
 	r.fadeIn(constants::FADE_SPEED);
+
+	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
+	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	FONT_TINY = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
 	Utility<Mixer>::get().playMusic(mBgMusic);
 }
@@ -131,18 +139,18 @@ State* PlanetSelectState::update()
 		mPlanets[i]->update();
 	}
 
-	r.drawText(mFontBold, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (mFont.width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - mFont.height() - 10), 255, 255, 255);
-	r.drawText(mFontBold, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (mFont.width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - mFont.height() - 10), 255, 255, 255);
-	r.drawText(mFontBold, "Ganymede Type", static_cast<float>(mPlanets[2]->x() + 64 - (mFont.width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - mFont.height() - 10), 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (FONT_BOLD->width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (FONT_BOLD->width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Ganymede Type", static_cast<float>(mPlanets[2]->x() + 64 - (FONT_BOLD->width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
 
-	r.drawText(mFont, "AI Gender", 5, 5, 255, 255, 255);
+	r.drawText(*FONT, "AI Gender", 5, 5, 255, 255, 255);
 	mMale.update();
 	mFemale.update();
 	mQuit.update();
 
 	mPlanetDescription.update();
 
-	r.drawText(mTinyFont, constants::VERSION, r.width() - mTinyFont.width(constants::VERSION) - 5, r.height() - mTinyFont.height() - 5, 255, 255, 255);
+	r.drawText(*FONT_TINY, constants::VERSION, r.width() - FONT_TINY->width(constants::VERSION) - 5, r.height() - FONT_TINY->height() - 5, 255, 255, 255);
 
 	if (r.isFading())
 	{

@@ -18,7 +18,7 @@
 #include "../Things/Structures/RobotCommand.h"
 #include "../Things/Structures/Warehouse.h"
 
-
+using namespace NAS2D;
 using namespace NAS2D::Xml;
 
 

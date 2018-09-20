@@ -3,6 +3,7 @@
 
 #include "GraphWalker.h"
 
+using namespace NAS2D;
 
 /**
  * Utility function to check if there's a valid connection between

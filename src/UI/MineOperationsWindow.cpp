@@ -4,6 +4,9 @@
 #include "MineOperationsWindow.h"
 
 #include "../Constants.h"
+#include "../FontManager.h"
+
+using namespace NAS2D;
 
 /**
  * These static variables are here to avoid unnecessary computations
@@ -29,6 +32,9 @@ static int				MINE_YIELD_DESCRIPTION_POSITION = 0;
 static const int		MINE_DEPTH_POSITION = 300;
 static int				MINE_DEPTH_VALUE_POSITION;
 
+static Font*			FONT = nullptr;
+static Font*			FONT_BOLD = nullptr;
+
 
 /** 
  * Positional constants used in several places.
@@ -42,9 +48,8 @@ const int				RARE_MINERALS_POS = 312;
 /**
  * 
  */
-MineOperationsWindow::MineOperationsWindow(Font& font) : mBold("fonts/opensans-bold.ttf", 10), mUiIcon("ui/interface/mine.png"), mIcons("ui/icons.png")
+MineOperationsWindow::MineOperationsWindow() : mUiIcon("ui/interface/mine.png"), mIcons("ui/icons.png")
 {
-	Control::font(font);
 	text(constants::WINDOW_MINE_OPERATIONS);
 	init();
 }
@@ -67,19 +72,16 @@ void MineOperationsWindow::init()
 	// Set up GUI Layout
 	add(&btnIdle, 10, 230);
 	btnIdle.type(Button::BUTTON_TOGGLE);
-	btnIdle.font(font());
 	btnIdle.text("Idle");
 	btnIdle.size(60, 30);
 	btnIdle.click().connect(this, &MineOperationsWindow::btnIdleClicked);
 
 	add(&btnExtendShaft, 72, 230);
-	btnExtendShaft.font(font());
 	btnExtendShaft.text("Dig New Level");
 	btnExtendShaft.size(100, 30);
 	btnExtendShaft.click().connect(this, &MineOperationsWindow::btnExtendShaftClicked);
 
 	add(&btnOkay, width() - 70, 230);
-	btnOkay.font(font());
 	btnOkay.text("Close");
 	btnOkay.size(60, 30);
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
@@ -110,6 +112,9 @@ void MineOperationsWindow::init()
 	mPanel.push_back(Image("ui/skin/textbox_bottom_left.png"));
 	mPanel.push_back(Image("ui/skin/textbox_bottom_middle.png"));
 	mPanel.push_back(Image("ui/skin/textbox_bottom_right.png"));
+
+	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -134,8 +139,8 @@ void MineOperationsWindow::mineFacility(MineFacility* _mf)
 	MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
 	MINE_DEPTH = std::to_string(mFacility->mine()->depth());
 
-	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + mBold.width("Mine Yield:") + 10;
-	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + mBold.width("Depth:") + 10;
+	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Mine Yield:") + 10;
+	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + FONT_BOLD->width("Depth:") + 10;
 
 	chkCommonMetals.checked(mFacility->mine()->miningCommonMetals());
 	chkCommonMinerals.checked(mFacility->mine()->miningCommonMinerals());
@@ -164,10 +169,10 @@ void MineOperationsWindow::updateCounts()
 	RARE_METALS_COUNT = std::to_string(mFacility->mine()->rareMetalsAvailable());
 	RARE_MINERALS_COUNT = std::to_string(mFacility->mine()->rareMineralsAvailable());
 
-	COMMON_METALS_ORE_POSITION = COMMON_METALS_POS - (font().width(COMMON_METALS_COUNT) / 2) + 8;
-	COMMON_MINERALS_ORE_POSITION = COMMON_MINERALS_POS - (font().width(COMMON_MINERALS_COUNT) / 2) + 8;
-	RARE_METALS_ORE_POSITION = RARE_METALS_POS - (font().width(RARE_METALS_COUNT) / 2) + 8;
-	RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (font().width(RARE_MINERALS_COUNT) / 2) + 8;
+	COMMON_METALS_ORE_POSITION = COMMON_METALS_POS - (FONT->width(COMMON_METALS_COUNT) / 2) + 8;
+	COMMON_MINERALS_ORE_POSITION = COMMON_MINERALS_POS - (FONT->width(COMMON_MINERALS_COUNT) / 2) + 8;
+	RARE_METALS_ORE_POSITION = RARE_METALS_POS - (FONT->width(RARE_METALS_COUNT) / 2) + 8;
+	RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (FONT->width(RARE_MINERALS_COUNT) / 2) + 8;
 }
 
 
@@ -248,14 +253,14 @@ void MineOperationsWindow::update()
 
 	r.drawImage(mUiIcon, rect().x() + 10, rect().y() + 30);
 
-	r.drawText(mBold, "Mine Yield:", rect().x() + MINE_YIELD_POSITION, rect().y() + 30, 255, 255, 255);
-	r.drawText(font(), MINE_YIELD, rect().x() + MINE_YIELD_DESCRIPTION_POSITION, rect().y() + 30, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Mine Yield:", rect().x() + MINE_YIELD_POSITION, rect().y() + 30, 255, 255, 255);
+	r.drawText(*FONT, MINE_YIELD, rect().x() + MINE_YIELD_DESCRIPTION_POSITION, rect().y() + 30, 255, 255, 255);
 
-	r.drawText(mBold, "Depth:", rect().x() + MINE_DEPTH_POSITION, rect().y() + 30, 255, 255, 255);
-	r.drawText(font(), MINE_DEPTH, rect().x() + MINE_DEPTH_VALUE_POSITION, rect().y() + 30, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Depth:", rect().x() + MINE_DEPTH_POSITION, rect().y() + 30, 255, 255, 255);
+	r.drawText(*FONT, MINE_DEPTH, rect().x() + MINE_DEPTH_VALUE_POSITION, rect().y() + 30, 255, 255, 255);
 
 	// REMAINING ORE PANEL
-	r.drawText(mBold, "Remaining Resources", rect().x() + 10, rect().y() + 164, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "Remaining Resources", rect().x() + 10, rect().y() + 164, 255, 255, 255);
 
 	r.drawImageRect(rect().x() + 10, rect().y() + 180, rect().width() - 20, 40, mPanel);
 
@@ -270,8 +275,8 @@ void MineOperationsWindow::update()
 	r.drawSubImage(mIcons, rect().x() + RARE_METALS_POS, rect().y() + 183, 80, 0, 16, 16);
 	r.drawSubImage(mIcons, rect().x() + RARE_MINERALS_POS, rect().y() + 183, 112, 0, 16, 16);
 
-	r.drawText(font(), COMMON_METALS_COUNT, rect().x() + COMMON_METALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
-	r.drawText(font(), COMMON_MINERALS_COUNT, rect().x() + COMMON_MINERALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
-	r.drawText(font(), RARE_METALS_COUNT, rect().x() + RARE_METALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
-	r.drawText(font(), RARE_MINERALS_COUNT, rect().x() + RARE_MINERALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	r.drawText(*FONT, COMMON_METALS_COUNT, rect().x() + COMMON_METALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	r.drawText(*FONT, COMMON_MINERALS_COUNT, rect().x() + COMMON_MINERALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	r.drawText(*FONT, RARE_METALS_COUNT, rect().x() + RARE_METALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	r.drawText(*FONT, RARE_MINERALS_COUNT, rect().x() + RARE_MINERALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
 }

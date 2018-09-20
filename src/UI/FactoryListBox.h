@@ -30,8 +30,8 @@ public:
 	public:
 		Factory*	factory = nullptr;
 
-		Point_2d	size;
-		Point_2d	icon_slice;
+		NAS2D::Point_2d	size;
+		NAS2D::Point_2d	icon_slice;
 	};
 
 public:
@@ -60,7 +60,7 @@ public:
 	void update();
 
 protected:
-	void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
 
@@ -87,13 +87,13 @@ private:
 	int							mItemWidth = 0;									/**< Width of items. */
 	int							mLineCount = 0;									/**< Number of lines that can be displayed. */
 
-	Point_2d					mMousePosition;									/**< Mouse coordinates. */
+	NAS2D::Point_2d				mMousePosition;									/**< Mouse coordinates. */
 
 	FactoryItemList				mItems;											/**< List of items preserved in the order in which they're added. */
 
-	Color_4ub					mText = COLOR_WHITE;							/**< Text Color */
-	Color_4ub					mHighlightBg = COLOR_GREEN;						/**< Highlight Background color. */
-	Color_4ub					mHighlightText = COLOR_WHITE;					/**< Text Color for an item that is currently highlighted. */
+	NAS2D::Color_4ub			mText = NAS2D::COLOR_WHITE;						/**< Text Color */
+	NAS2D::Color_4ub			mHighlightBg = NAS2D::COLOR_GREEN;				/**< Highlight Background color. */
+	NAS2D::Color_4ub			mHighlightText = NAS2D::COLOR_WHITE;			/**< Text Color for an item that is currently highlighted. */
 
 	SelectionChangedCallback	mSelectionChanged;								/**< Callback for selection changed callback. */
 	Slider						mSlider;										/**<  */

@@ -10,23 +10,31 @@
 
 #include "TextField.h"
 
+#include "../../Constants.h"
+#include "../../FontManager.h"
+
 #include <locale>
 
-const int MIN_WIDTH		= 16;
-const int MIN_HEIGHT	= 16;
-
-const int MAX_WIDTH		= 512;
-const int MAX_HEIGHT	= 32;
-
-const int REPEAT_DELAY	= 500;
-const int REPEAT_WAIT	= 20;
+using namespace NAS2D;
 
 
-const int FIELD_PADDING = 4;
+static const int MIN_WIDTH		= 16;
+static const int MIN_HEIGHT		= 16;
 
-const int CURSOR_BLINK_DELAY = 250;
+static const int MAX_WIDTH		= 512;
+static const int MAX_HEIGHT		= 32;
 
-std::locale LOC;
+static const int REPEAT_DELAY	= 500;
+static const int REPEAT_WAIT	= 20;
+
+static const int FIELD_PADDING = 4;
+
+static const int CURSOR_BLINK_DELAY = 250;
+
+static std::locale LOC;
+
+static Font* TXT_FONT = nullptr;
+
 
 TextField::TextField()
 {
@@ -56,6 +64,9 @@ TextField::TextField()
 	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_left_highlight.png"));
 	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_middle_highlight.png"));
 	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_right_highlight.png"));
+
+	TXT_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	height(static_cast<float>(TXT_FONT->height() + FIELD_PADDING * 2));
 }
 
 
@@ -94,12 +105,6 @@ void TextField::numbers_only(bool _b)
 void TextField::maxCharacters(size_t count)
 {
 	mMaxCharacters = count;
-}
-
-
-void TextField::onFontChanged()
-{
-	height(static_cast<float>(font().height() + FIELD_PADDING * 2));
 }
 
 
@@ -224,9 +229,6 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
  */
 void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	// If font is not available, back out now to prevent issues.
-	if (!fontSet()) { return; }
-
 	if(!isPointInRect(Point_2d(x, y), rect()))
 	{
 		hasFocus(false);
@@ -241,7 +243,7 @@ void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
-	if(font().width(text()) < relativePosition)
+	if(TXT_FONT->width(text()) < relativePosition)
 	{
 		mCursorPosition = text().size();
 		return;
@@ -253,7 +255,7 @@ void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	while(static_cast<size_t>(i) <= text().size() - mScrollOffset)
 	{
 		std::string cmpStr = text().substr(mScrollOffset, i);
-		int strLen = font().width(cmpStr);
+		int strLen = TXT_FONT->width(cmpStr);
 		if(strLen > relativePosition)
 		{
 			mCursorPosition = i - 1;
@@ -261,24 +263,6 @@ void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		}
 
 		i++;
-	}
-}
-
-
-void TextField::draw()
-{
-	Renderer& r = Utility<Renderer>::get();
-
-	if (hasFocus() && editable()) { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus); }
-	else { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal); }
-
-	if (highlight()) { r.drawBox(rect(), 255, 255, 0); }
-
-	drawCursor();
-
-	if (fontSet())
-	{
-		r.drawText(font(), text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, 255, 255, 255);
 	}
 }
 
@@ -312,13 +296,13 @@ void TextField::drawCursor()
  */
 void TextField::drawTextHighlight()
 {
-	Utility<Renderer>::get().drawBoxFilled(rect().x() + FIELD_PADDING, rect().y(), static_cast<float>(font().width(text())), rect().height(), 0, 0, 150, 100);
+	Utility<Renderer>::get().drawBoxFilled(rect().x() + FIELD_PADDING, rect().y(), static_cast<float>(TXT_FONT->width(text())), rect().height(), 0, 0, 150, 100);
 }
 
 
 void TextField::updateCursor()
 {
-	int cursorX = font().width(text().substr(0, mCursorPosition));
+	int cursorX = TXT_FONT->width(text().substr(0, mCursorPosition));
 
 	if (cursorX - mScrollOffset >= textAreaWidth())
 	{
@@ -342,5 +326,15 @@ void TextField::updateCursor()
 void TextField::update()
 {
 	if (!visible()) { return; }
-	draw();
+
+	Renderer& r = Utility<Renderer>::get();
+
+	if (hasFocus() && editable()) { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus); }
+	else { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal); }
+
+	if (highlight()) { r.drawBox(rect(), 255, 255, 0); }
+
+	drawCursor();
+
+	r.drawText(*TXT_FONT, text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, 255, 255, 255);
 }

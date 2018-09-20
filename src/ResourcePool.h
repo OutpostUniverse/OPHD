@@ -11,7 +11,7 @@
 class ResourcePool
 {
 public:
-	typedef NAS2D::Signals::Signal0<void> Callback;
+	using Callback = NAS2D::Signals::Signal0<void>;
 
 	enum ResourceType
 	{

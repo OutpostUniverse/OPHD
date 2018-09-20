@@ -5,6 +5,7 @@
 #include "MainMenuState.h"
 
 #include "../Constants.h"
+#include "../FontManager.h"
 #include "../GraphWalker.h"
 #include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
@@ -59,27 +60,17 @@ std::map <int, std::string>	LEVEL_STRING_TABLE =
 };
 
 
+Font* MAIN_FONT = nullptr;
+
+
 /**
  * C'Tor
  *
  * \param	savegame	Save game filename to load.
  */
 MapViewState::MapViewState(const std::string& savegame) :
-	mFont("fonts/opensans-bold.ttf", 14),
-	mTinyFont("fonts/opensans.ttf", 10),
-	mTinyFontBold("fonts/opensans-bold.ttf", 10),
 	mBackground("sys/bg1.png"),
 	mUiIcons("ui/icons.png"),
-	mDiggerDirection(mTinyFont),
-	mFactoryProduction(mTinyFont),
-	mFileIoDialog(mTinyFont),
-	mGameOverDialog(mTinyFont),
-	mGameOptionsDialog(mTinyFont),
-	mAnnouncement(mTinyFont),
-	mMineOperationsWindow(mTinyFont),
-	mStructureInspector(mTinyFont),
-	mTileInspector(mTinyFont),
-	mWarehouseInspector(mTinyFont),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
@@ -96,25 +87,13 @@ MapViewState::MapViewState(const std::string& savegame) :
  * \param	mc	Mine Count - Number of mines to generate.
  */
 MapViewState::MapViewState(const std::string& sm, const std::string& t, int d, int mc) :
-	mFont("fonts/opensans-bold.ttf", 14),
-	mTinyFont("fonts/opensans.ttf", 10),
-	mTinyFontBold("fonts/opensans-bold.ttf", 10),
 	mTileMap(new TileMap(sm, t, d, mc)),
 	mBackground("sys/bg1.png"),
 	mMapDisplay(sm + MAP_DISPLAY_EXTENSION),
 	mHeightMap(sm + MAP_TERRAIN_EXTENSION),
-	mUiIcons("ui/icons.png"),
+	mUiIcons("ui/icons.png")
 	//mBgMusic("music/track_01.ogg"),
-	mDiggerDirection(mTinyFont),
-	mFactoryProduction(mTinyFont),
-	mFileIoDialog(mTinyFont),
-	mGameOverDialog(mTinyFont),
-	mGameOptionsDialog(mTinyFont),
-	mAnnouncement(mTinyFont),
-	mMineOperationsWindow(mTinyFont),
-	mStructureInspector(mTinyFont),
-	mTileInspector(mTinyFont),
-	mWarehouseInspector(mTinyFont)
+
 {
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
@@ -163,6 +142,8 @@ void MapViewState::initialize()
 
 	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
+
+	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -227,7 +208,8 @@ State* MapViewState::update()
 	}
 
 	// explicit current level
-	r.drawText(mFont, CURRENT_LEVEL_STRING, r.width() - mFont.width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - mFont.height() - mTinyFontBold.height() - 12, 255, 255, 255);
+	Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	r.drawText(*font, CURRENT_LEVEL_STRING, r.width() - font->width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - font->height() - 12, 255, 255, 255);
 	if (mDebug) { drawDebug(); }
 	
 	if (!mGameOptionsDialog.visible() && !mGameOverDialog.visible() && !mFileIoDialog.visible())

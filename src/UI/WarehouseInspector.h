@@ -12,7 +12,7 @@
 class WarehouseInspector : public Window
 {
 public:
-	WarehouseInspector(Font& font);
+	WarehouseInspector();
 	virtual ~WarehouseInspector();
 
 	void warehouse(Warehouse* _wh);
@@ -21,20 +21,16 @@ public:
 	virtual void update() final;
 
 protected:
-	virtual void init() final;
+	void init();
 
 private:
 	void btnCloseClicked();
 
 private:
-	WarehouseInspector() = delete;
 	WarehouseInspector(const WarehouseInspector&) = delete;
 	WarehouseInspector& operator=(const WarehouseInspector&) = delete;
 
 private:
 	Warehouse*			mWarehouse = nullptr;
-
-	Font				mBold;
-
 	Button				btnClose;
 };

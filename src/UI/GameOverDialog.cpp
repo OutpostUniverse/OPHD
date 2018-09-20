@@ -4,12 +4,13 @@
 #include "GameOverDialog.h"
 
 #include "../Constants.h"
+#include "../FontManager.h"
+
+using namespace NAS2D;
 
 
-GameOverDialog::GameOverDialog(Font& font) : mHeader("ui/interface/game_over.png")
+GameOverDialog::GameOverDialog() : mHeader("ui/interface/game_over.png")
 {
-	Control::font(font);
-	//text(constants::WINDOW_GAME_OVER);
 	init();
 }
 
@@ -24,7 +25,6 @@ void GameOverDialog::init()
 	size(522, 340);
 
 	add(&btnClose, 5, 310);
-	btnClose.font(font());
 	btnClose.text("Return to Main Menu");
 	btnClose.size(512, 25);
 	btnClose.click().connect(this, &GameOverDialog::btnCloseClicked);
@@ -33,10 +33,15 @@ void GameOverDialog::init()
 }
 
 
+void GameOverDialog::btnCloseClicked()
+{
+	mCallback();
+}
+
+
 void GameOverDialog::update()
 {
-	if (!visible())
-		return;
+	if (!visible()) { return; }
 
 	Window::update();
 
@@ -44,11 +49,7 @@ void GameOverDialog::update()
 
 	r.drawImage(mHeader, rect().x() + 5, rect().y() + 25);
 
-	r.drawText(font(), "You have failed. Your colony is dead.", rect().x() + 5, rect().y() + 290, 255, 255, 255);
-}
-
-
-void GameOverDialog::btnCloseClicked()
-{
-	mCallback();
+	// Yeah, I know. I hate it too but it made more sense than holding onto a static pointer.
+	r.drawText(	*Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL),
+				"You have failed. Your colony is dead.", rect().x() + 5, rect().y() + 290, 255, 255, 255);
 }

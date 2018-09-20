@@ -13,7 +13,7 @@ public:
 	};
 
 public:
-	MajorEventAnnouncement(Font& font);
+	MajorEventAnnouncement();
 	virtual ~MajorEventAnnouncement();
 
 	void announcement(AnnouncementType a);
@@ -27,12 +27,11 @@ private:
 	void btnCloseClicked();
 
 private:
-	MajorEventAnnouncement() = delete;
 	MajorEventAnnouncement(const MajorEventAnnouncement&) = delete;
 	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
 
 private:
-	Image			mHeader;
+	NAS2D::Image			mHeader;
 
 	std::string		mMessage;
 

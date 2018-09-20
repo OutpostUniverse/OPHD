@@ -4,8 +4,11 @@
 #include "Button.h"
 
 #include "../../Common.h"
+#include "../../Constants.h"
+#include "../../FontManager.h"
 
 using namespace NAS2D;
+
 
 Button::Button()
 {
@@ -44,6 +47,7 @@ Button::Button()
 	mSkinPressed.push_back(Image("ui/skin/button_pressed_bottom_middle.png"));
 	mSkinPressed.push_back(Image("ui/skin/button_pressed_bottom_right.png"));
 
+	mFont = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -72,6 +76,12 @@ void Button::toggle(bool toggle)
 bool Button::toggled() const
 {
 	return mState == STATE_PRESSED;
+}
+
+
+void Button::fontSize(size_t size)
+{
+	mFont = Utility<FontManager>::get().font(constants::FONT_PRIMARY, size);
 }
 
 
@@ -172,10 +182,7 @@ void Button::draw()
 	}
 	else
 	{
-		if (fontSet())
-		{
-			r.drawText(font(), text(), static_cast<int>(rect().x() + (rect().width() / 2) - (font().width(text()) / 2)), static_cast<int>(rect().y() + (rect().height() / 2) - (font().height() / 2)), 255, 255, 255);
-		}
+		r.drawText(*mFont, text(), static_cast<int>(rect().x() + (rect().width() / 2) - (mFont->width(text()) / 2)), static_cast<int>(rect().y() + (rect().height() / 2) - (mFont->height() / 2)), 255, 255, 255);
 	}
 
 	/// \fixme	Naive... would rather set a b&w shader instead.

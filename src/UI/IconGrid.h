@@ -32,7 +32,7 @@ public:
 	protected:
 		friend class IconGrid;
 
-		Point_2df pos;
+		NAS2D::Point_2df pos;
 	};
 
 	typedef NAS2D::Signals::Signal1<const IconGridItem*> Callback;
@@ -40,8 +40,6 @@ public:
 public:
 	IconGrid();
 	virtual ~IconGrid();
-
-	virtual void update();
 
 	void sheetPath(const std::string& _path);
 	void iconSize(int _size);
@@ -82,8 +80,11 @@ public:
 
 	void sort();
 
+	virtual void update();
+
+
 protected:
-	virtual void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMotion(int x, int y, int dX, int dY);
 
 	virtual void sizeChanged();
@@ -98,22 +99,22 @@ private:
 	void raiseChangedEvent();
 
 private:
-	int					mHighlightIndex;		/**< Current highlight index. */
-	int					mCurrentSelection;		/**< Currently selected item index. */
+	int					mHighlightIndex = constants::NO_SELECTION;		/**< Current highlight index. */
+	int					mCurrentSelection = constants::NO_SELECTION;	/**< Currently selected item index. */
 
-	int					mIconSize;				/**< Size of the icons. */
-	int					mIconMargin;			/**< Spacing between icons and edges of the IconGrid. */
+	int					mIconSize = 0;				/**< Size of the icons. */
+	int					mIconMargin = 0;			/**< Spacing between icons and edges of the IconGrid. */
 
-	bool				mShowTooltip;			/**< Flag indicating that we want a tooltip drawn near an icon when hovering over it. */
-	bool				mSorted;				/**< Flag indicating that the IconGrid should be sorted. */
+	bool				mShowTooltip = false;		/**< Flag indicating that we want a tooltip drawn near an icon when hovering over it. */
+	bool				mSorted = true;			/**< Flag indicating that the IconGrid should be sorted. */
 
-	Image				mIconSheet;				/**< Image containing the icons. */
+	NAS2D::Image		mIconSheet;					/**< Image containing the icons. */
 
-	ImageList			mSkin;
+	NAS2D::ImageList	mSkin;
 
-	Point_2d			mGridSize;				/**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
+	NAS2D::Point_2d		mGridSize;					/**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
 
-	IconItemList		mIconItemList;			/**< List of items. */
+	IconItemList		mIconItemList;				/**< List of items. */
 
-	Callback			mCallback;				/**< Callback whenever a selection is made. */
+	Callback			mCallback;					/**< Callback whenever a selection is made. */
 };
