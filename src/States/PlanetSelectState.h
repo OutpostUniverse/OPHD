@@ -31,7 +31,7 @@ private:
 	void onMousePlanetEnter();
 	void onMousePlanetExit();
 
-	void onWindowResized(int width, int height);
+	void onWindowResized(int, int);
 
 	void btnMaleClicked();
 	void btnFemaleClicked();

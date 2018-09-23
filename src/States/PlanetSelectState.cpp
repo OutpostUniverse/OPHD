@@ -257,16 +257,14 @@ void PlanetSelectState::onMousePlanetExit()
 }
 
 
-void PlanetSelectState::onWindowResized(int width, int height)
+void PlanetSelectState::onWindowResized(int w, int h)
 {
-	Renderer& r = Utility<Renderer>::get();
+	mPlanets[0]->position(w / 4 - 64, h / 2 - 64);
+	mPlanets[1]->position(w / 2 - 64, h / 2 - 64);
+	mPlanets[2]->position(((w / 4) * 3) - 64, h / 2 - 64);
 
-	mPlanets[0]->position((int)r.width() / 4 - 64, (int)r.height() / 2 - 64);
-	mPlanets[1]->position((int)r.width() / 2 - 64, (int)r.height() / 2 - 64);
-	mPlanets[2]->position((((int)r.width() / 4) * 3) - 64, (int)r.height() / 2 - 64);
-
-	mQuit.position(r.width() - 55, 30);
-	mPlanetDescription.position(r.center_x() - 275, r.height() - 225);
+	mQuit.position(w - 55, 30);
+	mPlanetDescription.position((w / 2) - 275, h - 225);
 }
 
 
