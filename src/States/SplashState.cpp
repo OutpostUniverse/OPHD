@@ -8,7 +8,7 @@
 
 const int PAUSE_TIME = 5800;
 
-int FADE_PAUSE_TIME = 5000;
+unsigned int FADE_PAUSE_TIME = 5000;
 
 const int FADE_LENGTH = 800;
 
