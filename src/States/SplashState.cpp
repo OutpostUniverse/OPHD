@@ -13,7 +13,7 @@ const int FADE_LENGTH = 800;
 float BYLINE_SCALE = 0.50f;
 float BYLINE_SCALE_STEP = 0.000025f;
 float BYLINE_ALPHA = -800.0f;
-float BYLINE_ALPHA_FADE_STEP = 0.30;
+float BYLINE_ALPHA_FADE_STEP = 0.30f;
 
 Timer BYLINE_TIMER;
 
@@ -49,7 +49,6 @@ void SplashState::initialize()
 	EventHandler& e = Utility<EventHandler>::get();
 	e.keyDown().connect(this, &SplashState::onKeyDown);
 	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
-	e.windowResized().connect(this, &SplashState::onWindowResized);
 
 	Utility<Renderer>::get().showSystemPointer(false);
 }
@@ -112,7 +111,7 @@ State* SplashState::update()
 	{
 		unsigned int tick = BYLINE_TIMER.delta();
 		
-		float _x = r.center_x() - (mLogoOutpostHd.width() / 2) - 100);
+		float _x = r.center_x() - (mLogoOutpostHd.width() / 2) - 100;
 		float _y = r.center_y() - (mLogoOutpostHd.height() / 2);
 		
 		r.drawImageRotated(mFlare, _x + 302 - 512, _y + 241 - 512, BYLINE_TIMER.tick() / 600.0f);
@@ -160,17 +159,4 @@ void SplashState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier
 void SplashState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	skipSplash();
-}
-
-
-void SplashState::onWindowResized(int width, int height)
-{
-	if (mLogoOutpostHd.width() > Utility<Renderer>::get().width())
-	{
-		LOGO_SCALE = Utility<Renderer>::get().width() / mLogoOutpostHd.width();
-	}
-	else
-	{
-		LOGO_SCALE = 1.0f;
-	}
 }

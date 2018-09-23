@@ -24,8 +24,6 @@ private:
 	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
 	void onMouseDown(EventHandler::MouseButton button, int x, int y);
 
-	void onWindowResized(int width, int height);
-
 	void skipSplash();
 
 private:
