@@ -98,6 +98,8 @@ FactoryListBox::~FactoryListBox()
 	mSlider.change().disconnect(this, &FactoryListBox::slideChanged);
 	delete STRUCTURE_ICONS;
 
+	_hook_events(false);
+
 	Utility<EventHandler>::get().mouseWheel().disconnect(this, &FactoryListBox::onMouseWheel);
 }
 

@@ -51,12 +51,9 @@ PlanetSelectState::~PlanetSelectState()
 void PlanetSelectState::initialize()
 {
 	EventHandler& e = Utility<EventHandler>::get();
-
 	e.keyDown().connect(this, &PlanetSelectState::onKeyDown);
-
 	e.mouseButtonDown().connect(this, &PlanetSelectState::onMouseDown);
 	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
-
 	e.windowResized().connect(this, &PlanetSelectState::onWindowResized);
 
 	mPlanets.push_back(new Planet(PLANET_TYPE_MERCURY));

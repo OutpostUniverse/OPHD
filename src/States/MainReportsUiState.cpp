@@ -161,6 +161,8 @@ MainReportsUiState::MainReportsUiState()
 MainReportsUiState::~MainReportsUiState()
 {
 	Utility<EventHandler>::get().windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
+	
+	_deactivate();
 
 	delete WINDOW_BACKGROUND;
 
