@@ -8,6 +8,8 @@
 
 const int PAUSE_TIME = 5800;
 
+int FADE_PAUSE_TIME = 5000;
+
 const int FADE_LENGTH = 800;
 
 float BYLINE_SCALE = 0.50f;
@@ -59,6 +61,7 @@ void setNextState(LogoState& _ls)
 	if (_ls == LOGO_NONE)
 	{
 		_ls = LOGO_LAIRWORKS;
+		FADE_PAUSE_TIME = 2500;
 		return;
 	}
 	if (_ls == LOGO_LAIRWORKS)
@@ -82,14 +85,18 @@ void SplashState::skipSplash()
 }
 
 
+/**
+ * Code here is really crude but gets the job done. Figured it made more
+ * sense to get something working that basically did what was needed than
+ * something that was elegant.
+ */
 State* SplashState::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	if (r.isFaded() && !r.isFading() && mTimer.accumulator() > 2500)
+	if (r.isFaded() && !r.isFading() && mTimer.accumulator() > FADE_PAUSE_TIME)
 	{
-		if (mReturnState != this)
-			return mReturnState;
+		if (mReturnState != this) { return mReturnState; }
 
 		setNextState(CURRENT_STATE);
 		r.fadeIn((float)FADE_LENGTH);
@@ -98,6 +105,7 @@ State* SplashState::update()
 
 	if (CURRENT_STATE == LOGO_OUTPOSTHD) { r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0); }
 	else { r.drawBoxFilled(0, 0, r.width(), r.height(), 255, 255, 255); }
+
 
 	if (CURRENT_STATE == LOGO_LAIRWORKS)
 	{
