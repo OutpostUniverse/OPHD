@@ -167,19 +167,19 @@ void MapViewState::initUi()
 }
 
 
-void MapViewState::setupUiPositions()
+void MapViewState::setupUiPositions(int w, int h)
 {
-	Renderer& r = Utility<Renderer>::get();
+	//Renderer& r = Utility<Renderer>::get();
 
 	// Bottom UI Area
-	BOTTOM_UI_AREA(0, static_cast<int>(r.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(r.width()), constants::BOTTOM_UI_HEIGHT);
+	BOTTOM_UI_AREA(0, static_cast<int>(h - constants::BOTTOM_UI_HEIGHT), static_cast<int>(w), constants::BOTTOM_UI_HEIGHT);
 
 	// Menu / System Icon
-	MENU_ICON(r.width() - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
+	MENU_ICON(w - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
 
 	// NAVIGATION BUTTONS
 	// Bottom line
-	MOVE_DOWN_ICON(r.width() - constants::MARGIN - 32, r.height() - constants::BOTTOM_UI_HEIGHT - 65, 32, 32);
+	MOVE_DOWN_ICON(w - constants::MARGIN - 32, h - constants::BOTTOM_UI_HEIGHT - 65, 32, 32);
 	MOVE_EAST_ICON(MOVE_DOWN_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
 	MOVE_SOUTH_ICON(MOVE_DOWN_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
 
@@ -189,10 +189,10 @@ void MapViewState::setupUiPositions()
 	MOVE_WEST_ICON(MOVE_UP_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
 
 	// Mini Map
-	mMiniMapBoundingBox(static_cast<int>(r.width() - 300 - constants::MARGIN), static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), 300, 150);
+	mMiniMapBoundingBox(static_cast<int>(w - 300 - constants::MARGIN), static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), 300, 150);
 
 	// Position UI Buttons
-	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(r.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
+	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(h - constants::MARGIN - MAIN_BUTTON_SIZE));
 	mBtnToggleHeightmap.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y()));
 	mBtnToggleConnectedness.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
 
@@ -210,7 +210,7 @@ void MapViewState::setupUiPositions()
 	mAnnouncement.position(centerWindowWidth(mAnnouncement.width()), centerWindowHeight(mAnnouncement.height()) - 100);
 	mGameOptionsDialog.position(centerWindowWidth(mGameOptionsDialog.width()), centerWindowHeight(mGameOptionsDialog.height()) - 100);
 
-	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), static_cast<int>(r.height() / 2) - 125);
+	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), static_cast<int>(h / 2) - 125);
 
 	mWarehouseInspector.position(centerWindowWidth(mWarehouseInspector.width()), centerWindowHeight(mWarehouseInspector.height()) - 100);
 	mMineOperationsWindow.position(centerWindowWidth(mMineOperationsWindow.width()), centerWindowHeight(mMineOperationsWindow.height()) - 100);

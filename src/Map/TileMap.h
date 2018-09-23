@@ -63,7 +63,7 @@ public:
 
 	void injectMouse(int x, int y);
 
-	void initMapDrawParams();
+	void initMapDrawParams(int, int);
 	
 	void draw();
 

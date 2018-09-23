@@ -67,7 +67,7 @@ TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int 
 	std::cout << "Loading '" << map_path << "'... ";
 	buildTerrainMap(map_path);
 	buildMouseMap();
-	initMapDrawParams();
+	initMapDrawParams(Utility<Renderer>::get().width(), Utility<Renderer>::get().height());
 
 	if (_s) { setupMines(_mc); }
 	std::cout << "finished!" << std::endl;
@@ -226,15 +226,13 @@ void TileMap::buildMouseMap()
 /**
  * Sets up position and drawing parememters for the tile map.
  */
-void TileMap::initMapDrawParams()
+void TileMap::initMapDrawParams(int w, int h)
 {
 	// Set up map draw position
-	float screenW = Utility<Renderer>::get().width(), screenH = Utility<Renderer>::get().height();
+	mEdgeLength = w / TILE_WIDTH;
 
-	mEdgeLength = static_cast<int>(screenW) / TILE_WIDTH;
-
-	mMapPosition((screenW / 2 - (TILE_WIDTH / 2)), ((screenH - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT_ABSOLUTE));
-	mMapBoundingBox((screenW / 2) - ((TILE_WIDTH * mEdgeLength) / 2), mMapPosition.y(), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength);
+	mMapPosition((w / 2 - (TILE_WIDTH / 2)), ((h - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT_ABSOLUTE));
+	mMapBoundingBox((w / 2) - ((TILE_WIDTH * mEdgeLength) / 2), mMapPosition.y(), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength);
 
 	int transform = (mMapPosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
 	TRANSFORM(-transform, transform);

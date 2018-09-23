@@ -20,6 +20,7 @@ User interface overhaul.
 ### Fixed
 - Fixed an issue that prevented the planet description from displaying.
 - Fixed an oversight that caused ListBox to sort all of its items regardless of whether it was in sorted mode or not.
+- Addressed a usability issue with the underlying NAS2D library that sometimes resulted in incorrect sizing and positioning of UI elements when resizing the game window.
 
 
 ## [0.7.6] - 2018-07-06

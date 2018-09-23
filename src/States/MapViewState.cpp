@@ -128,9 +128,11 @@ void MapViewState::initialize()
 {
 	// UI
 	initUi();
-	setupUiPositions();
+	Renderer& r = Utility<Renderer>::get();
 
-	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
+	r.setCursor(POINTER_NORMAL);
+
+	setupUiPositions(r.width(), r.height());
 
 	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
 
@@ -296,8 +298,8 @@ void MapViewState::onActivate(bool _b)
  */
 void MapViewState::onWindowResized(int w, int h)
 {
-	setupUiPositions();
-	mTileMap->initMapDrawParams();
+	setupUiPositions(w, h);
+	mTileMap->initMapDrawParams(w, h);
 }
 
 

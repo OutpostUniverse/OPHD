@@ -153,7 +153,7 @@ private:
 	void initUi();
 	void resetUi();
 
-	void setupUiPositions();
+	void setupUiPositions(int, int);
 
 	void checkRobotSelectionInterface(const std::string& rType, int sheetIndex, RobotType);
 
