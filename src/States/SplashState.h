@@ -12,9 +12,8 @@ using namespace NAS2D;
 class SplashState : public State
 {
 public:
-
 	SplashState();
-	~SplashState();
+	virtual ~SplashState();
 
 protected:
 
@@ -33,12 +32,12 @@ private:
 	Image				mLogoLairworks;
 	Image				mLogoNas2d;
 	Image				mLogoOutpostHd;
+	Image				mFlare;
+	Image				mByline;
 
 	Point_2d			mMousePosition;
 
-	Music				mSplash;
-
 	Timer				mTimer;
 
-	State*				mReturnState;
+	State*				mReturnState = this;
 };

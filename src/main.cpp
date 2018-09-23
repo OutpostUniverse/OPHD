@@ -29,6 +29,8 @@ NAS2D::Image* IMG_LOADING = nullptr;
 NAS2D::Image* IMG_SAVING = nullptr;
 NAS2D::Image* IMG_PROCESSING_TURN = nullptr;
 
+NAS2D::Music* MARS = nullptr;
+
 
 /**
  * Safe to return a reference as the instantiation will either succeed
@@ -150,8 +152,11 @@ int main(int argc, char *argv[])
 		IMG_SAVING = new Image("sys/saving.png");
 		IMG_PROCESSING_TURN = new Image("sys/processing_turn.png");
 
+		MARS = new Music("music/mars.ogg");
+		Utility<Mixer>::get().playMusic(*MARS);
+
 		StateManager stateManager;
-		
+		stateManager.forceStopAudio(false);
 		
 		if (cf.option("skip-splash") == "false")
 		{
@@ -162,7 +167,7 @@ int main(int argc, char *argv[])
 			stateManager.setState(new MainMenuState());
 		}
 		
-		
+
 		/*
 		r.fadeIn(0.0f);
 		MainReportsUiState* uistuff = new MainReportsUiState();

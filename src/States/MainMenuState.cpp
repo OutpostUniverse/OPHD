@@ -70,6 +70,10 @@ void MainMenuState::initialize()
 
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 	Utility<Renderer>::get().showSystemPointer(true);
+
+	extern Music* MARS; /// yuck
+	Mixer& mixer = Utility<Mixer>::get();
+	if (!mixer.musicPlaying()) { mixer.playMusic(*MARS); }
 }
 
 
@@ -142,6 +146,7 @@ void MainMenuState::fileIoAction(const std::string& _file, FileIo::FileOperation
 
 		mReturnState = new GameState();
 		Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+		Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 	}
 	catch (const std::exception& e)
 	{
@@ -180,6 +185,7 @@ void MainMenuState::btnNewGameClicked()
 	if (mFileIoDialog.visible()) { return; }
 
 	Utility<Renderer>::get().fadeOut((float)constants::FADE_SPEED);
+	Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 	mReturnState = new PlanetSelectState();
 	disableButtons();
 }

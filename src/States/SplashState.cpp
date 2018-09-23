@@ -10,7 +10,12 @@ const int PAUSE_TIME = 5800;
 
 const int FADE_LENGTH = 800;
 
-float LOGO_SCALE = 1.0f;
+float BYLINE_SCALE = 0.50f;
+float BYLINE_SCALE_STEP = 0.000025f;
+float BYLINE_ALPHA = -800.0f;
+float BYLINE_ALPHA_FADE_STEP = 0.30;
+
+Timer BYLINE_TIMER;
 
 enum LogoState
 {
@@ -26,8 +31,8 @@ LogoState CURRENT_STATE = LOGO_NONE;
 SplashState::SplashState() :	mLogoLairworks("sys/lairworks-logo.png"),
 								mLogoNas2d("sys/nas2d_logo.png"),
 								mLogoOutpostHd("sys/ophd_large.png"),
-								mSplash("music/splash.ogg"),
-								mReturnState(this)
+								mFlare("sys/flare_0.png"),
+								mByline("sys/byline.png")
 {}
 
 
@@ -46,13 +51,7 @@ void SplashState::initialize()
 	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
 	e.windowResized().connect(this, &SplashState::onWindowResized);
 
-	Utility<Mixer>::get().fadeInMusic(mSplash, -1, 1000);
 	Utility<Renderer>::get().showSystemPointer(false);
-
-	if (mLogoOutpostHd.width() > Utility<Renderer>::get().width())
-	{
-		LOGO_SCALE = Utility<Renderer>::get().width() / mLogoOutpostHd.width();
-	}
 }
 
 
@@ -71,6 +70,7 @@ void setNextState(LogoState& _ls)
 	if (_ls == LOGO_NAS2D)
 	{
 		_ls = LOGO_OUTPOSTHD;
+		BYLINE_TIMER.reset();
 		return;
 	}
 }
@@ -78,9 +78,8 @@ void setNextState(LogoState& _ls)
 
 void SplashState::skipSplash()
 {
-	Utility<Mixer>::get().fadeOutMusic(FADE_LENGTH);
-	Utility<Renderer>::get().fadeOut((float)FADE_LENGTH);
 	mReturnState = new MainMenuState();
+	Utility<Renderer>::get().fadeOut((float)FADE_LENGTH);
 }
 
 
@@ -111,12 +110,20 @@ State* SplashState::update()
 	}
 	if (CURRENT_STATE == LOGO_OUTPOSTHD)
 	{
-		float _x = r.center_x() - ((mLogoOutpostHd.width() * LOGO_SCALE) / 2) - (100 * LOGO_SCALE);
-		float _y = r.center_y() - ((mLogoOutpostHd.height() * LOGO_SCALE) / 2);
+		unsigned int tick = BYLINE_TIMER.delta();
 		
-		r.drawImage(mLogoOutpostHd, static_cast<int>(_x), static_cast<int>(_y), LOGO_SCALE);
-	}
+		float _x = r.center_x() - (mLogoOutpostHd.width() / 2) - 100);
+		float _y = r.center_y() - (mLogoOutpostHd.height() / 2);
+		
+		r.drawImageRotated(mFlare, _x + 302 - 512, _y + 241 - 512, BYLINE_TIMER.tick() / 600.0f);
+		r.drawImage(mLogoOutpostHd, static_cast<int>(_x), static_cast<int>(_y));
 
+		BYLINE_SCALE += tick * BYLINE_SCALE_STEP;
+		BYLINE_ALPHA += tick * BYLINE_ALPHA_FADE_STEP;
+		BYLINE_ALPHA = clamp(BYLINE_ALPHA, -3000.0f, 255.0f);
+
+		if(BYLINE_ALPHA > 0.0f) { r.drawImage(mByline, r.center_x() - ((mByline.width() * BYLINE_SCALE) / 2), r.center_y() + 25, BYLINE_SCALE, 255, 255, 255, (int)BYLINE_ALPHA); }
+	}
 	
 	if (r.isFading()) { return this; }
 
