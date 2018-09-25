@@ -290,6 +290,8 @@ void FactoryReport::fillFactoryList(Structure::StructureState state)
 			lstFactoryList.addItem(static_cast<Factory*>(f));
 		}
 	}
+
+	lstFactoryList.setSelection(0);
 	checkFactoryActionControls();
 }
 
@@ -307,7 +309,7 @@ void FactoryReport::checkFactoryActionControls()
 	btnApply.visible(actionControlVisible);
 	lstProducts.visible(actionControlVisible);
 
-	if (actionControlVisible) { lstFactoryList.currentSelection(0); }
+	if (actionControlVisible) { lstFactoryList.setSelection(0); }
 }
 
 
@@ -486,28 +488,32 @@ void FactoryReport::btnApplyClicked()
 /**
  * 
  */
-void FactoryReport::lstFactoryListSelectionChanged(Factory* _f)
+void FactoryReport::lstFactoryListSelectionChanged()
 {
-	SELECTED_FACTORY = _f;
+	SELECTED_FACTORY = lstFactoryList.selectedFactory();
 
-	if (!SELECTED_FACTORY) { return; }
+	if (!SELECTED_FACTORY)
+	{
+		checkFactoryActionControls();
+		return;
+	}
 
 	/// \fixme Ugly
 	if (SELECTED_FACTORY->name() == constants::SEED_FACTORY) { FACTORY_IMAGE = FACTORY_SEED; }
 	else if (SELECTED_FACTORY->name() == constants::SURFACE_FACTORY) { FACTORY_IMAGE = FACTORY_AG; }
 	else if (SELECTED_FACTORY->name() == constants::UNDERGROUND_FACTORY) { FACTORY_IMAGE = FACTORY_UG; }
 
-	FACTORY_STATUS = structureStateDescription(_f->state());
+	FACTORY_STATUS = structureStateDescription(SELECTED_FACTORY->state());
 
-	btnIdle.toggle(_f->state() == Structure::IDLE);
-	btnIdle.enabled(_f->state() == Structure::OPERATIONAL || _f->state() == Structure::IDLE);
+	btnIdle.toggle(SELECTED_FACTORY->state() == Structure::IDLE);
+	btnIdle.enabled(SELECTED_FACTORY->state() == Structure::OPERATIONAL || SELECTED_FACTORY->state() == Structure::IDLE);
 
-	btnClearProduction.enabled(_f->state() == Structure::OPERATIONAL || _f->state() == Structure::IDLE);
+	btnClearProduction.enabled(SELECTED_FACTORY->state() == Structure::OPERATIONAL || SELECTED_FACTORY->state() == Structure::IDLE);
 
 	lstProducts.dropAllItems();
 	if (SELECTED_FACTORY->state() != Structure::DESTROYED)
 	{
-		const Factory::ProductionTypeList& _pl = _f->productList();
+		const Factory::ProductionTypeList& _pl = SELECTED_FACTORY->productList();
 		for (auto item : _pl)
 		{
 			lstProducts.addItem(productDescription(item), static_cast<int>(item));

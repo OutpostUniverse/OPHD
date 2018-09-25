@@ -44,7 +44,7 @@ private:
 
 	void filterButtonClicked(bool clearCbo);
 
-	void lstFactoryListSelectionChanged(Factory*);
+	void lstFactoryListSelectionChanged();
 	void lstProductsSelectionChanged();
 	void cboFilterByProductSelectionChanged();
 
