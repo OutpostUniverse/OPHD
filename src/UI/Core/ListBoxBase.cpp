@@ -5,6 +5,8 @@
 
 #include "../../Constants.h"
 
+#include <algorithm>
+
 
 using namespace NAS2D;
 
