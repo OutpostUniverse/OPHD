@@ -260,7 +260,7 @@ void PlanetSelectState::onWindowResized(int w, int h)
 	mPlanets[1]->position(w / 2 - 64, h / 2 - 64);
 	mPlanets[2]->position(((w / 4) * 3) - 64, h / 2 - 64);
 
-	mQuit.position(w - 55, 30);
+	mQuit.position(w - 105, 30);
 	mPlanetDescription.position((w / 2) - 275, h - 225);
 }
 

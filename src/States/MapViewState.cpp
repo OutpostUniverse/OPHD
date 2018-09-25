@@ -108,6 +108,7 @@ MapViewState::~MapViewState()
 	delete mTileMap;
 
 	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
+	Utility<EventHandler>::get().windowResized().disconnect(this, &MapViewState::onWindowResized);
 }
 
 
@@ -157,9 +158,7 @@ void MapViewState::_activate()
 	EventHandler& e = Utility<EventHandler>::get();
 
 	e.activate().connect(this, &MapViewState::onActivate);
-
 	e.keyDown().connect(this, &MapViewState::onKeyDown);
-
 	e.mouseButtonDown().connect(this, &MapViewState::onMouseDown);
 	e.mouseButtonUp().connect(this, &MapViewState::onMouseUp);
 	e.mouseDoubleClick().connect(this, &MapViewState::onMouseDoubleClick);
@@ -181,6 +180,7 @@ void MapViewState::_deactivate()
 	e.mouseButtonUp().disconnect(this, &MapViewState::onMouseUp);
 	e.mouseDoubleClick().disconnect(this, &MapViewState::onMouseDoubleClick);
 	e.mouseMotion().disconnect(this, &MapViewState::onMouseMove);
+	e.mouseWheel().disconnect(this, &MapViewState::onMouseWheel);
 
 	mGameOverDialog.enabled(false);
 	mGameOptionsDialog.enabled(false);
