@@ -28,8 +28,8 @@ public:
 protected:
 	void init();
 
-	virtual void onDoubleClick(NAS2D::EventHandler::MouseButton button, int x, int y) final;
-	virtual void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat) final;
+	void onDoubleClick(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 
 private:
 	FileIo(const FileIo&) = delete;

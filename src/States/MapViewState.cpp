@@ -92,8 +92,6 @@ MapViewState::MapViewState(const std::string& sm, const std::string& t, int d, i
 	mMapDisplay(sm + MAP_DISPLAY_EXTENSION),
 	mHeightMap(sm + MAP_TERRAIN_EXTENSION),
 	mUiIcons("ui/icons.png")
-	//mBgMusic("music/track_01.ogg"),
-
 {
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
@@ -152,8 +150,6 @@ void MapViewState::initialize()
 
 void MapViewState::_activate()
 {
-	mReturnState = this;
-
 	// EVENT HANDLERS
 	EventHandler& e = Utility<EventHandler>::get();
 
@@ -206,7 +202,7 @@ State* MapViewState::update()
 
 		if (r.isFading()) { return this; }
 
-		return mReturnState;
+		return this;
 	}
 
 	// explicit current level
@@ -231,7 +227,7 @@ State* MapViewState::update()
 
 	if (r.isFading()) { return this; }
 
-	return mReturnState;
+	return this;
 }
 
 
@@ -322,7 +318,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 
 	if (key == EventHandler::KEY_F1)
 	{
-		mReturnState = MAIN_REPORTS_UI;
+		mReportsUiCallback();
 		return;
 	}
 
@@ -591,7 +587,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int x, i
 			if (_s->isFactory())
 			{
 				MAIN_REPORTS_UI->selectFactoryPanel(_s);
-				mReturnState = MAIN_REPORTS_UI;
+				mReportsUiCallback();
 			}
 			else if (_s->isWarehouse())
 			{

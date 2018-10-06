@@ -58,18 +58,24 @@ public:
 	};
 
 public:
+	using QuitCallback = NAS2D::Signals::Signal0<void>;
+	using ReportsUiCallback = NAS2D::Signals::Signal0<void>;
+
+public:
 	MapViewState(const std::string& savegame);
 	MapViewState(const std::string& map, const std::string& tset, int _d, int _minecount);
 	virtual ~MapViewState();
 
 	void setPopulationLevel(PopulationLevel _level);
 
+	ReportsUiCallback& showReporstUi() { return mReportsUiCallback; }
+	QuitCallback& quit() { return mQuitCallback; }
+
 protected:
 	void initialize();
 	State* update();
 
 private:
-
 	virtual void _deactivate() final;
 	virtual void _activate() final;
 	
@@ -233,6 +239,10 @@ private:
 
 	WindowStack			mWindowStack;					/**< Window stack manager. */
 
+	// SIGNALS
+	QuitCallback		mQuitCallback;					/**< Signal for posting quit event. */
+	ReportsUiCallback	mReportsUiCallback;			/**< Signal for bringing the Main Reports UI up. */
+
 	// MISCELLANEOUS
 	int					mTurnCount = 0;					/**<  */
 
@@ -250,5 +260,5 @@ private:
 
 	std::string			mExistingToLoad;				/**< Filename of the existing game to load. */
 
-	State*				mReturnState = this;			/**<  */
+	//State*				mReturnState = this;			/**<  */
 };

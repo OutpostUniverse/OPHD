@@ -18,7 +18,7 @@ TextArea::~TextArea()
 
 
 
-void TextArea::font(const std::string font, size_t size)
+void TextArea::font(const std::string& font, size_t size)
 {
 	mFont = Utility<FontManager>::get().font(font, size);
 }

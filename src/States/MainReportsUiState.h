@@ -9,10 +9,14 @@
 class MainReportsUiState : public Wrapper
 {
 public:
+	using ReportsUiCallback = NAS2D::Signals::Signal0<void>;
+public:
 	MainReportsUiState();
 	virtual ~MainReportsUiState();
 
 	void selectFactoryPanel(Structure*);
+
+	ReportsUiCallback& hideReports() { return mReportsUiCallback; }
 
 protected:
 	void initialize();
@@ -30,5 +34,5 @@ private:
 	void deselectAllPanels();
 
 private:
-	NAS2D::State*	mReturnState = this;
+	ReportsUiCallback mReportsUiCallback;
 };

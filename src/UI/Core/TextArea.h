@@ -15,7 +15,7 @@ public:
 
 	void textColor(int r, int g, int b, int a = 255) { mTextColor(r, g, b, a); }
 
-	void font(const std::string, size_t);
+	void font(const std::string&, size_t);
 
 	void update();
 

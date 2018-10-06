@@ -24,6 +24,10 @@ ListBoxBase::ListBoxBase()
 ListBoxBase::~ListBoxBase()
 {
 	mSlider.change().disconnect(this, &ListBoxBase::slideChanged);
+
+	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ListBoxBase::onMouseWheel);
+	_hook_events(false);
+
 	for (auto item : mItems) { delete item; }
 }
 

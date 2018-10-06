@@ -28,6 +28,8 @@ MainMenuState::~MainMenuState()
 	EventHandler& e = Utility<EventHandler>::get();
 	e.windowResized().disconnect(this, &MainMenuState::onWindowResized);
 	e.keyDown().disconnect(this, &MainMenuState::onKeyDown);
+
+	Utility<Mixer>::get().stopAllAudio();
 }
 
 
@@ -140,11 +142,14 @@ void MainMenuState::fileIoAction(const std::string& _file, FileIo::FileOperation
 	{
 		checkSavegameVersion(filename);
 
-		Utility<WrapperStack>::get().push(new MapViewState(filename));
-		Utility<WrapperStack>::get().top()->_initialize();
-		Utility<WrapperStack>::get().top()->activate();
+		MapViewState* mapview = new MapViewState(filename);
+		mapview->_initialize();
+		mapview->activate();
 
-		mReturnState = new GameState();
+		GameState* gameState = new GameState();
+		gameState->mapviewstate(mapview);
+		mReturnState = gameState;
+		
 		Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 		Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 	}

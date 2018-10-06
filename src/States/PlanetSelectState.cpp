@@ -12,7 +12,7 @@
 
 using namespace NAS2D;
 
-PlanetType PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
+Planet::PlanetType PLANET_TYPE_SELECTION = Planet::PLANET_TYPE_NONE;
 
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
@@ -56,9 +56,9 @@ void PlanetSelectState::initialize()
 	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 	e.windowResized().connect(this, &PlanetSelectState::onWindowResized);
 
-	mPlanets.push_back(new Planet(PLANET_TYPE_MERCURY));
-	mPlanets.push_back(new Planet(PLANET_TYPE_MARS));
-	mPlanets.push_back(new Planet(PLANET_TYPE_GANYMEDE));
+	mPlanets.push_back(new Planet(Planet::PLANET_TYPE_MERCURY));
+	mPlanets.push_back(new Planet(Planet::PLANET_TYPE_MARS));
+	mPlanets.push_back(new Planet(Planet::PLANET_TYPE_GANYMEDE));
 
 	Renderer& r = Utility<Renderer>::get();
 	mPlanets[0]->position((int)r.width() / 4 - 64, (int)r.height() / 2 - 64);
@@ -73,7 +73,7 @@ void PlanetSelectState::initialize()
 	mPlanets[2]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[2]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
-	PLANET_TYPE_SELECTION = PLANET_TYPE_NONE;
+	PLANET_TYPE_SELECTION = Planet::PLANET_TYPE_NONE;
 
 	mMale.type(Button::BUTTON_TOGGLE);
 	mMale.text("Male");
@@ -153,28 +153,28 @@ State* PlanetSelectState::update()
 	{
 		return this;
 	}
-	else if (PLANET_TYPE_SELECTION != PLANET_TYPE_NONE)
+	else if (PLANET_TYPE_SELECTION != Planet::PLANET_TYPE_NONE)
 	{
 		std::string map, tileset;
 		int dig_depth = 0, max_mines = 0;
 
 		switch (PLANET_TYPE_SELECTION)
 		{
-		case PLANET_TYPE_MERCURY:
+		case Planet::PLANET_TYPE_MERCURY:
 			map = "maps/merc_01";
 			tileset = "tsets/mercury.png";
 			dig_depth = mPlanets[0]->digDepth();
 			max_mines = mPlanets[0]->maxMines();
 			break;
 
-		case PLANET_TYPE_MARS:
+		case Planet::PLANET_TYPE_MARS:
 			map = "maps/mars_04";
 			tileset = "tsets/mars.png";
 			dig_depth = mPlanets[1]->digDepth();
 			max_mines = mPlanets[1]->maxMines();
 			break;
 
-		case PLANET_TYPE_GANYMEDE:
+		case Planet::PLANET_TYPE_GANYMEDE:
 			map = "maps/ganymede_01";
 			tileset = "tsets/ganymede.png";
 			dig_depth = mPlanets[2]->digDepth();
@@ -186,14 +186,15 @@ State* PlanetSelectState::update()
 			break;
 		}
 
-		MapViewState* _state = new MapViewState(map, tileset, dig_depth, max_mines);
-		_state->setPopulationLevel(MapViewState::POPULATION_LARGE);
+		MapViewState* mapview = new MapViewState(map, tileset, dig_depth, max_mines);
+		mapview->setPopulationLevel(MapViewState::POPULATION_LARGE);
+		mapview->_initialize();
+		mapview->activate();
 
-		Utility<WrapperStack>::get().push(_state);
-		Utility<WrapperStack>::get().top()->_initialize();
-		Utility<WrapperStack>::get().top()->activate();
+		GameState* gameState = new GameState();
+		gameState->mapviewstate(mapview);
 
-		return new GameState();
+		return gameState;
 	}
 
 	return mReturnState;
@@ -240,9 +241,9 @@ void PlanetSelectState::onMousePlanetEnter()
 		// FIXME: Ugly, will be difficult to maintain in the future.
 		if (mPlanets[i]->mouseHovering())
 		{
-			if (mPlanets[i]->type() == PLANET_TYPE_GANYMEDE) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_GANYMEDE); }
-			if (mPlanets[i]->type() == PLANET_TYPE_MARS) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MARS); }
-			if (mPlanets[i]->type() == PLANET_TYPE_MERCURY) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MERCURY); }
+			if (mPlanets[i]->type() == Planet::PLANET_TYPE_GANYMEDE) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_GANYMEDE); }
+			if (mPlanets[i]->type() == Planet::PLANET_TYPE_MARS) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MARS); }
+			if (mPlanets[i]->type() == Planet::PLANET_TYPE_MERCURY) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MERCURY); }
 		}
 	}
 }

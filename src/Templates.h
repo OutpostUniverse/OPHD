@@ -14,7 +14,6 @@ void transferProducts(T& source, T& destination)
 	if (source->products().empty() || destination->products().atCapacity()) { return; }
 
 	auto& src = source->products().mProducts;
-
 	auto& dest = destination->products();
 
 	for (size_t i = 0; i < PRODUCT_COUNT; ++i)

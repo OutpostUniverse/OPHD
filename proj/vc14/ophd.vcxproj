@@ -186,6 +186,7 @@
     <ClCompile Include="..\..\src\States\MapViewStateIO.cpp" />
     <ClCompile Include="..\..\src\States\MapViewStateTurn.cpp" />
     <ClCompile Include="..\..\src\States\MapViewStateUi.cpp" />
+    <ClCompile Include="..\..\src\States\Planet.cpp" />
     <ClCompile Include="..\..\src\States\PlanetSelectState.cpp" />
     <ClCompile Include="..\..\src\states\SplashState.cpp" />
     <ClCompile Include="..\..\src\StructureCatalogue.cpp" />

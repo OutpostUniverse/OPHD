@@ -79,7 +79,7 @@ static std::array<Panel, PANEL_COUNT> Panels;	/**< Array of UI navigation panels
 /**
  * Computes the panel rectangles for the top nav bar.
  */
-static void setPanelRects(int width, int height)
+static void setPanelRects(int width)
 {
 	Panels[PANEL_EXIT].Rect(width - 48, 0, 48, 48);
 	Panels[PANEL_EXIT].IconPosition(width - 40, 8);
@@ -161,8 +161,8 @@ MainReportsUiState::MainReportsUiState()
 MainReportsUiState::~MainReportsUiState()
 {
 	Utility<EventHandler>::get().windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
-	
-	_deactivate();
+	Utility<EventHandler>::get().keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
 
 	delete WINDOW_BACKGROUND;
 
@@ -205,7 +205,7 @@ void MainReportsUiState::initialize()
 	Panels[PANEL_SPACEPORT].Name = "Space Ports";
 
 	Renderer& r = Utility<Renderer>::get();
-	setPanelRects(r.width(), r.height());
+	setPanelRects(r.width());
 
 	UIContainer* factory_report = new FactoryReport();
 	Panels[PANEL_PRODUCTION].UiPanel = factory_report;
@@ -221,7 +221,6 @@ void MainReportsUiState::_activate()
 {
 	Utility<EventHandler>::get().keyDown().connect(this, &MainReportsUiState::onKeyDown);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
-	mReturnState = this;
 }
 
 
@@ -232,7 +231,11 @@ void MainReportsUiState::_deactivate()
 {
 	Utility<EventHandler>::get().keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
-	//Utility<EventHandler>::get().windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
+
+	for (auto& panel : Panels)
+	{
+		if (panel.UiPanel) { panel.UiPanel->hide(); }
+	}
 
 	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
 }
@@ -242,9 +245,7 @@ void MainReportsUiState::_deactivate()
  * Key down event handler.
  */
 void MainReportsUiState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
-{
-	if (key == EventHandler::KEY_ESCAPE) { mReturnState = nullptr; }
-}
+{}
 
 
 /**
@@ -267,8 +268,11 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 
 	if (Panels[PANEL_EXIT].Selected())
 	{
-		mReturnState = nullptr;
 		Panels[PANEL_EXIT].Selected(false);
+		
+		// egad! Going to have to do something to improve this!
+		static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
+		mReportsUiCallback();
 	}
 }
 
@@ -278,7 +282,7 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
  */
 void MainReportsUiState::onWindowResized(int w, int h)
 {
-	setPanelRects(w, h);
+	setPanelRects(w);
 	for (Panel& panel : Panels) { if (panel.UiPanel) { panel.UiPanel->size(w, h - 48); } }
 }
 
@@ -318,5 +322,5 @@ State* MainReportsUiState::update()
 
 	for (Panel& panel : Panels) { drawPanel(r, panel); }
 
-	return mReturnState;
+	return this;
 }

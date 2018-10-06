@@ -51,8 +51,8 @@ void validateVideoResolution()
 {
 	Configuration& cf = Utility<Configuration>::get();
 
-	if (cf.graphicsWidth() < 1024) { cf.graphicsWidth(1024); }
-	if (cf.graphicsHeight() < 768) { cf.graphicsHeight(768); }
+	if (cf.graphicsWidth() < 1000) { cf.graphicsWidth(1000); }
+	if (cf.graphicsHeight() < 700) { cf.graphicsHeight(700); }
 }
 
 
@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
 
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
-		r.minimum_size(1024, 768);
+		r.minimum_size(1000, 700);
 		r.resizeable(true);
 		r.addCursor(constants::MOUSE_POINTER_NORMAL, POINTER_NORMAL, 0, 0);
 		r.addCursor(constants::MOUSE_POINTER_PLACE_TILE, POINTER_PLACE_TILE, 16, 16);

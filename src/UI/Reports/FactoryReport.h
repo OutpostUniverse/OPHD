@@ -52,8 +52,8 @@ private:
 
 	void resized(Control*);
 
-	void drawDetailPane(NAS2D::Renderer& r);
-	void drawProductPane(NAS2D::Renderer& r);
+	void drawDetailPane(NAS2D::Renderer&);
+	void drawProductPane(NAS2D::Renderer&);
 
 	virtual void visibilityChanged(bool visible) final;
 

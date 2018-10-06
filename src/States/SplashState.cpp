@@ -49,7 +49,7 @@ SplashState::~SplashState()
 void SplashState::initialize()
 {
 	EventHandler& e = Utility<EventHandler>::get();
-	e.keyDown().connect(this, &SplashState::onKeyDown);
+	//e.keyDown().connect(this, &SplashState::onKeyDown);
 	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
 
 	Utility<Renderer>::get().showSystemPointer(false);
