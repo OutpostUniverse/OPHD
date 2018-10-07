@@ -168,16 +168,16 @@ void FactoryReport::init()
 	add(&cboFilterByProduct, 250, 33);
 	cboFilterByProduct.size(200, 20);
 
-	cboFilterByProduct.addItem("None", PRODUCT_NONE);
-	cboFilterByProduct.addItem("Clothing", PRODUCT_CLOTHING);
-	cboFilterByProduct.addItem("Maintenance Supplies", PRODUCT_MAINTENANCE_PARTS);
-	cboFilterByProduct.addItem("Medicine", PRODUCT_MEDICINE);
-	cboFilterByProduct.addItem("Robodigger", PRODUCT_DIGGER);
-	cboFilterByProduct.addItem("Robodozer", PRODUCT_DOZER);
-	cboFilterByProduct.addItem("Roboexplorer", PRODUCT_EXPLORER);
-	cboFilterByProduct.addItem("Robominer", PRODUCT_MINER);
-	cboFilterByProduct.addItem("Road Materials", PRODUCT_ROAD_MATERIALS);
-	cboFilterByProduct.addItem("Truck", PRODUCT_TRUCK);
+	cboFilterByProduct.addItem(constants::NONE, PRODUCT_NONE);
+	cboFilterByProduct.addItem(constants::CLOTHING, PRODUCT_CLOTHING);
+	cboFilterByProduct.addItem(constants::MAINTENANCE_SUPPLIES, PRODUCT_MAINTENANCE_PARTS);
+	cboFilterByProduct.addItem(constants::MEDICINE, PRODUCT_MEDICINE);
+	cboFilterByProduct.addItem(constants::ROBODIGGER, PRODUCT_DIGGER);
+	cboFilterByProduct.addItem(constants::ROBODOZER, PRODUCT_DOZER);
+	cboFilterByProduct.addItem(constants::ROBOEXPLORER, PRODUCT_EXPLORER);
+	cboFilterByProduct.addItem(constants::ROBOMINER, PRODUCT_MINER);
+	cboFilterByProduct.addItem(constants::ROAD_MATERIALS, PRODUCT_ROAD_MATERIALS);
+	cboFilterByProduct.addItem(constants::TRUCK, PRODUCT_TRUCK);
 
 	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::cboFilterByProductSelectionChanged);
 
@@ -205,6 +205,12 @@ void FactoryReport::selectFactory(Factory* f)
 void FactoryReport::clearSelection()
 {
 	SELECTED_FACTORY = nullptr;
+}
+
+
+FactoryReport::TakeMeThere& FactoryReport::takeMeThereCallback()
+{
+	return mTakeMeThereCallback;
 }
 
 
@@ -471,7 +477,7 @@ void FactoryReport::btnClearProductionClicked()
  */
 void FactoryReport::btnTakeMeThereClicked()
 {
-
+	mTakeMeThereCallback(SELECTED_FACTORY);
 }
 
 

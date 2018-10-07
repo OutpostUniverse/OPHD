@@ -8,10 +8,11 @@
 #include "../UI/Core/UIContainer.h"
 #include "../UI/Reports/FactoryReport.h"
 
-
 #include <array>
 
+
 using namespace NAS2D;
+
 
 extern Point_2d		MOUSE_COORDS;
 
@@ -235,6 +236,7 @@ void MainReportsUiState::_deactivate()
 	for (auto& panel : Panels)
 	{
 		if (panel.UiPanel) { panel.UiPanel->hide(); }
+		panel.Selected(false);
 	}
 
 	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
@@ -307,6 +309,17 @@ void MainReportsUiState::selectFactoryPanel(Structure* f)
 
 	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->showAll();
 	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->selectFactory(static_cast<Factory*>(f));
+}
+
+
+/**
+ * Gets a reference to a NAS2D::Signals::Signal1<Structure*>.
+ * 
+ * Acts as a pass-through for GameState.
+ */
+MainReportsUiState::TakeMeThere& MainReportsUiState::takeMeThere()
+{
+	return static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->takeMeThereCallback();
 }
 
 

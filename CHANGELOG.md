@@ -12,10 +12,11 @@ User interface overhaul.
 
 ### Changed
 - MineOperationsWindow now uses CheckBox controls instead of toggle buttons.
-- Double-clicking on Factories will bull up the full-screen UI.
+- Double-clicking on Factories will pull up the full-screen UI.
 - Lots of internal cleanup that should improve memory usage.
 - Tweaked the SplashScreen state animation.
 - SplashScreen and MainMenu states now use the Mars sound track in the background.
+- Setting minimum resolution to 1000x700. I know, kind of a weird one but this is intended mostly for windowed modes to run properly on low-resolution displays (1366x768).
 
 ### Fixed
 - Fixed an issue that prevented the planet description from displaying.

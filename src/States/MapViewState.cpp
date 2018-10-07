@@ -185,6 +185,13 @@ void MapViewState::_deactivate()
 }
 
 
+void MapViewState::focusOnStructure(Structure* _s)
+{
+	if (!_s) { return; }
+	mTileMap->centerMapOnTile(Utility<StructureManager>::get().tileFromStructure(_s));
+}
+
+
 /**
  * Updates the entire state of the game.
  */

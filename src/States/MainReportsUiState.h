@@ -4,12 +4,14 @@
 
 #include "../UI/Core/ComboBox.h"
 
-#include "../Things/Structures/Structure.h"
+class Structure;
 
 class MainReportsUiState : public Wrapper
 {
 public:
 	using ReportsUiCallback = NAS2D::Signals::Signal0<void>;
+	using TakeMeThere = NAS2D::Signals::Signal1<Structure*>;
+
 public:
 	MainReportsUiState();
 	virtual ~MainReportsUiState();
@@ -17,6 +19,7 @@ public:
 	void selectFactoryPanel(Structure*);
 
 	ReportsUiCallback& hideReports() { return mReportsUiCallback; }
+	TakeMeThere& takeMeThere();
 
 protected:
 	void initialize();
@@ -34,5 +37,5 @@ private:
 	void deselectAllPanels();
 
 private:
-	ReportsUiCallback mReportsUiCallback;
+	ReportsUiCallback	mReportsUiCallback;
 };

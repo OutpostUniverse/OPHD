@@ -2,7 +2,6 @@
 
 #include "../Core/Button.h"
 #include "../Core/ComboBox.h"
-//#include "../Core/ProgressBar.h"
 #include "../Core/UIContainer.h"
 #include "../Core/TextArea.h"
 #include "../FactoryListBox.h"
@@ -10,6 +9,9 @@
 
 class FactoryReport : public UIContainer
 {
+public:
+	using TakeMeThere = NAS2D::Signals::Signal1<Structure*>;
+
 public:
 	FactoryReport();
 	virtual ~FactoryReport();
@@ -20,6 +22,8 @@ public:
 	void clearSelection();
 
 	virtual void update() final;
+
+	TakeMeThere& takeMeThereCallback();
 
 private:
 	void init();
@@ -78,4 +82,6 @@ private:
 	ListBox			lstProducts;
 
 	TextArea		txtProductDescription;
+
+	TakeMeThere		mTakeMeThereCallback;
 };

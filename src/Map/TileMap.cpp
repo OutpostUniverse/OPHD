@@ -246,6 +246,21 @@ void TileMap::injectMouse(int x, int y)
 
 
 /**
+ * Convenience function to focus the TileMap's view on a specified tile.
+ * 
+ * \param	_t	Pointer to a Tile. Safe to pass nullptr.
+ */
+void TileMap::centerMapOnTile(Tile* _t)
+{
+	if (!_t) { return; }
+
+	mapViewLocation(clamp(_t->x() - edgeLength() / 2, 0, mWidth - 1),
+					clamp(_t->y() - edgeLength() / 2, 0, mHeight - 1));
+	currentDepth(_t->depth());
+}
+
+
+/**
  * Returns true if the current tile highlight is actually within the visible diamond map.
  */
 bool TileMap::tileHighlightVisible() const

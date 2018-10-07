@@ -40,6 +40,7 @@ public:
 
 	const NAS2D::Point_2d& mapViewLocation() const { return mMapViewLocation; }
 	void mapViewLocation(int x, int y) { mMapViewLocation(x, y); }
+	void centerMapOnTile(Tile*);
 
 	const NAS2D::Point_2d& tileHighlight() const { return mMapHighlight; }
 	bool tileHighlightVisible() const;

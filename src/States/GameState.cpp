@@ -9,62 +9,74 @@
 
 #include "Wrapper.h"
 
-Point_2d MOUSE_COORDS;
+Point_2d MOUSE_COORDS;									/**< Mouse Coordinates. Used by other states/wrapers. */
 
-MainReportsUiState* MAIN_REPORTS_UI = nullptr;
-MapViewState* MAP_VIEW = nullptr;
+MainReportsUiState* MAIN_REPORTS_UI = nullptr;			/**< Pointer to a MainReportsUiState. Memory is handled by GameState. */
+static MapViewState* MAP_VIEW = nullptr;				/**< Pointer to a MapViewState. Memory is handled by GameState. */
 
-Wrapper* ACTIVE_STATE = nullptr;
+static Wrapper* ACTIVE_STATE = nullptr;					/**< The currently active State. */
 
 
+/**
+ * C'tor
+ */
 GameState::GameState()
 {}
 
 
+/**
+ * D'tor
+ */
 GameState::~GameState()
 {
 	Utility<StructureManager>::get().dropAllStructures();
 
 	EventHandler& e = Utility<EventHandler>::get();
-
 	e.mouseMotion().disconnect(this, &GameState::onMouseMotion);
-	e.mouseButtonDown().disconnect(this, &GameState::onMouseDown);
-	e.mouseButtonUp().disconnect(this, &GameState::onMouseUp);
 
 	Utility<Renderer>::get().fadeComplete().disconnect(this, &GameState::fadeComplete);
 
 	MAIN_REPORTS_UI->hideReports().disconnect(this, &GameState::hideReportsUi);
 	MAP_VIEW->quit().disconnect(this, &GameState::quitEvent);
 	MAP_VIEW->showReporstUi().disconnect(this, &GameState::showReportsUi);
-
-	std::cout << std::endl << std::endl << "******* Deleteing GameState's sub states... ";
+	MAIN_REPORTS_UI->takeMeThere().disconnect(this, &GameState::takeMeThere);
 
 	delete MAIN_REPORTS_UI;
 	delete MAP_VIEW;
-
-	std::cout << std::endl << std::endl << "******* done. Backing out." << std::endl;
 
 	Utility<Mixer>::get().musicComplete().disconnect(this, &GameState::musicComplete);
 	Utility<Mixer>::get().stopAllAudio();
 }
 
 
+/**
+ * Internal initializer function.
+ */
 void GameState::initialize()
 {
 	EventHandler& e = Utility<EventHandler>::get();
 	e.mouseMotion().connect(this, &GameState::onMouseMotion);
-	e.mouseButtonDown().connect(this, &GameState::onMouseDown);
-	e.mouseButtonUp().connect(this, &GameState::onMouseUp);
 
 	MAIN_REPORTS_UI = new MainReportsUiState();
 	MAIN_REPORTS_UI->_initialize();
 	MAIN_REPORTS_UI->hideReports().connect(this, &GameState::hideReportsUi);
+	MAIN_REPORTS_UI->takeMeThere().connect(this, &GameState::takeMeThere);
 
 	Utility<Renderer>::get().fadeComplete().connect(this, &GameState::fadeComplete);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 }
 
 
+/**
+ * Sets a pointer for the MapViewState.
+ * 
+ * Since the MapViewState is created outside of the GameState, this function
+ * takes a pointer to an already instatiated MapViewState object.
+ * 
+ * \param	state	Pointer to a MapViewState. Ownership is transfered to GameState.
+ * 
+ * \note	GameState will handle correct destruction of the MapViewState object.
+ */
 void GameState::mapviewstate(MapViewState* state)
 {
 	MAP_VIEW = state;
@@ -75,20 +87,18 @@ void GameState::mapviewstate(MapViewState* state)
 }
 
 
+/**
+ * Mouse motion event handler.
+ */
 void GameState::onMouseMotion(int x, int y, int relX, int relY)
 {
 	MOUSE_COORDS(x, y);
 }
 
 
-void GameState::onMouseDown(EventHandler::MouseButton, int x, int y)
-{}
-
-
-void GameState::onMouseUp(EventHandler::MouseButton, int x, int y)
-{}
-
-
+/**
+ * Event hanler for a 'fade complete' event raised by the NAS2D::Renderer.
+ */
 void GameState::fadeComplete()
 {
 	Renderer& r = Utility<Renderer>::get();
@@ -99,19 +109,36 @@ void GameState::fadeComplete()
 }
 
 
+/**
+ * Music Complete event handler.
+ * 
+ * Called by NAS2D::Mixer upon completion of a music track. This function
+ * changes the background music track to a different track in the lineup.
+ */
 void GameState::musicComplete()
-{}
+{
+	/// \todo	Make me work... once there's some music to listen to. 0.0
+}
 
 
+/**
+ * Event handler that responds to a quit event raised by the MapViewState.
+ * 
+ * This event is raised on game overs and when the user chooses the "Return
+ * to Main Menu" from the system options window.
+ */
 void GameState::quitEvent()
 {
-	std::cout << std::endl << std::endl << "******* Quit event received... ";
-
 	MAP_VIEW->deactivate();
 	MAIN_REPORTS_UI->deactivate();
 }
 
 
+/**
+ * Event handler that responds to a show reports event raised by the MapViewState.
+ * 
+ * This event is raised whenever a user double-clicks on a factory in the MapViewState.
+ */
 void GameState::showReportsUi()
 {
 	ACTIVE_STATE->deactivate();
@@ -120,6 +147,12 @@ void GameState::showReportsUi()
 }
 
 
+/**
+ * Event handler that responds to a hide report event raised by the MainReportsUiState.
+ * 
+ * This event is raised by the MainReportsUiState whenever the user clicks the Exit
+ * UI panel or if the Escape key is pressed.
+ */
 void GameState::hideReportsUi()
 {
 	ACTIVE_STATE->deactivate();
@@ -128,7 +161,22 @@ void GameState::hideReportsUi()
 }
 
 
+/**
+ * Event handler that responds to a 'take me there' event raised by the MainReportsUiState.
+ * 
+ * This event is raised by the MainReportsUiState whenever a "Take Me There" button in any
+ * of the report UI panels is clicked.
+ */
+void GameState::takeMeThere(Structure* _s)
+{
+	hideReportsUi();
+	MAP_VIEW->focusOnStructure(_s);
+}
 
+
+/**
+ * Update
+ */
 State* GameState::update()
 {
 	Renderer& r = Utility<Renderer>::get();

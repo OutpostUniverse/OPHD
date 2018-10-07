@@ -71,6 +71,8 @@ public:
 	ReportsUiCallback& showReporstUi() { return mReportsUiCallback; }
 	QuitCallback& quit() { return mQuitCallback; }
 
+	void focusOnStructure(Structure*);
+
 protected:
 	void initialize();
 	State* update();
@@ -185,6 +187,7 @@ private:
 	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t);
 
 	void fileIoAction(const std::string& _file, FileIo::FileOperation _op);
+
 
 private:
 	FpsCounter			mFps;							/**< Main FPS Counter. */
