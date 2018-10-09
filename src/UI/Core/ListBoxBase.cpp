@@ -26,7 +26,8 @@ ListBoxBase::~ListBoxBase()
 	mSlider.change().disconnect(this, &ListBoxBase::slideChanged);
 
 	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ListBoxBase::onMouseWheel);
-	_hook_events(false);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBoxBase::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &ListBoxBase::onMouseMove);
 
 	for (auto item : mItems) { delete item; }
 }
@@ -38,6 +39,8 @@ ListBoxBase::~ListBoxBase()
 void ListBoxBase::_init()
 {
 	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBoxBase::onMouseWheel);
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBoxBase::onMouseMove);
 
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
@@ -76,48 +79,6 @@ void ListBoxBase::_update_item_display()
 
 
 /**
- * Internal function called during certain events
- * to hook or unhook input event handlers.
- */
-void ListBoxBase::_hook_events(bool hook)
-{
-	if (hook)
-	{
-		Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
-		Utility<EventHandler>::get().mouseMotion().connect(this, &ListBoxBase::onMouseMove);
-	}
-	else
-	{
-		Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBoxBase::onMouseDown);
-		Utility<EventHandler>::get().mouseMotion().disconnect(this, &ListBoxBase::onMouseMove);
-	}
-}
-
-
-/**
- * Visibility changed event handler.
- * 
- * \note	Testing to see if this is an appropriate place to put event connect/disconnect
- *			calls versus testing for visibility in each of the other event handlers.
- */
-void ListBoxBase::visibilityChanged(bool visible)
-{
-	if (!hasFocus()) { return; }
-	_hook_events(visible);
-}
-
-
-/**
- * Focus changed event handler.
- */
-void ListBoxBase::onFocusChanged()
-{
-	if (!visible()) { return; }
-	_hook_events(hasFocus());
-}
-
-
-/**
  * Resized event handler.
  */
 void ListBoxBase::onSizeChanged()
@@ -136,6 +97,7 @@ void ListBoxBase::onSizeChanged()
  */
 void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	if (!visible() || !hasFocus()) { return; }
 	if (empty() || button == EventHandler::BUTTON_MIDDLE) { return; }
 
 	if (button == EventHandler::BUTTON_RIGHT && isPointInRect(x, y, positionX(), positionY(), width(), height()))
@@ -158,6 +120,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void ListBoxBase::onMouseMove(int x, int y, int relX, int relY)
 {
+	if (!visible() || !hasFocus()) { return; }
 	// Ignore if menu is empty or invisible
 	if (empty()) { return; }
 
@@ -198,6 +161,7 @@ void ListBoxBase::onMouseMove(int x, int y, int relX, int relY)
  */
 void ListBoxBase::onMouseWheel(int x, int y)
 {
+	if (!visible()) { return; }
 	if (!isPointInRect(mMousePosition, rect())) { return; }
 
 	mSlider.changeThumbPosition((y < 0 ? mItemHeight : -mItemHeight));

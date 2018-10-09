@@ -37,12 +37,9 @@ StructureManager::~StructureManager()
  */
 bool StructureManager::CHAPAvailable()
 {
-	for (size_t i = 0; i < mStructureLists[Structure::CLASS_LIFE_SUPPORT].size(); ++i)
+	for (auto chap : mStructureLists[Structure::CLASS_LIFE_SUPPORT])
 	{
-		if (mStructureLists[Structure::CLASS_LIFE_SUPPORT][i]->operational())
-		{
-			return true;
-		}
+		if (chap->operational()) { return true; }
 	}
 
 	return false;
@@ -100,12 +97,10 @@ void StructureManager::update(ResourcePool& _r, PopulationPool& _p)
 void StructureManager::updateEnergyProduction(ResourcePool& _r, PopulationPool& _p)
 {
 	mTotalEnergyOutput = 0;
-	for (size_t i = 0; i < mStructureLists[Structure::CLASS_ENERGY_PRODUCTION].size(); ++i)
+
+	for (auto _s : mStructureLists[Structure::CLASS_ENERGY_PRODUCTION])
 	{
-		if (mStructureLists[Structure::CLASS_ENERGY_PRODUCTION][i]->operational())
-		{
-			mTotalEnergyOutput += mStructureLists[Structure::CLASS_ENERGY_PRODUCTION][i]->resourcesOut().energy();
-		}
+		if (_s->operational()) { mTotalEnergyOutput += _s->resourcesOut().energy(); }
 	}
 
 	_r.energy(mTotalEnergyOutput);
@@ -376,10 +371,7 @@ void StructureManager::dropAllStructures()
 Tile* StructureManager::tileFromStructure(Structure* _st)
 {
 	auto it = mStructureTileTable.find(_st);
-	{
-		return it->second;
-	}
-
+	if (it != mStructureTileTable.end()) { return it->second; }
 	return nullptr;
 }
 

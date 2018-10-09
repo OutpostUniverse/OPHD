@@ -92,16 +92,12 @@ protected:
 
 private:
 	void _init();
-	void _hook_events(bool hook);
 	void slideChanged(double _position);
-
-	virtual void visibilityChanged(bool visible) final;
 
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
 
-	virtual void onFocusChanged() final;
 	virtual void onSizeChanged() final;
 
 private:
