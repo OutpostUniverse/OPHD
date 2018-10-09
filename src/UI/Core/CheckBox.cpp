@@ -38,7 +38,9 @@ CheckBox::CheckBox() : mSkin("ui/skin/checkbox.png")
  * D'tor
  */
 CheckBox::~CheckBox()
-{}
+{
+	_hook_events(false);
+}
 
 
 /**
@@ -137,7 +139,6 @@ void CheckBox::visibilityChanged(bool visible)
 	if (!hasFocus()) { return; }
 	_hook_events(visible);
 }
-
 
 
 /**
