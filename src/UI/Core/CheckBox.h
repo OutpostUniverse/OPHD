@@ -9,7 +9,6 @@
 class CheckBox : public Control
 {
 public:
-
 	typedef NAS2D::Signals::Signal0<void> ClickCallback;
 
 public:
@@ -26,13 +25,9 @@ public:
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
-	virtual void onFocusChanged() final;
 	virtual void onSizeChanged() final;
 	virtual void onTextChanged() final;
-	virtual void visibilityChanged(bool visible) final;
-
-	void _hook_events(bool hook);
-
+	
 private:
 	NAS2D::Image	mSkin;				/**<  */
 

@@ -31,6 +31,7 @@ static Font* CBOX_FONT = nullptr;
 CheckBox::CheckBox() : mSkin("ui/skin/checkbox.png")
 {
 	CBOX_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &CheckBox::onMouseDown);
 }
 
 
@@ -39,7 +40,7 @@ CheckBox::CheckBox() : mSkin("ui/skin/checkbox.png")
  */
 CheckBox::~CheckBox()
 {
-	_hook_events(false);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &CheckBox::onMouseDown);
 }
 
 
@@ -74,41 +75,16 @@ CheckBox::ClickCallback& CheckBox::click()
 
 
 /**
- * Internal function that handles hooking and unhooking events.
- */
-void CheckBox::_hook_events(bool hook)
-{
-	if (hook)
-	{
-		Utility<EventHandler>::get().mouseButtonDown().connect(this, &CheckBox::onMouseDown);
-	}
-	else
-	{
-		Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &CheckBox::onMouseDown);
-	}
-}
-
-
-/**
  * 
  */
 void CheckBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	if (!visible() || !hasFocus()) { return; }
 	if (button == EventHandler::BUTTON_LEFT && isPointInRect(x, y, rect().x(), rect().y(), rect().width(), rect().height()))
 	{
 		mChecked = !mChecked;
 		mCallback();
 	}
-}
-
-
-/**
- * 
- */
-void CheckBox::onFocusChanged()
-{
-	if (!visible()) { return; }
-	_hook_events(hasFocus());
 }
 
 
@@ -128,16 +104,6 @@ void CheckBox::onSizeChanged()
 {
 	_rect().height(clamp(height(), 13.0f, 13.0f));
 	if (width() < 13.0f) { _rect().width(13.0f); }
-}
-
-
-/**
- * 
- */
-void CheckBox::visibilityChanged(bool visible)
-{
-	if (!hasFocus()) { return; }
-	_hook_events(visible);
 }
 
 
