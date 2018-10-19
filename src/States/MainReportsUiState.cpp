@@ -224,6 +224,7 @@ void MainReportsUiState::_activate()
 {
 	//Utility<EventHandler>::get().keyDown().connect(this, &MainReportsUiState::onKeyDown);
 	//Utility<EventHandler>::get().mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
+	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->fillFactoryList();
 }
 
 

@@ -19,6 +19,8 @@ public:
 	void selectFactory(Factory*);
 	void showAll();
 
+	void fillFactoryList();
+
 	void clearSelection();
 
 	virtual void update() final;
@@ -28,7 +30,6 @@ public:
 private:
 	void init();
 
-	void fillFactoryList();
 	void fillFactoryList(ProductType);
 	void fillFactoryList(bool);
 	void fillFactoryList(Structure::StructureState);
