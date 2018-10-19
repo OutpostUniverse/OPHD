@@ -229,15 +229,9 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
  */
 void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if(!isPointInRect(Point_2d(x, y), rect()))
-	{
-		hasFocus(false);
-		return;
-	}
-	else
-	{
-		hasFocus(true);
-	}
+	hasFocus(isPointInRect(Point_2d(x, y), rect())); // This is a very useful check, should probably include this in all controls.
+
+	if (!enabled() || !visible() || !hasFocus()) { return; }
 
 	int relativePosition = static_cast<int>(x - rect().x());
 

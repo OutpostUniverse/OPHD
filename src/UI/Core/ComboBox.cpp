@@ -88,6 +88,8 @@ void ComboBox::repositioned(float, float)
  */
 void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	if (!enabled() || !visible() || !hasFocus()) { return; }
+
 	if (button != EventHandler::BUTTON_LEFT) { return; }
 
 	if (isPointInRect(Point_2d(x, y), mBaseArea))

@@ -15,7 +15,9 @@ using namespace NAS2D;
  * C'tor
  */
 ListBoxBase::ListBoxBase()
-{}
+{
+	_init();
+}
 
 
 /**
@@ -98,6 +100,7 @@ void ListBoxBase::onSizeChanged()
 void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!visible() || !hasFocus()) { return; }
+
 	if (empty() || button == EventHandler::BUTTON_MIDDLE) { return; }
 
 	if (button == EventHandler::BUTTON_RIGHT && isPointInRect(x, y, positionX(), positionY(), width(), height()))
@@ -107,7 +110,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	}
 
 	// A few basic checks
-	if (!isPointInRect(Point_2d(x, y), rect()) || mCurrentHighlight == constants::NO_SELECTION) { return; }
+	if (!isPointInRect(mMousePosition, rect()) || mCurrentHighlight == constants::NO_SELECTION) { return; }
 	if (mSlider.visible() && isPointInRect(Point_2d(x, y), mSlider.rect())) { return; }
 	if (mCurrentHighlight < 0 || static_cast<size_t>(mCurrentHighlight) >= mItems.size()) { return; }
 
@@ -120,9 +123,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void ListBoxBase::onMouseMove(int x, int y, int relX, int relY)
 {
-	if (!visible() || !hasFocus()) { return; }
-	// Ignore if menu is empty or invisible
-	if (empty()) { return; }
+	if (!visible() || empty()) { return; }
 
 	mMousePosition(x, y);
 
@@ -218,6 +219,7 @@ void ListBoxBase::clearItems()
 	for (auto item : mItems) { delete item; }
 	mItems.clear();
 	mCurrentSelection = constants::NO_SELECTION;
+	mCurrentHighlight = constants::NO_SELECTION;
 	_update_item_display();
 }
 

@@ -106,7 +106,18 @@ MapViewState::~MapViewState()
 	delete mTileMap;
 
 	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
-	Utility<EventHandler>::get().windowResized().disconnect(this, &MapViewState::onWindowResized);
+
+	EventHandler& e = Utility<EventHandler>::get();
+	e.activate().disconnect(this, &MapViewState::onActivate);
+	e.keyDown().disconnect(this, &MapViewState::onKeyDown);
+	e.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
+	e.mouseButtonUp().disconnect(this, &MapViewState::onMouseUp);
+	e.mouseDoubleClick().disconnect(this, &MapViewState::onMouseDoubleClick);
+	e.mouseMotion().disconnect(this, &MapViewState::onMouseMove);
+	e.mouseWheel().disconnect(this, &MapViewState::onMouseWheel);
+	e.windowResized().disconnect(this, &MapViewState::onWindowResized);
+
+	e.textInputMode(false);
 }
 
 
@@ -144,13 +155,6 @@ void MapViewState::initialize()
 	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 
-	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-}
-
-
-void MapViewState::_activate()
-{
-	// EVENT HANDLERS
 	EventHandler& e = Utility<EventHandler>::get();
 
 	e.activate().connect(this, &MapViewState::onActivate);
@@ -163,21 +167,18 @@ void MapViewState::_activate()
 
 	e.textInputMode(true);
 
+	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+}
+
+
+void MapViewState::_activate()
+{
 	unhideUi();
 }
 
 
 void MapViewState::_deactivate()
 {
-	EventHandler& e = Utility<EventHandler>::get();
-	e.activate().disconnect(this, &MapViewState::onActivate);
-	e.keyDown().disconnect(this, &MapViewState::onKeyDown);
-	e.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
-	e.mouseButtonUp().disconnect(this, &MapViewState::onMouseUp);
-	e.mouseDoubleClick().disconnect(this, &MapViewState::onMouseDoubleClick);
-	e.mouseMotion().disconnect(this, &MapViewState::onMouseMove);
-	e.mouseWheel().disconnect(this, &MapViewState::onMouseWheel);
-
 	mGameOverDialog.enabled(false);
 	mGameOptionsDialog.enabled(false);
 
@@ -311,6 +312,8 @@ void MapViewState::onWindowResized(int w, int h)
  */
 void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
+	if (!active()) { return; }
+
 	if (key == EventHandler::KEY_F11)
 	{
 		Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
@@ -445,6 +448,8 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
  */
 void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	if (!active()) { return; }
+
 	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible()) { return; }
 
@@ -581,6 +586,8 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int x, int y)
 {
+	if (!active()) { return; }
+
 	if (button == EventHandler::BUTTON_LEFT)
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
@@ -627,6 +634,9 @@ void MapViewState::onMouseUp(EventHandler::MouseButton button, int x, int y)
 */
 void MapViewState::onMouseMove(int x, int y, int rX, int rY)
 {
+	if (!active()) { return; }
+
+
 	if (mLeftButtonDown)
 	{
 		if (isPointInRect(MOUSE_COORDS, mMiniMapBoundingBox))

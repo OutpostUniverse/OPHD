@@ -153,6 +153,8 @@ static void drawPanel(Renderer& _r, Panel& _p)
 MainReportsUiState::MainReportsUiState()
 {
 	Utility<EventHandler>::get().windowResized().connect(this, &MainReportsUiState::onWindowResized);
+	Utility<EventHandler>::get().keyDown().connect(this, &MainReportsUiState::onKeyDown);
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
 }
 
 
@@ -220,8 +222,8 @@ void MainReportsUiState::initialize()
  */
 void MainReportsUiState::_activate()
 {
-	Utility<EventHandler>::get().keyDown().connect(this, &MainReportsUiState::onKeyDown);
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
+	//Utility<EventHandler>::get().keyDown().connect(this, &MainReportsUiState::onKeyDown);
+	//Utility<EventHandler>::get().mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
 }
 
 
@@ -230,8 +232,8 @@ void MainReportsUiState::_activate()
  */
 void MainReportsUiState::_deactivate()
 {
-	Utility<EventHandler>::get().keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
+	//Utility<EventHandler>::get().keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
+	//Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
 
 	for (auto& panel : Panels)
 	{
@@ -255,6 +257,8 @@ void MainReportsUiState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyM
  */
 void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	if (!active()) { return; }
+
 	if (!isPointInRect(x, y, 0, 0, Utility<Renderer>::get().width(), 40)) { return; } // ignore clicks in the UI area.
 
 	if (button == EventHandler::BUTTON_LEFT)

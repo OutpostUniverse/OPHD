@@ -79,7 +79,8 @@ CheckBox::ClickCallback& CheckBox::click()
  */
 void CheckBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible() || !hasFocus()) { return; }
+	
 	if (button == EventHandler::BUTTON_LEFT && isPointInRect(x, y, rect().x(), rect().y(), rect().width(), rect().height()))
 	{
 		mChecked = !mChecked;
