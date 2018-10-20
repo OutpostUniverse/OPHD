@@ -14,6 +14,38 @@
 
 using namespace NAS2D::Xml;
 
+
+/**
+ * Fills population requirements fields in a Structure.
+ */
+static void fillPopulationRequirements(PopulationPool& _p, const PopulationRequirements* _populationRequired, PopulationRequirements* _populationAvailable)
+{
+	// Verbose but a lot easier to read than the ternary operators I was using before.
+
+	// WORKERS
+	if (_p.enoughPopulationAvailable(Population::ROLE_WORKER, (*_populationRequired)[0]))
+	{
+		(*_populationAvailable)[0] = (*_populationRequired)[0];
+	}
+	else
+	{
+		(*_populationAvailable)[0] = _p.populationAvailable(Population::ROLE_WORKER);
+	}
+
+	// SCIENTISTS
+	if (_p.enoughPopulationAvailable(Population::ROLE_SCIENTIST, (*_populationRequired)[1]))
+	{
+		(*_populationAvailable)[1] = (*_populationRequired)[1];
+	}
+	else
+	{
+		(*_populationAvailable)[1] = _p.populationAvailable(Population::ROLE_SCIENTIST);
+	}
+}
+
+
+
+
 /**
  * C'tor
  */
@@ -146,13 +178,12 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 		// Population Check
 		_populationRequired = &structure->populationRequirements();
 		_populationAvailable = &structure->populationAvailable();
+
+		fillPopulationRequirements(_p, _populationRequired, _populationAvailable);
+
 		if (!_p.enoughPopulationAvailable(Population::ROLE_WORKER, (*_populationRequired)[0]) ||
 			!_p.enoughPopulationAvailable(Population::ROLE_SCIENTIST, (*_populationRequired)[1]))
 		{
-			// yeesh, kind of verbose but avoids large if/else statements.
-			_p.enoughPopulationAvailable(Population::ROLE_WORKER, (*_populationRequired)[0]) ? (*_populationAvailable)[0] = (*_populationRequired)[0] : (*_populationAvailable)[0] = _p.populationAvailable(Population::ROLE_WORKER);
-			_p.enoughPopulationAvailable(Population::ROLE_SCIENTIST, (*_populationRequired)[1]) ? (*_populationAvailable)[1] = (*_populationRequired)[1] : (*_populationAvailable)[1] = _p.populationAvailable(Population::ROLE_SCIENTIST);
-
 			structure->disable();
 			continue;
 		}
