@@ -82,11 +82,12 @@ Structure::~Structure()
 /**
  * Sets a Disabled state for the Structure.
  */
-void Structure::disable()
+void Structure::disable(DisabledReason reason)
 {
 	sprite().pause();
 	sprite().color(255, 0, 0, 185);
 	state(DISABLED);
+	mDisabledReason = reason;
 	disabledStateSet();
 }
 
@@ -101,6 +102,7 @@ void Structure::enable()
 	sprite().resume();
 	sprite().color(255, 255, 255, 255);
 	state(OPERATIONAL);
+	mDisabledReason = DISABLED_NONE;
 }
 
 
@@ -208,7 +210,7 @@ void Structure::destroy()
 /**
  * Provided for loading purposes.
  */
-void Structure::forced_state_change(StructureState _s)
+void Structure::forced_state_change(StructureState _s, DisabledReason _dr)
 {
 	defineResourceInput();
 	defineResourceOutput();
@@ -221,7 +223,7 @@ void Structure::forced_state_change(StructureState _s)
 
 	if (_s == OPERATIONAL)				{ enable(); }
 	else if (_s == IDLE)				{ idle(); }
-	else if (_s == DISABLED)			{ disable(); }
+	else if (_s == DISABLED)			{ disable(_dr); }
 	else if (_s == DESTROYED)			{ destroy(); }
 	else if (_s == UNDER_CONSTRUCTION)	{ mStructureState = UNDER_CONSTRUCTION; } // Kludge
 }

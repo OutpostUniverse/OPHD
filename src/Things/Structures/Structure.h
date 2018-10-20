@@ -68,7 +68,8 @@ public:
 	StructureState state() const { return mStructureState; }
 
 	bool disabled() const { return mStructureState == DISABLED; }
-	void disable();
+	void disable(DisabledReason);
+	DisabledReason disabledReason() const { return mDisabledReason; }
 
 	bool operational() const { return mStructureState == OPERATIONAL; }
 	void enable();
@@ -128,7 +129,7 @@ public:
 	void age(int _age) { mAge = _age; }
 	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
 
-	virtual void forced_state_change(StructureState _s);
+	virtual void forced_state_change(StructureState, DisabledReason);
 
 	void update();
 	virtual void think() {}
@@ -184,6 +185,8 @@ private:
 
 	ResourcePool			mProductionPool;			/**< Resource pool used for production. */
 	ResourcePool			mStoragePool;				/**< Resource storage pool. */
+
+	DisabledReason			mDisabledReason = DISABLED_NONE;
 
 	bool					mRepairable = true;			/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
 	bool					mRequiresCHAP = true;		/**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */

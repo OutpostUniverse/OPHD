@@ -50,7 +50,7 @@ enum MineProductionRate
  */
 enum DisabledReason
 {
-	DISABLED_NONE,						/**< Not Disabled */
+	DISABLED_NONE,						/**< Not Disabled, default reason. */
 
 	DISABLED_CHAP,						/**< Requires atmosphere, no atmosphere available. */
 	DISABLED_DISCONNECTED,				/**< Not connected to Command Center */

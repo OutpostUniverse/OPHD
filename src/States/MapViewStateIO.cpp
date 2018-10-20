@@ -276,12 +276,12 @@ void MapViewState::readRobots(XmlElement* _ti)
 void MapViewState::readStructures(XmlElement* _ti)
 {
 	std::string type;
-	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0, forced_idle = 0;
+	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
 	for (XmlNode* structure = _ti->firstChild(); structure != nullptr; structure = structure->nextSibling())
 	{
-		x = y = depth = age = state = direction = production_completed = production_type = 0;
+		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = 0;
 		attribute = structure->toElement()->firstAttribute();
 		while (attribute)
 		{
@@ -293,6 +293,7 @@ void MapViewState::readStructures(XmlElement* _ti)
 			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
 			else if (attribute->name() == "type") { type = attribute->value(); }
 			else if (attribute->name() == "forced_idle") { attribute->queryIntValue(forced_idle); }
+			else if (attribute->name() == "disabled_reason") { attribute->queryIntValue(disabled_reason); }
 
 			else if (attribute->name() == "production_completed") { attribute->queryIntValue(production_completed); }
 			else if (attribute->name() == "production_type") { attribute->queryIntValue(production_type); }
@@ -341,7 +342,7 @@ void MapViewState::readStructures(XmlElement* _ti)
 		}
 
 		st->age(age);
-		st->forced_state_change(static_cast<Structure::StructureState>(state));
+		st->forced_state_change(static_cast<Structure::StructureState>(state), static_cast<DisabledReason>(disabled_reason));
 		st->connectorDirection(static_cast<ConnectorDir>(direction));
 		
 		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }

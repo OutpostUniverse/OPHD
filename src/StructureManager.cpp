@@ -163,14 +163,14 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 		// Connection Check
 		if (!structureConnected(structure) && !structure->selfSustained())
 		{
-			structure->disable();
+			structure->disable(DISABLED_DISCONNECTED);
 			continue;
 		}
 
 		// CHAP Check
 		if (structure->requiresCHAP() && !chapAvailable)
 		{
-			structure->disable();
+			structure->disable(DISABLED_CHAP);
 			continue;
 		}
 
@@ -184,7 +184,7 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 		if (!_p.enoughPopulationAvailable(Population::ROLE_WORKER, (*_populationRequired)[0]) ||
 			!_p.enoughPopulationAvailable(Population::ROLE_SCIENTIST, (*_populationRequired)[1]))
 		{
-			structure->disable();
+			structure->disable(DISABLED_POPULATION);
 			continue;
 		}
 		else
@@ -197,7 +197,7 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 		{
 			if (!structure->isIdle()) //-V571
 			{
-				structure->disable();
+				structure->disable(DISABLED_REFINED_RESOURCES);
 				continue;
 			}
 		}
@@ -430,6 +430,7 @@ void serializeStructure(XmlElement* _ti, Structure* _s, Tile* _t)
 	_ti->attribute("age", _s->age());
 	_ti->attribute("state", _s->state());
 	_ti->attribute("forced_idle", _s->forceIdle());
+	_ti->attribute("disabled_reason", static_cast<int>(_s->disabledReason()));
 	_ti->attribute("type", _s->name());
 	_ti->attribute("direction", _s->connectorDirection());
 
