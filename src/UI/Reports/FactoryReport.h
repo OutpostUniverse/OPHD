@@ -22,10 +22,9 @@ public:
 	void fillFactoryList();
 
 	void clearSelection();
+	TakeMeThere& takeMeThereCallback();
 
 	virtual void update() final;
-
-	TakeMeThere& takeMeThereCallback();
 
 private:
 	void init();

@@ -569,6 +569,7 @@ void FactoryReport::drawDetailPane(Renderer& r)
 
 	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 55, text_color.red(), text_color.green(), text_color.blue());
 
+	// MINERAL RESOURCES
 	r.drawText(*FONT_BOLD, "Common Metals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 75, text_color.red(), text_color.green(), text_color.blue());
 	r.drawText(*FONT_BOLD, "Common Minerals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 90, text_color.red(), text_color.green(), text_color.blue());
 	r.drawText(*FONT_BOLD, "Rare Metals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 105, text_color.red(), text_color.green(), text_color.blue());
@@ -580,6 +581,7 @@ void FactoryReport::drawDetailPane(Renderer& r)
 	r.drawText(*FONT, std::to_string(_pc.rareMetals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.rareMetals())), DETAIL_PANEL.y() + 105, text_color.red(), text_color.green(), text_color.blue());
 	r.drawText(*FONT, std::to_string(_pc.rareMinerals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.rareMinerals())), DETAIL_PANEL.y() + 120, text_color.red(), text_color.green(), text_color.blue());
 
+	// POPULATION
 	SELECTED_FACTORY->populationAvailable()[0] == SELECTED_FACTORY->populationRequirements()[0] ? text_color(0, 185, 0, 255) : text_color(255, 0, 0, 255);
 
 	r.drawText(*FONT_BOLD, "Workers", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 135, text_color.red(), text_color.green(), text_color.blue());
