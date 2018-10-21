@@ -131,7 +131,9 @@ void StructureInspector::update()
 	r.drawText(*FONT, mStructureClass, rect().x() + 5 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
 
 	r.drawText(*FONT_BOLD, "State:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
-	r.drawText(*FONT, mStructureState, rect().x() + 190 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
+	r.drawText(*FONT, mStructureState, rect().x() + 190 + FONT_BOLD->width("State: "), rect().y() + 45, 255, 255, 255);
+
+	if (mStructure->disabled()) { r.drawText(*FONT, disabledReason(mStructure->disabledReason()), rect().x() + 190, rect().y() + 55, 255, 255, 255); }
 	
 	drawResourcePool("Production Pool", mStructure->production(), static_cast<int>(rect().x() + 5), static_cast<int>(rect().y() + 65));
 	drawResourcePool("Storage Pool", mStructure->storage(), static_cast<int>(rect().x() + 190), static_cast<int>(rect().y() + 65));

@@ -197,7 +197,9 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 		{
 			if (!structure->isIdle()) //-V571
 			{
-				structure->disable(DISABLED_REFINED_RESOURCES);
+				/// \fixme	Ugly. Special case code specifically to determine if energy is the reason for a disabled structure.
+				if (structure->resourcesIn().energy() > _r.energy()) { structure->disable(DISABLED_ENERGY); }
+				else { structure->disable(DISABLED_REFINED_RESOURCES); }
 				continue;
 			}
 		}

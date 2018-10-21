@@ -35,6 +35,19 @@ std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 };
 
 
+std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
+{
+	{ DISABLED_NONE, "Not Disabled" },
+
+	{ DISABLED_CHAP, "CHAP Facility unavailable" },
+	{ DISABLED_DISCONNECTED, "Not connected to a Command Center" },
+	{ DISABLED_ENERGY, "Insufficient Energy" },
+	{ DISABLED_POPULATION, "Insufficient Population" },
+	{ DISABLED_REFINED_RESOURCES, "Insufficient refned resources" },
+	{ DISABLED_STRUCTURAL_INTEGRITY, "Structural Integrity Decay" }
+};
+
+
 /**
  * Description table for products.
  */
@@ -130,7 +143,7 @@ bool pointInRect_f(int x, int y, const Rectangle_2df& rect)
 
 
 /**
- * Convenience function to pass a \c float's to \c isPointInRect()
+ * Convenience function to pass \c float's to \c isPointInRect()
  */
 bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float rectH)
 {
@@ -159,6 +172,13 @@ ProductType productTypeFromDescription(const std::string& description)
 
 	return PRODUCT_NONE;
 }
+
+
+const std::string& disabledReason(DisabledReason _d)
+{
+	return DISABLED_REASON_TABLE[_d];
+}
+
 
 
 /**

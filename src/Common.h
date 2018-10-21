@@ -286,3 +286,8 @@ NAS2D::StringList split_string(const char *str, char delim);
  */
 const std::string& productDescription(ProductType);
 ProductType productTypeFromDescription(const std::string&);
+
+/**
+ * Translates a DisabledReason enumeration into a string
+ */
+const std::string& disabledReason(DisabledReason);

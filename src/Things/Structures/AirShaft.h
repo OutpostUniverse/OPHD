@@ -25,5 +25,5 @@ public:
 
 protected:
 private:
-	bool		_ug = false;
+	bool _ug = false;
 };
