@@ -63,19 +63,8 @@ static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, int 
 				STRUCTURE_TEXT_COLOR->red(), STRUCTURE_TEXT_COLOR->green(), STRUCTURE_TEXT_COLOR->blue(), STRUCTURE_TEXT_COLOR->alpha());
 	
 	// PROGRESS BAR
-	r.drawBox(x + w - 112, y + 30 - offset, 105, 11, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), STRUCTURE_COLOR->alpha());
-	int bar_width = 0;
-
-	if (f->productType() != PRODUCT_NONE)
-	{
-		float turnsComplete = f->productionTurnsCompleted();
-		float turnsToComplete = f->productionTurnsToComplete();
-		float percentage = turnsComplete / turnsToComplete;
-
-		bar_width = 100.0f * percentage;
-	}
-
-	r.drawBoxFilled(x + w - 110, y + 33 - offset, bar_width, 6, 255, 255, 0);
+	float percentage = (f->productType() == PRODUCT_NONE) ? 0.0f : (f->productionTurnsCompleted() / f->productionTurnsToComplete());
+	drawBasicProgressBar(x + w - 112, y + 30 - offset, 105, 11, percentage, 2);
 }
 
 

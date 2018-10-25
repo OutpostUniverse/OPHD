@@ -616,13 +616,9 @@ void FactoryReport::drawProductPane(Renderer& r)
 	r.drawText(*FONT_BIG_BOLD, "Progress", position_x, DETAIL_PANEL.y() + 358, 0, 185, 0);
 	r.drawText(*FONT_MED, "Building " + productDescription(SELECTED_FACTORY->productType()), position_x, DETAIL_PANEL.y() + 393, 0, 185, 0);
 
-	r.drawBox(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10, 30, 0, 185, 0);
-	if (SELECTED_FACTORY->productType() != PRODUCT_NONE)
-	{
-		float percentage = static_cast<float>(SELECTED_FACTORY->productionTurnsCompleted()) / static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete());
-		int bar_width = static_cast<float>(rect().width() - position_x - 18) * percentage;
-		r.drawBoxFilled(position_x + 4, DETAIL_PANEL.y() + 417, bar_width, 22, 0, 100, 0);
-	}
+	float percent = 0.0f;
+	if (SELECTED_FACTORY->productType() != PRODUCT_NONE) { percent = static_cast<float>(SELECTED_FACTORY->productionTurnsCompleted()) / static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete()); }
+	drawBasicProgressBar(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10, 30, percent, 4);
 
 	std::string _turns = string_format("%i / %i", SELECTED_FACTORY->productionTurnsCompleted(), SELECTED_FACTORY->productionTurnsToComplete());
 	r.drawText(*FONT_MED_BOLD, "Turns", position_x, DETAIL_PANEL.y() + 449, 0, 185, 0);

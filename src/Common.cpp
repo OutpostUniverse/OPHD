@@ -249,6 +249,6 @@ void drawBasicProgressBar(int x, int y, int width, int height, float percent, in
 	if (percent > 0.0f)
 	{
 		int bar_width = static_cast<float>(width - (padding + padding)) * percent;
-		Utility<Renderer>::get().drawBoxFilled(x + padding, y + padding, bar_width, height - (padding + padding), 0, 100, 0);
+		Utility<Renderer>::get().drawBoxFilled(x + padding, y + padding + 1, bar_width - 1, height - (padding + padding) - 1, 0, 100, 0);
 	}
 }
