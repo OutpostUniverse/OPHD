@@ -240,3 +240,15 @@ NAS2D::StringList split_string(const char *str, char delim)
 
 	return result;
 }
+
+
+void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding)
+{
+	Utility<Renderer>::get().drawBox(x, y, width, height, 0, 185, 0);
+
+	if (percent > 0.0f)
+	{
+		int bar_width = static_cast<float>(width - (padding + padding)) * percent;
+		Utility<Renderer>::get().drawBoxFilled(x + padding, y + padding, bar_width, height - (padding + padding), 0, 100, 0);
+	}
+}

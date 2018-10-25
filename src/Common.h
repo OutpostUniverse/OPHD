@@ -274,7 +274,6 @@ bool pointInRect_f(int x, int y, const NAS2D::Rectangle_2df& rect);
  */
 bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float rectH);
 
-
 void doNonFatalErrorMessage(const std::string& title, const std::string& msg);
 
 void checkSavegameVersion(const std::string& filename);
@@ -291,3 +290,8 @@ ProductType productTypeFromDescription(const std::string&);
  * Translates a DisabledReason enumeration into a string
  */
 const std::string& disabledReason(DisabledReason);
+
+/**
+ * Super basic progress bar.
+ */
+void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding = 4);
