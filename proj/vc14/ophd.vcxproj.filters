@@ -252,6 +252,9 @@
     <ClCompile Include="..\..\src\States\Planet.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\Reports\WarehouseReport.cpp">
+      <Filter>Source Files\UI\Reports</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -565,6 +568,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UI\Core\ListBoxBase.h">
       <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Reports\WarehouseReport.h">
+      <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

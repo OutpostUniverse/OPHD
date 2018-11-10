@@ -6,7 +6,9 @@
 #include "../Constants.h"
 #include "../FontManager.h"
 #include "../UI/Core/UIContainer.h"
+
 #include "../UI/Reports/FactoryReport.h"
+#include "../UI/Reports/WarehouseReport.h"
 
 #include <array>
 
@@ -210,10 +212,16 @@ void MainReportsUiState::initialize()
 	Renderer& r = Utility<Renderer>::get();
 	setPanelRects(r.width());
 
+	// INIT UI REPORT PANELS
 	UIContainer* factory_report = new FactoryReport();
 	Panels[PANEL_PRODUCTION].UiPanel = factory_report;
 	factory_report->position(0, 48);
 	factory_report->size(r.width(), r.height() - 48);
+
+	UIContainer* warehouse_report = new WarehouseReport();
+	Panels[PANEL_WAREHOUSE].UiPanel = warehouse_report;
+	warehouse_report->position(0, 48);
+	warehouse_report->size(r.width(), r.height() - 48);
 }
 
 
@@ -222,9 +230,8 @@ void MainReportsUiState::initialize()
  */
 void MainReportsUiState::_activate()
 {
-	//Utility<EventHandler>::get().keyDown().connect(this, &MainReportsUiState::onKeyDown);
-	//Utility<EventHandler>::get().mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
 	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->fillFactoryList();
+	//static_cast<WarehouseReport*>(Panels[PANEL_WAREHOUSE].UiPanel)->fillFactoryList();
 }
 
 
@@ -233,9 +240,6 @@ void MainReportsUiState::_activate()
  */
 void MainReportsUiState::_deactivate()
 {
-	//Utility<EventHandler>::get().keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
-	//Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
-
 	for (auto& panel : Panels)
 	{
 		if (panel.UiPanel) { panel.UiPanel->hide(); }
@@ -243,6 +247,7 @@ void MainReportsUiState::_deactivate()
 	}
 
 	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
+	//static_cast<WarehouseReport*>(Panels[PANEL_WAREHOUSE].UiPanel)->fillFactoryList();
 }
 
 
@@ -250,7 +255,10 @@ void MainReportsUiState::_deactivate()
  * Key down event handler.
  */
 void MainReportsUiState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
-{}
+{
+	if (!active()) { return; }
+	if(key == NAS2D::EventHandler::KEY_ESCAPE) { exit(); }
+}
 
 
 /**
@@ -275,12 +283,20 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 
 	if (Panels[PANEL_EXIT].Selected())
 	{
-		Panels[PANEL_EXIT].Selected(false);
-		
-		// egad! Going to have to do something to improve this!
-		static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
-		mReportsUiCallback();
+		exit();
 	}
+}
+
+
+
+void MainReportsUiState::exit()
+{
+	deselectAllPanels();
+
+	// egad! Going to have to do something to improve this!
+	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
+	//static_cast<WarehouseReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
+	mReportsUiCallback();
 }
 
 

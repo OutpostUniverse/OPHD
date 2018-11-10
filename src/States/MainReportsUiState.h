@@ -36,6 +36,8 @@ private:
 
 	void deselectAllPanels();
 
+	void exit();
+
 private:
 	ReportsUiCallback	mReportsUiCallback;
 };
