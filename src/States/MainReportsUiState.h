@@ -2,8 +2,6 @@
 
 #include "Wrapper.h"
 
-#include "../UI/Core/ComboBox.h"
-
 class Structure;
 
 class MainReportsUiState : public Wrapper

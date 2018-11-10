@@ -325,6 +325,7 @@
     <ClInclude Include="..\..\src\UI\MineOperationsWindow.h" />
     <ClInclude Include="..\..\src\Ui\PopulationPanel.h" />
     <ClInclude Include="..\..\src\UI\Reports\FactoryReport.h" />
+    <ClInclude Include="..\..\src\UI\Reports\ReportInterface.h" />
     <ClInclude Include="..\..\src\UI\Reports\WarehouseReport.h" />
     <ClInclude Include="..\..\src\ui\StructureInspector.h" />
     <ClInclude Include="..\..\src\UI\FactoryListBox.h" />

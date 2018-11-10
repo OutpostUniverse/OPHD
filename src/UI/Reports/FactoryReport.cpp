@@ -192,7 +192,7 @@ void FactoryReport::init()
 	WIDTH_RESOURCES_REQUIRED_LABEL = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
 
 	Control::resized().connect(this, &FactoryReport::resized);
-	fillFactoryList();
+	fillLists();
 }
 
 
@@ -208,12 +208,6 @@ void FactoryReport::clearSelection()
 }
 
 
-FactoryReport::TakeMeThere& FactoryReport::takeMeThereCallback()
-{
-	return mTakeMeThereCallback;
-}
-
-
 /**
  * Pass-through function to simulate clicking on the Show All button.
  */
@@ -226,7 +220,7 @@ void FactoryReport::showAll()
 /**
  * Fills the factory list with all available factories.
  */
-void FactoryReport::fillFactoryList()
+void FactoryReport::fillLists()
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
@@ -392,7 +386,7 @@ void FactoryReport::btnShowAllClicked()
 	filterButtonClicked(true);
 	btnShowAll.toggle(true);
 
-	fillFactoryList();
+	fillLists();
 }
 
 
@@ -477,7 +471,7 @@ void FactoryReport::btnClearProductionClicked()
  */
 void FactoryReport::btnTakeMeThereClicked()
 {
-	mTakeMeThereCallback(SELECTED_FACTORY);
+	takeMeThereCallback()(SELECTED_FACTORY);
 }
 
 

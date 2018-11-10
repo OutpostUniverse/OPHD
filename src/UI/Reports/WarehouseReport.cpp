@@ -34,6 +34,18 @@ void WarehouseReport::init()
 }
 
 
+void WarehouseReport::fillLists()
+{
+
+}
+
+
+void WarehouseReport::clearSelection()
+{
+
+}
+
+
 /**
  * 
  */

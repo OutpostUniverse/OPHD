@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ReportInterface.h"
+
 #include "../Core/Button.h"
 #include "../Core/ComboBox.h"
 #include "../Core/UIContainer.h"
@@ -7,11 +9,8 @@
 #include "../FactoryListBox.h"
 
 
-class FactoryReport : public UIContainer
+class FactoryReport : public ReportInterface
 {
-public:
-	using TakeMeThere = NAS2D::Signals::Signal1<Structure*>;
-
 public:
 	FactoryReport();
 	virtual ~FactoryReport();
@@ -19,10 +18,8 @@ public:
 	void selectFactory(Factory*);
 	void showAll();
 
-	void fillFactoryList();
-
-	void clearSelection();
-	TakeMeThere& takeMeThereCallback();
+	virtual void fillLists() final;
+	virtual void clearSelection() final;
 
 	virtual void update() final;
 
@@ -82,6 +79,4 @@ private:
 	ListBox			lstProducts;
 
 	TextArea		txtProductDescription;
-
-	TakeMeThere		mTakeMeThereCallback;
 };

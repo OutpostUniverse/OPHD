@@ -5,7 +5,8 @@
 
 #include "../Constants.h"
 #include "../FontManager.h"
-#include "../UI/Core/UIContainer.h"
+
+#include "../UI/Reports/ReportInterface.h"
 
 #include "../UI/Reports/FactoryReport.h"
 #include "../UI/Reports/WarehouseReport.h"
@@ -59,19 +60,19 @@ public:
 	bool Selected() { return _selected; }
 
 public:
-	std::string		Name;
+	std::string			Name;
 
-	Image*			Img = nullptr;
+	Image*				Img = nullptr;
 
-	Point_2d		TextPosition;
-	Point_2d		IconPosition;
+	Point_2d			TextPosition;
+	Point_2d			IconPosition;
 
-	Rectangle_2d	Rect;
+	Rectangle_2d		Rect;
 
-	UIContainer*	UiPanel = nullptr;
+	ReportInterface*	UiPanel = nullptr;
 
 private:
-	bool			_selected = false;
+	bool				_selected = false;
 
 };
 
@@ -148,7 +149,6 @@ static void drawPanel(Renderer& _r, Panel& _p)
 }
 
 
-
 /**
  * C'tor
  */
@@ -213,12 +213,12 @@ void MainReportsUiState::initialize()
 	setPanelRects(r.width());
 
 	// INIT UI REPORT PANELS
-	UIContainer* factory_report = new FactoryReport();
+	ReportInterface* factory_report = new FactoryReport();
 	Panels[PANEL_PRODUCTION].UiPanel = factory_report;
 	factory_report->position(0, 48);
 	factory_report->size(r.width(), r.height() - 48);
 
-	UIContainer* warehouse_report = new WarehouseReport();
+	ReportInterface* warehouse_report = new WarehouseReport();
 	Panels[PANEL_WAREHOUSE].UiPanel = warehouse_report;
 	warehouse_report->position(0, 48);
 	warehouse_report->size(r.width(), r.height() - 48);
@@ -230,8 +230,8 @@ void MainReportsUiState::initialize()
  */
 void MainReportsUiState::_activate()
 {
-	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->fillFactoryList();
-	//static_cast<WarehouseReport*>(Panels[PANEL_WAREHOUSE].UiPanel)->fillFactoryList();
+	Panels[PANEL_PRODUCTION].UiPanel->fillLists();
+	Panels[PANEL_WAREHOUSE].UiPanel->fillLists();
 }
 
 
@@ -246,8 +246,8 @@ void MainReportsUiState::_deactivate()
 		panel.Selected(false);
 	}
 
-	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
-	//static_cast<WarehouseReport*>(Panels[PANEL_WAREHOUSE].UiPanel)->fillFactoryList();
+	Panels[PANEL_PRODUCTION].UiPanel->clearSelection();
+	Panels[PANEL_WAREHOUSE].UiPanel->clearSelection();
 }
 
 
@@ -293,9 +293,11 @@ void MainReportsUiState::exit()
 {
 	deselectAllPanels();
 
-	// egad! Going to have to do something to improve this!
-	static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
-	//static_cast<WarehouseReport*>(Panels[PANEL_PRODUCTION].UiPanel)->clearSelection();
+	for (auto& panel : Panels)
+	{
+		if (panel.UiPanel) { panel.UiPanel->clearSelection(); }
+	}
+
 	mReportsUiCallback();
 }
 
@@ -337,10 +339,20 @@ void MainReportsUiState::selectFactoryPanel(Structure* f)
  * Gets a reference to a NAS2D::Signals::Signal1<Structure*>.
  * 
  * Acts as a pass-through for GameState.
+ * 
+ * \todo	Ultimately GameState is going to need to take callbacks from
+ *			all of the Panel's that offer a 'take me there' button (which
+ *			will likely be most if not all of them)... so this function
+ *			should provide a list of 'TakeMeThere' callbacks that GameState
+ *			will need to subscribe to.
+ * 
+ *			As a note about the list, GameState's handler for the Factory
+ *			'take me there' callback should work fine with any pointer to
+ *			Structure that is passed from any of the callbacks.
  */
 MainReportsUiState::TakeMeThere& MainReportsUiState::takeMeThere()
 {
-	return static_cast<FactoryReport*>(Panels[PANEL_PRODUCTION].UiPanel)->takeMeThereCallback();
+	return Panels[PANEL_PRODUCTION].UiPanel->takeMeThereCallback();
 }
 
 

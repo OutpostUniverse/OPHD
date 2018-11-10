@@ -572,6 +572,9 @@
     <ClInclude Include="..\..\src\UI\Reports\WarehouseReport.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\UI\Reports\ReportInterface.h">
+      <Filter>Header Files\UI\Reports</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">
