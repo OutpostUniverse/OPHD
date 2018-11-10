@@ -339,20 +339,15 @@ void MainReportsUiState::selectFactoryPanel(Structure* f)
  * Gets a reference to a NAS2D::Signals::Signal1<Structure*>.
  * 
  * Acts as a pass-through for GameState.
- * 
- * \todo	Ultimately GameState is going to need to take callbacks from
- *			all of the Panel's that offer a 'take me there' button (which
- *			will likely be most if not all of them)... so this function
- *			should provide a list of 'TakeMeThere' callbacks that GameState
- *			will need to subscribe to.
- * 
- *			As a note about the list, GameState's handler for the Factory
- *			'take me there' callback should work fine with any pointer to
- *			Structure that is passed from any of the callbacks.
  */
-MainReportsUiState::TakeMeThere& MainReportsUiState::takeMeThere()
+MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
 {
-	return Panels[PANEL_PRODUCTION].UiPanel->takeMeThereCallback();
+	TakeMeThereList takeMeThereList;
+	for (auto& panel : Panels)
+	{
+		if (panel.UiPanel) { takeMeThereList.push_back(&panel.UiPanel->takeMeThereCallback()); }
+	}
+	return takeMeThereList;
 }
 
 

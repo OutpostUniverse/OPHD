@@ -39,7 +39,11 @@ GameState::~GameState()
 	MAIN_REPORTS_UI->hideReports().disconnect(this, &GameState::hideReportsUi);
 	MAP_VIEW->quit().disconnect(this, &GameState::quitEvent);
 	MAP_VIEW->showReporstUi().disconnect(this, &GameState::showReportsUi);
-	MAIN_REPORTS_UI->takeMeThere().disconnect(this, &GameState::takeMeThere);
+
+	for (auto takeMeThere : MAIN_REPORTS_UI->takeMeThere())
+	{
+		takeMeThere->disconnect(this, &GameState::takeMeThere);
+	}
 
 	delete MAIN_REPORTS_UI;
 	delete MAP_VIEW;
@@ -60,7 +64,11 @@ void GameState::initialize()
 	MAIN_REPORTS_UI = new MainReportsUiState();
 	MAIN_REPORTS_UI->_initialize();
 	MAIN_REPORTS_UI->hideReports().connect(this, &GameState::hideReportsUi);
-	MAIN_REPORTS_UI->takeMeThere().connect(this, &GameState::takeMeThere);
+
+	for (auto takeMeThere : MAIN_REPORTS_UI->takeMeThere())
+	{
+		takeMeThere->connect(this, &GameState::takeMeThere);
+	}
 
 	Utility<Renderer>::get().fadeComplete().connect(this, &GameState::fadeComplete);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
