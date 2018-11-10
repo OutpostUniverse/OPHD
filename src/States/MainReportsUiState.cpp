@@ -43,9 +43,6 @@ enum NavigationPanel
 
 /**
  * Represents a navigation panel.
- * 
- * \todo	This could be expanded to include a UI container which is where
- *			all UI elements can be housed.
  */
 class Panel
 {
@@ -53,7 +50,6 @@ public:
 	void Selected(bool _b)
 	{
 		_selected = _b;
-
 		if (UiPanel) { UiPanel->enabled(_b); }
 	}
 	
@@ -173,8 +169,8 @@ MainReportsUiState::~MainReportsUiState()
 
 	for (Panel& panel : Panels)
 	{
-		if (panel.Img) { delete panel.Img; panel.Img = nullptr; }
-		if (panel.UiPanel) { delete panel.UiPanel; panel.UiPanel = nullptr; }
+		delete panel.Img;
+		delete panel.UiPanel;
 	}
 }
 
@@ -336,7 +332,7 @@ void MainReportsUiState::selectFactoryPanel(Structure* f)
 
 
 /**
- * Gets a reference to a NAS2D::Signals::Signal1<Structure*>.
+ * Gets a list of TakeMeThere signal pointers.
  * 
  * Acts as a pass-through for GameState.
  */
