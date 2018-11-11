@@ -146,9 +146,14 @@ void FactoryListBox::removeItem(Factory* factory)
 }
 
 
+/**
+ * Sets the current selection.
+ * 
+ * \param f	Pointer to a Factory object. Save to pass \c nullptr.
+ */
 void FactoryListBox::currentSelection(Factory* f)
 {
-	if (mItems.empty()) { return; }
+	if (mItems.empty() || f == nullptr) { return; }
 	for (size_t i = 0; i < mItems.size(); ++i)
 	{
 		FactoryListBoxItem* item = static_cast<FactoryListBoxItem*>(mItems[i]);
