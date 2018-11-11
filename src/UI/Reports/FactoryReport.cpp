@@ -196,9 +196,14 @@ void FactoryReport::init()
 }
 
 
-void FactoryReport::selectFactory(Factory* f)
+/**
+ * Override of the interface provided by ReportInterface class.
+ * 
+ * \note	Pointer 
+ */
+void FactoryReport::selectStructure(Structure* structure)
 {
-	lstFactoryList.currentSelection(f);
+	lstFactoryList.currentSelection(dynamic_cast<Factory*>(structure));
 }
 
 
@@ -211,7 +216,7 @@ void FactoryReport::clearSelection()
 /**
  * Pass-through function to simulate clicking on the Show All button.
  */
-void FactoryReport::showAll()
+void FactoryReport::refresh()
 {
 	btnShowAllClicked();
 }
@@ -318,7 +323,6 @@ void FactoryReport::checkFactoryActionControls()
  */
 void FactoryReport::resized(Control* c)
 {
-	int h = height();
 	FACTORY_LISTBOX.x(positionX() + 10);
 	FACTORY_LISTBOX.y(cboFilterByProduct.positionY() + cboFilterByProduct.height() + 10);
 	FACTORY_LISTBOX.width(cboFilterByProduct.positionX() + cboFilterByProduct.width() - 10);

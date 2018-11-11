@@ -15,8 +15,8 @@ public:
 	FactoryReport();
 	virtual ~FactoryReport();
 
-	void selectFactory(Factory*);
-	void showAll();
+	virtual void selectStructure(Structure*) final;
+	virtual void refresh() final;
 
 	virtual void fillLists() final;
 	virtual void clearSelection() final;

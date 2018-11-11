@@ -25,6 +25,24 @@ public:
 	 */
 	virtual void fillLists() = 0;
 
+
+	/**
+	 * Instructs the Report UI to refresh itself. Used to clear any state
+	 * information to a 'like new' state.
+	 */
+	virtual void refresh() = 0;
+
+	/**
+	 * Instructs a Report UI to set its primary selection to a specified Structure.
+	 * 
+	 * \note	Casting may be necessary depending on implementation of inheriting
+	 *			classes. Be mindful to pass pointers to objects that can be safely
+	 *			downcasted to a more derived type (take advantage of dynamic_cast)
+	 */
+	virtual void selectStructure(Structure*) = 0;
+
+
+
 	TakeMeThere& takeMeThereCallback() { return mTakeMeThereCallback; }
 
 private:
