@@ -166,15 +166,6 @@ int main(int argc, char *argv[])
 		{
 			stateManager.setState(new MainMenuState());
 		}
-		
-
-		/*
-		r.fadeIn(0.0f);
-		MainReportsUiState* uistuff = new MainReportsUiState();
-		uistuff->activate();
-		stateManager.setState(uistuff);
-		//uistuff->addFactories(sampleFactoryList());
-		*/
 
 		// Game Loop
 		while (stateManager.update())

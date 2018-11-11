@@ -8,11 +8,13 @@ User interface overhaul.
 ### Added
 - CheckBox Control.
 - Full-screen Factory/Production UI.
+- Full-screen Warehouse UI.
 - Added an unencumbered classical recording of Mars, the Bringer of War.
 
 ### Changed
 - MineOperationsWindow now uses CheckBox controls instead of toggle buttons.
 - Double-clicking on Factories will pull up the full-screen UI.
+- Double-clicking on Warehouses will pull up the full-screen UI.
 - Lots of internal cleanup that should improve memory usage.
 - Tweaked the SplashScreen state animation.
 - SplashScreen and MainMenu states now use the Mars sound track in the background.
