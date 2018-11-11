@@ -16,6 +16,7 @@ public:
 	virtual ~MainReportsUiState();
 
 	void selectFactoryPanel(Structure*);
+	void selectWarehousePanel(Structure*);
 
 	ReportsUiCallback& hideReports() { return mReportsUiCallback; }
 	TakeMeThereList takeMeThere();

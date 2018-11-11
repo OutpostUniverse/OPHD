@@ -227,7 +227,10 @@ void MainReportsUiState::initialize()
 void MainReportsUiState::_activate()
 {
 	Panels[PANEL_PRODUCTION].UiPanel->fillLists();
+	Panels[PANEL_PRODUCTION].UiPanel->refresh();
+
 	Panels[PANEL_WAREHOUSE].UiPanel->fillLists();
+	Panels[PANEL_WAREHOUSE].UiPanel->refresh();
 }
 
 
@@ -328,6 +331,19 @@ void MainReportsUiState::selectFactoryPanel(Structure* structure)
 
 	Panels[PANEL_PRODUCTION].UiPanel->refresh();
 	Panels[PANEL_PRODUCTION].UiPanel->selectStructure(structure);
+}
+
+
+/**
+ * Structure pointer is assumed to be a warehouse.
+ */
+void MainReportsUiState::selectWarehousePanel(Structure* structure)
+{
+	deselectAllPanels();
+	Panels[PANEL_WAREHOUSE].Selected(true);
+	Panels[PANEL_WAREHOUSE].UiPanel->visible(true);
+	Panels[PANEL_WAREHOUSE].UiPanel->refresh();
+	Panels[PANEL_WAREHOUSE].UiPanel->selectStructure(structure);
 }
 
 

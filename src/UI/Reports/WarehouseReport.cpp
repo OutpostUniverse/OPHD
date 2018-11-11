@@ -84,7 +84,7 @@ void WarehouseReport::clearSelection()
 
 void WarehouseReport::refresh()
 {
-
+	btnShowAllClicked();
 }
 
 

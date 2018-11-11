@@ -597,21 +597,12 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int x, i
 		if (_t && _t->thingIsStructure())
 		{
 			Structure* _s = _t->structure();
+			mReportsUiCallback();
 
-			if (_s->isFactory())
-			{
-				mReportsUiCallback();
-				MAIN_REPORTS_UI->selectFactoryPanel(_s);
-			}
-			else if (_s->isWarehouse())
-			{
-			}
-			else if (_s->isMineFacility())
-			{
-			}
-			else
-			{
-			}
+			if (_s->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(_s); }
+			else if (_s->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(_s); }
+			else if (_s->isMineFacility()) { }
+			else {  }
 		}
 	}
 }
