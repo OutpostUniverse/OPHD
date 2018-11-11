@@ -600,8 +600,8 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int x, i
 
 			if (_s->isFactory())
 			{
-				MAIN_REPORTS_UI->selectFactoryPanel(_s);
 				mReportsUiCallback();
+				MAIN_REPORTS_UI->selectFactoryPanel(_s);
 			}
 			else if (_s->isWarehouse())
 			{
