@@ -4,9 +4,18 @@
 
 class Structure;
 
+/**
+ * Provides an abstract interface for Report UI's used in the MainReportsUiState.
+ * 
+ * \note	Inherits from UIContainer as the report classes are treated as UI objects.
+ */
 class ReportInterface : public UIContainer
 {
 public:
+	/**
+	 * Callback signal used to handle clicks of a "Take Me There" button to center
+	 * the map view on a given structure.
+	 */
 	using TakeMeThere = NAS2D::Signals::Signal1<Structure*>;
 
 public:
@@ -40,8 +49,6 @@ public:
 	 *			downcasted to a more derived type (take advantage of dynamic_cast)
 	 */
 	virtual void selectStructure(Structure*) = 0;
-
-
 
 	TakeMeThere& takeMeThereCallback() { return mTakeMeThereCallback; }
 
