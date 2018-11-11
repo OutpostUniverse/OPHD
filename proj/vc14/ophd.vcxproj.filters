@@ -255,6 +255,9 @@
     <ClCompile Include="..\..\src\UI\Reports\WarehouseReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\StructureListBox.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -574,6 +577,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UI\Reports\ReportInterface.h">
       <Filter>Header Files\UI\Reports</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\StructureListBox.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

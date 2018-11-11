@@ -20,7 +20,7 @@
 class FactoryListBox : public ListBoxBase
 {
 public:
-	typedef NAS2D::Signals::Signal1<Factory*> SelectionChangedCallback;
+	using SelectionChangedCallback = NAS2D::Signals::Signal1<Factory*>;
 
 public:
 	class FactoryListBoxItem : public ListBoxItem
@@ -50,7 +50,5 @@ private:
 	void _init();
 
 private:
-	typedef std::vector<FactoryListBoxItem> FactoryItemList;
-
-private:
+	using FactoryItemList = std::vector<FactoryListBoxItem>;
 };

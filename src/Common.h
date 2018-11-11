@@ -295,3 +295,6 @@ const std::string& disabledReason(DisabledReason);
  * Super basic progress bar.
  */
 void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding = 4);
+
+NAS2D::Color_4ub& structureColorFromIndex(size_t);
+NAS2D::Color_4ub& structureTextColorFromIndex(size_t);

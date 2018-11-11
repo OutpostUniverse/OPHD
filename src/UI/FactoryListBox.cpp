@@ -16,29 +16,6 @@ Image* STRUCTURE_ICONS = nullptr;
 static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
-
-
-std::map<Structure::StructureState, Color_4ub> StructureColorTable
-{
-	{ Structure::UNDER_CONSTRUCTION,	Color_4ub(150, 150, 150, 100) },
-	{ Structure::OPERATIONAL,			Color_4ub(0, 185, 0, 255) },
-	{ Structure::IDLE,					Color_4ub(0, 185, 0, 100) },
-	{ Structure::DISABLED,				Color_4ub(220, 0, 0, 255) },
-	{ Structure::DESTROYED,				Color_4ub(220, 0, 0, 255) }
-};
-
-
-std::map<Structure::StructureState, Color_4ub> StructureTextColorTable
-{
-	{ Structure::UNDER_CONSTRUCTION,	Color_4ub(185, 185, 185, 100) },
-	{ Structure::OPERATIONAL,			Color_4ub(0, 185, 0, 255) },
-	{ Structure::IDLE,					Color_4ub(0, 185, 0, 100) },
-	{ Structure::DISABLED,				Color_4ub(220, 0, 0, 255) },
-	{ Structure::DESTROYED,				Color_4ub(220, 0, 0, 255) }
-};
-
-
-
 static Color_4ub*	STRUCTURE_COLOR;
 static Color_4ub*	STRUCTURE_TEXT_COLOR;
 
@@ -47,8 +24,8 @@ static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, int 
 {
 	Factory* f = item.factory;
 
-	STRUCTURE_COLOR = &StructureColorTable[f->state()];
-	STRUCTURE_TEXT_COLOR = &StructureTextColorTable[f->state()];
+	STRUCTURE_COLOR = &structureColorFromIndex(f->state());
+	STRUCTURE_TEXT_COLOR = &structureTextColorFromIndex(f->state());
 
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), 75); }

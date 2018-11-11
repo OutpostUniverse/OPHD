@@ -4,6 +4,8 @@
 #include "Common.h"
 #include "Constants.h"
 
+#include "Things/Structures/Structure.h"
+
 #include <NAS2D/NAS2D.h>
 
 #include <iostream>
@@ -15,6 +17,26 @@
 #include "SDL.h"
 
 using namespace NAS2D;
+
+
+std::map<Structure::StructureState, Color_4ub> STRUCTURE_COLOR_TABLE
+{
+	{ Structure::UNDER_CONSTRUCTION,	Color_4ub(150, 150, 150, 100) },
+	{ Structure::OPERATIONAL,			Color_4ub(0, 185, 0, 255) },
+	{ Structure::IDLE,					Color_4ub(0, 185, 0, 100) },
+	{ Structure::DISABLED,				Color_4ub(220, 0, 0, 255) },
+	{ Structure::DESTROYED,				Color_4ub(220, 0, 0, 255) }
+};
+
+
+std::map<Structure::StructureState, Color_4ub> STRUCTURE_TEXT_COLOR_TABLE
+{
+	{ Structure::UNDER_CONSTRUCTION,	Color_4ub(185, 185, 185, 100) },
+	{ Structure::OPERATIONAL,			Color_4ub(0, 185, 0, 255) },
+	{ Structure::IDLE,					Color_4ub(0, 185, 0, 100) },
+	{ Structure::DISABLED,				Color_4ub(220, 0, 0, 255) },
+	{ Structure::DESTROYED,				Color_4ub(220, 0, 0, 255) }
+};
 
 
 std::map<int, std::string> TILE_INDEX_TRANSLATION =
@@ -179,6 +201,17 @@ const std::string& disabledReason(DisabledReason _d)
 	return DISABLED_REASON_TABLE[_d];
 }
 
+
+Color_4ub& structureColorFromIndex(size_t index)
+{
+	return STRUCTURE_COLOR_TABLE[static_cast<Structure::StructureState>(index)];
+}
+
+
+Color_4ub& structureTextColorFromIndex(size_t index)
+{
+	return STRUCTURE_TEXT_COLOR_TABLE[static_cast<Structure::StructureState>(index)];
+}
 
 
 /**

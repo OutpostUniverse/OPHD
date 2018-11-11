@@ -6,7 +6,7 @@
 #include "../Core/ComboBox.h"
 #include "../Core/UIContainer.h"
 #include "../Core/TextArea.h"
-#include "../FactoryListBox.h"
+#include "../StructureListBox.h"
 
 
 class WarehouseReport : public ReportInterface
@@ -38,10 +38,11 @@ private:
 	void filterButtonClicked();
 
 private:
-	Button		btnShowAll;
-	Button		btnSpaceAvailable;
-	Button		btnFull;
-	Button		btnEmpty;
-	Button		btnDisabled;
+	Button				btnShowAll;
+	Button				btnSpaceAvailable;
+	Button				btnFull;
+	Button				btnEmpty;
+	Button				btnDisabled;
 
+	StructureListBox	lstStructures;
 };
