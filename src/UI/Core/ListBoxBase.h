@@ -35,8 +35,9 @@ public:
 	class ListBoxItem
 	{
 	public:
-		ListBoxItem() {}
-		virtual ~ListBoxItem() {}
+		ListBoxItem() = default;
+		ListBoxItem(std::string text) : Text(text) {}
+		virtual ~ListBoxItem() = default;
 
 	public:
 		std::string Text;
