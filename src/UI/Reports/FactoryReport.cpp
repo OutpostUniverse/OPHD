@@ -209,6 +209,7 @@ void FactoryReport::selectStructure(Structure* structure)
 
 void FactoryReport::clearSelection()
 {
+	lstFactoryList.clearSelection();
 	SELECTED_FACTORY = nullptr;
 }
 
@@ -629,6 +630,7 @@ void FactoryReport::drawProductPane(Renderer& r)
  */
 void FactoryReport::update()
 {
+	if (!visible()) { return; }
 	Renderer& r = Utility<Renderer>::get();
 
 	r.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + rect().height() - 10, 0, 185, 0);

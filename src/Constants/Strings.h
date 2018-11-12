@@ -187,4 +187,11 @@ namespace constants
 	const std::string WINDOW_FILEIO_SAVE = "Save";
 
 	const std::string WINDOW_SYSTEM_TITLE = "Options";
+
+	// =====================================
+	// = UI STRINGS
+	// =====================================
+	const std::string WAREHOUSE_EMPTY = "Empty";
+	const std::string WAREHOUSE_FULL = "At Capacity";
+	const std::string WAREHOUSE_SPACE_AVAILABLE = "Space Available";
 }

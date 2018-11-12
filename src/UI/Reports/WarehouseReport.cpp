@@ -13,13 +13,12 @@
 using namespace NAS2D;
 
 
-static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
 static Font* FONT_MED = nullptr;
 static Font* FONT_MED_BOLD = nullptr;
-static Font* FONT_BIG = nullptr;
 static Font* FONT_BIG_BOLD = nullptr;
 
+static Image* WAREHOUSE_IMG = nullptr;
 
 static int COUNT_WIDTH = 0;
 static int CAPACITY_WIDTH = 0;
@@ -31,6 +30,17 @@ static float CAPACITY_PERCENT = 0.0f;
 
 static std::string WH_COUNT;
 static std::string WH_CAPACITY;
+
+static Warehouse* SELECTED_WAREHOUSE = nullptr;
+
+
+/**
+ * Internal convenience function to avoid really fugly code.
+ */
+static bool useStateString(Structure::StructureState _state)
+{
+	return _state == Structure::DISABLED || _state == Structure::DESTROYED || _state == Structure::UNDER_CONSTRUCTION || _state == Structure::IDLE;
+}
 
 
 /**
@@ -48,6 +58,7 @@ WarehouseReport::WarehouseReport()
 WarehouseReport::~WarehouseReport()
 {
 	Control::resized().disconnect(this, &WarehouseReport::resized);
+	delete WAREHOUSE_IMG;
 }
 
 
@@ -56,12 +67,12 @@ WarehouseReport::~WarehouseReport()
  */
 void WarehouseReport::init()
 {
-	FONT			= Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	FONT_BOLD		= Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 	FONT_MED		= Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
 	FONT_MED_BOLD	= Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	FONT_BIG		= Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
 	FONT_BIG_BOLD	= Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
+
+	WAREHOUSE_IMG = new Image("ui/interface/warehouse.png");
 
 	add(&btnShowAll, 10, 10);
 	btnShowAll.size(75, 20);
@@ -98,7 +109,8 @@ void WarehouseReport::init()
 	btnDisabled.text("Disabled");
 	btnDisabled.click().connect(this, &WarehouseReport::btnDisabledClicked);
 
-	add(&lstStructures, 10, rect().y() + 105);
+	add(&lstStructures, 10, rect().y() + 115);
+	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
 
 	Control::resized().connect(this, &WarehouseReport::resized);
 	fillLists();
@@ -111,13 +123,26 @@ void WarehouseReport::fillLists()
 	for (auto structure : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
 	{
 		lstStructures.addItem(structure);
+		StructureListBox::StructureListBoxItem* item = lstStructures.last();
+		
+		// Hacky -- takes advantage of internal knowledge of how the list boxes
+		// work to set up different meta data for warehouse conditions.
+		ProductPool& products = static_cast<Warehouse*>(structure)->products();
+
+		if (useStateString(structure->state())) { item->structureState = structureStateDescription(structure->state()); }
+		else if(products.empty()) { item->structureState = constants::WAREHOUSE_EMPTY; }
+		else if(products.atCapacity()) { item->structureState = constants::WAREHOUSE_FULL; }
+		else if(!products.empty() && !products.atCapacity()) { item->structureState = constants::WAREHOUSE_SPACE_AVAILABLE; }
 	}
+
+	lstStructures.setSelection(0);
 }
 
 
 void WarehouseReport::clearSelection()
 {
 	lstStructures.clearSelection();
+	SELECTED_WAREHOUSE = nullptr;
 }
 
 
@@ -125,13 +150,13 @@ void WarehouseReport::refresh()
 {
 	btnShowAllClicked();
 
-	StructureList& sl = Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE);
-
 	COUNT_WIDTH = FONT_MED->width(WH_COUNT);
 	CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
 	
 	int capacity_total = 0;
 	int available_capacity = 0;
+
+	StructureList& sl = Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE);
 	for (auto warehouse : sl)
 	{
 		Warehouse* _wh = static_cast<Warehouse*>(warehouse);
@@ -150,13 +175,14 @@ void WarehouseReport::refresh()
 
 void WarehouseReport::selectStructure(Structure* structure)
 {
-
+	lstStructures.currentSelection(structure);
+	SELECTED_WAREHOUSE = static_cast<Warehouse*>(structure);
 }
 
 
 void WarehouseReport::resized(Control*)
 {
-	lstStructures.size((width() / 2) - 20, height() - 116);
+	lstStructures.size((width() / 2) - 20, height() - 126);
 
 	CAPACITY_BAR_WIDTH = (width() / 2) - 30 - FONT_MED_BOLD->width("Capacity Used");
 	CAPACITY_BAR_POSITION_X = 20 + FONT_MED_BOLD->width("Capacity Used");
@@ -180,6 +206,8 @@ void WarehouseReport::btnShowAllClicked()
 {
 	filterButtonClicked();
 	btnShowAll.toggle(true);
+
+	fillLists();
 }
 
 
@@ -211,25 +239,47 @@ void WarehouseReport::btnDisabledClicked()
 }
 
 
-/**
- * 
- */
-void WarehouseReport::update()
+void WarehouseReport::lstStructuresSelectionChanged()
 {
-	Renderer& r = Utility<Renderer>::get();
+	SELECTED_WAREHOUSE = static_cast<Warehouse*>(lstStructures.selectedStructure());
+}
 
-	r.drawText(*FONT_MED_BOLD, "Warehouse Count", 10, positionY() + 35, 0, 185, 0);
-	r.drawText(*FONT_MED_BOLD, "Total Storage", 10, positionY() + 57, 0, 185, 0);
-	r.drawText(*FONT_MED_BOLD, "Capacity Used", 10, positionY() + 79, 0, 185, 0);
 
+void WarehouseReport::drawLeftPanel(Renderer& r)
+{
+	r.drawText(*FONT_MED_BOLD, "Warehouse Count", 10, positionY() + 40, 0, 185, 0);
+	r.drawText(*FONT_MED_BOLD, "Total Storage", 10, positionY() + 62, 0, 185, 0);
+	r.drawText(*FONT_MED_BOLD, "Capacity Used", 10, positionY() + 84, 0, 185, 0);
 
 	r.drawText(*FONT_MED, WH_COUNT, width() / 2 - 10 - COUNT_WIDTH, positionY() + 35, 0, 185, 0);
 	r.drawText(*FONT_MED, WH_CAPACITY, width() / 2 - 10 - CAPACITY_WIDTH, positionY() + 57, 0, 185, 0);
 
 	drawBasicProgressBar(CAPACITY_BAR_POSITION_X, positionY() + 79, CAPACITY_BAR_WIDTH, 20, CAPACITY_PERCENT);
+}
 
 
+void WarehouseReport::drawRightPanel(Renderer& r)
+{
+	if (!SELECTED_WAREHOUSE) { return; }
+	
+	r.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), r.center_x() + 10, positionY() + 2, 0, 185, 0);
+	r.drawImage(*WAREHOUSE_IMG, r.center_x() + 10, positionY() + 35);
+
+}
+
+
+/**
+ * 
+ */
+void WarehouseReport::update()
+{
+	if (!visible()) { return; }
+	Renderer& r = Utility<Renderer>::get();
+
+	// Left Panel
+	drawLeftPanel(r);
 	r.drawLine(r.center_x(), positionY() + 10, r.center_x(), positionY() + height() - 10, 0, 185, 0);
+	drawRightPanel(r);
 
 	UIContainer::update();
 }

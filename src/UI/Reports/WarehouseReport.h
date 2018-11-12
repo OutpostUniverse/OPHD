@@ -35,7 +35,12 @@ private:
 	void btnEmptyClicked();
 	void btnDisabledClicked();
 
+	void lstStructuresSelectionChanged();
+
 	void filterButtonClicked();
+
+	void drawLeftPanel(NAS2D::Renderer&);
+	void drawRightPanel(NAS2D::Renderer&);
 
 private:
 	Button				btnShowAll;
