@@ -32,15 +32,15 @@ static void drawItem(Renderer& r, StructureListBox::StructureListBoxItem& item, 
 
 	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), STRUCTURE_COLOR->alpha());
 
-	r.drawText(*MAIN_FONT_BOLD, _st->name(), x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset,
+	r.drawText(*MAIN_FONT_BOLD, item.Text, x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset,
 				STRUCTURE_TEXT_COLOR->red(), STRUCTURE_TEXT_COLOR->green(), STRUCTURE_TEXT_COLOR->blue(), STRUCTURE_TEXT_COLOR->alpha());
 
-	r.drawText(*MAIN_FONT, structureStateDescription(_st->state()), x + w - MAIN_FONT->width(structureStateDescription(_st->state())) - 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset,
+	r.drawText(*MAIN_FONT, item.structureState, x + w - MAIN_FONT->width(item.structureState) - 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset,
 				STRUCTURE_TEXT_COLOR->red(), STRUCTURE_TEXT_COLOR->green(), STRUCTURE_TEXT_COLOR->blue(), STRUCTURE_TEXT_COLOR->alpha());
 }
 
 
-StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* _st) : structure(_st), structureState(""), colorIndex(_st->state()) {}
+StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* _st) : ListBoxItem(_st->name()), structure(_st), structureState(""), colorIndex(_st->state()) { Text = _st->name(); }
 StructureListBox::StructureListBoxItem::~StructureListBoxItem() {}
 
 
@@ -138,12 +138,20 @@ Structure* StructureListBox::selectedStructure()
 
 
 /**
+ * Convenience function to get the last item in the list.
+ */
+StructureListBox::StructureListBoxItem* StructureListBox::last()
+{
+	return static_cast<StructureListBoxItem*>(mItems.back());
+}
+
+
+/**
  * Draws the FactoryListBox
  */
 void StructureListBox::update()
 {
 	if (!visible()) { return; }
-
 	ListBoxBase::update();
 
 	Renderer& r = Utility<Renderer>::get();

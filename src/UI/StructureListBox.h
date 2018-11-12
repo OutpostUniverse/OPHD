@@ -37,6 +37,8 @@ public:
 
 	Structure* selectedStructure();
 
+	StructureListBoxItem* last();
+
 	virtual void update() final;
 
 private:

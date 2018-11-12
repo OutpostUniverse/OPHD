@@ -34,7 +34,6 @@ public:
 	 */
 	virtual void fillLists() = 0;
 
-
 	/**
 	 * Instructs the Report UI to refresh itself. Used to clear any state
 	 * information to a 'like new' state.
