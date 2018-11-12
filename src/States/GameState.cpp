@@ -39,6 +39,7 @@ GameState::~GameState()
 	MAIN_REPORTS_UI->hideReports().disconnect(this, &GameState::hideReportsUi);
 	MAP_VIEW->quit().disconnect(this, &GameState::quitEvent);
 	MAP_VIEW->showReporstUi().disconnect(this, &GameState::showReportsUi);
+	MAP_VIEW->mapChanged().disconnect(this, &GameState::mapChanged);
 
 	for (auto takeMeThere : MAIN_REPORTS_UI->takeMeThere())
 	{
@@ -92,6 +93,7 @@ void GameState::mapviewstate(MapViewState* state)
 
 	MAP_VIEW->quit().connect(this, &GameState::quitEvent);
 	MAP_VIEW->showReporstUi().connect(this, &GameState::showReportsUi);
+	MAP_VIEW->mapChanged().connect(this, &GameState::mapChanged);
 }
 
 
@@ -166,6 +168,12 @@ void GameState::hideReportsUi()
 	ACTIVE_STATE->deactivate();
 	ACTIVE_STATE = MAP_VIEW;
 	ACTIVE_STATE->activate();
+}
+
+
+void GameState::mapChanged()
+{
+	MAIN_REPORTS_UI->clearLists();
 }
 
 

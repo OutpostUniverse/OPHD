@@ -347,6 +347,13 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 }
 
 
+void MainReportsUiState::clearLists()
+{
+	Panels[PANEL_PRODUCTION].UiPanel->fillLists();
+	Panels[PANEL_WAREHOUSE].UiPanel->fillLists();
+}
+
+
 /**
  * Gets a list of TakeMeThere signal pointers.
  * 

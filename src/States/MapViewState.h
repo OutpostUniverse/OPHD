@@ -60,6 +60,7 @@ public:
 public:
 	using QuitCallback = NAS2D::Signals::Signal0<void>;
 	using ReportsUiCallback = NAS2D::Signals::Signal0<void>;
+	using MapChangedCallback = NAS2D::Signals::Signal0<void>;
 
 public:
 	MapViewState(const std::string& savegame);
@@ -70,6 +71,7 @@ public:
 
 	ReportsUiCallback& showReporstUi() { return mReportsUiCallback; }
 	QuitCallback& quit() { return mQuitCallback; }
+	MapChangedCallback& mapChanged() { return mMapChangedCallback; }
 
 	void focusOnStructure(Structure*);
 
@@ -244,7 +246,8 @@ private:
 
 	// SIGNALS
 	QuitCallback		mQuitCallback;					/**< Signal for posting quit event. */
-	ReportsUiCallback	mReportsUiCallback;			/**< Signal for bringing the Main Reports UI up. */
+	ReportsUiCallback	mReportsUiCallback;				/**< Signal for bringing the Main Reports UI up. */
+	MapChangedCallback	mMapChangedCallback;			/**< Signal indicating that the map changed. */
 
 	// MISCELLANEOUS
 	int					mTurnCount = 0;					/**<  */

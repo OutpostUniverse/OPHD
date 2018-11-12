@@ -18,6 +18,8 @@ public:
 	void selectFactoryPanel(Structure*);
 	void selectWarehousePanel(Structure*);
 
+	void clearLists();
+
 	ReportsUiCallback& hideReports() { return mReportsUiCallback; }
 	TakeMeThereList takeMeThere();
 

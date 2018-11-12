@@ -188,6 +188,8 @@ void MapViewState::load(const std::string& _path)
 
 	// set level indicator string
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
+
+	mMapChangedCallback();
 }
 
 

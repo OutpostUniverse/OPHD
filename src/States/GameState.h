@@ -25,6 +25,7 @@ private:
 	void quitEvent();
 	void showReportsUi();
 	void hideReportsUi();
+	void mapChanged();
 
 	void takeMeThere(Structure*);
 
