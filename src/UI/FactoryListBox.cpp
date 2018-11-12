@@ -155,7 +155,6 @@ Factory* FactoryListBox::selectedFactory()
 void FactoryListBox::update()
 {
 	if (!visible()) { return; }
-
 	ListBoxBase::update();
 
 	Renderer& r = Utility<Renderer>::get();
