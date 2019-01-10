@@ -32,6 +32,9 @@ namespace constants
 	const std::string MINE_YIELD_MEDIUM = "Medium";
 	const std::string MINE_YIELD_HIGH = "High";
 
+	const std::string ROBOT_BREAKDOWN_TITLE = "Robot Breakdown";
+	const std::string ROBOT_BREAKDOWN_MESSAGE = "Your %s at location %i, %i has broken down. It will not be able to complete its task and will be removed from your inventory.";
+
 	// =====================================
 	// = SAVE GAMES
 	// =====================================

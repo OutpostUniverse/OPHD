@@ -597,12 +597,13 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int x, i
 		if (_t && _t->thingIsStructure())
 		{
 			Structure* _s = _t->structure();
-			mReportsUiCallback();
 
 			if (_s->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(_s); }
 			else if (_s->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(_s); }
-			else if (_s->isMineFacility()) { }
-			else {  }
+			else if (_s->isMineFacility() || _s->structureClass() == Structure::CLASS_SMELTER) { MAIN_REPORTS_UI->selectMinePanel(_s); }
+			else { return; } // avoids showing the full-screen UI on unhandled structures.
+
+			mReportsUiCallback();
 		}
 	}
 }
@@ -1110,13 +1111,19 @@ void MapViewState::updateRobots()
 		{
 			std::cout << "dead robot" << std::endl;
 
+			doNonFatalErrorMessage(constants::ROBOT_BREAKDOWN_TITLE, string_format(constants::ROBOT_BREAKDOWN_MESSAGE, robot_it->first->name().c_str(), robot_it->second->x(), robot_it->second->y()));
+
+			if (robot_it->second->thing() == robot_it->first)
+			{
+				robot_it->second->removeThing();
+			}
+
 			mRobotPool.erase(robot_it->first);
 			delete robot_it->first;
 			robot_it = mRobotList.erase(robot_it);
 		}
 		else if(robot_it->first->idle())
 		{
-			// Make sure that we're the robot from a Tile and not something else
 			if (robot_it->second->thing() == robot_it->first)
 			{
 				robot_it->second->removeThing();
