@@ -254,7 +254,7 @@ void WarehouseReport::drawLeftPanel(Renderer& r)
 	r.drawText(*FONT_MED, WH_COUNT, width() / 2 - 10 - COUNT_WIDTH, positionY() + 35, 0, 185, 0);
 	r.drawText(*FONT_MED, WH_CAPACITY, width() / 2 - 10 - CAPACITY_WIDTH, positionY() + 57, 0, 185, 0);
 
-	drawBasicProgressBar(CAPACITY_BAR_POSITION_X, positionY() + 79, CAPACITY_BAR_WIDTH, 20, CAPACITY_PERCENT);
+	drawBasicProgressBar(CAPACITY_BAR_POSITION_X, positionY() + 84, CAPACITY_BAR_WIDTH, 20, CAPACITY_PERCENT);
 }
 
 

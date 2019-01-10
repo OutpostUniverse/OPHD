@@ -347,10 +347,24 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 }
 
 
+/**
+ * Structure pointer is assumed to be a Mine Facility or Smelter.
+ */
+void MainReportsUiState::selectMinePanel(Structure* structure)
+{
+	deselectAllPanels();
+	Panels[PANEL_MINING].Selected(true);
+	//Panels[PANEL_MINING].UiPanel->visible(true);
+	//Panels[PANEL_MINING].UiPanel->refresh();
+	//Panels[PANEL_MINING].UiPanel->selectStructure(structure);
+}
+
+
 void MainReportsUiState::clearLists()
 {
 	Panels[PANEL_PRODUCTION].UiPanel->fillLists();
 	Panels[PANEL_WAREHOUSE].UiPanel->fillLists();
+	//Panels[PANEL_MINING].UiPanel->fillLists();
 }
 
 

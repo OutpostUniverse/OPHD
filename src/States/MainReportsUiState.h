@@ -17,6 +17,7 @@ public:
 
 	void selectFactoryPanel(Structure*);
 	void selectWarehousePanel(Structure*);
+	void selectMinePanel(Structure*);
 
 	void clearLists();
 
