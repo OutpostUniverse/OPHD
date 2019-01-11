@@ -1111,7 +1111,7 @@ void MapViewState::updateRobots()
 		{
 			std::cout << "dead robot" << std::endl;
 
-			doNonFatalErrorMessage(constants::ROBOT_BREAKDOWN_TITLE, string_format(constants::ROBOT_BREAKDOWN_MESSAGE, robot_it->first->name().c_str(), robot_it->second->x(), robot_it->second->y()));
+			doAlertMessage(constants::ROBOT_BREAKDOWN_TITLE, string_format(constants::ROBOT_BREAKDOWN_MESSAGE, robot_it->first->name().c_str(), robot_it->second->x(), robot_it->second->y()));
 
 			if (robot_it->second->thing() == robot_it->first)
 			{

@@ -275,6 +275,7 @@ bool pointInRect_f(int x, int y, const NAS2D::Rectangle_2df& rect);
 bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float rectH);
 
 void doNonFatalErrorMessage(const std::string& title, const std::string& msg);
+void doAlertMessage(const std::string& title, const std::string& msg);
 
 void checkSavegameVersion(const std::string& filename);
 

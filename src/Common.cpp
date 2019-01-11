@@ -230,6 +230,21 @@ void doNonFatalErrorMessage(const std::string& title, const std::string& msg)
 
 
 /**
+ * Shows a message dialog box with no icon.
+ */
+void doAlertMessage(const std::string& title, const std::string& msg)
+{
+#if defined(WINDOWS) || defined(WIN32)
+	MessageBoxA(NULL, msg.c_str(), title.c_str(), MB_OK | /*MB_ICONINFORMATION |*/ MB_TASKMODAL);
+#else
+	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title.c_str(), msg.c_str(), NULL);
+#endif
+
+	std::cout << msg << std::endl;
+}
+
+
+/**
  * Checks a savegame version.
  * 
  * \throws	Throws a std::runtime_error if there are any errors with a savegame version, formation or missing root nodes.
