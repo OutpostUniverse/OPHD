@@ -12,3 +12,8 @@
 /proj/vc14/*.user
 /proj/vc14/StructureAligner/Release
 /proj/vc14/StructureAligner/Debug
+/proj/vc15/Debug
+/proj/vc15/.vs
+/proj/vc15/*.db
+/proj/vc15/*.aps
+/proj/vc15/*.suppress
