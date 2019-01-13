@@ -126,7 +126,7 @@ void FactoryListBox::removeItem(Factory* factory)
 /**
  * Sets the current selection.
  * 
- * \param f	Pointer to a Factory object. Save to pass \c nullptr.
+ * \param f	Pointer to a Factory object. Safe to pass \c nullptr.
  */
 void FactoryListBox::currentSelection(Factory* f)
 {

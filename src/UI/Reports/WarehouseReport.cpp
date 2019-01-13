@@ -117,6 +117,9 @@ void WarehouseReport::init()
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::fillLists()
 {
 	lstStructures.clearItems();
@@ -139,6 +142,9 @@ void WarehouseReport::fillLists()
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::clearSelection()
 {
 	lstStructures.clearSelection();
@@ -146,6 +152,9 @@ void WarehouseReport::clearSelection()
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::refresh()
 {
 	btnShowAllClicked();
@@ -173,6 +182,9 @@ void WarehouseReport::refresh()
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::selectStructure(Structure* structure)
 {
 	lstStructures.currentSelection(structure);
@@ -180,6 +192,9 @@ void WarehouseReport::selectStructure(Structure* structure)
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::resized(Control*)
 {
 	lstStructures.size((width() / 2) - 20, height() - 126);
@@ -202,6 +217,9 @@ void WarehouseReport::filterButtonClicked()
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::btnShowAllClicked()
 {
 	filterButtonClicked();
@@ -211,6 +229,9 @@ void WarehouseReport::btnShowAllClicked()
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::btnSpaceAvailableClicked()
 {
 	filterButtonClicked();
@@ -218,6 +239,9 @@ void WarehouseReport::btnSpaceAvailableClicked()
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::btnFullClicked()
 {
 	filterButtonClicked();
@@ -225,6 +249,9 @@ void WarehouseReport::btnFullClicked()
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::btnEmptyClicked()
 {
 	filterButtonClicked();
@@ -232,6 +259,9 @@ void WarehouseReport::btnEmptyClicked()
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::btnDisabledClicked()
 {
 	filterButtonClicked();
@@ -239,12 +269,18 @@ void WarehouseReport::btnDisabledClicked()
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::lstStructuresSelectionChanged()
 {
 	SELECTED_WAREHOUSE = static_cast<Warehouse*>(lstStructures.selectedStructure());
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::drawLeftPanel(Renderer& r)
 {
 	r.drawText(*FONT_MED_BOLD, "Warehouse Count", 10, positionY() + 40, 0, 185, 0);
@@ -258,6 +294,9 @@ void WarehouseReport::drawLeftPanel(Renderer& r)
 }
 
 
+/**
+ * 
+ */
 void WarehouseReport::drawRightPanel(Renderer& r)
 {
 	if (!SELECTED_WAREHOUSE) { return; }
