@@ -274,18 +274,13 @@ void MapViewState::minerTaskFinished(Robot* _r)
 
 	Tile* t = mRobotList[_r];
 
-	if (t->depth() == constants::DEPTH_SURFACE)
-	{
-		MineFacility* _mf = new MineFacility(t->mine());
-		_mf->maxDepth(mTileMap->maxDepth());
-		Utility<StructureManager>::get().addStructure(_mf, t);
-		_mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
-	}
-	else
-	{
-		Utility<StructureManager>::get().addStructure(new MineShaft(), t);
-	}
+	// Surface structure
+	MineFacility* _mf = new MineFacility(t->mine());
+	_mf->maxDepth(mTileMap->maxDepth());
+	Utility<StructureManager>::get().addStructure(_mf, t);
+	_mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 
+	// Tile immediately underneath facility.
 	Tile* t2 = mTileMap->getTile(t->x(), t->y(), t->depth() + 1);
 	Utility<StructureManager>::get().addStructure(new MineShaft(), t2);
 

@@ -2,23 +2,17 @@
 
 #include "Robot.h"
 
+#include "../../Constants/Strings.h"
+
 class Robodozer: public Robot
 {
 public:
-	Robodozer(): Robot("RoboDozer", "robots/robodozer.sprite")
+	Robodozer(): Robot(constants::ROBODOZER, "robots/robodozer.sprite")
 	{
 		sprite().play("running");
 	}
 
-	~Robodozer()
-	{
-	}
+	virtual ~Robodozer() {}
 
-	void update()
-	{
-		updateTask();
-	}
-
-protected:
-private:
+	void update() { updateTask(); }
 };
