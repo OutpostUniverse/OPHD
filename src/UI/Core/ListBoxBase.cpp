@@ -53,6 +53,15 @@ void ListBoxBase::_init()
 
 
 /**
+ * 
+ */
+void ListBoxBase::visibilityChanged(bool)
+{
+	_update_item_display();
+}
+
+
+/**
  * Updates values required for properly displaying list items.
  */
 void ListBoxBase::_update_item_display()

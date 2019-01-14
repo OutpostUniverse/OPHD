@@ -87,6 +87,8 @@ protected:
 
 	int draw_offset() const { return mCurrentOffset; }
 
+	virtual void visibilityChanged(bool) final;
+
 
 protected:
 	ItemList					mItems;											/**< List of Items. */
