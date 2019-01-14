@@ -220,6 +220,7 @@
     <ClCompile Include="..\..\src\UI\MajorEventAnnouncement.cpp" />
     <ClCompile Include="..\..\src\UI\MineOperationsWindow.cpp" />
     <ClCompile Include="..\..\src\UI\PopulationPanel.cpp" />
+    <ClCompile Include="..\..\src\UI\ProductListBox.cpp" />
     <ClCompile Include="..\..\src\UI\Reports\FactoryReport.cpp" />
     <ClCompile Include="..\..\src\UI\Reports\WarehouseReport.cpp" />
     <ClCompile Include="..\..\src\ui\StructureInspector.cpp" />
@@ -325,6 +326,7 @@
     <ClInclude Include="..\..\src\UI\MajorEventAnnouncement.h" />
     <ClInclude Include="..\..\src\UI\MineOperationsWindow.h" />
     <ClInclude Include="..\..\src\Ui\PopulationPanel.h" />
+    <ClInclude Include="..\..\src\UI\ProductListBox.h" />
     <ClInclude Include="..\..\src\UI\Reports\FactoryReport.h" />
     <ClInclude Include="..\..\src\UI\Reports\ReportInterface.h" />
     <ClInclude Include="..\..\src\UI\Reports\WarehouseReport.h" />

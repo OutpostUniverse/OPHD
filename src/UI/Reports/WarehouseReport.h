@@ -2,11 +2,13 @@
 
 #include "ReportInterface.h"
 
+#include "../ProductListBox.h"
+#include "../StructureListBox.h"
+
 #include "../Core/Button.h"
 #include "../Core/ComboBox.h"
 #include "../Core/UIContainer.h"
 #include "../Core/TextArea.h"
-#include "../StructureListBox.h"
 
 
 class WarehouseReport : public ReportInterface
@@ -27,7 +29,7 @@ public:
 
 private:
 	void init();
-	void resized(Control*);
+	void _resized(Control*);
 
 	void btnShowAllClicked();
 	void btnSpaceAvailableClicked();
@@ -50,4 +52,5 @@ private:
 	Button				btnDisabled;
 
 	StructureListBox	lstStructures;
+	ProductListBox		lstProducts;
 };

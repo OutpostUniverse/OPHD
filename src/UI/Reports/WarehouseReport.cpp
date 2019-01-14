@@ -44,6 +44,36 @@ static bool useStateString(Structure::StructureState _state)
 
 
 /**
+ * Internal function to determine current capacity of all
+  * warehouses in the game.
+ */
+static void computeCapacity()
+{
+	COUNT_WIDTH = FONT_MED->width(WH_COUNT);
+	CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
+
+	int capacity_total = 0;
+	int available_capacity = 0;
+
+	StructureList& sl = Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE);
+	for (auto warehouse : sl)
+	{
+		Warehouse* _wh = static_cast<Warehouse*>(warehouse);
+		available_capacity += _wh->products().availableStorage();
+		capacity_total += _wh->products().capacity();
+	}
+
+	int capacity_used = capacity_total - available_capacity;
+
+	WH_COUNT = std::to_string(sl.size());
+	WH_CAPACITY = std::to_string(capacity_total);
+
+	CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);
+
+}
+
+
+/**
  * C'tor
  */
 WarehouseReport::WarehouseReport()
@@ -57,7 +87,7 @@ WarehouseReport::WarehouseReport()
  */
 WarehouseReport::~WarehouseReport()
 {
-	Control::resized().disconnect(this, &WarehouseReport::resized);
+	Control::resized().disconnect(this, &WarehouseReport::_resized);
 	delete WAREHOUSE_IMG;
 }
 
@@ -112,7 +142,9 @@ void WarehouseReport::init()
 	add(&lstStructures, 10, rect().y() + 115);
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
 
-	Control::resized().connect(this, &WarehouseReport::resized);
+	add(&lstProducts, Utility<Renderer>::get().center_x() + 10, rect().y() + 173);
+
+	Control::resized().connect(this, &WarehouseReport::_resized);
 	fillLists();
 }
 
@@ -139,6 +171,8 @@ void WarehouseReport::fillLists()
 	}
 
 	lstStructures.setSelection(0);
+
+	computeCapacity();
 }
 
 
@@ -158,27 +192,6 @@ void WarehouseReport::clearSelection()
 void WarehouseReport::refresh()
 {
 	btnShowAllClicked();
-
-	COUNT_WIDTH = FONT_MED->width(WH_COUNT);
-	CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
-	
-	int capacity_total = 0;
-	int available_capacity = 0;
-
-	StructureList& sl = Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE);
-	for (auto warehouse : sl)
-	{
-		Warehouse* _wh = static_cast<Warehouse*>(warehouse);
-		available_capacity += _wh->products().availableStorage();
-		capacity_total += _wh->products().capacity();
-	}
-
-	int capacity_used = capacity_total - available_capacity;
-
-	WH_COUNT = std::to_string(sl.size());
-	WH_CAPACITY = std::to_string(capacity_total);
-
-	CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);
 }
 
 
@@ -195,9 +208,11 @@ void WarehouseReport::selectStructure(Structure* structure)
 /**
  * 
  */
-void WarehouseReport::resized(Control*)
+void WarehouseReport::_resized(Control*)
 {
 	lstStructures.size((width() / 2) - 20, height() - 126);
+	lstProducts.size((width() / 2) - 20, height() - 184);
+	lstProducts.position(Utility<Renderer>::get().center_x() + 10, lstProducts.positionY());
 
 	CAPACITY_BAR_WIDTH = (width() / 2) - 30 - FONT_MED_BOLD->width("Capacity Used");
 	CAPACITY_BAR_POSITION_X = 20 + FONT_MED_BOLD->width("Capacity Used");
@@ -275,6 +290,11 @@ void WarehouseReport::btnDisabledClicked()
 void WarehouseReport::lstStructuresSelectionChanged()
 {
 	SELECTED_WAREHOUSE = static_cast<Warehouse*>(lstStructures.selectedStructure());
+
+	if (SELECTED_WAREHOUSE != nullptr)
+	{
+		lstProducts.productPool(SELECTED_WAREHOUSE->products());
+	}
 }
 
 
@@ -303,7 +323,6 @@ void WarehouseReport::drawRightPanel(Renderer& r)
 	
 	r.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), r.center_x() + 10, positionY() + 2, 0, 185, 0);
 	r.drawImage(*WAREHOUSE_IMG, r.center_x() + 10, positionY() + 35);
-
 }
 
 

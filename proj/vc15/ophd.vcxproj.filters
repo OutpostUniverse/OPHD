@@ -264,6 +264,9 @@
     <ClCompile Include="..\..\src\UI\StructureListBox.cpp">
       <Filter>Source Files\UI\SpecializedListBox</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\ProductListBox.cpp">
+      <Filter>Source Files\UI\SpecializedListBox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -585,6 +588,9 @@
       <Filter>Header Files\UI\SpecializedListBox</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\UI\StructureListBox.h">
+      <Filter>Header Files\UI\SpecializedListBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\ProductListBox.h">
       <Filter>Header Files\UI\SpecializedListBox</Filter>
     </ClInclude>
   </ItemGroup>
