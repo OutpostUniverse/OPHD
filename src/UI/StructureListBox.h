@@ -22,9 +22,9 @@ public:
 		virtual ~StructureListBoxItem();
 
 	public:
-		Structure* structure = nullptr;
-		std::string structureState;
-		size_t colorIndex = 0;
+		Structure* structure = nullptr;	/**< Pointer to a Structure. */
+		std::string structureState;		/**< String description of the state of a Structure. */
+		size_t colorIndex = 0;			/**< Index to use from the listbox color table. */
 	};
 
 public:
