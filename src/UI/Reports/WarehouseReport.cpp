@@ -58,6 +58,7 @@ static void computeCapacity()
 	StructureList& sl = Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE);
 	for (auto warehouse : sl)
 	{
+		if (!warehouse->operational()) { continue; } // yuck
 		Warehouse* _wh = static_cast<Warehouse*>(warehouse);
 		available_capacity += _wh->products().availableStorage();
 		capacity_total += _wh->products().capacity();
@@ -149,29 +150,131 @@ void WarehouseReport::init()
 }
 
 
+void WarehouseReport::_fillListFromStructureList(StructureList& list)
+{
+	for (auto structure : list)
+	{
+		lstStructures.addItem(structure);
+		StructureListBox::StructureListBoxItem* item = lstStructures.last();
+
+		// \fixme	Abuse of interface to achieve custom results.
+		ProductPool& products = static_cast<Warehouse*>(structure)->products();
+
+		if (useStateString(structure->state())) { item->structureState = structureStateDescription(structure->state()); }
+		else if (products.empty()) { item->structureState = constants::WAREHOUSE_EMPTY; }
+		else if (products.atCapacity()) { item->structureState = constants::WAREHOUSE_FULL; }
+		else if (!products.empty() && !products.atCapacity()) { item->structureState = constants::WAREHOUSE_SPACE_AVAILABLE; }
+	}
+}
+
+
 /**
- * 
+ * Inherited interface. A better name for this function would be
+ * fillListWithAll() or something to that effect.
  */
 void WarehouseReport::fillLists()
 {
 	lstStructures.clearItems();
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
-	{
-		lstStructures.addItem(structure);
-		StructureListBox::StructureListBoxItem* item = lstStructures.last();
-		
-		// Hacky -- takes advantage of internal knowledge of how the list boxes
-		// work to set up different meta data for warehouse conditions.
-		ProductPool& products = static_cast<Warehouse*>(structure)->products();
 
-		if (useStateString(structure->state())) { item->structureState = structureStateDescription(structure->state()); }
-		else if(products.empty()) { item->structureState = constants::WAREHOUSE_EMPTY; }
-		else if(products.atCapacity()) { item->structureState = constants::WAREHOUSE_FULL; }
-		else if(!products.empty() && !products.atCapacity()) { item->structureState = constants::WAREHOUSE_SPACE_AVAILABLE; }
-	}
+	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE));
 
 	lstStructures.setSelection(0);
+	computeCapacity();
+}
 
+
+/**
+ * 
+ */
+void WarehouseReport::fillListSpaceAvailable()
+{
+	lstStructures.clearItems();
+
+	StructureList list;
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
+	{
+		Warehouse* wh = static_cast<Warehouse*>(structure);
+		if (!wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle()))
+		{
+			list.push_back(structure);
+		}
+	}
+
+	_fillListFromStructureList(list);
+
+	lstStructures.setSelection(0);
+	computeCapacity();
+}
+
+
+
+/**
+ * 
+ */
+void WarehouseReport::fillListFull()
+{
+	lstStructures.clearItems();
+
+	StructureList list;
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
+	{
+		Warehouse* wh = static_cast<Warehouse*>(structure);
+		if (wh->products().atCapacity() && (wh->operational() || wh->isIdle()))
+		{
+			list.push_back(structure);
+		}
+	}
+
+	_fillListFromStructureList(list);
+
+	lstStructures.setSelection(0);
+	computeCapacity();
+}
+
+
+/**
+ * 
+ */
+void WarehouseReport::fillListEmpty()
+{
+	lstStructures.clearItems();
+
+	StructureList list;
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
+	{
+		Warehouse* wh = static_cast<Warehouse*>(structure);
+		if (wh->products().empty() && (wh->operational() || wh->isIdle()))
+		{
+			list.push_back(structure);
+		}
+	}
+
+	_fillListFromStructureList(list);
+
+	lstStructures.setSelection(0);
+	computeCapacity();
+}
+
+
+/**
+ * 
+ */
+void WarehouseReport::fillListDisabled()
+{
+	lstStructures.clearItems();
+
+	StructureList list;
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
+	{
+		if (structure->disabled() || structure->destroyed())
+		{
+			list.push_back(structure);
+		}
+	}
+
+	_fillListFromStructureList(list);
+
+	lstStructures.setSelection(0);
 	computeCapacity();
 }
 
@@ -251,6 +354,8 @@ void WarehouseReport::btnSpaceAvailableClicked()
 {
 	filterButtonClicked();
 	btnSpaceAvailable.toggle(true);
+
+	fillListSpaceAvailable();
 }
 
 
@@ -261,6 +366,8 @@ void WarehouseReport::btnFullClicked()
 {
 	filterButtonClicked();
 	btnFull.toggle(true);
+
+	fillListFull();
 }
 
 
@@ -271,6 +378,8 @@ void WarehouseReport::btnEmptyClicked()
 {
 	filterButtonClicked();
 	btnEmpty.toggle(true);
+
+	fillListEmpty();
 }
 
 
@@ -281,6 +390,8 @@ void WarehouseReport::btnDisabledClicked()
 {
 	filterButtonClicked();
 	btnDisabled.toggle(true);
+
+	fillListDisabled();
 }
 
 

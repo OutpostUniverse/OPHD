@@ -10,6 +10,7 @@
 #include "../Core/UIContainer.h"
 #include "../Core/TextArea.h"
 
+#include "../../Things/Structures/Structure.h"
 
 class WarehouseReport : public ReportInterface
 {
@@ -31,11 +32,18 @@ private:
 	void init();
 	void _resized(Control*);
 
+	void _fillListFromStructureList(StructureList&);
+
 	void btnShowAllClicked();
 	void btnSpaceAvailableClicked();
 	void btnFullClicked();
 	void btnEmptyClicked();
 	void btnDisabledClicked();
+
+	void fillListSpaceAvailable();
+	void fillListFull();
+	void fillListEmpty();
+	void fillListDisabled();
 
 	void lstStructuresSelectionChanged();
 
