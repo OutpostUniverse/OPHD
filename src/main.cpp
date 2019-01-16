@@ -76,15 +76,6 @@ int main(int argc, char *argv[])
 		Filesystem& f = Utility<Filesystem>::get();
 		f.init(argv[0], "data");
 
-		//f.addToSearchPath("fonts.dat");
-		//f.addToSearchPath("maps.dat");
-		//f.addToSearchPath("planets.dat");
-		//f.addToSearchPath("robots.dat");
-		//f.addToSearchPath("sfx.dat");
-		//f.addToSearchPath("structures.dat");
-		//f.addToSearchPath("sys.dat");
-		//f.addToSearchPath("ui.dat");
-
 		if (!f.exists(constants::SAVE_GAME_PATH))
 		{
 			f.makeDirectory(constants::SAVE_GAME_PATH);
@@ -146,6 +137,14 @@ int main(int argc, char *argv[])
 
 		// Force notifier to build its tables.
 		Utility<AiVoiceNotifier>::get();
+
+		std::cout << "Loading packed assets... ";
+
+		f.addToSearchPath("fonts.dat");
+		f.addToSearchPath("planets.dat");
+
+		std::cout << "done." << std::endl;
+
 
 		// Loading/Saving plaque's
 		IMG_LOADING = new Image("sys/loading.png");

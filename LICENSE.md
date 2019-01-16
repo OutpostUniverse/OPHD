@@ -1,6 +1,6 @@
 BSD 3-Clause License
 
-Copyright © 2015 - 2018, Leeor Dicker
+Copyright © 2015 - 2019, Leeor Dicker
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
