@@ -16,12 +16,22 @@ public:
 		requiresCHAP(false);
 	}
 
+	virtual ~AirShaft()
+	{}
 
-	virtual ~AirShaft()	{}
+	void ug()
+	{
+		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL_UG);
+		_ug = true;
+	}
 
-	void ug() { sprite().play(constants::STRUCTURE_STATE_OPERATIONAL_UG); }
-
-	virtual void forced_state_change(StructureState _s) { if (_ug) { return; } }
+	virtual void forced_state_change(StructureState, DisabledReason) final
+	{
+		if (_ug)
+		{
+			return;
+		}
+	}
 
 protected:
 private:

@@ -338,7 +338,7 @@ void MapViewState::readStructures(XmlElement* _ti)
 			mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 		}
 
-		if (type_id == SID_AIR_SHAFT && depth > 0)
+		if (type_id == SID_AIR_SHAFT && depth != 0)
 		{
 			static_cast<AirShaft*>(st)->ug(); // force underground state
 		}

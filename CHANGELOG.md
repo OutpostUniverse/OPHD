@@ -20,6 +20,7 @@ User interface overhaul.
 - SplashScreen and MainMenu states now use the Mars sound track in the background.
 - Setting minimum resolution to 1000x700. I know, kind of a weird one but this is intended mostly for windowed modes to run properly on low-resolution displays (1366x768).
 - Structures that are disabled now indicate why they were disabled.
+- Buldozing a mine facility on top of a completely exhausted mine will also remove all of the mine shafts underneath.
 
 ### Fixed
 - Fixed an issue that prevented the planet description from displaying.
@@ -27,6 +28,8 @@ User interface overhaul.
 - Addressed a usability issue with the underlying NAS2D library that sometimes resulted in incorrect sizing and positioning of UI elements when resizing the game window.
 - Fixed 'Quit' button in Planet Selection view being positioned incorrectly on window resize.
 - Fixed a mistake in robot aging logic that resulted in a dangling pointer dereference. Thanks to OPU user jem7650 for bringing this to my attention!
+- Fixed an animation state issue that would force the AirShaft sprites that are underground to use the surface animation.
+- Fixed a crash issue that occurred when an exhausted mine facility is bulldozed.
 
 
 ## [0.7.6] - 2018-07-06

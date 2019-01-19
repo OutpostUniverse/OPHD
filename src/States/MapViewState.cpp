@@ -785,8 +785,20 @@ void MapViewState::placeRobot()
 		else if (tile->mine() && tile->mine()->depth() == mTileMap->maxDepth() && tile->mine()->exhausted())
 		{
 			mMineOperationsWindow.hide();
-			Utility<StructureManager>::get().removeStructure(tile->structure());
+			mTileMap->removeMineLocation(mTileMap->tileMouseHover());
 			tile->pushMine(nullptr);
+			for (size_t i = 0; i <= mTileMap->maxDepth(); ++i)
+			{
+				Tile* _t = mTileMap->getTile(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY(), i);
+
+				// Probably overkill here but if this is ever true there is a serious logic error somewhere.
+				if (!_t->thing() || !_t->thingIsStructure())
+				{
+					throw std::runtime_error("Deleting a mine facility that isn't at full depth.");
+				}
+
+				Utility<StructureManager>::get().removeStructure(_t->structure());
+			}
 		}
 		else if (tile->thingIsStructure())
 		{

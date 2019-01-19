@@ -282,7 +282,6 @@ void StructureManager::removeStructure(Structure* st)
 	if (sl.empty())
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
-		return; //overkill?
 	}
 
 	for (size_t i = 0; i < sl.size(); ++i)
@@ -298,7 +297,6 @@ void StructureManager::removeStructure(Structure* st)
 	if (tileTableIt == mStructureTileTable.end())
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
-		return; //overkill?
 	}
 	else
 	{
