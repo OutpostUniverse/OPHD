@@ -253,8 +253,6 @@ void doNonFatalErrorMessage(const std::string& title, const std::string& msg)
 #else
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title.c_str(), msg.c_str(), NULL);
 #endif
-	
-	std::cout << msg << std::endl;
 }
 
 
@@ -266,10 +264,8 @@ void doAlertMessage(const std::string& title, const std::string& msg)
 #if defined(WINDOWS) || defined(WIN32)
 	MessageBoxA(WIN32_getWindowHandle(), msg.c_str(), title.c_str(), MB_OK | /*MB_ICONINFORMATION |*/ MB_TASKMODAL);
 #else
-	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title.c_str(), msg.c_str(), NULL);
+	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_WARNING, title.c_str(), msg.c_str(), NULL);
 #endif
-
-	std::cout << msg << std::endl;
 }
 
 
@@ -299,14 +295,9 @@ bool doYesNoMessage(const std::string& title, const std::string msg)
 		nullptr
 	};
 
-	int buttonid = 0;
-	if (SDL_ShowMessageBox(&messageboxdata, &buttonid) < 0)
-	{
-		SDL_Log("error displaying message box");
-		return 1;
-	}
-	
-	yes = (buttonid == 1);
+	int _bid = 0;
+	SDL_ShowMessageBox(&messageboxdata, &_bid);
+	yes = (_bid == 1);
 #endif
 
 	return yes;
