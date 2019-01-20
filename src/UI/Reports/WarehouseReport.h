@@ -40,10 +40,14 @@ private:
 	void btnEmptyClicked();
 	void btnDisabledClicked();
 
+	void btnTakeMeThereClicked();
+
 	void fillListSpaceAvailable();
 	void fillListFull();
 	void fillListEmpty();
 	void fillListDisabled();
+
+	void doubleClicked(NAS2D::EventHandler::MouseButton, int, int);
 
 	void lstStructuresSelectionChanged();
 
@@ -58,6 +62,8 @@ private:
 	Button				btnFull;
 	Button				btnEmpty;
 	Button				btnDisabled;
+
+	Button				btnTakeMeThere;
 
 	StructureListBox	lstStructures;
 	ProductListBox		lstProducts;

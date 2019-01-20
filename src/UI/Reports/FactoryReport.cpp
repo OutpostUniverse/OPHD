@@ -157,7 +157,7 @@ void FactoryReport::init()
 
 	add(&btnTakeMeThere, position_x, 115);
 	btnTakeMeThere.size(140, 30);
-	btnTakeMeThere.text("Take Me There");
+	btnTakeMeThere.text(constants::BUTTON_TAKE_ME_THERE);
 	btnTakeMeThere.click().connect(this, &FactoryReport::btnTakeMeThereClicked);
 
 	add(&btnApply, 0, 0);

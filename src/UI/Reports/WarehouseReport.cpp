@@ -140,10 +140,19 @@ void WarehouseReport::init()
 	btnDisabled.text("Disabled");
 	btnDisabled.click().connect(this, &WarehouseReport::btnDisabledClicked);
 
+	add(&btnTakeMeThere, 10, 10);
+	btnTakeMeThere.size(140, 30);
+	btnTakeMeThere.text(constants::BUTTON_TAKE_ME_THERE);
+	btnTakeMeThere.click().connect(this, &WarehouseReport::btnTakeMeThereClicked);
+
+
+
 	add(&lstStructures, 10, rect().y() + 115);
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
 
 	add(&lstProducts, Utility<Renderer>::get().center_x() + 10, rect().y() + 173);
+
+	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::doubleClicked);
 
 	Control::resized().connect(this, &WarehouseReport::_resized);
 	fillLists();
@@ -282,6 +291,21 @@ void WarehouseReport::fillListDisabled()
 /**
  * 
  */
+void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int y)
+{
+	if (!visible()) { return; }
+	if (button != EventHandler::BUTTON_LEFT) { return; }
+
+	if (SELECTED_WAREHOUSE && isPointInRect(Point_2d(x, y), lstStructures.rect()))
+	{
+		takeMeThereCallback()(SELECTED_WAREHOUSE);
+	}
+}
+
+
+/**
+ * 
+ */
 void WarehouseReport::clearSelection()
 {
 	lstStructures.clearSelection();
@@ -316,6 +340,8 @@ void WarehouseReport::_resized(Control*)
 	lstStructures.size((width() / 2) - 20, height() - 126);
 	lstProducts.size((width() / 2) - 20, height() - 184);
 	lstProducts.position(Utility<Renderer>::get().center_x() + 10, lstProducts.positionY());
+
+	btnTakeMeThere.position(Utility<Renderer>::get().width() - 150, positionY() + 35);
 
 	CAPACITY_BAR_WIDTH = (width() / 2) - 30 - FONT_MED_BOLD->width("Capacity Used");
 	CAPACITY_BAR_POSITION_X = 20 + FONT_MED_BOLD->width("Capacity Used");
@@ -398,6 +424,15 @@ void WarehouseReport::btnDisabledClicked()
 /**
  * 
  */
+void WarehouseReport::btnTakeMeThereClicked()
+{
+	takeMeThereCallback()(SELECTED_WAREHOUSE);
+}
+
+
+/**
+ * 
+ */
 void WarehouseReport::lstStructuresSelectionChanged()
 {
 	SELECTED_WAREHOUSE = static_cast<Warehouse*>(lstStructures.selectedStructure());
@@ -406,6 +441,8 @@ void WarehouseReport::lstStructuresSelectionChanged()
 	{
 		lstProducts.productPool(SELECTED_WAREHOUSE->products());
 	}
+
+	btnTakeMeThere.visible(SELECTED_WAREHOUSE != nullptr);
 }
 
 

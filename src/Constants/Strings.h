@@ -197,4 +197,9 @@ namespace constants
 	const std::string WAREHOUSE_EMPTY = "Empty";
 	const std::string WAREHOUSE_FULL = "At Capacity";
 	const std::string WAREHOUSE_SPACE_AVAILABLE = "Space Available";
+
+	// =====================================
+	// = UI STRINGS
+	// =====================================
+	const std::string BUTTON_TAKE_ME_THERE = "Take Me There";
 }
