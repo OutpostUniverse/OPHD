@@ -213,11 +213,13 @@ void MainReportsUiState::initialize()
 	Panels[PANEL_PRODUCTION].UiPanel = factory_report;
 	factory_report->position(0, 48);
 	factory_report->size(r.width(), r.height() - 48);
+	factory_report->hide();
 
 	ReportInterface* warehouse_report = new WarehouseReport();
 	Panels[PANEL_WAREHOUSE].UiPanel = warehouse_report;
 	warehouse_report->position(0, 48);
 	warehouse_report->size(r.width(), r.height() - 48);
+	warehouse_report->hide();
 }
 
 
