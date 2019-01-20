@@ -276,6 +276,7 @@ bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float re
 
 void doNonFatalErrorMessage(const std::string& title, const std::string& msg);
 void doAlertMessage(const std::string& title, const std::string& msg);
+bool doYesNoMessage(const std::string& title, const std::string msg);
 
 void checkSavegameVersion(const std::string& filename);
 
