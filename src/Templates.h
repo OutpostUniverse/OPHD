@@ -7,9 +7,12 @@ int storageRequiredPerUnit(ProductType type);
 
 /**
  * Transfers products from source to destination.
+ * 
+ * \note	Expects that the source/destination have an interface to
+ *			ProductPool& products();
  */
 template <class T>
-void transferProducts(T& source, T& destination)
+void transferProductsStructure(T& source, T& destination)
 {
 	if (source->products().empty() || destination->products().atCapacity()) { return; }
 
