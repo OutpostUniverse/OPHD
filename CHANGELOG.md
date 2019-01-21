@@ -1,9 +1,9 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.7.9] - UNKNOWN
+## [0.7.9] - 2019-01-20
 
-User interface overhaul.
+User interface overhaul and maintenance.
 
 ### Added
 - CheckBox Control.
@@ -21,6 +21,7 @@ User interface overhaul.
 - Setting minimum resolution to 1000x700. I know, kind of a weird one but this is intended mostly for windowed modes to run properly on low-resolution displays (1366x768).
 - Structures that are disabled now indicate why they were disabled.
 - Buldozing a mine facility on top of a completely exhausted mine will also remove all of the mine shafts underneath.
+- Bulldozing a Warehouse will ask the user to confirm if there isn't enough storage space to move products to other Warehouses.
 
 ### Fixed
 - Fixed an issue that prevented the planet description from displaying.

@@ -823,7 +823,11 @@ void MapViewState::placeRobot()
 
 			if (_s->isRobotCommand()) { deleteRobotsInRCC(r, static_cast<RobotCommand*>(_s), mRobotPool, mRobotList, tile); }
 			if (_s->isFactory() && static_cast<Factory*>(_s) == mFactoryProduction.factory()) { mFactoryProduction.hide(); }
-			if (_s->isWarehouse()) { moveProducts(static_cast<Warehouse*>(_s)); }
+			if (_s->isWarehouse())
+			{
+				if (simulateMoveProducts(static_cast<Warehouse*>(_s))) { moveProducts(static_cast<Warehouse*>(_s)); }
+				else { return; } // Don't continue with the bulldoze if the user says no.
+			}
 
 			/**
 			 * \fixme	Since the StructureTranslator class will be deprecated in the future, there needs to be a better
