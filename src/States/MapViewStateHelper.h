@@ -35,7 +35,9 @@ int totalStorage(StructureList& _sl);
 
 Warehouse* getAvailableWarehouse(ProductType _pt, size_t _ct);
 RobotCommand* getAvailableRobotCommand();
-void moveProducts(Warehouse* wh);
+
+bool simulateMoveProducts(Warehouse*);
+void moveProducts(Warehouse*);
 
 
 // Serialize / Deserialize

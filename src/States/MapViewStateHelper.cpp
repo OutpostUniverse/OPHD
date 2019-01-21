@@ -331,6 +331,69 @@ RobotCommand* getAvailableRobotCommand()
 
 
 /**
+ * Used in the product move simulation. Very brute force.
+ */
+static void transferProductsPool(ProductPool& source, ProductPool& destination)
+{
+	if (source.empty() || destination.atCapacity()) { return; }
+
+	auto& src = source.mProducts;
+
+	for (size_t i = 0; i < PRODUCT_COUNT; ++i)
+	{
+		if (destination.availableStorage() == 0) { return; }
+
+		if (destination.availableStorage() >= storageRequired(static_cast<ProductType>(i), src[i]))
+		{
+			destination.store(static_cast<ProductType>(i), src[i]);
+			source.pull(static_cast<ProductType>(i), src[i]);
+		}
+		else
+		{
+			int units_to_move = destination.availableStorage() / storageRequiredPerUnit(static_cast<ProductType>(i));
+			destination.store(static_cast<ProductType>(i), units_to_move);
+			source.pull(static_cast<ProductType>(i), units_to_move);
+		}
+	}
+}
+
+
+
+
+/**
+ * Simulates moving the products out of a specified warehouse and raises
+ * an alert to the user if not all products can be moved out of the
+ * warehouse.
+ * 
+ * \return	True if all products can be moved or if the user selects "yes"
+ *			if bulldozing will result in lost products.
+ */
+bool simulateMoveProducts(Warehouse* wh)
+{
+	ProductPool _pool = wh->products();
+
+	/** \fixme	This is a brute force approach. It works but it's not elegant. */
+	StructureList& structures = Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE);
+	for (auto structure : structures)
+	{
+		if (structure->operational())
+		{
+			Warehouse* warehouse = static_cast<Warehouse*>(structure);
+			if (warehouse != wh)
+			{
+				ProductPool _tfrPool = warehouse->products();
+				transferProductsPool(_pool, _tfrPool);
+			}
+		}
+	}
+
+	if (!_pool.empty()) { return doYesNoMessage(constants::PRODUCT_TRANSFER_TITLE, constants::PRODUCT_TRANSFER_MESSAGE); }
+
+	return true;
+}
+
+
+/**
  * Attempts to move all products from a Warehouse into any remaining warehouses.
  */
 void moveProducts(Warehouse* wh)
@@ -343,7 +406,7 @@ void moveProducts(Warehouse* wh)
 			Warehouse* warehouse = static_cast<Warehouse*>(structure);
 			if (warehouse != wh)
 			{
-				transferProducts(wh, warehouse);
+				transferProductsStructure(wh, warehouse);
 			}
 		}
 	}

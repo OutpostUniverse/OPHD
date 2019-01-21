@@ -16,6 +16,10 @@ public:
 	ProductPool() = default;
 	~ProductPool() = default;
 
+	ProductPool(const ProductPool&) = default;
+	ProductPool& operator=(const ProductPool&) = default;
+
+public:
 	int capacity() const;
 
 	bool canStore(ProductType type, int count);
@@ -35,11 +39,8 @@ public:
 
 private:
 	template <class T>
-	friend void transferProducts(T& source, T& destination);
-
-private:
-	ProductPool(const ProductPool&) = delete;
-	ProductPool& operator=(const ProductPool&) = delete;
+	friend void transferProductsStructure(T&, T&);
+	friend void transferProductsPool(ProductPool&, ProductPool&);
 
 private:
 	ProductTypeCount	mProducts = {{ 0 }};
