@@ -60,7 +60,6 @@ auto myield = std::bind(mine_yield, std::ref(generator));
 TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int _md, int _mc, bool _s) :
 	mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),	mMaxDepth(_md),
 	mMapPath(map_path), mTsetPath(tset_path),
-	mTileSelector("ui/selector.png"),
 	mTileset(tset_path),
 	mMineBeacon("structures/mine_beacon.png")
 {
