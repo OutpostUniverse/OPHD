@@ -193,8 +193,15 @@ bool ResourcePool::empty() const
  *
  * \return Returns the remainder of the resource if any.
  */
-int ResourcePool::pushResource(ResourceType type, int amount)
+int ResourcePool::pushResource(ResourceType type, int amount, bool forced)
 {
+	if(forced)
+	{
+		_resourceTable[type] += amount;
+		_observerCallback();
+		return 0;
+	}
+
 	if (_capacity == 0)
 	{
 		std::cout << "ResourcePool::pushResource(): Incorrect use of operator. This ResourcePool has no capacity. Use operator+=() instead." << std::endl;

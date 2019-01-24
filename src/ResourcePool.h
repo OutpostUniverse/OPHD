@@ -85,8 +85,8 @@ public:
 	void food(int _i);
 
 
-	int pushResource(ResourceType type, int amount);
-	int pullResource(ResourceType type, int amount);
+	int pushResource(ResourceType, int, bool forced = true);
+	int pullResource(ResourceType, int);
 
 	void pushResources(ResourcePool& rp);
 	void pullResources(ResourcePool& rp);

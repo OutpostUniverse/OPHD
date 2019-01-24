@@ -1,6 +1,12 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.7.10] - UNRELEASED
+
+### Fixed
+- Fixed an oversight which neglected to remove a dead robot from a Robot Command Center. This would lead to an abrupt program termination with the message "RobotCommand::removeRobot(): Removing a robot that is not under the command of this Robot Command Facility."
+
+
 ## [0.7.9] - 2019-01-20
 
 User interface overhaul and maintenance.

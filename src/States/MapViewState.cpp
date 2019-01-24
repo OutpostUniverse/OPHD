@@ -408,7 +408,17 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 			break;
 
 		case EventHandler::KEY_F10:
-			mDebug = !mDebug;
+			if (Utility<EventHandler>::get().control(mod) && Utility<EventHandler>::get().shift(mod))
+			{
+				mPlayerResources.pushResource(ResourcePool::RESOURCE_COMMON_METALS, 1000);
+				mPlayerResources.pushResource(ResourcePool::RESOURCE_COMMON_MINERALS, 1000);
+				mPlayerResources.pushResource(ResourcePool::RESOURCE_RARE_METALS, 1000);
+				mPlayerResources.pushResource(ResourcePool::RESOURCE_RARE_MINERALS, 1000);
+			}
+			else
+			{
+				mDebug = !mDebug;
+			}
 			break;
 
 		case EventHandler::KEY_F2:
@@ -1136,6 +1146,12 @@ void MapViewState::updateRobots()
 			if (robot_it->second->thing() == robot_it->first)
 			{
 				robot_it->second->removeThing();
+			}
+
+			/// \fixme	Brute force.
+			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::CLASS_ROBOT_COMMAND))
+			{
+				static_cast<RobotCommand*>(rcc)->removeRobot(robot_it->first);
 			}
 
 			mRobotPool.erase(robot_it->first);
