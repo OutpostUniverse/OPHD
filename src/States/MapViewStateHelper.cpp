@@ -333,7 +333,7 @@ RobotCommand* getAvailableRobotCommand()
 /**
  * Used in the product move simulation. Very brute force.
  */
-static void transferProductsPool(ProductPool& source, ProductPool& destination)
+void transferProductsPool(ProductPool& source, ProductPool& destination)
 {
 	if (source.empty() || destination.atCapacity()) { return; }
 

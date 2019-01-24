@@ -116,7 +116,6 @@ private:
 
 	TileArray			mTileMap;					/**<  */
 
-	NAS2D::Image		mTileSelector;				/**<  */
 	NAS2D::Image		mTileset;					/**<  */
 	NAS2D::Image		mMineBeacon;				/**<  */
 
