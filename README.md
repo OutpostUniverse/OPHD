@@ -17,9 +17,9 @@ Installation is simple: Extract the contents of the ZIP Archive into any folder.
 As this is not an installer package it is not distributed with any necessary dependencies. Please see the following sections for the requirements needed for your particular OS of choice.
 
 ### Windows Dependencies
-OutpostHD is built using Microsoft's Visual C++ 2015. If you haven't already, you may need to download and install the redistributable package from Microsoft. Follow this link and download the 32-Bit version of the Visual C++ runtime:
+OutpostHD is built using Microsoft's Visual C++ 2017. If you haven't already, you may need to download and install the redistributable package from Microsoft. Follow this link and download the 32-Bit version of the Visual C++ runtime:
 
-https://www.microsoft.com/en-us/download/details.aspx?id=48145
+https://outpost2.net/files/ophd/VC_redist.x86.exe
 
 ### MacOS X Dependencies
 The only current build of OutpostHD is Windows but as I understand MacOS X development and program distribution, MacOS distributions come as a 'bundle' with all necessary dependencies packaged in. That stated, there aren't any official osX builds (yet) but we're working on it!
@@ -30,13 +30,13 @@ OutpostHD does build and run under Linux. Some of the contributing maintainers h
 ## Configuration
 At the moment there are very few configurable options for OutpostHD. All of it must be done via the XML configuration file (config.xml) located in the 'data' subdirectory.
 
-Please use SANE values as there is no sanity checking except for minimum resolution (800x600). You can set the video resolution to whatever you want but if your monitor or graphics card doesn't support it don't expect things to work.
+Please use SANE values as there is no sanity checking except for minimum resolution (1000x700). You can set the video resolution to whatever you want but if your monitor or graphics card doesn't support it don't expect things to work.
 
 Audio options are limited to mixrate quality (currently only 11025, 22050 and 44100 are supported, please stay with one of these three options), channels (1 for mono, 2 for stereo), sfxvolume and musicvolume (between 0 and 128) and bufferlength. Aside for volume levels and mixrate, you should leave the rest of the options alone.
 
 When OutpostHD first starts it will start in full screen mode in the native resolution of your desktop. After the first time you run the game, a configuration file will be saved ('data/config.xml'). From there you can change your video resolution and whether or not you want to skip the splash screen.
 
-As a note, in windowed mode, the game window is resizable. Minimum window size is 800x600 but can theoretically be expanded to any modern resolution (this has been tested up to 1920x1080).
+As a note, in windowed mode, the game window is resizable. Minimum window size is 1000x700 but can theoretically be expanded to any modern resolution (this has been tested up to 1920x1080).
 
 ## Troubleshooting
 OutpostHD is in an early state of development so there's not much to say other than make sure you have the latest graphics drivers. Head on over to [the forums](http://forum.outpost2.net) for help getting OutpostHD running if you run into trouble.
@@ -111,6 +111,24 @@ A: Not yet; keybindings are hard coded. This will, however, change in the future
 A: This is a result of some budget GPU drivers attempting and failing to accommodate for texture resolutions that are not a power of two (e.g., 16x16, 32x32, 128x128, etc.). There really isn't a way to fix this as generally these issues show up on budget laptops and mobile devices with integrated Intel GPU's.
 
 This is something that will improve over time -- the game is still under heavy development and a lot changes under the hood. While we've made considerable effort to align all visuals to power of two textures, it's likely we're going to miss some here and there. We're working on it though it would be helpful if you could point it out for us on the discussion boards.
+
+**Q: Robots I'm building in the factory never become available. Why?**
+
+A: In order to use the robots that your factory builds, you'll need both a Robot Command Center and a Warehouse with enough space to store the robot.
+
+When robots are produced by a Factory, they are first moved to a Warehouse. On the next turn, they are assigned to a Robot Command Center. Without the Warehouse the Robot will sit, finished, on the Factory assembly line with nowhere to go.
+
+After they're moved to a Warehouse, you'll need to have a Robot Command Center with available slots. When you first start the game, you're given 3 slots for robots (this is for the initial three robots though after you place your miner you can build another robot type to fill the now vacant slot). Each Robot Command Center can handle 10 robots.
+
+**Q: There are mines that are distant from my colony that I can't place robots on. Why?**
+
+A: All robots and structures must be placed within the communications range of the Command Center or a Communications Tower. These are denoted on your minimap as a light blue circle.
+
+You can extend your communications range by building Communications Towers on the edges of your comm range.
+
+**Q: I've built Comm. Towers far away from my colony but I can't place structures, only robots. Why?**
+
+A: Structures must be built within the comm range of a Command Center. This is the large comm circle on your minimap.
 
 **Q: I have a question that's not answered here. How can I get help?**
 
