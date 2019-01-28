@@ -178,7 +178,7 @@ void MapViewState::load(const std::string& _path)
 	/**
 	 * StructureManager::updateEnergyProduction() overwrites the energy count in the player resource
 	 * pool so we store the original value here and set it after counting the total energy available.
-	 * Kind of a kludge but it works.
+	 * Kind of a kludge.
 	 */
 	int energy = mPlayerResources.energy();
 	Utility<StructureManager>::get().updateEnergyProduction(mPlayerResources, mPopulationPool);
@@ -187,11 +187,37 @@ void MapViewState::load(const std::string& _path)
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
 
-	if (mTurnCount == 0) { mBtnTurns.enabled(false); }
+	if (mTurnCount == 0)
+	{
+		if (Utility<StructureManager>::get().count() == 0)
+		{
+			mBtnTurns.enabled(false);
+			populateStructureMenu();
+		}
+		else
+		{
+			/**
+			 * There should only ever be one structure if the turn count is 0, the
+			 * SEED Lander which at this point should not have been deployed.
+			 */
+			StructureList& list = Utility<StructureManager>::get().structureList(Structure::CLASS_LANDER);
+			if (list.size() != 1) { throw std::runtime_error("MapViewState::load(): Turn counter at 0 but more than one structure in list."); }
 
-	populateStructureMenu();
+			SeedLander* s = dynamic_cast<SeedLander*>(list[0]);
+			if (!s) { throw std::runtime_error("MapViewState::load(): Structure in list is not a SeedLander."); }
 
-	// set level indicator string
+			s->deployCallback().connect(this, &MapViewState::deploySeedLander);
+
+			mStructures.dropAllItems();
+			mConnections.dropAllItems();
+			mBtnTurns.enabled(true);
+		}
+	}
+	else
+	{
+		populateStructureMenu();
+	}
+
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
 
 	mMapChangedCallback();
@@ -346,6 +372,11 @@ void MapViewState::readStructures(XmlElement* _ti)
 		if (type_id == SID_AIR_SHAFT && depth != 0)
 		{
 			static_cast<AirShaft*>(st)->ug(); // force underground state
+		}
+
+		if (type_id == SID_SEED_LANDER)
+		{
+			static_cast<SeedLander*>(st)->position(x, y);
 		}
 
 		st->age(age);
