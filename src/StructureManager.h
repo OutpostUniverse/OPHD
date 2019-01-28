@@ -13,9 +13,10 @@
 class StructureManager
 {
 public:
-	StructureManager();
-	~StructureManager();
+	StructureManager() = default;
+	~StructureManager() = default;
 
+public:
 	void addStructure(Structure* st, Tile* t);
 	void removeStructure(Structure* st);
 
@@ -57,5 +58,5 @@ private:
 	StructureTileTable	mStructureTileTable;		/**< List mapping Structure's to a particular tile. */
 	StructureClassTable	mStructureLists;			/**< Map containing all of the structure list types available. */
 
-	int					mTotalEnergyOutput;			/**< Total energy output of all energy producers in the structure list. */
+	int					mTotalEnergyOutput = 0;		/**< Total energy output of all energy producers in the structure list. */
 };

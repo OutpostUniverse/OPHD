@@ -497,6 +497,5 @@ void writeResources(XmlElement* _ti, ResourcePool& _rp)
  */
 void readResources(XmlElement* _ti, ResourcePool& _rp)
 {
-	if (_ti)
-		_rp.deserialize(_ti);
+	if (_ti) { _rp.deserialize(_ti); }
 }

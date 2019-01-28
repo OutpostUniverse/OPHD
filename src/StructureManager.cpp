@@ -44,26 +44,6 @@ static void fillPopulationRequirements(PopulationPool& _p, const PopulationRequi
 }
 
 
-
-
-/**
- * C'tor
- */
-StructureManager::StructureManager(): mTotalEnergyOutput(0)
-{}
-
-
-/**
- * D'tor
- *
- * \note	Things (aka Structures) are deleted whenever a Tile
- *			is deleted so this d'tor really doesn't need to do
- *			anything special.
- */
-StructureManager::~StructureManager()
-{}
-
-
 /**
  *
  */
