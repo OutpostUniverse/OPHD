@@ -132,11 +132,8 @@ void MapViewState::load(const std::string& _path)
 	Utility<StructureManager>::get().dropAllStructures();
 	mCCLocation(0, 0);	// Reset CC location
 
-	if (mTileMap)
-	{
-		delete mTileMap;
-		mTileMap = nullptr;
-	}
+	delete mTileMap;
+	mTileMap = nullptr;
 
 	XmlElement* map = root->firstChildElement("properties");
 	int depth = 0;
@@ -177,7 +174,15 @@ void MapViewState::load(const std::string& _path)
 	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::CLASS_STORAGE)));
 
 	checkConnectedness();
+
+	/**
+	 * StructureManager::updateEnergyProduction() overwrites the energy count in the player resource
+	 * pool so we store the original value here and set it after counting the total energy available.
+	 * Kind of a kludge but it works.
+	 */
+	int energy = mPlayerResources.energy();
 	Utility<StructureManager>::get().updateEnergyProduction(mPlayerResources, mPopulationPool);
+	mPlayerResources.energy(energy);
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
