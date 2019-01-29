@@ -290,7 +290,14 @@ void TileMap::draw()
 			{
 				if (row == mMapHighlight.y() && col == mMapHighlight.x())
 				{
-					r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 125, 200, 255, 255);
+					if (mShowConnections && tile->connected())
+					{
+						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 71, 224, 146, 255);
+					}
+					else
+					{
+						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 125, 200, 255, 255);
+					}
 				}
 				else
 				{
