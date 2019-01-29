@@ -7,7 +7,7 @@ Maintenance release.
 
 ### Fixed
 - Fixed an oversight which neglected to remove a dead robot from a Robot Command Center. This would lead to an abrupt program termination with the message "RobotCommand::removeRobot(): Removing a robot that is not under the command of this Robot Command Facility."
-- Fixed a logic mistake that prevented the mouse pick tile highlight from drawing when the connectedness overlay was active.
+- Fixed a logic mistake that failed to draw the mouse tile highlight when the connectedness overlay was turned on.
 - Fixed an issue which caused energy usage being displayed incorrectly when a savegame is loaded.
 
 
