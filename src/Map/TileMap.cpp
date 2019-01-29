@@ -275,9 +275,7 @@ void TileMap::draw()
 	int x = 0, y = 0;
 	Tile* tile = nullptr;
 
-	int tsetOffset = 0;
-
-	tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
+	int tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
 
 	for(int row = 0; row < mEdgeLength; row++)
 	{
@@ -290,9 +288,13 @@ void TileMap::draw()
 
 			if(tile->excavated())
 			{
-				if (mShowConnections)
+				if (row == mMapHighlight.y() && col == mMapHighlight.x())
 				{
-					if (tile->connected())
+					r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 125, 200, 255, 255);
+				}
+				else
+				{
+					if (mShowConnections && tile->connected())
 					{
 						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 0, 255, 0, 255);
 					}
@@ -301,26 +303,6 @@ void TileMap::draw()
 						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT);
 					}
 				}
-				else
-				{
-					if (row == mMapHighlight.y() && col == mMapHighlight.x())
-					{
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 125, 200, 255, 255);
-					}
-					else
-					{
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT);
-					}
-				}
-
-				/*
-				if (row == mMapHighlight.y() && col == mMapHighlight.x())
-				{
-					r.drawImage(mTileSelector,
-								mMapPosition.x() + ((mMapHighlight.x() - mMapHighlight.y()) * TILE_HALF_WIDTH),
-								mMapPosition.y() + (mMapHighlight.x() + mMapHighlight.y()) * TILE_HEIGHT_HALF_ABSOLUTE);
-				}
-				*/
 
 				// Draw a beacon on an unoccupied tile with a mine
 				if (tile->mine() != nullptr && !tile->thing())
@@ -339,7 +321,7 @@ void TileMap::draw()
 		}
 	}
 
-	if(mDebug) r.drawBox(mMapBoundingBox, 0, 200, 0);
+	//if (mDebug) { r.drawBox(mMapBoundingBox, 0, 200, 0); }
 
 	updateTileHighlight();
 }
