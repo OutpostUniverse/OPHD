@@ -1,14 +1,18 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.7.10] - UNRELEASED
+## [0.7.10] - 2019-01-29
 
 Maintenance release.
 
+### Changed
+- RobotCommand::addRobot() will no longer throw an exception if a robot appears to match an already existing robot. It will instead write this to the log and request that the user report the issue to the developer.
+
 ### Fixed
-- Fixed an oversight which neglected to remove a dead robot from a Robot Command Center. This would lead to an abrupt program termination with the message "RobotCommand::removeRobot(): Removing a robot that is not under the command of this Robot Command Facility."
+- Fixed an oversight which neglected to remove a dead robot from a Robot Command Center. This would lead to an abrupt program termination with the message "RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility."
 - Fixed a logic mistake that failed to draw the mouse tile highlight when the connectedness overlay was turned on.
 - Fixed an issue which caused energy usage being displayed incorrectly when a savegame is loaded.
+- Fixed a mistake which allowed the player to place Colonist and Cargo landers on Turn 0 if the SEED Lander had been placed.
 
 
 ## [0.7.9] - 2019-01-20
