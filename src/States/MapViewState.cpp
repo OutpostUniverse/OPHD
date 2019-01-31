@@ -778,8 +778,7 @@ void MapViewState::placeRobot()
 	//			is no need to check that the CC Location is anything other than { 0, 0 }.
 	if (outOfCommRange(mCCLocation, mTileMap, tile))
 	{
-		std::cout << "Robot out of range!" << std::endl;
-		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::OUT_OF_COMM_RANGE);
+		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_OUT_OF_COMM_RANGE);
 		return;
 	}
 
@@ -792,8 +791,13 @@ void MapViewState::placeRobot()
 		{
 			return;
 		}
-		else if (tile->mine() && tile->mine()->depth() == mTileMap->maxDepth() && tile->mine()->exhausted())
+		else if (tile->mine())
 		{
+			if (tile->mine()->depth() != mTileMap->maxDepth() || !tile->mine()->exhausted())
+			{
+				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINE_NOT_EXHAUSTED);
+			}
+
 			mMineOperationsWindow.hide();
 			mTileMap->removeMineLocation(mTileMap->tileMouseHover());
 			tile->pushMine(nullptr);
@@ -819,15 +823,13 @@ void MapViewState::placeRobot()
 			if (_s->isMineFacility()) { return; }
 			if (_s->structureClass() == Structure::CLASS_COMMAND)
 			{
-				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::CC_NO_BULLDOZE);
-				std::cout << "Can't bulldoze a Command Center!" << std::endl;
+				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_CC);
 				return;
 			}
 
 			if (_s->structureClass() == Structure::CLASS_LANDER && _s->age() == 0)
 			{
-				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::LANDER_NO_BULLDOZE); ///\fixme Change this to an invalid dozer warning.
-				std::cout << "Can't place a bulldozer on a landing site!" << std::endl;
+				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_LANDING_SITE);
 				return;
 			}
 
@@ -855,7 +857,7 @@ void MapViewState::placeRobot()
 		}
 		else if (tile->index() == TERRAIN_DOZED)
 		{
-			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::TILE_BULLDOZED);
+			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_TILE_BULLDOZED);
 			return;
 		}
 
@@ -875,8 +877,7 @@ void MapViewState::placeRobot()
 		// Keep digger within a safe margin of the map boundaries.
 		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
 		{
-			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
-			std::cout << "MapViewState::placeRobot(): Can't place digger within 3 tiles of the edge of a map." << std::endl;
+			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_EDGE_BUFFER);
 			return;
 		}
 
@@ -889,37 +890,38 @@ void MapViewState::placeRobot()
 		// Check for obstructions underneath the the digger location.
 		if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->x(), tile->y(), tile->depth() + 1)->empty())
 		{
-			std::cout << "Digger blocked underneath." << std::endl;
-			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
+			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_BLOCKED_BELOW);
 			return;
 		}
 
 		if (tile->hasMine())
 		{
-			std::cout << "Digger destroyed a mine." << std::endl;
-			mTileMap->removeMineLocation(Point_2d(tile->x(), tile->y()));
+			if (doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE))
+			{
+				std::cout << "Digger destroyed a Mine at (" << mTileMap->tileMouseHoverX() << ", " << mTileMap->tileMouseHoverY() << ")." << std::endl;
+				mTileMap->removeMineLocation(Point_2d(tile->x(), tile->y()));
+			}
 		}
 
 		// Die if tile is occupied or not excavated.
 		if (!tile->empty())
 		{
-
 			if (tile->depth() > constants::DEPTH_SURFACE)
 			{
 				if (tile->thingIsStructure() && tile->structure()->connectorDirection() != CONNECTOR_VERTICAL) //air shaft
 				{
-					Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
+					doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
 					return;
 				}
 				else if (tile->thingIsStructure() && tile->structure()->connectorDirection() == CONNECTOR_VERTICAL && tile->depth() == mTileMap->maxDepth())
 				{
-					Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::MAX_DIGGING_DEPTH_REACHED);
+					doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MAX_DIG_DEPTH);
 					return;
 				}
 			}
 			else
 			{
-				Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT); // tile occupied
+				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
 				return;
 			}
 		}
@@ -955,14 +957,12 @@ void MapViewState::placeRobot()
 	// Robominer has been selected.
 	else if(mCurrentRobot == ROBOT_MINER)
 	{
-		if (tile->thing() || !tile->mine() || !tile->excavated())
-		{
-			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_MINER_PLACEMENT);
-			return;
-		}
+		if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
+		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return;  }
+		if (!tile->mine()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_NOT_ON_MINE); return; }
 
 		Robot* r = mRobotPool.getMiner();
-		r->startTask(6);
+		r->startTask(constants::MINER_TASK_TIME);
 		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
 		tile->index(TERRAIN_DOZED);
 
@@ -1101,8 +1101,6 @@ void MapViewState::insertSeedLander(int x, int y)
 		// check for obstructions
 		if (!landingSiteSuitable(mTileMap, x, y))
 		{
-			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
-			std::cout << "Unable to place SEED Lander. Tiles obstructed." << std::endl;
 			return;
 		}
 

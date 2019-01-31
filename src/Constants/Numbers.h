@@ -27,6 +27,8 @@ namespace constants
 
 	const int COLONY_SHIP_ORBIT_TIME = 24;
 
+	const int MINER_TASK_TIME = 6;
+
 	const int COMMAND_CENTER_POPULATION_CAPACITY = 10;
 	const int MINIMUM_RESIDENCE_OVERCAPACITY_HIT = 1;
 

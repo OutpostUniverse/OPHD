@@ -205,4 +205,32 @@ namespace constants
 	// = UI STRINGS
 	// =====================================
 	const std::string BUTTON_TAKE_ME_THERE = "Take Me There";
+
+	// =====================================
+	// = ALERT AND ERROR MESSAGES
+	// =====================================
+	const std::string ALERT_INVALID_ROBOT_PLACEMENT = "Invalid Robot Action";
+
+	const std::string ALERT_MINE_NOT_EXHAUSTED = "Mines can only be bulldozed after they have been fully extended and are completely exhausted.";
+	const std::string ALERT_CANNOT_BULLDOZE_CC = "The Command Center cannot be bulldozed.";
+	const std::string ALERT_CANNOT_BULLDOZE_LANDING_SITE = "Landing sites cannot be bulldozed.";
+	const std::string ALERT_TILE_BULLDOZED = "This tile has already been bulldozed.";
+
+	const std::string ALERT_DIGGER_EDGE_BUFFER = ROBODIGGER + "'s cannot be placed within 3 tiles of the edge of the site map.";
+	const std::string ALERT_DIGGER_BLOCKED_BELOW = "The " + ROBODIGGER + " cannot dig down because it is obstructed by something below.";
+	const std::string ALERT_DIGGER_MINE_TITLE = "Destroy mine?";
+	const std::string ALERT_DIGGER_MINE = "The selected tile contains a mine. Placing a " + ROBODIGGER + "here will destroy the mine. Do you want to place a " + ROBODIGGER + " here?";
+
+	const std::string ALERT_MINER_TILE_OBSTRUCTED = "Cannot place " + ROBOMINER + " because there is an object on the selected tile.";
+	const std::string ALERT_MINER_SURFACE_ONLY = "The " + ROBOMINER + " can only be placed on the surface.";
+	const std::string ALERT_MINER_NOT_ON_MINE = "The " + ROBOMINER + " can only be placed on a marked Mine.";
+
+	const std::string ALERT_MAX_DIG_DEPTH = "The maximum digging depth for this planet has already been reached.";
+	const std::string ALERT_STRUCTURE_IN_WAY = "A " + ROBODIGGER + " cannot be placed on a Structure.";
+
+	const std::string ALERT_OUT_OF_COMM_RANGE = "The selected tile is out of communications range.";
+
+	const std::string ALERT_LANDER_LOCATION = "Lander Location";
+	const std::string ALERT_SEED_TERRAIN = "The " + SEED_LANDER + " cannot be placed on or near Impassable terrain.";
+	const std::string ALERT_SEED_MINE = "The " + SEED_LANDER + " cannot be placed on or near a tile flagged with a Mine.";
 }

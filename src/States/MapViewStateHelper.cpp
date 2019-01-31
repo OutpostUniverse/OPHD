@@ -162,7 +162,10 @@ int totalStorage(StructureList& _sl)
  * Check landing site for obstructions such as mining beacons, things
  * and impassable terrain.
  * 
- * This is used for the SEED Lander only
+ * This is used for the SEED Lander only.
+ * 
+ * \note	This function will trigger modal dialog boxes to alert
+ *			the user as to why the landing site isn't suitable.
  */
 bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 {
@@ -171,9 +174,21 @@ bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 		for (int offX = x - 1; offX <= x + 1; ++offX)
 		{
 			Tile* tile = tilemap->getTile(offX, offY);
-			if (tile->index() == TERRAIN_IMPASSABLE || tile->mine() || tile->thing())
+
+			if (tile->index() == TERRAIN_IMPASSABLE)
 			{
+				doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
 				return false;
+			}
+			else if (tile->mine())
+			{
+				doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_MINE);
+				return false;
+			}
+			else if (tile->thing())
+			{
+				// This is a case that should never happen. If it does, blow up loudly.
+				throw std::runtime_error("Tile obstructed by a Thing other than a Mine.");
 			}
 		}
 	}
