@@ -1004,15 +1004,38 @@ void MapViewState::placeStructure()
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
 		(tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE))
 	{
-		std::cout << "Cannot build structures more than " << constants::ROBOT_COM_RANGE << " tiles away from Command Center." << std::endl;
-		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
+		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_OUT_OF_RANGE);
 		return;
 	}
 
-	if(tile->mine() || tile->thing() || (!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
+	if (tile->mine())
 	{
-		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
-		std::cout << "MapViewState::placeStructure(): Tile is unsuitable to place a structure." << std::endl;
+		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_MINE_IN_WAY);
+		return;
+	}
+	
+	if (tile->thing())
+	{
+		if (tile->thingIsStructure())
+		{
+			doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_TILE_OBSTRUCTED);
+		}
+		else
+		{
+			doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_TILE_THING);
+		}
+		return;
+	}
+
+	if((!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
+	{
+		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_TERRAIN);
+		return;
+	}
+
+	if (!tile->excavated())
+	{
+		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_EXCAVATED);
 		return;
 	}
 
@@ -1059,16 +1082,14 @@ void MapViewState::placeStructure()
 	{
 		if (!validStructurePlacement(mTileMap, tile_x, tile_y) && !selfSustained(mCurrentStructure))
 		{
-			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_STRUCTURE_PLACEMENT);
-			std::cout << "MapViewState::placeStructure(): Invalid structure placement." << std::endl;
+			doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_NO_TUBE);
 			return;
 		}
 
 		// Check build cost
-		if (!StructureCatalogue::canBuild(mPlayerResources, static_cast<StructureID>(mCurrentStructure)))
+		if (!StructureCatalogue::canBuild(mPlayerResources, mCurrentStructure))
 		{
-			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
-			std::cout << "MapViewState::placeStructure(): Insufficient resources to build structure." << std::endl;
+			resourceShortageMessage(mPlayerResources, mCurrentStructure);
 			return;
 		}
 
@@ -1116,7 +1137,7 @@ void MapViewState::insertSeedLander(int x, int y)
 	}
 	else
 	{
-		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
+		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_EDGE_BUFFER);
 	}
 }
 

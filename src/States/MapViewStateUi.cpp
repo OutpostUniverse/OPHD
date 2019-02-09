@@ -405,8 +405,7 @@ void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _ite
 	// Check availability
 	if (!_item->available)
 	{
-		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INSUFFICIENT_RESOURCES);
-		std::cout << "MapViewState::placeStructure(): Insufficient resources to build structure." << std::endl;
+		resourceShortageMessage(mPlayerResources, StructureTranslator::translateFromString(_item->name));
 		mStructures.clearSelection();
 		return;
 	}

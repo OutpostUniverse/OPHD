@@ -39,6 +39,8 @@ RobotCommand* getAvailableRobotCommand();
 bool simulateMoveProducts(Warehouse*);
 void moveProducts(Warehouse*);
 
+void resourceShortageMessage(ResourcePool&, StructureID);
+
 
 // Serialize / Deserialize
 void writeRobots(NAS2D::Xml::XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);

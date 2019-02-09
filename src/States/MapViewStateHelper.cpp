@@ -14,6 +14,8 @@
 
 #include "../AiVoiceNotifier.h"
 #include "../Constants.h"
+#include "../StructureCatalogue.h"
+
 
 #include "../Things/Structures/RobotCommand.h"
 #include "../Things/Structures/Warehouse.h"
@@ -73,21 +75,29 @@ bool checkTubeConnection(Tile* _tile, Direction _dir, ConnectorDir _source_conne
 bool checkStructurePlacement(Tile* tile, Direction dir)
 {
 	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure() || !tile->connected())
+	{
 		return false;
+	}
 
 	Structure* _structure = tile->structure();
 	if (!_structure->isConnector())
+	{
 		return false;
+	}
 
 	if (dir == DIR_EAST || dir == DIR_WEST)
 	{
 		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT)
+		{
 			return true;
+		}
 	}
 	else // NORTH/SOUTH
 	{
 		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT)
+		{
 			return true;
+		}
 	}
 
 	return false;
@@ -115,7 +125,7 @@ bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir _cd)
  */
 bool validStructurePlacement(TileMap* tilemap, int x, int y)
 {
-	return	checkStructurePlacement(tilemap->getTile(x, y - 1, tilemap->currentDepth()), DIR_NORTH) ||
+	return checkStructurePlacement(tilemap->getTile(x, y - 1, tilemap->currentDepth()), DIR_NORTH) ||
 		checkStructurePlacement(tilemap->getTile(x + 1, y, tilemap->currentDepth()), DIR_EAST) ||
 		checkStructurePlacement(tilemap->getTile(x, y + 1, tilemap->currentDepth()), DIR_SOUTH) ||
 		checkStructurePlacement(tilemap->getTile(x - 1, y, tilemap->currentDepth()), DIR_WEST);
@@ -425,6 +435,32 @@ void moveProducts(Warehouse* wh)
 			}
 		}
 	}
+}
+
+
+/**
+ * Displays a message indicating that there are not enough resources to build
+ * a structure and what the missing resources are.
+ */
+void resourceShortageMessage(ResourcePool& _rp, StructureID sid)
+{
+	const ResourcePool& cost = StructureCatalogue::costToBuild(sid);
+
+	ResourcePool missing;
+	
+	if (_rp.commonMetals() < cost.commonMetals()) { missing.commonMetals(cost.commonMetals() - _rp.commonMetals()); }
+	if (_rp.commonMinerals() < cost.commonMinerals()) { missing.commonMinerals(cost.commonMinerals() - _rp.commonMinerals()); }
+	if (_rp.rareMetals() < cost.rareMetals()) { missing.rareMetals(cost.rareMetals() - _rp.rareMetals()); }
+	if (_rp.rareMinerals() < cost.rareMinerals()) { missing.rareMinerals(cost.rareMinerals() - _rp.rareMinerals()); }
+
+	std::string message = constants::ALERT_STRUCTURE_INSUFFICIENT_RESORUCES;
+
+	if (missing.commonMetals() != 0) { message += std::to_string(missing.commonMetals()) + " Common Metals" + "\n"; }
+	if (missing.commonMinerals() != 0) { message += std::to_string(missing.commonMinerals()) + " Common Minerals" + "\n"; }
+	if (missing.rareMetals() != 0) { message += std::to_string(missing.rareMetals()) + " Rare Metals" + "\n"; }
+	if (missing.rareMinerals() != 0) { message += std::to_string(missing.rareMinerals()) + " Rare Minerals"; }
+
+	doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, message);
 }
 
 
