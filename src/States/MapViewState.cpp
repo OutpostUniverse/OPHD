@@ -853,6 +853,7 @@ void MapViewState::placeRobot()
 			Utility<StructureManager>::get().removeStructure(_s);
 			tile->deleteThing();
 			Utility<StructureManager>::get().disconnectAll();
+			static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(TERRAIN_DOZED));
 			checkConnectedness();
 		}
 		else if (tile->index() == TERRAIN_DOZED)
@@ -863,6 +864,7 @@ void MapViewState::placeRobot()
 
 		r->startTask(tile->index());
 		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
+		static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(tile->index()));
 		tile->index(TERRAIN_DOZED);
 
 		if(!mRobotPool.robotAvailable(ROBOT_DOZER))
@@ -1160,6 +1162,8 @@ void MapViewState::updateRobots()
 			if (robot_it->first->name() != constants::ROBOMINER)
 			{
 				doAlertMessage(constants::ROBOT_BREAKDOWN_TITLE, string_format(constants::ROBOT_BREAKDOWN_MESSAGE, robot_it->first->name().c_str(), robot_it->second->x(), robot_it->second->y()));
+				Robodozer* _d = dynamic_cast<Robodozer*>(robot_it->first);
+				if (_d) { robot_it->second->index(_d->tileIndex()); }
 			}
 
 			if (robot_it->second->thing() == robot_it->first)

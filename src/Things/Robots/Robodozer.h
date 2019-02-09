@@ -14,5 +14,11 @@ public:
 
 	virtual ~Robodozer() {}
 
+	void tileIndex(size_t index) { mTileIndex = index; }
+	size_t tileIndex() const { return mTileIndex; }
+
 	void update() { updateTask(); }
+
+private:
+	size_t mTileIndex = 0;
 };
