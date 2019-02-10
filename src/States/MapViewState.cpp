@@ -270,7 +270,7 @@ int MapViewState::foodTotalStorage()
 	int food_storage = 0;
 
 	// Command Center has a limited amount of food storage for when colonists first land.
-	if (mCCLocation.x() != 0)
+	if (ccLocationX() != 0)
 	{
 		food_storage += constants::BASE_STORAGE_CAPACITY;
 	}
@@ -776,7 +776,7 @@ void MapViewState::placeRobot()
 	
 	// NOTE:	This function will never be called until the seed lander is deployed so there
 	//			is no need to check that the CC Location is anything other than { 0, 0 }.
-	if (outOfCommRange(mCCLocation, mTileMap, tile))
+	if (outOfCommRange(ccLocation(), mTileMap, tile))
 	{
 		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_OUT_OF_COMM_RANGE);
 		return;
@@ -1000,7 +1000,7 @@ void MapViewState::placeStructure()
 	// NOTE:	This function will never be called until the seed lander is deployed so there
 	//			is no need to check that the CC Location is anything other than { 0, 0 }.
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		(tile->distanceTo(mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0)) > constants::ROBOT_COM_RANGE))
+		(tile->distanceTo(mTileMap->getTile(ccLocationX(), ccLocationY(), 0)) > constants::ROBOT_COM_RANGE))
 	{
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_OUT_OF_RANGE);
 		return;
@@ -1222,13 +1222,13 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
  */
 void MapViewState::checkConnectedness()
 {
-	if (mCCLocation.x() == 0 && mCCLocation.y() == 0)
+	if (ccLocationX() == 0 && ccLocationY() == 0)
 	{
 		return;
 	}
 
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
-	Tile *t = mTileMap->getTile(mCCLocation.x(), mCCLocation.y(), 0);
+	Tile *t = mTileMap->getTile(ccLocationX(), ccLocationY(), 0);
 	Structure *cc = t->structure();
 
 	if (!cc)
@@ -1244,7 +1244,7 @@ void MapViewState::checkConnectedness()
 	t->connected(true);
 
 	// Start graph walking at the CC location.
-	GraphWalker graphWalker(mCCLocation, 0, mTileMap);
+	GraphWalker graphWalker(ccLocation(), 0, mTileMap);
 }
 
 

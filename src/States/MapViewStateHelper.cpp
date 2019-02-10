@@ -26,6 +26,36 @@ using namespace NAS2D::Xml;
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 
 
+static Point_2d COMMAND_CENTER_LOCATION;
+
+
+/**
+ * 
+ */
+Point_2d& ccLocation()
+{
+	return COMMAND_CENTER_LOCATION;
+}
+
+
+/**
+ * 
+ */
+int ccLocationX()
+{
+	return COMMAND_CENTER_LOCATION.x();
+}
+
+
+/**
+ * 
+ */
+int ccLocationY()
+{
+	return COMMAND_CENTER_LOCATION.y();
+}
+
+
 /**
  * Checks to see if a given tube connection is valid.
  * 
@@ -151,6 +181,15 @@ bool validLanderSite(Tile* t)
 	if (!t->empty())
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TILE_OBSTRUCTED);
+		return false;
+	}
+
+	// bleh, direct copy from Tile::distanceTo()
+	int _x = t->x() - ccLocationX(), _y = t->y() - ccLocationY();
+	float _dist = sqrt((_x * _x) + (_y * _y));
+	if (_dist > constants::LANDER_COM_RANGE)
+	{
+		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_COMM_RANGE);
 		return false;
 	}
 

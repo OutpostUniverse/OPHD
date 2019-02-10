@@ -20,6 +20,9 @@ typedef std::map<Robot*, Tile*> RobotTileTable; /**<  */
 class Warehouse;	/**< Forward declaration for getAvailableWarehouse() function. */
 class RobotCommand;	/**< Forward declaration for getAvailableRobotCommand() function. */
 
+NAS2D::Point_2d& ccLocation();
+int ccLocationX();
+int ccLocationY();
 
 bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir _source_connector_dir);
 bool checkStructurePlacement(Tile* tile, Direction dir);
@@ -40,7 +43,6 @@ bool simulateMoveProducts(Warehouse*);
 void moveProducts(Warehouse*);
 
 void resourceShortageMessage(ResourcePool&, StructureID);
-
 
 // Serialize / Deserialize
 void writeRobots(NAS2D::Xml::XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);

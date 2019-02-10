@@ -67,10 +67,10 @@ void MapViewState::drawMiniMap()
 	if (mBtnToggleHeightmap.toggled()) { r.drawImage(mHeightMap, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y()); }
 	else { r.drawImage(mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y()); }
 
-	if (mCCLocation.x() != 0 && mCCLocation.y() != 0)
+	if (ccLocationX() != 0 && ccLocationY() != 0)
 	{
-		r.drawSubImage(mUiIcons, mCCLocation.x() + mMiniMapBoundingBox.x() - 15, mCCLocation.y() + mMiniMapBoundingBox.y() - 15, 166, 226, 30, 30);
-		r.drawBoxFilled(mCCLocation.x() + mMiniMapBoundingBox.x() - 1, mCCLocation.y() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
+		r.drawSubImage(mUiIcons, ccLocationX() + mMiniMapBoundingBox.x() - 15, ccLocationY() + mMiniMapBoundingBox.y() - 15, 166, 226, 30, 30);
+		r.drawBoxFilled(ccLocationX() + mMiniMapBoundingBox.x() - 1, ccLocationY() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
 	}
 
 	for (auto _tower : Utility<StructureManager>::get().structureList(Structure::CLASS_COMM))

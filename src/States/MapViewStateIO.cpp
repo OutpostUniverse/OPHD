@@ -126,7 +126,7 @@ void MapViewState::load(const std::string& _path)
 	scrubRobotList();
 	mPlayerResources.clear();
 	Utility<StructureManager>::get().dropAllStructures();
-	mCCLocation(0, 0);	// Reset CC location
+	ccLocation()(0, 0);	// Reset CC location
 
 	delete mTileMap;
 	mTileMap = nullptr;
@@ -340,7 +340,7 @@ void MapViewState::readStructures(XmlElement* _ti)
 
 		if (type_id == SID_COMMAND_CENTER)
 		{
-			mCCLocation(x, y);
+			ccLocation()(x, y);
 		}
 
 		if (type_id == SID_MINE_FACILITY)

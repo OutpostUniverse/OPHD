@@ -8,6 +8,7 @@ Maintenance release.
 ### Changed
 - The AI Voice notifications for errors have been replaced with message boxes providing much greater detail about what the issue actually is.
 - Robodozer's that 'die' during their task will no longer leave the tile it was on as 'bulldozed' and instead will revert it to its original terrain type.
+- Cargo and Colonist landers are now restricted to landing within 5 tiles of the command center.
 
 
 ## [0.7.10] - 2019-01-29

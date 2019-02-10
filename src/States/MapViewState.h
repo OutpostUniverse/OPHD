@@ -200,7 +200,6 @@ private:
 	Image				mUiIcons;						/**< User interface icons. */
 
 	Point_2d			mTileMapMouseHover;				/**< Tile position the mouse is currently hovering over. */
-	Point_2d			mCCLocation;					/**< Location of the Command Center. */
 
 	Rectangle_2d		mMiniMapBoundingBox;			/**< Area of the site map display. */
 

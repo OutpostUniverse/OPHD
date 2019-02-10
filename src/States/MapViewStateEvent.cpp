@@ -142,7 +142,7 @@ void MapViewState::deploySeedLander(int x, int y)
 	cc->sprite().skip(3);
 	Utility<StructureManager>::get().addStructure(cc, mTileMap->getTile(x + 1, y - 1));
 	mTileMap->getTile(x + 1, y - 1)->index(TERRAIN_DOZED);
-	mCCLocation(x + 1, y - 1);
+	ccLocation()(x + 1, y - 1);
 
 	// MIDDLE ROW
 	mTileMap->getTile(x - 1, y)->index(TERRAIN_DOZED);
