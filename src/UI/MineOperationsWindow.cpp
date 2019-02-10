@@ -18,6 +18,9 @@ static std::string		COMMON_MINERALS_COUNT;
 static std::string		RARE_METALS_COUNT;
 static std::string		RARE_MINERALS_COUNT;
 
+static std::string		STATUS_STRING;
+static std::string		EXTENTION_TIME_REMAINING;
+
 static int				COMMON_METALS_ORE_POSITION;
 static int				COMMON_MINERALS_ORE_POSITION;
 static int				RARE_METALS_ORE_POSITION;
@@ -28,6 +31,9 @@ static std::string		MINE_DEPTH;
 
 static const int		MINE_YIELD_POSITION = 148;
 static int				MINE_YIELD_DESCRIPTION_POSITION = 0;
+
+static int				MINE_STATUS_POSITION;
+static int				EXTENSION_TURNS_REMAINING_POSITION;
 
 static const int		MINE_DEPTH_POSITION = 300;
 static int				MINE_DEPTH_VALUE_POSITION;
@@ -142,6 +148,10 @@ void MineOperationsWindow::mineFacility(MineFacility* _mf)
 	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Mine Yield:") + 10;
 	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + FONT_BOLD->width("Depth:") + 10;
 
+	MINE_STATUS_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Status:") + 10;
+	EXTENSION_TURNS_REMAINING_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Turns Remaining:") + 10;
+
+
 	chkCommonMetals.checked(mFacility->mine()->miningCommonMetals());
 	chkCommonMinerals.checked(mFacility->mine()->miningCommonMinerals());
 	chkRareMetals.checked(mFacility->mine()->miningRareMetals());
@@ -173,6 +183,11 @@ void MineOperationsWindow::updateCounts()
 	COMMON_MINERALS_ORE_POSITION = COMMON_MINERALS_POS - (FONT->width(COMMON_MINERALS_COUNT) / 2) + 8;
 	RARE_METALS_ORE_POSITION = RARE_METALS_POS - (FONT->width(RARE_METALS_COUNT) / 2) + 8;
 	RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (FONT->width(RARE_MINERALS_COUNT) / 2) + 8;
+
+	if (mFacility->extending()) { STATUS_STRING = "Digging New Level"; }
+	else { STATUS_STRING = structureStateDescription(mFacility->state()); }
+
+	EXTENTION_TIME_REMAINING = std::to_string(mFacility->digTimeRemaining());
 }
 
 
@@ -192,6 +207,7 @@ void MineOperationsWindow::btnExtendShaftClicked()
 {
 	mFacility->extend();
 	btnExtendShaft.enabled(false);
+	updateCounts();
 }
 
 
@@ -255,6 +271,20 @@ void MineOperationsWindow::update()
 
 	r.drawText(*FONT_BOLD, "Mine Yield:", rect().x() + MINE_YIELD_POSITION, rect().y() + 30, 255, 255, 255);
 	r.drawText(*FONT, MINE_YIELD, rect().x() + MINE_YIELD_DESCRIPTION_POSITION, rect().y() + 30, 255, 255, 255);
+
+	r.drawText(*FONT_BOLD, "Status:", rect().x() + MINE_YIELD_POSITION, rect().y() + 45, 255, 255, 255);
+
+	if (mFacility->extending()) { STATUS_STRING = "Digging New Level"; }
+	else if (mFacility->mine()->exhausted()) { STATUS_STRING = "Exhausted"; }
+	else { STATUS_STRING = structureStateDescription(mFacility->state()); }
+	
+	r.drawText(*FONT, STATUS_STRING, rect().x() + MINE_STATUS_POSITION, rect().y() + 45, 255, 255, 255);
+
+	if (mFacility && mFacility->extending())
+	{
+		r.drawText(*FONT_BOLD, "Turns Remaining:", rect().x() + MINE_YIELD_POSITION, rect().y() + 60, 255, 255, 255);
+		r.drawText(*FONT, EXTENTION_TIME_REMAINING, rect().x() + EXTENSION_TURNS_REMAINING_POSITION, rect().y() + 60, 255, 255, 255);
+	}
 
 	r.drawText(*FONT_BOLD, "Depth:", rect().x() + MINE_DEPTH_POSITION, rect().y() + 30, 255, 255, 255);
 	r.drawText(*FONT, MINE_DEPTH, rect().x() + MINE_DEPTH_VALUE_POSITION, rect().y() + 30, 255, 255, 255);
