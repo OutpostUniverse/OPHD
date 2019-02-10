@@ -79,7 +79,6 @@ void StructureInspector::structure(Structure* _st)
 {
 	mStructure = _st;
 	mStructureClass = structureClassDescription(mStructure->structureClass());
-	mStructureState = structureStateDescription(mStructure->state());
 }
 
 
@@ -131,7 +130,7 @@ void StructureInspector::update()
 	r.drawText(*FONT, mStructureClass, rect().x() + 5 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
 
 	r.drawText(*FONT_BOLD, "State:", rect().x() + 190, rect().y() + 25, 255, 255, 255);
-	r.drawText(*FONT, mStructureState, rect().x() + 190 + FONT_BOLD->width("State: "), rect().y() + 25, 255, 255, 255);
+	r.drawText(*FONT, structureStateDescription(mStructure->state()), rect().x() + 190 + FONT_BOLD->width("State: "), rect().y() + 25, 255, 255, 255);
 
 	if (mStructure->underConstruction())
 	{

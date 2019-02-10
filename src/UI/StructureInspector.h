@@ -32,7 +32,6 @@ private:
 	NAS2D::Image	mIcons;
 
 	std::string		mStructureClass;
-	std::string		mStructureState;
 
 	Structure*		mStructure = nullptr;
 };
