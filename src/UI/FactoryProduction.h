@@ -28,7 +28,7 @@ private:
 	void btnOkayClicked();
 	void btnCancelClicked();
 	void btnClearSelectionClicked();
-	void btnIdleClicked();
+	void chkIdleClicked();
 	void btnApplyClicked();
 
 	void clearProduct();
@@ -50,6 +50,8 @@ private:
 	Button				btnOkay;
 	Button				btnCancel;
 	Button				btnClearSelection;
-	Button				btnIdle;
 	Button				btnApply;
+
+	CheckBox			chkIdle;
+
 };

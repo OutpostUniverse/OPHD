@@ -57,19 +57,19 @@ void FactoryProduction::init()
 
 	add(&btnClearSelection, 5, 138);
 	btnClearSelection.text("Clear Selection");
-	btnClearSelection.size(90, 20);
+	btnClearSelection.size(mProductGrid.width(), 20);
 	btnClearSelection.click().connect(this, &FactoryProduction::btnClearSelectionClicked);
 
-	add(&btnIdle, mProductGrid.positionX() + mProductGrid.width() - 40, 138);
-	btnIdle.text("Idle");
-	btnIdle.size(40, 20);
-	btnIdle.click().connect(this, &FactoryProduction::btnIdleClicked);
-	btnIdle.type(Button::BUTTON_TOGGLE);
-
-	add(&btnApply, btnIdle.positionX() + btnIdle.width() + 10, btnIdle.positionY());
+	add(&btnApply, mProductGrid.width() + 12, btnClearSelection.positionY());
 	btnApply.text("Apply");
 	btnApply.size(40, 20);
 	btnApply.click().connect(this, &FactoryProduction::btnApplyClicked);
+
+	add(&chkIdle, mProductGrid.width() + 12, 115);
+	chkIdle.text("Idle");
+	chkIdle.size(50, 20);
+	chkIdle.click().connect(this, &FactoryProduction::chkIdleClicked);
+
 
 	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
@@ -157,11 +157,11 @@ void FactoryProduction::btnClearSelectionClicked()
 /**
  * 
  */
-void FactoryProduction::btnIdleClicked()
+void FactoryProduction::chkIdleClicked()
 {
 	if (!mFactory) { return; }
 	
-	mFactory->forceIdle(btnIdle.toggled());
+	mFactory->forceIdle(chkIdle.checked());
 }
 
 
@@ -180,11 +180,12 @@ void FactoryProduction::factory(Factory* _f)
 	// destroyed factories can't produce anything at all ever.
 	if (mFactory->destroyed())
 	{
-		btnIdle.enabled(false);
+		chkIdle.enabled(false);
+		chkIdle.checked(false);
 		return;
 	}
 
-	btnIdle.toggle(mFactory->isIdle());
+	chkIdle.checked(mFactory->isIdle());
 
 	const Factory::ProductionTypeList& ptlist = mFactory->productList();
 
