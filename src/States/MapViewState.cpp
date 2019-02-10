@@ -796,6 +796,7 @@ void MapViewState::placeRobot()
 			if (tile->mine()->depth() != mTileMap->maxDepth() || !tile->mine()->exhausted())
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINE_NOT_EXHAUSTED);
+				return;
 			}
 
 			mMineOperationsWindow.hide();
