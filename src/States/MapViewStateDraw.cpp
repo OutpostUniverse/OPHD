@@ -196,6 +196,9 @@ void MapViewState::drawResourceInfo()
  */
 void MapViewState::drawRobotInfo()
 {
+	// CC hasn't been placed yet.
+	if (ccLocationX() == 0) { return; }
+	
 	Renderer& r = Utility<Renderer>::get();
 
 	// Robots
