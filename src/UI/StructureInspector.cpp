@@ -130,8 +130,20 @@ void StructureInspector::update()
 	r.drawText(*FONT_BOLD, "Type:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
 	r.drawText(*FONT, mStructureClass, rect().x() + 5 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
 
-	r.drawText(*FONT_BOLD, "State:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
-	r.drawText(*FONT, mStructureState, rect().x() + 190 + FONT_BOLD->width("State: "), rect().y() + 45, 255, 255, 255);
+	r.drawText(*FONT_BOLD, "State:", rect().x() + 190, rect().y() + 25, 255, 255, 255);
+	r.drawText(*FONT, mStructureState, rect().x() + 190 + FONT_BOLD->width("State: "), rect().y() + 25, 255, 255, 255);
+
+	if (mStructure->underConstruction())
+	{
+		r.drawText(*FONT_BOLD, "Turns Remaining:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
+		r.drawText(*FONT, std::to_string(mStructure->turnsToBuild() - mStructure->age()), rect().x() + 190 + FONT_BOLD->width("Turns Remaining: "), rect().y() + 45, 255, 255, 255);
+	}
+	else
+	{
+		r.drawText(*FONT_BOLD, "Age:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
+		r.drawText(*FONT, std::to_string(mStructure->age()), rect().x() + 190 + FONT_BOLD->width("Age: "), rect().y() + 45, 255, 255, 255);
+	}
+
 
 	if (mStructure->disabled()) { r.drawText(*FONT, disabledReason(mStructure->disabledReason()), rect().x() + 190, rect().y() + 55, 255, 255, 255); }
 	
