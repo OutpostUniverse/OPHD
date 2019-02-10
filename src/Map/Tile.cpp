@@ -125,9 +125,9 @@ Robot* Tile::robot()
 /**
  * 
  */
-float Tile::distanceTo(Tile* _t)
+float Tile::distanceTo(Tile* t)
 {
-	int _x = _t->x() - x();
-	int _y = _t->y() - y();
-	return sqrt(_x*_x + _y*_y);
+	int x = t->x() - Tile::x();
+	int y = t->y() - Tile::y();
+	return sqrt((x * x) + (y * y));
 }

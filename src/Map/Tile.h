@@ -53,9 +53,9 @@ public:
 	void removeThing();
 
 	Mine* mine() { return mMine; }
-	void pushMine(Mine* _mine);
+	void pushMine(Mine*);
 
-	float distanceTo(Tile* _t);
+	float distanceTo(Tile*);
 
 
 protected:
