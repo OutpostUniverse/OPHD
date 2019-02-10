@@ -452,14 +452,6 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
  */
 void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t)
 {
-	// Don't dig beyond the dig depth of the planet.
-	if (mTileMap->currentDepth() == mTileMap->maxDepth() && _sel == DiggerDirection::SEL_DOWN)
-	{
-		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::MAX_DIGGING_DEPTH_REACHED);
-		std::cout << "MapViewState::diggerSelectionDialog(): Already at the maximum digging depth." << std::endl;
-		return;
-	}
-
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
 	// so clear it from the tile, disconnect the tile and run a connectedness search.

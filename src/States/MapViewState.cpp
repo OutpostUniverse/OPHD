@@ -760,7 +760,7 @@ void MapViewState::placeTubes()
 	}
 	else
 	{
-		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_TUBE_PLACEMENT);
+		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_TUBE_INVALID_LOCATION);
 	}
 }
 
@@ -883,11 +883,7 @@ void MapViewState::placeRobot()
 			return;
 		}
 
-		if (!tile->excavated())
-		{
-			Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::INVALID_DIGGER_PLACEMENT);
-			return;
-		}
+		if (!tile->excavated()) { return; }
 
 		// Check for obstructions underneath the the digger location.
 		if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->x(), tile->y(), tile->depth() + 1)->empty())

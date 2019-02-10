@@ -135,9 +135,6 @@ int main(int argc, char *argv[])
 		r.setCursor(POINTER_NORMAL);
 		r.fadeOut(0.0f);
 
-		// Force notifier to build its tables.
-		Utility<AiVoiceNotifier>::get();
-
 		std::cout << "Loading packed assets... ";
 
 		f.addToSearchPath("fonts.dat");

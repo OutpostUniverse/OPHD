@@ -237,6 +237,9 @@ namespace constants
 	const std::string ALERT_SEED_MINE = "The " + SEED_LANDER + " cannot be placed on or near a tile flagged with a Mine.";
 	const std::string ALERT_SEED_EDGE_BUFFER = SEED_LANDER + "'s cannot be placed within 3 tiles of the edge of the site map.";
 
+	const std::string ALERT_LANDER_TILE_OBSTRUCTED = "Cannot place Lander because there is an object on the selected tile.";
+	const std::string ALERT_LANDER_TERRAIN = "Landers cannot be placed on Impassable Terrain.";
+
 	const std::string ALERT_STRUCTURE_OUT_OF_RANGE = "Cannot build structures more than " + std::to_string(constants::ROBOT_COM_RANGE) + " tiles away from Command Center.";
 	const std::string ALERT_STRUCTURE_TILE_OBSTRUCTED = "The selected tile already has a structure on it. You must bulldoze the existing structure in order to build here.";
 	const std::string ALERT_STRUCTURE_TILE_THING = "The selected tile is occupied by another object.";
@@ -245,4 +248,6 @@ namespace constants
 	const std::string ALERT_STRUCTURE_EXCAVATED = "Structures can only be placed on a tile that has been excavated and bulldozed.";
 	const std::string ALERT_STRUCTURE_NO_TUBE = "The selected tile has no connection to the Command Center.";
 	const std::string ALERT_STRUCTURE_INSUFFICIENT_RESORUCES = "You have insufficient resources to build this Structure. To build this structure, you will need an additional:\n\n";
+
+	const std::string ALERT_TUBE_INVALID_LOCATION = "Tubes can only be placed on bulldozed tiles that are adjacent to other Tubes and Structures that have a connection to the Command Center.";
 }

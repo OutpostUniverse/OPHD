@@ -6,8 +6,6 @@
 
 #include "../UI/UI.h"
 
-#include "../AiVoiceNotifier.h"
-
 
 class PlanetSelectState : public NAS2D::State
 {
@@ -33,8 +31,6 @@ private:
 
 	void onWindowResized(int, int);
 
-	void btnMaleClicked();
-	void btnFemaleClicked();
 	void btnQuitClicked();
 
 	void drawStar(int x, int y);
@@ -57,9 +53,6 @@ private:
 	NAS2D::Point_2d	mMousePosition;
 
 	PlanetPtrList	mPlanets;
-
-	Button			mMale;
-	Button			mFemale;
 
 	Button			mQuit;
 

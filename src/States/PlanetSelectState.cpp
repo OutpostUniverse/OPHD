@@ -75,19 +75,6 @@ void PlanetSelectState::initialize()
 
 	PLANET_TYPE_SELECTION = Planet::PLANET_TYPE_NONE;
 
-	mMale.type(Button::BUTTON_TOGGLE);
-	mMale.text("Male");
-	mMale.size(50, 20);
-	mMale.position(5, 30);
-	mMale.toggle(true);
-	mMale.click().connect(this, &PlanetSelectState::btnMaleClicked);
-
-	mFemale.type(Button::BUTTON_TOGGLE);
-	mFemale.text("Female");
-	mFemale.size(50, 20);
-	mFemale.position(60, 30);
-	mFemale.click().connect(this, &PlanetSelectState::btnFemaleClicked);
-
 	mQuit.text("Main Menu");
 	mQuit.size(100, 20);
 	mQuit.position(r.width() - 105, 30);
@@ -141,8 +128,6 @@ State* PlanetSelectState::update()
 	r.drawText(*FONT_BOLD, "Ganymede Type", static_cast<float>(mPlanets[2]->x() + 64 - (FONT_BOLD->width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
 
 	r.drawText(*FONT, "AI Gender", 5, 5, 255, 255, 255);
-	mMale.update();
-	mFemale.update();
 	mQuit.update();
 
 	mPlanetDescription.update();
@@ -263,38 +248,6 @@ void PlanetSelectState::onWindowResized(int w, int h)
 
 	mQuit.position(w - 105, 30);
 	mPlanetDescription.position((w / 2) - 275, h - 225);
-}
-
-
-void PlanetSelectState::btnMaleClicked()
-{
-	Utility<Mixer>::get().playSound(mSelect);
-	if (mMale.toggled())
-	{
-		mFemale.toggle(false);
-		Utility<AiVoiceNotifier>::get().gender(AiVoiceNotifier::AiGender::MALE);
-	}
-	else
-	{
-		mFemale.toggle(true);
-		Utility<AiVoiceNotifier>::get().gender(AiVoiceNotifier::AiGender::FEMALE);
-	}
-}
-
-
-void PlanetSelectState::btnFemaleClicked()
-{
-	Utility<Mixer>::get().playSound(mSelect);
-	if (mFemale.toggled())
-	{
-		mMale.toggle(false);
-		Utility<AiVoiceNotifier>::get().gender(AiVoiceNotifier::AiGender::FEMALE);
-	}
-	else
-	{
-		mMale.toggle(true);
-		Utility<AiVoiceNotifier>::get().gender(AiVoiceNotifier::AiGender::MALE);
-	}
 }
 
 

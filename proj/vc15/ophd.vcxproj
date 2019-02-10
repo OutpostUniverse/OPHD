@@ -164,7 +164,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\AiVoiceNotifier.cpp" />
     <ClCompile Include="..\..\src\Common.cpp" />
     <ClCompile Include="..\..\src\GraphWalker.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
@@ -229,7 +228,6 @@
     <ClCompile Include="..\..\src\UI\WarehouseInspector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\AiVoiceNotifier.h" />
     <ClInclude Include="..\..\src\Common.h" />
     <ClInclude Include="..\..\src\Constants.h" />
     <ClInclude Include="..\..\src\Constants\Numbers.h" />

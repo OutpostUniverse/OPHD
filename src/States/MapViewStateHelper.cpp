@@ -12,7 +12,6 @@
 
 #include "MapViewStateHelper.h"
 
-#include "../AiVoiceNotifier.h"
 #include "../Constants.h"
 #include "../StructureCatalogue.h"
 
@@ -35,7 +34,9 @@ extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 bool checkTubeConnection(Tile* _tile, Direction _dir, ConnectorDir _source_connector_dir)
 {
 	if (_tile->mine() || !_tile->bulldozed() || !_tile->excavated() || !_tile->thingIsStructure())
+	{
 		return false;
+	}
 
 	Structure* structure = _tile->structure();
 
@@ -44,23 +45,31 @@ bool checkTubeConnection(Tile* _tile, Direction _dir, ConnectorDir _source_conne
 		if (_dir == DIR_EAST || _dir == DIR_WEST)
 		{
 			if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_RIGHT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+			{
 				return true;
+			}
 		}
 		else // NORTH/SOUTH
 		{
 			if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_LEFT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+			{
 				return true;
+			}
 		}
 	}
 	else if (_source_connector_dir == CONNECTOR_RIGHT && (_dir == DIR_EAST || _dir == DIR_WEST))
 	{
 		if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_RIGHT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+		{
 			return true;
+		}
 	}
 	else if (_source_connector_dir == CONNECTOR_LEFT && (_dir == DIR_NORTH || _dir == DIR_SOUTH))
 	{
 		if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_LEFT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+		{
 			return true;
+		}
 	}
 
 	return false;
@@ -139,10 +148,15 @@ bool validStructurePlacement(TileMap* tilemap, int x, int y)
  */
 bool validLanderSite(Tile* t)
 {
-	if (!t->empty() || (t->index() == TERRAIN_IMPASSABLE))
+	if (!t->empty())
 	{
-		Utility<AiVoiceNotifier>::get().notify(AiVoiceNotifier::UNSUITABLE_LANDING_SITE);
-		std::cout << "MapViewState::placeStructure(): Unsuitable landing site -- Impassable Terrain." << std::endl;
+		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TILE_OBSTRUCTED);
+		return false;
+	}
+
+	if (t->index() == TERRAIN_IMPASSABLE)
+	{
+		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TERRAIN);
 		return false;
 	}
 

@@ -71,10 +71,6 @@ void MapViewState::save(const std::string& _path)
 	population->attribute("retired", mPopulation.size(Population::ROLE_RETIRED));
 	root->linkEndChild(population);
 
-	XmlElement* ai = new XmlElement("ai");
-	ai->attribute("gender", Utility<AiVoiceNotifier>::get().gender());
-	root->linkEndChild(ai);
-
 	// Write out the XML file.
 	XmlMemoryBuffer buff;
 	doc.accept(&buff);
@@ -162,14 +158,6 @@ void MapViewState::load(const std::string& _path)
 	readResources(root->firstChildElement("resources"), mPlayerResources);
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
-
-	XmlElement* ai = root->firstChildElement("ai");
-	if (ai)
-	{
-		int gender = 0;
-		ai->firstAttribute()->queryIntValue(gender);
-		Utility<AiVoiceNotifier>::get().gender(static_cast<AiVoiceNotifier::AiGender>(gender));
-	}
 
 	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::CLASS_STORAGE)));
 
