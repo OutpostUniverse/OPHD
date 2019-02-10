@@ -9,6 +9,14 @@ Maintenance release.
 - The AI Voice notifications for errors have been replaced with message boxes providing much greater detail about what the issue actually is.
 - Robodozer's that 'die' during their task will no longer leave the tile it was on as 'bulldozed' and instead will revert it to its original terrain type.
 - Cargo and Colonist landers are now restricted to landing within 5 tiles of the command center.
+- Mine Production Window now shows the remaining time during mine shaft extension.
+- Structure Inspector Window now shows remaining turns until construction is complete.
+- Structure Inspector Window now shows the current age of a Structure.
+- Placing a Robodigger on a Mine will ask the user if they want to sacrifice the mine instead of just automatically placing the robot.
+
+### Fixed
+- Right-clicking on a Warehouse that's under construction will now bring up the Structure Inspector Window instead of the Warehouse Inspector.
+- Right-clicking on a Mine Facility that's under construction will now bring up the Structure Inspector Window instead of the Mine Operations Window.
 
 
 ## [0.7.10] - 2019-01-29

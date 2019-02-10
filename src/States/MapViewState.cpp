@@ -505,13 +505,13 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 				mFactoryProduction.show();
 				mWindowStack.bringToFront(&mFactoryProduction);
 			}
-			else if (_s->isWarehouse())
+			else if (_s->isWarehouse() && (_s->operational() || _s->isIdle()))
 			{
 				mWarehouseInspector.warehouse(static_cast<Warehouse*>(_s));
 				mWarehouseInspector.show();
 				mWindowStack.bringToFront(&mWarehouseInspector);
 			}
-			else if (_s->isMineFacility())
+			else if (_s->isMineFacility() && (_s->operational() || _s->isIdle()))
 			{
 				mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(_s));
 				mMineOperationsWindow.show();
@@ -894,11 +894,10 @@ void MapViewState::placeRobot()
 
 		if (tile->hasMine())
 		{
-			if (doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE))
-			{
-				std::cout << "Digger destroyed a Mine at (" << mTileMap->tileMouseHoverX() << ", " << mTileMap->tileMouseHoverY() << ")." << std::endl;
-				mTileMap->removeMineLocation(Point_2d(tile->x(), tile->y()));
-			}
+			if (!doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE)) { return; }
+
+			std::cout << "Digger destroyed a Mine at (" << mTileMap->tileMouseHoverX() << ", " << mTileMap->tileMouseHoverY() << ")." << std::endl;
+			mTileMap->removeMineLocation(Point_2d(tile->x(), tile->y()));
 		}
 
 		// Die if tile is occupied or not excavated.
