@@ -144,8 +144,10 @@ void StructureInspector::update()
 	}
 
 
-	if (mStructure->disabled()) { r.drawText(*FONT, disabledReason(mStructure->disabledReason()), rect().x() + 190, rect().y() + 55, 255, 255, 255); }
+	if (mStructure->disabled()) { r.drawText(*FONT, disabledReason(mStructure->disabledReason()), rect().x() + 190, rect().y() + 75, 255, 255, 255); }
 	
-	drawResourcePool("Production Pool", mStructure->production(), static_cast<int>(rect().x() + 5), static_cast<int>(rect().y() + 65));
-	drawResourcePool("Storage Pool", mStructure->storage(), static_cast<int>(rect().x() + 190), static_cast<int>(rect().y() + 65));
+	r.drawText(*FONT, "This window is a work in progress", rect().x() + 5, rect().y() + rect().height() - FONT->height() - 5, 255, 255, 255);
+
+	//drawResourcePool("Production Pool", mStructure->production(), static_cast<int>(rect().x() + 5), static_cast<int>(rect().y() + 65));
+	//drawResourcePool("Storage Pool", mStructure->storage(), static_cast<int>(rect().x() + 190), static_cast<int>(rect().y() + 65));
 }
