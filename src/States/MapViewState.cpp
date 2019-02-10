@@ -417,7 +417,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 			}
 			else
 			{
-				mDebug = !mDebug;
+				//mDebug = !mDebug;
 			}
 			break;
 
