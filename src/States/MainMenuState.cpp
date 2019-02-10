@@ -58,6 +58,11 @@ void MainMenuState::initialize()
 	btnOptions.enabled(false);
 	btnOptions.click().connect(this, &MainMenuState::btnOptionsClicked);
 
+	btnHelp.text(constants::MAIN_MENU_HELP);
+	btnHelp.fontSize(constants::FONT_PRIMARY_MEDIUM);
+	btnHelp.size(200, 30);
+	btnHelp.click().connect(this, &MainMenuState::btnHelpClicked);
+
 	btnQuit.text(constants::MAIN_MENU_QUIT);
 	btnQuit.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnQuit.size(200, 30);
@@ -92,7 +97,8 @@ void MainMenuState::positionButtons()
 	btnNewGame.position(start_x, start_y);
 	btnContinueGame.position(start_x, start_y + 35);
 	btnOptions.position(start_x, start_y + 70);
-	btnQuit.position(start_x, start_y + 105);
+	btnHelp.position(start_x, start_y + 105);
+	btnQuit.position(start_x, start_y + 140);
 
 	mFileIoDialog.position(static_cast<int>(r.center_x() - mFileIoDialog.width() / 2), static_cast<int>(r.center_y() - mFileIoDialog.height() / 2));
 }
@@ -218,6 +224,23 @@ void MainMenuState::btnOptionsClicked()
 
 
 /**
+ * Click handler for the Help button.
+ */
+void MainMenuState::btnHelpClicked()
+{
+	if (mFileIoDialog.visible()) { return; }
+
+#if defined(WINDOWS) || defined(WIN32)
+	system("start https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
+#elif defined(__APPLE__)
+	system("open https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
+#else
+	#error Open a web page support on the current platform not implemented.
+#endif
+}
+
+
+/**
  * Click handler for Quit button.
  */
 void MainMenuState::btnQuitClicked()
@@ -248,6 +271,7 @@ NAS2D::State* MainMenuState::update()
 		btnNewGame.update();
 		btnContinueGame.update();
 		btnOptions.update();
+		btnHelp.update();
 		btnQuit.update();
 	}
 

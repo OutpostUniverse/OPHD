@@ -5,6 +5,9 @@ This is the changelog for OutpostHD.
 
 Maintenance release.
 
+### Added
+- Help button to the Main Menu. This launches the OutpostHD Wiki in your default browser.
+
 ### Changed
 - The AI Voice notifications for errors have been replaced with message boxes providing much greater detail about what the issue actually is.
 - Robodozer's that 'die' during their task will no longer leave the tile it was on as 'bulldozed' and instead will revert it to its original terrain type.

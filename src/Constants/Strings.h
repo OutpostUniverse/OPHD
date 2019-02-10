@@ -179,6 +179,7 @@ namespace constants
 	const std::string MAIN_MENU_NEW_GAME = "New Game";
 	const std::string MAIN_MENU_CONTINUE = "Continue";
 	const std::string MAIN_MENU_OPTIONS = "Options";
+	const std::string MAIN_MENU_HELP = "Help";
 	const std::string MAIN_MENU_QUIT = "Quit";
 
 	const std::string WINDOW_FACTORY_PRODUCTION = "Factory Production";

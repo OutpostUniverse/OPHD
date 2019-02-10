@@ -32,6 +32,7 @@ private:
 	void btnNewGameClicked();
 	void btnContinueGameClicked();
 	void btnOptionsClicked();
+	void btnHelpClicked();
 	void btnQuitClicked();
 
 	void fileIoAction(const std::string& _file, FileIo::FileOperation _op);
@@ -44,6 +45,7 @@ private:
 	Button				btnNewGame;						/**<  */
 	Button				btnContinueGame;				/**<  */
 	Button				btnOptions;						/**<  */
+	Button				btnHelp;						/**<  */
 	Button				btnQuit;						/**<  */
 
 	NAS2D::State*		mReturnState = this;			/**<  */
