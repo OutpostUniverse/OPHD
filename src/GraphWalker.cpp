@@ -5,74 +5,81 @@
 
 using namespace NAS2D;
 
+
 /**
- * Utility function to check if there's a valid connection between
+ * Check which way a tube is facing to determine if it connects to the destination tube.
+ * Broken off into its own function while fixing issue #11 to avoid code duplication.
  */
-bool validConnection(Structure* src, Structure* dst, Direction _d)
+static bool checkSourceTubeAlignment(Structure* src, Direction _d)
 {
-	if(src == nullptr || dst == nullptr)
+	if (src->connectorDirection() == CONNECTOR_INTERSECTION || src->connectorDirection() == CONNECTOR_VERTICAL)
 	{
-		#ifdef DEBUG
-		throw Exception(0, "GraphWalker NULL Pointer", "GraphWalker::validConnection() was passed a NULL Pointer.");
-		#endif
-
-		// in release mode silently ignore this call.
-		return false;
+		return true;
 	}
-	if (_d == DIR_UP || _d == DIR_DOWN)
+	else if (_d == DIR_EAST || _d == DIR_WEST)
 	{
-		if (src->isConnector() && src->connectorDirection() == CONNECTOR_VERTICAL)
+		if (src->connectorDirection() == CONNECTOR_RIGHT)
 			return true;
-
-		return false;
 	}
-	else if (dst->isConnector())
+	else if (_d == DIR_NORTH || _d == DIR_SOUTH)
 	{
-		if (dst->connectorDirection() == CONNECTOR_INTERSECTION || dst->connectorDirection() == CONNECTOR_VERTICAL)
-		{
+		if (src->connectorDirection() == CONNECTOR_LEFT)
 			return true;
-		}
-		else if (_d == DIR_EAST || _d == DIR_WEST)
-		{
-			if (dst->connectorDirection() == CONNECTOR_RIGHT)
-				return true;
-		}
-		else if (_d == DIR_NORTH || _d == DIR_SOUTH)
-		{
-			if (dst->connectorDirection() == CONNECTOR_LEFT)
-				return true;
-		}
-
-		return false;
-	}
-	else if(src->isConnector())
-	{
-		if (src->connectorDirection() == CONNECTOR_INTERSECTION || src->connectorDirection() == CONNECTOR_VERTICAL)
-		{
-			return true;
-		}
-		else if (_d == DIR_EAST || _d == DIR_WEST)
-		{
-			if (src->connectorDirection() == CONNECTOR_RIGHT)
-				return true;
-		}
-		else if (_d == DIR_NORTH || _d == DIR_SOUTH)
-		{
-			if (src->connectorDirection() == CONNECTOR_LEFT)
-				return true;
-		}
-
-		return false;
 	}
 
 	return false;
 }
 
 
-GraphWalker::GraphWalker(const Point_2d& _p, int _d, TileMap* _t) :	_tileMap(_t),
-																_thisTile(_t->getTile(_p.x(), _p.y(), _d)),
-																_gridPosition(_p),
-																_depth(_d)
+/**
+ * Utility function to check if there's a valid connection between src and dst.
+ */
+static bool validConnection(Structure* src, Structure* dst, Direction _d)
+{
+	if (src == nullptr || dst == nullptr)
+	{
+		#ifdef DEBUG
+		throw Exception(0, "GraphWalker NULL Pointer", "GraphWalker::validConnection() was passed a NULL Pointer.");
+		#endif
+		return false;
+	}
+	if (_d == DIR_UP || _d == DIR_DOWN)
+	{
+		if (src->isConnector() && src->connectorDirection() == CONNECTOR_VERTICAL) { return true; }
+		return false;
+	}
+	else if (dst->isConnector())
+	{
+		if (dst->connectorDirection() == CONNECTOR_INTERSECTION || dst->connectorDirection() == CONNECTOR_VERTICAL)
+		{
+			if (!src->isConnector()) { return true; }
+			else { return checkSourceTubeAlignment(src, _d); }
+		}
+		else if (_d == DIR_EAST || _d == DIR_WEST)
+		{
+			if (dst->connectorDirection() == CONNECTOR_RIGHT) { return true; }
+		}
+		else if (_d == DIR_NORTH || _d == DIR_SOUTH)
+		{
+			if (dst->connectorDirection() == CONNECTOR_LEFT) { return true; }
+		}
+
+		return false;
+	}
+	else if (src->isConnector())
+	{
+		return checkSourceTubeAlignment(src, _d);
+	}
+
+	return false;
+}
+
+
+GraphWalker::GraphWalker(const Point_2d& _p, int _d, TileMap* _t) :
+	mTileMap(_t),
+	mThisTile(_t->getTile(_p.x(), _p.y(), _d)),
+	mGridPosition(_p),
+	mDepth(_d)
 {
 	walkGraph();
 }
@@ -80,23 +87,21 @@ GraphWalker::GraphWalker(const Point_2d& _p, int _d, TileMap* _t) :	_tileMap(_t)
 
 GraphWalker::~GraphWalker()
 {
-	_tileMap = nullptr;
+	mTileMap = nullptr;
 }
+
 
 void GraphWalker::walkGraph()
 {
-	_thisTile->connected(true);
+	mThisTile->connected(true);
 
+	if (mDepth > 0) { check(mGridPosition.x(), mGridPosition.y(), mDepth - 1, DIR_UP); }
+	if (mDepth < mTileMap->maxDepth()) { check(mGridPosition.x(), mGridPosition.y(), mDepth + 1, DIR_DOWN); }
 
-	if (_depth > 0)
-		check(_gridPosition.x(), _gridPosition.y(), _depth - 1, DIR_UP);
-	if(_depth < _tileMap->maxDepth())
-		check(_gridPosition.x(), _gridPosition.y(), _depth + 1, DIR_DOWN);
-
-	check(_gridPosition.x(), _gridPosition.y() - 1, _depth, DIR_NORTH);
-	check(_gridPosition.x() + 1, _gridPosition.y(), _depth, DIR_EAST);
-	check(_gridPosition.x(), _gridPosition.y() + 1, _depth, DIR_SOUTH);
-	check(_gridPosition.x() - 1, _gridPosition.y(), _depth, DIR_WEST);
+	check(mGridPosition.x(), mGridPosition.y() - 1, mDepth, DIR_NORTH);
+	check(mGridPosition.x() + 1, mGridPosition.y(), mDepth, DIR_EAST);
+	check(mGridPosition.x(), mGridPosition.y() + 1, mDepth, DIR_SOUTH);
+	check(mGridPosition.x() - 1, mGridPosition.y(), mDepth, DIR_WEST);
 }
 
 
@@ -105,22 +110,19 @@ void GraphWalker::walkGraph()
  *
  * \todo	With Tile being updated to include position information, this function can be modified
  *			to take a source and destination tile instead of looking them up. By using the internal
- * 			positional information in the Tiles we can deduce direction between source and destination.
+ *			positional information in the Tiles we can deduce direction between source and destination.
  */
 void GraphWalker::check(int x, int y, int depth, Direction _d)
 {
-	if (x < 0 || x > _tileMap->width() - 1 || y < 0 || y > _tileMap->height() - 1)
-		return;
-	if (depth < 0 || depth > _tileMap->maxDepth())
-		return;
+	if (x < 0 || x > mTileMap->width() - 1 || y < 0 || y > mTileMap->height() - 1) { return; }
+	if (depth < 0 || depth > mTileMap->maxDepth()) { return; }
 
-	Tile* t = _tileMap->getTile(x, y, depth);
+	Tile* t = mTileMap->getTile(x, y, depth);
 
-	if (t->connected() || t->mine() || !t->excavated() || !t->thingIsStructure())
-		return;
+	if (t->connected() || t->mine() || !t->excavated() || !t->thingIsStructure()) { return; }
 
-	if (validConnection(_thisTile->structure(), t->structure(), _d))
+	if (validConnection(mThisTile->structure(), t->structure(), _d))
 	{
-		GraphWalker walker(Point_2d(x, y), depth, _tileMap);
+		GraphWalker walker(Point_2d(x, y), depth, mTileMap);
 	}
 }
