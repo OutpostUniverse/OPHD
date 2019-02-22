@@ -30,6 +30,7 @@ MainMenuState::~MainMenuState()
 	e.keyDown().disconnect(this, &MainMenuState::onKeyDown);
 
 	Utility<Mixer>::get().stopAllAudio();
+	Utility<Renderer>::get().fadeComplete().disconnect(this, &MainMenuState::onFadeComplete);
 }
 
 
@@ -74,7 +75,9 @@ void MainMenuState::initialize()
 	mFileIoDialog.hide();
 
 	positionButtons();
+	disableButtons();
 
+	Utility<Renderer>::get().fadeComplete().connect(this, &MainMenuState::onFadeComplete);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 	Utility<Renderer>::get().showSystemPointer(true);
 
@@ -112,6 +115,7 @@ void MainMenuState::disableButtons()
 	btnNewGame.enabled(false);
 	btnContinueGame.enabled(false);
 	btnOptions.enabled(false);
+	btnHelp.enabled(false);
 	btnQuit.enabled(false);
 }
 
@@ -123,7 +127,8 @@ void MainMenuState::enableButtons()
 {
 	btnNewGame.enabled(true);
 	btnContinueGame.enabled(true);
-	//btnOptions.enabled(true);
+	//btnOptions.enabled(false);
+	btnHelp.enabled(true);
 	btnQuit.enabled(true);
 }
 
@@ -189,16 +194,27 @@ void MainMenuState::onWindowResized(int width, int height)
 
 
 /**
+ * Event handler for renderer fading.
+ */
+void MainMenuState::onFadeComplete()
+{
+	if (Utility<Renderer>::get().isFaded()) { return; }
+	enableButtons();
+}
+
+
+/**
  * Click handler for New Game button.
  */
 void MainMenuState::btnNewGameClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
+	disableButtons();
+
+	mReturnState = new PlanetSelectState();
 
 	Utility<Renderer>::get().fadeOut((float)constants::FADE_SPEED);
 	Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
-	mReturnState = new PlanetSelectState();
-	disableButtons();
 }
 
 

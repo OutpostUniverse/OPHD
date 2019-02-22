@@ -22,6 +22,8 @@ Maintenance release.
 - Right-clicking on a Warehouse that's under construction will now bring up the Structure Inspector Window instead of the Warehouse Inspector.
 - Right-clicking on a Mine Facility that's under construction will now bring up the Structure Inspector Window instead of the Mine Operations Window.
 - Fixed a mistake in the Population Panel that displayed housing incorrectly before the the Command Center was built.
+- Fixed an issue in the GraphWalker that could leave some tiles marked as connected when they shouldn't be has been resolved. Fix provided by Sirbomber.
+- Fixed an issue in MainMenuState that could lead to the UI buttons being clicked inadvertently when skipping the splash screens.
 
 
 ## [0.7.10] - 2019-01-29
