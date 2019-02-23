@@ -176,12 +176,7 @@ void MainMenuState::fileIoAction(const std::string& _file, FileIo::FileOperation
  * Key down event handler.
  */
 void MainMenuState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat)
-{
-	if (key == EventHandler::KEY_F11)
-	{
-		Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
-	}
-}
+{}
 
 
 /**

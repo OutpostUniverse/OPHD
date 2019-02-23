@@ -226,6 +226,7 @@
     <ClCompile Include="..\..\src\UI\StructureListBox.cpp" />
     <ClCompile Include="..\..\src\UI\TileInspector.cpp" />
     <ClCompile Include="..\..\src\UI\WarehouseInspector.cpp" />
+    <ClCompile Include="..\..\src\WindowEventWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h" />

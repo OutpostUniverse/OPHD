@@ -6,8 +6,11 @@
 #include "NAS2D/Mixer/Mixer_SDL.h"
 #include "NAS2D/Renderer/OGL_Renderer.h"
 
+#include "Common.h"
+#include "Constants.h"
 #include "StructureCatalogue.h"
 #include "StructureTranslator.h"
+#include "WindowEventWrapper.h"
 
 #include "Things/Structures/Structure.h"
 
@@ -51,8 +54,9 @@ void validateVideoResolution()
 {
 	Configuration& cf = Utility<Configuration>::get();
 
-	if (cf.graphicsWidth() < 1000) { cf.graphicsWidth(1000); }
-	if (cf.graphicsHeight() < 700) { cf.graphicsHeight(700); }
+	if (cf.graphicsWidth() < constants::MINIMUM_WINDOW_WIDTH) { cf.graphicsWidth(constants::MINIMUM_WINDOW_WIDTH); }
+	if (cf.graphicsHeight() < constants::MINIMUM_WINDOW_HEIGHT) { cf.graphicsHeight(constants::MINIMUM_WINDOW_HEIGHT); }
+	cf.fullscreen(false); // force windowed mode.
 }
 
 
@@ -81,25 +85,16 @@ int main(int argc, char *argv[])
 			f.makeDirectory(constants::SAVE_GAME_PATH);
 		}
 
-		//Utility<EventHandler>::get();
-
 		Configuration& cf = Utility<Configuration>::get();
+
+		bool startMaximized = false;
 
 		// If no config file, set defaults.
 		if (!f.exists("config.xml"))
 		{
-			// FIXME: Hacky as hell!
-			SDL_Init(SDL_INIT_VIDEO);
-			SDL_DisplayMode dm;
-			if (SDL_GetDesktopDisplayMode(0, &dm) != 0)
-			{
-				std::cout << "SDL_GetDesktopDisplayMode failed: " << SDL_GetError();
-				return 1;
-			}
-
-			cf.graphicsWidth(dm.w);
-			cf.graphicsHeight(dm.h);
-			cf.fullscreen(true);
+			cf.graphicsWidth(constants::MINIMUM_WINDOW_WIDTH);
+			cf.graphicsHeight(constants::MINIMUM_WINDOW_HEIGHT);
+			cf.fullscreen(false);
 		}
 
 		cf.load("config.xml");
@@ -108,10 +103,12 @@ int main(int argc, char *argv[])
 		{
 			cf.option("skip-splash", "false");
 		}
+		if (cf.option("maximized").empty())
+		{
+			cf.option("maximized", "true");
+		}
 
 		validateVideoResolution();
-
-		cf.save();
 
 		try
 		{
@@ -122,6 +119,7 @@ int main(int argc, char *argv[])
 			Utility<Mixer>::instantiateDerived(new Mixer());
 		}
 
+		WindowEventWrapper _wew;
 
 		Renderer& r = createRenderer();
 
@@ -135,13 +133,19 @@ int main(int argc, char *argv[])
 		r.setCursor(POINTER_NORMAL);
 		r.fadeOut(0.0f);
 
+		if (cf.option("maximized") == "true")
+		{
+			/** \fixme Evil hack exposing an internal NAS2D variable. */
+			extern SDL_Window* _WINDOW;
+			SDL_MaximizeWindow(_WINDOW);
+		}
+
 		std::cout << "Loading packed assets... ";
 
 		f.addToSearchPath("fonts.dat");
 		f.addToSearchPath("planets.dat");
 
 		std::cout << "done." << std::endl;
-
 
 		// Loading/Saving plaque's
 		IMG_LOADING = new Image("sys/loading.png");
@@ -169,6 +173,7 @@ int main(int argc, char *argv[])
 			Utility<Renderer>::get().update();
 		}
 
+		cf.save(); // force configuration to save any changes.
 	}
 	catch(const std::exception& e)
 	{

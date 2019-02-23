@@ -264,6 +264,9 @@
     <ClCompile Include="..\..\src\UI\ProductListBox.cpp">
       <Filter>Source Files\UI\SpecializedListBox</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\WindowEventWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">

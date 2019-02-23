@@ -17,6 +17,9 @@ Maintenance release.
 - Structure Inspector Window now shows the current age of a Structure.
 - Placing a Robodigger on a Mine will ask the user if they want to sacrifice the mine instead of just automatically placing the robot.
 - Robot info HUD will now only draw after the SEED Lander has been placed and the Command Center is available on the map.
+- Fullscreen mode has been removed so that OutpostHD plays nicely with the native window manager due to the use of native message boxes.
+- Window state is now saved on closing (maximized or not).
+- Window size is now saved on closing.
 
 ### Fixed
 - Right-clicking on a Warehouse that's under construction will now bring up the Structure Inspector Window instead of the Warehouse Inspector.

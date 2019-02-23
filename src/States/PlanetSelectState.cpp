@@ -187,12 +187,7 @@ State* PlanetSelectState::update()
 
 
 void PlanetSelectState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
-{
-	if (key == EventHandler::KEY_F11)
-	{
-		Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
-	}
-}
+{}
 
 
 void PlanetSelectState::onMouseDown(EventHandler::MouseButton button, int x, int y)

@@ -314,12 +314,6 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 {
 	if (!active()) { return; }
 
-	if (key == EventHandler::KEY_F11)
-	{
-		Utility<Renderer>::get().fullscreen(!Utility<Renderer>::get().fullscreen());
-		return;
-	}
-
 	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
 	{
