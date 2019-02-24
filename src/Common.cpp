@@ -59,14 +59,14 @@ std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 
 std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
 {
-	{ DISABLED_NONE, "Not Disabled" },
+	{ DISABLED_NONE, constants::STRUCTURE_DISABLED_NONE },
 
-	{ DISABLED_CHAP, "CHAP Facility unavailable" },
-	{ DISABLED_DISCONNECTED, "Not connected to a Command Center" },
-	{ DISABLED_ENERGY, "Insufficient Energy" },
-	{ DISABLED_POPULATION, "Insufficient Population" },
-	{ DISABLED_REFINED_RESOURCES, "Insufficient refned resources" },
-	{ DISABLED_STRUCTURAL_INTEGRITY, "Structural Integrity Decay" }
+	{ DISABLED_CHAP, constants::STRUCTURE_DISABLED_CHAP },
+	{ DISABLED_DISCONNECTED, constants::STRUCTURE_DISABLED_DISCONNECTED },
+	{ DISABLED_ENERGY, constants::STRUCTURE_DISABLED_ENERGY },
+	{ DISABLED_POPULATION, constants::STRUCTURE_DISABLED_POPULATION },
+	{ DISABLED_REFINED_RESOURCES, constants::STRUCTURE_DISABLED_REFINED_RESOURCES },
+	{ DISABLED_STRUCTURAL_INTEGRITY, constants::STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY }
 };
 
 

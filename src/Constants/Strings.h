@@ -209,6 +209,17 @@ namespace constants
 	const std::string BUTTON_TAKE_ME_THERE = "Take Me There";
 
 	// =====================================
+	// = STRUCTURE DISABLED REASONS
+	// =====================================
+	const std::string STRUCTURE_DISABLED_NONE = "Not Disabled";
+	const std::string STRUCTURE_DISABLED_CHAP = "CHAP Facility unavailable";
+	const std::string STRUCTURE_DISABLED_DISCONNECTED = "Not connected to a Command Center";
+	const std::string STRUCTURE_DISABLED_ENERGY = "Insufficient Energy";
+	const std::string STRUCTURE_DISABLED_POPULATION = "Insufficient Population";
+	const std::string STRUCTURE_DISABLED_REFINED_RESOURCES = "Insufficient refned resources";
+	const std::string STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY = "Structural Integrity below operating threshold";
+
+	// =====================================
 	// = ALERT AND ERROR MESSAGES
 	// =====================================
 	const std::string ALERT_INVALID_ROBOT_PLACEMENT = "Invalid Robot Action";
