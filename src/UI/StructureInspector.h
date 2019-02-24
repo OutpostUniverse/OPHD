@@ -20,7 +20,8 @@ protected:
 
 private:
 	void btnCloseClicked();
-	void drawResourcePool(const std::string& title, ResourcePool& rp, int x, int y);
+
+	void drawPopulationRequirements();
 
 private:
 	StructureInspector(const StructureInspector&) = delete;

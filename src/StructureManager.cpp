@@ -423,6 +423,9 @@ void serializeStructure(XmlElement* _ti, Structure* _s, Tile* _t)
 	{
 		serializeResourcePool(_ti, _s->storage(), "storage");
 	}
+
+	_ti->attribute("pop0", _s->populationAvailable()[0]);
+	_ti->attribute("pop1", _s->populationAvailable()[1]);
 }
 
 

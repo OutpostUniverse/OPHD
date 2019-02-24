@@ -185,9 +185,9 @@ namespace constants
 	const std::string WINDOW_FACTORY_PRODUCTION = "Factory Production";
 	const std::string WINDOW_GAME_OVER = "Game Over";
 	const std::string WINDOW_MINE_OPERATIONS = "Mine Facility Operations";
-	const std::string WINDOW_STRUCTURE_INSPECTOR = "Structure Inspector";
+	const std::string WINDOW_STRUCTURE_INSPECTOR = "Structure Details";
 	const std::string WINDOW_TILE_INSPECTOR = "Tile Inspector";
-	const std::string WINDOW_WH_INSPECTOR = "Warehouse Inspector";
+	const std::string WINDOW_WH_INSPECTOR = "Warehouse Details";
 
 	const std::string WINDOW_FILEIO_TITLE_LOAD = "Load Game";
 	const std::string WINDOW_FILEIO_TITLE_SAVE = "Save Game";

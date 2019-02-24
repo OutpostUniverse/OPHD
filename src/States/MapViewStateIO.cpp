@@ -297,12 +297,12 @@ void MapViewState::readRobots(XmlElement* _ti)
 void MapViewState::readStructures(XmlElement* _ti)
 {
 	std::string type;
-	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0;
+	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, pop0 = 0, pop1 = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
 	for (XmlNode* structure = _ti->firstChild(); structure != nullptr; structure = structure->nextSibling())
 	{
-		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = 0;
+		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = pop0 = pop1 = 0;
 		attribute = structure->toElement()->firstAttribute();
 		while (attribute)
 		{
@@ -318,6 +318,9 @@ void MapViewState::readStructures(XmlElement* _ti)
 
 			else if (attribute->name() == "production_completed") { attribute->queryIntValue(production_completed); }
 			else if (attribute->name() == "production_type") { attribute->queryIntValue(production_type); }
+
+			else if (attribute->name() == "pop0") { attribute->queryIntValue(pop0); }
+			else if (attribute->name() == "pop1") { attribute->queryIntValue(pop1); }
 
 			attribute = attribute->next();
 		}
@@ -418,6 +421,9 @@ void MapViewState::readStructures(XmlElement* _ti)
 				}
 			}
 		}
+
+		st->populationAvailable()[0] = pop0;
+		st->populationAvailable()[1] = pop1;
 
 		Utility<StructureManager>::get().addStructure(st, t);
 	}
