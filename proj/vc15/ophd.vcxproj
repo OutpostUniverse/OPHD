@@ -222,6 +222,7 @@
     <ClCompile Include="..\..\src\UI\ProductListBox.cpp" />
     <ClCompile Include="..\..\src\UI\Reports\FactoryReport.cpp" />
     <ClCompile Include="..\..\src\UI\Reports\WarehouseReport.cpp" />
+    <ClCompile Include="..\..\src\UI\ResourceBreakdownPanel.cpp" />
     <ClCompile Include="..\..\src\ui\StructureInspector.cpp" />
     <ClCompile Include="..\..\src\UI\StructureListBox.cpp" />
     <ClCompile Include="..\..\src\UI\TileInspector.cpp" />
@@ -329,6 +330,7 @@
     <ClInclude Include="..\..\src\UI\Reports\FactoryReport.h" />
     <ClInclude Include="..\..\src\UI\Reports\ReportInterface.h" />
     <ClInclude Include="..\..\src\UI\Reports\WarehouseReport.h" />
+    <ClInclude Include="..\..\src\UI\ResourceBreakdownPanel.h" />
     <ClInclude Include="..\..\src\ui\StructureInspector.h" />
     <ClInclude Include="..\..\src\UI\FactoryListBox.h" />
     <ClInclude Include="..\..\src\UI\StructureListBox.h" />

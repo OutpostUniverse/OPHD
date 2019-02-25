@@ -53,7 +53,8 @@ void MapViewState::save(const std::string& _path)
 	mTileMap->serialize(root);
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
-	writeResources(root, mPlayerResources);
+	writeResources(root, mPlayerResources, "resources");
+	writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
 
 	XmlElement* turns = new XmlElement("turns");
 	turns->attribute("count", mTurnCount);
@@ -156,6 +157,7 @@ void MapViewState::load(const std::string& _path)
 	readStructures(root->firstChildElement("structures"));
 
 	readResources(root->firstChildElement("resources"), mPlayerResources);
+	readResources(root->firstChildElement("prev_resources"), mResourceBreakdownPanel.previousResources());
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
@@ -207,6 +209,7 @@ void MapViewState::load(const std::string& _path)
 	}
 
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
+	mResourceBreakdownPanel.resourceCheck();
 
 	mMapChangedCallback();
 }

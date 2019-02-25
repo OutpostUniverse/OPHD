@@ -181,6 +181,7 @@ void MapViewState::drawResourceInfo()
 	r.drawText(*MAIN_FONT, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
 
 	if (isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 580, 0, 35, 20)) { mPopulationPanel.update(); }
+	if (isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 1, 1, mResourceBreakdownPanel.width(), 20)) { mResourceBreakdownPanel.update(); }
 
 	// Turns
 	r.drawSubImage(mUiIcons, r.width() - 80, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);

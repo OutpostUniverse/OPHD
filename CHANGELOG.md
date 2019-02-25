@@ -7,6 +7,7 @@ Maintenance release.
 
 ### Added
 - Help button to the Main Menu. This launches the OutpostHD Wiki in your default browser.
+- Resource breakdown panel when hovering over resource HUD panel.
 
 ### Changed
 - The AI Voice notifications for errors have been replaced with message boxes providing much greater detail about what the issue actually is.

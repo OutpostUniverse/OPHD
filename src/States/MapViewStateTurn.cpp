@@ -283,6 +283,8 @@ void MapViewState::nextTurn()
 
 	mPopulationPool.clear();
 
+	mResourceBreakdownPanel.previousResources() = mPlayerResources;
+
 	Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
 	Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
@@ -297,6 +299,8 @@ void MapViewState::nextTurn()
 	updateRobots();
 
 	updateResources();
+
+	mResourceBreakdownPanel.resourceCheck();
 
 	populateStructureMenu();
 

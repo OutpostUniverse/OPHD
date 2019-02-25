@@ -590,9 +590,9 @@ void writeRobots(XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm)
 /** 
  * Document me!
  */
-void writeResources(XmlElement* _ti, ResourcePool& _rp)
+void writeResources(XmlElement* _ti, ResourcePool& _rp, const std::string& tag_name)
 {
-	XmlElement* resources = new XmlElement("resources");
+	XmlElement* resources = new XmlElement(tag_name);
 	_rp.serialize(resources);
 	_ti->linkEndChild(resources);
 }

@@ -9,6 +9,7 @@
 #include "MajorEventAnnouncement.h"
 #include "MineOperationsWindow.h"
 #include "PopulationPanel.h"
+#include "ResourceBreakdownPanel.h"
 #include "StructureInspector.h"
 #include "TileInspector.h"
 #include "WarehouseInspector.h"

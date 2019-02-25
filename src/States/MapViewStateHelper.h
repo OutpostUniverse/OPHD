@@ -46,7 +46,7 @@ void resourceShortageMessage(ResourcePool&, StructureID);
 
 // Serialize / Deserialize
 void writeRobots(NAS2D::Xml::XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);
-void writeResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp);
+void writeResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp, const std::string& tag_name);
 
 void readResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp);
 

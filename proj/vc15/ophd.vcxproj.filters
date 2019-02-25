@@ -267,6 +267,9 @@
     <ClCompile Include="..\..\src\WindowEventWrapper.h">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\ResourceBreakdownPanel.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -589,6 +592,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UI\ProductListBox.h">
       <Filter>Header Files\UI\SpecializedListBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\ResourceBreakdownPanel.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

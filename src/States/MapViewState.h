@@ -235,6 +235,7 @@ private:
 	MajorEventAnnouncement	mAnnouncement;				/**< Announcements window. */
 	MineOperationsWindow	mMineOperationsWindow;		/**< Mine Operations window. */
 	PopulationPanel		mPopulationPanel;				/**< Population panel. */
+	ResourceBreakdownPanel	mResourceBreakdownPanel;	/**< Resource Breakdown Panel. */
 	StructureInspector	mStructureInspector;			/**< Structure Inspector window. */
 	TileInspector		mTileInspector;					/**< Tile Inspector window. */
 	WarehouseInspector	mWarehouseInspector;			/**< Warehouse Inspector window. */
