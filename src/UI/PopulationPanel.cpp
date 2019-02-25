@@ -28,7 +28,6 @@ PopulationPanel::PopulationPanel() : mIcons("ui/icons.png")
 }
 
 
-
 void PopulationPanel::update()
 {
 	Renderer& r = Utility<Renderer>::get();

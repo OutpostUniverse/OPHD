@@ -23,7 +23,7 @@ public:
 	 */
 	float capacity() const { return mCapacity; }
 
-	virtual void update();
+	virtual void update() final;
 
 protected:
 
