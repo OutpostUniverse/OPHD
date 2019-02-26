@@ -88,6 +88,7 @@ void Structure::disable(DisabledReason reason)
 	sprite().color(255, 0, 0, 185);
 	state(DISABLED);
 	mDisabledReason = reason;
+	mIdleReason = IDLE_NONE;
 	disabledStateSet();
 }
 
@@ -97,24 +98,27 @@ void Structure::disable(DisabledReason reason)
 */
 void Structure::enable()
 {
-	if (forceIdle()) { idle(); return; }
+	if (forceIdle()) { idle(IDLE_PLAYER_SET); return; }
 
 	sprite().resume();
 	sprite().color(255, 255, 255, 255);
 	state(OPERATIONAL);
 	mDisabledReason = DISABLED_NONE;
+	mIdleReason = IDLE_NONE;
 }
 
 
 /**
 * Sets idle state of the Structure.
 */
-void Structure::idle()
+void Structure::idle(IdleReason reason)
 {
 	if (forceIdle()) { return; }
 
 	sprite().pause();
 	sprite().color(255, 255, 255, 185);
+	mDisabledReason = DISABLED_NONE;
+	mIdleReason = reason;
 	state(IDLE);
 }
 
@@ -131,7 +135,7 @@ void Structure::forceIdle(bool force)
 	// in terms of the logic involved here.
 	if (force)
 	{
-		idle();
+		idle(IDLE_PLAYER_SET);
 		mForcedIdle = true;
 	}
 	else
@@ -210,7 +214,7 @@ void Structure::destroy()
 /**
  * Provided for loading purposes.
  */
-void Structure::forced_state_change(StructureState _s, DisabledReason _dr)
+void Structure::forced_state_change(StructureState _s, DisabledReason _dr, IdleReason _ir)
 {
 	defineResourceInput();
 	defineResourceOutput();
@@ -222,7 +226,7 @@ void Structure::forced_state_change(StructureState _s, DisabledReason _dr)
 	}
 
 	if (_s == OPERATIONAL)				{ enable(); }
-	else if (_s == IDLE)				{ idle(); }
+	else if (_s == IDLE)				{ idle(_ir); }
 	else if (_s == DISABLED)			{ disable(_dr); }
 	else if (_s == DESTROYED)			{ destroy(); }
 	else if (_s == UNDER_CONSTRUCTION)	{ mStructureState = UNDER_CONSTRUCTION; } // Kludge

@@ -411,6 +411,7 @@ void serializeStructure(XmlElement* _ti, Structure* _s, Tile* _t)
 	_ti->attribute("state", _s->state());
 	_ti->attribute("forced_idle", _s->forceIdle());
 	_ti->attribute("disabled_reason", static_cast<int>(_s->disabledReason()));
+	_ti->attribute("idle_reason", static_cast<int>(_s->idleReason()));
 	_ti->attribute("type", _s->name());
 	_ti->attribute("direction", _s->connectorDirection());
 

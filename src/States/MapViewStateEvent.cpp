@@ -52,7 +52,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 	}
 	else
 	{
-		factory.idle();
+		factory.idle(IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY);
 	}
 
 }
@@ -83,7 +83,7 @@ void MapViewState::factoryProductionComplete(Factory& factory)
 		{
 			Warehouse* _wh = getAvailableWarehouse(factory.productWaiting(), 1);
 			if (_wh) { _wh->products().store(factory.productWaiting(), 1); factory.pullProduct(); }
-			else { factory.idle(); }
+			else { factory.idle(IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE); }
 			break;
 		}
 

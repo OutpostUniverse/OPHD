@@ -796,7 +796,7 @@ void MapViewState::placeRobot()
 			mMineOperationsWindow.hide();
 			mTileMap->removeMineLocation(mTileMap->tileMouseHover());
 			tile->pushMine(nullptr);
-			for (size_t i = 0; i <= mTileMap->maxDepth(); ++i)
+			for (size_t i = 0; i <= static_cast<size_t>(mTileMap->maxDepth()); ++i)
 			{
 				Tile* _t = mTileMap->getTile(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY(), i);
 

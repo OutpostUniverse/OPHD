@@ -55,7 +55,7 @@ protected:
 		oreStorage().resource(_ore, oreStorage().resource(_ore) - constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING);
 		if (storage().pushResource(_refined, _amount) != 0)
 		{
-			idle();
+			idle(IDLE_INTERNAL_STORAGE_FULL);
 		}
 	}
 

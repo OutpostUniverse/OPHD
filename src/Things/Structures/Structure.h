@@ -75,7 +75,8 @@ public:
 	void enable();
 
 	bool isIdle() const { return mStructureState == IDLE; }
-	void idle();
+	void idle(IdleReason);
+	IdleReason idleReason() const { return mIdleReason; }
 
 	bool destroyed() const { return mStructureState == DESTROYED; }
 	void destroy();
@@ -129,7 +130,7 @@ public:
 	void age(int _age) { mAge = _age; }
 	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
 
-	virtual void forced_state_change(StructureState, DisabledReason);
+	virtual void forced_state_change(StructureState, DisabledReason, IdleReason);
 
 	void update();
 	virtual void think() {}
@@ -187,6 +188,7 @@ private:
 	ResourcePool			mStoragePool;				/**< Resource storage pool. */
 
 	DisabledReason			mDisabledReason = DISABLED_NONE;
+	IdleReason				mIdleReason = IDLE_NONE;
 
 	bool					mRepairable = true;			/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
 	bool					mRequiresCHAP = true;		/**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
