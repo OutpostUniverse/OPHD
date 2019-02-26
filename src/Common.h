@@ -62,6 +62,23 @@ enum DisabledReason
 
 
 /**
+ * 
+ */
+enum IdleReason
+{
+	IDLE_NONE,
+
+	IDLE_PLAYER_SET,
+	IDLE_INTERNAL_STORAGE_FULL,
+	IDLE_FACTORY_PRODUCTION_COMPLETE,
+	IDLE_FACTORY_INSUFFICIENT_RESOURCES,
+	IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY,
+	IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE,
+	IDLE_MINE_EXHAUSTED,
+	IDLE_MINE_INACTIVE
+};
+
+/**
  * Connector Direction.
  * 
  * \note	CONNECTOR_INTERSECTION is explicitely set to '1' to prevent
@@ -292,6 +309,11 @@ ProductType productTypeFromDescription(const std::string&);
  * Translates a DisabledReason enumeration into a string
  */
 const std::string& disabledReason(DisabledReason);
+
+/**
+ * Translates an IdleReason enumeration into a string
+ */
+const std::string& idleReason(IdleReason);
 
 /**
  * Super basic progress bar.

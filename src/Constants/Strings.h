@@ -220,6 +220,19 @@ namespace constants
 	const std::string STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY = "Structural Integrity below operating threshold";
 
 	// =====================================
+	// = STRUCTURE IDLE REASONS
+	// =====================================
+	const std::string STRUCTURE_IDLE_NONE = "Not Idle";
+	const std::string STRUCTURE_IDLE_PLAYER_SET = "Manually set to Idle";
+	const std::string STRUCTURE_IDLE_INTERNAL_STORAGE_FULL = "Insternal storage pool full";
+	const std::string STRUCTURE_IDLE_FACTORY_PRODUCTION_COMPLETE = "Production complete, waiting on product pull.";
+	const std::string STRUCTURE_IDLE_FACTORY_INSUFFICIENT_RESOURCES = "Insufficient resources to continue production";
+	const std::string STRUCTURE_IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY = "Cannot pull robot due to lack of robot command capacity";
+	const std::string STRUCTURE_IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE = "Cannot pull product due to lack of Warehouse space";
+	const std::string STRUCTURE_IDLE_MINE_EXHAUSTED = "Mine exhausted";
+	const std::string STRUCTURE_IDLE_MINE_INACTIVE = "Mine inactive";
+
+	// =====================================
 	// = ALERT AND ERROR MESSAGES
 	// =====================================
 	const std::string ALERT_INVALID_ROBOT_PLACEMENT = "Invalid Robot Action";
