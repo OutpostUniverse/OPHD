@@ -17,16 +17,12 @@ public:
 		storage().capacity(250);
 	}
 
-	virtual ~SeedSmelter()
-	{}
+	virtual ~SeedSmelter() {}
 
 	virtual void input(ResourcePool& _resourcePool)
 	{
-		if (!operational())
-			return;
-
-		if (oreStorage().atCapacity())
-			return;
+		if (!operational()) { return; }
+		if (oreStorage().atCapacity()) { return; }
 
 		oreStorage().pushResources(_resourcePool);
 	}
@@ -41,18 +37,26 @@ protected:
 	virtual void think()
 	{
 		if (isIdle())
+		{
 			if (!storage().atCapacity())
+			{
 				enable();
+			}
+		}
 
 		if (operational())
+		{
 			updateProduction();
+		}
 	}
 
 	void convertOre(ResourcePool::ResourceType _ore, ResourcePool::ResourceType _refined, int _amount)
 	{
 		oreStorage().resource(_ore, oreStorage().resource(_ore) - constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING);
 		if (storage().pushResource(_refined, _amount) != 0)
+		{
 			idle();
+		}
 	}
 
 	virtual void updateProduction()
@@ -60,16 +64,24 @@ protected:
 		int resource_units = constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING;
 
 		if (oreStorage().commonMetalsOre() >= resource_units)
+		{
 			convertOre(ResourcePool::RESOURCE_COMMON_METALS_ORE, ResourcePool::RESOURCE_COMMON_METALS, resource_units / 2);
+		}
 
 		if (oreStorage().commonMineralsOre() >= resource_units)
+		{
 			convertOre(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, ResourcePool::RESOURCE_COMMON_MINERALS, resource_units / 2);
+		}
 
 		if (oreStorage().rareMetalsOre() >= resource_units)
+		{
 			convertOre(ResourcePool::RESOURCE_RARE_METALS_ORE, ResourcePool::RESOURCE_RARE_METALS, resource_units / 3);
+		}
 
 		if (oreStorage().rareMineralsOre() >= resource_units)
+		{
 			convertOre(ResourcePool::RESOURCE_RARE_MINERALS_ORE, ResourcePool::RESOURCE_RARE_MINERALS, resource_units / 3);
+		}
 	}
 
 private:
@@ -78,8 +90,6 @@ private:
 		resourcesIn().energy(5);
 	}
 
-	virtual void defineResourceOutput()
-	{
-	}
+	virtual void defineResourceOutput() {}
 
 };

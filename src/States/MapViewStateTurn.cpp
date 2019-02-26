@@ -111,7 +111,7 @@ void MapViewState::updateCommercial()
 		}
 	}
 
-	auto _comm_r_it = _commercial.rbegin();
+	auto _comm_r_it = _commercial.rbegin();	// why reverse iterator?
 	for (size_t i = 0; i < static_cast<size_t>(luxuryCount) && _comm_r_it != _commercial.rend(); ++i, ++_comm_r_it)
 	{
 		if ((*_comm_r_it)->operational())
