@@ -42,6 +42,11 @@ void StructureInspector::init()
 	btnClose.size(50, 20);
 	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
 
+
+	add(&txtStateDescription, 190, 75);
+	txtStateDescription.size(155, 80);
+	txtStateDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+
 	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
@@ -54,6 +59,23 @@ void StructureInspector::structure(Structure* _st)
 {
 	mStructure = _st;
 	mStructureClass = structureClassDescription(mStructure->structureClass());
+	check();
+}
+
+
+/**
+ * Forces a state check. Used to update text area for descriptions.
+ */
+void StructureInspector::check()
+{
+	if (!mStructure) { return; }
+
+	txtStateDescription.text("");
+
+	if (mStructure->disabled() || mStructure->destroyed()) { txtStateDescription.text(disabledReason(mStructure->disabledReason())); }
+	else if (mStructure->isIdle()) { txtStateDescription.text(idleReason(mStructure->idleReason())); }
+
+	txtStateDescription.visible(!txtStateDescription.text().empty());
 }
 
 

@@ -13,6 +13,8 @@ public:
 	void structure(Structure* _st);
 	Structure* structure() { return mStructure; }
 
+	void check();
+
 	virtual void update() final;
 
 protected:
@@ -29,6 +31,8 @@ private:
 
 private:
 	Button			btnClose;
+
+	TextArea		txtStateDescription;
 
 	NAS2D::Image	mIcons;
 
