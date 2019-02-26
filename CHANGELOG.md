@@ -21,6 +21,8 @@ Maintenance release.
 - Fullscreen mode has been removed so that OutpostHD plays nicely with the native window manager due to the use of native message boxes.
 - Window state is now saved on closing (maximized or not).
 - Window size is now saved on closing.
+- Reason for a structure going Idle is now detailed in the Structure Inspector window.
+- Reason for a structure being Disabled is now detailed in the Structure Inspector window.
 
 ### Fixed
 - Right-clicking on a Warehouse that's under construction will now bring up the Structure Inspector Window instead of the Warehouse Inspector.
