@@ -231,6 +231,7 @@ namespace constants
 	const std::string STRUCTURE_IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE = "Cannot pull product due to lack of Warehouse space";
 	const std::string STRUCTURE_IDLE_MINE_EXHAUSTED = "Mine exhausted";
 	const std::string STRUCTURE_IDLE_MINE_INACTIVE = "Mine inactive";
+	const std::string STRUCTURE_IDLE_INSUFFICIENT_LUXURY_PRODUCT = "Insufficient Luxury Product available";
 
 	// =====================================
 	// = ALERT AND ERROR MESSAGES
