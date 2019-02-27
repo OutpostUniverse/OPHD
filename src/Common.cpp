@@ -374,11 +374,15 @@ NAS2D::StringList split_string(const char *str, char delim)
 
 void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding)
 {
-	Utility<Renderer>::get().drawBox(x, y, width, height, 0, 185, 0);
+	Utility<Renderer>::get().drawBox(static_cast<float>(x), static_cast<float>(y), static_cast<float>(width), static_cast<float>(height), 0, 185, 0);
 
 	if (percent > 0.0f)
 	{
-		int bar_width = static_cast<float>(width - (padding + padding)) * percent;
-		Utility<Renderer>::get().drawBoxFilled(x + padding, y + padding + 1, bar_width - 1, height - (padding + padding) - 1, 0, 100, 0);
+		int bar_width = static_cast<int>(static_cast<float>(width - (padding + padding)) * percent);
+		Utility<Renderer>::get().drawBoxFilled(	static_cast<float>(x + padding),
+												static_cast<float>(y + padding + 1),
+												static_cast<float>(bar_width - 1),
+												static_cast<float>(height - (padding + padding) - 1),
+												0, 100, 0);
 	}
 }
