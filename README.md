@@ -49,8 +49,6 @@ F3: Load Game
 
 F10: Show debug info
 
-F11: Toggle fullscreen/windowed mode
-
 PAGE UP: Go up one level
 
 PAGE DOWN: Go down one level
@@ -89,14 +87,6 @@ A: When you first start the game, the only structure available to you is the SEE
 Keep in mind that the SEED Lander can't be placed within 3 tiles of any of the edges of the map and must have all tiles surrounding it be free of obstructions like Mines and Impassable Terrain.
 
 After you place the SEED Lander, the Advance Turn button will become available to click on (you must place a SEED Lander before you can do anything else). After you left click on the Advance Turn button, other options will become available to you and the first structures of your colony will be built.
-
-**Q: How can I lower the resolution or turn off fullscreen mode?**
-
-A: By default OutpostHD sets itself to the native screen resolution of your desktop with a minimum resolution of 1024x768. Eventually you'll be able to make changes in the game via an options menu but for now if you want to change the resolution you can open "data/config.xml" and modify the screenwidth and screenheight values. There is no sanity checking so set this to a sane value or you could get weird behavior including crashing.
-
-To turn off fullscreen mode, simply change 'fullscreen="true"' to 'fullscreen="false"'.
-
-When in-game, you can press F11 to toggle between fullscreen and windowed modes. As a note, if you're running the game for the first time and you haven't set a resolution less than your native desktop resolution, pressing F11 may appear to have no effect. You will need to modify your config.xml file after which you will see the window border.
 
 **Q: Can I automatically skip the splash/logo screens?**
 

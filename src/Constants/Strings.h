@@ -16,7 +16,7 @@ namespace constants
 	// =====================================
 	// = MISCELLANEOUS
 	// =====================================
-	const std::string VERSION = "v0.7.9";
+	const std::string VERSION = "v0.7.11";
 	const std::string EMPTY_STR = ""; /**< Used in a few places to return an empty string without having to create one. */
 
 	const std::string PLANET_DESCRIPTION_GANYMEDE = "Like Jupiter's moon Ganymede, this planet contains a sub-surface ocean and a magnetic field. Despite having a magnetic field indicating a liquid core, there is no atpmosphere. \n \n This planet tends to be farther from the host star so solar satellites aren't going to be very useful.";
