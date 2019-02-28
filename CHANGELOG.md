@@ -23,6 +23,7 @@ Maintenance release.
 - Window size is now saved on closing.
 - Reason for a structure going Idle is now detailed in the Structure Inspector window.
 - Reason for a structure being Disabled is now detailed in the Structure Inspector window.
+- Changing depth level while in Robot insert mode will no longer clear insertion mode.
 
 ### Fixed
 - Right-clicking on a Warehouse that's under construction will now bring up the Structure Inspector Window instead of the Warehouse Inspector.

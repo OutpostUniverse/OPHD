@@ -667,7 +667,7 @@ bool MapViewState::changeDepth(int _d)
 
 	if (mTileMap->currentDepth() == mPrevious) { return false; }
 
-	clearMode();
+	if (mInsertMode != INSERT_ROBOT) { clearMode(); }
 	populateStructureMenu();
 	updateCurrentLevelString(mTileMap->currentDepth());
 	return true;
