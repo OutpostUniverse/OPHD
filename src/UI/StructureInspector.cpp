@@ -151,12 +151,6 @@ void StructureInspector::update()
 	}
 
 	drawPopulationRequirements();
-
-
-	if (mStructure->disabled())
-	{
-		r.drawText(*FONT, disabledReason(mStructure->disabledReason()), rect().x() + 190, rect().y() + 75, 255, 255, 255);
-	}
 	
 	r.drawText(*FONT, "This window is a work in progress", rect().x() + 5, rect().y() + rect().height() - FONT->height() - 5, 255, 255, 255);
 }
