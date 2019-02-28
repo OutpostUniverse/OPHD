@@ -34,15 +34,11 @@ PlanetSelectState::PlanetSelectState():	mBg("sys/bg1.png"),
 PlanetSelectState::~PlanetSelectState()
 {
 	EventHandler& e = Utility<EventHandler>::get();
-	e.keyDown().disconnect(this, &PlanetSelectState::onKeyDown);
 	e.mouseButtonDown().disconnect(this, &PlanetSelectState::onMouseDown);
 	e.mouseMotion().disconnect(this, &PlanetSelectState::onMouseMove);
 	e.windowResized().disconnect(this, &PlanetSelectState::onWindowResized);
 
-	for (size_t i = 0; i < mPlanets.size(); ++i)
-	{
-		delete mPlanets[i];
-	}
+	for (auto planet : mPlanets) { delete planet; }
 
 	Utility<Mixer>::get().stopAllAudio();
 }
@@ -51,7 +47,6 @@ PlanetSelectState::~PlanetSelectState()
 void PlanetSelectState::initialize()
 {
 	EventHandler& e = Utility<EventHandler>::get();
-	e.keyDown().connect(this, &PlanetSelectState::onKeyDown);
 	e.mouseButtonDown().connect(this, &PlanetSelectState::onMouseDown);
 	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 	e.windowResized().connect(this, &PlanetSelectState::onWindowResized);
@@ -184,10 +179,6 @@ State* PlanetSelectState::update()
 
 	return mReturnState;
 }
-
-
-void PlanetSelectState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
-{}
 
 
 void PlanetSelectState::onMouseDown(EventHandler::MouseButton button, int x, int y)

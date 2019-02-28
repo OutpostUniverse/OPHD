@@ -21,10 +21,8 @@ private:
 	typedef std::vector<Planet*> PlanetPtrList;
 
 private:
-	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
-
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
-	void onMouseMove(int x, int y, int rX, int rY);
+	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
+	void onMouseMove(int, int, int, int);
 
 	void onMousePlanetEnter();
 	void onMousePlanetExit();
@@ -33,7 +31,7 @@ private:
 
 	void btnQuitClicked();
 
-	void drawStar(int x, int y);
+	void drawStar(int, int);
 
 private:
 	NAS2D::Image	mBg;
