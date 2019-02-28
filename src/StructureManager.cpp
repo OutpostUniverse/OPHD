@@ -138,7 +138,9 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 		// ASSUMPTION:	Construction sites are considered self sufficient until they are
 		//				completed and connected to the rest of the colony.
 		if (structure->underConstruction() || structure->destroyed())
+		{
 			continue;
+		}
 
 		// Connection Check
 		if (!structureConnected(structure) && !structure->selfSustained())
