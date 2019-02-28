@@ -31,6 +31,7 @@ Maintenance release.
 - Fixed a mistake in the Population Panel that displayed housing incorrectly before the the Command Center was built.
 - Fixed an issue in the GraphWalker that could leave some tiles marked as connected when they shouldn't be has been resolved. Fix provided by Sirbomber.
 - Fixed an issue in MainMenuState that could lead to the UI buttons being clicked inadvertently when skipping the splash screens.
+- Fix failure to load when saving a game with a newly built Robot Command Center that doesn't have any robots assigned to it yet.
 
 
 ## [0.7.10] - 2019-01-29

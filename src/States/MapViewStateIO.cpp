@@ -408,19 +408,22 @@ void MapViewState::readStructures(XmlElement* _ti)
 			RobotCommand* rcc = static_cast<RobotCommand*>(st);
 			XmlAttribute* robots = structure->firstChildElement("robots")->firstAttribute();
 
-			StringList rl_str = split_string(robots->value().c_str(), ',');
-
-			const RobotList& rl = mRobotPool.robots();
-
-			for (size_t i = 0; i < rl_str.size(); ++i)
+			if (!robots->value().empty())
 			{
-				int _rid = std::stoi(rl_str[i]);
-				for (size_t ri = 0; ri < rl.size(); ++ri)
+				StringList rl_str = split_string(robots->value().c_str(), ',');
+
+				const RobotList& rl = mRobotPool.robots();
+
+				for (size_t i = 0; i < rl_str.size(); ++i)
 				{
-					if (rl[ri]->id() == _rid)
+					int _rid = std::stoi(rl_str[i]);
+					for (size_t ri = 0; ri < rl.size(); ++ri)
 					{
-						rcc->addRobot(rl[ri]);
-						break;
+						if (rl[ri]->id() == _rid)
+						{
+							rcc->addRobot(rl[ri]);
+							break;
+						}
 					}
 				}
 			}
