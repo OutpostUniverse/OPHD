@@ -98,7 +98,11 @@ void Structure::disable(DisabledReason reason)
 */
 void Structure::enable()
 {
-	if (forceIdle()) { idle(IDLE_PLAYER_SET); return; }
+	if (forceIdle())
+	{
+		idle(IDLE_PLAYER_SET);
+		return;
+	}
 
 	sprite().resume();
 	sprite().color(255, 255, 255, 255);
@@ -113,7 +117,10 @@ void Structure::enable()
 */
 void Structure::idle(IdleReason reason)
 {
-	if (forceIdle()) { return; }
+	if (forceIdle() && !disabled())
+	{
+		return;
+	}
 
 	sprite().pause();
 	sprite().color(255, 255, 255, 185);
