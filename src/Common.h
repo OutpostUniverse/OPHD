@@ -323,3 +323,5 @@ void drawBasicProgressBar(int x, int y, int width, int height, float percent, in
 
 NAS2D::Color_4ub& structureColorFromIndex(size_t);
 NAS2D::Color_4ub& structureTextColorFromIndex(size_t);
+
+bool windowMaximized();

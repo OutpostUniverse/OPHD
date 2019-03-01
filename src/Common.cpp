@@ -266,6 +266,18 @@ Color_4ub& structureTextColorFromIndex(size_t index)
 
 
 /**
+ * Bit of a kludge to get state of a window
+ * outside of what the EventHandler provides.
+ */
+bool windowMaximized()
+{
+	extern SDL_Window* _WINDOW;
+	unsigned int flags = SDL_GetWindowFlags(_WINDOW);
+	return (flags & SDL_WINDOW_MAXIMIZED);
+}
+
+
+/**
  * Shows a message dialog box.
  */
 void doNonFatalErrorMessage(const std::string& title, const std::string& msg)

@@ -41,6 +41,8 @@ private:
 
 	void onWindowResized(int w, int h)
 	{
+		if (windowMaximized()) { return; }
+
 		NAS2D::Utility<NAS2D::Configuration>::get().graphicsWidth(w);
 		NAS2D::Utility<NAS2D::Configuration>::get().graphicsHeight(h);
 	}
