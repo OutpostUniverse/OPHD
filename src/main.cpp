@@ -87,8 +87,6 @@ int main(int argc, char *argv[])
 
 		Configuration& cf = Utility<Configuration>::get();
 
-		bool startMaximized = false;
-
 		// If no config file, set defaults.
 		if (!f.exists("config.xml"))
 		{

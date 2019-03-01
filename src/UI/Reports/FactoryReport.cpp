@@ -35,7 +35,6 @@ static Image* FACTORY_SEED = nullptr;
 static Image* FACTORY_AG = nullptr;
 static Image* FACTORY_UG = nullptr;
 static Image* FACTORY_IMAGE = nullptr;
-static Image* FACTORY_PRODUCT = nullptr;
 
 std::array<Image*, PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
 static Image* _PRODUCT_NONE = nullptr;
