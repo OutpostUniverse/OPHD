@@ -19,6 +19,39 @@ static Font* FONT_BOLD = nullptr;
 static Font* FONT_TINY = nullptr;
 
 
+
+class Explosion
+{
+public:
+	Explosion(): mSheet("fx/explosion2.png") {}
+	~Explosion() = default;
+
+	void update(int x, int y)
+	{
+		Renderer& r = Utility<Renderer>::get();
+
+		if (mTimer.accumulator() > 7)
+		{
+			mFrame = ++mFrame >= 64 ? 0 : mFrame;	/// yeesh, this is evil.
+			mTimer.reset();
+		}
+
+		r.drawSubImageRotated(mSheet, x, y, (mFrame % 8) * 128, (mFrame / 8) * 128, 128, 128, 270.0f);
+		//r.drawSubImage(mSheet, x, y, (mFrame % 8) * 128, (mFrame / 8) * 128, 128, 128);
+	}
+
+private:
+	NAS2D::Image	mSheet;
+	NAS2D::Timer	mTimer;
+
+	size_t			mFrame = 0;
+};
+
+
+Explosion* EXPLODE = nullptr;
+
+
+
 PlanetSelectState::PlanetSelectState():	mBg("sys/bg1.png"),
 										mStarFlare("sys/flare_1.png"),
 										mDetailFlare("sys/flare_2.png"),
@@ -87,6 +120,9 @@ void PlanetSelectState::initialize()
 	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 	FONT_TINY = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
+
+	EXPLODE = new Explosion();
+
 	Utility<Mixer>::get().playMusic(mBgMusic);
 }
 
@@ -117,6 +153,8 @@ State* PlanetSelectState::update()
 	{
 		mPlanets[i]->update();
 	}
+
+	EXPLODE->update(100, 100);
 
 	r.drawText(*FONT_BOLD, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (FONT_BOLD->width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
 	r.drawText(*FONT_BOLD, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (FONT_BOLD->width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
