@@ -72,6 +72,8 @@ int main(int argc, char *argv[])
 	std::cout.rdbuf(filestr.rdbuf());
 	#endif
 
+	std::cout << "OutpostHD " << constants::VERSION << std::endl << std::endl;
+
 	StructureCatalogue::init();		// only needs to be done once at the start of the program.
 	StructureTranslator::init();	// only needs to be done once at the start of the program.
 
