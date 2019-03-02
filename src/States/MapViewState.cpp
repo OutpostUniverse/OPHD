@@ -40,7 +40,8 @@ extern MainReportsUiState* MAIN_REPORTS_UI;
 int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
 
 Rectangle_2d MENU_ICON;
-Rectangle_2d RESOURCE_PANEL_PIN(1, 1, 8, 19);
+Rectangle_2d RESOURCE_PANEL_PIN(0, 1, 8, 19);
+Rectangle_2d POPULATION_PANEL_PIN(675, 1, 8, 19);
 
 Rectangle_2d MOVE_NORTH_ICON;
 Rectangle_2d MOVE_SOUTH_ICON;
@@ -535,10 +536,8 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			resetUi();
 		}
 
-		if (isPointInRect(MOUSE_COORDS, RESOURCE_PANEL_PIN))
-		{
-			mPinResourcePanel = !mPinResourcePanel;
-		}
+		if (isPointInRect(MOUSE_COORDS, RESOURCE_PANEL_PIN)) { mPinResourcePanel = !mPinResourcePanel; }
+		if (isPointInRect(MOUSE_COORDS, POPULATION_PANEL_PIN)) { mPinPopulationPanel = !mPinPopulationPanel; }
 
 		if (isPointInRect(MOUSE_COORDS, MOVE_NORTH_ICON))
 		{

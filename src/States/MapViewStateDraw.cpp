@@ -136,6 +136,7 @@ void MapViewState::drawResourceInfo()
 	int margin = constants::RESOURCE_ICON_SIZE + constants::MARGIN;
 
 	r.drawSubImage(mUiIcons, 2, 7, mPinResourcePanel ? 8 : 0, 72, 8, 8);
+	r.drawSubImage(mUiIcons, 675, 7, mPinPopulationPanel ? 8 : 0, 72, 8, 8);
 
 	updateGlowTimer();
 
@@ -182,8 +183,8 @@ void MapViewState::drawResourceInfo()
 	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(*MAIN_FONT, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
 
-	if (isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 580, 0, 35, 20)) { mPopulationPanel.update(); }
-	if (mPinResourcePanel || isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 1, 1, mResourceBreakdownPanel.width() + 10, 20)) { mResourceBreakdownPanel.update(); }
+	if (mPinPopulationPanel	|| isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 675, 1, 75, 19)) { mPopulationPanel.update(); }
+	if (mPinResourcePanel	|| isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 0, 1, mResourceBreakdownPanel.width(), 19)) { mResourceBreakdownPanel.update(); }
 
 	// Turns
 	r.drawSubImage(mUiIcons, r.width() - 80, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);

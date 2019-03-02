@@ -59,7 +59,7 @@ static ResourceTrend compareResources(int src, int dst)
 
 ResourceBreakdownPanel::ResourceBreakdownPanel() : mIcons("ui/icons.png")
 {
-	size(340, 80);
+	size(270, 80);
 
 	mSkin.push_back(Image("ui/skin/window_top_left.png"));
 	mSkin.push_back(Image("ui/skin/window_top_middle.png"));

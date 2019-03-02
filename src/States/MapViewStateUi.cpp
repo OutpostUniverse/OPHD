@@ -91,7 +91,7 @@ void MapViewState::initUi()
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
-	mPopulationPanel.position(580, constants::RESOURCE_ICON_SIZE + 4 + constants::MARGIN_TIGHT);
+	mPopulationPanel.position(675, constants::RESOURCE_ICON_SIZE + 4 + constants::MARGIN_TIGHT);
 	mPopulationPanel.population(&mPopulation);
 	mPopulationPanel.morale(&mCurrentMorale);
 	mPopulationPanel.old_morale(&mPreviousMorale);
