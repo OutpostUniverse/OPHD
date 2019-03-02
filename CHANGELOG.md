@@ -1,9 +1,9 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.7.11] - UNRELEASED
+## [0.7.11] - 2019-03-01
 
-Maintenance release.
+Maintenance release. Addresses usability issues and a number of bugs that have been discovered.
 
 ### Added
 - Help button to the Main Menu. This launches the OutpostHD Wiki in your default browser.
