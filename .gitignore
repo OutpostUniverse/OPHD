@@ -19,4 +19,5 @@
 /proj/vc15/*.suppress
 /proj/vc15/Release Gold
 /proj/vc15/Release
+.build/
 OPHD

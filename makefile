@@ -1,7 +1,7 @@
 # Source http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 
 SRCDIR := src
-BUILDDIR := build
+BUILDDIR := .build
 BINDIR := .
 OBJDIR := $(BUILDDIR)/obj
 DEPDIR := $(BUILDDIR)/deps
