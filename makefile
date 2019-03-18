@@ -55,7 +55,6 @@ include $(wildcard $(patsubst $(SRCDIR)/%.cpp,$(DEPDIR)/%.d,$(SRCS)))
 clean:
 	-rm -fr $(OBJDIR)
 	-rm -fr $(DEPDIR)
-	-rm -fr $(BINDIR)
 clean-deps:
 	-rm -fr $(DEPDIR)
 clean-all:
