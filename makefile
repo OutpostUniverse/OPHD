@@ -23,7 +23,6 @@ POSTCOMPILE = @mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d && touch $@
 
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
 OBJS := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
-OBJS := $(filter-out $(OBJDIR)/ui_builder/%,$(OBJS)) # Filter ui_builder
 FOLDERS := $(sort $(dir $(SRCS)))
 
 all: $(EXE)
