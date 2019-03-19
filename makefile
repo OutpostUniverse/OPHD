@@ -1,7 +1,7 @@
 # Source http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 
 SRCDIR := src
-BUILDDIR := build
+BUILDDIR := .build
 BINDIR := .
 OBJDIR := $(BUILDDIR)/obj
 DEPDIR := $(BUILDDIR)/deps
@@ -23,7 +23,6 @@ POSTCOMPILE = @mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d && touch $@
 
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
 OBJS := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
-OBJS := $(filter-out $(OBJDIR)/ui_builder/%,$(OBJS)) # Filter ui_builder
 FOLDERS := $(sort $(dir $(SRCS)))
 
 all: $(EXE)
@@ -56,7 +55,6 @@ include $(wildcard $(patsubst $(SRCDIR)/%.cpp,$(DEPDIR)/%.d,$(SRCS)))
 clean:
 	-rm -fr $(OBJDIR)
 	-rm -fr $(DEPDIR)
-	-rm -fr $(BINDIR)
 clean-deps:
 	-rm -fr $(DEPDIR)
 clean-all:
