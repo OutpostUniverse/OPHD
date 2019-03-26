@@ -36,18 +36,6 @@ NAS2D::Music* MARS = nullptr;
 
 
 /**
- * Safe to return a reference as the instantiation will either succeed
- * or will fail and throw an exception.
- */
-NAS2D::Renderer& createRenderer()
-{
-	Utility<Renderer>::init<OGL_Renderer>("OutpostHD");
-
-	return Utility<Renderer>::get();
-}
-
-
-/**
  * Makes sure video resolution is never less than 1024x768
  */
 void validateVideoResolution()
@@ -121,7 +109,7 @@ int main(int argc, char *argv[])
 
 		WindowEventWrapper _wew;
 
-		Renderer& r = createRenderer();
+		Renderer& r = Utility<Renderer>::init<OGL_Renderer>("OutpostHD");
 
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
