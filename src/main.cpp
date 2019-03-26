@@ -41,7 +41,7 @@ NAS2D::Music* MARS = nullptr;
  */
 NAS2D::Renderer& createRenderer()
 {
-	Utility<Renderer>::instantiateDerived(new OGL_Renderer("OutpostHD"));
+	Utility<Renderer>::init<OGL_Renderer>("OutpostHD");
 
 	return Utility<Renderer>::get();
 }
@@ -112,11 +112,11 @@ int main(int argc, char *argv[])
 
 		try
 		{
-			Utility<Mixer>::instantiateDerived(new Mixer_SDL());
+			Utility<Mixer>::init<Mixer_SDL>();
 		}
 		catch (...)
 		{
-			Utility<Mixer>::instantiateDerived(new Mixer());
+			Utility<Mixer>::init();
 		}
 
 		WindowEventWrapper _wew;
