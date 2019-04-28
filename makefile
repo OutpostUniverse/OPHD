@@ -43,7 +43,6 @@ $(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d | build-folder
 .PHONY: build-folder
 build-folder:
 	@mkdir -p $(patsubst $(SRCDIR)%,$(OBJDIR)%, $(FOLDERS))
-	@mkdir -p $(patsubst $(SRCDIR)%,$(OBJDIR)%, $(FOLDERS))
 
 $(OBJDIR)%.d: ;
 .PRECIOUS: $(OBJDIR)%.d
