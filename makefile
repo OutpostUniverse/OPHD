@@ -9,14 +9,14 @@ NAS2DINCLUDEDIR := $(NAS2DDIR)include/
 NAS2DLIBDIR := $(NAS2DDIR)lib/
 NAS2DLIB := $(NAS2DLIBDIR)libnas2d.a
 
-CFLAGS := -std=c++17 -g -Wall -Wno-unknown-pragmas -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
+CXXFLAGS := -std=c++17 -g -Wall -Wno-unknown-pragmas -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
 LDFLAGS := -lstdc++ -lm -L$(NAS2DLIBDIR) -lnas2d \
 	$(shell sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf \
 	-lphysfs -lGL -lGLEW
 
 DEPFLAGS = -MT $@ -MMD -MP -MF $(OBJDIR)$*.Td
 
-COMPILE.cpp = $(CXX) $(DEPFLAGS) $(CFLAGS) $(TARGET_ARCH) -c
+COMPILE.cpp = $(CXX) $(DEPFLAGS) $(CXXFLAGS) $(TARGET_ARCH) -c
 POSTCOMPILE = @mv -f $(OBJDIR)$*.Td $(OBJDIR)$*.d && touch $@
 
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
