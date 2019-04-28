@@ -12,4 +12,4 @@ jobs:
             git submodule update
       - run:
           name: "Build"
-          command: make -k
+          command: make --keep-going
