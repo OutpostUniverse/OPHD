@@ -245,6 +245,8 @@ void MainMenuState::btnHelpClicked()
 	system("start https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
 #elif defined(__APPLE__)
 	system("open https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
+#elif defined(__linux__)
+	system("xdg-open https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
 #else
 	//#error Open a web page support on the current platform not implemented.
 	#pragma message( "Open a web page support on the current platform not implemented." )
