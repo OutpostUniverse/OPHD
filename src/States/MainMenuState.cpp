@@ -241,7 +241,7 @@ void MainMenuState::btnHelpClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
 
-#if defined(WINDOWS) || defined(WIN32)
+#if defined(_WIN32)
 	system("start https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
 #elif defined(__APPLE__)
 	system("open https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
