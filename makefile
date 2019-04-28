@@ -11,7 +11,7 @@ NAS2DINCLUDEDIR := $(NAS2DDIR)/include
 NAS2DLIBDIR := $(NAS2DDIR)/lib
 NAS2DLIB := $(NAS2DLIBDIR)/libnas2d.a
 
-CFLAGS := -std=c++11 -g -Wall -Wno-unknown-pragmas -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
+CFLAGS := -std=c++17 -g -Wall -Wno-unknown-pragmas -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
 LDFLAGS := -lstdc++ -lm -L$(NAS2DLIBDIR) -lnas2d \
 	$(shell sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf \
 	-lphysfs -lGLU -lGL -lGLEW
