@@ -4,7 +4,6 @@ SRCDIR := src
 BUILDDIR := .build
 BINDIR := .
 OBJDIR := $(BUILDDIR)/obj
-DEPDIR := $(BUILDDIR)/deps
 EXE := $(BINDIR)/OPHD
 NAS2DDIR := nas2d-core
 NAS2DINCLUDEDIR := $(NAS2DDIR)/include
@@ -16,10 +15,10 @@ LDFLAGS := -lstdc++ -lm -L$(NAS2DLIBDIR) -lnas2d \
 	$(shell sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf \
 	-lphysfs -lGL -lGLEW
 
-DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.Td
+DEPFLAGS = -MT $@ -MMD -MP -MF $(OBJDIR)/$*.Td
 
 COMPILE.cpp = $(CXX) $(DEPFLAGS) $(CFLAGS) $(TARGET_ARCH) -c
-POSTCOMPILE = @mv -f $(DEPDIR)/$*.Td $(DEPDIR)/$*.d && touch $@
+POSTCOMPILE = @mv -f $(OBJDIR)/$*.Td $(OBJDIR)/$*.d && touch $@
 
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
 OBJS := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
@@ -38,19 +37,19 @@ $(NAS2DLIB): nas2d
 nas2d:
 	$(MAKE) -C nas2d-core
 
-$(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp $(DEPDIR)/%.d | build-folder
+$(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp $(OBJDIR)/%.d | build-folder
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
 	$(POSTCOMPILE)
 
 .PHONY: build-folder
 build-folder:
 	@mkdir -p $(patsubst $(SRCDIR)/%,$(OBJDIR)/%, $(FOLDERS))
-	@mkdir -p $(patsubst $(SRCDIR)/%,$(DEPDIR)/%, $(FOLDERS))
+	@mkdir -p $(patsubst $(SRCDIR)/%,$(OBJDIR)/%, $(FOLDERS))
 
-$(DEPDIR)/%.d: ;
-.PRECIOUS: $(DEPDIR)/%.d
+$(OBJDIR)/%.d: ;
+.PRECIOUS: $(OBJDIR)/%.d
 
-include $(wildcard $(patsubst $(SRCDIR)/%.cpp,$(DEPDIR)/%.d,$(SRCS)))
+include $(wildcard $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.d,$(SRCS)))
 
 .PHONY: clean clean-all
 clean:
