@@ -29,8 +29,6 @@ using namespace NAS2D::Xml;
 const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
 const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 
-const int MAX_TILESET_INDEX	= 4;
-
 extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.
 extern NAS2D::Image* IMG_SAVING;	/// \fixme Find a sane place for this.
 extern Point_2d MOUSE_COORDS;

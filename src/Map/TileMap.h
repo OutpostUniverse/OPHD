@@ -131,6 +131,5 @@ private:
 
 	NAS2D::Rectangle_2d	mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
 
-	bool				mDebug = false;
 	bool				mShowConnections = false;	/**< Flag indicating whether or not to highlight connectedness. */
 };
