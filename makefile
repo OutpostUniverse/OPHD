@@ -10,9 +10,8 @@ NAS2DLIBDIR := $(NAS2DDIR)lib/
 NAS2DLIB := $(NAS2DLIBDIR)libnas2d.a
 
 CXXFLAGS := -std=c++17 -g -Wall -Wno-unknown-pragmas -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
-LDFLAGS := -lstdc++ -lm -L$(NAS2DLIBDIR) -lnas2d \
-	$(shell sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf \
-	-lphysfs -lGL -lGLEW
+LDFLAGS := -L$(NAS2DLIBDIR) $(shell sdl2-config --libs)
+LDLIBS := -lstdc++ -lm -lnas2d -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lphysfs -lGL -lGLEW
 
 DEPFLAGS = -MT $@ -MMD -MP -MF $(OBJDIR)$*.Td
 
@@ -28,7 +27,7 @@ all: $(EXE)
 
 $(EXE): $(NAS2DLIB) $(OBJS)
 	@mkdir -p ${@D}
-	$(CXX) $^ $(LDFLAGS) -o $@
+	$(CXX) $^ $(LDFLAGS) $(LDLIBS) -o $@
 
 $(NAS2DLIB): nas2d
 
