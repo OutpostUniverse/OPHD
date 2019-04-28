@@ -2,7 +2,7 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: outpostuniverse/ubuntu-18.04-gcc-sdl2-physfs-circleci
+      - image: outpostuniverse/nas2d-circleci:1.1
     steps:
       - checkout
       - run:
