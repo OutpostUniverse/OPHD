@@ -18,15 +18,6 @@
 using namespace NAS2D;
 
 
-static const int MIN_WIDTH		= 16;
-static const int MIN_HEIGHT		= 16;
-
-static const int MAX_WIDTH		= 512;
-static const int MAX_HEIGHT		= 32;
-
-static const int REPEAT_DELAY	= 500;
-static const int REPEAT_WAIT	= 20;
-
 static const int FIELD_PADDING = 4;
 
 static const int CURSOR_BLINK_DELAY = 250;

@@ -71,7 +71,6 @@ private:
 	int 				mCursorPosition = 0;			/**< Position of the Insertion Cursor. */
 	int 				mCursorX = 0;					/**< Pixel position of the Cursor. */
 	int 				mScrollOffset = 0;				/**< Scroller offset. */
-	int					mMaxScrollOffset = 0;			/**< Maximum allowable offset. */
 
 	size_t				mMaxCharacters = 0;				/**< Max number of characters allowed in the text field. */
 

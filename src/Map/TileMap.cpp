@@ -328,8 +328,6 @@ void TileMap::draw()
 		}
 	}
 
-	//if (mDebug) { r.drawBox(mMapBoundingBox, 0, 200, 0); }
-
 	updateTileHighlight();
 }
 

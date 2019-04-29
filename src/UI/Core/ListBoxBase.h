@@ -120,6 +120,4 @@ private:
 
 	SelectionChangedCallback	mSelectionChanged;								/**< Callback for selection changed callback. */
 	Slider						mSlider;										/**< Slider control. */
-
-	bool						mSorted = false;								/**< Flag indicating that all Items should be sorted. */
 };
