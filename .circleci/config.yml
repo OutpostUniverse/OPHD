@@ -2,7 +2,7 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: outpostuniverse/ubuntu-18.04-circleci-gcc-sdl2
+      - image: outpostuniverse/nas2d-circleci:1.1
     steps:
       - checkout
       - run:
@@ -12,4 +12,4 @@ jobs:
             git submodule update
       - run:
           name: "Build"
-          command: make -k
+          command: make --keep-going
