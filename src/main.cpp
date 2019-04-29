@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	try
 	{
 		Filesystem& f = Utility<Filesystem>::get();
-		f.init(argv[0], "data");
+		f.init(argv[0], "OutpostHD", "LairWorks", "data");
 
 		if (!f.exists(constants::SAVE_GAME_PATH))
 		{
@@ -130,8 +130,8 @@ int main(int argc, char *argv[])
 
 		std::cout << "Loading packed assets... ";
 
-		f.addToSearchPath("fonts.dat");
-		f.addToSearchPath("planets.dat");
+		//f.mount("data/fonts.dat");
+		//f.mount("planets.dat");
 
 		std::cout << "done." << std::endl;
 
