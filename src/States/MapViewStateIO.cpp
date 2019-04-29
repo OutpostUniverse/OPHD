@@ -300,7 +300,7 @@ void MapViewState::readRobots(XmlElement* _ti)
 void MapViewState::readStructures(XmlElement* _ti)
 {
 	std::string type;
-	int x = 0, y = 0, depth = 0, id = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0;
+	int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
 	for (XmlNode* structure = _ti->firstChild(); structure != nullptr; structure = structure->nextSibling())

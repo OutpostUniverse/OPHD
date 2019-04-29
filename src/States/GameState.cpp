@@ -195,8 +195,6 @@ void GameState::takeMeThere(Structure* _s)
  */
 State* GameState::update()
 {
-	Renderer& r = Utility<Renderer>::get();
-
 	if (ACTIVE_STATE)
 	{
 		ACTIVE_STATE->_update();
