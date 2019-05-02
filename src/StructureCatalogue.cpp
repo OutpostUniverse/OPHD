@@ -7,7 +7,7 @@
 //vector<ResourcePool> StructureCatalogue::mStructureCostTable;
 std::array<ResourcePool, SID_COUNT> StructureCatalogue::mStructureCostTable;
 std::array<ResourcePool, SID_COUNT> StructureCatalogue::mStructureRecycleValueTable;
-std::array<PopulationRequirements, SID_COUNT> StructureCatalogue::mPopulationRequirementsTable = { 0 };
+std::array<PopulationRequirements, SID_COUNT> StructureCatalogue::mPopulationRequirementsTable = {};
 
 
 const float	DEFAULT_RECYCLE_VALUE = 0.9f;	/**	Default recycle value. Currently set at 90% but this should probably be
