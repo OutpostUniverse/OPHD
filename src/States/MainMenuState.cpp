@@ -16,7 +16,7 @@ using namespace NAS2D;
 /**
  * C'tor
  */
-MainMenuState::MainMenuState() : mBgImage("sys/mainmenu.png")
+MainMenuState::MainMenuState() : mBgImage("sys/mainmenu.png"), mReturnState(this)
 {}
 
 

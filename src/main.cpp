@@ -4,6 +4,7 @@
 #include "NAS2D/NAS2D.h"
 
 #include "NAS2D/Mixer/Mixer_SDL.h"
+#include "NAS2D/Mixer/NullMixer.h"
 #include "NAS2D/Renderer/OGL_Renderer.h"
 
 #include "Common.h"
@@ -104,7 +105,7 @@ int main(int argc, char *argv[])
 		}
 		catch (...)
 		{
-			Utility<Mixer>::init();
+			Utility<NullMixer>::init();
 		}
 
 		WindowEventWrapper _wew;
@@ -127,13 +128,6 @@ int main(int argc, char *argv[])
 			extern SDL_Window* _WINDOW;
 			SDL_MaximizeWindow(_WINDOW);
 		}
-
-		std::cout << "Loading packed assets... ";
-
-		//f.mount("data/fonts.dat");
-		//f.mount("planets.dat");
-
-		std::cout << "done." << std::endl;
 
 		// Loading/Saving plaque's
 		IMG_LOADING = new Image("sys/loading.png");
