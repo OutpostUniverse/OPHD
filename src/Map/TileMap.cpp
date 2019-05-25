@@ -253,8 +253,8 @@ void TileMap::centerMapOnTile(Tile* _t)
 {
 	if (!_t) { return; }
 
-	mapViewLocation(clamp(_t->x() - edgeLength() / 2, 0, mWidth - 1),
-					clamp(_t->y() - edgeLength() / 2, 0, mHeight - 1));
+	mapViewLocation(std::clamp(_t->x() - edgeLength() / 2, 0, mWidth - 1),
+					std::clamp(_t->y() - edgeLength() / 2, 0, mHeight - 1));
 	currentDepth(_t->depth());
 }
 
@@ -350,7 +350,7 @@ void TileMap::updateTileHighlight()
 	int offsetY = ((mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE);
 	mMapHighlight(TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX);
 
-	int mmOffsetX = clamp((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
+	int mmOffsetX = std::clamp((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
 	int mmOffsetY = (mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE;
 
 	MouseMapRegion mmr = getMouseMapRegion(mmOffsetX, mmOffsetY);

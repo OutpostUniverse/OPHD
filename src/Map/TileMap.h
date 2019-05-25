@@ -59,7 +59,7 @@ public:
 	int height() const { return mHeight; }
 
 	int currentDepth() const { return mCurrentDepth; }
-	void currentDepth(int _i) { mCurrentDepth = NAS2D::clamp(_i, 0, mMaxDepth); }
+	void currentDepth(int _i) { mCurrentDepth = std::clamp(_i, 0, mMaxDepth); }
 
 	int maxDepth() const { return mMaxDepth; }
 

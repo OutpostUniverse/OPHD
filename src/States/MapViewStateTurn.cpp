@@ -155,7 +155,7 @@ void MapViewState::updateMorale()
 
 	mCurrentMorale -= residentialMoraleHit;
 
-	mCurrentMorale = clamp(mCurrentMorale, 0, 1000);
+	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
 }
 
 

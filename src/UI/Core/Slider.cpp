@@ -11,6 +11,8 @@
 #include "../../Constants.h"
 #include "../../FontManager.h"
 
+#include <algorithm>
+
 using namespace NAS2D;
 
 
@@ -167,7 +169,7 @@ double Slider::positionInternal()
  */
 void Slider::positionInternal(double _pos)
 {
-	mPosition = clamp(_pos, 0.0f, mLenght);
+	mPosition = std::clamp(_pos, 0.0, mLenght);
 	mCallback(mPosition);
 }
 

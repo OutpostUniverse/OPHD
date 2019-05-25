@@ -28,7 +28,7 @@ auto random_0_100 = std::bind(pop_distribution, pop_generator);
  */
 int moraleIndex(uint32_t morale)
 {
-	return NAS2D::clamp(morale, 1, 999) / 200;
+	return std::clamp(morale, 1u, 999u) / 200;
 }
 
 

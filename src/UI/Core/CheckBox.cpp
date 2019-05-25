@@ -20,6 +20,8 @@
 #include"../../Constants.h"
 #include "../../FontManager.h"
 
+#include <algorithm>
+
 
 using namespace NAS2D;
 
@@ -103,7 +105,7 @@ void CheckBox::onTextChanged()
  */
 void CheckBox::onSizeChanged()
 {
-	_rect().height(clamp(height(), 13.0f, 13.0f));
+	_rect().height(std::clamp(height(), 13.0f, 13.0f));
 	if (width() < 13.0f) { _rect().width(13.0f); }
 }
 
