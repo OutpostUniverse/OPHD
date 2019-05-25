@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OPHD", "ophd.vcxproj", "{230AB062-FDCA-4D56-A781-0D3B9E8AE310}"
 EndProject
@@ -17,15 +17,21 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Debug|Win32.ActiveCfg = Debug|Win32
 		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Debug|Win32.Build.0 = Debug|Win32
-		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Debug|x64.ActiveCfg = Debug|Win32
+		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Debug|x64.ActiveCfg = Debug|x64
+		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Debug|x64.Build.0 = Debug|x64
 		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Release Gold|Win32.ActiveCfg = Release Gold|Win32
 		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Release Gold|Win32.Build.0 = Release Gold|Win32
-		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Release Gold|x64.ActiveCfg = Release Gold|Win32
+		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Release Gold|x64.ActiveCfg = Release Gold|x64
+		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Release Gold|x64.Build.0 = Release Gold|x64
 		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Release|Win32.ActiveCfg = Release|Win32
 		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Release|Win32.Build.0 = Release|Win32
-		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Release|x64.ActiveCfg = Release|Win32
+		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Release|x64.ActiveCfg = Release|x64
+		{230AB062-FDCA-4D56-A781-0D3B9E8AE310}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C8973F21-575D-4674-BAEC-88E1B2EC73AD}
 	EndGlobalSection
 EndGlobal
