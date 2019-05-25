@@ -5,6 +5,8 @@
 
 #include <NAS2D/NAS2D.h>
 
+#include <algorithm>
+
 using namespace NAS2D;
 using namespace NAS2D::Xml;
 

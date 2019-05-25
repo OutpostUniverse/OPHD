@@ -15,6 +15,7 @@
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
 
+#include <algorithm>
 #include <sstream>
 #include <vector>
 

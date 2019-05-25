@@ -4,6 +4,8 @@
 
 #include "../Things/Structures/Structure.h"
 
+#include <algorithm>
+
 using Point2dList = std::vector<NAS2D::Point_2d>;
 
 class TileMap

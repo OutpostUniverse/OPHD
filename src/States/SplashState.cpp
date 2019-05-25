@@ -5,6 +5,7 @@
 
 #include "MainMenuState.h"
 
+#include <algorithm>
 
 const int PAUSE_TIME = 5800;
 

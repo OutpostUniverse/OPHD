@@ -10,6 +10,8 @@
 
 #include "../Things/Structures/Structures.h"
 
+#include <algorithm>
+
 
 extern NAS2D::Image* IMG_PROCESSING_TURN;	/// \fixme Find a sane place for this.
 

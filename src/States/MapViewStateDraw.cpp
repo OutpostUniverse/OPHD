@@ -10,6 +10,8 @@
 #include "../Constants.h"
 #include "../FontManager.h"
 
+#include <algorithm>
+
 extern Rectangle_2d MENU_ICON;
 
 extern Rectangle_2d MOVE_NORTH_ICON;
