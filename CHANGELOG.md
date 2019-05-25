@@ -1,6 +1,21 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.8.0] - YYYY-MM-DD
+
+Includes improved mined resource management and a proper implementation of truck routing for mines and mine to smelter routes.
+
+### Added
+- Added 64bit build configurations. OutpostHD will now be available as 32-bit and 64-bit builds.
+
+### Changed
+- OutpostHD now builds against the latest versions of NAS2D.
+- Lots of internal code cleanup.
+
+### Fixed
+- 
+
+
 ## [0.7.11] - 2019-03-01
 
 Maintenance release. Addresses usability issues and a number of bugs that have been discovered.
