@@ -21,9 +21,7 @@
 /proj/vc15/Release
 .build/
 OPHD
-/proj/vs2019/Debug
-/proj/vs2019/packages
-/proj/vs2019/Release Gold
-*.user
+Debug
+packages
+Release Gold
 .vs
-/proj/vs2019/Release
