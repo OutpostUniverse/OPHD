@@ -70,6 +70,12 @@
     <Filter Include="Source Files\UI\Reports">
       <UniqueIdentifier>{463384e6-546b-4f3c-adda-f9c094bc326e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UI\SpecializedListBox">
+      <UniqueIdentifier>{cd5e28df-9593-4566-86b8-d6e3a5c24335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI\SpecializedListBox">
+      <UniqueIdentifier>{cb143db0-8f9f-4ca0-b688-47c9e12cce98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -127,9 +133,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\ResourcePool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\AiVoiceNotifier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\ui\StructureInspector.cpp">
@@ -234,9 +237,6 @@
     <ClCompile Include="..\..\src\UI\Core\ComboBox.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\FactoryListBox.cpp">
-      <Filter>Source Files\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\UI\Reports\FactoryReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
@@ -255,7 +255,19 @@
     <ClCompile Include="..\..\src\UI\Reports\WarehouseReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\FactoryListBox.cpp">
+      <Filter>Source Files\UI\SpecializedListBox</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\UI\StructureListBox.cpp">
+      <Filter>Source Files\UI\SpecializedListBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\ProductListBox.cpp">
+      <Filter>Source Files\UI\SpecializedListBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\WindowEventWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\ResourceBreakdownPanel.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -394,9 +406,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\MineShaft.h">
       <Filter>Header Files\Things\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\AiVoiceNotifier.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ui\StructureInspector.h">
       <Filter>Header Files\UI</Filter>
@@ -557,9 +566,6 @@
     <ClInclude Include="..\..\src\UI\Reports\FactoryReport.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\FactoryListBox.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\FontManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -578,7 +584,16 @@
     <ClInclude Include="..\..\src\UI\Reports\ReportInterface.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\UI\FactoryListBox.h">
+      <Filter>Header Files\UI\SpecializedListBox</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\UI\StructureListBox.h">
+      <Filter>Header Files\UI\SpecializedListBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\ProductListBox.h">
+      <Filter>Header Files\UI\SpecializedListBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\ResourceBreakdownPanel.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -591,5 +606,8 @@
     <Image Include="outpost.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

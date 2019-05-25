@@ -21,3 +21,7 @@
 /proj/vc15/Release
 .build/
 OPHD
+Debug
+packages
+Release Gold
+.vs

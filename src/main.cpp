@@ -3,8 +3,9 @@
 
 #include "NAS2D/NAS2D.h"
 
-#include "NAS2D/Mixer/Mixer_SDL.h"
-#include "NAS2D/Renderer/OGL_Renderer.h"
+#include "NAS2D/Mixer/MixerSDL.h"
+#include "NAS2D/Mixer/NullMixer.h"
+#include "NAS2D/Renderer/RendererOpenGL.h"
 
 #include "Common.h"
 #include "Constants.h"
@@ -100,16 +101,16 @@ int main(int argc, char *argv[])
 
 		try
 		{
-			Utility<Mixer>::init<Mixer_SDL>();
+			Utility<Mixer>::init<MixerSDL>();
 		}
 		catch (...)
 		{
-			Utility<Mixer>::init();
+			Utility<NullMixer>::init();
 		}
 
 		WindowEventWrapper _wew;
 
-		Renderer& r = Utility<Renderer>::init<OGL_Renderer>("OutpostHD");
+		Renderer& r = Utility<Renderer>::init<RendererOpenGL>("OutpostHD");
 
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
