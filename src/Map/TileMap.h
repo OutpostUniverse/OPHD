@@ -24,7 +24,7 @@ public:
 	};
 
 public:
-	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, bool setupMines = true);
+	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, constants::PlanetHostility hostility /*= constants::HOSTILITY_NONE*/, bool setupMines = true);
 	~TileMap();
 
 	Tile* getTile(int x, int y, int level);
@@ -99,7 +99,7 @@ private:
 
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
-	void setupMines(int mineCount);
+	void setupMines(int, constants::PlanetHostility);
 
 	void updateTileHighlight();
 

@@ -60,7 +60,8 @@ PlanetSelectState::PlanetSelectState():	mBg("sys/bg1.png"),
 										mCloud2("sys/cloud_2.png"),
 										mBgMusic("music/menu.ogg"),
 										mSelect("sfx/click.ogg"),
-										mHover("sfx/menu4.ogg")
+										mHover("sfx/menu4.ogg"),
+										mReturnState(this)
 {}
 
 
@@ -154,7 +155,7 @@ State* PlanetSelectState::update()
 		mPlanets[i]->update();
 	}
 
-	EXPLODE->update(100, 100);
+	//EXPLODE->update(100, 100);
 
 	r.drawText(*FONT_BOLD, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (FONT_BOLD->width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
 	r.drawText(*FONT_BOLD, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (FONT_BOLD->width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
@@ -175,6 +176,7 @@ State* PlanetSelectState::update()
 	{
 		std::string map, tileset;
 		int dig_depth = 0, max_mines = 0;
+		constants::PlanetHostility hostility = constants::HOSTILITY_NONE;
 
 		switch (PLANET_TYPE_SELECTION)
 		{
@@ -183,6 +185,7 @@ State* PlanetSelectState::update()
 			tileset = "tsets/mercury.png";
 			dig_depth = mPlanets[0]->digDepth();
 			max_mines = mPlanets[0]->maxMines();
+			hostility = constants::HOSTILITY_HIGH;
 			break;
 
 		case Planet::PLANET_TYPE_MARS:
@@ -190,6 +193,7 @@ State* PlanetSelectState::update()
 			tileset = "tsets/mars.png";
 			dig_depth = mPlanets[1]->digDepth();
 			max_mines = mPlanets[1]->maxMines();
+			hostility = constants::HOSTILITY_LOW;
 			break;
 
 		case Planet::PLANET_TYPE_GANYMEDE:
@@ -197,6 +201,7 @@ State* PlanetSelectState::update()
 			tileset = "tsets/ganymede.png";
 			dig_depth = mPlanets[2]->digDepth();
 			max_mines = mPlanets[2]->maxMines();
+			hostility = constants::HOSTILITY_MEDIUM;
 			break;
 
 		default:
@@ -204,7 +209,7 @@ State* PlanetSelectState::update()
 			break;
 		}
 
-		MapViewState* mapview = new MapViewState(map, tileset, dig_depth, max_mines);
+		MapViewState* mapview = new MapViewState(map, tileset, dig_depth, max_mines, hostility);
 		mapview->setPopulationLevel(MapViewState::POPULATION_LARGE);
 		mapview->_initialize();
 		mapview->activate();

@@ -56,9 +56,12 @@ auto myield = std::bind(mine_yield, std::ref(generator));
 /**
  * C'tor
  */
-TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int _md, int _mc, bool _s) :
-	mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),	mMaxDepth(_md),
-	mMapPath(map_path), mTsetPath(tset_path),
+TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int _md, int _mc, constants::PlanetHostility hostility, bool _s) :
+	mWidth(MAP_WIDTH),
+	mHeight(MAP_HEIGHT),
+	mMaxDepth(_md),
+	mMapPath(map_path),
+	mTsetPath(tset_path),
 	mTileset(tset_path),
 	mMineBeacon("structures/mine_beacon.png")
 {
@@ -67,7 +70,7 @@ TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int 
 	buildMouseMap();
 	initMapDrawParams(Utility<Renderer>::get().width(), Utility<Renderer>::get().height());
 
-	if (_s) { setupMines(_mc); }
+	if (_s) { setupMines(_mc, hostility); }
 	std::cout << "finished!" << std::endl;
 }
 
@@ -149,7 +152,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 /**
  * Creates mining locations around the map area.
  */
-void TileMap::setupMines(int mineCount)
+void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 {
 	int i = 0;
 	while(i < mineCount)
@@ -210,7 +213,7 @@ void TileMap::buildMouseMap()
 	{
 		for(size_t col = 0; col < TILE_WIDTH; col++)
 		{
-			Color_4ub c = mousemap.pixelColor(col, row);
+			Color_4ub c = mousemap.pixelColor(static_cast<int>(col), static_cast<int>(row));
 			if (c.red() == 255 && c.green() == 255)	{ mMouseMap[row][col] = MMR_BOTTOM_RIGHT; }
 			else if (c.red() == 255)				{ mMouseMap[row][col] = MMR_TOP_LEFT; }
 			else if (c.blue() == 255)				{ mMouseMap[row][col] = MMR_TOP_RIGHT; }

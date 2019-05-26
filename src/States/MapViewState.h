@@ -62,7 +62,7 @@ public:
 
 public:
 	MapViewState(const std::string& savegame);
-	MapViewState(const std::string& map, const std::string& tset, int _d, int _minecount);
+	MapViewState(const std::string& map, const std::string& tset, int _d, int _minecount, constants::PlanetHostility hostility);
 	virtual ~MapViewState();
 
 	void setPopulationLevel(PopulationLevel _level);
