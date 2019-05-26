@@ -24,7 +24,7 @@ public:
 	};
 
 public:
-	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, bool setupMines = true);
+	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, constants::PlanetHostility hostility /*= constants::HOSTILITY_NONE*/, bool setupMines = true);
 	~TileMap();
 
 	Tile* getTile(int x, int y, int level);
@@ -87,19 +87,20 @@ protected:
 		MMR_BOTTOM_LEFT
 	};
 	
-	std::vector<std::vector<MouseMapRegion> > mMouseMap;	/**<  */
+	std::vector<std::vector<MouseMapRegion> > mMouseMap;
 
 private:
-	typedef std::vector<std::vector<Tile> >	TileGrid;		/**<  */
-	typedef std::vector<TileGrid>			TileArray;		/**<  */
+	using TileGrid = std::vector<std::vector<Tile> >;
+	using TileArray = std::vector<TileGrid>;
 	
 private:
 	TileMap(const TileMap&) = delete;						/**< Not Allowed */
 	TileMap& operator=(const TileMap&) = delete;			/**< Not allowed */
 
+private:
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
-	void setupMines(int mineCount);
+	void setupMines(int, constants::PlanetHostility);
 
 	void updateTileHighlight();
 

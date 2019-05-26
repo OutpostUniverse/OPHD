@@ -145,7 +145,7 @@ void MapViewState::load(const std::string& _path)
 
 	mMapDisplay = Image(sitemap + MAP_DISPLAY_EXTENSION);
 	mHeightMap = Image(sitemap + MAP_TERRAIN_EXTENSION);
-	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, 0, false);
+	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, 0, constants::HOSTILITY_NONE, false);
 	mTileMap->deserialize(root);
 
 	/**
