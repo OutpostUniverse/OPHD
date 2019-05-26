@@ -87,16 +87,17 @@ protected:
 		MMR_BOTTOM_LEFT
 	};
 	
-	std::vector<std::vector<MouseMapRegion> > mMouseMap;	/**<  */
+	std::vector<std::vector<MouseMapRegion> > mMouseMap;
 
 private:
-	typedef std::vector<std::vector<Tile> >	TileGrid;		/**<  */
-	typedef std::vector<TileGrid>			TileArray;		/**<  */
+	using TileGrid = std::vector<std::vector<Tile> >;
+	using TileArray = std::vector<TileGrid>;
 	
 private:
 	TileMap(const TileMap&) = delete;						/**< Not Allowed */
 	TileMap& operator=(const TileMap&) = delete;			/**< Not allowed */
 
+private:
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
 	void setupMines(int, constants::PlanetHostility);
