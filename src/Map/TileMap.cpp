@@ -7,6 +7,7 @@
 
 #include <functional>
 #include <random>
+#include <tuple>
 
 using namespace NAS2D;
 using namespace NAS2D::Xml;
@@ -31,6 +32,15 @@ const int			TILE_HEIGHT_ABSOLUTE		= TILE_HEIGHT - TILE_HEIGHT_OFFSET;
 const int			TILE_HEIGHT_HALF_ABSOLUTE	= TILE_HEIGHT_ABSOLUTE / 2;
 
 const double		THROB_SPEED					= 250.0f; // Throb speed of mine beacon
+
+
+/** Tuple indicates percent of mines that should be of yields LOW, MED, HIGH */
+std::map<constants::PlanetHostility, std::tuple<int, int, int>>	HostilityMineYieldTable =
+{
+	{ constants::HOSTILITY_LOW,		{30, 50, 20} },
+	{ constants::HOSTILITY_MEDIUM,	{45, 35, 20} },
+	{ constants::HOSTILITY_HIGH,	{50, 15, 35} },
+};
 
 
 // ===============================================================================
@@ -115,7 +125,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 
 	Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
-	mTileMap.resize(mMaxDepth + 1);
+	mTileMap.resize(static_cast<size_t>(mMaxDepth) + 1);
 	for(int level = 0; level <= mMaxDepth; level++)
 	{
 		mTileMap[level].resize(height());
@@ -154,6 +164,8 @@ void TileMap::buildTerrainMap(const std::string& path)
  */
 void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 {
+	if (hostility == constants::HOSTILITY_NONE) { return; }
+
 	int i = 0;
 	while(i < mineCount)
 	{
@@ -279,14 +291,14 @@ void TileMap::draw()
 
 	int tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
 
-	for(int row = 0; row < mEdgeLength; row++)
+	for(size_t row = 0; row < mEdgeLength; row++)
 	{
-		for(int col = 0; col < mEdgeLength; col++)
+		for(size_t col = 0; col < mEdgeLength; col++)
 		{
 			x = mMapPosition.x() + ((col - row) * TILE_HALF_WIDTH);
 			y = mMapPosition.y() + ((col + row) * TILE_HEIGHT_HALF_ABSOLUTE);
 
-			tile = &mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
+			tile = &mTileMap[mCurrentDepth][row + static_cast<size_t>(mMapViewLocation.y())][col + static_cast<size_t>(mMapViewLocation.x())];
 
 			if(tile->excavated())
 			{
