@@ -35,11 +35,11 @@ const double		THROB_SPEED					= 250.0f; // Throb speed of mine beacon
 
 
 /** Tuple indicates percent of mines that should be of yields LOW, MED, HIGH */
-std::map<constants::PlanetHostility, std::tuple<int, int, int>>	HostilityMineYieldTable =
+std::map<constants::PlanetHostility, std::tuple<float, float, float>>	HostilityMineYieldTable =
 {
-	{ constants::HOSTILITY_LOW,		{30, 50, 20} },
-	{ constants::HOSTILITY_MEDIUM,	{45, 35, 20} },
-	{ constants::HOSTILITY_HIGH,	{50, 15, 35} },
+	{ constants::HOSTILITY_LOW,		{0.30f, 0.50f, 0.20f} },
+	{ constants::HOSTILITY_MEDIUM,	{0.45f, 0.35f, 0.20f} },
+	{ constants::HOSTILITY_HIGH,	{0.35f, 0.20f, 0.45f} },
 };
 
 
@@ -166,33 +166,39 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 {
 	if (hostility == constants::HOSTILITY_NONE) { return; }
 
-	int i = 0;
-	while(i < mineCount)
+	int yield_low = mineCount * std::get<0>(HostilityMineYieldTable[hostility]);
+	int yield_medium = mineCount * std::get<1>(HostilityMineYieldTable[hostility]);
+	int yield_high = mineCount * std::get<2>(HostilityMineYieldTable[hostility]);
+
+	// There will inevitably be cases where the total yield count will not match
+	// the required mine count. In these cases just tack on the difference to the
+	// low yield mines. Difficulty settings could shift this to other yields.
+	int yield_total = yield_low + yield_medium + yield_high;
+	if (yield_total < mineCount) { yield_low += mineCount - yield_total; }
+
+	// no check for overflows here because of the nature of division operations
+	// on int types. Yield totals should only ever equate to mineCount or less
+	// than mineCount.
+
+	// \fixme Inelegant solution but may not be worth refactoring out into its own function.
+	for (int i = 0; i < yield_low; ++i)
 	{
-		Point_2d pt(mwidth(), mheight());
-
-		
-		if (mTileMap[0][pt.y()][pt.x()].mine()) { continue; } // Ugly
-
-		float probability = 0.05f * mTileMap[0][pt.y()][pt.x()].index();
-
-		if(myield() <= (int)(probability * 100))
-		{
-			Mine* m = nullptr;
-			
-			// Choose a production rate
-			// FIXME: Kind of a naive approach to this... would be nice to weight things better.
-			if (myield() < 60) { m = new Mine(PRODUCTION_RATE_MEDIUM); }
-			else if (myield() < 30) { m = new Mine(PRODUCTION_RATE_HIGH); }
-			else { m = new Mine(PRODUCTION_RATE_LOW); }
-			
-			mTileMap[0][pt.y()][pt.x()].pushMine(m);
-			mTileMap[0][pt.y()][pt.x()].index(TERRAIN_DOZED);
-
-			mMineLocations.push_back(pt);
-			++i;
-		}
+		Point_2d pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_LOW);
 	}
+
+	for (int i = 0; i < yield_medium; ++i)
+	{
+		Point_2d pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_MEDIUM);
+	}
+
+	for (int i = 0; i < yield_high; ++i)
+	{
+		Point_2d pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_HIGH);
+	}
+
 }
 
 
@@ -291,14 +297,14 @@ void TileMap::draw()
 
 	int tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
 
-	for(size_t row = 0; row < mEdgeLength; row++)
+	for(int row = 0; row < mEdgeLength; row++)
 	{
-		for(size_t col = 0; col < mEdgeLength; col++)
+		for(int col = 0; col < mEdgeLength; col++)
 		{
 			x = mMapPosition.x() + ((col - row) * TILE_HALF_WIDTH);
 			y = mMapPosition.y() + ((col + row) * TILE_HEIGHT_HALF_ABSOLUTE);
 
-			tile = &mTileMap[mCurrentDepth][row + static_cast<size_t>(mMapViewLocation.y())][col + static_cast<size_t>(mMapViewLocation.x())];
+			tile = &mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
 
 			if(tile->excavated())
 			{
