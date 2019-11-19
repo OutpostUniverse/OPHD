@@ -76,6 +76,12 @@
     <Filter Include="Header Files\UI\SpecializedListBox">
       <UniqueIdentifier>{cb143db0-8f9f-4ca0-b688-47c9e12cce98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\MicroPather">
+      <UniqueIdentifier>{2edfd0b6-d405-4d57-954e-054f9de7cf34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MicroPather">
+      <UniqueIdentifier>{53d69791-75af-4014-99df-f2d2582597ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -269,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\UI\ResourceBreakdownPanel.cpp">
       <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MicroPather\micropather.cpp">
+      <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -595,6 +604,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\UI\ResourceBreakdownPanel.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MicroPather\micropather.h">
+      <Filter>Header Files\MicroPather</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -324,6 +324,7 @@
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\Map\Tile.cpp" />
     <ClCompile Include="..\..\src\Map\TileMap.cpp" />
+    <ClCompile Include="..\..\src\MicroPather\micropather.cpp" />
     <ClCompile Include="..\..\src\Mine.cpp" />
     <ClCompile Include="..\..\src\PopulationPool.cpp" />
     <ClCompile Include="..\..\src\Population\Population.cpp" />
@@ -394,6 +395,7 @@
     <ClInclude Include="..\..\src\GraphWalker.h" />
     <ClInclude Include="..\..\src\Map\Tile.h" />
     <ClInclude Include="..\..\src\Map\TileMap.h" />
+    <ClInclude Include="..\..\src\MicroPather\micropather.h" />
     <ClInclude Include="..\..\src\Mine.h" />
     <ClInclude Include="..\..\src\PopulationPool.h" />
     <ClInclude Include="..\..\src\Population\Morale.h" />
