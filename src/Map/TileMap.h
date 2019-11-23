@@ -3,12 +3,13 @@
 #include "Tile.h"
 
 #include "../Things/Structures/Structure.h"
+#include "../MicroPather/micropather.h"
 
 #include <algorithm>
 
 using Point2dList = std::vector<NAS2D::Point_2d>;
 
-class TileMap
+class TileMap: public micropather::Graph
 {
 public:
 	/**
@@ -73,6 +74,12 @@ public:
 
 	void serialize(NAS2D::Xml::XmlElement* _ti);
 	void deserialize(NAS2D::Xml::XmlElement* _ti);
+
+public:
+	/** MicroPather public interface implementation. */
+	virtual float LeastCostEstimate(void* stateStart, void* stateEnd);
+	virtual void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent);
+	virtual void PrintStateInfo(void* state);
 
 protected:
 	/**

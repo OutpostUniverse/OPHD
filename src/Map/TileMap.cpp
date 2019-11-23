@@ -616,3 +616,21 @@ bool TileMap::isVisibleTile(int _x, int _y, int _d) const
 	
 	return true;
 }
+
+
+float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
+{
+	return 0.0f;
+}
+
+
+void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent)
+{
+
+}
+
+
+void TileMap::PrintStateInfo(void* state)
+{
+
+}
