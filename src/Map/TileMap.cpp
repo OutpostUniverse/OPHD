@@ -653,7 +653,7 @@ void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
 		Tile* adjacent_tile = getTile(x + dx[i], y + dy[i], 0);
 		float cost = 0.5f;
 
-		if (!adjacent_tile || !adjacent_tile->empty()) { cost = FLT_MAX; }
+		if (!adjacent_tile || !adjacent_tile->empty() || adjacent_tile->index() == TERRAIN_IMPASSABLE) { cost = FLT_MAX; }
 		else { cost *= static_cast<float>(adjacent_tile->index()); }
 
 		StateCost nodeCost = { adjacent_tile, cost };
