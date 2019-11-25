@@ -635,8 +635,8 @@ float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
 using namespace micropather;
 void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
 {
-	const int dx[8] = { 1, 1, 0, -1, -1, -1, 0, 1 };
-	const int dy[8] = { 0, 1, 1, 1, 0, -1, -1, -1 };
+	const int dx[4] = { 0, 1, 0, -1 };
+	const int dy[4] = { -1, 0, 1, 0 };
 
 	Tile* tile = static_cast<Tile*>(state);
 

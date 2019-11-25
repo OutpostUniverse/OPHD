@@ -319,7 +319,7 @@ void MapViewState::nextTurn()
 
 
 	float totalCost = 0;
-	int result = pather->Solve(mTileMap->getTile(100, 50), mTileMap->getTile(10, 10), &path, &totalCost);
+	int result = pather->Solve(mTileMap->getTile(299, 149), mTileMap->getTile(10, 10), &path, &totalCost);
 
 
 	// Check for Game Over conditions
