@@ -272,6 +272,12 @@ void MapViewState::updateResidentialCapacity()
 }
 
 
+using namespace micropather;
+
+MicroPather* pather = nullptr;
+std::vector<void*> path;
+
+
 /**
  * 
  */
@@ -310,6 +316,11 @@ void MapViewState::nextTurn()
 
 	mMineOperationsWindow.updateCounts();
 	mStructureInspector.check();
+
+
+	float totalCost = 0;
+	int result = pather->Solve(mTileMap->getTile(100, 50), mTileMap->getTile(10, 10), &path, &totalCost);
+
 
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)

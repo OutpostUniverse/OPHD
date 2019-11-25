@@ -64,6 +64,11 @@ std::map <int, std::string>	LEVEL_STRING_TABLE =
 Font* MAIN_FONT = nullptr;
 
 
+using namespace micropather;
+extern MicroPather* pather;
+extern std::vector<void*> path;
+
+
 /**
  * C'Tor
  *
@@ -169,6 +174,10 @@ void MapViewState::initialize()
 	e.textInputMode(true);
 
 	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+
+	delete pather;
+	pather = new MicroPather(mTileMap);
+	path.clear();
 }
 
 

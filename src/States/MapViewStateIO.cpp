@@ -80,6 +80,10 @@ void MapViewState::save(const std::string& _path)
 }
 
 
+using namespace micropather;
+extern MicroPather* pather;
+extern std::vector<void*> path;
+
 /**
  * 
  */
@@ -147,6 +151,11 @@ void MapViewState::load(const std::string& _path)
 	mHeightMap = Image(sitemap + MAP_TERRAIN_EXTENSION);
 	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, 0, constants::HOSTILITY_NONE, false);
 	mTileMap->deserialize(root);
+
+	delete pather;
+	pather = new MicroPather(mTileMap);
+	path.clear();
+
 
 	/**
 	 * In the case of loading a game, the Robot Command Center depends on the robot list

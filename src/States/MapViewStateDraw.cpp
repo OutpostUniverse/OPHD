@@ -57,6 +57,7 @@ static void updateGlowTimer()
 	}
 }
 
+extern std::vector<void*> path;
 
 /**
  * Draws the minimap and all icons/overlays for it.
@@ -102,6 +103,11 @@ void MapViewState::drawMiniMap()
 			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 16.0f, 0.0f, 7.0f, 7.0f);
 		}
 
+	}
+
+	for (auto _tile : path)
+	{
+		r.drawPoint(static_cast<Tile*>(_tile)->x() + mMiniMapBoundingBox.x(), static_cast<Tile*>(_tile)->y() + mMiniMapBoundingBox.y(), NAS2D::COLOR_MAGENTA);
 	}
 
 	for (auto _robot : mRobotList)
