@@ -623,18 +623,12 @@ bool TileMap::isVisibleTile(int _x, int _y, int _d) const
 
 /**
  * Implements MicroPather interface.
+ * 
+ * \warning	Assumes stateStart and stateEnd are never nullptr.
  */
 float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
 {
-	Tile* tStart = static_cast<Tile*>(stateStart);
-	Tile* tEnd = static_cast<Tile*>(stateStart);
-
-	int dx = tStart->x() - tEnd->x();
-	int dy = tStart->y() - tEnd->y();
-
-	/// Bit of a naive approach based on pure distance, this would provide
-	/// a better result if it used time traveled approach instead.
-	return (float)sqrt((double)(dx * dx) + (double)(dy * dy));
+	return static_cast<Tile*>(stateStart)->distanceTo(static_cast<Tile*>(stateEnd));
 }
 
 
