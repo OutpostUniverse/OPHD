@@ -344,6 +344,9 @@ void TileMap::draw()
 
 			tile = &mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
 
+			/// fixme: this is ... well, it's ugly. Find a better way to do this as pretty soon I'm going to need
+			/// an easier way to change tile render color when it comes time to highlight truck routes, comm
+			/// ranges, etc.
 			if(tile->excavated())
 			{
 				if (row == mMapHighlight.y() && col == mMapHighlight.x())
@@ -618,19 +621,42 @@ bool TileMap::isVisibleTile(int _x, int _y, int _d) const
 }
 
 
+/**
+ * Implements MicroPather interface.
+ */
 float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
 {
-	return 0.0f;
+	Tile* tStart = static_cast<Tile*>(stateStart);
+	Tile* tEnd = static_cast<Tile*>(stateStart);
+
+	int dx = tStart->x() - tEnd->x();
+	int dy = tStart->y() - tEnd->y();
+
+	/// Bit of a naive approach based on pure distance, this would provide
+	/// a better result if it used time traveled approach instead.
+	return (float)sqrt((double)(dx * dx) + (double)(dy * dy));
 }
 
 
-void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent)
+using namespace micropather;
+void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
 {
+	const int dx[8] = { 1, 1, 0, -1, -1, -1, 0, 1 };
+	const int dy[8] = { 0, 1, 1, 1, 0, -1, -1, -1 };
 
-}
+	Tile* tile = static_cast<Tile*>(state);
 
+	int x = tile->x(), y = tile->y();
 
-void TileMap::PrintStateInfo(void* state)
-{
+	for (int i = 0; i < 8; ++i)
+	{
+		Tile* adjacent_tile = getTile(x + dx[i], y + dy[i], 0);
+		float cost = 0.5f;
 
+		if (!adjacent_tile || !adjacent_tile->empty()) { cost = FLT_MAX; }
+		else { cost *= static_cast<float>(adjacent_tile->index()); }
+
+		StateCost nodeCost = { adjacent_tile, cost };
+		adjacent->push_back(nodeCost);
+	}
 }
