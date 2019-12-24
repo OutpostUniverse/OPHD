@@ -271,7 +271,7 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 
 	if (!isPointInRect(x, y, 0, 0, Utility<Renderer>::get().width(), 40)) { return; } // ignore clicks in the UI area.
 
-	if (button == EventHandler::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
 		for (Panel& panel : Panels)
 		{

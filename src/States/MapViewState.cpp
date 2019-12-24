@@ -469,13 +469,13 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if (mDiggerDirection.visible() && isPointInRect(MOUSE_COORDS, mDiggerDirection.rect())) { return; }
 
-	if (mWindowStack.pointInWindow(MOUSE_COORDS) && button == EventHandler::BUTTON_LEFT)
+	if (mWindowStack.pointInWindow(MOUSE_COORDS) && button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
 		mWindowStack.updateStack(MOUSE_COORDS);
 		return;
 	}
 
-	if (button == EventHandler::BUTTON_RIGHT)
+	if (button == EventHandler::MouseButton::BUTTON_RIGHT)
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 
@@ -530,7 +530,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		}
 	}
 
-	if (button == EventHandler::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
 		mLeftButtonDown = true;
 
@@ -605,7 +605,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int x, i
 {
 	if (!active()) { return; }
 
-	if (button == EventHandler::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 		if (!mTileMap->tileHighlightVisible()) { return; }
@@ -631,7 +631,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int x, i
 */
 void MapViewState::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
-	if (button == EventHandler::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
 		mLeftButtonDown = false;
 	}

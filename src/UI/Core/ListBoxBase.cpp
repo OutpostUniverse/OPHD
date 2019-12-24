@@ -110,9 +110,9 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!visible() || !hasFocus()) { return; }
 
-	if (empty() || button == EventHandler::BUTTON_MIDDLE) { return; }
+	if (empty() || button == EventHandler::MouseButton::BUTTON_MIDDLE) { return; }
 
-	if (button == EventHandler::BUTTON_RIGHT && isPointInRect(x, y, positionX(), positionY(), width(), height()))
+	if (button == EventHandler::MouseButton::BUTTON_RIGHT && isPointInRect(x, y, positionX(), positionY(), width(), height()))
 	{
 		setSelection(constants::NO_SELECTION);
 		return;
