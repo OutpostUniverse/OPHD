@@ -258,7 +258,7 @@ void MainReportsUiState::_deactivate()
 void MainReportsUiState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
 	if (!active()) { return; }
-	if(key == NAS2D::EventHandler::KEY_ESCAPE) { exit(); }
+	if(key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) { exit(); }
 }
 
 

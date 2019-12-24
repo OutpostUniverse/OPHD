@@ -330,7 +330,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		return;
 	}
 
-	if (key == EventHandler::KEY_F1)
+	if (key == EventHandler::KeyCode::KEY_F1)
 	{
 		mReportsUiCallback();
 		return;
@@ -341,77 +341,77 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 
 	switch(key)
 	{
-		case EventHandler::KEY_w:
-		case EventHandler::KEY_UP:
+		case EventHandler::KeyCode::KEY_w:
+		case EventHandler::KeyCode::KEY_UP:
 			viewUpdated = true;
 			pt.y(std::clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			break;
 
-		case EventHandler::KEY_s:
-		case EventHandler::KEY_DOWN:
+		case EventHandler::KeyCode::KEY_s:
+		case EventHandler::KeyCode::KEY_DOWN:
 			viewUpdated = true;
 			pt.y(std::clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			break;
 
-		case EventHandler::KEY_a:
-		case EventHandler::KEY_LEFT:
+		case EventHandler::KeyCode::KEY_a:
+		case EventHandler::KeyCode::KEY_LEFT:
 			viewUpdated = true;
 			pt.x(std::clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			break;
 
-		case EventHandler::KEY_d:
-		case EventHandler::KEY_RIGHT:
+		case EventHandler::KeyCode::KEY_d:
+		case EventHandler::KeyCode::KEY_RIGHT:
 			viewUpdated = true;
 			pt.x(std::clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			break;
 
-		case EventHandler::KEY_0:
+		case EventHandler::KeyCode::KEY_0:
 			viewUpdated = true;
 			changeDepth(0);
 			break;
 
-		case EventHandler::KEY_1:
+		case EventHandler::KeyCode::KEY_1:
 			viewUpdated = true;
 			changeDepth(1);
 			break;
 
-		case EventHandler::KEY_2:
+		case EventHandler::KeyCode::KEY_2:
 			viewUpdated = true;
 			changeDepth(2);
 			break;
 
-		case EventHandler::KEY_3:
+		case EventHandler::KeyCode::KEY_3:
 			viewUpdated = true;
 			changeDepth(3);
 			break;
 
-		case EventHandler::KEY_4:
+		case EventHandler::KeyCode::KEY_4:
 			viewUpdated = true;
 			changeDepth(4);
 			break;
 
-		case EventHandler::KEY_PAGEUP:
+		case EventHandler::KeyCode::KEY_PAGEUP:
 			viewUpdated = true;
 			changeDepth(mTileMap->currentDepth() - 1);
 			break;
 
-		case EventHandler::KEY_PAGEDOWN:
+		case EventHandler::KeyCode::KEY_PAGEDOWN:
 			viewUpdated = true;
 			changeDepth(mTileMap->currentDepth() + 1);
 			break;
 
 
-		case EventHandler::KEY_HOME:
+		case EventHandler::KeyCode::KEY_HOME:
 			viewUpdated = true;
 			changeDepth(0);
 			break;
 
-		case EventHandler::KEY_END:
+		case EventHandler::KeyCode::KEY_END:
 			viewUpdated = true;
 			changeDepth(mTileMap->maxDepth());
 			break;
 
-		case EventHandler::KEY_F10:
+		case EventHandler::KeyCode::KEY_F10:
 			if (Utility<EventHandler>::get().control(mod) && Utility<EventHandler>::get().shift(mod))
 			{
 				mPlayerResources.pushResource(ResourcePool::RESOURCE_COMMON_METALS, 1000);
@@ -425,24 +425,24 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 			}
 			break;
 
-		case EventHandler::KEY_F2:
+		case EventHandler::KeyCode::KEY_F2:
 			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 			mFileIoDialog.setMode(FileIo::FILE_SAVE);
 			mFileIoDialog.show();
 			break;
 
-		case EventHandler::KEY_F3:
+		case EventHandler::KeyCode::KEY_F3:
 			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 			mFileIoDialog.setMode(FileIo::FILE_LOAD);
 			mFileIoDialog.show();
 			break;
 
-		case EventHandler::KEY_ESCAPE:
+		case EventHandler::KeyCode::KEY_ESCAPE:
 			clearMode();
 			resetUi();
 			break;
 
-		case EventHandler::KEY_ENTER:
+		case EventHandler::KeyCode::KEY_ENTER:
 			if (mBtnTurns.enabled()) { nextTurn(); }
 			break;
 
