@@ -68,8 +68,7 @@ int main(int argc, char *argv[])
 
 	try
 	{
-		Filesystem& f = Utility<Filesystem>::get();
-		f.init(argv[0], "OutpostHD", "LairWorks", "data");
+		Filesystem& f = Utility<Filesystem>::init(argv[0], "OutpostHD", "LairWorks", "data");
 
 		if (!f.exists(constants::SAVE_GAME_PATH))
 		{
