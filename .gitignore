@@ -25,3 +25,5 @@ Debug
 packages
 Release Gold
 .vs
+/proj/vs2019/Release
+/proj/vs2019/x64
