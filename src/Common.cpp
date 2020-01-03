@@ -172,7 +172,7 @@ std::array<std::string, PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
 
 
 #if defined(WINDOWS) || defined(WIN32)
-#include <SDL_syswm.h>
+#include "SDL_syswm.h"
 /**
  * Gets a Windows API HWND handle to the main
  * window of the application.

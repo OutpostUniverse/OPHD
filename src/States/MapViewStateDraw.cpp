@@ -10,6 +10,8 @@
 #include "../Constants.h"
 #include "../FontManager.h"
 
+#include <algorithm>
+
 extern Rectangle_2d MENU_ICON;
 
 extern Rectangle_2d MOVE_NORTH_ICON;
@@ -55,6 +57,7 @@ static void updateGlowTimer()
 	}
 }
 
+extern std::vector<void*> path;
 
 /**
  * Draws the minimap and all icons/overlays for it.
@@ -100,6 +103,11 @@ void MapViewState::drawMiniMap()
 			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 16.0f, 0.0f, 7.0f, 7.0f);
 		}
 
+	}
+
+	for (auto _tile : path)
+	{
+		r.drawPoint(static_cast<Tile*>(_tile)->x() + mMiniMapBoundingBox.x(), static_cast<Tile*>(_tile)->y() + mMiniMapBoundingBox.y(), NAS2D::COLOR_MAGENTA);
 	}
 
 	for (auto _robot : mRobotList)
@@ -180,7 +188,7 @@ void MapViewState::drawResourceInfo()
 	else if (mCurrentMorale < mPreviousMorale) { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 0, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
 	else { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 32, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
 
-	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (std::clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(*MAIN_FONT, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
 
 	if (mPinPopulationPanel	|| isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 675, 1, 75, 19)) { mPopulationPanel.update(); }

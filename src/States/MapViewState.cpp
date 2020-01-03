@@ -15,6 +15,7 @@
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
 
+#include <algorithm>
 #include <sstream>
 #include <vector>
 
@@ -63,6 +64,11 @@ std::map <int, std::string>	LEVEL_STRING_TABLE =
 Font* MAIN_FONT = nullptr;
 
 
+using namespace micropather;
+extern MicroPather* pather;
+extern std::vector<void*> path;
+
+
 /**
  * C'Tor
  *
@@ -86,8 +92,8 @@ MapViewState::MapViewState(const std::string& savegame) :
  * \param	d	Depth of the site map.
  * \param	mc	Mine Count - Number of mines to generate.
  */
-MapViewState::MapViewState(const std::string& sm, const std::string& t, int d, int mc) :
-	mTileMap(new TileMap(sm, t, d, mc)),
+MapViewState::MapViewState(const std::string& sm, const std::string& t, int d, int mc, constants::PlanetHostility h) :
+	mTileMap(new TileMap(sm, t, d, mc, h)),
 	mBackground("sys/bg1.png"),
 	mMapDisplay(sm + MAP_DISPLAY_EXTENSION),
 	mHeightMap(sm + MAP_TERRAIN_EXTENSION),
@@ -168,6 +174,10 @@ void MapViewState::initialize()
 	e.textInputMode(true);
 
 	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+
+	delete pather;
+	pather = new MicroPather(mTileMap);
+	path.clear();
 }
 
 
@@ -334,25 +344,25 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		case EventHandler::KEY_w:
 		case EventHandler::KEY_UP:
 			viewUpdated = true;
-			pt.y(clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
+			pt.y(std::clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			break;
 
 		case EventHandler::KEY_s:
 		case EventHandler::KEY_DOWN:
 			viewUpdated = true;
-			pt.y(clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
+			pt.y(std::clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			break;
 
 		case EventHandler::KEY_a:
 		case EventHandler::KEY_LEFT:
 			viewUpdated = true;
-			pt.x(clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
+			pt.x(std::clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			break;
 
 		case EventHandler::KEY_d:
 		case EventHandler::KEY_RIGHT:
 			viewUpdated = true;
-			pt.x(clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
+			pt.x(std::clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			break;
 
 		case EventHandler::KEY_0:
@@ -539,22 +549,22 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 		if (isPointInRect(MOUSE_COORDS, MOVE_NORTH_ICON))
 		{
-			pt.y(clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
+			pt.y(std::clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			mTileMap->mapViewLocation(pt.x(), pt.y());
 		}
 		else if (isPointInRect(MOUSE_COORDS, MOVE_SOUTH_ICON))
 		{
-			pt.y(clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
+			pt.y(std::clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
 			mTileMap->mapViewLocation(pt.x(), pt.y());
 		}
 		else if (isPointInRect(MOUSE_COORDS, MOVE_EAST_ICON))
 		{
-			pt.x(clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
+			pt.x(std::clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			mTileMap->mapViewLocation(pt.x(), pt.y());
 		}
 		else if (isPointInRect(MOUSE_COORDS, MOVE_WEST_ICON))
 		{
-			pt.x(clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
+			pt.x(std::clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
 			mTileMap->mapViewLocation(pt.x(), pt.y());
 		}
 		else if (isPointInRect(MOUSE_COORDS, MOVE_UP_ICON))
@@ -682,8 +692,8 @@ bool MapViewState::changeDepth(int _d)
  */
 void MapViewState::setMinimapView()
 {
-	int x = clamp(MOUSE_COORDS.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
-	int y = clamp(MOUSE_COORDS.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
+	int x = std::clamp(MOUSE_COORDS.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
+	int y = std::clamp(MOUSE_COORDS.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
 
 	mTileMap->mapViewLocation(x, y);
 }

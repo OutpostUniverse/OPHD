@@ -5,6 +5,8 @@
 
 #include <NAS2D/NAS2D.h>
 
+#include <algorithm>
+
 using namespace NAS2D;
 using namespace NAS2D::Xml;
 
@@ -131,7 +133,7 @@ void ProductPool::store(ProductType type, int count)
  */
 int ProductPool::pull(ProductType type, int c)
 {
-	int pulledCount = clamp(c, 0, mProducts[static_cast<int>(type)]);
+	int pulledCount = std::clamp(c, 0, mProducts[static_cast<int>(type)]);
 	mProducts[static_cast<int>(type)] -= pulledCount;
 	mCurrentStorageCount = computeCurrentStorage(mProducts);
 

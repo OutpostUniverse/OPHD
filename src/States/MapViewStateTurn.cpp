@@ -10,6 +10,8 @@
 
 #include "../Things/Structures/Structures.h"
 
+#include <algorithm>
+
 
 extern NAS2D::Image* IMG_PROCESSING_TURN;	/// \fixme Find a sane place for this.
 
@@ -155,7 +157,7 @@ void MapViewState::updateMorale()
 
 	mCurrentMorale -= residentialMoraleHit;
 
-	mCurrentMorale = clamp(mCurrentMorale, 0, 1000);
+	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
 }
 
 
@@ -270,6 +272,12 @@ void MapViewState::updateResidentialCapacity()
 }
 
 
+using namespace micropather;
+
+MicroPather* pather = nullptr;
+std::vector<void*> path;
+
+
 /**
  * 
  */
@@ -308,6 +316,11 @@ void MapViewState::nextTurn()
 
 	mMineOperationsWindow.updateCounts();
 	mStructureInspector.check();
+
+
+	float totalCost = 0;
+	int result = pather->Solve(mTileMap->getTile(299, 149), mTileMap->getTile(10, 10), &path, &totalCost);
+
 
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)

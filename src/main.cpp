@@ -4,7 +4,7 @@
 #include "NAS2D/NAS2D.h"
 
 #include "NAS2D/Mixer/MixerSDL.h"
-#include "NAS2D/Mixer/NullMixer.h"
+#include "NAS2D/Mixer/MixerNull.h"
 #include "NAS2D/Renderer/RendererOpenGL.h"
 
 #include "Common.h"
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 		}
 		catch (...)
 		{
-			Utility<NullMixer>::init();
+			Utility<MixerNull>::init();
 		}
 
 		WindowEventWrapper _wew;

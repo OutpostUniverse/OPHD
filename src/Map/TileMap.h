@@ -3,10 +3,13 @@
 #include "Tile.h"
 
 #include "../Things/Structures/Structure.h"
+#include "../MicroPather/micropather.h"
+
+#include <algorithm>
 
 using Point2dList = std::vector<NAS2D::Point_2d>;
 
-class TileMap
+class TileMap: public micropather::Graph
 {
 public:
 	/**
@@ -22,7 +25,7 @@ public:
 	};
 
 public:
-	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, bool setupMines = true);
+	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, constants::PlanetHostility hostility /*= constants::HOSTILITY_NONE*/, bool setupMines = true);
 	~TileMap();
 
 	Tile* getTile(int x, int y, int level);
@@ -59,7 +62,7 @@ public:
 	int height() const { return mHeight; }
 
 	int currentDepth() const { return mCurrentDepth; }
-	void currentDepth(int _i) { mCurrentDepth = NAS2D::clamp(_i, 0, mMaxDepth); }
+	void currentDepth(int _i) { mCurrentDepth = std::clamp(_i, 0, mMaxDepth); }
 
 	int maxDepth() const { return mMaxDepth; }
 
@@ -71,6 +74,12 @@ public:
 
 	void serialize(NAS2D::Xml::XmlElement* _ti);
 	void deserialize(NAS2D::Xml::XmlElement* _ti);
+
+public:
+	/** MicroPather public interface implementation. */
+	virtual float LeastCostEstimate(void* stateStart, void* stateEnd);
+	virtual void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent);
+	virtual void PrintStateInfo(void* state) {};
 
 protected:
 	/**
@@ -85,19 +94,20 @@ protected:
 		MMR_BOTTOM_LEFT
 	};
 	
-	std::vector<std::vector<MouseMapRegion> > mMouseMap;	/**<  */
+	std::vector<std::vector<MouseMapRegion> > mMouseMap;
 
 private:
-	typedef std::vector<std::vector<Tile> >	TileGrid;		/**<  */
-	typedef std::vector<TileGrid>			TileArray;		/**<  */
+	using TileGrid = std::vector<std::vector<Tile> >;
+	using TileArray = std::vector<TileGrid>;
 	
 private:
 	TileMap(const TileMap&) = delete;						/**< Not Allowed */
 	TileMap& operator=(const TileMap&) = delete;			/**< Not allowed */
 
+private:
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
-	void setupMines(int mineCount);
+	void setupMines(int, constants::PlanetHostility);
 
 	void updateTileHighlight();
 

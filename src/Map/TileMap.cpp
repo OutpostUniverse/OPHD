@@ -5,9 +5,9 @@
 
 #include "../Constants.h"
 
-#include <algorithm>
 #include <functional>
 #include <random>
+#include <tuple>
 
 using namespace NAS2D;
 using namespace NAS2D::Xml;
@@ -34,6 +34,15 @@ const int			TILE_HEIGHT_HALF_ABSOLUTE	= TILE_HEIGHT_ABSOLUTE / 2;
 const double		THROB_SPEED					= 250.0f; // Throb speed of mine beacon
 
 
+/** Tuple indicates percent of mines that should be of yields LOW, MED, HIGH */
+std::map<constants::PlanetHostility, std::tuple<float, float, float>>	HostilityMineYieldTable =
+{
+	{ constants::HOSTILITY_LOW,		{0.30f, 0.50f, 0.20f} },
+	{ constants::HOSTILITY_MEDIUM,	{0.45f, 0.35f, 0.20f} },
+	{ constants::HOSTILITY_HIGH,	{0.35f, 0.20f, 0.45f} },
+};
+
+
 // ===============================================================================
 // = LOCAL VARIABLES
 // ===============================================================================
@@ -54,12 +63,53 @@ auto mheight = std::bind(map_height, std::ref(generator));
 auto myield = std::bind(mine_yield, std::ref(generator));
 
 
+// ===============================================================================
+// = STATIC/LOCAL FUNCTIONS
+// ===============================================================================
+using TileArray = std::vector<std::vector<std::vector<Tile> > >;
+static void validateMineLocation(Point_2d& pt, TileArray& ta)
+{
+	if (ta[0][pt.y()][pt.x()].mine())
+	{
+		//search around the tile for an empty spot
+		if (ta[0][pt.y() - 1][pt.x() - 1].mine()) { pt(pt.x() - 1, pt.y() - 1); }
+		if (ta[0][pt.y() - 1][pt.x()].mine()) { pt(pt.x(), pt.y() - 1); }
+		if (ta[0][pt.y() - 1][pt.x() + 1].mine()) { pt(pt.x() + 1, pt.y() - 1); }
+
+		if (ta[0][pt.y()][pt.x() - 1].mine()) { pt(pt.x() - 1, pt.y()); }
+		if (ta[0][pt.y()][pt.x() + 1].mine()) { pt(pt.x() + 1, pt.y()); }
+
+		if (ta[0][pt.y() + 1][pt.x() - 1].mine()) { pt(pt.x() - 1, pt.y() + 1); }
+		if (ta[0][pt.y() + 1][pt.x()].mine()) { pt(pt.x(), pt.y() + 1); }
+		if (ta[0][pt.y() + 1][pt.x() + 1].mine()) { pt(pt.x() + 1, pt.y() + 1); }
+	}
+}
+
+
+static void addMineSet(Point_2d & pt, Point2dList & plist, TileArray & ta, MineProductionRate rate)
+{
+	validateMineLocation(pt, ta);
+
+	ta[0][pt.y()][pt.x()].pushMine(new Mine(rate));
+	ta[0][pt.y()][pt.x()].index(TERRAIN_DOZED);
+
+	plist.push_back(pt);
+}
+
+
+
+// ===============================================================================
+// = CLASS/PUBLIC FUNCTIONS
+// ===============================================================================
 /**
  * C'tor
  */
-TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int _md, int _mc, bool _s) :
-	mWidth(MAP_WIDTH), mHeight(MAP_HEIGHT),	mMaxDepth(_md),
-	mMapPath(map_path), mTsetPath(tset_path),
+TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int _md, int _mc, constants::PlanetHostility hostility, bool _s) :
+	mWidth(MAP_WIDTH),
+	mHeight(MAP_HEIGHT),
+	mMaxDepth(_md),
+	mMapPath(map_path),
+	mTsetPath(tset_path),
 	mTileset(tset_path),
 	mMineBeacon("structures/mine_beacon.png")
 {
@@ -68,7 +118,7 @@ TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int 
 	buildMouseMap();
 	initMapDrawParams(Utility<Renderer>::get().width(), Utility<Renderer>::get().height());
 
-	if (_s) { setupMines(_mc); }
+	if (_s) { setupMines(_mc, hostility); }
 	std::cout << "finished!" << std::endl;
 }
 
@@ -113,7 +163,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 
 	Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
-	mTileMap.resize(mMaxDepth + 1);
+	mTileMap.resize(static_cast<size_t>(mMaxDepth) + 1);
 	for(int level = 0; level <= mMaxDepth; level++)
 	{
 		mTileMap[level].resize(height());
@@ -150,35 +200,43 @@ void TileMap::buildTerrainMap(const std::string& path)
 /**
  * Creates mining locations around the map area.
  */
-void TileMap::setupMines(int mineCount)
+void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 {
-	int i = 0;
-	while(i < mineCount)
+	if (hostility == constants::HOSTILITY_NONE) { return; }
+
+	int yield_low = mineCount * std::get<0>(HostilityMineYieldTable[hostility]);
+	int yield_medium = mineCount * std::get<1>(HostilityMineYieldTable[hostility]);
+	int yield_high = mineCount * std::get<2>(HostilityMineYieldTable[hostility]);
+
+	// There will inevitably be cases where the total yield count will not match
+	// the required mine count. In these cases just tack on the difference to the
+	// low yield mines. Difficulty settings could shift this to other yields.
+	int yield_total = yield_low + yield_medium + yield_high;
+	if (yield_total < mineCount) { yield_low += mineCount - yield_total; }
+
+	// no check for overflows here because of the nature of division operations
+	// on int types. Yield totals should only ever equate to mineCount or less
+	// than mineCount.
+
+	// \fixme Inelegant solution but may not be worth refactoring out into its own function.
+	for (int i = 0; i < yield_low; ++i)
 	{
-		Point_2d pt(mwidth(), mheight());
-
-		
-		if (mTileMap[0][pt.y()][pt.x()].mine()) { continue; } // Ugly
-
-		float probability = 0.05f * mTileMap[0][pt.y()][pt.x()].index();
-
-		if(myield() <= (int)(probability * 100))
-		{
-			Mine* m = nullptr;
-			
-			// Choose a production rate
-			// FIXME: Kind of a naive approach to this... would be nice to weight things better.
-			if (myield() < 60) { m = new Mine(PRODUCTION_RATE_MEDIUM); }
-			else if (myield() < 30) { m = new Mine(PRODUCTION_RATE_HIGH); }
-			else { m = new Mine(PRODUCTION_RATE_LOW); }
-			
-			mTileMap[0][pt.y()][pt.x()].pushMine(m);
-			mTileMap[0][pt.y()][pt.x()].index(TERRAIN_DOZED);
-
-			mMineLocations.push_back(pt);
-			++i;
-		}
+		Point_2d pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_LOW);
 	}
+
+	for (int i = 0; i < yield_medium; ++i)
+	{
+		Point_2d pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_MEDIUM);
+	}
+
+	for (int i = 0; i < yield_high; ++i)
+	{
+		Point_2d pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_HIGH);
+	}
+
 }
 
 
@@ -211,7 +269,7 @@ void TileMap::buildMouseMap()
 	{
 		for(size_t col = 0; col < TILE_WIDTH; col++)
 		{
-			Color_4ub c = mousemap.pixelColor(col, row);
+			Color_4ub c = mousemap.pixelColor(static_cast<int>(col), static_cast<int>(row));
 			if (c.red() == 255 && c.green() == 255)	{ mMouseMap[row][col] = MMR_BOTTOM_RIGHT; }
 			else if (c.red() == 255)				{ mMouseMap[row][col] = MMR_TOP_LEFT; }
 			else if (c.blue() == 255)				{ mMouseMap[row][col] = MMR_TOP_RIGHT; }
@@ -253,8 +311,8 @@ void TileMap::centerMapOnTile(Tile* _t)
 {
 	if (!_t) { return; }
 
-	mapViewLocation(clamp(_t->x() - edgeLength() / 2, 0, mWidth - 1),
-					clamp(_t->y() - edgeLength() / 2, 0, mHeight - 1));
+	mapViewLocation(std::clamp(_t->x() - edgeLength() / 2, 0, mWidth - 1),
+					std::clamp(_t->y() - edgeLength() / 2, 0, mHeight - 1));
 	currentDepth(_t->depth());
 }
 
@@ -286,6 +344,9 @@ void TileMap::draw()
 
 			tile = &mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
 
+			/// fixme: this is ... well, it's ugly. Find a better way to do this as pretty soon I'm going to need
+			/// an easier way to change tile render color when it comes time to highlight truck routes, comm
+			/// ranges, etc.
 			if(tile->excavated())
 			{
 				if (row == mMapHighlight.y() && col == mMapHighlight.x())
@@ -350,7 +411,7 @@ void TileMap::updateTileHighlight()
 	int offsetY = ((mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE);
 	mMapHighlight(TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX);
 
-	int mmOffsetX = clamp((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
+	int mmOffsetX = std::clamp((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
 	int mmOffsetY = (mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE;
 
 	MouseMapRegion mmr = getMouseMapRegion(mmOffsetX, mmOffsetY);
@@ -557,4 +618,39 @@ bool TileMap::isVisibleTile(int _x, int _y, int _d) const
 	}
 	
 	return true;
+}
+
+
+/**
+ * Implements MicroPather interface.
+ * 
+ * \warning	Assumes stateStart and stateEnd are never nullptr.
+ */
+float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
+{
+	return static_cast<Tile*>(stateStart)->distanceTo(static_cast<Tile*>(stateEnd));
+}
+
+
+using namespace micropather;
+void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
+{
+	const int dx[4] = { 0, 1, 0, -1 };
+	const int dy[4] = { -1, 0, 1, 0 };
+
+	Tile* tile = static_cast<Tile*>(state);
+
+	int x = tile->x(), y = tile->y();
+
+	for (int i = 0; i < 8; ++i)
+	{
+		Tile* adjacent_tile = getTile(x + dx[i], y + dy[i], 0);
+		float cost = 0.5f;
+
+		if (!adjacent_tile || !adjacent_tile->empty() || adjacent_tile->index() == TERRAIN_IMPASSABLE) { cost = FLT_MAX; }
+		else { cost *= static_cast<float>(adjacent_tile->index()) + 1.0f; }
+
+		StateCost nodeCost = { adjacent_tile, cost };
+		adjacent->push_back(nodeCost);
+	}
 }

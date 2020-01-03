@@ -42,4 +42,13 @@ namespace constants
 	const float ROBOT_COM_RANGE = 15.0f;
 	const float COMM_TOWER_BASE_RANGE = 10.0f;
 	const float LANDER_COM_RANGE = 5.0f;
+
+	enum PlanetHostility
+	{
+		HOSTILITY_NONE,
+
+		HOSTILITY_LOW,
+		HOSTILITY_MEDIUM,
+		HOSTILITY_HIGH
+	};
 }
