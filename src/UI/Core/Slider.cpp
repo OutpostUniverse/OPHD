@@ -195,7 +195,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	if (button == EventHandler::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
 		if (pointInRect_f(x, y, mSlider))
 		{
@@ -214,7 +214,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
-	if (button != EventHandler::BUTTON_LEFT) { return; }
+	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
 	
 	mButton1Held = false;
 	mButton2Held = false;

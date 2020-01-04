@@ -86,14 +86,14 @@ void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod,
 {
 	if (!visible()) { return; }	// ignore key presses when hidden.
 
-	if (key == EventHandler::KEY_ENTER || key == EventHandler::KEY_KP_ENTER)
+	if (key == EventHandler::KeyCode::KEY_ENTER || key == EventHandler::KeyCode::KEY_KP_ENTER)
 	{
 		if (!txtFileName.empty())
 		{
 			btnFileIoClicked();
 		}
 	}
-	else if (key == EventHandler::KEY_ESCAPE)
+	else if (key == EventHandler::KeyCode::KEY_ESCAPE)
 	{
 		btnCloseClicked();
 	}

@@ -6,7 +6,7 @@
  */
 namespace constants
 {
-	const int FADE_SPEED = 175;
+	const int FADE_SPEED = 300;
 
 	const int PLANET_ANIMATION_SPEED = 50;
 

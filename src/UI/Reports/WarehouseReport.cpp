@@ -294,7 +294,7 @@ void WarehouseReport::fillListDisabled()
 void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int y)
 {
 	if (!visible()) { return; }
-	if (button != EventHandler::BUTTON_LEFT) { return; }
+	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
 
 	if (SELECTED_WAREHOUSE && isPointInRect(Point_2d(x, y), lstStructures.rect()))
 	{

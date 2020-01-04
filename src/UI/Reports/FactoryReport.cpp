@@ -557,7 +557,7 @@ void FactoryReport::cboFilterByProductSelectionChanged()
  */
 void FactoryReport::drawDetailPane(Renderer& r)
 {
-	Color_4ub text_color(0, 185, 0, 255);
+	Color text_color(0, 185, 0, 255);
 
 	r.drawImage(*FACTORY_IMAGE, DETAIL_PANEL.x(), DETAIL_PANEL.y() + 25);
 	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), DETAIL_PANEL.x(), DETAIL_PANEL.y() - 8, text_color.red(), text_color.green(), text_color.blue());

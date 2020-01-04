@@ -156,7 +156,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 	switch(key)
 	{	
 		// COMMAND KEYS
-		case EventHandler::KEY_BACKSPACE:
+		case EventHandler::KeyCode::KEY_BACKSPACE:
 			if(!text().empty() && mCursorPosition > 0)
 			{
 				mCursorPosition--;
@@ -165,15 +165,15 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 			}
 			break;
 
-		case EventHandler::KEY_HOME:
+		case EventHandler::KeyCode::KEY_HOME:
 			mCursorPosition = 0;
 			break;
 
-		case EventHandler::KEY_END:
+		case EventHandler::KeyCode::KEY_END:
 			mCursorPosition = text().length();
 			break;
 
-		case EventHandler::KEY_DELETE:
+		case EventHandler::KeyCode::KEY_DELETE:
 			if (text().length() > 0)
 			{
 				_text() = _text().erase(mCursorPosition, 1);
@@ -182,30 +182,30 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 			break;
 
 		// ARROW KEYS
-		case EventHandler::KEY_LEFT:
+		case EventHandler::KeyCode::KEY_LEFT:
 			if(mCursorPosition > 0)
 				--mCursorPosition;
 			break;
 
-		case EventHandler::KEY_RIGHT:
+		case EventHandler::KeyCode::KEY_RIGHT:
 			if(static_cast<size_t>(mCursorPosition) < text().length())
 				++mCursorPosition;
 			break;
 
 		// KEYPAD ARROWS
-		case EventHandler::KEY_KP4:
+		case EventHandler::KeyCode::KEY_KP4:
 			if((mCursorPosition > 0) && !Utility<EventHandler>::get().query_numlock())
 				--mCursorPosition;
 			break;
 
-		case EventHandler::KEY_KP6:
+		case EventHandler::KeyCode::KEY_KP6:
 			if((static_cast<size_t>(mCursorPosition) < text().length()) && !Utility<EventHandler>::get().query_numlock())
 				++mCursorPosition;
 			break;
 
 		// IGNORE ENTER/RETURN KEY
-		case EventHandler::KEY_ENTER:
-		case EventHandler::KEY_KP_ENTER:
+		case EventHandler::KeyCode::KEY_ENTER:
+		case EventHandler::KeyCode::KEY_KP_ENTER:
 			break;
 
 		// REGULAR KEYS

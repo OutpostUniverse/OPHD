@@ -41,8 +41,8 @@ public:
 
 	void sort() { if (mSorted) { std::sort(mItems.begin(), mItems.end()); } }
 
-	void textColor(const NAS2D::Color_4ub& color)	{ mText = color; }
-	void selectColor(const NAS2D::Color_4ub& color)	{ mHighlightBg = color; }
+	void textColor(const NAS2D::Color& color)	{ mText = color; }
+	void selectColor(const NAS2D::Color& color)	{ mHighlightBg = color; }
 
 	void addItem(const std::string& item, int tag = 0);
 	void removeItem(const std::string& item);
@@ -94,9 +94,9 @@ private:
 
 	ListBoxItems				mItems;											/**< List of items preserved in the order in which they're added. */
 
-	NAS2D::Color_4ub			mText = NAS2D::COLOR_WHITE;						/**< Text Color */
-	NAS2D::Color_4ub			mHighlightBg = NAS2D::COLOR_GREEN;				/**< Highlight Background color. */
-	NAS2D::Color_4ub			mHighlightText = NAS2D::COLOR_WHITE;			/**< Text Color for an item that is currently highlighted. */
+	NAS2D::Color				mText = NAS2D::Color::White;					/**< Text Color */
+	NAS2D::Color				mHighlightBg = NAS2D::Color::Green;				/**< Highlight Background color. */
+	NAS2D::Color				mHighlightText = NAS2D::Color::White;			/**< Text Color for an item that is currently highlighted. */
 
 	SelectionChangedCallback	mSelectionChanged;								/**< Callback for selection changed callback. */
 	Slider						mSlider;										/**<  */

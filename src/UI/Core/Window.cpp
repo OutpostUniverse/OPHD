@@ -55,7 +55,7 @@ void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	UIContainer::onMouseDown(button, x, y);
 
-	mMouseDrag = (button == EventHandler::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT));
+	mMouseDrag = (button == EventHandler::MouseButton::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT));
 }
 
 

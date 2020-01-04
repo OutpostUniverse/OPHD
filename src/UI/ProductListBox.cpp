@@ -16,7 +16,7 @@ static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
 
-static Color_4ub ITEM_COLOR(0, 185, 0, 255);
+static Color ITEM_COLOR(0, 185, 0, 255);
 
 
 static int FIRST_STOP = 0;

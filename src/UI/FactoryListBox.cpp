@@ -16,8 +16,8 @@ Image* STRUCTURE_ICONS = nullptr;
 static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
-static Color_4ub*	STRUCTURE_COLOR;
-static Color_4ub*	STRUCTURE_TEXT_COLOR;
+static Color*	STRUCTURE_COLOR;
+static Color*	STRUCTURE_TEXT_COLOR;
 
 
 static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, int x, int y, int w, int offset, bool highlight)

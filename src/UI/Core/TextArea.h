@@ -35,7 +35,7 @@ private:
 
 	StringList	mFormattedList;
 
-	NAS2D::Color_4ub	mTextColor = NAS2D::COLOR_WHITE;
+	NAS2D::Color	mTextColor = NAS2D::Color::White;
 
-	NAS2D::Font*		mFont = nullptr;
+	NAS2D::Font*	mFont = nullptr;
 };
