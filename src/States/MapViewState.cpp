@@ -80,6 +80,7 @@ MapViewState::MapViewState(const std::string& savegame) :
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
+	ccLocation()(0, 0);
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
 
@@ -99,6 +100,7 @@ MapViewState::MapViewState(const std::string& sm, const std::string& t, int d, i
 	mHeightMap(sm + MAP_TERRAIN_EXTENSION),
 	mUiIcons("ui/icons.png")
 {
+	ccLocation()(0, 0);
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
 
