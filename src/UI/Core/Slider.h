@@ -45,7 +45,7 @@ public:
 	void displayPosition(bool _d) { mDisplayPosition = _d; }	/*!< Set the position display flag. */
 
 	float length(); 			/*!< Get the max value for the slide area. */
-	void length(float _lengh);	/*!< Set the max value for the slide area. */
+	void length(float length);	/*!< Set the max value for the slide area. */
 	
 	bool backward() { return mBackward; }	 	/*!< Get the backward flag. */
 	void backward(bool _b) { mBackward = _b; } 	/*!< Set the backward flag. */
@@ -85,7 +85,7 @@ private:
 
     // Slider values
 	float					mPosition = 0.0f;			/*!< Current value that represent the position of the slider. */
-	float					mLenght = 0.0f;				/*!< Maximum value for the position of the slider. */
+	float					mLength = 0.0f;				/*!< Maximum value for the position of the slider. */
 
 	bool					mBackward = false;			/*!< Does the value returned in backward mode . */
 
