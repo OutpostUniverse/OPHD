@@ -83,7 +83,11 @@ void CheckBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 	
-	if (button == EventHandler::MouseButton::BUTTON_LEFT && isPointInRect(x, y, rect().x(), rect().y(), rect().width(), rect().height()))
+	if (button == EventHandler::MouseButton::BUTTON_LEFT && isPointInRect(x, y,
+        static_cast<int>(rect().x()),
+        static_cast<int>(rect().y()),
+        static_cast<int>(rect().width()),
+        static_cast<int>(rect().height())))
 	{
 		mChecked = !mChecked;
 		mCallback();
