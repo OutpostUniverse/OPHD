@@ -16,9 +16,9 @@ namespace constants
 
 	const int RESOURCE_BOX_WIDTH = 200;
 
-	const size_t NO_SELECTION = SIZE_MAX;
+	const uint32_t NO_SELECTION = _UI32_MAX;
 
-	const size_t MINIMUM_DISPLAY_ITEMS = 5;
+	const uint32_t MINIMUM_DISPLAY_ITEMS = 5;
 
 	// ROBOT SELECTION UI SHEET ID
 	const int ROBODIGGER_SHEET_ID = 1;
