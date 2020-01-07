@@ -621,9 +621,7 @@ void FactoryReport::drawProductPane(Renderer& r)
 					static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete());
 	}
 	
-	drawBasicProgressBar(static_cast<int>(position_x),
-		static_cast<int>(DETAIL_PANEL.y()) + 413,
-		static_cast<int>(rect().width() - position_x) - 10,
+	drawBasicProgressBar(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10,
 		30, percent, 4);
 
 	std::string _turns = string_format("%i / %i", SELECTED_FACTORY->productionTurnsCompleted(), SELECTED_FACTORY->productionTurnsToComplete());
