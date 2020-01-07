@@ -16,7 +16,7 @@ namespace constants
 
 	const int RESOURCE_BOX_WIDTH = 200;
 
-	const int NO_SELECTION = -1;
+	const size_t NO_SELECTION = SIZE_MAX;
 
 	const int MINIMUM_DISPLAY_ITEMS = 5;
 
