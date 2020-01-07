@@ -189,8 +189,8 @@ HWND WIN32_getWindowHandle()
 	SDL_VERSION(&systemInfo.version);
 
 	/** \fixme Evil hack exposing an internal NAS2D variable. */
-	extern SDL_Window* _WINDOW;
-	if (SDL_GetWindowWMInfo(_WINDOW, &systemInfo) != 1)
+	extern SDL_Window* underlyingWindow;
+	if (SDL_GetWindowWMInfo(underlyingWindow, &systemInfo) != 1)
 	{
 		return nullptr;
 	}
@@ -271,8 +271,8 @@ Color& structureTextColorFromIndex(size_t index)
  */
 bool windowMaximized()
 {
-	extern SDL_Window* _WINDOW;
-	unsigned int flags = SDL_GetWindowFlags(_WINDOW);
+	extern SDL_Window* underlyingWindow;
+	unsigned int flags = SDL_GetWindowFlags(underlyingWindow);
 	return (flags & SDL_WINDOW_MAXIMIZED);
 }
 

@@ -124,8 +124,8 @@ int main(int argc, char *argv[])
 		if (cf.option("maximized") == "true")
 		{
 			/** \fixme Evil hack exposing an internal NAS2D variable. */
-			extern SDL_Window* _WINDOW;
-			SDL_MaximizeWindow(_WINDOW);
+			extern SDL_Window* underlyingWindow;
+			SDL_MaximizeWindow(underlyingWindow);
 		}
 
 		std::cout << "Loading packed assets... ";
