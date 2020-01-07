@@ -91,8 +91,8 @@ void StructureInspector::btnCloseClicked()
 void StructureInspector::drawPopulationRequirements()
 {
 	Renderer& r = Utility<Renderer>::get();
-	int posX = rect().x() + 10;
-	int posY = rect().y() + 85;
+	float posX = rect().x() + 10.0f;
+	float posY = rect().y() + 85.0f;
 
 	r.drawText(*FONT_BOLD, "Population Required", rect().x() + 10, posY, 255, 255, 255);
 
