@@ -158,7 +158,7 @@ void Slider::setSkins()
 /*!
  * Get internal slider position.
  */
-double Slider::positionInternal()
+float Slider::positionInternal()
 {
 	return mPosition;
 }
@@ -167,14 +167,14 @@ double Slider::positionInternal()
 /**
  *  \brief set internal slider position
  */
-void Slider::positionInternal(double _pos)
+void Slider::positionInternal(float _pos)
 {
-	mPosition = std::clamp(_pos, 0.0, mLenght);
+	mPosition = std::clamp(_pos, 0.0f, mLenght);
 	mCallback(mPosition);
 }
 
 
-void Slider::_buttonCheck(bool& buttonFlag, Rectangle_2df& rect, double value)
+void Slider::_buttonCheck(bool& buttonFlag, Rectangle_2df& rect, float value)
 {
 	if (pointInRect_f(mMousePosition.x(), mMousePosition.y(), rect))
 	{
@@ -382,7 +382,10 @@ void Slider::draw()
 
 		// Slider
 		mSlider.width(mSlideBar.width()); // height = slide bar height
-		mSlider.height(static_cast<int>(mSlideBar.height() / mLenght)); //relative width
+		
+		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
+		int height_i = static_cast<int>(mSlideBar.height() / mLenght);
+		mSlider.height(static_cast<float>(height_i)); //relative width
 		if (mSlider.height() < mSlider.width()) // not too relative. Minimum = Heigt itself
 		{
 			mSlider.height(mSlider.width());
@@ -402,7 +405,10 @@ void Slider::draw()
 
 		// Slider
 		mSlider.height(mSlideBar.height());	// height = slide bar height
-		mSlider.width(static_cast<int>(mSlideBar.width() / (mLenght + 1))); //relative width
+
+		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
+		int width_i = static_cast<int>(mSlideBar.width() / (mLenght + 1.0f));
+		mSlider.width(static_cast<float>(width_i)); //relative width
 		if (mSlider.width() < mSlider.height())	// not too relative. Minimum = Heigt itself
 		{
 			mSlider.width(mSlider.height());
@@ -423,18 +429,18 @@ void Slider::draw()
 
 		if (mSliderType == SLIDER_VERTICAL)
 		{
-			_x = mSlideBar.x() + mSlideBar.width() + 2;
+			_x = static_cast<int>(mSlideBar.x() + mSlideBar.width() + 2.0f);
 			_y = mMousePosition.y() - _h;
 		}
 		else
 		{
 			_x = mMousePosition.x() + 2;
-			_y = mSlideBar.y() - 2 - _h;
+			_y = static_cast<int>(mSlideBar.y() - 2.0f) - _h;
 		}
 
-		r.drawBox(_x, _y, _w, _h, 255, 255, 255, 180);
-		r.drawBoxFilled(_x + 1, _y + 1, _w - 2, _h - 2, 0, 0, 0, 180);
-		r.drawText(*SLD_FONT, textHover, _x + 2, _y + 2, 220, 220, 220);
+		r.drawBox(static_cast<float>(_x), static_cast<float>(_y), static_cast<float>(_w), static_cast<float>(_h), 255, 255, 255, 180);
+		r.drawBoxFilled(static_cast<float>(_x) + 1.0f, static_cast<float>(_y) + 1.0f, static_cast<float>(_w) - 2.0f, static_cast<float>(_h) - 2.0f, 0, 0, 0, 180);
+		r.drawText(*SLD_FONT, textHover, static_cast<float>(_x) + 2.0f, static_cast<float>(_y) + 2.0f, 220, 220, 220);
 	}
 }
 
@@ -442,7 +448,7 @@ void Slider::draw()
 /**
  * Set the current value
  */
-void Slider::thumbPosition(double value)
+void Slider::thumbPosition(float value)
 {
 	if (mBackward) { value = mLenght - value; }
 
@@ -464,9 +470,9 @@ void Slider::thumbPosition(double value)
 /**
 * Gets the current value of position
 */
-double Slider::thumbPosition()
+float Slider::thumbPosition()
 {
-	double value = mPosition;
+	float value = mPosition;
 	if (mBackward)
 	{
 		value = mLenght - value;
@@ -483,7 +489,7 @@ double Slider::thumbPosition()
  *					slider's position. Must be between 0.0
  *					1.0.
  */
-void Slider::changeThumbPosition(double change)
+void Slider::changeThumbPosition(float change)
 {
 	positionInternal(mPosition + change);
 }
@@ -492,7 +498,7 @@ void Slider::changeThumbPosition(double change)
 /**
  * Returns the max value position can get
  */
-double Slider::length()
+float Slider::length()
 {
 	return mLenght;
 }
@@ -501,7 +507,7 @@ double Slider::length()
 /**
  * Set the max value position can get
  */
-void Slider::length(double _lenght)
+void Slider::length(float _lenght)
 {
 	mLenght = _lenght;
 	if (mPosition > mLenght)
