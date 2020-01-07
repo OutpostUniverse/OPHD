@@ -18,7 +18,7 @@ namespace constants
 
 	const size_t NO_SELECTION = SIZE_MAX;
 
-	const int MINIMUM_DISPLAY_ITEMS = 5;
+	const size_t MINIMUM_DISPLAY_ITEMS = 5;
 
 	// ROBOT SELECTION UI SHEET ID
 	const int ROBODIGGER_SHEET_ID = 1;
