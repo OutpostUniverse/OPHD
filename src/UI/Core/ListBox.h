@@ -73,7 +73,7 @@ protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
-	virtual void slideChanged(double _position);
+	virtual void slideChanged(float _position);
 
 	virtual void visibilityChanged(bool visible) final;
 

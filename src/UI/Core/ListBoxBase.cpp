@@ -178,20 +178,23 @@ void ListBoxBase::onMouseWheel(int x, int y)
 	if (!visible()) { return; }
 	if (!isPointInRect(mMousePosition, rect())) { return; }
 
-	mSlider.changeThumbPosition((y < 0 ? mItemHeight : -static_cast<int>(mItemHeight)));
+	float change = static_cast<float>(mItemHeight);
+
+	mSlider.changeThumbPosition((y < 0 ? change : -change));
 }
 
 
 /**
  * Slider changed event handler.
  */
-void ListBoxBase::slideChanged(double _position)
+void ListBoxBase::slideChanged(float _position)
 {
 	_update_item_display();
+	// Intentional truncation of fractional value
 	int pos = static_cast<int>(_position);
 	if (static_cast<float>(pos) != _position)
 	{
-		mSlider.thumbPosition(static_cast<double>(pos));
+		mSlider.thumbPosition(static_cast<float>(pos));
 	}
 }
 

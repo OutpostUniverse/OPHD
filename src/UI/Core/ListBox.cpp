@@ -259,7 +259,7 @@ void ListBox::onMouseWheel(int x, int y)
 {
 	if (empty() || !visible()) { return; }
 
-	mSlider.changeThumbPosition((y < 0 ? 16.0 : -16.0));
+	mSlider.changeThumbPosition((y < 0 ? 16.0f : -16.0f));
 }
 
 
@@ -315,12 +315,13 @@ void ListBox::update()
 }
 
 
-void ListBox::slideChanged(double _position)
+void ListBox::slideChanged(float _position)
 {
 	_updateItemDisplay();
+	// Intentional truncation of fractional value
 	int pos = static_cast<int>(_position);
 	if (static_cast<float>(pos) != _position)
 	{
-		mSlider.thumbPosition(static_cast<double>(pos));
+		mSlider.thumbPosition(static_cast<float>(pos));
 	}
 }
