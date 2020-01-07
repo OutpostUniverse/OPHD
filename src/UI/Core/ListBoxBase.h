@@ -52,11 +52,11 @@ public:
 	void removeItem(ListBoxItem*);
 	void clearItems();
 
-	int count() const;
+	size_t count() const;
 	bool empty() const;
 
-	int currentHighlight() const;
-	int currentSelection() const;
+	uint32_t currentHighlight() const;
+	uint32_t currentSelection() const;
 	void setSelection(int selection);
 
 	const std::string& selectionText() const;
@@ -81,11 +81,11 @@ protected:
 protected:
 	void _update_item_display();
 
-	int item_width() const { return mItemWidth; }
-	int item_height() const { return mItemHeight; }
+	uint32_t item_width() const { return mItemWidth; }
+	uint32_t item_height() const { return mItemHeight; }
 	void item_height(int);
 
-	int draw_offset() const { return mCurrentOffset; }
+	uint32_t draw_offset() const { return mCurrentOffset; }
 
 	virtual void visibilityChanged(bool) final;
 
@@ -104,13 +104,13 @@ private:
 	virtual void onSizeChanged() final;
 
 private:
-	int							mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
-	int							mCurrentSelection = constants::NO_SELECTION;	/**< Current selection index. */
-	int							mCurrentOffset = 0;								/**< Draw Offset. */
+	uint32_t					mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
+	uint32_t					mCurrentSelection = constants::NO_SELECTION;	/**< Current selection index. */
+	uint32_t					mCurrentOffset = 0;								/**< Draw Offset. */
 
-	int							mItemHeight = 1;								/**< Height of a ListBoxItem. */
-	int							mItemWidth = 0;									/**< Width of a ListBoxItem. */
-	int							mLineCount = 0;									/**< Number of lines that can be displayed. */
+	uint32_t					mItemHeight = 1;								/**< Height of a ListBoxItem. */
+	uint32_t					mItemWidth = 0;									/**< Width of a ListBoxItem. */
+	uint32_t					mLineCount = 0;									/**< Number of lines that can be displayed. */
 
 	NAS2D::Point_2d				mMousePosition;									/**< Mouse coordinates. */
 

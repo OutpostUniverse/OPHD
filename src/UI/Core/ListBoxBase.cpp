@@ -66,7 +66,7 @@ void ListBoxBase::visibilityChanged(bool)
  */
 void ListBoxBase::_update_item_display()
 {
-	mItemWidth = width();
+	mItemWidth = static_cast<uint32_t>(width());
 
 	if ((mItemHeight * mItems.size()) > static_cast<size_t>(height()))
 	{
@@ -75,8 +75,8 @@ void ListBoxBase::_update_item_display()
 		if (mLineCount < static_cast<int>(mItems.size()))
 		{
 			mSlider.length((mItemHeight * mItems.size()) - height());
-			mCurrentOffset = mSlider.thumbPosition();
-			mItemWidth -= mSlider.width();
+			mCurrentOffset = static_cast<uint32_t>(mSlider.thumbPosition());
+			mItemWidth -= static_cast<uint32_t>(mSlider.width());
 			mSlider.visible(true);
 		}
 	}
@@ -112,7 +112,11 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if (empty() || button == EventHandler::MouseButton::BUTTON_MIDDLE) { return; }
 
-	if (button == EventHandler::MouseButton::BUTTON_RIGHT && isPointInRect(x, y, positionX(), positionY(), width(), height()))
+	if (button == EventHandler::MouseButton::BUTTON_RIGHT && isPointInRect(x, y,
+		static_cast<int>(positionX()),
+		static_cast<int>(positionY()),
+		static_cast<int>(width()),
+		static_cast<int>(height())))
 	{
 		setSelection(constants::NO_SELECTION);
 		return;
@@ -174,7 +178,7 @@ void ListBoxBase::onMouseWheel(int x, int y)
 	if (!visible()) { return; }
 	if (!isPointInRect(mMousePosition, rect())) { return; }
 
-	mSlider.changeThumbPosition((y < 0 ? mItemHeight : -mItemHeight));
+	mSlider.changeThumbPosition((y < 0 ? mItemHeight : -static_cast<int>(mItemHeight)));
 }
 
 
@@ -236,7 +240,7 @@ void ListBoxBase::clearItems()
 /**
  * Number of items in the ListBoxBase.
  */
-int ListBoxBase::count() const
+size_t ListBoxBase::count() const
 {
 	return mItems.size();
 }
@@ -254,7 +258,7 @@ bool ListBoxBase::empty() const
 /**
  * Index of the current mouse hover highlight.
  */
-int ListBoxBase::currentHighlight() const
+uint32_t ListBoxBase::currentHighlight() const
 {
 	return mCurrentHighlight;
 }
@@ -263,7 +267,7 @@ int ListBoxBase::currentHighlight() const
 /**
  * Index of the current selection.
  */
-int ListBoxBase::currentSelection() const
+uint32_t ListBoxBase::currentSelection() const
 {
 	return mCurrentSelection;
 }
@@ -318,15 +322,15 @@ void ListBoxBase::update()
 	Renderer& r = Utility<Renderer>::get();
 
 	// CONTROL EXTENTS
-	r.drawBoxFilled(rect().x(), rect().y(), mItemWidth, rect().height(), 0, 0, 0, 255);
+	r.drawBoxFilled(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 0, 0, 255);
 
-	hasFocus() ? r.drawBox(rect().x(), rect().y(), mItemWidth, rect().height(), 0, 185, 0, 255) : r.drawBox(rect().x(), rect().y(), mItemWidth, rect().height(), 75, 75, 75, 255);
+	hasFocus() ? r.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 185, 0, 255) : r.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 75, 75, 75, 255);
 
 	r.clipRect(rect());
 
 	// MOUSE HIGHLIGHT
-	int highlight_y = positionY() + (mCurrentHighlight * mItemHeight) - mCurrentOffset;
-	r.drawBoxFilled(positionX(), highlight_y, mItemWidth, mItemHeight, 0, 185, 0, 50);
+	float highlight_y = positionY() + static_cast<float>((mCurrentHighlight * mItemHeight) - mCurrentOffset);
+	r.drawBoxFilled(positionX(), highlight_y, static_cast<float>(mItemWidth), static_cast<float>(mItemHeight), 0, 185, 0, 50);
 
 	mSlider.update();		// Shouldn't need this since it's in a UIContainer. Noticing that Slider
 							// doesn't play nice with the UIContainer.
