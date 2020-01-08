@@ -10,8 +10,8 @@
 class TextArea : public Control
 {
 public:
-	TextArea();
-	virtual ~TextArea();
+	TextArea() = default;
+	virtual ~TextArea() = default;
 
 	void textColor(int r, int g, int b, int a = 255) { mTextColor(r, g, b, a); }
 
