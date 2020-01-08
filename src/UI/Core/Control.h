@@ -17,8 +17,8 @@ public:
 	typedef NAS2D::Signals::Signal2<float, float> PositionChangedCallback;
 
 public:
-	Control();
-	virtual ~Control();
+	Control() = default;
+	virtual ~Control() = default;
 
 	void position(const NAS2D::Point_2d& pos);
 	void position(const NAS2D::Point_2df& pos);
