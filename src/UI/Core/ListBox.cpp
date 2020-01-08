@@ -73,16 +73,16 @@ void ListBox::visibilityChanged(bool visible)
 
 void ListBox::_updateItemDisplay()
 {
-	mItemWidth = static_cast<uint32_t>(rect().width());
+	mItemWidth = static_cast<unsigned int>(rect().width());
 
 	if ((mLineHeight * mItems.size()) > static_cast<size_t>(height()))
 	{
-		mLineCount = static_cast<int>(height() / mLineHeight);
-		if (mLineCount < static_cast<int>(mItems.size()))
+		mLineCount = static_cast<unsigned int>(height() / mLineHeight);
+		if (mLineCount < mItems.size())
 		{
 			mSlider.length((mLineHeight * mItems.size()) - height());
-			mCurrentOffset = static_cast<uint32_t>(mSlider.thumbPosition());
-			mItemWidth = static_cast<uint32_t>(width() - mSlider.width());
+			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
+			mItemWidth = static_cast<unsigned int>(width() - mSlider.width());
 			mSlider.visible(true);
 		}
 	}

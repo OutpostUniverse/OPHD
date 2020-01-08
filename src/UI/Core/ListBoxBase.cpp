@@ -66,17 +66,17 @@ void ListBoxBase::visibilityChanged(bool)
  */
 void ListBoxBase::_update_item_display()
 {
-	mItemWidth = static_cast<uint32_t>(width());
+	mItemWidth = static_cast<unsigned int>(width());
 
 	if ((mItemHeight * mItems.size()) > static_cast<size_t>(height()))
 	{
 		mLineCount = static_cast<int>(height() / mItemHeight);
 
-		if (mLineCount < static_cast<int>(mItems.size()))
+		if (mLineCount < mItems.size())
 		{
 			mSlider.length((mItemHeight * mItems.size()) - height());
-			mCurrentOffset = static_cast<uint32_t>(mSlider.thumbPosition());
-			mItemWidth -= static_cast<uint32_t>(mSlider.width());
+			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
+			mItemWidth -= static_cast<unsigned int>(mSlider.width());
 			mSlider.visible(true);
 		}
 	}
@@ -261,7 +261,7 @@ bool ListBoxBase::empty() const
 /**
  * Index of the current mouse hover highlight.
  */
-uint32_t ListBoxBase::currentHighlight() const
+unsigned int ListBoxBase::currentHighlight() const
 {
 	return mCurrentHighlight;
 }
@@ -270,7 +270,7 @@ uint32_t ListBoxBase::currentHighlight() const
 /**
  * Index of the current selection.
  */
-uint32_t ListBoxBase::currentSelection() const
+unsigned int ListBoxBase::currentSelection() const
 {
 	return mCurrentSelection;
 }
