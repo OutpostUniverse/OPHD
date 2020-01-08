@@ -2,6 +2,8 @@
 
 #include "NAS2D/NAS2D.h"
 
+#include <limits>
+
 namespace constants
 {
 	const int BOTTOM_UI_HEIGHT = 162;
@@ -16,7 +18,7 @@ namespace constants
 
 	const int RESOURCE_BOX_WIDTH = 200;
 
-	const uint32_t NO_SELECTION = _UI32_MAX;
+	const uint32_t NO_SELECTION = std::numeric_limits<uint32_t>::max();
 
 	const uint32_t MINIMUM_DISPLAY_ITEMS = 5;
 
