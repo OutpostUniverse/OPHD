@@ -15,12 +15,12 @@
 
 using namespace NAS2D;
 
-static int SORT_BY_PRODUCT_POSITION = 0;
-static int STATUS_LABEL_POSITION = 0;
-static int WIDTH_RESOURCES_REQUIRED_LABEL = 0;
+static float SORT_BY_PRODUCT_POSITION = 0;
+static float STATUS_LABEL_POSITION = 0;
+static float WIDTH_RESOURCES_REQUIRED_LABEL = 0;
 
-static Rectangle_2d	FACTORY_LISTBOX;
-static Rectangle_2d DETAIL_PANEL;
+static Rectangle_2df FACTORY_LISTBOX;
+static Rectangle_2df DETAIL_PANEL;
 
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
@@ -142,7 +142,7 @@ void FactoryReport::init()
 	btnShowDisabled.text("Disabled");
 	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
 
-	int position_x = Utility<Renderer>::get().width() - 110;
+	float position_x = Utility<Renderer>::get().width() - 110;
 	add(&btnIdle, position_x, 35);
 	btnIdle.type(Button::BUTTON_TOGGLE);
 	btnIdle.size(140, 30);
@@ -188,7 +188,7 @@ void FactoryReport::init()
 	txtProductDescription.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 
 	SORT_BY_PRODUCT_POSITION = cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() - FONT->width("Filter by Product");
-	WIDTH_RESOURCES_REQUIRED_LABEL = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
+	WIDTH_RESOURCES_REQUIRED_LABEL = static_cast<float>(FONT_MED_BOLD->width(RESOURCES_REQUIRED));
 
 	Control::resized().connect(this, &FactoryReport::resized);
 	fillLists();
@@ -335,9 +335,9 @@ void FactoryReport::resized(Control* c)
 		rect().width() - (cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width()) - 30,
 		rect().y() + rect().height() - 69);
 
-	STATUS_LABEL_POSITION = DETAIL_PANEL.x() + FONT_MED_BOLD->width("Status") + 158;
+	STATUS_LABEL_POSITION = DETAIL_PANEL.x() + FONT_MED_BOLD->width("Status") + 158.0f;
 	
-	int position_x = rect().width() - 150;
+	float position_x = rect().width() - 150.0f;
 	btnIdle.position(position_x, btnIdle.positionY());
 	btnClearProduction.position(position_x, btnClearProduction.positionY());
 	btnTakeMeThere.position(position_x, btnTakeMeThere.positionY());
@@ -600,7 +600,7 @@ void FactoryReport::drawProductPane(Renderer& r)
 {
 	r.drawText(*FONT_BIG_BOLD, "Production", DETAIL_PANEL.x(), DETAIL_PANEL.y() + 180, 0, 185, 0);
 
-	int position_x = DETAIL_PANEL.x() + lstProducts.width() + 20;
+	float position_x = DETAIL_PANEL.x() + lstProducts.width() + 20.0f;
 
 	if (SELECTED_PRODUCT_TYPE != PRODUCT_NONE)
 	{
@@ -615,8 +615,14 @@ void FactoryReport::drawProductPane(Renderer& r)
 	r.drawText(*FONT_MED, "Building " + productDescription(SELECTED_FACTORY->productType()), position_x, DETAIL_PANEL.y() + 393, 0, 185, 0);
 
 	float percent = 0.0f;
-	if (SELECTED_FACTORY->productType() != PRODUCT_NONE) { percent = static_cast<float>(SELECTED_FACTORY->productionTurnsCompleted()) / static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete()); }
-	drawBasicProgressBar(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10, 30, percent, 4);
+	if (SELECTED_FACTORY->productType() != PRODUCT_NONE)
+	{
+		percent =	static_cast<float>(SELECTED_FACTORY->productionTurnsCompleted()) /
+					static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete());
+	}
+	
+	drawBasicProgressBar(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10,
+		30, percent, 4);
 
 	std::string _turns = string_format("%i / %i", SELECTED_FACTORY->productionTurnsCompleted(), SELECTED_FACTORY->productionTurnsToComplete());
 	r.drawText(*FONT_MED_BOLD, "Turns", position_x, DETAIL_PANEL.y() + 449, 0, 185, 0);

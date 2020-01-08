@@ -73,7 +73,7 @@ void ListBox::visibilityChanged(bool visible)
 
 void ListBox::_updateItemDisplay()
 {
-	mItemWidth = rect().width();
+	mItemWidth = static_cast<uint32_t>(rect().width());
 
 	if ((mLineHeight * mItems.size()) > static_cast<size_t>(height()))
 	{
@@ -81,8 +81,8 @@ void ListBox::_updateItemDisplay()
 		if (mLineCount < static_cast<int>(mItems.size()))
 		{
 			mSlider.length((mLineHeight * mItems.size()) - height());
-			mCurrentOffset = mSlider.thumbPosition();
-			mItemWidth = width() - mSlider.width();
+			mCurrentOffset = static_cast<uint32_t>(mSlider.thumbPosition());
+			mItemWidth = static_cast<uint32_t>(width() - mSlider.width());
 			mSlider.visible(true);
 		}
 	}
@@ -259,7 +259,7 @@ void ListBox::onMouseWheel(int x, int y)
 {
 	if (empty() || !visible()) { return; }
 
-	mSlider.changeThumbPosition((y < 0 ? 16.0 : -16.0));
+	mSlider.changeThumbPosition((y < 0 ? 16.0f : -16.0f));
 }
 
 
@@ -280,19 +280,19 @@ void ListBox::update()
 	r.clipRect(rect().x() - 1, rect().y(), rect().width() + 1, rect().height() + 1);
 
 	// draw boundaries of the widget
-	r.drawBox(rect().x(), rect().y(), mItemWidth, rect().height(), 0, 0, 0, 100);
-	r.drawBoxFilled(rect().x(), rect().y(), mItemWidth, rect().height(), 0, 85, 0, 220);
+	r.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 0, 0, 100);
+	r.drawBoxFilled(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 85, 0, 220);
 
-	// Highlight currently selected file
-	int itemY = rect().y() + (mCurrentSelection * mLineHeight) - mCurrentOffset;
-	r.drawBoxFilled(rect().x(), itemY, mItemWidth, mLineHeight, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
+	// Highlight currently selected item
+	float itemY = rect().y() + static_cast<float>((mCurrentSelection * mLineHeight) - mCurrentOffset);
+	r.drawBoxFilled(rect().x(), itemY, static_cast<float>(mItemWidth), static_cast<float>(mLineHeight), mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
 	
 	// Highlight On mouse Over
 
 	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
-		itemY = rect().y() + (mCurrentHighlight * mLineHeight) - mCurrentOffset;
-		r.drawBox(rect().x(), itemY, mItemWidth, mLineHeight, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
+		itemY = rect().y() + static_cast<float>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
+		r.drawBox(rect().x(), itemY, static_cast<float>(mItemWidth), static_cast<float>(mLineHeight), mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
 	}
 	
 	// display actuals values that are meant to be
@@ -315,12 +315,13 @@ void ListBox::update()
 }
 
 
-void ListBox::slideChanged(double _position)
+void ListBox::slideChanged(float _position)
 {
 	_updateItemDisplay();
+	// Intentional truncation of fractional value
 	int pos = static_cast<int>(_position);
 	if (static_cast<float>(pos) != _position)
 	{
-		mSlider.thumbPosition(static_cast<double>(pos));
+		mSlider.thumbPosition(static_cast<float>(pos));
 	}
 }

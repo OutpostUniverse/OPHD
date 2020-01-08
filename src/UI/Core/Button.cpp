@@ -182,7 +182,11 @@ void Button::draw()
 	}
 	else
 	{
-		r.drawText(*mFont, text(), static_cast<int>(rect().x() + (rect().width() / 2) - (mFont->width(text()) / 2)), static_cast<int>(rect().y() + (rect().height() / 2) - (mFont->height() / 2)), 255, 255, 255);
+		// force text to be drawn on integer bounds, otherwise it can look 'fuzzy' due to texture blending
+		int posX = static_cast<int>(rect().x() + (rect().width() / 2) - (mFont->width(text()) / 2));
+		int posY = static_cast<int>(rect().y() + (rect().height() / 2) - (mFont->height() / 2));
+
+		r.drawText(*mFont, text(), static_cast<float>(posX), static_cast<float>(posY), 255, 255, 255);
 	}
 
 	/// \fixme	Naive... would rather set a b&w shader instead.

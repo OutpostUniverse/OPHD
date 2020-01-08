@@ -2,6 +2,9 @@
 
 #include "NAS2D/NAS2D.h"
 
+#include <limits>
+
+
 namespace constants
 {
 	const int BOTTOM_UI_HEIGHT = 162;
@@ -16,9 +19,9 @@ namespace constants
 
 	const int RESOURCE_BOX_WIDTH = 200;
 
-	const int NO_SELECTION = -1;
+	const unsigned int NO_SELECTION = std::numeric_limits<unsigned int>::max();
 
-	const int MINIMUM_DISPLAY_ITEMS = 5;
+	const unsigned int MINIMUM_DISPLAY_ITEMS = 5;
 
 	// ROBOT SELECTION UI SHEET ID
 	const int ROBODIGGER_SHEET_ID = 1;

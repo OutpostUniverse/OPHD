@@ -52,11 +52,11 @@ public:
 	void removeItem(ListBoxItem*);
 	void clearItems();
 
-	int count() const;
+	size_t count() const;
 	bool empty() const;
 
-	int currentHighlight() const;
-	int currentSelection() const;
+	unsigned int currentHighlight() const;
+	unsigned int currentSelection() const;
 	void setSelection(int selection);
 
 	const std::string& selectionText() const;
@@ -81,11 +81,11 @@ protected:
 protected:
 	void _update_item_display();
 
-	int item_width() const { return mItemWidth; }
-	int item_height() const { return mItemHeight; }
+	unsigned int item_width() const { return mItemWidth; }
+	unsigned int item_height() const { return mItemHeight; }
 	void item_height(int);
 
-	int draw_offset() const { return mCurrentOffset; }
+	unsigned int draw_offset() const { return mCurrentOffset; }
 
 	virtual void visibilityChanged(bool) final;
 
@@ -95,7 +95,7 @@ protected:
 
 private:
 	void _init();
-	void slideChanged(double _position);
+	void slideChanged(float _position);
 
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int relX, int relY);
@@ -104,13 +104,13 @@ private:
 	virtual void onSizeChanged() final;
 
 private:
-	int							mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
-	int							mCurrentSelection = constants::NO_SELECTION;	/**< Current selection index. */
-	int							mCurrentOffset = 0;								/**< Draw Offset. */
+	unsigned int				mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
+	unsigned int				mCurrentSelection = constants::NO_SELECTION;	/**< Current selection index. */
+	unsigned int				mCurrentOffset = 0;								/**< Draw Offset. */
 
-	int							mItemHeight = 1;								/**< Height of a ListBoxItem. */
-	int							mItemWidth = 0;									/**< Width of a ListBoxItem. */
-	int							mLineCount = 0;									/**< Number of lines that can be displayed. */
+	unsigned int				mItemHeight = 1;								/**< Height of a ListBoxItem. */
+	unsigned int				mItemWidth = 0;									/**< Width of a ListBoxItem. */
+	unsigned int				mLineCount = 0;									/**< Number of lines that can be displayed. */
 
 	NAS2D::Point_2d				mMousePosition;									/**< Mouse coordinates. */
 

@@ -110,21 +110,32 @@ State* SplashState::update()
 
 	if (CURRENT_STATE == LOGO_LAIRWORKS)
 	{
-		r.drawImage(mLogoLairworks, static_cast<int>(r.center_x() - mLogoLairworks.width() / 2), static_cast<int>(r.center_y() - mLogoLairworks.height() / 2));
+		// Trunctation of fractional part of result is intentional
+		// to prevent fuzzy images due to texture filtering
+		int logoX = static_cast<int>(r.center_x() - mLogoLairworks.width() / 2);
+		int logoY = static_cast<int>(r.center_y() - mLogoLairworks.height() / 2);
+		r.drawImage(mLogoLairworks, static_cast<float>(logoX), static_cast<float>(logoY));
 	}
 	if (CURRENT_STATE == LOGO_NAS2D)
 	{
-		r.drawImage(mLogoNas2d, static_cast<int>(r.center_x() - mLogoNas2d.width() / 2), static_cast<int>(r.center_y() - mLogoNas2d.height() / 2));
+
+		// Trunctation of fractional part of result is intentional
+		// to prevent fuzzy images due to texture filtering
+		int logoX = static_cast<int>(r.center_x() - mLogoNas2d.width() / 2);
+		int logoY = static_cast<int>(r.center_y() - mLogoNas2d.height() / 2);
+		r.drawImage(mLogoNas2d, static_cast<float>(logoX), static_cast<float>(logoY));
 	}
 	if (CURRENT_STATE == LOGO_OUTPOSTHD)
 	{
 		unsigned int tick = BYLINE_TIMER.delta();
 		
-		float _x = r.center_x() - (mLogoOutpostHd.width() / 2) - 100;
-		float _y = r.center_y() - (mLogoOutpostHd.height() / 2);
+		// Trunctation of fractional part of result is intentional
+		// to prevent fuzzy images due to texture filtering
+		int _x = static_cast<int>(r.center_x() - (mLogoOutpostHd.width() / 2)) - 100;
+		int _y = static_cast<int>(r.center_y() - (mLogoOutpostHd.height() / 2));
 		
-		r.drawImageRotated(mFlare, _x + 302 - 512, _y + 241 - 512, BYLINE_TIMER.tick() / 600.0f);
-		r.drawImage(mLogoOutpostHd, static_cast<int>(_x), static_cast<int>(_y));
+		r.drawImageRotated(mFlare, static_cast<float>(_x) + 302 - 512, static_cast<float>(_y) + 241 - 512, BYLINE_TIMER.tick() / 600.0f);
+		r.drawImage(mLogoOutpostHd, static_cast<float>(_x), static_cast<float>(_y));
 
 		BYLINE_SCALE += tick * BYLINE_SCALE_STEP;
 		BYLINE_ALPHA += tick * BYLINE_ALPHA_FADE_STEP;

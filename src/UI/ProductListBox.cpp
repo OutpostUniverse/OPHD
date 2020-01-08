@@ -23,7 +23,7 @@ static int FIRST_STOP = 0;
 static int SECOND_STOP = 0;
 
 
-static void drawItem(Renderer& r, ProductListBox::ProductListBoxItem& item, int x, int y, int w, int offset, bool highlight)
+static void drawItem(Renderer& r, ProductListBox::ProductListBoxItem& item, float x, float y, float w, float offset, bool highlight)
 {
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, ITEM_COLOR.red(), ITEM_COLOR.green(), ITEM_COLOR.blue(), 75); }
@@ -39,7 +39,7 @@ static void drawItem(Renderer& r, ProductListBox::ProductListBoxItem& item, int 
 	r.drawText(*MAIN_FONT, "Quantity: " + std::to_string(item.count), x + FIRST_STOP + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2),
 		ITEM_COLOR.red(), ITEM_COLOR.green(), ITEM_COLOR.blue(), ITEM_COLOR.alpha());
 	
-	drawBasicProgressBar(x + SECOND_STOP + 5, y + 10, FIRST_STOP - 10, 10, item.usage, 2);
+	drawBasicProgressBar(x + static_cast<float>(SECOND_STOP) + 5, y + 10, static_cast<float>(FIRST_STOP) - 10, 10, item.usage, 2);
 }
 
 
@@ -99,12 +99,17 @@ void ProductListBox::update()
 
 	r.clipRect(rect());
 
-	FIRST_STOP = item_width() * 0.33f;
-	SECOND_STOP = item_width() * 0.66f;
+	FIRST_STOP = static_cast<int>(item_width() * 0.33f);
+	SECOND_STOP = static_cast<int>(item_width() * 0.66f);
 
 	for (size_t i = 0; i < mItems.size(); ++i)
 	{
-		drawItem(r, *static_cast<ProductListBoxItem*>(mItems[i]), positionX(), positionY() + (i * LIST_ITEM_HEIGHT), item_width(), draw_offset(), i == ListBoxBase::currentSelection());
+		drawItem(r, *static_cast<ProductListBoxItem*>(mItems[i]),
+			positionX(),
+			positionY() + (i * LIST_ITEM_HEIGHT),
+			static_cast<float>(item_width()),
+			static_cast<float>(draw_offset()),
+			i == ListBoxBase::currentSelection());
 	}
 
 	r.clipRectClear();

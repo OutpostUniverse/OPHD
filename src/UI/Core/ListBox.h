@@ -49,16 +49,16 @@ public:
 	bool itemExists(const std::string& item);
 	void dropAllItems();
 
-	int count() const { return mItems.size(); }
-	int lineHeight() const { return mLineHeight; }
+	size_t count() const { return mItems.size(); }
+	unsigned int lineHeight() const { return mLineHeight; }
 
 	void setSelectionByName(const std::string& item);
 
-	int currentSelection() const { return mCurrentSelection; }
+	unsigned int currentSelection() const { return mCurrentSelection; }
 	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
 	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
 
-	int currentHighlight() const { return mCurrentHighlight; }
+	unsigned int currentHighlight() const { return mCurrentHighlight; }
 
 	const std::string& selectionText() const;
 	int selectionTag() const;
@@ -73,7 +73,7 @@ protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
-	virtual void slideChanged(double _position);
+	virtual void slideChanged(float _position);
 
 	virtual void visibilityChanged(bool visible) final;
 
@@ -84,13 +84,13 @@ private:
 	void _init();
 
 private:
-	int							mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
-	int							mCurrentSelection = 0;							/**< Current selection index. */
-	int							mCurrentOffset = 0;								/**< Current selection index. */
+	unsigned int				mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
+	unsigned int				mCurrentSelection = 0;							/**< Current selection index. */
+	unsigned int				mCurrentOffset = 0;								/**< Current selection index. */
 
-	int							mItemWidth = 0;									/**< Width of items. */
-	int							mLineHeight = 0;								/**< Height of an item line. */
-	int							mLineCount = 0;									/**< Number of lines that can be displayed. */
+	unsigned int				mItemWidth = 0;									/**< Width of items. */
+	unsigned int				mLineHeight = 0;								/**< Height of an item line. */
+	unsigned int				mLineCount = 0;									/**< Number of lines that can be displayed. */
 
 	ListBoxItems				mItems;											/**< List of items preserved in the order in which they're added. */
 
