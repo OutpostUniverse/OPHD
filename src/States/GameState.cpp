@@ -49,7 +49,7 @@ GameState::~GameState()
 	delete MAIN_REPORTS_UI;
 	delete MAP_VIEW;
 
-	Utility<Mixer>::get().musicComplete().disconnect(this, &GameState::musicComplete);
+	Utility<Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
 	Utility<Mixer>::get().stopAllAudio();
 }
 
@@ -71,6 +71,7 @@ void GameState::initialize()
 		takeMeThere->connect(this, &GameState::takeMeThere);
 	}
 
+	Utility<Mixer>::get().addMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
 	Utility<Renderer>::get().fadeComplete().connect(this, &GameState::fadeComplete);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 }
