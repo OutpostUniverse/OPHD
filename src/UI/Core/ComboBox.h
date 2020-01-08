@@ -14,8 +14,8 @@ public:
 
 	void addItem(const std::string& item, int tag = 0);
 
-	size_t maxDisplayItems() const { return mMaxDisplayItems; }
-	void maxDisplayItems(int count);
+	unsigned int maxDisplayItems() const { return mMaxDisplayItems; }
+	void maxDisplayItems(unsigned int count);
 
 	void clearSelection();
 
@@ -24,7 +24,7 @@ public:
 	const std::string& selectionText() const;
 	int selectionTag() const;
 
-	size_t currentSelection() { return lstItems.currentSelection(); }
+	unsigned int currentSelection() { return lstItems.currentSelection(); }
 
 	virtual void update();
 
@@ -43,9 +43,9 @@ private:
 	ListBox					lstItems;
 	TextField				txtField;
 
-	NAS2D::Rectangle_2df	mBaseArea;
+	NAS2D::Rectangle_2df    mBaseArea;
 
-	SelectionChanged		mSelectionChanged;
+	SelectionChanged        mSelectionChanged;
 
-	size_t					mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
+	unsigned int            mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
 };

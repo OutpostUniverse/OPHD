@@ -50,15 +50,15 @@ public:
 	void dropAllItems();
 
 	size_t count() const { return mItems.size(); }
-	uint32_t lineHeight() const { return mLineHeight; }
+	unsigned int lineHeight() const { return mLineHeight; }
 
 	void setSelectionByName(const std::string& item);
 
-	uint32_t currentSelection() const { return mCurrentSelection; }
+	unsigned int currentSelection() const { return mCurrentSelection; }
 	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
 	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
 
-	uint32_t currentHighlight() const { return mCurrentHighlight; }
+	unsigned int currentHighlight() const { return mCurrentHighlight; }
 
 	const std::string& selectionText() const;
 	int selectionTag() const;
@@ -84,13 +84,13 @@ private:
 	void _init();
 
 private:
-	uint32_t					mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
-	uint32_t					mCurrentSelection = 0;							/**< Current selection index. */
-	uint32_t					mCurrentOffset = 0;								/**< Current selection index. */
+	unsigned int				mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
+	unsigned int				mCurrentSelection = 0;							/**< Current selection index. */
+	unsigned int				mCurrentOffset = 0;								/**< Current selection index. */
 
-	uint32_t					mItemWidth = 0;									/**< Width of items. */
-	uint32_t					mLineHeight = 0;								/**< Height of an item line. */
-	uint32_t					mLineCount = 0;									/**< Number of lines that can be displayed. */
+	unsigned int				mItemWidth = 0;									/**< Width of items. */
+	unsigned int				mLineHeight = 0;								/**< Height of an item line. */
+	unsigned int				mLineCount = 0;									/**< Number of lines that can be displayed. */
 
 	ListBoxItems				mItems;											/**< List of items preserved in the order in which they're added. */
 
