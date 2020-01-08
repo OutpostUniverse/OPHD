@@ -9,13 +9,6 @@
 #include <iostream>
 
 
-WindowStack::WindowStack()
-{}
-
-
-WindowStack::~WindowStack()
-{}
-
 
 /**
  * Adds a Window to be handled by the WindowStack.
