@@ -180,9 +180,6 @@
     <ClCompile Include="..\..\src\PopulationPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\ProgressBar.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\StructureCatalogue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -508,9 +505,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\ProductPool.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\ProgressBar.h">
-      <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\StructureCatalogue.h">
       <Filter>Header Files</Filter>

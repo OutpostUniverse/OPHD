@@ -241,7 +241,6 @@
     <ClCompile Include="..\..\src\UI\Core\Control.cpp" />
     <ClCompile Include="..\..\src\UI\Core\ListBox.cpp" />
     <ClCompile Include="..\..\src\UI\Core\ListBoxBase.cpp" />
-    <ClCompile Include="..\..\src\UI\Core\ProgressBar.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Slider.cpp" />
     <ClCompile Include="..\..\src\UI\Core\TextArea.cpp" />
     <ClCompile Include="..\..\src\UI\Core\TextField.cpp" />
@@ -349,7 +348,6 @@
     <ClInclude Include="..\..\src\UI\Core\Control.h" />
     <ClInclude Include="..\..\src\UI\Core\ListBox.h" />
     <ClInclude Include="..\..\src\UI\Core\ListBoxBase.h" />
-    <ClInclude Include="..\..\src\UI\Core\ProgressBar.h" />
     <ClInclude Include="..\..\src\UI\Core\Slider.h" />
     <ClInclude Include="..\..\src\UI\Core\TextArea.h" />
     <ClInclude Include="..\..\src\UI\Core\TextField.h" />
