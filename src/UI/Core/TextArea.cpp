@@ -9,14 +9,6 @@
 
 using namespace NAS2D;
 
-TextArea::TextArea()
-{}
-
-
-TextArea::~TextArea()
-{}
-
-
 
 void TextArea::font(const std::string& font, size_t size)
 {

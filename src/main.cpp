@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 
 	try
 	{
-		Filesystem& f = Utility<Filesystem>::init(argv[0], "OutpostHD", "LairWorks", "data");
+		Filesystem& f = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks", "data");
 
 		if (!f.exists(constants::SAVE_GAME_PATH))
 		{
@@ -124,8 +124,8 @@ int main(int argc, char *argv[])
 		if (cf.option("maximized") == "true")
 		{
 			/** \fixme Evil hack exposing an internal NAS2D variable. */
-			extern SDL_Window* _WINDOW;
-			SDL_MaximizeWindow(_WINDOW);
+			extern SDL_Window* underlyingWindow;
+			SDL_MaximizeWindow(underlyingWindow);
 		}
 
 		std::cout << "Loading packed assets... ";

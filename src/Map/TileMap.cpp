@@ -187,7 +187,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 		{
 			for(int col = 0; col < width(); col++)
 			{
-				Color_4ub c = heightmap.pixelColor(col, row);
+				Color c = heightmap.pixelColor(col, row);
 				Tile& t = mTileMap[depth][row][col];
 				t.init(col, row, depth, c.red() / 50);
 				if (depth > 0) { t.excavated(false); }
@@ -269,7 +269,7 @@ void TileMap::buildMouseMap()
 	{
 		for(size_t col = 0; col < TILE_WIDTH; col++)
 		{
-			Color_4ub c = mousemap.pixelColor(static_cast<int>(col), static_cast<int>(row));
+			Color c = mousemap.pixelColor(static_cast<int>(col), static_cast<int>(row));
 			if (c.red() == 255 && c.green() == 255)	{ mMouseMap[row][col] = MMR_BOTTOM_RIGHT; }
 			else if (c.red() == 255)				{ mMouseMap[row][col] = MMR_TOP_LEFT; }
 			else if (c.blue() == 255)				{ mMouseMap[row][col] = MMR_TOP_RIGHT; }

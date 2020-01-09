@@ -14,8 +14,8 @@ public:
 
 	void addItem(const std::string& item, int tag = 0);
 
-	int maxDisplayItems() const { return mMaxDisplayItems; }
-	void maxDisplayItems(int count);
+	unsigned int maxDisplayItems() const { return mMaxDisplayItems; }
+	void maxDisplayItems(unsigned int count);
 
 	void clearSelection();
 
@@ -24,7 +24,7 @@ public:
 	const std::string& selectionText() const;
 	int selectionTag() const;
 
-	int currentSelection() { return lstItems.currentSelection(); }
+	unsigned int currentSelection() { return lstItems.currentSelection(); }
 
 	virtual void update();
 
@@ -39,13 +39,13 @@ private:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) final;
 
 private:
-	Button				btnDown;
-	ListBox				lstItems;
-	TextField			txtField;
+	Button					btnDown;
+	ListBox					lstItems;
+	TextField				txtField;
 
-	NAS2D::Rectangle_2d	mBaseArea;
+	NAS2D::Rectangle_2df    mBaseArea;
 
-	SelectionChanged	mSelectionChanged;
+	SelectionChanged        mSelectionChanged;
 
-	int					mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
+	unsigned int            mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
 };

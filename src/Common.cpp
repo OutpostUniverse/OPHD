@@ -19,23 +19,23 @@
 using namespace NAS2D;
 
 
-std::map<Structure::StructureState, Color_4ub> STRUCTURE_COLOR_TABLE
+std::map<Structure::StructureState, Color> STRUCTURE_COLOR_TABLE
 {
-	{ Structure::UNDER_CONSTRUCTION,	Color_4ub(150, 150, 150, 100) },
-	{ Structure::OPERATIONAL,			Color_4ub(0, 185, 0, 255) },
-	{ Structure::IDLE,					Color_4ub(0, 185, 0, 100) },
-	{ Structure::DISABLED,				Color_4ub(220, 0, 0, 255) },
-	{ Structure::DESTROYED,				Color_4ub(220, 0, 0, 255) }
+	{ Structure::UNDER_CONSTRUCTION,	Color(150, 150, 150, 100) },
+	{ Structure::OPERATIONAL,			Color(0, 185, 0, 255) },
+	{ Structure::IDLE,					Color(0, 185, 0, 100) },
+	{ Structure::DISABLED,				Color(220, 0, 0, 255) },
+	{ Structure::DESTROYED,				Color(220, 0, 0, 255) }
 };
 
 
-std::map<Structure::StructureState, Color_4ub> STRUCTURE_TEXT_COLOR_TABLE
+std::map<Structure::StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
 {
-	{ Structure::UNDER_CONSTRUCTION,	Color_4ub(185, 185, 185, 100) },
-	{ Structure::OPERATIONAL,			Color_4ub(0, 185, 0, 255) },
-	{ Structure::IDLE,					Color_4ub(0, 185, 0, 100) },
-	{ Structure::DISABLED,				Color_4ub(220, 0, 0, 255) },
-	{ Structure::DESTROYED,				Color_4ub(220, 0, 0, 255) }
+	{ Structure::UNDER_CONSTRUCTION,	Color(185, 185, 185, 100) },
+	{ Structure::OPERATIONAL,			Color(0, 185, 0, 255) },
+	{ Structure::IDLE,					Color(0, 185, 0, 100) },
+	{ Structure::DISABLED,				Color(220, 0, 0, 255) },
+	{ Structure::DESTROYED,				Color(220, 0, 0, 255) }
 };
 
 
@@ -189,8 +189,8 @@ HWND WIN32_getWindowHandle()
 	SDL_VERSION(&systemInfo.version);
 
 	/** \fixme Evil hack exposing an internal NAS2D variable. */
-	extern SDL_Window* _WINDOW;
-	if (SDL_GetWindowWMInfo(_WINDOW, &systemInfo) != 1)
+	extern SDL_Window* underlyingWindow;
+	if (SDL_GetWindowWMInfo(underlyingWindow, &systemInfo) != 1)
 	{
 		return nullptr;
 	}
@@ -253,13 +253,13 @@ const std::string& idleReason(IdleReason _i)
 }
 
 
-Color_4ub& structureColorFromIndex(size_t index)
+Color& structureColorFromIndex(size_t index)
 {
 	return STRUCTURE_COLOR_TABLE[static_cast<Structure::StructureState>(index)];
 }
 
 
-Color_4ub& structureTextColorFromIndex(size_t index)
+Color& structureTextColorFromIndex(size_t index)
 {
 	return STRUCTURE_TEXT_COLOR_TABLE[static_cast<Structure::StructureState>(index)];
 }
@@ -271,8 +271,8 @@ Color_4ub& structureTextColorFromIndex(size_t index)
  */
 bool windowMaximized()
 {
-	extern SDL_Window* _WINDOW;
-	unsigned int flags = SDL_GetWindowFlags(_WINDOW);
+	extern SDL_Window* underlyingWindow;
+	unsigned int flags = SDL_GetWindowFlags(underlyingWindow);
 	return (flags & SDL_WINDOW_MAXIMIZED);
 }
 
@@ -384,17 +384,13 @@ NAS2D::StringList split_string(const char *str, char delim)
 }
 
 
-void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding)
+void drawBasicProgressBar(float x, float y, float width, float height, float percent, float padding)
 {
-	Utility<Renderer>::get().drawBox(static_cast<float>(x), static_cast<float>(y), static_cast<float>(width), static_cast<float>(height), 0, 185, 0);
+	Utility<Renderer>::get().drawBox(x, y, width, height, 0, 185, 0);
 
 	if (percent > 0.0f)
 	{
 		int bar_width = static_cast<int>(static_cast<float>(width - (padding + padding)) * percent);
-		Utility<Renderer>::get().drawBoxFilled(	static_cast<float>(x + padding),
-												static_cast<float>(y + padding + 1),
-												static_cast<float>(bar_width - 1),
-												static_cast<float>(height - (padding + padding) - 1),
-												0, 100, 0);
+		Utility<Renderer>::get().drawBoxFilled(x + padding, y + padding + 1.0f, bar_width - 1.0f, height - (padding + padding) - 1.0f, 0, 100, 0);
 	}
 }

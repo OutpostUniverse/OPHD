@@ -91,8 +91,8 @@ void StructureInspector::btnCloseClicked()
 void StructureInspector::drawPopulationRequirements()
 {
 	Renderer& r = Utility<Renderer>::get();
-	int posX = rect().x() + 10;
-	int posY = rect().y() + 85;
+	float posX = rect().x() + 10.0f;
+	float posY = rect().y() + 85.0f;
 
 	r.drawText(*FONT_BOLD, "Population Required", rect().x() + 10, posY, 255, 255, 255);
 
@@ -101,7 +101,7 @@ void StructureInspector::drawPopulationRequirements()
 	if (mStructure->populationRequirements()[0] > 0)
 	{
 		std::string format = string_format("Workers: %i/%i", mStructure->populationAvailable()[0], mStructure->populationRequirements()[0]);
-		Color_4ub color = mStructure->populationAvailable()[0] >= mStructure->populationRequirements()[0] ? COLOR_WHITE : COLOR_RED;
+		Color color = mStructure->populationAvailable()[0] >= mStructure->populationRequirements()[0] ? Color::White : Color::Red;
 		r.drawText(*FONT, format, posX, posY, color.red(), color.green(), color.blue());
 		posY += 10;
 	}
@@ -109,7 +109,7 @@ void StructureInspector::drawPopulationRequirements()
 	if (mStructure->populationRequirements()[1] > 0)
 	{
 		std::string format = string_format("Scientists: %i/%i", mStructure->populationAvailable()[1], mStructure->populationRequirements()[1]);
-		Color_4ub color = mStructure->populationAvailable()[1] >= mStructure->populationRequirements()[1] ? COLOR_WHITE : COLOR_RED;
+		Color color = mStructure->populationAvailable()[1] >= mStructure->populationRequirements()[1] ? Color::White : Color::Red;
 		r.drawText(*FONT, format, posX, posY, color.red(), color.green(), color.blue());
 	}
 }

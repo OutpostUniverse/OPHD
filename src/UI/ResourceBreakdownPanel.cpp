@@ -24,10 +24,10 @@ static ResourceTrend	RARE_METALS = RESOURCE_TREND_NONE;
 static ResourceTrend	RARE_MINERALS = RESOURCE_TREND_NONE;
 
 
-static Color_4ub		COMMON_MET_COL = COLOR_WHITE;
-static Color_4ub		COMMON_MIN_COL = COLOR_WHITE;
-static Color_4ub		RARE_MET_COL = COLOR_WHITE;
-static Color_4ub		RARE_MIN_COL = COLOR_WHITE;
+static Color			COMMON_MET_COL = Color::White;
+static Color			COMMON_MIN_COL = Color::White;
+static Color			RARE_MET_COL = Color::White;
+static Color			RARE_MIN_COL = Color::White;
 
 
 std::map<ResourceTrend, Point_2df> ICON_SLICE
@@ -38,11 +38,11 @@ std::map<ResourceTrend, Point_2df> ICON_SLICE
 };
 
 
-std::map<ResourceTrend, Color_4ub> TEXT_COLOR
+std::map<ResourceTrend, Color> TEXT_COLOR
 {
-	{ RESOURCE_TREND_NONE, Color_4ub(255, 255, 255, 255) },
-	{ RESOURCE_TREND_UP, Color_4ub(0, 185, 0, 255) },
-	{ RESOURCE_TREND_DOWN, Color_4ub(255, 0, 0, 255) }
+	{ RESOURCE_TREND_NONE,	Color(255, 255, 255, 255) },
+	{ RESOURCE_TREND_UP,	Color(0, 185, 0, 255) },
+	{ RESOURCE_TREND_DOWN,	Color(255, 0, 0, 255) }
 };
 
 

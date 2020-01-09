@@ -4,11 +4,11 @@
 
 #include "Window.h"
 
-class WindowStack
+class WindowStack final
 {
 public:
-	WindowStack();
-	~WindowStack();
+	WindowStack() = default;
+	~WindowStack() = default;
 
 	void addWindow(Window* _w);
 	void removeWindow(Window* _w);

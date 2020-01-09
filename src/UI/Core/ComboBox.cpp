@@ -133,7 +133,7 @@ void ComboBox::lstItemsSelectionChanged()
 /**
  * Sets the maximum number of items to display before showing a scroll bar.
  */
-void ComboBox::maxDisplayItems(int count)
+void ComboBox::maxDisplayItems(unsigned int count)
 {
 	mMaxDisplayItems = count;
 	
@@ -152,7 +152,7 @@ void ComboBox::addItem(const std::string& item, int tag)
 	lstItems.addItem(item, tag);
 
 	if (lstItems.count() > mMaxDisplayItems) { return; }
-	lstItems.height(lstItems.count() * lstItems.lineHeight());
+	lstItems.height(static_cast<float>(lstItems.count() * lstItems.lineHeight()));
 
 	lstItems.clearSelection();
 }

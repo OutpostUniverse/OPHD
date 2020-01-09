@@ -16,11 +16,11 @@ Image* STRUCTURE_ICONS = nullptr;
 static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
-static Color_4ub*	STRUCTURE_COLOR;
-static Color_4ub*	STRUCTURE_TEXT_COLOR;
+static Color*	STRUCTURE_COLOR;
+static Color*	STRUCTURE_TEXT_COLOR;
 
 
-static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, int x, int y, int w, int offset, bool highlight)
+static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, float x, float y, float w, float offset, bool highlight)
 {
 	Factory* f = item.factory;
 
@@ -31,7 +31,7 @@ static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, int 
 	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), 75); }
 
 	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), STRUCTURE_COLOR->alpha());
-	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, item.icon_slice.x(), item.icon_slice.y(), 46, 46, 255, 255, 255, STRUCTURE_COLOR->alpha());
+	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, static_cast<float>(item.icon_slice.x()), static_cast<float>(item.icon_slice.y()), 46.0f, 46.0f, 255, 255, 255, STRUCTURE_COLOR->alpha());
 
 	r.drawText(*MAIN_FONT_BOLD, f->name(), x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset,
 				STRUCTURE_TEXT_COLOR->red(), STRUCTURE_TEXT_COLOR->green(), STRUCTURE_TEXT_COLOR->blue(), STRUCTURE_TEXT_COLOR->alpha());
@@ -41,7 +41,7 @@ static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, int 
 	
 	// PROGRESS BAR
 	float percentage = (f->productType() == PRODUCT_NONE) ? 0.0f : (f->productionTurnsCompleted() / f->productionTurnsToComplete());
-	drawBasicProgressBar(x + w - 112, y + 30 - offset, 105, 11, percentage, 2);
+	drawBasicProgressBar(x + w - 112.0f, y + 30.0f - offset, 105.0f, 11.0f, percentage, 2.0f);
 }
 
 
@@ -164,7 +164,12 @@ void FactoryListBox::update()
 	// ITEMS
 	for (size_t i = 0; i < mItems.size(); ++i)
 	{
-		drawItem(r, *static_cast<FactoryListBoxItem*>(mItems[i]), positionX(), positionY() + (i * LIST_ITEM_HEIGHT), item_width(), draw_offset(), i == ListBoxBase::currentSelection());
+		drawItem(r, *static_cast<FactoryListBoxItem*>(mItems[i]),
+			positionX(),
+			positionY() + (i * LIST_ITEM_HEIGHT),
+			static_cast<float>(item_width()),
+			static_cast<float>(draw_offset()),
+			i == ListBoxBase::currentSelection());
 	}
 
 	r.clipRectClear();

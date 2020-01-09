@@ -5,19 +5,6 @@
 
 using namespace NAS2D;
 
-/**
- * C'tor
- */
-Control::Control()
-{}
-
-
-/**
- * D'tor
- */
-Control::~Control()
-{}
-
 
 /**
  * Sets the position of the Control.

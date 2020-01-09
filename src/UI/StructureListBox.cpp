@@ -16,11 +16,11 @@ const int LIST_ITEM_HEIGHT = 30;
 static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
-static Color_4ub*	STRUCTURE_COLOR;
-static Color_4ub*	STRUCTURE_TEXT_COLOR;
+static Color*	STRUCTURE_COLOR;
+static Color*	STRUCTURE_TEXT_COLOR;
 
 
-static void drawItem(Renderer& r, StructureListBox::StructureListBoxItem& item, int x, int y, int w, int offset, bool highlight)
+static void drawItem(Renderer& r, StructureListBox::StructureListBoxItem& item, float x, float y, float w, float offset, bool highlight)
 {
 	Structure* _st = item.structure;
 
@@ -161,9 +161,13 @@ void StructureListBox::update()
 	// ITEMS
 	for (size_t i = 0; i < mItems.size(); ++i)
 	{
-		drawItem(r, *static_cast<StructureListBoxItem*>(mItems[i]), positionX(), positionY() + (i * LIST_ITEM_HEIGHT), item_width(), draw_offset(), i == ListBoxBase::currentSelection());
+		drawItem(r, *static_cast<StructureListBoxItem*>(mItems[i]),
+			positionX(),
+			positionY() + (i * LIST_ITEM_HEIGHT),
+			static_cast<float>(item_width()),
+			static_cast<float>(draw_offset()),
+			i == ListBoxBase::currentSelection());
 	}
 
 	r.clipRectClear();
 }
-

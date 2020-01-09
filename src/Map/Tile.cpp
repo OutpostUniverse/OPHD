@@ -129,5 +129,5 @@ float Tile::distanceTo(Tile* t)
 {
 	int x = t->x() - Tile::x();
 	int y = t->y() - Tile::y();
-	return sqrt((x * x) + (y * y));
+	return static_cast<float>(sqrt((x * x) + (y * y)));
 }
