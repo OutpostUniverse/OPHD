@@ -296,7 +296,7 @@ void ListBox::update()
 	}
 	
 	// display actuals values that are meant to be
-	for(int i = 0; i < (int)mItems.size(); i++)
+	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
 		itemY = rect().y() + (i * mLineHeight) - mCurrentOffset;
 		if (i == mCurrentHighlight)
