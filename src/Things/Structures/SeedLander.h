@@ -9,7 +9,7 @@ public:
 	typedef NAS2D::Signals::Signal2<int, int> Callback;
 
 public:
-	SeedLander() = default;
+	SeedLander() = delete;
 	SeedLander(int x, int y):	Structure(constants::SEED_LANDER, "structures/seed_0.sprite", CLASS_LANDER),
 								mX(x), mY(y)
 	{
