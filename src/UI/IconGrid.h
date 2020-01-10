@@ -91,7 +91,8 @@ protected:
 
 private:
 	typedef std::vector<IconGridItem> IconItemList;
-	
+	typedef IconItemList::size_type Index;
+
 private:
 	void updateGrid();
 	int translateCoordsToIndex(int x, int y);
@@ -99,8 +100,8 @@ private:
 	void raiseChangedEvent();
 
 private:
-	int					mHighlightIndex = constants::NO_SELECTION;		/**< Current highlight index. */
-	int					mCurrentSelection = constants::NO_SELECTION;	/**< Currently selected item index. */
+	Index					mHighlightIndex = constants::NO_SELECTION;		/**< Current highlight index. */
+	Index					mCurrentSelection = constants::NO_SELECTION;	/**< Currently selected item index. */
 
 	int					mIconSize = 0;				/**< Size of the icons. */
 	int					mIconMargin = 0;			/**< Spacing between icons and edges of the IconGrid. */
