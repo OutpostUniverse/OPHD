@@ -103,27 +103,27 @@ void ResourceBreakdownPanel::update()
 	r.drawSubImage(mIcons, 5.0f, rect().y() + 41.0f, 96.0f, 16.0f, 16.0f, 16.0f);
 	r.drawSubImage(mIcons, 5.0f, rect().y() + 59.0f, 112.0f, 16.0f, 16.0f, 16.0f);
 
-	r.drawText(*FONT, "Common Metals",		28.0f, rect().y() + 5.0f, 255, 255, 255);
-	r.drawText(*FONT, "Rare Metals",		28.0f, rect().y() + 23.0f, 255, 255, 255);
-	r.drawText(*FONT, "Common Minerals",	28.0f, rect().y() + 41.0f, 255, 255, 255);
-	r.drawText(*FONT, "Rare Minerals",		28.0f, rect().y() + 59.0f, 255, 255, 255);
+	r.drawText(*FONT, "Common Metals",   28.0f, rect().y() + 5.0f, 255, 255, 255);
+	r.drawText(*FONT, "Rare Metals", 28.0f, rect().y() + 23.0f, 255, 255, 255);
+	r.drawText(*FONT, "Common Minerals", 28.0f, rect().y() + 41.0f, 255, 255, 255);
+	r.drawText(*FONT, "Rare Minerals",   28.0f, rect().y() + 59.0f, 255, 255, 255);
 
 	std::string fmt = string_format("%i", mPlayerResources->commonMetals());
 	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt) , rect().y() + 5.0f, 255, 255, 255);
 	
-	fmt = string_format("%i", mPlayerResources->commonMinerals());
+	fmt = string_format("%i", mPlayerResources->rareMetals());
 	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt), rect().y() + 23.0f, 255, 255, 255);
 
-	fmt = string_format("%i", mPlayerResources->rareMetals());
+	fmt = string_format("%i", mPlayerResources->commonMinerals());
 	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt), rect().y() + 41.0f, 255, 255, 255);
 
 	fmt = string_format("%i", mPlayerResources->rareMinerals());
 	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt), rect().y() + 59.0f, 255, 255, 255);
 
-	r.drawSubImage(mIcons, 220.0f, rect().y() + 8.0f,	ICON_SLICE[COMMON_METALS].x(),		ICON_SLICE[COMMON_METALS].y(),		8.0f, 8.0f);
-	r.drawSubImage(mIcons, 220.0f, rect().y() + 26.0f,	ICON_SLICE[COMMON_MINERALS].x(),	ICON_SLICE[COMMON_MINERALS].y(),	8.0f, 8.0f);
-	r.drawSubImage(mIcons, 220.0f, rect().y() + 44.0f,	ICON_SLICE[RARE_METALS].x(),		ICON_SLICE[RARE_METALS].y(),		8.0f, 8.0f);
-	r.drawSubImage(mIcons, 220.0f, rect().y() + 62.0f,	ICON_SLICE[RARE_MINERALS].x(),		ICON_SLICE[RARE_MINERALS].y(),		8.0f, 8.0f);
+	r.drawSubImage(mIcons, 220.0f, rect().y() + 8.0f,  ICON_SLICE[COMMON_METALS].x(),   ICON_SLICE[COMMON_METALS].y(),   8.0f, 8.0f);
+	r.drawSubImage(mIcons, 220.0f, rect().y() + 26.0f, ICON_SLICE[RARE_METALS].x(),     ICON_SLICE[RARE_METALS].y(),     8.0f, 8.0f);
+	r.drawSubImage(mIcons, 220.0f, rect().y() + 44.0f, ICON_SLICE[COMMON_MINERALS].x(), ICON_SLICE[COMMON_MINERALS].y(), 8.0f, 8.0f);
+	r.drawSubImage(mIcons, 220.0f, rect().y() + 62.0f, ICON_SLICE[RARE_MINERALS].x(),   ICON_SLICE[RARE_MINERALS].y(),   8.0f, 8.0f);
 
 
 	fmt = string_format("%+i", mPlayerResources->commonMetals() - mPreviousResources.commonMetals());
