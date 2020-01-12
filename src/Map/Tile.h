@@ -57,6 +57,8 @@ public:
 
 	float distanceTo(Tile*);
 
+	void color(const NAS2D::Color& c) { mColor = c; }
+	const NAS2D::Color& color() const { return mColor; }
 
 protected:
 	friend class StructureManager;
@@ -71,10 +73,10 @@ private:
 	int				mY = 0;						/**< Tile Position Information */
 	int				mDepth = 0;					/**< Tile Position Information */
 
-
 	Thing*			mThing = nullptr;			/**<  */
-
 	Mine*			mMine = nullptr;			/**<  */
+
+	NAS2D::Color	mColor = NAS2D::Color::Normal;
 
 	bool			mExcavated = true;			/**< Used when a Digger uncovers underground tiles. */
 	bool			mConnected = false;			/**< Flag indicating that this tile is connected to the Command Center. */
