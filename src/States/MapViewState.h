@@ -98,7 +98,6 @@ private:
 
 	// DRAWING FUNCTIONS
 	void drawUI();
-	void drawDebug();
 	void drawMiniMap();
 	void drawNavInfo();
 	void drawResourceInfo();
@@ -258,13 +257,10 @@ private:
 
 	int					mResidentialCapacity = 0;		/**<  */
 
-	bool				mDebug = false;					/**< Display debug information. */
 	bool				mLeftButtonDown = false;		/**< Used for mouse drags on the mini map. */
 	bool				mLoadingExisting = false;		/**< Flag used for loading an existing game. */
 	bool				mPinResourcePanel = false;		/**<  */
 	bool				mPinPopulationPanel = false;	/**<  */
 
 	std::string			mExistingToLoad;				/**< Filename of the existing game to load. */
-
-	//State*				mReturnState = this;			/**<  */
 };

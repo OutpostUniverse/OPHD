@@ -228,7 +228,6 @@ State* MapViewState::update()
 	// explicit current level
 	Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 	r.drawText(*font, CURRENT_LEVEL_STRING, r.width() - font->width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - font->height() - 12, 255, 255, 255);
-	if (mDebug) { drawDebug(); }
 	
 	if (!mGameOptionsDialog.visible() && !mGameOverDialog.visible() && !mFileIoDialog.visible())
 	{
@@ -420,10 +419,6 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 				mPlayerResources.pushResource(ResourcePool::RESOURCE_COMMON_MINERALS, 1000);
 				mPlayerResources.pushResource(ResourcePool::RESOURCE_RARE_METALS, 1000);
 				mPlayerResources.pushResource(ResourcePool::RESOURCE_RARE_MINERALS, 1000);
-			}
-			else
-			{
-				//mDebug = !mDebug;
 			}
 			break;
 

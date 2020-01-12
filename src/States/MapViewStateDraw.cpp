@@ -323,20 +323,3 @@ void MapViewState::drawNavInfo()
 		iPosX = iPosX - iWidth;				// Shift position by one step left
 	}
 }
-
-
-/**
- * Displays debug information.
- */
-void MapViewState::drawDebug()
-{
-	Renderer& r = Utility<Renderer>::get();
-
-	r.drawText(*MAIN_FONT, string_format("FPS: %i", mFps.fps()), 10, 25, 255, 255, 255);
-	r.drawText(*MAIN_FONT, string_format("Map Dimensions: %i, %i", mTileMap->width(), mTileMap->height()), 10, 25 + MAIN_FONT->height(), 255, 255, 255);
-	r.drawText(*MAIN_FONT, string_format("Max Digging Depth: %i", mTileMap->maxDepth()), 10, 25 + MAIN_FONT->height() * 2, 255, 255, 255);
-	r.drawText(*MAIN_FONT, string_format("Map Mouse Hover Coords: %i, %i", mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY()), 10, 25 + MAIN_FONT->height() * 3, 255, 255, 255);
-	r.drawText(*MAIN_FONT, string_format("Current Depth: %i", mTileMap->currentDepth()), 10, 25 + MAIN_FONT->height() * 4, 255, 255, 255);
-
-	r.drawText(*MAIN_FONT, string_format("Structure Count: %i", Utility<StructureManager>::get().count()), 10, 25 + MAIN_FONT->height() * 6, 255, 255, 255);
-}
