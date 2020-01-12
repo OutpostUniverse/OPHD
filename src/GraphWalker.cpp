@@ -85,12 +85,6 @@ GraphWalker::GraphWalker(const Point_2d& _p, int _d, TileMap* _t) :
 }
 
 
-GraphWalker::~GraphWalker()
-{
-	mTileMap = nullptr;
-}
-
-
 void GraphWalker::walkGraph()
 {
 	mThisTile->connected(true);

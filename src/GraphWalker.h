@@ -11,7 +11,7 @@ class GraphWalker
 {
 public:
 	GraphWalker(const NAS2D::Point_2d&, int, TileMap*);
-	~GraphWalker();
+	~GraphWalker() = default;
 	
 private:
 	GraphWalker() = delete;
