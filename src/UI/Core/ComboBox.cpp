@@ -101,13 +101,13 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		}
 		else
 		{
-			mRect(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
+			mRect = {mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height()};
 		}
 	}
 	else if (!isPointInRect(Point_2d(x, y), lstItems.rect()))
 	{
 		lstItems.visible(false);
-		mRect(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
+		mRect = {mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height()};
 	}
 }
 
@@ -132,7 +132,7 @@ void ComboBox::lstItemsSelectionChanged()
 {
 	txtField.text(lstItems.selectionText());
 	lstItems.visible(false);
-	mRect(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
+	mRect = {mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height()};
 	mSelectionChanged();
 }
 
