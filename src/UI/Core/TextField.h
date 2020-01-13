@@ -7,7 +7,9 @@
 
 #pragma once
 
-#include "NAS2D/NAS2D.h"
+#include "NAS2D/EventHandler.h"
+#include "NAS2D/Timer.h"
+#include "NAS2D/Resources/Image.h"
 #include "Control.h"
 
 
