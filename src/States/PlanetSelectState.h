@@ -12,6 +12,8 @@
 
 #include "../UI/UI.h"
 
+#include <vector>
+
 
 class PlanetSelectState : public NAS2D::State
 {

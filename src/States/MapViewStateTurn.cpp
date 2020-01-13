@@ -10,6 +10,7 @@
 
 #include "../Things/Structures/Structures.h"
 
+#include <vector>
 #include <algorithm>
 
 

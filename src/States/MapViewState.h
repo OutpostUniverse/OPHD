@@ -23,6 +23,8 @@
 
 #include "../UI/Gui.h"
 
+#include <string>
+
 using namespace NAS2D;
 
 /**
