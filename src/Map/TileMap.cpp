@@ -289,7 +289,7 @@ void TileMap::initMapDrawParams(int w, int h)
 	mEdgeLength = w / TILE_WIDTH;
 
 	mMapPosition((w / 2 - (TILE_WIDTH / 2)), ((h - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT_ABSOLUTE));
-	mMapBoundingBox((w / 2) - ((TILE_WIDTH * mEdgeLength) / 2), mMapPosition.y(), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength);
+	mMapBoundingBox = {(w / 2) - ((TILE_WIDTH * mEdgeLength) / 2), static_cast<int>(mMapPosition.y()), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
 
 	int transform = (mMapPosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
 	TRANSFORM(-transform, transform);
