@@ -32,7 +32,7 @@ public:
 
 		if (mTimer.accumulator() > 7)
 		{
-			mFrame = ++mFrame >= 64 ? 0 : mFrame;	/// yeesh, this is evil.
+			mFrame = (mFrame + 1) % 64;
 			mTimer.reset();
 		}
 
