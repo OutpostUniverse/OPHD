@@ -81,7 +81,6 @@ protected:
 	virtual void onSizeChanged() { mResized(this); }
 	virtual void onTextChanged() { mTextChanged(this); };
 
-	NAS2D::Rectangle_2df& _rect();
 	std::string& _text();
 
 protected:
@@ -89,13 +88,13 @@ protected:
 	ResizeCallback				mResized;
 	TextChangedCallback			mTextChanged;
 
+	NAS2D::Rectangle_2df	mRect;				/**< Area of the Control. */
+
 private:
 	virtual void draw() {};
 
 private:
 	std::string				mText;				/**< Internal text string. */
-
-	NAS2D::Rectangle_2df	mRect;				/**< Area of the Control. */
 
 	bool					mEnabled = true;	/**< Flag indicating whether or not the Control is enabled. */
 	bool					mHasFocus = false;	/**< Flag indicating that the Control has input focus. */
