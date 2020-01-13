@@ -42,7 +42,7 @@ public:
 	const NAS2D::Rectangle_2d& boundingBox() const { return mMapBoundingBox; }
 
 	const NAS2D::Point_2d& mapViewLocation() const { return mMapViewLocation; }
-	void mapViewLocation(int x, int y) { mMapViewLocation(x, y); }
+	void mapViewLocation(int x, int y) { mMapViewLocation = {x, y}; }
 	void centerMapOnTile(Tile*);
 
 	const NAS2D::Point_2d& tileHighlight() const { return mMapHighlight; }

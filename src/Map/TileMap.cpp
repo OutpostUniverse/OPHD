@@ -72,16 +72,16 @@ static void validateMineLocation(Point_2d& pt, TileArray& ta)
 	if (ta[0][pt.y()][pt.x()].mine())
 	{
 		//search around the tile for an empty spot
-		if (ta[0][pt.y() - 1][pt.x() - 1].mine()) { pt(pt.x() - 1, pt.y() - 1); }
-		if (ta[0][pt.y() - 1][pt.x()].mine()) { pt(pt.x(), pt.y() - 1); }
-		if (ta[0][pt.y() - 1][pt.x() + 1].mine()) { pt(pt.x() + 1, pt.y() - 1); }
+		if (ta[0][pt.y() - 1][pt.x() - 1].mine()) { pt = {pt.x() - 1, pt.y() - 1}; }
+		if (ta[0][pt.y() - 1][pt.x()].mine()) { pt = {pt.x(), pt.y() - 1}; }
+		if (ta[0][pt.y() - 1][pt.x() + 1].mine()) { pt = {pt.x() + 1, pt.y() - 1}; }
 
-		if (ta[0][pt.y()][pt.x() - 1].mine()) { pt(pt.x() - 1, pt.y()); }
-		if (ta[0][pt.y()][pt.x() + 1].mine()) { pt(pt.x() + 1, pt.y()); }
+		if (ta[0][pt.y()][pt.x() - 1].mine()) { pt = {pt.x() - 1, pt.y()}; }
+		if (ta[0][pt.y()][pt.x() + 1].mine()) { pt = {pt.x() + 1, pt.y()}; }
 
-		if (ta[0][pt.y() + 1][pt.x() - 1].mine()) { pt(pt.x() - 1, pt.y() + 1); }
-		if (ta[0][pt.y() + 1][pt.x()].mine()) { pt(pt.x(), pt.y() + 1); }
-		if (ta[0][pt.y() + 1][pt.x() + 1].mine()) { pt(pt.x() + 1, pt.y() + 1); }
+		if (ta[0][pt.y() + 1][pt.x() - 1].mine()) { pt = {pt.x() - 1, pt.y() + 1}; }
+		if (ta[0][pt.y() + 1][pt.x()].mine()) { pt = {pt.x(), pt.y() + 1}; }
+		if (ta[0][pt.y() + 1][pt.x() + 1].mine()) { pt = {pt.x() + 1, pt.y() + 1}; }
 	}
 }
 
@@ -292,13 +292,13 @@ void TileMap::initMapDrawParams(int w, int h)
 	mMapBoundingBox = {(w / 2) - ((TILE_WIDTH * mEdgeLength) / 2), static_cast<int>(mMapPosition.y()), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
 
 	int transform = (mMapPosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
-	TRANSFORM(-transform, transform);
+	TRANSFORM = {-transform, transform};
 }
 
 
 void TileMap::injectMouse(int x, int y)
 {
-	mMousePosition(x, y);
+	mMousePosition = {x, y};
 }
 
 
@@ -409,7 +409,7 @@ void TileMap::updateTileHighlight()
 
 	int offsetX = ((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) / TILE_WIDTH);
 	int offsetY = ((mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE);
-	mMapHighlight(TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX);
+	mMapHighlight = {TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX};
 
 	int mmOffsetX = std::clamp((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
 	int mmOffsetY = (mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE;
