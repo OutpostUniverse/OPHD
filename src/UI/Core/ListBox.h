@@ -1,6 +1,8 @@
 #pragma once
 
-#include "NAS2D/NAS2D.h"
+#include "NAS2D/Signal.h"
+#include "NAS2D/EventHandler.h"
+#include "NAS2D/Renderer/Color.h"
 
 #include <map>
 #include <string>
