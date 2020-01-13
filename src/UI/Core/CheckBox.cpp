@@ -113,8 +113,8 @@ void CheckBox::onTextChanged()
  */
 void CheckBox::onSizeChanged()
 {
-	_rect().height(std::clamp(height(), 13.0f, 13.0f));
-	if (width() < 13.0f) { _rect().width(13.0f); }
+	mRect.height(std::clamp(height(), 13.0f, 13.0f));
+	if (width() < 13.0f) { mRect.width(13.0f); }
 }
 
 

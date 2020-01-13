@@ -69,7 +69,7 @@ void ComboBox::resizedHandler(Control* c)
 	lstItems.width(width());
 	lstItems.position(positionX(), positionY() + height());
 
-	mBaseArea(positionX(), positionY(), width(), btnDown.height());
+	mBaseArea = {positionX(), positionY(), width(), btnDown.height()};
 }
 
 
@@ -82,7 +82,7 @@ void ComboBox::repositioned(float, float)
 	txtField.position(positionX(), positionY());
 	lstItems.position(positionX(), positionY() + height());
 
-	mBaseArea(positionX(), positionY(), width(), btnDown.height());
+	mBaseArea = {positionX(), positionY(), width(), btnDown.height()};
 }
 
 
@@ -98,12 +98,19 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	if (isPointInRect(Point_2d(x, y), mBaseArea))
 	{
 		lstItems.visible(!lstItems.visible());
-		lstItems.visible() ? _rect().height(height() + lstItems.height()) : _rect()(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
+		if (lstItems.visible())
+		{
+			mRect.height(height() + lstItems.height());
+		}
+		else
+		{
+			mRect = {mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height()};
+		}
 	}
 	else if (!isPointInRect(Point_2d(x, y), lstItems.rect()))
 	{
 		lstItems.visible(false);
-		_rect()(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
+		mRect = {mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height()};
 	}
 }
 
@@ -128,7 +135,7 @@ void ComboBox::lstItemsSelectionChanged()
 {
 	txtField.text(lstItems.selectionText());
 	lstItems.visible(false);
-	_rect()(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
+	mRect = {mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height()};
 	mSelectionChanged();
 }
 

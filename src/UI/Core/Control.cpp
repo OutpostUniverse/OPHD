@@ -271,19 +271,6 @@ Control::TextChangedCallback& Control::textChanged()
 
 
 /**
- * Internal version of the rect() function which allows
- * non-const access to the rectangle information.
- * 
- * \note	This is an internal function and may not be
- *			called outside of the Control class.
- */
-Rectangle_2df& Control::_rect()
-{
-	return mRect;
-}
-
-
-/**
  * Internal version of the text() function which allows
  * non-const access to the text contained in the Control.
  * 

@@ -120,7 +120,7 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mWarehouseInspector);
 	mWindowStack.addWindow(&mMineOperationsWindow);
 
-	BOTTOM_UI_AREA(0, static_cast<int>(r.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(r.width()), constants::BOTTOM_UI_HEIGHT);
+	BOTTOM_UI_AREA = {0, static_cast<int>(r.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(r.width()), constants::BOTTOM_UI_HEIGHT};
 
 	// BUTTONS
 	mBtnTurns.image("ui/icons/turns.png");
@@ -175,24 +175,24 @@ void MapViewState::setupUiPositions(int w, int h)
 	//Renderer& r = Utility<Renderer>::get();
 
 	// Bottom UI Area
-	BOTTOM_UI_AREA(0, static_cast<int>(h - constants::BOTTOM_UI_HEIGHT), static_cast<int>(w), constants::BOTTOM_UI_HEIGHT);
+	BOTTOM_UI_AREA = {0, static_cast<int>(h - constants::BOTTOM_UI_HEIGHT), static_cast<int>(w), constants::BOTTOM_UI_HEIGHT};
 
 	// Menu / System Icon
-	MENU_ICON(w - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2);
+	MENU_ICON = {w - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2};
 
 	// NAVIGATION BUTTONS
 	// Bottom line
-	MOVE_DOWN_ICON(w - constants::MARGIN - 32, h - constants::BOTTOM_UI_HEIGHT - 65, 32, 32);
-	MOVE_EAST_ICON(MOVE_DOWN_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
-	MOVE_SOUTH_ICON(MOVE_DOWN_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16);
+	MOVE_DOWN_ICON = {w - constants::MARGIN - 32, h - constants::BOTTOM_UI_HEIGHT - 65, 32, 32};
+	MOVE_EAST_ICON = {MOVE_DOWN_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16};
+	MOVE_SOUTH_ICON = {MOVE_DOWN_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16};
 
 	// Top line
-	MOVE_UP_ICON(MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y() - constants::MARGIN_TIGHT - 32, 32, 32);
-	MOVE_NORTH_ICON(MOVE_UP_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
-	MOVE_WEST_ICON(MOVE_UP_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16);
+	MOVE_UP_ICON = {MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y() - constants::MARGIN_TIGHT - 32, 32, 32};
+	MOVE_NORTH_ICON = {MOVE_UP_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16};
+	MOVE_WEST_ICON = {MOVE_UP_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16};
 
 	// Mini Map
-	mMiniMapBoundingBox(static_cast<int>(w - 300 - constants::MARGIN), static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), 300, 150);
+	mMiniMapBoundingBox = {static_cast<int>(w - 300 - constants::MARGIN), static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), 300, 150};
 
 	// Position UI Buttons
 	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(h - constants::MARGIN - MAIN_BUTTON_SIZE));
