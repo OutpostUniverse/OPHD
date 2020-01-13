@@ -330,10 +330,12 @@ void FactoryReport::resized(Control* c)
 
 	lstFactoryList.size(FACTORY_LISTBOX.width(), FACTORY_LISTBOX.height());
 
-	DETAIL_PANEL(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20,
+	DETAIL_PANEL = {
+		cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20,
 		rect().y() + 10,
 		rect().width() - (cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width()) - 30,
-		rect().y() + rect().height() - 69);
+		rect().y() + rect().height() - 69
+	};
 
 	STATUS_LABEL_POSITION = DETAIL_PANEL.x() + FONT_MED_BOLD->width("Status") + 158.0f;
 	
