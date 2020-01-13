@@ -4,6 +4,8 @@
 #include "NAS2D/Renderer/Point.h"
 #include "NAS2D/Renderer/Rectangle.h"
 
+#include <string>
+
 /**
  * \class Control
  * \brief Implements a base for all GUI Controls to derive from.
