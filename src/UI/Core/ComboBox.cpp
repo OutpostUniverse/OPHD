@@ -95,7 +95,14 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	if (isPointInRect(Point_2d(x, y), mBaseArea))
 	{
 		lstItems.visible(!lstItems.visible());
-		lstItems.visible() ? mRect.height(height() + lstItems.height()) : mRect(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
+		if (lstItems.visible())
+		{
+			mRect.height(height() + lstItems.height());
+		}
+		else
+		{
+			mRect(mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height());
+		}
 	}
 	else if (!isPointInRect(Point_2d(x, y), lstItems.rect()))
 	{
