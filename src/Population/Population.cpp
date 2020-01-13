@@ -8,8 +8,6 @@
 #include <iostream>
 #include <random>
 
-#include <NAS2D/NAS2D.h>
-
 
 const int STUDENT_TO_SCIENTIST_RATE = 35;
 

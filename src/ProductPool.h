@@ -4,6 +4,8 @@
 #include "Constants.h"
 #include "Templates.h"
 
+#include <NAS2D/Xml/XmlElement.h>
+
 #include <array>
 
 

@@ -2,6 +2,9 @@
 
 #include "Wrapper.h"
 
+#include <vector>
+
+
 class Structure;
 
 class MainReportsUiState : public Wrapper

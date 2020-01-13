@@ -3,8 +3,6 @@
 
 #include "ProductPool.h"
 
-#include <NAS2D/NAS2D.h>
-
 #include <algorithm>
 
 using namespace NAS2D;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "NAS2D/Resources/Image.h"
+
 #include "Core/Control.h"
 #include "../ResourcePool.h"
 

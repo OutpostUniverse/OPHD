@@ -14,6 +14,12 @@
 #include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
+#include <map>
+#include <string>
+#include <vector>
+#include <stdexcept>
+#include <iostream>
+
 
 using namespace NAS2D;
 using namespace NAS2D::Xml;

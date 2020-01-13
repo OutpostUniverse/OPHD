@@ -2,6 +2,8 @@
 
 #include "UI.h"
 
+#include "NAS2D/Resources/Image.h"
+
 class MajorEventAnnouncement : public Window
 {
 public:

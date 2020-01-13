@@ -1,8 +1,8 @@
 // This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
-#include "NAS2D/NAS2D.h"
-
+#include "NAS2D/Resources/Image.h"
+#include "NAS2D/Resources/Music.h"
 #include "NAS2D/Mixer/MixerSDL.h"
 #include "NAS2D/Mixer/MixerNull.h"
 #include "NAS2D/Renderer/RendererOpenGL.h"

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "NAS2D/NAS2D.h"
 #include "Core/ListBoxBase.h"
 
 class ProductPool;
