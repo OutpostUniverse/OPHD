@@ -2,7 +2,8 @@
 
 #include "Control.h"
 
-#include "NAS2D/NAS2D.h"
+#include "NAS2D/Renderer/Color.h"
+#include "NAS2D/Resources/Font.h"
 
 #include <string>
 
