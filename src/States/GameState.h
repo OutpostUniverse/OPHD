@@ -1,6 +1,6 @@
 #pragma once
 
-#include <NAS2D/NAS2D.h>
+#include <NAS2D/State.h>
 
 class MapViewState;
 class Structure;
