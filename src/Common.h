@@ -5,7 +5,9 @@
 #include <string>
 #include <vector>
 
-#include <NAS2D/NAS2D.h>
+#include <NAS2D/Renderer/Rectangle.h>
+#include <NAS2D/Renderer/Color.h>
+#include <NAS2D/StringUtils.h>
 
 /**
  * Digger robot digging direction.
