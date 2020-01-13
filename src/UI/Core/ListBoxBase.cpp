@@ -138,7 +138,7 @@ void ListBoxBase::onMouseMove(int x, int y, int relX, int relY)
 {
 	if (!visible() || empty()) { return; }
 
-	mMousePosition(x, y);
+	mMousePosition = {x, y};
 
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
 	if (!isPointInRect(mMousePosition, rect()))

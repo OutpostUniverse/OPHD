@@ -259,7 +259,7 @@ void Slider::onMouseMotion(int x, int y, int dX, int dY)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	mMousePosition(x, y);
+	mMousePosition = {x, y};
 
 	if (mDisplayPosition)
 	{

@@ -81,7 +81,7 @@ void IconGrid::updateGrid()
 	int cols = static_cast<int>((rect().width() - (mIconMargin * 2)) / (mIconSize + mIconMargin));
 	int rows = static_cast<int>((rect().height() - (mIconMargin * 2)) / (mIconSize + mIconMargin));
 
-	mGridSize(cols, rows);
+	mGridSize = {cols, rows};
 }
 
 
