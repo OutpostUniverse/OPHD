@@ -103,7 +103,7 @@ void GameState::mapviewstate(MapViewState* state)
  */
 void GameState::onMouseMotion(int x, int y, int relX, int relY)
 {
-	MOUSE_COORDS(x, y);
+	MOUSE_COORDS = {x, y};
 }
 
 

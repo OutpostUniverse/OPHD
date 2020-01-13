@@ -242,7 +242,7 @@ void PlanetSelectState::onMouseDown(EventHandler::MouseButton button, int x, int
 
 void PlanetSelectState::onMouseMove(int x, int y, int rX, int rY)
 {
-	mMousePosition(x, y);
+	mMousePosition = {x, y};
 }
 
 

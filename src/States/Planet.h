@@ -33,7 +33,7 @@ public:
 	PlanetType type() const { return mType; }
 
 	void position(const NAS2D::Point_2d& _pt) { mPosition = _pt; }
-	void position(int x, int y) { mPosition(x, y); }
+	void position(int x, int y) { mPosition = {x, y}; }
 
 	int x() const { return mPosition.x(); }
 	int y() const { return mPosition.y(); }
