@@ -5,6 +5,8 @@
 
 #include "../../Common.h"
 
+#include "NAS2D/Utility.h"
+
 #include <algorithm>
 #include <iostream>
 

@@ -2,6 +2,9 @@
 
 #include "Control.h"
 
+#include "NAS2D/EventHandler.h"
+
+#include <vector>
 
 /**
  * UI Object that contains other UI Control's.

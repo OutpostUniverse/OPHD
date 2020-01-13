@@ -6,8 +6,6 @@
 
 #include "Things/Structures/Structure.h"
 
-#include <NAS2D/NAS2D.h>
-
 #include <iostream>
 
 #if defined(WINDOWS) || defined(WIN32)

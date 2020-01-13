@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <NAS2D/NAS2D.h>
+#include <NAS2D/Resources/Font.h>
 
 /**
  * A basic font table lookup manager for NAS2D::Font objects.
