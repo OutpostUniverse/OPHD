@@ -2,6 +2,8 @@
 
 #include "UIContainer.h"
 
+#include "NAS2D/Resources/Image.h"
+
 class Window : public UIContainer
 {
 public:

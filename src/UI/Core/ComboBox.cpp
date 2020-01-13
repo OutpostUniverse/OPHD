@@ -3,6 +3,9 @@
 
 #include "ComboBox.h"
 
+#include "NAS2D/Utility.h"
+#include "NAS2D/MathUtils.h"
+
 using namespace NAS2D;
 
 /**

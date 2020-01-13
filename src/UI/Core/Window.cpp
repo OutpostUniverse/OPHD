@@ -7,6 +7,9 @@
 #include "../../Constants.h"
 #include "../../FontManager.h"
 
+#include "NAS2D/Utility.h"
+#include "NAS2D/Renderer/Renderer.h"
+
 using namespace NAS2D;
 
 const float WINDOW_TITLE_BAR_HEIGHT = 20.0f;
