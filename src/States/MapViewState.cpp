@@ -581,6 +581,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		// Click was within the bounds of the TileMap.
 		else if (isPointInRect(MOUSE_COORDS, mTileMap->boundingBox()))
 		{
+			EventHandler& e = Utility<EventHandler>::get();
 			if (mInsertMode == INSERT_STRUCTURE)
 			{
 				placeStructure();
@@ -588,6 +589,10 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			else if (mInsertMode == INSERT_ROBOT)
 			{
 				placeRobot();
+			}
+			else if ( (mInsertMode == INSERT_TUBE) && e.query_shift())
+			{
+				placeTubeStart();
 			}
 			else if (mInsertMode == INSERT_TUBE)
 			{
@@ -631,6 +636,11 @@ void MapViewState::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
 		mLeftButtonDown = false;
+		EventHandler& e = Utility<EventHandler>::get();
+		if ((mInsertMode == INSERT_TUBE) && e.query_shift())
+		{
+			placeTubeEnd();
+		}
 	}
 }
 
@@ -768,6 +778,114 @@ void MapViewState::placeTubes()
 	}
 }
 
+/**
+ *
+ */
+void MapViewState::placeTubeStart()
+{
+	tubeStart.height(0);
+	int x = mTileMapMouseHover.x();
+	int y = mTileMapMouseHover.y();
+
+	Tile* tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
+	if (!tile) { return; }
+
+	// Check the basics.
+	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
+
+	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
+	 *			Should instead take advantage of the updated meta data in the IconGridItem.
+	 */
+	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
+
+	if (!validTubeConnection(mTileMap, x, y, cd))
+	{
+		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_TUBE_INVALID_LOCATION);
+		return;
+	}
+	tubeStart.x(tile->x());
+	tubeStart.y(tile->y());
+	tubeStart.height(1);
+}
+
+/**
+ *
+ */
+void MapViewState::placeTubeEnd()
+{
+	int x = mTileMapMouseHover.x();
+	int y = mTileMapMouseHover.y();
+	int incX = 0; int incY = 0;
+	int xEnd = 0; int yEnd = 0;
+	bool endReach = false;
+	if (tubeStart.height() != 1) return;
+	tubeStart.height(0);	// the height is used as a boolean to indicate that we are
+	Tile* tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
+	if (!tile) { return; }
+
+	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
+	 *			Should instead take advantage of the updated meta data in the IconGridItem.
+	 */
+	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
+
+	switch (cd)
+	{
+	case CONNECTOR_INTERSECTION:
+
+		if (abs(tubeStart.x() - tile->x()) >= abs(tubeStart.y() - tile->y())){
+			incX = 1;	// The sens will be on the longest spread on X or Y
+		}else{
+			incY = 1;
+		}
+		break;
+	case CONNECTOR_RIGHT:
+		incX = 1;
+		break;
+	case CONNECTOR_LEFT:
+		incY = 1;
+		break;
+	default:
+		return;
+	}
+	x = tubeStart.x();
+	y = tubeStart.y();
+	xEnd = tile->x();
+	yEnd = tile->y();
+
+	if (tubeStart.x() > tile->x())
+	{
+		incX = -incX;
+		yEnd = tubeStart.y();
+	}
+	if (tubeStart.y() > tile->y())
+	{
+		incY = -incY;
+		int xEnd = tubeStart.x();
+	}
+
+	// 
+	do {
+		std::cout << "Tube " << x << "/" << y << std::endl;
+		Tile* tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
+		if (!tile) {
+			endReach = true;
+		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
+			endReach = true;
+		}else if (!validTubeConnection(mTileMap, x, y, cd)){
+			endReach = true;
+		}else{
+			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(x, y));
+			
+			// FIXME: Naive approach -- will be slow with larger colonies.
+			Utility<StructureManager>::get().disconnectAll();
+			checkConnectedness();
+		}
+
+		if (y == yEnd && x == xEnd) endReach = true;
+		x += incX;y += incY;
+	} while (!endReach);
+	
+}
 
 /**
  * 
