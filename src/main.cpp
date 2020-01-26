@@ -130,8 +130,8 @@ int main(int argc, char *argv[])
 
 		std::cout << "Loading packed assets... ";
 
-		f.mount("fonts.dat");
-		f.mount("planets.dat");
+		//f.mount("fonts.dat");
+		//f.mount("planets.dat");
 
 		std::cout << "done." << std::endl;
 
