@@ -19,10 +19,6 @@ Label::Label() {
     height(static_cast<float>(TXT_FONT->height() + FIELD_PADDING * 2));
 }
 
-Label::~Label() {
-
-}
-
 void Label::font(NAS2D::Font* font) {
     TXT_FONT = font;
     height(static_cast<float>(TXT_FONT->height() + FIELD_PADDING * 2));
