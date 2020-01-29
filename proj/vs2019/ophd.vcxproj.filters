@@ -276,6 +276,9 @@
     <ClCompile Include="..\..\src\MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\Label.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
@@ -601,6 +604,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\MicroPather\micropather.h">
       <Filter>Header Files\MicroPather</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\Label.h">
+      <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
