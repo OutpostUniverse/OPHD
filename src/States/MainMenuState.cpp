@@ -74,6 +74,13 @@ void MainMenuState::initialize()
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
+	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
+	lblVersion.font(tiny_font);
+	lblVersion.text(constants::VERSION);
+	lblVersion.position(r.width() - tiny_font->width(constants::VERSION) - 5, r.height() - tiny_font->height() - 5);
+	lblVersion.color(NAS2D::Color::White);
+
 	positionButtons();
 	disableButtons();
 
@@ -291,9 +298,7 @@ NAS2D::State* MainMenuState::update()
 
 	mFileIoDialog.update();
 
-	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-
-	r.drawText(*tiny_font, constants::VERSION, r.width() - tiny_font->width(constants::VERSION) - 5, r.height() - tiny_font->height() - 5, 255, 255, 255);
+	lblVersion.update();
 
 	if (r.isFading())
 	{

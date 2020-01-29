@@ -10,3 +10,4 @@
 #include "Core/UIContainer.h"
 #include "Core/Window.h"
 #include "Core/WindowStack.h"
+#include "Core/Label.h"
