@@ -7,20 +7,20 @@
 
 #pragma once
 
-#include "NAS2D/EventHandler.h"
-#include "NAS2D/Timer.h"
-#include "NAS2D/Resources/Image.h"
 #include "Control.h"
 
 #include "NAS2D/Renderer/Color.h"
-#include "NAS2D/Resources/Font.h"
+
+namespace NAS2D
+{
+	class Font;
+}
 
 /**
  * \class Label
  * \brief A control that contains readonly text.
  * 
  */
-
 class Label : public Control
 {
 public:

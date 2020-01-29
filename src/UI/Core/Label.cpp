@@ -6,10 +6,7 @@
 #include "NAS2D/Renderer/Renderer.h"
 #include "NAS2D/Resources/Font.h"
 
-#include "NAS2D/MathUtils.h"
 #include "NAS2D/Utility.h"
-
-#include <locale>
 
 static const int FIELD_PADDING = 4;
 static NAS2D::Font* TXT_FONT = nullptr;
