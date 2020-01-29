@@ -50,6 +50,6 @@ private:
 	Button				btnOptions;						/**<  */
 	Button				btnHelp;						/**<  */
 	Button				btnQuit;						/**<  */
-
+	Label				lblVersion;						/**<  */
 	NAS2D::State*		mReturnState = this;			/**<  */
 };
