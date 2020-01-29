@@ -16,10 +16,9 @@
 #include "NAS2D/Resources/Font.h"
 
 /**
- * \class TextField
- * \brief A Basic Text Field.
- *
- * The Field Control is just a set of rendered text a user can enter.
+ * \class Label
+ * \brief A control that contains readonly text.
+ * 
  */
 
 class Label : public Control
