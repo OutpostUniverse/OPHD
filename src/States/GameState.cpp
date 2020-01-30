@@ -101,7 +101,7 @@ void GameState::mapviewstate(MapViewState* state)
 /**
  * Mouse motion event handler.
  */
-void GameState::onMouseMotion(int x, int y, int relX, int relY)
+void GameState::onMouseMotion(int x, int y, int /*relX*/, int /*relY*/)
 {
 	MOUSE_COORDS = {x, y};
 }

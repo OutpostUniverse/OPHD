@@ -62,13 +62,13 @@ void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-void Window::onMouseUp(EventHandler::MouseButton button, int x, int y)
+void Window::onMouseUp(EventHandler::MouseButton /*button*/, int /*x*/, int /*y*/)
 {
 	mMouseDrag = false;
 }
 
 
-void Window::onMouseMotion(int x, int y, int dX, int dY)
+void Window::onMouseMotion(int /*x*/, int /*y*/, int dX, int dY)
 {
 	if (!visible() || !hasFocus()) { return; }
 

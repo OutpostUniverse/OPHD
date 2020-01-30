@@ -76,7 +76,7 @@ protected:
 	 */
 	virtual void positionChanged(float dX, float dY) { mPositionChanged(dX, dY); }
 
-	virtual void visibilityChanged(bool visible) {}
+	virtual void visibilityChanged(bool /*visible*/) { /* DO NOTHING */ }
 
 	virtual void enabledChanged() {};
 

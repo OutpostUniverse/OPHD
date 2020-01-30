@@ -129,7 +129,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 /**
  * MouseMotion event handler.
  */
-void IconGrid::onMouseMotion(int x, int y, int dX, int dY)
+void IconGrid::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!visible() || !hasFocus()) { return; }
 

@@ -79,7 +79,7 @@ public:
 	/** MicroPather public interface implementation. */
 	virtual float LeastCostEstimate(void* stateStart, void* stateEnd);
 	virtual void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent);
-	virtual void PrintStateInfo(void* state) {};
+	virtual void PrintStateInfo(void* /*state*/) { /* DO NOTHING */ };
 
 protected:
 	/**

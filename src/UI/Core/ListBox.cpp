@@ -69,7 +69,7 @@ void ListBox::onSizeChanged()
 }
 
 
-void ListBox::visibilityChanged(bool visible)
+void ListBox::visibilityChanged(bool /*visible*/)
 {
 	_updateItemDisplay();
 }
@@ -198,8 +198,8 @@ void ListBox::dropAllItems()
 	_updateItemDisplay();
 }
 
-
-void ListBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
+//TODO: Intended to only react if LMB?
+void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	// Ignore if menu is empty or invisible
 	if (empty() || !visible()) { return; }
@@ -223,7 +223,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-void ListBox::onMouseMove(int x, int y, int relX, int relY)
+void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 {
 	// Ignore if menu is empty or invisible
 	if (empty() || !visible()) { return; }
@@ -259,7 +259,7 @@ void ListBox::onMouseMove(int x, int y, int relX, int relY)
 /**
  * \todo	Make the scroll amount configurable.
  */
-void ListBox::onMouseWheel(int x, int y)
+void ListBox::onMouseWheel(int /*x*/, int y)
 {
 	if (empty() || !visible()) { return; }
 

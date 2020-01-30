@@ -56,7 +56,7 @@ bool Planet::pointInArea(int x, int y)
 }
 
 
-void Planet::onMouseMove(int x, int y, int rX, int rY)
+void Planet::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
 {
 	bool inArea = pointInArea(x, y);
 	if (inArea != mMouseInArea)

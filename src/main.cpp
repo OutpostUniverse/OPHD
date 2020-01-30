@@ -51,6 +51,7 @@ void validateVideoResolution()
 
 int main(int argc, char *argv[])
 {
+	(void)argc; //UNUSED
 	//Crude way of redirecting stream buffer when building in release (no console)
 	#ifdef NDEBUG
 	std::streambuf *backup;
