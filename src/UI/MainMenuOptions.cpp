@@ -72,7 +72,7 @@ void MainMenuOptions::init()
     cmbResolution.clearSelection();
     { //Default resolution
         std::ostringstream ss;
-        ss << constants::MINIMUM_WINDOW_WIDTH << 'x' << constants::MINIMUM_WINDOW_HEIGHT << 'x' << 60;
+        ss << constants::DEFAULT_WINDOW_WIDTH << 'x' << constants::DEFAULT_WINDOW_HEIGHT << 'x' << 60;
         cmbResolution.text(ss.str());
     }
     {
