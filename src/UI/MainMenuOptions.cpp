@@ -250,7 +250,6 @@ void MainMenuOptions::loadOptions() {
 
 void MainMenuOptions::applyVideoChanges() {
     if(videoOptionsChanged) {
-        auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
         auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
         const auto& txt = cmbResolution.selectionText();
         const auto whd = NAS2D::split(txt, 'x');
