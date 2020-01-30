@@ -215,7 +215,7 @@ void MainMenuState::onFadeComplete()
 void MainMenuState::btnNewGameClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
-	if(dlgOptions.visible()) { return; }
+	if (dlgOptions.visible()) { return; }
 
 	disableButtons();
 
@@ -232,7 +232,7 @@ void MainMenuState::btnNewGameClicked()
 void MainMenuState::btnContinueGameClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
-	if(dlgOptions.visible()) { return; }
+	if (dlgOptions.visible()) { return; }
 
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 	mFileIoDialog.show();
@@ -245,7 +245,7 @@ void MainMenuState::btnContinueGameClicked()
 void MainMenuState::btnOptionsClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
-	if(dlgOptions.visible()) { return; }
+	if (dlgOptions.visible()) { return; }
 
 	dlgOptions.show();
 }
@@ -257,7 +257,7 @@ void MainMenuState::btnOptionsClicked()
 void MainMenuState::btnHelpClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
-	if(dlgOptions.visible()) { return; }
+	if (dlgOptions.visible()) { return; }
 
 #if defined(_WIN32)
 	system("start https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
@@ -278,7 +278,7 @@ void MainMenuState::btnHelpClicked()
 void MainMenuState::btnQuitClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
-	if(dlgOptions.visible()) { return; }
+	if (dlgOptions.visible()) { return; }
 
 	disableButtons();
 	NAS2D::postQuitEvent();
@@ -308,11 +308,11 @@ NAS2D::State* MainMenuState::update()
 		btnQuit.update();
 	}
 
-	if(dlgOptions.visible())
+	if (dlgOptions.visible())
 	{
 		dlgOptions.update();
 	}
-	else if(mFileIoDialog.visible())
+	else if (mFileIoDialog.visible())
 	{
 		mFileIoDialog.update();
 	}
