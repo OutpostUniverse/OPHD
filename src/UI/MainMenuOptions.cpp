@@ -184,13 +184,13 @@ void MainMenuOptions::init()
 
     dlgResolutionChanged.text("Notice");
     dlgResolutionChanged.anchored(true);
+    dlgResolutionChanged.hide();
     dlgResolutionChanged.size(500, 85);
     dlgResolutionChanged.add(&lblResolutionChanged, dlgResolutionChanged.width() * 0.5f - lblResolutionChanged.width() * 0.5f, 10 + dlgResolutionChanged.height() * 0.25f - lblResolutionChanged.height() * 0.5f);
     dlgResolutionChanged.add(&btnResolutionChangedOk, dlgResolutionChanged.width() * 0.5f - btnResolutionChangedOk.width() * 0.5f, dlgResolutionChanged.height() - 5 - btnResolutionChangedOk.height());
     add(&dlgResolutionChanged, positionX() + (width * 0.5f) - (dlgResolutionChanged.width() * 0.5f), positionY() + (height * 0.5f) - (dlgResolutionChanged.height() * 0.5f));
 
     setControlsFromConfig();
-    inInit = false;
 }
 
 
@@ -198,7 +198,6 @@ void MainMenuOptions::visibilityChanged(bool visible) {
     if(visible)
     {
         enableControls();
-        inInit = true;
         setControlsFromConfig();
     }
     else
@@ -245,6 +244,7 @@ void MainMenuOptions::loadOptions() {
 
 void MainMenuOptions::applyVideoChanges() {
     if(videoOptionsChanged) {
+        videoOptionsChanged = false;
         auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
         const auto& txt = cmbResolution.selectionText();
         const auto whd = NAS2D::split(txt, 'x');
