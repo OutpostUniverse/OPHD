@@ -115,7 +115,6 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-//TODO: Implement in terms of internal ListBox.
 void ComboBox::onMouseWheel(int /*x*/, int /*y*/)
 {
 

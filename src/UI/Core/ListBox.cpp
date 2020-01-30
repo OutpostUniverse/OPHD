@@ -198,7 +198,6 @@ void ListBox::dropAllItems()
 	_updateItemDisplay();
 }
 
-//TODO: Intended to only react if LMB?
 void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	// Ignore if menu is empty or invisible
