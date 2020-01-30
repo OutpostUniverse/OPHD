@@ -53,7 +53,7 @@ public:
 
 	const std::string& itemName(int _sel) const { return mIconItemList[_sel].name; }
 
-	int selectionIndex() const { return mCurrentSelection; }
+	int selectionIndex() const { return static_cast<int>(mCurrentSelection); }
 
 	bool empty() const { return mIconItemList.empty(); }
 

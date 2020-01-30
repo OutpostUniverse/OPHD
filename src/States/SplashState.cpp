@@ -144,7 +144,7 @@ State* SplashState::update()
 		BYLINE_ALPHA += tick * BYLINE_ALPHA_FADE_STEP;
 		BYLINE_ALPHA = std::clamp(BYLINE_ALPHA, -3000.0f, 255.0f);
 
-		if(BYLINE_ALPHA > 0.0f) { r.drawImage(mByline, r.center_x() - ((mByline.width() * BYLINE_SCALE) / 2), r.center_y() + 25, BYLINE_SCALE, 255, 255, 255, (int)BYLINE_ALPHA); }
+		if(BYLINE_ALPHA > 0.0f) { r.drawImage(mByline, r.center_x() - ((mByline.width() * BYLINE_SCALE) / 2), r.center_y() + 25, BYLINE_SCALE, 255, 255, 255, static_cast<uint8_t>(BYLINE_ALPHA)); }
 	}
 	
 	if (r.isFading()) { return this; }
