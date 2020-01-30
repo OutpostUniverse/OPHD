@@ -29,8 +29,12 @@ public:
 	int selectionTag() const;
 
 	unsigned int currentSelection() { return lstItems.currentSelection(); }
+	void currentSelection(unsigned int index);
 
 	virtual void update();
+
+    void text(const std::string& text);
+    const std::string& text() const;
 
 private:
 	void init();
