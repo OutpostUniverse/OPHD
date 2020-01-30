@@ -5,19 +5,16 @@
 /**
  * Morale modifier values.
  */
-class MoraleModifier
+struct MoraleModifier
 {
 public:
-	MoraleModifier(uint32_t rBonus, uint32_t pBonus, uint32_t fRate, uint32_t mRate) :
+	MoraleModifier() = default;
+	MoraleModifier(int rBonus, int pBonus, int fRate, int mRate) :
 		researchBonus(rBonus), productionBonus(pBonus), fertilityRate(fRate), mortalityRate(mRate)
 	{}
 
-	MoraleModifier() : researchBonus(0), productionBonus(0), fertilityRate(0), mortalityRate(0)
-	{}
-
-public:
-	int researchBonus;
-	int productionBonus;
-	int fertilityRate;
-	int mortalityRate;
+	int researchBonus{0};
+	int productionBonus{0};
+	int fertilityRate{0};
+	int mortalityRate{0};
 };
