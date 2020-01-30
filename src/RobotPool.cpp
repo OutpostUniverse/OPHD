@@ -147,17 +147,17 @@ bool RobotPool::robotAvailable(RobotType _type)
 		return getDigger() != nullptr;
 	}
 	case ROBOT_DOZER:
-    {
-        return getDozer() != nullptr;
-    }
+	{
+		return getDozer() != nullptr;
+	}
 	case ROBOT_MINER:
-    {
-        return getMiner() != nullptr;
-    }
+	{
+		return getMiner() != nullptr;
+	}
 	default:
-    {
-        return false;
-    }
+	{
+		return false;
+	}
 	}
 }
 
