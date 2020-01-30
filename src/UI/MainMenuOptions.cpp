@@ -349,7 +349,7 @@ void MainMenuOptions::setControlsFromConfig()
     mixer.soundVolume(cf.audioSfxVolume());
 
     cbxVSync.checked(cf.vsync());
-    cbxFullscreen.checked(cf.vsync());
+    cbxFullscreen.checked(cf.fullscreen());
 
     const auto skipsplash_str = NAS2D::toLowercase(cf.option("skip-splash"));
     const auto maximized_str = NAS2D::toLowercase(cf.option("maximized"));
