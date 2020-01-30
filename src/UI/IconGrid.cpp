@@ -417,8 +417,8 @@ void IconGrid::update()
 
 	for (size_t i = 0; i < mIconItemList.size(); ++i)
 	{
-		int x_pos = i % mGridSize.x();
-		int y_pos = i / mGridSize.x(); //-V537
+		int x_pos = static_cast<int>(i) % mGridSize.x();
+		int y_pos = static_cast<int>(i) / mGridSize.x(); //-V537
 
 		float x = static_cast<float>((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
 		float y = static_cast<float>((rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
@@ -431,8 +431,8 @@ void IconGrid::update()
 
 	if (mCurrentSelection != constants::NO_SELECTION)
 	{
-		int x_pos = (mCurrentSelection % mGridSize.x());
-		int y_pos = (mCurrentSelection / mGridSize.x()); //-V537
+		int x_pos = (static_cast<int>(mCurrentSelection) % mGridSize.x());
+		int y_pos = (static_cast<int>(mCurrentSelection) / mGridSize.x()); //-V537
 		r.drawBox((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos),
 			(rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos),
 			static_cast<float>(mIconSize),
@@ -441,8 +441,8 @@ void IconGrid::update()
 
 	if (mHighlightIndex != constants::NO_SELECTION)
 	{
-		int x_pos = (mHighlightIndex % mGridSize.x());
-		int y_pos = (mHighlightIndex / mGridSize.x()); //-V537
+		int x_pos = (static_cast<int>(mHighlightIndex) % mGridSize.x());
+		int y_pos = (static_cast<int>(mHighlightIndex) / mGridSize.x()); //-V537
 
 		int x = static_cast<int>((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
 		int y = static_cast<int>((rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));

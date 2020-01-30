@@ -308,7 +308,7 @@ int StructureManager::count() const
 	int count = 0;
 	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
 	{
-		count += it->second.size();
+		count += static_cast<int>(it->second.size());
 	}
 
 	return count;

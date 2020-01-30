@@ -101,16 +101,16 @@ void MainMenuState::positionButtons()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	int start_x = r.center_x() - 100;
-	int start_y = r.center_y() - ((35 * 4) / 2);
+	float start_x = r.center_x() - 100.0f;
+	float start_y = r.center_y() - ((35.0f * 4.0f) / 2.0f);
 
 	btnNewGame.position(start_x, start_y);
-	btnContinueGame.position(start_x, start_y + 35);
-	btnOptions.position(start_x, start_y + 70);
-	btnHelp.position(start_x, start_y + 105);
-	btnQuit.position(start_x, start_y + 140);
+	btnContinueGame.position(start_x, start_y + 35.0f);
+	btnOptions.position(start_x, start_y + 70.0f);
+	btnHelp.position(start_x, start_y + 105.0f);
+	btnQuit.position(start_x, start_y + 140.0f);
 
-	mFileIoDialog.position(static_cast<int>(r.center_x() - mFileIoDialog.width() / 2), static_cast<int>(r.center_y() - mFileIoDialog.height() / 2));
+	mFileIoDialog.position(r.center_x() - mFileIoDialog.width() / 2.0f, r.center_y() - mFileIoDialog.height() / 2.0f);
 }
 
 

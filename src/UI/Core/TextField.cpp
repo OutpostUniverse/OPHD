@@ -139,13 +139,13 @@ void TextField::onTextInput(const std::string& _s)
 
 	if (mMaxCharacters > 0 && text().length() == mMaxCharacters) { return; }
 
-	int prvLen = text().length();
+	std::size_t prvLen = text().length();
 
 	if (mNumbersOnly && !std::isdigit(_s[0], LOC)) { return; }
 
 	_text() = _text().insert(mCursorPosition, _s);
 
-	if (text().length() - prvLen != 0)
+	if (text().length() - prvLen != 0u)
 	{
 		onTextChanged();
 		mCursorPosition++;
@@ -174,7 +174,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			break;
 
 		case EventHandler::KeyCode::KEY_END:
-			mCursorPosition = text().length();
+			mCursorPosition = static_cast<int>(text().length());
 			break;
 
 		case EventHandler::KeyCode::KEY_DELETE:
@@ -234,7 +234,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 	// set the position to the end and move on.
 	if(TXT_FONT->width(text()) < relativePosition)
 	{
-		mCursorPosition = text().size();
+		mCursorPosition = static_cast<int>(text().size());
 		return;
 	}
 

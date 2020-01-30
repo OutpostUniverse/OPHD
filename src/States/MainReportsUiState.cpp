@@ -134,13 +134,13 @@ static void drawPanel(Renderer& _r, Panel& _p)
 
 		if (_p.UiPanel) { _p.UiPanel->update(); }
 
-		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition.x(), _p.TextPosition.y(), 185, 185, 0);
-		_r.drawImage(*_p.Img, _p.IconPosition.x(), _p.IconPosition.y(), 1.0f, 185, 185, 0, 255);
+		_r.drawText(*BIG_FONT_BOLD, _p.Name, static_cast<float>(_p.TextPosition.x()), static_cast<float>(_p.TextPosition.y()), 185, 185, 0);
+		_r.drawImage(*_p.Img, static_cast<float>(_p.IconPosition.x()), static_cast<float>(_p.IconPosition.y()), 1.0f, 185, 185, 0, 255);
 	}
 	else
 	{
-		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition.x(), _p.TextPosition.y(), 0, 185, 0);
-		_r.drawImage(*_p.Img, _p.IconPosition.x(), _p.IconPosition.y(), 1.0f, 0, 185, 0, 255);
+		_r.drawText(*BIG_FONT_BOLD, _p.Name, static_cast<float>(_p.TextPosition.x()), static_cast<float>(_p.TextPosition.y()), 0, 185, 0);
+		_r.drawImage(*_p.Img, static_cast<float>(_p.IconPosition.x()), static_cast<float>(_p.IconPosition.y()), 1.0f, 0, 185, 0, 255);
 	}
 }
 
@@ -206,7 +206,7 @@ void MainReportsUiState::initialize()
 	Panels[PANEL_SPACEPORT].Name = "Space Ports";
 
 	Renderer& r = Utility<Renderer>::get();
-	setPanelRects(r.width());
+	setPanelRects(static_cast<int>(std::floor(r.width())));
 
 	// INIT UI REPORT PANELS
 	ReportInterface* factory_report = new FactoryReport();
@@ -269,7 +269,7 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 {
 	if (!active()) { return; }
 
-	if (!isPointInRect(x, y, 0, 0, Utility<Renderer>::get().width(), 40)) { return; } // ignore clicks in the UI area.
+	if (!isPointInRect(x, y, 0, 0, static_cast<int>(Utility<Renderer>::get().width()), 40)) { return; } // ignore clicks in the UI area.
 
 	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
@@ -309,7 +309,7 @@ void MainReportsUiState::exit()
 void MainReportsUiState::onWindowResized(int w, int h)
 {
 	setPanelRects(w);
-	for (Panel& panel : Panels) { if (panel.UiPanel) { panel.UiPanel->size(w, h - 48); } }
+	for (Panel& panel : Panels) { if (panel.UiPanel) { panel.UiPanel->size(static_cast<float>(w), h - 48.0f); } }
 }
 
 

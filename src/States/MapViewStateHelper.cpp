@@ -187,8 +187,9 @@ bool validLanderSite(Tile* t)
 	}
 
 	// bleh, direct copy from Tile::distanceTo()
-	int _x = t->x() - ccLocationX(), _y = t->y() - ccLocationY();
-	float _dist = sqrt((_x * _x) + (_y * _y));
+	int _x = t->x() - ccLocationX();
+	int _y = t->y() - ccLocationY();
+	float _dist = std::sqrt(static_cast<float>(_x * _x) + _y * _y);
 	if (_dist > constants::LANDER_COM_RANGE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_COMM_RANGE);
@@ -376,7 +377,7 @@ Warehouse* getAvailableWarehouse(ProductType _pt, size_t _ct)
 	for (auto _st : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
 	{
 		Warehouse* _wh = static_cast<Warehouse*>(_st);
-		if (_wh->products().canStore(_pt, _ct))
+		if (_wh->products().canStore(_pt, static_cast<int>(_ct)))
 		{
 			return _wh;
 		}
