@@ -12,7 +12,6 @@
 
 using namespace NAS2D;
 
-const float WINDOW_TITLE_BAR_HEIGHT = 20.0f;
 static Font* WINDOW_TITLE_FONT;
 
 Window::Window()
@@ -58,7 +57,7 @@ void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	UIContainer::onMouseDown(button, x, y);
 
-	mMouseDrag = (button == EventHandler::MouseButton::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), WINDOW_TITLE_BAR_HEIGHT));
+	mMouseDrag = (button == EventHandler::MouseButton::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), Window::getWindowTitleBarHeight()));
 }
 
 
@@ -77,7 +76,6 @@ void Window::onMouseMotion(int x, int y, int dX, int dY)
 		position(positionX() + dX, positionY() + dY);
 	}
 }
-
 
 void Window::anchored(bool _a)
 {
@@ -99,7 +97,7 @@ void Window::update()
 	Renderer& r = Utility<Renderer>::get();
 
 	r.drawImage(mTitle[0], rect().x(), rect().y());
-	r.drawImageRepeated(mTitle[1], rect().x() + 4, rect().y(), rect().width() - 8, WINDOW_TITLE_BAR_HEIGHT);
+	r.drawImageRepeated(mTitle[1], rect().x() + 4, rect().y(), rect().width() - 8, Window::getWindowTitleBarHeight());
 	r.drawImage(mTitle[2], rect().x() + rect().width() - 4, rect().y());
 
 	r.drawImageRect(rect().x(), rect().y() + 20, rect().width(), rect().height() - 20, mBody);
