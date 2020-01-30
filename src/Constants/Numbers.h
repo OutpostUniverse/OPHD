@@ -36,8 +36,8 @@ namespace constants
 
 	const int DEFAULT_STARTING_MORALE = 600;
 
-	const int DEFAULT_WINDOW_WIDTH = 1000;
-	const int DEFAULT_WINDOW_HEIGHT = 700;
+	const int DEFAULT_WINDOW_WIDTH = 1024;
+	const int DEFAULT_WINDOW_HEIGHT = 768;
 
 	const float ROBOT_COM_RANGE = 15.0f;
 	const float COMM_TOWER_BASE_RANGE = 10.0f;
