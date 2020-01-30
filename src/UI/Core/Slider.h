@@ -42,6 +42,9 @@ public:
 	float thumbPosition();					/*!< Get the current position. */
 	void changeThumbPosition(float change);	/*!< Adds the change amount to the current position. */
 
+	void thumbPositionNormalized(float value);		/*!< Set the current position. */
+	float thumbPositionNormalized();					/*!< Get the current position. */
+
 	bool displayPosition() { return mDisplayPosition;}			/*!< Get the position display flag. */
 	void displayPosition(bool _d) { mDisplayPosition = _d; }	/*!< Set the position display flag. */
 
