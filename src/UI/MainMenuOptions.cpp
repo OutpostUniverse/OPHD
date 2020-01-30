@@ -70,7 +70,6 @@ void MainMenuOptions::init()
     cmbResolution.maxDisplayItems(1);
 
     cmbResolution.clearSelection();
-    //TODO: add functions to the renderer/DeviceContext to get/set display count and modes.
     {
         extern SDL_Window* underlyingWindow;
         const auto display_index = SDL_GetWindowDisplayIndex(underlyingWindow);
@@ -92,10 +91,6 @@ void MainMenuOptions::init()
             cmbResolution.addItem(ss.str(), i);
             ss.str("");
         }
-        //TODO: Add void currentSelection(int) to ComboBox
-        //  OR
-        //TODO: Add ComboBox::text override to set internal text field value.
-
     }
     cmbResolution.selectionChanged().connect(this, &MainMenuOptions::onVideoOptionsChanged);
 
@@ -329,8 +324,6 @@ void MainMenuOptions::update()
 void MainMenuOptions::setConfigFromControls()
 {
     auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
-    //TODO: No magic numbers. Add Configuration::audioSfxVolume(float) and Configuration::audioMusicVolume(float) for normalized values.
-    //TODO: Add thumbPositionNormalized() to slider control.
     cf.audioSfxVolume(static_cast<int>(std::floor((sldrSoundVolume.thumbPosition() / sldrSoundVolume.length()) * 128.0f)));
     cf.audioMusicVolume(static_cast<int>(std::floor((sldrMusicVolume.thumbPosition() / sldrMusicVolume.length()) * 128.0f)));
 
@@ -340,8 +333,6 @@ void MainMenuOptions::setConfigFromControls()
     cf.option("maximized", (cbxStartMaximized.checked() ? "true" : "false"));
 
     auto& mixer = NAS2D::Utility<NAS2D::Mixer>::get();
-    //TODO: Add Mixer::musicVolume(float) and Mixer::soundVolume(float) for normalized values. The integer versions should probably should removed anyway.
-    //TODO: Add Configuration::audioMusicVolumeNormalized() and Configuration::addSoundVolumeNormalized() for normalized values.
     mixer.musicVolume(cf.audioMusicVolume());
     mixer.soundVolume(cf.audioSfxVolume());
 }
@@ -350,8 +341,6 @@ void MainMenuOptions::setControlsFromConfig()
 {
     if(inInit) { return;  }
     auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
-    //TODO: No magic numbers. Add MaxVolume getter to mixer class
-    //TODO: Add thumbPositionNormalized(float) to slider control.
     sldrSoundVolume.thumbPosition(std::floor((cf.audioSfxVolume() / 128.0f) * sldrSoundVolume.length()));
     sldrMusicVolume.thumbPosition(std::floor((cf.audioMusicVolume() / 128.0f) * sldrMusicVolume.length()));
 
