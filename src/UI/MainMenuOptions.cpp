@@ -70,6 +70,11 @@ void MainMenuOptions::init()
     cmbResolution.maxDisplayItems(1);
 
     cmbResolution.clearSelection();
+    { //Default resolution
+        std::ostringstream ss;
+        ss << constants::MINIMUM_WINDOW_WIDTH << 'x' << constants::MINIMUM_WINDOW_HEIGHT << 'x' << 60;
+        cmbResolution.text(ss.str());
+    }
     {
         extern SDL_Window* underlyingWindow;
         const auto display_index = SDL_GetWindowDisplayIndex(underlyingWindow);
@@ -77,20 +82,25 @@ void MainMenuOptions::init()
         std::ostringstream ss;
         std::string resolutionText{};
         SDL_DisplayMode active_mode{};
+
+        auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
+        const auto gfx_width = cf.graphicsWidth();
+        const auto gfx_height = cf.graphicsHeight();
+        const auto gfx_depth = cf.graphicsColorDepth();
         for(int i = 0; i < num_resolutions; ++i)
         {
             SDL_DisplayMode cur_mode{};
             SDL_GetDisplayMode(display_index, i, &cur_mode);
-            SDL_GetCurrentDisplayMode(display_index, &active_mode);
             ss << cur_mode.w << 'x' << cur_mode.h << 'x' << cur_mode.refresh_rate;
-            if(cur_mode.w == active_mode.w && cur_mode.h == active_mode.h && cur_mode.refresh_rate == active_mode.refresh_rate)
+            if(cur_mode.w == gfx_width && cur_mode.h == gfx_height && cur_mode.refresh_rate == 60)
             {
+                //Set combobox to current dimensions of window, not desktop
                 currentResolutionSelection = i;
-                resolutionText = ss.str();
             }
             cmbResolution.addItem(ss.str(), i);
             ss.str("");
         }
+        cmbResolution.currentSelection(currentResolutionSelection);
     }
     cmbResolution.selectionChanged().connect(this, &MainMenuOptions::onVideoOptionsChanged);
 
