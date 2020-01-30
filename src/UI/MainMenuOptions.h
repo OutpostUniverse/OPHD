@@ -8,11 +8,11 @@ public:
     MainMenuOptions();
     virtual ~MainMenuOptions();
 
-    virtual void update();
+    virtual void update() override;
 
 protected:
     virtual void init();
-    void visibilityChanged(bool visible) override;
+    virtual void visibilityChanged(bool visible) override;
 
 private:
     void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
