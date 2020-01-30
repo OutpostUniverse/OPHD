@@ -286,17 +286,13 @@ void MainMenuOptions::onMusicVolumeChanged(float /*newValue*/) {
 }
 
 void MainMenuOptions::onOptionsChanged() {
-    if(!inInit) {
-        optionsChanged = true;
-        btnApply.enabled(true);
-    }
+    optionsChanged = true;
+    btnApply.enabled(true);
 }
 
 void MainMenuOptions::onVideoOptionsChanged() {
-    if(!inInit) {
-        optionsChanged = true;
-        videoOptionsChanged = true;
-    }
+    optionsChanged = true;
+    videoOptionsChanged = true;
 }
 
 void MainMenuOptions::enableControls() {
@@ -337,19 +333,19 @@ void MainMenuOptions::setConfigFromControls()
     cf.audioSfxVolume(static_cast<int>(std::floor((sldrSoundVolume.thumbPosition() / sldrSoundVolume.length()) * 128.0f)));
     cf.audioMusicVolume(static_cast<int>(std::floor((sldrMusicVolume.thumbPosition() / sldrMusicVolume.length()) * 128.0f)));
 
+    auto& mixer = NAS2D::Utility<NAS2D::Mixer>::get();
+    mixer.musicVolume(cf.audioMusicVolume());
+    mixer.soundVolume(cf.audioSfxVolume());
+
     cf.vsync(cbxVSync.checked());
     cf.fullscreen(cbxFullscreen.checked());
     cf.option("skip-splash", (cbxSkipSplash.checked() ? "true" : "false"));
     cf.option("maximized", (cbxStartMaximized.checked() ? "true" : "false"));
 
-    auto& mixer = NAS2D::Utility<NAS2D::Mixer>::get();
-    mixer.musicVolume(cf.audioMusicVolume());
-    mixer.soundVolume(cf.audioSfxVolume());
 }
 
 void MainMenuOptions::setControlsFromConfig()
 {
-    if(inInit) { return;  }
     auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
     sldrSoundVolume.thumbPosition(std::floor((cf.audioSfxVolume() / 128.0f) * sldrSoundVolume.length()));
     sldrMusicVolume.thumbPosition(std::floor((cf.audioMusicVolume() / 128.0f) * sldrMusicVolume.length()));
