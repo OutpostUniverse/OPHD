@@ -157,6 +157,7 @@ protected:
 
 	void setPopulationRequirements(const PopulationRequirements& pr) { mPopulationRequirements = pr; }
 
+	virtual int calculateIntegrity() = 0;
 private:
 	Structure() = delete;
 
@@ -174,6 +175,7 @@ private:
 	int						mAge = 0;					/**< Age of the Structure in turns. */
 	int						mMaxAge = 0;				/**< Maximum number of turns the Structure can remain in good repair. */
 	int						mIntegrity = 100;			/**< Represents a structure's percentage of decay. */
+
 	StructureState			mStructureState = UNDER_CONSTRUCTION;			/**< State the structure is in. */
 	StructureClass			mStructureClass;								/**< Indicates the Structure's Type. */
 	ConnectorDir			mConnectorDirection = CONNECTOR_INTERSECTION;	/**< Directions available for connections. */
