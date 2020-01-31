@@ -175,6 +175,7 @@ private:
 	int						mAge = 0;					/**< Age of the Structure in turns. */
 	int						mMaxAge = 0;				/**< Maximum number of turns the Structure can remain in good repair. */
 	int						mIntegrity = 100;			/**< Represents a structure's percentage of decay. */
+	int						mIntegrityDecayRate = 0;	/**< Represents a structure's rate of decay. */
 
 	StructureState			mStructureState = UNDER_CONSTRUCTION;			/**< State the structure is in. */
 	StructureClass			mStructureClass;								/**< Indicates the Structure's Type. */
