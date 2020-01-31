@@ -173,7 +173,7 @@ private:
 	int						mTurnsToBuild = 0;			/**< Number of turns it takes to build the Structure. */
 	int						mAge = 0;					/**< Age of the Structure in turns. */
 	int						mMaxAge = 0;				/**< Maximum number of turns the Structure can remain in good repair. */
-
+	int						mIntegrity = 100;			/**< Represents a structure's percentage of decay. */
 	StructureState			mStructureState = UNDER_CONSTRUCTION;			/**< State the structure is in. */
 	StructureClass			mStructureClass;								/**< Indicates the Structure's Type. */
 	ConnectorDir			mConnectorDirection = CONNECTOR_INTERSECTION;	/**< Directions available for connections. */
