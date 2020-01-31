@@ -158,6 +158,7 @@ protected:
 	void setPopulationRequirements(const PopulationRequirements& pr) { mPopulationRequirements = pr; }
 
 	virtual int calculateIntegrity() = 0;
+	virtual int calculateIntegrityDecayRate() = 0;
 private:
 	Structure() = delete;
 
