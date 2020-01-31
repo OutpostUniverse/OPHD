@@ -135,6 +135,8 @@ public:
 	void update();
 	virtual void think() {}
 
+	int integrity() const { return mIntegrity; }
+	int integrityDecayRate() const { return mIntegrityDecayRate; }
 protected:
 	friend class StructureCatalogue;
 
