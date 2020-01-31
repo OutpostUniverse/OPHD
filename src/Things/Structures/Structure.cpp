@@ -5,6 +5,10 @@
 
 #include "../../Constants.h"
 
+#include <random>
+
+std::random_device rd;
+std::mt19937 generator(rd());
 
 /**
  * Translation table for Structure States.
@@ -178,10 +182,33 @@ void Structure::activate()
 }
 
 
+bool Structure::disabledByIntegrity() const
+{
+	return mIntegrity < 35;
+}
+
+bool Structure::destroyedByIntegrity() const
+{
+	float destroyChance = 1.0f - mIntegrity / 25.0f;
+	// uniform_real_distributions are in a half-closed range [lower, upper).
+	// std::nextafter allows the range to be [lower, upper]
+	std::uniform_real_distribution<double> dist(0.0, std::nextafter(1.0, 2.0));
+	return dist(generator) < destroyChance;
+}
+
 void Structure::update()
 {
 	if (disabled() || destroyed()) { return; }
 	incrementAge();
+	mIntegrity = calculateIntegrity();
+	if(disabledByIntegrity())
+	{
+		disable(DISABLED_STRUCTURAL_INTEGRITY);
+	}
+	else if(destroyedByIntegrity())
+	{
+		destroy();
+	}
 }
 
 

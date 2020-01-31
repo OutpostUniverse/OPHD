@@ -162,6 +162,8 @@ protected:
 	virtual int calculateIntegrity() = 0;
 	virtual int calculateIntegrityDecayRate() = 0;
 	void integrity(int newIntegrity) { mIntegrity = std::clamp(newIntegrity, 0, 100); }
+	bool disabledByIntegrity() const;
+	bool destroyedByIntegrity() const;
 private:
 	Structure() = delete;
 
