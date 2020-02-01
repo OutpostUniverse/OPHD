@@ -32,6 +32,15 @@ protected:
 	// Simply to help in understanding what the internal resource pools are being used for.
 	ResourcePool& oreStorage() { return production(); }
 
+	int calculateIntegrity() override {
+		return integrity() - calculateIntegrityDecayRate();
+	}
+
+
+	int calculateIntegrityDecayRate() override {
+		return 0;
+	}
+
 protected:
 
 	virtual void think()

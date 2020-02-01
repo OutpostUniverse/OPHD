@@ -34,6 +34,15 @@ public:
 protected:
 	virtual void think();
 
+	int calculateIntegrity() override {
+		return integrity() - calculateIntegrityDecayRate();
+	}
+
+
+	int calculateIntegrityDecayRate() override {
+		return 0;
+	}
+
 private:
 	MineFacility() = delete;
 	MineFacility(const MineFacility&) = delete;
