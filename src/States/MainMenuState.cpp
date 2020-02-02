@@ -74,6 +74,9 @@ void MainMenuState::initialize()
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
+	dlgOptions.anchored(true);
+	dlgOptions.hide();
+
 	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
 	lblVersion.font(tiny_font);
@@ -111,6 +114,7 @@ void MainMenuState::positionButtons()
 	btnQuit.position(start_x, start_y + 140);
 
 	mFileIoDialog.position(static_cast<int>(r.center_x() - mFileIoDialog.width() / 2), static_cast<int>(r.center_y() - mFileIoDialog.height() / 2));
+	dlgOptions.position(static_cast<int>(r.center_x() - dlgOptions.width() / 2), static_cast<int>(r.center_y() - dlgOptions.height() / 2));
 }
 
 
@@ -134,7 +138,7 @@ void MainMenuState::enableButtons()
 {
 	btnNewGame.enabled(true);
 	btnContinueGame.enabled(true);
-	//btnOptions.enabled(false);
+	btnOptions.enabled(true);
 	btnHelp.enabled(true);
 	btnQuit.enabled(true);
 }
@@ -211,6 +215,8 @@ void MainMenuState::onFadeComplete()
 void MainMenuState::btnNewGameClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
+	if (dlgOptions.visible()) { return; }
+
 	disableButtons();
 
 	mReturnState = new PlanetSelectState();
@@ -226,6 +232,7 @@ void MainMenuState::btnNewGameClicked()
 void MainMenuState::btnContinueGameClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
+	if (dlgOptions.visible()) { return; }
 
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 	mFileIoDialog.show();
@@ -238,6 +245,9 @@ void MainMenuState::btnContinueGameClicked()
 void MainMenuState::btnOptionsClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
+	if (dlgOptions.visible()) { return; }
+
+	dlgOptions.show();
 }
 
 
@@ -247,6 +257,7 @@ void MainMenuState::btnOptionsClicked()
 void MainMenuState::btnHelpClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
+	if (dlgOptions.visible()) { return; }
 
 #if defined(_WIN32)
 	system("start https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
@@ -267,6 +278,7 @@ void MainMenuState::btnHelpClicked()
 void MainMenuState::btnQuitClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
+	if (dlgOptions.visible()) { return; }
 
 	disableButtons();
 	NAS2D::postQuitEvent();
@@ -284,7 +296,7 @@ NAS2D::State* MainMenuState::update()
 	r.drawImage(mBgImage, r.center_x() - mBgImage.width() / 2, r.center_y() - mBgImage.height() / 2);
 
 
-	if (!mFileIoDialog.visible())
+	if (!mFileIoDialog.visible() && !dlgOptions.visible())
 	{
 		r.drawBoxFilled(btnNewGame.positionX() - 5, btnNewGame.positionY() - 5, btnNewGame.width() + 10, (btnQuit.positionY() - btnNewGame.positionY()) + btnQuit.height() + 10, 0, 0, 0, 150);
 		r.drawBox(btnNewGame.positionX() - 5, btnNewGame.positionY() - 5, btnNewGame.width() + 10, (btnQuit.positionY() - btnNewGame.positionY()) + btnQuit.height() + 10, 0, 185, 0, 255);
@@ -296,7 +308,14 @@ NAS2D::State* MainMenuState::update()
 		btnQuit.update();
 	}
 
-	mFileIoDialog.update();
+	if (dlgOptions.visible())
+	{
+		dlgOptions.update();
+	}
+	else if (mFileIoDialog.visible())
+	{
+		mFileIoDialog.update();
+	}
 
 	lblVersion.update();
 

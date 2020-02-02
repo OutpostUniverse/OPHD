@@ -8,7 +8,7 @@
 #include "../UI/UI.h"
 
 #include "../UI/FileIo.h"
-
+#include "../UI/MainMenuOptions.h"
 
 /**
  * Implements the main menu screen.
@@ -50,6 +50,9 @@ private:
 	Button				btnOptions;						/**<  */
 	Button				btnHelp;						/**<  */
 	Button				btnQuit;						/**<  */
+
+	MainMenuOptions		dlgOptions;
+
 	Label				lblVersion;						/**<  */
 	NAS2D::State*		mReturnState = this;			/**<  */
 };
