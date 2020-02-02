@@ -143,23 +143,22 @@ bool RobotPool::robotAvailable(RobotType _type)
 	switch (_type)
 	{
 	case ROBOT_DIGGER:
+	{
 		return getDigger() != nullptr;
-		break;
-
-	case ROBOT_DOZER:
-		return getDozer() != nullptr;
-		break;
-
-	case ROBOT_MINER:
-		return getMiner() != nullptr;
-		break;
-
-	default:
-		return false;
-		break;
 	}
-
-	return false;
+	case ROBOT_DOZER:
+	{
+		return getDozer() != nullptr;
+	}
+	case ROBOT_MINER:
+	{
+		return getMiner() != nullptr;
+	}
+	default:
+	{
+		return false;
+	}
+	}
 }
 
 
