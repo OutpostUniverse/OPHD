@@ -17,9 +17,9 @@ Installation is simple: Extract the contents of the ZIP Archive into any folder.
 As this is not an installer package it is not distributed with any necessary dependencies. Please see the following sections for the requirements needed for your particular OS of choice.
 
 ### Windows Dependencies
-OutpostHD is built using Microsoft's Visual C++ 2017. If you haven't already, you may need to download and install the redistributable package from Microsoft. Follow this link and download the 32-Bit version of the Visual C++ runtime:
+OutpostHD is built in C++ using Microsoft's Visual Studio 2019. If you haven't already, you may need to download and install the redistributable package from Microsoft. Follow this link and download the 32-Bit version of the Visual C++ runtime:
 
-https://outpost2.net/files/ophd/VC_redist.x86.exe
+https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
 
 ### MacOS X Dependencies
 The only current build of OutpostHD is Windows but as I understand MacOS X development and program distribution, MacOS distributions come as a 'bundle' with all necessary dependencies packaged in. That stated, there aren't any official osX builds (yet) but we're working on it!
