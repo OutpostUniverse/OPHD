@@ -258,7 +258,7 @@ void MainReportsUiState::_deactivate()
 void MainReportsUiState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
 {
 	if (!active()) { return; }
-	if(key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) { exit(); }
+	if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) { exit(); }
 }
 
 
@@ -278,7 +278,7 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 			bool selected = isPointInRect(MOUSE_COORDS, panel.Rect);
 			panel.Selected(selected);
 
-			if(panel.UiPanel) { panel.UiPanel->visible(selected); }
+			if (panel.UiPanel) { panel.UiPanel->visible(selected); }
 		}
 	}
 
