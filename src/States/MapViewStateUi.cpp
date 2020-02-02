@@ -77,13 +77,13 @@ void MapViewState::initUi()
 	mDiggerDirection.directionSelected().connect(this, &MapViewState::diggerSelectionDialog);
 	mDiggerDirection.hide();
 
-	mTileInspector.position(static_cast<int>(r.center_x() - mTileInspector.width() / 2), static_cast<int>(r.height() / 2 - 175));
+	mTileInspector.position(r.center_x() - mTileInspector.width() / 2.0f, r.height() / 2.0f - 175.0f);
 	mTileInspector.hide();
 
-	mStructureInspector.position(static_cast<int>(r.center_x() - mStructureInspector.width() / 2), static_cast<int>(r.height() / 2 - 175));
+	mStructureInspector.position(r.center_x() - mStructureInspector.width() / 2.0f, r.height() / 2.0f - 175.0f);
 	mStructureInspector.hide();
 
-	mFactoryProduction.position(static_cast<int>(r.center_x() - mFactoryProduction.width() / 2), 175);
+	mFactoryProduction.position(r.center_x() - mFactoryProduction.width() / 2.0f, 175.0f);
 	mFactoryProduction.hide();
 
 	mFileIoDialog.setMode(FileIo::FILE_SAVE);
@@ -91,12 +91,12 @@ void MapViewState::initUi()
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
-	mPopulationPanel.position(675, constants::RESOURCE_ICON_SIZE + 4 + constants::MARGIN_TIGHT);
+	mPopulationPanel.position(675.0f, constants::RESOURCE_ICON_SIZE + 4.0f + constants::MARGIN_TIGHT);
 	mPopulationPanel.population(&mPopulation);
 	mPopulationPanel.morale(&mCurrentMorale);
 	mPopulationPanel.old_morale(&mPreviousMorale);
 
-	mResourceBreakdownPanel.position(0, 22);
+	mResourceBreakdownPanel.position(0.0f, 22.0f);
 	mResourceBreakdownPanel.playerResources(&mPlayerResources);
 
 	mGameOverDialog.returnToMainMenu().connect(this, &MapViewState::btnGameOverClicked);
@@ -140,24 +140,24 @@ void MapViewState::initUi()
 
 	// Menus
 	mRobots.sheetPath("ui/robots.png");
-	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
-	mRobots.size(52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mRobots.position(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52.0f, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mRobots.size(52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f);
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
 	mRobots.showTooltip(true);
 	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
 
 	mConnections.sheetPath("ui/structures.png");
-	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
-	mConnections.size(52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mConnections.position(mRobots.positionX() - constants::MARGIN_TIGHT - 52.0f, BOTTOM_UI_AREA.y() + MARGIN);
+	mConnections.size(52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f);
 	mConnections.iconSize(46);
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
 	mConnections.selectionChanged().connect(this, &MapViewState::connectionsSelectionChanged);
 	mConnections.sorted(false);
 
 	mStructures.sheetPath("ui/structures.png");
-	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
-	mStructures.size(mConnections.positionX() -  constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mStructures.position(constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN);
+	mStructures.size(mConnections.positionX() -  constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f);
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 	mStructures.showTooltip(true);
@@ -208,15 +208,15 @@ void MapViewState::setupUiPositions(int w, int h)
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 
 	// Anchored window positions
-	mFileIoDialog.position(centerWindowWidth(mFileIoDialog.width()), 50);
-	mGameOverDialog.position(centerWindowWidth(mGameOverDialog.width()), centerWindowHeight(mGameOverDialog.height()) - 100);
-	mAnnouncement.position(centerWindowWidth(mAnnouncement.width()), centerWindowHeight(mAnnouncement.height()) - 100);
-	mGameOptionsDialog.position(centerWindowWidth(mGameOptionsDialog.width()), centerWindowHeight(mGameOptionsDialog.height()) - 100);
+	mFileIoDialog.position(centerWindowWidth(mFileIoDialog.width()), 50.0f);
+	mGameOverDialog.position(centerWindowWidth(mGameOverDialog.width()), centerWindowHeight(mGameOverDialog.height()) - 100.0f);
+	mAnnouncement.position(centerWindowWidth(mAnnouncement.width()), centerWindowHeight(mAnnouncement.height()) - 100.0f);
+	mGameOptionsDialog.position(centerWindowWidth(mGameOptionsDialog.width()), centerWindowHeight(mGameOptionsDialog.height()) - 100.0f);
 
-	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), static_cast<int>(h / 2) - 125);
+	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), static_cast<int>(h / 2.0f) - 125.0f);
 
-	mWarehouseInspector.position(centerWindowWidth(mWarehouseInspector.width()), centerWindowHeight(mWarehouseInspector.height()) - 100);
-	mMineOperationsWindow.position(centerWindowWidth(mMineOperationsWindow.width()), centerWindowHeight(mMineOperationsWindow.height()) - 100);
+	mWarehouseInspector.position(centerWindowWidth(mWarehouseInspector.width()), centerWindowHeight(mWarehouseInspector.height()) - 100.0f);
+	mMineOperationsWindow.position(centerWindowWidth(mMineOperationsWindow.width()), centerWindowHeight(mMineOperationsWindow.height()) - 100.0f);
 
 	/**
 	 * \note	We are not setting the tile inspector window's position here because it's something that can be

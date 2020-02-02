@@ -139,13 +139,13 @@ void TextField::onTextInput(const std::string& _s)
 
 	if (mMaxCharacters > 0 && text().length() == mMaxCharacters) { return; }
 
-	int prvLen = text().length();
+	std::size_t prvLen = text().length();
 
 	if (mNumbersOnly && !std::isdigit(_s[0], LOC)) { return; }
 
 	_text() = _text().insert(mCursorPosition, _s);
 
-	if (text().length() - prvLen != 0)
+	if (text().length() - prvLen != 0u)
 	{
 		onTextChanged();
 		mCursorPosition++;

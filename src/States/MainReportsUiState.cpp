@@ -309,7 +309,7 @@ void MainReportsUiState::exit()
 void MainReportsUiState::onWindowResized(int w, int h)
 {
 	setPanelRects(w);
-	for (Panel& panel : Panels) { if (panel.UiPanel) { panel.UiPanel->size(w, h - 48); } }
+	for (Panel& panel : Panels) { if (panel.UiPanel) { panel.UiPanel->size(w, h - 48.0f); } }
 }
 
 
