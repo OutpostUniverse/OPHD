@@ -68,7 +68,7 @@ void FileIo::init()
 /**
  * Event handler for mouse double click.
  */
-void FileIo::onDoubleClick(EventHandler::MouseButton button, int x, int y)
+void FileIo::onDoubleClick(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	if (!visible()) { return; }	// ignore key presses when hidden.
 
@@ -86,7 +86,7 @@ void FileIo::onDoubleClick(EventHandler::MouseButton button, int x, int y)
 /**
  * Event handler for Key Down.
  */
-void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
+void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!visible()) { return; }	// ignore key presses when hidden.
 

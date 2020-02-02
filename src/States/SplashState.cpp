@@ -167,13 +167,13 @@ State* SplashState::update()
 }
 
 
-void SplashState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
+void SplashState::onKeyDown(EventHandler::KeyCode /*key*/, EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	skipSplash();
 }
 
 
-void SplashState::onMouseDown(EventHandler::MouseButton button, int x, int y)
+void SplashState::onMouseDown(EventHandler::MouseButton /*button*/, int /*x*/, int /*y*/)
 {
 	skipSplash();
 }

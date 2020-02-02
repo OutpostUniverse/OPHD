@@ -138,7 +138,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 /**
  * Mouse Motion event handler.
  */
-void ListBoxBase::onMouseMove(int x, int y, int relX, int relY)
+void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 {
 	if (!visible() || empty()) { return; }
 
@@ -177,7 +177,7 @@ void ListBoxBase::onMouseMove(int x, int y, int relX, int relY)
  * 
  * \todo	Make the scroll step configurable. Legacy from the ListBox.
  */
-void ListBoxBase::onMouseWheel(int x, int y)
+void ListBoxBase::onMouseWheel(int /*x*/, int y)
 {
 	if (!visible()) { return; }
 	if (!isPointInRect(mMousePosition, rect())) { return; }
