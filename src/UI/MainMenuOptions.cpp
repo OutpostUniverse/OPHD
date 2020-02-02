@@ -77,13 +77,13 @@ void MainMenuOptions::init()
         std::ostringstream ss;
         std::string resolutionText{};
         SDL_DisplayMode active_mode{};
-        for(int i = 0; i < num_resolutions; ++i)
+        for (int i = 0; i < num_resolutions; ++i)
         {
             SDL_DisplayMode cur_mode{};
             SDL_GetDisplayMode(display_index, i, &cur_mode);
             SDL_GetCurrentDisplayMode(display_index, &active_mode);
             ss << cur_mode.w << 'x' << cur_mode.h << 'x' << cur_mode.refresh_rate;
-            if(cur_mode.w == active_mode.w && cur_mode.h == active_mode.h && cur_mode.refresh_rate == active_mode.refresh_rate)
+            if (cur_mode.w == active_mode.w && cur_mode.h == active_mode.h && cur_mode.refresh_rate == active_mode.refresh_rate)
             {
                 currentResolutionSelection = i;
                 resolutionText = ss.str();
@@ -195,7 +195,7 @@ void MainMenuOptions::init()
 
 
 void MainMenuOptions::visibilityChanged(bool visible) {
-    if(visible)
+    if (visible)
     {
         enableControls();
         inInit = true;
@@ -224,7 +224,7 @@ void MainMenuOptions::btnCancelClicked() {
 }
 
 void MainMenuOptions::btnApplyClicked() {
-    if(btnApply.enabled())
+    if (btnApply.enabled())
     {
         setConfigFromControls();
         optionsChanged = false;
@@ -244,7 +244,7 @@ void MainMenuOptions::loadOptions() {
 }
 
 void MainMenuOptions::applyVideoChanges() {
-    if(videoOptionsChanged) {
+    if (videoOptionsChanged) {
         auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
         const auto& txt = cmbResolution.selectionText();
         const auto whd = NAS2D::split(txt, 'x');
@@ -262,7 +262,7 @@ void MainMenuOptions::applyVideoChanges() {
 }
 
 void MainMenuOptions::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat) {
-    if(key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) {
+    if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) {
         btnCancelClicked();
     }
 }
@@ -276,14 +276,14 @@ void MainMenuOptions::onMusicVolumeChanged(float /*newValue*/) {
 }
 
 void MainMenuOptions::onOptionsChanged() {
-    if(!inInit) {
+    if (!inInit) {
         optionsChanged = true;
         btnApply.enabled(true);
     }
 }
 
 void MainMenuOptions::onVideoOptionsChanged() {
-    if(!inInit) {
+    if (!inInit) {
         optionsChanged = true;
         videoOptionsChanged = true;
     }
@@ -307,12 +307,12 @@ void MainMenuOptions::disableButtons() {
 
 void MainMenuOptions::update()
 {
-    if(!visible()) { return; }
+    if (!visible()) { return; }
 
     //Calls update on the panel controls, which call update on their children.
     Window::update();
 
-    if(optionsChanged)
+    if (optionsChanged)
     {
         optionsChanged = false;
         btnApply.enabled(true);
@@ -339,7 +339,7 @@ void MainMenuOptions::setConfigFromControls()
 
 void MainMenuOptions::setControlsFromConfig()
 {
-    if(inInit) { return;  }
+    if (inInit) { return;  }
     auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
     sldrSoundVolume.thumbPosition(std::floor((cf.audioSfxVolume() / 128.0f) * sldrSoundVolume.length()));
     sldrMusicVolume.thumbPosition(std::floor((cf.audioMusicVolume() / 128.0f) * sldrMusicVolume.length()));
