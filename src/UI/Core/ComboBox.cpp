@@ -186,6 +186,12 @@ int ComboBox::selectionTag() const
 }
 
 
+void ComboBox::currentSelection(unsigned int index) {
+	lstItems.currentSelection(index);
+	text(lstItems.selectionText());
+	mSelectionChanged();
+}
+
 /**
  * 
  */
@@ -194,4 +200,15 @@ void ComboBox::update()
 	txtField.update();
 	btnDown.update();
 	lstItems.update();
+}
+
+void ComboBox::text(const std::string& text) {
+	txtField.text(text);
+	txtField.textChanged();
+	lstItems.setSelectionByName(txtField.text());
+	mSelectionChanged();
+}
+
+const std::string& ComboBox::text() const {
+	return txtField.text();
 }
