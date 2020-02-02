@@ -318,11 +318,6 @@ void MapViewState::nextTurn()
 	mMineOperationsWindow.updateCounts();
 	mStructureInspector.check();
 
-
-	float totalCost = 0;
-	int result = pather->Solve(mTileMap->getTile(299, 149), mTileMap->getTile(10, 10), &path, &totalCost);
-
-
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)
 	{
