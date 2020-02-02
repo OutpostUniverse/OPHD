@@ -69,8 +69,8 @@ void MapViewState::drawMiniMap()
 	Renderer& r = Utility<Renderer>::get();
 	r.clipRect(mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y(), mMiniMapBoundingBox.width(), mMiniMapBoundingBox.height());
 
-	if (mBtnToggleHeightmap.toggled()) { r.drawImage(mHeightMap, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y()); }
-	else { r.drawImage(mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y()); }
+	bool isHeightmapToggled = mBtnToggleHeightmap.toggled();
+	r.drawImage(isHeightmapToggled ? mHeightMap : mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y());
 
 	if (ccLocationX() != 0 && ccLocationY() != 0)
 	{
@@ -92,19 +92,13 @@ void MapViewState::drawMiniMap()
 		Mine* mine = mTileMap->getTile(_mine.x(), _mine.y(), 0)->mine();
 		if (!mine) { break; } // avoids potential race condition where a mine is destroyed during an updated cycle.
 
-		if (!mine->active())
-		{
-			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 7.0f, 7.0f);
-		}
-		else if (mine->active() && !mine->exhausted())
-		{
-			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 8.0f, 0.0f, 7.0f, 7.0f);
-		}
-		else if (mine->exhausted())
-		{
-			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 16.0f, 0.0f, 7.0f, 7.0f);
-		}
-
+		bool isMineActive = mine->active();
+		bool isMineUnused = !isMineActive;
+		bool isMineExhausted = mine->exhausted();
+		bool isMineProducing = !isMineExhausted;
+		bool isMineActiveAndProducing = isMineActive && isMineProducing;
+		float mineBeaconStatusOffsetX = isMineUnused ? 0.0f : (isMineActiveAndProducing ? 8.0f : (isMineExhausted ? 16.0f : 0.0f));
+		r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, mineBeaconStatusOffsetX, 0.0f, 7.0f, 7.0f);
 	}
 
 	for (auto _tile : path)
