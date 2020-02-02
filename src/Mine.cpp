@@ -346,7 +346,7 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* _ti)
 	mVeins.resize(depth);
 	for (XmlNode* vein = _ti->firstChild(); vein != nullptr; vein = vein->nextSibling())
 	{
-		MineVein _mv;
+		MineVein _mv = MineVein{0, 0, 0, 0};
 		attribute = vein->toElement()->firstAttribute();
 		int id = 0;
 		while (attribute)
