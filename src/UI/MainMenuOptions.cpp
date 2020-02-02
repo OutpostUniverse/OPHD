@@ -45,7 +45,7 @@ void MainMenuOptions::init()
 
     const auto border_left_width = 5;
     const auto border_right_width = 5;
-    constexpr auto border_top_height = Window::getWindowTitleBarHeight() + 5;
+    constexpr auto border_top_height = sWindowTitleBarHeight + 5;
     const auto border_bottom_height = 5;
     const auto element_spacing = 5;
     const auto left_edge = positionX() + border_left_width;

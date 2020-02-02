@@ -57,7 +57,7 @@ void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	UIContainer::onMouseDown(button, x, y);
 
-	mMouseDrag = (button == EventHandler::MouseButton::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), Window::getWindowTitleBarHeight()));
+	mMouseDrag = (button == EventHandler::MouseButton::BUTTON_LEFT && pointInRect_f(x, y, rect().x(), rect().y(), rect().width(), sWindowTitleBarHeight));
 }
 
 
@@ -97,7 +97,7 @@ void Window::update()
 	Renderer& r = Utility<Renderer>::get();
 
 	r.drawImage(mTitle[0], rect().x(), rect().y());
-	r.drawImageRepeated(mTitle[1], rect().x() + 4, rect().y(), rect().width() - 8, Window::getWindowTitleBarHeight());
+	r.drawImageRepeated(mTitle[1], rect().x() + 4, rect().y(), rect().width() - 8, sWindowTitleBarHeight);
 	r.drawImage(mTitle[2], rect().x() + rect().width() - 4, rect().y());
 
 	r.drawImageRect(rect().x(), rect().y() + 20, rect().width(), rect().height() - 20, mBody);
