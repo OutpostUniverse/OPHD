@@ -254,62 +254,37 @@ void MapViewState::drawNavInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	// Up / Down
-	if (isPointInRect(MOUSE_COORDS, MOVE_DOWN_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 64, 128, 32, 32, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 64, 128, 32, 32);
-	}
+	NAS2D::Rectangle_2d currentIconBounds = MOVE_DOWN_ICON;
+	bool isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
+	NAS2D::Color iconColor{255, 255, 255, 255};
+	NAS2D::Color iconHighlightColor{255, 0, 0, 255};
+	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
+	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 64, 128, 32, 32, color.red(), color.green(), color.blue(), color.alpha());
 
-	if (isPointInRect(MOUSE_COORDS, MOVE_UP_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 96, 128, 32, 32, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 96, 128, 32, 32);
-	}
+	currentIconBounds = MOVE_UP_ICON;
+	isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
+	color = isMouseInIcon ? iconHighlightColor : iconColor;
+	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 96, 128, 32, 32, color.red(), color.green(), color.blue(), color.alpha());
 
-	// East / West / North / South
-	if (isPointInRect(MOUSE_COORDS, MOVE_EAST_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 32, 128, 32, 16, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 32, 128, 32, 16);
-	}
+	currentIconBounds = MOVE_EAST_ICON;
+	isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
+	color = isMouseInIcon ? iconHighlightColor : iconColor;
+	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 32, 128, 32, 16, color.red(), color.green(), color.blue(), color.alpha());
 
-	if (isPointInRect(MOUSE_COORDS, MOVE_WEST_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 32, 144, 32, 16, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 32, 144, 32, 16);
-	}
+	currentIconBounds = MOVE_WEST_ICON;
+	isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
+	color = isMouseInIcon ? iconHighlightColor : iconColor;
+	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 32, 144, 32, 16, color.red(), color.green(), color.blue(), color.alpha());
 
-	if (isPointInRect(MOUSE_COORDS, MOVE_NORTH_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 128, 32, 16, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 128, 32, 16);
-	}
+	currentIconBounds = MOVE_NORTH_ICON;
+	isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
+	color = isMouseInIcon ? iconHighlightColor : iconColor;
+	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 0, 128, 32, 16, color.red(), color.green(), color.blue(), color.alpha());
 
-	if (isPointInRect(MOUSE_COORDS, MOVE_SOUTH_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 144, 32, 16, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 144, 32, 16);
-	}
-
+	currentIconBounds = MOVE_SOUTH_ICON;
+	isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
+	color = isMouseInIcon ? iconHighlightColor : iconColor;
+	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 0, 144, 32, 16, color.red(), color.green(), color.blue(), color.alpha());
 
 	// display the levels "bar"
 	int iWidth = MAIN_FONT->width("IX");								// set steps character patern width
@@ -320,15 +295,9 @@ void MapViewState::drawNavInfo()
 	{
 		S_LEVEL = string_format("%i", i);	// Set string for current level
 		if (i == 0) { S_LEVEL = "S"; }		// surface level
-		if (i == mTileMap->currentDepth())
-		{
-			r.drawText(*MAIN_FONT, S_LEVEL, iPosX - MAIN_FONT->width(S_LEVEL), iPosY, 255, 0, 0);		// Others in white
-		}
-		else
-		{
-			r.drawText(*MAIN_FONT, S_LEVEL, iPosX - MAIN_FONT->width(S_LEVEL), iPosY, 200, 200, 200);	// current one in red
-		}
-
+		bool isCurrentDepth = i == mTileMap->currentDepth();
+		NAS2D::Color color = isCurrentDepth ? NAS2D::Color{255, 0, 0, 255} : NAS2D::Color{200, 200, 200, 255}; // red for current depth : white for others
+		r.drawText(*MAIN_FONT, S_LEVEL, iPosX - MAIN_FONT->width(S_LEVEL), iPosY, color.red(), color.green(), color.blue(), color.alpha());
 		iPosX = iPosX - iWidth;				// Shift position by one step left
 	}
 }
