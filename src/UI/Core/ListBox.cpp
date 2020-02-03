@@ -183,7 +183,7 @@ void ListBox::setSelectionByName(const std::string& item)
 {
 	for (size_t i = 0; i < mItems.size(); i++)
 	{
-		if (toLowercase(mItems[i].Text) == toLowercase(item)) { mCurrentSelection = i; return; }
+		if (toLowercase(mItems[i].Text) == toLowercase(item)) { mCurrentSelection = static_cast<int>(i); return; }
 	}
 }
 

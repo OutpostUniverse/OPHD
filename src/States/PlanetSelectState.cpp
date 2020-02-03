@@ -36,8 +36,14 @@ public:
 			mTimer.reset();
 		}
 
-		r.drawSubImageRotated(mSheet, x, y, (mFrame % 8) * 128, (mFrame / 8) * 128, 128, 128, 270.0f);
-		//r.drawSubImage(mSheet, x, y, (mFrame % 8) * 128, (mFrame / 8) * 128, 128, 128);
+		auto rasterX = static_cast<float>(x);
+		auto rasterY = static_cast<float>(y);
+		auto width = 128.0f;
+		auto height = 128.0f;
+		auto posX = (mFrame % 8u) * width;
+		auto posY = (mFrame / 8u) * height;
+		auto orientationDegrees = 270.0f;
+		r.drawSubImageRotated(mSheet, rasterX, rasterY, posX, posY, width, height, orientationDegrees);
 	}
 
 private:
@@ -275,8 +281,8 @@ void PlanetSelectState::onWindowResized(int w, int h)
 	mPlanets[1]->position(w / 2 - 64, h / 2 - 64);
 	mPlanets[2]->position(((w / 4) * 3) - 64, h / 2 - 64);
 
-	mQuit.position(w - 105, 30);
-	mPlanetDescription.position((w / 2) - 275, h - 225);
+	mQuit.position(w - 105.0f, 30.0f);
+	mPlanetDescription.position((w / 2.0f) - 275.0f, h - 225.0f);
 }
 
 

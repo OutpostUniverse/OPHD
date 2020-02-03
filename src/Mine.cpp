@@ -184,7 +184,7 @@ void Mine::increaseDepth()
  */
 int Mine::depth() const
 {
-	return mVeins.size();
+	return static_cast<int>(mVeins.size());
 }
 
 
