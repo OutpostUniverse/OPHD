@@ -15,7 +15,7 @@ public:
 	WarehouseInspector();
 	virtual ~WarehouseInspector();
 
-	void warehouse(Warehouse* _wh);
+	void warehouse(Warehouse* w);
 
 	virtual void hide() final;
 	virtual void update() final;
