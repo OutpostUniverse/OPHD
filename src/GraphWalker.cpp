@@ -38,10 +38,7 @@ static bool validConnection(Structure* src, Structure* dst, Direction _d)
 {
 	if (src == nullptr || dst == nullptr)
 	{
-		#ifdef DEBUG
-		std::cout << "GraphWalker::validConnection() was passed a NULL Pointer." << std::endl;
-		#endif
-		return false;
+		throw std::runtime_error("GraphWalker::validConnection() was passed a NULL Pointer.");
 	}
 	if (_d == DIR_UP || _d == DIR_DOWN)
 	{
