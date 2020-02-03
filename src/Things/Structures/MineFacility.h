@@ -15,7 +15,7 @@ public:
 	MineFacility(Mine* mine);
 	virtual ~MineFacility() {};
 	
-	void mine(Mine* _m) { mMine = _m; }
+	void mine(Mine* mine) { mMine = mine; }
 	void maxDepth(int depth) { mMaxDepth = depth; }
 
 	bool extending() const;
