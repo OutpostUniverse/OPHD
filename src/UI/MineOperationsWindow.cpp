@@ -137,9 +137,9 @@ void MineOperationsWindow::hide()
 /**
  * 
  */
-void MineOperationsWindow::mineFacility(MineFacility* _mf)
+void MineOperationsWindow::mineFacility(MineFacility* facility)
 {
-	mFacility = _mf;
+	mFacility = facility;
 	if (!mFacility) { return; }
 
 	MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
