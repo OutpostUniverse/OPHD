@@ -63,9 +63,9 @@ bool Mine::active() const
 /**
  * 
  */
-void Mine::active(bool _b)
+void Mine::active(bool newActive)
 {
-	mFlags[4] = _b;
+	mFlags[4] = newActive;
 }
 
 
@@ -108,36 +108,36 @@ bool Mine::miningRareMinerals() const
 /**
  * 
  */
-void Mine::miningCommonMetals(bool _b)
+void Mine::miningCommonMetals(bool value)
 {
-	mFlags[ORE_COMMON_METALS] = _b;
+	mFlags[ORE_COMMON_METALS] = value;
 }
 
 
 /**
  * 
  */
-void Mine::miningCommonMinerals(bool _b)
+void Mine::miningCommonMinerals(bool value)
 {
-	mFlags[ORE_COMMON_MINERALS] = _b;
+	mFlags[ORE_COMMON_MINERALS] = value;
 }
 
 
 /**
  * 
  */
-void Mine::miningRareMetals(bool _b)
+void Mine::miningRareMetals(bool value)
 {
-	mFlags[ORE_RARE_METALS] = _b;
+	mFlags[ORE_RARE_METALS] = value;
 }
 
 
 /**
  * 
  */
-void Mine::miningRareMinerals(bool _b)
+void Mine::miningRareMinerals(bool value)
 {
-	mFlags[ORE_RARE_MINERALS] = _b;
+	mFlags[ORE_RARE_MINERALS] = value;
 }
 
 
@@ -298,12 +298,12 @@ int Mine::pull(OreType type, int quantity)
 /**
  * Serializes current mine information.
  */
-void Mine::serialize(XmlElement* _ti)
+void Mine::serialize(NAS2D::Xml::XmlElement* element)
 {
-	_ti->attribute("depth", depth());
-	_ti->attribute("active", active());
-	_ti->attribute("yield", productionRate());
-	_ti->attribute("flags", mFlags.to_string());
+	element->attribute("depth", depth());
+	element->attribute("active", active());
+	element->attribute("yield", productionRate());
+	element->attribute("flags", mFlags.to_string());
 
 	for (size_t i = 0; i < mVeins.size(); ++i)
 	{
@@ -317,7 +317,7 @@ void Mine::serialize(XmlElement* _ti)
 		vein->attribute("rare_metals",		mv[ORE_RARE_METALS]);
 		vein->attribute("rare_minerals",	mv[ORE_RARE_MINERALS]);
 
-		_ti->linkEndChild(vein);
+		element->linkEndChild(vein);
 	}
 }
 
@@ -325,12 +325,12 @@ void Mine::serialize(XmlElement* _ti)
 /**
  * 
  */
-void Mine::deserialize(NAS2D::Xml::XmlElement* _ti)
+void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	int active = 0, yield = 0, depth = 0;
 	std::string flags;
 
-	XmlAttribute* attribute = _ti->firstAttribute();
+	XmlAttribute* attribute = element->firstAttribute();
 	while (attribute)
 	{
 		if (attribute->name() == "active") { attribute->queryIntValue(active); }
@@ -344,7 +344,7 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* _ti)
 	mProductionRate = static_cast<MineProductionRate>(yield);
 
 	mVeins.resize(depth);
-	for (XmlNode* vein = _ti->firstChild(); vein != nullptr; vein = vein->nextSibling())
+	for (XmlNode* vein = element->firstChild(); vein != nullptr; vein = vein->nextSibling())
 	{
 		MineVein _mv = MineVein{0, 0, 0, 0};
 		attribute = vein->toElement()->firstAttribute();
