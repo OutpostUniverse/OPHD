@@ -670,10 +670,10 @@ void MapViewState::onMouseWheel(int /*x*/, int y)
 /**
  * Changes the current view depth.
  */
-bool MapViewState::changeDepth(int _d)
+bool MapViewState::changeDepth(int newDepth)
 {
 	int mPrevious = mTileMap->currentDepth();
-	mTileMap->currentDepth(_d);
+	mTileMap->currentDepth(newDepth);
 
 	if (mTileMap->currentDepth() == mPrevious) { return false; }
 

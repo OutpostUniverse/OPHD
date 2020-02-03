@@ -124,7 +124,7 @@ private:
 	void setMinimapView();
 
 	void checkConnectedness();
-	bool changeDepth(int _d);
+	bool changeDepth(int newDepth);
 
 	void pullRobotFromFactory(ProductType pt, Factory& factory);
 	void factoryProductionComplete(Factory& factory);
