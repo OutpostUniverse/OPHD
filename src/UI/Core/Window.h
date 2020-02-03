@@ -10,7 +10,7 @@ public:
 	Window();
 	virtual ~Window();
 
-	void anchored(bool _a);
+	void anchored(bool isAnchored);
 
 	virtual void show();
 	virtual void update();
