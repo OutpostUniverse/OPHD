@@ -10,10 +10,10 @@
 class Tube : public Structure
 {
 public:
-	Tube(ConnectorDir _cd, bool underground) :	Structure(constants::TUBE, "structures/tubes.sprite", CLASS_TUBE),
+	Tube(ConnectorDir dir, bool underground) :	Structure(constants::TUBE, "structures/tubes.sprite", CLASS_TUBE),
 												mUnderground(underground)
 	{
-		connectorDirection(_cd);
+		connectorDirection(dir);
 		requiresCHAP(false);
 
 		maxAge(400);
