@@ -46,13 +46,13 @@ public:
 	float thumbPositionNormalized();					/*!< Get the current position. */
 
 	bool displayPosition() { return mDisplayPosition;}			/*!< Get the position display flag. */
-	void displayPosition(bool _d) { mDisplayPosition = _d; }	/*!< Set the position display flag. */
+	void displayPosition(bool value) { mDisplayPosition = value; }	/*!< Set the position display flag. */
 
 	float length(); 			/*!< Get the max value for the slide area. */
 	void length(float length);	/*!< Set the max value for the slide area. */
 	
 	bool backward() { return mBackward; }	 	/*!< Get the backward flag. */
-	void backward(bool _b) { mBackward = _b; } 	/*!< Set the backward flag. */
+	void backward(bool isBackward) { mBackward = isBackward; } 	/*!< Set the backward flag. */
 
 	void update(); 							/*!< Called to display the slider. */
 	virtual void size(float w, float h); 	/*!< Set the slider size. */
@@ -66,7 +66,7 @@ protected:
 	
 private:
 	float positionInternal();
-	void positionInternal(float _pos);
+	void positionInternal(float newPosition);
 
 	void setSkins();	/*!< Helper function that load the gui skin on the first update call. */
 	void draw();		/*!< Draw the widget on screen. */
