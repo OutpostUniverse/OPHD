@@ -318,12 +318,12 @@ void ListBox::update()
 }
 
 
-void ListBox::slideChanged(float _position)
+void ListBox::slideChanged(float newPosition)
 {
 	_updateItemDisplay();
 	// Intentional truncation of fractional value
-	int pos = static_cast<int>(_position);
-	if (static_cast<float>(pos) != _position)
+	int pos = static_cast<int>(newPosition);
+	if (static_cast<float>(pos) != newPosition)
 	{
 		mSlider.thumbPosition(static_cast<float>(pos));
 	}

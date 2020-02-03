@@ -38,7 +38,7 @@ public:
 	ListBox();
 	virtual ~ListBox();
 	
-	void sorted(bool _b) { mSorted = _b; }
+	void sorted(bool isSorted) { mSorted = isSorted; }
 	bool sorted(bool) const { return mSorted; }
 
 	void sort() { if (mSorted) { std::sort(mItems.begin(), mItems.end()); } }
@@ -75,7 +75,7 @@ protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
-	virtual void slideChanged(float _position);
+	virtual void slideChanged(float newPosition);
 
 	virtual void visibilityChanged(bool visible) final;
 
