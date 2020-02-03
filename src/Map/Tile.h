@@ -31,10 +31,10 @@ public:
 	bool bulldozed() const { return index() == 0; }
 
 	bool excavated() const { return mExcavated; }
-	void excavated(bool _b) { mExcavated = _b; }
+	void excavated(bool value) { mExcavated = value; }
 
 	bool connected() const { return mConnected; }
-	void connected(bool _b) { mConnected = _b; }
+	void connected(bool value) { mConnected = value; }
 
 	Thing* thing() { return mThing; }
 
@@ -64,7 +64,7 @@ protected:
 	friend class StructureManager;
 
 	// Access to this function should be very, very limited.
-	void thingIsStructure(bool _b) { mThingIsStructure = _b; }
+	void thingIsStructure(bool value) { mThingIsStructure = value; }
 
 private:
 	int				mIndex = 0;					/**<  */
