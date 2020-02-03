@@ -808,7 +808,7 @@ void MapViewState::placeRobot()
 			tile->pushMine(nullptr);
 			for (size_t i = 0; i <= static_cast<size_t>(mTileMap->maxDepth()); ++i)
 			{
-				Tile* _t = mTileMap->getTile(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY(), i);
+				Tile* _t = mTileMap->getTile(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY(), static_cast<int>(i));
 
 				// Probably overkill here but if this is ever true there is a serious logic error somewhere.
 				if (!_t->thing() || !_t->thingIsStructure())
@@ -1163,7 +1163,7 @@ void MapViewState::updateRobots()
 			{
 				doAlertMessage(constants::ROBOT_BREAKDOWN_TITLE, string_format(constants::ROBOT_BREAKDOWN_MESSAGE, robot_it->first->name().c_str(), robot_it->second->x(), robot_it->second->y()));
 				Robodozer* _d = dynamic_cast<Robodozer*>(robot_it->first);
-				if (_d) { robot_it->second->index(_d->tileIndex()); }
+				if (_d) { robot_it->second->index(static_cast<int>(_d->tileIndex())); }
 			}
 
 			if (robot_it->second->thing() == robot_it->first)

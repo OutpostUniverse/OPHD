@@ -36,8 +36,14 @@ public:
 			mTimer.reset();
 		}
 
-		r.drawSubImageRotated(mSheet, x, y, (mFrame % 8) * 128, (mFrame / 8) * 128, 128, 128, 270.0f);
-		//r.drawSubImage(mSheet, x, y, (mFrame % 8) * 128, (mFrame / 8) * 128, 128, 128);
+		auto rasterX = static_cast<float>(x);
+		auto rasterY = static_cast<float>(y);
+		auto width = 128.0f;
+		auto height = 128.0f;
+		auto posX = (mFrame % 8u) * width;
+		auto posY = (mFrame / 8u) * height;
+		auto orientationDegrees = 270.0f;
+		r.drawSubImageRotated(mSheet, rasterX, rasterY, posX, posY, width, height, orientationDegrees);
 	}
 
 private:
