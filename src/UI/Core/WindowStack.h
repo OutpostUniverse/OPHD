@@ -10,16 +10,16 @@ public:
 	WindowStack() = default;
 	~WindowStack() = default;
 
-	void addWindow(Window* _w);
-	void removeWindow(Window* _w);
+	void addWindow(Window* window);
+	void removeWindow(Window* window);
 
-	bool pointInWindow(const NAS2D::Point_2d& _p) const { return pointInWindow(_p.x(), _p.y()); }
+	bool pointInWindow(const NAS2D::Point_2d& p) const { return pointInWindow(p.x(), p.y()); }
 	bool pointInWindow(int x, int y) const;
 
-	void updateStack(const NAS2D::Point_2d& _p) { updateStack(_p.x(), _p.y()); }
+	void updateStack(const NAS2D::Point_2d& p) { updateStack(p.x(), p.y()); }
 	void updateStack(int x, int y);
 
-	void bringToFront(Window* _w);
+	void bringToFront(Window* window);
 
 	void hide();
 

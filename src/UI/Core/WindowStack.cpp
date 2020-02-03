@@ -15,15 +15,15 @@
  *
  * \note	Pointer is not owned by WindowStack, it is up to the caller to properly handle memory.
  */
-void WindowStack::addWindow(Window* _w)
+void WindowStack::addWindow(Window* window)
 {
-	if (find(mWindowList.begin(), mWindowList.end(), _w) != mWindowList.end())
+	if (find(mWindowList.begin(), mWindowList.end(), window) != mWindowList.end())
 	{
 		std::cout << "WindowStack::addWindow(): Attempting to add a Window that's already in this stack." << std::endl;
 		return;
 	}
 
-	mWindowList.push_back(_w);
+	mWindowList.push_back(window);
 }
 
 
@@ -32,9 +32,9 @@ void WindowStack::addWindow(Window* _w)
  *
  * \note Pointer is not owned by WindowStack, it is up to the caller to properly handle memory.
  */
-void WindowStack::removeWindow(Window* _w)
+void WindowStack::removeWindow(Window* window)
 {
-	mWindowList.remove(_w);
+	mWindowList.remove(window);
 }
 
 
@@ -76,9 +76,9 @@ void WindowStack::updateStack(int x, int y)
 }
 
 
-void WindowStack::bringToFront(Window* _w)
+void WindowStack::bringToFront(Window* window)
 {
-	if (find(mWindowList.begin(), mWindowList.end(), _w) == mWindowList.end())
+	if (find(mWindowList.begin(), mWindowList.end(), window) == mWindowList.end())
 	{
 		std::cout << "WindowStack::bringToFront(): Window is not managed by this stack." << std::endl;
 		return;
@@ -86,9 +86,9 @@ void WindowStack::bringToFront(Window* _w)
 
 	(*mWindowList.begin())->hasFocus(false);
 
-	mWindowList.remove(_w);
-	mWindowList.push_front(_w);
-	_w->hasFocus(true);
+	mWindowList.remove(window);
+	mWindowList.push_front(window);
+	window->hasFocus(true);
 }
 
 
