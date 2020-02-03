@@ -20,14 +20,14 @@ public:
 	int turnsToCompleteTask() const { return mTurnsToCompleteTask; }
 
 	bool selfDestruct() const { return mSelfDestruct; }
-	void seldDestruct(bool _b) { mSelfDestruct = _b; }
+	void seldDestruct(bool value) { mSelfDestruct = value; }
 
 	bool idle() const { return turnsToCompleteTask() == 0; }
 
 	TaskCallback& taskComplete() { return mTaskCompleteCallback; }
 	Callback& selfDestruct() { return mSelfDestructCallback; }
 
-	void id(int _id) { mId = _id; }
+	void id(int newId) { mId = newId; }
 	int id() const { return mId; }
 
 protected:
