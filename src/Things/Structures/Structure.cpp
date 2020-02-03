@@ -182,6 +182,14 @@ void Structure::activate()
 }
 
 
+int Structure::calculateIntegrity() {
+	return mIntegrity - calculateIntegrityDecayRate();
+}
+
+int Structure::calculateIntegrityDecayRate() {
+	return 0;
+}
+
 bool Structure::disabledByIntegrity() const
 {
 	return mIntegrity < 35;
