@@ -20,27 +20,27 @@ public:
 	void addStructure(Structure* st, Tile* t);
 	void removeStructure(Structure* st);
 
-	StructureList& structureList(Structure::StructureClass _st) { return mStructureLists[_st]; }
-	Tile* tileFromStructure(Structure* _st);
+	StructureList& structureList(Structure::StructureClass st) { return mStructureLists[st]; }
+	Tile* tileFromStructure(Structure* st);
 
 	void disconnectAll();
 	void dropAllStructures();
 
 	int count() const;
 
-	int getCountInState(Structure::StructureClass _st, Structure::StructureState _state);
+	int getCountInState(Structure::StructureClass st, Structure::StructureState state);
 
 	int disabled();
 	int destroyed();
 
 	bool CHAPAvailable();
 
-	void updateEnergyProduction(ResourcePool& _r, PopulationPool& _p);
+	void updateEnergyProduction(ResourcePool& resourcePool, PopulationPool& popPool);
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
 
-	void update(ResourcePool& _r, PopulationPool& _p);
+	void update(ResourcePool& resourcePool, PopulationPool& popPool);
 
-	void serialize(NAS2D::Xml::XmlElement* _ti);
+	void serialize(NAS2D::Xml::XmlElement* element);
 
 protected:
 
@@ -49,7 +49,7 @@ private:
 	typedef std::map<Structure::StructureClass, StructureList> StructureClassTable;
 
 private:
-	void updateStructures(ResourcePool& _r, PopulationPool& _p, StructureList& _sl);
+	void updateStructures(ResourcePool& resourcePool, PopulationPool& popPool, StructureList& sl);
 	void updateFactoryProduction();
 
 	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }

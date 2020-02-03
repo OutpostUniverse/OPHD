@@ -61,43 +61,43 @@ bool StructureManager::CHAPAvailable()
 /**
  *
  */
-void StructureManager::update(ResourcePool& _r, PopulationPool& _p)
+void StructureManager::update(ResourcePool& resourcePool, PopulationPool& popPool)
 {
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
 	// calls to lower priority structures.
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LANDER]);				// No resource needs
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_COMMAND]);			// Self sufficient
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_ENERGY_PRODUCTION]);	// Nothing can work without energy
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_LANDER]);				// No resource needs
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_COMMAND]);			// Self sufficient
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_ENERGY_PRODUCTION]);	// Nothing can work without energy
 
-	updateEnergyProduction(_r, _p);
+	updateEnergyProduction(resourcePool, popPool);
 
 	// Basic resource production
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_MINE]);				// Can't operate without resources.
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_SMELTER]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_MINE]);				// Can't operate without resources.
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_SMELTER]);
 
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LIFE_SUPPORT]);		// Air, water food must come before others
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_FOOD_PRODUCTION]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_LIFE_SUPPORT]);		// Air, water food must come before others
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_FOOD_PRODUCTION]);
 
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_MEDICAL_CENTER]);		// No medical facilities, people die
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_NURSERY]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_MEDICAL_CENTER]);		// No medical facilities, people die
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_NURSERY]);
 
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_FACTORY]);			// Production
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_FACTORY]);			// Production
 
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_STORAGE]);			// Everything else.
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_PARK]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_SURFACE_POLICE]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_UNDERGROUND_POLICE]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_RECREATION_CENTER]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_RESIDENCE]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_ROBOT_COMMAND]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_WAREHOUSE]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_LABORATORY]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_COMMERCIAL]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_UNIVERSITY]);
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_COMM]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_STORAGE]);			// Everything else.
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_PARK]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_SURFACE_POLICE]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_UNDERGROUND_POLICE]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_RECREATION_CENTER]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_RESIDENCE]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_ROBOT_COMMAND]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_WAREHOUSE]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_LABORATORY]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_COMMERCIAL]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_UNIVERSITY]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_COMM]);
 
-	updateStructures(_r, _p, mStructureLists[Structure::CLASS_UNDEFINED]);
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::CLASS_UNDEFINED]);
 
 	updateFactoryProduction();
 }
@@ -106,7 +106,7 @@ void StructureManager::update(ResourcePool& _r, PopulationPool& _p)
 /**
  *
  */
-void StructureManager::updateEnergyProduction(ResourcePool& _r, PopulationPool& /*_p*/)
+void StructureManager::updateEnergyProduction(ResourcePool& resourcePool, PopulationPool& popPool)
 {
 	mTotalEnergyOutput = 0;
 
@@ -115,23 +115,23 @@ void StructureManager::updateEnergyProduction(ResourcePool& _r, PopulationPool& 
 		if (_s->operational()) { mTotalEnergyOutput += _s->resourcesOut().energy(); }
 	}
 
-	_r.energy(mTotalEnergyOutput);
+	resourcePool.energy(mTotalEnergyOutput);
 }
 
 
 /**
  *
  */
-void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, StructureList& _sl)
+void StructureManager::updateStructures(ResourcePool& resourcePool, PopulationPool& popPool, StructureList& sl)
 {
 	bool chapAvailable = CHAPAvailable();
 	const PopulationRequirements* _populationRequired = nullptr;
 	PopulationRequirements* _populationAvailable = nullptr;
 
 	Structure* structure = nullptr;
-	for (size_t i = 0; i < _sl.size(); ++i)
+	for (size_t i = 0; i < sl.size(); ++i)
 	{
-		structure = _sl[i];
+		structure = sl[i];
 		structure->update();
 
 		// State Check
@@ -161,10 +161,10 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 		_populationRequired = &structure->populationRequirements();
 		_populationAvailable = &structure->populationAvailable();
 
-		fillPopulationRequirements(_p, _populationRequired, _populationAvailable);
+		fillPopulationRequirements(popPool, _populationRequired, _populationAvailable);
 
-		if (!_p.enoughPopulationAvailable(Population::ROLE_WORKER, (*_populationRequired)[0]) ||
-			!_p.enoughPopulationAvailable(Population::ROLE_SCIENTIST, (*_populationRequired)[1]))
+		if (!popPool.enoughPopulationAvailable(Population::ROLE_WORKER, (*_populationRequired)[0]) ||
+			!popPool.enoughPopulationAvailable(Population::ROLE_SCIENTIST, (*_populationRequired)[1]))
 		{
 			structure->disable(DISABLED_POPULATION);
 			continue;
@@ -175,12 +175,12 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 		}
 
 		// Check that enough resources are available for input.
-		if (!structure->resourcesIn().empty() && !structure->enoughResourcesAvailable(_r) && !structure->isIdle())
+		if (!structure->resourcesIn().empty() && !structure->enoughResourcesAvailable(resourcePool) && !structure->isIdle())
 		{
 			if (!structure->isIdle()) //-V571
 			{
 				/// \fixme	Ugly. Special case code specifically to determine if energy is the reason for a disabled structure.
-				if (structure->resourcesIn().energy() > _r.energy()) { structure->disable(DISABLED_ENERGY); }
+				if (structure->resourcesIn().energy() > resourcePool.energy()) { structure->disable(DISABLED_ENERGY); }
 				else { structure->disable(DISABLED_REFINED_RESOURCES); }
 				continue;
 			}
@@ -193,10 +193,10 @@ void StructureManager::updateStructures(ResourcePool& _r, PopulationPool& _p, St
 
 		if (structure->operational() || structure->isIdle())
 		{
-			_p.usePopulation(Population::ROLE_WORKER, (*_populationRequired)[0]);
-			_p.usePopulation(Population::ROLE_SCIENTIST, (*_populationRequired)[1]);
+			popPool.usePopulation(Population::ROLE_WORKER, (*_populationRequired)[0]);
+			popPool.usePopulation(Population::ROLE_SCIENTIST, (*_populationRequired)[1]);
 
-			_r -= structure->resourcesIn();
+			resourcePool -= structure->resourcesIn();
 
 			structure->think();
 		}
@@ -318,12 +318,12 @@ int StructureManager::count() const
 /**
  *
  */
-int StructureManager::getCountInState(Structure::StructureClass _st, Structure::StructureState _state)
+int StructureManager::getCountInState(Structure::StructureClass st, Structure::StructureState state)
 {
 	int count = 0;
-	for (size_t i = 0; i < structureList(_st).size(); ++i)
+	for (size_t i = 0; i < structureList(st).size(); ++i)
 	{
-		if (structureList(_st)[i]->state() == _state)
+		if (structureList(st)[i]->state() == state)
 		{
 			++count;
 		}
@@ -381,9 +381,9 @@ void StructureManager::dropAllStructures()
 /**
  * 
  */
-Tile* StructureManager::tileFromStructure(Structure* _st)
+Tile* StructureManager::tileFromStructure(Structure* st)
 {
-	auto it = mStructureTileTable.find(_st);
+	auto it = mStructureTileTable.find(st);
 	if (it != mStructureTileTable.end()) { return it->second; }
 	return nullptr;
 }
@@ -435,7 +435,7 @@ void serializeStructure(XmlElement* _ti, Structure* _s, Tile* _t)
 /**
  * 
  */
-void StructureManager::serialize(XmlElement* _ti)
+void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 {
 	XmlElement* structures = new XmlElement("structures");
 
@@ -477,5 +477,5 @@ void StructureManager::serialize(XmlElement* _ti)
 		structures->linkEndChild(structure);
 	}
 
-	_ti->linkEndChild(structures);
+	element->linkEndChild(structures);
 }
