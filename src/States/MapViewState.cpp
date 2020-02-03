@@ -93,11 +93,11 @@ MapViewState::MapViewState(const std::string& savegame) :
  * \param	d	Depth of the site map.
  * \param	mc	Mine Count - Number of mines to generate.
  */
-MapViewState::MapViewState(const std::string& sm, const std::string& t, int d, int mc, constants::PlanetHostility h) :
-	mTileMap(new TileMap(sm, t, d, mc, h)),
+MapViewState::MapViewState(const std::string& siteMap, const std::string& tileSet, int depth, int mineCount, constants::PlanetHostility hostility) :
+	mTileMap(new TileMap(siteMap, tileSet, depth, mineCount, hostility)),
 	mBackground("sys/bg1.png"),
-	mMapDisplay(sm + MAP_DISPLAY_EXTENSION),
-	mHeightMap(sm + MAP_TERRAIN_EXTENSION),
+	mMapDisplay(siteMap + MAP_DISPLAY_EXTENSION),
+	mHeightMap(siteMap + MAP_TERRAIN_EXTENSION),
 	mUiIcons("ui/icons.png")
 {
 	ccLocation() = {0, 0};
@@ -132,9 +132,9 @@ MapViewState::~MapViewState()
 /**
  * 
  */
-void MapViewState::setPopulationLevel(PopulationLevel _level)
+void MapViewState::setPopulationLevel(PopulationLevel popLevel)
 {
-	mLandersColonist = static_cast<int>(_level);
+	mLandersColonist = static_cast<int>(popLevel);
 	mLandersCargo = 2;	///\todo This should be set based on difficulty level.
 }
 
@@ -198,10 +198,10 @@ void MapViewState::_deactivate()
 }
 
 
-void MapViewState::focusOnStructure(Structure* _s)
+void MapViewState::focusOnStructure(Structure* s)
 {
-	if (!_s) { return; }
-	mTileMap->centerMapOnTile(Utility<StructureManager>::get().tileFromStructure(_s));
+	if (!s) { return; }
+	mTileMap->centerMapOnTile(Utility<StructureManager>::get().tileFromStructure(s));
 }
 
 
@@ -302,7 +302,7 @@ int MapViewState::foodTotalStorage()
 /**
  * Window activation handler.
  */
-void MapViewState::onActivate(bool /*_b*/)
+void MapViewState::onActivate(bool /*newActiveValue*/)
 {
 	mLeftButtonDown = false;
 }
@@ -714,19 +714,19 @@ void MapViewState::clearMode()
 /**
  * 
  */
-void MapViewState::insertTube(ConnectorDir _dir, int _depth, Tile* _t)
+void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 {
-	if (_dir == CONNECTOR_INTERSECTION)
+	if (dir == CONNECTOR_INTERSECTION)
 	{
-		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, _depth != 0), _t);
+		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, depth != 0), tile);
 	}
-	else if (_dir == CONNECTOR_RIGHT)
+	else if (dir == CONNECTOR_RIGHT)
 	{
-		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_RIGHT, _depth != 0), _t);
+		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_RIGHT, depth != 0), tile);
 	}
-	else if (_dir == CONNECTOR_LEFT)
+	else if (dir == CONNECTOR_LEFT)
 	{
-		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_LEFT, _depth != 0), _t);
+		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_LEFT, depth != 0), tile);
 	}
 	else
 	{

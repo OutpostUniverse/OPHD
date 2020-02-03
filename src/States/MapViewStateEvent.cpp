@@ -182,7 +182,7 @@ void MapViewState::deploySeedLander(int x, int y)
 /**
  * Called whenever a RoboDozer completes its task.
  */
-void MapViewState::dozerTaskFinished(Robot* /*_r*/)
+void MapViewState::dozerTaskFinished(Robot* r)
 {
 	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
 }
@@ -191,18 +191,18 @@ void MapViewState::dozerTaskFinished(Robot* /*_r*/)
 /**
  * Called whenever a RoboDigger completes its task.
  */
-void MapViewState::diggerTaskFinished(Robot* _r)
+void MapViewState::diggerTaskFinished(Robot* r)
 {
-	if (mRobotList.find(_r) == mRobotList.end()) { throw std::runtime_error("MapViewState::diggerTaskFinished() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(r) == mRobotList.end()) { throw std::runtime_error("MapViewState::diggerTaskFinished() called with a Robot not in the Robot List!"); }
 
-	Tile* t = mRobotList[_r];
+	Tile* t = mRobotList[r];
 
 	if (t->depth() > mTileMap->maxDepth())
 	{
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
-	Direction dir = static_cast<Robodigger*>(_r)->direction(); // fugly
+	Direction dir = static_cast<Robodigger*>(r)->direction(); // fugly
 
 	int originX = 0, originY = 0, depthAdjust = 0;
 
@@ -268,11 +268,11 @@ void MapViewState::diggerTaskFinished(Robot* _r)
 /**
  * Called whenever a RoboMiner completes its task.
  */
-void MapViewState::minerTaskFinished(Robot* _r)
+void MapViewState::minerTaskFinished(Robot* r)
 {
-	if (mRobotList.find(_r) == mRobotList.end()) { throw std::runtime_error("MapViewState::minerTaskFinished() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(r) == mRobotList.end()) { throw std::runtime_error("MapViewState::minerTaskFinished() called with a Robot not in the Robot List!"); }
 
-	Tile* t = mRobotList[_r];
+	Tile* t = mRobotList[r];
 
 	// Surface structure
 	MineFacility* _mf = new MineFacility(t->mine());
@@ -288,7 +288,7 @@ void MapViewState::minerTaskFinished(Robot* _r)
 	t2->index(0);
 	t2->excavated(true);
 
-	_r->die();
+	r->die();
 }
 
 

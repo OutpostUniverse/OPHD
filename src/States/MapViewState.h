@@ -64,16 +64,16 @@ public:
 
 public:
 	MapViewState(const std::string& savegame);
-	MapViewState(const std::string& map, const std::string& tset, int _d, int _minecount, constants::PlanetHostility hostility);
+	MapViewState(const std::string& siteMap, const std::string& tileSet, int depth, int mineCount, constants::PlanetHostility hostility);
 	virtual ~MapViewState();
 
-	void setPopulationLevel(PopulationLevel _level);
+	void setPopulationLevel(PopulationLevel popLevel);
 
 	ReportsUiCallback& showReporstUi() { return mReportsUiCallback; }
 	QuitCallback& quit() { return mQuitCallback; }
 	MapChangedCallback& mapChanged() { return mMapChangedCallback; }
 
-	void focusOnStructure(Structure*);
+	void focusOnStructure(Structure* s);
 
 protected:
 	void initialize();
@@ -84,7 +84,7 @@ private:
 	virtual void _activate() final;
 	
 	// EVENT HANDLERS
-	void onActivate(bool _b);
+	void onActivate(bool newActiveValue);
 	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
 	void onMouseDown(EventHandler::MouseButton button, int x, int y);
 	void onMouseDoubleClick(EventHandler::MouseButton button, int x, int y);
@@ -94,9 +94,9 @@ private:
 	void onWindowResized(int w, int h);
 
 	// ROBOT EVENT HANDLERS
-	void dozerTaskFinished(Robot* _r);
-	void diggerTaskFinished(Robot* _r);
-	void minerTaskFinished(Robot* _r);
+	void dozerTaskFinished(Robot* r);
+	void diggerTaskFinished(Robot* r);
+	void minerTaskFinished(Robot* r);
 
 	// DRAWING FUNCTIONS
 	void drawUI();
@@ -110,7 +110,7 @@ private:
 	void deployColonistLander();
 	void deploySeedLander(int x, int y);
 	void insertSeedLander(int x, int y);
-	void insertTube(ConnectorDir _dir, int depth, Tile* t);
+	void insertTube(ConnectorDir dir, int depth, Tile* tile);
 
 	void placeRobot();
 	void placeStructure();
@@ -143,15 +143,15 @@ private:
 
 
 	// SAVE GAME MANAGEMENT FUNCTIONS
-	void readRobots(Xml::XmlElement* _ti);
-	void readStructures(Xml::XmlElement* _ti);
-	void readTurns(Xml::XmlElement* _ti);
-	void readPopulation(Xml::XmlElement* _ti);
+	void readRobots(Xml::XmlElement* element);
+	void readStructures(Xml::XmlElement* element);
+	void readTurns(Xml::XmlElement* element);
+	void readPopulation(Xml::XmlElement* element);
 
 	void scrubRobotList();
 
-	void load(const std::string& _path);
-	void save(const std::string& _path);
+	void load(const std::string& filePath);
+	void save(const std::string& filePath);
 
 	// UI MANAGEMENT FUNCTIONS
 	void clearMode();
@@ -185,9 +185,9 @@ private:
 	void connectionsSelectionChanged(const IconGrid::IconGridItem*);
 	void robotsSelectionChanged(const IconGrid::IconGridItem*);
 
-	void diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t);
+	void diggerSelectionDialog(DiggerDirection::DiggerSelection selection, Tile* tile);
 
-	void fileIoAction(const std::string& _file, FileIo::FileOperation _op);
+	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
 
 private:
