@@ -206,7 +206,7 @@ void MainReportsUiState::initialize()
 	Panels[PANEL_SPACEPORT].Name = "Space Ports";
 
 	Renderer& r = Utility<Renderer>::get();
-	setPanelRects(static_cast<int>(std::floor(r.width())));
+	setPanelRects(static_cast<int>(r.width()));
 
 	// INIT UI REPORT PANELS
 	ReportInterface* factory_report = new FactoryReport();
