@@ -191,12 +191,12 @@ void ListBoxBase::onMouseWheel(int /*x*/, int y)
 /**
  * Slider changed event handler.
  */
-void ListBoxBase::slideChanged(float _position)
+void ListBoxBase::slideChanged(float newPosition)
 {
 	_update_item_display();
 	// Intentional truncation of fractional value
-	int pos = static_cast<int>(_position);
-	if (static_cast<float>(pos) != _position)
+	int pos = static_cast<int>(newPosition);
+	if (static_cast<float>(pos) != newPosition)
 	{
 		mSlider.thumbPosition(static_cast<float>(pos));
 	}

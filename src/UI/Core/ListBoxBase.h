@@ -98,7 +98,7 @@ protected:
 
 private:
 	void _init();
-	void slideChanged(float _position);
+	void slideChanged(float newPosition);
 
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int relX, int relY);
