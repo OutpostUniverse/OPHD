@@ -80,8 +80,8 @@ int main(int argc, char *argv[])
 		// If no config file, set defaults.
 		if (!f.exists("config.xml"))
 		{
-			cf.graphicsWidth(constants::MINIMUM_WINDOW_WIDTH);
-			cf.graphicsHeight(constants::MINIMUM_WINDOW_HEIGHT);
+			cf.graphicsWidth(constants::DEFAULT_WINDOW_WIDTH);
+			cf.graphicsHeight(constants::DEFAULT_WINDOW_HEIGHT);
 			cf.fullscreen(false);
 		}
 
