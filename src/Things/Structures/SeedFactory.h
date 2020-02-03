@@ -29,15 +29,6 @@ protected:
 		addProduct(PRODUCT_ROAD_MATERIALS);
 	}
 
-	int calculateIntegrity() override {
-		return integrity() - calculateIntegrityDecayRate();
-	}
-
-
-	int calculateIntegrityDecayRate() override {
-		return 0;
-	}
-
 private:
 
 	virtual void defineResourceInput()

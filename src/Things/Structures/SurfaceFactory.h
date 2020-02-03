@@ -28,15 +28,6 @@ protected:
 		addProduct(PRODUCT_MINER);
 	}
 
-	int calculateIntegrity() override {
-		return integrity() - calculateIntegrityDecayRate();
-	}
-
-
-	int calculateIntegrityDecayRate() override {
-		return 0;
-	}
-
 private:
 	virtual void defineResourceInput()
 	{

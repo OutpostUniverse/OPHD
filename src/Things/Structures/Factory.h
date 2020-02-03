@@ -61,15 +61,6 @@ protected:
 
 	ResourcePool* resourcePool() { return mResourcesPool; }
 
-	int calculateIntegrity() override {
-		return integrity() - calculateIntegrityDecayRate();
-	}
-
-
-	int calculateIntegrityDecayRate() override {
-		return 0;
-	}
-
 private:
 	int								mTurnsCompleted = 0;
 	int								mTurnsToComplete = 0;

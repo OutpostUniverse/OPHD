@@ -43,15 +43,6 @@ protected:
 		resourcesIn().energy(5);
 	}
 
-	int calculateIntegrity() override {
-		return integrity() - calculateIntegrityDecayRate();
-	}
-
-
-	int calculateIntegrityDecayRate() override {
-		return 0;
-	}
-
 private:
 	RobotList	mRobotList;
 };
