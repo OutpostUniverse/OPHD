@@ -140,7 +140,7 @@ void MapViewState::initUi()
 
 	// Menus
 	mRobots.sheetPath("ui/robots.png");
-	mRobots.position(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52.0f, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52.0f), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mRobots.size(52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f);
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
@@ -148,7 +148,7 @@ void MapViewState::initUi()
 	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
 
 	mConnections.sheetPath("ui/structures.png");
-	mConnections.position(mRobots.positionX() - constants::MARGIN_TIGHT - 52.0f, BOTTOM_UI_AREA.y() + MARGIN);
+	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52.0f), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mConnections.size(52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f);
 	mConnections.iconSize(46);
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
@@ -156,7 +156,7 @@ void MapViewState::initUi()
 	mConnections.sorted(false);
 
 	mStructures.sheetPath("ui/structures.png");
-	mStructures.position(constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN);
+	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mStructures.size(mConnections.positionX() -  constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f);
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
@@ -208,15 +208,15 @@ void MapViewState::setupUiPositions(int w, int h)
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 
 	// Anchored window positions
-	mFileIoDialog.position(centerWindowWidth(mFileIoDialog.width()), 50.0f);
-	mGameOverDialog.position(centerWindowWidth(mGameOverDialog.width()), centerWindowHeight(mGameOverDialog.height()) - 100.0f);
-	mAnnouncement.position(centerWindowWidth(mAnnouncement.width()), centerWindowHeight(mAnnouncement.height()) - 100.0f);
-	mGameOptionsDialog.position(centerWindowWidth(mGameOptionsDialog.width()), centerWindowHeight(mGameOptionsDialog.height()) - 100.0f);
+	mFileIoDialog.position(static_cast<float>(centerWindowWidth(mFileIoDialog.width())), 50.0f);
+	mGameOverDialog.position(static_cast<float>(centerWindowWidth(mGameOverDialog.width())), centerWindowHeight(mGameOverDialog.height()) - 100.0f);
+	mAnnouncement.position(static_cast<float>(centerWindowWidth(mAnnouncement.width())), centerWindowHeight(mAnnouncement.height()) - 100.0f);
+	mGameOptionsDialog.position(static_cast<float>(centerWindowWidth(mGameOptionsDialog.width())), centerWindowHeight(mGameOptionsDialog.height()) - 100.0f);
 
-	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), static_cast<int>(h / 2.0f) - 125.0f);
+	mDiggerDirection.position(static_cast<float>(centerWindowWidth(mDiggerDirection.width())), static_cast<int>(h / 2.0f) - 125.0f);
 
-	mWarehouseInspector.position(centerWindowWidth(mWarehouseInspector.width()), centerWindowHeight(mWarehouseInspector.height()) - 100.0f);
-	mMineOperationsWindow.position(centerWindowWidth(mMineOperationsWindow.width()), centerWindowHeight(mMineOperationsWindow.height()) - 100.0f);
+	mWarehouseInspector.position(static_cast<float>(centerWindowWidth(mWarehouseInspector.width())), centerWindowHeight(mWarehouseInspector.height()) - 100.0f);
+	mMineOperationsWindow.position(static_cast<float>(centerWindowWidth(mMineOperationsWindow.width())), centerWindowHeight(mMineOperationsWindow.height()) - 100.0f);
 
 	/**
 	 * \note	We are not setting the tile inspector window's position here because it's something that can be

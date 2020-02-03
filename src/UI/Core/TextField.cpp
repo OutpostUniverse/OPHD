@@ -174,7 +174,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 			break;
 
 		case EventHandler::KeyCode::KEY_END:
-			mCursorPosition = text().length();
+			mCursorPosition = static_cast<int>(text().length());
 			break;
 
 		case EventHandler::KeyCode::KEY_DELETE:
@@ -234,7 +234,7 @@ void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	// set the position to the end and move on.
 	if(TXT_FONT->width(text()) < relativePosition)
 	{
-		mCursorPosition = text().size();
+		mCursorPosition = static_cast<int>(text().size());
 		return;
 	}
 
