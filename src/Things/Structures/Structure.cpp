@@ -208,7 +208,7 @@ void Structure::update()
 {
 	if (disabled() || destroyed()) { return; }
 	incrementAge();
-	mIntegrity = calculateIntegrity();
+	integrity(calculateIntegrity());
 	if(disabledByIntegrity())
 	{
 		disable(DISABLED_STRUCTURAL_INTEGRITY);
