@@ -63,8 +63,8 @@ const std::string& structureClassDescription(Structure::StructureClass _class)
 /**
  * C'tor
  */
-Structure::Structure(const std::string& name, const std::string& sprite_path, StructureClass _t):	Thing(name, sprite_path),
-	mStructureClass(_t)
+Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass):	Thing(name, spritePath),
+	mStructureClass(structureClass)
 
 {
 	mPopulationRequirements.fill(0);
