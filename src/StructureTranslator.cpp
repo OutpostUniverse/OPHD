@@ -11,21 +11,21 @@ std::array<std::string, SID_COUNT> StructureTranslator::_structureToStringTable;
 /**
  * 
  */
-StructureID StructureTranslator::translateFromString(const std::string& _s)
+StructureID StructureTranslator::translateFromString(const std::string& s)
 {
-	if (_stringToStructureTable.find(_s) == _stringToStructureTable.end())
+	if (_stringToStructureTable.find(s) == _stringToStructureTable.end())
 		return SID_NONE;
 
-	return _stringToStructureTable[_s];
+	return _stringToStructureTable[s];
 }
 
 
 /**
  * 
  */
-const std::string& StructureTranslator::translateToString(StructureID _s)
+const std::string& StructureTranslator::translateToString(StructureID s)
 {
-	return _structureToStringTable[_s];
+	return _structureToStringTable[s];
 }
 
 

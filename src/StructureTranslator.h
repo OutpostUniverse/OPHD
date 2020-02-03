@@ -23,8 +23,8 @@ class StructureTranslator
 {
 public:
 
-	static StructureID translateFromString(const std::string& _s);
-	static const std::string& translateToString(StructureID _s);
+	static StructureID translateFromString(const std::string& s);
+	static const std::string& translateToString(StructureID s);
 
 	static void init();
 
