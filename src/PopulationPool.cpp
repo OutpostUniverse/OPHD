@@ -39,14 +39,14 @@ void PopulationPool::population(Population* pop)
 /**
  * Gets the amount of population available for a given role.
  */
-int PopulationPool::populationAvailable(Population::PersonRole _role)
+int PopulationPool::populationAvailable(Population::PersonRole role)
 {
-	BasicCheck(_role);
+	BasicCheck(role);
 
 	int employed = 0;
-	employed = _role == Population::ROLE_SCIENTIST ? scientistsEmployed() : workersEmployed();
+	employed = role == Population::ROLE_SCIENTIST ? scientistsEmployed() : workersEmployed();
 
-	return mPopulation->size(_role) - employed;
+	return mPopulation->size(role) - employed;
 }
 
 
@@ -55,10 +55,10 @@ int PopulationPool::populationAvailable(Population::PersonRole _role)
  * 
  * \returns	True if available is the same or greater than what is being asked for. False otherwise.
  */
-bool PopulationPool::enoughPopulationAvailable(Population::PersonRole _role, int _amount)
+bool PopulationPool::enoughPopulationAvailable(Population::PersonRole role, int amount)
 {
-	BasicCheck(_role);
-	return populationAvailable(_role) >= _amount;
+	BasicCheck(role);
+	return populationAvailable(role) >= amount;
 }
 
 
@@ -69,33 +69,33 @@ bool PopulationPool::enoughPopulationAvailable(Population::PersonRole _role, int
  * 
  * \return	Returns true if population was assigned. False if insufficient population.
  */
-bool PopulationPool::usePopulation(Population::PersonRole _role, int _amount)
+bool PopulationPool::usePopulation(Population::PersonRole role, int amount)
 {
-	BasicCheck(_role);
+	BasicCheck(role);
 	int scientistsAvailable = mPopulation->size(Population::ROLE_SCIENTIST) - (mScientistsAsWorkers + mScientistsUsed);
 	int workersAvailable = mPopulation->size(Population::ROLE_WORKER) - mWorkersUsed;
 
 
-	if (_role == Population::ROLE_SCIENTIST)
+	if (role == Population::ROLE_SCIENTIST)
 	{
-		if (_amount <= scientistsAvailable)
+		if (amount <= scientistsAvailable)
 		{
-			mScientistsUsed += _amount;
+			mScientistsUsed += amount;
 			return true;
 		}
 	}
-	else if (_role == Population::ROLE_WORKER)
+	else if (role == Population::ROLE_WORKER)
 	{
-		if (_amount <= workersAvailable + scientistsAvailable)
+		if (amount <= workersAvailable + scientistsAvailable)
 		{
-			if (_amount <= workersAvailable)
+			if (amount <= workersAvailable)
 			{
-				mWorkersUsed += _amount;
+				mWorkersUsed += amount;
 				return true;
 			}
 
-			int remainder = _amount - workersAvailable;
-			mWorkersUsed += _amount - remainder;
+			int remainder = amount - workersAvailable;
+			mWorkersUsed += amount - remainder;
 			mScientistsAsWorkers += remainder;
 			return true;
 		}
