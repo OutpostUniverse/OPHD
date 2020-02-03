@@ -29,7 +29,7 @@ public:
 
 	Callback& directionSelected() { return mCallback; }
 
-	void setParameters(Tile* _t);
+	void setParameters(Tile* tile);
 
 	void selectDown();
 
