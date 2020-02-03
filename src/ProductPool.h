@@ -34,8 +34,8 @@ public:
 
 	int availableStorage() const;
 
-	void serialize(NAS2D::Xml::XmlElement* _ti);
-	void deserialize(NAS2D::Xml::XmlElement* _ti);
+	void serialize(NAS2D::Xml::XmlElement* element);
+	void deserialize(NAS2D::Xml::XmlElement* element);
 
 	void verifyCount();
 
