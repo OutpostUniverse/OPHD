@@ -35,9 +35,9 @@ public:
 	Tile* getVisibleTile(int x, int y) { return getVisibleTile(x, y, mCurrentDepth); }
 	Tile* getVisibleTile() { return getVisibleTile(tileMouseHoverX(), tileMouseHoverY(), mCurrentDepth); }
 	
-	bool isVisibleTile(int _x, int _y, int _d) const;
-	bool isVisibleTile(int _x, int _y) const { return isVisibleTile(_x, _y, mCurrentDepth); }
-	bool isVisibleTile(const Tile& _t) { return isVisibleTile(_t.x(), _t.y(), _t.depth()); }
+	bool isVisibleTile(int x, int y, int z) const;
+	bool isVisibleTile(int x, int y) const { return isVisibleTile(x, y, mCurrentDepth); }
+	bool isVisibleTile(const Tile& t) { return isVisibleTile(t.x(), t.y(), t.depth()); }
 	
 	const NAS2D::Rectangle_2d& boundingBox() const { return mMapBoundingBox; }
 
@@ -62,7 +62,7 @@ public:
 	int height() const { return mHeight; }
 
 	int currentDepth() const { return mCurrentDepth; }
-	void currentDepth(int _i) { mCurrentDepth = std::clamp(_i, 0, mMaxDepth); }
+	void currentDepth(int i) { mCurrentDepth = std::clamp(i, 0, mMaxDepth); }
 
 	int maxDepth() const { return mMaxDepth; }
 
@@ -72,8 +72,8 @@ public:
 	
 	void draw();
 
-	void serialize(NAS2D::Xml::XmlElement* _ti);
-	void deserialize(NAS2D::Xml::XmlElement* _ti);
+	void serialize(NAS2D::Xml::XmlElement* element);
+	void deserialize(NAS2D::Xml::XmlElement* element);
 
 public:
 	/** MicroPather public interface implementation. */
