@@ -40,7 +40,7 @@ static void drawItem(Renderer& r, StructureListBox::StructureListBoxItem& item, 
 }
 
 
-StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* _st) : ListBoxItem(_st->name()), structure(_st), structureState(""), colorIndex(_st->state()) { Text = _st->name(); }
+StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) : ListBoxItem(s->name()), structure(s), structureState(""), colorIndex(s->state()) { Text = s->name(); }
 StructureListBox::StructureListBoxItem::~StructureListBoxItem() {}
 
 
