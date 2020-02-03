@@ -45,7 +45,7 @@ void MainMenuOptions::init()
 
     const auto border_left_width = 5;
     const auto border_right_width = 5;
-    const auto border_top_height = 25; //WINDOW_TITLE_HEIGHT + 5
+    constexpr auto border_top_height = sWindowTitleBarHeight + 5;
     const auto border_bottom_height = 5;
     const auto element_spacing = 5;
     const auto left_edge = positionX() + border_left_width;
@@ -205,7 +205,7 @@ void MainMenuOptions::init()
 
 
 void MainMenuOptions::visibilityChanged(bool visible) {
-    if(visible)
+    if (visible)
     {
         enableControls();
         setControlsFromConfig();
@@ -233,7 +233,7 @@ void MainMenuOptions::btnCancelClicked() {
 }
 
 void MainMenuOptions::btnApplyClicked() {
-    if(btnApply.enabled())
+    if (btnApply.enabled())
     {
         setConfigFromControls();
         optionsChanged = false;
@@ -272,7 +272,7 @@ void MainMenuOptions::applyVideoChanges() {
 }
 
 void MainMenuOptions::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat) {
-    if(key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) {
+    if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) {
         btnCancelClicked();
     }
 }
@@ -313,12 +313,12 @@ void MainMenuOptions::disableButtons() {
 
 void MainMenuOptions::update()
 {
-    if(!visible()) { return; }
+    if (!visible()) { return; }
 
     //Calls update on the panel controls, which call update on their children.
     Window::update();
 
-    if(optionsChanged)
+    if (optionsChanged)
     {
         optionsChanged = false;
         btnApply.enabled(true);

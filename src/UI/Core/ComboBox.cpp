@@ -187,7 +187,7 @@ int ComboBox::selectionTag() const
 
 
 void ComboBox::currentSelection(unsigned int index) {
-    lstItems.currentSelection(index);
+	lstItems.currentSelection(index);
 	text(lstItems.selectionText());
 	mSelectionChanged();
 }
