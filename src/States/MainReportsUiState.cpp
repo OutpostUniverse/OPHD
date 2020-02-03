@@ -255,7 +255,7 @@ void MainReportsUiState::_deactivate()
 /**
  * Key down event handler.
  */
-void MainReportsUiState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
+void MainReportsUiState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!active()) { return; }
 	if(key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) { exit(); }
@@ -352,7 +352,7 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 /**
  * Structure pointer is assumed to be a Mine Facility or Smelter.
  */
-void MainReportsUiState::selectMinePanel(Structure* structure)
+void MainReportsUiState::selectMinePanel(Structure* /*structure*/)
 {
 	deselectAllPanels();
 	Panels[PANEL_MINING].Selected(true);

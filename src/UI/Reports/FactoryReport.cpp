@@ -321,7 +321,7 @@ void FactoryReport::checkFactoryActionControls()
 /**
  * 
  */
-void FactoryReport::resized(Control* c)
+void FactoryReport::resized(Control* /*c*/)
 {
 	FACTORY_LISTBOX.x(positionX() + 10);
 	FACTORY_LISTBOX.y(cboFilterByProduct.positionY() + cboFilterByProduct.height() + 10);

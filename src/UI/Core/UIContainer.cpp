@@ -113,7 +113,7 @@ void UIContainer::positionChanged(float dX, float dY)
 /**
  * 
  */
-void UIContainer::onMouseDown(EventHandler::MouseButton button, int x, int y)
+void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	if (!visible()) { return; }
 

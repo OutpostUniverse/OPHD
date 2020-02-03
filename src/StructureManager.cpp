@@ -106,7 +106,7 @@ void StructureManager::update(ResourcePool& _r, PopulationPool& _p)
 /**
  *
  */
-void StructureManager::updateEnergyProduction(ResourcePool& _r, PopulationPool& _p)
+void StructureManager::updateEnergyProduction(ResourcePool& _r, PopulationPool& /*_p*/)
 {
 	mTotalEnergyOutput = 0;
 

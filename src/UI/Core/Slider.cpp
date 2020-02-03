@@ -258,7 +258,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 /**
  *
  */
-void Slider::onMouseMotion(int x, int y, int dX, int dY)
+void Slider::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 

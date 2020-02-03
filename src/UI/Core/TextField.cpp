@@ -153,7 +153,7 @@ void TextField::onTextInput(const std::string& _s)
 }
 
 
-void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
+void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!hasFocus() || !editable() || !visible()) { return; }
 
@@ -222,7 +222,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier m
 /**
  * Mouse down even handler.
  */
-void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
+void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	hasFocus(isPointInRect(Point_2d(x, y), rect())); // This is a very useful check, should probably include this in all controls.
 

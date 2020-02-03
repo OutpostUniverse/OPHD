@@ -302,7 +302,7 @@ int MapViewState::foodTotalStorage()
 /**
  * Window activation handler.
  */
-void MapViewState::onActivate(bool _b)
+void MapViewState::onActivate(bool /*_b*/)
 {
 	mLeftButtonDown = false;
 }
@@ -321,7 +321,7 @@ void MapViewState::onWindowResized(int w, int h)
 /**
  * Key down event handler.
  */
-void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat)
+void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool /*repeat*/)
 {
 	if (!active()) { return; }
 
@@ -457,7 +457,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 /**
  * Mouse Down event handler.
  */
-void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
+void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int /*y*/)
 {
 	if (!active()) { return; }
 
@@ -598,7 +598,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int x, int y)
+void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*/, int /*y*/)
 {
 	if (!active()) { return; }
 
@@ -626,7 +626,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int x, i
 /**
 * Mouse Up event handler.
 */
-void MapViewState::onMouseUp(EventHandler::MouseButton button, int x, int y)
+void MapViewState::onMouseUp(EventHandler::MouseButton button, int /*x*/, int /*y*/)
 {
 	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
@@ -638,7 +638,7 @@ void MapViewState::onMouseUp(EventHandler::MouseButton button, int x, int y)
 /**
 * Mouse motion event handler.
 */
-void MapViewState::onMouseMove(int x, int y, int rX, int rY)
+void MapViewState::onMouseMove(int /*x*/, int /*y*/, int /*rX*/, int /*rY*/)
 {
 	if (!active()) { return; }
 
@@ -658,7 +658,7 @@ void MapViewState::onMouseMove(int x, int y, int rX, int rY)
 /**
  * Mouse wheel event handler.
  */
-void MapViewState::onMouseWheel(int x, int y)
+void MapViewState::onMouseWheel(int /*x*/, int y)
 {
 	if (mInsertMode != INSERT_TUBE) { return; }
 

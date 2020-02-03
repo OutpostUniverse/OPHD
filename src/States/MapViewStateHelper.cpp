@@ -266,7 +266,7 @@ bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 /**
  * Document me!
  */
-void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTable& rtt, Tile* tile)
+void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTable& rtt, Tile* /*tile*/)
 {
 	if (rcc->commandedByThis(r))
 	{

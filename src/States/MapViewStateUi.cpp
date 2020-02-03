@@ -420,7 +420,7 @@ void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _ite
 /**
  * Handler for the Tubes Pallette dialog.
  */
-void MapViewState::connectionsSelectionChanged(const IconGrid::IconGridItem* _item)
+void MapViewState::connectionsSelectionChanged(const IconGrid::IconGridItem* /*_item*/)
 {
 	mRobots.clearSelection();
 	mStructures.clearSelection();
