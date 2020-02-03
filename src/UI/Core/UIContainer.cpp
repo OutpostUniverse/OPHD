@@ -70,9 +70,9 @@ void UIContainer::clear()
 /**
  * 
  */
-void UIContainer::bringToFront(Control* _c)
+void UIContainer::bringToFront(Control* control)
 {
-	auto control_iterator = std::find(mControls.begin(), mControls.end(), _c);
+	auto control_iterator = std::find(mControls.begin(), mControls.end(), control);
 	if (control_iterator == mControls.end())
 	{
 		std::cout << "UIContainer::bringToFront(): Control is not managed by this container." << std::endl; // debug aid, can be pulled in release modes.
@@ -82,8 +82,8 @@ void UIContainer::bringToFront(Control* _c)
 	mControls.back()->hasFocus(false);
 
 	mControls.erase(control_iterator);
-	mControls.push_back(_c);
-	_c->hasFocus(true);
+	mControls.push_back(control);
+	control->hasFocus(true);
 }
 
 
