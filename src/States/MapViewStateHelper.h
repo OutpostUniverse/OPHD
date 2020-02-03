@@ -24,9 +24,9 @@ NAS2D::Point_2d& ccLocation();
 int ccLocationX();
 int ccLocationY();
 
-bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir _source_connector_dir);
+bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile* tile, Direction dir);
-bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir _cd);
+bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir dir);
 bool validStructurePlacement(TileMap* tilemap, int x, int y);
 bool validLanderSite(Tile* t);
 bool landingSiteSuitable(TileMap* tilemap, int x, int y);
@@ -34,9 +34,9 @@ bool structureIsLander(StructureID id);
 bool outOfCommRange(NAS2D::Point_2d& cc_location, TileMap* tile_map, Tile* current_tile);
 bool selfSustained(StructureID id);
 
-int totalStorage(StructureList& _sl);
+int totalStorage(StructureList& sl);
 
-Warehouse* getAvailableWarehouse(ProductType _pt, size_t _ct);
+Warehouse* getAvailableWarehouse(ProductType type, size_t count);
 RobotCommand* getAvailableRobotCommand();
 
 bool simulateMoveProducts(Warehouse*);
@@ -45,10 +45,10 @@ void moveProducts(Warehouse*);
 void resourceShortageMessage(ResourcePool&, StructureID);
 
 // Serialize / Deserialize
-void writeRobots(NAS2D::Xml::XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm);
-void writeResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp, const std::string& tag_name);
+void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap);
+void writeResources(NAS2D::Xml::XmlElement* element, ResourcePool& resourcePool, const std::string& tagName);
 
-void readResources(NAS2D::Xml::XmlElement* _ti, ResourcePool& _rp);
+void readResources(NAS2D::Xml::XmlElement* element, ResourcePool& resourcePool);
 
-void updateRobotControl(RobotPool& _rp);
+void updateRobotControl(RobotPool& robotPool);
 void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTable& rtt, Tile* tile);

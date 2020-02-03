@@ -63,18 +63,18 @@ int ccLocationY()
  * 
  * \warning		Assumes \c tile is never nullptr.
  */
-bool checkTubeConnection(Tile* _tile, Direction _dir, ConnectorDir _source_connector_dir)
+bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnectorDir)
 {
-	if (_tile->mine() || !_tile->bulldozed() || !_tile->excavated() || !_tile->thingIsStructure())
+	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure())
 	{
 		return false;
 	}
 
-	Structure* structure = _tile->structure();
+	Structure* structure = tile->structure();
 
-	if (_source_connector_dir == CONNECTOR_INTERSECTION)
+	if (sourceConnectorDir == CONNECTOR_INTERSECTION)
 	{
-		if (_dir == DIR_EAST || _dir == DIR_WEST)
+		if (dir == DIR_EAST || dir == DIR_WEST)
 		{
 			if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_RIGHT || structure->connectorDirection() == CONNECTOR_VERTICAL)
 			{
@@ -89,14 +89,14 @@ bool checkTubeConnection(Tile* _tile, Direction _dir, ConnectorDir _source_conne
 			}
 		}
 	}
-	else if (_source_connector_dir == CONNECTOR_RIGHT && (_dir == DIR_EAST || _dir == DIR_WEST))
+	else if (sourceConnectorDir == CONNECTOR_RIGHT && (dir == DIR_EAST || dir == DIR_WEST))
 	{
 		if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_RIGHT || structure->connectorDirection() == CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
 	}
-	else if (_source_connector_dir == CONNECTOR_LEFT && (_dir == DIR_NORTH || _dir == DIR_SOUTH))
+	else if (sourceConnectorDir == CONNECTOR_LEFT && (dir == DIR_NORTH || dir == DIR_SOUTH))
 	{
 		if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_LEFT || structure->connectorDirection() == CONNECTOR_VERTICAL)
 		{
@@ -150,12 +150,12 @@ bool checkStructurePlacement(Tile* tile, Direction dir)
  * 
  * \warning		Assumes \c tilemap is never nullptr.
  */
-bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir _cd)
+bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir dir)
 {
-	return checkTubeConnection(tilemap->getTile(x + 1, y, tilemap->currentDepth()), DIR_EAST, _cd) ||
-		checkTubeConnection(tilemap->getTile(x - 1, y, tilemap->currentDepth()), DIR_WEST, _cd) ||
-		checkTubeConnection(tilemap->getTile(x, y + 1, tilemap->currentDepth()), DIR_SOUTH, _cd) ||
-		checkTubeConnection(tilemap->getTile(x, y - 1, tilemap->currentDepth()), DIR_NORTH, _cd);
+	return checkTubeConnection(tilemap->getTile(x + 1, y, tilemap->currentDepth()), DIR_EAST, dir) ||
+		checkTubeConnection(tilemap->getTile(x - 1, y, tilemap->currentDepth()), DIR_WEST, dir) ||
+		checkTubeConnection(tilemap->getTile(x, y + 1, tilemap->currentDepth()), DIR_SOUTH, dir) ||
+		checkTubeConnection(tilemap->getTile(x, y - 1, tilemap->currentDepth()), DIR_NORTH, dir);
 }
 
 
@@ -209,14 +209,14 @@ bool validLanderSite(Tile* t)
 /**
  * Document me!
  */
-int totalStorage(StructureList& _sl)
+int totalStorage(StructureList& sl)
 {
 	int storage = 0;
-	for (size_t i = 0; i < _sl.size(); ++i)
+	for (size_t i = 0; i < sl.size(); ++i)
 	{
-		if (_sl[i]->operational())
+		if (sl[i]->operational())
 		{
-			storage += _sl[i]->storage().capacity();
+			storage += sl[i]->storage().capacity();
 		}
 	}
 
@@ -293,7 +293,7 @@ void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTabl
 /**
  * Document me!
  */
-void updateRobotControl(RobotPool& _rp)
+void updateRobotControl(RobotPool& robotPool)
 {
 	auto CommandCenter = Utility<StructureManager>::get().structureList(Structure::CLASS_COMMAND);
 	auto RobotCommand = Utility<StructureManager>::get().structureList(Structure::CLASS_ROBOT_COMMAND);
@@ -307,7 +307,7 @@ void updateRobotControl(RobotPool& _rp)
 		if (RobotCommand[s]->operational()) { _maxRobots += 10; }
 	}
 
-	_rp.InitRobotCtrl(_maxRobots);
+	robotPool.InitRobotCtrl(_maxRobots);
 }
 
 
@@ -372,12 +372,12 @@ bool outOfCommRange(Point_2d& cc_location, TileMap* tile_map, Tile* current_tile
  * \return	Returns a pointer to a Warehouse structure or \c nullptr if
  *			there are no warehouses available with the required space.
  */
-Warehouse* getAvailableWarehouse(ProductType _pt, size_t _ct)
+Warehouse* getAvailableWarehouse(ProductType type, size_t count)
 {
 	for (auto _st : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
 	{
 		Warehouse* _wh = static_cast<Warehouse*>(_st);
-		if (_wh->products().canStore(_pt, static_cast<int>(_ct)))
+		if (_wh->products().canStore(type, static_cast<int>(count)))
 		{
 			return _wh;
 		}
@@ -553,56 +553,56 @@ void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot
  * 
  * Convenience function
  */
-void writeRobots(XmlElement* _ti, RobotPool& _rp, RobotTileTable& _rm)
+void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap)
 {
 	XmlElement* robots = new XmlElement("robots");
 	robots->attribute("id_counter", ROBOT_ID_COUNTER);
 
-	RobotPool::DiggerList& diggers = _rp.diggers();
+	RobotPool::DiggerList& diggers = robotPool.diggers();
 
 	for (auto digger : diggers)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, _rm, digger, ROBOT_DIGGER);
+		checkRobotDeployment(robot, robotMap, digger, ROBOT_DIGGER);
 		robot->attribute("direction", digger->direction());
 		robots->linkEndChild(robot);
 	}
 
-	RobotPool::DozerList& dozers = _rp.dozers();
+	RobotPool::DozerList& dozers = robotPool.dozers();
 	for (auto dozer : dozers)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, _rm, dozer, ROBOT_DOZER);
+		checkRobotDeployment(robot, robotMap, dozer, ROBOT_DOZER);
 		robots->linkEndChild(robot);
 	}
 
-	RobotPool::MinerList& miners = _rp.miners();
+	RobotPool::MinerList& miners = robotPool.miners();
 	for (auto miner : miners)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, _rm, miner, ROBOT_MINER);
+		checkRobotDeployment(robot, robotMap, miner, ROBOT_MINER);
 		robots->linkEndChild(robot);
 	}
 
-	_ti->linkEndChild(robots);
+	element->linkEndChild(robots);
 }
 
 
 /** 
  * Document me!
  */
-void writeResources(XmlElement* _ti, ResourcePool& _rp, const std::string& tag_name)
+void writeResources(NAS2D::Xml::XmlElement* element, ResourcePool& resourcePool, const std::string& tagName)
 {
-	XmlElement* resources = new XmlElement(tag_name);
-	_rp.serialize(resources);
-	_ti->linkEndChild(resources);
+	XmlElement* resources = new XmlElement(tagName);
+	resourcePool.serialize(resources);
+	element->linkEndChild(resources);
 }
 
 
 /** 
  * Document me!
  */
-void readResources(XmlElement* _ti, ResourcePool& _rp)
+void readResources(NAS2D::Xml::XmlElement* element, ResourcePool& resourcePool)
 {
-	if (_ti) { _rp.deserialize(_ti); }
+	if (element) { resourcePool.deserialize(element); }
 }
