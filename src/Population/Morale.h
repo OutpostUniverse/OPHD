@@ -7,7 +7,6 @@
  */
 struct MoraleModifier
 {
-public:
 	int researchBonus{0};
 	int productionBonus{0};
 	int fertilityRate{0};
