@@ -14,7 +14,7 @@ public:
 	FactoryProduction();
 	virtual ~FactoryProduction();
 
-	void factory(Factory* _f);
+	void factory(Factory* newFactory);
 	Factory* factory() { return mFactory; }
 
 	virtual void hide();

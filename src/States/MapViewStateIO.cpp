@@ -43,7 +43,7 @@ extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 /**
  * 
  */
-void MapViewState::save(const std::string& _path)
+void MapViewState::save(const std::string& filePath)
 {
 	Renderer& r = Utility<Renderer>::get();
 	r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 100);
@@ -82,7 +82,7 @@ void MapViewState::save(const std::string& _path)
 	XmlMemoryBuffer buff;
 	doc.accept(&buff);
 
-	Utility<Filesystem>::get().write(File(buff.buffer(), _path));
+	Utility<Filesystem>::get().write(File(buff.buffer(), filePath));
 }
 
 
@@ -93,7 +93,7 @@ extern std::vector<void*> path;
 /**
  * 
  */
-void MapViewState::load(const std::string& _path)
+void MapViewState::load(const std::string& filePath)
 {
 	resetUi();
 
@@ -106,12 +106,12 @@ void MapViewState::load(const std::string& _path)
 	mBtnToggleHeightmap.toggle(false);
 
 
-	if (!Utility<Filesystem>::get().exists(_path))
+	if (!Utility<Filesystem>::get().exists(filePath))
 	{
-		throw std::runtime_error("File '" + _path + "' was not found.");
+		throw std::runtime_error("File '" + filePath + "' was not found.");
 	}
 
-	File xmlFile = Utility<Filesystem>::get().open(_path);
+	File xmlFile = Utility<Filesystem>::get().open(filePath);
 
 	XmlDocument doc;
 
@@ -119,19 +119,19 @@ void MapViewState::load(const std::string& _path)
 	doc.parse(xmlFile.raw_bytes());
 	if (doc.error())
 	{
-		throw std::runtime_error("Malformed savegame ('" + _path + "'). Error on Row " + std::to_string(doc.errorRow()) + ", Column " + std::to_string(doc.errorCol()) + ": " + doc.errorDesc());
+		throw std::runtime_error("Malformed savegame ('" + filePath + "'). Error on Row " + std::to_string(doc.errorRow()) + ", Column " + std::to_string(doc.errorCol()) + ": " + doc.errorDesc());
 	}
 
 	XmlElement* root = doc.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
 	if (root == nullptr)
 	{
-		throw std::runtime_error("Root element in '" + _path + "' is not '" + constants::SAVE_GAME_ROOT_NODE + "'.");
+		throw std::runtime_error("Root element in '" + filePath + "' is not '" + constants::SAVE_GAME_ROOT_NODE + "'.");
 	}
 
 	std::string sg_version = root->attribute("version");
 	if (sg_version != constants::SAVE_GAME_VERSION)
 	{
-		throw std::runtime_error("Savegame version mismatch: '" + _path + "'. Expected " + constants::SAVE_GAME_VERSION + ", found " + sg_version + ".");
+		throw std::runtime_error("Savegame version mismatch: '" + filePath + "'. Expected " + constants::SAVE_GAME_VERSION + ", found " + sg_version + ".");
 	}
 
 	scrubRobotList();
@@ -233,7 +233,7 @@ void MapViewState::load(const std::string& _path)
 /**
  * 
  */
-void MapViewState::readRobots(XmlElement* _ti)
+void MapViewState::readRobots(Xml::XmlElement* element)
 {
 	mRobotPool.clear();
 	mRobotList.clear();
@@ -242,11 +242,11 @@ void MapViewState::readRobots(XmlElement* _ti)
 	/**
 	 * \fixme	This is fragile and prone to break if the savegame file is malformed.
 	 */
-	_ti->firstAttribute()->queryIntValue(ROBOT_ID_COUNTER);
+	element->firstAttribute()->queryIntValue(ROBOT_ID_COUNTER);
 
 	int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
 	XmlAttribute* attribute = nullptr;
-	for (XmlNode* robot = _ti->firstChild(); robot; robot = robot->nextSibling())
+	for (XmlNode* robot = element->firstChild(); robot; robot = robot->nextSibling())
 	{
 		id = type = age = production_time = x = y = depth = direction = 0;
 		attribute = robot->toElement()->firstAttribute();
@@ -312,13 +312,13 @@ void MapViewState::readRobots(XmlElement* _ti)
 }
 
 
-void MapViewState::readStructures(XmlElement* _ti)
+void MapViewState::readStructures(Xml::XmlElement* element)
 {
 	std::string type;
 	int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
-	for (XmlNode* structure = _ti->firstChild(); structure != nullptr; structure = structure->nextSibling())
+	for (XmlNode* structure = element->firstChild(); structure != nullptr; structure = structure->nextSibling())
 	{
 		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = idle_reason = pop0 = pop1 = 0;
 		attribute = structure->toElement()->firstAttribute();
@@ -455,11 +455,11 @@ void MapViewState::readStructures(XmlElement* _ti)
 /**
  * 
  */
-void MapViewState::readTurns(XmlElement* _ti)
+void MapViewState::readTurns(Xml::XmlElement* element)
 {
-	if (_ti)
+	if (element)
 	{
-		_ti->firstAttribute()->queryIntValue(mTurnCount);
+		element->firstAttribute()->queryIntValue(mTurnCount);
 
 		if (mTurnCount > 0)
 		{
@@ -473,15 +473,15 @@ void MapViewState::readTurns(XmlElement* _ti)
 /**
  * Reads the population tag.
  */
-void MapViewState::readPopulation(XmlElement* _ti)
+void MapViewState::readPopulation(Xml::XmlElement* element)
 {
-	if (_ti)
+	if (element)
 	{
 		mPopulation.clear();
 
 		int children = 0, students = 0, workers = 0, scientists = 0, retired = 0;
 
-		XmlAttribute* attribute = _ti->firstAttribute();
+		XmlAttribute* attribute = element->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "morale") { attribute->queryIntValue(mCurrentMorale); }

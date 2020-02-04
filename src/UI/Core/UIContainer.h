@@ -20,7 +20,7 @@ public:
 	void add(Control* c, float x, float y);
 	void clear();
 
-	void bringToFront(Control* _c);
+	void bringToFront(Control* control);
 
 	virtual void update();
 

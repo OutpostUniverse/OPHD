@@ -33,7 +33,7 @@ ResourcePool::ResourcePool(): _capacity(0)
 }
 
 
-ResourcePool::ResourcePool(const ResourcePool& _r) : _capacity(_r._capacity), _resourceTable(_r._resourceTable)
+ResourcePool::ResourcePool(const ResourcePool& rhs) : _capacity(rhs._capacity), _resourceTable(rhs._resourceTable)
 {}
 
 
@@ -108,15 +108,15 @@ ResourcePool& ResourcePool::operator-=(const ResourcePool& rhs)
 }
 
 
-int ResourcePool::resource(ResourceType _t) const
+int ResourcePool::resource(ResourceType type) const
 {
-	return _resourceTable[_t];
+	return _resourceTable[type];
 }
 
 
-void ResourcePool::resource(ResourceType _t, int _i)
+void ResourcePool::resource(ResourceType type, int amount)
 {
-	_resourceTable[_t] = _i;
+	_resourceTable[type] = amount;
 	_observerCallback();
 }
 
@@ -134,18 +134,18 @@ int ResourcePool::rareMinerals() const { return resource(RESOURCE_RARE_MINERALS)
 int ResourcePool::energy() const { return resource(RESOURCE_ENERGY); }
 int ResourcePool::food() const { return resource(RESOURCE_FOOD); }
 
-void ResourcePool::commonMetalsOre(int _i) { resource(RESOURCE_COMMON_METALS_ORE, _i); }
-void ResourcePool::commonMineralsOre(int _i) { resource(RESOURCE_COMMON_MINERALS_ORE, _i); }
-void ResourcePool::rareMetalsOre(int _i) { resource(RESOURCE_RARE_METALS_ORE, _i); }
-void ResourcePool::rareMineralsOre(int _i) { resource(RESOURCE_RARE_MINERALS_ORE, _i); }
+void ResourcePool::commonMetalsOre(int amount) { resource(RESOURCE_COMMON_METALS_ORE, amount); }
+void ResourcePool::commonMineralsOre(int amount) { resource(RESOURCE_COMMON_MINERALS_ORE, amount); }
+void ResourcePool::rareMetalsOre(int amount) { resource(RESOURCE_RARE_METALS_ORE, amount); }
+void ResourcePool::rareMineralsOre(int amount) { resource(RESOURCE_RARE_MINERALS_ORE, amount); }
 
-void ResourcePool::commonMetals(int _i) { resource(RESOURCE_COMMON_METALS, _i); }
-void ResourcePool::commonMinerals(int _i) { resource(RESOURCE_COMMON_MINERALS, _i); }
-void ResourcePool::rareMetals(int _i) { resource(RESOURCE_RARE_METALS, _i); }
-void ResourcePool::rareMinerals(int _i) { resource(RESOURCE_RARE_MINERALS, _i); }
+void ResourcePool::commonMetals(int amount) { resource(RESOURCE_COMMON_METALS, amount); }
+void ResourcePool::commonMinerals(int amount) { resource(RESOURCE_COMMON_MINERALS, amount); }
+void ResourcePool::rareMetals(int amount) { resource(RESOURCE_RARE_METALS, amount); }
+void ResourcePool::rareMinerals(int amount) { resource(RESOURCE_RARE_MINERALS, amount); }
 
-void ResourcePool::energy(int _i) { resource(RESOURCE_ENERGY, _i); }
-void ResourcePool::food(int _i) { resource(RESOURCE_FOOD, _i); }
+void ResourcePool::energy(int amount) { resource(RESOURCE_ENERGY, amount); }
+void ResourcePool::food(int amount) { resource(RESOURCE_FOOD, amount); }
 
 
 /**
@@ -323,39 +323,39 @@ void ResourcePool::pullResources(ResourcePool& _rp)
 /**
  * Sets the maximum amount of resources the ResourcePool can store.
  */
-void ResourcePool::capacity(int _i)
+void ResourcePool::capacity(int newCapacity)
 {
-	_capacity = _i;
+	_capacity = newCapacity;
 
 	// Prevent negative values.
-	if (_i < 0)
+	if (newCapacity < 0)
 		_capacity = 0;
 }
 
 
-void ResourcePool::serialize(XmlElement* _ti)
+void ResourcePool::serialize(NAS2D::Xml::XmlElement* element)
 {
-	_ti->attribute(constants::SAVE_GAME_COMMON_METAL_ORE, commonMetalsOre());
-	_ti->attribute(constants::SAVE_GAME_COMMON_MINERAL_ORE, commonMineralsOre());
-	_ti->attribute(constants::SAVE_GAME_RARE_METAL_ORE, rareMetalsOre());
-	_ti->attribute(constants::SAVE_GAME_RARE_MINERAL_ORE, rareMineralsOre());
+	element->attribute(constants::SAVE_GAME_COMMON_METAL_ORE, commonMetalsOre());
+	element->attribute(constants::SAVE_GAME_COMMON_MINERAL_ORE, commonMineralsOre());
+	element->attribute(constants::SAVE_GAME_RARE_METAL_ORE, rareMetalsOre());
+	element->attribute(constants::SAVE_GAME_RARE_MINERAL_ORE, rareMineralsOre());
 
-	_ti->attribute(constants::SAVE_GAME_COMMON_METAL, commonMetals());
-	_ti->attribute(constants::SAVE_GAME_COMMON_MINERAL, commonMinerals());
-	_ti->attribute(constants::SAVE_GAME_RARE_METAL, rareMetals());
-	_ti->attribute(constants::SAVE_GAME_RARE_MINERAL, rareMinerals());
+	element->attribute(constants::SAVE_GAME_COMMON_METAL, commonMetals());
+	element->attribute(constants::SAVE_GAME_COMMON_MINERAL, commonMinerals());
+	element->attribute(constants::SAVE_GAME_RARE_METAL, rareMetals());
+	element->attribute(constants::SAVE_GAME_RARE_MINERAL, rareMinerals());
 
-	_ti->attribute(constants::SAVE_GAME_ENERGY, energy());
-	_ti->attribute(constants::SAVE_GAME_FOOD, food());
+	element->attribute(constants::SAVE_GAME_ENERGY, energy());
+	element->attribute(constants::SAVE_GAME_FOOD, food());
 }
 
 
-void ResourcePool::deserialize(XmlElement* _ti)
+void ResourcePool::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	/// \todo	This should probably trigger an exception.
-	if (_ti == nullptr) { return; }
+	if (element == nullptr) { return; }
 
-	XmlAttribute* attribute = _ti->firstAttribute();
+	XmlAttribute* attribute = element->firstAttribute();
 	while (attribute)
 	{
 		if (attribute->name() == constants::SAVE_GAME_COMMON_METAL_ORE) { attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_METALS_ORE]); }

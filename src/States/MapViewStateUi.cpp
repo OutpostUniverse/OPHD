@@ -453,49 +453,49 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 /**
  * 
  */
-void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection _sel, Tile* _t)
+void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection selection, Tile* tile)
 {
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
-	if (_t->depth() > 0 && _sel == DiggerDirection::SEL_DOWN)
+	if (tile->depth() > 0 && selection == DiggerDirection::SEL_DOWN)
 	{
-		Utility<StructureManager>::get().removeStructure(_t->structure());
+		Utility<StructureManager>::get().removeStructure(tile->structure());
 		Utility<StructureManager>::get().disconnectAll();
-		_t->deleteThing();
-		_t->connected(false);
+		tile->deleteThing();
+		tile->connected(false);
 		checkConnectedness();
 	}
 
 	// Assumes a digger is available.
 	Robodigger* r = mRobotPool.getDigger();
-	r->startTask(_t->index() + 5); // FIXME: Magic Number
-	mRobotPool.insertRobotIntoTable(mRobotList, r, _t);
+	r->startTask(tile->index() + 5); // FIXME: Magic Number
+	mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
 
 
-	if (_sel == DiggerDirection::SEL_DOWN)
+	if (selection == DiggerDirection::SEL_DOWN)
 	{
 		r->direction(DIR_DOWN);
 	}
-	else if (_sel == DiggerDirection::SEL_NORTH)
+	else if (selection == DiggerDirection::SEL_NORTH)
 	{
 		r->direction(DIR_NORTH);
-		mTileMap->getTile(_t->x(), _t->y() - 1, _t->depth())->excavated(true);
+		mTileMap->getTile(tile->x(), tile->y() - 1, tile->depth())->excavated(true);
 	}
-	else if (_sel == DiggerDirection::SEL_SOUTH)
+	else if (selection == DiggerDirection::SEL_SOUTH)
 	{
 		r->direction(DIR_SOUTH);
-		mTileMap->getTile(_t->x(), _t->y() + 1, _t->depth())->excavated(true);
+		mTileMap->getTile(tile->x(), tile->y() + 1, tile->depth())->excavated(true);
 	}
-	else if (_sel == DiggerDirection::SEL_EAST)
+	else if (selection == DiggerDirection::SEL_EAST)
 	{
 		r->direction(DIR_EAST);
-		mTileMap->getTile(_t->x() + 1, _t->y(), _t->depth())->excavated(true);
+		mTileMap->getTile(tile->x() + 1, tile->y(), tile->depth())->excavated(true);
 	}
-	else if (_sel == DiggerDirection::SEL_WEST)
+	else if (selection == DiggerDirection::SEL_WEST)
 	{
 		r->direction(DIR_WEST);
-		mTileMap->getTile(_t->x() - 1, _t->y(), _t->depth())->excavated(true);
+		mTileMap->getTile(tile->x() - 1, tile->y(), tile->depth())->excavated(true);
 	}
 
 
@@ -558,13 +558,13 @@ void MapViewState::btnGameOverClicked()
 /**
  * Handler for File I/O actions.
  */
-void MapViewState::fileIoAction(const std::string& _file, FileIo::FileOperation _op)
+void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
-	if (_op == FileIo::FILE_LOAD)
+	if (fileOp == FileIo::FILE_LOAD)
 	{
 		try
 		{
-			load(constants::SAVE_GAME_PATH + _file + ".xml");
+			load(constants::SAVE_GAME_PATH + filePath + ".xml");
 		}
 		catch (const std::exception& e)
 		{
@@ -574,7 +574,7 @@ void MapViewState::fileIoAction(const std::string& _file, FileIo::FileOperation 
 	}
 	else
 	{
-		save(constants::SAVE_GAME_PATH + _file + ".xml");
+		save(constants::SAVE_GAME_PATH + filePath + ".xml");
 	}
 
 	mFileIoDialog.hide();

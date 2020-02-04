@@ -77,9 +77,9 @@ void Window::onMouseMotion(int /*x*/, int /*y*/, int dX, int dY)
 	}
 }
 
-void Window::anchored(bool _a)
+void Window::anchored(bool isAnchored)
 {
-	mAnchored = _a;
+	mAnchored = isAnchored;
 }
 
 

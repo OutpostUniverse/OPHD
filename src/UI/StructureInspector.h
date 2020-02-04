@@ -10,7 +10,7 @@ public:
 	StructureInspector();
 	virtual ~StructureInspector();
 
-	void structure(Structure* _st);
+	void structure(Structure* s);
 	Structure* structure() { return mStructure; }
 
 	void check();

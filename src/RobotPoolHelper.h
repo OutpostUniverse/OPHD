@@ -54,9 +54,9 @@ void updateRobotControlCount(const T& t, uint32_t& controlCounter)
 
 
 template <class T>
-void eraseRobot(T& t, Robot* _r)
+void eraseRobot(T& t, Robot* r)
 {
-	auto it = find(t.begin(), t.end(), _r);
+	auto it = find(t.begin(), t.end(), r);
 	if (it != t.end())
 	{
 		t.erase(it);

@@ -463,13 +463,13 @@ static void serializeTile(XmlElement* _ti, int x, int y, int depth, int index)
 }
 
 
-void TileMap::serialize(XmlElement* _ti)
+void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 {
 	// ==========================================
 	// MAP PROPERTIES
 	// ==========================================
 	XmlElement *properties = new XmlElement("properties");
-	_ti->linkEndChild(properties);
+	element->linkEndChild(properties);
 
 	properties->attribute("sitemap", mMapPath);
 	properties->attribute("tset", mTsetPath);
@@ -479,7 +479,7 @@ void TileMap::serialize(XmlElement* _ti)
 	// VIEW PARAMETERS
 	// ==========================================
 	XmlElement *viewparams = new XmlElement("view_parameters");
-	_ti->linkEndChild(viewparams);
+	element->linkEndChild(viewparams);
 
 	viewparams->attribute("currentdepth", mCurrentDepth);
 	viewparams->attribute("viewlocation_x", mMapViewLocation.x());
@@ -489,7 +489,7 @@ void TileMap::serialize(XmlElement* _ti)
 	// MINES
 	// ==========================================
 	XmlElement *mines = new XmlElement("mines");
-	_ti->linkEndChild(mines);
+	element->linkEndChild(mines);
 
 	for (size_t i = 0; i < mMineLocations.size(); ++i)
 	{
@@ -505,7 +505,7 @@ void TileMap::serialize(XmlElement* _ti)
 	// TILES
 	// ==========================================
 	XmlElement *tiles = new XmlElement("tiles");
-	_ti->linkEndChild(tiles);
+	element->linkEndChild(tiles);
 
 	// We're only writing out tiles that don't have structures or robots in them that are
 	// underground and excavated or surface and bulldozed.
@@ -531,11 +531,11 @@ void TileMap::serialize(XmlElement* _ti)
 }
 
 
-void TileMap::deserialize(XmlElement* _ti)
+void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	// VIEW PARAMETERS
 	int view_x = 0, view_y = 0, view_depth = 0;
-	XmlElement* view_parameters = _ti->firstChildElement("view_parameters");
+	XmlElement* view_parameters = element->firstChildElement("view_parameters");
 	XmlAttribute* attribute = view_parameters->firstAttribute();
 	while (attribute)
 	{
@@ -547,7 +547,7 @@ void TileMap::deserialize(XmlElement* _ti)
 
 	mapViewLocation(view_x, view_y);
 	currentDepth(view_depth);
-	for (XmlNode* mine = _ti->firstChildElement("mines")->firstChildElement("mine"); mine; mine = mine->nextSibling())
+	for (XmlNode* mine = element->firstChildElement("mines")->firstChildElement("mine"); mine; mine = mine->nextSibling())
 	{
 		int x = 0, y = 0;
 	
@@ -572,7 +572,7 @@ void TileMap::deserialize(XmlElement* _ti)
 	}
 
 	// TILES AT INDEX 0 WITH NO THING'S
-	for (XmlNode* tile = _ti->firstChildElement("tiles")->firstChildElement("tile"); tile; tile = tile->nextSibling())
+	for (XmlNode* tile = element->firstChildElement("tiles")->firstChildElement("tile"); tile; tile = tile->nextSibling())
 	{
 		int x = 0, y = 0, depth = 0, index = 0;
 

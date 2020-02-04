@@ -26,11 +26,11 @@ public:
 
 	virtual ~RobotCommand()	{}
 
-	bool commandedByThis(Robot* _r) const;
+	bool commandedByThis(Robot* robot) const;
 
 	bool commandCapacityAvailable() const;
-	void addRobot(Robot* _r);
-	void removeRobot(Robot* _r);
+	void addRobot(Robot* robot);
+	void removeRobot(Robot* robot);
 
 	const RobotList& robots() { return mRobotList; }
 

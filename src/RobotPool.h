@@ -17,14 +17,14 @@ public:
 	RobotPool();
 	~RobotPool();
 
-	Robot* addRobot(RobotType _type, int id = 0);
+	Robot* addRobot(RobotType type, int id = 0);
 
 	Robodigger* getDigger();
 	Robodozer* getDozer();
 	Robominer* getMiner();
 
-	bool robotAvailable(RobotType _type);
-	int getAvailableCount(RobotType _type);
+	bool robotAvailable(RobotType type);
+	int getAvailableCount(RobotType type);
 
 	void InitRobotCtrl(uint32_t MaxRobotCtrl);
 	bool robotCtrlAvailable() { return mRobotControlCount < mRobotControlMax; }
@@ -36,8 +36,8 @@ public:
 	MinerList& miners() { return mMiners; }
 
 	void clear();
-	void erase(Robot* _r);
-	bool insertRobotIntoTable(RobotTileTable& _rm, Robot* _r, Tile* _t);
+	void erase(Robot* r);
+	bool insertRobotIntoTable(RobotTileTable& robotMap, Robot* robot, Tile* tile);
 
 	uint32_t robotControlMax() { return mRobotControlMax; }
 	uint32_t currentControlCount() { return mRobotControlCount; }

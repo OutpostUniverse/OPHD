@@ -168,9 +168,9 @@ void FactoryProduction::chkIdleClicked()
 /**
  * 
  */
-void FactoryProduction::factory(Factory* _f)
+void FactoryProduction::factory(Factory* newFactory)
 {
-	mFactory = _f;
+	mFactory = newFactory;
 
 	if (!mFactory) { return; }
 

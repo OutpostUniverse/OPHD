@@ -27,7 +27,7 @@ public:
 	class FactoryListBoxItem : public ListBoxItem
 	{
 	public:
-		FactoryListBoxItem(Factory* _f) : factory(_f) {}
+		FactoryListBoxItem(Factory* newFactory) : factory(newFactory) {}
 		virtual ~FactoryListBoxItem() {}
 
 	public:

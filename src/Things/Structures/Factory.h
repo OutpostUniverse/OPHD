@@ -27,22 +27,22 @@ public:
 	typedef std::vector<ProductType> ProductionTypeList;
 
 public:
-	Factory(const std::string& name, const std::string& sprite_path);
+	Factory(const std::string& name, const std::string& spritePath);
 	virtual ~Factory();
 
 	virtual void updateProduction();
 
-	void resourcePool(ResourcePool* _r) { mResourcesPool = _r; }
+	void resourcePool(ResourcePool* newResourcePool) { mResourcesPool = newResourcePool; }
 
 	int productionTurnsToComplete() const { return mTurnsToComplete; }
-	void productionTurnsToComplete(int _l) { mTurnsToComplete = _l; }
+	void productionTurnsToComplete(int newTurnsToComplete) { mTurnsToComplete = newTurnsToComplete; }
 
 	int productionTurnsCompleted() const { return mTurnsCompleted; }
-	void productionTurnsCompleted(int _t) { mTurnsCompleted = _t; }
+	void productionTurnsCompleted(int newTurnsCompleted) { mTurnsCompleted = newTurnsCompleted; }
 	void productionResetTurns() { mTurnsCompleted = 0; }
 
 	ProductType productType() const { return mProduct; }
-	void productType(ProductType _p);
+	void productType(ProductType type);
 
 	ProductType productWaiting() const { return mProductWaiting; }
 	ProductType pullProduct();
@@ -56,7 +56,7 @@ public:
 protected:
 	void clearProduction();
 
-	void addProduct(ProductType _p);
+	void addProduct(ProductType type);
 	bool enoughResourcesAvailable();
 
 	ResourcePool* resourcePool() { return mResourcesPool; }

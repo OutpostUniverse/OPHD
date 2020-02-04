@@ -50,18 +50,18 @@ IconGrid::~IconGrid()
 /**
  * Sets the icon sheet path and loads an Image.
  */
-void IconGrid::sheetPath(const std::string& _path)
+void IconGrid::sheetPath(const std::string& filePath)
 {
-	mIconSheet = Image(_path);
+	mIconSheet = Image(filePath);
 }
 
 
 /**
  * Sets the icon dimensions.
  */
-void  IconGrid::iconSize(int _size)
+void IconGrid::iconSize(int newSsize)
 {
-	mIconSize = _size;
+	mIconSize = newSsize;
 	updateGrid();
 }
 
@@ -69,9 +69,9 @@ void  IconGrid::iconSize(int _size)
 /**
  * Sets the margin used between the edges of the IconGrid and other icons.
  */
-void IconGrid::iconMargin(int _margin)
+void IconGrid::iconMargin(int newMargin)
 {
-	mIconMargin = _margin;
+	mIconMargin = newMargin;
 	updateGrid();
 }
 
@@ -207,7 +207,7 @@ void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
 /**
  * Set item availability
  */
-void IconGrid::itemAvailable(const std::string& item, bool _b)
+void IconGrid::itemAvailable(const std::string& item, bool isItemAvailable)
 {
 	// Ignore if menu is empty
 	if (empty())
@@ -219,7 +219,7 @@ void IconGrid::itemAvailable(const std::string& item, bool _b)
 	{
 		if (toLowercase(_iconItem.name) == toLowercase(item))
 		{
-			_iconItem.available = _b;
+			_iconItem.available = isItemAvailable;
 			return;
 		}
 	}
@@ -322,12 +322,12 @@ void IconGrid::clearSelection()
 /**
  * Sets the current selection index.
  */
-void IconGrid::selection(int _s)
+void IconGrid::selection(int newSelection)
 {
-	if (static_cast<size_t>(_s) >= mIconItemList.size())
+	if (static_cast<size_t>(newSelection) >= mIconItemList.size())
 		return;
 
-	mCurrentSelection = _s;
+	mCurrentSelection = newSelection;
 }
 
 
@@ -342,11 +342,11 @@ void IconGrid::selection(int _s)
  *			of 0 for IconGridItem's that don't use a meta value will
  *			effectively set the index to 0.
  */
-void IconGrid::selection_meta(int _s)
+void IconGrid::selection_meta(int selectionMetaValue)
 {
 	for (size_t i = 0; i < mIconItemList.size(); ++i)
 	{
-		if (mIconItemList[i].meta == _s)
+		if (mIconItemList[i].meta == selectionMetaValue)
 		{
 			mCurrentSelection = i;
 			return;

@@ -18,7 +18,7 @@ public:
 	class StructureListBoxItem : public ListBoxItem
 	{
 	public:
-		StructureListBoxItem(Structure* _st);
+		StructureListBoxItem(Structure* s);
 		virtual ~StructureListBoxItem();
 
 	public:

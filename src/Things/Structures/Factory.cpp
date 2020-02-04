@@ -41,7 +41,7 @@ const ProductionCost& productCost(ProductType _pt)
 
 
 
-Factory::Factory(const std::string& name, const std::string& sprite_path):	Structure(name, sprite_path, CLASS_FACTORY)
+Factory::Factory(const std::string& name, const std::string& spritePath) :	Structure(name, spritePath, CLASS_FACTORY)
 {}
 
 
@@ -49,24 +49,24 @@ Factory::~Factory()
 {}
 
 
-void Factory::productType(ProductType _p)
+void Factory::productType(ProductType type)
 {
-	if (_p == mProduct) { return; }
+	if (type == mProduct) { return; }
 
-	if (_p == PRODUCT_NONE)
+	if (type == PRODUCT_NONE)
 	{
 		clearProduction();
 		return;
 	}
 
 	// Ensure we're only setting a product that the Factory is capable of producing.
-	auto it = find(mAvailableProducts.begin(), mAvailableProducts.end(), _p);
+	auto it = find(mAvailableProducts.begin(), mAvailableProducts.end(), type);
 	if (it == mAvailableProducts.end())
 	{
 		return;
 	}
 
-	mProduct = _p;
+	mProduct = type;
 
 	productionResetTurns();
 
@@ -171,14 +171,14 @@ bool Factory::enoughResourcesAvailable()
 }
 
 
-void Factory::addProduct(ProductType _p)
+void Factory::addProduct(ProductType type)
 {
-	if (find(mAvailableProducts.begin(), mAvailableProducts.end(), _p) != mAvailableProducts.end())
+	if (find(mAvailableProducts.begin(), mAvailableProducts.end(), type) != mAvailableProducts.end())
 	{
 		return;
 	}
 
-	mAvailableProducts.push_back(_p);
+	mAvailableProducts.push_back(type);
 }
 
 

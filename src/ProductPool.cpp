@@ -157,29 +157,29 @@ void ProductPool::verifyCount()
 /**
  * 
  */
-void ProductPool::serialize(NAS2D::Xml::XmlElement* _ti)
+void ProductPool::serialize(NAS2D::Xml::XmlElement* element)
 {
-	_ti->attribute(constants::SAVE_GAME_PRODUCT_DIGGER,				count(PRODUCT_DIGGER));
-	_ti->attribute(constants::SAVE_GAME_PRODUCT_DOZER,				count(PRODUCT_DOZER));
-	_ti->attribute(constants::SAVE_GAME_PRODUCT_MINER,				count(PRODUCT_MINER));
-	_ti->attribute(constants::SAVE_GAME_PRODUCT_EXPLORER,			count(PRODUCT_EXPLORER));
-	_ti->attribute(constants::SAVE_GAME_PRODUCT_TRUCK,				count(PRODUCT_TRUCK));
-	_ti->attribute(constants::SAVE_GAME_PRODUCT_ROAD_MATERIALS,		count(PRODUCT_ROAD_MATERIALS));
-	_ti->attribute(constants::SAVE_GAME_MAINTENANCE_PARTS,			count(PRODUCT_MAINTENANCE_PARTS));
-	_ti->attribute(constants::SAVE_GAME_PRODUCT_CLOTHING,			count(PRODUCT_CLOTHING));
-	_ti->attribute(constants::SAVE_GAME_PRODUCT_MEDICINE,			count(PRODUCT_MEDICINE));
+	element->attribute(constants::SAVE_GAME_PRODUCT_DIGGER,				count(PRODUCT_DIGGER));
+	element->attribute(constants::SAVE_GAME_PRODUCT_DOZER,				count(PRODUCT_DOZER));
+	element->attribute(constants::SAVE_GAME_PRODUCT_MINER,				count(PRODUCT_MINER));
+	element->attribute(constants::SAVE_GAME_PRODUCT_EXPLORER,			count(PRODUCT_EXPLORER));
+	element->attribute(constants::SAVE_GAME_PRODUCT_TRUCK,				count(PRODUCT_TRUCK));
+	element->attribute(constants::SAVE_GAME_PRODUCT_ROAD_MATERIALS,		count(PRODUCT_ROAD_MATERIALS));
+	element->attribute(constants::SAVE_GAME_MAINTENANCE_PARTS,			count(PRODUCT_MAINTENANCE_PARTS));
+	element->attribute(constants::SAVE_GAME_PRODUCT_CLOTHING,			count(PRODUCT_CLOTHING));
+	element->attribute(constants::SAVE_GAME_PRODUCT_MEDICINE,			count(PRODUCT_MEDICINE));
 }
 
 
 /**
  * 
  */
-void ProductPool::deserialize(NAS2D::Xml::XmlElement* _ti)
+void ProductPool::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	/// \todo	This should probably trigger an exception.
-	if (_ti == nullptr) { return; }
+	if (element == nullptr) { return; }
 
-	XmlAttribute* attribute = _ti->firstAttribute();
+	XmlAttribute* attribute = element->firstAttribute();
 	while (attribute)
 	{
 		if (attribute->name() == constants::SAVE_GAME_PRODUCT_DIGGER)				{ attribute->queryIntValue(mProducts[PRODUCT_DIGGER]); }

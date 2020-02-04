@@ -170,9 +170,9 @@ float Slider::positionInternal()
 /**
  *  \brief set internal slider position
  */
-void Slider::positionInternal(float _pos)
+void Slider::positionInternal(float newPosition)
 {
-	mPosition = std::clamp(_pos, 0.0f, mLength);
+	mPosition = std::clamp(newPosition, 0.0f, mLength);
 	mCallback(mPosition);
 }
 

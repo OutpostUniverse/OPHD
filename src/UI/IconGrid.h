@@ -47,18 +47,18 @@ public:
 	IconGrid();
 	virtual ~IconGrid();
 
-	void sheetPath(const std::string& _path);
-	void iconSize(int _size);
-	void iconMargin(int _margin);
+	void sheetPath(const std::string& filePath);
+	void iconSize(int newSsize);
+	void iconMargin(int newMargin);
 
-	const std::string& itemName(int _sel) const { return mIconItemList[_sel].name; }
+	const std::string& itemName(int index) const { return mIconItemList[index].name; }
 
 	int selectionIndex() const { return static_cast<int>(mCurrentSelection); }
 
 	bool empty() const { return mIconItemList.empty(); }
 
 	bool sorted() const { return mSorted; }
-	void sorted(bool _b) { mSorted = _b; }
+	void sorted(bool isSorted) { mSorted = isSorted; }
 
 	void addItemSorted(const std::string& name, int sheetIndex, int meta);
 	void addItem(const std::string& name, int sheetIndex, int meta);
@@ -67,15 +67,15 @@ public:
 	void dropAllItems();
 
 	// Setter
-	void itemAvailable(const std::string& item, bool _b);
+	void itemAvailable(const std::string& item, bool isItemAvailable);
 	// Getter
 	bool itemAvailable(const std::string& item);
 
-	void showTooltip(bool _b) { mShowTooltip = _b; }
+	void showTooltip(bool value) { mShowTooltip = value; }
 
 	void clearSelection();
-	void selection(int _s);
-	void selection_meta(int _s);
+	void selection(int newSelection);
+	void selection_meta(int selectionMetaValue);
 
 	void incrementSelection();
 	void decrementSelection();

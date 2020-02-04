@@ -107,9 +107,9 @@ void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mo
 /**
  * 
  */
-void FileIo::setMode(FileOperation _m)
+void FileIo::setMode(FileOperation fileOp)
 {
-	mMode = _m; 
+	mMode = fileOp; 
 	text(mMode == FILE_LOAD ? constants::WINDOW_FILEIO_TITLE_LOAD : constants::WINDOW_FILEIO_TITLE_SAVE);
 	btnFileOp.text(mMode == FILE_LOAD ? constants::WINDOW_FILEIO_LOAD : constants::WINDOW_FILEIO_SAVE);
 }
@@ -118,16 +118,16 @@ void FileIo::setMode(FileOperation _m)
 /**
  * 
  */
-void FileIo::scanDirectory(const std::string& _dir)
+void FileIo::scanDirectory(const std::string& directory)
 {
 	Filesystem& f = Utility<Filesystem>::get();
-	StringList dirList = f.directoryList(_dir);
+	StringList dirList = f.directoryList(directory);
 
 	mListBox.dropAllItems();
 
 	for (size_t i = 0; i < dirList.size(); ++i)
 	{
-		if (!f.isDirectory(_dir + dirList[i]))
+		if (!f.isDirectory(directory + dirList[i]))
 		{
 			dirList[i].resize(dirList[i].size() - 4);	// Assumes a file save extension of 3 characters.
 														// This is a naive approach.
@@ -150,9 +150,9 @@ void FileIo::fileSelected()
 /**
  * 
  */
-void FileIo::fileNameModified(Control* _ctrl)
+void FileIo::fileNameModified(Control* control)
 {
-	std::string sFile = _ctrl->text();
+	std::string sFile = control->text();
 
 	if (sFile.empty())	// no blank filename
 		btnFileOp.enabled(false);

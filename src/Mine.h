@@ -30,7 +30,7 @@ public:
 	~Mine() {};
 
 	bool active() const;
-	void active(bool _b);
+	void active(bool newActive);
 
 	bool exhausted() const;
 	void checkExhausted();
@@ -50,16 +50,16 @@ public:
 	bool miningRareMetals() const;
 	bool miningRareMinerals() const;
 
-	void miningCommonMetals(bool _b);
-	void miningCommonMinerals(bool _b);
-	void miningRareMetals(bool _b);
-	void miningRareMinerals(bool _b);
+	void miningCommonMetals(bool value);
+	void miningCommonMinerals(bool value);
+	void miningRareMetals(bool value);
+	void miningRareMinerals(bool value);
 
 	int pull(OreType type, int quantity);
 
 public:
-	void serialize(NAS2D::Xml::XmlElement* _ti);
-	void deserialize(NAS2D::Xml::XmlElement* _ti);
+	void serialize(NAS2D::Xml::XmlElement* element);
+	void deserialize(NAS2D::Xml::XmlElement* element);
 
 private:
 	Mine(const Mine&) = delete;

@@ -21,8 +21,8 @@ public:
 	FileIo();
 	virtual ~FileIo();
 
-	void setMode(FileOperation _m);
-	void scanDirectory(const std::string& _dir);
+	void setMode(FileOperation fileOp);
+	void scanDirectory(const std::string& directory);
 
 	FileOperationCallback& fileOperation() { return mCallback; }
 
@@ -43,7 +43,7 @@ private:
 	void btnFileIoClicked();
 
 	void fileSelected();
-	void fileNameModified(Control* _ctrl);
+	void fileNameModified(Control* control);
 
 private:
 	FileOperationCallback	mCallback;

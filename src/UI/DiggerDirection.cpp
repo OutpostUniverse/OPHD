@@ -54,9 +54,9 @@ void DiggerDirection::init()
 }
 
 
-void DiggerDirection::setParameters(Tile* _t)
+void DiggerDirection::setParameters(Tile* tile)
 {
-	mTile = _t;
+	mTile = tile;
 }
 
 

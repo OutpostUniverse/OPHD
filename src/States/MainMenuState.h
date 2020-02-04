@@ -38,7 +38,7 @@ private:
 	void btnHelpClicked();
 	void btnQuitClicked();
 
-	void fileIoAction(const std::string& _file, FileIo::FileOperation _op);
+	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
 private:
 	NAS2D::Image		mBgImage;						/**<  */

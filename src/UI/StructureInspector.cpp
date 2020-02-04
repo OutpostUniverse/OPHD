@@ -55,9 +55,9 @@ void StructureInspector::init()
 /**
  * 
  */
-void StructureInspector::structure(Structure* _st)
+void StructureInspector::structure(Structure* s)
 {
-	mStructure = _st;
+	mStructure = s;
 	mStructureClass = structureClassDescription(mStructure->structureClass());
 	check();
 }

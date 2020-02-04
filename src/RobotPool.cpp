@@ -44,13 +44,13 @@ void RobotPool::clear()
 }
 
 
-void RobotPool::erase(Robot* _r)
+void RobotPool::erase(Robot* r)
 {
-	mRobots.erase(find(mRobots.begin(), mRobots.end(), _r));
+	mRobots.erase(find(mRobots.begin(), mRobots.end(), r));
 
-	eraseRobot(mDiggers, _r);
-	eraseRobot(mDozers, _r);
-	eraseRobot(mMiners, _r);
+	eraseRobot(mDiggers, r);
+	eraseRobot(mDozers, r);
+	eraseRobot(mMiners, r);
 }
 
 
@@ -60,13 +60,13 @@ void RobotPool::erase(Robot* _r)
  * \return Returns a pointer to the recently.
  * \return Returns a nullptr if the robot type was invalid or unsupported.
  */
-Robot* RobotPool::addRobot(RobotType _type, int id)
+Robot* RobotPool::addRobot(RobotType type, int id /*= 0*/)
 {
 	int _id = 0;
 	if (id == 0) { _id = ++ROBOT_ID_COUNTER; }
 	else { _id = id; }
 
-	switch (_type)
+	switch (type)
 	{
 	case ROBOT_DOZER:
 		mDozers.push_back(new Robodozer());
@@ -138,9 +138,9 @@ Robominer* RobotPool::getMiner()
  * 
  * \return	Returns true if the requested robot type is available. False otherwise.
  */
-bool RobotPool::robotAvailable(RobotType _type)
+bool RobotPool::robotAvailable(RobotType type)
 {
-	switch (_type)
+	switch (type)
 	{
 	case ROBOT_DIGGER:
 		return getDigger() != nullptr;
@@ -166,9 +166,9 @@ bool RobotPool::robotAvailable(RobotType _type)
 /**
  * 
  */
-int RobotPool::getAvailableCount(RobotType _type)
+int RobotPool::getAvailableCount(RobotType type)
 {
-	switch (_type)
+	switch (type)
 	{
 	case ROBOT_DIGGER:
 		return getIdleCount(mDiggers);
@@ -214,15 +214,15 @@ void RobotPool::AddRobotCtrl()
 /**
  * 
  */
-bool RobotPool::insertRobotIntoTable(RobotTileTable& _rm, Robot* _r, Tile* _t)
+bool RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot* robot, Tile* tile)
 {
-	if (!_t) { return false; }
+	if (!tile) { return false; }
 
-	auto it = _rm.find(_r);
-	if (it != _rm.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
+	auto it = robotMap.find(robot);
+	if (it != robotMap.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
-	_rm[_r] = _t;
-	_t->pushThing(_r);
+	robotMap[robot] = tile;
+	tile->pushThing(robot);
 
 	AddRobotCtrl();
 

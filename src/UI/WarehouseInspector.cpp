@@ -48,9 +48,9 @@ void WarehouseInspector::init()
 /**
  * 
  */
-void WarehouseInspector::warehouse(Warehouse* _wh)
+void WarehouseInspector::warehouse(Warehouse* w)
 {
-	mWarehouse = _wh;
+	mWarehouse = w;
 }
 
 

@@ -147,12 +147,12 @@ void MainMenuState::enableButtons()
 /**
  * Event handler for file I/O operations via the FileIO Window.
  */
-void MainMenuState::fileIoAction(const std::string& _file, FileIo::FileOperation _op)
+void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
-	if (_op != FileIo::FILE_LOAD) { return; }
-	if (_file.empty()) { return; }
+	if (fileOp != FileIo::FILE_LOAD) { return; }
+	if (filePath.empty()) { return; }
 
-	std::string filename = constants::SAVE_GAME_PATH + _file + ".xml";
+	std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
 
 	if (!Utility<Filesystem>::get().exists(filename))
 	{

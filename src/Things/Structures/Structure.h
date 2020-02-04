@@ -61,7 +61,7 @@ public:
 	};
 
 public:
-	Structure(const std::string& name, const std::string& sprite_path, StructureClass _t);
+	Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass);
 	virtual ~Structure();
 	
 	// STATES & STATE MANAGEMENT
@@ -93,7 +93,7 @@ public:
 	ResourcePool& storage() { return mStoragePool; }
 	ResourcePool& production() { return mProductionPool; }
 
-	virtual void input(ResourcePool& /*_resourcePool*/) {}
+	virtual void input(ResourcePool& /*pool*/) {}
 	bool enoughResourcesAvailable(ResourcePool& r);
 
 	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
@@ -127,8 +127,8 @@ public:
 	 * \note	Available to reset current age to simulate repairs to extend
 	 *			the life of the Structure and for loading games.
 	 */
-	void age(int _age) { mAge = _age; }
-	void connectorDirection(ConnectorDir _cd) { mConnectorDirection = _cd; }
+	void age(int newAge) { mAge = newAge; }
+	void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
 
 	virtual void forced_state_change(StructureState, DisabledReason, IdleReason);
 
@@ -138,10 +138,10 @@ public:
 protected:
 	friend class StructureCatalogue;
 
-	void turnsToBuild(int _t) { mTurnsToBuild = _t; }
-	void maxAge(int _age) { mMaxAge = _age; }
+	void turnsToBuild(int newTurnsToBuild) { mTurnsToBuild = newTurnsToBuild; }
+	void maxAge(int newMaxAge) { mMaxAge = newMaxAge; }
 	
-	void repairable(bool _r) { mRepairable = _r; }
+	void repairable(bool isRepairable) { mRepairable = isRepairable; }
 
 	virtual void defineResourceInput() {}
 	virtual void defineResourceOutput() {}
@@ -150,10 +150,10 @@ protected:
 
 	virtual void disabledStateSet() {};
 
-	void state(StructureState _s) { mStructureState = _s; }
+	void state(StructureState newState) { mStructureState = newState; }
 
-	void requiresCHAP(bool _b) { mRequiresCHAP = _b; }
-	void selfSustained(bool _b) { mSelfSustained = _b; }
+	void requiresCHAP(bool value) { mRequiresCHAP = value; }
+	void selfSustained(bool value) { mSelfSustained = value; }
 
 	void setPopulationRequirements(const PopulationRequirements& pr) { mPopulationRequirements = pr; }
 
