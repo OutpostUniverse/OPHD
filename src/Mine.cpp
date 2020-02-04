@@ -149,7 +149,7 @@ void Mine::miningRareMinerals(bool value)
  */
 void Mine::increaseDepth()
 {
-	MineVein vein;
+	auto vein = MineVein{0,0,0,0};
 
 	switch (productionRate())
 	{
@@ -346,7 +346,7 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 	mVeins.resize(depth);
 	for (XmlNode* vein = element->firstChild(); vein != nullptr; vein = vein->nextSibling())
 	{
-		MineVein _mv = MineVein{0, 0, 0, 0};
+		auto _mv = MineVein{0, 0, 0, 0};
 		attribute = vein->toElement()->firstAttribute();
 		int id = 0;
 		while (attribute)
