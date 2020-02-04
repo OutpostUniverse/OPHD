@@ -75,9 +75,9 @@ const std::string& RadioButton::text() const
  */
 RadioButton::ClickCallback& RadioButton::click()
 {
-	for(auto* sibling : mParentContainer->controls())
+	for (auto* sibling : mParentContainer->controls())
 	{
-		if(auto* asRadioButton = dynamic_cast<RadioButton*>(sibling))
+		if (auto* asRadioButton = dynamic_cast<RadioButton*>(sibling))
 		{
 			asRadioButton->checked(false);
 		}
@@ -92,9 +92,9 @@ RadioButton::ClickCallback& RadioButton::click()
  */
 void RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if(!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	if(button == EventHandler::MouseButton::BUTTON_LEFT && isPointInRect(x, y,
+	if (button == EventHandler::MouseButton::BUTTON_LEFT && isPointInRect(x, y,
 		static_cast<int>(rect().x()),
 		static_cast<int>(rect().y()),
 		static_cast<int>(rect().width()),
@@ -121,7 +121,7 @@ void RadioButton::onTextChanged()
 void RadioButton::onSizeChanged()
 {
 	mRect.height(std::clamp(height(), 13.0f, 13.0f));
-	if(width() < 13.0f) { mRect.width(13.0f); }
+	if (width() < 13.0f) { mRect.width(13.0f); }
 }
 
 

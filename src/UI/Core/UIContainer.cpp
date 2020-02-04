@@ -55,7 +55,7 @@ void UIContainer::add(Control* c, float x, float y)
 	c->position(rect().x() + x, rect().y() + y);
 	c->visible(visible());
 	c->hasFocus(true);
-	if(auto* asRadioButton = dynamic_cast<RadioButton*>(c))
+	if (auto* asRadioButton = dynamic_cast<RadioButton*>(c))
 	{
 		asRadioButton->parentContainer(this);
 	}
