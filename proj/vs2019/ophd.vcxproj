@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -218,6 +218,7 @@
     <ClCompile Include="..\..\src\UI\Core\UIContainer.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Window.cpp" />
     <ClCompile Include="..\..\src\UI\Core\WindowStack.cpp" />
+    <ClCompile Include="..\..\src\UI\DifficultySelect.cpp" />
     <ClCompile Include="..\..\src\UI\DiggerDirection.cpp" />
     <ClCompile Include="..\..\src\UI\FactoryListBox.cpp" />
     <ClCompile Include="..\..\src\UI\FactoryProduction.cpp" />
@@ -327,6 +328,7 @@
     <ClInclude Include="..\..\src\UI\Core\UIContainer.h" />
     <ClInclude Include="..\..\src\UI\Core\Window.h" />
     <ClInclude Include="..\..\src\UI\Core\WindowStack.h" />
+    <ClInclude Include="..\..\src\UI\DifficultySelect.h" />
     <ClInclude Include="..\..\src\UI\DiggerDirection.h" />
     <ClInclude Include="..\..\src\UI\FactoryProduction.h" />
     <ClInclude Include="..\..\src\ui\FileIo.h" />

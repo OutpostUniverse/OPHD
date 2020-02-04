@@ -282,6 +282,9 @@
     <ClCompile Include="..\..\src\UI\Core\Label.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\UI\DifficultySelect.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common.h">
