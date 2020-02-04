@@ -33,7 +33,7 @@ DifficultySelect::~DifficultySelect()
 void DifficultySelect::init()
 {
 
-	size(150, 250);
+	size(150, 145);
 
 	const auto border_left_width = 5;
 	const auto border_right_width = 5;
@@ -61,15 +61,38 @@ void DifficultySelect::init()
 	}
 
 	rdbBeginner.text("Beginner");
-    rdbEasy.text("Easy");
-    rdbMedium.text("Medium");
-    rdbHard.text("Hard");
+	rdbEasy.text("Easy");
+	rdbMedium.text("Medium");
+	rdbHard.text("Hard");
+
+	float longest_width = 0.0f;
+    if(longest_width < rdbBeginner.width())
+    {
+        longest_width = rdbBeginner.width();
+    }
+	if(longest_width < rdbEasy.width())
+    {
+        longest_width = rdbEasy.width();
+    }
+	if(longest_width < rdbMedium.width())
+    {
+        longest_width = rdbMedium.width();
+    }
+	if(longest_width < rdbHard.width())
+    {
+        longest_width = rdbHard.width();
+    }
+
+	rdbBeginner.width(longest_width);
+	rdbEasy.width(longest_width);
+	rdbMedium.width(longest_width);
+	rdbHard.width(longest_width);
 
 
-	add(&rdbBeginner, width / 2, top_edge + element_spacing);
-	add(&rdbEasy, width / 2, rdbBeginner.rect().endPoint().y() + element_spacing);
-	add(&rdbMedium, width / 2, rdbEasy.rect().endPoint().y() + element_spacing);
-	add(&rdbHard, width / 2, rdbMedium.rect().endPoint().y() + element_spacing);
+	add(&rdbBeginner, width / 2 - rdbBeginner.width() / 2, top_edge + element_spacing);
+	add(&rdbEasy, width / 2 - rdbEasy.width() / 2, rdbBeginner.rect().endPoint().y() + element_spacing);
+	add(&rdbMedium, width / 2 - rdbMedium.width() / 2, rdbEasy.rect().endPoint().y() + element_spacing);
+	add(&rdbHard, width / 2 - rdbHard.width() / 2, rdbMedium.rect().endPoint().y() + element_spacing);
 
 	add(&btnOk, width / 2 - btnOk.width() / 2, bottom_edge - element_spacing - btnOk.height());
 
