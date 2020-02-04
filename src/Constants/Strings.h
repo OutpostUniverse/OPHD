@@ -182,6 +182,12 @@ namespace constants
 	const std::string MAIN_MENU_HELP = "Help";
 	const std::string MAIN_MENU_QUIT = "Quit";
 
+	const std::string DIFFICULTY_TITLE = "Difficulty";
+	const std::string DIFFICULTY_BEGINNER = "Beginner";
+	const std::string DIFFICULTY_EASY = "Easy";
+	const std::string DIFFICULTY_MEDIUM = "Medium";
+	const std::string DIFFICULTY_HARD = "Hard";
+
 	const std::string WINDOW_FACTORY_PRODUCTION = "Factory Production";
 	const std::string WINDOW_GAME_OVER = "Game Over";
 	const std::string WINDOW_MINE_OPERATIONS = "Mine Facility Operations";
