@@ -50,7 +50,6 @@ void DifficultySelect::init()
 	const auto top_edge = positionY() + border_top_height;
 	const auto bottom_edge = top_edge + height() - border_top_height - border_bottom_height * 2.0f;
 	const auto width = right_edge - left_edge;
-	const auto height = bottom_edge - top_edge;
 
 	btnOk.text("Ok");
 	btnOk.size(100, 25);
