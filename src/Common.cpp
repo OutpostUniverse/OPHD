@@ -20,13 +20,15 @@ std::string StringFromDifficulty(const Difficulty& difficulty)
 {
 	switch(difficulty)
 	{
-    case Difficulty::Beginner:	return constants::DIFFICULTY_BEGINNER;
-    case Difficulty::Easy:		return constants::DIFFICULTY_EASY;
-    case Difficulty::Medium:	return constants::DIFFICULTY_MEDIUM;
-    case Difficulty::Hard:		return constants::DIFFICULTY_HARD;
-	default:					return constants::DIFFICULTY_EASY;
+    case Difficulty::Beginner:  return constants::DIFFICULTY_BEGINNER;
+    case Difficulty::Easy:      return constants::DIFFICULTY_EASY;
+    case Difficulty::Medium:    return constants::DIFFICULTY_MEDIUM;
+    case Difficulty::Hard:      return constants::DIFFICULTY_HARD;
+	default:                    return constants::DIFFICULTY_EASY;
 	}
 }
+
+
 Difficulty DifficultyFromString(std::string difficultyStr)
 {
 	difficultyStr = NAS2D::toLowercase(difficultyStr);

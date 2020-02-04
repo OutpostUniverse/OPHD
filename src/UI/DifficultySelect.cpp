@@ -58,11 +58,11 @@ void DifficultySelect::init()
 
 	switch(CURRENT_DIFFICULTY)
 	{
-	case Difficulty::Beginner:	rdbBeginner.checked(true); break;
-	case Difficulty::Easy:		rdbEasy.checked(true); break;
-	case Difficulty::Medium:	rdbMedium.checked(true); break;
-	case Difficulty::Hard:		rdbHard.checked(true); break;
-	default:					rdbBeginner.checked(true); break;
+	case Difficulty::Beginner:  rdbBeginner.checked(true); break;
+	case Difficulty::Easy:      rdbEasy.checked(true);     break;
+	case Difficulty::Medium:    rdbMedium.checked(true);   break;
+	case Difficulty::Hard:      rdbHard.checked(true);     break;
+	default:                    rdbBeginner.checked(true); break;
 	}
 
 	rdbBeginner.text("Beginner");
@@ -71,19 +71,19 @@ void DifficultySelect::init()
 	rdbHard.text("Hard");
 
 	float longest_width = 0.0f;
-	if(longest_width < rdbBeginner.width())
+	if (longest_width < rdbBeginner.width())
 	{
 		longest_width = rdbBeginner.width();
 	}
-	if(longest_width < rdbEasy.width())
+	if (longest_width < rdbEasy.width())
 	{
 		longest_width = rdbEasy.width();
 	}
-	if(longest_width < rdbMedium.width())
+	if (longest_width < rdbMedium.width())
 	{
 		longest_width = rdbMedium.width();
 	}
-	if(longest_width < rdbHard.width())
+	if (longest_width < rdbHard.width())
 	{
 		longest_width = rdbHard.width();
 	}
@@ -117,7 +117,8 @@ void DifficultySelect::visibilityChanged(bool visible) {
 	if(visible)
 	{
 		enableControls();
-	} else
+	}
+	else
 	{
 		disableControls();
 	}
