@@ -24,6 +24,7 @@ public:
 
 	virtual void update();
 
+	std::vector<Control*> controls() const;
 protected:
 	virtual void visibilityChanged(bool visible);
 	virtual void positionChanged(float dX, float dY);
