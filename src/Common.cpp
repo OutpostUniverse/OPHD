@@ -19,13 +19,13 @@ using namespace NAS2D;
 std::string StringFromDifficulty(const Difficulty& difficulty)
 {
 	switch(difficulty)
-	{
+    {
     case Difficulty::Beginner:  return constants::DIFFICULTY_BEGINNER;
     case Difficulty::Easy:      return constants::DIFFICULTY_EASY;
     case Difficulty::Medium:    return constants::DIFFICULTY_MEDIUM;
     case Difficulty::Hard:      return constants::DIFFICULTY_HARD;
-	default:                    return constants::DIFFICULTY_EASY;
-	}
+    default:                    return constants::DIFFICULTY_EASY;
+    }
 }
 
 
@@ -36,18 +36,18 @@ Difficulty DifficultyFromString(std::string difficultyStr)
 	{
 		return Difficulty::Beginner;
 	}
-    else if(difficultyStr == "easy")
-    {
+	else if(difficultyStr == "easy")
+	{
 		return Difficulty::Easy;
-    }
-    else if(difficultyStr == "medium")
-    {
+	}
+	else if(difficultyStr == "medium")
+	{
 		return Difficulty::Medium;
-    }
-    else if(difficultyStr == "hard")
-    {
+	}
+	else if(difficultyStr == "hard")
+	{
 		return Difficulty::Hard;
-    }
+	}
 	else
 	{
 		return Difficulty::Easy;
