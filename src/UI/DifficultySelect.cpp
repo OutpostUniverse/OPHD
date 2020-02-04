@@ -27,11 +27,16 @@ DifficultySelect::DifficultySelect() : Window()
 
 DifficultySelect::~DifficultySelect()
 {
+    auto& e = NAS2D::Utility<NAS2D::EventHandler>::get();
+    e.keyDown().disconnect(this, &DifficultySelect::onKeyDown);
+
 	btnOk.click().disconnect(this, &DifficultySelect::btnOkClicked);
 }
 
 void DifficultySelect::init()
 {
+    auto& e = NAS2D::Utility<NAS2D::EventHandler>::get();
+    e.keyDown().connect(this, &DifficultySelect::onKeyDown);
 
 	size(150, 145);
 
@@ -101,6 +106,12 @@ void DifficultySelect::init()
 
 }
 
+void DifficultySelect::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat) {
+    if(key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) {
+		cancelled();
+    }
+}
+
 
 void DifficultySelect::visibilityChanged(bool visible) {
 	if(visible)
@@ -129,7 +140,12 @@ void DifficultySelect::btnOkClicked() {
 	{
 		CURRENT_DIFFICULTY = Difficulty::Hard;
 	}
-	mCallback();
+	mOkCallback();
+}
+
+void DifficultySelect::cancelled() {
+	hide();
+	mCancelCallback();
 }
 
 void DifficultySelect::enableControls() {

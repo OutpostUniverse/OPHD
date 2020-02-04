@@ -40,6 +40,7 @@ private:
 	void btnQuitClicked();
 
 	void wasDifficultyOkClicked();
+	void newGameCancelled();
 
 	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 

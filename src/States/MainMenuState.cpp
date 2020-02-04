@@ -29,7 +29,8 @@ MainMenuState::~MainMenuState()
 	e.windowResized().disconnect(this, &MainMenuState::onWindowResized);
 	e.keyDown().disconnect(this, &MainMenuState::onKeyDown);
 
-	dlgNewGame.okClicked().disconnect(this, &MainMenuState::wasDifficultyOkClicked);
+	dlgNewGame.ok().disconnect(this, &MainMenuState::wasDifficultyOkClicked);
+	dlgNewGame.cancel().disconnect(this, &MainMenuState::newGameCancelled);
 
 	Utility<Mixer>::get().stopAllAudio();
 	Utility<Renderer>::get().fadeComplete().disconnect(this, &MainMenuState::onFadeComplete);
@@ -78,7 +79,8 @@ void MainMenuState::initialize()
 
 	dlgNewGame.anchored(true);
 	dlgNewGame.hide();
-	dlgNewGame.okClicked().connect(this, &MainMenuState::wasDifficultyOkClicked);
+	dlgNewGame.ok().connect(this, &MainMenuState::wasDifficultyOkClicked);
+	dlgNewGame.cancel().connect(this, &MainMenuState::newGameCancelled);
 
 	dlgOptions.anchored(true);
 	dlgOptions.hide();
@@ -236,6 +238,11 @@ void MainMenuState::wasDifficultyOkClicked()
 
 	Utility<Renderer>::get().fadeOut((float)constants::FADE_SPEED);
 	Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
+}
+
+void MainMenuState::newGameCancelled()
+{
+	enableButtons();
 }
 
 /**

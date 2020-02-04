@@ -5,24 +5,28 @@
 class DifficultySelect : public Window
 {
 public:
-	typedef NAS2D::Signals::Signal0<void> OkClickCallback;
+	using OkClickCallback = NAS2D::Signals::Signal0<void>;
+	using CancelCallback = NAS2D::Signals::Signal0<void>;
 
 	DifficultySelect();
 	virtual ~DifficultySelect();
 
 	virtual void update() override;
 	
-	OkClickCallback& okClicked() { return mCallback; }
+	OkClickCallback& ok() { return mOkCallback; }
+	CancelCallback& cancel() { return mCancelCallback; }
 
 protected:
 	virtual void init();
 	virtual void visibilityChanged(bool visible) override;
 
 private:
+	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 	void enableControls();
 	void disableControls();
 
 	void btnOkClicked();
+	void cancelled();
 
 	RadioButton rdbBeginner;
 	RadioButton rdbEasy;
@@ -30,5 +34,6 @@ private:
 	RadioButton rdbHard;
 
 	Button btnOk;
-	OkClickCallback mCallback;
+	OkClickCallback mOkCallback;
+	CancelCallback mCancelCallback;
 };
