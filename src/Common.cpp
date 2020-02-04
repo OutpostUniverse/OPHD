@@ -206,7 +206,7 @@ std::array<std::string, PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
 	"PRODUCT_RESERVED_UG_63"
 };
 
-extern Difficulty CURRENT_DIFFICULTY = Difficulty::Beginner;
+Difficulty CURRENT_DIFFICULTY = Difficulty::Beginner;
 
 #if defined(WINDOWS) || defined(WIN32)
 #include "SDL_syswm.h"
