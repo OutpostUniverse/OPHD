@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -280,6 +280,9 @@
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\UI\Core\Label.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\UI\Core\RadioButton.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -612,6 +615,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\UI\Core\Label.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UI\Core\RadioButton.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
   </ItemGroup>

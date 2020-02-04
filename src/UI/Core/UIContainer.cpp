@@ -3,6 +3,8 @@
 
 #include "UIContainer.h"
 
+#include "RadioButton.h"
+
 #include "../../Common.h"
 
 #include "NAS2D/Utility.h"
@@ -53,6 +55,10 @@ void UIContainer::add(Control* c, float x, float y)
 	c->position(rect().x() + x, rect().y() + y);
 	c->visible(visible());
 	c->hasFocus(true);
+	if (auto* asRadioButton = dynamic_cast<RadioButton*>(c))
+	{
+		asRadioButton->parentContainer(this);
+	}
 
 	/// todo\	Add validation to contain controls within a UIContainer.
 }
@@ -142,4 +148,8 @@ void UIContainer::update()
 {
 	if (!visible()) { return; }
 	for (auto control : mControls) { control->update(); /*if (control->hasFocus()) { Utility<Renderer>::get().drawBox(control->rect(), 255, 0, 255); }*/ }
+}
+
+std::vector<Control*> UIContainer::controls() const {
+	return mControls;
 }

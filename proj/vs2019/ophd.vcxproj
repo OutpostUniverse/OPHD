@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -212,6 +212,7 @@
     <ClCompile Include="..\..\src\UI\Core\Label.cpp" />
     <ClCompile Include="..\..\src\UI\Core\ListBox.cpp" />
     <ClCompile Include="..\..\src\UI\Core\ListBoxBase.cpp" />
+    <ClCompile Include="..\..\src\UI\Core\RadioButton.cpp" />
     <ClCompile Include="..\..\src\UI\Core\Slider.cpp" />
     <ClCompile Include="..\..\src\UI\Core\TextArea.cpp" />
     <ClCompile Include="..\..\src\UI\Core\TextField.cpp" />
@@ -321,6 +322,7 @@
     <ClInclude Include="..\..\src\UI\Core\Label.h" />
     <ClInclude Include="..\..\src\UI\Core\ListBox.h" />
     <ClInclude Include="..\..\src\UI\Core\ListBoxBase.h" />
+    <ClInclude Include="..\..\src\UI\Core\RadioButton.h" />
     <ClInclude Include="..\..\src\UI\Core\Slider.h" />
     <ClInclude Include="..\..\src\UI\Core\TextArea.h" />
     <ClInclude Include="..\..\src\UI\Core\TextField.h" />
