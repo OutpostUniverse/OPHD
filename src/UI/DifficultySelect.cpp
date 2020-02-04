@@ -65,10 +65,10 @@ void DifficultySelect::init()
 	default:                    rdbBeginner.checked(true); break;
 	}
 
-	rdbBeginner.text("Beginner");
-	rdbEasy.text("Easy");
-	rdbMedium.text("Medium");
-	rdbHard.text("Hard");
+	rdbBeginner.text(constants::DIFFICULTY_BEGINNER);
+	rdbEasy.text(constants::DIFFICULTY_EASY);
+	rdbMedium.text(constants::DIFFICULTY_MEDIUM);
+	rdbHard.text(constants::DIFFICULTY_HARD);
 
 	float longest_width = 0.0f;
 	if (longest_width < rdbBeginner.width())
