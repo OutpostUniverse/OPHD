@@ -9,6 +9,19 @@
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/StringUtils.h>
 
+enum class Difficulty
+{
+	Beginner,
+	Easy,
+	Medium,
+	Hard,
+};
+
+std::string StringFromDifficulty(const Difficulty& difficulty);
+Difficulty DifficultyFromString(std::string difficultyStr);
+
+extern Difficulty CURRENT_DIFFICULTY;
+
 /**
  * Digger robot digging direction.
  */

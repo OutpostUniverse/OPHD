@@ -9,6 +9,7 @@
 
 #include "../UI/FileIo.h"
 #include "../UI/MainMenuOptions.h"
+#include "../UI/DifficultySelect.h"
 
 /**
  * Implements the main menu screen.
@@ -38,6 +39,8 @@ private:
 	void btnHelpClicked();
 	void btnQuitClicked();
 
+	void wasDifficultyOkClicked();
+
 	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
 private:
@@ -52,6 +55,7 @@ private:
 	Button				btnQuit;						/**<  */
 
 	MainMenuOptions		dlgOptions;
+	DifficultySelect	dlgNewGame;
 
 	Label				lblVersion;						/**<  */
 	NAS2D::State*		mReturnState = this;			/**<  */

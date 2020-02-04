@@ -16,6 +16,42 @@
 
 using namespace NAS2D;
 
+std::string StringFromDifficulty(const Difficulty& difficulty)
+{
+	switch(difficulty)
+	{
+    case Difficulty::Beginner:	return constants::DIFFICULTY_BEGINNER;
+    case Difficulty::Easy:		return constants::DIFFICULTY_EASY;
+    case Difficulty::Medium:	return constants::DIFFICULTY_MEDIUM;
+    case Difficulty::Hard:		return constants::DIFFICULTY_HARD;
+	default:					return constants::DIFFICULTY_EASY;
+	}
+}
+Difficulty DifficultyFromString(std::string difficultyStr)
+{
+	difficultyStr = NAS2D::toLowercase(difficultyStr);
+	if(difficultyStr == "beginner")
+	{
+		return Difficulty::Beginner;
+	}
+    else if(difficultyStr == "easy")
+    {
+		return Difficulty::Easy;
+    }
+    else if(difficultyStr == "medium")
+    {
+		return Difficulty::Medium;
+    }
+    else if(difficultyStr == "hard")
+    {
+		return Difficulty::Hard;
+    }
+	else
+	{
+		return Difficulty::Easy;
+	}
+}
+
 
 std::map<Structure::StructureState, Color> STRUCTURE_COLOR_TABLE
 {
@@ -168,6 +204,7 @@ std::array<std::string, PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
 	"PRODUCT_RESERVED_UG_63"
 };
 
+extern Difficulty CURRENT_DIFFICULTY = Difficulty::Beginner;
 
 #if defined(WINDOWS) || defined(WIN32)
 #include "SDL_syswm.h"
