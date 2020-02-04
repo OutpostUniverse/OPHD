@@ -617,9 +617,6 @@
     <ClInclude Include="..\..\src\UI\Core\Label.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\DifficultySelect.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\UI\Core\RadioButton.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
