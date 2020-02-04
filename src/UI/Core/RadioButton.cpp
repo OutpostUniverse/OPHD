@@ -28,6 +28,11 @@ RadioButton::RadioButton() : mSkin("ui/skin/checkbox.png")
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &RadioButton::onMouseDown);
 }
 
+RadioButton::~RadioButton()
+{
+    Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &RadioButton::onMouseDown);
+}
+
 /**
  * Sets checked state.
  *

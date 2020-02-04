@@ -18,7 +18,7 @@ public:
 
 public:
 	RadioButton();
-	virtual ~RadioButton() = default;
+	virtual ~RadioButton();
 
 	void checked(bool toggle);
 	bool checked() const;
