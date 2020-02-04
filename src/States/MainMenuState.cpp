@@ -29,6 +29,9 @@ MainMenuState::~MainMenuState()
 	e.windowResized().disconnect(this, &MainMenuState::onWindowResized);
 	e.keyDown().disconnect(this, &MainMenuState::onKeyDown);
 
+	dlgNewGame.ok().disconnect(this, &MainMenuState::wasDifficultyOkClicked);
+	dlgNewGame.cancel().disconnect(this, &MainMenuState::newGameCancelled);
+
 	Utility<Mixer>::get().stopAllAudio();
 	Utility<Renderer>::get().fadeComplete().disconnect(this, &MainMenuState::onFadeComplete);
 }
@@ -74,6 +77,11 @@ void MainMenuState::initialize()
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
+	dlgNewGame.anchored(true);
+	dlgNewGame.hide();
+	dlgNewGame.ok().connect(this, &MainMenuState::wasDifficultyOkClicked);
+	dlgNewGame.cancel().connect(this, &MainMenuState::newGameCancelled);
+
 	dlgOptions.anchored(true);
 	dlgOptions.hide();
 
@@ -115,6 +123,7 @@ void MainMenuState::positionButtons()
 
 	mFileIoDialog.position(static_cast<int>(r.center_x() - mFileIoDialog.width() / 2), static_cast<int>(r.center_y() - mFileIoDialog.height() / 2));
 	dlgOptions.position(static_cast<int>(r.center_x() - dlgOptions.width() / 2), static_cast<int>(r.center_y() - dlgOptions.height() / 2));
+	dlgNewGame.position(static_cast<int>(r.center_x() - dlgNewGame.width() / 2), static_cast<int>(r.center_y() - dlgNewGame.height() / 2));
 }
 
 
@@ -219,12 +228,22 @@ void MainMenuState::btnNewGameClicked()
 
 	disableButtons();
 
+	dlgNewGame.show();
+
+}
+
+void MainMenuState::wasDifficultyOkClicked()
+{
 	mReturnState = new PlanetSelectState();
 
 	Utility<Renderer>::get().fadeOut((float)constants::FADE_SPEED);
 	Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 }
 
+void MainMenuState::newGameCancelled()
+{
+	enableButtons();
+}
 
 /**
  * Click handler for Continue button.
@@ -233,6 +252,7 @@ void MainMenuState::btnContinueGameClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
 	if (dlgOptions.visible()) { return; }
+	if (dlgNewGame.visible()) { return; }
 
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 	mFileIoDialog.show();
@@ -315,6 +335,10 @@ NAS2D::State* MainMenuState::update()
 	else if (mFileIoDialog.visible())
 	{
 		mFileIoDialog.update();
+	}
+	else if(dlgNewGame.visible())
+	{
+		dlgNewGame.update();
 	}
 
 	lblVersion.update();
