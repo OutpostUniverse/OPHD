@@ -27,16 +27,16 @@ DifficultySelect::DifficultySelect() : Window()
 
 DifficultySelect::~DifficultySelect()
 {
-    auto& e = NAS2D::Utility<NAS2D::EventHandler>::get();
-    e.keyDown().disconnect(this, &DifficultySelect::onKeyDown);
+	auto& e = NAS2D::Utility<NAS2D::EventHandler>::get();
+	e.keyDown().disconnect(this, &DifficultySelect::onKeyDown);
 
 	btnOk.click().disconnect(this, &DifficultySelect::btnOkClicked);
 }
 
 void DifficultySelect::init()
 {
-    auto& e = NAS2D::Utility<NAS2D::EventHandler>::get();
-    e.keyDown().connect(this, &DifficultySelect::onKeyDown);
+	auto& e = NAS2D::Utility<NAS2D::EventHandler>::get();
+	e.keyDown().connect(this, &DifficultySelect::onKeyDown);
 
 	size(150, 145);
 
@@ -71,22 +71,22 @@ void DifficultySelect::init()
 	rdbHard.text("Hard");
 
 	float longest_width = 0.0f;
-    if(longest_width < rdbBeginner.width())
-    {
-        longest_width = rdbBeginner.width();
-    }
+	if(longest_width < rdbBeginner.width())
+	{
+		longest_width = rdbBeginner.width();
+	}
 	if(longest_width < rdbEasy.width())
-    {
-        longest_width = rdbEasy.width();
-    }
+	{
+		longest_width = rdbEasy.width();
+	}
 	if(longest_width < rdbMedium.width())
-    {
-        longest_width = rdbMedium.width();
-    }
+	{
+		longest_width = rdbMedium.width();
+	}
 	if(longest_width < rdbHard.width())
-    {
-        longest_width = rdbHard.width();
-    }
+	{
+		longest_width = rdbHard.width();
+	}
 
 	rdbBeginner.width(longest_width);
 	rdbEasy.width(longest_width);
@@ -107,9 +107,9 @@ void DifficultySelect::init()
 }
 
 void DifficultySelect::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat) {
-    if(key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) {
+	if(key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) {
 		cancelled();
-    }
+	}
 }
 
 
