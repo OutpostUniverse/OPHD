@@ -115,6 +115,10 @@ private:
 	void placeRobot();
 	void placeStructure();
 	void placeTubes();
+	
+	Rectangle_2d tubeStart;
+	void placeTubeStart();
+	void placeTubeEnd();
 
 	void setStructureID(StructureID type, InsertMode mode);
 
