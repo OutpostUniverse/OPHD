@@ -5,6 +5,19 @@ configuration:
 platform:
   - x64
   - x86
+clone_script:
+- ps: >-
+    if(-not $env:APPVEYOR_PULL_REQUEST_NUMBER) {
+      git clone -q --branch=$env:APPVEYOR_REPO_BRANCH https://github.com/$env:APPVEYOR_REPO_NAME.git $env:APPVEYOR_BUILD_FOLDER
+      cd $env:APPVEYOR_BUILD_FOLDER
+      git checkout -qf $env:APPVEYOR_REPO_COMMIT
+    } else {
+      git clone -q https://github.com/$env:APPVEYOR_REPO_NAME.git $env:APPVEYOR_BUILD_FOLDER
+      cd $env:APPVEYOR_BUILD_FOLDER
+      git fetch -q origin +refs/pull/$env:APPVEYOR_PULL_REQUEST_NUMBER/merge:
+      git checkout -qf FETCH_HEAD
+    }
+- cmd: git submodule update --init --recursive
 cache:
   - C:\tools\vcpkg\installed\ -> nas2d-core\InstallVcpkgDeps.bat
 install:
