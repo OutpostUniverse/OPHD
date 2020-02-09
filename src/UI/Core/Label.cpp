@@ -11,17 +11,23 @@
 static const int FIELD_PADDING = 4;
 static NAS2D::Font* TXT_FONT = nullptr;
 
-Label::Label() {
+
+Label::Label()
+{
     TXT_FONT = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
     height(static_cast<float>(TXT_FONT->height() + FIELD_PADDING * 2));
 }
 
-void Label::font(NAS2D::Font* font) {
+
+void Label::font(NAS2D::Font* font)
+{
     TXT_FONT = font;
     height(static_cast<float>(TXT_FONT->height() + FIELD_PADDING * 2));
 }
 
-void Label::update() {
+
+void Label::update()
+{
     if(!visible()) { return; }
 
     NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -29,7 +35,9 @@ void Label::update() {
     r.drawText(*TXT_FONT, text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, textColor.red(), textColor.green(), textColor.blue(), textColor.alpha());
 }
 
-void Label::color(const NAS2D::Color& color) {
+
+void Label::color(const NAS2D::Color& color)
+{
     textColor = color;
 }
 
