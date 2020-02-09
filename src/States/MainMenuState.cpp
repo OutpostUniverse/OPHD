@@ -147,7 +147,7 @@ void MainMenuState::enableButtons()
 {
 	btnNewGame.enabled(true);
 	btnContinueGame.enabled(true);
-	btnOptions.enabled(true);
+	btnOptions.enabled(false);
 	btnHelp.enabled(true);
 	btnQuit.enabled(true);
 }
