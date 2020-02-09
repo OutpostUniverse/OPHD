@@ -228,9 +228,10 @@ void MainMenuState::btnNewGameClicked()
 
 	disableButtons();
 
-	dlgNewGame.show();
-
+	//dlgNewGame.show();
+	wasDifficultyOkClicked();
 }
+
 
 void MainMenuState::wasDifficultyOkClicked()
 {
@@ -240,10 +241,12 @@ void MainMenuState::wasDifficultyOkClicked()
 	Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 }
 
+
 void MainMenuState::newGameCancelled()
 {
 	enableButtons();
 }
+
 
 /**
  * Click handler for Continue button.
