@@ -26,7 +26,7 @@
 
 using namespace NAS2D;
 
-#include "SDL.h"
+#include "SDL2/SDL.h"
 
 /** Not thrilled with placement but this seems to be the easiest way to deal with it. */
 NAS2D::Image* IMG_LOADING = nullptr;
@@ -69,7 +69,8 @@ int main(int /*argc*/, char *argv[])
 	try
 	{
 		Filesystem& f = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks");
-		f.mount(f.basePath() + "data");
+		f.mount("data");
+
 
 		if (!f.exists(constants::SAVE_GAME_PATH))
 		{

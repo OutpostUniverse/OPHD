@@ -12,7 +12,7 @@
 #include <Windows.h>
 #endif
 
-#include "SDL.h"
+#include "SDL2/SDL.h"
 
 using namespace NAS2D;
 
@@ -209,7 +209,7 @@ std::array<std::string, PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
 Difficulty CURRENT_DIFFICULTY = Difficulty::Beginner;
 
 #if defined(WINDOWS) || defined(WIN32)
-#include "SDL_syswm.h"
+#include "SDL2/SDL_syswm.h"
 /**
  * Gets a Windows API HWND handle to the main
  * window of the application.
