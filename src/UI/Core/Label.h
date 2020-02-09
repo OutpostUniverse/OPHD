@@ -32,6 +32,8 @@ public:
 	void clear() { _text().clear(); }
 	void update();
 
+	int width() const;
+
 	void color(const NAS2D::Color& color);
 
 protected:
