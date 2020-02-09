@@ -623,6 +623,9 @@
     <ClInclude Include="..\..\src\UI\Core\RadioButton.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\UI\DifficultySelect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">
@@ -633,8 +636,5 @@
     <Image Include="outpost.ico">
       <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>
