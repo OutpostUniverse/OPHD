@@ -1,0 +1,15 @@
+image: Visual Studio 2019
+configuration:
+  - Release
+  - Debug
+platform:
+  - x64
+  - x86
+cache:
+  - C:\tools\vcpkg\installed\ -> nas2d-core\InstallVcpkgDeps.bat
+install:
+  - vcpkg integrate install
+  - call nas2d-core\InstallVcpkgDeps.bat
+  - set APPVEYOR_SAVE_CACHE_ON_ERROR=true
+build:
+  project: proj/vs2019/OPHD.sln
