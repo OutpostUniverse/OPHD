@@ -860,7 +860,7 @@ void MapViewState::placeTubeEnd()
 	if (tubeStart.y() > tile->y())
 	{
 		incY = -incY;
-		int xEnd = tubeStart.x();
+		xEnd = tubeStart.x();
 	}
 
 	// 
