@@ -104,7 +104,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		return;
 	}
 
-	if (mIconItemList.empty() || !isPointInRect(x, y, static_cast<int>(rect().x()), static_cast<int>(rect().y()), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
+	if (mIconItemList.empty() || !NAS2D::Rectangle{static_cast<int>(rect().x()), static_cast<int>(rect().y()), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)}.contains(NAS2D::Point{x, y}))
 	{
 		return;
 	}
@@ -133,7 +133,7 @@ void IconGrid::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!visible() || !hasFocus()) { return; }
 
-	if (mIconItemList.empty() || !isPointInRect(x, y, static_cast<int>(rect().x()), static_cast<int>(rect().y()), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)))
+	if (mIconItemList.empty() || !NAS2D::Rectangle{static_cast<int>(rect().x()), static_cast<int>(rect().y()), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)}.contains(NAS2D::Point{x, y}))
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 		return;
