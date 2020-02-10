@@ -6,6 +6,9 @@
 
 #include "Things/Structures/Structure.h"
 
+#include "NAS2D/Xml/XmlDocument.h"
+#include "NAS2D/Xml/XmlElement.h"
+
 #include <iostream>
 
 #if defined(WINDOWS) || defined(WIN32)
