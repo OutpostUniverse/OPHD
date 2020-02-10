@@ -197,10 +197,8 @@ bool Structure::disabledByIntegrity() const
 
 bool Structure::destroyedByIntegrity() const
 {
-	float destroyChance = mIntegrity <= 25 ? 1.0f - mIntegrity / 25.0f : 0.0f;
-	// uniform_real_distributions are in a half-closed range [lower, upper).
-	// std::nextafter allows the range to be [lower, upper]
-	std::uniform_real_distribution<double> dist(0.0, std::nextafter(1.0, 2.0));
+	int destroyChance = mIntegrity < 25 ? 100 - (mIntegrity * 100 / 25) : 0;
+	std::uniform_int_distribution<int> dist(0, 100);
 	return dist(generator) < destroyChance;
 }
 
