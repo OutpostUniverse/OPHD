@@ -70,7 +70,7 @@ int main(int /*argc*/, char *argv[])
 	{
 		Filesystem& f = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks");
 		f.mount("data");
-
+		f.mountReadWrite(f.prefPath());
 
 		if (!f.exists(constants::SAVE_GAME_PATH))
 		{
