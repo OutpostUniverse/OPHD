@@ -240,7 +240,7 @@ bool pointInRect_f(int x, int y, const Rectangle_2df& rect)
  */
 bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float rectH)
 {
-	return Rectangle{rectX, rectY, rectW, rectH}.to<int>().contains(Point{x, y});
+	return NAS2D::Rectangle{rectX, rectY, rectW, rectH}.to<int>().contains(Point{x, y});
 }
 
 
