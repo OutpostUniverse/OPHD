@@ -97,7 +97,13 @@ void MapViewState::drawMiniMap()
 		bool isMineExhausted = mine->exhausted();
 		bool isMineProducing = !isMineExhausted;
 		bool isMineActiveAndProducing = isMineActive && isMineProducing;
-		float mineBeaconStatusOffsetX = isMineUnused ? 0.0f : (isMineActiveAndProducing ? 8.0f : (isMineExhausted ? 16.0f : 0.0f));
+
+		float mineBeaconStatusOffsetX = 0.0f;		
+		if(isMineUnused) { mineBeaconStatusOffsetX = 0.0f; }
+		else if(isMineActiveAndProducing) { mineBeaconStatusOffsetX = 8.0f; }
+		else if(isMineExhausted) { mineBeaconStatusOffsetX = 16.0f; }
+		else { mineBeaconStatusOffsetX = 0.0f; }
+
 		r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, mineBeaconStatusOffsetX, 0.0f, 7.0f, 7.0f);
 	}
 
