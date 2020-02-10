@@ -10,6 +10,9 @@
 #include "../Constants.h"
 #include "../FontManager.h"
 
+#include "NAS2D/Mixer/Mixer.h"
+#include "NAS2D/Renderer/Renderer.h"
+
 using namespace NAS2D;
 
 Planet::PlanetType PLANET_TYPE_SELECTION = Planet::PLANET_TYPE_NONE;

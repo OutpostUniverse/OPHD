@@ -9,6 +9,9 @@
 
 #include "Wrapper.h"
 
+#include "NAS2D/Mixer/Mixer.h"
+#include "NAS2D/Renderer/Renderer.h"
+
 Point_2d MOUSE_COORDS;									/**< Mouse Coordinates. Used by other states/wrapers. */
 
 MainReportsUiState* MAIN_REPORTS_UI = nullptr;			/**< Pointer to a MainReportsUiState. Memory is handled by GameState. */
