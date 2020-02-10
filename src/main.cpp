@@ -6,6 +6,7 @@
 #include "NAS2D/Mixer/MixerSDL.h"
 #include "NAS2D/Mixer/MixerNull.h"
 #include "NAS2D/Renderer/RendererOpenGL.h"
+#include "NAS2D/StateManager.h"
 
 #include "Common.h"
 #include "Constants.h"
