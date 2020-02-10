@@ -1,6 +1,7 @@
 #pragma once
 
 #include "NAS2D/Signal.h"
+#include "NAS2D/FpsCounter.h"
 
 #include "MapViewStateHelper.h"
 #include "MainReportsUiState.h"
