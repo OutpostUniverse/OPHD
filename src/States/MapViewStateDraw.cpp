@@ -246,6 +246,12 @@ void MapViewState::drawRobotInfo()
 	r.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 }
 
+bool MapViewState::drawNavIcon(Renderer& r, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
+	bool isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
+	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
+	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), subImageBounds.x(), subImageBounds.y(), subImageBounds.width(), subImageBounds.height(), color.red(), color.green(), color.blue(), color.alpha());
+	return isMouseInIcon;
+}
 
 /**
  * Draws navigation UI.
@@ -254,37 +260,12 @@ void MapViewState::drawNavInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	NAS2D::Rectangle_2d currentIconBounds = MOVE_DOWN_ICON;
-	bool isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
-	NAS2D::Color iconColor{255, 255, 255, 255};
-	NAS2D::Color iconHighlightColor{255, 0, 0, 255};
-	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
-	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 64, 128, 32, 32, color.red(), color.green(), color.blue(), color.alpha());
-
-	currentIconBounds = MOVE_UP_ICON;
-	isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
-	color = isMouseInIcon ? iconHighlightColor : iconColor;
-	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 96, 128, 32, 32, color.red(), color.green(), color.blue(), color.alpha());
-
-	currentIconBounds = MOVE_EAST_ICON;
-	isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
-	color = isMouseInIcon ? iconHighlightColor : iconColor;
-	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 32, 128, 32, 16, color.red(), color.green(), color.blue(), color.alpha());
-
-	currentIconBounds = MOVE_WEST_ICON;
-	isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
-	color = isMouseInIcon ? iconHighlightColor : iconColor;
-	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 32, 144, 32, 16, color.red(), color.green(), color.blue(), color.alpha());
-
-	currentIconBounds = MOVE_NORTH_ICON;
-	isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
-	color = isMouseInIcon ? iconHighlightColor : iconColor;
-	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 0, 128, 32, 16, color.red(), color.green(), color.blue(), color.alpha());
-
-	currentIconBounds = MOVE_SOUTH_ICON;
-	isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
-	color = isMouseInIcon ? iconHighlightColor : iconColor;
-	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), 0, 144, 32, 16, color.red(), color.green(), color.blue(), color.alpha());
+	drawNavIcon(r, MOVE_DOWN_ICON, NAS2D::Rectangle_2d{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(r, MOVE_UP_ICON, NAS2D::Rectangle_2d{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(r, MOVE_EAST_ICON, NAS2D::Rectangle_2d{32, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(r, MOVE_WEST_ICON, NAS2D::Rectangle_2d{32, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(r, MOVE_NORTH_ICON, NAS2D::Rectangle_2d{0, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(r, MOVE_SOUTH_ICON, NAS2D::Rectangle_2d{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
 
 	// display the levels "bar"
 	int iWidth = MAIN_FONT->width("IX");								// set steps character patern width
