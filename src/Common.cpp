@@ -231,7 +231,7 @@ HWND WIN32_getWindowHandle()
  */
 bool pointInRect_f(int x, int y, const Rectangle_2df& rect)
 {
-	return pointInRect_f(x, y, rect.x(), rect.y(), rect.width(), rect.height());
+	return rect.to<int>().contains(Point{x, y});
 }
 
 
@@ -240,7 +240,7 @@ bool pointInRect_f(int x, int y, const Rectangle_2df& rect)
  */
 bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float rectH)
 {
-	return isPointInRect(x, y,	static_cast<int>(rectX), static_cast<int>(rectY), static_cast<int>(rectW), static_cast<int>(rectH));
+	return Rectangle{rectX, rectY, rectW, rectH}.to<int>().contains(Point{x, y});
 }
 
 
