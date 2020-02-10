@@ -203,12 +203,12 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 	// Ignore if menu is empty or invisible
 	if (empty() || !visible()) { return; }
 
-	if (!isPointInRect(Point_2d(x, y), rect()) || mCurrentHighlight == constants::NO_SELECTION)
+	if (!rect().contains(Point{x, y}) || mCurrentHighlight == constants::NO_SELECTION)
 	{
 		return;
 	}
 
-	if (mSlider.visible() && isPointInRect(Point_2d(x, y), mSlider.rect()))
+	if (mSlider.visible() && mSlider.rect().contains(Point{x, y}))
 	{
 		return;		// if the mouse is on the slider then the slider should handle that
 	}
@@ -228,14 +228,14 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	if (empty() || !visible()) { return; }
 
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
-	if (!isPointInRect(Point_2d(x, y), rect()))
+	if (!rect().contains(Point{x, y}))
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 		return;
 	}
 
 	// if the mouse is on the slider then the slider should handle that
-	if (mSlider.visible() && isPointInRect(Point_2d(x, y), mSlider.rect()))
+	if (mSlider.visible() && mSlider.rect().contains(Point{x, y}))
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 		return;
