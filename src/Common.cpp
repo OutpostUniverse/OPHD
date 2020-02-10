@@ -16,42 +16,31 @@
 
 using namespace NAS2D;
 
+
+std::map<Difficulty, std::string> DIFFICULTY_STRING_TABLE
+{
+	{ Difficulty::Beginner,	constants::DIFFICULTY_BEGINNER },
+	{ Difficulty::Easy,		constants::DIFFICULTY_EASY },
+	{ Difficulty::Medium,	constants::DIFFICULTY_MEDIUM },
+	{ Difficulty::Hard,		constants::DIFFICULTY_HARD },
+};
+
 std::string StringFromDifficulty(const Difficulty& difficulty)
 {
-	switch(difficulty)
-	{
-	case Difficulty::Beginner:  return constants::DIFFICULTY_BEGINNER;
-	case Difficulty::Easy:      return constants::DIFFICULTY_EASY;
-	case Difficulty::Medium:    return constants::DIFFICULTY_MEDIUM;
-	case Difficulty::Hard:      return constants::DIFFICULTY_HARD;
-	default:                    return constants::DIFFICULTY_EASY;
-	}
+	return DIFFICULTY_STRING_TABLE[difficulty];
 }
-
 
 Difficulty DifficultyFromString(std::string difficultyStr)
 {
 	difficultyStr = NAS2D::toLowercase(difficultyStr);
-	if(difficultyStr == "beginner")
+	for(const auto& difficulty : DIFFICULTY_STRING_TABLE)
 	{
-		return Difficulty::Beginner;
+		if(NAS2D::toLowercase(difficulty.second) == difficultyStr)
+		{
+			return difficulty.first;
+		}
 	}
-	else if(difficultyStr == "easy")
-	{
-		return Difficulty::Easy;
-	}
-	else if(difficultyStr == "medium")
-	{
-		return Difficulty::Medium;
-	}
-	else if(difficultyStr == "hard")
-	{
-		return Difficulty::Hard;
-	}
-	else
-	{
-		return Difficulty::Easy;
-	}
+	throw std::runtime_error(difficultyStr + " is not a valid difficulty.");
 }
 
 
