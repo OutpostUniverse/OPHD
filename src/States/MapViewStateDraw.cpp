@@ -94,9 +94,8 @@ void MapViewState::drawMiniMap()
 
 		float mineBeaconStatusOffsetX = 0.0f;		
 		if (!mine->active()) { mineBeaconStatusOffsetX = 0.0f; }
-		else if (mine->active() && !mine->exhausted()) { mineBeaconStatusOffsetX = 8.0f; }
-		else if (mine->exhausted()) { mineBeaconStatusOffsetX = 16.0f; }
-		else { mineBeaconStatusOffsetX = 0.0f; }
+		else if (!mine->exhausted()) { mineBeaconStatusOffsetX = 8.0f; }
+		else { mineBeaconStatusOffsetX = 16.0f; }
 
 		r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, mineBeaconStatusOffsetX, 0.0f, 7.0f, 7.0f);
 	}
