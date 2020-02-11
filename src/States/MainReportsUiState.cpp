@@ -126,7 +126,7 @@ static void setPanelRects(int width)
  */
 static void drawPanel(Renderer& _r, Panel& _p)
 {
-	if (isPointInRect(MOUSE_COORDS, _p.Rect)) { _r.drawBoxFilled(_p.Rect, 0, 185, 185, 100); }
+	if (_p.Rect.contains(MOUSE_COORDS)) { _r.drawBoxFilled(_p.Rect, 0, 185, 185, 100); }
 
 	if (_p.Selected())
 	{
@@ -269,13 +269,13 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 {
 	if (!active()) { return; }
 
-	if (!isPointInRect(x, y, 0, 0, static_cast<int>(Utility<Renderer>::get().width()), 40)) { return; } // ignore clicks in the UI area.
+	if (!NAS2D::Rectangle{0, 0, static_cast<int>(Utility<Renderer>::get().width()), 40}.contains(Point{x, y})) { return; } // ignore clicks in the UI area.
 
 	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
 		for (Panel& panel : Panels)
 		{
-			bool selected = isPointInRect(MOUSE_COORDS, panel.Rect);
+			bool selected = panel.Rect.contains(MOUSE_COORDS);
 			panel.Selected(selected);
 
 			if(panel.UiPanel) { panel.UiPanel->visible(selected); }
