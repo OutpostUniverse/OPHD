@@ -196,7 +196,7 @@ void MapViewState::drawResourceInfo()
 	bool shouldShowPopPanel = mPinPopulationPanel || isMouseInPopPanel;
 	if(shouldShowPopPanel) { mPopulationPanel.update(); }
 
-	bool isMouseInResourcePanel = isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 0, 1, mResourceBreakdownPanel.width(), 19);
+	bool isMouseInResourcePanel = isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 0, 1, static_cast<int>(mResourceBreakdownPanel.width()), 19);
 	bool shouldShowResourcePanel = mPinResourcePanel || isMouseInResourcePanel;
 	if (shouldShowResourcePanel) { mResourceBreakdownPanel.update(); }
 
