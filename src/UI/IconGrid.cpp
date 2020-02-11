@@ -105,7 +105,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	}
 
 	auto startPoint = mRect.startPoint().to<int>();
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint.x(), startPoint.y(), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)}.contains(NAS2D::Point{x, y}))
+	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint.x(), startPoint.y(), mGridSize.x * (mIconSize + mIconMargin), mGridSize.y * (mIconSize + mIconMargin)}.contains(NAS2D::Point{x, y}))
 	{
 		return;
 	}
@@ -135,7 +135,7 @@ void IconGrid::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
 	if (!visible() || !hasFocus()) { return; }
 
 	auto startPoint = mRect.startPoint().to<int>();
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint.x(), startPoint.y(), mGridSize.x() * (mIconSize + mIconMargin), mGridSize.y() * (mIconSize + mIconMargin)}.contains(NAS2D::Point{x, y}))
+	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint.x(), startPoint.y(), mGridSize.x * (mIconSize + mIconMargin), mGridSize.y * (mIconSize + mIconMargin)}.contains(NAS2D::Point{x, y}))
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 		return;
@@ -157,7 +157,7 @@ void IconGrid::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
  */
 int IconGrid::translateCoordsToIndex(int x, int y)
 {
-	return (x / (mIconSize + mIconMargin)) + (mGridSize.x() * (y / (mIconSize + mIconMargin)));
+	return (x / (mIconSize + mIconMargin)) + (mGridSize.x * (y / (mIconSize + mIconMargin)));
 }
 
 
@@ -419,8 +419,8 @@ void IconGrid::update()
 
 	for (size_t i = 0; i < mIconItemList.size(); ++i)
 	{
-		int x_pos = static_cast<int>(i) % mGridSize.x();
-		int y_pos = static_cast<int>(i) / mGridSize.x(); //-V537
+		int x_pos = static_cast<int>(i) % mGridSize.x;
+		int y_pos = static_cast<int>(i) / mGridSize.x; //-V537
 
 		float x = static_cast<float>((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
 		float y = static_cast<float>((rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
@@ -433,8 +433,8 @@ void IconGrid::update()
 
 	if (mCurrentSelection != constants::NO_SELECTION)
 	{
-		int x_pos = (static_cast<int>(mCurrentSelection) % mGridSize.x());
-		int y_pos = (static_cast<int>(mCurrentSelection) / mGridSize.x()); //-V537
+		int x_pos = (static_cast<int>(mCurrentSelection) % mGridSize.x);
+		int y_pos = (static_cast<int>(mCurrentSelection) / mGridSize.x); //-V537
 		r.drawBox((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos),
 			(rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos),
 			static_cast<float>(mIconSize),
@@ -443,8 +443,8 @@ void IconGrid::update()
 
 	if (mHighlightIndex != constants::NO_SELECTION)
 	{
-		int x_pos = (static_cast<int>(mHighlightIndex) % mGridSize.x());
-		int y_pos = (static_cast<int>(mHighlightIndex) / mGridSize.x()); //-V537
+		int x_pos = (static_cast<int>(mHighlightIndex) % mGridSize.x);
+		int y_pos = (static_cast<int>(mHighlightIndex) / mGridSize.x); //-V537
 
 		int x = static_cast<int>((rect().x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
 		int y = static_cast<int>((rect().y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
