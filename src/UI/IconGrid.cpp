@@ -105,7 +105,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	}
 
 	auto startPoint = mRect.startPoint().to<int>();
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint.x(), startPoint.y(), mGridSize.x * (mIconSize + mIconMargin), mGridSize.y * (mIconSize + mIconMargin)}.contains(NAS2D::Point{x, y}))
+	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(NAS2D::Point{x, y}))
 	{
 		return;
 	}
@@ -135,7 +135,7 @@ void IconGrid::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
 	if (!visible() || !hasFocus()) { return; }
 
 	auto startPoint = mRect.startPoint().to<int>();
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint.x(), startPoint.y(), mGridSize.x * (mIconSize + mIconMargin), mGridSize.y * (mIconSize + mIconMargin)}.contains(NAS2D::Point{x, y}))
+	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(NAS2D::Point{x, y}))
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 		return;
