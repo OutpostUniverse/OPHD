@@ -296,7 +296,7 @@ void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int
 	if (!visible()) { return; }
 	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
 
-	if (SELECTED_WAREHOUSE && isPointInRect(Point_2d(x, y), lstStructures.rect()))
+	if (SELECTED_WAREHOUSE && lstStructures.rect().contains(NAS2D::Point{x, y}))
 	{
 		takeMeThereCallback()(SELECTED_WAREHOUSE);
 	}
