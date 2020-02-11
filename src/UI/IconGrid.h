@@ -5,6 +5,7 @@
 #include "NAS2D/Signal.h"
 #include "NAS2D/EventHandler.h"
 #include "NAS2D/Renderer/Point.h"
+#include "NAS2D/Renderer/Vector.h"
 #include "NAS2D/Resources/Image.h"
 
 
@@ -101,7 +102,7 @@ private:
 
 private:
 	void updateGrid();
-	int translateCoordsToIndex(int x, int y);
+	int translateCoordsToIndex(NAS2D::Vector<int> relativeOffset);
 
 	void raiseChangedEvent();
 
@@ -119,7 +120,7 @@ private:
 
 	NAS2D::ImageList	mSkin;
 
-	NAS2D::Point_2d		mGridSize;					/**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
+	NAS2D::Vector<int>	mGridSize;					/**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
 
 	IconItemList		mIconItemList;				/**< List of items. */
 
