@@ -322,7 +322,7 @@ void TileMap::centerMapOnTile(Tile* _t)
  */
 bool TileMap::tileHighlightVisible() const
 {
-	return isPointInRect(mMapHighlight.x(), mMapHighlight.y(), 0, 0, mEdgeLength - 1, mEdgeLength - 1);
+	return NAS2D::Rectangle{0, 0, mEdgeLength - 1, mEdgeLength - 1}.contains(mMapHighlight);
 }
 
 
@@ -398,7 +398,7 @@ void TileMap::draw()
  */
 void TileMap::updateTileHighlight()
 {
-	if (!isPointInRect(mMousePosition, mMapBoundingBox))
+	if (!mMapBoundingBox.contains(mMousePosition))
 	{
 		return;
 	}
@@ -607,7 +607,7 @@ Tile* TileMap::getVisibleTile(int x, int y, int level)
 
 bool TileMap::isVisibleTile(int _x, int _y, int _d) const
 {
-	if (!isPointInRect(_x, _y, mMapViewLocation.x(), mMapViewLocation.y(), mEdgeLength - 1, mEdgeLength - 1))
+	if (!NAS2D::Rectangle{mMapViewLocation.x(), mMapViewLocation.y(), mEdgeLength - 1, mEdgeLength - 1}.contains(NAS2D::Point{_x, _y}))
 	{
 		return false;
 	}
