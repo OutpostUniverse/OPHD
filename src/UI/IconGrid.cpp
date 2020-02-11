@@ -105,12 +105,13 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	}
 
 	auto startPoint = mRect.startPoint().to<int>();
-	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(NAS2D::Point{x, y}))
+	auto mousePoint = NAS2D::Point{x, y};
+	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(mousePoint))
 	{
 		return;
 	}
 
-	mCurrentSelection = translateCoordsToIndex(x - static_cast<int>(rect().x()), y - static_cast<int>(rect().y()));
+	mCurrentSelection = translateCoordsToIndex(mousePoint - startPoint);
 
 	if (static_cast<size_t>(mCurrentSelection) >= mIconItemList.size())
 	{
@@ -135,14 +136,15 @@ void IconGrid::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
 	if (!visible() || !hasFocus()) { return; }
 
 	auto startPoint = mRect.startPoint().to<int>();
-	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(NAS2D::Point{x, y}))
+	auto mousePoint = NAS2D::Point{x, y};
+	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(mousePoint))
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 		return;
 	}
 
 	// Assumes all coordinates are not negative.
-	mHighlightIndex = translateCoordsToIndex(x - startPoint.x(), y - startPoint.y());
+	mHighlightIndex = translateCoordsToIndex(mousePoint - startPoint);
 
 	if (static_cast<size_t>(mHighlightIndex) >= mIconItemList.size())
 	{
@@ -155,9 +157,9 @@ void IconGrid::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
  * Utility function that translates mouse coordinates into
  * an index value.
  */
-int IconGrid::translateCoordsToIndex(int x, int y)
+int IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
 {
-	return (x / (mIconSize + mIconMargin)) + (mGridSize.x * (y / (mIconSize + mIconMargin)));
+	return (relativeOffset.x / (mIconSize + mIconMargin)) + (mGridSize.x * (relativeOffset.y / (mIconSize + mIconMargin)));
 }
 
 
