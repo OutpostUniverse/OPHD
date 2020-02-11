@@ -69,8 +69,8 @@ void MapViewState::drawMiniMap()
 	Renderer& r = Utility<Renderer>::get();
 	r.clipRect(mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y(), mMiniMapBoundingBox.width(), mMiniMapBoundingBox.height());
 
-	if (mBtnToggleHeightmap.toggled()) { r.drawImage(mHeightMap, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y()); }
-	else { r.drawImage(mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y()); }
+	bool isHeightmapToggled = mBtnToggleHeightmap.toggled();
+	r.drawImage(isHeightmapToggled ? mHeightMap : mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y());
 
 	if (ccLocationX() != 0 && ccLocationY() != 0)
 	{
@@ -92,19 +92,12 @@ void MapViewState::drawMiniMap()
 		Mine* mine = mTileMap->getTile(_mine.x(), _mine.y(), 0)->mine();
 		if (!mine) { break; } // avoids potential race condition where a mine is destroyed during an updated cycle.
 
-		if (!mine->active())
-		{
-			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 0.0f, 0.0f, 7.0f, 7.0f);
-		}
-		else if (mine->active() && !mine->exhausted())
-		{
-			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 8.0f, 0.0f, 7.0f, 7.0f);
-		}
-		else if (mine->exhausted())
-		{
-			r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, 16.0f, 0.0f, 7.0f, 7.0f);
-		}
+		float mineBeaconStatusOffsetX = 0.0f;		
+		if (!mine->active()) { mineBeaconStatusOffsetX = 0.0f; }
+		else if (!mine->exhausted()) { mineBeaconStatusOffsetX = 8.0f; }
+		else { mineBeaconStatusOffsetX = 16.0f; }
 
+		r.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, mineBeaconStatusOffsetX, 0.0f, 7.0f, 7.0f);
 	}
 
 	for (auto _tile : path)
@@ -151,57 +144,70 @@ void MapViewState::drawResourceInfo()
 	updateGlowTimer();
 
 	// Common Metals
-	r.drawSubImage(mUiIcons, x, y , 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.commonMetals() <= 10) { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, 255, 255); }
+	r.drawSubImage(mUiIcons, x, y, 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	bool shouldCommonMetalsGlow = mPlayerResources.commonMetals() <= 10;
+	int glowColor = shouldCommonMetalsGlow ? GLOW_STEP : 255;
+	r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.commonMetals()), x + margin, textY, 255, glowColor, glowColor);
 
 	// Rare Metals
 	r.drawSubImage(mUiIcons, x + offsetX, y, 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.rareMetals() <= 10) { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, 255, 255); }
+	bool shouldRareMetalsGlow = mPlayerResources.rareMetals() <= 10;
+	glowColor = shouldRareMetalsGlow ? GLOW_STEP : 255;
+	r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, glowColor, glowColor);
 
 	// Common Minerals
 	r.drawSubImage(mUiIcons, (x + offsetX) * 2, y, 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.commonMinerals() <= 10) { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, 255, 255); }
+	bool shouldCommonMineralsGlow = mPlayerResources.commonMinerals() <= 10;
+	glowColor = shouldCommonMineralsGlow ? GLOW_STEP : 255;
+	r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, glowColor, glowColor);
 
 	// Rare Minerals
 	r.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.rareMinerals() <= 10) { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, 255, 255); }
+	bool shouldRareMineralsGlow = mPlayerResources.rareMinerals() <= 10;
+	glowColor = shouldRareMineralsGlow ? GLOW_STEP : 255;
+	r.drawText(*MAIN_FONT, string_format("%i", mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, glowColor, glowColor);
 
 	// Storage Capacity
 	r.drawSubImage(mUiIcons, (x + offsetX) * 4, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100) { r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, 255, 255); }
+	bool shouldStorageCapacityGlow = mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100;
+	glowColor = shouldStorageCapacityGlow ? GLOW_STEP : 255;
+	r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, glowColor, glowColor);
 
 	// Food
 	r.drawSubImage(mUiIcons, (x + offsetX) * 6, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (foodInStorage() <= 10) { r.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, 255, 255); }
+	bool shouldFoodStorageGlow = foodInStorage() <= 10;
+	glowColor = shouldFoodStorageGlow ? GLOW_STEP : 255;
+	r.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, glowColor, glowColor);
 
 	// Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	if (mPlayerResources.energy() <= 5) { r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, GLOW_STEP, GLOW_STEP); }
-	else { r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, 255, 255); }
+	bool shouldEnergyGlow = mPlayerResources.energy() <= 5;
+	glowColor = shouldEnergyGlow ? GLOW_STEP : 255;
+	r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, glowColor, glowColor);
 
 	// Population / Morale
-	if (mCurrentMorale > mPreviousMorale) { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 16, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
-	else if (mCurrentMorale < mPreviousMorale) { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 0, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
-	else { r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, 32, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
+	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 16 : 32);
+	r.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 
 	r.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (std::clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(*MAIN_FONT, string_format("%i", mPopulation.size()), (x + offsetX) * 10 + margin, textY, 255, 255, 255);
 
-	if (mPinPopulationPanel	|| isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 675, 1, 75, 19)) { mPopulationPanel.update(); }
-	if (mPinResourcePanel	|| isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 0, 1, mResourceBreakdownPanel.width(), 19)) { mResourceBreakdownPanel.update(); }
+	bool isMouseInPopPanel = isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 675, 1, 75, 19);
+	bool shouldShowPopPanel = mPinPopulationPanel || isMouseInPopPanel;
+	if(shouldShowPopPanel) { mPopulationPanel.update(); }
+
+	bool isMouseInResourcePanel = isPointInRect(MOUSE_COORDS.x(), MOUSE_COORDS.y(), 0, 1, mResourceBreakdownPanel.width(), 19);
+	bool shouldShowResourcePanel = mPinResourcePanel || isMouseInResourcePanel;
+	if (shouldShowResourcePanel) { mResourceBreakdownPanel.update(); }
 
 	// Turns
 	r.drawSubImage(mUiIcons, r.width() - 80, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	r.drawText(*MAIN_FONT, string_format("%i", mTurnCount), r.width() - 80 + margin, textY, 255, 255, 255);
 
-	if (isPointInRect(MOUSE_COORDS, MENU_ICON)) { r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 144, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
-	else { r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, 128, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE); }
+	bool isMouseInMenu = isPointInRect(MOUSE_COORDS, MENU_ICON);
+	int menuGearHighlightOffsetX = isMouseInMenu ? 144 : 128;
+	r.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+
 }
 
 
@@ -239,6 +245,12 @@ void MapViewState::drawRobotInfo()
 	r.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
 }
 
+bool MapViewState::drawNavIcon(Renderer& r, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
+	bool isMouseInIcon = isPointInRect(MOUSE_COORDS, currentIconBounds);
+	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
+	r.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), subImageBounds.x(), subImageBounds.y(), subImageBounds.width(), subImageBounds.height(), color.red(), color.green(), color.blue(), color.alpha());
+	return isMouseInIcon;
+}
 
 /**
  * Draws navigation UI.
@@ -247,62 +259,12 @@ void MapViewState::drawNavInfo()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	// Up / Down
-	if (isPointInRect(MOUSE_COORDS, MOVE_DOWN_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 64, 128, 32, 32, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y(), 64, 128, 32, 32);
-	}
-
-	if (isPointInRect(MOUSE_COORDS, MOVE_UP_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 96, 128, 32, 32, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_UP_ICON.x(), MOVE_UP_ICON.y(), 96, 128, 32, 32);
-	}
-
-	// East / West / North / South
-	if (isPointInRect(MOUSE_COORDS, MOVE_EAST_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 32, 128, 32, 16, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_EAST_ICON.x(), MOVE_EAST_ICON.y(), 32, 128, 32, 16);
-	}
-
-	if (isPointInRect(MOUSE_COORDS, MOVE_WEST_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 32, 144, 32, 16, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_WEST_ICON.x(), MOVE_WEST_ICON.y(), 32, 144, 32, 16);
-	}
-
-	if (isPointInRect(MOUSE_COORDS, MOVE_NORTH_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 128, 32, 16, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_NORTH_ICON.x(), MOVE_NORTH_ICON.y(), 0, 128, 32, 16);
-	}
-
-	if (isPointInRect(MOUSE_COORDS, MOVE_SOUTH_ICON))
-	{
-		r.drawSubImage(mUiIcons, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 144, 32, 16, 255, 0, 0, 255);
-	}
-	else
-	{
-		r.drawSubImage(mUiIcons, MOVE_SOUTH_ICON.x(), MOVE_SOUTH_ICON.y(), 0, 144, 32, 16);
-	}
-
+	drawNavIcon(r, MOVE_DOWN_ICON, NAS2D::Rectangle_2d{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(r, MOVE_UP_ICON, NAS2D::Rectangle_2d{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(r, MOVE_EAST_ICON, NAS2D::Rectangle_2d{32, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(r, MOVE_WEST_ICON, NAS2D::Rectangle_2d{32, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(r, MOVE_NORTH_ICON, NAS2D::Rectangle_2d{0, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(r, MOVE_SOUTH_ICON, NAS2D::Rectangle_2d{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
 
 	// display the levels "bar"
 	int iWidth = MAIN_FONT->width("IX");								// set steps character patern width
@@ -313,15 +275,9 @@ void MapViewState::drawNavInfo()
 	{
 		S_LEVEL = string_format("%i", i);	// Set string for current level
 		if (i == 0) { S_LEVEL = "S"; }		// surface level
-		if (i == mTileMap->currentDepth())
-		{
-			r.drawText(*MAIN_FONT, S_LEVEL, iPosX - MAIN_FONT->width(S_LEVEL), iPosY, 255, 0, 0);		// Others in white
-		}
-		else
-		{
-			r.drawText(*MAIN_FONT, S_LEVEL, iPosX - MAIN_FONT->width(S_LEVEL), iPosY, 200, 200, 200);	// current one in red
-		}
-
+		bool isCurrentDepth = i == mTileMap->currentDepth();
+		NAS2D::Color color = isCurrentDepth ? NAS2D::Color{255, 0, 0, 255} : NAS2D::Color{200, 200, 200, 255}; // red for current depth : white for others
+		r.drawText(*MAIN_FONT, S_LEVEL, iPosX - MAIN_FONT->width(S_LEVEL), iPosY, color.red(), color.green(), color.blue(), color.alpha());
 		iPosX = iPosX - iWidth;				// Shift position by one step left
 	}
 }
