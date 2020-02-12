@@ -266,14 +266,7 @@ void Slider::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
 
 	if (mDisplayPosition)
 	{
-		if (mSliderType == SLIDER_VERTICAL)
-		{
-			mMouseHoverSlide = mSlideBar.to<int>().contains(NAS2D::Point{x, y});
-		}
-		else
-		{ /// \fixme V523 https://www.viva64.com/en/w/v523/ These two conditionals do the same thing.
-			mMouseHoverSlide = mSlideBar.to<int>().contains(NAS2D::Point{x, y});
-		}
+		mMouseHoverSlide = mSlideBar.to<int>().contains(NAS2D::Point{x, y});
 	}
 
 	if (!mThumbPressed) { return; }
