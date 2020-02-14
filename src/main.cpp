@@ -94,10 +94,6 @@ int main(int /*argc*/, char *argv[])
 		{
 			cf.option("skip-splash", "false");
 		}
-		if (cf.option("maximized").empty())
-		{
-			cf.option("maximized", "true");
-		}
 
 		validateVideoResolution();
 
@@ -123,13 +119,6 @@ int main(int /*argc*/, char *argv[])
 		r.addCursor(constants::MOUSE_POINTER_INSPECT, POINTER_INSPECT, 8, 8);
 		r.setCursor(POINTER_NORMAL);
 		r.fadeOut(0.0f);
-
-		if (cf.option("maximized") == "true")
-		{
-			/** \fixme Evil hack exposing an internal NAS2D variable. */
-			extern SDL_Window* underlyingWindow;
-			SDL_MaximizeWindow(underlyingWindow);
-		}
 
 		std::cout << "Loading packed assets... ";
 
