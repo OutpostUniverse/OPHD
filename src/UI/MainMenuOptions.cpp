@@ -70,10 +70,6 @@ void MainMenuOptions::init()
     cmbResolution.maxDisplayItems(1);
 
 	cmbResolution.clearSelection();
-	{
-		const auto default_resolution = std::to_string(constants::MINIMUM_WINDOW_WIDTH) + 'x' + std::to_string(constants::MINIMUM_WINDOW_HEIGHT) + 'x' + std::to_string(60);
-		cmbResolution.text(default_resolution);
-	}
 
     auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
     auto resolutions = r.getDisplayModes();
