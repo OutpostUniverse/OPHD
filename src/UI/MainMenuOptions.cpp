@@ -183,7 +183,12 @@ void MainMenuOptions::init()
     anchored(true);
 
     setControlsFromConfig();
-    inInit = false;
+	// setControlsFromConfig calls the various event handler functions
+	// which in turn enable the apply button.
+	// Need to force it to disabled when it should be.
+	optionsChanged = false;
+	videoOptionsChanged = false;
+	btnApply.enabled(false);
 }
 
 
@@ -191,8 +196,8 @@ void MainMenuOptions::visibilityChanged(bool visible) {
     if (visible)
     {
         enableControls();
-        inInit = true;
         setControlsFromConfig();
+        btnApply.enabled(false);
     }
     else
     {
@@ -201,18 +206,20 @@ void MainMenuOptions::visibilityChanged(bool visible) {
 }
 
 void MainMenuOptions::btnOkClicked() {
-    setConfigFromControls();
-    optionsChanged = false;
-    saveOptions();
-    applyVideoChanges();
-    hide();
+	applyChanges();
+	hide();
 }
 
-void MainMenuOptions::btnResolutionOkClicked() {
+void MainMenuOptions::applyChanges() {
+	setConfigFromControls();
+	applyVideoChanges();
+	previousResolutionSelection = currentResolutionSelection;
+	currentResolutionSelection = cmbResolution.currentSelection();
+	saveOptions();
+	optionsChanged = false;
 }
 
 void MainMenuOptions::btnCancelClicked() {
-    hide();
 	loadOptions();
 	setControlsFromConfig();
 	cmbResolution.currentSelection(previousResolutionSelection);
@@ -222,13 +229,8 @@ void MainMenuOptions::btnCancelClicked() {
 }
 
 void MainMenuOptions::btnApplyClicked() {
-    if (btnApply.enabled())
-    {
-        setConfigFromControls();
-        optionsChanged = false;
-        saveOptions();
-        applyVideoChanges();
-    }
+	if (btnApply.enabled()) { applyChanges(); }
+	btnApply.enabled(false);
 }
 
 void MainMenuOptions::saveOptions() {
@@ -252,10 +254,18 @@ void MainMenuOptions::applyVideoChanges() {
         cf.graphicsWidth(width);
         cf.graphicsHeight(height);
         cf.graphicsColorDepth(depth);
+        cf.fullscreen(cbxFullscreen.checked());
         cf.vsync(cbxVSync.checked());
         saveOptions();
-        dlgResolutionChanged.show();
-        this->bringToFront(&dlgResolutionChanged);
+
+        auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
+        r.size(cf.graphicsWidth(), cf.graphicsHeight());
+        r.fullscreen(cf.fullscreen());
+
+        auto& e = NAS2D::Utility<NAS2D::EventHandler>::get();
+        e.windowResized().emit(cf.graphicsWidth(), cf.graphicsHeight());
+
+        videoOptionsChanged = false;
     }
 }
 
@@ -274,17 +284,13 @@ void MainMenuOptions::onMusicVolumeChanged(float /*newValue*/) {
 }
 
 void MainMenuOptions::onOptionsChanged() {
-    if (!inInit) {
-        optionsChanged = true;
-        btnApply.enabled(true);
-    }
+    optionsChanged = true;
+    btnApply.enabled(true);
 }
 
 void MainMenuOptions::onVideoOptionsChanged() {
-    if (!inInit) {
-        optionsChanged = true;
-        videoOptionsChanged = true;
-    }
+	onOptionsChanged();
+	videoOptionsChanged = true;
 }
 
 void MainMenuOptions::enableControls() {
@@ -312,9 +318,8 @@ void MainMenuOptions::update()
 
     if (optionsChanged)
     {
-        optionsChanged = false;
-        btnApply.enabled(true);
         setConfigFromControls();
+        optionsChanged = false;
     }
 
 }
@@ -325,18 +330,18 @@ void MainMenuOptions::setConfigFromControls()
     cf.audioSfxVolume(static_cast<int>(std::floor((sldrSoundVolume.thumbPosition() / sldrSoundVolume.length()) * 128.0f)));
     cf.audioMusicVolume(static_cast<int>(std::floor((sldrMusicVolume.thumbPosition() / sldrMusicVolume.length()) * 128.0f)));
 
+    auto& mixer = NAS2D::Utility<NAS2D::Mixer>::get();
+    mixer.musicVolume(cf.audioMusicVolume());
+    mixer.soundVolume(cf.audioSfxVolume());
+
     cf.vsync(cbxVSync.checked());
     cf.fullscreen(cbxFullscreen.checked());
     cf.option("skip-splash", (cbxSkipSplash.checked() ? "true" : "false"));
 
-    auto& mixer = NAS2D::Utility<NAS2D::Mixer>::get();
-    mixer.musicVolume(cf.audioMusicVolume());
-    mixer.soundVolume(cf.audioSfxVolume());
 }
 
 void MainMenuOptions::setControlsFromConfig()
 {
-    if (inInit) { return;  }
     auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
     sldrSoundVolume.thumbPosition(std::floor((cf.audioSfxVolume() / 128.0f) * sldrSoundVolume.length()));
     sldrMusicVolume.thumbPosition(std::floor((cf.audioMusicVolume() / 128.0f) * sldrMusicVolume.length()));
@@ -346,7 +351,7 @@ void MainMenuOptions::setControlsFromConfig()
     mixer.soundVolume(cf.audioSfxVolume());
 
     cbxVSync.checked(cf.vsync());
-    cbxFullscreen.checked(cf.vsync());
+    cbxFullscreen.checked(cf.fullscreen());
 
     const auto skipsplash_str = NAS2D::toLowercase(cf.option("skip-splash"));
     cbxSkipSplash.checked(skipsplash_str == "true" ? true : (skipsplash_str == "false" ? false : false));

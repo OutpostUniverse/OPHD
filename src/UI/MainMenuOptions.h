@@ -31,7 +31,9 @@ private:
     void disableButtons();
 
     void btnOkClicked();
-    void btnResolutionOkClicked();
+
+    void applyChanges();
+
     void btnCancelClicked();
     void btnApplyClicked();
 
@@ -47,7 +49,6 @@ private:
     Label lblMusicVolume;
     Label lblSoundVolume;
     Label lblSkipSplash;
-    Label lblStartMaximized;
 
     ComboBox cmbResolution;
     CheckBox cbxFullscreen;
@@ -61,12 +62,8 @@ private:
     Button btnCancel;
     Button btnApply;
 
-    Window dlgResolutionChanged;
-    Button btnResolutionChangedOk;
-    Label lblResolutionChanged;
-
     bool optionsChanged = false;
     bool videoOptionsChanged = false;
-    bool inInit = true;
     int currentResolutionSelection = 0;
+    int previousResolutionSelection = 0;
 };
