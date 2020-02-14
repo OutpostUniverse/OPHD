@@ -69,30 +69,44 @@ void MainMenuOptions::init()
     cmbResolution.size(200, 0);
     cmbResolution.maxDisplayItems(1);
 
-    cmbResolution.clearSelection();
-    {
-        extern SDL_Window* underlyingWindow;
-        const auto display_index = SDL_GetWindowDisplayIndex(underlyingWindow);
-        const auto num_resolutions = SDL_GetNumDisplayModes(display_index);
-        std::ostringstream ss;
-        std::string resolutionText{};
-        SDL_DisplayMode active_mode{};
-        for (int i = 0; i < num_resolutions; ++i)
-        {
-            SDL_DisplayMode cur_mode{};
-            SDL_GetDisplayMode(display_index, i, &cur_mode);
-            SDL_GetCurrentDisplayMode(display_index, &active_mode);
-            ss << cur_mode.w << 'x' << cur_mode.h << 'x' << cur_mode.refresh_rate;
-            if (cur_mode.w == active_mode.w && cur_mode.h == active_mode.h && cur_mode.refresh_rate == active_mode.refresh_rate)
-            {
-                currentResolutionSelection = i;
-                resolutionText = ss.str();
-            }
-            cmbResolution.addItem(ss.str(), i);
-            ss.str("");
-        }
-    }
-    cmbResolution.selectionChanged().connect(this, &MainMenuOptions::onVideoOptionsChanged);
+	cmbResolution.clearSelection();
+	{
+		const auto default_resolution = std::to_string(constants::MINIMUM_WINDOW_WIDTH) + 'x' + std::to_string(constants::MINIMUM_WINDOW_HEIGHT) + 'x' + std::to_string(60);
+		cmbResolution.text(default_resolution);
+	}
+	{
+		extern SDL_Window* underlyingWindow;
+		const auto display_index = SDL_GetWindowDisplayIndex(underlyingWindow);
+		const auto num_resolutions = SDL_GetNumDisplayModes(display_index);
+		auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
+		const auto gfx_width = cf.graphicsWidth();
+		const auto gfx_height = cf.graphicsHeight();
+		for(int i = 0; i < num_resolutions; ++i)
+		{
+			SDL_DisplayMode cur_mode{};
+			SDL_GetDisplayMode(display_index, i, &cur_mode);
+			SDL_DisplayMode closest_mode{};
+			SDL_DisplayMode desired_mode{};
+			desired_mode.w = gfx_width;
+			desired_mode.h = gfx_height;
+			if(SDL_GetClosestDisplayMode(display_index, &desired_mode, &closest_mode))
+			{
+				if(cur_mode.w == closest_mode.w && cur_mode.h == closest_mode.h && cur_mode.refresh_rate == closest_mode.refresh_rate)
+				{
+					//Set combobox to current dimensions of window, not desktop
+					currentResolutionSelection = i;
+				}
+			}
+			if(cur_mode.w < constants::MINIMUM_WINDOW_WIDTH || cur_mode.h < constants::MINIMUM_WINDOW_HEIGHT)
+			{
+				continue;
+			}
+			std::string resolution_str = std::to_string(cur_mode.w) + "x" + std::to_string(cur_mode.h) + "x" + std::to_string(cur_mode.refresh_rate);
+			cmbResolution.addItem(resolution_str, i);
+		}
+		cmbResolution.currentSelection(currentResolutionSelection);
+	}
+	cmbResolution.selectionChanged().connect(this, &MainMenuOptions::onVideoOptionsChanged);
 
     lblFullscreen.text("Fullscreen");
     lblFullscreen.size(0, 0);
