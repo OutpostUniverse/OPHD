@@ -63,7 +63,7 @@ void MainMenuState::initialize()
 	btnOptions.text(constants::MAIN_MENU_OPTIONS);
 	btnOptions.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnOptions.size(200, 30);
-	btnOptions.enabled(false);
+	btnOptions.enabled(true);
 	btnOptions.click().connect(this, &MainMenuState::btnOptionsClicked);
 
 	btnHelp.text(constants::MAIN_MENU_HELP);
@@ -151,7 +151,7 @@ void MainMenuState::enableButtons()
 {
 	btnNewGame.enabled(true);
 	btnContinueGame.enabled(true);
-	btnOptions.enabled(false);
+	btnOptions.enabled(true);
 	btnHelp.enabled(true);
 	btnQuit.enabled(true);
 }
