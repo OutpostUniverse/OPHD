@@ -12,7 +12,7 @@
 class ResourcePool
 {
 public:
-	using Callback = NAS2D::Signals::Signal0<void>;
+	using Callback = NAS2D::Signals::Signal<>;
 
 	enum ResourceType
 	{

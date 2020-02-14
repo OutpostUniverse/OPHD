@@ -9,7 +9,7 @@ class CargoLander : public Structure
 {
 public:
 
-	typedef NAS2D::Signals::Signal0<void> Callback;
+	typedef NAS2D::Signals::Signal<> Callback;
 
 	CargoLander(Tile* t) : Structure(constants::CARGO_LANDER, "structures/lander_0.sprite", CLASS_LANDER), mTile(t)
 	{

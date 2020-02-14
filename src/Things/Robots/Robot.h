@@ -6,7 +6,7 @@
 class Robot: public Thing
 {
 public:
-	typedef NAS2D::Signals::Signal0<void> Callback;
+	typedef NAS2D::Signals::Signal<> Callback;
 	typedef NAS2D::Signals::Signal1<Robot*> TaskCallback;
 
 public:
