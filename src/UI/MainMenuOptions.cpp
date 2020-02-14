@@ -92,16 +92,19 @@ void MainMenuOptions::init()
 		const auto gfx_width = cf.graphicsWidth();
 		const auto gfx_height = cf.graphicsHeight();
         int resolution_index = 0;
+        SDL_DisplayMode cur_mode{};
+        SDL_GetWindowDisplayMode(underlyingWindow, &cur_mode);
+        NAS2D::DisplayDesc current_dimensions{cur_mode.w, cur_mode.h, cur_mode.refresh_rate};
         for(const auto& resolution : resolutions)
 		{
 			SDL_DisplayMode closest_mode{};
 			SDL_DisplayMode desired_mode{};
-			desired_mode.w = gfx_width;
-			desired_mode.h = gfx_height;
+			desired_mode.w = resolution.width;
+			desired_mode.h = resolution.height;
 			if(SDL_GetClosestDisplayMode(display_index, &desired_mode, &closest_mode))
 			{
                 NAS2D::DisplayDesc closest{closest_mode.w, closest_mode.h, closest_mode.refresh_rate};
-				if(resolution == closest)
+				if(current_dimensions == closest)
 				{
 					//Set combobox to current dimensions of window, not desktop
 					currentResolutionSelection = resolution_index;
@@ -109,6 +112,7 @@ void MainMenuOptions::init()
 			}
 			std::string resolution_str = std::to_string(resolution.width) + "x" + std::to_string(resolution.height) + "x" + std::to_string(resolution.refreshHz);
 			cmbResolution.addItem(resolution_str, resolution_index);
+            ++resolution_index;
 		}
 		cmbResolution.currentSelection(currentResolutionSelection);
 	}
