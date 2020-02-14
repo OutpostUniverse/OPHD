@@ -74,35 +74,45 @@ void MainMenuOptions::init()
 		const auto default_resolution = std::to_string(constants::MINIMUM_WINDOW_WIDTH) + 'x' + std::to_string(constants::MINIMUM_WINDOW_HEIGHT) + 'x' + std::to_string(60);
 		cmbResolution.text(default_resolution);
 	}
+
+    auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
+    auto resolutions = r.getDisplayModes();
+    resolutions.erase(std::remove_if(std::begin(resolutions), std::end(resolutions),
+        [](const NAS2D::DisplayDesc& desc) {
+            const auto w = desc.width;
+            const auto h = desc.height;
+            const auto min_w = constants::MINIMUM_WINDOW_WIDTH;
+            const auto min_h = constants::MINIMUM_WINDOW_HEIGHT;
+            const auto is_invalid = w < min_w || h < min_h;
+            return is_invalid;
+        }),
+    std::end(resolutions));
+
+
 	{
 		extern SDL_Window* underlyingWindow;
 		const auto display_index = SDL_GetWindowDisplayIndex(underlyingWindow);
-		const auto num_resolutions = SDL_GetNumDisplayModes(display_index);
 		auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
 		const auto gfx_width = cf.graphicsWidth();
 		const auto gfx_height = cf.graphicsHeight();
-		for(int i = 0; i < num_resolutions; ++i)
+        int resolution_index = 0;
+        for(const auto& resolution : resolutions)
 		{
-			SDL_DisplayMode cur_mode{};
-			SDL_GetDisplayMode(display_index, i, &cur_mode);
 			SDL_DisplayMode closest_mode{};
 			SDL_DisplayMode desired_mode{};
 			desired_mode.w = gfx_width;
 			desired_mode.h = gfx_height;
 			if(SDL_GetClosestDisplayMode(display_index, &desired_mode, &closest_mode))
 			{
-				if(cur_mode.w == closest_mode.w && cur_mode.h == closest_mode.h && cur_mode.refresh_rate == closest_mode.refresh_rate)
+                NAS2D::DisplayDesc closest{closest_mode.w, closest_mode.h, closest_mode.refresh_rate};
+				if(resolution == closest)
 				{
 					//Set combobox to current dimensions of window, not desktop
-					currentResolutionSelection = i;
+					currentResolutionSelection = resolution_index;
 				}
 			}
-			if(cur_mode.w < constants::MINIMUM_WINDOW_WIDTH || cur_mode.h < constants::MINIMUM_WINDOW_HEIGHT)
-			{
-				continue;
-			}
-			std::string resolution_str = std::to_string(cur_mode.w) + "x" + std::to_string(cur_mode.h) + "x" + std::to_string(cur_mode.refresh_rate);
-			cmbResolution.addItem(resolution_str, i);
+			std::string resolution_str = std::to_string(resolution.width) + "x" + std::to_string(resolution.height) + "x" + std::to_string(resolution.refreshHz);
+			cmbResolution.addItem(resolution_str, resolution_index);
 		}
 		cmbResolution.currentSelection(currentResolutionSelection);
 	}
