@@ -89,8 +89,6 @@ void MainMenuOptions::init()
 		extern SDL_Window* underlyingWindow;
 		const auto display_index = SDL_GetWindowDisplayIndex(underlyingWindow);
 		auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
-		const auto gfx_width = cf.graphicsWidth();
-		const auto gfx_height = cf.graphicsHeight();
         int resolution_index = 0;
         SDL_DisplayMode cur_mode{};
         SDL_GetWindowDisplayMode(underlyingWindow, &cur_mode);
