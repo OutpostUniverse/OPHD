@@ -14,7 +14,7 @@ class Tile;
 class Thing
 {
 public:
-	typedef NAS2D::Signals::Signal1<Thing*> DieCallback;
+	typedef NAS2D::Signals::Signal<Thing*> DieCallback;
 
 public:
 	Thing(const std::string& name, const std::string& spritePath):	mName(name),
