@@ -128,6 +128,9 @@ void MainMenuState::positionButtons()
 	mFileIoDialog.position(static_cast<int>(r.center_x() - mFileIoDialog.width() / 2), static_cast<int>(r.center_y() - mFileIoDialog.height() / 2));
 	dlgOptions.position(static_cast<int>(r.center_x() - dlgOptions.width() / 2), static_cast<int>(r.center_y() - dlgOptions.height() / 2));
 	dlgNewGame.position(static_cast<int>(r.center_x() - dlgNewGame.width() / 2), static_cast<int>(r.center_y() - dlgNewGame.height() / 2));
+
+	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	lblVersion.position(r.width() - tiny_font->width(constants::VERSION) - 5, r.height() - tiny_font->height() - 5);
 }
 
 
