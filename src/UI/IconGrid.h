@@ -42,7 +42,7 @@ public:
 		NAS2D::Point_2df pos;
 	};
 
-	typedef NAS2D::Signals::Signal1<const IconGridItem*> Callback;
+	typedef NAS2D::Signals::Signal<const IconGridItem*> Callback;
 
 public:
 	IconGrid();

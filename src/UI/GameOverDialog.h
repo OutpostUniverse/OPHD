@@ -5,7 +5,7 @@
 class GameOverDialog : public Window
 {
 public:
-	typedef NAS2D::Signals::Signal0<void> ClickCallback;
+	typedef NAS2D::Signals::Signal<> ClickCallback;
 
 public:
 	GameOverDialog();

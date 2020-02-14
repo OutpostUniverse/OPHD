@@ -5,8 +5,8 @@
 class DifficultySelect : public Window
 {
 public:
-	using OkClickCallback = NAS2D::Signals::Signal0<void>;
-	using CancelCallback = NAS2D::Signals::Signal0<void>;
+	using OkClickCallback = NAS2D::Signals::Signal<>;
+	using CancelCallback = NAS2D::Signals::Signal<>;
 
 	DifficultySelect();
 	virtual ~DifficultySelect();

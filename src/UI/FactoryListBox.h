@@ -21,7 +21,7 @@
 class FactoryListBox : public ListBoxBase
 {
 public:
-	using SelectionChangedCallback = NAS2D::Signals::Signal1<Factory*>;
+	using SelectionChangedCallback = NAS2D::Signals::Signal<Factory*>;
 
 public:
 	class FactoryListBoxItem : public ListBoxItem
