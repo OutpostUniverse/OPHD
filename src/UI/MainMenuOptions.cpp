@@ -120,12 +120,6 @@ void MainMenuOptions::init()
     cbxSkipSplash.size(200, 0);
     cbxSkipSplash.click().connect(this, &MainMenuOptions::onOptionsChanged);
 
-    lblStartMaximized.text("Start Maximized");
-    lblStartMaximized.size(0, 0);
-
-    cbxStartMaximized.size(200, 0);
-    cbxStartMaximized.click().connect(this, &MainMenuOptions::onOptionsChanged);
-
     lblVSync.text("VSync");
     lblVSync.size(0, 0);
 
@@ -179,8 +173,6 @@ void MainMenuOptions::init()
     pnlControls.add(&sldrMusicVolume, right_edge - sldrMusicVolume.width() - border_right_width, lblMusicVolume.rect().startPoint().y() - sldrMusicVolume.height());
     pnlControls.add(&lblSkipSplash, left_edge, lblMusicVolume.rect().startPoint().y() + element_spacing);
     pnlControls.add(&cbxSkipSplash, right_edge - cbxSkipSplash.width(), sldrMusicVolume.rect().startPoint().y() + element_spacing);
-    pnlControls.add(&lblStartMaximized, left_edge, lblSkipSplash.rect().startPoint().y() + element_spacing);
-    pnlControls.add(&cbxStartMaximized, right_edge - cbxStartMaximized.width(), cbxSkipSplash.rect().startPoint().y() + element_spacing);
     add(&pnlControls, 0, 0);
 
     pnlButtons.add(&btnOk, 0, 0);
@@ -344,7 +336,6 @@ void MainMenuOptions::setConfigFromControls()
     cf.vsync(cbxVSync.checked());
     cf.fullscreen(cbxFullscreen.checked());
     cf.option("skip-splash", (cbxSkipSplash.checked() ? "true" : "false"));
-    cf.option("maximized", (cbxStartMaximized.checked() ? "true" : "false"));
 
     auto& mixer = NAS2D::Utility<NAS2D::Mixer>::get();
     mixer.musicVolume(cf.audioMusicVolume());
@@ -366,7 +357,5 @@ void MainMenuOptions::setControlsFromConfig()
     cbxFullscreen.checked(cf.vsync());
 
     const auto skipsplash_str = NAS2D::toLowercase(cf.option("skip-splash"));
-    const auto maximized_str = NAS2D::toLowercase(cf.option("maximized"));
     cbxSkipSplash.checked(skipsplash_str == "true" ? true : (skipsplash_str == "false" ? false : false));
-    cbxStartMaximized.checked(maximized_str == "true" ? true : (maximized_str == "false" ? false : false));
 }

@@ -53,7 +53,6 @@ private:
     CheckBox cbxFullscreen;
     CheckBox cbxVSync;
     CheckBox cbxSkipSplash;
-    CheckBox cbxStartMaximized;
     Slider sldrMusicVolume;
     Slider sldrSoundVolume;
 
