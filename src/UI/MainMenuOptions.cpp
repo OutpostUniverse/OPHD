@@ -182,19 +182,6 @@ void MainMenuOptions::init()
 
     anchored(true);
 
-    lblResolutionChanged.text("You must restart the game for video options to take effect.");
-    lblResolutionChanged.size(250, 15);
-    btnResolutionChangedOk.text("Ok");
-    btnResolutionChangedOk.size(100, 25);
-    btnResolutionChangedOk.click().connect(this, &MainMenuOptions::btnResolutionOkClicked);
-
-    dlgResolutionChanged.text("Notice");
-    dlgResolutionChanged.anchored(true);
-    dlgResolutionChanged.size(500, 85);
-    dlgResolutionChanged.add(&lblResolutionChanged, dlgResolutionChanged.width() * 0.5f - lblResolutionChanged.width() * 0.5f, 10 + dlgResolutionChanged.height() * 0.25f - lblResolutionChanged.height() * 0.5f);
-    dlgResolutionChanged.add(&btnResolutionChangedOk, dlgResolutionChanged.width() * 0.5f - btnResolutionChangedOk.width() * 0.5f, dlgResolutionChanged.height() - 5 - btnResolutionChangedOk.height());
-    add(&dlgResolutionChanged, positionX() + (width * 0.5f) - (dlgResolutionChanged.width() * 0.5f), positionY() + (height * 0.5f) - (dlgResolutionChanged.height() * 0.5f));
-
     setControlsFromConfig();
     inInit = false;
 }
@@ -222,11 +209,16 @@ void MainMenuOptions::btnOkClicked() {
 }
 
 void MainMenuOptions::btnResolutionOkClicked() {
-    dlgResolutionChanged.hide();
 }
 
 void MainMenuOptions::btnCancelClicked() {
     hide();
+	loadOptions();
+	setControlsFromConfig();
+	cmbResolution.currentSelection(previousResolutionSelection);
+	optionsChanged = false;
+	videoOptionsChanged = false;
+	hide();
 }
 
 void MainMenuOptions::btnApplyClicked() {
