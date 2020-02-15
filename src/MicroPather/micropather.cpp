@@ -687,8 +687,7 @@ void PathNodePool::AllStates(unsigned frame, std::vector<void*>* stateVec)
 
 PathCache::PathCache(int _allocated)
 {
-	mem = new Item[_allocated];
-	memset(mem, 0, sizeof(*mem) * _allocated);
+	mem = new Item[_allocated]{};
 	allocated = _allocated;
 	nItems = 0;
 	hit = 0;
