@@ -182,7 +182,7 @@ void MapViewState::deploySeedLander(int x, int y)
 /**
  * Called whenever a RoboDozer completes its task.
  */
-void MapViewState::dozerTaskFinished(Robot* r)
+void MapViewState::dozerTaskFinished(Robot* /*r*/)
 {
 	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
 }
