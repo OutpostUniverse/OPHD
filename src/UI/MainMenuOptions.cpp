@@ -101,7 +101,7 @@ void MainMenuOptions::init()
 			desired_mode.h = resolution.height;
 			if(SDL_GetClosestDisplayMode(display_index, &desired_mode, &closest_mode))
 			{
-                NAS2D::DisplayDesc closest{closest_mode.w, closest_mode.h, closest_mode.refresh_rate};
+				NAS2D::DisplayDesc closest{closest_mode.w, closest_mode.h, closest_mode.refresh_rate};
 				if(current_dimensions == closest)
 				{
 					//Set combobox to current dimensions of window, not desktop
@@ -110,7 +110,7 @@ void MainMenuOptions::init()
 			}
 			std::string resolution_str = std::to_string(resolution.width) + "x" + std::to_string(resolution.height) + "x" + std::to_string(resolution.refreshHz);
 			cmbResolution.addItem(resolution_str, resolution_index);
-            ++resolution_index;
+			++resolution_index;
 		}
 		cmbResolution.currentSelection(currentResolutionSelection);
 	}
