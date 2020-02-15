@@ -105,7 +105,7 @@ void DifficultySelect::init()
 
 }
 
-void DifficultySelect::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat) {
+void DifficultySelect::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/) {
 	if(key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) {
 		cancelled();
 	}
