@@ -116,8 +116,8 @@ void MainMenuState::positionButtons()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	int start_x = r.center_x() - 100;
-	int start_y = r.center_y() - ((35 * 4) / 2);
+	auto start_x = r.center_x() - 100;
+	auto start_y = r.center_y() - ((35 * 4) / 2);
 
 	btnNewGame.position(start_x, start_y);
 	btnContinueGame.position(start_x, start_y + 35);
@@ -125,9 +125,9 @@ void MainMenuState::positionButtons()
 	btnHelp.position(start_x, start_y + 105);
 	btnQuit.position(start_x, start_y + 140);
 
-	mFileIoDialog.position(static_cast<int>(r.center_x() - mFileIoDialog.width() / 2), static_cast<int>(r.center_y() - mFileIoDialog.height() / 2));
-	dlgOptions.position(static_cast<int>(r.center_x() - dlgOptions.width() / 2), static_cast<int>(r.center_y() - dlgOptions.height() / 2));
-	dlgNewGame.position(static_cast<int>(r.center_x() - dlgNewGame.width() / 2), static_cast<int>(r.center_y() - dlgNewGame.height() / 2));
+	mFileIoDialog.position(r.center_x() - mFileIoDialog.width() / 2, r.center_y() - mFileIoDialog.height() / 2);
+	dlgOptions.position(r.center_x() - dlgOptions.width() / 2, r.center_y() - dlgOptions.height() / 2);
+	dlgNewGame.position(r.center_x() - dlgNewGame.width() / 2, r.center_y() - dlgNewGame.height() / 2);
 }
 
 
