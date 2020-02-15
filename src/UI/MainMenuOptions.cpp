@@ -261,7 +261,7 @@ void MainMenuOptions::applyVideoChanges() {
     }
 }
 
-void MainMenuOptions::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat) {
+void MainMenuOptions::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/) {
     if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) {
         btnCancelClicked();
     }
