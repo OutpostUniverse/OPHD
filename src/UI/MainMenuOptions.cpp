@@ -73,16 +73,17 @@ void MainMenuOptions::init()
 
     auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
     auto resolutions = r.getDisplayModes();
-    resolutions.erase(std::remove_if(std::begin(resolutions), std::end(resolutions),
-        [](const NAS2D::DisplayDesc& desc) {
-            const auto w = desc.width;
-            const auto h = desc.height;
-            const auto min_w = constants::MINIMUM_WINDOW_WIDTH;
-            const auto min_h = constants::MINIMUM_WINDOW_HEIGHT;
-            const auto is_invalid = w < min_w || h < min_h;
-            return is_invalid;
-        }),
-    std::end(resolutions));
+    resolutions.erase(
+        std::remove_if(
+            std::begin(resolutions),
+            std::end(resolutions),
+            [](const NAS2D::DisplayDesc& desc) {
+                const auto is_invalid = desc.width < constants::MINIMUM_WINDOW_WIDTH || desc.height < constants::MINIMUM_WINDOW_HEIGHT;
+                return is_invalid;
+            }
+        ),
+        std::end(resolutions)
+    );
 
 
 	{
