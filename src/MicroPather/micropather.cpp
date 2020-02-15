@@ -705,7 +705,7 @@ void PathCache::Reset()
 {
 	if (nItems)
 	{
-		memset(mem, 0, sizeof(*mem) * allocated);
+		mem = {};
 		nItems = 0;
 		hit = 0;
 		miss = 0;
