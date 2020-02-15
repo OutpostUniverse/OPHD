@@ -14,6 +14,7 @@ public:
 	TextArea() = default;
 	virtual ~TextArea() = default;
 
+	void textColor(int r, int g, int b, int a = 255) { textColor(NAS2D::Color{static_cast<uint8_t>(r), static_cast<uint8_t>(g), static_cast<uint8_t>(b), static_cast<uint8_t>(a)}); };
 	void textColor(const NAS2D::Color& color) { mTextColor = color; }
 
 	void font(const std::string&, size_t);
