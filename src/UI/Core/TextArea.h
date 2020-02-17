@@ -14,7 +14,7 @@ public:
 	TextArea() = default;
 	virtual ~TextArea() = default;
 
-	void textColor(int r, int g, int b, int a = 255) { mTextColor(r, g, b, a); }
+	void textColor(const NAS2D::Color& color) { mTextColor = color; }
 
 	void font(const std::string&, size_t);
 
