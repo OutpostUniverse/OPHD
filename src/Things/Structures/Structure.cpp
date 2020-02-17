@@ -7,8 +7,10 @@
 
 #include <random>
 
-std::random_device rd;
-std::mt19937 generator(rd());
+namespace {
+	std::random_device rd;
+	std::mt19937 generator(rd());
+}
 
 /**
  * Translation table for Structure States.
