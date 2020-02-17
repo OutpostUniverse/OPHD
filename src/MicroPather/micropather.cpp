@@ -687,8 +687,7 @@ void PathNodePool::AllStates(unsigned frame, std::vector<void*>* stateVec)
 
 PathCache::PathCache(int _allocated)
 {
-	mem = new Item[_allocated];
-	memset(mem, 0, sizeof(*mem) * _allocated);
+	mem = new Item[_allocated]{};
 	allocated = _allocated;
 	nItems = 0;
 	hit = 0;
@@ -831,7 +830,7 @@ const PathCache::Item* PathCache::Find(void* start, void* end)
 
 void MicroPather::GetCacheData(CacheData* data)
 {
-	memset(data, 0, sizeof(*data));
+	*data = {};
 
 	if (pathCache)
 	{
