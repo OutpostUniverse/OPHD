@@ -120,6 +120,7 @@ void MainMenuState::positionButtons()
 	auto start_y = std::floor(r.center_y() - ((35.0f * 4.0f) / 2.0f));
 
 	btnNewGame.position(start_x, start_y);
+
 	btnContinueGame.position(start_x, std::floor(start_y + 35.0f));
 	btnOptions.position(start_x, std::floor(start_y + 70.0f));
 	btnHelp.position(start_x, std::floor(start_y + 105.0f));
@@ -128,6 +129,9 @@ void MainMenuState::positionButtons()
 	mFileIoDialog.position(std::floor(r.center_x() - mFileIoDialog.width() / 2.0f), std::floor(r.center_y() - mFileIoDialog.height() / 2.0f));
 	dlgOptions.position(std::floor(r.center_x() - dlgOptions.width() / 2.0f), std::floor(r.center_y() - dlgOptions.height() / 2.0f));
 	dlgNewGame.position(std::floor(r.center_x() - dlgNewGame.width() / 2.0f), std::floor(r.center_y() - dlgNewGame.height() / 2.0f));
+
+	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	lblVersion.position(r.width() - tiny_font->width(constants::VERSION) - 5, r.height() - tiny_font->height() - 5);
 }
 
 
