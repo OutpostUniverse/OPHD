@@ -6,6 +6,8 @@
 #include "../../PopulationPool.h"
 #include "../../ResourcePool.h"
 
+#include <algorithm>
+
 class Structure: public Thing
 {
 public:
