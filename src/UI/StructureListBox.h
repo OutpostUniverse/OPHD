@@ -12,7 +12,7 @@ class Structure;
 class StructureListBox : public ListBoxBase
 {
 public:
-	using SelectionChangedCallback = NAS2D::Signals::Signal1<Structure*>;
+	using SelectionChangedCallback = NAS2D::Signals::Signal<Structure*>;
 
 public:
 	class StructureListBoxItem : public ListBoxItem

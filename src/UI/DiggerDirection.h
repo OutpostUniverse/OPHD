@@ -19,7 +19,7 @@ public:
 		SEL_WEST
 	};
 
-	typedef NAS2D::Signals::Signal2<DiggerSelection, Tile*> Callback;
+	typedef NAS2D::Signals::Signal<DiggerSelection, Tile*> Callback;
 
 public:
 	DiggerDirection();

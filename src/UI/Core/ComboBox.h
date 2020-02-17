@@ -10,7 +10,7 @@
 class ComboBox : public Control
 {
 public:
-	using SelectionChanged = NAS2D::Signals::Signal0<void>;
+	using SelectionChanged = NAS2D::Signals::Signal<>;
 
 public:
 	ComboBox();

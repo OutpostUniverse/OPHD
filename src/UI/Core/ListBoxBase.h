@@ -28,7 +28,7 @@ public:
 	/**
 	 * Callback signal fired whenever the list selection changes.
 	 */
-	using SelectionChangedCallback = NAS2D::Signals::Signal0<void>;
+	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
 
 public:
 	/**

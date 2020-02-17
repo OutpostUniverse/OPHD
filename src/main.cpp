@@ -103,7 +103,7 @@ int main(int /*argc*/, char *argv[])
 		}
 		catch (...)
 		{
-			Utility<MixerNull>::init();
+			Utility<Mixer>::init<MixerNull>();
 		}
 
 		WindowEventWrapper _wew;

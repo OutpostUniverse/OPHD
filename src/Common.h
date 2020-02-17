@@ -296,17 +296,6 @@ extern std::map<int, std::string> TILE_INDEX_TRANSLATION;
 extern std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
 
 
-/**
- * Convenience function to pass a Rectangle_2df to \c isPointInRect()
- */
-bool pointInRect_f(int x, int y, const NAS2D::Rectangle_2df& rect);
-
-
-/**
- * Convenience function to pass \c float's to \c isPointInRect()
- */
-bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float rectH);
-
 void doNonFatalErrorMessage(const std::string& title, const std::string& msg);
 void doAlertMessage(const std::string& title, const std::string& msg);
 bool doYesNoMessage(const std::string& title, const std::string msg);

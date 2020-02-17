@@ -59,9 +59,9 @@ public:
 	};
 
 public:
-	using QuitCallback = NAS2D::Signals::Signal0<void>;
-	using ReportsUiCallback = NAS2D::Signals::Signal0<void>;
-	using MapChangedCallback = NAS2D::Signals::Signal0<void>;
+	using QuitCallback = NAS2D::Signals::Signal<>;
+	using ReportsUiCallback = NAS2D::Signals::Signal<>;
+	using MapChangedCallback = NAS2D::Signals::Signal<>;
 
 public:
 	MapViewState(const std::string& savegame);

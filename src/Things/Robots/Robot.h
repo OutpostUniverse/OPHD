@@ -6,8 +6,8 @@
 class Robot: public Thing
 {
 public:
-	typedef NAS2D::Signals::Signal0<void> Callback;
-	typedef NAS2D::Signals::Signal1<Robot*> TaskCallback;
+	typedef NAS2D::Signals::Signal<> Callback;
+	typedef NAS2D::Signals::Signal<Robot*> TaskCallback;
 
 public:
 	Robot(const std::string& name, const std::string& sprite_path);

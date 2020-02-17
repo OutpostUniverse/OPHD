@@ -229,24 +229,6 @@ HWND WIN32_getWindowHandle()
 #endif
 
 
-/**
- * Convenience function to pass a Rectangle_2df to \c isPointInRect()
- */
-bool pointInRect_f(int x, int y, const Rectangle_2df& rect)
-{
-	return rect.to<int>().contains(Point{x, y});
-}
-
-
-/**
- * Convenience function to pass \c float's to \c isPointInRect()
- */
-bool pointInRect_f(int x, int y, float rectX, float rectY, float rectW, float rectH)
-{
-	return NAS2D::Rectangle{rectX, rectY, rectW, rectH}.to<int>().contains(Point{x, y});
-}
-
-
 const std::string& productDescription(ProductType type)
 {
 	if (type == PRODUCT_NONE) { return constants::NONE; }

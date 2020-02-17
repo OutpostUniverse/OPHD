@@ -179,7 +179,7 @@ void Slider::positionInternal(float newPosition)
 
 void Slider::_buttonCheck(bool& buttonFlag, Rectangle_2df& rect, float value)
 {
-	if (pointInRect_f(mMousePosition.x(), mMousePosition.y(), rect))
+	if (rect.to<int>().contains(mMousePosition))
 	{
 		changeThumbPosition(value);
 		buttonFlag = true;
@@ -200,7 +200,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
-		if (pointInRect_f(x, y, mSlider))
+		if (mSlider.to<int>().contains(NAS2D::Point{x, y}))
 		{
 			mThumbPressed = true;
 			return;
@@ -225,7 +225,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	if (pointInRect_f(x, y, mSlider))
+	if (mSlider.to<int>().contains(NAS2D::Point{x, y}))
 	{
 		// nothing
 	}
@@ -239,7 +239,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 		changeThumbPosition(-1.0);
 	}
 	*/
-	else if (pointInRect_f(x, y, mSlideBar))
+	else if (mSlideBar.to<int>().contains(NAS2D::Point{x, y}))
 	{
 		if (mSliderType == SLIDER_VERTICAL)
 		{
@@ -266,14 +266,7 @@ void Slider::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
 
 	if (mDisplayPosition)
 	{
-		if (mSliderType == SLIDER_VERTICAL)
-		{
-			mMouseHoverSlide = pointInRect_f(x, y, mSlideBar);
-		}
-		else
-		{ /// \fixme V523 https://www.viva64.com/en/w/v523/ These two conditionals do the same thing.
-			mMouseHoverSlide = pointInRect_f(x, y, mSlideBar);
-		}
+		mMouseHoverSlide = mSlideBar.to<int>().contains(NAS2D::Point{x, y});
 	}
 
 	if (!mThumbPressed) { return; }

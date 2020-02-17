@@ -10,7 +10,7 @@
 class MineFacility: public Structure
 {
 public:
-	typedef NAS2D::Signals::Signal1<MineFacility*> ExtensionCompleteCallback;
+	typedef NAS2D::Signals::Signal<MineFacility*> ExtensionCompleteCallback;
 public:
 	MineFacility(Mine* mine);
 	virtual ~MineFacility() {};

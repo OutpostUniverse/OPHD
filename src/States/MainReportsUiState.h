@@ -10,8 +10,8 @@ class Structure;
 class MainReportsUiState : public Wrapper
 {
 public:
-	using ReportsUiCallback = NAS2D::Signals::Signal0<void>;
-	using TakeMeThere = NAS2D::Signals::Signal1<Structure*>;
+	using ReportsUiCallback = NAS2D::Signals::Signal<>;
+	using TakeMeThere = NAS2D::Signals::Signal<Structure*>;
 	using TakeMeThereList = std::vector<TakeMeThere*>;
 
 public:
