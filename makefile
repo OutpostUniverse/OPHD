@@ -30,6 +30,9 @@ $(EXE): $(NAS2DLIB) $(OBJS)
 	@mkdir -p ${@D}
 	$(CXX) $^ $(LDFLAGS) $(LDLIBS) -o $@
 
+.PHONY: intermediate
+intermediate: $(OBJS)
+
 $(NAS2DLIB): nas2d
 
 .PHONY: nas2d

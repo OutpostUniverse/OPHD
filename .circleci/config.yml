@@ -1,15 +1,41 @@
-version: 2.0
-jobs:
+version: 2.1
+
+commands:
   build:
-    docker:
-      - image: outpostuniverse/nas2d-circleci:1.1
     steps:
       - checkout
-      - run:
-          name: "Pull Submodules"
-          command: |
-            git submodule init
-            git submodule update
-      - run:
-          name: "Build"
-          command: make --keep-going
+      - run: git submodule update --init
+      - run: make --keep-going nas2d
+      - run: make --keep-going
+
+jobs:
+  build-linux:
+    docker:
+      - image: outpostuniverse/nas2d:1.4
+    steps:
+      - build
+  build-linux-gcc8:
+    docker:
+      - image: outpostuniverse/nas2d-gcc8:1.0
+    steps:
+      - build
+  build-linux-clang:
+    docker:
+      - image: outpostuniverse/nas2d-clang:1.0
+    steps:
+      - build
+  build-linux-mingw:
+    docker:
+      - image: outpostuniverse/nas2d-mingw:1.3
+    steps:
+      - checkout
+      - run: git submodule update --init
+      - run: make --keep-going intermediate
+
+workflows:
+  build:
+    jobs:
+      - build-linux
+      - build-linux-gcc8
+      - build-linux-clang
+      - build-linux-mingw
