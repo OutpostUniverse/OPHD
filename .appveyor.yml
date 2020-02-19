@@ -43,3 +43,13 @@ after_build:
 artifacts:
   - path: "*.zip"
     name: BuildArtifacts
+deploy:
+  on:
+    branch: master
+    APPVEYOR_REPO_TAG: true
+    CONFIGURATION: Release
+  artifact: BuildArtifacts
+  description: ''
+  provider: GitHub
+  auth_token:
+    secure: TmV7XiO84JvSaLJnbrRrtoOugcFLSogA4I55yBZ1Y+QAmv28EOgO1M8lX+NSJWA/
