@@ -116,18 +116,18 @@ void MainMenuState::positionButtons()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	int start_x = r.center_x() - 100;
-	int start_y = r.center_y() - ((35 * 4) / 2);
+	auto start_x = std::floor(r.center_x() - 100.0f);
+	auto start_y = std::floor(r.center_y() - ((35.0f * 4.0f) / 2.0f));
 
 	btnNewGame.position(start_x, start_y);
-	btnContinueGame.position(start_x, start_y + 35);
-	btnOptions.position(start_x, start_y + 70);
-	btnHelp.position(start_x, start_y + 105);
-	btnQuit.position(start_x, start_y + 140);
+	btnContinueGame.position(start_x, std::floor(start_y + 35.0f));
+	btnOptions.position(start_x, std::floor(start_y + 70.0f));
+	btnHelp.position(start_x, std::floor(start_y + 105.0f));
+	btnQuit.position(start_x, std::floor(start_y + 140.0f));
 
-	mFileIoDialog.position(static_cast<int>(r.center_x() - mFileIoDialog.width() / 2), static_cast<int>(r.center_y() - mFileIoDialog.height() / 2));
-	dlgOptions.position(static_cast<int>(r.center_x() - dlgOptions.width() / 2), static_cast<int>(r.center_y() - dlgOptions.height() / 2));
-	dlgNewGame.position(static_cast<int>(r.center_x() - dlgNewGame.width() / 2), static_cast<int>(r.center_y() - dlgNewGame.height() / 2));
+	mFileIoDialog.position(std::floor(r.center_x() - mFileIoDialog.width() / 2.0f), std::floor(r.center_y() - mFileIoDialog.height() / 2.0f));
+	dlgOptions.position(std::floor(r.center_x() - dlgOptions.width() / 2.0f), std::floor(r.center_y() - dlgOptions.height() / 2.0f));
+	dlgNewGame.position(std::floor(r.center_x() - dlgNewGame.width() / 2.0f), std::floor(r.center_y() - dlgNewGame.height() / 2.0f));
 
 	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	lblVersion.position(r.width() - tiny_font->width(constants::VERSION) - 5, r.height() - tiny_font->height() - 5);
