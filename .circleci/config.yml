@@ -5,11 +5,7 @@ jobs:
       - image: outpostuniverse/nas2d-circleci:1.1
     steps:
       - checkout
-      - run:
-          name: "Pull Submodules"
-          command: |
-            git submodule init
-            git submodule update
+      - run: git submodule update --init
       - run:
           name: "Build"
           command: make --keep-going
