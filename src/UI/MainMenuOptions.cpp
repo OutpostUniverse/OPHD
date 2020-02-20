@@ -319,7 +319,6 @@ void MainMenuOptions::update()
 		btnApply.enabled(true);
 		setConfigFromControls();
 	}
-
 }
 
 void MainMenuOptions::setConfigFromControls()
@@ -340,7 +339,7 @@ void MainMenuOptions::setConfigFromControls()
 
 void MainMenuOptions::setControlsFromConfig()
 {
-	if (inInit) { return;  }
+	if (inInit) { return; }
 	auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
 	sldrSoundVolume.thumbPosition(std::floor((cf.audioSfxVolume() / 128.0f) * sldrSoundVolume.length()));
 	sldrMusicVolume.thumbPosition(std::floor((cf.audioMusicVolume() / 128.0f) * sldrMusicVolume.length()));
