@@ -195,7 +195,8 @@ void MainMenuOptions::init()
 }
 
 
-void MainMenuOptions::visibilityChanged(bool visible) {
+void MainMenuOptions::visibilityChanged(bool visible)
+{
 	if (visible)
 	{
 		enableControls();
@@ -216,15 +217,18 @@ void MainMenuOptions::btnOkClicked() {
 	hide();
 }
 
-void MainMenuOptions::btnResolutionOkClicked() {
+void MainMenuOptions::btnResolutionOkClicked()
+{
 	dlgResolutionChanged.hide();
 }
 
-void MainMenuOptions::btnCancelClicked() {
+void MainMenuOptions::btnCancelClicked()
+{
 	hide();
 }
 
-void MainMenuOptions::btnApplyClicked() {
+void MainMenuOptions::btnApplyClicked()
+{
 	if (btnApply.enabled())
 	{
 		setConfigFromControls();
@@ -234,18 +238,22 @@ void MainMenuOptions::btnApplyClicked() {
 	}
 }
 
-void MainMenuOptions::saveOptions() {
+void MainMenuOptions::saveOptions()
+{
 	auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
 	cf.save();
 }
 
-void MainMenuOptions::loadOptions() {
+void MainMenuOptions::loadOptions()
+{
 	auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
 	cf.load("config.xml");
 }
 
-void MainMenuOptions::applyVideoChanges() {
-	if (videoOptionsChanged) {
+void MainMenuOptions::applyVideoChanges()
+{
+	if (videoOptionsChanged)
+	{
 		auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
 		const auto& txt = cmbResolution.selectionText();
 		const auto whd = NAS2D::split(txt, 'x');
@@ -262,47 +270,59 @@ void MainMenuOptions::applyVideoChanges() {
 	}
 }
 
-void MainMenuOptions::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/) {
-	if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) {
+void MainMenuOptions::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
+{
+	if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE)
+	{
 		btnCancelClicked();
 	}
 }
 
-void MainMenuOptions::onSoundVolumeChanged(float /*newValue*/) {
+void MainMenuOptions::onSoundVolumeChanged(float /*newValue*/)
+{
 	onOptionsChanged();
 }
 
-void MainMenuOptions::onMusicVolumeChanged(float /*newValue*/) {
+void MainMenuOptions::onMusicVolumeChanged(float /*newValue*/)
+{
 	onOptionsChanged();
 }
 
-void MainMenuOptions::onOptionsChanged() {
-	if (!inInit) {
+void MainMenuOptions::onOptionsChanged()
+{
+	if (!inInit)
+	{
 		optionsChanged = true;
 		btnApply.enabled(true);
 	}
 }
 
-void MainMenuOptions::onVideoOptionsChanged() {
-	if (!inInit) {
+void MainMenuOptions::onVideoOptionsChanged()
+{
+	if (!inInit)
+	{
 		optionsChanged = true;
 		videoOptionsChanged = true;
 	}
 }
 
-void MainMenuOptions::enableControls() {
+void MainMenuOptions::enableControls()
+{
 	pnlControls.enabled(true);
 }
 
-void MainMenuOptions::disableControls() {
+void MainMenuOptions::disableControls()
+{
 	pnlControls.enabled(false);
 }
 
-void MainMenuOptions::enableButtons() {
+void MainMenuOptions::enableButtons()
+{
 	pnlButtons.enabled(true);
 }
 
-void MainMenuOptions::disableButtons() {
+void MainMenuOptions::disableButtons()
+{
 	pnlButtons.enabled(false);
 }
 
