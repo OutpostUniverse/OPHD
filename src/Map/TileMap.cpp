@@ -635,16 +635,15 @@ float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
 using namespace micropather;
 void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
 {
-	const int dx[4] = { 0, 1, 0, -1 };
-	const int dy[4] = { -1, 0, 1, 0 };
+	const auto offsets = std::array<NAS2D::Vector<int>, 4>{{{0, -1}, {1, 0}, {0, 1}, {-1, 0}}};
 
 	Tile* tile = static_cast<Tile*>(state);
 
 	int x = tile->x(), y = tile->y();
 
-	for (int i = 0; i < 8; ++i)
+	for (const auto& offset : offsets)
 	{
-		Tile* adjacent_tile = getTile(x + dx[i], y + dy[i], 0);
+		Tile* adjacent_tile = getTile(x + offset.x, y + offset.y, 0);
 		float cost = 0.5f;
 
 		if (!adjacent_tile || !adjacent_tile->empty() || adjacent_tile->index() == TERRAIN_IMPASSABLE) { cost = FLT_MAX; }
