@@ -865,7 +865,7 @@ void MapViewState::placeTubeEnd()
 	// 
 	do {
 		std::cout << "Tube " << x << "/" << y << std::endl;
-		Tile* tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
+		tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
 		if (!tile) {
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
