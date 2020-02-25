@@ -27,6 +27,8 @@ public:
 	int y() const { return mY; }
 	void y(int i) { mY = i; }
 
+	NAS2D::Point<int> position() const { return {mX, mY}; }
+
 	int depth() const { return mDepth; }
 	void depth(int i) { mDepth = i; }
 
