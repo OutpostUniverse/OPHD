@@ -58,3 +58,15 @@ clean:
 clean-all:
 	-rm -rf $(BUILDDIR)
 	-rm -f $(EXE)
+
+
+.PHONY: lint
+lint: cppcheck cppclean
+
+.PHONY: cppcheck
+cppcheck:
+	cppcheck --quiet "$(SRCDIR)"
+
+.PHONY: cppclean
+cppclean:
+	cppclean --quiet --include-path "$(NAS2DINCLUDEDIR)" --include-path "/usr/include/SDL2" --exclude "MicroPather" "$(SRCDIR)"
