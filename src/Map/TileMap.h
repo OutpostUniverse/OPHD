@@ -35,9 +35,10 @@ public:
 	Tile* getTile(int x, int y) { return getTile(x, y, mCurrentDepth); }
 	Tile* getTile(NAS2D::Point<int> position, int level) { return getTile(position.x(), position.y(), level); }
 	
-	Tile* getVisibleTile(int x, int y, int level) ;
+	Tile* getVisibleTile(int x, int y, int level) { return getVisibleTile(NAS2D::Point<int>{x, y}, level); }
 	Tile* getVisibleTile(int x, int y) { return getVisibleTile(x, y, mCurrentDepth); }
-	Tile* getVisibleTile() { return getVisibleTile(tileMouseHoverX(), tileMouseHoverY(), mCurrentDepth); }
+	Tile* getVisibleTile(NAS2D::Point<int> position, int level);
+	Tile* getVisibleTile() { return getVisibleTile(tileMouseHover(), mCurrentDepth); }
 	
 	bool isVisibleTile(int x, int y, int z) const { return isVisibleTile(NAS2D::Point<int>{x, y}, z); }
 	bool isVisibleTile(NAS2D::Point<int> position, int z) const;

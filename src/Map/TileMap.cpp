@@ -594,14 +594,14 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-Tile* TileMap::getVisibleTile(int x, int y, int level)
+Tile* TileMap::getVisibleTile(NAS2D::Point<int> position, int level)
 {
-	if (!isVisibleTile(x, y, level))
+	if (!isVisibleTile(position, level))
 	{
 		return nullptr;
 	}
 
-	return getTile(x, y, level);
+	return getTile(position, level);
 }
 
 
