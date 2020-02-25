@@ -639,11 +639,11 @@ void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
 
 	Tile* tile = static_cast<Tile*>(state);
 
-	int x = tile->x(), y = tile->y();
+	const auto tilePosition = tile->position();
 
 	for (const auto& offset : offsets)
 	{
-		Tile* adjacent_tile = getTile(x + offset.x, y + offset.y, 0);
+		Tile* adjacent_tile = getTile(tilePosition + offset, 0);
 		float cost = 0.5f;
 
 		if (!adjacent_tile || !adjacent_tile->empty() || adjacent_tile->index() == TERRAIN_IMPASSABLE) { cost = FLT_MAX; }
