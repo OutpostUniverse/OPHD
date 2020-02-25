@@ -136,7 +136,7 @@ TileMap::~TileMap()
 void TileMap::removeMineLocation(const NAS2D::Point_2d& pt)
 {
 	mMineLocations.erase(find(mMineLocations.begin(), mMineLocations.end(), pt));
-	getTile(pt.x(), pt.y(), 0)->pushMine(nullptr);
+	getTile(pt, 0)->pushMine(nullptr);
 }
 
 
@@ -496,7 +496,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 		XmlElement *mine = new XmlElement("mine");
 		mine->attribute("x", mMineLocations[i].x());
 		mine->attribute("y", mMineLocations[i].y());
-		getTile(mMineLocations[i].x(), mMineLocations[i].y(), LEVEL_SURFACE)->mine()->serialize(mine);
+		getTile(mMineLocations[i], LEVEL_SURFACE)->mine()->serialize(mine);
 		mines->linkEndChild(mine);
 	}
 
