@@ -33,6 +33,7 @@ public:
 
 	Tile* getTile(int x, int y, int level);
 	Tile* getTile(int x, int y) { return getTile(x, y, mCurrentDepth); }
+	Tile* getTile(NAS2D::Point<int> position, int level) { return getTile(position.x(), position.y(), level); }
 	
 	Tile* getVisibleTile(int x, int y, int level) ;
 	Tile* getVisibleTile(int x, int y) { return getVisibleTile(x, y, mCurrentDepth); }
