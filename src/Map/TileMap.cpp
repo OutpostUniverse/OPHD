@@ -136,7 +136,7 @@ TileMap::~TileMap()
 void TileMap::removeMineLocation(const NAS2D::Point_2d& pt)
 {
 	mMineLocations.erase(find(mMineLocations.begin(), mMineLocations.end(), pt));
-	getTile(pt.x(), pt.y(), 0)->pushMine(nullptr);
+	getTile(pt, 0)->pushMine(nullptr);
 }
 
 
@@ -496,7 +496,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 		XmlElement *mine = new XmlElement("mine");
 		mine->attribute("x", mMineLocations[i].x());
 		mine->attribute("y", mMineLocations[i].y());
-		getTile(mMineLocations[i].x(), mMineLocations[i].y(), LEVEL_SURFACE)->mine()->serialize(mine);
+		getTile(mMineLocations[i], LEVEL_SURFACE)->mine()->serialize(mine);
 		mines->linkEndChild(mine);
 	}
 
@@ -594,25 +594,25 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-Tile* TileMap::getVisibleTile(int x, int y, int level)
+Tile* TileMap::getVisibleTile(NAS2D::Point<int> position, int level)
 {
-	if (!isVisibleTile(x, y, level))
+	if (!isVisibleTile(position, level))
 	{
 		return nullptr;
 	}
 
-	return getTile(x, y, level);
+	return getTile(position, level);
 }
 
 
-bool TileMap::isVisibleTile(int _x, int _y, int _d) const
+bool TileMap::isVisibleTile(NAS2D::Point<int> position, int z) const
 {
-	if (!NAS2D::Rectangle{mMapViewLocation.x(), mMapViewLocation.y(), mEdgeLength - 1, mEdgeLength - 1}.contains(NAS2D::Point{_x, _y}))
+	if (!NAS2D::Rectangle{mMapViewLocation.x(), mMapViewLocation.y(), mEdgeLength - 1, mEdgeLength - 1}.contains(position))
 	{
 		return false;
 	}
 
-	if (_d != mCurrentDepth)
+	if (z != mCurrentDepth)
 	{
 		return false;
 	}
@@ -639,11 +639,11 @@ void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
 
 	Tile* tile = static_cast<Tile*>(state);
 
-	int x = tile->x(), y = tile->y();
+	const auto tilePosition = tile->position();
 
 	for (const auto& offset : offsets)
 	{
-		Tile* adjacent_tile = getTile(x + offset.x, y + offset.y, 0);
+		Tile* adjacent_tile = getTile(tilePosition + offset, 0);
 		float cost = 0.5f;
 
 		if (!adjacent_tile || !adjacent_tile->empty() || adjacent_tile->index() == TERRAIN_IMPASSABLE) { cost = FLT_MAX; }
