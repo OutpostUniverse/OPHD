@@ -63,6 +63,7 @@ public:
 	int edgeLength() const { return mEdgeLength; }
 	int width() const { return mWidth; }
 	int height() const { return mHeight; }
+	NAS2D::Vector<int> size() const { return {mWidth, mHeight}; }
 
 	int currentDepth() const { return mCurrentDepth; }
 	void currentDepth(int i) { mCurrentDepth = std::clamp(i, 0, mMaxDepth); }
