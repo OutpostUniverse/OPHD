@@ -5,6 +5,9 @@
 #include "../Things/Structures/Structure.h"
 #include "../MicroPather/micropather.h"
 
+#include "NAS2D/Renderer/Point.h"
+#include "NAS2D/Renderer/Vector.h"
+
 #include <algorithm>
 
 using Point2dList = std::vector<NAS2D::Point_2d>;

@@ -8,6 +8,10 @@
 #include "../Things/Structures/Structure.h"
 #include "../Things/Robots/Robot.h"
 
+#include "NAS2D/Renderer/Point.h"
+#include "NAS2D/Renderer/Vector.h"
+
+
 class Tile
 {
 public:
