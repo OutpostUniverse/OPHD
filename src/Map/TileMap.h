@@ -39,10 +39,11 @@ public:
 	Tile* getVisibleTile(int x, int y) { return getVisibleTile(x, y, mCurrentDepth); }
 	Tile* getVisibleTile() { return getVisibleTile(tileMouseHoverX(), tileMouseHoverY(), mCurrentDepth); }
 	
-	bool isVisibleTile(int x, int y, int z) const;
-	bool isVisibleTile(int x, int y) const { return isVisibleTile(x, y, mCurrentDepth); }
-	bool isVisibleTile(const Tile& t) { return isVisibleTile(t.x(), t.y(), t.depth()); }
-	
+	bool isVisibleTile(int x, int y, int z) const { return isVisibleTile(NAS2D::Point<int>{x, y}, z); }
+	bool isVisibleTile(NAS2D::Point<int> position, int z) const;
+	bool isVisibleTile(NAS2D::Point<int> position) const { return isVisibleTile(position, mCurrentDepth); }
+	bool isVisibleTile(const Tile& t) { return isVisibleTile(t.position(), t.depth()); }
+
 	const NAS2D::Rectangle_2d& boundingBox() const { return mMapBoundingBox; }
 
 	const NAS2D::Point_2d& mapViewLocation() const { return mMapViewLocation; }
