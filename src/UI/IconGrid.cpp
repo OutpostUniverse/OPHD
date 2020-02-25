@@ -20,7 +20,7 @@ static Font* FONT = nullptr;
 IconGrid::IconGrid()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &IconGrid::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMotion);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMove);
 	hasFocus(true);
 
 	mSkin.push_back(Image("ui/skin/textbox_top_left.png"));
@@ -43,7 +43,7 @@ IconGrid::IconGrid()
 IconGrid::~IconGrid()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &IconGrid::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &IconGrid::onMouseMotion);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &IconGrid::onMouseMove);
 }
 
 
@@ -131,7 +131,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 /**
  * MouseMotion event handler.
  */
-void IconGrid::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
+void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!visible() || !hasFocus()) { return; }
 

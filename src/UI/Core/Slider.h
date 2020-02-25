@@ -62,7 +62,7 @@ public:
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y); 	/*!< Event raised on mouse button down. */
 	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y); 	/*!< Event raised on mouse button up. */
-	virtual void onMouseMotion(int x, int y, int dX, int dY); 	/*!< Event raised on mouse move. */
+	virtual void onMouseMove(int x, int y, int dX, int dY); 	/*!< Event raised on mouse move. */
 	
 private:
 	float positionInternal();

@@ -35,7 +35,7 @@ GameState::~GameState()
 	Utility<StructureManager>::get().dropAllStructures();
 
 	EventHandler& e = Utility<EventHandler>::get();
-	e.mouseMotion().disconnect(this, &GameState::onMouseMotion);
+	e.mouseMotion().disconnect(this, &GameState::onMouseMove);
 
 	Utility<Renderer>::get().fadeComplete().disconnect(this, &GameState::fadeComplete);
 
@@ -63,7 +63,7 @@ GameState::~GameState()
 void GameState::initialize()
 {
 	EventHandler& e = Utility<EventHandler>::get();
-	e.mouseMotion().connect(this, &GameState::onMouseMotion);
+	e.mouseMotion().connect(this, &GameState::onMouseMove);
 
 	MAIN_REPORTS_UI = new MainReportsUiState();
 	MAIN_REPORTS_UI->_initialize();
@@ -104,7 +104,7 @@ void GameState::mapviewstate(MapViewState* state)
 /**
  * Mouse motion event handler.
  */
-void GameState::onMouseMotion(int x, int y, int /*relX*/, int /*relY*/)
+void GameState::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 {
 	MOUSE_COORDS = {x, y};
 }

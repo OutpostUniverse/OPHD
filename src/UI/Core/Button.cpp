@@ -18,7 +18,7 @@ Button::Button()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Button::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMotion);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMove);
 	hasFocus(true);
 
 	mSkinNormal.push_back(Image("ui/skin/button_top_left.png"));
@@ -59,7 +59,7 @@ Button::~Button()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Button::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Button::onMouseMotion);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Button::onMouseMove);
 
 	delete mImage;
 }
@@ -146,7 +146,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 }
 
 
-void Button::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
+void Button::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	mMouseHover = mRect.to<int>().contains(NAS2D::Point{x, y});
 }
