@@ -23,14 +23,14 @@ Window::Window()
 Window::~Window()
 {
 	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Window::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Window::onMouseMotion);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Window::onMouseMove);
 }
 
 
 void Window::_init()
 {
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMotion);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMove);
 
 	WINDOW_TITLE_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
@@ -68,7 +68,7 @@ void Window::onMouseUp(EventHandler::MouseButton /*button*/, int /*x*/, int /*y*
 }
 
 
-void Window::onMouseMotion(int /*x*/, int /*y*/, int dX, int dY)
+void Window::onMouseMove(int /*x*/, int /*y*/, int dX, int dY)
 {
 	if (!visible() || !hasFocus()) { return; }
 

@@ -17,7 +17,7 @@ public:
 	virtual State* update() final;
 
 private:
-	void onMouseMotion(int x, int y, int relX, int relY);
+	void onMouseMove(int x, int y, int relX, int relY);
 
 	void fadeComplete();
 	void musicComplete();

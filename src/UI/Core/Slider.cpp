@@ -29,7 +29,7 @@ Slider::Slider() :	Control()
 	SLD_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMotion);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMove);
 	hasFocus(true);
 }
 
@@ -41,7 +41,7 @@ Slider::~Slider()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Slider::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Slider::onMouseMotion);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Slider::onMouseMove);
 }
 
 
@@ -258,7 +258,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 /**
  *
  */
-void Slider::onMouseMotion(int x, int y, int /*dX*/, int /*dY*/)
+void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 

@@ -42,7 +42,7 @@ public:
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
-	virtual void onMouseMotion(int x, int y, int dX, int dY);
+	virtual void onMouseMove(int x, int y, int dX, int dY);
 
 private:
 	enum State

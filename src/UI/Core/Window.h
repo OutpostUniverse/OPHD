@@ -18,7 +18,7 @@ public:
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
-	void onMouseMotion(int x, int y, int dX, int dY);
+	void onMouseMove(int x, int y, int dX, int dY);
 
 	static inline constexpr float sWindowTitleBarHeight = 20.0f;
 
