@@ -752,7 +752,7 @@ void MapViewState::placeTubes()
 	int x = mTileMapMouseHover.x();
 	int y = mTileMapMouseHover.y();
 
-	Tile* tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
 	if (!tile) { return; }
 
 	// Check the basics.
@@ -786,7 +786,7 @@ void MapViewState::placeTubeStart()
 	int x = mTileMapMouseHover.x();
 	int y = mTileMapMouseHover.y();
 
-	Tile* tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
 	if (!tile) { return; }
 
 	// Check the basics.
@@ -819,7 +819,7 @@ void MapViewState::placeTubeEnd()
 	bool endReach = false;
 	if (tubeStart.height() != 1) return;
 	tubeStart.height(0);	// the height is used as a boolean to indicate that we are
-	Tile* tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
 	if (!tile) { return; }
 
 	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
@@ -865,7 +865,7 @@ void MapViewState::placeTubeEnd()
 	// 
 	do {
 		std::cout << "Tube " << x << "/" << y << std::endl;
-		tile = mTileMap->getVisibleTile(x, y, mTileMap->currentDepth());
+		tile = mTileMap->getVisibleTile(tubeStart.startPoint(), mTileMap->currentDepth());
 		if (!tile) {
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
