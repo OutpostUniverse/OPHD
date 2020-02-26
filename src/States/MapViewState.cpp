@@ -925,7 +925,7 @@ void MapViewState::placeRobot()
 			tile->pushMine(nullptr);
 			for (size_t i = 0; i <= static_cast<size_t>(mTileMap->maxDepth()); ++i)
 			{
-				Tile* _t = mTileMap->getTile(mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY(), static_cast<int>(i));
+				Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover(), static_cast<int>(i));
 
 				// Probably overkill here but if this is ever true there is a serious logic error somewhere.
 				if (!_t->thing() || !_t->thingIsStructure())
@@ -1008,7 +1008,7 @@ void MapViewState::placeRobot()
 		if (!tile->excavated()) { return; }
 
 		// Check for obstructions underneath the the digger location.
-		if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->x(), tile->y(), tile->depth() + 1)->empty())
+		if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->position(), tile->depth() + 1)->empty())
 		{
 			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_BLOCKED_BELOW);
 			return;
@@ -1121,7 +1121,7 @@ void MapViewState::placeStructure()
 	// NOTE:	This function will never be called until the seed lander is deployed so there
 	//			is no need to check that the CC Location is anything other than { 0, 0 }.
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		(tile->distanceTo(mTileMap->getTile(ccLocationX(), ccLocationY(), 0)) > constants::ROBOT_COM_RANGE))
+		(tile->distanceTo(mTileMap->getTile(ccLocation(), 0)) > constants::ROBOT_COM_RANGE))
 	{
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_OUT_OF_RANGE);
 		return;
@@ -1349,7 +1349,7 @@ void MapViewState::checkConnectedness()
 	}
 
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
-	Tile *t = mTileMap->getTile(ccLocationX(), ccLocationY(), 0);
+	Tile *t = mTileMap->getTile(ccLocation(), 0);
 	Structure *cc = t->structure();
 
 	if (!cc)

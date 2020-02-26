@@ -89,7 +89,7 @@ void MapViewState::drawMiniMap()
 
 	for (auto _mine : mTileMap->mineLocations())
 	{
-		Mine* mine = mTileMap->getTile(_mine.x(), _mine.y(), 0)->mine();
+		Mine* mine = mTileMap->getTile(_mine, 0)->mine();
 		if (!mine) { break; } // avoids potential race condition where a mine is destroyed during an updated cycle.
 
 		float mineBeaconStatusOffsetX = 0.0f;		
