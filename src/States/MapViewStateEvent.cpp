@@ -214,14 +214,14 @@ void MapViewState::diggerTaskFinished(Robot* r)
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
-		Utility<StructureManager>::get().addStructure(as2, mTileMap->getTile(t->x(), t->y(), t->depth() + 1));
+		Utility<StructureManager>::get().addStructure(as2, mTileMap->getTile(t->position(), t->depth() + 1));
 
 		originX = t->x();
 		originY = t->y();
 		depthAdjust = 1;
 
-		mTileMap->getTile(originX, originY, t->depth())->index(TERRAIN_DOZED);
-		mTileMap->getTile(originX, originY, t->depth() + depthAdjust)->index(TERRAIN_DOZED);
+		mTileMap->getTile(t->position(), t->depth())->index(TERRAIN_DOZED);
+		mTileMap->getTile(t->position(), t->depth() + depthAdjust)->index(TERRAIN_DOZED);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		Utility<StructureManager>::get().disconnectAll();
@@ -281,7 +281,7 @@ void MapViewState::minerTaskFinished(Robot* r)
 	_mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 
 	// Tile immediately underneath facility.
-	Tile* t2 = mTileMap->getTile(t->x(), t->y(), t->depth() + 1);
+	Tile* t2 = mTileMap->getTile(t->position(), t->depth() + 1);
 	Utility<StructureManager>::get().addStructure(new MineShaft(), t2);
 
 	t->index(0);
@@ -297,7 +297,7 @@ void MapViewState::mineFacilityExtended(MineFacility* mf)
 	if (mMineOperationsWindow.mineFacility() == mf) { mMineOperationsWindow.mineFacility(mf); }
 	
 	Tile* mf_tile = Utility<StructureManager>::get().tileFromStructure(mf);
-	Tile* t = mTileMap->getTile(mf_tile->x(), mf_tile->y(), mf->mine()->depth());
+	Tile* t = mTileMap->getTile(mf_tile->position(), mf->mine()->depth());
 	Utility<StructureManager>::get().addStructure(new MineShaft(), t);
 	t->index(0);
 	t->excavated(true);

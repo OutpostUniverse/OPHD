@@ -340,7 +340,7 @@ bool outOfCommRange(Point_2d& cc_location, TileMap* tile_map, Tile* current_tile
 {
 	Tile* tile = tile_map->getVisibleTile();
 
-	if (tile->distanceTo(tile_map->getTile(cc_location.x(), cc_location.y(), 0)) <= constants::ROBOT_COM_RANGE)
+	if (tile->distanceTo(tile_map->getTile(cc_location, 0)) <= constants::ROBOT_COM_RANGE)
 		return false;
 
 	Tile* _comm_t = nullptr;
