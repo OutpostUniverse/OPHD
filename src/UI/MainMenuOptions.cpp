@@ -71,28 +71,24 @@ void MainMenuOptions::init()
 	cmbResolution.maxDisplayItems(1);
 
 	cmbResolution.clearSelection();
+
 	{
-		extern SDL_Window* underlyingWindow;
-		const auto display_index = SDL_GetWindowDisplayIndex(underlyingWindow);
-		const auto num_resolutions = SDL_GetNumDisplayModes(display_index);
-		std::ostringstream ss;
-		std::string resolutionText{};
-		SDL_DisplayMode active_mode{};
-		for (int i = 0; i < num_resolutions; ++i)
+		auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
+		auto resolutions = r.getDisplayModes();
+		const auto currentResolution = r.getWindowClientArea();
+		const auto closestResolution = r.getClosestMatchingDisplayMode(NAS2D::DisplayDesc{currentResolution.x, currentResolution.y});
+		const auto s = resolutions.size();
+		for (auto i = std::size_t{0}; i < s; ++i)
 		{
-			SDL_DisplayMode cur_mode{};
-			SDL_GetDisplayMode(display_index, i, &cur_mode);
-			SDL_GetCurrentDisplayMode(display_index, &active_mode);
-			ss << cur_mode.w << 'x' << cur_mode.h << 'x' << cur_mode.refresh_rate;
-			if (cur_mode.w == active_mode.w && cur_mode.h == active_mode.h && cur_mode.refresh_rate == active_mode.refresh_rate)
+			const auto& curr_resolution = resolutions[i];
+			cmbResolution.addItem(curr_resolution);
+			if (curr_resolution == closestResolution)
 			{
 				currentResolutionSelection = i;
-				resolutionText = ss.str();
 			}
-			cmbResolution.addItem(ss.str(), i);
-			ss.str("");
 		}
 	}
+	cmbResolution.currentSelection(currentResolutionSelection);
 	cmbResolution.selectionChanged().connect(this, &MainMenuOptions::onVideoOptionsChanged);
 
 	lblFullscreen.text("Fullscreen");
