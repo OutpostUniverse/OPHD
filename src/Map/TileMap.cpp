@@ -4,6 +4,7 @@
 #include "TileMap.h"
 
 #include "../Constants.h"
+#include "../DirectionOffset.h"
 
 #include <functional>
 #include <random>
@@ -635,13 +636,11 @@ float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
 using namespace micropather;
 void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
 {
-	const auto offsets = std::array<NAS2D::Vector<int>, 4>{{{0, -1}, {1, 0}, {0, 1}, {-1, 0}}};
-
 	Tile* tile = static_cast<Tile*>(state);
 
 	const auto tilePosition = tile->position();
 
-	for (const auto& offset : offsets)
+	for (const auto& offset : DirectionClockwise4)
 	{
 		Tile* adjacent_tile = getTile(tilePosition + offset, 0);
 		float cost = 0.5f;
