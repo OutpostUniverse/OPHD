@@ -39,7 +39,7 @@ public:
 private:
 	void init();
 
-	void resizedHandler(Control*);
+	void resizedHandler(Control* control);
 	void repositioned(float, float);
 	void lstItemsSelectionChanged();
 
