@@ -78,9 +78,14 @@ void WindowStack::updateStack(int x, int y)
 
 void WindowStack::bringToFront(Window* window)
 {
-	if (find(mWindowList.begin(), mWindowList.end(), window) == mWindowList.end())
+	const auto windowPosition = find(mWindowList.begin(), mWindowList.end(), window);
+	if (windowPosition == mWindowList.end())
 	{
 		std::cout << "WindowStack::bringToFront(): Window is not managed by this stack." << std::endl;
+		return;
+	}
+	if (windowPosition == mWindowList.begin())
+	{
 		return;
 	}
 
