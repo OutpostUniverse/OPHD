@@ -45,9 +45,8 @@ void WindowStack::removeWindow(Window* window)
  */
 bool WindowStack::pointInWindow(int x, int y) const
 {
-	for (auto it = mWindowList.begin(); it != mWindowList.end(); ++it)
+	for (auto window : mWindowList)
 	{
-		Window* window = *(it);
 		if (window->visible() && window->rect().to<int>().contains(NAS2D::Point{x, y}))
 		{
 			return true;
@@ -63,9 +62,8 @@ bool WindowStack::pointInWindow(int x, int y) const
  */
 void WindowStack::updateStack(int x, int y)
 {
-	for (auto it = mWindowList.begin(); it != mWindowList.end(); ++it)
+	for (auto window : mWindowList)
 	{
-		Window* window = (*it);
 		if (window->visible() && window->rect().to<int>().contains(NAS2D::Point{x, y}))
 		{
 			bringToFront(window);
