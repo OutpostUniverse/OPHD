@@ -68,7 +68,6 @@ void WindowStack::updateStack(int x, int y)
 		Window* w = (*it);
 		if (w->visible() && w->rect().to<int>().contains(NAS2D::Point{x, y}))
 		{
-			if (it == mWindowList.begin()) { return; }
 			bringToFront(w);
 			return;
 		}
