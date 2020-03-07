@@ -57,7 +57,7 @@ void ComboBox::init()
 /**
  * Resized event handler.
  */
-void ComboBox::resizedHandler(Control* /*c*/)
+void ComboBox::resizedHandler(Control* /*control*/)
 {
 	if (height() < 20) { height(20); } // enforce minimum height;
 	if (width() < 50) { width(50); } // enforce mininum width;

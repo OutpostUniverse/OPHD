@@ -48,9 +48,9 @@ Slider::~Slider()
 /**
  *
  */
-void Slider::size(float w, float h)
+void Slider::size(float width, float height)
 {
-	Control::size(w, h);
+	Control::size(width, height);
 
 	// deduce the type of slider from the ratio.
 	if (rect().height() > rect().width())

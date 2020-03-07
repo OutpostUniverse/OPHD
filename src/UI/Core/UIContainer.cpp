@@ -35,27 +35,27 @@ UIContainer::~UIContainer()
 /**
  * Adds a Control to the UIContainer.
  */
-void UIContainer::add(Control* c, float x, float y)
+void UIContainer::add(Control* control, float x, float y)
 {
-	if(c == nullptr)
+	if(control == nullptr)
 	{
 		std::cout << "UIContainer::addControl(): Attempting to add a NULL Control." << std::endl;
 		return;
 	}
 
-	if (std::find(mControls.begin(), mControls.end(), c) != mControls.end())
+	if (std::find(mControls.begin(), mControls.end(), control) != mControls.end())
 	{
 		std::cout << "UIContainer::addControl(): Duplicate control." << std::endl;
 		return;
 	}
 
 	if (mControls.size() > 0) { mControls.back()->hasFocus(false); }
-	mControls.push_back(c);
+	mControls.push_back(control);
 
-	c->position(rect().x() + x, rect().y() + y);
-	c->visible(visible());
-	c->hasFocus(true);
-	if (auto* asRadioButton = dynamic_cast<RadioButton*>(c))
+	control->position(rect().x() + x, rect().y() + y);
+	control->visible(visible());
+	control->hasFocus(true);
+	if (auto* asRadioButton = dynamic_cast<RadioButton*>(control))
 	{
 		asRadioButton->parentContainer(this);
 	}
