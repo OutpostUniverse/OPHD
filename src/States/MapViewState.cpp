@@ -52,7 +52,7 @@ std::string CURRENT_LEVEL_STRING;
 
 std::map <int, std::string>	LEVEL_STRING_TABLE = 
 {
-	{ constants::DEPTH_SURFACE,  constants::LEVEL_SURFACE },
+	{ constants::DEPTH_SURFACE, constants::LEVEL_SURFACE },
 	{ constants::DEPTH_UNDERGROUND_1, constants::LEVEL_UG1 },
 	{ constants::DEPTH_UNDERGROUND_2, constants::LEVEL_UG2 },
 	{ constants::DEPTH_UNDERGROUND_3, constants::LEVEL_UG3 },
@@ -1077,7 +1077,7 @@ void MapViewState::placeRobot()
 	else if(mCurrentRobot == ROBOT_MINER)
 	{
 		if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
-		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return;  }
+		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
 		if (!tile->mine()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_NOT_ON_MINE); return; }
 
 		Robot* r = mRobotPool.getMiner();
