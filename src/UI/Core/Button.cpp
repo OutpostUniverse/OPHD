@@ -14,8 +14,10 @@
 using namespace NAS2D;
 
 
-Button::Button()
+Button::Button(std::string newText)
 {
+	text(newText);
+
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Button::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMove);
