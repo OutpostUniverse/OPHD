@@ -63,5 +63,5 @@ private:
 
 	bool			mIsDead = false;/**< Thing is dead and should be cleaned up. */
 
-	DieCallback		mDieCallback;	/**<  */
+	DieCallback		mDieCallback;
 };
