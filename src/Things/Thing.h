@@ -17,8 +17,9 @@ public:
 	typedef NAS2D::Signals::Signal<Thing*> DieCallback;
 
 public:
-	Thing(const std::string& name, const std::string& spritePath):	mName(name),
-																	mSprite(spritePath)
+	Thing(const std::string& name, const std::string& spritePath) :
+		mName(name),
+		mSprite(spritePath)
 	{}
 
 	Thing(): mName("Unknown")
