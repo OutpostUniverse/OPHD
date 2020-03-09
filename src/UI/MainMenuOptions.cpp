@@ -19,7 +19,21 @@
 #include "SDL2/SDL_video.h"
 
 
-MainMenuOptions::MainMenuOptions() : Window(constants::WINDOW_SYSTEM_TITLE)
+MainMenuOptions::MainMenuOptions() :
+	Window(constants::WINDOW_SYSTEM_TITLE),
+	lblResolution{"Resolution"},
+	lblFullscreen{"Fullscreen"},
+	lblVSync{"VSync"},
+	lblMusicVolume{"Music Volume"},
+	lblSoundVolume{"Sound Volume"},
+	lblSkipSplash{"Quickstart"},
+	lblStartMaximized{"Start Maximized"},
+	btnOk{"Ok"},
+	btnCancel{"Cancel"},
+	btnApply{"Apply"},
+	dlgResolutionChanged{"Notice"},
+	btnResolutionChangedOk{"Ok"},
+	lblResolutionChanged{"You must restart the game for video options to take effect."}
 {
 	init();
 }
@@ -61,7 +75,6 @@ void MainMenuOptions::init()
 	pnlButtons.position(pnlControls.positionX(), bottom_edge - element_spacing);
 	pnlButtons.size(pnlControls.width(), 120);
 
-	lblResolution.text("Resolution");
 	lblResolution.size(0, 0);
 
 	cmbResolution.visible(true);
@@ -90,31 +103,26 @@ void MainMenuOptions::init()
 	cmbResolution.currentSelection(currentResolutionSelection);
 	cmbResolution.selectionChanged().connect(this, &MainMenuOptions::onVideoOptionsChanged);
 
-	lblFullscreen.text("Fullscreen");
 	lblFullscreen.size(0, 0);
 
 	cbxFullscreen.size(200, 0);
 	cbxFullscreen.click().connect(this, &MainMenuOptions::onVideoOptionsChanged);
 
-	lblSkipSplash.text("Quickstart");
 	lblSkipSplash.size(0, 0);
 
 	cbxSkipSplash.size(200, 0);
 	cbxSkipSplash.click().connect(this, &MainMenuOptions::onOptionsChanged);
 
-	lblStartMaximized.text("Start Maximized");
 	lblStartMaximized.size(0, 0);
 
 	cbxStartMaximized.size(200, 0);
 	cbxStartMaximized.click().connect(this, &MainMenuOptions::onOptionsChanged);
 
-	lblVSync.text("VSync");
 	lblVSync.size(0, 0);
 
 	cbxVSync.size(200,0);
 	cbxVSync.click().connect(this, &MainMenuOptions::onVideoOptionsChanged);
 
-	lblSoundVolume.text("Sound Volume");
 	lblSoundVolume.size(0, 0);
 
 	sldrSoundVolume.size(250, 10);
@@ -125,7 +133,6 @@ void MainMenuOptions::init()
 	sldrSoundVolume.visible(true);
 	sldrSoundVolume.change().connect(this, &MainMenuOptions::onSoundVolumeChanged);
 
-	lblMusicVolume.text("Music Volume");
 	lblMusicVolume.size(0, 0);
 
 	sldrMusicVolume.size(250, 10);
@@ -136,16 +143,13 @@ void MainMenuOptions::init()
 	sldrMusicVolume.visible(true);
 	sldrMusicVolume.change().connect(this, &MainMenuOptions::onMusicVolumeChanged);
 
-	btnApply.text("Apply");
 	btnApply.size(100, 25);
 	btnApply.click().connect(this, &MainMenuOptions::btnApplyClicked);
 	btnApply.enabled(false);
 
-	btnCancel.text("Cancel");
 	btnCancel.size(100, 25);
 	btnCancel.click().connect(this, &MainMenuOptions::btnCancelClicked);
 
-	btnOk.text("Ok");
 	btnOk.size(100, 25);
 	btnOk.click().connect(this, &MainMenuOptions::btnOkClicked);
 
@@ -172,13 +176,10 @@ void MainMenuOptions::init()
 
 	anchored(true);
 
-	lblResolutionChanged.text("You must restart the game for video options to take effect.");
 	lblResolutionChanged.size(250, 15);
-	btnResolutionChangedOk.text("Ok");
 	btnResolutionChangedOk.size(100, 25);
 	btnResolutionChangedOk.click().connect(this, &MainMenuOptions::btnResolutionOkClicked);
 
-	dlgResolutionChanged.text("Notice");
 	dlgResolutionChanged.anchored(true);
 	dlgResolutionChanged.size(500, 85);
 	dlgResolutionChanged.add(&lblResolutionChanged, dlgResolutionChanged.width() * 0.5f - lblResolutionChanged.width() * 0.5f, 10 + dlgResolutionChanged.height() * 0.25f - lblResolutionChanged.height() * 0.5f);
