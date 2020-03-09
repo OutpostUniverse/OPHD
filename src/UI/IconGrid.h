@@ -34,7 +34,7 @@ public:
 		std::string name;			/**< Name of the Item. Can be empty. */
 
 		int meta = 0;				/**< User defined integer value. Optional. */
-		bool available = true;		/**<  */
+		bool available = true;
 
 	protected:
 		friend class IconGrid;
