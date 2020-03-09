@@ -17,7 +17,7 @@ public:
 	typedef NAS2D::Signals::Signal<> ClickCallback;
 
 public:
-	RadioButton();
+	RadioButton(std::string newText = "");
 	virtual ~RadioButton();
 
 	void checked(bool toggle);
