@@ -30,7 +30,7 @@ RadioButton::RadioButton() : mSkin("ui/skin/checkbox.png")
 
 RadioButton::~RadioButton()
 {
-    Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &RadioButton::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &RadioButton::onMouseDown);
 }
 
 /**
