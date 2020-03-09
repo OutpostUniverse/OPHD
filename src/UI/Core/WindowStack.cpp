@@ -45,10 +45,9 @@ void WindowStack::removeWindow(Window* window)
  */
 bool WindowStack::pointInWindow(int x, int y) const
 {
-	for (auto it = mWindowList.begin(); it != mWindowList.end(); ++it)
+	for (auto* window : mWindowList)
 	{
-		Window* w = *(it);
-		if (w->visible() && w->rect().to<int>().contains(NAS2D::Point{x, y}))
+		if (window->visible() && window->rect().to<int>().contains(NAS2D::Point{x, y}))
 		{
 			return true;
 		}
@@ -63,13 +62,11 @@ bool WindowStack::pointInWindow(int x, int y) const
  */
 void WindowStack::updateStack(int x, int y)
 {
-	for (auto it = mWindowList.begin(); it != mWindowList.end(); ++it)
+	for (auto* window : mWindowList)
 	{
-		Window* w = (*it);
-		if (w->visible() && w->rect().to<int>().contains(NAS2D::Point{x, y}))
+		if (window->visible() && window->rect().to<int>().contains(NAS2D::Point{x, y}))
 		{
-			if (it == mWindowList.begin()) { return; }
-			bringToFront(w);
+			bringToFront(window);
 			return;
 		}
 	}
@@ -78,13 +75,18 @@ void WindowStack::updateStack(int x, int y)
 
 void WindowStack::bringToFront(Window* window)
 {
-	if (find(mWindowList.begin(), mWindowList.end(), window) == mWindowList.end())
+	const auto windowPosition = find(mWindowList.begin(), mWindowList.end(), window);
+	if (windowPosition == mWindowList.end())
 	{
 		std::cout << "WindowStack::bringToFront(): Window is not managed by this stack." << std::endl;
 		return;
 	}
+	if (windowPosition == mWindowList.begin())
+	{
+		return;
+	}
 
-	(*mWindowList.begin())->hasFocus(false);
+	mWindowList.front()->hasFocus(false);
 
 	mWindowList.remove(window);
 	mWindowList.push_front(window);
