@@ -22,7 +22,7 @@ public:
 	};
 
 	typedef std::array<int, 4> MineVein;
-	typedef std::vector<MineVein> MineVeins;	/**<  */
+	typedef std::vector<MineVein> MineVeins;
 
 public:
 	Mine();
