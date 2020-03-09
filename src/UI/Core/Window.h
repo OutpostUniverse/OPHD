@@ -4,10 +4,13 @@
 
 #include "NAS2D/Resources/Image.h"
 
+#include <string>
+
+
 class Window : public UIContainer
 {
 public:
-	Window();
+	Window(std::string newTitle = "");
 	virtual ~Window();
 
 	void anchored(bool isAnchored);
