@@ -6,9 +6,8 @@
 #include "../Constants.h"
 
 
-GameOptionsDialog::GameOptionsDialog()
+GameOptionsDialog::GameOptionsDialog() : Window(constants::WINDOW_SYSTEM_TITLE)
 {
-	text(constants::WINDOW_SYSTEM_TITLE);
 	init();
 }
 

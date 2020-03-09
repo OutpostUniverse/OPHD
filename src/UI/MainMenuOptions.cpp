@@ -19,9 +19,8 @@
 #include "SDL2/SDL_video.h"
 
 
-MainMenuOptions::MainMenuOptions() : Window()
+MainMenuOptions::MainMenuOptions() : Window(constants::WINDOW_SYSTEM_TITLE)
 {
-	text(constants::WINDOW_SYSTEM_TITLE);
 	init();
 }
 
