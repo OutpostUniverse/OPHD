@@ -87,7 +87,7 @@ private:
 	bool					mMouseHoverSlide = false;	/*!< Mouse is within the bounds of the Button. */
 	bool					mThumbPressed = false;		/*!< Flag to indicate if this control is pressed. */
 
-    // Slider values
+	// Slider values
 	float					mPosition = 0.0f;			/*!< Current value that represent the position of the slider. */
 	float					mLength = 0.0f;				/*!< Maximum value for the position of the slider. */
 

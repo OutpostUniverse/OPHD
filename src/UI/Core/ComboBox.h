@@ -33,8 +33,8 @@ public:
 
 	virtual void update();
 
-    void text(const std::string& text);
-    const std::string& text() const;
+	void text(const std::string& text);
+	const std::string& text() const;
 
 private:
 	void init();

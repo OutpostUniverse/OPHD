@@ -107,10 +107,10 @@ void ResourceBreakdownPanel::update()
 	r.drawSubImage(mIcons, 5.0f, rect().y() + 41.0f, 96.0f, 16.0f, 16.0f, 16.0f);
 	r.drawSubImage(mIcons, 5.0f, rect().y() + 59.0f, 112.0f, 16.0f, 16.0f, 16.0f);
 
-	r.drawText(*FONT, "Common Metals",   28.0f, rect().y() + 5.0f, 255, 255, 255);
+	r.drawText(*FONT, "Common Metals", 28.0f, rect().y() + 5.0f, 255, 255, 255);
 	r.drawText(*FONT, "Rare Metals", 28.0f, rect().y() + 23.0f, 255, 255, 255);
 	r.drawText(*FONT, "Common Minerals", 28.0f, rect().y() + 41.0f, 255, 255, 255);
-	r.drawText(*FONT, "Rare Minerals",   28.0f, rect().y() + 59.0f, 255, 255, 255);
+	r.drawText(*FONT, "Rare Minerals", 28.0f, rect().y() + 59.0f, 255, 255, 255);
 
 	std::string fmt = string_format("%i", mPlayerResources->commonMetals());
 	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt) , rect().y() + 5.0f, 255, 255, 255);

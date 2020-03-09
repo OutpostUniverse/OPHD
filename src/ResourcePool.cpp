@@ -175,7 +175,7 @@ int ResourcePool::remainingCapacity() const
 }
 
 
-bool ResourcePool::atCapacity()  const
+bool ResourcePool::atCapacity() const
 {
 	return remainingCapacity() <= 0;
 }
