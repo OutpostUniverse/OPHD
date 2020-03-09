@@ -73,14 +73,14 @@ protected:
 	void thingIsStructure(bool value) { mThingIsStructure = value; }
 
 private:
-	int				mIndex = 0;					/**<  */
+	int				mIndex = 0;
 
 	int				mX = 0;						/**< Tile Position Information */
 	int				mY = 0;						/**< Tile Position Information */
 	int				mDepth = 0;					/**< Tile Position Information */
 
-	Thing*			mThing = nullptr;			/**<  */
-	Mine*			mMine = nullptr;			/**<  */
+	Thing*			mThing = nullptr;
+	Mine*			mMine = nullptr;
 
 	NAS2D::Color	mColor = NAS2D::Color::Normal;
 
