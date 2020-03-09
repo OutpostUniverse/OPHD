@@ -119,26 +119,26 @@ private:
 	MouseMapRegion getMouseMapRegion(int x, int y);
 
 private:
-	int					mEdgeLength = 0;			/**<  */
-	int					mWidth = 0;					/**<  */
-	int					mHeight = 0;				/**<  */
+	int					mEdgeLength = 0;
+	int					mWidth = 0;
+	int					mHeight = 0;
 
 	int					mMaxDepth = 0;				/**< Maximum digging depth. */
 	int					mCurrentDepth = 0;			/**< Current depth level to view. */
 
-	std::string			mMapPath;					/**<  */
-	std::string			mTsetPath;					/**<  */
+	std::string			mMapPath;
+	std::string			mTsetPath;
 
-	TileArray			mTileMap;					/**<  */
+	TileArray			mTileMap;
 
-	NAS2D::Image		mTileset;					/**<  */
-	NAS2D::Image		mMineBeacon;				/**<  */
+	NAS2D::Image		mTileset;
+	NAS2D::Image		mMineBeacon;
 
-	NAS2D::Timer		mTimer;						/**<  */
+	NAS2D::Timer		mTimer;
 
 	NAS2D::Point_2d		mMousePosition;				/**< Current mouse position. */
 	NAS2D::Point_2d		mMapHighlight;				/**< Tile the mouse is pointing to. */
-	NAS2D::Point_2d		mMapViewLocation;			/**<  */
+	NAS2D::Point_2d		mMapViewLocation;
 
 	NAS2D::Point_2df	mMapPosition;				/** Where to start drawing the TileMap on the screen. */
 
