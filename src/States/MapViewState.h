@@ -200,7 +200,7 @@ private:
 private:
 	FpsCounter			mFps;							/**< Main FPS Counter. */
 
-	TileMap*			mTileMap = nullptr;				/**<  */
+	TileMap*			mTileMap = nullptr;
 
 	Image				mBackground;					/**< Background image drawn behind the tile map. */
 	Image				mMapDisplay;					/**< Satellite view of the Site Map. */
@@ -214,7 +214,7 @@ private:
 	// POOL'S
 	ResourcePool		mPlayerResources;				/**< Player's current resources. */
 	RobotPool			mRobotPool;						/**< Robots that are currently available for use. */
-	PopulationPool		mPopulationPool;				/**<  */
+	PopulationPool		mPopulationPool;
 
 	RobotTileTable		mRobotList;						/**< List of active robots and their positions on the map. */
 
@@ -222,9 +222,9 @@ private:
 	StructureID			mCurrentStructure = SID_NONE;	/**< Structure being placed. */
 	RobotType			mCurrentRobot = ROBOT_NONE;		/**< Robot being placed. */
 
-	Population			mPopulation;					/**<  */
+	Population			mPopulation;
 
-	//Music				mBgMusic;						/**<  */
+	//Music				mBgMusic;
 
 	// USER INTERFACE
 	Button				mBtnTurns;						/**< Turns Button. */
@@ -256,20 +256,20 @@ private:
 	MapChangedCallback	mMapChangedCallback;			/**< Signal indicating that the map changed. */
 
 	// MISCELLANEOUS
-	int					mTurnCount = 0;					/**<  */
+	int					mTurnCount = 0;
 
 	int					mCurrentMorale = constants::DEFAULT_STARTING_MORALE;
 	int					mPreviousMorale = constants::DEFAULT_STARTING_MORALE;
 
-	int					mLandersColonist = 0;			/**<  */
-	int					mLandersCargo = 0;				/**<  */
+	int					mLandersColonist = 0;
+	int					mLandersCargo = 0;
 
-	int					mResidentialCapacity = 0;		/**<  */
+	int					mResidentialCapacity = 0;
 
 	bool				mLeftButtonDown = false;		/**< Used for mouse drags on the mini map. */
 	bool				mLoadingExisting = false;		/**< Flag used for loading an existing game. */
-	bool				mPinResourcePanel = false;		/**<  */
-	bool				mPinPopulationPanel = false;	/**<  */
+	bool				mPinResourcePanel = false;
+	bool				mPinPopulationPanel = false;
 
 	std::string			mExistingToLoad;				/**< Filename of the existing game to load. */
 };
