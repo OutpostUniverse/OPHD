@@ -168,7 +168,7 @@ float Slider::positionInternal()
 
 
 /**
- *  \brief set internal slider position
+ * \brief set internal slider position
  */
 void Slider::positionInternal(float newPosition)
 {
@@ -387,7 +387,7 @@ void Slider::draw()
 			mSlider.height(mSlider.width());
 		}
 
-		_thumbPosition = (mSlideBar.height() - mSlider.height())  * (mPosition / mLength); //relative width
+		_thumbPosition = (mSlideBar.height() - mSlider.height()) * (mPosition / mLength); //relative width
 
 		mSlider.x(mSlideBar.x());
 		mSlider.y(mSlideBar.y() + _thumbPosition);
@@ -410,7 +410,7 @@ void Slider::draw()
 			mSlider.width(mSlider.height());
 		}
 
-		_thumbPosition = (mSlideBar.width() - mSlider.width())  * (mPosition / mLength); //relative width
+		_thumbPosition = (mSlideBar.width() - mSlider.width()) * (mPosition / mLength); //relative width
 
 		mSlider.x(mSlideBar.x() + _thumbPosition);
 		mSlider.y(mSlideBar.y());
