@@ -48,7 +48,17 @@ static ProductType SELECTED_PRODUCT_TYPE = PRODUCT_NONE;
 /**
  * C'tor
  */
-FactoryReport::FactoryReport()
+FactoryReport::FactoryReport() :
+	btnShowAll{"All"},
+	btnShowSurface{"Surface"},
+	btnShowUnderground{"Underground"},
+	btnShowActive{"Active"},
+	btnShowIdle{"Idle"},
+	btnShowDisabled{"Disabled"},
+	btnIdle{"Idle"},
+	btnClearProduction{"Clear Production"},
+	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE},
+	btnApply{"Apply"}
 {
 	init();
 }
@@ -109,59 +119,49 @@ void FactoryReport::init()
 	btnShowAll.size(75, 20);
 	btnShowAll.type(Button::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
-	btnShowAll.text("All");
 	btnShowAll.click().connect(this, &FactoryReport::btnShowAllClicked);
 
 	add(&btnShowSurface, 87, 10);
 	btnShowSurface.size(75, 20);
 	btnShowSurface.type(Button::BUTTON_TOGGLE);
-	btnShowSurface.text("Surface");
 	btnShowSurface.click().connect(this, &FactoryReport::btnShowSurfaceClicked);
 
 	add(&btnShowUnderground, 164, 10);
 	btnShowUnderground.size(75, 20);
 	btnShowUnderground.type(Button::BUTTON_TOGGLE);
-	btnShowUnderground.text("Underground");
 	btnShowUnderground.click().connect(this, &FactoryReport::btnShowUndergroundClicked);
 
 	add(&btnShowActive, 10, 33);
 	btnShowActive.size(75, 20);
 	btnShowActive.type(Button::BUTTON_TOGGLE);
-	btnShowActive.text("Active");
 	btnShowActive.click().connect(this, &FactoryReport::btnShowActiveClicked);
 
 	add(&btnShowIdle, 87, 33);
 	btnShowIdle.size(75, 20);
 	btnShowIdle.type(Button::BUTTON_TOGGLE);
-	btnShowIdle.text("Idle");
 	btnShowIdle.click().connect(this, &FactoryReport::btnShowIdleClicked);
 
 	add(&btnShowDisabled, 164, 33);
 	btnShowDisabled.size(75, 20);
 	btnShowDisabled.type(Button::BUTTON_TOGGLE);
-	btnShowDisabled.text("Disabled");
 	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
 
 	float position_x = Utility<Renderer>::get().width() - 110;
 	add(&btnIdle, position_x, 35);
 	btnIdle.type(Button::BUTTON_TOGGLE);
 	btnIdle.size(140, 30);
-	btnIdle.text("Idle");
 	btnIdle.click().connect(this, &FactoryReport::btnIdleClicked);
 
 	add(&btnClearProduction, position_x, 75);
 	btnClearProduction.size(140, 30);
-	btnClearProduction.text("Clear Production");
 	btnClearProduction.click().connect(this, &FactoryReport::btnClearProductionClicked);
 
 	add(&btnTakeMeThere, position_x, 115);
 	btnTakeMeThere.size(140, 30);
-	btnTakeMeThere.text(constants::BUTTON_TAKE_ME_THERE);
 	btnTakeMeThere.click().connect(this, &FactoryReport::btnTakeMeThereClicked);
 
 	add(&btnApply, 0, 0);
 	btnApply.size(140, 30);
-	btnApply.text("Apply");
 	btnApply.click().connect(this, &FactoryReport::btnApplyClicked);
 
 	add(&cboFilterByProduct, 250, 33);
