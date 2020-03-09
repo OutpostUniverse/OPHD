@@ -61,16 +61,17 @@ Explosion* EXPLODE = nullptr;
 
 
 
-PlanetSelectState::PlanetSelectState():	mBg("sys/bg1.png"),
-										mStarFlare("sys/flare_1.png"),
-										mDetailFlare("sys/flare_2.png"),
-										mDetailFlare2("sys/flare_3.png"),
-										mCloud1("sys/cloud_1.png"),
-										mCloud2("sys/cloud_2.png"),
-										mBgMusic("music/menu.ogg"),
-										mSelect("sfx/click.ogg"),
-										mHover("sfx/menu4.ogg"),
-										mReturnState(this)
+PlanetSelectState::PlanetSelectState() :
+	mBg("sys/bg1.png"),
+	mStarFlare("sys/flare_1.png"),
+	mDetailFlare("sys/flare_2.png"),
+	mDetailFlare2("sys/flare_3.png"),
+	mCloud1("sys/cloud_1.png"),
+	mCloud2("sys/cloud_2.png"),
+	mBgMusic("music/menu.ogg"),
+	mSelect("sfx/click.ogg"),
+	mHover("sfx/menu4.ogg"),
+	mReturnState(this)
 {}
 
 
