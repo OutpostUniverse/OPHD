@@ -5,7 +5,8 @@
 
 
 
-DiggerDirection::DiggerDirection()
+DiggerDirection::DiggerDirection() :
+	btnCancel{"Cancel"}
 {
 	text("Direction");
 	init();
@@ -48,7 +49,6 @@ void DiggerDirection::init()
 	btnEast.click().connect(this, &DiggerDirection::btnDiggerEastClicked);
 
 	add(&btnCancel, 5, 140);
-	btnCancel.text("Cancel");
 	btnCancel.size(64, 25);
 	btnCancel.click().connect(this, &DiggerDirection::btnCancelClicked);
 }
