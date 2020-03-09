@@ -45,19 +45,19 @@ private:
 	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
 private:
-	NAS2D::Image		mBgImage;						/**<  */
+	NAS2D::Image		mBgImage;
 
 	FileIo				mFileIoDialog;					/**< File IO window. */
 
-	Button				btnNewGame;						/**<  */
-	Button				btnContinueGame;				/**<  */
-	Button				btnOptions;						/**<  */
-	Button				btnHelp;						/**<  */
-	Button				btnQuit;						/**<  */
+	Button				btnNewGame;
+	Button				btnContinueGame;
+	Button				btnOptions;
+	Button				btnHelp;
+	Button				btnQuit;
 
 	MainMenuOptions		dlgOptions;
 	DifficultySelect	dlgNewGame;
 
-	Label				lblVersion;						/**<  */
-	NAS2D::State*		mReturnState = this;			/**<  */
+	Label				lblVersion;
+	NAS2D::State*		mReturnState = this;
 };

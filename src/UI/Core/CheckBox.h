@@ -31,9 +31,9 @@ protected:
 	virtual void onTextChanged() final;
 	
 private:
-	NAS2D::Image	mSkin;				/**<  */
+	NAS2D::Image	mSkin;
 
 	ClickCallback	mCallback;			/**< Object to notify when the Button is activated. */
 
-	bool			mChecked = false;	/**<  */
+	bool			mChecked = false;
 };

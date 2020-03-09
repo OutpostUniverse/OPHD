@@ -101,7 +101,7 @@ private:
 	NAS2D::Color				mHighlightText = NAS2D::Color::White;			/**< Text Color for an item that is currently highlighted. */
 
 	SelectionChangedCallback	mSelectionChanged;								/**< Callback for selection changed callback. */
-	Slider						mSlider;										/**<  */
+	Slider						mSlider;
 	
 	bool						mSorted = false;								/**< Flag indicating that all Items should be sorted. */
 };
