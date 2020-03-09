@@ -19,7 +19,12 @@
 #include "SDL2/SDL_video.h"
 
 
-DifficultySelect::DifficultySelect() : Window()
+DifficultySelect::DifficultySelect() :
+	rdbBeginner{constants::DIFFICULTY_BEGINNER},
+	rdbEasy{constants::DIFFICULTY_EASY},
+	rdbMedium{constants::DIFFICULTY_MEDIUM},
+	rdbHard{constants::DIFFICULTY_HARD},
+	btnOk{"Ok"}
 {
 	text(constants::DIFFICULTY_TITLE);
 	init();
@@ -51,7 +56,6 @@ void DifficultySelect::init()
 	const auto bottom_edge = top_edge + height() - border_top_height - border_bottom_height * 2.0f;
 	const auto width = right_edge - left_edge;
 
-	btnOk.text("Ok");
 	btnOk.size(100, 25);
 	btnOk.click().connect(this, &DifficultySelect::btnOkClicked);
 
@@ -63,11 +67,6 @@ void DifficultySelect::init()
 	case Difficulty::Hard:      rdbHard.checked(true);     break;
 	default:                    rdbBeginner.checked(true); break;
 	}
-
-	rdbBeginner.text(constants::DIFFICULTY_BEGINNER);
-	rdbEasy.text(constants::DIFFICULTY_EASY);
-	rdbMedium.text(constants::DIFFICULTY_MEDIUM);
-	rdbHard.text(constants::DIFFICULTY_HARD);
 
 	float longest_width = 0.0f;
 	if (longest_width < rdbBeginner.width())
