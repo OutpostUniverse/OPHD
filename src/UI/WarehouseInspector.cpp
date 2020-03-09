@@ -14,7 +14,8 @@ static Font* FONT_BOLD = nullptr;
 /**
  * 
  */
-WarehouseInspector::WarehouseInspector()
+WarehouseInspector::WarehouseInspector() :
+	btnClose{"Okay"}
 {
 	text(constants::WINDOW_WH_INSPECTOR);
 	init();
@@ -36,7 +37,6 @@ void WarehouseInspector::init()
 	size(250, 350);
 
 	add(&btnClose, 105, 325);
-	btnClose.text("Okay");
 	btnClose.size(40, 20);
 	btnClose.click().connect(this, &WarehouseInspector::btnCloseClicked);
 
