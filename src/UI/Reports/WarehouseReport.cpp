@@ -45,7 +45,7 @@ static bool useStateString(Structure::StructureState _state)
 
 /**
  * Internal function to determine current capacity of all
-  * warehouses in the game.
+ * warehouses in the game.
  */
 static void computeCapacity()
 {
