@@ -6,7 +6,12 @@
 #include "../Constants.h"
 
 
-GameOptionsDialog::GameOptionsDialog() : Window(constants::WINDOW_SYSTEM_TITLE)
+GameOptionsDialog::GameOptionsDialog() :
+	Window{constants::WINDOW_SYSTEM_TITLE},
+	btnSave{"Save current game"},
+	btnLoad{"Load a saved game"},
+	btnReturn{"Return to current game"},
+	btnClose{"Return to Main Menu"}
 {
 	init();
 }
@@ -27,22 +32,18 @@ void GameOptionsDialog::init()
 	size(210, 160);
 
 	add(&btnSave, 5, 25);
-	btnSave.text("Save current game");
 	btnSave.size(200, 25);
 	btnSave.click().connect(this, &GameOptionsDialog::btnSaveClicked);
 
 	add(&btnLoad, 5, 53);
-	btnLoad.text("Load a saved game");
 	btnLoad.size(200, 25);
 	btnLoad.click().connect(this, &GameOptionsDialog::btnLoadClicked);
 
 	add(&btnReturn, 5, 91);
-	btnReturn.text("Return to current game");
 	btnReturn.size(200, 25);
 	btnReturn.click().connect(this, &GameOptionsDialog::btnReturnClicked);
 
 	add(&btnClose, 5, 129);
-	btnClose.text("Return to Main Menu");
 	btnClose.size(200, 25);
 	btnClose.click().connect(this, &GameOptionsDialog::btnCloseClicked);
 
