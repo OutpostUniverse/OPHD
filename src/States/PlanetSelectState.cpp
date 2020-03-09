@@ -71,6 +71,7 @@ PlanetSelectState::PlanetSelectState() :
 	mBgMusic{"music/menu.ogg"},
 	mSelect{"sfx/click.ogg"},
 	mHover{"sfx/menu4.ogg"},
+	mQuit{"Main Menu"},
 	mReturnState{this}
 {}
 
@@ -114,7 +115,6 @@ void PlanetSelectState::initialize()
 
 	PLANET_TYPE_SELECTION = Planet::PLANET_TYPE_NONE;
 
-	mQuit.text("Main Menu");
 	mQuit.size(100, 20);
 	mQuit.position(r.width() - 105, 30);
 	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
