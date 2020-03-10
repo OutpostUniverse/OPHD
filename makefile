@@ -9,10 +9,10 @@ NAS2DINCLUDEDIR := $(NAS2DDIR)include/
 NAS2DLIBDIR := $(NAS2DDIR)lib/
 NAS2DLIB := $(NAS2DLIBDIR)libnas2d.a
 
-CPPFLAGS := $(CPPFLAGS.EXTRA)
-CXXFLAGS := $(CXXFLAGS.EXTRA) -std=c++17 -Wall -Wno-unknown-pragmas -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
-LDFLAGS := $(LDFLAGS.EXTRA) -L$(NAS2DLIBDIR) $(shell sdl2-config --libs)
-LDLIBS := $(LDLIBS.EXTRA) -lnas2d -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lphysfs -lGL -lGLEW
+CPPFLAGS := $(CPPFLAGS_EXTRA)
+CXXFLAGS := $(CXXFLAGS_EXTRA) -std=c++17 -Wall -Wno-unknown-pragmas -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
+LDFLAGS := $(LDFLAGS_EXTRA) -L$(NAS2DLIBDIR) $(shell sdl2-config --libs)
+LDLIBS := $(LDLIBS_EXTRA) -lnas2d -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lphysfs -lGL -lGLEW
 
 DEPFLAGS = -MT $@ -MMD -MP -MF $(OBJDIR)$*.Td
 
