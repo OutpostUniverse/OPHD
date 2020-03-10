@@ -6,8 +6,9 @@ commands:
       - checkout
       - run: git submodule update --init
       - run: export CXXFLAGS_EXTRA="-Werror"
-      - run: make --keep-going nas2d
-      - run: make --keep-going
+      - run: export MAKEFLAGS="--keep-going"
+      - run: make nas2d
+      - run: make
 
 jobs:
   build-linux:
@@ -32,7 +33,8 @@ jobs:
       - checkout
       - run: git submodule update --init
       - run: export CXXFLAGS_EXTRA="-Werror"
-      - run: make --keep-going intermediate
+      - run: export MAKEFLAGS="--keep-going"
+      - run: make intermediate
 
 workflows:
   build:
