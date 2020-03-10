@@ -306,15 +306,15 @@ namespace micropather
 		struct Item
 		{
 			// The key:
-			void* start = nullptr;
-			void* end = nullptr;
+			void* start;
+			void* end;
 
 			bool KeyEqual(const Item& item) const { return start == item.start && end == item.end; }
 			bool Empty() const { return start == 0 && end == 0; }
 
 			// Data:
-			void* next = nullptr;
-			float	cost = 0.0f; // from 'start' to 'next'. FLT_MAX if unsolveable.
+			void* next;
+			float	cost; // from 'start' to 'next'. FLT_MAX if unsolveable.
 
 			unsigned Hash() const
 			{
