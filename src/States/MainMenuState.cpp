@@ -20,7 +20,15 @@ using namespace NAS2D;
 /**
  * C'tor
  */
-MainMenuState::MainMenuState() : mBgImage("sys/mainmenu.png"), mReturnState(this)
+MainMenuState::MainMenuState() :
+	mBgImage("sys/mainmenu.png"),
+	btnNewGame{constants::MAIN_MENU_NEW_GAME},
+	btnContinueGame{constants::MAIN_MENU_CONTINUE},
+	btnOptions{constants::MAIN_MENU_OPTIONS},
+	btnHelp{constants::MAIN_MENU_HELP},
+	btnQuit{constants::MAIN_MENU_QUIT},
+	lblVersion{constants::VERSION},
+	mReturnState(this)
 {}
 
 
@@ -50,28 +58,23 @@ void MainMenuState::initialize()
 	e.windowResized().connect(this, &MainMenuState::onWindowResized);
 	e.keyDown().connect(this, &MainMenuState::onKeyDown);
 
-	btnNewGame.text(constants::MAIN_MENU_NEW_GAME);
 	btnNewGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnNewGame.size(200, 30);
 	btnNewGame.click().connect(this, &MainMenuState::btnNewGameClicked);
 
-	btnContinueGame.text(constants::MAIN_MENU_CONTINUE);
 	btnContinueGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnContinueGame.size(200, 30);
 	btnContinueGame.click().connect(this, &MainMenuState::btnContinueGameClicked);
 
-	btnOptions.text(constants::MAIN_MENU_OPTIONS);
 	btnOptions.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnOptions.size(200, 30);
 	btnOptions.enabled(false);
 	btnOptions.click().connect(this, &MainMenuState::btnOptionsClicked);
 
-	btnHelp.text(constants::MAIN_MENU_HELP);
 	btnHelp.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnHelp.size(200, 30);
 	btnHelp.click().connect(this, &MainMenuState::btnHelpClicked);
 
-	btnQuit.text(constants::MAIN_MENU_QUIT);
 	btnQuit.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnQuit.size(200, 30);
 	btnQuit.click().connect(this, &MainMenuState::btnQuitClicked);
@@ -92,7 +95,6 @@ void MainMenuState::initialize()
 	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
 	lblVersion.font(tiny_font);
-	lblVersion.text(constants::VERSION);
 	lblVersion.position(r.width() - lblVersion.width() - 5, r.height() - lblVersion.height() - 5);
 	lblVersion.color(NAS2D::Color::White);
 

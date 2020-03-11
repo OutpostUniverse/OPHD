@@ -12,7 +12,9 @@
 using namespace NAS2D;
 
 
-GameOverDialog::GameOverDialog() : mHeader("ui/interface/game_over.png")
+GameOverDialog::GameOverDialog() :
+	mHeader{"ui/interface/game_over.png"},
+	btnClose{"Return to Main Menu"}
 {
 	init();
 }
@@ -28,7 +30,6 @@ void GameOverDialog::init()
 	size(522, 340);
 
 	add(&btnClose, 5, 310);
-	btnClose.text("Return to Main Menu");
 	btnClose.size(512, 25);
 	btnClose.click().connect(this, &GameOverDialog::btnCloseClicked);
 

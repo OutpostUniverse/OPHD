@@ -16,7 +16,9 @@ static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
 
 
-StructureInspector::StructureInspector() : mIcons("ui/icons.png")
+StructureInspector::StructureInspector() :
+	btnClose{"Close"},
+	mIcons{"ui/icons.png"}
 {
 	text(constants::WINDOW_STRUCTURE_INSPECTOR);
 	init();
@@ -38,7 +40,6 @@ void StructureInspector::init()
 	size(350, 200);
 
 	add(&btnClose, 295, 175);
-	btnClose.text("Close");
 	btnClose.size(50, 20);
 	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
 

@@ -15,7 +15,9 @@ using namespace NAS2D;
 /**
  * D'tor
  */
-FileIo::FileIo()
+FileIo::FileIo() :
+	btnClose{"Cancel"},
+	btnFileOp{"FileOp"}
 {
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
 	Utility<EventHandler>::get().keyDown().connect(this, &FileIo::onKeyDown);
@@ -43,13 +45,11 @@ void FileIo::init()
 	size(500, 350);
 
 	add(&btnFileOp, 445, 325);
-	btnFileOp.text("FileOp");
 	btnFileOp.size(50, 20);
 	btnFileOp.click().connect(this, &FileIo::btnFileIoClicked);
 	btnFileOp.enabled(false);
 
 	add(&btnClose, 390, 325);
-	btnClose.text("Cancel");
 	btnClose.size(50, 20);
 	btnClose.click().connect(this, &FileIo::btnCloseClicked);
 

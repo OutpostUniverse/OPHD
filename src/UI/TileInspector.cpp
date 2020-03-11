@@ -15,7 +15,8 @@ static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
 
 
-TileInspector::TileInspector()
+TileInspector::TileInspector() :
+	btnClose{"Close"}
 {
 	text(constants::WINDOW_TILE_INSPECTOR);
 	init();
@@ -32,7 +33,6 @@ void TileInspector::init()
 	size(200, 88);
 
 	add(&btnClose, 145, 63);
-	btnClose.text("Close");
 	btnClose.size(50, 20);
 	btnClose.click().connect(this, &TileInspector::btnCloseClicked);
 

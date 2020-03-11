@@ -14,7 +14,12 @@ static Font* FONT_BOLD = nullptr;
 /**
  * 
  */
-FactoryProduction::FactoryProduction()
+FactoryProduction::FactoryProduction() :
+	btnOkay{"Okay"},
+	btnCancel{"Cancel"},
+	btnClearSelection{"Clear Selection"},
+	btnApply{"Apply"},
+	chkIdle{"Idle"}
 {
 	text(constants::WINDOW_FACTORY_PRODUCTION);
 	init();
@@ -46,27 +51,22 @@ void FactoryProduction::init()
 	mProductGrid.selectionChanged().connect(this, &FactoryProduction::productSelectionChanged);
 
 	add(&btnOkay, 233, 138);
-	btnOkay.text("Okay");
 	btnOkay.size(40, 20);
 	btnOkay.click().connect(this, &FactoryProduction::btnOkayClicked);
 
 	add(&btnCancel, 276, 138);
-	btnCancel.text("Cancel");
 	btnCancel.size(40, 20);
 	btnCancel.click().connect(this, &FactoryProduction::btnCancelClicked);
 
 	add(&btnClearSelection, 5, 138);
-	btnClearSelection.text("Clear Selection");
 	btnClearSelection.size(mProductGrid.width(), 20);
 	btnClearSelection.click().connect(this, &FactoryProduction::btnClearSelectionClicked);
 
 	add(&btnApply, mProductGrid.width() + 12, btnClearSelection.positionY());
-	btnApply.text("Apply");
 	btnApply.size(40, 20);
 	btnApply.click().connect(this, &FactoryProduction::btnApplyClicked);
 
 	add(&chkIdle, mProductGrid.width() + 12, 115);
-	chkIdle.text("Idle");
 	chkIdle.size(50, 20);
 	chkIdle.click().connect(this, &FactoryProduction::chkIdleClicked);
 

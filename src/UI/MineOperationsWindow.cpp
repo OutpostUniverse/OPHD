@@ -54,7 +54,16 @@ const int				RARE_MINERALS_POS = 312;
 /**
  * 
  */
-MineOperationsWindow::MineOperationsWindow() : mUiIcon("ui/interface/mine.png"), mIcons("ui/icons.png")
+MineOperationsWindow::MineOperationsWindow() :
+	mUiIcon{"ui/interface/mine.png"},
+	mIcons{"ui/icons.png"},
+	chkCommonMetals{"Common Metals"},
+	chkCommonMinerals{"Common Minerals"},
+	chkRareMetals{"Rare Metals"},
+	chkRareMinerals{"Rare Minerals"},
+	btnIdle{"Idle"},
+	btnExtendShaft{"Dig New Level"},
+	btnOkay{"Close"}
 {
 	text(constants::WINDOW_MINE_OPERATIONS);
 	init();
@@ -78,35 +87,28 @@ void MineOperationsWindow::init()
 	// Set up GUI Layout
 	add(&btnIdle, 10, 230);
 	btnIdle.type(Button::BUTTON_TOGGLE);
-	btnIdle.text("Idle");
 	btnIdle.size(60, 30);
 	btnIdle.click().connect(this, &MineOperationsWindow::btnIdleClicked);
 
 	add(&btnExtendShaft, 72, 230);
-	btnExtendShaft.text("Dig New Level");
 	btnExtendShaft.size(100, 30);
 	btnExtendShaft.click().connect(this, &MineOperationsWindow::btnExtendShaftClicked);
 
 	add(&btnOkay, width() - 70, 230);
-	btnOkay.text("Close");
 	btnOkay.size(60, 30);
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
 
 	// ORE TOGGLE BUTTONS
 	add(&chkCommonMetals, 148, 93);
-	chkCommonMetals.text("Common Metals");
 	chkCommonMetals.click().connect(this, &MineOperationsWindow::chkCommonMetalsClicked);
 
 	add(&chkCommonMinerals, 259, 93);
-	chkCommonMinerals.text("Common Minerals");
 	chkCommonMinerals.click().connect(this, &MineOperationsWindow::chkCommonMineralsClicked);
 
 	add(&chkRareMetals, 148, 128);
-	chkRareMetals.text("Rare Metals");
 	chkRareMetals.click().connect(this, &MineOperationsWindow::chkRareMetalsClicked);
 
 	add(&chkRareMinerals, 259, 128);
-	chkRareMinerals.text("Rare Minerals");
 	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
 
 	mPanel.push_back(Image("ui/skin/textbox_top_left.png"));
