@@ -22,8 +22,9 @@ static Font* CBOX_FONT = nullptr;
 /**
  * C'tor
  */
-RadioButton::RadioButton() : mSkin("ui/skin/checkbox.png")
+RadioButton::RadioButton(std::string newText) : mSkin("ui/skin/checkbox.png")
 {
+	text(newText);
 	CBOX_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &RadioButton::onMouseDown);
 }

@@ -12,8 +12,9 @@ static const int FIELD_PADDING = 4;
 static NAS2D::Font* TXT_FONT = nullptr;
 
 
-Label::Label()
+Label::Label(std::string newText)
 {
+	text(newText);
 	TXT_FONT = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	height(static_cast<float>(TXT_FONT->height() + FIELD_PADDING * 2));
 }

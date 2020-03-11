@@ -24,7 +24,7 @@ namespace NAS2D
 class Label : public Control
 {
 public:
-	Label();
+	Label(std::string newText = "");
 	virtual ~Label() = default;
 
 	void font(NAS2D::Font* font);

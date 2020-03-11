@@ -14,8 +14,9 @@ using namespace NAS2D;
 
 static Font* WINDOW_TITLE_FONT;
 
-Window::Window()
+Window::Window(std::string newTitle)
 {
+	text(newTitle);
 	_init();
 }
 

@@ -14,7 +14,7 @@ public:
 	typedef NAS2D::Signals::Signal<> ClickCallback;
 
 public:
-	CheckBox();
+	CheckBox(std::string newText = "");
 	virtual ~CheckBox();
 
 	void checked(bool toggle);

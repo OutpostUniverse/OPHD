@@ -22,7 +22,7 @@ public:
 	typedef NAS2D::Signals::Signal<> ClickCallback;
 
 public:
-	Button();
+	Button(std::string newText = "");
 	virtual ~Button();
 
 	void type(Type type);
