@@ -9,7 +9,7 @@
 /**
  * \brief Implements the Mine Facility Operations Window
  */
-class MineOperationsWindow : public Window
+class MineOperationsWindow final : public Window
 {
 public:
 	MineOperationsWindow();
