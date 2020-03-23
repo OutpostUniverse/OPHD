@@ -49,9 +49,9 @@ void PopulationPanel::update()
 	r.drawSubImage(mIcons, positionX() + 5, positionY() + 147, 96, 96, 32, 32);		// Scientist
 	r.drawSubImage(mIcons, positionX() + 5, positionY() + 181, 128, 96, 32, 32);	// Retired
 
-	r.drawText(*FONT, string_format("%i", mPopulation->size(Population::ROLE_CHILD)), positionX() + 42, positionY() + 65, 255, 255, 255);
-	r.drawText(*FONT, string_format("%i", mPopulation->size(Population::ROLE_STUDENT)), positionX() + 42, positionY() + 97, 255, 255, 255);
-	r.drawText(*FONT, string_format("%i", mPopulation->size(Population::ROLE_WORKER)), positionX() + 42, positionY() + 129, 255, 255, 255);
-	r.drawText(*FONT, string_format("%i", mPopulation->size(Population::ROLE_SCIENTIST)), positionX() + 42, positionY() + 160, 255, 255, 255);
-	r.drawText(*FONT, string_format("%i", mPopulation->size(Population::ROLE_RETIRED)), positionX() + 42, positionY() + 193, 255, 255, 255);
+	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_CHILD)), positionX() + 42, positionY() + 65, 255, 255, 255);
+	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_STUDENT)), positionX() + 42, positionY() + 97, 255, 255, 255);
+	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_WORKER)), positionX() + 42, positionY() + 129, 255, 255, 255);
+	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_SCIENTIST)), positionX() + 42, positionY() + 160, 255, 255, 255);
+	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_RETIRED)), positionX() + 42, positionY() + 193, 255, 255, 255);
 }
