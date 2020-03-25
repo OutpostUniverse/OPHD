@@ -61,6 +61,14 @@ static ResourceTrend compareResources(int src, int dst)
 }
 
 
+namespace {
+	std::string formatDiff(int diff)
+	{
+		return ((diff >= 0) ? "+" : "-") + std::to_string(diff);
+	}
+}
+
+
 ResourceBreakdownPanel::ResourceBreakdownPanel() : mIcons("ui/icons.png")
 {
 	size(270, 80);
@@ -130,15 +138,15 @@ void ResourceBreakdownPanel::update()
 	r.drawSubImage(mIcons, 220.0f, rect().y() + 62.0f, ICON_SLICE[RARE_MINERALS].x(),   ICON_SLICE[RARE_MINERALS].y(),   8.0f, 8.0f);
 
 
-	fmt = string_format("%+i", mPlayerResources->commonMetals() - mPreviousResources.commonMetals());
+	fmt = formatDiff(mPlayerResources->commonMetals() - mPreviousResources.commonMetals());
 	r.drawText(*FONT, fmt, 235.0f, rect().y() + 5.0f, COMMON_MET_COL.red(), COMMON_MET_COL.green(), COMMON_MET_COL.blue());
 
-	fmt = string_format("%+i", mPlayerResources->commonMinerals() - mPreviousResources.commonMinerals());
+	fmt = formatDiff(mPlayerResources->commonMinerals() - mPreviousResources.commonMinerals());
 	r.drawText(*FONT, fmt, 235.0f, rect().y() + 23.0f, COMMON_MIN_COL.red(), COMMON_MIN_COL.green(), COMMON_MIN_COL.blue());
 
-	fmt = string_format("%+i", mPlayerResources->rareMetals() - mPreviousResources.rareMetals());
+	fmt = formatDiff(mPlayerResources->rareMetals() - mPreviousResources.rareMetals());
 	r.drawText(*FONT, fmt, 235.0f, rect().y() + 41.0f, RARE_MET_COL.red(), RARE_MET_COL.green(), RARE_MET_COL.blue());
 
-	fmt = string_format("%+i", mPlayerResources->rareMinerals() - mPreviousResources.rareMinerals());
+	fmt = formatDiff(mPlayerResources->rareMinerals() - mPreviousResources.rareMinerals());
 	r.drawText(*FONT, fmt, 235.0f, rect().y() + 59.0f, RARE_MIN_COL.red(), RARE_MIN_COL.green(), RARE_MIN_COL.blue());
 }
