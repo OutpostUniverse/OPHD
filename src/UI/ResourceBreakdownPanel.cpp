@@ -112,16 +112,16 @@ void ResourceBreakdownPanel::update()
 	r.drawText(*FONT, "Common Minerals", 28.0f, rect().y() + 41.0f, 255, 255, 255);
 	r.drawText(*FONT, "Rare Minerals", 28.0f, rect().y() + 59.0f, 255, 255, 255);
 
-	std::string fmt = string_format("%i", mPlayerResources->commonMetals());
+	std::string fmt = std::to_string(mPlayerResources->commonMetals());
 	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt) , rect().y() + 5.0f, 255, 255, 255);
 	
-	fmt = string_format("%i", mPlayerResources->rareMetals());
+	fmt = std::to_string(mPlayerResources->rareMetals());
 	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt), rect().y() + 23.0f, 255, 255, 255);
 
-	fmt = string_format("%i", mPlayerResources->commonMinerals());
+	fmt = std::to_string(mPlayerResources->commonMinerals());
 	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt), rect().y() + 41.0f, 255, 255, 255);
 
-	fmt = string_format("%i", mPlayerResources->rareMinerals());
+	fmt = std::to_string(mPlayerResources->rareMinerals());
 	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt), rect().y() + 59.0f, 255, 255, 255);
 
 	r.drawSubImage(mIcons, 220.0f, rect().y() + 8.0f,  ICON_SLICE[COMMON_METALS].x(),   ICON_SLICE[COMMON_METALS].y(),   8.0f, 8.0f);
