@@ -28,7 +28,6 @@ public:
 	{
 	public:
 		FactoryListBoxItem(Factory* newFactory) : factory(newFactory) {}
-		virtual ~FactoryListBoxItem() {}
 
 	public:
 		Factory* factory = nullptr;

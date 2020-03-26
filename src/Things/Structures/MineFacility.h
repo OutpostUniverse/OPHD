@@ -13,7 +13,7 @@ public:
 	typedef NAS2D::Signals::Signal<MineFacility*> ExtensionCompleteCallback;
 public:
 	MineFacility(Mine* mine);
-	
+
 	void mine(Mine* mine) { mMine = mine; }
 	void maxDepth(int depth) { mMaxDepth = depth; }
 

@@ -15,9 +15,6 @@ public:
 		sprite().play("running");
 	}
 
-	virtual ~Robodigger() {}
-
-
 	void direction(Direction dir) { mDirection = dir; }
 	Direction direction() const { return mDirection; }
 

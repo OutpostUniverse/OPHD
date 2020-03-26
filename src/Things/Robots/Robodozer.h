@@ -12,8 +12,6 @@ public:
 		sprite().play("running");
 	}
 
-	virtual ~Robodozer() {}
-
 	void tileIndex(size_t index) { mTileIndex = index; }
 	size_t tileIndex() const { return mTileIndex; }
 
