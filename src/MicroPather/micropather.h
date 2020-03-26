@@ -108,7 +108,7 @@ namespace micropather
 	class Graph
 	{
 	public:
-		virtual ~Graph() {}
+		virtual ~Graph() = default;
 
 		/**
 			Return the least possible cost between 2 states. For example, if your pathfinding
