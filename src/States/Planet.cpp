@@ -11,7 +11,8 @@
 
 
 namespace {
-	constexpr auto PlanetSize = NAS2D::Vector<int>{128, 128};
+	constexpr auto PlanetRadius = 64;
+	constexpr auto PlanetSize = NAS2D::Vector<int>{PlanetRadius * 2, PlanetRadius * 2};
 }
 
 
@@ -58,7 +59,8 @@ bool Planet::pointInArea(NAS2D::Point<int> point)
 	// Standard point in circle equation. Magic numbers for a circle diameter of 128.
 	// Note: assumes all values are always positive.
 	const auto offset = point - mPosition - PlanetSize / 2;
-	return ((offset.x * offset.x) + (offset.y * offset.y) <= 4096);
+	constexpr auto radiusSquared = PlanetRadius * PlanetRadius;
+	return ((offset.x * offset.x) + (offset.y * offset.y) <= radiusSquared);
 }
 
 
