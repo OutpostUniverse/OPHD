@@ -14,7 +14,7 @@ const int PAUSE_TIME = 5800;
 
 unsigned int FADE_PAUSE_TIME = 5000;
 
-const int FADE_LENGTH = 800;
+const float FADE_LENGTH = 800;
 
 float BYLINE_SCALE = 0.50f;
 float BYLINE_SCALE_STEP = 0.000025f;
@@ -85,7 +85,7 @@ void setNextState(LogoState& _ls)
 void SplashState::skipSplash()
 {
 	mReturnState = new MainMenuState();
-	Utility<Renderer>::get().fadeOut((float)FADE_LENGTH);
+	Utility<Renderer>::get().fadeOut(FADE_LENGTH);
 }
 
 
@@ -103,7 +103,7 @@ State* SplashState::update()
 		if (mReturnState != this) { return mReturnState; }
 
 		setNextState(CURRENT_STATE);
-		r.fadeIn((float)FADE_LENGTH);
+		r.fadeIn(FADE_LENGTH);
 		mTimer.reset();
 	}
 
@@ -159,7 +159,7 @@ State* SplashState::update()
 	}
 	else if (mTimer.accumulator() > PAUSE_TIME)
 	{
-		r.fadeOut((float)FADE_LENGTH);
+		r.fadeOut(FADE_LENGTH);
 		mTimer.reset();
 	}
 
