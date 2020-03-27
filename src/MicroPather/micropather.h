@@ -457,4 +457,4 @@ namespace micropather
 		unsigned	frame = 0;			// incremented with every solve, used to determine if cached data needs to be refreshed
 		PathCache*	pathCache = nullptr;
 	};
-};	// namespace grinliz
+}	// namespace grinliz
