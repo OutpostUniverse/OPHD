@@ -250,7 +250,7 @@ void MainMenuState::wasDifficultyOkClicked()
 {
 	mReturnState = new PlanetSelectState();
 
-	Utility<Renderer>::get().fadeOut((float)constants::FADE_SPEED);
+	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
 	Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 }
 
