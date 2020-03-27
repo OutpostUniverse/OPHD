@@ -29,8 +29,8 @@ extern Font* MAIN_FONT; /// yuck
 extern std::vector<void*> path;
 
 
+namespace {
 std::string S_LEVEL;
-
 
 Timer GLOW_TIMER;
 const int GLOW_STEP_SIZE = 20;
@@ -39,7 +39,7 @@ int GLOW_STEP;
 int GLOW_STEP_DIRECTION = 1;
 
 
-static void updateGlowTimer()
+void updateGlowTimer()
 {
 	if (GLOW_TIMER.accumulator() >= 10)
 	{
@@ -57,6 +57,7 @@ static void updateGlowTimer()
 		GLOW_STEP = 0;
 		GLOW_STEP_DIRECTION = 1;
 	}
+}
 }
 
 
