@@ -50,7 +50,7 @@ public:
 	OpenQueue(Graph* _graph)
 	{
 		graph = _graph;
-		sentinel = (PathNode*)sentinelMem;
+		sentinel = reinterpret_cast<PathNode*>(sentinelMem);
 		sentinel->InitSentinel();
 #ifdef DEBUG
 		sentinel->CheckList();
@@ -204,7 +204,7 @@ PathNodePool::PathNodePool(unsigned _allocate, unsigned _typicalAdjacent)
 
 	cacheCap = allocate * _typicalAdjacent;
 	cacheSize = 0;
-	cache = (NodeCost*)malloc(cacheCap * sizeof(NodeCost));
+	cache = reinterpret_cast<NodeCost*>(malloc(cacheCap * sizeof(NodeCost)));
 
 	// Want the behavior that if the actual number of states is specified, the cache 
 	// will be at least that big.
@@ -213,7 +213,7 @@ PathNodePool::PathNodePool(unsigned _allocate, unsigned _typicalAdjacent)
 	while (HashSize() < allocate)
 		++hashShift;
 #endif
-	hashTable = (PathNode**)calloc(HashSize(), sizeof(PathNode*));
+	hashTable = reinterpret_cast<PathNode**>(calloc(HashSize(), sizeof(PathNode*)));
 	blocks = firstBlock = NewBlock();
 	totalCollide = 0;
 }
@@ -291,7 +291,7 @@ void PathNodePool::Clear()
 
 PathNodePool::Block* PathNodePool::NewBlock()
 {
-	Block* block = (Block*)calloc(1, sizeof(Block) + sizeof(PathNode) * (allocate - 1));
+	Block* block = reinterpret_cast<Block*>(calloc(1, sizeof(Block) + sizeof(PathNode) * (allocate - 1)));
 	block->nextBlock = 0;
 
 	nAvailable += allocate;
@@ -349,7 +349,7 @@ unsigned PathNodePool::Hash(void* voidval)
 	// Time: 512
 	// The HashMask() is used as the divisor. h%1024 has lots of common
 	// repetitions, but h%1023 will move things out more.
-	MP_UPTR h = (MP_UPTR)(voidval);
+	MP_UPTR h = reinterpret_cast<MP_UPTR>(voidval);
 	return h % HashMask();
 }
 
