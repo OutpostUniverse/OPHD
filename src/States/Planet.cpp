@@ -80,5 +80,6 @@ void Planet::update()
 	//			In the limited scope that this class is used it's not really worth it to go through a full implementation
 	//			as only a few of these objects will ever be on screen ever and as of 11/1/2015 are only ever used once
 	//			during planetary selection at the beginning of the game.
-	NAS2D::Utility<NAS2D::Renderer>::get().drawSubImage(mImage, (float)mPosition.x(), (float)mPosition.y(), (float)(mTick % 8 * 128), (float)(((mTick % 64) / 8) * 128), 128.0f, 128.0f);
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	renderer.drawSubImage(mImage, (float)mPosition.x(), (float)mPosition.y(), (float)(mTick % 8 * 128), (float)(((mTick % 64) / 8) * 128), 128.0f, 128.0f);
 }
