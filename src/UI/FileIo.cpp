@@ -153,25 +153,11 @@ void FileIo::fileNameModified(Control* control)
 {
 	std::string sFile = control->text();
 
+	const std::string RestrictedFilenameChars = "\\/:*?\"<>|";
+
 	if (sFile.empty())	// no blank filename
 		btnFileOp.enabled(false);
-	else if ((int)sFile.find('\\')>-1)	// no \ in the filename
-		btnFileOp.enabled(false);
-	else if ((int)sFile.find('/')>-1)	// no / in the filename
-		btnFileOp.enabled(false);
-	else if ((int)sFile.find(':')>-1)	// no : in the filename
-		btnFileOp.enabled(false);
-	else if ((int)sFile.find('*')>-1)	// no * in the filename
-		btnFileOp.enabled(false);
-	else if ((int)sFile.find('?')>-1)	// no ? in the filename
-		btnFileOp.enabled(false);
-	else if ((int)sFile.find('"')>-1)	// no " in the filename
-		btnFileOp.enabled(false);
-	else if ((int)sFile.find('<')>-1)	// no < in the filename
-		btnFileOp.enabled(false);
-	else if ((int)sFile.find('>')>-1)	// no > in the filename
-		btnFileOp.enabled(false);
-	else if ((int)sFile.find('|')>-1)	// no | in the filename
+	else if (sFile.find_first_of(RestrictedFilenameChars) != std::string::npos)
 		btnFileOp.enabled(false);
 	else
 		btnFileOp.enabled(true);
