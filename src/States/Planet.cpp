@@ -81,5 +81,7 @@ void Planet::update()
 	//			as only a few of these objects will ever be on screen ever and as of 11/1/2015 are only ever used once
 	//			during planetary selection at the beginning of the game.
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	renderer.drawSubImage(mImage, (float)mPosition.x(), (float)mPosition.y(), (float)(mTick % 8 * 128), (float)(((mTick % 64) / 8) * 128), 128.0f, 128.0f);
+	const auto spriteFrameOffset = NAS2D::Point<int>{mTick % 8 * 128, ((mTick % 64) / 8) * 128};
+	const auto size = NAS2D::Vector<float>{128.0f, 128.0f};
+	renderer.drawSubImage(mImage, mPosition.to<float>(), spriteFrameOffset.to<float>(), size);
 }
