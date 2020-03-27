@@ -836,13 +836,13 @@ void MicroPather::GetCacheData(CacheData* data)
 	{
 		data->nBytesAllocated = pathCache->AllocatedBytes();
 		data->nBytesUsed = pathCache->UsedBytes();
-		data->memoryFraction = (float)((double)data->nBytesUsed / (double)data->nBytesAllocated);
+		data->memoryFraction = static_cast<float>(static_cast<double>(data->nBytesUsed) / static_cast<double>(data->nBytesAllocated));
 
 		data->hit = pathCache->hit;
 		data->miss = pathCache->miss;
 		if (data->hit + data->miss)
 		{
-			data->hitFraction = (float)((double)(data->hit) / (double)(data->hit + data->miss));
+			data->hitFraction = static_cast<float>(static_cast<double>(data->hit) / static_cast<double>(data->hit + data->miss));
 		}
 		else
 		{
