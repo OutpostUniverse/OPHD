@@ -82,10 +82,6 @@ void Planet::update()
 		++mTick;
 	}
 
-	// FIXME:	Table approach would be a lot faster for this instead of using multiplications and modulus operations.
-	//			In the limited scope that this class is used it's not really worth it to go through a full implementation
-	//			as only a few of these objects will ever be on screen ever and as of 11/1/2015 are only ever used once
-	//			during planetary selection at the beginning of the game.
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto spriteFrameOffset = NAS2D::Point<int>{mTick % 8 * PlanetSize.x, ((mTick % 64) / 8) * PlanetSize.y};
 	renderer.drawSubImage(mImage, mPosition.to<float>(), spriteFrameOffset.to<float>(), PlanetSize.to<float>());
