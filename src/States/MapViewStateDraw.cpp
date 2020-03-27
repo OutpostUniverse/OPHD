@@ -30,34 +30,34 @@ extern std::vector<void*> path;
 
 
 namespace {
-std::string S_LEVEL;
+	std::string S_LEVEL;
 
-Timer GLOW_TIMER;
-const int GLOW_STEP_SIZE = 20;
+	Timer GLOW_TIMER;
+	const int GLOW_STEP_SIZE = 20;
 
-int GLOW_STEP;
-int GLOW_STEP_DIRECTION = 1;
+	int GLOW_STEP;
+	int GLOW_STEP_DIRECTION = 1;
 
 
-void updateGlowTimer()
-{
-	if (GLOW_TIMER.accumulator() >= 10)
+	void updateGlowTimer()
 	{
-		GLOW_STEP += GLOW_STEP_SIZE * GLOW_STEP_DIRECTION;
-		GLOW_TIMER.reset();
-	}
+		if (GLOW_TIMER.accumulator() >= 10)
+		{
+			GLOW_STEP += GLOW_STEP_SIZE * GLOW_STEP_DIRECTION;
+			GLOW_TIMER.reset();
+		}
 
-	if (GLOW_STEP >= 255)
-	{
-		GLOW_STEP = 255;
-		GLOW_STEP_DIRECTION = -1;
+		if (GLOW_STEP >= 255)
+		{
+			GLOW_STEP = 255;
+			GLOW_STEP_DIRECTION = -1;
+		}
+		else if (GLOW_STEP <= 0)
+		{
+			GLOW_STEP = 0;
+			GLOW_STEP_DIRECTION = 1;
+		}
 	}
-	else if (GLOW_STEP <= 0)
-	{
-		GLOW_STEP = 0;
-		GLOW_STEP_DIRECTION = 1;
-	}
-}
 }
 
 
