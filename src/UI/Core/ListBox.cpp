@@ -213,7 +213,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 		return;		// if the mouse is on the slider then the slider should handle that
 	}
 
-	if (mCurrentHighlight < 0 || static_cast<size_t>(mCurrentHighlight) >= mItems.size())
+	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size())
 	{
 		return;
 	}
