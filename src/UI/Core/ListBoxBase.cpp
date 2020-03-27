@@ -125,7 +125,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	// A few basic checks
 	if (!rect().contains(mMousePosition) || mCurrentHighlight == constants::NO_SELECTION) { return; }
 	if (mSlider.visible() && mSlider.rect().contains(Point{x, y})) { return; }
-	if (mCurrentHighlight < 0 || static_cast<size_t>(mCurrentHighlight) >= mItems.size()) { return; }
+	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size()) { return; }
 
 	setSelection(mCurrentHighlight);
 }
@@ -155,11 +155,6 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	}
 
 	mCurrentHighlight = (y - static_cast<int>(positionY()) + mCurrentOffset) / mItemHeight;
-
-	if (mCurrentHighlight < 0)
-	{
-		mCurrentHighlight = constants::NO_SELECTION;
-	}
 
 	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size())
 	{

@@ -372,11 +372,13 @@ void IconGrid::incrementSelection()
 
 void IconGrid::decrementSelection()
 {
-	--mCurrentSelection;
-
-	if (mCurrentSelection < 0)
+	if (mCurrentSelection == 0)
 	{
 		mCurrentSelection = mIconItemList.size() - 1;
+	}
+	else
+	{
+		--mCurrentSelection;
 	}
 
 	raiseChangedEvent();

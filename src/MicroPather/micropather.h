@@ -161,7 +161,7 @@ namespace micropather
 		void InitSentinel()
 		{
 			Clear();
-			Init(0, 0, FLT_MAX, FLT_MAX, 0);
+			Init(0, nullptr, FLT_MAX, FLT_MAX, nullptr);
 			prev = next = this;
 		}
 
@@ -186,7 +186,7 @@ namespace micropather
 		{
 			next->prev = prev;
 			prev->next = next;
-			next = prev = 0;
+			next = prev = nullptr;
 		}
 
 		void AddBefore(PathNode* addThis)
@@ -310,7 +310,7 @@ namespace micropather
 			void* end;
 
 			bool KeyEqual(const Item& item) const { return start == item.start && end == item.end; }
-			bool Empty() const { return start == 0 && end == 0; }
+			bool Empty() const { return start == nullptr && end == nullptr; }
 
 			// Data:
 			void* next;
@@ -457,4 +457,4 @@ namespace micropather
 		unsigned	frame = 0;			// incremented with every solve, used to determine if cached data needs to be refreshed
 		PathCache*	pathCache = nullptr;
 	};
-};	// namespace grinliz
+}	// namespace grinliz

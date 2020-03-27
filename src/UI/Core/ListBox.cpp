@@ -213,7 +213,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 		return;		// if the mouse is on the slider then the slider should handle that
 	}
 
-	if (mCurrentHighlight < 0 || static_cast<size_t>(mCurrentHighlight) >= mItems.size())
+	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size())
 	{
 		return;
 	}
@@ -242,11 +242,6 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	}
 	
 	mCurrentHighlight = (y - (int)rect().y() + mCurrentOffset) / (LST_FONT->height() + 2);
-
-	if (mCurrentHighlight < 0)
-	{
-		mCurrentHighlight = constants::NO_SELECTION;
-	}
 
 	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size())
 	{
