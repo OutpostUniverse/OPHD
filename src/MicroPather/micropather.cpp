@@ -190,8 +190,8 @@ private:
 
 
 PathNodePool::PathNodePool(unsigned _allocate, unsigned _typicalAdjacent)
-	: firstBlock(0),
-	blocks(0),
+	: firstBlock(nullptr),
+	blocks(nullptr),
 #if defined( MICROPATHER_STRESS )
 	allocate(32),
 #else
@@ -292,7 +292,7 @@ void PathNodePool::Clear()
 PathNodePool::Block* PathNodePool::NewBlock()
 {
 	Block* block = (Block*)calloc(1, sizeof(Block) + sizeof(PathNode) * (allocate - 1));
-	block->nextBlock = 0;
+	block->nextBlock = nullptr;
 
 	nAvailable += allocate;
 	for (unsigned i = 0; i < allocate; ++i)
@@ -480,7 +480,7 @@ MicroPather::MicroPather(Graph* _graph, unsigned allocate, unsigned typicalAdjac
 {
 	MPASSERT(allocate);
 	MPASSERT(typicalAdjacent);
-	pathCache = 0;
+	pathCache = nullptr;
 	if (cache)
 	{
 		pathCache = new PathCache(allocate * 4);	// untuned arbitrary constant	
@@ -551,7 +551,7 @@ void MicroPather::GoalReached( PathNode* node, void* start, void* end, std::vect
 		costVec.clear();
 
 		PathNode* pn0 = pathNodePool.FetchPathNode(path[0]);
-		PathNode* pn1 = 0;
+		PathNode* pn1 = nullptr;
 		for (unsigned i = 0; i < path.size() - 1; ++i)
 		{
 			pn1 = pathNodePool.FetchPathNode(path[i + 1]);
@@ -634,7 +634,7 @@ void MicroPather::GetNodeNeighbors(PathNode* node, std::vector< NodeCost >* pNod
 			{
 				void* state = stateCostVecPtr[i].state;
 				pNodeCostPtr[i].cost = stateCostVecPtr[i].cost;
-				pNodeCostPtr[i].node = pathNodePool.GetPathNode(frame, state, FLT_MAX, FLT_MAX, 0);
+				pNodeCostPtr[i].node = pathNodePool.GetPathNode(frame, state, FLT_MAX, FLT_MAX, nullptr);
 			}
 
 			// Can this be cached?
@@ -658,7 +658,7 @@ void MicroPather::GetNodeNeighbors(PathNode* node, std::vector< NodeCost >* pNod
 			PathNode* pNode = pNodeCostPtr[i].node;
 			if (pNode->frame != frame)
 			{
-				pNode->Init(frame, pNode->state, FLT_MAX, FLT_MAX, 0);
+				pNode->Init(frame, pNode->state, FLT_MAX, FLT_MAX, nullptr);
 			}
 		}
 	}
@@ -743,7 +743,7 @@ void PathCache::AddNoSolution(void* end, void* states[], int count)
 
 	for (int i = 0; i < count; ++i)
 	{
-		Item item = { states[i], end, 0, FLT_MAX };
+		Item item = { states[i], end, nullptr, FLT_MAX };
 		AddItem(item);
 	}
 }
@@ -809,13 +809,13 @@ void PathCache::AddItem(const Item& item)
 const PathCache::Item* PathCache::Find(void* start, void* end)
 {
 	MPASSERT(allocated);
-	Item fake = { start, end, 0, 0 };
+	Item fake = { start, end, nullptr, 0 };
 	unsigned index = fake.Hash() % allocated;
 	while (true)
 	{
 		if (mem[index].Empty())
 		{
-			return 0;
+			return nullptr;
 		}
 		if (mem[index].KeyEqual(fake))
 		{
@@ -895,7 +895,7 @@ int MicroPather::Solve(void* startNode, void* endNode, std::vector< void* >* pat
 		startNode,
 		0,
 		graph->LeastCostEstimate(startNode, endNode),
-		0);
+		nullptr);
 
 	open.Push(newPathNode);
 	stateCostVec.resize(0);
@@ -931,8 +931,8 @@ int MicroPather::Solve(void* startNode, void* endNode, std::vector< void* >* pat
 				PathNode* child = nodeCostVec[i].node;
 				float newCost = node->costFromStart + nodeCostVec[i].cost;
 
-				PathNode* inOpen = child->inOpen ? child : 0;
-				PathNode* inClosed = child->inClosed ? child : 0;
+				PathNode* inOpen = child->inOpen ? child : nullptr;
+				PathNode* inClosed = child->inClosed ? child : nullptr;
 				PathNode* inEither = (PathNode*)(((MP_UPTR)inOpen) | ((MP_UPTR)inClosed));
 
 				MPASSERT(inEither != node);
@@ -1010,10 +1010,10 @@ int MicroPather::SolveForNearStates(void* startState, std::vector< StateCost >* 
 
 	PathNode closedSentinel;
 	closedSentinel.Clear();
-	closedSentinel.Init(frame, 0, FLT_MAX, FLT_MAX, 0);
+	closedSentinel.Init(frame, nullptr, FLT_MAX, FLT_MAX, nullptr);
 	closedSentinel.next = closedSentinel.prev = &closedSentinel;
 
-	PathNode* newPathNode = pathNodePool.GetPathNode(frame, startState, 0, 0, 0);
+	PathNode* newPathNode = pathNodePool.GetPathNode(frame, startState, 0, 0, nullptr);
 	open.Push(newPathNode);
 
 	while (!open.Empty())
@@ -1032,8 +1032,8 @@ int MicroPather::SolveForNearStates(void* startState, std::vector< StateCost >* 
 			MPASSERT(node->costFromStart < FLT_MAX);
 			float newCost = node->costFromStart + nodeCostVec[i].cost;
 
-			PathNode* inOpen = nodeCostVec[i].node->inOpen ? nodeCostVec[i].node : 0;
-			PathNode* inClosed = nodeCostVec[i].node->inClosed ? nodeCostVec[i].node : 0;
+			PathNode* inOpen = nodeCostVec[i].node->inOpen ? nodeCostVec[i].node : nullptr;
+			PathNode* inClosed = nodeCostVec[i].node->inClosed ? nodeCostVec[i].node : nullptr;
 			MPASSERT(!(inOpen && inClosed));
 			PathNode* inEither = inOpen ? inOpen : inClosed;
 			MPASSERT(inEither != node);
