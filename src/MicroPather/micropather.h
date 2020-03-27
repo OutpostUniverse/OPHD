@@ -318,7 +318,7 @@ namespace micropather
 
 			unsigned Hash() const
 			{
-				const unsigned char* p = (const unsigned char*)(&start);
+				const unsigned char* p = reinterpret_cast<const unsigned char*>(&start);
 				unsigned int h = 2166136261U;
 
 				for (unsigned i = 0; i < sizeof(void*) * 2; ++i, ++p)
