@@ -241,7 +241,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 	
-	mCurrentHighlight = (y - (int)rect().y() + mCurrentOffset) / (LST_FONT->height() + 2);
+	mCurrentHighlight = (y - static_cast<int>(rect().y()) + mCurrentOffset) / (LST_FONT->height() + 2);
 
 	if (mCurrentHighlight < 0)
 	{
