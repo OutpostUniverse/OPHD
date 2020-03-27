@@ -53,17 +53,18 @@ Planet::~Planet()
 }
 
 
-bool Planet::pointInArea(int x, int y)
+bool Planet::pointInArea(NAS2D::Point<int> point)
 {
 	// Standard point in circle equation. Magic numbers for a circle diameter of 128.
 	// Note: assumes all values are always positive.
-	return (pow(x - mPosition.x() - 64, 2) + pow(y - mPosition.y() - 64, 2) <= 4096);
+	const auto offset = point - mPosition - PlanetSize / 2;
+	return (pow(offset.x, 2) + pow(offset.y, 2) <= 4096);
 }
 
 
 void Planet::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
 {
-	bool inArea = pointInArea(x, y);
+	bool inArea = pointInArea({x, y});
 	if (inArea != mMouseInArea)
 	{
 		mMouseInArea = inArea;
