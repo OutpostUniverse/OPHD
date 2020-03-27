@@ -25,6 +25,9 @@ extern Rectangle_2d MOVE_DOWN_ICON;
 
 extern Point_2d MOUSE_COORDS;
 
+extern Font* MAIN_FONT; /// yuck
+extern std::vector<void*> path;
+
 
 std::string S_LEVEL;
 
@@ -34,9 +37,6 @@ const int GLOW_STEP_SIZE = 20;
 
 int GLOW_STEP;
 int GLOW_STEP_DIRECTION = 1;
-
-
-extern Font* MAIN_FONT; /// yuck
 
 
 static void updateGlowTimer()
@@ -59,7 +59,6 @@ static void updateGlowTimer()
 	}
 }
 
-extern std::vector<void*> path;
 
 /**
  * Draws the minimap and all icons/overlays for it.
