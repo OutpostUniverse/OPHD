@@ -10,6 +10,11 @@
 #include <array>
 
 
+namespace {
+	constexpr auto PlanetSize = NAS2D::Vector<int>{128, 128};
+}
+
+
 Planet::Planet(PlanetType type) : mType(type)
 {
 	// Fixme: This should be in a table vs. a giant switch statement.
@@ -81,7 +86,6 @@ void Planet::update()
 	//			as only a few of these objects will ever be on screen ever and as of 11/1/2015 are only ever used once
 	//			during planetary selection at the beginning of the game.
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto spriteFrameOffset = NAS2D::Point<int>{mTick % 8 * 128, ((mTick % 64) / 8) * 128};
-	const auto size = NAS2D::Vector<float>{128.0f, 128.0f};
-	renderer.drawSubImage(mImage, mPosition.to<float>(), spriteFrameOffset.to<float>(), size);
+	const auto spriteFrameOffset = NAS2D::Point<int>{mTick % 8 * PlanetSize.x, ((mTick % 64) / 8) * PlanetSize.y};
+	renderer.drawSubImage(mImage, mPosition.to<float>(), spriteFrameOffset.to<float>(), PlanetSize.to<float>());
 }
