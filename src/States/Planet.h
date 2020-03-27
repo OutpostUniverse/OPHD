@@ -52,7 +52,7 @@ public:
 	void update();
 
 protected:
-	bool pointInArea(NAS2D::Point<int> point);
+	bool pointInCircle(NAS2D::Point<int> point);
 	void onMouseMove(int x, int y, int rX, int rY);
 
 private:

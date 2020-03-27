@@ -54,7 +54,7 @@ Planet::~Planet()
 }
 
 
-bool Planet::pointInArea(NAS2D::Point<int> point)
+bool Planet::pointInCircle(NAS2D::Point<int> point)
 {
 	// Standard point in circle equation. Magic numbers for a circle diameter of 128.
 	// Note: assumes all values are always positive.
@@ -66,7 +66,7 @@ bool Planet::pointInArea(NAS2D::Point<int> point)
 
 void Planet::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
 {
-	bool inArea = pointInArea({x, y});
+	bool inArea = pointInCircle({x, y});
 	if (inArea != mMouseInArea)
 	{
 		mMouseInArea = inArea;
