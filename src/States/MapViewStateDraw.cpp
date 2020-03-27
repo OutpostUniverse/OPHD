@@ -30,8 +30,6 @@ extern std::vector<void*> path;
 
 
 namespace {
-	std::string S_LEVEL;
-
 	Timer glowTimer;
 	const int GlowStepSize = 20;
 
@@ -273,7 +271,7 @@ void MapViewState::drawNavInfo()
 	
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)
 	{
-		S_LEVEL = std::to_string(i);	// Set string for current level
+		auto S_LEVEL = std::to_string(i);	// Set string for current level
 		if (i == 0) { S_LEVEL = "S"; }		// surface level
 		bool isCurrentDepth = i == mTileMap->currentDepth();
 		NAS2D::Color color = isCurrentDepth ? NAS2D::Color{255, 0, 0, 255} : NAS2D::Color{200, 200, 200, 255}; // red for current depth : white for others
