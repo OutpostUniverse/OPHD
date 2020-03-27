@@ -32,30 +32,30 @@ extern std::vector<void*> path;
 namespace {
 	std::string S_LEVEL;
 
-	Timer GLOW_TIMER;
-	const int GLOW_STEP_SIZE = 20;
+	Timer glowTimer;
+	const int GlowStepSize = 20;
 
-	int GLOW_STEP;
-	int GLOW_STEP_DIRECTION = 1;
+	int glowStep;
+	int glowStepDirection = 1;
 
 
 	void updateGlowTimer()
 	{
-		if (GLOW_TIMER.accumulator() >= 10)
+		if (glowTimer.accumulator() >= 10)
 		{
-			GLOW_STEP += GLOW_STEP_SIZE * GLOW_STEP_DIRECTION;
-			GLOW_TIMER.reset();
+			glowStep += GlowStepSize * glowStepDirection;
+			glowTimer.reset();
 		}
 
-		if (GLOW_STEP >= 255)
+		if (glowStep >= 255)
 		{
-			GLOW_STEP = 255;
-			GLOW_STEP_DIRECTION = -1;
+			glowStep = 255;
+			glowStepDirection = -1;
 		}
-		else if (GLOW_STEP <= 0)
+		else if (glowStep <= 0)
 		{
-			GLOW_STEP = 0;
-			GLOW_STEP_DIRECTION = 1;
+			glowStep = 0;
+			glowStepDirection = 1;
 		}
 	}
 }
@@ -146,43 +146,43 @@ void MapViewState::drawResourceInfo()
 	// Common Metals
 	r.drawSubImage(mUiIcons, x, y, 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldCommonMetalsGlow = mPlayerResources.commonMetals() <= 10;
-	int glowColor = shouldCommonMetalsGlow ? GLOW_STEP : 255;
+	int glowColor = shouldCommonMetalsGlow ? glowStep : 255;
 	r.drawText(*MAIN_FONT, std::to_string(mPlayerResources.commonMetals()), x + margin, textY, 255, glowColor, glowColor);
 
 	// Rare Metals
 	r.drawSubImage(mUiIcons, x + offsetX, y, 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldRareMetalsGlow = mPlayerResources.rareMetals() <= 10;
-	glowColor = shouldRareMetalsGlow ? GLOW_STEP : 255;
+	glowColor = shouldRareMetalsGlow ? glowStep : 255;
 	r.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMetals()), (x + offsetX) + margin, textY, 255, glowColor, glowColor);
 
 	// Common Minerals
 	r.drawSubImage(mUiIcons, (x + offsetX) * 2, y, 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldCommonMineralsGlow = mPlayerResources.commonMinerals() <= 10;
-	glowColor = shouldCommonMineralsGlow ? GLOW_STEP : 255;
+	glowColor = shouldCommonMineralsGlow ? glowStep : 255;
 	r.drawText(*MAIN_FONT, std::to_string(mPlayerResources.commonMinerals()), (x + offsetX) * 2 + margin, textY, 255, glowColor, glowColor);
 
 	// Rare Minerals
 	r.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldRareMineralsGlow = mPlayerResources.rareMinerals() <= 10;
-	glowColor = shouldRareMineralsGlow ? GLOW_STEP : 255;
+	glowColor = shouldRareMineralsGlow ? glowStep : 255;
 	r.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMinerals()), (x + offsetX) * 3 + margin, textY, 255, glowColor, glowColor);
 
 	// Storage Capacity
 	r.drawSubImage(mUiIcons, (x + offsetX) * 4, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldStorageCapacityGlow = mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100;
-	glowColor = shouldStorageCapacityGlow ? GLOW_STEP : 255;
+	glowColor = shouldStorageCapacityGlow ? glowStep : 255;
 	r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + margin, textY, 255, glowColor, glowColor);
 
 	// Food
 	r.drawSubImage(mUiIcons, (x + offsetX) * 6, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldFoodStorageGlow = foodInStorage() <= 10;
-	glowColor = shouldFoodStorageGlow ? GLOW_STEP : 255;
+	glowColor = shouldFoodStorageGlow ? glowStep : 255;
 	r.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + margin, textY, 255, glowColor, glowColor);
 
 	// Energy
 	r.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldEnergyGlow = mPlayerResources.energy() <= 5;
-	glowColor = shouldEnergyGlow ? GLOW_STEP : 255;
+	glowColor = shouldEnergyGlow ? glowStep : 255;
 	r.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + margin, textY, 255, glowColor, glowColor);
 
 	// Population / Morale
