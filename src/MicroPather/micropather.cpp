@@ -715,7 +715,7 @@ void PathCache::Reset()
 
 void PathCache::Add(const std::vector< void* >& path, const std::vector< float >& cost)
 {
-	if (nItems + (int)path.size() > allocated * 3 / 4)
+	if (nItems + path.size() > allocated * 3 / 4)
 	{
 		return;
 	}
