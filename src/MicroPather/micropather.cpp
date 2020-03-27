@@ -933,7 +933,7 @@ int MicroPather::Solve(void* startNode, void* endNode, std::vector< void* >* pat
 
 				PathNode* inOpen = child->inOpen ? child : 0;
 				PathNode* inClosed = child->inClosed ? child : 0;
-				PathNode* inEither = (PathNode*)(((MP_UPTR)inOpen) | ((MP_UPTR)inClosed));
+				PathNode* inEither = reinterpret_cast<PathNode*>(reinterpret_cast<MP_UPTR>(inOpen) | reinterpret_cast<MP_UPTR>(inClosed));
 
 				MPASSERT(inEither != node);
 				MPASSERT(!(inOpen && inClosed));
