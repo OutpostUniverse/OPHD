@@ -56,8 +56,6 @@ Planet::~Planet()
 
 bool Planet::pointInCircle(NAS2D::Point<int> point)
 {
-	// Standard point in circle equation. Magic numbers for a circle diameter of 128.
-	// Note: assumes all values are always positive.
 	const auto offset = point - mPosition - PlanetSize / 2;
 	constexpr auto radiusSquared = PlanetRadius * PlanetRadius;
 	return ((offset.x * offset.x) + (offset.y * offset.y) <= radiusSquared);
