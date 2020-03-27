@@ -243,11 +243,6 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	
 	mCurrentHighlight = (y - (int)rect().y() + mCurrentOffset) / (LST_FONT->height() + 2);
 
-	if (mCurrentHighlight < 0)
-	{
-		mCurrentHighlight = constants::NO_SELECTION;
-	}
-
 	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size())
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
