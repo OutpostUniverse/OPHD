@@ -223,25 +223,24 @@ void MapViewState::drawRobotInfo()
 
 	// Robots
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
-	int y = static_cast<int>(renderer.height()) - constants::BOTTOM_UI_HEIGHT - 25 - 8;
+	auto position = NAS2D::Point<int>{8, static_cast<int>(renderer.height()) - constants::BOTTOM_UI_HEIGHT - 25 - 8};
 	constexpr auto textOffset = NAS2D::Vector<int>{30, 7};
-	int x = 0, offsetX = 1; // Start a the left side of the screen + an offset of 1 to detatch from the border
 
 	// Miner (last one)
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 18, 25, 25);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), (x + offsetX) * 8 + textOffset.x, y + textOffset.y, 255, 255, 255);
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 231, 18, 25, 25);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), position.x() + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
 	// Dozer (Midle one)
-	y -= 25;
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 206, 18, 25, 25);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()), (x + offsetX) * 8 + textOffset.x, y + textOffset.y, 255, 255, 255);
+	position.y() -= 25;
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 206, 18, 25, 25);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()), position.x() + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
 	// Digger (First one)
-	y -= 25;
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 181, 18, 25, 25);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()), (x + offsetX) * 8 + textOffset.x, y + textOffset.y, 255, 255, 255);
+	position.y() -= 25;
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 181, 18, 25, 25);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()), position.x() + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
 	// robot control summary
-	y -= 25;
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 43, 25, 25);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), (x + offsetX) * 8 + textOffset.x, y + textOffset.y, 255, 255, 255);
+	position.y() -= 25;
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 231, 43, 25, 25);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), position.x() + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
 }
 
 bool MapViewState::drawNavIcon(Renderer& renderer, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
