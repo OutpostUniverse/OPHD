@@ -268,7 +268,7 @@ void MapViewState::drawNavInfo()
 
 	// display the levels "bar"
 	int iWidth = MAIN_FONT->width("IX");								// set steps character patern width
-	int iPosX = renderer.width() - 5;											// set start position from right border
+	int iPosX = static_cast<int>(renderer.width()) - 5;											// set start position from right border
 	int iPosY = mMiniMapBoundingBox.y() - MAIN_FONT->height() - 30;	// set vertical position
 	
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)
