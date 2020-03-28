@@ -31,10 +31,8 @@ extern std::vector<void*> path;
 
 namespace {
 	Timer glowTimer;
-	const int GlowStepSize = 20;
-
+	int glowStepDelta = 20;
 	int glowStep;
-	int glowStepDirection = 1;
 
 
 	void updateGlowTimer()
@@ -43,16 +41,16 @@ namespace {
 		{
 			glowTimer.reset();
 
-			glowStep += GlowStepSize * glowStepDirection;
+			glowStep += glowStepDelta;
 			if (glowStep >= 255)
 			{
 				glowStep = 255;
-				glowStepDirection = -1;
+				glowStepDelta = -glowStepDelta;
 			}
 			else if (glowStep <= 0)
 			{
 				glowStep = 0;
-				glowStepDirection = 1;
+				glowStepDelta = -glowStepDelta;
 			}
 		}
 	}
