@@ -30,31 +30,29 @@ extern std::vector<void*> path;
 
 
 namespace {
-	Timer glowTimer;
-	const int GlowStepSize = 20;
-
-	int glowStep;
-	int glowStepDirection = 1;
-
-
-	void updateGlowTimer()
+	uint8_t calcGlowIntensity()
 	{
+		static Timer glowTimer;
+		static int glowStepDelta = 20;
+		static int glowStep = 0;
+
 		if (glowTimer.accumulator() >= 10)
 		{
-			glowStep += GlowStepSize * glowStepDirection;
 			glowTimer.reset();
-		}
 
-		if (glowStep >= 255)
-		{
-			glowStep = 255;
-			glowStepDirection = -1;
+			glowStep += glowStepDelta;
+			if (glowStep >= 255)
+			{
+				glowStep = 255;
+				glowStepDelta = -glowStepDelta;
+			}
+			else if (glowStep <= 0)
+			{
+				glowStep = 0;
+				glowStepDelta = -glowStepDelta;
+			}
 		}
-		else if (glowStep <= 0)
-		{
-			glowStep = 0;
-			glowStepDirection = 1;
-		}
+		return glowStep;
 	}
 }
 
@@ -139,9 +137,8 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, 2, 7, mPinResourcePanel ? 8 : 0, 72, 8, 8);
 	renderer.drawSubImage(mUiIcons, 675, 7, mPinPopulationPanel ? 8 : 0, 72, 8, 8);
 
-	updateGlowTimer();
-
-	const auto glowColor = NAS2D::Color{255, static_cast<uint8_t>(glowStep), static_cast<uint8_t>(glowStep)};
+	const auto glowIntensity = calcGlowIntensity();
+	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
 
 	// Common Metals
 	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
