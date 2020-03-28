@@ -110,10 +110,10 @@ void MapViewState::drawMiniMap()
 		renderer.drawPoint(_robot.second->x() + mMiniMapBoundingBox.x(), _robot.second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
 	}
 
-	const auto& _pt = mTileMap->mapViewLocation();
+	const auto& viewLocation = mTileMap->mapViewLocation();
 
-	renderer.drawBox(mMiniMapBoundingBox.x() + _pt.x() + 1, mMiniMapBoundingBox.y() + _pt.y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
-	renderer.drawBox(mMiniMapBoundingBox.x() + _pt.x(), mMiniMapBoundingBox.y() + _pt.y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
+	renderer.drawBox(mMiniMapBoundingBox.x() + viewLocation.x() + 1, mMiniMapBoundingBox.y() + viewLocation.y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
+	renderer.drawBox(mMiniMapBoundingBox.x() + viewLocation.x(), mMiniMapBoundingBox.y() + viewLocation.y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
 
 	renderer.clipRectClear();
 }
