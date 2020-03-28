@@ -10,6 +10,12 @@
 #include <array>
 
 
+namespace {
+	constexpr auto PlanetRadius = 64;
+	constexpr auto PlanetSize = NAS2D::Vector<int>{PlanetRadius * 2, PlanetRadius * 2};
+}
+
+
 Planet::Planet(PlanetType type) : mType(type)
 {
 	// Fixme: This should be in a table vs. a giant switch statement.
@@ -48,17 +54,17 @@ Planet::~Planet()
 }
 
 
-bool Planet::pointInArea(int x, int y)
+bool Planet::pointInCircle(NAS2D::Point<int> point)
 {
-	// Standard point in circle equation. Magic numbers for a circle diameter of 128.
-	// Note: assumes all values are always positive.
-	return (pow(x - mPosition.x() - 64, 2) + pow(y - mPosition.y() - 64, 2) <= 4096);
+	const auto offset = point - mPosition - PlanetSize / 2;
+	constexpr auto radiusSquared = PlanetRadius * PlanetRadius;
+	return ((offset.x * offset.x) + (offset.y * offset.y) <= radiusSquared);
 }
 
 
 void Planet::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
 {
-	bool inArea = pointInArea(x, y);
+	bool inArea = pointInCircle({x, y});
 	if (inArea != mMouseInArea)
 	{
 		mMouseInArea = inArea;
@@ -76,9 +82,7 @@ void Planet::update()
 		++mTick;
 	}
 
-	// FIXME:	Table approach would be a lot faster for this instead of using multiplications and modulus operations.
-	//			In the limited scope that this class is used it's not really worth it to go through a full implementation
-	//			as only a few of these objects will ever be on screen ever and as of 11/1/2015 are only ever used once
-	//			during planetary selection at the beginning of the game.
-	NAS2D::Utility<NAS2D::Renderer>::get().drawSubImage(mImage, (float)mPosition.x(), (float)mPosition.y(), (float)(mTick % 8 * 128), (float)(((mTick % 64) / 8) * 128), 128.0f, 128.0f);
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	const auto spriteFrameOffset = NAS2D::Point<int>{mTick % 8 * PlanetSize.x, ((mTick % 64) / 8) * PlanetSize.y};
+	renderer.drawSubImage(mImage, mPosition.to<float>(), spriteFrameOffset.to<float>(), PlanetSize.to<float>());
 }
