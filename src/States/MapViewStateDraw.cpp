@@ -250,7 +250,7 @@ void MapViewState::drawRobotInfo()
 bool MapViewState::drawNavIcon(Renderer& renderer, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
 	bool isMouseInIcon = currentIconBounds.contains(MOUSE_COORDS);
 	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
-	renderer.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), subImageBounds.x(), subImageBounds.y(), subImageBounds.width(), subImageBounds.height(), color.red(), color.green(), color.blue(), color.alpha());
+	renderer.drawSubImage(mUiIcons, currentIconBounds.startPoint(), subImageBounds, color);
 	return isMouseInIcon;
 }
 
