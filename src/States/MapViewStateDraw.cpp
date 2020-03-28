@@ -30,7 +30,7 @@ extern std::vector<void*> path;
 
 
 namespace {
-	uint8_t updateGlowTimer()
+	uint8_t getGlowIntensity()
 	{
 		static Timer glowTimer;
 		static int glowStepDelta = 20;
@@ -137,7 +137,7 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, 2, 7, mPinResourcePanel ? 8 : 0, 72, 8, 8);
 	renderer.drawSubImage(mUiIcons, 675, 7, mPinPopulationPanel ? 8 : 0, 72, 8, 8);
 
-	const auto glowStep = updateGlowTimer();
+	const auto glowStep = getGlowIntensity();
 
 	const auto glowColor = NAS2D::Color{255, static_cast<uint8_t>(glowStep), static_cast<uint8_t>(glowStep)};
 
