@@ -41,9 +41,9 @@ namespace {
 	{
 		if (glowTimer.accumulator() >= 10)
 		{
-			glowStep += GlowStepSize * glowStepDirection;
 			glowTimer.reset();
 
+			glowStep += GlowStepSize * glowStepDirection;
 			if (glowStep >= 255)
 			{
 				glowStep = 255;
