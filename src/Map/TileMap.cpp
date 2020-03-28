@@ -32,7 +32,7 @@ const int			TILE_HEIGHT_OFFSET			= 9;
 const int			TILE_HEIGHT_ABSOLUTE		= TILE_HEIGHT - TILE_HEIGHT_OFFSET;
 const int			TILE_HEIGHT_HALF_ABSOLUTE	= TILE_HEIGHT_ABSOLUTE / 2;
 
-const double		THROB_SPEED					= 250.0f; // Throb speed of mine beacon
+const double		THROB_SPEED					= 250.0; // Throb speed of mine beacon
 
 
 /** Tuple indicates percent of mines that should be of yields LOW, MED, HIGH */

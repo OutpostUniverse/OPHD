@@ -448,16 +448,7 @@ void Slider::thumbPosition(float value)
 {
 	if (mBackward) { value = mLength - value; }
 
-	mPosition = value;
-
-	if (mPosition < 0.0)
-	{
-		mPosition = 0.0;
-	}
-	else if (mPosition > mLength)
-	{
-		mPosition = mLength;
-	}
+	mPosition = std::clamp(value, 0.0f, mLength);
 
 	mCallback(thumbPosition());
 }
