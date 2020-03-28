@@ -30,7 +30,7 @@ extern std::vector<void*> path;
 
 
 namespace {
-	uint8_t getGlowIntensity()
+	uint8_t calcGlowIntensity()
 	{
 		static Timer glowTimer;
 		static int glowStepDelta = 20;
@@ -137,7 +137,7 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, 2, 7, mPinResourcePanel ? 8 : 0, 72, 8, 8);
 	renderer.drawSubImage(mUiIcons, 675, 7, mPinPopulationPanel ? 8 : 0, 72, 8, 8);
 
-	const auto glowIntensity = getGlowIntensity();
+	const auto glowIntensity = calcGlowIntensity();
 	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
 
 	// Common Metals
