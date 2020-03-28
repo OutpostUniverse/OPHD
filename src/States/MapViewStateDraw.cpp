@@ -139,7 +139,7 @@ void MapViewState::drawResourceInfo()
 
 	const auto glowStep = getGlowIntensity();
 
-	const auto glowColor = NAS2D::Color{255, static_cast<uint8_t>(glowStep), static_cast<uint8_t>(glowStep)};
+	const auto glowColor = NAS2D::Color{255, glowStep, glowStep};
 
 	// Common Metals
 	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
