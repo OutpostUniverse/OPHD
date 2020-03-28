@@ -31,7 +31,7 @@ public:
 
 	void update(int x, int y)
 	{
-		Renderer& r = Utility<Renderer>::get();
+		Renderer& renderer = Utility<Renderer>::get();
 
 		if (mTimer.accumulator() > 7)
 		{
@@ -46,7 +46,7 @@ public:
 		auto posX = (mFrame % 8u) * width;
 		auto posY = (mFrame / 8u) * height;
 		auto orientationDegrees = 270.0f;
-		r.drawSubImageRotated(mSheet, rasterX, rasterY, posX, posY, width, height, orientationDegrees);
+		renderer.drawSubImageRotated(mSheet, rasterX, rasterY, posX, posY, width, height, orientationDegrees);
 	}
 
 private:
@@ -100,32 +100,33 @@ void PlanetSelectState::initialize()
 	mPlanets.push_back(new Planet(Planet::PLANET_TYPE_MARS));
 	mPlanets.push_back(new Planet(Planet::PLANET_TYPE_GANYMEDE));
 
-	Renderer& r = Utility<Renderer>::get();
-	mPlanets[0]->position((int)r.width() / 4 - 64, (int)r.height() / 2 - 64);
+	Renderer& renderer = Utility<Renderer>::get();
+	const auto viewportSize = renderer.size().to<int>();
+	mPlanets[0]->position(viewportSize.x / 4 - 64, viewportSize.y / 2 - 64);
 	mPlanets[0]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[0]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
-	mPlanets[1]->position((int)r.width() / 2 - 64, (int)r.height() / 2 - 64);
+	mPlanets[1]->position(viewportSize.x / 2 - 64, viewportSize.y / 2 - 64);
 	mPlanets[1]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[1]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
-	mPlanets[2]->position((((int)r.width() / 4) * 3) - 64, (int)r.height() / 2 - 64);
+	mPlanets[2]->position(((viewportSize.x / 4) * 3) - 64, viewportSize.y / 2 - 64);
 	mPlanets[2]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[2]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
 	PLANET_TYPE_SELECTION = Planet::PLANET_TYPE_NONE;
 
 	mQuit.size(100, 20);
-	mQuit.position(r.width() - 105, 30);
+	mQuit.position(renderer.width() - 105, 30);
 	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
 
 	mPlanetDescription.text("");
 	mPlanetDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
 	mPlanetDescription.size(550, 200);
-	mPlanetDescription.position(r.center_x() - 275, r.height() - 225);
+	mPlanetDescription.position(renderer.center_x() - 275, renderer.height() - 225);
 
-	r.showSystemPointer(true);
-	r.fadeIn(constants::FADE_SPEED);
+	renderer.showSystemPointer(true);
+	renderer.fadeIn(constants::FADE_SPEED);
 
 	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
 	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
@@ -141,22 +142,22 @@ void PlanetSelectState::initialize()
 void PlanetSelectState::drawStar(int x, int y)
 {
 	float rotation = (mTimer.tick() / 125.0f);
-	Renderer& r = Utility<Renderer>::get();
-	r.drawImageRotated(mStarFlare, static_cast<float>(x), static_cast<float>(y), -rotation * 0.75f, 255, 255, 0, 180);
-	r.drawImageRotated(mDetailFlare2, static_cast<float>(x), static_cast<float>(y), -rotation * 0.25f, 255, 255, 100, 255);
-	r.drawImageRotated(mDetailFlare, static_cast<float>(x), static_cast<float>(y), rotation, 255, 255, 255, 255);
+	Renderer& renderer = Utility<Renderer>::get();
+	renderer.drawImageRotated(mStarFlare, static_cast<float>(x), static_cast<float>(y), -rotation * 0.75f, 255, 255, 0, 180);
+	renderer.drawImageRotated(mDetailFlare2, static_cast<float>(x), static_cast<float>(y), -rotation * 0.25f, 255, 255, 100, 255);
+	renderer.drawImageRotated(mDetailFlare, static_cast<float>(x), static_cast<float>(y), rotation, 255, 255, 255, 255);
 }
 
 
 State* PlanetSelectState::update()
 {
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
-	r.drawImageStretched(mBg, 0, 0, r.width(), r.height());
+	renderer.drawImageStretched(mBg, 0, 0, renderer.width(), renderer.height());
 
 	float _rotation = mTimer.tick() / 1200.0f;
-	r.drawImageRotated(mCloud1, -256, -256, _rotation, 100, 255, 0, 135);
-	r.drawImageRotated(mCloud1, r.width() - 800, -256, -_rotation, 180, 0, 255, 150);
+	renderer.drawImageRotated(mCloud1, -256, -256, _rotation, 100, 255, 0, 135);
+	renderer.drawImageRotated(mCloud1, renderer.width() - 800, -256, -_rotation, 180, 0, 255, 150);
 
 	drawStar(-40, -55);
 
@@ -167,18 +168,18 @@ State* PlanetSelectState::update()
 
 	//EXPLODE->update(100, 100);
 
-	r.drawText(*FONT_BOLD, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (FONT_BOLD->width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
-	r.drawText(*FONT_BOLD, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (FONT_BOLD->width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
-	r.drawText(*FONT_BOLD, "Ganymede Type", static_cast<float>(mPlanets[2]->x() + 64 - (FONT_BOLD->width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (FONT_BOLD->width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (FONT_BOLD->width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Ganymede Type", static_cast<float>(mPlanets[2]->x() + 64 - (FONT_BOLD->width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
 
-	r.drawText(*FONT, "AI Gender", 5, 5, 255, 255, 255);
+	renderer.drawText(*FONT, "AI Gender", 5, 5, 255, 255, 255);
 	mQuit.update();
 
 	mPlanetDescription.update();
 
-	r.drawText(*FONT_TINY, constants::VERSION, r.width() - FONT_TINY->width(constants::VERSION) - 5, r.height() - FONT_TINY->height() - 5, 255, 255, 255);
+	renderer.drawText(*FONT_TINY, constants::VERSION, renderer.width() - FONT_TINY->width(constants::VERSION) - 5, renderer.height() - FONT_TINY->height() - 5, 255, 255, 255);
 
-	if (r.isFading())
+	if (renderer.isFading())
 	{
 		return this;
 	}
@@ -242,7 +243,7 @@ void PlanetSelectState::onMouseDown(EventHandler::MouseButton /*button*/, int /*
 		{
 			Utility<Mixer>::get().playSound(mSelect);
 			PLANET_TYPE_SELECTION = mPlanets[i]->type();
-			Utility<Renderer>::get().fadeOut((float)constants::FADE_SPEED);
+			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 			Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 			return;
 		}
