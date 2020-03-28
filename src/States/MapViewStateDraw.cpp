@@ -231,19 +231,23 @@ void MapViewState::drawRobotInfo()
 	constexpr auto textOffset = NAS2D::Vector<int>{30, 7};
 
 	// Miner (last one)
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 231, 18, 25, 25);
+	const auto minerImageRect = NAS2D::Rectangle<int>{231, 18, 25, 25};
+	renderer.drawSubImage(mUiIcons, position, minerImageRect);
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), position + textOffset, NAS2D::Color::White);
 	// Dozer (Midle one)
 	position.y() -= 25;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 206, 18, 25, 25);
+	const auto dozerImageRect = NAS2D::Rectangle<int>{206, 18, 25, 25};
+	renderer.drawSubImage(mUiIcons, position, dozerImageRect);
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()), position + textOffset, NAS2D::Color::White);
 	// Digger (First one)
 	position.y() -= 25;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 181, 18, 25, 25);
+	const auto diggerImageRect = NAS2D::Rectangle<int>{181, 18, 25, 25};
+	renderer.drawSubImage(mUiIcons, position, diggerImageRect);
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()), position + textOffset, NAS2D::Color::White);
 	// robot control summary
 	position.y() -= 25;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 231, 43, 25, 25);
+	const auto robotSummaryImageRect = NAS2D::Rectangle<int>{231, 43, 25, 25};
+	renderer.drawSubImage(mUiIcons, position, robotSummaryImageRect);
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), position + textOffset, NAS2D::Color::White);
 }
 
