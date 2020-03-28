@@ -91,7 +91,7 @@ void MapViewState::drawMiniMap()
 		Mine* mine = mTileMap->getTile(_mine, 0)->mine();
 		if (!mine) { break; } // avoids potential race condition where a mine is destroyed during an updated cycle.
 
-		float mineBeaconStatusOffsetX = 0.0f;		
+		float mineBeaconStatusOffsetX = 0.0f;
 		if (!mine->active()) { mineBeaconStatusOffsetX = 0.0f; }
 		else if (!mine->exhausted()) { mineBeaconStatusOffsetX = 8.0f; }
 		else { mineBeaconStatusOffsetX = 16.0f; }
@@ -218,7 +218,7 @@ void MapViewState::drawRobotInfo()
 {
 	// CC hasn't been placed yet.
 	if (ccLocationX() == 0) { return; }
-	
+
 	Renderer& renderer = Utility<Renderer>::get();
 
 	// Robots
@@ -227,7 +227,7 @@ void MapViewState::drawRobotInfo()
 	int textY = y + 7;	// Same position + 10 to center the text with the graphics
 	int margin = 30;	// Margin of 28 px from the graphics to the text
 	int x = 0, offsetX = 1;	// Start a the left side of the screen + an offset of 1 to detatch from the border
-	
+
 	// Miner (last one)
 	renderer.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 18, 25, 25);
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), (x + offsetX) * 8 + margin, textY, 255, 255, 255);
@@ -270,7 +270,7 @@ void MapViewState::drawNavInfo()
 	int iWidth = MAIN_FONT->width("IX"); // set steps character patern width
 	int iPosX = static_cast<int>(renderer.width()) - 5; // set start position from right border
 	int iPosY = mMiniMapBoundingBox.y() - MAIN_FONT->height() - 30; // set vertical position
-	
+
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)
 	{
 		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i); // Set string for current level
