@@ -32,7 +32,7 @@ extern std::vector<void*> path;
 namespace {
 	Timer glowTimer;
 	int glowStepDelta = 20;
-	int glowStep;
+	int glowStep = 0;
 
 
 	void updateGlowTimer()
