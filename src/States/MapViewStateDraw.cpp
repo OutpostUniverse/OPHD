@@ -132,9 +132,8 @@ void MapViewState::drawResourceInfo()
 
 	// Resources
 	int x = constants::MARGIN_TIGHT + 12;
-	int y = constants::MARGIN_TIGHT;
-
 	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
+	auto position = NAS2D::Point<int>{constants::MARGIN_TIGHT + 12, constants::MARGIN_TIGHT};
 	constexpr auto textOffset = NAS2D::Vector<int>{constants::RESOURCE_ICON_SIZE + constants::MARGIN, 3 - constants::MARGIN_TIGHT};
 
 	renderer.drawSubImage(mUiIcons, 2, 7, mPinResourcePanel ? 8 : 0, 72, 8, 8);
@@ -143,53 +142,60 @@ void MapViewState::drawResourceInfo()
 	updateGlowTimer();
 
 	// Common Metals
-	renderer.drawSubImage(mUiIcons, x, y, 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldCommonMetalsGlow = mPlayerResources.commonMetals() <= 10;
 	int glowColor = shouldCommonMetalsGlow ? glowStep : 255;
-	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.commonMetals()), x + textOffset.x, y + textOffset.y, 255, glowColor, glowColor);
+	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.commonMetals()), position.x() + textOffset.x, position.y() + textOffset.y, 255, glowColor, glowColor);
 
 	// Rare Metals
-	renderer.drawSubImage(mUiIcons, x + offsetX, y, 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	position.x() += offsetX;
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldRareMetalsGlow = mPlayerResources.rareMetals() <= 10;
 	glowColor = shouldRareMetalsGlow ? glowStep : 255;
-	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMetals()), (x + offsetX) + textOffset.x, y + textOffset.y, 255, glowColor, glowColor);
+	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMetals()), position.x() + textOffset.x, position.y() + textOffset.y, 255, glowColor, glowColor);
 
 	// Common Minerals
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 2, y, 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	position.x() += x + offsetX;
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldCommonMineralsGlow = mPlayerResources.commonMinerals() <= 10;
 	glowColor = shouldCommonMineralsGlow ? glowStep : 255;
-	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.commonMinerals()), (x + offsetX) * 2 + textOffset.x, y + textOffset.y, 255, glowColor, glowColor);
+	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.commonMinerals()), position.x() + textOffset.x, position.y() + textOffset.y, 255, glowColor, glowColor);
 
 	// Rare Minerals
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 3, y, 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	position.x() += x + offsetX;
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldRareMineralsGlow = mPlayerResources.rareMinerals() <= 10;
 	glowColor = shouldRareMineralsGlow ? glowStep : 255;
-	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMinerals()), (x + offsetX) * 3 + textOffset.x, y + textOffset.y, 255, glowColor, glowColor);
+	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMinerals()), position.x() + textOffset.x, position.y() + textOffset.y, 255, glowColor, glowColor);
 
 	// Storage Capacity
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 4, y, 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	position.x() += x + offsetX;
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldStorageCapacityGlow = mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100;
 	glowColor = shouldStorageCapacityGlow ? glowStep : 255;
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), (x + offsetX) * 4 + textOffset.x, y + textOffset.y, 255, glowColor, glowColor);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), position.x() + textOffset.x, position.y() + textOffset.y, 255, glowColor, glowColor);
 
 	// Food
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 6, y, 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	position.x() += (x + offsetX) * 2;
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldFoodStorageGlow = foodInStorage() <= 10;
 	glowColor = shouldFoodStorageGlow ? glowStep : 255;
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), (x + offsetX) * 6 + textOffset.x, y + textOffset.y, 255, glowColor, glowColor);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), position.x() + textOffset.x, position.y() + textOffset.y, 255, glowColor, glowColor);
 
 	// Energy
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	position.x() += (x + offsetX) * 2;
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 	bool shouldEnergyGlow = mPlayerResources.energy() <= 5;
 	glowColor = shouldEnergyGlow ? glowStep : 255;
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), (x + offsetX) * 8 + textOffset.x, y + textOffset.y, 255, glowColor, glowColor);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), position.x() + textOffset.x, position.y() + textOffset.y, 255, glowColor, glowColor);
 
 	// Population / Morale
+	position.x() += (x + offsetX) * 2;
 	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 16 : 32);
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 10 - 17, y, popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	renderer.drawSubImage(mUiIcons, position.x() - 17, position.y(), popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
 
-	renderer.drawSubImage(mUiIcons, (x + offsetX) * 10, y, 176 + (std::clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.size()), (x + offsetX) * 10 + textOffset.x, y + textOffset.y, 255, 255, 255);
+	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 176 + (std::clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.size()), position.x() + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
 
 	bool isMouseInPopPanel = NAS2D::Rectangle{675, 1, 75, 19}.contains(MOUSE_COORDS);
 	bool shouldShowPopPanel = mPinPopulationPanel || isMouseInPopPanel;
@@ -200,8 +206,8 @@ void MapViewState::drawResourceInfo()
 	if (shouldShowResourcePanel) { mResourceBreakdownPanel.update(); }
 
 	// Turns
-	renderer.drawSubImage(mUiIcons, renderer.width() - 80, y, 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), renderer.width() - 80 + textOffset.x, y + textOffset.y, 255, 255, 255);
+	renderer.drawSubImage(mUiIcons, renderer.width() - 80, position.y(), 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), renderer.width() - 80 + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
 
 	bool isMouseInMenu = MENU_ICON.contains(MOUSE_COORDS);
 	int menuGearHighlightOffsetX = isMouseInMenu ? 144 : 128;
