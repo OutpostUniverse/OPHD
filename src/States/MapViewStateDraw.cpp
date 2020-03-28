@@ -224,9 +224,9 @@ void MapViewState::drawRobotInfo()
 	// Robots
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
 	int y = static_cast<int>(renderer.height()) - constants::BOTTOM_UI_HEIGHT - 25 - 8;
-	int textY = y + 7;	// Same position + 10 to center the text with the graphics
-	int margin = 30;	// Margin of 28 px from the graphics to the text
-	int x = 0, offsetX = 1;	// Start a the left side of the screen + an offset of 1 to detatch from the border
+	int textY = y + 7; // Same position + 10 to center the text with the graphics
+	int margin = 30; // Margin of 28 px from the graphics to the text
+	int x = 0, offsetX = 1; // Start a the left side of the screen + an offset of 1 to detatch from the border
 
 	// Miner (last one)
 	renderer.drawSubImage(mUiIcons, (x + offsetX) * 8, y, 231, 18, 25, 25);
