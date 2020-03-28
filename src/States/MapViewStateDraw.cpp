@@ -43,17 +43,17 @@ namespace {
 		{
 			glowStep += GlowStepSize * glowStepDirection;
 			glowTimer.reset();
-		}
 
-		if (glowStep >= 255)
-		{
-			glowStep = 255;
-			glowStepDirection = -1;
-		}
-		else if (glowStep <= 0)
-		{
-			glowStep = 0;
-			glowStepDirection = 1;
+			if (glowStep >= 255)
+			{
+				glowStep = 255;
+				glowStepDirection = -1;
+			}
+			else if (glowStep <= 0)
+			{
+				glowStep = 0;
+				glowStepDirection = 1;
+			}
 		}
 	}
 }
