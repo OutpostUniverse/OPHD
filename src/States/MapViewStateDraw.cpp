@@ -228,19 +228,19 @@ void MapViewState::drawRobotInfo()
 
 	// Miner (last one)
 	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 231, 18, 25, 25);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), position.x() + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), position + textOffset, NAS2D::Color::White);
 	// Dozer (Midle one)
 	position.y() -= 25;
 	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 206, 18, 25, 25);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()), position.x() + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()), position + textOffset, NAS2D::Color::White);
 	// Digger (First one)
 	position.y() -= 25;
 	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 181, 18, 25, 25);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()), position.x() + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()), position + textOffset, NAS2D::Color::White);
 	// robot control summary
 	position.y() -= 25;
 	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 231, 43, 25, 25);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), position.x() + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), position + textOffset, NAS2D::Color::White);
 }
 
 bool MapViewState::drawNavIcon(Renderer& renderer, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
