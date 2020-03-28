@@ -137,9 +137,8 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, 2, 7, mPinResourcePanel ? 8 : 0, 72, 8, 8);
 	renderer.drawSubImage(mUiIcons, 675, 7, mPinPopulationPanel ? 8 : 0, 72, 8, 8);
 
-	const auto glowStep = getGlowIntensity();
-
-	const auto glowColor = NAS2D::Color{255, glowStep, glowStep};
+	const auto glowIntensity = getGlowIntensity();
+	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
 
 	// Common Metals
 	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
