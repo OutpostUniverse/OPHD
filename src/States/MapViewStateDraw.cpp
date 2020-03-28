@@ -35,7 +35,7 @@ namespace {
 	int glowStep = 0;
 
 
-	void updateGlowTimer()
+	uint8_t updateGlowTimer()
 	{
 		if (glowTimer.accumulator() >= 10)
 		{
@@ -53,6 +53,7 @@ namespace {
 				glowStepDelta = -glowStepDelta;
 			}
 		}
+		return glowStep;
 	}
 }
 
