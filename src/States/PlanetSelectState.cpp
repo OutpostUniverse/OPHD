@@ -101,15 +101,16 @@ void PlanetSelectState::initialize()
 	mPlanets.push_back(new Planet(Planet::PLANET_TYPE_GANYMEDE));
 
 	Renderer& renderer = Utility<Renderer>::get();
-	mPlanets[0]->position((int)renderer.width() / 4 - 64, (int)renderer.height() / 2 - 64);
+	const auto viewportSize = renderer.size().to<int>();
+	mPlanets[0]->position(viewportSize.x / 4 - 64, viewportSize.y / 2 - 64);
 	mPlanets[0]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[0]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
-	mPlanets[1]->position((int)renderer.width() / 2 - 64, (int)renderer.height() / 2 - 64);
+	mPlanets[1]->position(viewportSize.x / 2 - 64, viewportSize.y / 2 - 64);
 	mPlanets[1]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[1]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
-	mPlanets[2]->position((((int)renderer.width() / 4) * 3) - 64, (int)renderer.height() / 2 - 64);
+	mPlanets[2]->position(((viewportSize.x / 4) * 3) - 64, viewportSize.y / 2 - 64);
 	mPlanets[2]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[2]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
