@@ -65,10 +65,11 @@ namespace {
 void MapViewState::drawMiniMap()
 {
 	Renderer& renderer = Utility<Renderer>::get();
-	renderer.clipRect(mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y(), mMiniMapBoundingBox.width(), mMiniMapBoundingBox.height());
+	const auto miniMapBoxFloat = mMiniMapBoundingBox.to<float>();
+	renderer.clipRect(miniMapBoxFloat);
 
 	bool isHeightmapToggled = mBtnToggleHeightmap.toggled();
-	renderer.drawImage(isHeightmapToggled ? mHeightMap : mMapDisplay, mMiniMapBoundingBox.x(), mMiniMapBoundingBox.y());
+	renderer.drawImage(isHeightmapToggled ? mHeightMap : mMapDisplay, miniMapBoxFloat.startPoint());
 
 	if (ccLocationX() != 0 && ccLocationY() != 0)
 	{
