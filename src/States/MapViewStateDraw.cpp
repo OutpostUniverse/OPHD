@@ -267,16 +267,16 @@ void MapViewState::drawNavInfo()
 	drawNavIcon(renderer, MOVE_SOUTH_ICON, NAS2D::Rectangle_2d{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
 
 	// display the levels "bar"
-	int iWidth = MAIN_FONT->width("IX");								// set steps character patern width
-	int iPosX = static_cast<int>(renderer.width()) - 5;											// set start position from right border
-	int iPosY = mMiniMapBoundingBox.y() - MAIN_FONT->height() - 30;	// set vertical position
+	int iWidth = MAIN_FONT->width("IX"); // set steps character patern width
+	int iPosX = static_cast<int>(renderer.width()) - 5; // set start position from right border
+	int iPosY = mMiniMapBoundingBox.y() - MAIN_FONT->height() - 30; // set vertical position
 	
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)
 	{
-		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i);	// Set string for current level
+		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i); // Set string for current level
 		bool isCurrentDepth = i == mTileMap->currentDepth();
 		NAS2D::Color color = isCurrentDepth ? NAS2D::Color{255, 0, 0, 255} : NAS2D::Color{200, 200, 200, 255}; // red for current depth : white for others
 		renderer.drawText(*MAIN_FONT, levelString, iPosX - MAIN_FONT->width(levelString), iPosY, color.red(), color.green(), color.blue(), color.alpha());
-		iPosX = iPosX - iWidth;				// Shift position by one step left
+		iPosX = iPosX - iWidth; // Shift position by one step left
 	}
 }
