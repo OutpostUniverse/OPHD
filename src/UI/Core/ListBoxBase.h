@@ -118,7 +118,7 @@ private:
 	NAS2D::Point_2d				mMousePosition;									/**< Mouse coordinates. */
 
 	NAS2D::Color				mText = NAS2D::Color::White;					/**< Text Color */
-	NAS2D::Color				mHighlightBg = NAS2D::Color::Green;				/**< Highlight Background color. */
+	NAS2D::Color				mHighlightBg = NAS2D::Color::DarkGreen;				/**< Highlight Background color. */
 	NAS2D::Color				mHighlightText = NAS2D::Color::White;			/**< Text Color for an item that is currently highlighted. */
 
 	SelectionChangedCallback	mSelectionChanged;								/**< Callback for selection changed callback. */
