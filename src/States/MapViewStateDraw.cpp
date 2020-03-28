@@ -107,7 +107,7 @@ void MapViewState::drawMiniMap()
 
 	for (auto _robot : mRobotList)
 	{
-		renderer.drawPoint(_robot.second->x() + mMiniMapBoundingBox.x(), _robot.second->y() + mMiniMapBoundingBox.y(), 0, 255, 255);
+		renderer.drawPoint(_robot.second->x() + mMiniMapBoundingBox.x(), _robot.second->y() + mMiniMapBoundingBox.y(), NAS2D::Color::Cyan);
 	}
 
 	const auto& viewLocation = mTileMap->mapViewLocation();
