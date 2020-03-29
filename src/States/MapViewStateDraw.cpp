@@ -69,11 +69,14 @@ void MapViewState::drawMiniMap()
 	bool isHeightmapToggled = mBtnToggleHeightmap.toggled();
 	renderer.drawImage(isHeightmapToggled ? mHeightMap : mMapDisplay, miniMapBoxFloat.startPoint());
 
+	const auto miniMapOffset = mMiniMapBoundingBox.startPoint() - NAS2D::Point<int>{0, 0};
 	const auto ccPosition = ccLocation();
 	if (ccPosition != NAS2D::Point<int>{0, 0})
 	{
-		renderer.drawSubImage(mUiIcons, ccLocationX() + mMiniMapBoundingBox.x() - 15, ccLocationY() + mMiniMapBoundingBox.y() - 15, 166, 226, 30, 30);
-		renderer.drawBoxFilled(ccLocationX() + mMiniMapBoundingBox.x() - 1, ccLocationY() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
+		const auto ccOffsetPosition = ccPosition + miniMapOffset;
+		const auto ccCommRangeImageRect = NAS2D::Rectangle<int>{166, 226, 30, 30};
+		renderer.drawSubImage(mUiIcons, ccOffsetPosition - ccCommRangeImageRect.size() / 2, ccCommRangeImageRect);
+		renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create(ccOffsetPosition - NAS2D::Vector<int>{1, 1}, NAS2D::Vector<int>{3, 3}), NAS2D::Color::White);
 	}
 
 	for (auto _tower : Utility<StructureManager>::get().structureList(Structure::CLASS_COMM))
