@@ -222,7 +222,7 @@ void MapViewState::drawResourceInfo()
 	position.x() = static_cast<int>(renderer.width() - 80);
 	const auto turnImageRect = NAS2D::Rectangle<int>{128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
-	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), renderer.width() - 80 + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
+	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
 	position = MENU_ICON.startPoint() + NAS2D::Vector<int>{constants::MARGIN_TIGHT, constants::MARGIN_TIGHT};
 	bool isMouseInMenu = MENU_ICON.contains(MOUSE_COORDS);
