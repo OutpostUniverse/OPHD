@@ -69,49 +69,60 @@ void MapViewState::drawMiniMap()
 	bool isHeightmapToggled = mBtnToggleHeightmap.toggled();
 	renderer.drawImage(isHeightmapToggled ? mHeightMap : mMapDisplay, miniMapBoxFloat.startPoint());
 
-	if (ccLocationX() != 0 && ccLocationY() != 0)
+	const auto miniMapOffset = mMiniMapBoundingBox.startPoint() - NAS2D::Point<int>{0, 0};
+	const auto ccPosition = ccLocation();
+	if (ccPosition != NAS2D::Point<int>{0, 0})
 	{
-		renderer.drawSubImage(mUiIcons, ccLocationX() + mMiniMapBoundingBox.x() - 15, ccLocationY() + mMiniMapBoundingBox.y() - 15, 166, 226, 30, 30);
-		renderer.drawBoxFilled(ccLocationX() + mMiniMapBoundingBox.x() - 1, ccLocationY() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
+		const auto ccOffsetPosition = ccPosition + miniMapOffset;
+		const auto ccCommRangeImageRect = NAS2D::Rectangle<int>{166, 226, 30, 30};
+		renderer.drawSubImage(mUiIcons, ccOffsetPosition - ccCommRangeImageRect.size() / 2, ccCommRangeImageRect);
+		renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create(ccOffsetPosition - NAS2D::Vector<int>{1, 1}, NAS2D::Vector<int>{3, 3}), NAS2D::Color::White);
 	}
 
-	for (auto _tower : Utility<StructureManager>::get().structureList(Structure::CLASS_COMM))
+	auto& structureManager = Utility<StructureManager>::get();
+	for (auto commTower : structureManager.structureList(Structure::CLASS_COMM))
 	{
-		if (_tower->operational())
+		if (commTower->operational())
 		{
-			Tile* t = Utility<StructureManager>::get().tileFromStructure(_tower);
-			renderer.drawSubImage(mUiIcons, t->x() + mMiniMapBoundingBox.x() - 10, t->y() + mMiniMapBoundingBox.y() - 10, 146, 236, 20, 20);
+			const auto commTowerPosition = structureManager.tileFromStructure(commTower)->position();
+			const auto commTowerRangeImageRect = NAS2D::Rectangle<int>{146, 236, 20, 20};
+			renderer.drawSubImage(mUiIcons, commTowerPosition + miniMapOffset - commTowerRangeImageRect.size() / 2, commTowerRangeImageRect);
 		}
 	}
 
-	for (auto _mine : mTileMap->mineLocations())
+	for (auto minePosition : mTileMap->mineLocations())
 	{
-		Mine* mine = mTileMap->getTile(_mine, 0)->mine();
+		Mine* mine = mTileMap->getTile(minePosition, 0)->mine();
 		if (!mine) { break; } // avoids potential race condition where a mine is destroyed during an updated cycle.
 
-		float mineBeaconStatusOffsetX = 0.0f;
-		if (!mine->active()) { mineBeaconStatusOffsetX = 0.0f; }
-		else if (!mine->exhausted()) { mineBeaconStatusOffsetX = 8.0f; }
-		else { mineBeaconStatusOffsetX = 16.0f; }
+		auto mineBeaconStatusOffsetX = 0;
+		if (!mine->active()) { mineBeaconStatusOffsetX = 0; }
+		else if (!mine->exhausted()) { mineBeaconStatusOffsetX = 8; }
+		else { mineBeaconStatusOffsetX = 16; }
 
-		renderer.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, mineBeaconStatusOffsetX, 0.0f, 7.0f, 7.0f);
+		const auto mineImageRect = NAS2D::Rectangle<int>{mineBeaconStatusOffsetX, 0, 7, 7};
+		renderer.drawSubImage(mUiIcons, minePosition + miniMapOffset - NAS2D::Vector<int>{2, 2}, mineImageRect);
 	}
 
-	for (auto _tile : path)
+	for (auto tile : path)
 	{
-		const auto tilePosition = static_cast<Tile*>(_tile)->position();
-		renderer.drawPoint(tilePosition.x() + mMiniMapBoundingBox.x(), tilePosition.y() + mMiniMapBoundingBox.y(), NAS2D::Color::Magenta);
+		const auto tilePosition = static_cast<Tile*>(tile)->position();
+		renderer.drawPoint(tilePosition + miniMapOffset, NAS2D::Color::Magenta);
 	}
 
-	for (auto _robot : mRobotList)
+	for (auto robotEntry : mRobotList)
 	{
-		renderer.drawPoint(_robot.second->x() + mMiniMapBoundingBox.x(), _robot.second->y() + mMiniMapBoundingBox.y(), NAS2D::Color::Cyan);
+		const auto robotPosition = robotEntry.second->position();
+		renderer.drawPoint(robotPosition + miniMapOffset, NAS2D::Color::Cyan);
 	}
 
 	const auto& viewLocation = mTileMap->mapViewLocation();
+	const auto edgeLength = mTileMap->edgeLength();
+	const auto viewBoxSize = NAS2D::Vector<int>{edgeLength, edgeLength};
+	const auto viewBoxPosition = viewLocation + miniMapOffset;
 
-	renderer.drawBox(mMiniMapBoundingBox.x() + viewLocation.x() + 1, mMiniMapBoundingBox.y() + viewLocation.y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
-	renderer.drawBox(mMiniMapBoundingBox.x() + viewLocation.x(), mMiniMapBoundingBox.y() + viewLocation.y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
+	renderer.drawBox(NAS2D::Rectangle<int>::Create(viewBoxPosition + NAS2D::Vector<int>{1, 1}, viewBoxSize), NAS2D::Color{0, 0, 0, 180});
+	renderer.drawBox(NAS2D::Rectangle<int>::Create(viewBoxPosition, viewBoxSize), NAS2D::Color::White);
 
 	renderer.clipRectClear();
 }
