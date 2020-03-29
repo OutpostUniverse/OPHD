@@ -221,7 +221,7 @@ void MapViewState::drawResourceInfo()
 void MapViewState::drawRobotInfo()
 {
 	// CC hasn't been placed yet.
-	if (ccLocationX() == 0) { return; }
+	if (ccLocation() == NAS2D::Point<int>{0, 0}) { return; }
 
 	Renderer& renderer = Utility<Renderer>::get();
 
