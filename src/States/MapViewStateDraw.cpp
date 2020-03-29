@@ -124,9 +124,9 @@ void MapViewState::drawResourceInfo()
 {
 	Renderer& renderer = Utility<Renderer>::get();
 
-	renderer.drawBoxFilled(0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4, 39, 39, 39);
-	renderer.drawBox(0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4, 21, 21, 21);
-	renderer.drawLine(1, 0, renderer.width() - 2, 0, 56, 56, 56);
+	renderer.drawBoxFilled(NAS2D::Rectangle<float>{0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{39, 39, 39});
+	renderer.drawBox(NAS2D::Rectangle<float>{0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{21, 21, 21});
+	renderer.drawLine(NAS2D::Point<float>{1, 0}, NAS2D::Point<float>{renderer.width() - 2, 0}, NAS2D::Color{56, 56, 56});
 
 	// Resources
 	int x = constants::MARGIN_TIGHT + 12;
@@ -134,66 +134,80 @@ void MapViewState::drawResourceInfo()
 	auto position = NAS2D::Point<int>{constants::MARGIN_TIGHT + 12, constants::MARGIN_TIGHT};
 	constexpr auto textOffset = NAS2D::Vector<int>{constants::RESOURCE_ICON_SIZE + constants::MARGIN, 3 - constants::MARGIN_TIGHT};
 
-	renderer.drawSubImage(mUiIcons, 2, 7, mPinResourcePanel ? 8 : 0, 72, 8, 8);
-	renderer.drawSubImage(mUiIcons, 675, 7, mPinPopulationPanel ? 8 : 0, 72, 8, 8);
+	const auto unpinnedImageRect = NAS2D::Rectangle<int>{0, 72, 8, 8};
+	const auto pinnedImageRect = NAS2D::Rectangle<int>{8, 72, 8, 8};
+
+	renderer.drawSubImage(mUiIcons, NAS2D::Point{2, 7}, mPinResourcePanel ? unpinnedImageRect : pinnedImageRect);
+	renderer.drawSubImage(mUiIcons, NAS2D::Point{675, 7}, mPinPopulationPanel ? unpinnedImageRect : pinnedImageRect);
 
 	const auto glowIntensity = calcGlowIntensity();
 	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
 
 	// Common Metals
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto commonMetalsImageRect = NAS2D::Rectangle<int>{64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, commonMetalsImageRect);
 	bool shouldCommonMetalsGlow = mPlayerResources.commonMetals() <= 10;
 	auto color = shouldCommonMetalsGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.commonMetals()), position + textOffset, color);
 
 	// Rare Metals
 	position.x() += offsetX;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto rareMetalsImageRect = NAS2D::Rectangle<int>{80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, rareMetalsImageRect);
 	bool shouldRareMetalsGlow = mPlayerResources.rareMetals() <= 10;
 	color = shouldRareMetalsGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMetals()), position + textOffset, color);
 
 	// Common Minerals
 	position.x() += x + offsetX;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto commonMineralsImageRect = NAS2D::Rectangle<int>{96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, commonMineralsImageRect);
 	bool shouldCommonMineralsGlow = mPlayerResources.commonMinerals() <= 10;
 	color = shouldCommonMineralsGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.commonMinerals()), position + textOffset, color);
 
 	// Rare Minerals
 	position.x() += x + offsetX;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto rareMineralsImageRect = NAS2D::Rectangle<int>{112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, rareMineralsImageRect);
 	bool shouldRareMineralsGlow = mPlayerResources.rareMinerals() <= 10;
 	color = shouldRareMineralsGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMinerals()), position + textOffset, color);
 
 	// Storage Capacity
 	position.x() += x + offsetX;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto storageCapacityImageRect = NAS2D::Rectangle<int>{96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, storageCapacityImageRect);
 	bool shouldStorageCapacityGlow = mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100;
 	color = shouldStorageCapacityGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), position + textOffset, color);
 
 	// Food
 	position.x() += (x + offsetX) * 2;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto foodImageRect = NAS2D::Rectangle<int>{64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, foodImageRect);
 	bool shouldFoodStorageGlow = foodInStorage() <= 10;
 	color = shouldFoodStorageGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), position + textOffset, color);
 
 	// Energy
 	position.x() += (x + offsetX) * 2;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto energyImageRect = NAS2D::Rectangle<int>{80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, energyImageRect);
 	bool shouldEnergyGlow = mPlayerResources.energy() <= 5;
 	color = shouldEnergyGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), position + textOffset, color);
 
 	// Population / Morale
-	position.x() += (x + offsetX) * 2;
+	position.x() += (x + offsetX) * 2 - 17;
 	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 16 : 32);
-	renderer.drawSubImage(mUiIcons, position.x() - 17, position.y(), popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto popMoraleDirectionImageRect = NAS2D::Rectangle<int>{popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, popMoraleDirectionImageRect);
 
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 176 + (std::clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	position.x() += 17;
+	const auto moraleLevel = (std::clamp(mCurrentMorale, 1, 999) / 200);
+	const auto popMoraleImageRect = NAS2D::Rectangle<int>{176 + moraleLevel * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.size()), position + textOffset, NAS2D::Color::White);
 
 	bool isMouseInPopPanel = NAS2D::Rectangle{675, 1, 75, 19}.contains(MOUSE_COORDS);
@@ -205,13 +219,16 @@ void MapViewState::drawResourceInfo()
 	if (shouldShowResourcePanel) { mResourceBreakdownPanel.update(); }
 
 	// Turns
-	renderer.drawSubImage(mUiIcons, renderer.width() - 80, position.y(), 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), renderer.width() - 80 + textOffset.x, position.y() + textOffset.y, 255, 255, 255);
+	position.x() = static_cast<int>(renderer.width() - 80);
+	const auto turnImageRect = NAS2D::Rectangle<int>{128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, turnImageRect);
+	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
+	position = MENU_ICON.startPoint() + NAS2D::Vector<int>{constants::MARGIN_TIGHT, constants::MARGIN_TIGHT};
 	bool isMouseInMenu = MENU_ICON.contains(MOUSE_COORDS);
 	int menuGearHighlightOffsetX = isMouseInMenu ? 144 : 128;
-	renderer.drawSubImage(mUiIcons, MENU_ICON.x() + constants::MARGIN_TIGHT, MENU_ICON.y() + constants::MARGIN_TIGHT, menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
-
+	const auto menuImageRect = NAS2D::Rectangle<int>{menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, menuImageRect);
 }
 
 
