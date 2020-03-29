@@ -199,11 +199,15 @@ void MapViewState::drawResourceInfo()
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), position + textOffset, color);
 
 	// Population / Morale
-	position.x() += (x + offsetX) * 2;
+	position.x() += (x + offsetX) * 2 - 17;
 	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 16 : 32);
-	renderer.drawSubImage(mUiIcons, position.x() - 17, position.y(), popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto popMoraleDirectionImageRect = NAS2D::Rectangle<int>{popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, popMoraleDirectionImageRect);
 
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 176 + (std::clamp(mCurrentMorale, 1, 999) / 200) * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	position.x() += 17;
+	const auto moraleLevel = (std::clamp(mCurrentMorale, 1, 999) / 200);
+	const auto popMoraleImageRect = NAS2D::Rectangle<int>{176 + moraleLevel * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.size()), position + textOffset, NAS2D::Color::White);
 
 	bool isMouseInPopPanel = NAS2D::Rectangle{675, 1, 75, 19}.contains(MOUSE_COORDS);
