@@ -79,11 +79,12 @@ void MapViewState::drawMiniMap()
 		renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create(ccOffsetPosition - NAS2D::Vector<int>{1, 1}, NAS2D::Vector<int>{3, 3}), NAS2D::Color::White);
 	}
 
-	for (auto commTower : Utility<StructureManager>::get().structureList(Structure::CLASS_COMM))
+	auto& structureManager = Utility<StructureManager>::get();
+	for (auto commTower : structureManager.structureList(Structure::CLASS_COMM))
 	{
 		if (commTower->operational())
 		{
-			Tile* t = Utility<StructureManager>::get().tileFromStructure(commTower);
+			Tile* t = structureManager.tileFromStructure(commTower);
 			renderer.drawSubImage(mUiIcons, t->x() + mMiniMapBoundingBox.x() - 10, t->y() + mMiniMapBoundingBox.y() - 10, 146, 236, 20, 20);
 		}
 	}
