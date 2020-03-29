@@ -229,7 +229,6 @@ void MapViewState::drawResourceInfo()
 	int menuGearHighlightOffsetX = isMouseInMenu ? 144 : 128;
 	const auto menuImageRect = NAS2D::Rectangle<int>{menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, menuImageRect);
-
 }
 
 
