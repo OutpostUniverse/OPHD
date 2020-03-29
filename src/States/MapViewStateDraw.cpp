@@ -90,9 +90,9 @@ void MapViewState::drawMiniMap()
 		}
 	}
 
-	for (auto _mine : mTileMap->mineLocations())
+	for (auto minePosition : mTileMap->mineLocations())
 	{
-		Mine* mine = mTileMap->getTile(_mine, 0)->mine();
+		Mine* mine = mTileMap->getTile(minePosition, 0)->mine();
 		if (!mine) { break; } // avoids potential race condition where a mine is destroyed during an updated cycle.
 
 		float mineBeaconStatusOffsetX = 0.0f;
@@ -100,7 +100,7 @@ void MapViewState::drawMiniMap()
 		else if (!mine->exhausted()) { mineBeaconStatusOffsetX = 8.0f; }
 		else { mineBeaconStatusOffsetX = 16.0f; }
 
-		renderer.drawSubImage(mUiIcons, _mine.x() + mMiniMapBoundingBox.x() - 2, _mine.y() + mMiniMapBoundingBox.y() - 2, mineBeaconStatusOffsetX, 0.0f, 7.0f, 7.0f);
+		renderer.drawSubImage(mUiIcons, minePosition.x() + mMiniMapBoundingBox.x() - 2, minePosition.y() + mMiniMapBoundingBox.y() - 2, mineBeaconStatusOffsetX, 0.0f, 7.0f, 7.0f);
 	}
 
 	for (auto _tile : path)
