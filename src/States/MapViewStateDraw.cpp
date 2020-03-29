@@ -225,30 +225,34 @@ void MapViewState::drawRobotInfo()
 
 	Renderer& renderer = Utility<Renderer>::get();
 
-	// Robots
+	// Robots: Miner (last one), Dozer (middle one), Digger (first one)
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
 	auto position = NAS2D::Point<int>{8, static_cast<int>(renderer.height()) - constants::BOTTOM_UI_HEIGHT - 25 - 8};
 	constexpr auto textOffset = NAS2D::Vector<int>{30, 7};
 
-	// Miner (last one)
 	const auto minerImageRect = NAS2D::Rectangle<int>{231, 18, 25, 25};
-	renderer.drawSubImage(mUiIcons, position, minerImageRect);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()), position + textOffset, NAS2D::Color::White);
-	// Dozer (Midle one)
-	position.y() -= 25;
 	const auto dozerImageRect = NAS2D::Rectangle<int>{206, 18, 25, 25};
-	renderer.drawSubImage(mUiIcons, position, dozerImageRect);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()), position + textOffset, NAS2D::Color::White);
-	// Digger (First one)
-	position.y() -= 25;
 	const auto diggerImageRect = NAS2D::Rectangle<int>{181, 18, 25, 25};
-	renderer.drawSubImage(mUiIcons, position, diggerImageRect);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()), position + textOffset, NAS2D::Color::White);
-	// robot control summary
-	position.y() -= 25;
 	const auto robotSummaryImageRect = NAS2D::Rectangle<int>{231, 43, 25, 25};
-	renderer.drawSubImage(mUiIcons, position, robotSummaryImageRect);
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mRobotPool.currentControlCount(), mRobotPool.robotControlMax()), position + textOffset, NAS2D::Color::White);
+
+	struct IconPartsTotal {
+		const NAS2D::Rectangle<int>& imageRect;
+		int parts;
+		std::size_t total;
+	};
+
+	std::array<IconPartsTotal, 4> icons = {{
+		{minerImageRect, mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()},
+		{dozerImageRect, mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()},
+		{diggerImageRect, mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()},
+		{robotSummaryImageRect, static_cast<int>(mRobotPool.currentControlCount()), mRobotPool.robotControlMax()},
+	}};
+
+	for (const auto params : icons) {
+		renderer.drawSubImage(mUiIcons, position, params.imageRect);
+		renderer.drawText(*MAIN_FONT, string_format("%i/%i", params.parts, params.total), position + textOffset, NAS2D::Color::White);
+		position.y() -= 25;
+	}
 }
 
 bool MapViewState::drawNavIcon(Renderer& renderer, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
