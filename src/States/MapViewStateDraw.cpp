@@ -144,49 +144,56 @@ void MapViewState::drawResourceInfo()
 	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
 
 	// Common Metals
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto commonMetalsImageRect = NAS2D::Rectangle<int>{64, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, commonMetalsImageRect);
 	bool shouldCommonMetalsGlow = mPlayerResources.commonMetals() <= 10;
 	auto color = shouldCommonMetalsGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.commonMetals()), position + textOffset, color);
 
 	// Rare Metals
 	position.x() += offsetX;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto rareMetalsImageRect = NAS2D::Rectangle<int>{80, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, rareMetalsImageRect);
 	bool shouldRareMetalsGlow = mPlayerResources.rareMetals() <= 10;
 	color = shouldRareMetalsGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMetals()), position + textOffset, color);
 
 	// Common Minerals
 	position.x() += x + offsetX;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto commonMineralsImageRect = NAS2D::Rectangle<int>{96, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, commonMineralsImageRect);
 	bool shouldCommonMineralsGlow = mPlayerResources.commonMinerals() <= 10;
 	color = shouldCommonMineralsGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.commonMinerals()), position + textOffset, color);
 
 	// Rare Minerals
 	position.x() += x + offsetX;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto rareMineralsImageRect = NAS2D::Rectangle<int>{112, 16, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, rareMineralsImageRect);
 	bool shouldRareMineralsGlow = mPlayerResources.rareMinerals() <= 10;
 	color = shouldRareMineralsGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMinerals()), position + textOffset, color);
 
 	// Storage Capacity
 	position.x() += x + offsetX;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto storageCapacityImageRect = NAS2D::Rectangle<int>{96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, storageCapacityImageRect);
 	bool shouldStorageCapacityGlow = mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100;
 	color = shouldStorageCapacityGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), position + textOffset, color);
 
 	// Food
 	position.x() += (x + offsetX) * 2;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto foodImageRect = NAS2D::Rectangle<int>{64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, foodImageRect);
 	bool shouldFoodStorageGlow = foodInStorage() <= 10;
 	color = shouldFoodStorageGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), position + textOffset, color);
 
 	// Energy
 	position.x() += (x + offsetX) * 2;
-	renderer.drawSubImage(mUiIcons, position.x(), position.y(), 80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE);
+	const auto energyImageRect = NAS2D::Rectangle<int>{80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	renderer.drawSubImage(mUiIcons, position, energyImageRect);
 	bool shouldEnergyGlow = mPlayerResources.energy() <= 5;
 	color = shouldEnergyGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), position + textOffset, color);
