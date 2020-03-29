@@ -241,7 +241,7 @@ void MapViewState::drawRobotInfo()
 		std::size_t total;
 	};
 
-	std::array<IconPartsTotal, 4> icons = {{
+	const std::array<IconPartsTotal, 4> icons = {{
 		{minerImageRect, mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()},
 		{dozerImageRect, mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()},
 		{diggerImageRect, mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()},
