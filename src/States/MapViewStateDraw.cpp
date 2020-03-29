@@ -100,7 +100,8 @@ void MapViewState::drawMiniMap()
 		else if (!mine->exhausted()) { mineBeaconStatusOffsetX = 8; }
 		else { mineBeaconStatusOffsetX = 16; }
 
-		renderer.drawSubImage(mUiIcons, minePosition.x() + mMiniMapBoundingBox.x() - 2, minePosition.y() + mMiniMapBoundingBox.y() - 2, mineBeaconStatusOffsetX, 0, 7, 7);
+		const auto mineImageRect = NAS2D::Rectangle<int>{mineBeaconStatusOffsetX, 0, 7, 7};
+		renderer.drawSubImage(mUiIcons, minePosition + miniMapOffset - NAS2D::Vector<int>{2, 2}, mineImageRect);
 	}
 
 	for (auto _tile : path)
