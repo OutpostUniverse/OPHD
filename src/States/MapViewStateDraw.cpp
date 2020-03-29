@@ -134,8 +134,11 @@ void MapViewState::drawResourceInfo()
 	auto position = NAS2D::Point<int>{constants::MARGIN_TIGHT + 12, constants::MARGIN_TIGHT};
 	constexpr auto textOffset = NAS2D::Vector<int>{constants::RESOURCE_ICON_SIZE + constants::MARGIN, 3 - constants::MARGIN_TIGHT};
 
-	renderer.drawSubImage(mUiIcons, 2, 7, mPinResourcePanel ? 8 : 0, 72, 8, 8);
-	renderer.drawSubImage(mUiIcons, 675, 7, mPinPopulationPanel ? 8 : 0, 72, 8, 8);
+	const auto unpinnedImageRect = NAS2D::Rectangle<int>{0, 72, 8, 8};
+	const auto pinnedImageRect = NAS2D::Rectangle<int>{8, 72, 8, 8};
+
+	renderer.drawSubImage(mUiIcons, NAS2D::Point{2, 7}, mPinResourcePanel ? unpinnedImageRect : pinnedImageRect);
+	renderer.drawSubImage(mUiIcons, NAS2D::Point{675, 7}, mPinPopulationPanel ? unpinnedImageRect : pinnedImageRect);
 
 	const auto glowIntensity = calcGlowIntensity();
 	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
