@@ -84,8 +84,9 @@ void MapViewState::drawMiniMap()
 	{
 		if (commTower->operational())
 		{
-			Tile* t = structureManager.tileFromStructure(commTower);
-			renderer.drawSubImage(mUiIcons, t->x() + mMiniMapBoundingBox.x() - 10, t->y() + mMiniMapBoundingBox.y() - 10, 146, 236, 20, 20);
+			const auto commTowerPosition = structureManager.tileFromStructure(commTower)->position();
+			const auto commTowerRangeImageRect = NAS2D::Rectangle<int>{146, 236, 20, 20};
+			renderer.drawSubImage(mUiIcons, commTowerPosition + miniMapOffset - commTowerRangeImageRect.size() / 2, commTowerRangeImageRect);
 		}
 	}
 
