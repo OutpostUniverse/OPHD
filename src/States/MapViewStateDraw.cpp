@@ -69,7 +69,8 @@ void MapViewState::drawMiniMap()
 	bool isHeightmapToggled = mBtnToggleHeightmap.toggled();
 	renderer.drawImage(isHeightmapToggled ? mHeightMap : mMapDisplay, miniMapBoxFloat.startPoint());
 
-	if (ccLocationX() != 0 && ccLocationY() != 0)
+	const auto ccPosition = ccLocation();
+	if (ccPosition != NAS2D::Point<int>{0, 0})
 	{
 		renderer.drawSubImage(mUiIcons, ccLocationX() + mMiniMapBoundingBox.x() - 15, ccLocationY() + mMiniMapBoundingBox.y() - 15, 166, 226, 30, 30);
 		renderer.drawBoxFilled(ccLocationX() + mMiniMapBoundingBox.x() - 1, ccLocationY() + mMiniMapBoundingBox.y() - 1, 3, 3, 255, 255, 255);
