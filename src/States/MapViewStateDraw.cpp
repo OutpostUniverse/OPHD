@@ -104,9 +104,9 @@ void MapViewState::drawMiniMap()
 		renderer.drawSubImage(mUiIcons, minePosition + miniMapOffset - NAS2D::Vector<int>{2, 2}, mineImageRect);
 	}
 
-	for (auto _tile : path)
+	for (auto tile : path)
 	{
-		const auto tilePosition = static_cast<Tile*>(_tile)->position();
+		const auto tilePosition = static_cast<Tile*>(tile)->position();
 		renderer.drawPoint(tilePosition.x() + mMiniMapBoundingBox.x(), tilePosition.y() + mMiniMapBoundingBox.y(), NAS2D::Color::Magenta);
 	}
 
