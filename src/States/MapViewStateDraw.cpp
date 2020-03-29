@@ -107,7 +107,7 @@ void MapViewState::drawMiniMap()
 	for (auto tile : path)
 	{
 		const auto tilePosition = static_cast<Tile*>(tile)->position();
-		renderer.drawPoint(tilePosition.x() + mMiniMapBoundingBox.x(), tilePosition.y() + mMiniMapBoundingBox.y(), NAS2D::Color::Magenta);
+		renderer.drawPoint(tilePosition + miniMapOffset, NAS2D::Color::Magenta);
 	}
 
 	for (auto _robot : mRobotList)
