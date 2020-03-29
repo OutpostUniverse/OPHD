@@ -110,9 +110,9 @@ void MapViewState::drawMiniMap()
 		renderer.drawPoint(tilePosition + miniMapOffset, NAS2D::Color::Magenta);
 	}
 
-	for (auto _robot : mRobotList)
+	for (auto robotEntry : mRobotList)
 	{
-		const auto robotPosition = _robot.second->position();
+		const auto robotPosition = robotEntry.second->position();
 		renderer.drawPoint(robotPosition + miniMapOffset, NAS2D::Color::Cyan);
 	}
 
