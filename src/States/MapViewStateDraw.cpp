@@ -117,9 +117,12 @@ void MapViewState::drawMiniMap()
 	}
 
 	const auto& viewLocation = mTileMap->mapViewLocation();
+	const auto edgeLength = mTileMap->edgeLength();
+	const auto viewBoxSize = NAS2D::Vector<int>{edgeLength, edgeLength};
+	const auto viewBoxPosition = viewLocation + miniMapOffset;
 
-	renderer.drawBox(mMiniMapBoundingBox.x() + viewLocation.x() + 1, mMiniMapBoundingBox.y() + viewLocation.y() + 1, mTileMap->edgeLength(), mTileMap->edgeLength(), 0, 0, 0, 180);
-	renderer.drawBox(mMiniMapBoundingBox.x() + viewLocation.x(), mMiniMapBoundingBox.y() + viewLocation.y(), mTileMap->edgeLength(), mTileMap->edgeLength(), 255, 255, 255);
+	renderer.drawBox(NAS2D::Rectangle<int>::Create(viewBoxPosition + NAS2D::Vector<int>{1, 1}, viewBoxSize), NAS2D::Color{0, 0, 0, 180});
+	renderer.drawBox(NAS2D::Rectangle<int>::Create(viewBoxPosition, viewBoxSize), NAS2D::Color::White);
 
 	renderer.clipRectClear();
 }
