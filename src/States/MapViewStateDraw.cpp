@@ -250,7 +250,7 @@ void MapViewState::drawRobotInfo()
 bool MapViewState::drawNavIcon(Renderer& renderer, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
 	bool isMouseInIcon = currentIconBounds.contains(MOUSE_COORDS);
 	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
-	renderer.drawSubImage(mUiIcons, currentIconBounds.x(), currentIconBounds.y(), subImageBounds.x(), subImageBounds.y(), subImageBounds.width(), subImageBounds.height(), color.red(), color.green(), color.blue(), color.alpha());
+	renderer.drawSubImage(mUiIcons, currentIconBounds.startPoint(), subImageBounds, color);
 	return isMouseInIcon;
 }
 
@@ -277,9 +277,9 @@ void MapViewState::drawNavInfo()
 	{
 		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i); // Set string for current level
 		bool isCurrentDepth = i == mTileMap->currentDepth();
-		NAS2D::Color color = isCurrentDepth ? NAS2D::Color{255, 0, 0, 255} : NAS2D::Color{200, 200, 200, 255}; // red for current depth : white for others
+		NAS2D::Color color = isCurrentDepth ? NAS2D::Color::Red : NAS2D::Color{200, 200, 200}; // red for current depth : white for others
 		const auto position = NAS2D::Point<int>{iPosX - MAIN_FONT->width(levelString), iPosY}.to<float>();
-		renderer.drawText(*MAIN_FONT, levelString, position.x(), position.y(), color.red(), color.green(), color.blue(), color.alpha());
+		renderer.drawText(*MAIN_FONT, levelString, position, color);
 		iPosX = iPosX - iWidth; // Shift position by one step left
 	}
 }
