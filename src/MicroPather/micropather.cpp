@@ -44,6 +44,9 @@ distribution.
 
 using namespace micropather;
 
+constexpr auto Unset = int(-1);
+
+
 class OpenQueue
 {
 public:
@@ -233,7 +236,7 @@ PathNodePool::~PathNodePool()
 
 bool PathNodePool::PushCache(const NodeCost* nodes, int nNodes, int* start)
 {
-	*start = -1;
+	*start = Unset;
 	if (nNodes + cacheSize <= cacheCap)
 	{
 		for (int i = 0; i < nNodes; ++i)
@@ -468,8 +471,8 @@ void PathNode::Init(unsigned _frame,
 void PathNode::Clear()
 {
 	memset(this, 0, sizeof(PathNode));
-	numAdjacent = -1;
-	cacheIndex = -1;
+	numAdjacent = Unset;
+	cacheIndex = Unset;
 }
 
 
