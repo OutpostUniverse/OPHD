@@ -126,7 +126,7 @@ void StructureInspector::update()
 
 	Renderer& renderer = Utility<Renderer>::get();
 
-	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, std::string title, std::string text) {
+	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text) {
 		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
 		position.x() += FONT_BOLD->width(title);
 		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
