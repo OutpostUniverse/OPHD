@@ -95,12 +95,12 @@ void WarehouseInspector::update()
 	auto position = rect().startPoint() + NAS2D::Vector{constants::MARGIN, 25};
 	drawTitleText(position, "Storage", string_format("%i / %i", _pool.availableStorage(), _pool.capacity()), 0);
 
-	r.drawText(*FONT_BOLD, "Clothing:", rect().x() + constants::MARGIN, rect().y() + 50.0f, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(_pool.count(PRODUCT_CLOTHING)), rect().x() + constants::MARGIN + 100, rect().y() + 50.0f, 255, 255, 255);
+	position.y() += 25;
+	drawTitleText(position, "Clothing:", std::to_string(_pool.count(PRODUCT_CLOTHING)));
 
-	r.drawText(*FONT_BOLD, "Medicine:", rect().x() + constants::MARGIN, rect().y() + 65.0f, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(_pool.count(PRODUCT_MEDICINE)), rect().x() + constants::MARGIN + 100, rect().y() + 65.0f, 255, 255, 255);
+	position.y() += 15;
+	drawTitleText(position, "Medicine:", std::to_string(_pool.count(PRODUCT_MEDICINE)));
 
-	r.drawText(*FONT_BOLD, "Road Materials:", rect().x() + constants::MARGIN, rect().y() + 80.0f, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(_pool.count(PRODUCT_ROAD_MATERIALS)), rect().x() + constants::MARGIN + 100, rect().y() + 80.0f, 255, 255, 255);
+	position.y() += 15;
+	drawTitleText(position, "Road Materials:", std::to_string(_pool.count(PRODUCT_ROAD_MATERIALS)));
 }
