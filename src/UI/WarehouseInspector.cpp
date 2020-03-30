@@ -82,19 +82,25 @@ void WarehouseInspector::update()
 
 	Window::update();
 
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
-	ProductPool& _pool = mWarehouse->products();
+	ProductPool& pool = mWarehouse->products();
 
-	r.drawText(*FONT_BOLD, "Storage", rect().x() + constants::MARGIN, rect().y() + 25.0f, 255, 255, 255);
-	r.drawText(*FONT, string_format("%i / %i", _pool.availableStorage(), _pool.capacity()), rect().x() + constants::MARGIN + FONT_BOLD->width("Storage") + 20, rect().y() + 25.0f, 255, 255, 255);
+	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text, int offset = 100) {
+		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
+		position.x() += offset ? offset : (FONT_BOLD->width(title) + 20);
+		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
+	};
 
-	r.drawText(*FONT_BOLD, "Clothing:", rect().x() + constants::MARGIN, rect().y() + 50.0f, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(_pool.count(PRODUCT_CLOTHING)), rect().x() + constants::MARGIN + 100, rect().y() + 50.0f, 255, 255, 255);
+	auto position = rect().startPoint() + NAS2D::Vector{constants::MARGIN, 25};
+	drawTitleText(position, "Storage", std::to_string(pool.availableStorage()) + " / " + std::to_string(pool.capacity()), 0);
 
-	r.drawText(*FONT_BOLD, "Medicine:", rect().x() + constants::MARGIN, rect().y() + 65.0f, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(_pool.count(PRODUCT_MEDICINE)), rect().x() + constants::MARGIN + 100, rect().y() + 65.0f, 255, 255, 255);
+	position.y() += 25;
+	drawTitleText(position, "Clothing:", std::to_string(pool.count(PRODUCT_CLOTHING)));
 
-	r.drawText(*FONT_BOLD, "Road Materials:", rect().x() + constants::MARGIN, rect().y() + 80.0f, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(_pool.count(PRODUCT_ROAD_MATERIALS)), rect().x() + constants::MARGIN + 100, rect().y() + 80.0f, 255, 255, 255);
+	position.y() += 15;
+	drawTitleText(position, "Medicine:", std::to_string(pool.count(PRODUCT_MEDICINE)));
+
+	position.y() += 15;
+	drawTitleText(position, "Road Materials:", std::to_string(pool.count(PRODUCT_ROAD_MATERIALS)));
 }
