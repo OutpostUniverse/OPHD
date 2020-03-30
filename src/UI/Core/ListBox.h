@@ -52,7 +52,7 @@ public:
 	bool itemExists(const std::string& item);
 	void dropAllItems();
 
-	size_t count() const { return mItems.size(); }
+	std::size_t count() const { return mItems.size(); }
 	unsigned int lineHeight() const { return mLineHeight; }
 
 	void setSelectionByName(const std::string& item);

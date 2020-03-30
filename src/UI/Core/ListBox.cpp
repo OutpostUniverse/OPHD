@@ -79,7 +79,7 @@ void ListBox::_updateItemDisplay()
 {
 	mItemWidth = static_cast<unsigned int>(rect().width());
 
-	if ((mLineHeight * mItems.size()) > static_cast<size_t>(height()))
+	if ((mLineHeight * mItems.size()) > static_cast<std::size_t>(height()))
 	{
 		mLineCount = static_cast<unsigned int>(height() / mLineHeight);
 		if (mLineCount < mItems.size())
@@ -181,7 +181,7 @@ bool ListBox::itemExists(const std::string& item)
  */
 void ListBox::setSelectionByName(const std::string& item)
 {
-	for (size_t i = 0; i < mItems.size(); i++)
+	for (std::size_t i = 0; i < mItems.size(); i++)
 	{
 		if (toLowercase(mItems[i].Text) == toLowercase(item)) { mCurrentSelection = static_cast<int>(i); return; }
 	}
@@ -213,7 +213,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 		return;		// if the mouse is on the slider then the slider should handle that
 	}
 
-	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size())
+	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
 	{
 		return;
 	}
@@ -243,7 +243,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	
 	mCurrentHighlight = (y - static_cast<int>(rect().y()) + mCurrentOffset) / (LST_FONT->height() + 2);
 
-	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size())
+	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 	}
