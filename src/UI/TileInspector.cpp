@@ -64,18 +64,10 @@ void TileInspector::update()
 	auto position = rect().startPoint() + NAS2D::Vector{5, 25};
 	drawTitleText(position, "Has Mine: ", (mine ? "Yes" : "No"));
 
-	if(mTile->mine())
+	if(mine)
 	{
-		r.drawText(*FONT_BOLD, "Active:", rect().x() + 5, rect().y() + 35, 255, 255, 255);
-
-		if (mTile->mine()->active())
-		{
-			r.drawText(*FONT, "Yes", rect().x() + 5 + FONT_BOLD->width("Active: "), rect().y() + 35, 255, 255, 255);
-		}
-		else
-		{
-			r.drawText(*FONT, "No", rect().x() + 5 + FONT_BOLD->width("Active: "), rect().y() + 35, 255, 255, 255);
-		}
+		position.y() += 10;
+		drawTitleText(position, "Active: ", (mine->active() ? "Yes" : "No"));
 
 		r.drawText(*FONT_BOLD, "Production Rate:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
 		r.drawText(*FONT, MINE_YIELD_TRANSLATION[mTile->mine()->productionRate()], rect().x() + 5 + FONT_BOLD->width("Production Rate: "), rect().y() + 45, 255, 255, 255);
