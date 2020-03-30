@@ -435,7 +435,7 @@ void Slider::draw()
 
 		r.drawBox(NAS2D::Rectangle{_x, _y, _w, _h}, NAS2D::Color{255, 255, 255, 180});
 		r.drawBoxFilled(NAS2D::Rectangle{_x + 1, _y + 1, _w - 2, _h - 2}, NAS2D::Color{0, 0, 0, 180});
-		r.drawText(*SLD_FONT, textHover, static_cast<float>(_x) + 2.0f, static_cast<float>(_y) + 2.0f, 220, 220, 220);
+		r.drawText(*SLD_FONT, textHover, NAS2D::Point{_x + 2, _y + 2}, NAS2D::Color{220, 220, 220});
 	}
 }
 
