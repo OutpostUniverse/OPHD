@@ -86,7 +86,7 @@ void WarehouseInspector::update()
 
 	ProductPool& pool = mWarehouse->products();
 
-	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, std::string title, std::string text, int offset = 100) {
+	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text, int offset = 100) {
 		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
 		position.x() += offset ? offset : (FONT_BOLD->width(title) + 20);
 		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
