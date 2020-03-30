@@ -73,8 +73,8 @@ void TileInspector::update()
 		drawTitleText(position, "Production Rate: ", MINE_YIELD_TRANSLATION[mTile->mine()->productionRate()]);
 	}
 
-	r.drawText(*FONT_BOLD, "Location:", rect().x() + 5, rect().y() + 62, 255, 255, 255);
-	r.drawText(*FONT, string_format("%i, %i", mTile->x(), mTile->y()), rect().x() + 5 + FONT_BOLD->width("Location: "), rect().y() + 62, 255, 255, 255);
+	position = rect().startPoint() + NAS2D::Vector{5, 62};
+	drawTitleText(position, "Location: ", string_format("%i, %i", mTile->x(), mTile->y()));
 
 	r.drawText(*FONT_BOLD, "Terrain:", rect().x() + 5, rect().y() + 72, 255, 255, 255);
 	r.drawText(*FONT, TILE_INDEX_TRANSLATION[mTile->index()], rect().x() + 5 + FONT_BOLD->width("Terrain: "), rect().y() + 72, 255, 255, 255);
