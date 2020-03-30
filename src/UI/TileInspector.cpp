@@ -69,8 +69,8 @@ void TileInspector::update()
 		position.y() += 10;
 		drawTitleText(position, "Active: ", (mine->active() ? "Yes" : "No"));
 
-		r.drawText(*FONT_BOLD, "Production Rate:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
-		r.drawText(*FONT, MINE_YIELD_TRANSLATION[mTile->mine()->productionRate()], rect().x() + 5 + FONT_BOLD->width("Production Rate: "), rect().y() + 45, 255, 255, 255);
+		position.y() += 10;
+		drawTitleText(position, "Production Rate: ", MINE_YIELD_TRANSLATION[mTile->mine()->productionRate()]);
 	}
 
 	r.drawText(*FONT_BOLD, "Location:", rect().x() + 5, rect().y() + 62, 255, 255, 255);
