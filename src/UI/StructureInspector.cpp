@@ -124,34 +124,40 @@ void StructureInspector::update()
 	if (!visible()) { return; }
 	Window::update();
 
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
+	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text) {
+		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
+		position.x() += FONT_BOLD->width(title);
+		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
+	};
+
+	auto position = rect().startPoint() + NAS2D::Vector{5, 25};
 	if (mStructure == nullptr)
 	{
-		r.drawText(*FONT_BOLD, "NULLPTR!", rect().x() + 5, rect().y() + 25, 255, 255, 255);
+		drawTitleText(position, "NULLPTR!", "");
 		return;
 	}
+	drawTitleText(position, mStructure->name(), "");
 
-	r.drawText(*FONT_BOLD, mStructure->name(), rect().x() + 5, rect().y() + 25, 255, 255, 255);
+	position.y() += 20;
+	drawTitleText(position,"Type: ", mStructureClass);
 
-	r.drawText(*FONT_BOLD, "Type:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
-	r.drawText(*FONT, mStructureClass, rect().x() + 5 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
+	position = rect().startPoint() + NAS2D::Vector{190, 25};
+	drawTitleText(position,"State: ", structureStateDescription(mStructure->state()));
 
-	r.drawText(*FONT_BOLD, "State:", rect().x() + 190, rect().y() + 25, 255, 255, 255);
-	r.drawText(*FONT, structureStateDescription(mStructure->state()), rect().x() + 190 + FONT_BOLD->width("State: "), rect().y() + 25, 255, 255, 255);
-
+	position.y() += 20;
 	if (mStructure->underConstruction())
 	{
-		r.drawText(*FONT_BOLD, "Turns Remaining:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
-		r.drawText(*FONT, std::to_string(mStructure->turnsToBuild() - mStructure->age()), rect().x() + 190 + FONT_BOLD->width("Turns Remaining: "), rect().y() + 45, 255, 255, 255);
+		drawTitleText(position,"Turns Remaining: ", std::to_string(mStructure->turnsToBuild() - mStructure->age()));
 	}
 	else
 	{
-		r.drawText(*FONT_BOLD, "Age:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
-		r.drawText(*FONT, std::to_string(mStructure->age()), rect().x() + 190 + FONT_BOLD->width("Age: "), rect().y() + 45, 255, 255, 255);
+		drawTitleText(position,"Age: ", std::to_string(mStructure->age()));
 	}
 
 	drawPopulationRequirements();
-	
-	r.drawText(*FONT, "This window is a work in progress", rect().x() + 5, rect().y() + rect().height() - FONT->height() - 5, 255, 255, 255);
+
+	position = rect().startPoint() + NAS2D::Vector{5, static_cast<int>(rect().height()) - FONT->height() - 5};
+	renderer.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);
 }
