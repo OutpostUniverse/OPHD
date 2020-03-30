@@ -418,24 +418,24 @@ void Slider::draw()
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
 		std::string textHover = std::to_string(static_cast<int>(thumbPosition())) + " / " + std::to_string(static_cast<int>(mLength));
-		int _x = 0, _y = 0;
-		int _w = SLD_FONT->width(textHover) + 4;
-		int _h = SLD_FONT->height() + 4;
+		int x = 0, y = 0;
+		int width = SLD_FONT->width(textHover) + 4;
+		int height = SLD_FONT->height() + 4;
 
 		if (mSliderType == SLIDER_VERTICAL)
 		{
-			_x = static_cast<int>(mSlideBar.x() + mSlideBar.width() + 2);
-			_y = mMousePosition.y() - _h;
+			x = static_cast<int>(mSlideBar.x() + mSlideBar.width() + 2);
+			y = mMousePosition.y() - height;
 		}
 		else
 		{
-			_x = mMousePosition.x() + 2;
-			_y = static_cast<int>(mSlideBar.y() - 2) - _h;
+			x = mMousePosition.x() + 2;
+			y = static_cast<int>(mSlideBar.y() - 2) - height;
 		}
 
-		r.drawBox(NAS2D::Rectangle{_x, _y, _w, _h}, NAS2D::Color{255, 255, 255, 180});
-		r.drawBoxFilled(NAS2D::Rectangle{_x + 1, _y + 1, _w - 2, _h - 2}, NAS2D::Color{0, 0, 0, 180});
-		r.drawText(*SLD_FONT, textHover, NAS2D::Point{_x + 2, _y + 2}, NAS2D::Color{220, 220, 220});
+		r.drawBox(NAS2D::Rectangle{x, y, width, height}, NAS2D::Color{255, 255, 255, 180});
+		r.drawBoxFilled(NAS2D::Rectangle{x + 1, y + 1, width - 2, height - 2}, NAS2D::Color{0, 0, 0, 180});
+		r.drawText(*SLD_FONT, textHover, NAS2D::Point{x + 2, y + 2}, NAS2D::Color{220, 220, 220});
 	}
 }
 
