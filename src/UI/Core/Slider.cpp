@@ -424,13 +424,13 @@ void Slider::draw()
 
 		if (mSliderType == SLIDER_VERTICAL)
 		{
-			_x = static_cast<int>(mSlideBar.x() + mSlideBar.width() + 2.0f);
+			_x = static_cast<int>(mSlideBar.x() + mSlideBar.width() + 2);
 			_y = mMousePosition.y() - _h;
 		}
 		else
 		{
 			_x = mMousePosition.x() + 2;
-			_y = static_cast<int>(mSlideBar.y() - 2.0f) - _h;
+			_y = static_cast<int>(mSlideBar.y() - 2) - _h;
 		}
 
 		r.drawBox(NAS2D::Rectangle{_x, _y, _w, _h}, NAS2D::Color{255, 255, 255, 180});
