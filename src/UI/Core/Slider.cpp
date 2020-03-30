@@ -365,8 +365,6 @@ void Slider::update()
 void Slider::draw()
 {
 	Renderer& r = Utility<Renderer>::get();
-	std::string textHover;
-	int _x = 0, _y = 0, _w = 0, _h = 0;
 	float _thumbPosition = 0.0f;
 
 	if (mSliderType == SLIDER_VERTICAL)
@@ -419,24 +417,25 @@ void Slider::draw()
 
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
-		textHover = string_format("%i / %i", static_cast<int>(thumbPosition()), static_cast<int>(mLength));
-		_w = SLD_FONT->width(textHover) + 4;
-		_h = SLD_FONT->height() + 4;
+		std::string textHover = std::to_string(static_cast<int>(thumbPosition())) + " / " + std::to_string(static_cast<int>(mLength));
+		int x = 0, y = 0;
+		int width = SLD_FONT->width(textHover) + 4;
+		int height = SLD_FONT->height() + 4;
 
 		if (mSliderType == SLIDER_VERTICAL)
 		{
-			_x = static_cast<int>(mSlideBar.x() + mSlideBar.width() + 2.0f);
-			_y = mMousePosition.y() - _h;
+			x = static_cast<int>(mSlideBar.x() + mSlideBar.width() + 2);
+			y = mMousePosition.y() - height;
 		}
 		else
 		{
-			_x = mMousePosition.x() + 2;
-			_y = static_cast<int>(mSlideBar.y() - 2.0f) - _h;
+			x = mMousePosition.x() + 2;
+			y = static_cast<int>(mSlideBar.y() - 2) - height;
 		}
 
-		r.drawBox(static_cast<float>(_x), static_cast<float>(_y), static_cast<float>(_w), static_cast<float>(_h), 255, 255, 255, 180);
-		r.drawBoxFilled(static_cast<float>(_x) + 1.0f, static_cast<float>(_y) + 1.0f, static_cast<float>(_w) - 2.0f, static_cast<float>(_h) - 2.0f, 0, 0, 0, 180);
-		r.drawText(*SLD_FONT, textHover, static_cast<float>(_x) + 2.0f, static_cast<float>(_y) + 2.0f, 220, 220, 220);
+		r.drawBox(NAS2D::Rectangle{x, y, width, height}, NAS2D::Color{255, 255, 255, 180});
+		r.drawBoxFilled(NAS2D::Rectangle{x + 1, y + 1, width - 2, height - 2}, NAS2D::Color{0, 0, 0, 180});
+		r.drawText(*SLD_FONT, textHover, NAS2D::Point{x + 2, y + 2}, NAS2D::Color{220, 220, 220});
 	}
 }
 
