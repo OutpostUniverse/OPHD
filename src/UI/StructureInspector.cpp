@@ -91,27 +91,27 @@ void StructureInspector::btnCloseClicked()
 
 void StructureInspector::drawPopulationRequirements()
 {
-	Renderer& r = Utility<Renderer>::get();
-	float posX = rect().x() + 10.0f;
-	float posY = rect().y() + 85.0f;
+	Renderer& renderer = Utility<Renderer>::get();
 
-	r.drawText(*FONT_BOLD, "Population Required", rect().x() + 10, posY, 255, 255, 255);
+	auto position = rect().startPoint() + NAS2D::Vector{10, 85};
+	renderer.drawText(*FONT_BOLD, "Population Required", position, NAS2D::Color::White);
 
-	posY += 20;
+	const std::array<std::string, 2> populationTypes{
+		"Workers",
+		"Scientists"
+	};
 
-	if (mStructure->populationRequirements()[0] > 0)
-	{
-		std::string format = string_format("Workers: %i/%i", mStructure->populationAvailable()[0], mStructure->populationRequirements()[0]);
-		Color color = mStructure->populationAvailable()[0] >= mStructure->populationRequirements()[0] ? Color::White : Color::Red;
-		r.drawText(*FONT, format, posX, posY, color.red(), color.green(), color.blue());
-		posY += 10;
-	}
-
-	if (mStructure->populationRequirements()[1] > 0)
-	{
-		std::string format = string_format("Scientists: %i/%i", mStructure->populationAvailable()[1], mStructure->populationRequirements()[1]);
-		Color color = mStructure->populationAvailable()[1] >= mStructure->populationRequirements()[1] ? Color::White : Color::Red;
-		r.drawText(*FONT, format, posX, posY, color.red(), color.green(), color.blue());
+	position.y() += 20;
+	for (std::size_t populationType = 0; populationType < populationTypes.size(); ++populationType) {
+		const auto& populationRequirements = mStructure->populationRequirements();
+		const auto& populationAvailable = mStructure->populationAvailable();
+		if (populationRequirements[populationType] > 0)
+		{
+			std::string text = populationTypes[populationType] + ": " + std::to_string(populationAvailable[populationType]) + "/" + std::to_string(populationRequirements[populationType]);
+			Color color = populationAvailable[populationType] >= populationRequirements[populationType] ? Color::White : Color::Red;
+			renderer.drawText(*FONT, text, position, color);
+			position.y() += 10;
+		}
 	}
 }
 
