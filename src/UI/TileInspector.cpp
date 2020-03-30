@@ -51,38 +51,33 @@ void TileInspector::update()
 
 	Window::update();
 
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
-	r.drawText(*FONT_BOLD, "Has Mine:", rect().x() + 5, rect().y() + 25, 255, 255, 255);
+	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text) {
+		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
+		position.x() += FONT_BOLD->width(title);
+		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
+	};
 
-	if(mTile->mine())
+	const auto* mine = mTile->mine();
+
+	auto position = rect().startPoint() + NAS2D::Vector{5, 25};
+	drawTitleText(position, "Has Mine: ", (mine ? "Yes" : "No"));
+
+	if(mine)
 	{
-		r.drawText(*FONT, "Yes", rect().x() + 5 + FONT_BOLD->width("Has Mine: "), rect().y() + 25, 255, 255, 255);
+		position.y() += 10;
+		drawTitleText(position, "Active: ", (mine->active() ? "Yes" : "No"));
 
-		r.drawText(*FONT_BOLD, "Active:", rect().x() + 5, rect().y() + 35, 255, 255, 255);
-
-		if (mTile->mine()->active())
-		{
-			r.drawText(*FONT, "Yes", rect().x() + 5 + FONT_BOLD->width("Active: "), rect().y() + 35, 255, 255, 255);
-		}
-		else
-		{
-			r.drawText(*FONT, "No", rect().x() + 5 + FONT_BOLD->width("Active: "), rect().y() + 35, 255, 255, 255);
-		}
-
-		r.drawText(*FONT_BOLD, "Production Rate:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
-		r.drawText(*FONT, MINE_YIELD_TRANSLATION[mTile->mine()->productionRate()], rect().x() + 5 + FONT_BOLD->width("Production Rate: "), rect().y() + 45, 255, 255, 255);
-	}
-	else
-	{
-		r.drawText(*FONT, "No", rect().x() + 5 + FONT_BOLD->width("Has Mine: "), rect().y() + 25, 255, 255, 255);
+		position.y() += 10;
+		drawTitleText(position, "Production Rate: ", MINE_YIELD_TRANSLATION[mTile->mine()->productionRate()]);
 	}
 
-	r.drawText(*FONT_BOLD, "Location:", rect().x() + 5, rect().y() + 62, 255, 255, 255);
-	r.drawText(*FONT, string_format("%i, %i", mTile->x(), mTile->y()), rect().x() + 5 + FONT_BOLD->width("Location: "), rect().y() + 62, 255, 255, 255);
+	position = rect().startPoint() + NAS2D::Vector{5, 62};
+	drawTitleText(position, "Location: ", std::to_string(mTile->x()) + ", " + std::to_string(mTile->y()));
 
-	r.drawText(*FONT_BOLD, "Terrain:", rect().x() + 5, rect().y() + 72, 255, 255, 255);
-	r.drawText(*FONT, TILE_INDEX_TRANSLATION[mTile->index()], rect().x() + 5 + FONT_BOLD->width("Terrain: "), rect().y() + 72, 255, 255, 255);
+	position.y() += 10;
+	drawTitleText(position, "Terrain: ", TILE_INDEX_TRANSLATION[mTile->index()]);
 }
 
 
