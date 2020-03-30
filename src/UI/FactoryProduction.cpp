@@ -227,7 +227,7 @@ void FactoryProduction::update()
 	};
 
 	auto position = rect().startPoint() + NAS2D::Vector{constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), 25};
-	drawTitleText(position, "Turns Completed:", string_format("%i of %i", mFactory->productionTurnsCompleted(), mProductCost.turnsToBuild()));
+	drawTitleText(position, "Turns Completed:", std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild()));
 
 	position.y() += 20;
 	drawTitleText(position, "Common Metals:", std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild()));
