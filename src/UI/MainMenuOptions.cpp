@@ -84,6 +84,7 @@ void MainMenuOptions::init()
 
 	cmbResolution.clearSelection();
 
+	std::size_t currentResolutionSelection = 0;
 	{
 		auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
 		auto resolutions = r.getDisplayModes();

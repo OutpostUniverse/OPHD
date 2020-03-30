@@ -7,6 +7,9 @@
 #include "NAS2D/EventHandler.h"
 #include "NAS2D/Renderer/Rectangle.h"
 
+#include <cstddef>
+
+
 class ComboBox : public Control
 {
 public:
@@ -18,8 +21,8 @@ public:
 
 	void addItem(const std::string& item, int tag = 0);
 
-	unsigned int maxDisplayItems() const { return mMaxDisplayItems; }
-	void maxDisplayItems(unsigned int count);
+	std::size_t maxDisplayItems() const { return mMaxDisplayItems; }
+	void maxDisplayItems(std::size_t count);
 
 	void clearSelection();
 
@@ -28,8 +31,8 @@ public:
 	const std::string& selectionText() const;
 	int selectionTag() const;
 
-	unsigned int currentSelection() { return lstItems.currentSelection(); }
-	void currentSelection(unsigned int index);
+	std::size_t currentSelection() { return lstItems.currentSelection(); }
+	void currentSelection(std::size_t index);
 
 	virtual void update();
 
@@ -55,5 +58,5 @@ private:
 
 	SelectionChanged        mSelectionChanged;
 
-	unsigned int            mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
+	std::size_t            mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
 };

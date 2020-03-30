@@ -69,5 +69,4 @@ private:
 	bool optionsChanged = false;
 	bool videoOptionsChanged = false;
 	bool inInit = true;
-	int currentResolutionSelection = 0;
 };

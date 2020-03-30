@@ -1,5 +1,9 @@
 #pragma once
 
+#include "UIContainer.h"
+#include "Slider.h"
+#include "../../Constants/UiConstants.h"
+
 #include "NAS2D/Signal.h"
 #include "NAS2D/EventHandler.h"
 #include "NAS2D/Renderer/Color.h"
@@ -7,11 +11,8 @@
 #include <map>
 #include <string>
 #include <algorithm>
+#include <cstddef>
 
-#include "UIContainer.h"
-#include "Slider.h"
-
-#include "../../Constants/UiConstants.h"
 
 /**
  * Implements a ListBox control.
@@ -51,16 +52,16 @@ public:
 	bool itemExists(const std::string& item);
 	void dropAllItems();
 
-	size_t count() const { return mItems.size(); }
+	std::size_t count() const { return mItems.size(); }
 	unsigned int lineHeight() const { return mLineHeight; }
 
 	void setSelectionByName(const std::string& item);
 
-	unsigned int currentSelection() const { return mCurrentSelection; }
-	void currentSelection(int selection) { mCurrentSelection = selection; mSelectionChanged(); }
+	std::size_t currentSelection() const { return mCurrentSelection; }
+	void currentSelection(std::size_t selection) { mCurrentSelection = selection; mSelectionChanged(); }
 	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
 
-	unsigned int currentHighlight() const { return mCurrentHighlight; }
+	std::size_t currentHighlight() const { return mCurrentHighlight; }
 
 	const std::string& selectionText() const;
 	int selectionTag() const;
@@ -86,9 +87,9 @@ private:
 	void _init();
 
 private:
-	unsigned int				mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
-	unsigned int				mCurrentSelection = 0;							/**< Current selection index. */
-	unsigned int				mCurrentOffset = 0;								/**< Current selection index. */
+	std::size_t				mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
+	std::size_t				mCurrentSelection = 0;							/**< Current selection index. */
+	std::size_t				mCurrentOffset = 0;								/**< Current selection index. */
 
 	unsigned int				mItemWidth = 0;									/**< Width of items. */
 	unsigned int				mLineHeight = 0;								/**< Height of an item line. */
