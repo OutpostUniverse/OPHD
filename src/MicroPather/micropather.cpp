@@ -604,7 +604,7 @@ void MicroPather::GetNodeNeighbors(PathNode* node, std::vector< NodeCost >* pNod
 		// it has no neighbors.
 		pNodeCost->resize(0);
 	}
-	else if (node->cacheIndex < 0)
+	else if (node->cacheIndex == Unset)
 	{
 		// Not in the cache. Either the first time or just didn't fit. We don't know
 		// the number of neighbors and need to call back to the client.
