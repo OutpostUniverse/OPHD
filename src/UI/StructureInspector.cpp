@@ -103,10 +103,12 @@ void StructureInspector::drawPopulationRequirements()
 
 	position.y() += 20;
 	for (std::size_t populationType = 0; populationType < populationTypes.size(); ++populationType) {
-		if (mStructure->populationRequirements()[populationType] > 0)
+		const auto& populationRequirements = mStructure->populationRequirements();
+		const auto& populationAvailable = mStructure->populationAvailable();
+		if (populationRequirements[populationType] > 0)
 		{
-			std::string format = string_format(populationTypes[populationType] + ": %i/%i", mStructure->populationAvailable()[populationType], mStructure->populationRequirements()[populationType]);
-			Color color = mStructure->populationAvailable()[populationType] >= mStructure->populationRequirements()[populationType] ? Color::White : Color::Red;
+			std::string format = string_format(populationTypes[populationType] + ": %i/%i", populationAvailable[populationType], populationRequirements[populationType]);
+			Color color = populationAvailable[populationType] >= populationRequirements[populationType] ? Color::White : Color::Red;
 			r.drawText(*FONT, format, position, color);
 			position.y() += 10;
 		}
