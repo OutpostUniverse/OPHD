@@ -96,20 +96,20 @@ void StructureInspector::drawPopulationRequirements()
 	auto position = rect().startPoint() + NAS2D::Vector{10, 85};
 	r.drawText(*FONT_BOLD, "Population Required", position, NAS2D::Color::White);
 
-	position.y() += 20;
-	if (mStructure->populationRequirements()[0] > 0)
-	{
-		std::string format = string_format("Workers: %i/%i", mStructure->populationAvailable()[0], mStructure->populationRequirements()[0]);
-		Color color = mStructure->populationAvailable()[0] >= mStructure->populationRequirements()[0] ? Color::White : Color::Red;
-		r.drawText(*FONT, format, position, color);
-		position.y() += 10;
-	}
+	const std::array<std::string, 2> populationTypes = {{
+		"Workers",
+		"Scientists"
+	}};
 
-	if (mStructure->populationRequirements()[1] > 0)
-	{
-		std::string format = string_format("Scientists: %i/%i", mStructure->populationAvailable()[1], mStructure->populationRequirements()[1]);
-		Color color = mStructure->populationAvailable()[1] >= mStructure->populationRequirements()[1] ? Color::White : Color::Red;
-		r.drawText(*FONT, format, position, color);
+	position.y() += 20;
+	for (std::size_t populationType = 0; populationType < populationTypes.size(); ++populationType) {
+		if (mStructure->populationRequirements()[populationType] > 0)
+		{
+			std::string format = string_format(populationTypes[populationType] + ": %i/%i", mStructure->populationAvailable()[populationType], mStructure->populationRequirements()[populationType]);
+			Color color = mStructure->populationAvailable()[populationType] >= mStructure->populationRequirements()[populationType] ? Color::White : Color::Red;
+			r.drawText(*FONT, format, position, color);
+			position.y() += 10;
+		}
 	}
 }
 
