@@ -126,13 +126,19 @@ void StructureInspector::update()
 
 	Renderer& r = Utility<Renderer>::get();
 
+	const auto drawTitleText = [&renderer = r](NAS2D::Point<int> position, std::string title, std::string text) {
+		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
+		position.x() += FONT_BOLD->width(title);
+		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
+	};
+
+	auto position = rect().startPoint() + NAS2D::Vector{5, 25};
 	if (mStructure == nullptr)
 	{
-		r.drawText(*FONT_BOLD, "NULLPTR!", rect().x() + 5, rect().y() + 25, 255, 255, 255);
+		drawTitleText(position, "NULLPTR!", "");
 		return;
 	}
-
-	r.drawText(*FONT_BOLD, mStructure->name(), rect().x() + 5, rect().y() + 25, 255, 255, 255);
+	drawTitleText(position, mStructure->name(), "");
 
 	r.drawText(*FONT_BOLD, "Type:", rect().x() + 5, rect().y() + 45, 255, 255, 255);
 	r.drawText(*FONT, mStructureClass, rect().x() + 5 + FONT_BOLD->width("Type: "), rect().y() + 45, 255, 255, 255);
