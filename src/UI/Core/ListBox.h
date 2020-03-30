@@ -1,5 +1,9 @@
 #pragma once
 
+#include "UIContainer.h"
+#include "Slider.h"
+#include "../../Constants/UiConstants.h"
+
 #include "NAS2D/Signal.h"
 #include "NAS2D/EventHandler.h"
 #include "NAS2D/Renderer/Color.h"
@@ -8,10 +12,6 @@
 #include <string>
 #include <algorithm>
 
-#include "UIContainer.h"
-#include "Slider.h"
-
-#include "../../Constants/UiConstants.h"
 
 /**
  * Implements a ListBox control.
