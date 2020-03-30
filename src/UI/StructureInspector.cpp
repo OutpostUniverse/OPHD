@@ -157,6 +157,7 @@ void StructureInspector::update()
 	}
 
 	drawPopulationRequirements();
-	
-	r.drawText(*FONT, "This window is a work in progress", rect().x() + 5, rect().y() + rect().height() - FONT->height() - 5, 255, 255, 255);
+
+	position = rect().startPoint() + NAS2D::Vector{5, static_cast<int>(rect().height()) - FONT->height() - 5};
+	r.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);
 }
