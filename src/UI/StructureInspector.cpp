@@ -143,18 +143,17 @@ void StructureInspector::update()
 	position.y() += 20;
 	drawTitleText(position,"Type: ", mStructureClass);
 
-	r.drawText(*FONT_BOLD, "State:", rect().x() + 190, rect().y() + 25, 255, 255, 255);
-	r.drawText(*FONT, structureStateDescription(mStructure->state()), rect().x() + 190 + FONT_BOLD->width("State: "), rect().y() + 25, 255, 255, 255);
+	position = rect().startPoint() + NAS2D::Vector{190, 25};
+	drawTitleText(position,"State: ", structureStateDescription(mStructure->state()));
 
+	position.y() += 20;
 	if (mStructure->underConstruction())
 	{
-		r.drawText(*FONT_BOLD, "Turns Remaining:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
-		r.drawText(*FONT, std::to_string(mStructure->turnsToBuild() - mStructure->age()), rect().x() + 190 + FONT_BOLD->width("Turns Remaining: "), rect().y() + 45, 255, 255, 255);
+		drawTitleText(position,"Turns Remaining: ", std::to_string(mStructure->turnsToBuild() - mStructure->age()));
 	}
 	else
 	{
-		r.drawText(*FONT_BOLD, "Age:", rect().x() + 190, rect().y() + 45, 255, 255, 255);
-		r.drawText(*FONT, std::to_string(mStructure->age()), rect().x() + 190 + FONT_BOLD->width("Age: "), rect().y() + 45, 255, 255, 255);
+		drawTitleText(position,"Age: ", std::to_string(mStructure->age()));
 	}
 
 	drawPopulationRequirements();
