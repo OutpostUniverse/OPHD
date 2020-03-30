@@ -107,7 +107,7 @@ void StructureInspector::drawPopulationRequirements()
 		const auto& populationAvailable = mStructure->populationAvailable();
 		if (populationRequirements[populationType] > 0)
 		{
-			std::string format = string_format(populationTypes[populationType] + ": %i/%i", populationAvailable[populationType], populationRequirements[populationType]);
+			std::string format = populationTypes[populationType] + ": " + std::to_string(populationAvailable[populationType]) + "/" + std::to_string(populationRequirements[populationType]);
 			Color color = populationAvailable[populationType] >= populationRequirements[populationType] ? Color::White : Color::Red;
 			renderer.drawText(*FONT, format, position, color);
 			position.y() += 10;
