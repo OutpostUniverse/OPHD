@@ -218,9 +218,9 @@ void FactoryProduction::update()
 
 	Window::update();
 
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
-	const auto drawTitleText = [&renderer = r](NAS2D::Point<int> position, std::string title, std::string text) {
+	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, std::string title, std::string text) {
 		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
 		position.x() += 120;
 		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
