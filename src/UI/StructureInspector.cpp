@@ -91,10 +91,10 @@ void StructureInspector::btnCloseClicked()
 
 void StructureInspector::drawPopulationRequirements()
 {
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
 	auto position = rect().startPoint() + NAS2D::Vector{10, 85};
-	r.drawText(*FONT_BOLD, "Population Required", position, NAS2D::Color::White);
+	renderer.drawText(*FONT_BOLD, "Population Required", position, NAS2D::Color::White);
 
 	const std::array<std::string, 2> populationTypes = {{
 		"Workers",
@@ -109,7 +109,7 @@ void StructureInspector::drawPopulationRequirements()
 		{
 			std::string format = string_format(populationTypes[populationType] + ": %i/%i", populationAvailable[populationType], populationRequirements[populationType]);
 			Color color = populationAvailable[populationType] >= populationRequirements[populationType] ? Color::White : Color::Red;
-			r.drawText(*FONT, format, position, color);
+			renderer.drawText(*FONT, format, position, color);
 			position.y() += 10;
 		}
 	}
