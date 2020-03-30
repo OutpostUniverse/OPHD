@@ -76,8 +76,8 @@ void TileInspector::update()
 	position = rect().startPoint() + NAS2D::Vector{5, 62};
 	drawTitleText(position, "Location: ", string_format("%i, %i", mTile->x(), mTile->y()));
 
-	r.drawText(*FONT_BOLD, "Terrain:", rect().x() + 5, rect().y() + 72, 255, 255, 255);
-	r.drawText(*FONT, TILE_INDEX_TRANSLATION[mTile->index()], rect().x() + 5 + FONT_BOLD->width("Terrain: "), rect().y() + 72, 255, 255, 255);
+	position.y() += 10;
+	drawTitleText(position, "Terrain: ", TILE_INDEX_TRANSLATION[mTile->index()]);
 }
 
 
