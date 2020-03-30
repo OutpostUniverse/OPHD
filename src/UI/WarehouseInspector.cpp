@@ -93,7 +93,7 @@ void WarehouseInspector::update()
 	};
 
 	auto position = rect().startPoint() + NAS2D::Vector{constants::MARGIN, 25};
-	drawTitleText(position, "Storage", string_format("%i / %i", pool.availableStorage(), pool.capacity()), 0);
+	drawTitleText(position, "Storage", std::to_string(pool.availableStorage()) + " / " + std::to_string(pool.capacity()), 0);
 
 	position.y() += 25;
 	drawTitleText(position, "Clothing:", std::to_string(pool.count(PRODUCT_CLOTHING)));
