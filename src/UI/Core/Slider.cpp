@@ -417,7 +417,7 @@ void Slider::draw()
 
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
-		std::string textHover = string_format("%i / %i", static_cast<int>(thumbPosition()), static_cast<int>(mLength));
+		std::string textHover = std::to_string(static_cast<int>(thumbPosition())) + " / " + std::to_string(static_cast<int>(mLength));
 		int _x = 0, _y = 0;
 		int _w = SLD_FONT->width(textHover) + 4;
 		int _h = SLD_FONT->height() + 4;
