@@ -139,7 +139,7 @@ void TextField::onTextInput(const std::string& _s)
 
 	if (mMaxCharacters > 0 && text().length() == mMaxCharacters) { return; }
 
-	int prvLen = text().length();
+	auto prvLen = text().length();
 
 	if (mNumbersOnly && !std::isdigit(_s[0], LOC)) { return; }
 
