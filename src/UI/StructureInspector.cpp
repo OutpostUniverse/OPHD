@@ -92,26 +92,24 @@ void StructureInspector::btnCloseClicked()
 void StructureInspector::drawPopulationRequirements()
 {
 	Renderer& r = Utility<Renderer>::get();
-	float posX = rect().x() + 10.0f;
-	float posY = rect().y() + 85.0f;
 
-	r.drawText(*FONT_BOLD, "Population Required", rect().x() + 10, posY, 255, 255, 255);
+	auto position = rect().startPoint() + NAS2D::Vector{10, 85};
+	r.drawText(*FONT_BOLD, "Population Required", position, NAS2D::Color::White);
 
-	posY += 20;
-
+	position.y() += 20;
 	if (mStructure->populationRequirements()[0] > 0)
 	{
 		std::string format = string_format("Workers: %i/%i", mStructure->populationAvailable()[0], mStructure->populationRequirements()[0]);
 		Color color = mStructure->populationAvailable()[0] >= mStructure->populationRequirements()[0] ? Color::White : Color::Red;
-		r.drawText(*FONT, format, posX, posY, color.red(), color.green(), color.blue());
-		posY += 10;
+		r.drawText(*FONT, format, position, color);
+		position.y() += 10;
 	}
 
 	if (mStructure->populationRequirements()[1] > 0)
 	{
 		std::string format = string_format("Scientists: %i/%i", mStructure->populationAvailable()[1], mStructure->populationRequirements()[1]);
 		Color color = mStructure->populationAvailable()[1] >= mStructure->populationRequirements()[1] ? Color::White : Color::Red;
-		r.drawText(*FONT, format, posX, posY, color.red(), color.green(), color.blue());
+		r.drawText(*FONT, format, position, color);
 	}
 }
 
