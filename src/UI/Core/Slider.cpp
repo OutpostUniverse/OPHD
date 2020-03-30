@@ -365,8 +365,6 @@ void Slider::update()
 void Slider::draw()
 {
 	Renderer& r = Utility<Renderer>::get();
-	std::string textHover;
-	int _x = 0, _y = 0, _w = 0, _h = 0;
 	float _thumbPosition = 0.0f;
 
 	if (mSliderType == SLIDER_VERTICAL)
@@ -419,6 +417,9 @@ void Slider::draw()
 
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
+		std::string textHover;
+		int _x = 0, _y = 0, _w = 0, _h = 0;
+
 		textHover = string_format("%i / %i", static_cast<int>(thumbPosition()), static_cast<int>(mLength));
 		_w = SLD_FONT->width(textHover) + 4;
 		_h = SLD_FONT->height() + 4;
