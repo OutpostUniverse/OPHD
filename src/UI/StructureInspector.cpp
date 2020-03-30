@@ -96,10 +96,10 @@ void StructureInspector::drawPopulationRequirements()
 	auto position = rect().startPoint() + NAS2D::Vector{10, 85};
 	renderer.drawText(*FONT_BOLD, "Population Required", position, NAS2D::Color::White);
 
-	const std::array<std::string, 2> populationTypes = {{
+	const std::array<std::string, 2> populationTypes{
 		"Workers",
 		"Scientists"
-	}};
+	};
 
 	position.y() += 20;
 	for (std::size_t populationType = 0; populationType < populationTypes.size(); ++populationType) {
