@@ -218,20 +218,26 @@ void FactoryProduction::update()
 
 	Window::update();
 
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
-	r.drawText(*FONT_BOLD, "Turns Completed:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 25.0f, 255, 255, 255);
-	r.drawText(*FONT, string_format("%i of %i", mFactory->productionTurnsCompleted(), mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 25.0f, 255, 255, 255);
+	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text) {
+		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
+		position.x() += 120;
+		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
+	};
 
-	r.drawText(*FONT_BOLD, "Common Metals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 45.0f, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 45.0f, 255, 255, 255);
+	auto position = rect().startPoint() + NAS2D::Vector{constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), 25};
+	drawTitleText(position, "Turns Completed:", std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild()));
 
-	r.drawText(*FONT_BOLD, "Common Minerals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 55.0f, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mProductCost.commonMinerals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 55.0f, 255, 255, 255);
+	position.y() += 20;
+	drawTitleText(position, "Common Metals:", std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild()));
 
-	r.drawText(*FONT_BOLD, "Rare Metals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 65.0f, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mProductCost.rareMetals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 65.0f, 255, 255, 255);
+	position.y() += 10;
+	drawTitleText(position, "Common Minerals:", std::to_string(mProductCost.commonMinerals() * mProductCost.turnsToBuild()));
 
-	r.drawText(*FONT_BOLD, "Rare Minerals:", rect().x() + constants::MARGIN * 2 + mProductGrid.width(), rect().y() + 75.0f, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mProductCost.rareMinerals() * mProductCost.turnsToBuild()), rect().x() + constants::MARGIN * 2 + mProductGrid.width() + 120, rect().y() + 75.0f, 255, 255, 255);
+	position.y() += 10;
+	drawTitleText(position, "Rare Metals:", std::to_string(mProductCost.rareMetals() * mProductCost.turnsToBuild()));
+
+	position.y() += 10;
+	drawTitleText(position, "Rare Minerals:", std::to_string(mProductCost.rareMinerals() * mProductCost.turnsToBuild()));
 }
