@@ -84,7 +84,7 @@ void WarehouseInspector::update()
 
 	Renderer& renderer = Utility<Renderer>::get();
 
-	ProductPool& _pool = mWarehouse->products();
+	ProductPool& pool = mWarehouse->products();
 
 	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, std::string title, std::string text, int offset = 100) {
 		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
@@ -93,14 +93,14 @@ void WarehouseInspector::update()
 	};
 
 	auto position = rect().startPoint() + NAS2D::Vector{constants::MARGIN, 25};
-	drawTitleText(position, "Storage", string_format("%i / %i", _pool.availableStorage(), _pool.capacity()), 0);
+	drawTitleText(position, "Storage", string_format("%i / %i", pool.availableStorage(), pool.capacity()), 0);
 
 	position.y() += 25;
-	drawTitleText(position, "Clothing:", std::to_string(_pool.count(PRODUCT_CLOTHING)));
+	drawTitleText(position, "Clothing:", std::to_string(pool.count(PRODUCT_CLOTHING)));
 
 	position.y() += 15;
-	drawTitleText(position, "Medicine:", std::to_string(_pool.count(PRODUCT_MEDICINE)));
+	drawTitleText(position, "Medicine:", std::to_string(pool.count(PRODUCT_MEDICINE)));
 
 	position.y() += 15;
-	drawTitleText(position, "Road Materials:", std::to_string(_pool.count(PRODUCT_ROAD_MATERIALS)));
+	drawTitleText(position, "Road Materials:", std::to_string(pool.count(PRODUCT_ROAD_MATERIALS)));
 }
