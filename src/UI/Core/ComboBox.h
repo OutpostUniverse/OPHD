@@ -7,6 +7,9 @@
 #include "NAS2D/EventHandler.h"
 #include "NAS2D/Renderer/Rectangle.h"
 
+#include <cstddef>
+
+
 class ComboBox : public Control
 {
 public:
