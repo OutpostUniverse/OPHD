@@ -124,9 +124,9 @@ void StructureInspector::update()
 	if (!visible()) { return; }
 	Window::update();
 
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
-	const auto drawTitleText = [&renderer = r](NAS2D::Point<int> position, std::string title, std::string text) {
+	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, std::string title, std::string text) {
 		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
 		position.x() += FONT_BOLD->width(title);
 		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
@@ -159,5 +159,5 @@ void StructureInspector::update()
 	drawPopulationRequirements();
 
 	position = rect().startPoint() + NAS2D::Vector{5, static_cast<int>(rect().height()) - FONT->height() - 5};
-	r.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);
+	renderer.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);
 }
