@@ -117,38 +117,38 @@ void FactoryReport::init()
 
 	add(&btnShowAll, 10, 10);
 	btnShowAll.size(75, 20);
-	btnShowAll.type(Button::BUTTON_TOGGLE);
+	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
 	btnShowAll.click().connect(this, &FactoryReport::btnShowAllClicked);
 
 	add(&btnShowSurface, 87, 10);
 	btnShowSurface.size(75, 20);
-	btnShowSurface.type(Button::BUTTON_TOGGLE);
+	btnShowSurface.type(Button::Type::BUTTON_TOGGLE);
 	btnShowSurface.click().connect(this, &FactoryReport::btnShowSurfaceClicked);
 
 	add(&btnShowUnderground, 164, 10);
 	btnShowUnderground.size(75, 20);
-	btnShowUnderground.type(Button::BUTTON_TOGGLE);
+	btnShowUnderground.type(Button::Type::BUTTON_TOGGLE);
 	btnShowUnderground.click().connect(this, &FactoryReport::btnShowUndergroundClicked);
 
 	add(&btnShowActive, 10, 33);
 	btnShowActive.size(75, 20);
-	btnShowActive.type(Button::BUTTON_TOGGLE);
+	btnShowActive.type(Button::Type::BUTTON_TOGGLE);
 	btnShowActive.click().connect(this, &FactoryReport::btnShowActiveClicked);
 
 	add(&btnShowIdle, 87, 33);
 	btnShowIdle.size(75, 20);
-	btnShowIdle.type(Button::BUTTON_TOGGLE);
+	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnShowIdle.click().connect(this, &FactoryReport::btnShowIdleClicked);
 
 	add(&btnShowDisabled, 164, 33);
 	btnShowDisabled.size(75, 20);
-	btnShowDisabled.type(Button::BUTTON_TOGGLE);
+	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
 	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
 
 	float position_x = Utility<Renderer>::get().width() - 110;
 	add(&btnIdle, position_x, 35);
-	btnIdle.type(Button::BUTTON_TOGGLE);
+	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size(140, 30);
 	btnIdle.click().connect(this, &FactoryReport::btnIdleClicked);
 

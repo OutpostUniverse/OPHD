@@ -69,7 +69,7 @@ Button::~Button()
 
 void Button::type(Type type)
 {
-	mType = type ? BUTTON_TOGGLE : BUTTON_NORMAL;
+	mType = type;
 }
 
 
@@ -113,7 +113,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 		if(rect().contains(click))
 		{
-			if(mType == BUTTON_NORMAL)
+			if(mType == Type::BUTTON_NORMAL)
 			{
 				mState = STATE_PRESSED;
 			}
@@ -135,7 +135,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	{
 		Point_2d click(x, y);
 		
-		if(mType == BUTTON_NORMAL)
+		if(mType == Type::BUTTON_NORMAL)
 		{
 			mState = STATE_NORMAL;
 

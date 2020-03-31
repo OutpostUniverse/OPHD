@@ -12,7 +12,7 @@
 class Button: public Control
 {
 public:
-	enum Type
+	enum class Type
 	{
 		BUTTON_NORMAL,
 		BUTTON_TOGGLE
@@ -56,7 +56,7 @@ private:
 
 private:
 	State				mState = STATE_NORMAL;		/**< Current state of the Button. */
-	Type				mType = BUTTON_NORMAL;		/**< Modifies Button behavior. */
+	Type				mType = Type::BUTTON_NORMAL;		/**< Modifies Button behavior. */
 
 	NAS2D::Image*		mImage = nullptr;			/**< Image to draw centered on the Button. */
 
