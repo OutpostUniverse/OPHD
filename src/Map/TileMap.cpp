@@ -376,7 +376,7 @@ void TileMap::draw()
 				// Draw a beacon on an unoccupied tile with a mine
 				if (tile->mine() != nullptr && !tile->thing())
 				{
-					int glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57;
+					uint8_t glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57;
 					int loc_x = x + TILE_HALF_WIDTH - 6;
 					int loc_y = y + 15;
 
