@@ -19,7 +19,7 @@
  * input handling and management code while leaving the specific implementation
  * to more derived types.
  * 
- * \notes	This is a pure virtual function -- it will need to be inherited from
+ * \notes	This is an abstract class -- it will need to be inherited from
  *			in order to be used.
  */
 class ListBoxBase : public UIContainer
