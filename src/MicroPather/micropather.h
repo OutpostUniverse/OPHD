@@ -73,7 +73,7 @@ distribution.
 	typedef uintptr_t		MP_UPTR;
 #else
 	// Assume not 64 bit pointers. Get a new compiler.
-	typedef unsigned MP_UPTR;
+	typedef std::size_t MP_UPTR;
 #endif
 
 namespace micropather
@@ -173,8 +173,8 @@ namespace micropather
 		unsigned frame = 0;			// unique id for this path, so the solver can distinguish
 									// correct from stale values
 
-		int numAdjacent = 0;		// -1  is unknown & needs to be queried
-		int cacheIndex = 0;			// position in cache
+		std::size_t numAdjacent = 0;		// -1  is unknown & needs to be queried
+		std::size_t cacheIndex = 0;			// position in cache
 
 		PathNode* child[2];			// Binary search in the hash table. [left, right]
 		PathNode* next = nullptr, * prev = nullptr;	// used by open queue
@@ -226,7 +226,7 @@ namespace micropather
 	class PathNodePool
 	{
 	public:
-		PathNodePool(unsigned allocate, unsigned typicalAdjacent);
+		PathNodePool(std::size_t allocate, std::size_t typicalAdjacent);
 		~PathNodePool();
 
 		// Free all the memory except the first block. Resets all memory.
@@ -254,11 +254,11 @@ namespace micropather
 		PathNode* FetchPathNode(void* state);
 
 		// Store stuff in cache
-		bool PushCache(const NodeCost* nodes, int nNodes, int* start);
+		bool PushCache(const NodeCost* nodes, std::size_t nNodes, std::size_t* start);
 
 		// Get neighbors from the cache
 		// Note - always access this with an offset. Can get re-allocated.
-		void GetCache(int start, int nNodes, NodeCost* nodes);
+		void GetCache(std::size_t start, std::size_t nNodes, NodeCost* nodes);
 
 		// Return all the allocated states. Useful for visuallizing what
 		// the pather is doing.
@@ -283,13 +283,13 @@ namespace micropather
 		Block* blocks = nullptr;
 
 		NodeCost* cache = nullptr;
-		int			cacheCap = 0;
-		int			cacheSize = 0;
+		std::size_t cacheCap = 0;
+		std::size_t cacheSize = 0;
 
 		PathNode	freeMemSentinel;
-		unsigned	allocate = 0;				// how big a block of pathnodes to allocate at once
-		unsigned	nAllocated = 0;				// number of pathnodes allocated (from Alloc())
-		unsigned	nAvailable = 0;				// number available for allocation
+		std::size_t	allocate = 0;				// how big a block of pathnodes to allocate at once
+		std::size_t	nAllocated = 0;				// number of pathnodes allocated (from Alloc())
+		std::size_t	nAvailable = 0;				// number available for allocation
 
 		unsigned	hashShift = 0;
 		unsigned	totalCollide = 0;
@@ -321,7 +321,7 @@ namespace micropather
 				const unsigned char* p = reinterpret_cast<const unsigned char*>(&start);
 				unsigned int h = 2166136261U;
 
-				for (unsigned i = 0; i < sizeof(void*) * 2; ++i, ++p)
+				for (std::size_t i = 0; i < sizeof(void*) * 2; ++i, ++p)
 				{
 					h ^= *p;
 					h *= 16777619;
@@ -330,16 +330,16 @@ namespace micropather
 			}
 		};
 
-		PathCache(int itemsToAllocate);
+		PathCache(std::size_t itemsToAllocate);
 		~PathCache();
 
 		void Reset();
 		void Add(const std::vector< void* >& path, const std::vector<float>& cost);
-		void AddNoSolution(void* end, void* states[], int count);
+		void AddNoSolution(void* end, void* states[], std::size_t count);
 		int Solve(void* startState, void* endState, std::vector<void*>* path, float* totalCost);
 
-		int AllocatedBytes() const { return allocated * sizeof(Item); }
-		int UsedBytes() const { return nItems * sizeof(Item); }
+		std::size_t AllocatedBytes() const { return allocated * sizeof(Item); }
+		std::size_t UsedBytes() const { return nItems * sizeof(Item); }
 
 		int hit = 0;
 		int miss = 0;
@@ -349,14 +349,14 @@ namespace micropather
 		const Item* Find(void* start, void* end);
 
 		Item* mem = nullptr;
-		unsigned allocated = 0;
-		unsigned nItems = 0;
+		std::size_t allocated = 0;
+		std::size_t nItems = 0;
 	};
 
 	struct CacheData
 	{
-		int nBytesAllocated = 0;
-		int nBytesUsed = 0;
+		std::size_t nBytesAllocated = 0;
+		std::size_t nBytesUsed = 0;
 		float memoryFraction = 0;
 
 		int hit = 0;
@@ -406,7 +406,7 @@ namespace micropather
 								advantage if you may call the pather with the same path or sub-path, which
 								is common for pathing over maps in games.
 		*/
-		MicroPather(Graph* graph, unsigned allocate = 250, unsigned typicalAdjacent = 6, bool cache = true);
+		MicroPather(Graph* graph, std::size_t allocate = 250, std::size_t typicalAdjacent = 6, bool cache = true);
 		~MicroPather();
 
 		/**

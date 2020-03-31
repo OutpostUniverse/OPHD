@@ -44,6 +44,9 @@ distribution.
 
 using namespace micropather;
 
+constexpr auto Unset = std::size_t(-1);
+
+
 class OpenQueue
 {
 public:
@@ -189,7 +192,7 @@ private:
 };
 
 
-PathNodePool::PathNodePool(unsigned _allocate, unsigned _typicalAdjacent)
+PathNodePool::PathNodePool(std::size_t _allocate, std::size_t _typicalAdjacent)
 	: firstBlock(nullptr),
 	blocks(nullptr),
 #if defined( MICROPATHER_STRESS )
@@ -231,12 +234,12 @@ PathNodePool::~PathNodePool()
 }
 
 
-bool PathNodePool::PushCache(const NodeCost* nodes, int nNodes, int* start)
+bool PathNodePool::PushCache(const NodeCost* nodes, std::size_t nNodes, std::size_t* start)
 {
-	*start = -1;
+	*start = Unset;
 	if (nNodes + cacheSize <= cacheCap)
 	{
-		for (int i = 0; i < nNodes; ++i)
+		for (std::size_t i = 0; i < nNodes; ++i)
 		{
 			cache[i + cacheSize] = nodes[i];
 		}
@@ -248,7 +251,7 @@ bool PathNodePool::PushCache(const NodeCost* nodes, int nNodes, int* start)
 }
 
 
-void PathNodePool::GetCache(int start, int nNodes, NodeCost* nodes)
+void PathNodePool::GetCache(std::size_t start, std::size_t nNodes, NodeCost* nodes)
 {
 	MPASSERT(start >= 0 && start < cacheCap);
 	MPASSERT(nNodes > 0);
@@ -278,7 +281,7 @@ void PathNodePool::Clear()
 		freeMemSentinel.prev = &freeMemSentinel;
 
 		memset(hashTable, 0, sizeof(PathNode*) * HashSize());
-		for (unsigned i = 0; i < allocate; ++i)
+		for (std::size_t i = 0; i < allocate; ++i)
 		{
 			freeMemSentinel.AddBefore(&firstBlock->pathNode[i]);
 		}
@@ -295,7 +298,7 @@ PathNodePool::Block* PathNodePool::NewBlock()
 	block->nextBlock = nullptr;
 
 	nAvailable += allocate;
-	for (unsigned i = 0; i < allocate; ++i)
+	for (std::size_t i = 0; i < allocate; ++i)
 	{
 		freeMemSentinel.AddBefore(&block->pathNode[i]);
 	}
@@ -382,7 +385,7 @@ void PathNodePool::AddPathNode(unsigned key, PathNode* root)
 		PathNode* p = hashTable[key];
 		while (true)
 		{
-			int dir = (root->state < p->state) ? 0 : 1;
+			std::size_t dir = (root->state < p->state) ? 0 : 1;
 			if (p->child[dir])
 			{
 				p = p->child[dir];
@@ -468,12 +471,12 @@ void PathNode::Init(unsigned _frame,
 void PathNode::Clear()
 {
 	memset(this, 0, sizeof(PathNode));
-	numAdjacent = -1;
-	cacheIndex = -1;
+	numAdjacent = Unset;
+	cacheIndex = Unset;
 }
 
 
-MicroPather::MicroPather(Graph* _graph, unsigned allocate, unsigned typicalAdjacent, bool cache)
+MicroPather::MicroPather(Graph* _graph, std::size_t allocate, std::size_t typicalAdjacent, bool cache)
 	: pathNodePool(allocate, typicalAdjacent),
 	graph(_graph),
 	frame(0)
@@ -512,7 +515,7 @@ void MicroPather::GoalReached( PathNode* node, void* start, void* end, std::vect
 
 	// We have reached the goal.
 	// How long is the path? Used to allocate the vector which is returned.
-	int count = 1;
+	std::size_t count = 1;
 	PathNode* it = node;
 	while( it->parent )
 	{
@@ -552,12 +555,12 @@ void MicroPather::GoalReached( PathNode* node, void* start, void* end, std::vect
 
 		PathNode* pn0 = pathNodePool.FetchPathNode(path[0]);
 		PathNode* pn1 = nullptr;
-		for (unsigned i = 0; i < path.size() - 1; ++i)
+		for (std::size_t i = 0; i < path.size() - 1; ++i)
 		{
 			pn1 = pathNodePool.FetchPathNode(path[i + 1]);
 			nodeCostVec.clear();
 			GetNodeNeighbors(pn0, &nodeCostVec);
-			for (unsigned j = 0; j < nodeCostVec.size(); ++j)
+			for (std::size_t j = 0; j < nodeCostVec.size(); ++j)
 			{
 				if (nodeCostVec[j].node == pn1)
 				{
@@ -573,9 +576,9 @@ void MicroPather::GoalReached( PathNode* node, void* start, void* end, std::vect
 
 #ifdef DEBUG_PATH
 	printf("Path: ");
-	int counter = 0;
+	std::size_t counter = 0;
 #endif
-	for (unsigned k = 0; k < path.size(); ++k)
+	for (std::size_t k = 0; k < path.size(); ++k)
 	{
 #ifdef DEBUG_PATH
 		graph->PrintStateInfo(path[k]);
@@ -601,7 +604,7 @@ void MicroPather::GetNodeNeighbors(PathNode* node, std::vector< NodeCost >* pNod
 		// it has no neighbors.
 		pNodeCost->resize(0);
 	}
-	else if (node->cacheIndex < 0)
+	else if (node->cacheIndex == Unset)
 	{
 		// Not in the cache. Either the first time or just didn't fit. We don't know
 		// the number of neighbors and need to call back to the client.
@@ -613,7 +616,7 @@ void MicroPather::GetNodeNeighbors(PathNode* node, std::vector< NodeCost >* pNod
 			// If this assert fires, you have passed a state
 			// as its own neighbor state. This is impossible --
 			// bad things will happen.
-			for (unsigned i = 0; i < stateCostVec.size(); ++i)
+			for (std::size_t i = 0; i < stateCostVec.size(); ++i)
 				MPASSERT(stateCostVec[i].state != node->state);
 		}
 #endif
@@ -626,11 +629,11 @@ void MicroPather::GetNodeNeighbors(PathNode* node, std::vector< NodeCost >* pNod
 			// Now convert to pathNodes.
 			// Note that the microsoft std library is actually pretty slow.
 			// Move things to temp vars to help.
-			const unsigned stateCostVecSize = stateCostVec.size();
+			const std::size_t stateCostVecSize = stateCostVec.size();
 			const StateCost* stateCostVecPtr = &stateCostVec[0];
 			NodeCost* pNodeCostPtr = &(*pNodeCost)[0];
 
-			for (unsigned i = 0; i < stateCostVecSize; ++i)
+			for (std::size_t i = 0; i < stateCostVecSize; ++i)
 			{
 				void* state = stateCostVecPtr[i].state;
 				pNodeCostPtr[i].cost = stateCostVecPtr[i].cost;
@@ -638,7 +641,7 @@ void MicroPather::GetNodeNeighbors(PathNode* node, std::vector< NodeCost >* pNod
 			}
 
 			// Can this be cached?
-			int start = 0;
+			std::size_t start = 0;
 			if (pNodeCost->size() > 0 && pathNodePool.PushCache(pNodeCostPtr, pNodeCost->size(), &start))
 			{
 				node->cacheIndex = start;
@@ -653,7 +656,7 @@ void MicroPather::GetNodeNeighbors(PathNode* node, std::vector< NodeCost >* pNod
 
 		// A node is uninitialized (even if memory is allocated) if it is from a previous frame.
 		// Check for that, and Init() as necessary.
-		for (int i = 0; i < node->numAdjacent; ++i)
+		for (std::size_t i = 0; i < node->numAdjacent; ++i)
 		{
 			PathNode* pNode = pNodeCostPtr[i].node;
 			if (pNode->frame != frame)
@@ -676,7 +679,7 @@ void PathNodePool::AllStates(unsigned frame, std::vector<void*>* stateVec)
 {
 	for (Block* b = blocks; b; b = b->nextBlock)
 	{
-		for (unsigned i = 0; i < allocate; ++i)
+		for (std::size_t i = 0; i < allocate; ++i)
 		{
 			if (b->pathNode[i].frame == frame)
 				stateVec->push_back(b->pathNode[i].state);
@@ -685,7 +688,7 @@ void PathNodePool::AllStates(unsigned frame, std::vector<void*>* stateVec)
 }
 
 
-PathCache::PathCache(int _allocated)
+PathCache::PathCache(std::size_t _allocated)
 {
 	mem = new Item[_allocated]{};
 	allocated = _allocated;
@@ -720,7 +723,7 @@ void PathCache::Add(const std::vector< void* >& path, const std::vector< float >
 		return;
 	}
 
-	for (unsigned i = 0; i < path.size() - 1; ++i)
+	for (std::size_t i = 0; i < path.size() - 1; ++i)
 	{
 		// example: a->b->c->d
 		// Huge memory saving to only store 3 paths to 'd'
@@ -734,14 +737,14 @@ void PathCache::Add(const std::vector< void* >& path, const std::vector< float >
 	}
 }
 
-void PathCache::AddNoSolution(void* end, void* states[], int count)
+void PathCache::AddNoSolution(void* end, void* states[], std::size_t count)
 {
 	if (count + nItems > allocated * 3 / 4)\
 	{
 		return;
 	}
 
-	for (int i = 0; i < count; ++i)
+	for (std::size_t i = 0; i < count; ++i)
 	{
 		Item item = { states[i], end, nullptr, FLT_MAX };
 		AddItem(item);
@@ -921,7 +924,7 @@ int MicroPather::Solve(void* startNode, void* endNode, std::vector< void* >* pat
 			// We have not reached the goal - add the neighbors.
 			GetNodeNeighbors(node, &nodeCostVec);
 
-			for (int i = 0; i < node->numAdjacent; ++i)
+			for (std::size_t i = 0; i < node->numAdjacent; ++i)
 			{
 				// Not actually a neighbor, but useful. Filter out infinite cost.
 				if (nodeCostVec[i].cost == FLT_MAX)
@@ -1027,7 +1030,7 @@ int MicroPather::SolveForNearStates(void* startState, std::vector< StateCost >* 
 
 		GetNodeNeighbors(node, &nodeCostVec);
 
-		for (int i = 0; i < node->numAdjacent; ++i)
+		for (std::size_t i = 0; i < node->numAdjacent; ++i)
 		{
 			MPASSERT(node->costFromStart < FLT_MAX);
 			float newCost = node->costFromStart + nodeCostVec[i].cost;
@@ -1075,9 +1078,9 @@ int MicroPather::SolveForNearStates(void* startState, std::vector< StateCost >* 
 		}
 	}
 #ifdef DEBUG
-	for (unsigned i = 0; i < near->size(); ++i)
+	for (std::size_t i = 0; i < near->size(); ++i)
 	{
-		for (unsigned k = i + 1; k < near->size(); ++k)
+		for (std::size_t k = i + 1; k < near->size(); ++k)
 		{
 			MPASSERT((*near)[i].state != (*near)[k].state);
 		}
