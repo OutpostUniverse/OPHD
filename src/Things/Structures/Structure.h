@@ -148,7 +148,7 @@ protected:
 
 	void activate();
 
-	virtual void disabledStateSet() {};
+	virtual void disabledStateSet() {}
 
 	void state(StructureState newState) { mStructureState = newState; }
 
@@ -167,7 +167,7 @@ private:
 	 * Provided so that structures that need to do something upon
 	 * activation can do so without overriding void activate();
 	 */
-	virtual void activated() {};
+	virtual void activated() {}
 
 private:
 	int						mTurnsToBuild = 0;			/**< Number of turns it takes to build the Structure. */
