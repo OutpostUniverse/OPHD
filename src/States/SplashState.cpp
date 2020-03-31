@@ -21,7 +21,7 @@ float BYLINE_SCALE_STEP = 0.000025f;
 float BYLINE_ALPHA = -800.0f;
 float BYLINE_ALPHA_FADE_STEP = 0.30f;
 
-Timer BYLINE_TIMER;
+NAS2D::Timer BYLINE_TIMER;
 
 enum LogoState
 {
@@ -44,7 +44,7 @@ SplashState::SplashState() :	mLogoLairworks("sys/lairworks-logo.png"),
 
 SplashState::~SplashState()
 {
-	EventHandler& e = Utility<EventHandler>::get();
+	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
 	e.keyDown().disconnect(this, &SplashState::onKeyDown);
 	e.mouseButtonDown().disconnect(this, &SplashState::onMouseDown);
 }
@@ -52,11 +52,11 @@ SplashState::~SplashState()
 
 void SplashState::initialize()
 {
-	EventHandler& e = Utility<EventHandler>::get();
+	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
 	//e.keyDown().connect(this, &SplashState::onKeyDown);
 	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
 
-	Utility<Renderer>::get().showSystemPointer(false);
+	NAS2D::Utility<NAS2D::Renderer>::get().showSystemPointer(false);
 }
 
 
@@ -85,7 +85,7 @@ void setNextState(LogoState& _ls)
 void SplashState::skipSplash()
 {
 	mReturnState = new MainMenuState();
-	Utility<Renderer>::get().fadeOut(FADE_LENGTH);
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(FADE_LENGTH);
 }
 
 
@@ -94,9 +94,9 @@ void SplashState::skipSplash()
  * sense to get something working that basically did what was needed than
  * something that was elegant.
  */
-State* SplashState::update()
+NAS2D::State* SplashState::update()
 {
-	Renderer& r = Utility<Renderer>::get();
+	NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	if (r.isFaded() && !r.isFading() && mTimer.accumulator() > FADE_PAUSE_TIME)
 	{
@@ -167,13 +167,13 @@ State* SplashState::update()
 }
 
 
-void SplashState::onKeyDown(EventHandler::KeyCode /*key*/, EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
+void SplashState::onKeyDown(NAS2D::EventHandler::KeyCode /*key*/, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	skipSplash();
 }
 
 
-void SplashState::onMouseDown(EventHandler::MouseButton /*button*/, int /*x*/, int /*y*/)
+void SplashState::onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, int /*x*/, int /*y*/)
 {
 	skipSplash();
 }
