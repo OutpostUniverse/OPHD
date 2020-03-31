@@ -69,7 +69,7 @@ Button::~Button()
 
 void Button::type(Type type)
 {
-	mType = type ? Type::BUTTON_TOGGLE : Type::BUTTON_NORMAL;
+	mType = type;
 }
 
 
