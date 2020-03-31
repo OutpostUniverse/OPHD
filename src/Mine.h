@@ -27,7 +27,6 @@ public:
 public:
 	Mine();
 	Mine(MineProductionRate rate);
-	~Mine() {};
 
 	bool active() const;
 	void active(bool newActive);
