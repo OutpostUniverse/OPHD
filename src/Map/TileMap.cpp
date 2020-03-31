@@ -329,7 +329,7 @@ bool TileMap::tileHighlightVisible() const
 
 void TileMap::draw()
 {
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
 	Tile* tile = nullptr;
 
@@ -354,7 +354,7 @@ void TileMap::draw()
 					isTileHighlighted ?
 						isConnectionHighlighted ? NAS2D::Color{71, 224, 146} : NAS2D::Color{125, 200, 255} :
 						isConnectionHighlighted ? NAS2D::Color::Green : NAS2D::Color::Normal;
-				r.drawSubImage(mTileset, position, subImageRect, highlightColor);
+				renderer.drawSubImage(mTileset, position, subImageRect, highlightColor);
 
 				// Draw a beacon on an unoccupied tile with a mine
 				if (tile->mine() != nullptr && !tile->thing())
@@ -362,8 +362,8 @@ void TileMap::draw()
 					uint8_t glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57;
 					const auto mineBeaconPosition = position + NAS2D::Vector{TILE_HALF_WIDTH - 6, 15};
 
-					r.drawImage(mMineBeacon, mineBeaconPosition);
-					r.drawSubImage(mMineBeacon, mineBeaconPosition, NAS2D::Rectangle{0, 0, 10, 5}, NAS2D::Color{glow, glow, glow});
+					renderer.drawImage(mMineBeacon, mineBeaconPosition);
+					renderer.drawSubImage(mMineBeacon, mineBeaconPosition, NAS2D::Rectangle{0, 0, 10, 5}, NAS2D::Color{glow, glow, glow});
 				}
 
 				// Tell an occupying thing to update itself.
