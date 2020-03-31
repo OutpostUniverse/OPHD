@@ -12,7 +12,7 @@
 class Button: public Control
 {
 public:
-	enum Type
+	enum class Type
 	{
 		BUTTON_NORMAL,
 		BUTTON_TOGGLE
