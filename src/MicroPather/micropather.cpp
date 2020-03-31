@@ -253,7 +253,7 @@ bool PathNodePool::PushCache(const NodeCost* nodes, std::size_t nNodes, std::siz
 
 void PathNodePool::GetCache(std::size_t start, std::size_t nNodes, NodeCost* nodes)
 {
-	MPASSERT(start >= 0 && start < cacheCap);
+	MPASSERT(start < cacheCap);
 	MPASSERT(nNodes > 0);
 	MPASSERT(start + nNodes <= cacheCap);
 	memcpy(nodes, &cache[start], sizeof(NodeCost) * nNodes);
