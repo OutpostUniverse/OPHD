@@ -341,7 +341,7 @@ void TileMap::draw()
 
 			if (tile.excavated())
 			{
-				auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
+				const auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
 				const auto subImageRect = NAS2D::Rectangle{tile.index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
 				const bool isTileHighlighted = row == mMapHighlight.y() && col == mMapHighlight.x();
 				const bool isConnectionHighlighted = mShowConnections && tile.connected();
