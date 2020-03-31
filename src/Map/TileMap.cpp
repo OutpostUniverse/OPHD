@@ -331,7 +331,6 @@ void TileMap::draw()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	int x = 0, y = 0;
 	Tile* tile = nullptr;
 
 	int tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
@@ -340,9 +339,6 @@ void TileMap::draw()
 	{
 		for(int col = 0; col < mEdgeLength; col++)
 		{
-			x = mMapPosition.x() + ((col - row) * TILE_HALF_WIDTH);
-			y = mMapPosition.y() + ((col + row) * TILE_HEIGHT_HALF_ABSOLUTE);
-
 			tile = &mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
 
 			/// fixme: this is ... well, it's ugly. Find a better way to do this as pretty soon I'm going to need
@@ -350,7 +346,7 @@ void TileMap::draw()
 			/// ranges, etc.
 			if(tile->excavated())
 			{
-				auto position = NAS2D::Point{x, y};
+				auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
 				const auto subImageRect = NAS2D::Rectangle{tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
 				const bool isTileHighlighted = row == mMapHighlight.y() && col == mMapHighlight.x();
 				const bool isConnectionHighlighted = mShowConnections && tile->connected();
