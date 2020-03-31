@@ -200,7 +200,7 @@
     <ClCompile Include="..\..\src\States\MapViewStateUi.cpp" />
     <ClCompile Include="..\..\src\States\Planet.cpp" />
     <ClCompile Include="..\..\src\States\PlanetSelectState.cpp" />
-    <ClCompile Include="..\..\src\states\SplashState.cpp" />
+    <ClCompile Include="..\..\src\States\SplashState.cpp" />
     <ClCompile Include="..\..\src\StructureCatalogue.cpp" />
     <ClCompile Include="..\..\src\StructureManager.cpp" />
     <ClCompile Include="..\..\src\StructureTranslator.cpp" />
@@ -272,7 +272,7 @@
     <ClInclude Include="..\..\src\States\MapViewStateHelper.h" />
     <ClInclude Include="..\..\src\States\Planet.h" />
     <ClInclude Include="..\..\src\States\PlanetSelectState.h" />
-    <ClInclude Include="..\..\src\states\SplashState.h" />
+    <ClInclude Include="..\..\src\States\SplashState.h" />
     <ClInclude Include="..\..\src\States\Wrapper.h" />
     <ClInclude Include="..\..\src\StructureCatalogue.h" />
     <ClInclude Include="..\..\src\StructureManager.h" />

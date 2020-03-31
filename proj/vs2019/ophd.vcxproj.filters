@@ -144,7 +144,7 @@
     <ClCompile Include="..\..\src\UI\StructureInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\states\SplashState.cpp">
+    <ClCompile Include="..\..\src\States\SplashState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\UI\Core\TextArea.cpp">
@@ -428,7 +428,7 @@
     <ClInclude Include="..\..\src\UI\StructureInspector.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\states\SplashState.h">
+    <ClInclude Include="..\..\src\States\SplashState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\FusionReactor.h">
