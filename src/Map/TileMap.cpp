@@ -380,7 +380,7 @@ void TileMap::draw()
 					const auto mineBeaconPosition = NAS2D::Point{x, y} + NAS2D::Vector{TILE_HALF_WIDTH - 6, 15};
 
 					r.drawImage(mMineBeacon, mineBeaconPosition);
-					r.drawSubImage(mMineBeacon, mineBeaconPosition, NAS2D::Rectangle{0, 0, 10, 5}, NAS2D::Color{glow, glow, glow, 255});
+					r.drawSubImage(mMineBeacon, mineBeaconPosition, NAS2D::Rectangle{0, 0, 10, 5}, NAS2D::Color{glow, glow, glow});
 				}
 
 				// Tell an occupying thing to update itself.
