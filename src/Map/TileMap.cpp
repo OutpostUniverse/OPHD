@@ -352,10 +352,11 @@ void TileMap::draw()
 			{
 				auto position = NAS2D::Point{x, y};
 				const auto subImageRect = NAS2D::Rectangle{tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
+				const bool isConnectionHighlighted = mShowConnections && tile->connected();
 				NAS2D::Color highlightColor;
 				if (row == mMapHighlight.y() && col == mMapHighlight.x())
 				{
-					if (mShowConnections && tile->connected())
+					if (isConnectionHighlighted)
 					{
 						highlightColor = NAS2D::Color{71, 224, 146};
 					}
@@ -366,7 +367,7 @@ void TileMap::draw()
 				}
 				else
 				{
-					if (mShowConnections && tile->connected())
+					if (isConnectionHighlighted)
 					{
 						highlightColor = NAS2D::Color::Green;
 					}
