@@ -339,9 +339,6 @@ void TileMap::draw()
 		{
 			Tile& tile = mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
 
-			/// fixme: this is ... well, it's ugly. Find a better way to do this as pretty soon I'm going to need
-			/// an easier way to change tile render color when it comes time to highlight truck routes, comm
-			/// ranges, etc.
 			if(tile.excavated())
 			{
 				auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
