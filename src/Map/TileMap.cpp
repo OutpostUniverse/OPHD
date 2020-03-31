@@ -333,13 +333,13 @@ void TileMap::draw()
 
 	int tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
 
-	for(int row = 0; row < mEdgeLength; row++)
+	for (int row = 0; row < mEdgeLength; row++)
 	{
-		for(int col = 0; col < mEdgeLength; col++)
+		for (int col = 0; col < mEdgeLength; col++)
 		{
 			Tile& tile = mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
 
-			if(tile.excavated())
+			if (tile.excavated())
 			{
 				auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
 				const auto subImageRect = NAS2D::Rectangle{tile.index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
