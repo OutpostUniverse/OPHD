@@ -350,26 +350,28 @@ void TileMap::draw()
 			/// ranges, etc.
 			if(tile->excavated())
 			{
+				auto position = NAS2D::Point{x, y};
+				const auto subImageRect = NAS2D::Rectangle{tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
 				if (row == mMapHighlight.y() && col == mMapHighlight.x())
 				{
 					if (mShowConnections && tile->connected())
 					{
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 71, 224, 146, 255);
+						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{71, 224, 146, 255});
 					}
 					else
 					{
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 125, 200, 255, 255);
+						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{125, 200, 255, 255});
 					}
 				}
 				else
 				{
 					if (mShowConnections && tile->connected())
 					{
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 0, 255, 0, 255);
+						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{0, 255, 0, 255});
 					}
 					else
 					{
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT);
+						r.drawSubImage(mTileset, position, subImageRect);
 					}
 				}
 
@@ -377,14 +379,14 @@ void TileMap::draw()
 				if (tile->mine() != nullptr && !tile->thing())
 				{
 					uint8_t glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57;
-					const auto mineBeaconPosition = NAS2D::Point{x, y} + NAS2D::Vector{TILE_HALF_WIDTH - 6, 15};
+					const auto mineBeaconPosition = position + NAS2D::Vector{TILE_HALF_WIDTH - 6, 15};
 
 					r.drawImage(mMineBeacon, mineBeaconPosition);
 					r.drawSubImage(mMineBeacon, mineBeaconPosition, NAS2D::Rectangle{0, 0, 10, 5}, NAS2D::Color{glow, glow, glow});
 				}
 
 				// Tell an occupying thing to update itself.
-				if (tile->thing()) { tile->thing()->sprite().update(x, y); }
+				if (tile->thing()) { tile->thing()->sprite().update(position); }
 			}
 		}
 	}
