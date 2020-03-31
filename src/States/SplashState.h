@@ -10,9 +10,6 @@
 #include "../Constants.h"
 
 
-using namespace NAS2D;
-
-
 class SplashState : public NAS2D::State
 {
 public:

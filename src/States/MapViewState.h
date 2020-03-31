@@ -26,7 +26,6 @@
 
 #include <string>
 
-using namespace NAS2D;
 
 /**
  * Needs to match insertion order in MapViewState::initialize()
