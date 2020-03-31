@@ -416,7 +416,7 @@
     <ClInclude Include="..\..\src\ResourcePool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\structures\StorageTanks.h">
+    <ClInclude Include="..\..\src\Things\Structures\StorageTanks.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\Residence.h">
