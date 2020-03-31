@@ -337,17 +337,17 @@ void TileMap::draw()
 	{
 		for(int col = 0; col < mEdgeLength; col++)
 		{
-			Tile* tile = &mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
+			Tile& tile = mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
 
 			/// fixme: this is ... well, it's ugly. Find a better way to do this as pretty soon I'm going to need
 			/// an easier way to change tile render color when it comes time to highlight truck routes, comm
 			/// ranges, etc.
-			if(tile->excavated())
+			if(tile.excavated())
 			{
 				auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
-				const auto subImageRect = NAS2D::Rectangle{tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
+				const auto subImageRect = NAS2D::Rectangle{tile.index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
 				const bool isTileHighlighted = row == mMapHighlight.y() && col == mMapHighlight.x();
-				const bool isConnectionHighlighted = mShowConnections && tile->connected();
+				const bool isConnectionHighlighted = mShowConnections && tile.connected();
 				const NAS2D::Color highlightColor =
 					isTileHighlighted ?
 						isConnectionHighlighted ? NAS2D::Color{71, 224, 146} : NAS2D::Color{125, 200, 255} :
@@ -355,7 +355,7 @@ void TileMap::draw()
 				renderer.drawSubImage(mTileset, position, subImageRect, highlightColor);
 
 				// Draw a beacon on an unoccupied tile with a mine
-				if (tile->mine() != nullptr && !tile->thing())
+				if (tile.mine() != nullptr && !tile.thing())
 				{
 					uint8_t glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57;
 					const auto mineBeaconPosition = position + NAS2D::Vector{TILE_HALF_WIDTH - 6, 15};
@@ -365,7 +365,7 @@ void TileMap::draw()
 				}
 
 				// Tell an occupying thing to update itself.
-				if (tile->thing()) { tile->thing()->sprite().update(position); }
+				if (tile.thing()) { tile.thing()->sprite().update(position); }
 			}
 		}
 	}
