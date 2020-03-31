@@ -377,11 +377,10 @@ void TileMap::draw()
 				if (tile->mine() != nullptr && !tile->thing())
 				{
 					uint8_t glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57;
-					int loc_x = x + TILE_HALF_WIDTH - 6;
-					int loc_y = y + 15;
+					const auto mineBeaconPosition = NAS2D::Point{x, y} + NAS2D::Vector{TILE_HALF_WIDTH - 6, 15};
 
-					r.drawImage(mMineBeacon, loc_x, loc_y);
-					r.drawSubImage(mMineBeacon, loc_x, loc_y, 0, 0, 10, 5, glow, glow, glow, 255);
+					r.drawImage(mMineBeacon, mineBeaconPosition);
+					r.drawSubImage(mMineBeacon, mineBeaconPosition, NAS2D::Rectangle{0, 0, 10, 5}, NAS2D::Color{glow, glow, glow, 255});
 				}
 
 				// Tell an occupying thing to update itself.
