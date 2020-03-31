@@ -141,10 +141,10 @@
     <ClCompile Include="..\..\src\ResourcePool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ui\StructureInspector.cpp">
+    <ClCompile Include="..\..\src\UI\StructureInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\states\SplashState.cpp">
+    <ClCompile Include="..\..\src\States\SplashState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\UI\Core\TextArea.cpp">
@@ -165,13 +165,13 @@
     <ClCompile Include="..\..\src\Map\TileMap.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ui\GameOverDialog.cpp">
+    <ClCompile Include="..\..\src\UI\GameOverDialog.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\UI\MajorEventAnnouncement.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ui\FileIo.cpp">
+    <ClCompile Include="..\..\src\UI\FileIo.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\UI\GameOptionsDialog.cpp">
@@ -416,7 +416,7 @@
     <ClInclude Include="..\..\src\ResourcePool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\things\structures\StorageTanks.h">
+    <ClInclude Include="..\..\src\Things\Structures\StorageTanks.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\Residence.h">
@@ -425,10 +425,10 @@
     <ClInclude Include="..\..\src\Things\Structures\MineShaft.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ui\StructureInspector.h">
+    <ClInclude Include="..\..\src\UI\StructureInspector.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\states\SplashState.h">
+    <ClInclude Include="..\..\src\States\SplashState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\FusionReactor.h">
@@ -488,22 +488,22 @@
     <ClInclude Include="..\..\src\Map\TileMap.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Ui\PopulationPanel.h">
+    <ClInclude Include="..\..\src\UI\PopulationPanel.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Things\Structures\ColonistLander.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ui\GameOverDialog.h">
+    <ClInclude Include="..\..\src\UI\GameOverDialog.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\UI\MajorEventAnnouncement.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ui\FileIo.h">
+    <ClInclude Include="..\..\src\UI\FileIo.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ui\Gui.h">
+    <ClInclude Include="..\..\src\UI\Gui.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\UI\GameOptionsDialog.h">
