@@ -356,18 +356,18 @@ void TileMap::draw()
 				{
 					if (mShowConnections && tile->connected())
 					{
-						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{71, 224, 146, 255});
+						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{71, 224, 146});
 					}
 					else
 					{
-						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{125, 200, 255, 255});
+						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{125, 200, 255});
 					}
 				}
 				else
 				{
 					if (mShowConnections && tile->connected())
 					{
-						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{0, 255, 0, 255});
+						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{0, 255, 0});
 					}
 					else
 					{
