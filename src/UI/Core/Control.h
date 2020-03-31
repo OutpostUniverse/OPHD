@@ -65,7 +65,7 @@ public:
 
 	ResizeCallback& resized();
 
-	virtual void update() {};
+	virtual void update() {}
 
 protected:
 	/**
@@ -78,12 +78,12 @@ protected:
 
 	virtual void visibilityChanged(bool /*visible*/) {}
 
-	virtual void enabledChanged() {};
+	virtual void enabledChanged() {}
 
-	virtual void onFocusChanged() {};
+	virtual void onFocusChanged() {}
 
 	virtual void onSizeChanged() { mResized(this); }
-	virtual void onTextChanged() { mTextChanged(this); };
+	virtual void onTextChanged() { mTextChanged(this); }
 
 	std::string& _text();
 
@@ -95,7 +95,7 @@ protected:
 	NAS2D::Rectangle_2df	mRect;				/**< Area of the Control. */
 
 private:
-	virtual void draw() {};
+	virtual void draw() {}
 
 private:
 	std::string				mText;				/**< Internal text string. */
