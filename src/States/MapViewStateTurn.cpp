@@ -41,7 +41,7 @@ static int pullFood(ResourcePool& _rp, int amount)
  */
 void MapViewState::updatePopulation()
 {
-	StructureManager& sm = Utility<StructureManager>::get();
+	StructureManager& sm = NAS2D::Utility<StructureManager>::get();
 	
 	int residences = sm.getCountInState(Structure::CLASS_RESIDENCE, Structure::OPERATIONAL);
 	int universities = sm.getCountInState(Structure::CLASS_UNIVERSITY, Structure::OPERATIONAL);
@@ -72,7 +72,7 @@ void MapViewState::updatePopulation()
  */
 void MapViewState::updateCommercial()
 {
-	StructureManager& sm = Utility<StructureManager>::get();
+	StructureManager& sm = NAS2D::Utility<StructureManager>::get();
 
 	StructureList& _warehouses = sm.structureList(Structure::CLASS_WAREHOUSE);
 	StructureList& _commercial = sm.structureList(Structure::CLASS_COMMERCIAL);
@@ -132,7 +132,7 @@ void MapViewState::updateCommercial()
  */
 void MapViewState::updateMorale()
 {
-	StructureManager& sm = Utility<StructureManager>::get();
+	StructureManager& sm = NAS2D::Utility<StructureManager>::get();
 
 	// POSITIVE MORALE EFFECTS
 	// =========================================
@@ -168,13 +168,13 @@ void MapViewState::updateMorale()
 void MapViewState::updateResources()
 {
 	// Update storage capacity
-	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::CLASS_STORAGE)));
+	mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_STORAGE)));
 
 	ResourcePool truck;
 	truck.capacity(100);
 
 	// Move ore from mines to smelters
-	for (auto mine : Utility<StructureManager>::get().structureList(Structure::CLASS_MINE))
+	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_MINE))
 	{
 		static_cast<MineFacility*>(mine)->mine()->checkExhausted();
 
@@ -187,7 +187,7 @@ void MapViewState::updateResources()
 		truck.rareMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS_ORE, 25));
 		truck.rareMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, 25));
 
-		for (auto smelter : Utility<StructureManager>::get().structureList(Structure::CLASS_SMELTER))
+		for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_SMELTER))
 		{
 			if (smelter->operational())
 			{
@@ -202,7 +202,7 @@ void MapViewState::updateResources()
 	}
 
 	// Move refined resources from smelters to storage tanks
-	for (auto smelter : Utility<StructureManager>::get().structureList(Structure::CLASS_SMELTER))
+	for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_SMELTER))
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
@@ -261,7 +261,7 @@ void MapViewState::checkColonyShip()
 void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
-	auto residences = Utility<StructureManager>::get().structureList(Structure::CLASS_RESIDENCE);
+	auto residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_RESIDENCE);
 	for (auto residence : residences)
 	{
 		if (residence->operational()) { mResidentialCapacity += static_cast<Residence*>(residence)->capacity(); }
@@ -284,7 +284,7 @@ std::vector<void*> path;
  */
 void MapViewState::nextTurn()
 {
-	Renderer& r = Utility<Renderer>::get();
+	NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
 	r.drawImage(*IMG_PROCESSING_TURN, r.center_x() - (IMG_PROCESSING_TURN->width() / 2), r.center_y() - (IMG_PROCESSING_TURN->height() / 2));
 	r.update();
 
@@ -294,9 +294,9 @@ void MapViewState::nextTurn()
 
 	mResourceBreakdownPanel.previousResources() = mPlayerResources;
 
-	Utility<StructureManager>::get().disconnectAll();
+	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
-	Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
+	NAS2D::Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
 
 	mPreviousMorale = mCurrentMorale;
 

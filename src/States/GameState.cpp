@@ -12,7 +12,7 @@
 #include "NAS2D/Mixer/Mixer.h"
 #include "NAS2D/Renderer/Renderer.h"
 
-Point_2d MOUSE_COORDS;									/**< Mouse Coordinates. Used by other states/wrapers. */
+NAS2D::Point_2d MOUSE_COORDS;									/**< Mouse Coordinates. Used by other states/wrapers. */
 
 MainReportsUiState* MAIN_REPORTS_UI = nullptr;			/**< Pointer to a MainReportsUiState. Memory is handled by GameState. */
 static MapViewState* MAP_VIEW = nullptr;				/**< Pointer to a MapViewState. Memory is handled by GameState. */
@@ -32,12 +32,12 @@ GameState::GameState()
  */
 GameState::~GameState()
 {
-	Utility<StructureManager>::get().dropAllStructures();
+	NAS2D::Utility<StructureManager>::get().dropAllStructures();
 
-	EventHandler& e = Utility<EventHandler>::get();
+	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
 	e.mouseMotion().disconnect(this, &GameState::onMouseMove);
 
-	Utility<Renderer>::get().fadeComplete().disconnect(this, &GameState::fadeComplete);
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &GameState::fadeComplete);
 
 	MAIN_REPORTS_UI->hideReports().disconnect(this, &GameState::hideReportsUi);
 	MAP_VIEW->quit().disconnect(this, &GameState::quitEvent);
@@ -52,8 +52,8 @@ GameState::~GameState()
 	delete MAIN_REPORTS_UI;
 	delete MAP_VIEW;
 
-	Utility<Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
-	Utility<Mixer>::get().stopAllAudio();
+	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
+	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
 
 
@@ -62,7 +62,7 @@ GameState::~GameState()
  */
 void GameState::initialize()
 {
-	EventHandler& e = Utility<EventHandler>::get();
+	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
 	e.mouseMotion().connect(this, &GameState::onMouseMove);
 
 	MAIN_REPORTS_UI = new MainReportsUiState();
@@ -74,9 +74,9 @@ void GameState::initialize()
 		takeMeThere->connect(this, &GameState::takeMeThere);
 	}
 
-	Utility<Mixer>::get().addMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
-	Utility<Renderer>::get().fadeComplete().connect(this, &GameState::fadeComplete);
-	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
+	NAS2D::Utility<NAS2D::Mixer>::get().addMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().connect(this, &GameState::fadeComplete);
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeIn(constants::FADE_SPEED);
 }
 
 
@@ -115,7 +115,7 @@ void GameState::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
  */
 void GameState::fadeComplete()
 {
-	Renderer& r = Utility<Renderer>::get();
+	NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
 	if (r.isFaded())
 	{
 		mReturnState = new MainMenuState();
@@ -197,7 +197,7 @@ void GameState::takeMeThere(Structure* _s)
 /**
  * Update
  */
-State* GameState::update()
+NAS2D::State* GameState::update()
 {
 	if (ACTIVE_STATE)
 	{

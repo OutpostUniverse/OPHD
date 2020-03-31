@@ -25,13 +25,13 @@ NAS2D::Rectangle_2d	BOTTOM_UI_AREA;
 /**
  * \fixme	Yuck, not thrilled with this but whatever, it works.
  */
-extern Rectangle_2d MENU_ICON;
-extern Rectangle_2d MOVE_NORTH_ICON;
-extern Rectangle_2d MOVE_SOUTH_ICON;
-extern Rectangle_2d MOVE_EAST_ICON;
-extern Rectangle_2d MOVE_WEST_ICON;
-extern Rectangle_2d MOVE_UP_ICON;
-extern Rectangle_2d MOVE_DOWN_ICON;
+extern NAS2D::Rectangle_2d MENU_ICON;
+extern NAS2D::Rectangle_2d MOVE_NORTH_ICON;
+extern NAS2D::Rectangle_2d MOVE_SOUTH_ICON;
+extern NAS2D::Rectangle_2d MOVE_EAST_ICON;
+extern NAS2D::Rectangle_2d MOVE_WEST_ICON;
+extern NAS2D::Rectangle_2d MOVE_UP_ICON;
+extern NAS2D::Rectangle_2d MOVE_DOWN_ICON;
 
 
 extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.
@@ -47,7 +47,7 @@ extern NAS2D::Image* IMG_PROCESSING_TURN;	/// \fixme Find a sane place for this.
  */
 static inline int centerWindowWidth(float width)
 {
-	return static_cast<int>(Utility<Renderer>::get().center_x() - width / 2);
+	return static_cast<int>(NAS2D::Utility<NAS2D::Renderer>::get().center_x() - width / 2);
 }
 
 
@@ -59,7 +59,7 @@ static inline int centerWindowWidth(float width)
  */
 static inline int centerWindowHeight(float height)
 {
-	return static_cast<int>(Utility<Renderer>::get().center_y() - height / 2);
+	return static_cast<int>(NAS2D::Utility<NAS2D::Renderer>::get().center_y() - height / 2);
 }
 
 
@@ -72,7 +72,7 @@ static inline int centerWindowHeight(float height)
  */
 void MapViewState::initUi()
 {
-	Renderer& r = Utility<Renderer>::get();
+	NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	mDiggerDirection.directionSelected().connect(this, &MapViewState::diggerSelectionDialog);
 	mDiggerDirection.hide();
@@ -172,7 +172,7 @@ void MapViewState::initUi()
 
 void MapViewState::setupUiPositions(int w, int h)
 {
-	//Renderer& r = Utility<Renderer>::get();
+	//NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Bottom UI Area
 	BOTTOM_UI_AREA = {0, static_cast<int>(h - constants::BOTTOM_UI_HEIGHT), static_cast<int>(w), constants::BOTTOM_UI_HEIGHT};
@@ -293,7 +293,7 @@ void MapViewState::populateStructureMenu()
 	mConnections.dropAllItems();
 
 	// Above Ground structures only
-	if (Utility<StructureManager>::get().count() == 0)
+	if (NAS2D::Utility<StructureManager>::get().count() == 0)
 	{
 		if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 		{
@@ -355,7 +355,7 @@ void MapViewState::populateStructureMenu()
 */
 void MapViewState::drawUI()
 {
-	Renderer& r = Utility<Renderer>::get();
+	NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Bottom UI
 	r.drawBoxFilled(BOTTOM_UI_AREA, 39, 39, 39);
@@ -446,7 +446,7 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 	mCurrentRobot = static_cast<RobotType>(_item->meta);
 
 	mInsertMode = INSERT_ROBOT;
-	Utility<Renderer>::get().setCursor(POINTER_PLACE_TILE);
+	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(POINTER_PLACE_TILE);
 }
 
 
@@ -460,8 +460,8 @@ void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection select
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
 	if (tile->depth() > 0 && selection == DiggerDirection::SEL_DOWN)
 	{
-		Utility<StructureManager>::get().removeStructure(tile->structure());
-		Utility<StructureManager>::get().disconnectAll();
+		NAS2D::Utility<StructureManager>::get().removeStructure(tile->structure());
+		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		tile->deleteThing();
 		tile->connected(false);
 		checkConnectedness();
@@ -550,7 +550,7 @@ void MapViewState::btnReturnToGameClicked()
  */
 void MapViewState::btnGameOverClicked()
 {
-	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
 	mQuitCallback();
 }
 

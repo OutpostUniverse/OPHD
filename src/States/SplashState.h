@@ -10,10 +10,7 @@
 #include "../Constants.h"
 
 
-using namespace NAS2D;
-
-
-class SplashState : public State
+class SplashState : public NAS2D::State
 {
 public:
 	SplashState();
@@ -22,24 +19,24 @@ public:
 protected:
 
 	void initialize();
-	State* update();
+	NAS2D::State* update();
 
 private:
-	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
-	void onMouseDown(EventHandler::MouseButton button, int x, int y);
+	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
 	void skipSplash();
 
 private:
-	Image				mLogoLairworks;
-	Image				mLogoNas2d;
-	Image				mLogoOutpostHd;
-	Image				mFlare;
-	Image				mByline;
+	NAS2D::Image				mLogoLairworks;
+	NAS2D::Image				mLogoNas2d;
+	NAS2D::Image				mLogoOutpostHd;
+	NAS2D::Image				mFlare;
+	NAS2D::Image				mByline;
 
-	Point_2d			mMousePosition;
+	NAS2D::Point_2d			mMousePosition;
 
-	Timer				mTimer;
+	NAS2D::Timer				mTimer;
 
-	State*				mReturnState = this;
+	NAS2D::State*				mReturnState = this;
 };
