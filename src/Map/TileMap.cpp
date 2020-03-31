@@ -352,28 +352,30 @@ void TileMap::draw()
 			{
 				auto position = NAS2D::Point{x, y};
 				const auto subImageRect = NAS2D::Rectangle{tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
+				NAS2D::Color highlightColor;
 				if (row == mMapHighlight.y() && col == mMapHighlight.x())
 				{
 					if (mShowConnections && tile->connected())
 					{
-						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{71, 224, 146});
+						highlightColor = NAS2D::Color{71, 224, 146};
 					}
 					else
 					{
-						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color{125, 200, 255});
+						highlightColor = NAS2D::Color{125, 200, 255};
 					}
 				}
 				else
 				{
 					if (mShowConnections && tile->connected())
 					{
-						r.drawSubImage(mTileset, position, subImageRect, NAS2D::Color::Green);
+						highlightColor = NAS2D::Color::Green;
 					}
 					else
 					{
-						r.drawSubImage(mTileset, position, subImageRect);
+						highlightColor = NAS2D::Color::Normal;
 					}
 				}
+				r.drawSubImage(mTileset, position, subImageRect, highlightColor);
 
 				// Draw a beacon on an unoccupied tile with a mine
 				if (tile->mine() != nullptr && !tile->thing())
