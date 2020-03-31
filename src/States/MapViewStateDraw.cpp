@@ -191,7 +191,7 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, position, storageCapacityImageRect);
 	bool shouldStorageCapacityGlow = mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100;
 	color = shouldStorageCapacityGlow ? glowColor : NAS2D::Color::White;
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), position + textOffset, color);
+	renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), position + textOffset, color);
 
 	// Food
 	position.x() += (x + offsetX) * 2;
@@ -199,7 +199,7 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, position, foodImageRect);
 	bool shouldFoodStorageGlow = foodInStorage() <= 10;
 	color = shouldFoodStorageGlow ? glowColor : NAS2D::Color::White;
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", foodInStorage(), foodTotalStorage()), position + textOffset, color);
+	renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", foodInStorage(), foodTotalStorage()), position + textOffset, color);
 
 	// Energy
 	position.x() += (x + offsetX) * 2;
@@ -207,7 +207,7 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, position, energyImageRect);
 	bool shouldEnergyGlow = mPlayerResources.energy() <= 5;
 	color = shouldEnergyGlow ? glowColor : NAS2D::Color::White;
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), NAS2D::Utility<StructureManager>::get().totalEnergyProduction()), position + textOffset, color);
+	renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", mPlayerResources.energy(), NAS2D::Utility<StructureManager>::get().totalEnergyProduction()), position + textOffset, color);
 
 	// Population / Morale
 	position.x() += (x + offsetX) * 2 - 17;
@@ -278,7 +278,7 @@ void MapViewState::drawRobotInfo()
 
 	for (const auto params : icons) {
 		renderer.drawSubImage(mUiIcons, position, params.imageRect);
-		renderer.drawText(*MAIN_FONT, string_format("%i/%i", params.parts, params.total), position + textOffset, NAS2D::Color::White);
+		renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", params.parts, params.total), position + textOffset, NAS2D::Color::White);
 		position.y() -= 25;
 	}
 }
