@@ -14,25 +14,25 @@
 #include <vector>
 #include <algorithm>
 
-extern Rectangle_2d MENU_ICON;
+extern NAS2D::Rectangle_2d MENU_ICON;
 
-extern Rectangle_2d MOVE_NORTH_ICON;
-extern Rectangle_2d MOVE_SOUTH_ICON;
-extern Rectangle_2d MOVE_EAST_ICON;
-extern Rectangle_2d MOVE_WEST_ICON;
-extern Rectangle_2d MOVE_UP_ICON;
-extern Rectangle_2d MOVE_DOWN_ICON;
+extern NAS2D::Rectangle_2d MOVE_NORTH_ICON;
+extern NAS2D::Rectangle_2d MOVE_SOUTH_ICON;
+extern NAS2D::Rectangle_2d MOVE_EAST_ICON;
+extern NAS2D::Rectangle_2d MOVE_WEST_ICON;
+extern NAS2D::Rectangle_2d MOVE_UP_ICON;
+extern NAS2D::Rectangle_2d MOVE_DOWN_ICON;
 
-extern Point_2d MOUSE_COORDS;
+extern NAS2D::Point_2d MOUSE_COORDS;
 
-extern Font* MAIN_FONT; /// yuck
+extern NAS2D::Font* MAIN_FONT; /// yuck
 extern std::vector<void*> path;
 
 
 namespace {
 	uint8_t calcGlowIntensity()
 	{
-		static Timer glowTimer;
+		static NAS2D::Timer glowTimer;
 		static int glowStepDelta = 20;
 		static int glowStep = 0;
 
@@ -62,7 +62,7 @@ namespace {
  */
 void MapViewState::drawMiniMap()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto miniMapBoxFloat = mMiniMapBoundingBox.to<float>();
 	renderer.clipRect(miniMapBoxFloat);
 
@@ -79,7 +79,7 @@ void MapViewState::drawMiniMap()
 		renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create(ccOffsetPosition - NAS2D::Vector<int>{1, 1}, NAS2D::Vector<int>{3, 3}), NAS2D::Color::White);
 	}
 
-	auto& structureManager = Utility<StructureManager>::get();
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	for (auto commTower : structureManager.structureList(Structure::CLASS_COMM))
 	{
 		if (commTower->operational())
@@ -133,7 +133,7 @@ void MapViewState::drawMiniMap()
  */
 void MapViewState::drawResourceInfo()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.drawBoxFilled(NAS2D::Rectangle<float>{0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{39, 39, 39});
 	renderer.drawBox(NAS2D::Rectangle<float>{0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{21, 21, 21});
@@ -207,7 +207,7 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, position, energyImageRect);
 	bool shouldEnergyGlow = mPlayerResources.energy() <= 5;
 	color = shouldEnergyGlow ? glowColor : NAS2D::Color::White;
-	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), Utility<StructureManager>::get().totalEnergyProduction()), position + textOffset, color);
+	renderer.drawText(*MAIN_FONT, string_format("%i/%i", mPlayerResources.energy(), NAS2D::Utility<StructureManager>::get().totalEnergyProduction()), position + textOffset, color);
 
 	// Population / Morale
 	position.x() += (x + offsetX) * 2 - 17;
@@ -251,7 +251,7 @@ void MapViewState::drawRobotInfo()
 	// CC hasn't been placed yet.
 	if (ccLocation() == NAS2D::Point<int>{0, 0}) { return; }
 
-	Renderer& renderer = Utility<Renderer>::get();
+	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Robots: Miner (last one), Dozer (middle one), Digger (first one)
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
@@ -283,7 +283,7 @@ void MapViewState::drawRobotInfo()
 	}
 }
 
-bool MapViewState::drawNavIcon(Renderer& renderer, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
+bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
 	bool isMouseInIcon = currentIconBounds.contains(MOUSE_COORDS);
 	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
 	renderer.drawSubImage(mUiIcons, currentIconBounds.startPoint(), subImageBounds, color);
@@ -295,7 +295,7 @@ bool MapViewState::drawNavIcon(Renderer& renderer, const NAS2D::Rectangle_2d& cu
  */
 void MapViewState::drawNavInfo()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	drawNavIcon(renderer, MOVE_DOWN_ICON, NAS2D::Rectangle_2d{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
 	drawNavIcon(renderer, MOVE_UP_ICON, NAS2D::Rectangle_2d{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);

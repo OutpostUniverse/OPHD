@@ -86,10 +86,10 @@ private:
 	
 	// EVENT HANDLERS
 	void onActivate(bool newActiveValue);
-	void onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool repeat);
-	void onMouseDown(EventHandler::MouseButton button, int x, int y);
-	void onMouseDoubleClick(EventHandler::MouseButton button, int x, int y);
-	void onMouseUp(EventHandler::MouseButton button, int x, int y);
+	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
 	void onMouseWheel(int x, int y);
 	void onWindowResized(int w, int h);
@@ -103,7 +103,7 @@ private:
 	void drawUI();
 	void drawMiniMap();
 	void drawNavInfo();
-	bool drawNavIcon(Renderer& r, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor);
+	bool drawNavIcon(NAS2D::Renderer& r, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor);
 
 	void drawResourceInfo();
 	void drawRobotInfo();
@@ -119,7 +119,7 @@ private:
 	void placeStructure();
 	void placeTubes();
 	
-	Rectangle_2d tubeStart;
+	NAS2D::Rectangle_2d tubeStart;
 	void placeTubeStart();
 	void placeTubeEnd();
 
@@ -150,10 +150,10 @@ private:
 
 
 	// SAVE GAME MANAGEMENT FUNCTIONS
-	void readRobots(Xml::XmlElement* element);
-	void readStructures(Xml::XmlElement* element);
-	void readTurns(Xml::XmlElement* element);
-	void readPopulation(Xml::XmlElement* element);
+	void readRobots(NAS2D::Xml::XmlElement* element);
+	void readStructures(NAS2D::Xml::XmlElement* element);
+	void readTurns(NAS2D::Xml::XmlElement* element);
+	void readPopulation(NAS2D::Xml::XmlElement* element);
 
 	void scrubRobotList();
 
@@ -198,18 +198,18 @@ private:
 
 
 private:
-	FpsCounter			mFps;							/**< Main FPS Counter. */
+	NAS2D::FpsCounter			mFps;							/**< Main FPS Counter. */
 
 	TileMap*			mTileMap = nullptr;
 
-	Image				mBackground;					/**< Background image drawn behind the tile map. */
-	Image				mMapDisplay;					/**< Satellite view of the Site Map. */
-	Image				mHeightMap;						/**< Height view of the Site Map. */
-	Image				mUiIcons;						/**< User interface icons. */
+	NAS2D::Image				mBackground;					/**< Background image drawn behind the tile map. */
+	NAS2D::Image				mMapDisplay;					/**< Satellite view of the Site Map. */
+	NAS2D::Image				mHeightMap;						/**< Height view of the Site Map. */
+	NAS2D::Image				mUiIcons;						/**< User interface icons. */
 
-	Point_2d			mTileMapMouseHover;				/**< Tile position the mouse is currently hovering over. */
+	NAS2D::Point_2d			mTileMapMouseHover;				/**< Tile position the mouse is currently hovering over. */
 
-	Rectangle_2d		mMiniMapBoundingBox;			/**< Area of the site map display. */
+	NAS2D::Rectangle_2d		mMiniMapBoundingBox;			/**< Area of the site map display. */
 
 	// POOL'S
 	ResourcePool		mPlayerResources;				/**< Player's current resources. */
