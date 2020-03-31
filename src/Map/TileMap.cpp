@@ -329,62 +329,40 @@ bool TileMap::tileHighlightVisible() const
 
 void TileMap::draw()
 {
-	Renderer& r = Utility<Renderer>::get();
-
-	int x = 0, y = 0;
-	Tile* tile = nullptr;
+	Renderer& renderer = Utility<Renderer>::get();
 
 	int tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
 
-	for(int row = 0; row < mEdgeLength; row++)
+	for (int row = 0; row < mEdgeLength; row++)
 	{
-		for(int col = 0; col < mEdgeLength; col++)
+		for (int col = 0; col < mEdgeLength; col++)
 		{
-			x = mMapPosition.x() + ((col - row) * TILE_HALF_WIDTH);
-			y = mMapPosition.y() + ((col + row) * TILE_HEIGHT_HALF_ABSOLUTE);
+			Tile& tile = mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
 
-			tile = &mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
-
-			/// fixme: this is ... well, it's ugly. Find a better way to do this as pretty soon I'm going to need
-			/// an easier way to change tile render color when it comes time to highlight truck routes, comm
-			/// ranges, etc.
-			if(tile->excavated())
+			if (tile.excavated())
 			{
-				if (row == mMapHighlight.y() && col == mMapHighlight.x())
-				{
-					if (mShowConnections && tile->connected())
-					{
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 71, 224, 146, 255);
-					}
-					else
-					{
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 125, 200, 255, 255);
-					}
-				}
-				else
-				{
-					if (mShowConnections && tile->connected())
-					{
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT, 0, 255, 0, 255);
-					}
-					else
-					{
-						r.drawSubImage(mTileset, x, y, tile->index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT);
-					}
-				}
+				const auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
+				const auto subImageRect = NAS2D::Rectangle{tile.index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
+				const bool isTileHighlighted = row == mMapHighlight.y() && col == mMapHighlight.x();
+				const bool isConnectionHighlighted = mShowConnections && tile.connected();
+				const NAS2D::Color highlightColor =
+					isTileHighlighted ?
+						isConnectionHighlighted ? NAS2D::Color{71, 224, 146} : NAS2D::Color{125, 200, 255} :
+						isConnectionHighlighted ? NAS2D::Color::Green : NAS2D::Color::Normal;
+				renderer.drawSubImage(mTileset, position, subImageRect, highlightColor);
 
 				// Draw a beacon on an unoccupied tile with a mine
-				if (tile->mine() != nullptr && !tile->thing())
+				if (tile.mine() != nullptr && !tile.thing())
 				{
 					uint8_t glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57;
-					const auto mineBeaconPosition = NAS2D::Point{x, y} + NAS2D::Vector{TILE_HALF_WIDTH - 6, 15};
+					const auto mineBeaconPosition = position + NAS2D::Vector{TILE_HALF_WIDTH - 6, 15};
 
-					r.drawImage(mMineBeacon, mineBeaconPosition);
-					r.drawSubImage(mMineBeacon, mineBeaconPosition, NAS2D::Rectangle{0, 0, 10, 5}, NAS2D::Color{glow, glow, glow});
+					renderer.drawImage(mMineBeacon, mineBeaconPosition);
+					renderer.drawSubImage(mMineBeacon, mineBeaconPosition, NAS2D::Rectangle{0, 0, 10, 5}, NAS2D::Color{glow, glow, glow});
 				}
 
 				// Tell an occupying thing to update itself.
-				if (tile->thing()) { tile->thing()->sprite().update(x, y); }
+				if (tile.thing()) { tile.thing()->sprite().update(position); }
 			}
 		}
 	}
