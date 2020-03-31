@@ -113,31 +113,31 @@ void WarehouseReport::init()
 
 	add(&btnShowAll, 10, 10);
 	btnShowAll.size(75, 20);
-	btnShowAll.type(Button::BUTTON_TOGGLE);
+	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
 	btnShowAll.click().connect(this, &WarehouseReport::btnShowAllClicked);
 
 	add(&btnSpaceAvailable, 90, 10);
 	btnSpaceAvailable.size(100, 20);
-	btnSpaceAvailable.type(Button::BUTTON_TOGGLE);
+	btnSpaceAvailable.type(Button::Type::BUTTON_TOGGLE);
 	btnSpaceAvailable.toggle(false);
 	btnSpaceAvailable.click().connect(this, &WarehouseReport::btnSpaceAvailableClicked);
 
 	add(&btnFull, 195, 10);
 	btnFull.size(75, 20);
-	btnFull.type(Button::BUTTON_TOGGLE);
+	btnFull.type(Button::Type::BUTTON_TOGGLE);
 	btnFull.toggle(false);
 	btnFull.click().connect(this, &WarehouseReport::btnFullClicked);
 
 	add(&btnEmpty, 275, 10);
 	btnEmpty.size(75, 20);
-	btnEmpty.type(Button::BUTTON_TOGGLE);
+	btnEmpty.type(Button::Type::BUTTON_TOGGLE);
 	btnEmpty.toggle(false);
 	btnEmpty.click().connect(this, &WarehouseReport::btnEmptyClicked);
 
 	add(&btnDisabled, 355, 10);
 	btnDisabled.size(75, 20);
-	btnDisabled.type(Button::BUTTON_TOGGLE);
+	btnDisabled.type(Button::Type::BUTTON_TOGGLE);
 	btnDisabled.toggle(false);
 	btnDisabled.click().connect(this, &WarehouseReport::btnDisabledClicked);
 

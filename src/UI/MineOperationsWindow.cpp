@@ -86,7 +86,7 @@ void MineOperationsWindow::init()
 
 	// Set up GUI Layout
 	add(&btnIdle, 10, 230);
-	btnIdle.type(Button::BUTTON_TOGGLE);
+	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size(60, 30);
 	btnIdle.click().connect(this, &MineOperationsWindow::btnIdleClicked);
 

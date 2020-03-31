@@ -131,11 +131,11 @@ void MapViewState::initUi()
 
 	mBtnToggleHeightmap.image("ui/icons/height.png");
 	mBtnToggleHeightmap.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
-	mBtnToggleHeightmap.type(Button::BUTTON_TOGGLE);
+	mBtnToggleHeightmap.type(Button::Type::BUTTON_TOGGLE);
 
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
 	mBtnToggleConnectedness.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
-	mBtnToggleConnectedness.type(Button::BUTTON_TOGGLE);
+	mBtnToggleConnectedness.type(Button::Type::BUTTON_TOGGLE);
 	mBtnToggleConnectedness.click().connect(this, &MapViewState::btnToggleConnectednessClicked);
 
 	// Menus
