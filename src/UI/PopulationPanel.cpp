@@ -33,19 +33,19 @@ PopulationPanel::PopulationPanel() : mIcons("ui/icons.png")
 
 void PopulationPanel::update()
 {
-	Renderer& r = Utility<Renderer>::get();
-	r.drawImageRect(rect(), mSkin);
+	Renderer& renderer = Utility<Renderer>::get();
+	renderer.drawImageRect(rect(), mSkin);
 
 	auto position = NAS2D::Point{positionX() + 5, positionY() + 5};
-	r.drawText(*FONT, "Morale: " + std::to_string(*mMorale), position, NAS2D::Color::White);
+	renderer.drawText(*FONT, "Morale: " + std::to_string(*mMorale), position, NAS2D::Color::White);
 	position.y() += 10;
-	r.drawText(*FONT, "Previous: " + std::to_string(*mPreviousMorale), position, NAS2D::Color::White);
+	renderer.drawText(*FONT, "Previous: " + std::to_string(*mPreviousMorale), position, NAS2D::Color::White);
 
 	mCapacity = (mResidentialCapacity > 0) ? (static_cast<float>(mPopulation->size()) / static_cast<float>(mResidentialCapacity)) * 100.0f : 0.0f;
 	
 	position.y() += 15;
 	const auto text = "Housing: " + std::to_string(mPopulation->size()) + " / " + std::to_string(mResidentialCapacity) + "  (" + std::to_string(static_cast<int>(mCapacity)) + "%)";
-	r.drawText(*FONT, text, position, NAS2D::Color::White);
+	renderer.drawText(*FONT, text, position, NAS2D::Color::White);
 
 	const std::array populationData{
 		std::pair{NAS2D::Rectangle{0, 96, 32, 32}, mPopulation->size(Population::ROLE_CHILD)},
@@ -58,8 +58,8 @@ void PopulationPanel::update()
 	position.y() += 15;
 	const auto fontOffset = NAS2D::Vector{37, 32 - FONT->height()};
 	for (const auto& [imageRect, personCount] : populationData) {
-		r.drawSubImage(mIcons, position, imageRect);
-		r.drawText(*FONT, std::to_string(personCount), position + fontOffset, NAS2D::Color::White);
+		renderer.drawSubImage(mIcons, position, imageRect);
+		renderer.drawText(*FONT, std::to_string(personCount), position + fontOffset, NAS2D::Color::White);
 		position.y() += 34;
 	}
 }
