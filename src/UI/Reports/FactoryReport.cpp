@@ -596,7 +596,7 @@ void FactoryReport::drawDetailPane(Renderer& r)
 
 	// POPULATION
 	SELECTED_FACTORY->populationAvailable()[0] == SELECTED_FACTORY->populationRequirements()[0] ? text_color(0, 185, 0, 255) : text_color(255, 0, 0, 255);
-	std::string _scratch = string_format("%i / %i", SELECTED_FACTORY->populationAvailable()[0], SELECTED_FACTORY->populationRequirements()[0]);
+	std::string _scratch = std::to_string(SELECTED_FACTORY->populationAvailable()[0]) + " / " + std::to_string(SELECTED_FACTORY->populationRequirements()[0]);
 	drawTitleText(position, "Workers", _scratch, text_color);
 }
 
