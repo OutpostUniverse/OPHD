@@ -628,7 +628,7 @@ void FactoryReport::drawProductPane(Renderer& r)
 	drawBasicProgressBar(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10,
 		30, percent, 4);
 
-	std::string _turns = string_format("%i / %i", SELECTED_FACTORY->productionTurnsCompleted(), SELECTED_FACTORY->productionTurnsToComplete());
+	std::string _turns = std::to_string(SELECTED_FACTORY->productionTurnsCompleted()) + " / " + std::to_string(SELECTED_FACTORY->productionTurnsToComplete());
 	r.drawText(*FONT_MED_BOLD, "Turns", position_x, DETAIL_PANEL.y() + 449, 0, 185, 0);
 	r.drawText(*FONT_MED, _turns, rect().width() - FONT_MED->width(_turns) - 10, DETAIL_PANEL.y() + 449, 0, 185, 0);
 }
