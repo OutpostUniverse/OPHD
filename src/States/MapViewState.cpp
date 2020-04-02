@@ -1279,7 +1279,8 @@ void MapViewState::updateRobots()
 			if (robot_it->first->name() != constants::ROBOMINER)
 			{
 				const auto robotLocationText = std::to_string(robot_it->second->x()) + ", " + std::to_string(robot_it->second->y());
-				doAlertMessage(constants::ROBOT_BREAKDOWN_TITLE, string_format(constants::ROBOT_BREAKDOWN_MESSAGE, robot_it->first->name().c_str(), robotLocationText.c_str()));
+				const auto text = string_format(constants::ROBOT_BREAKDOWN_MESSAGE, robot_it->first->name().c_str(), robotLocationText.c_str());
+				doAlertMessage(constants::ROBOT_BREAKDOWN_TITLE, text);
 				Robodozer* _d = dynamic_cast<Robodozer*>(robot_it->first);
 				if (_d) { robot_it->second->index(static_cast<int>(_d->tileIndex())); }
 			}
