@@ -33,25 +33,33 @@ PopulationPanel::PopulationPanel() : mIcons("ui/icons.png")
 
 void PopulationPanel::update()
 {
-	Renderer& r = Utility<Renderer>::get();
-	r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkin);
+	Renderer& renderer = Utility<Renderer>::get();
+	renderer.drawImageRect(rect(), mSkin);
 
-	r.drawText(*FONT, string_format("Morale: %i", *mMorale), positionX() + 5, positionY() + 5, 255, 255, 255);
-	r.drawText(*FONT, string_format("Previous: %i", *mPreviousMorale), positionX() + 5, positionY() + 15, 255, 255, 255);
+	auto position = NAS2D::Point{positionX() + 5, positionY() + 5};
+	renderer.drawText(*FONT, "Morale: " + std::to_string(*mMorale), position, NAS2D::Color::White);
+	position.y() += 10;
+	renderer.drawText(*FONT, "Previous: " + std::to_string(*mPreviousMorale), position, NAS2D::Color::White);
 
 	mCapacity = (mResidentialCapacity > 0) ? (static_cast<float>(mPopulation->size()) / static_cast<float>(mResidentialCapacity)) * 100.0f : 0.0f;
-	
-	r.drawText(*FONT, string_format("Housing: %i / %i  (%i%%)", mPopulation->size(), mResidentialCapacity, static_cast<int>(mCapacity)), positionX() + 5, positionY() + 30, 255, 255, 255);
 
-	r.drawSubImage(mIcons, positionX() + 5, positionY() + 45, 0, 96, 32, 32);		// Infant
-	r.drawSubImage(mIcons, positionX() + 5, positionY() + 79, 32, 96, 32, 32);		// Student
-	r.drawSubImage(mIcons, positionX() + 5, positionY() + 113, 64, 96, 32, 32);		// Worker
-	r.drawSubImage(mIcons, positionX() + 5, positionY() + 147, 96, 96, 32, 32);		// Scientist
-	r.drawSubImage(mIcons, positionX() + 5, positionY() + 181, 128, 96, 32, 32);	// Retired
+	position.y() += 15;
+	const auto text = "Housing: " + std::to_string(mPopulation->size()) + " / " + std::to_string(mResidentialCapacity) + "  (" + std::to_string(static_cast<int>(mCapacity)) + "%)";
+	renderer.drawText(*FONT, text, position, NAS2D::Color::White);
 
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_CHILD)), positionX() + 42, positionY() + 65, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_STUDENT)), positionX() + 42, positionY() + 97, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_WORKER)), positionX() + 42, positionY() + 129, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_SCIENTIST)), positionX() + 42, positionY() + 160, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_RETIRED)), positionX() + 42, positionY() + 193, 255, 255, 255);
+	const std::array populationData{
+		std::pair{NAS2D::Rectangle{0, 96, 32, 32}, mPopulation->size(Population::ROLE_CHILD)},
+		std::pair{NAS2D::Rectangle{32, 96, 32, 32}, mPopulation->size(Population::ROLE_STUDENT)},
+		std::pair{NAS2D::Rectangle{64, 96, 32, 32}, mPopulation->size(Population::ROLE_WORKER)},
+		std::pair{NAS2D::Rectangle{96, 96, 32, 32}, mPopulation->size(Population::ROLE_SCIENTIST)},
+		std::pair{NAS2D::Rectangle{128, 96, 32, 32}, mPopulation->size(Population::ROLE_RETIRED)},
+	};
+
+	position.y() += 15;
+	const auto fontOffset = NAS2D::Vector{37, 32 - FONT->height()};
+	for (const auto& [imageRect, personCount] : populationData) {
+		renderer.drawSubImage(mIcons, position, imageRect);
+		renderer.drawText(*FONT, std::to_string(personCount), position + fontOffset, NAS2D::Color::White);
+		position.y() += 34;
+	}
 }
