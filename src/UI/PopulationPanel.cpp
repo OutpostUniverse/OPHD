@@ -37,14 +37,14 @@ void PopulationPanel::update()
 	r.drawImageRect(rect(), mSkin);
 
 	auto position = NAS2D::Point{positionX() + 5, positionY() + 5};
-	r.drawText(*FONT, string_format("Morale: %i", *mMorale), position, NAS2D::Color::White);
+	r.drawText(*FONT, "Morale: " + std::to_string(*mMorale), position, NAS2D::Color::White);
 	position.y() += 10;
-	r.drawText(*FONT, string_format("Previous: %i", *mPreviousMorale), position, NAS2D::Color::White);
+	r.drawText(*FONT, "Previous: " + std::to_string(*mPreviousMorale), position, NAS2D::Color::White);
 
 	mCapacity = (mResidentialCapacity > 0) ? (static_cast<float>(mPopulation->size()) / static_cast<float>(mResidentialCapacity)) * 100.0f : 0.0f;
 	
 	position.y() += 15;
-	const auto text = string_format("Housing: %i / %i  (%i%%)", mPopulation->size(), mResidentialCapacity, static_cast<int>(mCapacity));
+	const auto text = "Housing: " + std::to_string(mPopulation->size()) + " / " + std::to_string(mResidentialCapacity) + "  (" + std::to_string(static_cast<int>(mCapacity)) + "%)";
 	r.drawText(*FONT, text, position, NAS2D::Color::White);
 
 	const std::array populationData{
