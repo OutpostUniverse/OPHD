@@ -52,6 +52,6 @@ void PopulationPanel::update()
 	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_CHILD)), positionX() + 42, positionY() + 65, 255, 255, 255);
 	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_STUDENT)), positionX() + 42, positionY() + 97, 255, 255, 255);
 	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_WORKER)), positionX() + 42, positionY() + 129, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_SCIENTIST)), positionX() + 42, positionY() + 160, 255, 255, 255);
+	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_SCIENTIST)), positionX() + 42, positionY() + 161, 255, 255, 255);
 	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_RETIRED)), positionX() + 42, positionY() + 193, 255, 255, 255);
 }
