@@ -594,7 +594,8 @@ void FactoryReport::drawDetailPane(Renderer& r)
 	}
 
 	// POPULATION
-	SELECTED_FACTORY->populationAvailable()[0] == SELECTED_FACTORY->populationRequirements()[0] ? textColor(0, 185, 0, 255) : textColor(255, 0, 0, 255);
+	bool isPopulationRequirementHighlighted = SELECTED_FACTORY->populationAvailable()[0] != SELECTED_FACTORY->populationRequirements()[0];
+	!isPopulationRequirementHighlighted ? textColor(0, 185, 0, 255) : textColor(255, 0, 0, 255);
 	auto text = std::to_string(SELECTED_FACTORY->populationAvailable()[0]) + " / " + std::to_string(SELECTED_FACTORY->populationRequirements()[0]);
 	drawTitleText(position, "Workers", text, textColor);
 }
