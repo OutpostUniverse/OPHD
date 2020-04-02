@@ -162,7 +162,8 @@ void MapViewState::drawResourceInfo()
 		std::tuple{NAS2D::Rectangle{112, 16, iconSize, iconSize}, mPlayerResources.rareMinerals(), 0},
 	};
 
-	for (const auto& [imageRect, amount, spacing] : resources) {
+	for (const auto& [imageRect, amount, spacing] : resources)
+	{
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto color = (amount <= 10) ? glowColor : NAS2D::Color::White;
 		renderer.drawText(*MAIN_FONT, std::to_string(amount), position + textOffset, color);
@@ -177,7 +178,8 @@ void MapViewState::drawResourceInfo()
 	};
 
 	position.x() += x + offsetX;
-	for (const auto& [imageRect, parts, total, isHighlighted] : storageCapacities) {
+	for (const auto& [imageRect, parts, total, isHighlighted] : storageCapacities)
+	{
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto color = isHighlighted ? glowColor : NAS2D::Color::White;
 		const auto text = std::to_string(parts) + "/" + std::to_string(total);
