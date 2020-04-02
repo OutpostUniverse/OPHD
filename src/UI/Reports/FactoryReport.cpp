@@ -628,9 +628,9 @@ void FactoryReport::drawProductPane(Renderer& r)
 	drawBasicProgressBar(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10,
 		30, percent, 4);
 
-	const auto _turns = std::to_string(SELECTED_FACTORY->productionTurnsCompleted()) + " / " + std::to_string(SELECTED_FACTORY->productionTurnsToComplete());
+	const auto text = std::to_string(SELECTED_FACTORY->productionTurnsCompleted()) + " / " + std::to_string(SELECTED_FACTORY->productionTurnsToComplete());
 	r.drawText(*FONT_MED_BOLD, "Turns", position_x, DETAIL_PANEL.y() + 449, 0, 185, 0);
-	r.drawText(*FONT_MED, _turns, rect().width() - FONT_MED->width(_turns) - 10, DETAIL_PANEL.y() + 449, 0, 185, 0);
+	r.drawText(*FONT_MED, text, rect().width() - FONT_MED->width(text) - 10, DETAIL_PANEL.y() + 449, 0, 185, 0);
 }
 
 
