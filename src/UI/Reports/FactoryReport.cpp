@@ -16,8 +16,6 @@
 using namespace NAS2D;
 
 static float SORT_BY_PRODUCT_POSITION = 0;
-static float STATUS_LABEL_POSITION = 0;
-static float WIDTH_RESOURCES_REQUIRED_LABEL = 0;
 
 static Rectangle_2df FACTORY_LISTBOX;
 static Rectangle_2df DETAIL_PANEL;
@@ -188,7 +186,6 @@ void FactoryReport::init()
 	txtProductDescription.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 
 	SORT_BY_PRODUCT_POSITION = cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() - FONT->width("Filter by Product");
-	WIDTH_RESOURCES_REQUIRED_LABEL = static_cast<float>(FONT_MED_BOLD->width(RESOURCES_REQUIRED));
 
 	Control::resized().connect(this, &FactoryReport::resized);
 	fillLists();
@@ -337,8 +334,6 @@ void FactoryReport::resized(Control* /*c*/)
 		rect().y() + rect().height() - 69
 	};
 
-	STATUS_LABEL_POSITION = DETAIL_PANEL.x() + FONT_MED_BOLD->width("Status") + 158.0f;
-	
 	float position_x = rect().width() - 150.0f;
 	btnIdle.position(position_x, btnIdle.positionY());
 	btnClearProduction.position(position_x, btnClearProduction.positionY());
@@ -557,41 +552,48 @@ void FactoryReport::cboFilterByProductSelectionChanged()
 /**
  * 
  */
-void FactoryReport::drawDetailPane(Renderer& r)
+void FactoryReport::drawDetailPane(Renderer& renderer)
 {
-	Color text_color(0, 185, 0, 255);
+	NAS2D::Color defaultTextColor(0, 185, 0);
 
-	r.drawImage(*FACTORY_IMAGE, DETAIL_PANEL.x(), DETAIL_PANEL.y() + 25);
-	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), DETAIL_PANEL.x(), DETAIL_PANEL.y() - 8, text_color.red(), text_color.green(), text_color.blue());
+	const auto startPoint = DETAIL_PANEL.startPoint();
+	renderer.drawImage(*FACTORY_IMAGE, startPoint + NAS2D::Vector{0, 25});
+	renderer.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), startPoint + NAS2D::Vector{0, -8}, defaultTextColor);
 
-	r.drawText(*FONT_MED_BOLD, "Status", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 20, text_color.red(), text_color.green(), text_color.blue());
+	auto statusPosition = startPoint + NAS2D::Vector{138, 20};
+	renderer.drawText(*FONT_MED_BOLD, "Status", statusPosition, defaultTextColor);
 
-	if (SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed()) { text_color(255, 0, 0, 255); }
-	r.drawText(*FONT_MED, FACTORY_STATUS, STATUS_LABEL_POSITION, DETAIL_PANEL.y() + 20, text_color.red(), text_color.green(), text_color.blue());
+	bool isStatusHighlighted = SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed();
+	statusPosition.x() += FONT_MED_BOLD->width("Status") + 20;
+	renderer.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : defaultTextColor));
 
-	text_color(0, 185, 0, 255);
+	renderer.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, startPoint + NAS2D::Vector{138, 60}, defaultTextColor);
 
-	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 60, text_color.red(), text_color.green(), text_color.blue());
+	const auto labelWidth = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
+	const auto drawTitleText = [&renderer, labelWidth](NAS2D::Point<int> position, const std::string& title, const std::string& text, Color textColor) {
+		renderer.drawText(*FONT_BOLD, title, position, textColor);
+		position.x() += labelWidth - FONT->width(text);
+		renderer.drawText(*FONT, text, position, textColor);
+	};
 
 	// MINERAL RESOURCES
-	r.drawText(*FONT_BOLD, "Common Metals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 80, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT_BOLD, "Common Minerals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 95, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT_BOLD, "Rare Metals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 110, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT_BOLD, "Rare Minerals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 125, text_color.red(), text_color.green(), text_color.blue());
-
 	const ProductionCost& _pc = productCost(SELECTED_FACTORY->productType());
-	r.drawText(*FONT, std::to_string(_pc.commonMetals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.commonMetals())), DETAIL_PANEL.y() + 80, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT, std::to_string(_pc.commonMinerals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.commonMinerals())), DETAIL_PANEL.y() + 95, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT, std::to_string(_pc.rareMetals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.rareMetals())), DETAIL_PANEL.y() + 110, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT, std::to_string(_pc.rareMinerals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.rareMinerals())), DETAIL_PANEL.y() + 125, text_color.red(), text_color.green(), text_color.blue());
+	const std::array requiredResources{
+		std::pair{"Common Metals", _pc.commonMetals()},
+		std::pair{"Common Minerals", _pc.commonMinerals()},
+		std::pair{"Rare Metals", _pc.rareMetals()},
+		std::pair{"Rare Minerals", _pc.rareMinerals()},
+	};
+	auto position = startPoint + NAS2D::Vector{138, 80};
+	for (auto [title, value] : requiredResources) {
+		drawTitleText(position, title, std::to_string(value), defaultTextColor);
+		position.y() += 15;
+	}
 
 	// POPULATION
-	SELECTED_FACTORY->populationAvailable()[0] == SELECTED_FACTORY->populationRequirements()[0] ? text_color(0, 185, 0, 255) : text_color(255, 0, 0, 255);
-
-	r.drawText(*FONT_BOLD, "Workers", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 140, text_color.red(), text_color.green(), text_color.blue());
-
-	std::string _scratch = string_format("%i / %i", SELECTED_FACTORY->populationAvailable()[0], SELECTED_FACTORY->populationRequirements()[0]);
-	r.drawText(*FONT, _scratch, DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(_scratch), DETAIL_PANEL.y() + 140, text_color.red(), text_color.green(), text_color.blue());
+	bool isPopulationRequirementHighlighted = SELECTED_FACTORY->populationAvailable()[0] != SELECTED_FACTORY->populationRequirements()[0];
+	auto text = std::to_string(SELECTED_FACTORY->populationAvailable()[0]) + " / " + std::to_string(SELECTED_FACTORY->populationRequirements()[0]);
+	drawTitleText(position, "Workers", text, (isPopulationRequirementHighlighted ? NAS2D::Color::Red : defaultTextColor));
 }
 
 
