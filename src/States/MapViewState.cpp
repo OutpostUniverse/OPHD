@@ -1278,7 +1278,8 @@ void MapViewState::updateRobots()
 			// \fixme	This is an awful way of doing this.
 			if (robot_it->first->name() != constants::ROBOMINER)
 			{
-				doAlertMessage(constants::ROBOT_BREAKDOWN_TITLE, string_format(constants::ROBOT_BREAKDOWN_MESSAGE, robot_it->first->name().c_str(), robot_it->second->x(), robot_it->second->y()));
+				const auto robotLocationText = std::to_string(robot_it->second->x()) + ", " + std::to_string(robot_it->second->y());
+				doAlertMessage(constants::ROBOT_BREAKDOWN_TITLE, string_format(constants::ROBOT_BREAKDOWN_MESSAGE, robot_it->first->name().c_str(), robotLocationText.c_str()));
 				Robodozer* _d = dynamic_cast<Robodozer*>(robot_it->first);
 				if (_d) { robot_it->second->index(static_cast<int>(_d->tileIndex())); }
 			}
