@@ -554,7 +554,7 @@ void FactoryReport::cboFilterByProductSelectionChanged()
  */
 void FactoryReport::drawDetailPane(Renderer& r)
 {
-	Color textColor(0, 185, 0, 255);
+	NAS2D::Color textColor(0, 185, 0, 255);
 
 	const auto startPoint = DETAIL_PANEL.startPoint();
 	r.drawImage(*FACTORY_IMAGE, startPoint + NAS2D::Vector{0, 25});
