@@ -17,8 +17,6 @@ public:
 		storage().capacity(750);
 	}
 
-	virtual ~Smelter() {}
-
 	virtual void input(ResourcePool& _resourcePool)
 	{
 		if (!operational()) { return; }

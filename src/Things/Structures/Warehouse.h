@@ -16,8 +16,6 @@ public:
 		requiresCHAP(false);
 	}
 
-	virtual ~Warehouse() {}
-
 	ProductPool& products() { return mProducts; }
 
 protected:

@@ -20,7 +20,6 @@ public:
 
 public:
 	ReportInterface() {}
-	virtual ~ReportInterface() {}
 
 public:
 	/**

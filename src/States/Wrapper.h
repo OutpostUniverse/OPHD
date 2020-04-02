@@ -24,7 +24,6 @@ class Wrapper : public NAS2D::State
 {
 public:
 	Wrapper() : _active(false) {}
-	virtual ~Wrapper() {}
 
 	State* _update() { return update(); }
 

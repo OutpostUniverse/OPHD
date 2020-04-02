@@ -12,7 +12,5 @@ public:
 		sprite().play("running");
 	}
 
-	virtual ~Robominer() {}
-
 	void update() { updateTask(); }
 };
