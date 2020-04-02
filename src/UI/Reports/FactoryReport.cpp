@@ -16,8 +16,6 @@
 using namespace NAS2D;
 
 static float SORT_BY_PRODUCT_POSITION = 0;
-static float STATUS_LABEL_POSITION = 0;
-static float WIDTH_RESOURCES_REQUIRED_LABEL = 0;
 
 static Rectangle_2df FACTORY_LISTBOX;
 static Rectangle_2df DETAIL_PANEL;
@@ -188,7 +186,6 @@ void FactoryReport::init()
 	txtProductDescription.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 
 	SORT_BY_PRODUCT_POSITION = cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() - FONT->width("Filter by Product");
-	WIDTH_RESOURCES_REQUIRED_LABEL = static_cast<float>(FONT_MED_BOLD->width(RESOURCES_REQUIRED));
 
 	Control::resized().connect(this, &FactoryReport::resized);
 	fillLists();
@@ -337,8 +334,6 @@ void FactoryReport::resized(Control* /*c*/)
 		rect().y() + rect().height() - 69
 	};
 
-	STATUS_LABEL_POSITION = DETAIL_PANEL.x() + FONT_MED_BOLD->width("Status") + 158.0f;
-	
 	float position_x = rect().width() - 150.0f;
 	btnIdle.position(position_x, btnIdle.positionY());
 	btnClearProduction.position(position_x, btnClearProduction.positionY());
