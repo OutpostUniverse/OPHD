@@ -185,32 +185,24 @@ void MapViewState::drawResourceInfo()
 	color = shouldRareMineralsGlow ? glowColor : NAS2D::Color::White;
 	renderer.drawText(*MAIN_FONT, std::to_string(mPlayerResources.rareMinerals()), position + textOffset, color);
 
-	// Storage Capacity
+	// Capacity (Storage, Food, Energy)
+	constexpr auto iconSize = constants::RESOURCE_ICON_SIZE;
+	const std::array storageCapacities{
+		std::tuple{NAS2D::Rectangle{96, 32, iconSize, iconSize}, mPlayerResources.currentLevel(), mPlayerResources.capacity(), mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100},
+		std::tuple{NAS2D::Rectangle{64, 32, iconSize, iconSize}, foodInStorage(), foodTotalStorage(), foodInStorage() <= 10},
+		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, mPlayerResources.energy(), NAS2D::Utility<StructureManager>::get().totalEnergyProduction(), mPlayerResources.energy() <= 5}
+	};
+
 	position.x() += x + offsetX;
-	const auto storageCapacityImageRect = NAS2D::Rectangle<int>{96, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
-	renderer.drawSubImage(mUiIcons, position, storageCapacityImageRect);
-	bool shouldStorageCapacityGlow = mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100;
-	color = shouldStorageCapacityGlow ? glowColor : NAS2D::Color::White;
-	renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", mPlayerResources.currentLevel(), mPlayerResources.capacity()), position + textOffset, color);
-
-	// Food
-	position.x() += (x + offsetX) * 2;
-	const auto foodImageRect = NAS2D::Rectangle<int>{64, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
-	renderer.drawSubImage(mUiIcons, position, foodImageRect);
-	bool shouldFoodStorageGlow = foodInStorage() <= 10;
-	color = shouldFoodStorageGlow ? glowColor : NAS2D::Color::White;
-	renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", foodInStorage(), foodTotalStorage()), position + textOffset, color);
-
-	// Energy
-	position.x() += (x + offsetX) * 2;
-	const auto energyImageRect = NAS2D::Rectangle<int>{80, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
-	renderer.drawSubImage(mUiIcons, position, energyImageRect);
-	bool shouldEnergyGlow = mPlayerResources.energy() <= 5;
-	color = shouldEnergyGlow ? glowColor : NAS2D::Color::White;
-	renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", mPlayerResources.energy(), NAS2D::Utility<StructureManager>::get().totalEnergyProduction()), position + textOffset, color);
+	for (const auto& [imageRect, parts, total, isHighlighted] : storageCapacities) {
+		renderer.drawSubImage(mUiIcons, position, imageRect);
+		color = isHighlighted ? glowColor : NAS2D::Color::White;
+		renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", parts, total), position + textOffset, color);
+		position.x() += (x + offsetX) * 2;
+	}
 
 	// Population / Morale
-	position.x() += (x + offsetX) * 2 - 17;
+	position.x() -= 17;
 	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 16 : 32);
 	const auto popMoraleDirectionImageRect = NAS2D::Rectangle<int>{popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, popMoraleDirectionImageRect);
