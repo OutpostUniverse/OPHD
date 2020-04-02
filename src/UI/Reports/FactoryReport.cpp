@@ -552,25 +552,25 @@ void FactoryReport::cboFilterByProductSelectionChanged()
 /**
  * 
  */
-void FactoryReport::drawDetailPane(Renderer& r)
+void FactoryReport::drawDetailPane(Renderer& renderer)
 {
 	NAS2D::Color textColor(0, 185, 0);
 
 	const auto startPoint = DETAIL_PANEL.startPoint();
-	r.drawImage(*FACTORY_IMAGE, startPoint + NAS2D::Vector{0, 25});
-	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), startPoint + NAS2D::Vector{0, -8}, textColor);
+	renderer.drawImage(*FACTORY_IMAGE, startPoint + NAS2D::Vector{0, 25});
+	renderer.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), startPoint + NAS2D::Vector{0, -8}, textColor);
 
 	auto statusPosition = startPoint + NAS2D::Vector{138, 20};
-	r.drawText(*FONT_MED_BOLD, "Status", statusPosition, textColor);
+	renderer.drawText(*FONT_MED_BOLD, "Status", statusPosition, textColor);
 
 	bool isStatusHighlighted = SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed();
 	statusPosition.x() += FONT_MED_BOLD->width("Status") + 20;
-	r.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : textColor));
+	renderer.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : textColor));
 
-	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, startPoint + NAS2D::Vector{138, 60}, textColor);
+	renderer.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, startPoint + NAS2D::Vector{138, 60}, textColor);
 
 	const auto labelWidth = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
-	const auto drawTitleText = [&renderer = r, labelWidth](NAS2D::Point<int> position, const std::string& title, const std::string& text, Color textColor) {
+	const auto drawTitleText = [&renderer, labelWidth](NAS2D::Point<int> position, const std::string& title, const std::string& text, Color textColor) {
 		renderer.drawText(*FONT_BOLD, title, position, textColor);
 		position.x() += labelWidth - FONT->width(text);
 		renderer.drawText(*FONT, text, position, textColor);
