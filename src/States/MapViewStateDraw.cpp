@@ -180,7 +180,8 @@ void MapViewState::drawResourceInfo()
 	for (const auto& [imageRect, parts, total, isHighlighted] : storageCapacities) {
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto color = isHighlighted ? glowColor : NAS2D::Color::White;
-		renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", parts, total), position + textOffset, color);
+		const auto text = std::to_string(parts) + "/" + std::to_string(total);
+		renderer.drawText(*MAIN_FONT, text, position + textOffset, color);
 		position.x() += (x + offsetX) * 2;
 	}
 
