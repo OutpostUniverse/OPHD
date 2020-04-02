@@ -582,19 +582,21 @@ void FactoryReport::drawDetailPane(Renderer& r)
 
 	// MINERAL RESOURCES
 	const ProductionCost& _pc = productCost(SELECTED_FACTORY->productType());
-	r.drawText(*FONT_BOLD, "Common Metals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 80, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT, std::to_string(_pc.commonMetals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.commonMetals())), DETAIL_PANEL.y() + 80, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT_BOLD, "Common Minerals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 95, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT, std::to_string(_pc.commonMinerals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.commonMinerals())), DETAIL_PANEL.y() + 95, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT_BOLD, "Rare Metals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 110, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT, std::to_string(_pc.rareMetals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.rareMetals())), DETAIL_PANEL.y() + 110, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT_BOLD, "Rare Minerals", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 125, text_color.red(), text_color.green(), text_color.blue());
-	r.drawText(*FONT, std::to_string(_pc.rareMinerals()), DETAIL_PANEL.x() + 138 + WIDTH_RESOURCES_REQUIRED_LABEL - FONT->width(std::to_string(_pc.rareMinerals())), DETAIL_PANEL.y() + 125, text_color.red(), text_color.green(), text_color.blue());
+	const std::array requiredResources{
+		std::pair{"Common Metals", _pc.commonMetals()},
+		std::pair{"Common Minerals", _pc.commonMinerals()},
+		std::pair{"Rare Metals", _pc.rareMetals()},
+		std::pair{"Rare Minerals", _pc.rareMinerals()},
+	};
+	auto position = DETAIL_PANEL.startPoint() + NAS2D::Vector{138, 80};
+	for (auto [title, value] : requiredResources) {
+		drawTitleText(position, title, std::to_string(value), text_color);
+		position.y() += 15;
+	}
 
 	// POPULATION
 	SELECTED_FACTORY->populationAvailable()[0] == SELECTED_FACTORY->populationRequirements()[0] ? text_color(0, 185, 0, 255) : text_color(255, 0, 0, 255);
 	std::string _scratch = string_format("%i / %i", SELECTED_FACTORY->populationAvailable()[0], SELECTED_FACTORY->populationRequirements()[0]);
-	const auto position = DETAIL_PANEL.startPoint() + NAS2D::Vector{138, 140};
 	drawTitleText(position, "Workers", _scratch, text_color);
 }
 
