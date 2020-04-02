@@ -560,7 +560,7 @@ void FactoryReport::drawDetailPane(Renderer& r)
 	r.drawImage(*FACTORY_IMAGE, startPoint + NAS2D::Vector{0, 25});
 	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), startPoint + NAS2D::Vector{0, -8}, text_color);
 
-	auto statusPosition = DETAIL_PANEL.startPoint() + NAS2D::Vector{138, 20};
+	auto statusPosition = startPoint + NAS2D::Vector{138, 20};
 	r.drawText(*FONT_MED_BOLD, "Status", statusPosition, text_color);
 
 	if (SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed()) { text_color(255, 0, 0, 255); }
@@ -569,7 +569,7 @@ void FactoryReport::drawDetailPane(Renderer& r)
 
 	text_color(0, 185, 0, 255);
 
-	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, DETAIL_PANEL.startPoint() + NAS2D::Vector{138, 60}, text_color);
+	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, startPoint + NAS2D::Vector{138, 60}, text_color);
 
 	const auto labelWidth = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
 	const auto drawTitleText = [&renderer = r, labelWidth](NAS2D::Point<int> position, const std::string& title, const std::string& text, Color textColor) {
@@ -586,7 +586,7 @@ void FactoryReport::drawDetailPane(Renderer& r)
 		std::pair{"Rare Metals", _pc.rareMetals()},
 		std::pair{"Rare Minerals", _pc.rareMinerals()},
 	};
-	auto position = DETAIL_PANEL.startPoint() + NAS2D::Vector{138, 80};
+	auto position = startPoint + NAS2D::Vector{138, 80};
 	for (auto [title, value] : requiredResources) {
 		drawTitleText(position, title, std::to_string(value), text_color);
 		position.y() += 15;
