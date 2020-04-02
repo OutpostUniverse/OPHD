@@ -34,7 +34,7 @@ PopulationPanel::PopulationPanel() : mIcons("ui/icons.png")
 void PopulationPanel::update()
 {
 	Renderer& r = Utility<Renderer>::get();
-	r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkin);
+	r.drawImageRect(rect(), mSkin);
 
 	r.drawText(*FONT, string_format("Morale: %i", *mMorale), positionX() + 5, positionY() + 5, 255, 255, 255);
 	r.drawText(*FONT, string_format("Previous: %i", *mPreviousMorale), positionX() + 5, positionY() + 15, 255, 255, 255);
