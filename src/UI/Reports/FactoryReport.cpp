@@ -621,8 +621,8 @@ void FactoryReport::drawProductPane(Renderer& r)
 	float percent = 0.0f;
 	if (SELECTED_FACTORY->productType() != PRODUCT_NONE)
 	{
-		percent =	static_cast<float>(SELECTED_FACTORY->productionTurnsCompleted()) /
-					static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete());
+		percent = static_cast<float>(SELECTED_FACTORY->productionTurnsCompleted()) /
+			static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete());
 	}
 	
 	drawBasicProgressBar(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10, 30, percent, 4);
