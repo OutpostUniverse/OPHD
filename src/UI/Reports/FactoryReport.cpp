@@ -559,10 +559,11 @@ void FactoryReport::drawDetailPane(Renderer& r)
 	r.drawImage(*FACTORY_IMAGE, DETAIL_PANEL.x(), DETAIL_PANEL.y() + 25);
 	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), DETAIL_PANEL.x(), DETAIL_PANEL.y() - 8, text_color.red(), text_color.green(), text_color.blue());
 
-	r.drawText(*FONT_MED_BOLD, "Status", DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 20, text_color.red(), text_color.green(), text_color.blue());
+	auto statusPosition = DETAIL_PANEL.startPoint() + NAS2D::Vector{138, 20};
+	r.drawText(*FONT_MED_BOLD, "Status", statusPosition, text_color);
 
 	if (SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed()) { text_color(255, 0, 0, 255); }
-	const auto statusPosition = DETAIL_PANEL.startPoint() + NAS2D::Vector{FONT_MED_BOLD->width("Status") + 158, 20};
+	statusPosition.x() += FONT_MED_BOLD->width("Status") + 20;
 	r.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, text_color);
 
 	text_color(0, 185, 0, 255);
