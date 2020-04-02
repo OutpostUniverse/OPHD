@@ -44,7 +44,8 @@ void PopulationPanel::update()
 	mCapacity = (mResidentialCapacity > 0) ? (static_cast<float>(mPopulation->size()) / static_cast<float>(mResidentialCapacity)) * 100.0f : 0.0f;
 	
 	position.y() += 15;
-	r.drawText(*FONT, string_format("Housing: %i / %i  (%i%%)", mPopulation->size(), mResidentialCapacity, static_cast<int>(mCapacity)), position, NAS2D::Color::White);
+	const auto text = string_format("Housing: %i / %i  (%i%%)", mPopulation->size(), mResidentialCapacity, static_cast<int>(mCapacity));
+	r.drawText(*FONT, text, position, NAS2D::Color::White);
 
 	const std::array populationData{
 		std::pair{NAS2D::Rectangle{0, 96, 32, 32}, mPopulation->size(Population::ROLE_CHILD)},
