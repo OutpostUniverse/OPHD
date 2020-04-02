@@ -556,8 +556,9 @@ void FactoryReport::drawDetailPane(Renderer& r)
 {
 	Color text_color(0, 185, 0, 255);
 
-	r.drawImage(*FACTORY_IMAGE, DETAIL_PANEL.x(), DETAIL_PANEL.y() + 25);
-	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), DETAIL_PANEL.x(), DETAIL_PANEL.y() - 8, text_color.red(), text_color.green(), text_color.blue());
+	const auto startPoint = DETAIL_PANEL.startPoint();
+	r.drawImage(*FACTORY_IMAGE, startPoint + NAS2D::Vector{0, 25});
+	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), startPoint + NAS2D::Vector{0, -8}, text_color);
 
 	auto statusPosition = DETAIL_PANEL.startPoint() + NAS2D::Vector{138, 20};
 	r.drawText(*FONT_MED_BOLD, "Status", statusPosition, text_color);
