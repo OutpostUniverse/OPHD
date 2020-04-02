@@ -554,22 +554,22 @@ void FactoryReport::cboFilterByProductSelectionChanged()
  */
 void FactoryReport::drawDetailPane(Renderer& r)
 {
-	Color text_color(0, 185, 0, 255);
+	Color textColor(0, 185, 0, 255);
 
 	const auto startPoint = DETAIL_PANEL.startPoint();
 	r.drawImage(*FACTORY_IMAGE, startPoint + NAS2D::Vector{0, 25});
-	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), startPoint + NAS2D::Vector{0, -8}, text_color);
+	r.drawText(*FONT_BIG_BOLD, SELECTED_FACTORY->name(), startPoint + NAS2D::Vector{0, -8}, textColor);
 
 	auto statusPosition = startPoint + NAS2D::Vector{138, 20};
-	r.drawText(*FONT_MED_BOLD, "Status", statusPosition, text_color);
+	r.drawText(*FONT_MED_BOLD, "Status", statusPosition, textColor);
 
-	if (SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed()) { text_color(255, 0, 0, 255); }
+	if (SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed()) { textColor(255, 0, 0, 255); }
 	statusPosition.x() += FONT_MED_BOLD->width("Status") + 20;
-	r.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, text_color);
+	r.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, textColor);
 
-	text_color(0, 185, 0, 255);
+	textColor(0, 185, 0, 255);
 
-	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, startPoint + NAS2D::Vector{138, 60}, text_color);
+	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, startPoint + NAS2D::Vector{138, 60}, textColor);
 
 	const auto labelWidth = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
 	const auto drawTitleText = [&renderer = r, labelWidth](NAS2D::Point<int> position, const std::string& title, const std::string& text, Color textColor) {
@@ -588,14 +588,14 @@ void FactoryReport::drawDetailPane(Renderer& r)
 	};
 	auto position = startPoint + NAS2D::Vector{138, 80};
 	for (auto [title, value] : requiredResources) {
-		drawTitleText(position, title, std::to_string(value), text_color);
+		drawTitleText(position, title, std::to_string(value), textColor);
 		position.y() += 15;
 	}
 
 	// POPULATION
-	SELECTED_FACTORY->populationAvailable()[0] == SELECTED_FACTORY->populationRequirements()[0] ? text_color(0, 185, 0, 255) : text_color(255, 0, 0, 255);
+	SELECTED_FACTORY->populationAvailable()[0] == SELECTED_FACTORY->populationRequirements()[0] ? textColor(0, 185, 0, 255) : textColor(255, 0, 0, 255);
 	auto text = std::to_string(SELECTED_FACTORY->populationAvailable()[0]) + " / " + std::to_string(SELECTED_FACTORY->populationRequirements()[0]);
-	drawTitleText(position, "Workers", text, text_color);
+	drawTitleText(position, "Workers", text, textColor);
 }
 
 
