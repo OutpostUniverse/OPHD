@@ -52,9 +52,10 @@ void PopulationPanel::update()
 	};
 
 	auto position = NAS2D::Point{positionX() + 5, positionY() + 45};
+	const auto fontOffset = NAS2D::Vector{37, 20};
 	for (const auto& [imageRect, personCount] : populationData) {
 		r.drawSubImage(mIcons, position, imageRect);
-		r.drawText(*FONT, std::to_string(personCount), position + NAS2D::Vector{37, 20}, NAS2D::Color::White);
+		r.drawText(*FONT, std::to_string(personCount), position + fontOffset, NAS2D::Color::White);
 		position.y() += 34;
 	}
 }
