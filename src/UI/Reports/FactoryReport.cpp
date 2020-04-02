@@ -563,7 +563,8 @@ void FactoryReport::drawDetailPane(Renderer& r)
 	auto statusPosition = startPoint + NAS2D::Vector{138, 20};
 	r.drawText(*FONT_MED_BOLD, "Status", statusPosition, textColor);
 
-	if (SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed()) { textColor(255, 0, 0, 255); }
+	bool isStatusHighlighted = SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed();
+	if (isStatusHighlighted) { textColor(255, 0, 0, 255); }
 	statusPosition.x() += FONT_MED_BOLD->width("Status") + 20;
 	r.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, textColor);
 
