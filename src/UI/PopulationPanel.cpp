@@ -43,15 +43,18 @@ void PopulationPanel::update()
 	
 	r.drawText(*FONT, string_format("Housing: %i / %i  (%i%%)", mPopulation->size(), mResidentialCapacity, static_cast<int>(mCapacity)), positionX() + 5, positionY() + 30, 255, 255, 255);
 
-	r.drawSubImage(mIcons, positionX() + 5, positionY() + 45, 0, 96, 32, 32);		// Infant
-	r.drawSubImage(mIcons, positionX() + 5, positionY() + 79, 32, 96, 32, 32);		// Student
-	r.drawSubImage(mIcons, positionX() + 5, positionY() + 113, 64, 96, 32, 32);		// Worker
-	r.drawSubImage(mIcons, positionX() + 5, positionY() + 147, 96, 96, 32, 32);		// Scientist
-	r.drawSubImage(mIcons, positionX() + 5, positionY() + 181, 128, 96, 32, 32);	// Retired
+	const std::array populationData{
+		std::pair{NAS2D::Rectangle{0, 96, 32, 32}, mPopulation->size(Population::ROLE_CHILD)},
+		std::pair{NAS2D::Rectangle{32, 96, 32, 32}, mPopulation->size(Population::ROLE_STUDENT)},
+		std::pair{NAS2D::Rectangle{64, 96, 32, 32}, mPopulation->size(Population::ROLE_WORKER)},
+		std::pair{NAS2D::Rectangle{96, 96, 32, 32}, mPopulation->size(Population::ROLE_SCIENTIST)},
+		std::pair{NAS2D::Rectangle{128, 96, 32, 32}, mPopulation->size(Population::ROLE_RETIRED)},
+	};
 
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_CHILD)), positionX() + 42, positionY() + 65, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_STUDENT)), positionX() + 42, positionY() + 99, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_WORKER)), positionX() + 42, positionY() + 133, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_SCIENTIST)), positionX() + 42, positionY() + 167, 255, 255, 255);
-	r.drawText(*FONT, std::to_string(mPopulation->size(Population::ROLE_RETIRED)), positionX() + 42, positionY() + 201, 255, 255, 255);
+	auto position = NAS2D::Point{positionX() + 5, positionY() + 45};
+	for (const auto& [imageRect, personCount] : populationData) {
+		r.drawSubImage(mIcons, position, imageRect);
+		r.drawText(*FONT, std::to_string(personCount), position + NAS2D::Vector{37, 20}, NAS2D::Color::White);
+		position.y() += 34;
+	}
 }
