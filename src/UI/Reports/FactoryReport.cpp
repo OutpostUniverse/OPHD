@@ -571,7 +571,7 @@ void FactoryReport::drawDetailPane(Renderer& r)
 
 	text_color(0, 185, 0, 255);
 
-	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, DETAIL_PANEL.x() + 138, DETAIL_PANEL.y() + 60, text_color.red(), text_color.green(), text_color.blue());
+	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, DETAIL_PANEL.startPoint() + NAS2D::Vector{138, 60}, text_color);
 
 	const auto labelWidth = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
 	const auto drawTitleText = [&renderer = r, labelWidth](NAS2D::Point<int> position, const std::string& title, const std::string& text, Color textColor) {
