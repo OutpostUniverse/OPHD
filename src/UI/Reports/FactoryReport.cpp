@@ -564,11 +564,8 @@ void FactoryReport::drawDetailPane(Renderer& r)
 	r.drawText(*FONT_MED_BOLD, "Status", statusPosition, textColor);
 
 	bool isStatusHighlighted = SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed();
-	if (isStatusHighlighted) { textColor(255, 0, 0, 255); }
 	statusPosition.x() += FONT_MED_BOLD->width("Status") + 20;
-	r.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, textColor);
-
-	textColor(0, 185, 0, 255);
+	r.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : textColor));
 
 	r.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, startPoint + NAS2D::Vector{138, 60}, textColor);
 
@@ -595,9 +592,8 @@ void FactoryReport::drawDetailPane(Renderer& r)
 
 	// POPULATION
 	bool isPopulationRequirementHighlighted = SELECTED_FACTORY->populationAvailable()[0] != SELECTED_FACTORY->populationRequirements()[0];
-	!isPopulationRequirementHighlighted ? textColor(0, 185, 0, 255) : textColor(255, 0, 0, 255);
 	auto text = std::to_string(SELECTED_FACTORY->populationAvailable()[0]) + " / " + std::to_string(SELECTED_FACTORY->populationRequirements()[0]);
-	drawTitleText(position, "Workers", text, textColor);
+	drawTitleText(position, "Workers", text, (isPopulationRequirementHighlighted ? NAS2D::Color::Red : textColor));
 }
 
 
