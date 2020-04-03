@@ -29,7 +29,7 @@ using namespace NAS2D::Xml;
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 
 
-const NAS2D::Point<int> CcNotPlaced{0, 0};
+const NAS2D::Point<int> CcNotPlaced{-1, -1};
 static Point<int> commandCenterLocation = CcNotPlaced;
 
 
