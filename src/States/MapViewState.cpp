@@ -79,7 +79,7 @@ MapViewState::MapViewState(const std::string& savegame) :
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
-	ccLocation() = {0, 0};
+	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
 
@@ -99,7 +99,7 @@ MapViewState::MapViewState(const std::string& siteMap, const std::string& tileSe
 	mHeightMap(siteMap + MAP_TERRAIN_EXTENSION),
 	mUiIcons("ui/icons.png")
 {
-	ccLocation() = {0, 0};
+	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
 
@@ -280,7 +280,7 @@ int MapViewState::foodTotalStorage()
 	int food_storage = 0;
 
 	// Command Center has a limited amount of food storage for when colonists first land.
-	if (ccLocationX() != 0)
+	if (ccLocation() != CcNotPlaced)
 	{
 		food_storage += constants::BASE_STORAGE_CAPACITY;
 	}
@@ -1345,7 +1345,7 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
  */
 void MapViewState::checkConnectedness()
 {
-	if (ccLocationX() == 0 && ccLocationY() == 0)
+	if (ccLocation() == CcNotPlaced)
 	{
 		return;
 	}

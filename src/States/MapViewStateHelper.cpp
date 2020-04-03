@@ -29,33 +29,16 @@ using namespace NAS2D::Xml;
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 
 
-static Point_2d COMMAND_CENTER_LOCATION;
+const NAS2D::Point<int> CcNotPlaced{-1, -1};
+static Point<int> commandCenterLocation = CcNotPlaced;
 
 
 /**
  * 
  */
-Point_2d& ccLocation()
+Point<int>& ccLocation()
 {
-	return COMMAND_CENTER_LOCATION;
-}
-
-
-/**
- * 
- */
-int ccLocationX()
-{
-	return COMMAND_CENTER_LOCATION.x();
-}
-
-
-/**
- * 
- */
-int ccLocationY()
-{
-	return COMMAND_CENTER_LOCATION.y();
+	return commandCenterLocation;
 }
 
 
@@ -181,25 +164,21 @@ bool validStructurePlacement(TileMap* tilemap, int x, int y)
  *
  * \warning		Assumes \c tile is never nullptr.
  */
-bool validLanderSite(Tile* t)
+bool validLanderSite(Tile* tile)
 {
-	if (!t->empty())
+	if (!tile->empty())
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TILE_OBSTRUCTED);
 		return false;
 	}
 
-	// bleh, direct copy from Tile::distanceTo()
-	int _x = t->x() - ccLocationX();
-	int _y = t->y() - ccLocationY();
-	float _dist = std::sqrt(static_cast<float>(_x * _x) + _y * _y);
-	if (_dist > constants::LANDER_COM_RANGE)
+	if (tile->distanceTo(ccLocation()) > constants::LANDER_COM_RANGE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_COMM_RANGE);
 		return false;
 	}
 
-	if (t->index() == TERRAIN_IMPASSABLE)
+	if (tile->index() == TERRAIN_IMPASSABLE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TERRAIN);
 		return false;

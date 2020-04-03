@@ -71,7 +71,7 @@ void MapViewState::drawMiniMap()
 
 	const auto miniMapOffset = mMiniMapBoundingBox.startPoint() - NAS2D::Point<int>{0, 0};
 	const auto ccPosition = ccLocation();
-	if (ccPosition != NAS2D::Point<int>{0, 0})
+	if (ccPosition != CcNotPlaced)
 	{
 		const auto ccOffsetPosition = ccPosition + miniMapOffset;
 		const auto ccCommRangeImageRect = NAS2D::Rectangle<int>{166, 226, 30, 30};
@@ -226,8 +226,7 @@ void MapViewState::drawResourceInfo()
  */
 void MapViewState::drawRobotInfo()
 {
-	// CC hasn't been placed yet.
-	if (ccLocation() == NAS2D::Point{0, 0}) { return; }
+	if (ccLocation() == CcNotPlaced) { return; }
 
 	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 

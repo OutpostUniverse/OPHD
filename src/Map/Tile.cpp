@@ -125,9 +125,14 @@ Robot* Tile::robot()
 /**
  * 
  */
-float Tile::distanceTo(Tile* t)
+float Tile::distanceTo(Tile* tile)
 {
-	int x = t->x() - Tile::x();
-	int y = t->y() - Tile::y();
-	return static_cast<float>(sqrt((x * x) + (y * y)));
+	return distanceTo(tile->position());
+}
+
+
+float Tile::distanceTo(NAS2D::Point<int> point)
+{
+	const auto direction = point - position();
+	return static_cast<float>(std::sqrt((direction.x * direction.x) + (direction.y * direction.y)));
 }
