@@ -79,7 +79,7 @@ MapViewState::MapViewState(const std::string& savegame) :
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
-	ccLocation() = {0, 0};
+	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
 
@@ -99,7 +99,7 @@ MapViewState::MapViewState(const std::string& siteMap, const std::string& tileSe
 	mHeightMap(siteMap + MAP_TERRAIN_EXTENSION),
 	mUiIcons("ui/icons.png")
 {
-	ccLocation() = {0, 0};
+	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
 
