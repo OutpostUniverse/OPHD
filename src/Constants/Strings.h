@@ -33,9 +33,6 @@ namespace constants
 	const std::string MINE_YIELD_MEDIUM = "Medium";
 	const std::string MINE_YIELD_HIGH = "High";
 
-	const std::string ROBOT_BREAKDOWN_TITLE = "Robot Breakdown";
-	const std::string ROBOT_BREAKDOWN_MESSAGE = "Your %s at location %i, %i has broken down. It will not be able to complete its task and will be removed from your inventory.";
-
 	const std::string PRODUCT_TRANSFER_TITLE = "Remaining Product";
 	const std::string PRODUCT_TRANSFER_MESSAGE = "Bulldozing this Warehouse will result in some products being discarded due to insufficient storage space at other warehouses.\n\nDo you want to discard these products?";
 
