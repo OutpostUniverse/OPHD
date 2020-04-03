@@ -108,11 +108,11 @@ void GraphWalker::check(int x, int y, int depth, Direction _d)
 	if (x < 0 || x > mTileMap->width() - 1 || y < 0 || y > mTileMap->height() - 1) { return; }
 	if (depth < 0 || depth > mTileMap->maxDepth()) { return; }
 
-	Tile* t = mTileMap->getTile(x, y, depth);
+	Tile* tile = mTileMap->getTile(x, y, depth);
 
-	if (t->connected() || t->mine() || !t->excavated() || !t->thingIsStructure()) { return; }
+	if (tile->connected() || tile->mine() || !tile->excavated() || !tile->thingIsStructure()) { return; }
 
-	if (validConnection(mThisTile->structure(), t->structure(), _d))
+	if (validConnection(mThisTile->structure(), tile->structure(), _d))
 	{
 		GraphWalker walker(Point_2d(x, y), depth, mTileMap);
 	}
