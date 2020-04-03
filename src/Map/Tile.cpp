@@ -125,9 +125,9 @@ Robot* Tile::robot()
 /**
  * 
  */
-float Tile::distanceTo(Tile* t)
+float Tile::distanceTo(Tile* tile)
 {
-	return distanceTo(t->position());
+	return distanceTo(tile->position());
 }
 
 

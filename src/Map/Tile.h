@@ -61,7 +61,7 @@ public:
 	Mine* mine() { return mMine; }
 	void pushMine(Mine*);
 
-	float distanceTo(Tile*);
+	float distanceTo(Tile* tile);
 	float distanceTo(NAS2D::Point<int> point);
 
 	void color(const NAS2D::Color& c) { mColor = c; }
