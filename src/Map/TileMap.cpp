@@ -81,7 +81,7 @@ static void findSurroundingMineLocation(Point<int>& pt, TileArray& ta)
 }
 
 
-static void addMineSet(Point<int> & pt, Point2dList & plist, TileArray & ta, MineProductionRate rate)
+static void addMineSet(Point<int>& pt, Point2dList& plist, TileArray& ta, MineProductionRate rate)
 {
 	findSurroundingMineLocation(pt, ta);
 
