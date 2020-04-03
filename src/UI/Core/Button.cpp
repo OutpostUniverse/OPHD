@@ -189,10 +189,8 @@ void Button::draw()
 	else
 	{
 		// force text to be drawn on integer bounds, otherwise it can look 'fuzzy' due to texture blending
-		int posX = static_cast<int>(rect().x() + (rect().width() / 2) - (mFont->width(text()) / 2));
-		int posY = static_cast<int>(rect().y() + (rect().height() / 2) - (mFont->height() / 2));
-
-		r.drawText(*mFont, text(), static_cast<float>(posX), static_cast<float>(posY), 255, 255, 255);
+		const auto textPosition = rect().center().to<int>() - NAS2D::Vector{mFont->width(text()), mFont->height()} / 2;
+		r.drawText(*mFont, text(), textPosition, NAS2D::Color::White);
 	}
 
 	/// \fixme	Naive... would rather set a b&w shader instead.
