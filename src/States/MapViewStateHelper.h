@@ -20,6 +20,7 @@ typedef std::map<Robot*, Tile*> RobotTileTable;
 class Warehouse;	/**< Forward declaration for getAvailableWarehouse() function. */
 class RobotCommand;	/**< Forward declaration for getAvailableRobotCommand() function. */
 
+extern const NAS2D::Point<int> CcNotPlaced;
 NAS2D::Point<int>& ccLocation();
 
 bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnectorDir);
