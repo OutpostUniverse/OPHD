@@ -47,7 +47,7 @@ std::map<constants::PlanetHostility, std::tuple<float, float, float>>	HostilityM
 // ===============================================================================
 // = LOCAL VARIABLES
 // ===============================================================================
-Point_2d			TRANSFORM; /**< Used to adjust mouse and screen spaces based on position of the map field. */
+Point<int>			TRANSFORM; /**< Used to adjust mouse and screen spaces based on position of the map field. */
 
 
 // ===============================================================================
@@ -68,7 +68,7 @@ auto myield = std::bind(mine_yield, std::ref(generator));
 // = STATIC/LOCAL FUNCTIONS
 // ===============================================================================
 using TileArray = std::vector<std::vector<std::vector<Tile> > >;
-static void findSurroundingMineLocation(Point_2d& pt, TileArray& ta)
+static void findSurroundingMineLocation(Point<int>& pt, TileArray& ta)
 {
 	if (ta[0][pt.y()][pt.x()].hasMine())
 	{
@@ -81,7 +81,7 @@ static void findSurroundingMineLocation(Point_2d& pt, TileArray& ta)
 }
 
 
-static void addMineSet(Point_2d & pt, Point2dList & plist, TileArray & ta, MineProductionRate rate)
+static void addMineSet(Point<int> & pt, Point2dList & plist, TileArray & ta, MineProductionRate rate)
 {
 	findSurroundingMineLocation(pt, ta);
 
@@ -128,7 +128,7 @@ TileMap::~TileMap()
  * \note	Does no sanity checking, assumes that the point provided
  *			corresponds to a valid location.
  */
-void TileMap::removeMineLocation(const NAS2D::Point_2d& pt)
+void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 {
 	mMineLocations.erase(find(mMineLocations.begin(), mMineLocations.end(), pt));
 	getTile(pt, 0)->pushMine(nullptr);
@@ -216,19 +216,19 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 	// \fixme Inelegant solution but may not be worth refactoring out into its own function.
 	for (int i = 0; i < yield_low; ++i)
 	{
-		Point_2d pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
 		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_LOW);
 	}
 
 	for (int i = 0; i < yield_medium; ++i)
 	{
-		Point_2d pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
 		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_MEDIUM);
 	}
 
 	for (int i = 0; i < yield_high; ++i)
 	{
-		Point_2d pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
 		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_HIGH);
 	}
 
@@ -537,7 +537,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		mTileMap[0][y][x].pushMine(m);
 		mTileMap[0][y][x].index(TERRAIN_DOZED);
 
-		mMineLocations.push_back(Point_2d(x, y));
+		mMineLocations.push_back(Point<int>(x, y));
 
 		/// \fixme	Legacy code to assist in updating older versions of save games between 0.7.5 and 0.7.6. Remove in 0.8.0
 		if (m->depth() == 0 && m->active()) { m->increaseDepth(); }
