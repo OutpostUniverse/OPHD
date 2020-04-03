@@ -62,6 +62,7 @@ public:
 	void pushMine(Mine*);
 
 	float distanceTo(Tile*);
+	float distanceTo(NAS2D::Point<int> point);
 
 	void color(const NAS2D::Color& c) { mColor = c; }
 	const NAS2D::Color& color() const { return mColor; }

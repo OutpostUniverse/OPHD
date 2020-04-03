@@ -131,3 +131,10 @@ float Tile::distanceTo(Tile* t)
 	int y = t->y() - Tile::y();
 	return static_cast<float>(sqrt((x * x) + (y * y)));
 }
+
+
+float Tile::distanceTo(NAS2D::Point<int> point)
+{
+	const auto direction = point - position();
+	return static_cast<float>(std::sqrt((direction.x * direction.x) + (direction.y * direction.y)));
+}
