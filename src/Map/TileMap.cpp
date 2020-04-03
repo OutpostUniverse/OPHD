@@ -82,9 +82,9 @@ static Point<int> findSurroundingMineLocation(Point<int> centerPoint, TileArray&
 }
 
 
-static void addMineSet(Point<int> pt, Point2dList& plist, TileArray& tileArray, MineProductionRate rate)
+static void addMineSet(Point<int> suggestedMineLocation, Point2dList& plist, TileArray& tileArray, MineProductionRate rate)
 {
-	const auto mineLocation = findSurroundingMineLocation(pt, tileArray);
+	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation, tileArray);
 
 	tileArray[0][mineLocation.y()][mineLocation.x()].pushMine(new Mine(rate));
 	tileArray[0][mineLocation.y()][mineLocation.x()].index(TERRAIN_DOZED);
