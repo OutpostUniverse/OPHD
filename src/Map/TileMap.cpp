@@ -75,7 +75,7 @@ static Point<int> findSurroundingMineLocation(Point<int> pt, TileArray& ta)
 		for (const auto& direction : DirectionScan323)
 		{
 			const auto point = pt + direction;
-			if (ta[0][point.y()][point.x()].hasMine()) { pt = point; }
+			if (ta[0][point.y()][point.x()].hasMine()) { return point; }
 		}
 	}
 	return pt;
