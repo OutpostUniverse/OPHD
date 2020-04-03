@@ -189,10 +189,7 @@ bool validLanderSite(Tile* tile)
 		return false;
 	}
 
-	// bleh, direct copy from Tile::distanceTo()
-	int _x = tile->x() - ccLocationX();
-	int _y = tile->y() - ccLocationY();
-	float _dist = std::sqrt(static_cast<float>(_x * _x) + _y * _y);
+	auto _dist = tile->distanceTo(ccLocation());
 	if (_dist > constants::LANDER_COM_RANGE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_COMM_RANGE);
