@@ -25,11 +25,10 @@ private:
 	void check(int x, int y, int depth, Direction direction);
 
 private:
-	TileMap*		mTileMap = nullptr;
+	TileMap* mTileMap = nullptr;
+	Tile* mThisTile = nullptr;
 
-	Tile*			mThisTile = nullptr;
-
-	NAS2D::Point_2d	mGridPosition;
-	int				mDepth = 0;
+	NAS2D::Point_2d mGridPosition;
+	int mDepth = 0;
 };
 
