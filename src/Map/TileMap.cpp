@@ -68,17 +68,17 @@ auto myield = std::bind(mine_yield, std::ref(generator));
 // = STATIC/LOCAL FUNCTIONS
 // ===============================================================================
 using TileArray = std::vector<std::vector<std::vector<Tile> > >;
-static Point<int> findSurroundingMineLocation(Point<int> pt, TileArray& tileArray)
+static Point<int> findSurroundingMineLocation(Point<int> centerPoint, TileArray& tileArray)
 {
-	if (tileArray[0][pt.y()][pt.x()].hasMine())
+	if (tileArray[0][centerPoint.y()][centerPoint.x()].hasMine())
 	{
 		for (const auto& direction : DirectionScan323)
 		{
-			const auto point = pt + direction;
+			const auto point = centerPoint + direction;
 			if (tileArray[0][point.y()][point.x()].hasMine()) { return point; }
 		}
 	}
-	return pt;
+	return centerPoint;
 }
 
 
