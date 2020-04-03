@@ -21,8 +21,6 @@ class Warehouse;	/**< Forward declaration for getAvailableWarehouse() function. 
 class RobotCommand;	/**< Forward declaration for getAvailableRobotCommand() function. */
 
 NAS2D::Point_2d& ccLocation();
-int ccLocationX();
-int ccLocationY();
 
 bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile* tile, Direction dir);

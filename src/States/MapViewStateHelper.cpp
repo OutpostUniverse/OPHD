@@ -42,24 +42,6 @@ Point_2d& ccLocation()
 
 
 /**
- * 
- */
-int ccLocationX()
-{
-	return COMMAND_CENTER_LOCATION.x();
-}
-
-
-/**
- * 
- */
-int ccLocationY()
-{
-	return COMMAND_CENTER_LOCATION.y();
-}
-
-
-/**
  * Checks to see if a given tube connection is valid.
  * 
  * \warning		Assumes \c tile is never nullptr.
