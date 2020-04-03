@@ -16,7 +16,7 @@ constexpr auto DirectionSouth     = NAS2D::Vector{ 0,  1};
 constexpr auto DirectionSouthEast = NAS2D::Vector{ 1,  1};
 
 
-constexpr auto DirectionScan3x3 = std::array<NAS2D::Vector<int>, 9>{
+constexpr auto DirectionScan3x3 = std::array{
 	DirectionNorthWest,
 	DirectionNorth,
 	DirectionNorthEast,
@@ -28,7 +28,7 @@ constexpr auto DirectionScan3x3 = std::array<NAS2D::Vector<int>, 9>{
 	DirectionSouthEast
 };
 
-constexpr auto DirectionClockwise8 = std::array<NAS2D::Vector<int>, 8>{
+constexpr auto DirectionClockwise8 = std::array{
 	DirectionNorth,
 	DirectionNorthEast,
 	DirectionEast,
@@ -39,7 +39,7 @@ constexpr auto DirectionClockwise8 = std::array<NAS2D::Vector<int>, 8>{
 	DirectionNorthWest
 };
 
-constexpr auto DirectionClockwise4 = std::array<NAS2D::Vector<int>, 4>{
+constexpr auto DirectionClockwise4 = std::array{
 	DirectionNorth,
 	DirectionEast,
 	DirectionSouth,
