@@ -254,10 +254,10 @@ void MapViewState::drawRobotInfo()
 		{robotSummaryImageRect, static_cast<int>(mRobotPool.currentControlCount()), mRobotPool.robotControlMax()},
 	}};
 
-	for (const auto params : icons)
+	for (const auto& [imageRect, parts, total] : icons)
 	{
-		renderer.drawSubImage(mUiIcons, position, params.imageRect);
-		const auto text = std::to_string(params.parts) + "/" + std::to_string(params.total);
+		renderer.drawSubImage(mUiIcons, position, imageRect);
+		const auto text = std::to_string(parts) + "/" + std::to_string(total);
 		renderer.drawText(*MAIN_FONT, text, position + textOffset, NAS2D::Color::White);
 		position.y() -= 25;
 	}
