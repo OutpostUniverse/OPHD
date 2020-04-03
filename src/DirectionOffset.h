@@ -5,18 +5,18 @@
 #include <array>
 
 
-constexpr auto DirectionNorthWest = NAS2D::Vector<int>{-1, -1};
-constexpr auto DirectionNorth     = NAS2D::Vector<int>{ 0, -1};
-constexpr auto DirectionNorthEast = NAS2D::Vector<int>{ 1, -1};
-constexpr auto DirectionWest      = NAS2D::Vector<int>{-1,  0};
-constexpr auto DirectionCenter    = NAS2D::Vector<int>{ 0,  0};
-constexpr auto DirectionEast      = NAS2D::Vector<int>{ 1,  0};
-constexpr auto DirectionSouthWest = NAS2D::Vector<int>{-1,  1};
-constexpr auto DirectionSouth     = NAS2D::Vector<int>{ 0,  1};
-constexpr auto DirectionSouthEast = NAS2D::Vector<int>{ 1,  1};
+constexpr auto DirectionNorthWest = NAS2D::Vector{-1, -1};
+constexpr auto DirectionNorth     = NAS2D::Vector{ 0, -1};
+constexpr auto DirectionNorthEast = NAS2D::Vector{ 1, -1};
+constexpr auto DirectionWest      = NAS2D::Vector{-1,  0};
+constexpr auto DirectionCenter    = NAS2D::Vector{ 0,  0};
+constexpr auto DirectionEast      = NAS2D::Vector{ 1,  0};
+constexpr auto DirectionSouthWest = NAS2D::Vector{-1,  1};
+constexpr auto DirectionSouth     = NAS2D::Vector{ 0,  1};
+constexpr auto DirectionSouthEast = NAS2D::Vector{ 1,  1};
 
 
-constexpr auto DirectionScan3x3 = std::array<NAS2D::Vector<int>, 9>{
+constexpr auto DirectionScan3x3 = std::array{
 	DirectionNorthWest,
 	DirectionNorth,
 	DirectionNorthEast,
@@ -28,7 +28,18 @@ constexpr auto DirectionScan3x3 = std::array<NAS2D::Vector<int>, 9>{
 	DirectionSouthEast
 };
 
-constexpr auto DirectionClockwise8 = std::array<NAS2D::Vector<int>, 8>{
+constexpr auto DirectionScan323 = std::array{
+	DirectionNorthWest,
+	DirectionNorth,
+	DirectionNorthEast,
+	DirectionWest,
+	DirectionEast,
+	DirectionSouthWest,
+	DirectionSouth,
+	DirectionSouthEast
+};
+
+constexpr auto DirectionClockwise8 = std::array{
 	DirectionNorth,
 	DirectionNorthEast,
 	DirectionEast,
@@ -39,7 +50,7 @@ constexpr auto DirectionClockwise8 = std::array<NAS2D::Vector<int>, 8>{
 	DirectionNorthWest
 };
 
-constexpr auto DirectionClockwise4 = std::array<NAS2D::Vector<int>, 4>{
+constexpr auto DirectionClockwise4 = std::array{
 	DirectionNorth,
 	DirectionEast,
 	DirectionSouth,
