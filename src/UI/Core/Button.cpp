@@ -171,15 +171,15 @@ void Button::draw()
 
 	if (enabled() && mMouseHover && mState != STATE_PRESSED)
 	{
-		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinHover);
+		r.drawImageRect(rect(), mSkinHover);
 	}
 	else if (mState == STATE_NORMAL)
 	{
-		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal);
+		r.drawImageRect(rect(), mSkinNormal);
 	}
 	else
 	{
-		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinPressed);
+		r.drawImageRect(rect(), mSkinPressed);
 	}
 
 	if (mImage)
