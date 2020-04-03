@@ -127,9 +127,7 @@ Robot* Tile::robot()
  */
 float Tile::distanceTo(Tile* t)
 {
-	int x = t->x() - Tile::x();
-	int y = t->y() - Tile::y();
-	return static_cast<float>(sqrt((x * x) + (y * y)));
+	return distanceTo(t->position());
 }
 
 
