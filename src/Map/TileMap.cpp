@@ -68,26 +68,26 @@ auto myield = std::bind(mine_yield, std::ref(generator));
 // = STATIC/LOCAL FUNCTIONS
 // ===============================================================================
 using TileArray = std::vector<std::vector<std::vector<Tile> > >;
-static Point<int> findSurroundingMineLocation(Point<int> pt, TileArray& ta)
+static Point<int> findSurroundingMineLocation(Point<int> pt, TileArray& tileArray)
 {
-	if (ta[0][pt.y()][pt.x()].hasMine())
+	if (tileArray[0][pt.y()][pt.x()].hasMine())
 	{
 		for (const auto& direction : DirectionScan323)
 		{
 			const auto point = pt + direction;
-			if (ta[0][point.y()][point.x()].hasMine()) { return point; }
+			if (tileArray[0][point.y()][point.x()].hasMine()) { return point; }
 		}
 	}
 	return pt;
 }
 
 
-static void addMineSet(Point<int> pt, Point2dList& plist, TileArray& ta, MineProductionRate rate)
+static void addMineSet(Point<int> pt, Point2dList& plist, TileArray& tileArray, MineProductionRate rate)
 {
-	pt = findSurroundingMineLocation(pt, ta);
+	pt = findSurroundingMineLocation(pt, tileArray);
 
-	ta[0][pt.y()][pt.x()].pushMine(new Mine(rate));
-	ta[0][pt.y()][pt.x()].index(TERRAIN_DOZED);
+	tileArray[0][pt.y()][pt.x()].pushMine(new Mine(rate));
+	tileArray[0][pt.y()][pt.x()].index(TERRAIN_DOZED);
 
 	plist.push_back(pt);
 }
