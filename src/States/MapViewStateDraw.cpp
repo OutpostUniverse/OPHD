@@ -227,36 +227,32 @@ void MapViewState::drawResourceInfo()
 void MapViewState::drawRobotInfo()
 {
 	// CC hasn't been placed yet.
-	if (ccLocation() == NAS2D::Point<int>{0, 0}) { return; }
+	if (ccLocation() == NAS2D::Point{0, 0}) { return; }
 
 	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Robots: Miner (last one), Dozer (middle one), Digger (first one)
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
-	auto position = NAS2D::Point<int>{8, static_cast<int>(renderer.height()) - constants::BOTTOM_UI_HEIGHT - 25 - 8};
-	constexpr auto textOffset = NAS2D::Vector<int>{30, 7};
+	auto position = NAS2D::Point{8, static_cast<int>(renderer.height()) - constants::BOTTOM_UI_HEIGHT - 25 - 8};
+	constexpr auto textOffset = NAS2D::Vector{30, 7};
 
-	const auto minerImageRect = NAS2D::Rectangle<int>{231, 18, 25, 25};
-	const auto dozerImageRect = NAS2D::Rectangle<int>{206, 18, 25, 25};
-	const auto diggerImageRect = NAS2D::Rectangle<int>{181, 18, 25, 25};
-	const auto robotSummaryImageRect = NAS2D::Rectangle<int>{231, 43, 25, 25};
+	const auto minerImageRect = NAS2D::Rectangle{231, 18, 25, 25};
+	const auto dozerImageRect = NAS2D::Rectangle{206, 18, 25, 25};
+	const auto diggerImageRect = NAS2D::Rectangle{181, 18, 25, 25};
+	const auto robotSummaryImageRect = NAS2D::Rectangle{231, 43, 25, 25};
 
-	struct IconPartsTotal {
-		const NAS2D::Rectangle<int>& imageRect;
-		int parts;
-		std::size_t total;
+	const std::array icons{
+		std::tuple{minerImageRect, mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()},
+		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()},
+		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()},
+		std::tuple{robotSummaryImageRect, static_cast<int>(mRobotPool.currentControlCount()), static_cast<std::size_t>(mRobotPool.robotControlMax())},
 	};
 
-	const std::array<IconPartsTotal, 4> icons = {{
-		{minerImageRect, mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()},
-		{dozerImageRect, mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()},
-		{diggerImageRect, mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()},
-		{robotSummaryImageRect, static_cast<int>(mRobotPool.currentControlCount()), mRobotPool.robotControlMax()},
-	}};
-
-	for (const auto params : icons) {
-		renderer.drawSubImage(mUiIcons, position, params.imageRect);
-		renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", params.parts, params.total), position + textOffset, NAS2D::Color::White);
+	for (const auto& [imageRect, parts, total] : icons)
+	{
+		renderer.drawSubImage(mUiIcons, position, imageRect);
+		const auto text = std::to_string(parts) + "/" + std::to_string(total);
+		renderer.drawText(*MAIN_FONT, text, position + textOffset, NAS2D::Color::White);
 		position.y() -= 25;
 	}
 }
