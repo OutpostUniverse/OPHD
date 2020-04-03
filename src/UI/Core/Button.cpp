@@ -196,7 +196,7 @@ void Button::draw()
 	/// \fixme	Naive... would rather set a b&w shader instead.
 	if (!enabled())
 	{
-		r.drawBoxFilled(rect(), 125, 125, 125, 100);
+		r.drawBoxFilled(rect(), NAS2D::Color{125, 125, 125, 100});
 	}
 }
 
