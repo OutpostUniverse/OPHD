@@ -2,6 +2,8 @@
 
 #include "Map/TileMap.h"
 
+#include "NAS2D/Renderer/Point.h"
+
 
 /**
  * \brief	GraphWalker does a basic depth-first connection check
