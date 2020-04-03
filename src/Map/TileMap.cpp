@@ -70,12 +70,12 @@ auto myield = std::bind(mine_yield, std::ref(generator));
 using TileArray = std::vector<std::vector<std::vector<Tile> > >;
 static void validateMineLocation(Point_2d& pt, TileArray& ta)
 {
-	if (ta[0][pt.y()][pt.x()].mine())
+	if (ta[0][pt.y()][pt.x()].hasMine())
 	{
 		for (const auto& direction : DirectionScan323)
 		{
 			const auto point = pt + direction;
-			if (ta[0][point.y()][point.x()].mine()) { pt = point; }
+			if (ta[0][point.y()][point.x()].hasMine()) { pt = point; }
 		}
 	}
 }
