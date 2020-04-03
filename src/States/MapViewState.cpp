@@ -280,7 +280,7 @@ int MapViewState::foodTotalStorage()
 	int food_storage = 0;
 
 	// Command Center has a limited amount of food storage for when colonists first land.
-	if (ccLocationX() != 0)
+	if (ccLocation() != NAS2D::Point{0, 0})
 	{
 		food_storage += constants::BASE_STORAGE_CAPACITY;
 	}
