@@ -72,7 +72,6 @@ static void validateMineLocation(Point_2d& pt, TileArray& ta)
 {
 	if (ta[0][pt.y()][pt.x()].mine())
 	{
-		//search around the tile for an empty spot
 		for (const auto& direction : DirectionScan323)
 		{
 			const auto point = pt + direction;
