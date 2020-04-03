@@ -103,7 +103,7 @@ void GraphWalker::walkGraph()
  *			to take a source and destination tile instead of looking them up. By using the internal
  *			positional information in the Tiles we can deduce direction between source and destination.
  */
-void GraphWalker::check(int x, int y, int depth, Direction _d)
+void GraphWalker::check(int x, int y, int depth, Direction direction)
 {
 	if (x < 0 || x > mTileMap->width() - 1 || y < 0 || y > mTileMap->height() - 1) { return; }
 	if (depth < 0 || depth > mTileMap->maxDepth()) { return; }
@@ -112,7 +112,7 @@ void GraphWalker::check(int x, int y, int depth, Direction _d)
 
 	if (tile->connected() || tile->mine() || !tile->excavated() || !tile->thingIsStructure()) { return; }
 
-	if (validConnection(mThisTile->structure(), tile->structure(), _d))
+	if (validConnection(mThisTile->structure(), tile->structure(), direction))
 	{
 		GraphWalker walker(Point_2d(x, y), depth, mTileMap);
 	}
