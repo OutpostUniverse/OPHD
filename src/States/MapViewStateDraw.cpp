@@ -226,7 +226,6 @@ void MapViewState::drawResourceInfo()
  */
 void MapViewState::drawRobotInfo()
 {
-	// CC hasn't been placed yet.
 	if (ccLocation() == CcNotPlaced) { return; }
 
 	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();

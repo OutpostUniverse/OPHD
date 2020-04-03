@@ -139,7 +139,7 @@ void MapViewState::load(const std::string& filePath)
 	scrubRobotList();
 	mPlayerResources.clear();
 	Utility<StructureManager>::get().dropAllStructures();
-	ccLocation() = CcNotPlaced;	// Reset CC location
+	ccLocation() = CcNotPlaced;
 
 	delete mTileMap;
 	mTileMap = nullptr;
