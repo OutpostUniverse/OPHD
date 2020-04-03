@@ -171,34 +171,32 @@ void Button::draw()
 
 	if (enabled() && mMouseHover && mState != STATE_PRESSED)
 	{
-		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinHover);
+		r.drawImageRect(rect(), mSkinHover);
 	}
 	else if (mState == STATE_NORMAL)
 	{
-		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal);
+		r.drawImageRect(rect(), mSkinNormal);
 	}
 	else
 	{
-		r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinPressed);
+		r.drawImageRect(rect(), mSkinPressed);
 	}
 
 	if (mImage)
 	{
-		r.drawImage(*mImage, rect().x() + (rect().width() / 2) - (mImage->width() / 2), rect().y() + (rect().height() / 2) - (mImage->height() / 2));
+		r.drawImage(*mImage, rect().center() - mImage->size() / 2);
 	}
 	else
 	{
 		// force text to be drawn on integer bounds, otherwise it can look 'fuzzy' due to texture blending
-		int posX = static_cast<int>(rect().x() + (rect().width() / 2) - (mFont->width(text()) / 2));
-		int posY = static_cast<int>(rect().y() + (rect().height() / 2) - (mFont->height() / 2));
-
-		r.drawText(*mFont, text(), static_cast<float>(posX), static_cast<float>(posY), 255, 255, 255);
+		const auto textPosition = rect().center().to<int>() - NAS2D::Vector{mFont->width(text()), mFont->height()} / 2;
+		r.drawText(*mFont, text(), textPosition, NAS2D::Color::White);
 	}
 
 	/// \fixme	Naive... would rather set a b&w shader instead.
 	if (!enabled())
 	{
-		r.drawBoxFilled(rect(), 125, 125, 125, 100);
+		r.drawBoxFilled(rect(), NAS2D::Color{125, 125, 125, 100});
 	}
 }
 
