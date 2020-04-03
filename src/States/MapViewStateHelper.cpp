@@ -30,7 +30,7 @@ extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 
 
 const NAS2D::Point<int> CcNotPlaced{0, 0};
-static Point<int> COMMAND_CENTER_LOCATION = CcNotPlaced;
+static Point<int> commandCenterLocation = CcNotPlaced;
 
 
 /**
@@ -38,7 +38,7 @@ static Point<int> COMMAND_CENTER_LOCATION = CcNotPlaced;
  */
 Point<int>& ccLocation()
 {
-	return COMMAND_CENTER_LOCATION;
+	return commandCenterLocation;
 }
 
 
