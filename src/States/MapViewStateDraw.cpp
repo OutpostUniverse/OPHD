@@ -227,19 +227,19 @@ void MapViewState::drawResourceInfo()
 void MapViewState::drawRobotInfo()
 {
 	// CC hasn't been placed yet.
-	if (ccLocation() == NAS2D::Point<int>{0, 0}) { return; }
+	if (ccLocation() == NAS2D::Point{0, 0}) { return; }
 
 	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Robots: Miner (last one), Dozer (middle one), Digger (first one)
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
-	auto position = NAS2D::Point<int>{8, static_cast<int>(renderer.height()) - constants::BOTTOM_UI_HEIGHT - 25 - 8};
-	constexpr auto textOffset = NAS2D::Vector<int>{30, 7};
+	auto position = NAS2D::Point{8, static_cast<int>(renderer.height()) - constants::BOTTOM_UI_HEIGHT - 25 - 8};
+	constexpr auto textOffset = NAS2D::Vector{30, 7};
 
-	const auto minerImageRect = NAS2D::Rectangle<int>{231, 18, 25, 25};
-	const auto dozerImageRect = NAS2D::Rectangle<int>{206, 18, 25, 25};
-	const auto diggerImageRect = NAS2D::Rectangle<int>{181, 18, 25, 25};
-	const auto robotSummaryImageRect = NAS2D::Rectangle<int>{231, 43, 25, 25};
+	const auto minerImageRect = NAS2D::Rectangle{231, 18, 25, 25};
+	const auto dozerImageRect = NAS2D::Rectangle{206, 18, 25, 25};
+	const auto diggerImageRect = NAS2D::Rectangle{181, 18, 25, 25};
+	const auto robotSummaryImageRect = NAS2D::Rectangle{231, 43, 25, 25};
 
 	const std::array icons{
 		std::tuple{minerImageRect, mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()},
