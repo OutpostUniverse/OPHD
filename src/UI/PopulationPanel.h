@@ -28,15 +28,15 @@ public:
 protected:
 
 private:
-	NAS2D::Image		mIcons;
-	NAS2D::ImageList	mSkin;
+	NAS2D::Image mIcons;
+	NAS2D::ImageList mSkin;
 
-	Population*			mPopulation = nullptr;
+	Population* mPopulation = nullptr;
 
-	int					mResidentialCapacity = 0;
+	int mResidentialCapacity = 0;
 
-	int*				mMorale = nullptr;
-	int*				mPreviousMorale = nullptr;
+	int* mMorale = nullptr;
+	int* mPreviousMorale = nullptr;
 
-	int				mCapacity = 0;
+	int mCapacity = 0;
 };
