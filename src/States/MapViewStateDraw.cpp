@@ -256,7 +256,8 @@ void MapViewState::drawRobotInfo()
 
 	for (const auto params : icons) {
 		renderer.drawSubImage(mUiIcons, position, params.imageRect);
-		renderer.drawText(*MAIN_FONT, NAS2D::string_format("%i/%i", params.parts, params.total), position + textOffset, NAS2D::Color::White);
+		const auto text = NAS2D::string_format("%i/%i", params.parts, params.total);
+		renderer.drawText(*MAIN_FONT, text, position + textOffset, NAS2D::Color::White);
 		position.y() -= 25;
 	}
 }
