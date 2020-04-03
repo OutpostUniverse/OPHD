@@ -1345,7 +1345,7 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
  */
 void MapViewState::checkConnectedness()
 {
-	if (ccLocationX() == 0 && ccLocationY() == 0)
+	if (ccLocation() == NAS2D::Point{0, 0})
 	{
 		return;
 	}
