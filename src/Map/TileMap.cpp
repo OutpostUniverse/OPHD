@@ -73,16 +73,11 @@ static void validateMineLocation(Point_2d& pt, TileArray& ta)
 	if (ta[0][pt.y()][pt.x()].mine())
 	{
 		//search around the tile for an empty spot
-		if (ta[0][pt.y() - 1][pt.x() - 1].mine()) { pt = {pt.x() - 1, pt.y() - 1}; }
-		if (ta[0][pt.y() - 1][pt.x()].mine()) { pt = {pt.x(), pt.y() - 1}; }
-		if (ta[0][pt.y() - 1][pt.x() + 1].mine()) { pt = {pt.x() + 1, pt.y() - 1}; }
-
-		if (ta[0][pt.y()][pt.x() - 1].mine()) { pt = {pt.x() - 1, pt.y()}; }
-		if (ta[0][pt.y()][pt.x() + 1].mine()) { pt = {pt.x() + 1, pt.y()}; }
-
-		if (ta[0][pt.y() + 1][pt.x() - 1].mine()) { pt = {pt.x() - 1, pt.y() + 1}; }
-		if (ta[0][pt.y() + 1][pt.x()].mine()) { pt = {pt.x(), pt.y() + 1}; }
-		if (ta[0][pt.y() + 1][pt.x() + 1].mine()) { pt = {pt.x() + 1, pt.y() + 1}; }
+		for (const auto& direction : DirectionScan323)
+		{
+			const auto point = pt + direction;
+			if (ta[0][point.y()][point.x()].mine()) { pt = point; }
+		}
 	}
 }
 
