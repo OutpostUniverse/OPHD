@@ -68,7 +68,7 @@ auto myield = std::bind(mine_yield, std::ref(generator));
 // = STATIC/LOCAL FUNCTIONS
 // ===============================================================================
 using TileArray = std::vector<std::vector<std::vector<Tile> > >;
-static void validateMineLocation(Point_2d& pt, TileArray& ta)
+static void findSurroundingMineLocation(Point_2d& pt, TileArray& ta)
 {
 	if (ta[0][pt.y()][pt.x()].hasMine())
 	{
@@ -83,7 +83,7 @@ static void validateMineLocation(Point_2d& pt, TileArray& ta)
 
 static void addMineSet(Point_2d & pt, Point2dList & plist, TileArray & ta, MineProductionRate rate)
 {
-	validateMineLocation(pt, ta);
+	findSurroundingMineLocation(pt, ta);
 
 	ta[0][pt.y()][pt.x()].pushMine(new Mine(rate));
 	ta[0][pt.y()][pt.x()].index(TERRAIN_DOZED);
