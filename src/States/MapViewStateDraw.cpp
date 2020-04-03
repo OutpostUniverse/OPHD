@@ -241,18 +241,12 @@ void MapViewState::drawRobotInfo()
 	const auto diggerImageRect = NAS2D::Rectangle<int>{181, 18, 25, 25};
 	const auto robotSummaryImageRect = NAS2D::Rectangle<int>{231, 43, 25, 25};
 
-	struct IconPartsTotal {
-		const NAS2D::Rectangle<int>& imageRect;
-		int parts;
-		std::size_t total;
+	const std::array icons{
+		std::tuple{minerImageRect, mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()},
+		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()},
+		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()},
+		std::tuple{robotSummaryImageRect, static_cast<int>(mRobotPool.currentControlCount()), static_cast<std::size_t>(mRobotPool.robotControlMax())},
 	};
-
-	const std::array<IconPartsTotal, 4> icons = {{
-		{minerImageRect, mRobotPool.getAvailableCount(ROBOT_MINER), mRobotPool.miners().size()},
-		{dozerImageRect, mRobotPool.getAvailableCount(ROBOT_DOZER), mRobotPool.dozers().size()},
-		{diggerImageRect, mRobotPool.getAvailableCount(ROBOT_DIGGER), mRobotPool.diggers().size()},
-		{robotSummaryImageRect, static_cast<int>(mRobotPool.currentControlCount()), mRobotPool.robotControlMax()},
-	}};
 
 	for (const auto& [imageRect, parts, total] : icons)
 	{
