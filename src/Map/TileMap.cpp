@@ -84,6 +84,8 @@ static Point<int> findSurroundingMineLocation(Point<int> centerPoint, TileArray&
 
 static void addMineSet(Point<int> suggestedMineLocation, Point2dList& plist, TileArray& tileArray, MineProductionRate rate)
 {
+	// Mines should not be right next to each other
+	// If mines are right next to each other, then overwrite the old location with the new mine parameters
 	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation, tileArray);
 
 	tileArray[0][mineLocation.y()][mineLocation.x()].pushMine(new Mine(rate));
