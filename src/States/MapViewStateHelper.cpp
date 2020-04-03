@@ -29,13 +29,13 @@ using namespace NAS2D::Xml;
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 
 
-static Point_2d COMMAND_CENTER_LOCATION;
+static Point<int> COMMAND_CENTER_LOCATION;
 
 
 /**
  * 
  */
-Point_2d& ccLocation()
+Point<int>& ccLocation()
 {
 	return COMMAND_CENTER_LOCATION;
 }
