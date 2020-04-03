@@ -20,7 +20,7 @@ private:
 
 private:
 	void walkGraph();
-	void check(int, int, int, Direction);
+	void check(int x, int y, int depth, Direction direction);
 
 private:
 	TileMap*		mTileMap = nullptr;
