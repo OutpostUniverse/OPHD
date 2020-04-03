@@ -28,6 +28,17 @@ constexpr auto DirectionScan3x3 = std::array{
 	DirectionSouthEast
 };
 
+constexpr auto DirectionScan323 = std::array{
+	DirectionNorthWest,
+	DirectionNorth,
+	DirectionNorthEast,
+	DirectionWest,
+	DirectionEast,
+	DirectionSouthWest,
+	DirectionSouth,
+	DirectionSouthEast
+};
+
 constexpr auto DirectionClockwise8 = std::array{
 	DirectionNorth,
 	DirectionNorthEast,
