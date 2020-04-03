@@ -189,8 +189,7 @@ bool validLanderSite(Tile* tile)
 		return false;
 	}
 
-	auto _dist = tile->distanceTo(ccLocation());
-	if (_dist > constants::LANDER_COM_RANGE)
+	if (tile->distanceTo(ccLocation()) > constants::LANDER_COM_RANGE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_COMM_RANGE);
 		return false;
