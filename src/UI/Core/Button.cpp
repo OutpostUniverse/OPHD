@@ -184,7 +184,7 @@ void Button::draw()
 
 	if (mImage)
 	{
-		r.drawImage(*mImage, rect().startPoint() + (rect().size() - mImage->size()) / 2);
+		r.drawImage(*mImage, rect().center() - mImage->size() / 2);
 	}
 	else
 	{
