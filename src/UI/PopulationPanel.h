@@ -21,7 +21,7 @@ public:
 	 * \fixme	This class/function is use to store residence capacity
 	 *			by the MapViewState. Probably not be an appropriate place.
 	 */
-	float capacity() const { return mCapacity; }
+	int capacity() const { return mCapacity; }
 
 	virtual void update() final;
 
@@ -38,5 +38,5 @@ private:
 	int*				mMorale = nullptr;
 	int*				mPreviousMorale = nullptr;
 
-	float				mCapacity = 0.0f;
+	int				mCapacity = 0;
 };

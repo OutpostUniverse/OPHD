@@ -151,10 +151,10 @@ void MapViewState::updateMorale()
 	mCurrentMorale -= sm.disabled();
 	mCurrentMorale -= sm.destroyed();
 
-	int residentialMoraleHit = static_cast<int>(mPopulationPanel.capacity() / 100.0f);
+	int residentialMoraleHit = mPopulationPanel.capacity() / 100;
 
 	// Ensure that there is always a morale hit if residential capacity is more than 100%.
-	if (mPopulationPanel.capacity() > 100.0f && residentialMoraleHit < constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT) { residentialMoraleHit = constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT; }
+	if (mPopulationPanel.capacity() > 100 && residentialMoraleHit < constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT) { residentialMoraleHit = constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT; }
 
 	mCurrentMorale -= residentialMoraleHit;
 
