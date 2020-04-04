@@ -12,7 +12,7 @@
 class GraphWalker
 {
 public:
-	GraphWalker(const NAS2D::Point_2d& point, int depth, TileMap* tileMap);
+	GraphWalker(const NAS2D::Point<int>& point, int depth, TileMap* tileMap);
 	~GraphWalker() = default;
 	
 private:
@@ -28,7 +28,7 @@ private:
 	TileMap* mTileMap = nullptr;
 	Tile* mThisTile = nullptr;
 
-	NAS2D::Point_2d mGridPosition;
+	NAS2D::Point<int> mGridPosition;
 	int mDepth = 0;
 };
 
