@@ -72,11 +72,11 @@ static bool validConnection(Structure* src, Structure* dst, Direction _d)
 }
 
 
-GraphWalker::GraphWalker(const Point_2d& _p, int _d, TileMap* _t) :
-	mTileMap(_t),
-	mThisTile(_t->getTile(_p, _d)),
-	mGridPosition(_p),
-	mDepth(_d)
+GraphWalker::GraphWalker(const NAS2D::Point_2d& point, int depth, TileMap* tileMap) :
+	mTileMap(tileMap),
+	mThisTile(tileMap->getTile(point, depth)),
+	mGridPosition(point),
+	mDepth(depth)
 {
 	walkGraph();
 }
