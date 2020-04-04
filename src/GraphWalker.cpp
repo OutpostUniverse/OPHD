@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 #include "GraphWalker.h"
+#include "DirectionOffset.h"
+
 
 using namespace NAS2D;
 
@@ -89,10 +91,10 @@ void GraphWalker::walkGraph()
 	if (mDepth > 0) { check(mGridPosition, mDepth - 1, DIR_UP); }
 	if (mDepth < mTileMap->maxDepth()) { check(mGridPosition, mDepth + 1, DIR_DOWN); }
 
-	check({mGridPosition.x(), mGridPosition.y() - 1}, mDepth, DIR_NORTH);
-	check({mGridPosition.x() + 1, mGridPosition.y()}, mDepth, DIR_EAST);
-	check({mGridPosition.x(), mGridPosition.y() + 1}, mDepth, DIR_SOUTH);
-	check({mGridPosition.x() - 1, mGridPosition.y()}, mDepth, DIR_WEST);
+	check(mGridPosition + DirectionNorth, mDepth, DIR_NORTH);
+	check(mGridPosition + DirectionEast, mDepth, DIR_EAST);
+	check(mGridPosition + DirectionSouth, mDepth, DIR_SOUTH);
+	check(mGridPosition + DirectionWest, mDepth, DIR_WEST);
 }
 
 
