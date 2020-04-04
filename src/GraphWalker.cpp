@@ -114,6 +114,6 @@ void GraphWalker::check(int x, int y, int depth, Direction direction)
 
 	if (validConnection(mThisTile->structure(), tile->structure(), direction))
 	{
-		GraphWalker walker(Point_2d(x, y), depth, mTileMap);
+		GraphWalker walker({x, y}, depth, mTileMap);
 	}
 }
