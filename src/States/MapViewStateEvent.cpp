@@ -138,20 +138,18 @@ void MapViewState::deploySeedLander(int x, int y)
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
+	for (const auto& direction : DirectionClockwise4)
+	{
+		structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(point + direction));
+	}
+
 	// TOP ROW
 	structureManager.addStructure(new SeedPower(), mTileMap->getTile(x - 1, y - 1));
-
-	structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y - 1));
 
 	CommandCenter* cc = static_cast<CommandCenter*>(StructureCatalogue::get(SID_COMMAND_CENTER));
 	cc->sprite().setFrame(3);
 	structureManager.addStructure(cc, mTileMap->getTile(x + 1, y - 1));
 	ccLocation() = {x + 1, y - 1};
-
-	// MIDDLE ROW
-	structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x - 1, y));
-
-	structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x + 1, y));
 
 	// BOTTOM ROW
 	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(SID_SEED_FACTORY));
@@ -159,8 +157,6 @@ void MapViewState::deploySeedLander(int x, int y)
 	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 	sf->sprite().setFrame(7);
 	structureManager.addStructure(sf, mTileMap->getTile(x - 1, y + 1));
-
-	structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y + 1));
 
 	SeedSmelter* ss = static_cast<SeedSmelter*>(StructureCatalogue::get(SID_SEED_SMELTER));
 	ss->sprite().setFrame(10);
