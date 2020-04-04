@@ -2,6 +2,8 @@
 
 #include "Map/TileMap.h"
 
+#include "NAS2D/Renderer/Point.h"
+
 
 /**
  * \brief	GraphWalker does a basic depth-first connection check
@@ -10,7 +12,7 @@
 class GraphWalker
 {
 public:
-	GraphWalker(const NAS2D::Point_2d&, int, TileMap*);
+	GraphWalker(const NAS2D::Point<int>& point, int depth, TileMap* tileMap);
 	~GraphWalker() = default;
 	
 private:
@@ -20,14 +22,13 @@ private:
 
 private:
 	void walkGraph();
-	void check(int, int, int, Direction);
+	void check(NAS2D::Point<int> point, int depth, Direction direction);
 
 private:
-	TileMap*		mTileMap = nullptr;
+	TileMap* mTileMap = nullptr;
+	Tile* mThisTile = nullptr;
 
-	Tile*			mThisTile = nullptr;
-
-	NAS2D::Point_2d	mGridPosition;
-	int				mDepth = 0;
+	NAS2D::Point<int> mGridPosition;
+	int mDepth = 0;
 };
 
