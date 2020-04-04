@@ -131,6 +131,8 @@ void MapViewState::deployCargoLander()
 void MapViewState::deploySeedLander(int x, int y)
 {
 	const NAS2D::Point point{x, y};
+
+	// Bulldoze lander region
 	for (const auto& direction : DirectionScan3x3)
 	{
 		mTileMap->getTile(point + direction)->index(TERRAIN_DOZED);
@@ -138,6 +140,7 @@ void MapViewState::deploySeedLander(int x, int y)
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
+	// Place initial tubes
 	for (const auto& direction : DirectionClockwise4)
 	{
 		structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(point + direction));
