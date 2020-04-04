@@ -41,10 +41,10 @@ void PopulationPanel::update()
 	position.y() += 10;
 	renderer.drawText(*FONT, "Previous: " + std::to_string(*mPreviousMorale), position, NAS2D::Color::White);
 
-	mCapacity = (mResidentialCapacity > 0) ? (static_cast<float>(mPopulation->size()) / static_cast<float>(mResidentialCapacity)) * 100.0f : 0.0f;
+	mCapacity = (mResidentialCapacity > 0) ? (mPopulation->size() * 100 / mResidentialCapacity) : 0;
 
 	position.y() += 15;
-	const auto text = "Housing: " + std::to_string(mPopulation->size()) + " / " + std::to_string(mResidentialCapacity) + "  (" + std::to_string(static_cast<int>(mCapacity)) + "%)";
+	const auto text = "Housing: " + std::to_string(mPopulation->size()) + " / " + std::to_string(mResidentialCapacity) + "  (" + std::to_string(mCapacity) + "%)";
 	renderer.drawText(*FONT, text, position, NAS2D::Color::White);
 
 	const std::array populationData{
