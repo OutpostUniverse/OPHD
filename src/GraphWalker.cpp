@@ -105,7 +105,7 @@ void GraphWalker::walkGraph()
  */
 void GraphWalker::check(int x, int y, int depth, Direction direction)
 {
-	if (x < 0 || x >= mTileMap->width() || y < 0 || y >= mTileMap->height()) { return; }
+	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap->size()).contains({x, y})) { return; }
 	if (depth < 0 || depth > mTileMap->maxDepth()) { return; }
 
 	Tile* tile = mTileMap->getTile(x, y, depth);
