@@ -165,7 +165,7 @@ void MapViewState::deploySeedLander(int x, int y)
 	ss->sprite().setFrame(10);
 	structureManager.addStructure(ss, mTileMap->getTile(point + DirectionSouthEast));
 
-	// Robots only become available after the SEED Factor is deployed.
+	// Robots only become available after the SEED Factory is deployed.
 	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
 	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
 	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
