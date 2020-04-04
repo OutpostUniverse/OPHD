@@ -105,7 +105,7 @@ void GraphWalker::walkGraph()
  */
 void GraphWalker::check(int x, int y, int depth, Direction direction)
 {
-	if (x < 0 || x > mTileMap->width() - 1 || y < 0 || y > mTileMap->height() - 1) { return; }
+	if (x < 0 || x >= mTileMap->width() || y < 0 || y >= mTileMap->height()) { return; }
 	if (depth < 0 || depth > mTileMap->maxDepth()) { return; }
 
 	Tile* tile = mTileMap->getTile(x, y, depth);
