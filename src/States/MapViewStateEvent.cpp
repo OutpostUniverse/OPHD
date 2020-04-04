@@ -136,33 +136,35 @@ void MapViewState::deploySeedLander(int x, int y)
 		mTileMap->getTile(point + direction)->index(TERRAIN_DOZED);
 	}
 
-	// TOP ROW
-	NAS2D::Utility<StructureManager>::get().addStructure(new SeedPower(), mTileMap->getTile(x - 1, y - 1));
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y - 1));
+	// TOP ROW
+	structureManager.addStructure(new SeedPower(), mTileMap->getTile(x - 1, y - 1));
+
+	structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y - 1));
 
 	CommandCenter* cc = static_cast<CommandCenter*>(StructureCatalogue::get(SID_COMMAND_CENTER));
 	cc->sprite().setFrame(3);
-	NAS2D::Utility<StructureManager>::get().addStructure(cc, mTileMap->getTile(x + 1, y - 1));
+	structureManager.addStructure(cc, mTileMap->getTile(x + 1, y - 1));
 	ccLocation() = {x + 1, y - 1};
 
 	// MIDDLE ROW
-	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x - 1, y));
+	structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x - 1, y));
 
-	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x + 1, y));
+	structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x + 1, y));
 
 	// BOTTOM ROW
 	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(SID_SEED_FACTORY));
 	sf->resourcePool(&mPlayerResources);
 	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 	sf->sprite().setFrame(7);
-	NAS2D::Utility<StructureManager>::get().addStructure(sf, mTileMap->getTile(x - 1, y + 1));
+	structureManager.addStructure(sf, mTileMap->getTile(x - 1, y + 1));
 
-	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y + 1));
+	structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y + 1));
 
 	SeedSmelter* ss = static_cast<SeedSmelter*>(StructureCatalogue::get(SID_SEED_SMELTER));
 	ss->sprite().setFrame(10);
-	NAS2D::Utility<StructureManager>::get().addStructure(ss, mTileMap->getTile(x + 1, y + 1));
+	structureManager.addStructure(ss, mTileMap->getTile(x + 1, y + 1));
 
 	// Robots only become available after the SEED Factor is deployed.
 	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
