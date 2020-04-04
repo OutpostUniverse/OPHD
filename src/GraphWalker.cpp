@@ -86,13 +86,13 @@ void GraphWalker::walkGraph()
 {
 	mThisTile->connected(true);
 
-	if (mDepth > 0) { check(mGridPosition.x(), mGridPosition.y(), mDepth - 1, DIR_UP); }
-	if (mDepth < mTileMap->maxDepth()) { check(mGridPosition.x(), mGridPosition.y(), mDepth + 1, DIR_DOWN); }
+	if (mDepth > 0) { check(mGridPosition, mDepth - 1, DIR_UP); }
+	if (mDepth < mTileMap->maxDepth()) { check(mGridPosition, mDepth + 1, DIR_DOWN); }
 
-	check(mGridPosition.x(), mGridPosition.y() - 1, mDepth, DIR_NORTH);
-	check(mGridPosition.x() + 1, mGridPosition.y(), mDepth, DIR_EAST);
-	check(mGridPosition.x(), mGridPosition.y() + 1, mDepth, DIR_SOUTH);
-	check(mGridPosition.x() - 1, mGridPosition.y(), mDepth, DIR_WEST);
+	check({mGridPosition.x(), mGridPosition.y() - 1}, mDepth, DIR_NORTH);
+	check({mGridPosition.x() + 1, mGridPosition.y()}, mDepth, DIR_EAST);
+	check({mGridPosition.x(), mGridPosition.y() + 1}, mDepth, DIR_SOUTH);
+	check({mGridPosition.x() - 1, mGridPosition.y()}, mDepth, DIR_WEST);
 }
 
 
@@ -103,9 +103,8 @@ void GraphWalker::walkGraph()
  *			to take a source and destination tile instead of looking them up. By using the internal
  *			positional information in the Tiles we can deduce direction between source and destination.
  */
-void GraphWalker::check(int x, int y, int depth, Direction direction)
+void GraphWalker::check(NAS2D::Point<int> point, int depth, Direction direction)
 {
-	const NAS2D::Point point{x, y};
 	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap->size()).contains(point)) { return; }
 	if (depth < 0 || depth > mTileMap->maxDepth()) { return; }
 

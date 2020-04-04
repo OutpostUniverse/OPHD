@@ -22,7 +22,7 @@ private:
 
 private:
 	void walkGraph();
-	void check(int x, int y, int depth, Direction direction);
+	void check(NAS2D::Point<int> point, int depth, Direction direction);
 
 private:
 	TileMap* mTileMap = nullptr;
