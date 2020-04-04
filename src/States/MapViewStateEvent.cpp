@@ -144,23 +144,23 @@ void MapViewState::deploySeedLander(int x, int y)
 	}
 
 	// TOP ROW
-	structureManager.addStructure(new SeedPower(), mTileMap->getTile(x - 1, y - 1));
+	structureManager.addStructure(new SeedPower(), mTileMap->getTile(point + DirectionNorthWest));
 
 	CommandCenter* cc = static_cast<CommandCenter*>(StructureCatalogue::get(SID_COMMAND_CENTER));
 	cc->sprite().setFrame(3);
-	structureManager.addStructure(cc, mTileMap->getTile(x + 1, y - 1));
-	ccLocation() = {x + 1, y - 1};
+	structureManager.addStructure(cc, mTileMap->getTile(point + DirectionNorthEast));
+	ccLocation() = point + DirectionNorthEast;
 
 	// BOTTOM ROW
 	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(SID_SEED_FACTORY));
 	sf->resourcePool(&mPlayerResources);
 	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 	sf->sprite().setFrame(7);
-	structureManager.addStructure(sf, mTileMap->getTile(x - 1, y + 1));
+	structureManager.addStructure(sf, mTileMap->getTile(point + DirectionSouthWest));
 
 	SeedSmelter* ss = static_cast<SeedSmelter*>(StructureCatalogue::get(SID_SEED_SMELTER));
 	ss->sprite().setFrame(10);
-	structureManager.addStructure(ss, mTileMap->getTile(x + 1, y + 1));
+	structureManager.addStructure(ss, mTileMap->getTile(point + DirectionSouthEast));
 
 	// Robots only become available after the SEED Factor is deployed.
 	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
