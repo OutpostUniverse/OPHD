@@ -7,6 +7,7 @@
 // ==================================================================================
 #include "MapViewState.h"
 
+#include "../DirectionOffset.h"
 #include "../StructureCatalogue.h"
 
 #include "../Things/Robots/Robots.h"
@@ -129,26 +130,25 @@ void MapViewState::deployCargoLander()
  */
 void MapViewState::deploySeedLander(int x, int y)
 {
-	mTileMap->getTile(x, y)->index(TERRAIN_DOZED);
+	const NAS2D::Point point{x, y};
+	for (const auto& direction : DirectionScan3x3)
+	{
+		mTileMap->getTile(point + direction)->index(TERRAIN_DOZED);
+	}
 
 	// TOP ROW
 	NAS2D::Utility<StructureManager>::get().addStructure(new SeedPower(), mTileMap->getTile(x - 1, y - 1));
-	mTileMap->getTile(x - 1, y - 1)->index(TERRAIN_DOZED);
 
 	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y - 1));
-	mTileMap->getTile(x, y - 1)->index(TERRAIN_DOZED);
 
 	CommandCenter* cc = static_cast<CommandCenter*>(StructureCatalogue::get(SID_COMMAND_CENTER));
 	cc->sprite().setFrame(3);
 	NAS2D::Utility<StructureManager>::get().addStructure(cc, mTileMap->getTile(x + 1, y - 1));
-	mTileMap->getTile(x + 1, y - 1)->index(TERRAIN_DOZED);
 	ccLocation() = {x + 1, y - 1};
 
 	// MIDDLE ROW
-	mTileMap->getTile(x - 1, y)->index(TERRAIN_DOZED);
 	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x - 1, y));
 
-	mTileMap->getTile(x + 1, y)->index(TERRAIN_DOZED);
 	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x + 1, y));
 
 	// BOTTOM ROW
@@ -157,15 +157,12 @@ void MapViewState::deploySeedLander(int x, int y)
 	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 	sf->sprite().setFrame(7);
 	NAS2D::Utility<StructureManager>::get().addStructure(sf, mTileMap->getTile(x - 1, y + 1));
-	mTileMap->getTile(x - 1, y + 1)->index(TERRAIN_DOZED);
 
-	mTileMap->getTile(x, y + 1)->index(TERRAIN_DOZED);
 	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(x, y + 1));
 
 	SeedSmelter* ss = static_cast<SeedSmelter*>(StructureCatalogue::get(SID_SEED_SMELTER));
 	ss->sprite().setFrame(10);
 	NAS2D::Utility<StructureManager>::get().addStructure(ss, mTileMap->getTile(x + 1, y + 1));
-	mTileMap->getTile(x + 1, y + 1)->index(TERRAIN_DOZED);
 
 	// Robots only become available after the SEED Factor is deployed.
 	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
