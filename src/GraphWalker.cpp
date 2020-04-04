@@ -12,18 +12,18 @@ using namespace NAS2D;
  * Check which way a tube is facing to determine if it connects to the destination tube.
  * Broken off into its own function while fixing issue #11 to avoid code duplication.
  */
-static bool checkSourceTubeAlignment(Structure* src, Direction _d)
+static bool checkSourceTubeAlignment(Structure* src, Direction direction)
 {
 	if (src->connectorDirection() == CONNECTOR_INTERSECTION || src->connectorDirection() == CONNECTOR_VERTICAL)
 	{
 		return true;
 	}
-	else if (_d == DIR_EAST || _d == DIR_WEST)
+	else if (direction == DIR_EAST || direction == DIR_WEST)
 	{
 		if (src->connectorDirection() == CONNECTOR_RIGHT)
 			return true;
 	}
-	else if (_d == DIR_NORTH || _d == DIR_SOUTH)
+	else if (direction == DIR_NORTH || direction == DIR_SOUTH)
 	{
 		if (src->connectorDirection() == CONNECTOR_LEFT)
 			return true;
@@ -36,13 +36,13 @@ static bool checkSourceTubeAlignment(Structure* src, Direction _d)
 /**
  * Utility function to check if there's a valid connection between src and dst.
  */
-static bool validConnection(Structure* src, Structure* dst, Direction _d)
+static bool validConnection(Structure* src, Structure* dst, Direction direction)
 {
 	if (src == nullptr || dst == nullptr)
 	{
 		throw std::runtime_error("GraphWalker::validConnection() was passed a NULL Pointer.");
 	}
-	if (_d == DIR_UP || _d == DIR_DOWN)
+	if (direction == DIR_UP || direction == DIR_DOWN)
 	{
 		if (src->isConnector() && src->connectorDirection() == CONNECTOR_VERTICAL) { return true; }
 		return false;
@@ -52,13 +52,13 @@ static bool validConnection(Structure* src, Structure* dst, Direction _d)
 		if (dst->connectorDirection() == CONNECTOR_INTERSECTION || dst->connectorDirection() == CONNECTOR_VERTICAL)
 		{
 			if (!src->isConnector()) { return true; }
-			else { return checkSourceTubeAlignment(src, _d); }
+			else { return checkSourceTubeAlignment(src, direction); }
 		}
-		else if (_d == DIR_EAST || _d == DIR_WEST)
+		else if (direction == DIR_EAST || direction == DIR_WEST)
 		{
 			if (dst->connectorDirection() == CONNECTOR_RIGHT) { return true; }
 		}
-		else if (_d == DIR_NORTH || _d == DIR_SOUTH)
+		else if (direction == DIR_NORTH || direction == DIR_SOUTH)
 		{
 			if (dst->connectorDirection() == CONNECTOR_LEFT) { return true; }
 		}
@@ -67,7 +67,7 @@ static bool validConnection(Structure* src, Structure* dst, Direction _d)
 	}
 	else if (src->isConnector())
 	{
-		return checkSourceTubeAlignment(src, _d);
+		return checkSourceTubeAlignment(src, direction);
 	}
 
 	return false;
