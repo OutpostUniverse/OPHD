@@ -105,15 +105,16 @@ void GraphWalker::walkGraph()
  */
 void GraphWalker::check(int x, int y, int depth, Direction direction)
 {
-	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap->size()).contains({x, y})) { return; }
+	const NAS2D::Point point{x, y};
+	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap->size()).contains(point)) { return; }
 	if (depth < 0 || depth > mTileMap->maxDepth()) { return; }
 
-	Tile* tile = mTileMap->getTile(x, y, depth);
+	Tile* tile = mTileMap->getTile(point, depth);
 
 	if (tile->connected() || tile->mine() || !tile->excavated() || !tile->thingIsStructure()) { return; }
 
 	if (validConnection(mThisTile->structure(), tile->structure(), direction))
 	{
-		GraphWalker walker({x, y}, depth, mTileMap);
+		GraphWalker walker(point, depth, mTileMap);
 	}
 }
