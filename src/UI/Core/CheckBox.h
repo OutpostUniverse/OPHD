@@ -22,13 +22,13 @@ public:
 
 	ClickCallback& click();
 
-	virtual void update() final;
+	void update() final;
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
-	virtual void onSizeChanged() final;
-	virtual void onTextChanged() final;
+	void onSizeChanged() final;
+	void onTextChanged() final;
 	
 private:
 	NAS2D::Image	mSkin;
