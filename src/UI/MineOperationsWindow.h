@@ -13,7 +13,7 @@ class MineOperationsWindow final : public Window
 {
 public:
 	MineOperationsWindow();
-	virtual ~MineOperationsWindow() final;
+	~MineOperationsWindow() final;
 
 	void mineFacility(MineFacility* facility);
 	MineFacility* mineFacility() { return mFacility; }

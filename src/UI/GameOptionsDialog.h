@@ -32,7 +32,7 @@ private:
 	void btnReturnClicked();
 	void btnCloseClicked();
 
-	virtual void enabledChanged() final;
+	void enabledChanged() final;
 
 private:
 	Button			btnSave;
