@@ -73,7 +73,7 @@ public:
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 
 protected:
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
 	virtual void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
 	virtual void slideChanged(float newPosition);
