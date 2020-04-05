@@ -18,11 +18,11 @@ class MainMenuState : public NAS2D::State
 {
 public:
 	MainMenuState();
-	virtual ~MainMenuState();
+	~MainMenuState() override;
 
 protected:
-	void initialize();
-	State* update();
+	void initialize() override;
+	State* update() override;
 
 private:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
