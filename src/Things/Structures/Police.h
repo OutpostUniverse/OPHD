@@ -17,7 +17,7 @@ public:
 	}
 
 protected:
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(5);
 	}
@@ -36,7 +36,7 @@ public:
 	}
 
 protected:
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(1);
 	}

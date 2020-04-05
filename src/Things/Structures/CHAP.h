@@ -15,7 +15,7 @@ public:
 	}
 
 protected:
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().commonMinerals(2);
 		resourcesIn().rareMinerals(1);

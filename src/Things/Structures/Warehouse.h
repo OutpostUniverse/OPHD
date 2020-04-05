@@ -19,7 +19,7 @@ public:
 	ProductPool& products() { return mProducts; }
 
 protected:
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(1);
 	}

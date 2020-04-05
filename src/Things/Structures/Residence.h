@@ -27,7 +27,7 @@ public:
 	int capacity() const { return mCapacity; }
 
 protected:
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(2);
 	}

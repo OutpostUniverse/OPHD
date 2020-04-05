@@ -19,7 +19,7 @@ public:
 	}
 
 protected:
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(3);
 	}

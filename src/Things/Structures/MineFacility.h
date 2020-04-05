@@ -31,7 +31,7 @@ public:
 	ExtensionCompleteCallback& extensionComplete() { return mExtensionComplete; }
 
 protected:
-	virtual void think();
+	void think() override;
 
 private:
 	MineFacility() = delete;

@@ -14,7 +14,7 @@ public:
 	}
 
 protected:
-	virtual void defineResourceOutput()
+	void defineResourceOutput() override
 	{
 		resourcesOut().energy(50);
 	}
