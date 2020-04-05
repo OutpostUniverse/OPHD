@@ -9,7 +9,6 @@ class ResourceBreakdownPanel : public Control
 {
 public:
 	ResourceBreakdownPanel();
-	virtual ~ResourceBreakdownPanel() = default;
 
 	void playerResources(ResourcePool* rp) { mPlayerResources = rp; }
 	ResourcePool& previousResources() { return mPreviousResources; }

@@ -9,16 +9,16 @@ public:
 	using CancelCallback = NAS2D::Signals::Signal<>;
 
 	DifficultySelect();
-	virtual ~DifficultySelect();
+	~DifficultySelect() override;
 
-	virtual void update() override;
+	void update() override;
 	
 	OkClickCallback& ok() { return mOkCallback; }
 	CancelCallback& cancel() { return mCancelCallback; }
 
 protected:
 	virtual void init();
-	virtual void visibilityChanged(bool visible) override;
+	void visibilityChanged(bool visible) override;
 
 private:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);

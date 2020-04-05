@@ -25,7 +25,6 @@ class Label : public Control
 {
 public:
 	Label(std::string newText = "");
-	virtual ~Label() = default;
 
 	void font(NAS2D::Font* font);
 	bool empty() const { return text().empty(); }
