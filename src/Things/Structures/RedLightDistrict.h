@@ -16,10 +16,6 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~RedLightDistrict()
-	{}
-
 protected:
 
 	virtual void think()

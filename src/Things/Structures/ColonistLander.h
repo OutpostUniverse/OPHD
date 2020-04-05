@@ -24,9 +24,6 @@ public:
 		enable();
 	}
 
-	virtual ~ColonistLander()
-	{}
-
 	Callback& deployCallback() { return mDeploy; }
 
 protected:

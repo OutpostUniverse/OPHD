@@ -16,10 +16,6 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~MedicalCenter()
-	{}
-
 protected:
 
 	virtual void think()

@@ -45,10 +45,6 @@ Factory::Factory(const std::string& name, const std::string& spritePath) :	Struc
 {}
 
 
-Factory::~Factory()
-{}
-
-
 void Factory::productType(ProductType type)
 {
 	if (type == mProduct) { return; }

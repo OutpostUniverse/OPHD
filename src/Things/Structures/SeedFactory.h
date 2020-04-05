@@ -16,9 +16,6 @@ public:
 		initFactory();
 	}
 
-	virtual ~SeedFactory()
-	{}
-
 protected:
 
 	virtual void initFactory()

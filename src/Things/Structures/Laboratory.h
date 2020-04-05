@@ -14,10 +14,6 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~HotLaboratory()
-	{}
-
 protected:
 
 	virtual void think()
@@ -47,10 +43,6 @@ public:
 
 		requiresCHAP(false);
 	}
-
-
-	virtual ~Laboratory()
-	{}
 
 protected:
 

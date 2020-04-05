@@ -16,10 +16,6 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~Nursery()
-	{}
-
 protected:
 
 	virtual void think()

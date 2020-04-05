@@ -18,9 +18,6 @@ public:
 		selfSustained(true);
 	}
 
-	virtual ~CommTower()
-	{}
-
 protected:
 	virtual void defineResourceInput()
 	{

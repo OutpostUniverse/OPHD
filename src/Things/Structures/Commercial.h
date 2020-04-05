@@ -16,10 +16,6 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~Commercial()
-	{}
-
 protected:
 
 	virtual void think()

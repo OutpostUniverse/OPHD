@@ -15,9 +15,6 @@ public:
 	}
 
 
-	virtual ~CHAP()
-	{}
-
 protected:
 
 	virtual void defineResourceInput()

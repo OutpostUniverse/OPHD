@@ -15,10 +15,6 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~SolarPanelArray()
-	{}
-
 protected:
 
 	virtual void defineResourceInput()

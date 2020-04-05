@@ -16,10 +16,6 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~University()
-	{}
-
 protected:
 
 	virtual void think()

@@ -21,9 +21,6 @@ public:
 		setAnimationState();
 	}
 
-
-	virtual ~Tube()	{}
-
 private:
 
 	void setAnimationState()

@@ -16,10 +16,6 @@ public:
 		storage().capacity(1000);
 	}
 
-
-	virtual ~StorageTanks()
-	{}
-
 protected:
 
 	virtual void think()

@@ -16,10 +16,6 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~SurfacePolice()
-	{}
-
 protected:
 
 	virtual void think()
@@ -49,10 +45,6 @@ public:
 
 		requiresCHAP(true);
 	}
-
-
-	~UndergroundPolice()
-	{}
 
 protected:
 

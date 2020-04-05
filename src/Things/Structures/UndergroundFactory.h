@@ -17,9 +17,6 @@ public:
 		initFactory();
 	}
 
-	virtual ~UndergroundFactory()
-	{}
-
 protected:
 
 	virtual void initFactory()

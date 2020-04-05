@@ -15,10 +15,6 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~SolarPlant()
-	{}
-
 protected:
 
 	virtual void defineResourceInput()

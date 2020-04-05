@@ -18,7 +18,4 @@ public:
 		requiresCHAP(false);
 		selfSustained(true);
 	}
-
-	virtual ~MineShaft()
-	{}
 };

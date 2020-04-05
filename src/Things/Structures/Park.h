@@ -16,10 +16,6 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~Park()
-	{}
-
 protected:
 
 	virtual void think()

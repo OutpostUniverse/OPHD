@@ -13,10 +13,6 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~SeedPower()
-	{}
-
 protected:
 
 	virtual void defineResourceInput()

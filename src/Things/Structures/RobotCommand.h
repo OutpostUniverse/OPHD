@@ -24,8 +24,6 @@ public:
 		requiresCHAP(false);
 	}
 
-	virtual ~RobotCommand()	{}
-
 	bool commandedByThis(Robot* robot) const;
 
 	bool commandCapacityAvailable() const;

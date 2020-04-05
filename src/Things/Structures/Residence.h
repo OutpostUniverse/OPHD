@@ -24,10 +24,6 @@ public:
 		requiresCHAP(true);
 	}
 
-	virtual ~Residence()
-	{}
-
-
 	int capacity() const { return mCapacity; }
 
 protected:

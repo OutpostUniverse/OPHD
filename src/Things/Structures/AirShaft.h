@@ -16,9 +16,6 @@ public:
 		requiresCHAP(false);
 	}
 
-	virtual ~AirShaft()
-	{}
-
 	void ug()
 	{
 		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL_UG);

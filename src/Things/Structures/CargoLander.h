@@ -23,9 +23,6 @@ public:
 		enable();
 	}
 
-	virtual ~CargoLander()
-	{}
-
 	Callback& deployCallback() { return mDeploy; }
 
 protected:

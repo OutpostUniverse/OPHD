@@ -18,9 +18,6 @@ public:
 		selfSustained(true);
 	}
 
-	virtual ~CommandCenter()
-	{}
-
 protected:
 	virtual void defineResourceInput() {}
 	virtual void defineResourceOutput() {}

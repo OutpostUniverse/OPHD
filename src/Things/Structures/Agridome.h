@@ -17,9 +17,6 @@ public:
 		requiresCHAP(true);
 	}
 
-	virtual ~Agridome()
-	{}
-
 protected:
 
 	virtual void think()

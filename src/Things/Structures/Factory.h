@@ -28,7 +28,6 @@ public:
 
 public:
 	Factory(const std::string& name, const std::string& spritePath);
-	virtual ~Factory();
 
 	virtual void updateProduction();
 

@@ -16,10 +16,6 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~RecreationCenter()
-	{}
-
 protected:
 
 	virtual void think()

@@ -15,10 +15,6 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~FusionReactor()
-	{}
-
 protected:
 
 	virtual void defineResourceInput()
