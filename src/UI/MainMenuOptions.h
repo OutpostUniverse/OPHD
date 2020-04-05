@@ -6,13 +6,13 @@ class MainMenuOptions : public Window
 {
 public:
 	MainMenuOptions();
-	virtual ~MainMenuOptions() override;
+	~MainMenuOptions() override;
 
-	virtual void update() override;
+	void update() override;
 
 protected:
 	virtual void init();
-	virtual void visibilityChanged(bool visible) override;
+	void visibilityChanged(bool visible) override;
 
 private:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
