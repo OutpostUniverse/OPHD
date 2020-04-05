@@ -62,8 +62,7 @@ public:
 
 public:
 	Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass);
-	virtual ~Structure();
-	
+
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }
 
