@@ -24,8 +24,6 @@ public:
 		requiresCHAP(false);
 	}
 
-	virtual ~RobotCommand()	{}
-
 	bool commandedByThis(Robot* robot) const;
 
 	bool commandCapacityAvailable() const;
@@ -35,10 +33,7 @@ public:
 	const RobotList& robots() { return mRobotList; }
 
 protected:
-	virtual void think() final {}
-	virtual void defineResourceOutput() final {}
-
-	virtual void defineResourceInput() final
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(5);
 	}

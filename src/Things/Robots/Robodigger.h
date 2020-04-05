@@ -18,7 +18,7 @@ public:
 	void direction(Direction dir) { mDirection = dir; }
 	Direction direction() const { return mDirection; }
 
-	void update() { updateTask(); }
+	void update() override { updateTask(); }
 
 private:
 

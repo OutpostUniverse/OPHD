@@ -17,13 +17,4 @@ public:
 		requiresCHAP(false);
 		selfSustained(true);
 	}
-
-	virtual ~CommandCenter()
-	{}
-
-protected:
-	virtual void defineResourceInput() {}
-	virtual void defineResourceOutput() {}
-
-private:
 };

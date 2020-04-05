@@ -7,10 +7,6 @@ Robot::Robot(const std::string& name, const std::string& sprite_path) :	Thing(na
 {}
 
 
-Robot::~Robot()
-{}
-
-
 void Robot::startTask(int turns)
 {
 	if (turns < 1)

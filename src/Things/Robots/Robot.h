@@ -11,7 +11,6 @@ public:
 
 public:
 	Robot(const std::string& name, const std::string& sprite_path);
-	virtual ~Robot();
 
 	void startTask(int turns);
 

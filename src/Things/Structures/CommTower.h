@@ -18,16 +18,9 @@ public:
 		selfSustained(true);
 	}
 
-	virtual ~CommTower()
-	{}
-
 protected:
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(3);
 	}
-
-	virtual void defineResourceOutput()
-	{}
 };
-

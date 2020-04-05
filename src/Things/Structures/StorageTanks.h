@@ -16,24 +16,9 @@ public:
 		storage().capacity(1000);
 	}
 
-
-	virtual ~StorageTanks()
-	{}
-
 protected:
-
-	virtual void think()
-	{
-	}
-
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(1);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };

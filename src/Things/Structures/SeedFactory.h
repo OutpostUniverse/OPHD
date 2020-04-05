@@ -16,12 +16,9 @@ public:
 		initFactory();
 	}
 
-	virtual ~SeedFactory()
-	{}
-
 protected:
 
-	virtual void initFactory()
+	void initFactory() override
 	{
 		addProduct(PRODUCT_DIGGER);
 		addProduct(PRODUCT_DOZER);
@@ -31,7 +28,7 @@ protected:
 
 private:
 
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(5);
 	}

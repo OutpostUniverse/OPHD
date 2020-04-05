@@ -17,12 +17,9 @@ public:
 		initFactory();
 	}
 
-	virtual ~UndergroundFactory()
-	{}
-
 protected:
 
-	virtual void initFactory()
+	void initFactory() override
 	{
 		// Robot digger for now. Need to be replaced by non robot/surface goods
 		// Produces luxuries, clothing, or medicine 
@@ -31,7 +28,7 @@ protected:
 	}
 
 private:
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(10);
 	}

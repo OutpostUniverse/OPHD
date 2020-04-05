@@ -15,13 +15,8 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~FusionReactor()
-	{}
-
 protected:
-
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().commonMetals(2);
 		resourcesIn().commonMinerals(2);
@@ -29,11 +24,8 @@ protected:
 		resourcesIn().rareMetals(1);
 	}
 
-	virtual void defineResourceOutput()
+	void defineResourceOutput() override
 	{
 		resourcesOut().energy(1000);
 	}
-
-private:
-
 };

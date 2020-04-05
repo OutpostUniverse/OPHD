@@ -17,12 +17,8 @@ public:
 		requiresCHAP(true);
 	}
 
-	virtual ~Agridome()
-	{}
-
 protected:
-
-	virtual void think()
+	void think() override
 	{
 		if (isIdle())
 			return;
@@ -47,21 +43,15 @@ protected:
 
 	}
 
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().commonMinerals(1);
 		resourcesIn().energy(2);
 	}
 
-	virtual void defineResourceOutput()
-	{}
-
-	virtual void disabledStateSet()
+	void disabledStateSet() override
 	{
 		// Clear food store when disabled.
 		storage().food(0);
 	}
-
-private:
-
 };

@@ -14,24 +14,12 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~CHAP()
-	{}
-
 protected:
-
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().commonMinerals(2);
 		resourcesIn().rareMinerals(1);
 		resourcesIn().rareMetals(1);
 		resourcesIn().energy(10);
 	}
-
-	virtual void defineResourceOutput()
-	{
-	}
-
-private:
-
 };

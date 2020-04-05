@@ -14,26 +14,11 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~HotLaboratory()
-	{}
-
 protected:
-
-	virtual void think()
-	{
-	}
-
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(3);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };
 
 class Laboratory : public Structure
@@ -48,24 +33,9 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~Laboratory()
-	{}
-
 protected:
-
-	virtual void think()
-	{
-	}
-
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(1);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };

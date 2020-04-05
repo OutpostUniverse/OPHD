@@ -17,7 +17,7 @@ public:
 		storage().capacity(750);
 	}
 
-	virtual void input(ResourcePool& _resourcePool)
+	void input(ResourcePool& _resourcePool) override
 	{
 		if (!operational()) { return; }
 		if (oreStorage().atCapacity()) { return; }
@@ -32,7 +32,7 @@ protected:
 
 protected:
 
-	virtual void think()
+	void think() override
 	{
 		if (isIdle())
 		{
@@ -83,11 +83,8 @@ protected:
 	}
 
 private:
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(5);
 	}
-
-	virtual void defineResourceOutput() {}
-
 };

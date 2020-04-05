@@ -24,25 +24,14 @@ public:
 		requiresCHAP(true);
 	}
 
-	virtual ~Residence()
-	{}
-
-
 	int capacity() const { return mCapacity; }
 
 protected:
-	virtual void think()
-	{}
-
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(2);
 	}
 
-	virtual void defineResourceOutput()
-	{}
-
 protected:
 	int		mCapacity = 25;		/**< Override this value in derived residences.*/
-
 };

@@ -12,5 +12,5 @@ public:
 		sprite().play("running");
 	}
 
-	void update() { updateTask(); }
+	void update() override { updateTask(); }
 };

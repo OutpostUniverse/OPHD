@@ -31,7 +31,7 @@ public:
 	ExtensionCompleteCallback& extensionComplete() { return mExtensionComplete; }
 
 protected:
-	virtual void think();
+	void think() override;
 
 private:
 	MineFacility() = delete;
@@ -39,7 +39,7 @@ private:
 	MineFacility& operator=(const MineFacility&) = delete;
 
 private:
-	virtual void activated() final;
+	void activated() override;
 
 private:
 	int							mMaxDepth = 0;				/**< Maximum digging depth. */

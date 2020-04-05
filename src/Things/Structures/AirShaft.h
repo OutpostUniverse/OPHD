@@ -16,16 +16,13 @@ public:
 		requiresCHAP(false);
 	}
 
-	virtual ~AirShaft()
-	{}
-
 	void ug()
 	{
 		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL_UG);
 		_ug = true;
 	}
 
-	virtual void forced_state_change(StructureState, DisabledReason, IdleReason) final
+	void forced_state_change(StructureState, DisabledReason, IdleReason) override
 	{
 		if (_ug)
 		{
@@ -33,7 +30,6 @@ public:
 		}
 	}
 
-protected:
 private:
 	bool _ug = false;
 };

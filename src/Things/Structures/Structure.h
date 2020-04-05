@@ -62,8 +62,7 @@ public:
 
 public:
 	Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass);
-	virtual ~Structure();
-	
+
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }
 
@@ -132,7 +131,7 @@ public:
 
 	virtual void forced_state_change(StructureState, DisabledReason, IdleReason);
 
-	void update();
+	void update() override;
 	virtual void think() {}
 
 protected:
@@ -161,7 +160,7 @@ private:
 	Structure() = delete;
 
 	void incrementAge();
-	virtual void die() final;
+	void die() override;
 
 	/**
 	 * Provided so that structures that need to do something upon

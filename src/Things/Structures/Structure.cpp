@@ -73,13 +73,6 @@ Structure::Structure(const std::string& name, const std::string& spritePath, Str
 
 
 /**
- * D'tor
- */
-Structure::~Structure()
-{}
-
-
-/**
  * Sets a Disabled state for the Structure.
  */
 void Structure::disable(DisabledReason reason)

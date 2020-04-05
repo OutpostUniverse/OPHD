@@ -16,26 +16,11 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~SurfacePolice()
-	{}
-
 protected:
-
-	virtual void think()
-	{
-	}
-
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(5);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };
 
 class UndergroundPolice : public Structure
@@ -50,24 +35,9 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	~UndergroundPolice()
-	{}
-
 protected:
-
-	virtual void think()
-	{
-	}
-
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(1);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };

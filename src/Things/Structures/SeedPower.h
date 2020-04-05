@@ -13,21 +13,9 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~SeedPower()
-	{}
-
 protected:
-
-	virtual void defineResourceInput()
-	{
-	}
-
-	virtual void defineResourceOutput()
+	void defineResourceOutput() override
 	{
 		resourcesOut().energy(50);
 	}
-
-private:
-
 };

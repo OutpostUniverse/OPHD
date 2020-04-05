@@ -16,23 +16,9 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~Nursery()
-	{}
-
 protected:
-
-	virtual void think()
-	{}
-
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(2);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };

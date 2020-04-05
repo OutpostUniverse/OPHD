@@ -16,24 +16,9 @@ public:
 		requiresCHAP(true);
 	}
 
-
-	virtual ~RecreationCenter()
-	{}
-
 protected:
-
-	virtual void think()
-	{
-	}
-
-	virtual void defineResourceInput()
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(2);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };

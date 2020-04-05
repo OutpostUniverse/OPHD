@@ -23,13 +23,10 @@ public:
 		enable();
 	}
 
-	virtual ~CargoLander()
-	{}
-
 	Callback& deployCallback() { return mDeploy; }
 
 protected:
-	virtual void think()
+	void think() override
 	{
 		if (age() == turnsToBuild())
 		{

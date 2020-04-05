@@ -15,22 +15,9 @@ public:
 		requiresCHAP(false);
 	}
 
-
-	virtual ~SolarPanelArray()
-	{}
-
 protected:
-
-	virtual void defineResourceInput()
-	{
-		// no input it' solar
-	}
-
-	virtual void defineResourceOutput()
+	void defineResourceOutput() override
 	{
 		resourcesOut().energy(25);
 	}
-
-private:
-
 };
