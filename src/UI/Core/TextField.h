@@ -52,7 +52,7 @@ public:
 
 	void maxCharacters(size_t count);
 
-	void update();
+	virtual void update();
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);

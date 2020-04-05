@@ -17,7 +17,7 @@ public:
 
 	void font(const std::string&, size_t);
 
-	void update();
+	virtual void update();
 
 private:
 	typedef std::vector<std::string> StringList;

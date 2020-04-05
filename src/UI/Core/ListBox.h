@@ -66,7 +66,7 @@ public:
 	const std::string& selectionText() const;
 	int selectionTag() const;
 
-	void update();
+	virtual void update();
 
 	bool empty() const;
 

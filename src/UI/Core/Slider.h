@@ -54,7 +54,7 @@ public:
 	bool backward() { return mBackward; }	 	/*!< Get the backward flag. */
 	void backward(bool isBackward) { mBackward = isBackward; } 	/*!< Set the backward flag. */
 
-	void update(); 							/*!< Called to display the slider. */
+	virtual void update(); 							/*!< Called to display the slider. */
 	virtual void size(float width, float height); 	/*!< Set the slider size. */
 
 	ValueChangedCallback& change() { return mCallback; } 	/*!< Give the callback to enable another control or a window to dis/connect to this event call. */
