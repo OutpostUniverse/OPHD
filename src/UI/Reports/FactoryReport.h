@@ -15,13 +15,13 @@ public:
 	FactoryReport();
 	~FactoryReport() override;
 
-	void selectStructure(Structure*) override final;
-	void refresh() override final;
+	void selectStructure(Structure*) override;
+	void refresh() override;
 
-	void fillLists() override final;
-	void clearSelection() override final;
+	void fillLists() override;
+	void clearSelection() override;
 
-	void update() override final;
+	void update() override;
 
 private:
 	void init();
@@ -56,7 +56,7 @@ private:
 	void drawDetailPane(NAS2D::Renderer&);
 	void drawProductPane(NAS2D::Renderer&);
 
-	void visibilityChanged(bool visible) override final;
+	void visibilityChanged(bool visible) override;
 
 private:
 	Button			btnShowAll;

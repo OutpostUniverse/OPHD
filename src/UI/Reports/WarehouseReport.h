@@ -20,13 +20,13 @@ public:
 	WarehouseReport();
 	~WarehouseReport() override;
 
-	void fillLists() override final;
-	void clearSelection() override final;
+	void fillLists() override;
+	void clearSelection() override;
 
-	void refresh() override final;
-	void selectStructure(Structure*) override final;
+	void refresh() override;
+	void selectStructure(Structure*) override;
 
-	void update() override final;
+	void update() override;
 
 private:
 	void init();
