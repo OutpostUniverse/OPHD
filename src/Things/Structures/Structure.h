@@ -160,7 +160,7 @@ private:
 	Structure() = delete;
 
 	void incrementAge();
-	virtual void die() final;
+	void die() final;
 
 	/**
 	 * Provided so that structures that need to do something upon

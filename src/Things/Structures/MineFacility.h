@@ -39,7 +39,7 @@ private:
 	MineFacility& operator=(const MineFacility&) = delete;
 
 private:
-	virtual void activated() final;
+	void activated() final;
 
 private:
 	int							mMaxDepth = 0;				/**< Maximum digging depth. */

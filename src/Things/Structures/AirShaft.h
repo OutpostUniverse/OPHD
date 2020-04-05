@@ -22,7 +22,7 @@ public:
 		_ug = true;
 	}
 
-	virtual void forced_state_change(StructureState, DisabledReason, IdleReason) final
+	void forced_state_change(StructureState, DisabledReason, IdleReason) final
 	{
 		if (_ug)
 		{
