@@ -14,12 +14,12 @@ class SplashState : public NAS2D::State
 {
 public:
 	SplashState();
-	virtual ~SplashState();
+	~SplashState() override;
 
 protected:
 
-	void initialize();
-	NAS2D::State* update();
+	void initialize() override;
+	NAS2D::State* update() override;
 
 private:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
