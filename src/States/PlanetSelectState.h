@@ -19,11 +19,11 @@ class PlanetSelectState : public NAS2D::State
 {
 public:
 	PlanetSelectState();
-	~PlanetSelectState();
+	~PlanetSelectState() override;
 
 protected:
-	void initialize();
-	State* update();
+	void initialize() override;
+	State* update() override;
 
 private:
 	typedef std::vector<Planet*> PlanetPtrList;

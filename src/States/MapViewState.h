@@ -65,7 +65,7 @@ public:
 public:
 	MapViewState(const std::string& savegame);
 	MapViewState(const std::string& siteMap, const std::string& tileSet, int depth, int mineCount, constants::PlanetHostility hostility);
-	virtual ~MapViewState();
+	~MapViewState() override;
 
 	void setPopulationLevel(PopulationLevel popLevel);
 
@@ -76,8 +76,8 @@ public:
 	void focusOnStructure(Structure* s);
 
 protected:
-	void initialize();
-	State* update();
+	void initialize() override;
+	State* update() override;
 
 private:
 	virtual void _deactivate() final;
