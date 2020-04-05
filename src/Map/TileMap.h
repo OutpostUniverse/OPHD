@@ -29,7 +29,7 @@ public:
 
 public:
 	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, constants::PlanetHostility hostility /*= constants::HOSTILITY_NONE*/, bool setupMines = true);
-	~TileMap();
+	~TileMap() override;
 
 	Tile* getTile(int x, int y, int level);
 	Tile* getTile(int x, int y) { return getTile(x, y, mCurrentDepth); }
@@ -83,9 +83,9 @@ public:
 
 public:
 	/** MicroPather public interface implementation. */
-	virtual float LeastCostEstimate(void* stateStart, void* stateEnd);
-	virtual void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent);
-	virtual void PrintStateInfo(void* /*state*/) {}
+	float LeastCostEstimate(void* stateStart, void* stateEnd) override;
+	void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent) override;
+	void PrintStateInfo(void* /*state*/) override {}
 
 protected:
 	/**
