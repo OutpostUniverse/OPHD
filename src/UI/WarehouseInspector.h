@@ -17,8 +17,8 @@ public:
 
 	void warehouse(Warehouse* w);
 
-	void hide() override final;
-	void update() override final;
+	void hide() override;
+	void update() override;
 
 protected:
 	void init();

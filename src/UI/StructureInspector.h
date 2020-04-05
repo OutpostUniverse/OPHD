@@ -15,7 +15,7 @@ public:
 
 	void check();
 
-	void update() override final;
+	void update() override;
 
 protected:
 	void init();

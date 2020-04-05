@@ -21,7 +21,7 @@ public:
 	 */
 	int capacity() const { return mCapacity; }
 
-	void update() override final;
+	void update() override;
 
 protected:
 

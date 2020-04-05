@@ -26,7 +26,7 @@ public:
 
 	FileOperationCallback& fileOperation() { return mCallback; }
 
-	void update() override final;
+	void update() override;
 
 protected:
 	void init();

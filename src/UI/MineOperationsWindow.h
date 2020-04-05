@@ -20,8 +20,8 @@ public:
 	
 	void updateCounts();
 
-	void update() override final;
-	void hide() override final;
+	void update() override;
+	void hide() override;
 
 protected:
 	void init();
