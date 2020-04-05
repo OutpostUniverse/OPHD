@@ -28,13 +28,13 @@ public:
 
 	ClickCallback& click();
 
-	void update() final;
+	void update() override;
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
-	void onSizeChanged() final;
-	void onTextChanged() final;
+	void onSizeChanged() override;
+	void onTextChanged() override;
 
 	void parentContainer(UIContainer* parent);
 

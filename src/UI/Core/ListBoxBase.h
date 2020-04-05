@@ -90,7 +90,7 @@ protected:
 
 	unsigned int draw_offset() const { return mCurrentOffset; }
 
-	void visibilityChanged(bool) final;
+	void visibilityChanged(bool) override;
 
 
 protected:
@@ -104,7 +104,7 @@ private:
 	void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
 
-	void onSizeChanged() final;
+	void onSizeChanged() override;
 
 private:
 	unsigned int				mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */

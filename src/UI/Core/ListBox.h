@@ -78,10 +78,10 @@ protected:
 	void onMouseWheel(int x, int y);
 	virtual void slideChanged(float newPosition);
 
-	void visibilityChanged(bool visible) final;
+	void visibilityChanged(bool visible) override;
 
 private:
-	void onSizeChanged() final;
+	void onSizeChanged() override;
 
 	void _updateItemDisplay();
 	void _init();

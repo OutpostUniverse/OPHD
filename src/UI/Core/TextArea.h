@@ -17,17 +17,17 @@ public:
 
 	void font(const std::string&, size_t);
 
-	virtual void update();
+	void update() override;
 
 private:
 	typedef std::vector<std::string> StringList;
 
 private:
-	virtual void onSizeChanged();
-	virtual void onTextChanged();
+	void onSizeChanged() override;
+	void onTextChanged() override;
 	virtual void onFontChanged();
 
-	virtual void draw();
+	void draw() override;
 	void processString();
 
 private:
