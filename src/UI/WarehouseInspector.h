@@ -13,12 +13,12 @@ class WarehouseInspector : public Window
 {
 public:
 	WarehouseInspector();
-	virtual ~WarehouseInspector();
+	~WarehouseInspector() override;
 
 	void warehouse(Warehouse* w);
 
-	virtual void hide() final;
-	virtual void update() final;
+	void hide() override;
+	void update() override;
 
 protected:
 	void init();

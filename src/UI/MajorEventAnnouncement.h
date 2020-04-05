@@ -16,11 +16,11 @@ public:
 
 public:
 	MajorEventAnnouncement();
-	virtual ~MajorEventAnnouncement();
+	~MajorEventAnnouncement() override;
 
 	void announcement(AnnouncementType a);
 
-	virtual void update();
+	void update() override;
 
 protected:
 	virtual void init();

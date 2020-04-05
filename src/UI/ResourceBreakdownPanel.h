@@ -15,7 +15,7 @@ public:
 
 	void resourceCheck();
 
-	virtual void update() final;
+	void update() override;
 
 private:
 	NAS2D::Image		mIcons;

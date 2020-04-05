@@ -13,18 +13,18 @@ class MineOperationsWindow final : public Window
 {
 public:
 	MineOperationsWindow();
-	virtual ~MineOperationsWindow() final;
+	~MineOperationsWindow() override;
 
 	void mineFacility(MineFacility* facility);
 	MineFacility* mineFacility() { return mFacility; }
 	
 	void updateCounts();
 
-	virtual void update() final;
-	virtual void hide() final;
+	void update() override;
+	void hide() override;
 
 protected:
-	virtual void init() final;
+	void init();
 
 private:
 	MineOperationsWindow(const MineOperationsWindow&) = delete;

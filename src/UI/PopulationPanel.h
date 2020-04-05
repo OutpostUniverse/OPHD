@@ -21,7 +21,7 @@ public:
 	 */
 	int capacity() const { return mCapacity; }
 
-	virtual void update() final;
+	void update() override;
 
 protected:
 

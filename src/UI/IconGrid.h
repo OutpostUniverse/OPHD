@@ -46,7 +46,7 @@ public:
 
 public:
 	IconGrid();
-	virtual ~IconGrid();
+	~IconGrid() override;
 
 	void sheetPath(const std::string& filePath);
 	void iconSize(int newSsize);
@@ -83,11 +83,11 @@ public:
 
 	Callback& selectionChanged() { return mCallback; }
 
-	virtual void hide();
+	void hide() override;
 
 	void sort();
 
-	virtual void update();
+	void update() override;
 
 
 protected:

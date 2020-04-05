@@ -25,7 +25,7 @@ public:
 
 	void productPool(ProductPool&);
 
-	virtual void update() final;
+	void update() override;
 
 private:
 	void _init();

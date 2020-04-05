@@ -19,7 +19,7 @@ public:
 	{
 	public:
 		StructureListBoxItem(Structure* s);
-		virtual ~StructureListBoxItem();
+		~StructureListBoxItem() override;
 
 	public:
 		Structure* structure = nullptr;	/**< Pointer to a Structure. */
@@ -29,7 +29,7 @@ public:
 
 public:
 	StructureListBox();
-	virtual ~StructureListBox();
+	~StructureListBox() override;
 
 	void addItem(Structure*);
 	void removeItem(Structure*);
@@ -39,7 +39,7 @@ public:
 
 	StructureListBoxItem* last();
 
-	virtual void update() final;
+	void update() override;
 
 private:
 	void _init();

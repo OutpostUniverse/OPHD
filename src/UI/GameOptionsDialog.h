@@ -9,9 +9,9 @@ public:
 
 public:
 	GameOptionsDialog();
-	virtual ~GameOptionsDialog();
+	~GameOptionsDialog() override;
 
-	virtual void update();
+	void update() override;
 
 	ClickCallback& SaveGame() { return mCallbackSave; }
 	ClickCallback& LoadGame() { return mCallbackLoad; }
@@ -32,7 +32,7 @@ private:
 	void btnReturnClicked();
 	void btnCloseClicked();
 
-	virtual void enabledChanged() final;
+	void enabledChanged() override;
 
 private:
 	Button			btnSave;

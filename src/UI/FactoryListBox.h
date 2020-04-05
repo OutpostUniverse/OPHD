@@ -36,7 +36,7 @@ public:
 
 public:
 	FactoryListBox();
-	virtual ~FactoryListBox();
+	~FactoryListBox() override;
 
 	void addItem(Factory* factory);
 	void removeItem(Factory* factory);
@@ -44,7 +44,7 @@ public:
 
 	Factory* selectedFactory();
 
-	virtual void update() final;
+	void update() override;
 
 private:
 	void _init();
