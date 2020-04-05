@@ -15,7 +15,7 @@ public:
 	void tileIndex(size_t index) { mTileIndex = index; }
 	size_t tileIndex() const { return mTileIndex; }
 
-	void update() { updateTask(); }
+	void update() override { updateTask(); }
 
 private:
 	size_t mTileIndex = 0;
