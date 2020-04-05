@@ -9,7 +9,7 @@ public:
 	using CancelCallback = NAS2D::Signals::Signal<>;
 
 	DifficultySelect();
-	virtual ~DifficultySelect();
+	virtual ~DifficultySelect() override;
 
 	virtual void update() override;
 	

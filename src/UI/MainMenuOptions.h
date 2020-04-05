@@ -6,7 +6,7 @@ class MainMenuOptions : public Window
 {
 public:
 	MainMenuOptions();
-	virtual ~MainMenuOptions();
+	virtual ~MainMenuOptions() override;
 
 	virtual void update() override;
 
