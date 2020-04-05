@@ -22,7 +22,7 @@ public:
 		_ug = true;
 	}
 
-	void forced_state_change(StructureState, DisabledReason, IdleReason) final
+	void forced_state_change(StructureState, DisabledReason, IdleReason) override
 	{
 		if (_ug)
 		{

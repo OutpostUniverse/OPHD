@@ -33,7 +33,7 @@ public:
 	const RobotList& robots() { return mRobotList; }
 
 protected:
-	void defineResourceInput() final
+	void defineResourceInput() override
 	{
 		resourcesIn().energy(5);
 	}
