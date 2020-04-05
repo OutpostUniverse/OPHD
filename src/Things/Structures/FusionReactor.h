@@ -16,7 +16,6 @@ public:
 	}
 
 protected:
-
 	virtual void defineResourceInput()
 	{
 		resourcesIn().commonMetals(2);
@@ -29,7 +28,4 @@ protected:
 	{
 		resourcesOut().energy(1000);
 	}
-
-private:
-
 };

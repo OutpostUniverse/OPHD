@@ -17,21 +17,10 @@ public:
 	}
 
 protected:
-
-	virtual void think()
-	{
-	}
-
 	virtual void defineResourceInput()
 	{
 		resourcesIn().energy(5);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };
 
 class UndergroundPolice : public Structure
@@ -47,19 +36,8 @@ public:
 	}
 
 protected:
-
-	virtual void think()
-	{
-	}
-
 	virtual void defineResourceInput()
 	{
 		resourcesIn().energy(1);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };

@@ -17,18 +17,8 @@ public:
 	}
 
 protected:
-
-	virtual void think()
-	{}
-
 	virtual void defineResourceInput()
 	{
 		resourcesIn().energy(5);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };

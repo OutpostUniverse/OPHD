@@ -14,9 +14,7 @@ public:
 		requiresCHAP(false);
 	}
 
-
 protected:
-
 	virtual void defineResourceInput()
 	{
 		resourcesIn().commonMinerals(2);
@@ -24,11 +22,4 @@ protected:
 		resourcesIn().rareMetals(1);
 		resourcesIn().energy(10);
 	}
-
-	virtual void defineResourceOutput()
-	{
-	}
-
-private:
-
 };

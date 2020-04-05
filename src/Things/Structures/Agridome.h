@@ -18,7 +18,6 @@ public:
 	}
 
 protected:
-
 	virtual void think()
 	{
 		if (isIdle())
@@ -50,15 +49,9 @@ protected:
 		resourcesIn().energy(2);
 	}
 
-	virtual void defineResourceOutput()
-	{}
-
 	virtual void disabledStateSet()
 	{
 		// Clear food store when disabled.
 		storage().food(0);
 	}
-
-private:
-
 };

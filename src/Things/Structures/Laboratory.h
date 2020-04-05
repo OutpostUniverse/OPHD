@@ -15,21 +15,10 @@ public:
 	}
 
 protected:
-
-	virtual void think()
-	{
-	}
-
 	virtual void defineResourceInput()
 	{
 		resourcesIn().energy(3);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };
 
 class Laboratory : public Structure
@@ -45,19 +34,8 @@ public:
 	}
 
 protected:
-
-	virtual void think()
-	{
-	}
-
 	virtual void defineResourceInput()
 	{
 		resourcesIn().energy(1);
 	}
-
-	virtual void defineResourceOutput()
-	{}
-
-private:
-
 };

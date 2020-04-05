@@ -87,7 +87,4 @@ private:
 	{
 		resourcesIn().energy(5);
 	}
-
-	virtual void defineResourceOutput() {}
-
 };

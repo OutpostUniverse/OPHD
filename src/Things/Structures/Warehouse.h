@@ -19,7 +19,6 @@ public:
 	ProductPool& products() { return mProducts; }
 
 protected:
-
 	virtual void defineResourceInput()
 	{
 		resourcesIn().energy(1);

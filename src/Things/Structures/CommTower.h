@@ -23,8 +23,4 @@ protected:
 	{
 		resourcesIn().energy(3);
 	}
-
-	virtual void defineResourceOutput()
-	{}
 };
-

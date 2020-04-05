@@ -14,16 +14,8 @@ public:
 	}
 
 protected:
-
-	virtual void defineResourceInput()
-	{
-	}
-
 	virtual void defineResourceOutput()
 	{
 		resourcesOut().energy(50);
 	}
-
-private:
-
 };

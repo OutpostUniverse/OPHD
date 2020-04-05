@@ -16,17 +16,8 @@ public:
 	}
 
 protected:
-
-	virtual void defineResourceInput()
-	{
-		// no input it' solar
-	}
-
 	virtual void defineResourceOutput()
 	{
 		resourcesOut().energy(25);
 	}
-
-private:
-
 };

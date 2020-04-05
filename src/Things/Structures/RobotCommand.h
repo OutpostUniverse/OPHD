@@ -33,9 +33,6 @@ public:
 	const RobotList& robots() { return mRobotList; }
 
 protected:
-	virtual void think() final {}
-	virtual void defineResourceOutput() final {}
-
 	virtual void defineResourceInput() final
 	{
 		resourcesIn().energy(5);

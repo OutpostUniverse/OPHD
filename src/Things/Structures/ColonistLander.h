@@ -27,7 +27,6 @@ public:
 	Callback& deployCallback() { return mDeploy; }
 
 protected:
-
 	virtual void think()
 	{
 		if (age() == turnsToBuild())

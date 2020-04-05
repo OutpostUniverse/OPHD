@@ -17,10 +17,4 @@ public:
 		requiresCHAP(false);
 		selfSustained(true);
 	}
-
-protected:
-	virtual void defineResourceInput() {}
-	virtual void defineResourceOutput() {}
-
-private:
 };

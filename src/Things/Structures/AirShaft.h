@@ -30,7 +30,6 @@ public:
 		}
 	}
 
-protected:
 private:
 	bool _ug = false;
 };
