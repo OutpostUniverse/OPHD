@@ -131,7 +131,7 @@ public:
 
 	virtual void forced_state_change(StructureState, DisabledReason, IdleReason);
 
-	void update();
+	void update() override;
 	virtual void think() {}
 
 protected:
