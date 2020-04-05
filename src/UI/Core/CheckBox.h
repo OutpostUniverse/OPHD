@@ -15,20 +15,20 @@ public:
 
 public:
 	CheckBox(std::string newText = "");
-	virtual ~CheckBox();
+	~CheckBox() override;
 
 	void checked(bool toggle);
 	bool checked() const;
 
 	ClickCallback& click();
 
-	virtual void update() final;
+	void update() override;
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
-	virtual void onSizeChanged() final;
-	virtual void onTextChanged() final;
+	void onSizeChanged() override;
+	void onTextChanged() override;
 	
 private:
 	NAS2D::Image	mSkin;

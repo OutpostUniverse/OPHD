@@ -15,19 +15,19 @@ class UIContainer: public Control
 {
 public:
 	UIContainer();
-	virtual ~UIContainer();
+	~UIContainer() override;
 
 	void add(Control* control, float x, float y);
 	void clear();
 
 	void bringToFront(Control* control);
 
-	virtual void update();
+	void update() override;
 
 	std::vector<Control*> controls() const;
 protected:
-	virtual void visibilityChanged(bool visible);
-	virtual void positionChanged(float dX, float dY);
+	void visibilityChanged(bool visible) override;
+	void positionChanged(float dX, float dY) override;
 
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 

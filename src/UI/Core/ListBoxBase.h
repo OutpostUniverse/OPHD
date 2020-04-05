@@ -49,7 +49,7 @@ public:
 
 public:
 	ListBoxBase();
-	virtual ~ListBoxBase();
+	~ListBoxBase() override;
 
 	void addItem(ListBoxItem*);
 	void removeItem(ListBoxItem*);
@@ -68,7 +68,7 @@ public:
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 
-	virtual void update() = 0;
+	void update() override = 0;
 
 protected:
 	/**
@@ -90,7 +90,7 @@ protected:
 
 	unsigned int draw_offset() const { return mCurrentOffset; }
 
-	virtual void visibilityChanged(bool) final;
+	void visibilityChanged(bool) override;
 
 
 protected:
@@ -100,11 +100,11 @@ private:
 	void _init();
 	void slideChanged(float newPosition);
 
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
 	void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
 
-	virtual void onSizeChanged() final;
+	void onSizeChanged() override;
 
 private:
 	unsigned int				mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */

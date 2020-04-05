@@ -37,7 +37,7 @@ public:
 
 public:
 	ListBox();
-	virtual ~ListBox();
+	~ListBox() override;
 	
 	void sorted(bool isSorted) { mSorted = isSorted; }
 	bool sorted(bool) const { return mSorted; }
@@ -66,22 +66,22 @@ public:
 	const std::string& selectionText() const;
 	int selectionTag() const;
 
-	void update();
+	void update() override;
 
 	bool empty() const;
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 
 protected:
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
 	virtual void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
 	virtual void slideChanged(float newPosition);
 
-	virtual void visibilityChanged(bool visible) final;
+	void visibilityChanged(bool visible) override;
 
 private:
-	virtual void onSizeChanged() final;
+	void onSizeChanged() override;
 
 	void _updateItemDisplay();
 	void _init();
