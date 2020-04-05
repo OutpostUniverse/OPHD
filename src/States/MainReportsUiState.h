@@ -32,8 +32,8 @@ protected:
 	State* update() override;
 
 private:
-	virtual void _deactivate() final;
-	virtual void _activate() final;
+	void _deactivate() override final;
+	void _activate() override final;
 
 private:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);

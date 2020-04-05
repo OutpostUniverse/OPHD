@@ -9,12 +9,12 @@ class GameState : public NAS2D::State
 {
 public:
 	GameState();
-	virtual ~GameState();
+	~GameState() override;
 
 	void mapviewstate(MapViewState*);
 
-	virtual void initialize() final;
-	virtual State* update() final;
+	void initialize() override final;
+	State* update() override final;
 
 private:
 	void onMouseMove(int x, int y, int relX, int relY);
