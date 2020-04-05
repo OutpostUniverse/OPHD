@@ -9,11 +9,11 @@ public:
 
 public:
 	GameOverDialog();
-	virtual ~GameOverDialog();
+	~GameOverDialog() override;
 
 	ClickCallback& returnToMainMenu() { return mCallback; }
 
-	virtual void update();
+	void update() override;
 
 protected:
 	virtual void init();

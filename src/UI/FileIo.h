@@ -19,14 +19,14 @@ public:
 
 public:
 	FileIo();
-	virtual ~FileIo();
+	~FileIo() override;
 
 	void setMode(FileOperation fileOp);
 	void scanDirectory(const std::string& directory);
 
 	FileOperationCallback& fileOperation() { return mCallback; }
 
-	virtual void update() final;
+	void update() override final;
 
 protected:
 	void init();

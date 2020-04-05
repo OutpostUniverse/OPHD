@@ -23,9 +23,9 @@ public:
 
 public:
 	DiggerDirection();
-	virtual ~DiggerDirection();
+	~DiggerDirection() override;
 
-	virtual void update();
+	void update() override;
 
 	Callback& directionSelected() { return mCallback; }
 

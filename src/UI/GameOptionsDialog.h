@@ -9,9 +9,9 @@ public:
 
 public:
 	GameOptionsDialog();
-	virtual ~GameOptionsDialog();
+	~GameOptionsDialog() override;
 
-	virtual void update();
+	void update() override;
 
 	ClickCallback& SaveGame() { return mCallbackSave; }
 	ClickCallback& LoadGame() { return mCallbackLoad; }

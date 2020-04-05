@@ -20,8 +20,8 @@ public:
 	
 	void updateCounts();
 
-	virtual void update() final;
-	virtual void hide() final;
+	void update() override final;
+	void hide() override final;
 
 protected:
 	virtual void init() final;

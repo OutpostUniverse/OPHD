@@ -8,14 +8,14 @@ class StructureInspector : public Window
 {
 public:
 	StructureInspector();
-	virtual ~StructureInspector();
+	~StructureInspector() override;
 
 	void structure(Structure* s);
 	Structure* structure() { return mStructure; }
 
 	void check();
 
-	virtual void update() final;
+	void update() override final;
 
 protected:
 	void init();

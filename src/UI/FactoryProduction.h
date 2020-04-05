@@ -12,14 +12,14 @@ class FactoryProduction : public Window
 {
 public:
 	FactoryProduction();
-	virtual ~FactoryProduction();
+	~FactoryProduction() override;
 
 	void factory(Factory* newFactory);
 	Factory* factory() { return mFactory; }
 
-	virtual void hide();
+	void hide() override;
 	
-	virtual void update();
+	void update() override;
 
 protected:
 	void init();

@@ -8,11 +8,11 @@ class TileInspector: public Window
 {
 public:
 	TileInspector();
-	virtual ~TileInspector();
+	~TileInspector() override;
 
 	void tile(Tile* t) { mTile = t; }
 
-	virtual void update();
+	void update() override;
 
 protected:
 	void init();
