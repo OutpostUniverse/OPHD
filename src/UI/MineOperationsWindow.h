@@ -24,7 +24,7 @@ public:
 	void hide() override final;
 
 protected:
-	virtual void init() final;
+	void init();
 
 private:
 	MineOperationsWindow(const MineOperationsWindow&) = delete;
