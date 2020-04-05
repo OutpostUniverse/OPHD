@@ -16,7 +16,7 @@ public:
 
 public:
 	MainReportsUiState();
-	virtual ~MainReportsUiState();
+	~MainReportsUiState() override;
 
 	void selectFactoryPanel(Structure*);
 	void selectWarehousePanel(Structure*);
@@ -28,8 +28,8 @@ public:
 	TakeMeThereList takeMeThere();
 
 protected:
-	void initialize();
-	State* update();
+	void initialize() override;
+	State* update() override;
 
 private:
 	virtual void _deactivate() final;
