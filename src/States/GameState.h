@@ -13,8 +13,8 @@ public:
 
 	void mapviewstate(MapViewState*);
 
-	void initialize() override final;
-	State* update() override final;
+	void initialize() override;
+	State* update() override;
 
 private:
 	void onMouseMove(int x, int y, int relX, int relY);
