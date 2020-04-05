@@ -13,7 +13,7 @@ class MineOperationsWindow final : public Window
 {
 public:
 	MineOperationsWindow();
-	~MineOperationsWindow() final;
+	~MineOperationsWindow() override;
 
 	void mineFacility(MineFacility* facility);
 	MineFacility* mineFacility() { return mFacility; }
