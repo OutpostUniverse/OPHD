@@ -47,7 +47,7 @@ private:
 	void lstItemsSelectionChanged();
 
 	void onMouseWheel(int x, int y);
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) final;
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
 private:
 	Button					btnDown;
