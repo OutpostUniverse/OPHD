@@ -13,15 +13,15 @@ class FactoryReport : public ReportInterface
 {
 public:
 	FactoryReport();
-	virtual ~FactoryReport();
+	~FactoryReport() override;
 
-	virtual void selectStructure(Structure*) final;
-	virtual void refresh() final;
+	void selectStructure(Structure*) override;
+	void refresh() override;
 
-	virtual void fillLists() final;
-	virtual void clearSelection() final;
+	void fillLists() override;
+	void clearSelection() override;
 
-	virtual void update() final;
+	void update() override;
 
 private:
 	void init();
@@ -56,7 +56,7 @@ private:
 	void drawDetailPane(NAS2D::Renderer&);
 	void drawProductPane(NAS2D::Renderer&);
 
-	virtual void visibilityChanged(bool visible) final;
+	void visibilityChanged(bool visible) override;
 
 private:
 	Button			btnShowAll;

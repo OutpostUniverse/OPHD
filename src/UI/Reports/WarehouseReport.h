@@ -18,15 +18,15 @@ public:
 
 public:
 	WarehouseReport();
-	virtual ~WarehouseReport();
+	~WarehouseReport() override;
 
-	virtual void fillLists() final;
-	virtual void clearSelection() final;
+	void fillLists() override;
+	void clearSelection() override;
 
-	virtual void refresh() final;
-	virtual void selectStructure(Structure*) final;
+	void refresh() override;
+	void selectStructure(Structure*) override;
 
-	virtual void update() final;
+	void update() override;
 
 private:
 	void init();
