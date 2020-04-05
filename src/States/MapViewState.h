@@ -80,8 +80,8 @@ protected:
 	State* update() override;
 
 private:
-	virtual void _deactivate() final;
-	virtual void _activate() final;
+	void _deactivate() override;
+	void _activate() override;
 	
 	// EVENT HANDLERS
 	void onActivate(bool newActiveValue);
