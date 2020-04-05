@@ -18,7 +18,7 @@ public:
 
 public:
 	RadioButton(std::string newText = "");
-	virtual ~RadioButton();
+	~RadioButton() override;
 
 	void checked(bool toggle);
 	bool checked() const;

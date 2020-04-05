@@ -36,7 +36,7 @@ public:
 
 public:
 	Slider();
-	virtual ~Slider();
+	~Slider() override;
 
 	void thumbPosition(float value);		/*!< Set the current position. */
 	float thumbPosition();					/*!< Get the current position. */
@@ -54,7 +54,7 @@ public:
 	bool backward() { return mBackward; }	 	/*!< Get the backward flag. */
 	void backward(bool isBackward) { mBackward = isBackward; } 	/*!< Set the backward flag. */
 
-	virtual void update(); 							/*!< Called to display the slider. */
+	void update() override; 							/*!< Called to display the slider. */
 	virtual void size(float width, float height); 	/*!< Set the slider size. */
 
 	ValueChangedCallback& change() { return mCallback; } 	/*!< Give the callback to enable another control or a window to dis/connect to this event call. */
@@ -69,7 +69,7 @@ private:
 	void positionInternal(float newPosition);
 
 	void setSkins();	/*!< Helper function that load the gui skin on the first update call. */
-	void draw();		/*!< Draw the widget on screen. */
+	void draw() override;		/*!< Draw the widget on screen. */
 	void logic();		/*!< Compute some values before drawing the control. */
 
 	void _buttonCheck(bool& buttonFlag, NAS2D::Rectangle_2df& rect, float value);

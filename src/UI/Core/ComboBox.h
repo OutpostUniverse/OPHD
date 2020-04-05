@@ -17,7 +17,7 @@ public:
 
 public:
 	ComboBox();
-	virtual ~ComboBox();
+	~ComboBox() override;
 
 	void addItem(const std::string& item, int tag = 0);
 
@@ -34,7 +34,7 @@ public:
 	std::size_t currentSelection() { return lstItems.currentSelection(); }
 	void currentSelection(std::size_t index);
 
-	virtual void update();
+	void update() override;
 
 	void text(const std::string& text);
 	const std::string& text() const;

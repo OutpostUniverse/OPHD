@@ -38,7 +38,7 @@ public:
 
 public:
 	TextField();
-	virtual ~TextField();
+	~TextField() override;
 
 	void editable(bool editable);
 	bool editable() const;
@@ -52,7 +52,7 @@ public:
 
 	void maxCharacters(size_t count);
 
-	virtual void update();
+	void update() override;
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);

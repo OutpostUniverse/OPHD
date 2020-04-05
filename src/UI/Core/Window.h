@@ -11,15 +11,15 @@ class Window : public UIContainer
 {
 public:
 	Window(std::string newTitle = "");
-	virtual ~Window();
+	~Window() override;
 
 	void anchored(bool isAnchored);
 
-	virtual void show();
-	virtual void update();
+	void show() override;
+	void update() override;
 
 protected:
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
 	void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int dX, int dY);
 

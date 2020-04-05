@@ -23,7 +23,7 @@ public:
 
 public:
 	Button(std::string newText = "");
-	virtual ~Button();
+	~Button() override;
 
 	void type(Type type);
 
@@ -37,7 +37,7 @@ public:
 	
 	ClickCallback& click() { return mCallback; }
 
-	virtual void update();
+	void update() override;
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
@@ -52,7 +52,7 @@ private:
 	};
 
 private:
-	virtual void draw();
+	void draw() override;
 
 private:
 	State				mState = STATE_NORMAL;		/**< Current state of the Button. */

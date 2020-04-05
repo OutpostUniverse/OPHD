@@ -29,7 +29,7 @@ public:
 	void font(NAS2D::Font* font);
 	bool empty() const { return text().empty(); }
 	void clear() { _text().clear(); }
-	virtual void update();
+	void update() override;
 
 	int width() const;
 

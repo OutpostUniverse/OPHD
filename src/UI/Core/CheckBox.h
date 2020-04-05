@@ -15,7 +15,7 @@ public:
 
 public:
 	CheckBox(std::string newText = "");
-	virtual ~CheckBox();
+	~CheckBox() override;
 
 	void checked(bool toggle);
 	bool checked() const;
