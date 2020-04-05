@@ -23,8 +23,6 @@ public:
 		enable();
 	}
 
-	virtual ~SeedLander() = default;
-
 	void position(int x, int y)
 	{
 		mX = x;

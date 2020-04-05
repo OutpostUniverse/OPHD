@@ -8,8 +8,6 @@ class PopulationPanel: public Control
 {
 public:
 	PopulationPanel();
-	
-	virtual ~PopulationPanel() = default;
 
 	void population(Population* pop) { mPopulation = pop; }
 	void morale(int* m) { mMorale = m; }

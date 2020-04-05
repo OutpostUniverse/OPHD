@@ -14,7 +14,6 @@ public:
 	{
 	public:
 		ProductListBoxItem() = default;
-		virtual ~ProductListBoxItem() = default;
 
 	public:
 		size_t count = 0;				/**< Count of the product. */
@@ -23,7 +22,6 @@ public:
 
 public:
 	ProductListBox();
-	virtual ~ProductListBox() = default;
 
 	void productPool(ProductPool&);
 
