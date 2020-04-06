@@ -1,29 +1,13 @@
-*.dll
-/data
-/API
-/proj/vc14/Debug
-/proj/vc14/*.opendb
-/proj/vc14/*.db
-/proj/vc14/Release Gold
-/proj/vc14/Release
-/*.exe
-/proj/vc14/.vs/OPHD/v14/*.suo
-/*.log
-/proj/vc14/*.user
-/proj/vc14/StructureAligner/Release
-/proj/vc14/StructureAligner/Debug
-/proj/vc15/Debug
-/proj/vc15/.vs
-/proj/vc15/*.db
-/proj/vc15/*.aps
-/proj/vc15/*.suppress
-/proj/vc15/Release Gold
-/proj/vc15/Release
-.build/
-OPHD
-Debug
-packages
-Release Gold
-.vs
-/proj/vs2019/Release
-/proj/vs2019/x64
+# All platforms
+/data/
+
+# Linux - Makefile
+/.build/
+*.exe
+
+# Windows - Visual Studio
+Release/
+Debug/
+x64/
+.vs/
+*.user

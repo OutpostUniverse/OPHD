@@ -24,4 +24,4 @@ install:
   - call nas2d-core\InstallVcpkgDeps.bat
   - set APPVEYOR_SAVE_CACHE_ON_ERROR=true
 build:
-  project: proj/vs2019/OPHD.sln
+  project: OPHD.sln

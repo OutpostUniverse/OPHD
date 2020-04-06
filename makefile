@@ -1,9 +1,9 @@
 # Source http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 
-SRCDIR := src/
+SRCDIR := OPHD/
 BUILDDIR := .build/
 OBJDIR := $(BUILDDIR)obj/
-EXE := OPHD
+EXE := ophd.exe
 NAS2DDIR := nas2d-core/
 NAS2DINCLUDEDIR := $(NAS2DDIR)
 NAS2DLIBDIR := $(NAS2DDIR)lib/

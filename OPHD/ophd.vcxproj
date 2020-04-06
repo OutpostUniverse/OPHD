@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>OPHD</ProjectName>
+    <ProjectGuid>{230AB062-FDCA-4D56-A781-0D3B9E8AE310}</ProjectGuid>
+    <RootNamespace>isoeng</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.23107.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <IncludePath>..\nas2d-core;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <IncludePath>..\nas2d-core;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\nas2d-core;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\nas2d-core;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>/we4242 /we4254 /we4263 /we4265 /we4287 /we4289 /we4296 /we4311 /we4545 /we4546 /we4547 /we4549 /we4555 /we4619 /we4640 /we4826 /we4905 /we4906 /we4928 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>NAS2D.lib;opengl32.lib;sdl2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>/we4242 /we4254 /we4263 /we4265 /we4287 /we4289 /we4296 /we4311 /we4545 /we4546 /we4547 /we4549 /we4555 /we4619 /we4640 /we4826 /we4905 /we4906 /we4928 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>NAS2D.lib;opengl32.lib;sdl2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>/we4242 /we4254 /we4263 /we4265 /we4287 /we4289 /we4296 /we4311 /we4545 /we4546 /we4547 /we4549 /we4555 /we4619 /we4640 /we4826 /we4905 /we4906 /we4928 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>NAS2D.lib;opengl32.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>/we4242 /we4254 /we4263 /we4265 /we4287 /we4289 /we4296 /we4311 /we4545 /we4546 /we4547 /we4549 /we4555 /we4619 /we4640 /we4826 /we4905 /we4906 /we4928 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>NAS2D.lib;opengl32.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Common.cpp" />
+    <ClCompile Include="GraphWalker.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map\Tile.cpp" />
+    <ClCompile Include="Map\TileMap.cpp" />
+    <ClCompile Include="MicroPather\micropather.cpp" />
+    <ClCompile Include="Mine.cpp" />
+    <ClCompile Include="PopulationPool.cpp" />
+    <ClCompile Include="Population\Population.cpp" />
+    <ClCompile Include="ProductPool.cpp" />
+    <ClCompile Include="ResourcePool.cpp" />
+    <ClCompile Include="RobotPool.cpp" />
+    <ClCompile Include="States\GameState.cpp" />
+    <ClCompile Include="States\MapViewState.cpp" />
+    <ClCompile Include="States\MainMenuState.cpp" />
+    <ClCompile Include="States\MainReportsUiState.cpp" />
+    <ClCompile Include="States\MapViewStateDraw.cpp" />
+    <ClCompile Include="States\MapViewStateEvent.cpp" />
+    <ClCompile Include="States\MapViewStateHelper.cpp" />
+    <ClCompile Include="States\MapViewStateIO.cpp" />
+    <ClCompile Include="States\MapViewStateTurn.cpp" />
+    <ClCompile Include="States\MapViewStateUi.cpp" />
+    <ClCompile Include="States\Planet.cpp" />
+    <ClCompile Include="States\PlanetSelectState.cpp" />
+    <ClCompile Include="States\SplashState.cpp" />
+    <ClCompile Include="StructureCatalogue.cpp" />
+    <ClCompile Include="StructureManager.cpp" />
+    <ClCompile Include="StructureTranslator.cpp" />
+    <ClCompile Include="Things\Robots\Robot.cpp" />
+    <ClCompile Include="Things\Structures\Factory.cpp" />
+    <ClCompile Include="Things\Structures\MineFacility.cpp" />
+    <ClCompile Include="Things\Structures\RobotCommand.cpp" />
+    <ClCompile Include="Things\Structures\Structure.cpp" />
+    <ClCompile Include="UI\Core\Button.cpp" />
+    <ClCompile Include="UI\Core\CheckBox.cpp" />
+    <ClCompile Include="UI\Core\ComboBox.cpp" />
+    <ClCompile Include="UI\Core\Control.cpp" />
+    <ClCompile Include="UI\Core\Label.cpp" />
+    <ClCompile Include="UI\Core\ListBox.cpp" />
+    <ClCompile Include="UI\Core\ListBoxBase.cpp" />
+    <ClCompile Include="UI\Core\RadioButton.cpp" />
+    <ClCompile Include="UI\Core\Slider.cpp" />
+    <ClCompile Include="UI\Core\TextArea.cpp" />
+    <ClCompile Include="UI\Core\TextField.cpp" />
+    <ClCompile Include="UI\Core\UIContainer.cpp" />
+    <ClCompile Include="UI\Core\Window.cpp" />
+    <ClCompile Include="UI\Core\WindowStack.cpp" />
+    <ClCompile Include="UI\DifficultySelect.cpp" />
+    <ClCompile Include="UI\DiggerDirection.cpp" />
+    <ClCompile Include="UI\FactoryListBox.cpp" />
+    <ClCompile Include="UI\FactoryProduction.cpp" />
+    <ClCompile Include="UI\FileIo.cpp" />
+    <ClCompile Include="UI\GameOptionsDialog.cpp" />
+    <ClCompile Include="UI\GameOverDialog.cpp" />
+    <ClCompile Include="UI\IconGrid.cpp" />
+    <ClCompile Include="UI\MainMenuOptions.cpp" />
+    <ClCompile Include="UI\MajorEventAnnouncement.cpp" />
+    <ClCompile Include="UI\MineOperationsWindow.cpp" />
+    <ClCompile Include="UI\PopulationPanel.cpp" />
+    <ClCompile Include="UI\ProductListBox.cpp" />
+    <ClCompile Include="UI\Reports\FactoryReport.cpp" />
+    <ClCompile Include="UI\Reports\WarehouseReport.cpp" />
+    <ClCompile Include="UI\ResourceBreakdownPanel.cpp" />
+    <ClCompile Include="UI\StructureInspector.cpp" />
+    <ClCompile Include="UI\StructureListBox.cpp" />
+    <ClCompile Include="UI\TileInspector.cpp" />
+    <ClCompile Include="UI\WarehouseInspector.cpp" />
+    <ClCompile Include="WindowEventWrapper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Constants\Numbers.h" />
+    <ClInclude Include="Constants\Strings.h" />
+    <ClInclude Include="Constants\UiConstants.h" />
+    <ClInclude Include="FontManager.h" />
+    <ClInclude Include="GraphWalker.h" />
+    <ClInclude Include="Map\Tile.h" />
+    <ClInclude Include="Map\TileMap.h" />
+    <ClInclude Include="MicroPather\micropather.h" />
+    <ClInclude Include="Mine.h" />
+    <ClInclude Include="PopulationPool.h" />
+    <ClInclude Include="Population\Morale.h" />
+    <ClInclude Include="Population\Population.h" />
+    <ClInclude Include="ProductionCost.h" />
+    <ClInclude Include="ProductPool.h" />
+    <ClInclude Include="ResourcePool.h" />
+    <ClInclude Include="RobotPool.h" />
+    <ClInclude Include="RobotPoolHelper.h" />
+    <ClInclude Include="States\GameState.h" />
+    <ClInclude Include="States\MapViewState.h" />
+    <ClInclude Include="States\MainMenuState.h" />
+    <ClInclude Include="States\MainReportsUiState.h" />
+    <ClInclude Include="States\MapViewStateHelper.h" />
+    <ClInclude Include="States\Planet.h" />
+    <ClInclude Include="States\PlanetSelectState.h" />
+    <ClInclude Include="States\SplashState.h" />
+    <ClInclude Include="States\Wrapper.h" />
+    <ClInclude Include="StructureCatalogue.h" />
+    <ClInclude Include="StructureManager.h" />
+    <ClInclude Include="StructureTranslator.h" />
+    <ClInclude Include="Templates.h" />
+    <ClInclude Include="Things\Robots\Robodigger.h" />
+    <ClInclude Include="Things\Robots\Robodozer.h" />
+    <ClInclude Include="Things\Robots\Robominer.h" />
+    <ClInclude Include="Things\Robots\Robot.h" />
+    <ClInclude Include="Things\Robots\Robots.h" />
+    <ClInclude Include="Things\Structures\AirShaft.h" />
+    <ClInclude Include="Things\Structures\CargoLander.h" />
+    <ClInclude Include="Things\Structures\CHAP.h" />
+    <ClInclude Include="Things\Structures\ColonistLander.h" />
+    <ClInclude Include="Things\Structures\CommandCenter.h" />
+    <ClInclude Include="Things\Structures\Agridome.h" />
+    <ClInclude Include="Things\Structures\Commercial.h" />
+    <ClInclude Include="Things\Structures\CommTower.h" />
+    <ClInclude Include="Things\Structures\Factory.h" />
+    <ClInclude Include="Things\Structures\Laboratory.h" />
+    <ClInclude Include="Things\Structures\MedicalCenter.h" />
+    <ClInclude Include="Things\Structures\MineFacility.h" />
+    <ClInclude Include="Things\Structures\MineShaft.h" />
+    <ClInclude Include="Things\Structures\Nursery.h" />
+    <ClInclude Include="Things\Structures\Park.h" />
+    <ClInclude Include="Things\Structures\Police.h" />
+    <ClInclude Include="Things\Structures\RecreationCenter.h" />
+    <ClInclude Include="Things\Structures\RedLightDistrict.h" />
+    <ClInclude Include="Things\Structures\Residence.h" />
+    <ClInclude Include="Things\Structures\RobotCommand.h" />
+    <ClInclude Include="Things\Structures\SeedFactory.h" />
+    <ClInclude Include="Things\Structures\SeedLander.h" />
+    <ClInclude Include="Things\Structures\SeedPower.h" />
+    <ClInclude Include="Things\Structures\SeedSmelter.h" />
+    <ClInclude Include="Things\Structures\Smelter.h" />
+    <ClInclude Include="Things\Structures\SolarPanelArray.h" />
+    <ClInclude Include="Things\Structures\SolarPlant.h" />
+    <ClInclude Include="Things\Structures\StorageTanks.h" />
+    <ClInclude Include="Things\Structures\Structure.h" />
+    <ClInclude Include="Things\Structures\Structures.h" />
+    <ClInclude Include="Things\Structures\FusionReactor.h" />
+    <ClInclude Include="Things\Structures\SurfaceFactory.h" />
+    <ClInclude Include="Things\Structures\Tube.h" />
+    <ClInclude Include="Things\Structures\UndergroundFactory.h" />
+    <ClInclude Include="Things\Structures\University.h" />
+    <ClInclude Include="Things\Structures\Warehouse.h" />
+    <ClInclude Include="Things\Thing.h" />
+    <ClInclude Include="UI\Core\Button.h" />
+    <ClInclude Include="UI\Core\CheckBox.h" />
+    <ClInclude Include="UI\Core\ComboBox.h" />
+    <ClInclude Include="UI\Core\Control.h" />
+    <ClInclude Include="UI\Core\Label.h" />
+    <ClInclude Include="UI\Core\ListBox.h" />
+    <ClInclude Include="UI\Core\ListBoxBase.h" />
+    <ClInclude Include="UI\Core\RadioButton.h" />
+    <ClInclude Include="UI\Core\Slider.h" />
+    <ClInclude Include="UI\Core\TextArea.h" />
+    <ClInclude Include="UI\Core\TextField.h" />
+    <ClInclude Include="UI\Core\UIContainer.h" />
+    <ClInclude Include="UI\Core\Window.h" />
+    <ClInclude Include="UI\Core\WindowStack.h" />
+    <ClInclude Include="UI\DifficultySelect.h" />
+    <ClInclude Include="UI\DiggerDirection.h" />
+    <ClInclude Include="UI\FactoryProduction.h" />
+    <ClInclude Include="UI\FileIo.h" />
+    <ClInclude Include="UI\GameOptionsDialog.h" />
+    <ClInclude Include="UI\GameOverDialog.h" />
+    <ClInclude Include="UI\Gui.h" />
+    <ClInclude Include="UI\IconGrid.h" />
+    <ClInclude Include="UI\MainMenuOptions.h" />
+    <ClInclude Include="UI\MajorEventAnnouncement.h" />
+    <ClInclude Include="UI\MineOperationsWindow.h" />
+    <ClInclude Include="UI\PopulationPanel.h" />
+    <ClInclude Include="UI\ProductListBox.h" />
+    <ClInclude Include="UI\Reports\FactoryReport.h" />
+    <ClInclude Include="UI\Reports\ReportInterface.h" />
+    <ClInclude Include="UI\Reports\WarehouseReport.h" />
+    <ClInclude Include="UI\ResourceBreakdownPanel.h" />
+    <ClInclude Include="UI\StructureInspector.h" />
+    <ClInclude Include="UI\FactoryListBox.h" />
+    <ClInclude Include="UI\StructureListBox.h" />
+    <ClInclude Include="UI\TileInspector.h" />
+    <ClInclude Include="UI\UI.h" />
+    <ClInclude Include="UI\WarehouseInspector.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ophd.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="outpost.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
