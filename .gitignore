@@ -3,7 +3,7 @@
 
 # Linux - Makefile
 /.build/
-OPHD
+*.exe
 
 # Windows - Visual Studio
 Release/

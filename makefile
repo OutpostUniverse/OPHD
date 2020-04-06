@@ -3,7 +3,7 @@
 SRCDIR := src/
 BUILDDIR := .build/
 OBJDIR := $(BUILDDIR)obj/
-EXE := OPHD
+EXE := ophd.exe
 NAS2DDIR := nas2d-core/
 NAS2DINCLUDEDIR := $(NAS2DDIR)
 NAS2DLIBDIR := $(NAS2DDIR)lib/
