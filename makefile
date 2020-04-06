@@ -1,6 +1,6 @@
 # Source http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 
-SRCDIR := src/
+SRCDIR := OPHD/
 BUILDDIR := .build/
 OBJDIR := $(BUILDDIR)obj/
 EXE := ophd.exe

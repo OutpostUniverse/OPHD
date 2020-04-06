@@ -84,546 +84,546 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Mine.cpp">
+    <ClCompile Include="Mine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\StructureManager.cpp">
+    <ClCompile Include="StructureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Things\Structures\Structure.cpp">
+    <ClCompile Include="Things\Structures\Structure.cpp">
       <Filter>Source Files\Things\Structures</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\DiggerDirection.cpp">
+    <ClCompile Include="UI\DiggerDirection.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\TileInspector.cpp">
+    <ClCompile Include="UI\TileInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\Button.cpp">
+    <ClCompile Include="UI\Core\Button.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\Control.cpp">
+    <ClCompile Include="UI\Core\Control.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\UIContainer.cpp">
+    <ClCompile Include="UI\Core\UIContainer.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\GraphWalker.cpp">
+    <ClCompile Include="GraphWalker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\RobotPool.cpp">
+    <ClCompile Include="RobotPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Things\Robots\Robot.cpp">
+    <ClCompile Include="Things\Robots\Robot.cpp">
       <Filter>Source Files\Things\Robots</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Things\Structures\Factory.cpp">
+    <ClCompile Include="Things\Structures\Factory.cpp">
       <Filter>Source Files\Things\Structures</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\PlanetSelectState.cpp">
+    <ClCompile Include="States\PlanetSelectState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\TextField.cpp">
+    <ClCompile Include="UI\Core\TextField.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\FactoryProduction.cpp">
+    <ClCompile Include="UI\FactoryProduction.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\IconGrid.cpp">
+    <ClCompile Include="UI\IconGrid.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\StructureTranslator.cpp">
+    <ClCompile Include="StructureTranslator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ResourcePool.cpp">
+    <ClCompile Include="ResourcePool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\StructureInspector.cpp">
+    <ClCompile Include="UI\StructureInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\SplashState.cpp">
+    <ClCompile Include="States\SplashState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\TextArea.cpp">
+    <ClCompile Include="UI\Core\TextArea.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\Window.cpp">
+    <ClCompile Include="UI\Core\Window.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\WindowStack.cpp">
+    <ClCompile Include="UI\Core\WindowStack.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Population\Population.cpp">
+    <ClCompile Include="Population\Population.cpp">
       <Filter>Source Files\Population</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Map\Tile.cpp">
+    <ClCompile Include="Map\Tile.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Map\TileMap.cpp">
+    <ClCompile Include="Map\TileMap.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\GameOverDialog.cpp">
+    <ClCompile Include="UI\GameOverDialog.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\MajorEventAnnouncement.cpp">
+    <ClCompile Include="UI\MajorEventAnnouncement.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\FileIo.cpp">
+    <ClCompile Include="UI\FileIo.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\GameOptionsDialog.cpp">
+    <ClCompile Include="UI\GameOptionsDialog.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PopulationPool.cpp">
+    <ClCompile Include="PopulationPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\StructureCatalogue.cpp">
+    <ClCompile Include="StructureCatalogue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Common.cpp">
+    <ClCompile Include="Common.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\Slider.cpp">
+    <ClCompile Include="UI\Core\Slider.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\ListBox.cpp">
+    <ClCompile Include="UI\Core\ListBox.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ProductPool.cpp">
+    <ClCompile Include="ProductPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\WarehouseInspector.cpp">
+    <ClCompile Include="UI\WarehouseInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\MainMenuState.cpp">
+    <ClCompile Include="States\MainMenuState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Things\Structures\RobotCommand.cpp">
+    <ClCompile Include="Things\Structures\RobotCommand.cpp">
       <Filter>Source Files\Things\Structures</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Things\Structures\MineFacility.cpp">
+    <ClCompile Include="Things\Structures\MineFacility.cpp">
       <Filter>Source Files\Things\Structures</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\MineOperationsWindow.cpp">
+    <ClCompile Include="UI\MineOperationsWindow.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\MainReportsUiState.cpp">
+    <ClCompile Include="States\MainReportsUiState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\MapViewState.cpp">
+    <ClCompile Include="States\MapViewState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\MapViewStateDraw.cpp">
+    <ClCompile Include="States\MapViewStateDraw.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\MapViewStateEvent.cpp">
+    <ClCompile Include="States\MapViewStateEvent.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\MapViewStateHelper.cpp">
+    <ClCompile Include="States\MapViewStateHelper.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\MapViewStateIO.cpp">
+    <ClCompile Include="States\MapViewStateIO.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\MapViewStateTurn.cpp">
+    <ClCompile Include="States\MapViewStateTurn.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\MapViewStateUi.cpp">
+    <ClCompile Include="States\MapViewStateUi.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\GameState.cpp">
+    <ClCompile Include="States\GameState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\ComboBox.cpp">
+    <ClCompile Include="UI\Core\ComboBox.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Reports\FactoryReport.cpp">
+    <ClCompile Include="UI\Reports\FactoryReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\CheckBox.cpp">
+    <ClCompile Include="UI\Core\CheckBox.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\PopulationPanel.cpp">
+    <ClCompile Include="UI\PopulationPanel.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\ListBoxBase.cpp">
+    <ClCompile Include="UI\Core\ListBoxBase.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\States\Planet.cpp">
+    <ClCompile Include="States\Planet.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Reports\WarehouseReport.cpp">
+    <ClCompile Include="UI\Reports\WarehouseReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\FactoryListBox.cpp">
+    <ClCompile Include="UI\FactoryListBox.cpp">
       <Filter>Source Files\UI\SpecializedListBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\StructureListBox.cpp">
+    <ClCompile Include="UI\StructureListBox.cpp">
       <Filter>Source Files\UI\SpecializedListBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\ProductListBox.cpp">
+    <ClCompile Include="UI\ProductListBox.cpp">
       <Filter>Source Files\UI\SpecializedListBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\WindowEventWrapper.h">
+    <ClCompile Include="WindowEventWrapper.h">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\ResourceBreakdownPanel.cpp">
+    <ClCompile Include="UI\ResourceBreakdownPanel.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\MicroPather\micropather.cpp">
+    <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\MainMenuOptions.cpp">
+    <ClCompile Include="UI\MainMenuOptions.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\Label.cpp">
+    <ClCompile Include="UI\Core\Label.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\Core\RadioButton.cpp">
+    <ClCompile Include="UI\Core\RadioButton.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UI\DifficultySelect.cpp">
+    <ClCompile Include="UI\DifficultySelect.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\Common.h">
+    <ClInclude Include="Common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Mine.h">
+    <ClInclude Include="Mine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\RobotPool.h">
+    <ClInclude Include="RobotPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\StructureManager.h">
+    <ClInclude Include="StructureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Thing.h">
+    <ClInclude Include="Things\Thing.h">
       <Filter>Header Files\Things</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Robots\Robodigger.h">
+    <ClInclude Include="Things\Robots\Robodigger.h">
       <Filter>Header Files\Things\Robots</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Robots\Robodozer.h">
+    <ClInclude Include="Things\Robots\Robodozer.h">
       <Filter>Header Files\Things\Robots</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Robots\Robominer.h">
+    <ClInclude Include="Things\Robots\Robominer.h">
       <Filter>Header Files\Things\Robots</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Robots\Robot.h">
+    <ClInclude Include="Things\Robots\Robot.h">
       <Filter>Header Files\Things\Robots</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Robots\Robots.h">
+    <ClInclude Include="Things\Robots\Robots.h">
       <Filter>Header Files\Things\Robots</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\AirShaft.h">
+    <ClInclude Include="Things\Structures\AirShaft.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\CommandCenter.h">
+    <ClInclude Include="Things\Structures\CommandCenter.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\MineFacility.h">
+    <ClInclude Include="Things\Structures\MineFacility.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\SeedFactory.h">
+    <ClInclude Include="Things\Structures\SeedFactory.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\SeedLander.h">
+    <ClInclude Include="Things\Structures\SeedLander.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\SeedPower.h">
+    <ClInclude Include="Things\Structures\SeedPower.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\SeedSmelter.h">
+    <ClInclude Include="Things\Structures\SeedSmelter.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Structure.h">
+    <ClInclude Include="Things\Structures\Structure.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Structures.h">
+    <ClInclude Include="Things\Structures\Structures.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\DiggerDirection.h">
+    <ClInclude Include="UI\DiggerDirection.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\TileInspector.h">
+    <ClInclude Include="UI\TileInspector.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\UI.h">
+    <ClInclude Include="UI\UI.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\Button.h">
+    <ClInclude Include="UI\Core\Button.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\Control.h">
+    <ClInclude Include="UI\Core\Control.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\UIContainer.h">
+    <ClInclude Include="UI\Core\UIContainer.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\GraphWalker.h">
+    <ClInclude Include="GraphWalker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Agridome.h">
+    <ClInclude Include="Things\Structures\Agridome.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\CHAP.h">
+    <ClInclude Include="Things\Structures\CHAP.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Factory.h">
+    <ClInclude Include="Things\Structures\Factory.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\States\PlanetSelectState.h">
+    <ClInclude Include="States\PlanetSelectState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Tube.h">
+    <ClInclude Include="Things\Structures\Tube.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\TextField.h">
+    <ClInclude Include="UI\Core\TextField.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\FactoryProduction.h">
+    <ClInclude Include="UI\FactoryProduction.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\States\Planet.h">
+    <ClInclude Include="States\Planet.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Constants.h">
+    <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Constants\Numbers.h">
+    <ClInclude Include="Constants\Numbers.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Constants\Strings.h">
+    <ClInclude Include="Constants\Strings.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Constants\UiConstants.h">
+    <ClInclude Include="Constants\UiConstants.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\IconGrid.h">
+    <ClInclude Include="UI\IconGrid.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\StructureTranslator.h">
+    <ClInclude Include="StructureTranslator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ResourcePool.h">
+    <ClInclude Include="ResourcePool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\StorageTanks.h">
+    <ClInclude Include="Things\Structures\StorageTanks.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Residence.h">
+    <ClInclude Include="Things\Structures\Residence.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\MineShaft.h">
+    <ClInclude Include="Things\Structures\MineShaft.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\StructureInspector.h">
+    <ClInclude Include="UI\StructureInspector.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\States\SplashState.h">
+    <ClInclude Include="States\SplashState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\FusionReactor.h">
+    <ClInclude Include="Things\Structures\FusionReactor.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\TextArea.h">
+    <ClInclude Include="UI\Core\TextArea.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Smelter.h">
+    <ClInclude Include="Things\Structures\Smelter.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\UndergroundFactory.h">
+    <ClInclude Include="Things\Structures\UndergroundFactory.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Park.h">
+    <ClInclude Include="Things\Structures\Park.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\SolarPlant.h">
+    <ClInclude Include="Things\Structures\SolarPlant.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Police.h">
+    <ClInclude Include="Things\Structures\Police.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\Window.h">
+    <ClInclude Include="UI\Core\Window.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\WindowStack.h">
+    <ClInclude Include="UI\Core\WindowStack.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\RobotCommand.h">
+    <ClInclude Include="Things\Structures\RobotCommand.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Warehouse.h">
+    <ClInclude Include="Things\Structures\Warehouse.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Laboratory.h">
+    <ClInclude Include="Things\Structures\Laboratory.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\RecreationCenter.h">
+    <ClInclude Include="Things\Structures\RecreationCenter.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Commercial.h">
+    <ClInclude Include="Things\Structures\Commercial.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\RedLightDistrict.h">
+    <ClInclude Include="Things\Structures\RedLightDistrict.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\University.h">
+    <ClInclude Include="Things\Structures\University.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Population\Population.h">
+    <ClInclude Include="Population\Population.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Map\Tile.h">
+    <ClInclude Include="Map\Tile.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Map\TileMap.h">
+    <ClInclude Include="Map\TileMap.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\PopulationPanel.h">
+    <ClInclude Include="UI\PopulationPanel.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\ColonistLander.h">
+    <ClInclude Include="Things\Structures\ColonistLander.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\GameOverDialog.h">
+    <ClInclude Include="UI\GameOverDialog.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\MajorEventAnnouncement.h">
+    <ClInclude Include="UI\MajorEventAnnouncement.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\FileIo.h">
+    <ClInclude Include="UI\FileIo.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Gui.h">
+    <ClInclude Include="UI\Gui.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\GameOptionsDialog.h">
+    <ClInclude Include="UI\GameOptionsDialog.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\MedicalCenter.h">
+    <ClInclude Include="Things\Structures\MedicalCenter.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\PopulationPool.h">
+    <ClInclude Include="PopulationPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ProductPool.h">
+    <ClInclude Include="ProductPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\StructureCatalogue.h">
+    <ClInclude Include="StructureCatalogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\Slider.h">
+    <ClInclude Include="UI\Core\Slider.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Population\Morale.h">
+    <ClInclude Include="Population\Morale.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\ListBox.h">
+    <ClInclude Include="UI\Core\ListBox.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\Nursery.h">
+    <ClInclude Include="Things\Structures\Nursery.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\CommTower.h">
+    <ClInclude Include="Things\Structures\CommTower.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\CargoLander.h">
+    <ClInclude Include="Things\Structures\CargoLander.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ProductionCost.h">
+    <ClInclude Include="ProductionCost.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\WarehouseInspector.h">
+    <ClInclude Include="UI\WarehouseInspector.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\States\MainMenuState.h">
+    <ClInclude Include="States\MainMenuState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\SolarPanelArray.h">
+    <ClInclude Include="Things\Structures\SolarPanelArray.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\RobotPoolHelper.h">
+    <ClInclude Include="RobotPoolHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\MineOperationsWindow.h">
+    <ClInclude Include="UI\MineOperationsWindow.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Templates.h">
+    <ClInclude Include="Templates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\States\Wrapper.h">
+    <ClInclude Include="States\Wrapper.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\States\MainReportsUiState.h">
+    <ClInclude Include="States\MainReportsUiState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\States\MapViewState.h">
+    <ClInclude Include="States\MapViewState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\States\MapViewStateHelper.h">
+    <ClInclude Include="States\MapViewStateHelper.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\States\GameState.h">
+    <ClInclude Include="States\GameState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\ComboBox.h">
+    <ClInclude Include="UI\Core\ComboBox.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Reports\FactoryReport.h">
+    <ClInclude Include="UI\Reports\FactoryReport.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\FontManager.h">
+    <ClInclude Include="FontManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Things\Structures\SurfaceFactory.h">
+    <ClInclude Include="Things\Structures\SurfaceFactory.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\CheckBox.h">
+    <ClInclude Include="UI\Core\CheckBox.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\ListBoxBase.h">
+    <ClInclude Include="UI\Core\ListBoxBase.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Reports\WarehouseReport.h">
+    <ClInclude Include="UI\Reports\WarehouseReport.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Reports\ReportInterface.h">
+    <ClInclude Include="UI\Reports\ReportInterface.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\FactoryListBox.h">
+    <ClInclude Include="UI\FactoryListBox.h">
       <Filter>Header Files\UI\SpecializedListBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\StructureListBox.h">
+    <ClInclude Include="UI\StructureListBox.h">
       <Filter>Header Files\UI\SpecializedListBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\ProductListBox.h">
+    <ClInclude Include="UI\ProductListBox.h">
       <Filter>Header Files\UI\SpecializedListBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\ResourceBreakdownPanel.h">
+    <ClInclude Include="UI\ResourceBreakdownPanel.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\MicroPather\micropather.h">
+    <ClInclude Include="MicroPather\micropather.h">
       <Filter>Header Files\MicroPather</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\MainMenuOptions.h">
+    <ClInclude Include="UI\MainMenuOptions.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\Label.h">
+    <ClInclude Include="UI\Core\Label.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\Core\RadioButton.h">
+    <ClInclude Include="UI\Core\RadioButton.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\UI\DifficultySelect.h">
+    <ClInclude Include="UI\DifficultySelect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
