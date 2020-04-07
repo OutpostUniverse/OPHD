@@ -1019,7 +1019,7 @@ void MapViewState::placeRobot()
 			if (!doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE)) { return; }
 
 			std::cout << "Digger destroyed a Mine at (" << mTileMap->tileMouseHoverX() << ", " << mTileMap->tileMouseHoverY() << ")." << std::endl;
-			mTileMap->removeMineLocation(Point(tile->x(), tile->y()));
+			mTileMap->removeMineLocation(Point{tile->x(), tile->y()});
 		}
 
 		// Die if tile is occupied or not excavated.
