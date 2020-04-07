@@ -82,7 +82,7 @@ private:
 	SliderType				mSliderType;				/*!< Type of the Slider. */
 	
 	// mouse event related vars
-	NAS2D::Point_2d			mMousePosition;				/**< Mouse coordinates. */
+	NAS2D::Point<int>			mMousePosition;				/**< Mouse coordinates. */
 
 	bool					mMouseHoverSlide = false;	/*!< Mouse is within the bounds of the Button. */
 	bool					mThumbPressed = false;		/*!< Flag to indicate if this control is pressed. */

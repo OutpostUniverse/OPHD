@@ -23,7 +23,7 @@ extern NAS2D::Rectangle_2d MOVE_WEST_ICON;
 extern NAS2D::Rectangle_2d MOVE_UP_ICON;
 extern NAS2D::Rectangle_2d MOVE_DOWN_ICON;
 
-extern NAS2D::Point_2d MOUSE_COORDS;
+extern NAS2D::Point<int> MOUSE_COORDS;
 
 extern NAS2D::Font* MAIN_FONT; /// yuck
 extern std::vector<void*> path;

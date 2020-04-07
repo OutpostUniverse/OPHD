@@ -206,7 +206,7 @@ private:
 	NAS2D::Image				mHeightMap;						/**< Height view of the Site Map. */
 	NAS2D::Image				mUiIcons;						/**< User interface icons. */
 
-	NAS2D::Point_2d			mTileMapMouseHover;				/**< Tile position the mouse is currently hovering over. */
+	NAS2D::Point<int>			mTileMapMouseHover;				/**< Tile position the mouse is currently hovering over. */
 
 	NAS2D::Rectangle_2d		mMiniMapBoundingBox;			/**< Area of the site map display. */
 

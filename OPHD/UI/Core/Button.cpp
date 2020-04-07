@@ -109,7 +109,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if(button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
-		Point_2d click(x, y);
+		Point<int> click(x, y);
 
 		if(rect().contains(click))
 		{
@@ -133,7 +133,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 	if(button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
-		Point_2d click(x, y);
+		Point<int> click(x, y);
 		
 		if(mType == Type::BUTTON_NORMAL)
 		{

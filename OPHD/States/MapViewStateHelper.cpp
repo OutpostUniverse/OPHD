@@ -318,7 +318,7 @@ bool selfSustained(StructureID id)
 /** 
  * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
  */
-bool outOfCommRange(Point_2d& cc_location, TileMap* tile_map, Tile* current_tile)
+bool outOfCommRange(Point<int>& cc_location, TileMap* tile_map, Tile* current_tile)
 {
 	Tile* tile = tile_map->getVisibleTile();
 
