@@ -12,7 +12,7 @@
 
 namespace {
 	constexpr auto PlanetRadius = 64;
-	constexpr auto PlanetSize = NAS2D::Vector<int>{PlanetRadius * 2, PlanetRadius * 2};
+	constexpr auto PlanetSize = NAS2D::Vector{PlanetRadius * 2, PlanetRadius * 2};
 }
 
 
