@@ -540,7 +540,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		mTileMap[0][y][x].pushMine(m);
 		mTileMap[0][y][x].index(TERRAIN_DOZED);
 
-		mMineLocations.push_back(Point<int>(x, y));
+		mMineLocations.push_back(Point{x, y});
 
 		/// \fixme	Legacy code to assist in updating older versions of save games between 0.7.5 and 0.7.6. Remove in 0.8.0
 		if (m->depth() == 0 && m->active()) { m->increaseDepth(); }
