@@ -54,7 +54,7 @@ public:
 
 	int tileMouseHoverX() const { return mMapHighlight.x() + mMapViewLocation.x(); }
 	int tileMouseHoverY() const { return mMapHighlight.y() + mMapViewLocation.y(); }
-	NAS2D::Point<int> tileMouseHover() const { return NAS2D::Point<int>(tileMouseHoverX(), tileMouseHoverY()); }
+	NAS2D::Point<int> tileMouseHover() const { return NAS2D::Point(tileMouseHoverX(), tileMouseHoverY()); }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
