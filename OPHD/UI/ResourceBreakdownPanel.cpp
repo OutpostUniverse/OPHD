@@ -110,10 +110,15 @@ void ResourceBreakdownPanel::update()
 	Renderer& r = Utility<Renderer>::get();
 	r.drawImageRect(rect(), mSkin);
 
-	r.drawSubImage(mIcons, 5.0f, rect().y() + 5.0f, 64.0f, 16.0f, 16.0f, 16.0f);
-	r.drawSubImage(mIcons, 5.0f, rect().y() + 23.0f, 80.0f, 16.0f, 16.0f, 16.0f);
-	r.drawSubImage(mIcons, 5.0f, rect().y() + 41.0f, 96.0f, 16.0f, 16.0f, 16.0f);
-	r.drawSubImage(mIcons, 5.0f, rect().y() + 59.0f, 112.0f, 16.0f, 16.0f, 16.0f);
+	const auto commonMetalImageRect = NAS2D::Rectangle{64, 16, 16, 16};
+	const auto rareMetalImageRect = NAS2D::Rectangle{80, 16, 16, 16};
+	const auto commonMineralImageRect = NAS2D::Rectangle{96, 16, 16, 16};
+	const auto rareMineralImageRect = NAS2D::Rectangle{112, 16, 16, 16};
+
+	r.drawSubImage(mIcons, {5.0f, rect().y() + 5.0f}, commonMetalImageRect);
+	r.drawSubImage(mIcons, {5.0f, rect().y() + 23.0f}, rareMetalImageRect);
+	r.drawSubImage(mIcons, {5.0f, rect().y() + 41.0f}, commonMineralImageRect);
+	r.drawSubImage(mIcons, {5.0f, rect().y() + 59.0f}, rareMineralImageRect);
 
 	r.drawText(*FONT, "Common Metals", 28.0f, rect().y() + 5.0f, 255, 255, 255);
 	r.drawText(*FONT, "Rare Metals", 28.0f, rect().y() + 23.0f, 255, 255, 255);
