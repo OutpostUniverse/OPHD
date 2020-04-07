@@ -19,8 +19,6 @@ public:
 		mRareMinerals(rareMinerals)
 	{}
 
-	~ProductionCost() {}
-
 	void clear()
 	{
 		mTurnsToBuild = 0;
