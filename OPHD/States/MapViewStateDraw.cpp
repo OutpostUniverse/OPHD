@@ -74,7 +74,7 @@ void MapViewState::drawMiniMap()
 	if (ccPosition != CcNotPlaced)
 	{
 		const auto ccOffsetPosition = ccPosition + miniMapOffset;
-		const auto ccCommRangeImageRect = NAS2D::Rectangle<int>{166, 226, 30, 30};
+		const auto ccCommRangeImageRect = NAS2D::Rectangle{166, 226, 30, 30};
 		renderer.drawSubImage(mUiIcons, ccOffsetPosition - ccCommRangeImageRect.size() / 2, ccCommRangeImageRect);
 		renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create(ccOffsetPosition - NAS2D::Vector<int>{1, 1}, NAS2D::Vector<int>{3, 3}), NAS2D::Color::White);
 	}
@@ -85,7 +85,7 @@ void MapViewState::drawMiniMap()
 		if (commTower->operational())
 		{
 			const auto commTowerPosition = structureManager.tileFromStructure(commTower)->position();
-			const auto commTowerRangeImageRect = NAS2D::Rectangle<int>{146, 236, 20, 20};
+			const auto commTowerRangeImageRect = NAS2D::Rectangle{146, 236, 20, 20};
 			renderer.drawSubImage(mUiIcons, commTowerPosition + miniMapOffset - commTowerRangeImageRect.size() / 2, commTowerRangeImageRect);
 		}
 	}
@@ -100,7 +100,7 @@ void MapViewState::drawMiniMap()
 		else if (!mine->exhausted()) { mineBeaconStatusOffsetX = 8; }
 		else { mineBeaconStatusOffsetX = 16; }
 
-		const auto mineImageRect = NAS2D::Rectangle<int>{mineBeaconStatusOffsetX, 0, 7, 7};
+		const auto mineImageRect = NAS2D::Rectangle{mineBeaconStatusOffsetX, 0, 7, 7};
 		renderer.drawSubImage(mUiIcons, minePosition + miniMapOffset - NAS2D::Vector<int>{2, 2}, mineImageRect);
 	}
 
@@ -145,8 +145,8 @@ void MapViewState::drawResourceInfo()
 	auto position = NAS2D::Point<int>{constants::MARGIN_TIGHT + 12, constants::MARGIN_TIGHT};
 	constexpr auto textOffset = NAS2D::Vector<int>{constants::RESOURCE_ICON_SIZE + constants::MARGIN, 3 - constants::MARGIN_TIGHT};
 
-	const auto unpinnedImageRect = NAS2D::Rectangle<int>{0, 72, 8, 8};
-	const auto pinnedImageRect = NAS2D::Rectangle<int>{8, 72, 8, 8};
+	const auto unpinnedImageRect = NAS2D::Rectangle{0, 72, 8, 8};
+	const auto pinnedImageRect = NAS2D::Rectangle{8, 72, 8, 8};
 
 	renderer.drawSubImage(mUiIcons, NAS2D::Point{2, 7}, mPinResourcePanel ? unpinnedImageRect : pinnedImageRect);
 	renderer.drawSubImage(mUiIcons, NAS2D::Point{675, 7}, mPinPopulationPanel ? unpinnedImageRect : pinnedImageRect);
@@ -190,12 +190,12 @@ void MapViewState::drawResourceInfo()
 	// Population / Morale
 	position.x() -= 17;
 	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 16 : 32);
-	const auto popMoraleDirectionImageRect = NAS2D::Rectangle<int>{popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	const auto popMoraleDirectionImageRect = NAS2D::Rectangle{popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, popMoraleDirectionImageRect);
 
 	position.x() += 17;
 	const auto moraleLevel = (std::clamp(mCurrentMorale, 1, 999) / 200);
-	const auto popMoraleImageRect = NAS2D::Rectangle<int>{176 + moraleLevel * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	const auto popMoraleImageRect = NAS2D::Rectangle{176 + moraleLevel * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.size()), position + textOffset, NAS2D::Color::White);
 
@@ -209,14 +209,14 @@ void MapViewState::drawResourceInfo()
 
 	// Turns
 	position.x() = static_cast<int>(renderer.width() - 80);
-	const auto turnImageRect = NAS2D::Rectangle<int>{128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	const auto turnImageRect = NAS2D::Rectangle{128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
 	position = MENU_ICON.startPoint() + NAS2D::Vector<int>{constants::MARGIN_TIGHT, constants::MARGIN_TIGHT};
 	bool isMouseInMenu = MENU_ICON.contains(MOUSE_COORDS);
 	int menuGearHighlightOffsetX = isMouseInMenu ? 144 : 128;
-	const auto menuImageRect = NAS2D::Rectangle<int>{menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	const auto menuImageRect = NAS2D::Rectangle{menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, menuImageRect);
 }
 
@@ -270,12 +270,12 @@ void MapViewState::drawNavInfo()
 {
 	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	drawNavIcon(renderer, MOVE_DOWN_ICON, NAS2D::Rectangle<int>{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_UP_ICON, NAS2D::Rectangle<int>{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_EAST_ICON, NAS2D::Rectangle<int>{32, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_WEST_ICON, NAS2D::Rectangle<int>{32, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_NORTH_ICON, NAS2D::Rectangle<int>{0, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_SOUTH_ICON, NAS2D::Rectangle<int>{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_DOWN_ICON, NAS2D::Rectangle{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_UP_ICON, NAS2D::Rectangle{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_EAST_ICON, NAS2D::Rectangle{32, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_WEST_ICON, NAS2D::Rectangle{32, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_NORTH_ICON, NAS2D::Rectangle{0, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_SOUTH_ICON, NAS2D::Rectangle{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
 
 	// display the levels "bar"
 	int iWidth = MAIN_FONT->width("IX"); // set steps character patern width
