@@ -1,11 +1,13 @@
 # All platforms
 /data/
+*.log
 
 # Linux - Makefile
 /.build/
 *.exe
 
 # Windows - Visual Studio
+Temporary/
 Release/
 Debug/
 x64/
