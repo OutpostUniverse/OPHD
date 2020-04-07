@@ -6,6 +6,22 @@
 #include "Tile.h"
 
 
+Tile::Tile(Tile&& other) :
+	mIndex{other.mIndex},
+	mX{other.mX},
+	mY{other.mY},
+	mDepth{other.mDepth},
+	mThing{other.mThing},
+	mMine{other.mMine},
+	mColor{other.mColor},
+	mExcavated{other.mExcavated},
+	mThingIsStructure{other.mThingIsStructure}
+{
+	other.mThing = nullptr;
+	other.mMine = nullptr;
+}
+
+
 /**
  * D'tor
  */
