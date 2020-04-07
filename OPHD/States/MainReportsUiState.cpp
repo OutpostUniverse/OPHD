@@ -17,7 +17,7 @@
 using namespace NAS2D;
 
 
-extern Point_2d		MOUSE_COORDS;
+extern Point<int>		MOUSE_COORDS;
 
 static Image*		WINDOW_BACKGROUND = nullptr;
 
@@ -60,10 +60,10 @@ public:
 
 	Image*				Img = nullptr;
 
-	Point_2d			TextPosition;
-	Point_2d			IconPosition;
+	Point<int>			TextPosition;
+	Point<int>			IconPosition;
 
-	Rectangle_2d		Rect;
+	Rectangle<int>		Rect;
 
 	ReportInterface*	UiPanel = nullptr;
 

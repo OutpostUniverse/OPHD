@@ -12,7 +12,7 @@
 #include "NAS2D/Mixer/Mixer.h"
 #include "NAS2D/Renderer/Renderer.h"
 
-NAS2D::Point_2d MOUSE_COORDS;									/**< Mouse Coordinates. Used by other states/wrapers. */
+NAS2D::Point<int> MOUSE_COORDS;									/**< Mouse Coordinates. Used by other states/wrapers. */
 
 MainReportsUiState* MAIN_REPORTS_UI = nullptr;			/**< Pointer to a MainReportsUiState. Memory is handled by GameState. */
 static MapViewState* MAP_VIEW = nullptr;				/**< Pointer to a MapViewState. Memory is handled by GameState. */

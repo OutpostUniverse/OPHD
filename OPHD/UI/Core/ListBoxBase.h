@@ -44,7 +44,7 @@ public:
 
 	public:
 		std::string Text;
-		NAS2D::Point_2d	Size;
+		NAS2D::Point<int>	Size;
 	};
 
 public:
@@ -115,7 +115,7 @@ private:
 	unsigned int				mItemWidth = 0;									/**< Width of a ListBoxItem. */
 	unsigned int				mLineCount = 0;									/**< Number of lines that can be displayed. */
 
-	NAS2D::Point_2d				mMousePosition;									/**< Mouse coordinates. */
+	NAS2D::Point<int>				mMousePosition;									/**< Mouse coordinates. */
 
 	NAS2D::Color				mText = NAS2D::Color::White;					/**< Text Color */
 	NAS2D::Color				mHighlightBg = NAS2D::Color::DarkGreen;				/**< Highlight Background color. */

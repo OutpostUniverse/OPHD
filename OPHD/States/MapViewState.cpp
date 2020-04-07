@@ -31,22 +31,22 @@ const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
 
 extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.
 extern NAS2D::Image* IMG_SAVING;	/// \fixme Find a sane place for this.
-extern Point_2d MOUSE_COORDS;
+extern Point<int> MOUSE_COORDS;
 extern MainReportsUiState* MAIN_REPORTS_UI;
 
 
 int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
 
-Rectangle_2d MENU_ICON;
-Rectangle_2d RESOURCE_PANEL_PIN(0, 1, 8, 19);
-Rectangle_2d POPULATION_PANEL_PIN(675, 1, 8, 19);
+Rectangle<int> MENU_ICON;
+Rectangle<int> RESOURCE_PANEL_PIN(0, 1, 8, 19);
+Rectangle<int> POPULATION_PANEL_PIN(675, 1, 8, 19);
 
-Rectangle_2d MOVE_NORTH_ICON;
-Rectangle_2d MOVE_SOUTH_ICON;
-Rectangle_2d MOVE_EAST_ICON;
-Rectangle_2d MOVE_WEST_ICON;
-Rectangle_2d MOVE_UP_ICON;
-Rectangle_2d MOVE_DOWN_ICON;
+Rectangle<int> MOVE_NORTH_ICON;
+Rectangle<int> MOVE_SOUTH_ICON;
+Rectangle<int> MOVE_EAST_ICON;
+Rectangle<int> MOVE_WEST_ICON;
+Rectangle<int> MOVE_UP_ICON;
+Rectangle<int> MOVE_DOWN_ICON;
 
 std::string CURRENT_LEVEL_STRING;
 
@@ -337,7 +337,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 	}
 
 	bool viewUpdated = false; // don't like flaggy code like this
-	Point_2d pt = mTileMap->mapViewLocation();
+	Point<int> pt = mTileMap->mapViewLocation();
 
 	switch(key)
 	{
@@ -531,7 +531,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		mLeftButtonDown = true;
 
 		mWindowStack.updateStack(MOUSE_COORDS);
-		Point_2d pt = mTileMap->mapViewLocation();
+		Point<int> pt = mTileMap->mapViewLocation();
 
 		// Ugly
 		if (MENU_ICON.contains(MOUSE_COORDS))
@@ -1019,7 +1019,7 @@ void MapViewState::placeRobot()
 			if (!doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE)) { return; }
 
 			std::cout << "Digger destroyed a Mine at (" << mTileMap->tileMouseHoverX() << ", " << mTileMap->tileMouseHoverY() << ")." << std::endl;
-			mTileMap->removeMineLocation(Point_2d(tile->x(), tile->y()));
+			mTileMap->removeMineLocation(Point<int>(tile->x(), tile->y()));
 		}
 
 		// Die if tile is occupied or not excavated.

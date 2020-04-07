@@ -10,7 +10,7 @@
 
 #include <algorithm>
 
-using Point2dList = std::vector<NAS2D::Point_2d>;
+using Point2dList = std::vector<NAS2D::Point<int>>;
 
 class TileMap: public micropather::Graph
 {
@@ -43,21 +43,21 @@ public:
 	bool isVisibleTile(NAS2D::Point<int> position) const { return isVisibleTile(position, mCurrentDepth); }
 	bool isVisibleTile(const Tile& t) { return isVisibleTile(t.position(), t.depth()); }
 
-	const NAS2D::Rectangle_2d& boundingBox() const { return mMapBoundingBox; }
+	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 
-	const NAS2D::Point_2d& mapViewLocation() const { return mMapViewLocation; }
+	const NAS2D::Point<int>& mapViewLocation() const { return mMapViewLocation; }
 	void mapViewLocation(int x, int y) { mMapViewLocation = {x, y}; }
 	void centerMapOnTile(Tile*);
 
-	const NAS2D::Point_2d& tileHighlight() const { return mMapHighlight; }
+	const NAS2D::Point<int>& tileHighlight() const { return mMapHighlight; }
 	bool tileHighlightVisible() const;
 
 	int tileMouseHoverX() const { return mMapHighlight.x() + mMapViewLocation.x(); }
 	int tileMouseHoverY() const { return mMapHighlight.y() + mMapViewLocation.y(); }
-	NAS2D::Point_2d tileMouseHover() const { return NAS2D::Point_2d(tileMouseHoverX(), tileMouseHoverY()); }
+	NAS2D::Point<int> tileMouseHover() const { return NAS2D::Point<int>(tileMouseHoverX(), tileMouseHoverY()); }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
-	void removeMineLocation(const NAS2D::Point_2d& pt);
+	void removeMineLocation(const NAS2D::Point<int>& pt);
 
 	void toggleShowConnections() { mShowConnections = !mShowConnections; }
 
@@ -137,15 +137,15 @@ private:
 
 	NAS2D::Timer		mTimer;
 
-	NAS2D::Point_2d		mMousePosition;				/**< Current mouse position. */
-	NAS2D::Point_2d		mMapHighlight;				/**< Tile the mouse is pointing to. */
-	NAS2D::Point_2d		mMapViewLocation;
+	NAS2D::Point<int>		mMousePosition;				/**< Current mouse position. */
+	NAS2D::Point<int>		mMapHighlight;				/**< Tile the mouse is pointing to. */
+	NAS2D::Point<int>		mMapViewLocation;
 
-	NAS2D::Point_2df	mMapPosition;				/** Where to start drawing the TileMap on the screen. */
+	NAS2D::Point<float>	mMapPosition;				/** Where to start drawing the TileMap on the screen. */
 
 	Point2dList			mMineLocations;				/**< Location of all mines on the map. */
 
-	NAS2D::Rectangle_2d	mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
+	NAS2D::Rectangle<int>	mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
 
 	bool				mShowConnections = false;	/**< Flag indicating whether or not to highlight connectedness. */
 };

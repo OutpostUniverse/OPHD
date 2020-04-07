@@ -35,7 +35,7 @@ public:
 
 	PlanetType type() const { return mType; }
 
-	void position(const NAS2D::Point_2d& _pt) { mPosition = _pt; }
+	void position(const NAS2D::Point<int>& _pt) { mPosition = _pt; }
 	void position(int x, int y) { mPosition = {x, y}; }
 
 	int x() const { return mPosition.x(); }
@@ -67,7 +67,7 @@ private:
 	int					mMaxDigDepth = 0;
 
 	NAS2D::Image		mImage;
-	NAS2D::Point_2d		mPosition;
+	NAS2D::Point<int>		mPosition;
 
 	PlanetType			mType = PLANET_TYPE_NONE;
 

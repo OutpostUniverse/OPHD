@@ -56,7 +56,7 @@ private:
 	NAS2D::Sound	mSelect;
 	NAS2D::Sound	mHover;
 
-	NAS2D::Point_2d	mMousePosition;
+	NAS2D::Point<int>	mMousePosition;
 
 	PlanetPtrList	mPlanets;
 

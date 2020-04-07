@@ -14,16 +14,16 @@
 #include <vector>
 #include <algorithm>
 
-extern NAS2D::Rectangle_2d MENU_ICON;
+extern NAS2D::Rectangle<int> MENU_ICON;
 
-extern NAS2D::Rectangle_2d MOVE_NORTH_ICON;
-extern NAS2D::Rectangle_2d MOVE_SOUTH_ICON;
-extern NAS2D::Rectangle_2d MOVE_EAST_ICON;
-extern NAS2D::Rectangle_2d MOVE_WEST_ICON;
-extern NAS2D::Rectangle_2d MOVE_UP_ICON;
-extern NAS2D::Rectangle_2d MOVE_DOWN_ICON;
+extern NAS2D::Rectangle<int> MOVE_NORTH_ICON;
+extern NAS2D::Rectangle<int> MOVE_SOUTH_ICON;
+extern NAS2D::Rectangle<int> MOVE_EAST_ICON;
+extern NAS2D::Rectangle<int> MOVE_WEST_ICON;
+extern NAS2D::Rectangle<int> MOVE_UP_ICON;
+extern NAS2D::Rectangle<int> MOVE_DOWN_ICON;
 
-extern NAS2D::Point_2d MOUSE_COORDS;
+extern NAS2D::Point<int> MOUSE_COORDS;
 
 extern NAS2D::Font* MAIN_FONT; /// yuck
 extern std::vector<void*> path;
@@ -256,7 +256,7 @@ void MapViewState::drawRobotInfo()
 	}
 }
 
-bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
+bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
 	bool isMouseInIcon = currentIconBounds.contains(MOUSE_COORDS);
 	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
 	renderer.drawSubImage(mUiIcons, currentIconBounds.startPoint(), subImageBounds, color);
@@ -270,12 +270,12 @@ void MapViewState::drawNavInfo()
 {
 	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	drawNavIcon(renderer, MOVE_DOWN_ICON, NAS2D::Rectangle_2d{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_UP_ICON, NAS2D::Rectangle_2d{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_EAST_ICON, NAS2D::Rectangle_2d{32, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_WEST_ICON, NAS2D::Rectangle_2d{32, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_NORTH_ICON, NAS2D::Rectangle_2d{0, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_SOUTH_ICON, NAS2D::Rectangle_2d{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_DOWN_ICON, NAS2D::Rectangle<int>{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_UP_ICON, NAS2D::Rectangle<int>{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_EAST_ICON, NAS2D::Rectangle<int>{32, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_WEST_ICON, NAS2D::Rectangle<int>{32, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_NORTH_ICON, NAS2D::Rectangle<int>{0, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, MOVE_SOUTH_ICON, NAS2D::Rectangle<int>{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
 
 	// display the levels "bar"
 	int iWidth = MAIN_FONT->width("IX"); // set steps character patern width

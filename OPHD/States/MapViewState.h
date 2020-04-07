@@ -102,7 +102,7 @@ private:
 	void drawUI();
 	void drawMiniMap();
 	void drawNavInfo();
-	bool drawNavIcon(NAS2D::Renderer& r, const NAS2D::Rectangle_2d& currentIconBounds, const NAS2D::Rectangle_2d& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor);
+	bool drawNavIcon(NAS2D::Renderer& r, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor);
 
 	void drawResourceInfo();
 	void drawRobotInfo();
@@ -118,7 +118,7 @@ private:
 	void placeStructure();
 	void placeTubes();
 	
-	NAS2D::Rectangle_2d tubeStart;
+	NAS2D::Rectangle<int> tubeStart;
 	void placeTubeStart();
 	void placeTubeEnd();
 
@@ -206,9 +206,9 @@ private:
 	NAS2D::Image				mHeightMap;						/**< Height view of the Site Map. */
 	NAS2D::Image				mUiIcons;						/**< User interface icons. */
 
-	NAS2D::Point_2d			mTileMapMouseHover;				/**< Tile position the mouse is currently hovering over. */
+	NAS2D::Point<int>			mTileMapMouseHover;				/**< Tile position the mouse is currently hovering over. */
 
-	NAS2D::Rectangle_2d		mMiniMapBoundingBox;			/**< Area of the site map display. */
+	NAS2D::Rectangle<int>		mMiniMapBoundingBox;			/**< Area of the site map display. */
 
 	// POOL'S
 	ResourcePool		mPlayerResources;				/**< Player's current resources. */

@@ -34,7 +34,7 @@ private:
 	NAS2D::Image				mFlare;
 	NAS2D::Image				mByline;
 
-	NAS2D::Point_2d			mMousePosition;
+	NAS2D::Point<int>			mMousePosition;
 
 	NAS2D::Timer				mTimer;
 
