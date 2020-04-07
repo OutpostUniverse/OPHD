@@ -266,34 +266,34 @@ void ListBox::update()
 	// Ignore if menu is empty or invisible
 	if (!visible()) { return; }
 
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
 	if (empty())
 	{
-		r.drawBoxFilled(rect(), NAS2D::Color::Black);
+		renderer.drawBoxFilled(rect(), NAS2D::Color::Black);
 		const auto boxColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
-		r.drawBox(rect(), boxColor);
+		renderer.drawBox(rect(), boxColor);
 		return;
 	}
 
-	r.clipRect(rect().x() - 1, rect().y(), rect().width() + 1, rect().height() + 1);
+	renderer.clipRect(rect().x() - 1, rect().y(), rect().width() + 1, rect().height() + 1);
 
 	// draw boundaries of the widget
 	NAS2D::Rectangle<int> listBounds = rect();
 	listBounds.width() = mItemWidth;
-	r.drawBox(listBounds, NAS2D::Color{0, 0, 0, 100});
-	r.drawBoxFilled(listBounds, NAS2D::Color{0, 85, 0, 220});
+	renderer.drawBox(listBounds, NAS2D::Color{0, 0, 0, 100});
+	renderer.drawBoxFilled(listBounds, NAS2D::Color{0, 85, 0, 220});
 
 	// Highlight currently selected item
 	auto itemBounds = listBounds;
 	itemBounds.height() = mLineHeight;
 	itemBounds.y() += (mCurrentSelection * mLineHeight) - mCurrentOffset;
-	r.drawBoxFilled(itemBounds, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
+	renderer.drawBoxFilled(itemBounds, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
 
 	// Highlight On mouse Over
 	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
-		r.drawBox(itemBounds, mHighlightBg);
+		renderer.drawBox(itemBounds, mHighlightBg);
 	}
 	
 	// display actuals values that are meant to be
@@ -302,13 +302,13 @@ void ListBox::update()
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
 		const auto textColor = (i == mCurrentHighlight) ? mHighlightText : mText;
-		r.drawTextShadow(*LST_FONT, mItems[i].Text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
+		renderer.drawTextShadow(*LST_FONT, mItems[i].Text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 		textPosition.y() += mLineHeight;
 	}
 
 	mSlider.update();		// Shouldn't need this since it's in a UIContainer. Noticing that Slider
 							// doesn't play nice with the UIContainer.
-	r.clipRectClear();
+	renderer.clipRectClear();
 }
 
 
