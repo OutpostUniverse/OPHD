@@ -22,6 +22,25 @@ Tile::Tile(Tile&& other) :
 }
 
 
+Tile& Tile::operator=(Tile&& other)
+{
+	mIndex = other.mIndex;
+	mX = other.mX;
+	mY = other.mY;
+	mDepth = other.mDepth;
+	mThing = other.mThing;
+	mMine = other.mMine;
+	mColor = other.mColor;
+	mExcavated = other.mExcavated;
+	mThingIsStructure = other.mThingIsStructure;
+
+	other.mThing = nullptr;
+	other.mMine = nullptr;
+
+	return *this;
+}
+
+
 /**
  * D'tor
  */
