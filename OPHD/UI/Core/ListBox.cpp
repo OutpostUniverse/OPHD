@@ -270,8 +270,9 @@ void ListBox::update()
 
 	if (empty())
 	{
-		r.drawBoxFilled(rect(), 0, 0, 0);
-		hasFocus() ? r.drawBox(rect(), 0, 185, 0) : r.drawBox(rect(), 75, 75, 75);
+		r.drawBoxFilled(rect(), NAS2D::Color::Black);
+		const auto boxColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
+		r.drawBox(rect(), boxColor);
 		return;
 	}
 
