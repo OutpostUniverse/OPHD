@@ -284,21 +284,22 @@ void ListBox::update()
 	r.drawBoxFilled(listBounds, NAS2D::Color{0, 85, 0, 220});
 
 	// Highlight currently selected item
-	float itemY = rect().y() + static_cast<float>((mCurrentSelection * mLineHeight) - mCurrentOffset);
-	r.drawBoxFilled(rect().x(), itemY, static_cast<float>(mItemWidth), static_cast<float>(mLineHeight), mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
+	auto itemBounds = listBounds;
+	itemBounds.height() = mLineHeight;
+	itemBounds.y() += (mCurrentSelection * mLineHeight) - mCurrentOffset;
+	r.drawBoxFilled(itemBounds, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
 	
 	// Highlight On mouse Over
 
 	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
-		itemY = rect().y() + static_cast<float>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
-		r.drawBox(rect().x(), itemY, static_cast<float>(mItemWidth), static_cast<float>(mLineHeight), mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
+		r.drawBox(itemBounds, mHighlightBg);
 	}
 	
 	// display actuals values that are meant to be
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
-		itemY = rect().y() + (i * mLineHeight) - mCurrentOffset;
+		int itemY = rect().y() + (i * mLineHeight) - mCurrentOffset;
 		if (i == mCurrentHighlight)
 		{
 			r.drawTextShadow(*LST_FONT, mItems[i].Text, rect().x(), itemY, 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
