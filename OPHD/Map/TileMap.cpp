@@ -411,7 +411,7 @@ void TileMap::updateTileHighlight()
 
 	default:
 		break;
-	};
+	}
 }
 
 
