@@ -296,17 +296,19 @@ void ListBox::update()
 	}
 	
 	// display actuals values that are meant to be
+	auto textPosition = listBounds.startPoint();
+	textPosition.y() -= mCurrentOffset;
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
-		int itemY = rect().y() + (i * mLineHeight) - mCurrentOffset;
 		if (i == mCurrentHighlight)
 		{
-			r.drawTextShadow(*LST_FONT, mItems[i].Text, rect().x(), itemY, 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
+			r.drawTextShadow(*LST_FONT, mItems[i].Text, textPosition, {1, 1}, mHighlightText, NAS2D::Color::Black);
 		}
 		else
 		{
-			r.drawTextShadow(*LST_FONT, mItems[i].Text, rect().x(), itemY, 1, mText.red(), mText.green(), mText.blue(), 0, 0, 0);
+			r.drawTextShadow(*LST_FONT, mItems[i].Text, textPosition, {1, 1}, mText, NAS2D::Color::Black);
 		}
+		textPosition.y() += mLineHeight;
 	}
 
 	mSlider.update();		// Shouldn't need this since it's in a UIContainer. Noticing that Slider
