@@ -288,9 +288,8 @@ void ListBox::update()
 	itemBounds.height() = mLineHeight;
 	itemBounds.y() += (mCurrentSelection * mLineHeight) - mCurrentOffset;
 	r.drawBoxFilled(itemBounds, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
-	
-	// Highlight On mouse Over
 
+	// Highlight On mouse Over
 	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
 		r.drawBox(itemBounds, mHighlightBg);
