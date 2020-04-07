@@ -266,50 +266,49 @@ void ListBox::update()
 	// Ignore if menu is empty or invisible
 	if (!visible()) { return; }
 
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
 	if (empty())
 	{
-		r.drawBoxFilled(rect(), 0, 0, 0);
-		hasFocus() ? r.drawBox(rect(), 0, 185, 0) : r.drawBox(rect(), 75, 75, 75);
+		renderer.drawBoxFilled(rect(), NAS2D::Color::Black);
+		const auto boxColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
+		renderer.drawBox(rect(), boxColor);
 		return;
 	}
 
-	r.clipRect(rect().x() - 1, rect().y(), rect().width() + 1, rect().height() + 1);
+	renderer.clipRect(rect().x() - 1, rect().y(), rect().width() + 1, rect().height() + 1);
 
 	// draw boundaries of the widget
-	r.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 0, 0, 100);
-	r.drawBoxFilled(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 85, 0, 220);
+	NAS2D::Rectangle<int> listBounds = rect();
+	listBounds.width() = mItemWidth;
+	renderer.drawBox(listBounds, NAS2D::Color{0, 0, 0, 100});
+	renderer.drawBoxFilled(listBounds, NAS2D::Color{0, 85, 0, 220});
 
 	// Highlight currently selected item
-	float itemY = rect().y() + static_cast<float>((mCurrentSelection * mLineHeight) - mCurrentOffset);
-	r.drawBoxFilled(rect().x(), itemY, static_cast<float>(mItemWidth), static_cast<float>(mLineHeight), mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
-	
-	// Highlight On mouse Over
+	auto itemBounds = listBounds;
+	itemBounds.height() = mLineHeight;
+	itemBounds.y() += static_cast<int>((mCurrentSelection * mLineHeight) - mCurrentOffset);
+	renderer.drawBoxFilled(itemBounds, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
 
+	// Highlight On mouse Over
 	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
-		itemY = rect().y() + static_cast<float>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
-		r.drawBox(rect().x(), itemY, static_cast<float>(mItemWidth), static_cast<float>(mLineHeight), mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue());
+		renderer.drawBox(itemBounds, mHighlightBg);
 	}
 	
 	// display actuals values that are meant to be
+	auto textPosition = listBounds.startPoint();
+	textPosition.y() -= static_cast<int>(mCurrentOffset);
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
-		itemY = rect().y() + (i * mLineHeight) - mCurrentOffset;
-		if (i == mCurrentHighlight)
-		{
-			r.drawTextShadow(*LST_FONT, mItems[i].Text, rect().x(), itemY, 1, mHighlightText.red(), mHighlightText.green(), mHighlightText.blue(), 0, 0, 0);
-		}
-		else
-		{
-			r.drawTextShadow(*LST_FONT, mItems[i].Text, rect().x(), itemY, 1, mText.red(), mText.green(), mText.blue(), 0, 0, 0);
-		}
+		const auto textColor = (i == mCurrentHighlight) ? mHighlightText : mText;
+		renderer.drawTextShadow(*LST_FONT, mItems[i].Text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
+		textPosition.y() += mLineHeight;
 	}
 
 	mSlider.update();		// Shouldn't need this since it's in a UIContainer. Noticing that Slider
 							// doesn't play nice with the UIContainer.
-	r.clipRectClear();
+	renderer.clipRectClear();
 }
 
 
