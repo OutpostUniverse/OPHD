@@ -108,7 +108,7 @@ void ResourceBreakdownPanel::resourceCheck()
 void ResourceBreakdownPanel::update()
 {
 	Renderer& r = Utility<Renderer>::get();
-	r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkin);
+	r.drawImageRect(rect(), mSkin);
 
 	r.drawSubImage(mIcons, 5.0f, rect().y() + 5.0f, 64.0f, 16.0f, 16.0f, 16.0f);
 	r.drawSubImage(mIcons, 5.0f, rect().y() + 23.0f, 80.0f, 16.0f, 16.0f, 16.0f);
