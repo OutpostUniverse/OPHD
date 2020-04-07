@@ -7,13 +7,6 @@
 
 
 /**
- * C'tor
- */
-Tile::Tile()
-{}
-
-
-/**
  * D'tor
  */
 Tile::~Tile()

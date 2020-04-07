@@ -15,7 +15,7 @@
 class Tile
 {
 public:
-	Tile();
+	Tile() = default;
 	~Tile();
 
 	int index() const { return mIndex; }
