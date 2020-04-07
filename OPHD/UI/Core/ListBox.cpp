@@ -287,7 +287,7 @@ void ListBox::update()
 	// Highlight currently selected item
 	auto itemBounds = listBounds;
 	itemBounds.height() = mLineHeight;
-	itemBounds.y() += (mCurrentSelection * mLineHeight) - mCurrentOffset;
+	itemBounds.y() += static_cast<int>((mCurrentSelection * mLineHeight) - mCurrentOffset);
 	renderer.drawBoxFilled(itemBounds, mHighlightBg.red(), mHighlightBg.green(), mHighlightBg.blue(), 80);
 
 	// Highlight On mouse Over
@@ -298,7 +298,7 @@ void ListBox::update()
 	
 	// display actuals values that are meant to be
 	auto textPosition = listBounds.startPoint();
-	textPosition.y() -= mCurrentOffset;
+	textPosition.y() -= static_cast<int>(mCurrentOffset);
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
 		const auto textColor = (i == mCurrentHighlight) ? mHighlightText : mText;
