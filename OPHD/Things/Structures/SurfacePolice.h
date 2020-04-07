@@ -22,22 +22,3 @@ protected:
 		resourcesIn().energy(5);
 	}
 };
-
-class UndergroundPolice : public Structure
-{
-public:
-	UndergroundPolice() : Structure(constants::UNDERGROUND_POLICE, "structures/police_underground.sprite", CLASS_UNDERGROUND_POLICE)
-	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
-		maxAge(500);
-		turnsToBuild(3);
-
-		requiresCHAP(true);
-	}
-
-protected:
-	void defineResourceInput() override
-	{
-		resourcesIn().energy(1);
-	}
-};
