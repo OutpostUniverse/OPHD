@@ -276,7 +276,7 @@ void ListBox::update()
 		return;
 	}
 
-	renderer.clipRect(rect().x() - 1, rect().y(), rect().width() + 1, rect().height() + 1);
+	renderer.clipRect(rect());
 
 	// draw boundaries of the widget
 	NAS2D::Rectangle<int> listBounds = rect();
