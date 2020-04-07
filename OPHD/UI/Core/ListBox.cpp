@@ -278,8 +278,10 @@ void ListBox::update()
 	r.clipRect(rect().x() - 1, rect().y(), rect().width() + 1, rect().height() + 1);
 
 	// draw boundaries of the widget
-	r.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 0, 0, 100);
-	r.drawBoxFilled(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 85, 0, 220);
+	NAS2D::Rectangle<int> listBounds = rect();
+	listBounds.width() = mItemWidth;
+	r.drawBox(listBounds, NAS2D::Color{0, 0, 0, 100});
+	r.drawBoxFilled(listBounds, NAS2D::Color{0, 85, 0, 220});
 
 	// Highlight currently selected item
 	float itemY = rect().y() + static_cast<float>((mCurrentSelection * mLineHeight) - mCurrentOffset);
