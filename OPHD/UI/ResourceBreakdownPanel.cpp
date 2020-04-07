@@ -128,9 +128,9 @@ void ResourceBreakdownPanel::update()
 		r.drawSubImage(mIcons, position, imageRect);
 		r.drawText(*FONT, text, position + NAS2D::Vector{23, 0}, NAS2D::Color::White);
 		const auto valueString = std::to_string(value);
-		r.drawText(*FONT, valueString, position + NAS2D::Vector{200 - 5 - FONT->width(valueString), 0}, NAS2D::Color::White);
+		r.drawText(*FONT, valueString, position + NAS2D::Vector{195 - FONT->width(valueString), 0}, NAS2D::Color::White);
 		const auto changeIconImageRect = NAS2D::Rectangle<int>::Create(ICON_SLICE[resourceTrend], NAS2D::Vector{8, 8});
-		r.drawSubImage(mIcons, position + NAS2D::Vector{220 - 5, 3}, changeIconImageRect);
+		r.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
 		r.drawText(*FONT, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor);
 		position.y() += 18;
 	}
