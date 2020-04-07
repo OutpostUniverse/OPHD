@@ -9,7 +9,7 @@
 class ProductionCost
 {
 public:
-	ProductionCost() {}
+	ProductionCost() = default;
 
 	ProductionCost(int turns, int commonMetals, int commonMinerals, int rareMetals, int rareMinerals) :
 		mTurnsToBuild(turns),
