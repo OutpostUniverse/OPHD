@@ -300,14 +300,8 @@ void ListBox::update()
 	textPosition.y() -= mCurrentOffset;
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
-		if (i == mCurrentHighlight)
-		{
-			r.drawTextShadow(*LST_FONT, mItems[i].Text, textPosition, {1, 1}, mHighlightText, NAS2D::Color::Black);
-		}
-		else
-		{
-			r.drawTextShadow(*LST_FONT, mItems[i].Text, textPosition, {1, 1}, mText, NAS2D::Color::Black);
-		}
+		const auto textColor = (i == mCurrentHighlight) ? mHighlightText : mText;
+		r.drawTextShadow(*LST_FONT, mItems[i].Text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 		textPosition.y() += mLineHeight;
 	}
 
