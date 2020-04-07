@@ -107,8 +107,8 @@ void ResourceBreakdownPanel::resourceCheck()
 
 void ResourceBreakdownPanel::update()
 {
-	Renderer& r = Utility<Renderer>::get();
-	r.drawImageRect(rect(), mSkin);
+	Renderer& renderer = Utility<Renderer>::get();
+	renderer.drawImageRect(rect(), mSkin);
 
 	const auto commonMetalImageRect = NAS2D::Rectangle{64, 16, 16, 16};
 	const auto rareMetalImageRect = NAS2D::Rectangle{80, 16, 16, 16};
@@ -125,13 +125,13 @@ void ResourceBreakdownPanel::update()
 	auto position = rect().startPoint() + NAS2D::Vector{5, 5};
 	for (const auto& [imageRect, text, value, oldValue, resourceTrend, valueChangeColor] : resources)
 	{
-		r.drawSubImage(mIcons, position, imageRect);
-		r.drawText(*FONT, text, position + NAS2D::Vector{23, 0}, NAS2D::Color::White);
+		renderer.drawSubImage(mIcons, position, imageRect);
+		renderer.drawText(*FONT, text, position + NAS2D::Vector{23, 0}, NAS2D::Color::White);
 		const auto valueString = std::to_string(value);
-		r.drawText(*FONT, valueString, position + NAS2D::Vector{195 - FONT->width(valueString), 0}, NAS2D::Color::White);
+		renderer.drawText(*FONT, valueString, position + NAS2D::Vector{195 - FONT->width(valueString), 0}, NAS2D::Color::White);
 		const auto changeIconImageRect = NAS2D::Rectangle<int>::Create(ICON_SLICE[resourceTrend], NAS2D::Vector{8, 8});
-		r.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
-		r.drawText(*FONT, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor);
+		renderer.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
+		renderer.drawText(*FONT, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor);
 		position.y() += 18;
 	}
 }
