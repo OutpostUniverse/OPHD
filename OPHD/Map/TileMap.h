@@ -141,7 +141,7 @@ private:
 	NAS2D::Point_2d		mMapHighlight;				/**< Tile the mouse is pointing to. */
 	NAS2D::Point_2d		mMapViewLocation;
 
-	NAS2D::Point_2df	mMapPosition;				/** Where to start drawing the TileMap on the screen. */
+	NAS2D::Point<float>	mMapPosition;				/** Where to start drawing the TileMap on the screen. */
 
 	Point2dList			mMineLocations;				/**< Location of all mines on the map. */
 

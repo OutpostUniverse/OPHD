@@ -34,11 +34,11 @@ static Color			RARE_MET_COL = Color::White;
 static Color			RARE_MIN_COL = Color::White;
 
 
-std::map<ResourceTrend, Point_2df> ICON_SLICE
+std::map<ResourceTrend, Point<float>> ICON_SLICE
 {
-	{ RESOURCE_TREND_NONE,	Point_2df(16.0f, 64.0f) },
-	{ RESOURCE_TREND_UP,	Point_2df(8.0f, 64.0f) },
-	{ RESOURCE_TREND_DOWN,	Point_2df(0.0f, 64.0f) }
+	{ RESOURCE_TREND_NONE,	Point<float>(16.0f, 64.0f) },
+	{ RESOURCE_TREND_UP,	Point<float>(8.0f, 64.0f) },
+	{ RESOURCE_TREND_DOWN,	Point<float>(0.0f, 64.0f) }
 };
 
 

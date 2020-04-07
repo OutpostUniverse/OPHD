@@ -22,7 +22,7 @@ void Control::position(const Point_2d& pos)
  * 
  * \param pos	2D Coordinate to position the Control at.
  */
-void Control::position(const Point_2df& pos)
+void Control::position(const Point<float>& pos)
 {
 	position(pos.x(), pos.y());
 }

@@ -39,7 +39,7 @@ public:
 	protected:
 		friend class IconGrid;
 
-		NAS2D::Point_2df pos;
+		NAS2D::Point<float> pos;
 	};
 
 	typedef NAS2D::Signals::Signal<const IconGridItem*> Callback;
