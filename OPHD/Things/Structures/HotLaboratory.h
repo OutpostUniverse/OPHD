@@ -2,14 +2,14 @@
 
 #include "Structure.h"
 
-class Laboratory : public Structure
+class HotLaboratory : public Structure
 {
 public:
-	Laboratory() : Structure(constants::LABORATORY, "structures/laboratory_underground.sprite", CLASS_LABORATORY)
+	HotLaboratory() : Structure(constants::HOT_LABORATORY, "structures/labo_surface.sprite", CLASS_LABORATORY)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);
-		turnsToBuild(4);
+		turnsToBuild(5);
 
 		requiresCHAP(false);
 	}
@@ -17,6 +17,6 @@ public:
 protected:
 	void defineResourceInput() override
 	{
-		resourcesIn().energy(1);
+		resourcesIn().energy(3);
 	}
 };

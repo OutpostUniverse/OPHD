@@ -10,6 +10,7 @@
 #include "Commercial.h"
 #include "CommTower.h"
 #include "FusionReactor.h"
+#include "HotLaboratory.h"
 #include "Laboratory.h"
 #include "MedicalCenter.h"
 #include "MineFacility.h"
