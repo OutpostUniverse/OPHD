@@ -149,7 +149,7 @@ Control::ResizeCallback& Control::resized()
  * 
  * \return	A const reference to a Rectangle_2d object.
  */
-const Rectangle_2df& Control::rect() const
+const Rectangle<float>& Control::rect() const
 {
 	return mRect;
 }

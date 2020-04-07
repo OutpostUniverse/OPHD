@@ -17,8 +17,8 @@ using namespace NAS2D;
 
 static float SORT_BY_PRODUCT_POSITION = 0;
 
-static Rectangle_2df FACTORY_LISTBOX;
-static Rectangle_2df DETAIL_PANEL;
+static Rectangle<float> FACTORY_LISTBOX;
+static Rectangle<float> DETAIL_PANEL;
 
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;

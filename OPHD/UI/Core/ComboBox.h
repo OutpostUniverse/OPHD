@@ -54,7 +54,7 @@ private:
 	ListBox					lstItems;
 	TextField				txtField;
 
-	NAS2D::Rectangle_2df    mBaseArea;
+	NAS2D::Rectangle<float>    mBaseArea;
 
 	SelectionChanged        mSelectionChanged;
 

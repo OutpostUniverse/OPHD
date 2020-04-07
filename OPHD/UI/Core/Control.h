@@ -45,7 +45,7 @@ public:
 	virtual void hide() { visible(false); }
 	virtual void show() { visible(true); }
 
-	const NAS2D::Rectangle_2df& rect() const;
+	const NAS2D::Rectangle<float>& rect() const;
 
 	virtual void hasFocus(bool focus);
 	bool hasFocus() const;
@@ -92,7 +92,7 @@ protected:
 	ResizeCallback				mResized;
 	TextChangedCallback			mTextChanged;
 
-	NAS2D::Rectangle_2df	mRect;				/**< Area of the Control. */
+	NAS2D::Rectangle<float>	mRect;				/**< Area of the Control. */
 
 private:
 	virtual void draw() {}

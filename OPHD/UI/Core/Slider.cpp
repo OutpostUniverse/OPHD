@@ -177,7 +177,7 @@ void Slider::positionInternal(float newPosition)
 }
 
 
-void Slider::_buttonCheck(bool& buttonFlag, Rectangle_2df& rect, float value)
+void Slider::_buttonCheck(bool& buttonFlag, Rectangle<float>& rect, float value)
 {
 	if (rect.to<int>().contains(mMousePosition))
 	{
