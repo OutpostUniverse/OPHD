@@ -43,7 +43,7 @@ public:
 	bool isVisibleTile(NAS2D::Point<int> position) const { return isVisibleTile(position, mCurrentDepth); }
 	bool isVisibleTile(const Tile& t) { return isVisibleTile(t.position(), t.depth()); }
 
-	const NAS2D::Rectangle_2d& boundingBox() const { return mMapBoundingBox; }
+	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 
 	const NAS2D::Point<int>& mapViewLocation() const { return mMapViewLocation; }
 	void mapViewLocation(int x, int y) { mMapViewLocation = {x, y}; }
@@ -145,7 +145,7 @@ private:
 
 	Point2dList			mMineLocations;				/**< Location of all mines on the map. */
 
-	NAS2D::Rectangle_2d	mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
+	NAS2D::Rectangle<int>	mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
 
 	bool				mShowConnections = false;	/**< Flag indicating whether or not to highlight connectedness. */
 };

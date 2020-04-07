@@ -37,16 +37,16 @@ extern MainReportsUiState* MAIN_REPORTS_UI;
 
 int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
 
-Rectangle_2d MENU_ICON;
-Rectangle_2d RESOURCE_PANEL_PIN(0, 1, 8, 19);
-Rectangle_2d POPULATION_PANEL_PIN(675, 1, 8, 19);
+Rectangle<int> MENU_ICON;
+Rectangle<int> RESOURCE_PANEL_PIN(0, 1, 8, 19);
+Rectangle<int> POPULATION_PANEL_PIN(675, 1, 8, 19);
 
-Rectangle_2d MOVE_NORTH_ICON;
-Rectangle_2d MOVE_SOUTH_ICON;
-Rectangle_2d MOVE_EAST_ICON;
-Rectangle_2d MOVE_WEST_ICON;
-Rectangle_2d MOVE_UP_ICON;
-Rectangle_2d MOVE_DOWN_ICON;
+Rectangle<int> MOVE_NORTH_ICON;
+Rectangle<int> MOVE_SOUTH_ICON;
+Rectangle<int> MOVE_EAST_ICON;
+Rectangle<int> MOVE_WEST_ICON;
+Rectangle<int> MOVE_UP_ICON;
+Rectangle<int> MOVE_DOWN_ICON;
 
 std::string CURRENT_LEVEL_STRING;
 

@@ -63,7 +63,7 @@ public:
 	Point<int>			TextPosition;
 	Point<int>			IconPosition;
 
-	Rectangle_2d		Rect;
+	Rectangle<int>		Rect;
 
 	ReportInterface*	UiPanel = nullptr;
 

@@ -19,19 +19,19 @@
 
 using namespace constants;
 
-NAS2D::Rectangle_2d	BOTTOM_UI_AREA;
+NAS2D::Rectangle<int>	BOTTOM_UI_AREA;
 
 
 /**
  * \fixme	Yuck, not thrilled with this but whatever, it works.
  */
-extern NAS2D::Rectangle_2d MENU_ICON;
-extern NAS2D::Rectangle_2d MOVE_NORTH_ICON;
-extern NAS2D::Rectangle_2d MOVE_SOUTH_ICON;
-extern NAS2D::Rectangle_2d MOVE_EAST_ICON;
-extern NAS2D::Rectangle_2d MOVE_WEST_ICON;
-extern NAS2D::Rectangle_2d MOVE_UP_ICON;
-extern NAS2D::Rectangle_2d MOVE_DOWN_ICON;
+extern NAS2D::Rectangle<int> MENU_ICON;
+extern NAS2D::Rectangle<int> MOVE_NORTH_ICON;
+extern NAS2D::Rectangle<int> MOVE_SOUTH_ICON;
+extern NAS2D::Rectangle<int> MOVE_EAST_ICON;
+extern NAS2D::Rectangle<int> MOVE_WEST_ICON;
+extern NAS2D::Rectangle<int> MOVE_UP_ICON;
+extern NAS2D::Rectangle<int> MOVE_DOWN_ICON;
 
 
 extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.

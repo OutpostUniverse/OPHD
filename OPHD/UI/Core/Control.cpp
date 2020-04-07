@@ -147,7 +147,7 @@ Control::ResizeCallback& Control::resized()
 /**
  * Gets the rectangular area that the Control occupies.
  * 
- * \return	A const reference to a Rectangle_2d object.
+ * \return	A const reference to a Rectangle<int> object.
  */
 const Rectangle<float>& Control::rect() const
 {
