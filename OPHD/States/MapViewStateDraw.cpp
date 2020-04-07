@@ -69,7 +69,7 @@ void MapViewState::drawMiniMap()
 	bool isHeightmapToggled = mBtnToggleHeightmap.toggled();
 	renderer.drawImage(isHeightmapToggled ? mHeightMap : mMapDisplay, miniMapBoxFloat.startPoint());
 
-	const auto miniMapOffset = mMiniMapBoundingBox.startPoint() - NAS2D::Point<int>{0, 0};
+	const auto miniMapOffset = mMiniMapBoundingBox.startPoint() - NAS2D::Point{0, 0};
 	const auto ccPosition = ccLocation();
 	if (ccPosition != CcNotPlaced)
 	{
@@ -142,7 +142,7 @@ void MapViewState::drawResourceInfo()
 	// Resources
 	int x = constants::MARGIN_TIGHT + 12;
 	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
-	auto position = NAS2D::Point<int>{constants::MARGIN_TIGHT + 12, constants::MARGIN_TIGHT};
+	auto position = NAS2D::Point{constants::MARGIN_TIGHT + 12, constants::MARGIN_TIGHT};
 	constexpr auto textOffset = NAS2D::Vector{constants::RESOURCE_ICON_SIZE + constants::MARGIN, 3 - constants::MARGIN_TIGHT};
 
 	const auto unpinnedImageRect = NAS2D::Rectangle{0, 72, 8, 8};
@@ -287,7 +287,7 @@ void MapViewState::drawNavInfo()
 		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i); // Set string for current level
 		bool isCurrentDepth = i == mTileMap->currentDepth();
 		NAS2D::Color color = isCurrentDepth ? NAS2D::Color::Red : NAS2D::Color{200, 200, 200}; // red for current depth : white for others
-		const auto position = NAS2D::Point<int>{iPosX - MAIN_FONT->width(levelString), iPosY}.to<float>();
+		const auto position = NAS2D::Point{iPosX - MAIN_FONT->width(levelString), iPosY}.to<float>();
 		renderer.drawText(*MAIN_FONT, levelString, position, color);
 		iPosX = iPosX - iWidth; // Shift position by one step left
 	}

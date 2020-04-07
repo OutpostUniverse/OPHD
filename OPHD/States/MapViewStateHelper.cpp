@@ -136,7 +136,7 @@ bool checkStructurePlacement(Tile* tile, Direction dir)
  */
 bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir dir)
 {
-	const auto point = NAS2D::Point<int>{x, y};
+	const auto point = NAS2D::Point{x, y};
 	return checkTubeConnection(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), DIR_EAST, dir) ||
 		checkTubeConnection(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), DIR_WEST, dir) ||
 		checkTubeConnection(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), DIR_SOUTH, dir) ||
@@ -151,7 +151,7 @@ bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir dir)
  */
 bool validStructurePlacement(TileMap* tilemap, int x, int y)
 {
-	const auto point = NAS2D::Point<int>{x, y};
+	const auto point = NAS2D::Point{x, y};
 	return checkStructurePlacement(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), DIR_NORTH) ||
 		checkStructurePlacement(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), DIR_EAST) ||
 		checkStructurePlacement(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), DIR_SOUTH) ||
