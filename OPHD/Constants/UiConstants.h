@@ -28,8 +28,8 @@ namespace constants
 	const int ROBODOZER_SHEET_ID = 0;
 	const int ROBOMINER_SHEET_ID = 2;
 
-	const NAS2D::Color MINE_COLOR(255, 0, 0, 255);
-	const NAS2D::Color ACTIVE_MINE_COLOR(255, 255, 0, 255);
+	const NAS2D::Color MINE_COLOR = NAS2D::Color::Red;
+	const NAS2D::Color ACTIVE_MINE_COLOR = NAS2D::Color::Yellow;
 
 	// =====================================
 	// = MOUSE POINTERS
