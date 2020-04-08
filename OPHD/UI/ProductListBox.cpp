@@ -20,7 +20,7 @@ static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
 
-static Color ITEM_COLOR{0, 185, 0, 255};
+static Color ITEM_COLOR{0, 185, 0};
 static Color HIGHLIGHT_COLOR{0, 185, 0, 75};
 
 
