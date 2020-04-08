@@ -21,19 +21,19 @@ static void drawItem(Renderer& r, StructureListBox::StructureListBoxItem& item, 
 {
 	Structure* _st = item.structure;
 
-	const auto* structureColor = &structureColorFromIndex(_st->state());
-	const auto* structureTextColor = &structureTextColorFromIndex(_st->state());
+	const auto& structureColor = structureColorFromIndex(_st->state());
+	const auto& structureTextColor = structureTextColorFromIndex(_st->state());
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor->red(), structureColor->green(), structureColor->blue(), 75); }
+	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red(), structureColor.green(), structureColor.blue(), 75); }
 
-	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, structureColor->red(), structureColor->green(), structureColor->blue(), structureColor->alpha());
+	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, structureColor.red(), structureColor.green(), structureColor.blue(), structureColor.alpha());
 
 	r.drawText(*MAIN_FONT_BOLD, item.Text, x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset,
-				structureTextColor->red(), structureTextColor->green(), structureTextColor->blue(), structureTextColor->alpha());
+				structureTextColor.red(), structureTextColor.green(), structureTextColor.blue(), structureTextColor.alpha());
 
 	r.drawText(*MAIN_FONT, item.structureState, x + w - MAIN_FONT->width(item.structureState) - 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset,
-				structureTextColor->red(), structureTextColor->green(), structureTextColor->blue(), structureTextColor->alpha());
+				structureTextColor.red(), structureTextColor.green(), structureTextColor.blue(), structureTextColor.alpha());
 }
 
 
