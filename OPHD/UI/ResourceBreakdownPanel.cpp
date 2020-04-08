@@ -115,7 +115,7 @@ void ResourceBreakdownPanel::update()
 	const auto commonMineralImageRect = NAS2D::Rectangle{96, 16, 16, 16};
 	const auto rareMineralImageRect = NAS2D::Rectangle{112, 16, 16, 16};
 
-	std::array resources{
+	const std::array resources{
 		std::tuple{commonMetalImageRect, "Common Metals", mPlayerResources->commonMetals(), mPreviousResources.commonMetals(), COMMON_METALS, COMMON_MET_COL},
 		std::tuple{rareMetalImageRect, "Rare Metals", mPlayerResources->rareMetals(), mPreviousResources.rareMetals(), RARE_METALS, COMMON_MIN_COL},
 		std::tuple{commonMineralImageRect, "Common Minerals", mPlayerResources->commonMinerals(), mPreviousResources.commonMinerals(), COMMON_MINERALS, RARE_MET_COL},
