@@ -44,9 +44,9 @@ std::map<ResourceTrend, Point<float>> ICON_SLICE
 
 std::map<ResourceTrend, Color> TEXT_COLOR
 {
-	{ RESOURCE_TREND_NONE,	Color(255, 255, 255, 255) },
-	{ RESOURCE_TREND_UP,	Color(0, 185, 0, 255) },
-	{ RESOURCE_TREND_DOWN,	Color(255, 0, 0, 255) }
+	{ RESOURCE_TREND_NONE,	Color{255, 255, 255, 255} },
+	{ RESOURCE_TREND_UP,	Color{0, 185, 0, 255} },
+	{ RESOURCE_TREND_DOWN,	Color{255, 0, 0, 255} }
 };
 
 
