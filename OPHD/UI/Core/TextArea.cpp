@@ -92,12 +92,12 @@ void TextArea::draw()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	if (highlight()) { r.drawBox(rect(), 255, 255, 255); }
+	if (highlight()) { r.drawBox(rect(), NAS2D::Color::White); }
 
 	if (!mFont) { return; }
 	
 	for (size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
 	{
-		r.drawText(*mFont, mFormattedList[i], positionX(), positionY() + (mFont->height() * i), mTextColor.red(), mTextColor.green(), mTextColor.blue(), mTextColor.alpha());
+		r.drawText(*mFont, mFormattedList[i], {positionX(), positionY() + (mFont->height() * i)}, mTextColor);
 	}
 }
