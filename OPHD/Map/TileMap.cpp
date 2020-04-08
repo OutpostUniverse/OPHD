@@ -267,12 +267,12 @@ void TileMap::buildMouseMap()
 	{
 		for(size_t col = 0; col < TILE_WIDTH; col++)
 		{
-			Color c = mousemap.pixelColor(static_cast<int>(col), static_cast<int>(row));
-			if (c.red() == 255 && c.green() == 255)	{ mMouseMap[row][col] = MMR_BOTTOM_RIGHT; }
-			else if (c.red() == 255)				{ mMouseMap[row][col] = MMR_TOP_LEFT; }
-			else if (c.blue() == 255)				{ mMouseMap[row][col] = MMR_TOP_RIGHT; }
-			else if (c.green() == 255)				{ mMouseMap[row][col] = MMR_BOTTOM_LEFT; }
-			else									{ mMouseMap[row][col] = MMR_MIDDLE; }
+			const Color c = mousemap.pixelColor(static_cast<int>(col), static_cast<int>(row));
+			if (c == NAS2D::Color::Yellow) { mMouseMap[row][col] = MMR_BOTTOM_RIGHT; }
+			else if (c == NAS2D::Color::Red) { mMouseMap[row][col] = MMR_TOP_LEFT; }
+			else if (c == NAS2D::Color::Blue) { mMouseMap[row][col] = MMR_TOP_RIGHT; }
+			else if (c == NAS2D::Color::Green) { mMouseMap[row][col] = MMR_BOTTOM_LEFT; }
+			else { mMouseMap[row][col] = MMR_MIDDLE; }
 		}
 	}
 }
