@@ -90,16 +90,16 @@ void TextArea::update()
 
 void TextArea::draw()
 {
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
-	if (highlight()) { r.drawBox(rect(), NAS2D::Color::White); }
+	if (highlight()) { renderer.drawBox(rect(), NAS2D::Color::White); }
 
 	if (!mFont) { return; }
 
 	auto textPosition = mRect.startPoint().to<int>();
 	for (size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
 	{
-		r.drawText(*mFont, mFormattedList[i], textPosition, mTextColor);
+		renderer.drawText(*mFont, mFormattedList[i], textPosition, mTextColor);
 		textPosition.y() += mFont->height();
 	}
 }
