@@ -16,16 +16,13 @@ Image* STRUCTURE_ICONS = nullptr;
 static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
-static Color*	STRUCTURE_COLOR;
-static Color*	STRUCTURE_TEXT_COLOR;
-
 
 static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, float x, float y, float w, float offset, bool highlight)
 {
 	Factory* f = item.factory;
 
-	STRUCTURE_COLOR = &structureColorFromIndex(f->state());
-	STRUCTURE_TEXT_COLOR = &structureTextColorFromIndex(f->state());
+	const auto* STRUCTURE_COLOR = &structureColorFromIndex(f->state());
+	const auto* STRUCTURE_TEXT_COLOR = &structureTextColorFromIndex(f->state());
 
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), 75); }

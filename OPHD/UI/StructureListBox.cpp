@@ -16,16 +16,13 @@ const int LIST_ITEM_HEIGHT = 30;
 static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
-static Color*	STRUCTURE_COLOR;
-static Color*	STRUCTURE_TEXT_COLOR;
-
 
 static void drawItem(Renderer& r, StructureListBox::StructureListBoxItem& item, float x, float y, float w, float offset, bool highlight)
 {
 	Structure* _st = item.structure;
 
-	STRUCTURE_COLOR = &structureColorFromIndex(_st->state());
-	STRUCTURE_TEXT_COLOR = &structureTextColorFromIndex(_st->state());
+	const auto* STRUCTURE_COLOR = &structureColorFromIndex(_st->state());
+	const auto* STRUCTURE_TEXT_COLOR = &structureTextColorFromIndex(_st->state());
 
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), 75); }
