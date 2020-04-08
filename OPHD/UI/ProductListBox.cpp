@@ -21,6 +21,7 @@ static Font* MAIN_FONT_BOLD = nullptr;
 
 
 static Color ITEM_COLOR(0, 185, 0, 255);
+static Color HIGHLIGHT_COLOR(0, 185, 0, 75);
 
 
 static int FIRST_STOP = 0;
@@ -30,18 +31,16 @@ static int SECOND_STOP = 0;
 static void drawItem(Renderer& r, ProductListBox::ProductListBoxItem& item, float x, float y, float w, float offset, bool highlight)
 {
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, ITEM_COLOR.red(), ITEM_COLOR.green(), ITEM_COLOR.blue(), 75); }
+	if (highlight) { r.drawBoxFilled({x, y - offset, w, LIST_ITEM_HEIGHT}, HIGHLIGHT_COLOR); }
 
-	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, ITEM_COLOR.red(), ITEM_COLOR.green(), ITEM_COLOR.blue(), ITEM_COLOR.alpha());
+	r.drawBox({x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, ITEM_COLOR);
 
-	r.drawLine(x + FIRST_STOP, y + 2, x + FIRST_STOP, y + LIST_ITEM_HEIGHT - 2, ITEM_COLOR);
-	r.drawLine(x + SECOND_STOP, y + 2, x + SECOND_STOP, y + LIST_ITEM_HEIGHT - 2, ITEM_COLOR);
+	r.drawLine({x + FIRST_STOP, y + 2}, {x + FIRST_STOP, y + LIST_ITEM_HEIGHT - 2}, ITEM_COLOR);
+	r.drawLine({x + SECOND_STOP, y + 2}, {x + SECOND_STOP, y + LIST_ITEM_HEIGHT - 2}, ITEM_COLOR);
 
-	r.drawText(*MAIN_FONT_BOLD, item.Text, x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset,
-		ITEM_COLOR.red(), ITEM_COLOR.green(), ITEM_COLOR.blue(), ITEM_COLOR.alpha());
+	r.drawText(*MAIN_FONT_BOLD, item.Text, {x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, ITEM_COLOR);
 
-	r.drawText(*MAIN_FONT, "Quantity: " + std::to_string(item.count), x + FIRST_STOP + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2),
-		ITEM_COLOR.red(), ITEM_COLOR.green(), ITEM_COLOR.blue(), ITEM_COLOR.alpha());
+	r.drawText(*MAIN_FONT, "Quantity: " + std::to_string(item.count), {x + FIRST_STOP + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2)}, ITEM_COLOR);
 	
 	drawBasicProgressBar(x + static_cast<float>(SECOND_STOP) + 5, y + 10, static_cast<float>(FIRST_STOP) - 10, 10, item.usage, 2);
 }
