@@ -21,6 +21,7 @@ static Font* MAIN_FONT_BOLD = nullptr;
 
 
 static Color ITEM_COLOR(0, 185, 0, 255);
+static Color HIGHLIGHT_COLOR(0, 185, 0, 75);
 
 
 static int FIRST_STOP = 0;
@@ -30,7 +31,7 @@ static int SECOND_STOP = 0;
 static void drawItem(Renderer& r, ProductListBox::ProductListBoxItem& item, float x, float y, float w, float offset, bool highlight)
 {
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, ITEM_COLOR.red(), ITEM_COLOR.green(), ITEM_COLOR.blue(), 75); }
+	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, HIGHLIGHT_COLOR.red(), HIGHLIGHT_COLOR.green(), HIGHLIGHT_COLOR.blue(), HIGHLIGHT_COLOR.alpha()); }
 
 	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, ITEM_COLOR.red(), ITEM_COLOR.green(), ITEM_COLOR.blue(), ITEM_COLOR.alpha());
 
