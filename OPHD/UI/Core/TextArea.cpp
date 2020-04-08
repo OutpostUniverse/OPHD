@@ -95,9 +95,11 @@ void TextArea::draw()
 	if (highlight()) { r.drawBox(rect(), NAS2D::Color::White); }
 
 	if (!mFont) { return; }
-	
+
+	auto textPosition = mRect.startPoint().to<int>();
 	for (size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
 	{
-		r.drawText(*mFont, mFormattedList[i], {positionX(), positionY() + (mFont->height() * i)}, mTextColor);
+		r.drawText(*mFont, mFormattedList[i], textPosition, mTextColor);
+		textPosition.y() += mFont->height();
 	}
 }
