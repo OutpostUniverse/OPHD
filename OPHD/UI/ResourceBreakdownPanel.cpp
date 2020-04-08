@@ -107,46 +107,31 @@ void ResourceBreakdownPanel::resourceCheck()
 
 void ResourceBreakdownPanel::update()
 {
-	Renderer& r = Utility<Renderer>::get();
-	r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkin);
+	Renderer& renderer = Utility<Renderer>::get();
+	renderer.drawImageRect(rect(), mSkin);
 
-	r.drawSubImage(mIcons, 5.0f, rect().y() + 5.0f, 64.0f, 16.0f, 16.0f, 16.0f);
-	r.drawSubImage(mIcons, 5.0f, rect().y() + 23.0f, 80.0f, 16.0f, 16.0f, 16.0f);
-	r.drawSubImage(mIcons, 5.0f, rect().y() + 41.0f, 96.0f, 16.0f, 16.0f, 16.0f);
-	r.drawSubImage(mIcons, 5.0f, rect().y() + 59.0f, 112.0f, 16.0f, 16.0f, 16.0f);
+	const auto commonMetalImageRect = NAS2D::Rectangle{64, 16, 16, 16};
+	const auto rareMetalImageRect = NAS2D::Rectangle{80, 16, 16, 16};
+	const auto commonMineralImageRect = NAS2D::Rectangle{96, 16, 16, 16};
+	const auto rareMineralImageRect = NAS2D::Rectangle{112, 16, 16, 16};
 
-	r.drawText(*FONT, "Common Metals", 28.0f, rect().y() + 5.0f, 255, 255, 255);
-	r.drawText(*FONT, "Rare Metals", 28.0f, rect().y() + 23.0f, 255, 255, 255);
-	r.drawText(*FONT, "Common Minerals", 28.0f, rect().y() + 41.0f, 255, 255, 255);
-	r.drawText(*FONT, "Rare Minerals", 28.0f, rect().y() + 59.0f, 255, 255, 255);
+	const std::array resources{
+		std::tuple{commonMetalImageRect, "Common Metals", mPlayerResources->commonMetals(), mPreviousResources.commonMetals(), COMMON_METALS, COMMON_MET_COL},
+		std::tuple{rareMetalImageRect, "Rare Metals", mPlayerResources->rareMetals(), mPreviousResources.rareMetals(), RARE_METALS, COMMON_MIN_COL},
+		std::tuple{commonMineralImageRect, "Common Minerals", mPlayerResources->commonMinerals(), mPreviousResources.commonMinerals(), COMMON_MINERALS, RARE_MET_COL},
+		std::tuple{rareMineralImageRect, "Rare Minerals", mPlayerResources->rareMinerals(), mPreviousResources.rareMinerals(), RARE_MINERALS, RARE_MIN_COL},
+	};
 
-	std::string fmt = std::to_string(mPlayerResources->commonMetals());
-	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt) , rect().y() + 5.0f, 255, 255, 255);
-	
-	fmt = std::to_string(mPlayerResources->rareMetals());
-	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt), rect().y() + 23.0f, 255, 255, 255);
-
-	fmt = std::to_string(mPlayerResources->commonMinerals());
-	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt), rect().y() + 41.0f, 255, 255, 255);
-
-	fmt = std::to_string(mPlayerResources->rareMinerals());
-	r.drawText(*FONT, fmt, 200.0f - FONT->width(fmt), rect().y() + 59.0f, 255, 255, 255);
-
-	r.drawSubImage(mIcons, 220.0f, rect().y() + 8.0f,  ICON_SLICE[COMMON_METALS].x(),   ICON_SLICE[COMMON_METALS].y(),   8.0f, 8.0f);
-	r.drawSubImage(mIcons, 220.0f, rect().y() + 26.0f, ICON_SLICE[RARE_METALS].x(),     ICON_SLICE[RARE_METALS].y(),     8.0f, 8.0f);
-	r.drawSubImage(mIcons, 220.0f, rect().y() + 44.0f, ICON_SLICE[COMMON_MINERALS].x(), ICON_SLICE[COMMON_MINERALS].y(), 8.0f, 8.0f);
-	r.drawSubImage(mIcons, 220.0f, rect().y() + 62.0f, ICON_SLICE[RARE_MINERALS].x(),   ICON_SLICE[RARE_MINERALS].y(),   8.0f, 8.0f);
-
-
-	fmt = formatDiff(mPlayerResources->commonMetals() - mPreviousResources.commonMetals());
-	r.drawText(*FONT, fmt, 235.0f, rect().y() + 5.0f, COMMON_MET_COL.red(), COMMON_MET_COL.green(), COMMON_MET_COL.blue());
-
-	fmt = formatDiff(mPlayerResources->commonMinerals() - mPreviousResources.commonMinerals());
-	r.drawText(*FONT, fmt, 235.0f, rect().y() + 23.0f, COMMON_MIN_COL.red(), COMMON_MIN_COL.green(), COMMON_MIN_COL.blue());
-
-	fmt = formatDiff(mPlayerResources->rareMetals() - mPreviousResources.rareMetals());
-	r.drawText(*FONT, fmt, 235.0f, rect().y() + 41.0f, RARE_MET_COL.red(), RARE_MET_COL.green(), RARE_MET_COL.blue());
-
-	fmt = formatDiff(mPlayerResources->rareMinerals() - mPreviousResources.rareMinerals());
-	r.drawText(*FONT, fmt, 235.0f, rect().y() + 59.0f, RARE_MIN_COL.red(), RARE_MIN_COL.green(), RARE_MIN_COL.blue());
+	auto position = rect().startPoint() + NAS2D::Vector{5, 5};
+	for (const auto& [imageRect, text, value, oldValue, resourceTrend, valueChangeColor] : resources)
+	{
+		renderer.drawSubImage(mIcons, position, imageRect);
+		renderer.drawText(*FONT, text, position + NAS2D::Vector{23, 0}, NAS2D::Color::White);
+		const auto valueString = std::to_string(value);
+		renderer.drawText(*FONT, valueString, position + NAS2D::Vector{195 - FONT->width(valueString), 0}, NAS2D::Color::White);
+		const auto changeIconImageRect = NAS2D::Rectangle<int>::Create(ICON_SLICE[resourceTrend], NAS2D::Vector{8, 8});
+		renderer.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
+		renderer.drawText(*FONT, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor);
+		position.y() += 18;
+	}
 }
