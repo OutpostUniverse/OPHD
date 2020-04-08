@@ -31,9 +31,10 @@ void Label::update()
 {
 	if(!visible()) { return; }
 
-	NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
+	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	r.drawText(*TXT_FONT, text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, textColor.red(), textColor.green(), textColor.blue(), textColor.alpha());
+	const auto textPosition = mRect.startPoint().to<int>();
+	renderer.drawText(*TXT_FONT, text(), textPosition + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING}, textColor);
 }
 
 
