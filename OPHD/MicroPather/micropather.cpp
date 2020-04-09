@@ -939,8 +939,8 @@ int MicroPather::Solve(void* startNode, void* endNode, std::vector< void* >* pat
 				PathNode* child = nodeCostVec[i].node;
 				float newCost = node->costFromStart + nodeCostVec[i].cost;
 
-				PathNode* inOpen = child->inOpen ? child : nullptr;
-				PathNode* inClosed = child->inClosed ? child : nullptr;
+				PathNode* inOpen = (child && child->inOpen) ? child : nullptr;
+				PathNode* inClosed = (child && child->inClosed) ? child : nullptr;
 				PathNode* inEither = reinterpret_cast<PathNode*>(reinterpret_cast<MP_UPTR>(inOpen) | reinterpret_cast<MP_UPTR>(inClosed));
 
 				MPASSERT(inEither != node);
@@ -961,13 +961,16 @@ int MicroPather::Solve(void* startNode, void* endNode, std::vector< void* >* pat
 					}
 				}
 				else {
-					child->parent = node;
-					child->costFromStart = newCost;
-					child->estToGoal = graph->LeastCostEstimate(child->state, endNode),
-						child->CalcTotalCost();
+					if(child)
+					{
+						child->parent = node;
+						child->costFromStart = newCost;
+						child->estToGoal = graph->LeastCostEstimate(child->state, endNode),
+							child->CalcTotalCost();
 
-					MPASSERT(!child->inOpen && !child->inClosed);
-					open.Push(child);
+						MPASSERT(!((child->inOpen) || (child->inClosed)));
+						open.Push(child);
+					}
 				}
 			}
 		}
