@@ -30,7 +30,7 @@
 /**
  * Needs to match insertion order in MapViewState::initialize()
  */
-enum PointerType
+enum class PointerType
 {
 	POINTER_NORMAL,
 	POINTER_PLACE_TILE,
@@ -39,7 +39,7 @@ enum PointerType
 };
 
 
-enum InsertMode
+enum class InsertMode
 {
 	INSERT_NONE,
 	INSERT_ROBOT,
@@ -51,7 +51,7 @@ enum InsertMode
 class MapViewState : public Wrapper
 {
 public:
-	enum PopulationLevel
+	enum class PopulationLevel
 	{
 		POPULATION_SMALL = 1,
 		POPULATION_LARGE = 2
@@ -217,9 +217,9 @@ private:
 
 	RobotTileTable		mRobotList;						/**< List of active robots and their positions on the map. */
 
-	InsertMode			mInsertMode = INSERT_NONE;		/**< What's being inserted into the TileMap if anything. */
-	StructureID			mCurrentStructure = SID_NONE;	/**< Structure being placed. */
-	RobotType			mCurrentRobot = ROBOT_NONE;		/**< Robot being placed. */
+	InsertMode			mInsertMode = InsertMode::INSERT_NONE;		/**< What's being inserted into the TileMap if anything. */
+	StructureID			mCurrentStructure = StructureID::SID_NONE;	/**< Structure being placed. */
+	RobotType			mCurrentRobot = RobotType::ROBOT_NONE;		/**< Robot being placed. */
 
 	Population			mPopulation;
 

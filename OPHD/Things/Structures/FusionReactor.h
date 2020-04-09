@@ -7,7 +7,7 @@
 class FusionReactor : public Structure
 {
 public:
-	FusionReactor() : Structure(constants::FUSION_REACTOR, "structures/fusion_reactor.sprite", CLASS_ENERGY_PRODUCTION)
+	FusionReactor() : Structure(constants::FUSION_REACTOR, "structures/fusion_reactor.sprite", StructureClass::CLASS_ENERGY_PRODUCTION)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);

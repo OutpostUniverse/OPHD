@@ -68,21 +68,21 @@ Robot* RobotPool::addRobot(RobotType type, int id /*= 0*/)
 
 	switch (type)
 	{
-	case ROBOT_DOZER:
+	case RobotType::ROBOT_DOZER:
 		mDozers.push_back(new Robodozer());
 		mDozers.back()->id(_id);
 		mRobots.push_back(mDozers.back());
 		return mDozers.back();
 		break;
 
-	case ROBOT_DIGGER:
+	case RobotType::ROBOT_DIGGER:
 		mDiggers.push_back(new Robodigger());
 		mDiggers.back()->id(_id);
 		mRobots.push_back(mDiggers.back());
 		return mDiggers.back();
 		break;
 
-	case ROBOT_MINER:
+	case RobotType::ROBOT_MINER:
 		mMiners.push_back(new Robominer());
 		mMiners.back()->id(_id);
 		mRobots.push_back(mMiners.back());
@@ -142,15 +142,15 @@ bool RobotPool::robotAvailable(RobotType type)
 {
 	switch (type)
 	{
-	case ROBOT_DIGGER:
+	case RobotType::ROBOT_DIGGER:
 	{
 		return getDigger() != nullptr;
 	}
-	case ROBOT_DOZER:
+	case RobotType::ROBOT_DOZER:
 	{
 		return getDozer() != nullptr;
 	}
-	case ROBOT_MINER:
+	case RobotType::ROBOT_MINER:
 	{
 		return getMiner() != nullptr;
 	}
@@ -169,13 +169,13 @@ int RobotPool::getAvailableCount(RobotType type)
 {
 	switch (type)
 	{
-	case ROBOT_DIGGER:
+	case RobotType::ROBOT_DIGGER:
 		return getIdleCount(mDiggers);
 
-	case ROBOT_DOZER:
+	case RobotType::ROBOT_DOZER:
 		return getIdleCount(mDozers);
 
-	case ROBOT_MINER:
+	case RobotType::ROBOT_MINER:
 		return getIdleCount(mMiners);
 
 	default:

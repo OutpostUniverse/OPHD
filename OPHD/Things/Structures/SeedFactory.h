@@ -20,10 +20,10 @@ protected:
 
 	void initFactory() override
 	{
-		addProduct(PRODUCT_DIGGER);
-		addProduct(PRODUCT_DOZER);
-		addProduct(PRODUCT_MINER);
-		addProduct(PRODUCT_ROAD_MATERIALS);
+		addProduct(ProductType::PRODUCT_DIGGER);
+		addProduct(ProductType::PRODUCT_DOZER);
+		addProduct(ProductType::PRODUCT_MINER);
+		addProduct(ProductType::PRODUCT_ROAD_MATERIALS);
 	}
 
 private:

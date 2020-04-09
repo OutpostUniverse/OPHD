@@ -13,7 +13,7 @@
 class Mine
 {
 public:
-	enum OreType
+	enum class OreType
 	{
 		ORE_COMMON_METALS,
 		ORE_COMMON_MINERALS,
@@ -66,7 +66,7 @@ private:
 
 private:
 	MineVeins			mVeins;									/**< Ore veins */
-	MineProductionRate	mProductionRate = PRODUCTION_RATE_LOW;	/**< Mine's production rate. */
+	MineProductionRate	mProductionRate = MineProductionRate::PRODUCTION_RATE_LOW;	/**< Mine's production rate. */
 	
 	/**
 	 * Flags indicating several states for the mine:

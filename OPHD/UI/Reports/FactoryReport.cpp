@@ -34,13 +34,13 @@ static Image* FACTORY_AG = nullptr;
 static Image* FACTORY_UG = nullptr;
 static Image* FACTORY_IMAGE = nullptr;
 
-std::array<Image*, PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
+std::array<Image*, static_cast<std::size_t>(ProductType::PRODUCT_COUNT)> PRODUCT_IMAGE_ARRAY;
 static Image* _PRODUCT_NONE = nullptr;
 
 static std::string FACTORY_STATUS;
 static const std::string RESOURCES_REQUIRED = "Resources Required";
 
-static ProductType SELECTED_PRODUCT_TYPE = PRODUCT_NONE;
+static ProductType SELECTED_PRODUCT_TYPE = ProductType::PRODUCT_NONE;
 
 
 /**
@@ -98,15 +98,15 @@ void FactoryReport::init()
 
 	/// \todo Decide if this is the best place to have these images live or if it should be done at program start.
 	PRODUCT_IMAGE_ARRAY.fill(nullptr);
-	PRODUCT_IMAGE_ARRAY[PRODUCT_DIGGER]				= new Image("ui/interface/product_robodigger.png");
-	PRODUCT_IMAGE_ARRAY[PRODUCT_DOZER]				= new Image("ui/interface/product_robodozer.png");
-	PRODUCT_IMAGE_ARRAY[PRODUCT_MINER]				= new Image("ui/interface/product_robominer.png");
-	PRODUCT_IMAGE_ARRAY[PRODUCT_EXPLORER]			= new Image("ui/interface/product_roboexplorer.png");
-	PRODUCT_IMAGE_ARRAY[PRODUCT_TRUCK]				= new Image("ui/interface/product_truck.png");
-	PRODUCT_IMAGE_ARRAY[PRODUCT_ROAD_MATERIALS]		= new Image("ui/interface/product_road_materials.png");
-	PRODUCT_IMAGE_ARRAY[PRODUCT_MAINTENANCE_PARTS]	= new Image("ui/interface/product_maintenance_parts.png");
-	PRODUCT_IMAGE_ARRAY[PRODUCT_CLOTHING]			= new Image("ui/interface/product_clothing.png");
-	PRODUCT_IMAGE_ARRAY[PRODUCT_MEDICINE]			= new Image("ui/interface/product_medicine.png");
+	PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(ProductType::PRODUCT_DIGGER)]				= new Image("ui/interface/product_robodigger.png");
+	PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(ProductType::PRODUCT_DOZER)]				= new Image("ui/interface/product_robodozer.png");
+	PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(ProductType::PRODUCT_MINER)]				= new Image("ui/interface/product_robominer.png");
+	PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(ProductType::PRODUCT_EXPLORER)]			= new Image("ui/interface/product_roboexplorer.png");
+	PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(ProductType::PRODUCT_TRUCK)]				= new Image("ui/interface/product_truck.png");
+	PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(ProductType::PRODUCT_ROAD_MATERIALS)]		= new Image("ui/interface/product_road_materials.png");
+	PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(ProductType::PRODUCT_MAINTENANCE_PARTS)]	= new Image("ui/interface/product_maintenance_parts.png");
+	PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(ProductType::PRODUCT_CLOTHING)]			= new Image("ui/interface/product_clothing.png");
+	PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(ProductType::PRODUCT_MEDICINE)]			= new Image("ui/interface/product_medicine.png");
 
 	_PRODUCT_NONE = new Image("ui/interface/product_none.png");
 
@@ -165,16 +165,16 @@ void FactoryReport::init()
 	add(&cboFilterByProduct, 250, 33);
 	cboFilterByProduct.size(200, 20);
 
-	cboFilterByProduct.addItem(constants::NONE, PRODUCT_NONE);
-	cboFilterByProduct.addItem(constants::CLOTHING, PRODUCT_CLOTHING);
-	cboFilterByProduct.addItem(constants::MAINTENANCE_SUPPLIES, PRODUCT_MAINTENANCE_PARTS);
-	cboFilterByProduct.addItem(constants::MEDICINE, PRODUCT_MEDICINE);
-	cboFilterByProduct.addItem(constants::ROBODIGGER, PRODUCT_DIGGER);
-	cboFilterByProduct.addItem(constants::ROBODOZER, PRODUCT_DOZER);
-	cboFilterByProduct.addItem(constants::ROBOEXPLORER, PRODUCT_EXPLORER);
-	cboFilterByProduct.addItem(constants::ROBOMINER, PRODUCT_MINER);
-	cboFilterByProduct.addItem(constants::ROAD_MATERIALS, PRODUCT_ROAD_MATERIALS);
-	cboFilterByProduct.addItem(constants::TRUCK, PRODUCT_TRUCK);
+	cboFilterByProduct.addItem(constants::NONE, static_cast<int>(ProductType::PRODUCT_NONE));
+	cboFilterByProduct.addItem(constants::CLOTHING, static_cast<int>(ProductType::PRODUCT_CLOTHING));
+	cboFilterByProduct.addItem(constants::MAINTENANCE_SUPPLIES, static_cast<int>(ProductType::PRODUCT_MAINTENANCE_PARTS));
+	cboFilterByProduct.addItem(constants::MEDICINE, static_cast<int>(ProductType::PRODUCT_MEDICINE));
+	cboFilterByProduct.addItem(constants::ROBODIGGER, static_cast<int>(ProductType::PRODUCT_DIGGER));
+	cboFilterByProduct.addItem(constants::ROBODOZER, static_cast<int>(ProductType::PRODUCT_DOZER));
+	cboFilterByProduct.addItem(constants::ROBOEXPLORER, static_cast<int>(ProductType::PRODUCT_EXPLORER));
+	cboFilterByProduct.addItem(constants::ROBOMINER, static_cast<int>(ProductType::PRODUCT_MINER));
+	cboFilterByProduct.addItem(constants::ROAD_MATERIALS, static_cast<int>(ProductType::PRODUCT_ROAD_MATERIALS));
+	cboFilterByProduct.addItem(constants::TRUCK, static_cast<int>(ProductType::PRODUCT_TRUCK));
 
 	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::cboFilterByProductSelectionChanged);
 
@@ -226,7 +226,7 @@ void FactoryReport::fillLists()
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
-	for (auto factory : Utility<StructureManager>::get().structureList(Structure::CLASS_FACTORY))
+	for (auto factory : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FACTORY))
 	{
 		lstFactoryList.addItem(static_cast<Factory*>(factory));
 	}
@@ -241,7 +241,7 @@ void FactoryReport::fillFactoryList(ProductType type)
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
-	for (auto f : Utility<StructureManager>::get().structureList(Structure::CLASS_FACTORY))
+	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FACTORY))
 	{
 		Factory* factory = static_cast<Factory*>(f);
 		if (factory->productType() == type)
@@ -261,7 +261,7 @@ void FactoryReport::fillFactoryList(bool surface)
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
-	for (auto f : Utility<StructureManager>::get().structureList(Structure::CLASS_FACTORY))
+	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FACTORY))
 	{
 		Factory* factory = static_cast<Factory*>(f);
 		if (surface && (factory->name() == constants::SURFACE_FACTORY || factory->name() == constants::SEED_FACTORY))
@@ -285,7 +285,7 @@ void FactoryReport::fillFactoryList(Structure::StructureState state)
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
-	for (auto f : Utility<StructureManager>::get().structureList(Structure::CLASS_FACTORY))
+	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FACTORY))
 	{
 		if (f->state() == state)
 		{
@@ -358,7 +358,7 @@ void FactoryReport::visibilityChanged(bool visible)
 	if (!SELECTED_FACTORY) { return; }
 
 	Structure::StructureState _state = SELECTED_FACTORY->state();
-	btnApply.visible(visible && (_state == Structure::OPERATIONAL || _state == Structure::IDLE));
+	btnApply.visible(visible && (_state == Structure::StructureState::OPERATIONAL || _state == Structure::StructureState::IDLE));
 	checkFactoryActionControls();
 }
 
@@ -420,7 +420,7 @@ void FactoryReport::btnShowActiveClicked()
 {
 	filterButtonClicked(true);
 	btnShowActive.toggle(true);
-	fillFactoryList(Structure::OPERATIONAL);
+	fillFactoryList(Structure::StructureState::OPERATIONAL);
 }
 
 
@@ -431,7 +431,7 @@ void FactoryReport::btnShowIdleClicked()
 {
 	filterButtonClicked(true);
 	btnShowIdle.toggle(true);
-	fillFactoryList(Structure::IDLE);
+	fillFactoryList(Structure::StructureState::IDLE);
 }
 
 
@@ -442,7 +442,7 @@ void FactoryReport::btnShowDisabledClicked()
 {
 	filterButtonClicked(true);
 	btnShowDisabled.toggle(true);
-	fillFactoryList(Structure::DISABLED);
+	fillFactoryList(Structure::StructureState::DISABLED);
 }
 
 
@@ -461,7 +461,7 @@ void FactoryReport::btnIdleClicked()
  */
 void FactoryReport::btnClearProductionClicked()
 {
-	SELECTED_FACTORY->productType(PRODUCT_NONE);
+	SELECTED_FACTORY->productType(ProductType::PRODUCT_NONE);
 	lstProducts.clearSelection();
 	cboFilterByProductSelectionChanged();
 }
@@ -506,13 +506,13 @@ void FactoryReport::lstFactoryListSelectionChanged()
 
 	FACTORY_STATUS = structureStateDescription(SELECTED_FACTORY->state());
 
-	btnIdle.toggle(SELECTED_FACTORY->state() == Structure::IDLE);
-	btnIdle.enabled(SELECTED_FACTORY->state() == Structure::OPERATIONAL || SELECTED_FACTORY->state() == Structure::IDLE);
+	btnIdle.toggle(SELECTED_FACTORY->state() == Structure::StructureState::IDLE);
+	btnIdle.enabled(SELECTED_FACTORY->state() == Structure::StructureState::OPERATIONAL || SELECTED_FACTORY->state() == Structure::StructureState::IDLE);
 
-	btnClearProduction.enabled(SELECTED_FACTORY->state() == Structure::OPERATIONAL || SELECTED_FACTORY->state() == Structure::IDLE);
+	btnClearProduction.enabled(SELECTED_FACTORY->state() == Structure::StructureState::OPERATIONAL || SELECTED_FACTORY->state() == Structure::StructureState::IDLE);
 
 	lstProducts.dropAllItems();
-	if (SELECTED_FACTORY->state() != Structure::DESTROYED)
+	if (SELECTED_FACTORY->state() != Structure::StructureState::DESTROYED)
 	{
 		const Factory::ProductionTypeList& _pl = SELECTED_FACTORY->productList();
 		for (auto item : _pl)
@@ -525,7 +525,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 	SELECTED_PRODUCT_TYPE = SELECTED_FACTORY->productType();
 
 	Structure::StructureState _state = SELECTED_FACTORY->state();
-	btnApply.visible(_state == Structure::OPERATIONAL || _state == Structure::IDLE);
+	btnApply.visible(_state == Structure::StructureState::OPERATIONAL || _state == Structure::StructureState::IDLE);
 }
 
 
@@ -606,20 +606,20 @@ void FactoryReport::drawProductPane(Renderer& r)
 
 	float position_x = DETAIL_PANEL.x() + lstProducts.width() + 20.0f;
 
-	if (SELECTED_PRODUCT_TYPE != PRODUCT_NONE)
+	if (SELECTED_PRODUCT_TYPE != ProductType::PRODUCT_NONE)
 	{
 		r.drawText(*FONT_BIG_BOLD, productDescription(SELECTED_PRODUCT_TYPE), position_x, DETAIL_PANEL.y() + 180, 0, 185, 0);
-		r.drawImage(*PRODUCT_IMAGE_ARRAY[SELECTED_PRODUCT_TYPE], position_x, lstProducts.positionY());
+		r.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(SELECTED_PRODUCT_TYPE)], position_x, lstProducts.positionY());
 		txtProductDescription.update();
 	}
 
-	if (SELECTED_FACTORY->productType() == PRODUCT_NONE) { return; }
+	if (SELECTED_FACTORY->productType() == ProductType::PRODUCT_NONE) { return; }
 	
 	r.drawText(*FONT_BIG_BOLD, "Progress", position_x, DETAIL_PANEL.y() + 358, 0, 185, 0);
 	r.drawText(*FONT_MED, "Building " + productDescription(SELECTED_FACTORY->productType()), position_x, DETAIL_PANEL.y() + 393, 0, 185, 0);
 
 	float percent = 0.0f;
-	if (SELECTED_FACTORY->productType() != PRODUCT_NONE)
+	if (SELECTED_FACTORY->productType() != ProductType::PRODUCT_NONE)
 	{
 		percent = static_cast<float>(SELECTED_FACTORY->productionTurnsCompleted()) /
 			static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete());

@@ -68,11 +68,11 @@ void Population::init()
  */
 void Population::clear()
 {
-	clearPopulationList(ROLE_CHILD);
-	clearPopulationList(ROLE_STUDENT);
-	clearPopulationList(ROLE_WORKER);
-	clearPopulationList(ROLE_SCIENTIST);
-	clearPopulationList(ROLE_RETIRED);
+	clearPopulationList(PersonRole::ROLE_CHILD);
+	clearPopulationList(PersonRole::ROLE_STUDENT);
+	clearPopulationList(PersonRole::ROLE_WORKER);
+	clearPopulationList(PersonRole::ROLE_SCIENTIST);
+	clearPopulationList(PersonRole::ROLE_RETIRED);
 }
 
 
@@ -82,7 +82,7 @@ void Population::clear()
  */
 void Population::clearPopulationList(PersonRole _role)
 {
-	mPopulation[_role] = 0;
+	mPopulation[static_cast<std::size_t>(_role)] = 0;
 }
 
 
@@ -94,7 +94,7 @@ void Population::clearPopulationList(PersonRole _role)
  */
 void Population::addPopulation(PersonRole role, uint32_t count)
 {
-	mPopulation[role] += count;
+	mPopulation[static_cast<std::size_t>(role)] += count;
 }
 
 
@@ -118,7 +118,7 @@ int Population::size()
  */
 int Population::size(PersonRole _pr)
 {
-	return mPopulation[_pr];
+	return mPopulation[static_cast<std::size_t>(_pr)];
 }
 
 
@@ -132,16 +132,16 @@ void Population::spawn_children(int morale, int residences, int nurseries)
 	if (residences < 1 && nurseries < 1) { return; }
 
 	// This should be adjusted to maybe two or three kids per couple to allow for higher growth rates.
-	if (mPopulation[ROLE_SCIENTIST] + mPopulation[ROLE_WORKER] > mPopulation[ROLE_CHILD])
+	if (mPopulation[static_cast<std::size_t>(PersonRole::ROLE_SCIENTIST)] + mPopulation[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] > mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)])
 	{
-		mPopulationGrowth[ROLE_CHILD] += mPopulation[ROLE_SCIENTIST] / 4 + mPopulation[ROLE_WORKER] / 2;
+		mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] += mPopulation[static_cast<std::size_t>(PersonRole::ROLE_SCIENTIST)] / 4 + mPopulation[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] / 2;
 
 		int divisor = mModifiers[moraleIndex(morale)].fertilityRate;
 
-		int newChildren = mPopulationGrowth[ROLE_CHILD] / divisor;
-		mPopulationGrowth[ROLE_CHILD] = mPopulationGrowth[ROLE_CHILD] % divisor;
+		int newChildren = mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] / divisor;
+		mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] = mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] % divisor;
 
-		mPopulation[ROLE_CHILD] += newChildren;
+		mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] += newChildren;
 		mBirthCount = newChildren;
 	}
 }
@@ -149,19 +149,19 @@ void Population::spawn_children(int morale, int residences, int nurseries)
 
 void Population::spawn_students()
 {
-	if (mPopulation[ROLE_CHILD] > 0)
+	if (mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] > 0)
 	{
-		mPopulationGrowth[ROLE_STUDENT] += mPopulation[ROLE_CHILD];
+		mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] += mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)];
 
-		int divisor = mPopulation[ROLE_STUDENT] + mPopulation[ROLE_WORKER] + mPopulation[ROLE_SCIENTIST] + mPopulation[ROLE_CHILD];
+		int divisor = mPopulation[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] + mPopulation[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] + mPopulation[static_cast<std::size_t>(PersonRole::ROLE_SCIENTIST)] + mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)];
 		if (divisor <= STUDENT_TO_ADULT_BASE) { divisor = STUDENT_TO_ADULT_BASE; }
 		divisor = ((divisor / 40) * 3 + 16) * 4;
 
-		int newStudents = mPopulationGrowth[ROLE_STUDENT] / divisor;
-		mPopulationGrowth[ROLE_STUDENT] = mPopulationGrowth[ROLE_STUDENT] % divisor;
+		int newStudents = mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] / divisor;
+		mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] = mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] % divisor;
 
-		mPopulation[ROLE_STUDENT] += newStudents;
-		mPopulation[ROLE_CHILD] -= newStudents;
+		mPopulation[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] += newStudents;
+		mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] -= newStudents;
 	}
 }
 
@@ -169,75 +169,74 @@ void Population::spawn_students()
 void Population::spawn_adults(int universities)
 {
 	//-- New Adults --//
-	if (mPopulation[ROLE_STUDENT] > 0)
+	if (mPopulation[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] > 0)
 	{
-		mPopulationGrowth[ROLE_WORKER] += mPopulation[ROLE_STUDENT];
+		mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] += mPopulation[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)];
 
-		int divisor = mPopulation[ROLE_STUDENT] + mPopulation[ROLE_WORKER] + mPopulation[ROLE_SCIENTIST] + mPopulation[ROLE_CHILD];
-		if (divisor <= STUDENT_TO_ADULT_BASE) { divisor = STUDENT_TO_ADULT_BASE; }
+		int divisor = mPopulation[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] + mPopulation[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] + mPopulation[static_cast<std::size_t>(PersonRole::ROLE_SCIENTIST)] + mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)];
+		if(divisor <= STUDENT_TO_ADULT_BASE) { divisor = STUDENT_TO_ADULT_BASE; }
 
 		divisor = ((divisor / 40) * 3 + 45) * 4;
 
-		int newAdult = mPopulationGrowth[ROLE_WORKER] / divisor;
-		mPopulationGrowth[ROLE_WORKER] = mPopulationGrowth[ROLE_WORKER] % divisor;
+		int newAdult = mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] / divisor;
+		mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] = mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] % divisor;
 
 		// account for universities
-		if (universities > 0 && random_0_100() <= STUDENT_TO_SCIENTIST_RATE)
+		if(universities > 0 && random_0_100() <= STUDENT_TO_SCIENTIST_RATE)
 		{
-			mPopulation[ROLE_SCIENTIST] += newAdult;
-		}
-		else
+			mPopulation[static_cast<std::size_t>(PersonRole::ROLE_SCIENTIST)] += newAdult;
+		} else
 		{
-			mPopulation[ROLE_WORKER] += newAdult;
+			mPopulation[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] += newAdult;
 		}
 
-		mPopulation[ROLE_STUDENT] -= newAdult;
+		mPopulation[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] -= newAdult;
 	}
 }
 
 
 void Population::spawn_retiree()
 {
-	int total_adults = mPopulation[ROLE_WORKER] + mPopulation[ROLE_SCIENTIST];
+	int total_adults = mPopulation[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] + mPopulation[static_cast<std::size_t>(PersonRole::ROLE_SCIENTIST)];
 	if (total_adults > 0)
 	{
-		mPopulationGrowth[ROLE_RETIRED] += total_adults / 10;
+		mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_RETIRED)] += total_adults / 10;
 
 		int divisor = total_adults;
 		if (divisor <= ADULT_TO_RETIREE_BASE) { divisor = ADULT_TO_RETIREE_BASE; }
 
 		divisor = ((divisor / 40) * 3 + 40) * 4;
 
-		int retiree = mPopulationGrowth[ROLE_RETIRED] / divisor;
-		mPopulationGrowth[ROLE_RETIRED] = mPopulationGrowth[ROLE_RETIRED] % divisor;
+		int retiree = mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_RETIRED)] / divisor;
+		mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_RETIRED)] = mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_RETIRED)] % divisor;
 
-		mPopulation[ROLE_RETIRED] += retiree;
+		mPopulation[static_cast<std::size_t>(PersonRole::ROLE_RETIRED)] += retiree;
 
 		/** Workers retire earlier than scientists. */
-		if (random_0_100() <= 45) { if (mPopulation[ROLE_SCIENTIST] > 0) { mPopulation[ROLE_SCIENTIST] -= retiree; } }
-		else { if (mPopulation[ROLE_WORKER] > 0) { mPopulation[ROLE_WORKER] -= retiree; } }
+		if (random_0_100() <= 45) { if (mPopulation[static_cast<std::size_t>(PersonRole::ROLE_SCIENTIST)] > 0) { mPopulation[static_cast<std::size_t>(PersonRole::ROLE_SCIENTIST)] -= retiree; } }
+		else { if (mPopulation[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] > 0) { mPopulation[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] -= retiree; } }
 	}
 }
 
 
 void Population::kill_children(int morale, int nurseries)
 {
-	if (mPopulation[ROLE_CHILD] > 0)
+	if (mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] > 0)
 	{
-		mPopulationDeath[ROLE_CHILD] = mPopulation[ROLE_CHILD];
+		mPopulationDeath[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] = mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)];
 
 		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + (nurseries * 10);
 
-		int deaths = mPopulationDeath[ROLE_CHILD] / divisor;
-		mPopulationDeath[ROLE_CHILD] = mPopulationDeath[ROLE_CHILD] % divisor;
+		int deaths = mPopulationDeath[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] / divisor;
+		mPopulationDeath[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] = mPopulationDeath[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] % divisor;
 
-		mPopulation[ROLE_CHILD] -= deaths;
+		mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] -= deaths;
 		mDeathCount += deaths;
 
-		if (mPopulation[ROLE_CHILD] <= 0)
+		if(mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] <= 0)
 		{
-			mPopulationDeath[ROLE_CHILD] = 0;
-			mPopulationGrowth[ROLE_STUDENT] = 0;
+			mPopulationDeath[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] = 0;
+			mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] = 0;
 		}
 	}
 }
@@ -245,22 +244,22 @@ void Population::kill_children(int morale, int nurseries)
 
 void Population::kill_students(int morale, int hospitals)
 {
-	if (mPopulation[ROLE_CHILD] > 0)
+	if (mPopulation[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] > 0)
 	{
-		mPopulationDeath[ROLE_STUDENT] = mPopulation[ROLE_STUDENT];
+		mPopulationDeath[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] = mPopulation[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)];
 
 		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + (hospitals * 65);
 
-		int deaths = mPopulationDeath[ROLE_STUDENT] / divisor;
-		mPopulationDeath[ROLE_STUDENT] = mPopulationDeath[ROLE_CHILD] % divisor;
+		int deaths = mPopulationDeath[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] / divisor;
+		mPopulationDeath[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] = mPopulationDeath[static_cast<std::size_t>(PersonRole::ROLE_CHILD)] % divisor;
 
-		mPopulation[ROLE_STUDENT] -= deaths;
+		mPopulation[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] -= deaths;
 		mDeathCount += deaths;
 
-		if (mPopulation[ROLE_STUDENT] <= 0)
+		if (mPopulation[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] <= 0)
 		{
-			mPopulationDeath[ROLE_STUDENT] = 0;
-			mPopulationGrowth[ROLE_WORKER] = 0;
+			mPopulationDeath[static_cast<std::size_t>(PersonRole::ROLE_STUDENT)] = 0;
+			mPopulationGrowth[static_cast<std::size_t>(PersonRole::ROLE_WORKER)] = 0;
 		}
 	}
 }
@@ -269,20 +268,20 @@ void Population::kill_students(int morale, int hospitals)
 void Population::kill_adults(Population::PersonRole role, int morale, int hospitals)
 {
 	// Worker Deaths
-	if (mPopulation[role] > 0)
+	if (mPopulation[static_cast<std::size_t>(role)] > 0)
 	{
-		mPopulationDeath[role] += mPopulation[role];
+		mPopulationDeath[static_cast<std::size_t>(role)] += mPopulation[static_cast<std::size_t>(role)];
 		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
 
-		int deaths = mPopulationDeath[role] / divisor;
-		mPopulationDeath[role] = mPopulationDeath[role] % divisor;
+		int deaths = mPopulationDeath[static_cast<std::size_t>(role)] / divisor;
+		mPopulationDeath[static_cast<std::size_t>(role)] = mPopulationDeath[static_cast<std::size_t>(role)] % divisor;
 
-		mPopulation[role] -= deaths;
+		mPopulation[static_cast<std::size_t>(role)] -= deaths;
 		mDeathCount += deaths;
 
-		if (mPopulation[role] == 0)
+		if (mPopulation[static_cast<std::size_t>(role)] == 0)
 		{
-			mPopulationDeath[role] = 0;
+			mPopulationDeath[static_cast<std::size_t>(role)] = 0;
 		}
 	}
 }
@@ -361,10 +360,10 @@ int Population::update(int morale, int food, int residences, int universities, i
 	kill_students(morale, hospitals);
 
 	// Workers will die more often than scientists.
-	if (random_0_100() <= 45) { kill_adults(ROLE_SCIENTIST, morale, hospitals); }
-	else { kill_adults(ROLE_WORKER, morale, hospitals); }
+	if (random_0_100() <= 45) { kill_adults(PersonRole::ROLE_SCIENTIST, morale, hospitals); }
+	else { kill_adults(PersonRole::ROLE_WORKER, morale, hospitals); }
 
-	kill_adults(ROLE_RETIRED, morale, hospitals);
+	kill_adults(PersonRole::ROLE_RETIRED, morale, hospitals);
 
 	return consume_food(food);
 }

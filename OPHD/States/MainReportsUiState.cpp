@@ -28,7 +28,7 @@ Font*				BIG_FONT_BOLD = nullptr;
 /**
  * Enumerated ID's for the navigation panels.
  */
-enum NavigationPanel
+enum class NavigationPanel
 {
 	PANEL_RESEARCH,
 	PANEL_PRODUCTION,
@@ -73,7 +73,7 @@ private:
 };
 
 
-static std::array<Panel, PANEL_COUNT> Panels;	/**< Array of UI navigation panels. */
+static std::array<Panel, static_cast<std::size_t>(NavigationPanel::PANEL_COUNT)> Panels;	/**< Array of UI navigation panels. */
 
 
 /**
@@ -81,43 +81,43 @@ static std::array<Panel, PANEL_COUNT> Panels;	/**< Array of UI navigation panels
  */
 static void setPanelRects(int width)
 {
-	Panels[PANEL_EXIT].Rect = {width - 48, 0, 48, 48};
-	Panels[PANEL_EXIT].IconPosition = {width - 40, 8};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_EXIT)].Rect = {width - 48, 0, 48, 48};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_EXIT)].IconPosition = {width - 40, 8};
 	
-	int remaining_width = width - Panels[PANEL_EXIT].Rect.width();
+	int remaining_width = width - Panels[static_cast<std::size_t>(NavigationPanel::PANEL_EXIT)].Rect.width();
 	int panel_width = remaining_width / 6;
 	int text_y_position = 24 - BIG_FONT->height() / 2;
 
 	
-	Panels[PANEL_RESEARCH].Rect = {0, 0, panel_width, 48};
-	Panels[PANEL_RESEARCH].TextPosition = {panel_width / 2 - BIG_FONT->width(Panels[PANEL_RESEARCH].Name) / 2 + 20, text_y_position};
-	Panels[PANEL_RESEARCH].IconPosition = {Panels[PANEL_RESEARCH].TextPosition.x() - 40, 8};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_RESEARCH)].Rect = {0, 0, panel_width, 48};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_RESEARCH)].TextPosition = {panel_width / 2 - BIG_FONT->width(Panels[static_cast<std::size_t>(NavigationPanel::PANEL_RESEARCH)].Name) / 2 + 20, text_y_position};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_RESEARCH)].IconPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_RESEARCH)].TextPosition.x() - 40, 8};
 
 	
-	Panels[PANEL_PRODUCTION].Rect = {Panels[PANEL_RESEARCH].Rect.x() + panel_width, 0, panel_width, 48};
-	Panels[PANEL_PRODUCTION].TextPosition = {Panels[PANEL_PRODUCTION].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[PANEL_PRODUCTION].Name) / 2 + 20, text_y_position};
-	Panels[PANEL_PRODUCTION].IconPosition = {Panels[PANEL_PRODUCTION].TextPosition.x() - 40, 8};
-	//Panels[PANEL_PRODUCTION].Selected(true);
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].Rect = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_RESEARCH)].Rect.x() + panel_width, 0, panel_width, 48};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].TextPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].Name) / 2 + 20, text_y_position};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].IconPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].TextPosition.x() - 40, 8};
+	//Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].Selected(true);
 
 
-	Panels[PANEL_WAREHOUSE].Rect = {Panels[PANEL_PRODUCTION].Rect.x() + panel_width, 0, panel_width, 48};
-	Panels[PANEL_WAREHOUSE].TextPosition = {Panels[PANEL_WAREHOUSE].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[PANEL_WAREHOUSE].Name) / 2 + 20, text_y_position};
-	Panels[PANEL_WAREHOUSE].IconPosition = {Panels[PANEL_WAREHOUSE].TextPosition.x() - 40, 8};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].Rect = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].Rect.x() + panel_width, 0, panel_width, 48};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].TextPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].Name) / 2 + 20, text_y_position};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].IconPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].TextPosition.x() - 40, 8};
 
 
-	Panels[PANEL_MINING].Rect = {Panels[PANEL_WAREHOUSE].Rect.x() + panel_width, 0, panel_width, 48};
-	Panels[PANEL_MINING].TextPosition = {Panels[PANEL_MINING].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[PANEL_MINING].Name) / 2 + 20, text_y_position};
-	Panels[PANEL_MINING].IconPosition = {Panels[PANEL_MINING].TextPosition.x() - 40, 8};
-
-	
-	Panels[PANEL_SATELLITES].Rect = {Panels[PANEL_MINING].Rect.x() + panel_width, 0, panel_width, 48};
-	Panels[PANEL_SATELLITES].TextPosition = {Panels[PANEL_SATELLITES].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[PANEL_SATELLITES].Name) / 2 + 20, text_y_position};
-	Panels[PANEL_SATELLITES].IconPosition = {Panels[PANEL_SATELLITES].TextPosition.x() - 40, 8};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].Rect = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].Rect.x() + panel_width, 0, panel_width, 48};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].TextPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].Name) / 2 + 20, text_y_position};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].IconPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].TextPosition.x() - 40, 8};
 
 	
-	Panels[PANEL_SPACEPORT].Rect = {Panels[PANEL_SATELLITES].Rect.x() + panel_width, 0, panel_width, 48};
-	Panels[PANEL_SPACEPORT].TextPosition = {Panels[PANEL_SPACEPORT].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[PANEL_SPACEPORT].Name) / 2 + 20, text_y_position};
-	Panels[PANEL_SPACEPORT].IconPosition = {Panels[PANEL_SPACEPORT].TextPosition.x() - 40, 8};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SATELLITES)].Rect = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].Rect.x() + panel_width, 0, panel_width, 48};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SATELLITES)].TextPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SATELLITES)].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SATELLITES)].Name) / 2 + 20, text_y_position};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SATELLITES)].IconPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SATELLITES)].TextPosition.x() - 40, 8};
+
+	
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SPACEPORT)].Rect = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SATELLITES)].Rect.x() + panel_width, 0, panel_width, 48};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SPACEPORT)].TextPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SPACEPORT)].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SPACEPORT)].Name) / 2 + 20, text_y_position};
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SPACEPORT)].IconPosition = {Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SPACEPORT)].TextPosition.x() - 40, 8};
 }
 
 
@@ -185,38 +185,38 @@ void MainReportsUiState::initialize()
 	BIG_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 16);
 	BIG_FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 16);
 
-	Panels[PANEL_EXIT].Img = new Image("ui/icons/exit.png");
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_EXIT)].Img = new Image("ui/icons/exit.png");
 
-	Panels[PANEL_RESEARCH].Img = new Image("ui/icons/research.png");
-	Panels[PANEL_RESEARCH].Name = "Laboratories";
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_RESEARCH)].Img = new Image("ui/icons/research.png");
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_RESEARCH)].Name = "Laboratories";
 
-	Panels[PANEL_PRODUCTION].Img = new Image("ui/icons/production.png");
-	Panels[PANEL_PRODUCTION].Name = "Factories";
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].Img = new Image("ui/icons/production.png");
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].Name = "Factories";
 
-	Panels[PANEL_WAREHOUSE].Img = new Image("ui/icons/warehouse.png");
-	Panels[PANEL_WAREHOUSE].Name = "Warehouses";
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].Img = new Image("ui/icons/warehouse.png");
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].Name = "Warehouses";
 
-	Panels[PANEL_MINING].Img = new Image("ui/icons/mine.png");
-	Panels[PANEL_MINING].Name = "Mines";
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].Img = new Image("ui/icons/mine.png");
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].Name = "Mines";
 
-	Panels[PANEL_SATELLITES].Img = new Image("ui/icons/satellite.png");
-	Panels[PANEL_SATELLITES].Name = "Satellites";
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SATELLITES)].Img = new Image("ui/icons/satellite.png");
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SATELLITES)].Name = "Satellites";
 
-	Panels[PANEL_SPACEPORT].Img = new Image("ui/icons/spaceport.png");
-	Panels[PANEL_SPACEPORT].Name = "Space Ports";
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SPACEPORT)].Img = new Image("ui/icons/spaceport.png");
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_SPACEPORT)].Name = "Space Ports";
 
 	Renderer& r = Utility<Renderer>::get();
 	setPanelRects(static_cast<int>(r.width()));
 
 	// INIT UI REPORT PANELS
 	ReportInterface* factory_report = new FactoryReport();
-	Panels[PANEL_PRODUCTION].UiPanel = factory_report;
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].UiPanel = factory_report;
 	factory_report->position(0, 48);
 	factory_report->size(r.width(), r.height() - 48);
 	factory_report->hide();
 
 	ReportInterface* warehouse_report = new WarehouseReport();
-	Panels[PANEL_WAREHOUSE].UiPanel = warehouse_report;
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].UiPanel = warehouse_report;
 	warehouse_report->position(0, 48);
 	warehouse_report->size(r.width(), r.height() - 48);
 	warehouse_report->hide();
@@ -228,11 +228,11 @@ void MainReportsUiState::initialize()
  */
 void MainReportsUiState::_activate()
 {
-	Panels[PANEL_PRODUCTION].UiPanel->fillLists();
-	Panels[PANEL_PRODUCTION].UiPanel->refresh();
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].UiPanel->fillLists();
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].UiPanel->refresh();
 
-	Panels[PANEL_WAREHOUSE].UiPanel->fillLists();
-	Panels[PANEL_WAREHOUSE].UiPanel->refresh();
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].UiPanel->fillLists();
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].UiPanel->refresh();
 }
 
 
@@ -247,8 +247,8 @@ void MainReportsUiState::_deactivate()
 		panel.Selected(false);
 	}
 
-	Panels[PANEL_PRODUCTION].UiPanel->clearSelection();
-	Panels[PANEL_WAREHOUSE].UiPanel->clearSelection();
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].UiPanel->clearSelection();
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].UiPanel->clearSelection();
 }
 
 
@@ -282,7 +282,7 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 		}
 	}
 
-	if (Panels[PANEL_EXIT].Selected())
+	if (Panels[static_cast<std::size_t>(NavigationPanel::PANEL_EXIT)].Selected())
 	{
 		exit();
 	}
@@ -328,11 +328,11 @@ void MainReportsUiState::deselectAllPanels()
 void MainReportsUiState::selectFactoryPanel(Structure* structure)
 {
 	deselectAllPanels();
-	Panels[PANEL_PRODUCTION].Selected(true);
-	Panels[PANEL_PRODUCTION].UiPanel->visible(true);
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].Selected(true);
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].UiPanel->visible(true);
 
-	Panels[PANEL_PRODUCTION].UiPanel->refresh();
-	Panels[PANEL_PRODUCTION].UiPanel->selectStructure(structure);
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].UiPanel->refresh();
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].UiPanel->selectStructure(structure);
 }
 
 
@@ -342,10 +342,10 @@ void MainReportsUiState::selectFactoryPanel(Structure* structure)
 void MainReportsUiState::selectWarehousePanel(Structure* structure)
 {
 	deselectAllPanels();
-	Panels[PANEL_WAREHOUSE].Selected(true);
-	Panels[PANEL_WAREHOUSE].UiPanel->visible(true);
-	Panels[PANEL_WAREHOUSE].UiPanel->refresh();
-	Panels[PANEL_WAREHOUSE].UiPanel->selectStructure(structure);
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].Selected(true);
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].UiPanel->visible(true);
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].UiPanel->refresh();
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].UiPanel->selectStructure(structure);
 }
 
 
@@ -355,18 +355,18 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 void MainReportsUiState::selectMinePanel(Structure* /*structure*/)
 {
 	deselectAllPanels();
-	Panels[PANEL_MINING].Selected(true);
-	//Panels[PANEL_MINING].UiPanel->visible(true);
-	//Panels[PANEL_MINING].UiPanel->refresh();
-	//Panels[PANEL_MINING].UiPanel->selectStructure(structure);
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].Selected(true);
+	//Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].UiPanel->visible(true);
+	//Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].UiPanel->refresh();
+	//Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].UiPanel->selectStructure(structure);
 }
 
 
 void MainReportsUiState::clearLists()
 {
-	Panels[PANEL_PRODUCTION].UiPanel->fillLists();
-	Panels[PANEL_WAREHOUSE].UiPanel->fillLists();
-	//Panels[PANEL_MINING].UiPanel->fillLists();
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_PRODUCTION)].UiPanel->fillLists();
+	Panels[static_cast<std::size_t>(NavigationPanel::PANEL_WAREHOUSE)].UiPanel->fillLists();
+	//Panels[static_cast<std::size_t>(NavigationPanel::PANEL_MINING)].UiPanel->fillLists();
 }
 
 

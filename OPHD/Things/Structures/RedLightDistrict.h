@@ -7,7 +7,7 @@
 class RedLightDistrict : public Structure
 {
 public:
-	RedLightDistrict() : Structure(constants::RED_LIGHT_DISTRICT, "structures/red_light_district.sprite", CLASS_RESIDENCE)
+	RedLightDistrict() : Structure(constants::RED_LIGHT_DISTRICT, "structures/red_light_district.sprite", StructureClass::CLASS_RESIDENCE)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);

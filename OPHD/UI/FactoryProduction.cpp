@@ -81,7 +81,7 @@ void FactoryProduction::init()
  */
 void FactoryProduction::clearProduct()
 {
-	mProduct = PRODUCT_NONE;
+	mProduct = ProductType::PRODUCT_NONE;
 	mProductCost.clear();
 	mProductGrid.clearSelection();
 }
@@ -196,12 +196,12 @@ void FactoryProduction::factory(Factory* newFactory)
 		throw std::runtime_error("FactoryProduction::factory(): Factory provided with an empty production type list.");
 	}
 
-	for (size_t i = 0; i < ptlist.size(); ++i)
+	for (std::size_t i = 0; i < ptlist.size(); ++i)
 	{
-		mProductGrid.addItem(productDescription(ptlist[i]), ptlist[i], ptlist[i]);
+		mProductGrid.addItem(productDescription(ptlist[i]), static_cast<int>(ptlist[i]), static_cast<int>(ptlist[i]));
 	}
 
-	if (mFactory->productType() == PRODUCT_NONE) { mProductGrid.clearSelection(); }
+	if (mFactory->productType() == ProductType::PRODUCT_NONE) { mProductGrid.clearSelection(); }
 	else { mProductGrid.selection_meta(static_cast<int>(mFactory->productType())); }
 
 	mProduct = mFactory->productType();

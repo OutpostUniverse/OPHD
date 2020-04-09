@@ -21,8 +21,8 @@ static void drawItem(Renderer& r, StructureListBox::StructureListBoxItem& item, 
 {
 	Structure* _st = item.structure;
 
-	const auto& structureColor = structureColorFromIndex(_st->state());
-	const auto& structureTextColor = structureTextColorFromIndex(_st->state());
+	const auto& structureColor = structureColorFromIndex(static_cast<std::size_t>(_st->state()));
+	const auto& structureTextColor = structureTextColorFromIndex(static_cast<std::size_t>(_st->state()));
 
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red(), structureColor.green(), structureColor.blue(), 75); }
@@ -35,7 +35,7 @@ static void drawItem(Renderer& r, StructureListBox::StructureListBoxItem& item, 
 }
 
 
-StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) : ListBoxItem(s->name()), structure(s), structureState(""), colorIndex(s->state()) { Text = s->name(); }
+StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) : ListBoxItem(s->name()), structure(s), structureState(""), colorIndex(static_cast<std::size_t>(s->state())) { Text = s->name(); }
 StructureListBox::StructureListBoxItem::~StructureListBoxItem() {}
 
 

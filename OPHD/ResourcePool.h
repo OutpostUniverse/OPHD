@@ -14,7 +14,7 @@ class ResourcePool
 public:
 	using Callback = NAS2D::Signals::Signal<>;
 
-	enum ResourceType
+	enum class ResourceType
 	{
 		RESOURCE_COMMON_METALS_ORE,
 		RESOURCE_COMMON_MINERALS_ORE,
@@ -108,7 +108,7 @@ public:
 	Callback& resourceObserver() { return _observerCallback; }
 
 private:
-	typedef std::array<int, RESOURCE_COUNT> ResourceTable;
+	typedef std::array<int, static_cast<std::size_t>(ResourceType::RESOURCE_COUNT)> ResourceTable;
 
 private:
 	int					_capacity = 0;			/**< Maximum available capacity of the ResourcePool. */

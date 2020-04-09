@@ -8,7 +8,7 @@ class MajorEventAnnouncement : public Window
 {
 public:
 
-	enum AnnouncementType
+	enum class AnnouncementType
 	{
 		ANNOUNCEMENT_COLONY_SHIP_CRASH,
 		ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS

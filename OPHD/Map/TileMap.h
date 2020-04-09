@@ -18,7 +18,7 @@ public:
 	/**
 	 * 
 	 */
-	enum TileMapLevel
+	enum class TileMapLevel
 	{
 		LEVEL_SURFACE = 0,
 		LEVEL_UG_1,
@@ -91,7 +91,7 @@ protected:
 	/**
 	 * 
 	 */
-	enum MouseMapRegion
+	enum class MouseMapRegion
 	{
 		MMR_MIDDLE,
 		MMR_TOP_RIGHT,

@@ -15,7 +15,7 @@
 class Planet
 {
 public:
-	enum PlanetType
+	enum class PlanetType
 	{
 		PLANET_TYPE_NONE,
 
@@ -69,7 +69,7 @@ private:
 	NAS2D::Image		mImage;
 	NAS2D::Point<int>		mPosition;
 
-	PlanetType			mType = PLANET_TYPE_NONE;
+	PlanetType			mType = PlanetType::PLANET_TYPE_NONE;
 
 	MouseCallback		mMouseEnterCallback;
 	MouseCallback		mMouseExitCallback;

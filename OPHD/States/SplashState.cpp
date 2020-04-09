@@ -23,7 +23,7 @@ float BYLINE_ALPHA_FADE_STEP = 0.30f;
 
 NAS2D::Timer BYLINE_TIMER;
 
-enum LogoState
+enum class LogoState
 {
 	LOGO_NONE,
 	LOGO_LAIRWORKS,
@@ -31,7 +31,7 @@ enum LogoState
 	LOGO_OUTPOSTHD
 };
 
-LogoState CURRENT_STATE = LOGO_NONE;
+LogoState CURRENT_STATE = LogoState::LOGO_NONE;
 
 
 SplashState::SplashState() :	mLogoLairworks("sys/lairworks-logo.png"),
@@ -62,20 +62,20 @@ void SplashState::initialize()
 
 void setNextState(LogoState& _ls)
 {
-	if (_ls == LOGO_NONE)
+	if (_ls == LogoState::LOGO_NONE)
 	{
-		_ls = LOGO_LAIRWORKS;
+		_ls = LogoState::LOGO_LAIRWORKS;
 		FADE_PAUSE_TIME = 2500;
 		return;
 	}
-	if (_ls == LOGO_LAIRWORKS)
+	if (_ls == LogoState::LOGO_LAIRWORKS)
 	{
-		_ls = LOGO_NAS2D;
+		_ls = LogoState::LOGO_NAS2D;
 		return;
 	}
-	if (_ls == LOGO_NAS2D)
+	if (_ls == LogoState::LOGO_NAS2D)
 	{
-		_ls = LOGO_OUTPOSTHD;
+		_ls = LogoState::LOGO_OUTPOSTHD;
 		BYLINE_TIMER.reset();
 		return;
 	}
@@ -107,11 +107,11 @@ NAS2D::State* SplashState::update()
 		mTimer.reset();
 	}
 
-	if (CURRENT_STATE == LOGO_OUTPOSTHD) { r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0); }
+	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD) { r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0); }
 	else { r.drawBoxFilled(0, 0, r.width(), r.height(), 255, 255, 255); }
 
 
-	if (CURRENT_STATE == LOGO_LAIRWORKS)
+	if (CURRENT_STATE == LogoState::LOGO_LAIRWORKS)
 	{
 		// Trunctation of fractional part of result is intentional
 		// to prevent fuzzy images due to texture filtering
@@ -119,7 +119,7 @@ NAS2D::State* SplashState::update()
 		int logoY = static_cast<int>(r.center_y() - mLogoLairworks.height() / 2);
 		r.drawImage(mLogoLairworks, static_cast<float>(logoX), static_cast<float>(logoY));
 	}
-	if (CURRENT_STATE == LOGO_NAS2D)
+	if (CURRENT_STATE == LogoState::LOGO_NAS2D)
 	{
 
 		// Trunctation of fractional part of result is intentional
@@ -128,7 +128,7 @@ NAS2D::State* SplashState::update()
 		int logoY = static_cast<int>(r.center_y() - mLogoNas2d.height() / 2);
 		r.drawImage(mLogoNas2d, static_cast<float>(logoX), static_cast<float>(logoY));
 	}
-	if (CURRENT_STATE == LOGO_OUTPOSTHD)
+	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
 	{
 		unsigned int tick = BYLINE_TIMER.delta();
 		
@@ -149,7 +149,7 @@ NAS2D::State* SplashState::update()
 	
 	if (r.isFading()) { return this; }
 
-	if (CURRENT_STATE == LOGO_OUTPOSTHD)
+	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
 	{
 		if (mTimer.accumulator() > 11000)
 		{

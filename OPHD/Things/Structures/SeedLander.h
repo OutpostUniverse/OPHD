@@ -10,7 +10,7 @@ public:
 
 public:
 	SeedLander() = delete;
-	SeedLander(int x, int y):	Structure(constants::SEED_LANDER, "structures/seed_0.sprite", CLASS_LANDER),
+	SeedLander(int x, int y):	Structure(constants::SEED_LANDER, "structures/seed_0.sprite", StructureClass::CLASS_LANDER),
 								mX(x), mY(y)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);

@@ -25,7 +25,7 @@ extern Difficulty CURRENT_DIFFICULTY;
 /**
  * Digger robot digging direction.
  */
-enum Direction
+enum class Direction
 {
 	DIR_UP,
 	DIR_DOWN,
@@ -39,7 +39,7 @@ enum Direction
 /**
  * Terrain type enumeration
  */
-enum TerrainType
+enum class TerrainType
 {
 	TERRAIN_DOZED,
 	TERRAIN_CLEAR,
@@ -52,7 +52,7 @@ enum TerrainType
 /**
  * 
  */
-enum MineProductionRate
+enum class MineProductionRate
 {
 	PRODUCTION_RATE_LOW,
 	PRODUCTION_RATE_MEDIUM,
@@ -63,7 +63,7 @@ enum MineProductionRate
 /**
  * 
  */
-enum DisabledReason
+enum class DisabledReason
 {
 	DISABLED_NONE,						/**< Not Disabled, default reason. */
 
@@ -79,7 +79,7 @@ enum DisabledReason
 /**
  * 
  */
-enum IdleReason
+enum class IdleReason
 {
 	IDLE_NONE,
 
@@ -100,7 +100,7 @@ enum IdleReason
  * \note	CONNECTOR_INTERSECTION is explicitely set to '1' to prevent
  *			breaking changes with save files.
  */
-enum ConnectorDir
+enum class ConnectorDir
 {
 	CONNECTOR_INTERSECTION = 1,
 	CONNECTOR_RIGHT,
@@ -118,7 +118,7 @@ enum ConnectorDir
  * 
  * \remark	
  */
-enum StructureID
+enum class StructureID
 {
 	SID_NONE,
 
@@ -165,7 +165,7 @@ enum StructureID
 /**
  * Robot type enumeration
  */
-enum RobotType
+enum class RobotType
 {
 	ROBOT_NONE,
 	ROBOT_DIGGER,
@@ -190,7 +190,7 @@ enum RobotType
  * \remark	ASSUMPTION: Factories will never have more than 32 individual
  *			products that they can produce.
  */
-enum ProductType
+enum class ProductType
 {
 	PRODUCT_NONE = -1,
 

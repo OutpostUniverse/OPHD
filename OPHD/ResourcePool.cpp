@@ -70,18 +70,18 @@ ResourcePool& ResourcePool::operator+=(const ResourcePool& rhs)
 		return *this;
 	}
 
-	_resourceTable[RESOURCE_COMMON_METALS_ORE] += rhs.commonMetalsOre();
-	_resourceTable[RESOURCE_COMMON_MINERALS_ORE] += rhs.commonMineralsOre();
-	_resourceTable[RESOURCE_RARE_METALS_ORE] += rhs.rareMetalsOre();
-	_resourceTable[RESOURCE_RARE_MINERALS_ORE] += rhs.rareMineralsOre();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_METALS_ORE)] += rhs.commonMetalsOre();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_MINERALS_ORE)] += rhs.commonMineralsOre();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_METALS_ORE)] += rhs.rareMetalsOre();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_MINERALS_ORE)] += rhs.rareMineralsOre();
 
-	_resourceTable[RESOURCE_COMMON_METALS] += rhs.commonMetals();
-	_resourceTable[RESOURCE_COMMON_MINERALS] += rhs.commonMinerals();
-	_resourceTable[RESOURCE_RARE_METALS] += rhs.rareMetals();
-	_resourceTable[RESOURCE_RARE_MINERALS] += rhs.rareMinerals();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_METALS)] += rhs.commonMetals();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_MINERALS)] += rhs.commonMinerals();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_METALS)] += rhs.rareMetals();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_MINERALS)] += rhs.rareMinerals();
 
-	_resourceTable[RESOURCE_FOOD] += rhs.food();
-	_resourceTable[RESOURCE_ENERGY] += rhs.energy();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_FOOD)] += rhs.food();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_ENERGY)] += rhs.energy();
 
 	_observerCallback();
 	return *this;
@@ -90,18 +90,18 @@ ResourcePool& ResourcePool::operator+=(const ResourcePool& rhs)
 
 ResourcePool& ResourcePool::operator-=(const ResourcePool& rhs)
 {
-	_resourceTable[RESOURCE_COMMON_METALS_ORE] -= rhs.commonMetalsOre();
-	_resourceTable[RESOURCE_COMMON_MINERALS_ORE] -= rhs.commonMineralsOre();
-	_resourceTable[RESOURCE_RARE_METALS_ORE] -= rhs.rareMetalsOre();
-	_resourceTable[RESOURCE_RARE_MINERALS_ORE] -= rhs.rareMineralsOre();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_METALS_ORE)] -= rhs.commonMetalsOre();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_MINERALS_ORE)] -= rhs.commonMineralsOre();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_METALS_ORE)] -= rhs.rareMetalsOre();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_MINERALS_ORE)] -= rhs.rareMineralsOre();
 
-	_resourceTable[RESOURCE_COMMON_METALS] -= rhs.commonMetals();
-	_resourceTable[RESOURCE_COMMON_MINERALS] -= rhs.commonMinerals();
-	_resourceTable[RESOURCE_RARE_METALS] -= rhs.rareMetals();
-	_resourceTable[RESOURCE_RARE_MINERALS] -= rhs.rareMinerals();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_METALS)] -= rhs.commonMetals();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_MINERALS)] -= rhs.commonMinerals();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_METALS)] -= rhs.rareMetals();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_MINERALS)] -= rhs.rareMinerals();
 
-	_resourceTable[RESOURCE_FOOD] -= rhs.food();
-	_resourceTable[RESOURCE_ENERGY] -= rhs.energy();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_FOOD)] -= rhs.food();
+	_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_ENERGY)] -= rhs.energy();
 
 	_observerCallback();
 	return *this;
@@ -110,42 +110,42 @@ ResourcePool& ResourcePool::operator-=(const ResourcePool& rhs)
 
 int ResourcePool::resource(ResourceType type) const
 {
-	return _resourceTable[type];
+	return _resourceTable[static_cast<std::size_t>(type)];
 }
 
 
 void ResourcePool::resource(ResourceType type, int amount)
 {
-	_resourceTable[type] = amount;
+	_resourceTable[static_cast<std::size_t>(type)] = amount;
 	_observerCallback();
 }
 
 
-int ResourcePool::commonMetalsOre() const { return resource(RESOURCE_COMMON_METALS_ORE); }
-int ResourcePool::commonMineralsOre() const { return resource(RESOURCE_COMMON_MINERALS_ORE); }
-int ResourcePool::rareMetalsOre() const { return resource(RESOURCE_RARE_METALS_ORE); }
-int ResourcePool::rareMineralsOre() const { return resource(RESOURCE_RARE_MINERALS_ORE); }
+int ResourcePool::commonMetalsOre() const { return resource(ResourceType::RESOURCE_COMMON_METALS_ORE); }
+int ResourcePool::commonMineralsOre() const { return resource(ResourceType::RESOURCE_COMMON_MINERALS_ORE); }
+int ResourcePool::rareMetalsOre() const { return resource(ResourceType::RESOURCE_RARE_METALS_ORE); }
+int ResourcePool::rareMineralsOre() const { return resource(ResourceType::RESOURCE_RARE_MINERALS_ORE); }
 
-int ResourcePool::commonMetals() const { return resource(RESOURCE_COMMON_METALS); }
-int ResourcePool::commonMinerals() const { return resource(RESOURCE_COMMON_MINERALS); }
-int ResourcePool::rareMetals() const { return resource(RESOURCE_RARE_METALS); }
-int ResourcePool::rareMinerals() const { return resource(RESOURCE_RARE_MINERALS); }
+int ResourcePool::commonMetals() const { return resource(ResourceType::RESOURCE_COMMON_METALS); }
+int ResourcePool::commonMinerals() const { return resource(ResourceType::RESOURCE_COMMON_MINERALS); }
+int ResourcePool::rareMetals() const { return resource(ResourceType::RESOURCE_RARE_METALS); }
+int ResourcePool::rareMinerals() const { return resource(ResourceType::RESOURCE_RARE_MINERALS); }
 
-int ResourcePool::energy() const { return resource(RESOURCE_ENERGY); }
-int ResourcePool::food() const { return resource(RESOURCE_FOOD); }
+int ResourcePool::energy() const { return resource(ResourceType::RESOURCE_ENERGY); }
+int ResourcePool::food() const { return resource(ResourceType::RESOURCE_FOOD); }
 
-void ResourcePool::commonMetalsOre(int amount) { resource(RESOURCE_COMMON_METALS_ORE, amount); }
-void ResourcePool::commonMineralsOre(int amount) { resource(RESOURCE_COMMON_MINERALS_ORE, amount); }
-void ResourcePool::rareMetalsOre(int amount) { resource(RESOURCE_RARE_METALS_ORE, amount); }
-void ResourcePool::rareMineralsOre(int amount) { resource(RESOURCE_RARE_MINERALS_ORE, amount); }
+void ResourcePool::commonMetalsOre(int amount) { resource(ResourceType::RESOURCE_COMMON_METALS_ORE, amount); }
+void ResourcePool::commonMineralsOre(int amount) { resource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, amount); }
+void ResourcePool::rareMetalsOre(int amount) { resource(ResourceType::RESOURCE_RARE_METALS_ORE, amount); }
+void ResourcePool::rareMineralsOre(int amount) { resource(ResourceType::RESOURCE_RARE_MINERALS_ORE, amount); }
 
-void ResourcePool::commonMetals(int amount) { resource(RESOURCE_COMMON_METALS, amount); }
-void ResourcePool::commonMinerals(int amount) { resource(RESOURCE_COMMON_MINERALS, amount); }
-void ResourcePool::rareMetals(int amount) { resource(RESOURCE_RARE_METALS, amount); }
-void ResourcePool::rareMinerals(int amount) { resource(RESOURCE_RARE_MINERALS, amount); }
+void ResourcePool::commonMetals(int amount) { resource(ResourceType::RESOURCE_COMMON_METALS, amount); }
+void ResourcePool::commonMinerals(int amount) { resource(ResourceType::RESOURCE_COMMON_MINERALS, amount); }
+void ResourcePool::rareMetals(int amount) { resource(ResourceType::RESOURCE_RARE_METALS, amount); }
+void ResourcePool::rareMinerals(int amount) { resource(ResourceType::RESOURCE_RARE_MINERALS, amount); }
 
-void ResourcePool::energy(int amount) { resource(RESOURCE_ENERGY, amount); }
-void ResourcePool::food(int amount) { resource(RESOURCE_FOOD, amount); }
+void ResourcePool::energy(int amount) { resource(ResourceType::RESOURCE_ENERGY, amount); }
+void ResourcePool::food(int amount) { resource(ResourceType::RESOURCE_FOOD, amount); }
 
 
 /**
@@ -154,11 +154,11 @@ void ResourcePool::food(int amount) { resource(RESOURCE_FOOD, amount); }
 int ResourcePool::currentLevel() const
 {
 	int cc = 0;
-	for (size_t i = 0; i < RESOURCE_COUNT; ++i)
+	for (std::size_t i = 0; i < static_cast<std::size_t>(ResourceType::RESOURCE_COUNT); ++i)
 	{
 		ResourceType _rt = static_cast<ResourceType>(i);
-		if (_rt != RESOURCE_ENERGY && _rt != RESOURCE_FOOD)
-			cc += _resourceTable[_rt];
+		if (_rt != ResourceType::RESOURCE_ENERGY && _rt != ResourceType::RESOURCE_FOOD)
+			cc += _resourceTable[static_cast<std::size_t>(_rt)];
 	}
 
 	return cc;
@@ -197,7 +197,7 @@ int ResourcePool::pushResource(ResourceType type, int amount, bool forced)
 {
 	if(forced)
 	{
-		_resourceTable[type] += amount;
+		_resourceTable[static_cast<std::size_t>(type)] += amount;
 		_observerCallback();
 		return 0;
 	}
@@ -214,13 +214,13 @@ int ResourcePool::pushResource(ResourceType type, int amount, bool forced)
 	}
 	else if (remainingCapacity() >= amount)
 	{
-		_resourceTable[type] += amount;
+		_resourceTable[static_cast<std::size_t>(type)] += amount;
 		_observerCallback();
 		return 0;
 	}
 	else
 	{
-		_resourceTable[type] += remainingCapacity();
+		_resourceTable[static_cast<std::size_t>(type)] += remainingCapacity();
 		_observerCallback();
 		return amount - remainingCapacity();
 	}
@@ -240,16 +240,16 @@ int ResourcePool::pullResource(ResourceType type, int amount)
 	}
 
 
-	if (amount <= _resourceTable[type])
+	if (amount <= _resourceTable[static_cast<std::size_t>(type)])
 	{
-		_resourceTable[type] -= amount;
+		_resourceTable[static_cast<std::size_t>(type)] -= amount;
 		_observerCallback();
 		return amount;
 	}
-	else if (amount > _resourceTable[type])
+	else if (amount > _resourceTable[static_cast<std::size_t>(type)])
 	{
-		int ret = _resourceTable[type];
-		_resourceTable[type] = 0;
+		int ret = _resourceTable[static_cast<std::size_t>(type)];
+		_resourceTable[static_cast<std::size_t>(type)] = 0;
 		_observerCallback();
 		return ret;
 	}
@@ -273,18 +273,18 @@ void ResourcePool::pushResources(ResourcePool& rp)
 		return;
 	}
 
-	rp.commonMetalsOre(pushResource(RESOURCE_COMMON_METALS_ORE, rp.commonMetalsOre()));
-	rp.commonMineralsOre(pushResource(RESOURCE_COMMON_MINERALS_ORE, rp.commonMineralsOre()));
-	rp.rareMetalsOre(pushResource(RESOURCE_RARE_METALS_ORE, rp.rareMetalsOre()));
-	rp.rareMineralsOre(pushResource(RESOURCE_RARE_MINERALS_ORE, rp.rareMineralsOre()));
+	rp.commonMetalsOre(pushResource(ResourceType::RESOURCE_COMMON_METALS_ORE, rp.commonMetalsOre()));
+	rp.commonMineralsOre(pushResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, rp.commonMineralsOre()));
+	rp.rareMetalsOre(pushResource(ResourceType::RESOURCE_RARE_METALS_ORE, rp.rareMetalsOre()));
+	rp.rareMineralsOre(pushResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, rp.rareMineralsOre()));
 
-	rp.commonMetals(pushResource(RESOURCE_COMMON_METALS, rp.commonMetals()));
-	rp.commonMinerals(pushResource(RESOURCE_COMMON_MINERALS, rp.commonMinerals()));
-	rp.rareMetals(pushResource(RESOURCE_RARE_METALS, rp.rareMetals()));
-	rp.rareMinerals(pushResource(RESOURCE_RARE_MINERALS, rp.rareMinerals()));
+	rp.commonMetals(pushResource(ResourceType::RESOURCE_COMMON_METALS, rp.commonMetals()));
+	rp.commonMinerals(pushResource(ResourceType::RESOURCE_COMMON_MINERALS, rp.commonMinerals()));
+	rp.rareMetals(pushResource(ResourceType::RESOURCE_RARE_METALS, rp.rareMetals()));
+	rp.rareMinerals(pushResource(ResourceType::RESOURCE_RARE_MINERALS, rp.rareMinerals()));
 
-	rp.food(pushResource(RESOURCE_FOOD, rp.food()));
-	rp.energy(pushResource(RESOURCE_ENERGY, rp.energy()));
+	rp.food(pushResource(ResourceType::RESOURCE_FOOD, rp.food()));
+	rp.energy(pushResource(ResourceType::RESOURCE_ENERGY, rp.energy()));
 }
 
 /**
@@ -301,23 +301,23 @@ void ResourcePool::pullResources(ResourcePool& _rp)
 	}
 
 	// Energy is not part of the capacity check and needs to be transfered first.
-	_rp.energy(_rp.energy() + pullResource(RESOURCE_ENERGY, energy()));
+	_rp.energy(_rp.energy() + pullResource(ResourceType::RESOURCE_ENERGY, energy()));
 
 	// sanity checks
 	if (_rp.atCapacity() || empty())
 		return;
 
-	_rp.pushResource(RESOURCE_COMMON_METALS_ORE, pullResource(RESOURCE_COMMON_METALS_ORE, commonMetalsOre()));
-	_rp.pushResource(RESOURCE_COMMON_MINERALS_ORE, pullResource(RESOURCE_COMMON_MINERALS_ORE, commonMineralsOre()));
-	_rp.pushResource(RESOURCE_RARE_METALS_ORE, pullResource(RESOURCE_RARE_METALS_ORE, rareMetalsOre()));
-	_rp.pushResource(RESOURCE_RARE_MINERALS_ORE, pullResource(RESOURCE_RARE_MINERALS_ORE, rareMineralsOre()));
+	_rp.pushResource(ResourceType::RESOURCE_COMMON_METALS_ORE, pullResource(ResourceType::RESOURCE_COMMON_METALS_ORE, commonMetalsOre()));
+	_rp.pushResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, pullResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, commonMineralsOre()));
+	_rp.pushResource(ResourceType::RESOURCE_RARE_METALS_ORE, pullResource(ResourceType::RESOURCE_RARE_METALS_ORE, rareMetalsOre()));
+	_rp.pushResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, pullResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, rareMineralsOre()));
 
-	_rp.pushResource(RESOURCE_COMMON_METALS, pullResource(RESOURCE_COMMON_METALS, commonMetals()));
-	_rp.pushResource(RESOURCE_COMMON_MINERALS, pullResource(RESOURCE_COMMON_MINERALS, commonMinerals()));
-	_rp.pushResource(RESOURCE_RARE_METALS, pullResource(RESOURCE_RARE_METALS, rareMetals()));
-	_rp.pushResource(RESOURCE_RARE_MINERALS, pullResource(RESOURCE_RARE_MINERALS, rareMinerals()));
+	_rp.pushResource(ResourceType::RESOURCE_COMMON_METALS, pullResource(ResourceType::RESOURCE_COMMON_METALS, commonMetals()));
+	_rp.pushResource(ResourceType::RESOURCE_COMMON_MINERALS, pullResource(ResourceType::RESOURCE_COMMON_MINERALS, commonMinerals()));
+	_rp.pushResource(ResourceType::RESOURCE_RARE_METALS, pullResource(ResourceType::RESOURCE_RARE_METALS, rareMetals()));
+	_rp.pushResource(ResourceType::RESOURCE_RARE_MINERALS, pullResource(ResourceType::RESOURCE_RARE_MINERALS, rareMinerals()));
 
-	_rp.pushResource(RESOURCE_FOOD, pullResource(RESOURCE_FOOD, food()));
+	_rp.pushResource(ResourceType::RESOURCE_FOOD, pullResource(ResourceType::RESOURCE_FOOD, food()));
 }
 
 /**
@@ -358,18 +358,18 @@ void ResourcePool::deserialize(NAS2D::Xml::XmlElement* element)
 	XmlAttribute* attribute = element->firstAttribute();
 	while (attribute)
 	{
-		if (attribute->name() == constants::SAVE_GAME_COMMON_METAL_ORE) { attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_METALS_ORE]); }
-		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL_ORE){ attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_MINERALS_ORE]); }
-		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL_ORE) { attribute->queryIntValue(_resourceTable[RESOURCE_RARE_METALS_ORE]); }
-		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL_ORE) { attribute->queryIntValue(_resourceTable[RESOURCE_RARE_MINERALS_ORE]); }
+		if (attribute->name() == constants::SAVE_GAME_COMMON_METAL_ORE) { attribute->queryIntValue(_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_METALS_ORE)]); }
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL_ORE){ attribute->queryIntValue(_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_MINERALS_ORE)]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL_ORE) { attribute->queryIntValue(_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_METALS_ORE)]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL_ORE) { attribute->queryIntValue(_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_MINERALS_ORE)]); }
 
-		else if (attribute->name() == constants::SAVE_GAME_COMMON_METAL) { attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_METALS]); }
-		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL) { attribute->queryIntValue(_resourceTable[RESOURCE_COMMON_MINERALS]); }
-		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL) { attribute->queryIntValue(_resourceTable[RESOURCE_RARE_METALS]); }
-		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL) { attribute->queryIntValue(_resourceTable[RESOURCE_RARE_MINERALS]); }
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_METAL) { attribute->queryIntValue(_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_METALS)]); }
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL) { attribute->queryIntValue(_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_COMMON_MINERALS)]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL) { attribute->queryIntValue(_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_METALS)]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL) { attribute->queryIntValue(_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_RARE_MINERALS)]); }
 
-		else if (attribute->name() == constants::SAVE_GAME_ENERGY) { attribute->queryIntValue(_resourceTable[RESOURCE_ENERGY]); }
-		else if (attribute->name() == constants::SAVE_GAME_FOOD) { attribute->queryIntValue(_resourceTable[RESOURCE_FOOD]); }
+		else if (attribute->name() == constants::SAVE_GAME_ENERGY) { attribute->queryIntValue(_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_ENERGY)]); }
+		else if (attribute->name() == constants::SAVE_GAME_FOOD) { attribute->queryIntValue(_resourceTable[static_cast<std::size_t>(ResourceType::RESOURCE_FOOD)]); }
 
 		attribute = attribute->next();
 	}

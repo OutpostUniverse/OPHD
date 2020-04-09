@@ -12,7 +12,7 @@ public:
 	/**
 	 * State of an individual Structure.
 	 */
-	enum StructureState
+	enum class StructureState
 	{
 		UNDER_CONSTRUCTION,
 		OPERATIONAL,
@@ -31,7 +31,7 @@ public:
 	 * \note	Some structure classes will only have one structure
 	 *			that uses it. This is intended behavior.
 	 */
-	enum StructureClass
+	enum class StructureClass
 	{
 		CLASS_COMMAND,
 		CLASS_COMM,
@@ -66,21 +66,21 @@ public:
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }
 
-	bool disabled() const { return mStructureState == DISABLED; }
+	bool disabled() const { return mStructureState == StructureState::DISABLED; }
 	void disable(DisabledReason);
 	DisabledReason disabledReason() const { return mDisabledReason; }
 
-	bool operational() const { return mStructureState == OPERATIONAL; }
+	bool operational() const { return mStructureState == StructureState::OPERATIONAL; }
 	void enable();
 
-	bool isIdle() const { return mStructureState == IDLE; }
+	bool isIdle() const { return mStructureState == StructureState::IDLE; }
 	void idle(IdleReason);
 	IdleReason idleReason() const { return mIdleReason; }
 
-	bool destroyed() const { return mStructureState == DESTROYED; }
+	bool destroyed() const { return mStructureState == StructureState::DESTROYED; }
 	void destroy();
 
-	bool underConstruction() const { return mStructureState == UNDER_CONSTRUCTION; }
+	bool underConstruction() const { return mStructureState == StructureState::UNDER_CONSTRUCTION; }
 
 	void forceIdle(bool force);
 	bool forceIdle() const { return mForcedIdle; }
@@ -108,17 +108,17 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
-	bool providesCHAP() const { return structureClass() == CLASS_LIFE_SUPPORT; }
+	bool providesCHAP() const { return structureClass() == StructureClass::CLASS_LIFE_SUPPORT; }
 	bool selfSustained() const { return mSelfSustained; }
 	bool repairable() const { return mRepairable; }
 
 	// CONVENIENCE FUCNTIONS
-	bool isFactory() const { return structureClass() == CLASS_FACTORY; }
-	bool isWarehouse() const { return structureClass() == CLASS_WAREHOUSE; }
-	bool isRobotCommand() const { return structureClass() == CLASS_ROBOT_COMMAND; }
-	bool isMineFacility() const { return structureClass() == CLASS_MINE; }
-	bool energyProducer() const { return structureClass() == CLASS_ENERGY_PRODUCTION; }
-	bool isConnector() const { return structureClass() == CLASS_TUBE; }	/** Indicates that the structure can act as a connector (tube) */
+	bool isFactory() const { return structureClass() == StructureClass::CLASS_FACTORY; }
+	bool isWarehouse() const { return structureClass() == StructureClass::CLASS_WAREHOUSE; }
+	bool isRobotCommand() const { return structureClass() == StructureClass::CLASS_ROBOT_COMMAND; }
+	bool isMineFacility() const { return structureClass() == StructureClass::CLASS_MINE; }
+	bool energyProducer() const { return structureClass() == StructureClass::CLASS_ENERGY_PRODUCTION; }
+	bool isConnector() const { return structureClass() == StructureClass::CLASS_TUBE; }	/** Indicates that the structure can act as a connector (tube) */
 
 	/**
 	 * Set the current age of the Structure.
@@ -173,9 +173,9 @@ private:
 	int						mAge = 0;					/**< Age of the Structure in turns. */
 	int						mMaxAge = 0;				/**< Maximum number of turns the Structure can remain in good repair. */
 
-	StructureState			mStructureState = UNDER_CONSTRUCTION;			/**< State the structure is in. */
+	StructureState			mStructureState = StructureState::UNDER_CONSTRUCTION;			/**< State the structure is in. */
 	StructureClass			mStructureClass;								/**< Indicates the Structure's Type. */
-	ConnectorDir			mConnectorDirection = CONNECTOR_INTERSECTION;	/**< Directions available for connections. */
+	ConnectorDir			mConnectorDirection = ConnectorDir::CONNECTOR_INTERSECTION;	/**< Directions available for connections. */
 
 	PopulationRequirements	mPopulationRequirements;	/**< Population requirements for structure operation. */
 	PopulationRequirements	mPopulationAvailable;		/**< Determine how many of each type of population required was actually supplied to the structure. */
@@ -186,8 +186,8 @@ private:
 	ResourcePool			mProductionPool;			/**< Resource pool used for production. */
 	ResourcePool			mStoragePool;				/**< Resource storage pool. */
 
-	DisabledReason			mDisabledReason = DISABLED_NONE;
-	IdleReason				mIdleReason = IDLE_NONE;
+	DisabledReason			mDisabledReason = DisabledReason::DISABLED_NONE;
+	IdleReason				mIdleReason = IdleReason::IDLE_NONE;
 
 	bool					mRepairable = true;			/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
 	bool					mRequiresCHAP = true;		/**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */

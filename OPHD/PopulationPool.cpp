@@ -44,7 +44,7 @@ int PopulationPool::populationAvailable(Population::PersonRole role)
 	BasicCheck(role);
 
 	int employed = 0;
-	employed = role == Population::ROLE_SCIENTIST ? scientistsEmployed() : workersEmployed();
+	employed = role == Population::PersonRole::ROLE_SCIENTIST ? scientistsEmployed() : workersEmployed();
 
 	return mPopulation->size(role) - employed;
 }
@@ -72,11 +72,11 @@ bool PopulationPool::enoughPopulationAvailable(Population::PersonRole role, int 
 bool PopulationPool::usePopulation(Population::PersonRole role, int amount)
 {
 	BasicCheck(role);
-	int scientistsAvailable = mPopulation->size(Population::ROLE_SCIENTIST) - (mScientistsAsWorkers + mScientistsUsed);
-	int workersAvailable = mPopulation->size(Population::ROLE_WORKER) - mWorkersUsed;
+	int scientistsAvailable = mPopulation->size(Population::PersonRole::ROLE_SCIENTIST) - (mScientistsAsWorkers + mScientistsUsed);
+	int workersAvailable = mPopulation->size(Population::PersonRole::ROLE_WORKER) - mWorkersUsed;
 
 
-	if (role == Population::ROLE_SCIENTIST)
+	if (role == Population::PersonRole::ROLE_SCIENTIST)
 	{
 		if (amount <= scientistsAvailable)
 		{
@@ -84,7 +84,7 @@ bool PopulationPool::usePopulation(Population::PersonRole role, int amount)
 			return true;
 		}
 	}
-	else if (role == Population::ROLE_WORKER)
+	else if (role == Population::PersonRole::ROLE_WORKER)
 	{
 		if (amount <= workersAvailable + scientistsAvailable)
 		{
@@ -169,14 +169,14 @@ int PopulationPool::populationEmployed()
  */
 void BasicCheck(Population::PersonRole _role)
 {
-	if (_role == Population::ROLE_CHILD || _role == Population::ROLE_STUDENT || _role == Population::ROLE_RETIRED)
+	if (_role == Population::PersonRole::ROLE_CHILD || _role == Population::PersonRole::ROLE_STUDENT || _role == Population::PersonRole::ROLE_RETIRED)
 	{
 		std::string _popRole;
 		switch (_role)
 		{
-		case Population::ROLE_CHILD: _popRole = "Population::ROLE_CHILD"; break;
-		case Population::ROLE_STUDENT: _popRole = "Population::ROLE_STUDENT"; break;
-		case Population::ROLE_RETIRED: _popRole = "Population::ROLE_RETIRED"; break;
+		case Population::PersonRole::ROLE_CHILD: _popRole = "Population::ROLE_CHILD"; break;
+		case Population::PersonRole::ROLE_STUDENT: _popRole = "Population::ROLE_STUDENT"; break;
+		case Population::PersonRole::ROLE_RETIRED: _popRole = "Population::ROLE_RETIRED"; break;
 		default: break;
 		}
 

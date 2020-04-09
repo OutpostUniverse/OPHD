@@ -8,7 +8,7 @@
 class Population
 {
 public:
-	enum PersonRole
+	enum class PersonRole
 	{
 		ROLE_CHILD,
 		ROLE_STUDENT,

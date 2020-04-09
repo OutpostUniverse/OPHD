@@ -13,17 +13,17 @@ using namespace NAS2D::Xml;
  */
 std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
 {
-	{ PRODUCT_DIGGER, 10 },
-	{ PRODUCT_DOZER, 10 },
-	{ PRODUCT_MINER, 10 },
-	{ PRODUCT_EXPLORER, 10 },
-	{ PRODUCT_TRUCK, 10 },
+	{ ProductType::PRODUCT_DIGGER, 10 },
+	{ ProductType::PRODUCT_DOZER, 10 },
+	{ ProductType::PRODUCT_MINER, 10 },
+	{ ProductType::PRODUCT_EXPLORER, 10 },
+	{ ProductType::PRODUCT_TRUCK, 10 },
 
-	{ PRODUCT_ROAD_MATERIALS, 1 },
-	{ PRODUCT_MAINTENANCE_PARTS, 1 },
+	{ ProductType::PRODUCT_ROAD_MATERIALS, 1 },
+	{ ProductType::PRODUCT_MAINTENANCE_PARTS, 1 },
 
-	{ PRODUCT_CLOTHING, 1 },
-	{ PRODUCT_MEDICINE, 1 }
+	{ ProductType::PRODUCT_CLOTHING, 1 },
+	{ ProductType::PRODUCT_MEDICINE, 1 }
 };
 
 
@@ -52,7 +52,7 @@ static int computeCurrentStorage(const ProductPool::ProductTypeCount& products)
 {
 	int stored = 0;
 
-	for (size_t i = 0; i < static_cast<size_t>(PRODUCT_COUNT); ++i)
+	for (size_t i = 0; i < static_cast<size_t>(ProductType::PRODUCT_COUNT); ++i)
 	{
 		stored +=storageRequired(static_cast<ProductType>(i), products[i]);
 	}
@@ -144,7 +144,7 @@ int ProductPool::pull(ProductType type, int c)
  */
 int ProductPool::count(ProductType type)
 {
-	return mProducts[static_cast<int>(type)];
+	return mProducts[static_cast<std::size_t>(type)];
 }
 
 
@@ -159,15 +159,15 @@ void ProductPool::verifyCount()
  */
 void ProductPool::serialize(NAS2D::Xml::XmlElement* element)
 {
-	element->attribute(constants::SAVE_GAME_PRODUCT_DIGGER,				count(PRODUCT_DIGGER));
-	element->attribute(constants::SAVE_GAME_PRODUCT_DOZER,				count(PRODUCT_DOZER));
-	element->attribute(constants::SAVE_GAME_PRODUCT_MINER,				count(PRODUCT_MINER));
-	element->attribute(constants::SAVE_GAME_PRODUCT_EXPLORER,			count(PRODUCT_EXPLORER));
-	element->attribute(constants::SAVE_GAME_PRODUCT_TRUCK,				count(PRODUCT_TRUCK));
-	element->attribute(constants::SAVE_GAME_PRODUCT_ROAD_MATERIALS,		count(PRODUCT_ROAD_MATERIALS));
-	element->attribute(constants::SAVE_GAME_MAINTENANCE_PARTS,			count(PRODUCT_MAINTENANCE_PARTS));
-	element->attribute(constants::SAVE_GAME_PRODUCT_CLOTHING,			count(PRODUCT_CLOTHING));
-	element->attribute(constants::SAVE_GAME_PRODUCT_MEDICINE,			count(PRODUCT_MEDICINE));
+	element->attribute(constants::SAVE_GAME_PRODUCT_DIGGER,				count(ProductType::PRODUCT_DIGGER));
+	element->attribute(constants::SAVE_GAME_PRODUCT_DOZER,				count(ProductType::PRODUCT_DOZER));
+	element->attribute(constants::SAVE_GAME_PRODUCT_MINER,				count(ProductType::PRODUCT_MINER));
+	element->attribute(constants::SAVE_GAME_PRODUCT_EXPLORER,			count(ProductType::PRODUCT_EXPLORER));
+	element->attribute(constants::SAVE_GAME_PRODUCT_TRUCK,				count(ProductType::PRODUCT_TRUCK));
+	element->attribute(constants::SAVE_GAME_PRODUCT_ROAD_MATERIALS,		count(ProductType::PRODUCT_ROAD_MATERIALS));
+	element->attribute(constants::SAVE_GAME_MAINTENANCE_PARTS,			count(ProductType::PRODUCT_MAINTENANCE_PARTS));
+	element->attribute(constants::SAVE_GAME_PRODUCT_CLOTHING,			count(ProductType::PRODUCT_CLOTHING));
+	element->attribute(constants::SAVE_GAME_PRODUCT_MEDICINE,			count(ProductType::PRODUCT_MEDICINE));
 }
 
 
@@ -182,15 +182,15 @@ void ProductPool::deserialize(NAS2D::Xml::XmlElement* element)
 	XmlAttribute* attribute = element->firstAttribute();
 	while (attribute)
 	{
-		if (attribute->name() == constants::SAVE_GAME_PRODUCT_DIGGER)				{ attribute->queryIntValue(mProducts[PRODUCT_DIGGER]); }
-		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_DOZER)			{ attribute->queryIntValue(mProducts[PRODUCT_DOZER]); }
-		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_MINER)			{ attribute->queryIntValue(mProducts[PRODUCT_MINER]); }
-		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_EXPLORER)		{ attribute->queryIntValue(mProducts[PRODUCT_EXPLORER]); }
-		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_TRUCK)			{ attribute->queryIntValue(mProducts[PRODUCT_TRUCK]); }
-		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_ROAD_MATERIALS)	{ attribute->queryIntValue(mProducts[PRODUCT_ROAD_MATERIALS]); }
-		else if (attribute->name() == constants::SAVE_GAME_MAINTENANCE_PARTS)		{ attribute->queryIntValue(mProducts[PRODUCT_MAINTENANCE_PARTS]); }
-		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_CLOTHING)		{ attribute->queryIntValue(mProducts[PRODUCT_CLOTHING]); }
-		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_MEDICINE)		{ attribute->queryIntValue(mProducts[PRODUCT_MEDICINE]); }
+		if (attribute->name() == constants::SAVE_GAME_PRODUCT_DIGGER)				{ attribute->queryIntValue(mProducts[static_cast<std::size_t>(ProductType::PRODUCT_DIGGER)]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_DOZER)			{ attribute->queryIntValue(mProducts[static_cast<std::size_t>(ProductType::PRODUCT_DOZER)]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_MINER)			{ attribute->queryIntValue(mProducts[static_cast<std::size_t>(ProductType::PRODUCT_MINER)]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_EXPLORER)		{ attribute->queryIntValue(mProducts[static_cast<std::size_t>(ProductType::PRODUCT_EXPLORER)]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_TRUCK)			{ attribute->queryIntValue(mProducts[static_cast<std::size_t>(ProductType::PRODUCT_TRUCK)]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_ROAD_MATERIALS)	{ attribute->queryIntValue(mProducts[static_cast<std::size_t>(ProductType::PRODUCT_ROAD_MATERIALS)]); }
+		else if (attribute->name() == constants::SAVE_GAME_MAINTENANCE_PARTS)		{ attribute->queryIntValue(mProducts[static_cast<std::size_t>(ProductType::PRODUCT_MAINTENANCE_PARTS)]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_CLOTHING)		{ attribute->queryIntValue(mProducts[static_cast<std::size_t>(ProductType::PRODUCT_CLOTHING)]); }
+		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_MEDICINE)		{ attribute->queryIntValue(mProducts[static_cast<std::size_t>(ProductType::PRODUCT_MEDICINE)]); }
 
 		attribute = attribute->next();
 	}

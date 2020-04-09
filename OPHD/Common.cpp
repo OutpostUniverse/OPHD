@@ -49,21 +49,21 @@ Difficulty DifficultyFromString(std::string difficultyStr)
 
 std::map<Structure::StructureState, Color> STRUCTURE_COLOR_TABLE
 {
-	{ Structure::UNDER_CONSTRUCTION,	Color{150, 150, 150, 100} },
-	{ Structure::OPERATIONAL,			Color{0, 185, 0} },
-	{ Structure::IDLE,					Color{0, 185, 0, 100} },
-	{ Structure::DISABLED,				Color{220, 0, 0} },
-	{ Structure::DESTROYED,				Color{220, 0, 0} }
+	{ Structure::StructureState::UNDER_CONSTRUCTION,	Color{150, 150, 150, 100} },
+	{ Structure::StructureState::OPERATIONAL,			Color{0, 185, 0} },
+	{ Structure::StructureState::IDLE,					Color{0, 185, 0, 100} },
+	{ Structure::StructureState::DISABLED,				Color{220, 0, 0} },
+	{ Structure::StructureState::DESTROYED,				Color{220, 0, 0} }
 };
 
 
 std::map<Structure::StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
 {
-	{ Structure::UNDER_CONSTRUCTION,	Color{185, 185, 185, 100} },
-	{ Structure::OPERATIONAL,			Color{0, 185, 0} },
-	{ Structure::IDLE,					Color{0, 185, 0, 100} },
-	{ Structure::DISABLED,				Color{220, 0, 0} },
-	{ Structure::DESTROYED,				Color{220, 0, 0} }
+	{ Structure::StructureState::UNDER_CONSTRUCTION,	Color{185, 185, 185, 100} },
+	{ Structure::StructureState::OPERATIONAL,			Color{0, 185, 0} },
+	{ Structure::StructureState::IDLE,					Color{0, 185, 0, 100} },
+	{ Structure::StructureState::DISABLED,				Color{220, 0, 0} },
+	{ Structure::StructureState::DESTROYED,				Color{220, 0, 0} }
 };
 
 
@@ -79,45 +79,45 @@ std::map<int, std::string> TILE_INDEX_TRANSLATION =
 
 std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 {
-	{ PRODUCTION_RATE_HIGH , constants::MINE_YIELD_HIGH },
-	{ PRODUCTION_RATE_LOW , constants::MINE_YIELD_LOW },
-	{ PRODUCTION_RATE_MEDIUM , constants::MINE_YIELD_MEDIUM }
+	{ MineProductionRate::PRODUCTION_RATE_HIGH , constants::MINE_YIELD_HIGH },
+	{ MineProductionRate::PRODUCTION_RATE_LOW , constants::MINE_YIELD_LOW },
+	{ MineProductionRate::PRODUCTION_RATE_MEDIUM , constants::MINE_YIELD_MEDIUM }
 };
 
 
 std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
 {
-	{ DISABLED_NONE,					constants::STRUCTURE_DISABLED_NONE },
+	{ DisabledReason::DISABLED_NONE,					constants::STRUCTURE_DISABLED_NONE },
 
-	{ DISABLED_CHAP,					constants::STRUCTURE_DISABLED_CHAP },
-	{ DISABLED_DISCONNECTED,			constants::STRUCTURE_DISABLED_DISCONNECTED },
-	{ DISABLED_ENERGY,					constants::STRUCTURE_DISABLED_ENERGY },
-	{ DISABLED_POPULATION,				constants::STRUCTURE_DISABLED_POPULATION },
-	{ DISABLED_REFINED_RESOURCES,		constants::STRUCTURE_DISABLED_REFINED_RESOURCES },
-	{ DISABLED_STRUCTURAL_INTEGRITY,	constants::STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY }
+	{ DisabledReason::DISABLED_CHAP,					constants::STRUCTURE_DISABLED_CHAP },
+	{ DisabledReason::DISABLED_DISCONNECTED,			constants::STRUCTURE_DISABLED_DISCONNECTED },
+	{ DisabledReason::DISABLED_ENERGY,					constants::STRUCTURE_DISABLED_ENERGY },
+	{ DisabledReason::DISABLED_POPULATION,				constants::STRUCTURE_DISABLED_POPULATION },
+	{ DisabledReason::DISABLED_REFINED_RESOURCES,		constants::STRUCTURE_DISABLED_REFINED_RESOURCES },
+	{ DisabledReason::DISABLED_STRUCTURAL_INTEGRITY,	constants::STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY }
 };
 
 
 std::map<IdleReason, std::string> IDLE_REASON_TABLE =
 {
-	{ IDLE_NONE,										constants::STRUCTURE_IDLE_NONE },
+	{ IdleReason::IDLE_NONE,										constants::STRUCTURE_IDLE_NONE },
 
-	{ IDLE_PLAYER_SET,									constants::STRUCTURE_IDLE_PLAYER_SET },
-	{ IDLE_INTERNAL_STORAGE_FULL,						constants::STRUCTURE_IDLE_INTERNAL_STORAGE_FULL },
-	{ IDLE_FACTORY_PRODUCTION_COMPLETE,					constants::STRUCTURE_IDLE_FACTORY_PRODUCTION_COMPLETE },
-	{ IDLE_FACTORY_INSUFFICIENT_RESOURCES,				constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_RESOURCES },
-	{ IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY,	constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY },
-	{ IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE,		constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE },
-	{ IDLE_MINE_EXHAUSTED,								constants::STRUCTURE_IDLE_MINE_EXHAUSTED },
-	{ IDLE_MINE_INACTIVE,								constants::STRUCTURE_IDLE_MINE_INACTIVE },
-	{ IDLE_INSUFFICIENT_LUXURY_PRODUCT,					constants::STRUCTURE_IDLE_INSUFFICIENT_LUXURY_PRODUCT }
+	{ IdleReason::IDLE_PLAYER_SET,									constants::STRUCTURE_IDLE_PLAYER_SET },
+	{ IdleReason::IDLE_INTERNAL_STORAGE_FULL,						constants::STRUCTURE_IDLE_INTERNAL_STORAGE_FULL },
+	{ IdleReason::IDLE_FACTORY_PRODUCTION_COMPLETE,					constants::STRUCTURE_IDLE_FACTORY_PRODUCTION_COMPLETE },
+	{ IdleReason::IDLE_FACTORY_INSUFFICIENT_RESOURCES,				constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_RESOURCES },
+	{ IdleReason::IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY,	constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY },
+	{ IdleReason::IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE,		constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE },
+	{ IdleReason::IDLE_MINE_EXHAUSTED,								constants::STRUCTURE_IDLE_MINE_EXHAUSTED },
+	{ IdleReason::IDLE_MINE_INACTIVE,								constants::STRUCTURE_IDLE_MINE_INACTIVE },
+	{ IdleReason::IDLE_INSUFFICIENT_LUXURY_PRODUCT,					constants::STRUCTURE_IDLE_INSUFFICIENT_LUXURY_PRODUCT }
 };
 
 
 /**
  * Description table for products.
  */
-std::array<std::string, PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
+std::array<std::string, static_cast<std::size_t>(ProductType::PRODUCT_COUNT)> PRODUCT_DESCRIPTION_TABLE =
 {
 	constants::ROBODIGGER,
 	constants::ROBODOZER,
@@ -231,7 +231,7 @@ HWND WIN32_getWindowHandle()
 
 const std::string& productDescription(ProductType type)
 {
-	if (type == PRODUCT_NONE) { return constants::NONE; }
+	if (type == ProductType::PRODUCT_NONE) { return constants::NONE; }
 
 	return PRODUCT_DESCRIPTION_TABLE[static_cast<size_t>(type)];
 }
@@ -248,7 +248,7 @@ ProductType productTypeFromDescription(const std::string& description)
 		}
 	}
 
-	return PRODUCT_NONE;
+	return ProductType::PRODUCT_NONE;
 }
 
 

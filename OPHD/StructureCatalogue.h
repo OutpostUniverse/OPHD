@@ -47,7 +47,7 @@ private:
 
 private:
 	//static vector<ResourcePool> mStructureCostTable;
-	static std::array<ResourcePool, SID_COUNT> mStructureCostTable;
-	static std::array<ResourcePool, SID_COUNT> mStructureRecycleValueTable;
-	static std::array<PopulationRequirements, SID_COUNT> mPopulationRequirementsTable;
+	static std::array<ResourcePool, static_cast<std::size_t>(StructureID::SID_COUNT)> mStructureCostTable;
+	static std::array<ResourcePool, static_cast<std::size_t>(StructureID::SID_COUNT)> mStructureRecycleValueTable;
+	static std::array<PopulationRequirements, static_cast<std::size_t>(StructureID::SID_COUNT)> mPopulationRequirementsTable;
 };

@@ -43,7 +43,7 @@ namespace constants
 	const float COMM_TOWER_BASE_RANGE = 10.0f;
 	const float LANDER_COM_RANGE = 5.0f;
 
-	enum PlanetHostility
+	enum class PlanetHostility
 	{
 		HOSTILITY_NONE,
 

@@ -11,11 +11,11 @@
  */
 std::map<Structure::StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
 {
-	{ Structure::UNDER_CONSTRUCTION,	"Under Construction" },
-	{ Structure::OPERATIONAL,			"Operational" },
-	{ Structure::IDLE,					"Idle" },
-	{ Structure::DISABLED,				"Disabled" },
-	{ Structure::DESTROYED,				"Destroyed" },
+	{ Structure::StructureState::UNDER_CONSTRUCTION,	"Under Construction" },
+	{ Structure::StructureState::OPERATIONAL,			"Operational" },
+	{ Structure::StructureState::IDLE,					"Idle" },
+	{ Structure::StructureState::DISABLED,				"Disabled" },
+	{ Structure::StructureState::DESTROYED,				"Destroyed" },
 };
 
 
@@ -24,27 +24,27 @@ std::map<Structure::StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
  */
 std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
 {
-	{ Structure::CLASS_COMMAND,				"Command" },
-	{ Structure::CLASS_COMM,				"Communication" },
-	{ Structure::CLASS_COMMERCIAL,			"Commercial" },
-	{ Structure::CLASS_ENERGY_PRODUCTION,	"Energy Production" },
-	{ Structure::CLASS_FACTORY,				"Factory" },
-	{ Structure::CLASS_FOOD_PRODUCTION,		"Food Production" },
-	{ Structure::CLASS_LABORATORY,			"Laboratory" },
-	{ Structure::CLASS_LANDER,				"Lander" },
-	{ Structure::CLASS_LIFE_SUPPORT,		"Life Support" },
-	{ Structure::CLASS_MINE,				"Mine Facility" },
-	{ Structure::CLASS_PARK,				"Park / Reservoir" },
-	{ Structure::CLASS_SURFACE_POLICE,		"Police" },
-	{ Structure::CLASS_UNDERGROUND_POLICE,	"Police" },
-	{ Structure::CLASS_RECREATION_CENTER,	"Recreation Center" },
-	{ Structure::CLASS_RECYCLING,			"Recycling" },
-	{ Structure::CLASS_RESIDENCE,			"Residential" },
-	{ Structure::CLASS_SMELTER,				"Raw Ore Processing" },
-	{ Structure::CLASS_STORAGE,				"Storage" },
-	{ Structure::CLASS_TUBE,				"Tube" },
-	{ Structure::CLASS_UNDEFINED,			"UNDEFINED" },
-	{ Structure::CLASS_UNIVERSITY,			"University" }
+	{ Structure::StructureClass::CLASS_COMMAND,				"Command" },
+	{ Structure::StructureClass::CLASS_COMM,				"Communication" },
+	{ Structure::StructureClass::CLASS_COMMERCIAL,			"Commercial" },
+	{ Structure::StructureClass::CLASS_ENERGY_PRODUCTION,	"Energy Production" },
+	{ Structure::StructureClass::CLASS_FACTORY,				"Factory" },
+	{ Structure::StructureClass::CLASS_FOOD_PRODUCTION,		"Food Production" },
+	{ Structure::StructureClass::CLASS_LABORATORY,			"Laboratory" },
+	{ Structure::StructureClass::CLASS_LANDER,				"Lander" },
+	{ Structure::StructureClass::CLASS_LIFE_SUPPORT,		"Life Support" },
+	{ Structure::StructureClass::CLASS_MINE,				"Mine Facility" },
+	{ Structure::StructureClass::CLASS_PARK,				"Park / Reservoir" },
+	{ Structure::StructureClass::CLASS_SURFACE_POLICE,		"Police" },
+	{ Structure::StructureClass::CLASS_UNDERGROUND_POLICE,	"Police" },
+	{ Structure::StructureClass::CLASS_RECREATION_CENTER,	"Recreation Center" },
+	{ Structure::StructureClass::CLASS_RECYCLING,			"Recycling" },
+	{ Structure::StructureClass::CLASS_RESIDENCE,			"Residential" },
+	{ Structure::StructureClass::CLASS_SMELTER,				"Raw Ore Processing" },
+	{ Structure::StructureClass::CLASS_STORAGE,				"Storage" },
+	{ Structure::StructureClass::CLASS_TUBE,				"Tube" },
+	{ Structure::StructureClass::CLASS_UNDEFINED,			"UNDEFINED" },
+	{ Structure::StructureClass::CLASS_UNIVERSITY,			"University" }
 };
 
 
@@ -79,9 +79,9 @@ void Structure::disable(DisabledReason reason)
 {
 	sprite().pause();
 	sprite().color(NAS2D::Color{255, 0, 0, 185});
-	state(DISABLED);
+	state(StructureState::DISABLED);
 	mDisabledReason = reason;
-	mIdleReason = IDLE_NONE;
+	mIdleReason = IdleReason::IDLE_NONE;
 	disabledStateSet();
 }
 
@@ -93,15 +93,15 @@ void Structure::enable()
 {
 	if (forceIdle())
 	{
-		idle(IDLE_PLAYER_SET);
+		idle(IdleReason::IDLE_PLAYER_SET);
 		return;
 	}
 
 	sprite().resume();
 	sprite().color(NAS2D::Color::White);
-	state(OPERATIONAL);
-	mDisabledReason = DISABLED_NONE;
-	mIdleReason = IDLE_NONE;
+	state(StructureState::OPERATIONAL);
+	mDisabledReason = DisabledReason::DISABLED_NONE;
+	mIdleReason = IdleReason::IDLE_NONE;
 }
 
 
@@ -117,9 +117,9 @@ void Structure::idle(IdleReason reason)
 
 	sprite().pause();
 	sprite().color(NAS2D::Color{255, 255, 255, 185});
-	mDisabledReason = DISABLED_NONE;
+	mDisabledReason = DisabledReason::DISABLED_NONE;
 	mIdleReason = reason;
-	state(IDLE);
+	state(StructureState::IDLE);
 }
 
 
@@ -135,7 +135,7 @@ void Structure::forceIdle(bool force)
 	// in terms of the logic involved here.
 	if (force)
 	{
-		idle(IDLE_PLAYER_SET);
+		idle(IdleReason::IDLE_PLAYER_SET);
 		mForcedIdle = true;
 	}
 	else
@@ -204,7 +204,7 @@ void Structure::incrementAge()
 void Structure::destroy()
 {
 	sprite().play(constants::STRUCTURE_STATE_DESTROYED);
-	state(DESTROYED);
+	state(StructureState::DESTROYED);
 
 	// Destroyed buildings just need to be rebuilt right?
 	repairable(false);
@@ -225,11 +225,11 @@ void Structure::forced_state_change(StructureState _s, DisabledReason _dr, IdleR
 		//enable();
 	}
 
-	if (_s == OPERATIONAL)				{ enable(); }
-	else if (_s == IDLE)				{ idle(_ir); }
-	else if (_s == DISABLED)			{ disable(_dr); }
-	else if (_s == DESTROYED)			{ destroy(); }
-	else if (_s == UNDER_CONSTRUCTION)	{ mStructureState = UNDER_CONSTRUCTION; } // Kludge
+	if (_s == StructureState::OPERATIONAL)				{ enable(); }
+	else if (_s == StructureState::IDLE)				{ idle(_ir); }
+	else if (_s == StructureState::DISABLED)			{ disable(_dr); }
+	else if (_s == StructureState::DESTROYED)			{ destroy(); }
+	else if (_s == StructureState::UNDER_CONSTRUCTION)	{ mStructureState = StructureState::UNDER_CONSTRUCTION; } // Kludge
 }
 
 

@@ -6,7 +6,7 @@
 class SeedSmelter : public Structure
 {
 public:
-	SeedSmelter() : Structure(constants::SEED_SMELTER, "structures/seed_1.sprite", CLASS_SMELTER)
+	SeedSmelter() : Structure(constants::SEED_SMELTER, "structures/seed_1.sprite", StructureClass::CLASS_SMELTER)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(150);
@@ -53,7 +53,7 @@ protected:
 		oreStorage().resource(oreType, oreStorage().resource(oreType) - constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING);
 		if (storage().pushResource(refinedType, refinedAmount) != 0)
 		{
-			idle(IDLE_INTERNAL_STORAGE_FULL);
+			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 		}
 	}
 
@@ -63,22 +63,22 @@ protected:
 
 		if (oreStorage().commonMetalsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::RESOURCE_COMMON_METALS_ORE, ResourcePool::RESOURCE_COMMON_METALS, resource_units / 2);
+			convertOre(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, ResourcePool::ResourceType::RESOURCE_COMMON_METALS, resource_units / 2);
 		}
 
 		if (oreStorage().commonMineralsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, ResourcePool::RESOURCE_COMMON_MINERALS, resource_units / 2);
+			convertOre(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, resource_units / 2);
 		}
 
 		if (oreStorage().rareMetalsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::RESOURCE_RARE_METALS_ORE, ResourcePool::RESOURCE_RARE_METALS, resource_units / 3);
+			convertOre(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, ResourcePool::ResourceType::RESOURCE_RARE_METALS, resource_units / 3);
 		}
 
 		if (oreStorage().rareMineralsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::RESOURCE_RARE_MINERALS_ORE, ResourcePool::RESOURCE_RARE_MINERALS, resource_units / 3);
+			convertOre(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, resource_units / 3);
 		}
 	}
 

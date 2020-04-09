@@ -10,7 +10,7 @@ public:
 	/**
 	 * 
 	 */
-	enum DiggerSelection
+	enum class DiggerSelection
 	{
 		SEL_DOWN,
 		SEL_NORTH,

@@ -17,17 +17,17 @@ typedef std::map<ProductType, ProductionCost> ProductionTypeTable;
  */
 ProductionTypeTable PRODUCTION_TYPE_TABLE = 
 {
-	{ PRODUCT_DIGGER, ProductionCost(5, 10, 5, 5, 2) },
-	{ PRODUCT_DOZER, ProductionCost(5, 10, 5, 5, 2) },
-	{ PRODUCT_EXPLORER, ProductionCost(5, 10, 5, 5, 2) },
-	{ PRODUCT_MINER, ProductionCost(5, 10, 5, 5, 2) },
-	{ PRODUCT_ROAD_MATERIALS, ProductionCost(2, 2, 5, 0, 0) },
-	{ PRODUCT_TRUCK, ProductionCost(5, 10, 5, 5, 2) },
+	{ ProductType::PRODUCT_DIGGER, ProductionCost(5, 10, 5, 5, 2) },
+	{ ProductType::PRODUCT_DOZER, ProductionCost(5, 10, 5, 5, 2) },
+	{ ProductType::PRODUCT_EXPLORER, ProductionCost(5, 10, 5, 5, 2) },
+	{ ProductType::PRODUCT_MINER, ProductionCost(5, 10, 5, 5, 2) },
+	{ ProductType::PRODUCT_ROAD_MATERIALS, ProductionCost(2, 2, 5, 0, 0) },
+	{ ProductType::PRODUCT_TRUCK, ProductionCost(5, 10, 5, 5, 2) },
 
-	{ PRODUCT_MAINTENANCE_PARTS, ProductionCost(2, 2, 2, 1, 1) },
+	{ ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost(2, 2, 2, 1, 1) },
 
-	{ PRODUCT_CLOTHING, ProductionCost(1, 0, 1, 0, 0) },
-	{ PRODUCT_MEDICINE, ProductionCost(1, 0, 2, 0, 1) },
+	{ ProductType::PRODUCT_CLOTHING, ProductionCost(1, 0, 1, 0, 0) },
+	{ ProductType::PRODUCT_MEDICINE, ProductionCost(1, 0, 2, 0, 1) },
 };
 
 
@@ -41,7 +41,7 @@ const ProductionCost& productCost(ProductType _pt)
 
 
 
-Factory::Factory(const std::string& name, const std::string& spritePath) :	Structure(name, spritePath, CLASS_FACTORY)
+Factory::Factory(const std::string& name, const std::string& spritePath) :	Structure(name, spritePath, StructureClass::CLASS_FACTORY)
 {}
 
 
@@ -49,7 +49,7 @@ void Factory::productType(ProductType type)
 {
 	if (type == mProduct) { return; }
 
-	if (type == PRODUCT_NONE)
+	if (type == ProductType::PRODUCT_NONE)
 	{
 		clearProduction();
 		return;
@@ -77,7 +77,7 @@ void Factory::productType(ProductType type)
  */
 ProductType Factory::pullProduct()
 {
-	if (mProductWaiting == PRODUCT_NONE)
+	if (mProductWaiting == ProductType::PRODUCT_NONE)
 	{
 		/**
 		 * Exception here is overkill but this indicates a logic error
@@ -87,7 +87,7 @@ ProductType Factory::pullProduct()
 	}
 
 	ProductType returnProduct = mProductWaiting;
-	mProductWaiting = PRODUCT_NONE;
+	mProductWaiting = ProductType::PRODUCT_NONE;
 	return returnProduct;
 }
 
@@ -108,21 +108,21 @@ void Factory::updateProduction()
 		return;
 	}
 
-	if (mProduct == PRODUCT_NONE)
+	if (mProduct == ProductType::PRODUCT_NONE)
 	{
 		return;
 	}
 
-	if (mProductWaiting != PRODUCT_NONE)
+	if (mProductWaiting != ProductType::PRODUCT_NONE)
 	{
 		mProductionComplete(*this);
-		idle(IDLE_FACTORY_PRODUCTION_COMPLETE);
+		idle(IdleReason::IDLE_FACTORY_PRODUCTION_COMPLETE);
 		return;
 	}
 
 	if (!enoughResourcesAvailable())
 	{
-		idle(IDLE_FACTORY_INSUFFICIENT_RESOURCES);
+		idle(IdleReason::IDLE_FACTORY_INSUFFICIENT_RESOURCES);
 		return;
 	}
 	
@@ -182,5 +182,5 @@ void Factory::clearProduction()
 {
 	mTurnsCompleted = 0;
 	mTurnsToComplete = 0;
-	mProduct = PRODUCT_NONE;
+	mProduct = ProductType::PRODUCT_NONE;
 }

@@ -79,7 +79,7 @@ void MainMenuState::initialize()
 	btnQuit.size(200, 30);
 	btnQuit.click().connect(this, &MainMenuState::btnQuitClicked);
 
-	mFileIoDialog.setMode(FileIo::FILE_LOAD);
+	mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
 	mFileIoDialog.fileOperation().connect(this, &MainMenuState::fileIoAction);
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
@@ -168,7 +168,7 @@ void MainMenuState::enableButtons()
  */
 void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
-	if (fileOp != FileIo::FILE_LOAD) { return; }
+	if (fileOp != FileIo::FileOperation::FILE_LOAD) { return; }
 	if (filePath.empty()) { return; }
 
 	std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
