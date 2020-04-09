@@ -176,7 +176,7 @@ namespace micropather
 		std::size_t numAdjacent = 0;		// -1  is unknown & needs to be queried
 		std::size_t cacheIndex = 0;			// position in cache
 
-		PathNode* child[2];			// Binary search in the hash table. [left, right]
+		PathNode* child[2] = {nullptr};			// Binary search in the hash table. [left, right]
 		PathNode* next = nullptr, * prev = nullptr;	// used by open queue
 
 		bool inOpen;

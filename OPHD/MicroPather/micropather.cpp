@@ -73,7 +73,7 @@ private:
 	void operator=(const OpenQueue&) = delete;
 
 	PathNode* sentinel;
-	int sentinelMem[(sizeof(PathNode) + sizeof(int)) / sizeof(int)];
+	int sentinelMem[(sizeof(PathNode) + sizeof(int)) / sizeof(int)] = {0};
 	Graph* graph;	// for debugging
 };
 
