@@ -16,28 +16,23 @@ Image* STRUCTURE_ICONS = nullptr;
 static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
-static Color*	STRUCTURE_COLOR;
-static Color*	STRUCTURE_TEXT_COLOR;
-
 
 static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, float x, float y, float w, float offset, bool highlight)
 {
 	Factory* f = item.factory;
 
-	STRUCTURE_COLOR = &structureColorFromIndex(f->state());
-	STRUCTURE_TEXT_COLOR = &structureTextColorFromIndex(f->state());
+	const auto& structureColor = structureColorFromIndex(f->state());
+	const auto& structureTextColor = structureTextColorFromIndex(f->state());
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), 75); }
+	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red(), structureColor.green(), structureColor.blue(), 75); }
 
-	r.drawBox(x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4, STRUCTURE_COLOR->red(), STRUCTURE_COLOR->green(), STRUCTURE_COLOR->blue(), STRUCTURE_COLOR->alpha());
-	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, static_cast<float>(item.icon_slice.x()), static_cast<float>(item.icon_slice.y()), 46.0f, 46.0f, 255, 255, 255, STRUCTURE_COLOR->alpha());
+	r.drawBox({x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
+	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, static_cast<float>(item.icon_slice.x()), static_cast<float>(item.icon_slice.y()), 46.0f, 46.0f, 255, 255, 255, structureColor.alpha());
 
-	r.drawText(*MAIN_FONT_BOLD, f->name(), x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset,
-				STRUCTURE_TEXT_COLOR->red(), STRUCTURE_TEXT_COLOR->green(), STRUCTURE_TEXT_COLOR->blue(), STRUCTURE_TEXT_COLOR->alpha());
+	r.drawText(*MAIN_FONT_BOLD, f->name(), {x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 
-	r.drawText(*MAIN_FONT, productDescription(f->productType()), x + w - 112, ((y + 19) - MAIN_FONT_BOLD->height() / 2) - offset,
-				STRUCTURE_TEXT_COLOR->red(), STRUCTURE_TEXT_COLOR->green(), STRUCTURE_TEXT_COLOR->blue(), STRUCTURE_TEXT_COLOR->alpha());
+	r.drawText(*MAIN_FONT, productDescription(f->productType()), {x + w - 112, ((y + 19) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 	
 	// PROGRESS BAR
 	float percentage = (f->productType() == PRODUCT_NONE) ? 0.0f : (f->productionTurnsCompleted() / f->productionTurnsToComplete());
