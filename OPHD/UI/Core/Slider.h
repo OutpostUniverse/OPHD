@@ -79,7 +79,7 @@ private:
 
 	ValueChangedCallback	mCallback;					/*!< Callback executed when the value is changed. */
 
-	SliderType				mSliderType;				/*!< Type of the Slider. */
+	SliderType				mSliderType{SliderType::SLIDER_VERTICAL};				/*!< Type of the Slider. */
 	
 	// mouse event related vars
 	NAS2D::Point<int>			mMousePosition;				/**< Mouse coordinates. */
