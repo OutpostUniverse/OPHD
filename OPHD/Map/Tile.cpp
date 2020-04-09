@@ -6,7 +6,7 @@
 #include "Tile.h"
 
 
-Tile::Tile(Tile&& other) :
+Tile::Tile(Tile&& other) noexcept :
 	mIndex{other.mIndex},
 	mX{other.mX},
 	mY{other.mY},
@@ -22,7 +22,7 @@ Tile::Tile(Tile&& other) :
 }
 
 
-Tile& Tile::operator=(Tile&& other)
+Tile& Tile::operator=(Tile&& other) noexcept
 {
 	mIndex = other.mIndex;
 	mX = other.mX;

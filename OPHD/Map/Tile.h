@@ -18,8 +18,8 @@ public:
 	Tile() = default;
 	Tile(const Tile& other) = delete;
 	Tile& operator=(const Tile& other) = delete;
-	Tile(Tile&& other);
-	Tile& operator=(Tile&& other);
+	Tile(Tile&& other) noexcept;
+	Tile& operator=(Tile&& other) noexcept;
 	~Tile();
 
 	int index() const { return mIndex; }
