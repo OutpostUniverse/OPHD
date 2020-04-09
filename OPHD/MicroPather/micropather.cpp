@@ -294,15 +294,20 @@ void PathNodePool::Clear()
 
 PathNodePool::Block* PathNodePool::NewBlock()
 {
-	Block* block = reinterpret_cast<Block*>(calloc(1, sizeof(Block) + sizeof(PathNode) * (allocate - 1)));
-	block->nextBlock = nullptr;
-
-	nAvailable += allocate;
-	for (std::size_t i = 0; i < allocate; ++i)
+	// assign-then-check result is non-nullptr
+	if(Block* block = reinterpret_cast<Block*>(calloc(1, sizeof(Block) + sizeof(PathNode) * (allocate - 1))))
 	{
-		freeMemSentinel.AddBefore(&block->pathNode[i]);
+		block->nextBlock = nullptr;
+
+		nAvailable += allocate;
+		for(std::size_t i = 0; i < allocate; ++i)
+		{
+			freeMemSentinel.AddBefore(&block->pathNode[i]);
+		}
 	}
-	return block;
+	// calloc returns nullptr on error so
+	// returning nullptr if calloc fails is safe.
+	return nullptr;
 }
 
 
