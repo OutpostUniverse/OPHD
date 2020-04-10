@@ -268,11 +268,11 @@ void TileMap::buildMouseMap()
 		for(size_t col = 0; col < TILE_WIDTH; col++)
 		{
 			const Color c = mousemap.pixelColor(static_cast<int>(col), static_cast<int>(row));
-			if (c == NAS2D::Color::Yellow) { mMouseMap[row][col] = MMR_BOTTOM_RIGHT; }
-			else if (c == NAS2D::Color::Red) { mMouseMap[row][col] = MMR_TOP_LEFT; }
-			else if (c == NAS2D::Color::Blue) { mMouseMap[row][col] = MMR_TOP_RIGHT; }
-			else if (c == NAS2D::Color::Green) { mMouseMap[row][col] = MMR_BOTTOM_LEFT; }
-			else { mMouseMap[row][col] = MMR_MIDDLE; }
+			if (c == NAS2D::Color::Yellow) { mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_RIGHT; }
+			else if (c == NAS2D::Color::Red) { mMouseMap[row][col] = MouseMapRegion::MMR_TOP_LEFT; }
+			else if (c == NAS2D::Color::Blue) { mMouseMap[row][col] = MouseMapRegion::MMR_TOP_RIGHT; }
+			else if (c == NAS2D::Color::Green) { mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_LEFT; }
+			else { mMouseMap[row][col] = MouseMapRegion::MMR_MIDDLE; }
 		}
 	}
 }
@@ -393,19 +393,19 @@ void TileMap::updateTileHighlight()
 
 	switch (mmr)
 	{
-	case MMR_TOP_RIGHT:
+	case MouseMapRegion::MMR_TOP_RIGHT:
 		mMapHighlight.y(--mMapHighlight.y());
 		break;
 
-	case MMR_TOP_LEFT:
+	case MouseMapRegion::MMR_TOP_LEFT:
 		mMapHighlight.x(--mMapHighlight.x());
 		break;
 
-	case MMR_BOTTOM_RIGHT:
+	case MouseMapRegion::MMR_BOTTOM_RIGHT:
 		mMapHighlight.x(++mMapHighlight.x());
 		break;
 
-	case MMR_BOTTOM_LEFT:
+	case MouseMapRegion::MMR_BOTTOM_LEFT:
 		mMapHighlight.y(++mMapHighlight.y());
 		break;
 
