@@ -217,7 +217,7 @@ private:
 
 	RobotTileTable		mRobotList;						/**< List of active robots and their positions on the map. */
 
-	InsertMode			mInsertMode = INSERT_NONE;		/**< What's being inserted into the TileMap if anything. */
+	InsertMode			mInsertMode = InsertMode::INSERT_NONE;		/**< What's being inserted into the TileMap if anything. */
 	StructureID			mCurrentStructure = StructureID::SID_NONE;	/**< Structure being placed. */
 	RobotType			mCurrentRobot = RobotType::ROBOT_NONE;		/**< Robot being placed. */
 
