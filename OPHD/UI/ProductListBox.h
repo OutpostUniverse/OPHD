@@ -16,7 +16,7 @@ public:
 		ProductListBoxItem() = default;
 
 	public:
-		size_t count = 0;				/**< Count of the product. */
+		std::size_t count = 0;				/**< Count of the product. */
 		float usage = 0.0f;				/**< Usage of available capacity. */
 	};
 

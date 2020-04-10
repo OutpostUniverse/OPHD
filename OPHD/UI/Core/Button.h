@@ -30,7 +30,7 @@ public:
 	void toggle(bool toggle);
 	bool toggled() const;
 
-	void fontSize(size_t);
+	void fontSize(std::size_t);
 
 	void image(const std::string& path);
 	bool hasImage() const;

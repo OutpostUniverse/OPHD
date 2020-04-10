@@ -53,7 +53,7 @@ private:
 	NAS2D::Image	mSheet;
 	NAS2D::Timer	mTimer;
 
-	size_t			mFrame = 0;
+	std::size_t			mFrame = 0;
 };
 
 
@@ -161,7 +161,7 @@ State* PlanetSelectState::update()
 
 	drawStar(-40, -55);
 
-	for (size_t i = 0; i < mPlanets.size(); ++i)
+	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
 		mPlanets[i]->update();
 	}
@@ -237,7 +237,7 @@ State* PlanetSelectState::update()
 
 void PlanetSelectState::onMouseDown(EventHandler::MouseButton /*button*/, int /*x*/, int /*y*/)
 {
-	for (size_t i = 0; i < mPlanets.size(); ++i)
+	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
 		if (mPlanets[i]->mouseHovering())
 		{
@@ -261,7 +261,7 @@ void PlanetSelectState::onMousePlanetEnter()
 {
 	Utility<Mixer>::get().playSound(mHover);
 
-	for (size_t i = 0; i < mPlanets.size(); ++i)
+	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
 		// FIXME: Ugly, will be difficult to maintain in the future.
 		if (mPlanets[i]->mouseHovering())

@@ -55,7 +55,7 @@ public:
 	void removeItem(ListBoxItem*);
 	void clearItems();
 
-	size_t count() const;
+	std::size_t count() const;
 	bool empty() const;
 
 	unsigned int currentHighlight() const;

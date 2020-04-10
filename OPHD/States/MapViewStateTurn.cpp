@@ -58,7 +58,7 @@ void MapViewState::updatePopulation()
 		remainder -= pullFood(mPlayerResources, remainder);
 	}
 
-	for (size_t i = 0; i < foodproducers.size(); ++i)
+	for (std::size_t i = 0; i < foodproducers.size(); ++i)
 	{
 		if (remainder <= 0) { break; }
 
@@ -115,7 +115,7 @@ void MapViewState::updateCommercial()
 	}
 
 	auto _comm_r_it = _commercial.rbegin();
-	for (size_t i = 0; i < static_cast<size_t>(luxuryCount) && _comm_r_it != _commercial.rend(); ++i, ++_comm_r_it)
+	for (std::size_t i = 0; i < static_cast<std::size_t>(luxuryCount) && _comm_r_it != _commercial.rend(); ++i, ++_comm_r_it)
 	{
 		if ((*_comm_r_it)->operational())
 		{

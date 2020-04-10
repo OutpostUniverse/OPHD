@@ -431,10 +431,10 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 				const RobotList& rl = mRobotPool.robots();
 
-				for (size_t i = 0; i < rl_str.size(); ++i)
+				for (std::size_t i = 0; i < rl_str.size(); ++i)
 				{
 					int _rid = std::stoi(rl_str[i]);
-					for (size_t ri = 0; ri < rl.size(); ++ri)
+					for (std::size_t ri = 0; ri < rl.size(); ++ri)
 					{
 						if (rl[ri]->id() == _rid)
 						{

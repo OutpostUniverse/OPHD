@@ -35,7 +35,7 @@ bool selfSustained(StructureID id);
 
 int totalStorage(StructureList& sl);
 
-Warehouse* getAvailableWarehouse(ProductType type, size_t count);
+Warehouse* getAvailableWarehouse(ProductType type, std::size_t count);
 RobotCommand* getAvailableRobotCommand();
 
 bool simulateMoveProducts(Warehouse*);

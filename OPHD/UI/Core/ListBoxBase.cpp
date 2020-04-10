@@ -72,7 +72,7 @@ void ListBoxBase::_update_item_display()
 {
 	mItemWidth = static_cast<unsigned int>(width());
 
-	if ((mItemHeight * mItems.size()) > static_cast<size_t>(height()))
+	if ((mItemHeight * mItems.size()) > static_cast<std::size_t>(height()))
 	{
 		mLineCount = static_cast<int>(height() / mItemHeight);
 
@@ -125,7 +125,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	// A few basic checks
 	if (!rect().contains(mMousePosition) || mCurrentHighlight == constants::NO_SELECTION) { return; }
 	if (mSlider.visible() && mSlider.rect().contains(Point{x, y})) { return; }
-	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size()) { return; }
+	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size()) { return; }
 
 	setSelection(mCurrentHighlight);
 }
@@ -156,7 +156,7 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 
 	mCurrentHighlight = (y - static_cast<int>(positionY()) + mCurrentOffset) / mItemHeight;
 
-	if (static_cast<size_t>(mCurrentHighlight) >= mItems.size())
+	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 	}
@@ -238,7 +238,7 @@ void ListBoxBase::clearItems()
 /**
  * Number of items in the ListBoxBase.
  */
-size_t ListBoxBase::count() const
+std::size_t ListBoxBase::count() const
 {
 	return mItems.size();
 }

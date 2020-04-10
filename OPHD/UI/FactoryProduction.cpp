@@ -196,7 +196,7 @@ void FactoryProduction::factory(Factory* newFactory)
 		throw std::runtime_error("FactoryProduction::factory(): Factory provided with an empty production type list.");
 	}
 
-	for (size_t i = 0; i < ptlist.size(); ++i)
+	for (std::size_t i = 0; i < ptlist.size(); ++i)
 	{
 		mProductGrid.addItem(productDescription(ptlist[i]), ptlist[i], ptlist[i]);
 	}

@@ -325,7 +325,7 @@ const std::string& idleReason(IdleReason);
  */
 void drawBasicProgressBar(float x, float y, float width, float height, float percent, float padding = 4.0f);
 
-NAS2D::Color& structureColorFromIndex(size_t);
-NAS2D::Color& structureTextColorFromIndex(size_t);
+NAS2D::Color& structureColorFromIndex(std::size_t);
+NAS2D::Color& structureTextColorFromIndex(std::size_t);
 
 bool windowMaximized();

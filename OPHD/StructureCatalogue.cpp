@@ -285,7 +285,7 @@ void StructureCatalogue::buildCostTable()
  */
 void StructureCatalogue::buildRecycleValueTable()
 {
-	for (size_t i = 0; i < StructureID::SID_COUNT; ++i)
+	for (std::size_t i = 0; i < StructureID::SID_COUNT; ++i)
 	{
 		mStructureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), DEFAULT_RECYCLE_VALUE);
 	}

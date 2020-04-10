@@ -104,7 +104,7 @@ void Population::addPopulation(PersonRole role, uint32_t count)
 int Population::size()
 {
 	uint32_t count = 0;
-	for (size_t i = 0; i < mPopulation.size(); ++i)
+	for (std::size_t i = 0; i < mPopulation.size(); ++i)
 	{
 		count += mPopulation[i];
 	}

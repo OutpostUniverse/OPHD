@@ -73,7 +73,7 @@ void ProductListBox::productPool(ProductPool& pool)
 {
 	clearItems();
 
-	for (size_t product_type = 0; product_type < static_cast<size_t>(ProductType::PRODUCT_COUNT); ++product_type)
+	for (std::size_t product_type = 0; product_type < static_cast<std::size_t>(ProductType::PRODUCT_COUNT); ++product_type)
 	{
 		if (pool.count(static_cast<ProductType>(product_type)) > 0)
 		{
@@ -105,7 +105,7 @@ void ProductListBox::update()
 	FIRST_STOP = static_cast<int>(item_width() * 0.33f);
 	SECOND_STOP = static_cast<int>(item_width() * 0.66f);
 
-	for (size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
 		drawItem(r, *static_cast<ProductListBoxItem*>(mItems[i]),
 			positionX(),

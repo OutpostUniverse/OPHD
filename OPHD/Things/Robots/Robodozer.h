@@ -12,11 +12,11 @@ public:
 		sprite().play("running");
 	}
 
-	void tileIndex(size_t index) { mTileIndex = index; }
-	size_t tileIndex() const { return mTileIndex; }
+	void tileIndex(std::size_t index) { mTileIndex = index; }
+	std::size_t tileIndex() const { return mTileIndex; }
 
 	void update() override { updateTask(); }
 
 private:
-	size_t mTileIndex = 0;
+	std::size_t mTileIndex = 0;
 };

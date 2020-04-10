@@ -19,7 +19,7 @@ void transferProductsStructure(T& source, T& destination)
 	auto& src = source->products().mProducts;
 	auto& dest = destination->products();
 
-	for (size_t i = 0; i < ProductType::PRODUCT_COUNT; ++i)
+	for (std::size_t i = 0; i < ProductType::PRODUCT_COUNT; ++i)
 	{
 		if (dest.availableStorage() == 0) { return; }
 

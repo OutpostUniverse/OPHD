@@ -114,7 +114,7 @@ void StructureListBox::currentSelection(Structure* structure)
 {
 	if (mItems.empty() || structure == nullptr) { return; }
 
-	for (size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
 		StructureListBoxItem* item = static_cast<StructureListBoxItem*>(mItems[i]);
 		if (item->structure == structure)
@@ -154,7 +154,7 @@ void StructureListBox::update()
 	r.clipRect(rect());
 
 	// ITEMS
-	for (size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
 		drawItem(r, *static_cast<StructureListBoxItem*>(mItems[i]),
 			positionX(),
