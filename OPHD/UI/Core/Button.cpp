@@ -75,13 +75,13 @@ void Button::type(Type type)
 
 void Button::toggle(bool toggle)
 {
-	mState = toggle ? STATE_PRESSED : STATE_NORMAL;
+	mState = toggle ? State::STATE_PRESSED : State::STATE_NORMAL;
 }
 
 
 bool Button::toggled() const
 {
-	return mState == STATE_PRESSED;
+	return mState == State::STATE_PRESSED;
 }
 
 
@@ -115,11 +115,11 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		{
 			if(mType == Type::BUTTON_NORMAL)
 			{
-				mState = STATE_PRESSED;
+				mState = State::STATE_PRESSED;
 			}
 			else
 			{
-				mState = (mState == STATE_PRESSED ? STATE_NORMAL : STATE_PRESSED);
+				mState = (mState == State::STATE_PRESSED ? State::STATE_NORMAL : State::STATE_PRESSED);
 				mCallback();
 			}
 		}
@@ -137,7 +137,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 		
 		if(mType == Type::BUTTON_NORMAL)
 		{
-			mState = STATE_NORMAL;
+			mState = State::STATE_NORMAL;
 
 			if (rect().contains(click))
 			{
@@ -169,11 +169,11 @@ void Button::draw()
 
 	Renderer& r = Utility<Renderer>::get();
 
-	if (enabled() && mMouseHover && mState != STATE_PRESSED)
+	if (enabled() && mMouseHover && mState != State::STATE_PRESSED)
 	{
 		r.drawImageRect(rect(), mSkinHover);
 	}
-	else if (mState == STATE_NORMAL)
+	else if (mState == State::STATE_NORMAL)
 	{
 		r.drawImageRect(rect(), mSkinNormal);
 	}
