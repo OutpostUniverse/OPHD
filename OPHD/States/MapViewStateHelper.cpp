@@ -56,33 +56,33 @@ bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnector
 
 	Structure* structure = tile->structure();
 
-	if (sourceConnectorDir == CONNECTOR_INTERSECTION)
+	if (sourceConnectorDir == ConnectorDir::CONNECTOR_INTERSECTION)
 	{
 		if (dir == Direction::DIR_EAST || dir == Direction::DIR_WEST)
 		{
-			if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_RIGHT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+			if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 			{
 				return true;
 			}
 		}
 		else // NORTH/SOUTH
 		{
-			if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_LEFT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+			if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 			{
 				return true;
 			}
 		}
 	}
-	else if (sourceConnectorDir == CONNECTOR_RIGHT && (dir == Direction::DIR_EAST || dir == Direction::DIR_WEST))
+	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_RIGHT && (dir == Direction::DIR_EAST || dir == Direction::DIR_WEST))
 	{
-		if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_RIGHT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+		if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
 	}
-	else if (sourceConnectorDir == CONNECTOR_LEFT && (dir == Direction::DIR_NORTH || dir == Direction::DIR_SOUTH))
+	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_LEFT && (dir == Direction::DIR_NORTH || dir == Direction::DIR_SOUTH))
 	{
-		if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_LEFT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+		if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
@@ -112,14 +112,14 @@ bool checkStructurePlacement(Tile* tile, Direction dir)
 
 	if (dir == Direction::DIR_EAST || dir == Direction::DIR_WEST)
 	{
-		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT)
+		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
 		{
 			return true;
 		}
 	}
 	else // NORTH/SOUTH
 	{
-		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT)
+		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
 		{
 			return true;
 		}

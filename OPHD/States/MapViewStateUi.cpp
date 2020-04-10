@@ -316,9 +316,9 @@ void MapViewState::populateStructureMenu()
 		mStructures.addItem(constants::SURFACE_FACTORY, 11, SID_SURFACE_FACTORY);
 		mStructures.addItem(constants::WAREHOUSE, 9, SID_WAREHOUSE);
 
-		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110, CONNECTOR_INTERSECTION);
-		mConnections.addItem(constants::AG_TUBE_RIGHT, 112, CONNECTOR_RIGHT);
-		mConnections.addItem(constants::AG_TUBE_LEFT, 111, CONNECTOR_LEFT);
+		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110, ConnectorDir::CONNECTOR_INTERSECTION);
+		mConnections.addItem(constants::AG_TUBE_RIGHT, 112, ConnectorDir::CONNECTOR_RIGHT);
+		mConnections.addItem(constants::AG_TUBE_LEFT, 111, ConnectorDir::CONNECTOR_LEFT);
 
 		// Special case code, not thrilled with this
 		if (mLandersColonist > 0) { mStructures.addItem(constants::COLONIST_LANDER, 2, SID_COLONIST_LANDER); }
@@ -338,9 +338,9 @@ void MapViewState::populateStructureMenu()
 		mStructures.addItem(constants::RED_LIGHT_DISTRICT, 76, SID_RED_LIGHT_DISTRICT);
 		mStructures.addItem(constants::UNIVERSITY, 63, SID_UNIVERSITY);
 
-		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113, CONNECTOR_INTERSECTION);
-		mConnections.addItem(constants::UG_TUBE_RIGHT, 115, CONNECTOR_RIGHT);
-		mConnections.addItem(constants::UG_TUBE_LEFT, 114, CONNECTOR_LEFT);
+		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113, ConnectorDir::CONNECTOR_INTERSECTION);
+		mConnections.addItem(constants::UG_TUBE_RIGHT, 115, ConnectorDir::CONNECTOR_RIGHT);
+		mConnections.addItem(constants::UG_TUBE_LEFT, 114, ConnectorDir::CONNECTOR_LEFT);
 	}
 
 	updateStructuresAvailability();

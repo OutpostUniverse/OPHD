@@ -175,7 +175,7 @@ private:
 
 	StructureState			mStructureState = UNDER_CONSTRUCTION;			/**< State the structure is in. */
 	StructureClass			mStructureClass;								/**< Indicates the Structure's Type. */
-	ConnectorDir			mConnectorDirection = CONNECTOR_INTERSECTION;	/**< Directions available for connections. */
+	ConnectorDir			mConnectorDirection = ConnectorDir::CONNECTOR_INTERSECTION;	/**< Directions available for connections. */
 
 	PopulationRequirements	mPopulationRequirements;	/**< Population requirements for structure operation. */
 	PopulationRequirements	mPopulationAvailable;		/**< Determine how many of each type of population required was actually supplied to the structure. */

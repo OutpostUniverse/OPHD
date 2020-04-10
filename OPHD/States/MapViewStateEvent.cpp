@@ -143,7 +143,7 @@ void MapViewState::deploySeedLander(int x, int y)
 	// Place initial tubes
 	for (const auto& direction : DirectionClockwise4)
 	{
-		structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(point + direction));
+		structureManager.addStructure(new Tube(ConnectorDir::CONNECTOR_INTERSECTION, false), mTileMap->getTile(point + direction));
 	}
 
 	// TOP ROW

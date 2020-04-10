@@ -725,17 +725,17 @@ void MapViewState::clearMode()
  */
 void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 {
-	if (dir == CONNECTOR_INTERSECTION)
+	if (dir == ConnectorDir::CONNECTOR_INTERSECTION)
 	{
-		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, depth != 0), tile);
+		Utility<StructureManager>::get().addStructure(new Tube(ConnectorDir::CONNECTOR_INTERSECTION, depth != 0), tile);
 	}
-	else if (dir == CONNECTOR_RIGHT)
+	else if (dir == ConnectorDir::CONNECTOR_RIGHT)
 	{
-		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_RIGHT, depth != 0), tile);
+		Utility<StructureManager>::get().addStructure(new Tube(ConnectorDir::CONNECTOR_RIGHT, depth != 0), tile);
 	}
-	else if (dir == CONNECTOR_LEFT)
+	else if (dir == ConnectorDir::CONNECTOR_LEFT)
 	{
-		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_LEFT, depth != 0), tile);
+		Utility<StructureManager>::get().addStructure(new Tube(ConnectorDir::CONNECTOR_LEFT, depth != 0), tile);
 	}
 	else
 	{
@@ -829,7 +829,7 @@ void MapViewState::placeTubeEnd()
 
 	switch (cd)
 	{
-	case CONNECTOR_INTERSECTION:
+	case ConnectorDir::CONNECTOR_INTERSECTION:
 
 		if (abs(tubeStart.x() - tile->x()) >= abs(tubeStart.y() - tile->y())){
 			incX = 1;	// The sens will be on the longest spread on X or Y
@@ -837,10 +837,10 @@ void MapViewState::placeTubeEnd()
 			incY = 1;
 		}
 		break;
-	case CONNECTOR_RIGHT:
+	case ConnectorDir::CONNECTOR_RIGHT:
 		incX = 1;
 		break;
-	case CONNECTOR_LEFT:
+	case ConnectorDir::CONNECTOR_LEFT:
 		incY = 1;
 		break;
 	default:
@@ -1027,12 +1027,12 @@ void MapViewState::placeRobot()
 		{
 			if (tile->depth() > constants::DEPTH_SURFACE)
 			{
-				if (tile->thingIsStructure() && tile->structure()->connectorDirection() != CONNECTOR_VERTICAL) //air shaft
+				if (tile->thingIsStructure() && tile->structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) //air shaft
 				{
 					doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
 					return;
 				}
-				else if (tile->thingIsStructure() && tile->structure()->connectorDirection() == CONNECTOR_VERTICAL && tile->depth() == mTileMap->maxDepth())
+				else if (tile->thingIsStructure() && tile->structure()->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL && tile->depth() == mTileMap->maxDepth())
 				{
 					doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MAX_DIG_DEPTH);
 					return;
