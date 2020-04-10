@@ -423,13 +423,13 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 
 		case EventHandler::KeyCode::KEY_F2:
 			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
-			mFileIoDialog.setMode(FileIo::FILE_SAVE);
+			mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
 			mFileIoDialog.show();
 			break;
 
 		case EventHandler::KeyCode::KEY_F3:
 			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
-			mFileIoDialog.setMode(FileIo::FILE_LOAD);
+			mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
 			mFileIoDialog.show();
 			break;
 

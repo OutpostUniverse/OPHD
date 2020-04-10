@@ -86,7 +86,7 @@ void MapViewState::initUi()
 	mFactoryProduction.position(r.center_x() - mFactoryProduction.width() / 2.0f, 175.0f);
 	mFactoryProduction.hide();
 
-	mFileIoDialog.setMode(FileIo::FILE_SAVE);
+	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
 	mFileIoDialog.fileOperation().connect(this, &MapViewState::fileIoAction);
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
@@ -517,7 +517,7 @@ void MapViewState::btnSaveGameClicked()
 	mGameOptionsDialog.hide();
 	//save(constants::SAVE_GAME_PATH + "test.xml");
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
-	mFileIoDialog.setMode(FileIo::FILE_SAVE);
+	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
 	mFileIoDialog.show();
 }
 
@@ -530,7 +530,7 @@ void MapViewState::btnLoadGameClicked()
 	mGameOptionsDialog.hide();
 	//load(constants::SAVE_GAME_PATH + "test.xml");
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
-	mFileIoDialog.setMode(FileIo::FILE_LOAD);
+	mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
 	mFileIoDialog.show();
 
 }
@@ -560,7 +560,7 @@ void MapViewState::btnGameOverClicked()
  */
 void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
-	if (fileOp == FileIo::FILE_LOAD)
+	if (fileOp == FileIo::FileOperation::FILE_LOAD)
 	{
 		try
 		{
