@@ -220,19 +220,19 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 	for (int i = 0; i < yield_low; ++i)
 	{
 		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
-		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_LOW);
+		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_LOW);
 	}
 
 	for (int i = 0; i < yield_medium; ++i)
 	{
 		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
-		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_MEDIUM);
+		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_MEDIUM);
 	}
 
 	for (int i = 0; i < yield_high; ++i)
 	{
 		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
-		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_HIGH);
+		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_HIGH);
 	}
 
 }
