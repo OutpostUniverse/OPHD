@@ -269,19 +269,19 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		Robot* r = nullptr;
 		switch (static_cast<RobotType>(type))
 		{
-		case ROBOT_DIGGER:
-			r = mRobotPool.addRobot(ROBOT_DIGGER, id);
+		case RobotType::ROBOT_DIGGER:
+			r = mRobotPool.addRobot(RobotType::ROBOT_DIGGER, id);
 			r->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			static_cast<Robodigger*>(r)->direction(static_cast<Direction>(direction));
 			break;
 
-		case ROBOT_DOZER:
-			r = mRobotPool.addRobot(ROBOT_DOZER, id);
+		case RobotType::ROBOT_DOZER:
+			r = mRobotPool.addRobot(RobotType::ROBOT_DOZER, id);
 			r->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			break;
 
-		case ROBOT_MINER:
-			r = mRobotPool.addRobot(ROBOT_MINER, id);
+		case RobotType::ROBOT_MINER:
+			r = mRobotPool.addRobot(RobotType::ROBOT_MINER, id);
 			r->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			break;
 
@@ -308,9 +308,9 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		}
 	}
 
-	if (mRobotPool.robotAvailable(ROBOT_DIGGER)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER); }
-	if (mRobotPool.robotAvailable(ROBOT_DOZER)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER); }
-	if (mRobotPool.robotAvailable(ROBOT_MINER)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER); }
+	if (mRobotPool.robotAvailable(RobotType::ROBOT_DIGGER)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER); }
+	if (mRobotPool.robotAvailable(RobotType::ROBOT_DOZER)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER); }
+	if (mRobotPool.robotAvailable(RobotType::ROBOT_MINER)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::ROBOT_MINER); }
 }
 
 

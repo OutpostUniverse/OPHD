@@ -25,24 +25,24 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 		switch (pt)
 		{
 		case PRODUCT_DIGGER:
-			r = mRobotPool.addRobot(ROBOT_DIGGER);
+			r = mRobotPool.addRobot(RobotType::ROBOT_DIGGER);
 			r->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			factory.pullProduct();
-			checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
+			checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
 			break;
 
 		case PRODUCT_DOZER:
-			r = mRobotPool.addRobot(ROBOT_DOZER);
+			r = mRobotPool.addRobot(RobotType::ROBOT_DOZER);
 			r->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			factory.pullProduct();
-			checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
+			checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER);
 			break;
 
 		case PRODUCT_MINER:
-			r = mRobotPool.addRobot(ROBOT_MINER);
+			r = mRobotPool.addRobot(RobotType::ROBOT_MINER);
 			r->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			factory.pullProduct();
-			checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
+			checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::ROBOT_MINER);
 			break;
 
 		default:
@@ -166,14 +166,14 @@ void MapViewState::deploySeedLander(int x, int y)
 	structureManager.addStructure(ss, mTileMap->getTile(point + DirectionSouthEast));
 
 	// Robots only become available after the SEED Factory is deployed.
-	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
-	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
-	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
+	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER);
+	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
+	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::ROBOT_MINER);
 	mRobots.sort();
 
-	mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
-	mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
-	mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+	mRobotPool.addRobot(RobotType::ROBOT_DOZER)->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+	mRobotPool.addRobot(RobotType::ROBOT_DIGGER)->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+	mRobotPool.addRobot(RobotType::ROBOT_MINER)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 }
 
 
@@ -182,7 +182,7 @@ void MapViewState::deploySeedLander(int x, int y)
  */
 void MapViewState::dozerTaskFinished(Robot* /*r*/)
 {
-	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
+	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER);
 }
 
 
@@ -259,7 +259,7 @@ void MapViewState::diggerTaskFinished(Robot* r)
 		}
 	}
 
-	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
+	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
 }
 
 

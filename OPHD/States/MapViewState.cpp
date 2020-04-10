@@ -714,7 +714,7 @@ void MapViewState::clearMode()
 	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
 
 	mCurrentStructure = StructureID::SID_NONE;
-	mCurrentRobot = ROBOT_NONE;
+	mCurrentRobot = RobotType::ROBOT_NONE;
 
 	clearSelections();
 }
@@ -904,7 +904,7 @@ void MapViewState::placeRobot()
 	}
 
 	// Robodozer has been selected.
-	if(mCurrentRobot == ROBOT_DOZER)
+	if(mCurrentRobot == RobotType::ROBOT_DOZER)
 	{
 		Robot* r = mRobotPool.getDozer();
 
@@ -989,14 +989,14 @@ void MapViewState::placeRobot()
 		static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(tile->index()));
 		tile->index(TerrainType::TERRAIN_DOZED);
 
-		if(!mRobotPool.robotAvailable(ROBOT_DOZER))
+		if(!mRobotPool.robotAvailable(RobotType::ROBOT_DOZER))
 		{
 			mRobots.removeItem(constants::ROBODOZER);
 			clearMode();
 		}
 	}
 	// Robodigger has been selected.
-	else if(mCurrentRobot == ROBOT_DIGGER)
+	else if(mCurrentRobot == RobotType::ROBOT_DIGGER)
 	{
 		// Keep digger within a safe margin of the map boundaries.
 		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
@@ -1074,7 +1074,7 @@ void MapViewState::placeRobot()
 		}
 	}
 	// Robominer has been selected.
-	else if(mCurrentRobot == ROBOT_MINER)
+	else if(mCurrentRobot == RobotType::ROBOT_MINER)
 	{
 		if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
 		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
@@ -1085,7 +1085,7 @@ void MapViewState::placeRobot()
 		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
 		tile->index(TerrainType::TERRAIN_DOZED);
 
-		if (!mRobotPool.robotAvailable(ROBOT_MINER))
+		if (!mRobotPool.robotAvailable(RobotType::ROBOT_MINER))
 		{
 			mRobots.removeItem(constants::ROBOMINER);
 			clearMode();
