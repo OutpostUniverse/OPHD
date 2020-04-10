@@ -118,10 +118,10 @@ int main(int /*argc*/, char *argv[])
 
 		r.minimum_size(1000, 700);
 		r.resizeable(true);
-		r.addCursor(constants::MOUSE_POINTER_NORMAL, POINTER_NORMAL, 0, 0);
-		r.addCursor(constants::MOUSE_POINTER_PLACE_TILE, POINTER_PLACE_TILE, 16, 16);
-		r.addCursor(constants::MOUSE_POINTER_INSPECT, POINTER_INSPECT, 8, 8);
-		r.setCursor(POINTER_NORMAL);
+		r.addCursor(constants::MOUSE_POINTER_NORMAL, PointerType::POINTER_NORMAL, 0, 0);
+		r.addCursor(constants::MOUSE_POINTER_PLACE_TILE, PointerType::POINTER_PLACE_TILE, 16, 16);
+		r.addCursor(constants::MOUSE_POINTER_INSPECT, PointerType::POINTER_INSPECT, 8, 8);
+		r.setCursor(PointerType::POINTER_NORMAL);
 		r.fadeOut(0.0f);
 
 		if (cf.option("maximized") == "true")

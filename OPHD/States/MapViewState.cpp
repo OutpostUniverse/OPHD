@@ -112,7 +112,7 @@ MapViewState::~MapViewState()
 	scrubRobotList();
 	delete mTileMap;
 
-	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
+	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
 	EventHandler& e = Utility<EventHandler>::get();
 	e.activate().disconnect(this, &MapViewState::onActivate);
@@ -147,7 +147,7 @@ void MapViewState::initialize()
 	initUi();
 	Renderer& r = Utility<Renderer>::get();
 
-	r.setCursor(POINTER_NORMAL);
+	r.setCursor(PointerType::POINTER_NORMAL);
 
 	setupUiPositions(r.width(), r.height());
 
@@ -711,7 +711,7 @@ void MapViewState::setMinimapView()
 void MapViewState::clearMode()
 {
 	mInsertMode = INSERT_NONE;
-	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
+	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
 	mCurrentStructure = StructureID::SID_NONE;
 	mCurrentRobot = RobotType::ROBOT_NONE;
@@ -1334,7 +1334,7 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
 	mCurrentStructure = type;
 
 	mInsertMode = mode;
-	Utility<Renderer>::get().setCursor(POINTER_PLACE_TILE);
+	Utility<Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
 
 }
 

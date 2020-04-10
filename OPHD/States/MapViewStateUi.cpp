@@ -446,7 +446,7 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 	mCurrentRobot = static_cast<RobotType>(_item->meta);
 
 	mInsertMode = INSERT_ROBOT;
-	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(POINTER_PLACE_TILE);
+	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
 }
 
 
