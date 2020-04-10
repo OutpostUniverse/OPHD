@@ -28,7 +28,7 @@ public:
 	};
 
 public:
-	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, constants::PlanetHostility hostility /*= constants::HOSTILITY_NONE*/, bool setupMines = true);
+	TileMap(const std::string& map_path, const std::string& tset_path, int maxDepth, int mineCount, constants::PlanetHostility hostility /*= constants::PlanetHostility::HOSTILITY_NONE*/, bool setupMines = true);
 	~TileMap() override;
 
 	Tile* getTile(int x, int y, int level);
