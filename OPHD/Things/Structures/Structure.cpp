@@ -11,11 +11,11 @@
  */
 std::map<Structure::StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
 {
-	{ Structure::UNDER_CONSTRUCTION,	"Under Construction" },
-	{ Structure::OPERATIONAL,			"Operational" },
-	{ Structure::IDLE,					"Idle" },
-	{ Structure::DISABLED,				"Disabled" },
-	{ Structure::DESTROYED,				"Destroyed" },
+	{ Structure::StructureState::UNDER_CONSTRUCTION,	"Under Construction" },
+	{ Structure::StructureState::OPERATIONAL,			"Operational" },
+	{ Structure::StructureState::IDLE,					"Idle" },
+	{ Structure::StructureState::DISABLED,				"Disabled" },
+	{ Structure::StructureState::DESTROYED,				"Destroyed" },
 };
 
 
@@ -79,7 +79,7 @@ void Structure::disable(DisabledReason reason)
 {
 	sprite().pause();
 	sprite().color(NAS2D::Color{255, 0, 0, 185});
-	state(DISABLED);
+	state(StructureState::DISABLED);
 	mDisabledReason = reason;
 	mIdleReason = IdleReason::IDLE_NONE;
 	disabledStateSet();
@@ -99,7 +99,7 @@ void Structure::enable()
 
 	sprite().resume();
 	sprite().color(NAS2D::Color::White);
-	state(OPERATIONAL);
+	state(StructureState::OPERATIONAL);
 	mDisabledReason = DisabledReason::DISABLED_NONE;
 	mIdleReason = IdleReason::IDLE_NONE;
 }
@@ -119,7 +119,7 @@ void Structure::idle(IdleReason reason)
 	sprite().color(NAS2D::Color{255, 255, 255, 185});
 	mDisabledReason = DisabledReason::DISABLED_NONE;
 	mIdleReason = reason;
-	state(IDLE);
+	state(StructureState::IDLE);
 }
 
 
@@ -204,7 +204,7 @@ void Structure::incrementAge()
 void Structure::destroy()
 {
 	sprite().play(constants::STRUCTURE_STATE_DESTROYED);
-	state(DESTROYED);
+	state(StructureState::DESTROYED);
 
 	// Destroyed buildings just need to be rebuilt right?
 	repairable(false);
@@ -225,11 +225,11 @@ void Structure::forced_state_change(StructureState _s, DisabledReason _dr, IdleR
 		//enable();
 	}
 
-	if (_s == OPERATIONAL)				{ enable(); }
-	else if (_s == IDLE)				{ idle(_ir); }
-	else if (_s == DISABLED)			{ disable(_dr); }
-	else if (_s == DESTROYED)			{ destroy(); }
-	else if (_s == UNDER_CONSTRUCTION)	{ mStructureState = UNDER_CONSTRUCTION; } // Kludge
+	if (_s == StructureState::OPERATIONAL)				{ enable(); }
+	else if (_s == StructureState::IDLE)				{ idle(_ir); }
+	else if (_s == StructureState::DISABLED)			{ disable(_dr); }
+	else if (_s == StructureState::DESTROYED)			{ destroy(); }
+	else if (_s == StructureState::UNDER_CONSTRUCTION)	{ mStructureState = StructureState::UNDER_CONSTRUCTION; } // Kludge
 }
 
 

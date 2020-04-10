@@ -39,7 +39,7 @@ static Warehouse* SELECTED_WAREHOUSE = nullptr;
  */
 static bool useStateString(Structure::StructureState _state)
 {
-	return _state == Structure::DISABLED || _state == Structure::DESTROYED || _state == Structure::UNDER_CONSTRUCTION || _state == Structure::IDLE;
+	return _state == Structure::StructureState::DISABLED || _state == Structure::StructureState::DESTROYED || _state == Structure::StructureState::UNDER_CONSTRUCTION || _state == Structure::StructureState::IDLE;
 }
 
 

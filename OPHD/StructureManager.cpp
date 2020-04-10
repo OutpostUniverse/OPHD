@@ -341,7 +341,7 @@ int StructureManager::disabled()
 	int count = 0;
 	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
 	{
-		count += getCountInState(it->first, Structure::DISABLED);
+		count += getCountInState(it->first, Structure::StructureState::DISABLED);
 	}
 
 	return count;
@@ -356,7 +356,7 @@ int StructureManager::destroyed()
 	int count = 0;
 	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
 	{
-		count += getCountInState(it->first, Structure::DESTROYED);
+		count += getCountInState(it->first, Structure::StructureState::DESTROYED);
 	}
 
 	return count;
