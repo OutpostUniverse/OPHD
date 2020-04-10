@@ -848,9 +848,10 @@ void MicroPather::GetCacheData(CacheData* data)
 
 		data->hit = pathCache->hit;
 		data->miss = pathCache->miss;
-		if (data->hit + data->miss)
+		const auto hitAsFloat = static_cast<float>(data->hit);
+		if (const float total = hitAsFloat + data->miss)
 		{
-			data->hitFraction = static_cast<float>(static_cast<double>(data->hit) / (static_cast<double>(data->hit) + data->miss));
+			data->hitFraction = hitAsFloat / total;
 		}
 		else
 		{
