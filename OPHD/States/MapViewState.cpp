@@ -975,10 +975,10 @@ void MapViewState::placeRobot()
 			Utility<StructureManager>::get().removeStructure(_s);
 			tile->deleteThing();
 			Utility<StructureManager>::get().disconnectAll();
-			static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(TERRAIN_DOZED));
+			static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(TerrainType::TERRAIN_DOZED));
 			checkConnectedness();
 		}
-		else if (tile->index() == TERRAIN_DOZED)
+		else if (tile->index() == TerrainType::TERRAIN_DOZED)
 		{
 			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_TILE_BULLDOZED);
 			return;
@@ -987,7 +987,7 @@ void MapViewState::placeRobot()
 		r->startTask(tile->index());
 		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
 		static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(tile->index()));
-		tile->index(TERRAIN_DOZED);
+		tile->index(TerrainType::TERRAIN_DOZED);
 
 		if(!mRobotPool.robotAvailable(ROBOT_DOZER))
 		{
@@ -1083,7 +1083,7 @@ void MapViewState::placeRobot()
 		Robot* r = mRobotPool.getMiner();
 		r->startTask(constants::MINER_TASK_TIME);
 		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
-		tile->index(TERRAIN_DOZED);
+		tile->index(TerrainType::TERRAIN_DOZED);
 
 		if (!mRobotPool.robotAvailable(ROBOT_MINER))
 		{

@@ -135,7 +135,7 @@ void MapViewState::deploySeedLander(int x, int y)
 	// Bulldoze lander region
 	for (const auto& direction : DirectionScan3x3)
 	{
-		mTileMap->getTile(point + direction)->index(TERRAIN_DOZED);
+		mTileMap->getTile(point + direction)->index(TerrainType::TERRAIN_DOZED);
 	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -218,8 +218,8 @@ void MapViewState::diggerTaskFinished(Robot* r)
 		originY = t->y();
 		depthAdjust = 1;
 
-		mTileMap->getTile(t->position(), t->depth())->index(TERRAIN_DOZED);
-		mTileMap->getTile(t->position(), t->depth() + depthAdjust)->index(TERRAIN_DOZED);
+		mTileMap->getTile(t->position(), t->depth())->index(TerrainType::TERRAIN_DOZED);
+		mTileMap->getTile(t->position(), t->depth() + depthAdjust)->index(TerrainType::TERRAIN_DOZED);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();

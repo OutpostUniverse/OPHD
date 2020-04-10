@@ -178,7 +178,7 @@ bool validLanderSite(Tile* tile)
 		return false;
 	}
 
-	if (tile->index() == TERRAIN_IMPASSABLE)
+	if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TERRAIN);
 		return false;
@@ -223,7 +223,7 @@ bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 		{
 			Tile* tile = tilemap->getTile(offX, offY);
 
-			if (tile->index() == TERRAIN_IMPASSABLE)
+			if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
 			{
 				doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
 				return false;

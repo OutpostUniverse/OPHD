@@ -89,7 +89,7 @@ static void addMineSet(Point<int> suggestedMineLocation, Point2dList& plist, Til
 	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation, tileArray);
 
 	tileArray[0][mineLocation.y()][mineLocation.x()].pushMine(new Mine(rate));
-	tileArray[0][mineLocation.y()][mineLocation.x()].index(TERRAIN_DOZED);
+	tileArray[0][mineLocation.y()][mineLocation.x()].index(TerrainType::TERRAIN_DOZED);
 
 	plist.push_back(mineLocation);
 }
@@ -538,7 +538,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		m->deserialize(mine->toElement());
 
 		mTileMap[0][y][x].pushMine(m);
-		mTileMap[0][y][x].index(TERRAIN_DOZED);
+		mTileMap[0][y][x].index(TerrainType::TERRAIN_DOZED);
 
 		mMineLocations.push_back(Point{x, y});
 
@@ -619,7 +619,7 @@ void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
 		Tile* adjacent_tile = getTile(tilePosition + offset, 0);
 		float cost = 0.5f;
 
-		if (!adjacent_tile || !adjacent_tile->empty() || adjacent_tile->index() == TERRAIN_IMPASSABLE) { cost = FLT_MAX; }
+		if (!adjacent_tile || !adjacent_tile->empty() || adjacent_tile->index() == TerrainType::TERRAIN_IMPASSABLE) { cost = FLT_MAX; }
 		else { cost *= static_cast<float>(adjacent_tile->index()) + 1.0f; }
 
 		StateCost nodeCost = { adjacent_tile, cost };
