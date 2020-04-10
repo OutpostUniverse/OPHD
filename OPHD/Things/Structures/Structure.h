@@ -187,7 +187,7 @@ private:
 	ResourcePool			mStoragePool;				/**< Resource storage pool. */
 
 	DisabledReason			mDisabledReason = DisabledReason::DISABLED_NONE;
-	IdleReason				mIdleReason = IDLE_NONE;
+	IdleReason				mIdleReason = IdleReason::IDLE_NONE;
 
 	bool					mRepairable = true;			/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
 	bool					mRequiresCHAP = true;		/**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */

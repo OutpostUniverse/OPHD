@@ -53,7 +53,7 @@ protected:
 		oreStorage().resource(oreType, oreStorage().resource(oreType) - constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING);
 		if (storage().pushResource(refinedType, refinedAmount) != 0)
 		{
-			idle(IDLE_INTERNAL_STORAGE_FULL);
+			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 		}
 	}
 

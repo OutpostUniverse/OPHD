@@ -25,7 +25,7 @@ protected:
 
 		if (storage().food() == AGRIDOME_CAPACITY)
 		{
-			idle(IDLE_INTERNAL_STORAGE_FULL);
+			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 		}
 		else
 		{
@@ -33,7 +33,7 @@ protected:
 			if (curr_food > AGRIDOME_CAPACITY - AGRIDOME_BASE_PRODUCUCTION)
 			{
 				storage().food(AGRIDOME_CAPACITY);
-				idle(IDLE_INTERNAL_STORAGE_FULL);
+				idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 			}
 			else
 			{

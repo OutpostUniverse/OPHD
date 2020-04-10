@@ -81,7 +81,7 @@ void Structure::disable(DisabledReason reason)
 	sprite().color(NAS2D::Color{255, 0, 0, 185});
 	state(DISABLED);
 	mDisabledReason = reason;
-	mIdleReason = IDLE_NONE;
+	mIdleReason = IdleReason::IDLE_NONE;
 	disabledStateSet();
 }
 
@@ -93,7 +93,7 @@ void Structure::enable()
 {
 	if (forceIdle())
 	{
-		idle(IDLE_PLAYER_SET);
+		idle(IdleReason::IDLE_PLAYER_SET);
 		return;
 	}
 
@@ -101,7 +101,7 @@ void Structure::enable()
 	sprite().color(NAS2D::Color::White);
 	state(OPERATIONAL);
 	mDisabledReason = DisabledReason::DISABLED_NONE;
-	mIdleReason = IDLE_NONE;
+	mIdleReason = IdleReason::IDLE_NONE;
 }
 
 
@@ -135,7 +135,7 @@ void Structure::forceIdle(bool force)
 	// in terms of the logic involved here.
 	if (force)
 	{
-		idle(IDLE_PLAYER_SET);
+		idle(IdleReason::IDLE_PLAYER_SET);
 		mForcedIdle = true;
 	}
 	else
