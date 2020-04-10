@@ -182,10 +182,10 @@ void MapViewState::updateResources()
 
 		ResourcePool& _rp = mine->storage();
 
-		truck.commonMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, 25));
-		truck.commonMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, 25));
-		truck.rareMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS_ORE, 25));
-		truck.rareMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, 25));
+		truck.commonMetalsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, 25));
+		truck.commonMineralsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, 25));
+		truck.rareMetalsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, 25));
+		truck.rareMineralsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, 25));
 
 		for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_SMELTER))
 		{
@@ -207,10 +207,10 @@ void MapViewState::updateResources()
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
 		ResourcePool& _rp = smelter->storage();
-		truck.commonMetals(_rp.pullResource(ResourcePool::RESOURCE_COMMON_METALS, 25));
-		truck.commonMinerals(_rp.pullResource(ResourcePool::RESOURCE_COMMON_MINERALS, 25));
-		truck.rareMetals(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS, 25));
-		truck.rareMinerals(_rp.pullResource(ResourcePool::RESOURCE_RARE_MINERALS, 25));
+		truck.commonMetals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS, 25));
+		truck.commonMinerals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, 25));
+		truck.rareMetals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS, 25));
+		truck.rareMinerals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, 25));
 
 		mPlayerResources.pushResources(truck);
 

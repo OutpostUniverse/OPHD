@@ -108,7 +108,7 @@ public:
 	Callback& resourceObserver() { return _observerCallback; }
 
 private:
-	typedef std::array<int, RESOURCE_COUNT> ResourceTable;
+	typedef std::array<int, ResourceType::RESOURCE_COUNT> ResourceTable;
 
 private:
 	int					_capacity = 0;			/**< Maximum available capacity of the ResourcePool. */
