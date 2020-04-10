@@ -21,19 +21,19 @@ Planet::Planet(PlanetType type) : mType(type)
 	// Fixme: This should be in a table vs. a giant switch statement.
 	switch (mType)
 	{
-	case PLANET_TYPE_MERCURY:
+	case PlanetType::PLANET_TYPE_MERCURY:
 		mImage = NAS2D::Image(constants::PLANET_TYPE_MERCURY_PATH);
 		mMaxMines = 10;
 		mMaxDigDepth = 1;
 		break;
 
-	case PLANET_TYPE_MARS:
+	case PlanetType::PLANET_TYPE_MARS:
 		mImage = NAS2D::Image(constants::PLANET_TYPE_MARS_PATH);
 		mMaxMines = 30;
 		mMaxDigDepth = 4;
 		break;
 
-	case PLANET_TYPE_GANYMEDE:
+	case PlanetType::PLANET_TYPE_GANYMEDE:
 		mMaxMines = 15;
 		mMaxDigDepth = 2;
 		mImage = NAS2D::Image(constants::PLANET_TYPE_GANYMEDE_PATH);
