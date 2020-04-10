@@ -27,7 +27,7 @@ public:
 	* \enum	BorderVisiblity
 	* \brief	Enumerates border visibility options.
 	*
-	* \note	TextField defaults to a FOCUS_ONLY setting.
+	* \note	TextField defaults to a BorderVisibility::FOCUS_ONLY setting.
 	*/
 	enum BorderVisibility
 	{
@@ -76,7 +76,7 @@ private:
 
 	size_t				mMaxCharacters = 0;				/**< Max number of characters allowed in the text field. */
 
-	BorderVisibility	mBorderVisibility = FOCUS_ONLY;	/**< Border visibility flag. */
+	BorderVisibility	mBorderVisibility = BorderVisibility::FOCUS_ONLY;	/**< Border visibility flag. */
 
 	NAS2D::ImageList	mSkinNormal;
 	NAS2D::ImageList	mSkinFocus;
