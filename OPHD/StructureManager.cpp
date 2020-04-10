@@ -145,14 +145,14 @@ void StructureManager::updateStructures(ResourcePool& resourcePool, PopulationPo
 		// Connection Check
 		if (!structureConnected(structure) && !structure->selfSustained())
 		{
-			structure->disable(DISABLED_DISCONNECTED);
+			structure->disable(DisabledReason::DISABLED_DISCONNECTED);
 			continue;
 		}
 
 		// CHAP Check
 		if (structure->requiresCHAP() && !chapAvailable)
 		{
-			structure->disable(DISABLED_CHAP);
+			structure->disable(DisabledReason::DISABLED_CHAP);
 			continue;
 		}
 
@@ -166,7 +166,7 @@ void StructureManager::updateStructures(ResourcePool& resourcePool, PopulationPo
 		if (!popPool.enoughPopulationAvailable(Population::ROLE_WORKER, (*_populationRequired)[0]) ||
 			!popPool.enoughPopulationAvailable(Population::ROLE_SCIENTIST, (*_populationRequired)[1]))
 		{
-			structure->disable(DISABLED_POPULATION);
+			structure->disable(DisabledReason::DISABLED_POPULATION);
 			continue;
 		}
 		else
@@ -180,8 +180,8 @@ void StructureManager::updateStructures(ResourcePool& resourcePool, PopulationPo
 			if (!structure->isIdle()) //-V571
 			{
 				/// \fixme	Ugly. Special case code specifically to determine if energy is the reason for a disabled structure.
-				if (structure->resourcesIn().energy() > resourcePool.energy()) { structure->disable(DISABLED_ENERGY); }
-				else { structure->disable(DISABLED_REFINED_RESOURCES); }
+				if (structure->resourcesIn().energy() > resourcePool.energy()) { structure->disable(DisabledReason::DISABLED_ENERGY); }
+				else { structure->disable(DisabledReason::DISABLED_REFINED_RESOURCES); }
 				continue;
 			}
 		}

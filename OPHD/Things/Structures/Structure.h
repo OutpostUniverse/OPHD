@@ -186,7 +186,7 @@ private:
 	ResourcePool			mProductionPool;			/**< Resource pool used for production. */
 	ResourcePool			mStoragePool;				/**< Resource storage pool. */
 
-	DisabledReason			mDisabledReason = DISABLED_NONE;
+	DisabledReason			mDisabledReason = DisabledReason::DISABLED_NONE;
 	IdleReason				mIdleReason = IDLE_NONE;
 
 	bool					mRepairable = true;			/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */

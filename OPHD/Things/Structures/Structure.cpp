@@ -100,7 +100,7 @@ void Structure::enable()
 	sprite().resume();
 	sprite().color(NAS2D::Color::White);
 	state(OPERATIONAL);
-	mDisabledReason = DISABLED_NONE;
+	mDisabledReason = DisabledReason::DISABLED_NONE;
 	mIdleReason = IDLE_NONE;
 }
 
@@ -117,7 +117,7 @@ void Structure::idle(IdleReason reason)
 
 	sprite().pause();
 	sprite().color(NAS2D::Color{255, 255, 255, 185});
-	mDisabledReason = DISABLED_NONE;
+	mDisabledReason = DisabledReason::DISABLED_NONE;
 	mIdleReason = reason;
 	state(IDLE);
 }
