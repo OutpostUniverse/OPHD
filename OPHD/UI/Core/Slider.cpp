@@ -55,11 +55,11 @@ void Slider::size(float width, float height)
 	// deduce the type of slider from the ratio.
 	if (rect().height() > rect().width())
 	{
-		mSliderType = SLIDER_VERTICAL;
+		mSliderType = SliderType::SLIDER_VERTICAL;
 	}
 	else
 	{
-		mSliderType = SLIDER_HORIZONTAL;
+		mSliderType = SliderType::SLIDER_HORIZONTAL;
 	}
 }
 
@@ -71,7 +71,7 @@ void Slider::setSkins()
 {
 	if (!mSkinButton1.empty()) { return; }
 
-	if (mSliderType == SLIDER_VERTICAL)
+	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
 		mSkinButton1.push_back(Image("ui/skin/sv_bu_tl.png"));
 		mSkinButton1.push_back(Image("ui/skin/sv_bu_tm.png"));
@@ -241,7 +241,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	*/
 	else if (mSlideBar.to<int>().contains(NAS2D::Point{x, y}))
 	{
-		if (mSliderType == SLIDER_VERTICAL)
+		if (mSliderType == SliderType::SLIDER_VERTICAL)
 		{
 			if (y < mSlider.y()) { changeThumbPosition(-3.0); }
 			else { changeThumbPosition(+3.0); }
@@ -271,7 +271,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 
 	if (!mThumbPressed) { return; }
 
-	if (mSliderType == SLIDER_VERTICAL)
+	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
 		if (y < mSlideBar.y() || y >(mSlideBar.y() + mSlideBar.height()))
 		{
@@ -298,7 +298,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 void Slider::logic()
 {
 	// compute position of items
-	if (mSliderType == SLIDER_VERTICAL)
+	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
 		mButton1.x(rect().x());
 		mButton1.y(rect().y());
@@ -367,7 +367,7 @@ void Slider::draw()
 	Renderer& r = Utility<Renderer>::get();
 	float _thumbPosition = 0.0f;
 
-	if (mSliderType == SLIDER_VERTICAL)
+	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
 		r.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle);// slide area
 		r.drawImageRect(mButton1.x(), mButton1.y(), mButton1.height(), mButton1.height(), mSkinButton1);// top button
@@ -422,7 +422,7 @@ void Slider::draw()
 		int width = SLD_FONT->width(textHover) + 4;
 		int height = SLD_FONT->height() + 4;
 
-		if (mSliderType == SLIDER_VERTICAL)
+		if (mSliderType == SliderType::SLIDER_VERTICAL)
 		{
 			x = static_cast<int>(mSlideBar.x() + mSlideBar.width() + 2);
 			y = mMousePosition.y() - height;

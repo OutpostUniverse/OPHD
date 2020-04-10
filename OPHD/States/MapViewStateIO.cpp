@@ -73,11 +73,11 @@ void MapViewState::save(const std::string& filePath)
 	population->attribute("prev_morale", mPreviousMorale);
 	population->attribute("colonist_landers", mLandersColonist);
 	population->attribute("cargo_landers", mLandersCargo);
-	population->attribute("children", mPopulation.size(Population::ROLE_CHILD));
-	population->attribute("students", mPopulation.size(Population::ROLE_STUDENT));
-	population->attribute("workers", mPopulation.size(Population::ROLE_WORKER));
-	population->attribute("scientists", mPopulation.size(Population::ROLE_SCIENTIST));
-	population->attribute("retired", mPopulation.size(Population::ROLE_RETIRED));
+	population->attribute("children", mPopulation.size(Population::PersonRole::ROLE_CHILD));
+	population->attribute("students", mPopulation.size(Population::PersonRole::ROLE_STUDENT));
+	population->attribute("workers", mPopulation.size(Population::PersonRole::ROLE_WORKER));
+	population->attribute("scientists", mPopulation.size(Population::PersonRole::ROLE_SCIENTIST));
+	population->attribute("retired", mPopulation.size(Population::PersonRole::ROLE_RETIRED));
 	root->linkEndChild(population);
 
 	// Write out the XML file.
@@ -157,7 +157,7 @@ void MapViewState::load(const std::string& filePath)
 
 	mMapDisplay = Image(sitemap + MAP_DISPLAY_EXTENSION);
 	mHeightMap = Image(sitemap + MAP_TERRAIN_EXTENSION);
-	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, 0, constants::HOSTILITY_NONE, false);
+	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, 0, constants::PlanetHostility::HOSTILITY_NONE, false);
 	mTileMap->deserialize(root);
 
 	delete pather;
@@ -178,7 +178,7 @@ void MapViewState::load(const std::string& filePath)
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
-	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::CLASS_STORAGE)));
+	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_STORAGE)));
 
 	checkConnectedness();
 
@@ -207,7 +207,7 @@ void MapViewState::load(const std::string& filePath)
 			 * There should only ever be one structure if the turn count is 0, the
 			 * SEED Lander which at this point should not have been deployed.
 			 */
-			StructureList& list = Utility<StructureManager>::get().structureList(Structure::CLASS_LANDER);
+			StructureList& list = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_LANDER);
 			if (list.size() != 1) { throw std::runtime_error("MapViewState::load(): Turn counter at 0 but more than one structure in list."); }
 
 			SeedLander* s = dynamic_cast<SeedLander*>(list[0]);
@@ -269,19 +269,19 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		Robot* r = nullptr;
 		switch (static_cast<RobotType>(type))
 		{
-		case ROBOT_DIGGER:
-			r = mRobotPool.addRobot(ROBOT_DIGGER, id);
+		case RobotType::ROBOT_DIGGER:
+			r = mRobotPool.addRobot(RobotType::ROBOT_DIGGER, id);
 			r->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			static_cast<Robodigger*>(r)->direction(static_cast<Direction>(direction));
 			break;
 
-		case ROBOT_DOZER:
-			r = mRobotPool.addRobot(ROBOT_DOZER, id);
+		case RobotType::ROBOT_DOZER:
+			r = mRobotPool.addRobot(RobotType::ROBOT_DOZER, id);
 			r->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			break;
 
-		case ROBOT_MINER:
-			r = mRobotPool.addRobot(ROBOT_MINER, id);
+		case RobotType::ROBOT_MINER:
+			r = mRobotPool.addRobot(RobotType::ROBOT_MINER, id);
 			r->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			break;
 
@@ -308,9 +308,9 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		}
 	}
 
-	if (mRobotPool.robotAvailable(ROBOT_DIGGER)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER); }
-	if (mRobotPool.robotAvailable(ROBOT_DOZER)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER); }
-	if (mRobotPool.robotAvailable(ROBOT_MINER)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER); }
+	if (mRobotPool.robotAvailable(RobotType::ROBOT_DIGGER)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER); }
+	if (mRobotPool.robotAvailable(RobotType::ROBOT_DOZER)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER); }
+	if (mRobotPool.robotAvailable(RobotType::ROBOT_MINER)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::ROBOT_MINER); }
 }
 
 
@@ -362,12 +362,12 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		StructureID type_id = StructureTranslator::translateFromString(type);
 		st = StructureCatalogue::get(type_id);
 
-		if (type_id == SID_COMMAND_CENTER)
+		if (type_id == StructureID::SID_COMMAND_CENTER)
 		{
 			ccLocation() = {x, y};
 		}
 
-		if (type_id == SID_MINE_FACILITY)
+		if (type_id == StructureID::SID_MINE_FACILITY)
 		{
 			Mine* m = mTileMap->getTile(x, y, 0)->mine();
 			if (m == nullptr)
@@ -381,12 +381,12 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 		}
 
-		if (type_id == SID_AIR_SHAFT && depth != 0)
+		if (type_id == StructureID::SID_AIR_SHAFT && depth != 0)
 		{
 			static_cast<AirShaft*>(st)->ug(); // force underground state
 		}
 
-		if (type_id == SID_SEED_LANDER)
+		if (type_id == StructureID::SID_SEED_LANDER)
 		{
 			static_cast<SeedLander*>(st)->position(x, y);
 		}
@@ -500,10 +500,10 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 			attribute = attribute->next();
 		}
 
-		mPopulation.addPopulation(Population::ROLE_CHILD, children);
-		mPopulation.addPopulation(Population::ROLE_STUDENT, students);
-		mPopulation.addPopulation(Population::ROLE_WORKER, workers);
-		mPopulation.addPopulation(Population::ROLE_SCIENTIST, scientists);
-		mPopulation.addPopulation(Population::ROLE_RETIRED, retired);
+		mPopulation.addPopulation(Population::PersonRole::ROLE_CHILD, children);
+		mPopulation.addPopulation(Population::PersonRole::ROLE_STUDENT, students);
+		mPopulation.addPopulation(Population::PersonRole::ROLE_WORKER, workers);
+		mPopulation.addPopulation(Population::PersonRole::ROLE_SCIENTIST, scientists);
+		mPopulation.addPopulation(Population::PersonRole::ROLE_RETIRED, retired);
 	}
 }

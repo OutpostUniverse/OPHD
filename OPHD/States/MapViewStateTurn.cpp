@@ -43,14 +43,14 @@ void MapViewState::updatePopulation()
 {
 	StructureManager& sm = NAS2D::Utility<StructureManager>::get();
 	
-	int residences = sm.getCountInState(Structure::CLASS_RESIDENCE, Structure::OPERATIONAL);
-	int universities = sm.getCountInState(Structure::CLASS_UNIVERSITY, Structure::OPERATIONAL);
-	int nurseries = sm.getCountInState(Structure::CLASS_NURSERY, Structure::OPERATIONAL);
-	int hospitals = sm.getCountInState(Structure::CLASS_MEDICAL_CENTER, Structure::OPERATIONAL);
+	int residences = sm.getCountInState(Structure::StructureClass::CLASS_RESIDENCE, Structure::StructureState::OPERATIONAL);
+	int universities = sm.getCountInState(Structure::StructureClass::CLASS_UNIVERSITY, Structure::StructureState::OPERATIONAL);
+	int nurseries = sm.getCountInState(Structure::StructureClass::CLASS_NURSERY, Structure::StructureState::OPERATIONAL);
+	int hospitals = sm.getCountInState(Structure::StructureClass::CLASS_MEDICAL_CENTER, Structure::StructureState::OPERATIONAL);
 
 	// FOOD CONSUMPTION
 	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage(), residences, universities, nurseries, hospitals);
-	StructureList &foodproducers = sm.structureList(Structure::CLASS_FOOD_PRODUCTION);
+	StructureList &foodproducers = sm.structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
 	int remainder = food_consumed;
 
 	if (mPlayerResources.food() > 0)
@@ -74,13 +74,13 @@ void MapViewState::updateCommercial()
 {
 	StructureManager& sm = NAS2D::Utility<StructureManager>::get();
 
-	StructureList& _warehouses = sm.structureList(Structure::CLASS_WAREHOUSE);
-	StructureList& _commercial = sm.structureList(Structure::CLASS_COMMERCIAL);
+	StructureList& _warehouses = sm.structureList(Structure::StructureClass::CLASS_WAREHOUSE);
+	StructureList& _commercial = sm.structureList(Structure::StructureClass::CLASS_COMMERCIAL);
 
 	// No need to do anything if there are no commercial structures.
 	if (_commercial.empty()) { return; }
 
-	int luxuryCount = sm.getCountInState(Structure::CLASS_COMMERCIAL, Structure::OPERATIONAL);
+	int luxuryCount = sm.getCountInState(Structure::StructureClass::CLASS_COMMERCIAL, Structure::StructureState::OPERATIONAL);
 	int commercialCount = luxuryCount;
 
 	for (auto warehouse : _warehouses)
@@ -94,17 +94,17 @@ void MapViewState::updateCommercial()
 		 *			is only one luxury item, clothing, but as this changes more
 		 *			items may be seen as luxury.
 		 */
-		int clothing = _pl.count(PRODUCT_CLOTHING);
+		int clothing = _pl.count(ProductType::PRODUCT_CLOTHING);
 
 		if (clothing >= luxuryCount)
 		{
-			_pl.pull(PRODUCT_CLOTHING, luxuryCount);
+			_pl.pull(ProductType::PRODUCT_CLOTHING, luxuryCount);
 			luxuryCount = 0;
 			break;
 		}
 		else if (clothing < luxuryCount)
 		{
-			_pl.pull(PRODUCT_CLOTHING, clothing);
+			_pl.pull(ProductType::PRODUCT_CLOTHING, clothing);
 			luxuryCount -= clothing;
 		}
 
@@ -119,7 +119,7 @@ void MapViewState::updateCommercial()
 	{
 		if ((*_comm_r_it)->operational())
 		{
-			(*_comm_r_it)->idle(IDLE_INSUFFICIENT_LUXURY_PRODUCT);
+			(*_comm_r_it)->idle(IdleReason::IDLE_INSUFFICIENT_LUXURY_PRODUCT);
 		}
 	}
 
@@ -137,13 +137,13 @@ void MapViewState::updateMorale()
 	// POSITIVE MORALE EFFECTS
 	// =========================================
 	mCurrentMorale += mPopulation.birthCount();
-	mCurrentMorale += sm.getCountInState(Structure::CLASS_PARK, Structure::OPERATIONAL);
-	mCurrentMorale += sm.getCountInState(Structure::CLASS_RECREATION_CENTER, Structure::OPERATIONAL);
+	mCurrentMorale += sm.getCountInState(Structure::StructureClass::CLASS_PARK, Structure::StructureState::OPERATIONAL);
+	mCurrentMorale += sm.getCountInState(Structure::StructureClass::CLASS_RECREATION_CENTER, Structure::StructureState::OPERATIONAL);
 
-	int food_production = sm.getCountInState(Structure::CLASS_FOOD_PRODUCTION, Structure::OPERATIONAL);
+	int food_production = sm.getCountInState(Structure::StructureClass::CLASS_FOOD_PRODUCTION, Structure::StructureState::OPERATIONAL);
 	mCurrentMorale += food_production > 0 ? food_production : -5;
 
-	mCurrentMorale += sm.getCountInState(Structure::CLASS_COMMERCIAL, Structure::OPERATIONAL);
+	mCurrentMorale += sm.getCountInState(Structure::StructureClass::CLASS_COMMERCIAL, Structure::StructureState::OPERATIONAL);
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================
@@ -168,13 +168,13 @@ void MapViewState::updateMorale()
 void MapViewState::updateResources()
 {
 	// Update storage capacity
-	mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_STORAGE)));
+	mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_STORAGE)));
 
 	ResourcePool truck;
 	truck.capacity(100);
 
 	// Move ore from mines to smelters
-	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_MINE))
+	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_MINE))
 	{
 		static_cast<MineFacility*>(mine)->mine()->checkExhausted();
 
@@ -182,12 +182,12 @@ void MapViewState::updateResources()
 
 		ResourcePool& _rp = mine->storage();
 
-		truck.commonMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, 25));
-		truck.commonMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, 25));
-		truck.rareMetalsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS_ORE, 25));
-		truck.rareMineralsOre(_rp.pullResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, 25));
+		truck.commonMetalsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, 25));
+		truck.commonMineralsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, 25));
+		truck.rareMetalsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, 25));
+		truck.rareMineralsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, 25));
 
-		for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_SMELTER))
+		for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_SMELTER))
 		{
 			if (smelter->operational())
 			{
@@ -202,15 +202,15 @@ void MapViewState::updateResources()
 	}
 
 	// Move refined resources from smelters to storage tanks
-	for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_SMELTER))
+	for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_SMELTER))
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
 		ResourcePool& _rp = smelter->storage();
-		truck.commonMetals(_rp.pullResource(ResourcePool::RESOURCE_COMMON_METALS, 25));
-		truck.commonMinerals(_rp.pullResource(ResourcePool::RESOURCE_COMMON_MINERALS, 25));
-		truck.rareMetals(_rp.pullResource(ResourcePool::RESOURCE_RARE_METALS, 25));
-		truck.rareMinerals(_rp.pullResource(ResourcePool::RESOURCE_RARE_MINERALS, 25));
+		truck.commonMetals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS, 25));
+		truck.commonMinerals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, 25));
+		truck.rareMetals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS, 25));
+		truck.rareMinerals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, 25));
 
 		mPlayerResources.pushResources(truck);
 
@@ -242,13 +242,13 @@ void MapViewState::checkColonyShip()
 			populateStructureMenu();
 
 			mWindowStack.bringToFront(&mAnnouncement);
-			mAnnouncement.announcement(MajorEventAnnouncement::ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS);
+			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS);
 			mAnnouncement.show();
 		}
 		else
 		{
 			mWindowStack.bringToFront(&mAnnouncement);
-			mAnnouncement.announcement(MajorEventAnnouncement::ANNOUNCEMENT_COLONY_SHIP_CRASH);
+			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ANNOUNCEMENT_COLONY_SHIP_CRASH);
 			mAnnouncement.show();
 		}
 	}
@@ -261,7 +261,7 @@ void MapViewState::checkColonyShip()
 void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
-	auto residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::CLASS_RESIDENCE);
+	auto residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_RESIDENCE);
 	for (auto residence : residences)
 	{
 		if (residence->operational()) { mResidentialCapacity += static_cast<Residence*>(residence)->capacity(); }

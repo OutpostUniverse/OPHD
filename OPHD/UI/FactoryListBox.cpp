@@ -35,7 +35,7 @@ static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, floa
 	r.drawText(*MAIN_FONT, productDescription(f->productType()), {x + w - 112, ((y + 19) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 	
 	// PROGRESS BAR
-	float percentage = (f->productType() == PRODUCT_NONE) ? 0.0f : (f->productionTurnsCompleted() / f->productionTurnsToComplete());
+	float percentage = (f->productType() == ProductType::PRODUCT_NONE) ? 0.0f : (f->productionTurnsCompleted() / f->productionTurnsToComplete());
 	drawBasicProgressBar(x + w - 112.0f, y + 30.0f - offset, 105.0f, 11.0f, percentage, 2.0f);
 }
 
@@ -93,7 +93,7 @@ void FactoryListBox::addItem(Factory* factory)
 	else if (item->Text == constants::UNDERGROUND_FACTORY) { item->icon_slice = {138, 276}; }
 	else if (item->Text == constants::SEED_FACTORY) { item->icon_slice = {460, 368}; }
 	
-	if (factory->state() == Structure::DESTROYED) { item->icon_slice = {414, 368}; }
+	if (factory->state() == Structure::StructureState::DESTROYED) { item->icon_slice = {414, 368}; }
 	_update_item_display();
 }
 

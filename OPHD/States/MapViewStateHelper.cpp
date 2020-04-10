@@ -56,33 +56,33 @@ bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnector
 
 	Structure* structure = tile->structure();
 
-	if (sourceConnectorDir == CONNECTOR_INTERSECTION)
+	if (sourceConnectorDir == ConnectorDir::CONNECTOR_INTERSECTION)
 	{
-		if (dir == DIR_EAST || dir == DIR_WEST)
+		if (dir == Direction::DIR_EAST || dir == Direction::DIR_WEST)
 		{
-			if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_RIGHT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+			if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 			{
 				return true;
 			}
 		}
 		else // NORTH/SOUTH
 		{
-			if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_LEFT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+			if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 			{
 				return true;
 			}
 		}
 	}
-	else if (sourceConnectorDir == CONNECTOR_RIGHT && (dir == DIR_EAST || dir == DIR_WEST))
+	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_RIGHT && (dir == Direction::DIR_EAST || dir == Direction::DIR_WEST))
 	{
-		if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_RIGHT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+		if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
 	}
-	else if (sourceConnectorDir == CONNECTOR_LEFT && (dir == DIR_NORTH || dir == DIR_SOUTH))
+	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_LEFT && (dir == Direction::DIR_NORTH || dir == Direction::DIR_SOUTH))
 	{
-		if (structure->connectorDirection() == CONNECTOR_INTERSECTION || structure->connectorDirection() == CONNECTOR_LEFT || structure->connectorDirection() == CONNECTOR_VERTICAL)
+		if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
@@ -110,16 +110,16 @@ bool checkStructurePlacement(Tile* tile, Direction dir)
 		return false;
 	}
 
-	if (dir == DIR_EAST || dir == DIR_WEST)
+	if (dir == Direction::DIR_EAST || dir == Direction::DIR_WEST)
 	{
-		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_RIGHT)
+		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
 		{
 			return true;
 		}
 	}
 	else // NORTH/SOUTH
 	{
-		if (_structure->connectorDirection() == CONNECTOR_INTERSECTION || _structure->connectorDirection() == CONNECTOR_LEFT)
+		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
 		{
 			return true;
 		}
@@ -137,10 +137,10 @@ bool checkStructurePlacement(Tile* tile, Direction dir)
 bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir dir)
 {
 	const auto point = NAS2D::Point{x, y};
-	return checkTubeConnection(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), DIR_EAST, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), DIR_WEST, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), DIR_SOUTH, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), DIR_NORTH, dir);
+	return checkTubeConnection(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::DIR_EAST, dir) ||
+		checkTubeConnection(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), Direction::DIR_WEST, dir) ||
+		checkTubeConnection(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::DIR_SOUTH, dir) ||
+		checkTubeConnection(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::DIR_NORTH, dir);
 }
 
 
@@ -152,10 +152,10 @@ bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir dir)
 bool validStructurePlacement(TileMap* tilemap, int x, int y)
 {
 	const auto point = NAS2D::Point{x, y};
-	return checkStructurePlacement(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), DIR_NORTH) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), DIR_EAST) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), DIR_SOUTH) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), DIR_WEST);
+	return checkStructurePlacement(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::DIR_NORTH) ||
+		checkStructurePlacement(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::DIR_EAST) ||
+		checkStructurePlacement(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::DIR_SOUTH) ||
+		checkStructurePlacement(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), Direction::DIR_WEST);
 }
 
 
@@ -178,7 +178,7 @@ bool validLanderSite(Tile* tile)
 		return false;
 	}
 
-	if (tile->index() == TERRAIN_IMPASSABLE)
+	if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TERRAIN);
 		return false;
@@ -223,7 +223,7 @@ bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 		{
 			Tile* tile = tilemap->getTile(offX, offY);
 
-			if (tile->index() == TERRAIN_IMPASSABLE)
+			if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
 			{
 				doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
 				return false;
@@ -277,8 +277,8 @@ void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTabl
  */
 void updateRobotControl(RobotPool& robotPool)
 {
-	auto CommandCenter = Utility<StructureManager>::get().structureList(Structure::CLASS_COMMAND);
-	auto RobotCommand = Utility<StructureManager>::get().structureList(Structure::CLASS_ROBOT_COMMAND);
+	auto CommandCenter = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_COMMAND);
+	auto RobotCommand = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND);
 
 	// 3 for the first command center
 	uint32_t _maxRobots = 0;
@@ -298,7 +298,7 @@ void updateRobotControl(RobotPool& robotPool)
  */
 bool structureIsLander(StructureID id)
 {
-	return id == SID_SEED_LANDER || id == SID_COLONIST_LANDER || id == SID_CARGO_LANDER;
+	return id == StructureID::SID_SEED_LANDER || id == StructureID::SID_COLONIST_LANDER || id == StructureID::SID_CARGO_LANDER;
 }
 
 
@@ -311,7 +311,7 @@ bool structureIsLander(StructureID id)
  */
 bool selfSustained(StructureID id)
 {
-	return id == SID_COMM_TOWER;
+	return id == StructureID::SID_COMM_TOWER;
 }
 
 
@@ -326,7 +326,7 @@ bool outOfCommRange(Point<int>& cc_location, TileMap* tile_map, Tile* current_ti
 		return false;
 
 	Tile* _comm_t = nullptr;
-	for (auto _tower : Utility<StructureManager>::get().structureList(Structure::CLASS_COMM))
+	for (auto _tower : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_COMM))
 	{
 		if (!_tower->operational())
 		{
@@ -356,7 +356,7 @@ bool outOfCommRange(Point<int>& cc_location, TileMap* tile_map, Tile* current_ti
  */
 Warehouse* getAvailableWarehouse(ProductType type, size_t count)
 {
-	for (auto _st : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
+	for (auto _st : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
 	{
 		Warehouse* _wh = static_cast<Warehouse*>(_st);
 		if (_wh->products().canStore(type, static_cast<int>(count)))
@@ -380,7 +380,7 @@ Warehouse* getAvailableWarehouse(ProductType type, size_t count)
  */
 RobotCommand* getAvailableRobotCommand()
 {
-	for (auto _st : Utility<StructureManager>::get().structureList(Structure::CLASS_ROBOT_COMMAND))
+	for (auto _st : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND))
 	{
 		RobotCommand* _rc = static_cast<RobotCommand*>(_st);
 		if (_rc->operational() && _rc->commandCapacityAvailable())
@@ -402,7 +402,7 @@ void transferProductsPool(ProductPool& source, ProductPool& destination)
 
 	auto& src = source.mProducts;
 
-	for (size_t i = 0; i < PRODUCT_COUNT; ++i)
+	for (size_t i = 0; i < ProductType::PRODUCT_COUNT; ++i)
 	{
 		if (destination.availableStorage() == 0) { return; }
 
@@ -436,7 +436,7 @@ bool simulateMoveProducts(Warehouse* wh)
 	ProductPool _pool = wh->products();
 
 	/** \fixme	This is a brute force approach. It works but it's not elegant. */
-	StructureList& structures = Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE);
+	StructureList& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
 	for (auto structure : structures)
 	{
 		if (structure->operational())
@@ -461,7 +461,7 @@ bool simulateMoveProducts(Warehouse* wh)
  */
 void moveProducts(Warehouse* wh)
 {
-	StructureList& structures = Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE);
+	StructureList& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
 	for (auto structure : structures)
 	{
 		if (structure->operational())
@@ -545,7 +545,7 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 	for (auto digger : diggers)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, digger, ROBOT_DIGGER);
+		checkRobotDeployment(robot, robotMap, digger, RobotType::ROBOT_DIGGER);
 		robot->attribute("direction", digger->direction());
 		robots->linkEndChild(robot);
 	}
@@ -554,7 +554,7 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 	for (auto dozer : dozers)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, dozer, ROBOT_DOZER);
+		checkRobotDeployment(robot, robotMap, dozer, RobotType::ROBOT_DOZER);
 		robots->linkEndChild(robot);
 	}
 
@@ -562,7 +562,7 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 	for (auto miner : miners)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, miner, ROBOT_MINER);
+		checkRobotDeployment(robot, robotMap, miner, RobotType::ROBOT_MINER);
 		robots->linkEndChild(robot);
 	}
 

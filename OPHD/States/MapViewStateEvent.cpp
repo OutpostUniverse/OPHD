@@ -24,25 +24,25 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 		
 		switch (pt)
 		{
-		case PRODUCT_DIGGER:
-			r = mRobotPool.addRobot(ROBOT_DIGGER);
+		case ProductType::PRODUCT_DIGGER:
+			r = mRobotPool.addRobot(RobotType::ROBOT_DIGGER);
 			r->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			factory.pullProduct();
-			checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
+			checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
 			break;
 
-		case PRODUCT_DOZER:
-			r = mRobotPool.addRobot(ROBOT_DOZER);
+		case ProductType::PRODUCT_DOZER:
+			r = mRobotPool.addRobot(RobotType::ROBOT_DOZER);
 			r->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			factory.pullProduct();
-			checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
+			checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER);
 			break;
 
-		case PRODUCT_MINER:
-			r = mRobotPool.addRobot(ROBOT_MINER);
+		case ProductType::PRODUCT_MINER:
+			r = mRobotPool.addRobot(RobotType::ROBOT_MINER);
 			r->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			factory.pullProduct();
-			checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
+			checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::ROBOT_MINER);
 			break;
 
 		default:
@@ -53,7 +53,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 	}
 	else
 	{
-		factory.idle(IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY);
+		factory.idle(IdleReason::IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY);
 	}
 
 }
@@ -66,25 +66,25 @@ void MapViewState::factoryProductionComplete(Factory& factory)
 {	
 	switch (factory.productWaiting())
 	{
-	case PRODUCT_DIGGER:
-		pullRobotFromFactory(PRODUCT_DIGGER, factory);
+	case ProductType::PRODUCT_DIGGER:
+		pullRobotFromFactory(ProductType::PRODUCT_DIGGER, factory);
 		break;
 
-	case PRODUCT_DOZER:
-		pullRobotFromFactory(PRODUCT_DOZER, factory);
+	case ProductType::PRODUCT_DOZER:
+		pullRobotFromFactory(ProductType::PRODUCT_DOZER, factory);
 		break;
 
-	case PRODUCT_MINER:
-		pullRobotFromFactory(PRODUCT_MINER, factory);
+	case ProductType::PRODUCT_MINER:
+		pullRobotFromFactory(ProductType::PRODUCT_MINER, factory);
 		break;
 
-	case PRODUCT_ROAD_MATERIALS:
-	case PRODUCT_CLOTHING:
-	case PRODUCT_MEDICINE:
+	case ProductType::PRODUCT_ROAD_MATERIALS:
+	case ProductType::PRODUCT_CLOTHING:
+	case ProductType::PRODUCT_MEDICINE:
 		{
 			Warehouse* _wh = getAvailableWarehouse(factory.productWaiting(), 1);
 			if (_wh) { _wh->products().store(factory.productWaiting(), 1); factory.pullProduct(); }
-			else { factory.idle(IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE); }
+			else { factory.idle(IdleReason::IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE); }
 			break;
 		}
 
@@ -100,9 +100,9 @@ void MapViewState::factoryProductionComplete(Factory& factory)
  */
 void MapViewState::deployColonistLander()
 {
-	mPopulation.addPopulation(Population::ROLE_STUDENT, 10);
-	mPopulation.addPopulation(Population::ROLE_WORKER, 20);
-	mPopulation.addPopulation(Population::ROLE_SCIENTIST, 20);
+	mPopulation.addPopulation(Population::PersonRole::ROLE_STUDENT, 10);
+	mPopulation.addPopulation(Population::PersonRole::ROLE_WORKER, 20);
+	mPopulation.addPopulation(Population::PersonRole::ROLE_SCIENTIST, 20);
 }
 
 
@@ -135,7 +135,7 @@ void MapViewState::deploySeedLander(int x, int y)
 	// Bulldoze lander region
 	for (const auto& direction : DirectionScan3x3)
 	{
-		mTileMap->getTile(point + direction)->index(TERRAIN_DOZED);
+		mTileMap->getTile(point + direction)->index(TerrainType::TERRAIN_DOZED);
 	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -143,37 +143,37 @@ void MapViewState::deploySeedLander(int x, int y)
 	// Place initial tubes
 	for (const auto& direction : DirectionClockwise4)
 	{
-		structureManager.addStructure(new Tube(CONNECTOR_INTERSECTION, false), mTileMap->getTile(point + direction));
+		structureManager.addStructure(new Tube(ConnectorDir::CONNECTOR_INTERSECTION, false), mTileMap->getTile(point + direction));
 	}
 
 	// TOP ROW
 	structureManager.addStructure(new SeedPower(), mTileMap->getTile(point + DirectionNorthWest));
 
-	CommandCenter* cc = static_cast<CommandCenter*>(StructureCatalogue::get(SID_COMMAND_CENTER));
+	CommandCenter* cc = static_cast<CommandCenter*>(StructureCatalogue::get(StructureID::SID_COMMAND_CENTER));
 	cc->sprite().setFrame(3);
 	structureManager.addStructure(cc, mTileMap->getTile(point + DirectionNorthEast));
 	ccLocation() = point + DirectionNorthEast;
 
 	// BOTTOM ROW
-	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(SID_SEED_FACTORY));
+	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(StructureID::SID_SEED_FACTORY));
 	sf->resourcePool(&mPlayerResources);
 	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 	sf->sprite().setFrame(7);
 	structureManager.addStructure(sf, mTileMap->getTile(point + DirectionSouthWest));
 
-	SeedSmelter* ss = static_cast<SeedSmelter*>(StructureCatalogue::get(SID_SEED_SMELTER));
+	SeedSmelter* ss = static_cast<SeedSmelter*>(StructureCatalogue::get(StructureID::SID_SEED_SMELTER));
 	ss->sprite().setFrame(10);
 	structureManager.addStructure(ss, mTileMap->getTile(point + DirectionSouthEast));
 
 	// Robots only become available after the SEED Factory is deployed.
-	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
-	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
-	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, ROBOT_MINER);
+	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER);
+	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
+	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::ROBOT_MINER);
 	mRobots.sort();
 
-	mRobotPool.addRobot(ROBOT_DOZER)->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
-	mRobotPool.addRobot(ROBOT_DIGGER)->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
-	mRobotPool.addRobot(ROBOT_MINER)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+	mRobotPool.addRobot(RobotType::ROBOT_DOZER)->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+	mRobotPool.addRobot(RobotType::ROBOT_DIGGER)->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+	mRobotPool.addRobot(RobotType::ROBOT_MINER)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 }
 
 
@@ -182,7 +182,7 @@ void MapViewState::deploySeedLander(int x, int y)
  */
 void MapViewState::dozerTaskFinished(Robot* /*r*/)
 {
-	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, ROBOT_DOZER);
+	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER);
 }
 
 
@@ -204,7 +204,7 @@ void MapViewState::diggerTaskFinished(Robot* r)
 
 	int originX = 0, originY = 0, depthAdjust = 0;
 
-	if(dir == DIR_DOWN)
+	if(dir == Direction::DIR_DOWN)
 	{
 		AirShaft* as1 = new AirShaft();
 		if (t->depth() > 0) { as1->ug(); }
@@ -218,29 +218,29 @@ void MapViewState::diggerTaskFinished(Robot* r)
 		originY = t->y();
 		depthAdjust = 1;
 
-		mTileMap->getTile(t->position(), t->depth())->index(TERRAIN_DOZED);
-		mTileMap->getTile(t->position(), t->depth() + depthAdjust)->index(TERRAIN_DOZED);
+		mTileMap->getTile(t->position(), t->depth())->index(TerrainType::TERRAIN_DOZED);
+		mTileMap->getTile(t->position(), t->depth() + depthAdjust)->index(TerrainType::TERRAIN_DOZED);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		checkConnectedness();
 	}
-	else if(dir == DIR_NORTH)
+	else if(dir == Direction::DIR_NORTH)
 	{
 		originX = t->x();
 		originY = t->y() - 1;
 	}
-	else if(dir == DIR_SOUTH)
+	else if(dir == Direction::DIR_SOUTH)
 	{
 		originX = t->x();
 		originY = t->y() + 1;
 	}
-	else if(dir == DIR_WEST)
+	else if(dir == Direction::DIR_WEST)
 	{
 		originX = t->x() - 1;
 		originY = t->y();
 	}
-	else if(dir == DIR_EAST)
+	else if(dir == Direction::DIR_EAST)
 	{
 		originX = t->x() + 1;
 		originY = t->y();
@@ -259,7 +259,7 @@ void MapViewState::diggerTaskFinished(Robot* r)
 		}
 	}
 
-	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, ROBOT_DIGGER);
+	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
 }
 
 

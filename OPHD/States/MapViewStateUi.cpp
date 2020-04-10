@@ -86,7 +86,7 @@ void MapViewState::initUi()
 	mFactoryProduction.position(r.center_x() - mFactoryProduction.width() / 2.0f, 175.0f);
 	mFactoryProduction.hide();
 
-	mFileIoDialog.setMode(FileIo::FILE_SAVE);
+	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
 	mFileIoDialog.fileOperation().connect(this, &MapViewState::fileIoAction);
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
@@ -166,7 +166,7 @@ void MapViewState::initUi()
 	mPlayerResources.resourceObserver().connect(this, &MapViewState::playerResourcePoolModified);
 
 	// Initial Structures
-	mStructures.addItem(constants::SEED_LANDER, 0, SID_SEED_LANDER);
+	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
 }
 
 
@@ -297,50 +297,50 @@ void MapViewState::populateStructureMenu()
 	{
 		if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 		{
-			mStructures.addItem(constants::SEED_LANDER, 0, SID_SEED_LANDER);
+			mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
 		}
 	}
 	else if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 	{
-		mStructures.addItem(constants::AGRIDOME, 5, SID_AGRIDOME);
-		mStructures.addItem(constants::CHAP, 3, SID_CHAP);
-		mStructures.addItem(constants::FUSION_REACTOR, 21, SID_FUSION_REACTOR);
-		mStructures.addItem(constants::HOT_LABORATORY, 18, SID_HOT_LABORATORY);
-		mStructures.addItem(constants::ROBOT_COMMAND, 14, SID_ROBOT_COMMAND);
-		mStructures.addItem(constants::COMM_TOWER, 22, SID_COMM_TOWER);
-		mStructures.addItem(constants::SURFACE_POLICE, 23, SID_SURFACE_POLICE);
-		mStructures.addItem(constants::SMELTER, 4, SID_SMELTER);
-		mStructures.addItem(constants::SOLAR_PANEL1, 33, SID_SOLAR_PANEL1);
-		mStructures.addItem(constants::SOLAR_PLANT, 10, SID_SOLAR_PLANT);
-		mStructures.addItem(constants::STORAGE_TANKS, 8, SID_STORAGE_TANKS);
-		mStructures.addItem(constants::SURFACE_FACTORY, 11, SID_SURFACE_FACTORY);
-		mStructures.addItem(constants::WAREHOUSE, 9, SID_WAREHOUSE);
+		mStructures.addItem(constants::AGRIDOME, 5, StructureID::SID_AGRIDOME);
+		mStructures.addItem(constants::CHAP, 3, StructureID::SID_CHAP);
+		mStructures.addItem(constants::FUSION_REACTOR, 21, StructureID::SID_FUSION_REACTOR);
+		mStructures.addItem(constants::HOT_LABORATORY, 18, StructureID::SID_HOT_LABORATORY);
+		mStructures.addItem(constants::ROBOT_COMMAND, 14, StructureID::SID_ROBOT_COMMAND);
+		mStructures.addItem(constants::COMM_TOWER, 22, StructureID::SID_COMM_TOWER);
+		mStructures.addItem(constants::SURFACE_POLICE, 23, StructureID::SID_SURFACE_POLICE);
+		mStructures.addItem(constants::SMELTER, 4, StructureID::SID_SMELTER);
+		mStructures.addItem(constants::SOLAR_PANEL1, 33, StructureID::SID_SOLAR_PANEL1);
+		mStructures.addItem(constants::SOLAR_PLANT, 10, StructureID::SID_SOLAR_PLANT);
+		mStructures.addItem(constants::STORAGE_TANKS, 8, StructureID::SID_STORAGE_TANKS);
+		mStructures.addItem(constants::SURFACE_FACTORY, 11, StructureID::SID_SURFACE_FACTORY);
+		mStructures.addItem(constants::WAREHOUSE, 9, StructureID::SID_WAREHOUSE);
 
-		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110, CONNECTOR_INTERSECTION);
-		mConnections.addItem(constants::AG_TUBE_RIGHT, 112, CONNECTOR_RIGHT);
-		mConnections.addItem(constants::AG_TUBE_LEFT, 111, CONNECTOR_LEFT);
+		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110, ConnectorDir::CONNECTOR_INTERSECTION);
+		mConnections.addItem(constants::AG_TUBE_RIGHT, 112, ConnectorDir::CONNECTOR_RIGHT);
+		mConnections.addItem(constants::AG_TUBE_LEFT, 111, ConnectorDir::CONNECTOR_LEFT);
 
 		// Special case code, not thrilled with this
-		if (mLandersColonist > 0) { mStructures.addItem(constants::COLONIST_LANDER, 2, SID_COLONIST_LANDER); }
-		if (mLandersCargo > 0) { mStructures.addItem(constants::CARGO_LANDER, 1, SID_CARGO_LANDER); }
+		if (mLandersColonist > 0) { mStructures.addItem(constants::COLONIST_LANDER, 2, StructureID::SID_COLONIST_LANDER); }
+		if (mLandersCargo > 0) { mStructures.addItem(constants::CARGO_LANDER, 1, StructureID::SID_CARGO_LANDER); }
 	}
 	else
 	{
-		mStructures.addItem(constants::LABORATORY, 58, SID_LABORATORY);
-		mStructures.addItem(constants::PARK, 75, SID_PARK);
-		mStructures.addItem(constants::UNDERGROUND_POLICE, 61, SID_UNDERGROUND_POLICE);
-		mStructures.addItem(constants::RECREATION_CENTER, 73, SID_RECREATION_CENTER);
-		mStructures.addItem(constants::RESIDENCE, 55, SID_RESIDENCE);
-		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69, SID_UNDERGROUND_FACTORY);
-		mStructures.addItem(constants::MEDICAL_CENTER, 62, SID_MEDICAL_CENTER);
-		mStructures.addItem(constants::NURSERY, 77, SID_NURSERY);
-		mStructures.addItem(constants::COMMERCIAL, 66, SID_COMMERCIAL);
-		mStructures.addItem(constants::RED_LIGHT_DISTRICT, 76, SID_RED_LIGHT_DISTRICT);
-		mStructures.addItem(constants::UNIVERSITY, 63, SID_UNIVERSITY);
+		mStructures.addItem(constants::LABORATORY, 58, StructureID::SID_LABORATORY);
+		mStructures.addItem(constants::PARK, 75, StructureID::SID_PARK);
+		mStructures.addItem(constants::UNDERGROUND_POLICE, 61, StructureID::SID_UNDERGROUND_POLICE);
+		mStructures.addItem(constants::RECREATION_CENTER, 73, StructureID::SID_RECREATION_CENTER);
+		mStructures.addItem(constants::RESIDENCE, 55, StructureID::SID_RESIDENCE);
+		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69, StructureID::SID_UNDERGROUND_FACTORY);
+		mStructures.addItem(constants::MEDICAL_CENTER, 62, StructureID::SID_MEDICAL_CENTER);
+		mStructures.addItem(constants::NURSERY, 77, StructureID::SID_NURSERY);
+		mStructures.addItem(constants::COMMERCIAL, 66, StructureID::SID_COMMERCIAL);
+		mStructures.addItem(constants::RED_LIGHT_DISTRICT, 76, StructureID::SID_RED_LIGHT_DISTRICT);
+		mStructures.addItem(constants::UNIVERSITY, 63, StructureID::SID_UNIVERSITY);
 
-		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113, CONNECTOR_INTERSECTION);
-		mConnections.addItem(constants::UG_TUBE_RIGHT, 115, CONNECTOR_RIGHT);
-		mConnections.addItem(constants::UG_TUBE_LEFT, 114, CONNECTOR_LEFT);
+		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113, ConnectorDir::CONNECTOR_INTERSECTION);
+		mConnections.addItem(constants::UG_TUBE_RIGHT, 115, ConnectorDir::CONNECTOR_RIGHT);
+		mConnections.addItem(constants::UG_TUBE_LEFT, 114, ConnectorDir::CONNECTOR_LEFT);
 	}
 
 	updateStructuresAvailability();
@@ -413,7 +413,7 @@ void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _ite
 		return;
 	}
 
-	setStructureID(static_cast<StructureID>(_item->meta), INSERT_STRUCTURE);
+	setStructureID(static_cast<StructureID>(_item->meta), InsertMode::INSERT_STRUCTURE);
 }
 
 
@@ -425,7 +425,7 @@ void MapViewState::connectionsSelectionChanged(const IconGrid::IconGridItem* /*_
 	mRobots.clearSelection();
 	mStructures.clearSelection();
 
-	setStructureID(SID_TUBE, INSERT_TUBE);
+	setStructureID(StructureID::SID_TUBE, InsertMode::INSERT_TUBE);
 }
 
 
@@ -445,8 +445,8 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 
 	mCurrentRobot = static_cast<RobotType>(_item->meta);
 
-	mInsertMode = INSERT_ROBOT;
-	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(POINTER_PLACE_TILE);
+	mInsertMode = InsertMode::INSERT_ROBOT;
+	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
 }
 
 
@@ -458,7 +458,7 @@ void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection select
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
-	if (tile->depth() > 0 && selection == DiggerDirection::SEL_DOWN)
+	if (tile->depth() > 0 && selection == DiggerDirection::DiggerSelection::SEL_DOWN)
 	{
 		NAS2D::Utility<StructureManager>::get().removeStructure(tile->structure());
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -473,33 +473,33 @@ void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection select
 	mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
 
 
-	if (selection == DiggerDirection::SEL_DOWN)
+	if (selection == DiggerDirection::DiggerSelection::SEL_DOWN)
 	{
-		r->direction(DIR_DOWN);
+		r->direction(Direction::DIR_DOWN);
 	}
-	else if (selection == DiggerDirection::SEL_NORTH)
+	else if (selection == DiggerDirection::DiggerSelection::SEL_NORTH)
 	{
-		r->direction(DIR_NORTH);
+		r->direction(Direction::DIR_NORTH);
 		mTileMap->getTile(tile->x(), tile->y() - 1, tile->depth())->excavated(true);
 	}
-	else if (selection == DiggerDirection::SEL_SOUTH)
+	else if (selection == DiggerDirection::DiggerSelection::SEL_SOUTH)
 	{
-		r->direction(DIR_SOUTH);
+		r->direction(Direction::DIR_SOUTH);
 		mTileMap->getTile(tile->x(), tile->y() + 1, tile->depth())->excavated(true);
 	}
-	else if (selection == DiggerDirection::SEL_EAST)
+	else if (selection == DiggerDirection::DiggerSelection::SEL_EAST)
 	{
-		r->direction(DIR_EAST);
+		r->direction(Direction::DIR_EAST);
 		mTileMap->getTile(tile->x() + 1, tile->y(), tile->depth())->excavated(true);
 	}
-	else if (selection == DiggerDirection::SEL_WEST)
+	else if (selection == DiggerDirection::DiggerSelection::SEL_WEST)
 	{
-		r->direction(DIR_WEST);
+		r->direction(Direction::DIR_WEST);
 		mTileMap->getTile(tile->x() - 1, tile->y(), tile->depth())->excavated(true);
 	}
 
 
-	if (!mRobotPool.robotAvailable(ROBOT_DIGGER))
+	if (!mRobotPool.robotAvailable(RobotType::ROBOT_DIGGER))
 	{
 		mRobots.removeItem(constants::ROBODIGGER);
 		clearMode();
@@ -517,7 +517,7 @@ void MapViewState::btnSaveGameClicked()
 	mGameOptionsDialog.hide();
 	//save(constants::SAVE_GAME_PATH + "test.xml");
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
-	mFileIoDialog.setMode(FileIo::FILE_SAVE);
+	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
 	mFileIoDialog.show();
 }
 
@@ -530,7 +530,7 @@ void MapViewState::btnLoadGameClicked()
 	mGameOptionsDialog.hide();
 	//load(constants::SAVE_GAME_PATH + "test.xml");
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
-	mFileIoDialog.setMode(FileIo::FILE_LOAD);
+	mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
 	mFileIoDialog.show();
 
 }
@@ -560,7 +560,7 @@ void MapViewState::btnGameOverClicked()
  */
 void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
-	if (fileOp == FileIo::FILE_LOAD)
+	if (fileOp == FileIo::FileOperation::FILE_LOAD)
 	{
 		try
 		{
@@ -609,7 +609,7 @@ void MapViewState::playerResourcePoolModified()
 void MapViewState::updateStructuresAvailability()
 {
 	std::string structure;
-	for (int sid = 0; sid < SID_COUNT; ++sid)
+	for (int sid = 0; sid < StructureID::SID_COUNT; ++sid)
 	{
 		structure = StructureTranslator::translateToString(static_cast<StructureID>(sid));
 		if (structure.empty())

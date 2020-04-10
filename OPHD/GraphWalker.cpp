@@ -14,18 +14,18 @@ using namespace NAS2D;
  */
 static bool checkSourceTubeAlignment(Structure* src, Direction direction)
 {
-	if (src->connectorDirection() == CONNECTOR_INTERSECTION || src->connectorDirection() == CONNECTOR_VERTICAL)
+	if (src->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || src->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 	{
 		return true;
 	}
-	else if (direction == DIR_EAST || direction == DIR_WEST)
+	else if (direction == Direction::DIR_EAST || direction == Direction::DIR_WEST)
 	{
-		if (src->connectorDirection() == CONNECTOR_RIGHT)
+		if (src->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
 			return true;
 	}
-	else if (direction == DIR_NORTH || direction == DIR_SOUTH)
+	else if (direction == Direction::DIR_NORTH || direction == Direction::DIR_SOUTH)
 	{
-		if (src->connectorDirection() == CONNECTOR_LEFT)
+		if (src->connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
 			return true;
 	}
 
@@ -42,25 +42,25 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 	{
 		throw std::runtime_error("GraphWalker::validConnection() was passed a NULL Pointer.");
 	}
-	if (direction == DIR_UP || direction == DIR_DOWN)
+	if (direction == Direction::DIR_UP || direction == Direction::DIR_DOWN)
 	{
-		if (src->isConnector() && src->connectorDirection() == CONNECTOR_VERTICAL) { return true; }
+		if (src->isConnector() && src->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL) { return true; }
 		return false;
 	}
 	else if (dst->isConnector())
 	{
-		if (dst->connectorDirection() == CONNECTOR_INTERSECTION || dst->connectorDirection() == CONNECTOR_VERTICAL)
+		if (dst->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || dst->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			if (!src->isConnector()) { return true; }
 			else { return checkSourceTubeAlignment(src, direction); }
 		}
-		else if (direction == DIR_EAST || direction == DIR_WEST)
+		else if (direction == Direction::DIR_EAST || direction == Direction::DIR_WEST)
 		{
-			if (dst->connectorDirection() == CONNECTOR_RIGHT) { return true; }
+			if (dst->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT) { return true; }
 		}
-		else if (direction == DIR_NORTH || direction == DIR_SOUTH)
+		else if (direction == Direction::DIR_NORTH || direction == Direction::DIR_SOUTH)
 		{
-			if (dst->connectorDirection() == CONNECTOR_LEFT) { return true; }
+			if (dst->connectorDirection() == ConnectorDir::CONNECTOR_LEFT) { return true; }
 		}
 
 		return false;
@@ -88,13 +88,13 @@ void GraphWalker::walkGraph()
 {
 	mThisTile->connected(true);
 
-	if (mDepth > 0) { check(mGridPosition, mDepth - 1, DIR_UP); }
-	if (mDepth < mTileMap->maxDepth()) { check(mGridPosition, mDepth + 1, DIR_DOWN); }
+	if (mDepth > 0) { check(mGridPosition, mDepth - 1, Direction::DIR_UP); }
+	if (mDepth < mTileMap->maxDepth()) { check(mGridPosition, mDepth + 1, Direction::DIR_DOWN); }
 
-	check(mGridPosition + DirectionNorth, mDepth, DIR_NORTH);
-	check(mGridPosition + DirectionEast, mDepth, DIR_EAST);
-	check(mGridPosition + DirectionSouth, mDepth, DIR_SOUTH);
-	check(mGridPosition + DirectionWest, mDepth, DIR_WEST);
+	check(mGridPosition + DirectionNorth, mDepth, Direction::DIR_NORTH);
+	check(mGridPosition + DirectionEast, mDepth, Direction::DIR_EAST);
+	check(mGridPosition + DirectionSouth, mDepth, Direction::DIR_SOUTH);
+	check(mGridPosition + DirectionWest, mDepth, Direction::DIR_WEST);
 }
 
 

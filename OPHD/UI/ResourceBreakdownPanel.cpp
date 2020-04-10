@@ -22,10 +22,10 @@ enum ResourceTrend
 	RESOURCE_TREND_DOWN
 };
 
-static ResourceTrend	COMMON_METALS = RESOURCE_TREND_NONE;
-static ResourceTrend	COMMON_MINERALS = RESOURCE_TREND_NONE;
-static ResourceTrend	RARE_METALS = RESOURCE_TREND_NONE;
-static ResourceTrend	RARE_MINERALS = RESOURCE_TREND_NONE;
+static ResourceTrend	COMMON_METALS = ResourceTrend::RESOURCE_TREND_NONE;
+static ResourceTrend	COMMON_MINERALS = ResourceTrend::RESOURCE_TREND_NONE;
+static ResourceTrend	RARE_METALS = ResourceTrend::RESOURCE_TREND_NONE;
+static ResourceTrend	RARE_MINERALS = ResourceTrend::RESOURCE_TREND_NONE;
 
 
 static Color			COMMON_MET_COL = Color::White;
@@ -36,17 +36,17 @@ static Color			RARE_MIN_COL = Color::White;
 
 std::map<ResourceTrend, Point<float>> ICON_SLICE
 {
-	{ RESOURCE_TREND_NONE,	Point<float>(16.0f, 64.0f) },
-	{ RESOURCE_TREND_UP,	Point<float>(8.0f, 64.0f) },
-	{ RESOURCE_TREND_DOWN,	Point<float>(0.0f, 64.0f) }
+	{ ResourceTrend::RESOURCE_TREND_NONE,	Point<float>(16.0f, 64.0f) },
+	{ ResourceTrend::RESOURCE_TREND_UP,	Point<float>(8.0f, 64.0f) },
+	{ ResourceTrend::RESOURCE_TREND_DOWN,	Point<float>(0.0f, 64.0f) }
 };
 
 
 std::map<ResourceTrend, Color> TEXT_COLOR
 {
-	{ RESOURCE_TREND_NONE,	Color::White },
-	{ RESOURCE_TREND_UP,	Color{0, 185, 0} },
-	{ RESOURCE_TREND_DOWN,	Color::Red }
+	{ ResourceTrend::RESOURCE_TREND_NONE,	Color::White },
+	{ ResourceTrend::RESOURCE_TREND_UP,	Color{0, 185, 0} },
+	{ ResourceTrend::RESOURCE_TREND_DOWN,	Color::Red }
 };
 
 
@@ -55,9 +55,9 @@ std::map<ResourceTrend, Color> TEXT_COLOR
  */
 static ResourceTrend compareResources(int src, int dst)
 {
-	if (src > dst) { return RESOURCE_TREND_UP; }
-	if (src < dst) { return RESOURCE_TREND_DOWN; }
-	return RESOURCE_TREND_NONE;
+	if (src > dst) { return ResourceTrend::RESOURCE_TREND_UP; }
+	if (src < dst) { return ResourceTrend::RESOURCE_TREND_DOWN; }
+	return ResourceTrend::RESOURCE_TREND_NONE;
 }
 
 

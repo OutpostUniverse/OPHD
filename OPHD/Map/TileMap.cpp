@@ -38,9 +38,9 @@ const double		THROB_SPEED					= 250.0; // Throb speed of mine beacon
 /** Tuple indicates percent of mines that should be of yields LOW, MED, HIGH */
 std::map<constants::PlanetHostility, std::tuple<float, float, float>>	HostilityMineYieldTable =
 {
-	{ constants::HOSTILITY_LOW,		{0.30f, 0.50f, 0.20f} },
-	{ constants::HOSTILITY_MEDIUM,	{0.45f, 0.35f, 0.20f} },
-	{ constants::HOSTILITY_HIGH,	{0.35f, 0.20f, 0.45f} },
+	{ constants::PlanetHostility::HOSTILITY_LOW,		{0.30f, 0.50f, 0.20f} },
+	{ constants::PlanetHostility::HOSTILITY_MEDIUM,	{0.45f, 0.35f, 0.20f} },
+	{ constants::PlanetHostility::HOSTILITY_HIGH,	{0.35f, 0.20f, 0.45f} },
 };
 
 
@@ -89,7 +89,7 @@ static void addMineSet(Point<int> suggestedMineLocation, Point2dList& plist, Til
 	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation, tileArray);
 
 	tileArray[0][mineLocation.y()][mineLocation.x()].pushMine(new Mine(rate));
-	tileArray[0][mineLocation.y()][mineLocation.x()].index(TERRAIN_DOZED);
+	tileArray[0][mineLocation.y()][mineLocation.x()].index(TerrainType::TERRAIN_DOZED);
 
 	plist.push_back(mineLocation);
 }
@@ -200,7 +200,7 @@ void TileMap::buildTerrainMap(const std::string& path)
  */
 void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 {
-	if (hostility == constants::HOSTILITY_NONE) { return; }
+	if (hostility == constants::PlanetHostility::HOSTILITY_NONE) { return; }
 
 	int yield_low = mineCount * std::get<0>(HostilityMineYieldTable[hostility]);
 	int yield_medium = mineCount * std::get<1>(HostilityMineYieldTable[hostility]);
@@ -220,19 +220,19 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 	for (int i = 0; i < yield_low; ++i)
 	{
 		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
-		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_LOW);
+		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_LOW);
 	}
 
 	for (int i = 0; i < yield_medium; ++i)
 	{
 		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
-		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_MEDIUM);
+		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_MEDIUM);
 	}
 
 	for (int i = 0; i < yield_high; ++i)
 	{
 		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
-		addMineSet(pt, mMineLocations, mTileMap, PRODUCTION_RATE_HIGH);
+		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_HIGH);
 	}
 
 }
@@ -268,11 +268,11 @@ void TileMap::buildMouseMap()
 		for(size_t col = 0; col < TILE_WIDTH; col++)
 		{
 			const Color c = mousemap.pixelColor(static_cast<int>(col), static_cast<int>(row));
-			if (c == NAS2D::Color::Yellow) { mMouseMap[row][col] = MMR_BOTTOM_RIGHT; }
-			else if (c == NAS2D::Color::Red) { mMouseMap[row][col] = MMR_TOP_LEFT; }
-			else if (c == NAS2D::Color::Blue) { mMouseMap[row][col] = MMR_TOP_RIGHT; }
-			else if (c == NAS2D::Color::Green) { mMouseMap[row][col] = MMR_BOTTOM_LEFT; }
-			else { mMouseMap[row][col] = MMR_MIDDLE; }
+			if (c == NAS2D::Color::Yellow) { mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_RIGHT; }
+			else if (c == NAS2D::Color::Red) { mMouseMap[row][col] = MouseMapRegion::MMR_TOP_LEFT; }
+			else if (c == NAS2D::Color::Blue) { mMouseMap[row][col] = MouseMapRegion::MMR_TOP_RIGHT; }
+			else if (c == NAS2D::Color::Green) { mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_LEFT; }
+			else { mMouseMap[row][col] = MouseMapRegion::MMR_MIDDLE; }
 		}
 	}
 }
@@ -393,19 +393,19 @@ void TileMap::updateTileHighlight()
 
 	switch (mmr)
 	{
-	case MMR_TOP_RIGHT:
+	case MouseMapRegion::MMR_TOP_RIGHT:
 		mMapHighlight.y(--mMapHighlight.y());
 		break;
 
-	case MMR_TOP_LEFT:
+	case MouseMapRegion::MMR_TOP_LEFT:
 		mMapHighlight.x(--mMapHighlight.x());
 		break;
 
-	case MMR_BOTTOM_RIGHT:
+	case MouseMapRegion::MMR_BOTTOM_RIGHT:
 		mMapHighlight.x(++mMapHighlight.x());
 		break;
 
-	case MMR_BOTTOM_LEFT:
+	case MouseMapRegion::MMR_BOTTOM_LEFT:
 		mMapHighlight.y(++mMapHighlight.y());
 		break;
 
@@ -471,7 +471,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 		XmlElement *mine = new XmlElement("mine");
 		mine->attribute("x", mMineLocations[i].x());
 		mine->attribute("y", mMineLocations[i].y());
-		getTile(mMineLocations[i], LEVEL_SURFACE)->mine()->serialize(mine);
+		getTile(mMineLocations[i], TileMapLevel::LEVEL_SURFACE)->mine()->serialize(mine);
 		mines->linkEndChild(mine);
 	}
 
@@ -538,7 +538,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		m->deserialize(mine->toElement());
 
 		mTileMap[0][y][x].pushMine(m);
-		mTileMap[0][y][x].index(TERRAIN_DOZED);
+		mTileMap[0][y][x].index(TerrainType::TERRAIN_DOZED);
 
 		mMineLocations.push_back(Point{x, y});
 
@@ -619,7 +619,7 @@ void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
 		Tile* adjacent_tile = getTile(tilePosition + offset, 0);
 		float cost = 0.5f;
 
-		if (!adjacent_tile || !adjacent_tile->empty() || adjacent_tile->index() == TERRAIN_IMPASSABLE) { cost = FLT_MAX; }
+		if (!adjacent_tile || !adjacent_tile->empty() || adjacent_tile->index() == TerrainType::TERRAIN_IMPASSABLE) { cost = FLT_MAX; }
 		else { cost *= static_cast<float>(adjacent_tile->index()) + 1.0f; }
 
 		StateCost nodeCost = { adjacent_tile, cost };

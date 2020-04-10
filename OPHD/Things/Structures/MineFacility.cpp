@@ -28,7 +28,7 @@ static int push_count(MineFacility* _mf)
 /**
  * 
  */
-MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite", CLASS_MINE), mMine(mine)
+MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite", StructureClass::CLASS_MINE), mMine(mine)
 {
 	sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 	maxAge(1200);
@@ -82,7 +82,7 @@ void MineFacility::think()
 
 	if (mMine->exhausted())
 	{
-		idle(IDLE_MINE_EXHAUSTED);
+		idle(IdleReason::IDLE_MINE_EXHAUSTED);
 		return;
 	}
 
@@ -90,35 +90,35 @@ void MineFacility::think()
 	{
 		if (storage().atCapacity())
 		{
-			idle(IDLE_MINE_EXHAUSTED);
+			idle(IdleReason::IDLE_MINE_EXHAUSTED);
 			return;
 		}
 
 		if (mMine->miningCommonMetals())
 		{
-			production().pushResource(ResourcePool::RESOURCE_COMMON_METALS_ORE, mMine->pull(Mine::ORE_COMMON_METALS, push_count(this)));
+			production().pushResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, mMine->pull(Mine::OreType::ORE_COMMON_METALS, push_count(this)));
 		}
 		
 		if (mMine->miningCommonMinerals())
 		{
-			production().pushResource(ResourcePool::RESOURCE_COMMON_MINERALS_ORE, mMine->pull(Mine::ORE_COMMON_MINERALS, push_count(this)));
+			production().pushResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, mMine->pull(Mine::OreType::ORE_COMMON_MINERALS, push_count(this)));
 		}
 		
 		if (mMine->miningRareMetals())
 		{
-			production().pushResource(ResourcePool::RESOURCE_RARE_METALS_ORE, mMine->pull(Mine::ORE_RARE_METALS, push_count(this)));
+			production().pushResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, mMine->pull(Mine::OreType::ORE_RARE_METALS, push_count(this)));
 		}
 		
 		if (mMine->miningRareMinerals())
 		{
-			production().pushResource(ResourcePool::RESOURCE_RARE_MINERALS_ORE, mMine->pull(Mine::ORE_RARE_MINERALS, push_count(this)));
+			production().pushResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, mMine->pull(Mine::OreType::ORE_RARE_MINERALS, push_count(this)));
 		}
 
 		storage().pushResources(production());
 	}
 	else if (!isIdle())
 	{
-		idle(IDLE_MINE_INACTIVE);
+		idle(IdleReason::IDLE_MINE_INACTIVE);
 	}
 }
 

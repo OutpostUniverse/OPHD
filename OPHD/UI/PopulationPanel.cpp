@@ -48,11 +48,11 @@ void PopulationPanel::update()
 	renderer.drawText(*FONT, text, position, NAS2D::Color::White);
 
 	const std::array populationData{
-		std::pair{NAS2D::Rectangle{0, 96, 32, 32}, mPopulation->size(Population::ROLE_CHILD)},
-		std::pair{NAS2D::Rectangle{32, 96, 32, 32}, mPopulation->size(Population::ROLE_STUDENT)},
-		std::pair{NAS2D::Rectangle{64, 96, 32, 32}, mPopulation->size(Population::ROLE_WORKER)},
-		std::pair{NAS2D::Rectangle{96, 96, 32, 32}, mPopulation->size(Population::ROLE_SCIENTIST)},
-		std::pair{NAS2D::Rectangle{128, 96, 32, 32}, mPopulation->size(Population::ROLE_RETIRED)},
+		std::pair{NAS2D::Rectangle{0, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_CHILD)},
+		std::pair{NAS2D::Rectangle{32, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_STUDENT)},
+		std::pair{NAS2D::Rectangle{64, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_WORKER)},
+		std::pair{NAS2D::Rectangle{96, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_SCIENTIST)},
+		std::pair{NAS2D::Rectangle{128, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_RETIRED)},
 	};
 
 	position.y() += 15;

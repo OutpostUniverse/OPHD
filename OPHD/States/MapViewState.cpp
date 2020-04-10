@@ -112,7 +112,7 @@ MapViewState::~MapViewState()
 	scrubRobotList();
 	delete mTileMap;
 
-	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
+	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
 	EventHandler& e = Utility<EventHandler>::get();
 	e.activate().disconnect(this, &MapViewState::onActivate);
@@ -147,7 +147,7 @@ void MapViewState::initialize()
 	initUi();
 	Renderer& r = Utility<Renderer>::get();
 
-	r.setCursor(POINTER_NORMAL);
+	r.setCursor(PointerType::POINTER_NORMAL);
 
 	setupUiPositions(r.width(), r.height());
 
@@ -256,7 +256,7 @@ int MapViewState::foodInStorage()
 {
 	int food_count = 0;
 
-	auto sl = Utility<StructureManager>::get().structureList(Structure::CLASS_FOOD_PRODUCTION);
+	auto sl = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
 
 	for (auto _st : sl)
 	{
@@ -285,7 +285,7 @@ int MapViewState::foodTotalStorage()
 		food_storage += constants::BASE_STORAGE_CAPACITY;
 	}
 
-	auto sl = Utility<StructureManager>::get().structureList(Structure::CLASS_FOOD_PRODUCTION);
+	auto sl = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
 	for (auto _st : sl)
 	{
 		if (_st->operational() || _st->isIdle())
@@ -414,22 +414,22 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		case EventHandler::KeyCode::KEY_F10:
 			if (Utility<EventHandler>::get().control(mod) && Utility<EventHandler>::get().shift(mod))
 			{
-				mPlayerResources.pushResource(ResourcePool::RESOURCE_COMMON_METALS, 1000);
-				mPlayerResources.pushResource(ResourcePool::RESOURCE_COMMON_MINERALS, 1000);
-				mPlayerResources.pushResource(ResourcePool::RESOURCE_RARE_METALS, 1000);
-				mPlayerResources.pushResource(ResourcePool::RESOURCE_RARE_MINERALS, 1000);
+				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS, 1000);
+				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, 1000);
+				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS, 1000);
+				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, 1000);
 			}
 			break;
 
 		case EventHandler::KeyCode::KEY_F2:
 			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
-			mFileIoDialog.setMode(FileIo::FILE_SAVE);
+			mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
 			mFileIoDialog.show();
 			break;
 
 		case EventHandler::KeyCode::KEY_F3:
 			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
-			mFileIoDialog.setMode(FileIo::FILE_LOAD);
+			mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
 			mFileIoDialog.show();
 			break;
 
@@ -475,7 +475,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 
-		if (mInsertMode != INSERT_NONE)
+		if (mInsertMode != InsertMode::INSERT_NONE)
 		{
 			resetUi();
 			return;
@@ -581,19 +581,19 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		else if (mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
 			EventHandler& e = Utility<EventHandler>::get();
-			if (mInsertMode == INSERT_STRUCTURE)
+			if (mInsertMode == InsertMode::INSERT_STRUCTURE)
 			{
 				placeStructure();
 			}
-			else if (mInsertMode == INSERT_ROBOT)
+			else if (mInsertMode == InsertMode::INSERT_ROBOT)
 			{
 				placeRobot();
 			}
-			else if ( (mInsertMode == INSERT_TUBE) && e.query_shift())
+			else if ( (mInsertMode == InsertMode::INSERT_TUBE) && e.query_shift())
 			{
 				placeTubeStart();
 			}
-			else if (mInsertMode == INSERT_TUBE)
+			else if (mInsertMode == InsertMode::INSERT_TUBE)
 			{
 				placeTubes();
 			}
@@ -618,7 +618,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 
 			if (_s->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(_s); }
 			else if (_s->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(_s); }
-			else if (_s->isMineFacility() || _s->structureClass() == Structure::CLASS_SMELTER) { MAIN_REPORTS_UI->selectMinePanel(_s); }
+			else if (_s->isMineFacility() || _s->structureClass() == Structure::StructureClass::CLASS_SMELTER) { MAIN_REPORTS_UI->selectMinePanel(_s); }
 			else { return; } // avoids showing the full-screen UI on unhandled structures.
 
 			mReportsUiCallback();
@@ -636,7 +636,7 @@ void MapViewState::onMouseUp(EventHandler::MouseButton button, int /*x*/, int /*
 	{
 		mLeftButtonDown = false;
 		EventHandler& e = Utility<EventHandler>::get();
-		if ((mInsertMode == INSERT_TUBE) && e.query_shift())
+		if ((mInsertMode == InsertMode::INSERT_TUBE) && e.query_shift())
 		{
 			placeTubeEnd();
 		}
@@ -669,7 +669,7 @@ void MapViewState::onMouseMove(int /*x*/, int /*y*/, int /*rX*/, int /*rY*/)
  */
 void MapViewState::onMouseWheel(int /*x*/, int y)
 {
-	if (mInsertMode != INSERT_TUBE) { return; }
+	if (mInsertMode != InsertMode::INSERT_TUBE) { return; }
 
 	if (y > 0) { mConnections.decrementSelection(); }
 	else { mConnections.incrementSelection(); }
@@ -686,7 +686,7 @@ bool MapViewState::changeDepth(int newDepth)
 
 	if (mTileMap->currentDepth() == mPrevious) { return false; }
 
-	if (mInsertMode != INSERT_ROBOT) { clearMode(); }
+	if (mInsertMode != InsertMode::INSERT_ROBOT) { clearMode(); }
 	populateStructureMenu();
 	updateCurrentLevelString(mTileMap->currentDepth());
 	return true;
@@ -710,11 +710,11 @@ void MapViewState::setMinimapView()
  */
 void MapViewState::clearMode()
 {
-	mInsertMode = INSERT_NONE;
-	Utility<Renderer>::get().setCursor(POINTER_NORMAL);
+	mInsertMode = InsertMode::INSERT_NONE;
+	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
-	mCurrentStructure = SID_NONE;
-	mCurrentRobot = ROBOT_NONE;
+	mCurrentStructure = StructureID::SID_NONE;
+	mCurrentRobot = RobotType::ROBOT_NONE;
 
 	clearSelections();
 }
@@ -725,17 +725,17 @@ void MapViewState::clearMode()
  */
 void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 {
-	if (dir == CONNECTOR_INTERSECTION)
+	if (dir == ConnectorDir::CONNECTOR_INTERSECTION)
 	{
-		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_INTERSECTION, depth != 0), tile);
+		Utility<StructureManager>::get().addStructure(new Tube(ConnectorDir::CONNECTOR_INTERSECTION, depth != 0), tile);
 	}
-	else if (dir == CONNECTOR_RIGHT)
+	else if (dir == ConnectorDir::CONNECTOR_RIGHT)
 	{
-		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_RIGHT, depth != 0), tile);
+		Utility<StructureManager>::get().addStructure(new Tube(ConnectorDir::CONNECTOR_RIGHT, depth != 0), tile);
 	}
-	else if (dir == CONNECTOR_LEFT)
+	else if (dir == ConnectorDir::CONNECTOR_LEFT)
 	{
-		Utility<StructureManager>::get().addStructure(new Tube(CONNECTOR_LEFT, depth != 0), tile);
+		Utility<StructureManager>::get().addStructure(new Tube(ConnectorDir::CONNECTOR_LEFT, depth != 0), tile);
 	}
 	else
 	{
@@ -829,7 +829,7 @@ void MapViewState::placeTubeEnd()
 
 	switch (cd)
 	{
-	case CONNECTOR_INTERSECTION:
+	case ConnectorDir::CONNECTOR_INTERSECTION:
 
 		if (abs(tubeStart.x() - tile->x()) >= abs(tubeStart.y() - tile->y())){
 			incX = 1;	// The sens will be on the longest spread on X or Y
@@ -837,10 +837,10 @@ void MapViewState::placeTubeEnd()
 			incY = 1;
 		}
 		break;
-	case CONNECTOR_RIGHT:
+	case ConnectorDir::CONNECTOR_RIGHT:
 		incX = 1;
 		break;
-	case CONNECTOR_LEFT:
+	case ConnectorDir::CONNECTOR_LEFT:
 		incY = 1;
 		break;
 	default:
@@ -904,7 +904,7 @@ void MapViewState::placeRobot()
 	}
 
 	// Robodozer has been selected.
-	if(mCurrentRobot == ROBOT_DOZER)
+	if(mCurrentRobot == RobotType::ROBOT_DOZER)
 	{
 		Robot* r = mRobotPool.getDozer();
 
@@ -943,13 +943,13 @@ void MapViewState::placeRobot()
 			Structure* _s = tile->structure();
 
 			if (_s->isMineFacility()) { return; }
-			if (_s->structureClass() == Structure::CLASS_COMMAND)
+			if (_s->structureClass() == Structure::StructureClass::CLASS_COMMAND)
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_CC);
 				return;
 			}
 
-			if (_s->structureClass() == Structure::CLASS_LANDER && _s->age() == 0)
+			if (_s->structureClass() == Structure::StructureClass::CLASS_LANDER && _s->age() == 0)
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_LANDING_SITE);
 				return;
@@ -975,10 +975,10 @@ void MapViewState::placeRobot()
 			Utility<StructureManager>::get().removeStructure(_s);
 			tile->deleteThing();
 			Utility<StructureManager>::get().disconnectAll();
-			static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(TERRAIN_DOZED));
+			static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(TerrainType::TERRAIN_DOZED));
 			checkConnectedness();
 		}
-		else if (tile->index() == TERRAIN_DOZED)
+		else if (tile->index() == TerrainType::TERRAIN_DOZED)
 		{
 			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_TILE_BULLDOZED);
 			return;
@@ -987,16 +987,16 @@ void MapViewState::placeRobot()
 		r->startTask(tile->index());
 		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
 		static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(tile->index()));
-		tile->index(TERRAIN_DOZED);
+		tile->index(TerrainType::TERRAIN_DOZED);
 
-		if(!mRobotPool.robotAvailable(ROBOT_DOZER))
+		if(!mRobotPool.robotAvailable(RobotType::ROBOT_DOZER))
 		{
 			mRobots.removeItem(constants::ROBODOZER);
 			clearMode();
 		}
 	}
 	// Robodigger has been selected.
-	else if(mCurrentRobot == ROBOT_DIGGER)
+	else if(mCurrentRobot == RobotType::ROBOT_DIGGER)
 	{
 		// Keep digger within a safe margin of the map boundaries.
 		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
@@ -1027,12 +1027,12 @@ void MapViewState::placeRobot()
 		{
 			if (tile->depth() > constants::DEPTH_SURFACE)
 			{
-				if (tile->thingIsStructure() && tile->structure()->connectorDirection() != CONNECTOR_VERTICAL) //air shaft
+				if (tile->thingIsStructure() && tile->structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) //air shaft
 				{
 					doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
 					return;
 				}
-				else if (tile->thingIsStructure() && tile->structure()->connectorDirection() == CONNECTOR_VERTICAL && tile->depth() == mTileMap->maxDepth())
+				else if (tile->thingIsStructure() && tile->structure()->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL && tile->depth() == mTileMap->maxDepth())
 				{
 					doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MAX_DIG_DEPTH);
 					return;
@@ -1074,7 +1074,7 @@ void MapViewState::placeRobot()
 		}
 	}
 	// Robominer has been selected.
-	else if(mCurrentRobot == ROBOT_MINER)
+	else if(mCurrentRobot == RobotType::ROBOT_MINER)
 	{
 		if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
 		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
@@ -1083,9 +1083,9 @@ void MapViewState::placeRobot()
 		Robot* r = mRobotPool.getMiner();
 		r->startTask(constants::MINER_TASK_TIME);
 		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
-		tile->index(TERRAIN_DOZED);
+		tile->index(TerrainType::TERRAIN_DOZED);
 
-		if (!mRobotPool.robotAvailable(ROBOT_MINER))
+		if (!mRobotPool.robotAvailable(RobotType::ROBOT_MINER))
 		{
 			mRobots.removeItem(constants::ROBOMINER);
 			clearMode();
@@ -1112,8 +1112,8 @@ void MapViewState::checkRobotSelectionInterface(const std::string& rType, int sh
  */
 void MapViewState::placeStructure()
 {
-	// SID_NONE is a logic error and should fail as loudly as possible.
-	if (mCurrentStructure == SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
+	// StructureID::SID_NONE is a logic error and should fail as loudly as possible.
+	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
 
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
@@ -1161,11 +1161,11 @@ void MapViewState::placeStructure()
 	int tile_x = mTileMapMouseHover.x(), tile_y = mTileMapMouseHover.y();
 
 	// Seed lander is a special case and only one can ever be placed by the player ever.
-	if(mCurrentStructure == SID_SEED_LANDER)
+	if(mCurrentStructure == StructureID::SID_SEED_LANDER)
 	{
 		insertSeedLander(tile_x, tile_y);
 	}
-	else if (mCurrentStructure == SID_COLONIST_LANDER)
+	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
 	{
 		if (!validLanderSite(tile)) { return; }
 
@@ -1181,7 +1181,7 @@ void MapViewState::placeStructure()
 			populateStructureMenu();
 		}
 	}
-	else if (mCurrentStructure == SID_CARGO_LANDER)
+	else if (mCurrentStructure == StructureID::SID_CARGO_LANDER)
 	{
 		if (!validLanderSite(tile)) { return; }
 
@@ -1291,7 +1291,7 @@ void MapViewState::updateRobots()
 			}
 
 			/// \fixme	Brute force.
-			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::CLASS_ROBOT_COMMAND))
+			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND))
 			{
 				static_cast<RobotCommand*>(rcc)->removeRobot(robot_it->first);
 			}
@@ -1325,7 +1325,7 @@ void MapViewState::updateRobots()
 void MapViewState::setStructureID(StructureID type, InsertMode mode)
 {
 
-	if (type == SID_NONE)
+	if (type == StructureID::SID_NONE)
 	{
 		clearMode();
 		return;
@@ -1334,7 +1334,7 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
 	mCurrentStructure = type;
 
 	mInsertMode = mode;
-	Utility<Renderer>::get().setCursor(POINTER_PLACE_TILE);
+	Utility<Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
 
 }
 
@@ -1359,7 +1359,7 @@ void MapViewState::checkConnectedness()
 		throw std::runtime_error("CC coordinates do not actually point to a Command Center.");
 	}
 
-	if (cc->state() == Structure::UNDER_CONSTRUCTION)
+	if (cc->state() == Structure::StructureState::UNDER_CONSTRUCTION)
 	{
 		return;
 	}

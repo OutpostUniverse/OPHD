@@ -10,7 +10,7 @@
 class Tube : public Structure
 {
 public:
-	Tube(ConnectorDir dir, bool underground) :	Structure(constants::TUBE, "structures/tubes.sprite", CLASS_TUBE),
+	Tube(ConnectorDir dir, bool underground) :	Structure(constants::TUBE, "structures/tubes.sprite", StructureClass::CLASS_TUBE),
 												mUnderground(underground)
 	{
 		connectorDirection(dir);
@@ -27,15 +27,15 @@ private:
 	{
 		if (mUnderground)
 		{
-			if (connectorDirection() == CONNECTOR_INTERSECTION)
+			if (connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION)
 			{
 				sprite().play(constants::UG_TUBE_INTERSECTION);
 			}
-			else if (connectorDirection() == CONNECTOR_RIGHT)
+			else if (connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
 			{
 				sprite().play(constants::UG_TUBE_RIGHT);
 			}
-			else if (connectorDirection() == CONNECTOR_LEFT)
+			else if (connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
 			{
 				sprite().play(constants::UG_TUBE_LEFT);
 			}
@@ -46,15 +46,15 @@ private:
 		}
 		else
 		{
-			if (connectorDirection() == CONNECTOR_INTERSECTION)
+			if (connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION)
 			{
 				sprite().play(constants::AG_TUBE_INTERSECTION);
 			}
-			else if (connectorDirection() == CONNECTOR_RIGHT)
+			else if (connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
 			{
 				sprite().play(constants::AG_TUBE_RIGHT);
 			}
-			else if (connectorDirection() == CONNECTOR_LEFT)
+			else if (connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
 			{
 				sprite().play(constants::AG_TUBE_LEFT);
 			}

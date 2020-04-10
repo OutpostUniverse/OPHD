@@ -39,7 +39,7 @@ static Warehouse* SELECTED_WAREHOUSE = nullptr;
  */
 static bool useStateString(Structure::StructureState _state)
 {
-	return _state == Structure::DISABLED || _state == Structure::DESTROYED || _state == Structure::UNDER_CONSTRUCTION || _state == Structure::IDLE;
+	return _state == Structure::StructureState::DISABLED || _state == Structure::StructureState::DESTROYED || _state == Structure::StructureState::UNDER_CONSTRUCTION || _state == Structure::StructureState::IDLE;
 }
 
 
@@ -55,7 +55,7 @@ static void computeCapacity()
 	int capacity_total = 0;
 	int available_capacity = 0;
 
-	StructureList& sl = Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE);
+	StructureList& sl = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
 	for (auto warehouse : sl)
 	{
 		if (!warehouse->operational()) { continue; } // yuck
@@ -185,7 +185,7 @@ void WarehouseReport::fillLists()
 {
 	lstStructures.clearItems();
 
-	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE));
+	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE));
 
 	lstStructures.setSelection(0);
 	computeCapacity();
@@ -200,7 +200,7 @@ void WarehouseReport::fillListSpaceAvailable()
 	lstStructures.clearItems();
 
 	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
 	{
 		Warehouse* wh = static_cast<Warehouse*>(structure);
 		if (!wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle()))
@@ -225,7 +225,7 @@ void WarehouseReport::fillListFull()
 	lstStructures.clearItems();
 
 	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
 	{
 		Warehouse* wh = static_cast<Warehouse*>(structure);
 		if (wh->products().atCapacity() && (wh->operational() || wh->isIdle()))
@@ -249,7 +249,7 @@ void WarehouseReport::fillListEmpty()
 	lstStructures.clearItems();
 
 	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
 	{
 		Warehouse* wh = static_cast<Warehouse*>(structure);
 		if (wh->products().empty() && (wh->operational() || wh->isIdle()))
@@ -273,7 +273,7 @@ void WarehouseReport::fillListDisabled()
 	lstStructures.clearItems();
 
 	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::CLASS_WAREHOUSE))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
 	{
 		if (structure->disabled() || structure->destroyed())
 		{
