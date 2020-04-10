@@ -298,7 +298,7 @@ void updateRobotControl(RobotPool& robotPool)
  */
 bool structureIsLander(StructureID id)
 {
-	return id == SID_SEED_LANDER || id == SID_COLONIST_LANDER || id == SID_CARGO_LANDER;
+	return id == StructureID::SID_SEED_LANDER || id == StructureID::SID_COLONIST_LANDER || id == StructureID::SID_CARGO_LANDER;
 }
 
 
@@ -311,7 +311,7 @@ bool structureIsLander(StructureID id)
  */
 bool selfSustained(StructureID id)
 {
-	return id == SID_COMM_TOWER;
+	return id == StructureID::SID_COMM_TOWER;
 }
 
 

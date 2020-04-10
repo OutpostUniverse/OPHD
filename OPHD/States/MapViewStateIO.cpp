@@ -362,12 +362,12 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		StructureID type_id = StructureTranslator::translateFromString(type);
 		st = StructureCatalogue::get(type_id);
 
-		if (type_id == SID_COMMAND_CENTER)
+		if (type_id == StructureID::SID_COMMAND_CENTER)
 		{
 			ccLocation() = {x, y};
 		}
 
-		if (type_id == SID_MINE_FACILITY)
+		if (type_id == StructureID::SID_MINE_FACILITY)
 		{
 			Mine* m = mTileMap->getTile(x, y, 0)->mine();
 			if (m == nullptr)
@@ -381,12 +381,12 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 		}
 
-		if (type_id == SID_AIR_SHAFT && depth != 0)
+		if (type_id == StructureID::SID_AIR_SHAFT && depth != 0)
 		{
 			static_cast<AirShaft*>(st)->ug(); // force underground state
 		}
 
-		if (type_id == SID_SEED_LANDER)
+		if (type_id == StructureID::SID_SEED_LANDER)
 		{
 			static_cast<SeedLander*>(st)->position(x, y);
 		}

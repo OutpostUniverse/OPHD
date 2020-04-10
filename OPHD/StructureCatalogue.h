@@ -17,8 +17,8 @@
  * \note	StructureCatalogue::init() must be called prior to use.
  * 
  * \code{.cpp}
- * ResourcePool _rp = StructureCatalogue::costToBuild(SID_AGRIDOME);
- * PopulationRequirements _pr = StructureCatalogue::populationRequirements(SID_AGRIDOME);
+ * ResourcePool _rp = StructureCatalogue::costToBuild(StructureID::SID_AGRIDOME);
+ * PopulationRequirements _pr = StructureCatalogue::populationRequirements(StructureID::SID_AGRIDOME);
  * \endcode
  */
 class StructureCatalogue
@@ -47,7 +47,7 @@ private:
 
 private:
 	//static vector<ResourcePool> mStructureCostTable;
-	static std::array<ResourcePool, SID_COUNT> mStructureCostTable;
-	static std::array<ResourcePool, SID_COUNT> mStructureRecycleValueTable;
-	static std::array<PopulationRequirements, SID_COUNT> mPopulationRequirementsTable;
+	static std::array<ResourcePool, StructureID::SID_COUNT> mStructureCostTable;
+	static std::array<ResourcePool, StructureID::SID_COUNT> mStructureRecycleValueTable;
+	static std::array<PopulationRequirements, StructureID::SID_COUNT> mPopulationRequirementsTable;
 };
