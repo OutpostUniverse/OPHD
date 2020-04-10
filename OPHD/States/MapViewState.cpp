@@ -448,7 +448,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 
 	if (viewUpdated)
 	{
-		mTileMap->mapViewLocation(pt.x(), pt.y());
+		mTileMap->mapViewLocation(pt);
 	}
 }
 
@@ -546,22 +546,22 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		if (MOVE_NORTH_ICON.contains(MOUSE_COORDS))
 		{
 			pt.y(std::clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
-			mTileMap->mapViewLocation(pt.x(), pt.y());
+			mTileMap->mapViewLocation(pt);
 		}
 		else if (MOVE_SOUTH_ICON.contains(MOUSE_COORDS))
 		{
 			pt.y(std::clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
-			mTileMap->mapViewLocation(pt.x(), pt.y());
+			mTileMap->mapViewLocation(pt);
 		}
 		else if (MOVE_EAST_ICON.contains(MOUSE_COORDS))
 		{
 			pt.x(std::clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
-			mTileMap->mapViewLocation(pt.x(), pt.y());
+			mTileMap->mapViewLocation(pt);
 		}
 		else if (MOVE_WEST_ICON.contains(MOUSE_COORDS))
 		{
 			pt.x(std::clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
-			mTileMap->mapViewLocation(pt.x(), pt.y());
+			mTileMap->mapViewLocation(pt);
 		}
 		else if (MOVE_UP_ICON.contains(MOUSE_COORDS))
 		{
