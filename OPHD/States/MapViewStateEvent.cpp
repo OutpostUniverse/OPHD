@@ -100,9 +100,9 @@ void MapViewState::factoryProductionComplete(Factory& factory)
  */
 void MapViewState::deployColonistLander()
 {
-	mPopulation.addPopulation(Population::ROLE_STUDENT, 10);
-	mPopulation.addPopulation(Population::ROLE_WORKER, 20);
-	mPopulation.addPopulation(Population::ROLE_SCIENTIST, 20);
+	mPopulation.addPopulation(Population::PersonRole::ROLE_STUDENT, 10);
+	mPopulation.addPopulation(Population::PersonRole::ROLE_WORKER, 20);
+	mPopulation.addPopulation(Population::PersonRole::ROLE_SCIENTIST, 20);
 }
 
 
