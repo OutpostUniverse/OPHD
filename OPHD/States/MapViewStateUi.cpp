@@ -475,26 +475,26 @@ void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection select
 
 	if (selection == DiggerDirection::DiggerSelection::SEL_DOWN)
 	{
-		r->direction(DIR_DOWN);
+		r->direction(Direction::DIR_DOWN);
 	}
 	else if (selection == DiggerDirection::DiggerSelection::SEL_NORTH)
 	{
-		r->direction(DIR_NORTH);
+		r->direction(Direction::DIR_NORTH);
 		mTileMap->getTile(tile->x(), tile->y() - 1, tile->depth())->excavated(true);
 	}
 	else if (selection == DiggerDirection::DiggerSelection::SEL_SOUTH)
 	{
-		r->direction(DIR_SOUTH);
+		r->direction(Direction::DIR_SOUTH);
 		mTileMap->getTile(tile->x(), tile->y() + 1, tile->depth())->excavated(true);
 	}
 	else if (selection == DiggerDirection::DiggerSelection::SEL_EAST)
 	{
-		r->direction(DIR_EAST);
+		r->direction(Direction::DIR_EAST);
 		mTileMap->getTile(tile->x() + 1, tile->y(), tile->depth())->excavated(true);
 	}
 	else if (selection == DiggerDirection::DiggerSelection::SEL_WEST)
 	{
-		r->direction(DIR_WEST);
+		r->direction(Direction::DIR_WEST);
 		mTileMap->getTile(tile->x() - 1, tile->y(), tile->depth())->excavated(true);
 	}
 

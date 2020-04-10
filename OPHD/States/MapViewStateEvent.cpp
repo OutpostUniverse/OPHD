@@ -204,7 +204,7 @@ void MapViewState::diggerTaskFinished(Robot* r)
 
 	int originX = 0, originY = 0, depthAdjust = 0;
 
-	if(dir == DIR_DOWN)
+	if(dir == Direction::DIR_DOWN)
 	{
 		AirShaft* as1 = new AirShaft();
 		if (t->depth() > 0) { as1->ug(); }
@@ -225,22 +225,22 @@ void MapViewState::diggerTaskFinished(Robot* r)
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		checkConnectedness();
 	}
-	else if(dir == DIR_NORTH)
+	else if(dir == Direction::DIR_NORTH)
 	{
 		originX = t->x();
 		originY = t->y() - 1;
 	}
-	else if(dir == DIR_SOUTH)
+	else if(dir == Direction::DIR_SOUTH)
 	{
 		originX = t->x();
 		originY = t->y() + 1;
 	}
-	else if(dir == DIR_WEST)
+	else if(dir == Direction::DIR_WEST)
 	{
 		originX = t->x() - 1;
 		originY = t->y();
 	}
-	else if(dir == DIR_EAST)
+	else if(dir == Direction::DIR_EAST)
 	{
 		originX = t->x() + 1;
 		originY = t->y();

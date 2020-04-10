@@ -10,7 +10,7 @@ class Robodigger: public Robot
 {
 public:
 	Robodigger():	Robot(constants::ROBODIGGER, "robots/robodigger.sprite"),
-					mDirection(DIR_DOWN)
+					mDirection(Direction::DIR_DOWN)
 	{
 		sprite().play("running");
 	}
