@@ -24,10 +24,10 @@ static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, size_t d
 
 static void setDefaultFlags(std::bitset<6>& flags)
 {
-	flags[Mine::ORE_COMMON_METALS] = true;
-	flags[Mine::ORE_COMMON_MINERALS] = true;
-	flags[Mine::ORE_RARE_METALS] = true;
-	flags[Mine::ORE_RARE_MINERALS] = true;
+	flags[Mine::OreType::ORE_COMMON_METALS] = true;
+	flags[Mine::OreType::ORE_COMMON_MINERALS] = true;
+	flags[Mine::OreType::ORE_RARE_METALS] = true;
+	flags[Mine::OreType::ORE_RARE_MINERALS] = true;
 	flags[4] = false;
 	flags[5] = false;
 }
@@ -74,7 +74,7 @@ void Mine::active(bool newActive)
  */
 bool Mine::miningCommonMetals() const
 {
-	return mFlags[ORE_COMMON_METALS];
+	return mFlags[OreType::ORE_COMMON_METALS];
 }
 
 
@@ -83,7 +83,7 @@ bool Mine::miningCommonMetals() const
  */
 bool Mine::miningCommonMinerals() const
 {
-	return mFlags[ORE_COMMON_MINERALS];
+	return mFlags[OreType::ORE_COMMON_MINERALS];
 }
 
 
@@ -92,7 +92,7 @@ bool Mine::miningCommonMinerals() const
  */
 bool Mine::miningRareMetals() const
 {
-	return mFlags[ORE_RARE_METALS];
+	return mFlags[OreType::ORE_RARE_METALS];
 }
 
 
@@ -101,7 +101,7 @@ bool Mine::miningRareMetals() const
  */
 bool Mine::miningRareMinerals() const
 {
-	return mFlags[ORE_RARE_MINERALS];
+	return mFlags[OreType::ORE_RARE_MINERALS];
 }
 
 
@@ -110,7 +110,7 @@ bool Mine::miningRareMinerals() const
  */
 void Mine::miningCommonMetals(bool value)
 {
-	mFlags[ORE_COMMON_METALS] = value;
+	mFlags[OreType::ORE_COMMON_METALS] = value;
 }
 
 
@@ -119,7 +119,7 @@ void Mine::miningCommonMetals(bool value)
  */
 void Mine::miningCommonMinerals(bool value)
 {
-	mFlags[ORE_COMMON_MINERALS] = value;
+	mFlags[OreType::ORE_COMMON_MINERALS] = value;
 }
 
 
@@ -128,7 +128,7 @@ void Mine::miningCommonMinerals(bool value)
  */
 void Mine::miningRareMetals(bool value)
 {
-	mFlags[ORE_RARE_METALS] = value;
+	mFlags[OreType::ORE_RARE_METALS] = value;
 }
 
 
@@ -137,7 +137,7 @@ void Mine::miningRareMetals(bool value)
  */
 void Mine::miningRareMinerals(bool value)
 {
-	mFlags[ORE_RARE_MINERALS] = value;
+	mFlags[OreType::ORE_RARE_MINERALS] = value;
 }
 
 
@@ -154,24 +154,24 @@ void Mine::increaseDepth()
 	switch (productionRate())
 	{
 	case PRODUCTION_RATE_LOW:
-		vein[ORE_COMMON_METALS] = 600;
-		vein[ORE_COMMON_MINERALS] = 500;
-		vein[ORE_RARE_METALS] = 600;
-		vein[ORE_RARE_MINERALS] = 500;
+		vein[OreType::ORE_COMMON_METALS] = 600;
+		vein[OreType::ORE_COMMON_MINERALS] = 500;
+		vein[OreType::ORE_RARE_METALS] = 600;
+		vein[OreType::ORE_RARE_MINERALS] = 500;
 		break;
 
 	case PRODUCTION_RATE_MEDIUM:
-		vein[ORE_COMMON_METALS] = 700;
-		vein[ORE_COMMON_MINERALS] = 550;
-		vein[ORE_RARE_METALS] = 700;
-		vein[ORE_RARE_MINERALS] = 550;
+		vein[OreType::ORE_COMMON_METALS] = 700;
+		vein[OreType::ORE_COMMON_MINERALS] = 550;
+		vein[OreType::ORE_RARE_METALS] = 700;
+		vein[OreType::ORE_RARE_MINERALS] = 550;
 		break;
 
 	case PRODUCTION_RATE_HIGH:
-		vein[ORE_COMMON_METALS] = 850;
-		vein[ORE_COMMON_MINERALS] = 600;
-		vein[ORE_RARE_METALS] = 850;
-		vein[ORE_RARE_MINERALS] = 600;
+		vein[OreType::ORE_COMMON_METALS] = 850;
+		vein[OreType::ORE_COMMON_MINERALS] = 600;
+		vein[OreType::ORE_RARE_METALS] = 850;
+		vein[OreType::ORE_RARE_MINERALS] = 600;
 		break;
 	}
 
@@ -194,7 +194,7 @@ int Mine::depth() const
  */
 int Mine::commonMetalsAvailable() const
 {
-	return getOreCount(mVeins, ORE_COMMON_METALS, depth());
+	return getOreCount(mVeins, OreType::ORE_COMMON_METALS, depth());
 }
 
 
@@ -204,7 +204,7 @@ int Mine::commonMetalsAvailable() const
  */
 int Mine::commonMineralsAvailable() const
 {
-	return getOreCount(mVeins, ORE_COMMON_MINERALS, depth());
+	return getOreCount(mVeins, OreType::ORE_COMMON_MINERALS, depth());
 }
 
 
@@ -214,7 +214,7 @@ int Mine::commonMineralsAvailable() const
  */
 int Mine::rareMetalsAvailable() const
 {
-	return getOreCount(mVeins, ORE_RARE_METALS, depth());
+	return getOreCount(mVeins, OreType::ORE_RARE_METALS, depth());
 }
 
 
@@ -224,7 +224,7 @@ int Mine::rareMetalsAvailable() const
  */
 int Mine::rareMineralsAvailable() const
 {
-	return getOreCount(mVeins, ORE_RARE_MINERALS, depth());
+	return getOreCount(mVeins, OreType::ORE_RARE_MINERALS, depth());
 }
 
 
@@ -252,10 +252,10 @@ void Mine::checkExhausted()
 	int ore_count = 0;
 	for (auto vein : mVeins)
 	{
-		ore_count += vein[ORE_COMMON_METALS];
-		ore_count += vein[ORE_COMMON_MINERALS];
-		ore_count += vein[ORE_RARE_METALS];
-		ore_count += vein[ORE_RARE_MINERALS];
+		ore_count += vein[OreType::ORE_COMMON_METALS];
+		ore_count += vein[OreType::ORE_COMMON_MINERALS];
+		ore_count += vein[OreType::ORE_RARE_METALS];
+		ore_count += vein[OreType::ORE_RARE_MINERALS];
 	}
 
 	mFlags[5] = (ore_count == 0);
@@ -312,10 +312,10 @@ void Mine::serialize(NAS2D::Xml::XmlElement* element)
 		XmlElement* vein = new XmlElement("vein");
 
 		vein->attribute("id", static_cast<int>(i));
-		vein->attribute("common_metals",	mv[ORE_COMMON_METALS]);
-		vein->attribute("common_minerals",	mv[ORE_COMMON_MINERALS]);
-		vein->attribute("rare_metals",		mv[ORE_RARE_METALS]);
-		vein->attribute("rare_minerals",	mv[ORE_RARE_MINERALS]);
+		vein->attribute("common_metals",	mv[OreType::ORE_COMMON_METALS]);
+		vein->attribute("common_minerals",	mv[OreType::ORE_COMMON_MINERALS]);
+		vein->attribute("rare_metals",		mv[OreType::ORE_RARE_METALS]);
+		vein->attribute("rare_minerals",	mv[OreType::ORE_RARE_MINERALS]);
 
 		element->linkEndChild(vein);
 	}
@@ -351,10 +351,10 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 		int id = 0;
 		while (attribute)
 		{
-			if (attribute->name() == "common_metals") { attribute->queryIntValue(_mv[ORE_COMMON_METALS]); }
-			else if (attribute->name() == "common_minerals") { attribute->queryIntValue(_mv[ORE_COMMON_MINERALS]); }
-			else if (attribute->name() == "rare_metals") { attribute->queryIntValue(_mv[ORE_RARE_METALS]); }
-			else if (attribute->name() == "rare_minerals") { attribute->queryIntValue(_mv[ORE_RARE_MINERALS]); }
+			if (attribute->name() == "common_metals") { attribute->queryIntValue(_mv[OreType::ORE_COMMON_METALS]); }
+			else if (attribute->name() == "common_minerals") { attribute->queryIntValue(_mv[OreType::ORE_COMMON_MINERALS]); }
+			else if (attribute->name() == "rare_metals") { attribute->queryIntValue(_mv[OreType::ORE_RARE_METALS]); }
+			else if (attribute->name() == "rare_minerals") { attribute->queryIntValue(_mv[OreType::ORE_RARE_MINERALS]); }
 			else if (attribute->name() == "id") { attribute->queryIntValue(id); }
 			attribute = attribute->next();
 		}
