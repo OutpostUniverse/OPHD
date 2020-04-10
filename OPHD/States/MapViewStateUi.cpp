@@ -458,7 +458,7 @@ void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection select
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
-	if (tile->depth() > 0 && selection == DiggerDirection::SEL_DOWN)
+	if (tile->depth() > 0 && selection == DiggerDirection::DiggerSelection::SEL_DOWN)
 	{
 		NAS2D::Utility<StructureManager>::get().removeStructure(tile->structure());
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -473,26 +473,26 @@ void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection select
 	mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
 
 
-	if (selection == DiggerDirection::SEL_DOWN)
+	if (selection == DiggerDirection::DiggerSelection::SEL_DOWN)
 	{
 		r->direction(DIR_DOWN);
 	}
-	else if (selection == DiggerDirection::SEL_NORTH)
+	else if (selection == DiggerDirection::DiggerSelection::SEL_NORTH)
 	{
 		r->direction(DIR_NORTH);
 		mTileMap->getTile(tile->x(), tile->y() - 1, tile->depth())->excavated(true);
 	}
-	else if (selection == DiggerDirection::SEL_SOUTH)
+	else if (selection == DiggerDirection::DiggerSelection::SEL_SOUTH)
 	{
 		r->direction(DIR_SOUTH);
 		mTileMap->getTile(tile->x(), tile->y() + 1, tile->depth())->excavated(true);
 	}
-	else if (selection == DiggerDirection::SEL_EAST)
+	else if (selection == DiggerDirection::DiggerSelection::SEL_EAST)
 	{
 		r->direction(DIR_EAST);
 		mTileMap->getTile(tile->x() + 1, tile->y(), tile->depth())->excavated(true);
 	}
-	else if (selection == DiggerDirection::SEL_WEST)
+	else if (selection == DiggerDirection::DiggerSelection::SEL_WEST)
 	{
 		r->direction(DIR_WEST);
 		mTileMap->getTile(tile->x() - 1, tile->y(), tile->depth())->excavated(true);
