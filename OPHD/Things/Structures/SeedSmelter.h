@@ -6,7 +6,7 @@
 class SeedSmelter : public Structure
 {
 public:
-	SeedSmelter() : Structure(constants::SEED_SMELTER, "structures/seed_1.sprite", CLASS_SMELTER)
+	SeedSmelter() : Structure(constants::SEED_SMELTER, "structures/seed_1.sprite", StructureClass::CLASS_SMELTER)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(150);

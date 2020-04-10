@@ -178,7 +178,7 @@ void MapViewState::load(const std::string& filePath)
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
-	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::CLASS_STORAGE)));
+	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_STORAGE)));
 
 	checkConnectedness();
 
@@ -207,7 +207,7 @@ void MapViewState::load(const std::string& filePath)
 			 * There should only ever be one structure if the turn count is 0, the
 			 * SEED Lander which at this point should not have been deployed.
 			 */
-			StructureList& list = Utility<StructureManager>::get().structureList(Structure::CLASS_LANDER);
+			StructureList& list = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_LANDER);
 			if (list.size() != 1) { throw std::runtime_error("MapViewState::load(): Turn counter at 0 but more than one structure in list."); }
 
 			SeedLander* s = dynamic_cast<SeedLander*>(list[0]);

@@ -9,7 +9,7 @@
 class MineShaft : public Structure
 {
 public:
-	MineShaft() : Structure(constants::MINE_SHAFT, "structures/mine_shaft.sprite", CLASS_UNDEFINED)
+	MineShaft() : Structure(constants::MINE_SHAFT, "structures/mine_shaft.sprite", StructureClass::CLASS_UNDEFINED)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1200);

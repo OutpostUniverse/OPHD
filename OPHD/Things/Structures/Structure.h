@@ -108,17 +108,17 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
-	bool providesCHAP() const { return structureClass() == CLASS_LIFE_SUPPORT; }
+	bool providesCHAP() const { return structureClass() == StructureClass::CLASS_LIFE_SUPPORT; }
 	bool selfSustained() const { return mSelfSustained; }
 	bool repairable() const { return mRepairable; }
 
 	// CONVENIENCE FUCNTIONS
-	bool isFactory() const { return structureClass() == CLASS_FACTORY; }
-	bool isWarehouse() const { return structureClass() == CLASS_WAREHOUSE; }
-	bool isRobotCommand() const { return structureClass() == CLASS_ROBOT_COMMAND; }
-	bool isMineFacility() const { return structureClass() == CLASS_MINE; }
-	bool energyProducer() const { return structureClass() == CLASS_ENERGY_PRODUCTION; }
-	bool isConnector() const { return structureClass() == CLASS_TUBE; }	/** Indicates that the structure can act as a connector (tube) */
+	bool isFactory() const { return structureClass() == StructureClass::CLASS_FACTORY; }
+	bool isWarehouse() const { return structureClass() == StructureClass::CLASS_WAREHOUSE; }
+	bool isRobotCommand() const { return structureClass() == StructureClass::CLASS_ROBOT_COMMAND; }
+	bool isMineFacility() const { return structureClass() == StructureClass::CLASS_MINE; }
+	bool energyProducer() const { return structureClass() == StructureClass::CLASS_ENERGY_PRODUCTION; }
+	bool isConnector() const { return structureClass() == StructureClass::CLASS_TUBE; }	/** Indicates that the structure can act as a connector (tube) */
 
 	/**
 	 * Set the current age of the Structure.

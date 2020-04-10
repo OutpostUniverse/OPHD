@@ -28,7 +28,7 @@ static int push_count(MineFacility* _mf)
 /**
  * 
  */
-MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite", CLASS_MINE), mMine(mine)
+MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite", StructureClass::CLASS_MINE), mMine(mine)
 {
 	sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 	maxAge(1200);

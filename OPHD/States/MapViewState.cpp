@@ -256,7 +256,7 @@ int MapViewState::foodInStorage()
 {
 	int food_count = 0;
 
-	auto sl = Utility<StructureManager>::get().structureList(Structure::CLASS_FOOD_PRODUCTION);
+	auto sl = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
 
 	for (auto _st : sl)
 	{
@@ -285,7 +285,7 @@ int MapViewState::foodTotalStorage()
 		food_storage += constants::BASE_STORAGE_CAPACITY;
 	}
 
-	auto sl = Utility<StructureManager>::get().structureList(Structure::CLASS_FOOD_PRODUCTION);
+	auto sl = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
 	for (auto _st : sl)
 	{
 		if (_st->operational() || _st->isIdle())
@@ -618,7 +618,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 
 			if (_s->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(_s); }
 			else if (_s->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(_s); }
-			else if (_s->isMineFacility() || _s->structureClass() == Structure::CLASS_SMELTER) { MAIN_REPORTS_UI->selectMinePanel(_s); }
+			else if (_s->isMineFacility() || _s->structureClass() == Structure::StructureClass::CLASS_SMELTER) { MAIN_REPORTS_UI->selectMinePanel(_s); }
 			else { return; } // avoids showing the full-screen UI on unhandled structures.
 
 			mReportsUiCallback();
@@ -943,13 +943,13 @@ void MapViewState::placeRobot()
 			Structure* _s = tile->structure();
 
 			if (_s->isMineFacility()) { return; }
-			if (_s->structureClass() == Structure::CLASS_COMMAND)
+			if (_s->structureClass() == Structure::StructureClass::CLASS_COMMAND)
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_CC);
 				return;
 			}
 
-			if (_s->structureClass() == Structure::CLASS_LANDER && _s->age() == 0)
+			if (_s->structureClass() == Structure::StructureClass::CLASS_LANDER && _s->age() == 0)
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_LANDING_SITE);
 				return;
@@ -1291,7 +1291,7 @@ void MapViewState::updateRobots()
 			}
 
 			/// \fixme	Brute force.
-			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::CLASS_ROBOT_COMMAND))
+			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND))
 			{
 				static_cast<RobotCommand*>(rcc)->removeRobot(robot_it->first);
 			}
