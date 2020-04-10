@@ -701,7 +701,7 @@ void MapViewState::setMinimapView()
 	int x = std::clamp(MOUSE_COORDS.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
 	int y = std::clamp(MOUSE_COORDS.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
 
-	mTileMap->mapViewLocation(x, y);
+	mTileMap->mapViewLocation({x, y});
 }
 
 
