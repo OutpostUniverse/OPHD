@@ -85,7 +85,7 @@ bool Button::toggled() const
 }
 
 
-void Button::fontSize(size_t size)
+void Button::fontSize(std::size_t size)
 {
 	mFont = Utility<FontManager>::get().font(constants::FONT_PRIMARY, size);
 }

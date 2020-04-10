@@ -15,7 +15,7 @@ public:
 
 	void textColor(const NAS2D::Color& color) { mTextColor = color; }
 
-	void font(const std::string&, size_t);
+	void font(const std::string&, std::size_t);
 
 	void update() override;
 
@@ -31,7 +31,7 @@ private:
 	void processString();
 
 private:
-	size_t		mNumLines = 0;
+	std::size_t		mNumLines = 0;
 
 	StringList	mFormattedList;
 

@@ -129,7 +129,7 @@ void StructureManager::updateStructures(ResourcePool& resourcePool, PopulationPo
 	PopulationRequirements* _populationAvailable = nullptr;
 
 	Structure* structure = nullptr;
-	for (size_t i = 0; i < sl.size(); ++i)
+	for (std::size_t i = 0; i < sl.size(); ++i)
 	{
 		structure = sl[i];
 		structure->update();
@@ -213,7 +213,7 @@ void StructureManager::updateFactoryProduction()
 {
 	StructureList& sl = mStructureLists[Structure::StructureClass::CLASS_FACTORY];
 
-	for (size_t i = 0; i < sl.size(); ++i)
+	for (std::size_t i = 0; i < sl.size(); ++i)
 	{
 		static_cast<Factory*>(sl[i])->updateProduction();
 	}
@@ -266,7 +266,7 @@ void StructureManager::removeStructure(Structure* st)
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
 
-	for (size_t i = 0; i < sl.size(); ++i)
+	for (std::size_t i = 0; i < sl.size(); ++i)
 	{
 		if (sl[i] == st)
 		{
@@ -321,7 +321,7 @@ int StructureManager::count() const
 int StructureManager::getCountInState(Structure::StructureClass st, Structure::StructureState state)
 {
 	int count = 0;
-	for (size_t i = 0; i < structureList(st).size(); ++i)
+	for (std::size_t i = 0; i < structureList(st).size(); ++i)
 	{
 		if (structureList(st)[i]->state() == state)
 		{
@@ -464,7 +464,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 			const RobotList& rl = static_cast<RobotCommand*>(it->first)->robots();
 
 			std::stringstream str;
-			for (size_t i = 0; i < rl.size(); ++i)
+			for (std::size_t i = 0; i < rl.size(); ++i)
 			{
 				str << rl[i]->id();
 				if (i != rl.size() - 1) { str << ","; }	// kind of a kludge

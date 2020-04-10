@@ -113,7 +113,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	mCurrentSelection = translateCoordsToIndex(mousePoint - startPoint);
 
-	if (static_cast<size_t>(mCurrentSelection) >= mIconItemList.size())
+	if (static_cast<std::size_t>(mCurrentSelection) >= mIconItemList.size())
 	{
 		mCurrentSelection = constants::NO_SELECTION;
 	}
@@ -146,7 +146,7 @@ void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 	// Assumes all coordinates are not negative.
 	mHighlightIndex = translateCoordsToIndex(mousePoint - startPoint);
 
-	if (static_cast<size_t>(mHighlightIndex) >= mIconItemList.size())
+	if (static_cast<std::size_t>(mHighlightIndex) >= mIconItemList.size())
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 	}
@@ -291,7 +291,7 @@ bool IconGrid::itemExists(const std::string& item)
 		return false;
 	}
 
-	for (size_t i = 0; i < mIconItemList.size(); i++)
+	for (std::size_t i = 0; i < mIconItemList.size(); i++)
 	{
 		if (toLowercase(mIconItemList[i].name) == toLowercase(item))
 		{
@@ -328,7 +328,7 @@ void IconGrid::clearSelection()
  */
 void IconGrid::selection(int newSelection)
 {
-	if (static_cast<size_t>(newSelection) >= mIconItemList.size())
+	if (static_cast<std::size_t>(newSelection) >= mIconItemList.size())
 		return;
 
 	mCurrentSelection = newSelection;
@@ -348,7 +348,7 @@ void IconGrid::selection(int newSelection)
  */
 void IconGrid::selection_meta(int selectionMetaValue)
 {
-	for (size_t i = 0; i < mIconItemList.size(); ++i)
+	for (std::size_t i = 0; i < mIconItemList.size(); ++i)
 	{
 		if (mIconItemList[i].meta == selectionMetaValue)
 		{
@@ -363,7 +363,7 @@ void IconGrid::incrementSelection()
 {
 	++mCurrentSelection;
 
-	if (static_cast<size_t>(mCurrentSelection) >= mIconItemList.size())
+	if (static_cast<std::size_t>(mCurrentSelection) >= mIconItemList.size())
 		mCurrentSelection = 0;
 
 	raiseChangedEvent();
@@ -421,7 +421,7 @@ void IconGrid::update()
 
 	if (mIconItemList.empty()) { return; }
 
-	for (size_t i = 0; i < mIconItemList.size(); ++i)
+	for (std::size_t i = 0; i < mIconItemList.size(); ++i)
 	{
 		int x_pos = static_cast<int>(i) % mGridSize.x;
 		int y_pos = static_cast<int>(i) / mGridSize.x; //-V537

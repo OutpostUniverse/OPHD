@@ -124,7 +124,7 @@ void FileIo::scanDirectory(const std::string& directory)
 
 	mListBox.dropAllItems();
 
-	for (size_t i = 0; i < dirList.size(); ++i)
+	for (std::size_t i = 0; i < dirList.size(); ++i)
 	{
 		if (!f.isDirectory(directory + dirList[i]))
 		{

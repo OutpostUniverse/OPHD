@@ -194,7 +194,7 @@ bool validLanderSite(Tile* tile)
 int totalStorage(StructureList& sl)
 {
 	int storage = 0;
-	for (size_t i = 0; i < sl.size(); ++i)
+	for (std::size_t i = 0; i < sl.size(); ++i)
 	{
 		if (sl[i]->operational())
 		{
@@ -284,7 +284,7 @@ void updateRobotControl(RobotPool& robotPool)
 	uint32_t _maxRobots = 0;
 	if (CommandCenter.size() > 0) { _maxRobots += 3; }
 	// the 10 per robot command facility
-	for (size_t s = 0; s < RobotCommand.size(); ++s)
+	for (std::size_t s = 0; s < RobotCommand.size(); ++s)
 	{
 		if (RobotCommand[s]->operational()) { _maxRobots += 10; }
 	}
@@ -354,7 +354,7 @@ bool outOfCommRange(Point<int>& cc_location, TileMap* tile_map, Tile* current_ti
  * \return	Returns a pointer to a Warehouse structure or \c nullptr if
  *			there are no warehouses available with the required space.
  */
-Warehouse* getAvailableWarehouse(ProductType type, size_t count)
+Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 {
 	for (auto _st : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
 	{
@@ -402,7 +402,7 @@ void transferProductsPool(ProductPool& source, ProductPool& destination)
 
 	auto& src = source.mProducts;
 
-	for (size_t i = 0; i < ProductType::PRODUCT_COUNT; ++i)
+	for (std::size_t i = 0; i < ProductType::PRODUCT_COUNT; ++i)
 	{
 		if (destination.availableStorage() == 0) { return; }
 

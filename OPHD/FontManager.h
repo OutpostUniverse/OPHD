@@ -44,7 +44,7 @@ public:
 	 * \warning	The pointer returned by font() is owned by FontManager. Do not dispose of the
 	 *			pointer manually.
 	 */
-	NAS2D::Font* font(const std::string& name, size_t size)
+	NAS2D::Font* font(const std::string& name, std::size_t size)
 	{
 		auto it = mFontTable.find(FontId(name, size));
 		if (it != mFontTable.end())
@@ -60,7 +60,7 @@ public:
 	}
 
 private:
-	typedef std::pair<std::string, size_t> FontId;
+	typedef std::pair<std::string, std::size_t> FontId;
 	typedef std::map<FontId, NAS2D::Font*> FontTable;
 
 private:

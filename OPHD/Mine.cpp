@@ -11,10 +11,10 @@ using namespace NAS2D::Xml;
 /**
  * Helper function that gets the total amount of ore 
  */
-static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, size_t depth)
+static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, std::size_t depth)
 {
 	int _value = 0;
-	for (size_t i = 0; i < depth; ++i)
+	for (std::size_t i = 0; i < depth; ++i)
 	{
 		_value += veins[i][ore];
 	}
@@ -270,7 +270,7 @@ int Mine::pull(OreType type, int quantity)
 {
 	int pulled_count = 0, to_pull = quantity;
 
-	for (size_t i = 0; i < mVeins.size(); ++i)
+	for (std::size_t i = 0; i < mVeins.size(); ++i)
 	{
 		MineVein& vein = mVeins[i];
 
@@ -305,7 +305,7 @@ void Mine::serialize(NAS2D::Xml::XmlElement* element)
 	element->attribute("yield", productionRate());
 	element->attribute("flags", mFlags.to_string());
 
-	for (size_t i = 0; i < mVeins.size(); ++i)
+	for (std::size_t i = 0; i < mVeins.size(); ++i)
 	{
 		const MineVein& mv = mVeins[i];
 

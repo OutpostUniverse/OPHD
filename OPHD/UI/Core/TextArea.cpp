@@ -13,7 +13,7 @@
 using namespace NAS2D;
 
 
-void TextArea::font(const std::string& font, size_t size)
+void TextArea::font(const std::string& font, std::size_t size)
 {
 	mFont = Utility<FontManager>::get().font(font, size);
 }
@@ -27,7 +27,7 @@ void TextArea::processString()
 
 	StringList tokenList = split_string(text().c_str(), ' ');
 	
-	size_t w = 0, i = 0;
+	std::size_t w = 0, i = 0;
 	while (i < tokenList.size())
 	{
 		std::string line;
@@ -59,7 +59,7 @@ void TextArea::processString()
 		mFormattedList.push_back(line);
 	}
 
-	mNumLines = static_cast<size_t>(height() / mFont->height());
+	mNumLines = static_cast<std::size_t>(height() / mFont->height());
 }
 
 
@@ -97,7 +97,7 @@ void TextArea::draw()
 	if (!mFont) { return; }
 
 	auto textPosition = mRect.startPoint().to<int>();
-	for (size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
+	for (std::size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
 	{
 		renderer.drawText(*mFont, mFormattedList[i], textPosition, mTextColor);
 		textPosition.y() += mFont->height();

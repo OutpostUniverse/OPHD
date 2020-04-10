@@ -50,7 +50,7 @@ public:
 	void resetCursorPosition();
 	void numbers_only(bool);
 
-	void maxCharacters(size_t count);
+	void maxCharacters(std::size_t count);
 
 	void update() override;
 
@@ -74,7 +74,7 @@ private:
 	int 				mCursorX = 0;					/**< Pixel position of the Cursor. */
 	int 				mScrollOffset = 0;				/**< Scroller offset. */
 
-	size_t				mMaxCharacters = 0;				/**< Max number of characters allowed in the text field. */
+	std::size_t				mMaxCharacters = 0;				/**< Max number of characters allowed in the text field. */
 
 	BorderVisibility	mBorderVisibility = BorderVisibility::FOCUS_ONLY;	/**< Border visibility flag. */
 

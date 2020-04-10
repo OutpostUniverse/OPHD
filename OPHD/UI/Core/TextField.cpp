@@ -97,7 +97,7 @@ void TextField::numbers_only(bool _b)
  * 
  * \note	Calling this with \c 0 will clear character limit.
  */
-void TextField::maxCharacters(size_t count)
+void TextField::maxCharacters(std::size_t count)
 {
 	mMaxCharacters = count;
 }
@@ -192,7 +192,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			break;
 
 		case EventHandler::KeyCode::KEY_RIGHT:
-			if(static_cast<size_t>(mCursorPosition) < text().length())
+			if(static_cast<std::size_t>(mCursorPosition) < text().length())
 				++mCursorPosition;
 			break;
 
@@ -203,7 +203,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			break;
 
 		case EventHandler::KeyCode::KEY_KP6:
-			if((static_cast<size_t>(mCursorPosition) < text().length()) && !Utility<EventHandler>::get().query_numlock())
+			if((static_cast<std::size_t>(mCursorPosition) < text().length()) && !Utility<EventHandler>::get().query_numlock())
 				++mCursorPosition;
 			break;
 
@@ -241,7 +241,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 	// Figure out where the click occured within the visible string.
 	int i = 0;
-	while(static_cast<size_t>(i) <= text().size() - mScrollOffset)
+	while(static_cast<std::size_t>(i) <= text().size() - mScrollOffset)
 	{
 		std::string cmpStr = text().substr(mScrollOffset, i);
 		int strLen = TXT_FONT->width(cmpStr);

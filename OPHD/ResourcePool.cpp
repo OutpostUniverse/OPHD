@@ -154,7 +154,7 @@ void ResourcePool::food(int amount) { resource(ResourceType::RESOURCE_FOOD, amou
 int ResourcePool::currentLevel() const
 {
 	int cc = 0;
-	for (size_t i = 0; i < ResourceType::RESOURCE_COUNT; ++i)
+	for (std::size_t i = 0; i < ResourceType::RESOURCE_COUNT; ++i)
 	{
 		ResourceType _rt = static_cast<ResourceType>(i);
 		if (_rt != ResourceType::RESOURCE_ENERGY && _rt != ResourceType::RESOURCE_FOOD)

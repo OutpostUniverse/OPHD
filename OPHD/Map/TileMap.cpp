@@ -161,11 +161,11 @@ void TileMap::buildTerrainMap(const std::string& path)
 
 	Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
-	mTileMap.resize(static_cast<size_t>(mMaxDepth) + 1);
+	mTileMap.resize(static_cast<std::size_t>(mMaxDepth) + 1);
 	for(int level = 0; level <= mMaxDepth; level++)
 	{
 		mTileMap[level].resize(height());
-		for (size_t i = 0; i < mTileMap[level].size(); i++)
+		for (std::size_t i = 0; i < mTileMap[level].size(); i++)
 		{
 			mTileMap[level][i].resize(width());
 		}
@@ -258,14 +258,14 @@ void TileMap::buildMouseMap()
 	}
 	
 	mMouseMap.resize(TILE_HEIGHT_ABSOLUTE);
-	for (size_t i = 0; i < mMouseMap.size(); i++)
+	for (std::size_t i = 0; i < mMouseMap.size(); i++)
 	{
 		mMouseMap[i].resize(TILE_WIDTH);
 	}
 
-	for(size_t row = 0; row < TILE_HEIGHT_ABSOLUTE; row++)
+	for(std::size_t row = 0; row < TILE_HEIGHT_ABSOLUTE; row++)
 	{
-		for(size_t col = 0; col < TILE_WIDTH; col++)
+		for(std::size_t col = 0; col < TILE_WIDTH; col++)
 		{
 			const Color c = mousemap.pixelColor(static_cast<int>(col), static_cast<int>(row));
 			if (c == NAS2D::Color::Yellow) { mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_RIGHT; }
@@ -466,7 +466,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	XmlElement *mines = new XmlElement("mines");
 	element->linkEndChild(mines);
 
-	for (size_t i = 0; i < mMineLocations.size(); ++i)
+	for (std::size_t i = 0; i < mMineLocations.size(); ++i)
 	{
 		XmlElement *mine = new XmlElement("mine");
 		mine->attribute("x", mMineLocations[i].x());

@@ -126,7 +126,7 @@ void FactoryListBox::removeItem(Factory* factory)
 void FactoryListBox::currentSelection(Factory* f)
 {
 	if (mItems.empty() || f == nullptr) { return; }
-	for (size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
 		FactoryListBoxItem* item = static_cast<FactoryListBoxItem*>(mItems[i]);
 		if (item->factory == f)
@@ -157,7 +157,7 @@ void FactoryListBox::update()
 	r.clipRect(rect());
 
 	// ITEMS
-	for (size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
 		drawItem(r, *static_cast<FactoryListBoxItem*>(mItems[i]),
 			positionX(),

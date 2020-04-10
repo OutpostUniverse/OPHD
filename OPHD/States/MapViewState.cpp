@@ -923,7 +923,7 @@ void MapViewState::placeRobot()
 			mMineOperationsWindow.hide();
 			mTileMap->removeMineLocation(mTileMap->tileMouseHover());
 			tile->pushMine(nullptr);
-			for (size_t i = 0; i <= static_cast<size_t>(mTileMap->maxDepth()); ++i)
+			for (std::size_t i = 0; i <= static_cast<std::size_t>(mTileMap->maxDepth()); ++i)
 			{
 				Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover(), static_cast<int>(i));
 
@@ -975,7 +975,7 @@ void MapViewState::placeRobot()
 			Utility<StructureManager>::get().removeStructure(_s);
 			tile->deleteThing();
 			Utility<StructureManager>::get().disconnectAll();
-			static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(TerrainType::TERRAIN_DOZED));
+			static_cast<Robodozer*>(r)->tileIndex(static_cast<std::size_t>(TerrainType::TERRAIN_DOZED));
 			checkConnectedness();
 		}
 		else if (tile->index() == TerrainType::TERRAIN_DOZED)
@@ -986,7 +986,7 @@ void MapViewState::placeRobot()
 
 		r->startTask(tile->index());
 		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
-		static_cast<Robodozer*>(r)->tileIndex(static_cast<size_t>(tile->index()));
+		static_cast<Robodozer*>(r)->tileIndex(static_cast<std::size_t>(tile->index()));
 		tile->index(TerrainType::TERRAIN_DOZED);
 
 		if(!mRobotPool.robotAvailable(RobotType::ROBOT_DOZER))

@@ -52,7 +52,7 @@ static int computeCurrentStorage(const ProductPool::ProductTypeCount& products)
 {
 	int stored = 0;
 
-	for (size_t i = 0; i < static_cast<size_t>(ProductType::PRODUCT_COUNT); ++i)
+	for (std::size_t i = 0; i < static_cast<std::size_t>(ProductType::PRODUCT_COUNT); ++i)
 	{
 		stored +=storageRequired(static_cast<ProductType>(i), products[i]);
 	}

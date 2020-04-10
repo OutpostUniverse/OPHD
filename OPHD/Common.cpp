@@ -233,13 +233,13 @@ const std::string& productDescription(ProductType type)
 {
 	if (type == ProductType::PRODUCT_NONE) { return constants::NONE; }
 
-	return PRODUCT_DESCRIPTION_TABLE[static_cast<size_t>(type)];
+	return PRODUCT_DESCRIPTION_TABLE[static_cast<std::size_t>(type)];
 }
 
 
 ProductType productTypeFromDescription(const std::string& description)
 {
-	for (size_t i = 0; i < PRODUCT_DESCRIPTION_TABLE.size(); ++i)
+	for (std::size_t i = 0; i < PRODUCT_DESCRIPTION_TABLE.size(); ++i)
 	{
 		if (PRODUCT_DESCRIPTION_TABLE[i] == description)
 		{
@@ -264,13 +264,13 @@ const std::string& idleReason(IdleReason _i)
 }
 
 
-Color& structureColorFromIndex(size_t index)
+Color& structureColorFromIndex(std::size_t index)
 {
 	return STRUCTURE_COLOR_TABLE[static_cast<Structure::StructureState>(index)];
 }
 
 
-Color& structureTextColorFromIndex(size_t index)
+Color& structureTextColorFromIndex(std::size_t index)
 {
 	return STRUCTURE_TEXT_COLOR_TABLE[static_cast<Structure::StructureState>(index)];
 }
