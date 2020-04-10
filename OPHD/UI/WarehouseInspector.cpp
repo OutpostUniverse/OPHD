@@ -96,11 +96,11 @@ void WarehouseInspector::update()
 	drawTitleText(position, "Storage", std::to_string(pool.availableStorage()) + " / " + std::to_string(pool.capacity()), 0);
 
 	position.y() += 25;
-	drawTitleText(position, "Clothing:", std::to_string(pool.count(PRODUCT_CLOTHING)));
+	drawTitleText(position, "Clothing:", std::to_string(pool.count(ProductType::PRODUCT_CLOTHING)));
 
 	position.y() += 15;
-	drawTitleText(position, "Medicine:", std::to_string(pool.count(PRODUCT_MEDICINE)));
+	drawTitleText(position, "Medicine:", std::to_string(pool.count(ProductType::PRODUCT_MEDICINE)));
 
 	position.y() += 15;
-	drawTitleText(position, "Road Materials:", std::to_string(pool.count(PRODUCT_ROAD_MATERIALS)));
+	drawTitleText(position, "Road Materials:", std::to_string(pool.count(ProductType::PRODUCT_ROAD_MATERIALS)));
 }

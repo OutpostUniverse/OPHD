@@ -73,7 +73,7 @@ void ProductListBox::productPool(ProductPool& pool)
 {
 	clearItems();
 
-	for (size_t product_type = 0; product_type < static_cast<size_t>(PRODUCT_COUNT); ++product_type)
+	for (size_t product_type = 0; product_type < static_cast<size_t>(ProductType::PRODUCT_COUNT); ++product_type)
 	{
 		if (pool.count(static_cast<ProductType>(product_type)) > 0)
 		{

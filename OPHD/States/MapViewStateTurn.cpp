@@ -94,17 +94,17 @@ void MapViewState::updateCommercial()
 		 *			is only one luxury item, clothing, but as this changes more
 		 *			items may be seen as luxury.
 		 */
-		int clothing = _pl.count(PRODUCT_CLOTHING);
+		int clothing = _pl.count(ProductType::PRODUCT_CLOTHING);
 
 		if (clothing >= luxuryCount)
 		{
-			_pl.pull(PRODUCT_CLOTHING, luxuryCount);
+			_pl.pull(ProductType::PRODUCT_CLOTHING, luxuryCount);
 			luxuryCount = 0;
 			break;
 		}
 		else if (clothing < luxuryCount)
 		{
-			_pl.pull(PRODUCT_CLOTHING, clothing);
+			_pl.pull(ProductType::PRODUCT_CLOTHING, clothing);
 			luxuryCount -= clothing;
 		}
 

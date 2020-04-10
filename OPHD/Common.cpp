@@ -117,7 +117,7 @@ std::map<IdleReason, std::string> IDLE_REASON_TABLE =
 /**
  * Description table for products.
  */
-std::array<std::string, PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
+std::array<std::string, ProductType::PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
 {
 	constants::ROBODIGGER,
 	constants::ROBODOZER,
@@ -231,7 +231,7 @@ HWND WIN32_getWindowHandle()
 
 const std::string& productDescription(ProductType type)
 {
-	if (type == PRODUCT_NONE) { return constants::NONE; }
+	if (type == ProductType::PRODUCT_NONE) { return constants::NONE; }
 
 	return PRODUCT_DESCRIPTION_TABLE[static_cast<size_t>(type)];
 }
@@ -248,7 +248,7 @@ ProductType productTypeFromDescription(const std::string& description)
 		}
 	}
 
-	return PRODUCT_NONE;
+	return ProductType::PRODUCT_NONE;
 }
 
 

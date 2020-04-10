@@ -402,7 +402,7 @@ void transferProductsPool(ProductPool& source, ProductPool& destination)
 
 	auto& src = source.mProducts;
 
-	for (size_t i = 0; i < PRODUCT_COUNT; ++i)
+	for (size_t i = 0; i < ProductType::PRODUCT_COUNT; ++i)
 	{
 		if (destination.availableStorage() == 0) { return; }
 

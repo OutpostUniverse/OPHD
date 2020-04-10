@@ -24,21 +24,21 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 		
 		switch (pt)
 		{
-		case PRODUCT_DIGGER:
+		case ProductType::PRODUCT_DIGGER:
 			r = mRobotPool.addRobot(RobotType::ROBOT_DIGGER);
 			r->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			factory.pullProduct();
 			checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
 			break;
 
-		case PRODUCT_DOZER:
+		case ProductType::PRODUCT_DOZER:
 			r = mRobotPool.addRobot(RobotType::ROBOT_DOZER);
 			r->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			factory.pullProduct();
 			checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER);
 			break;
 
-		case PRODUCT_MINER:
+		case ProductType::PRODUCT_MINER:
 			r = mRobotPool.addRobot(RobotType::ROBOT_MINER);
 			r->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			factory.pullProduct();
@@ -66,21 +66,21 @@ void MapViewState::factoryProductionComplete(Factory& factory)
 {	
 	switch (factory.productWaiting())
 	{
-	case PRODUCT_DIGGER:
-		pullRobotFromFactory(PRODUCT_DIGGER, factory);
+	case ProductType::PRODUCT_DIGGER:
+		pullRobotFromFactory(ProductType::PRODUCT_DIGGER, factory);
 		break;
 
-	case PRODUCT_DOZER:
-		pullRobotFromFactory(PRODUCT_DOZER, factory);
+	case ProductType::PRODUCT_DOZER:
+		pullRobotFromFactory(ProductType::PRODUCT_DOZER, factory);
 		break;
 
-	case PRODUCT_MINER:
-		pullRobotFromFactory(PRODUCT_MINER, factory);
+	case ProductType::PRODUCT_MINER:
+		pullRobotFromFactory(ProductType::PRODUCT_MINER, factory);
 		break;
 
-	case PRODUCT_ROAD_MATERIALS:
-	case PRODUCT_CLOTHING:
-	case PRODUCT_MEDICINE:
+	case ProductType::PRODUCT_ROAD_MATERIALS:
+	case ProductType::PRODUCT_CLOTHING:
+	case ProductType::PRODUCT_MEDICINE:
 		{
 			Warehouse* _wh = getAvailableWarehouse(factory.productWaiting(), 1);
 			if (_wh) { _wh->products().store(factory.productWaiting(), 1); factory.pullProduct(); }

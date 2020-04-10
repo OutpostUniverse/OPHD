@@ -42,7 +42,7 @@ private:
 private:
 	Factory*			mFactory = nullptr;
 
-	ProductType			mProduct = PRODUCT_NONE;
+	ProductType			mProduct = ProductType::PRODUCT_NONE;
 	ProductionCost		mProductCost;
 
 	IconGrid			mProductGrid;

@@ -81,7 +81,7 @@ void FactoryProduction::init()
  */
 void FactoryProduction::clearProduct()
 {
-	mProduct = PRODUCT_NONE;
+	mProduct = ProductType::PRODUCT_NONE;
 	mProductCost.clear();
 	mProductGrid.clearSelection();
 }
@@ -201,7 +201,7 @@ void FactoryProduction::factory(Factory* newFactory)
 		mProductGrid.addItem(productDescription(ptlist[i]), ptlist[i], ptlist[i]);
 	}
 
-	if (mFactory->productType() == PRODUCT_NONE) { mProductGrid.clearSelection(); }
+	if (mFactory->productType() == ProductType::PRODUCT_NONE) { mProductGrid.clearSelection(); }
 	else { mProductGrid.selection_meta(static_cast<int>(mFactory->productType())); }
 
 	mProduct = mFactory->productType();
