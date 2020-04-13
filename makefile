@@ -8,6 +8,11 @@ NAS2DDIR := nas2d-core/
 NAS2DINCLUDEDIR := $(NAS2DDIR)
 NAS2DLIBDIR := $(NAS2DDIR)lib/
 NAS2DLIB := $(NAS2DLIBDIR)libnas2d.a
+PACKAGEDIR := $(BUILDDIR)/package/
+
+# Determine OS (Linux, Darwin, ...)
+CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
+TARGET_OS ?= $(CURRENT_OS)
 
 CPPFLAGS := $(CPPFLAGS_EXTRA)
 CXXFLAGS_WARN := -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wnull-dereference -Wold-style-cast -Wcast-qual -Wcast-align -Wdouble-promotion -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual -Wmissing-include-dirs -Winvalid-pch -Wmissing-format-attribute $(WARN_EXTRA)
@@ -52,6 +57,19 @@ $(OBJDIR)%.d: ;
 .PRECIOUS: $(OBJDIR)%.d
 
 include $(wildcard $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.d,$(SRCS)))
+
+
+VERSION = $(shell git describe --tags --dirty)
+CONFIG = $(TARGET_OS).x64
+PACKAGE_NAME = $(PACKAGEDIR)ophd-$(VERSION)-$(CONFIG).tar.gz
+
+.PHONY: package
+package: $(PACKAGE_NAME)
+
+$(PACKAGE_NAME): $(EXE)
+	@mkdir -p "$(PACKAGEDIR)"
+	tar -czf $(PACKAGE_NAME) $(EXE)
+
 
 .PHONY: clean clean-all
 clean:

@@ -7,6 +7,9 @@ commands:
       - run: git submodule update --init
       - run: make --keep-going --jobs 2 CXXFLAGS_EXTRA="-Werror" nas2d
       - run: make --keep-going --jobs 2 CXXFLAGS_EXTRA="-Werror"
+      - run: make package
+      - store_artifacts:
+          path: .build/package/
 
 jobs:
   build-linux:
