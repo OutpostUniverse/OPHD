@@ -22,33 +22,6 @@ enum ResourceTrend
 	RESOURCE_TREND_DOWN
 };
 
-static ResourceTrend	COMMON_METALS = ResourceTrend::RESOURCE_TREND_NONE;
-static ResourceTrend	COMMON_MINERALS = ResourceTrend::RESOURCE_TREND_NONE;
-static ResourceTrend	RARE_METALS = ResourceTrend::RESOURCE_TREND_NONE;
-static ResourceTrend	RARE_MINERALS = ResourceTrend::RESOURCE_TREND_NONE;
-
-
-static Color			COMMON_MET_COL = Color::White;
-static Color			COMMON_MIN_COL = Color::White;
-static Color			RARE_MET_COL = Color::White;
-static Color			RARE_MIN_COL = Color::White;
-
-
-std::map<ResourceTrend, Point<float>> ICON_SLICE
-{
-	{ ResourceTrend::RESOURCE_TREND_NONE,	Point<float>(16.0f, 64.0f) },
-	{ ResourceTrend::RESOURCE_TREND_UP,	Point<float>(8.0f, 64.0f) },
-	{ ResourceTrend::RESOURCE_TREND_DOWN,	Point<float>(0.0f, 64.0f) }
-};
-
-
-std::map<ResourceTrend, Color> TEXT_COLOR
-{
-	{ ResourceTrend::RESOURCE_TREND_NONE,	Color::White },
-	{ ResourceTrend::RESOURCE_TREND_UP,	Color{0, 185, 0} },
-	{ ResourceTrend::RESOURCE_TREND_DOWN,	Color::Red }
-};
-
 
 /**
  * Convenience function for setting a resource trend.
@@ -93,15 +66,6 @@ ResourceBreakdownPanel::ResourceBreakdownPanel() : mIcons("ui/icons.png")
  */
 void ResourceBreakdownPanel::resourceCheck()
 {
-	COMMON_METALS = compareResources(mPlayerResources->commonMetals(), mPreviousResources.commonMetals());
-	COMMON_MINERALS = compareResources(mPlayerResources->commonMinerals(), mPreviousResources.commonMinerals());
-	RARE_METALS = compareResources(mPlayerResources->rareMetals(), mPreviousResources.rareMetals());
-	RARE_MINERALS = compareResources(mPlayerResources->rareMinerals(), mPreviousResources.rareMinerals());
-
-	COMMON_MET_COL = TEXT_COLOR[COMMON_METALS];
-	COMMON_MIN_COL = TEXT_COLOR[COMMON_MINERALS];
-	RARE_MET_COL = TEXT_COLOR[RARE_METALS];
-	RARE_MIN_COL = TEXT_COLOR[RARE_MINERALS];
 }
 
 
@@ -110,27 +74,44 @@ void ResourceBreakdownPanel::update()
 	Renderer& renderer = Utility<Renderer>::get();
 	renderer.drawImageRect(rect(), mSkin);
 
+	static std::map<ResourceTrend, Point<int>> ICON_SLICE
+	{
+		{ ResourceTrend::RESOURCE_TREND_NONE,	Point{16, 64} },
+		{ ResourceTrend::RESOURCE_TREND_UP,	Point{8, 64} },
+		{ ResourceTrend::RESOURCE_TREND_DOWN,	Point{0, 64} }
+	};
+
+
+	static std::map<ResourceTrend, Color> TEXT_COLOR
+	{
+		{ ResourceTrend::RESOURCE_TREND_NONE,	Color::White },
+		{ ResourceTrend::RESOURCE_TREND_UP,	Color{0, 185, 0} },
+		{ ResourceTrend::RESOURCE_TREND_DOWN,	Color::Red }
+	};
+
 	const auto commonMetalImageRect = NAS2D::Rectangle{64, 16, 16, 16};
 	const auto rareMetalImageRect = NAS2D::Rectangle{80, 16, 16, 16};
 	const auto commonMineralImageRect = NAS2D::Rectangle{96, 16, 16, 16};
 	const auto rareMineralImageRect = NAS2D::Rectangle{112, 16, 16, 16};
 
 	const std::array resources{
-		std::tuple{commonMetalImageRect, "Common Metals", mPlayerResources->commonMetals(), mPreviousResources.commonMetals(), COMMON_METALS, COMMON_MET_COL},
-		std::tuple{rareMetalImageRect, "Rare Metals", mPlayerResources->rareMetals(), mPreviousResources.rareMetals(), RARE_METALS, RARE_MET_COL},
-		std::tuple{commonMineralImageRect, "Common Minerals", mPlayerResources->commonMinerals(), mPreviousResources.commonMinerals(), COMMON_MINERALS, COMMON_MIN_COL},
-		std::tuple{rareMineralImageRect, "Rare Minerals", mPlayerResources->rareMinerals(), mPreviousResources.rareMinerals(), RARE_MINERALS, RARE_MIN_COL},
+		std::tuple{commonMetalImageRect, "Common Metals", mPlayerResources->commonMetals(), mPreviousResources.commonMetals()},
+		std::tuple{rareMetalImageRect, "Rare Metals", mPlayerResources->rareMetals(), mPreviousResources.rareMetals()},
+		std::tuple{commonMineralImageRect, "Common Minerals", mPlayerResources->commonMinerals(), mPreviousResources.commonMinerals()},
+		std::tuple{rareMineralImageRect, "Rare Minerals", mPlayerResources->rareMinerals(), mPreviousResources.rareMinerals()},
 	};
 
 	auto position = rect().startPoint() + NAS2D::Vector{5, 5};
-	for (const auto& [imageRect, text, value, oldValue, resourceTrend, valueChangeColor] : resources)
+	for (const auto& [imageRect, text, value, oldValue] : resources)
 	{
 		renderer.drawSubImage(mIcons, position, imageRect);
 		renderer.drawText(*FONT, text, position + NAS2D::Vector{23, 0}, NAS2D::Color::White);
 		const auto valueString = std::to_string(value);
 		renderer.drawText(*FONT, valueString, position + NAS2D::Vector{195 - FONT->width(valueString), 0}, NAS2D::Color::White);
+		const auto resourceTrend = compareResources(value, oldValue);
 		const auto changeIconImageRect = NAS2D::Rectangle<int>::Create(ICON_SLICE[resourceTrend], NAS2D::Vector{8, 8});
 		renderer.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
+		const auto valueChangeColor = TEXT_COLOR[resourceTrend];
 		renderer.drawText(*FONT, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor);
 		position.y() += 18;
 	}
