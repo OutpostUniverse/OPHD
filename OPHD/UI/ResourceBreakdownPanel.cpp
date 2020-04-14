@@ -117,8 +117,8 @@ void ResourceBreakdownPanel::update()
 
 	const std::array resources{
 		std::tuple{commonMetalImageRect, "Common Metals", mPlayerResources->commonMetals(), mPreviousResources.commonMetals(), COMMON_METALS, COMMON_MET_COL},
-		std::tuple{rareMetalImageRect, "Rare Metals", mPlayerResources->rareMetals(), mPreviousResources.rareMetals(), RARE_METALS, COMMON_MIN_COL},
-		std::tuple{commonMineralImageRect, "Common Minerals", mPlayerResources->commonMinerals(), mPreviousResources.commonMinerals(), COMMON_MINERALS, RARE_MET_COL},
+		std::tuple{rareMetalImageRect, "Rare Metals", mPlayerResources->rareMetals(), mPreviousResources.rareMetals(), RARE_METALS, RARE_MET_COL},
+		std::tuple{commonMineralImageRect, "Common Minerals", mPlayerResources->commonMinerals(), mPreviousResources.commonMinerals(), COMMON_MINERALS, COMMON_MIN_COL},
 		std::tuple{rareMineralImageRect, "Rare Minerals", mPlayerResources->rareMinerals(), mPreviousResources.rareMinerals(), RARE_MINERALS, RARE_MIN_COL},
 	};
 
