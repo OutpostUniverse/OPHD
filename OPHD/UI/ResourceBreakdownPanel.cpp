@@ -74,11 +74,11 @@ void ResourceBreakdownPanel::update()
 	Renderer& renderer = Utility<Renderer>::get();
 	renderer.drawImageRect(rect(), mSkin);
 
-	static std::map<ResourceTrend, Point<float>> ICON_SLICE
+	static std::map<ResourceTrend, Point<int>> ICON_SLICE
 	{
-		{ ResourceTrend::RESOURCE_TREND_NONE,	Point<float>{16, 64} },
-		{ ResourceTrend::RESOURCE_TREND_UP,	Point<float>{8, 64} },
-		{ ResourceTrend::RESOURCE_TREND_DOWN,	Point<float>{0, 64} }
+		{ ResourceTrend::RESOURCE_TREND_NONE,	Point{16, 64} },
+		{ ResourceTrend::RESOURCE_TREND_UP,	Point{8, 64} },
+		{ ResourceTrend::RESOURCE_TREND_DOWN,	Point{0, 64} }
 	};
 
 
