@@ -23,22 +23,6 @@ enum ResourceTrend
 };
 
 
-std::map<ResourceTrend, Point<float>> ICON_SLICE
-{
-	{ ResourceTrend::RESOURCE_TREND_NONE,	Point<float>(16.0f, 64.0f) },
-	{ ResourceTrend::RESOURCE_TREND_UP,	Point<float>(8.0f, 64.0f) },
-	{ ResourceTrend::RESOURCE_TREND_DOWN,	Point<float>(0.0f, 64.0f) }
-};
-
-
-std::map<ResourceTrend, Color> TEXT_COLOR
-{
-	{ ResourceTrend::RESOURCE_TREND_NONE,	Color::White },
-	{ ResourceTrend::RESOURCE_TREND_UP,	Color{0, 185, 0} },
-	{ ResourceTrend::RESOURCE_TREND_DOWN,	Color::Red }
-};
-
-
 /**
  * Convenience function for setting a resource trend.
  */
@@ -89,6 +73,21 @@ void ResourceBreakdownPanel::update()
 {
 	Renderer& renderer = Utility<Renderer>::get();
 	renderer.drawImageRect(rect(), mSkin);
+
+	static std::map<ResourceTrend, Point<float>> ICON_SLICE
+	{
+		{ ResourceTrend::RESOURCE_TREND_NONE,	Point<float>(16.0f, 64.0f) },
+		{ ResourceTrend::RESOURCE_TREND_UP,	Point<float>(8.0f, 64.0f) },
+		{ ResourceTrend::RESOURCE_TREND_DOWN,	Point<float>(0.0f, 64.0f) }
+	};
+
+
+	static std::map<ResourceTrend, Color> TEXT_COLOR
+	{
+		{ ResourceTrend::RESOURCE_TREND_NONE,	Color::White },
+		{ ResourceTrend::RESOURCE_TREND_UP,	Color{0, 185, 0} },
+		{ ResourceTrend::RESOURCE_TREND_DOWN,	Color::Red }
+	};
 
 	const auto commonMetalImageRect = NAS2D::Rectangle{64, 16, 16, 16};
 	const auto rareMetalImageRect = NAS2D::Rectangle{80, 16, 16, 16};
