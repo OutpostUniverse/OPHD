@@ -16,9 +16,9 @@
 class Control
 {
 public:
-	typedef NAS2D::Signals::Signal<Control*> ResizeCallback;
-	typedef NAS2D::Signals::Signal<Control*> TextChangedCallback;
-	typedef NAS2D::Signals::Signal<float, float> PositionChangedCallback;
+	using ResizeCallback = NAS2D::Signals::Signal<Control*>;
+	using TextChangedCallback = NAS2D::Signals::Signal<Control*>;
+	using PositionChangedCallback = NAS2D::Signals::Signal<float, float>;
 
 public:
 	Control() = default;

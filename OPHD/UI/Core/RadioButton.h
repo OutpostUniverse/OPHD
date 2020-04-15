@@ -14,7 +14,7 @@ class UIContainer;
 class RadioButton : public Control
 {
 public:
-	typedef NAS2D::Signals::Signal<> ClickCallback;
+	using ClickCallback = NAS2D::Signals::Signal<>;
 
 public:
 	RadioButton(std::string newText = "");

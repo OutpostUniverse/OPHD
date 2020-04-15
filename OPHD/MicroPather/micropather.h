@@ -66,14 +66,14 @@ distribution.
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1400 )
 	#include <stdlib.h>
-	typedef uintptr_t		MP_UPTR;
+	using MP_UPTR = uintptr_t;
 #elif defined (__GNUC__) && (__GNUC__ >= 3 )
 	#include <stdint.h>
 	#include <stdlib.h>
-	typedef uintptr_t		MP_UPTR;
+	using MP_UPTR = uintptr_t;
 #else
 	// Assume not 64 bit pointers. Get a new compiler.
-	typedef std::size_t MP_UPTR;
+	using MP_UPTR = std::size_t;
 #endif
 
 namespace micropather

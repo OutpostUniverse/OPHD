@@ -20,7 +20,7 @@ public:
 	void update() override;
 
 private:
-	typedef std::vector<std::string> StringList;
+	using StringList = std::vector<std::string>;
 
 private:
 	void onSizeChanged() override;

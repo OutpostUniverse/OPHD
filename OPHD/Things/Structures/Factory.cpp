@@ -5,7 +5,7 @@
 
 #include "Factory.h"
 
-typedef std::map<ProductType, ProductionCost> ProductionTypeTable;
+using ProductionTypeTable = std::map<ProductType, ProductionCost>;
 
 
 /**

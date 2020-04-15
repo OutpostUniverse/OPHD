@@ -22,9 +22,9 @@ class Factory : public Structure
 {
 public:
 	// Callback providing what was complete and a reference to the Factory.
-	typedef NAS2D::Signals::Signal<Factory&> ProductionCallback;
+	using ProductionCallback = NAS2D::Signals::Signal<Factory&>;
 
-	typedef std::vector<ProductType> ProductionTypeList;
+	using ProductionTypeList = std::vector<ProductType>;
 
 public:
 	Factory(const std::string& name, const std::string& spritePath);

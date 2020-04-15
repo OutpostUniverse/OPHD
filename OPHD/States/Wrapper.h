@@ -56,4 +56,4 @@ private:
 };
 
 
-typedef std::stack<Wrapper*> WrapperStack;
+using WrapperStack = std::stack<Wrapper*>;

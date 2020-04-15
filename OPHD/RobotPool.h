@@ -8,10 +8,10 @@
 class RobotPool
 {
 public:
-	typedef std::vector<Robodigger*> DiggerList;
-	typedef std::vector<Robodozer*> DozerList;
-	typedef std::vector<Robominer*> MinerList;
-	typedef std::map<Robot*, Tile*> RobotTileTable;
+	using DiggerList = std::vector<Robodigger*>;
+	using DozerList = std::vector<Robodozer*>;
+	using MinerList = std::vector<Robominer*>;
+	using RobotTileTable = std::map<Robot*, Tile*>;
 
 public:
 	RobotPool();

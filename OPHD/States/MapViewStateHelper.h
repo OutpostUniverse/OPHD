@@ -15,7 +15,7 @@
 #include "../Map/TileMap.h"
 
 
-typedef std::map<Robot*, Tile*> RobotTileTable;
+using RobotTileTable = std::map<Robot*, Tile*>;
 
 class Warehouse;	/**< Forward declaration for getAvailableWarehouse() function. */
 class RobotCommand;	/**< Forward declaration for getAvailableRobotCommand() function. */

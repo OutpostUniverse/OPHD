@@ -15,7 +15,7 @@ public:
 		FILE_SAVE
 	};
 
-	typedef NAS2D::Signals::Signal<const std::string&, FileOperation> FileOperationCallback;
+	using FileOperationCallback = NAS2D::Signals::Signal<const std::string&, FileOperation>;
 
 public:
 	FileIo();

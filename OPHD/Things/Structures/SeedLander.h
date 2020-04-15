@@ -6,7 +6,7 @@
 class SeedLander: public Structure
 {
 public:
-	typedef NAS2D::Signals::Signal<int, int> Callback;
+	using Callback = NAS2D::Signals::Signal<int, int>;
 
 public:
 	SeedLander() = delete;

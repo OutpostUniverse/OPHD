@@ -53,8 +53,8 @@ private:
 	uint32_t consume_food(uint32_t _food);
 
 private:
-	typedef std::array<uint32_t, 5>		PopulationTable;
-	typedef std::array<MoraleModifier, 5> MoraleModifiers;
+	using PopulationTable = std::array<uint32_t, 5>	;
+	using MoraleModifiers = std::array<MoraleModifier, 5>;
 
 private:
 	uint32_t			mBirthCount;				/**<  */

@@ -45,8 +45,8 @@ public:
 protected:
 
 private:
-	typedef std::map<Structure*, Tile*> StructureTileTable;
-	typedef std::map<Structure::StructureClass, StructureList> StructureClassTable;
+	using StructureTileTable = std::map<Structure*, Tile*>;
+	using StructureClassTable = std::map<Structure::StructureClass, StructureList>;
 
 private:
 	void updateStructures(ResourcePool& resourcePool, PopulationPool& popPool, StructureList& sl);

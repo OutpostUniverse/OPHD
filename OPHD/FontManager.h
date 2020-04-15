@@ -60,8 +60,8 @@ public:
 	}
 
 private:
-	typedef std::pair<std::string, std::size_t> FontId;
-	typedef std::map<FontId, NAS2D::Font*> FontTable;
+	using FontId = std::pair<std::string, std::size_t>;
+	using FontTable = std::map<FontId, NAS2D::Font*>;
 
 private:
 	FontTable	mFontTable;

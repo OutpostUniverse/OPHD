@@ -20,7 +20,7 @@
 class ListBox: public UIContainer
 {
 public:
-	typedef NAS2D::Signals::Signal<> SelectionChangedCallback;
+	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
 
 	struct ListBoxItem
 	{

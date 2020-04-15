@@ -21,8 +21,8 @@ public:
 		ORE_RARE_MINERALS,
 	};
 
-	typedef std::array<int, 4> MineVein;
-	typedef std::vector<MineVein> MineVeins;
+	using MineVein = std::array<int, 4>;
+	using MineVeins = std::vector<MineVein>;
 
 public:
 	Mine();
