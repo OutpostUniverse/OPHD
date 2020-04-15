@@ -42,7 +42,7 @@ public:
 		NAS2D::Point<float> pos;
 	};
 
-	typedef NAS2D::Signals::Signal<const IconGridItem*> Callback;
+	using Callback = NAS2D::Signals::Signal<const IconGridItem*>;
 
 public:
 	IconGrid();
@@ -97,8 +97,8 @@ protected:
 	virtual void sizeChanged();
 
 private:
-	typedef std::vector<IconGridItem> IconItemList;
-	typedef IconItemList::size_type Index;
+	using IconItemList = std::vector<IconGridItem>;
+	using Index = IconItemList::size_type;
 
 private:
 	void updateGrid();

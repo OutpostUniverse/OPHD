@@ -26,7 +26,7 @@ protected:
 	State* update() override;
 
 private:
-	typedef std::vector<Planet*> PlanetPtrList;
+	using PlanetPtrList = std::vector<Planet*>;
 
 private:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);

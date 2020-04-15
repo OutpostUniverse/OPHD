@@ -32,7 +32,7 @@ public:
 		SLIDER_HORIZONTAL	/*!< Horizontal slider. */
 	};
 
-	typedef NAS2D::Signals::Signal<float> ValueChangedCallback; /*!< type for Callback on value changed. */
+	using ValueChangedCallback = NAS2D::Signals::Signal<float>; /*!< type for Callback on value changed. */
 
 public:
 	Slider();

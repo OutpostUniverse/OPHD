@@ -11,7 +11,7 @@
 class CheckBox : public Control
 {
 public:
-	typedef NAS2D::Signals::Signal<> ClickCallback;
+	using ClickCallback = NAS2D::Signals::Signal<>;
 
 public:
 	CheckBox(std::string newText = "");

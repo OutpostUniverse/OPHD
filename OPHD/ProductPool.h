@@ -12,7 +12,7 @@
 class ProductPool
 {
 public:
-	typedef std::array<int, ProductType::PRODUCT_COUNT>	ProductTypeCount;
+	using ProductTypeCount = std::array<int, ProductType::PRODUCT_COUNT>;
 
 public:
 	ProductPool() = default;

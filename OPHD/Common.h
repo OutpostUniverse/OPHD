@@ -290,7 +290,7 @@ enum ProductType
 using PopulationRequirements = std::array<int, 2>;
 
 class Robot;
-typedef std::vector<Robot*> RobotList;
+using RobotList = std::vector<Robot*>;
 
 extern std::map<int, std::string> TILE_INDEX_TRANSLATION;
 extern std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
