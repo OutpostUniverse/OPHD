@@ -34,10 +34,11 @@ static ResourceTrend compareResources(int src, int dst)
 }
 
 
-namespace {
+namespace
+{
 	std::string formatDiff(int diff)
 	{
-		return ((diff >= 0) ? "+" : "-") + std::to_string(diff);
+		return ((diff > 0) ? "+" : "") + std::to_string(diff);
 	}
 }
 
