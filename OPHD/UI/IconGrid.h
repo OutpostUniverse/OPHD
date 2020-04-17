@@ -102,7 +102,7 @@ private:
 
 private:
 	void updateGrid();
-	int translateCoordsToIndex(NAS2D::Vector<int> relativeOffset);
+	std::size_t translateCoordsToIndex(NAS2D::Vector<int> relativeOffset);
 
 	void raiseChangedEvent();
 

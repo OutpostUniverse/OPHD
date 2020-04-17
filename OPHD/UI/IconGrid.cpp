@@ -157,10 +157,10 @@ void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
  * Utility function that translates mouse coordinates into
  * an index value.
  */
-int IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
+std::size_t IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
 {
 	const auto gridOffset = relativeOffset / (mIconSize + mIconMargin);
-	return gridOffset.x + (mGridSize.x * gridOffset.y);
+	return static_cast<std::size_t>(gridOffset.x + (mGridSize.x * gridOffset.y));
 }
 
 
