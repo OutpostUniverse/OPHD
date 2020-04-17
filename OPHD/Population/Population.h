@@ -29,7 +29,7 @@ public:
 
 	void clear();
 
-	void addPopulation(PersonRole role, uint32_t count);
+	void addPopulation(PersonRole role, int count);
 
 	int update(int morale, int food, int residences, int universities, int nurseries, int hospitals);
 
@@ -50,15 +50,15 @@ private:
 	void kill_students(int morale, int hospitals);
 	void kill_adults(Population::PersonRole role, int morale, int hospitals);
 
-	uint32_t consume_food(uint32_t _food);
+	int consume_food(int _food);
 
 private:
-	using PopulationTable = std::array<uint32_t, 5>	;
+	using PopulationTable = std::array<int, 5>	;
 	using MoraleModifiers = std::array<MoraleModifier, 5>;
 
 private:
-	uint32_t			mBirthCount;				/**<  */
-	uint32_t			mDeathCount;				/**<  */
+	int			mBirthCount;				/**<  */
+	int			mDeathCount;				/**<  */
 
 	float				mStarveRate;				/**< Amount of population that dies during food shortages in percent. */
 

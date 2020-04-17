@@ -24,9 +24,9 @@ auto random_0_100 = std::bind(pop_distribution, pop_generator);
  * Convenience function to cast a MoraleLevel enumerator
  * into an array index.
  */
-int moraleIndex(uint32_t morale)
+int moraleIndex(int morale)
 {
-	return std::clamp(morale, 1u, 999u) / 200;
+	return std::clamp(morale, 1, 999) / 200;
 }
 
 
@@ -92,7 +92,7 @@ void Population::clearPopulationList(PersonRole _role)
  * \param	role		Segment of the population to populate.
  * \param	count		Base age in months of the population to populated.
  */
-void Population::addPopulation(PersonRole role, uint32_t count)
+void Population::addPopulation(PersonRole role, int count)
 {
 	mPopulation[role] += count;
 }
@@ -103,7 +103,7 @@ void Population::addPopulation(PersonRole role, uint32_t count)
  */
 int Population::size()
 {
-	uint32_t count = 0;
+	int count = 0;
 	for (std::size_t i = 0; i < mPopulation.size(); ++i)
 	{
 		count += mPopulation[i];
@@ -294,7 +294,7 @@ void Population::kill_adults(Population::PersonRole role, int morale, int hospit
  *
  * \return	Actual amount of food consumed.
  */
-uint32_t Population::consume_food(uint32_t food)
+int Population::consume_food(int food)
 {
 	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
 	if (food == 0)
@@ -304,17 +304,17 @@ uint32_t Population::consume_food(uint32_t food)
 		return 0;
 	}
 
-	uint32_t population_fed = food * 10;
-	if (population_fed > static_cast<uint32_t>(size()))
+	int population_fed = food * 10;
+	if (population_fed > static_cast<int>(size()))
 	{
 		return size() / 10;
 	}
 
 
-	uint32_t population_to_kill = static_cast<int>((size() - population_fed) * mStarveRate);
+	int population_to_kill = static_cast<int>((size() - population_fed) * mStarveRate);
 	if (size() == 1) { population_to_kill = 1; }
 
-	for (uint32_t i = 0; i < population_to_kill; /**/ )
+	for (int i = 0; i < population_to_kill; /**/ )
 	{
 		int role_idx = i % 5;
 
