@@ -305,7 +305,7 @@ int Population::consume_food(int food)
 	}
 
 	int population_fed = food * 10;
-	if (population_fed > static_cast<int>(size()))
+	if (population_fed > size())
 	{
 		return size() / 10;
 	}
