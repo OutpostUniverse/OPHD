@@ -25,10 +25,10 @@ static void drawItem(Renderer& r, FactoryListBox::FactoryListBoxItem& item, floa
 	const auto& structureTextColor = structureTextColorFromIndex(f->state());
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red(), structureColor.green(), structureColor.blue(), 75); }
+	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red, structureColor.green, structureColor.blue, 75); }
 
 	r.drawBox({x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
-	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, static_cast<float>(item.icon_slice.x()), static_cast<float>(item.icon_slice.y()), 46.0f, 46.0f, 255, 255, 255, structureColor.alpha());
+	r.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, static_cast<float>(item.icon_slice.x()), static_cast<float>(item.icon_slice.y()), 46.0f, 46.0f, 255, 255, 255, structureColor.alpha);
 
 	r.drawText(*MAIN_FONT_BOLD, f->name(), {x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 
