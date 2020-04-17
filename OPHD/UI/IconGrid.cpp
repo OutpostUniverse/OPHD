@@ -159,7 +159,8 @@ void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
  */
 int IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
 {
-	return (relativeOffset.x / (mIconSize + mIconMargin)) + (mGridSize.x * (relativeOffset.y / (mIconSize + mIconMargin)));
+	const auto gridOffset = relativeOffset / (mIconSize + mIconMargin);
+	return gridOffset.x + (mGridSize.x * gridOffset.y);
 }
 
 
