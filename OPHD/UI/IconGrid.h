@@ -52,7 +52,7 @@ public:
 	void iconSize(int newSsize);
 	void iconMargin(int newMargin);
 
-	const std::string& itemName(int index) const { return mIconItemList[index].name; }
+	const std::string& itemName(std::size_t index) const { return mIconItemList[index].name; }
 
 	int selectionIndex() const { return static_cast<int>(mCurrentSelection); }
 
