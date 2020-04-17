@@ -327,7 +327,7 @@ void IconGrid::clearSelection()
 /**
  * Sets the current selection index.
  */
-void IconGrid::selection(int newSelection)
+void IconGrid::selection(std::size_t newSelection)
 {
 	if (static_cast<std::size_t>(newSelection) >= mIconItemList.size())
 		return;
