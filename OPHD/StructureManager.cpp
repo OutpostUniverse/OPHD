@@ -270,7 +270,7 @@ void StructureManager::removeStructure(Structure* st)
 	{
 		if (sl[i] == st)
 		{
-			sl.erase(sl.begin() + i);
+			sl.erase(sl.begin() + static_cast<std::ptrdiff_t>(i));
 			break;
 		}
 	}
