@@ -316,9 +316,9 @@ int Population::consume_food(int food)
 
 	for (int i = 0; i < population_to_kill; /**/ )
 	{
-		int role_idx = i % 5;
+		std::size_t role_idx = i % 5;
 
-		int counter = 0;
+		std::size_t counter = 0;
 		for (;;)
 		{
 			role_idx = role_idx + counter;
