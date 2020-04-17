@@ -157,9 +157,10 @@ void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
  * Utility function that translates mouse coordinates into
  * an index value.
  */
-int IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
+std::size_t IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
 {
-	return (relativeOffset.x / (mIconSize + mIconMargin)) + (mGridSize.x * (relativeOffset.y / (mIconSize + mIconMargin)));
+	const auto gridOffset = relativeOffset / (mIconSize + mIconMargin);
+	return static_cast<std::size_t>(gridOffset.x + (mGridSize.x * gridOffset.y));
 }
 
 
@@ -326,7 +327,7 @@ void IconGrid::clearSelection()
 /**
  * Sets the current selection index.
  */
-void IconGrid::selection(int newSelection)
+void IconGrid::selection(std::size_t newSelection)
 {
 	if (static_cast<std::size_t>(newSelection) >= mIconItemList.size())
 		return;

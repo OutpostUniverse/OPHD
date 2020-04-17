@@ -52,7 +52,7 @@ public:
 	void iconSize(int newSsize);
 	void iconMargin(int newMargin);
 
-	const std::string& itemName(int index) const { return mIconItemList[index].name; }
+	const std::string& itemName(std::size_t index) const { return mIconItemList[index].name; }
 
 	int selectionIndex() const { return static_cast<int>(mCurrentSelection); }
 
@@ -75,7 +75,7 @@ public:
 	void showTooltip(bool value) { mShowTooltip = value; }
 
 	void clearSelection();
-	void selection(int newSelection);
+	void selection(std::size_t newSelection);
 	void selection_meta(int selectionMetaValue);
 
 	void incrementSelection();
@@ -102,7 +102,7 @@ private:
 
 private:
 	void updateGrid();
-	int translateCoordsToIndex(NAS2D::Vector<int> relativeOffset);
+	std::size_t translateCoordsToIndex(NAS2D::Vector<int> relativeOffset);
 
 	void raiseChangedEvent();
 

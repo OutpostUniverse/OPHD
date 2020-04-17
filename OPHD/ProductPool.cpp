@@ -119,7 +119,7 @@ void ProductPool::store(ProductType type, int count)
 {
 	if (storageRequired(type, count) <= availableStorage())
 	{
-		mProducts[static_cast<int>(type)] += count;
+		mProducts[static_cast<std::size_t>(type)] += count;
 	}
 
 	mCurrentStorageCount = computeCurrentStorage(mProducts);
@@ -131,8 +131,8 @@ void ProductPool::store(ProductType type, int count)
  */
 int ProductPool::pull(ProductType type, int c)
 {
-	int pulledCount = std::clamp(c, 0, mProducts[static_cast<int>(type)]);
-	mProducts[static_cast<int>(type)] -= pulledCount;
+	int pulledCount = std::clamp(c, 0, mProducts[static_cast<std::size_t>(type)]);
+	mProducts[static_cast<std::size_t>(type)] -= pulledCount;
 	mCurrentStorageCount = computeCurrentStorage(mProducts);
 
 	return pulledCount;
@@ -144,7 +144,7 @@ int ProductPool::pull(ProductType type, int c)
  */
 int ProductPool::count(ProductType type)
 {
-	return mProducts[static_cast<int>(type)];
+	return mProducts[static_cast<std::size_t>(type)];
 }
 
 
