@@ -11,10 +11,10 @@ using namespace NAS2D::Xml;
 /**
  * Helper function that gets the total amount of ore 
  */
-static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, std::size_t depth)
+static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, int depth)
 {
 	int _value = 0;
-	for (std::size_t i = 0; i < depth; ++i)
+	for (std::size_t i = 0; i < static_cast<std::size_t>(depth); ++i)
 	{
 		_value += veins[i][ore];
 	}
