@@ -24,9 +24,9 @@ auto random_0_100 = std::bind(pop_distribution, pop_generator);
  * Convenience function to cast a MoraleLevel enumerator
  * into an array index.
  */
-int moraleIndex(int morale)
+std::size_t moraleIndex(int morale)
 {
-	return std::clamp(morale, 1, 999) / 200;
+	return static_cast<std::size_t>(std::clamp(morale, 1, 999) / 200);
 }
 
 
