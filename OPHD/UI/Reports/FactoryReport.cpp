@@ -609,7 +609,7 @@ void FactoryReport::drawProductPane(Renderer& r)
 	if (SELECTED_PRODUCT_TYPE != ProductType::PRODUCT_NONE)
 	{
 		r.drawText(*FONT_BIG_BOLD, productDescription(SELECTED_PRODUCT_TYPE), position_x, DETAIL_PANEL.y() + 180, 0, 185, 0);
-		r.drawImage(*PRODUCT_IMAGE_ARRAY[SELECTED_PRODUCT_TYPE], position_x, lstProducts.positionY());
+		r.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(SELECTED_PRODUCT_TYPE)], position_x, lstProducts.positionY());
 		txtProductDescription.update();
 	}
 
