@@ -313,7 +313,7 @@ void MapViewState::onActivate(bool /*newActiveValue*/)
 void MapViewState::onWindowResized(int w, int h)
 {
 	setupUiPositions(w, h);
-	mTileMap->initMapDrawParams(w, h);
+	mTileMap->initMapDrawParams({w, h});
 }
 
 

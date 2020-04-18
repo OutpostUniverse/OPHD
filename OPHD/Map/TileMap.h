@@ -75,7 +75,7 @@ public:
 	void injectMouse(int x, int y);
 	void injectMouse(NAS2D::Point<int> position) { mMousePosition = position; }
 
-	void initMapDrawParams(int, int);
+	void initMapDrawParams(NAS2D::Vector<int>);
 	
 	void draw();
 
