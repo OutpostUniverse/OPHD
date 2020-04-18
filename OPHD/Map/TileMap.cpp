@@ -252,7 +252,7 @@ void TileMap::buildMouseMap()
 	Image mousemap("ui/mouse_map.png");
 
 	// More sanity checks (mousemap should match dimensions of tile)
-	if (mousemap.width() != TILE_WIDTH || mousemap.height() != TILE_HEIGHT_ABSOLUTE)
+	if (mousemap.size() != Vector{TILE_WIDTH, TILE_HEIGHT_ABSOLUTE})
 	{
 		throw std::runtime_error("Mouse map is the wrong dimensions.");
 	}
