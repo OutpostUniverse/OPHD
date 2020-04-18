@@ -178,7 +178,8 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	BOTTOM_UI_AREA = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
 
 	// Menu / System Icon
-	MENU_ICON = {size.x - constants::MARGIN_TIGHT * 2 - constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2, constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2};
+	const auto menuIconSpacing = constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2;
+	MENU_ICON = {size.x - menuIconSpacing, 0, menuIconSpacing, menuIconSpacing};
 
 	// NAVIGATION BUTTONS
 	// Bottom line
