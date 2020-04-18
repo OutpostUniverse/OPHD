@@ -122,14 +122,10 @@ NAS2D::State* SplashState::update()
 	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
 	{
 		unsigned int tick = BYLINE_TIMER.delta();
-		
-		// Trunctation of fractional part of result is intentional
-		// to prevent fuzzy images due to texture filtering
-		int _x = static_cast<int>(r.center_x() - (mLogoOutpostHd.width() / 2)) - 100;
-		int _y = static_cast<int>(r.center_y() - (mLogoOutpostHd.height() / 2));
-		
-		r.drawImageRotated(mFlare, static_cast<float>(_x) + 302 - 512, static_cast<float>(_y) + 241 - 512, BYLINE_TIMER.tick() / 600.0f);
-		r.drawImage(mLogoOutpostHd, static_cast<float>(_x), static_cast<float>(_y));
+		const auto logoPosition = r.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
+
+		r.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, BYLINE_TIMER.tick() / 600.0f);
+		r.drawImage(mLogoOutpostHd, logoPosition);
 
 		BYLINE_SCALE += tick * BYLINE_SCALE_STEP;
 		BYLINE_ALPHA += tick * BYLINE_ALPHA_FADE_STEP;
