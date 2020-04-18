@@ -113,11 +113,7 @@ NAS2D::State* SplashState::update()
 
 	if (CURRENT_STATE == LogoState::LOGO_LAIRWORKS)
 	{
-		// Trunctation of fractional part of result is intentional
-		// to prevent fuzzy images due to texture filtering
-		int logoX = static_cast<int>(r.center_x() - mLogoLairworks.width() / 2);
-		int logoY = static_cast<int>(r.center_y() - mLogoLairworks.height() / 2);
-		r.drawImage(mLogoLairworks, static_cast<float>(logoX), static_cast<float>(logoY));
+		r.drawImage(mLogoLairworks, r.center() - mLogoLairworks.size() / 2);
 	}
 	if (CURRENT_STATE == LogoState::LOGO_NAS2D)
 	{
