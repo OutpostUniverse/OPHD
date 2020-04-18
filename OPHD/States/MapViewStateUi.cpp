@@ -183,14 +183,15 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	// NAVIGATION BUTTONS
 	// Bottom line
-	MOVE_DOWN_ICON = {size.x - constants::MARGIN - 32, size.y - constants::BOTTOM_UI_HEIGHT - 65, 32, 32};
-	MOVE_EAST_ICON = {MOVE_DOWN_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16};
-	MOVE_SOUTH_ICON = {MOVE_DOWN_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_DOWN_ICON.y() + 8, 32, 16};
+	const auto navIconSpacing = 32 + constants::MARGIN_TIGHT;
+	MOVE_DOWN_ICON = {size.x - navIconSpacing, size.y - constants::BOTTOM_UI_HEIGHT - 65, 32, 32};
+	MOVE_EAST_ICON = {MOVE_DOWN_ICON.x() - navIconSpacing, MOVE_DOWN_ICON.y() + 8, 32, 16};
+	MOVE_SOUTH_ICON = {MOVE_DOWN_ICON.x() - 2 * navIconSpacing, MOVE_DOWN_ICON.y() + 8, 32, 16};
 
 	// Top line
-	MOVE_UP_ICON = {MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y() - constants::MARGIN_TIGHT - 32, 32, 32};
-	MOVE_NORTH_ICON = {MOVE_UP_ICON.x() - (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16};
-	MOVE_WEST_ICON = {MOVE_UP_ICON.x() - 2 * (32 + constants::MARGIN_TIGHT), MOVE_UP_ICON.y() + 8, 32, 16};
+	MOVE_UP_ICON = {MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y() - navIconSpacing, 32, 32};
+	MOVE_NORTH_ICON = {MOVE_UP_ICON.x() - navIconSpacing, MOVE_UP_ICON.y() + 8, 32, 16};
+	MOVE_WEST_ICON = {MOVE_UP_ICON.x() - 2 * navIconSpacing, MOVE_UP_ICON.y() + 8, 32, 16};
 
 	// Mini Map
 	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), 300, 150};
