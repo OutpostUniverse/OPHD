@@ -55,7 +55,7 @@ public:
 	TextChangedCallback& textChanged();
 
 	NAS2D::Vector<float> size() const { return mRect.size(); }
-	void size(NAS2D::Vector<float> newSize) { size(newSize.x, newSize.y); }
+	void size(NAS2D::Vector<float> newSize);
 
 	void size(float _s);
 	void size(float w, float h);

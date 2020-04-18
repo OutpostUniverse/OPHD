@@ -90,6 +90,14 @@ float Control::height() const
 }
 
 
+void Control::size(NAS2D::Vector<float> newSize)
+{
+	mRect.width(newSize.x);
+	mRect.height(newSize.y);
+	onSizeChanged();
+}
+
+
 /**
  * Sets the Width and Height of the Control.
  * 
