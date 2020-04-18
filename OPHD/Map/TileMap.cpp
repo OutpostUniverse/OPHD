@@ -114,7 +114,7 @@ TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int 
 	std::cout << "Loading '" << map_path << "'... ";
 	buildTerrainMap(map_path);
 	buildMouseMap();
-	initMapDrawParams(Utility<Renderer>::get().width(), Utility<Renderer>::get().height());
+	initMapDrawParams(Utility<Renderer>::get().size());
 
 	if (_s) { setupMines(_mc, hostility); }
 	std::cout << "finished!" << std::endl;
@@ -252,7 +252,7 @@ void TileMap::buildMouseMap()
 	Image mousemap("ui/mouse_map.png");
 
 	// More sanity checks (mousemap should match dimensions of tile)
-	if (mousemap.width() != TILE_WIDTH || mousemap.height() != TILE_HEIGHT_ABSOLUTE)
+	if (mousemap.size() != Vector{TILE_WIDTH, TILE_HEIGHT_ABSOLUTE})
 	{
 		throw std::runtime_error("Mouse map is the wrong dimensions.");
 	}
@@ -281,13 +281,13 @@ void TileMap::buildMouseMap()
 /**
  * Sets up position and drawing parememters for the tile map.
  */
-void TileMap::initMapDrawParams(int w, int h)
+void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 {
 	// Set up map draw position
-	mEdgeLength = w / TILE_WIDTH;
+	mEdgeLength = size.x / TILE_WIDTH;
 
-	mMapPosition = {static_cast<float>(w / 2 - (TILE_WIDTH / 2)), ((h - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT_ABSOLUTE)};
-	mMapBoundingBox = {(w / 2) - ((TILE_WIDTH * mEdgeLength) / 2), static_cast<int>(mMapPosition.y()), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
+	mMapPosition = {static_cast<float>(size.x / 2 - (TILE_WIDTH / 2)), ((size.y - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT_ABSOLUTE)};
+	mMapBoundingBox = {(size.x / 2) - ((TILE_WIDTH * mEdgeLength) / 2), static_cast<int>(mMapPosition.y()), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
 
 	int transform = (mMapPosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
 	TRANSFORM = {-transform, transform};

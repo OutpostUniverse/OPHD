@@ -329,7 +329,7 @@ NAS2D::State* MainMenuState::update()
 	Renderer& r = Utility<Renderer>::get();
 
 	r.clearScreen(0, 0, 0);
-	r.drawImage(mBgImage, r.center_x() - mBgImage.width() / 2, r.center_y() - mBgImage.height() / 2);
+	r.drawImage(mBgImage, r.center() - mBgImage.size() / 2);
 
 
 	if (!mFileIoDialog.visible() && !dlgOptions.visible())
