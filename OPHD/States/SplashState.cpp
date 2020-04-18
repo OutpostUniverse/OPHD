@@ -121,7 +121,7 @@ NAS2D::State* SplashState::update()
 	}
 	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
 	{
-		unsigned int tick = BYLINE_TIMER.delta();
+		const unsigned int tick = BYLINE_TIMER.delta();
 		const auto logoPosition = r.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
 
 		r.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, BYLINE_TIMER.tick() / 600.0f);
