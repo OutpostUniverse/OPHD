@@ -117,12 +117,7 @@ NAS2D::State* SplashState::update()
 	}
 	if (CURRENT_STATE == LogoState::LOGO_NAS2D)
 	{
-
-		// Trunctation of fractional part of result is intentional
-		// to prevent fuzzy images due to texture filtering
-		int logoX = static_cast<int>(r.center_x() - mLogoNas2d.width() / 2);
-		int logoY = static_cast<int>(r.center_y() - mLogoNas2d.height() / 2);
-		r.drawImage(mLogoNas2d, static_cast<float>(logoX), static_cast<float>(logoY));
+		r.drawImage(mLogoNas2d, r.center() - mLogoNas2d.size() / 2);
 	}
 	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
 	{
