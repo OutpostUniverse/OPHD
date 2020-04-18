@@ -49,7 +49,7 @@ void MapViewState::save(const std::string& filePath)
 {
 	Renderer& r = Utility<Renderer>::get();
 	r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 100);
-	r.drawImage(*IMG_SAVING, r.center_x() - (IMG_SAVING->width() / 2), r.center_y() - (IMG_SAVING->height() / 2));
+	r.drawImage(*IMG_SAVING, r.center() - IMG_SAVING->size() / 2);
 	r.update();
 
 	XmlDocument doc;
@@ -101,7 +101,7 @@ void MapViewState::load(const std::string& filePath)
 
 	Renderer& r = Utility<Renderer>::get();
 	r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 100);
-	r.drawImage(*IMG_LOADING, r.center_x() - (IMG_LOADING->width() / 2), r.center_y() - (IMG_LOADING->height() / 2));
+	r.drawImage(*IMG_LOADING, r.center() - IMG_LOADING->size() / 2);
 	r.update();
 
 	mBtnToggleConnectedness.toggle(false);
