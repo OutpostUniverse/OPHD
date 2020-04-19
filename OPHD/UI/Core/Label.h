@@ -26,6 +26,7 @@ class Label : public Control
 public:
 	Label(std::string newText = "");
 
+	void autoSize();
 	void font(NAS2D::Font* font);
 	bool empty() const { return text().empty(); }
 	void clear() { _text().clear(); }
