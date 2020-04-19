@@ -133,8 +133,7 @@ void MainMenuState::positionButtons()
 	dlgOptions.position(center - dlgOptions.size() / 2);
 	dlgNewGame.position(center - dlgNewGame.size() / 2);
 
-	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	lblVersion.position(r.width() - tiny_font->width(constants::VERSION) - 5, r.height() - tiny_font->height() - 5);
+	lblVersion.position(NAS2D::Point{0, 0} + r.size() - lblVersion.size());
 }
 
 
