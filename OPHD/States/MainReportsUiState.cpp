@@ -135,12 +135,12 @@ static void drawPanel(Renderer& _r, Panel& _p)
 		if (_p.UiPanel) { _p.UiPanel->update(); }
 
 		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition, NAS2D::Color{185, 185, 0});
-		_r.drawImage(*_p.Img, _p.IconPosition, 1.0f, NAS2D::Color{185, 185, 0, 255});
+		_r.drawImage(*_p.Img, _p.IconPosition, 1.0f, NAS2D::Color{185, 185, 0});
 	}
 	else
 	{
 		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition, NAS2D::Color{0, 185, 0});
-		_r.drawImage(*_p.Img, _p.IconPosition, 1.0f, NAS2D::Color{0, 185, 0, 255});
+		_r.drawImage(*_p.Img, _p.IconPosition, 1.0f, NAS2D::Color{0, 185, 0});
 	}
 }
 
