@@ -26,12 +26,14 @@ class Label : public Control
 public:
 	Label(std::string newText = "");
 
+	void autoSize();
 	void font(NAS2D::Font* font);
 	bool empty() const { return text().empty(); }
 	void clear() { _text().clear(); }
 	void update() override;
 
-	int width() const;
+	int textWidth() const;
+	NAS2D::Vector<int> textSize() const;
 
 	void color(const NAS2D::Color& color);
 
