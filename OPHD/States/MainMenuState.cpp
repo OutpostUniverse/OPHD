@@ -93,9 +93,7 @@ void MainMenuState::initialize()
 	dlgOptions.hide();
 
 	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
 	lblVersion.font(tiny_font);
-	lblVersion.position(r.width() - lblVersion.width() - 5, r.height() - lblVersion.height() - 5);
 	lblVersion.color(NAS2D::Color::White);
 
 	positionButtons();
@@ -218,9 +216,6 @@ void MainMenuState::onKeyDown(NAS2D::EventHandler::KeyCode /*key*/, NAS2D::Event
 void MainMenuState::onWindowResized(int /*width*/, int /*height*/)
 {
 	positionButtons();
-
-	auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
-	lblVersion.position(r.width() - lblVersion.width() - 5, r.height() - lblVersion.height() - 5);
 }
 
 
