@@ -134,13 +134,13 @@ static void drawPanel(Renderer& _r, Panel& _p)
 
 		if (_p.UiPanel) { _p.UiPanel->update(); }
 
-		_r.drawText(*BIG_FONT_BOLD, _p.Name, static_cast<float>(_p.TextPosition.x()), static_cast<float>(_p.TextPosition.y()), 185, 185, 0);
-		_r.drawImage(*_p.Img, static_cast<float>(_p.IconPosition.x()), static_cast<float>(_p.IconPosition.y()), 1.0f, 185, 185, 0, 255);
+		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition, NAS2D::Color{185, 185, 0});
+		_r.drawImage(*_p.Img, _p.IconPosition, 1.0f, NAS2D::Color{185, 185, 0, 255});
 	}
 	else
 	{
-		_r.drawText(*BIG_FONT_BOLD, _p.Name, static_cast<float>(_p.TextPosition.x()), static_cast<float>(_p.TextPosition.y()), 0, 185, 0);
-		_r.drawImage(*_p.Img, static_cast<float>(_p.IconPosition.x()), static_cast<float>(_p.IconPosition.y()), 1.0f, 0, 185, 0, 255);
+		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition, NAS2D::Color{0, 185, 0});
+		_r.drawImage(*_p.Img, _p.IconPosition, 1.0f, NAS2D::Color{0, 185, 0, 255});
 	}
 }
 
