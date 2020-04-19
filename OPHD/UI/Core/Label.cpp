@@ -22,7 +22,7 @@ Label::Label(std::string newText)
 
 void Label::autoSize()
 {
-	size(textSize() + NAS2D::Vector{0, FIELD_PADDING * 2});
+	size(textSize() + NAS2D::Vector{FIELD_PADDING * 2, FIELD_PADDING * 2});
 }
 
 
