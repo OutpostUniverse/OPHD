@@ -24,7 +24,7 @@ public:
 	Control() = default;
 	virtual ~Control() = default;
 
-	void position(const NAS2D::Point<int>& pos);
+	NAS2D::Point<float> position() const { return mRect.startPoint(); }
 	void position(const NAS2D::Point<float>& pos);
 	void position(float x, float y);
 

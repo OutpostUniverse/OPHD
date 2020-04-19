@@ -11,17 +11,6 @@ using namespace NAS2D;
  * 
  * \param pos	2D Coordinate to position the Control at.
  */
-void Control::position(const Point<int>& pos)
-{
-	position(static_cast<float>(pos.x()), static_cast<float>(pos.y()));
-}
-
-
-/**
- * Sets the position of the Control.
- * 
- * \param pos	2D Coordinate to position the Control at.
- */
 void Control::position(const Point<float>& pos)
 {
 	position(pos.x(), pos.y());
