@@ -273,18 +273,18 @@ void ResourcePool::pushResources(ResourcePool& rp)
 		return;
 	}
 
-	rp.commonMetalsOre(pushResource(ResourceType::RESOURCE_COMMON_METALS_ORE, rp.commonMetalsOre()));
-	rp.commonMineralsOre(pushResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, rp.commonMineralsOre()));
-	rp.rareMetalsOre(pushResource(ResourceType::RESOURCE_RARE_METALS_ORE, rp.rareMetalsOre()));
-	rp.rareMineralsOre(pushResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, rp.rareMineralsOre()));
+	rp.commonMetalsOre(pushResource(ResourceType::RESOURCE_COMMON_METALS_ORE, rp.commonMetalsOre(), false));
+	rp.commonMineralsOre(pushResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, rp.commonMineralsOre(), false));
+	rp.rareMetalsOre(pushResource(ResourceType::RESOURCE_RARE_METALS_ORE, rp.rareMetalsOre(), false));
+	rp.rareMineralsOre(pushResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, rp.rareMineralsOre(), false));
 
-	rp.commonMetals(pushResource(ResourceType::RESOURCE_COMMON_METALS, rp.commonMetals()));
-	rp.commonMinerals(pushResource(ResourceType::RESOURCE_COMMON_MINERALS, rp.commonMinerals()));
-	rp.rareMetals(pushResource(ResourceType::RESOURCE_RARE_METALS, rp.rareMetals()));
-	rp.rareMinerals(pushResource(ResourceType::RESOURCE_RARE_MINERALS, rp.rareMinerals()));
+	rp.commonMetals(pushResource(ResourceType::RESOURCE_COMMON_METALS, rp.commonMetals(), false));
+	rp.commonMinerals(pushResource(ResourceType::RESOURCE_COMMON_MINERALS, rp.commonMinerals(), false));
+	rp.rareMetals(pushResource(ResourceType::RESOURCE_RARE_METALS, rp.rareMetals(), false));
+	rp.rareMinerals(pushResource(ResourceType::RESOURCE_RARE_MINERALS, rp.rareMinerals(), false));
 
-	rp.food(pushResource(ResourceType::RESOURCE_FOOD, rp.food()));
-	rp.energy(pushResource(ResourceType::RESOURCE_ENERGY, rp.energy()));
+	rp.food(pushResource(ResourceType::RESOURCE_FOOD, rp.food(), false));
+	rp.energy(pushResource(ResourceType::RESOURCE_ENERGY, rp.energy(), false));
 }
 
 /**
@@ -307,17 +307,17 @@ void ResourcePool::pullResources(ResourcePool& _rp)
 	if (_rp.atCapacity() || empty())
 		return;
 
-	_rp.pushResource(ResourceType::RESOURCE_COMMON_METALS_ORE, pullResource(ResourceType::RESOURCE_COMMON_METALS_ORE, commonMetalsOre()));
-	_rp.pushResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, pullResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, commonMineralsOre()));
-	_rp.pushResource(ResourceType::RESOURCE_RARE_METALS_ORE, pullResource(ResourceType::RESOURCE_RARE_METALS_ORE, rareMetalsOre()));
-	_rp.pushResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, pullResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, rareMineralsOre()));
+	_rp.pushResource(ResourceType::RESOURCE_COMMON_METALS_ORE, pullResource(ResourceType::RESOURCE_COMMON_METALS_ORE, commonMetalsOre()), false);
+	_rp.pushResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, pullResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, commonMineralsOre()), false);
+	_rp.pushResource(ResourceType::RESOURCE_RARE_METALS_ORE, pullResource(ResourceType::RESOURCE_RARE_METALS_ORE, rareMetalsOre()), false);
+	_rp.pushResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, pullResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, rareMineralsOre()), false);
 
-	_rp.pushResource(ResourceType::RESOURCE_COMMON_METALS, pullResource(ResourceType::RESOURCE_COMMON_METALS, commonMetals()));
-	_rp.pushResource(ResourceType::RESOURCE_COMMON_MINERALS, pullResource(ResourceType::RESOURCE_COMMON_MINERALS, commonMinerals()));
-	_rp.pushResource(ResourceType::RESOURCE_RARE_METALS, pullResource(ResourceType::RESOURCE_RARE_METALS, rareMetals()));
-	_rp.pushResource(ResourceType::RESOURCE_RARE_MINERALS, pullResource(ResourceType::RESOURCE_RARE_MINERALS, rareMinerals()));
+	_rp.pushResource(ResourceType::RESOURCE_COMMON_METALS, pullResource(ResourceType::RESOURCE_COMMON_METALS, commonMetals()), false);
+	_rp.pushResource(ResourceType::RESOURCE_COMMON_MINERALS, pullResource(ResourceType::RESOURCE_COMMON_MINERALS, commonMinerals()), false);
+	_rp.pushResource(ResourceType::RESOURCE_RARE_METALS, pullResource(ResourceType::RESOURCE_RARE_METALS, rareMetals()), false);
+	_rp.pushResource(ResourceType::RESOURCE_RARE_MINERALS, pullResource(ResourceType::RESOURCE_RARE_MINERALS, rareMinerals()), false);
 
-	_rp.pushResource(ResourceType::RESOURCE_FOOD, pullResource(ResourceType::RESOURCE_FOOD, food()));
+	_rp.pushResource(ResourceType::RESOURCE_FOOD, pullResource(ResourceType::RESOURCE_FOOD, food()), false);
 }
 
 /**

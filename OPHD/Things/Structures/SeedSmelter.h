@@ -51,7 +51,7 @@ protected:
 	void convertOre(ResourcePool::ResourceType oreType, ResourcePool::ResourceType refinedType, int refinedAmount)
 	{
 		oreStorage().resource(oreType, oreStorage().resource(oreType) - constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING);
-		if (storage().pushResource(refinedType, refinedAmount) != 0)
+		if (storage().pushResource(refinedType, refinedAmount, false) != 0)
 		{
 			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 		}
