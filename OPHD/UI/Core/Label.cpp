@@ -8,7 +8,7 @@
 
 #include "NAS2D/Utility.h"
 
-static const int FIELD_PADDING = 4;
+static const int FIELD_PADDING = 2;
 static NAS2D::Font* TXT_FONT = nullptr;
 
 
