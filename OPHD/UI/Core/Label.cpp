@@ -44,7 +44,7 @@ void Label::color(const NAS2D::Color& color)
 }
 
 
-int Label::width() const
+int Label::textWidth() const
 {
 	return TXT_FONT->width(text());
 }

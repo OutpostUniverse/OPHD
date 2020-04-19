@@ -31,7 +31,7 @@ public:
 	void clear() { _text().clear(); }
 	void update() override;
 
-	int width() const;
+	int textWidth() const;
 
 	void color(const NAS2D::Color& color);
 
