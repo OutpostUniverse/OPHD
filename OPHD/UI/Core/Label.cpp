@@ -16,14 +16,14 @@ Label::Label(std::string newText)
 {
 	text(newText);
 	TXT_FONT = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	height(static_cast<float>(TXT_FONT->height() + FIELD_PADDING * 2));
+	size(textSize() + NAS2D::Vector{0, FIELD_PADDING * 2});
 }
 
 
 void Label::font(NAS2D::Font* font)
 {
 	TXT_FONT = font;
-	height(static_cast<float>(TXT_FONT->height() + FIELD_PADDING * 2));
+	size(textSize() + NAS2D::Vector{0, FIELD_PADDING * 2});
 }
 
 
