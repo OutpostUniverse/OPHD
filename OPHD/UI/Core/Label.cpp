@@ -8,7 +8,7 @@
 
 #include "NAS2D/Utility.h"
 
-static const int FIELD_PADDING = 4;
+static const int FIELD_PADDING = 2;
 static NAS2D::Font* TXT_FONT = nullptr;
 
 
@@ -22,7 +22,7 @@ Label::Label(std::string newText)
 
 void Label::autoSize()
 {
-	size(textSize() + NAS2D::Vector{0, FIELD_PADDING * 2});
+	size(textSize() + NAS2D::Vector{FIELD_PADDING * 2, FIELD_PADDING * 2});
 }
 
 
@@ -39,8 +39,8 @@ void Label::update()
 
 	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const auto textPosition = mRect.startPoint().to<int>();
-	renderer.drawText(*TXT_FONT, text(), textPosition + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING}, textColor);
+	const auto textPosition = mRect.startPoint().to<int>() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING};
+	renderer.drawText(*TXT_FONT, text(), textPosition, textColor);
 }
 
 
