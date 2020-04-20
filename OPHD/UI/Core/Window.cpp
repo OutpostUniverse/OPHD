@@ -75,7 +75,7 @@ void Window::onMouseMove(int /*x*/, int /*y*/, int dX, int dY)
 
 	if (mMouseDrag && !mAnchored)
 	{
-		position(positionX() + dX, positionY() + dY);
+		position(position() + NAS2D::Vector{dX, dY});
 	}
 }
 
