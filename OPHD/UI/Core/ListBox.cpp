@@ -62,9 +62,6 @@ void ListBox::_init()
 
 void ListBox::onSizeChanged()
 {
-	clear();
-	add(&mSlider, rect().width() - 14, 0);
-	mSlider.size({14, rect().height()});
 	_updateItemDisplay();
 }
 
@@ -84,6 +81,8 @@ void ListBox::_updateItemDisplay()
 		mLineCount = static_cast<unsigned int>(height() / mLineHeight);
 		if (mLineCount < mItems.size())
 		{
+			mSlider.position({rect().x() + rect().width() - 14, rect().y()});
+			mSlider.size({14, rect().height()});
 			mSlider.length((mLineHeight * mItems.size()) - height());
 			mCurrentOffset = static_cast<std::size_t>(mSlider.thumbPosition());
 			mItemWidth = static_cast<unsigned int>(width() - mSlider.width());

@@ -79,6 +79,8 @@ void ListBoxBase::_update_item_display()
 
 		if (mLineCount < mItems.size())
 		{
+			mSlider.position({rect().x() + rect().width() - 14, rect().y()});
+			mSlider.size({14, rect().height()});
 			mSlider.length((mItemHeight * mItems.size()) - height());
 			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
 			mItemWidth -= static_cast<unsigned int>(mSlider.width());
@@ -99,9 +101,6 @@ void ListBoxBase::_update_item_display()
  */
 void ListBoxBase::onSizeChanged()
 {
-	clear();
-	add(&mSlider, rect().width() - 14, 0);
-	mSlider.size({14, rect().height()});
 	_update_item_display();
 }
 
