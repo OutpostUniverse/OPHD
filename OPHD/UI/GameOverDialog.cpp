@@ -54,6 +54,6 @@ void GameOverDialog::update()
 	r.drawImage(mHeader, rect().x() + 5, rect().y() + 25);
 
 	// Yeah, I know. I hate it too but it made more sense than holding onto a static pointer.
-	r.drawText(	*Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL),
-				"You have failed. Your colony is dead.", rect().x() + 5, rect().y() + 290, 255, 255, 255);
+	const auto& font = *Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	r.drawText(font, "You have failed. Your colony is dead.", rect().x() + 5, rect().y() + 290, 255, 255, 255);
 }
