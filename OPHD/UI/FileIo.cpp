@@ -128,8 +128,8 @@ void FileIo::scanDirectory(const std::string& directory)
 	{
 		if (!f.isDirectory(directory + dirList[i]))
 		{
-			dirList[i].resize(dirList[i].size() - 4);	// Assumes a file save extension of 3 characters.
-														// This is a naive approach.
+			// FixMe: Naive approach: Assumes a file save extension of 3 characters.
+			dirList[i].resize(dirList[i].size() - 4);
 			mListBox.addItem(dirList[i]);
 		}
 	}
