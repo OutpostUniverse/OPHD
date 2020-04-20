@@ -318,12 +318,12 @@ void TextField::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	if (hasFocus() && editable()) { renderer.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus); }
-	else { renderer.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal); }
+	const auto showFocused = hasFocus() && editable();
+	renderer.drawImageRect(rect(), (showFocused ? mSkinFocus : mSkinNormal));
 
-	if (highlight()) { renderer.drawBox(rect(), 255, 255, 0); }
+	if (highlight()) { renderer.drawBox(rect(), NAS2D::Color::Yellow); }
 
 	drawCursor();
 
-	renderer.drawText(*TXT_FONT, text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, 255, 255, 255);
+	renderer.drawText(*TXT_FONT, text(), position() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING}, NAS2D::Color::White);
 }
