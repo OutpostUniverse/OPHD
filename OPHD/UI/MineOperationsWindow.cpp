@@ -267,48 +267,48 @@ void MineOperationsWindow::update()
 
 	Window::update();
 
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
-	r.drawImage(mUiIcon, rect().x() + 10, rect().y() + 30);
+	renderer.drawImage(mUiIcon, rect().x() + 10, rect().y() + 30);
 
-	r.drawText(*FONT_BOLD, "Mine Yield:", rect().x() + MINE_YIELD_POSITION, rect().y() + 30, 255, 255, 255);
-	r.drawText(*FONT, MINE_YIELD, rect().x() + MINE_YIELD_DESCRIPTION_POSITION, rect().y() + 30, 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Mine Yield:", rect().x() + MINE_YIELD_POSITION, rect().y() + 30, 255, 255, 255);
+	renderer.drawText(*FONT, MINE_YIELD, rect().x() + MINE_YIELD_DESCRIPTION_POSITION, rect().y() + 30, 255, 255, 255);
 
-	r.drawText(*FONT_BOLD, "Status:", rect().x() + MINE_YIELD_POSITION, rect().y() + 45, 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Status:", rect().x() + MINE_YIELD_POSITION, rect().y() + 45, 255, 255, 255);
 
 	if (mFacility->extending()) { STATUS_STRING = "Digging New Level"; }
 	else if (mFacility->mine()->exhausted()) { STATUS_STRING = "Exhausted"; }
 	else { STATUS_STRING = structureStateDescription(mFacility->state()); }
 	
-	r.drawText(*FONT, STATUS_STRING, rect().x() + MINE_STATUS_POSITION, rect().y() + 45, 255, 255, 255);
+	renderer.drawText(*FONT, STATUS_STRING, rect().x() + MINE_STATUS_POSITION, rect().y() + 45, 255, 255, 255);
 
 	if (mFacility && mFacility->extending())
 	{
-		r.drawText(*FONT_BOLD, "Turns Remaining:", rect().x() + MINE_YIELD_POSITION, rect().y() + 60, 255, 255, 255);
-		r.drawText(*FONT, EXTENTION_TIME_REMAINING, rect().x() + EXTENSION_TURNS_REMAINING_POSITION, rect().y() + 60, 255, 255, 255);
+		renderer.drawText(*FONT_BOLD, "Turns Remaining:", rect().x() + MINE_YIELD_POSITION, rect().y() + 60, 255, 255, 255);
+		renderer.drawText(*FONT, EXTENTION_TIME_REMAINING, rect().x() + EXTENSION_TURNS_REMAINING_POSITION, rect().y() + 60, 255, 255, 255);
 	}
 
-	r.drawText(*FONT_BOLD, "Depth:", rect().x() + MINE_DEPTH_POSITION, rect().y() + 30, 255, 255, 255);
-	r.drawText(*FONT, MINE_DEPTH, rect().x() + MINE_DEPTH_VALUE_POSITION, rect().y() + 30, 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Depth:", rect().x() + MINE_DEPTH_POSITION, rect().y() + 30, 255, 255, 255);
+	renderer.drawText(*FONT, MINE_DEPTH, rect().x() + MINE_DEPTH_VALUE_POSITION, rect().y() + 30, 255, 255, 255);
 
 	// REMAINING ORE PANEL
-	r.drawText(*FONT_BOLD, "Remaining Resources", rect().x() + 10, rect().y() + 164, 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Remaining Resources", rect().x() + 10, rect().y() + 164, 255, 255, 255);
 
-	r.drawImageRect(rect().x() + 10, rect().y() + 180, rect().width() - 20, 40, mPanel);
+	renderer.drawImageRect(rect().x() + 10, rect().y() + 180, rect().width() - 20, 40, mPanel);
 
-	r.drawLine(rect().x() + 98, rect().y() + 180, rect().x() + 98, rect().y() + 219, 22, 22, 22);
-	r.drawLine(rect().x() + 187, rect().y() + 180, rect().x() + 187, rect().y() + 219, 22, 22, 22);
-	r.drawLine(rect().x() + 275, rect().y() + 180, rect().x() + 275, rect().y() + 219, 22, 22, 22);
+	renderer.drawLine(rect().x() + 98, rect().y() + 180, rect().x() + 98, rect().y() + 219, 22, 22, 22);
+	renderer.drawLine(rect().x() + 187, rect().y() + 180, rect().x() + 187, rect().y() + 219, 22, 22, 22);
+	renderer.drawLine(rect().x() + 275, rect().y() + 180, rect().x() + 275, rect().y() + 219, 22, 22, 22);
 	
-	r.drawLine(rect().x() + 11, rect().y() + 200, rect().x() + rect().width() - 11, rect().y() + 200, 22, 22, 22);
+	renderer.drawLine(rect().x() + 11, rect().y() + 200, rect().x() + rect().width() - 11, rect().y() + 200, 22, 22, 22);
 
-	r.drawSubImage(mIcons, rect().x() + COMMON_METALS_POS, rect().y() + 183, 64, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + COMMON_MINERALS_POS, rect().y() + 183, 96, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + RARE_METALS_POS, rect().y() + 183, 80, 0, 16, 16);
-	r.drawSubImage(mIcons, rect().x() + RARE_MINERALS_POS, rect().y() + 183, 112, 0, 16, 16);
+	renderer.drawSubImage(mIcons, rect().x() + COMMON_METALS_POS, rect().y() + 183, 64, 0, 16, 16);
+	renderer.drawSubImage(mIcons, rect().x() + COMMON_MINERALS_POS, rect().y() + 183, 96, 0, 16, 16);
+	renderer.drawSubImage(mIcons, rect().x() + RARE_METALS_POS, rect().y() + 183, 80, 0, 16, 16);
+	renderer.drawSubImage(mIcons, rect().x() + RARE_MINERALS_POS, rect().y() + 183, 112, 0, 16, 16);
 
-	r.drawText(*FONT, COMMON_METALS_COUNT, rect().x() + COMMON_METALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
-	r.drawText(*FONT, COMMON_MINERALS_COUNT, rect().x() + COMMON_MINERALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
-	r.drawText(*FONT, RARE_METALS_COUNT, rect().x() + RARE_METALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
-	r.drawText(*FONT, RARE_MINERALS_COUNT, rect().x() + RARE_MINERALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	renderer.drawText(*FONT, COMMON_METALS_COUNT, rect().x() + COMMON_METALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	renderer.drawText(*FONT, COMMON_MINERALS_COUNT, rect().x() + COMMON_MINERALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	renderer.drawText(*FONT, RARE_METALS_COUNT, rect().x() + RARE_METALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
+	renderer.drawText(*FONT, RARE_MINERALS_COUNT, rect().x() + RARE_MINERALS_ORE_POSITION, rect().y() + 202, 255, 255, 255);
 }

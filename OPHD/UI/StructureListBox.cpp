@@ -17,7 +17,7 @@ static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
 
-static void drawItem(Renderer& r, StructureListBox::StructureListBoxItem& item, float x, float y, float w, float offset, bool highlight)
+static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem& item, float x, float y, float w, float offset, bool highlight)
 {
 	Structure* _st = item.structure;
 
@@ -25,13 +25,13 @@ static void drawItem(Renderer& r, StructureListBox::StructureListBoxItem& item, 
 	const auto& structureTextColor = structureTextColorFromIndex(_st->state());
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { r.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red, structureColor.green, structureColor.blue, 75); }
+	if (highlight) { renderer.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red, structureColor.green, structureColor.blue, 75); }
 
-	r.drawBox({x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
+	renderer.drawBox({x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
 
-	r.drawText(*MAIN_FONT_BOLD, item.Text, {x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
+	renderer.drawText(*MAIN_FONT_BOLD, item.Text, {x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 
-	r.drawText(*MAIN_FONT, item.structureState, {x + w - MAIN_FONT->width(item.structureState) - 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
+	renderer.drawText(*MAIN_FONT, item.structureState, {x + w - MAIN_FONT->width(item.structureState) - 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 }
 
 
@@ -149,14 +149,14 @@ void StructureListBox::update()
 	if (!visible()) { return; }
 	ListBoxBase::update();
 
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
-	r.clipRect(rect());
+	renderer.clipRect(rect());
 
 	// ITEMS
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
-		drawItem(r, *static_cast<StructureListBoxItem*>(mItems[i]),
+		drawItem(renderer, *static_cast<StructureListBoxItem*>(mItems[i]),
 			positionX(),
 			positionY() + (i * LIST_ITEM_HEIGHT),
 			static_cast<float>(item_width()),
@@ -164,5 +164,5 @@ void StructureListBox::update()
 			i == ListBoxBase::currentSelection());
 	}
 
-	r.clipRectClear();
+	renderer.clipRectClear();
 }
