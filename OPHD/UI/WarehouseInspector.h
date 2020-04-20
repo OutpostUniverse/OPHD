@@ -31,6 +31,6 @@ private:
 	WarehouseInspector& operator=(const WarehouseInspector&) = delete;
 
 private:
-	Warehouse*			mWarehouse = nullptr;
-	Button				btnClose;
+	Warehouse* mWarehouse = nullptr;
+	Button btnClose;
 };

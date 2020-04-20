@@ -70,7 +70,7 @@ void FileIo::init()
  */
 void FileIo::onDoubleClick(EventHandler::MouseButton /*button*/, int x, int y)
 {
-	if (!visible()) { return; }	// ignore key presses when hidden.
+	if (!visible()) { return; } // ignore key presses when hidden.
 
 	if (mListBox.rect().to<int>().contains(NAS2D::Point{x, y}))
 	{
@@ -87,7 +87,7 @@ void FileIo::onDoubleClick(EventHandler::MouseButton /*button*/, int x, int y)
  */
 void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
-	if (!visible()) { return; }	// ignore key presses when hidden.
+	if (!visible()) { return; } // ignore key presses when hidden.
 
 	if (key == EventHandler::KeyCode::KEY_ENTER || key == EventHandler::KeyCode::KEY_KP_ENTER)
 	{
@@ -155,7 +155,7 @@ void FileIo::fileNameModified(Control* control)
 
 	const std::string RestrictedFilenameChars = "\\/:*?\"<>|";
 
-	if (sFile.empty())	// no blank filename
+	if (sFile.empty()) // no blank filename
 		btnFileOp.enabled(false);
 	else if (sFile.find_first_of(RestrictedFilenameChars) != std::string::npos)
 		btnFileOp.enabled(false);

@@ -35,13 +35,13 @@ private:
 	void enabledChanged() override;
 
 private:
-	Button			btnSave;
-	Button			btnLoad;
-	Button			btnReturn;
-	Button			btnClose;
+	Button btnSave;
+	Button btnLoad;
+	Button btnReturn;
+	Button btnClose;
 
-	ClickCallback	mCallbackSave;
-	ClickCallback	mCallbackLoad;
-	ClickCallback	mCallbackReturn;
-	ClickCallback	mCallbackClose;
+	ClickCallback mCallbackSave;
+	ClickCallback mCallbackLoad;
+	ClickCallback mCallbackReturn;
+	ClickCallback mCallbackClose;
 };

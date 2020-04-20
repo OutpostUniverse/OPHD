@@ -31,9 +31,9 @@ public:
 	public:
 		IconGridItem() {}
 
-		std::string name;			/**< Name of the Item. Can be empty. */
+		std::string name; /**< Name of the Item. Can be empty. */
 
-		int meta = 0;				/**< User defined integer value. Optional. */
+		int meta = 0; /**< User defined integer value. Optional. */
 		bool available = true;
 
 	protected:
@@ -107,22 +107,22 @@ private:
 	void raiseChangedEvent();
 
 private:
-	Index					mHighlightIndex = constants::NO_SELECTION;		/**< Current highlight index. */
-	Index					mCurrentSelection = constants::NO_SELECTION;	/**< Currently selected item index. */
+	Index mHighlightIndex = constants::NO_SELECTION; /**< Current highlight index. */
+	Index mCurrentSelection = constants::NO_SELECTION; /**< Currently selected item index. */
 
-	int					mIconSize = 0;				/**< Size of the icons. */
-	int					mIconMargin = 0;			/**< Spacing between icons and edges of the IconGrid. */
+	int mIconSize = 0; /**< Size of the icons. */
+	int mIconMargin = 0; /**< Spacing between icons and edges of the IconGrid. */
 
-	bool				mShowTooltip = false;		/**< Flag indicating that we want a tooltip drawn near an icon when hovering over it. */
-	bool				mSorted = true;			/**< Flag indicating that the IconGrid should be sorted. */
+	bool mShowTooltip = false; /**< Flag indicating that we want a tooltip drawn near an icon when hovering over it. */
+	bool mSorted = true; /**< Flag indicating that the IconGrid should be sorted. */
 
-	NAS2D::Image		mIconSheet;					/**< Image containing the icons. */
+	NAS2D::Image mIconSheet; /**< Image containing the icons. */
 
-	NAS2D::ImageList	mSkin;
+	NAS2D::ImageList mSkin;
 
-	NAS2D::Vector<int>	mGridSize;					/**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
+	NAS2D::Vector<int> mGridSize; /**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
 
-	IconItemList		mIconItemList;				/**< List of items. */
+	IconItemList mIconItemList; /**< List of items. */
 
-	Callback			mCallback;					/**< Callback whenever a selection is made. */
+	Callback mCallback; /**< Callback whenever a selection is made. */
 };

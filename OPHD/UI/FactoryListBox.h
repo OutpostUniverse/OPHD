@@ -31,7 +31,7 @@ public:
 
 	public:
 		Factory* factory = nullptr;
-		NAS2D::Point<int>	icon_slice;
+		NAS2D::Point<int> icon_slice;
 	};
 
 public:

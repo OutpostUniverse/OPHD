@@ -13,42 +13,42 @@ using namespace NAS2D;
  * during frame updates to improve overall performance (basically, to avoid
  * expensive string operations).
  */
-static std::string		COMMON_METALS_COUNT;
-static std::string		COMMON_MINERALS_COUNT;
-static std::string		RARE_METALS_COUNT;
-static std::string		RARE_MINERALS_COUNT;
+static std::string COMMON_METALS_COUNT;
+static std::string COMMON_MINERALS_COUNT;
+static std::string RARE_METALS_COUNT;
+static std::string RARE_MINERALS_COUNT;
 
-static std::string		STATUS_STRING;
-static std::string		EXTENTION_TIME_REMAINING;
+static std::string STATUS_STRING;
+static std::string EXTENTION_TIME_REMAINING;
 
-static int				COMMON_METALS_ORE_POSITION;
-static int				COMMON_MINERALS_ORE_POSITION;
-static int				RARE_METALS_ORE_POSITION;
-static int				RARE_MINERALS_ORE_POSITION;
+static int COMMON_METALS_ORE_POSITION;
+static int COMMON_MINERALS_ORE_POSITION;
+static int RARE_METALS_ORE_POSITION;
+static int RARE_MINERALS_ORE_POSITION;
 
-static std::string		MINE_YIELD;
-static std::string		MINE_DEPTH;
+static std::string MINE_YIELD;
+static std::string MINE_DEPTH;
 
-static const int		MINE_YIELD_POSITION = 148;
-static int				MINE_YIELD_DESCRIPTION_POSITION = 0;
+static const int MINE_YIELD_POSITION = 148;
+static int MINE_YIELD_DESCRIPTION_POSITION = 0;
 
-static int				MINE_STATUS_POSITION;
-static int				EXTENSION_TURNS_REMAINING_POSITION;
+static int MINE_STATUS_POSITION;
+static int EXTENSION_TURNS_REMAINING_POSITION;
 
-static const int		MINE_DEPTH_POSITION = 300;
-static int				MINE_DEPTH_VALUE_POSITION;
+static const int MINE_DEPTH_POSITION = 300;
+static int MINE_DEPTH_VALUE_POSITION;
 
-static Font*			FONT = nullptr;
-static Font*			FONT_BOLD = nullptr;
+static Font* FONT = nullptr;
+static Font* FONT_BOLD = nullptr;
 
 
 /** 
  * Positional constants used in several places.
  */
-const int				COMMON_METALS_POS = 46;
-const int				COMMON_MINERALS_POS = 135;
-const int				RARE_METALS_POS = 224;
-const int				RARE_MINERALS_POS = 312;
+const int COMMON_METALS_POS = 46;
+const int COMMON_MINERALS_POS = 135;
+const int RARE_METALS_POS = 224;
+const int RARE_MINERALS_POS = 312;
 
 
 /**

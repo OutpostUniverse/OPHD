@@ -46,14 +46,14 @@ private:
 	void fileNameModified(Control* control);
 
 private:
-	FileOperationCallback	mCallback;
+	FileOperationCallback mCallback;
 
-	FileOperation			mMode;
+	FileOperation mMode;
 
-	Button					btnClose;
-	Button					btnFileOp;
+	Button btnClose;
+	Button btnFileOp;
 
-	TextField				txtFileName;
+	TextField txtFileName;
 
-	ListBox					mListBox;
+	ListBox mListBox;
 };

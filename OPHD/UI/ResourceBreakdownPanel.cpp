@@ -77,17 +77,17 @@ void ResourceBreakdownPanel::update()
 
 	static std::map<ResourceTrend, Point<int>> ICON_SLICE
 	{
-		{ ResourceTrend::RESOURCE_TREND_NONE,	Point{16, 64} },
-		{ ResourceTrend::RESOURCE_TREND_UP,	Point{8, 64} },
-		{ ResourceTrend::RESOURCE_TREND_DOWN,	Point{0, 64} }
+		{ ResourceTrend::RESOURCE_TREND_NONE, Point{16, 64} },
+		{ ResourceTrend::RESOURCE_TREND_UP, Point{8, 64} },
+		{ ResourceTrend::RESOURCE_TREND_DOWN, Point{0, 64} }
 	};
 
 
 	static std::map<ResourceTrend, Color> TEXT_COLOR
 	{
-		{ ResourceTrend::RESOURCE_TREND_NONE,	Color::White },
-		{ ResourceTrend::RESOURCE_TREND_UP,	Color{0, 185, 0} },
-		{ ResourceTrend::RESOURCE_TREND_DOWN,	Color::Red }
+		{ ResourceTrend::RESOURCE_TREND_NONE, Color::White },
+		{ ResourceTrend::RESOURCE_TREND_UP, Color{0, 185, 0} },
+		{ ResourceTrend::RESOURCE_TREND_DOWN, Color::Red }
 	};
 
 	const auto commonMetalImageRect = NAS2D::Rectangle{64, 16, 16, 16};

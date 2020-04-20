@@ -26,9 +26,9 @@ private:
 	void btnCloseClicked();
 
 private:
-	NAS2D::Image	mHeader;
+	NAS2D::Image mHeader;
 
-	Button			btnClose;
+	Button btnClose;
 
-	ClickCallback	mCallback;
+	ClickCallback mCallback;
 };
