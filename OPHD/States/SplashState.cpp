@@ -97,7 +97,7 @@ void SplashState::skipSplash()
  */
 NAS2D::State* SplashState::update()
 {
-	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	if (renderer.isFaded() && !renderer.isFading() && mTimer.accumulator() > FADE_PAUSE_TIME)
 	{

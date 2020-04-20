@@ -72,7 +72,7 @@ static inline int centerWindowHeight(float height)
  */
 void MapViewState::initUi()
 {
-	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	mDiggerDirection.directionSelected().connect(this, &MapViewState::diggerSelectionDialog);
 	mDiggerDirection.hide();
@@ -172,7 +172,7 @@ void MapViewState::initUi()
 
 void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 {
-	//NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	//auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Bottom UI Area
 	BOTTOM_UI_AREA = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
@@ -357,7 +357,7 @@ void MapViewState::populateStructureMenu()
 */
 void MapViewState::drawUI()
 {
-	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Bottom UI
 	renderer.drawBoxFilled(BOTTOM_UI_AREA, 39, 39, 39);

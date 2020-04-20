@@ -47,7 +47,7 @@ extern int ROBOT_ID_COUNTER; /// \fixme Kludge
  */
 void MapViewState::save(const std::string& filePath)
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 100);
 	renderer.drawImage(*IMG_SAVING, renderer.center() - IMG_SAVING->size() / 2);
 	renderer.update();
@@ -99,7 +99,7 @@ void MapViewState::load(const std::string& filePath)
 {
 	resetUi();
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 100);
 	renderer.drawImage(*IMG_LOADING, renderer.center() - IMG_LOADING->size() / 2);
 	renderer.update();

@@ -115,7 +115,7 @@ void GameState::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
  */
 void GameState::fadeComplete()
 {
-	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	if (renderer.isFaded())
 	{
 		mReturnState = new MainMenuState();

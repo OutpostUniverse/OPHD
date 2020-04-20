@@ -62,7 +62,7 @@ namespace {
  */
 void MapViewState::drawMiniMap()
 {
-	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto miniMapBoxFloat = mMiniMapBoundingBox.to<float>();
 	renderer.clipRect(miniMapBoxFloat);
 
@@ -133,7 +133,7 @@ void MapViewState::drawMiniMap()
  */
 void MapViewState::drawResourceInfo()
 {
-	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.drawBoxFilled(NAS2D::Rectangle<float>{0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{39, 39, 39});
 	renderer.drawBox(NAS2D::Rectangle<float>{0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{21, 21, 21});
@@ -228,7 +228,7 @@ void MapViewState::drawRobotInfo()
 {
 	if (ccLocation() == CcNotPlaced) { return; }
 
-	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Robots: Miner (last one), Dozer (middle one), Digger (first one)
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
@@ -268,7 +268,7 @@ bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle
  */
 void MapViewState::drawNavInfo()
 {
-	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	drawNavIcon(renderer, MOVE_DOWN_ICON, NAS2D::Rectangle{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
 	drawNavIcon(renderer, MOVE_UP_ICON, NAS2D::Rectangle{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);

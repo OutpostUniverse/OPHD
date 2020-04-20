@@ -145,7 +145,7 @@ void MapViewState::initialize()
 {
 	// UI
 	initUi();
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	renderer.setCursor(PointerType::POINTER_NORMAL);
 
@@ -209,7 +209,7 @@ void MapViewState::focusOnStructure(Structure* s)
  */
 State* MapViewState::update()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawImageStretched(mBackground, 0, 0, renderer.width(), renderer.height());
 

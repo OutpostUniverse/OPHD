@@ -204,7 +204,7 @@ void MainReportsUiState::initialize()
 	Panels[NavigationPanel::PANEL_SPACEPORT].Img = new Image("ui/icons/spaceport.png");
 	Panels[NavigationPanel::PANEL_SPACEPORT].Name = "Space Ports";
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	setPanelRects(static_cast<int>(renderer.width()));
 
 	// INIT UI REPORT PANELS
@@ -396,7 +396,7 @@ MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
  */
 State* MainReportsUiState::update()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	renderer.clearScreen(35, 35, 35);
 	renderer.drawBoxFilled(0, 0, renderer.width(), 48, 0, 0, 0);

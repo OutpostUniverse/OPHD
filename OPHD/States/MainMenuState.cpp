@@ -114,7 +114,7 @@ void MainMenuState::initialize()
  */
 void MainMenuState::positionButtons()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	const auto center = renderer.center().to<int>();
 
 	auto buttonPosition = center - NAS2D::Vector{100, (35 * 4) / 2};
@@ -323,7 +323,7 @@ void MainMenuState::btnQuitClicked()
  */
 NAS2D::State* MainMenuState::update()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	renderer.clearScreen(0, 0, 0);
 	renderer.drawImage(mBgImage, renderer.center() - mBgImage.size() / 2);
