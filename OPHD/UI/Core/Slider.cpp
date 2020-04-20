@@ -50,7 +50,7 @@ Slider::~Slider()
  */
 void Slider::size(float width, float height)
 {
-	Control::size(width, height);
+	Control::size({width, height});
 
 	// deduce the type of slider from the ratio.
 	if (rect().height() > rect().width())

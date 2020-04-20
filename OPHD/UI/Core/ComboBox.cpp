@@ -41,7 +41,7 @@ void ComboBox::init()
 	Utility<EventHandler>::get().mouseWheel().connect(this, &ComboBox::onMouseWheel);
 
 	btnDown.image("ui/icons/down.png");
-	btnDown.size(20, 20);
+	btnDown.size({20, 20});
 
 	txtField.editable(false);
 	lstItems.visible(false);
