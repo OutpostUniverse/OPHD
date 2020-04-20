@@ -100,7 +100,7 @@ protected:
 private:
 	virtual void draw() {}
 
-private:
+protected:
 	std::string				mText;				/**< Internal text string. */
 
 	bool					mEnabled = true;	/**< Flag indicating whether or not the Control is enabled. */
