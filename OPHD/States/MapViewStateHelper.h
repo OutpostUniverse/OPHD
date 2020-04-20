@@ -33,7 +33,7 @@ bool structureIsLander(StructureID id);
 bool outOfCommRange(NAS2D::Point<int>& cc_location, TileMap* tile_map, Tile* current_tile);
 bool selfSustained(StructureID id);
 
-int totalStorage(StructureList& sl);
+int totalStorage(StructureList& structures);
 
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count);
 RobotCommand* getAvailableRobotCommand();

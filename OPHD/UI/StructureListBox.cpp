@@ -19,10 +19,10 @@ static Font* MAIN_FONT_BOLD = nullptr;
 
 static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem& item, float x, float y, float w, float offset, bool highlight)
 {
-	Structure* _st = item.structure;
+	Structure* structure = item.structure;
 
-	const auto& structureColor = structureColorFromIndex(_st->state());
-	const auto& structureTextColor = structureTextColorFromIndex(_st->state());
+	const auto& structureColor = structureColorFromIndex(structure->state());
+	const auto& structureTextColor = structureTextColorFromIndex(structure->state());
 
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { renderer.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red, structureColor.green, structureColor.blue, 75); }
