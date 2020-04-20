@@ -277,8 +277,8 @@ void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& rp, R
  */
 void updateRobotControl(RobotPool& robotPool)
 {
-	auto CommandCenter = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_COMMAND);
-	auto RobotCommand = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND);
+	const auto& CommandCenter = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_COMMAND);
+	const auto& RobotCommand = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND);
 
 	// 3 for the first command center
 	uint32_t _maxRobots = 0;
@@ -436,7 +436,7 @@ bool simulateMoveProducts(Warehouse* wh)
 	ProductPool _pool = wh->products();
 
 	/** \fixme	This is a brute force approach. It works but it's not elegant. */
-	StructureList& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
+	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
 	for (auto structure : structures)
 	{
 		if (structure->operational())
@@ -461,7 +461,7 @@ bool simulateMoveProducts(Warehouse* wh)
  */
 void moveProducts(Warehouse* wh)
 {
-	StructureList& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
+	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
 	for (auto structure : structures)
 	{
 		if (structure->operational())

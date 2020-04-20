@@ -55,7 +55,7 @@ static void computeCapacity()
 	int capacity_total = 0;
 	int available_capacity = 0;
 
-	StructureList& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
+	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
 	for (auto warehouse : structures)
 	{
 		if (!warehouse->operational()) { continue; } // yuck

@@ -261,7 +261,7 @@ void MapViewState::checkColonyShip()
 void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
-	auto residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_RESIDENCE);
+	const auto& residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_RESIDENCE);
 	for (auto residence : residences)
 	{
 		if (residence->operational()) { mResidentialCapacity += static_cast<Residence*>(residence)->capacity(); }
