@@ -25,10 +25,10 @@ MajorEventAnnouncement::~MajorEventAnnouncement()
 void MajorEventAnnouncement::init()
 {
 	position(0, 0);
-	size(522, 340);
+	size({522, 340});
 
 	add(&btnClose, 5, 310);
-	btnClose.size(512, 25);
+	btnClose.size({512, 25});
 	btnClose.click().connect(this, &MajorEventAnnouncement::btnCloseClicked);
 
 	anchored(true);

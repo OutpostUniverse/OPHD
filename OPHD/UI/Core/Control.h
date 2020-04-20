@@ -56,9 +56,7 @@ public:
 
 	NAS2D::Vector<float> size() const { return mRect.size(); }
 	void size(NAS2D::Vector<float> newSize);
-
 	void size(float _s);
-	void size(float w, float h);
 
 	void width(float w);
 	void height(float h);

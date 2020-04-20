@@ -29,22 +29,22 @@ GameOptionsDialog::~GameOptionsDialog()
 void GameOptionsDialog::init()
 {
 	position(0, 0);
-	size(210, 160);
+	size({210, 160});
 
 	add(&btnSave, 5, 25);
-	btnSave.size(200, 25);
+	btnSave.size({200, 25});
 	btnSave.click().connect(this, &GameOptionsDialog::btnSaveClicked);
 
 	add(&btnLoad, 5, 53);
-	btnLoad.size(200, 25);
+	btnLoad.size({200, 25});
 	btnLoad.click().connect(this, &GameOptionsDialog::btnLoadClicked);
 
 	add(&btnReturn, 5, 91);
-	btnReturn.size(200, 25);
+	btnReturn.size({200, 25});
 	btnReturn.click().connect(this, &GameOptionsDialog::btnReturnClicked);
 
 	add(&btnClose, 5, 129);
-	btnClose.size(200, 25);
+	btnClose.size({200, 25});
 	btnClose.click().connect(this, &GameOptionsDialog::btnCloseClicked);
 
 	anchored(true);

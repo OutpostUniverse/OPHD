@@ -114,56 +114,56 @@ void FactoryReport::init()
 	lstFactoryList.selectionChanged().connect(this, &FactoryReport::lstFactoryListSelectionChanged);
 
 	add(&btnShowAll, 10, 10);
-	btnShowAll.size(75, 20);
+	btnShowAll.size({75, 20});
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
 	btnShowAll.click().connect(this, &FactoryReport::btnShowAllClicked);
 
 	add(&btnShowSurface, 87, 10);
-	btnShowSurface.size(75, 20);
+	btnShowSurface.size({75, 20});
 	btnShowSurface.type(Button::Type::BUTTON_TOGGLE);
 	btnShowSurface.click().connect(this, &FactoryReport::btnShowSurfaceClicked);
 
 	add(&btnShowUnderground, 164, 10);
-	btnShowUnderground.size(75, 20);
+	btnShowUnderground.size({75, 20});
 	btnShowUnderground.type(Button::Type::BUTTON_TOGGLE);
 	btnShowUnderground.click().connect(this, &FactoryReport::btnShowUndergroundClicked);
 
 	add(&btnShowActive, 10, 33);
-	btnShowActive.size(75, 20);
+	btnShowActive.size({75, 20});
 	btnShowActive.type(Button::Type::BUTTON_TOGGLE);
 	btnShowActive.click().connect(this, &FactoryReport::btnShowActiveClicked);
 
 	add(&btnShowIdle, 87, 33);
-	btnShowIdle.size(75, 20);
+	btnShowIdle.size({75, 20});
 	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnShowIdle.click().connect(this, &FactoryReport::btnShowIdleClicked);
 
 	add(&btnShowDisabled, 164, 33);
-	btnShowDisabled.size(75, 20);
+	btnShowDisabled.size({75, 20});
 	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
 	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
 
 	float position_x = Utility<Renderer>::get().width() - 110;
 	add(&btnIdle, position_x, 35);
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
-	btnIdle.size(140, 30);
+	btnIdle.size({140, 30});
 	btnIdle.click().connect(this, &FactoryReport::btnIdleClicked);
 
 	add(&btnClearProduction, position_x, 75);
-	btnClearProduction.size(140, 30);
+	btnClearProduction.size({140, 30});
 	btnClearProduction.click().connect(this, &FactoryReport::btnClearProductionClicked);
 
 	add(&btnTakeMeThere, position_x, 115);
-	btnTakeMeThere.size(140, 30);
+	btnTakeMeThere.size({140, 30});
 	btnTakeMeThere.click().connect(this, &FactoryReport::btnTakeMeThereClicked);
 
 	add(&btnApply, 0, 0);
-	btnApply.size(140, 30);
+	btnApply.size({140, 30});
 	btnApply.click().connect(this, &FactoryReport::btnApplyClicked);
 
 	add(&cboFilterByProduct, 250, 33);
-	cboFilterByProduct.size(200, 20);
+	cboFilterByProduct.size({200, 20});
 
 	cboFilterByProduct.addItem(constants::NONE, ProductType::PRODUCT_NONE);
 	cboFilterByProduct.addItem(constants::CLOTHING, ProductType::PRODUCT_CLOTHING);
@@ -325,7 +325,7 @@ void FactoryReport::resized(Control* /*c*/)
 	FACTORY_LISTBOX.width(cboFilterByProduct.positionX() + cboFilterByProduct.width() - 10);
 	FACTORY_LISTBOX.height(height() - 74);
 
-	lstFactoryList.size(FACTORY_LISTBOX.width(), FACTORY_LISTBOX.height());
+	lstFactoryList.size(FACTORY_LISTBOX.size());
 
 	DETAIL_PANEL = {
 		cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20,
@@ -341,7 +341,7 @@ void FactoryReport::resized(Control* /*c*/)
 
 	btnApply.position(position_x, rect().height() + 8);
 
-	lstProducts.size(DETAIL_PANEL.width() / 3, DETAIL_PANEL.height() - 219);
+	lstProducts.size({DETAIL_PANEL.width() / 3, DETAIL_PANEL.height() - 219});
 	lstProducts.selectionChanged().connect(this, &FactoryReport::lstProductsSelectionChanged);
 
 	txtProductDescription.position(lstProducts.positionX() + lstProducts.width() + 158, lstProducts.positionY());

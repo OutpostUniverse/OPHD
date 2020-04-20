@@ -101,7 +101,7 @@ void ListBoxBase::onSizeChanged()
 	clear();
 	add(&mSlider, rect().width() - 14, 0);
 	mSlider.displayPosition(false);
-	mSlider.size(14, rect().height());
+	mSlider.size({14, rect().height()});
 	_update_item_display();
 }
 

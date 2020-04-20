@@ -82,20 +82,20 @@ MineOperationsWindow::~MineOperationsWindow()
  */
 void MineOperationsWindow::init()
 {
-	size(375, 270);
+	size({375, 270});
 
 	// Set up GUI Layout
 	add(&btnIdle, 10, 230);
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
-	btnIdle.size(60, 30);
+	btnIdle.size({60, 30});
 	btnIdle.click().connect(this, &MineOperationsWindow::btnIdleClicked);
 
 	add(&btnExtendShaft, 72, 230);
-	btnExtendShaft.size(100, 30);
+	btnExtendShaft.size({100, 30});
 	btnExtendShaft.click().connect(this, &MineOperationsWindow::btnExtendShaftClicked);
 
 	add(&btnOkay, width() - 70, 230);
-	btnOkay.size(60, 30);
+	btnOkay.size({60, 30});
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
 
 	// ORE TOGGLE BUTTONS

@@ -43,7 +43,7 @@ void DifficultySelect::init()
 	auto& e = NAS2D::Utility<NAS2D::EventHandler>::get();
 	e.keyDown().connect(this, &DifficultySelect::onKeyDown);
 
-	size(150, 145);
+	size({150, 145});
 
 	const auto border_left_width = 5;
 	const auto border_right_width = 5;
@@ -56,7 +56,7 @@ void DifficultySelect::init()
 	const auto bottom_edge = top_edge + height() - border_top_height - border_bottom_height * 2.0f;
 	const auto width = right_edge - left_edge;
 
-	btnOk.size(100, 25);
+	btnOk.size({100, 25});
 	btnOk.click().connect(this, &DifficultySelect::btnOkClicked);
 
 	switch(CURRENT_DIFFICULTY)

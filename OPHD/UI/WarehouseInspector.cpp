@@ -34,10 +34,10 @@ WarehouseInspector::~WarehouseInspector()
  */
 void WarehouseInspector::init()
 {
-	size(250, 350);
+	size({250, 350});
 
 	add(&btnClose, 105, 325);
-	btnClose.size(40, 20);
+	btnClose.size({40, 20});
 	btnClose.click().connect(this, &WarehouseInspector::btnCloseClicked);
 
 	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
