@@ -23,5 +23,5 @@ public:
 
 private:
 
-	Direction		mDirection;
+	Direction mDirection;
 };

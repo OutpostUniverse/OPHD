@@ -23,7 +23,7 @@ protected:
 	{
 		resourcesIn().energy(1);
 	}
-	
+
 private:
-	ProductPool			mProducts;
+	ProductPool mProducts;
 };

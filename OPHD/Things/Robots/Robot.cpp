@@ -14,8 +14,8 @@ void Robot::startTask(int turns)
 	{
 		mTurnsToCompleteTask = 1;
 		return;
-	}	
-		
+	}
+
 	mTurnsToCompleteTask = turns;
 }
 

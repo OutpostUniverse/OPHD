@@ -37,7 +37,7 @@ protected:
 	}
 
 private:
-	Callback	mDeploy;
+	Callback mDeploy;
 
-	Tile*		mTile;
+	Tile* mTile;
 };

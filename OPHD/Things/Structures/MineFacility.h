@@ -42,10 +42,10 @@ private:
 	void activated() override;
 
 private:
-	int							mMaxDepth = 0;				/**< Maximum digging depth. */
-	int							mDigTurnsRemaining = 0;		/**< Turns remaining before extension is complete. */
+	int mMaxDepth = 0; /**< Maximum digging depth. */
+	int mDigTurnsRemaining = 0; /**< Turns remaining before extension is complete. */
 
-	Mine*						mMine = nullptr;			/**< Mine that this facility manages. */
+	Mine* mMine = nullptr; /**< Mine that this facility manages. */
 
-	ExtensionCompleteCallback	mExtensionComplete;			/**< Called whenever an extension is completed. */
+	ExtensionCompleteCallback mExtensionComplete; /**< Called whenever an extension is completed. */
 };

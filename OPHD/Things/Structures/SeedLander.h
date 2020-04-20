@@ -46,7 +46,7 @@ protected:
 	}
 
 private:
-	Callback	mDeploy;
+	Callback mDeploy;
 
-	int			mX = 0, mY = 0;
+	int mX = 0, mY = 0;
 };

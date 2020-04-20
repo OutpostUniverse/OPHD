@@ -67,5 +67,5 @@ private:
 	}
 
 private:
-	bool	mUnderground;
+	bool mUnderground;
 };
