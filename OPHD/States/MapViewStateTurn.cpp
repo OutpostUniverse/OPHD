@@ -41,16 +41,16 @@ static int pullFood(ResourcePool& _rp, int amount)
  */
 void MapViewState::updatePopulation()
 {
-	StructureManager& sm = NAS2D::Utility<StructureManager>::get();
+	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 	
-	int residences = sm.getCountInState(Structure::StructureClass::CLASS_RESIDENCE, Structure::StructureState::OPERATIONAL);
-	int universities = sm.getCountInState(Structure::StructureClass::CLASS_UNIVERSITY, Structure::StructureState::OPERATIONAL);
-	int nurseries = sm.getCountInState(Structure::StructureClass::CLASS_NURSERY, Structure::StructureState::OPERATIONAL);
-	int hospitals = sm.getCountInState(Structure::StructureClass::CLASS_MEDICAL_CENTER, Structure::StructureState::OPERATIONAL);
+	int residences = structureManager.getCountInState(Structure::StructureClass::CLASS_RESIDENCE, Structure::StructureState::OPERATIONAL);
+	int universities = structureManager.getCountInState(Structure::StructureClass::CLASS_UNIVERSITY, Structure::StructureState::OPERATIONAL);
+	int nurseries = structureManager.getCountInState(Structure::StructureClass::CLASS_NURSERY, Structure::StructureState::OPERATIONAL);
+	int hospitals = structureManager.getCountInState(Structure::StructureClass::CLASS_MEDICAL_CENTER, Structure::StructureState::OPERATIONAL);
 
 	// FOOD CONSUMPTION
 	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage(), residences, universities, nurseries, hospitals);
-	StructureList &foodproducers = sm.structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
+	StructureList &foodproducers = structureManager.structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
 	int remainder = food_consumed;
 
 	if (mPlayerResources.food() > 0)
@@ -72,15 +72,15 @@ void MapViewState::updatePopulation()
  */
 void MapViewState::updateCommercial()
 {
-	StructureManager& sm = NAS2D::Utility<StructureManager>::get();
+	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	StructureList& _warehouses = sm.structureList(Structure::StructureClass::CLASS_WAREHOUSE);
-	StructureList& _commercial = sm.structureList(Structure::StructureClass::CLASS_COMMERCIAL);
+	StructureList& _warehouses = structureManager.structureList(Structure::StructureClass::CLASS_WAREHOUSE);
+	StructureList& _commercial = structureManager.structureList(Structure::StructureClass::CLASS_COMMERCIAL);
 
 	// No need to do anything if there are no commercial structures.
 	if (_commercial.empty()) { return; }
 
-	int luxuryCount = sm.getCountInState(Structure::StructureClass::CLASS_COMMERCIAL, Structure::StructureState::OPERATIONAL);
+	int luxuryCount = structureManager.getCountInState(Structure::StructureClass::CLASS_COMMERCIAL, Structure::StructureState::OPERATIONAL);
 	int commercialCount = luxuryCount;
 
 	for (auto warehouse : _warehouses)
@@ -132,24 +132,24 @@ void MapViewState::updateCommercial()
  */
 void MapViewState::updateMorale()
 {
-	StructureManager& sm = NAS2D::Utility<StructureManager>::get();
+	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 
 	// POSITIVE MORALE EFFECTS
 	// =========================================
 	mCurrentMorale += mPopulation.birthCount();
-	mCurrentMorale += sm.getCountInState(Structure::StructureClass::CLASS_PARK, Structure::StructureState::OPERATIONAL);
-	mCurrentMorale += sm.getCountInState(Structure::StructureClass::CLASS_RECREATION_CENTER, Structure::StructureState::OPERATIONAL);
+	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::CLASS_PARK, Structure::StructureState::OPERATIONAL);
+	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::CLASS_RECREATION_CENTER, Structure::StructureState::OPERATIONAL);
 
-	int food_production = sm.getCountInState(Structure::StructureClass::CLASS_FOOD_PRODUCTION, Structure::StructureState::OPERATIONAL);
+	int food_production = structureManager.getCountInState(Structure::StructureClass::CLASS_FOOD_PRODUCTION, Structure::StructureState::OPERATIONAL);
 	mCurrentMorale += food_production > 0 ? food_production : -5;
 
-	mCurrentMorale += sm.getCountInState(Structure::StructureClass::CLASS_COMMERCIAL, Structure::StructureState::OPERATIONAL);
+	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::CLASS_COMMERCIAL, Structure::StructureState::OPERATIONAL);
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================
 	mCurrentMorale -= mPopulation.deathCount();
-	mCurrentMorale -= sm.disabled();
-	mCurrentMorale -= sm.destroyed();
+	mCurrentMorale -= structureManager.disabled();
+	mCurrentMorale -= structureManager.destroyed();
 
 	int residentialMoraleHit = mPopulationPanel.capacity() / 100;
 
