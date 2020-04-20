@@ -48,6 +48,7 @@ void ListBoxBase::_init()
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBoxBase::onMouseMove);
 
+	mSlider.displayPosition(false);
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBoxBase::slideChanged);
@@ -78,6 +79,8 @@ void ListBoxBase::_update_item_display()
 
 		if (mLineCount < mItems.size())
 		{
+			mSlider.position({rect().x() + rect().width() - 14, rect().y()});
+			mSlider.size({14, rect().height()});
 			mSlider.length((mItemHeight * mItems.size()) - height());
 			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
 			mItemWidth -= static_cast<unsigned int>(mSlider.width());
@@ -98,10 +101,6 @@ void ListBoxBase::_update_item_display()
  */
 void ListBoxBase::onSizeChanged()
 {
-	clear();
-	add(&mSlider, rect().width() - 14, 0);
-	mSlider.displayPosition(false);
-	mSlider.size({14, rect().height()});
 	_update_item_display();
 }
 
@@ -330,8 +329,6 @@ void ListBoxBase::update()
 	float highlight_y = positionY() + static_cast<float>((mCurrentHighlight * mItemHeight) - mCurrentOffset);
 	r.drawBoxFilled(positionX(), highlight_y, static_cast<float>(mItemWidth), static_cast<float>(mItemHeight), 0, 185, 0, 50);
 
-	// FixMe: Shouldn't need this since it's in a UIContainer. Noticing that Slider
-	// doesn't play nice with the UIContainer.
 	mSlider.update();
 
 	r.clipRectClear();

@@ -48,6 +48,7 @@ void ListBox::_init()
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
 	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
 
+	mSlider.displayPosition(false);
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBox::slideChanged);
@@ -61,10 +62,6 @@ void ListBox::_init()
 
 void ListBox::onSizeChanged()
 {
-	clear();
-	add(&mSlider, rect().width() - 14, 0);
-	mSlider.displayPosition(false);
-	mSlider.size({14, rect().height()});
 	_updateItemDisplay();
 }
 
@@ -84,6 +81,8 @@ void ListBox::_updateItemDisplay()
 		mLineCount = static_cast<unsigned int>(height() / mLineHeight);
 		if (mLineCount < mItems.size())
 		{
+			mSlider.position({rect().x() + rect().width() - 14, rect().y()});
+			mSlider.size({14, rect().height()});
 			mSlider.length((mLineHeight * mItems.size()) - height());
 			mCurrentOffset = static_cast<std::size_t>(mSlider.thumbPosition());
 			mItemWidth = static_cast<unsigned int>(width() - mSlider.width());
@@ -306,8 +305,6 @@ void ListBox::update()
 		textPosition.y() += mLineHeight;
 	}
 
-	// FixMe: Shouldn't need this since it's in a UIContainer. Noticing that Slider
-	// doesn't play nice with the UIContainer.
 	mSlider.update();
 
 	renderer.clipRectClear();
