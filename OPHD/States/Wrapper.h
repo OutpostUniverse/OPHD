@@ -52,7 +52,7 @@ private:
 
 
 private:
-	bool	_active;
+	bool _active;
 };
 
 

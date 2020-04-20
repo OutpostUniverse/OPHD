@@ -63,7 +63,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
  * Called whenever a Factory's production is complete.
  */
 void MapViewState::factoryProductionComplete(Factory& factory)
-{	
+{
 	switch (factory.productWaiting())
 	{
 	case ProductType::PRODUCT_DIGGER:

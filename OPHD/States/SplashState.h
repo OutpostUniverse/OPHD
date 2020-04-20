@@ -28,15 +28,15 @@ private:
 	void skipSplash();
 
 private:
-	NAS2D::Image				mLogoLairworks;
-	NAS2D::Image				mLogoNas2d;
-	NAS2D::Image				mLogoOutpostHd;
-	NAS2D::Image				mFlare;
-	NAS2D::Image				mByline;
+	NAS2D::Image mLogoLairworks;
+	NAS2D::Image mLogoNas2d;
+	NAS2D::Image mLogoOutpostHd;
+	NAS2D::Image mFlare;
+	NAS2D::Image mByline;
 
-	NAS2D::Point<int>			mMousePosition;
+	NAS2D::Point<int> mMousePosition;
 
-	NAS2D::Timer				mTimer;
+	NAS2D::Timer mTimer;
 
-	NAS2D::State*				mReturnState = this;
+	NAS2D::State* mReturnState = this;
 };

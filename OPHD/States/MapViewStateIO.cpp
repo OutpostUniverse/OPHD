@@ -35,7 +35,7 @@ extern std::string CURRENT_LEVEL_STRING;
 extern std::map <int, std::string> LEVEL_STRING_TABLE;
 
 
-extern NAS2D::Image* IMG_LOADING;	/// \fixme	Hate having these as externs.
+extern NAS2D::Image* IMG_LOADING; /// \fixme	Hate having these as externs.
 extern NAS2D::Image* IMG_SAVING;
 
 
@@ -170,7 +170,7 @@ void MapViewState::load(const std::string& filePath)
 	 * having already been loaded in order to match up the robots in the save game to
 	 * the RCC.
 	 */
-	readRobots(root->firstChildElement("robots"));	
+	readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"));
 
 	readResources(root->firstChildElement("resources"), mPlayerResources);
@@ -254,14 +254,14 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		attribute = robot->toElement()->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "id")				{ attribute->queryIntValue(id); }
-			else if (attribute->name() == "type")		{ attribute->queryIntValue(type); }
-			else if (attribute->name() == "age")		{ attribute->queryIntValue(age); }
-			else if (attribute->name() == "production")	{ attribute->queryIntValue(production_time); }
-			else if (attribute->name() == "x")			{ attribute->queryIntValue(x); }
-			else if (attribute->name() == "y")			{ attribute->queryIntValue(y); }
-			else if (attribute->name() == "depth")		{ attribute->queryIntValue(depth); }
-			else if (attribute->name() == "direction")	{ attribute->queryIntValue(direction); }
+			if (attribute->name() == "id") { attribute->queryIntValue(id); }
+			else if (attribute->name() == "type") { attribute->queryIntValue(type); }
+			else if (attribute->name() == "age") { attribute->queryIntValue(age); }
+			else if (attribute->name() == "production") { attribute->queryIntValue(production_time); }
+			else if (attribute->name() == "x") { attribute->queryIntValue(x); }
+			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
+			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
+			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
 
 			attribute = attribute->next();
 		}
@@ -290,7 +290,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 			break;
 		}
 
-		if (!r) { continue; }	// Could be done in the default handler in the above switch
+		if (!r) { continue; } // Could be done in the default handler in the above switch
 								// but may be better here as an explicit statement.
 
 		r->fuelCellAge(age);

@@ -19,7 +19,7 @@
 
 using namespace constants;
 
-NAS2D::Rectangle<int>	BOTTOM_UI_AREA;
+NAS2D::Rectangle<int> BOTTOM_UI_AREA;
 
 
 /**
@@ -34,9 +34,9 @@ extern NAS2D::Rectangle<int> MOVE_UP_ICON;
 extern NAS2D::Rectangle<int> MOVE_DOWN_ICON;
 
 
-extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.
-extern NAS2D::Image* IMG_SAVING;	/// \fixme Find a sane place for this.
-extern NAS2D::Image* IMG_PROCESSING_TURN;	/// \fixme Find a sane place for this.
+extern NAS2D::Image* IMG_LOADING; /// \fixme Find a sane place for this.
+extern NAS2D::Image* IMG_SAVING; /// \fixme Find a sane place for this.
+extern NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
 
 
 /**

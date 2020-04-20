@@ -61,20 +61,20 @@ private:
 	Planet& operator=(const Planet&) = delete;
 
 private:
-	int					mTick = 0;
+	int mTick = 0;
 
-	int					mMaxMines = 0;
-	int					mMaxDigDepth = 0;
+	int mMaxMines = 0;
+	int mMaxDigDepth = 0;
 
-	NAS2D::Image		mImage;
-	NAS2D::Point<int>		mPosition;
+	NAS2D::Image mImage;
+	NAS2D::Point<int> mPosition;
 
-	PlanetType			mType = PlanetType::PLANET_TYPE_NONE;
+	PlanetType mType = PlanetType::PLANET_TYPE_NONE;
 
-	MouseCallback		mMouseEnterCallback;
-	MouseCallback		mMouseExitCallback;
+	MouseCallback mMouseEnterCallback;
+	MouseCallback mMouseExitCallback;
 
-	bool				mMouseInArea = false;
+	bool mMouseInArea = false;
 
-	NAS2D::Timer		mTimer;
+	NAS2D::Timer mTimer;
 };
