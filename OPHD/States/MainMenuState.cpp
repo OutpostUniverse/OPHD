@@ -331,8 +331,10 @@ NAS2D::State* MainMenuState::update()
 
 	if (!mFileIoDialog.visible() && !dlgOptions.visible())
 	{
-		r.drawBoxFilled(btnNewGame.positionX() - 5, btnNewGame.positionY() - 5, btnNewGame.width() + 10, (btnQuit.positionY() - btnNewGame.positionY()) + btnQuit.height() + 10, 0, 0, 0, 150);
-		r.drawBox(btnNewGame.positionX() - 5, btnNewGame.positionY() - 5, btnNewGame.width() + 10, (btnQuit.positionY() - btnNewGame.positionY()) + btnQuit.height() + 10, 0, 185, 0, 255);
+		const auto padding = NAS2D::Vector{5, 5};
+		const auto menuRect = NAS2D::Rectangle<int>::Create(btnNewGame.rect().startPoint() - padding, btnQuit.rect().endPoint() + padding);
+		r.drawBoxFilled(menuRect, NAS2D::Color{0, 0, 0, 150});
+		r.drawBox(menuRect, NAS2D::Color{0, 185, 0, 255});
 
 		btnNewGame.update();
 		btnContinueGame.update();
