@@ -62,10 +62,10 @@ void ComboBox::resizedHandler(Control* /*control*/)
 	if (height() < 20) { height(20); } // enforce minimum height;
 	if (width() < 50) { width(50); } // enforce mininum width;
 
-	btnDown.position(positionX() + width() - btnDown.width(), positionY());
-	btnDown.height(height());
 	txtField.width(width() - 20);
 	txtField.height(height());
+	btnDown.position(positionX() + width() - btnDown.width(), positionY());
+	btnDown.height(height());
 	lstItems.width(width());
 	lstItems.position(positionX(), positionY() + height());
 
@@ -78,8 +78,8 @@ void ComboBox::resizedHandler(Control* /*control*/)
  */
 void ComboBox::repositioned(float, float)
 {
+	txtField.position(position());
 	btnDown.position(positionX() + width() - btnDown.width(), positionY());
-	txtField.position(positionX(), positionY());
 	lstItems.position(positionX(), positionY() + height());
 
 	mBaseArea = {positionX(), positionY(), width(), btnDown.height()};
@@ -135,7 +135,7 @@ void ComboBox::lstItemsSelectionChanged()
 {
 	txtField.text(lstItems.selectionText());
 	lstItems.visible(false);
-	mRect = {mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height()};
+	mRect = mBaseArea;
 	mSelectionChanged();
 }
 
