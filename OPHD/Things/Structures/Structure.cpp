@@ -214,7 +214,7 @@ void Structure::destroy()
 /**
  * Provided for loading purposes.
  */
-void Structure::forced_state_change(StructureState _s, DisabledReason _dr, IdleReason _ir)
+void Structure::forced_state_change(StructureState structureState, DisabledReason disabledReason, IdleReason idleReason)
 {
 	defineResourceInput();
 	defineResourceOutput();
@@ -225,11 +225,11 @@ void Structure::forced_state_change(StructureState _s, DisabledReason _dr, IdleR
 		//enable();
 	}
 
-	if (_s == StructureState::OPERATIONAL) { enable(); }
-	else if (_s == StructureState::IDLE) { idle(_ir); }
-	else if (_s == StructureState::DISABLED) { disable(_dr); }
-	else if (_s == StructureState::DESTROYED) { destroy(); }
-	else if (_s == StructureState::UNDER_CONSTRUCTION) { mStructureState = StructureState::UNDER_CONSTRUCTION; } // Kludge
+	if (structureState == StructureState::OPERATIONAL) { enable(); }
+	else if (structureState == StructureState::IDLE) { idle(idleReason); }
+	else if (structureState == StructureState::DISABLED) { disable(disabledReason); }
+	else if (structureState == StructureState::DESTROYED) { destroy(); }
+	else if (structureState == StructureState::UNDER_CONSTRUCTION) { mStructureState = StructureState::UNDER_CONSTRUCTION; } // Kludge
 }
 
 

@@ -110,9 +110,9 @@ void StructureManager::updateEnergyProduction(ResourcePool& resourcePool, Popula
 {
 	mTotalEnergyOutput = 0;
 
-	for (auto _s : mStructureLists[Structure::StructureClass::CLASS_ENERGY_PRODUCTION])
+	for (auto structure : mStructureLists[Structure::StructureClass::CLASS_ENERGY_PRODUCTION])
 	{
-		if (_s->operational()) { mTotalEnergyOutput += _s->resourcesOut().energy(); }
+		if (structure->operational()) { mTotalEnergyOutput += structure->resourcesOut().energy(); }
 	}
 
 	resourcePool.energy(mTotalEnergyOutput);
@@ -403,32 +403,32 @@ void serializeResourcePool(XmlElement* _ti, ResourcePool& resourcePool, const st
 /**
  *
  */
-void serializeStructure(XmlElement* _ti, Structure* _s, Tile* _t)
+void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 {
 	_ti->attribute("x", _t->x());
 	_ti->attribute("y", _t->y());
 	_ti->attribute("depth", _t->depth());
 
-	_ti->attribute("age", _s->age());
-	_ti->attribute("state", _s->state());
-	_ti->attribute("forced_idle", _s->forceIdle());
-	_ti->attribute("disabled_reason", static_cast<int>(_s->disabledReason()));
-	_ti->attribute("idle_reason", static_cast<int>(_s->idleReason()));
-	_ti->attribute("type", _s->name());
-	_ti->attribute("direction", _s->connectorDirection());
+	_ti->attribute("age", structure->age());
+	_ti->attribute("state", structure->state());
+	_ti->attribute("forced_idle", structure->forceIdle());
+	_ti->attribute("disabled_reason", static_cast<int>(structure->disabledReason()));
+	_ti->attribute("idle_reason", static_cast<int>(structure->idleReason()));
+	_ti->attribute("type", structure->name());
+	_ti->attribute("direction", structure->connectorDirection());
 
-	if (!_s->production().empty())
+	if (!structure->production().empty())
 	{
-		serializeResourcePool(_ti, _s->production(), "production");
+		serializeResourcePool(_ti, structure->production(), "production");
 	}
 
-	if (!_s->storage().empty())
+	if (!structure->storage().empty())
 	{
-		serializeResourcePool(_ti, _s->storage(), "storage");
+		serializeResourcePool(_ti, structure->storage(), "storage");
 	}
 
-	_ti->attribute("pop0", _s->populationAvailable()[0]);
-	_ti->attribute("pop1", _s->populationAvailable()[1]);
+	_ti->attribute("pop0", structure->populationAvailable()[0]);
+	_ti->attribute("pop1", structure->populationAvailable()[1]);
 }
 
 

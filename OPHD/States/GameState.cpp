@@ -187,10 +187,10 @@ void GameState::mapChanged()
  * This event is raised by the MainReportsUiState whenever a "Take Me There" button in any
  * of the report UI panels is clicked.
  */
-void GameState::takeMeThere(Structure* _s)
+void GameState::takeMeThere(Structure* structure)
 {
 	hideReportsUi();
-	MAP_VIEW->focusOnStructure(_s);
+	MAP_VIEW->focusOnStructure(structure);
 }
 
 

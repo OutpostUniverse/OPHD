@@ -57,7 +57,7 @@ public:
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
-	void onTextInput(const std::string&);
+	void onTextInput(const std::string& newTextInput);
 
 private:
 	void drawCursor();
