@@ -135,7 +135,7 @@ void ComboBox::lstItemsSelectionChanged()
 {
 	txtField.text(lstItems.selectionText());
 	lstItems.visible(false);
-	mRect = {mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height()};
+	mRect = mBaseArea;
 	mSelectionChanged();
 }
 
