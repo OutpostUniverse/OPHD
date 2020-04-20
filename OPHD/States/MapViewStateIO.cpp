@@ -248,10 +248,10 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 	int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
 	XmlAttribute* attribute = nullptr;
-	for (XmlNode* robot = element->firstChild(); robot; robot = robot->nextSibling())
+	for (XmlNode* robotNode = element->firstChild(); robotNode; robotNode = robotNode->nextSibling())
 	{
 		id = type = age = production_time = x = y = depth = direction = 0;
-		attribute = robot->toElement()->firstAttribute();
+		attribute = robotNode->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "id") { attribute->queryIntValue(id); }
