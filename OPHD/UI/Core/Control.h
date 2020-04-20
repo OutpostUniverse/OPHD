@@ -87,20 +87,20 @@ protected:
 	virtual void onTextChanged() { mTextChanged(this); }
 
 protected:
-	PositionChangedCallback		mPositionChanged;	/**< Callback fired whenever the position of the Control changes. */
-	ResizeCallback				mResized;
-	TextChangedCallback			mTextChanged;
+	PositionChangedCallback mPositionChanged; /**< Callback fired whenever the position of the Control changes. */
+	ResizeCallback mResized;
+	TextChangedCallback mTextChanged;
 
-	NAS2D::Rectangle<float>	mRect;				/**< Area of the Control. */
+	NAS2D::Rectangle<float> mRect; /**< Area of the Control. */
 
 private:
 	virtual void draw() {}
 
 protected:
-	std::string				mText;				/**< Internal text string. */
+	std::string mText; /**< Internal text string. */
 
-	bool					mEnabled = true;	/**< Flag indicating whether or not the Control is enabled. */
-	bool					mHasFocus = false;	/**< Flag indicating that the Control has input focus. */
-	bool					mVisible = true;	/**< Flag indicating visibility of the Control. */
-	bool					mHighlight = false;	/**< Flag indicating that this Control is highlighted. */
+	bool mEnabled = true; /**< Flag indicating whether or not the Control is enabled. */
+	bool mHasFocus = false; /**< Flag indicating that the Control has input focus. */
+	bool mVisible = true; /**< Flag indicating visibility of the Control. */
+	bool mHighlight = false; /**< Flag indicating that this Control is highlighted. */
 };

@@ -29,8 +29,8 @@ public:
 		bool operator==(const std::string& rhs) { return Text == rhs; }
 		bool operator<(const ListBoxItem& lhs) { return Text < lhs.Text; }
 
-		std::string		Text;			/**< Text of the ListBoxItem. */
-		int				Tag = 0;		/**< User defined int data attached to the item. */
+		std::string Text; /**< Text of the ListBoxItem. */
+		int Tag = 0; /**< User defined int data attached to the item. */
 	};
 
 	using ListBoxItems = std::vector<ListBoxItem>;
@@ -44,8 +44,8 @@ public:
 
 	void sort() { if (mSorted) { std::sort(mItems.begin(), mItems.end()); } }
 
-	void textColor(const NAS2D::Color& color)	{ mText = color; }
-	void selectColor(const NAS2D::Color& color)	{ mHighlightBg = color; }
+	void textColor(const NAS2D::Color& color) { mText = color; }
+	void selectColor(const NAS2D::Color& color) { mHighlightBg = color; }
 
 	void addItem(const std::string& item, int tag = 0);
 	void removeItem(const std::string& item);
@@ -87,22 +87,22 @@ private:
 	void _init();
 
 private:
-	std::size_t				mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
-	std::size_t				mCurrentSelection = 0;							/**< Current selection index. */
-	std::size_t				mCurrentOffset = 0;								/**< Current selection index. */
+	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
+	std::size_t mCurrentSelection = 0; /**< Current selection index. */
+	std::size_t mCurrentOffset = 0; /**< Current selection index. */
 
-	unsigned int				mItemWidth = 0;									/**< Width of items. */
-	unsigned int				mLineHeight = 0;								/**< Height of an item line. */
-	unsigned int				mLineCount = 0;									/**< Number of lines that can be displayed. */
+	unsigned int mItemWidth = 0; /**< Width of items. */
+	unsigned int mLineHeight = 0; /**< Height of an item line. */
+	unsigned int mLineCount = 0; /**< Number of lines that can be displayed. */
 
-	ListBoxItems				mItems;											/**< List of items preserved in the order in which they're added. */
+	ListBoxItems mItems; /**< List of items preserved in the order in which they're added. */
 
-	NAS2D::Color				mText = NAS2D::Color::White;					/**< Text Color */
-	NAS2D::Color				mHighlightBg = NAS2D::Color::DarkGreen;				/**< Highlight Background color. */
-	NAS2D::Color				mHighlightText = NAS2D::Color::White;			/**< Text Color for an item that is currently highlighted. */
+	NAS2D::Color mText = NAS2D::Color::White; /**< Text Color */
+	NAS2D::Color mHighlightBg = NAS2D::Color::DarkGreen; /**< Highlight Background color. */
+	NAS2D::Color mHighlightText = NAS2D::Color::White; /**< Text Color for an item that is currently highlighted. */
 
-	SelectionChangedCallback	mSelectionChanged;								/**< Callback for selection changed callback. */
-	Slider						mSlider;
+	SelectionChangedCallback mSelectionChanged; /**< Callback for selection changed callback. */
+	Slider mSlider;
 	
-	bool						mSorted = false;								/**< Flag indicating that all Items should be sorted. */
+	bool mSorted = false; /**< Flag indicating that all Items should be sorted. */
 };

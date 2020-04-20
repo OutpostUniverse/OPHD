@@ -29,5 +29,5 @@ private:
 	using WindowList = std::list<Window*>;
 
 private:
-	WindowList		mWindowList;
+	WindowList mWindowList;
 };

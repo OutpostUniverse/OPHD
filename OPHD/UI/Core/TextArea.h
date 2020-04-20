@@ -31,11 +31,11 @@ private:
 	void processString();
 
 private:
-	std::size_t		mNumLines = 0;
+	std::size_t mNumLines = 0;
 
-	StringList	mFormattedList;
+	StringList mFormattedList;
 
-	NAS2D::Color	mTextColor = NAS2D::Color::White;
+	NAS2D::Color mTextColor = NAS2D::Color::White;
 
-	NAS2D::Font*	mFont = nullptr;
+	NAS2D::Font* mFont = nullptr;
 };

@@ -44,7 +44,7 @@ public:
 
 	public:
 		std::string Text;
-		NAS2D::Point<int>	Size;
+		NAS2D::Point<int> Size;
 	};
 
 public:
@@ -94,7 +94,7 @@ protected:
 
 
 protected:
-	ItemList					mItems;											/**< List of Items. */
+	ItemList mItems; /**< List of Items. */
 
 private:
 	void _init();
@@ -107,20 +107,20 @@ private:
 	void onSizeChanged() override;
 
 private:
-	unsigned int				mCurrentHighlight = constants::NO_SELECTION;	/**< Currently highlighted selection index. */
-	unsigned int				mCurrentSelection = constants::NO_SELECTION;	/**< Current selection index. */
-	unsigned int				mCurrentOffset = 0;								/**< Draw Offset. */
+	unsigned int mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
+	unsigned int mCurrentSelection = constants::NO_SELECTION; /**< Current selection index. */
+	unsigned int mCurrentOffset = 0; /**< Draw Offset. */
 
-	unsigned int				mItemHeight = 1;								/**< Height of a ListBoxItem. */
-	unsigned int				mItemWidth = 0;									/**< Width of a ListBoxItem. */
-	unsigned int				mLineCount = 0;									/**< Number of lines that can be displayed. */
+	unsigned int mItemHeight = 1; /**< Height of a ListBoxItem. */
+	unsigned int mItemWidth = 0; /**< Width of a ListBoxItem. */
+	unsigned int mLineCount = 0; /**< Number of lines that can be displayed. */
 
-	NAS2D::Point<int>				mMousePosition;									/**< Mouse coordinates. */
+	NAS2D::Point<int> mMousePosition; /**< Mouse coordinates. */
 
-	NAS2D::Color				mText = NAS2D::Color::White;					/**< Text Color */
-	NAS2D::Color				mHighlightBg = NAS2D::Color::DarkGreen;				/**< Highlight Background color. */
-	NAS2D::Color				mHighlightText = NAS2D::Color::White;			/**< Text Color for an item that is currently highlighted. */
+	NAS2D::Color mText = NAS2D::Color::White; /**< Text Color */
+	NAS2D::Color mHighlightBg = NAS2D::Color::DarkGreen; /**< Highlight Background color. */
+	NAS2D::Color mHighlightText = NAS2D::Color::White; /**< Text Color for an item that is currently highlighted. */
 
-	SelectionChangedCallback	mSelectionChanged;								/**< Callback for selection changed callback. */
-	Slider						mSlider;										/**< Slider control. */
+	SelectionChangedCallback mSelectionChanged; /**< Callback for selection changed callback. */
+	Slider mSlider; /**< Slider control. */
 };

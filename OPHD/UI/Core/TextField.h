@@ -68,20 +68,20 @@ private:
 	void updateCursor();
 
 private:
-	NAS2D::Timer		mCursorTimer;					/**< Timer for the cursor blink. */
+	NAS2D::Timer mCursorTimer; /**< Timer for the cursor blink. */
 
-	int 				mCursorPosition = 0;			/**< Position of the Insertion Cursor. */
-	int 				mCursorX = 0;					/**< Pixel position of the Cursor. */
-	int 				mScrollOffset = 0;				/**< Scroller offset. */
+	int mCursorPosition = 0; /**< Position of the Insertion Cursor. */
+	int mCursorX = 0; /**< Pixel position of the Cursor. */
+	int mScrollOffset = 0; /**< Scroller offset. */
 
-	std::size_t				mMaxCharacters = 0;				/**< Max number of characters allowed in the text field. */
+	std::size_t mMaxCharacters = 0; /**< Max number of characters allowed in the text field. */
 
-	BorderVisibility	mBorderVisibility = BorderVisibility::FOCUS_ONLY;	/**< Border visibility flag. */
+	BorderVisibility mBorderVisibility = BorderVisibility::FOCUS_ONLY; /**< Border visibility flag. */
 
-	NAS2D::ImageList	mSkinNormal;
-	NAS2D::ImageList	mSkinFocus;
+	NAS2D::ImageList mSkinNormal;
+	NAS2D::ImageList mSkinFocus;
 
-	bool				mEditable = true;				/**< Toggle editing of the field. */
-	bool				mShowCursor = true;				/**< Flag indicating whether or not to draw the cursor. */
-	bool				mNumbersOnly = false;			/**< Flag indicating that only numerals should be used */
+	bool mEditable = true; /**< Toggle editing of the field. */
+	bool mShowCursor = true; /**< Flag indicating whether or not to draw the cursor. */
+	bool mNumbersOnly = false; /**< Flag indicating that only numerals should be used */
 };
