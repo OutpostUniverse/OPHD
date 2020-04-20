@@ -70,7 +70,6 @@ static void computeCapacity()
 	WH_CAPACITY = std::to_string(capacity_total);
 
 	CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);
-
 }
 
 
