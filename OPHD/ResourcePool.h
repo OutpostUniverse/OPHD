@@ -89,8 +89,8 @@ public:
 	int pushResource(ResourceType, int, bool);
 	int pullResource(ResourceType, int);
 
-	void pushResources(ResourcePool& rp);
-	void pullResources(ResourcePool& rp);
+	void pushResources(ResourcePool& resourcePool);
+	void pullResources(ResourcePool& resourcePool);
 
 	int capacity() const { return _capacity; }
 	void capacity(int newCapacity);
