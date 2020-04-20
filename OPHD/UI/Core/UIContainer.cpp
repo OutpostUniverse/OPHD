@@ -111,7 +111,7 @@ void UIContainer::positionChanged(float dX, float dY)
 
 	for (auto control : mControls)
 	{
-		control->position(control->positionX() + dX, control->positionY() + dY);
+		control->position(control->position() + NAS2D::Vector{dX, dY});
 	}
 }
 
@@ -149,6 +149,7 @@ void UIContainer::update()
 	if (!visible()) { return; }
 	for (auto control : mControls) { control->update(); /*if (control->hasFocus()) { Utility<Renderer>::get().drawBox(control->rect(), 255, 0, 255); }*/ }
 }
+
 
 std::vector<Control*> UIContainer::controls() const {
 	return mControls;
