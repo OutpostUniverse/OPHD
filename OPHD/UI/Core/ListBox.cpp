@@ -306,8 +306,6 @@ void ListBox::update()
 		textPosition.y() += mLineHeight;
 	}
 
-	// FixMe: Shouldn't need this since it's in a UIContainer. Noticing that Slider
-	// doesn't play nice with the UIContainer.
 	mSlider.update();
 
 	renderer.clipRectClear();
