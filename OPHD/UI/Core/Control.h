@@ -51,7 +51,7 @@ public:
 	bool hasFocus() const;
 
 	void text(const std::string& text);
-	const std::string& text() const;
+	const std::string& text() const { return mText; }
 	TextChangedCallback& textChanged();
 
 	NAS2D::Vector<float> size() const { return mRect.size(); }

@@ -250,15 +250,6 @@ void Control::text(const std::string& text)
 
 
 /**
- * Gets the text of the Control.
- */
-const std::string& Control::text() const
-{
-	return mText;
-}
-
-
-/**
  * Gets callback for text changed events.
  */
 Control::TextChangedCallback& Control::textChanged()
