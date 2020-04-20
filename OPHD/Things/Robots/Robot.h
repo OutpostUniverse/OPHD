@@ -34,12 +34,12 @@ protected:
 	void updateTask();
 
 private:
-	int				mId = 0;
-	int				mFuelCellAge = 0;
-	int				mTurnsToCompleteTask = 0;
+	int mId = 0;
+	int mFuelCellAge = 0;
+	int mTurnsToCompleteTask = 0;
 
-	bool			mSelfDestruct = false;
+	bool mSelfDestruct = false;
 
-	TaskCallback	mTaskCompleteCallback;
-	Callback		mSelfDestructCallback;
+	TaskCallback mTaskCompleteCallback;
+	Callback mSelfDestructCallback;
 };

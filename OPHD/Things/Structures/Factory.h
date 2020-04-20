@@ -61,17 +61,17 @@ protected:
 	ResourcePool* resourcePool() { return mResourcesPool; }
 
 private:
-	int								mTurnsCompleted = 0;
-	int								mTurnsToComplete = 0;
+	int mTurnsCompleted = 0;
+	int mTurnsToComplete = 0;
 
-	ProductType						mProduct = ProductType::PRODUCT_NONE;
-	ProductType						mProductWaiting = ProductType::PRODUCT_NONE;	/**< Product that is waiting to be pulled from the factory. */
+	ProductType mProduct = ProductType::PRODUCT_NONE;
+	ProductType mProductWaiting = ProductType::PRODUCT_NONE; /**< Product that is waiting to be pulled from the factory. */
 
-	ProductionTypeList				mAvailableProducts;			/**< List of products that the Factory can produce. */
+	ProductionTypeList mAvailableProducts; /**< List of products that the Factory can produce. */
 
-	ProductionCallback				mProductionComplete;		/**< Callback used when production is complete. */
+	ProductionCallback mProductionComplete; /**< Callback used when production is complete. */
 
-	ResourcePool*					mResourcesPool = nullptr;	/**< Pointer to the player's resource pool. UGLY. */
+	ResourcePool* mResourcesPool = nullptr; /**< Pointer to the player's resource pool. UGLY. */
 };
 
 const ProductionCost& productCost(ProductType);

@@ -50,13 +50,13 @@ private:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
 private:
-	Button					btnDown;
-	ListBox					lstItems;
-	TextField				txtField;
+	Button btnDown;
+	ListBox lstItems;
+	TextField txtField;
 
-	NAS2D::Rectangle<float>    mBaseArea;
+	NAS2D::Rectangle<float> mBaseArea;
 
-	SelectionChanged        mSelectionChanged;
+	SelectionChanged mSelectionChanged;
 
-	std::size_t            mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
+	std::size_t mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
 };

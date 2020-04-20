@@ -10,7 +10,7 @@ void BasicCheck(Population::PersonRole _role);
 /**
  * C'tor
  */
-PopulationPool::PopulationPool() :	mScientistsAsWorkers(0),
+PopulationPool::PopulationPool() : mScientistsAsWorkers(0),
 									mScientistsUsed(0),
 									mWorkersUsed(0),
 									mPopulation(nullptr)

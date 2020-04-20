@@ -10,8 +10,9 @@
 class Tube : public Structure
 {
 public:
-	Tube(ConnectorDir dir, bool underground) :	Structure(constants::TUBE, "structures/tubes.sprite", StructureClass::CLASS_TUBE),
-												mUnderground(underground)
+	Tube(ConnectorDir dir, bool underground) :
+		Structure(constants::TUBE, "structures/tubes.sprite", StructureClass::CLASS_TUBE),
+		mUnderground(underground)
 	{
 		connectorDirection(dir);
 		requiresCHAP(false);
@@ -66,5 +67,5 @@ private:
 	}
 
 private:
-	bool	mUnderground;
+	bool mUnderground;
 };

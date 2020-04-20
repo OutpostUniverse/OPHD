@@ -40,18 +40,17 @@ private:
 	FactoryProduction& operator=(const FactoryProduction&) = delete;
 
 private:
-	Factory*			mFactory = nullptr;
+	Factory* mFactory = nullptr;
 
-	ProductType			mProduct = ProductType::PRODUCT_NONE;
-	ProductionCost		mProductCost;
+	ProductType mProduct = ProductType::PRODUCT_NONE;
+	ProductionCost mProductCost;
 
-	IconGrid			mProductGrid;
+	IconGrid mProductGrid;
 
-	Button				btnOkay;
-	Button				btnCancel;
-	Button				btnClearSelection;
-	Button				btnApply;
+	Button btnOkay;
+	Button btnCancel;
+	Button btnClearSelection;
+	Button btnApply;
 
-	CheckBox			chkIdle;
-
+	CheckBox chkIdle;
 };

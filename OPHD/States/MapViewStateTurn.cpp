@@ -14,7 +14,7 @@
 #include <algorithm>
 
 
-extern NAS2D::Image* IMG_PROCESSING_TURN;	/// \fixme Find a sane place for this.
+extern NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
 
 
 /**
@@ -217,7 +217,7 @@ void MapViewState::updateResources()
 		if (!truck.empty())
 		{
 			smelter->storage().pushResources(truck);
-			break;	// we're at max capacity in our storage, dump what's left in the smelter it came from and barf.
+			break; // we're at max capacity in our storage, dump what's left in the smelter it came from and barf.
 		}
 	}
 }

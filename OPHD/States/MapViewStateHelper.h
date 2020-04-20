@@ -17,8 +17,8 @@
 
 using RobotTileTable = std::map<Robot*, Tile*>;
 
-class Warehouse;	/**< Forward declaration for getAvailableWarehouse() function. */
-class RobotCommand;	/**< Forward declaration for getAvailableRobotCommand() function. */
+class Warehouse; /**< Forward declaration for getAvailableWarehouse() function. */
+class RobotCommand; /**< Forward declaration for getAvailableRobotCommand() function. */
 
 extern const NAS2D::Point<int> CcNotPlaced;
 NAS2D::Point<int>& ccLocation();

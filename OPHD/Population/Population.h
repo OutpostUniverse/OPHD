@@ -53,18 +53,18 @@ private:
 	int consume_food(int _food);
 
 private:
-	using PopulationTable = std::array<int, 5>	;
+	using PopulationTable = std::array<int, 5>;
 	using MoraleModifiers = std::array<MoraleModifier, 5>;
 
 private:
-	int			mBirthCount;				/**<  */
-	int			mDeathCount;				/**<  */
+	int mBirthCount; /**<  */
+	int mDeathCount; /**<  */
 
-	float				mStarveRate;				/**< Amount of population that dies during food shortages in percent. */
+	float mStarveRate; /**< Amount of population that dies during food shortages in percent. */
 
-	PopulationTable		mPopulation;				/**< Current population. */
-	PopulationTable		mPopulationGrowth;			/**< Population growth table. */
-	PopulationTable		mPopulationDeath;			/**< Population death table. */
+	PopulationTable mPopulation; /**< Current population. */
+	PopulationTable mPopulationGrowth; /**< Population growth table. */
+	PopulationTable mPopulationDeath; /**< Population death table. */
 
-	MoraleModifiers		mModifiers;					/**< Morale modifier table */
+	MoraleModifiers mModifiers; /**< Morale modifier table */
 };

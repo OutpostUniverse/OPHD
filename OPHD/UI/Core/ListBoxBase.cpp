@@ -330,7 +330,9 @@ void ListBoxBase::update()
 	float highlight_y = positionY() + static_cast<float>((mCurrentHighlight * mItemHeight) - mCurrentOffset);
 	r.drawBoxFilled(positionX(), highlight_y, static_cast<float>(mItemWidth), static_cast<float>(mItemHeight), 0, 185, 0, 50);
 
-	mSlider.update();		// Shouldn't need this since it's in a UIContainer. Noticing that Slider
-							// doesn't play nice with the UIContainer.
+	// FixMe: Shouldn't need this since it's in a UIContainer. Noticing that Slider
+	// doesn't play nice with the UIContainer.
+	mSlider.update();
+
 	r.clipRectClear();
 }

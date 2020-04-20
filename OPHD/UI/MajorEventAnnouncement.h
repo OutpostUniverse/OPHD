@@ -33,9 +33,9 @@ private:
 	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
 
 private:
-	NAS2D::Image			mHeader;
+	NAS2D::Image mHeader;
 
-	std::string		mMessage;
+	std::string mMessage;
 
-	Button			btnClose;
+	Button btnClose;
 };

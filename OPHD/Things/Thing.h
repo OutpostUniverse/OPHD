@@ -59,10 +59,10 @@ private:
 	Thing& operator=(const Thing& thing) = delete;
 
 private:
-	std::string		mName;			/**< Name of the Thing. */
-	NAS2D::Sprite	mSprite;		/**< Sprite used to represent the Thing. */
+	std::string mName; /**< Name of the Thing. */
+	NAS2D::Sprite mSprite; /**< Sprite used to represent the Thing. */
 
-	bool			mIsDead = false;/**< Thing is dead and should be cleaned up. */
+	bool mIsDead = false;/**< Thing is dead and should be cleaned up. */
 
-	DieCallback		mDieCallback;
+	DieCallback mDieCallback;
 };

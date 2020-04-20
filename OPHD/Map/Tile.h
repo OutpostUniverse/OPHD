@@ -52,7 +52,7 @@ public:
 
 	bool hasMine() const { return mMine != nullptr; }
 
-	Structure*	structure();
+	Structure* structure();
 	Robot* robot();
 
 	bool thingIsStructure() const { return mThingIsStructure; }
@@ -78,18 +78,18 @@ protected:
 	void thingIsStructure(bool value) { mThingIsStructure = value; }
 
 private:
-	int				mIndex = 0;
+	int mIndex = 0;
 
-	int				mX = 0;						/**< Tile Position Information */
-	int				mY = 0;						/**< Tile Position Information */
-	int				mDepth = 0;					/**< Tile Position Information */
+	int mX = 0; /**< Tile Position Information */
+	int mY = 0; /**< Tile Position Information */
+	int mDepth = 0; /**< Tile Position Information */
 
-	Thing*			mThing = nullptr;
-	Mine*			mMine = nullptr;
+	Thing* mThing = nullptr;
+	Mine* mMine = nullptr;
 
-	NAS2D::Color	mColor = NAS2D::Color::Normal;
+	NAS2D::Color mColor = NAS2D::Color::Normal;
 
-	bool			mExcavated = true;			/**< Used when a Digger uncovers underground tiles. */
-	bool			mConnected = false;			/**< Flag indicating that this tile is connected to the Command Center. */
-	bool			mThingIsStructure = false;	/**< Flag indicating that the Thing in the tile is a Structure. */
+	bool mExcavated = true; /**< Used when a Digger uncovers underground tiles. */
+	bool mConnected = false; /**< Flag indicating that this tile is connected to the Command Center. */
+	bool mThingIsStructure = false; /**< Flag indicating that the Thing in the tile is a Structure. */
 };

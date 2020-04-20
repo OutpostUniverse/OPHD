@@ -17,12 +17,12 @@
 using namespace NAS2D;
 
 
-extern Point<int>		MOUSE_COORDS;
+extern Point<int> MOUSE_COORDS;
 
-static Image*		WINDOW_BACKGROUND = nullptr;
+static Image* WINDOW_BACKGROUND = nullptr;
 
-Font*				BIG_FONT = nullptr;
-Font*				BIG_FONT_BOLD = nullptr;
+Font* BIG_FONT = nullptr;
+Font* BIG_FONT_BOLD = nullptr;
 
 
 /**
@@ -56,24 +56,23 @@ public:
 	bool Selected() { return _selected; }
 
 public:
-	std::string			Name;
+	std::string Name;
 
-	Image*				Img = nullptr;
+	Image* Img = nullptr;
 
-	Point<int>			TextPosition;
-	Point<int>			IconPosition;
+	Point<int> TextPosition;
+	Point<int> IconPosition;
 
-	Rectangle<int>		Rect;
+	Rectangle<int> Rect;
 
-	ReportInterface*	UiPanel = nullptr;
+	ReportInterface* UiPanel = nullptr;
 
 private:
-	bool				_selected = false;
-
+	bool _selected = false;
 };
 
 
-static std::array<Panel, NavigationPanel::PANEL_COUNT> Panels;	/**< Array of UI navigation panels. */
+static std::array<Panel, NavigationPanel::PANEL_COUNT> Panels; /**< Array of UI navigation panels. */
 
 
 /**

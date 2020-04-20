@@ -11,11 +11,11 @@
  */
 std::map<Structure::StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
 {
-	{ Structure::StructureState::UNDER_CONSTRUCTION,	"Under Construction" },
-	{ Structure::StructureState::OPERATIONAL,			"Operational" },
-	{ Structure::StructureState::IDLE,					"Idle" },
-	{ Structure::StructureState::DISABLED,				"Disabled" },
-	{ Structure::StructureState::DESTROYED,				"Destroyed" },
+	{ Structure::StructureState::UNDER_CONSTRUCTION, "Under Construction" },
+	{ Structure::StructureState::OPERATIONAL, "Operational" },
+	{ Structure::StructureState::IDLE, "Idle" },
+	{ Structure::StructureState::DISABLED, "Disabled" },
+	{ Structure::StructureState::DESTROYED, "Destroyed" },
 };
 
 
@@ -24,27 +24,27 @@ std::map<Structure::StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
  */
 std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
 {
-	{ Structure::StructureClass::CLASS_COMMAND,				"Command" },
-	{ Structure::StructureClass::CLASS_COMM,				"Communication" },
-	{ Structure::StructureClass::CLASS_COMMERCIAL,			"Commercial" },
-	{ Structure::StructureClass::CLASS_ENERGY_PRODUCTION,	"Energy Production" },
-	{ Structure::StructureClass::CLASS_FACTORY,				"Factory" },
-	{ Structure::StructureClass::CLASS_FOOD_PRODUCTION,		"Food Production" },
-	{ Structure::StructureClass::CLASS_LABORATORY,			"Laboratory" },
-	{ Structure::StructureClass::CLASS_LANDER,				"Lander" },
-	{ Structure::StructureClass::CLASS_LIFE_SUPPORT,		"Life Support" },
-	{ Structure::StructureClass::CLASS_MINE,				"Mine Facility" },
-	{ Structure::StructureClass::CLASS_PARK,				"Park / Reservoir" },
-	{ Structure::StructureClass::CLASS_SURFACE_POLICE,		"Police" },
-	{ Structure::StructureClass::CLASS_UNDERGROUND_POLICE,	"Police" },
-	{ Structure::StructureClass::CLASS_RECREATION_CENTER,	"Recreation Center" },
-	{ Structure::StructureClass::CLASS_RECYCLING,			"Recycling" },
-	{ Structure::StructureClass::CLASS_RESIDENCE,			"Residential" },
-	{ Structure::StructureClass::CLASS_SMELTER,				"Raw Ore Processing" },
-	{ Structure::StructureClass::CLASS_STORAGE,				"Storage" },
-	{ Structure::StructureClass::CLASS_TUBE,				"Tube" },
-	{ Structure::StructureClass::CLASS_UNDEFINED,			"UNDEFINED" },
-	{ Structure::StructureClass::CLASS_UNIVERSITY,			"University" }
+	{ Structure::StructureClass::CLASS_COMMAND, "Command" },
+	{ Structure::StructureClass::CLASS_COMM, "Communication" },
+	{ Structure::StructureClass::CLASS_COMMERCIAL, "Commercial" },
+	{ Structure::StructureClass::CLASS_ENERGY_PRODUCTION, "Energy Production" },
+	{ Structure::StructureClass::CLASS_FACTORY, "Factory" },
+	{ Structure::StructureClass::CLASS_FOOD_PRODUCTION, "Food Production" },
+	{ Structure::StructureClass::CLASS_LABORATORY, "Laboratory" },
+	{ Structure::StructureClass::CLASS_LANDER, "Lander" },
+	{ Structure::StructureClass::CLASS_LIFE_SUPPORT, "Life Support" },
+	{ Structure::StructureClass::CLASS_MINE, "Mine Facility" },
+	{ Structure::StructureClass::CLASS_PARK, "Park / Reservoir" },
+	{ Structure::StructureClass::CLASS_SURFACE_POLICE, "Police" },
+	{ Structure::StructureClass::CLASS_UNDERGROUND_POLICE, "Police" },
+	{ Structure::StructureClass::CLASS_RECREATION_CENTER, "Recreation Center" },
+	{ Structure::StructureClass::CLASS_RECYCLING, "Recycling" },
+	{ Structure::StructureClass::CLASS_RESIDENCE, "Residential" },
+	{ Structure::StructureClass::CLASS_SMELTER, "Raw Ore Processing" },
+	{ Structure::StructureClass::CLASS_STORAGE, "Storage" },
+	{ Structure::StructureClass::CLASS_TUBE, "Tube" },
+	{ Structure::StructureClass::CLASS_UNDEFINED, "UNDEFINED" },
+	{ Structure::StructureClass::CLASS_UNIVERSITY, "University" }
 };
 
 
@@ -63,9 +63,9 @@ const std::string& structureClassDescription(Structure::StructureClass _class)
 /**
  * C'tor
  */
-Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass):	Thing(name, spritePath),
+Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass) :
+	Thing(name, spritePath),
 	mStructureClass(structureClass)
-
 {
 	mPopulationRequirements.fill(0);
 	mPopulationAvailable.fill(0);
@@ -225,11 +225,11 @@ void Structure::forced_state_change(StructureState _s, DisabledReason _dr, IdleR
 		//enable();
 	}
 
-	if (_s == StructureState::OPERATIONAL)				{ enable(); }
-	else if (_s == StructureState::IDLE)				{ idle(_ir); }
-	else if (_s == StructureState::DISABLED)			{ disable(_dr); }
-	else if (_s == StructureState::DESTROYED)			{ destroy(); }
-	else if (_s == StructureState::UNDER_CONSTRUCTION)	{ mStructureState = StructureState::UNDER_CONSTRUCTION; } // Kludge
+	if (_s == StructureState::OPERATIONAL) { enable(); }
+	else if (_s == StructureState::IDLE) { idle(_ir); }
+	else if (_s == StructureState::DISABLED) { disable(_dr); }
+	else if (_s == StructureState::DESTROYED) { destroy(); }
+	else if (_s == StructureState::UNDER_CONSTRUCTION) { mStructureState = StructureState::UNDER_CONSTRUCTION; } // Kludge
 }
 
 

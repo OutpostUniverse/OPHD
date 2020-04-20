@@ -30,5 +30,5 @@ private:
 	void takeMeThere(Structure*);
 
 private:
-	NAS2D::State*	mReturnState = this;
+	NAS2D::State* mReturnState = this;
 };

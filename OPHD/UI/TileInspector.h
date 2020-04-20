@@ -25,6 +25,6 @@ private:
 	void btnCloseClicked();
 
 private:
-	Button		btnClose;
-	Tile*		mTile = nullptr;
+	Button btnClose;
+	Tile* mTile = nullptr;
 };

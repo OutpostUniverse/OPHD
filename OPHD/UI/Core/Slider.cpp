@@ -24,7 +24,7 @@ static Font* SLD_FONT = nullptr;
 /**
  * C'tor
  */
-Slider::Slider() :	Control()
+Slider::Slider() : Control()
 {
 	SLD_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
@@ -393,17 +393,17 @@ void Slider::draw()
 	}
 	else
 	{
-		r.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle);	// slide area
-		r.drawImageRect(mButton1.x(), mButton1.y(), mButton1.height(), mButton1.height(), mSkinButton1);	// left button
-		r.drawImageRect(mButton2.x(), mButton2.y(), mButton2.height(), mButton2.height(), mSkinButton2);	// right button
+		r.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle); // slide area
+		r.drawImageRect(mButton1.x(), mButton1.y(), mButton1.height(), mButton1.height(), mSkinButton1); // left button
+		r.drawImageRect(mButton2.x(), mButton2.y(), mButton2.height(), mButton2.height(), mSkinButton2); // right button
 
 		// Slider
-		mSlider.height(mSlideBar.height());	// height = slide bar height
+		mSlider.height(mSlideBar.height()); // height = slide bar height
 
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
 		int width_i = static_cast<int>(mSlideBar.width() / (mLength + 1.0f));
 		mSlider.width(static_cast<float>(width_i)); //relative width
-		if (mSlider.width() < mSlider.height())	// not too relative. Minimum = Heigt itself
+		if (mSlider.width() < mSlider.height()) // not too relative. Minimum = Heigt itself
 		{
 			mSlider.width(mSlider.height());
 		}

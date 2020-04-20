@@ -18,9 +18,9 @@ public:
 	void update() override;
 
 private:
-	NAS2D::Image		mIcons;
-	NAS2D::ImageList	mSkin;
+	NAS2D::Image mIcons;
+	NAS2D::ImageList mSkin;
 
-	ResourcePool		mPreviousResources;
-	ResourcePool*		mPlayerResources = nullptr;
+	ResourcePool mPreviousResources;
+	ResourcePool* mPlayerResources = nullptr;
 };

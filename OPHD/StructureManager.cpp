@@ -66,25 +66,25 @@ void StructureManager::update(ResourcePool& resourcePool, PopulationPool& popPoo
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
 	// calls to lower priority structures.
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_LANDER]);				// No resource needs
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_COMMAND]);			// Self sufficient
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_ENERGY_PRODUCTION]);	// Nothing can work without energy
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_LANDER]); // No resource needs
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_COMMAND]); // Self sufficient
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_ENERGY_PRODUCTION]); // Nothing can work without energy
 
 	updateEnergyProduction(resourcePool, popPool);
 
 	// Basic resource production
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_MINE]);				// Can't operate without resources.
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_MINE]); // Can't operate without resources.
 	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_SMELTER]);
 
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_LIFE_SUPPORT]);		// Air, water food must come before others
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_LIFE_SUPPORT]); // Air, water food must come before others
 	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_FOOD_PRODUCTION]);
 
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_MEDICAL_CENTER]);		// No medical facilities, people die
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_MEDICAL_CENTER]); // No medical facilities, people die
 	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_NURSERY]);
 
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_FACTORY]);			// Production
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_FACTORY]); // Production
 
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_STORAGE]);			// Everything else.
+	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_STORAGE]); // Everything else.
 	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_PARK]);
 	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_SURFACE_POLICE]);
 	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::CLASS_UNDERGROUND_POLICE]);
@@ -467,7 +467,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 			for (std::size_t i = 0; i < rl.size(); ++i)
 			{
 				str << rl[i]->id();
-				if (i != rl.size() - 1) { str << ","; }	// kind of a kludge
+				if (i != rl.size() - 1) { str << ","; } // kind of a kludge
 			}
 
 			robots->attribute("robots", str.str());

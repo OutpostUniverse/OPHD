@@ -55,7 +55,7 @@ public:
 		CLASS_SMELTER,
 		CLASS_STORAGE,
 		CLASS_TUBE,
-		CLASS_UNDEFINED,			/**< Used for structures that have no need for classification. */
+		CLASS_UNDEFINED, /**< Used for structures that have no need for classification. */
 		CLASS_UNIVERSITY,
 		CLASS_WAREHOUSE
 	};
@@ -118,7 +118,7 @@ public:
 	bool isRobotCommand() const { return structureClass() == StructureClass::CLASS_ROBOT_COMMAND; }
 	bool isMineFacility() const { return structureClass() == StructureClass::CLASS_MINE; }
 	bool energyProducer() const { return structureClass() == StructureClass::CLASS_ENERGY_PRODUCTION; }
-	bool isConnector() const { return structureClass() == StructureClass::CLASS_TUBE; }	/** Indicates that the structure can act as a connector (tube) */
+	bool isConnector() const { return structureClass() == StructureClass::CLASS_TUBE; } /** Indicates that the structure can act as a connector (tube) */
 
 	/**
 	 * Set the current age of the Structure.
@@ -169,30 +169,30 @@ private:
 	virtual void activated() {}
 
 private:
-	int						mTurnsToBuild = 0;			/**< Number of turns it takes to build the Structure. */
-	int						mAge = 0;					/**< Age of the Structure in turns. */
-	int						mMaxAge = 0;				/**< Maximum number of turns the Structure can remain in good repair. */
+	int mTurnsToBuild = 0; /**< Number of turns it takes to build the Structure. */
+	int mAge = 0; /**< Age of the Structure in turns. */
+	int mMaxAge = 0; /**< Maximum number of turns the Structure can remain in good repair. */
 
-	StructureState			mStructureState = StructureState::UNDER_CONSTRUCTION;			/**< State the structure is in. */
-	StructureClass			mStructureClass;								/**< Indicates the Structure's Type. */
-	ConnectorDir			mConnectorDirection = ConnectorDir::CONNECTOR_INTERSECTION;	/**< Directions available for connections. */
+	StructureState mStructureState = StructureState::UNDER_CONSTRUCTION; /**< State the structure is in. */
+	StructureClass mStructureClass; /**< Indicates the Structure's Type. */
+	ConnectorDir mConnectorDirection = ConnectorDir::CONNECTOR_INTERSECTION; /**< Directions available for connections. */
 
-	PopulationRequirements	mPopulationRequirements;	/**< Population requirements for structure operation. */
-	PopulationRequirements	mPopulationAvailable;		/**< Determine how many of each type of population required was actually supplied to the structure. */
+	PopulationRequirements mPopulationRequirements; /**< Population requirements for structure operation. */
+	PopulationRequirements mPopulationAvailable; /**< Determine how many of each type of population required was actually supplied to the structure. */
 
-	ResourcePool			mResourcesInput;			/**< Resources needed to operate the Structure. */
-	ResourcePool			mResourcesOutput;			/**< Resources provided by the Structure if operating properly. */
+	ResourcePool mResourcesInput; /**< Resources needed to operate the Structure. */
+	ResourcePool mResourcesOutput; /**< Resources provided by the Structure if operating properly. */
 
-	ResourcePool			mProductionPool;			/**< Resource pool used for production. */
-	ResourcePool			mStoragePool;				/**< Resource storage pool. */
+	ResourcePool mProductionPool; /**< Resource pool used for production. */
+	ResourcePool mStoragePool; /**< Resource storage pool. */
 
-	DisabledReason			mDisabledReason = DisabledReason::DISABLED_NONE;
-	IdleReason				mIdleReason = IdleReason::IDLE_NONE;
+	DisabledReason mDisabledReason = DisabledReason::DISABLED_NONE;
+	IdleReason mIdleReason = IdleReason::IDLE_NONE;
 
-	bool					mRepairable = true;			/**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
-	bool					mRequiresCHAP = true;		/**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
-	bool					mSelfSustained = false;		/**< Indicates that the Structure is self contained and can operate by itself. */
-	bool					mForcedIdle = false;		/**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
+	bool mRepairable = true; /**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
+	bool mRequiresCHAP = true; /**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
+	bool mSelfSustained = false; /**< Indicates that the Structure is self contained and can operate by itself. */
+	bool mForcedIdle = false; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };
 
 

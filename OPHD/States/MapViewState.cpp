@@ -26,11 +26,11 @@
 using namespace NAS2D;
 
 
-const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
-const std::string	MAP_DISPLAY_EXTENSION		= "_b.png";
+const std::string MAP_TERRAIN_EXTENSION = "_a.png";
+const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
-extern NAS2D::Image* IMG_LOADING;	/// \fixme Find a sane place for this.
-extern NAS2D::Image* IMG_SAVING;	/// \fixme Find a sane place for this.
+extern NAS2D::Image* IMG_LOADING; /// \fixme Find a sane place for this.
+extern NAS2D::Image* IMG_SAVING; /// \fixme Find a sane place for this.
 extern Point<int> MOUSE_COORDS;
 extern MainReportsUiState* MAIN_REPORTS_UI;
 
@@ -50,7 +50,7 @@ Rectangle<int> MOVE_DOWN_ICON;
 
 std::string CURRENT_LEVEL_STRING;
 
-std::map <int, std::string>	LEVEL_STRING_TABLE = 
+std::map <int, std::string> LEVEL_STRING_TABLE = 
 {
 	{ constants::DEPTH_SURFACE, constants::LEVEL_SURFACE },
 	{ constants::DEPTH_UNDERGROUND_1, constants::LEVEL_UG1 },
@@ -134,7 +134,7 @@ MapViewState::~MapViewState()
 void MapViewState::setPopulationLevel(PopulationLevel popLevel)
 {
 	mLandersColonist = static_cast<int>(popLevel);
-	mLandersCargo = 2;	///\todo This should be set based on difficulty level.
+	mLandersCargo = 2; ///\todo This should be set based on difficulty level.
 }
 
 
@@ -818,7 +818,7 @@ void MapViewState::placeTubeEnd()
 	int xEnd = 0; int yEnd = 0;
 	bool endReach = false;
 	if (tubeStart.height() != 1) return;
-	tubeStart.height(0);	// the height is used as a boolean to indicate that we are
+	tubeStart.height(0); // the height is used as a boolean to indicate that we are
 	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
 	if (!tile) { return; }
 
@@ -832,7 +832,7 @@ void MapViewState::placeTubeEnd()
 	case ConnectorDir::CONNECTOR_INTERSECTION:
 
 		if (abs(tubeStart.x() - tile->x()) >= abs(tubeStart.y() - tile->y())){
-			incX = 1;	// The sens will be on the longest spread on X or Y
+			incX = 1; // The sens will be on the longest spread on X or Y
 		}else{
 			incY = 1;
 		}

@@ -51,5 +51,5 @@ public:
 	TakeMeThere& takeMeThereCallback() { return mTakeMeThereCallback; }
 
 private:
-	TakeMeThere		mTakeMeThereCallback;
+	TakeMeThere mTakeMeThereCallback;
 };

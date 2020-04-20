@@ -197,78 +197,78 @@ private:
 
 
 private:
-	NAS2D::FpsCounter			mFps;							/**< Main FPS Counter. */
+	NAS2D::FpsCounter mFps; /**< Main FPS Counter. */
 
-	TileMap*			mTileMap = nullptr;
+	TileMap* mTileMap = nullptr;
 
-	NAS2D::Image				mBackground;					/**< Background image drawn behind the tile map. */
-	NAS2D::Image				mMapDisplay;					/**< Satellite view of the Site Map. */
-	NAS2D::Image				mHeightMap;						/**< Height view of the Site Map. */
-	NAS2D::Image				mUiIcons;						/**< User interface icons. */
+	NAS2D::Image mBackground; /**< Background image drawn behind the tile map. */
+	NAS2D::Image mMapDisplay; /**< Satellite view of the Site Map. */
+	NAS2D::Image mHeightMap; /**< Height view of the Site Map. */
+	NAS2D::Image mUiIcons; /**< User interface icons. */
 
-	NAS2D::Point<int>			mTileMapMouseHover;				/**< Tile position the mouse is currently hovering over. */
+	NAS2D::Point<int> mTileMapMouseHover; /**< Tile position the mouse is currently hovering over. */
 
-	NAS2D::Rectangle<int>		mMiniMapBoundingBox;			/**< Area of the site map display. */
+	NAS2D::Rectangle<int> mMiniMapBoundingBox; /**< Area of the site map display. */
 
 	// POOL'S
-	ResourcePool		mPlayerResources;				/**< Player's current resources. */
-	RobotPool			mRobotPool;						/**< Robots that are currently available for use. */
-	PopulationPool		mPopulationPool;
+	ResourcePool mPlayerResources; /**< Player's current resources. */
+	RobotPool mRobotPool; /**< Robots that are currently available for use. */
+	PopulationPool mPopulationPool;
 
-	RobotTileTable		mRobotList;						/**< List of active robots and their positions on the map. */
+	RobotTileTable mRobotList; /**< List of active robots and their positions on the map. */
 
-	InsertMode			mInsertMode = InsertMode::INSERT_NONE;		/**< What's being inserted into the TileMap if anything. */
-	StructureID			mCurrentStructure = StructureID::SID_NONE;	/**< Structure being placed. */
-	RobotType			mCurrentRobot = RobotType::ROBOT_NONE;		/**< Robot being placed. */
+	InsertMode mInsertMode = InsertMode::INSERT_NONE; /**< What's being inserted into the TileMap if anything. */
+	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
+	RobotType mCurrentRobot = RobotType::ROBOT_NONE; /**< Robot being placed. */
 
-	Population			mPopulation;
+	Population mPopulation;
 
-	//Music				mBgMusic;
+	//Music mBgMusic;
 
 	// USER INTERFACE
-	Button				mBtnTurns;						/**< Turns Button. */
-	Button				mBtnToggleHeightmap;			/**< Height Map Toggle Button. */
-	Button				mBtnToggleConnectedness;		/**< Connectedness view toggle button. */
+	Button mBtnTurns; /**< Turns Button. */
+	Button mBtnToggleHeightmap; /**< Height Map Toggle Button. */
+	Button mBtnToggleConnectedness; /**< Connectedness view toggle button. */
 
-	IconGrid			mStructures;					/**< Structures pick view. */
-	IconGrid			mRobots;						/**< Robots pick view. */
-	IconGrid			mConnections;					/**< Tubes pick view. */
+	IconGrid mStructures; /**< Structures pick view. */
+	IconGrid mRobots; /**< Robots pick view. */
+	IconGrid mConnections; /**< Tubes pick view. */
 
-	DiggerDirection		mDiggerDirection;				/**< Digger direction window. */
-	FactoryProduction	mFactoryProduction;				/**< Factory Production window. */
-	FileIo				mFileIoDialog;					/**< File IO window. */
-	GameOverDialog		mGameOverDialog;				/**< Game over window. */
-	GameOptionsDialog	mGameOptionsDialog;				/**< Options List window. */
-	MajorEventAnnouncement	mAnnouncement;				/**< Announcements window. */
-	MineOperationsWindow	mMineOperationsWindow;		/**< Mine Operations window. */
-	PopulationPanel		mPopulationPanel;				/**< Population panel. */
-	ResourceBreakdownPanel	mResourceBreakdownPanel;	/**< Resource Breakdown Panel. */
-	StructureInspector	mStructureInspector;			/**< Structure Inspector window. */
-	TileInspector		mTileInspector;					/**< Tile Inspector window. */
-	WarehouseInspector	mWarehouseInspector;			/**< Warehouse Inspector window. */
+	DiggerDirection mDiggerDirection; /**< Digger direction window. */
+	FactoryProduction mFactoryProduction; /**< Factory Production window. */
+	FileIo mFileIoDialog; /**< File IO window. */
+	GameOverDialog mGameOverDialog; /**< Game over window. */
+	GameOptionsDialog mGameOptionsDialog; /**< Options List window. */
+	MajorEventAnnouncement mAnnouncement; /**< Announcements window. */
+	MineOperationsWindow mMineOperationsWindow; /**< Mine Operations window. */
+	PopulationPanel mPopulationPanel; /**< Population panel. */
+	ResourceBreakdownPanel mResourceBreakdownPanel; /**< Resource Breakdown Panel. */
+	StructureInspector mStructureInspector; /**< Structure Inspector window. */
+	TileInspector mTileInspector; /**< Tile Inspector window. */
+	WarehouseInspector mWarehouseInspector; /**< Warehouse Inspector window. */
 
-	WindowStack			mWindowStack;					/**< Window stack manager. */
+	WindowStack mWindowStack; /**< Window stack manager. */
 
 	// SIGNALS
-	QuitCallback		mQuitCallback;					/**< Signal for posting quit event. */
-	ReportsUiCallback	mReportsUiCallback;				/**< Signal for bringing the Main Reports UI up. */
-	MapChangedCallback	mMapChangedCallback;			/**< Signal indicating that the map changed. */
+	QuitCallback mQuitCallback; /**< Signal for posting quit event. */
+	ReportsUiCallback mReportsUiCallback; /**< Signal for bringing the Main Reports UI up. */
+	MapChangedCallback mMapChangedCallback; /**< Signal indicating that the map changed. */
 
 	// MISCELLANEOUS
-	int					mTurnCount = 0;
+	int mTurnCount = 0;
 
-	int					mCurrentMorale = constants::DEFAULT_STARTING_MORALE;
-	int					mPreviousMorale = constants::DEFAULT_STARTING_MORALE;
+	int mCurrentMorale = constants::DEFAULT_STARTING_MORALE;
+	int mPreviousMorale = constants::DEFAULT_STARTING_MORALE;
 
-	int					mLandersColonist = 0;
-	int					mLandersCargo = 0;
+	int mLandersColonist = 0;
+	int mLandersCargo = 0;
 
-	int					mResidentialCapacity = 0;
+	int mResidentialCapacity = 0;
 
-	bool				mLeftButtonDown = false;		/**< Used for mouse drags on the mini map. */
-	bool				mLoadingExisting = false;		/**< Flag used for loading an existing game. */
-	bool				mPinResourcePanel = false;
-	bool				mPinPopulationPanel = false;
+	bool mLeftButtonDown = false; /**< Used for mouse drags on the mini map. */
+	bool mLoadingExisting = false; /**< Flag used for loading an existing game. */
+	bool mPinResourcePanel = false;
+	bool mPinPopulationPanel = false;
 
-	std::string			mExistingToLoad;				/**< Filename of the existing game to load. */
+	std::string mExistingToLoad; /**< Filename of the existing game to load. */
 };

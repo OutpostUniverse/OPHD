@@ -39,11 +39,11 @@ protected:
 	void parentContainer(UIContainer* parent);
 
 private:
-	NAS2D::Image	mSkin;
-	Label			mLabel;
-	ClickCallback	mCallback;			/**< Object to notify when the Button is activated. */
-	UIContainer*	mParentContainer{nullptr};
-	bool			mChecked{false};
+	NAS2D::Image mSkin;
+	Label mLabel;
+	ClickCallback mCallback; /**< Object to notify when the Button is activated. */
+	UIContainer* mParentContainer{nullptr};
+	bool mChecked{false};
 
 	friend class UIContainer;
 };

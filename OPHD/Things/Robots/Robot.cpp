@@ -3,7 +3,8 @@
 
 #include "Robot.h"
 
-Robot::Robot(const std::string& name, const std::string& sprite_path) :	Thing(name, sprite_path)
+Robot::Robot(const std::string& name, const std::string& sprite_path) :
+	Thing(name, sprite_path)
 {}
 
 
@@ -13,8 +14,8 @@ void Robot::startTask(int turns)
 	{
 		mTurnsToCompleteTask = 1;
 		return;
-	}	
-		
+	}
+
 	mTurnsToCompleteTask = turns;
 }
 

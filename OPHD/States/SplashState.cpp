@@ -34,11 +34,12 @@ enum LogoState
 LogoState CURRENT_STATE = LogoState::LOGO_NONE;
 
 
-SplashState::SplashState() :	mLogoLairworks("sys/lairworks-logo.png"),
-								mLogoNas2d("sys/nas2d_logo.png"),
-								mLogoOutpostHd("sys/ophd_large.png"),
-								mFlare("sys/flare_0.png"),
-								mByline("sys/byline.png")
+SplashState::SplashState() :
+	mLogoLairworks("sys/lairworks-logo.png"),
+	mLogoNas2d("sys/nas2d_logo.png"),
+	mLogoOutpostHd("sys/ophd_large.png"),
+	mFlare("sys/flare_0.png"),
+	mByline("sys/byline.png")
 {}
 
 

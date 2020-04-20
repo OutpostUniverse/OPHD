@@ -30,13 +30,13 @@ private:
 	StructureInspector& operator=(const StructureInspector&) = delete;
 
 private:
-	Button			btnClose;
+	Button btnClose;
 
-	TextArea		txtStateDescription;
+	TextArea txtStateDescription;
 
-	NAS2D::Image	mIcons;
+	NAS2D::Image mIcons;
 
-	std::string		mStructureClass;
+	std::string mStructureClass;
 
-	Structure*		mStructure = nullptr;
+	Structure* mStructure = nullptr;
 };

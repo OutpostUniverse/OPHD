@@ -33,5 +33,5 @@ protected:
 	}
 
 protected:
-	int		mCapacity = 25;		/**< Override this value in derived residences.*/
+	int mCapacity = 25; /**< Override this value in derived residences.*/
 };

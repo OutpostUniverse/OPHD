@@ -49,18 +49,18 @@ private:
 	void btnDiggerWestClicked();
 
 private:
-	DiggerDirection(const DiggerDirection&) = delete;				/**< Not allowed. */
-	DiggerDirection& operator=(const DiggerDirection&) = delete;	/**< Not allowed. */
+	DiggerDirection(const DiggerDirection&) = delete; /**< Not allowed. */
+	DiggerDirection& operator=(const DiggerDirection&) = delete; /**< Not allowed. */
 
 private:
-	Button				btnDown;
-	Button				btnNorth;
-	Button				btnEast;
-	Button				btnSouth;
-	Button				btnWest;
-	Button				btnCancel;
+	Button btnDown;
+	Button btnNorth;
+	Button btnEast;
+	Button btnSouth;
+	Button btnWest;
+	Button btnCancel;
 
-	Callback			mCallback;
+	Callback mCallback;
 
-	Tile*				mTile = nullptr;
+	Tile* mTile = nullptr;
 };

@@ -41,19 +41,19 @@ private:
 	void btnIdleClicked();
 
 private:
-	MineFacility*		mFacility = nullptr;
+	MineFacility* mFacility = nullptr;
 
-	NAS2D::Image		mUiIcon;
-	NAS2D::Image		mIcons;
+	NAS2D::Image mUiIcon;
+	NAS2D::Image mIcons;
 
-	NAS2D::ImageList	mPanel;
+	NAS2D::ImageList mPanel;
 
-	CheckBox			chkCommonMetals;
-	CheckBox			chkCommonMinerals;
-	CheckBox			chkRareMetals;
-	CheckBox			chkRareMinerals;
+	CheckBox chkCommonMetals;
+	CheckBox chkCommonMinerals;
+	CheckBox chkRareMetals;
+	CheckBox chkRareMinerals;
 
-	Button				btnIdle;
-	Button				btnExtendShaft;
-	Button				btnOkay;
+	Button btnIdle;
+	Button btnExtendShaft;
+	Button btnOkay;
 };

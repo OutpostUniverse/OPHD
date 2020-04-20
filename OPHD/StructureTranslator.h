@@ -38,6 +38,6 @@ private:
 
 	static void buildTables();
 
-	static std::map<std::string, StructureID>		_stringToStructureTable;
-	static std::array<std::string, StructureID::SID_COUNT>		_structureToStringTable;
+	static std::map<std::string, StructureID> _stringToStructureTable;
+	static std::array<std::string, StructureID::SID_COUNT> _structureToStringTable;
 };

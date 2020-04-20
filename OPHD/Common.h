@@ -65,14 +65,14 @@ enum MineProductionRate
  */
 enum DisabledReason
 {
-	DISABLED_NONE,						/**< Not Disabled, default reason. */
+	DISABLED_NONE, /**< Not Disabled, default reason. */
 
-	DISABLED_CHAP,						/**< Requires atmosphere, no atmosphere available. */
-	DISABLED_DISCONNECTED,				/**< Not connected to Command Center */
-	DISABLED_ENERGY,					/**< Not enough Energy to operate. */
-	DISABLED_POPULATION,				/**< Insufficient workers or scientists (or both) */
-	DISABLED_REFINED_RESOURCES,			/**< Insufficient mined and refined resources */
-	DISABLED_STRUCTURAL_INTEGRITY		/**< Structural integrity out of operating tolerances (damaged structure) */
+	DISABLED_CHAP, /**< Requires atmosphere, no atmosphere available. */
+	DISABLED_DISCONNECTED, /**< Not connected to Command Center */
+	DISABLED_ENERGY, /**< Not enough Energy to operate. */
+	DISABLED_POPULATION, /**< Insufficient workers or scientists (or both) */
+	DISABLED_REFINED_RESOURCES, /**< Insufficient mined and refined resources */
+	DISABLED_STRUCTURAL_INTEGRITY /**< Structural integrity out of operating tolerances (damaged structure) */
 };
 
 
@@ -105,7 +105,7 @@ enum ConnectorDir
 	CONNECTOR_INTERSECTION = 1,
 	CONNECTOR_RIGHT,
 	CONNECTOR_LEFT,
-	CONNECTOR_VERTICAL			// Functions as an intersection
+	CONNECTOR_VERTICAL // Functions as an intersection
 };
 
 

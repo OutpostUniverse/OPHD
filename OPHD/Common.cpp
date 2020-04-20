@@ -22,10 +22,10 @@ using namespace NAS2D;
 
 std::map<Difficulty, std::string> DIFFICULTY_STRING_TABLE
 {
-	{ Difficulty::Beginner,	constants::DIFFICULTY_BEGINNER },
-	{ Difficulty::Easy,		constants::DIFFICULTY_EASY },
-	{ Difficulty::Medium,	constants::DIFFICULTY_MEDIUM },
-	{ Difficulty::Hard,		constants::DIFFICULTY_HARD },
+	{ Difficulty::Beginner, constants::DIFFICULTY_BEGINNER },
+	{ Difficulty::Easy, constants::DIFFICULTY_EASY },
+	{ Difficulty::Medium, constants::DIFFICULTY_MEDIUM },
+	{ Difficulty::Hard, constants::DIFFICULTY_HARD },
 };
 
 std::string StringFromDifficulty(const Difficulty& difficulty)
@@ -49,21 +49,21 @@ Difficulty DifficultyFromString(std::string difficultyStr)
 
 std::map<Structure::StructureState, Color> STRUCTURE_COLOR_TABLE
 {
-	{ Structure::StructureState::UNDER_CONSTRUCTION,	Color{150, 150, 150, 100} },
-	{ Structure::StructureState::OPERATIONAL,			Color{0, 185, 0} },
-	{ Structure::StructureState::IDLE,					Color{0, 185, 0, 100} },
-	{ Structure::StructureState::DISABLED,				Color{220, 0, 0} },
-	{ Structure::StructureState::DESTROYED,				Color{220, 0, 0} }
+	{ Structure::StructureState::UNDER_CONSTRUCTION, Color{150, 150, 150, 100} },
+	{ Structure::StructureState::OPERATIONAL, Color{0, 185, 0} },
+	{ Structure::StructureState::IDLE, Color{0, 185, 0, 100} },
+	{ Structure::StructureState::DISABLED, Color{220, 0, 0} },
+	{ Structure::StructureState::DESTROYED, Color{220, 0, 0} }
 };
 
 
 std::map<Structure::StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
 {
-	{ Structure::StructureState::UNDER_CONSTRUCTION,	Color{185, 185, 185, 100} },
-	{ Structure::StructureState::OPERATIONAL,			Color{0, 185, 0} },
-	{ Structure::StructureState::IDLE,					Color{0, 185, 0, 100} },
-	{ Structure::StructureState::DISABLED,				Color{220, 0, 0} },
-	{ Structure::StructureState::DESTROYED,				Color{220, 0, 0} }
+	{ Structure::StructureState::UNDER_CONSTRUCTION, Color{185, 185, 185, 100} },
+	{ Structure::StructureState::OPERATIONAL, Color{0, 185, 0} },
+	{ Structure::StructureState::IDLE, Color{0, 185, 0, 100} },
+	{ Structure::StructureState::DISABLED, Color{220, 0, 0} },
+	{ Structure::StructureState::DESTROYED, Color{220, 0, 0} }
 };
 
 
@@ -87,30 +87,30 @@ std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 
 std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
 {
-	{ DisabledReason::DISABLED_NONE,					constants::STRUCTURE_DISABLED_NONE },
+	{ DisabledReason::DISABLED_NONE, constants::STRUCTURE_DISABLED_NONE },
 
-	{ DisabledReason::DISABLED_CHAP,					constants::STRUCTURE_DISABLED_CHAP },
-	{ DisabledReason::DISABLED_DISCONNECTED,			constants::STRUCTURE_DISABLED_DISCONNECTED },
-	{ DisabledReason::DISABLED_ENERGY,					constants::STRUCTURE_DISABLED_ENERGY },
-	{ DisabledReason::DISABLED_POPULATION,				constants::STRUCTURE_DISABLED_POPULATION },
-	{ DisabledReason::DISABLED_REFINED_RESOURCES,		constants::STRUCTURE_DISABLED_REFINED_RESOURCES },
-	{ DisabledReason::DISABLED_STRUCTURAL_INTEGRITY,	constants::STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY }
+	{ DisabledReason::DISABLED_CHAP, constants::STRUCTURE_DISABLED_CHAP },
+	{ DisabledReason::DISABLED_DISCONNECTED, constants::STRUCTURE_DISABLED_DISCONNECTED },
+	{ DisabledReason::DISABLED_ENERGY, constants::STRUCTURE_DISABLED_ENERGY },
+	{ DisabledReason::DISABLED_POPULATION, constants::STRUCTURE_DISABLED_POPULATION },
+	{ DisabledReason::DISABLED_REFINED_RESOURCES, constants::STRUCTURE_DISABLED_REFINED_RESOURCES },
+	{ DisabledReason::DISABLED_STRUCTURAL_INTEGRITY, constants::STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY }
 };
 
 
 std::map<IdleReason, std::string> IDLE_REASON_TABLE =
 {
-	{ IdleReason::IDLE_NONE,										constants::STRUCTURE_IDLE_NONE },
+	{ IdleReason::IDLE_NONE, constants::STRUCTURE_IDLE_NONE },
 
-	{ IdleReason::IDLE_PLAYER_SET,									constants::STRUCTURE_IDLE_PLAYER_SET },
-	{ IdleReason::IDLE_INTERNAL_STORAGE_FULL,						constants::STRUCTURE_IDLE_INTERNAL_STORAGE_FULL },
-	{ IdleReason::IDLE_FACTORY_PRODUCTION_COMPLETE,					constants::STRUCTURE_IDLE_FACTORY_PRODUCTION_COMPLETE },
-	{ IdleReason::IDLE_FACTORY_INSUFFICIENT_RESOURCES,				constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_RESOURCES },
-	{ IdleReason::IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY,	constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY },
-	{ IdleReason::IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE,		constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE },
-	{ IdleReason::IDLE_MINE_EXHAUSTED,								constants::STRUCTURE_IDLE_MINE_EXHAUSTED },
-	{ IdleReason::IDLE_MINE_INACTIVE,								constants::STRUCTURE_IDLE_MINE_INACTIVE },
-	{ IdleReason::IDLE_INSUFFICIENT_LUXURY_PRODUCT,					constants::STRUCTURE_IDLE_INSUFFICIENT_LUXURY_PRODUCT }
+	{ IdleReason::IDLE_PLAYER_SET, constants::STRUCTURE_IDLE_PLAYER_SET },
+	{ IdleReason::IDLE_INTERNAL_STORAGE_FULL, constants::STRUCTURE_IDLE_INTERNAL_STORAGE_FULL },
+	{ IdleReason::IDLE_FACTORY_PRODUCTION_COMPLETE, constants::STRUCTURE_IDLE_FACTORY_PRODUCTION_COMPLETE },
+	{ IdleReason::IDLE_FACTORY_INSUFFICIENT_RESOURCES, constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_RESOURCES },
+	{ IdleReason::IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY, constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY },
+	{ IdleReason::IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE, constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE },
+	{ IdleReason::IDLE_MINE_EXHAUSTED, constants::STRUCTURE_IDLE_MINE_EXHAUSTED },
+	{ IdleReason::IDLE_MINE_INACTIVE, constants::STRUCTURE_IDLE_MINE_INACTIVE },
+	{ IdleReason::IDLE_INSUFFICIENT_LUXURY_PRODUCT, constants::STRUCTURE_IDLE_INSUFFICIENT_LUXURY_PRODUCT }
 };
 
 

@@ -312,10 +312,10 @@ void Mine::serialize(NAS2D::Xml::XmlElement* element)
 		XmlElement* vein = new XmlElement("vein");
 
 		vein->attribute("id", static_cast<int>(i));
-		vein->attribute("common_metals",	mv[OreType::ORE_COMMON_METALS]);
-		vein->attribute("common_minerals",	mv[OreType::ORE_COMMON_MINERALS]);
-		vein->attribute("rare_metals",		mv[OreType::ORE_RARE_METALS]);
-		vein->attribute("rare_minerals",	mv[OreType::ORE_RARE_MINERALS]);
+		vein->attribute("common_metals", mv[OreType::ORE_COMMON_METALS]);
+		vein->attribute("common_minerals", mv[OreType::ORE_COMMON_MINERALS]);
+		vein->attribute("rare_metals", mv[OreType::ORE_RARE_METALS]);
+		vein->attribute("rare_minerals", mv[OreType::ORE_RARE_MINERALS]);
 
 		element->linkEndChild(vein);
 	}

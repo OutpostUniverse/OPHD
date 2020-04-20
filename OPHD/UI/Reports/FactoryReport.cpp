@@ -92,21 +92,21 @@ void FactoryReport::init()
 	FONT_BIG = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
 	FONT_BIG_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
 
-	FACTORY_SEED	= new Image("ui/interface/factory_seed.png");
-	FACTORY_AG		= new Image("ui/interface/factory_ag.png");
-	FACTORY_UG		= new Image("ui/interface/factory_ug.png");
+	FACTORY_SEED = new Image("ui/interface/factory_seed.png");
+	FACTORY_AG = new Image("ui/interface/factory_ag.png");
+	FACTORY_UG = new Image("ui/interface/factory_ug.png");
 
 	/// \todo Decide if this is the best place to have these images live or if it should be done at program start.
 	PRODUCT_IMAGE_ARRAY.fill(nullptr);
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DIGGER]				= new Image("ui/interface/product_robodigger.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DOZER]				= new Image("ui/interface/product_robodozer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MINER]				= new Image("ui/interface/product_robominer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_EXPLORER]			= new Image("ui/interface/product_roboexplorer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_TRUCK]				= new Image("ui/interface/product_truck.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_ROAD_MATERIALS]		= new Image("ui/interface/product_road_materials.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MAINTENANCE_PARTS]	= new Image("ui/interface/product_maintenance_parts.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_CLOTHING]			= new Image("ui/interface/product_clothing.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MEDICINE]			= new Image("ui/interface/product_medicine.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DIGGER] = new Image("ui/interface/product_robodigger.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DOZER] = new Image("ui/interface/product_robodozer.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MINER] = new Image("ui/interface/product_robominer.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_EXPLORER] = new Image("ui/interface/product_roboexplorer.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_TRUCK] = new Image("ui/interface/product_truck.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_ROAD_MATERIALS] = new Image("ui/interface/product_road_materials.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MAINTENANCE_PARTS] = new Image("ui/interface/product_maintenance_parts.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_CLOTHING] = new Image("ui/interface/product_clothing.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MEDICINE] = new Image("ui/interface/product_medicine.png");
 
 	_PRODUCT_NONE = new Image("ui/interface/product_none.png");
 

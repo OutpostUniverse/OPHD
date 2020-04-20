@@ -65,8 +65,8 @@ private:
 	Mine& operator=(const Mine&) = delete;
 
 private:
-	MineVeins			mVeins;									/**< Ore veins */
-	MineProductionRate	mProductionRate = MineProductionRate::PRODUCTION_RATE_LOW;	/**< Mine's production rate. */
+	MineVeins mVeins; /**< Ore veins */
+	MineProductionRate mProductionRate = MineProductionRate::PRODUCTION_RATE_LOW; /**< Mine's production rate. */
 	
 	/**
 	 * Flags indicating several states for the mine:
@@ -78,5 +78,5 @@ private:
 	 * [4] : Mine is active
 	 * [5] : Mine is exhausted
 	 */
-	std::bitset<6>		mFlags;									/**< Set of flags. */
+	std::bitset<6> mFlags; /**< Set of flags. */
 };

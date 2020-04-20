@@ -41,6 +41,6 @@ private:
 	CargoLander& operator=(const CargoLander&) = delete;
 
 private:
-	Callback	mDeploy;
-	Tile*		mTile = nullptr;
+	Callback mDeploy;
+	Tile* mTile = nullptr;
 };

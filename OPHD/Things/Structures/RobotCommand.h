@@ -39,5 +39,5 @@ protected:
 	}
 
 private:
-	RobotList	mRobotList;
+	RobotList mRobotList;
 };

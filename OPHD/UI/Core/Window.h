@@ -29,9 +29,9 @@ private:
 	void _init();
 
 private:
-	bool				mMouseDrag = false;
-	bool				mAnchored = false;
+	bool mMouseDrag = false;
+	bool mAnchored = false;
 
-	NAS2D::ImageList	mTitle;
-	NAS2D::ImageList	mBody;
+	NAS2D::ImageList mTitle;
+	NAS2D::ImageList mBody;
 };

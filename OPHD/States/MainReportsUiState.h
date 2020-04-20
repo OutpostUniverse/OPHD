@@ -45,5 +45,5 @@ private:
 	void exit();
 
 private:
-	ReportsUiCallback	mReportsUiCallback;
+	ReportsUiCallback mReportsUiCallback;
 };

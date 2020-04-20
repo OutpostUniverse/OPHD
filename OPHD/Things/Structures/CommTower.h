@@ -4,7 +4,7 @@
 
 #include "../../Constants.h"
 
-class CommTower :	public Structure
+class CommTower : public Structure
 {
 public:
 

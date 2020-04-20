@@ -158,7 +158,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 	if (!hasFocus() || !editable() || !visible()) { return; }
 
 	switch(key)
-	{	
+	{
 		// COMMAND KEYS
 		case EventHandler::KeyCode::KEY_BACKSPACE:
 			if(!text().empty() && mCursorPosition > 0)
