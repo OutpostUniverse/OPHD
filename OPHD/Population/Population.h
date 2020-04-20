@@ -33,7 +33,7 @@ public:
 
 	int update(int morale, int food, int residences, int universities, int nurseries, int hospitals);
 
-	void starveRate(float r) { mStarveRate = r; }
+	void starveRate(float rate) { mStarveRate = rate; }
 
 protected:
 
