@@ -36,7 +36,7 @@ public:
 	MinerList& miners() { return mMiners; }
 
 	void clear();
-	void erase(Robot* r);
+	void erase(Robot* robot);
 	bool insertRobotIntoTable(RobotTileTable& robotMap, Robot* robot, Tile* tile);
 
 	uint32_t robotControlMax() { return mRobotControlMax; }
