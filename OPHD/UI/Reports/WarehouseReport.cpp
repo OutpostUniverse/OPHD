@@ -480,7 +480,7 @@ void WarehouseReport::drawRightPanel(Renderer& renderer)
 void WarehouseReport::update()
 {
 	if (!visible()) { return; }
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	// Left Panel
 	drawLeftPanel(renderer);
