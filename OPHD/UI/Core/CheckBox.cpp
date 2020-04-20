@@ -122,6 +122,9 @@ void CheckBox::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawSubImage(mSkin, positionX(), positionY(), mChecked ? 13.0f : 0.0f, 0.0f, 13.0f, 13.0f);
-	r.drawText(*CBOX_FONT, text(), positionX() + 20.0f, positionY(), 255, 255, 255);
+	const auto uncheckedIconRect = NAS2D::Rectangle{0, 0, 13, 13};
+	const auto checkedIconRect = NAS2D::Rectangle{13, 0, 13, 13};
+
+	r.drawSubImage(mSkin, position(), (mChecked ? checkedIconRect : uncheckedIconRect));
+	r.drawText(*CBOX_FONT, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
 }
