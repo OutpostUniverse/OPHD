@@ -258,11 +258,11 @@ int MapViewState::foodInStorage()
 
 	auto sl = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
 
-	for (auto _st : sl)
+	for (auto structure : sl)
 	{
-		if (_st->operational() || _st->isIdle())
+		if (structure->operational() || structure->isIdle())
 		{
-			food_count += _st->storage().food();
+			food_count += structure->storage().food();
 		}
 	}
 
@@ -286,9 +286,9 @@ int MapViewState::foodTotalStorage()
 	}
 
 	auto sl = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
-	for (auto _st : sl)
+	for (auto structure : sl)
 	{
-		if (_st->operational() || _st->isIdle())
+		if (structure->operational() || structure->isIdle())
 		{
 			food_storage += AGRIDOME_CAPACITY;
 		}

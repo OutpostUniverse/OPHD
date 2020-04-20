@@ -24,7 +24,7 @@ const float DEFAULT_RECYCLE_VALUE = 0.9f;
  */
 Structure* StructureCatalogue::get(StructureID type)
 {
-	Structure* _st = nullptr;
+	Structure* structure = nullptr;
 
 	// This seems like a naive approach... I usually see these implemented as the base
 	// object type has a static function that is used as an interface to instantiate
@@ -35,139 +35,139 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 
 		case StructureID::SID_AGRIDOME:
-			_st = new Agridome();
+			structure = new Agridome();
 			break;
 
 		case StructureID::SID_AIR_SHAFT:
-			_st = new AirShaft();
+			structure = new AirShaft();
 			break;
 
 		case StructureID::SID_CARGO_LANDER: // only here for loading games
-			_st = new CargoLander(nullptr);
+			structure = new CargoLander(nullptr);
 			break;
 
 		case StructureID::SID_CHAP:
-			_st = new CHAP();
+			structure = new CHAP();
 			break;
 
 		case StructureID::SID_COLONIST_LANDER: // only here for loading games
-			_st = new ColonistLander(nullptr);
+			structure = new ColonistLander(nullptr);
 			break;
 
 		case StructureID::SID_COMMAND_CENTER:
-			_st = new CommandCenter();
+			structure = new CommandCenter();
 			break;
 
 		case StructureID::SID_COMMERCIAL:
-			_st = new Commercial();
+			structure = new Commercial();
 			break;
 
 		case StructureID::SID_COMM_TOWER:
-			_st = new CommTower();
+			structure = new CommTower();
 			break;
 
 		case StructureID::SID_FUSION_REACTOR:
-			_st = new FusionReactor();
+			structure = new FusionReactor();
 			break;
 
 		case StructureID::SID_HOT_LABORATORY:
-			_st = new HotLaboratory();
+			structure = new HotLaboratory();
 			break;
 
 		case StructureID::SID_LABORATORY:
-			_st = new Laboratory();
+			structure = new Laboratory();
 			break;
 
 		case StructureID::SID_MEDICAL_CENTER:
-			_st = new MedicalCenter();
+			structure = new MedicalCenter();
 			break;
 
 		case StructureID::SID_MINE_FACILITY: // only here for loading games
-			_st = new MineFacility(nullptr);
+			structure = new MineFacility(nullptr);
 			break;
 
 		case StructureID::SID_MINE_SHAFT: // only here for loading games
-			_st = new MineShaft();
+			structure = new MineShaft();
 			break;
 
 		case StructureID::SID_NURSERY:
-			_st = new Nursery();
+			structure = new Nursery();
 			break;
 
 		case StructureID::SID_PARK:
-			_st = new Park();
+			structure = new Park();
 			break;
 
 		case StructureID::SID_SURFACE_POLICE:
-			_st = new SurfacePolice();
+			structure = new SurfacePolice();
 			break;
 
 		case StructureID::SID_UNDERGROUND_POLICE:
-			_st = new UndergroundPolice();
+			structure = new UndergroundPolice();
 			break;
 
 		case StructureID::SID_RECREATION_CENTER:
-			_st = new RecreationCenter();
+			structure = new RecreationCenter();
 			break;
 
 		case StructureID::SID_RED_LIGHT_DISTRICT:
-			_st = new RedLightDistrict();
+			structure = new RedLightDistrict();
 			break;
 
 		case StructureID::SID_RESIDENCE:
-			_st = new Residence();
+			structure = new Residence();
 			break;
 
 		case StructureID::SID_ROBOT_COMMAND:
-			_st = new RobotCommand();
+			structure = new RobotCommand();
 			break;
 
 		case StructureID::SID_SEED_FACTORY:
-			_st = new SeedFactory();
+			structure = new SeedFactory();
 			break;
 
 		case StructureID::SID_SEED_LANDER: // only here for loading games
-			_st = new SeedLander(0, 0);
+			structure = new SeedLander(0, 0);
 			break;
 
 		case StructureID::SID_SEED_POWER:
-			_st = new SeedPower();
+			structure = new SeedPower();
 			break;
 
 		case StructureID::SID_SEED_SMELTER:
-			_st = new SeedSmelter();
+			structure = new SeedSmelter();
 			break;
 
 		case StructureID::SID_SMELTER:
-			_st = new Smelter();
+			structure = new Smelter();
 			break;
 
 		case StructureID::SID_SOLAR_PANEL1:
-			_st = new SolarPanelArray();
+			structure = new SolarPanelArray();
 			break;
 
 		case StructureID::SID_SOLAR_PLANT:
-			_st = new SolarPlant();
+			structure = new SolarPlant();
 			break;
 
 		case StructureID::SID_STORAGE_TANKS:
-			_st = new StorageTanks();
+			structure = new StorageTanks();
 			break;
 
 		case StructureID::SID_SURFACE_FACTORY:
-			_st = new SurfaceFactory();
+			structure = new SurfaceFactory();
 			break;
 
 		case StructureID::SID_UNDERGROUND_FACTORY:
-			_st = new UndergroundFactory();
+			structure = new UndergroundFactory();
 			break;
 
 		case StructureID::SID_UNIVERSITY:
-			_st = new University();
+			structure = new University();
 			break;
 
 		case StructureID::SID_WAREHOUSE:
-			_st = new Warehouse();
+			structure = new Warehouse();
 			break;
 
 		default:
@@ -175,12 +175,12 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 	}
 
-	if (_st)
+	if (structure)
 	{
-		_st->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
+		structure->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
 	}
 
-	return _st;
+	return structure;
 }
 
 

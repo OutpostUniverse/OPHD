@@ -356,9 +356,9 @@ bool outOfCommRange(Point<int>& cc_location, TileMap* tile_map, Tile* current_ti
  */
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 {
-	for (auto _st : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
 	{
-		Warehouse* _wh = static_cast<Warehouse*>(_st);
+		Warehouse* _wh = static_cast<Warehouse*>(structure);
 		if (_wh->products().canStore(type, static_cast<int>(count)))
 		{
 			return _wh;
@@ -380,9 +380,9 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
  */
 RobotCommand* getAvailableRobotCommand()
 {
-	for (auto _st : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND))
 	{
-		RobotCommand* _rc = static_cast<RobotCommand*>(_st);
+		RobotCommand* _rc = static_cast<RobotCommand*>(structure);
 		if (_rc->operational() && _rc->commandCapacityAvailable())
 		{
 			return _rc;
