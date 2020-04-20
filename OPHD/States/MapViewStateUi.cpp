@@ -470,33 +470,33 @@ void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection select
 	}
 
 	// Assumes a digger is available.
-	Robodigger* r = mRobotPool.getDigger();
-	r->startTask(tile->index() + 5); // FIXME: Magic Number
-	mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
+	Robodigger* robot = mRobotPool.getDigger();
+	robot->startTask(tile->index() + 5); // FIXME: Magic Number
+	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 
 
 	if (selection == DiggerDirection::DiggerSelection::SEL_DOWN)
 	{
-		r->direction(Direction::DIR_DOWN);
+		robot->direction(Direction::DIR_DOWN);
 	}
 	else if (selection == DiggerDirection::DiggerSelection::SEL_NORTH)
 	{
-		r->direction(Direction::DIR_NORTH);
+		robot->direction(Direction::DIR_NORTH);
 		mTileMap->getTile(tile->x(), tile->y() - 1, tile->depth())->excavated(true);
 	}
 	else if (selection == DiggerDirection::DiggerSelection::SEL_SOUTH)
 	{
-		r->direction(Direction::DIR_SOUTH);
+		robot->direction(Direction::DIR_SOUTH);
 		mTileMap->getTile(tile->x(), tile->y() + 1, tile->depth())->excavated(true);
 	}
 	else if (selection == DiggerDirection::DiggerSelection::SEL_EAST)
 	{
-		r->direction(Direction::DIR_EAST);
+		robot->direction(Direction::DIR_EAST);
 		mTileMap->getTile(tile->x() + 1, tile->y(), tile->depth())->excavated(true);
 	}
 	else if (selection == DiggerDirection::DiggerSelection::SEL_WEST)
 	{
-		r->direction(Direction::DIR_WEST);
+		robot->direction(Direction::DIR_WEST);
 		mTileMap->getTile(tile->x() - 1, tile->y(), tile->depth())->excavated(true);
 	}
 

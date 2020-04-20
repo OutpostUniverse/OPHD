@@ -94,9 +94,9 @@ private:
 	void onWindowResized(int w, int h);
 
 	// ROBOT EVENT HANDLERS
-	void dozerTaskFinished(Robot* r);
-	void diggerTaskFinished(Robot* r);
-	void minerTaskFinished(Robot* r);
+	void dozerTaskFinished(Robot* robot);
+	void diggerTaskFinished(Robot* robot);
+	void minerTaskFinished(Robot* robot);
 
 	// DRAWING FUNCTIONS
 	void drawUI();
