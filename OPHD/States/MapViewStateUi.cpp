@@ -141,7 +141,7 @@ void MapViewState::initUi()
 	// Menus
 	mRobots.sheetPath("ui/robots.png");
 	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52.0f), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
-	mRobots.size(52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f);
+	mRobots.size({52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
 	mRobots.showTooltip(true);
@@ -149,7 +149,7 @@ void MapViewState::initUi()
 
 	mConnections.sheetPath("ui/structures.png");
 	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52.0f), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
-	mConnections.size(52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f);
+	mConnections.size({52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
 	mConnections.iconSize(46);
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
 	mConnections.selectionChanged().connect(this, &MapViewState::connectionsSelectionChanged);
@@ -157,7 +157,7 @@ void MapViewState::initUi()
 
 	mStructures.sheetPath("ui/structures.png");
 	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
-	mStructures.size(mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f);
+	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 	mStructures.showTooltip(true);
@@ -206,7 +206,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 
-	mStructures.size(mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2);
+	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 
 	// Anchored window positions

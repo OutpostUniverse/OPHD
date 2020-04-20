@@ -59,24 +59,24 @@ void MainMenuState::initialize()
 	e.keyDown().connect(this, &MainMenuState::onKeyDown);
 
 	btnNewGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnNewGame.size(200, 30);
+	btnNewGame.size({200, 30});
 	btnNewGame.click().connect(this, &MainMenuState::btnNewGameClicked);
 
 	btnContinueGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnContinueGame.size(200, 30);
+	btnContinueGame.size({200, 30});
 	btnContinueGame.click().connect(this, &MainMenuState::btnContinueGameClicked);
 
 	btnOptions.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnOptions.size(200, 30);
+	btnOptions.size({200, 30});
 	btnOptions.enabled(false);
 	btnOptions.click().connect(this, &MainMenuState::btnOptionsClicked);
 
 	btnHelp.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnHelp.size(200, 30);
+	btnHelp.size({200, 30});
 	btnHelp.click().connect(this, &MainMenuState::btnHelpClicked);
 
 	btnQuit.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnQuit.size(200, 30);
+	btnQuit.size({200, 30});
 	btnQuit.click().connect(this, &MainMenuState::btnQuitClicked);
 
 	mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
