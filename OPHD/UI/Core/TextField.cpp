@@ -325,5 +325,5 @@ void TextField::update()
 
 	drawCursor();
 
-	renderer.drawText(*TXT_FONT, text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, 255, 255, 255);
+	renderer.drawText(*TXT_FONT, text(), position() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING}, NAS2D::Color::White);
 }
