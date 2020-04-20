@@ -321,7 +321,7 @@ void TextField::update()
 	const auto showFocused = hasFocus() && editable();
 	renderer.drawImageRect(rect(), (showFocused ? mSkinFocus : mSkinNormal));
 
-	if (highlight()) { renderer.drawBox(rect(), 255, 255, 0); }
+	if (highlight()) { renderer.drawBox(rect(), NAS2D::Color::Yellow); }
 
 	drawCursor();
 
