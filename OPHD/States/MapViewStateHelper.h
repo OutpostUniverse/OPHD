@@ -50,4 +50,4 @@ void writeResources(NAS2D::Xml::XmlElement* element, ResourcePool& resourcePool,
 void readResources(NAS2D::Xml::XmlElement* element, ResourcePool& resourcePool);
 
 void updateRobotControl(RobotPool& robotPool);
-void deleteRobotsInRCC(Robot* robot, RobotCommand* rcc, RobotPool& rp, RobotTileTable& rtt, Tile* tile);
+void deleteRobotsInRCC(Robot* robot, RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt, Tile* tile);
