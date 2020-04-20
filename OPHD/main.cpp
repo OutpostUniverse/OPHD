@@ -112,7 +112,7 @@ int main(int /*argc*/, char *argv[])
 
 		WindowEventWrapper _wew;
 
-		Renderer& renderer = Utility<Renderer>::init<RendererOpenGL>("OutpostHD");
+		auto& renderer = Utility<Renderer>::init<RendererOpenGL>("OutpostHD");
 
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
