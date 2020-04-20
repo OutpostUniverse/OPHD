@@ -112,37 +112,37 @@ void WarehouseReport::init()
 	WAREHOUSE_IMG = new Image("ui/interface/warehouse.png");
 
 	add(&btnShowAll, 10, 10);
-	btnShowAll.size(75, 20);
+	btnShowAll.size({75, 20});
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
 	btnShowAll.click().connect(this, &WarehouseReport::btnShowAllClicked);
 
 	add(&btnSpaceAvailable, 90, 10);
-	btnSpaceAvailable.size(100, 20);
+	btnSpaceAvailable.size({100, 20});
 	btnSpaceAvailable.type(Button::Type::BUTTON_TOGGLE);
 	btnSpaceAvailable.toggle(false);
 	btnSpaceAvailable.click().connect(this, &WarehouseReport::btnSpaceAvailableClicked);
 
 	add(&btnFull, 195, 10);
-	btnFull.size(75, 20);
+	btnFull.size({75, 20});
 	btnFull.type(Button::Type::BUTTON_TOGGLE);
 	btnFull.toggle(false);
 	btnFull.click().connect(this, &WarehouseReport::btnFullClicked);
 
 	add(&btnEmpty, 275, 10);
-	btnEmpty.size(75, 20);
+	btnEmpty.size({75, 20});
 	btnEmpty.type(Button::Type::BUTTON_TOGGLE);
 	btnEmpty.toggle(false);
 	btnEmpty.click().connect(this, &WarehouseReport::btnEmptyClicked);
 
 	add(&btnDisabled, 355, 10);
-	btnDisabled.size(75, 20);
+	btnDisabled.size({75, 20});
 	btnDisabled.type(Button::Type::BUTTON_TOGGLE);
 	btnDisabled.toggle(false);
 	btnDisabled.click().connect(this, &WarehouseReport::btnDisabledClicked);
 
 	add(&btnTakeMeThere, 10, 10);
-	btnTakeMeThere.size(140, 30);
+	btnTakeMeThere.size({140, 30});
 	btnTakeMeThere.click().connect(this, &WarehouseReport::btnTakeMeThereClicked);
 
 
@@ -337,8 +337,8 @@ void WarehouseReport::selectStructure(Structure* structure)
  */
 void WarehouseReport::_resized(Control*)
 {
-	lstStructures.size((width() / 2) - 20, height() - 126);
-	lstProducts.size((width() / 2) - 20, height() - 184);
+	lstStructures.size({(width() / 2) - 20, height() - 126});
+	lstProducts.size({(width() / 2) - 20, height() - 184});
 	lstProducts.position(Utility<Renderer>::get().center_x() + 10, lstProducts.positionY());
 
 	btnTakeMeThere.position(Utility<Renderer>::get().width() - 150, positionY() + 35);
