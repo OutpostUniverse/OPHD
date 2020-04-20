@@ -102,21 +102,21 @@ static void addMineSet(Point<int> suggestedMineLocation, Point2dList& plist, Til
 /**
  * C'tor
  */
-TileMap::TileMap(const std::string& map_path, const std::string& tset_path, int _md, int _mc, constants::PlanetHostility hostility, bool _s) :
+TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, constants::PlanetHostility hostility, bool shouldSetupMines) :
 	mWidth(MAP_WIDTH),
 	mHeight(MAP_HEIGHT),
-	mMaxDepth(_md),
-	mMapPath(map_path),
-	mTsetPath(tset_path),
-	mTileset(tset_path),
+	mMaxDepth(maxDepth),
+	mMapPath(mapPath),
+	mTsetPath(tilesetPath),
+	mTileset(tilesetPath),
 	mMineBeacon("structures/mine_beacon.png")
 {
-	std::cout << "Loading '" << map_path << "'... ";
-	buildTerrainMap(map_path);
+	std::cout << "Loading '" << mapPath << "'... ";
+	buildTerrainMap(mapPath);
 	buildMouseMap();
 	initMapDrawParams(Utility<Renderer>::get().size());
 
-	if (_s) { setupMines(_mc, hostility); }
+	if (shouldSetupMines) { setupMines(mineCount, hostility); }
 	std::cout << "finished!" << std::endl;
 }
 
