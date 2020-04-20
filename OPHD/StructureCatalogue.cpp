@@ -9,9 +9,9 @@ std::array<ResourcePool, StructureID::SID_COUNT> StructureCatalogue::mStructureC
 std::array<ResourcePool, StructureID::SID_COUNT> StructureCatalogue::mStructureRecycleValueTable;
 std::array<PopulationRequirements, StructureID::SID_COUNT> StructureCatalogue::mPopulationRequirementsTable = {};
 
-
-const float DEFAULT_RECYCLE_VALUE = 0.9f; /**	Default recycle value. Currently set at 90% but this should probably be
-											 *	lowered for actual gameplay with modifiers to improve efficiency. */
+/**	Default recycle value. Currently set at 90% but this should probably be
+ *	lowered for actual gameplay with modifiers to improve efficiency. */
+const float DEFAULT_RECYCLE_VALUE = 0.9f;
 
 
 /**
