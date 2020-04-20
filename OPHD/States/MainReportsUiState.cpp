@@ -212,13 +212,13 @@ void MainReportsUiState::initialize()
 	ReportInterface* factory_report = new FactoryReport();
 	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel = factory_report;
 	factory_report->position(0, 48);
-	factory_report->size(r.width(), r.height() - 48);
+	factory_report->size({r.width(), r.height() - 48});
 	factory_report->hide();
 
 	ReportInterface* warehouse_report = new WarehouseReport();
 	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel = warehouse_report;
 	warehouse_report->position(0, 48);
-	warehouse_report->size(r.width(), r.height() - 48);
+	warehouse_report->size({r.width(), r.height() - 48});
 	warehouse_report->hide();
 }
 
@@ -311,7 +311,7 @@ void MainReportsUiState::onWindowResized(int w, int h)
 	setPanelRects(w);
 	for (Panel& panel : Panels)
 	{
-		if (panel.UiPanel) { panel.UiPanel->size(static_cast<float>(w), h - 48.0f); }
+		if (panel.UiPanel) { panel.UiPanel->size(NAS2D::Vector{w, h - 48}); }
 	}
 }
 
