@@ -44,13 +44,13 @@ void RobotPool::clear()
 }
 
 
-void RobotPool::erase(Robot* r)
+void RobotPool::erase(Robot* robot)
 {
-	mRobots.erase(find(mRobots.begin(), mRobots.end(), r));
+	mRobots.erase(find(mRobots.begin(), mRobots.end(), robot));
 
-	eraseRobot(mDiggers, r);
-	eraseRobot(mDozers, r);
-	eraseRobot(mMiners, r);
+	eraseRobot(mDiggers, robot);
+	eraseRobot(mDozers, robot);
+	eraseRobot(mMiners, robot);
 }
 
 

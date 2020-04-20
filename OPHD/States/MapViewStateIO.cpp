@@ -248,10 +248,10 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 	int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
 	XmlAttribute* attribute = nullptr;
-	for (XmlNode* robot = element->firstChild(); robot; robot = robot->nextSibling())
+	for (XmlNode* robotNode = element->firstChild(); robotNode; robotNode = robotNode->nextSibling())
 	{
 		id = type = age = production_time = x = y = depth = direction = 0;
-		attribute = robot->toElement()->firstAttribute();
+		attribute = robotNode->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "id") { attribute->queryIntValue(id); }
@@ -266,23 +266,23 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 			attribute = attribute->next();
 		}
 
-		Robot* r = nullptr;
+		Robot* robot = nullptr;
 		switch (static_cast<RobotType>(type))
 		{
 		case RobotType::ROBOT_DIGGER:
-			r = mRobotPool.addRobot(RobotType::ROBOT_DIGGER, id);
-			r->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
-			static_cast<Robodigger*>(r)->direction(static_cast<Direction>(direction));
+			robot = mRobotPool.addRobot(RobotType::ROBOT_DIGGER, id);
+			robot->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
 			break;
 
 		case RobotType::ROBOT_DOZER:
-			r = mRobotPool.addRobot(RobotType::ROBOT_DOZER, id);
-			r->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+			robot = mRobotPool.addRobot(RobotType::ROBOT_DOZER, id);
+			robot->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			break;
 
 		case RobotType::ROBOT_MINER:
-			r = mRobotPool.addRobot(RobotType::ROBOT_MINER, id);
-			r->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+			robot = mRobotPool.addRobot(RobotType::ROBOT_MINER, id);
+			robot->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			break;
 
 		default:
@@ -290,21 +290,21 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 			break;
 		}
 
-		if (!r) { continue; } // Could be done in the default handler in the above switch
+		if (!robot) { continue; } // Could be done in the default handler in the above switch
 								// but may be better here as an explicit statement.
 
-		r->fuelCellAge(age);
+		robot->fuelCellAge(age);
 
 		if (production_time > 0)
 		{
-			r->startTask(production_time);
-			mRobotPool.insertRobotIntoTable(mRobotList, r, mTileMap->getTile(x, y, depth));
-			mRobotList[r]->index(0);
+			robot->startTask(production_time);
+			mRobotPool.insertRobotIntoTable(mRobotList, robot, mTileMap->getTile(x, y, depth));
+			mRobotList[robot]->index(0);
 		}
 
 		if (depth > 0)
 		{
-			mRobotList[r]->excavated(true);
+			mRobotList[robot]->excavated(true);
 		}
 	}
 

@@ -20,27 +20,27 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 
 	if ((_rc != nullptr) || mRobotPool.commandCapacityAvailable())
 	{
-		Robot* r = nullptr;
+		Robot* robot = nullptr;
 		
 		switch (pt)
 		{
 		case ProductType::PRODUCT_DIGGER:
-			r = mRobotPool.addRobot(RobotType::ROBOT_DIGGER);
-			r->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+			robot = mRobotPool.addRobot(RobotType::ROBOT_DIGGER);
+			robot->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			factory.pullProduct();
 			checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
 			break;
 
 		case ProductType::PRODUCT_DOZER:
-			r = mRobotPool.addRobot(RobotType::ROBOT_DOZER);
-			r->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+			robot = mRobotPool.addRobot(RobotType::ROBOT_DOZER);
+			robot->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			factory.pullProduct();
 			checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER);
 			break;
 
 		case ProductType::PRODUCT_MINER:
-			r = mRobotPool.addRobot(RobotType::ROBOT_MINER);
-			r->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+			robot = mRobotPool.addRobot(RobotType::ROBOT_MINER);
+			robot->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			factory.pullProduct();
 			checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::ROBOT_MINER);
 			break;
@@ -49,7 +49,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 			throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
 		}
 
-		if (_rc != nullptr) { _rc->addRobot(r); }
+		if (_rc != nullptr) { _rc->addRobot(robot); }
 	}
 	else
 	{
@@ -180,7 +180,7 @@ void MapViewState::deploySeedLander(int x, int y)
 /**
  * Called whenever a RoboDozer completes its task.
  */
-void MapViewState::dozerTaskFinished(Robot* /*r*/)
+void MapViewState::dozerTaskFinished(Robot* /*robot*/)
 {
 	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER);
 }
@@ -189,18 +189,18 @@ void MapViewState::dozerTaskFinished(Robot* /*r*/)
 /**
  * Called whenever a RoboDigger completes its task.
  */
-void MapViewState::diggerTaskFinished(Robot* r)
+void MapViewState::diggerTaskFinished(Robot* robot)
 {
-	if (mRobotList.find(r) == mRobotList.end()) { throw std::runtime_error("MapViewState::diggerTaskFinished() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::diggerTaskFinished() called with a Robot not in the Robot List!"); }
 
-	Tile* t = mRobotList[r];
+	Tile* t = mRobotList[robot];
 
 	if (t->depth() > mTileMap->maxDepth())
 	{
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
-	Direction dir = static_cast<Robodigger*>(r)->direction(); // fugly
+	Direction dir = static_cast<Robodigger*>(robot)->direction(); // fugly
 
 	int originX = 0, originY = 0, depthAdjust = 0;
 
@@ -266,11 +266,11 @@ void MapViewState::diggerTaskFinished(Robot* r)
 /**
  * Called whenever a RoboMiner completes its task.
  */
-void MapViewState::minerTaskFinished(Robot* r)
+void MapViewState::minerTaskFinished(Robot* robot)
 {
-	if (mRobotList.find(r) == mRobotList.end()) { throw std::runtime_error("MapViewState::minerTaskFinished() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::minerTaskFinished() called with a Robot not in the Robot List!"); }
 
-	Tile* t = mRobotList[r];
+	Tile* t = mRobotList[robot];
 
 	// Surface structure
 	MineFacility* _mf = new MineFacility(t->mine());
@@ -286,7 +286,7 @@ void MapViewState::minerTaskFinished(Robot* r)
 	t2->index(0);
 	t2->excavated(true);
 
-	r->die();
+	robot->die();
 }
 
 

@@ -906,7 +906,7 @@ void MapViewState::placeRobot()
 	// Robodozer has been selected.
 	if(mCurrentRobot == RobotType::ROBOT_DOZER)
 	{
-		Robot* r = mRobotPool.getDozer();
+		Robot* robot = mRobotPool.getDozer();
 
 		if (!tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
 		{
@@ -955,7 +955,7 @@ void MapViewState::placeRobot()
 				return;
 			}
 
-			if (_s->isRobotCommand()) { deleteRobotsInRCC(r, static_cast<RobotCommand*>(_s), mRobotPool, mRobotList, tile); }
+			if (_s->isRobotCommand()) { deleteRobotsInRCC(robot, static_cast<RobotCommand*>(_s), mRobotPool, mRobotList, tile); }
 			if (_s->isFactory() && static_cast<Factory*>(_s) == mFactoryProduction.factory()) { mFactoryProduction.hide(); }
 			if (_s->isWarehouse())
 			{
@@ -975,7 +975,7 @@ void MapViewState::placeRobot()
 			Utility<StructureManager>::get().removeStructure(_s);
 			tile->deleteThing();
 			Utility<StructureManager>::get().disconnectAll();
-			static_cast<Robodozer*>(r)->tileIndex(static_cast<std::size_t>(TerrainType::TERRAIN_DOZED));
+			static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(TerrainType::TERRAIN_DOZED));
 			checkConnectedness();
 		}
 		else if (tile->index() == TerrainType::TERRAIN_DOZED)
@@ -984,9 +984,9 @@ void MapViewState::placeRobot()
 			return;
 		}
 
-		r->startTask(tile->index());
-		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
-		static_cast<Robodozer*>(r)->tileIndex(static_cast<std::size_t>(tile->index()));
+		robot->startTask(tile->index());
+		mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
+		static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile->index()));
 		tile->index(TerrainType::TERRAIN_DOZED);
 
 		if(!mRobotPool.robotAvailable(RobotType::ROBOT_DOZER))
@@ -1080,9 +1080,9 @@ void MapViewState::placeRobot()
 		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
 		if (!tile->mine()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_NOT_ON_MINE); return; }
 
-		Robot* r = mRobotPool.getMiner();
-		r->startTask(constants::MINER_TASK_TIME);
-		mRobotPool.insertRobotIntoTable(mRobotList, r, tile);
+		Robot* robot = mRobotPool.getMiner();
+		robot->startTask(constants::MINER_TASK_TIME);
+		mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 		tile->index(TerrainType::TERRAIN_DOZED);
 
 		if (!mRobotPool.robotAvailable(RobotType::ROBOT_MINER))

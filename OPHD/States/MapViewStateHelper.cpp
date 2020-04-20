@@ -248,9 +248,9 @@ bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 /**
  * Document me!
  */
-void deleteRobotsInRCC(Robot* r, RobotCommand* rcc, RobotPool& rp, RobotTileTable& rtt, Tile* /*tile*/)
+void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& rp, RobotTileTable& rtt, Tile* /*tile*/)
 {
-	if (rcc->commandedByThis(r))
+	if (rcc->commandedByThis(robotToDelete))
 	{
 		std::cout << "Cannot bulldoze Robot Command Center by a Robot under its command." << std::endl;
 		return;
