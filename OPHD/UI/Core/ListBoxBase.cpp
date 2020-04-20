@@ -48,6 +48,7 @@ void ListBoxBase::_init()
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBoxBase::onMouseMove);
 
+	mSlider.displayPosition(false);
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBoxBase::slideChanged);
@@ -100,7 +101,6 @@ void ListBoxBase::onSizeChanged()
 {
 	clear();
 	add(&mSlider, rect().width() - 14, 0);
-	mSlider.displayPosition(false);
 	mSlider.size({14, rect().height()});
 	_update_item_display();
 }

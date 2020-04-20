@@ -48,6 +48,7 @@ void ListBox::_init()
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
 	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
 
+	mSlider.displayPosition(false);
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBox::slideChanged);
@@ -63,7 +64,6 @@ void ListBox::onSizeChanged()
 {
 	clear();
 	add(&mSlider, rect().width() - 14, 0);
-	mSlider.displayPosition(false);
 	mSlider.size({14, rect().height()});
 	_updateItemDisplay();
 }
