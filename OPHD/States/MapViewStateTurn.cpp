@@ -284,9 +284,9 @@ std::vector<void*> path;
  */
 void MapViewState::nextTurn()
 {
-	NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
-	r.drawImage(*IMG_PROCESSING_TURN, r.center() - IMG_PROCESSING_TURN->size() / 2);
-	r.update();
+	NAS2D::Renderer& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	renderer.drawImage(*IMG_PROCESSING_TURN, renderer.center() - IMG_PROCESSING_TURN->size() / 2);
+	renderer.update();
 
 	clearMode();
 

@@ -204,20 +204,20 @@ void MainReportsUiState::initialize()
 	Panels[NavigationPanel::PANEL_SPACEPORT].Img = new Image("ui/icons/spaceport.png");
 	Panels[NavigationPanel::PANEL_SPACEPORT].Name = "Space Ports";
 
-	Renderer& r = Utility<Renderer>::get();
-	setPanelRects(static_cast<int>(r.width()));
+	Renderer& renderer = Utility<Renderer>::get();
+	setPanelRects(static_cast<int>(renderer.width()));
 
 	// INIT UI REPORT PANELS
 	ReportInterface* factory_report = new FactoryReport();
 	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel = factory_report;
 	factory_report->position(0, 48);
-	factory_report->size({r.width(), r.height() - 48});
+	factory_report->size({renderer.width(), renderer.height() - 48});
 	factory_report->hide();
 
 	ReportInterface* warehouse_report = new WarehouseReport();
 	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel = warehouse_report;
 	warehouse_report->position(0, 48);
-	warehouse_report->size({r.width(), r.height() - 48});
+	warehouse_report->size({renderer.width(), renderer.height() - 48});
 	warehouse_report->hide();
 }
 
@@ -396,12 +396,12 @@ MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
  */
 State* MainReportsUiState::update()
 {
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
-	r.clearScreen(35, 35, 35);
-	r.drawBoxFilled(0, 0, r.width(), 48, 0, 0, 0);
+	renderer.clearScreen(35, 35, 35);
+	renderer.drawBoxFilled(0, 0, renderer.width(), 48, 0, 0, 0);
 
-	for (Panel& panel : Panels) { drawPanel(r, panel); }
+	for (Panel& panel : Panels) { drawPanel(renderer, panel); }
 
 	return this;
 }

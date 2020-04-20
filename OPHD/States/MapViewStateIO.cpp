@@ -47,10 +47,10 @@ extern int ROBOT_ID_COUNTER; /// \fixme Kludge
  */
 void MapViewState::save(const std::string& filePath)
 {
-	Renderer& r = Utility<Renderer>::get();
-	r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 100);
-	r.drawImage(*IMG_SAVING, r.center() - IMG_SAVING->size() / 2);
-	r.update();
+	Renderer& renderer = Utility<Renderer>::get();
+	renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 100);
+	renderer.drawImage(*IMG_SAVING, renderer.center() - IMG_SAVING->size() / 2);
+	renderer.update();
 
 	XmlDocument doc;
 
@@ -99,10 +99,10 @@ void MapViewState::load(const std::string& filePath)
 {
 	resetUi();
 
-	Renderer& r = Utility<Renderer>::get();
-	r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 100);
-	r.drawImage(*IMG_LOADING, r.center() - IMG_LOADING->size() / 2);
-	r.update();
+	Renderer& renderer = Utility<Renderer>::get();
+	renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 100);
+	renderer.drawImage(*IMG_LOADING, renderer.center() - IMG_LOADING->size() / 2);
+	renderer.update();
 
 	mBtnToggleConnectedness.toggle(false);
 	mBtnToggleHeightmap.toggle(false);
