@@ -143,7 +143,7 @@ void TextField::onTextInput(const std::string& _s)
 
 	if (mNumbersOnly && !std::isdigit(_s[0], LOC)) { return; }
 
-	_text() = _text().insert(mCursorPosition, _s);
+	mText = mText.insert(mCursorPosition, _s);
 
 	if (text().length() - prvLen != 0u)
 	{
@@ -164,7 +164,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			if(!text().empty() && mCursorPosition > 0)
 			{
 				mCursorPosition--;
-				_text().erase(mCursorPosition, 1);
+				mText.erase(mCursorPosition, 1);
 				onTextChanged();
 			}
 			break;
@@ -180,7 +180,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 		case EventHandler::KeyCode::KEY_DELETE:
 			if (text().length() > 0)
 			{
-				_text() = _text().erase(mCursorPosition, 1);
+				mText = mText.erase(mCursorPosition, 1);
 				onTextChanged();
 			}
 			break;

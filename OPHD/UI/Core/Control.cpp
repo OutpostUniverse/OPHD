@@ -247,34 +247,3 @@ void Control::text(const std::string& text)
 	mText = text;
 	onTextChanged();
 }
-
-
-/**
- * Gets the text of the Control.
- */
-const std::string& Control::text() const
-{
-	return mText;
-}
-
-
-/**
- * Gets callback for text changed events.
- */
-Control::TextChangedCallback& Control::textChanged()
-{
-	return mTextChanged;
-}
-
-
-/**
- * Internal version of the text() function which allows
- * non-const access to the text contained in the Control.
- * 
- * \note	This is an internal function and may not be
- *			called outside of the Control class.
- */
-std::string& Control::_text()
-{
-	return mText;
-}

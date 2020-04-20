@@ -51,8 +51,8 @@ public:
 	bool hasFocus() const;
 
 	void text(const std::string& text);
-	const std::string& text() const;
-	TextChangedCallback& textChanged();
+	const std::string& text() const { return mText; }
+	TextChangedCallback& textChanged() { return mTextChanged; }
 
 	NAS2D::Vector<float> size() const { return mRect.size(); }
 	void size(NAS2D::Vector<float> newSize);
@@ -88,8 +88,6 @@ protected:
 	virtual void onSizeChanged() { mResized(this); }
 	virtual void onTextChanged() { mTextChanged(this); }
 
-	std::string& _text();
-
 protected:
 	PositionChangedCallback		mPositionChanged;	/**< Callback fired whenever the position of the Control changes. */
 	ResizeCallback				mResized;
@@ -100,7 +98,7 @@ protected:
 private:
 	virtual void draw() {}
 
-private:
+protected:
 	std::string				mText;				/**< Internal text string. */
 
 	bool					mEnabled = true;	/**< Flag indicating whether or not the Control is enabled. */
