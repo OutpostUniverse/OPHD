@@ -364,7 +364,7 @@ void Slider::update()
  */
 void Slider::draw()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	float _thumbPosition = 0.0f;
 
 	if (mSliderType == SliderType::SLIDER_VERTICAL)

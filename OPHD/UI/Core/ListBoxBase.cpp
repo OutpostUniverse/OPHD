@@ -316,7 +316,7 @@ void ListBoxBase::update()
 {
 	if (!visible()) { return; }
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	// CONTROL EXTENTS
 	renderer.drawBoxFilled(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 0, 0, 255);

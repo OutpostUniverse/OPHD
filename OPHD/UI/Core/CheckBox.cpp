@@ -120,7 +120,7 @@ void CheckBox::onSizeChanged()
  */
 void CheckBox::update()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	const auto uncheckedIconRect = NAS2D::Rectangle{0, 0, 13, 13};
 	const auto checkedIconRect = NAS2D::Rectangle{13, 0, 13, 13};

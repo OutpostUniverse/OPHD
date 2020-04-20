@@ -128,7 +128,7 @@ void RadioButton::onSizeChanged()
  */
 void RadioButton::update()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	const auto unselectedIconRect = NAS2D::Rectangle{0, 0, 13, 13};
 	const auto selectedIconRect = NAS2D::Rectangle{13, 0, 13, 13};

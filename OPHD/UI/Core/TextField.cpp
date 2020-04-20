@@ -316,7 +316,7 @@ void TextField::update()
 {
 	if (!visible()) { return; }
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	if (hasFocus() && editable()) { renderer.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus); }
 	else { renderer.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal); }

@@ -167,7 +167,7 @@ void Button::draw()
 {
 	if (!visible()) { return; }
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	if (enabled() && mMouseHover && mState != State::STATE_PRESSED)
 	{

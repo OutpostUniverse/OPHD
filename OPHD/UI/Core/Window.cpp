@@ -96,7 +96,7 @@ void Window::update()
 {
 	if (!visible()) { return; }
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawImage(mTitle[0], rect().x(), rect().y());
 	renderer.drawImageRepeated(mTitle[1], rect().x() + 4, rect().y(), rect().width() - 8, sWindowTitleBarHeight);
