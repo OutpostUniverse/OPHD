@@ -88,8 +88,6 @@ protected:
 	virtual void onSizeChanged() { mResized(this); }
 	virtual void onTextChanged() { mTextChanged(this); }
 
-	std::string& _text();
-
 protected:
 	PositionChangedCallback		mPositionChanged;	/**< Callback fired whenever the position of the Control changes. */
 	ResizeCallback				mResized;
