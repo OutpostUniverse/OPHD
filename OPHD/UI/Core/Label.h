@@ -29,7 +29,7 @@ public:
 	void autoSize();
 	void font(NAS2D::Font* font);
 	bool empty() const { return text().empty(); }
-	void clear() { _text().clear(); }
+	void clear() { mText.clear(); }
 	void update() override;
 
 	int textWidth() const;
