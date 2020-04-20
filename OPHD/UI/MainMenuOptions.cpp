@@ -55,7 +55,7 @@ void MainMenuOptions::init()
 	auto& e = NAS2D::Utility<NAS2D::EventHandler>::get();
 	e.keyDown().connect(this, &MainMenuOptions::onKeyDown);
 
-	size(500, 350);
+	size({500, 350});
 
 	const auto border_left_width = 5;
 	const auto border_right_width = 5;
@@ -70,16 +70,16 @@ void MainMenuOptions::init()
 	const auto height = bottom_edge - top_edge;
 
 	pnlControls.position(left_edge, top_edge);
-	pnlControls.size(width, height);
+	pnlControls.size({width, height});
 
 	pnlButtons.position(pnlControls.positionX(), bottom_edge - element_spacing);
-	pnlButtons.size(pnlControls.width(), 120);
+	pnlButtons.size({pnlControls.width(), 120});
 
-	lblResolution.size(0, 0);
+	lblResolution.size({0, 0});
 
 	cmbResolution.visible(true);
 	cmbResolution.enabled(true);
-	cmbResolution.size(200, 0);
+	cmbResolution.size({200, 0});
 	cmbResolution.maxDisplayItems(1);
 
 	cmbResolution.clearSelection();
@@ -104,27 +104,27 @@ void MainMenuOptions::init()
 	cmbResolution.currentSelection(currentResolutionSelection);
 	cmbResolution.selectionChanged().connect(this, &MainMenuOptions::onVideoOptionsChanged);
 
-	lblFullscreen.size(0, 0);
+	lblFullscreen.size({0, 0});
 
-	cbxFullscreen.size(200, 0);
+	cbxFullscreen.size({200, 0});
 	cbxFullscreen.click().connect(this, &MainMenuOptions::onVideoOptionsChanged);
 
-	lblSkipSplash.size(0, 0);
+	lblSkipSplash.size({0, 0});
 
-	cbxSkipSplash.size(200, 0);
+	cbxSkipSplash.size({200, 0});
 	cbxSkipSplash.click().connect(this, &MainMenuOptions::onOptionsChanged);
 
-	lblStartMaximized.size(0, 0);
+	lblStartMaximized.size({0, 0});
 
-	cbxStartMaximized.size(200, 0);
+	cbxStartMaximized.size({200, 0});
 	cbxStartMaximized.click().connect(this, &MainMenuOptions::onOptionsChanged);
 
-	lblVSync.size(0, 0);
+	lblVSync.size({0, 0});
 
-	cbxVSync.size(200,0);
+	cbxVSync.size({200, 0});
 	cbxVSync.click().connect(this, &MainMenuOptions::onVideoOptionsChanged);
 
-	lblSoundVolume.size(0, 0);
+	lblSoundVolume.size({0, 0});
 
 	sldrSoundVolume.size(250, 10);
 	sldrSoundVolume.displayPosition(true);
@@ -134,7 +134,7 @@ void MainMenuOptions::init()
 	sldrSoundVolume.visible(true);
 	sldrSoundVolume.change().connect(this, &MainMenuOptions::onSoundVolumeChanged);
 
-	lblMusicVolume.size(0, 0);
+	lblMusicVolume.size({0, 0});
 
 	sldrMusicVolume.size(250, 10);
 	sldrMusicVolume.displayPosition(true);
@@ -144,14 +144,14 @@ void MainMenuOptions::init()
 	sldrMusicVolume.visible(true);
 	sldrMusicVolume.change().connect(this, &MainMenuOptions::onMusicVolumeChanged);
 
-	btnApply.size(100, 25);
+	btnApply.size({100, 25});
 	btnApply.click().connect(this, &MainMenuOptions::btnApplyClicked);
 	btnApply.enabled(false);
 
-	btnCancel.size(100, 25);
+	btnCancel.size({100, 25});
 	btnCancel.click().connect(this, &MainMenuOptions::btnCancelClicked);
 
-	btnOk.size(100, 25);
+	btnOk.size({100, 25});
 	btnOk.click().connect(this, &MainMenuOptions::btnOkClicked);
 
 	pnlControls.add(&lblResolution, left_edge, top_edge);
@@ -177,12 +177,12 @@ void MainMenuOptions::init()
 
 	anchored(true);
 
-	lblResolutionChanged.size(250, 15);
-	btnResolutionChangedOk.size(100, 25);
+	lblResolutionChanged.size({250, 15});
+	btnResolutionChangedOk.size({100, 25});
 	btnResolutionChangedOk.click().connect(this, &MainMenuOptions::btnResolutionOkClicked);
 
 	dlgResolutionChanged.anchored(true);
-	dlgResolutionChanged.size(500, 85);
+	dlgResolutionChanged.size({500, 85});
 	dlgResolutionChanged.add(&lblResolutionChanged, dlgResolutionChanged.width() * 0.5f - lblResolutionChanged.width() * 0.5f, 10 + dlgResolutionChanged.height() * 0.25f - lblResolutionChanged.height() * 0.5f);
 	dlgResolutionChanged.add(&btnResolutionChangedOk, dlgResolutionChanged.width() * 0.5f - btnResolutionChangedOk.width() * 0.5f, dlgResolutionChanged.height() - 5 - btnResolutionChangedOk.height());
 	add(&dlgResolutionChanged, positionX() + (width * 0.5f) - (dlgResolutionChanged.width() * 0.5f), positionY() + (height * 0.5f) - (dlgResolutionChanged.height() * 0.5f));

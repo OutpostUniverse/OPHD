@@ -37,15 +37,15 @@ StructureInspector::~StructureInspector()
  */
 void StructureInspector::init()
 {
-	size(350, 200);
+	size({350, 200});
 
 	add(&btnClose, 295, 175);
-	btnClose.size(50, 20);
+	btnClose.size({50, 20});
 	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
 
 
 	add(&txtStateDescription, 190, 75);
-	txtStateDescription.size(155, 80);
+	txtStateDescription.size({155, 80});
 	txtStateDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
 	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);

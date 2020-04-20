@@ -15,7 +15,7 @@ static Font* FONT = nullptr;
 
 PopulationPanel::PopulationPanel() : mIcons("ui/icons.png")
 {
-	size(160, 220);
+	size({160, 220});
 
 	mSkin.push_back(Image("ui/skin/window_top_left.png"));
 	mSkin.push_back(Image("ui/skin/window_top_middle.png"));
