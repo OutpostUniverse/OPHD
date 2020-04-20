@@ -392,10 +392,10 @@ Tile* StructureManager::tileFromStructure(Structure* st)
 /**
  * 
  */
-void serializeResourcePool(XmlElement* _ti, ResourcePool& _rp, const std::string& name)
+void serializeResourcePool(XmlElement* _ti, ResourcePool& resourcePool, const std::string& name)
 {
 	XmlElement* pool = new XmlElement(name);
-	_rp.serialize(pool);
+	resourcePool.serialize(pool);
 	_ti->linkEndChild(pool);
 }
 

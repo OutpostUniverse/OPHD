@@ -20,17 +20,17 @@ extern NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
 /**
  * 
  */
-static int pullFood(ResourcePool& _rp, int amount)
+static int pullFood(ResourcePool& resourcePool, int amount)
 {
-	if (amount <= _rp.food())
+	if (amount <= resourcePool.food())
 	{
-		_rp.food(_rp.food() - amount);
+		resourcePool.food(resourcePool.food() - amount);
 		return amount;
 	}
 	else
 	{
-		int ret = _rp.food();
-		_rp.food(0);
+		int ret = resourcePool.food();
+		resourcePool.food(0);
 		return ret;
 	}
 }
@@ -180,12 +180,12 @@ void MapViewState::updateResources()
 
 		if (!mine->operational()) { continue; } // consider a different control path.
 
-		ResourcePool& _rp = mine->storage();
+		ResourcePool& resourcePool = mine->storage();
 
-		truck.commonMetalsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, 25));
-		truck.commonMineralsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, 25));
-		truck.rareMetalsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, 25));
-		truck.rareMineralsOre(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, 25));
+		truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, 25));
+		truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, 25));
+		truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, 25));
+		truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, 25));
 
 		for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_SMELTER))
 		{
@@ -206,11 +206,11 @@ void MapViewState::updateResources()
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
-		ResourcePool& _rp = smelter->storage();
-		truck.commonMetals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS, 25));
-		truck.commonMinerals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, 25));
-		truck.rareMetals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS, 25));
-		truck.rareMinerals(_rp.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, 25));
+		ResourcePool& resourcePool = smelter->storage();
+		truck.commonMetals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS, 25));
+		truck.commonMinerals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, 25));
+		truck.rareMetals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS, 25));
+		truck.rareMinerals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, 25));
 
 		mPlayerResources.pushResources(truck);
 

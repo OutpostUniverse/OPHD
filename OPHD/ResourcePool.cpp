@@ -260,12 +260,12 @@ int ResourcePool::pullResource(ResourceType type, int amount)
 /**
  * Attempts to push all available resources into a ResourcePool.
  *
- * \param rp The ResourcePool to push resources from.
+ * \param resourcePool The ResourcePool to push resources from.
  *
  * \note	Any resources that can't be fit in ResourcePool are left in
  *			the source ResourcePool.
  */
-void ResourcePool::pushResources(ResourcePool& rp)
+void ResourcePool::pushResources(ResourcePool& resourcePool)
 {
 	if (_capacity == 0)
 	{
@@ -273,26 +273,26 @@ void ResourcePool::pushResources(ResourcePool& rp)
 		return;
 	}
 
-	rp.commonMetalsOre(pushResource(ResourceType::RESOURCE_COMMON_METALS_ORE, rp.commonMetalsOre(), false));
-	rp.commonMineralsOre(pushResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, rp.commonMineralsOre(), false));
-	rp.rareMetalsOre(pushResource(ResourceType::RESOURCE_RARE_METALS_ORE, rp.rareMetalsOre(), false));
-	rp.rareMineralsOre(pushResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, rp.rareMineralsOre(), false));
+	resourcePool.commonMetalsOre(pushResource(ResourceType::RESOURCE_COMMON_METALS_ORE, resourcePool.commonMetalsOre(), false));
+	resourcePool.commonMineralsOre(pushResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, resourcePool.commonMineralsOre(), false));
+	resourcePool.rareMetalsOre(pushResource(ResourceType::RESOURCE_RARE_METALS_ORE, resourcePool.rareMetalsOre(), false));
+	resourcePool.rareMineralsOre(pushResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, resourcePool.rareMineralsOre(), false));
 
-	rp.commonMetals(pushResource(ResourceType::RESOURCE_COMMON_METALS, rp.commonMetals(), false));
-	rp.commonMinerals(pushResource(ResourceType::RESOURCE_COMMON_MINERALS, rp.commonMinerals(), false));
-	rp.rareMetals(pushResource(ResourceType::RESOURCE_RARE_METALS, rp.rareMetals(), false));
-	rp.rareMinerals(pushResource(ResourceType::RESOURCE_RARE_MINERALS, rp.rareMinerals(), false));
+	resourcePool.commonMetals(pushResource(ResourceType::RESOURCE_COMMON_METALS, resourcePool.commonMetals(), false));
+	resourcePool.commonMinerals(pushResource(ResourceType::RESOURCE_COMMON_MINERALS, resourcePool.commonMinerals(), false));
+	resourcePool.rareMetals(pushResource(ResourceType::RESOURCE_RARE_METALS, resourcePool.rareMetals(), false));
+	resourcePool.rareMinerals(pushResource(ResourceType::RESOURCE_RARE_MINERALS, resourcePool.rareMinerals(), false));
 
-	rp.food(pushResource(ResourceType::RESOURCE_FOOD, rp.food(), false));
-	rp.energy(pushResource(ResourceType::RESOURCE_ENERGY, rp.energy(), false));
+	resourcePool.food(pushResource(ResourceType::RESOURCE_FOOD, resourcePool.food(), false));
+	resourcePool.energy(pushResource(ResourceType::RESOURCE_ENERGY, resourcePool.energy(), false));
 }
 
 /**
  * Attempts to pull all available resources from a ResourcePool.
  *
- * \param rp The ResourcePool to pull resources to.
+ * \param resourcePool The ResourcePool to pull resources to.
  */
-void ResourcePool::pullResources(ResourcePool& _rp)
+void ResourcePool::pullResources(ResourcePool& resourcePool)
 {
 	if (_capacity == 0)
 	{
@@ -301,23 +301,23 @@ void ResourcePool::pullResources(ResourcePool& _rp)
 	}
 
 	// Energy is not part of the capacity check and needs to be transfered first.
-	_rp.energy(_rp.energy() + pullResource(ResourceType::RESOURCE_ENERGY, energy()));
+	resourcePool.energy(resourcePool.energy() + pullResource(ResourceType::RESOURCE_ENERGY, energy()));
 
 	// sanity checks
-	if (_rp.atCapacity() || empty())
+	if (resourcePool.atCapacity() || empty())
 		return;
 
-	_rp.pushResource(ResourceType::RESOURCE_COMMON_METALS_ORE, pullResource(ResourceType::RESOURCE_COMMON_METALS_ORE, commonMetalsOre()), false);
-	_rp.pushResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, pullResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, commonMineralsOre()), false);
-	_rp.pushResource(ResourceType::RESOURCE_RARE_METALS_ORE, pullResource(ResourceType::RESOURCE_RARE_METALS_ORE, rareMetalsOre()), false);
-	_rp.pushResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, pullResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, rareMineralsOre()), false);
+	resourcePool.pushResource(ResourceType::RESOURCE_COMMON_METALS_ORE, pullResource(ResourceType::RESOURCE_COMMON_METALS_ORE, commonMetalsOre()), false);
+	resourcePool.pushResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, pullResource(ResourceType::RESOURCE_COMMON_MINERALS_ORE, commonMineralsOre()), false);
+	resourcePool.pushResource(ResourceType::RESOURCE_RARE_METALS_ORE, pullResource(ResourceType::RESOURCE_RARE_METALS_ORE, rareMetalsOre()), false);
+	resourcePool.pushResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, pullResource(ResourceType::RESOURCE_RARE_MINERALS_ORE, rareMineralsOre()), false);
 
-	_rp.pushResource(ResourceType::RESOURCE_COMMON_METALS, pullResource(ResourceType::RESOURCE_COMMON_METALS, commonMetals()), false);
-	_rp.pushResource(ResourceType::RESOURCE_COMMON_MINERALS, pullResource(ResourceType::RESOURCE_COMMON_MINERALS, commonMinerals()), false);
-	_rp.pushResource(ResourceType::RESOURCE_RARE_METALS, pullResource(ResourceType::RESOURCE_RARE_METALS, rareMetals()), false);
-	_rp.pushResource(ResourceType::RESOURCE_RARE_MINERALS, pullResource(ResourceType::RESOURCE_RARE_MINERALS, rareMinerals()), false);
+	resourcePool.pushResource(ResourceType::RESOURCE_COMMON_METALS, pullResource(ResourceType::RESOURCE_COMMON_METALS, commonMetals()), false);
+	resourcePool.pushResource(ResourceType::RESOURCE_COMMON_MINERALS, pullResource(ResourceType::RESOURCE_COMMON_MINERALS, commonMinerals()), false);
+	resourcePool.pushResource(ResourceType::RESOURCE_RARE_METALS, pullResource(ResourceType::RESOURCE_RARE_METALS, rareMetals()), false);
+	resourcePool.pushResource(ResourceType::RESOURCE_RARE_MINERALS, pullResource(ResourceType::RESOURCE_RARE_MINERALS, rareMinerals()), false);
 
-	_rp.pushResource(ResourceType::RESOURCE_FOOD, pullResource(ResourceType::RESOURCE_FOOD, food()), false);
+	resourcePool.pushResource(ResourceType::RESOURCE_FOOD, pullResource(ResourceType::RESOURCE_FOOD, food()), false);
 }
 
 /**

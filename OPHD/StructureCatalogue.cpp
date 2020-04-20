@@ -234,10 +234,10 @@ void StructureCatalogue::init()
  */
 bool StructureCatalogue::canBuild(const ResourcePool& source, StructureID type)
 {
-	ResourcePool _rp = StructureCatalogue::costToBuild(type);
+	ResourcePool resourcePool = StructureCatalogue::costToBuild(type);
 
-	if (source.commonMetals() < _rp.commonMetals() || source.commonMinerals() < _rp.commonMinerals() ||
-		source.rareMetals() < _rp.rareMetals() || source.rareMinerals() < _rp.rareMinerals())
+	if (source.commonMetals() < resourcePool.commonMetals() || source.commonMinerals() < resourcePool.commonMinerals() ||
+		source.rareMetals() < resourcePool.rareMetals() || source.rareMinerals() < resourcePool.rareMinerals())
 	{
 		return false;
 	}
@@ -347,17 +347,17 @@ ResourcePool StructureCatalogue::recycleValue(StructureID type, float percent)
 		throw std::runtime_error("StructureCatalogue::recycleValue() called before StructureCatalogue::buildCostTable().");
 	}
 
-	ResourcePool _rp = mStructureCostTable[type];
+	ResourcePool resourcePool = mStructureCostTable[type];
 
 	/** Truncation of value from float to int cast is intended and desired behavior. */
-	return ResourcePool(static_cast<int>(_rp.commonMetalsOre() * percent),
-						static_cast<int>(_rp.commonMineralsOre() * percent),
-						static_cast<int>(_rp.rareMetalsOre() * percent),
-						static_cast<int>(_rp.rareMineralsOre() * percent),
-						static_cast<int>(_rp.commonMetals() * percent),
-						static_cast<int>(_rp.commonMinerals() * percent),
-						static_cast<int>(_rp.rareMetals() * percent),
-						static_cast<int>(_rp.rareMinerals() * percent),
-						static_cast<int>(_rp.food() * percent),
-						static_cast<int>(_rp.energy() * percent));
+	return ResourcePool(static_cast<int>(resourcePool.commonMetalsOre() * percent),
+						static_cast<int>(resourcePool.commonMineralsOre() * percent),
+						static_cast<int>(resourcePool.rareMetalsOre() * percent),
+						static_cast<int>(resourcePool.rareMineralsOre() * percent),
+						static_cast<int>(resourcePool.commonMetals() * percent),
+						static_cast<int>(resourcePool.commonMinerals() * percent),
+						static_cast<int>(resourcePool.rareMetals() * percent),
+						static_cast<int>(resourcePool.rareMinerals() * percent),
+						static_cast<int>(resourcePool.food() * percent),
+						static_cast<int>(resourcePool.energy() * percent));
 }
