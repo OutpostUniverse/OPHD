@@ -126,7 +126,7 @@ void MainMenuOptions::init()
 
 	lblSoundVolume.size({0, 0});
 
-	sldrSoundVolume.size(250, 10);
+	sldrSoundVolume.size({250, 10});
 	sldrSoundVolume.displayPosition(true);
 	sldrSoundVolume.length(100.0f);
 	sldrSoundVolume.changeThumbPosition(sldrSoundVolume.length());
@@ -136,7 +136,7 @@ void MainMenuOptions::init()
 
 	lblMusicVolume.size({0, 0});
 
-	sldrMusicVolume.size(250, 10);
+	sldrMusicVolume.size({250, 10});
 	sldrMusicVolume.displayPosition(true);
 	sldrMusicVolume.length(100.0f);
 	sldrMusicVolume.changeThumbPosition(sldrMusicVolume.length());
