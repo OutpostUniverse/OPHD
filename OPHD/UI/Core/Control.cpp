@@ -87,20 +87,6 @@ void Control::size(NAS2D::Vector<float> newSize)
 }
 
 
-/**
- * Sets the Width and Height of the Control.
- * 
- * \note	This is an internal function and may not be
- *			called outside of the Control class.
- */
-void Control::size(float w, float h)
-{
-	width(w);
-	height(h);
-	onSizeChanged();
-}
-
-
 void Control::size(float _s)
 {
 	width(_s);
