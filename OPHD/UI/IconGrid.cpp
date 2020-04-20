@@ -459,16 +459,9 @@ void IconGrid::update()
 		// Name Tooltip
 		if (mShowTooltip)
 		{
-			renderer.drawBoxFilled(static_cast<float>(x),
-							static_cast<float>(y - 15),
-							static_cast<float>(FONT->width(mIconItemList[mHighlightIndex].name) + 4),
-							static_cast<float>(FONT->height()), 245, 245, 245);
-			
-			renderer.drawBox(	static_cast<float>(x),
-						static_cast<float>(y - 15),
-						static_cast<float>(FONT->width(mIconItemList[mHighlightIndex].name) + 4),
-						static_cast<float>(FONT->height()), 175, 175, 175);
-			
+			const auto tooltipRect = NAS2D::Rectangle{x, y - 15, FONT->width(mIconItemList[mHighlightIndex].name) + 4, FONT->height()};
+			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
+			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
 			renderer.drawText(*FONT, mIconItemList[mHighlightIndex].name, static_cast<float>(x + 2), static_cast<float>(y - 15), 0, 0, 0);
 		}
 	}
