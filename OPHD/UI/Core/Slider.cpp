@@ -45,12 +45,18 @@ Slider::~Slider()
 }
 
 
+void Slider::size(float width, float height)
+{
+	size({width, height});
+}
+
+
 /**
  *
  */
-void Slider::size(float width, float height)
+void Slider::size(NAS2D::Vector<float> size)
 {
-	Control::size({width, height});
+	Control::size(size);
 
 	// deduce the type of slider from the ratio.
 	if (rect().height() > rect().width())

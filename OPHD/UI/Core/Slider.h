@@ -56,6 +56,7 @@ public:
 
 	void update() override; 							/*!< Called to display the slider. */
 	void size(float width, float height); 	/*!< Set the slider size. */
+	void size(NAS2D::Vector<float> size); 	/*!< Set the slider size. */
 
 	ValueChangedCallback& change() { return mCallback; } 	/*!< Give the callback to enable another control or a window to dis/connect to this event call. */
 
