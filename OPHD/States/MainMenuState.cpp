@@ -114,8 +114,8 @@ void MainMenuState::initialize()
  */
 void MainMenuState::positionButtons()
 {
-	Renderer& r = Utility<Renderer>::get();
-	const auto center = r.center().to<int>();
+	auto& renderer = Utility<Renderer>::get();
+	const auto center = renderer.center().to<int>();
 
 	auto buttonPosition = center - NAS2D::Vector{100, (35 * 4) / 2};
 
@@ -133,7 +133,7 @@ void MainMenuState::positionButtons()
 	dlgOptions.position(center - dlgOptions.size() / 2);
 	dlgNewGame.position(center - dlgNewGame.size() / 2);
 
-	lblVersion.position(NAS2D::Point{0, 0} + r.size() - lblVersion.size());
+	lblVersion.position(NAS2D::Point{0, 0} + renderer.size() - lblVersion.size());
 }
 
 
@@ -323,18 +323,18 @@ void MainMenuState::btnQuitClicked()
  */
 NAS2D::State* MainMenuState::update()
 {
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
-	r.clearScreen(0, 0, 0);
-	r.drawImage(mBgImage, r.center() - mBgImage.size() / 2);
+	renderer.clearScreen(0, 0, 0);
+	renderer.drawImage(mBgImage, renderer.center() - mBgImage.size() / 2);
 
 
 	if (!mFileIoDialog.visible() && !dlgOptions.visible())
 	{
 		const auto padding = NAS2D::Vector{5, 5};
 		const auto menuRect = NAS2D::Rectangle<int>::Create(btnNewGame.rect().startPoint() - padding, btnQuit.rect().endPoint() + padding);
-		r.drawBoxFilled(menuRect, NAS2D::Color{0, 0, 0, 150});
-		r.drawBox(menuRect, NAS2D::Color{0, 185, 0, 255});
+		renderer.drawBoxFilled(menuRect, NAS2D::Color{0, 0, 0, 150});
+		renderer.drawBox(menuRect, NAS2D::Color{0, 185, 0, 255});
 
 		btnNewGame.update();
 		btnContinueGame.update();
@@ -358,7 +358,7 @@ NAS2D::State* MainMenuState::update()
 
 	lblVersion.update();
 
-	if (r.isFading())
+	if (renderer.isFading())
 	{
 		return this;
 	}

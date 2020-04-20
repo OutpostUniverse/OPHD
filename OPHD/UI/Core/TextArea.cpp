@@ -90,7 +90,7 @@ void TextArea::update()
 
 void TextArea::draw()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	if (highlight()) { renderer.drawBox(rect(), NAS2D::Color::White); }
 

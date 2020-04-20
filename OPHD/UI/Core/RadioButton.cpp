@@ -128,11 +128,11 @@ void RadioButton::onSizeChanged()
  */
 void RadioButton::update()
 {
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	const auto unselectedIconRect = NAS2D::Rectangle{0, 0, 13, 13};
 	const auto selectedIconRect = NAS2D::Rectangle{13, 0, 13, 13};
 
-	r.drawSubImage(mSkin, position(), (mChecked ? selectedIconRect : unselectedIconRect));
-	r.drawText(*CBOX_FONT, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
+	renderer.drawSubImage(mSkin, position(), (mChecked ? selectedIconRect : unselectedIconRect));
+	renderer.drawText(*CBOX_FONT, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
 }

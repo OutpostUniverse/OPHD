@@ -316,14 +316,14 @@ void TextField::update()
 {
 	if (!visible()) { return; }
 
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
-	if (hasFocus() && editable()) { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus); }
-	else { r.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal); }
+	if (hasFocus() && editable()) { renderer.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus); }
+	else { renderer.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal); }
 
-	if (highlight()) { r.drawBox(rect(), 255, 255, 0); }
+	if (highlight()) { renderer.drawBox(rect(), 255, 255, 0); }
 
 	drawCursor();
 
-	r.drawText(*TXT_FONT, text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, 255, 255, 255);
+	renderer.drawText(*TXT_FONT, text(), positionX() + FIELD_PADDING, positionY() + FIELD_PADDING, 255, 255, 255);
 }

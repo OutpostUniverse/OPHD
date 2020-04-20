@@ -167,36 +167,36 @@ void Button::draw()
 {
 	if (!visible()) { return; }
 
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	if (enabled() && mMouseHover && mState != State::STATE_PRESSED)
 	{
-		r.drawImageRect(rect(), mSkinHover);
+		renderer.drawImageRect(rect(), mSkinHover);
 	}
 	else if (mState == State::STATE_NORMAL)
 	{
-		r.drawImageRect(rect(), mSkinNormal);
+		renderer.drawImageRect(rect(), mSkinNormal);
 	}
 	else
 	{
-		r.drawImageRect(rect(), mSkinPressed);
+		renderer.drawImageRect(rect(), mSkinPressed);
 	}
 
 	if (mImage)
 	{
-		r.drawImage(*mImage, rect().center() - mImage->size() / 2);
+		renderer.drawImage(*mImage, rect().center() - mImage->size() / 2);
 	}
 	else
 	{
 		// force text to be drawn on integer bounds, otherwise it can look 'fuzzy' due to texture blending
 		const auto textPosition = rect().center().to<int>() - NAS2D::Vector{mFont->width(text()), mFont->height()} / 2;
-		r.drawText(*mFont, text(), textPosition, NAS2D::Color::White);
+		renderer.drawText(*mFont, text(), textPosition, NAS2D::Color::White);
 	}
 
 	/// \fixme	Naive... would rather set a b&w shader instead.
 	if (!enabled())
 	{
-		r.drawBoxFilled(rect(), NAS2D::Color{125, 125, 125, 100});
+		renderer.drawBoxFilled(rect(), NAS2D::Color{125, 125, 125, 100});
 	}
 }
 

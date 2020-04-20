@@ -66,11 +66,11 @@ void MajorEventAnnouncement::update()
 
 	Window::update();
 
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
-	r.drawImage(mHeader, position() + NAS2D::Vector{5, 25});
+	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});
 
 	// Yeah, I know. I hate it too but it made more sense than holding onto a static pointer.
 	const auto& font = *Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	r.drawText(font, mMessage, position() + NAS2D::Vector{5, 290}, NAS2D::Color::White);
+	renderer.drawText(font, mMessage, position() + NAS2D::Vector{5, 290}, NAS2D::Color::White);
 }

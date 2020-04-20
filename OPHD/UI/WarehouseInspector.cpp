@@ -82,7 +82,7 @@ void WarehouseInspector::update()
 
 	Window::update();
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	ProductPool& pool = mWarehouse->products();
 

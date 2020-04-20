@@ -31,7 +31,7 @@ public:
 
 	void update(int x, int y)
 	{
-		Renderer& renderer = Utility<Renderer>::get();
+		auto& renderer = Utility<Renderer>::get();
 
 		if (mTimer.accumulator() > 7)
 		{
@@ -100,7 +100,7 @@ void PlanetSelectState::initialize()
 	mPlanets.push_back(new Planet(Planet::PlanetType::PLANET_TYPE_MARS));
 	mPlanets.push_back(new Planet(Planet::PlanetType::PLANET_TYPE_GANYMEDE));
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	const auto viewportSize = renderer.size().to<int>();
 	mPlanets[0]->position(viewportSize.x / 4 - 64, viewportSize.y / 2 - 64);
 	mPlanets[0]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
@@ -142,7 +142,7 @@ void PlanetSelectState::initialize()
 void PlanetSelectState::drawStar(int x, int y)
 {
 	float rotation = (mTimer.tick() / 125.0f);
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	renderer.drawImageRotated(mStarFlare, static_cast<float>(x), static_cast<float>(y), -rotation * 0.75f, 255, 255, 0, 180);
 	renderer.drawImageRotated(mDetailFlare2, static_cast<float>(x), static_cast<float>(y), -rotation * 0.25f, 255, 255, 100, 255);
 	renderer.drawImageRotated(mDetailFlare, static_cast<float>(x), static_cast<float>(y), rotation, 255, 255, 255, 255);
@@ -151,7 +151,7 @@ void PlanetSelectState::drawStar(int x, int y)
 
 State* PlanetSelectState::update()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawImageStretched(mBg, 0, 0, renderer.width(), renderer.height());
 

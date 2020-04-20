@@ -364,15 +364,15 @@ void Slider::update()
  */
 void Slider::draw()
 {
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	float _thumbPosition = 0.0f;
 
 	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
-		r.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle);// slide area
-		r.drawImageRect(mButton1.x(), mButton1.y(), mButton1.height(), mButton1.height(), mSkinButton1);// top button
-		r.drawImageRect(mButton2.x(), mButton2.y(), mButton2.height(), mButton2.height(), mSkinButton2);// bottom button
-		//r.drawImageRect(mButtonUp.x(), mButtonUp.y(), mButtonUp.height(), mButtonUp.height(), mSkinButtonLeft);// top button
+		renderer.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle);// slide area
+		renderer.drawImageRect(mButton1.x(), mButton1.y(), mButton1.height(), mButton1.height(), mSkinButton1);// top button
+		renderer.drawImageRect(mButton2.x(), mButton2.y(), mButton2.height(), mButton2.height(), mSkinButton2);// bottom button
+		//renderer.drawImageRect(mButtonUp.x(), mButtonUp.y(), mButtonUp.height(), mButtonUp.height(), mSkinButtonLeft);// top button
 
 		// Slider
 		mSlider.width(mSlideBar.width()); // height = slide bar height
@@ -389,13 +389,13 @@ void Slider::draw()
 
 		mSlider.x(mSlideBar.x());
 		mSlider.y(mSlideBar.y() + _thumbPosition);
-		r.drawImageRect(mSlider.x(), mSlider.y(), mSlider.width(), mSlider.height(), mSkinSlider);
+		renderer.drawImageRect(mSlider.x(), mSlider.y(), mSlider.width(), mSlider.height(), mSkinSlider);
 	}
 	else
 	{
-		r.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle); // slide area
-		r.drawImageRect(mButton1.x(), mButton1.y(), mButton1.height(), mButton1.height(), mSkinButton1); // left button
-		r.drawImageRect(mButton2.x(), mButton2.y(), mButton2.height(), mButton2.height(), mSkinButton2); // right button
+		renderer.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle); // slide area
+		renderer.drawImageRect(mButton1.x(), mButton1.y(), mButton1.height(), mButton1.height(), mSkinButton1); // left button
+		renderer.drawImageRect(mButton2.x(), mButton2.y(), mButton2.height(), mButton2.height(), mSkinButton2); // right button
 
 		// Slider
 		mSlider.height(mSlideBar.height()); // height = slide bar height
@@ -412,7 +412,7 @@ void Slider::draw()
 
 		mSlider.x(mSlideBar.x() + _thumbPosition);
 		mSlider.y(mSlideBar.y());
-		r.drawImageRect(mSlider.x(), mSlider.y(), mSlider.width(), mSlider.height(), mSkinSlider);
+		renderer.drawImageRect(mSlider.x(), mSlider.y(), mSlider.width(), mSlider.height(), mSkinSlider);
 	}
 
 	if (mDisplayPosition && mMouseHoverSlide)
@@ -433,9 +433,9 @@ void Slider::draw()
 			y = static_cast<int>(mSlideBar.y() - 2) - height;
 		}
 
-		r.drawBox(NAS2D::Rectangle{x, y, width, height}, NAS2D::Color{255, 255, 255, 180});
-		r.drawBoxFilled(NAS2D::Rectangle{x + 1, y + 1, width - 2, height - 2}, NAS2D::Color{0, 0, 0, 180});
-		r.drawText(*SLD_FONT, textHover, NAS2D::Point{x + 2, y + 2}, NAS2D::Color{220, 220, 220});
+		renderer.drawBox(NAS2D::Rectangle{x, y, width, height}, NAS2D::Color{255, 255, 255, 180});
+		renderer.drawBoxFilled(NAS2D::Rectangle{x + 1, y + 1, width - 2, height - 2}, NAS2D::Color{0, 0, 0, 180});
+		renderer.drawText(*SLD_FONT, textHover, NAS2D::Point{x + 2, y + 2}, NAS2D::Color{220, 220, 220});
 	}
 }
 

@@ -96,15 +96,15 @@ void Window::update()
 {
 	if (!visible()) { return; }
 
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
-	r.drawImage(mTitle[0], rect().x(), rect().y());
-	r.drawImageRepeated(mTitle[1], rect().x() + 4, rect().y(), rect().width() - 8, sWindowTitleBarHeight);
-	r.drawImage(mTitle[2], rect().x() + rect().width() - 4, rect().y());
+	renderer.drawImage(mTitle[0], rect().x(), rect().y());
+	renderer.drawImageRepeated(mTitle[1], rect().x() + 4, rect().y(), rect().width() - 8, sWindowTitleBarHeight);
+	renderer.drawImage(mTitle[2], rect().x() + rect().width() - 4, rect().y());
 
-	r.drawImageRect(rect().x(), rect().y() + 20, rect().width(), rect().height() - 20, mBody);
+	renderer.drawImageRect(rect().x(), rect().y() + 20, rect().width(), rect().height() - 20, mBody);
 
-	r.drawText(*WINDOW_TITLE_FONT, text(), rect().x() + 5, rect().y() + 2, 255, 255, 255);
+	renderer.drawText(*WINDOW_TITLE_FONT, text(), rect().x() + 5, rect().y() + 2, 255, 255, 255);
 
 	UIContainer::update();
 }

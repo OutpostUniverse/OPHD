@@ -72,18 +72,18 @@ static inline int centerWindowHeight(float height)
  */
 void MapViewState::initUi()
 {
-	NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	mDiggerDirection.directionSelected().connect(this, &MapViewState::diggerSelectionDialog);
 	mDiggerDirection.hide();
 
-	mTileInspector.position(r.center_x() - mTileInspector.width() / 2.0f, r.height() / 2.0f - 175.0f);
+	mTileInspector.position(renderer.center_x() - mTileInspector.width() / 2.0f, renderer.height() / 2.0f - 175.0f);
 	mTileInspector.hide();
 
-	mStructureInspector.position(r.center_x() - mStructureInspector.width() / 2.0f, r.height() / 2.0f - 175.0f);
+	mStructureInspector.position(renderer.center_x() - mStructureInspector.width() / 2.0f, renderer.height() / 2.0f - 175.0f);
 	mStructureInspector.hide();
 
-	mFactoryProduction.position(r.center_x() - mFactoryProduction.width() / 2.0f, 175.0f);
+	mFactoryProduction.position(renderer.center_x() - mFactoryProduction.width() / 2.0f, 175.0f);
 	mFactoryProduction.hide();
 
 	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
@@ -120,11 +120,11 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mWarehouseInspector);
 	mWindowStack.addWindow(&mMineOperationsWindow);
 
-	BOTTOM_UI_AREA = {0, static_cast<int>(r.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(r.width()), constants::BOTTOM_UI_HEIGHT};
+	BOTTOM_UI_AREA = {0, static_cast<int>(renderer.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(renderer.width()), constants::BOTTOM_UI_HEIGHT};
 
 	// BUTTONS
 	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(r.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
+	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(renderer.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
 	mBtnTurns.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
 	mBtnTurns.click().connect(this, &MapViewState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
@@ -172,7 +172,7 @@ void MapViewState::initUi()
 
 void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 {
-	//NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
+	//auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Bottom UI Area
 	BOTTOM_UI_AREA = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
@@ -357,12 +357,12 @@ void MapViewState::populateStructureMenu()
 */
 void MapViewState::drawUI()
 {
-	NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Bottom UI
-	r.drawBoxFilled(BOTTOM_UI_AREA, 39, 39, 39);
-	r.drawBox(BOTTOM_UI_AREA, 21, 21, 21);
-	r.drawLine(static_cast<float>(BOTTOM_UI_AREA.x() + 1), static_cast<float>(BOTTOM_UI_AREA.y()), static_cast<float>(BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.width() - 2), static_cast<float>(BOTTOM_UI_AREA.y()), 56, 56, 56);
+	renderer.drawBoxFilled(BOTTOM_UI_AREA, 39, 39, 39);
+	renderer.drawBox(BOTTOM_UI_AREA, 21, 21, 21);
+	renderer.drawLine(static_cast<float>(BOTTOM_UI_AREA.x() + 1), static_cast<float>(BOTTOM_UI_AREA.y()), static_cast<float>(BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.width() - 2), static_cast<float>(BOTTOM_UI_AREA.y()), 56, 56, 56);
 
 	drawMiniMap();
 	drawResourceInfo();

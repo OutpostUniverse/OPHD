@@ -316,20 +316,20 @@ void ListBoxBase::update()
 {
 	if (!visible()) { return; }
 
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	// CONTROL EXTENTS
-	r.drawBoxFilled(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 0, 0, 255);
+	renderer.drawBoxFilled(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 0, 0, 255);
 
-	hasFocus() ? r.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 185, 0, 255) : r.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 75, 75, 75, 255);
+	hasFocus() ? renderer.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 185, 0, 255) : renderer.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 75, 75, 75, 255);
 
-	r.clipRect(rect());
+	renderer.clipRect(rect());
 
 	// MOUSE HIGHLIGHT
 	float highlight_y = positionY() + static_cast<float>((mCurrentHighlight * mItemHeight) - mCurrentOffset);
-	r.drawBoxFilled(positionX(), highlight_y, static_cast<float>(mItemWidth), static_cast<float>(mItemHeight), 0, 185, 0, 50);
+	renderer.drawBoxFilled(positionX(), highlight_y, static_cast<float>(mItemWidth), static_cast<float>(mItemHeight), 0, 185, 0, 50);
 
 	mSlider.update();
 
-	r.clipRectClear();
+	renderer.clipRectClear();
 }

@@ -97,45 +97,45 @@ void SplashState::skipSplash()
  */
 NAS2D::State* SplashState::update()
 {
-	NAS2D::Renderer& r = NAS2D::Utility<NAS2D::Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	if (r.isFaded() && !r.isFading() && mTimer.accumulator() > FADE_PAUSE_TIME)
+	if (renderer.isFaded() && !renderer.isFading() && mTimer.accumulator() > FADE_PAUSE_TIME)
 	{
 		if (mReturnState != this) { return mReturnState; }
 
 		setNextState(CURRENT_STATE);
-		r.fadeIn(FADE_LENGTH);
+		renderer.fadeIn(FADE_LENGTH);
 		mTimer.reset();
 	}
 
-	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD) { r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0); }
-	else { r.drawBoxFilled(0, 0, r.width(), r.height(), 255, 255, 255); }
+	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD) { renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0); }
+	else { renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 255, 255, 255); }
 
 
 	if (CURRENT_STATE == LogoState::LOGO_LAIRWORKS)
 	{
-		r.drawImage(mLogoLairworks, r.center() - mLogoLairworks.size() / 2);
+		renderer.drawImage(mLogoLairworks, renderer.center() - mLogoLairworks.size() / 2);
 	}
 	if (CURRENT_STATE == LogoState::LOGO_NAS2D)
 	{
-		r.drawImage(mLogoNas2d, r.center() - mLogoNas2d.size() / 2);
+		renderer.drawImage(mLogoNas2d, renderer.center() - mLogoNas2d.size() / 2);
 	}
 	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
 	{
 		const unsigned int tick = BYLINE_TIMER.delta();
-		const auto logoPosition = r.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
+		const auto logoPosition = renderer.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
 
-		r.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, BYLINE_TIMER.tick() / 600.0f);
-		r.drawImage(mLogoOutpostHd, logoPosition);
+		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, BYLINE_TIMER.tick() / 600.0f);
+		renderer.drawImage(mLogoOutpostHd, logoPosition);
 
 		BYLINE_SCALE += tick * BYLINE_SCALE_STEP;
 		BYLINE_ALPHA += tick * BYLINE_ALPHA_FADE_STEP;
 		BYLINE_ALPHA = std::clamp(BYLINE_ALPHA, -3000.0f, 255.0f);
 
-		if(BYLINE_ALPHA > 0.0f) { r.drawImage(mByline, r.center_x() - ((mByline.width() * BYLINE_SCALE) / 2), r.center_y() + 25, BYLINE_SCALE, 255, 255, 255, static_cast<uint8_t>(BYLINE_ALPHA)); }
+		if(BYLINE_ALPHA > 0.0f) { renderer.drawImage(mByline, renderer.center_x() - ((mByline.width() * BYLINE_SCALE) / 2), renderer.center_y() + 25, BYLINE_SCALE, 255, 255, 255, static_cast<uint8_t>(BYLINE_ALPHA)); }
 	}
 	
-	if (r.isFading()) { return this; }
+	if (renderer.isFading()) { return this; }
 
 	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
 	{
@@ -147,7 +147,7 @@ NAS2D::State* SplashState::update()
 	}
 	else if (mTimer.accumulator() > PAUSE_TIME)
 	{
-		r.fadeOut(FADE_LENGTH);
+		renderer.fadeOut(FADE_LENGTH);
 		mTimer.reset();
 	}
 

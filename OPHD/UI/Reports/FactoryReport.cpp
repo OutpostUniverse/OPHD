@@ -600,23 +600,23 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 /**
  * 
  */
-void FactoryReport::drawProductPane(Renderer& r)
+void FactoryReport::drawProductPane(Renderer& renderer)
 {
-	r.drawText(*FONT_BIG_BOLD, "Production", DETAIL_PANEL.x(), DETAIL_PANEL.y() + 180, 0, 185, 0);
+	renderer.drawText(*FONT_BIG_BOLD, "Production", DETAIL_PANEL.x(), DETAIL_PANEL.y() + 180, 0, 185, 0);
 
 	float position_x = DETAIL_PANEL.x() + lstProducts.width() + 20.0f;
 
 	if (SELECTED_PRODUCT_TYPE != ProductType::PRODUCT_NONE)
 	{
-		r.drawText(*FONT_BIG_BOLD, productDescription(SELECTED_PRODUCT_TYPE), position_x, DETAIL_PANEL.y() + 180, 0, 185, 0);
-		r.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(SELECTED_PRODUCT_TYPE)], position_x, lstProducts.positionY());
+		renderer.drawText(*FONT_BIG_BOLD, productDescription(SELECTED_PRODUCT_TYPE), position_x, DETAIL_PANEL.y() + 180, 0, 185, 0);
+		renderer.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(SELECTED_PRODUCT_TYPE)], position_x, lstProducts.positionY());
 		txtProductDescription.update();
 	}
 
 	if (SELECTED_FACTORY->productType() == ProductType::PRODUCT_NONE) { return; }
 	
-	r.drawText(*FONT_BIG_BOLD, "Progress", position_x, DETAIL_PANEL.y() + 358, 0, 185, 0);
-	r.drawText(*FONT_MED, "Building " + productDescription(SELECTED_FACTORY->productType()), position_x, DETAIL_PANEL.y() + 393, 0, 185, 0);
+	renderer.drawText(*FONT_BIG_BOLD, "Progress", position_x, DETAIL_PANEL.y() + 358, 0, 185, 0);
+	renderer.drawText(*FONT_MED, "Building " + productDescription(SELECTED_FACTORY->productType()), position_x, DETAIL_PANEL.y() + 393, 0, 185, 0);
 
 	float percent = 0.0f;
 	if (SELECTED_FACTORY->productType() != ProductType::PRODUCT_NONE)
@@ -628,8 +628,8 @@ void FactoryReport::drawProductPane(Renderer& r)
 	drawBasicProgressBar(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10, 30, percent, 4);
 
 	const auto text = std::to_string(SELECTED_FACTORY->productionTurnsCompleted()) + " / " + std::to_string(SELECTED_FACTORY->productionTurnsToComplete());
-	r.drawText(*FONT_MED_BOLD, "Turns", position_x, DETAIL_PANEL.y() + 449, 0, 185, 0);
-	r.drawText(*FONT_MED, text, rect().width() - FONT_MED->width(text) - 10, DETAIL_PANEL.y() + 449, 0, 185, 0);
+	renderer.drawText(*FONT_MED_BOLD, "Turns", position_x, DETAIL_PANEL.y() + 449, 0, 185, 0);
+	renderer.drawText(*FONT_MED, text, rect().width() - FONT_MED->width(text) - 10, DETAIL_PANEL.y() + 449, 0, 185, 0);
 }
 
 
@@ -639,15 +639,15 @@ void FactoryReport::drawProductPane(Renderer& r)
 void FactoryReport::update()
 {
 	if (!visible()) { return; }
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
-	r.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + rect().height() - 10, 0, 185, 0);
-	r.drawText(*FONT, "Filter by Product", SORT_BY_PRODUCT_POSITION, rect().y() + 10, 0, 185, 0);
+	renderer.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + rect().height() - 10, 0, 185, 0);
+	renderer.drawText(*FONT, "Filter by Product", SORT_BY_PRODUCT_POSITION, rect().y() + 10, 0, 185, 0);
 
 	if (SELECTED_FACTORY)
 	{
-		drawDetailPane(r);
-		drawProductPane(r);
+		drawDetailPane(renderer);
+		drawProductPane(renderer);
 	}
 
 	UIContainer::update();

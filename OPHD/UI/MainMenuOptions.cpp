@@ -86,10 +86,10 @@ void MainMenuOptions::init()
 
 	std::size_t currentResolutionSelection = 0;
 	{
-		auto& r = NAS2D::Utility<NAS2D::Renderer>::get();
-		auto resolutions = r.getDisplayModes();
-		const auto currentResolution = r.getWindowClientArea();
-		const auto closestResolution = r.getClosestMatchingDisplayMode(NAS2D::DisplayDesc{currentResolution.x, currentResolution.y});
+		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+		auto resolutions = renderer.getDisplayModes();
+		const auto currentResolution = renderer.getWindowClientArea();
+		const auto closestResolution = renderer.getClosestMatchingDisplayMode(NAS2D::DisplayDesc{currentResolution.x, currentResolution.y});
 		const auto s = resolutions.size();
 		for (auto i = std::size_t{0}; i < s; ++i)
 		{

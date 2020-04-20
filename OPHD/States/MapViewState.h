@@ -102,7 +102,7 @@ private:
 	void drawUI();
 	void drawMiniMap();
 	void drawNavInfo();
-	bool drawNavIcon(NAS2D::Renderer& r, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor);
+	bool drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor);
 
 	void drawResourceInfo();
 	void drawRobotInfo();

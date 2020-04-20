@@ -145,11 +145,11 @@ void MapViewState::initialize()
 {
 	// UI
 	initUi();
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
-	r.setCursor(PointerType::POINTER_NORMAL);
+	renderer.setCursor(PointerType::POINTER_NORMAL);
 
-	setupUiPositions(r.size());
+	setupUiPositions(renderer.size());
 
 	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
 
@@ -209,24 +209,24 @@ void MapViewState::focusOnStructure(Structure* s)
  */
 State* MapViewState::update()
 {
-	Renderer& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
-	r.drawImageStretched(mBackground, 0, 0, r.width(), r.height());
+	renderer.drawImageStretched(mBackground, 0, 0, renderer.width(), renderer.height());
 
 	// FIXME: Ugly / hacky
 	if (mGameOverDialog.visible())
 	{
-		r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 255);
+		renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 255);
 		mGameOverDialog.update();
 
-		if (r.isFading()) { return this; }
+		if (renderer.isFading()) { return this; }
 
 		return this;
 	}
 
 	// explicit current level
 	Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	r.drawText(*font, CURRENT_LEVEL_STRING, r.width() - font->width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - font->height() - 12, 255, 255, 255);
+	renderer.drawText(*font, CURRENT_LEVEL_STRING, renderer.width() - font->width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - font->height() - 12, 255, 255, 255);
 	
 	if (!mGameOptionsDialog.visible() && !mGameOverDialog.visible() && !mFileIoDialog.visible())
 	{
@@ -238,12 +238,12 @@ State* MapViewState::update()
 	// FIXME: Ugly / hacky
 	if (mGameOptionsDialog.visible() || mFileIoDialog.visible())
 	{
-		r.drawBoxFilled(0, 0, r.width(), r.height(), 0, 0, 0, 165);
+		renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 165);
 	}
 
 	drawUI();
 
-	if (r.isFading()) { return this; }
+	if (renderer.isFading()) { return this; }
 
 	return this;
 }
