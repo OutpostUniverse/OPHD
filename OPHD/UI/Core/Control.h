@@ -52,7 +52,7 @@ public:
 
 	void text(const std::string& text);
 	const std::string& text() const { return mText; }
-	TextChangedCallback& textChanged();
+	TextChangedCallback& textChanged() { return mTextChanged; }
 
 	NAS2D::Vector<float> size() const { return mRect.size(); }
 	void size(NAS2D::Vector<float> newSize);

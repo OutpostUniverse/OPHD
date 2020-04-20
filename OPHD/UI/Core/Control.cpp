@@ -247,12 +247,3 @@ void Control::text(const std::string& text)
 	mText = text;
 	onTextChanged();
 }
-
-
-/**
- * Gets callback for text changed events.
- */
-Control::TextChangedCallback& Control::textChanged()
-{
-	return mTextChanged;
-}
