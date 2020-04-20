@@ -93,7 +93,7 @@ public:
 	ResourcePool& production() { return mProductionPool; }
 
 	virtual void input(ResourcePool& /*pool*/) {}
-	bool enoughResourcesAvailable(ResourcePool& r);
+	bool enoughResourcesAvailable(ResourcePool& resourcePool);
 
 	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
 	PopulationRequirements& populationAvailable() { return mPopulationAvailable; }

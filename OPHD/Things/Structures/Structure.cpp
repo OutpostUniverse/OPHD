@@ -146,9 +146,9 @@ void Structure::forceIdle(bool force)
 }
 
 
-bool Structure::enoughResourcesAvailable(ResourcePool& r)
+bool Structure::enoughResourcesAvailable(ResourcePool& resourcePool)
 {
-	return r >= resourcesIn();
+	return resourcePool >= resourcesIn();
 }
 
 
