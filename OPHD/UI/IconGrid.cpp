@@ -415,7 +415,7 @@ void IconGrid::update()
 {
 	if (!visible()) { return; }
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	//renderer.drawBoxFilled(rect(), 0, 0, 0);
 	renderer.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkin);

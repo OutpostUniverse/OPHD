@@ -72,7 +72,7 @@ void ResourceBreakdownPanel::resourceCheck()
 
 void ResourceBreakdownPanel::update()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	renderer.drawImageRect(rect(), mSkin);
 
 	static std::map<ResourceTrend, Point<int>> ICON_SLICE

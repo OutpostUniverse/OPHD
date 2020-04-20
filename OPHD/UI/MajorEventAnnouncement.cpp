@@ -66,7 +66,7 @@ void MajorEventAnnouncement::update()
 
 	Window::update();
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});
 

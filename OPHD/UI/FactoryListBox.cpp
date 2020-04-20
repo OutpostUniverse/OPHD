@@ -152,7 +152,7 @@ void FactoryListBox::update()
 	if (!visible()) { return; }
 	ListBoxBase::update();
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	renderer.clipRect(rect());
 

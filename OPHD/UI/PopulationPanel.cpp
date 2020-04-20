@@ -33,7 +33,7 @@ PopulationPanel::PopulationPanel() : mIcons("ui/icons.png")
 
 void PopulationPanel::update()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	renderer.drawImageRect(rect(), mSkin);
 
 	auto position = NAS2D::Point{positionX() + 5, positionY() + 5};

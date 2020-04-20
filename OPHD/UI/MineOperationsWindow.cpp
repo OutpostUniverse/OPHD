@@ -267,7 +267,7 @@ void MineOperationsWindow::update()
 
 	Window::update();
 
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawImage(mUiIcon, rect().x() + 10, rect().y() + 30);
 
