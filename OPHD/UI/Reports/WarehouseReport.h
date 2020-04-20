@@ -57,14 +57,14 @@ private:
 	void drawRightPanel(NAS2D::Renderer&);
 
 private:
-	Button				btnShowAll;
-	Button				btnSpaceAvailable;
-	Button				btnFull;
-	Button				btnEmpty;
-	Button				btnDisabled;
+	Button btnShowAll;
+	Button btnSpaceAvailable;
+	Button btnFull;
+	Button btnEmpty;
+	Button btnDisabled;
 
-	Button				btnTakeMeThere;
+	Button btnTakeMeThere;
 
-	StructureListBox	lstStructures;
-	ProductListBox		lstProducts;
+	StructureListBox lstStructures;
+	ProductListBox lstProducts;
 };

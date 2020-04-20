@@ -59,24 +59,24 @@ private:
 	void visibilityChanged(bool visible) override;
 
 private:
-	Button			btnShowAll;
-	Button			btnShowSurface;
-	Button			btnShowUnderground;
-	Button			btnShowActive;
-	Button			btnShowIdle;
-	Button			btnShowDisabled;
+	Button btnShowAll;
+	Button btnShowSurface;
+	Button btnShowUnderground;
+	Button btnShowActive;
+	Button btnShowIdle;
+	Button btnShowDisabled;
 
-	Button			btnIdle;
-	Button			btnClearProduction;
-	Button			btnTakeMeThere;
+	Button btnIdle;
+	Button btnClearProduction;
+	Button btnTakeMeThere;
 
-	Button			btnApply;
+	Button btnApply;
 
-	ComboBox		cboFilterByProduct;
+	ComboBox cboFilterByProduct;
 
-	FactoryListBox	lstFactoryList;
+	FactoryListBox lstFactoryList;
 
-	ListBox			lstProducts;
+	ListBox lstProducts;
 
-	TextArea		txtProductDescription;
+	TextArea txtProductDescription;
 };
