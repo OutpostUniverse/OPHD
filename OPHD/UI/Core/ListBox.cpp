@@ -209,7 +209,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 	if (mSlider.visible() && mSlider.rect().contains(Point{x, y}))
 	{
-		return;		// if the mouse is on the slider then the slider should handle that
+		return; // if the mouse is on the slider then the slider should handle that
 	}
 
 	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
