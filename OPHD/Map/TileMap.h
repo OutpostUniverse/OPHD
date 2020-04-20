@@ -108,8 +108,8 @@ private:
 	using TileArray = std::vector<TileGrid>;
 	
 private:
-	TileMap(const TileMap&) = delete;						/**< Not Allowed */
-	TileMap& operator=(const TileMap&) = delete;			/**< Not allowed */
+	TileMap(const TileMap&) = delete; /**< Not Allowed */
+	TileMap& operator=(const TileMap&) = delete; /**< Not allowed */
 
 private:
 	void buildMouseMap();
@@ -121,32 +121,32 @@ private:
 	MouseMapRegion getMouseMapRegion(int x, int y);
 
 private:
-	int					mEdgeLength = 0;
-	int					mWidth = 0;
-	int					mHeight = 0;
+	int mEdgeLength = 0;
+	int mWidth = 0;
+	int mHeight = 0;
 
-	int					mMaxDepth = 0;				/**< Maximum digging depth. */
-	int					mCurrentDepth = 0;			/**< Current depth level to view. */
+	int mMaxDepth = 0; /**< Maximum digging depth. */
+	int mCurrentDepth = 0; /**< Current depth level to view. */
 
-	std::string			mMapPath;
-	std::string			mTsetPath;
+	std::string mMapPath;
+	std::string mTsetPath;
 
-	TileArray			mTileMap;
+	TileArray mTileMap;
 
-	NAS2D::Image		mTileset;
-	NAS2D::Image		mMineBeacon;
+	NAS2D::Image mTileset;
+	NAS2D::Image mMineBeacon;
 
-	NAS2D::Timer		mTimer;
+	NAS2D::Timer mTimer;
 
-	NAS2D::Point<int>		mMousePosition;				/**< Current mouse position. */
-	NAS2D::Point<int>		mMapHighlight;				/**< Tile the mouse is pointing to. */
-	NAS2D::Point<int>		mMapViewLocation;
+	NAS2D::Point<int> mMousePosition; /**< Current mouse position. */
+	NAS2D::Point<int> mMapHighlight; /**< Tile the mouse is pointing to. */
+	NAS2D::Point<int> mMapViewLocation;
 
-	NAS2D::Point<float>	mMapPosition;				/** Where to start drawing the TileMap on the screen. */
+	NAS2D::Point<float> mMapPosition; /** Where to start drawing the TileMap on the screen. */
 
-	Point2dList			mMineLocations;				/**< Location of all mines on the map. */
+	Point2dList mMineLocations; /**< Location of all mines on the map. */
 
-	NAS2D::Rectangle<int>	mMapBoundingBox;			/** Area that the TileMap fills when drawn. */
+	NAS2D::Rectangle<int> mMapBoundingBox; /** Area that the TileMap fills when drawn. */
 
-	bool				mShowConnections = false;	/**< Flag indicating whether or not to highlight connectedness. */
+	bool mShowConnections = false; /**< Flag indicating whether or not to highlight connectedness. */
 };

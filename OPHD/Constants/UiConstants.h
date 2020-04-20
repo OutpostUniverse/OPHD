@@ -34,9 +34,9 @@ namespace constants
 	// =====================================
 	// = MOUSE POINTERS
 	// =====================================
-	const std::string MOUSE_POINTER_NORMAL		= "ui/pointers/normal.png";
-	const std::string MOUSE_POINTER_PLACE_TILE	= "ui/pointers/place_tile.png";
-	const std::string MOUSE_POINTER_INSPECT		= "ui/pointers/inspect.png";
+	const std::string MOUSE_POINTER_NORMAL = "ui/pointers/normal.png";
+	const std::string MOUSE_POINTER_PLACE_TILE = "ui/pointers/place_tile.png";
+	const std::string MOUSE_POINTER_INSPECT = "ui/pointers/inspect.png";
 
 
 	// =====================================

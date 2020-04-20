@@ -18,36 +18,36 @@ using namespace NAS2D::Xml;
 // ===============================================================================
 // = CONSTANTS
 // ===============================================================================
-const std::string	MAP_TERRAIN_EXTENSION		= "_a.png";
+const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 
-const int			MAP_WIDTH					= 300;
-const int			MAP_HEIGHT					= 150;
+const int MAP_WIDTH = 300;
+const int MAP_HEIGHT = 150;
 
-const int			TILE_WIDTH					= 128;
-const int			TILE_HEIGHT					= 64;
+const int TILE_WIDTH = 128;
+const int TILE_HEIGHT = 64;
 
-const int			TILE_HALF_WIDTH				= TILE_WIDTH / 2;
+const int TILE_HALF_WIDTH = TILE_WIDTH / 2;
 
-const int			TILE_HEIGHT_OFFSET			= 9;
-const int			TILE_HEIGHT_ABSOLUTE		= TILE_HEIGHT - TILE_HEIGHT_OFFSET;
-const int			TILE_HEIGHT_HALF_ABSOLUTE	= TILE_HEIGHT_ABSOLUTE / 2;
+const int TILE_HEIGHT_OFFSET = 9;
+const int TILE_HEIGHT_ABSOLUTE = TILE_HEIGHT - TILE_HEIGHT_OFFSET;
+const int TILE_HEIGHT_HALF_ABSOLUTE = TILE_HEIGHT_ABSOLUTE / 2;
 
-const double		THROB_SPEED					= 250.0; // Throb speed of mine beacon
+const double THROB_SPEED = 250.0; // Throb speed of mine beacon
 
 
 /** Tuple indicates percent of mines that should be of yields LOW, MED, HIGH */
-std::map<constants::PlanetHostility, std::tuple<float, float, float>>	HostilityMineYieldTable =
+std::map<constants::PlanetHostility, std::tuple<float, float, float>> HostilityMineYieldTable =
 {
-	{ constants::PlanetHostility::HOSTILITY_LOW,		{0.30f, 0.50f, 0.20f} },
-	{ constants::PlanetHostility::HOSTILITY_MEDIUM,	{0.45f, 0.35f, 0.20f} },
-	{ constants::PlanetHostility::HOSTILITY_HIGH,	{0.35f, 0.20f, 0.45f} },
+	{ constants::PlanetHostility::HOSTILITY_LOW, {0.30f, 0.50f, 0.20f} },
+	{ constants::PlanetHostility::HOSTILITY_MEDIUM, {0.45f, 0.35f, 0.20f} },
+	{ constants::PlanetHostility::HOSTILITY_HIGH, {0.35f, 0.20f, 0.45f} },
 };
 
 
 // ===============================================================================
 // = LOCAL VARIABLES
 // ===============================================================================
-Point<int>			TRANSFORM; /**< Used to adjust mouse and screen spaces based on position of the map field. */
+Point<int> TRANSFORM; /**< Used to adjust mouse and screen spaces based on position of the map field. */
 
 
 // ===============================================================================
@@ -514,9 +514,9 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	XmlAttribute* attribute = view_parameters->firstAttribute();
 	while (attribute)
 	{
-		if (attribute->name() == "viewlocation_x")		{ attribute->queryIntValue(view_x); }
-		else if (attribute->name() == "viewlocation_y")	{ attribute->queryIntValue(view_y); }
-		else if (attribute->name() == "currentdepth")	{ attribute->queryIntValue(view_depth); }
+		if (attribute->name() == "viewlocation_x") { attribute->queryIntValue(view_x); }
+		else if (attribute->name() == "viewlocation_y") { attribute->queryIntValue(view_y); }
+		else if (attribute->name() == "currentdepth") { attribute->queryIntValue(view_depth); }
 		attribute = attribute->next();
 	}
 
@@ -529,8 +529,8 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		attribute = mine->toElement()->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "x")		{ attribute->queryIntValue(x); }
-			else if (attribute->name() == "y")	{ attribute->queryIntValue(y); }
+			if (attribute->name() == "x") { attribute->queryIntValue(x); }
+			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
 			attribute = attribute->next();
 		}
 
@@ -554,10 +554,10 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		attribute = tile->toElement()->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "x")			{ attribute->queryIntValue(x); }
-			else if (attribute->name() == "y")		{ attribute->queryIntValue(y); }
-			else if (attribute->name() == "depth")	{ attribute->queryIntValue(depth); }
-			else if (attribute->name() == "index")	{ attribute->queryIntValue(index); }
+			if (attribute->name() == "x") { attribute->queryIntValue(x); }
+			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
+			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
+			else if (attribute->name() == "index") { attribute->queryIntValue(index); }
 
 			attribute = attribute->next();
 		}

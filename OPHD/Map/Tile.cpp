@@ -112,7 +112,7 @@ void Tile::deleteThing()
 void Tile::removeThing()
 {
 	mThing = nullptr;
-	thingIsStructure(false);	// Cover all bases.
+	thingIsStructure(false); // Cover all bases.
 }
 
 

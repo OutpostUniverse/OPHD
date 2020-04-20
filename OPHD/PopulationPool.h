@@ -23,9 +23,9 @@ public:
 	int populationEmployed();
 
 private:
-	int				mScientistsAsWorkers;
-	int				mScientistsUsed;
-	int				mWorkersUsed;
+	int mScientistsAsWorkers;
+	int mScientistsUsed;
+	int mWorkersUsed;
 
-	Population*		mPopulation;
+	Population* mPopulation;
 };

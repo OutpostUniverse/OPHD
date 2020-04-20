@@ -46,12 +46,12 @@ public:
 	const RobotList& robots() const { return mRobots; }
 
 private:
-	DiggerList		mDiggers;
-	DozerList		mDozers;
-	MinerList		mMiners;
+	DiggerList mDiggers;
+	DozerList mDozers;
+	MinerList mMiners;
 
-	RobotList		mRobots;	// List of all robots by pointer to base class
+	RobotList mRobots; // List of all robots by pointer to base class
 
-	uint32_t		mRobotControlMax = 0;
-	uint32_t		mRobotControlCount = 0;
+	uint32_t mRobotControlMax = 0;
+	uint32_t mRobotControlCount = 0;
 };

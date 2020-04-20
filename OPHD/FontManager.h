@@ -64,5 +64,5 @@ private:
 	using FontTable = std::map<FontId, NAS2D::Font*>;
 
 private:
-	FontTable	mFontTable;
+	FontTable mFontTable;
 };

@@ -29,7 +29,7 @@ public:
 		RESOURCE_FOOD,
 		RESOURCE_ENERGY,
 
-		RESOURCE_COUNT					/**< Number of available resource types. */
+		RESOURCE_COUNT /**< Number of available resource types. */
 	};
 
 
@@ -111,9 +111,9 @@ private:
 	using ResourceTable = std::array<int, ResourceType::RESOURCE_COUNT>;
 
 private:
-	int					_capacity = 0;			/**< Maximum available capacity of the ResourcePool. */
+	int _capacity = 0; /**< Maximum available capacity of the ResourcePool. */
 
-	ResourceTable		_resourceTable;
+	ResourceTable _resourceTable;
 
-	Callback			_observerCallback;
+	Callback _observerCallback;
 };

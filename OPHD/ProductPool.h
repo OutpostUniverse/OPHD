@@ -45,8 +45,8 @@ private:
 	friend void transferProductsPool(ProductPool&, ProductPool&);
 
 private:
-	ProductTypeCount	mProducts = {{ 0 }};
+	ProductTypeCount mProducts = {{ 0 }};
 
-	int					mCapacity = constants::BASE_PRODUCT_CAPACITY;
-	int					mCurrentStorageCount = 0;
+	int mCapacity = constants::BASE_PRODUCT_CAPACITY;
+	int mCurrentStorageCount = 0;
 };

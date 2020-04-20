@@ -36,8 +36,8 @@ public:
 	static bool canBuild(const ResourcePool& source, StructureID type);
 
 private:
-	StructureCatalogue() {}	// Explicitly declared private to prevent instantiation.
-	~StructureCatalogue() {}	// Explicitly declared private to prevent instantiation.
+	StructureCatalogue() {} // Explicitly declared private to prevent instantiation.
+	~StructureCatalogue() {} // Explicitly declared private to prevent instantiation.
 
 	static void buildCostTable();
 	static void buildPopulationRequirementsTable();
