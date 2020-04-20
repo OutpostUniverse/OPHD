@@ -497,29 +497,29 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		}
 		else if (_t->thingIsStructure())
 		{
-			Structure* _s = _t->structure();
+			Structure* structure = _t->structure();
 
-			if (_s->isFactory() && (_s->operational() || _s->isIdle()))
+			if (structure->isFactory() && (structure->operational() || structure->isIdle()))
 			{
-				mFactoryProduction.factory(static_cast<Factory*>(_s));
+				mFactoryProduction.factory(static_cast<Factory*>(structure));
 				mFactoryProduction.show();
 				mWindowStack.bringToFront(&mFactoryProduction);
 			}
-			else if (_s->isWarehouse() && (_s->operational() || _s->isIdle()))
+			else if (structure->isWarehouse() && (structure->operational() || structure->isIdle()))
 			{
-				mWarehouseInspector.warehouse(static_cast<Warehouse*>(_s));
+				mWarehouseInspector.warehouse(static_cast<Warehouse*>(structure));
 				mWarehouseInspector.show();
 				mWindowStack.bringToFront(&mWarehouseInspector);
 			}
-			else if (_s->isMineFacility() && (_s->operational() || _s->isIdle()))
+			else if (structure->isMineFacility() && (structure->operational() || structure->isIdle()))
 			{
-				mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(_s));
+				mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(structure));
 				mMineOperationsWindow.show();
 				mWindowStack.bringToFront(&mMineOperationsWindow);
 			}
 			else
 			{
-				mStructureInspector.structure(_s);
+				mStructureInspector.structure(structure);
 				mStructureInspector.show();
 				mWindowStack.bringToFront(&mStructureInspector);
 			}
@@ -614,11 +614,11 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
 		if (_t && _t->thingIsStructure())
 		{
-			Structure* _s = _t->structure();
+			Structure* structure = _t->structure();
 
-			if (_s->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(_s); }
-			else if (_s->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(_s); }
-			else if (_s->isMineFacility() || _s->structureClass() == Structure::StructureClass::CLASS_SMELTER) { MAIN_REPORTS_UI->selectMinePanel(_s); }
+			if (structure->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(structure); }
+			else if (structure->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(structure); }
+			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::CLASS_SMELTER) { MAIN_REPORTS_UI->selectMinePanel(structure); }
 			else { return; } // avoids showing the full-screen UI on unhandled structures.
 
 			mReportsUiCallback();
@@ -940,26 +940,26 @@ void MapViewState::placeRobot()
 		{
 			if (mStructureInspector.structure() == tile->structure()) { mStructureInspector.hide(); }
 			
-			Structure* _s = tile->structure();
+			Structure* structure = tile->structure();
 
-			if (_s->isMineFacility()) { return; }
-			if (_s->structureClass() == Structure::StructureClass::CLASS_COMMAND)
+			if (structure->isMineFacility()) { return; }
+			if (structure->structureClass() == Structure::StructureClass::CLASS_COMMAND)
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_CC);
 				return;
 			}
 
-			if (_s->structureClass() == Structure::StructureClass::CLASS_LANDER && _s->age() == 0)
+			if (structure->structureClass() == Structure::StructureClass::CLASS_LANDER && structure->age() == 0)
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_LANDING_SITE);
 				return;
 			}
 
-			if (_s->isRobotCommand()) { deleteRobotsInRCC(robot, static_cast<RobotCommand*>(_s), mRobotPool, mRobotList, tile); }
-			if (_s->isFactory() && static_cast<Factory*>(_s) == mFactoryProduction.factory()) { mFactoryProduction.hide(); }
-			if (_s->isWarehouse())
+			if (structure->isRobotCommand()) { deleteRobotsInRCC(robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, tile); }
+			if (structure->isFactory() && static_cast<Factory*>(structure) == mFactoryProduction.factory()) { mFactoryProduction.hide(); }
+			if (structure->isWarehouse())
 			{
-				if (simulateMoveProducts(static_cast<Warehouse*>(_s))) { moveProducts(static_cast<Warehouse*>(_s)); }
+				if (simulateMoveProducts(static_cast<Warehouse*>(structure))) { moveProducts(static_cast<Warehouse*>(structure)); }
 				else { return; } // Don't continue with the bulldoze if the user says no.
 			}
 
@@ -968,11 +968,11 @@ void MapViewState::placeRobot()
 			 * 			way to determine this. I may go back to defining recycling values in the individual structures
 			 * 			themselves but I'm still not sure I love that idea. Will have to think about that one a bit.
 			 */
-			ResourcePool resPool = StructureCatalogue::recyclingValue(StructureTranslator::translateFromString(_s->name()));
+			ResourcePool resPool = StructureCatalogue::recyclingValue(StructureTranslator::translateFromString(structure->name()));
 			mPlayerResources.pushResources(resPool);
 
 			tile->connected(false);
-			Utility<StructureManager>::get().removeStructure(_s);
+			Utility<StructureManager>::get().removeStructure(structure);
 			tile->deleteThing();
 			Utility<StructureManager>::get().disconnectAll();
 			static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(TerrainType::TERRAIN_DOZED));
@@ -1212,16 +1212,16 @@ void MapViewState::placeStructure()
 			return;
 		}
 
-		Structure* _s = StructureCatalogue::get(mCurrentStructure);
-		if (!_s) { throw std::runtime_error("MapViewState::placeStructure(): NULL Structure returned from StructureCatalog."); }
+		Structure* structure = StructureCatalogue::get(mCurrentStructure);
+		if (!structure) { throw std::runtime_error("MapViewState::placeStructure(): NULL Structure returned from StructureCatalog."); }
 
-		Utility<StructureManager>::get().addStructure(_s, tile);
+		Utility<StructureManager>::get().addStructure(structure, tile);
 
 		// FIXME: Ugly
-		if (_s->isFactory())
+		if (structure->isFactory())
 		{
-			static_cast<Factory*>(_s)->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
-			static_cast<Factory*>(_s)->resourcePool(&mPlayerResources);
+			static_cast<Factory*>(structure)->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
+			static_cast<Factory*>(structure)->resourcePool(&mPlayerResources);
 		}
 
 		mPlayerResources -= StructureCatalogue::costToBuild(mCurrentStructure);
