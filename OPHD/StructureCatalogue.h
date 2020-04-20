@@ -17,7 +17,7 @@
  * \note	StructureCatalogue::init() must be called prior to use.
  * 
  * \code{.cpp}
- * ResourcePool _rp = StructureCatalogue::costToBuild(StructureID::SID_AGRIDOME);
+ * ResourcePool resourcePool = StructureCatalogue::costToBuild(StructureID::SID_AGRIDOME);
  * PopulationRequirements _pr = StructureCatalogue::populationRequirements(StructureID::SID_AGRIDOME);
  * \endcode
  */

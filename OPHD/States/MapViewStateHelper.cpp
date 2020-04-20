@@ -480,16 +480,16 @@ void moveProducts(Warehouse* wh)
  * Displays a message indicating that there are not enough resources to build
  * a structure and what the missing resources are.
  */
-void resourceShortageMessage(ResourcePool& _rp, StructureID sid)
+void resourceShortageMessage(ResourcePool& resourcePool, StructureID sid)
 {
 	const ResourcePool& cost = StructureCatalogue::costToBuild(sid);
 
 	ResourcePool missing;
 	
-	if (_rp.commonMetals() < cost.commonMetals()) { missing.commonMetals(cost.commonMetals() - _rp.commonMetals()); }
-	if (_rp.commonMinerals() < cost.commonMinerals()) { missing.commonMinerals(cost.commonMinerals() - _rp.commonMinerals()); }
-	if (_rp.rareMetals() < cost.rareMetals()) { missing.rareMetals(cost.rareMetals() - _rp.rareMetals()); }
-	if (_rp.rareMinerals() < cost.rareMinerals()) { missing.rareMinerals(cost.rareMinerals() - _rp.rareMinerals()); }
+	if (resourcePool.commonMetals() < cost.commonMetals()) { missing.commonMetals(cost.commonMetals() - resourcePool.commonMetals()); }
+	if (resourcePool.commonMinerals() < cost.commonMinerals()) { missing.commonMinerals(cost.commonMinerals() - resourcePool.commonMinerals()); }
+	if (resourcePool.rareMetals() < cost.rareMetals()) { missing.rareMetals(cost.rareMetals() - resourcePool.rareMetals()); }
+	if (resourcePool.rareMinerals() < cost.rareMinerals()) { missing.rareMinerals(cost.rareMinerals() - resourcePool.rareMinerals()); }
 
 	std::string message = constants::ALERT_STRUCTURE_INSUFFICIENT_RESORUCES;
 
