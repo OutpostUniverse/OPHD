@@ -449,14 +449,14 @@ void WarehouseReport::lstStructuresSelectionChanged()
 /**
  * 
  */
-void WarehouseReport::drawLeftPanel(Renderer& r)
+void WarehouseReport::drawLeftPanel(Renderer& renderer)
 {
-	r.drawText(*FONT_MED_BOLD, "Warehouse Count", 10, positionY() + 40, 0, 185, 0);
-	r.drawText(*FONT_MED_BOLD, "Total Storage", 10, positionY() + 62, 0, 185, 0);
-	r.drawText(*FONT_MED_BOLD, "Capacity Used", 10, positionY() + 84, 0, 185, 0);
+	renderer.drawText(*FONT_MED_BOLD, "Warehouse Count", 10, positionY() + 40, 0, 185, 0);
+	renderer.drawText(*FONT_MED_BOLD, "Total Storage", 10, positionY() + 62, 0, 185, 0);
+	renderer.drawText(*FONT_MED_BOLD, "Capacity Used", 10, positionY() + 84, 0, 185, 0);
 
-	r.drawText(*FONT_MED, WH_COUNT, width() / 2 - 10 - COUNT_WIDTH, positionY() + 35, 0, 185, 0);
-	r.drawText(*FONT_MED, WH_CAPACITY, width() / 2 - 10 - CAPACITY_WIDTH, positionY() + 57, 0, 185, 0);
+	renderer.drawText(*FONT_MED, WH_COUNT, width() / 2 - 10 - COUNT_WIDTH, positionY() + 35, 0, 185, 0);
+	renderer.drawText(*FONT_MED, WH_CAPACITY, width() / 2 - 10 - CAPACITY_WIDTH, positionY() + 57, 0, 185, 0);
 
 	drawBasicProgressBar(static_cast<float>(CAPACITY_BAR_POSITION_X), positionY() + 84.0f, static_cast<float>(CAPACITY_BAR_WIDTH), 20.0f, CAPACITY_PERCENT);
 }
@@ -465,12 +465,12 @@ void WarehouseReport::drawLeftPanel(Renderer& r)
 /**
  * 
  */
-void WarehouseReport::drawRightPanel(Renderer& r)
+void WarehouseReport::drawRightPanel(Renderer& renderer)
 {
 	if (!SELECTED_WAREHOUSE) { return; }
 	
-	r.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), r.center_x() + 10, positionY() + 2, 0, 185, 0);
-	r.drawImage(*WAREHOUSE_IMG, r.center_x() + 10, positionY() + 35);
+	renderer.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), renderer.center_x() + 10, positionY() + 2, 0, 185, 0);
+	renderer.drawImage(*WAREHOUSE_IMG, renderer.center_x() + 10, positionY() + 35);
 }
 
 
@@ -480,12 +480,12 @@ void WarehouseReport::drawRightPanel(Renderer& r)
 void WarehouseReport::update()
 {
 	if (!visible()) { return; }
-	Renderer& r = Utility<Renderer>::get();
+	Renderer& renderer = Utility<Renderer>::get();
 
 	// Left Panel
-	drawLeftPanel(r);
-	r.drawLine(r.center_x(), positionY() + 10, r.center_x(), positionY() + height() - 10, 0, 185, 0);
-	drawRightPanel(r);
+	drawLeftPanel(renderer);
+	renderer.drawLine(renderer.center_x(), positionY() + 10, renderer.center_x(), positionY() + height() - 10, 0, 185, 0);
+	drawRightPanel(renderer);
 
 	UIContainer::update();
 }
