@@ -318,8 +318,8 @@ void TextField::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	if (hasFocus() && editable()) { renderer.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinFocus); }
-	else { renderer.drawImageRect(rect().x(), rect().y(), rect().width(), rect().height(), mSkinNormal); }
+	if (hasFocus() && editable()) { renderer.drawImageRect(rect(), mSkinFocus); }
+	else { renderer.drawImageRect(rect(), mSkinNormal); }
 
 	if (highlight()) { renderer.drawBox(rect(), 255, 255, 0); }
 
