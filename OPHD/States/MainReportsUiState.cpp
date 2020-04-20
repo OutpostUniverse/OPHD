@@ -309,7 +309,10 @@ void MainReportsUiState::exit()
 void MainReportsUiState::onWindowResized(int w, int h)
 {
 	setPanelRects(w);
-	for (Panel& panel : Panels) { if (panel.UiPanel) { panel.UiPanel->size(static_cast<float>(w), h - 48.0f); } }
+	for (Panel& panel : Panels)
+	{
+		if (panel.UiPanel) { panel.UiPanel->size(static_cast<float>(w), h - 48.0f); }
+	}
 }
 
 
@@ -318,7 +321,10 @@ void MainReportsUiState::onWindowResized(int w, int h)
  */
 void MainReportsUiState::deselectAllPanels()
 {
-	for (auto& panel : Panels) { panel.Selected(false); }
+	for (auto& panel : Panels)
+	{
+		panel.Selected(false);
+	}
 }
 
 
