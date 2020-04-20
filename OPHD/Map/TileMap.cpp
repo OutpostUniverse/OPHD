@@ -326,7 +326,7 @@ bool TileMap::tileHighlightVisible() const
 
 void TileMap::draw()
 {
-	Renderer& renderer = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	int tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
 
