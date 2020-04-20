@@ -17,7 +17,7 @@
 /**
  * Implements a ListBox control.
  */
-class ListBox: public UIContainer
+class ListBox: public Control
 {
 public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
@@ -73,7 +73,7 @@ public:
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 
 protected:
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
 	virtual void slideChanged(float newPosition);

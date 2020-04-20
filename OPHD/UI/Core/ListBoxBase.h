@@ -22,7 +22,7 @@
  * \note	This is an abstract class -- it will need to be inherited from
  *			in order to be used.
  */
-class ListBoxBase : public UIContainer
+class ListBoxBase : public Control
 {
 public:
 	/**
@@ -100,7 +100,7 @@ private:
 	void _init();
 	void slideChanged(float newPosition);
 
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
 
