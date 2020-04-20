@@ -87,10 +87,10 @@ void Control::size(NAS2D::Vector<float> newSize)
 }
 
 
-void Control::size(float _s)
+void Control::size(float newSize)
 {
-	width(_s);
-	height(_s);
+	width(newSize);
+	height(newSize);
 	onSizeChanged();
 }
 
