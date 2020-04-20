@@ -130,6 +130,9 @@ void RadioButton::update()
 {
 	Renderer& r = Utility<Renderer>::get();
 
-	r.drawSubImage(mSkin, positionX(), positionY(), mChecked ? 13.0f : 0.0f, 0.0f, 13.0f, 13.0f);
-	r.drawText(*CBOX_FONT, text(), positionX() + 20.0f, positionY(), 255, 255, 255);
+	const auto unselectedIconRect = NAS2D::Rectangle{0, 0, 13, 13};
+	const auto selectedIconRect = NAS2D::Rectangle{13, 0, 13, 13};
+
+	r.drawSubImage(mSkin, position(), (mChecked ? selectedIconRect : unselectedIconRect));
+	r.drawText(*CBOX_FONT, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
 }
