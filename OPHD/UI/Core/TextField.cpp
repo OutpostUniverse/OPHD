@@ -133,17 +133,17 @@ void TextField::border(BorderVisibility visibility)
 /**
  * Handles text input events.
  */
-void TextField::onTextInput(const std::string& _s)
+void TextField::onTextInput(const std::string& newTextInput)
 {
-	if (!hasFocus() || !visible() || !editable() || _s.empty()) { return; }
+	if (!hasFocus() || !visible() || !editable() || newTextInput.empty()) { return; }
 
 	if (mMaxCharacters > 0 && text().length() == mMaxCharacters) { return; }
 
 	auto prvLen = text().length();
 
-	if (mNumbersOnly && !std::isdigit(_s[0], LOC)) { return; }
+	if (mNumbersOnly && !std::isdigit(newTextInput[0], LOC)) { return; }
 
-	mText = mText.insert(mCursorPosition, _s);
+	mText = mText.insert(mCursorPosition, newTextInput);
 
 	if (text().length() - prvLen != 0u)
 	{
