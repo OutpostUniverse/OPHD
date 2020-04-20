@@ -45,12 +45,6 @@ Slider::~Slider()
 }
 
 
-void Slider::size(float width, float height)
-{
-	size({width, height});
-}
-
-
 /**
  *
  */
