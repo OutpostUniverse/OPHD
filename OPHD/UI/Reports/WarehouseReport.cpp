@@ -55,8 +55,8 @@ static void computeCapacity()
 	int capacity_total = 0;
 	int available_capacity = 0;
 
-	StructureList& sl = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
-	for (auto warehouse : sl)
+	StructureList& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
+	for (auto warehouse : structures)
 	{
 		if (!warehouse->operational()) { continue; } // yuck
 		Warehouse* _wh = static_cast<Warehouse*>(warehouse);
@@ -66,7 +66,7 @@ static void computeCapacity()
 
 	int capacity_used = capacity_total - available_capacity;
 
-	WH_COUNT = std::to_string(sl.size());
+	WH_COUNT = std::to_string(structures.size());
 	WH_CAPACITY = std::to_string(capacity_total);
 
 	CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);

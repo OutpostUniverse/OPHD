@@ -49,7 +49,7 @@ private:
 	using StructureClassTable = std::map<Structure::StructureClass, StructureList>;
 
 private:
-	void updateStructures(ResourcePool& resourcePool, PopulationPool& popPool, StructureList& sl);
+	void updateStructures(ResourcePool& resourcePool, PopulationPool& popPool, StructureList& structures);
 	void updateFactoryProduction();
 
 	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }

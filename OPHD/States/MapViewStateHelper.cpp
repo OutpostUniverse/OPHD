@@ -191,14 +191,14 @@ bool validLanderSite(Tile* tile)
 /**
  * Document me!
  */
-int totalStorage(StructureList& sl)
+int totalStorage(StructureList& structures)
 {
 	int storage = 0;
-	for (std::size_t i = 0; i < sl.size(); ++i)
+	for (std::size_t i = 0; i < structures.size(); ++i)
 	{
-		if (sl[i]->operational())
+		if (structures[i]->operational())
 		{
-			storage += sl[i]->storage().capacity();
+			storage += structures[i]->storage().capacity();
 		}
 	}
 

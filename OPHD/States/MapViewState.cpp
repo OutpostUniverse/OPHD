@@ -256,9 +256,9 @@ int MapViewState::foodInStorage()
 {
 	int food_count = 0;
 
-	auto sl = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
+	auto structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
 
-	for (auto structure : sl)
+	for (auto structure : structures)
 	{
 		if (structure->operational() || structure->isIdle())
 		{
@@ -285,8 +285,8 @@ int MapViewState::foodTotalStorage()
 		food_storage += constants::BASE_STORAGE_CAPACITY;
 	}
 
-	auto sl = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
-	for (auto structure : sl)
+	auto structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
+	for (auto structure : structures)
 	{
 		if (structure->operational() || structure->isIdle())
 		{

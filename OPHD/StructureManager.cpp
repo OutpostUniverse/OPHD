@@ -122,16 +122,16 @@ void StructureManager::updateEnergyProduction(ResourcePool& resourcePool, Popula
 /**
  *
  */
-void StructureManager::updateStructures(ResourcePool& resourcePool, PopulationPool& popPool, StructureList& sl)
+void StructureManager::updateStructures(ResourcePool& resourcePool, PopulationPool& popPool, StructureList& structures)
 {
 	bool chapAvailable = CHAPAvailable();
 	const PopulationRequirements* _populationRequired = nullptr;
 	PopulationRequirements* _populationAvailable = nullptr;
 
 	Structure* structure = nullptr;
-	for (std::size_t i = 0; i < sl.size(); ++i)
+	for (std::size_t i = 0; i < structures.size(); ++i)
 	{
-		structure = sl[i];
+		structure = structures[i];
 		structure->update();
 
 		// State Check
@@ -211,11 +211,11 @@ void StructureManager::updateStructures(ResourcePool& resourcePool, PopulationPo
  */
 void StructureManager::updateFactoryProduction()
 {
-	StructureList& sl = mStructureLists[Structure::StructureClass::CLASS_FACTORY];
+	StructureList& structures = mStructureLists[Structure::StructureClass::CLASS_FACTORY];
 
-	for (std::size_t i = 0; i < sl.size(); ++i)
+	for (std::size_t i = 0; i < structures.size(); ++i)
 	{
-		static_cast<Factory*>(sl[i])->updateProduction();
+		static_cast<Factory*>(structures[i])->updateProduction();
 	}
 }
 
@@ -259,18 +259,18 @@ void StructureManager::addStructure(Structure* st, Tile* t)
  */
 void StructureManager::removeStructure(Structure* st)
 {
-	StructureList& sl = mStructureLists[st->structureClass()];
+	StructureList& structures = mStructureLists[st->structureClass()];
 
-	if (sl.empty())
+	if (structures.empty())
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
 
-	for (std::size_t i = 0; i < sl.size(); ++i)
+	for (std::size_t i = 0; i < structures.size(); ++i)
 	{
-		if (sl[i] == st)
+		if (structures[i] == st)
 		{
-			sl.erase(sl.begin() + static_cast<std::ptrdiff_t>(i));
+			structures.erase(structures.begin() + static_cast<std::ptrdiff_t>(i));
 			break;
 		}
 	}
