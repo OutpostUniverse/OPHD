@@ -111,7 +111,7 @@ void UIContainer::positionChanged(float dX, float dY)
 
 	for (auto control : mControls)
 	{
-		control->position(control->positionX() + dX, control->positionY() + dY);
+		control->position(control->position() + NAS2D::Vector{dX, dY});
 	}
 }
 
