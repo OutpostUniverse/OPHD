@@ -6,8 +6,12 @@
 #include "../Constants.h"
 #include "../FontManager.h"
 
+#include "../Things/Structures/Structure.h"
+
 #include <map>
 #include <sstream>
+
+#include <NAS2D/Utility.h>
 
 
 using namespace NAS2D;
