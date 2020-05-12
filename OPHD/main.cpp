@@ -132,8 +132,8 @@ int main(int /*argc*/, char *argv[])
 
 		std::cout << "Loading packed assets... ";
 
-		//f.mount("fonts.dat");
-		//f.mount("planets.dat");
+		f.mountSoftFail("fonts.dat");
+		f.mountSoftFail("planets.dat");
 
 		std::cout << "done." << std::endl;
 
