@@ -2,7 +2,7 @@
 
 #include "UI.h"
 
-#include "../Map/Tile.h"
+class Structure;
 
 class StructureInspector : public Window
 {

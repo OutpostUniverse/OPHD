@@ -3,8 +3,7 @@
 #include "UI.h"
 #include "IconGrid.h"
 
-#include "../Things/Structures/Warehouse.h"
-
+class Warehouse;
 
 /**
 * \brief Implements a Factory Production dialog interface.

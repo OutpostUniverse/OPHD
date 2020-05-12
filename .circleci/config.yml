@@ -19,7 +19,7 @@ jobs:
       - build
   build-linux-gcc8:
     docker:
-      - image: outpostuniverse/nas2d-gcc8:1.0
+      - image: outpostuniverse/nas2d-gcc8:1.1
     steps:
       - build
   build-linux-clang:

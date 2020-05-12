@@ -6,6 +6,8 @@
 #include "../Constants.h"
 #include "../FontManager.h"
 
+#include "../Things/Structures/Warehouse.h"
+
 using namespace NAS2D;
 
 static Font* FONT = nullptr;
