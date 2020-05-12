@@ -78,27 +78,26 @@ int main(int /*argc*/, char *argv[])
 			f.makeDirectory(constants::SAVE_GAME_PATH);
 		}
 
-		Configuration& cf = Utility<Configuration>::get();
-
-		// If no config file, set defaults.
-		if (!f.exists("config.xml"))
-		{
-			cf.graphicsWidth(constants::MINIMUM_WINDOW_WIDTH);
-			cf.graphicsHeight(constants::MINIMUM_WINDOW_HEIGHT);
-			cf.fullscreen(false);
-		}
-
+		Configuration& cf = Utility<Configuration>::init(
+			std::map<std::string, Dictionary>{
+				{
+					"graphics",
+					{{
+						{"screenwidth", constants::MINIMUM_WINDOW_WIDTH},
+						{"screenheight", constants::MINIMUM_WINDOW_HEIGHT},
+						{"fullscreen", false}
+					}}
+				},
+				{
+					"options",
+					{{
+						{"skip-splash", false},
+						{"maximized", true}
+					}}
+				}
+			}
+		);
 		cf.load("config.xml");
-
-		if (cf.option("skip-splash").empty())
-		{
-			cf.option("skip-splash", "false");
-		}
-		if (cf.option("maximized").empty())
-		{
-			cf.option("maximized", "true");
-		}
-
 		validateVideoResolution();
 
 		try
