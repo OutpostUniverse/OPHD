@@ -82,18 +82,18 @@ int main(int /*argc*/, char *argv[])
 			std::map<std::string, Dictionary>{
 				{
 					"graphics",
-					{
-						{"screenwidth", std::to_string(constants::MINIMUM_WINDOW_WIDTH)},
-						{"screenheight", std::to_string(constants::MINIMUM_WINDOW_HEIGHT)},
-						{"fullscreen", "false"}
-					}
+					{{
+						{"screenwidth", constants::MINIMUM_WINDOW_WIDTH},
+						{"screenheight", constants::MINIMUM_WINDOW_HEIGHT},
+						{"fullscreen", false}
+					}}
 				},
 				{
 					"options",
-					{
-						{"skip-splash", "false"},
-						{"maximized", "true"}
-					}
+					{{
+						{"skip-splash", false},
+						{"maximized", true}
+					}}
 				}
 			}
 		);
