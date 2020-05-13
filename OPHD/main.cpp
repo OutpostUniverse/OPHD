@@ -85,7 +85,20 @@ int main(int /*argc*/, char *argv[])
 					{{
 						{"screenwidth", constants::MINIMUM_WINDOW_WIDTH},
 						{"screenheight", constants::MINIMUM_WINDOW_HEIGHT},
-						{"fullscreen", false}
+						{"bitdepth", 32},
+						{"fullscreen", false},
+						{"vsync", true}
+					}}
+				},
+				{
+					"audio",
+					{{
+						{"mixer", "SDL"},
+						{"musicvolume", 100},
+						{"sfxvolume", 128},
+						{"channels", 2},
+						{"mixrate", 22050},
+						{"bufferlength", 1024}
 					}}
 				},
 				{
