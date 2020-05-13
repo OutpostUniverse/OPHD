@@ -238,7 +238,7 @@ void MainMenuOptions::btnApplyClicked()
 void MainMenuOptions::saveOptions()
 {
 	auto& cf = NAS2D::Utility<NAS2D::Configuration>::get();
-	cf.save();
+	cf.save("config.xml");
 }
 
 void MainMenuOptions::loadOptions()

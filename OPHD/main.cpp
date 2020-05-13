@@ -163,7 +163,7 @@ int main(int /*argc*/, char *argv[])
 			Utility<Renderer>::get().update();
 		}
 
-		cf.save(); // force configuration to save any changes.
+		cf.save("config.xml"); // force configuration to save any changes.
 	}
 	catch(const std::exception& e)
 	{
