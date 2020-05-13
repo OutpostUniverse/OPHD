@@ -91,6 +91,17 @@ int main(int /*argc*/, char *argv[])
 					}}
 				},
 				{
+					"audio",
+					{{
+						{"mixer", "SDL"},
+						{"musicvolume", 100},
+						{"sfxvolume", 128},
+						{"channels", 2},
+						{"mixrate", 22050},
+						{"bufferlength", 1024}
+					}}
+				},
+				{
 					"options",
 					{{
 						{"skip-splash", false},
