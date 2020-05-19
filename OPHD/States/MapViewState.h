@@ -27,9 +27,6 @@
 #include <string>
 
 
-/**
- * Needs to match insertion order in MapViewState::initialize()
- */
 enum PointerType
 {
 	POINTER_NORMAL,
