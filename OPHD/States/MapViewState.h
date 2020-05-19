@@ -220,33 +220,33 @@ private:
 	//Music mBgMusic;
 
 	// USER INTERFACE
-	Button mBtnTurns; /**< Turns Button. */
-	Button mBtnToggleHeightmap; /**< Height Map Toggle Button. */
-	Button mBtnToggleConnectedness; /**< Connectedness view toggle button. */
+	Button mBtnTurns;
+	Button mBtnToggleHeightmap;
+	Button mBtnToggleConnectedness;
 
-	IconGrid mStructures; /**< Structures pick view. */
-	IconGrid mRobots; /**< Robots pick view. */
-	IconGrid mConnections; /**< Tubes pick view. */
+	IconGrid mStructures;
+	IconGrid mRobots;
+	IconGrid mConnections;
 
-	DiggerDirection mDiggerDirection; /**< Digger direction window. */
-	FactoryProduction mFactoryProduction; /**< Factory Production window. */
-	FileIo mFileIoDialog; /**< File IO window. */
-	GameOverDialog mGameOverDialog; /**< Game over window. */
-	GameOptionsDialog mGameOptionsDialog; /**< Options List window. */
-	MajorEventAnnouncement mAnnouncement; /**< Announcements window. */
-	MineOperationsWindow mMineOperationsWindow; /**< Mine Operations window. */
-	PopulationPanel mPopulationPanel; /**< Population panel. */
-	ResourceBreakdownPanel mResourceBreakdownPanel; /**< Resource Breakdown Panel. */
-	StructureInspector mStructureInspector; /**< Structure Inspector window. */
-	TileInspector mTileInspector; /**< Tile Inspector window. */
-	WarehouseInspector mWarehouseInspector; /**< Warehouse Inspector window. */
+	DiggerDirection mDiggerDirection;
+	FactoryProduction mFactoryProduction;
+	FileIo mFileIoDialog;
+	GameOverDialog mGameOverDialog;
+	GameOptionsDialog mGameOptionsDialog;
+	MajorEventAnnouncement mAnnouncement;
+	MineOperationsWindow mMineOperationsWindow;
+	PopulationPanel mPopulationPanel;
+	ResourceBreakdownPanel mResourceBreakdownPanel;
+	StructureInspector mStructureInspector;
+	TileInspector mTileInspector;
+	WarehouseInspector mWarehouseInspector;
 
-	WindowStack mWindowStack; /**< Window stack manager. */
+	WindowStack mWindowStack;
 
 	// SIGNALS
-	QuitCallback mQuitCallback; /**< Signal for posting quit event. */
-	ReportsUiCallback mReportsUiCallback; /**< Signal for bringing the Main Reports UI up. */
-	MapChangedCallback mMapChangedCallback; /**< Signal indicating that the map changed. */
+	QuitCallback mQuitCallback;
+	ReportsUiCallback mReportsUiCallback;
+	MapChangedCallback mMapChangedCallback;
 
 	// MISCELLANEOUS
 	int mTurnCount = 0;
@@ -259,8 +259,8 @@ private:
 
 	int mResidentialCapacity = 0;
 
-	bool mLeftButtonDown = false; /**< Used for mouse drags on the mini map. */
-	bool mLoadingExisting = false; /**< Flag used for loading an existing game. */
+	bool mLeftButtonDown = false;
+	bool mLoadingExisting = false;
 	bool mPinResourcePanel = false;
 	bool mPinPopulationPanel = false;
 
