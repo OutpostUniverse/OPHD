@@ -37,6 +37,7 @@ ListBox::~ListBox()
 	mSlider.change().disconnect(this, &ListBox::slideChanged);
 }
 
+
 /**
 *
 */
@@ -196,6 +197,7 @@ void ListBox::dropAllItems()
 	mCurrentSelection = 0;
 	_updateItemDisplay();
 }
+
 
 void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
