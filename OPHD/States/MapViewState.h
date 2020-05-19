@@ -1,7 +1,6 @@
 #pragma once
 
 #include "NAS2D/Signal.h"
-#include "NAS2D/FpsCounter.h"
 
 #include "MapViewStateHelper.h"
 #include "MainReportsUiState.h"
@@ -194,8 +193,6 @@ private:
 
 
 private:
-	NAS2D::FpsCounter mFps; /**< Main FPS Counter. */
-
 	TileMap* mTileMap = nullptr;
 
 	NAS2D::Image mBackground; /**< Background image drawn behind the tile map. */
