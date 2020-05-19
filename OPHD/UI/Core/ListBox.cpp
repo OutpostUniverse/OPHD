@@ -292,7 +292,10 @@ void ListBox::update()
 	// Highlight On mouse Over
 	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
-		renderer.drawBox(itemBounds, mHighlightBg);
+		auto highlightBounds = listBounds;
+		highlightBounds.height() = mLineHeight;
+		highlightBounds.y() += static_cast<int>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
+		renderer.drawBox(highlightBounds, mHighlightBg);
 	}
 	
 	// display actuals values that are meant to be
