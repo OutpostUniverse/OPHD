@@ -105,7 +105,6 @@ void ListBoxBase::onSizeChanged()
 }
 
 
-
 /**
  * Mouse Down event handler.
  */
