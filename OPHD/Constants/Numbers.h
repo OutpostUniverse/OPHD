@@ -29,6 +29,8 @@ namespace constants
 
 	const int MINER_TASK_TIME = 6;
 
+	const int DIGGER_TASK_TIME = 5;
+
 	const int COMMAND_CENTER_POPULATION_CAPACITY = 10;
 	const int MINIMUM_RESIDENCE_OVERCAPACITY_HIT = 1;
 

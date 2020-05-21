@@ -484,7 +484,7 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 
 	// Assumes a digger is available.
 	Robodigger* robot = mRobotPool.getDigger();
-	robot->startTask(tile->index() + 5); // FIXME: Magic Number
+	robot->startTask(tile->index() + DIGGER_TASK_TIME);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 
 	robot->direction(direction);
