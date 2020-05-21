@@ -468,12 +468,12 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 /**
  * 
  */
-void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection selection, Tile* tile)
+void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 {
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
-	if (tile->depth() > 0 && selection == DiggerDirection::DiggerSelection::SEL_DOWN)
+	if (tile->depth() > 0 && direction == Direction::DIR_DOWN)
 	{
 		NAS2D::Utility<StructureManager>::get().removeStructure(tile->structure());
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -487,29 +487,23 @@ void MapViewState::diggerSelectionDialog(DiggerDirection::DiggerSelection select
 	robot->startTask(tile->index() + 5); // FIXME: Magic Number
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 
+	robot->direction(direction);
 
-	if (selection == DiggerDirection::DiggerSelection::SEL_DOWN)
+
+	if (direction == Direction::DIR_NORTH)
 	{
-		robot->direction(Direction::DIR_DOWN);
-	}
-	else if (selection == DiggerDirection::DiggerSelection::SEL_NORTH)
-	{
-		robot->direction(Direction::DIR_NORTH);
 		mTileMap->getTile(tile->x(), tile->y() - 1, tile->depth())->excavated(true);
 	}
-	else if (selection == DiggerDirection::DiggerSelection::SEL_SOUTH)
+	else if (direction == Direction::DIR_SOUTH)
 	{
-		robot->direction(Direction::DIR_SOUTH);
 		mTileMap->getTile(tile->x(), tile->y() + 1, tile->depth())->excavated(true);
 	}
-	else if (selection == DiggerDirection::DiggerSelection::SEL_EAST)
+	else if (direction == Direction::DIR_EAST)
 	{
-		robot->direction(Direction::DIR_EAST);
 		mTileMap->getTile(tile->x() + 1, tile->y(), tile->depth())->excavated(true);
 	}
-	else if (selection == DiggerDirection::DiggerSelection::SEL_WEST)
+	else if (direction == Direction::DIR_WEST)
 	{
-		robot->direction(Direction::DIR_WEST);
 		mTileMap->getTile(tile->x() - 1, tile->y(), tile->depth())->excavated(true);
 	}
 

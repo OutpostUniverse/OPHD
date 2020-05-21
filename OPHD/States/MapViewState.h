@@ -189,7 +189,7 @@ private:
 	void connectionsSelectionChanged(const IconGrid::IconGridItem*);
 	void robotsSelectionChanged(const IconGrid::IconGridItem*);
 
-	void diggerSelectionDialog(DiggerDirection::DiggerSelection selection, Tile* tile);
+	void diggerSelectionDialog(Direction direction, Tile* tile);
 
 	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 

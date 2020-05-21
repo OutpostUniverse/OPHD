@@ -113,29 +113,29 @@ void DiggerDirection::selectDown()
 
 void DiggerDirection::btnDiggerDownClicked()
 {
-	mCallback(DiggerSelection::SEL_DOWN, mTile);
+	mCallback(Direction::DIR_DOWN, mTile);
 }
 
 
 void DiggerDirection::btnDiggerNorthClicked()
 {
-	mCallback(DiggerSelection::SEL_NORTH, mTile);
+	mCallback(Direction::DIR_NORTH, mTile);
 }
 
 
 void DiggerDirection::btnDiggerSouthClicked()
 {
-	mCallback(DiggerSelection::SEL_SOUTH, mTile);
+	mCallback(Direction::DIR_SOUTH, mTile);
 }
 
 
 void DiggerDirection::btnDiggerEastClicked()
 {
-	mCallback(DiggerSelection::SEL_EAST, mTile);
+	mCallback(Direction::DIR_EAST, mTile);
 }
 
 
 void DiggerDirection::btnDiggerWestClicked()
 {
-	mCallback(DiggerSelection::SEL_WEST, mTile);
+	mCallback(Direction::DIR_WEST, mTile);
 }

@@ -7,19 +7,7 @@
 class DiggerDirection: public Window
 {
 public:
-	/**
-	 * 
-	 */
-	enum DiggerSelection
-	{
-		SEL_DOWN,
-		SEL_NORTH,
-		SEL_SOUTH,
-		SEL_EAST,
-		SEL_WEST
-	};
-
-	using Callback = NAS2D::Signals::Signal<DiggerSelection, Tile*>;
+	using Callback = NAS2D::Signals::Signal<Direction, Tile*>;
 
 public:
 	DiggerDirection();
