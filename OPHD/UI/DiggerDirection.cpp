@@ -4,7 +4,6 @@
 #include "DiggerDirection.h"
 
 
-
 DiggerDirection::DiggerDirection() :
 	btnCancel{"Cancel"}
 {

@@ -524,7 +524,6 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 void MapViewState::btnSaveGameClicked()
 {
 	mGameOptionsDialog.hide();
-	//save(constants::SAVE_GAME_PATH + "test.xml");
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
 	mFileIoDialog.show();
@@ -537,7 +536,6 @@ void MapViewState::btnSaveGameClicked()
 void MapViewState::btnLoadGameClicked()
 {
 	mGameOptionsDialog.hide();
-	//load(constants::SAVE_GAME_PATH + "test.xml");
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 	mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
 	mFileIoDialog.show();
