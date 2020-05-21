@@ -211,9 +211,7 @@ State* MapViewState::update()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImageStretched(mBackground, 0, 0, renderer.width(), renderer.height());
-
-	// FIXME: Ugly / hacky
+	// Game's over, don't bother drawing anything else
 	if (mGameOverDialog.visible())
 	{
 		renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 255);
@@ -222,11 +220,13 @@ State* MapViewState::update()
 		return this;
 	}
 
+	renderer.drawImageStretched(mBackground, 0, 0, renderer.width(), renderer.height());
+
 	// explicit current level
 	Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 	renderer.drawText(*font, CURRENT_LEVEL_STRING, renderer.width() - font->width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - font->height() - 12, 255, 255, 255);
 	
-	if (!mGameOptionsDialog.visible() && !mGameOverDialog.visible() && !mFileIoDialog.visible())
+	if (!mGameOptionsDialog.visible() && !mFileIoDialog.visible())
 	{
 		mTileMap->injectMouse(MOUSE_COORDS.x(), MOUSE_COORDS.y());
 	}
