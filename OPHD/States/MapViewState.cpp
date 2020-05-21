@@ -219,8 +219,6 @@ State* MapViewState::update()
 		renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 255);
 		mGameOverDialog.update();
 
-		if (renderer.isFading()) { return this; }
-
 		return this;
 	}
 
@@ -242,8 +240,6 @@ State* MapViewState::update()
 	}
 
 	drawUI();
-
-	if (renderer.isFading()) { return this; }
 
 	return this;
 }
