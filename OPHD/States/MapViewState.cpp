@@ -226,7 +226,7 @@ State* MapViewState::update()
 	Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 	renderer.drawText(*font, CURRENT_LEVEL_STRING, renderer.width() - font->width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - font->height() - 12, 255, 255, 255);
 	
-	if (!mGameOptionsDialog.visible() && !mFileIoDialog.visible())
+	if (!modalUiElementDisplayed())
 	{
 		mTileMap->injectMouse(MOUSE_COORDS.x(), MOUSE_COORDS.y());
 	}
@@ -234,7 +234,7 @@ State* MapViewState::update()
 	mTileMap->draw();
 
 	// FIXME: Ugly / hacky
-	if (mGameOptionsDialog.visible() || mFileIoDialog.visible())
+	if (modalUiElementDisplayed())
 	{
 		renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 165);
 	}
@@ -321,7 +321,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 	if (!active()) { return; }
 
 	// FIXME: Ugly / hacky
-	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible())
+	if (modalUiElementDisplayed())
 	{
 		return;
 	}
@@ -456,8 +456,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 {
 	if (!active()) { return; }
 
-	// FIXME: Ugly / hacky
-	if (mGameOverDialog.visible() || mFileIoDialog.visible() || mGameOptionsDialog.visible()) { return; }
+	if (modalUiElementDisplayed()) { return; }
 
 	if (mDiggerDirection.visible() && mDiggerDirection.rect().contains(MOUSE_COORDS)) { return; }
 

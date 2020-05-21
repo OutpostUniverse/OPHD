@@ -164,6 +164,8 @@ private:
 	void initUi();
 	void resetUi();
 
+	bool modalUiElementDisplayed() const;
+
 	void setupUiPositions(NAS2D::Vector<int> size);
 
 	void checkRobotSelectionInterface(const std::string& rType, int sheetIndex, RobotType);

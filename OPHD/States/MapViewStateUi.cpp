@@ -353,6 +353,19 @@ void MapViewState::populateStructureMenu()
 
 
 /**
+ * Some UI elements should be treated as 'modal' and block input when they're
+ * visible. This is a central way to check for a modal UI element without
+ * having to check for multiple elements in a variety of places in the code.
+ */
+bool MapViewState::modalUiElementDisplayed() const
+{
+	return mGameOptionsDialog.visible() ||
+		mFileIoDialog.visible() ||
+		mGameOverDialog.visible();
+}
+
+
+/**
 * Updates and draws the UI.
 */
 void MapViewState::drawUI()
