@@ -957,7 +957,8 @@ void MapViewState::placeRobot()
 			return;
 		}
 
-		robot->startTask(tile->index());
+		int taskTime = tile->index() == 0 ? 1 : tile->index(); 
+		robot->startTask(taskTime);
 		mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 		static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile->index()));
 		tile->index(TerrainType::TERRAIN_DOZED);
