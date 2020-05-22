@@ -720,6 +720,7 @@ void MapViewState::clearMode()
  */
 void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 {
+
 	if (dir == ConnectorDir::CONNECTOR_VERTICAL)
 	{
 		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir paramter.");
@@ -734,9 +735,6 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
  */
 void MapViewState::placeTubes()
 {
-	int x = mTileMapMouseHover.x();
-	int y = mTileMapMouseHover.y();
-
 	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
 	if (!tile) { return; }
 
@@ -746,11 +744,11 @@ void MapViewState::placeTubes()
 	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 *			Should instead take advantage of the updated meta data in the IconGridItem.
 	 */
-	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
+	auto cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	if (validTubeConnection(mTileMap, x, y, cd))
+	if (validTubeConnection(mTileMap, mTileMapMouseHover.x(), mTileMapMouseHover.y(), cd))
 	{
-		insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(x, y));
+		insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(mTileMapMouseHover));
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		Utility<StructureManager>::get().disconnectAll();
