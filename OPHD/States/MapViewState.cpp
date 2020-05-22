@@ -666,8 +666,7 @@ void MapViewState::onMouseWheel(int /*x*/, int y)
 {
 	if (mInsertMode != InsertMode::INSERT_TUBE) { return; }
 
-	if (y > 0) { mConnections.decrementSelection(); }
-	else { mConnections.incrementSelection(); }
+	y > 0 ? mConnections.decrementSelection() : mConnections.incrementSelection();
 }
 
 
