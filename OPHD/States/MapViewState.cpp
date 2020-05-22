@@ -458,7 +458,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 	if (modalUiElementDisplayed()) { return; }
 
-	if (mDiggerDirection.visible() && mDiggerDirection.rect().contains(MOUSE_COORDS)) { return; }
+	//if (mDiggerDirection.visible() && mDiggerDirection.rect().contains(MOUSE_COORDS)) { return; }
 
 	if (mWindowStack.pointInWindow(MOUSE_COORDS) && button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
