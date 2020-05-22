@@ -521,14 +521,13 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 	{
 		mLeftButtonDown = true;
 
-		mWindowStack.updateStack(MOUSE_COORDS);
 		Point<int> pt = mTileMap->mapViewLocation();
 
-		// Ugly
 		if (MENU_ICON.contains(MOUSE_COORDS))
 		{
 			mGameOptionsDialog.show();
 			resetUi();
+			return;
 		}
 
 		if (RESOURCE_PANEL_PIN.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
