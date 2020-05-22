@@ -720,22 +720,12 @@ void MapViewState::clearMode()
  */
 void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 {
-	if (dir == ConnectorDir::CONNECTOR_INTERSECTION)
+	if (dir == ConnectorDir::CONNECTOR_VERTICAL)
 	{
-		Utility<StructureManager>::get().addStructure(new Tube(ConnectorDir::CONNECTOR_INTERSECTION, depth != 0), tile);
+		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir paramter.");
 	}
-	else if (dir == ConnectorDir::CONNECTOR_RIGHT)
-	{
-		Utility<StructureManager>::get().addStructure(new Tube(ConnectorDir::CONNECTOR_RIGHT, depth != 0), tile);
-	}
-	else if (dir == ConnectorDir::CONNECTOR_LEFT)
-	{
-		Utility<StructureManager>::get().addStructure(new Tube(ConnectorDir::CONNECTOR_LEFT, depth != 0), tile);
-	}
-	else
-	{
-		throw std::runtime_error("MapViewState::placeTube() called but Current Structure is not a tube!");
-	}
+
+	Utility<StructureManager>::get().addStructure(new Tube(dir, depth != 0), tile);
 }
 
 
