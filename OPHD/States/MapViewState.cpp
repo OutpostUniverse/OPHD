@@ -363,48 +363,48 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 
 		case EventHandler::KeyCode::KEY_0:
 			viewUpdated = true;
-			changeDepth(0);
+			changeViewDepth(0);
 			break;
 
 		case EventHandler::KeyCode::KEY_1:
 			viewUpdated = true;
-			changeDepth(1);
+			changeViewDepth(1);
 			break;
 
 		case EventHandler::KeyCode::KEY_2:
 			viewUpdated = true;
-			changeDepth(2);
+			changeViewDepth(2);
 			break;
 
 		case EventHandler::KeyCode::KEY_3:
 			viewUpdated = true;
-			changeDepth(3);
+			changeViewDepth(3);
 			break;
 
 		case EventHandler::KeyCode::KEY_4:
 			viewUpdated = true;
-			changeDepth(4);
+			changeViewDepth(4);
 			break;
 
 		case EventHandler::KeyCode::KEY_PAGEUP:
 			viewUpdated = true;
-			changeDepth(mTileMap->currentDepth() - 1);
+			changeViewDepth(mTileMap->currentDepth() - 1);
 			break;
 
 		case EventHandler::KeyCode::KEY_PAGEDOWN:
 			viewUpdated = true;
-			changeDepth(mTileMap->currentDepth() + 1);
+			changeViewDepth(mTileMap->currentDepth() + 1);
 			break;
 
 
 		case EventHandler::KeyCode::KEY_HOME:
 			viewUpdated = true;
-			changeDepth(0);
+			changeViewDepth(0);
 			break;
 
 		case EventHandler::KeyCode::KEY_END:
 			viewUpdated = true;
-			changeDepth(mTileMap->maxDepth());
+			changeViewDepth(mTileMap->maxDepth());
 			break;
 
 		case EventHandler::KeyCode::KEY_F10:
@@ -560,11 +560,11 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		}
 		else if (MOVE_UP_ICON.contains(MOUSE_COORDS))
 		{
-			changeDepth(mTileMap->currentDepth() - 1);
+			changeViewDepth(mTileMap->currentDepth() - 1);
 		}
 		else if (MOVE_DOWN_ICON.contains(MOUSE_COORDS))
 		{
-			changeDepth(mTileMap->currentDepth()+1);
+			changeViewDepth(mTileMap->currentDepth()+1);
 		}
 
 		// MiniMap Check
@@ -673,17 +673,13 @@ void MapViewState::onMouseWheel(int /*x*/, int y)
 /**
  * Changes the current view depth.
  */
-bool MapViewState::changeDepth(int newDepth)
+void MapViewState::changeViewDepth(int depth)
 {
-	int mPrevious = mTileMap->currentDepth();
-	mTileMap->currentDepth(newDepth);
-
-	if (mTileMap->currentDepth() == mPrevious) { return false; }
+	mTileMap->currentDepth(depth);
 
 	if (mInsertMode != InsertMode::INSERT_ROBOT) { clearMode(); }
 	populateStructureMenu();
 	updateCurrentLevelString(mTileMap->currentDepth());
-	return true;
 }
 
 
