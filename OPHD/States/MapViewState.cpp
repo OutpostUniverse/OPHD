@@ -868,21 +868,23 @@ void MapViewState::placeRobot()
 	if (!tile) { return; }
 	if (!mRobotPool.robotCtrlAvailable()) { return; }
 	
-	// NOTE:	This function will never be called until the seed lander is deployed so there
-	//			is no need to check that the CC Location is anything other than { 0, 0 }.
 	if (outOfCommRange(ccLocation(), mTileMap, tile))
 	{
 		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_OUT_OF_COMM_RANGE);
 		return;
 	}
 
-	// Robodozer has been selected.
 	if(mCurrentRobot == RobotType::ROBOT_DOZER)
 	{
 		Robot* robot = mRobotPool.getDozer();
 
 		if (!tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
 		{
+			return;
+		}
+		else if (tile->index() == TerrainType::TERRAIN_DOZED)
+		{
+			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_TILE_BULLDOZED);
 			return;
 		}
 		else if (tile->mine())
@@ -899,13 +901,6 @@ void MapViewState::placeRobot()
 			for (std::size_t i = 0; i <= static_cast<std::size_t>(mTileMap->maxDepth()); ++i)
 			{
 				Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover(), static_cast<int>(i));
-
-				// Probably overkill here but if this is ever true there is a serious logic error somewhere.
-				if (!_t->thing() || !_t->thingIsStructure())
-				{
-					throw std::runtime_error("Deleting a mine facility that isn't at full depth.");
-				}
-
 				Utility<StructureManager>::get().removeStructure(_t->structure());
 			}
 		}
@@ -928,12 +923,20 @@ void MapViewState::placeRobot()
 				return;
 			}
 
-			if (structure->isRobotCommand()) { deleteRobotsInRCC(robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, tile); }
-			if (structure->isFactory() && static_cast<Factory*>(structure) == mFactoryProduction.factory()) { mFactoryProduction.hide(); }
+			if (structure->isRobotCommand())
+			{
+				deleteRobotsInRCC(robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, tile);
+			}
+
+			if (structure->isFactory() && static_cast<Factory*>(structure) == mFactoryProduction.factory())
+			{
+				mFactoryProduction.hide();
+			}
+
 			if (structure->isWarehouse())
 			{
 				if (simulateMoveProducts(static_cast<Warehouse*>(structure))) { moveProducts(static_cast<Warehouse*>(structure)); }
-				else { return; } // Don't continue with the bulldoze if the user says no.
+				else { return; }
 			}
 
 			/**
@@ -951,11 +954,6 @@ void MapViewState::placeRobot()
 			static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(TerrainType::TERRAIN_DOZED));
 			checkConnectedness();
 		}
-		else if (tile->index() == TerrainType::TERRAIN_DOZED)
-		{
-			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_TILE_BULLDOZED);
-			return;
-		}
 
 		int taskTime = tile->index() == 0 ? 1 : tile->index(); 
 		robot->startTask(taskTime);
@@ -969,7 +967,6 @@ void MapViewState::placeRobot()
 			clearMode();
 		}
 	}
-	// Robodigger has been selected.
 	else if(mCurrentRobot == RobotType::ROBOT_DIGGER)
 	{
 		// Keep digger within a safe margin of the map boundaries.
@@ -1047,7 +1044,6 @@ void MapViewState::placeRobot()
 			mDiggerDirection.position(x, MOUSE_COORDS.y() - 32);
 		}
 	}
-	// Robominer has been selected.
 	else if(mCurrentRobot == RobotType::ROBOT_MINER)
 	{
 		if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
@@ -1070,7 +1066,7 @@ void MapViewState::placeRobot()
 
 /**
  * Checks the robot selection interface and if the robot is not available in it, adds
- * it back in and reeneables the robots button if it's not enabled.
+ * it back in.
  */
 void MapViewState::checkRobotSelectionInterface(const std::string& rType, int sheetIndex, RobotType _rid)
 {
