@@ -458,9 +458,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 	if (modalUiElementDisplayed()) { return; }
 
-	//if (mDiggerDirection.visible() && mDiggerDirection.rect().contains(MOUSE_COORDS)) { return; }
-
-	if (mWindowStack.pointInWindow(MOUSE_COORDS) && button == EventHandler::MouseButton::BUTTON_LEFT)
+	if (mWindowStack.pointInWindow(MOUSE_COORDS))
 	{
 		mWindowStack.updateStack(MOUSE_COORDS);
 		return;
@@ -468,8 +466,6 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 	if (button == EventHandler::MouseButton::BUTTON_RIGHT)
 	{
-		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
-
 		if (mInsertMode != InsertMode::INSERT_NONE)
 		{
 			resetUi();
