@@ -89,6 +89,11 @@ clean-all:
 	-rm -f $(EXE)
 
 
+.PHONY: install-dependencies
+install-dependencies:
+	$(MAKE) -C nas2d-core install-dependencies
+
+
 .PHONY: lint
 lint: cppcheck cppclean
 
