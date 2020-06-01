@@ -35,6 +35,7 @@ public:
 
 public:
 	ResourcePool(int common_metals_ore, int common_minerals_ore, int rare_metals_ore, int rare_minerals_ore, int common_metals, int common_minerals, int rare_metals, int rare_minerals, int food, int energy);
+	ResourcePool(size_t capacity);
 	ResourcePool();
 	ResourcePool(const ResourcePool& rhs);
 

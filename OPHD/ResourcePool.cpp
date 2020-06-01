@@ -27,6 +27,10 @@ ResourcePool::ResourcePool(int cmo, int cmno, int rmo, int rmno, int cm, int cmn
 }
 
 
+ResourcePool::ResourcePool(size_t capacity) : _capacity(capacity)
+{}
+
+
 ResourcePool::ResourcePool(): _capacity(0)
 {
 	_resourceTable.fill(0);
