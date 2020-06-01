@@ -170,8 +170,7 @@ void MapViewState::updateResources()
 	// Update storage capacity
 	mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage)));
 
-	ResourcePool truck;
-	truck.capacity(100);
+	ResourcePool truck(100);
 
 	// Move ore from mines to smelters
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
