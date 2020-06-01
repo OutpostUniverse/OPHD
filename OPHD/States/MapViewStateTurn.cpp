@@ -162,6 +162,34 @@ void MapViewState::updateMorale()
 }
 
 
+using namespace micropather;
+
+MicroPather* pather = nullptr;
+using Route = std::vector<void*>;
+using RouteList = std::vector<Route>;
+
+
+std::map<Mine*, Route> RouteTable;
+
+
+static RouteList findRoutes(const StructureList& /*smelters*/)
+{
+	return RouteList();
+}
+
+
+static Route findLowestCostRoute(RouteList& /*routeList*/)
+{
+	return Route();
+}
+
+
+static bool routeObstructed(Route& /*route*/)
+{
+	return false;
+}
+
+
 /**
  * 
  */
@@ -172,7 +200,34 @@ void MapViewState::updateResources()
 
 	ResourcePool truck(100);
 
+	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
+	{
+		MineFacility* facility = static_cast<MineFacility*>(mine);
+		facility->mine()->checkExhausted();
+
+		if (!mine->operational()) { continue; } // consider a different control path.
+
+		auto route = RouteTable.find(facility->mine());
+		bool findNewRoute = route == RouteTable.end();
+
+		if (!findNewRoute && routeObstructed(route->second))
+		{
+			RouteTable.erase(facility->mine());
+			findNewRoute = true;
+		}
+
+		if (findNewRoute)
+		{
+			auto routeList = findRoutes(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter));
+			auto newRoute = findLowestCostRoute(routeList);
+		}
+
+		// do resource movement here
+	}
+
+
 	// Move ore from mines to smelters
+	/*
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
 	{
 		static_cast<MineFacility*>(mine)->mine()->checkExhausted();
@@ -199,6 +254,7 @@ void MapViewState::updateResources()
 			mine->storage().pushResources(truck);
 		}
 	}
+	*/
 
 	// Move refined resources from smelters to storage tanks
 	for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter))
@@ -270,12 +326,6 @@ void MapViewState::updateResidentialCapacity()
 
 	mPopulationPanel.residential_capacity(mResidentialCapacity);
 }
-
-
-using namespace micropather;
-
-MicroPather* pather = nullptr;
-std::vector<void*> path;
 
 
 /**
