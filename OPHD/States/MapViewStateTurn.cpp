@@ -220,41 +220,12 @@ void MapViewState::updateResources()
 		{
 			auto routeList = findRoutes(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter));
 			auto newRoute = findLowestCostRoute(routeList);
+
+			if (newRoute.empty()) { continue; } // give up and move on to the next mine
 		}
 
 		// do resource movement here
 	}
-
-
-	// Move ore from mines to smelters
-	/*
-	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
-	{
-		static_cast<MineFacility*>(mine)->mine()->checkExhausted();
-
-		if (!mine->operational()) { continue; } // consider a different control path.
-
-		ResourcePool& resourcePool = mine->storage();
-
-		truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, 25));
-		truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, 25));
-		truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, 25));
-		truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, 25));
-
-		for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter))
-		{
-			if (smelter->operational())
-			{
-				smelter->production().pushResources(truck);
-			}
-		}
-
-		if (!truck.empty())
-		{
-			mine->storage().pushResources(truck);
-		}
-	}
-	*/
 
 	// Move refined resources from smelters to storage tanks
 	for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter))
