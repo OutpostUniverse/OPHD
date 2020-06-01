@@ -88,10 +88,6 @@ void MapViewState::save(const std::string& filePath)
 }
 
 
-using namespace micropather;
-extern MicroPather* pather;
-extern std::vector<void*> path;
-
 /**
  * 
  */
@@ -162,9 +158,11 @@ void MapViewState::load(const std::string& filePath)
 	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.tilesetPath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
 
+	/*
 	delete pather;
 	pather = new MicroPather(mTileMap);
 	path.clear();
+	*/
 
 
 	/**
