@@ -1076,14 +1076,11 @@ void MapViewState::checkRobotSelectionInterface(const std::string& rType, int sh
  */
 void MapViewState::placeStructure()
 {
-	// StructureID::SID_NONE is a logic error and should fail as loudly as possible.
 	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
 
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
 
-	// NOTE:	This function will never be called until the seed lander is deployed so there
-	//			is no need to check that the CC Location is anything other than { 0, 0 }.
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
 		(tile->distanceTo(mTileMap->getTile(ccLocation(), 0)) > constants::ROBOT_COM_RANGE))
 	{
