@@ -162,15 +162,17 @@ void MapViewState::updateMorale()
 }
 
 
-using namespace micropather;
+struct Route
+{
+	bool empty() const { return mPath.empty(); }
 
-MicroPather* pather = nullptr;
-using Route = std::vector<void*>;
+	std::vector<void*>	mPath;
+	float mCost = 0.0f;
+};
+
 using RouteList = std::vector<Route>;
 
-
-std::map<Mine*, Route> RouteTable;
-
+std::map<MineFacility*, Route> RouteTable;
 
 static RouteList findRoutes(const StructureList& /*smelters*/)
 {
@@ -184,8 +186,18 @@ static Route findLowestCostRoute(RouteList& /*routeList*/)
 }
 
 
-static bool routeObstructed(Route& /*route*/)
+static bool routeObstructed(Route& route)
 {
+	for (auto tile : route.mPath)
+	{
+		Tile* t = static_cast<Tile*>(tile);
+
+		// \note	Tile being occupied by a robot is not an obstruction for the
+		//			purposes of routing/pathing.
+		if (t->thingIsStructure() && !t->structure()->isRoad()) { return true; }
+		if (t->index() == TERRAIN_IMPASSABLE) { return true; }
+	}
+
 	return false;
 }
 
@@ -207,12 +219,12 @@ void MapViewState::updateResources()
 
 		if (!mine->operational()) { continue; } // consider a different control path.
 
-		auto route = RouteTable.find(facility->mine());
+		auto route = RouteTable.find(facility);
 		bool findNewRoute = route == RouteTable.end();
 
 		if (!findNewRoute && routeObstructed(route->second))
 		{
-			RouteTable.erase(facility->mine());
+			RouteTable.erase(facility);
 			findNewRoute = true;
 		}
 
@@ -222,6 +234,8 @@ void MapViewState::updateResources()
 			auto newRoute = findLowestCostRoute(routeList);
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine
+
+			RouteTable[facility] = newRoute;
 		}
 
 		// do resource movement here
