@@ -5,10 +5,10 @@
 
 struct Route
 {
-	bool empty() const { return mPath.empty(); }
+	bool empty() const { return path.empty(); }
 
-	std::vector<void*>	mPath;
-	float mCost = 0.0f;
+	std::vector<void*> path;
+	float cost = 0.0f;
 };
 
 using RouteList = std::vector<Route>;
