@@ -181,11 +181,8 @@ void MapViewState::initialize()
 
 	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
-	/*
-	delete pather;
-	pather = new MicroPather(mTileMap);
-	path.clear();
-	*/
+	delete mPathSolver;
+	mPathSolver = new micropather::MicroPather(mTileMap);
 }
 
 
