@@ -597,8 +597,7 @@ float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
 }
 
 
-using namespace micropather;
-void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
+void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent)
 {
 	Tile* tile = static_cast<Tile*>(state);
 
@@ -612,7 +611,7 @@ void TileMap::AdjacentCost(void* state, std::vector<StateCost>* adjacent)
 		if (!adjacent_tile || !adjacent_tile->empty() || adjacent_tile->index() == TerrainType::TERRAIN_IMPASSABLE) { cost = FLT_MAX; }
 		else { cost *= static_cast<float>(adjacent_tile->index()) + 1.0f; }
 
-		StateCost nodeCost = { adjacent_tile, cost };
+		micropather::StateCost nodeCost = { adjacent_tile, cost };
 		adjacent->push_back(nodeCost);
 	}
 }
