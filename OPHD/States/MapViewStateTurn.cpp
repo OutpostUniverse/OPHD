@@ -163,9 +163,24 @@ void MapViewState::updateMorale()
 
 
 
-static RouteList findRoutes(const StructureList& /*smelters*/)
+static RouteList findRoutes(micropather::MicroPather* solver, Structure* mine, const StructureList& smelters)
 {
-	return RouteList();
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+
+	Tile* start = structureManager.tileFromStructure(mine);
+
+	RouteList routeList;
+
+	for (auto smelter : smelters)
+	{
+		Tile* end = structureManager.tileFromStructure(smelter);
+		Route route;
+		solver->Solve(start, end, &route.path, &route.cost);
+
+		if (!route.empty()) { routeList.push_back(route); }
+	}
+
+	return routeList;
 }
 
 
@@ -177,7 +192,7 @@ static Route findLowestCostRoute(RouteList& /*routeList*/)
 
 static bool routeObstructed(Route& route)
 {
-	for (auto tile : route.mPath)
+	for (auto tile : route.path)
 	{
 		Tile* t = static_cast<Tile*>(tile);
 
@@ -201,6 +216,8 @@ void MapViewState::updateResources()
 
 	ResourcePool truck(100);
 
+	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
+
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
 	{
 		MineFacility* facility = static_cast<MineFacility*>(mine);
@@ -219,7 +236,7 @@ void MapViewState::updateResources()
 
 		if (findNewRoute)
 		{
-			auto routeList = findRoutes(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter));
+			auto routeList = findRoutes(mPathSolver, mine, smelterList);
 			auto newRoute = findLowestCostRoute(routeList);
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine
@@ -231,7 +248,7 @@ void MapViewState::updateResources()
 	}
 
 	// Move refined resources from smelters to storage tanks
-	for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter))
+	for (auto smelter : smelterList)
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
