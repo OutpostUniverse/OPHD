@@ -162,17 +162,6 @@ void MapViewState::updateMorale()
 }
 
 
-struct Route
-{
-	bool empty() const { return mPath.empty(); }
-
-	std::vector<void*>	mPath;
-	float mCost = 0.0f;
-};
-
-using RouteList = std::vector<Route>;
-
-std::map<MineFacility*, Route> RouteTable;
 
 static RouteList findRoutes(const StructureList& /*smelters*/)
 {
@@ -219,12 +208,12 @@ void MapViewState::updateResources()
 
 		if (!mine->operational()) { continue; } // consider a different control path.
 
-		auto route = RouteTable.find(facility);
-		bool findNewRoute = route == RouteTable.end();
+		auto route = mRouteTable.find(facility);
+		bool findNewRoute = route == mRouteTable.end();
 
 		if (!findNewRoute && routeObstructed(route->second))
 		{
-			RouteTable.erase(facility);
+			mRouteTable.erase(facility);
 			findNewRoute = true;
 		}
 
@@ -235,7 +224,7 @@ void MapViewState::updateResources()
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine
 
-			RouteTable[facility] = newRoute;
+			mRouteTable[facility] = newRoute;
 		}
 
 		// do resource movement here

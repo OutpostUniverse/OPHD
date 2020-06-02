@@ -632,6 +632,9 @@
     <ClInclude Include="Things\Structures\PowerStructure.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
+    <ClInclude Include="States\Route.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

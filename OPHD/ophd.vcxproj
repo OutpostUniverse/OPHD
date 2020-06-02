@@ -348,6 +348,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClInclude Include="States\MapViewStateHelper.h" />
     <ClInclude Include="States\Planet.h" />
     <ClInclude Include="States\PlanetSelectState.h" />
+    <ClInclude Include="States\Route.h" />
     <ClInclude Include="States\SplashState.h" />
     <ClInclude Include="States\Wrapper.h" />
     <ClInclude Include="StructureCatalogue.h" />
