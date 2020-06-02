@@ -254,6 +254,8 @@ private:
 	MapChangedCallback mMapChangedCallback;
 
 	// MISCELLANEOUS
+	micropather::MicroPather* mPathSolver = nullptr;
+
 	int mTurnCount = 0;
 
 	int mCurrentMorale = constants::DEFAULT_STARTING_MORALE;
