@@ -3,6 +3,9 @@
 
 #include "PopulationPool.h"
 
+#include <string>
+#include <stdexcept>
+
 
 void BasicCheck(Population::PersonRole _role);
 
