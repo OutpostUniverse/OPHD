@@ -163,7 +163,7 @@ void MapViewState::updateMorale()
 
 
 
-static RouteList findRoutes(micropather::MicroPather* solver, Structure* mine, const StructureList& smelters)
+static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const StructureList& smelters)
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
@@ -174,6 +174,7 @@ static RouteList findRoutes(micropather::MicroPather* solver, Structure* mine, c
 	for (auto smelter : smelters)
 	{
 		Tile* end = structureManager.tileFromStructure(smelter);
+		tilemap->pathStartAndEnd(start, end);
 		Route route;
 		solver->Solve(start, end, &route.path, &route.cost);
 
@@ -184,9 +185,15 @@ static RouteList findRoutes(micropather::MicroPather* solver, Structure* mine, c
 }
 
 
-static Route findLowestCostRoute(RouteList& /*routeList*/)
+static bool compareRoute(Route& a, Route& b) { return a.path.size() < b.path.size(); }
+
+
+static Route findLowestCostRoute(RouteList& routeList)
 {
-	return Route();
+	if (routeList.empty()) { return Route(); }
+
+	std::sort(routeList.begin(), routeList.end(), compareRoute);
+	return routeList.front();
 }
 
 
@@ -236,7 +243,7 @@ void MapViewState::updateResources()
 
 		if (findNewRoute)
 		{
-			auto routeList = findRoutes(mPathSolver, mine, smelterList);
+			auto routeList = findRoutes(mPathSolver, mTileMap, mine, smelterList);
 			auto newRoute = findLowestCostRoute(routeList);
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine
