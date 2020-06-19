@@ -868,7 +868,7 @@ void MapViewState::placeRobot()
 		{
 			return;
 		}
-		else if (tile->index() == TerrainType::TERRAIN_DOZED)
+		else if (tile->index() == TerrainType::TERRAIN_DOZED && !tile->thingIsStructure())
 		{
 			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_TILE_BULLDOZED);
 			return;
