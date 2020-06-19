@@ -79,6 +79,8 @@ public:
 	void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent) override;
 	void PrintStateInfo(void* /*state*/) override {}
 
+	void pathStartAndEnd(void* start, void* end);
+
 protected:
 	/**
 	 * 
@@ -117,6 +119,8 @@ private:
 
 	int mMaxDepth = 0; /**< Maximum digging depth. */
 	int mCurrentDepth = 0; /**< Current depth level to view. */
+
+	std::pair<void*, void*> mPathStartEndPair = { nullptr, nullptr };
 
 	std::string mMapPath;
 	std::string mTsetPath;
