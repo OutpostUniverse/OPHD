@@ -225,12 +225,14 @@ void MapViewState::updateResources()
 
 	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
 
+	mPathSolver->Reset();
+
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
 	{
 		MineFacility* facility = static_cast<MineFacility*>(mine);
 		facility->mine()->checkExhausted();
 
-		if (!mine->operational()) { continue; } // consider a different control path.
+		if (!mine->operational() && !mine->isIdle()) { continue; } // consider a different control path.
 
 		auto route = mRouteTable.find(facility);
 		bool findNewRoute = route == mRouteTable.end();
