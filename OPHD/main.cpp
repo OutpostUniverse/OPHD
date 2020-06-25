@@ -70,7 +70,8 @@ int main(int /*argc*/, char *argv[])
 	try
 	{
 		Filesystem& f = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks");
-		f.mount("data");
+		// Use executable's absolute directory in case environment path is not pointing to expected directory
+		f.mount(f.basePath() + "data");
 		f.mountReadWrite(f.prefPath());
 
 		if (!f.exists(constants::SAVE_GAME_PATH))
