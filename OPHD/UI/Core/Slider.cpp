@@ -347,9 +347,9 @@ void Slider::draw()
 
 	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
-		renderer.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle);// slide area
-		renderer.drawImageRect(mButton1.x(), mButton1.y(), mButton1.width(), mButton1.height(), mSkinButton1);// top button
-		renderer.drawImageRect(mButton2.x(), mButton2.y(), mButton2.width(), mButton2.height(), mSkinButton2);// bottom button
+		renderer.drawImageRect(mSlideBar, mSkinMiddle);// slide area
+		renderer.drawImageRect(mButton1, mSkinButton1);// top button
+		renderer.drawImageRect(mButton2, mSkinButton2);// bottom button
 		//renderer.drawImageRect(mButtonUp.x(), mButtonUp.y(), mButtonUp.height(), mButtonUp.height(), mSkinButtonLeft);// top button
 
 		// Slider
@@ -367,13 +367,13 @@ void Slider::draw()
 
 		mSlider.x(mSlideBar.x());
 		mSlider.y(mSlideBar.y() + _thumbPosition);
-		renderer.drawImageRect(mSlider.x(), mSlider.y(), mSlider.width(), mSlider.height(), mSkinSlider);
+		renderer.drawImageRect(mSlider, mSkinSlider);
 	}
 	else
 	{
-		renderer.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle); // slide area
-		renderer.drawImageRect(mButton1.x(), mButton1.y(), mButton1.width(), mButton1.height(), mSkinButton1); // left button
-		renderer.drawImageRect(mButton2.x(), mButton2.y(), mButton2.width(), mButton2.height(), mSkinButton2); // right button
+		renderer.drawImageRect(mSlideBar, mSkinMiddle); // slide area
+		renderer.drawImageRect(mButton1, mSkinButton1); // left button
+		renderer.drawImageRect(mButton2, mSkinButton2); // right button
 
 		// Slider
 		mSlider.height(mSlideBar.height()); // height = slide bar height
@@ -390,7 +390,7 @@ void Slider::draw()
 
 		mSlider.x(mSlideBar.x() + _thumbPosition);
 		mSlider.y(mSlideBar.y());
-		renderer.drawImageRect(mSlider.x(), mSlider.y(), mSlider.width(), mSlider.height(), mSkinSlider);
+		renderer.drawImageRect(mSlider, mSkinSlider);
 	}
 
 	if (mDisplayPosition && mMouseHoverSlide)
