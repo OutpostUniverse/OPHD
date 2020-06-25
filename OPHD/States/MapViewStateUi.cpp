@@ -17,6 +17,9 @@
 #include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
+#include <cmath>
+
+
 using namespace constants;
 
 NAS2D::Rectangle<int> BOTTOM_UI_AREA;
@@ -184,19 +187,19 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	// Allow for centering with rounding to integer values
 	const auto rendererSize = NAS2D::Utility<NAS2D::Renderer>::get().size();
-	const auto centerWindowWidth = [&rendererSize](float width){ return static_cast<int>((rendererSize.x - width) / 2); };
-	const auto centerWindowHeight = [&rendererSize](float height){ return static_cast<int>((rendererSize.y - height) / 2); };
+	const auto centerWindowWidth = [&rendererSize](float width){ return std::floor((rendererSize.x - width) / 2); };
+	const auto centerWindowHeight = [&rendererSize](float height){ return std::floor((rendererSize.y - height) / 2); };
 
 	// Anchored window positions
-	mFileIoDialog.position(static_cast<float>(centerWindowWidth(mFileIoDialog.width())), 50.0f);
-	mGameOverDialog.position(static_cast<float>(centerWindowWidth(mGameOverDialog.width())), centerWindowHeight(mGameOverDialog.height()) - 100.0f);
-	mAnnouncement.position(static_cast<float>(centerWindowWidth(mAnnouncement.width())), centerWindowHeight(mAnnouncement.height()) - 100.0f);
-	mGameOptionsDialog.position(static_cast<float>(centerWindowWidth(mGameOptionsDialog.width())), centerWindowHeight(mGameOptionsDialog.height()) - 100.0f);
+	mFileIoDialog.position(centerWindowWidth(mFileIoDialog.width()), 50.0f);
+	mGameOverDialog.position(centerWindowWidth(mGameOverDialog.width()), centerWindowHeight(mGameOverDialog.height()) - 100.0f);
+	mAnnouncement.position(centerWindowWidth(mAnnouncement.width()), centerWindowHeight(mAnnouncement.height()) - 100.0f);
+	mGameOptionsDialog.position(centerWindowWidth(mGameOptionsDialog.width()), centerWindowHeight(mGameOptionsDialog.height()) - 100.0f);
 
-	mDiggerDirection.position(static_cast<float>(centerWindowWidth(mDiggerDirection.width())), static_cast<int>(size.y / 2.0f) - 125.0f);
+	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), static_cast<int>(size.y / 2.0f) - 125.0f);
 
-	mWarehouseInspector.position(static_cast<float>(centerWindowWidth(mWarehouseInspector.width())), centerWindowHeight(mWarehouseInspector.height()) - 100.0f);
-	mMineOperationsWindow.position(static_cast<float>(centerWindowWidth(mMineOperationsWindow.width())), centerWindowHeight(mMineOperationsWindow.height()) - 100.0f);
+	mWarehouseInspector.position(centerWindowWidth(mWarehouseInspector.width()), centerWindowHeight(mWarehouseInspector.height()) - 100.0f);
+	mMineOperationsWindow.position(centerWindowWidth(mMineOperationsWindow.width()), centerWindowHeight(mMineOperationsWindow.height()) - 100.0f);
 
 	/**
 	 * \note	We are not setting the tile inspector window's position here because it's something that can be
