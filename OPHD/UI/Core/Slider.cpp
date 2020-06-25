@@ -15,6 +15,7 @@
 #include "NAS2D/Renderer/Renderer.h"
 
 #include <algorithm>
+#include <cmath>
 
 using namespace NAS2D;
 
@@ -355,8 +356,8 @@ void Slider::draw()
 		mSlider.width(mSlideBar.width()); // height = slide bar height
 		
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		int height_i = static_cast<int>(mSlideBar.height() / mLength);
-		mSlider.height(static_cast<float>(height_i)); //relative width
+		const auto height_i = std::floor(mSlideBar.height() / mLength);
+		mSlider.height(height_i); //relative width
 		if (mSlider.height() < mSlider.width()) // not too relative. Minimum = Heigt itself
 		{
 			mSlider.height(mSlider.width());
@@ -373,8 +374,8 @@ void Slider::draw()
 		mSlider.height(mSlideBar.height()); // height = slide bar height
 
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		int width_i = static_cast<int>(mSlideBar.width() / (mLength + 1.0f));
-		mSlider.width(static_cast<float>(width_i)); //relative width
+		const auto width_i = std::floor(mSlideBar.width() / (mLength + 1.0f));
+		mSlider.width(width_i); //relative width
 		if (mSlider.width() < mSlider.height()) // not too relative. Minimum = Heigt itself
 		{
 			mSlider.width(mSlider.height());
