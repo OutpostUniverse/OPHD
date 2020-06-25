@@ -40,31 +40,6 @@ extern NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
 
 
 /**
- * Performs common computations for window centering and casts the resulting
- * fractional value to an int.
- *
- * \note	Truncating the fractional value is intentional.
- */
-static inline int centerWindowWidth(float width)
-{
-	return static_cast<int>(NAS2D::Utility<NAS2D::Renderer>::get().center_x() - width / 2);
-}
-
-
-/**
- * Performs common computations for window centering and casts the resulting
- * fractional value to an int.
- *
- * \note	Truncating the fractional value is intentional.
- */
-static inline int centerWindowHeight(float height)
-{
-	return static_cast<int>(NAS2D::Utility<NAS2D::Renderer>::get().center_y() - height / 2);
-}
-
-
-
-/**
  * Sets up the user interface elements
  * 
  * \note	The explicit casts to int to truncate floating point values to force
@@ -172,8 +147,6 @@ void MapViewState::initUi()
 
 void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 {
-	//auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
 	// Bottom UI Area
 	BOTTOM_UI_AREA = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
 
@@ -208,6 +181,11 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
+
+	// Allow for centering with rounding to integer values
+	const auto rendererSize = NAS2D::Utility<NAS2D::Renderer>::get().size();
+	const auto centerWindowWidth = [&rendererSize](float width){ return static_cast<int>((rendererSize.x - width) / 2); };
+	const auto centerWindowHeight = [&rendererSize](float height){ return static_cast<int>((rendererSize.y - height) / 2); };
 
 	// Anchored window positions
 	mFileIoDialog.position(static_cast<float>(centerWindowWidth(mFileIoDialog.width())), 50.0f);
