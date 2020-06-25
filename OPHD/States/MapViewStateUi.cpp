@@ -186,20 +186,19 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 
 	// Allow for centering with rounding to integer values
-	const auto rendererSize = NAS2D::Utility<NAS2D::Renderer>::get().size();
-	const auto centerWindowWidth = [&rendererSize](float width){ return std::floor((rendererSize.x - width) / 2); };
-	const auto centerWindowHeight = [&rendererSize](float height){ return std::floor((rendererSize.y - height) / 2); };
+	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center();
+	const auto centerPosition = [&rendererCenter](const Control& control) { return (rendererCenter - control.size() / 2).to<int>(); };
 
 	// Anchored window positions
-	mFileIoDialog.position(centerWindowWidth(mFileIoDialog.width()), 50.0f);
-	mGameOverDialog.position(centerWindowWidth(mGameOverDialog.width()), centerWindowHeight(mGameOverDialog.height()) - 100.0f);
-	mAnnouncement.position(centerWindowWidth(mAnnouncement.width()), centerWindowHeight(mAnnouncement.height()) - 100.0f);
-	mGameOptionsDialog.position(centerWindowWidth(mGameOptionsDialog.width()), centerWindowHeight(mGameOptionsDialog.height()) - 100.0f);
+	mFileIoDialog.position(NAS2D::Point{centerPosition(mFileIoDialog).x(), 50});
+	mGameOverDialog.position(centerPosition(mGameOverDialog) - NAS2D::Vector{0, 100});
+	mAnnouncement.position(centerPosition(mAnnouncement) - NAS2D::Vector{0, 100});
+	mGameOptionsDialog.position(centerPosition(mGameOptionsDialog) - NAS2D::Vector{0, 100});
 
-	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), size.y / 2 - 125.0f);
+	mDiggerDirection.position(NAS2D::Point{centerPosition(mDiggerDirection).x(), size.y / 2 - 125});
 
-	mWarehouseInspector.position(centerWindowWidth(mWarehouseInspector.width()), centerWindowHeight(mWarehouseInspector.height()) - 100.0f);
-	mMineOperationsWindow.position(centerWindowWidth(mMineOperationsWindow.width()), centerWindowHeight(mMineOperationsWindow.height()) - 100.0f);
+	mWarehouseInspector.position(centerPosition(mWarehouseInspector) - NAS2D::Vector{0, 100});
+	mMineOperationsWindow.position(centerPosition(mMineOperationsWindow) - NAS2D::Vector{0, 100});
 
 	/**
 	 * \note	We are not setting the tile inspector window's position here because it's something that can be
