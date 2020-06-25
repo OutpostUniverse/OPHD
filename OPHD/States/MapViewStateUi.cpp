@@ -103,7 +103,7 @@ void MapViewState::initUi()
 
 	// BUTTONS
 	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(size.y - constants::MARGIN - MAIN_BUTTON_SIZE));
+	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
 	mBtnTurns.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
 	mBtnTurns.click().connect(this, &MapViewState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
@@ -135,7 +135,7 @@ void MapViewState::initUi()
 	mConnections.sorted(false);
 
 	mStructures.sheetPath("ui/structures.png");
-	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN});
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
@@ -174,14 +174,14 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, BOTTOM_UI_AREA.y() + constants::MARGIN, 300, 150};
 
 	// Position UI Buttons
-	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(size.y - constants::MARGIN - MAIN_BUTTON_SIZE));
+	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
 	mBtnToggleHeightmap.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y()));
 	mBtnToggleConnectedness.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
 
 	// UI Panels
 	mRobots.position(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mConnections.position(mRobots.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
-	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN});
 
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
