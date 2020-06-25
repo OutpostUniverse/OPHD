@@ -97,7 +97,7 @@ void StructureInspector::drawPopulationRequirements()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	auto position = rect().startPoint() + NAS2D::Vector{10, 85};
+	auto position = mRect.startPoint() + NAS2D::Vector{10, 85};
 	renderer.drawText(*FONT_BOLD, "Population Required", position, NAS2D::Color::White);
 
 	const std::array<std::string, 2> populationTypes{
@@ -136,7 +136,7 @@ void StructureInspector::update()
 		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
 	};
 
-	auto position = rect().startPoint() + NAS2D::Vector{5, 25};
+	auto position = mRect.startPoint() + NAS2D::Vector{5, 25};
 	if (mStructure == nullptr)
 	{
 		drawTitleText(position, "NULLPTR!", "");
@@ -147,7 +147,7 @@ void StructureInspector::update()
 	position.y() += 20;
 	drawTitleText(position,"Type: ", mStructureClass);
 
-	position = rect().startPoint() + NAS2D::Vector{190, 25};
+	position = mRect.startPoint() + NAS2D::Vector{190, 25};
 	drawTitleText(position,"State: ", structureStateDescription(mStructure->state()));
 
 	position.y() += 20;
@@ -162,6 +162,6 @@ void StructureInspector::update()
 
 	drawPopulationRequirements();
 
-	position = rect().startPoint() + NAS2D::Vector{5, static_cast<int>(rect().height()) - FONT->height() - 5};
+	position = mRect.startPoint() + NAS2D::Vector{5, static_cast<int>(mRect.height()) - FONT->height() - 5};
 	renderer.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);
 }

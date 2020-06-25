@@ -94,7 +94,7 @@ void WarehouseInspector::update()
 		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
 	};
 
-	auto position = rect().startPoint() + NAS2D::Vector{constants::MARGIN, 25};
+	auto position = mRect.startPoint() + NAS2D::Vector{constants::MARGIN, 25};
 	drawTitleText(position, "Storage", std::to_string(pool.availableStorage()) + " / " + std::to_string(pool.capacity()), 0);
 
 	position.y() += 25;

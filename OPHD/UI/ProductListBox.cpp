@@ -100,7 +100,7 @@ void ProductListBox::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.clipRect(rect());
+	renderer.clipRect(mRect);
 
 	FIRST_STOP = static_cast<int>(item_width() * 0.33f);
 	SECOND_STOP = static_cast<int>(item_width() * 0.66f);

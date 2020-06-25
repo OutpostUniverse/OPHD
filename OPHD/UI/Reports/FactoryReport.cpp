@@ -178,7 +178,7 @@ void FactoryReport::init()
 
 	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::cboFilterByProductSelectionChanged);
 
-	add(&lstProducts, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20, rect().y() + 230);
+	add(&lstProducts, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20, mRect.y() + 230);
 
 	txtProductDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	txtProductDescription.height(128);
@@ -331,21 +331,21 @@ void FactoryReport::resized(Control* /*c*/)
 		cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20,
 		rect().y() + 10,
 		rect().width() - (cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width()) - 30,
-		rect().y() + rect().height() - 69
+		rect().y() + mRect.height() - 69
 	};
 
-	float position_x = rect().width() - 150.0f;
+	float position_x = mRect.width() - 150.0f;
 	btnIdle.position(position_x, btnIdle.positionY());
 	btnClearProduction.position(position_x, btnClearProduction.positionY());
 	btnTakeMeThere.position(position_x, btnTakeMeThere.positionY());
 
-	btnApply.position(position_x, rect().height() + 8);
+	btnApply.position(position_x, mRect.height() + 8);
 
 	lstProducts.size({DETAIL_PANEL.width() / 3, DETAIL_PANEL.height() - 219});
 	lstProducts.selectionChanged().connect(this, &FactoryReport::lstProductsSelectionChanged);
 
 	txtProductDescription.position(lstProducts.positionX() + lstProducts.width() + 158, lstProducts.positionY());
-	txtProductDescription.width(rect().width() - txtProductDescription.positionX() - 30);
+	txtProductDescription.width(mRect.width() - txtProductDescription.positionX() - 30);
 }
 
 
@@ -625,11 +625,11 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 			static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete());
 	}
 	
-	drawBasicProgressBar(position_x, DETAIL_PANEL.y() + 413, rect().width() - position_x - 10, 30, percent, 4);
+	drawBasicProgressBar(position_x, DETAIL_PANEL.y() + 413, mRect.width() - position_x - 10, 30, percent, 4);
 
 	const auto text = std::to_string(SELECTED_FACTORY->productionTurnsCompleted()) + " / " + std::to_string(SELECTED_FACTORY->productionTurnsToComplete());
 	renderer.drawText(*FONT_MED_BOLD, "Turns", position_x, DETAIL_PANEL.y() + 449, 0, 185, 0);
-	renderer.drawText(*FONT_MED, text, rect().width() - FONT_MED->width(text) - 10, DETAIL_PANEL.y() + 449, 0, 185, 0);
+	renderer.drawText(*FONT_MED, text, mRect.width() - FONT_MED->width(text) - 10, DETAIL_PANEL.y() + 449, 0, 185, 0);
 }
 
 
@@ -641,8 +641,8 @@ void FactoryReport::update()
 	if (!visible()) { return; }
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, rect().y() + rect().height() - 10, 0, 185, 0);
-	renderer.drawText(*FONT, "Filter by Product", SORT_BY_PRODUCT_POSITION, rect().y() + 10, 0, 185, 0);
+	renderer.drawLine(cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, mRect.y() + 10, cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 10, mRect.y() + mRect.height() - 10, 0, 185, 0);
+	renderer.drawText(*FONT, "Filter by Product", SORT_BY_PRODUCT_POSITION, mRect.y() + 10, 0, 185, 0);
 
 	if (SELECTED_FACTORY)
 	{

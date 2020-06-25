@@ -56,7 +56,7 @@ void ListBox::_init()
 	_updateItemDisplay();
 
 	mLineHeight = (LST_FONT->height() + 2);
-	mLineCount = static_cast<int>(rect().height() / mLineHeight);
+	mLineCount = static_cast<int>(mRect.height() / mLineHeight);
 	_updateItemDisplay();
 }
 
@@ -75,15 +75,15 @@ void ListBox::visibilityChanged(bool /*visible*/)
 
 void ListBox::_updateItemDisplay()
 {
-	mItemWidth = static_cast<unsigned int>(rect().width());
+	mItemWidth = static_cast<unsigned int>(mRect.width());
 
 	if ((mLineHeight * mItems.size()) > static_cast<std::size_t>(height()))
 	{
 		mLineCount = static_cast<unsigned int>(height() / mLineHeight);
 		if (mLineCount < mItems.size())
 		{
-			mSlider.position({rect().x() + rect().width() - 14, rect().y()});
-			mSlider.size({14, rect().height()});
+			mSlider.position({rect().x() + mRect.width() - 14, mRect.y()});
+			mSlider.size({14, mRect.height()});
 			mSlider.length((mLineHeight * mItems.size()) - height());
 			mCurrentOffset = static_cast<std::size_t>(mSlider.thumbPosition());
 			mItemWidth = static_cast<unsigned int>(width() - mSlider.width());
@@ -242,7 +242,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 	
-	mCurrentHighlight = (y - static_cast<int>(rect().y()) + mCurrentOffset) / (LST_FONT->height() + 2);
+	mCurrentHighlight = (y - static_cast<int>(mRect.y()) + mCurrentOffset) / (LST_FONT->height() + 2);
 
 	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
 	{
@@ -271,16 +271,16 @@ void ListBox::update()
 
 	if (empty())
 	{
-		renderer.drawBoxFilled(rect(), NAS2D::Color::Black);
+		renderer.drawBoxFilled(mRect, NAS2D::Color::Black);
 		const auto boxColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
-		renderer.drawBox(rect(), boxColor);
+		renderer.drawBox(mRect, boxColor);
 		return;
 	}
 
-	renderer.clipRect(rect());
+	renderer.clipRect(mRect);
 
 	// draw boundaries of the widget
-	NAS2D::Rectangle<int> listBounds = rect();
+	NAS2D::Rectangle<int> listBounds = mRect;
 	listBounds.width() = mItemWidth;
 	renderer.drawBox(listBounds, NAS2D::Color{0, 0, 0, 100});
 	renderer.drawBoxFilled(listBounds, NAS2D::Color{0, 85, 0, 220});

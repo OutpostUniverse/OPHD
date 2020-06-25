@@ -111,7 +111,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	{
 		Point<int> click(x, y);
 
-		if(rect().contains(click))
+		if(mRect.contains(click))
 		{
 			if(mType == Type::BUTTON_NORMAL)
 			{
@@ -139,7 +139,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 		{
 			mState = State::STATE_NORMAL;
 
-			if (rect().contains(click))
+			if (mRect.contains(click))
 			{
 				mCallback();
 			}
@@ -171,32 +171,32 @@ void Button::draw()
 
 	if (enabled() && mMouseHover && mState != State::STATE_PRESSED)
 	{
-		renderer.drawImageRect(rect(), mSkinHover);
+		renderer.drawImageRect(mRect, mSkinHover);
 	}
 	else if (mState == State::STATE_NORMAL)
 	{
-		renderer.drawImageRect(rect(), mSkinNormal);
+		renderer.drawImageRect(mRect, mSkinNormal);
 	}
 	else
 	{
-		renderer.drawImageRect(rect(), mSkinPressed);
+		renderer.drawImageRect(mRect, mSkinPressed);
 	}
 
 	if (mImage)
 	{
-		renderer.drawImage(*mImage, rect().center() - mImage->size() / 2);
+		renderer.drawImage(*mImage, mRect.center() - mImage->size() / 2);
 	}
 	else
 	{
 		// force text to be drawn on integer bounds, otherwise it can look 'fuzzy' due to texture blending
-		const auto textPosition = rect().center().to<int>() - NAS2D::Vector{mFont->width(text()), mFont->height()} / 2;
+		const auto textPosition = mRect.center().to<int>() - NAS2D::Vector{mFont->width(text()), mFont->height()} / 2;
 		renderer.drawText(*mFont, text(), textPosition, NAS2D::Color::White);
 	}
 
 	/// \fixme	Naive... would rather set a b&w shader instead.
 	if (!enabled())
 	{
-		renderer.drawBoxFilled(rect(), NAS2D::Color{125, 125, 125, 100});
+		renderer.drawBoxFilled(mRect, NAS2D::Color{125, 125, 125, 100});
 	}
 }
 

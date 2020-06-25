@@ -92,7 +92,7 @@ void TextArea::draw()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	if (highlight()) { renderer.drawBox(rect(), NAS2D::Color::White); }
+	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::White); }
 
 	if (!mFont) { return; }
 
