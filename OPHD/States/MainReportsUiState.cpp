@@ -205,19 +205,20 @@ void MainReportsUiState::initialize()
 	Panels[NavigationPanel::PANEL_SPACEPORT].Name = "Space Ports";
 
 	auto& renderer = Utility<Renderer>::get();
-	setPanelRects(static_cast<int>(renderer.width()));
+	const auto size = renderer.size();
+	setPanelRects(static_cast<int>(size.x));
 
 	// INIT UI REPORT PANELS
 	ReportInterface* factory_report = new FactoryReport();
 	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel = factory_report;
 	factory_report->position(0, 48);
-	factory_report->size({renderer.width(), renderer.height() - 48});
+	factory_report->size({size.x, size.y - 48});
 	factory_report->hide();
 
 	ReportInterface* warehouse_report = new WarehouseReport();
 	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel = warehouse_report;
 	warehouse_report->position(0, 48);
-	warehouse_report->size({renderer.width(), renderer.height() - 48});
+	warehouse_report->size({size.x, size.y - 48});
 	warehouse_report->hide();
 }
 
