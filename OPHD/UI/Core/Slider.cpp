@@ -345,13 +345,12 @@ void Slider::draw()
 	auto& renderer = Utility<Renderer>::get();
 	float _thumbPosition = 0.0f;
 
+	renderer.drawImageRect(mSlideBar, mSkinMiddle); // slide area
+	renderer.drawImageRect(mButton1, mSkinButton1); // top or left button
+	renderer.drawImageRect(mButton2, mSkinButton2); // bottom or right button
+
 	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
-		renderer.drawImageRect(mSlideBar, mSkinMiddle);// slide area
-		renderer.drawImageRect(mButton1, mSkinButton1);// top button
-		renderer.drawImageRect(mButton2, mSkinButton2);// bottom button
-		//renderer.drawImageRect(mButtonUp.x(), mButtonUp.y(), mButtonUp.height(), mButtonUp.height(), mSkinButtonLeft);// top button
-
 		// Slider
 		mSlider.width(mSlideBar.width()); // height = slide bar height
 		
@@ -367,14 +366,9 @@ void Slider::draw()
 
 		mSlider.x(mSlideBar.x());
 		mSlider.y(mSlideBar.y() + _thumbPosition);
-		renderer.drawImageRect(mSlider, mSkinSlider);
 	}
 	else
 	{
-		renderer.drawImageRect(mSlideBar, mSkinMiddle); // slide area
-		renderer.drawImageRect(mButton1, mSkinButton1); // left button
-		renderer.drawImageRect(mButton2, mSkinButton2); // right button
-
 		// Slider
 		mSlider.height(mSlideBar.height()); // height = slide bar height
 
@@ -390,8 +384,9 @@ void Slider::draw()
 
 		mSlider.x(mSlideBar.x() + _thumbPosition);
 		mSlider.y(mSlideBar.y());
-		renderer.drawImageRect(mSlider, mSkinSlider);
 	}
+
+	renderer.drawImageRect(mSlider, mSkinSlider);
 
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
