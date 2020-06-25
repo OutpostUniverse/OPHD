@@ -157,7 +157,7 @@ void StructureInspector::update()
 	}
 	else
 	{
-		drawTitleText(position,"Age: ", std::to_string(mStructure->age()));
+		drawTitleText(position,"Age: ", std::to_string(mStructure->age()) + " of " + std::to_string(mStructure->maxAge()));
 	}
 
 	drawPopulationRequirements();
