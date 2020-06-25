@@ -119,7 +119,7 @@ void MapViewState::initUi()
 
 	// Menus
 	mRobots.sheetPath("ui/robots.png");
-	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52.0f), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mRobots.position(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52.0f, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mRobots.size({52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
@@ -127,7 +127,7 @@ void MapViewState::initUi()
 	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
 
 	mConnections.sheetPath("ui/structures.png");
-	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52.0f), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mConnections.position(mRobots.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mConnections.size({52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
 	mConnections.iconSize(46);
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
@@ -171,7 +171,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	MOVE_WEST_ICON = {MOVE_UP_ICON.x() - 2 * navIconSpacing, MOVE_UP_ICON.y() + 8, 32, 16};
 
 	// Mini Map
-	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), 300, 150};
+	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, BOTTOM_UI_AREA.y() + constants::MARGIN, 300, 150};
 
 	// Position UI Buttons
 	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(size.y - constants::MARGIN - MAIN_BUTTON_SIZE));
@@ -179,8 +179,8 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mBtnToggleConnectedness.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
 
 	// UI Panels
-	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
-	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mRobots.position(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mConnections.position(mRobots.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
