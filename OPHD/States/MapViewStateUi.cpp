@@ -98,11 +98,12 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mWarehouseInspector);
 	mWindowStack.addWindow(&mMineOperationsWindow);
 
-	BOTTOM_UI_AREA = {0, static_cast<int>(renderer.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(renderer.width()), constants::BOTTOM_UI_HEIGHT};
+	const auto size = renderer.size().to<int>();
+	BOTTOM_UI_AREA = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
 
 	// BUTTONS
 	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(renderer.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
+	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(size.y - constants::MARGIN - MAIN_BUTTON_SIZE));
 	mBtnTurns.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
 	mBtnTurns.click().connect(this, &MapViewState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
