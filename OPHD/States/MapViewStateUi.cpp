@@ -196,7 +196,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mAnnouncement.position(centerWindowWidth(mAnnouncement.width()), centerWindowHeight(mAnnouncement.height()) - 100.0f);
 	mGameOptionsDialog.position(centerWindowWidth(mGameOptionsDialog.width()), centerWindowHeight(mGameOptionsDialog.height()) - 100.0f);
 
-	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), static_cast<int>(size.y / 2.0f) - 125.0f);
+	mDiggerDirection.position(centerWindowWidth(mDiggerDirection.width()), size.y / 2 - 125.0f);
 
 	mWarehouseInspector.position(centerWindowWidth(mWarehouseInspector.width()), centerWindowHeight(mWarehouseInspector.height()) - 100.0f);
 	mMineOperationsWindow.position(centerWindowWidth(mMineOperationsWindow.width()), centerWindowHeight(mMineOperationsWindow.height()) - 100.0f);
