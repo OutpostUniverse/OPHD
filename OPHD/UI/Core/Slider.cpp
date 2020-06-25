@@ -352,39 +352,23 @@ void Slider::draw()
 
 	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
-		// Slider
-		mSlider.width(mSlideBar.width()); // height = slide bar height
-		
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto height_i = std::floor(mSlideBar.height() / mLength);
-		mSlider.height(height_i); //relative width
-		if (mSlider.height() < mSlider.width()) // not too relative. Minimum = Heigt itself
-		{
-			mSlider.height(mSlider.width());
-		}
+		const auto i = std::floor(mSlideBar.height() / mLength);
+		const auto newSize = std::max(i, mSlider.width());
 
 		_thumbPosition = (mSlideBar.height() - mSlider.height()) * (mPosition / mLength); //relative width
 
-		mSlider.x(mSlideBar.x());
-		mSlider.y(mSlideBar.y() + _thumbPosition);
+		mSlider = {mSlideBar.x(), mSlideBar.y() + _thumbPosition, mSlideBar.width(), newSize};
 	}
 	else
 	{
-		// Slider
-		mSlider.height(mSlideBar.height()); // height = slide bar height
-
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto width_i = std::floor(mSlideBar.width() / (mLength + 1.0f));
-		mSlider.width(width_i); //relative width
-		if (mSlider.width() < mSlider.height()) // not too relative. Minimum = Heigt itself
-		{
-			mSlider.width(mSlider.height());
-		}
+		const auto i = std::floor(mSlideBar.width() / (mLength + 1.0f));
+		const auto newSize = std::max(i, mSlider.height());
 
 		_thumbPosition = (mSlideBar.width() - mSlider.width()) * (mPosition / mLength); //relative width
 
-		mSlider.x(mSlideBar.x() + _thumbPosition);
-		mSlider.y(mSlideBar.y());
+		mSlider = {mSlideBar.x() + _thumbPosition, mSlideBar.y(), newSize, mSlideBar.height()};
 	}
 
 	renderer.drawImageRect(mSlider, mSkinSlider);
