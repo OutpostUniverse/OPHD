@@ -73,7 +73,7 @@ void ResourceBreakdownPanel::resourceCheck()
 void ResourceBreakdownPanel::update()
 {
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawImageRect(rect(), mSkin);
+	renderer.drawImageRect(mRect, mSkin);
 
 	static std::map<ResourceTrend, Point<int>> ICON_SLICE
 	{
@@ -102,7 +102,7 @@ void ResourceBreakdownPanel::update()
 		std::tuple{rareMineralImageRect, "Rare Minerals", mPlayerResources->rareMinerals(), mPreviousResources.rareMinerals()},
 	};
 
-	auto position = rect().startPoint() + NAS2D::Vector{5, 5};
+	auto position = mRect.startPoint() + NAS2D::Vector{5, 5};
 	for (const auto& [imageRect, text, value, oldValue] : resources)
 	{
 		renderer.drawSubImage(mIcons, position, imageRect);

@@ -151,7 +151,7 @@ void StructureListBox::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.clipRect(rect());
+	renderer.clipRect(mRect);
 
 	// ITEMS
 	for (std::size_t i = 0; i < mItems.size(); ++i)

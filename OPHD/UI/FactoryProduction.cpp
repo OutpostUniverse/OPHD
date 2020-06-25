@@ -226,7 +226,7 @@ void FactoryProduction::update()
 		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
 	};
 
-	auto position = rect().startPoint() + NAS2D::Vector{constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), 25};
+	auto position = mRect.startPoint() + NAS2D::Vector{constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), 25};
 	drawTitleText(position, "Turns Completed:", std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild()));
 
 	position.y() += 20;

@@ -79,8 +79,8 @@ void ListBoxBase::_update_item_display()
 
 		if (mLineCount < mItems.size())
 		{
-			mSlider.position({rect().x() + rect().width() - 14, rect().y()});
-			mSlider.size({14, rect().height()});
+			mSlider.position({rect().x() + mRect.width() - 14, mRect.y()});
+			mSlider.size({14, mRect.height()});
 			mSlider.length((mItemHeight * mItems.size()) - height());
 			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
 			mItemWidth -= static_cast<unsigned int>(mSlider.width());
@@ -318,11 +318,11 @@ void ListBoxBase::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	// CONTROL EXTENTS
-	renderer.drawBoxFilled(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 0, 0, 255);
+	renderer.drawBoxFilled(mRect.x(), mRect.y(), static_cast<float>(mItemWidth), mRect.height(), 0, 0, 0, 255);
 
-	hasFocus() ? renderer.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 0, 185, 0, 255) : renderer.drawBox(rect().x(), rect().y(), static_cast<float>(mItemWidth), rect().height(), 75, 75, 75, 255);
+	hasFocus() ? renderer.drawBox(mRect.x(), mRect.y(), static_cast<float>(mItemWidth), mRect.height(), 0, 185, 0, 255) : renderer.drawBox(mRect.x(), mRect.y(), static_cast<float>(mItemWidth), mRect.height(), 75, 75, 75, 255);
 
-	renderer.clipRect(rect());
+	renderer.clipRect(mRect);
 
 	// MOUSE HIGHLIGHT
 	float highlight_y = positionY() + static_cast<float>((mCurrentHighlight * mItemHeight) - mCurrentOffset);

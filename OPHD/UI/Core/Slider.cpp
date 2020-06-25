@@ -53,7 +53,7 @@ void Slider::size(NAS2D::Vector<float> size)
 	Control::size(size);
 
 	// deduce the type of slider from the ratio.
-	if (rect().height() > rect().width())
+	if (mRect.height() > mRect.width())
 	{
 		mSliderType = SliderType::SLIDER_VERTICAL;
 	}
@@ -300,37 +300,37 @@ void Slider::logic()
 	// compute position of items
 	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
-		mButton1.x(rect().x());
-		mButton1.y(rect().y());
-		mButton1.width(rect().width());
-		mButton1.height(rect().width());
+		mButton1.x(mRect.x());
+		mButton1.y(mRect.y());
+		mButton1.width(mRect.width());
+		mButton1.height(mRect.width());
 
-		mButton2.x(rect().x());
-		mButton2.y(rect().y() + rect().height() - rect().width());
-		mButton2.width(rect().width());
-		mButton2.height(rect().width());
+		mButton2.x(mRect.x());
+		mButton2.y(mRect.y() + mRect.height() - mRect.width());
+		mButton2.width(mRect.width());
+		mButton2.height(mRect.width());
 
-		mSlideBar.x(rect().x());
-		mSlideBar.y(rect().y() + rect().width());
-		mSlideBar.width(rect().width());
-		mSlideBar.height(rect().height() - 2 * rect().width());
+		mSlideBar.x(mRect.x());
+		mSlideBar.y(mRect.y() + mRect.width());
+		mSlideBar.width(mRect.width());
+		mSlideBar.height(mRect.height() - 2 * mRect.width());
 	}
 	else
 	{
-		mButton1.x(rect().x());
-		mButton1.y(rect().y());
-		mButton1.width(rect().height());
-		mButton1.height(rect().height());
+		mButton1.x(mRect.x());
+		mButton1.y(mRect.y());
+		mButton1.width(mRect.height());
+		mButton1.height(mRect.height());
 
-		mButton2.x(rect().x() + rect().width() - rect().height());
-		mButton2.y(rect().y());
-		mButton2.width(rect().height());
-		mButton2.height(rect().height());
+		mButton2.x(mRect.x() + mRect.width() - mRect.height());
+		mButton2.y(mRect.y());
+		mButton2.width(mRect.height());
+		mButton2.height(mRect.height());
 
-		mSlideBar.x(rect().x() + rect().height());
-		mSlideBar.y(rect().y());
-		mSlideBar.width(rect().width() - 2 * rect().height());
-		mSlideBar.height(rect().height());
+		mSlideBar.x(mRect.x() + mRect.height());
+		mSlideBar.y(mRect.y());
+		mSlideBar.width(mRect.width() - 2 * mRect.height());
+		mSlideBar.height(mRect.height());
 	}
 }
 
