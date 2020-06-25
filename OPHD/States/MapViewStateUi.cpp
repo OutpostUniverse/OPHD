@@ -55,10 +55,10 @@ void MapViewState::initUi()
 	mDiggerDirection.directionSelected().connect(this, &MapViewState::diggerSelectionDialog);
 	mDiggerDirection.hide();
 
-	mTileInspector.position(renderer.center_x() - mTileInspector.width() / 2.0f, renderer.height() / 2.0f - 175.0f);
+	mTileInspector.position(renderer.center_x() - mTileInspector.width() / 2.0f, renderer.center_y() - 175.0f);
 	mTileInspector.hide();
 
-	mStructureInspector.position(renderer.center_x() - mStructureInspector.width() / 2.0f, renderer.height() / 2.0f - 175.0f);
+	mStructureInspector.position(renderer.center_x() - mStructureInspector.width() / 2.0f, renderer.center_y() - 175.0f);
 	mStructureInspector.hide();
 
 	mFactoryProduction.position(renderer.center_x() - mFactoryProduction.width() / 2.0f, 175.0f);
