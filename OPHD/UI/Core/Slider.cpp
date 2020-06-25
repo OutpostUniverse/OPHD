@@ -300,37 +300,15 @@ void Slider::logic()
 	// compute position of items
 	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
-		mButton1.x(mRect.x());
-		mButton1.y(mRect.y());
-		mButton1.width(mRect.width());
-		mButton1.height(mRect.width());
-
-		mButton2.x(mRect.x());
-		mButton2.y(mRect.y() + mRect.height() - mRect.width());
-		mButton2.width(mRect.width());
-		mButton2.height(mRect.width());
-
-		mSlideBar.x(mRect.x());
-		mSlideBar.y(mRect.y() + mRect.width());
-		mSlideBar.width(mRect.width());
-		mSlideBar.height(mRect.height() - 2 * mRect.width());
+		mButton1 = {mRect.x(), mRect.y(), mRect.width(), mRect.width()};
+		mButton2 = {mRect.x(), mRect.y() + mRect.height() - mRect.width(), mRect.width(), mRect.width()};
+		mSlideBar = {mRect.x(), mRect.y() + mRect.width(), mRect.width(), mRect.height() - 2 * mRect.width()};
 	}
 	else
 	{
-		mButton1.x(mRect.x());
-		mButton1.y(mRect.y());
-		mButton1.width(mRect.height());
-		mButton1.height(mRect.height());
-
-		mButton2.x(mRect.x() + mRect.width() - mRect.height());
-		mButton2.y(mRect.y());
-		mButton2.width(mRect.height());
-		mButton2.height(mRect.height());
-
-		mSlideBar.x(mRect.x() + mRect.height());
-		mSlideBar.y(mRect.y());
-		mSlideBar.width(mRect.width() - 2 * mRect.height());
-		mSlideBar.height(mRect.height());
+		mButton1 = {mRect.x(), mRect.y(), mRect.height(), mRect.height()};
+		mButton2 = {mRect.x() + mRect.width() - mRect.height(), mRect.y(), mRect.height(), mRect.height()};
+		mSlideBar = {mRect.x() + mRect.height(), mRect.y(), mRect.width() - 2 * mRect.height(), mRect.height()};
 	}
 }
 
