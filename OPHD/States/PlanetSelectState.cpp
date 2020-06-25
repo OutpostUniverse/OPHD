@@ -153,11 +153,12 @@ State* PlanetSelectState::update()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImageStretched(mBg, 0, 0, renderer.width(), renderer.height());
+	const auto size = renderer.size();
+	renderer.drawImageStretched(mBg, {0, 0}, size);
 
 	float _rotation = mTimer.tick() / 1200.0f;
 	renderer.drawImageRotated(mCloud1, -256, -256, _rotation, 100, 255, 0, 135);
-	renderer.drawImageRotated(mCloud1, renderer.width() - 800, -256, -_rotation, 180, 0, 255, 150);
+	renderer.drawImageRotated(mCloud1, size.x - 800, -256, -_rotation, 180, 0, 255, 150);
 
 	drawStar(-40, -55);
 
@@ -177,7 +178,7 @@ State* PlanetSelectState::update()
 
 	mPlanetDescription.update();
 
-	renderer.drawText(*FONT_TINY, constants::VERSION, renderer.width() - FONT_TINY->width(constants::VERSION) - 5, renderer.height() - FONT_TINY->height() - 5, 255, 255, 255);
+	renderer.drawText(*FONT_TINY, constants::VERSION, size.x - FONT_TINY->width(constants::VERSION) - 5, size.y - FONT_TINY->height() - 5, 255, 255, 255);
 
 	if (renderer.isFading())
 	{

@@ -17,6 +17,9 @@
 #include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
+#include <cmath>
+
+
 using namespace constants;
 
 NAS2D::Rectangle<int> BOTTOM_UI_AREA;
@@ -40,31 +43,6 @@ extern NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
 
 
 /**
- * Performs common computations for window centering and casts the resulting
- * fractional value to an int.
- *
- * \note	Truncating the fractional value is intentional.
- */
-static inline int centerWindowWidth(float width)
-{
-	return static_cast<int>(NAS2D::Utility<NAS2D::Renderer>::get().center_x() - width / 2);
-}
-
-
-/**
- * Performs common computations for window centering and casts the resulting
- * fractional value to an int.
- *
- * \note	Truncating the fractional value is intentional.
- */
-static inline int centerWindowHeight(float height)
-{
-	return static_cast<int>(NAS2D::Utility<NAS2D::Renderer>::get().center_y() - height / 2);
-}
-
-
-
-/**
  * Sets up the user interface elements
  * 
  * \note	The explicit casts to int to truncate floating point values to force
@@ -77,10 +55,10 @@ void MapViewState::initUi()
 	mDiggerDirection.directionSelected().connect(this, &MapViewState::diggerSelectionDialog);
 	mDiggerDirection.hide();
 
-	mTileInspector.position(renderer.center_x() - mTileInspector.width() / 2.0f, renderer.height() / 2.0f - 175.0f);
+	mTileInspector.position(renderer.center() - NAS2D::Vector{mTileInspector.width() / 2.0f, 175.0f});
 	mTileInspector.hide();
 
-	mStructureInspector.position(renderer.center_x() - mStructureInspector.width() / 2.0f, renderer.height() / 2.0f - 175.0f);
+	mStructureInspector.position(renderer.center() - NAS2D::Vector{mStructureInspector.width() / 2.0f, 175.0f});
 	mStructureInspector.hide();
 
 	mFactoryProduction.position(renderer.center_x() - mFactoryProduction.width() / 2.0f, 175.0f);
@@ -120,11 +98,12 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mWarehouseInspector);
 	mWindowStack.addWindow(&mMineOperationsWindow);
 
-	BOTTOM_UI_AREA = {0, static_cast<int>(renderer.height() - constants::BOTTOM_UI_HEIGHT), static_cast<int>(renderer.width()), constants::BOTTOM_UI_HEIGHT};
+	const auto size = renderer.size().to<int>();
+	BOTTOM_UI_AREA = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
 
 	// BUTTONS
 	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(renderer.height() - constants::MARGIN - MAIN_BUTTON_SIZE));
+	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
 	mBtnTurns.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
 	mBtnTurns.click().connect(this, &MapViewState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
@@ -140,7 +119,7 @@ void MapViewState::initUi()
 
 	// Menus
 	mRobots.sheetPath("ui/robots.png");
-	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52.0f), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mRobots.position(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52.0f, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mRobots.size({52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
@@ -148,7 +127,7 @@ void MapViewState::initUi()
 	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
 
 	mConnections.sheetPath("ui/structures.png");
-	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52.0f), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mConnections.position(mRobots.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
 	mConnections.size({52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
 	mConnections.iconSize(46);
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
@@ -156,7 +135,7 @@ void MapViewState::initUi()
 	mConnections.sorted(false);
 
 	mStructures.sheetPath("ui/structures.png");
-	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN});
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
@@ -172,8 +151,6 @@ void MapViewState::initUi()
 
 void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 {
-	//auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
 	// Bottom UI Area
 	BOTTOM_UI_AREA = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
 
@@ -194,31 +171,35 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	MOVE_WEST_ICON = {MOVE_UP_ICON.x() - 2 * navIconSpacing, MOVE_UP_ICON.y() + 8, 32, 16};
 
 	// Mini Map
-	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, static_cast<int>(BOTTOM_UI_AREA.y() + constants::MARGIN), 300, 150};
+	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, BOTTOM_UI_AREA.y() + constants::MARGIN, 300, 150};
 
 	// Position UI Buttons
-	mBtnTurns.position(static_cast<float>(mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT), static_cast<float>(size.y - constants::MARGIN - MAIN_BUTTON_SIZE));
+	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
 	mBtnToggleHeightmap.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y()));
 	mBtnToggleConnectedness.position(mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT));
 
 	// UI Panels
-	mRobots.position(static_cast<float>(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
-	mConnections.position(static_cast<float>(mRobots.positionX() - constants::MARGIN_TIGHT - 52), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
-	mStructures.position(static_cast<float>(constants::MARGIN), static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mRobots.position(mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mConnections.position(mRobots.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN));
+	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN});
 
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 
+	// Allow for centering with rounding to integer values
+	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center();
+	const auto centerPosition = [&rendererCenter](const Control& control) { return (rendererCenter - control.size() / 2).to<int>(); };
+
 	// Anchored window positions
-	mFileIoDialog.position(static_cast<float>(centerWindowWidth(mFileIoDialog.width())), 50.0f);
-	mGameOverDialog.position(static_cast<float>(centerWindowWidth(mGameOverDialog.width())), centerWindowHeight(mGameOverDialog.height()) - 100.0f);
-	mAnnouncement.position(static_cast<float>(centerWindowWidth(mAnnouncement.width())), centerWindowHeight(mAnnouncement.height()) - 100.0f);
-	mGameOptionsDialog.position(static_cast<float>(centerWindowWidth(mGameOptionsDialog.width())), centerWindowHeight(mGameOptionsDialog.height()) - 100.0f);
+	mFileIoDialog.position(NAS2D::Point{centerPosition(mFileIoDialog).x(), 50});
+	mGameOverDialog.position(centerPosition(mGameOverDialog) - NAS2D::Vector{0, 100});
+	mAnnouncement.position(centerPosition(mAnnouncement) - NAS2D::Vector{0, 100});
+	mGameOptionsDialog.position(centerPosition(mGameOptionsDialog) - NAS2D::Vector{0, 100});
 
-	mDiggerDirection.position(static_cast<float>(centerWindowWidth(mDiggerDirection.width())), static_cast<int>(size.y / 2.0f) - 125.0f);
+	mDiggerDirection.position(NAS2D::Point{centerPosition(mDiggerDirection).x(), size.y / 2 - 125});
 
-	mWarehouseInspector.position(static_cast<float>(centerWindowWidth(mWarehouseInspector.width())), centerWindowHeight(mWarehouseInspector.height()) - 100.0f);
-	mMineOperationsWindow.position(static_cast<float>(centerWindowWidth(mMineOperationsWindow.width())), centerWindowHeight(mMineOperationsWindow.height()) - 100.0f);
+	mWarehouseInspector.position(centerPosition(mWarehouseInspector) - NAS2D::Vector{0, 100});
+	mMineOperationsWindow.position(centerPosition(mMineOperationsWindow) - NAS2D::Vector{0, 100});
 
 	/**
 	 * \note	We are not setting the tile inspector window's position here because it's something that can be
@@ -373,9 +354,9 @@ void MapViewState::drawUI()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Bottom UI
-	renderer.drawBoxFilled(BOTTOM_UI_AREA, 39, 39, 39);
-	renderer.drawBox(BOTTOM_UI_AREA, 21, 21, 21);
-	renderer.drawLine(static_cast<float>(BOTTOM_UI_AREA.x() + 1), static_cast<float>(BOTTOM_UI_AREA.y()), static_cast<float>(BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.width() - 2), static_cast<float>(BOTTOM_UI_AREA.y()), 56, 56, 56);
+	renderer.drawBoxFilled(BOTTOM_UI_AREA, NAS2D::Color{39, 39, 39});
+	renderer.drawBox(BOTTOM_UI_AREA, NAS2D::Color{21, 21, 21});
+	renderer.drawLine(NAS2D::Point{BOTTOM_UI_AREA.x() + 1, BOTTOM_UI_AREA.y()}, NAS2D::Point{BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.width() - 2, BOTTOM_UI_AREA.y()}, NAS2D::Color{56, 56, 56});
 
 	drawMiniMap();
 	drawResourceInfo();

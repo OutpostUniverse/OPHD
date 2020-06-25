@@ -108,8 +108,9 @@ NAS2D::State* SplashState::update()
 		mTimer.reset();
 	}
 
-	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD) { renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0); }
-	else { renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 255, 255, 255); }
+	const auto size = renderer.size();
+	const auto backgroundColor = (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD) ? NAS2D::Color::Black : NAS2D::Color::White;
+	renderer.drawBoxFilled({0, 0, size.x, size.y}, backgroundColor);
 
 
 	if (CURRENT_STATE == LogoState::LOGO_LAIRWORKS)
