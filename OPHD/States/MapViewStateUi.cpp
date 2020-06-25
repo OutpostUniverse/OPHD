@@ -354,9 +354,9 @@ void MapViewState::drawUI()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Bottom UI
-	renderer.drawBoxFilled(BOTTOM_UI_AREA, 39, 39, 39);
-	renderer.drawBox(BOTTOM_UI_AREA, 21, 21, 21);
-	renderer.drawLine(static_cast<float>(BOTTOM_UI_AREA.x() + 1), static_cast<float>(BOTTOM_UI_AREA.y()), static_cast<float>(BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.width() - 2), static_cast<float>(BOTTOM_UI_AREA.y()), 56, 56, 56);
+	renderer.drawBoxFilled(BOTTOM_UI_AREA, NAS2D::Color{39, 39, 39});
+	renderer.drawBox(BOTTOM_UI_AREA, NAS2D::Color{21, 21, 21});
+	renderer.drawLine(NAS2D::Point{BOTTOM_UI_AREA.x() + 1, BOTTOM_UI_AREA.y()}, NAS2D::Point{BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.width() - 2, BOTTOM_UI_AREA.y()}, NAS2D::Color{56, 56, 56});
 
 	drawMiniMap();
 	drawResourceInfo();
