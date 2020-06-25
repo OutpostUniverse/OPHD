@@ -344,7 +344,6 @@ void Slider::update()
 void Slider::draw()
 {
 	auto& renderer = Utility<Renderer>::get();
-	float _thumbPosition = 0.0f;
 
 	renderer.drawImageRect(mSlideBar, mSkinMiddle); // slide area
 	renderer.drawImageRect(mButton1, mSkinButton1); // top or left button
@@ -356,9 +355,9 @@ void Slider::draw()
 		const auto i = std::floor(mSlideBar.height() / mLength);
 		const auto newSize = std::max(i, mSlider.width());
 
-		_thumbPosition = (mSlideBar.height() - mSlider.height()) * (mPosition / mLength); //relative width
+		const auto relativeThumbPosition = (mSlideBar.height() - mSlider.height()) * (mPosition / mLength); //relative width
 
-		mSlider = {mSlideBar.x(), mSlideBar.y() + _thumbPosition, mSlideBar.width(), newSize};
+		mSlider = {mSlideBar.x(), mSlideBar.y() + relativeThumbPosition, mSlideBar.width(), newSize};
 	}
 	else
 	{
@@ -366,9 +365,9 @@ void Slider::draw()
 		const auto i = std::floor(mSlideBar.width() / (mLength + 1.0f));
 		const auto newSize = std::max(i, mSlider.height());
 
-		_thumbPosition = (mSlideBar.width() - mSlider.width()) * (mPosition / mLength); //relative width
+		const auto relativeThumbPosition = (mSlideBar.width() - mSlider.width()) * (mPosition / mLength); //relative width
 
-		mSlider = {mSlideBar.x() + _thumbPosition, mSlideBar.y(), newSize, mSlideBar.height()};
+		mSlider = {mSlideBar.x() + relativeThumbPosition, mSlideBar.y(), newSize, mSlideBar.height()};
 	}
 
 	renderer.drawImageRect(mSlider, mSkinSlider);
