@@ -15,6 +15,7 @@
 #include "NAS2D/Renderer/Renderer.h"
 
 #include <algorithm>
+#include <cmath>
 
 using namespace NAS2D;
 
@@ -300,37 +301,15 @@ void Slider::logic()
 	// compute position of items
 	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
-		mButton1.x(mRect.x());
-		mButton1.y(mRect.y());
-		mButton1.width(mRect.width());
-		mButton1.height(mRect.width());
-
-		mButton2.x(mRect.x());
-		mButton2.y(mRect.y() + mRect.height() - mRect.width());
-		mButton2.width(mRect.width());
-		mButton2.height(mRect.width());
-
-		mSlideBar.x(mRect.x());
-		mSlideBar.y(mRect.y() + mRect.width());
-		mSlideBar.width(mRect.width());
-		mSlideBar.height(mRect.height() - 2 * mRect.width());
+		mButton1 = {mRect.x(), mRect.y(), mRect.width(), mRect.width()};
+		mButton2 = {mRect.x(), mRect.y() + mRect.height() - mRect.width(), mRect.width(), mRect.width()};
+		mSlideBar = {mRect.x(), mRect.y() + mRect.width(), mRect.width(), mRect.height() - 2 * mRect.width()};
 	}
 	else
 	{
-		mButton1.x(mRect.x());
-		mButton1.y(mRect.y());
-		mButton1.width(mRect.height());
-		mButton1.height(mRect.height());
-
-		mButton2.x(mRect.x() + mRect.width() - mRect.height());
-		mButton2.y(mRect.y());
-		mButton2.width(mRect.height());
-		mButton2.height(mRect.height());
-
-		mSlideBar.x(mRect.x() + mRect.height());
-		mSlideBar.y(mRect.y());
-		mSlideBar.width(mRect.width() - 2 * mRect.height());
-		mSlideBar.height(mRect.height());
+		mButton1 = {mRect.x(), mRect.y(), mRect.height(), mRect.height()};
+		mButton2 = {mRect.x() + mRect.width() - mRect.height(), mRect.y(), mRect.height(), mRect.height()};
+		mSlideBar = {mRect.x() + mRect.height(), mRect.y(), mRect.width() - 2 * mRect.height(), mRect.height()};
 	}
 }
 
@@ -365,55 +344,33 @@ void Slider::update()
 void Slider::draw()
 {
 	auto& renderer = Utility<Renderer>::get();
-	float _thumbPosition = 0.0f;
+
+	renderer.drawImageRect(mSlideBar, mSkinMiddle); // slide area
+	renderer.drawImageRect(mButton1, mSkinButton1); // top or left button
+	renderer.drawImageRect(mButton2, mSkinButton2); // bottom or right button
 
 	if (mSliderType == SliderType::SLIDER_VERTICAL)
 	{
-		renderer.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle);// slide area
-		renderer.drawImageRect(mButton1.x(), mButton1.y(), mButton1.height(), mButton1.height(), mSkinButton1);// top button
-		renderer.drawImageRect(mButton2.x(), mButton2.y(), mButton2.height(), mButton2.height(), mSkinButton2);// bottom button
-		//renderer.drawImageRect(mButtonUp.x(), mButtonUp.y(), mButtonUp.height(), mButtonUp.height(), mSkinButtonLeft);// top button
-
-		// Slider
-		mSlider.width(mSlideBar.width()); // height = slide bar height
-		
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		int height_i = static_cast<int>(mSlideBar.height() / mLength);
-		mSlider.height(static_cast<float>(height_i)); //relative width
-		if (mSlider.height() < mSlider.width()) // not too relative. Minimum = Heigt itself
-		{
-			mSlider.height(mSlider.width());
-		}
+		const auto i = std::floor(mSlideBar.height() / mLength);
+		const auto newSize = std::max(i, mSlider.width());
 
-		_thumbPosition = (mSlideBar.height() - mSlider.height()) * (mPosition / mLength); //relative width
+		const auto relativeThumbPosition = (mSlideBar.height() - mSlider.height()) * (mPosition / mLength); //relative width
 
-		mSlider.x(mSlideBar.x());
-		mSlider.y(mSlideBar.y() + _thumbPosition);
-		renderer.drawImageRect(mSlider.x(), mSlider.y(), mSlider.width(), mSlider.height(), mSkinSlider);
+		mSlider = {mSlideBar.x(), mSlideBar.y() + relativeThumbPosition, mSlideBar.width(), newSize};
 	}
 	else
 	{
-		renderer.drawImageRect(mSlideBar.x(), mSlideBar.y(), mSlideBar.width(), mSlideBar.height(), mSkinMiddle); // slide area
-		renderer.drawImageRect(mButton1.x(), mButton1.y(), mButton1.height(), mButton1.height(), mSkinButton1); // left button
-		renderer.drawImageRect(mButton2.x(), mButton2.y(), mButton2.height(), mButton2.height(), mSkinButton2); // right button
-
-		// Slider
-		mSlider.height(mSlideBar.height()); // height = slide bar height
-
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		int width_i = static_cast<int>(mSlideBar.width() / (mLength + 1.0f));
-		mSlider.width(static_cast<float>(width_i)); //relative width
-		if (mSlider.width() < mSlider.height()) // not too relative. Minimum = Heigt itself
-		{
-			mSlider.width(mSlider.height());
-		}
+		const auto i = std::floor(mSlideBar.width() / (mLength + 1.0f));
+		const auto newSize = std::max(i, mSlider.height());
 
-		_thumbPosition = (mSlideBar.width() - mSlider.width()) * (mPosition / mLength); //relative width
+		const auto relativeThumbPosition = (mSlideBar.width() - mSlider.width()) * (mPosition / mLength); //relative width
 
-		mSlider.x(mSlideBar.x() + _thumbPosition);
-		mSlider.y(mSlideBar.y());
-		renderer.drawImageRect(mSlider.x(), mSlider.y(), mSlider.width(), mSlider.height(), mSkinSlider);
+		mSlider = {mSlideBar.x() + relativeThumbPosition, mSlideBar.y(), newSize, mSlideBar.height()};
 	}
+
+	renderer.drawImageRect(mSlider, mSkinSlider);
 
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
