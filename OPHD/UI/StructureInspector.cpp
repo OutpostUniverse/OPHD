@@ -94,7 +94,7 @@ void StructureInspector::btnCloseClicked()
 }
 
 
-void StructureInspector::drawTitleText(NAS2D::Point<int> position, const std::string& title, const std::string& text)
+void StructureInspector::drawLabelAndValue(NAS2D::Point<int> position, const std::string& title, const std::string& text)
 {
 	auto& renderer = Utility<Renderer>::get();
 
@@ -142,25 +142,25 @@ void StructureInspector::update()
 	auto position = mRect.startPoint() + NAS2D::Vector{5, 25};
 	if (mStructure == nullptr)
 	{
-		drawTitleText(position, "NULLPTR!", "");
+		drawLabelAndValue(position, "NULLPTR!", "");
 		return;
 	}
-	drawTitleText(position, mStructure->name(), "");
+	drawLabelAndValue(position, mStructure->name(), "");
 
 	position.y() += 20;
-	drawTitleText(position,"Type: ", mStructureClass);
+	drawLabelAndValue(position,"Type: ", mStructureClass);
 
 	position = mRect.startPoint() + NAS2D::Vector{190, 25};
-	drawTitleText(position,"State: ", structureStateDescription(mStructure->state()));
+	drawLabelAndValue(position,"State: ", structureStateDescription(mStructure->state()));
 
 	position.y() += 20;
 	if (mStructure->underConstruction())
 	{
-		drawTitleText(position,"Turns Remaining: ", std::to_string(mStructure->turnsToBuild() - mStructure->age()));
+		drawLabelAndValue(position,"Turns Remaining: ", std::to_string(mStructure->turnsToBuild() - mStructure->age()));
 	}
 	else
 	{
-		drawTitleText(position,"Age: ", std::to_string(mStructure->age()) + " of " + std::to_string(mStructure->maxAge()));
+		drawLabelAndValue(position,"Age: ", std::to_string(mStructure->age()) + " of " + std::to_string(mStructure->maxAge()));
 	}
 
 	drawPopulationRequirements();
@@ -185,6 +185,6 @@ void StructureInspector::drawStructureTypeSpecific()
 void StructureInspector::drawResidenceText()
 {
 	auto position = rect().startPoint() + NAS2D::Vector{ 10, 135 };
-	drawTitleText(position, "Colonist Capacity: ", std::to_string(dynamic_cast<Residence*>(mStructure)->capacity()));
+	drawLabelAndValue(position, "Colonist Capacity: ", std::to_string(dynamic_cast<Residence*>(mStructure)->capacity()));
 	return;
 }

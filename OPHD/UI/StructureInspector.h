@@ -23,7 +23,7 @@ protected:
 private:
 	void btnCloseClicked();
 
-	void drawTitleText(NAS2D::Point<int> position, const std::string& title, const std::string& text);
+	void drawLabelAndValue(NAS2D::Point<int> position, const std::string& title, const std::string& text);
 	void drawPopulationRequirements();
 	void drawStructureTypeSpecific();
 	void drawResidenceText();
