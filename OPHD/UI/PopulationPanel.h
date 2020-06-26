@@ -17,7 +17,7 @@ public:
 
 	/**
 	 * \fixme	This class/function is use to store residence capacity
-	 *			by the MapViewState. Probably not be an appropriate place.
+	 *			by the MapViewState. Probably not an appropriate place.
 	 */
 	int capacity() const { return mCapacity; }
 
