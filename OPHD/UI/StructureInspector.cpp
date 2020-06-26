@@ -6,6 +6,7 @@
 #include "../Constants.h"
 #include "../FontManager.h"
 
+#include "../Things/Structures/Residence.h"
 #include "../Things/Structures/Structure.h"
 
 #include <map>
@@ -161,7 +162,34 @@ void StructureInspector::update()
 	}
 
 	drawPopulationRequirements();
+	drawStructureTypeSpecific();
 
-	position = mRect.startPoint() + NAS2D::Vector{5, static_cast<int>(mRect.height()) - FONT->height() - 5};
+	position = mRect.startPoint() + NAS2D::Vector{ 5, static_cast<int>(mRect.height()) - FONT->height() - 5 };
 	renderer.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);
+}
+
+
+void StructureInspector::drawStructureTypeSpecific()
+{
+	switch (mStructure->structureClass())
+	{
+	case Structure::CLASS_RESIDENCE:
+		drawResidenceText();
+		return;
+	}
+}
+
+void StructureInspector::drawResidenceText()
+{
+	auto& renderer = Utility<Renderer>::get();
+
+	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text) {
+		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
+		position.x() += FONT_BOLD->width(title);
+		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
+	};
+
+	auto position = rect().startPoint() + NAS2D::Vector{ 10, 135 };
+	drawTitleText(position, "Colonist Capacity: ", std::to_string(dynamic_cast<Residence*>(mStructure)->capacity()));
+	return;
 }

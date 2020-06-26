@@ -24,6 +24,8 @@ private:
 	void btnCloseClicked();
 
 	void drawPopulationRequirements();
+	void drawStructureTypeSpecific();
+	void drawResidenceText();
 
 private:
 	StructureInspector(const StructureInspector&) = delete;
