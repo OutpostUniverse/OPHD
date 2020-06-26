@@ -179,6 +179,8 @@ void StructureInspector::drawStructureTypeSpecific()
 	case Structure::CLASS_RESIDENCE:
 		drawResidenceText();
 		return;
+	default:
+		return;
 	}
 }
 
