@@ -94,6 +94,16 @@ void StructureInspector::btnCloseClicked()
 }
 
 
+void StructureInspector::drawTitleText(NAS2D::Point<int> position, const std::string& title, const std::string& text)
+{
+	auto& renderer = Utility<Renderer>::get();
+
+	renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
+	position.x() += FONT_BOLD->width(title);
+	renderer.drawText(*FONT, text, position, NAS2D::Color::White);
+};
+
+
 void StructureInspector::drawPopulationRequirements()
 {
 	auto& renderer = Utility<Renderer>::get();
@@ -129,14 +139,6 @@ void StructureInspector::update()
 	if (!visible()) { return; }
 	Window::update();
 
-	auto& renderer = Utility<Renderer>::get();
-
-	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text) {
-		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
-		position.x() += FONT_BOLD->width(title);
-		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
-	};
-
 	auto position = mRect.startPoint() + NAS2D::Vector{5, 25};
 	if (mStructure == nullptr)
 	{
@@ -164,6 +166,7 @@ void StructureInspector::update()
 	drawPopulationRequirements();
 	drawStructureTypeSpecific();
 
+	auto& renderer = Utility<Renderer>::get();
 	position = mRect.startPoint() + NAS2D::Vector{ 5, static_cast<int>(mRect.height()) - FONT->height() - 5 };
 	renderer.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);
 }
@@ -181,14 +184,6 @@ void StructureInspector::drawStructureTypeSpecific()
 
 void StructureInspector::drawResidenceText()
 {
-	auto& renderer = Utility<Renderer>::get();
-
-	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text) {
-		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
-		position.x() += FONT_BOLD->width(title);
-		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
-	};
-
 	auto position = rect().startPoint() + NAS2D::Vector{ 10, 135 };
 	drawTitleText(position, "Colonist Capacity: ", std::to_string(dynamic_cast<Residence*>(mStructure)->capacity()));
 	return;
