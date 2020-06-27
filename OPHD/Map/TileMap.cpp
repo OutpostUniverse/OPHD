@@ -309,8 +309,10 @@ void TileMap::centerMapOnTile(Tile* _t)
 {
 	if (!_t) { return; }
 
-	mapViewLocation(std::clamp(_t->x() - edgeLength() / 2, 0, mWidth - 1),
-					std::clamp(_t->y() - edgeLength() / 2, 0, mHeight - 1));
+	mapViewLocation({
+		std::clamp(_t->x() - edgeLength() / 2, 0, mWidth - 1),
+		std::clamp(_t->y() - edgeLength() / 2, 0, mHeight - 1)
+	});
 	currentDepth(_t->depth());
 }
 
@@ -520,7 +522,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		attribute = attribute->next();
 	}
 
-	mapViewLocation(view_x, view_y);
+	mapViewLocation({view_x, view_y});
 	currentDepth(view_depth);
 	for (XmlNode* mine = element->firstChildElement("mines")->firstChildElement("mine"); mine; mine = mine->nextSibling())
 	{

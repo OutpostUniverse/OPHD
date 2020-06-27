@@ -47,7 +47,6 @@ public:
 
 	const NAS2D::Point<int>& mapViewLocation() const { return mMapViewLocation; }
 	void mapViewLocation(NAS2D::Point<int> point) { mMapViewLocation = point; }
-	void mapViewLocation(int x, int y) { mMapViewLocation = {x, y}; }
 	void centerMapOnTile(Tile*);
 
 	const NAS2D::Point<int>& tileHighlight() const { return mMapHighlight; }
