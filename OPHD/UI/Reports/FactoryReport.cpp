@@ -320,19 +320,21 @@ void FactoryReport::checkFactoryActionControls()
  */
 void FactoryReport::resized(Control* /*c*/)
 {
+	const auto comboEndPoint = cboFilterByProduct.rect().endPoint();
+
 	FACTORY_LISTBOX = {
 		positionX() + 10,
-		cboFilterByProduct.positionY() + cboFilterByProduct.height() + 10,
-		cboFilterByProduct.positionX() + cboFilterByProduct.width() - 10,
+		comboEndPoint.y() + 10,
+		comboEndPoint.x() - 10,
 		height() - 74
 	};
 
 	lstFactoryList.size(FACTORY_LISTBOX.size());
 
 	DETAIL_PANEL = {
-		cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width() + 20,
+		comboEndPoint.x() + 20,
 		rect().y() + 10,
-		rect().width() - (cboFilterByProduct.rect().x() + cboFilterByProduct.rect().width()) - 30,
+		rect().width() - comboEndPoint.x() - 30,
 		rect().y() + mRect.height() - 69
 	};
 
