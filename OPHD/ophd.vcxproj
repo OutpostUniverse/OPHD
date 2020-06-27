@@ -306,7 +306,6 @@
     <ClInclude Include="Things\Structures\MineShaft.h" />
     <ClInclude Include="Things\Structures\Nursery.h" />
     <ClInclude Include="Things\Structures\Park.h" />
-    <ClInclude Include="Things\Structures\Police.h" />
     <ClInclude Include="Things\Structures\RecreationCenter.h" />
     <ClInclude Include="Things\Structures\RedLightDistrict.h" />
     <ClInclude Include="Things\Structures\Residence.h" />
@@ -323,8 +322,10 @@
     <ClInclude Include="Things\Structures\Structures.h" />
     <ClInclude Include="Things\Structures\FusionReactor.h" />
     <ClInclude Include="Things\Structures\SurfaceFactory.h" />
+    <ClInclude Include="Things\Structures\SurfacePolice.h" />
     <ClInclude Include="Things\Structures\Tube.h" />
     <ClInclude Include="Things\Structures\UndergroundFactory.h" />
+    <ClInclude Include="Things\Structures\UndergroundPolice.h" />
     <ClInclude Include="Things\Structures\University.h" />
     <ClInclude Include="Things\Structures\Warehouse.h" />
     <ClInclude Include="Things\Thing.h" />
