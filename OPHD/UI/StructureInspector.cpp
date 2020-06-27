@@ -101,7 +101,7 @@ void StructureInspector::drawLabelAndValue(NAS2D::Point<int> position, const std
 	renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
 	position.x() += FONT_BOLD->width(title);
 	renderer.drawText(*FONT, text, position, NAS2D::Color::White);
-};
+}
 
 
 void StructureInspector::drawPopulationRequirements()
