@@ -43,11 +43,11 @@ void WindowStack::removeWindow(Window* window)
  *			this would be used unless we're pressing a mouse button except maybe for highlights
  *			during mouse moves?
  */
-bool WindowStack::pointInWindow(int x, int y) const
+bool WindowStack::pointInWindow(const NAS2D::Point<int>& point) const
 {
 	for (auto* window : mWindowList)
 	{
-		if (window->visible() && window->rect().to<int>().contains(NAS2D::Point{x, y}))
+		if (window->visible() && window->rect().to<int>().contains(point))
 		{
 			return true;
 		}
@@ -60,11 +60,11 @@ bool WindowStack::pointInWindow(int x, int y) const
 /**
  *
  */
-void WindowStack::updateStack(int x, int y)
+void WindowStack::updateStack(const NAS2D::Point<int>& point)
 {
 	for (auto* window : mWindowList)
 	{
-		if (window->visible() && window->rect().to<int>().contains(NAS2D::Point{x, y}))
+		if (window->visible() && window->rect().to<int>().contains(point))
 		{
 			bringToFront(window);
 			return;
