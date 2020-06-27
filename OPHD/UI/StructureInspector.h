@@ -25,8 +25,6 @@ private:
 
 	void drawLabelAndValue(NAS2D::Point<int> position, const std::string& title, const std::string& text);
 	void drawPopulationRequirements();
-	void drawStructureTypeSpecific();
-	void drawResidenceText();
 
 private:
 	StructureInspector(const StructureInspector&) = delete;
