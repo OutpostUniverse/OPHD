@@ -219,19 +219,19 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 	// \fixme Inelegant solution but may not be worth refactoring out into its own function.
 	for (int i = 0; i < yield_low; ++i)
 	{
-		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		Point<int> pt{std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8)};
 		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_LOW);
 	}
 
 	for (int i = 0; i < yield_medium; ++i)
 	{
-		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		Point<int> pt{std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8)};
 		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_MEDIUM);
 	}
 
 	for (int i = 0; i < yield_high; ++i)
 	{
-		Point<int> pt(std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8));
+		Point<int> pt{std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8)};
 		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_HIGH);
 	}
 
