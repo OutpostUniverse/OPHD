@@ -109,9 +109,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if(button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
-		Point<int> click{x, y};
-
-		if(mRect.contains(click))
+		if(mRect.contains(Point<int>{x, y}))
 		{
 			if(mType == Type::BUTTON_NORMAL)
 			{
@@ -133,13 +131,11 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 	if(button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
-		Point<int> click{x, y};
-		
 		if(mType == Type::BUTTON_NORMAL)
 		{
 			mState = State::STATE_NORMAL;
 
-			if (mRect.contains(click))
+			if (mRect.contains(Point<int>{x, y}))
 			{
 				mCallback();
 			}
