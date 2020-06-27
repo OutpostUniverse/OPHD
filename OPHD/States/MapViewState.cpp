@@ -38,8 +38,8 @@ extern MainReportsUiState* MAIN_REPORTS_UI;
 int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
 
 Rectangle<int> MENU_ICON;
-Rectangle<int> RESOURCE_PANEL_PIN(0, 1, 8, 19);
-Rectangle<int> POPULATION_PANEL_PIN(675, 1, 8, 19);
+Rectangle<int> RESOURCE_PANEL_PIN{0, 1, 8, 19};
+Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
 
 Rectangle<int> MOVE_NORTH_ICON;
 Rectangle<int> MOVE_SOUTH_ICON;
