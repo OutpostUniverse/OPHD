@@ -13,7 +13,7 @@
 #include "MainMenuState.h"
 
 #include "../Constants.h"
-
+#include "../DirectionOffset.h"
 #include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
@@ -473,19 +473,19 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 
 	if (direction == Direction::DIR_NORTH)
 	{
-		mTileMap->getTile(tile->x(), tile->y() - 1, tile->depth())->excavated(true);
+		mTileMap->getTile(tile->position() + DirectionNorth, tile->depth())->excavated(true);
 	}
 	else if (direction == Direction::DIR_SOUTH)
 	{
-		mTileMap->getTile(tile->x(), tile->y() + 1, tile->depth())->excavated(true);
+		mTileMap->getTile(tile->position() + DirectionSouth, tile->depth())->excavated(true);
 	}
 	else if (direction == Direction::DIR_EAST)
 	{
-		mTileMap->getTile(tile->x() + 1, tile->y(), tile->depth())->excavated(true);
+		mTileMap->getTile(tile->position() + DirectionEast, tile->depth())->excavated(true);
 	}
 	else if (direction == Direction::DIR_WEST)
 	{
-		mTileMap->getTile(tile->x() - 1, tile->y(), tile->depth())->excavated(true);
+		mTileMap->getTile(tile->position() + DirectionWest, tile->depth())->excavated(true);
 	}
 
 

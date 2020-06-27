@@ -6,6 +6,7 @@
 #include "../Constants.h"
 #include "../DirectionOffset.h"
 
+#include <algorithm>
 #include <functional>
 #include <random>
 #include <tuple>
@@ -300,6 +301,15 @@ void TileMap::injectMouse(int x, int y)
 }
 
 
+void TileMap::mapViewLocation(NAS2D::Point<int> point)
+{
+	mMapViewLocation = {
+		std::clamp(point.x(), 0, mWidth - mEdgeLength),
+		std::clamp(point.y(), 0, mHeight - mEdgeLength)
+	};
+}
+
+
 /**
  * Convenience function to focus the TileMap's view on a specified tile.
  * 
@@ -309,8 +319,10 @@ void TileMap::centerMapOnTile(Tile* _t)
 {
 	if (!_t) { return; }
 
-	mapViewLocation(std::clamp(_t->x() - edgeLength() / 2, 0, mWidth - 1),
-					std::clamp(_t->y() - edgeLength() / 2, 0, mHeight - 1));
+	mapViewLocation({
+		std::clamp(_t->x() - edgeLength() / 2, 0, mWidth - 1),
+		std::clamp(_t->y() - edgeLength() / 2, 0, mHeight - 1)
+	});
 	currentDepth(_t->depth());
 }
 
@@ -520,7 +532,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		attribute = attribute->next();
 	}
 
-	mapViewLocation(view_x, view_y);
+	mapViewLocation({view_x, view_y});
 	currentDepth(view_depth);
 	for (XmlNode* mine = element->firstChildElement("mines")->firstChildElement("mine"); mine; mine = mine->nextSibling())
 	{

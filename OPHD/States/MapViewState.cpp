@@ -5,6 +5,7 @@
 #include "MainMenuState.h"
 
 #include "../Constants.h"
+#include "../DirectionOffset.h"
 #include "../FontManager.h"
 #include "../GraphWalker.h"
 #include "../StructureCatalogue.h"
@@ -340,25 +341,25 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		case EventHandler::KeyCode::KEY_w:
 		case EventHandler::KeyCode::KEY_UP:
 			viewUpdated = true;
-			pt.y(std::clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
+			pt += DirectionNorth;
 			break;
 
 		case EventHandler::KeyCode::KEY_s:
 		case EventHandler::KeyCode::KEY_DOWN:
 			viewUpdated = true;
-			pt.y(std::clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
+			pt += DirectionSouth;
 			break;
 
 		case EventHandler::KeyCode::KEY_a:
 		case EventHandler::KeyCode::KEY_LEFT:
 			viewUpdated = true;
-			pt.x(std::clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
+			pt += DirectionWest;
 			break;
 
 		case EventHandler::KeyCode::KEY_d:
 		case EventHandler::KeyCode::KEY_RIGHT:
 			viewUpdated = true;
-			pt.x(std::clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
+			pt += DirectionEast;
 			break;
 
 		case EventHandler::KeyCode::KEY_0:
@@ -535,23 +536,19 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 		if (MOVE_NORTH_ICON.contains(MOUSE_COORDS))
 		{
-			pt.y(std::clamp(--pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
-			mTileMap->mapViewLocation(pt);
+			mTileMap->mapViewLocation(pt + DirectionNorth);
 		}
 		else if (MOVE_SOUTH_ICON.contains(MOUSE_COORDS))
 		{
-			pt.y(std::clamp(++pt.y(), 0, mTileMap->height() - mTileMap->edgeLength()));
-			mTileMap->mapViewLocation(pt);
+			mTileMap->mapViewLocation(pt + DirectionSouth);
 		}
 		else if (MOVE_EAST_ICON.contains(MOUSE_COORDS))
 		{
-			pt.x(std::clamp(++pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
-			mTileMap->mapViewLocation(pt);
+			mTileMap->mapViewLocation(pt + DirectionEast);
 		}
 		else if (MOVE_WEST_ICON.contains(MOUSE_COORDS))
 		{
-			pt.x(std::clamp(--pt.x(), 0, mTileMap->width() - mTileMap->edgeLength()));
-			mTileMap->mapViewLocation(pt);
+			mTileMap->mapViewLocation(pt + DirectionWest);
 		}
 		else if (MOVE_UP_ICON.contains(MOUSE_COORDS))
 		{
@@ -683,8 +680,8 @@ void MapViewState::changeViewDepth(int depth)
  */
 void MapViewState::setMinimapView()
 {
-	int x = std::clamp(MOUSE_COORDS.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2, 0, mTileMap->width() - mTileMap->edgeLength());
-	int y = std::clamp(MOUSE_COORDS.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2, 0, mTileMap->height() - mTileMap->edgeLength());
+	int x = MOUSE_COORDS.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2;
+	int y = MOUSE_COORDS.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2;
 
 	mTileMap->mapViewLocation({x, y});
 }
