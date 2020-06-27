@@ -140,8 +140,7 @@ public:
 	/**
 	* Pass limited structure specific details for drawing. Use a custom UI window if needed.
 	*/
-	#pragma warning(suppress: 4100) // Unreferenced formal parameter
-	virtual void drawInspectorView(NAS2D::Renderer& renderer, const NAS2D::Rectangle<float>& windowRect) {}
+	virtual void drawInspectorView([[maybe_unused]] NAS2D::Renderer& renderer, [[maybe_unused]] const NAS2D::Rectangle<float>& windowRect) {}
 
 protected:
 	friend class StructureCatalogue;
