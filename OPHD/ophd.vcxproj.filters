@@ -449,9 +449,6 @@
     <ClInclude Include="Things\Structures\SolarPlant.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Police.h">
-      <Filter>Header Files\Things\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="UI\Core\Window.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
@@ -625,6 +622,12 @@
     </ClInclude>
     <ClInclude Include="UI\DifficultySelect.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Things\Structures\SurfacePolice.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Things\Structures\UndergroundPolice.h">
+      <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
