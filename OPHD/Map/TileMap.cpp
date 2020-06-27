@@ -6,6 +6,7 @@
 #include "../Constants.h"
 #include "../DirectionOffset.h"
 
+#include <algorithm>
 #include <functional>
 #include <random>
 #include <tuple>
@@ -302,7 +303,10 @@ void TileMap::injectMouse(int x, int y)
 
 void TileMap::mapViewLocation(NAS2D::Point<int> point)
 {
-	mMapViewLocation = point;
+	mMapViewLocation = {
+		std::clamp(point.x(), 0, mWidth - mEdgeLength),
+		std::clamp(point.y(), 0, mHeight - mEdgeLength)
+	};
 }
 
 
