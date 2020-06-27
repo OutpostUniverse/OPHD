@@ -5,6 +5,7 @@
 #include "MainMenuState.h"
 
 #include "../Constants.h"
+#include "../DirectionOffset.h"
 #include "../FontManager.h"
 #include "../GraphWalker.h"
 #include "../StructureCatalogue.h"
@@ -340,25 +341,25 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		case EventHandler::KeyCode::KEY_w:
 		case EventHandler::KeyCode::KEY_UP:
 			viewUpdated = true;
-			pt.y(--pt.y());
+			pt += DirectionNorth;
 			break;
 
 		case EventHandler::KeyCode::KEY_s:
 		case EventHandler::KeyCode::KEY_DOWN:
 			viewUpdated = true;
-			pt.y(++pt.y());
+			pt += DirectionSouth;
 			break;
 
 		case EventHandler::KeyCode::KEY_a:
 		case EventHandler::KeyCode::KEY_LEFT:
 			viewUpdated = true;
-			pt.x(--pt.x());
+			pt += DirectionWest;
 			break;
 
 		case EventHandler::KeyCode::KEY_d:
 		case EventHandler::KeyCode::KEY_RIGHT:
 			viewUpdated = true;
-			pt.x(++pt.x());
+			pt += DirectionEast;
 			break;
 
 		case EventHandler::KeyCode::KEY_0:
@@ -535,22 +536,22 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 		if (MOVE_NORTH_ICON.contains(MOUSE_COORDS))
 		{
-			pt.y(--pt.y());
+			pt += DirectionNorth;
 			mTileMap->mapViewLocation(pt);
 		}
 		else if (MOVE_SOUTH_ICON.contains(MOUSE_COORDS))
 		{
-			pt.y(++pt.y());
+			pt += DirectionSouth;
 			mTileMap->mapViewLocation(pt);
 		}
 		else if (MOVE_EAST_ICON.contains(MOUSE_COORDS))
 		{
-			pt.x(++pt.x());
+			pt += DirectionEast;
 			mTileMap->mapViewLocation(pt);
 		}
 		else if (MOVE_WEST_ICON.contains(MOUSE_COORDS))
 		{
-			pt.x(--pt.x());
+			pt += DirectionWest;
 			mTileMap->mapViewLocation(pt);
 		}
 		else if (MOVE_UP_ICON.contains(MOUSE_COORDS))
