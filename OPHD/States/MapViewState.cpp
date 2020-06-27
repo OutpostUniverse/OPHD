@@ -536,23 +536,19 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 		if (MOVE_NORTH_ICON.contains(MOUSE_COORDS))
 		{
-			pt += DirectionNorth;
-			mTileMap->mapViewLocation(pt);
+			mTileMap->mapViewLocation(pt + DirectionNorth);
 		}
 		else if (MOVE_SOUTH_ICON.contains(MOUSE_COORDS))
 		{
-			pt += DirectionSouth;
-			mTileMap->mapViewLocation(pt);
+			mTileMap->mapViewLocation(pt + DirectionSouth);
 		}
 		else if (MOVE_EAST_ICON.contains(MOUSE_COORDS))
 		{
-			pt += DirectionEast;
-			mTileMap->mapViewLocation(pt);
+			mTileMap->mapViewLocation(pt + DirectionEast);
 		}
 		else if (MOVE_WEST_ICON.contains(MOUSE_COORDS))
 		{
-			pt += DirectionWest;
-			mTileMap->mapViewLocation(pt);
+			mTileMap->mapViewLocation(pt + DirectionWest);
 		}
 		else if (MOVE_UP_ICON.contains(MOUSE_COORDS))
 		{
