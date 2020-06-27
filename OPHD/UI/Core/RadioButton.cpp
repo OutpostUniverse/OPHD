@@ -12,8 +12,6 @@
 
 #include "UIContainer.h"
 
-#include <algorithm>
-
 
 using namespace NAS2D;
 
@@ -118,7 +116,7 @@ void RadioButton::onTextChanged()
  */
 void RadioButton::onSizeChanged()
 {
-	mRect.height(std::clamp(height(), 13.0f, 13.0f));
+	mRect.height(13.0f);
 	if (width() < 13.0f) { mRect.width(13.0f); }
 }
 
