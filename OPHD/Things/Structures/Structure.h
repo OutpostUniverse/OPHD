@@ -5,6 +5,9 @@
 #include "../../Common.h"
 #include "../../PopulationPool.h"
 #include "../../ResourcePool.h"
+#include <NAS2D/Renderer/Rectangle.h>
+#include <NAS2D/Renderer/Renderer.h>
+
 
 class Structure: public Thing
 {
@@ -133,6 +136,12 @@ public:
 
 	void update() override;
 	virtual void think() {}
+
+	/**
+	* Pass limited structure specific details for drawing. Use a custom UI window if needed.
+	*/
+	#pragma warning(suppress: 4100) // Unreferenced formal parameter
+	virtual void drawInspectorView(NAS2D::Renderer& renderer, const NAS2D::Rectangle<float>& windowRect) {}
 
 protected:
 	friend class StructureCatalogue;
