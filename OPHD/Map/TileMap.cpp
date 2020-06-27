@@ -300,6 +300,12 @@ void TileMap::injectMouse(int x, int y)
 }
 
 
+void TileMap::mapViewLocation(NAS2D::Point<int> point)
+{
+	mMapViewLocation = point;
+}
+
+
 /**
  * Convenience function to focus the TileMap's view on a specified tile.
  * 
