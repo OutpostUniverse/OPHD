@@ -647,7 +647,7 @@ void MapViewState::onMouseMove(int /*x*/, int /*y*/, int /*rX*/, int /*rY*/)
 		}
 	}
 
-	mTileMapMouseHover = {mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY()};
+	mTileMapMouseHover = mTileMap->tileMouseHover();
 }
 
 
