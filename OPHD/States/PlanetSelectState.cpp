@@ -141,9 +141,10 @@ void PlanetSelectState::drawStar(int x, int y)
 {
 	float rotation = (mTimer.tick() / 125.0f);
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawImageRotated(mStarFlare, static_cast<float>(x), static_cast<float>(y), -rotation * 0.75f, 255, 255, 0, 180);
-	renderer.drawImageRotated(mDetailFlare2, static_cast<float>(x), static_cast<float>(y), -rotation * 0.25f, 255, 255, 100, 255);
-	renderer.drawImageRotated(mDetailFlare, static_cast<float>(x), static_cast<float>(y), rotation, 255, 255, 255, 255);
+	const auto point = NAS2D::Point{x, y};
+	renderer.drawImageRotated(mStarFlare, point, -rotation * 0.75f, NAS2D::Color{255, 255, 0, 180});
+	renderer.drawImageRotated(mDetailFlare2, point, -rotation * 0.25f, NAS2D::Color{255, 255, 100, 255});
+	renderer.drawImageRotated(mDetailFlare, point, rotation, NAS2D::Color{255, 255, 255, 255});
 }
 
 
