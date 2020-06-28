@@ -6,3 +6,4 @@
 
 
 void drawLabelAndValue(NAS2D::Point<int> position, const std::string& title, const std::string& text);
+void drawLabelAndValueLeftJustify(NAS2D::Point<int> position, const std::string& title, const std::string& text, int labelWidth, NAS2D::Color color = NAS2D::Color::White);
