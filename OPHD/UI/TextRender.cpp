@@ -30,4 +30,4 @@ void drawLabelAndValueLeftJustify(NAS2D::Point<int> position, const std::string&
 	renderer.drawText(*FONT_BOLD, title, position, color);
 	position.x() += labelWidth;
 	renderer.drawText(*FONT, text, position, color);
-};
+}
