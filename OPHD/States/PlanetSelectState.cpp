@@ -154,9 +154,9 @@ State* PlanetSelectState::update()
 	const auto size = renderer.size();
 	renderer.drawImageStretched(mBg, {0, 0}, size);
 
-	float _rotation = mTimer.tick() / 1200.0f;
-	renderer.drawImageRotated(mCloud1, {-256, -256}, _rotation, NAS2D::Color{100, 255, 0, 135});
-	renderer.drawImageRotated(mCloud1, {size.x - 800, -256}, -_rotation, NAS2D::Color{180, 0, 255, 150});
+	float rotation = mTimer.tick() / 1200.0f;
+	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
+	renderer.drawImageRotated(mCloud1, {size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
 	drawStar({-40, -55});
 
