@@ -3,15 +3,12 @@
 
 #include "WarehouseInspector.h"
 
+#include "TextRender.h"
 #include "../Constants.h"
-#include "../FontManager.h"
 
 #include "../Things/Structures/Warehouse.h"
 
 using namespace NAS2D;
-
-static Font* FONT = nullptr;
-static Font* FONT_BOLD = nullptr;
 
 /**
  * 
@@ -41,9 +38,6 @@ void WarehouseInspector::init()
 	add(&btnClose, 105, 325);
 	btnClose.size({40, 20});
 	btnClose.click().connect(this, &WarehouseInspector::btnCloseClicked);
-
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -84,25 +78,19 @@ void WarehouseInspector::update()
 
 	Window::update();
 
-	auto& renderer = Utility<Renderer>::get();
-
 	ProductPool& pool = mWarehouse->products();
 
-	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text, int offset = 100) {
-		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
-		position.x() += offset ? offset : (FONT_BOLD->width(title) + 20);
-		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
-	};
+	const int labelWidth = 100;
 
 	auto position = mRect.startPoint() + NAS2D::Vector{constants::MARGIN, 25};
-	drawTitleText(position, "Storage", std::to_string(pool.availableStorage()) + " / " + std::to_string(pool.capacity()), 0);
+	drawLabelAndValue(position, "Storage", std::to_string(pool.availableStorage()) + " / " + std::to_string(pool.capacity()), 20);
 
 	position.y() += 25;
-	drawTitleText(position, "Clothing:", std::to_string(pool.count(ProductType::PRODUCT_CLOTHING)));
+	drawLabelAndValueLeftJustify(position, "Clothing:", std::to_string(pool.count(ProductType::PRODUCT_CLOTHING)), labelWidth);
 
 	position.y() += 15;
-	drawTitleText(position, "Medicine:", std::to_string(pool.count(ProductType::PRODUCT_MEDICINE)));
+	drawLabelAndValueLeftJustify(position, "Medicine:", std::to_string(pool.count(ProductType::PRODUCT_MEDICINE)), labelWidth);
 
 	position.y() += 15;
-	drawTitleText(position, "Road Materials:", std::to_string(pool.count(ProductType::PRODUCT_ROAD_MATERIALS)));
+	drawLabelAndValueLeftJustify(position, "Road Materials:", std::to_string(pool.count(ProductType::PRODUCT_ROAD_MATERIALS)), labelWidth);
 }
