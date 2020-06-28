@@ -69,7 +69,7 @@ int main(int /*argc*/, char *argv[])
 
 	try
 	{
-		Filesystem& f = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks");
+		auto& f = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks");
 		// Prioritize data from working directory, fallback on data from executable path
 		f.mountSoftFail("data");
 		f.mountSoftFail(f.basePath() + "data");
