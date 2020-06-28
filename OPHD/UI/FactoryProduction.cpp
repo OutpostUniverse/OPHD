@@ -215,21 +215,21 @@ void FactoryProduction::update()
 	const int labelWidth = 120;
 	auto position = mRect.startPoint() + NAS2D::Vector{constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), 25};
 	auto value = std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild());
-	drawLabelAndValueLeftJustify(position, "Turns Completed:", value, 120);
+	drawLabelAndValueLeftJustify(position, 120, "Turns Completed:", value);
 
 	position.y() += 20;
 	value = std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild());
-	drawLabelAndValueLeftJustify(position, "Common Metals:", value, labelWidth);
+	drawLabelAndValueLeftJustify(position, labelWidth, "Common Metals:", value);
 
 	position.y() += 10;
 	value = std::to_string(mProductCost.commonMinerals() * mProductCost.turnsToBuild());
-	drawLabelAndValueLeftJustify(position, "Common Minerals:", value, labelWidth);
+	drawLabelAndValueLeftJustify(position, labelWidth, "Common Minerals:", value);
 
 	position.y() += 10;
 	value = std::to_string(mProductCost.rareMetals() * mProductCost.turnsToBuild());
-	drawLabelAndValueLeftJustify(position, "Rare Metals:", value, labelWidth);
+	drawLabelAndValueLeftJustify(position, labelWidth, "Rare Metals:", value);
 
 	position.y() += 10;
 	value = std::to_string(mProductCost.rareMinerals() * mProductCost.turnsToBuild());
-	drawLabelAndValueLeftJustify(position, "Rare Minerals:", value, labelWidth);
+	drawLabelAndValueLeftJustify(position, labelWidth, "Rare Minerals:", value);
 }

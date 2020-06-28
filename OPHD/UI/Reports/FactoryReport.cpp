@@ -586,14 +586,14 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	};
 	auto position = startPoint + NAS2D::Vector{138, 80};
 	for (auto [title, value] : requiredResources) {
-		drawLabelAndValueLeftJustify(position, title, std::to_string(value), labelWidth, defaultTextColor);
+		drawLabelAndValueLeftJustify(position, labelWidth, title, std::to_string(value), defaultTextColor);
 		position.y() += 15;
 	}
 
 	// POPULATION
 	bool isPopulationRequirementHighlighted = SELECTED_FACTORY->populationAvailable()[0] != SELECTED_FACTORY->populationRequirements()[0];
 	auto text = std::to_string(SELECTED_FACTORY->populationAvailable()[0]) + " / " + std::to_string(SELECTED_FACTORY->populationRequirements()[0]);
-	drawLabelAndValueLeftJustify(position, "Workers", text, labelWidth, (isPopulationRequirementHighlighted ? NAS2D::Color::Red : defaultTextColor));
+	drawLabelAndValueLeftJustify(position, labelWidth, "Workers", text, (isPopulationRequirementHighlighted ? NAS2D::Color::Red : defaultTextColor));
 }
 
 

@@ -20,7 +20,7 @@ void drawLabelAndValue(NAS2D::Point<int> position, const std::string& title, con
 	renderer.drawText(*FONT, text, position, color);
 }
 
-void drawLabelAndValueLeftJustify(NAS2D::Point<int> position, const std::string& title, const std::string& text, int labelWidth, NAS2D::Color color) 
+void drawLabelAndValueLeftJustify(NAS2D::Point<int> position, int labelWidth, const std::string& title, const std::string& text, NAS2D::Color color)
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
