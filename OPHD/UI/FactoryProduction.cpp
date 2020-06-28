@@ -215,7 +215,7 @@ void FactoryProduction::update()
 	const int labelWidth = 120;
 	auto position = mRect.startPoint() + NAS2D::Vector{constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), 25};
 	auto value = std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild());
-	drawLabelAndValueLeftJustify(position, 120, "Turns Completed:", value);
+	drawLabelAndValueLeftJustify(position, labelWidth, "Turns Completed:", value);
 
 	position.y() += 20;
 	value = std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild());
