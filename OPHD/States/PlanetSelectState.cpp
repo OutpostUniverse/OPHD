@@ -155,8 +155,8 @@ State* PlanetSelectState::update()
 	renderer.drawImageStretched(mBg, {0, 0}, size);
 
 	float _rotation = mTimer.tick() / 1200.0f;
-	renderer.drawImageRotated(mCloud1, -256, -256, _rotation, 100, 255, 0, 135);
-	renderer.drawImageRotated(mCloud1, size.x - 800, -256, -_rotation, 180, 0, 255, 150);
+	renderer.drawImageRotated(mCloud1, {-256, -256}, _rotation, NAS2D::Color{100, 255, 0, 135});
+	renderer.drawImageRotated(mCloud1, {size.x - 800, -256}, -_rotation, NAS2D::Color{180, 0, 255, 150});
 
 	drawStar({-40, -55});
 
@@ -167,16 +167,16 @@ State* PlanetSelectState::update()
 
 	//EXPLODE->update(100, 100);
 
-	renderer.drawText(*FONT_BOLD, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (FONT_BOLD->width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
-	renderer.drawText(*FONT_BOLD, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (FONT_BOLD->width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
-	renderer.drawText(*FONT_BOLD, "Ganymede Type", static_cast<float>(mPlanets[2]->x() + 64 - (FONT_BOLD->width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Mercury Type", {static_cast<float>(mPlanets[0]->x() + 64 - (FONT_BOLD->width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - FONT_BOLD->height() - 10)}, NAS2D::Color::White);
+	renderer.drawText(*FONT_BOLD, "Mars Type", {static_cast<float>(mPlanets[1]->x() + 64 - (FONT_BOLD->width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - FONT_BOLD->height() - 10)}, NAS2D::Color::White);
+	renderer.drawText(*FONT_BOLD, "Ganymede Type", {static_cast<float>(mPlanets[2]->x() + 64 - (FONT_BOLD->width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - FONT_BOLD->height() - 10)}, NAS2D::Color::White);
 
-	renderer.drawText(*FONT, "AI Gender", 5, 5, 255, 255, 255);
+	renderer.drawText(*FONT, "AI Gender", {5, 5}, NAS2D::Color::White);
 	mQuit.update();
 
 	mPlanetDescription.update();
 
-	renderer.drawText(*FONT_TINY, constants::VERSION, size.x - FONT_TINY->width(constants::VERSION) - 5, size.y - FONT_TINY->height() - 5, 255, 255, 255);
+	renderer.drawText(*FONT_TINY, constants::VERSION, {size.x - FONT_TINY->width(constants::VERSION) - 5, size.y - FONT_TINY->height() - 5}, NAS2D::Color::White);
 
 	if (renderer.isFading())
 	{
