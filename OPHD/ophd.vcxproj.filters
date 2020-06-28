@@ -288,6 +288,9 @@
     <ClCompile Include="UI\DifficultySelect.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI\TextRender.cpp">
+      <Filter>Header Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -628,6 +631,9 @@
     </ClInclude>
     <ClInclude Include="Things\Structures\UndergroundPolice.h">
       <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\TextRender.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
