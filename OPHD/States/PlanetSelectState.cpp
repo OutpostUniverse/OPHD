@@ -167,9 +167,9 @@ State* PlanetSelectState::update()
 
 	//EXPLODE->update(100, 100);
 
-	renderer.drawText(*FONT_BOLD, "Mercury Type", {static_cast<float>(mPlanets[0]->x() + 64 - (FONT_BOLD->width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - FONT_BOLD->height() - 10)}, NAS2D::Color::White);
-	renderer.drawText(*FONT_BOLD, "Mars Type", {static_cast<float>(mPlanets[1]->x() + 64 - (FONT_BOLD->width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - FONT_BOLD->height() - 10)}, NAS2D::Color::White);
-	renderer.drawText(*FONT_BOLD, "Ganymede Type", {static_cast<float>(mPlanets[2]->x() + 64 - (FONT_BOLD->width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - FONT_BOLD->height() - 10)}, NAS2D::Color::White);
+	renderer.drawText(*FONT_BOLD, "Mercury Type", mPlanets[0]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Mercury Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
+	renderer.drawText(*FONT_BOLD, "Mars Type", mPlanets[1]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Mars Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
+	renderer.drawText(*FONT_BOLD, "Ganymede Type", mPlanets[2]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Ganymede Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
 
 	renderer.drawText(*FONT, "AI Gender", {5, 5}, NAS2D::Color::White);
 	mQuit.update();
