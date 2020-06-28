@@ -137,11 +137,10 @@ void PlanetSelectState::initialize()
 }
 
 
-void PlanetSelectState::drawStar(int x, int y)
+void PlanetSelectState::drawStar(NAS2D::Point<int> point)
 {
 	float rotation = (mTimer.tick() / 125.0f);
 	auto& renderer = Utility<Renderer>::get();
-	const auto point = NAS2D::Point{x, y};
 	renderer.drawImageRotated(mStarFlare, point, -rotation * 0.75f, NAS2D::Color{255, 255, 0, 180});
 	renderer.drawImageRotated(mDetailFlare2, point, -rotation * 0.25f, NAS2D::Color{255, 255, 100});
 	renderer.drawImageRotated(mDetailFlare, point, rotation, NAS2D::Color::White);
@@ -159,7 +158,7 @@ State* PlanetSelectState::update()
 	renderer.drawImageRotated(mCloud1, -256, -256, _rotation, 100, 255, 0, 135);
 	renderer.drawImageRotated(mCloud1, size.x - 800, -256, -_rotation, 180, 0, 255, 150);
 
-	drawStar(-40, -55);
+	drawStar({-40, -55});
 
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
