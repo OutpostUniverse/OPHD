@@ -3,13 +3,11 @@
 
 #include "FactoryProduction.h"
 
+#include "TextRender.h"
 #include "../Constants.h"
-#include "../FontManager.h"
 
 using namespace NAS2D;
 
-static Font* FONT = nullptr;
-static Font* FONT_BOLD = nullptr;
 
 /**
  * 
@@ -69,10 +67,6 @@ void FactoryProduction::init()
 	add(&chkIdle, mProductGrid.width() + 12, 115);
 	chkIdle.size({50, 20});
 	chkIdle.click().connect(this, &FactoryProduction::chkIdleClicked);
-
-
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -218,26 +212,24 @@ void FactoryProduction::update()
 
 	Window::update();
 
-	auto& renderer = Utility<Renderer>::get();
-
-	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text) {
-		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
-		position.x() += 120;
-		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
-	};
-
+	const int labelWidth = 120;
 	auto position = mRect.startPoint() + NAS2D::Vector{constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), 25};
-	drawTitleText(position, "Turns Completed:", std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild()));
+	auto value = std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild());
+	drawLabelAndValueLeftJustify(position, "Turns Completed:", value, 120);
 
 	position.y() += 20;
-	drawTitleText(position, "Common Metals:", std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild()));
+	value = std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild());
+	drawLabelAndValueLeftJustify(position, "Common Metals:", value, labelWidth);
 
 	position.y() += 10;
-	drawTitleText(position, "Common Minerals:", std::to_string(mProductCost.commonMinerals() * mProductCost.turnsToBuild()));
+	value = std::to_string(mProductCost.commonMinerals() * mProductCost.turnsToBuild());
+	drawLabelAndValueLeftJustify(position, "Common Minerals:", value, labelWidth);
 
 	position.y() += 10;
-	drawTitleText(position, "Rare Metals:", std::to_string(mProductCost.rareMetals() * mProductCost.turnsToBuild()));
+	value = std::to_string(mProductCost.rareMetals() * mProductCost.turnsToBuild());
+	drawLabelAndValueLeftJustify(position, "Rare Metals:", value, labelWidth);
 
 	position.y() += 10;
-	drawTitleText(position, "Rare Minerals:", std::to_string(mProductCost.rareMinerals() * mProductCost.turnsToBuild()));
+	value = std::to_string(mProductCost.rareMinerals() * mProductCost.turnsToBuild());
+	drawLabelAndValueLeftJustify(position, "Rare Minerals:", value, labelWidth);
 }
