@@ -185,7 +185,7 @@ static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, 
 }
 
 
-static bool compareRoute(Route& a, Route& b) { return a.path.size() < b.path.size(); }
+static bool compareRoute(Route& a, Route& b) { return a.cost < b.cost; }
 
 
 static Route findLowestCostRoute(RouteList& routeList)
