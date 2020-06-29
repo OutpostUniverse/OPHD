@@ -185,14 +185,11 @@ static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, 
 }
 
 
-static bool compareRoute(Route& a, Route& b) { return a.cost < b.cost; }
-
-
 static Route findLowestCostRoute(RouteList& routeList)
 {
 	if (routeList.empty()) { return Route(); }
 
-	std::sort(routeList.begin(), routeList.end(), compareRoute);
+	std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; } );
 	return routeList.front();
 }
 
