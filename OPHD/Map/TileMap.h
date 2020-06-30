@@ -50,7 +50,7 @@ public:
 	void centerMapOnTile(Tile*);
 
 	bool tileHighlightVisible() const;
-	NAS2D::Point<int> tileMouseHover() const { return mMapViewLocation + mMapHighlight; }
+	NAS2D::Point<int> tileMouseHover() const { return mMapHighlight; }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
@@ -134,7 +134,7 @@ private:
 	NAS2D::Timer mTimer;
 
 	NAS2D::Point<int> mMousePosition; /**< Current mouse position. */
-	NAS2D::Vector<int> mMapHighlight; /**< Tile the mouse is pointing to. */
+	NAS2D::Point<int> mMapHighlight; /**< Tile the mouse is pointing to. */
 	NAS2D::Point<int> mMapViewLocation;
 
 	NAS2D::Point<float> mMapPosition; /** Where to start drawing the TileMap on the screen. */
