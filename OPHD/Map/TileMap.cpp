@@ -139,11 +139,11 @@ void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 }
 
 
-Tile* TileMap::getTile(int x, int y, int level)
+Tile* TileMap::getTile(NAS2D::Point<int> position, int level)
 {
-	if (x >= 0 && x < width() && y >= 0 && y < height() && level >= 0 && level <= mMaxDepth)
+	if (NAS2D::Rectangle{0, 0, mWidth, mHeight}.contains(position) && level >= 0 && level <= mMaxDepth)
 	{
-		return &mTileMap[level][y][x];
+		return &mTileMap[level][position.y()][position.x()];
 	}
 
 	return nullptr;
@@ -506,7 +506,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 		{
 			for (int y = 0; y < height(); ++y)
 			{
-				tile = getTile(x, y, depth);
+				tile = getTile({x, y}, depth);
 				if (depth > 0 && tile->excavated() && tile->empty() && tile->mine() == nullptr)
 				{
 					serializeTile(tiles, x, y, depth, tile->index());

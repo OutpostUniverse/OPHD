@@ -843,7 +843,7 @@ void MapViewState::placeTubeEnd()
 		}else if (!validTubeConnection(mTileMap, x, y, cd)){
 			endReach = true;
 		}else{
-			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(x, y));
+			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile({x, y}));
 			
 			// FIXME: Naive approach -- will be slow with larger colonies.
 			Utility<StructureManager>::get().disconnectAll();
@@ -1214,7 +1214,7 @@ void MapViewState::insertSeedLander(int x, int y)
 
 		SeedLander* s = new SeedLander(x, y);
 		s->deployCallback().connect(this, &MapViewState::deploySeedLander);
-		Utility<StructureManager>::get().addStructure(s, mTileMap->getTile(x, y)); // Can only ever be placed on depth level 0
+		Utility<StructureManager>::get().addStructure(s, mTileMap->getTile({x, y})); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();
