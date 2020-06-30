@@ -49,7 +49,6 @@ public:
 	void mapViewLocation(NAS2D::Point<int> point);
 	void centerMapOnTile(Tile*);
 
-	const NAS2D::Point<int>& tileHighlight() const { return mMapHighlight; }
 	bool tileHighlightVisible() const;
 
 	int tileMouseHoverX() const { return mMapHighlight.x() + mMapViewLocation.x(); }
