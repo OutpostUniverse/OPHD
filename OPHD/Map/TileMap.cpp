@@ -332,7 +332,7 @@ void TileMap::centerMapOnTile(Tile* _t)
  */
 bool TileMap::tileHighlightVisible() const
 {
-	return NAS2D::Rectangle{0, 0, mEdgeLength - 1, mEdgeLength - 1}.contains(mMapHighlight);
+	return NAS2D::Rectangle<int>::Create(mMapViewLocation, NAS2D::Vector{mEdgeLength - 1, mEdgeLength - 1}).contains(mMapHighlight);
 }
 
 
@@ -341,6 +341,7 @@ void TileMap::draw()
 	auto& renderer = Utility<Renderer>::get();
 
 	int tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
+	const auto highlightOffset = mMapHighlight - mMapViewLocation;
 
 	for (int row = 0; row < mEdgeLength; row++)
 	{
@@ -352,7 +353,7 @@ void TileMap::draw()
 			{
 				const auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
 				const auto subImageRect = NAS2D::Rectangle{tile.index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
-				const bool isTileHighlighted = row == mMapHighlight.y() && col == mMapHighlight.x();
+				const bool isTileHighlighted = NAS2D::Vector{col, row} == highlightOffset;
 				const bool isConnectionHighlighted = mShowConnections && tile.connected();
 				const NAS2D::Color highlightColor =
 					isTileHighlighted ?
@@ -396,7 +397,7 @@ void TileMap::updateTileHighlight()
 
 	int offsetX = ((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) / TILE_WIDTH);
 	int offsetY = ((mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE);
-	mMapHighlight = {TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX};
+	NAS2D::Vector<int> highlightOffset = {TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX};
 
 	int mmOffsetX = std::clamp((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
 	int mmOffsetY = (mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE;
@@ -406,24 +407,26 @@ void TileMap::updateTileHighlight()
 	switch (mmr)
 	{
 	case MouseMapRegion::MMR_TOP_RIGHT:
-		mMapHighlight.y(--mMapHighlight.y());
+		--highlightOffset.y;
 		break;
 
 	case MouseMapRegion::MMR_TOP_LEFT:
-		mMapHighlight.x(--mMapHighlight.x());
+		--highlightOffset.x;
 		break;
 
 	case MouseMapRegion::MMR_BOTTOM_RIGHT:
-		mMapHighlight.x(++mMapHighlight.x());
+		++highlightOffset.x;
 		break;
 
 	case MouseMapRegion::MMR_BOTTOM_LEFT:
-		mMapHighlight.y(++mMapHighlight.y());
+		++highlightOffset.y;
 		break;
 
 	default:
 		break;
 	}
+
+	mMapHighlight = mMapViewLocation + highlightOffset;
 }
 
 
