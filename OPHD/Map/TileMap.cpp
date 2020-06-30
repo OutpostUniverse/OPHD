@@ -139,11 +139,11 @@ void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 }
 
 
-Tile* TileMap::getTile(int x, int y, int level)
+Tile* TileMap::getTile(NAS2D::Point<int> position, int level)
 {
-	if (NAS2D::Rectangle{0, 0, mWidth, mHeight}.contains({x, y}) && level >= 0 && level <= mMaxDepth)
+	if (NAS2D::Rectangle{0, 0, mWidth, mHeight}.contains(position) && level >= 0 && level <= mMaxDepth)
 	{
-		return &mTileMap[level][y][x];
+		return &mTileMap[level][position.y()][position.x()];
 	}
 
 	return nullptr;
