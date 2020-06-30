@@ -31,3 +31,15 @@ void drawLabelAndValueLeftJustify(NAS2D::Point<int> position, int labelWidth, co
 	position.x() += labelWidth;
 	renderer.drawText(*FONT, text, position, color);
 }
+
+void drawLabelAndValueRightJustify(NAS2D::Point<int> position, int labelWidth, const std::string& title, const std::string& text, NAS2D::Color color)
+{
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+
+	NAS2D::Font* FONT = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	NAS2D::Font* FONT_BOLD = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+
+	renderer.drawText(*FONT_BOLD, title, position, color);
+	position.x() += labelWidth - FONT->width(text);
+	renderer.drawText(*FONT, text, position, color);
+}
