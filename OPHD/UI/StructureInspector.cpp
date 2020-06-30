@@ -5,8 +5,8 @@
 
 #include "../Constants.h"
 #include "../FontManager.h"
-
 #include "../Things/Structures/Structure.h"
+#include "TextRender.h"
 
 #include <map>
 #include <sstream>
@@ -130,39 +130,33 @@ void StructureInspector::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto drawTitleText = [&renderer](NAS2D::Point<int> position, const std::string& title, const std::string& text) {
-		renderer.drawText(*FONT_BOLD, title, position, NAS2D::Color::White);
-		position.x() += FONT_BOLD->width(title);
-		renderer.drawText(*FONT, text, position, NAS2D::Color::White);
-	};
-
 	auto position = mRect.startPoint() + NAS2D::Vector{5, 25};
 	if (mStructure == nullptr)
 	{
-		drawTitleText(position, "NULLPTR!", "");
+		drawLabelAndValue(position, "NULLPTR!", "");
 		return;
 	}
-	drawTitleText(position, mStructure->name(), "");
+	drawLabelAndValue(position, mStructure->name(), "");
 
 	position.y() += 20;
-	drawTitleText(position,"Type: ", mStructureClass);
+	drawLabelAndValue(position,"Type: ", mStructureClass);
 
 	position = mRect.startPoint() + NAS2D::Vector{190, 25};
-	drawTitleText(position,"State: ", structureStateDescription(mStructure->state()));
+	drawLabelAndValue(position,"State: ", structureStateDescription(mStructure->state()));
 
 	position.y() += 20;
 	if (mStructure->underConstruction())
 	{
-		drawTitleText(position,"Turns Remaining: ", std::to_string(mStructure->turnsToBuild() - mStructure->age()));
+		drawLabelAndValue(position,"Turns Remaining: ", std::to_string(mStructure->turnsToBuild() - mStructure->age()));
 	}
 	else
 	{
-		drawTitleText(position,"Age: ", std::to_string(mStructure->age()) + " of " + std::to_string(mStructure->maxAge()));
+		drawLabelAndValue(position,"Age: ", std::to_string(mStructure->age()) + " of " + std::to_string(mStructure->maxAge()));
 	}
 
 	drawPopulationRequirements();
 
-	mStructure->drawInspectorView(renderer, mRect);
+	mStructure->drawInspectorView(mRect);
 
 	position = mRect.startPoint() + NAS2D::Vector{5, static_cast<int>(mRect.height()) - FONT->height() - 5};
 	renderer.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);

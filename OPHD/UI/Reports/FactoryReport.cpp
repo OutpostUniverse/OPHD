@@ -3,6 +3,7 @@
 
 #include "FactoryReport.h"
 
+#include "../TextRender.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
 #include "../../StructureManager.h"
@@ -574,11 +575,6 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	renderer.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, startPoint + NAS2D::Vector{138, 60}, defaultTextColor);
 
 	const auto labelWidth = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
-	const auto drawTitleText = [&renderer, labelWidth](NAS2D::Point<int> position, const std::string& title, const std::string& text, Color textColor) {
-		renderer.drawText(*FONT_BOLD, title, position, textColor);
-		position.x() += labelWidth - FONT->width(text);
-		renderer.drawText(*FONT, text, position, textColor);
-	};
 
 	// MINERAL RESOURCES
 	const ProductionCost& _pc = productCost(SELECTED_FACTORY->productType());
@@ -590,14 +586,14 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	};
 	auto position = startPoint + NAS2D::Vector{138, 80};
 	for (auto [title, value] : requiredResources) {
-		drawTitleText(position, title, std::to_string(value), defaultTextColor);
+		drawLabelAndValueLeftJustify(position, labelWidth, title, std::to_string(value), defaultTextColor);
 		position.y() += 15;
 	}
 
 	// POPULATION
 	bool isPopulationRequirementHighlighted = SELECTED_FACTORY->populationAvailable()[0] != SELECTED_FACTORY->populationRequirements()[0];
 	auto text = std::to_string(SELECTED_FACTORY->populationAvailable()[0]) + " / " + std::to_string(SELECTED_FACTORY->populationRequirements()[0]);
-	drawTitleText(position, "Workers", text, (isPopulationRequirementHighlighted ? NAS2D::Color::Red : defaultTextColor));
+	drawLabelAndValueLeftJustify(position, labelWidth, "Workers", text, (isPopulationRequirementHighlighted ? NAS2D::Color::Red : defaultTextColor));
 }
 
 
