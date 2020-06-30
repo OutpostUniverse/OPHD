@@ -104,13 +104,13 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		}
 		else
 		{
-			mRect = {mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height()};
+			mRect = mBaseArea;
 		}
 	}
 	else if (!lstItems.rect().contains(Point{x, y}))
 	{
 		lstItems.visible(false);
-		mRect = {mBaseArea.x(), mBaseArea.y(), mBaseArea.width(), mBaseArea.height()};
+		mRect = mBaseArea;
 	}
 }
 
