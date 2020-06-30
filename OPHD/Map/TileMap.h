@@ -51,8 +51,8 @@ public:
 
 	bool tileHighlightVisible() const;
 
-	int tileMouseHoverX() const { return mMapHighlight.x() + mMapViewLocation.x(); }
-	int tileMouseHoverY() const { return mMapHighlight.y() + mMapViewLocation.y(); }
+	int tileMouseHoverX() const { return mMapHighlight.x + mMapViewLocation.x(); }
+	int tileMouseHoverY() const { return mMapHighlight.y + mMapViewLocation.y(); }
 	NAS2D::Point<int> tileMouseHover() const { return NAS2D::Point{tileMouseHoverX(), tileMouseHoverY()}; }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
@@ -137,7 +137,7 @@ private:
 	NAS2D::Timer mTimer;
 
 	NAS2D::Point<int> mMousePosition; /**< Current mouse position. */
-	NAS2D::Point<int> mMapHighlight; /**< Tile the mouse is pointing to. */
+	NAS2D::Vector<int> mMapHighlight; /**< Tile the mouse is pointing to. */
 	NAS2D::Point<int> mMapViewLocation;
 
 	NAS2D::Point<float> mMapPosition; /** Where to start drawing the TileMap on the screen. */

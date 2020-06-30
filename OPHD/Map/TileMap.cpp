@@ -332,7 +332,7 @@ void TileMap::centerMapOnTile(Tile* _t)
  */
 bool TileMap::tileHighlightVisible() const
 {
-	return NAS2D::Rectangle{0, 0, mEdgeLength - 1, mEdgeLength - 1}.contains(mMapHighlight);
+	return NAS2D::Rectangle{0, 0, mEdgeLength - 1, mEdgeLength - 1}.contains(NAS2D::Point{0, 0} + mMapHighlight);
 }
 
 
@@ -352,7 +352,7 @@ void TileMap::draw()
 			{
 				const auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
 				const auto subImageRect = NAS2D::Rectangle{tile.index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
-				const bool isTileHighlighted = NAS2D::Point{col, row} == mMapHighlight;
+				const bool isTileHighlighted = NAS2D::Vector{col, row} == mMapHighlight;
 				const bool isConnectionHighlighted = mShowConnections && tile.connected();
 				const NAS2D::Color highlightColor =
 					isTileHighlighted ?
@@ -406,19 +406,19 @@ void TileMap::updateTileHighlight()
 	switch (mmr)
 	{
 	case MouseMapRegion::MMR_TOP_RIGHT:
-		mMapHighlight.y(--mMapHighlight.y());
+		--mMapHighlight.y;
 		break;
 
 	case MouseMapRegion::MMR_TOP_LEFT:
-		mMapHighlight.x(--mMapHighlight.x());
+		--mMapHighlight.x;
 		break;
 
 	case MouseMapRegion::MMR_BOTTOM_RIGHT:
-		mMapHighlight.x(++mMapHighlight.x());
+		++mMapHighlight.x;
 		break;
 
 	case MouseMapRegion::MMR_BOTTOM_LEFT:
-		mMapHighlight.y(++mMapHighlight.y());
+		++mMapHighlight.y;
 		break;
 
 	default:
