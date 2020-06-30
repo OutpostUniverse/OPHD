@@ -52,18 +52,6 @@ Point<int> TRANSFORM; /**< Used to adjust mouse and screen spaces based on posit
 
 
 // ===============================================================================
-// = RANDOM NUMBER GENERATION
-// ===============================================================================
-std::random_device rd;
-std::mt19937 generator(rd());
-std::uniform_int_distribution<int> map_width(5, MAP_WIDTH - 5);
-std::uniform_int_distribution<int> map_height(5, MAP_HEIGHT - 5);
-
-auto mwidth = std::bind(map_width, std::ref(generator));
-auto mheight = std::bind(map_height, std::ref(generator));
-
-
-// ===============================================================================
 // = STATIC/LOCAL FUNCTIONS
 // ===============================================================================
 using TileArray = std::vector<std::vector<std::vector<Tile> > >;
@@ -214,6 +202,14 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 	// no check for overflows here because of the nature of division operations
 	// on int types. Yield totals should only ever equate to mineCount or less
 	// than mineCount.
+
+	std::random_device rd;
+	std::mt19937 generator(rd());
+	std::uniform_int_distribution<int> map_width(5, MAP_WIDTH - 5);
+	std::uniform_int_distribution<int> map_height(5, MAP_HEIGHT - 5);
+
+	auto mwidth = std::bind(map_width, std::ref(generator));
+	auto mheight = std::bind(map_height, std::ref(generator));
 
 	// \fixme Inelegant solution but may not be worth refactoring out into its own function.
 	for (int i = 0; i < yield_low; ++i)
