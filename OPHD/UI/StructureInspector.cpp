@@ -156,7 +156,7 @@ void StructureInspector::update()
 
 	drawPopulationRequirements();
 
-	mStructure->drawInspectorView(renderer, mRect);
+	mStructure->drawInspectorView(mRect);
 
 	position = mRect.startPoint() + NAS2D::Vector{5, static_cast<int>(mRect.height()) - FONT->height() - 5};
 	renderer.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);

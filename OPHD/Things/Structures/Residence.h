@@ -25,7 +25,7 @@ public:
 
 	int capacity() const { return mCapacity; }
 
-	void drawInspectorView([[maybe_unused]] NAS2D::Renderer& renderer, const NAS2D::Rectangle<float>& windowRect) override
+	void drawInspectorView(const NAS2D::Rectangle<float>& windowRect) override
 	{
 		auto position = windowRect.startPoint() + NAS2D::Vector{ 10, 135 };
 		drawLabelAndValue(position, "Colonist Capacity: ", std::to_string(capacity()));
