@@ -69,13 +69,15 @@ int main(int /*argc*/, char *argv[])
 
 	try
 	{
-		Filesystem& f = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks");
-		f.mount("data");
-		f.mountReadWrite(f.prefPath());
+		auto& fs = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks");
+		// Prioritize data from working directory, fallback on data from executable path
+		fs.mountSoftFail("data");
+		fs.mountSoftFail(fs.basePath() + "data");
+		fs.mountReadWrite(fs.prefPath());
 
-		if (!f.exists(constants::SAVE_GAME_PATH))
+		if (!fs.exists(constants::SAVE_GAME_PATH))
 		{
-			f.makeDirectory(constants::SAVE_GAME_PATH);
+			fs.makeDirectory(constants::SAVE_GAME_PATH);
 		}
 
 		Configuration& cf = Utility<Configuration>::init(
@@ -145,8 +147,8 @@ int main(int /*argc*/, char *argv[])
 
 		std::cout << "Loading packed assets... ";
 
-		f.mountSoftFail("fonts.dat");
-		f.mountSoftFail("planets.dat");
+		fs.mountSoftFail("fonts.dat");
+		fs.mountSoftFail("planets.dat");
 
 		std::cout << "done." << std::endl;
 

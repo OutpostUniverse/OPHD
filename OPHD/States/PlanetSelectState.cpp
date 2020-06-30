@@ -39,14 +39,12 @@ public:
 			mTimer.reset();
 		}
 
-		auto rasterX = static_cast<float>(x);
-		auto rasterY = static_cast<float>(y);
 		auto width = 128.0f;
 		auto height = 128.0f;
 		auto posX = (mFrame % 8u) * width;
 		auto posY = (mFrame / 8u) * height;
 		auto orientationDegrees = 270.0f;
-		renderer.drawSubImageRotated(mSheet, rasterX, rasterY, posX, posY, width, height, orientationDegrees);
+		renderer.drawSubImageRotated(mSheet, Point<int>{x, y}, {posX, posY, width, height}, orientationDegrees);
 	}
 
 private:
@@ -139,13 +137,13 @@ void PlanetSelectState::initialize()
 }
 
 
-void PlanetSelectState::drawStar(int x, int y)
+void PlanetSelectState::drawStar(NAS2D::Point<int> point)
 {
 	float rotation = (mTimer.tick() / 125.0f);
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawImageRotated(mStarFlare, static_cast<float>(x), static_cast<float>(y), -rotation * 0.75f, 255, 255, 0, 180);
-	renderer.drawImageRotated(mDetailFlare2, static_cast<float>(x), static_cast<float>(y), -rotation * 0.25f, 255, 255, 100, 255);
-	renderer.drawImageRotated(mDetailFlare, static_cast<float>(x), static_cast<float>(y), rotation, 255, 255, 255, 255);
+	renderer.drawImageRotated(mStarFlare, point, -rotation * 0.75f, NAS2D::Color{255, 255, 0, 180});
+	renderer.drawImageRotated(mDetailFlare2, point, -rotation * 0.25f, NAS2D::Color{255, 255, 100});
+	renderer.drawImageRotated(mDetailFlare, point, rotation, NAS2D::Color::White);
 }
 
 
@@ -156,11 +154,11 @@ State* PlanetSelectState::update()
 	const auto size = renderer.size();
 	renderer.drawImageStretched(mBg, {0, 0}, size);
 
-	float _rotation = mTimer.tick() / 1200.0f;
-	renderer.drawImageRotated(mCloud1, -256, -256, _rotation, 100, 255, 0, 135);
-	renderer.drawImageRotated(mCloud1, size.x - 800, -256, -_rotation, 180, 0, 255, 150);
+	float rotation = mTimer.tick() / 1200.0f;
+	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
+	renderer.drawImageRotated(mCloud1, {size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
-	drawStar(-40, -55);
+	drawStar({-40, -55});
 
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
@@ -169,16 +167,16 @@ State* PlanetSelectState::update()
 
 	//EXPLODE->update(100, 100);
 
-	renderer.drawText(*FONT_BOLD, "Mercury Type", static_cast<float>(mPlanets[0]->x() + 64 - (FONT_BOLD->width("Mercury Type") / 2)), static_cast<float>(mPlanets[0]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
-	renderer.drawText(*FONT_BOLD, "Mars Type", static_cast<float>(mPlanets[1]->x() + 64 - (FONT_BOLD->width("Mars Type") / 2)), static_cast<float>(mPlanets[1]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
-	renderer.drawText(*FONT_BOLD, "Ganymede Type", static_cast<float>(mPlanets[2]->x() + 64 - (FONT_BOLD->width("Ganymede Type") / 2)), static_cast<float>(mPlanets[2]->y() - FONT_BOLD->height() - 10), 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Mercury Type", mPlanets[0]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Mercury Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
+	renderer.drawText(*FONT_BOLD, "Mars Type", mPlanets[1]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Mars Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
+	renderer.drawText(*FONT_BOLD, "Ganymede Type", mPlanets[2]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Ganymede Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
 
-	renderer.drawText(*FONT, "AI Gender", 5, 5, 255, 255, 255);
+	renderer.drawText(*FONT, "AI Gender", {5, 5}, NAS2D::Color::White);
 	mQuit.update();
 
 	mPlanetDescription.update();
 
-	renderer.drawText(*FONT_TINY, constants::VERSION, size.x - FONT_TINY->width(constants::VERSION) - 5, size.y - FONT_TINY->height() - 5, 255, 255, 255);
+	renderer.drawText(*FONT_TINY, constants::VERSION, {size.x - FONT_TINY->width(constants::VERSION) - 5, size.y - FONT_TINY->height() - 5}, NAS2D::Color::White);
 
 	if (renderer.isFading())
 	{

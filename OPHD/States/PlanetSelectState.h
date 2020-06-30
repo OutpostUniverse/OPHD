@@ -39,7 +39,7 @@ private:
 
 	void btnQuitClicked();
 
-	void drawStar(int, int);
+	void drawStar(NAS2D::Point<int> point);
 
 private:
 	NAS2D::Image mBg;
