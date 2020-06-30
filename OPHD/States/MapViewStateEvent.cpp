@@ -255,7 +255,7 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	{
 		for(int x = originX - 1; x <= originX + 1; ++x)
 		{
-			mTileMap->getTile(x, y, t->depth() + depthAdjust)->excavated(true);
+			mTileMap->getTile({x, y}, t->depth() + depthAdjust)->excavated(true);
 		}
 	}
 

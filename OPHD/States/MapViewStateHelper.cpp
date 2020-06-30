@@ -221,7 +221,7 @@ bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 	{
 		for (int offX = x - 1; offX <= x + 1; ++offX)
 		{
-			Tile* tile = tilemap->getTile(offX, offY);
+			Tile* tile = tilemap->getTile({offX, offY});
 
 			if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
 			{

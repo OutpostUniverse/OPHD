@@ -506,7 +506,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 		{
 			for (int y = 0; y < height(); ++y)
 			{
-				tile = getTile(x, y, depth);
+				tile = getTile({x, y}, depth);
 				if (depth > 0 && tile->excavated() && tile->empty() && tile->mine() == nullptr)
 				{
 					serializeTile(tiles, x, y, depth, tile->index());
