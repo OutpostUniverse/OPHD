@@ -50,10 +50,7 @@ public:
 	void centerMapOnTile(Tile*);
 
 	bool tileHighlightVisible() const;
-
-	int tileMouseHoverX() const { return mMapHighlight.x + mMapViewLocation.x(); }
-	int tileMouseHoverY() const { return mMapHighlight.y + mMapViewLocation.y(); }
-	NAS2D::Point<int> tileMouseHover() const { return NAS2D::Point{tileMouseHoverX(), tileMouseHoverY()}; }
+	NAS2D::Point<int> tileMouseHover() const { return mMapViewLocation + mMapHighlight; }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
