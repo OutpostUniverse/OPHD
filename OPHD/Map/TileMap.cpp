@@ -210,24 +210,22 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 
 	auto mwidth = std::bind(map_width, std::ref(generator));
 	auto mheight = std::bind(map_height, std::ref(generator));
+	auto randPoint = [&mwidth, &mheight]() { return NAS2D::Point{mwidth(), mheight()}; };
 
 	// \fixme Inelegant solution but may not be worth refactoring out into its own function.
 	for (int i = 0; i < yield_low; ++i)
 	{
-		Point<int> pt{mwidth(), mheight()};
-		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_LOW);
+		addMineSet(randPoint(), mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_LOW);
 	}
 
 	for (int i = 0; i < yield_medium; ++i)
 	{
-		Point<int> pt{mwidth(), mheight()};
-		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_MEDIUM);
+		addMineSet(randPoint(), mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_MEDIUM);
 	}
 
 	for (int i = 0; i < yield_high; ++i)
 	{
-		Point<int> pt{mwidth(), mheight()};
-		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_HIGH);
+		addMineSet(randPoint(), mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_HIGH);
 	}
 
 }
