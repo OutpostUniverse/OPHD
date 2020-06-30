@@ -268,7 +268,7 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 	// Set up map draw position
 	mEdgeLength = size.x / TILE_WIDTH;
 
-	mMapPosition = {static_cast<float>(size.x / 2 - (TILE_WIDTH / 2)), ((size.y - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT_ABSOLUTE)};
+	mMapPosition = {static_cast<float>((size.x - TILE_WIDTH) / 2), static_cast<float>((size.y - constants::BOTTOM_UI_HEIGHT - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2)};
 	mMapBoundingBox = {(size.x / 2) - ((TILE_WIDTH * mEdgeLength) / 2), static_cast<int>(mMapPosition.y()), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
 
 	int transform = (mMapPosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
