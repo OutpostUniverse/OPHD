@@ -475,7 +475,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 		if (!mTileMap->tileHighlightVisible()) { return; }
 
-		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
+		Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover());
 		if (!_t)
 		{
 			return;
@@ -598,7 +598,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 		if (!mTileMap->tileHighlightVisible()) { return; }
 
-		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
+		Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover());
 		if (_t && _t->thingIsStructure())
 		{
 			Structure* structure = _t->structure();
