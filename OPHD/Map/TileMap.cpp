@@ -58,11 +58,9 @@ std::random_device rd;
 std::mt19937 generator(rd());
 std::uniform_int_distribution<int> map_width(5, MAP_WIDTH - 5);
 std::uniform_int_distribution<int> map_height(5, MAP_HEIGHT - 5);
-std::uniform_int_distribution<int> mine_yield(0, 100);
 
 auto mwidth = std::bind(map_width, std::ref(generator));
 auto mheight = std::bind(map_height, std::ref(generator));
-auto myield = std::bind(mine_yield, std::ref(generator));
 
 
 // ===============================================================================
