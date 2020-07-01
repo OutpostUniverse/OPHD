@@ -199,10 +199,6 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 	int yieldTotal = yieldLow + yieldMedium + yieldHigh;
 	if (yieldTotal < mineCount) { yieldLow += mineCount - yieldTotal; }
 
-	// no check for overflows here because of the nature of division operations
-	// on int types. Yield totals should only ever equate to mineCount or less
-	// than mineCount.
-
 	std::random_device rd;
 	std::mt19937 generator(rd());
 	std::uniform_int_distribution<int> distributionWidth(5, MAP_WIDTH - 5);
