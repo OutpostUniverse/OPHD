@@ -475,7 +475,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 		if (!mTileMap->tileHighlightVisible()) { return; }
 
-		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
+		Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover());
 		if (!_t)
 		{
 			return;
@@ -598,7 +598,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 		if (!mTileMap->tileHighlightVisible()) { return; }
 
-		Tile* _t = mTileMap->getTile(mTileMap->tileHighlight().x() + mTileMap->mapViewLocation().x(), mTileMap->tileHighlight().y() + mTileMap->mapViewLocation().y());
+		Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover());
 		if (_t && _t->thingIsStructure())
 		{
 			Structure* structure = _t->structure();
@@ -647,7 +647,7 @@ void MapViewState::onMouseMove(int /*x*/, int /*y*/, int /*rX*/, int /*rY*/)
 		}
 	}
 
-	mTileMapMouseHover = {mTileMap->tileMouseHoverX(), mTileMap->tileMouseHoverY()};
+	mTileMapMouseHover = mTileMap->tileMouseHover();
 }
 
 
@@ -843,7 +843,7 @@ void MapViewState::placeTubeEnd()
 		}else if (!validTubeConnection(mTileMap, x, y, cd)){
 			endReach = true;
 		}else{
-			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(x, y));
+			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile({x, y}));
 			
 			// FIXME: Naive approach -- will be slow with larger colonies.
 			Utility<StructureManager>::get().disconnectAll();
@@ -986,8 +986,9 @@ void MapViewState::placeRobot()
 		{
 			if (!doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE)) { return; }
 
-			std::cout << "Digger destroyed a Mine at (" << mTileMap->tileMouseHoverX() << ", " << mTileMap->tileMouseHoverY() << ")." << std::endl;
-			mTileMap->removeMineLocation(Point{tile->x(), tile->y()});
+			const auto position = tile->position();
+			std::cout << "Digger destroyed a Mine at (" << position.x() << ", " << position.y() << ")." << std::endl;
+			mTileMap->removeMineLocation(position);
 		}
 
 		// Die if tile is occupied or not excavated.
@@ -1213,7 +1214,7 @@ void MapViewState::insertSeedLander(int x, int y)
 
 		SeedLander* s = new SeedLander(x, y);
 		s->deployCallback().connect(this, &MapViewState::deploySeedLander);
-		Utility<StructureManager>::get().addStructure(s, mTileMap->getTile(x, y)); // Can only ever be placed on depth level 0
+		Utility<StructureManager>::get().addStructure(s, mTileMap->getTile({x, y})); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();
