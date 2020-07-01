@@ -267,8 +267,9 @@ void TextField::drawCursor()
 		{
 			// updateCursor() should be called only on events relating to the cursor so this is temporary.
 			updateCursor();
-			Utility<Renderer>::get().drawLine(static_cast<float>(mCursorX + 1), mRect.y() + FIELD_PADDING + 1, static_cast<float>(mCursorX + 1), mRect.y() + mRect.height() - FIELD_PADDING, 0, 0, 0);
-			Utility<Renderer>::get().drawLine(static_cast<float>(mCursorX), mRect.y() + FIELD_PADDING, static_cast<float>(mCursorX), mRect.y() + mRect.height() - FIELD_PADDING - 1, 255, 255, 255);
+			auto& renderer = Utility<Renderer>::get();
+			renderer.drawLine(static_cast<float>(mCursorX + 1), mRect.y() + FIELD_PADDING + 1, static_cast<float>(mCursorX + 1), mRect.y() + mRect.height() - FIELD_PADDING, 0, 0, 0);
+			renderer.drawLine(static_cast<float>(mCursorX), mRect.y() + FIELD_PADDING, static_cast<float>(mCursorX), mRect.y() + mRect.height() - FIELD_PADDING - 1, 255, 255, 255);
 		}
 		
 		if(mCursorTimer.accumulator() > CURSOR_BLINK_DELAY)
