@@ -284,11 +284,13 @@ void TextField::updateCursor()
 {
 	int cursorX = TXT_FONT->width(text().substr(0, mCursorPosition));
 
+	// Check if cursor is after visible area
 	if (mScrollOffset <= cursorX - textAreaWidth())
 	{
 		mScrollOffset = cursorX - textAreaWidth();
 	}
 
+	// Check if cursor is before visible area
 	if (mScrollOffset >= cursorX)
 	{
 		mScrollOffset = cursorX - textAreaWidth() / 2;
