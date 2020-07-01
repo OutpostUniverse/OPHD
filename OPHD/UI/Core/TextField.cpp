@@ -284,12 +284,12 @@ void TextField::updateCursor()
 {
 	int cursorX = TXT_FONT->width(text().substr(0, mCursorPosition));
 
-	if (cursorX - mScrollOffset >= textAreaWidth())
+	if (cursorX - textAreaWidth() >= mScrollOffset)
 	{
 		mScrollOffset = cursorX - textAreaWidth();
 	}
 
-	if (cursorX - mScrollOffset <= 0)
+	if (cursorX <= mScrollOffset)
 	{
 		mScrollOffset = cursorX - textAreaWidth() / 2;
 	}
