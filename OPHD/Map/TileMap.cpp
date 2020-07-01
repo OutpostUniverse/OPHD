@@ -205,11 +205,11 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 
 	std::random_device rd;
 	std::mt19937 generator(rd());
-	std::uniform_int_distribution<int> map_width(5, MAP_WIDTH - 5);
-	std::uniform_int_distribution<int> map_height(5, MAP_HEIGHT - 5);
+	std::uniform_int_distribution<int> distributionWidth(5, MAP_WIDTH - 5);
+	std::uniform_int_distribution<int> distributionHeight(5, MAP_HEIGHT - 5);
 
-	auto mwidth = std::bind(map_width, std::ref(generator));
-	auto mheight = std::bind(map_height, std::ref(generator));
+	auto mwidth = std::bind(distributionWidth, std::ref(generator));
+	auto mheight = std::bind(distributionHeight, std::ref(generator));
 	auto randPoint = [&mwidth, &mheight]() { return NAS2D::Point{mwidth(), mheight()}; };
 
 	// \fixme Inelegant solution but may not be worth refactoring out into its own function.
