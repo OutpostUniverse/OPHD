@@ -189,15 +189,15 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 {
 	if (hostility == constants::PlanetHostility::HOSTILITY_NONE) { return; }
 
-	int yield_low = mineCount * HostilityMineYieldTable.at(hostility)[0];
-	int yield_medium = mineCount * HostilityMineYieldTable.at(hostility)[1];
-	int yield_high = mineCount * HostilityMineYieldTable.at(hostility)[2];
+	int yieldLow = mineCount * HostilityMineYieldTable.at(hostility)[0];
+	int yieldMedium = mineCount * HostilityMineYieldTable.at(hostility)[1];
+	int yieldHigh = mineCount * HostilityMineYieldTable.at(hostility)[2];
 
 	// There will inevitably be cases where the total yield count will not match
 	// the required mine count. In these cases just tack on the difference to the
 	// low yield mines. Difficulty settings could shift this to other yields.
-	int yield_total = yield_low + yield_medium + yield_high;
-	if (yield_total < mineCount) { yield_low += mineCount - yield_total; }
+	int yieldTotal = yieldLow + yieldMedium + yieldHigh;
+	if (yieldTotal < mineCount) { yieldLow += mineCount - yieldTotal; }
 
 	// no check for overflows here because of the nature of division operations
 	// on int types. Yield totals should only ever equate to mineCount or less
@@ -218,9 +218,9 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 		}
 	};
 
-	generateMines(yield_low, MineProductionRate::PRODUCTION_RATE_LOW);
-	generateMines(yield_medium, MineProductionRate::PRODUCTION_RATE_MEDIUM);
-	generateMines(yield_high, MineProductionRate::PRODUCTION_RATE_HIGH);
+	generateMines(yieldLow, MineProductionRate::PRODUCTION_RATE_LOW);
+	generateMines(yieldMedium, MineProductionRate::PRODUCTION_RATE_MEDIUM);
+	generateMines(yieldHigh, MineProductionRate::PRODUCTION_RATE_HIGH);
 }
 
 
