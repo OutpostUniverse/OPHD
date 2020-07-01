@@ -267,8 +267,11 @@ void TextField::drawCursor()
 		{
 			// updateCursor() should be called only on events relating to the cursor so this is temporary.
 			updateCursor();
-			Utility<Renderer>::get().drawLine(static_cast<float>(mCursorX + 1), mRect.y() + FIELD_PADDING + 1, static_cast<float>(mCursorX + 1), mRect.y() + mRect.height() - FIELD_PADDING, 0, 0, 0);
-			Utility<Renderer>::get().drawLine(static_cast<float>(mCursorX), mRect.y() + FIELD_PADDING, static_cast<float>(mCursorX), mRect.y() + mRect.height() - FIELD_PADDING - 1, 255, 255, 255);
+			auto& renderer = Utility<Renderer>::get();
+			const auto startPosition = NAS2D::Point{static_cast<float>(mCursorX), mRect.y() + FIELD_PADDING};
+			const auto endPosition = NAS2D::Point{static_cast<float>(mCursorX), mRect.y() + mRect.height() - FIELD_PADDING - 1};
+			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
+			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
 		}
 		
 		if(mCursorTimer.accumulator() > CURSOR_BLINK_DELAY)
@@ -280,25 +283,18 @@ void TextField::drawCursor()
 }
 
 
-/**
- * Draws a highlight over selected text.
- */
-void TextField::drawTextHighlight()
-{
-	Utility<Renderer>::get().drawBoxFilled(mRect.x() + FIELD_PADDING, mRect.y(), static_cast<float>(TXT_FONT->width(text())), mRect.height(), 0, 0, 150, 100);
-}
-
-
 void TextField::updateCursor()
 {
 	int cursorX = TXT_FONT->width(text().substr(0, mCursorPosition));
 
-	if (cursorX - mScrollOffset >= textAreaWidth())
+	// Check if cursor is after visible area
+	if (mScrollOffset <= cursorX - textAreaWidth())
 	{
 		mScrollOffset = cursorX - textAreaWidth();
 	}
 
-	if (cursorX - mScrollOffset <= 0)
+	// Check if cursor is before visible area
+	if (mScrollOffset >= cursorX)
 	{
 		mScrollOffset = cursorX - textAreaWidth() / 2;
 	}
