@@ -326,7 +326,7 @@ void ListBoxBase::update()
 
 	// MOUSE HIGHLIGHT
 	float highlight_y = positionY() + static_cast<float>((mCurrentHighlight * mItemHeight) - mCurrentOffset);
-	renderer.drawBoxFilled(positionX(), highlight_y, static_cast<float>(mItemWidth), static_cast<float>(mItemHeight), 0, 185, 0, 50);
+	renderer.drawBoxFilled({positionX(), highlight_y, static_cast<float>(mItemWidth), static_cast<float>(mItemHeight)}, NAS2D::Color{0, 185, 0, 50});
 
 	mSlider.update();
 
