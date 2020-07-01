@@ -268,8 +268,10 @@ void TextField::drawCursor()
 			// updateCursor() should be called only on events relating to the cursor so this is temporary.
 			updateCursor();
 			auto& renderer = Utility<Renderer>::get();
-			renderer.drawLine(static_cast<float>(mCursorX + 1), mRect.y() + FIELD_PADDING + 1, static_cast<float>(mCursorX + 1), mRect.y() + mRect.height() - FIELD_PADDING, 0, 0, 0);
-			renderer.drawLine(static_cast<float>(mCursorX), mRect.y() + FIELD_PADDING, static_cast<float>(mCursorX), mRect.y() + mRect.height() - FIELD_PADDING - 1, 255, 255, 255);
+			const auto startPosition = NAS2D::Point{static_cast<float>(mCursorX), mRect.y() + FIELD_PADDING};
+			const auto endPosition = NAS2D::Point{static_cast<float>(mCursorX), mRect.y() + mRect.height() - FIELD_PADDING - 1};
+			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color{0, 0, 0});
+			renderer.drawLine(startPosition, endPosition, NAS2D::Color{255, 255, 255});
 		}
 		
 		if(mCursorTimer.accumulator() > CURSOR_BLINK_DELAY)
