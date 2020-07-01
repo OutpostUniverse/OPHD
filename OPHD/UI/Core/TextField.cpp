@@ -280,15 +280,6 @@ void TextField::drawCursor()
 }
 
 
-/**
- * Draws a highlight over selected text.
- */
-void TextField::drawTextHighlight()
-{
-	Utility<Renderer>::get().drawBoxFilled(mRect.x() + FIELD_PADDING, mRect.y(), static_cast<float>(TXT_FONT->width(text())), mRect.height(), 0, 0, 150, 100);
-}
-
-
 void TextField::updateCursor()
 {
 	int cursorX = TXT_FONT->width(text().substr(0, mCursorPosition));

@@ -61,7 +61,6 @@ protected:
 
 private:
 	void drawCursor();
-	void drawTextHighlight();
 
 	int textAreaWidth() const;
 
