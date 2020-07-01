@@ -318,15 +318,15 @@ void ListBoxBase::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	// CONTROL EXTENTS
-	renderer.drawBoxFilled(mRect.x(), mRect.y(), static_cast<float>(mItemWidth), mRect.height(), 0, 0, 0, 255);
-
-	hasFocus() ? renderer.drawBox(mRect.x(), mRect.y(), static_cast<float>(mItemWidth), mRect.height(), 0, 185, 0, 255) : renderer.drawBox(mRect.x(), mRect.y(), static_cast<float>(mItemWidth), mRect.height(), 75, 75, 75, 255);
+	const auto backgroundRect = NAS2D::Rectangle{mRect.x(), mRect.y(), static_cast<float>(mItemWidth), mRect.height()};
+	renderer.drawBoxFilled(backgroundRect, NAS2D::Color::Black);
+	renderer.drawBox(backgroundRect, (hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75}));
 
 	renderer.clipRect(mRect);
 
 	// MOUSE HIGHLIGHT
 	float highlight_y = positionY() + static_cast<float>((mCurrentHighlight * mItemHeight) - mCurrentOffset);
-	renderer.drawBoxFilled(positionX(), highlight_y, static_cast<float>(mItemWidth), static_cast<float>(mItemHeight), 0, 185, 0, 50);
+	renderer.drawBoxFilled({positionX(), highlight_y, static_cast<float>(mItemWidth), static_cast<float>(mItemHeight)}, NAS2D::Color{0, 185, 0, 50});
 
 	mSlider.update();
 
