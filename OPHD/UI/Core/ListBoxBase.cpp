@@ -319,9 +319,9 @@ void ListBoxBase::update()
 
 	// CONTROL EXTENTS
 	const auto backgroundRect = NAS2D::Rectangle{mRect.x(), mRect.y(), static_cast<float>(mItemWidth), mRect.height()};
-	renderer.drawBoxFilled(backgroundRect, NAS2D::Color{0, 0, 0, 255});
+	renderer.drawBoxFilled(backgroundRect, NAS2D::Color{0, 0, 0});
 
-	hasFocus() ? renderer.drawBox(backgroundRect, NAS2D::Color{0, 185, 0, 255}) : renderer.drawBox(backgroundRect, NAS2D::Color{75, 75, 75, 255});
+	hasFocus() ? renderer.drawBox(backgroundRect, NAS2D::Color{0, 185, 0}) : renderer.drawBox(backgroundRect, NAS2D::Color{75, 75, 75});
 
 	renderer.clipRect(mRect);
 
