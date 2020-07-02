@@ -15,15 +15,6 @@ using namespace NAS2D;
  * during frame updates to improve overall performance (basically, to avoid
  * expensive string operations).
  */
-static std::string COMMON_METALS_COUNT;
-static std::string COMMON_MINERALS_COUNT;
-static std::string RARE_METALS_COUNT;
-static std::string RARE_MINERALS_COUNT;
-
-static int COMMON_METALS_ORE_POSITION;
-static int COMMON_MINERALS_ORE_POSITION;
-static int RARE_METALS_ORE_POSITION;
-static int RARE_MINERALS_ORE_POSITION;
 
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
@@ -264,15 +255,15 @@ void MineOperationsWindow::update()
 	
 	renderer.drawLine({mRect.x() + 11, mRect.y() + 200}, {mRect.x() + mRect.width() - 11, mRect.y() + 200}, NAS2D::Color{22, 22, 22});
 
-	COMMON_METALS_COUNT = std::to_string(mFacility->mine()->commonMetalsAvailable());
-	COMMON_MINERALS_COUNT = std::to_string(mFacility->mine()->commonMineralsAvailable());
-	RARE_METALS_COUNT = std::to_string(mFacility->mine()->rareMetalsAvailable());
-	RARE_MINERALS_COUNT = std::to_string(mFacility->mine()->rareMineralsAvailable());
+	const auto COMMON_METALS_COUNT = std::to_string(mFacility->mine()->commonMetalsAvailable());
+	const auto COMMON_MINERALS_COUNT = std::to_string(mFacility->mine()->commonMineralsAvailable());
+	const auto RARE_METALS_COUNT = std::to_string(mFacility->mine()->rareMetalsAvailable());
+	const auto RARE_MINERALS_COUNT = std::to_string(mFacility->mine()->rareMineralsAvailable());
 
-	COMMON_METALS_ORE_POSITION = COMMON_METALS_POS - (FONT->width(COMMON_METALS_COUNT) / 2) + 8;
-	COMMON_MINERALS_ORE_POSITION = COMMON_MINERALS_POS - (FONT->width(COMMON_MINERALS_COUNT) / 2) + 8;
-	RARE_METALS_ORE_POSITION = RARE_METALS_POS - (FONT->width(RARE_METALS_COUNT) / 2) + 8;
-	RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (FONT->width(RARE_MINERALS_COUNT) / 2) + 8;
+	const auto COMMON_METALS_ORE_POSITION = COMMON_METALS_POS - (FONT->width(COMMON_METALS_COUNT) / 2) + 8;
+	const auto COMMON_MINERALS_ORE_POSITION = COMMON_MINERALS_POS - (FONT->width(COMMON_MINERALS_COUNT) / 2) + 8;
+	const auto RARE_METALS_ORE_POSITION = RARE_METALS_POS - (FONT->width(RARE_METALS_COUNT) / 2) + 8;
+	const auto RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (FONT->width(RARE_MINERALS_COUNT) / 2) + 8;
 
 	renderer.drawSubImage(mIcons, {mRect.x() + COMMON_METALS_POS, mRect.y() + 183}, {64, 0, 16, 16});
 	renderer.drawSubImage(mIcons, {mRect.x() + COMMON_MINERALS_POS, mRect.y() + 183}, {96, 0, 16, 16});
