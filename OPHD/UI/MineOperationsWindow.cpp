@@ -240,33 +240,27 @@ void MineOperationsWindow::update()
 	
 	renderer.drawLine({mRect.x() + 11, mRect.y() + 200}, {mRect.x() + mRect.width() - 11, mRect.y() + 200}, NAS2D::Color{22, 22, 22});
 
-	const auto COMMON_METALS_COUNT = std::to_string(mFacility->mine()->commonMetalsAvailable());
-	const auto COMMON_MINERALS_COUNT = std::to_string(mFacility->mine()->commonMineralsAvailable());
-	const auto RARE_METALS_COUNT = std::to_string(mFacility->mine()->rareMetalsAvailable());
-	const auto RARE_MINERALS_COUNT = std::to_string(mFacility->mine()->rareMineralsAvailable());
-
 	const int COMMON_METALS_POS = 46;
 	const int COMMON_MINERALS_POS = 135;
 	const int RARE_METALS_POS = 224;
 	const int RARE_MINERALS_POS = 312;
-
-	const auto COMMON_METALS_ORE_POSITION = COMMON_METALS_POS - (FONT->width(COMMON_METALS_COUNT) / 2) + 8;
-	const auto COMMON_MINERALS_ORE_POSITION = COMMON_MINERALS_POS - (FONT->width(COMMON_MINERALS_COUNT) / 2) + 8;
-	const auto RARE_METALS_ORE_POSITION = RARE_METALS_POS - (FONT->width(RARE_METALS_COUNT) / 2) + 8;
-	const auto RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (FONT->width(RARE_MINERALS_COUNT) / 2) + 8;
 
 	const auto CommonMetalIconRect = NAS2D::Rectangle{64, 0, 16, 16};
 	const auto CommonMineralIconRect = NAS2D::Rectangle{96, 0, 16, 16};
 	const auto RareMetalIconRect = NAS2D::Rectangle{80, 0, 16, 16};
 	const auto RareMineralIconRect = NAS2D::Rectangle{112, 0, 16, 16};
 
-	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{COMMON_METALS_POS, 183}, CommonMetalIconRect);
-	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{COMMON_MINERALS_POS, 183}, CommonMineralIconRect);
-	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{RARE_METALS_POS, 183}, RareMetalIconRect);
-	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{RARE_MINERALS_POS, 183}, RareMineralIconRect);
+	const std::array resources{
+		std::tuple{COMMON_METALS_POS,   CommonMetalIconRect,   mFacility->mine()->commonMetalsAvailable()},
+		std::tuple{COMMON_MINERALS_POS, CommonMineralIconRect, mFacility->mine()->commonMineralsAvailable()},
+		std::tuple{RARE_METALS_POS,     RareMetalIconRect,     mFacility->mine()->rareMetalsAvailable()},
+		std::tuple{RARE_MINERALS_POS,   RareMineralIconRect,   mFacility->mine()->rareMineralsAvailable()}
+	};
 
-	renderer.drawText(*FONT, COMMON_METALS_COUNT, origin + NAS2D::Vector{COMMON_METALS_ORE_POSITION, 202}, NAS2D::Color::White);
-	renderer.drawText(*FONT, COMMON_MINERALS_COUNT, origin + NAS2D::Vector{COMMON_MINERALS_ORE_POSITION, 202}, NAS2D::Color::White);
-	renderer.drawText(*FONT, RARE_METALS_COUNT, origin + NAS2D::Vector{RARE_METALS_ORE_POSITION, 202}, NAS2D::Color::White);
-	renderer.drawText(*FONT, RARE_MINERALS_COUNT, origin + NAS2D::Vector{RARE_MINERALS_ORE_POSITION, 202}, NAS2D::Color::White);
+	for (const auto& [offsetX, iconRect, resourceCount] : resources) {
+		const auto resourceCountString = std::to_string(resourceCount);
+		const auto textOffsetX = offsetX - (FONT->width(resourceCountString) / 2) + 8;
+		renderer.drawSubImage(mIcons, origin + NAS2D::Vector{offsetX, 183}, iconRect);
+		renderer.drawText(*FONT, resourceCountString, origin + NAS2D::Vector{textOffsetX, 202}, NAS2D::Color::White);
+	}
 }
