@@ -29,9 +29,6 @@ static int RARE_MINERALS_ORE_POSITION;
 static std::string MINE_YIELD;
 static std::string MINE_DEPTH;
 
-static const int MINE_YIELD_POSITION = 148;
-static const int MINE_DEPTH_POSITION = 300;
-
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
 
@@ -253,6 +250,9 @@ void MineOperationsWindow::update()
 	if (!visible()) { return; }
 
 	Window::update();
+
+	const int MINE_YIELD_POSITION = 148;
+	const int MINE_DEPTH_POSITION = 300;
 
 	const int MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Mine Yield:") + 10;
 	const int MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + FONT_BOLD->width("Depth:") + 10;
