@@ -255,13 +255,13 @@ void MineOperationsWindow::update()
 	const auto RARE_METALS_ORE_POSITION = RARE_METALS_POS - (FONT->width(RARE_METALS_COUNT) / 2) + 8;
 	const auto RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (FONT->width(RARE_MINERALS_COUNT) / 2) + 8;
 
-	renderer.drawSubImage(mIcons, {mRect.x() + COMMON_METALS_POS, mRect.y() + 183}, {64, 0, 16, 16});
-	renderer.drawSubImage(mIcons, {mRect.x() + COMMON_MINERALS_POS, mRect.y() + 183}, {96, 0, 16, 16});
-	renderer.drawSubImage(mIcons, {mRect.x() + RARE_METALS_POS, mRect.y() + 183}, {80, 0, 16, 16});
-	renderer.drawSubImage(mIcons, {mRect.x() + RARE_MINERALS_POS, mRect.y() + 183}, {112, 0, 16, 16});
+	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{COMMON_METALS_POS, 183}, {64, 0, 16, 16});
+	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{COMMON_MINERALS_POS, 183}, {96, 0, 16, 16});
+	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{RARE_METALS_POS, 183}, {80, 0, 16, 16});
+	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{RARE_MINERALS_POS, 183}, {112, 0, 16, 16});
 
-	renderer.drawText(*FONT, COMMON_METALS_COUNT, {mRect.x() + COMMON_METALS_ORE_POSITION, mRect.y() + 202}, NAS2D::Color::White);
-	renderer.drawText(*FONT, COMMON_MINERALS_COUNT, {mRect.x() + COMMON_MINERALS_ORE_POSITION, mRect.y() + 202}, NAS2D::Color::White);
-	renderer.drawText(*FONT, RARE_METALS_COUNT, {mRect.x() + RARE_METALS_ORE_POSITION, mRect.y() + 202}, NAS2D::Color::White);
-	renderer.drawText(*FONT, RARE_MINERALS_COUNT, {mRect.x() + RARE_MINERALS_ORE_POSITION, mRect.y() + 202}, NAS2D::Color::White);
+	renderer.drawText(*FONT, COMMON_METALS_COUNT, origin + NAS2D::Vector{COMMON_METALS_ORE_POSITION, 202}, NAS2D::Color::White);
+	renderer.drawText(*FONT, COMMON_MINERALS_COUNT, origin + NAS2D::Vector{COMMON_MINERALS_ORE_POSITION, 202}, NAS2D::Color::White);
+	renderer.drawText(*FONT, RARE_METALS_COUNT, origin + NAS2D::Vector{RARE_METALS_ORE_POSITION, 202}, NAS2D::Color::White);
+	renderer.drawText(*FONT, RARE_MINERALS_COUNT, origin + NAS2D::Vector{RARE_MINERALS_ORE_POSITION, 202}, NAS2D::Color::White);
 }
