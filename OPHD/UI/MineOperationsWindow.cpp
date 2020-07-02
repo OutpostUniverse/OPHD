@@ -255,10 +255,15 @@ void MineOperationsWindow::update()
 	const auto RARE_METALS_ORE_POSITION = RARE_METALS_POS - (FONT->width(RARE_METALS_COUNT) / 2) + 8;
 	const auto RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (FONT->width(RARE_MINERALS_COUNT) / 2) + 8;
 
-	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{COMMON_METALS_POS, 183}, {64, 0, 16, 16});
-	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{COMMON_MINERALS_POS, 183}, {96, 0, 16, 16});
-	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{RARE_METALS_POS, 183}, {80, 0, 16, 16});
-	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{RARE_MINERALS_POS, 183}, {112, 0, 16, 16});
+	const auto CommonMetalIconRect = NAS2D::Rectangle{64, 0, 16, 16};
+	const auto CommonMineralIconRect = NAS2D::Rectangle{96, 0, 16, 16};
+	const auto RareMetalIconRect = NAS2D::Rectangle{80, 0, 16, 16};
+	const auto RareMineralIconRect = NAS2D::Rectangle{112, 0, 16, 16};
+
+	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{COMMON_METALS_POS, 183}, CommonMetalIconRect);
+	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{COMMON_MINERALS_POS, 183}, CommonMineralIconRect);
+	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{RARE_METALS_POS, 183}, RareMetalIconRect);
+	renderer.drawSubImage(mIcons, origin + NAS2D::Vector{RARE_MINERALS_POS, 183}, RareMineralIconRect);
 
 	renderer.drawText(*FONT, COMMON_METALS_COUNT, origin + NAS2D::Vector{COMMON_METALS_ORE_POSITION, 202}, NAS2D::Color::White);
 	renderer.drawText(*FONT, COMMON_MINERALS_COUNT, origin + NAS2D::Vector{COMMON_MINERALS_ORE_POSITION, 202}, NAS2D::Color::White);
