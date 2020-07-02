@@ -18,7 +18,6 @@ static std::string COMMON_MINERALS_COUNT;
 static std::string RARE_METALS_COUNT;
 static std::string RARE_MINERALS_COUNT;
 
-static std::string STATUS_STRING;
 static std::string EXTENTION_TIME_REMAINING;
 
 static int COMMON_METALS_ORE_POSITION;
@@ -170,9 +169,6 @@ void MineOperationsWindow::updateCounts()
 	RARE_METALS_ORE_POSITION = RARE_METALS_POS - (FONT->width(RARE_METALS_COUNT) / 2) + 8;
 	RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (FONT->width(RARE_MINERALS_COUNT) / 2) + 8;
 
-	if (mFacility->extending()) { STATUS_STRING = "Digging New Level"; }
-	else { STATUS_STRING = structureStateDescription(mFacility->state()); }
-
 	EXTENTION_TIME_REMAINING = std::to_string(mFacility->digTimeRemaining());
 }
 
@@ -269,6 +265,7 @@ void MineOperationsWindow::update()
 
 	renderer.drawText(*FONT_BOLD, "Status:", {mRect.x() + MINE_YIELD_POSITION, mRect.y() + 45}, NAS2D::Color::White);
 
+	std::string STATUS_STRING;
 	if (mFacility->extending()) { STATUS_STRING = "Digging New Level"; }
 	else if (mFacility->mine()->exhausted()) { STATUS_STRING = "Exhausted"; }
 	else { STATUS_STRING = structureStateDescription(mFacility->state()); }
