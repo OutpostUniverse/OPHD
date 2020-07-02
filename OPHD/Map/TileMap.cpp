@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <functional>
 #include <random>
-#include <tuple>
+#include <array>
 
 using namespace NAS2D;
 using namespace NAS2D::Xml;
@@ -37,7 +37,7 @@ const double THROB_SPEED = 250.0; // Throb speed of mine beacon
 
 
 /** Tuple indicates percent of mines that should be of yields LOW, MED, HIGH */
-std::map<constants::PlanetHostility, std::tuple<float, float, float>> HostilityMineYieldTable =
+const std::map<constants::PlanetHostility, std::array<float, 3>> HostilityMineYieldTable =
 {
 	{ constants::PlanetHostility::HOSTILITY_LOW, {0.30f, 0.50f, 0.20f} },
 	{ constants::PlanetHostility::HOSTILITY_MEDIUM, {0.45f, 0.35f, 0.20f} },
@@ -49,20 +49,6 @@ std::map<constants::PlanetHostility, std::tuple<float, float, float>> HostilityM
 // = LOCAL VARIABLES
 // ===============================================================================
 Point<int> TRANSFORM; /**< Used to adjust mouse and screen spaces based on position of the map field. */
-
-
-// ===============================================================================
-// = RANDOM NUMBER GENERATION
-// ===============================================================================
-std::random_device rd;
-std::mt19937 generator(rd());
-std::uniform_int_distribution<int> map_width(5, MAP_WIDTH - 5);
-std::uniform_int_distribution<int> map_height(5, MAP_HEIGHT - 5);
-std::uniform_int_distribution<int> mine_yield(0, 100);
-
-auto mwidth = std::bind(map_width, std::ref(generator));
-auto mheight = std::bind(map_height, std::ref(generator));
-auto myield = std::bind(mine_yield, std::ref(generator));
 
 
 // ===============================================================================
@@ -203,39 +189,34 @@ void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 {
 	if (hostility == constants::PlanetHostility::HOSTILITY_NONE) { return; }
 
-	int yield_low = mineCount * std::get<0>(HostilityMineYieldTable[hostility]);
-	int yield_medium = mineCount * std::get<1>(HostilityMineYieldTable[hostility]);
-	int yield_high = mineCount * std::get<2>(HostilityMineYieldTable[hostility]);
+	int yieldLow = mineCount * HostilityMineYieldTable.at(hostility)[0];
+	int yieldMedium = mineCount * HostilityMineYieldTable.at(hostility)[1];
+	int yieldHigh = mineCount * HostilityMineYieldTable.at(hostility)[2];
 
 	// There will inevitably be cases where the total yield count will not match
 	// the required mine count. In these cases just tack on the difference to the
 	// low yield mines. Difficulty settings could shift this to other yields.
-	int yield_total = yield_low + yield_medium + yield_high;
-	if (yield_total < mineCount) { yield_low += mineCount - yield_total; }
+	int yieldTotal = yieldLow + yieldMedium + yieldHigh;
+	if (yieldTotal < mineCount) { yieldLow += mineCount - yieldTotal; }
 
-	// no check for overflows here because of the nature of division operations
-	// on int types. Yield totals should only ever equate to mineCount or less
-	// than mineCount.
+	std::random_device rd;
+	std::mt19937 generator(rd());
+	std::uniform_int_distribution<int> distributionWidth(5, MAP_WIDTH - 5);
+	std::uniform_int_distribution<int> distributionHeight(5, MAP_HEIGHT - 5);
 
-	// \fixme Inelegant solution but may not be worth refactoring out into its own function.
-	for (int i = 0; i < yield_low; ++i)
-	{
-		Point<int> pt{std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8)};
-		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_LOW);
-	}
+	auto mwidth = std::bind(distributionWidth, std::ref(generator));
+	auto mheight = std::bind(distributionHeight, std::ref(generator));
+	auto randPoint = [&mwidth, &mheight]() { return NAS2D::Point{mwidth(), mheight()}; };
 
-	for (int i = 0; i < yield_medium; ++i)
-	{
-		Point<int> pt{std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8)};
-		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_MEDIUM);
-	}
+	auto generateMines = [&](int mineCountAtYield, MineProductionRate yield) {
+		for (int i = 0; i < mineCountAtYield; ++i) {
+			addMineSet(randPoint(), mMineLocations, mTileMap, yield);
+		}
+	};
 
-	for (int i = 0; i < yield_high; ++i)
-	{
-		Point<int> pt{std::clamp(mwidth(), 4, mWidth - 8), std::clamp(mheight(), 4, mWidth - 8)};
-		addMineSet(pt, mMineLocations, mTileMap, MineProductionRate::PRODUCTION_RATE_HIGH);
-	}
-
+	generateMines(yieldLow, MineProductionRate::PRODUCTION_RATE_LOW);
+	generateMines(yieldMedium, MineProductionRate::PRODUCTION_RATE_MEDIUM);
+	generateMines(yieldHigh, MineProductionRate::PRODUCTION_RATE_HIGH);
 }
 
 
