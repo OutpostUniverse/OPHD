@@ -266,10 +266,13 @@ void TileMap::buildMouseMap()
 void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 {
 	// Set up map draw position
-	mEdgeLength = size.x / TILE_WIDTH;
+	const auto lengthX = size.x / TILE_WIDTH;
+	const auto lengthY = size.y / TILE_HEIGHT_ABSOLUTE;
+	mEdgeLength = std::max(3, std::min(lengthX, lengthY));
 
-	mMapPosition = {static_cast<float>(size.x / 2 - (TILE_WIDTH / 2)), ((size.y - constants::BOTTOM_UI_HEIGHT) / 2) - ((static_cast<float>(mEdgeLength) / 2) * TILE_HEIGHT_ABSOLUTE)};
-	mMapBoundingBox = {(size.x / 2) - ((TILE_WIDTH * mEdgeLength) / 2), static_cast<int>(mMapPosition.y()), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
+	// Find top left corner of rectangle containing top tile of diamond
+	mMapPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BOTTOM_UI_HEIGHT - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
+	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, static_cast<int>(mMapPosition.y()), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
 
 	int transform = (mMapPosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
 	TRANSFORM = {-transform, transform};
