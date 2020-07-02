@@ -24,7 +24,6 @@ static int RARE_METALS_ORE_POSITION;
 static int RARE_MINERALS_ORE_POSITION;
 
 static std::string MINE_YIELD;
-static std::string MINE_DEPTH;
 
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
@@ -133,7 +132,6 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 	if (!mFacility) { return; }
 
 	MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
-	MINE_DEPTH = std::to_string(mFacility->mine()->depth());
 
 	chkCommonMetals.checked(mFacility->mine()->miningCommonMetals());
 	chkCommonMinerals.checked(mFacility->mine()->miningCommonMinerals());
@@ -155,8 +153,6 @@ void MineOperationsWindow::updateCounts()
 {
 	if (!visible() && !mFacility) { return; }
 
-	MINE_DEPTH = std::to_string(mFacility->mine()->depth());
-	
 	COMMON_METALS_COUNT = std::to_string(mFacility->mine()->commonMetalsAvailable());
 	COMMON_MINERALS_COUNT = std::to_string(mFacility->mine()->commonMineralsAvailable());
 	RARE_METALS_COUNT = std::to_string(mFacility->mine()->rareMetalsAvailable());
@@ -274,6 +270,7 @@ void MineOperationsWindow::update()
 		renderer.drawText(*FONT, EXTENTION_TIME_REMAINING, {mRect.x() + EXTENSION_TURNS_REMAINING_POSITION, mRect.y() + 60}, NAS2D::Color::White);
 	}
 
+	const auto MINE_DEPTH = std::to_string(mFacility->mine()->depth());
 	renderer.drawText(*FONT_BOLD, "Depth:", {mRect.x() + MINE_DEPTH_POSITION, mRect.y() + 30}, NAS2D::Color::White);
 	renderer.drawText(*FONT, MINE_DEPTH, {mRect.x() + MINE_DEPTH_VALUE_POSITION, mRect.y() + 30}, NAS2D::Color::White);
 
