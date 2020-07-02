@@ -265,11 +265,10 @@ void MineOperationsWindow::update()
 
 	renderer.drawText(*FONT_BOLD, "Status:", {mRect.x() + MINE_YIELD_POSITION, mRect.y() + 45}, NAS2D::Color::White);
 
-	std::string STATUS_STRING;
-	if (mFacility->extending()) { STATUS_STRING = "Digging New Level"; }
-	else if (mFacility->mine()->exhausted()) { STATUS_STRING = "Exhausted"; }
-	else { STATUS_STRING = structureStateDescription(mFacility->state()); }
-	
+	const std::string STATUS_STRING =
+		mFacility->extending() ? "Digging New Level" :
+		mFacility->mine()->exhausted() ? "Exhausted" :
+		structureStateDescription(mFacility->state());
 	renderer.drawText(*FONT, STATUS_STRING, {mRect.x() + MINE_STATUS_POSITION, mRect.y() + 45}, NAS2D::Color::White);
 
 	if (mFacility && mFacility->extending())
