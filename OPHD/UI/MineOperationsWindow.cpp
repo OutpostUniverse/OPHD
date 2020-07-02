@@ -147,13 +147,6 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 	MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
 	MINE_DEPTH = std::to_string(mFacility->mine()->depth());
 
-	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Mine Yield:") + 10;
-	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + FONT_BOLD->width("Depth:") + 10;
-
-	MINE_STATUS_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Status:") + 10;
-	EXTENSION_TURNS_REMAINING_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Turns Remaining:") + 10;
-
-
 	chkCommonMetals.checked(mFacility->mine()->miningCommonMetals());
 	chkCommonMinerals.checked(mFacility->mine()->miningCommonMinerals());
 	chkRareMetals.checked(mFacility->mine()->miningRareMetals());
@@ -266,6 +259,12 @@ void MineOperationsWindow::update()
 	if (!visible()) { return; }
 
 	Window::update();
+
+	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Mine Yield:") + 10;
+	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + FONT_BOLD->width("Depth:") + 10;
+
+	MINE_STATUS_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Status:") + 10;
+	EXTENSION_TURNS_REMAINING_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Turns Remaining:") + 10;
 
 	auto& renderer = Utility<Renderer>::get();
 
