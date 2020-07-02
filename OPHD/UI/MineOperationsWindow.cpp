@@ -23,8 +23,6 @@ static int COMMON_MINERALS_ORE_POSITION;
 static int RARE_METALS_ORE_POSITION;
 static int RARE_MINERALS_ORE_POSITION;
 
-static std::string MINE_YIELD;
-
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
 
@@ -130,8 +128,6 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 {
 	mFacility = facility;
 	if (!mFacility) { return; }
-
-	MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
 
 	chkCommonMetals.checked(mFacility->mine()->miningCommonMetals());
 	chkCommonMinerals.checked(mFacility->mine()->miningCommonMinerals());
@@ -252,6 +248,7 @@ void MineOperationsWindow::update()
 
 	renderer.drawImage(mUiIcon, mRect.x() + 10, mRect.y() + 30);
 
+	const auto MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
 	renderer.drawText(*FONT_BOLD, "Mine Yield:", {mRect.x() + MINE_YIELD_POSITION, mRect.y() + 30}, NAS2D::Color::White);
 	renderer.drawText(*FONT, MINE_YIELD, {mRect.x() + MINE_YIELD_DESCRIPTION_POSITION, mRect.y() + 30}, NAS2D::Color::White);
 
