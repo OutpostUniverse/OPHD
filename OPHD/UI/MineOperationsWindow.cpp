@@ -264,44 +264,44 @@ void MineOperationsWindow::update()
 
 	renderer.drawImage(mUiIcon, mRect.x() + 10, mRect.y() + 30);
 
-	renderer.drawText(*FONT_BOLD, "Mine Yield:", mRect.x() + MINE_YIELD_POSITION, mRect.y() + 30, 255, 255, 255);
-	renderer.drawText(*FONT, MINE_YIELD, mRect.x() + MINE_YIELD_DESCRIPTION_POSITION, mRect.y() + 30, 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Mine Yield:", {mRect.x() + MINE_YIELD_POSITION, mRect.y() + 30}, NAS2D::Color::White);
+	renderer.drawText(*FONT, MINE_YIELD, {mRect.x() + MINE_YIELD_DESCRIPTION_POSITION, mRect.y() + 30}, NAS2D::Color::White);
 
-	renderer.drawText(*FONT_BOLD, "Status:", mRect.x() + MINE_YIELD_POSITION, mRect.y() + 45, 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Status:", {mRect.x() + MINE_YIELD_POSITION, mRect.y() + 45}, NAS2D::Color::White);
 
 	if (mFacility->extending()) { STATUS_STRING = "Digging New Level"; }
 	else if (mFacility->mine()->exhausted()) { STATUS_STRING = "Exhausted"; }
 	else { STATUS_STRING = structureStateDescription(mFacility->state()); }
 	
-	renderer.drawText(*FONT, STATUS_STRING, mRect.x() + MINE_STATUS_POSITION, mRect.y() + 45, 255, 255, 255);
+	renderer.drawText(*FONT, STATUS_STRING, {mRect.x() + MINE_STATUS_POSITION, mRect.y() + 45}, NAS2D::Color::White);
 
 	if (mFacility && mFacility->extending())
 	{
-		renderer.drawText(*FONT_BOLD, "Turns Remaining:", mRect.x() + MINE_YIELD_POSITION, mRect.y() + 60, 255, 255, 255);
-		renderer.drawText(*FONT, EXTENTION_TIME_REMAINING, mRect.x() + EXTENSION_TURNS_REMAINING_POSITION, mRect.y() + 60, 255, 255, 255);
+		renderer.drawText(*FONT_BOLD, "Turns Remaining:", {mRect.x() + MINE_YIELD_POSITION, mRect.y() + 60}, NAS2D::Color::White);
+		renderer.drawText(*FONT, EXTENTION_TIME_REMAINING, {mRect.x() + EXTENSION_TURNS_REMAINING_POSITION, mRect.y() + 60}, NAS2D::Color::White);
 	}
 
-	renderer.drawText(*FONT_BOLD, "Depth:", mRect.x() + MINE_DEPTH_POSITION, mRect.y() + 30, 255, 255, 255);
-	renderer.drawText(*FONT, MINE_DEPTH, mRect.x() + MINE_DEPTH_VALUE_POSITION, mRect.y() + 30, 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Depth:", {mRect.x() + MINE_DEPTH_POSITION, mRect.y() + 30}, NAS2D::Color::White);
+	renderer.drawText(*FONT, MINE_DEPTH, {mRect.x() + MINE_DEPTH_VALUE_POSITION, mRect.y() + 30}, NAS2D::Color::White);
 
 	// REMAINING ORE PANEL
-	renderer.drawText(*FONT_BOLD, "Remaining Resources", mRect.x() + 10, mRect.y() + 164, 255, 255, 255);
+	renderer.drawText(*FONT_BOLD, "Remaining Resources", {mRect.x() + 10, mRect.y() + 164}, NAS2D::Color::White);
 
-	renderer.drawImageRect(mRect.x() + 10, mRect.y() + 180, mRect.width() - 20, 40, mPanel);
+	renderer.drawImageRect({mRect.x() + 10, mRect.y() + 180, mRect.width() - 20, 40}, mPanel);
 
-	renderer.drawLine(mRect.x() + 98, mRect.y() + 180, mRect.x() + 98, mRect.y() + 219, 22, 22, 22);
-	renderer.drawLine(mRect.x() + 187, mRect.y() + 180, mRect.x() + 187, mRect.y() + 219, 22, 22, 22);
-	renderer.drawLine(mRect.x() + 275, mRect.y() + 180, mRect.x() + 275, mRect.y() + 219, 22, 22, 22);
+	renderer.drawLine({mRect.x() + 98, mRect.y() + 180}, {mRect.x() + 98, mRect.y() + 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine({mRect.x() + 187, mRect.y() + 180}, {mRect.x() + 187, mRect.y() + 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine({mRect.x() + 275, mRect.y() + 180}, {mRect.x() + 275, mRect.y() + 219}, NAS2D::Color{22, 22, 22});
 	
-	renderer.drawLine(mRect.x() + 11, mRect.y() + 200, mRect.x() + mRect.width() - 11, mRect.y() + 200, 22, 22, 22);
+	renderer.drawLine({mRect.x() + 11, mRect.y() + 200}, {mRect.x() + mRect.width() - 11, mRect.y() + 200}, NAS2D::Color{22, 22, 22});
 
-	renderer.drawSubImage(mIcons, mRect.x() + COMMON_METALS_POS, mRect.y() + 183, 64, 0, 16, 16);
-	renderer.drawSubImage(mIcons, mRect.x() + COMMON_MINERALS_POS, mRect.y() + 183, 96, 0, 16, 16);
-	renderer.drawSubImage(mIcons, mRect.x() + RARE_METALS_POS, mRect.y() + 183, 80, 0, 16, 16);
-	renderer.drawSubImage(mIcons, mRect.x() + RARE_MINERALS_POS, mRect.y() + 183, 112, 0, 16, 16);
+	renderer.drawSubImage(mIcons, {mRect.x() + COMMON_METALS_POS, mRect.y() + 183}, {64, 0, 16, 16});
+	renderer.drawSubImage(mIcons, {mRect.x() + COMMON_MINERALS_POS, mRect.y() + 183}, {96, 0, 16, 16});
+	renderer.drawSubImage(mIcons, {mRect.x() + RARE_METALS_POS, mRect.y() + 183}, {80, 0, 16, 16});
+	renderer.drawSubImage(mIcons, {mRect.x() + RARE_MINERALS_POS, mRect.y() + 183}, {112, 0, 16, 16});
 
-	renderer.drawText(*FONT, COMMON_METALS_COUNT, mRect.x() + COMMON_METALS_ORE_POSITION, mRect.y() + 202, 255, 255, 255);
-	renderer.drawText(*FONT, COMMON_MINERALS_COUNT, mRect.x() + COMMON_MINERALS_ORE_POSITION, mRect.y() + 202, 255, 255, 255);
-	renderer.drawText(*FONT, RARE_METALS_COUNT, mRect.x() + RARE_METALS_ORE_POSITION, mRect.y() + 202, 255, 255, 255);
-	renderer.drawText(*FONT, RARE_MINERALS_COUNT, mRect.x() + RARE_MINERALS_ORE_POSITION, mRect.y() + 202, 255, 255, 255);
+	renderer.drawText(*FONT, COMMON_METALS_COUNT, {mRect.x() + COMMON_METALS_ORE_POSITION, mRect.y() + 202}, NAS2D::Color::White);
+	renderer.drawText(*FONT, COMMON_MINERALS_COUNT, {mRect.x() + COMMON_MINERALS_ORE_POSITION, mRect.y() + 202}, NAS2D::Color::White);
+	renderer.drawText(*FONT, RARE_METALS_COUNT, {mRect.x() + RARE_METALS_ORE_POSITION, mRect.y() + 202}, NAS2D::Color::White);
+	renderer.drawText(*FONT, RARE_MINERALS_COUNT, {mRect.x() + RARE_MINERALS_ORE_POSITION, mRect.y() + 202}, NAS2D::Color::White);
 }
