@@ -30,13 +30,7 @@ static std::string MINE_YIELD;
 static std::string MINE_DEPTH;
 
 static const int MINE_YIELD_POSITION = 148;
-static int MINE_YIELD_DESCRIPTION_POSITION = 0;
-
-static int MINE_STATUS_POSITION;
-static int EXTENSION_TURNS_REMAINING_POSITION;
-
 static const int MINE_DEPTH_POSITION = 300;
-static int MINE_DEPTH_VALUE_POSITION;
 
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
@@ -260,11 +254,11 @@ void MineOperationsWindow::update()
 
 	Window::update();
 
-	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Mine Yield:") + 10;
-	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + FONT_BOLD->width("Depth:") + 10;
+	const int MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Mine Yield:") + 10;
+	const int MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + FONT_BOLD->width("Depth:") + 10;
 
-	MINE_STATUS_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Status:") + 10;
-	EXTENSION_TURNS_REMAINING_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Turns Remaining:") + 10;
+	const int MINE_STATUS_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Status:") + 10;
+	const int EXTENSION_TURNS_REMAINING_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Turns Remaining:") + 10;
 
 	auto& renderer = Utility<Renderer>::get();
 
