@@ -3,6 +3,8 @@
 
 #include "MineOperationsWindow.h"
 
+#include "TextRender.h"
+
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -240,33 +242,26 @@ void MineOperationsWindow::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImage(mUiIcon, mRect.x() + 10, mRect.y() + 30);
+	const auto origin = mRect.startPoint().to<int>();
+	renderer.drawImage(mUiIcon, origin.x() + 10, origin.y() + 30);
 
 	const auto MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
-	const int MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Mine Yield: ");
-	renderer.drawText(*FONT_BOLD, "Mine Yield:", {mRect.x() + MINE_YIELD_POSITION, mRect.y() + 30}, NAS2D::Color::White);
-	renderer.drawText(*FONT, MINE_YIELD, {mRect.x() + MINE_YIELD_DESCRIPTION_POSITION, mRect.y() + 30}, NAS2D::Color::White);
+	drawLabelAndValue({origin.x() + MINE_YIELD_POSITION, origin.y() + 30}, "Mine Yield: ", MINE_YIELD);
 
 	const std::string STATUS_STRING =
 		mFacility->extending() ? "Digging New Level" :
 		mFacility->mine()->exhausted() ? "Exhausted" :
 		structureStateDescription(mFacility->state());
-	const int MINE_STATUS_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Status: ");
-	renderer.drawText(*FONT_BOLD, "Status:", {mRect.x() + MINE_YIELD_POSITION, mRect.y() + 45}, NAS2D::Color::White);
-	renderer.drawText(*FONT, STATUS_STRING, {mRect.x() + MINE_STATUS_POSITION, mRect.y() + 45}, NAS2D::Color::White);
+	drawLabelAndValue({origin.x() + MINE_YIELD_POSITION, origin.y() + 45}, "Status: ", STATUS_STRING);
 
 	if (mFacility && mFacility->extending())
 	{
 		const auto EXTENTION_TIME_REMAINING = std::to_string(mFacility->digTimeRemaining());
-		const int EXTENSION_TURNS_REMAINING_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Turns Remaining: ");
-		renderer.drawText(*FONT_BOLD, "Turns Remaining:", {mRect.x() + MINE_YIELD_POSITION, mRect.y() + 60}, NAS2D::Color::White);
-		renderer.drawText(*FONT, EXTENTION_TIME_REMAINING, {mRect.x() + EXTENSION_TURNS_REMAINING_POSITION, mRect.y() + 60}, NAS2D::Color::White);
+		drawLabelAndValue({origin.x() + MINE_YIELD_POSITION, origin.y() + 60}, "Turns Remaining: ", EXTENTION_TIME_REMAINING);
 	}
 
 	const auto MINE_DEPTH = std::to_string(mFacility->mine()->depth());
-	const int MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + FONT_BOLD->width("Depth: ");
-	renderer.drawText(*FONT_BOLD, "Depth:", {mRect.x() + MINE_DEPTH_POSITION, mRect.y() + 30}, NAS2D::Color::White);
-	renderer.drawText(*FONT, MINE_DEPTH, {mRect.x() + MINE_DEPTH_VALUE_POSITION, mRect.y() + 30}, NAS2D::Color::White);
+	drawLabelAndValue({origin.x() + MINE_DEPTH_POSITION, origin.y() + 30}, "Depth: ", MINE_DEPTH);
 
 	// REMAINING ORE PANEL
 	renderer.drawText(*FONT_BOLD, "Remaining Resources", {mRect.x() + 10, mRect.y() + 164}, NAS2D::Color::White);
