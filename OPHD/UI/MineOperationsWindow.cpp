@@ -10,19 +10,8 @@
 
 using namespace NAS2D;
 
-/**
- * These static variables are here to avoid unnecessary computations
- * during frame updates to improve overall performance (basically, to avoid
- * expensive string operations).
- */
-
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
-
-
-/** 
- * Positional constants used in several places.
- */
 
 
 /**
