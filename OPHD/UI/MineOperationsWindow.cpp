@@ -23,10 +23,6 @@ static Font* FONT_BOLD = nullptr;
 /** 
  * Positional constants used in several places.
  */
-const int COMMON_METALS_POS = 46;
-const int COMMON_MINERALS_POS = 135;
-const int RARE_METALS_POS = 224;
-const int RARE_MINERALS_POS = 312;
 
 
 /**
@@ -259,6 +255,11 @@ void MineOperationsWindow::update()
 	const auto COMMON_MINERALS_COUNT = std::to_string(mFacility->mine()->commonMineralsAvailable());
 	const auto RARE_METALS_COUNT = std::to_string(mFacility->mine()->rareMetalsAvailable());
 	const auto RARE_MINERALS_COUNT = std::to_string(mFacility->mine()->rareMineralsAvailable());
+
+	const int COMMON_METALS_POS = 46;
+	const int COMMON_MINERALS_POS = 135;
+	const int RARE_METALS_POS = 224;
+	const int RARE_MINERALS_POS = 312;
 
 	const auto COMMON_METALS_ORE_POSITION = COMMON_METALS_POS - (FONT->width(COMMON_METALS_COUNT) / 2) + 8;
 	const auto COMMON_MINERALS_ORE_POSITION = COMMON_MINERALS_POS - (FONT->width(COMMON_MINERALS_COUNT) / 2) + 8;
