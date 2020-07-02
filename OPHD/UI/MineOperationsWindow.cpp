@@ -18,8 +18,6 @@ static std::string COMMON_MINERALS_COUNT;
 static std::string RARE_METALS_COUNT;
 static std::string RARE_MINERALS_COUNT;
 
-static std::string EXTENTION_TIME_REMAINING;
-
 static int COMMON_METALS_ORE_POSITION;
 static int COMMON_MINERALS_ORE_POSITION;
 static int RARE_METALS_ORE_POSITION;
@@ -168,8 +166,6 @@ void MineOperationsWindow::updateCounts()
 	COMMON_MINERALS_ORE_POSITION = COMMON_MINERALS_POS - (FONT->width(COMMON_MINERALS_COUNT) / 2) + 8;
 	RARE_METALS_ORE_POSITION = RARE_METALS_POS - (FONT->width(RARE_METALS_COUNT) / 2) + 8;
 	RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (FONT->width(RARE_MINERALS_COUNT) / 2) + 8;
-
-	EXTENTION_TIME_REMAINING = std::to_string(mFacility->digTimeRemaining());
 }
 
 
@@ -274,6 +270,7 @@ void MineOperationsWindow::update()
 	if (mFacility && mFacility->extending())
 	{
 		renderer.drawText(*FONT_BOLD, "Turns Remaining:", {mRect.x() + MINE_YIELD_POSITION, mRect.y() + 60}, NAS2D::Color::White);
+		const auto EXTENTION_TIME_REMAINING = std::to_string(mFacility->digTimeRemaining());
 		renderer.drawText(*FONT, EXTENTION_TIME_REMAINING, {mRect.x() + EXTENSION_TURNS_REMAINING_POSITION, mRect.y() + 60}, NAS2D::Color::White);
 	}
 
