@@ -249,7 +249,7 @@ void MineOperationsWindow::update()
 		std::tuple{46,  CommonMetalIconRect,   mFacility->mine()->commonMetalsAvailable()},
 		std::tuple{135, CommonMineralIconRect, mFacility->mine()->commonMineralsAvailable()},
 		std::tuple{224, RareMetalIconRect,     mFacility->mine()->rareMetalsAvailable()},
-		std::tuple{312, RareMineralIconRect,   mFacility->mine()->rareMineralsAvailable()}
+		std::tuple{313, RareMineralIconRect,   mFacility->mine()->rareMineralsAvailable()}
 	};
 
 	for (const auto& [offsetX, iconRect, resourceCount] : resources) {
