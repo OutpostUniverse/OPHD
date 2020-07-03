@@ -203,31 +203,28 @@ void MineOperationsWindow::update()
 
 	Window::update();
 
-	const int MINE_YIELD_POSITION = 148;
-	const int MINE_DEPTH_POSITION = 300;
-
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto origin = mRect.startPoint().to<int>();
 	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{10, 30});
 
 	const auto MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
-	drawLabelAndValue(origin + NAS2D::Vector{MINE_YIELD_POSITION, 30}, "Mine Yield: ", MINE_YIELD);
+	drawLabelAndValue(origin + NAS2D::Vector{148, 30}, "Mine Yield: ", MINE_YIELD);
 
 	const std::string STATUS_STRING =
 		mFacility->extending() ? "Digging New Level" :
 		mFacility->mine()->exhausted() ? "Exhausted" :
 		structureStateDescription(mFacility->state());
-	drawLabelAndValue(origin + NAS2D::Vector{MINE_YIELD_POSITION, 45}, "Status: ", STATUS_STRING);
+	drawLabelAndValue(origin + NAS2D::Vector{148, 45}, "Status: ", STATUS_STRING);
 
 	if (mFacility && mFacility->extending())
 	{
 		const auto EXTENTION_TIME_REMAINING = std::to_string(mFacility->digTimeRemaining());
-		drawLabelAndValue(origin + NAS2D::Vector{MINE_YIELD_POSITION, 60}, "Turns Remaining: ", EXTENTION_TIME_REMAINING);
+		drawLabelAndValue(origin + NAS2D::Vector{148, 60}, "Turns Remaining: ", EXTENTION_TIME_REMAINING);
 	}
 
 	const auto MINE_DEPTH = std::to_string(mFacility->mine()->depth());
-	drawLabelAndValue(origin + NAS2D::Vector{MINE_DEPTH_POSITION, 30}, "Depth: ", MINE_DEPTH);
+	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", MINE_DEPTH);
 
 	// REMAINING ORE PANEL
 	const auto width = static_cast<int>(mRect.width());
