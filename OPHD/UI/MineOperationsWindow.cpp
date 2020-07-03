@@ -3,52 +3,15 @@
 
 #include "MineOperationsWindow.h"
 
+#include "TextRender.h"
+
 #include "../Constants.h"
 #include "../FontManager.h"
 
 using namespace NAS2D;
 
-/**
- * These static variables are here to avoid unnecessary computations
- * during frame updates to improve overall performance (basically, to avoid
- * expensive string operations).
- */
-static std::string COMMON_METALS_COUNT;
-static std::string COMMON_MINERALS_COUNT;
-static std::string RARE_METALS_COUNT;
-static std::string RARE_MINERALS_COUNT;
-
-static std::string STATUS_STRING;
-static std::string EXTENTION_TIME_REMAINING;
-
-static int COMMON_METALS_ORE_POSITION;
-static int COMMON_MINERALS_ORE_POSITION;
-static int RARE_METALS_ORE_POSITION;
-static int RARE_MINERALS_ORE_POSITION;
-
-static std::string MINE_YIELD;
-static std::string MINE_DEPTH;
-
-static const int MINE_YIELD_POSITION = 148;
-static int MINE_YIELD_DESCRIPTION_POSITION = 0;
-
-static int MINE_STATUS_POSITION;
-static int EXTENSION_TURNS_REMAINING_POSITION;
-
-static const int MINE_DEPTH_POSITION = 300;
-static int MINE_DEPTH_VALUE_POSITION;
-
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
-
-
-/** 
- * Positional constants used in several places.
- */
-const int COMMON_METALS_POS = 46;
-const int COMMON_MINERALS_POS = 135;
-const int RARE_METALS_POS = 224;
-const int RARE_MINERALS_POS = 312;
 
 
 /**
@@ -144,16 +107,6 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 	mFacility = facility;
 	if (!mFacility) { return; }
 
-	MINE_YIELD = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
-	MINE_DEPTH = std::to_string(mFacility->mine()->depth());
-
-	MINE_YIELD_DESCRIPTION_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Mine Yield:") + 10;
-	MINE_DEPTH_VALUE_POSITION = MINE_DEPTH_POSITION + FONT_BOLD->width("Depth:") + 10;
-
-	MINE_STATUS_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Status:") + 10;
-	EXTENSION_TURNS_REMAINING_POSITION = MINE_YIELD_POSITION + FONT_BOLD->width("Turns Remaining:") + 10;
-
-
 	chkCommonMetals.checked(mFacility->mine()->miningCommonMetals());
 	chkCommonMinerals.checked(mFacility->mine()->miningCommonMinerals());
 	chkRareMetals.checked(mFacility->mine()->miningRareMetals());
@@ -161,35 +114,6 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 
 	btnIdle.toggle(mFacility->forceIdle());
 	btnExtendShaft.enabled(mFacility->canExtend());
-
-	updateCounts();
-}
-
-
-/**
- * Called at the end of each turn after mine processing
- * to update the static strings for ore remaining.
- */
-void MineOperationsWindow::updateCounts()
-{
-	if (!visible() && !mFacility) { return; }
-
-	MINE_DEPTH = std::to_string(mFacility->mine()->depth());
-	
-	COMMON_METALS_COUNT = std::to_string(mFacility->mine()->commonMetalsAvailable());
-	COMMON_MINERALS_COUNT = std::to_string(mFacility->mine()->commonMineralsAvailable());
-	RARE_METALS_COUNT = std::to_string(mFacility->mine()->rareMetalsAvailable());
-	RARE_MINERALS_COUNT = std::to_string(mFacility->mine()->rareMineralsAvailable());
-
-	COMMON_METALS_ORE_POSITION = COMMON_METALS_POS - (FONT->width(COMMON_METALS_COUNT) / 2) + 8;
-	COMMON_MINERALS_ORE_POSITION = COMMON_MINERALS_POS - (FONT->width(COMMON_MINERALS_COUNT) / 2) + 8;
-	RARE_METALS_ORE_POSITION = RARE_METALS_POS - (FONT->width(RARE_METALS_COUNT) / 2) + 8;
-	RARE_MINERALS_ORE_POSITION = RARE_MINERALS_POS - (FONT->width(RARE_MINERALS_COUNT) / 2) + 8;
-
-	if (mFacility->extending()) { STATUS_STRING = "Digging New Level"; }
-	else { STATUS_STRING = structureStateDescription(mFacility->state()); }
-
-	EXTENTION_TIME_REMAINING = std::to_string(mFacility->digTimeRemaining());
 }
 
 
@@ -209,7 +133,6 @@ void MineOperationsWindow::btnExtendShaftClicked()
 {
 	mFacility->extend();
 	btnExtendShaft.enabled(false);
-	updateCounts();
 }
 
 
@@ -269,46 +192,55 @@ void MineOperationsWindow::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImage(mUiIcon, mRect.x() + 10, mRect.y() + 30);
+	const auto origin = mRect.startPoint().to<int>();
+	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{10, 30});
 
-	renderer.drawText(*FONT_BOLD, "Mine Yield:", mRect.x() + MINE_YIELD_POSITION, mRect.y() + 30, 255, 255, 255);
-	renderer.drawText(*FONT, MINE_YIELD, mRect.x() + MINE_YIELD_DESCRIPTION_POSITION, mRect.y() + 30, 255, 255, 255);
+	const auto mineYield = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];
+	drawLabelAndValue(origin + NAS2D::Vector{148, 30}, "Mine Yield: ", mineYield);
 
-	renderer.drawText(*FONT_BOLD, "Status:", mRect.x() + MINE_YIELD_POSITION, mRect.y() + 45, 255, 255, 255);
-
-	if (mFacility->extending()) { STATUS_STRING = "Digging New Level"; }
-	else if (mFacility->mine()->exhausted()) { STATUS_STRING = "Exhausted"; }
-	else { STATUS_STRING = structureStateDescription(mFacility->state()); }
-	
-	renderer.drawText(*FONT, STATUS_STRING, mRect.x() + MINE_STATUS_POSITION, mRect.y() + 45, 255, 255, 255);
+	const std::string statusString =
+		mFacility->extending() ? "Digging New Level" :
+		mFacility->mine()->exhausted() ? "Exhausted" :
+		structureStateDescription(mFacility->state());
+	drawLabelAndValue(origin + NAS2D::Vector{148, 45}, "Status: ", statusString);
 
 	if (mFacility && mFacility->extending())
 	{
-		renderer.drawText(*FONT_BOLD, "Turns Remaining:", mRect.x() + MINE_YIELD_POSITION, mRect.y() + 60, 255, 255, 255);
-		renderer.drawText(*FONT, EXTENTION_TIME_REMAINING, mRect.x() + EXTENSION_TURNS_REMAINING_POSITION, mRect.y() + 60, 255, 255, 255);
+		const auto extensionTimeRemaining = std::to_string(mFacility->digTimeRemaining());
+		drawLabelAndValue(origin + NAS2D::Vector{148, 60}, "Turns Remaining: ", extensionTimeRemaining);
 	}
 
-	renderer.drawText(*FONT_BOLD, "Depth:", mRect.x() + MINE_DEPTH_POSITION, mRect.y() + 30, 255, 255, 255);
-	renderer.drawText(*FONT, MINE_DEPTH, mRect.x() + MINE_DEPTH_VALUE_POSITION, mRect.y() + 30, 255, 255, 255);
+	const auto mineDepth = std::to_string(mFacility->mine()->depth());
+	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
 
 	// REMAINING ORE PANEL
-	renderer.drawText(*FONT_BOLD, "Remaining Resources", mRect.x() + 10, mRect.y() + 164, 255, 255, 255);
+	const auto width = static_cast<int>(mRect.width());
+	renderer.drawText(*FONT_BOLD, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
-	renderer.drawImageRect(mRect.x() + 10, mRect.y() + 180, mRect.width() - 20, 40, mPanel);
+	renderer.drawImageRect(NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{10, 180}, NAS2D::Vector{width - 20, 40}), mPanel);
 
-	renderer.drawLine(mRect.x() + 98, mRect.y() + 180, mRect.x() + 98, mRect.y() + 219, 22, 22, 22);
-	renderer.drawLine(mRect.x() + 187, mRect.y() + 180, mRect.x() + 187, mRect.y() + 219, 22, 22, 22);
-	renderer.drawLine(mRect.x() + 275, mRect.y() + 180, mRect.x() + 275, mRect.y() + 219, 22, 22, 22);
+	renderer.drawLine(origin + NAS2D::Vector{98, 180}, origin + NAS2D::Vector{98, 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(origin + NAS2D::Vector{187, 180}, origin + NAS2D::Vector{187, 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(origin + NAS2D::Vector{275, 180}, origin + NAS2D::Vector{275, 219}, NAS2D::Color{22, 22, 22});
 	
-	renderer.drawLine(mRect.x() + 11, mRect.y() + 200, mRect.x() + mRect.width() - 11, mRect.y() + 200, 22, 22, 22);
+	renderer.drawLine(origin + NAS2D::Vector{11, 200}, origin + NAS2D::Vector{width - 11, 200}, NAS2D::Color{22, 22, 22});
 
-	renderer.drawSubImage(mIcons, mRect.x() + COMMON_METALS_POS, mRect.y() + 183, 64, 0, 16, 16);
-	renderer.drawSubImage(mIcons, mRect.x() + COMMON_MINERALS_POS, mRect.y() + 183, 96, 0, 16, 16);
-	renderer.drawSubImage(mIcons, mRect.x() + RARE_METALS_POS, mRect.y() + 183, 80, 0, 16, 16);
-	renderer.drawSubImage(mIcons, mRect.x() + RARE_MINERALS_POS, mRect.y() + 183, 112, 0, 16, 16);
+	const auto CommonMetalIconRect = NAS2D::Rectangle{64, 0, 16, 16};
+	const auto CommonMineralIconRect = NAS2D::Rectangle{96, 0, 16, 16};
+	const auto RareMetalIconRect = NAS2D::Rectangle{80, 0, 16, 16};
+	const auto RareMineralIconRect = NAS2D::Rectangle{112, 0, 16, 16};
 
-	renderer.drawText(*FONT, COMMON_METALS_COUNT, mRect.x() + COMMON_METALS_ORE_POSITION, mRect.y() + 202, 255, 255, 255);
-	renderer.drawText(*FONT, COMMON_MINERALS_COUNT, mRect.x() + COMMON_MINERALS_ORE_POSITION, mRect.y() + 202, 255, 255, 255);
-	renderer.drawText(*FONT, RARE_METALS_COUNT, mRect.x() + RARE_METALS_ORE_POSITION, mRect.y() + 202, 255, 255, 255);
-	renderer.drawText(*FONT, RARE_MINERALS_COUNT, mRect.x() + RARE_MINERALS_ORE_POSITION, mRect.y() + 202, 255, 255, 255);
+	const std::array resources{
+		std::tuple{46,  CommonMetalIconRect,   mFacility->mine()->commonMetalsAvailable()},
+		std::tuple{135, CommonMineralIconRect, mFacility->mine()->commonMineralsAvailable()},
+		std::tuple{224, RareMetalIconRect,     mFacility->mine()->rareMetalsAvailable()},
+		std::tuple{313, RareMineralIconRect,   mFacility->mine()->rareMineralsAvailable()}
+	};
+
+	for (const auto& [offsetX, iconRect, resourceCount] : resources) {
+		const auto resourceCountString = std::to_string(resourceCount);
+		const auto textOffsetX = offsetX - (FONT->width(resourceCountString) / 2) + 8;
+		renderer.drawSubImage(mIcons, origin + NAS2D::Vector{offsetX, 183}, iconRect);
+		renderer.drawText(*FONT, resourceCountString, origin + NAS2D::Vector{textOffsetX, 202}, NAS2D::Color::White);
+	}
 }

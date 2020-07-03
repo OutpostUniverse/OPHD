@@ -17,8 +17,6 @@ public:
 
 	void mineFacility(MineFacility* facility);
 	MineFacility* mineFacility() { return mFacility; }
-	
-	void updateCounts();
 
 	void update() override;
 	void hide() override;
