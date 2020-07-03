@@ -65,7 +65,6 @@ public:
 
 	int maxDepth() const { return mMaxDepth; }
 
-	void injectMouse(int x, int y);
 	void injectMouse(NAS2D::Point<int> position) { mMousePosition = position; }
 
 	void initMapDrawParams(NAS2D::Vector<int>);

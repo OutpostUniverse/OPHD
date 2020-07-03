@@ -279,12 +279,6 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 }
 
 
-void TileMap::injectMouse(int x, int y)
-{
-	mMousePosition = {x, y};
-}
-
-
 void TileMap::mapViewLocation(NAS2D::Point<int> point)
 {
 	mMapViewLocation = {
