@@ -315,7 +315,6 @@ void MapViewState::nextTurn()
 
 	checkColonyShip();
 
-	mMineOperationsWindow.updateCounts();
 	mStructureInspector.check();
 
 	// Check for Game Over conditions

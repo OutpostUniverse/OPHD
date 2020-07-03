@@ -114,18 +114,6 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 
 	btnIdle.toggle(mFacility->forceIdle());
 	btnExtendShaft.enabled(mFacility->canExtend());
-
-	updateCounts();
-}
-
-
-/**
- * Called at the end of each turn after mine processing
- * to update the static strings for ore remaining.
- */
-void MineOperationsWindow::updateCounts()
-{
-	if (!visible() && !mFacility) { return; }
 }
 
 
@@ -145,7 +133,6 @@ void MineOperationsWindow::btnExtendShaftClicked()
 {
 	mFacility->extend();
 	btnExtendShaft.enabled(false);
-	updateCounts();
 }
 
 
