@@ -240,21 +240,16 @@ void MineOperationsWindow::update()
 	
 	renderer.drawLine({mRect.x() + 11, mRect.y() + 200}, {mRect.x() + mRect.width() - 11, mRect.y() + 200}, NAS2D::Color{22, 22, 22});
 
-	const int COMMON_METALS_POS = 46;
-	const int COMMON_MINERALS_POS = 135;
-	const int RARE_METALS_POS = 224;
-	const int RARE_MINERALS_POS = 312;
-
 	const auto CommonMetalIconRect = NAS2D::Rectangle{64, 0, 16, 16};
 	const auto CommonMineralIconRect = NAS2D::Rectangle{96, 0, 16, 16};
 	const auto RareMetalIconRect = NAS2D::Rectangle{80, 0, 16, 16};
 	const auto RareMineralIconRect = NAS2D::Rectangle{112, 0, 16, 16};
 
 	const std::array resources{
-		std::tuple{COMMON_METALS_POS,   CommonMetalIconRect,   mFacility->mine()->commonMetalsAvailable()},
-		std::tuple{COMMON_MINERALS_POS, CommonMineralIconRect, mFacility->mine()->commonMineralsAvailable()},
-		std::tuple{RARE_METALS_POS,     RareMetalIconRect,     mFacility->mine()->rareMetalsAvailable()},
-		std::tuple{RARE_MINERALS_POS,   RareMineralIconRect,   mFacility->mine()->rareMineralsAvailable()}
+		std::tuple{46,  CommonMetalIconRect,   mFacility->mine()->commonMetalsAvailable()},
+		std::tuple{135, CommonMineralIconRect, mFacility->mine()->commonMineralsAvailable()},
+		std::tuple{224, RareMetalIconRect,     mFacility->mine()->rareMetalsAvailable()},
+		std::tuple{312, RareMineralIconRect,   mFacility->mine()->rareMineralsAvailable()}
 	};
 
 	for (const auto& [offsetX, iconRect, resourceCount] : resources) {
