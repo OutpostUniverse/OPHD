@@ -230,15 +230,16 @@ void MineOperationsWindow::update()
 	drawLabelAndValue(origin + NAS2D::Vector{MINE_DEPTH_POSITION, 30}, "Depth: ", MINE_DEPTH);
 
 	// REMAINING ORE PANEL
-	renderer.drawText(*FONT_BOLD, "Remaining Resources", {mRect.x() + 10, mRect.y() + 164}, NAS2D::Color::White);
+	const auto width = static_cast<int>(mRect.width());
+	renderer.drawText(*FONT_BOLD, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
-	renderer.drawImageRect({mRect.x() + 10, mRect.y() + 180, mRect.width() - 20, 40}, mPanel);
+	renderer.drawImageRect(NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{10, 180}, NAS2D::Vector{width - 20, 40}), mPanel);
 
-	renderer.drawLine({mRect.x() + 98, mRect.y() + 180}, {mRect.x() + 98, mRect.y() + 219}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine({mRect.x() + 187, mRect.y() + 180}, {mRect.x() + 187, mRect.y() + 219}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine({mRect.x() + 275, mRect.y() + 180}, {mRect.x() + 275, mRect.y() + 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(origin + NAS2D::Vector{98, 180}, origin + NAS2D::Vector{98, 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(origin + NAS2D::Vector{187, 180}, origin + NAS2D::Vector{187, 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(origin + NAS2D::Vector{275, 180}, origin + NAS2D::Vector{275, 219}, NAS2D::Color{22, 22, 22});
 	
-	renderer.drawLine({mRect.x() + 11, mRect.y() + 200}, {mRect.x() + mRect.width() - 11, mRect.y() + 200}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(origin + NAS2D::Vector{11, 200}, origin + NAS2D::Vector{width - 11, 200}, NAS2D::Color{22, 22, 22});
 
 	const auto CommonMetalIconRect = NAS2D::Rectangle{64, 0, 16, 16};
 	const auto CommonMineralIconRect = NAS2D::Rectangle{96, 0, 16, 16};
