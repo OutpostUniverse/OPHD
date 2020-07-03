@@ -229,7 +229,7 @@ State* MapViewState::update()
 	
 	if (!modalUiElementDisplayed())
 	{
-		mTileMap->injectMouse(MOUSE_COORDS.x(), MOUSE_COORDS.y());
+		mTileMap->injectMouse(MOUSE_COORDS);
 	}
 
 	mTileMap->draw();
