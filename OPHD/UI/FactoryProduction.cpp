@@ -3,7 +3,7 @@
 
 #include "FactoryProduction.h"
 
-#include "TextRender.h"
+#include "StringTable.h"
 #include "../Constants.h"
 
 using namespace NAS2D;

@@ -89,7 +89,7 @@ void StringTable::setCellJustification(const CellCoordinate& cellCoordinate, Jus
 
 void StringTable::setColumnJustification(std::size_t column, Justification justification)
 {
-	for (int row = 0; row < rows; ++row)
+	for (std::size_t row = 0; row < rows; ++row)
 	{
 		setCellJustification(CellCoordinate(column, row), justification);
 	}
