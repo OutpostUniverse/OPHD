@@ -216,7 +216,7 @@ void StringTable::checkCellIndex(const CellCoordinate& cellCoordinate) const
 
 NAS2D::Font* StringTable::getCellFont(std::size_t index) const
 {
-	NAS2D::Font* font = cells[index].font;// = index % columns == 0 ? defaultTitleFont : defaultFont;
+	NAS2D::Font* font = cells[index].font;
 
 	if (font == nullptr) {
 		font = isFirstColumn(index) ? defaultTitleFont : defaultFont;
