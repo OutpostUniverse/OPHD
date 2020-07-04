@@ -37,14 +37,9 @@ NAS2D::Vector<float> StringTable::getPosition() const
 	return position;
 }
 
-void StringTable::setDefaultFont(NAS2D::Font* font)
+void StringTable::setDefaultFont(NAS2D::Font& font)
 {
-	if (font == nullptr)
-	{
-		throw std::runtime_error("Default font may not be a nullptr");
-	}
-
-	defaultFont = font;
+	defaultFont = &font;
 }
 
 void StringTable::setDefaultTitleFont(NAS2D::Font* font)

@@ -28,7 +28,7 @@ public:
     void setPosition(NAS2D::Vector<float> position);
     NAS2D::Vector<float> getPosition() const;
 
-    void setDefaultFont(NAS2D::Font* font);
+    void setDefaultFont(NAS2D::Font& font);
     void setDefaultTitleFont(NAS2D::Font* font);
     void setDefaultTextColor(NAS2D::Color textColor);
 
