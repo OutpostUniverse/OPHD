@@ -75,10 +75,7 @@ int main(int /*argc*/, char *argv[])
 		fs.mountSoftFail(fs.basePath() + "data");
 		fs.mountReadWrite(fs.prefPath());
 
-		if (!fs.exists(constants::SAVE_GAME_PATH))
-		{
-			fs.makeDirectory(constants::SAVE_GAME_PATH);
-		}
+		fs.makeDirectory(constants::SAVE_GAME_PATH);
 
 		Configuration& cf = Utility<Configuration>::init(
 			std::map<std::string, Dictionary>{
