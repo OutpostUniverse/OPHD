@@ -63,8 +63,8 @@ private:
     };
 
     std::vector<Cell> cells;
-    const std::size_t columns;
-    const std::size_t rows;
+    const std::size_t columnCount;
+    const std::size_t rowCount;
     NAS2D::Vector<float> position;
     NAS2D::Font* defaultFont;
     NAS2D::Font* defaultTitleFont;
