@@ -219,7 +219,13 @@ NAS2D::Font* StringTable::getCellFont(std::size_t index) const
 	NAS2D::Font* font = cells[index].font;
 
 	if (font == nullptr) {
-		font = isFirstColumn(index) ? defaultTitleFont : defaultFont;
+		// If a different title font is not desired, it is set to nullptr
+		if (defaultTitleFont == nullptr) {
+			font = defaultFont;
+		}
+		else {
+			font = isFirstColumn(index) ? defaultTitleFont : defaultFont;
+		}
 	}
 
 	return font;
