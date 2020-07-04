@@ -212,19 +212,25 @@ void FactoryProduction::update()
 
 	Window::update();
 
-	const int labelWidth = 120;
-	auto position = mRect.startPoint() + NAS2D::Vector{constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), 25};
-	drawLabelAndValueRightJustify(position, labelWidth, "Turns Completed:", std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild()));
+	StringTable stringTable(2, 5);
+	stringTable.setPosition(mRect.startPoint() + NAS2D::Vector{constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), 25});
+	stringTable.setColumnJustification(1, StringTable::Justification::Right);
 
-	position.y() += 20;
-	drawLabelAndValueRightJustify(position, labelWidth, "Common Metals:", std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild()));
+	stringTable.setCellText(0, 0, "Turns Completed:");
+	stringTable.setCellText(1, 0, std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild()));
 
-	position.y() += 10;
-	drawLabelAndValueRightJustify(position, labelWidth, "Common Minerals:", std::to_string(mProductCost.commonMinerals() * mProductCost.turnsToBuild()));
+	stringTable.setCellText(0, 1, "Common Metals:");
+	stringTable.setCellText(1, 1, std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild()));
 
-	position.y() += 10;
-	drawLabelAndValueRightJustify(position, labelWidth, "Rare Metals:", std::to_string(mProductCost.rareMetals() * mProductCost.turnsToBuild()));
+	stringTable.setCellText(0, 2, "Common Minerals:");
+	stringTable.setCellText(1, 2, std::to_string(mProductCost.commonMinerals() * mProductCost.turnsToBuild()));
 
-	position.y() += 10;
-	drawLabelAndValueRightJustify(position, labelWidth, "Rare Minerals:", std::to_string(mProductCost.rareMinerals() * mProductCost.turnsToBuild()));
+	stringTable.setCellText(0, 3, "Rare Metals:");
+	stringTable.setCellText(1, 3, std::to_string(mProductCost.rareMetals() * mProductCost.turnsToBuild()));
+
+	stringTable.setCellText(0, 4, "Rare Minerals:");
+	stringTable.setCellText(1, 4, std::to_string(mProductCost.rareMinerals() * mProductCost.turnsToBuild()));
+
+	stringTable.computeRelativeCellPositions();
+	stringTable.draw(Utility<Renderer>::get());
 }
