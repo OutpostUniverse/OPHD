@@ -21,18 +21,18 @@ void StringTable::draw(NAS2D::Renderer& renderer) const
 		const Cell& cell = cells.at(i);
 
 		NAS2D::Color textColor = cell.textColor != Cell::ColorEmpty ? cell.textColor : defaultTextColor;
-		NAS2D::Point<float> drawPosition = { position.x() + cell.textRelativePosition.x(), position.y() + cell.textRelativePosition.y() };
+		const auto drawPosition = position + cell.textRelativePosition;
 
-		renderer.drawText(*getCellFont(i), cell.text, drawPosition, textColor);
+		renderer.drawText(*getCellFont(i), cell.text, NAS2D::Point<float>(drawPosition.x, drawPosition.y), textColor);
 	}
 }
 
-void StringTable::setPosition(NAS2D::Point<float> tablePosition)
+void StringTable::setPosition(NAS2D::Vector<float> tablePosition)
 {
 	this->position = tablePosition;
 }
 
-NAS2D::Point<float> StringTable::getPosition() const
+NAS2D::Vector<float> StringTable::getPosition() const
 {
 	return position;
 }
@@ -137,7 +137,7 @@ void StringTable::accountForCellJustification(std::size_t index, float columnWid
 	case (Justification::Left):
 		return; // No modification required for left justifited
 	case (Justification::Right):
-		cell.textRelativePosition.x() += columnWidth - getCellFont(index)->width(cell.text);
+		cell.textRelativePosition.x += columnWidth - getCellFont(index)->width(cell.text);
 		return;
 	default:
 		return;
