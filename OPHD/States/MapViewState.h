@@ -113,8 +113,7 @@ private:
 	void placeRobot();
 	void placeStructure();
 	void placeTubes();
-	
-	NAS2D::Rectangle<int> tubeStart;
+
 	void placeTubeStart();
 	void placeTubeEnd();
 
@@ -260,6 +259,9 @@ private:
 	int mLandersCargo = 0;
 
 	int mResidentialCapacity = 0;
+
+	NAS2D::Point<int> mTubeStart;
+	bool mPlacingTube = false;
 
 	bool mLeftButtonDown = false;
 	bool mLoadingExisting = false;
