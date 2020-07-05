@@ -796,11 +796,13 @@ void MapViewState::placeTubeEnd()
 	 */
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
+	const auto startEndDirection = mTubeStart - tile->position();
+
 	switch (cd)
 	{
 	case ConnectorDir::CONNECTOR_INTERSECTION:
 
-		if (abs(mTubeStart.x() - tile->x()) >= abs(mTubeStart.y() - tile->y())){
+		if (abs(startEndDirection.x) >= abs(startEndDirection.y)){
 			incX = 1; // The sens will be on the longest spread on X or Y
 		}else{
 			incY = 1;
@@ -820,12 +822,12 @@ void MapViewState::placeTubeEnd()
 	xEnd = tile->x();
 	yEnd = tile->y();
 
-	if (mTubeStart.x() > tile->x())
+	if (startEndDirection.x > 0)
 	{
 		incX = -incX;
 		yEnd = mTubeStart.y();
 	}
-	if (mTubeStart.y() > tile->y())
+	if (startEndDirection.y > 0)
 	{
 		incY = -incY;
 		xEnd = mTubeStart.x();
