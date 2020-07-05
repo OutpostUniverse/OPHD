@@ -772,8 +772,7 @@ void MapViewState::placeTubeStart()
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_TUBE_INVALID_LOCATION);
 		return;
 	}
-	mTubeStart.x(tile->x());
-	mTubeStart.y(tile->y());
+	mTubeStart = tile->position();
 	mPlacingTube = true;
 }
 
