@@ -203,7 +203,7 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	Direction dir = static_cast<Robodigger*>(robot)->direction(); // fugly
 
 	NAS2D::Point<int> origin = t->position();
-	int depthAdjust = 0;
+	int newDepth = t->depth();
 
 	if(dir == Direction::DIR_DOWN)
 	{
@@ -215,10 +215,10 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 		as2->ug();
 		NAS2D::Utility<StructureManager>::get().addStructure(as2, mTileMap->getTile(origin, t->depth() + 1));
 
-		depthAdjust = 1;
+		++newDepth;
 
 		mTileMap->getTile(origin, t->depth())->index(TerrainType::TERRAIN_DOZED);
-		mTileMap->getTile(origin, t->depth() + depthAdjust)->index(TerrainType::TERRAIN_DOZED);
+		mTileMap->getTile(origin, newDepth)->index(TerrainType::TERRAIN_DOZED);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -249,7 +249,7 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	for (const auto offset : DirectionScan3x3)
 	{
 		const auto position = origin + offset;
-		mTileMap->getTile(position, t->depth() + depthAdjust)->excavated(true);
+		mTileMap->getTile(position, newDepth)->excavated(true);
 	}
 
 	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
