@@ -801,9 +801,9 @@ void MapViewState::placeTubeEnd()
 	switch (cd)
 	{
 	case ConnectorDir::CONNECTOR_INTERSECTION:
-
+		// Determine direction of largest change, and snap to that axis
 		if (abs(startEndDirection.x) >= abs(startEndDirection.y)){
-			incX = 1; // The sens will be on the longest spread on X or Y
+			incX = 1;
 		}else{
 			incY = 1;
 		}
