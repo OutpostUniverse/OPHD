@@ -783,7 +783,6 @@ void MapViewState::placeTubeEnd()
 {
 	int x = mTileMapMouseHover.x();
 	int y = mTileMapMouseHover.y();
-	int incX = 0; int incY = 0;
 	int xEnd = 0; int yEnd = 0;
 	bool endReach = false;
 	if (!mPlacingTube) return;
@@ -797,26 +796,31 @@ void MapViewState::placeTubeEnd()
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
 	const auto startEndDirection = tile->position() - mTubeStart;
+	NAS2D::Vector<int> tubeEndOffset;
 
 	switch (cd)
 	{
 	case ConnectorDir::CONNECTOR_INTERSECTION:
 		// Determine direction of largest change, and snap to that axis
 		if (abs(startEndDirection.x) >= abs(startEndDirection.y)){
-			incX = 1;
+			tubeEndOffset = {startEndDirection.x, 0};
 		}else{
-			incY = 1;
+			tubeEndOffset = {0, startEndDirection.y};
 		}
 		break;
 	case ConnectorDir::CONNECTOR_RIGHT:
-		incX = 1;
+		tubeEndOffset = {startEndDirection.x, 0};
 		break;
 	case ConnectorDir::CONNECTOR_LEFT:
-		incY = 1;
+		tubeEndOffset = {0, startEndDirection.y};
 		break;
 	default:
 		return;
 	}
+	// Tube is axis aligned, so either x or y is 0
+	const int tubeLength = abs(tubeEndOffset.x + tubeEndOffset.y);
+	const auto tubeDirection = tubeEndOffset / tubeLength;
+
 	x = mTubeStart.x();
 	y = mTubeStart.y();
 	xEnd = tile->x();
@@ -824,12 +828,10 @@ void MapViewState::placeTubeEnd()
 
 	if (startEndDirection.x < 0)
 	{
-		incX = -incX;
 		yEnd = mTubeStart.y();
 	}
 	if (startEndDirection.y < 0)
 	{
-		incY = -incY;
 		xEnd = mTubeStart.x();
 	}
 
@@ -852,7 +854,7 @@ void MapViewState::placeTubeEnd()
 		}
 
 		if (y == yEnd && x == xEnd) endReach = true;
-		x += incX;y += incY;
+		x += tubeDirection.x;y += tubeDirection.y;
 	} while (!endReach);
 	
 }
