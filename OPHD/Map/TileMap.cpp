@@ -298,8 +298,8 @@ void TileMap::centerMapOnTile(Tile* _t)
 	if (!_t) { return; }
 
 	mapViewLocation({
-		std::clamp(_t->x() - edgeLength() / 2, 0, mWidth - 1),
-		std::clamp(_t->y() - edgeLength() / 2, 0, mHeight - 1)
+		_t->x() - edgeLength() / 2,
+		_t->y() - edgeLength() / 2
 	});
 	currentDepth(_t->depth());
 }
