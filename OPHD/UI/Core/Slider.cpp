@@ -53,16 +53,6 @@ Slider::~Slider()
 void Slider::size(NAS2D::Vector<float> size)
 {
 	Control::size(size);
-
-	// deduce the type of slider from the ratio.
-	if (mRect.height() > mRect.width())
-	{
-		mSliderType = SliderType::Vertical;
-	}
-	else
-	{
-		mSliderType = SliderType::Horizontal;
-	}
 }
 
 
