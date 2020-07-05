@@ -25,7 +25,8 @@ static Font* SLD_FONT = nullptr;
 /**
  * C'tor
  */
-Slider::Slider() : Control()
+Slider::Slider(SliderType sliderType) :
+	mSliderType(sliderType)
 {
 	SLD_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
@@ -49,30 +50,11 @@ Slider::~Slider()
 /**
  *
  */
-void Slider::size(NAS2D::Vector<float> size)
-{
-	Control::size(size);
-
-	// deduce the type of slider from the ratio.
-	if (mRect.height() > mRect.width())
-	{
-		mSliderType = SliderType::SLIDER_VERTICAL;
-	}
-	else
-	{
-		mSliderType = SliderType::SLIDER_HORIZONTAL;
-	}
-}
-
-
-/**
- *
- */
 void Slider::setSkins()
 {
 	if (!mSkinButton1.empty()) { return; }
 
-	if (mSliderType == SliderType::SLIDER_VERTICAL)
+	if (mSliderType == SliderType::Vertical)
 	{
 		mSkinButton1.push_back(Image("ui/skin/sv_bu_tl.png"));
 		mSkinButton1.push_back(Image("ui/skin/sv_bu_tm.png"));
@@ -242,7 +224,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	*/
 	else if (mSlideBar.to<int>().contains(NAS2D::Point{x, y}))
 	{
-		if (mSliderType == SliderType::SLIDER_VERTICAL)
+		if (mSliderType == SliderType::Vertical)
 		{
 			if (y < mSlider.y()) { changeThumbPosition(-3.0); }
 			else { changeThumbPosition(+3.0); }
@@ -272,7 +254,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 
 	if (!mThumbPressed) { return; }
 
-	if (mSliderType == SliderType::SLIDER_VERTICAL)
+	if (mSliderType == SliderType::Vertical)
 	{
 		if (y < mSlideBar.y() || y >(mSlideBar.y() + mSlideBar.height()))
 		{
@@ -299,7 +281,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 void Slider::logic()
 {
 	// compute position of items
-	if (mSliderType == SliderType::SLIDER_VERTICAL)
+	if (mSliderType == SliderType::Vertical)
 	{
 		mButton1 = {mRect.x(), mRect.y(), mRect.width(), mRect.width()};
 		mButton2 = {mRect.x(), mRect.y() + mRect.height() - mRect.width(), mRect.width(), mRect.width()};
@@ -349,7 +331,7 @@ void Slider::draw()
 	renderer.drawImageRect(mButton1, mSkinButton1); // top or left button
 	renderer.drawImageRect(mButton2, mSkinButton2); // bottom or right button
 
-	if (mSliderType == SliderType::SLIDER_VERTICAL)
+	if (mSliderType == SliderType::Vertical)
 	{
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
 		const auto i = std::floor(mSlideBar.height() / mLength);
@@ -379,7 +361,7 @@ void Slider::draw()
 		int width = SLD_FONT->width(textHover) + 4;
 		int height = SLD_FONT->height() + 4;
 
-		if (mSliderType == SliderType::SLIDER_VERTICAL)
+		if (mSliderType == SliderType::Vertical)
 		{
 			x = static_cast<int>(mSlideBar.x() + mSlideBar.width() + 2);
 			y = mMousePosition.y() - height;
