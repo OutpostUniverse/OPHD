@@ -772,8 +772,8 @@ void MapViewState::placeTubeStart()
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_TUBE_INVALID_LOCATION);
 		return;
 	}
-	tubeStart.x(tile->x());
-	tubeStart.y(tile->y());
+	mTubeStart.x(tile->x());
+	mTubeStart.y(tile->y());
 	mPlacingTube = true;
 }
 
@@ -801,7 +801,7 @@ void MapViewState::placeTubeEnd()
 	{
 	case ConnectorDir::CONNECTOR_INTERSECTION:
 
-		if (abs(tubeStart.x() - tile->x()) >= abs(tubeStart.y() - tile->y())){
+		if (abs(mTubeStart.x() - tile->x()) >= abs(mTubeStart.y() - tile->y())){
 			incX = 1; // The sens will be on the longest spread on X or Y
 		}else{
 			incY = 1;
@@ -816,26 +816,26 @@ void MapViewState::placeTubeEnd()
 	default:
 		return;
 	}
-	x = tubeStart.x();
-	y = tubeStart.y();
+	x = mTubeStart.x();
+	y = mTubeStart.y();
 	xEnd = tile->x();
 	yEnd = tile->y();
 
-	if (tubeStart.x() > tile->x())
+	if (mTubeStart.x() > tile->x())
 	{
 		incX = -incX;
-		yEnd = tubeStart.y();
+		yEnd = mTubeStart.y();
 	}
-	if (tubeStart.y() > tile->y())
+	if (mTubeStart.y() > tile->y())
 	{
 		incY = -incY;
-		xEnd = tubeStart.x();
+		xEnd = mTubeStart.x();
 	}
 
 	// 
 	do {
 		std::cout << "Tube " << x << "/" << y << std::endl;
-		tile = mTileMap->getVisibleTile(tubeStart, mTileMap->currentDepth());
+		tile = mTileMap->getVisibleTile(mTubeStart, mTileMap->currentDepth());
 		if (!tile) {
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){

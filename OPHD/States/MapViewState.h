@@ -260,7 +260,7 @@ private:
 
 	int mResidentialCapacity = 0;
 
-	NAS2D::Point<int> tubeStart;
+	NAS2D::Point<int> mTubeStart;
 	bool mPlacingTube = false;
 
 	bool mLeftButtonDown = false;
