@@ -54,8 +54,8 @@ private:
 	CheckBox cbxVSync;
 	CheckBox cbxSkipSplash;
 	CheckBox cbxStartMaximized;
-	Slider sldrMusicVolume;
-	Slider sldrSoundVolume;
+	Slider sldrMusicVolume{Slider::SliderType::Horizontal};
+	Slider sldrSoundVolume{Slider::SliderType::Horizontal};
 
 	UIContainer pnlButtons;
 	Button btnOk;
