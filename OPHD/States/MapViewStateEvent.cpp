@@ -248,8 +248,7 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	 */
 	for (const auto offset : DirectionScan3x3)
 	{
-		const auto position = origin + offset;
-		mTileMap->getTile(position, newDepth)->excavated(true);
+		mTileMap->getTile(origin + offset, newDepth)->excavated(true);
 	}
 
 	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
