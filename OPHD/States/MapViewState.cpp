@@ -1233,7 +1233,8 @@ void MapViewState::updateRobots()
 			// \fixme	This is an awful way of doing this.
 			if (robot->name() != constants::ROBOMINER)
 			{
-				const auto robotLocationText = std::to_string(tile->x()) + ", " + std::to_string(tile->y());
+				const auto position = tile->position();
+				const auto robotLocationText = std::to_string(position.x()) + ", " + std::to_string(position.y());
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				doAlertMessage("Robot Breakdown", text);
 				Robodozer* _d = dynamic_cast<Robodozer*>(robot);
