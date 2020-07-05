@@ -32,6 +32,9 @@ public:
 		NAS2D::Color textColor = ColorEmpty;
 	};
 
+	Cell& operator[](const CellCoordinate& coordinate);
+	Cell& at(std::size_t column, std::size_t row);
+
 	// Set default fonts in constructor
 	StringTable(std::size_t columns, std::size_t rows);
 
@@ -47,14 +50,7 @@ public:
 	void setHorizontalPadding(float horizontalPadding);
 	void setVerticalPadding(float verticalPadding);
 
-	void setCellText(std::size_t column, std::size_t row, std::string text);
-	void setCellText(const CellCoordinate& cellCoordinate, std::string text);
-	// Override default font settings
-	void setCellFont(const CellCoordinate& cellCoordinate, NAS2D::Font* font);
-	void setCellJustification(const CellCoordinate& cellCoordinate, Justification justification);
 	void setColumnJustification(std::size_t column, Justification justification);
-	// Override default Color setting
-	void setCellTextColor(const CellCoordinate& cellCoordinate, NAS2D::Color textColor);
 
 	// Call after updating table properties to recompute cell positions
 	void computeRelativeCellPositions();

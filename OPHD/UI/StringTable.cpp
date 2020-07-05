@@ -6,6 +6,16 @@
 
 const NAS2D::Color StringTable::Cell::ColorEmpty = NAS2D::Color::NoAlpha;
 
+StringTable::Cell& StringTable::operator[](const CellCoordinate& coordinate)
+{
+	return cells[getCellIndex(coordinate)];
+}
+
+StringTable::Cell& StringTable::at(std::size_t column, std::size_t row)
+{
+	return cells[getCellIndex(CellCoordinate(column, row))];
+}
+
 StringTable::StringTable(std::size_t columns, std::size_t rows) : columnCount(columns), rowCount(rows)
 {
 	cells.resize(columns * rows);
@@ -61,37 +71,12 @@ void StringTable::setVerticalPadding(float padding)
 	verticalPadding = padding;
 }
 
-void StringTable::setCellText(std::size_t column, std::size_t row, std::string text)
-{
-	setCellText(CellCoordinate(column, row), text);
-}
-
-void StringTable::setCellText(const CellCoordinate& cellCoordinate, std::string text)
-{
-	cells[getCellIndex(cellCoordinate)].text = text;
-}
-
-void StringTable::setCellFont(const CellCoordinate& cellCoordinate, NAS2D::Font* font)
-{
-	cells[getCellIndex(cellCoordinate)].font = font;
-}
-
-void StringTable::setCellJustification(const CellCoordinate& cellCoordinate, Justification justification)
-{
-	cells[getCellIndex(cellCoordinate)].justification = justification;
-}
-
 void StringTable::setColumnJustification(std::size_t column, Justification justification)
 {
 	for (std::size_t row = 0; row < rowCount; ++row)
 	{
-		setCellJustification(CellCoordinate(column, row), justification);
+		this->at(column, row).justification = justification;
 	}
-}
-
-void StringTable::setCellTextColor(const CellCoordinate& cellCoordinate, NAS2D::Color color)
-{
-	cells[getCellIndex(cellCoordinate)].textColor = color;
 }
 
 void StringTable::computeRelativeCellPositions()
