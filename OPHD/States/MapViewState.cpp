@@ -783,7 +783,6 @@ void MapViewState::placeTubeEnd()
 {
 	int x = mTileMapMouseHover.x();
 	int y = mTileMapMouseHover.y();
-	int xEnd = 0; int yEnd = 0;
 	bool endReach = false;
 	if (!mPlacingTube) return;
 	mPlacingTube = false;
@@ -820,20 +819,10 @@ void MapViewState::placeTubeEnd()
 	// Tube is axis aligned, so either x or y is 0
 	const int tubeLength = abs(tubeEndOffset.x + tubeEndOffset.y);
 	const auto tubeDirection = tubeEndOffset / tubeLength;
+	const auto tubeEnd = mTubeStart + tubeEndOffset;
 
 	x = mTubeStart.x();
 	y = mTubeStart.y();
-	xEnd = tile->x();
-	yEnd = tile->y();
-
-	if (startEndDirection.x < 0)
-	{
-		yEnd = mTubeStart.y();
-	}
-	if (startEndDirection.y < 0)
-	{
-		xEnd = mTubeStart.x();
-	}
 
 	// 
 	do {
@@ -853,7 +842,7 @@ void MapViewState::placeTubeEnd()
 			checkConnectedness();
 		}
 
-		if (y == yEnd && x == xEnd) endReach = true;
+		if (NAS2D::Point{x, y} == tubeEnd) endReach = true;
 		x += tubeDirection.x;y += tubeDirection.y;
 	} while (!endReach);
 	
