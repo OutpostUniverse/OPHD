@@ -25,7 +25,7 @@ NAS2D::Point<int>& ccLocation();
 
 bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile* tile, Direction dir);
-bool validTubeConnection(TileMap* tilemap, int x, int y, ConnectorDir dir);
+bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir dir);
 bool validStructurePlacement(TileMap* tilemap, int x, int y);
 bool validLanderSite(Tile* t);
 bool landingSiteSuitable(TileMap* tilemap, int x, int y);

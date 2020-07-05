@@ -733,7 +733,7 @@ void MapViewState::placeTubes()
 	 */
 	auto cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	if (validTubeConnection(mTileMap, mTileMapMouseHover.x(), mTileMapMouseHover.y(), cd))
+	if (validTubeConnection(mTileMap, mTileMapMouseHover, cd))
 	{
 		insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(mTileMapMouseHover));
 
@@ -753,8 +753,6 @@ void MapViewState::placeTubes()
 void MapViewState::placeTubeStart()
 {
 	mPlacingTube = false;
-	int x = mTileMapMouseHover.x();
-	int y = mTileMapMouseHover.y();
 
 	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
 	if (!tile) { return; }
@@ -767,7 +765,7 @@ void MapViewState::placeTubeStart()
 	 */
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	if (!validTubeConnection(mTileMap, x, y, cd))
+	if (!validTubeConnection(mTileMap, mTileMapMouseHover, cd))
 	{
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_TUBE_INVALID_LOCATION);
 		return;
@@ -830,7 +828,7 @@ void MapViewState::placeTubeEnd()
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
 			endReach = true;
-		}else if (!validTubeConnection(mTileMap, x, y, cd)){
+		}else if (!validTubeConnection(mTileMap, {x, y}, cd)){
 			endReach = true;
 		}else{
 			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile({x, y}));
