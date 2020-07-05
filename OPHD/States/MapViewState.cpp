@@ -781,9 +781,6 @@ void MapViewState::placeTubeStart()
  */
 void MapViewState::placeTubeEnd()
 {
-	int x = mTileMapMouseHover.x();
-	int y = mTileMapMouseHover.y();
-	bool endReach = false;
 	if (!mPlacingTube) return;
 	mPlacingTube = false;
 	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
@@ -821,8 +818,9 @@ void MapViewState::placeTubeEnd()
 	const auto tubeDirection = tubeEndOffset / tubeLength;
 	const auto tubeEnd = mTubeStart + tubeEndOffset;
 
-	x = mTubeStart.x();
-	y = mTubeStart.y();
+	int x = mTubeStart.x();
+	int y = mTubeStart.y();
+	bool endReach = false;
 
 	// 
 	do {
