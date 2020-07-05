@@ -519,9 +519,10 @@ void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot
 	const auto it = _rm.find(_r);
 	if (it->first == _r)
 	{
-		_ti->attribute("x", it->second->x());
-		_ti->attribute("y", it->second->y());
-		_ti->attribute("depth", it->second->depth());
+		const auto tile = it->second;
+		_ti->attribute("x", tile->x());
+		_ti->attribute("y", tile->y());
+		_ti->attribute("depth", tile->depth());
 	}
 
 }
