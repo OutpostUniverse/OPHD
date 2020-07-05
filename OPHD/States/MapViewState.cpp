@@ -816,8 +816,7 @@ void MapViewState::placeTubeEnd()
 	const auto tubeDirection = tubeEndOffset / tubeLength;
 	const auto tubeEnd = mTubeStart + tubeEndOffset;
 
-	int x = mTubeStart.x();
-	int y = mTubeStart.y();
+	auto position = mTubeStart;
 	bool endReach = false;
 
 	do {
@@ -826,18 +825,18 @@ void MapViewState::placeTubeEnd()
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
 			endReach = true;
-		}else if (!validTubeConnection(mTileMap, {x, y}, cd)){
+		}else if (!validTubeConnection(mTileMap, position, cd)){
 			endReach = true;
 		}else{
-			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile({x, y}));
+			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(position));
 
 			// FIXME: Naive approach -- will be slow with larger colonies.
 			Utility<StructureManager>::get().disconnectAll();
 			checkConnectedness();
 		}
 
-		if (NAS2D::Point{x, y} == tubeEnd) endReach = true;
-		x += tubeDirection.x;y += tubeDirection.y;
+		if (position == tubeEnd) endReach = true;
+		position += tubeDirection;
 	} while (!endReach);
 }
 
