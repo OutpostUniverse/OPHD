@@ -50,15 +50,6 @@ Slider::~Slider()
 /**
  *
  */
-void Slider::size(NAS2D::Vector<float> size)
-{
-	Control::size(size);
-}
-
-
-/**
- *
- */
 void Slider::setSkins()
 {
 	if (!mSkinButton1.empty()) { return; }
