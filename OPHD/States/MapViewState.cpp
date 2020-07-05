@@ -733,7 +733,7 @@ void MapViewState::placeTubes()
 	 */
 	auto cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	if (validTubeConnection(mTileMap, mTileMapMouseHover.x(), mTileMapMouseHover.y(), cd))
+	if (validTubeConnection(mTileMap, mTileMapMouseHover, cd))
 	{
 		insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(mTileMapMouseHover));
 
@@ -752,9 +752,7 @@ void MapViewState::placeTubes()
  */
 void MapViewState::placeTubeStart()
 {
-	tubeStart.height(0);
-	int x = mTileMapMouseHover.x();
-	int y = mTileMapMouseHover.y();
+	mPlacingTube = false;
 
 	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
 	if (!tile) { return; }
@@ -767,14 +765,13 @@ void MapViewState::placeTubeStart()
 	 */
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	if (!validTubeConnection(mTileMap, x, y, cd))
+	if (!validTubeConnection(mTileMap, mTileMapMouseHover, cd))
 	{
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_TUBE_INVALID_LOCATION);
 		return;
 	}
-	tubeStart.x(tile->x());
-	tubeStart.y(tile->y());
-	tubeStart.height(1);
+	mTubeStart = tile->position();
+	mPlacingTube = true;
 }
 
 /**
@@ -782,13 +779,8 @@ void MapViewState::placeTubeStart()
  */
 void MapViewState::placeTubeEnd()
 {
-	int x = mTileMapMouseHover.x();
-	int y = mTileMapMouseHover.y();
-	int incX = 0; int incY = 0;
-	int xEnd = 0; int yEnd = 0;
-	bool endReach = false;
-	if (tubeStart.height() != 1) return;
-	tubeStart.height(0); // the height is used as a boolean to indicate that we are
+	if (!mPlacingTube) return;
+	mPlacingTube = false;
 	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
 	if (!tile) { return; }
 
@@ -797,63 +789,55 @@ void MapViewState::placeTubeEnd()
 	 */
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
+	const auto startEndDirection = tile->position() - mTubeStart;
+	NAS2D::Vector<int> tubeEndOffset;
+
 	switch (cd)
 	{
 	case ConnectorDir::CONNECTOR_INTERSECTION:
-
-		if (abs(tubeStart.x() - tile->x()) >= abs(tubeStart.y() - tile->y())){
-			incX = 1; // The sens will be on the longest spread on X or Y
+		// Determine direction of largest change, and snap to that axis
+		if (abs(startEndDirection.x) >= abs(startEndDirection.y)){
+			tubeEndOffset = {startEndDirection.x, 0};
 		}else{
-			incY = 1;
+			tubeEndOffset = {0, startEndDirection.y};
 		}
 		break;
 	case ConnectorDir::CONNECTOR_RIGHT:
-		incX = 1;
+		tubeEndOffset = {startEndDirection.x, 0};
 		break;
 	case ConnectorDir::CONNECTOR_LEFT:
-		incY = 1;
+		tubeEndOffset = {0, startEndDirection.y};
 		break;
 	default:
 		return;
 	}
-	x = tubeStart.x();
-	y = tubeStart.y();
-	xEnd = tile->x();
-	yEnd = tile->y();
+	// Tube is axis aligned, so either x or y is 0
+	const int tubeLength = abs(tubeEndOffset.x + tubeEndOffset.y);
+	const auto tubeDirection = tubeEndOffset / tubeLength;
+	const auto tubeEnd = mTubeStart + tubeEndOffset;
 
-	if (tubeStart.x() > tile->x())
-	{
-		incX = -incX;
-		yEnd = tubeStart.y();
-	}
-	if (tubeStart.y() > tile->y())
-	{
-		incY = -incY;
-		xEnd = tubeStart.x();
-	}
+	auto position = mTubeStart;
+	bool endReach = false;
 
-	// 
 	do {
-		std::cout << "Tube " << x << "/" << y << std::endl;
-		tile = mTileMap->getVisibleTile(tubeStart.startPoint(), mTileMap->currentDepth());
+		tile = mTileMap->getVisibleTile(mTubeStart, mTileMap->currentDepth());
 		if (!tile) {
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
 			endReach = true;
-		}else if (!validTubeConnection(mTileMap, x, y, cd)){
+		}else if (!validTubeConnection(mTileMap, position, cd)){
 			endReach = true;
 		}else{
-			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile({x, y}));
-			
+			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(position));
+
 			// FIXME: Naive approach -- will be slow with larger colonies.
 			Utility<StructureManager>::get().disconnectAll();
 			checkConnectedness();
 		}
 
-		if (y == yEnd && x == xEnd) endReach = true;
-		x += incX;y += incY;
+		if (position == tubeEnd) endReach = true;
+		position += tubeDirection;
 	} while (!endReach);
-	
 }
 
 /**
@@ -1237,42 +1221,46 @@ void MapViewState::updateRobots()
 	auto robot_it = mRobotList.begin();
 	while(robot_it != mRobotList.end())
 	{
-		robot_it->first->update();
+		auto robot = robot_it->first;
+		auto tile = robot_it->second;
 
-		if (robot_it->first->dead())
+		robot->update();
+
+		if (robot->dead())
 		{
 			std::cout << "dead robot" << std::endl;
 
 			// \fixme	This is an awful way of doing this.
-			if (robot_it->first->name() != constants::ROBOMINER)
+			if (robot->name() != constants::ROBOMINER)
 			{
-				const auto robotLocationText = std::to_string(robot_it->second->x()) + ", " + std::to_string(robot_it->second->y());
-				const auto text = "Your " + robot_it->first->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
+				const auto position = tile->position();
+				const auto robotLocationText = std::to_string(position.x()) + ", " + std::to_string(position.y());
+				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				doAlertMessage("Robot Breakdown", text);
-				Robodozer* _d = dynamic_cast<Robodozer*>(robot_it->first);
-				if (_d) { robot_it->second->index(static_cast<int>(_d->tileIndex())); }
+				Robodozer* _d = dynamic_cast<Robodozer*>(robot);
+				if (_d) { tile->index(static_cast<int>(_d->tileIndex())); }
 			}
 
-			if (robot_it->second->thing() == robot_it->first)
+			if (tile->thing() == robot)
 			{
-				robot_it->second->removeThing();
+				tile->removeThing();
 			}
 
 			/// \fixme	Brute force.
 			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND))
 			{
-				static_cast<RobotCommand*>(rcc)->removeRobot(robot_it->first);
+				static_cast<RobotCommand*>(rcc)->removeRobot(robot);
 			}
 
-			mRobotPool.erase(robot_it->first);
-			delete robot_it->first;
+			mRobotPool.erase(robot);
+			delete robot;
 			robot_it = mRobotList.erase(robot_it);
 		}
-		else if(robot_it->first->idle())
+		else if(robot->idle())
 		{
-			if (robot_it->second->thing() == robot_it->first)
+			if (tile->thing() == robot)
 			{
-				robot_it->second->removeThing();
+				tile->removeThing();
 			}
 
 			robot_it = mRobotList.erase(robot_it);

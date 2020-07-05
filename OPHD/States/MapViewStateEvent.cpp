@@ -202,24 +202,23 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 
 	Direction dir = static_cast<Robodigger*>(robot)->direction(); // fugly
 
-	int originX = 0, originY = 0, depthAdjust = 0;
+	NAS2D::Point<int> origin = t->position();
+	int newDepth = t->depth();
 
 	if(dir == Direction::DIR_DOWN)
 	{
+		++newDepth;
+
 		AirShaft* as1 = new AirShaft();
 		if (t->depth() > 0) { as1->ug(); }
 		NAS2D::Utility<StructureManager>::get().addStructure(as1, t);
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
-		NAS2D::Utility<StructureManager>::get().addStructure(as2, mTileMap->getTile(t->position(), t->depth() + 1));
+		NAS2D::Utility<StructureManager>::get().addStructure(as2, mTileMap->getTile(origin, newDepth));
 
-		originX = t->x();
-		originY = t->y();
-		depthAdjust = 1;
-
-		mTileMap->getTile(t->position(), t->depth())->index(TerrainType::TERRAIN_DOZED);
-		mTileMap->getTile(t->position(), t->depth() + depthAdjust)->index(TerrainType::TERRAIN_DOZED);
+		mTileMap->getTile(origin, t->depth())->index(TerrainType::TERRAIN_DOZED);
+		mTileMap->getTile(origin, newDepth)->index(TerrainType::TERRAIN_DOZED);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -227,23 +226,19 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	}
 	else if(dir == Direction::DIR_NORTH)
 	{
-		originX = t->x();
-		originY = t->y() - 1;
+		origin += DirectionNorth;
 	}
 	else if(dir == Direction::DIR_SOUTH)
 	{
-		originX = t->x();
-		originY = t->y() + 1;
+		origin += DirectionSouth;
 	}
 	else if(dir == Direction::DIR_WEST)
 	{
-		originX = t->x() - 1;
-		originY = t->y();
+		origin += DirectionWest;
 	}
 	else if(dir == Direction::DIR_EAST)
 	{
-		originX = t->x() + 1;
-		originY = t->y();
+		origin += DirectionEast;
 	}
 
 	/**
@@ -251,12 +246,9 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	 *			a digger gets in the way (or should diggers be smarter than
 	 *			puncturing a fusion reactor containment vessel?)
 	 */
-	for(int y = originY - 1; y <= originY + 1; ++y)
+	for (const auto offset : DirectionScan3x3)
 	{
-		for(int x = originX - 1; x <= originX + 1; ++x)
-		{
-			mTileMap->getTile({x, y}, t->depth() + depthAdjust)->excavated(true);
-		}
+		mTileMap->getTile(origin + offset, newDepth)->excavated(true);
 	}
 
 	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);

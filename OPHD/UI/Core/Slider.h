@@ -26,16 +26,16 @@ public:
 	 * \enum 	SliderType
 	 * \brief	List the types of slider that could be used
 	 */
-	enum SliderType
+	enum class SliderType
 	{
-		SLIDER_VERTICAL, /*!< Vertical slider. */
-		SLIDER_HORIZONTAL /*!< Horizontal slider. */
+		Vertical, /*!< Vertical slider. */
+		Horizontal /*!< Horizontal slider. */
 	};
 
 	using ValueChangedCallback = NAS2D::Signals::Signal<float>; /*!< type for Callback on value changed. */
 
 public:
-	Slider();
+	Slider(SliderType sliderType = SliderType::Vertical);
 	~Slider() override;
 
 	void thumbPosition(float value); /*!< Set the current position. */
@@ -55,7 +55,6 @@ public:
 	void backward(bool isBackward) { mBackward = isBackward; } /*!< Set the backward flag. */
 
 	void update() override; /*!< Called to display the slider. */
-	void size(NAS2D::Vector<float> size); /*!< Set the slider size. */
 
 	ValueChangedCallback& change() { return mCallback; } /*!< Give the callback to enable another control or a window to dis/connect to this event call. */
 
@@ -79,7 +78,7 @@ private:
 
 	ValueChangedCallback mCallback; /*!< Callback executed when the value is changed. */
 
-	SliderType mSliderType{SliderType::SLIDER_VERTICAL}; /*!< Type of the Slider. */
+	SliderType mSliderType{SliderType::Vertical}; /*!< Type of the Slider. */
 	
 	// mouse event related vars
 	NAS2D::Point<int> mMousePosition; /**< Mouse coordinates. */
