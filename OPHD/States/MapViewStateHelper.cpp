@@ -516,14 +516,14 @@ void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot
 	_ti->attribute("age", _r->fuelCellAge());
 	_ti->attribute("production", _r->turnsToCompleteTask());
 
-	for (auto it = _rm.begin(); it != _rm.end(); ++it)
+	const auto it = _rm.find(_r);
+	if (it->first == _r)
 	{
-		if (it->first == _r)
-		{
-			_ti->attribute("x", it->second->x());
-			_ti->attribute("y", it->second->y());
-			_ti->attribute("depth", it->second->depth());
-		}
+		const auto& tile = *it->second;
+		const auto position = tile.position();
+		_ti->attribute("x", position.x());
+		_ti->attribute("y", position.y());
+		_ti->attribute("depth", tile.depth());
 	}
 
 }

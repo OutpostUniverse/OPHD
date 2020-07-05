@@ -8,8 +8,7 @@
 
 Tile::Tile(Tile&& other) noexcept :
 	mIndex{other.mIndex},
-	mX{other.mX},
-	mY{other.mY},
+	mPosition{other.mPosition},
 	mDepth{other.mDepth},
 	mThing{other.mThing},
 	mMine{other.mMine},
@@ -25,8 +24,7 @@ Tile::Tile(Tile&& other) noexcept :
 Tile& Tile::operator=(Tile&& other) noexcept
 {
 	mIndex = other.mIndex;
-	mX = other.mX;
-	mY = other.mY;
+	mPosition = other.mPosition;
 	mDepth = other.mDepth;
 	mThing = other.mThing;
 	mMine = other.mMine;
@@ -56,10 +54,9 @@ Tile::~Tile()
  */
 void Tile::init(int _x, int _y, int _depth, int _index)
 {
-	x(_x);
-	y(_y);
-	depth(_depth);
-	index(_index);
+	mPosition = {_x, _y};
+	mDepth = _depth;
+	mIndex = _index;
 }
 
 

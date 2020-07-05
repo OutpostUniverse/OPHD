@@ -1221,42 +1221,46 @@ void MapViewState::updateRobots()
 	auto robot_it = mRobotList.begin();
 	while(robot_it != mRobotList.end())
 	{
-		robot_it->first->update();
+		auto robot = robot_it->first;
+		auto tile = robot_it->second;
 
-		if (robot_it->first->dead())
+		robot->update();
+
+		if (robot->dead())
 		{
 			std::cout << "dead robot" << std::endl;
 
 			// \fixme	This is an awful way of doing this.
-			if (robot_it->first->name() != constants::ROBOMINER)
+			if (robot->name() != constants::ROBOMINER)
 			{
-				const auto robotLocationText = std::to_string(robot_it->second->x()) + ", " + std::to_string(robot_it->second->y());
-				const auto text = "Your " + robot_it->first->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
+				const auto position = tile->position();
+				const auto robotLocationText = std::to_string(position.x()) + ", " + std::to_string(position.y());
+				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				doAlertMessage("Robot Breakdown", text);
-				Robodozer* _d = dynamic_cast<Robodozer*>(robot_it->first);
-				if (_d) { robot_it->second->index(static_cast<int>(_d->tileIndex())); }
+				Robodozer* _d = dynamic_cast<Robodozer*>(robot);
+				if (_d) { tile->index(static_cast<int>(_d->tileIndex())); }
 			}
 
-			if (robot_it->second->thing() == robot_it->first)
+			if (tile->thing() == robot)
 			{
-				robot_it->second->removeThing();
+				tile->removeThing();
 			}
 
 			/// \fixme	Brute force.
 			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND))
 			{
-				static_cast<RobotCommand*>(rcc)->removeRobot(robot_it->first);
+				static_cast<RobotCommand*>(rcc)->removeRobot(robot);
 			}
 
-			mRobotPool.erase(robot_it->first);
-			delete robot_it->first;
+			mRobotPool.erase(robot);
+			delete robot;
 			robot_it = mRobotList.erase(robot_it);
 		}
-		else if(robot_it->first->idle())
+		else if(robot->idle())
 		{
-			if (robot_it->second->thing() == robot_it->first)
+			if (tile->thing() == robot)
 			{
-				robot_it->second->removeThing();
+				tile->removeThing();
 			}
 
 			robot_it = mRobotList.erase(robot_it);
