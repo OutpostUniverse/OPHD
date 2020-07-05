@@ -752,7 +752,7 @@ void MapViewState::placeTubes()
  */
 void MapViewState::placeTubeStart()
 {
-	tubeStart.height(0);
+	mPlacingTube = false;
 	int x = mTileMapMouseHover.x();
 	int y = mTileMapMouseHover.y();
 
@@ -774,7 +774,7 @@ void MapViewState::placeTubeStart()
 	}
 	tubeStart.x(tile->x());
 	tubeStart.y(tile->y());
-	tubeStart.height(1);
+	mPlacingTube = true;
 }
 
 /**
@@ -787,8 +787,8 @@ void MapViewState::placeTubeEnd()
 	int incX = 0; int incY = 0;
 	int xEnd = 0; int yEnd = 0;
 	bool endReach = false;
-	if (tubeStart.height() != 1) return;
-	tubeStart.height(0); // the height is used as a boolean to indicate that we are
+	if (!mPlacingTube) return;
+	mPlacingTube = false;
 	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
 	if (!tile) { return; }
 
