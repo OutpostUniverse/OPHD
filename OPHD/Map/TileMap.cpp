@@ -297,10 +297,7 @@ void TileMap::centerMapOnTile(Tile* _t)
 {
 	if (!_t) { return; }
 
-	mapViewLocation({
-		_t->x() - edgeLength() / 2,
-		_t->y() - edgeLength() / 2
-	});
+	mapViewLocation(_t->position() - NAS2D::Vector{edgeLength(), edgeLength()} / 2);
 	currentDepth(_t->depth());
 }
 
