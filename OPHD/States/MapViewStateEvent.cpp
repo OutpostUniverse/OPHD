@@ -251,12 +251,10 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	 *			a digger gets in the way (or should diggers be smarter than
 	 *			puncturing a fusion reactor containment vessel?)
 	 */
-	for(int y = originY - 1; y <= originY + 1; ++y)
+	for (const auto offset : DirectionScan3x3)
 	{
-		for(int x = originX - 1; x <= originX + 1; ++x)
-		{
-			mTileMap->getTile({x, y}, t->depth() + depthAdjust)->excavated(true);
-		}
+		const auto position = NAS2D::Point{originX, originY} + offset;
+		mTileMap->getTile(position, t->depth() + depthAdjust)->excavated(true);
 	}
 
 	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
