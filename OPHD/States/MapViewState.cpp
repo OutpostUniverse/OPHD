@@ -820,9 +820,7 @@ void MapViewState::placeTubeEnd()
 	int y = mTubeStart.y();
 	bool endReach = false;
 
-	// 
 	do {
-		std::cout << "Tube " << x << "/" << y << std::endl;
 		tile = mTileMap->getVisibleTile(mTubeStart, mTileMap->currentDepth());
 		if (!tile) {
 			endReach = true;
@@ -832,7 +830,7 @@ void MapViewState::placeTubeEnd()
 			endReach = true;
 		}else{
 			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile({x, y}));
-			
+
 			// FIXME: Naive approach -- will be slow with larger colonies.
 			Utility<StructureManager>::get().disconnectAll();
 			checkConnectedness();
@@ -841,7 +839,6 @@ void MapViewState::placeTubeEnd()
 		if (NAS2D::Point{x, y} == tubeEnd) endReach = true;
 		x += tubeDirection.x;y += tubeDirection.y;
 	} while (!endReach);
-	
 }
 
 /**
