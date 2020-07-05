@@ -28,8 +28,8 @@ public:
 	 */
 	enum SliderType
 	{
-		SLIDER_VERTICAL, /*!< Vertical slider. */
-		SLIDER_HORIZONTAL /*!< Horizontal slider. */
+		Vertical, /*!< Vertical slider. */
+		Horizontal /*!< Horizontal slider. */
 	};
 
 	using ValueChangedCallback = NAS2D::Signals::Signal<float>; /*!< type for Callback on value changed. */
@@ -79,7 +79,7 @@ private:
 
 	ValueChangedCallback mCallback; /*!< Callback executed when the value is changed. */
 
-	SliderType mSliderType{SliderType::SLIDER_VERTICAL}; /*!< Type of the Slider. */
+	SliderType mSliderType{SliderType::Vertical}; /*!< Type of the Slider. */
 	
 	// mouse event related vars
 	NAS2D::Point<int> mMousePosition; /**< Mouse coordinates. */
