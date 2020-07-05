@@ -202,7 +202,7 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 
 	Direction dir = static_cast<Robodigger*>(robot)->direction(); // fugly
 
-	NAS2D::Point<int> origin;
+	NAS2D::Point<int> origin = t->position();
 	int depthAdjust = 0;
 
 	if(dir == Direction::DIR_DOWN)
@@ -215,7 +215,6 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 		as2->ug();
 		NAS2D::Utility<StructureManager>::get().addStructure(as2, mTileMap->getTile(t->position(), t->depth() + 1));
 
-		origin = t->position();
 		depthAdjust = 1;
 
 		mTileMap->getTile(t->position(), t->depth())->index(TerrainType::TERRAIN_DOZED);
@@ -227,19 +226,19 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	}
 	else if(dir == Direction::DIR_NORTH)
 	{
-		origin = t->position() + DirectionNorth;
+		origin += DirectionNorth;
 	}
 	else if(dir == Direction::DIR_SOUTH)
 	{
-		origin = t->position() + DirectionSouth;
+		origin += DirectionSouth;
 	}
 	else if(dir == Direction::DIR_WEST)
 	{
-		origin = t->position() + DirectionWest;
+		origin += DirectionWest;
 	}
 	else if(dir == Direction::DIR_EAST)
 	{
-		origin = t->position() + DirectionEast;
+		origin += DirectionEast;
 	}
 
 	/**
