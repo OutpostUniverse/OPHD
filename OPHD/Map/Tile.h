@@ -25,7 +25,7 @@ public:
 	int index() const { return mIndex; }
 	void index(int index) { mIndex = index; }
 
-	NAS2D::Point<int> position() const { return {mX, mY}; }
+	NAS2D::Point<int> position() const { return mPosition; }
 
 	int depth() const { return mDepth; }
 	void depth(int i) { mDepth = i; }
@@ -74,8 +74,7 @@ protected:
 private:
 	int mIndex = 0;
 
-	int mX = 0; /**< Tile Position Information */
-	int mY = 0; /**< Tile Position Information */
+	NAS2D::Point<int> mPosition; /**< Tile Position Information */
 	int mDepth = 0; /**< Tile Position Information */
 
 	Thing* mThing = nullptr;
