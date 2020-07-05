@@ -21,18 +21,17 @@ void StringTable::draw(NAS2D::Renderer& renderer) const
 		const Cell& cell = cells.at(i);
 
 		NAS2D::Color textColor = cell.textColor != Cell::ColorEmpty ? cell.textColor : defaultTextColor;
-		const auto drawPosition = position + cell.textRelativePosition;
 
-		renderer.drawText(*getCellFont(i), cell.text, NAS2D::Point<float>(drawPosition.x, drawPosition.y), textColor);
+		renderer.drawText(*getCellFont(i), cell.text, position + cell.textRelativePosition, textColor);
 	}
 }
 
-void StringTable::setPosition(NAS2D::Vector<float> tablePosition)
+void StringTable::setPosition(NAS2D::Point<float> tablePosition)
 {
 	this->position = tablePosition;
 }
 
-NAS2D::Vector<float> StringTable::getPosition() const
+NAS2D::Point<float> StringTable::getPosition() const
 {
 	return position;
 }

@@ -25,8 +25,8 @@ public:
 
 	void draw(NAS2D::Renderer& renderer) const;
 
-	void setPosition(NAS2D::Vector<float> position);
-	NAS2D::Vector<float> getPosition() const;
+	void setPosition(NAS2D::Point<float> position);
+	NAS2D::Point<float> getPosition() const;
 
 	void setDefaultFont(NAS2D::Font& font);
 	void setDefaultTitleFont(NAS2D::Font* font);
@@ -65,7 +65,7 @@ private:
 	std::vector<Cell> cells;
 	const std::size_t columnCount;
 	const std::size_t rowCount;
-	NAS2D::Vector<float> position;
+	NAS2D::Point<float> position;
 	NAS2D::Font* defaultFont;
 	NAS2D::Font* defaultTitleFont;
 	NAS2D::Color defaultTextColor = NAS2D::Color::White;

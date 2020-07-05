@@ -213,7 +213,7 @@ void FactoryProduction::update()
 	Window::update();
 
 	StringTable stringTable(2, 5);
-	stringTable.setPosition({ mRect.x() + constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), mRect.y() + 25 });
+	stringTable.setPosition(mRect.startPoint() + NAS2D::Vector<float>{ constants::MARGIN * 2 + mProductGrid.width(), 25 });
 	stringTable.setColumnJustification(1, StringTable::Justification::Right);
 
 	stringTable.setCellText(0, 0, "Turns Completed:");
