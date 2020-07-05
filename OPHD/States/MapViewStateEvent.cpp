@@ -207,15 +207,15 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 
 	if(dir == Direction::DIR_DOWN)
 	{
+		++newDepth;
+
 		AirShaft* as1 = new AirShaft();
 		if (t->depth() > 0) { as1->ug(); }
 		NAS2D::Utility<StructureManager>::get().addStructure(as1, t);
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
-		NAS2D::Utility<StructureManager>::get().addStructure(as2, mTileMap->getTile(origin, t->depth() + 1));
-
-		++newDepth;
+		NAS2D::Utility<StructureManager>::get().addStructure(as2, mTileMap->getTile(origin, newDepth));
 
 		mTileMap->getTile(origin, t->depth())->index(TerrainType::TERRAIN_DOZED);
 		mTileMap->getTile(origin, newDepth)->index(TerrainType::TERRAIN_DOZED);
