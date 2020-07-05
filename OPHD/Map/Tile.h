@@ -25,12 +25,6 @@ public:
 	int index() const { return mIndex; }
 	void index(int index) { mIndex = index; }
 
-	int x() const { return mX; }
-	void x(int i) { mX = i; }
-
-	int y() const { return mY; }
-	void y(int i) { mY = i; }
-
 	NAS2D::Point<int> position() const { return {mX, mY}; }
 
 	int depth() const { return mDepth; }
