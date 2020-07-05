@@ -20,6 +20,18 @@ public:
 		Right
 	};
 
+	struct Cell
+	{
+		// Set textColor to ColorEmpty to indicate cell should use default StringTable color
+		static const NAS2D::Color ColorEmpty;
+
+		// Use defaultFont if not set
+		NAS2D::Font* font = nullptr;
+		std::string text;
+		Justification justification = Justification::Left;
+		NAS2D::Color textColor = ColorEmpty;
+	};
+
 	// Set default fonts in constructor
 	StringTable(std::size_t columns, std::size_t rows);
 
@@ -48,21 +60,14 @@ public:
 	void computeRelativeCellPositions();
 
 private:
-	struct Cell
+	// Purposely hide textRelativePosition from public access
+	struct CellWithPosition : Cell
 	{
-		// Set textColor to ColorEmpty to indicate cell should use default StringTable color
-		static const NAS2D::Color ColorEmpty;
-
-		// Use defaultFont if not set
-		NAS2D::Font* font = nullptr;
-		std::string text;
-		Justification justification = Justification::Left;
-		NAS2D::Color textColor = ColorEmpty;
 		// Position relative to the StringTable's position
 		NAS2D::Vector<float> textRelativePosition;
 	};
 
-	std::vector<Cell> cells;
+	std::vector<CellWithPosition> cells;
 	const std::size_t columnCount;
 	const std::size_t rowCount;
 	NAS2D::Point<float> position;

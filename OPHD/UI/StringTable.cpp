@@ -18,7 +18,7 @@ void StringTable::draw(NAS2D::Renderer& renderer) const
 {
 	for (std::size_t i = 0; i < cells.size(); ++i)
 	{
-		const Cell& cell = cells.at(i);
+		const auto& cell = cells.at(i);
 
 		NAS2D::Color textColor = cell.textColor != Cell::ColorEmpty ? cell.textColor : defaultTextColor;
 
@@ -124,7 +124,7 @@ void StringTable::computeRelativeCellPositions()
 
 void StringTable::accountForCellJustification(std::size_t index, float columnWidth)
 {
-	Cell& cell = cells[index];
+	auto& cell = cells[index];
 
 	switch (cell.justification)
 	{
