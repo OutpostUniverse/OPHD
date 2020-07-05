@@ -292,7 +292,7 @@
       <Filter>Header Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="UI\StringTable.cpp">
-      <Filter>Header Files\UI</Filter>
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
