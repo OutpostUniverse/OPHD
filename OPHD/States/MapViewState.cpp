@@ -796,7 +796,7 @@ void MapViewState::placeTubeEnd()
 	 */
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	const auto startEndDirection = mTubeStart - tile->position();
+	const auto startEndDirection = tile->position() - mTubeStart;
 
 	switch (cd)
 	{
@@ -822,12 +822,12 @@ void MapViewState::placeTubeEnd()
 	xEnd = tile->x();
 	yEnd = tile->y();
 
-	if (startEndDirection.x > 0)
+	if (startEndDirection.x < 0)
 	{
 		incX = -incX;
 		yEnd = mTubeStart.y();
 	}
-	if (startEndDirection.y > 0)
+	if (startEndDirection.y < 0)
 	{
 		incY = -incY;
 		xEnd = mTubeStart.x();
