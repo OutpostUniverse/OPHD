@@ -26,7 +26,7 @@ public:
 	 * \enum 	SliderType
 	 * \brief	List the types of slider that could be used
 	 */
-	enum SliderType
+	enum class SliderType
 	{
 		Vertical, /*!< Vertical slider. */
 		Horizontal /*!< Horizontal slider. */
