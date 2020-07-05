@@ -289,7 +289,7 @@
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="UI\TextRender.cpp">
-      <Filter>Header Files\UI</Filter>
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
