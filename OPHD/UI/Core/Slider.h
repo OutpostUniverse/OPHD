@@ -35,7 +35,7 @@ public:
 	using ValueChangedCallback = NAS2D::Signals::Signal<float>; /*!< type for Callback on value changed. */
 
 public:
-	Slider();
+	Slider(SliderType sliderType = SliderType::Vertical);
 	~Slider() override;
 
 	void thumbPosition(float value); /*!< Set the current position. */

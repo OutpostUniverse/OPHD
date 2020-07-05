@@ -25,7 +25,8 @@ static Font* SLD_FONT = nullptr;
 /**
  * C'tor
  */
-Slider::Slider()
+Slider::Slider(SliderType sliderType) :
+	mSliderType(sliderType)
 {
 	SLD_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
