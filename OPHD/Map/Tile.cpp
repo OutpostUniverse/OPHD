@@ -56,10 +56,10 @@ Tile::~Tile()
  */
 void Tile::init(int _x, int _y, int _depth, int _index)
 {
-	x(_x);
-	y(_y);
-	depth(_depth);
-	index(_index);
+	mX = _x;
+	mY = _y;
+	mDepth = _depth;
+	mIndex = _index;
 }
 
 
