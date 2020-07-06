@@ -1110,12 +1110,10 @@ void MapViewState::placeStructure()
 		return;
 	}
 
-	int tile_x = mTileMapMouseHover.x(), tile_y = mTileMapMouseHover.y();
-
 	// Seed lander is a special case and only one can ever be placed by the player ever.
 	if(mCurrentStructure == StructureID::SID_SEED_LANDER)
 	{
-		insertSeedLander({tile_x, tile_y});
+		insertSeedLander(mTileMapMouseHover);
 	}
 	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
 	{
@@ -1151,7 +1149,7 @@ void MapViewState::placeStructure()
 	}
 	else
 	{
-		if (!validStructurePlacement(mTileMap, {tile_x, tile_y}) && !selfSustained(mCurrentStructure))
+		if (!validStructurePlacement(mTileMap, mTileMapMouseHover) && !selfSustained(mCurrentStructure))
 		{
 			doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_NO_TUBE);
 			return;
