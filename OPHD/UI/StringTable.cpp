@@ -8,72 +8,72 @@ const NAS2D::Color StringTable::Cell::ColorEmpty = NAS2D::Color::NoAlpha;
 
 StringTable::Cell& StringTable::operator[](const CellCoordinate& coordinate)
 {
-	return cells[getCellIndex(coordinate)];
+	return mCells[getCellIndex(coordinate)];
 }
 
 StringTable::Cell& StringTable::at(std::size_t column, std::size_t row)
 {
-	return cells[getCellIndex(CellCoordinate(column, row))];
+	return mCells[getCellIndex(CellCoordinate(column, row))];
 }
 
-StringTable::StringTable(std::size_t columns, std::size_t rows) : columnCount(columns), rowCount(rows)
+StringTable::StringTable(std::size_t columns, std::size_t rows) : mColumnCount(columns), mRowCount(rows)
 {
-	cells.resize(columns * rows);
+	mCells.resize(columns * rows);
 
-	defaultFont = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	defaultTitleFont = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	mDefaultFont = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	mDefaultTitleFont = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 void StringTable::draw(NAS2D::Renderer& renderer) const
 {
-	for (std::size_t i = 0; i < cells.size(); ++i)
+	for (std::size_t i = 0; i < mCells.size(); ++i)
 	{
-		const auto& cell = cells.at(i);
+		const auto& cell = mCells.at(i);
 
-		NAS2D::Color textColor = cell.textColor != Cell::ColorEmpty ? cell.textColor : defaultTextColor;
+		NAS2D::Color textColor = cell.textColor != Cell::ColorEmpty ? cell.textColor : mDefaultTextColor;
 
-		renderer.drawText(*getCellFont(i), cell.text, position + cell.textRelativePosition, textColor);
+		renderer.drawText(*getCellFont(i), cell.text, mPosition + cell.textRelativePosition, textColor);
 	}
 }
 
-void StringTable::setPosition(NAS2D::Point<float> tablePosition)
+void StringTable::setPosition(NAS2D::Point<float> position)
 {
-	this->position = tablePosition;
+	this->mPosition = position;
 }
 
 NAS2D::Point<float> StringTable::getPosition() const
 {
-	return position;
+	return mPosition;
 }
 
 void StringTable::setDefaultFont(NAS2D::Font& font)
 {
-	defaultFont = &font;
+	mDefaultFont = &font;
 }
 
 void StringTable::setDefaultTitleFont(NAS2D::Font* font)
 {
-	defaultTitleFont = font;
+	mDefaultTitleFont = font;
 }
 
 void StringTable::setDefaultTextColor(NAS2D::Color color)
 {
-	defaultTextColor = color;
+	mDefaultTextColor = color;
 }
 
 void StringTable::setHorizontalPadding(float padding)
 {
-	horizontalPadding = padding;
+	mHorizontalPadding = padding;
 }
 
 void StringTable::setVerticalPadding(float padding)
 {
-	verticalPadding = padding;
+	mVerticalPadding = padding;
 }
 
 void StringTable::setColumnJustification(std::size_t column, Justification justification)
 {
-	for (std::size_t row = 0; row < rowCount; ++row)
+	for (std::size_t row = 0; row < mRowCount; ++row)
 	{
 		this->at(column, row).justification = justification;
 	}
@@ -85,25 +85,25 @@ void StringTable::computeRelativeCellPositions()
 	auto rowHeights = computeRowHeights();
 
 	float columnOffset = 0;
-	for (std::size_t column = 0; column < columnCount; ++column)
+	for (std::size_t column = 0; column < mColumnCount; ++column)
 	{
 		float rowOffset = 0;
-		for (std::size_t row = 0; row < rowCount; ++row)
+		for (std::size_t row = 0; row < mRowCount; ++row)
 		{
 			auto cellIndex = getCellIndex(CellCoordinate(column, row));
-			cells[cellIndex].textRelativePosition = { columnOffset, rowOffset };
+			mCells[cellIndex].textRelativePosition = { columnOffset, rowOffset };
 			accountForCellJustification(cellIndex, columnWidths[column]);
 
-			rowOffset += rowHeights[row] + verticalPadding;
+			rowOffset += rowHeights[row] + mVerticalPadding;
 		}
 
-		columnOffset += columnWidths[column] + horizontalPadding;
+		columnOffset += columnWidths[column] + mHorizontalPadding;
 	}
 }
 
 void StringTable::accountForCellJustification(std::size_t index, float columnWidth)
 {
-	auto& cell = cells[index];
+	auto& cell = mCells[index];
 
 	switch (cell.justification)
 	{
@@ -121,14 +121,14 @@ std::vector<float> StringTable::computeColumnWidths() const
 {
 	std::vector<float> columnWidths;
 
-	for (std::size_t column = 0; column < columnCount; ++column)
+	for (std::size_t column = 0; column < mColumnCount; ++column)
 	{
 		float columnWidth = 0;
 
-		for (std::size_t row = 0; row < rowCount; ++row)
+		for (std::size_t row = 0; row < mRowCount; ++row)
 		{
 			auto index = getCellIndex(CellCoordinate(column, row));
-			auto cellWidth = static_cast<float>(getCellFont(index)->width(cells[index].text));
+			auto cellWidth = static_cast<float>(getCellFont(index)->width(mCells[index].text));
 
 			if (cellWidth > columnWidth)
 			{
@@ -146,11 +146,11 @@ std::vector<float> StringTable::computeRowHeights() const
 {
 	std::vector<float> rowHeights;
 
-	for (std::size_t row = 0; row < rowCount; ++row)
+	for (std::size_t row = 0; row < mRowCount; ++row)
 	{
 		float rowHeight = 0;
 
-		for (std::size_t column = 0; column < columnCount; ++column)
+		for (std::size_t column = 0; column < mColumnCount; ++column)
 		{
 			auto index = getCellIndex(CellCoordinate(column, row));
 			float cellHeight = static_cast<float>(getCellFont(index)->height());
@@ -171,22 +171,22 @@ std::size_t StringTable::getCellIndex(const CellCoordinate& cellCoordinate) cons
 {
 	checkCellIndex(cellCoordinate);
 
-	return columnCount * cellCoordinate.y() + cellCoordinate.x();
+	return mColumnCount * cellCoordinate.y() + cellCoordinate.x();
 }
 
 StringTable::CellCoordinate StringTable::getCellCoordinate(std::size_t index) const
 {
-	return CellCoordinate{ index % columnCount, index / columnCount };
+	return CellCoordinate{ index % mColumnCount, index / mColumnCount };
 }
 
 void StringTable::checkCellIndex(const CellCoordinate& cellCoordinate) const
 {
-	if (cellCoordinate.x() >= columnCount)
+	if (cellCoordinate.x() >= mColumnCount)
 	{
 		throw std::runtime_error("Index is outside column bounds");
 	}
 
-	if (cellCoordinate.y() >= rowCount)
+	if (cellCoordinate.y() >= mRowCount)
 	{
 		throw std::runtime_error("Index is outside row bounds");
 	}
@@ -194,15 +194,15 @@ void StringTable::checkCellIndex(const CellCoordinate& cellCoordinate) const
 
 NAS2D::Font* StringTable::getCellFont(std::size_t index) const
 {
-	NAS2D::Font* font = cells[index].font;
+	NAS2D::Font* font = mCells[index].font;
 
 	if (font == nullptr) {
 		// If a different title font is not desired, it is set to nullptr
-		if (defaultTitleFont == nullptr) {
-			font = defaultFont;
+		if (mDefaultTitleFont == nullptr) {
+			font = mDefaultFont;
 		}
 		else {
-			font = isFirstColumn(index) ? defaultTitleFont : defaultFont;
+			font = isFirstColumn(index) ? mDefaultTitleFont : mDefaultFont;
 		}
 	}
 
@@ -211,5 +211,5 @@ NAS2D::Font* StringTable::getCellFont(std::size_t index) const
 
 bool StringTable::isFirstColumn(std::size_t index) const
 {
-	return index % columnCount == 0;
+	return index % mColumnCount == 0;
 }
