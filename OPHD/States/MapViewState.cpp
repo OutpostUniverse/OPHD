@@ -682,10 +682,10 @@ void MapViewState::changeViewDepth(int depth)
  */
 void MapViewState::setMinimapView()
 {
-	int x = MOUSE_COORDS.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2;
-	int y = MOUSE_COORDS.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2;
+	const auto viewSizeInTiles = NAS2D::Vector{mTileMap->edgeLength(), mTileMap->edgeLength()};
+	const auto position = NAS2D::Point{0, 0} + (MOUSE_COORDS - mMiniMapBoundingBox.startPoint()) - viewSizeInTiles / 2;
 
-	mTileMap->mapViewLocation({x, y});
+	mTileMap->mapViewLocation(position);
 }
 
 
