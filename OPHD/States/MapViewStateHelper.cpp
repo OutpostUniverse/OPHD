@@ -148,9 +148,8 @@ bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir
  *
  * \warning		Assumes \c tilemap is never nullptr.
  */
-bool validStructurePlacement(TileMap* tilemap, int x, int y)
+bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point)
 {
-	const auto point = NAS2D::Point{x, y};
 	return checkStructurePlacement(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::DIR_NORTH) ||
 		checkStructurePlacement(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::DIR_EAST) ||
 		checkStructurePlacement(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::DIR_SOUTH) ||
@@ -214,29 +213,26 @@ int totalStorage(StructureList& structures)
  * \note	This function will trigger modal dialog boxes to alert
  *			the user as to why the landing site isn't suitable.
  */
-bool landingSiteSuitable(TileMap* tilemap, int x, int y)
+bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
 {
-	for (int offY = y - 1; offY <= y + 1; ++offY)
+	for (const auto offset : DirectionScan3x3)
 	{
-		for (int offX = x - 1; offX <= x + 1; ++offX)
-		{
-			Tile* tile = tilemap->getTile({offX, offY});
+		Tile* tile = tilemap->getTile(position + offset);
 
-			if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
-			{
-				doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
-				return false;
-			}
-			else if (tile->mine())
-			{
-				doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_MINE);
-				return false;
-			}
-			else if (tile->thing())
-			{
-				// This is a case that should never happen. If it does, blow up loudly.
-				throw std::runtime_error("Tile obstructed by a Thing other than a Mine.");
-			}
+		if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
+		{
+			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
+			return false;
+		}
+		else if (tile->mine())
+		{
+			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_MINE);
+			return false;
+		}
+		else if (tile->thing())
+		{
+			// This is a case that should never happen. If it does, blow up loudly.
+			throw std::runtime_error("Tile obstructed by a Thing other than a Mine.");
 		}
 	}
 

@@ -2,18 +2,19 @@
 
 #include "Structure.h"
 
+#include "NAS2D/Renderer/Point.h"
+
 
 class SeedLander: public Structure
 {
 public:
-	using Callback = NAS2D::Signals::Signal<int, int>;
+	using Callback = NAS2D::Signals::Signal<NAS2D::Point<int>>;
 
 public:
 	SeedLander() = delete;
-	SeedLander(int x, int y) :
-		Structure(constants::SEED_LANDER, "structures/seed_0.sprite", StructureClass::CLASS_LANDER),
-		mX(x),
-		mY(y)
+	SeedLander(NAS2D::Point<int> position) :
+		Structure{constants::SEED_LANDER, "structures/seed_0.sprite", StructureClass::CLASS_LANDER},
+		mPosition{position}
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);
@@ -25,10 +26,9 @@ public:
 		enable();
 	}
 
-	void position(int x, int y)
+	void position(NAS2D::Point<int> position)
 	{
-		mX = x;
-		mY = y;
+		mPosition = position;
 	}
 
 	Callback& deployCallback() { return mDeploy; }
@@ -39,14 +39,13 @@ protected:
 		if (age() == turnsToBuild())
 		{
 			// Logic guard, probably not necessary.
-			if (mX == 0 && mY == 0) { return; }
+			if (mPosition == NAS2D::Point{0, 0}) { return; }
 
-			mDeploy(mX, mY);
+			mDeploy(mPosition);
 		}
 	}
 
 private:
 	Callback mDeploy;
-
-	int mX = 0, mY = 0;
+	NAS2D::Point<int> mPosition;
 };

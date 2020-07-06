@@ -388,7 +388,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (type_id == StructureID::SID_SEED_LANDER)
 		{
-			static_cast<SeedLander*>(st)->position(x, y);
+			static_cast<SeedLander*>(st)->position({x, y});
 		}
 
 		st->age(age);

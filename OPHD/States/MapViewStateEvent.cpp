@@ -128,10 +128,8 @@ void MapViewState::deployCargoLander()
  *			need to disconnect the callback since it will automatically be
  *			released when the seed lander is destroyed.
  */
-void MapViewState::deploySeedLander(int x, int y)
+void MapViewState::deploySeedLander(NAS2D::Point<int> point)
 {
-	const NAS2D::Point point{x, y};
-
 	// Bulldoze lander region
 	for (const auto& direction : DirectionScan3x3)
 	{
