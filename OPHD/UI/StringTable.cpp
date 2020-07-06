@@ -36,12 +36,12 @@ void StringTable::draw(NAS2D::Renderer& renderer) const
 	}
 }
 
-void StringTable::setPosition(NAS2D::Point<float> position)
+void StringTable::position(NAS2D::Point<float> position)
 {
 	this->mPosition = position;
 }
 
-NAS2D::Point<float> StringTable::getPosition() const
+NAS2D::Point<float> StringTable::position() const
 {
 	return mPosition;
 }

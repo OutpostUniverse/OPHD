@@ -40,8 +40,8 @@ public:
 
 	void draw(NAS2D::Renderer& renderer) const;
 
-	void setPosition(NAS2D::Point<float> position);
-	NAS2D::Point<float> getPosition() const;
+	void position(NAS2D::Point<float> position);
+	NAS2D::Point<float> position() const;
 
 	void setDefaultFont(NAS2D::Font& font);
 	void setDefaultTitleFont(NAS2D::Font* font);
