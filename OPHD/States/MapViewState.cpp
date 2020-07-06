@@ -211,22 +211,24 @@ void MapViewState::focusOnStructure(Structure* s)
 State* MapViewState::update()
 {
 	auto& renderer = Utility<Renderer>::get();
+	const auto renderArea = NAS2D::Rectangle<int>::Create({0, 0}, renderer.size());
 
 	// Game's over, don't bother drawing anything else
 	if (mGameOverDialog.visible())
 	{
-		renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 255);
+		renderer.drawBoxFilled(renderArea, NAS2D::Color::Black);
 		mGameOverDialog.update();
 
 		return this;
 	}
 
-	renderer.drawImageStretched(mBackground, 0, 0, renderer.width(), renderer.height());
+	renderer.drawImageStretched(mBackground, renderArea);
 
 	// explicit current level
 	Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	renderer.drawText(*font, CURRENT_LEVEL_STRING, renderer.width() - font->width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - font->height() - 12, 255, 255, 255);
-	
+	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - NAS2D::Vector{font->width(CURRENT_LEVEL_STRING), font->height() + 12};
+	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
+
 	if (!modalUiElementDisplayed())
 	{
 		mTileMap->injectMouse(MOUSE_COORDS);
@@ -237,7 +239,7 @@ State* MapViewState::update()
 	// FIXME: Ugly / hacky
 	if (modalUiElementDisplayed())
 	{
-		renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 165);
+		renderer.drawBoxFilled(renderArea, NAS2D::Color{0, 0, 0, 165});
 	}
 
 	drawUI();
@@ -680,10 +682,10 @@ void MapViewState::changeViewDepth(int depth)
  */
 void MapViewState::setMinimapView()
 {
-	int x = MOUSE_COORDS.x() - mMiniMapBoundingBox.x() - mTileMap->edgeLength() / 2;
-	int y = MOUSE_COORDS.y() - mMiniMapBoundingBox.y() - mTileMap->edgeLength() / 2;
+	const auto viewSizeInTiles = NAS2D::Vector{mTileMap->edgeLength(), mTileMap->edgeLength()};
+	const auto position = NAS2D::Point{0, 0} + (MOUSE_COORDS - mMiniMapBoundingBox.startPoint()) - viewSizeInTiles / 2;
 
-	mTileMap->mapViewLocation({x, y});
+	mTileMap->mapViewLocation(position);
 }
 
 
@@ -951,7 +953,7 @@ void MapViewState::placeRobot()
 	else if(mCurrentRobot == RobotType::ROBOT_DIGGER)
 	{
 		// Keep digger within a safe margin of the map boundaries.
-		if (mTileMapMouseHover.x() < 3 || mTileMapMouseHover.x() > mTileMap->width() - 4 || mTileMapMouseHover.y() < 3 || mTileMapMouseHover.y() > mTileMap->height() - 4)
+		if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(mTileMapMouseHover))
 		{
 			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_EDGE_BUFFER);
 			return;
@@ -1016,14 +1018,15 @@ void MapViewState::placeRobot()
 			mDiggerDirection.show();
 			mWindowStack.bringToFront(&mDiggerDirection);
 
-			int x = MOUSE_COORDS.x() + 20;
-
-			if (x + mDiggerDirection.width() > Utility<Renderer>::get().width())
+			// Popup to the right of the mouse
+			auto position = MOUSE_COORDS + NAS2D::Vector{20, -32};
+			// Check if popup position is off the right edge of the display area
+			if (position.x() + mDiggerDirection.width() > Utility<Renderer>::get().width())
 			{
-				x = MOUSE_COORDS.x() - mDiggerDirection.width() - 20;
+				// Popup to the left of the mouse
+				position = MOUSE_COORDS + NAS2D::Vector{-20 - static_cast<int>(mDiggerDirection.width()), -32};
 			}
-
-			mDiggerDirection.position(x, MOUSE_COORDS.y() - 32);
+			mDiggerDirection.position(position);
 		}
 	}
 	else if(mCurrentRobot == RobotType::ROBOT_MINER)
