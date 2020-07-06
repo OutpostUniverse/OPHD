@@ -291,6 +291,9 @@
     <ClCompile Include="UI\TextRender.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI\StringTable.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -633,6 +636,9 @@
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\TextRender.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\StringTable.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

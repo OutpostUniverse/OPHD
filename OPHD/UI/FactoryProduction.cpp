@@ -3,7 +3,7 @@
 
 #include "FactoryProduction.h"
 
-#include "TextRender.h"
+#include "StringTable.h"
 #include "../Constants.h"
 
 using namespace NAS2D;
@@ -212,19 +212,25 @@ void FactoryProduction::update()
 
 	Window::update();
 
-	const int labelWidth = 120;
-	auto position = mRect.startPoint() + NAS2D::Vector{constants::MARGIN * 2 + static_cast<int>(mProductGrid.width()), 25};
-	drawLabelAndValueRightJustify(position, labelWidth, "Turns Completed:", std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild()));
+	StringTable stringTable(2, 5);
+	stringTable.setPosition(mRect.startPoint() + NAS2D::Vector<float>{ constants::MARGIN * 2 + mProductGrid.width(), 25 });
+	stringTable.setColumnJustification(1, StringTable::Justification::Right);
 
-	position.y() += 20;
-	drawLabelAndValueRightJustify(position, labelWidth, "Common Metals:", std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild()));
+	stringTable.at(0, 0).text = "Turns Completed:";
+	stringTable.at(1, 0).text = std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild());
 
-	position.y() += 10;
-	drawLabelAndValueRightJustify(position, labelWidth, "Common Minerals:", std::to_string(mProductCost.commonMinerals() * mProductCost.turnsToBuild()));
+	stringTable.at(0, 1).text = "Common Metals:";
+	stringTable.at(1, 1).text = std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild());
 
-	position.y() += 10;
-	drawLabelAndValueRightJustify(position, labelWidth, "Rare Metals:", std::to_string(mProductCost.rareMetals() * mProductCost.turnsToBuild()));
+	stringTable.at(0, 2).text = "Common Minerals:";
+	stringTable.at(1, 2).text = std::to_string(mProductCost.commonMinerals() * mProductCost.turnsToBuild());
 
-	position.y() += 10;
-	drawLabelAndValueRightJustify(position, labelWidth, "Rare Minerals:", std::to_string(mProductCost.rareMinerals() * mProductCost.turnsToBuild()));
+	stringTable.at(0, 3).text = "Rare Metals:";
+	stringTable.at(1, 3).text = std::to_string(mProductCost.rareMetals() * mProductCost.turnsToBuild());
+
+	stringTable.at(0, 4).text = "Rare Minerals:";
+	stringTable.at(1, 4).text = std::to_string(mProductCost.rareMinerals() * mProductCost.turnsToBuild());
+
+	stringTable.computeRelativeCellPositions();
+	stringTable.draw(Utility<Renderer>::get());
 }

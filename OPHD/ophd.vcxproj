@@ -243,6 +243,7 @@
     <ClCompile Include="UI\Reports\FactoryReport.cpp" />
     <ClCompile Include="UI\Reports\WarehouseReport.cpp" />
     <ClCompile Include="UI\ResourceBreakdownPanel.cpp" />
+    <ClCompile Include="UI\StringTable.cpp" />
     <ClCompile Include="UI\StructureInspector.cpp" />
     <ClCompile Include="UI\StructureListBox.cpp" />
     <ClCompile Include="UI\TextRender.cpp" />
@@ -357,6 +358,7 @@
     <ClInclude Include="UI\Reports\ReportInterface.h" />
     <ClInclude Include="UI\Reports\WarehouseReport.h" />
     <ClInclude Include="UI\ResourceBreakdownPanel.h" />
+    <ClInclude Include="UI\StringTable.h" />
     <ClInclude Include="UI\StructureInspector.h" />
     <ClInclude Include="UI\FactoryListBox.h" />
     <ClInclude Include="UI\StructureListBox.h" />
