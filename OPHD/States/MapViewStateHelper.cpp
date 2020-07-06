@@ -214,11 +214,11 @@ int totalStorage(StructureList& structures)
  * \note	This function will trigger modal dialog boxes to alert
  *			the user as to why the landing site isn't suitable.
  */
-bool landingSiteSuitable(TileMap* tilemap, int x, int y)
+bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
 {
 	for (const auto offset : DirectionScan3x3)
 	{
-		Tile* tile = tilemap->getTile(NAS2D::Point{x, y} + offset);
+		Tile* tile = tilemap->getTile(position + offset);
 
 		if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
 		{

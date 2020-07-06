@@ -1191,7 +1191,7 @@ void MapViewState::insertSeedLander(int x, int y)
 	if (x > 3 && x < mTileMap->width() - 4 && y > 3 && y < mTileMap->height() - 4)
 	{
 		// check for obstructions
-		if (!landingSiteSuitable(mTileMap, x, y))
+		if (!landingSiteSuitable(mTileMap, {x, y}))
 		{
 			return;
 		}

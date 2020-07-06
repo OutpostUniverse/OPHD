@@ -28,7 +28,7 @@ bool checkStructurePlacement(Tile* tile, Direction dir);
 bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir dir);
 bool validStructurePlacement(TileMap* tilemap, int x, int y);
 bool validLanderSite(Tile* t);
-bool landingSiteSuitable(TileMap* tilemap, int x, int y);
+bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position);
 bool structureIsLander(StructureID id);
 bool outOfCommRange(NAS2D::Point<int>& cc_location, TileMap* tile_map, Tile* current_tile);
 bool selfSustained(StructureID id);
