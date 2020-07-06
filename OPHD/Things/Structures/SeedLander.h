@@ -26,9 +26,9 @@ public:
 		enable();
 	}
 
-	void position(int x, int y)
+	void position(NAS2D::Point<int> position)
 	{
-		mPosition = {x, y};
+		mPosition = position;
 	}
 
 	Callback& deployCallback() { return mDeploy; }
