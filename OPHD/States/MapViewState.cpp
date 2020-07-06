@@ -211,22 +211,24 @@ void MapViewState::focusOnStructure(Structure* s)
 State* MapViewState::update()
 {
 	auto& renderer = Utility<Renderer>::get();
+	const auto renderArea = NAS2D::Rectangle<int>::Create({0, 0}, renderer.size());
 
 	// Game's over, don't bother drawing anything else
 	if (mGameOverDialog.visible())
 	{
-		renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 255);
+		renderer.drawBoxFilled(renderArea, NAS2D::Color::Black);
 		mGameOverDialog.update();
 
 		return this;
 	}
 
-	renderer.drawImageStretched(mBackground, 0, 0, renderer.width(), renderer.height());
+	renderer.drawImageStretched(mBackground, renderArea);
 
 	// explicit current level
 	Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	renderer.drawText(*font, CURRENT_LEVEL_STRING, renderer.width() - font->width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - font->height() - 12, 255, 255, 255);
-	
+	const auto currentLevelPosition = NAS2D::Point{renderArea.width() - font->width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - font->height() - 12};
+	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
+
 	if (!modalUiElementDisplayed())
 	{
 		mTileMap->injectMouse(MOUSE_COORDS);
@@ -237,7 +239,7 @@ State* MapViewState::update()
 	// FIXME: Ugly / hacky
 	if (modalUiElementDisplayed())
 	{
-		renderer.drawBoxFilled(0, 0, renderer.width(), renderer.height(), 0, 0, 0, 165);
+		renderer.drawBoxFilled(renderArea, NAS2D::Color{0, 0, 0, 165});
 	}
 
 	drawUI();
