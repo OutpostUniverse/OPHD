@@ -226,7 +226,7 @@ State* MapViewState::update()
 
 	// explicit current level
 	Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	const auto currentLevelPosition = NAS2D::Point{renderArea.width() - font->width(CURRENT_LEVEL_STRING) - 5, mMiniMapBoundingBox.y() - font->height() - 12};
+	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - NAS2D::Vector{font->width(CURRENT_LEVEL_STRING), font->height() + 12};
 	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
 
 	if (!modalUiElementDisplayed())
