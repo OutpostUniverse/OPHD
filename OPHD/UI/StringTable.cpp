@@ -81,12 +81,6 @@ void StringTable::setColumnJustification(std::size_t column, Justification justi
 
 void StringTable::computeRelativeCellPositions()
 {
-	// Must be at least 1 row and 1 column to compute position values
-	if (columnCount == 0 || rowCount == 0)
-	{
-		return;
-	}
-
 	auto columnWidths = computeColumnWidths();
 	auto rowHeights = computeRowHeights();
 
