@@ -1,6 +1,7 @@
 #pragma once
 
 #include "NAS2D/Signal.h"
+#include "NAS2D/Renderer/Point.h"
 
 #include "MapViewStateHelper.h"
 #include "MainReportsUiState.h"
@@ -106,7 +107,8 @@ private:
 	// INSERT OBJECT HANDLING
 	void deployCargoLander();
 	void deployColonistLander();
-	void deploySeedLander(int x, int y);
+	void deploySeedLander(NAS2D::Point<int> point);
+	void deploySeedLander(int x, int y) { deploySeedLander({x, y}); }
 	void insertSeedLander(int x, int y);
 	void insertTube(ConnectorDir dir, int depth, Tile* tile);
 
