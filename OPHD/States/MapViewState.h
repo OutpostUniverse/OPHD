@@ -108,7 +108,7 @@ private:
 	void deployCargoLander();
 	void deployColonistLander();
 	void deploySeedLander(NAS2D::Point<int> point);
-	void insertSeedLander(int x, int y);
+	void insertSeedLander(NAS2D::Point<int> point);
 	void insertTube(ConnectorDir dir, int depth, Tile* tile);
 
 	void placeRobot();

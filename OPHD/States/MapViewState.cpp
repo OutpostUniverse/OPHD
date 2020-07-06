@@ -1115,7 +1115,7 @@ void MapViewState::placeStructure()
 	// Seed lander is a special case and only one can ever be placed by the player ever.
 	if(mCurrentStructure == StructureID::SID_SEED_LANDER)
 	{
-		insertSeedLander(tile_x, tile_y);
+		insertSeedLander({tile_x, tile_y});
 	}
 	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
 	{
@@ -1185,20 +1185,20 @@ void MapViewState::placeStructure()
  * Checks that the clicked tile is a suitable spot for the SEED Lander and
  * then inserts it into the the TileMap.
  */
-void MapViewState::insertSeedLander(int x, int y)
+void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 {
 	// Has to be built away from the edges of the map
-	if (NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains({x, y}))
+	if (NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(point))
 	{
 		// check for obstructions
-		if (!landingSiteSuitable(mTileMap, {x, y}))
+		if (!landingSiteSuitable(mTileMap, point))
 		{
 			return;
 		}
 
-		SeedLander* s = new SeedLander({x, y});
+		SeedLander* s = new SeedLander(point);
 		s->deployCallback().connect(this, &MapViewState::deploySeedLander);
-		Utility<StructureManager>::get().addStructure(s, mTileMap->getTile({x, y})); // Can only ever be placed on depth level 0
+		Utility<StructureManager>::get().addStructure(s, mTileMap->getTile(point)); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();
