@@ -1018,14 +1018,15 @@ void MapViewState::placeRobot()
 			mDiggerDirection.show();
 			mWindowStack.bringToFront(&mDiggerDirection);
 
-			int x = MOUSE_COORDS.x() + 20;
-
-			if (x + mDiggerDirection.width() > Utility<Renderer>::get().width())
+			// Popup to the right of the mouse
+			auto position = MOUSE_COORDS + NAS2D::Vector{20, -32};
+			// Check if popup position is off the right edge of the display area
+			if (position.x() + mDiggerDirection.width() > Utility<Renderer>::get().width())
 			{
-				x = MOUSE_COORDS.x() - mDiggerDirection.width() - 20;
+				// Popup to the left of the mouse
+				position = MOUSE_COORDS + NAS2D::Vector{-20 - static_cast<int>(mDiggerDirection.width()), -32};
 			}
-
-			mDiggerDirection.position(x, MOUSE_COORDS.y() - 32);
+			mDiggerDirection.position(position);
 		}
 	}
 	else if(mCurrentRobot == RobotType::ROBOT_MINER)
