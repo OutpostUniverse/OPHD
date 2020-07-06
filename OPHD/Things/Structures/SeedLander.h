@@ -14,8 +14,7 @@ public:
 	SeedLander() = delete;
 	SeedLander(int x, int y) :
 		Structure(constants::SEED_LANDER, "structures/seed_0.sprite", StructureClass::CLASS_LANDER),
-		mX(x),
-		mY(y)
+		mPosition{x, y}
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);
@@ -29,8 +28,7 @@ public:
 
 	void position(int x, int y)
 	{
-		mX = x;
-		mY = y;
+		mPosition = {x, y};
 	}
 
 	Callback& deployCallback() { return mDeploy; }
@@ -41,14 +39,13 @@ protected:
 		if (age() == turnsToBuild())
 		{
 			// Logic guard, probably not necessary.
-			if (mX == 0 && mY == 0) { return; }
+			if (mPosition == NAS2D::Point{0, 0}) { return; }
 
-			mDeploy({mX, mY});
+			mDeploy(mPosition);
 		}
 	}
 
 private:
 	Callback mDeploy;
-
-	int mX = 0, mY = 0;
+	NAS2D::Point<int> mPosition;
 };
