@@ -25,7 +25,7 @@ public:
 		// Set textColor to ColorEmpty to indicate cell should use default StringTable color
 		static const NAS2D::Color ColorEmpty;
 
-		// Use defaultFont if not set
+		// Use StringTable::mDefaultFont if not set
 		NAS2D::Font* font = nullptr;
 		std::string text;
 		Justification justification = Justification::Left;
@@ -40,8 +40,8 @@ public:
 
 	void draw(NAS2D::Renderer& renderer) const;
 
-	void setPosition(NAS2D::Point<float> position);
-	NAS2D::Point<float> getPosition() const;
+	void position(NAS2D::Point<float> position);
+	NAS2D::Point<float> position() const;
 
 	void setDefaultFont(NAS2D::Font& font);
 	void setDefaultTitleFont(NAS2D::Font* font);
@@ -63,15 +63,15 @@ private:
 		NAS2D::Vector<float> textRelativePosition;
 	};
 
-	std::vector<CellWithPosition> cells;
-	const std::size_t columnCount;
-	const std::size_t rowCount;
-	NAS2D::Point<float> position;
-	NAS2D::Font* defaultFont;
-	NAS2D::Font* defaultTitleFont;
-	NAS2D::Color defaultTextColor = NAS2D::Color::White;
-	float horizontalPadding = 5;
-	float verticalPadding = 0;
+	std::vector<CellWithPosition> mCells;
+	const std::size_t mColumnCount;
+	const std::size_t mRowCount;
+	NAS2D::Point<float> mPosition;
+	NAS2D::Font* mDefaultFont;
+	NAS2D::Font* mDefaultTitleFont;
+	NAS2D::Color mDefaultTextColor = NAS2D::Color::White;
+	float mHorizontalPadding = 5;
+	float mVerticalPadding = 0;
 
 	void accountForCellJustification(std::size_t index, float columnWidth);
 	std::vector<float> computeColumnWidths() const;
