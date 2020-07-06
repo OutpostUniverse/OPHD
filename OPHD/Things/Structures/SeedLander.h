@@ -2,11 +2,13 @@
 
 #include "Structure.h"
 
+#include "NAS2D/Renderer/Point.h"
+
 
 class SeedLander: public Structure
 {
 public:
-	using Callback = NAS2D::Signals::Signal<int, int>;
+	using Callback = NAS2D::Signals::Signal<NAS2D::Point<int>>;
 
 public:
 	SeedLander() = delete;
@@ -41,7 +43,7 @@ protected:
 			// Logic guard, probably not necessary.
 			if (mX == 0 && mY == 0) { return; }
 
-			mDeploy(mX, mY);
+			mDeploy({mX, mY});
 		}
 	}
 
