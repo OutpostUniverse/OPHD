@@ -12,9 +12,9 @@ public:
 
 public:
 	SeedLander() = delete;
-	SeedLander(int x, int y) :
+	SeedLander(NAS2D::Point<int> position) :
 		Structure{constants::SEED_LANDER, "structures/seed_0.sprite", StructureClass::CLASS_LANDER},
-		mPosition{x, y}
+		mPosition{position}
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);

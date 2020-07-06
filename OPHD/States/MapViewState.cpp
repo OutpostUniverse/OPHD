@@ -1196,7 +1196,7 @@ void MapViewState::insertSeedLander(int x, int y)
 			return;
 		}
 
-		SeedLander* s = new SeedLander(x, y);
+		SeedLander* s = new SeedLander({x, y});
 		s->deployCallback().connect(this, &MapViewState::deploySeedLander);
 		Utility<StructureManager>::get().addStructure(s, mTileMap->getTile({x, y})); // Can only ever be placed on depth level 0
 
