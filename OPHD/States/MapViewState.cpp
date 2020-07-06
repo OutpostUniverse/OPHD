@@ -1188,7 +1188,7 @@ void MapViewState::placeStructure()
 void MapViewState::insertSeedLander(int x, int y)
 {
 	// Has to be built away from the edges of the map
-	if (x >= 4 && x < mTileMap->width() - 4 && y >= 4 && y < mTileMap->height() - 4)
+	if (NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains({x, y}))
 	{
 		// check for obstructions
 		if (!landingSiteSuitable(mTileMap, {x, y}))
