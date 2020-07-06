@@ -216,27 +216,24 @@ int totalStorage(StructureList& structures)
  */
 bool landingSiteSuitable(TileMap* tilemap, int x, int y)
 {
-	for (int offY = y - 1; offY <= y + 1; ++offY)
+	for (const auto offset : DirectionScan3x3)
 	{
-		for (int offX = x - 1; offX <= x + 1; ++offX)
-		{
-			Tile* tile = tilemap->getTile({offX, offY});
+		Tile* tile = tilemap->getTile(NAS2D::Point{x, y} + offset);
 
-			if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
-			{
-				doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
-				return false;
-			}
-			else if (tile->mine())
-			{
-				doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_MINE);
-				return false;
-			}
-			else if (tile->thing())
-			{
-				// This is a case that should never happen. If it does, blow up loudly.
-				throw std::runtime_error("Tile obstructed by a Thing other than a Mine.");
-			}
+		if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
+		{
+			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
+			return false;
+		}
+		else if (tile->mine())
+		{
+			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_MINE);
+			return false;
+		}
+		else if (tile->thing())
+		{
+			// This is a case that should never happen. If it does, blow up loudly.
+			throw std::runtime_error("Tile obstructed by a Thing other than a Mine.");
 		}
 	}
 
