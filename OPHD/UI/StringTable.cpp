@@ -3,6 +3,7 @@
 #include "../Constants/UiConstants.h"
 #include <NAS2D/Utility.h>
 #include <stdexcept>
+#include <algorithm>
 
 const NAS2D::Color StringTable::Cell::ColorEmpty = NAS2D::Color::NoAlpha;
 
@@ -128,12 +129,7 @@ std::vector<float> StringTable::computeColumnWidths() const
 		for (std::size_t row = 0; row < mRowCount; ++row)
 		{
 			auto index = getCellIndex(CellCoordinate(column, row));
-			auto cellWidth = static_cast<float>(getCellFont(index)->width(mCells[index].text));
-
-			if (cellWidth > columnWidth)
-			{
-				columnWidth = cellWidth;
-			}
+			columnWidth = std::max(columnWidth, static_cast<float>(getCellFont(index)->width(mCells[index].text)));
 		}
 
 		columnWidths.push_back(columnWidth);
@@ -153,12 +149,7 @@ std::vector<float> StringTable::computeRowHeights() const
 		for (std::size_t column = 0; column < mColumnCount; ++column)
 		{
 			auto index = getCellIndex(CellCoordinate(column, row));
-			float cellHeight = static_cast<float>(getCellFont(index)->height());
-
-			if (cellHeight > rowHeight)
-			{
-				rowHeight = cellHeight;
-			}
+			rowHeight = std::max(rowHeight, static_cast<float>(getCellFont(index)->height()));
 		}
 
 		rowHeights.push_back(rowHeight);
