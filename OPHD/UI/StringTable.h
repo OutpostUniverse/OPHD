@@ -4,6 +4,7 @@
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Renderer/Vector.h>
+#include <NAS2D/StringValue.h>
 #include <string>
 #include <vector>
 #include <cstddef>
@@ -50,6 +51,8 @@ public:
 	void setHorizontalPadding(float horizontalPadding);
 	void setVerticalPadding(float verticalPadding);
 
+	void setColumnText(std::size_t column, const std::vector<NAS2D::StringValue>& rows);
+	void setRowText(std::size_t row, const std::vector<NAS2D::StringValue>& columns);
 	void setColumnJustification(std::size_t column, Justification justification);
 
 	// Call after updating table properties to recompute cell positions
