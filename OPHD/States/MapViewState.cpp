@@ -1188,7 +1188,7 @@ void MapViewState::placeStructure()
 void MapViewState::insertSeedLander(int x, int y)
 {
 	// Has to be built away from the edges of the map
-	if (x > 3 && x < mTileMap->width() - 4 && y > 3 && y < mTileMap->height() - 4)
+	if (x >= 4 && x < mTileMap->width() - 4 && y >= 4 && y < mTileMap->height() - 4)
 	{
 		// check for obstructions
 		if (!landingSiteSuitable(mTileMap, {x, y}))
