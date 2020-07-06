@@ -1151,7 +1151,7 @@ void MapViewState::placeStructure()
 	}
 	else
 	{
-		if (!validStructurePlacement(mTileMap, tile_x, tile_y) && !selfSustained(mCurrentStructure))
+		if (!validStructurePlacement(mTileMap, {tile_x, tile_y}) && !selfSustained(mCurrentStructure))
 		{
 			doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_NO_TUBE);
 			return;
