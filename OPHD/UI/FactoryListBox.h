@@ -41,6 +41,7 @@ public:
 	void addItem(Factory* factory);
 	void removeItem(Factory* factory);
 	void currentSelection(Factory*);
+	using ListBoxBase::currentSelection;
 
 	Factory* selectedFactory();
 
