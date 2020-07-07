@@ -34,6 +34,7 @@ public:
 	void addItem(Structure*);
 	void removeItem(Structure*);
 	void currentSelection(Structure*);
+	using ListBoxBase::currentSelection;
 
 	Structure* selectedStructure();
 

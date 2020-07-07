@@ -112,7 +112,7 @@ void ProductListBox::update()
 			positionY() + (i * LIST_ITEM_HEIGHT),
 			static_cast<float>(item_width()),
 			static_cast<float>(draw_offset()),
-			i == ListBoxBase::currentSelection());
+			i == currentSelection());
 	}
 
 	renderer.clipRectClear();

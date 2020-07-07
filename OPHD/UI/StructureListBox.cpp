@@ -128,7 +128,7 @@ void StructureListBox::currentSelection(Structure* structure)
 
 Structure* StructureListBox::selectedStructure()
 {
-	return (ListBoxBase::currentSelection() == constants::NO_SELECTION) ? nullptr : static_cast<StructureListBoxItem*>(mItems[ListBoxBase::currentSelection()])->structure;
+	return (currentSelection() == constants::NO_SELECTION) ? nullptr : static_cast<StructureListBoxItem*>(mItems[currentSelection()])->structure;
 }
 
 
@@ -161,7 +161,7 @@ void StructureListBox::update()
 			positionY() + (i * LIST_ITEM_HEIGHT),
 			static_cast<float>(item_width()),
 			static_cast<float>(draw_offset()),
-			i == ListBoxBase::currentSelection());
+			i == currentSelection());
 	}
 
 	renderer.clipRectClear();
