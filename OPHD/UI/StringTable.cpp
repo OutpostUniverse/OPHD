@@ -78,7 +78,7 @@ void StringTable::setColumnText(std::size_t column, const std::vector<NAS2D::Str
 
 	for (std::size_t row = 0; row < rows.size(); ++row)
 	{
-		mCells[getCellIndex({ column, row })].text = rows[row].to<std::string>();
+		mCells[getCellIndex({ column, row })].text = rows[row].value;
 	}
 }
 
@@ -88,7 +88,7 @@ void StringTable::setRowText(std::size_t row, const std::vector<NAS2D::StringVal
 
 	for (std::size_t column = 0; column < columns.size(); ++column)
 	{
-		mCells[getCellIndex({ column, row })].text = columns[column].to<std::string>();
+		mCells[getCellIndex({ column, row })].text = columns[column].value;
 	}
 }
 
