@@ -6,6 +6,13 @@
 #include "Tile.h"
 
 
+Tile::Tile(NAS2D::Point<int> position, int depth, int index) :
+	mIndex{index},
+	mPosition{position},
+	mDepth{depth}
+{}
+
+
 Tile::Tile(Tile&& other) noexcept :
 	mIndex{other.mIndex},
 	mPosition{other.mPosition},

@@ -16,6 +16,7 @@ class Tile
 {
 public:
 	Tile() = default;
+	Tile(NAS2D::Point<int> position, int depth, int index);
 	Tile(const Tile& other) = delete;
 	Tile& operator=(const Tile& other) = delete;
 	Tile(Tile&& other) noexcept;
