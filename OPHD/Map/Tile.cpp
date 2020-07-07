@@ -6,6 +6,13 @@
 #include "Tile.h"
 
 
+Tile::Tile(NAS2D::Point<int> position, int depth, int index) :
+	mIndex{index},
+	mPosition{position},
+	mDepth{depth}
+{}
+
+
 Tile::Tile(Tile&& other) noexcept :
 	mIndex{other.mIndex},
 	mPosition{other.mPosition},
@@ -46,17 +53,6 @@ Tile::~Tile()
 {
 	delete mMine;
 	delete mThing;
-}
-
-
-/**
- * Convenience function that inits the Tile with all pertinent information.
- */
-void Tile::init(int _x, int _y, int _depth, int _index)
-{
-	mPosition = {_x, _y};
-	mDepth = _depth;
-	mIndex = _index;
 }
 
 

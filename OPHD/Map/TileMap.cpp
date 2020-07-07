@@ -172,10 +172,10 @@ void TileMap::buildTerrainMap(const std::string& path)
 		{
 			for(int col = 0; col < width(); col++)
 			{
-				Color c = heightmap.pixelColor(col, row);
-				Tile& t = mTileMap[depth][row][col];
-				t.init(col, row, depth, c.red / 50);
-				if (depth > 0) { t.excavated(false); }
+				Color color = heightmap.pixelColor(col, row);
+				Tile& tile = mTileMap[depth][row][col];
+				tile = {{col, row}, depth, color.red / 50};
+				if (depth > 0) { tile.excavated(false); }
 			}
 		}
 	}

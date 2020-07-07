@@ -16,6 +16,7 @@ class Tile
 {
 public:
 	Tile() = default;
+	Tile(NAS2D::Point<int> position, int depth, int index);
 	Tile(const Tile& other) = delete;
 	Tile& operator=(const Tile& other) = delete;
 	Tile(Tile&& other) noexcept;
@@ -29,8 +30,6 @@ public:
 
 	int depth() const { return mDepth; }
 	void depth(int i) { mDepth = i; }
-
-	void init(int x, int y, int depth, int index);
 
 	bool bulldozed() const { return index() == 0; }
 
