@@ -216,20 +216,23 @@ void FactoryProduction::update()
 	stringTable.position(mRect.startPoint() + NAS2D::Vector<float>{ constants::MARGIN * 2 + mProductGrid.width(), 25 });
 	stringTable.setColumnJustification(1, StringTable::Justification::Right);
 
-	stringTable.at(0, 0).text = "Turns Completed:";
-	stringTable.at(1, 0).text = std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild());
+	stringTable.setColumnText(0,
+		{
+			"Turns Completed:",
+			"Common Metals:",
+			"Common Minerals:",
+			"Rare Metals:",
+			"Rare Minerals:"
+		});
 
-	stringTable.at(0, 1).text = "Common Metals:";
-	stringTable.at(1, 1).text = std::to_string(mProductCost.commonMetals() * mProductCost.turnsToBuild());
-
-	stringTable.at(0, 2).text = "Common Minerals:";
-	stringTable.at(1, 2).text = std::to_string(mProductCost.commonMinerals() * mProductCost.turnsToBuild());
-
-	stringTable.at(0, 3).text = "Rare Metals:";
-	stringTable.at(1, 3).text = std::to_string(mProductCost.rareMetals() * mProductCost.turnsToBuild());
-
-	stringTable.at(0, 4).text = "Rare Minerals:";
-	stringTable.at(1, 4).text = std::to_string(mProductCost.rareMinerals() * mProductCost.turnsToBuild());
+	stringTable.setColumnText(1,
+		{
+			std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild()),
+			mProductCost.commonMetals()* mProductCost.turnsToBuild(),
+			mProductCost.commonMinerals()* mProductCost.turnsToBuild(),
+			mProductCost.rareMetals()* mProductCost.turnsToBuild(),
+			mProductCost.rareMinerals()* mProductCost.turnsToBuild()
+		});
 
 	stringTable.computeRelativeCellPositions();
 	stringTable.draw(Utility<Renderer>::get());
