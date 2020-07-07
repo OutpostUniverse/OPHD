@@ -57,17 +57,6 @@ Tile::~Tile()
 
 
 /**
- * Convenience function that inits the Tile with all pertinent information.
- */
-void Tile::init(int _x, int _y, int _depth, int _index)
-{
-	mPosition = {_x, _y};
-	mDepth = _depth;
-	mIndex = _index;
-}
-
-
-/**
  * Adds a new Thing to the tile.
  *
  * \param	thing		Pointer to a Thing.

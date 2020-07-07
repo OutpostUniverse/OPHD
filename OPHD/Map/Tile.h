@@ -31,8 +31,6 @@ public:
 	int depth() const { return mDepth; }
 	void depth(int i) { mDepth = i; }
 
-	void init(int x, int y, int depth, int index);
-
 	bool bulldozed() const { return index() == 0; }
 
 	bool excavated() const { return mExcavated; }
