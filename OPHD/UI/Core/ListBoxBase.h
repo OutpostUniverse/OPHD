@@ -30,7 +30,6 @@ public:
 	 */
 	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
 
-public:
 	/**
 	 * Derived SpecialListBox types can inherit from this struct
 	 * for specialized information needed for derived types.
@@ -42,11 +41,10 @@ public:
 		ListBoxItem(std::string text) : Text(text) {}
 		virtual ~ListBoxItem() = default;
 
-	public:
 		std::string Text;
 	};
 
-public:
+
 	ListBoxBase();
 	~ListBoxBase() override;
 
@@ -69,6 +67,7 @@ public:
 
 	void update() override = 0;
 
+
 protected:
 	/**
 	 * List of ListBoxItem's.
@@ -80,7 +79,7 @@ protected:
 	 */
 	using ItemList = std::vector<ListBoxItem*>;
 
-protected:
+
 	void _update_item_display();
 
 	unsigned int item_width() const { return mItemWidth; }
@@ -92,7 +91,6 @@ protected:
 	void visibilityChanged(bool) override;
 
 
-protected:
 	ItemList mItems; /**< List of Items. */
 
 private:
@@ -105,7 +103,7 @@ private:
 
 	void onSizeChanged() override;
 
-private:
+
 	unsigned int mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
 	unsigned int mCurrentSelection = constants::NO_SELECTION; /**< Current selection index. */
 	unsigned int mCurrentOffset = 0; /**< Draw Offset. */
