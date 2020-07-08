@@ -35,7 +35,7 @@ public:
 
 	using ListBoxItems = std::vector<ListBoxItem>;
 
-public:
+
 	ListBox();
 	~ListBox() override;
 	
@@ -86,7 +86,7 @@ private:
 	void _updateItemDisplay();
 	void _init();
 
-private:
+
 	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
 	std::size_t mCurrentSelection = 0; /**< Current selection index. */
 	std::size_t mCurrentOffset = 0; /**< Current selection index. */
