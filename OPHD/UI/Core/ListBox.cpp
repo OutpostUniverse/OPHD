@@ -165,7 +165,6 @@ void ListBox::removeItem(const std::string& item)
 	{
 		mItems.erase(it);
 		mCurrentSelection = constants::NO_SELECTION;
-		sort();
 		_updateItemDisplay();
 	}
 }
