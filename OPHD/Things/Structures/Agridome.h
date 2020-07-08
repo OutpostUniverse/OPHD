@@ -17,6 +17,19 @@ public:
 		requiresCHAP(true);
 	}
 
+	StringTable createInspectorViewTable()
+	{
+		StringTable stringTable(2, 2);
+
+		stringTable[{0, 0}].text = "Food Stored:";
+		stringTable[{1, 0}].text = std::to_string(storage().food()) + " / " + std::to_string(AGRIDOME_CAPACITY);
+
+		stringTable[{0, 1}].text = "Production Rate:";
+		stringTable[{1, 1}].text = std::to_string(calculateProduction());
+
+		return stringTable;
+	}
+
 protected:
 	void think() override
 	{
