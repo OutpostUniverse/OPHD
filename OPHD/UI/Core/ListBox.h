@@ -8,8 +8,8 @@
 #include "NAS2D/EventHandler.h"
 #include "NAS2D/Renderer/Color.h"
 
-#include <map>
 #include <string>
+#include <vector>
 #include <algorithm>
 #include <cstddef>
 
