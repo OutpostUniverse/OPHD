@@ -6,7 +6,6 @@
 
 #include "NAS2D/Signal.h"
 #include "NAS2D/EventHandler.h"
-#include "NAS2D/Renderer/Point.h"
 #include "NAS2D/Renderer/Color.h"
 
 #include <string>
