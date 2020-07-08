@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Structure.h"
-#include "../../UI/TextRender.h"
 
 
 /**
@@ -25,10 +24,14 @@ public:
 
 	int capacity() const { return mCapacity; }
 
-	void drawInspectorView(const NAS2D::Rectangle<float>& windowRect) override
+	StringTable createInspectorViewTable() override
 	{
-		auto position = windowRect.startPoint() + NAS2D::Vector{ 10, 135 };
-		drawLabelAndValue(position, "Colonist Capacity: ", std::to_string(capacity()));
+		StringTable stringTable(2, 1);
+
+		stringTable.at(0, 0).text = "Colonist Capacity:";
+		stringTable.at(1, 0).text = std::to_string(capacity());
+
+		return stringTable;
 	}
 
 protected:
