@@ -5,7 +5,7 @@
 #include "../../Common.h"
 #include "../../PopulationPool.h"
 #include "../../ResourcePool.h"
-#include <NAS2D/Renderer/Rectangle.h>
+#include "../../UI/StringTable.h"
 
 class Structure: public Thing
 {
@@ -138,7 +138,7 @@ public:
 	/**
 	* Pass limited structure specific details for drawing. Use a custom UI window if needed.
 	*/
-	virtual void drawInspectorView([[maybe_unused]] const NAS2D::Rectangle<float>& windowRect) {}
+	virtual StringTable createInspectorViewTable() { return StringTable(0, 0); }
 
 protected:
 	friend class StructureCatalogue;

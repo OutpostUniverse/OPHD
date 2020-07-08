@@ -6,6 +6,7 @@
 #include "../Constants.h"
 #include "../FontManager.h"
 #include "../Things/Structures/Structure.h"
+#include "StringTable.h"
 #include "TextRender.h"
 
 #include <map>
@@ -156,7 +157,10 @@ void StructureInspector::update()
 
 	drawPopulationRequirements();
 
-	mStructure->drawInspectorView(mRect);
+	StringTable stringTable = mStructure->createInspectorViewTable();
+	stringTable.computeRelativeCellPositions();
+	stringTable.position(mRect.startPoint() + NAS2D::Vector<float>{10, 135});
+	stringTable.draw(renderer);
 
 	position = mRect.startPoint() + NAS2D::Vector{5, static_cast<int>(mRect.height()) - FONT->height() - 5};
 	renderer.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);
