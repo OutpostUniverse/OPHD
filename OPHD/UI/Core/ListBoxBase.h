@@ -111,7 +111,6 @@ private:
 	unsigned int mItemWidth = 0; /**< Width of a ListBoxItem. */
 	unsigned int mLineCount = 0; /**< Number of lines that can be displayed. */
 
-	NAS2D::Point<int> mMousePosition; /**< Mouse coordinates. */
 	bool mHasFocus = false;
 
 	NAS2D::Color mText = NAS2D::Color::White; /**< Text Color */
