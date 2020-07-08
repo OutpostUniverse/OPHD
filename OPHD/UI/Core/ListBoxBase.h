@@ -6,7 +6,6 @@
 
 #include "NAS2D/Signal.h"
 #include "NAS2D/EventHandler.h"
-#include "NAS2D/Renderer/Point.h"
 #include "NAS2D/Renderer/Color.h"
 
 #include <string>
@@ -111,7 +110,7 @@ private:
 	unsigned int mItemWidth = 0; /**< Width of a ListBoxItem. */
 	unsigned int mLineCount = 0; /**< Number of lines that can be displayed. */
 
-	NAS2D::Point<int> mMousePosition; /**< Mouse coordinates. */
+	bool mHasFocus = false;
 
 	NAS2D::Color mText = NAS2D::Color::White; /**< Text Color */
 	NAS2D::Color mHighlightBg = NAS2D::Color::DarkGreen; /**< Highlight Background color. */
