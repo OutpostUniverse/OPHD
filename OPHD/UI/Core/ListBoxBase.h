@@ -44,7 +44,6 @@ public:
 
 	public:
 		std::string Text;
-		NAS2D::Point<int> Size;
 	};
 
 public:
