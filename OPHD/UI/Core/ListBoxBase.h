@@ -34,9 +34,8 @@ public:
 	 * Derived SpecialListBox types can inherit from this struct
 	 * for specialized information needed for derived types.
 	 */
-	class ListBoxItem
+	struct ListBoxItem
 	{
-	public:
 		ListBoxItem() = default;
 		ListBoxItem(std::string text) : Text(text) {}
 		virtual ~ListBoxItem() = default;
