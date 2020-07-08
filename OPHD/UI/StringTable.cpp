@@ -12,11 +12,6 @@ StringTable::Cell& StringTable::operator[](const CellCoordinate& coordinate)
 	return mCells[getCellIndex(coordinate)];
 }
 
-StringTable::Cell& StringTable::at(std::size_t column, std::size_t row)
-{
-	return mCells[getCellIndex(CellCoordinate(column, row))];
-}
-
 StringTable::StringTable(std::size_t columns, std::size_t rows) : mColumnCount(columns), mRowCount(rows)
 {
 	mCells.resize(columns * rows);
@@ -96,7 +91,7 @@ void StringTable::setColumnJustification(std::size_t column, Justification justi
 {
 	for (std::size_t row = 0; row < mRowCount; ++row)
 	{
-		this->at(column, row).justification = justification;
+		mCells[getCellIndex({ column, row })].justification = justification;
 	}
 }
 

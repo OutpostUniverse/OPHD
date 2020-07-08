@@ -34,7 +34,6 @@ public:
 	};
 
 	Cell& operator[](const CellCoordinate& coordinate);
-	Cell& at(std::size_t column, std::size_t row);
 
 	// Set default fonts in constructor
 	StringTable(std::size_t columns, std::size_t rows);
