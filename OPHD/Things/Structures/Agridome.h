@@ -23,24 +23,12 @@ protected:
 		if (isIdle())
 			return;
 
-		if (storage().food() == AGRIDOME_CAPACITY)
+		storage().food(storage().food() + calculateProduction());
+
+		if (isStorageFull())
 		{
 			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 		}
-		else
-		{
-			int curr_food = storage().food();
-			if (curr_food > AGRIDOME_CAPACITY - AGRIDOME_BASE_PRODUCUCTION)
-			{
-				storage().food(AGRIDOME_CAPACITY);
-				idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
-			}
-			else
-			{
-				storage().food(curr_food + AGRIDOME_BASE_PRODUCUCTION);
-			}
-		}
-
 	}
 
 	void defineResourceInput() override
@@ -53,5 +41,26 @@ protected:
 	{
 		// Clear food store when disabled.
 		storage().food(0);
+	}
+
+private:
+	int calculateProduction()
+	{
+		if (!operational())
+		{
+			return 0;
+		}
+
+		if (AGRIDOME_CAPACITY < storage().food() + AGRIDOME_BASE_PRODUCUCTION)
+		{
+			return AGRIDOME_CAPACITY - storage().food();
+		}
+
+		return AGRIDOME_BASE_PRODUCUCTION;
+	}
+
+	bool isStorageFull()
+	{
+		return storage().food() == AGRIDOME_CAPACITY;
 	}
 };
