@@ -123,7 +123,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	}
 
 	// A few basic checks
-	if (!rect().contains(mMousePosition) || mCurrentHighlight == constants::NO_SELECTION) { return; }
+	if (!rect().contains(point) || mCurrentHighlight == constants::NO_SELECTION) { return; }
 	if (mSlider.visible() && mSlider.rect().contains(point)) { return; }
 	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size()) { return; }
 
