@@ -139,9 +139,10 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	if (!visible() || empty()) { return; }
 
 	mMousePosition = {x, y};
+	mHasFocus = rect().contains(mMousePosition);
 
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
-	if (!rect().contains(mMousePosition))
+	if (!mHasFocus)
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 		return;
@@ -171,7 +172,7 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 void ListBoxBase::onMouseWheel(int /*x*/, int y)
 {
 	if (!visible()) { return; }
-	if (!rect().contains(mMousePosition)) { return; }
+	if (!mHasFocus) { return; }
 
 	float change = static_cast<float>(mItemHeight);
 
