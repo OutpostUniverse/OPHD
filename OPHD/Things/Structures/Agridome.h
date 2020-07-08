@@ -17,7 +17,7 @@ public:
 		requiresCHAP(true);
 	}
 
-	StringTable createInspectorViewTable()
+	StringTable createInspectorViewTable() override
 	{
 		StringTable stringTable(2, 2);
 
