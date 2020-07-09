@@ -69,7 +69,7 @@ void ComboBox::resizedHandler(Control* /*control*/)
 	lstItems.width(width());
 	lstItems.position(position() + NAS2D::Vector<float>{0, height()});
 
-	mBaseArea = {positionX(), positionY(), width(), btnDown.height()};
+	mBaseArea = Rectangle<float>::Create(position(), NAS2D::Vector{width(), btnDown.height()});
 }
 
 
