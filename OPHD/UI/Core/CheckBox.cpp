@@ -36,8 +36,8 @@ static Font* CBOX_FONT = nullptr;
  */
 CheckBox::CheckBox(std::string newText) : mSkin("ui/skin/checkbox.png")
 {
-	text(newText);
 	CBOX_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	text(newText);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &CheckBox::onMouseDown);
 }
 
