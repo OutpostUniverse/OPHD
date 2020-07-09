@@ -13,7 +13,9 @@ using namespace NAS2D;
  */
 void Control::position(const Point<float>& pos)
 {
-	position(pos.x(), pos.y());
+	const auto displacement = pos - mRect.startPoint();
+	mRect.startPoint(pos);
+	positionChanged(displacement);
 }
 
 
