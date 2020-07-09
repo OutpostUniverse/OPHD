@@ -4,6 +4,8 @@
 
 #include "../../Constants.h"
 
+const int FUSION_REACTOR_BASE_PRODUCUCTION = 1000;
+
 class FusionReactor : public Structure
 {
 public:
@@ -26,6 +28,6 @@ protected:
 
 	void defineResourceOutput() override
 	{
-		resourcesOut().energy(1000);
+		resourcesOut().energy(FUSION_REACTOR_BASE_PRODUCUCTION);
 	}
 };
