@@ -28,7 +28,7 @@ GameOptionsDialog::~GameOptionsDialog()
 
 void GameOptionsDialog::init()
 {
-	position(0, 0);
+	position({0, 0});
 	size({210, 160});
 
 	add(&btnSave, 5, 25);

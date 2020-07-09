@@ -26,7 +26,7 @@ GameOverDialog::~GameOverDialog()
 
 void GameOverDialog::init()
 {
-	position(0, 0);
+	position({0, 0});
 	size({522, 340});
 
 	add(&btnClose, 5, 310);

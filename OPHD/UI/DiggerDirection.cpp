@@ -18,7 +18,7 @@ DiggerDirection::~DiggerDirection()
 
 void DiggerDirection::init()
 {
-	position(0, 0);
+	position({0, 0});
 	size({74, 170});
 
 	// create a set of buttons
