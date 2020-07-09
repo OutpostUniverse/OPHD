@@ -77,6 +77,7 @@ protected:
 	 * \param	dY	Difference in Y Position.
 	 */
 	virtual void positionChanged(float dX, float dY) { mPositionChanged(dX, dY); }
+	void positionChanged(NAS2D::Vector<float> displacement) { positionChanged(displacement.x, displacement.y); }
 
 	virtual void visibilityChanged(bool /*visible*/) {}
 
