@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NAS2D/Renderer/Color.h"
+#include <NAS2D/Renderer/Color.h>
 
 #include <limits>
 
@@ -53,4 +53,9 @@ namespace constants
 	const int FONT_PRIMARY_MEDIUM = 14;
 	const int FONT_PRIMARY_LARGE = 16;
 	const int FONT_PRIMARY_HUGE = 20;
+
+	// =====================================
+	// = FONT COLORS
+	// =====================================
+	const auto WARNING_TEXT_COLOR = NAS2D::Color::Red;
 }
