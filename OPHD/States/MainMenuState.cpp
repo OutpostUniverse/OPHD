@@ -81,9 +81,6 @@ void MainMenuState::initialize()
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
-	dlgOptions.anchored(true);
-	dlgOptions.hide();
-
 	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	lblVersion.font(tiny_font);
 	lblVersion.color(NAS2D::Color::White);
@@ -122,7 +119,6 @@ void MainMenuState::positionButtons()
 	btnQuit.position(buttonPosition);
 
 	mFileIoDialog.position(center - mFileIoDialog.size() / 2);
-	dlgOptions.position(center - dlgOptions.size() / 2);
 
 	lblVersion.position(NAS2D::Point{0, 0} + renderer.size() - lblVersion.size());
 }
@@ -225,7 +221,6 @@ void MainMenuState::onFadeComplete()
 void MainMenuState::btnNewGameClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
-	if (dlgOptions.visible()) { return; }
 
 	disableButtons();
 
@@ -255,7 +250,6 @@ void MainMenuState::newGameCancelled()
 void MainMenuState::btnContinueGameClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
-	if (dlgOptions.visible()) { return; }
 
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 	mFileIoDialog.show();
@@ -268,9 +262,6 @@ void MainMenuState::btnContinueGameClicked()
 void MainMenuState::btnOptionsClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
-	if (dlgOptions.visible()) { return; }
-
-	dlgOptions.show();
 }
 
 
@@ -280,7 +271,6 @@ void MainMenuState::btnOptionsClicked()
 void MainMenuState::btnHelpClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
-	if (dlgOptions.visible()) { return; }
 
 #if defined(_WIN32)
 	system("start https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
@@ -301,7 +291,6 @@ void MainMenuState::btnHelpClicked()
 void MainMenuState::btnQuitClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
-	if (dlgOptions.visible()) { return; }
 
 	disableButtons();
 	NAS2D::postQuitEvent();
@@ -319,7 +308,7 @@ NAS2D::State* MainMenuState::update()
 	renderer.drawImage(mBgImage, renderer.center() - mBgImage.size() / 2);
 
 
-	if (!mFileIoDialog.visible() && !dlgOptions.visible())
+	if (!mFileIoDialog.visible())
 	{
 		const auto padding = NAS2D::Vector{5, 5};
 		const auto menuRect = NAS2D::Rectangle<int>::Create(btnNewGame.rect().startPoint() - padding, btnQuit.rect().endPoint() + padding);
@@ -333,11 +322,7 @@ NAS2D::State* MainMenuState::update()
 		btnQuit.update();
 	}
 
-	if (dlgOptions.visible())
-	{
-		dlgOptions.update();
-	}
-	else if (mFileIoDialog.visible())
+	if (mFileIoDialog.visible())
 	{
 		mFileIoDialog.update();
 	}

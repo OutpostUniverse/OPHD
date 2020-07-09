@@ -276,9 +276,6 @@
     <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
-    <ClCompile Include="UI\MainMenuOptions.cpp">
-      <Filter>Source Files\UI</Filter>
-    </ClCompile>
     <ClCompile Include="UI\Core\Label.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
@@ -613,9 +610,6 @@
     </ClInclude>
     <ClInclude Include="MicroPather\micropather.h">
       <Filter>Header Files\MicroPather</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\MainMenuOptions.h">
-      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\Label.h">
       <Filter>Header Files\UI\Core</Filter>

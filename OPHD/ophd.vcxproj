@@ -234,7 +234,6 @@
     <ClCompile Include="UI\GameOptionsDialog.cpp" />
     <ClCompile Include="UI\GameOverDialog.cpp" />
     <ClCompile Include="UI\IconGrid.cpp" />
-    <ClCompile Include="UI\MainMenuOptions.cpp" />
     <ClCompile Include="UI\MajorEventAnnouncement.cpp" />
     <ClCompile Include="UI\MineOperationsWindow.cpp" />
     <ClCompile Include="UI\PopulationPanel.cpp" />
@@ -347,7 +346,6 @@
     <ClInclude Include="UI\GameOverDialog.h" />
     <ClInclude Include="UI\Gui.h" />
     <ClInclude Include="UI\IconGrid.h" />
-    <ClInclude Include="UI\MainMenuOptions.h" />
     <ClInclude Include="UI\MajorEventAnnouncement.h" />
     <ClInclude Include="UI\MineOperationsWindow.h" />
     <ClInclude Include="UI\PopulationPanel.h" />

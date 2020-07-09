@@ -8,7 +8,6 @@
 #include "../UI/UI.h"
 
 #include "../UI/FileIo.h"
-#include "../UI/MainMenuOptions.h"
 
 
 /**
@@ -54,8 +53,6 @@ private:
 	Button btnOptions;
 	Button btnHelp;
 	Button btnQuit;
-
-	MainMenuOptions dlgOptions;
 
 	Label lblVersion;
 	NAS2D::State* mReturnState = this;
