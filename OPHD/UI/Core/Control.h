@@ -2,6 +2,7 @@
 
 #include "NAS2D/Signal.h"
 #include "NAS2D/Renderer/Point.h"
+#include "NAS2D/Renderer/Vector.h"
 #include "NAS2D/Renderer/Rectangle.h"
 
 #include <string>
