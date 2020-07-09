@@ -143,7 +143,6 @@ int ListBox::selectionTag() const
 void ListBox::addItem(const std::string& item, int tag)
 {
 	mItems.push_back(ListBoxItem(item, tag));
-	sort();
 	_updateItemDisplay();
 }
 

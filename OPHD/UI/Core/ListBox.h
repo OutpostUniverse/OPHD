@@ -38,11 +38,8 @@ public:
 
 	ListBox();
 	~ListBox() override;
-	
-	void sorted(bool isSorted) { mSorted = isSorted; }
-	bool sorted(bool) const { return mSorted; }
 
-	void sort() { if (mSorted) { std::sort(mItems.begin(), mItems.end()); } }
+	void sort() { std::sort(mItems.begin(), mItems.end()); }
 
 	void textColor(const NAS2D::Color& color) { mText = color; }
 	void selectColor(const NAS2D::Color& color) { mHighlightBg = color; }
@@ -103,6 +100,4 @@ private:
 
 	SelectionChangedCallback mSelectionChanged; /**< Callback for selection changed callback. */
 	Slider mSlider;
-	
-	bool mSorted = false; /**< Flag indicating that all Items should be sorted. */
 };
