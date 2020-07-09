@@ -26,12 +26,7 @@ public:
 		stringTable[{0, 0}].text = "Communication Range:";
 
 		auto communicationRange = operational() ? constants::COMM_TOWER_BASE_RANGE : 0;
-
-		std::stringstream stringStream;
-		stringStream.precision(0);
-		stringStream << communicationRange;
-
-		stringTable[{1, 0}].text = stringStream.str();;
+		stringTable[{1, 0}].text = std::to_string(communicationRange);
 
 		if (communicationRange == 0)
 		{
