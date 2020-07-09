@@ -62,8 +62,7 @@ void ComboBox::resizedHandler(Control* /*control*/)
 	if (height() < 20) { height(20); } // enforce minimum height;
 	if (width() < 50) { width(50); } // enforce mininum width;
 
-	txtField.width(width() - 20);
-	txtField.height(height());
+	txtField.size(size() - NAS2D::Vector{20, 0});
 	btnDown.position(position() + NAS2D::Vector<float>{width() - btnDown.width(), 0});
 	btnDown.height(height());
 	lstItems.width(width());
