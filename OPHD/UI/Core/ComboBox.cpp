@@ -62,14 +62,13 @@ void ComboBox::resizedHandler(Control* /*control*/)
 	if (height() < 20) { height(20); } // enforce minimum height;
 	if (width() < 50) { width(50); } // enforce mininum width;
 
-	txtField.width(width() - 20);
-	txtField.height(height());
-	btnDown.position(positionX() + width() - btnDown.width(), positionY());
+	txtField.size(size() - NAS2D::Vector{20, 0});
+	btnDown.position(txtField.rect().crossXPoint());
 	btnDown.height(height());
 	lstItems.width(width());
-	lstItems.position(positionX(), positionY() + height());
+	lstItems.position(rect().crossYPoint());
 
-	mBaseArea = {positionX(), positionY(), width(), btnDown.height()};
+	mBaseArea = Rectangle<float>::Create(position(), NAS2D::Vector{width(), btnDown.height()});
 }
 
 
@@ -79,10 +78,10 @@ void ComboBox::resizedHandler(Control* /*control*/)
 void ComboBox::repositioned(float, float)
 {
 	txtField.position(position());
-	btnDown.position(positionX() + width() - btnDown.width(), positionY());
-	lstItems.position(positionX(), positionY() + height());
+	btnDown.position(txtField.rect().crossXPoint());
+	lstItems.position(rect().crossYPoint());
 
-	mBaseArea = {positionX(), positionY(), width(), btnDown.height()};
+	mBaseArea = Rectangle<float>::Create(position(), NAS2D::Vector{width(), btnDown.height()});
 }
 
 

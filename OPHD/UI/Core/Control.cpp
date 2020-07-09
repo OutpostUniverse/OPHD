@@ -13,24 +13,9 @@ using namespace NAS2D;
  */
 void Control::position(const Point<float>& pos)
 {
-	position(pos.x(), pos.y());
-}
-
-
-/**
- * Sets the position of the Control.
- * 
- * \param x		X-Coordinate to position the Control at.
- * \param x		Y-Coordinate to position the Control at.
- */
-void Control::position(float x, float y)
-{
-	float dx = x - mRect.x(), dy = y - mRect.y();
-
-	mRect.x(x);
-	mRect.y(y);
-
-	positionChanged(dx, dy);
+	const auto displacement = pos - mRect.startPoint();
+	mRect.startPoint(pos);
+	positionChanged(displacement);
 }
 
 
@@ -81,8 +66,7 @@ float Control::height() const
 
 void Control::size(NAS2D::Vector<float> newSize)
 {
-	mRect.width(newSize.x);
-	mRect.height(newSize.y);
+	mRect.size(newSize);
 	onSizeChanged();
 }
 

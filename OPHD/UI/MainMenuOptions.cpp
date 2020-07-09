@@ -69,10 +69,10 @@ void MainMenuOptions::init()
 	const auto width = right_edge - left_edge;
 	const auto height = bottom_edge - top_edge;
 
-	pnlControls.position(left_edge, top_edge);
+	pnlControls.position({left_edge, top_edge});
 	pnlControls.size({width, height});
 
-	pnlButtons.position(pnlControls.positionX(), bottom_edge - element_spacing);
+	pnlButtons.position({left_edge, bottom_edge - element_spacing});
 	pnlButtons.size({pnlControls.width(), 120});
 
 	lblResolution.size({0, 0});

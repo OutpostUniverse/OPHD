@@ -2,6 +2,7 @@
 
 #include "NAS2D/Signal.h"
 #include "NAS2D/Renderer/Point.h"
+#include "NAS2D/Renderer/Vector.h"
 #include "NAS2D/Renderer/Rectangle.h"
 
 #include <string>
@@ -26,7 +27,6 @@ public:
 
 	NAS2D::Point<float> position() const { return mRect.startPoint(); }
 	void position(const NAS2D::Point<float>& pos);
-	void position(float x, float y);
 
 	float positionX();
 	float positionY();
@@ -76,6 +76,7 @@ protected:
 	 * \param	dY	Difference in Y Position.
 	 */
 	virtual void positionChanged(float dX, float dY) { mPositionChanged(dX, dY); }
+	void positionChanged(NAS2D::Vector<float> displacement) { positionChanged(displacement.x, displacement.y); }
 
 	virtual void visibilityChanged(bool /*visible*/) {}
 
