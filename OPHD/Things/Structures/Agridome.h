@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Structure.h"
+#include <algorithm>
 
 const int AGRIDOME_CAPACITY = 1000;
 const int AGRIDOME_BASE_PRODUCUCTION = 10;
@@ -64,12 +65,7 @@ private:
 			return 0;
 		}
 
-		if (AGRIDOME_CAPACITY < storage().food() + AGRIDOME_BASE_PRODUCUCTION)
-		{
-			return AGRIDOME_CAPACITY - storage().food();
-		}
-
-		return AGRIDOME_BASE_PRODUCUCTION;
+		return std::min(AGRIDOME_BASE_PRODUCUCTION, AGRIDOME_CAPACITY - storage().food());
 	}
 
 	bool isStorageFull()
