@@ -64,10 +64,10 @@ void ComboBox::resizedHandler(Control* /*control*/)
 
 	txtField.width(width() - 20);
 	txtField.height(height());
-	btnDown.position(positionX() + width() - btnDown.width(), positionY());
+	btnDown.position({positionX() + width() - btnDown.width(), positionY()});
 	btnDown.height(height());
 	lstItems.width(width());
-	lstItems.position(positionX(), positionY() + height());
+	lstItems.position({positionX(), positionY() + height()});
 
 	mBaseArea = {positionX(), positionY(), width(), btnDown.height()};
 }
@@ -79,8 +79,8 @@ void ComboBox::resizedHandler(Control* /*control*/)
 void ComboBox::repositioned(float, float)
 {
 	txtField.position(position());
-	btnDown.position(positionX() + width() - btnDown.width(), positionY());
-	lstItems.position(positionX(), positionY() + height());
+	btnDown.position({positionX() + width() - btnDown.width(), positionY()});
+	lstItems.position({positionX(), positionY() + height()});
 
 	mBaseArea = {positionX(), positionY(), width(), btnDown.height()};
 }

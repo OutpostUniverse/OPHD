@@ -338,9 +338,9 @@ void WarehouseReport::_resized(Control*)
 {
 	lstStructures.size({(width() / 2) - 20, height() - 126});
 	lstProducts.size({(width() / 2) - 20, height() - 184});
-	lstProducts.position(Utility<Renderer>::get().center_x() + 10, lstProducts.positionY());
+	lstProducts.position({Utility<Renderer>::get().center_x() + 10, lstProducts.positionY()});
 
-	btnTakeMeThere.position(Utility<Renderer>::get().width() - 150, positionY() + 35);
+	btnTakeMeThere.position({Utility<Renderer>::get().width() - 150, positionY() + 35});
 
 	CAPACITY_BAR_WIDTH = static_cast<int>(width() / 2) - 30 - FONT_MED_BOLD->width("Capacity Used");
 	CAPACITY_BAR_POSITION_X = 20 + FONT_MED_BOLD->width("Capacity Used");

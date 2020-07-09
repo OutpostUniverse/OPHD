@@ -340,16 +340,16 @@ void FactoryReport::resized(Control* /*c*/)
 	};
 
 	float position_x = mRect.width() - 150.0f;
-	btnIdle.position(position_x, btnIdle.positionY());
-	btnClearProduction.position(position_x, btnClearProduction.positionY());
-	btnTakeMeThere.position(position_x, btnTakeMeThere.positionY());
+	btnIdle.position({position_x, btnIdle.positionY()});
+	btnClearProduction.position({position_x, btnClearProduction.positionY()});
+	btnTakeMeThere.position({position_x, btnTakeMeThere.positionY()});
 
-	btnApply.position(position_x, mRect.height() + 8);
+	btnApply.position({position_x, mRect.height() + 8});
 
 	lstProducts.size({DETAIL_PANEL.width() / 3, DETAIL_PANEL.height() - 219});
 	lstProducts.selectionChanged().connect(this, &FactoryReport::lstProductsSelectionChanged);
 
-	txtProductDescription.position(lstProducts.positionX() + lstProducts.width() + 158, lstProducts.positionY());
+	txtProductDescription.position({lstProducts.positionX() + lstProducts.width() + 158, lstProducts.positionY()});
 	txtProductDescription.width(mRect.width() - txtProductDescription.positionX() - 30);
 }
 

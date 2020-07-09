@@ -52,7 +52,7 @@ void UIContainer::add(Control* control, float x, float y)
 	if (mControls.size() > 0) { mControls.back()->hasFocus(false); }
 	mControls.push_back(control);
 
-	control->position(mRect.x() + x, mRect.y() + y);
+	control->position({mRect.x() + x, mRect.y() + y});
 	control->visible(visible());
 	control->hasFocus(true);
 	if (auto* asRadioButton = dynamic_cast<RadioButton*>(control))

@@ -115,13 +115,13 @@ void PlanetSelectState::initialize()
 	PLANET_TYPE_SELECTION = Planet::PlanetType::PLANET_TYPE_NONE;
 
 	mQuit.size({100, 20});
-	mQuit.position(renderer.width() - 105, 30);
+	mQuit.position({renderer.width() - 105, 30});
 	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
 
 	mPlanetDescription.text("");
 	mPlanetDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
 	mPlanetDescription.size({550, 200});
-	mPlanetDescription.position(renderer.center_x() - 275, renderer.height() - 225);
+	mPlanetDescription.position({renderer.center_x() - 275, renderer.height() - 225});
 
 	renderer.showSystemPointer(true);
 	renderer.fadeIn(constants::FADE_SPEED);
@@ -285,8 +285,8 @@ void PlanetSelectState::onWindowResized(int w, int h)
 	mPlanets[1]->position(w / 2 - 64, h / 2 - 64);
 	mPlanets[2]->position(((w / 4) * 3) - 64, h / 2 - 64);
 
-	mQuit.position(w - 105.0f, 30.0f);
-	mPlanetDescription.position((w / 2.0f) - 275.0f, h - 225.0f);
+	mQuit.position({w - 105.0f, 30.0f});
+	mPlanetDescription.position({(w / 2.0f) - 275.0f, h - 225.0f});
 }
 
 
