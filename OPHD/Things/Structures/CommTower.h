@@ -3,6 +3,7 @@
 #include "Structure.h"
 
 #include "../../Constants.h"
+#include <sstream>
 
 class CommTower : public Structure
 {
@@ -16,6 +17,28 @@ public:
 
 		requiresCHAP(false);
 		selfSustained(true);
+	}
+
+	StringTable createInspectorViewTable() override
+	{
+		StringTable stringTable(2, 1);
+
+		stringTable[{0, 0}].text = "Communication Range:";
+
+		auto communicationRange = operational() ? constants::COMM_TOWER_BASE_RANGE : 0;
+
+		std::stringstream stringStream;
+		stringStream.precision(0);
+		stringStream << communicationRange;
+
+		stringTable[{1, 0}].text = stringStream.str();;
+
+		if (communicationRange == 0)
+		{
+			stringTable[{1, 0}].textColor = constants::WARNING_TEXT_COLOR;
+		}
+
+		return stringTable;
 	}
 
 protected:
