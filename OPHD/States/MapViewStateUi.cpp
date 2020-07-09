@@ -119,7 +119,7 @@ void MapViewState::initUi()
 
 	// Menus
 	mRobots.sheetPath("ui/robots.png");
-	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52.0f, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN)});
+	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN)});
 	mRobots.size({52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
