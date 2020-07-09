@@ -120,7 +120,7 @@ void MapViewState::initUi()
 	// Menus
 	mRobots.sheetPath("ui/robots.png");
 	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN)});
-	mRobots.size({52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
+	mRobots.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
 	mRobots.showTooltip(true);
@@ -128,7 +128,7 @@ void MapViewState::initUi()
 
 	mConnections.sheetPath("ui/structures.png");
 	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN)});
-	mConnections.size({52.0f, BOTTOM_UI_HEIGHT - constants::MARGIN * 2.0f});
+	mConnections.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mConnections.iconSize(46);
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
 	mConnections.selectionChanged().connect(this, &MapViewState::connectionsSelectionChanged);
