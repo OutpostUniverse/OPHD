@@ -41,9 +41,6 @@ MainMenuState::~MainMenuState()
 	e.windowResized().disconnect(this, &MainMenuState::onWindowResized);
 	e.keyDown().disconnect(this, &MainMenuState::onKeyDown);
 
-	dlgNewGame.ok().disconnect(this, &MainMenuState::wasDifficultyOkClicked);
-	dlgNewGame.cancel().disconnect(this, &MainMenuState::newGameCancelled);
-
 	Utility<Mixer>::get().stopAllAudio();
 	Utility<Renderer>::get().fadeComplete().disconnect(this, &MainMenuState::onFadeComplete);
 }
@@ -83,11 +80,6 @@ void MainMenuState::initialize()
 	mFileIoDialog.fileOperation().connect(this, &MainMenuState::fileIoAction);
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
-
-	dlgNewGame.anchored(true);
-	dlgNewGame.hide();
-	dlgNewGame.ok().connect(this, &MainMenuState::wasDifficultyOkClicked);
-	dlgNewGame.cancel().connect(this, &MainMenuState::newGameCancelled);
 
 	dlgOptions.anchored(true);
 	dlgOptions.hide();
@@ -131,7 +123,6 @@ void MainMenuState::positionButtons()
 
 	mFileIoDialog.position(center - mFileIoDialog.size() / 2);
 	dlgOptions.position(center - dlgOptions.size() / 2);
-	dlgNewGame.position(center - dlgNewGame.size() / 2);
 
 	lblVersion.position(NAS2D::Point{0, 0} + renderer.size() - lblVersion.size());
 }
@@ -265,7 +256,6 @@ void MainMenuState::btnContinueGameClicked()
 {
 	if (mFileIoDialog.visible()) { return; }
 	if (dlgOptions.visible()) { return; }
-	if (dlgNewGame.visible()) { return; }
 
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
 	mFileIoDialog.show();
@@ -350,10 +340,6 @@ NAS2D::State* MainMenuState::update()
 	else if (mFileIoDialog.visible())
 	{
 		mFileIoDialog.update();
-	}
-	else if(dlgNewGame.visible())
-	{
-		dlgNewGame.update();
 	}
 
 	lblVersion.update();
