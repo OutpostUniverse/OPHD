@@ -64,10 +64,10 @@ void ComboBox::resizedHandler(Control* /*control*/)
 
 	txtField.width(width() - 20);
 	txtField.height(height());
-	btnDown.position({positionX() + width() - btnDown.width(), positionY()});
+	btnDown.position(position() + NAS2D::Vector<float>{width() - btnDown.width(), 0});
 	btnDown.height(height());
 	lstItems.width(width());
-	lstItems.position({positionX(), positionY() + height()});
+	lstItems.position(position() + NAS2D::Vector<float>{0, height()});
 
 	mBaseArea = {positionX(), positionY(), width(), btnDown.height()};
 }
