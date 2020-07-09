@@ -69,12 +69,12 @@ void MapViewState::initUi()
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
-	mPopulationPanel.position({675.0f, constants::RESOURCE_ICON_SIZE + 4.0f + constants::MARGIN_TIGHT});
+	mPopulationPanel.position({675, constants::RESOURCE_ICON_SIZE + 4 + constants::MARGIN_TIGHT});
 	mPopulationPanel.population(&mPopulation);
 	mPopulationPanel.morale(&mCurrentMorale);
 	mPopulationPanel.old_morale(&mPreviousMorale);
 
-	mResourceBreakdownPanel.position({0.0f, 22.0f});
+	mResourceBreakdownPanel.position({0, 22});
 	mResourceBreakdownPanel.playerResources(&mPlayerResources);
 
 	mGameOverDialog.returnToMainMenu().connect(this, &MapViewState::btnGameOverClicked);
