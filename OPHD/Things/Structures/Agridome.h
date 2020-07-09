@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Structure.h"
+#include <algorithm>
 
 const int AGRIDOME_CAPACITY = 1000;
 const int AGRIDOME_BASE_PRODUCUCTION = 10;
@@ -17,30 +18,31 @@ public:
 		requiresCHAP(true);
 	}
 
+	StringTable createInspectorViewTable() override
+	{
+		StringTable stringTable(2, 2);
+
+		stringTable[{0, 0}].text = "Food Stored:";
+		stringTable[{1, 0}].text = std::to_string(storage().food()) + " / " + std::to_string(AGRIDOME_CAPACITY);
+
+		stringTable[{0, 1}].text = "Production Rate:";
+		stringTable[{1, 1}].text = std::to_string(calculateProduction());
+
+		return stringTable;
+	}
+
 protected:
 	void think() override
 	{
 		if (isIdle())
 			return;
 
-		if (storage().food() == AGRIDOME_CAPACITY)
+		storage().food(storage().food() + calculateProduction());
+
+		if (isStorageFull())
 		{
 			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 		}
-		else
-		{
-			int curr_food = storage().food();
-			if (curr_food > AGRIDOME_CAPACITY - AGRIDOME_BASE_PRODUCUCTION)
-			{
-				storage().food(AGRIDOME_CAPACITY);
-				idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
-			}
-			else
-			{
-				storage().food(curr_food + AGRIDOME_BASE_PRODUCUCTION);
-			}
-		}
-
 	}
 
 	void defineResourceInput() override
@@ -53,5 +55,21 @@ protected:
 	{
 		// Clear food store when disabled.
 		storage().food(0);
+	}
+
+private:
+	int calculateProduction()
+	{
+		if (!operational())
+		{
+			return 0;
+		}
+
+		return std::min(AGRIDOME_BASE_PRODUCUCTION, AGRIDOME_CAPACITY - storage().food());
+	}
+
+	bool isStorageFull()
+	{
+		return storage().food() == AGRIDOME_CAPACITY;
 	}
 };
