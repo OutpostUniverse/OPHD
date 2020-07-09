@@ -41,9 +41,9 @@ namespace constants
 	const int MINIMUM_WINDOW_WIDTH = 1000;
 	const int MINIMUM_WINDOW_HEIGHT = 700;
 
-	const float ROBOT_COM_RANGE = 15.0f;
-	const float COMM_TOWER_BASE_RANGE = 10.0f;
-	const float LANDER_COM_RANGE = 5.0f;
+	const int ROBOT_COM_RANGE = 15;
+	const int COMM_TOWER_BASE_RANGE = 10;
+	const int LANDER_COM_RANGE = 5;
 
 	enum PlanetHostility
 	{
