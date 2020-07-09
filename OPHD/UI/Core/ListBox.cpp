@@ -11,6 +11,9 @@
 #include "NAS2D/Renderer/Point.h"
 #include "NAS2D/MathUtils.h"
 
+#include <algorithm>
+
+
 using namespace NAS2D;
 
 
@@ -195,6 +198,12 @@ void ListBox::dropAllItems()
 	mItems.clear();
 	mCurrentSelection = 0;
 	_updateItemDisplay();
+}
+
+
+void ListBox::sort()
+{
+	std::sort(mItems.begin(), mItems.end());
 }
 
 

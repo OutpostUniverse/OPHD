@@ -10,7 +10,6 @@
 
 #include <string>
 #include <vector>
-#include <algorithm>
 #include <cstddef>
 
 
@@ -39,8 +38,6 @@ public:
 	ListBox();
 	~ListBox() override;
 
-	void sort() { std::sort(mItems.begin(), mItems.end()); }
-
 	void textColor(const NAS2D::Color& color) { mText = color; }
 	void selectColor(const NAS2D::Color& color) { mHighlightBg = color; }
 
@@ -48,6 +45,7 @@ public:
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
 	void dropAllItems();
+	void sort();
 
 	std::size_t count() const { return mItems.size(); }
 	unsigned int lineHeight() const { return mLineHeight; }
