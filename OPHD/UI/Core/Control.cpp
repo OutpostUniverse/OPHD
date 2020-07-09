@@ -20,23 +20,6 @@ void Control::position(const Point<float>& pos)
 
 
 /**
- * Sets the position of the Control.
- * 
- * \param x		X-Coordinate to position the Control at.
- * \param x		Y-Coordinate to position the Control at.
- */
-void Control::position(float x, float y)
-{
-	float dx = x - mRect.x(), dy = y - mRect.y();
-
-	mRect.x(x);
-	mRect.y(y);
-
-	positionChanged(dx, dy);
-}
-
-
-/**
  * Gets the X Position of the Control.
  */
 float Control::positionX()
