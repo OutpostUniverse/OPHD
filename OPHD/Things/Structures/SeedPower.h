@@ -2,6 +2,8 @@
 
 #include "Structure.h"
 
+const int SEED_POWER_PRODUCTION = 50;
+
 class SeedPower: public Structure
 {
 public:
@@ -17,6 +19,6 @@ public:
 protected:
 	void defineResourceOutput() override
 	{
-		resourcesOut().energy(50);
+		resourcesOut().energy(SEED_POWER_PRODUCTION);
 	}
 };
