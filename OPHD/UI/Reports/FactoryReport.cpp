@@ -349,7 +349,7 @@ void FactoryReport::resized(Control* /*c*/)
 	lstProducts.size({DETAIL_PANEL.width() / 3, DETAIL_PANEL.height() - 219});
 	lstProducts.selectionChanged().connect(this, &FactoryReport::lstProductsSelectionChanged);
 
-	txtProductDescription.position({lstProducts.positionX() + lstProducts.width() + 158, lstProducts.positionY()});
+	txtProductDescription.position(lstProducts.rect().crossXPoint() + NAS2D::Vector{158, 0});
 	txtProductDescription.width(mRect.width() - txtProductDescription.positionX() - 30);
 }
 
