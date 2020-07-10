@@ -100,6 +100,6 @@ void TextArea::draw()
 	for (std::size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
 	{
 		renderer.drawText(*mFont, mFormattedList[i], textPosition, mTextColor);
-		textPosition.y() += mFont->height();
+		textPosition.y += mFont->height();
 	}
 }

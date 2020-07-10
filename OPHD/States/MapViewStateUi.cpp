@@ -191,12 +191,12 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	const auto centerPosition = [&rendererCenter](const Control& control) { return (rendererCenter - control.size() / 2).to<int>(); };
 
 	// Anchored window positions
-	mFileIoDialog.position(NAS2D::Point{centerPosition(mFileIoDialog).x(), 50});
+	mFileIoDialog.position(NAS2D::Point{centerPosition(mFileIoDialog).x, 50});
 	mGameOverDialog.position(centerPosition(mGameOverDialog) - NAS2D::Vector{0, 100});
 	mAnnouncement.position(centerPosition(mAnnouncement) - NAS2D::Vector{0, 100});
 	mGameOptionsDialog.position(centerPosition(mGameOptionsDialog) - NAS2D::Vector{0, 100});
 
-	mDiggerDirection.position(NAS2D::Point{centerPosition(mDiggerDirection).x(), size.y / 2 - 125});
+	mDiggerDirection.position(NAS2D::Point{centerPosition(mDiggerDirection).x, size.y / 2 - 125});
 
 	mWarehouseInspector.position(centerPosition(mWarehouseInspector) - NAS2D::Vector{0, 100});
 	mMineOperationsWindow.position(centerPosition(mMineOperationsWindow) - NAS2D::Vector{0, 100});

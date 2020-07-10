@@ -406,8 +406,8 @@ void serializeResourcePool(XmlElement* _ti, ResourcePool& resourcePool, const st
 void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 {
 	const auto position = _t->position();
-	_ti->attribute("x", position.x());
-	_ti->attribute("y", position.y());
+	_ti->attribute("x", position.x);
+	_ti->attribute("y", position.y);
 	_ti->attribute("depth", _t->depth());
 
 	_ti->attribute("age", structure->age());

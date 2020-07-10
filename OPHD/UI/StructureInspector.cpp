@@ -106,7 +106,7 @@ void StructureInspector::drawPopulationRequirements()
 		"Scientists"
 	};
 
-	position.y() += 20;
+	position.y += 20;
 	for (std::size_t populationType = 0; populationType < populationTypes.size(); ++populationType) {
 		const auto& populationRequirements = mStructure->populationRequirements();
 		const auto& populationAvailable = mStructure->populationAvailable();
@@ -115,7 +115,7 @@ void StructureInspector::drawPopulationRequirements()
 			std::string text = populationTypes[populationType] + ": " + std::to_string(populationAvailable[populationType]) + "/" + std::to_string(populationRequirements[populationType]);
 			Color color = populationAvailable[populationType] >= populationRequirements[populationType] ? Color::White : Color::Red;
 			renderer.drawText(*FONT, text, position, color);
-			position.y() += 10;
+			position.y += 10;
 		}
 	}
 }
@@ -139,13 +139,13 @@ void StructureInspector::update()
 	}
 	drawLabelAndValue(position, mStructure->name(), "");
 
-	position.y() += 20;
+	position.y += 20;
 	drawLabelAndValue(position,"Type: ", mStructureClass);
 
 	position = mRect.startPoint() + NAS2D::Vector{190, 25};
 	drawLabelAndValue(position,"State: ", structureStateDescription(mStructure->state()));
 
-	position.y() += 20;
+	position.y += 20;
 	if (mStructure->underConstruction())
 	{
 		drawLabelAndValue(position,"Turns Remaining: ", std::to_string(mStructure->turnsToBuild() - mStructure->age()));

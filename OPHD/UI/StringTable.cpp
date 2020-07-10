@@ -106,7 +106,7 @@ void StringTable::computeRelativeCellPositions()
 		float rowOffset = 0;
 		for (std::size_t row = 0; row < mRowCount; ++row)
 		{
-			auto cellIndex = getCellIndex(CellCoordinate(column, row));
+			auto cellIndex = getCellIndex(CellCoordinate{column, row});
 			mCells[cellIndex].textRelativePosition = { columnOffset, rowOffset };
 			accountForCellJustification(cellIndex, columnWidths[column]);
 
@@ -143,7 +143,7 @@ std::vector<float> StringTable::computeColumnWidths() const
 
 		for (std::size_t row = 0; row < mRowCount; ++row)
 		{
-			auto index = getCellIndex(CellCoordinate(column, row));
+			auto index = getCellIndex(CellCoordinate{column, row});
 			columnWidth = std::max(columnWidth, static_cast<float>(getCellFont(index)->width(mCells[index].text)));
 		}
 
@@ -163,7 +163,7 @@ std::vector<float> StringTable::computeRowHeights() const
 
 		for (std::size_t column = 0; column < mColumnCount; ++column)
 		{
-			auto index = getCellIndex(CellCoordinate(column, row));
+			auto index = getCellIndex(CellCoordinate{column, row});
 			rowHeight = std::max(rowHeight, static_cast<float>(getCellFont(index)->height()));
 		}
 
@@ -177,7 +177,7 @@ std::size_t StringTable::getCellIndex(const CellCoordinate& cellCoordinate) cons
 {
 	checkCellIndex(cellCoordinate);
 
-	return mColumnCount * cellCoordinate.y() + cellCoordinate.x();
+	return mColumnCount * cellCoordinate.y + cellCoordinate.x;
 }
 
 StringTable::CellCoordinate StringTable::getCellCoordinate(std::size_t index) const
@@ -187,12 +187,12 @@ StringTable::CellCoordinate StringTable::getCellCoordinate(std::size_t index) co
 
 void StringTable::checkCellIndex(const CellCoordinate& cellCoordinate) const
 {
-	if (cellCoordinate.x() >= mColumnCount)
+	if (cellCoordinate.x >= mColumnCount)
 	{
 		throw std::runtime_error("Index is outside column bounds");
 	}
 
-	if (cellCoordinate.y() >= mRowCount)
+	if (cellCoordinate.y >= mRowCount)
 	{
 		throw std::runtime_error("Index is outside row bounds");
 	}

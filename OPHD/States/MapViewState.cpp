@@ -973,7 +973,7 @@ void MapViewState::placeRobot()
 			if (!doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE)) { return; }
 
 			const auto position = tile->position();
-			std::cout << "Digger destroyed a Mine at (" << position.x() << ", " << position.y() << ")." << std::endl;
+			std::cout << "Digger destroyed a Mine at (" << position.x << ", " << position.y << ")." << std::endl;
 			mTileMap->removeMineLocation(position);
 		}
 
@@ -1021,7 +1021,7 @@ void MapViewState::placeRobot()
 			// Popup to the right of the mouse
 			auto position = MOUSE_COORDS + NAS2D::Vector{20, -32};
 			// Check if popup position is off the right edge of the display area
-			if (position.x() + mDiggerDirection.width() > Utility<Renderer>::get().width())
+			if (position.x + mDiggerDirection.width() > Utility<Renderer>::get().width())
 			{
 				// Popup to the left of the mouse
 				position = MOUSE_COORDS + NAS2D::Vector{-20 - static_cast<int>(mDiggerDirection.width()), -32};
@@ -1235,7 +1235,7 @@ void MapViewState::updateRobots()
 			if (robot->name() != constants::ROBOMINER)
 			{
 				const auto position = tile->position();
-				const auto robotLocationText = std::to_string(position.x()) + ", " + std::to_string(position.y());
+				const auto robotLocationText = std::to_string(position.x) + ", " + std::to_string(position.y);
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				doAlertMessage("Robot Breakdown", text);
 				Robodozer* _d = dynamic_cast<Robodozer*>(robot);

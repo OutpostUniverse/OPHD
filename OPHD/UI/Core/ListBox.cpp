@@ -307,12 +307,12 @@ void ListBox::update()
 	
 	// display actuals values that are meant to be
 	auto textPosition = listBounds.startPoint();
-	textPosition.y() -= static_cast<int>(mCurrentOffset);
+	textPosition.y -= static_cast<int>(mCurrentOffset);
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
 		const auto textColor = (i == mCurrentHighlight) ? mHighlightText : mText;
 		renderer.drawTextShadow(*LST_FONT, mItems[i].Text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
-		textPosition.y() += mLineHeight;
+		textPosition.y += mLineHeight;
 	}
 
 	mSlider.update();

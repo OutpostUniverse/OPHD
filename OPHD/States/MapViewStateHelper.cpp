@@ -517,8 +517,8 @@ void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot
 	{
 		const auto& tile = *it->second;
 		const auto position = tile.position();
-		_ti->attribute("x", position.x());
-		_ti->attribute("y", position.y());
+		_ti->attribute("x", position.x);
+		_ti->attribute("y", position.y);
 		_ti->attribute("depth", tile.depth());
 	}
 

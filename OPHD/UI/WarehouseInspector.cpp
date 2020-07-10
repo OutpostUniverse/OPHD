@@ -85,12 +85,12 @@ void WarehouseInspector::update()
 	auto position = mRect.startPoint() + NAS2D::Vector{constants::MARGIN, 25};
 	drawLabelAndValueLeftJustify(position, labelWidth, "Storage:", std::to_string(pool.availableStorage()) + " / " + std::to_string(pool.capacity()));
 
-	position.y() += 25;
+	position.y += 25;
 	drawLabelAndValueLeftJustify(position, labelWidth, "Clothing:", std::to_string(pool.count(ProductType::PRODUCT_CLOTHING)));
 
-	position.y() += 15;
+	position.y += 15;
 	drawLabelAndValueLeftJustify(position, labelWidth, "Medicine:", std::to_string(pool.count(ProductType::PRODUCT_MEDICINE)));
 
-	position.y() += 15;
+	position.y += 15;
 	drawLabelAndValueLeftJustify(position, labelWidth, "Road Materials:", std::to_string(pool.count(ProductType::PRODUCT_ROAD_MATERIALS)));
 }
