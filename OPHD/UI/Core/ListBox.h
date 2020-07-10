@@ -10,7 +10,6 @@
 
 #include <string>
 #include <vector>
-#include <algorithm>
 #include <cstddef>
 
 
@@ -38,11 +37,6 @@ public:
 
 	ListBox();
 	~ListBox() override;
-	
-	void sorted(bool isSorted) { mSorted = isSorted; }
-	bool sorted(bool) const { return mSorted; }
-
-	void sort() { if (mSorted) { std::sort(mItems.begin(), mItems.end()); } }
 
 	void textColor(const NAS2D::Color& color) { mText = color; }
 	void selectColor(const NAS2D::Color& color) { mHighlightBg = color; }
@@ -51,6 +45,7 @@ public:
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
 	void dropAllItems();
+	void sort();
 
 	std::size_t count() const { return mItems.size(); }
 	unsigned int lineHeight() const { return mLineHeight; }
@@ -103,6 +98,4 @@ private:
 
 	SelectionChangedCallback mSelectionChanged; /**< Callback for selection changed callback. */
 	Slider mSlider;
-	
-	bool mSorted = false; /**< Flag indicating that all Items should be sorted. */
 };

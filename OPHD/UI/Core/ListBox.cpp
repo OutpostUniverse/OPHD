@@ -11,6 +11,9 @@
 #include "NAS2D/Renderer/Point.h"
 #include "NAS2D/MathUtils.h"
 
+#include <algorithm>
+
+
 using namespace NAS2D;
 
 
@@ -143,7 +146,6 @@ int ListBox::selectionTag() const
 void ListBox::addItem(const std::string& item, int tag)
 {
 	mItems.push_back(ListBoxItem(item, tag));
-	sort();
 	_updateItemDisplay();
 }
 
@@ -165,7 +167,6 @@ void ListBox::removeItem(const std::string& item)
 	{
 		mItems.erase(it);
 		mCurrentSelection = constants::NO_SELECTION;
-		sort();
 		_updateItemDisplay();
 	}
 }
@@ -197,6 +198,12 @@ void ListBox::dropAllItems()
 	mItems.clear();
 	mCurrentSelection = 0;
 	_updateItemDisplay();
+}
+
+
+void ListBox::sort()
+{
+	std::sort(mItems.begin(), mItems.end());
 }
 
 
