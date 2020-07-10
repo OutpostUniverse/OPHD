@@ -90,33 +90,33 @@ static void setPanelRects(int width)
 	
 	Panels[NavigationPanel::PANEL_RESEARCH].Rect = {0, 0, panel_width, 48};
 	Panels[NavigationPanel::PANEL_RESEARCH].TextPosition = {panel_width / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_RESEARCH].Name) / 2 + 20, text_y_position};
-	Panels[NavigationPanel::PANEL_RESEARCH].IconPosition = {Panels[NavigationPanel::PANEL_RESEARCH].TextPosition.x() - 40, 8};
+	Panels[NavigationPanel::PANEL_RESEARCH].IconPosition = {Panels[NavigationPanel::PANEL_RESEARCH].TextPosition.x - 40, 8};
 
 	
 	Panels[NavigationPanel::PANEL_PRODUCTION].Rect = {Panels[NavigationPanel::PANEL_RESEARCH].Rect.x() + panel_width, 0, panel_width, 48};
 	Panels[NavigationPanel::PANEL_PRODUCTION].TextPosition = {Panels[NavigationPanel::PANEL_PRODUCTION].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_PRODUCTION].Name) / 2 + 20, text_y_position};
-	Panels[NavigationPanel::PANEL_PRODUCTION].IconPosition = {Panels[NavigationPanel::PANEL_PRODUCTION].TextPosition.x() - 40, 8};
+	Panels[NavigationPanel::PANEL_PRODUCTION].IconPosition = {Panels[NavigationPanel::PANEL_PRODUCTION].TextPosition.x - 40, 8};
 	//Panels[NavigationPanel::PANEL_PRODUCTION].Selected(true);
 
 
 	Panels[NavigationPanel::PANEL_WAREHOUSE].Rect = {Panels[NavigationPanel::PANEL_PRODUCTION].Rect.x() + panel_width, 0, panel_width, 48};
 	Panels[NavigationPanel::PANEL_WAREHOUSE].TextPosition = {Panels[NavigationPanel::PANEL_WAREHOUSE].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_WAREHOUSE].Name) / 2 + 20, text_y_position};
-	Panels[NavigationPanel::PANEL_WAREHOUSE].IconPosition = {Panels[NavigationPanel::PANEL_WAREHOUSE].TextPosition.x() - 40, 8};
+	Panels[NavigationPanel::PANEL_WAREHOUSE].IconPosition = {Panels[NavigationPanel::PANEL_WAREHOUSE].TextPosition.x - 40, 8};
 
 
 	Panels[NavigationPanel::PANEL_MINING].Rect = {Panels[NavigationPanel::PANEL_WAREHOUSE].Rect.x() + panel_width, 0, panel_width, 48};
 	Panels[NavigationPanel::PANEL_MINING].TextPosition = {Panels[NavigationPanel::PANEL_MINING].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_MINING].Name) / 2 + 20, text_y_position};
-	Panels[NavigationPanel::PANEL_MINING].IconPosition = {Panels[NavigationPanel::PANEL_MINING].TextPosition.x() - 40, 8};
+	Panels[NavigationPanel::PANEL_MINING].IconPosition = {Panels[NavigationPanel::PANEL_MINING].TextPosition.x - 40, 8};
 
 	
 	Panels[NavigationPanel::PANEL_SATELLITES].Rect = {Panels[NavigationPanel::PANEL_MINING].Rect.x() + panel_width, 0, panel_width, 48};
 	Panels[NavigationPanel::PANEL_SATELLITES].TextPosition = {Panels[NavigationPanel::PANEL_SATELLITES].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_SATELLITES].Name) / 2 + 20, text_y_position};
-	Panels[NavigationPanel::PANEL_SATELLITES].IconPosition = {Panels[NavigationPanel::PANEL_SATELLITES].TextPosition.x() - 40, 8};
+	Panels[NavigationPanel::PANEL_SATELLITES].IconPosition = {Panels[NavigationPanel::PANEL_SATELLITES].TextPosition.x - 40, 8};
 
 	
 	Panels[NavigationPanel::PANEL_SPACEPORT].Rect = {Panels[NavigationPanel::PANEL_SATELLITES].Rect.x() + panel_width, 0, panel_width, 48};
 	Panels[NavigationPanel::PANEL_SPACEPORT].TextPosition = {Panels[NavigationPanel::PANEL_SPACEPORT].Rect.x() + panel_width / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_SPACEPORT].Name) / 2 + 20, text_y_position};
-	Panels[NavigationPanel::PANEL_SPACEPORT].IconPosition = {Panels[NavigationPanel::PANEL_SPACEPORT].TextPosition.x() - 40, 8};
+	Panels[NavigationPanel::PANEL_SPACEPORT].IconPosition = {Panels[NavigationPanel::PANEL_SPACEPORT].TextPosition.x - 40, 8};
 }
 
 

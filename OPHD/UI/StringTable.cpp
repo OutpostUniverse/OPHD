@@ -177,7 +177,7 @@ std::size_t StringTable::getCellIndex(const CellCoordinate& cellCoordinate) cons
 {
 	checkCellIndex(cellCoordinate);
 
-	return mColumnCount * cellCoordinate.y() + cellCoordinate.x();
+	return mColumnCount * cellCoordinate.y + cellCoordinate.x;
 }
 
 StringTable::CellCoordinate StringTable::getCellCoordinate(std::size_t index) const
@@ -187,12 +187,12 @@ StringTable::CellCoordinate StringTable::getCellCoordinate(std::size_t index) co
 
 void StringTable::checkCellIndex(const CellCoordinate& cellCoordinate) const
 {
-	if (cellCoordinate.x() >= mColumnCount)
+	if (cellCoordinate.x >= mColumnCount)
 	{
 		throw std::runtime_error("Index is outside column bounds");
 	}
 
-	if (cellCoordinate.y() >= mRowCount)
+	if (cellCoordinate.y >= mRowCount)
 	{
 		throw std::runtime_error("Index is outside row bounds");
 	}

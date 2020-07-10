@@ -431,9 +431,9 @@ void IconGrid::update()
 		float y = static_cast<float>((mRect.y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
 
 		if (mIconItemList[i].available)
-			renderer.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x(), mIconItemList[i].pos.y(), static_cast<float>(mIconSize), static_cast<float>(mIconSize));
+			renderer.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x, mIconItemList[i].pos.y, static_cast<float>(mIconSize), static_cast<float>(mIconSize));
 		else
-			renderer.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x(), mIconItemList[i].pos.y(), static_cast<float>(mIconSize), static_cast<float>(mIconSize), 255, 0, 0, 255);
+			renderer.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x, mIconItemList[i].pos.y, static_cast<float>(mIconSize), static_cast<float>(mIconSize), 255, 0, 0, 255);
 	}
 
 	if (mCurrentSelection != constants::NO_SELECTION)

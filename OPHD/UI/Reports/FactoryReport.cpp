@@ -325,17 +325,17 @@ void FactoryReport::resized(Control* /*c*/)
 
 	FACTORY_LISTBOX = {
 		positionX() + 10,
-		comboEndPoint.y() + 10,
-		comboEndPoint.x() - 10,
+		comboEndPoint.y + 10,
+		comboEndPoint.x - 10,
 		height() - 74
 	};
 
 	lstFactoryList.size(FACTORY_LISTBOX.size());
 
 	DETAIL_PANEL = {
-		comboEndPoint.x() + 20,
+		comboEndPoint.x + 20,
 		rect().y() + 10,
-		rect().width() - comboEndPoint.x() - 30,
+		rect().width() - comboEndPoint.x - 30,
 		rect().y() + mRect.height() - 69
 	};
 
@@ -569,7 +569,7 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	renderer.drawText(*FONT_MED_BOLD, "Status", statusPosition, defaultTextColor);
 
 	bool isStatusHighlighted = SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed();
-	statusPosition.x() += FONT_MED_BOLD->width("Status") + 20;
+	statusPosition.x += FONT_MED_BOLD->width("Status") + 20;
 	renderer.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : defaultTextColor));
 
 	renderer.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, startPoint + NAS2D::Vector{138, 60}, defaultTextColor);
@@ -587,7 +587,7 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	auto position = startPoint + NAS2D::Vector{138, 80};
 	for (auto [title, value] : requiredResources) {
 		drawLabelAndValueLeftJustify(position, labelWidth, title, std::to_string(value), defaultTextColor);
-		position.y() += 15;
+		position.y += 15;
 	}
 
 	// POPULATION

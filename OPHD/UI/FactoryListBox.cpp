@@ -28,7 +28,7 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	if (highlight) { renderer.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red, structureColor.green, structureColor.blue, 75); }
 
 	renderer.drawBox({x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
-	renderer.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, static_cast<float>(item.icon_slice.x()), static_cast<float>(item.icon_slice.y()), 46.0f, 46.0f, 255, 255, 255, structureColor.alpha);
+	renderer.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, static_cast<float>(item.icon_slice.x), static_cast<float>(item.icon_slice.y), 46.0f, 46.0f, 255, 255, 255, structureColor.alpha);
 
 	renderer.drawText(*MAIN_FONT_BOLD, f->name(), {x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 

@@ -109,13 +109,13 @@ void MainMenuState::positionButtons()
 	auto buttonPosition = center - NAS2D::Vector{100, (35 * 4) / 2};
 
 	btnNewGame.position(buttonPosition);
-	buttonPosition.y() += 35;
+	buttonPosition.y += 35;
 	btnContinueGame.position(buttonPosition);
-	buttonPosition.y() += 35;
+	buttonPosition.y += 35;
 	btnOptions.position(buttonPosition);
-	buttonPosition.y() += 35;
+	buttonPosition.y += 35;
 	btnHelp.position(buttonPosition);
-	buttonPosition.y() += 35;
+	buttonPosition.y += 35;
 	btnQuit.position(buttonPosition);
 
 	mFileIoDialog.position(center - mFileIoDialog.size() / 2);

@@ -114,6 +114,6 @@ void ResourceBreakdownPanel::update()
 		renderer.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
 		const auto valueChangeColor = TEXT_COLOR[resourceTrend];
 		renderer.drawText(*FONT, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor);
-		position.y() += 18;
+		position.y += 18;
 	}
 }

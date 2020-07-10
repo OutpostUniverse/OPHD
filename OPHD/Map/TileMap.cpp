@@ -57,12 +57,12 @@ Point<int> TRANSFORM; /**< Used to adjust mouse and screen spaces based on posit
 using TileArray = std::vector<std::vector<std::vector<Tile> > >;
 static Point<int> findSurroundingMineLocation(Point<int> centerPoint, TileArray& tileArray)
 {
-	if (tileArray[0][centerPoint.y()][centerPoint.x()].hasMine())
+	if (tileArray[0][centerPoint.y][centerPoint.x].hasMine())
 	{
 		for (const auto& direction : DirectionScan323)
 		{
 			const auto point = centerPoint + direction;
-			if (tileArray[0][point.y()][point.x()].hasMine()) { return point; }
+			if (tileArray[0][point.y][point.x].hasMine()) { return point; }
 		}
 	}
 	return centerPoint;
@@ -75,8 +75,8 @@ static void addMineSet(Point<int> suggestedMineLocation, Point2dList& plist, Til
 	// If mines are right next to each other, then overwrite the old location with the new mine parameters
 	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation, tileArray);
 
-	tileArray[0][mineLocation.y()][mineLocation.x()].pushMine(new Mine(rate));
-	tileArray[0][mineLocation.y()][mineLocation.x()].index(TerrainType::TERRAIN_DOZED);
+	tileArray[0][mineLocation.y][mineLocation.x].pushMine(new Mine(rate));
+	tileArray[0][mineLocation.y][mineLocation.x].index(TerrainType::TERRAIN_DOZED);
 
 	plist.push_back(mineLocation);
 }
@@ -129,7 +129,7 @@ Tile* TileMap::getTile(NAS2D::Point<int> position, int level)
 {
 	if (NAS2D::Rectangle{0, 0, mWidth, mHeight}.contains(position) && level >= 0 && level <= mMaxDepth)
 	{
-		return &mTileMap[level][position.y()][position.x()];
+		return &mTileMap[level][position.y][position.x];
 	}
 
 	return nullptr;
@@ -272,9 +272,9 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 
 	// Find top left corner of rectangle containing top tile of diamond
 	mMapPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BOTTOM_UI_HEIGHT - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
-	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, static_cast<int>(mMapPosition.y()), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
+	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, static_cast<int>(mMapPosition.y), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
 
-	int transform = (mMapPosition.x() - mMapBoundingBox.x()) / TILE_WIDTH;
+	int transform = (mMapPosition.x - mMapBoundingBox.x()) / TILE_WIDTH;
 	TRANSFORM = {-transform, transform};
 }
 
@@ -282,8 +282,8 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 void TileMap::mapViewLocation(NAS2D::Point<int> point)
 {
 	mMapViewLocation = {
-		std::clamp(point.x(), 0, mWidth - mEdgeLength),
-		std::clamp(point.y(), 0, mHeight - mEdgeLength)
+		std::clamp(point.x, 0, mWidth - mEdgeLength),
+		std::clamp(point.y, 0, mHeight - mEdgeLength)
 	};
 }
 
@@ -322,7 +322,7 @@ void TileMap::draw()
 	{
 		for (int col = 0; col < mEdgeLength; col++)
 		{
-			Tile& tile = mTileMap[mCurrentDepth][row + mMapViewLocation.y()][col + mMapViewLocation.x()];
+			Tile& tile = mTileMap[mCurrentDepth][row + mMapViewLocation.y][col + mMapViewLocation.x];
 
 			if (tile.excavated())
 			{
@@ -370,12 +370,12 @@ void TileMap::updateTileHighlight()
 	int even_edge_length_adjust = 0;
 	if (edgeLength() % 2 == 0) { even_edge_length_adjust = TILE_HALF_WIDTH; }
 
-	int offsetX = ((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) / TILE_WIDTH);
-	int offsetY = ((mMousePosition.y() - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE);
-	NAS2D::Vector<int> highlightOffset = {TRANSFORM.x() + offsetY + offsetX, TRANSFORM.y() + offsetY - offsetX};
+	int offsetX = ((mMousePosition.x - mMapBoundingBox.x() - even_edge_length_adjust) / TILE_WIDTH);
+	int offsetY = ((mMousePosition.y - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE);
+	NAS2D::Vector<int> highlightOffset = {TRANSFORM.x + offsetY + offsetX, TRANSFORM.y + offsetY - offsetX};
 
-	int mmOffsetX = std::clamp((mMousePosition.x() - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
-	int mmOffsetY = (mMousePosition.y() - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE;
+	int mmOffsetX = std::clamp((mMousePosition.x - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
+	int mmOffsetY = (mMousePosition.y - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE;
 
 	MouseMapRegion mmr = getMouseMapRegion(mmOffsetX, mmOffsetY);
 
@@ -447,8 +447,8 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	element->linkEndChild(viewparams);
 
 	viewparams->attribute("currentdepth", mCurrentDepth);
-	viewparams->attribute("viewlocation_x", mMapViewLocation.x());
-	viewparams->attribute("viewlocation_y", mMapViewLocation.y());
+	viewparams->attribute("viewlocation_x", mMapViewLocation.x);
+	viewparams->attribute("viewlocation_y", mMapViewLocation.y);
 
 	// ==========================================
 	// MINES
@@ -459,8 +459,8 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	for (std::size_t i = 0; i < mMineLocations.size(); ++i)
 	{
 		XmlElement *mine = new XmlElement("mine");
-		mine->attribute("x", mMineLocations[i].x());
-		mine->attribute("y", mMineLocations[i].y());
+		mine->attribute("x", mMineLocations[i].x);
+		mine->attribute("y", mMineLocations[i].y);
 		getTile(mMineLocations[i], TileMapLevel::LEVEL_SURFACE)->mine()->serialize(mine);
 		mines->linkEndChild(mine);
 	}
@@ -572,7 +572,7 @@ Tile* TileMap::getVisibleTile(NAS2D::Point<int> position, int level)
 
 bool TileMap::isVisibleTile(NAS2D::Point<int> position, int z) const
 {
-	if (!NAS2D::Rectangle{mMapViewLocation.x(), mMapViewLocation.y(), mEdgeLength - 1, mEdgeLength - 1}.contains(position))
+	if (!NAS2D::Rectangle{mMapViewLocation.x, mMapViewLocation.y, mEdgeLength - 1, mEdgeLength - 1}.contains(position))
 	{
 		return false;
 	}

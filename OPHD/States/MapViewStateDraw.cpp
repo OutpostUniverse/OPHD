@@ -167,7 +167,7 @@ void MapViewState::drawResourceInfo()
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto color = (amount <= 10) ? glowColor : NAS2D::Color::White;
 		renderer.drawText(*MAIN_FONT, std::to_string(amount), position + textOffset, color);
-		position.x() += spacing;
+		position.x += spacing;
 	}
 
 	// Capacity (Storage, Food, Energy)
@@ -177,23 +177,23 @@ void MapViewState::drawResourceInfo()
 		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, mPlayerResources.energy(), NAS2D::Utility<StructureManager>::get().totalEnergyProduction(), mPlayerResources.energy() <= 5}
 	};
 
-	position.x() += x + offsetX;
+	position.x += x + offsetX;
 	for (const auto& [imageRect, parts, total, isHighlighted] : storageCapacities)
 	{
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto color = isHighlighted ? glowColor : NAS2D::Color::White;
 		const auto text = std::to_string(parts) + "/" + std::to_string(total);
 		renderer.drawText(*MAIN_FONT, text, position + textOffset, color);
-		position.x() += (x + offsetX) * 2;
+		position.x += (x + offsetX) * 2;
 	}
 
 	// Population / Morale
-	position.x() -= 17;
+	position.x -= 17;
 	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 16 : 32);
 	const auto popMoraleDirectionImageRect = NAS2D::Rectangle{popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, popMoraleDirectionImageRect);
 
-	position.x() += 17;
+	position.x += 17;
 	const auto moraleLevel = (std::clamp(mCurrentMorale, 1, 999) / 200);
 	const auto popMoraleImageRect = NAS2D::Rectangle{176 + moraleLevel * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
@@ -208,7 +208,7 @@ void MapViewState::drawResourceInfo()
 	if (shouldShowResourcePanel) { mResourceBreakdownPanel.update(); }
 
 	// Turns
-	position.x() = static_cast<int>(renderer.width() - 80);
+	position.x = static_cast<int>(renderer.width() - 80);
 	const auto turnImageRect = NAS2D::Rectangle{128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
@@ -252,7 +252,7 @@ void MapViewState::drawRobotInfo()
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto text = std::to_string(parts) + "/" + std::to_string(total);
 		renderer.drawText(*MAIN_FONT, text, position + textOffset, NAS2D::Color::White);
-		position.y() -= 25;
+		position.y -= 25;
 	}
 }
 
