@@ -50,8 +50,6 @@ void UIContainer::add(Control* control, int x, int y)
 	{
 		asRadioButton->parentContainer(this);
 	}
-
-	/// todo\	Add validation to contain controls within a UIContainer.
 }
 
 
