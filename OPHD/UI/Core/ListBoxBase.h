@@ -106,9 +106,9 @@ private:
 	unsigned int mCurrentSelection = constants::NO_SELECTION; /**< Current selection index. */
 	unsigned int mCurrentOffset = 0; /**< Draw Offset. */
 
-	unsigned int mItemHeight = 1; /**< Height of a ListBoxItem. */
-	unsigned int mItemWidth = 0; /**< Width of a ListBoxItem. */
-	unsigned int mLineCount = 0; /**< Number of lines that can be displayed. */
+	int mItemHeight = 1; /**< Height of a ListBoxItem. */
+	int mItemWidth = 0; /**< Width of a ListBoxItem. */
+	int mLineCount = 0; /**< Number of lines that can be displayed. */
 
 	bool mHasFocus = false;
 

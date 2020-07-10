@@ -19,17 +19,17 @@ class Control
 public:
 	using ResizeCallback = NAS2D::Signals::Signal<Control*>;
 	using TextChangedCallback = NAS2D::Signals::Signal<Control*>;
-	using PositionChangedCallback = NAS2D::Signals::Signal<float, float>;
+	using PositionChangedCallback = NAS2D::Signals::Signal<int, int>;
 
 public:
 	Control() = default;
 	virtual ~Control() = default;
 
-	NAS2D::Point<float> position() const { return mRect.startPoint(); }
-	void position(const NAS2D::Point<float>& pos);
+	NAS2D::Point<int> position() const { return mRect.startPoint(); }
+	void position(const NAS2D::Point<int>& pos);
 
-	float positionX();
-	float positionY();
+	int positionX();
+	int positionY();
 
 	PositionChangedCallback& moved();
 
@@ -45,7 +45,7 @@ public:
 	virtual void hide() { visible(false); }
 	virtual void show() { visible(true); }
 
-	const NAS2D::Rectangle<float>& rect() const;
+	const NAS2D::Rectangle<int>& rect() const;
 
 	virtual void hasFocus(bool focus);
 	bool hasFocus() const;
@@ -54,15 +54,15 @@ public:
 	const std::string& text() const { return mText; }
 	TextChangedCallback& textChanged() { return mTextChanged; }
 
-	NAS2D::Vector<float> size() const { return mRect.size(); }
-	void size(NAS2D::Vector<float> newSize);
-	void size(float newSize);
+	NAS2D::Vector<int> size() const { return mRect.size(); }
+	void size(NAS2D::Vector<int> newSize);
+	void size(int newSize);
 
-	void width(float w);
-	void height(float h);
+	void width(int w);
+	void height(int h);
 
-	float width() const;
-	float height() const;
+	int width() const;
+	int height() const;
 
 	ResizeCallback& resized();
 
@@ -75,8 +75,8 @@ protected:
 	 * \param	dX	Difference in X Position.
 	 * \param	dY	Difference in Y Position.
 	 */
-	virtual void positionChanged(float dX, float dY) { mPositionChanged(dX, dY); }
-	void positionChanged(NAS2D::Vector<float> displacement) { positionChanged(displacement.x, displacement.y); }
+	virtual void positionChanged(int dX, int dY) { mPositionChanged(dX, dY); }
+	void positionChanged(NAS2D::Vector<int> displacement) { positionChanged(displacement.x, displacement.y); }
 
 	virtual void visibilityChanged(bool /*visible*/) {}
 
@@ -92,7 +92,7 @@ protected:
 	ResizeCallback mResized;
 	TextChangedCallback mTextChanged;
 
-	NAS2D::Rectangle<float> mRect; /**< Area of the Control. */
+	NAS2D::Rectangle<int> mRect; /**< Area of the Control. */
 
 private:
 	virtual void draw() {}

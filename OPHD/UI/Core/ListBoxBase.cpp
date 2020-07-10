@@ -72,7 +72,7 @@ void ListBoxBase::visibilityChanged(bool)
  */
 void ListBoxBase::_update_item_display()
 {
-	mItemWidth = static_cast<unsigned int>(width());
+	mItemWidth = width();
 
 	if ((mItemHeight * mItems.size()) > static_cast<std::size_t>(height()))
 	{
@@ -175,7 +175,7 @@ void ListBoxBase::onMouseWheel(int /*x*/, int y)
 	if (!visible()) { return; }
 	if (!mHasFocus) { return; }
 
-	float change = static_cast<float>(mItemHeight);
+	float change = mItemHeight;
 
 	mSlider.changeThumbPosition((y < 0 ? change : -change));
 }
@@ -189,9 +189,9 @@ void ListBoxBase::slideChanged(float newPosition)
 	_update_item_display();
 	// Intentional truncation of fractional value
 	int pos = static_cast<int>(newPosition);
-	if (static_cast<float>(pos) != newPosition)
+	if (pos != newPosition)
 	{
-		mSlider.thumbPosition(static_cast<float>(pos));
+		mSlider.thumbPosition(pos);
 	}
 }
 
@@ -322,15 +322,15 @@ void ListBoxBase::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	// CONTROL EXTENTS
-	const auto backgroundRect = NAS2D::Rectangle{mRect.x, mRect.y, static_cast<float>(mItemWidth), mRect.height};
+	const auto backgroundRect = NAS2D::Rectangle{mRect.x, mRect.y, mItemWidth, mRect.height};
 	renderer.drawBoxFilled(backgroundRect, NAS2D::Color::Black);
 	renderer.drawBox(backgroundRect, (hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75}));
 
 	renderer.clipRect(mRect);
 
 	// MOUSE HIGHLIGHT
-	float highlight_y = positionY() + static_cast<float>((mCurrentHighlight * mItemHeight) - mCurrentOffset);
-	renderer.drawBoxFilled({positionX(), highlight_y, static_cast<float>(mItemWidth), static_cast<float>(mItemHeight)}, NAS2D::Color{0, 185, 0, 50});
+	int highlight_y = positionY() + (mCurrentHighlight * mItemHeight) - mCurrentOffset;
+	renderer.drawBoxFilled(NAS2D::Rectangle{positionX(), highlight_y, mItemWidth, mItemHeight}, NAS2D::Color{0, 185, 0, 50});
 
 	mSlider.update();
 

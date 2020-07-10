@@ -115,13 +115,13 @@ void PlanetSelectState::initialize()
 	PLANET_TYPE_SELECTION = Planet::PlanetType::PLANET_TYPE_NONE;
 
 	mQuit.size({100, 20});
-	mQuit.position({renderer.width() - 105, 30});
+	mQuit.position({static_cast<int>(renderer.width()) - 105, 30});
 	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
 
 	mPlanetDescription.text("");
 	mPlanetDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
 	mPlanetDescription.size({550, 200});
-	mPlanetDescription.position({renderer.center_x() - 275, renderer.height() - 225});
+	mPlanetDescription.position(NAS2D::Point{renderer.center_x() - 275, renderer.height() - 225});
 
 	renderer.showSystemPointer(true);
 	renderer.fadeIn(constants::FADE_SPEED);

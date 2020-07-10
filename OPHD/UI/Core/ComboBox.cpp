@@ -67,20 +67,20 @@ void ComboBox::resizedHandler(Control* /*control*/)
 	lstItems.width(width());
 	lstItems.position(rect().crossYPoint());
 
-	mBaseArea = Rectangle<float>::Create(position(), NAS2D::Vector{width(), btnDown.height()});
+	mBaseArea = Rectangle<int>::Create(position(), NAS2D::Vector{width(), btnDown.height()});
 }
 
 
 /**
  * Position changed event handler.
  */
-void ComboBox::repositioned(float, float)
+void ComboBox::repositioned(int, int)
 {
 	txtField.position(position());
 	btnDown.position(txtField.rect().crossXPoint());
 	lstItems.position(rect().crossYPoint());
 
-	mBaseArea = Rectangle<float>::Create(position(), NAS2D::Vector{width(), btnDown.height()});
+	mBaseArea = Rectangle<int>::Create(position(), NAS2D::Vector{width(), btnDown.height()});
 }
 
 
