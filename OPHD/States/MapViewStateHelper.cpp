@@ -313,23 +313,23 @@ bool selfSustained(StructureID id)
 /** 
  * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
  */
-bool outOfCommRange(Point<int>& cc_location, TileMap* tile_map, Tile* current_tile)
+bool outOfCommRange(Point<int>& ccLocation, TileMap* tileMap, Tile* currentTile)
 {
-	Tile* tile = tile_map->getVisibleTile();
+	Tile* tile = tileMap->getVisibleTile();
 
-	if (tile->distanceTo(tile_map->getTile(cc_location, 0)) <= constants::ROBOT_COM_RANGE)
+	if (tile->distanceTo(tileMap->getTile(ccLocation, 0)) <= constants::ROBOT_COM_RANGE)
 		return false;
 
 	auto structureManager = Utility<StructureManager>::get();
-	for (auto _tower : structureManager.structureList(Structure::StructureClass::CLASS_COMM))
+	for (auto tower : structureManager.structureList(Structure::StructureClass::CLASS_COMM))
 	{
-		if (!_tower->operational())
+		if (!tower->operational())
 		{
 			continue;
 		}
 
-		const auto _comm_t = structureManager.tileFromStructure(_tower);
-		if (_comm_t->distanceTo(current_tile) <= constants::COMM_TOWER_BASE_RANGE)
+		const auto commTowerTile = structureManager.tileFromStructure(tower);
+		if (commTowerTile->distanceTo(currentTile) <= constants::COMM_TOWER_BASE_RANGE)
 		{
 			return false;
 		}
