@@ -34,19 +34,25 @@ void UIContainer::add(Control* control, int x, int y)
 		return;
 	}
 
-	if (std::find(mControls.begin(), mControls.end(), control) != mControls.end())
+	add(*control, {x, y});
+}
+
+
+void UIContainer::add(Control& control, NAS2D::Vector<int> offset)
+{
+	if (std::find(mControls.begin(), mControls.end(), &control) != mControls.end())
 	{
 		std::cout << "UIContainer::addControl(): Duplicate control." << std::endl;
 		return;
 	}
 
 	if (mControls.size() > 0) { mControls.back()->hasFocus(false); }
-	mControls.push_back(control);
+	mControls.push_back(&control);
 
-	control->position(mRect.startPoint() + NAS2D::Vector{x, y});
-	control->visible(visible());
-	control->hasFocus(true);
-	if (auto* asRadioButton = dynamic_cast<RadioButton*>(control))
+	control.position(mRect.startPoint() + offset);
+	control.visible(visible());
+	control.hasFocus(true);
+	if (auto* asRadioButton = dynamic_cast<RadioButton*>(&control))
 	{
 		asRadioButton->parentContainer(this);
 	}

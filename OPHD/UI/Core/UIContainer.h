@@ -2,6 +2,7 @@
 
 #include "TextControl.h"
 
+#include <NAS2D/Renderer/Vector.h>
 #include <NAS2D/EventHandler.h>
 
 #include <vector>
@@ -18,6 +19,7 @@ public:
 	~UIContainer() override;
 
 	void add(Control* control, int x, int y);
+	void add(Control& control, NAS2D::Vector<int> offset);
 	void clear();
 
 	void bringToFront(Control* control);
