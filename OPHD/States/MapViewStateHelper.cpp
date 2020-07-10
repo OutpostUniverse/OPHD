@@ -315,10 +315,14 @@ bool selfSustained(StructureID id)
  */
 bool outOfCommRange(Point<int>& ccLocation, TileMap* tileMap, Tile* currentTile)
 {
+	const auto maxCcRangeSquared = constants::ROBOT_COM_RANGE * constants::ROBOT_COM_RANGE;
 	const auto tile = tileMap->getVisibleTile();
-	if (tile->distanceTo(tileMap->getTile(ccLocation, 0)) <= constants::ROBOT_COM_RANGE)
+	const auto ccDistance = tile->position() - tileMap->getTile(ccLocation, 0)->position();
+	if (ccDistance.lengthSquared() <= maxCcRangeSquared)
 		return false;
 
+	const auto currentPosition = currentTile->position();
+	const auto maxTowerRangeSquared = constants::COMM_TOWER_BASE_RANGE * constants::COMM_TOWER_BASE_RANGE;
 	auto structureManager = Utility<StructureManager>::get();
 	for (auto tower : structureManager.structureList(Structure::StructureClass::CLASS_COMM))
 	{
@@ -328,7 +332,8 @@ bool outOfCommRange(Point<int>& ccLocation, TileMap* tileMap, Tile* currentTile)
 		}
 
 		const auto commTowerTile = structureManager.tileFromStructure(tower);
-		if (commTowerTile->distanceTo(currentTile) <= constants::COMM_TOWER_BASE_RANGE)
+		const auto towerDistance = currentPosition - commTowerTile->position();
+		if (towerDistance.lengthSquared() <= maxTowerRangeSquared)
 		{
 			return false;
 		}
