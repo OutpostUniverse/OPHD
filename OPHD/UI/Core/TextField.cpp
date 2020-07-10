@@ -105,7 +105,7 @@ void TextField::maxCharacters(std::size_t count)
 
 int TextField::textAreaWidth() const
 {
-	return static_cast<int>(mRect.width()) - FIELD_PADDING * 2;
+	return static_cast<int>(mRect.width) - FIELD_PADDING * 2;
 }
 
 
@@ -228,7 +228,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	int relativePosition = static_cast<int>(x - mRect.x());
+	int relativePosition = static_cast<int>(x - mRect.x);
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
@@ -268,8 +268,8 @@ void TextField::drawCursor()
 			// updateCursor() should be called only on events relating to the cursor so this is temporary.
 			updateCursor();
 			auto& renderer = Utility<Renderer>::get();
-			const auto startPosition = NAS2D::Point{static_cast<float>(mCursorX), mRect.y() + FIELD_PADDING};
-			const auto endPosition = NAS2D::Point{static_cast<float>(mCursorX), mRect.y() + mRect.height() - FIELD_PADDING - 1};
+			const auto startPosition = NAS2D::Point{static_cast<float>(mCursorX), mRect.y + FIELD_PADDING};
+			const auto endPosition = NAS2D::Point{static_cast<float>(mCursorX), mRect.y + mRect.height - FIELD_PADDING - 1};
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
 			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
 		}
@@ -304,7 +304,7 @@ void TextField::updateCursor()
 		mScrollOffset = 0;
 	}
 
-	mCursorX = static_cast<int>(mRect.x() + FIELD_PADDING + cursorX - mScrollOffset);
+	mCursorX = static_cast<int>(mRect.x + FIELD_PADDING + cursorX - mScrollOffset);
 }
 
 

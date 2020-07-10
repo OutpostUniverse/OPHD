@@ -99,7 +99,7 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		lstItems.visible(!lstItems.visible());
 		if (lstItems.visible())
 		{
-			mRect.height(height() + lstItems.height());
+			mRect.height = height() + lstItems.height();
 		}
 		else
 		{

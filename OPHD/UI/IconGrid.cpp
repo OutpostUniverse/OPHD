@@ -82,8 +82,8 @@ void IconGrid::iconMargin(int newMargin)
 void IconGrid::updateGrid()
 {
 	// explicit cast, intentional trunctation of floating point data.
-	int cols = static_cast<int>((mRect.width() - (mIconMargin * 2)) / (mIconSize + mIconMargin));
-	int rows = static_cast<int>((mRect.height() - (mIconMargin * 2)) / (mIconSize + mIconMargin));
+	int cols = static_cast<int>((mRect.width - (mIconMargin * 2)) / (mIconSize + mIconMargin));
+	int rows = static_cast<int>((mRect.height - (mIconMargin * 2)) / (mIconSize + mIconMargin));
 
 	mGridSize = {cols, rows};
 }
@@ -418,7 +418,7 @@ void IconGrid::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	//renderer.drawBoxFilled(mRect, 0, 0, 0);
-	renderer.drawImageRect(mRect.x(), mRect.y(), mRect.width(), mRect.height(), mSkin);
+	renderer.drawImageRect(mRect.x, mRect.y, mRect.width, mRect.height, mSkin);
 
 	if (mIconItemList.empty()) { return; }
 
@@ -427,8 +427,8 @@ void IconGrid::update()
 		int x_pos = static_cast<int>(i) % mGridSize.x;
 		int y_pos = static_cast<int>(i) / mGridSize.x; //-V537
 
-		float x = static_cast<float>((mRect.x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
-		float y = static_cast<float>((mRect.y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
+		float x = static_cast<float>((mRect.x + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
+		float y = static_cast<float>((mRect.y + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
 
 		if (mIconItemList[i].available)
 			renderer.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x, mIconItemList[i].pos.y, static_cast<float>(mIconSize), static_cast<float>(mIconSize));
@@ -440,8 +440,8 @@ void IconGrid::update()
 	{
 		int x_pos = (static_cast<int>(mCurrentSelection) % mGridSize.x);
 		int y_pos = (static_cast<int>(mCurrentSelection) / mGridSize.x); //-V537
-		renderer.drawBox((mRect.x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos),
-			(mRect.y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos),
+		renderer.drawBox((mRect.x + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos),
+			(mRect.y + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos),
 			static_cast<float>(mIconSize),
 			static_cast<float>(mIconSize), 0, 100, 255);
 	}
@@ -451,8 +451,8 @@ void IconGrid::update()
 		int x_pos = (static_cast<int>(mHighlightIndex) % mGridSize.x);
 		int y_pos = (static_cast<int>(mHighlightIndex) / mGridSize.x); //-V537
 
-		int x = static_cast<int>((mRect.x() + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
-		int y = static_cast<int>((mRect.y() + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
+		int x = static_cast<int>((mRect.x + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
+		int y = static_cast<int>((mRect.y + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
 
 		renderer.drawBox(static_cast<float>(x), static_cast<float>(y), static_cast<float>(mIconSize), static_cast<float>(mIconSize), 0, 180, 0);
 

@@ -58,7 +58,7 @@ void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	UIContainer::onMouseDown(button, x, y);
 
-	const auto titleBarBounds = NAS2D::Rectangle{mRect.x(), mRect.y(), mRect.width(), sWindowTitleBarHeight};
+	const auto titleBarBounds = NAS2D::Rectangle{mRect.x, mRect.y, mRect.width, sWindowTitleBarHeight};
 	mMouseDrag = (button == EventHandler::MouseButton::BUTTON_LEFT && titleBarBounds.to<int>().contains(NAS2D::Point{x, y}));
 }
 
@@ -98,13 +98,13 @@ void Window::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImage(mTitle[0], mRect.x(), mRect.y());
-	renderer.drawImageRepeated(mTitle[1], mRect.x() + 4, mRect.y(), mRect.width() - 8, sWindowTitleBarHeight);
-	renderer.drawImage(mTitle[2], mRect.x() + mRect.width() - 4, mRect.y());
+	renderer.drawImage(mTitle[0], mRect.x, mRect.y);
+	renderer.drawImageRepeated(mTitle[1], mRect.x + 4, mRect.y, mRect.width - 8, sWindowTitleBarHeight);
+	renderer.drawImage(mTitle[2], mRect.x + mRect.width - 4, mRect.y);
 
-	renderer.drawImageRect(mRect.x(), mRect.y() + 20, mRect.width(), mRect.height() - 20, mBody);
+	renderer.drawImageRect(mRect.x, mRect.y + 20, mRect.width, mRect.height - 20, mBody);
 
-	renderer.drawText(*WINDOW_TITLE_FONT, text(), mRect.x() + 5, mRect.y() + 2, 255, 255, 255);
+	renderer.drawText(*WINDOW_TITLE_FONT, text(), mRect.x + 5, mRect.y + 2, 255, 255, 255);
 
 	UIContainer::update();
 }

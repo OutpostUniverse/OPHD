@@ -116,8 +116,8 @@ void RadioButton::onTextChanged()
  */
 void RadioButton::onSizeChanged()
 {
-	mRect.height(13);
-	if (width() < 13) { mRect.width(13); }
+	mRect.height = 13;
+	if (width() < 13) { mRect.width = 13; }
 }
 
 

@@ -226,12 +226,12 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	{
 		if (mSliderType == SliderType::Vertical)
 		{
-			if (y < mSlider.y()) { changeThumbPosition(-3.0); }
+			if (y < mSlider.y) { changeThumbPosition(-3.0); }
 			else { changeThumbPosition(+3.0); }
 		}
 		else
 		{
-			if (x < mSlider.x()) { changeThumbPosition(-3.0); }
+			if (x < mSlider.x) { changeThumbPosition(-3.0); }
 			else { changeThumbPosition(+3.0); }
 		}
 	}
@@ -256,21 +256,21 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 
 	if (mSliderType == SliderType::Vertical)
 	{
-		if (y < mSlideBar.y() || y >(mSlideBar.y() + mSlideBar.height()))
+		if (y < mSlideBar.y || y >(mSlideBar.y + mSlideBar.height))
 		{
 			return;
 		}
 
-		positionInternal(mLength * ((y - mSlideBar.y()) / mSlideBar.height()));
+		positionInternal(mLength * ((y - mSlideBar.y) / mSlideBar.height));
 	}
 	else
 	{
-		if (x < mSlideBar.x() || x >(mSlideBar.x() + mSlideBar.width()))
+		if (x < mSlideBar.x || x >(mSlideBar.x + mSlideBar.width))
 		{
 			return;
 		}
 
-		positionInternal(mLength * (x - mSlideBar.x()) / mSlideBar.width());
+		positionInternal(mLength * (x - mSlideBar.x) / mSlideBar.width);
 	}
 }
 
@@ -283,15 +283,15 @@ void Slider::logic()
 	// compute position of items
 	if (mSliderType == SliderType::Vertical)
 	{
-		mButton1 = {mRect.x(), mRect.y(), mRect.width(), mRect.width()};
-		mButton2 = {mRect.x(), mRect.y() + mRect.height() - mRect.width(), mRect.width(), mRect.width()};
-		mSlideBar = {mRect.x(), mRect.y() + mRect.width(), mRect.width(), mRect.height() - 2 * mRect.width()};
+		mButton1 = {mRect.x, mRect.y, mRect.width, mRect.width};
+		mButton2 = {mRect.x, mRect.y + mRect.height - mRect.width, mRect.width, mRect.width};
+		mSlideBar = {mRect.x, mRect.y + mRect.width, mRect.width, mRect.height - 2 * mRect.width};
 	}
 	else
 	{
-		mButton1 = {mRect.x(), mRect.y(), mRect.height(), mRect.height()};
-		mButton2 = {mRect.x() + mRect.width() - mRect.height(), mRect.y(), mRect.height(), mRect.height()};
-		mSlideBar = {mRect.x() + mRect.height(), mRect.y(), mRect.width() - 2 * mRect.height(), mRect.height()};
+		mButton1 = {mRect.x, mRect.y, mRect.height, mRect.height};
+		mButton2 = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
+		mSlideBar = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
 	}
 }
 
@@ -334,22 +334,22 @@ void Slider::draw()
 	if (mSliderType == SliderType::Vertical)
 	{
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = std::floor(mSlideBar.height() / mLength);
-		const auto newSize = std::max(i, mSlider.width());
+		const auto i = std::floor(mSlideBar.height / mLength);
+		const auto newSize = std::max(i, mSlider.width);
 
-		const auto relativeThumbPosition = (mSlideBar.height() - mSlider.height()) * (mPosition / mLength); //relative width
+		const auto relativeThumbPosition = (mSlideBar.height - mSlider.height) * (mPosition / mLength); //relative width
 
-		mSlider = {mSlideBar.x(), mSlideBar.y() + relativeThumbPosition, mSlideBar.width(), newSize};
+		mSlider = {mSlideBar.x, mSlideBar.y + relativeThumbPosition, mSlideBar.width, newSize};
 	}
 	else
 	{
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = std::floor(mSlideBar.width() / (mLength + 1.0f));
-		const auto newSize = std::max(i, mSlider.height());
+		const auto i = std::floor(mSlideBar.width / (mLength + 1.0f));
+		const auto newSize = std::max(i, mSlider.height);
 
-		const auto relativeThumbPosition = (mSlideBar.width() - mSlider.width()) * (mPosition / mLength); //relative width
+		const auto relativeThumbPosition = (mSlideBar.width - mSlider.width) * (mPosition / mLength); //relative width
 
-		mSlider = {mSlideBar.x() + relativeThumbPosition, mSlideBar.y(), newSize, mSlideBar.height()};
+		mSlider = {mSlideBar.x + relativeThumbPosition, mSlideBar.y, newSize, mSlideBar.height};
 	}
 
 	renderer.drawImageRect(mSlider, mSkinSlider);
@@ -363,13 +363,13 @@ void Slider::draw()
 
 		if (mSliderType == SliderType::Vertical)
 		{
-			x = static_cast<int>(mSlideBar.x() + mSlideBar.width() + 2);
+			x = static_cast<int>(mSlideBar.x + mSlideBar.width + 2);
 			y = mMousePosition.y - height;
 		}
 		else
 		{
 			x = mMousePosition.x + 2;
-			y = static_cast<int>(mSlideBar.y() - 2) - height;
+			y = static_cast<int>(mSlideBar.y - 2) - height;
 		}
 
 		renderer.drawBox(NAS2D::Rectangle{x, y, width, height}, NAS2D::Color{255, 255, 255, 180});

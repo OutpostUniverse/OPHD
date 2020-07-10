@@ -110,8 +110,8 @@ void CheckBox::onTextChanged()
  */
 void CheckBox::onSizeChanged()
 {
-	mRect.height(13.0f);
-	if (width() < 13.0f) { mRect.width(13.0f); }
+	mRect.height = 13.0f;
+	if (width() < 13.0f) { mRect.width = 13.0f; }
 }
 
 

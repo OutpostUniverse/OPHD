@@ -80,8 +80,8 @@ void ListBoxBase::_update_item_display()
 
 		if (mLineCount < mItems.size())
 		{
-			mSlider.position({rect().x() + mRect.width() - 14, mRect.y()});
-			mSlider.size({14, mRect.height()});
+			mSlider.position({rect().x + mRect.width - 14, mRect.y});
+			mSlider.size({14, mRect.height});
 			mSlider.length((mItemHeight * mItems.size()) - height());
 			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
 			mItemWidth -= static_cast<unsigned int>(mSlider.width());
@@ -322,7 +322,7 @@ void ListBoxBase::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	// CONTROL EXTENTS
-	const auto backgroundRect = NAS2D::Rectangle{mRect.x(), mRect.y(), static_cast<float>(mItemWidth), mRect.height()};
+	const auto backgroundRect = NAS2D::Rectangle{mRect.x, mRect.y, static_cast<float>(mItemWidth), mRect.height};
 	renderer.drawBoxFilled(backgroundRect, NAS2D::Color::Black);
 	renderer.drawBox(backgroundRect, (hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75}));
 
