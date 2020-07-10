@@ -162,6 +162,6 @@ void StructureInspector::update()
 	stringTable.position(mRect.startPoint() + NAS2D::Vector<float>{10, 135});
 	stringTable.draw(renderer);
 
-	position = mRect.startPoint() + NAS2D::Vector{5, static_cast<int>(mRect.height()) - FONT->height() - 5};
+	position = mRect.startPoint() + NAS2D::Vector{5, static_cast<int>(mRect.height) - FONT->height() - 5};
 	renderer.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);
 }

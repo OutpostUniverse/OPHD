@@ -146,10 +146,10 @@ void WarehouseReport::init()
 
 
 
-	add(&lstStructures, 10, mRect.y() + 115);
+	add(&lstStructures, 10, mRect.y + 115);
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
 
-	add(&lstProducts, Utility<Renderer>::get().center_x() + 10, mRect.y() + 173);
+	add(&lstProducts, Utility<Renderer>::get().center_x() + 10, mRect.y + 173);
 
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::doubleClicked);
 

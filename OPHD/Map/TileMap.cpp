@@ -274,7 +274,7 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 	mMapPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BOTTOM_UI_HEIGHT - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
 	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, static_cast<int>(mMapPosition.y), TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
 
-	int transform = (mMapPosition.x - mMapBoundingBox.x()) / TILE_WIDTH;
+	int transform = (mMapPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
 	TRANSFORM = {-transform, transform};
 }
 
@@ -370,12 +370,12 @@ void TileMap::updateTileHighlight()
 	int even_edge_length_adjust = 0;
 	if (edgeLength() % 2 == 0) { even_edge_length_adjust = TILE_HALF_WIDTH; }
 
-	int offsetX = ((mMousePosition.x - mMapBoundingBox.x() - even_edge_length_adjust) / TILE_WIDTH);
-	int offsetY = ((mMousePosition.y - mMapBoundingBox.y()) / TILE_HEIGHT_ABSOLUTE);
+	int offsetX = ((mMousePosition.x - mMapBoundingBox.x - even_edge_length_adjust) / TILE_WIDTH);
+	int offsetY = ((mMousePosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
 	NAS2D::Vector<int> highlightOffset = {TRANSFORM.x + offsetY + offsetX, TRANSFORM.y + offsetY - offsetX};
 
-	int mmOffsetX = std::clamp((mMousePosition.x - mMapBoundingBox.x() - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
-	int mmOffsetY = (mMousePosition.y - mMapBoundingBox.y()) % TILE_HEIGHT_ABSOLUTE;
+	int mmOffsetX = std::clamp((mMousePosition.x - mMapBoundingBox.x - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
+	int mmOffsetY = (mMousePosition.y - mMapBoundingBox.y) % TILE_HEIGHT_ABSOLUTE;
 
 	MouseMapRegion mmr = getMouseMapRegion(mmOffsetX, mmOffsetY);
 

@@ -103,7 +103,7 @@ void MapViewState::initUi()
 
 	// BUTTONS
 	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
+	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
 	mBtnTurns.size(static_cast<float>(constants::MAIN_BUTTON_SIZE));
 	mBtnTurns.click().connect(this, &MapViewState::btnTurnsClicked);
 	mBtnTurns.enabled(false);
@@ -119,7 +119,7 @@ void MapViewState::initUi()
 
 	// Menus
 	mRobots.sheetPath("ui/robots.png");
-	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN)});
+	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y + MARGIN)});
 	mRobots.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mRobots.iconSize(46);
 	mRobots.iconMargin(constants::MARGIN_TIGHT);
@@ -127,7 +127,7 @@ void MapViewState::initUi()
 	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
 
 	mConnections.sheetPath("ui/structures.png");
-	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN)});
+	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y + MARGIN)});
 	mConnections.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mConnections.iconSize(46);
 	mConnections.iconMargin(constants::MARGIN_TIGHT);
@@ -135,7 +135,7 @@ void MapViewState::initUi()
 	mConnections.sorted(false);
 
 	mStructures.sheetPath("ui/structures.png");
-	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN});
+	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y + MARGIN});
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mStructures.iconSize(46);
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
@@ -162,26 +162,26 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	// Bottom line
 	const auto navIconSpacing = 32 + constants::MARGIN_TIGHT;
 	MOVE_DOWN_ICON = {size.x - navIconSpacing, size.y - constants::BOTTOM_UI_HEIGHT - 65, 32, 32};
-	MOVE_EAST_ICON = {MOVE_DOWN_ICON.x() - navIconSpacing, MOVE_DOWN_ICON.y() + 8, 32, 16};
-	MOVE_SOUTH_ICON = {MOVE_DOWN_ICON.x() - 2 * navIconSpacing, MOVE_DOWN_ICON.y() + 8, 32, 16};
+	MOVE_EAST_ICON = {MOVE_DOWN_ICON.x - navIconSpacing, MOVE_DOWN_ICON.y + 8, 32, 16};
+	MOVE_SOUTH_ICON = {MOVE_DOWN_ICON.x - 2 * navIconSpacing, MOVE_DOWN_ICON.y + 8, 32, 16};
 
 	// Top line
-	MOVE_UP_ICON = {MOVE_DOWN_ICON.x(), MOVE_DOWN_ICON.y() - navIconSpacing, 32, 32};
-	MOVE_NORTH_ICON = {MOVE_UP_ICON.x() - navIconSpacing, MOVE_UP_ICON.y() + 8, 32, 16};
-	MOVE_WEST_ICON = {MOVE_UP_ICON.x() - 2 * navIconSpacing, MOVE_UP_ICON.y() + 8, 32, 16};
+	MOVE_UP_ICON = {MOVE_DOWN_ICON.x, MOVE_DOWN_ICON.y - navIconSpacing, 32, 32};
+	MOVE_NORTH_ICON = {MOVE_UP_ICON.x - navIconSpacing, MOVE_UP_ICON.y + 8, 32, 16};
+	MOVE_WEST_ICON = {MOVE_UP_ICON.x - 2 * navIconSpacing, MOVE_UP_ICON.y + 8, 32, 16};
 
 	// Mini Map
-	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, BOTTOM_UI_AREA.y() + constants::MARGIN, 300, 150};
+	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, BOTTOM_UI_AREA.y + constants::MARGIN, 300, 150};
 
 	// Position UI Buttons
-	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x() - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
-	mBtnToggleHeightmap.position({mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y())});
-	mBtnToggleConnectedness.position({mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y() + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT)});
+	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
+	mBtnToggleHeightmap.position({mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y)});
+	mBtnToggleConnectedness.position({mBtnTurns.positionX(), static_cast<float>(mMiniMapBoundingBox.y + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT)});
 
 	// UI Panels
-	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN)});
-	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y() + MARGIN)});
-	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y() + MARGIN});
+	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y + MARGIN)});
+	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, static_cast<float>(BOTTOM_UI_AREA.y + MARGIN)});
+	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y + MARGIN});
 
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
@@ -356,7 +356,7 @@ void MapViewState::drawUI()
 	// Bottom UI
 	renderer.drawBoxFilled(BOTTOM_UI_AREA, NAS2D::Color{39, 39, 39});
 	renderer.drawBox(BOTTOM_UI_AREA, NAS2D::Color{21, 21, 21});
-	renderer.drawLine(NAS2D::Point{BOTTOM_UI_AREA.x() + 1, BOTTOM_UI_AREA.y()}, NAS2D::Point{BOTTOM_UI_AREA.x() + BOTTOM_UI_AREA.width() - 2, BOTTOM_UI_AREA.y()}, NAS2D::Color{56, 56, 56});
+	renderer.drawLine(NAS2D::Point{BOTTOM_UI_AREA.x + 1, BOTTOM_UI_AREA.y}, NAS2D::Point{BOTTOM_UI_AREA.x + BOTTOM_UI_AREA.width - 2, BOTTOM_UI_AREA.y}, NAS2D::Color{56, 56, 56});
 
 	drawMiniMap();
 	drawResourceInfo();
