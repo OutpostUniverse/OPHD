@@ -76,9 +76,9 @@ void ListBoxBase::_update_item_display()
 
 	if ((mItemHeight * mItems.size()) > static_cast<std::size_t>(height()))
 	{
-		mLineCount = static_cast<int>(height() / mItemHeight);
+		mLineCount = height() / mItemHeight;
 
-		if (mLineCount < mItems.size())
+		if (static_cast<std::size_t>(mLineCount) < mItems.size())
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
