@@ -105,6 +105,16 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>SET sourceDir="$(VcpkgCurrentInstalledDir)bin\"
+if $(ConfigurationName) == Debug (
+  SET sourceDir="$(VcpkgCurrentInstalledDir)debug\bin\"
+)
+
+xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
+xcopy /y /d "%sourceDir%vorbis.dll" "$(OutDir)"
+xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -128,6 +138,16 @@
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>SET sourceDir="$(VcpkgCurrentInstalledDir)bin\"
+if $(ConfigurationName) == Debug (
+  SET sourceDir="$(VcpkgCurrentInstalledDir)debug\bin\"
+)
+
+xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
+xcopy /y /d "%sourceDir%vorbis.dll" "$(OutDir)"
+xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -153,6 +173,16 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>SET sourceDir="$(VcpkgCurrentInstalledDir)bin\"
+if $(ConfigurationName) == Debug (
+  SET sourceDir="$(VcpkgCurrentInstalledDir)debug\bin\"
+)
+
+xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
+xcopy /y /d "%sourceDir%vorbis.dll" "$(OutDir)"
+xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -178,6 +208,16 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>SET sourceDir="$(VcpkgCurrentInstalledDir)bin\"
+if $(ConfigurationName) == Debug (
+  SET sourceDir="$(VcpkgCurrentInstalledDir)debug\bin\"
+)
+
+xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
+xcopy /y /d "%sourceDir%vorbis.dll" "$(OutDir)"
+xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
