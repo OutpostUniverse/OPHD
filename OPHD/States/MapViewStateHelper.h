@@ -30,7 +30,7 @@ bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point);
 bool validLanderSite(Tile* t);
 bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position);
 bool structureIsLander(StructureID id);
-bool outOfCommRange(NAS2D::Point<int> position);
+bool inCommRange(NAS2D::Point<int> position);
 bool selfSustained(StructureID id);
 
 int totalStorage(StructureList& structures);

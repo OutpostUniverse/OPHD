@@ -313,12 +313,12 @@ bool selfSustained(StructureID id)
 /** 
  * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
  */
-bool outOfCommRange(NAS2D::Point<int> position)
+bool inCommRange(NAS2D::Point<int> position)
 {
 	const auto maxCcRangeSquared = constants::ROBOT_COM_RANGE * constants::ROBOT_COM_RANGE;
 	const auto ccDistance = position - ccLocation();
 	if (ccDistance.lengthSquared() <= maxCcRangeSquared)
-		return false;
+		return true;
 
 	const auto maxTowerRangeSquared = constants::COMM_TOWER_BASE_RANGE * constants::COMM_TOWER_BASE_RANGE;
 	auto structureManager = Utility<StructureManager>::get();
@@ -333,11 +333,11 @@ bool outOfCommRange(NAS2D::Point<int> position)
 		const auto towerDistance = position - commTowerTile->position();
 		if (towerDistance.lengthSquared() <= maxTowerRangeSquared)
 		{
-			return false;
+			return true;
 		}
 	}
 
-	return true;
+	return false;
 }
 
 
