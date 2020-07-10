@@ -315,8 +315,7 @@ bool selfSustained(StructureID id)
  */
 bool outOfCommRange(Point<int>& ccLocation, TileMap* tileMap, Tile* currentTile)
 {
-	Tile* tile = tileMap->getVisibleTile();
-
+	const auto tile = tileMap->getVisibleTile();
 	if (tile->distanceTo(tileMap->getTile(ccLocation, 0)) <= constants::ROBOT_COM_RANGE)
 		return false;
 
