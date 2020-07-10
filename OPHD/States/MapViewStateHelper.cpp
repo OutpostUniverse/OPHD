@@ -313,11 +313,11 @@ bool selfSustained(StructureID id)
 /** 
  * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
  */
-bool outOfCommRange(Point<int>& ccLocation, TileMap* /*tileMap*/, Tile* currentTile)
+bool outOfCommRange(Point<int>& /*ccLocation*/, TileMap* /*tileMap*/, Tile* currentTile)
 {
 	const auto currentPosition = currentTile->position();
 	const auto maxCcRangeSquared = constants::ROBOT_COM_RANGE * constants::ROBOT_COM_RANGE;
-	const auto ccDistance = currentPosition - ccLocation;
+	const auto ccDistance = currentPosition - ccLocation();
 	if (ccDistance.lengthSquared() <= maxCcRangeSquared)
 		return false;
 
