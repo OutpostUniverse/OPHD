@@ -316,8 +316,7 @@ bool selfSustained(StructureID id)
 bool outOfCommRange(Point<int>& ccLocation, TileMap* tileMap, Tile* currentTile)
 {
 	const auto maxCcRangeSquared = constants::ROBOT_COM_RANGE * constants::ROBOT_COM_RANGE;
-	const auto tile = tileMap->getVisibleTile();
-	const auto ccDistance = tile->position() - tileMap->getTile(ccLocation, 0)->position();
+	const auto ccDistance = currentTile->position() - tileMap->getTile(ccLocation, 0)->position();
 	if (ccDistance.lengthSquared() <= maxCcRangeSquared)
 		return false;
 
