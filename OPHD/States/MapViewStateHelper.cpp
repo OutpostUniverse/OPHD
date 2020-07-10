@@ -320,7 +320,6 @@ bool outOfCommRange(Point<int>& cc_location, TileMap* tile_map, Tile* current_ti
 	if (tile->distanceTo(tile_map->getTile(cc_location, 0)) <= constants::ROBOT_COM_RANGE)
 		return false;
 
-	Tile* _comm_t = nullptr;
 	for (auto _tower : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_COMM))
 	{
 		if (!_tower->operational())
@@ -328,7 +327,7 @@ bool outOfCommRange(Point<int>& cc_location, TileMap* tile_map, Tile* current_ti
 			continue;
 		}
 
-		_comm_t = Utility<StructureManager>::get().tileFromStructure(_tower);
+		const auto _comm_t = Utility<StructureManager>::get().tileFromStructure(_tower);
 		if (_comm_t->distanceTo(current_tile) <= constants::COMM_TOWER_BASE_RANGE)
 		{
 			return false;
