@@ -318,7 +318,9 @@ bool inCommRange(NAS2D::Point<int> position)
 	const auto maxCcRangeSquared = constants::ROBOT_COM_RANGE * constants::ROBOT_COM_RANGE;
 	const auto ccDistance = position - ccLocation();
 	if (ccDistance.lengthSquared() <= maxCcRangeSquared)
+	{
 		return true;
+	}
 
 	const auto maxTowerRangeSquared = constants::COMM_TOWER_BASE_RANGE * constants::COMM_TOWER_BASE_RANGE;
 	auto structureManager = Utility<StructureManager>::get();
