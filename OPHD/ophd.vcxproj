@@ -106,9 +106,16 @@
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>SET sourceDir="$(VcpkgCurrentInstalledDir)bin\"
-if $(ConfigurationName) == Debug (
-  SET sourceDir="$(VcpkgCurrentInstalledDir)debug\bin\"
+      <Command>SET vcpkgDir="$(VcpkgCurrentInstalledDir)"
+
+IF "vcpkgDir" == "" (
+  EXIT
+)
+
+SET sourceDir="%vcpkgDir%bin\"
+
+IF $(ConfigurationName) == Debug (
+  SET sourceDir="%vcpkgDir%debug\bin\"
 )
 
 xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
@@ -139,9 +146,16 @@ xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>SET sourceDir="$(VcpkgCurrentInstalledDir)bin\"
-if $(ConfigurationName) == Debug (
-  SET sourceDir="$(VcpkgCurrentInstalledDir)debug\bin\"
+      <Command>SET vcpkgDir="$(VcpkgCurrentInstalledDir)"
+
+IF "vcpkgDir" == "" (
+  EXIT
+)
+
+SET sourceDir="%vcpkgDir%bin\"
+
+IF $(ConfigurationName) == Debug (
+  SET sourceDir="%vcpkgDir%debug\bin\"
 )
 
 xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
@@ -174,9 +188,16 @@ xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>SET sourceDir="$(VcpkgCurrentInstalledDir)bin\"
-if $(ConfigurationName) == Debug (
-  SET sourceDir="$(VcpkgCurrentInstalledDir)debug\bin\"
+      <Command>SET vcpkgDir="$(VcpkgCurrentInstalledDir)"
+
+IF "vcpkgDir" == "" (
+  EXIT
+)
+
+SET sourceDir="%vcpkgDir%bin\"
+
+IF $(ConfigurationName) == Debug (
+  SET sourceDir="%vcpkgDir%debug\bin\"
 )
 
 xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
@@ -209,9 +230,16 @@ xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>SET sourceDir="$(VcpkgCurrentInstalledDir)bin\"
-if $(ConfigurationName) == Debug (
-  SET sourceDir="$(VcpkgCurrentInstalledDir)debug\bin\"
+      <Command>SET vcpkgDir="$(VcpkgCurrentInstalledDir)"
+
+IF "vcpkgDir" == "" (
+  EXIT
+)
+
+SET sourceDir="%vcpkgDir%bin\"
+
+IF $(ConfigurationName) == Debug (
+  SET sourceDir="%vcpkgDir%debug\bin\"
 )
 
 xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
