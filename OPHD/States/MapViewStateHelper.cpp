@@ -313,29 +313,33 @@ bool selfSustained(StructureID id)
 /** 
  * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
  */
-bool outOfCommRange(Point<int>& cc_location, TileMap* tile_map, Tile* current_tile)
+bool inCommRange(NAS2D::Point<int> position)
 {
-	Tile* tile = tile_map->getVisibleTile();
-
-	if (tile->distanceTo(tile_map->getTile(cc_location, 0)) <= constants::ROBOT_COM_RANGE)
-		return false;
-
-	Tile* _comm_t = nullptr;
-	for (auto _tower : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_COMM))
+	const auto maxCCRangeSquared = constants::ROBOT_COM_RANGE * constants::ROBOT_COM_RANGE;
+	const auto ccDistance = position - ccLocation();
+	if (ccDistance.lengthSquared() <= maxCCRangeSquared)
 	{
-		if (!_tower->operational())
+		return true;
+	}
+
+	const auto maxTowerRangeSquared = constants::COMM_TOWER_BASE_RANGE * constants::COMM_TOWER_BASE_RANGE;
+	auto structureManager = Utility<StructureManager>::get();
+	for (auto tower : structureManager.structureList(Structure::StructureClass::CLASS_COMM))
+	{
+		if (!tower->operational())
 		{
 			continue;
 		}
 
-		_comm_t = Utility<StructureManager>::get().tileFromStructure(_tower);
-		if (_comm_t->distanceTo(current_tile) <= constants::COMM_TOWER_BASE_RANGE)
+		const auto commTowerTile = structureManager.tileFromStructure(tower);
+		const auto towerDistance = position - commTowerTile->position();
+		if (towerDistance.lengthSquared() <= maxTowerRangeSquared)
 		{
-			return false;
+			return true;
 		}
 	}
 
-	return true;
+	return false;
 }
 
 
