@@ -39,9 +39,9 @@ const double THROB_SPEED = 250.0; // Throb speed of mine beacon
 /** Tuple indicates percent of mines that should be of yields LOW, MED, HIGH */
 const std::map<constants::PlanetHostility, std::array<float, 3>> HostilityMineYieldTable =
 {
-	{ constants::PlanetHostility::HOSTILITY_LOW, {0.30f, 0.50f, 0.20f} },
-	{ constants::PlanetHostility::HOSTILITY_MEDIUM, {0.45f, 0.35f, 0.20f} },
-	{ constants::PlanetHostility::HOSTILITY_HIGH, {0.35f, 0.20f, 0.45f} },
+	{ constants::PlanetHostility::Low, {0.30f, 0.50f, 0.20f} },
+	{ constants::PlanetHostility::Medium, {0.45f, 0.35f, 0.20f} },
+	{ constants::PlanetHostility::High, {0.35f, 0.20f, 0.45f} },
 };
 
 
@@ -187,7 +187,7 @@ void TileMap::buildTerrainMap(const std::string& path)
  */
 void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
 {
-	if (hostility == constants::PlanetHostility::HOSTILITY_NONE) { return; }
+	if (hostility == constants::PlanetHostility::None) { return; }
 
 	int yieldLow = mineCount * HostilityMineYieldTable.at(hostility)[0];
 	int yieldMedium = mineCount * HostilityMineYieldTable.at(hostility)[1];

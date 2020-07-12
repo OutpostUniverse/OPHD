@@ -28,7 +28,7 @@ public:
 	};
 
 public:
-	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, constants::PlanetHostility hostility /*= constants::PlanetHostility::HOSTILITY_NONE*/, bool setupMines = true);
+	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, constants::PlanetHostility hostility /*= constants::PlanetHostility::None*/, bool setupMines = true);
 	~TileMap() override;
 
 	Tile* getTile(NAS2D::Point<int> position, int level);

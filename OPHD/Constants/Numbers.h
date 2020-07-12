@@ -47,10 +47,10 @@ namespace constants
 
 	enum class PlanetHostility
 	{
-		HOSTILITY_NONE,
+		None,
 
-		HOSTILITY_LOW,
-		HOSTILITY_MEDIUM,
-		HOSTILITY_HIGH
+		Low,
+		Medium,
+		High
 	};
 }
