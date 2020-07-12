@@ -71,7 +71,7 @@ private:
 	void draw() override; /*!< Draw the widget on screen. */
 	void logic(); /*!< Compute some values before drawing the control. */
 
-	void _buttonCheck(bool& buttonFlag, NAS2D::Rectangle<float>& rect, float value);
+	void _buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, float value);
 
 private:
 	NAS2D::Timer mTimer;
@@ -106,8 +106,8 @@ private:
 	NAS2D::ImageList mSkinSlider; /*!< Skin for the slider. */
 	bool mDisplayPosition = false; /*!< Indicate if the slider display the value on mouse over. */
 	
-	NAS2D::Rectangle<float> mButton1; /*!< Area on screen where the second button is displayed. (Down/Left) */
-	NAS2D::Rectangle<float> mButton2; /*!< Area on screen where the first button is displayed. (Up/Right)*/
-	NAS2D::Rectangle<float> mSlideBar; /*!< Area on screen where the slide area is displayed. */
-	NAS2D::Rectangle<float> mSlider; /*!< Area on screen where the slider is displayed. */
+	NAS2D::Rectangle<int> mButton1; /*!< Area on screen where the second button is displayed. (Down/Left) */
+	NAS2D::Rectangle<int> mButton2; /*!< Area on screen where the first button is displayed. (Up/Right)*/
+	NAS2D::Rectangle<int> mSlideBar; /*!< Area on screen where the slide area is displayed. */
+	NAS2D::Rectangle<int> mSlider; /*!< Area on screen where the slider is displayed. */
 };

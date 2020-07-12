@@ -43,7 +43,7 @@ private:
 	void init();
 
 	void resizedHandler(Control* control);
-	void repositioned(float, float);
+	void repositioned(int, int);
 	void lstItemsSelectionChanged();
 
 	void onMouseWheel(int x, int y);
@@ -54,7 +54,7 @@ private:
 	ListBox lstItems;
 	TextField txtField;
 
-	NAS2D::Rectangle<float> mBaseArea;
+	NAS2D::Rectangle<int> mBaseArea;
 
 	SelectionChanged mSelectionChanged;
 

@@ -160,7 +160,7 @@ void Slider::positionInternal(float newPosition)
 }
 
 
-void Slider::_buttonCheck(bool& buttonFlag, Rectangle<float>& rect, float value)
+void Slider::_buttonCheck(bool& buttonFlag, Rectangle<int>& rect, float value)
 {
 	if (rect.to<int>().contains(mMousePosition))
 	{
@@ -334,20 +334,20 @@ void Slider::draw()
 	if (mSliderType == SliderType::Vertical)
 	{
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = std::floor(mSlideBar.height / mLength);
+		const auto i = static_cast<int>(mSlideBar.height / mLength);
 		const auto newSize = std::max(i, mSlider.width);
 
-		const auto relativeThumbPosition = (mSlideBar.height - mSlider.height) * (mPosition / mLength); //relative width
+		const auto relativeThumbPosition = static_cast<int>((mSlideBar.height - mSlider.height) * (mPosition / mLength)); //relative width
 
 		mSlider = {mSlideBar.x, mSlideBar.y + relativeThumbPosition, mSlideBar.width, newSize};
 	}
 	else
 	{
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = std::floor(mSlideBar.width / (mLength + 1.0f));
+		const auto i = static_cast<int>(mSlideBar.width / (mLength + 1.0f));
 		const auto newSize = std::max(i, mSlider.height);
 
-		const auto relativeThumbPosition = (mSlideBar.width - mSlider.width) * (mPosition / mLength); //relative width
+		const auto relativeThumbPosition = static_cast<int>((mSlideBar.width - mSlider.width) * (mPosition / mLength)); //relative width
 
 		mSlider = {mSlideBar.x + relativeThumbPosition, mSlideBar.y, newSize, mSlideBar.height};
 	}

@@ -18,8 +18,8 @@ using namespace NAS2D;
 
 static float SORT_BY_PRODUCT_POSITION = 0;
 
-static Rectangle<float> FACTORY_LISTBOX;
-static Rectangle<float> DETAIL_PANEL;
+static Rectangle<int> FACTORY_LISTBOX;
+static Rectangle<int> DETAIL_PANEL;
 
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
@@ -339,7 +339,7 @@ void FactoryReport::resized(Control* /*c*/)
 		rect().y + mRect.height - 69
 	};
 
-	float position_x = mRect.width - 150.0f;
+	int position_x = mRect.width - 150;
 	btnIdle.position({position_x, btnIdle.positionY()});
 	btnClearProduction.position({position_x, btnClearProduction.positionY()});
 	btnTakeMeThere.position({position_x, btnTakeMeThere.positionY()});

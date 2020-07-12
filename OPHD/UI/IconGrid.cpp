@@ -204,7 +204,7 @@ void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
 	IconGrid::IconGridItem& _item = mIconItemList.back();
 
 	_item.name = name;
-	_item.pos = {static_cast<float>(x_pos), static_cast<float>(y_pos)};
+	_item.pos = {x_pos, y_pos};
 	_item.meta = meta;
 }
 

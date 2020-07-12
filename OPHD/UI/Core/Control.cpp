@@ -11,7 +11,7 @@ using namespace NAS2D;
  * 
  * \param pos	2D Coordinate to position the Control at.
  */
-void Control::position(const Point<float>& pos)
+void Control::position(const Point<int>& pos)
 {
 	const auto displacement = pos - mRect.startPoint();
 	mRect.startPoint(pos);
@@ -22,7 +22,7 @@ void Control::position(const Point<float>& pos)
 /**
  * Gets the X Position of the Control.
  */
-float Control::positionX()
+int Control::positionX()
 {
 	return mRect.x;
 }
@@ -31,7 +31,7 @@ float Control::positionX()
 /**
  * Gets the Y Position of the Control.
  */
-float Control::positionY()
+int Control::positionY()
 {
 	return mRect.y;
 }
@@ -49,7 +49,7 @@ Control::PositionChangedCallback& Control::moved()
 /**
  * Gets the width of the Control
  */
-float Control::width() const
+int Control::width() const
 {
 	return mRect.width;
 }
@@ -58,20 +58,20 @@ float Control::width() const
 /**
  * Gets the height of the Control.
  */
-float Control::height() const
+int Control::height() const
 {
 	return mRect.height;
 }
 
 
-void Control::size(NAS2D::Vector<float> newSize)
+void Control::size(NAS2D::Vector<int> newSize)
 {
 	mRect.size(newSize);
 	onSizeChanged();
 }
 
 
-void Control::size(float newSize)
+void Control::size(int newSize)
 {
 	size({newSize, newSize});
 }
@@ -83,7 +83,7 @@ void Control::size(float newSize)
  * \note	This is an internal function and may not be
  *			called outside of the Control class.
  */
-void Control::width(float w)
+void Control::width(int w)
 {
 	mRect.width = w;
 	onSizeChanged();
@@ -96,7 +96,7 @@ void Control::width(float w)
  * \note	This is an internal function and may not be
  *			called outside of the Control class.
  */
-void Control::height(float h)
+void Control::height(int h)
 {
 	mRect.height = h;
 	onSizeChanged();
@@ -114,7 +114,7 @@ Control::ResizeCallback& Control::resized()
  * 
  * \return	A const reference to a Rectangle<int> object.
  */
-const Rectangle<float>& Control::rect() const
+const Rectangle<int>& Control::rect() const
 {
 	return mRect;
 }

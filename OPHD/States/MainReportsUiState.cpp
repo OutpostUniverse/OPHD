@@ -205,8 +205,8 @@ void MainReportsUiState::initialize()
 	Panels[NavigationPanel::PANEL_SPACEPORT].Name = "Space Ports";
 
 	auto& renderer = Utility<Renderer>::get();
-	const auto size = renderer.size();
-	setPanelRects(static_cast<int>(size.x));
+	const auto size = renderer.size().to<int>();
+	setPanelRects(size.x);
 
 	// INIT UI REPORT PANELS
 	ReportInterface* factory_report = new FactoryReport();

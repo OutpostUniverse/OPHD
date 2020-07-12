@@ -105,7 +105,7 @@ void UIContainer::visibilityChanged(bool visible)
 /**
  * 
  */
-void UIContainer::positionChanged(float dX, float dY)
+void UIContainer::positionChanged(int dX, int dY)
 {
 	Control::positionChanged(dX, dY);
 
