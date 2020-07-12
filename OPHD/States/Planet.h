@@ -15,7 +15,7 @@
 class Planet
 {
 public:
-	enum PlanetType
+	enum class PlanetType
 	{
 		PLANET_TYPE_NONE,
 
