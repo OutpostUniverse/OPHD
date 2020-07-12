@@ -37,11 +37,11 @@ const double THROB_SPEED = 250.0; // Throb speed of mine beacon
 
 
 /** Tuple indicates percent of mines that should be of yields LOW, MED, HIGH */
-const std::map<constants::PlanetHostility, std::array<float, 3>> HostilityMineYieldTable =
+const std::map<Planet::PlanetHostility, std::array<float, 3>> HostilityMineYieldTable =
 {
-	{ constants::PlanetHostility::Low, {0.30f, 0.50f, 0.20f} },
-	{ constants::PlanetHostility::Medium, {0.45f, 0.35f, 0.20f} },
-	{ constants::PlanetHostility::High, {0.35f, 0.20f, 0.45f} },
+	{ Planet::PlanetHostility::Low, {0.30f, 0.50f, 0.20f} },
+	{ Planet::PlanetHostility::Medium, {0.45f, 0.35f, 0.20f} },
+	{ Planet::PlanetHostility::High, {0.35f, 0.20f, 0.45f} },
 };
 
 
@@ -89,7 +89,7 @@ static void addMineSet(Point<int> suggestedMineLocation, Point2dList& plist, Til
 /**
  * C'tor
  */
-TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, constants::PlanetHostility hostility, bool shouldSetupMines) :
+TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::PlanetHostility hostility, bool shouldSetupMines) :
 	mWidth(MAP_WIDTH),
 	mHeight(MAP_HEIGHT),
 	mMaxDepth(maxDepth),
@@ -185,9 +185,9 @@ void TileMap::buildTerrainMap(const std::string& path)
 /**
  * Creates mining locations around the map area.
  */
-void TileMap::setupMines(int mineCount, constants::PlanetHostility hostility)
+void TileMap::setupMines(int mineCount, Planet::PlanetHostility hostility)
 {
-	if (hostility == constants::PlanetHostility::None) { return; }
+	if (hostility == Planet::PlanetHostility::None) { return; }
 
 	int yieldLow = mineCount * HostilityMineYieldTable.at(hostility)[0];
 	int yieldMedium = mineCount * HostilityMineYieldTable.at(hostility)[1];

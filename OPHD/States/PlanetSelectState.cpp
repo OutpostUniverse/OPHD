@@ -186,7 +186,7 @@ State* PlanetSelectState::update()
 	{
 		std::string map, tileset;
 		int dig_depth = 0, max_mines = 0;
-		constants::PlanetHostility hostility = constants::PlanetHostility::None;
+		Planet::PlanetHostility hostility = Planet::PlanetHostility::None;
 
 		switch (PLANET_TYPE_SELECTION)
 		{
@@ -195,7 +195,7 @@ State* PlanetSelectState::update()
 			tileset = "tsets/mercury.png";
 			dig_depth = mPlanets[0]->digDepth();
 			max_mines = mPlanets[0]->maxMines();
-			hostility = constants::PlanetHostility::High;
+			hostility = Planet::PlanetHostility::High;
 			break;
 
 		case Planet::PlanetType::Mars:
@@ -203,7 +203,7 @@ State* PlanetSelectState::update()
 			tileset = "tsets/mars.png";
 			dig_depth = mPlanets[1]->digDepth();
 			max_mines = mPlanets[1]->maxMines();
-			hostility = constants::PlanetHostility::Low;
+			hostility = Planet::PlanetHostility::Low;
 			break;
 
 		case Planet::PlanetType::Ganymede:
@@ -211,7 +211,7 @@ State* PlanetSelectState::update()
 			tileset = "tsets/ganymede.png";
 			dig_depth = mPlanets[2]->digDepth();
 			max_mines = mPlanets[2]->maxMines();
-			hostility = constants::PlanetHostility::Medium;
+			hostility = Planet::PlanetHostility::Medium;
 			break;
 
 		default:

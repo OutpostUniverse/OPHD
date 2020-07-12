@@ -7,6 +7,7 @@
 #include "MainReportsUiState.h"
 #include "Wrapper.h"
 
+#include "Planet.h"
 #include "../Common.h"
 #include "../Constants.h"
 
@@ -61,7 +62,7 @@ public:
 
 public:
 	MapViewState(const std::string& savegame);
-	MapViewState(const std::string& siteMap, const std::string& tileSet, int depth, int mineCount, constants::PlanetHostility hostility);
+	MapViewState(const std::string& siteMap, const std::string& tileSet, int depth, int mineCount, Planet::PlanetHostility hostility);
 	~MapViewState() override;
 
 	void setPopulationLevel(PopulationLevel popLevel);

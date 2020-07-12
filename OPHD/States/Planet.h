@@ -26,6 +26,15 @@ public:
 		Count
 	};
 
+	enum class PlanetHostility
+	{
+		None,
+
+		Low,
+		Medium,
+		High
+	};
+
 public:
 	using MouseCallback = NAS2D::Signals::Signal<>;
 

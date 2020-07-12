@@ -44,13 +44,4 @@ namespace constants
 	const int ROBOT_COM_RANGE = 15;
 	const int COMM_TOWER_BASE_RANGE = 10;
 	const int LANDER_COM_RANGE = 5;
-
-	enum class PlanetHostility
-	{
-		None,
-
-		Low,
-		Medium,
-		High
-	};
 }
