@@ -17,13 +17,13 @@ class Planet
 public:
 	enum class PlanetType
 	{
-		PLANET_TYPE_NONE,
+		None,
 
-		PLANET_TYPE_MERCURY,
-		PLANET_TYPE_MARS,
-		PLANET_TYPE_GANYMEDE,
+		Mercury,
+		Mars,
+		Ganymede,
 
-		PLANET_TYPE_COUNT
+		Count
 	};
 
 public:
@@ -67,7 +67,7 @@ private:
 	NAS2D::Image mImage;
 	NAS2D::Point<int> mPosition;
 
-	PlanetType mType = PlanetType::PLANET_TYPE_NONE;
+	PlanetType mType = PlanetType::None;
 
 	MouseCallback mMouseEnterCallback;
 	MouseCallback mMouseExitCallback;

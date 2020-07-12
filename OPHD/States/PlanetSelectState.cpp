@@ -15,7 +15,7 @@
 
 using namespace NAS2D;
 
-Planet::PlanetType PLANET_TYPE_SELECTION = Planet::PlanetType::PLANET_TYPE_NONE;
+Planet::PlanetType PLANET_TYPE_SELECTION = Planet::PlanetType::None;
 
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
@@ -94,9 +94,9 @@ void PlanetSelectState::initialize()
 	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 	e.windowResized().connect(this, &PlanetSelectState::onWindowResized);
 
-	mPlanets.push_back(new Planet(Planet::PlanetType::PLANET_TYPE_MERCURY));
-	mPlanets.push_back(new Planet(Planet::PlanetType::PLANET_TYPE_MARS));
-	mPlanets.push_back(new Planet(Planet::PlanetType::PLANET_TYPE_GANYMEDE));
+	mPlanets.push_back(new Planet(Planet::PlanetType::Mercury));
+	mPlanets.push_back(new Planet(Planet::PlanetType::Mars));
+	mPlanets.push_back(new Planet(Planet::PlanetType::Ganymede));
 
 	auto& renderer = Utility<Renderer>::get();
 	const auto viewportSize = renderer.size().to<int>();
@@ -112,7 +112,7 @@ void PlanetSelectState::initialize()
 	mPlanets[2]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[2]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
-	PLANET_TYPE_SELECTION = Planet::PlanetType::PLANET_TYPE_NONE;
+	PLANET_TYPE_SELECTION = Planet::PlanetType::None;
 
 	mQuit.size({100, 20});
 	mQuit.position({renderer.width() - 105, 30});
@@ -182,7 +182,7 @@ State* PlanetSelectState::update()
 	{
 		return this;
 	}
-	else if (PLANET_TYPE_SELECTION != Planet::PlanetType::PLANET_TYPE_NONE)
+	else if (PLANET_TYPE_SELECTION != Planet::PlanetType::None)
 	{
 		std::string map, tileset;
 		int dig_depth = 0, max_mines = 0;
@@ -190,7 +190,7 @@ State* PlanetSelectState::update()
 
 		switch (PLANET_TYPE_SELECTION)
 		{
-		case Planet::PlanetType::PLANET_TYPE_MERCURY:
+		case Planet::PlanetType::Mercury:
 			map = "maps/merc_01";
 			tileset = "tsets/mercury.png";
 			dig_depth = mPlanets[0]->digDepth();
@@ -198,7 +198,7 @@ State* PlanetSelectState::update()
 			hostility = constants::PlanetHostility::HOSTILITY_HIGH;
 			break;
 
-		case Planet::PlanetType::PLANET_TYPE_MARS:
+		case Planet::PlanetType::Mars:
 			map = "maps/mars_04";
 			tileset = "tsets/mars.png";
 			dig_depth = mPlanets[1]->digDepth();
@@ -206,7 +206,7 @@ State* PlanetSelectState::update()
 			hostility = constants::PlanetHostility::HOSTILITY_LOW;
 			break;
 
-		case Planet::PlanetType::PLANET_TYPE_GANYMEDE:
+		case Planet::PlanetType::Ganymede:
 			map = "maps/ganymede_01";
 			tileset = "tsets/ganymede.png";
 			dig_depth = mPlanets[2]->digDepth();
@@ -265,9 +265,9 @@ void PlanetSelectState::onMousePlanetEnter()
 		// FIXME: Ugly, will be difficult to maintain in the future.
 		if (mPlanets[i]->mouseHovering())
 		{
-			if (mPlanets[i]->type() == Planet::PlanetType::PLANET_TYPE_GANYMEDE) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_GANYMEDE); }
-			if (mPlanets[i]->type() == Planet::PlanetType::PLANET_TYPE_MARS) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MARS); }
-			if (mPlanets[i]->type() == Planet::PlanetType::PLANET_TYPE_MERCURY) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MERCURY); }
+			if (mPlanets[i]->type() == Planet::PlanetType::Ganymede) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_GANYMEDE); }
+			if (mPlanets[i]->type() == Planet::PlanetType::Mars) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MARS); }
+			if (mPlanets[i]->type() == Planet::PlanetType::Mercury) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MERCURY); }
 		}
 	}
 }
