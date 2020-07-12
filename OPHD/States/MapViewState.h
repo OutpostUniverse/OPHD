@@ -62,7 +62,7 @@ public:
 
 public:
 	MapViewState(const std::string& savegame);
-	MapViewState(const std::string& siteMap, const std::string& tileSet, int depth, int mineCount, Planet::PlanetHostility hostility);
+	MapViewState(const std::string& siteMap, const std::string& tileSet, int depth, int mineCount, Planet::Hostility hostility);
 	~MapViewState() override;
 
 	void setPopulationLevel(PopulationLevel popLevel);

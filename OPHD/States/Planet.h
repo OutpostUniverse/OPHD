@@ -26,7 +26,7 @@ public:
 		Count
 	};
 
-	enum class PlanetHostility
+	enum class Hostility
 	{
 		None,
 

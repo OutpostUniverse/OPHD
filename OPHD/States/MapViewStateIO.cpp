@@ -157,7 +157,7 @@ void MapViewState::load(const std::string& filePath)
 
 	mMapDisplay = Image(sitemap + MAP_DISPLAY_EXTENSION);
 	mHeightMap = Image(sitemap + MAP_TERRAIN_EXTENSION);
-	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, 0, Planet::PlanetHostility::None, false);
+	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
 
 	delete pather;

@@ -29,7 +29,7 @@ public:
 	};
 
 public:
-	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::PlanetHostility hostility /*= constants::PlanetHostility::None*/, bool setupMines = true);
+	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility /*= constants::Hostility::None*/, bool setupMines = true);
 	~TileMap() override;
 
 	Tile* getTile(NAS2D::Point<int> position, int level);
@@ -107,7 +107,7 @@ private:
 private:
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
-	void setupMines(int, Planet::PlanetHostility);
+	void setupMines(int, Planet::Hostility);
 
 	void updateTileHighlight();
 
