@@ -7,10 +7,6 @@
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Resources/Image.h>
 
-#include "../Constants.h"
-
-
-
 
 class Planet
 {
