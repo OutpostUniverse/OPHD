@@ -1,11 +1,11 @@
 #pragma once
 
-#include <cmath>
-
 #include <NAS2D/Signal.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Resources/Image.h>
+
+#include <cmath>
 
 
 class Planet
