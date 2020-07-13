@@ -13,6 +13,8 @@
 #include "NAS2D/Mixer/Mixer.h"
 #include "NAS2D/Renderer/Renderer.h"
 
+#include <vector>
+
 using namespace NAS2D;
 
 Planet::PlanetType PLANET_TYPE_SELECTION = Planet::PlanetType::None;
@@ -86,6 +88,13 @@ PlanetSelectState::~PlanetSelectState()
 	Utility<Mixer>::get().stopAllAudio();
 }
 
+namespace {
+	std::vector<Planet::Attributes> planetAttributes = {
+		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", 1, 10} },
+		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", 4, 30} },
+		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", 2, 15} }
+	};
+}
 
 void PlanetSelectState::initialize()
 {
@@ -94,9 +103,10 @@ void PlanetSelectState::initialize()
 	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 	e.windowResized().connect(this, &PlanetSelectState::onWindowResized);
 
-	mPlanets.push_back(new Planet(Planet::PlanetType::Mercury));
-	mPlanets.push_back(new Planet(Planet::PlanetType::Mars));
-	mPlanets.push_back(new Planet(Planet::PlanetType::Ganymede));
+	for (const auto& planetAttribute : planetAttributes)
+	{
+		mPlanets.push_back(new Planet(planetAttribute));
+	}
 
 	auto& renderer = Utility<Renderer>::get();
 	const auto viewportSize = renderer.size().to<int>();

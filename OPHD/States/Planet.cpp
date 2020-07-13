@@ -18,32 +18,14 @@ namespace {
 }
 
 
-Planet::Planet(PlanetType type) : mType(type)
+Planet::Planet(const Attributes& attributes) : 
+	mType(attributes.type),
+	mImage(NAS2D::Image(attributes.imagePath)),
+	mMaxDigDepth(attributes.maxDepth),
+	mMaxMines(attributes.maxMines)
 {
-	// Fixme: This should be in a table vs. a giant switch statement.
-	switch (mType)
-	{
-	case PlanetType::Mercury:
-		mImage = NAS2D::Image(constants::PLANET_TYPE_MERCURY_PATH);
-		mMaxMines = 10;
-		mMaxDigDepth = 1;
-		break;
-
-	case PlanetType::Mars:
-		mImage = NAS2D::Image(constants::PLANET_TYPE_MARS_PATH);
-		mMaxMines = 30;
-		mMaxDigDepth = 4;
-		break;
-
-	case PlanetType::Ganymede:
-		mMaxMines = 15;
-		mMaxDigDepth = 2;
-		mImage = NAS2D::Image(constants::PLANET_TYPE_GANYMEDE_PATH);
-		break;
-
-	default:
-		throw std::runtime_error("Instantiated Planet class without a valid planet type.");
-		break;
+	if (mType == PlanetType::None || mType == PlanetType::Count) {
+		throw std::runtime_error("Instantiated Planet class with an invalid planet type.");
 	}
 
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect(this, &Planet::onMouseMove);

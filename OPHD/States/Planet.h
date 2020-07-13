@@ -44,7 +44,7 @@ public:
 	using MouseCallback = NAS2D::Signals::Signal<>;
 
 public:
-	Planet(PlanetType type);
+	Planet(const Attributes& attributes);
 	~Planet();
 
 	PlanetType type() const { return mType; }
