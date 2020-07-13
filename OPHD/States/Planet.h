@@ -75,8 +75,8 @@ private:
 private:
 	int mTick = 0;
 
-	int mMaxMines = 0;
-	int mMaxDigDepth = 0;
+	int mMaxMines;
+	int mMaxDigDepth;
 
 	NAS2D::Image mImage;
 	NAS2D::Point<int> mPosition;
