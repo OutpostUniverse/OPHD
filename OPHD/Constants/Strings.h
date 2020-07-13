@@ -163,14 +163,6 @@ namespace constants
 
 
 	// =====================================
-	// = PLANET SPRITE SHEETS
-	// =====================================
-	const std::string PLANET_TYPE_MERCURY_PATH = "planets/planet_d.png";
-	const std::string PLANET_TYPE_MARS_PATH = "planets/planet_c.png";
-	const std::string PLANET_TYPE_GANYMEDE_PATH = "planets/planet_e.png";
-
-
-	// =====================================
 	// = UI STRINGS
 	// =====================================
 	const std::string MAIN_MENU_NEW_GAME = "New Game";
