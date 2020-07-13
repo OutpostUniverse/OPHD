@@ -6,6 +6,7 @@
 #include <NAS2D/Resources/Image.h>
 
 #include <cmath>
+#include <string>
 
 
 class Planet
@@ -29,6 +30,14 @@ public:
 		Low,
 		Medium,
 		High
+	};
+
+	struct Attributes
+	{
+		PlanetType type = PlanetType::None;
+		std::string imagePath;
+		int maxDepth = 0;
+		int maxMines = 0;
 	};
 
 public:
