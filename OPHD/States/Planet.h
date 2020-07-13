@@ -1,15 +1,11 @@
 #pragma once
 
-#include <cmath>
-
 #include <NAS2D/Signal.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Resources/Image.h>
 
-#include "../Constants.h"
-
-
+#include <cmath>
 
 
 class Planet
@@ -24,6 +20,15 @@ public:
 		Ganymede,
 
 		Count
+	};
+
+	enum class Hostility
+	{
+		None,
+
+		Low,
+		Medium,
+		High
 	};
 
 public:

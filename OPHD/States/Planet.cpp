@@ -3,9 +3,11 @@
 
 #include "Planet.h"
 
-#include "NAS2D/Utility.h"
-#include "NAS2D/EventHandler.h"
-#include "NAS2D/Renderer/Renderer.h"
+#include "../Constants.h"
+
+#include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
+#include <NAS2D/Renderer/Renderer.h>
 
 #include <array>
 

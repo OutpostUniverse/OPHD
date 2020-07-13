@@ -2,6 +2,7 @@
 
 #include "Tile.h"
 
+#include "../States/Planet.h"
 #include "../Things/Structures/Structure.h"
 #include "../MicroPather/micropather.h"
 
@@ -28,7 +29,7 @@ public:
 	};
 
 public:
-	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, constants::PlanetHostility hostility /*= constants::PlanetHostility::HOSTILITY_NONE*/, bool setupMines = true);
+	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility /*= constants::Hostility::None*/, bool setupMines = true);
 	~TileMap() override;
 
 	Tile* getTile(NAS2D::Point<int> position, int level);
@@ -106,7 +107,7 @@ private:
 private:
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
-	void setupMines(int, constants::PlanetHostility);
+	void setupMines(int, Planet::Hostility);
 
 	void updateTileHighlight();
 
