@@ -39,6 +39,8 @@ public:
 		Hostility hostility;
 		int maxDepth = 0;
 		int maxMines = 0;
+		std::string mapImagePath;
+		std::string tilesetPath;
 	};
 
 public:
@@ -57,6 +59,8 @@ public:
 	Hostility hostility() const { return mHostility; }
 	int digDepth() const { return mMaxDigDepth; }
 	int maxMines() const { return mMaxMines; }
+	std::string mapImagePath() const { return mMapImagePath; };
+	std::string tilesetPath() const { return mTilesetPath; };
 
 	bool mouseHovering() const { return mMouseInArea; }
 
@@ -80,6 +84,8 @@ private:
 	Hostility mHostility;
 	int mMaxMines;
 	int mMaxDigDepth;
+	std::string mMapImagePath;
+	std::string mTilesetPath;
 
 	NAS2D::Image mImage;
 	NAS2D::Point<int> mPosition;

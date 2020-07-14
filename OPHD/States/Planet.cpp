@@ -22,6 +22,8 @@ Planet::Planet(const Attributes& attributes) :
 	mHostility(attributes.hostility),
 	mMaxMines(attributes.maxMines),
 	mMaxDigDepth(attributes.maxDepth),
+	mMapImagePath(attributes.mapImagePath),
+	mTilesetPath(attributes.tilesetPath),
 	mImage(NAS2D::Image(attributes.imagePath)),
 	mType(attributes.type)
 {
