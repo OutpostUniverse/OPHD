@@ -9,7 +9,7 @@
 
 #include "Control.h"
 
-#include "NAS2D/Renderer/Color.h"
+#include <NAS2D/Renderer/Color.h>
 
 namespace NAS2D
 {

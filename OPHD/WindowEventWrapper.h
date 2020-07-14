@@ -1,8 +1,8 @@
 #pragma once
 
-#include "NAS2D/Utility.h"
-#include "NAS2D/EventHandler.h"
-#include "NAS2D/Configuration.h"
+#include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
+#include <NAS2D/Configuration.h>
 
 #include "Common.h"
 

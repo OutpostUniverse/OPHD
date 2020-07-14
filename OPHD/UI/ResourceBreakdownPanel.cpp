@@ -6,9 +6,9 @@
 #include "../Constants.h"
 #include "../FontManager.h"
 
-#include "NAS2D/Utility.h"
-#include "NAS2D/Renderer/Renderer.h"
-#include "NAS2D/StringUtils.h"
+#include <NAS2D/Utility.h>
+#include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/StringUtils.h>
 
 using namespace NAS2D;
 

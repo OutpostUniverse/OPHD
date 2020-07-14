@@ -3,9 +3,9 @@
 #include "ListBox.h"
 #include "TextField.h"
 
-#include "NAS2D/Signal.h"
-#include "NAS2D/EventHandler.h"
-#include "NAS2D/Renderer/Rectangle.h"
+#include <NAS2D/Signal.h>
+#include <NAS2D/EventHandler.h>
+#include <NAS2D/Renderer/Rectangle.h>
 
 #include <cstddef>
 

@@ -2,7 +2,7 @@
 
 #include "Structure.h"
 
-#include "NAS2D/Renderer/Point.h"
+#include <NAS2D/Renderer/Point.h>
 
 
 class SeedLander: public Structure

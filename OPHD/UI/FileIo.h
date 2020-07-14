@@ -2,8 +2,8 @@
 
 #include "UI.h"
 
-#include "NAS2D/Signal.h"
-#include "NAS2D/EventHandler.h"
+#include <NAS2D/Signal.h>
+#include <NAS2D/EventHandler.h>
 
 
 class FileIo : public Window

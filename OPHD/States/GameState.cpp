@@ -9,8 +9,8 @@
 
 #include "Wrapper.h"
 
-#include "NAS2D/Mixer/Mixer.h"
-#include "NAS2D/Renderer/Renderer.h"
+#include <NAS2D/Mixer/Mixer.h>
+#include <NAS2D/Renderer/Renderer.h>
 
 NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wrapers. */
 

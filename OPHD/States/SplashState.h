@@ -1,10 +1,10 @@
 #pragma once
 
-#include "NAS2D/State.h"
-#include "NAS2D/EventHandler.h"
-#include "NAS2D/Timer.h"
-#include "NAS2D/Renderer/Point.h"
-#include "NAS2D/Resources/Image.h"
+#include <NAS2D/State.h>
+#include <NAS2D/EventHandler.h>
+#include <NAS2D/Timer.h>
+#include <NAS2D/Renderer/Point.h>
+#include <NAS2D/Resources/Image.h>
 
 
 #include "../Constants.h"

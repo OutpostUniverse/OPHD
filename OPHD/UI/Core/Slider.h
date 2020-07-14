@@ -8,7 +8,7 @@
 #include "Control.h"
 #include "../../Common.h"
 
-#include "NAS2D/Timer.h"
+#include <NAS2D/Timer.h>
 
  /**
  * \class	Slider
