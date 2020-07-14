@@ -35,7 +35,7 @@ UIContainer::~UIContainer()
 /**
  * Adds a Control to the UIContainer.
  */
-void UIContainer::add(Control* control, float x, float y)
+void UIContainer::add(Control* control, int x, int y)
 {
 	if(control == nullptr)
 	{
