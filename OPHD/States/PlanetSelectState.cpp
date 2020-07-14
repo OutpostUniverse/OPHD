@@ -90,9 +90,9 @@ PlanetSelectState::~PlanetSelectState()
 
 namespace {
 	std::vector<Planet::Attributes> planetAttributes = {
-		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", 1, 10} },
-		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", 4, 30} },
-		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", 2, 15} }
+		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10} },
+		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30} },
+		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15} }
 	};
 }
 
@@ -205,7 +205,7 @@ State* PlanetSelectState::update()
 			tileset = "tsets/mercury.png";
 			dig_depth = mPlanets[0]->digDepth();
 			max_mines = mPlanets[0]->maxMines();
-			hostility = Planet::Hostility::High;
+			hostility = mPlanets[0]->hostility();
 			break;
 
 		case Planet::PlanetType::Mars:
@@ -213,7 +213,7 @@ State* PlanetSelectState::update()
 			tileset = "tsets/mars.png";
 			dig_depth = mPlanets[1]->digDepth();
 			max_mines = mPlanets[1]->maxMines();
-			hostility = Planet::Hostility::Low;
+			hostility = mPlanets[1]->hostility();
 			break;
 
 		case Planet::PlanetType::Ganymede:
@@ -221,7 +221,7 @@ State* PlanetSelectState::update()
 			tileset = "tsets/ganymede.png";
 			dig_depth = mPlanets[2]->digDepth();
 			max_mines = mPlanets[2]->maxMines();
-			hostility = Planet::Hostility::Medium;
+			hostility = mPlanets[2]->hostility();
 			break;
 
 		default:

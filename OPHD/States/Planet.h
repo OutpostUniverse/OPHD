@@ -36,6 +36,7 @@ public:
 	{
 		PlanetType type = PlanetType::None;
 		std::string imagePath;
+		Hostility hostility;
 		int maxDepth = 0;
 		int maxMines = 0;
 	};
@@ -53,6 +54,7 @@ public:
 	void position(const NAS2D::Point<int>& point) { mPosition = point; }
 	void position(int x, int y) { mPosition = {x, y}; }
 
+	Hostility hostility() const { return mHostility; }
 	int digDepth() const { return mMaxDigDepth; }
 	int maxMines() const { return mMaxMines; }
 
@@ -75,6 +77,7 @@ private:
 private:
 	int mTick = 0;
 
+	Hostility mHostility;
 	int mMaxMines;
 	int mMaxDigDepth;
 

@@ -18,7 +18,8 @@ namespace {
 }
 
 
-Planet::Planet(const Attributes& attributes) : 
+Planet::Planet(const Attributes& attributes) :
+	mHostility(attributes.hostility),
 	mMaxMines(attributes.maxMines),
 	mMaxDigDepth(attributes.maxDepth),
 	mImage(NAS2D::Image(attributes.imagePath)),
