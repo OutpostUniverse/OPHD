@@ -1,13 +1,6 @@
 // This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
-#include <NAS2D/Resources/Image.h>
-#include <NAS2D/Resources/Music.h>
-#include <NAS2D/Mixer/MixerSDL.h>
-#include <NAS2D/Mixer/MixerNull.h>
-#include <NAS2D/Renderer/RendererOpenGL.h>
-#include <NAS2D/StateManager.h>
-
 #include "Common.h"
 #include "Constants.h"
 #include "StructureCatalogue.h"
@@ -16,18 +9,26 @@
 
 #include "Things/Structures/Structure.h"
 
-#include "States/MapViewState.h"
-#include "States/MainMenuState.h"
 #include "States/SplashState.h"
-
+#include "States/MainMenuState.h"
+#include "States/MapViewState.h"
 #include "States/MainReportsUiState.h"
+
+#include <NAS2D/Resources/Image.h>
+#include <NAS2D/Resources/Music.h>
+#include <NAS2D/Mixer/MixerSDL.h>
+#include <NAS2D/Mixer/MixerNull.h>
+#include <NAS2D/Renderer/RendererOpenGL.h>
+#include <NAS2D/StateManager.h>
+
+#include <SDL2/SDL.h>
 
 #include <iostream>
 #include <fstream>
 
+
 using namespace NAS2D;
 
-#include <SDL2/SDL.h>
 
 /** Not thrilled with placement but this seems to be the easiest way to deal with it. */
 NAS2D::Image* IMG_LOADING = nullptr;

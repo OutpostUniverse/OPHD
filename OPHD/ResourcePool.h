@@ -1,9 +1,9 @@
 #pragma once
 
-#include <array>
-
 #include <NAS2D/Signal.h>
 #include <NAS2D/Xml/XmlElement.h>
+
+#include <array>
 
 
 /**

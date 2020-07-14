@@ -1,13 +1,14 @@
 #pragma once
 
+#include <NAS2D/Renderer/Rectangle.h>
+#include <NAS2D/Renderer/Color.h>
+#include <NAS2D/StringUtils.h>
+
 #include <array>
 #include <map>
 #include <string>
 #include <vector>
 
-#include <NAS2D/Renderer/Rectangle.h>
-#include <NAS2D/Renderer/Color.h>
-#include <NAS2D/StringUtils.h>
 
 enum class Difficulty
 {
