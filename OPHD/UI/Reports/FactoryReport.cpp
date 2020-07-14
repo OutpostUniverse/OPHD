@@ -602,21 +602,22 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
  */
 void FactoryReport::drawProductPane(Renderer& renderer)
 {
-	renderer.drawText(*FONT_BIG_BOLD, "Production", DETAIL_PANEL.x, DETAIL_PANEL.y + 180, 0, 185, 0);
+	const auto textColor = NAS2D::Color{0, 185, 0};
+	renderer.drawText(*FONT_BIG_BOLD, "Production", NAS2D::Point{DETAIL_PANEL.x, DETAIL_PANEL.y + 180}, textColor);
 
-	float position_x = DETAIL_PANEL.x + lstProducts.width() + 20.0f;
+	int position_x = DETAIL_PANEL.x + lstProducts.width() + 20;
 
 	if (SELECTED_PRODUCT_TYPE != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(*FONT_BIG_BOLD, productDescription(SELECTED_PRODUCT_TYPE), position_x, DETAIL_PANEL.y + 180, 0, 185, 0);
-		renderer.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(SELECTED_PRODUCT_TYPE)], position_x, lstProducts.positionY());
+		renderer.drawText(*FONT_BIG_BOLD, productDescription(SELECTED_PRODUCT_TYPE), NAS2D::Point{position_x, DETAIL_PANEL.y + 180}, textColor);
+		renderer.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(SELECTED_PRODUCT_TYPE)], NAS2D::Point{position_x, lstProducts.positionY()});
 		txtProductDescription.update();
 	}
 
 	if (SELECTED_FACTORY->productType() == ProductType::PRODUCT_NONE) { return; }
 	
-	renderer.drawText(*FONT_BIG_BOLD, "Progress", position_x, DETAIL_PANEL.y + 358, 0, 185, 0);
-	renderer.drawText(*FONT_MED, "Building " + productDescription(SELECTED_FACTORY->productType()), position_x, DETAIL_PANEL.y + 393, 0, 185, 0);
+	renderer.drawText(*FONT_BIG_BOLD, "Progress", NAS2D::Point{position_x, DETAIL_PANEL.y + 358}, textColor);
+	renderer.drawText(*FONT_MED, "Building " + productDescription(SELECTED_FACTORY->productType()), NAS2D::Point{position_x, DETAIL_PANEL.y + 393}, textColor);
 
 	float percent = 0.0f;
 	if (SELECTED_FACTORY->productType() != ProductType::PRODUCT_NONE)
@@ -628,8 +629,8 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	drawBasicProgressBar(position_x, DETAIL_PANEL.y + 413, mRect.width - position_x - 10, 30, percent, 4);
 
 	const auto text = std::to_string(SELECTED_FACTORY->productionTurnsCompleted()) + " / " + std::to_string(SELECTED_FACTORY->productionTurnsToComplete());
-	renderer.drawText(*FONT_MED_BOLD, "Turns", position_x, DETAIL_PANEL.y + 449, 0, 185, 0);
-	renderer.drawText(*FONT_MED, text, mRect.width - FONT_MED->width(text) - 10, DETAIL_PANEL.y + 449, 0, 185, 0);
+	renderer.drawText(*FONT_MED_BOLD, "Turns", NAS2D::Point{position_x, DETAIL_PANEL.y + 449}, textColor);
+	renderer.drawText(*FONT_MED, text, NAS2D::Point{mRect.width - FONT_MED->width(text) - 10, DETAIL_PANEL.y + 449}, textColor);
 }
 
 
