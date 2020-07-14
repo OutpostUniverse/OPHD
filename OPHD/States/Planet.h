@@ -6,6 +6,7 @@
 #include <NAS2D/Resources/Image.h>
 
 #include <cmath>
+#include <string>
 
 
 class Planet
@@ -31,11 +32,19 @@ public:
 		High
 	};
 
+	struct Attributes
+	{
+		PlanetType type = PlanetType::None;
+		std::string imagePath;
+		int maxDepth = 0;
+		int maxMines = 0;
+	};
+
 public:
 	using MouseCallback = NAS2D::Signals::Signal<>;
 
 public:
-	Planet(PlanetType type);
+	Planet(const Attributes& attributes);
 	~Planet();
 
 	PlanetType type() const { return mType; }
@@ -66,8 +75,8 @@ private:
 private:
 	int mTick = 0;
 
-	int mMaxMines = 0;
-	int mMaxDigDepth = 0;
+	int mMaxMines;
+	int mMaxDigDepth;
 
 	NAS2D::Image mImage;
 	NAS2D::Point<int> mPosition;
