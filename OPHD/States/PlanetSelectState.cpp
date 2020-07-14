@@ -13,9 +13,13 @@
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <cstddef>
+#include <limits>
+
 using namespace NAS2D;
 
-Planet::PlanetType PLANET_TYPE_SELECTION = Planet::PlanetType::None;
+std::size_t planetSelection;
+constexpr std::size_t planetSelectionInvalid = std::numeric_limits<int>::max();
 
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
@@ -120,7 +124,7 @@ void PlanetSelectState::initialize()
 	mPlanets[2]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[2]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
-	PLANET_TYPE_SELECTION = Planet::PlanetType::None;
+	planetSelection = planetSelectionInvalid;
 
 	mQuit.size({100, 20});
 	mQuit.position({static_cast<int>(renderer.width()) - 105, 30});
@@ -190,44 +194,11 @@ State* PlanetSelectState::update()
 	{
 		return this;
 	}
-	else if (PLANET_TYPE_SELECTION != Planet::PlanetType::None)
+	else if (planetSelection != planetSelectionInvalid)
 	{
-		std::string map, tileset;
-		int dig_depth = 0, max_mines = 0;
-		Planet::Hostility hostility = Planet::Hostility::None;
+		const Planet& planet = planetAttributes[planetSelection];
 
-		switch (PLANET_TYPE_SELECTION)
-		{
-		case Planet::PlanetType::Mercury:
-			map = mPlanets[0]->mapImagePath();
-			tileset = mPlanets[0]->tilesetPath();
-			dig_depth = mPlanets[0]->digDepth();
-			max_mines = mPlanets[0]->maxMines();
-			hostility = mPlanets[0]->hostility();
-			break;
-
-		case Planet::PlanetType::Mars:
-			map = mPlanets[1]->mapImagePath();
-			tileset = mPlanets[1]->tilesetPath();
-			dig_depth = mPlanets[1]->digDepth();
-			max_mines = mPlanets[1]->maxMines();
-			hostility = mPlanets[1]->hostility();
-			break;
-
-		case Planet::PlanetType::Ganymede:
-			map = mPlanets[2]->mapImagePath();
-			tileset = mPlanets[2]->tilesetPath();
-			dig_depth = mPlanets[2]->digDepth();
-			max_mines = mPlanets[2]->maxMines();
-			hostility = mPlanets[2]->hostility();
-			break;
-
-		default:
-			return mReturnState;
-			break;
-		}
-
-		MapViewState* mapview = new MapViewState(map, tileset, dig_depth, max_mines, hostility);
+		MapViewState* mapview = new MapViewState(planet.mapImagePath(), planet.tilesetPath(), planet.digDepth(), planet.maxMines(), planet.hostility());
 		mapview->setPopulationLevel(MapViewState::PopulationLevel::POPULATION_LARGE);
 		mapview->_initialize();
 		mapview->activate();
@@ -249,7 +220,7 @@ void PlanetSelectState::onMouseDown(EventHandler::MouseButton /*button*/, int /*
 		if (mPlanets[i]->mouseHovering())
 		{
 			Utility<Mixer>::get().playSound(mSelect);
-			PLANET_TYPE_SELECTION = mPlanets[i]->type();
+			planetSelection = i;
 			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 			Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 			return;
