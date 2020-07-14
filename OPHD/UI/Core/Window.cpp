@@ -98,13 +98,13 @@ void Window::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImage(mTitle[0], mRect.x, mRect.y);
-	renderer.drawImageRepeated(mTitle[1], mRect.x + 4, mRect.y, mRect.width - 8, sWindowTitleBarHeight);
-	renderer.drawImage(mTitle[2], mRect.x + mRect.width - 4, mRect.y);
+	renderer.drawImage(mTitle[0], mRect.startPoint());
+	renderer.drawImageRepeated(mTitle[1], NAS2D::Rectangle{mRect.x + 4, mRect.y, mRect.width - 8, sWindowTitleBarHeight});
+	renderer.drawImage(mTitle[2], NAS2D::Point{mRect.x + mRect.width - 4, mRect.y});
 
-	renderer.drawImageRect(mRect.x, mRect.y + 20, mRect.width, mRect.height - 20, mBody);
+	renderer.drawImageRect(NAS2D::Rectangle{mRect.x, mRect.y + 20, mRect.width, mRect.height - 20}, mBody);
 
-	renderer.drawText(*WINDOW_TITLE_FONT, text(), mRect.x + 5, mRect.y + 2, 255, 255, 255);
+	renderer.drawText(*WINDOW_TITLE_FONT, text(), NAS2D::Point{mRect.x + 5, mRect.y + 2}, NAS2D::Color::White);
 
 	UIContainer::update();
 }
