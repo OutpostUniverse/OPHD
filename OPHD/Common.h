@@ -323,7 +323,7 @@ const std::string& idleReason(IdleReason);
 /**
  * Super basic progress bar.
  */
-void drawBasicProgressBar(float x, float y, float width, float height, float percent, float padding = 4.0f);
+void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding = 4);
 
 NAS2D::Color& structureColorFromIndex(std::size_t);
 NAS2D::Color& structureTextColorFromIndex(std::size_t);
