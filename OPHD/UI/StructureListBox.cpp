@@ -17,7 +17,7 @@ static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
 
-static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem& item, float x, float y, float w, float offset, bool highlight)
+static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem& item, int x, int y, int w, int offset, bool highlight)
 {
 	Structure* structure = item.structure;
 
@@ -27,11 +27,11 @@ static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem&
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { renderer.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red, structureColor.green, structureColor.blue, 75); }
 
-	renderer.drawBox({x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
+	renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
 
-	renderer.drawText(*MAIN_FONT_BOLD, item.Text, {x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
+	renderer.drawText(*MAIN_FONT_BOLD, item.Text, NAS2D::Point{x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 
-	renderer.drawText(*MAIN_FONT, item.structureState, {x + w - MAIN_FONT->width(item.structureState) - 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
+	renderer.drawText(*MAIN_FONT, item.structureState, NAS2D::Point{x + w - MAIN_FONT->width(item.structureState) - 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 }
 
 

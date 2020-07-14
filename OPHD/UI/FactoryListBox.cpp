@@ -17,7 +17,7 @@ static Font* MAIN_FONT = nullptr;
 static Font* MAIN_FONT_BOLD = nullptr;
 
 
-static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& item, float x, float y, float w, float offset, bool highlight)
+static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& item, int x, int y, int w, int offset, bool highlight)
 {
 	Factory* f = item.factory;
 
@@ -27,12 +27,12 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { renderer.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red, structureColor.green, structureColor.blue, 75); }
 
-	renderer.drawBox({x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
+	renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
 	renderer.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, static_cast<float>(item.icon_slice.x), static_cast<float>(item.icon_slice.y), 46.0f, 46.0f, 255, 255, 255, structureColor.alpha);
 
-	renderer.drawText(*MAIN_FONT_BOLD, f->name(), {x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
+	renderer.drawText(*MAIN_FONT_BOLD, f->name(), NAS2D::Point{x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 
-	renderer.drawText(*MAIN_FONT, productDescription(f->productType()), {x + w - 112, ((y + 19) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
+	renderer.drawText(*MAIN_FONT, productDescription(f->productType()), NAS2D::Point{x + w - 112, ((y + 19) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 	
 	// PROGRESS BAR
 	float percentage = (f->productType() == ProductType::PRODUCT_NONE) ? 0.0f : (f->productionTurnsCompleted() / f->productionTurnsToComplete());
