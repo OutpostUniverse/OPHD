@@ -642,8 +642,10 @@ void FactoryReport::update()
 	if (!visible()) { return; }
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawLine(cboFilterByProduct.rect().x + cboFilterByProduct.rect().width + 10, mRect.y + 10, cboFilterByProduct.rect().x + cboFilterByProduct.rect().width + 10, mRect.y + mRect.height - 10, 0, 185, 0);
-	renderer.drawText(*FONT, "Filter by Product", SORT_BY_PRODUCT_POSITION, mRect.y + 10, 0, 185, 0);
+	const auto textColor = NAS2D::Color{0, 185, 0};
+	const auto positionX = cboFilterByProduct.rect().x + cboFilterByProduct.rect().width + 10;
+	renderer.drawLine(NAS2D::Point{positionX, mRect.y + 10}, NAS2D::Point{positionX, mRect.y + mRect.height - 10}, textColor);
+	renderer.drawText(*FONT, "Filter by Product", NAS2D::Point{SORT_BY_PRODUCT_POSITION, mRect.y + 10}, textColor);
 
 	if (SELECTED_FACTORY)
 	{
