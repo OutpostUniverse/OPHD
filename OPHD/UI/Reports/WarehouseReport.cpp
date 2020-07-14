@@ -485,7 +485,8 @@ void WarehouseReport::update()
 
 	// Left Panel
 	drawLeftPanel(renderer);
-	renderer.drawLine(renderer.center_x(), positionY() + 10, renderer.center_x(), positionY() + height() - 10, 0, 185, 0);
+	const auto positionX = static_cast<int>(renderer.center_x());
+	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + height() - 10}, NAS2D::Color{0, 185, 0});
 	drawRightPanel(renderer);
 
 	UIContainer::update();
