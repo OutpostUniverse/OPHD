@@ -88,7 +88,7 @@ void ListBox::_updateItemDisplay()
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
-			mSlider.length((mLineHeight * mItems.size()) - height());
+			mSlider.length(static_cast<float>(mLineHeight * mItems.size() - height()));
 			mCurrentOffset = static_cast<std::size_t>(mSlider.thumbPosition());
 			mItemWidth = static_cast<unsigned int>(width() - mSlider.width());
 			mSlider.visible(true);

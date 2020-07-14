@@ -11,6 +11,7 @@
 #include "NAS2D/MathUtils.h"
 
 #include <algorithm>
+#include <cmath>
 
 
 using namespace NAS2D;
@@ -82,7 +83,7 @@ void ListBoxBase::_update_item_display()
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
-			mSlider.length((mItemHeight * mItems.size()) - height());
+			mSlider.length(static_cast<float>(mItemHeight * mItems.size() - height()));
 			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
 			mItemWidth -= static_cast<unsigned int>(mSlider.width());
 			mSlider.visible(true);
@@ -175,7 +176,7 @@ void ListBoxBase::onMouseWheel(int /*x*/, int y)
 	if (!visible()) { return; }
 	if (!mHasFocus) { return; }
 
-	float change = mItemHeight;
+	float change = static_cast<float>(mItemHeight);
 
 	mSlider.changeThumbPosition((y < 0 ? change : -change));
 }
@@ -187,8 +188,7 @@ void ListBoxBase::onMouseWheel(int /*x*/, int y)
 void ListBoxBase::slideChanged(float newPosition)
 {
 	_update_item_display();
-	// Intentional truncation of fractional value
-	int pos = static_cast<int>(newPosition);
+	auto pos = std::floor(newPosition);
 	if (pos != newPosition)
 	{
 		mSlider.thumbPosition(pos);
