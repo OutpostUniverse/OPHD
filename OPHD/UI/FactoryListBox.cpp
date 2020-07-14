@@ -23,12 +23,14 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 
 	const auto& structureColor = structureColorFromIndex(f->state());
 	const auto& structureTextColor = structureTextColorFromIndex(f->state());
+	const auto highlightColor = NAS2D::Color{structureColor.red, structureColor.green, structureColor.blue, 75};
+	const auto subImageColor = NAS2D::Color{255, 255, 255, structureColor.alpha};
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { renderer.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red, structureColor.green, structureColor.blue, 75); }
+	if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, w, LIST_ITEM_HEIGHT}, highlightColor); }
 
 	renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
-	renderer.drawSubImage(*STRUCTURE_ICONS, x + 8, y + 8 - offset, static_cast<float>(item.icon_slice.x), static_cast<float>(item.icon_slice.y), 46.0f, 46.0f, 255, 255, 255, structureColor.alpha);
+	renderer.drawSubImage(*STRUCTURE_ICONS, NAS2D::Point{x + 8, y + 8 - offset}, NAS2D::Rectangle{item.icon_slice.x, item.icon_slice.y, 46, 46}, subImageColor);
 
 	renderer.drawText(*MAIN_FONT_BOLD, f->name(), NAS2D::Point{x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 
