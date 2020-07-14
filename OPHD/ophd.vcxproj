@@ -106,21 +106,22 @@
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>SET vcpkgDir="$(VcpkgCurrentInstalledDir)"
+      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
-IF "vcpkgDir" == "" (
-  EXIT
-)
+IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+  IF "$(ConfigurationName)" == "Debug" (
+    SET configDir="debug\"
+  ) ELSE (
+    SET configDir=""
+  )
 
-SET sourceDir="%vcpkgDir%bin\"
+  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
 
-IF $(ConfigurationName) == Debug (
-  SET sourceDir="%vcpkgDir%debug\bin\"
-)
-
-xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
-xcopy /y /d "%sourceDir%vorbis.dll" "$(OutDir)"
-xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
+  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
+)</Command>
+      <Message>Copy OGG dependencies if vckpg present</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -146,21 +147,22 @@ xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>SET vcpkgDir="$(VcpkgCurrentInstalledDir)"
+      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
-IF "vcpkgDir" == "" (
-  EXIT
-)
+IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+  IF "$(ConfigurationName)" == "Debug" (
+    SET configDir="debug\"
+  ) ELSE (
+    SET configDir=""
+  )
 
-SET sourceDir="%vcpkgDir%bin\"
+  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
 
-IF $(ConfigurationName) == Debug (
-  SET sourceDir="%vcpkgDir%debug\bin\"
-)
-
-xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
-xcopy /y /d "%sourceDir%vorbis.dll" "$(OutDir)"
-xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
+  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
+)</Command>
+      <Message>Copy OGG dependencies if vckpg present</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -188,21 +190,22 @@ xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>SET vcpkgDir="$(VcpkgCurrentInstalledDir)"
+      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
-IF "vcpkgDir" == "" (
-  EXIT
-)
+IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+  IF "$(ConfigurationName)" == "Debug" (
+    SET configDir="debug\"
+  ) ELSE (
+    SET configDir=""
+  )
 
-SET sourceDir="%vcpkgDir%bin\"
+  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
 
-IF $(ConfigurationName) == Debug (
-  SET sourceDir="%vcpkgDir%debug\bin\"
-)
-
-xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
-xcopy /y /d "%sourceDir%vorbis.dll" "$(OutDir)"
-xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
+  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
+)</Command>
+      <Message>Copy OGG dependencies if vckpg present</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -230,21 +233,22 @@ xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>SET vcpkgDir="$(VcpkgCurrentInstalledDir)"
+      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
-IF "vcpkgDir" == "" (
-  EXIT
-)
+IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+  IF "$(ConfigurationName)" == "Debug" (
+    SET configDir="debug\"
+  ) ELSE (
+    SET configDir=""
+  )
 
-SET sourceDir="%vcpkgDir%bin\"
+  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
 
-IF $(ConfigurationName) == Debug (
-  SET sourceDir="%vcpkgDir%debug\bin\"
-)
-
-xcopy /y /d "%sourceDir%ogg.dll" "$(OutDir)"
-xcopy /y /d "%sourceDir%vorbis.dll" "$(OutDir)"
-xcopy /y /d "%sourceDir%vorbisfile.dll" "$(OutDir)"</Command>
+  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
+)</Command>
+      <Message>Copy OGG dependencies if vckpg present</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
