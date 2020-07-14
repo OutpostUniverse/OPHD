@@ -418,51 +418,39 @@ void IconGrid::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	//renderer.drawBoxFilled(mRect, 0, 0, 0);
-	renderer.drawImageRect(mRect.x, mRect.y, mRect.width, mRect.height, mSkin);
+	renderer.drawImageRect(mRect, mSkin);
 
 	if (mIconItemList.empty()) { return; }
 
 	for (std::size_t i = 0; i < mIconItemList.size(); ++i)
 	{
-		int x_pos = static_cast<int>(i) % mGridSize.x;
-		int y_pos = static_cast<int>(i) / mGridSize.x; //-V537
-
-		float x = static_cast<float>((mRect.x + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
-		float y = static_cast<float>((mRect.y + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
-
-		if (mIconItemList[i].available)
-			renderer.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x, mIconItemList[i].pos.y, static_cast<float>(mIconSize), static_cast<float>(mIconSize));
-		else
-			renderer.drawSubImage(mIconSheet, x, y, mIconItemList[i].pos.x, mIconItemList[i].pos.y, static_cast<float>(mIconSize), static_cast<float>(mIconSize), 255, 0, 0, 255);
+		const auto offset = NAS2D::Vector{static_cast<int>(i) % mGridSize.x, static_cast<int>(i) / mGridSize.x};
+		const auto position = mRect.startPoint() + offset * (mIconSize + mIconMargin);
+		const auto highlightColor = mIconItemList[i].available ? NAS2D::Color::White : NAS2D::Color::Red;
+		renderer.drawSubImage(mIconSheet, position, NAS2D::Rectangle{mIconItemList[i].pos.x, mIconItemList[i].pos.y, mIconSize, mIconSize}, highlightColor);
 	}
 
 	if (mCurrentSelection != constants::NO_SELECTION)
 	{
-		int x_pos = (static_cast<int>(mCurrentSelection) % mGridSize.x);
-		int y_pos = (static_cast<int>(mCurrentSelection) / mGridSize.x); //-V537
-		renderer.drawBox((mRect.x + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos),
-			(mRect.y + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos),
-			static_cast<float>(mIconSize),
-			static_cast<float>(mIconSize), 0, 100, 255);
+		const auto offset = NAS2D::Vector{static_cast<int>(mCurrentSelection) % mGridSize.x, static_cast<int>(mCurrentSelection) / mGridSize.x};
+		const auto position = mRect.startPoint() + NAS2D::Vector{mIconMargin, mIconMargin} + offset * (mIconSize + mIconMargin);
+		renderer.drawBox(NAS2D::Rectangle<int>::Create(position, NAS2D::Vector{mIconSize, mIconSize}), NAS2D::Color{0, 100, 255});
 	}
 
 	if (mHighlightIndex != constants::NO_SELECTION)
 	{
-		int x_pos = (static_cast<int>(mHighlightIndex) % mGridSize.x);
-		int y_pos = (static_cast<int>(mHighlightIndex) / mGridSize.x); //-V537
+		const auto offset = NAS2D::Vector{static_cast<int>(mHighlightIndex) % mGridSize.x, static_cast<int>(mHighlightIndex) / mGridSize.x};
+		const auto position = mRect.startPoint() + NAS2D::Vector{mIconMargin, mIconMargin} + offset * (mIconSize + mIconMargin);
 
-		int x = static_cast<int>((mRect.x + mIconMargin) + (x_pos * mIconSize) + (mIconMargin * x_pos));
-		int y = static_cast<int>((mRect.y + mIconMargin) + (y_pos * mIconSize) + (mIconMargin * y_pos));
-
-		renderer.drawBox(static_cast<float>(x), static_cast<float>(y), static_cast<float>(mIconSize), static_cast<float>(mIconSize), 0, 180, 0);
+		renderer.drawBox(NAS2D::Rectangle<int>::Create(position, NAS2D::Vector{mIconSize, mIconSize}), NAS2D::Color{0, 180, 0});
 
 		// Name Tooltip
 		if (mShowTooltip)
 		{
-			const auto tooltipRect = NAS2D::Rectangle{x, y - 15, FONT->width(mIconItemList[mHighlightIndex].name) + 4, FONT->height()};
+			const auto tooltipRect = NAS2D::Rectangle{position.x, position.y - 15, FONT->width(mIconItemList[mHighlightIndex].name) + 4, FONT->height()};
 			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
 			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
-			renderer.drawText(*FONT, mIconItemList[mHighlightIndex].name, static_cast<float>(x + 2), static_cast<float>(y - 15), 0, 0, 0);
+			renderer.drawText(*FONT, mIconItemList[mHighlightIndex].name, position + NAS2D::Vector{2, -15}, NAS2D::Color::Black);
 		}
 	}
 }
