@@ -13,8 +13,6 @@
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
 
-#include <vector>
-
 using namespace NAS2D;
 
 Planet::PlanetType PLANET_TYPE_SELECTION = Planet::PlanetType::None;
