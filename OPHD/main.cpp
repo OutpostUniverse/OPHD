@@ -27,7 +27,7 @@
 
 using namespace NAS2D;
 
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
 
 /** Not thrilled with placement but this seems to be the easiest way to deal with it. */
 NAS2D::Image* IMG_LOADING = nullptr;
