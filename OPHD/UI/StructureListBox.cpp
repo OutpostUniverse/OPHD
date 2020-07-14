@@ -23,9 +23,10 @@ static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem&
 
 	const auto& structureColor = structureColorFromIndex(structure->state());
 	const auto& structureTextColor = structureTextColorFromIndex(structure->state());
+	const auto highlightColor = NAS2D::Color{structureColor.red, structureColor.green, structureColor.blue, 75};
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { renderer.drawBoxFilled(x, y - offset, w, LIST_ITEM_HEIGHT, structureColor.red, structureColor.green, structureColor.blue, 75); }
+	if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, w, LIST_ITEM_HEIGHT}, highlightColor); }
 
 	renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
 
