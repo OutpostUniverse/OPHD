@@ -105,6 +105,24 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
+
+IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+  IF "$(ConfigurationName)" == "Debug" (
+    SET configDir="debug\"
+  ) ELSE (
+    SET configDir=""
+  )
+
+  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
+
+  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
+)</Command>
+      <Message>Copy OGG dependencies if vckpg present</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -128,6 +146,24 @@
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
+
+IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+  IF "$(ConfigurationName)" == "Debug" (
+    SET configDir="debug\"
+  ) ELSE (
+    SET configDir=""
+  )
+
+  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
+
+  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
+)</Command>
+      <Message>Copy OGG dependencies if vckpg present</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -153,6 +189,24 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
+
+IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+  IF "$(ConfigurationName)" == "Debug" (
+    SET configDir="debug\"
+  ) ELSE (
+    SET configDir=""
+  )
+
+  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
+
+  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
+)</Command>
+      <Message>Copy OGG dependencies if vckpg present</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -178,6 +232,24 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
+
+IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+  IF "$(ConfigurationName)" == "Debug" (
+    SET configDir="debug\"
+  ) ELSE (
+    SET configDir=""
+  )
+
+  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
+
+  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
+  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
+)</Command>
+      <Message>Copy OGG dependencies if vckpg present</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
