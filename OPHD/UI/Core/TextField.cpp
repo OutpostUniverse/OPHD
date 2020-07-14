@@ -61,7 +61,7 @@ TextField::TextField()
 	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_right_highlight.png"));
 
 	TXT_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	height(static_cast<float>(TXT_FONT->height() + FIELD_PADDING * 2));
+	height(TXT_FONT->height() + FIELD_PADDING * 2);
 }
 
 

@@ -149,7 +149,7 @@ void WarehouseReport::init()
 	add(&lstStructures, 10, mRect.y + 115);
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
 
-	add(&lstProducts, Utility<Renderer>::get().center_x() + 10, mRect.y + 173);
+	add(&lstProducts, static_cast<int>(Utility<Renderer>::get().center_x()) + 10, mRect.y + 173);
 
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::doubleClicked);
 
@@ -450,14 +450,15 @@ void WarehouseReport::lstStructuresSelectionChanged()
  */
 void WarehouseReport::drawLeftPanel(Renderer& renderer)
 {
-	renderer.drawText(*FONT_MED_BOLD, "Warehouse Count", 10, positionY() + 40, 0, 185, 0);
-	renderer.drawText(*FONT_MED_BOLD, "Total Storage", 10, positionY() + 62, 0, 185, 0);
-	renderer.drawText(*FONT_MED_BOLD, "Capacity Used", 10, positionY() + 84, 0, 185, 0);
+	const auto textColor = NAS2D::Color{0, 185, 0};
+	renderer.drawText(*FONT_MED_BOLD, "Warehouse Count", NAS2D::Point{10, positionY() + 40}, textColor);
+	renderer.drawText(*FONT_MED_BOLD, "Total Storage", NAS2D::Point{10, positionY() + 62}, textColor);
+	renderer.drawText(*FONT_MED_BOLD, "Capacity Used", NAS2D::Point{10, positionY() + 84}, textColor);
 
-	renderer.drawText(*FONT_MED, WH_COUNT, width() / 2 - 10 - COUNT_WIDTH, positionY() + 35, 0, 185, 0);
-	renderer.drawText(*FONT_MED, WH_CAPACITY, width() / 2 - 10 - CAPACITY_WIDTH, positionY() + 57, 0, 185, 0);
+	renderer.drawText(*FONT_MED, WH_COUNT, NAS2D::Point{width() / 2 - 10 - COUNT_WIDTH, positionY() + 35}, textColor);
+	renderer.drawText(*FONT_MED, WH_CAPACITY, NAS2D::Point{width() / 2 - 10 - CAPACITY_WIDTH, positionY() + 57}, textColor);
 
-	drawBasicProgressBar(static_cast<float>(CAPACITY_BAR_POSITION_X), positionY() + 84.0f, static_cast<float>(CAPACITY_BAR_WIDTH), 20.0f, CAPACITY_PERCENT);
+	drawBasicProgressBar(CAPACITY_BAR_POSITION_X, positionY() + 84, CAPACITY_BAR_WIDTH, 20, CAPACITY_PERCENT);
 }
 
 
@@ -467,9 +468,10 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 void WarehouseReport::drawRightPanel(Renderer& renderer)
 {
 	if (!SELECTED_WAREHOUSE) { return; }
-	
-	renderer.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), renderer.center_x() + 10, positionY() + 2, 0, 185, 0);
-	renderer.drawImage(*WAREHOUSE_IMG, renderer.center_x() + 10, positionY() + 35);
+
+	const auto positionX = static_cast<int>(renderer.center_x()) + 10;
+	renderer.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), NAS2D::Point{positionX, positionY() + 2}, NAS2D::Color{0, 185, 0});
+	renderer.drawImage(*WAREHOUSE_IMG, NAS2D::Point{positionX, positionY() + 35});
 }
 
 
@@ -483,7 +485,8 @@ void WarehouseReport::update()
 
 	// Left Panel
 	drawLeftPanel(renderer);
-	renderer.drawLine(renderer.center_x(), positionY() + 10, renderer.center_x(), positionY() + height() - 10, 0, 185, 0);
+	const auto positionX = static_cast<int>(renderer.center_x());
+	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + height() - 10}, NAS2D::Color{0, 185, 0});
 	drawRightPanel(renderer);
 
 	UIContainer::update();

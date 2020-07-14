@@ -17,7 +17,7 @@ public:
 	UIContainer();
 	~UIContainer() override;
 
-	void add(Control* control, float x, float y);
+	void add(Control* control, int x, int y);
 	void clear();
 
 	void bringToFront(Control* control);

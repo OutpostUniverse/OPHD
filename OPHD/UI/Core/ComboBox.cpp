@@ -160,7 +160,7 @@ void ComboBox::addItem(const std::string& item, int tag)
 	lstItems.addItem(item, tag);
 
 	if (lstItems.count() > mMaxDisplayItems) { return; }
-	lstItems.height(static_cast<float>(lstItems.count() * lstItems.lineHeight()));
+	lstItems.height(static_cast<int>(lstItems.count()) * lstItems.lineHeight());
 
 	lstItems.clearSelection();
 }
