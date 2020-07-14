@@ -39,7 +39,7 @@ void FactoryProduction::init()
 	size({320, 162});
 
 	// Set up GUI Layout
-	add(&mProductGrid, static_cast<float>(constants::MARGIN), 25);
+	add(&mProductGrid, constants::MARGIN, 25);
 	mProductGrid.sheetPath("ui/factory.png");
 	mProductGrid.size({140, 110});
 	mProductGrid.iconSize(32);
