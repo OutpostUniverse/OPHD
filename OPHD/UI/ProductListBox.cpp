@@ -42,7 +42,7 @@ static void drawItem(Renderer& renderer, ProductListBox::ProductListBoxItem& ite
 
 	renderer.drawText(*MAIN_FONT, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + FIRST_STOP + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2)}, ITEM_COLOR);
 	
-	drawBasicProgressBar(x + static_cast<float>(SECOND_STOP) + 5, y + 10, static_cast<float>(FIRST_STOP) - 10, 10, item.usage, 2);
+	drawBasicProgressBar(x + SECOND_STOP + 5, y + 10, FIRST_STOP - 10, 10, item.usage, 2);
 }
 
 

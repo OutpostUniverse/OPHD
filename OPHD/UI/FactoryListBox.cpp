@@ -38,7 +38,7 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	
 	// PROGRESS BAR
 	float percentage = (f->productType() == ProductType::PRODUCT_NONE) ? 0.0f : (f->productionTurnsCompleted() / f->productionTurnsToComplete());
-	drawBasicProgressBar(x + w - 112.0f, y + 30.0f - offset, 105.0f, 11.0f, percentage, 2.0f);
+	drawBasicProgressBar(x + w - 112, y + 30 - offset, 105, 11, percentage, 2);
 }
 
 
