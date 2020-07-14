@@ -109,9 +109,9 @@ void ProductListBox::update()
 	{
 		drawItem(renderer, *static_cast<ProductListBoxItem*>(mItems[i]),
 			positionX(),
-			positionY() + (i * LIST_ITEM_HEIGHT),
-			static_cast<float>(item_width()),
-			static_cast<float>(draw_offset()),
+			positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT),
+			item_width(),
+			draw_offset(),
 			i == currentSelection());
 	}
 
