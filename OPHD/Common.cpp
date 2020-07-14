@@ -9,13 +9,14 @@
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlElement.h>
 
-#include <iostream>
+#include <SDL2/SDL.h>
 
 #if defined(WINDOWS) || defined(WIN32)
 #include <Windows.h>
 #endif
 
-#include <SDL2/SDL.h>
+#include <iostream>
+
 
 using namespace NAS2D;
 
