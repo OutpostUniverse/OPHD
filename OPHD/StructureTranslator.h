@@ -1,10 +1,10 @@
 #pragma once
 
+#include "Common.h"
+
 #include <array>
 #include <string>
 #include <map>
-
-#include "Common.h"
 
 
 /**
