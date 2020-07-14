@@ -3,10 +3,10 @@
 #include "../../Constants.h"
 #include "../../FontManager.h"
 
-#include "NAS2D/Renderer/Renderer.h"
-#include "NAS2D/Resources/Font.h"
+#include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resources/Font.h>
 
-#include "NAS2D/Utility.h"
+#include <NAS2D/Utility.h>
 
 static const int FIELD_PADDING = 2;
 static NAS2D::Font* TXT_FONT = nullptr;

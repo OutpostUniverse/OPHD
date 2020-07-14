@@ -2,7 +2,7 @@
 
 #include "UIContainer.h"
 
-#include "NAS2D/Resources/Image.h"
+#include <NAS2D/Resources/Image.h>
 
 #include <string>
 

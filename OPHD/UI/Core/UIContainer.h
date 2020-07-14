@@ -2,7 +2,7 @@
 
 #include "Control.h"
 
-#include "NAS2D/EventHandler.h"
+#include <NAS2D/EventHandler.h>
 
 #include <vector>
 

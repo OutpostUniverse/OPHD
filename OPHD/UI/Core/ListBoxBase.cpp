@@ -5,10 +5,10 @@
 
 #include "../../Constants.h"
 
-#include "NAS2D/Utility.h"
-#include "NAS2D/Renderer/Renderer.h"
-#include "NAS2D/Renderer/Point.h"
-#include "NAS2D/MathUtils.h"
+#include <NAS2D/Utility.h>
+#include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Renderer/Point.h>
+#include <NAS2D/MathUtils.h>
 
 #include <algorithm>
 #include <cmath>

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "NAS2D/Signal.h"
-#include "NAS2D/Renderer/Point.h"
+#include <NAS2D/Signal.h>
+#include <NAS2D/Renderer/Point.h>
 
 #include "Core/ListBoxBase.h"
 

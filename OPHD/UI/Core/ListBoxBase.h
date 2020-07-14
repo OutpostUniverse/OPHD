@@ -4,9 +4,9 @@
 #include "Slider.h"
 #include "../../Constants/UiConstants.h"
 
-#include "NAS2D/Signal.h"
-#include "NAS2D/EventHandler.h"
-#include "NAS2D/Renderer/Color.h"
+#include <NAS2D/Signal.h>
+#include <NAS2D/EventHandler.h>
+#include <NAS2D/Renderer/Color.h>
 
 #include <string>
 #include <vector>
