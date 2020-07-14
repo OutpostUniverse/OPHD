@@ -149,7 +149,7 @@ void WarehouseReport::init()
 	add(&lstStructures, 10, mRect.y + 115);
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
 
-	add(&lstProducts, Utility<Renderer>::get().center_x() + 10, mRect.y + 173);
+	add(&lstProducts, static_cast<int>(Utility<Renderer>::get().center_x()) + 10, mRect.y + 173);
 
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::doubleClicked);
 
@@ -450,12 +450,13 @@ void WarehouseReport::lstStructuresSelectionChanged()
  */
 void WarehouseReport::drawLeftPanel(Renderer& renderer)
 {
-	renderer.drawText(*FONT_MED_BOLD, "Warehouse Count", 10, positionY() + 40, 0, 185, 0);
-	renderer.drawText(*FONT_MED_BOLD, "Total Storage", 10, positionY() + 62, 0, 185, 0);
-	renderer.drawText(*FONT_MED_BOLD, "Capacity Used", 10, positionY() + 84, 0, 185, 0);
+	const auto textColor = NAS2D::Color{0, 185, 0};
+	renderer.drawText(*FONT_MED_BOLD, "Warehouse Count", NAS2D::Point{10, positionY() + 40}, textColor);
+	renderer.drawText(*FONT_MED_BOLD, "Total Storage", NAS2D::Point{10, positionY() + 62}, textColor);
+	renderer.drawText(*FONT_MED_BOLD, "Capacity Used", NAS2D::Point{10, positionY() + 84}, textColor);
 
-	renderer.drawText(*FONT_MED, WH_COUNT, width() / 2 - 10 - COUNT_WIDTH, positionY() + 35, 0, 185, 0);
-	renderer.drawText(*FONT_MED, WH_CAPACITY, width() / 2 - 10 - CAPACITY_WIDTH, positionY() + 57, 0, 185, 0);
+	renderer.drawText(*FONT_MED, WH_COUNT, NAS2D::Point{width() / 2 - 10 - COUNT_WIDTH, positionY() + 35}, textColor);
+	renderer.drawText(*FONT_MED, WH_CAPACITY, NAS2D::Point{width() / 2 - 10 - CAPACITY_WIDTH, positionY() + 57}, textColor);
 
 	drawBasicProgressBar(static_cast<float>(CAPACITY_BAR_POSITION_X), positionY() + 84.0f, static_cast<float>(CAPACITY_BAR_WIDTH), 20.0f, CAPACITY_PERCENT);
 }
