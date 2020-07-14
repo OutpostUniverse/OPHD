@@ -468,9 +468,10 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 void WarehouseReport::drawRightPanel(Renderer& renderer)
 {
 	if (!SELECTED_WAREHOUSE) { return; }
-	
-	renderer.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), renderer.center_x() + 10, positionY() + 2, 0, 185, 0);
-	renderer.drawImage(*WAREHOUSE_IMG, renderer.center_x() + 10, positionY() + 35);
+
+	const auto positionX = static_cast<int>(renderer.center_x()) + 10;
+	renderer.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), NAS2D::Point{positionX, positionY() + 2}, NAS2D::Color{0, 185, 0});
+	renderer.drawImage(*WAREHOUSE_IMG, NAS2D::Point{positionX, positionY() + 35});
 }
 
 
