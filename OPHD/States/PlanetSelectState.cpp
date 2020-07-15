@@ -13,11 +13,13 @@
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
 
-#include <vector>
+#include <cstddef>
+#include <limits>
 
 using namespace NAS2D;
 
-Planet::PlanetType PLANET_TYPE_SELECTION = Planet::PlanetType::None;
+std::size_t planetSelection;
+constexpr std::size_t planetSelectionInvalid = std::numeric_limits<std::size_t>::max();
 
 static Font* FONT = nullptr;
 static Font* FONT_BOLD = nullptr;
@@ -90,9 +92,9 @@ PlanetSelectState::~PlanetSelectState()
 
 namespace {
 	std::vector<Planet::Attributes> planetAttributes = {
-		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", 1, 10} },
-		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", 4, 30} },
-		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", 2, 15} }
+		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10, "maps/merc_01", "tsets/mercury.png"} },
+		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30, "maps/mars_04", "tsets/mars.png"} },
+		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15, "maps/ganymede_01", "tsets/ganymede.png"} }
 	};
 }
 
@@ -122,7 +124,7 @@ void PlanetSelectState::initialize()
 	mPlanets[2]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[2]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
-	PLANET_TYPE_SELECTION = Planet::PlanetType::None;
+	planetSelection = planetSelectionInvalid;
 
 	mQuit.size({100, 20});
 	mQuit.position({static_cast<int>(renderer.width()) - 105, 30});
@@ -192,44 +194,11 @@ State* PlanetSelectState::update()
 	{
 		return this;
 	}
-	else if (PLANET_TYPE_SELECTION != Planet::PlanetType::None)
+	else if (planetSelection != planetSelectionInvalid)
 	{
-		std::string map, tileset;
-		int dig_depth = 0, max_mines = 0;
-		Planet::Hostility hostility = Planet::Hostility::None;
+		const Planet& planet = planetAttributes[planetSelection];
 
-		switch (PLANET_TYPE_SELECTION)
-		{
-		case Planet::PlanetType::Mercury:
-			map = "maps/merc_01";
-			tileset = "tsets/mercury.png";
-			dig_depth = mPlanets[0]->digDepth();
-			max_mines = mPlanets[0]->maxMines();
-			hostility = Planet::Hostility::High;
-			break;
-
-		case Planet::PlanetType::Mars:
-			map = "maps/mars_04";
-			tileset = "tsets/mars.png";
-			dig_depth = mPlanets[1]->digDepth();
-			max_mines = mPlanets[1]->maxMines();
-			hostility = Planet::Hostility::Low;
-			break;
-
-		case Planet::PlanetType::Ganymede:
-			map = "maps/ganymede_01";
-			tileset = "tsets/ganymede.png";
-			dig_depth = mPlanets[2]->digDepth();
-			max_mines = mPlanets[2]->maxMines();
-			hostility = Planet::Hostility::Medium;
-			break;
-
-		default:
-			return mReturnState;
-			break;
-		}
-
-		MapViewState* mapview = new MapViewState(map, tileset, dig_depth, max_mines, hostility);
+		MapViewState* mapview = new MapViewState(planet.mapImagePath(), planet.tilesetPath(), planet.digDepth(), planet.maxMines(), planet.hostility());
 		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
 		mapview->_initialize();
 		mapview->activate();
@@ -251,7 +220,7 @@ void PlanetSelectState::onMouseDown(EventHandler::MouseButton /*button*/, int /*
 		if (mPlanets[i]->mouseHovering())
 		{
 			Utility<Mixer>::get().playSound(mSelect);
-			PLANET_TYPE_SELECTION = mPlanets[i]->type();
+			planetSelection = i;
 			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 			Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 			return;
