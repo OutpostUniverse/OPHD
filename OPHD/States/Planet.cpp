@@ -19,15 +19,10 @@ namespace {
 
 
 Planet::Planet(const Attributes& attributes) :
-	mHostility(attributes.hostility),
-	mMaxMines(attributes.maxMines),
-	mMaxDigDepth(attributes.maxDepth),
-	mMapImagePath(attributes.mapImagePath),
-	mTilesetPath(attributes.tilesetPath),
-	mImage(NAS2D::Image(attributes.imagePath)),
-	mType(attributes.type)
+	mAttributes(attributes),
+	mImage(NAS2D::Image(attributes.imagePath))
 {
-	if (mType == PlanetType::None || mType == PlanetType::Count) {
+	if (attributes.type == PlanetType::None || attributes.type == PlanetType::Count) {
 		throw std::runtime_error("Instantiated Planet class with an invalid planet type.");
 	}
 

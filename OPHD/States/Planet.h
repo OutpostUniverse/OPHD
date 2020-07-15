@@ -50,17 +50,11 @@ public:
 	Planet(const Attributes& attributes);
 	~Planet();
 
-	PlanetType type() const { return mType; }
-
 	NAS2D::Point<int> position() const { return mPosition; }
 	void position(const NAS2D::Point<int>& point) { mPosition = point; }
 	void position(int x, int y) { mPosition = {x, y}; }
 
-	Hostility hostility() const { return mHostility; }
-	int digDepth() const { return mMaxDigDepth; }
-	int maxMines() const { return mMaxMines; }
-	std::string mapImagePath() const { return mMapImagePath; };
-	std::string tilesetPath() const { return mTilesetPath; };
+	const Attributes& attributes() const { return mAttributes; }
 
 	bool mouseHovering() const { return mMouseInArea; }
 
@@ -81,16 +75,10 @@ private:
 private:
 	int mTick = 0;
 
-	Hostility mHostility;
-	int mMaxMines;
-	int mMaxDigDepth;
-	std::string mMapImagePath;
-	std::string mTilesetPath;
+	Attributes mAttributes;
 
 	NAS2D::Image mImage;
 	NAS2D::Point<int> mPosition;
-
-	PlanetType mType = PlanetType::None;
 
 	MouseCallback mMouseEnterCallback;
 	MouseCallback mMouseExitCallback;
