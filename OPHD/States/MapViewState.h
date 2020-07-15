@@ -49,7 +49,7 @@ enum InsertMode
 class MapViewState : public Wrapper
 {
 public:
-	enum PopulationLevel
+	enum class PopulationLevel
 	{
 		POPULATION_SMALL = 1,
 		POPULATION_LARGE = 2
