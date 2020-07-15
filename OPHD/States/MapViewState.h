@@ -1,8 +1,5 @@
 #pragma once
 
-#include <NAS2D/Signal.h>
-#include <NAS2D/Renderer/Point.h>
-
 #include "MapViewStateHelper.h"
 #include "MainReportsUiState.h"
 #include "Wrapper.h"
@@ -24,6 +21,9 @@
 #include "../Things/Robots/Robots.h"
 
 #include "../UI/Gui.h"
+
+#include <NAS2D/Signal.h>
+#include <NAS2D/Renderer/Point.h>
 
 #include <string>
 
