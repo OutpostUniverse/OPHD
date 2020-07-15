@@ -14,14 +14,14 @@
 #include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
+#include <NAS2D/Xml/XmlDocument.h>
+#include <NAS2D/Xml/XmlMemoryBuffer.h>
+
 #include <map>
 #include <string>
 #include <vector>
 #include <stdexcept>
 #include <iostream>
-
-#include <NAS2D/Xml/XmlDocument.h>
-#include <NAS2D/Xml/XmlMemoryBuffer.h>
 
 using namespace NAS2D;
 using namespace NAS2D::Xml;

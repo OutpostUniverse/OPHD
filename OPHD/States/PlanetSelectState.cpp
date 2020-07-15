@@ -199,7 +199,7 @@ State* PlanetSelectState::update()
 		const Planet& planet = planetAttributes[planetSelection];
 
 		MapViewState* mapview = new MapViewState(planet.mapImagePath(), planet.tilesetPath(), planet.digDepth(), planet.maxMines(), planet.hostility());
-		mapview->setPopulationLevel(MapViewState::PopulationLevel::POPULATION_LARGE);
+		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
 		mapview->_initialize();
 		mapview->activate();
 
