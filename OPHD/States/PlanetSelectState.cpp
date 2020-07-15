@@ -230,7 +230,7 @@ State* PlanetSelectState::update()
 		}
 
 		MapViewState* mapview = new MapViewState(map, tileset, dig_depth, max_mines, hostility);
-		mapview->setPopulationLevel(MapViewState::PopulationLevel::POPULATION_LARGE);
+		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
 		mapview->_initialize();
 		mapview->activate();
 
