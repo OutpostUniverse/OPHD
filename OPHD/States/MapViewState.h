@@ -51,8 +51,8 @@ class MapViewState : public Wrapper
 public:
 	enum class PopulationLevel
 	{
-		POPULATION_SMALL = 1,
-		POPULATION_LARGE = 2
+		Small = 1,
+		Large = 2
 	};
 
 public:
