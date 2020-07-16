@@ -196,9 +196,7 @@ State* PlanetSelectState::update()
 	}
 	else if (planetSelection != planetSelectionInvalid)
 	{
-		const Planet& planet = planetAttributes[planetSelection];
-
-		MapViewState* mapview = new MapViewState(planet.mapImagePath(), planet.tilesetPath(), planet.digDepth(), planet.maxMines(), planet.hostility());
+		MapViewState* mapview = new MapViewState(planetAttributes[planetSelection]);
 		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
 		mapview->_initialize();
 		mapview->activate();
@@ -244,9 +242,9 @@ void PlanetSelectState::onMousePlanetEnter()
 		// FIXME: Ugly, will be difficult to maintain in the future.
 		if (mPlanets[i]->mouseHovering())
 		{
-			if (mPlanets[i]->type() == Planet::PlanetType::Ganymede) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_GANYMEDE); }
-			if (mPlanets[i]->type() == Planet::PlanetType::Mars) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MARS); }
-			if (mPlanets[i]->type() == Planet::PlanetType::Mercury) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MERCURY); }
+			if (mPlanets[i]->attributes().type == Planet::PlanetType::Ganymede) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_GANYMEDE); }
+			if (mPlanets[i]->attributes().type == Planet::PlanetType::Mars) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MARS); }
+			if (mPlanets[i]->attributes().type == Planet::PlanetType::Mercury) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MERCURY); }
 		}
 	}
 }

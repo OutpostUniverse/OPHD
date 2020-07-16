@@ -93,11 +93,11 @@ MapViewState::MapViewState(const std::string& savegame) :
  * \param	d	Depth of the site map.
  * \param	mc	Mine Count - Number of mines to generate.
  */
-MapViewState::MapViewState(const std::string& siteMap, const std::string& tileSet, int depth, int mineCount, Planet::Hostility hostility) :
-	mTileMap(new TileMap(siteMap, tileSet, depth, mineCount, hostility)),
+MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
+	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mBackground("sys/bg1.png"),
-	mMapDisplay(siteMap + MAP_DISPLAY_EXTENSION),
-	mHeightMap(siteMap + MAP_TERRAIN_EXTENSION),
+	mMapDisplay(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION),
+	mHeightMap(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION),
 	mUiIcons("ui/icons.png")
 {
 	ccLocation() = CcNotPlaced;
