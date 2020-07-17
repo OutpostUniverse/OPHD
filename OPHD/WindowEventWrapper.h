@@ -1,10 +1,11 @@
 #pragma once
 
+#include "Common.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Configuration.h>
 
-#include "Common.h"
 
 /**
  * \brief	Function class used to get around the limitation in NAS2D's EventHandler

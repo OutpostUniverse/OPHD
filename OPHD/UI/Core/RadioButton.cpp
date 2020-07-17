@@ -3,14 +3,13 @@
 
 #include "RadioButton.h"
 
-#include"../../Constants.h"
+#include "UIContainer.h"
+#include "../../Constants.h"
 #include "../../FontManager.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/MathUtils.h>
-
-#include "UIContainer.h"
 
 
 using namespace NAS2D;

@@ -9,10 +9,10 @@
 #include "StringTable.h"
 #include "TextRender.h"
 
+#include <NAS2D/Utility.h>
+
 #include <map>
 #include <sstream>
-
-#include <NAS2D/Utility.h>
 
 
 using namespace NAS2D;

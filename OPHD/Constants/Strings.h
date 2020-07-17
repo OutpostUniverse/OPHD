@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Numbers.h"
+
 #include <string>
 
-#include "Numbers.h"
 
 /**
  * Defines string constants used throughout the game.

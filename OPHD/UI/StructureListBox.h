@@ -1,10 +1,12 @@
 #pragma once
 
-#include <NAS2D/Signal.h>
-
 #include "Core/ListBoxBase.h"
 
+#include <NAS2D/Signal.h>
+
+
 class Structure;
+
 
 /**
  * Implements a ListBox control.

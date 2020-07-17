@@ -1,9 +1,10 @@
 #pragma once
 
-#include <NAS2D/Resources/Image.h>
-
 #include "Core/Control.h"
 #include "../ResourcePool.h"
+
+#include <NAS2D/Resources/Image.h>
+
 
 class ResourceBreakdownPanel : public Control
 {
