@@ -3,7 +3,7 @@
 #include "Structure.h"
 
 #include "../../Constants.h"
-#include <sstream>
+
 
 class CommTower : public Structure
 {
