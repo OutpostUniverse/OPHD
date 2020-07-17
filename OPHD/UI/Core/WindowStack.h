@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Window.h"
+
 #include <list>
 
-#include "Window.h"
 
 class WindowStack final
 {

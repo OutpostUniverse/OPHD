@@ -1,12 +1,13 @@
 #pragma once
 
+#include "Control.h"
+
 #include <NAS2D/Signal.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Resources/Image.h>
 
-#include "Control.h"
-
 #include <string>
+
 
 class CheckBox : public Control
 {

@@ -1,13 +1,14 @@
 #pragma once
 
+#include "Control.h"
+
 #include <NAS2D/Signal.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Resources/Image.h>
 #include <NAS2D/Resources/Font.h>
 
-#include "Control.h"
-
 #include <string>
+
 
 class Button: public Control
 {

@@ -1,5 +1,9 @@
 #pragma once
 
+#include "Planet.h"
+
+#include "../UI/UI.h"
+
 #include <NAS2D/State.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/EventHandler.h>
@@ -7,10 +11,6 @@
 #include <NAS2D/Resources/Music.h>
 #include <NAS2D/Resources/Sound.h>
 #include <NAS2D/Renderer/Point.h>
-
-#include "Planet.h"
-
-#include "../UI/UI.h"
 
 #include <vector>
 
