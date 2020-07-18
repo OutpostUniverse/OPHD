@@ -62,7 +62,6 @@ void RadioButton::parentContainer(UIContainer* parent)
 void RadioButton::text(const std::string& text)
 {
 	mLabel.text(text);
-	width(20 + CBOX_FONT->width(text));
 	onTextChanged();
 }
 
