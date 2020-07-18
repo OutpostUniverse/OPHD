@@ -187,8 +187,8 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mStructures.iconMargin(constants::MARGIN_TIGHT);
 
 	// Allow for centering with rounding to integer values
-	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center();
-	const auto centerPosition = [&rendererCenter](const Control& control) { return (rendererCenter - control.size() / 2).to<int>(); };
+	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();
+	const auto centerPosition = [&rendererCenter](const Control& control) { return (rendererCenter - control.size() / 2); };
 
 	// Anchored window positions
 	mFileIoDialog.position(NAS2D::Point{centerPosition(mFileIoDialog).x, 50});
