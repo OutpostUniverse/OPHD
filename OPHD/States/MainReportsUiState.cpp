@@ -85,36 +85,35 @@ static void setPanelRects(int width)
 
 	int remaining_width = width - Panels[NavigationPanel::PANEL_EXIT].Rect.width;
 	const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
-	int text_y_position = (panelSize.y - BIG_FONT->height()) / 2;
 
 	auto panelPosition = NAS2D::Point{0, 0};
 	Panels[NavigationPanel::PANEL_RESEARCH].Rect = NAS2D::Rectangle<int>::Create(panelPosition, panelSize);
-	Panels[NavigationPanel::PANEL_RESEARCH].TextPosition = panelPosition + NAS2D::Vector{panelSize.x / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_RESEARCH].Name) / 2 + 20, text_y_position};
+	Panels[NavigationPanel::PANEL_RESEARCH].TextPosition = panelPosition + (panelSize - BIG_FONT->size(Panels[NavigationPanel::PANEL_RESEARCH].Name)) / 2 + NAS2D::Vector{20, 0};
 	Panels[NavigationPanel::PANEL_RESEARCH].IconPosition = {Panels[NavigationPanel::PANEL_RESEARCH].TextPosition.x - 40, 8};
 
 	panelPosition.x += panelSize.x;
 	Panels[NavigationPanel::PANEL_PRODUCTION].Rect = NAS2D::Rectangle<int>::Create(panelPosition, panelSize);
-	Panels[NavigationPanel::PANEL_PRODUCTION].TextPosition = panelPosition + NAS2D::Vector{panelSize.x / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_PRODUCTION].Name) / 2 + 20, text_y_position};
+	Panels[NavigationPanel::PANEL_PRODUCTION].TextPosition = panelPosition + (panelSize - BIG_FONT->size(Panels[NavigationPanel::PANEL_PRODUCTION].Name)) / 2 + NAS2D::Vector{20, 0};
 	Panels[NavigationPanel::PANEL_PRODUCTION].IconPosition = {Panels[NavigationPanel::PANEL_PRODUCTION].TextPosition.x - 40, 8};
 
 	panelPosition.x += panelSize.x;
 	Panels[NavigationPanel::PANEL_WAREHOUSE].Rect = NAS2D::Rectangle<int>::Create(panelPosition, panelSize);
-	Panels[NavigationPanel::PANEL_WAREHOUSE].TextPosition = panelPosition + NAS2D::Vector{panelSize.x / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_WAREHOUSE].Name) / 2 + 20, text_y_position};
+	Panels[NavigationPanel::PANEL_WAREHOUSE].TextPosition = panelPosition + (panelSize - BIG_FONT->size(Panels[NavigationPanel::PANEL_WAREHOUSE].Name)) / 2 + NAS2D::Vector{20, 0};
 	Panels[NavigationPanel::PANEL_WAREHOUSE].IconPosition = {Panels[NavigationPanel::PANEL_WAREHOUSE].TextPosition.x - 40, 8};
 
 	panelPosition.x += panelSize.x;
 	Panels[NavigationPanel::PANEL_MINING].Rect = NAS2D::Rectangle<int>::Create(panelPosition, panelSize);
-	Panels[NavigationPanel::PANEL_MINING].TextPosition = panelPosition + NAS2D::Vector{panelSize.x / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_MINING].Name) / 2 + 20, text_y_position};
+	Panels[NavigationPanel::PANEL_MINING].TextPosition = panelPosition + (panelSize - BIG_FONT->size(Panels[NavigationPanel::PANEL_MINING].Name)) / 2 + NAS2D::Vector{20, 0};
 	Panels[NavigationPanel::PANEL_MINING].IconPosition = {Panels[NavigationPanel::PANEL_MINING].TextPosition.x - 40, 8};
 
 	panelPosition.x += panelSize.x;
 	Panels[NavigationPanel::PANEL_SATELLITES].Rect = NAS2D::Rectangle<int>::Create(panelPosition, panelSize);
-	Panels[NavigationPanel::PANEL_SATELLITES].TextPosition = panelPosition + NAS2D::Vector{panelSize.x / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_SATELLITES].Name) / 2 + 20, text_y_position};
+	Panels[NavigationPanel::PANEL_SATELLITES].TextPosition = panelPosition + (panelSize - BIG_FONT->size(Panels[NavigationPanel::PANEL_SATELLITES].Name)) / 2 + NAS2D::Vector{20, 0};
 	Panels[NavigationPanel::PANEL_SATELLITES].IconPosition = {Panels[NavigationPanel::PANEL_SATELLITES].TextPosition.x - 40, 8};
 
 	panelPosition.x += panelSize.x;
 	Panels[NavigationPanel::PANEL_SPACEPORT].Rect = NAS2D::Rectangle<int>::Create(panelPosition, panelSize);
-	Panels[NavigationPanel::PANEL_SPACEPORT].TextPosition = panelPosition + NAS2D::Vector{panelSize.x / 2 - BIG_FONT->width(Panels[NavigationPanel::PANEL_SPACEPORT].Name) / 2 + 20, text_y_position};
+	Panels[NavigationPanel::PANEL_SPACEPORT].TextPosition = panelPosition + (panelSize - BIG_FONT->size(Panels[NavigationPanel::PANEL_SPACEPORT].Name)) / 2 + NAS2D::Vector{20, 0};
 	Panels[NavigationPanel::PANEL_SPACEPORT].IconPosition = {Panels[NavigationPanel::PANEL_SPACEPORT].TextPosition.x - 40, 8};
 }
 
