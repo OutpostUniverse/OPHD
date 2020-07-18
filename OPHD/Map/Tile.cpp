@@ -62,23 +62,11 @@ Tile::~Tile()
  * \param	thing		Pointer to a Thing.
  * \param	overwrite	Overwrite any existing Thing's that may already be in the Tile.
  */
-void Tile::pushThing(Thing* thing, bool overwrite)
+void Tile::pushThing(Thing* thing)
 {
 	if (mThing)
 	{
-		if (overwrite)
-		{
-			deleteThing();
-		}
-		else
-		{
-			// Clean up the thing passed into this function
-			// as they're not references but newly created objects.
-			//
-			// fixme:	This is a hell of an assumption -- is it correct?
-			delete thing;
-			return;
-		}
+		deleteThing();
 	}
 
 	mThing = thing;
