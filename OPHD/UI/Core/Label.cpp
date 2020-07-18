@@ -39,7 +39,7 @@ void Label::update()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const auto textPosition = mRect.startPoint().to<int>() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING};
+	const auto textPosition = mRect.startPoint() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING};
 	renderer.drawText(*TXT_FONT, text(), textPosition, textColor);
 }
 

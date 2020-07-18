@@ -146,7 +146,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 void Button::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
-	mMouseHover = mRect.to<int>().contains(NAS2D::Point{x, y});
+	mMouseHover = mRect.contains(NAS2D::Point{x, y});
 }
 
 

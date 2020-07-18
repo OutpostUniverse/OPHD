@@ -118,7 +118,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if (empty() || button == EventHandler::MouseButton::BUTTON_MIDDLE) { return; }
 
-	if (button == EventHandler::MouseButton::BUTTON_RIGHT && mRect.to<int>().contains(point))
+	if (button == EventHandler::MouseButton::BUTTON_RIGHT && mRect.contains(point))
 	{
 		setSelection(constants::NO_SELECTION);
 		return;
