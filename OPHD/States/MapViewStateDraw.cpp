@@ -280,14 +280,15 @@ void MapViewState::drawNavInfo()
 	// display the levels "bar"
 	int iWidth = MAIN_FONT->width("IX"); // set steps character patern width
 	int iPosX = static_cast<int>(renderer.width()) - 5; // set start position from right border
-	int iPosY = mMiniMapBoundingBox.y - MAIN_FONT->height() - 30; // set vertical position
+	int iPosY = mMiniMapBoundingBox.y - 30; // set vertical position
 
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)
 	{
 		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i); // Set string for current level
+		const auto textSize = MAIN_FONT->size(levelString);
 		bool isCurrentDepth = i == mTileMap->currentDepth();
 		NAS2D::Color color = isCurrentDepth ? NAS2D::Color::Red : NAS2D::Color{200, 200, 200}; // red for current depth : white for others
-		const auto position = NAS2D::Point{iPosX - MAIN_FONT->width(levelString), iPosY};
+		const auto position = NAS2D::Point{iPosX, iPosY} - textSize;
 		renderer.drawText(*MAIN_FONT, levelString, position, color);
 		iPosX = iPosX - iWidth; // Shift position by one step left
 	}
