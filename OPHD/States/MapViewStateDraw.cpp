@@ -277,16 +277,15 @@ void MapViewState::drawNavInfo()
 	drawNavIcon(renderer, MOVE_NORTH_ICON, NAS2D::Rectangle{0, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
 	drawNavIcon(renderer, MOVE_SOUTH_ICON, NAS2D::Rectangle{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
 
-	// display the levels "bar"
+	// Display the levels "bar"
 	const auto stepSizeWidth = MAIN_FONT->width("IX");
 	auto position = NAS2D::Point{static_cast<int>(renderer.width()) - 5, mMiniMapBoundingBox.y - 30};
-
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)
 	{
-		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i); // Set string for current level
+		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i);
 		const auto textSize = MAIN_FONT->size(levelString);
 		bool isCurrentDepth = i == mTileMap->currentDepth();
-		NAS2D::Color color = isCurrentDepth ? NAS2D::Color::Red : NAS2D::Color{200, 200, 200}; // red for current depth : white for others
+		NAS2D::Color color = isCurrentDepth ? NAS2D::Color::Red : NAS2D::Color{200, 200, 200};
 		renderer.drawText(*MAIN_FONT, levelString, position - textSize, color);
 		position.x -= stepSizeWidth;
 	}
