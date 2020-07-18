@@ -6,6 +6,9 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/MathUtils.h>
 
+#include <algorithm>
+
+
 using namespace NAS2D;
 
 /**
@@ -58,8 +61,11 @@ void ComboBox::init()
  */
 void ComboBox::resizedHandler(Control* /*control*/)
 {
-	if (height() < 20) { height(20); } // enforce minimum height;
-	if (width() < 50) { width(50); } // enforce mininum width;
+	// Enforce minimum size
+	if (mRect.width < 50 || mRect.height < 20)
+	{
+		size({std::max(mRect.width, 50), std::max(mRect.height, 20)});
+	}
 
 	txtField.size(size() - NAS2D::Vector{20, 0});
 	btnDown.position(txtField.rect().crossXPoint());
