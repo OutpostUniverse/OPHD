@@ -37,7 +37,7 @@ enum PointerType
 };
 
 
-enum InsertMode
+enum class InsertMode
 {
 	INSERT_NONE,
 	INSERT_ROBOT,
