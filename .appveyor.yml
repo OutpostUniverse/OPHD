@@ -25,3 +25,31 @@ install:
   - set APPVEYOR_SAVE_CACHE_ON_ERROR=true
 build:
   project: OPHD.sln
+after_build:
+  # Set version/build tag
+  - set Version=Build%APPVEYOR_BUILD_VERSION%
+  - if defined APPVEYOR_REPO_TAG_NAME set Version=%APPVEYOR_REPO_TAG_NAME%
+  # Set platform/configuration tag
+  - set Config=%CONFIGURATION%
+  - if defined PLATFORM set Config=%PLATFORM%-%Config%
+  # Set overall build tag
+  - set PackageBaseName="%APPVEYOR_PROJECT_NAME%-%Version%-%Config%"
+  # Determine output folder
+  - set OutputFolder=%APPVEYOR_BUILD_FOLDER%\%PLATFORM%\%CONFIGURATION%\
+  - if not exist "%OutputFolder%" set OutputFolder=%APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\
+  # Package artifacts
+  - 7z a "%PackageBaseName%.zip" "%OutputFolder%*.exe" "%OutputFolder%*.dll"
+  - 7z a "%PackageBaseName%-DebugSymbolPdb.zip" "%OutputFolder%*.pdb"
+artifacts:
+  - path: "*.zip"
+    name: BuildArtifacts
+deploy:
+  on:
+    branch: master
+    APPVEYOR_REPO_TAG: true
+    CONFIGURATION: Release
+  artifact: BuildArtifacts
+  description: ''
+  provider: GitHub
+  auth_token:
+    secure: TmV7XiO84JvSaLJnbrRrtoOugcFLSogA4I55yBZ1Y+QAmv28EOgO1M8lX+NSJWA/
