@@ -108,7 +108,8 @@ void RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void RadioButton::onTextChanged()
 {
-	width(16 + CBOX_FONT->width(text()));
+	const auto textWidth = CBOX_FONT->width(text());
+	width((textWidth > 0) ? 20 + textWidth : 13);
 }
 
 
