@@ -469,7 +469,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 	if (button == EventHandler::MouseButton::BUTTON_RIGHT)
 	{
-		if (mInsertMode != InsertMode::INSERT_NONE)
+		if (mInsertMode != InsertMode::None)
 		{
 			resetUi();
 			return;
@@ -570,19 +570,19 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		else if (mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
 			EventHandler& e = Utility<EventHandler>::get();
-			if (mInsertMode == InsertMode::INSERT_STRUCTURE)
+			if (mInsertMode == InsertMode::Structure)
 			{
 				placeStructure();
 			}
-			else if (mInsertMode == InsertMode::INSERT_ROBOT)
+			else if (mInsertMode == InsertMode::Robot)
 			{
 				placeRobot();
 			}
-			else if ( (mInsertMode == InsertMode::INSERT_TUBE) && e.query_shift())
+			else if ( (mInsertMode == InsertMode::Tube) && e.query_shift())
 			{
 				placeTubeStart();
 			}
-			else if (mInsertMode == InsertMode::INSERT_TUBE)
+			else if (mInsertMode == InsertMode::Tube)
 			{
 				placeTubes();
 			}
@@ -625,7 +625,7 @@ void MapViewState::onMouseUp(EventHandler::MouseButton button, int /*x*/, int /*
 	{
 		mLeftButtonDown = false;
 		EventHandler& e = Utility<EventHandler>::get();
-		if ((mInsertMode == InsertMode::INSERT_TUBE) && e.query_shift())
+		if ((mInsertMode == InsertMode::Tube) && e.query_shift())
 		{
 			placeTubeEnd();
 		}
@@ -658,7 +658,7 @@ void MapViewState::onMouseMove(int /*x*/, int /*y*/, int /*rX*/, int /*rY*/)
  */
 void MapViewState::onMouseWheel(int /*x*/, int y)
 {
-	if (mInsertMode != InsertMode::INSERT_TUBE) { return; }
+	if (mInsertMode != InsertMode::Tube) { return; }
 
 	y > 0 ? mConnections.decrementSelection() : mConnections.incrementSelection();
 }
@@ -671,7 +671,7 @@ void MapViewState::changeViewDepth(int depth)
 {
 	mTileMap->currentDepth(depth);
 
-	if (mInsertMode != InsertMode::INSERT_ROBOT) { clearMode(); }
+	if (mInsertMode != InsertMode::Robot) { clearMode(); }
 	populateStructureMenu();
 	updateCurrentLevelString(mTileMap->currentDepth());
 }
@@ -694,7 +694,7 @@ void MapViewState::setMinimapView()
  */
 void MapViewState::clearMode()
 {
-	mInsertMode = InsertMode::INSERT_NONE;
+	mInsertMode = InsertMode::None;
 	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
 	mCurrentStructure = StructureID::SID_NONE;
