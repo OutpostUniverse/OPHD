@@ -110,8 +110,7 @@ void CheckBox::onTextChanged()
  */
 void CheckBox::onSizeChanged()
 {
-	mRect.height = 13;
-	if (width() < 13) { mRect.width = 13; }
+	mRect.size({std::max(mRect.width, 13), 13});
 }
 
 
