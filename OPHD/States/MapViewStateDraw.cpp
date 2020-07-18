@@ -279,8 +279,7 @@ void MapViewState::drawNavInfo()
 
 	// display the levels "bar"
 	int iWidth = MAIN_FONT->width("IX"); // set steps character patern width
-	int iPosX = static_cast<int>(renderer.width()) - 5; // set start position from right border
-	int iPosY = mMiniMapBoundingBox.y - 30; // set vertical position
+	auto position = NAS2D::Point{static_cast<int>(renderer.width()) - 5, mMiniMapBoundingBox.y - 30};
 
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)
 	{
@@ -288,8 +287,7 @@ void MapViewState::drawNavInfo()
 		const auto textSize = MAIN_FONT->size(levelString);
 		bool isCurrentDepth = i == mTileMap->currentDepth();
 		NAS2D::Color color = isCurrentDepth ? NAS2D::Color::Red : NAS2D::Color{200, 200, 200}; // red for current depth : white for others
-		const auto position = NAS2D::Point{iPosX, iPosY} - textSize;
-		renderer.drawText(*MAIN_FONT, levelString, position, color);
-		iPosX = iPosX - iWidth; // Shift position by one step left
+		renderer.drawText(*MAIN_FONT, levelString, position - textSize, color);
+		position.x -= iWidth; // Shift position by one step left
 	}
 }
