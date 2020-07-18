@@ -188,7 +188,7 @@ State* PlanetSelectState::update()
 
 	mPlanetDescription.update();
 
-	renderer.drawText(*FONT_TINY, constants::VERSION, {size.x - FONT_TINY->width(constants::VERSION) - 5, size.y - FONT_TINY->height() - 5}, NAS2D::Color::White);
+	renderer.drawText(*FONT_TINY, constants::VERSION, NAS2D::Point{-5, -5} + size - FONT_TINY->size(constants::VERSION), NAS2D::Color::White);
 
 	if (renderer.isFading())
 	{

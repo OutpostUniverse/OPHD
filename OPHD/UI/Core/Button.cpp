@@ -184,8 +184,7 @@ void Button::draw()
 	}
 	else
 	{
-		// force text to be drawn on integer bounds, otherwise it can look 'fuzzy' due to texture blending
-		const auto textPosition = mRect.center().to<int>() - NAS2D::Vector{mFont->width(text()), mFont->height()} / 2;
+		const auto textPosition = mRect.center() - mFont->size(text()) / 2;
 		renderer.drawText(*mFont, text(), textPosition, NAS2D::Color::White);
 	}
 

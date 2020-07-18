@@ -57,5 +57,5 @@ int Label::textWidth() const
 
 NAS2D::Vector<int> Label::textSize() const
 {
-	return {TXT_FONT->width(text()), TXT_FONT->height()};
+	return TXT_FONT->size(text());
 }
