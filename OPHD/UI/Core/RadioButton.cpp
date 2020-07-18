@@ -11,6 +11,8 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/MathUtils.h>
 
+#include <algorithm>
+
 
 using namespace NAS2D;
 
@@ -60,7 +62,6 @@ void RadioButton::parentContainer(UIContainer* parent)
 void RadioButton::text(const std::string& text)
 {
 	mLabel.text(text);
-	width(20 + CBOX_FONT->width(text));
 	onTextChanged();
 }
 
@@ -106,7 +107,8 @@ void RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void RadioButton::onTextChanged()
 {
-	width(16 + CBOX_FONT->width(text()));
+	const auto textWidth = CBOX_FONT->width(text());
+	width((textWidth > 0) ? 20 + textWidth : 13);
 }
 
 
@@ -115,8 +117,7 @@ void RadioButton::onTextChanged()
  */
 void RadioButton::onSizeChanged()
 {
-	mRect.height = 13;
-	if (width() < 13) { mRect.width = 13; }
+	mRect.size({std::max(mRect.width, 13), 13});
 }
 
 
