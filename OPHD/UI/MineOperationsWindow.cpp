@@ -192,7 +192,7 @@ void MineOperationsWindow::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto origin = mRect.startPoint().to<int>();
+	const auto origin = mRect.startPoint();
 	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{10, 30});
 
 	const auto mineYield = MINE_YIELD_TRANSLATION[mFacility->mine()->productionRate()];

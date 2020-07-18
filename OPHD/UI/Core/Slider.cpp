@@ -162,7 +162,7 @@ void Slider::positionInternal(float newPosition)
 
 void Slider::_buttonCheck(bool& buttonFlag, Rectangle<int>& rect, float value)
 {
-	if (rect.to<int>().contains(mMousePosition))
+	if (rect.contains(mMousePosition))
 	{
 		changeThumbPosition(value);
 		buttonFlag = true;
@@ -183,7 +183,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
-		if (mSlider.to<int>().contains(NAS2D::Point{x, y}))
+		if (mSlider.contains(NAS2D::Point{x, y}))
 		{
 			mThumbPressed = true;
 			return;
@@ -208,7 +208,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	if (mSlider.to<int>().contains(NAS2D::Point{x, y}))
+	if (mSlider.contains(NAS2D::Point{x, y}))
 	{
 		// nothing
 	}
@@ -222,7 +222,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 		changeThumbPosition(-1.0);
 	}
 	*/
-	else if (mSlideBar.to<int>().contains(NAS2D::Point{x, y}))
+	else if (mSlideBar.contains(NAS2D::Point{x, y}))
 	{
 		if (mSliderType == SliderType::Vertical)
 		{
@@ -249,7 +249,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 
 	if (mDisplayPosition)
 	{
-		mMouseHoverSlide = mSlideBar.to<int>().contains(NAS2D::Point{x, y});
+		mMouseHoverSlide = mSlideBar.contains(NAS2D::Point{x, y});
 	}
 
 	if (!mThumbPressed) { return; }

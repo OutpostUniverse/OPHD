@@ -127,7 +127,7 @@ void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y
 	for (auto it = mControls.rbegin(); it != mControls.rend(); ++it)
 	{
 		control = (*it);
-		if (control->visible() && control->rect().to<int>().contains(NAS2D::Point{x, y}))
+		if (control->visible() && control->rect().contains(NAS2D::Point{x, y}))
 		{
 			if (control == mControls.back()) { return; }
 			bringToFront(control);

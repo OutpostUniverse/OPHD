@@ -72,7 +72,7 @@ void FileIo::onDoubleClick(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	if (!visible()) { return; } // ignore key presses when hidden.
 
-	if (mListBox.rect().to<int>().contains(NAS2D::Point{x, y}))
+	if (mListBox.rect().contains(NAS2D::Point{x, y}))
 	{
 		if (mListBox.currentHighlight() != constants::NO_SELECTION && !txtFileName.empty())
 		{

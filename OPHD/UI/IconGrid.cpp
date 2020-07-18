@@ -104,7 +104,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		return;
 	}
 
-	auto startPoint = mRect.startPoint().to<int>();
+	auto startPoint = mRect.startPoint();
 	auto mousePoint = NAS2D::Point{x, y};
 	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(mousePoint))
 	{
@@ -135,7 +135,7 @@ void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!visible() || !hasFocus()) { return; }
 
-	auto startPoint = mRect.startPoint().to<int>();
+	auto startPoint = mRect.startPoint();
 	auto mousePoint = NAS2D::Point{x, y};
 	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(mousePoint))
 	{
