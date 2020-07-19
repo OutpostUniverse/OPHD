@@ -409,7 +409,7 @@ void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _ite
 		return;
 	}
 
-	setStructureID(static_cast<StructureID>(_item->meta), InsertMode::INSERT_STRUCTURE);
+	setStructureID(static_cast<StructureID>(_item->meta), InsertMode::Structure);
 }
 
 
@@ -421,7 +421,7 @@ void MapViewState::connectionsSelectionChanged(const IconGrid::IconGridItem* /*_
 	mRobots.clearSelection();
 	mStructures.clearSelection();
 
-	setStructureID(StructureID::SID_TUBE, InsertMode::INSERT_TUBE);
+	setStructureID(StructureID::SID_TUBE, InsertMode::Tube);
 }
 
 
@@ -441,7 +441,7 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 
 	mCurrentRobot = static_cast<RobotType>(_item->meta);
 
-	mInsertMode = InsertMode::INSERT_ROBOT;
+	mInsertMode = InsertMode::Robot;
 	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
 }
 

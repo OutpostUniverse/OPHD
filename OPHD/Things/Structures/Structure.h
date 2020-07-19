@@ -32,33 +32,33 @@ public:
 	 * \note	Some structure classes will only have one structure
 	 *			that uses it. This is intended behavior.
 	 */
-	enum StructureClass
+	enum class StructureClass
 	{
-		CLASS_COMMAND,
-		CLASS_COMM,
-		CLASS_COMMERCIAL,
-		CLASS_ENERGY_PRODUCTION,
-		CLASS_FACTORY,
-		CLASS_FOOD_PRODUCTION,
-		CLASS_LABORATORY,
-		CLASS_LANDER,
-		CLASS_LIFE_SUPPORT,
-		CLASS_MINE,
-		CLASS_MEDICAL_CENTER,
-		CLASS_NURSERY,
-		CLASS_PARK,
-		CLASS_SURFACE_POLICE,
-		CLASS_UNDERGROUND_POLICE,
-		CLASS_RECREATION_CENTER,
-		CLASS_RECYCLING,
-		CLASS_RESIDENCE,
-		CLASS_ROBOT_COMMAND,
-		CLASS_SMELTER,
-		CLASS_STORAGE,
-		CLASS_TUBE,
-		CLASS_UNDEFINED, /**< Used for structures that have no need for classification. */
-		CLASS_UNIVERSITY,
-		CLASS_WAREHOUSE
+		Command,
+		Communication,
+		Commercial,
+		EnergyProduction,
+		Factory,
+		FoodProduction,
+		Laboratory,
+		Lander,
+		LifeSupport,
+		Mine,
+		MedicalCenter,
+		Nursery,
+		Park,
+		SurfacePolice,
+		UndergroundPolice,
+		RecreationCenter,
+		Recycling,
+		Residence,
+		RobotCommand,
+		Smelter,
+		Storage,
+		Tube,
+		Undefined, /**< Used for structures that have no need for classification. */
+		University,
+		Warehouse
 	};
 
 public:
@@ -109,17 +109,17 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
-	bool providesCHAP() const { return structureClass() == StructureClass::CLASS_LIFE_SUPPORT; }
+	bool providesCHAP() const { return structureClass() == StructureClass::LifeSupport; }
 	bool selfSustained() const { return mSelfSustained; }
 	bool repairable() const { return mRepairable; }
 
 	// CONVENIENCE FUCNTIONS
-	bool isFactory() const { return structureClass() == StructureClass::CLASS_FACTORY; }
-	bool isWarehouse() const { return structureClass() == StructureClass::CLASS_WAREHOUSE; }
-	bool isRobotCommand() const { return structureClass() == StructureClass::CLASS_ROBOT_COMMAND; }
-	bool isMineFacility() const { return structureClass() == StructureClass::CLASS_MINE; }
-	bool energyProducer() const { return structureClass() == StructureClass::CLASS_ENERGY_PRODUCTION; }
-	bool isConnector() const { return structureClass() == StructureClass::CLASS_TUBE; } /** Indicates that the structure can act as a connector (tube) */
+	bool isFactory() const { return structureClass() == StructureClass::Factory; }
+	bool isWarehouse() const { return structureClass() == StructureClass::Warehouse; }
+	bool isRobotCommand() const { return structureClass() == StructureClass::RobotCommand; }
+	bool isMineFacility() const { return structureClass() == StructureClass::Mine; }
+	bool energyProducer() const { return structureClass() == StructureClass::EnergyProduction; }
+	bool isConnector() const { return structureClass() == StructureClass::Tube; } /** Indicates that the structure can act as a connector (tube) */
 
 	/**
 	 * Set the current age of the Structure.

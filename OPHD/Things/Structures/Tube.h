@@ -11,7 +11,7 @@ class Tube : public Structure
 {
 public:
 	Tube(ConnectorDir dir, bool underground) :
-		Structure(constants::TUBE, "structures/tubes.sprite", StructureClass::CLASS_TUBE),
+		Structure(constants::TUBE, "structures/tubes.sprite", StructureClass::Tube),
 		mUnderground(underground)
 	{
 		connectorDirection(dir);

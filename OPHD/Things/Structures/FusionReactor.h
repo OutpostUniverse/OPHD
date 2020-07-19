@@ -10,7 +10,7 @@ const int FUSION_REACTOR_BASE_PRODUCUCTION = 1000;
 class FusionReactor : public PowerStructure
 {
 public:
-	FusionReactor() : PowerStructure(constants::FUSION_REACTOR, "structures/fusion_reactor.sprite", StructureClass::CLASS_ENERGY_PRODUCTION)
+	FusionReactor() : PowerStructure(constants::FUSION_REACTOR, "structures/fusion_reactor.sprite", StructureClass::EnergyProduction)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);

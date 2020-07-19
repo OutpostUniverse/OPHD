@@ -9,7 +9,7 @@ const int SOLAR_PANEL_BASE_PRODUCUCTION = 25;
 class SolarPanelArray : public PowerStructure
 {
 public:
-	SolarPanelArray() : PowerStructure(constants::SOLAR_PANEL1, "structures/solar_array1.sprite", StructureClass::CLASS_ENERGY_PRODUCTION)
+	SolarPanelArray() : PowerStructure(constants::SOLAR_PANEL1, "structures/solar_array1.sprite", StructureClass::EnergyProduction)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);
