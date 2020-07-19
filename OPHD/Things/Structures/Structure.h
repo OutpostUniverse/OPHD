@@ -32,7 +32,7 @@ public:
 	 * \note	Some structure classes will only have one structure
 	 *			that uses it. This is intended behavior.
 	 */
-	enum StructureClass
+	enum class StructureClass
 	{
 		CLASS_COMMAND,
 		CLASS_COMM,
