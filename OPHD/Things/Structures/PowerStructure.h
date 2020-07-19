@@ -37,6 +37,10 @@ public:
 	}
 
 protected:
-	virtual int calculateEnergyProduced() = 0;
+	virtual int calculateEnergyProduced()
+	{
+		return operational() ? calculateMaxEnergyProduction() : 0;
+	}
+
 	virtual int calculateMaxEnergyProduction() = 0;
 };

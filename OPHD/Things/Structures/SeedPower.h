@@ -24,11 +24,6 @@ protected:
 	}
 
 private:
-	int calculateEnergyProduced() override
-	{
-		return operational() ? SEED_POWER_PRODUCTION : 0;
-	}
-
 	int calculateMaxEnergyProduction() override
 	{
 		return SEED_POWER_PRODUCTION;

@@ -33,11 +33,6 @@ protected:
 	}
 
 protected:
-	int calculateEnergyProduced() override
-	{
-		return operational() ? FUSION_REACTOR_BASE_PRODUCUCTION : 0;
-	}
-
 	int calculateMaxEnergyProduction() override
 	{
 		return FUSION_REACTOR_BASE_PRODUCUCTION;

@@ -24,11 +24,6 @@ protected:
 	}
 
 private:
-	int calculateEnergyProduced() override
-	{
-		return operational() ? SOLAR_PANEL_BASE_PRODUCUCTION : 0;
-	}
-
 	int calculateMaxEnergyProduction() override
 	{
 		return SOLAR_PANEL_BASE_PRODUCUCTION;
