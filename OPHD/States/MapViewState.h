@@ -37,12 +37,12 @@ enum PointerType
 };
 
 
-enum InsertMode
+enum class InsertMode
 {
-	INSERT_NONE,
-	INSERT_ROBOT,
-	INSERT_TUBE,
-	INSERT_STRUCTURE
+	None,
+	Robot,
+	Tube,
+	Structure
 };
 
 
@@ -214,7 +214,7 @@ private:
 
 	RobotTileTable mRobotList; /**< List of active robots and their positions on the map. */
 
-	InsertMode mInsertMode = InsertMode::INSERT_NONE; /**< What's being inserted into the TileMap if anything. */
+	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
 	RobotType mCurrentRobot = RobotType::ROBOT_NONE; /**< Robot being placed. */
 
