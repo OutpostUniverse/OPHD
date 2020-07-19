@@ -629,6 +629,9 @@
     <ClInclude Include="UI\StringTable.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Things\Structures\PowerStructure.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

@@ -1,13 +1,15 @@
 #pragma once
 
-#include "Structure.h"
+#include "PowerStructure.h"
 
 #include "../../Constants.h"
 
-class SolarPanelArray : public Structure
+const int SOLAR_PANEL_BASE_PRODUCUCTION = 25;
+
+class SolarPanelArray : public PowerStructure
 {
 public:
-	SolarPanelArray() : Structure(constants::SOLAR_PANEL1, "structures/solar_array1.sprite", StructureClass::EnergyProduction)
+	SolarPanelArray() : PowerStructure(constants::SOLAR_PANEL1, "structures/solar_array1.sprite", StructureClass::EnergyProduction)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);
@@ -18,6 +20,12 @@ public:
 protected:
 	void defineResourceOutput() override
 	{
-		resourcesOut().energy(25);
+		resourcesOut().energy(calculateEnergyProduced());
+	}
+
+private:
+	int calculateMaxEnergyProduction() override
+	{
+		return SOLAR_PANEL_BASE_PRODUCUCTION;
 	}
 };

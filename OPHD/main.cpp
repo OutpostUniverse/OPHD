@@ -7,8 +7,6 @@
 #include "StructureTranslator.h"
 #include "WindowEventWrapper.h"
 
-#include "Things/Structures/Structure.h"
-
 #include "States/SplashState.h"
 #include "States/MainMenuState.h"
 #include "States/MapViewState.h"

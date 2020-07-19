@@ -1,39 +1,21 @@
 #pragma once
 
-#include "Structure.h"
+#include "PowerStructure.h"
 
 #include "../../Constants.h"
 #include <string>
 
 const int FUSION_REACTOR_BASE_PRODUCUCTION = 1000;
 
-class FusionReactor : public Structure
+class FusionReactor : public PowerStructure
 {
 public:
-	FusionReactor() : Structure(constants::FUSION_REACTOR, "structures/fusion_reactor.sprite", StructureClass::EnergyProduction)
+	FusionReactor() : PowerStructure(constants::FUSION_REACTOR, "structures/fusion_reactor.sprite", StructureClass::EnergyProduction)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);
 		turnsToBuild(10);
 		requiresCHAP(false);
-	}
-
-	StringTable createInspectorViewTable() override
-	{
-		StringTable stringTable(2, 1);
-
-		stringTable[{0, 0}].text = "Power Produced:";
-
-		auto energyProduced = calculateEnergyProduced();
-
-		stringTable[{1, 0}].text = std::to_string(energyProduced) + " / " + std::to_string(FUSION_REACTOR_BASE_PRODUCUCTION);
-
-		if (energyProduced == 0)
-		{
-			stringTable[{1, 0}].textColor = constants::WARNING_TEXT_COLOR;
-		}
-
-		return stringTable;
 	}
 
 protected:
@@ -50,9 +32,9 @@ protected:
 		resourcesOut().energy(calculateEnergyProduced());
 	}
 
-private:
-	int calculateEnergyProduced()
+protected:
+	int calculateMaxEnergyProduction() override
 	{
-		return operational() ? FUSION_REACTOR_BASE_PRODUCUCTION : 0;
+		return FUSION_REACTOR_BASE_PRODUCUCTION;
 	}
 };
