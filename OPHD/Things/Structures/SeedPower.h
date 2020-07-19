@@ -9,7 +9,7 @@ class SeedPower: public Structure
 {
 public:
 	SeedPower() :
-		Structure(constants::SEED_POWER, "structures/seed_1.sprite", StructureClass::CLASS_ENERGY_PRODUCTION)
+		Structure(constants::SEED_POWER, "structures/seed_1.sprite", StructureClass::EnergyProduction)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(150);

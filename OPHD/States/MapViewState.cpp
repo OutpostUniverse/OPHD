@@ -255,7 +255,7 @@ int MapViewState::foodInStorage()
 {
 	int food_count = 0;
 
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
+	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
 
 	for (auto structure : structures)
 	{
@@ -284,7 +284,7 @@ int MapViewState::foodTotalStorage()
 		food_storage += constants::BASE_STORAGE_CAPACITY;
 	}
 
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
+	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
 	for (auto structure : structures)
 	{
 		if (structure->operational() || structure->isIdle())
@@ -607,7 +607,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 
 			if (structure->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(structure); }
 			else if (structure->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(structure); }
-			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::CLASS_SMELTER) { MAIN_REPORTS_UI->selectMinePanel(structure); }
+			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter) { MAIN_REPORTS_UI->selectMinePanel(structure); }
 			else { return; } // avoids showing the full-screen UI on unhandled structures.
 
 			mReportsUiCallback();
@@ -894,13 +894,13 @@ void MapViewState::placeRobot()
 			Structure* structure = tile->structure();
 
 			if (structure->isMineFacility()) { return; }
-			if (structure->structureClass() == Structure::StructureClass::CLASS_COMMAND)
+			if (structure->structureClass() == Structure::StructureClass::Command)
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_CC);
 				return;
 			}
 
-			if (structure->structureClass() == Structure::StructureClass::CLASS_LANDER && structure->age() == 0)
+			if (structure->structureClass() == Structure::StructureClass::Lander && structure->age() == 0)
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_LANDING_SITE);
 				return;
@@ -1248,7 +1248,7 @@ void MapViewState::updateRobots()
 			}
 
 			/// \fixme	Brute force.
-			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND))
+			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::StructureClass::RobotCommand))
 			{
 				static_cast<RobotCommand*>(rcc)->removeRobot(robot);
 			}

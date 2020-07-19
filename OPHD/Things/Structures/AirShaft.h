@@ -6,7 +6,7 @@
 class AirShaft: public Structure
 {
 public:
-	AirShaft() : Structure(constants::AIR_SHAFT, "structures/air_shaft.sprite", StructureClass::CLASS_TUBE)
+	AirShaft() : Structure(constants::AIR_SHAFT, "structures/air_shaft.sprite", StructureClass::Tube)
 	{
 		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
 		maxAge(400);

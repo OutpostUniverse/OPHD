@@ -9,7 +9,7 @@ class CommTower : public Structure
 {
 public:
 
-	CommTower() : Structure(constants::COMM_TOWER, "structures/communications_tower.sprite", StructureClass::CLASS_COMM)
+	CommTower() : Structure(constants::COMM_TOWER, "structures/communications_tower.sprite", StructureClass::Communication)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);

@@ -272,8 +272,8 @@ void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& robot
  */
 void updateRobotControl(RobotPool& robotPool)
 {
-	const auto& CommandCenter = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_COMMAND);
-	const auto& RobotCommand = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND);
+	const auto& CommandCenter = Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+	const auto& RobotCommand = Utility<StructureManager>::get().structureList(Structure::StructureClass::RobotCommand);
 
 	// 3 for the first command center
 	uint32_t _maxRobots = 0;
@@ -324,7 +324,7 @@ bool inCommRange(NAS2D::Point<int> position)
 
 	const auto maxTowerRangeSquared = constants::COMM_TOWER_BASE_RANGE * constants::COMM_TOWER_BASE_RANGE;
 	auto structureManager = Utility<StructureManager>::get();
-	for (auto tower : structureManager.structureList(Structure::StructureClass::CLASS_COMM))
+	for (auto tower : structureManager.structureList(Structure::StructureClass::Communication))
 	{
 		if (!tower->operational())
 		{
@@ -355,7 +355,7 @@ bool inCommRange(NAS2D::Point<int> position)
  */
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 {
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
 	{
 		Warehouse* _wh = static_cast<Warehouse*>(structure);
 		if (_wh->products().canStore(type, static_cast<int>(count)))
@@ -379,7 +379,7 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
  */
 RobotCommand* getAvailableRobotCommand()
 {
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_ROBOT_COMMAND))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::RobotCommand))
 	{
 		RobotCommand* _rc = static_cast<RobotCommand*>(structure);
 		if (_rc->operational() && _rc->commandCapacityAvailable())
@@ -435,7 +435,7 @@ bool simulateMoveProducts(Warehouse* wh)
 	ProductPool _pool = wh->products();
 
 	/** \fixme	This is a brute force approach. It works but it's not elegant. */
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
+	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
 	for (auto structure : structures)
 	{
 		if (structure->operational())
@@ -460,7 +460,7 @@ bool simulateMoveProducts(Warehouse* wh)
  */
 void moveProducts(Warehouse* wh)
 {
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
+	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
 	for (auto structure : structures)
 	{
 		if (structure->operational())

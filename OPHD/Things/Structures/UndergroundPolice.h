@@ -7,7 +7,7 @@
 class UndergroundPolice : public Structure
 {
 public:
-	UndergroundPolice() : Structure(constants::UNDERGROUND_POLICE, "structures/police_underground.sprite", StructureClass::CLASS_UNDERGROUND_POLICE)
+	UndergroundPolice() : Structure(constants::UNDERGROUND_POLICE, "structures/police_underground.sprite", StructureClass::UndergroundPolice)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);

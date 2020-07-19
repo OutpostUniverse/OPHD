@@ -43,14 +43,14 @@ void MapViewState::updatePopulation()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 	
-	int residences = structureManager.getCountInState(Structure::StructureClass::CLASS_RESIDENCE, Structure::StructureState::OPERATIONAL);
-	int universities = structureManager.getCountInState(Structure::StructureClass::CLASS_UNIVERSITY, Structure::StructureState::OPERATIONAL);
-	int nurseries = structureManager.getCountInState(Structure::StructureClass::CLASS_NURSERY, Structure::StructureState::OPERATIONAL);
-	int hospitals = structureManager.getCountInState(Structure::StructureClass::CLASS_MEDICAL_CENTER, Structure::StructureState::OPERATIONAL);
+	int residences = structureManager.getCountInState(Structure::StructureClass::Residence, Structure::StructureState::OPERATIONAL);
+	int universities = structureManager.getCountInState(Structure::StructureClass::University, Structure::StructureState::OPERATIONAL);
+	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, Structure::StructureState::OPERATIONAL);
+	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, Structure::StructureState::OPERATIONAL);
 
 	// FOOD CONSUMPTION
 	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage(), residences, universities, nurseries, hospitals);
-	StructureList &foodproducers = structureManager.structureList(Structure::StructureClass::CLASS_FOOD_PRODUCTION);
+	StructureList &foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
 	int remainder = food_consumed;
 
 	if (mPlayerResources.food() > 0)
@@ -74,13 +74,13 @@ void MapViewState::updateCommercial()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	StructureList& _warehouses = structureManager.structureList(Structure::StructureClass::CLASS_WAREHOUSE);
-	StructureList& _commercial = structureManager.structureList(Structure::StructureClass::CLASS_COMMERCIAL);
+	StructureList& _warehouses = structureManager.structureList(Structure::StructureClass::Warehouse);
+	StructureList& _commercial = structureManager.structureList(Structure::StructureClass::Commercial);
 
 	// No need to do anything if there are no commercial structures.
 	if (_commercial.empty()) { return; }
 
-	int luxuryCount = structureManager.getCountInState(Structure::StructureClass::CLASS_COMMERCIAL, Structure::StructureState::OPERATIONAL);
+	int luxuryCount = structureManager.getCountInState(Structure::StructureClass::Commercial, Structure::StructureState::OPERATIONAL);
 	int commercialCount = luxuryCount;
 
 	for (auto warehouse : _warehouses)
@@ -137,13 +137,13 @@ void MapViewState::updateMorale()
 	// POSITIVE MORALE EFFECTS
 	// =========================================
 	mCurrentMorale += mPopulation.birthCount();
-	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::CLASS_PARK, Structure::StructureState::OPERATIONAL);
-	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::CLASS_RECREATION_CENTER, Structure::StructureState::OPERATIONAL);
+	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::Park, Structure::StructureState::OPERATIONAL);
+	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::RecreationCenter, Structure::StructureState::OPERATIONAL);
 
-	int food_production = structureManager.getCountInState(Structure::StructureClass::CLASS_FOOD_PRODUCTION, Structure::StructureState::OPERATIONAL);
+	int food_production = structureManager.getCountInState(Structure::StructureClass::FoodProduction, Structure::StructureState::OPERATIONAL);
 	mCurrentMorale += food_production > 0 ? food_production : -5;
 
-	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::CLASS_COMMERCIAL, Structure::StructureState::OPERATIONAL);
+	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::Commercial, Structure::StructureState::OPERATIONAL);
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================
@@ -168,13 +168,13 @@ void MapViewState::updateMorale()
 void MapViewState::updateResources()
 {
 	// Update storage capacity
-	mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_STORAGE)));
+	mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage)));
 
 	ResourcePool truck;
 	truck.capacity(100);
 
 	// Move ore from mines to smelters
-	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_MINE))
+	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
 	{
 		static_cast<MineFacility*>(mine)->mine()->checkExhausted();
 
@@ -187,7 +187,7 @@ void MapViewState::updateResources()
 		truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, 25));
 		truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, 25));
 
-		for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_SMELTER))
+		for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter))
 		{
 			if (smelter->operational())
 			{
@@ -202,7 +202,7 @@ void MapViewState::updateResources()
 	}
 
 	// Move refined resources from smelters to storage tanks
-	for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_SMELTER))
+	for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter))
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
@@ -261,7 +261,7 @@ void MapViewState::checkColonyShip()
 void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
-	const auto& residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_RESIDENCE);
+	const auto& residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Residence);
 	for (auto residence : residences)
 	{
 		if (residence->operational()) { mResidentialCapacity += static_cast<Residence*>(residence)->capacity(); }

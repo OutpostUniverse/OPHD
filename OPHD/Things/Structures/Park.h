@@ -7,7 +7,7 @@
 class Park : public Structure
 {
 public:
-	Park() : Structure(constants::PARK, "structures/park.sprite", StructureClass::CLASS_PARK)
+	Park() : Structure(constants::PARK, "structures/park.sprite", StructureClass::Park)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);
