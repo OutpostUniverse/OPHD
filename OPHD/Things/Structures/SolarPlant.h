@@ -4,6 +4,8 @@
 
 #include "../../Constants.h"
 
+const int SOLAR_PLANT_BASE_PRODUCUCTION = 2000;
+
 class SolarPlant : public Structure
 {
 public:
@@ -18,6 +20,6 @@ public:
 protected:
 	void defineResourceOutput() override
 	{
-		resourcesOut().energy(2000);
+		resourcesOut().energy(SOLAR_PLANT_BASE_PRODUCUCTION);
 	}
 };
