@@ -16,6 +16,7 @@ class PowerStructure : public Structure
 public:
 	PowerStructure(const std::string& name, const std::string& spritePath, StructureClass structureClass) :
 		Structure(name, spritePath, structureClass) {}
+	virtual ~PowerStructure() {}
 
 	StringTable createInspectorViewTable() override
 	{
