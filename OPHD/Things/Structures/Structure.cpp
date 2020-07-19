@@ -24,27 +24,27 @@ std::map<Structure::StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
  */
 std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
 {
-	{ Structure::StructureClass::CLASS_COMMAND, "Command" },
-	{ Structure::StructureClass::CLASS_COMM, "Communication" },
-	{ Structure::StructureClass::CLASS_COMMERCIAL, "Commercial" },
-	{ Structure::StructureClass::CLASS_ENERGY_PRODUCTION, "Energy Production" },
-	{ Structure::StructureClass::CLASS_FACTORY, "Factory" },
-	{ Structure::StructureClass::CLASS_FOOD_PRODUCTION, "Food Production" },
-	{ Structure::StructureClass::CLASS_LABORATORY, "Laboratory" },
-	{ Structure::StructureClass::CLASS_LANDER, "Lander" },
-	{ Structure::StructureClass::CLASS_LIFE_SUPPORT, "Life Support" },
-	{ Structure::StructureClass::CLASS_MINE, "Mine Facility" },
-	{ Structure::StructureClass::CLASS_PARK, "Park / Reservoir" },
-	{ Structure::StructureClass::CLASS_SURFACE_POLICE, "Police" },
-	{ Structure::StructureClass::CLASS_UNDERGROUND_POLICE, "Police" },
-	{ Structure::StructureClass::CLASS_RECREATION_CENTER, "Recreation Center" },
-	{ Structure::StructureClass::CLASS_RECYCLING, "Recycling" },
-	{ Structure::StructureClass::CLASS_RESIDENCE, "Residential" },
-	{ Structure::StructureClass::CLASS_SMELTER, "Raw Ore Processing" },
-	{ Structure::StructureClass::CLASS_STORAGE, "Storage" },
-	{ Structure::StructureClass::CLASS_TUBE, "Tube" },
-	{ Structure::StructureClass::CLASS_UNDEFINED, "UNDEFINED" },
-	{ Structure::StructureClass::CLASS_UNIVERSITY, "University" }
+	{ Structure::StructureClass::Command, "Command" },
+	{ Structure::StructureClass::Communication, "Communication" },
+	{ Structure::StructureClass::Commercial, "Commercial" },
+	{ Structure::StructureClass::EnergyProduction, "Energy Production" },
+	{ Structure::StructureClass::Factory, "Factory" },
+	{ Structure::StructureClass::FoodProduction, "Food Production" },
+	{ Structure::StructureClass::Laboratory, "Laboratory" },
+	{ Structure::StructureClass::Lander, "Lander" },
+	{ Structure::StructureClass::LifeSupport, "Life Support" },
+	{ Structure::StructureClass::Mine, "Mine Facility" },
+	{ Structure::StructureClass::Park, "Park / Reservoir" },
+	{ Structure::StructureClass::SurfacePolice, "Police" },
+	{ Structure::StructureClass::UndergroundPolice, "Police" },
+	{ Structure::StructureClass::RecreationCenter, "Recreation Center" },
+	{ Structure::StructureClass::Recycling, "Recycling" },
+	{ Structure::StructureClass::Residence, "Residential" },
+	{ Structure::StructureClass::Smelter, "Raw Ore Processing" },
+	{ Structure::StructureClass::Storage, "Storage" },
+	{ Structure::StructureClass::Tube, "Tube" },
+	{ Structure::StructureClass::Undefined, "UNDEFINED" },
+	{ Structure::StructureClass::University, "University" }
 };
 
 

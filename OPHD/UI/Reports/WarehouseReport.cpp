@@ -55,7 +55,7 @@ static void computeCapacity()
 	int capacity_total = 0;
 	int available_capacity = 0;
 
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE);
+	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
 	for (auto warehouse : structures)
 	{
 		if (!warehouse->operational()) { continue; } // yuck
@@ -184,7 +184,7 @@ void WarehouseReport::fillLists()
 {
 	lstStructures.clearItems();
 
-	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE));
+	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse));
 
 	lstStructures.setSelection(0);
 	computeCapacity();
@@ -199,7 +199,7 @@ void WarehouseReport::fillListSpaceAvailable()
 	lstStructures.clearItems();
 
 	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
 	{
 		Warehouse* wh = static_cast<Warehouse*>(structure);
 		if (!wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle()))
@@ -224,7 +224,7 @@ void WarehouseReport::fillListFull()
 	lstStructures.clearItems();
 
 	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
 	{
 		Warehouse* wh = static_cast<Warehouse*>(structure);
 		if (wh->products().atCapacity() && (wh->operational() || wh->isIdle()))
@@ -248,7 +248,7 @@ void WarehouseReport::fillListEmpty()
 	lstStructures.clearItems();
 
 	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
 	{
 		Warehouse* wh = static_cast<Warehouse*>(structure);
 		if (wh->products().empty() && (wh->operational() || wh->isIdle()))
@@ -272,7 +272,7 @@ void WarehouseReport::fillListDisabled()
 	lstStructures.clearItems();
 
 	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::CLASS_WAREHOUSE))
+	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
 	{
 		if (structure->disabled() || structure->destroyed())
 		{

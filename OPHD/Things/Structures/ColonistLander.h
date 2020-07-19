@@ -12,7 +12,7 @@ public:
 
 public:
 
-	ColonistLander(Tile* t) : Structure(constants::COLONIST_LANDER, "structures/lander_1.sprite", StructureClass::CLASS_LANDER), mTile(t)
+	ColonistLander(Tile* t) : Structure(constants::COLONIST_LANDER, "structures/lander_1.sprite", StructureClass::Lander), mTile(t)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);

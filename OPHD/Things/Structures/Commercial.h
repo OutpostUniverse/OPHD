@@ -7,7 +7,7 @@
 class Commercial : public Structure
 {
 public:
-	Commercial() : Structure(constants::COMMERCIAL, "structures/commercial.sprite", StructureClass::CLASS_COMMERCIAL)
+	Commercial() : Structure(constants::COMMERCIAL, "structures/commercial.sprite", StructureClass::Commercial)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);

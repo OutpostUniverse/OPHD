@@ -114,7 +114,7 @@ enum ConnectorDir
  * Unique identifier code for each structure.
  * 
  * \note	Each individual structure is identified using a SID_ code as opposed
- *			the structure CLASS_ code which is used to group like structures into
+ *			the structure Class code which is used to group like structures into
  *			lists for structure updates.
  * 
  * \remark	
