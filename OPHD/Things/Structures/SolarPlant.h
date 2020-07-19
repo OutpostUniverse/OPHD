@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Structure.h"
+#include "PowerStructure.h"
 
 #include "../../Constants.h"
 
 const int SOLAR_PLANT_BASE_PRODUCUCTION = 2000;
 
-class SolarPlant : public Structure
+class SolarPlant : public PowerStructure
 {
 public:
-	SolarPlant() : Structure(constants::SOLAR_PLANT, "structures/solar_plant.sprite", StructureClass::EnergyProduction)
+	SolarPlant() : PowerStructure(constants::SOLAR_PLANT, "structures/solar_plant.sprite", StructureClass::EnergyProduction)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);
@@ -20,6 +20,11 @@ public:
 protected:
 	void defineResourceOutput() override
 	{
-		resourcesOut().energy(SOLAR_PLANT_BASE_PRODUCUCTION);
+		resourcesOut().energy(calculateEnergyProduced());
+	}
+
+	int calculateMaxEnergyProduction() override
+	{
+		return SOLAR_PLANT_BASE_PRODUCUCTION;
 	}
 };
