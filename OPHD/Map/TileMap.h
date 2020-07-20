@@ -57,9 +57,9 @@ public:
 	void toggleShowConnections() { mShowConnections = !mShowConnections; }
 
 	int edgeLength() const { return mEdgeLength; }
-	int width() const { return mWidth; }
-	int height() const { return mHeight; }
-	NAS2D::Vector<int> size() const { return {mWidth, mHeight}; }
+	int width() const { return mSizeInTiles.x; }
+	int height() const { return mSizeInTiles.y; }
+	NAS2D::Vector<int> size() const { return mSizeInTiles; }
 
 	int currentDepth() const { return mCurrentDepth; }
 	void currentDepth(int i) { mCurrentDepth = std::clamp(i, 0, mMaxDepth); }
@@ -115,8 +115,7 @@ private:
 
 private:
 	int mEdgeLength = 0;
-	int mWidth = 0;
-	int mHeight = 0;
+	const NAS2D::Vector<int> mSizeInTiles;
 
 	int mMaxDepth = 0; /**< Maximum digging depth. */
 	int mCurrentDepth = 0; /**< Current depth level to view. */

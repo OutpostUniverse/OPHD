@@ -90,8 +90,7 @@ static void addMineSet(Point<int> suggestedMineLocation, Point2dList& plist, Til
  * C'tor
  */
 TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
-	mWidth(MAP_WIDTH),
-	mHeight(MAP_HEIGHT),
+	mSizeInTiles{MAP_WIDTH, MAP_HEIGHT},
 	mMaxDepth(maxDepth),
 	mMapPath(mapPath),
 	mTsetPath(tilesetPath),
@@ -127,7 +126,7 @@ void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 
 Tile* TileMap::getTile(NAS2D::Point<int> position, int level)
 {
-	if (NAS2D::Rectangle{0, 0, mWidth, mHeight}.contains(position) && level >= 0 && level <= mMaxDepth)
+	if (NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position) && level >= 0 && level <= mMaxDepth)
 	{
 		return &mTileMap[level][position.y][position.x];
 	}
@@ -151,10 +150,10 @@ void TileMap::buildTerrainMap(const std::string& path)
 	mTileMap.resize(static_cast<std::size_t>(mMaxDepth) + 1);
 	for(int level = 0; level <= mMaxDepth; level++)
 	{
-		mTileMap[level].resize(height());
+		mTileMap[level].resize(mSizeInTiles.y);
 		for (std::size_t i = 0; i < mTileMap[level].size(); i++)
 		{
-			mTileMap[level][i].resize(width());
+			mTileMap[level][i].resize(mSizeInTiles.x);
 		}
 	}
 
@@ -168,9 +167,9 @@ void TileMap::buildTerrainMap(const std::string& path)
 	 */
 	for(int depth = 0; depth <= mMaxDepth; depth++)
 	{
-		for(int row = 0; row < height(); row++)
+		for(int row = 0; row < mSizeInTiles.y; row++)
 		{
-			for(int col = 0; col < width(); col++)
+			for(int col = 0; col < mSizeInTiles.x; col++)
 			{
 				Color color = heightmap.pixelColor(col, row);
 				Tile& tile = mTileMap[depth][row][col];
@@ -282,8 +281,8 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 void TileMap::mapViewLocation(NAS2D::Point<int> point)
 {
 	mMapViewLocation = {
-		std::clamp(point.x, 0, mWidth - mEdgeLength),
-		std::clamp(point.y, 0, mHeight - mEdgeLength)
+		std::clamp(point.x, 0, mSizeInTiles.x - mEdgeLength),
+		std::clamp(point.y, 0, mSizeInTiles.y - mEdgeLength)
 	};
 }
 
@@ -477,9 +476,9 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	Tile* tile = nullptr;
 	for (int depth = 0; depth <= maxDepth(); ++depth)
 	{
-		for (int x = 0; x < width(); ++x)
+		for (int y = 0; y < mSizeInTiles.y; ++y)
 		{
-			for (int y = 0; y < height(); ++y)
+			for (int x = 0; x < mSizeInTiles.x; ++x)
 			{
 				tile = getTile({x, y}, depth);
 				if (depth > 0 && tile->excavated() && tile->empty() && tile->mine() == nullptr)
