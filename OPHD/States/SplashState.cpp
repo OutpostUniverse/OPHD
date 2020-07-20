@@ -127,12 +127,12 @@ NAS2D::State* SplashState::update()
 		const float BYLINE_SCALE_STEP = 0.000025f;
 		const float BYLINE_ALPHA_FADE_STEP = 0.30f;
 		const float BYLINE_SCALE = 0.50f + tick * BYLINE_SCALE_STEP;
-		float BYLINE_ALPHA = -800.0f + tick * BYLINE_ALPHA_FADE_STEP;
-		BYLINE_ALPHA = std::clamp(BYLINE_ALPHA, -3000.0f, 255.0f);
+		const float BYLINE_ALPHA = -800.0f + tick * BYLINE_ALPHA_FADE_STEP;
+		const auto clampedBylineAlpha = static_cast<uint8_t>(std::clamp(BYLINE_ALPHA, 0.0f, 255.0f));
 
-		if (BYLINE_ALPHA > 0.0f)
+		if (clampedBylineAlpha > 0)
 		{
-			renderer.drawImage(mByline, renderer.center().to<float>() + NAS2D::Vector<float>{-mByline.width() * BYLINE_SCALE / 2, 25}, BYLINE_SCALE, NAS2D::Color::White.alphaFade(static_cast<uint8_t>(BYLINE_ALPHA)));
+			renderer.drawImage(mByline, renderer.center().to<float>() + NAS2D::Vector<float>{-mByline.width() * BYLINE_SCALE / 2, 25}, BYLINE_SCALE, NAS2D::Color::White.alphaFade(clampedBylineAlpha));
 		}
 	}
 	
