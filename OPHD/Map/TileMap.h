@@ -115,7 +115,7 @@ private:
 
 private:
 	int mEdgeLength = 0;
-	NAS2D::Vector<int> mSizeInTiles;
+	const NAS2D::Vector<int> mSizeInTiles;
 
 	int mMaxDepth = 0; /**< Maximum digging depth. */
 	int mCurrentDepth = 0; /**< Current depth level to view. */
