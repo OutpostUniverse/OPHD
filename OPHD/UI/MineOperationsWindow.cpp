@@ -57,7 +57,7 @@ void MineOperationsWindow::init()
 	btnExtendShaft.size({100, 30});
 	btnExtendShaft.click().connect(this, &MineOperationsWindow::btnExtendShaftClicked);
 
-	add(&btnOkay, width() - 70, 230);
+	add(&btnOkay, mRect.width - 70, 230);
 	btnOkay.size({60, 30});
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
 

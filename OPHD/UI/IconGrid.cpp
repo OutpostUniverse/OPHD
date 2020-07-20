@@ -195,8 +195,8 @@ void IconGrid::addItemSorted(const std::string& name, int sheetIndex, int meta)
  */
 void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
 {
-	int x_pos = (sheetIndex % (mIconSheet.width() / mIconSize)) * mIconSize;
-	int y_pos = (sheetIndex / (mIconSheet.width() / mIconSize)) * mIconSize;
+	int x_pos = (sheetIndex % (mIconSheet.size().x / mIconSize)) * mIconSize;
+	int y_pos = (sheetIndex / (mIconSheet.size().x / mIconSize)) * mIconSize;
 
 	mIconItemList.push_back(IconGridItem());
 

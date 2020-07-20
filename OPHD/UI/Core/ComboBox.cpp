@@ -69,11 +69,11 @@ void ComboBox::resizedHandler(Control* /*control*/)
 
 	txtField.size(size() - NAS2D::Vector{20, 0});
 	btnDown.position(txtField.rect().crossXPoint());
-	btnDown.height(height());
-	lstItems.width(width());
+	btnDown.height(mRect.height);
+	lstItems.width(mRect.width);
 	lstItems.position(rect().crossYPoint());
 
-	mBaseArea = Rectangle<int>::Create(position(), NAS2D::Vector{width(), btnDown.height()});
+	mBaseArea = Rectangle<int>::Create(position(), NAS2D::Vector{mRect.width, btnDown.size().y});
 }
 
 
@@ -86,7 +86,7 @@ void ComboBox::repositioned(int, int)
 	btnDown.position(txtField.rect().crossXPoint());
 	lstItems.position(rect().crossYPoint());
 
-	mBaseArea = Rectangle<int>::Create(position(), NAS2D::Vector{width(), btnDown.height()});
+	mBaseArea = Rectangle<int>::Create(position(), NAS2D::Vector{mRect.width, btnDown.size().y});
 }
 
 
@@ -104,7 +104,7 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		lstItems.visible(!lstItems.visible());
 		if (lstItems.visible())
 		{
-			mRect.height = height() + lstItems.height();
+			mRect.height = mRect.height + lstItems.size().y;
 		}
 		else
 		{

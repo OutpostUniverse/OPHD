@@ -145,7 +145,7 @@ void FactoryReport::init()
 	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
 	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
 
-	int position_x = Utility<Renderer>::get().width() - 110;
+	int position_x = Utility<Renderer>::get().size().x - 110;
 	add(&btnIdle, position_x, 35);
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size({140, 30});
@@ -327,7 +327,7 @@ void FactoryReport::resized(Control* /*c*/)
 		positionX() + 10,
 		comboEndPoint.y + 10,
 		comboEndPoint.x - 10,
-		height() - 74
+		mRect.height - 74
 	};
 
 	lstFactoryList.size(FACTORY_LISTBOX.size());
@@ -605,7 +605,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	const auto textColor = NAS2D::Color{0, 185, 0};
 	renderer.drawText(*FONT_BIG_BOLD, "Production", NAS2D::Point{DETAIL_PANEL.x, DETAIL_PANEL.y + 180}, textColor);
 
-	int position_x = DETAIL_PANEL.x + lstProducts.width() + 20;
+	int position_x = DETAIL_PANEL.x + lstProducts.size().x + 20;
 
 	if (SELECTED_PRODUCT_TYPE != ProductType::PRODUCT_NONE)
 	{

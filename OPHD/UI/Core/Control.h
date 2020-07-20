@@ -61,9 +61,6 @@ public:
 	void width(int w);
 	void height(int h);
 
-	int width() const;
-	int height() const;
-
 	ResizeCallback& resized();
 
 	virtual void update() {}

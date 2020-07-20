@@ -82,16 +82,16 @@ void ListBox::_updateItemDisplay()
 {
 	mItemWidth = static_cast<unsigned int>(mRect.width);
 
-	if ((mLineHeight * mItems.size()) > static_cast<std::size_t>(height()))
+	if ((mLineHeight * mItems.size()) > static_cast<std::size_t>(mRect.height))
 	{
-		mLineCount = static_cast<unsigned int>(height() / mLineHeight);
+		mLineCount = static_cast<unsigned int>(mRect.height / mLineHeight);
 		if (mLineCount < mItems.size())
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(mLineHeight * mItems.size() - height()));
+			mSlider.length(static_cast<float>(mLineHeight * mItems.size() - mRect.height));
 			mCurrentOffset = static_cast<std::size_t>(mSlider.thumbPosition());
-			mItemWidth = static_cast<unsigned int>(width() - mSlider.width());
+			mItemWidth = static_cast<unsigned int>(mRect.width - mSlider.size().x);
 			mSlider.visible(true);
 		}
 	}

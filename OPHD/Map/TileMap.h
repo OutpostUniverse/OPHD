@@ -57,8 +57,6 @@ public:
 	void toggleShowConnections() { mShowConnections = !mShowConnections; }
 
 	int edgeLength() const { return mEdgeLength; }
-	int width() const { return mSizeInTiles.x; }
-	int height() const { return mSizeInTiles.y; }
 	NAS2D::Vector<int> size() const { return mSizeInTiles; }
 
 	int currentDepth() const { return mCurrentDepth; }

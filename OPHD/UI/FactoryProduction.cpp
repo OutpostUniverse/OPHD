@@ -57,14 +57,14 @@ void FactoryProduction::init()
 	btnCancel.click().connect(this, &FactoryProduction::btnCancelClicked);
 
 	add(&btnClearSelection, 5, 138);
-	btnClearSelection.size({mProductGrid.width(), 20});
+	btnClearSelection.size({mProductGrid.size().x, 20});
 	btnClearSelection.click().connect(this, &FactoryProduction::btnClearSelectionClicked);
 
-	add(&btnApply, mProductGrid.width() + 12, btnClearSelection.positionY());
+	add(&btnApply, mProductGrid.size().x + 12, btnClearSelection.positionY());
 	btnApply.size({40, 20});
 	btnApply.click().connect(this, &FactoryProduction::btnApplyClicked);
 
-	add(&chkIdle, mProductGrid.width() + 12, 115);
+	add(&chkIdle, mProductGrid.size().x + 12, 115);
 	chkIdle.size({50, 20});
 	chkIdle.click().connect(this, &FactoryProduction::chkIdleClicked);
 }
@@ -213,7 +213,7 @@ void FactoryProduction::update()
 	Window::update();
 
 	StringTable stringTable(2, 5);
-	stringTable.position(mRect.startPoint() + NAS2D::Vector{constants::MARGIN * 2 + mProductGrid.width(), 25});
+	stringTable.position(mRect.startPoint() + NAS2D::Vector{constants::MARGIN * 2 + mProductGrid.size().x, 25});
 	stringTable.setColumnJustification(1, StringTable::Justification::Right);
 
 	stringTable.setColumnText(0,

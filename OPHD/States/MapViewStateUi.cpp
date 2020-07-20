@@ -55,13 +55,13 @@ void MapViewState::initUi()
 	mDiggerDirection.directionSelected().connect(this, &MapViewState::diggerSelectionDialog);
 	mDiggerDirection.hide();
 
-	mTileInspector.position(renderer.center() - NAS2D::Vector{mTileInspector.width() / 2.0f, 175.0f});
+	mTileInspector.position(renderer.center() - NAS2D::Vector{mTileInspector.size().x / 2.0f, 175.0f});
 	mTileInspector.hide();
 
-	mStructureInspector.position(renderer.center() - NAS2D::Vector{mStructureInspector.width() / 2.0f, 175.0f});
+	mStructureInspector.position(renderer.center() - NAS2D::Vector{mStructureInspector.size().x / 2.0f, 175.0f});
 	mStructureInspector.hide();
 
-	mFactoryProduction.position(NAS2D::Point{renderer.center_x() - mFactoryProduction.width() / 2.0f, 175.0f});
+	mFactoryProduction.position(NAS2D::Point{renderer.center_x() - mFactoryProduction.size().x / 2.0f, 175.0f});
 	mFactoryProduction.hide();
 
 	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
