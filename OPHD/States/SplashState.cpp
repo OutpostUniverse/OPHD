@@ -124,15 +124,15 @@ NAS2D::State* SplashState::update()
 		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, BYLINE_TIMER.tick() / 600.0f);
 		renderer.drawImage(mLogoOutpostHd, logoPosition);
 
-		const float BYLINE_SCALE_STEP = 0.000025f;
-		const float BYLINE_ALPHA_FADE_STEP = 0.30f;
-		const float BYLINE_SCALE = 0.50f + tick * BYLINE_SCALE_STEP;
-		const float BYLINE_ALPHA = -800.0f + tick * BYLINE_ALPHA_FADE_STEP;
-		const auto clampedBylineAlpha = static_cast<uint8_t>(std::clamp(BYLINE_ALPHA, 0.0f, 255.0f));
+		const float bylineScaleStep = 0.000025f;
+		const float bylineAlphaFadeStep = 0.30f;
+		const float bylineScale = 0.50f + tick * bylineScaleStep;
+		const float bylineAlpha = -800.0f + tick * bylineAlphaFadeStep;
+		const auto clampedBylineAlpha = static_cast<uint8_t>(std::clamp(bylineAlpha, 0.0f, 255.0f));
 
 		if (clampedBylineAlpha > 0)
 		{
-			renderer.drawImage(mByline, renderer.center().to<float>() + NAS2D::Vector<float>{-mByline.width() * BYLINE_SCALE / 2, 25}, BYLINE_SCALE, NAS2D::Color::White.alphaFade(clampedBylineAlpha));
+			renderer.drawImage(mByline, renderer.center().to<float>() + NAS2D::Vector<float>{-mByline.width() * bylineScale / 2, 25}, bylineScale, NAS2D::Color::White.alphaFade(clampedBylineAlpha));
 		}
 	}
 	
