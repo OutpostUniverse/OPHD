@@ -377,7 +377,7 @@ State* MainReportsUiState::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	renderer.clearScreen(NAS2D::Color{35, 35, 35});
-	renderer.drawBoxFilled({0, 0, renderer.size().x, 48}, NAS2D::Color::Black);
+	renderer.drawBoxFilled(NAS2D::Rectangle{0, 0, renderer.size().x, 48}, NAS2D::Color::Black);
 
 	for (Panel& panel : Panels) { drawPanel(renderer, panel); }
 
