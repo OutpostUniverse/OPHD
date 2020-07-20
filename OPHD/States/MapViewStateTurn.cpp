@@ -231,10 +231,10 @@ void MapViewState::updateResources()
 
 		if (!mine->operational() && !mine->isIdle()) { continue; } // consider a different control path.
 
-		auto route = mRouteTable.find(facility);
-		bool findNewRoute = route == mRouteTable.end();
+		auto routeIt = mRouteTable.find(facility);
+		bool findNewRoute = routeIt == mRouteTable.end();
 
-		if (!findNewRoute && routeObstructed(route->second))
+		if (!findNewRoute && routeObstructed(routeIt->second))
 		{
 			mRouteTable.erase(facility);
 			findNewRoute = true;
@@ -250,7 +250,24 @@ void MapViewState::updateResources()
 			mRouteTable[facility] = newRoute;
 		}
 
-		// do resource movement here
+		/* Route table may have changed, ensure we have a valid iterator. */
+		routeIt = mRouteTable.find(facility);
+		if (routeIt != mRouteTable.end())
+		{
+			const auto& route = routeIt->second;
+			const auto smelter = static_cast<Tile*>(route.path.back())->structure();
+			/* clamp route cost to minimum of 1.0f for next computation to avoid
+			   unintended multiplication. */
+			const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
+
+			/* intentional truncation of fractional component*/
+			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost);
+			const int oreMovementPart = totalOreMovement / 4;
+			const int oreMovementRemainder = totalOreMovement % 4;
+
+			const int whatever = 0;
+
+		}
 	}
 
 	// Move refined resources from smelters to storage tanks
