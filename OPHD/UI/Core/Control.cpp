@@ -46,24 +46,6 @@ Control::PositionChangedCallback& Control::moved()
 }
 
 
-/**
- * Gets the width of the Control
- */
-int Control::width() const
-{
-	return mRect.width;
-}
-
-
-/**
- * Gets the height of the Control.
- */
-int Control::height() const
-{
-	return mRect.height;
-}
-
-
 void Control::size(NAS2D::Vector<int> newSize)
 {
 	mRect.size(newSize);
