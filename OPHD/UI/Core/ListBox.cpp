@@ -12,6 +12,7 @@
 #include <NAS2D/MathUtils.h>
 
 #include <algorithm>
+#include <cmath>
 
 
 using namespace NAS2D;
@@ -332,9 +333,9 @@ void ListBox::slideChanged(float newPosition)
 {
 	_updateItemDisplay();
 	// Intentional truncation of fractional value
-	int pos = static_cast<int>(newPosition);
-	if (static_cast<float>(pos) != newPosition)
+	const auto pos = std::floor(newPosition);
+	if (pos != newPosition)
 	{
-		mSlider.thumbPosition(static_cast<float>(pos));
+		mSlider.thumbPosition(pos);
 	}
 }
