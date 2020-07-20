@@ -66,5 +66,5 @@ void Planet::update()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto spriteFrameOffset = NAS2D::Point{mTick % 8 * PlanetSize.x, ((mTick % 64) / 8) * PlanetSize.y};
-	renderer.drawSubImage(mImage, mPosition, spriteFrameOffset, PlanetSize);
+	renderer.drawSubImage(mImage, mPosition, NAS2D::Rectangle<int>::Create(spriteFrameOffset, PlanetSize));
 }

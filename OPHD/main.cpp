@@ -126,7 +126,7 @@ int main(int /*argc*/, char *argv[])
 
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
-		renderer.minimum_size(1000, 700);
+		renderer.minimumSize({1000, 700});
 		renderer.resizeable(true);
 		renderer.addCursor(constants::MOUSE_POINTER_NORMAL, PointerType::POINTER_NORMAL, 0, 0);
 		renderer.addCursor(constants::MOUSE_POINTER_PLACE_TILE, PointerType::POINTER_PLACE_TILE, 16, 16);

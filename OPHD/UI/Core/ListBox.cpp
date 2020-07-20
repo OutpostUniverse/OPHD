@@ -301,7 +301,7 @@ void ListBox::update()
 	auto itemBounds = listBounds;
 	itemBounds.height = mLineHeight;
 	itemBounds.y += static_cast<int>((mCurrentSelection * mLineHeight) - mCurrentOffset);
-	renderer.drawBoxFilled(itemBounds, mHighlightBg.red, mHighlightBg.green, mHighlightBg.blue, 80);
+	renderer.drawBoxFilled(itemBounds, mHighlightBg.alphaFade(80));
 
 	// Highlight On mouse Over
 	if (mCurrentHighlight != constants::NO_SELECTION)

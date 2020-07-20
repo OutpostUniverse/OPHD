@@ -10,18 +10,6 @@
 
 #include <algorithm>
 
-const int PAUSE_TIME = 5800;
-
-unsigned int FADE_PAUSE_TIME = 5000;
-
-const float FADE_LENGTH = 800;
-
-float BYLINE_SCALE = 0.50f;
-float BYLINE_SCALE_STEP = 0.000025f;
-float BYLINE_ALPHA = -800.0f;
-float BYLINE_ALPHA_FADE_STEP = 0.30f;
-
-NAS2D::Timer BYLINE_TIMER;
 
 enum LogoState
 {
@@ -31,7 +19,14 @@ enum LogoState
 	LOGO_OUTPOSTHD
 };
 
+
 LogoState CURRENT_STATE = LogoState::LOGO_NONE;
+
+const int PAUSE_TIME = 5800;
+unsigned int FADE_PAUSE_TIME = 5000;
+const float FADE_LENGTH = 800;
+
+NAS2D::Timer BYLINE_TIMER;
 
 
 SplashState::SplashState() :
@@ -123,17 +118,22 @@ NAS2D::State* SplashState::update()
 	}
 	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
 	{
-		const unsigned int tick = BYLINE_TIMER.delta();
+		const unsigned int tick = BYLINE_TIMER.accumulator();
 		const auto logoPosition = renderer.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
 
 		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, BYLINE_TIMER.tick() / 600.0f);
 		renderer.drawImage(mLogoOutpostHd, logoPosition);
 
-		BYLINE_SCALE += tick * BYLINE_SCALE_STEP;
-		BYLINE_ALPHA += tick * BYLINE_ALPHA_FADE_STEP;
-		BYLINE_ALPHA = std::clamp(BYLINE_ALPHA, -3000.0f, 255.0f);
+		const float bylineScaleStep = 0.000025f;
+		const float bylineAlphaFadeStep = 0.30f;
+		const float bylineScale = 0.50f + tick * bylineScaleStep;
+		const float bylineAlpha = -800.0f + tick * bylineAlphaFadeStep;
+		const auto clampedBylineAlpha = static_cast<uint8_t>(std::clamp(bylineAlpha, 0.0f, 255.0f));
 
-		if(BYLINE_ALPHA > 0.0f) { renderer.drawImage(mByline, renderer.center_x() - ((mByline.width() * BYLINE_SCALE) / 2), renderer.center_y() + 25, BYLINE_SCALE, 255, 255, 255, static_cast<uint8_t>(BYLINE_ALPHA)); }
+		if (clampedBylineAlpha > 0)
+		{
+			renderer.drawImage(mByline, renderer.center().to<float>() + NAS2D::Vector<float>{-mByline.width() * bylineScale / 2, 25}, bylineScale, NAS2D::Color::White.alphaFade(clampedBylineAlpha));
+		}
 	}
 	
 	if (renderer.isFading()) { return this; }
