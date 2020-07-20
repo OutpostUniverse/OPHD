@@ -476,9 +476,9 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	Tile* tile = nullptr;
 	for (int depth = 0; depth <= maxDepth(); ++depth)
 	{
-		for (int x = 0; x < mSizeInTiles.x; ++x)
+		for (int y = 0; y < mSizeInTiles.y; ++y)
 		{
-			for (int y = 0; y < mSizeInTiles.y; ++y)
+			for (int x = 0; x < mSizeInTiles.x; ++x)
 			{
 				tile = getTile({x, y}, depth);
 				if (depth > 0 && tile->excavated() && tile->empty() && tile->mine() == nullptr)
