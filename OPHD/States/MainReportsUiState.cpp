@@ -100,23 +100,23 @@ static void setPanelRects(int width)
 /**
  * Draws a UI panel.
  */
-static void drawPanel(Renderer& _r, Panel& _p)
+static void drawPanel(Renderer& renderer, Panel& panel)
 {
-	if (_p.Rect.contains(MOUSE_COORDS)) { _r.drawBoxFilled(_p.Rect, NAS2D::Color{0, 185, 185, 100}); }
+	if (panel.Rect.contains(MOUSE_COORDS)) { renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100}); }
 
-	if (_p.Selected())
+	if (panel.Selected())
 	{
-		_r.drawBoxFilled(_p.Rect, NAS2D::Color{0, 85, 0});
+		renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 85, 0});
 
-		if (_p.UiPanel) { _p.UiPanel->update(); }
+		if (panel.UiPanel) { panel.UiPanel->update(); }
 
-		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition, NAS2D::Color{185, 185, 0});
-		_r.drawImage(*_p.Img, _p.IconPosition, 1.0f, NAS2D::Color{185, 185, 0});
+		renderer.drawText(*BIG_FONT_BOLD, panel.Name, panel.TextPosition, NAS2D::Color{185, 185, 0});
+		renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{185, 185, 0});
 	}
 	else
 	{
-		_r.drawText(*BIG_FONT_BOLD, _p.Name, _p.TextPosition, NAS2D::Color{0, 185, 0});
-		_r.drawImage(*_p.Img, _p.IconPosition, 1.0f, NAS2D::Color{0, 185, 0});
+		renderer.drawText(*BIG_FONT_BOLD, panel.Name, panel.TextPosition, NAS2D::Color{0, 185, 0});
+		renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{0, 185, 0});
 	}
 }
 
