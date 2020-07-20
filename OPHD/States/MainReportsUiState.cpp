@@ -102,11 +102,11 @@ static void setPanelRects(int width)
  */
 static void drawPanel(Renderer& _r, Panel& _p)
 {
-	if (_p.Rect.contains(MOUSE_COORDS)) { _r.drawBoxFilled(_p.Rect, 0, 185, 185, 100); }
+	if (_p.Rect.contains(MOUSE_COORDS)) { _r.drawBoxFilled(_p.Rect, NAS2D::Color{0, 185, 185, 100}); }
 
 	if (_p.Selected())
 	{
-		_r.drawBoxFilled(_p.Rect, 0, 85, 0);
+		_r.drawBoxFilled(_p.Rect, NAS2D::Color{0, 85, 0});
 
 		if (_p.UiPanel) { _p.UiPanel->update(); }
 
