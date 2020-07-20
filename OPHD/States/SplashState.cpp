@@ -135,7 +135,7 @@ NAS2D::State* SplashState::update()
 
 		if (BYLINE_ALPHA > 0.0f)
 		{
-			renderer.drawImage(mByline, renderer.center_x() - ((mByline.width() * BYLINE_SCALE) / 2), renderer.center_y() + 25, BYLINE_SCALE, 255, 255, 255, static_cast<uint8_t>(BYLINE_ALPHA));
+			renderer.drawImage(mByline, renderer.center().to<float>() + NAS2D::Vector<float>{-mByline.width() * BYLINE_SCALE / 2, 25}, BYLINE_SCALE, NAS2D::Color::White.alphaFade(static_cast<uint8_t>(BYLINE_ALPHA)));
 		}
 	}
 	
