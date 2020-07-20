@@ -133,7 +133,7 @@ void PlanetSelectState::initialize()
 	mPlanetDescription.text("");
 	mPlanetDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
 	mPlanetDescription.size({550, 200});
-	mPlanetDescription.position(NAS2D::Point{renderer.center_x() - 275, renderer.height() - 225});
+	mPlanetDescription.position(NAS2D::Point{viewportSize.x / 2 - 275, viewportSize.y - 225});
 
 	renderer.showSystemPointer(true);
 	renderer.fadeIn(constants::FADE_SPEED);
@@ -168,7 +168,7 @@ State* PlanetSelectState::update()
 
 	float rotation = mTimer.tick() / 1200.0f;
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
-	renderer.drawImageRotated(mCloud1, {size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
+	renderer.drawImageRotated(mCloud1, NAS2D::Point{size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
 	drawStar({-40, -55});
 

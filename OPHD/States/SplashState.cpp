@@ -110,7 +110,7 @@ NAS2D::State* SplashState::update()
 
 	const auto size = renderer.size();
 	const auto backgroundColor = (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD) ? NAS2D::Color::Black : NAS2D::Color::White;
-	renderer.drawBoxFilled({0, 0, size.x, size.y}, backgroundColor);
+	renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create({0, 0}, size), backgroundColor);
 
 
 	if (CURRENT_STATE == LogoState::LOGO_LAIRWORKS)

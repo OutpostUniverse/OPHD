@@ -135,9 +135,9 @@ void MapViewState::drawResourceInfo()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	renderer.drawBoxFilled(NAS2D::Rectangle<float>{0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{39, 39, 39});
-	renderer.drawBox(NAS2D::Rectangle<float>{0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{21, 21, 21});
-	renderer.drawLine(NAS2D::Point<float>{1, 0}, NAS2D::Point<float>{renderer.width() - 2, 0}, NAS2D::Color{56, 56, 56});
+	renderer.drawBoxFilled(NAS2D::Rectangle{0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{39, 39, 39});
+	renderer.drawBox(NAS2D::Rectangle{0, 0, renderer.width(), constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{21, 21, 21});
+	renderer.drawLine(NAS2D::Point{1, 0}, NAS2D::Point{renderer.width() - 2, 0}, NAS2D::Color{56, 56, 56});
 
 	// Resources
 	int x = constants::MARGIN_TIGHT + 12;
