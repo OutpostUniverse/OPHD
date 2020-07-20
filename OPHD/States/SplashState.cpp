@@ -16,11 +16,6 @@ unsigned int FADE_PAUSE_TIME = 5000;
 
 const float FADE_LENGTH = 800;
 
-float BYLINE_SCALE = 0.50f;
-float BYLINE_SCALE_STEP = 0.000025f;
-float BYLINE_ALPHA = -800.0f;
-float BYLINE_ALPHA_FADE_STEP = 0.30f;
-
 NAS2D::Timer BYLINE_TIMER;
 
 enum LogoState
@@ -128,6 +123,11 @@ NAS2D::State* SplashState::update()
 
 		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, BYLINE_TIMER.tick() / 600.0f);
 		renderer.drawImage(mLogoOutpostHd, logoPosition);
+
+		static float BYLINE_SCALE = 0.50f;
+		static float BYLINE_SCALE_STEP = 0.000025f;
+		static float BYLINE_ALPHA = -800.0f;
+		static float BYLINE_ALPHA_FADE_STEP = 0.30f;
 
 		BYLINE_SCALE += tick * BYLINE_SCALE_STEP;
 		BYLINE_ALPHA += tick * BYLINE_ALPHA_FADE_STEP;
