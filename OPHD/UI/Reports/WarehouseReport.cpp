@@ -336,13 +336,13 @@ void WarehouseReport::selectStructure(Structure* structure)
  */
 void WarehouseReport::_resized(Control*)
 {
-	lstStructures.size({(width() / 2) - 20, height() - 126});
-	lstProducts.size({(width() / 2) - 20, height() - 184});
+	lstStructures.size({(mRect.width / 2) - 20, mRect.height - 126});
+	lstProducts.size({(mRect.width / 2) - 20, mRect.height - 184});
 	lstProducts.position({Utility<Renderer>::get().center_x() + 10, lstProducts.positionY()});
 
 	btnTakeMeThere.position({Utility<Renderer>::get().size().x - 150, positionY() + 35});
 
-	CAPACITY_BAR_WIDTH = width() / 2 - 30 - FONT_MED_BOLD->width("Capacity Used");
+	CAPACITY_BAR_WIDTH = mRect.width / 2 - 30 - FONT_MED_BOLD->width("Capacity Used");
 	CAPACITY_BAR_POSITION_X = 20 + FONT_MED_BOLD->width("Capacity Used");
 }
 
@@ -455,8 +455,8 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 	renderer.drawText(*FONT_MED_BOLD, "Total Storage", NAS2D::Point{10, positionY() + 62}, textColor);
 	renderer.drawText(*FONT_MED_BOLD, "Capacity Used", NAS2D::Point{10, positionY() + 84}, textColor);
 
-	renderer.drawText(*FONT_MED, WH_COUNT, NAS2D::Point{width() / 2 - 10 - COUNT_WIDTH, positionY() + 35}, textColor);
-	renderer.drawText(*FONT_MED, WH_CAPACITY, NAS2D::Point{width() / 2 - 10 - CAPACITY_WIDTH, positionY() + 57}, textColor);
+	renderer.drawText(*FONT_MED, WH_COUNT, NAS2D::Point{mRect.width / 2 - 10 - COUNT_WIDTH, positionY() + 35}, textColor);
+	renderer.drawText(*FONT_MED, WH_CAPACITY, NAS2D::Point{mRect.width / 2 - 10 - CAPACITY_WIDTH, positionY() + 57}, textColor);
 
 	drawBasicProgressBar(CAPACITY_BAR_POSITION_X, positionY() + 84, CAPACITY_BAR_WIDTH, 20, CAPACITY_PERCENT);
 }
@@ -486,7 +486,7 @@ void WarehouseReport::update()
 	// Left Panel
 	drawLeftPanel(renderer);
 	const auto positionX = renderer.center_x();
-	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + height() - 10}, NAS2D::Color{0, 185, 0});
+	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + mRect.height - 10}, NAS2D::Color{0, 185, 0});
 	drawRightPanel(renderer);
 
 	UIContainer::update();

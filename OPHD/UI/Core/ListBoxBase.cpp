@@ -73,17 +73,17 @@ void ListBoxBase::visibilityChanged(bool)
  */
 void ListBoxBase::_update_item_display()
 {
-	mItemWidth = width();
+	mItemWidth = mRect.width;
 
-	if ((mItemHeight * mItems.size()) > static_cast<std::size_t>(height()))
+	if ((mItemHeight * mItems.size()) > static_cast<std::size_t>(mRect.height))
 	{
-		mLineCount = height() / mItemHeight;
+		mLineCount = mRect.height / mItemHeight;
 
 		if (static_cast<std::size_t>(mLineCount) < mItems.size())
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(mItemHeight * mItems.size() - height()));
+			mSlider.length(static_cast<float>(mItemHeight * mItems.size() - mRect.height));
 			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
 			mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
 			mSlider.visible(true);

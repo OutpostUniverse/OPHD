@@ -23,7 +23,7 @@ void TextArea::processString()
 {
 	mFormattedList.clear();
 
-	if (width() < 10 || !mFont || text().empty()) { return; }
+	if (mRect.width < 10 || !mFont || text().empty()) { return; }
 
 	StringList tokenList = split_string(text().c_str(), ' ');
 
@@ -32,11 +32,11 @@ void TextArea::processString()
 	while (i < tokenList.size())
 	{
 		std::string line;
-		while (w < width() && i < tokenList.size())
+		while (w < mRect.width && i < tokenList.size())
 		{
 			int tokenWidth = mFont->width(tokenList[i] + " ");
 			w += tokenWidth;
-			if (w >= width())
+			if (w >= mRect.width)
 			{
 				/**
 				 * \todo	In some edge cases where the width of the TextArea is too
@@ -60,7 +60,7 @@ void TextArea::processString()
 		mFormattedList.push_back(line);
 	}
 
-	mNumLines = static_cast<std::size_t>(height() / mFont->height());
+	mNumLines = static_cast<std::size_t>(mRect.height / mFont->height());
 }
 
 

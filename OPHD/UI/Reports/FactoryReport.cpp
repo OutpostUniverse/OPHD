@@ -327,7 +327,7 @@ void FactoryReport::resized(Control* /*c*/)
 		positionX() + 10,
 		comboEndPoint.y + 10,
 		comboEndPoint.x - 10,
-		height() - 74
+		mRect.height - 74
 	};
 
 	lstFactoryList.size(FACTORY_LISTBOX.size());
