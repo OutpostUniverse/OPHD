@@ -164,7 +164,7 @@ State* PlanetSelectState::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto size = renderer.size();
-	renderer.drawImageStretched(mBg, {0, 0}, size);
+	renderer.drawImageStretched(mBg, NAS2D::Rectangle<int>::Create({0, 0}, size));
 
 	float rotation = mTimer.tick() / 1200.0f;
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
