@@ -10,13 +10,6 @@
 
 #include <algorithm>
 
-const int PAUSE_TIME = 5800;
-
-unsigned int FADE_PAUSE_TIME = 5000;
-
-const float FADE_LENGTH = 800;
-
-NAS2D::Timer BYLINE_TIMER;
 
 enum LogoState
 {
@@ -26,7 +19,14 @@ enum LogoState
 	LOGO_OUTPOSTHD
 };
 
+
 LogoState CURRENT_STATE = LogoState::LOGO_NONE;
+
+const int PAUSE_TIME = 5800;
+unsigned int FADE_PAUSE_TIME = 5000;
+const float FADE_LENGTH = 800;
+
+NAS2D::Timer BYLINE_TIMER;
 
 
 SplashState::SplashState() :
