@@ -105,7 +105,7 @@ void TextField::maxCharacters(std::size_t count)
 
 int TextField::textAreaWidth() const
 {
-	return static_cast<int>(mRect.width) - FIELD_PADDING * 2;
+	return mRect.width - FIELD_PADDING * 2;
 }
 
 
@@ -228,7 +228,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	int relativePosition = static_cast<int>(x - mRect.x);
+	int relativePosition = x - mRect.x;
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
@@ -304,7 +304,7 @@ void TextField::updateCursor()
 		mScrollOffset = 0;
 	}
 
-	mCursorX = static_cast<int>(mRect.x + FIELD_PADDING + cursorX - mScrollOffset);
+	mCursorX = mRect.x + FIELD_PADDING + cursorX - mScrollOffset;
 }
 
 

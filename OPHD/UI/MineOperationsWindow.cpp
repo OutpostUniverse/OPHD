@@ -214,7 +214,7 @@ void MineOperationsWindow::update()
 	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
 
 	// REMAINING ORE PANEL
-	const auto width = static_cast<int>(mRect.width);
+	const auto width = mRect.width;
 	renderer.drawText(*FONT_BOLD, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
 	renderer.drawImageRect(NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{10, 180}, NAS2D::Vector{width - 20, 40}), mPanel);

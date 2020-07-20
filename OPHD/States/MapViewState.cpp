@@ -1024,7 +1024,7 @@ void MapViewState::placeRobot()
 			if (position.x + mDiggerDirection.width() > Utility<Renderer>::get().width())
 			{
 				// Popup to the left of the mouse
-				position = MOUSE_COORDS + NAS2D::Vector{-20 - static_cast<int>(mDiggerDirection.width()), -32};
+				position = MOUSE_COORDS + NAS2D::Vector{-20 - mDiggerDirection.width(), -32};
 			}
 			mDiggerDirection.position(position);
 		}
