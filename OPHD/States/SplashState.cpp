@@ -118,19 +118,16 @@ NAS2D::State* SplashState::update()
 	}
 	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
 	{
-		const unsigned int tick = BYLINE_TIMER.delta();
+		const unsigned int tick = BYLINE_TIMER.accumulator();
 		const auto logoPosition = renderer.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
 
 		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, BYLINE_TIMER.tick() / 600.0f);
 		renderer.drawImage(mLogoOutpostHd, logoPosition);
 
-		static float BYLINE_SCALE = 0.50f;
-		static float BYLINE_SCALE_STEP = 0.000025f;
-		static float BYLINE_ALPHA = -800.0f;
-		static float BYLINE_ALPHA_FADE_STEP = 0.30f;
-
-		BYLINE_SCALE += tick * BYLINE_SCALE_STEP;
-		BYLINE_ALPHA += tick * BYLINE_ALPHA_FADE_STEP;
+		const float BYLINE_SCALE_STEP = 0.000025f;
+		const float BYLINE_ALPHA_FADE_STEP = 0.30f;
+		const float BYLINE_SCALE = 0.50f + tick * BYLINE_SCALE_STEP;
+		float BYLINE_ALPHA = -800.0f + tick * BYLINE_ALPHA_FADE_STEP;
 		BYLINE_ALPHA = std::clamp(BYLINE_ALPHA, -3000.0f, 255.0f);
 
 		if (BYLINE_ALPHA > 0.0f)
