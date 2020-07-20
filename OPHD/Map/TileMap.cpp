@@ -150,10 +150,10 @@ void TileMap::buildTerrainMap(const std::string& path)
 	mTileMap.resize(static_cast<std::size_t>(mMaxDepth) + 1);
 	for(int level = 0; level <= mMaxDepth; level++)
 	{
-		mTileMap[level].resize(height());
+		mTileMap[level].resize(mSizeInTiles.y);
 		for (std::size_t i = 0; i < mTileMap[level].size(); i++)
 		{
-			mTileMap[level][i].resize(width());
+			mTileMap[level][i].resize(mSizeInTiles.x);
 		}
 	}
 
@@ -167,9 +167,9 @@ void TileMap::buildTerrainMap(const std::string& path)
 	 */
 	for(int depth = 0; depth <= mMaxDepth; depth++)
 	{
-		for(int row = 0; row < height(); row++)
+		for(int row = 0; row < mSizeInTiles.y; row++)
 		{
-			for(int col = 0; col < width(); col++)
+			for(int col = 0; col < mSizeInTiles.x; col++)
 			{
 				Color color = heightmap.pixelColor(col, row);
 				Tile& tile = mTileMap[depth][row][col];
@@ -476,9 +476,9 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	Tile* tile = nullptr;
 	for (int depth = 0; depth <= maxDepth(); ++depth)
 	{
-		for (int x = 0; x < width(); ++x)
+		for (int x = 0; x < mSizeInTiles.x; ++x)
 		{
-			for (int y = 0; y < height(); ++y)
+			for (int y = 0; y < mSizeInTiles.y; ++y)
 			{
 				tile = getTile({x, y}, depth);
 				if (depth > 0 && tile->excavated() && tile->empty() && tile->mine() == nullptr)
