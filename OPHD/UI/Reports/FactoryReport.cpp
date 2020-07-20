@@ -145,7 +145,7 @@ void FactoryReport::init()
 	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
 	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
 
-	int position_x = static_cast<int>(Utility<Renderer>::get().width()) - 110;
+	int position_x = Utility<Renderer>::get().width() - 110;
 	add(&btnIdle, position_x, 35);
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size({140, 30});

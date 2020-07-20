@@ -203,12 +203,12 @@ void MapViewState::drawResourceInfo()
 	bool shouldShowPopPanel = mPinPopulationPanel || isMouseInPopPanel;
 	if(shouldShowPopPanel) { mPopulationPanel.update(); }
 
-	bool isMouseInResourcePanel = NAS2D::Rectangle{0, 1, static_cast<int>(mResourceBreakdownPanel.width()), 19}.contains(MOUSE_COORDS);
+	bool isMouseInResourcePanel = NAS2D::Rectangle{0, 1, mResourceBreakdownPanel.width(), 19}.contains(MOUSE_COORDS);
 	bool shouldShowResourcePanel = mPinResourcePanel || isMouseInResourcePanel;
 	if (shouldShowResourcePanel) { mResourceBreakdownPanel.update(); }
 
 	// Turns
-	position.x = static_cast<int>(renderer.width() - 80);
+	position.x = renderer.width() - 80;
 	const auto turnImageRect = NAS2D::Rectangle{128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
@@ -232,7 +232,7 @@ void MapViewState::drawRobotInfo()
 
 	// Robots: Miner (last one), Dozer (middle one), Digger (first one)
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
-	auto position = NAS2D::Point{8, static_cast<int>(renderer.height()) - constants::BOTTOM_UI_HEIGHT - 25 - 8};
+	auto position = NAS2D::Point{8, renderer.height() - constants::BOTTOM_UI_HEIGHT - 25 - 8};
 	constexpr auto textOffset = NAS2D::Vector{30, 7};
 
 	const auto minerImageRect = NAS2D::Rectangle{231, 18, 25, 25};
@@ -279,7 +279,7 @@ void MapViewState::drawNavInfo()
 
 	// Display the levels "bar"
 	const auto stepSizeWidth = MAIN_FONT->width("IX");
-	auto position = NAS2D::Point{static_cast<int>(renderer.width()) - 5, mMiniMapBoundingBox.y - 30};
+	auto position = NAS2D::Point{renderer.width() - 5, mMiniMapBoundingBox.y - 30};
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)
 	{
 		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i);

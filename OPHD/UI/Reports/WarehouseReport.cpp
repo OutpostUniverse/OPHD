@@ -149,7 +149,7 @@ void WarehouseReport::init()
 	add(&lstStructures, 10, mRect.y + 115);
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
 
-	add(&lstProducts, static_cast<int>(Utility<Renderer>::get().center_x()) + 10, mRect.y + 173);
+	add(&lstProducts, Utility<Renderer>::get().center_x() + 10, mRect.y + 173);
 
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::doubleClicked);
 
@@ -338,11 +338,11 @@ void WarehouseReport::_resized(Control*)
 {
 	lstStructures.size({(width() / 2) - 20, height() - 126});
 	lstProducts.size({(width() / 2) - 20, height() - 184});
-	lstProducts.position({static_cast<int>(Utility<Renderer>::get().center_x()) + 10, lstProducts.positionY()});
+	lstProducts.position({Utility<Renderer>::get().center_x() + 10, lstProducts.positionY()});
 
-	btnTakeMeThere.position({static_cast<int>(Utility<Renderer>::get().width()) - 150, positionY() + 35});
+	btnTakeMeThere.position({Utility<Renderer>::get().width() - 150, positionY() + 35});
 
-	CAPACITY_BAR_WIDTH = static_cast<int>(width() / 2) - 30 - FONT_MED_BOLD->width("Capacity Used");
+	CAPACITY_BAR_WIDTH = width() / 2 - 30 - FONT_MED_BOLD->width("Capacity Used");
 	CAPACITY_BAR_POSITION_X = 20 + FONT_MED_BOLD->width("Capacity Used");
 }
 
@@ -469,7 +469,7 @@ void WarehouseReport::drawRightPanel(Renderer& renderer)
 {
 	if (!SELECTED_WAREHOUSE) { return; }
 
-	const auto positionX = static_cast<int>(renderer.center_x()) + 10;
+	const auto positionX = renderer.center_x() + 10;
 	renderer.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), NAS2D::Point{positionX, positionY() + 2}, NAS2D::Color{0, 185, 0});
 	renderer.drawImage(*WAREHOUSE_IMG, NAS2D::Point{positionX, positionY() + 35});
 }
@@ -485,7 +485,7 @@ void WarehouseReport::update()
 
 	// Left Panel
 	drawLeftPanel(renderer);
-	const auto positionX = static_cast<int>(renderer.center_x());
+	const auto positionX = renderer.center_x();
 	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + height() - 10}, NAS2D::Color{0, 185, 0});
 	drawRightPanel(renderer);
 

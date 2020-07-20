@@ -81,9 +81,8 @@ void IconGrid::iconMargin(int newMargin)
  */
 void IconGrid::updateGrid()
 {
-	// explicit cast, intentional trunctation of floating point data.
-	int cols = static_cast<int>((mRect.width - (mIconMargin * 2)) / (mIconSize + mIconMargin));
-	int rows = static_cast<int>((mRect.height - (mIconMargin * 2)) / (mIconSize + mIconMargin));
+	int cols = (mRect.width - (mIconMargin * 2)) / (mIconSize + mIconMargin);
+	int rows = (mRect.height - (mIconMargin * 2)) / (mIconSize + mIconMargin);
 
 	mGridSize = {cols, rows};
 }
