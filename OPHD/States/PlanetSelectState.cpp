@@ -127,7 +127,7 @@ void PlanetSelectState::initialize()
 	planetSelection = planetSelectionInvalid;
 
 	mQuit.size({100, 20});
-	mQuit.position({renderer.width() - 105, 30});
+	mQuit.position({renderer.size().x - 105, 30});
 	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
 
 	mPlanetDescription.text("");

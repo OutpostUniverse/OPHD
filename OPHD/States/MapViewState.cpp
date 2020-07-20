@@ -1021,10 +1021,10 @@ void MapViewState::placeRobot()
 			// Popup to the right of the mouse
 			auto position = MOUSE_COORDS + NAS2D::Vector{20, -32};
 			// Check if popup position is off the right edge of the display area
-			if (position.x + mDiggerDirection.width() > Utility<Renderer>::get().width())
+			if (position.x + mDiggerDirection.size().x > Utility<Renderer>::get().size().x)
 			{
 				// Popup to the left of the mouse
-				position = MOUSE_COORDS + NAS2D::Vector{-20 - mDiggerDirection.width(), -32};
+				position = MOUSE_COORDS + NAS2D::Vector{-20 - mDiggerDirection.size().x, -32};
 			}
 			mDiggerDirection.position(position);
 		}
