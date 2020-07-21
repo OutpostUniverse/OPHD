@@ -61,7 +61,7 @@ void MapViewState::initUi()
 	mStructureInspector.position(renderer.center() - NAS2D::Vector{mStructureInspector.size().x / 2.0f, 175.0f});
 	mStructureInspector.hide();
 
-	mFactoryProduction.position(NAS2D::Point{renderer.center_x() - mFactoryProduction.size().x / 2.0f, 175.0f});
+	mFactoryProduction.position(NAS2D::Point{renderer.center().x - mFactoryProduction.size().x / 2.0f, 175.0f});
 	mFactoryProduction.hide();
 
 	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
