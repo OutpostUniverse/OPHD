@@ -149,7 +149,7 @@ void WarehouseReport::init()
 	add(&lstStructures, 10, mRect.y + 115);
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
 
-	add(&lstProducts, Utility<Renderer>::get().center_x() + 10, mRect.y + 173);
+	add(&lstProducts, Utility<Renderer>::get().center().x + 10, mRect.y + 173);
 
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::doubleClicked);
 
@@ -338,7 +338,7 @@ void WarehouseReport::_resized(Control*)
 {
 	lstStructures.size({(mRect.width / 2) - 20, mRect.height - 126});
 	lstProducts.size({(mRect.width / 2) - 20, mRect.height - 184});
-	lstProducts.position({Utility<Renderer>::get().center_x() + 10, lstProducts.positionY()});
+	lstProducts.position({Utility<Renderer>::get().center().x + 10, lstProducts.positionY()});
 
 	btnTakeMeThere.position({Utility<Renderer>::get().size().x - 150, positionY() + 35});
 
@@ -469,7 +469,7 @@ void WarehouseReport::drawRightPanel(Renderer& renderer)
 {
 	if (!SELECTED_WAREHOUSE) { return; }
 
-	const auto positionX = renderer.center_x() + 10;
+	const auto positionX = renderer.center().x + 10;
 	renderer.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), NAS2D::Point{positionX, positionY() + 2}, NAS2D::Color{0, 185, 0});
 	renderer.drawImage(*WAREHOUSE_IMG, NAS2D::Point{positionX, positionY() + 35});
 }
@@ -485,7 +485,7 @@ void WarehouseReport::update()
 
 	// Left Panel
 	drawLeftPanel(renderer);
-	const auto positionX = renderer.center_x();
+	const auto positionX = renderer.center().x;
 	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + mRect.height - 10}, NAS2D::Color{0, 185, 0});
 	drawRightPanel(renderer);
 
