@@ -41,6 +41,11 @@ public:
 		int maxMines = 0;
 		std::string mapImagePath;
 		std::string tilesetPath;
+
+		/**
+		 * Mean distance from star in astronomical units (AU)
+		 */
+		float meanSolarDistance;
 	};
 
 public:

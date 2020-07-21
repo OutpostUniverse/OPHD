@@ -92,9 +92,9 @@ PlanetSelectState::~PlanetSelectState()
 
 namespace {
 	std::vector<Planet::Attributes> planetAttributes = {
-		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10, "maps/merc_01", "tsets/mercury.png"} },
-		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30, "maps/mars_04", "tsets/mars.png"} },
-		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15, "maps/ganymede_01", "tsets/ganymede.png"} }
+		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10, "maps/merc_01", "tsets/mercury.png", 0.4f} },
+		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30, "maps/mars_04", "tsets/mars.png", 1.524f} },
+		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15, "maps/ganymede_01", "tsets/ganymede.png", 5.2f} }
 	};
 }
 
