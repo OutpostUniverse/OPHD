@@ -256,6 +256,8 @@ void MapViewState::updateResources()
 		{
 			const auto& route = routeIt->second;
 			const auto smelter = static_cast<Tile*>(route.path.back())->structure();
+			const auto mineFacility = static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
+
 			/* clamp route cost to minimum of 1.0f for next computation to avoid
 			   unintended multiplication. */
 			const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
@@ -265,8 +267,13 @@ void MapViewState::updateResources()
 			const int oreMovementPart = totalOreMovement / 4;
 			const int oreMovementRemainder = totalOreMovement % 4;
 
-			const int whatever = 0;
+			auto& resourcePool = mineFacility->storage();
+			truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, oreMovementPart));
+			truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, oreMovementPart));
+			truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, oreMovementPart));
+			truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, oreMovementPart + oreMovementRemainder));
 
+			smelter->storage().pushResources(truck);
 		}
 	}
 
