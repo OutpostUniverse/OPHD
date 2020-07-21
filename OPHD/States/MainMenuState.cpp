@@ -304,7 +304,7 @@ NAS2D::State* MainMenuState::update()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.clearScreen(0, 0, 0);
+	renderer.clearScreen();
 	renderer.drawImage(mBgImage, renderer.center() - mBgImage.size() / 2);
 
 
