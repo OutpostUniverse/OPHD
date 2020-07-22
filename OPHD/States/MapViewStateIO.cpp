@@ -147,17 +147,19 @@ void MapViewState::load(const std::string& filePath)
 	XmlElement* map = root->firstChildElement("properties");
 	int depth = 0;
 	std::string sitemap;
+	std::string tilesetPath;
 	XmlAttribute* attribute = map->firstAttribute();
 	while (attribute)
 	{
 		if (attribute->name() == "diggingdepth") { attribute->queryIntValue(depth); }
 		else if (attribute->name() == "sitemap") { sitemap = attribute->value(); }
+		else if (attribute->name() == "tset") { tilesetPath = attribute->value(); }
 		attribute = attribute->next();
 	}
 
 	mMapDisplay = Image(sitemap + MAP_DISPLAY_EXTENSION);
 	mHeightMap = Image(sitemap + MAP_TERRAIN_EXTENSION);
-	mTileMap = new TileMap(sitemap, map->attribute("tset"), depth, 0, Planet::Hostility::None, false);
+	mTileMap = new TileMap(sitemap, tilesetPath, depth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
 
 	delete pather;
