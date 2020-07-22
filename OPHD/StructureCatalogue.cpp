@@ -144,11 +144,11 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 
 		case StructureID::SID_SOLAR_PANEL1:
-			structure = new SolarPanelArray();
+			structure = new SolarPanelArray(mMeanSolarDistance);
 			break;
 
 		case StructureID::SID_SOLAR_PLANT:
-			structure = new SolarPlant();
+			structure = new SolarPlant(mMeanSolarDistance);
 			break;
 
 		case StructureID::SID_STORAGE_TANKS:

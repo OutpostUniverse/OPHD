@@ -9,7 +9,8 @@ const int SOLAR_PLANT_BASE_PRODUCUCTION = 2000;
 class SolarPlant : public PowerStructure
 {
 public:
-	SolarPlant() : PowerStructure(constants::SOLAR_PLANT, "structures/solar_plant.sprite", StructureClass::EnergyProduction)
+	SolarPlant(float meanSolarDistance) : PowerStructure(constants::SOLAR_PLANT, "structures/solar_plant.sprite", StructureClass::EnergyProduction),
+		mMeanSolarDistance(meanSolarDistance)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);
@@ -25,6 +26,9 @@ protected:
 
 	int calculateMaxEnergyProduction() override
 	{
-		return SOLAR_PLANT_BASE_PRODUCUCTION;
+		return static_cast<int>(SOLAR_PLANT_BASE_PRODUCUCTION / mMeanSolarDistance);
 	}
+
+private:
+	const float mMeanSolarDistance;
 };
