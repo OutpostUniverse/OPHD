@@ -50,7 +50,7 @@ public:
 
 	bool thingIsStructure() const { return mThingIsStructure; }
 
-	void pushThing(Thing* thing, bool overwrite = true);
+	void pushThing(Thing* thing);
 	void deleteThing();
 
 	void removeThing();
