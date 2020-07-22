@@ -95,6 +95,7 @@ MapViewState::MapViewState(const std::string& savegame) :
  */
 MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
+	mPlanetAttributes(planetAttributes),
 	mBackground("sys/bg1.png"),
 	mMapDisplay(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION),
 	mHeightMap(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION),
@@ -165,7 +166,7 @@ void MapViewState::initialize()
 	else 
 	{ 
 		// StructureCatalogue is initialized in load routine if saved game present to load existing structures
-		StructureCatalogue::init(); 
+		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance); 
 	}
 
 	//Utility<Mixer>::get().fadeInMusic(mBgMusic);

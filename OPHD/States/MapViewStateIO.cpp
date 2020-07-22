@@ -97,6 +97,7 @@ extern std::vector<void*> path;
  */
 void MapViewState::load(const std::string& filePath)
 {
+	mPlanetAttributes = Planet::Attributes();
 	resetUi();
 
 	auto& renderer = Utility<Renderer>::get();
@@ -145,22 +146,20 @@ void MapViewState::load(const std::string& filePath)
 	mTileMap = nullptr;
 
 	XmlElement* map = root->firstChildElement("properties");
-	int depth = 0;
-	std::string sitemap;
-	std::string tilesetPath;
 	XmlAttribute* attribute = map->firstAttribute();
 	while (attribute)
 	{
-		if (attribute->name() == "diggingdepth") { attribute->queryIntValue(depth); }
-		else if (attribute->name() == "sitemap") { sitemap = attribute->value(); }
-		else if (attribute->name() == "tset") { tilesetPath = attribute->value(); }
+		if (attribute->name() == "diggingdepth") { attribute->queryIntValue(mPlanetAttributes.maxDepth); }
+		else if (attribute->name() == "sitemap") { mPlanetAttributes.mapImagePath = attribute->value(); }
+		else if (attribute->name() == "tset") { mPlanetAttributes.tilesetPath = attribute->value(); }
+		else if (attribute->name() == "meansolardistance") { mPlanetAttributes.meanSolarDistance = std::stof(attribute->value()); }
 		attribute = attribute->next();
 	}
 
-	StructureCatalogue::init();
-	mMapDisplay = Image(sitemap + MAP_DISPLAY_EXTENSION);
-	mHeightMap = Image(sitemap + MAP_TERRAIN_EXTENSION);
-	mTileMap = new TileMap(sitemap, tilesetPath, depth, 0, Planet::Hostility::None, false);
+	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
+	mMapDisplay = Image(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
+	mHeightMap = Image(mPlanetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION);
+	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.tilesetPath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
 
 	delete pather;
