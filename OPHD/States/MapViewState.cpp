@@ -158,7 +158,15 @@ void MapViewState::initialize()
 
 	mPopulationPool.population(&mPopulation);
 
-	if (mLoadingExisting) { load(mExistingToLoad); }
+	if (mLoadingExisting) 
+	{ 
+		load(mExistingToLoad); 
+	}
+	else 
+	{ 
+		// StructureCatalogue is initialized in load routine if saved game present to load existing structures
+		StructureCatalogue::init(); 
+	}
 
 	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);

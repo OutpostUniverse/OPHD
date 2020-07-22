@@ -157,6 +157,7 @@ void MapViewState::load(const std::string& filePath)
 		attribute = attribute->next();
 	}
 
+	StructureCatalogue::init();
 	mMapDisplay = Image(sitemap + MAP_DISPLAY_EXTENSION);
 	mHeightMap = Image(sitemap + MAP_TERRAIN_EXTENSION);
 	mTileMap = new TileMap(sitemap, tilesetPath, depth, 0, Planet::Hostility::None, false);
