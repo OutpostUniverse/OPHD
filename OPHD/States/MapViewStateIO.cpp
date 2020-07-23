@@ -58,7 +58,7 @@ void MapViewState::save(const std::string& filePath)
 	root->attribute("version", constants::SAVE_GAME_VERSION);
 	doc.linkEndChild(root);
 
-	mTileMap->serialize(root);
+	mTileMap->serialize(root, mPlanetAttributes);
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
 	writeResources(root, mPlayerResources, "resources");

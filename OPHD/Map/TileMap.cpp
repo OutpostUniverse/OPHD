@@ -427,7 +427,7 @@ static void serializeTile(XmlElement* _ti, int x, int y, int depth, int index)
 }
 
 
-void TileMap::serialize(NAS2D::Xml::XmlElement* element)
+void TileMap::serialize(NAS2D::Xml::XmlElement* element, const Planet::Attributes& planetAttributes)
 {
 	// ==========================================
 	// MAP PROPERTIES
@@ -435,10 +435,10 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	XmlElement *properties = new XmlElement("properties");
 	element->linkEndChild(properties);
 
-	properties->attribute("sitemap", mMapPath);
-	properties->attribute("tset", mTsetPath);
-	properties->attribute("diggingdepth", mMaxDepth);
-
+	properties->attribute("sitemap", planetAttributes.mapImagePath);
+	properties->attribute("tset", planetAttributes.tilesetPath);
+	properties->attribute("diggingdepth", planetAttributes.maxDepth);
+	properties->attribute("meansolardistance", planetAttributes.meanSolarDistance);
 	// ==========================================
 	// VIEW PARAMETERS
 	// ==========================================
