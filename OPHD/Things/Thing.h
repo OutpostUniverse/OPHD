@@ -22,9 +22,6 @@ public:
 		mSprite(spritePath)
 	{}
 
-	Thing(): mName("Unknown")
-	{}
-
 	virtual ~Thing()
 	{
 		#ifdef _DEBUG
