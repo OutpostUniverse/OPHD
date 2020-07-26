@@ -517,7 +517,7 @@ void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot
 	_ti->attribute("production", _r->turnsToCompleteTask());
 
 	const auto it = _rm.find(_r);
-	if (it->first == _r)
+	if (it != _rm.end())
 	{
 		const auto& tile = *it->second;
 		const auto position = tile.position();
@@ -525,7 +525,6 @@ void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot
 		_ti->attribute("y", position.y);
 		_ti->attribute("depth", tile.depth());
 	}
-
 }
 
 
