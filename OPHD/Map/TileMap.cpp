@@ -438,7 +438,8 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element, const Planet::Attribute
 	properties->attribute("sitemap", planetAttributes.mapImagePath);
 	properties->attribute("tset", planetAttributes.tilesetPath);
 	properties->attribute("diggingdepth", planetAttributes.maxDepth);
-	properties->attribute("meansolardistance", planetAttributes.meanSolarDistance);
+	// NAS2D only supports double for floating point conversions as of 26July2020
+	properties->attribute("meansolardistance", static_cast<double>(planetAttributes.meanSolarDistance));
 	// ==========================================
 	// VIEW PARAMETERS
 	// ==========================================
