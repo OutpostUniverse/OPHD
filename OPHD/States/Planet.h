@@ -36,11 +36,16 @@ public:
 	{
 		PlanetType type = PlanetType::None;
 		std::string imagePath;
-		Hostility hostility;
+		Hostility hostility = Hostility::None;
 		int maxDepth = 0;
 		int maxMines = 0;
 		std::string mapImagePath;
 		std::string tilesetPath;
+
+		/**
+		 * Mean distance from star in astronomical units (AU)
+		 */
+		float meanSolarDistance = 0;
 	};
 
 public:

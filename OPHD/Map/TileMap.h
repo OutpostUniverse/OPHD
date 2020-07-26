@@ -70,7 +70,7 @@ public:
 	
 	void draw();
 
-	void serialize(NAS2D::Xml::XmlElement* element);
+	void serialize(NAS2D::Xml::XmlElement* element, const Planet::Attributes& planetAttributes);
 	void deserialize(NAS2D::Xml::XmlElement* element);
 
 public:

@@ -8,6 +8,7 @@
 std::array<ResourcePool, StructureID::SID_COUNT> StructureCatalogue::mStructureCostTable;
 std::array<ResourcePool, StructureID::SID_COUNT> StructureCatalogue::mStructureRecycleValueTable;
 std::array<PopulationRequirements, StructureID::SID_COUNT> StructureCatalogue::mPopulationRequirementsTable = {};
+float StructureCatalogue::mMeanSolarDistance = 0;
 
 /**	Default recycle value. Currently set at 90% but this should probably be
  *	lowered for actual gameplay with modifiers to improve efficiency. */
@@ -143,11 +144,11 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 
 		case StructureID::SID_SOLAR_PANEL1:
-			structure = new SolarPanelArray();
+			structure = new SolarPanelArray(mMeanSolarDistance);
 			break;
 
 		case StructureID::SID_SOLAR_PLANT:
-			structure = new SolarPlant();
+			structure = new SolarPlant(mMeanSolarDistance);
 			break;
 
 		case StructureID::SID_STORAGE_TANKS:
@@ -220,8 +221,9 @@ const ResourcePool& StructureCatalogue::recyclingValue(StructureID type)
 /**
  * Initializes StructureCatalogue and builds the requirements tables.
  */
-void StructureCatalogue::init()
+void StructureCatalogue::init(float meanSolarDistance)
 {
+	mMeanSolarDistance = meanSolarDistance;
 	buildCostTable();
 	buildRecycleValueTable();
 	buildPopulationRequirementsTable();

@@ -4,12 +4,13 @@
 
 #include "../../Constants.h"
 
-const int SOLAR_PANEL_BASE_PRODUCUCTION = 25;
+const int SOLAR_PANEL_BASE_PRODUCUCTION = 50;
 
 class SolarPanelArray : public PowerStructure
 {
 public:
-	SolarPanelArray() : PowerStructure(constants::SOLAR_PANEL1, "structures/solar_array1.sprite", StructureClass::EnergyProduction)
+	SolarPanelArray(float meanSolarDistance) : PowerStructure(constants::SOLAR_PANEL1, "structures/solar_array1.sprite", StructureClass::EnergyProduction), 
+		mMeanSolarDistance(meanSolarDistance)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);
@@ -23,9 +24,14 @@ protected:
 		resourcesOut().energy(calculateEnergyProduced());
 	}
 
-private:
 	int calculateMaxEnergyProduction() override
 	{
-		return SOLAR_PANEL_BASE_PRODUCUCTION;
+		// Prevent possible dividing by zero
+		float solarDistance = mMeanSolarDistance != 0 ? mMeanSolarDistance : 1;
+
+		return static_cast<int>(SOLAR_PANEL_BASE_PRODUCUCTION / solarDistance);
 	}
+
+private:
+	const float mMeanSolarDistance;
 };

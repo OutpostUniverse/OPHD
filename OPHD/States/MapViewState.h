@@ -198,6 +198,8 @@ private:
 private:
 	TileMap* mTileMap = nullptr;
 
+	Planet::Attributes mPlanetAttributes;
+
 	NAS2D::Image mBackground; /**< Background image drawn behind the tile map. */
 	NAS2D::Image mMapDisplay; /**< Satellite view of the Site Map. */
 	NAS2D::Image mHeightMap; /**< Height view of the Site Map. */

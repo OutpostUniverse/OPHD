@@ -3,7 +3,6 @@
 
 #include "Common.h"
 #include "Constants.h"
-#include "StructureCatalogue.h"
 #include "StructureTranslator.h"
 #include "WindowEventWrapper.h"
 
@@ -63,7 +62,6 @@ int main(int /*argc*/, char *argv[])
 
 	std::cout << "OutpostHD " << constants::VERSION << std::endl << std::endl;
 
-	StructureCatalogue::init(); // only needs to be done once at the start of the program.
 	StructureTranslator::init(); // only needs to be done once at the start of the program.
 
 	try
