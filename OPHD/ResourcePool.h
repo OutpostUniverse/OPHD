@@ -114,7 +114,7 @@ private:
 private:
 	int _capacity = 0; /**< Maximum available capacity of the ResourcePool. */
 
-	ResourceTable _resourceTable;
+	ResourceTable _resourceTable{ 0 };
 
 	Callback _observerCallback;
 };
