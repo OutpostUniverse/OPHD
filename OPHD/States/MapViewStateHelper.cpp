@@ -516,12 +516,8 @@ void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot
 	_ti->attribute("age", _r->fuelCellAge());
 	_ti->attribute("production", _r->turnsToCompleteTask());
 
-	if (_rm.empty()) {
-		return;
-	}
-
 	const auto it = _rm.find(_r);
-	if (it->first == _r)
+	if (it != _rm.end())
 	{
 		const auto& tile = *it->second;
 		const auto position = tile.position();
