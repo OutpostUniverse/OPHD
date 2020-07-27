@@ -88,14 +88,14 @@ std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 
 std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
 {
-	{ DisabledReason::DISABLED_NONE, constants::STRUCTURE_DISABLED_NONE },
+	{ DisabledReason::None, constants::STRUCTURE_DISABLED_NONE },
 
-	{ DisabledReason::DISABLED_CHAP, constants::STRUCTURE_DISABLED_CHAP },
-	{ DisabledReason::DISABLED_DISCONNECTED, constants::STRUCTURE_DISABLED_DISCONNECTED },
-	{ DisabledReason::DISABLED_ENERGY, constants::STRUCTURE_DISABLED_ENERGY },
-	{ DisabledReason::DISABLED_POPULATION, constants::STRUCTURE_DISABLED_POPULATION },
-	{ DisabledReason::DISABLED_REFINED_RESOURCES, constants::STRUCTURE_DISABLED_REFINED_RESOURCES },
-	{ DisabledReason::DISABLED_STRUCTURAL_INTEGRITY, constants::STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY }
+	{ DisabledReason::Chap, constants::STRUCTURE_DISABLED_CHAP },
+	{ DisabledReason::Disconnected, constants::STRUCTURE_DISABLED_DISCONNECTED },
+	{ DisabledReason::Energy, constants::STRUCTURE_DISABLED_ENERGY },
+	{ DisabledReason::Population, constants::STRUCTURE_DISABLED_POPULATION },
+	{ DisabledReason::RefinedResources, constants::STRUCTURE_DISABLED_REFINED_RESOURCES },
+	{ DisabledReason::StructuralIntegrity, constants::STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY }
 };
 
 

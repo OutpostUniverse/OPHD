@@ -64,16 +64,16 @@ enum class MineProductionRate
 /**
  * 
  */
-enum DisabledReason
+enum class DisabledReason
 {
-	DISABLED_NONE, /**< Not Disabled, default reason. */
+	None, /**< Not Disabled, default reason. */
 
-	DISABLED_CHAP, /**< Requires atmosphere, no atmosphere available. */
-	DISABLED_DISCONNECTED, /**< Not connected to Command Center */
-	DISABLED_ENERGY, /**< Not enough Energy to operate. */
-	DISABLED_POPULATION, /**< Insufficient workers or scientists (or both) */
-	DISABLED_REFINED_RESOURCES, /**< Insufficient mined and refined resources */
-	DISABLED_STRUCTURAL_INTEGRITY /**< Structural integrity out of operating tolerances (damaged structure) */
+	Chap, /**< Requires atmosphere, no atmosphere available. */
+	Disconnected, /**< Not connected to Command Center */
+	Energy, /**< Not enough Energy to operate. */
+	Population, /**< Insufficient workers or scientists (or both) */
+	RefinedResources, /**< Insufficient mined and refined resources */
+	StructuralIntegrity /**< Structural integrity out of operating tolerances (damaged structure) */
 };
 
 
