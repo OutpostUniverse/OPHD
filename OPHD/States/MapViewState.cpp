@@ -416,10 +416,10 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		case EventHandler::KeyCode::KEY_F10:
 			if (Utility<EventHandler>::get().control(mod) && Utility<EventHandler>::get().shift(mod))
 			{
-				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS, 1000, true);
-				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, 1000, true);
-				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS, 1000, true);
-				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, 1000, true);
+				mPlayerResources.pushResource(ResourcePool::ResourceType::CommonMetals, 1000, true);
+				mPlayerResources.pushResource(ResourcePool::ResourceType::CommonMinerals, 1000, true);
+				mPlayerResources.pushResource(ResourcePool::ResourceType::RareMetals, 1000, true);
+				mPlayerResources.pushResource(ResourcePool::ResourceType::RareMinerals, 1000, true);
 			}
 			break;
 

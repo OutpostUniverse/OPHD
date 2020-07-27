@@ -63,22 +63,22 @@ protected:
 
 		if (oreStorage().commonMetalsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, ResourcePool::ResourceType::RESOURCE_COMMON_METALS, resource_units / 2);
+			convertOre(ResourcePool::ResourceType::CommonMetalsOre, ResourcePool::ResourceType::CommonMetals, resource_units / 2);
 		}
 
 		if (oreStorage().commonMineralsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, resource_units / 2);
+			convertOre(ResourcePool::ResourceType::CommonMineralsOre, ResourcePool::ResourceType::CommonMinerals, resource_units / 2);
 		}
 
 		if (oreStorage().rareMetalsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, ResourcePool::ResourceType::RESOURCE_RARE_METALS, resource_units / 3);
+			convertOre(ResourcePool::ResourceType::RareMetalsOre, ResourcePool::ResourceType::RareMetals, resource_units / 3);
 		}
 
 		if (oreStorage().rareMineralsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, resource_units / 3);
+			convertOre(ResourcePool::ResourceType::RareMineralsOre, ResourcePool::ResourceType::RareMinerals, resource_units / 3);
 		}
 	}
 

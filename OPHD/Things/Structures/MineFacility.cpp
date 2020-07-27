@@ -96,22 +96,22 @@ void MineFacility::think()
 
 		if (mMine->miningCommonMetals())
 		{
-			production().pushResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, mMine->pull(Mine::OreType::ORE_COMMON_METALS, push_count(this)), false);
+			production().pushResource(ResourcePool::ResourceType::CommonMetalsOre, mMine->pull(Mine::OreType::ORE_COMMON_METALS, push_count(this)), false);
 		}
 		
 		if (mMine->miningCommonMinerals())
 		{
-			production().pushResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, mMine->pull(Mine::OreType::ORE_COMMON_MINERALS, push_count(this)), false);
+			production().pushResource(ResourcePool::ResourceType::CommonMineralsOre, mMine->pull(Mine::OreType::ORE_COMMON_MINERALS, push_count(this)), false);
 		}
 		
 		if (mMine->miningRareMetals())
 		{
-			production().pushResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, mMine->pull(Mine::OreType::ORE_RARE_METALS, push_count(this)), false);
+			production().pushResource(ResourcePool::ResourceType::RareMetalsOre, mMine->pull(Mine::OreType::ORE_RARE_METALS, push_count(this)), false);
 		}
 		
 		if (mMine->miningRareMinerals())
 		{
-			production().pushResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, mMine->pull(Mine::OreType::ORE_RARE_MINERALS, push_count(this)), false);
+			production().pushResource(ResourcePool::ResourceType::RareMineralsOre, mMine->pull(Mine::OreType::ORE_RARE_MINERALS, push_count(this)), false);
 		}
 
 		storage().pushResources(production());

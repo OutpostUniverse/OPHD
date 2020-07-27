@@ -268,10 +268,10 @@ void MapViewState::updateResources()
 			const int oreMovementRemainder = totalOreMovement % 4;
 
 			auto& resourcePool = mineFacility->storage();
-			truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, oreMovementPart));
-			truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, oreMovementPart));
-			truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, oreMovementPart));
-			truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, oreMovementPart + oreMovementRemainder));
+			truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::CommonMetalsOre, oreMovementPart));
+			truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::CommonMineralsOre, oreMovementPart));
+			truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RareMetalsOre, oreMovementPart));
+			truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RareMineralsOre, oreMovementPart + oreMovementRemainder));
 
 			smelter->storage().pushResources(truck);
 		}
@@ -283,10 +283,10 @@ void MapViewState::updateResources()
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
 		ResourcePool& resourcePool = smelter->storage();
-		truck.commonMetals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS, 25));
-		truck.commonMinerals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, 25));
-		truck.rareMetals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS, 25));
-		truck.rareMinerals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, 25));
+		truck.commonMetals(resourcePool.pullResource(ResourcePool::ResourceType::CommonMetals, 25));
+		truck.commonMinerals(resourcePool.pullResource(ResourcePool::ResourceType::CommonMinerals, 25));
+		truck.rareMetals(resourcePool.pullResource(ResourcePool::ResourceType::RareMetals, 25));
+		truck.rareMinerals(resourcePool.pullResource(ResourcePool::ResourceType::RareMinerals, 25));
 
 		mPlayerResources.pushResources(truck);
 

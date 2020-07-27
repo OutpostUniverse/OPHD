@@ -10,6 +10,8 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/StringUtils.h>
 
+#include <array>
+
 using namespace NAS2D;
 
 static Font* FONT = nullptr;
