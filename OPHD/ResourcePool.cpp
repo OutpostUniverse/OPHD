@@ -5,6 +5,7 @@
 
 #include "Constants.h"
 
+#include <algorithm>
 #include <iostream>
 
 using namespace NAS2D::Xml;
@@ -323,11 +324,7 @@ void ResourcePool::pullResources(ResourcePool& resourcePool)
  */
 void ResourcePool::capacity(int newCapacity)
 {
-	mCapacity = newCapacity;
-
-	// Prevent negative values.
-	if (newCapacity < 0)
-		mCapacity = 0;
+	mCapacity = std::clamp(newCapacity, 0, INT32_MAX);
 }
 
 
