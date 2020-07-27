@@ -50,7 +50,11 @@ ResourcePool& ResourcePool::operator=(const ResourcePool& rhs)
  */
 void ResourcePool::clear()
 {
-	mResourceTable.clear();
+	for (auto it : mResourceTable)
+	{
+		it.second = 0;
+	}
+
 }
 
 
