@@ -10,7 +10,7 @@
 
 #include "../Things/Structures/Structures.h"
 
-#include "../MinedResources.h"
+#include "../StoredResources.h"
 
 #include <vector>
 #include <algorithm>
@@ -390,8 +390,8 @@ void MapViewState::nextTurn()
 	mStructureInspector.check();
 
 
-	MinedResources oldResources({ 200, 200, 200, 200 });
-	MinedResources inputResources({ 25, 100, 75, 5 });
+	StoredResources oldResources({ 200, 200, 200, 200 });
+	StoredResources inputResources({ 25, 100, 75, 5 });
 
 
 	auto newResources = oldResources + inputResources;

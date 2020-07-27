@@ -2,13 +2,13 @@
 
 #include <array>
 
-struct MinedResources
+struct StoredResources
 {
-	MinedResources() = default;
+	StoredResources() = default;
 
-	MinedResources operator+(const MinedResources& other) const
+	StoredResources operator+(const StoredResources& other) const
 	{
-		MinedResources out;
+		StoredResources out;
 
 		for (size_t i = 0; i < resources.size(); ++i)
 		{
@@ -18,9 +18,9 @@ struct MinedResources
 		return out;
 	}
 
-	MinedResources operator-(const MinedResources& other) const
+	StoredResources operator-(const StoredResources& other) const
 	{
-		MinedResources out;
+		StoredResources out;
 
 		for (size_t i = 0; i < resources.size(); ++i)
 		{
@@ -30,7 +30,7 @@ struct MinedResources
 		return out;
 	}
 
-	bool operator<=(const MinedResources& other) const
+	bool operator<=(const StoredResources& other) const
 	{
 		for (std::size_t i = 0; i < resources.size(); ++i)
 		{
@@ -42,9 +42,9 @@ struct MinedResources
 		return true;
 	}
 
-	MinedResources cap(uint32_t max) const
+	StoredResources cap(uint32_t max) const
 	{
-		MinedResources out;
+		StoredResources out;
 		for (std::size_t i = 0; i < resources.size(); ++i)
 		{
 			out.resources[i] = std::clamp(resources[i], 0u, max);

@@ -635,7 +635,7 @@
     <ClInclude Include="States\Route.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="MinedResources.h">
+    <ClInclude Include="StoredResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
