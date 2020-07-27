@@ -162,6 +162,54 @@ void MapViewState::updateMorale()
 }
 
 
+
+static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const StructureList& smelters)
+{
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+
+	Tile* start = structureManager.tileFromStructure(mine);
+
+	RouteList routeList;
+
+	for (auto smelter : smelters)
+	{
+		Tile* end = structureManager.tileFromStructure(smelter);
+		tilemap->pathStartAndEnd(start, end);
+		Route route;
+		solver->Solve(start, end, &route.path, &route.cost);
+
+		if (!route.empty()) { routeList.push_back(route); }
+	}
+
+	return routeList;
+}
+
+
+static Route findLowestCostRoute(RouteList& routeList)
+{
+	if (routeList.empty()) { return Route(); }
+
+	std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; } );
+	return routeList.front();
+}
+
+
+static bool routeObstructed(Route& route)
+{
+	for (auto tile : route.path)
+	{
+		Tile* t = static_cast<Tile*>(tile);
+
+		// \note	Tile being occupied by a robot is not an obstruction for the
+		//			purposes of routing/pathing.
+		if (t->thingIsStructure() && !t->structure()->isRoad()) { return true; }
+		if (t->index() == TERRAIN_IMPASSABLE) { return true; }
+	}
+
+	return false;
+}
+
+
 /**
  * 
  */
@@ -170,39 +218,67 @@ void MapViewState::updateResources()
 	// Update storage capacity
 	mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage)));
 
-	ResourcePool truck;
-	truck.capacity(100);
+	ResourcePool truck(100);
 
-	// Move ore from mines to smelters
+	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
+
+	mPathSolver->Reset();
+
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
 	{
-		static_cast<MineFacility*>(mine)->mine()->checkExhausted();
+		MineFacility* facility = static_cast<MineFacility*>(mine);
+		facility->mine()->checkExhausted();
 
-		if (!mine->operational()) { continue; } // consider a different control path.
+		if (!mine->operational() && !mine->isIdle()) { continue; } // consider a different control path.
 
-		ResourcePool& resourcePool = mine->storage();
+		auto routeIt = mRouteTable.find(facility);
+		bool findNewRoute = routeIt == mRouteTable.end();
 
-		truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, 25));
-		truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, 25));
-		truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, 25));
-		truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, 25));
-
-		for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter))
+		if (!findNewRoute && routeObstructed(routeIt->second))
 		{
-			if (smelter->operational())
-			{
-				smelter->production().pushResources(truck);
-			}
+			mRouteTable.erase(facility);
+			findNewRoute = true;
 		}
 
-		if (!truck.empty())
+		if (findNewRoute)
 		{
-			mine->storage().pushResources(truck);
+			auto routeList = findRoutes(mPathSolver, mTileMap, mine, smelterList);
+			auto newRoute = findLowestCostRoute(routeList);
+
+			if (newRoute.empty()) { continue; } // give up and move on to the next mine
+
+			mRouteTable[facility] = newRoute;
+		}
+
+		/* Route table may have changed, ensure we have a valid iterator. */
+		routeIt = mRouteTable.find(facility);
+		if (routeIt != mRouteTable.end())
+		{
+			const auto& route = routeIt->second;
+			const auto smelter = static_cast<Tile*>(route.path.back())->structure();
+			const auto mineFacility = static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
+
+			/* clamp route cost to minimum of 1.0f for next computation to avoid
+			   unintended multiplication. */
+			const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
+
+			/* intentional truncation of fractional component*/
+			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost);
+			const int oreMovementPart = totalOreMovement / 4;
+			const int oreMovementRemainder = totalOreMovement % 4;
+
+			auto& resourcePool = mineFacility->storage();
+			truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, oreMovementPart));
+			truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, oreMovementPart));
+			truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, oreMovementPart));
+			truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, oreMovementPart + oreMovementRemainder));
+
+			smelter->storage().pushResources(truck);
 		}
 	}
 
 	// Move refined resources from smelters to storage tanks
-	for (auto smelter : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter))
+	for (auto smelter : smelterList)
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
@@ -271,12 +347,6 @@ void MapViewState::updateResidentialCapacity()
 
 	mPopulationPanel.residential_capacity(mResidentialCapacity);
 }
-
-
-using namespace micropather;
-
-MicroPather* pather = nullptr;
-std::vector<void*> path;
 
 
 /**

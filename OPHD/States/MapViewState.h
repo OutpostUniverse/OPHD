@@ -5,6 +5,8 @@
 #include "Wrapper.h"
 
 #include "Planet.h"
+#include "Route.h"
+
 #include "../Common.h"
 #include "../Constants.h"
 
@@ -252,6 +254,10 @@ private:
 	QuitCallback mQuitCallback;
 	ReportsUiCallback mReportsUiCallback;
 	MapChangedCallback mMapChangedCallback;
+
+	// ROUTING
+	micropather::MicroPather* mPathSolver = nullptr;
+	std::map<class MineFacility*, Route> mRouteTable;
 
 	// MISCELLANEOUS
 	int mTurnCount = 0;

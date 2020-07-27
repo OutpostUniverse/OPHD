@@ -26,7 +26,6 @@ extern NAS2D::Rectangle<int> MOVE_DOWN_ICON;
 extern NAS2D::Point<int> MOUSE_COORDS;
 
 extern NAS2D::Font* MAIN_FONT; /// yuck
-extern std::vector<void*> path;
 
 
 namespace {
@@ -104,10 +103,15 @@ void MapViewState::drawMiniMap()
 		renderer.drawSubImage(mUiIcons, minePosition + miniMapOffset - NAS2D::Vector{2, 2}, mineImageRect);
 	}
 
-	for (auto tile : path)
+	// Temporary debug aid, will be slow with high numbers of mines
+	// especially with routes of longer lengths.
+	for (auto route : mRouteTable)
 	{
-		const auto tilePosition = static_cast<Tile*>(tile)->position();
-		renderer.drawPoint(tilePosition + miniMapOffset, NAS2D::Color::Magenta);
+		for (auto tile : route.second.path)
+		{
+			const auto tilePosition = static_cast<Tile*>(tile)->position();
+			renderer.drawPoint(tilePosition + miniMapOffset, NAS2D::Color::Magenta);
+		}
 	}
 
 	for (auto robotEntry : mRobotList)

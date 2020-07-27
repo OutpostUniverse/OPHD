@@ -47,6 +47,7 @@ public:
 		MedicalCenter,
 		Nursery,
 		Park,
+		Road,
 		SurfacePolice,
 		UndergroundPolice,
 		RecreationCenter,
@@ -120,6 +121,7 @@ public:
 	bool isMineFacility() const { return structureClass() == StructureClass::Mine; }
 	bool energyProducer() const { return structureClass() == StructureClass::EnergyProduction; }
 	bool isConnector() const { return structureClass() == StructureClass::Tube; } /** Indicates that the structure can act as a connector (tube) */
+	bool isRoad() const { return structureClass() == StructureClass::Road; }
 
 	/**
 	 * Set the current age of the Structure.
