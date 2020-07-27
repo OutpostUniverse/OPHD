@@ -11,8 +11,8 @@ class ResourceBreakdownPanel : public Control
 public:
 	ResourceBreakdownPanel();
 
-	void playerResources(StorableResources* resourcePool) { mPlayerResources = resourcePool; }
-	StorableResources& previousResources() { return mPreviousResources; }
+	void playerResources(StorableResources* resources) { mPlayerResources = resources; }
+	void previousResources(StorableResources& resources) { mPreviousResources = resources; }
 
 	void resourceCheck();
 

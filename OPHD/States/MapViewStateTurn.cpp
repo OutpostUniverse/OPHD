@@ -364,7 +364,7 @@ void MapViewState::nextTurn()
 
 	mPopulationPool.clear();
 
-	//mResourceBreakdownPanel.previousResources() = mPlayerResources;
+	mResourceBreakdownPanel.previousResources(mPlayerResources);
 
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
