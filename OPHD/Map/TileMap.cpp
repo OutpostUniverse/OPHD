@@ -213,9 +213,9 @@ void TileMap::setupMines(int mineCount, Planet::Hostility hostility)
 		}
 	};
 
-	generateMines(yieldLow, MineProductionRate::PRODUCTION_RATE_LOW);
-	generateMines(yieldMedium, MineProductionRate::PRODUCTION_RATE_MEDIUM);
-	generateMines(yieldHigh, MineProductionRate::PRODUCTION_RATE_HIGH);
+	generateMines(yieldLow, MineProductionRate::Low);
+	generateMines(yieldMedium, MineProductionRate::Medium);
+	generateMines(yieldHigh, MineProductionRate::High);
 }
 
 

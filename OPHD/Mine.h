@@ -66,7 +66,7 @@ private:
 
 private:
 	MineVeins mVeins; /**< Ore veins */
-	MineProductionRate mProductionRate = MineProductionRate::PRODUCTION_RATE_LOW; /**< Mine's production rate. */
+	MineProductionRate mProductionRate = MineProductionRate::Low; /**< Mine's production rate. */
 	
 	/**
 	 * Flags indicating several states for the mine:

@@ -153,21 +153,21 @@ void Mine::increaseDepth()
 
 	switch (productionRate())
 	{
-	case MineProductionRate::PRODUCTION_RATE_LOW:
+	case MineProductionRate::Low:
 		vein[OreType::ORE_COMMON_METALS] = 600;
 		vein[OreType::ORE_COMMON_MINERALS] = 500;
 		vein[OreType::ORE_RARE_METALS] = 600;
 		vein[OreType::ORE_RARE_MINERALS] = 500;
 		break;
 
-	case MineProductionRate::PRODUCTION_RATE_MEDIUM:
+	case MineProductionRate::Medium:
 		vein[OreType::ORE_COMMON_METALS] = 700;
 		vein[OreType::ORE_COMMON_MINERALS] = 550;
 		vein[OreType::ORE_RARE_METALS] = 700;
 		vein[OreType::ORE_RARE_MINERALS] = 550;
 		break;
 
-	case MineProductionRate::PRODUCTION_RATE_HIGH:
+	case MineProductionRate::High:
 		vein[OreType::ORE_COMMON_METALS] = 850;
 		vein[OreType::ORE_COMMON_MINERALS] = 600;
 		vein[OreType::ORE_RARE_METALS] = 850;
@@ -302,7 +302,7 @@ void Mine::serialize(NAS2D::Xml::XmlElement* element)
 {
 	element->attribute("depth", depth());
 	element->attribute("active", active());
-	element->attribute("yield", productionRate());
+	element->attribute("yield", static_cast<int>(productionRate()));
 	element->attribute("flags", mFlags.to_string());
 
 	for (std::size_t i = 0; i < mVeins.size(); ++i)

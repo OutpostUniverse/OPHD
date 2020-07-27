@@ -80,9 +80,9 @@ std::map<int, std::string> TILE_INDEX_TRANSLATION =
 
 std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 {
-	{ MineProductionRate::PRODUCTION_RATE_HIGH , constants::MINE_YIELD_HIGH },
-	{ MineProductionRate::PRODUCTION_RATE_LOW , constants::MINE_YIELD_LOW },
-	{ MineProductionRate::PRODUCTION_RATE_MEDIUM , constants::MINE_YIELD_MEDIUM }
+	{ MineProductionRate::High , constants::MINE_YIELD_HIGH },
+	{ MineProductionRate::Low , constants::MINE_YIELD_LOW },
+	{ MineProductionRate::Medium , constants::MINE_YIELD_MEDIUM }
 };
 
 

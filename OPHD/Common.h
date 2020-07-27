@@ -53,11 +53,11 @@ enum TerrainType
 /**
  * 
  */
-enum MineProductionRate
+enum class MineProductionRate
 {
-	PRODUCTION_RATE_LOW,
-	PRODUCTION_RATE_MEDIUM,
-	PRODUCTION_RATE_HIGH,
+	Low,
+	Medium,
+	High,
 };
 
 
