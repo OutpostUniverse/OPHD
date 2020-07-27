@@ -32,9 +32,7 @@ ResourcePool::ResourcePool(size_t capacity) : _capacity(static_cast<int>(capacit
 
 
 ResourcePool::ResourcePool(): _capacity(0)
-{
-	_resourceTable.fill(0);
-}
+{}
 
 
 ResourcePool::ResourcePool(const ResourcePool& rhs) : _capacity(rhs._capacity), _resourceTable(rhs._resourceTable)
@@ -59,7 +57,7 @@ ResourcePool& ResourcePool::operator=(const ResourcePool& rhs)
  */
 void ResourcePool::clear()
 {
-	_resourceTable.fill(0);
+	_resourceTable.clear();
 }
 
 
@@ -114,7 +112,8 @@ ResourcePool& ResourcePool::operator-=(const ResourcePool& rhs)
 
 int ResourcePool::resource(ResourceType type) const
 {
-	return _resourceTable[type];
+	const auto it = _resourceTable.find(type);
+	return it == _resourceTable.end() ? 0 : it->second;
 }
 
 
@@ -158,11 +157,14 @@ void ResourcePool::food(int amount) { resource(ResourceType::RESOURCE_FOOD, amou
 int ResourcePool::currentLevel() const
 {
 	int cc = 0;
-	for (std::size_t i = 0; i < ResourceType::RESOURCE_COUNT; ++i)
+	for (std::size_t i = 0; i < _resourceTable.size(); ++i)
 	{
 		ResourceType _rt = static_cast<ResourceType>(i);
 		if (_rt != ResourceType::RESOURCE_ENERGY && _rt != ResourceType::RESOURCE_FOOD)
-			cc += _resourceTable[_rt];
+		{
+			const auto it = _resourceTable.find(_rt);
+			if (it != _resourceTable.end()) { cc += it->second; }
+		}
 	}
 
 	return cc;

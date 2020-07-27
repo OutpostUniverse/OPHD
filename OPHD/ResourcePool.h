@@ -3,7 +3,7 @@
 #include <NAS2D/Signal.h>
 #include <NAS2D/Xml/XmlElement.h>
 
-#include <array>
+#include <map>
 
 
 /**
@@ -14,7 +14,7 @@ class ResourcePool
 public:
 	using Callback = NAS2D::Signals::Signal<>;
 
-	enum ResourceType
+	enum class ResourceType
 	{
 		RESOURCE_COMMON_METALS_ORE,
 		RESOURCE_COMMON_MINERALS_ORE,
@@ -109,12 +109,12 @@ public:
 	Callback& resourceObserver() { return _observerCallback; }
 
 private:
-	using ResourceTable = std::array<int, ResourceType::RESOURCE_COUNT>;
+	using ResourceTable = std::map<ResourceType, int>;
 
 private:
 	int _capacity = 0; /**< Maximum available capacity of the ResourcePool. */
 
-	ResourceTable _resourceTable{ 0 };
+	ResourceTable _resourceTable;
 
 	Callback _observerCallback;
 };
