@@ -31,15 +31,7 @@ ResourcePool::ResourcePool(size_t capacity) : _capacity(static_cast<int>(capacit
 {}
 
 
-ResourcePool::ResourcePool(): _capacity(0)
-{}
-
-
 ResourcePool::ResourcePool(const ResourcePool& rhs) : _capacity(rhs._capacity), _resourceTable(rhs._resourceTable)
-{}
-
-
-ResourcePool::~ResourcePool()
 {}
 
 

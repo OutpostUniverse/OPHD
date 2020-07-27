@@ -32,12 +32,12 @@ public:
 
 
 public:
+	ResourcePool() = default;
 	ResourcePool(int common_metals_ore, int common_minerals_ore, int rare_metals_ore, int rare_minerals_ore, int common_metals, int common_minerals, int rare_metals, int rare_minerals, int food, int energy);
 	ResourcePool(size_t capacity);
-	ResourcePool();
 	ResourcePool(const ResourcePool& rhs);
 
-	~ResourcePool();
+	~ResourcePool() = default;
 
 	ResourcePool& operator=(const ResourcePool& rhs);
 	ResourcePool& operator+=(const ResourcePool& rhs);
