@@ -10,6 +10,8 @@
 
 #include "../Things/Structures/Structures.h"
 
+#include "../MinedResources.h"
+
 #include <vector>
 #include <algorithm>
 
@@ -386,6 +388,15 @@ void MapViewState::nextTurn()
 	checkColonyShip();
 
 	mStructureInspector.check();
+
+
+	MinedResources oldResources({ 200, 200, 200, 200 });
+	MinedResources inputResources({ 25, 100, 75, 5 });
+
+
+	auto newResources = oldResources + inputResources;
+	auto cappedResources = newResources.cap(250);
+	auto overflow = newResources - cappedResources;
 
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)
