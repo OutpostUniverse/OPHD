@@ -64,7 +64,7 @@ enum class MineProductionRate
 /**
  * 
  */
-enum DisabledReason
+enum class DisabledReason
 {
 	DISABLED_NONE, /**< Not Disabled, default reason. */
 
