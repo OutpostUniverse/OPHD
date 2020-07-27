@@ -239,12 +239,14 @@ void PlanetSelectState::onMousePlanetEnter()
 
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
-		// FIXME: Ugly, will be difficult to maintain in the future.
 		if (mPlanets[i]->mouseHovering())
 		{
-			if (mPlanets[i]->attributes().type == Planet::PlanetType::Ganymede) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_GANYMEDE); }
-			if (mPlanets[i]->attributes().type == Planet::PlanetType::Mars) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MARS); }
-			if (mPlanets[i]->attributes().type == Planet::PlanetType::Mercury) { mPlanetDescription.text(constants::PLANET_DESCRIPTION_MERCURY); }
+			auto iterator = constants::PLANET_DESCRIPTIONS.find(mPlanets[i]->attributes().type);
+
+			if (iterator != constants::PLANET_DESCRIPTIONS.end())
+			{
+				mPlanetDescription.text(iterator->second);
+			}
 		}
 	}
 }

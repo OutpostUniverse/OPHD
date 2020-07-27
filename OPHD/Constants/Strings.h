@@ -1,8 +1,10 @@
 #pragma once
 
+#include "../States/Planet.h"
 #include "Numbers.h"
 
 #include <string>
+#include <map>
 
 
 /**
@@ -20,9 +22,12 @@ namespace constants
 	const std::string VERSION = "v0.8.0";
 	const std::string EMPTY_STR = ""; /**< Used in a few places to return an empty string without having to create one. */
 
-	const std::string PLANET_DESCRIPTION_GANYMEDE = "Like Jupiter's moon Ganymede, this planet contains a sub-surface ocean and a magnetic field. Despite having a magnetic field indicating a liquid core, there is no atmosphere. \n \n This planet tends to be farther from the host star so solar satellites aren't going to be very useful.";
-	const std::string PLANET_DESCRIPTION_MARS = "This planet is a lot like our very own Mars. It is a relatively easy planet to colonize with a marginal atmosphere, lots of potential mining locations and you can dig deep. \n \n This leads to the problem that, while mines are plentiful, they don't yield a lot of resources.";
-	const std::string PLANET_DESCRIPTION_MERCURY = "Small, hot and not very friendly. This planet resembles our very own Mercury. Close to its parent star, few potential mine locations, very shallow dig depth, no magnetic field and no atmosphere. \n \n The Payoff? The few mines you do get are higher yield and you get plenty of solar energy.";
+	const std::map<Planet::PlanetType, std::string> PLANET_DESCRIPTIONS
+	{
+		{Planet::PlanetType::Ganymede, "Like Jupiter's moon Ganymede, this planet contains a sub-surface ocean and a magnetic field. Despite having a magnetic field indicating a liquid core, there is no atmosphere. \n \n This planet tends to be farther from the host star so solar satellites aren't going to be very useful."},
+		{Planet::PlanetType::Mars, "This planet is a lot like our very own Mars. It is a relatively easy planet to colonize with a marginal atmosphere, lots of potential mining locations and you can dig deep. \n \n This leads to the problem that, while mines are plentiful, they don't yield a lot of resources."},
+		{Planet::PlanetType::Mercury, "Small, hot and not very friendly. This planet resembles our very own Mercury. Close to its parent star, few potential mine locations, very shallow dig depth, no magnetic field and no atmosphere. \n \n The Payoff? The few mines you do get are higher yield and you get plenty of solar energy."}
+	};
 
 	const std::string TILE_INDEX_TRANSLATION_BULLDOZED = "Bulldozed";
 	const std::string TILE_INDEX_TRANSLATION_CLEAR = "Clear";
