@@ -91,7 +91,7 @@ public:
 	void pushResources(ResourcePool& resourcePool);
 	void pullResources(ResourcePool& resourcePool);
 
-	int capacity() const { return _capacity; }
+	int capacity() const { return mCapacity; }
 	void capacity(int newCapacity);
 
 	int currentLevel() const;
@@ -104,12 +104,12 @@ public:
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);
 
-	Callback& resourceObserver() { return _observerCallback; }
+	Callback& resourceObserver() { return mObserverCallback; }
 
 private:
-	int _capacity = 0; /**< Maximum available capacity of the ResourcePool. */
+	int mCapacity = 0; /**< Maximum available capacity of the ResourcePool. */
 
-	std::map<ResourceType, int> _resourceTable;
+	std::map<ResourceType, int> mResourceTable;
 
-	Callback _observerCallback;
+	Callback mObserverCallback;
 };

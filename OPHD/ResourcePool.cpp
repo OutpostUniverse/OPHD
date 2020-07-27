@@ -10,7 +10,7 @@
 using namespace NAS2D::Xml;
 
 
-ResourcePool::ResourcePool(int cmo, int cmno, int rmo, int rmno, int cm, int cmn, int rm, int rmn, int f, int e): _capacity(0)
+ResourcePool::ResourcePool(int cmo, int cmno, int rmo, int rmno, int cm, int cmn, int rm, int rmn, int f, int e): mCapacity(0)
 {
 	commonMetalsOre(cmo);
 	commonMineralsOre(cmno);
@@ -27,18 +27,18 @@ ResourcePool::ResourcePool(int cmo, int cmno, int rmo, int rmno, int cm, int cmn
 }
 
 
-ResourcePool::ResourcePool(size_t capacity) : _capacity(static_cast<int>(capacity))
+ResourcePool::ResourcePool(size_t capacity) : mCapacity(static_cast<int>(capacity))
 {}
 
 
-ResourcePool::ResourcePool(const ResourcePool& rhs) : _capacity(rhs._capacity), _resourceTable(rhs._resourceTable)
+ResourcePool::ResourcePool(const ResourcePool& rhs) : mCapacity(rhs.mCapacity), mResourceTable(rhs.mResourceTable)
 {}
 
 
 ResourcePool& ResourcePool::operator=(const ResourcePool& rhs)
 {
-	_resourceTable = rhs._resourceTable;
-	_capacity = rhs._capacity;
+	mResourceTable = rhs.mResourceTable;
+	mCapacity = rhs.mCapacity;
 
 	return *this;
 }
@@ -49,7 +49,7 @@ ResourcePool& ResourcePool::operator=(const ResourcePool& rhs)
  */
 void ResourcePool::clear()
 {
-	_resourceTable.clear();
+	mResourceTable.clear();
 }
 
 
@@ -58,61 +58,61 @@ void ResourcePool::clear()
  */
 ResourcePool& ResourcePool::operator+=(const ResourcePool& rhs)
 {
-	if (_capacity != 0)
+	if (mCapacity != 0)
 	{
 		std::cout << "ResourcePool::operator+=(): Incorrect use of operator. This ResourcePool has a capacity. Use pushResource() or pushResources() instead." << std::endl;
 		return *this;
 	}
 
-	_resourceTable[ResourceType::CommonMetalsOre] += rhs.commonMetalsOre();
-	_resourceTable[ResourceType::CommonMineralsOre] += rhs.commonMineralsOre();
-	_resourceTable[ResourceType::RareMetalsOre] += rhs.rareMetalsOre();
-	_resourceTable[ResourceType::RareMineralsOre] += rhs.rareMineralsOre();
+	mResourceTable[ResourceType::CommonMetalsOre] += rhs.commonMetalsOre();
+	mResourceTable[ResourceType::CommonMineralsOre] += rhs.commonMineralsOre();
+	mResourceTable[ResourceType::RareMetalsOre] += rhs.rareMetalsOre();
+	mResourceTable[ResourceType::RareMineralsOre] += rhs.rareMineralsOre();
 
-	_resourceTable[ResourceType::CommonMetals] += rhs.commonMetals();
-	_resourceTable[ResourceType::CommonMinerals] += rhs.commonMinerals();
-	_resourceTable[ResourceType::RareMetals] += rhs.rareMetals();
-	_resourceTable[ResourceType::RareMinerals] += rhs.rareMinerals();
+	mResourceTable[ResourceType::CommonMetals] += rhs.commonMetals();
+	mResourceTable[ResourceType::CommonMinerals] += rhs.commonMinerals();
+	mResourceTable[ResourceType::RareMetals] += rhs.rareMetals();
+	mResourceTable[ResourceType::RareMinerals] += rhs.rareMinerals();
 
-	_resourceTable[ResourceType::Food] += rhs.food();
-	_resourceTable[ResourceType::Energy] += rhs.energy();
+	mResourceTable[ResourceType::Food] += rhs.food();
+	mResourceTable[ResourceType::Energy] += rhs.energy();
 
-	_observerCallback();
+	mObserverCallback();
 	return *this;
 }
 
 
 ResourcePool& ResourcePool::operator-=(const ResourcePool& rhs)
 {
-	_resourceTable[ResourceType::CommonMetalsOre] -= rhs.commonMetalsOre();
-	_resourceTable[ResourceType::CommonMineralsOre] -= rhs.commonMineralsOre();
-	_resourceTable[ResourceType::RareMetalsOre] -= rhs.rareMetalsOre();
-	_resourceTable[ResourceType::RareMineralsOre] -= rhs.rareMineralsOre();
+	mResourceTable[ResourceType::CommonMetalsOre] -= rhs.commonMetalsOre();
+	mResourceTable[ResourceType::CommonMineralsOre] -= rhs.commonMineralsOre();
+	mResourceTable[ResourceType::RareMetalsOre] -= rhs.rareMetalsOre();
+	mResourceTable[ResourceType::RareMineralsOre] -= rhs.rareMineralsOre();
 
-	_resourceTable[ResourceType::CommonMetals] -= rhs.commonMetals();
-	_resourceTable[ResourceType::CommonMinerals] -= rhs.commonMinerals();
-	_resourceTable[ResourceType::RareMetals] -= rhs.rareMetals();
-	_resourceTable[ResourceType::RareMinerals] -= rhs.rareMinerals();
+	mResourceTable[ResourceType::CommonMetals] -= rhs.commonMetals();
+	mResourceTable[ResourceType::CommonMinerals] -= rhs.commonMinerals();
+	mResourceTable[ResourceType::RareMetals] -= rhs.rareMetals();
+	mResourceTable[ResourceType::RareMinerals] -= rhs.rareMinerals();
 
-	_resourceTable[ResourceType::Food] -= rhs.food();
-	_resourceTable[ResourceType::Energy] -= rhs.energy();
+	mResourceTable[ResourceType::Food] -= rhs.food();
+	mResourceTable[ResourceType::Energy] -= rhs.energy();
 
-	_observerCallback();
+	mObserverCallback();
 	return *this;
 }
 
 
 int ResourcePool::resource(ResourceType type) const
 {
-	const auto it = _resourceTable.find(type);
-	return it == _resourceTable.end() ? 0 : it->second;
+	const auto it = mResourceTable.find(type);
+	return it == mResourceTable.end() ? 0 : it->second;
 }
 
 
 void ResourcePool::resource(ResourceType type, int amount)
 {
-	_resourceTable[type] = amount;
-	_observerCallback();
+	mResourceTable[type] = amount;
+	mObserverCallback();
 }
 
 
@@ -149,13 +149,13 @@ void ResourcePool::food(int amount) { resource(ResourceType::Food, amount); }
 int ResourcePool::currentLevel() const
 {
 	int cc = 0;
-	for (std::size_t i = 0; i < _resourceTable.size(); ++i)
+	for (std::size_t i = 0; i < mResourceTable.size(); ++i)
 	{
 		ResourceType _rt = static_cast<ResourceType>(i);
 		if (_rt != ResourceType::Energy && _rt != ResourceType::Food)
 		{
-			const auto it = _resourceTable.find(_rt);
-			if (it != _resourceTable.end()) { cc += it->second; }
+			const auto it = mResourceTable.find(_rt);
+			if (it != mResourceTable.end()) { cc += it->second; }
 		}
 	}
 
@@ -195,12 +195,12 @@ int ResourcePool::pushResource(ResourceType type, int amount, bool forced)
 {
 	if(forced)
 	{
-		_resourceTable[type] += amount;
-		_observerCallback();
+		mResourceTable[type] += amount;
+		mObserverCallback();
 		return 0;
 	}
 
-	if (_capacity == 0)
+	if (mCapacity == 0)
 	{
 		std::cout << "ResourcePool::pushResource(): Incorrect use of operator. This ResourcePool has no capacity. Use operator+=() instead." << std::endl;
 		return 0;
@@ -212,14 +212,14 @@ int ResourcePool::pushResource(ResourceType type, int amount, bool forced)
 	}
 	else if (remainingCapacity() >= amount)
 	{
-		_resourceTable[type] += amount;
-		_observerCallback();
+		mResourceTable[type] += amount;
+		mObserverCallback();
 		return 0;
 	}
 	else
 	{
-		_resourceTable[type] += remainingCapacity();
-		_observerCallback();
+		mResourceTable[type] += remainingCapacity();
+		mObserverCallback();
 		return amount - remainingCapacity();
 	}
 }
@@ -231,24 +231,24 @@ int ResourcePool::pushResource(ResourceType type, int amount, bool forced)
  */
 int ResourcePool::pullResource(ResourceType type, int amount)
 {
-	if (_capacity == 0)
+	if (mCapacity == 0)
 	{
 		std::cout << "ResourcePool::pullResource(): Incorrect use of operator. This ResourcePool has no capacity. Use operator-=() instead." << std::endl;
 		return 0;
 	}
 
 
-	if (amount <= _resourceTable[type])
+	if (amount <= mResourceTable[type])
 	{
-		_resourceTable[type] -= amount;
-		_observerCallback();
+		mResourceTable[type] -= amount;
+		mObserverCallback();
 		return amount;
 	}
-	else if (amount > _resourceTable[type])
+	else if (amount > mResourceTable[type])
 	{
-		int ret = _resourceTable[type];
-		_resourceTable[type] = 0;
-		_observerCallback();
+		int ret = mResourceTable[type];
+		mResourceTable[type] = 0;
+		mObserverCallback();
 		return ret;
 	}
 
@@ -265,7 +265,7 @@ int ResourcePool::pullResource(ResourceType type, int amount)
  */
 void ResourcePool::pushResources(ResourcePool& resourcePool)
 {
-	if (_capacity == 0)
+	if (mCapacity == 0)
 	{
 		std::cout << "ResourcePool::pushResources(): Incorrect use of operator. This ResourcePool has no capacity. Use operator+=() instead." << std::endl;
 		return;
@@ -292,7 +292,7 @@ void ResourcePool::pushResources(ResourcePool& resourcePool)
  */
 void ResourcePool::pullResources(ResourcePool& resourcePool)
 {
-	if (_capacity == 0)
+	if (mCapacity == 0)
 	{
 		std::cout << "ResourcePool::pullResources(): Incorrect use of operator. This ResourcePool has no capacity. Use operator-=() instead." << std::endl;
 		return;
@@ -323,11 +323,11 @@ void ResourcePool::pullResources(ResourcePool& resourcePool)
  */
 void ResourcePool::capacity(int newCapacity)
 {
-	_capacity = newCapacity;
+	mCapacity = newCapacity;
 
 	// Prevent negative values.
 	if (newCapacity < 0)
-		_capacity = 0;
+		mCapacity = 0;
 }
 
 
@@ -356,18 +356,18 @@ void ResourcePool::deserialize(NAS2D::Xml::XmlElement* element)
 	XmlAttribute* attribute = element->firstAttribute();
 	while (attribute)
 	{
-		if (attribute->name() == constants::SAVE_GAME_COMMON_METAL_ORE) { attribute->queryIntValue(_resourceTable[ResourceType::CommonMetalsOre]); }
-		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL_ORE){ attribute->queryIntValue(_resourceTable[ResourceType::CommonMineralsOre]); }
-		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL_ORE) { attribute->queryIntValue(_resourceTable[ResourceType::RareMetalsOre]); }
-		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL_ORE) { attribute->queryIntValue(_resourceTable[ResourceType::RareMineralsOre]); }
+		if (attribute->name() == constants::SAVE_GAME_COMMON_METAL_ORE) { attribute->queryIntValue(mResourceTable[ResourceType::CommonMetalsOre]); }
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL_ORE){ attribute->queryIntValue(mResourceTable[ResourceType::CommonMineralsOre]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL_ORE) { attribute->queryIntValue(mResourceTable[ResourceType::RareMetalsOre]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL_ORE) { attribute->queryIntValue(mResourceTable[ResourceType::RareMineralsOre]); }
 
-		else if (attribute->name() == constants::SAVE_GAME_COMMON_METAL) { attribute->queryIntValue(_resourceTable[ResourceType::CommonMetals]); }
-		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL) { attribute->queryIntValue(_resourceTable[ResourceType::CommonMinerals]); }
-		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL) { attribute->queryIntValue(_resourceTable[ResourceType::RareMetals]); }
-		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL) { attribute->queryIntValue(_resourceTable[ResourceType::RareMinerals]); }
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_METAL) { attribute->queryIntValue(mResourceTable[ResourceType::CommonMetals]); }
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL) { attribute->queryIntValue(mResourceTable[ResourceType::CommonMinerals]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL) { attribute->queryIntValue(mResourceTable[ResourceType::RareMetals]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL) { attribute->queryIntValue(mResourceTable[ResourceType::RareMinerals]); }
 
-		else if (attribute->name() == constants::SAVE_GAME_ENERGY) { attribute->queryIntValue(_resourceTable[ResourceType::Energy]); }
-		else if (attribute->name() == constants::SAVE_GAME_FOOD) { attribute->queryIntValue(_resourceTable[ResourceType::Food]); }
+		else if (attribute->name() == constants::SAVE_GAME_ENERGY) { attribute->queryIntValue(mResourceTable[ResourceType::Energy]); }
+		else if (attribute->name() == constants::SAVE_GAME_FOOD) { attribute->queryIntValue(mResourceTable[ResourceType::Food]); }
 
 		attribute = attribute->next();
 	}
