@@ -107,9 +107,7 @@ public:
 	Callback& resourceObserver() { return mObserverCallback; }
 
 private:
-	int mCapacity = 0; /**< Maximum available capacity of the ResourcePool. */
-
+	int mCapacity = 0;
 	std::map<ResourceType, int> mResourceTable;
-
 	Callback mObserverCallback;
 };
