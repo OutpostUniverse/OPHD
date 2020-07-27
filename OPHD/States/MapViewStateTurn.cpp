@@ -10,7 +10,7 @@
 
 #include "../Things/Structures/Structures.h"
 
-#include "../StoredResources.h"
+#include "../StorableResources.h"
 
 #include <vector>
 #include <algorithm>

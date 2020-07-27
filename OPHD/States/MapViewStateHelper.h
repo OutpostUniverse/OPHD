@@ -11,7 +11,7 @@
 
 #include "../Common.h"
 #include "../RobotPool.h"
-#include "../StoredResources.h"
+#include "../StorableResources.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 

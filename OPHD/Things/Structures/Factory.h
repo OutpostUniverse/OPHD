@@ -3,7 +3,7 @@
 #include "Structure.h"
 
 #include "../../ProductionCost.h"
-#include "../../StoredResources.h"
+#include "../../StorableResources.h"
 
 /**
  * \brief	Defines the Factory interface.

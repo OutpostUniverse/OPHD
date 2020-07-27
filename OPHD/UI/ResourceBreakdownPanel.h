@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core/Control.h"
-#include "../StoredResources.h"
+#include "../StorableResources.h"
 
 #include <NAS2D/Resources/Image.h>
 

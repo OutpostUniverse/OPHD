@@ -16,7 +16,7 @@
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
 
-#include "../StoredResources.h"
+#include "../StorableResources.h"
 
 #include "../ResourcePool.h"
 #include "../RobotPool.h"
