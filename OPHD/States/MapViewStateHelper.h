@@ -11,6 +11,7 @@
 
 #include "../Common.h"
 #include "../RobotPool.h"
+#include "../StoredResources.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 
@@ -41,13 +42,13 @@ RobotCommand* getAvailableRobotCommand();
 bool simulateMoveProducts(Warehouse*);
 void moveProducts(Warehouse*);
 
-void resourceShortageMessage(ResourcePool&, StructureID);
+void resourceShortageMessage(StorableResources&, StructureID);
 
 // Serialize / Deserialize
 void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap);
-void writeResources(NAS2D::Xml::XmlElement* element, ResourcePool& resourcePool, const std::string& tagName);
+void writeResources(NAS2D::Xml::XmlElement*, StorableResources&, const std::string&);
 
-void readResources(NAS2D::Xml::XmlElement* element, ResourcePool& resourcePool);
+void readResources(NAS2D::Xml::XmlElement*, StorableResources&);
 
 void updateRobotControl(RobotPool& robotPool);
 void deleteRobotsInRCC(Robot* robot, RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt, Tile* tile);

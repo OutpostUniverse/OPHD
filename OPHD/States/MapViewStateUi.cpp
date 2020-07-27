@@ -75,7 +75,7 @@ void MapViewState::initUi()
 	mPopulationPanel.old_morale(&mPreviousMorale);
 
 	mResourceBreakdownPanel.position({0, 22});
-	mResourceBreakdownPanel.playerResources(&mPlayerResources);
+	//mResourceBreakdownPanel.playerResources(&mPlayerResources);
 
 	mGameOverDialog.returnToMainMenu().connect(this, &MapViewState::btnGameOverClicked);
 	mGameOverDialog.hide();
@@ -142,7 +142,7 @@ void MapViewState::initUi()
 	mStructures.showTooltip(true);
 	mStructures.selectionChanged().connect(this, &MapViewState::structuresSelectionChanged);
 
-	mPlayerResources.resourceObserver().connect(this, &MapViewState::playerResourcePoolModified);
+	//mPlayerResources.resourceObserver().connect(this, &MapViewState::playerResourcePoolModified);
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);

@@ -70,7 +70,7 @@ void StructureManager::update(ResourcePool& resourcePool, PopulationPool& popPoo
 	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Command]); // Self sufficient
 	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::EnergyProduction]); // Nothing can work without energy
 
-	updateEnergyProduction(resourcePool, popPool);
+	//updateEnergyProduction(resourcePool, popPool);
 
 	// Basic resource production
 	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Mine]); // Can't operate without resources.
@@ -106,7 +106,7 @@ void StructureManager::update(ResourcePool& resourcePool, PopulationPool& popPoo
 /**
  *
  */
-void StructureManager::updateEnergyProduction(ResourcePool& resourcePool, PopulationPool& /*popPool*/)
+void StructureManager::updateEnergyProduction(int& energy, PopulationPool& /*popPool*/)
 {
 	mTotalEnergyOutput = 0;
 
@@ -115,7 +115,7 @@ void StructureManager::updateEnergyProduction(ResourcePool& resourcePool, Popula
 		if (structure->operational()) { mTotalEnergyOutput += structure->resourcesOut().energy(); }
 	}
 
-	resourcePool.energy(mTotalEnergyOutput);
+	energy = mTotalEnergyOutput;
 }
 
 

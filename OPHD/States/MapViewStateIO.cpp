@@ -62,7 +62,7 @@ void MapViewState::save(const std::string& filePath)
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
 	writeResources(root, mPlayerResources, "resources");
-	writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
+	//writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
 
 	XmlElement* turns = new XmlElement("turns");
 	turns->attribute("count", mTurnCount);
@@ -170,11 +170,11 @@ void MapViewState::load(const std::string& filePath)
 	readStructures(root->firstChildElement("structures"));
 
 	readResources(root->firstChildElement("resources"), mPlayerResources);
-	readResources(root->firstChildElement("prev_resources"), mResourceBreakdownPanel.previousResources());
+	//readResources(root->firstChildElement("prev_resources"), mResourceBreakdownPanel.previousResources());
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
-	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage)));
+	//mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage)));
 
 	checkConnectedness();
 
@@ -182,10 +182,13 @@ void MapViewState::load(const std::string& filePath)
 	 * StructureManager::updateEnergyProduction() overwrites the energy count in the player resource
 	 * pool so we store the original value here and set it after counting the total energy available.
 	 * Kind of a kludge.
+	 * 
+	 * For now commenting out this ugly code as it truly is a klude and I suspect this will change
+	 * when the resourcepool refactor gets finished.
 	 */
-	int energy = mPlayerResources.energy();
+	/*int energy = mEnergy;
 	Utility<StructureManager>::get().updateEnergyProduction(mPlayerResources, mPopulationPool);
-	mPlayerResources.energy(energy);
+	mEnergy = energy; */
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();

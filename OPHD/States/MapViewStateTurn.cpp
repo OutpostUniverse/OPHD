@@ -22,17 +22,17 @@ extern NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
 /**
  * 
  */
-static int pullFood(ResourcePool& resourcePool, int amount)
+static int pullFood(int& food, int amount)
 {
-	if (amount <= resourcePool.food())
+	if (amount <= food)
 	{
-		resourcePool.food(resourcePool.food() - amount);
+		food = food - amount;
 		return amount;
 	}
 	else
 	{
-		int ret = resourcePool.food();
-		resourcePool.food(0);
+		int ret = food;
+		food = 0;
 		return ret;
 	}
 }
@@ -55,16 +55,16 @@ void MapViewState::updatePopulation()
 	StructureList &foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
 	int remainder = food_consumed;
 
-	if (mPlayerResources.food() > 0)
+	if (mFood > 0)
 	{
-		remainder -= pullFood(mPlayerResources, remainder);
+		remainder -= pullFood(mFood, remainder);
 	}
 
 	for (std::size_t i = 0; i < foodproducers.size(); ++i)
 	{
 		if (remainder <= 0) { break; }
 
-		remainder -= pullFood(foodproducers[i]->storage(), remainder);
+		//remainder -= pullFood(foodproducers[i]->storage(), remainder);
 	}
 }
 
@@ -218,7 +218,7 @@ static bool routeObstructed(Route& route)
 void MapViewState::updateResources()
 {
 	// Update storage capacity
-	mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage)));
+	//mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage)));
 
 	ResourcePool truck(100);
 
@@ -290,7 +290,7 @@ void MapViewState::updateResources()
 		truck.rareMetals(resourcePool.pullResource(ResourcePool::ResourceType::RareMetals, 25));
 		truck.rareMinerals(resourcePool.pullResource(ResourcePool::ResourceType::RareMinerals, 25));
 
-		mPlayerResources.pushResources(truck);
+		//mPlayerResources.pushResources(truck);
 
 		if (!truck.empty())
 		{
@@ -364,11 +364,11 @@ void MapViewState::nextTurn()
 
 	mPopulationPool.clear();
 
-	mResourceBreakdownPanel.previousResources() = mPlayerResources;
+	//mResourceBreakdownPanel.previousResources() = mPlayerResources;
 
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
-	NAS2D::Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
+	//NAS2D::Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
 
 	mPreviousMorale = mCurrentMorale;
 
@@ -390,8 +390,8 @@ void MapViewState::nextTurn()
 	mStructureInspector.check();
 
 
-	StoredResources oldResources({ 200, 200, 200, 200 });
-	StoredResources inputResources({ 25, 100, 75, 5 });
+	StorableResources oldResources({ 200, 200, 200, 200 });
+	StorableResources inputResources({ 25, 100, 75, 5 });
 
 
 	auto newResources = oldResources + inputResources;

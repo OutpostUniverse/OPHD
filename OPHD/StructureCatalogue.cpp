@@ -234,17 +234,12 @@ void StructureCatalogue::init(float meanSolarDistance)
  * Indicates that the source ResourcePool has enough resources to accommodate
  * the resource requirements of the specificed structure.
  */
-bool StructureCatalogue::canBuild(const ResourcePool& source, StructureID type)
+bool StructureCatalogue::canBuild(const StorableResources& source, StructureID type)
 {
 	ResourcePool resourcePool = StructureCatalogue::costToBuild(type);
+	StorableResources cost{ resourcePool.commonMetals(), resourcePool.commonMinerals(), resourcePool.rareMetals(), resourcePool.rareMinerals() };
 
-	if (source.commonMetals() < resourcePool.commonMetals() || source.commonMinerals() < resourcePool.commonMinerals() ||
-		source.rareMetals() < resourcePool.rareMetals() || source.rareMinerals() < resourcePool.rareMinerals())
-	{
-		return false;
-	}
-
-	return true;
+	return cost <= source;
 }
 
 

@@ -111,13 +111,8 @@ void MapViewState::deployColonistLander()
  */
 void MapViewState::deployCargoLander()
 {
-	///\fixme Magic numbers
-	mPlayerResources.commonMetals(mPlayerResources.commonMetals() + 25);
-	mPlayerResources.commonMinerals(mPlayerResources.commonMinerals() + 25);
-	mPlayerResources.rareMetals(mPlayerResources.rareMetals() + 15);
-	mPlayerResources.rareMinerals(mPlayerResources.rareMinerals() + 15);
-
-	mPlayerResources.food(mPlayerResources.food() + 125);
+	mPlayerResources = mPlayerResources + StorableResources{25, 25, 15, 15};
+	mFood += 125;
 }
 
 

@@ -5,6 +5,8 @@
 
 #include "Things/Structures/Structures.h"
 
+#include "StoredResources.h"
+
 
 /** 
  * \class	StructureCatalogue
@@ -32,7 +34,7 @@ public:
 	static const ResourcePool& costToBuild(StructureID type);
 	static const ResourcePool& recyclingValue(StructureID type);
 
-	static bool canBuild(const ResourcePool& source, StructureID type);
+	static bool canBuild(const StorableResources& source, StructureID type);
 
 private:
 	StructureCatalogue() {} // Explicitly declared private to prevent instantiation.

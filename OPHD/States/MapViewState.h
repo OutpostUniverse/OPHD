@@ -16,6 +16,8 @@
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
 
+#include "../StoredResources.h"
+
 #include "../ResourcePool.h"
 #include "../RobotPool.h"
 
@@ -125,7 +127,10 @@ private:
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
 	int foodInStorage();
-	int foodTotalStorage();
+	int resourcesInStorage();
+	int totalStorage(Structure::StructureClass, int);
+
+
 	void setMinimapView();
 
 	void checkConnectedness();
@@ -211,8 +216,11 @@ private:
 
 	NAS2D::Rectangle<int> mMiniMapBoundingBox; /**< Area of the site map display. */
 
+	int mEnergy{ 0 };
+	int mFood{ 0 };
+
 	// POOL'S
-	ResourcePool mPlayerResources; /**< Player's current resources. */
+	StorableResources mPlayerResources; /**< Player's current refined resources. */
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;
 

@@ -35,7 +35,7 @@ public:
 
 	bool CHAPAvailable();
 
-	void updateEnergyProduction(ResourcePool& resourcePool, PopulationPool& popPool);
+	void updateEnergyProduction(int&, PopulationPool&);
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
 
 	void update(ResourcePool& resourcePool, PopulationPool& popPool);
