@@ -2,13 +2,13 @@
 
 #include <array>
 
-struct StoredResources
+struct StorableResources
 {
-	StoredResources() = default;
+	StorableResources() = default;
 
-	StoredResources operator+(const StoredResources& other) const
+	StorableResources operator+(const StorableResources& other) const
 	{
-		StoredResources out;
+		StorableResources out;
 
 		for (size_t i = 0; i < resources.size(); ++i)
 		{
@@ -18,9 +18,9 @@ struct StoredResources
 		return out;
 	}
 
-	StoredResources operator-(const StoredResources& other) const
+	StorableResources operator-(const StorableResources& other) const
 	{
-		StoredResources out;
+		StorableResources out;
 
 		for (size_t i = 0; i < resources.size(); ++i)
 		{
@@ -30,7 +30,7 @@ struct StoredResources
 		return out;
 	}
 
-	bool operator<=(const StoredResources& other) const
+	bool operator<=(const StorableResources& other) const
 	{
 		for (std::size_t i = 0; i < resources.size(); ++i)
 		{
@@ -42,16 +42,21 @@ struct StoredResources
 		return true;
 	}
 
-	StoredResources cap(uint32_t max) const
+	StorableResources cap(int max) const
 	{
-		StoredResources out;
+		StorableResources out;
 		for (std::size_t i = 0; i < resources.size(); ++i)
 		{
-			out.resources[i] = std::clamp(resources[i], 0u, max);
+			out.resources[i] = std::clamp(resources[i], 0, max);
 		}
 
 		return out;
 	}
 
-	std::array<uint32_t, 4> resources{ 0 };
+	void clear()
+	{
+		resources = { 0, 0, 0, 0 };
+	}
+
+	std::array<int, 4> resources{ 0 };
 };
