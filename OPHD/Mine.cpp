@@ -302,7 +302,7 @@ void Mine::serialize(NAS2D::Xml::XmlElement* element)
 {
 	element->attribute("depth", depth());
 	element->attribute("active", active());
-	element->attribute("yield", productionRate());
+	element->attribute("yield", static_cast<int>(productionRate()));
 	element->attribute("flags", mFlags.to_string());
 
 	for (std::size_t i = 0; i < mVeins.size(); ++i)
