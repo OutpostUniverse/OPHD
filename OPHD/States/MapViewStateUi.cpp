@@ -75,7 +75,7 @@ void MapViewState::initUi()
 	mPopulationPanel.old_morale(&mPreviousMorale);
 
 	mResourceBreakdownPanel.position({0, 22});
-	//mResourceBreakdownPanel.playerResources(&mPlayerResources);
+	mResourceBreakdownPanel.playerResources(&mPlayerResources);
 
 	mGameOverDialog.returnToMainMenu().connect(this, &MapViewState::btnGameOverClicked);
 	mGameOverDialog.hide();
