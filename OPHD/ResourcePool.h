@@ -16,20 +16,18 @@ public:
 
 	enum class ResourceType
 	{
-		RESOURCE_COMMON_METALS_ORE,
-		RESOURCE_COMMON_MINERALS_ORE,
-		RESOURCE_RARE_METALS_ORE,
-		RESOURCE_RARE_MINERALS_ORE,
+		CommonMetalsOre,
+		CommonMineralsOre,
+		RareMetalsOre,
+		RareMineralsOre,
 
-		RESOURCE_COMMON_METALS,
-		RESOURCE_COMMON_MINERALS,
-		RESOURCE_RARE_METALS,
-		RESOURCE_RARE_MINERALS,
+		CommonMetals,
+		CommonMinerals,
+		RareMetals,
+		RareMinerals,
 
-		RESOURCE_FOOD,
-		RESOURCE_ENERGY,
-
-		RESOURCE_COUNT /**< Number of available resource types. */
+		Food,
+		Energy
 	};
 
 
