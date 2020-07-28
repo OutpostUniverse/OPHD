@@ -277,12 +277,12 @@ int MapViewState::foodInStorage()
  */
 int MapViewState::totalStorage(Structure::StructureClass structureClass, int capacity)
 {
-	int storage = 0;
+	int storageCapacity = 0;
 
 	// Command Center has a limited amount of food storage for when colonists first land.
 	if (ccLocation() != CcNotPlaced)
 	{
-		storage += constants::BASE_STORAGE_CAPACITY;
+		storageCapacity += constants::BASE_STORAGE_CAPACITY;
 	}
 
 	const auto& structures = Utility<StructureManager>::get().structureList(structureClass);
@@ -290,11 +290,11 @@ int MapViewState::totalStorage(Structure::StructureClass structureClass, int cap
 	{
 		if (structure->operational() || structure->isIdle())
 		{
-			storage += capacity; /** \fixme Make this a named constant */
+			storageCapacity += capacity;
 		}
 	}
 
-	return storage;
+	return storageCapacity;
 }
 
 
