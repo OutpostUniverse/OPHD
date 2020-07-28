@@ -8,6 +8,11 @@ Robot::Robot(const std::string& name, const std::string& sprite_path) :
 {}
 
 
+Robot::Robot(const std::string& name, const std::string& sprite_path, const std::string& initialAction) :
+	Thing(name, sprite_path, initialAction)
+{}
+
+
 void Robot::startTask(int turns)
 {
 	if (turns < 1) { throw std::runtime_error("Robot::startTask() called with a value less than 1."); }
