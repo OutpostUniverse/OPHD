@@ -544,7 +544,7 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 	{
 		XmlElement* robot = new XmlElement("robot");
 		checkRobotDeployment(robot, robotMap, digger, RobotType::ROBOT_DIGGER);
-		robot->attribute("direction", digger->direction());
+		robot->attribute("direction", static_cast<int>(digger->direction()));
 		robots->linkEndChild(robot);
 	}
 

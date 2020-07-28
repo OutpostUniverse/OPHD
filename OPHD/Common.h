@@ -26,7 +26,7 @@ extern Difficulty CURRENT_DIFFICULTY;
 /**
  * Digger robot digging direction.
  */
-enum Direction
+enum class Direction
 {
 	DIR_UP,
 	DIR_DOWN,
