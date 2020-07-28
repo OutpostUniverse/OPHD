@@ -72,6 +72,15 @@ Structure::Structure(const std::string& name, const std::string& spritePath, Str
 }
 
 
+Structure::Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass) :
+	Thing(name, spritePath, initialAction),
+	mStructureClass(structureClass)
+{
+	mPopulationRequirements.fill(0);
+	mPopulationAvailable.fill(0);
+}
+
+
 /**
  * Sets a Disabled state for the Structure.
  */
