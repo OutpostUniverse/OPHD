@@ -481,9 +481,7 @@ void moveProducts(Warehouse* wh)
  */
 void resourceShortageMessage(StorableResources& resources, StructureID sid)
 {
-	const ResourcePool& costRp = StructureCatalogue::costToBuild(sid);
-
-	StorableResources cost{ costRp.commonMetals(), costRp.commonMinerals(), costRp.rareMetals(), costRp.rareMinerals() };
+	StorableResources cost = StructureCatalogue::costToBuild(sid);
 
 	StorableResources missing = cost - resources;
 

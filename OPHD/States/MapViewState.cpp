@@ -937,8 +937,7 @@ void MapViewState::placeRobot()
 			 * 			way to determine this. I may go back to defining recycling values in the individual structures
 			 * 			themselves but I'm still not sure I love that idea. Will have to think about that one a bit.
 			 */
-			ResourcePool resPool = StructureCatalogue::recyclingValue(StructureTranslator::translateFromString(structure->name()));
-			mPlayerResources + StorableResources{ resPool.commonMetals(), resPool.commonMinerals(), resPool.rareMetals(), resPool.rareMinerals() };
+			mPlayerResources + StructureCatalogue::recyclingValue(StructureTranslator::translateFromString(structure->name()));
 
 			tile->connected(false);
 			Utility<StructureManager>::get().removeStructure(structure);
