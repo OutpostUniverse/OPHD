@@ -79,6 +79,8 @@ void StructureManager::update(StorableResources& resources, PopulationPool& popu
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::LifeSupport]); // Air, water food must come before others
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::FoodProduction]);
 
+	updateFoodProduction();
+
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::MedicalCenter]); // No medical facilities, people die
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Nursery]);
 
@@ -118,6 +120,17 @@ void StructureManager::updateEnergyProduction()
 		{
 			mTotalEnergyOutput += powerStructure->energyProduced();
 		}
+	}
+}
+
+
+void StructureManager::updateFoodProduction()
+{
+	mFoodLevel = 0;
+
+	for (auto structure : mStructureLists[Structure::StructureClass::FoodProduction])
+	{
+		mFoodLevel += static_cast<FoodProduction*>(structure)->foodLevel();
 	}
 }
 

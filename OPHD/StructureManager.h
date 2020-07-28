@@ -40,6 +40,8 @@ public:
 	int totalEnergyUsed() const { return mTotalEnergyUsed; }
 	int totalEnergyAvailable() const { return mTotalEnergyOutput - mTotalEnergyUsed; }
 
+	int foodLevel() const { return mFoodLevel; }
+
 	void update(StorableResources&, PopulationPool&);
 
 	void serialize(NAS2D::Xml::XmlElement* element);
@@ -53,6 +55,7 @@ private:
 private:
 	void updateStructures(StorableResources&, PopulationPool&, StructureList&);
 	void updateFactoryProduction();
+	void updateFoodProduction();
 
 	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }
 
@@ -62,4 +65,6 @@ private:
 
 	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */
 	int mTotalEnergyUsed = 0;
+
+	int mFoodLevel = 0;
 };
