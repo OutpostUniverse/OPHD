@@ -178,7 +178,7 @@ void MapViewState::drawResourceInfo()
 	// Capacity (Storage, Food, Energy)
 	const std::array storageCapacities
 	{
-		std::tuple{NAS2D::Rectangle{96, 32, iconSize, iconSize}, resourcesInStorage(), totalStorage(Structure::StructureClass::FoodProduction, 1000), totalStorage(Structure::StructureClass::FoodProduction, 1000) - resourcesInStorage() <= 100},
+		std::tuple{NAS2D::Rectangle{96, 32, iconSize, iconSize}, resourcesInStorage(), totalStorage(Structure::StructureClass::Storage, 1000), totalStorage(Structure::StructureClass::Storage, 1000) - resourcesInStorage() <= 100},
 		std::tuple{NAS2D::Rectangle{64, 32, iconSize, iconSize}, foodInStorage(), totalStorage(Structure::StructureClass::FoodProduction, 1000), foodInStorage() <= 10},
 		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, mEnergy, NAS2D::Utility<StructureManager>::get().totalEnergyProduction(), mEnergy <= 5}
 	};
