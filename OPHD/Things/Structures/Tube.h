@@ -23,13 +23,13 @@ private:
 
 	static const std::string& getAnimationName(ConnectorDir dir, bool underground)
 	{
-		return
+		return *(
 			(dir == ConnectorDir::CONNECTOR_INTERSECTION) ?
-				(underground ? constants::UG_TUBE_INTERSECTION : constants::AG_TUBE_INTERSECTION) :
+				(underground ? &constants::UG_TUBE_INTERSECTION : &constants::AG_TUBE_INTERSECTION) :
 			(dir == ConnectorDir::CONNECTOR_RIGHT) ?
-				(underground ? constants::UG_TUBE_RIGHT : constants::AG_TUBE_RIGHT) :
+				(underground ? &constants::UG_TUBE_RIGHT : &constants::AG_TUBE_RIGHT) :
 			(dir == ConnectorDir::CONNECTOR_LEFT) ?
-				(underground ? constants::UG_TUBE_LEFT : constants::AG_TUBE_LEFT) :
-			throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter.");
+				(underground ? &constants::UG_TUBE_LEFT : &constants::AG_TUBE_LEFT) :
+			throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter."));
 	}
 };
