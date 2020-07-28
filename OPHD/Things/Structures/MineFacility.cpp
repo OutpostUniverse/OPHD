@@ -82,7 +82,7 @@ void MineFacility::think()
 
 	if (mMine->exhausted())
 	{
-		idle(IdleReason::IDLE_MINE_EXHAUSTED);
+		idle(IdleReason::MineExhausted);
 		return;
 	}
 
@@ -90,7 +90,7 @@ void MineFacility::think()
 	{
 		if (storage().atCapacity())
 		{
-			idle(IdleReason::IDLE_MINE_EXHAUSTED);
+			idle(IdleReason::MineExhausted);
 			return;
 		}
 
@@ -118,7 +118,7 @@ void MineFacility::think()
 	}
 	else if (!isIdle())
 	{
-		idle(IdleReason::IDLE_MINE_INACTIVE);
+		idle(IdleReason::MineInactive);
 	}
 }
 

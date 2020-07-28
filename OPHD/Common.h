@@ -80,19 +80,19 @@ enum class DisabledReason
 /**
  * 
  */
-enum IdleReason
+enum class IdleReason
 {
-	IDLE_NONE,
+	None,
 
-	IDLE_PLAYER_SET,
-	IDLE_INTERNAL_STORAGE_FULL,
-	IDLE_FACTORY_PRODUCTION_COMPLETE,
-	IDLE_FACTORY_INSUFFICIENT_RESOURCES,
-	IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY,
-	IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE,
-	IDLE_MINE_EXHAUSTED,
-	IDLE_MINE_INACTIVE,
-	IDLE_INSUFFICIENT_LUXURY_PRODUCT
+	PlayerSet,
+	InternalStorageFull,
+	FactoryProductionComplete,
+	FactoryInsufficientResources,
+	FactoryInsufficientRobotCommandCapacity,
+	FactoryInsufficientWarehouseSpace,
+	MineExhausted,
+	MineInactive,
+	InsufficientLuxuryProduct
 };
 
 /**

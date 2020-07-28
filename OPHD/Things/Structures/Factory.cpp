@@ -118,13 +118,13 @@ void Factory::updateProduction()
 	if (mProductWaiting != ProductType::PRODUCT_NONE)
 	{
 		mProductionComplete(*this);
-		idle(IdleReason::IDLE_FACTORY_PRODUCTION_COMPLETE);
+		idle(IdleReason::FactoryProductionComplete);
 		return;
 	}
 
 	if (!enoughResourcesAvailable())
 	{
-		idle(IdleReason::IDLE_FACTORY_INSUFFICIENT_RESOURCES);
+		idle(IdleReason::FactoryInsufficientResources);
 		return;
 	}
 	
