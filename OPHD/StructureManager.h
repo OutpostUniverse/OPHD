@@ -2,7 +2,7 @@
 
 #include "Things/Structures/Structure.h"
 
-#include "ResourcePool.h"
+#include "StorableResources.h"
 #include "Map/Tile.h"
 
 /**
@@ -35,10 +35,12 @@ public:
 
 	bool CHAPAvailable();
 
-	void updateEnergyProduction(int&, PopulationPool&);
+	void updateEnergyProduction();
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
+	int totalEnergyUsed() const { return mTotalEnergyUsed; }
+	int totalEnergyAvailable() const { return mTotalEnergyOutput - mTotalEnergyUsed; }
 
-	void update(ResourcePool& resourcePool, PopulationPool& popPool);
+	void update(StorableResources&, PopulationPool&, int&);
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 
@@ -49,7 +51,7 @@ private:
 	using StructureClassTable = std::map<Structure::StructureClass, StructureList>;
 
 private:
-	void updateStructures(ResourcePool& resourcePool, PopulationPool& popPool, StructureList& structures);
+	void updateStructures(StorableResources&, PopulationPool&, StructureList&);
 	void updateFactoryProduction();
 
 	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }
@@ -59,4 +61,5 @@ private:
 	StructureClassTable mStructureLists; /**< Map containing all of the structure list types available. */
 
 	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */
+	int mTotalEnergyUsed = 0;
 };
