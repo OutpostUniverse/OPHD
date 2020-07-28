@@ -7,7 +7,6 @@ class CHAP : public Structure
 public:
 	CHAP() : Structure(constants::CHAP, "structures/chap.sprite", StructureClass::LifeSupport)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);
 		turnsToBuild(5);
 

@@ -9,7 +9,6 @@ class Warehouse : public Structure
 public:
 	Warehouse() : Structure(constants::WAREHOUSE, "structures/warehouse.sprite", StructureClass::Warehouse)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);
 		turnsToBuild(2);
 

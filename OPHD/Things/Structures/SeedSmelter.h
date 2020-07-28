@@ -8,7 +8,6 @@ class SeedSmelter : public Structure
 public:
 	SeedSmelter() : Structure(constants::SEED_SMELTER, "structures/seed_1.sprite", StructureClass::Smelter)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(150);
 		turnsToBuild(6);
 		requiresCHAP(false);

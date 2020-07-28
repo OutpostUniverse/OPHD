@@ -8,7 +8,6 @@ class Smelter : public Structure
 public:
 	Smelter() : Structure(constants::SMELTER, "structures/smelter.sprite", StructureClass::Smelter)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);
 		turnsToBuild(9);
 		requiresCHAP(false);

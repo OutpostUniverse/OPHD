@@ -16,7 +16,6 @@ public:
 		Structure{constants::SEED_LANDER, "structures/seed_0.sprite", StructureClass::Lander},
 		mPosition{position}
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);
 		turnsToBuild(1);
 		repairable(false);

@@ -11,7 +11,6 @@ class SeedPower: public PowerStructure
 public:
 	SeedPower() : PowerStructure(constants::SEED_POWER, "structures/seed_1.sprite", StructureClass::EnergyProduction)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(150);
 		turnsToBuild(5);
 		requiresCHAP(false);
