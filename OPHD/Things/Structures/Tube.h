@@ -11,14 +11,12 @@ class Tube : public Structure
 {
 public:
 	Tube(ConnectorDir dir, bool underground) :
-		Structure(constants::TUBE, "structures/tubes.sprite", StructureClass::Tube)
+		Structure(constants::TUBE, "structures/tubes.sprite", getAnimationName(dir, underground), StructureClass::Tube)
 	{
 		connectorDirection(dir);
 		requiresCHAP(false);
 
 		maxAge(400);
-
-		sprite().play(getAnimationName(dir, underground));
 	}
 
 private:
