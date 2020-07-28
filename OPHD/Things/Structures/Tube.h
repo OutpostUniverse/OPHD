@@ -23,43 +23,13 @@ private:
 
 	static const std::string& getAnimationName(ConnectorDir dir, bool underground)
 	{
-		if (underground)
-		{
-			if (dir == ConnectorDir::CONNECTOR_INTERSECTION)
-			{
-				return constants::UG_TUBE_INTERSECTION;
-			}
-			else if (dir == ConnectorDir::CONNECTOR_RIGHT)
-			{
-				return constants::UG_TUBE_RIGHT;
-			}
-			else if (dir == ConnectorDir::CONNECTOR_LEFT)
-			{
-				return constants::UG_TUBE_LEFT;
-			}
-			else
-			{
-				throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter.");
-			}
-		}
-		else
-		{
-			if (dir == ConnectorDir::CONNECTOR_INTERSECTION)
-			{
-				return constants::AG_TUBE_INTERSECTION;
-			}
-			else if (dir == ConnectorDir::CONNECTOR_RIGHT)
-			{
-				return constants::AG_TUBE_RIGHT;
-			}
-			else if (dir == ConnectorDir::CONNECTOR_LEFT)
-			{
-				return constants::AG_TUBE_LEFT;
-			}
-			else
-			{
-				throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter.");
-			}
-		}
+		return
+			(dir == ConnectorDir::CONNECTOR_INTERSECTION) ?
+				(underground ? constants::UG_TUBE_INTERSECTION : constants::AG_TUBE_INTERSECTION) :
+			(dir == ConnectorDir::CONNECTOR_RIGHT) ?
+				(underground ? constants::UG_TUBE_RIGHT : constants::AG_TUBE_RIGHT) :
+			(dir == ConnectorDir::CONNECTOR_LEFT) ?
+				(underground ? constants::UG_TUBE_LEFT : constants::AG_TUBE_LEFT) :
+			throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter.");
 	}
 };
