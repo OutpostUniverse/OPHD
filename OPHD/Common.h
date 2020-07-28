@@ -80,7 +80,7 @@ enum class DisabledReason
 /**
  * 
  */
-enum IdleReason
+enum class IdleReason
 {
 	IDLE_NONE,
 
