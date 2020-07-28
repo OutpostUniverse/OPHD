@@ -41,7 +41,7 @@ protected:
 
 		if (isStorageFull())
 		{
-			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
+			idle(IdleReason::InternalStorageFull);
 		}
 	}
 

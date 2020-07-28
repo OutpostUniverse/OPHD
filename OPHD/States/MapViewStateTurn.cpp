@@ -119,7 +119,7 @@ void MapViewState::updateCommercial()
 	{
 		if ((*_comm_r_it)->operational())
 		{
-			(*_comm_r_it)->idle(IdleReason::IDLE_INSUFFICIENT_LUXURY_PRODUCT);
+			(*_comm_r_it)->idle(IdleReason::InsufficientLuxuryProduct);
 		}
 	}
 
