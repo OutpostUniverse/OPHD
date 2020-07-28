@@ -27,7 +27,7 @@ public:
 		return stringTable;
 	}
 
-	int currentFoodLevel() const { return mFoodLevel; }
+	int foodLevel() const { return mFoodLevel; }
 
 protected:
 	virtual int calculateProduction() = 0;
