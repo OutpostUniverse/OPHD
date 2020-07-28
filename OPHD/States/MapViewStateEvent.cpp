@@ -203,7 +203,7 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	NAS2D::Point<int> origin = t->position();
 	int newDepth = t->depth();
 
-	if(dir == Direction::DIR_DOWN)
+	if(dir == Direction::Down)
 	{
 		++newDepth;
 
@@ -222,19 +222,19 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		checkConnectedness();
 	}
-	else if(dir == Direction::DIR_NORTH)
+	else if(dir == Direction::North)
 	{
 		origin += DirectionNorth;
 	}
-	else if(dir == Direction::DIR_SOUTH)
+	else if(dir == Direction::South)
 	{
 		origin += DirectionSouth;
 	}
-	else if(dir == Direction::DIR_WEST)
+	else if(dir == Direction::West)
 	{
 		origin += DirectionWest;
 	}
-	else if(dir == Direction::DIR_EAST)
+	else if(dir == Direction::East)
 	{
 		origin += DirectionEast;
 	}

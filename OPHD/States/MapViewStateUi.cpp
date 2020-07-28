@@ -454,7 +454,7 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
-	if (tile->depth() > 0 && direction == Direction::DIR_DOWN)
+	if (tile->depth() > 0 && direction == Direction::Down)
 	{
 		NAS2D::Utility<StructureManager>::get().removeStructure(tile->structure());
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -471,19 +471,19 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 	robot->direction(direction);
 
 
-	if (direction == Direction::DIR_NORTH)
+	if (direction == Direction::North)
 	{
 		mTileMap->getTile(tile->position() + DirectionNorth, tile->depth())->excavated(true);
 	}
-	else if (direction == Direction::DIR_SOUTH)
+	else if (direction == Direction::South)
 	{
 		mTileMap->getTile(tile->position() + DirectionSouth, tile->depth())->excavated(true);
 	}
-	else if (direction == Direction::DIR_EAST)
+	else if (direction == Direction::East)
 	{
 		mTileMap->getTile(tile->position() + DirectionEast, tile->depth())->excavated(true);
 	}
-	else if (direction == Direction::DIR_WEST)
+	else if (direction == Direction::West)
 	{
 		mTileMap->getTile(tile->position() + DirectionWest, tile->depth())->excavated(true);
 	}
