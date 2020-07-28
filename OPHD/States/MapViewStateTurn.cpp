@@ -368,7 +368,7 @@ void MapViewState::nextTurn()
 
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
-	//NAS2D::Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
+	NAS2D::Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
 
 	mPreviousMorale = mCurrentMorale;
 
@@ -388,15 +388,6 @@ void MapViewState::nextTurn()
 	checkColonyShip();
 
 	mStructureInspector.check();
-
-
-	StorableResources oldResources({ 200, 200, 200, 200 });
-	StorableResources inputResources({ 25, 100, 75, 5 });
-
-
-	auto newResources = oldResources + inputResources;
-	auto cappedResources = newResources.cap(250);
-	auto overflow = newResources - cappedResources;
 
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)
