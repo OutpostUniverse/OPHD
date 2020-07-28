@@ -1,0 +1,37 @@
+#pragma once
+
+#include "Structure.h"
+
+/**
+* \class	PowerStructure
+* \brief	Virtual class for structures whose primary purpose is power production
+*
+* \note	PowerStructure is an abstract class
+*/
+class FoodProduction : public Structure
+{
+public:
+	FoodProduction(const std::string& name, const std::string& spritePath, StructureClass structureClass) :
+		Structure(name, spritePath, structureClass) {}
+
+	StringTable createInspectorViewTable() override
+	{
+		StringTable stringTable(2, 2);
+
+		stringTable[{0, 0}].text = "Food Stored:";
+		stringTable[{1, 0}].text = std::to_string(mFoodLevel) + " / " + std::to_string(foodCapacity());
+
+		stringTable[{0, 1}].text = "Production Rate:";
+		stringTable[{1, 1}].text = std::to_string(calculateProduction());
+
+		return stringTable;
+	}
+
+	int currentFoodLevel() const { return mFoodLevel; }
+
+protected:
+	virtual int calculateProduction() = 0;
+	virtual int foodCapacity() = 0;
+
+	int mFoodLevel = 0;
+};

@@ -638,6 +638,9 @@
     <ClInclude Include="StorableResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Things\Structures\FoodProduction.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">
