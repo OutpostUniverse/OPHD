@@ -2,6 +2,8 @@
 
 #include "Structure.h"
 
+const int StorageTanksCapacity = 1000;
+
 class StorageTanks : public Structure
 {
 public:
@@ -13,7 +15,7 @@ public:
 
 		requiresCHAP(false);
 
-		storage().capacity(1000);
+		storage().capacity(StorageTanksCapacity);
 	}
 
 protected:
