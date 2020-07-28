@@ -22,6 +22,11 @@ public:
 		mSprite(spritePath)
 	{}
 
+	Thing(const std::string& name, const std::string& spritePath, const std::string& initialAction) :
+		mName(name),
+		mSprite(spritePath, initialAction)
+	{}
+
 	virtual ~Thing()
 	{
 		#ifdef _DEBUG
