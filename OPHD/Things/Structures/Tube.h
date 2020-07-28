@@ -11,61 +11,25 @@ class Tube : public Structure
 {
 public:
 	Tube(ConnectorDir dir, bool underground) :
-		Structure(constants::TUBE, "structures/tubes.sprite", StructureClass::Tube),
-		mUnderground(underground)
+		Structure(constants::TUBE, "structures/tubes.sprite", getAnimationName(dir, underground), StructureClass::Tube)
 	{
 		connectorDirection(dir);
 		requiresCHAP(false);
 
 		maxAge(400);
-
-		setAnimationState();
 	}
 
 private:
 
-	void setAnimationState()
+	static const std::string& getAnimationName(ConnectorDir dir, bool underground)
 	{
-		if (mUnderground)
-		{
-			if (connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION)
-			{
-				sprite().play(constants::UG_TUBE_INTERSECTION);
-			}
-			else if (connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
-			{
-				sprite().play(constants::UG_TUBE_RIGHT);
-			}
-			else if (connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
-			{
-				sprite().play(constants::UG_TUBE_LEFT);
-			}
-			else
-			{
-				throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter.");
-			}
-		}
-		else
-		{
-			if (connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION)
-			{
-				sprite().play(constants::AG_TUBE_INTERSECTION);
-			}
-			else if (connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
-			{
-				sprite().play(constants::AG_TUBE_RIGHT);
-			}
-			else if (connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
-			{
-				sprite().play(constants::AG_TUBE_LEFT);
-			}
-			else
-			{
-				throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter.");
-			}
-		}
+		return *(
+			(dir == ConnectorDir::CONNECTOR_INTERSECTION) ?
+				(underground ? &constants::UG_TUBE_INTERSECTION : &constants::AG_TUBE_INTERSECTION) :
+			(dir == ConnectorDir::CONNECTOR_RIGHT) ?
+				(underground ? &constants::UG_TUBE_RIGHT : &constants::AG_TUBE_RIGHT) :
+			(dir == ConnectorDir::CONNECTOR_LEFT) ?
+				(underground ? &constants::UG_TUBE_LEFT : &constants::AG_TUBE_LEFT) :
+			throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter."));
 	}
-
-private:
-	bool mUnderground;
 };

@@ -9,7 +9,6 @@ class MedicalCenter : public Structure
 public:
 	MedicalCenter() : Structure(constants::MEDICAL_CENTER, "structures/medical.sprite", StructureClass::MedicalCenter)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);
 		turnsToBuild(4);
 

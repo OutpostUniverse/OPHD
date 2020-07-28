@@ -9,7 +9,6 @@ class Nursery : public Structure
 public:
 	Nursery() : Structure(constants::NURSERY, "structures/nursery_01.sprite", StructureClass::Nursery)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);
 		turnsToBuild(4);
 

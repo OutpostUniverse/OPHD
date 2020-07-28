@@ -64,6 +64,7 @@ public:
 
 public:
 	Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass);
+	Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass);
 
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }

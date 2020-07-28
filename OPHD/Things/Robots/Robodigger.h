@@ -13,7 +13,6 @@ public:
 		Robot(constants::ROBODIGGER, "robots/robodigger.sprite"),
 		mDirection(Direction::Down)
 	{
-		sprite().play("running");
 	}
 
 	void direction(Direction dir) { mDirection = dir; }

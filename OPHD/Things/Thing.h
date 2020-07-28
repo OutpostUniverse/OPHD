@@ -17,9 +17,9 @@ public:
 	using DieCallback = NAS2D::Signals::Signal<Thing*>;
 
 public:
-	Thing(const std::string& name, const std::string& spritePath) :
+	Thing(const std::string& name, const std::string& spritePath, const std::string& initialAction) :
 		mName(name),
-		mSprite(spritePath)
+		mSprite(spritePath, initialAction)
 	{}
 
 	virtual ~Thing()

@@ -9,7 +9,6 @@ class Robodozer: public Robot
 public:
 	Robodozer(): Robot(constants::ROBODOZER, "robots/robodozer.sprite")
 	{
-		sprite().play("running");
 	}
 
 	void tileIndex(std::size_t index) { mTileIndex = index; }
