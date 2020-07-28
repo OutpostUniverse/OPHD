@@ -11,32 +11,31 @@ class Tube : public Structure
 {
 public:
 	Tube(ConnectorDir dir, bool underground) :
-		Structure(constants::TUBE, "structures/tubes.sprite", StructureClass::Tube),
-		mUnderground(underground)
+		Structure(constants::TUBE, "structures/tubes.sprite", StructureClass::Tube)
 	{
 		connectorDirection(dir);
 		requiresCHAP(false);
 
 		maxAge(400);
 
-		sprite().play(getAnimationName());
+		sprite().play(getAnimationName(dir, underground));
 	}
 
 private:
 
-	const std::string& getAnimationName()
+	static const std::string& getAnimationName(ConnectorDir dir, bool underground)
 	{
-		if (mUnderground)
+		if (underground)
 		{
-			if (connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION)
+			if (dir == ConnectorDir::CONNECTOR_INTERSECTION)
 			{
 				return constants::UG_TUBE_INTERSECTION;
 			}
-			else if (connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
+			else if (dir == ConnectorDir::CONNECTOR_RIGHT)
 			{
 				return constants::UG_TUBE_RIGHT;
 			}
-			else if (connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
+			else if (dir == ConnectorDir::CONNECTOR_LEFT)
 			{
 				return constants::UG_TUBE_LEFT;
 			}
@@ -47,15 +46,15 @@ private:
 		}
 		else
 		{
-			if (connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION)
+			if (dir == ConnectorDir::CONNECTOR_INTERSECTION)
 			{
 				return constants::AG_TUBE_INTERSECTION;
 			}
-			else if (connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
+			else if (dir == ConnectorDir::CONNECTOR_RIGHT)
 			{
 				return constants::AG_TUBE_RIGHT;
 			}
-			else if (connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
+			else if (dir == ConnectorDir::CONNECTOR_LEFT)
 			{
 				return constants::AG_TUBE_LEFT;
 			}
@@ -65,7 +64,4 @@ private:
 			}
 		}
 	}
-
-private:
-	bool mUnderground;
 };
