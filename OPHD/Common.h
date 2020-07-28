@@ -28,12 +28,12 @@ extern Difficulty CURRENT_DIFFICULTY;
  */
 enum class Direction
 {
-	DIR_UP,
-	DIR_DOWN,
-	DIR_EAST,
-	DIR_WEST,
-	DIR_NORTH,
-	DIR_SOUTH
+	Up,
+	Down,
+	East,
+	West,
+	North,
+	South
 };
 
 
