@@ -40,7 +40,7 @@ public:
 	int totalEnergyUsed() const { return mTotalEnergyUsed; }
 	int totalEnergyAvailable() const { return mTotalEnergyOutput - mTotalEnergyUsed; }
 
-	void update(StorableResources&, PopulationPool&, int&);
+	void update(StorableResources&, PopulationPool&);
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 

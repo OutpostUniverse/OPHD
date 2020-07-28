@@ -61,7 +61,7 @@ bool StructureManager::CHAPAvailable()
 /**
  *
  */
-void StructureManager::update(StorableResources& resources, PopulationPool& population, int& food)
+void StructureManager::update(StorableResources& resources, PopulationPool& population)
 {
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
