@@ -32,14 +32,15 @@ struct StorableResources
 
 	bool operator<=(const StorableResources& other) const
 	{
-		for (std::size_t i = 0; i < resources.size(); ++i)
-		{
-			if (resources[i] > other.resources[i])
-			{
-				return false;
-			}
-		}
-		return true;
+		return resources[0] <= other.resources[0] &&
+			resources[1] <= other.resources[1] &&
+			resources[2] <= other.resources[2] &&
+			resources[3] <= other.resources[3];
+	}
+
+	bool operator>=(const StorableResources& other) const
+	{
+		return other.resources <= resources;
 	}
 
 	StorableResources cap(int max) const
