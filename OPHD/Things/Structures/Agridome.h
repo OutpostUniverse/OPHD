@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Structure.h"
+#include "FoodProduction.h"
 #include <algorithm>
 
 const int AGRIDOME_CAPACITY = 1000;
 const int AGRIDOME_BASE_PRODUCUCTION = 10;
 
-class Agridome : public Structure
+class Agridome : public FoodProduction
 {
 public:
-	Agridome() : Structure(constants::AGRIDOME, "structures/agridome.sprite", StructureClass::FoodProduction)
+	Agridome() : FoodProduction(constants::AGRIDOME, "structures/agridome.sprite", StructureClass::FoodProduction)
 	{
 		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);
@@ -18,26 +18,12 @@ public:
 		requiresCHAP(true);
 	}
 
-	StringTable createInspectorViewTable() override
-	{
-		StringTable stringTable(2, 2);
-
-		stringTable[{0, 0}].text = "Food Stored:";
-		stringTable[{1, 0}].text = std::to_string(storage().food()) + " / " + std::to_string(AGRIDOME_CAPACITY);
-
-		stringTable[{0, 1}].text = "Production Rate:";
-		stringTable[{1, 1}].text = std::to_string(calculateProduction());
-
-		return stringTable;
-	}
-
 protected:
 	void think() override
 	{
-		if (isIdle())
-			return;
+		if (isIdle()) { return; }
 
-		storage().food(storage().food() + calculateProduction());
+		mFoodLevel = std::clamp(mFoodLevel + calculateProduction(), 0, AGRIDOME_CAPACITY);
 
 		if (isStorageFull())
 		{
@@ -53,12 +39,16 @@ protected:
 
 	void disabledStateSet() override
 	{
-		// Clear food store when disabled.
-		storage().food(0);
+		mFoodLevel = 0;
+	}
+
+	virtual int foodCapacity() override
+	{
+		return AGRIDOME_CAPACITY;
 	}
 
 private:
-	int calculateProduction()
+	virtual int calculateProduction() override
 	{
 		if (!operational())
 		{
@@ -70,6 +60,6 @@ private:
 
 	bool isStorageFull()
 	{
-		return storage().food() == AGRIDOME_CAPACITY;
+		return mFoodLevel >= AGRIDOME_CAPACITY;
 	}
 };
