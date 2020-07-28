@@ -17,9 +17,7 @@ public:
 protected:
 	void defineResourceInput() override
 	{
-		resourcesIn().commonMinerals(2);
-		resourcesIn().rareMinerals(1);
-		resourcesIn().rareMetals(1);
-		resourcesIn().energy(10);
+		resourcesIn({ 2, 0, 1, 1 });
+		energyRequired(10);
 	}
 };

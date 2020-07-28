@@ -17,6 +17,6 @@ public:
 protected:
 	void defineResourceInput() override
 	{
-		resourcesIn().energy(3);
+		energyRequired(3);
 	}
 };

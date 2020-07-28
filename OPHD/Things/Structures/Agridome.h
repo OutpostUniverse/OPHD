@@ -47,8 +47,8 @@ protected:
 
 	void defineResourceInput() override
 	{
-		resourcesIn().commonMinerals(1);
-		resourcesIn().energy(2);
+		resourcesIn({ 1, 0, 0, 0 });
+		energyRequired(2);
 	}
 
 	void disabledStateSet() override

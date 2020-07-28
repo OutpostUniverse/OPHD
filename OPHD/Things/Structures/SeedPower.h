@@ -17,12 +17,6 @@ public:
 		requiresCHAP(false);
 	}
 
-protected:
-	void defineResourceOutput() override
-	{
-		resourcesOut().energy(calculateEnergyProduced());
-	}
-
 private:
 	int calculateMaxEnergyProduction() override
 	{

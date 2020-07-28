@@ -23,11 +23,11 @@ public:
 
 		stringTable[{0, 0}].text = "Power Produced:";
 
-		auto energyProduced = calculateEnergyProduced();
+		auto produced = energyProduced();
 
-		stringTable[{1, 0}].text = std::to_string(energyProduced) + " / " + std::to_string(calculateMaxEnergyProduction());
+		stringTable[{1, 0}].text = std::to_string(produced) + " / " + std::to_string(calculateMaxEnergyProduction());
 
-		if (energyProduced == 0)
+		if (produced == 0)
 		{
 			stringTable[{1, 0}].textColor = constants::WARNING_TEXT_COLOR;
 		}
@@ -35,11 +35,11 @@ public:
 		return stringTable;
 	}
 
-protected:
-	virtual int calculateEnergyProduced()
+	int energyProduced()
 	{
 		return operational() ? calculateMaxEnergyProduction() : 0;
 	}
 
+protected:
 	virtual int calculateMaxEnergyProduction() = 0;
 };
