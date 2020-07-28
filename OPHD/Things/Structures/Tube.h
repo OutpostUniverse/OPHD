@@ -19,26 +19,26 @@ public:
 
 		maxAge(400);
 
-		setAnimationState();
+		sprite().play(getAnimationName());
 	}
 
 private:
 
-	void setAnimationState()
+	const std::string& getAnimationName()
 	{
 		if (mUnderground)
 		{
 			if (connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION)
 			{
-				sprite().play(constants::UG_TUBE_INTERSECTION);
+				return constants::UG_TUBE_INTERSECTION;
 			}
 			else if (connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
 			{
-				sprite().play(constants::UG_TUBE_RIGHT);
+				return constants::UG_TUBE_RIGHT;
 			}
 			else if (connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
 			{
-				sprite().play(constants::UG_TUBE_LEFT);
+				return constants::UG_TUBE_LEFT;
 			}
 			else
 			{
@@ -49,15 +49,15 @@ private:
 		{
 			if (connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION)
 			{
-				sprite().play(constants::AG_TUBE_INTERSECTION);
+				return constants::AG_TUBE_INTERSECTION;
 			}
 			else if (connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
 			{
-				sprite().play(constants::AG_TUBE_RIGHT);
+				return constants::AG_TUBE_RIGHT;
 			}
 			else if (connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
 			{
-				sprite().play(constants::AG_TUBE_LEFT);
+				return constants::AG_TUBE_LEFT;
 			}
 			else
 			{
