@@ -10,10 +10,9 @@ class Robodigger: public Robot
 {
 public:
 	Robodigger() :
-		Robot(constants::ROBODIGGER, "robots/robodigger.sprite"),
+		Robot(constants::ROBODIGGER, "robots/robodigger.sprite", "running"),
 		mDirection(Direction::Down)
 	{
-		sprite().play("running");
 	}
 
 	void direction(Direction dir) { mDirection = dir; }

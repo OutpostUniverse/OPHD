@@ -7,9 +7,8 @@
 class Robominer: public Robot
 {
 public:
-	Robominer(): Robot(constants::ROBOMINER, "robots/robominer.sprite")
+	Robominer(): Robot(constants::ROBOMINER, "robots/robominer.sprite", "running")
 	{
-		sprite().play("running");
 	}
 
 	void update() override { updateTask(); }
