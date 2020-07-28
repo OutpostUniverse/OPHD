@@ -250,29 +250,6 @@ State* MapViewState::update()
 
 
 /**
- * Convenience function to get the amount of food currently in storage.
- */
-int MapViewState::foodInStorage()
-{
-	int food_count = 0;
-
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
-
-	for (auto structure : structures)
-	{
-		if (structure->operational() || structure->isIdle())
-		{
-			food_count += structure->storage().food();
-		}
-	}
-
-	food_count += mFood;
-
-	return food_count;
-}
-
-
-/**
  * Convenience function to get the total amount of food storage.
  */
 int MapViewState::totalStorage(Structure::StructureClass structureClass, int capacity)

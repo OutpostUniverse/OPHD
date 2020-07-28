@@ -51,7 +51,7 @@ void MapViewState::updatePopulation()
 	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, Structure::StructureState::OPERATIONAL);
 
 	// FOOD CONSUMPTION
-	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage(), residences, universities, nurseries, hospitals);
+	int food_consumed = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 	StructureList &foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
 	int remainder = food_consumed;
 
@@ -351,6 +351,22 @@ void MapViewState::updateResidentialCapacity()
 }
 
 
+void MapViewState::updateFood()
+{
+	mFood = 0;
+
+	const auto& structures = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
+
+	for (auto structure : structures)
+	{
+		if (structure->operational() || structure->isIdle())
+		{
+			mFood += static_cast<FoodProduction*>(structure)->foodLevel();
+		}
+	}
+}
+
+
 /**
  * 
  */
@@ -369,6 +385,8 @@ void MapViewState::nextTurn()
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
 	NAS2D::Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
+
+	updateFood();
 
 	mPreviousMorale = mCurrentMorale;
 
