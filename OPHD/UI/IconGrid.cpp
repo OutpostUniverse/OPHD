@@ -245,10 +245,12 @@ bool IconGrid::itemAvailable(const std::string& item)
  */
 void IconGrid::removeItem(const std::string& item)
 {
+	const auto lowerCaseTarget = toLowercase(item);
+
 	auto it = mIconItemList.begin();
 	while (it != mIconItemList.end())
 	{
-		if (toLowercase((*it).name) == toLowercase(item))
+		if (toLowercase((*it).name) == lowerCaseTarget)
 		{
 			mIconItemList.erase(it);
 			clearSelection();
