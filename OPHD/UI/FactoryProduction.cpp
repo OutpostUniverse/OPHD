@@ -12,12 +12,7 @@ using namespace NAS2D;
 /**
  * 
  */
-FactoryProduction::FactoryProduction() :
-	btnOkay{"Okay"},
-	btnCancel{"Cancel"},
-	btnClearSelection{"Clear Selection"},
-	btnApply{"Apply"},
-	chkIdle{"Idle"}
+FactoryProduction::FactoryProduction()
 {
 	text(constants::WINDOW_FACTORY_PRODUCTION);
 	init();
