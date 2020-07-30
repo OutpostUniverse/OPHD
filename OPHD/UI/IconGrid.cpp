@@ -252,7 +252,6 @@ void IconGrid::removeItem(const std::string& item)
 		{
 			mIconItemList.erase(it);
 			clearSelection();
-			sort();
 			return;
 		}
 
