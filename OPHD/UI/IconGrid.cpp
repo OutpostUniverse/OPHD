@@ -148,7 +148,7 @@ void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 	// Assumes all coordinates are not negative.
 	mHighlightIndex = translateCoordsToIndex(mousePoint - startPoint);
 
-	if (static_cast<std::size_t>(mHighlightIndex) >= mIconItemList.size())
+	if (mHighlightIndex >= mIconItemList.size())
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 	}
