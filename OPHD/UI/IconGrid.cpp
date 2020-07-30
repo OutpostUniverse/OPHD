@@ -419,6 +419,7 @@ void IconGrid::update()
 	//renderer.drawBoxFilled(mRect, 0, 0, 0);
 	renderer.drawImageRect(mRect, mSkin);
 
+	if (mGridSize.x == 0) { return; }
 	if (mIconItemList.empty()) { return; }
 
 	for (std::size_t i = 0; i < mIconItemList.size(); ++i)
