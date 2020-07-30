@@ -251,7 +251,6 @@ void IconGrid::removeItem(const std::string& item)
 		if (toLowercase((*it).name) == toLowercase(item))
 		{
 			mIconItemList.erase(it);
-			mCurrentSelection = constants::NO_SELECTION;
 			clearSelection();
 			sort();
 			return;
