@@ -64,11 +64,6 @@ std::map <int, std::string> LEVEL_STRING_TABLE =
 Font* MAIN_FONT = nullptr;
 
 
-/**
- * C'Tor
- *
- * \param	savegame	Save game filename to load.
- */
 MapViewState::MapViewState(const std::string& savegame) :
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
@@ -78,14 +73,6 @@ MapViewState::MapViewState(const std::string& savegame) :
 }
 
 
-/**
- * C'Tor
- * 
- * \param	sm	Site map to load.
- * \param	t	Tileset to use.
- * \param	d	Depth of the site map.
- * \param	mc	Mine Count - Number of mines to generate.
- */
 MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mPlanetAttributes(planetAttributes),
@@ -97,9 +84,6 @@ MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
 }
 
 
-/**
- * D'Tor
- */
 MapViewState::~MapViewState()
 {
 	scrubRobotList();
@@ -121,9 +105,6 @@ MapViewState::~MapViewState()
 }
 
 
-/**
- * 
- */
 void MapViewState::setPopulationLevel(PopulationLevel popLevel)
 {
 	mLandersColonist = static_cast<int>(popLevel);
