@@ -434,10 +434,11 @@ void IconGrid::update()
 		// Name Tooltip
 		if (mShowTooltip)
 		{
-			const auto tooltipRect = NAS2D::Rectangle{position.x, position.y - 15, FONT->width(mIconItemList[mHighlightIndex].name) + 4, FONT->height()};
+			const auto& highlightedName = mIconItemList[mHighlightIndex].name;
+			const auto tooltipRect = NAS2D::Rectangle{position.x, position.y - 15, FONT->width(highlightedName) + 4, FONT->height()};
 			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
 			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
-			renderer.drawText(*FONT, mIconItemList[mHighlightIndex].name, position + NAS2D::Vector{2, -15}, NAS2D::Color::Black);
+			renderer.drawText(*FONT, highlightedName, position + NAS2D::Vector{2, -15}, NAS2D::Color::Black);
 		}
 	}
 }
