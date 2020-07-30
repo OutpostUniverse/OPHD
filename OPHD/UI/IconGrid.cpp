@@ -10,6 +10,9 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/MathUtils.h>
 
+#include <algorithm>
+
+
 using namespace NAS2D;
 
 static Font* FONT = nullptr;
@@ -249,17 +252,17 @@ void IconGrid::removeItem(const std::string& item)
 {
 	const auto lowerCaseTarget = toLowercase(item);
 
-	auto it = mIconItemList.begin();
-	while (it != mIconItemList.end())
-	{
-		if (toLowercase((*it).name) == lowerCaseTarget)
-		{
-			mIconItemList.erase(it);
-			clearSelection();
-			return;
+	const auto iter = std::find_if(
+		mIconItemList.begin(),
+		mIconItemList.end(),
+		[&lowerCaseTarget](const auto& iconItem) {
+			return toLowercase(iconItem.name) == lowerCaseTarget;
 		}
-
-		++it;
+	);
+	if (iter != mIconItemList.end())
+	{
+		mIconItemList.erase(iter);
+		clearSelection();
 	}
 }
 
