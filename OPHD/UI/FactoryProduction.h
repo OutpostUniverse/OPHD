@@ -45,7 +45,7 @@ private:
 	ProductType mProduct = ProductType::PRODUCT_NONE;
 	ProductionCost mProductCost;
 
-	IconGrid mProductGrid;
+	IconGrid mProductGrid{"ui/factory.png", 32};
 
 	Button btnOkay;
 	Button btnCancel;

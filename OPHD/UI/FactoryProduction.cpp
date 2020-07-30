@@ -40,9 +40,7 @@ void FactoryProduction::init()
 
 	// Set up GUI Layout
 	add(&mProductGrid, constants::MARGIN, 25);
-	mProductGrid.sheetPath("ui/factory.png");
 	mProductGrid.size({140, 110});
-	mProductGrid.iconSize(32);
 	mProductGrid.iconMargin(constants::MARGIN_TIGHT);
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();

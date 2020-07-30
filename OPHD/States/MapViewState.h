@@ -231,9 +231,9 @@ private:
 	Button mBtnToggleHeightmap;
 	Button mBtnToggleConnectedness;
 
-	IconGrid mStructures;
-	IconGrid mRobots;
-	IconGrid mConnections;
+	IconGrid mStructures{"ui/structures.png", 46};
+	IconGrid mRobots{"ui/robots.png", 46};
+	IconGrid mConnections{"ui/structures.png", 46};
 
 	DiggerDirection mDiggerDirection;
 	FactoryProduction mFactoryProduction;
