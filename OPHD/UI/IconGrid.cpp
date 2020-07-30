@@ -112,7 +112,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	mCurrentSelection = translateCoordsToIndex(mousePoint - startPoint);
 
-	if (static_cast<std::size_t>(mCurrentSelection) >= mIconItemList.size())
+	if (mCurrentSelection >= mIconItemList.size())
 	{
 		mCurrentSelection = constants::NO_SELECTION;
 	}
