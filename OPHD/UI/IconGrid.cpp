@@ -213,9 +213,10 @@ void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
  */
 void IconGrid::itemAvailable(const std::string& item, bool isItemAvailable)
 {
+	const auto lowerCaseTarget = toLowercase(item);
 	for (auto &_iconItem : mIconItemList)
 	{
-		if (toLowercase(_iconItem.name) == toLowercase(item))
+		if (toLowercase(_iconItem.name) == lowerCaseTarget)
 		{
 			_iconItem.available = isItemAvailable;
 			return;
@@ -229,9 +230,10 @@ void IconGrid::itemAvailable(const std::string& item, bool isItemAvailable)
  */
 bool IconGrid::itemAvailable(const std::string& item)
 {
+	const auto lowerCaseTarget = toLowercase(item);
 	for (auto &_iconItem : mIconItemList)
 	{
-		if (toLowercase(_iconItem.name) == toLowercase(item))
+		if (toLowercase(_iconItem.name) == lowerCaseTarget)
 		{
 			return _iconItem.available;
 		}
@@ -267,9 +269,10 @@ void IconGrid::removeItem(const std::string& item)
  */
 bool IconGrid::itemExists(const std::string& item)
 {
+	const auto lowerCaseTarget = toLowercase(item);
 	for (auto &_iconItem : mIconItemList)
 	{
-		if (toLowercase(_iconItem.name) == toLowercase(item))
+		if (toLowercase(_iconItem.name) == lowerCaseTarget)
 		{
 			return true;
 		}
