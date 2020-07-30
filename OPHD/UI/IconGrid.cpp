@@ -267,9 +267,9 @@ void IconGrid::removeItem(const std::string& item)
  */
 bool IconGrid::itemExists(const std::string& item)
 {
-	for (std::size_t i = 0; i < mIconItemList.size(); i++)
+	for (auto &_iconItem : mIconItemList)
 	{
-		if (toLowercase(mIconItemList[i].name) == toLowercase(item))
+		if (toLowercase(_iconItem.name) == toLowercase(item))
 		{
 			return true;
 		}
