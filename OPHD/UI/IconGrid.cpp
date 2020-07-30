@@ -367,6 +367,11 @@ void IconGrid::incrementSelection()
 		mCurrentSelection = 0;
 	}
 
+	if (mIconItemList.empty())
+	{
+		mCurrentSelection = constants::NO_SELECTION;
+	}
+
 	raiseChangedEvent();
 }
 
@@ -378,6 +383,11 @@ void IconGrid::decrementSelection()
 		mCurrentSelection = mIconItemList.size();
 	}
 	--mCurrentSelection;
+
+	if (mIconItemList.empty())
+	{
+		mCurrentSelection = constants::NO_SELECTION;
+	}
 
 	raiseChangedEvent();
 }
