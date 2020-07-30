@@ -421,7 +421,6 @@ void IconGrid::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	//renderer.drawBoxFilled(mRect, 0, 0, 0);
 	renderer.drawImageRect(mRect, mSkin);
 
 	if (mGridSize.x == 0) { return; }
