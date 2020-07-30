@@ -411,8 +411,6 @@ void IconGrid::update()
 		return startPoint + offset * spacing;
 	};
 
-	if (mIconItemList.empty()) { return; }
-
 	for (std::size_t i = 0; i < mIconItemList.size(); ++i)
 	{
 		const auto position = indexToGridPosition(i);
