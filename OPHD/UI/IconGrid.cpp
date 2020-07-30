@@ -213,12 +213,6 @@ void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
  */
 void IconGrid::itemAvailable(const std::string& item, bool isItemAvailable)
 {
-	// Ignore if menu is empty
-	if (empty())
-	{
-		return;
-	}
-
 	for (auto &_iconItem : mIconItemList)
 	{
 		if (toLowercase(_iconItem.name) == toLowercase(item))
@@ -235,12 +229,6 @@ void IconGrid::itemAvailable(const std::string& item, bool isItemAvailable)
  */
 bool IconGrid::itemAvailable(const std::string& item)
 {
-	// Ignore if menu is empty
-	if (empty())
-	{
-		return false;
-	}
-
 	for (auto &_iconItem : mIconItemList)
 	{
 		if (toLowercase(_iconItem.name) == toLowercase(item))
@@ -257,13 +245,7 @@ bool IconGrid::itemAvailable(const std::string& item)
  */
 void IconGrid::removeItem(const std::string& item)
 {
-	if (empty())
-	{
-		return;
-	}
-
 	auto it = mIconItemList.begin();
-
 	while (it != mIconItemList.end())
 	{
 		if (toLowercase((*it).name) == toLowercase(item))
@@ -285,12 +267,6 @@ void IconGrid::removeItem(const std::string& item)
  */
 bool IconGrid::itemExists(const std::string& item)
 {
-	// Ignore if menu is empty
-	if (empty())
-	{
-		return false;
-	}
-
 	for (std::size_t i = 0; i < mIconItemList.size(); i++)
 	{
 		if (toLowercase(mIconItemList[i].name) == toLowercase(item))
@@ -298,7 +274,6 @@ bool IconGrid::itemExists(const std::string& item)
 			return true;
 		}
 	}
-
 	return false;
 }
 
