@@ -420,28 +420,30 @@ void IconGrid::update()
 	renderer.drawImageRect(mRect, mSkin);
 
 	if (mGridSize.x == 0) { return; }
+	const auto indexToGridPosition = [gridSize = mGridSize, startPoint = mRect.startPoint(), spacing = mIconSize + mIconMargin](std::size_t index) {
+		const auto linearOffset = static_cast<int>(index);
+		const auto offset = NAS2D::Vector{linearOffset % gridSize.x, linearOffset / gridSize.x};
+		return startPoint + offset * spacing;
+	};
+
 	if (mIconItemList.empty()) { return; }
 
 	for (std::size_t i = 0; i < mIconItemList.size(); ++i)
 	{
-		const auto offset = NAS2D::Vector{static_cast<int>(i) % mGridSize.x, static_cast<int>(i) / mGridSize.x};
-		const auto position = mRect.startPoint() + offset * (mIconSize + mIconMargin);
+		const auto position = indexToGridPosition(i);
 		const auto highlightColor = mIconItemList[i].available ? NAS2D::Color::White : NAS2D::Color::Red;
 		renderer.drawSubImage(mIconSheet, position, NAS2D::Rectangle{mIconItemList[i].pos.x, mIconItemList[i].pos.y, mIconSize, mIconSize}, highlightColor);
 	}
 
 	if (mCurrentSelection != constants::NO_SELECTION)
 	{
-		const auto offset = NAS2D::Vector{static_cast<int>(mCurrentSelection) % mGridSize.x, static_cast<int>(mCurrentSelection) / mGridSize.x};
-		const auto position = mRect.startPoint() + NAS2D::Vector{mIconMargin, mIconMargin} + offset * (mIconSize + mIconMargin);
+		const auto position = indexToGridPosition(mCurrentSelection) + NAS2D::Vector{mIconMargin, mIconMargin};
 		renderer.drawBox(NAS2D::Rectangle<int>::Create(position, NAS2D::Vector{mIconSize, mIconSize}), NAS2D::Color{0, 100, 255});
 	}
 
 	if (mHighlightIndex != constants::NO_SELECTION)
 	{
-		const auto offset = NAS2D::Vector{static_cast<int>(mHighlightIndex) % mGridSize.x, static_cast<int>(mHighlightIndex) / mGridSize.x};
-		const auto position = mRect.startPoint() + NAS2D::Vector{mIconMargin, mIconMargin} + offset * (mIconSize + mIconMargin);
-
+		const auto position = indexToGridPosition(mHighlightIndex) + NAS2D::Vector{mIconMargin, mIconMargin};
 		renderer.drawBox(NAS2D::Rectangle<int>::Create(position, NAS2D::Vector{mIconSize, mIconSize}), NAS2D::Color{0, 180, 0});
 
 		// Name Tooltip
