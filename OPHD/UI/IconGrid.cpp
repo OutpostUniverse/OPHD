@@ -363,7 +363,7 @@ void IconGrid::incrementSelection()
 {
 	++mCurrentSelection;
 
-	if (static_cast<std::size_t>(mCurrentSelection) >= mIconItemList.size())
+	if (mCurrentSelection >= mIconItemList.size())
 	{
 		mCurrentSelection = 0;
 	}
