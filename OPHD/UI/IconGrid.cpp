@@ -43,10 +43,11 @@ IconGrid::IconGrid()
 }
 
 
-IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize) : IconGrid()
+IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) : IconGrid()
 {
 	sheetPath(filePath);
 	iconSize(iconEdgeSize);
+	iconMargin(margin);
 }
 
 

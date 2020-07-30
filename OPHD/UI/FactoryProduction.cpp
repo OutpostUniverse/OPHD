@@ -41,7 +41,6 @@ void FactoryProduction::init()
 	// Set up GUI Layout
 	add(&mProductGrid, constants::MARGIN, 25);
 	mProductGrid.size({140, 110});
-	mProductGrid.iconMargin(constants::MARGIN_TIGHT);
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
 	mProductGrid.selectionChanged().connect(this, &FactoryProduction::productSelectionChanged);

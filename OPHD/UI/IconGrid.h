@@ -46,7 +46,7 @@ public:
 
 public:
 	IconGrid();
-	IconGrid(const std::string& filePath, int iconSize);
+	IconGrid(const std::string& filePath, int iconSize, int margin);
 	~IconGrid() override;
 
 	void sheetPath(const std::string& filePath);

@@ -3,6 +3,7 @@
 #include "UI.h"
 #include "IconGrid.h"
 
+#include "../Constants.h"
 #include "../Things/Structures/Factory.h"
 
 /**
@@ -45,7 +46,7 @@ private:
 	ProductType mProduct = ProductType::PRODUCT_NONE;
 	ProductionCost mProductCost;
 
-	IconGrid mProductGrid{"ui/factory.png", 32};
+	IconGrid mProductGrid{"ui/factory.png", 32, constants::MARGIN_TIGHT};
 
 	Button btnOkay;
 	Button btnCancel;
