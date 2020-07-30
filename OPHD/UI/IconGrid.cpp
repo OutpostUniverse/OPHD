@@ -362,7 +362,6 @@ void IconGrid::selection_meta(int selectionMetaValue)
 void IconGrid::incrementSelection()
 {
 	++mCurrentSelection;
-
 	if (mCurrentSelection >= mIconItemList.size())
 	{
 		mCurrentSelection = 0;
@@ -376,12 +375,9 @@ void IconGrid::decrementSelection()
 {
 	if (mCurrentSelection == 0)
 	{
-		mCurrentSelection = mIconItemList.size() - 1;
+		mCurrentSelection = mIconItemList.size();
 	}
-	else
-	{
-		--mCurrentSelection;
-	}
+	--mCurrentSelection;
 
 	raiseChangedEvent();
 }
