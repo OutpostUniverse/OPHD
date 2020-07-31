@@ -94,7 +94,7 @@ protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int dX, int dY);
 
-	virtual void sizeChanged();
+	virtual void sizeChanged(Control*);
 
 private:
 	using IconItemList = std::vector<IconGridItem>;

@@ -24,6 +24,7 @@ IconGrid::IconGrid()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMove);
+	resized().connect(this, &IconGrid::sizeChanged);
 	hasFocus(true);
 
 	mSkin.push_back(Image("ui/skin/textbox_top_left.png"));
@@ -169,7 +170,7 @@ std::size_t IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
 /**
  * Called whenever the size of the IconGrid is changed.
  */
-void IconGrid::sizeChanged()
+void IconGrid::sizeChanged(Control*)
 {
 	updateGrid();
 }
