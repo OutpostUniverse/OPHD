@@ -11,6 +11,8 @@
 #include <NAS2D/MathUtils.h>
 
 #include <algorithm>
+#include <stdexcept>
+#include <string>
 
 
 using namespace NAS2D;
@@ -65,6 +67,11 @@ void IconGrid::sheetPath(const std::string& filePath)
  */
 void IconGrid::iconSize(int newSize)
 {
+	if (newSize <= 0)
+	{
+		throw std::runtime_error("IconGrid::iconSize must be positive: " + std::to_string(newSize));
+	}
+
 	mIconSize = newSize;
 	updateGrid();
 }
@@ -75,6 +82,11 @@ void IconGrid::iconSize(int newSize)
  */
 void IconGrid::iconMargin(int newMargin)
 {
+	if (newMargin < 0)
+	{
+		throw std::runtime_error("IconGrid::iconMargin must be non-negative: " + std::to_string(newMargin));
+	}
+
 	mIconMargin = newMargin;
 	updateGrid();
 }
