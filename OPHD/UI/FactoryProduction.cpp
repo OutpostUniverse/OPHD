@@ -12,12 +12,7 @@ using namespace NAS2D;
 /**
  * 
  */
-FactoryProduction::FactoryProduction() :
-	btnOkay{"Okay"},
-	btnCancel{"Cancel"},
-	btnClearSelection{"Clear Selection"},
-	btnApply{"Apply"},
-	chkIdle{"Idle"}
+FactoryProduction::FactoryProduction()
 {
 	text(constants::WINDOW_FACTORY_PRODUCTION);
 	init();
@@ -40,10 +35,7 @@ void FactoryProduction::init()
 
 	// Set up GUI Layout
 	add(&mProductGrid, constants::MARGIN, 25);
-	mProductGrid.sheetPath("ui/factory.png");
 	mProductGrid.size({140, 110});
-	mProductGrid.iconSize(32);
-	mProductGrid.iconMargin(constants::MARGIN_TIGHT);
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
 	mProductGrid.selectionChanged().connect(this, &FactoryProduction::productSelectionChanged);

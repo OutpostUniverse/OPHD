@@ -64,14 +64,7 @@ std::map <int, std::string> LEVEL_STRING_TABLE =
 Font* MAIN_FONT = nullptr;
 
 
-/**
- * C'Tor
- *
- * \param	savegame	Save game filename to load.
- */
 MapViewState::MapViewState(const std::string& savegame) :
-	mBackground("sys/bg1.png"),
-	mUiIcons("ui/icons.png"),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
@@ -80,30 +73,17 @@ MapViewState::MapViewState(const std::string& savegame) :
 }
 
 
-/**
- * C'Tor
- * 
- * \param	sm	Site map to load.
- * \param	t	Tileset to use.
- * \param	d	Depth of the site map.
- * \param	mc	Mine Count - Number of mines to generate.
- */
 MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mPlanetAttributes(planetAttributes),
-	mBackground("sys/bg1.png"),
 	mMapDisplay(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION),
-	mHeightMap(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION),
-	mUiIcons("ui/icons.png")
+	mHeightMap(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)
 {
 	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
 
 
-/**
- * D'Tor
- */
 MapViewState::~MapViewState()
 {
 	scrubRobotList();
@@ -125,9 +105,6 @@ MapViewState::~MapViewState()
 }
 
 
-/**
- * 
- */
 void MapViewState::setPopulationLevel(PopulationLevel popLevel)
 {
 	mLandersColonist = static_cast<int>(popLevel);

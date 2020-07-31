@@ -118,27 +118,18 @@ void MapViewState::initUi()
 	mBtnToggleConnectedness.click().connect(this, &MapViewState::btnToggleConnectednessClicked);
 
 	// Menus
-	mRobots.sheetPath("ui/robots.png");
 	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, BOTTOM_UI_AREA.y + MARGIN});
 	mRobots.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
-	mRobots.iconSize(46);
-	mRobots.iconMargin(constants::MARGIN_TIGHT);
 	mRobots.showTooltip(true);
 	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
 
-	mConnections.sheetPath("ui/structures.png");
 	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, BOTTOM_UI_AREA.y + MARGIN});
 	mConnections.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
-	mConnections.iconSize(46);
-	mConnections.iconMargin(constants::MARGIN_TIGHT);
 	mConnections.selectionChanged().connect(this, &MapViewState::connectionsSelectionChanged);
 	mConnections.sorted(false);
 
-	mStructures.sheetPath("ui/structures.png");
 	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y + MARGIN});
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
-	mStructures.iconSize(46);
-	mStructures.iconMargin(constants::MARGIN_TIGHT);
 	mStructures.showTooltip(true);
 	mStructures.selectionChanged().connect(this, &MapViewState::structuresSelectionChanged);
 
