@@ -178,17 +178,7 @@ void MapViewState::load(const std::string& filePath)
 
 	checkConnectedness();
 
-	/**
-	 * StructureManager::updateEnergyProduction() overwrites the energy count in the player resource
-	 * pool so we store the original value here and set it after counting the total energy available.
-	 * Kind of a kludge.
-	 * 
-	 * For now commenting out this ugly code as it truly is a klude and I suspect this will change
-	 * when the resourcepool refactor gets finished.
-	 */
-	/*int energy = mEnergy;
-	Utility<StructureManager>::get().updateEnergyProduction(mPlayerResources, mPopulationPool);
-	mEnergy = energy; */
+	Utility<StructureManager>::get().updateEnergyProduction();
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
