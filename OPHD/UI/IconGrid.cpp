@@ -85,10 +85,7 @@ void IconGrid::iconMargin(int newMargin)
  */
 void IconGrid::updateGrid()
 {
-	int cols = (mRect.width - (mIconMargin * 2)) / (mIconSize + mIconMargin);
-	int rows = (mRect.height - (mIconMargin * 2)) / (mIconSize + mIconMargin);
-
-	mGridSize = {cols, rows};
+	mGridSize = (mRect.size() - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
 }
 
 
