@@ -22,8 +22,20 @@ static Font* FONT = nullptr;
 /**
  * C'tor
  */
-IconGrid::IconGrid()
+IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
+	mIconSize{iconEdgeSize},
+	mIconMargin{margin},
+	mIconSheet{filePath}
 {
+	if (iconEdgeSize <= 0)
+	{
+		throw std::runtime_error("IconGrid::iconSize must be positive: " + std::to_string(iconEdgeSize));
+	}
+	if (margin < 0)
+	{
+		throw std::runtime_error("IconGrid::iconMargin must be non-negative: " + std::to_string(margin));
+	}
+
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMove);
 	resized().connect(this, &IconGrid::sizeChanged);
@@ -40,23 +52,6 @@ IconGrid::IconGrid()
 	mSkin.push_back(Image("ui/skin/textbox_bottom_right.png"));
 
 	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-}
-
-
-IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) : IconGrid()
-{
-	if (iconEdgeSize <= 0)
-	{
-		throw std::runtime_error("IconGrid::iconSize must be positive: " + std::to_string(iconEdgeSize));
-	}
-	if (margin < 0)
-	{
-		throw std::runtime_error("IconGrid::iconMargin must be non-negative: " + std::to_string(margin));
-	}
-
-	sheetPath(filePath);
-	mIconSize = iconEdgeSize;
-	mIconMargin = margin;
 }
 
 

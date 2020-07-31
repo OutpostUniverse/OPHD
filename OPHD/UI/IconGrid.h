@@ -45,7 +45,6 @@ public:
 	using Callback = NAS2D::Signals::Signal<const IconGridItem*>;
 
 public:
-	IconGrid();
 	IconGrid(const std::string& filePath, int iconSize, int margin);
 	~IconGrid() override;
 
