@@ -94,7 +94,7 @@ protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int dX, int dY);
 
-	virtual void sizeChanged();
+	virtual void sizeChanged(Control*);
 
 private:
 	using IconItemList = std::vector<IconGridItem>;
@@ -110,7 +110,7 @@ private:
 	Index mHighlightIndex = constants::NO_SELECTION; /**< Current highlight index. */
 	Index mCurrentSelection = constants::NO_SELECTION; /**< Currently selected item index. */
 
-	int mIconSize = 0; /**< Size of the icons. */
+	int mIconSize = 1; /**< Size of the icons. */
 	int mIconMargin = 0; /**< Spacing between icons and edges of the IconGrid. */
 
 	bool mShowTooltip = false; /**< Flag indicating that we want a tooltip drawn near an icon when hovering over it. */

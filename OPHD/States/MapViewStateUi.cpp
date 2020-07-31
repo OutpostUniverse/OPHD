@@ -184,7 +184,6 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y + MARGIN});
 
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
-	mStructures.iconMargin(constants::MARGIN_TIGHT);
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();

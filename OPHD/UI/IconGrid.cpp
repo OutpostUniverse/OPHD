@@ -11,6 +11,8 @@
 #include <NAS2D/MathUtils.h>
 
 #include <algorithm>
+#include <stdexcept>
+#include <string>
 
 
 using namespace NAS2D;
@@ -24,6 +26,7 @@ IconGrid::IconGrid()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMove);
+	resized().connect(this, &IconGrid::sizeChanged);
 	hasFocus(true);
 
 	mSkin.push_back(Image("ui/skin/textbox_top_left.png"));
@@ -62,9 +65,14 @@ void IconGrid::sheetPath(const std::string& filePath)
 /**
  * Sets the icon dimensions.
  */
-void IconGrid::iconSize(int newSsize)
+void IconGrid::iconSize(int newSize)
 {
-	mIconSize = newSsize;
+	if (newSize <= 0)
+	{
+		throw std::runtime_error("IconGrid::iconSize must be positive: " + std::to_string(newSize));
+	}
+
+	mIconSize = newSize;
 	updateGrid();
 }
 
@@ -74,6 +82,11 @@ void IconGrid::iconSize(int newSsize)
  */
 void IconGrid::iconMargin(int newMargin)
 {
+	if (newMargin < 0)
+	{
+		throw std::runtime_error("IconGrid::iconMargin must be non-negative: " + std::to_string(newMargin));
+	}
+
 	mIconMargin = newMargin;
 	updateGrid();
 }
@@ -84,10 +97,7 @@ void IconGrid::iconMargin(int newMargin)
  */
 void IconGrid::updateGrid()
 {
-	int cols = (mRect.width - (mIconMargin * 2)) / (mIconSize + mIconMargin);
-	int rows = (mRect.height - (mIconMargin * 2)) / (mIconSize + mIconMargin);
-
-	mGridSize = {cols, rows};
+	mGridSize = (mRect.size() - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
 }
 
 
@@ -169,7 +179,7 @@ std::size_t IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
 /**
  * Called whenever the size of the IconGrid is changed.
  */
-void IconGrid::sizeChanged()
+void IconGrid::sizeChanged(Control*)
 {
 	updateGrid();
 }
