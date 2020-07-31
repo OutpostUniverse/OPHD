@@ -66,45 +66,6 @@ IconGrid::~IconGrid()
 
 
 /**
- * Sets the icon sheet path and loads an Image.
- */
-void IconGrid::sheetPath(const std::string& filePath)
-{
-	mIconSheet = Image(filePath);
-}
-
-
-/**
- * Sets the icon dimensions.
- */
-void IconGrid::iconSize(int newSize)
-{
-	if (newSize <= 0)
-	{
-		throw std::runtime_error("IconGrid::iconSize must be positive: " + std::to_string(newSize));
-	}
-
-	mIconSize = newSize;
-	updateGrid();
-}
-
-
-/**
- * Sets the margin used between the edges of the IconGrid and other icons.
- */
-void IconGrid::iconMargin(int newMargin)
-{
-	if (newMargin < 0)
-	{
-		throw std::runtime_error("IconGrid::iconMargin must be non-negative: " + std::to_string(newMargin));
-	}
-
-	mIconMargin = newMargin;
-	updateGrid();
-}
-
-
-/**
  * Updates the icon grid.
  */
 void IconGrid::updateGrid()

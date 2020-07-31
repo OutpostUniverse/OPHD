@@ -48,10 +48,6 @@ public:
 	IconGrid(const std::string& filePath, int iconSize, int margin);
 	~IconGrid() override;
 
-	void sheetPath(const std::string& filePath);
-	void iconSize(int newSsize);
-	void iconMargin(int newMargin);
-
 	const std::string& itemName(std::size_t index) const { return mIconItemList[index].name; }
 
 	int selectionIndex() const { return static_cast<int>(mCurrentSelection); }
