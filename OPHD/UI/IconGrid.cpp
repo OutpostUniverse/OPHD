@@ -45,9 +45,18 @@ IconGrid::IconGrid()
 
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) : IconGrid()
 {
+	if (iconEdgeSize <= 0)
+	{
+		throw std::runtime_error("IconGrid::iconSize must be positive: " + std::to_string(iconEdgeSize));
+	}
+	if (margin < 0)
+	{
+		throw std::runtime_error("IconGrid::iconMargin must be non-negative: " + std::to_string(margin));
+	}
+
 	sheetPath(filePath);
-	iconSize(iconEdgeSize);
-	iconMargin(margin);
+	mIconSize = iconEdgeSize;
+	mIconMargin = margin;
 }
 
 
