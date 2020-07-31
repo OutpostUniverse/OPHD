@@ -99,7 +99,7 @@ void Button::image(const std::string& path)
 
 bool Button::hasImage() const
 {
-	return mImage->loaded();
+	return mImage != nullptr;
 }
 
 
