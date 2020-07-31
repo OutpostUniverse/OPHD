@@ -231,6 +231,25 @@ void MapViewState::load(const std::string& filePath)
 }
 
 
+void MapViewState::readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources)
+{
+	if (!element) { throw std::runtime_error("MapViewState::readResources(): Called with element==nullptr"); }
+
+	XmlAttribute* attribute = element->firstAttribute();
+	while (attribute)
+	{
+		if (attribute->name() == constants::SAVE_GAME_COMMON_METAL) { attribute->queryIntValue(resources[0]); }
+		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL) { attribute->queryIntValue(resources[1]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL) { attribute->queryIntValue(resources[2]); }
+		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL) { attribute->queryIntValue(resources[3]); }
+
+		else if (attribute->name() == constants::SAVE_GAME_ENERGY) { attribute->queryIntValue(mEnergy); }
+
+		attribute = attribute->next();
+	}
+}
+
+
 /**
  * 
  */

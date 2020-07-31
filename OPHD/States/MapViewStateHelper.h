@@ -48,7 +48,5 @@ void resourceShortageMessage(StorableResources&, StructureID);
 void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap);
 void writeResources(NAS2D::Xml::XmlElement*, StorableResources&, const std::string&);
 
-void readResources(NAS2D::Xml::XmlElement*, StorableResources&);
-
 void updateRobotControl(RobotPool& robotPool);
 void deleteRobotsInRCC(Robot* robot, RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt, Tile* tile);

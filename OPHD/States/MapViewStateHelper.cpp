@@ -573,11 +573,3 @@ void writeResources(NAS2D::Xml::XmlElement* element, StorableResources& resource
 	//element->linkEndChild(resources);
 }
 
-
-/** 
- * Document me!
- */
-void readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources)
-{
-	//if (element) { resourcePool.deserialize(element); }
-}
