@@ -60,11 +60,17 @@ void MapViewState::updatePopulation()
 		remainder -= pullFood(mFood, remainder);
 	}
 
-	for (std::size_t i = 0; i < foodproducers.size(); ++i)
+	for (auto structure : foodproducers)
 	{
 		if (remainder <= 0) { break; }
 
-		//remainder -= pullFood(foodproducers[i]->storage(), remainder);
+		FoodProduction* foodProducer = static_cast<FoodProduction*>(structure);
+
+		int foodLevel = foodProducer->foodLevel();
+		int pulled = pullFood(foodLevel, remainder);
+
+		foodProducer->foodLevel(foodLevel);
+		remainder -= pulled;
 	}
 }
 
