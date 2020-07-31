@@ -170,7 +170,7 @@ void MapViewState::load(const std::string& filePath)
 	readStructures(root->firstChildElement("structures"));
 
 	readResources(root->firstChildElement("resources"), mPlayerResources);
-	//readResources(root->firstChildElement("prev_resources"), mResourceBreakdownPanel.previousResources());
+	readResources(root->firstChildElement("prev_resources"), mResourceBreakdownPanel.previousResources());
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
