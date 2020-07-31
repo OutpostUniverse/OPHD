@@ -126,7 +126,6 @@ void MapViewState::initUi()
 	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, BOTTOM_UI_AREA.y + MARGIN});
 	mConnections.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mConnections.selectionChanged().connect(this, &MapViewState::connectionsSelectionChanged);
-	mConnections.sorted(false);
 
 	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y + MARGIN});
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
@@ -319,7 +318,6 @@ void MapViewState::populateStructureMenu()
 	updateStructuresAvailability();
 
 	mStructures.sort();
-	mConnections.sort();
 }
 
 

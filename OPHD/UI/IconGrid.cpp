@@ -433,8 +433,5 @@ bool iconItemCompare(const IconGrid::IconGridItem& left, const IconGrid::IconGri
 
 void IconGrid::sort()
 {
-	if (sorted())
-	{
-		std::sort(mIconItemList.begin(), mIconItemList.end(), &iconItemCompare);
-	}
+	std::sort(mIconItemList.begin(), mIconItemList.end(), &iconItemCompare);
 }

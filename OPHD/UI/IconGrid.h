@@ -54,9 +54,6 @@ public:
 
 	bool empty() const { return mIconItemList.empty(); }
 
-	bool sorted() const { return mSorted; }
-	void sorted(bool isSorted) { mSorted = isSorted; }
-
 	void addItemSorted(const std::string& name, int sheetIndex, int meta);
 	void addItem(const std::string& name, int sheetIndex, int meta);
 	void removeItem(const std::string& item);
@@ -110,7 +107,6 @@ private:
 	int mIconMargin = 0; /**< Spacing between icons and edges of the IconGrid. */
 
 	bool mShowTooltip = false; /**< Flag indicating that we want a tooltip drawn near an icon when hovering over it. */
-	bool mSorted = true; /**< Flag indicating that the IconGrid should be sorted. */
 
 	NAS2D::Image mIconSheet; /**< Image containing the icons. */
 
