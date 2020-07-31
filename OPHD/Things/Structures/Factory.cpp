@@ -129,18 +129,12 @@ void Factory::updateProduction()
 	}
 	
 	/**
-	 * Using explicit calls here instead of ResourcePool::operator-=() because the production
-	 * table doesn't use ResourcePool objects.
-	 * 
-	 * \todo	Add an operator-=() to ResourcePool that takes type ProductionCost to improve
-	 *			readability of below code. Not thrilled with polluting the namespace but eh.
+	 * \todo	Have this use operator- once the production table is converted to using StorableResources
 	 */
-	/*
-	mResources->commonMetals(mResourcesPool->commonMetals() - PRODUCTION_TYPE_TABLE[mProduct].commonMetals());
-	mResources->commonMinerals(mResourcesPool->commonMinerals() - PRODUCTION_TYPE_TABLE[mProduct].commonMinerals());
-	mResources->rareMetals(mResourcesPool->rareMetals() - PRODUCTION_TYPE_TABLE[mProduct].rareMetals());
-	mResources->rareMinerals(mResourcesPool->rareMinerals() - PRODUCTION_TYPE_TABLE[mProduct].rareMinerals());
-	*/
+	mResources->resources[0] = mResources->resources[0] - PRODUCTION_TYPE_TABLE[mProduct].commonMetals();
+	mResources->resources[1] = mResources->resources[1] - PRODUCTION_TYPE_TABLE[mProduct].commonMinerals();
+	mResources->resources[2] = mResources->resources[2] - PRODUCTION_TYPE_TABLE[mProduct].rareMetals();
+	mResources->resources[3] = mResources->resources[3] - PRODUCTION_TYPE_TABLE[mProduct].rareMinerals();
 
 	++mTurnsCompleted;
 
@@ -159,15 +153,16 @@ bool Factory::enoughResourcesAvailable()
 	if (mResources == nullptr) { throw std::runtime_error("Factory::enoughResourcesAvailable() called with a null Resource Pool set"); }
 	#endif
 
-	/*
-	if (mResources->commonMetals() >= PRODUCTION_TYPE_TABLE[mProduct].commonMetals() &&
-		mResources->commonMinerals() >= PRODUCTION_TYPE_TABLE[mProduct].commonMinerals() &&
-		mResources->rareMetals() >= PRODUCTION_TYPE_TABLE[mProduct].rareMetals() &&
-		mResources->rareMinerals() >= PRODUCTION_TYPE_TABLE[mProduct].rareMinerals())
+	/**
+	 * \todo	Have this use operator>= once the production table is converted to using StorableResources
+	 */
+	if (mResources->resources[0] >= PRODUCTION_TYPE_TABLE[mProduct].commonMetals() &&
+		mResources->resources[1] >= PRODUCTION_TYPE_TABLE[mProduct].commonMinerals() &&
+		mResources->resources[2] >= PRODUCTION_TYPE_TABLE[mProduct].rareMetals() &&
+		mResources->resources[3] >= PRODUCTION_TYPE_TABLE[mProduct].rareMinerals())
 	{
 		return true;
 	}
-	*/
 
 	return false;
 }
