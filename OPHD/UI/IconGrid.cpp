@@ -63,9 +63,9 @@ void IconGrid::sheetPath(const std::string& filePath)
 /**
  * Sets the icon dimensions.
  */
-void IconGrid::iconSize(int newSsize)
+void IconGrid::iconSize(int newSize)
 {
-	mIconSize = newSsize;
+	mIconSize = newSize;
 	updateGrid();
 }
 
