@@ -225,8 +225,6 @@ void MapViewState::updateResources()
 {
 	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
 
-	ResourcePool truck(100);
-
 	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
 
 	mPathSolver->Reset();
@@ -275,6 +273,7 @@ void MapViewState::updateResources()
 			const int oreMovementRemainder = totalOreMovement % 4;
 
 			auto& resourcePool = mineFacility->storage();
+			ResourcePool truck(100);
 			truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::CommonMetalsOre, oreMovementPart));
 			truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::CommonMineralsOre, oreMovementPart));
 			truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RareMetalsOre, oreMovementPart));
@@ -290,6 +289,7 @@ void MapViewState::updateResources()
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
 		ResourcePool& resourcePool = smelter->storage();
+		ResourcePool truck(100);
 		truck.commonMetals(resourcePool.pullResource(ResourcePool::ResourceType::CommonMetals, 25));
 		truck.commonMinerals(resourcePool.pullResource(ResourcePool::ResourceType::CommonMinerals, 25));
 		truck.rareMetals(resourcePool.pullResource(ResourcePool::ResourceType::RareMetals, 25));
