@@ -187,24 +187,6 @@ bool validLanderSite(Tile* tile)
 
 
 /**
- * Document me!
- */
-int totalStorage(StructureList& structures)
-{
-	int storage = 0;
-	for (std::size_t i = 0; i < structures.size(); ++i)
-	{
-		if (structures[i]->operational())
-		{
-			storage += structures[i]->storage().capacity();
-		}
-	}
-
-	return constants::BASE_STORAGE_CAPACITY + storage;
-}
-
-
-/**
  * Check landing site for obstructions such as mining beacons, things
  * and impassable terrain.
  * 

@@ -34,8 +34,6 @@ bool structureIsLander(StructureID id);
 bool inCommRange(NAS2D::Point<int> position);
 bool selfSustained(StructureID id);
 
-int totalStorage(StructureList& structures);
-
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count);
 RobotCommand* getAvailableRobotCommand();
 
