@@ -53,7 +53,7 @@ struct StorableResources
 
 	bool operator>(const StorableResources& other) const
 	{
-		other.resources < resources;
+		return other.resources < resources;
 	}
 
 	StorableResources cap(int max) const
