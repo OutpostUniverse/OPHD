@@ -14,8 +14,6 @@ public:
 		turnsToBuild(2);
 
 		requiresCHAP(false);
-
-		storage().capacity(StorageTanksCapacity);
 	}
 
 protected:
