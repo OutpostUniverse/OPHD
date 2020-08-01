@@ -77,7 +77,7 @@ void MineFacility::think()
 
 	if (isIdle() && mMine->active())
 	{
-		if (storage() <= StorableResources{ MineFacilityStorageCapacity / 4 })
+		if (storage() < StorableResources{ MineFacilityStorageCapacity / 4 })
 		{
 			enable();
 		}
