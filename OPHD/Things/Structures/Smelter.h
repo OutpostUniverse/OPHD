@@ -5,6 +5,8 @@
 
 class Smelter : public Structure
 {
+	const int StorageCapacity = 800;
+
 public:
 	Smelter() : Structure(constants::SMELTER, "structures/smelter.sprite", StructureClass::Smelter)
 	{
@@ -13,8 +15,7 @@ public:
 		turnsToBuild(9);
 		requiresCHAP(false);
 
-		oreStorage().capacity(750);
-		storage().capacity(750);
+		oreStorage().capacity(StorageCapacity);
 	}
 
 	void input(ResourcePool& _resourcePool) override
@@ -36,7 +37,7 @@ protected:
 	{
 		if (isIdle())
 		{
-			if (!storage().atCapacity())
+			if (storage() < StorableResources{ StorageCapacity / 4 })
 			{
 				enable();
 			}
@@ -48,37 +49,44 @@ protected:
 		}
 	}
 
-	void convertOre(ResourcePool::ResourceType _ore, ResourcePool::ResourceType _refined, int _amount)
-	{
-		oreStorage().resource(_ore, oreStorage().resource(_ore) - constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING);
-		if (storage().pushResource(_refined, _amount, false) != 0)
-		{
-			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
-		}
-	}
-
 	virtual void updateProduction()
 	{
 		int resource_units = constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING;
 
+		StorableResources converted;
+
 		if (oreStorage().commonMetalsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::ResourceType::CommonMetalsOre, ResourcePool::ResourceType::CommonMetals, resource_units / 2);
+			converted.resources[0] = resource_units / 2;
+			oreStorage().commonMetalsOre(oreStorage().commonMetalsOre() - resource_units);
 		}
 
 		if (oreStorage().commonMineralsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::ResourceType::CommonMineralsOre, ResourcePool::ResourceType::CommonMinerals, resource_units / 2);
+			converted.resources[1] = resource_units / 2;
+			oreStorage().commonMineralsOre(oreStorage().commonMineralsOre() - resource_units);
 		}
 
 		if (oreStorage().rareMetalsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::ResourceType::RareMetalsOre, ResourcePool::ResourceType::RareMetals, resource_units / 3);
+			converted.resources[2] = resource_units / 3;
+			oreStorage().rareMetalsOre(oreStorage().rareMetalsOre() - resource_units);
 		}
 
 		if (oreStorage().rareMineralsOre() >= resource_units)
 		{
-			convertOre(ResourcePool::ResourceType::RareMineralsOre, ResourcePool::ResourceType::RareMinerals, resource_units / 3);
+			converted.resources[4] = resource_units / 3;
+			oreStorage().rareMineralsOre(oreStorage().rareMineralsOre() - resource_units);
+		}
+
+		auto total = storage() + converted;
+		auto capped = total.cap(StorageCapacity / 4);
+		auto overflow = total - capped;
+		
+		if (overflow > StorableResources{0})
+		{
+			// add overflow back into production queue
+			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 		}
 	}
 
