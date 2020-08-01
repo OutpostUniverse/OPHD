@@ -91,7 +91,7 @@ public:
 	// RESOURCES AND RESOURCE MANAGEMENT
 	const StorableResources& resourcesIn() const { return mResourcesInput; }
 
-	ResourcePool& storage() { return mStoragePool; }
+	StorableResources& storage() { return mStoragePool; }
 	ResourcePool& production() { return mProductionPool; }
 
 	virtual void input(ResourcePool& /*pool*/) {}
@@ -194,7 +194,7 @@ private:
 	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
 
 	ResourcePool mProductionPool; /**< Resource pool used for production. */
-	ResourcePool mStoragePool; /**< Resource storage pool. */
+	StorableResources mStoragePool; /**< Resource storage pool. */
 
 	DisabledReason mDisabledReason = DisabledReason::DISABLED_NONE;
 	IdleReason mIdleReason = IdleReason::IDLE_NONE;
