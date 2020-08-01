@@ -142,8 +142,6 @@ void MapViewState::initUi()
 	mStructures.showTooltip(true);
 	mStructures.selectionChanged().connect(this, &MapViewState::structuresSelectionChanged);
 
-	//mPlayerResources.resourceObserver().connect(this, &MapViewState::playerResourcePoolModified);
-
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
 }

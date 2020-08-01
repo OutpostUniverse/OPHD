@@ -113,6 +113,7 @@ void MapViewState::deployCargoLander()
 {
 	mPlayerResources = mPlayerResources + StorableResources{25, 25, 15, 15};
 	mFood += 125;
+	playerResourcePoolModified();
 }
 
 

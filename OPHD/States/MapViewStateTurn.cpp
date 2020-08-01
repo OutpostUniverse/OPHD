@@ -223,8 +223,7 @@ static bool routeObstructed(Route& route)
  */
 void MapViewState::updateResources()
 {
-	// Update storage capacity
-	//mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage)));
+	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
 
 	ResourcePool truck(100);
 
@@ -406,6 +405,8 @@ void MapViewState::nextTurn()
 	updateResources();
 
 	mResourceBreakdownPanel.resourceCheck();
+
+	playerResourcePoolModified();
 
 	populateStructureMenu();
 
