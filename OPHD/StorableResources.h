@@ -43,6 +43,19 @@ struct StorableResources
 		return other.resources <= resources;
 	}
 
+	bool operator<(const StorableResources& other) const
+	{
+		return resources[0] < other.resources[0] &&
+			resources[1] < other.resources[1] &&
+			resources[2] < other.resources[2] &&
+			resources[3] < other.resources[3];
+	}
+
+	bool operator>(const StorableResources& other) const
+	{
+		other.resources < resources;
+	}
+
 	StorableResources cap(int max) const
 	{
 		StorableResources out;
