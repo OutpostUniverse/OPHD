@@ -18,7 +18,7 @@
 using namespace NAS2D;
 
 
-static Font* LST_FONT = nullptr;
+static const Font* LST_FONT = nullptr;
 
 
 /**

@@ -47,7 +47,7 @@ void StringTable::setDefaultFont(NAS2D::Font& font)
 	mDefaultFont = &font;
 }
 
-void StringTable::setDefaultTitleFont(NAS2D::Font* font)
+void StringTable::setDefaultTitleFont(const NAS2D::Font* font)
 {
 	mDefaultTitleFont = font;
 }
@@ -198,9 +198,9 @@ void StringTable::checkCellIndex(const CellCoordinate& cellCoordinate) const
 	}
 }
 
-NAS2D::Font* StringTable::getCellFont(std::size_t index) const
+const NAS2D::Font* StringTable::getCellFont(std::size_t index) const
 {
-	NAS2D::Font* font = mCells[index].font;
+	const NAS2D::Font* font = mCells[index].font;
 
 	if (font == nullptr) {
 		// If a different title font is not desired, it is set to nullptr

@@ -21,8 +21,8 @@ extern Point<int> MOUSE_COORDS;
 
 static Image* WINDOW_BACKGROUND = nullptr;
 
-Font* BIG_FONT = nullptr;
-Font* BIG_FONT_BOLD = nullptr;
+const Font* BIG_FONT = nullptr;
+const Font* BIG_FONT_BOLD = nullptr;
 
 
 /**

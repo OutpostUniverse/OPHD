@@ -16,8 +16,8 @@ using namespace NAS2D;
 
 const int LIST_ITEM_HEIGHT = 30;
 
-static Font* MAIN_FONT = nullptr;
-static Font* MAIN_FONT_BOLD = nullptr;
+static const Font* MAIN_FONT = nullptr;
+static const Font* MAIN_FONT_BOLD = nullptr;
 
 
 static Color ITEM_COLOR{0, 185, 0};

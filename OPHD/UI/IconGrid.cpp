@@ -17,7 +17,7 @@
 
 using namespace NAS2D;
 
-static Font* FONT = nullptr;
+static const Font* FONT = nullptr;
 
 /**
  * C'tor

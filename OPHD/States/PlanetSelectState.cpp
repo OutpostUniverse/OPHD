@@ -21,9 +21,9 @@ using namespace NAS2D;
 std::size_t planetSelection;
 constexpr std::size_t planetSelectionInvalid = std::numeric_limits<std::size_t>::max();
 
-static Font* FONT = nullptr;
-static Font* FONT_BOLD = nullptr;
-static Font* FONT_TINY = nullptr;
+static const Font* FONT = nullptr;
+static const Font* FONT_BOLD = nullptr;
+static const Font* FONT_TINY = nullptr;
 
 
 

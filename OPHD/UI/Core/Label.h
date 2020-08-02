@@ -27,7 +27,7 @@ public:
 	Label(std::string newText = "");
 
 	void autoSize();
-	void font(NAS2D::Font* font);
+	void font(const NAS2D::Font* font);
 	bool empty() const { return text().empty(); }
 	void clear() { mText.clear(); }
 	void update() override;

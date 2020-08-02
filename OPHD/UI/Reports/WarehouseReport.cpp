@@ -13,10 +13,10 @@
 using namespace NAS2D;
 
 
-static Font* FONT_BOLD = nullptr;
-static Font* FONT_MED = nullptr;
-static Font* FONT_MED_BOLD = nullptr;
-static Font* FONT_BIG_BOLD = nullptr;
+static const Font* FONT_BOLD = nullptr;
+static const Font* FONT_MED = nullptr;
+static const Font* FONT_MED_BOLD = nullptr;
+static const Font* FONT_BIG_BOLD = nullptr;
 
 static Image* WAREHOUSE_IMG = nullptr;
 

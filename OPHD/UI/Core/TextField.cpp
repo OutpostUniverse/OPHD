@@ -28,7 +28,7 @@ static const int CURSOR_BLINK_DELAY = 250;
 
 static std::locale LOC;
 
-static Font* TXT_FONT = nullptr;
+static const Font* TXT_FONT = nullptr;
 
 
 TextField::TextField()

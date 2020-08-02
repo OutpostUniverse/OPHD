@@ -25,7 +25,7 @@ extern NAS2D::Rectangle<int> MOVE_DOWN_ICON;
 
 extern NAS2D::Point<int> MOUSE_COORDS;
 
-extern NAS2D::Font* MAIN_FONT; /// yuck
+extern const NAS2D::Font* MAIN_FONT; /// yuck
 
 
 namespace {
