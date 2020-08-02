@@ -35,8 +35,8 @@ extern std::string CURRENT_LEVEL_STRING;
 extern std::map <int, std::string> LEVEL_STRING_TABLE;
 
 
-extern NAS2D::Image* IMG_LOADING; /// \fixme	Hate having these as externs.
-extern NAS2D::Image* IMG_SAVING;
+extern const NAS2D::Image* IMG_LOADING; /// \fixme	Hate having these as externs.
+extern const NAS2D::Image* IMG_SAVING;
 
 
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge

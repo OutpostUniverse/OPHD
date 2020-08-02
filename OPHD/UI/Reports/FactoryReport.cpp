@@ -30,13 +30,13 @@ static const Font* FONT_BIG_BOLD = nullptr;
 
 static Factory* SELECTED_FACTORY = nullptr;
 
-static Image* FACTORY_SEED = nullptr;
-static Image* FACTORY_AG = nullptr;
-static Image* FACTORY_UG = nullptr;
-static Image* FACTORY_IMAGE = nullptr;
+static const Image* FACTORY_SEED = nullptr;
+static const Image* FACTORY_AG = nullptr;
+static const Image* FACTORY_UG = nullptr;
+static const Image* FACTORY_IMAGE = nullptr;
 
 std::array<Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
-static Image* _PRODUCT_NONE = nullptr;
+static const Image* _PRODUCT_NONE = nullptr;
 
 static std::string FACTORY_STATUS;
 static const std::string RESOURCES_REQUIRED = "Resources Required";
