@@ -44,7 +44,7 @@ public:
 	 * \warning	The pointer returned by font() is owned by FontManager. Do not dispose of the
 	 *			pointer manually.
 	 */
-	NAS2D::Font* font(const std::string& name, std::size_t size)
+	const NAS2D::Font* font(const std::string& name, std::size_t size)
 	{
 		auto it = mFontTable.find(FontId(name, size));
 		if (it != mFontTable.end())
