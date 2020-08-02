@@ -27,11 +27,11 @@ private:
 	void skipSplash();
 
 private:
-	NAS2D::Image mLogoLairworks;
-	NAS2D::Image mLogoNas2d;
-	NAS2D::Image mLogoOutpostHd;
-	NAS2D::Image mFlare;
-	NAS2D::Image mByline;
+	const NAS2D::Image mLogoLairworks;
+	const NAS2D::Image mLogoNas2d;
+	const NAS2D::Image mLogoOutpostHd;
+	const NAS2D::Image mFlare;
+	const NAS2D::Image mByline;
 
 	NAS2D::Point<int> mMousePosition;
 

@@ -202,10 +202,10 @@ private:
 
 	Planet::Attributes mPlanetAttributes;
 
-	NAS2D::Image mBackground{"sys/bg1.png"}; /**< Background image drawn behind the tile map. */
+	const NAS2D::Image mBackground{"sys/bg1.png"}; /**< Background image drawn behind the tile map. */
 	NAS2D::Image mMapDisplay; /**< Satellite view of the Site Map. */
 	NAS2D::Image mHeightMap; /**< Height view of the Site Map. */
-	NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */
+	const NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */
 
 	NAS2D::Point<int> mTileMapMouseHover; /**< Tile position the mouse is currently hovering over. */
 

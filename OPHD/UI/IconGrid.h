@@ -108,7 +108,7 @@ private:
 
 	bool mShowTooltip = false; /**< Flag indicating that we want a tooltip drawn near an icon when hovering over it. */
 
-	NAS2D::Image mIconSheet; /**< Image containing the icons. */
+	const NAS2D::Image mIconSheet; /**< Image containing the icons. */
 
 	NAS2D::ImageList mSkin;
 

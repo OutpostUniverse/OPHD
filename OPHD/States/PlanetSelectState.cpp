@@ -52,7 +52,7 @@ public:
 	}
 
 private:
-	NAS2D::Image mSheet;
+	const NAS2D::Image mSheet;
 	NAS2D::Timer mTimer;
 
 	std::size_t mFrame = 0;
