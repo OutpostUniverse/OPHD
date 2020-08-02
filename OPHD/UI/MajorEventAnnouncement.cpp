@@ -11,8 +11,7 @@
 
 using namespace NAS2D;
 
-MajorEventAnnouncement::MajorEventAnnouncement() :
-	btnClose{"Okay"}
+MajorEventAnnouncement::MajorEventAnnouncement()
 {
 	init();
 }
@@ -46,11 +45,9 @@ void MajorEventAnnouncement::announcement(AnnouncementType a)
 	switch (a)
 	{
 	case AnnouncementType::ANNOUNCEMENT_COLONY_SHIP_CRASH:
-		mHeader = Image("ui/interface/colony_ship_crash.png");
 		mMessage = "Colony ship deorbited and crashed on the surface.";
 		break;
 	case AnnouncementType::ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS:
-		mHeader = Image("ui/interface/colony_ship_crash.png");
 		mMessage = "Colony ship deorbited and crashed on the surface but you left colonists on board!";
 		break;
 	default:
