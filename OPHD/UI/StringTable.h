@@ -3,6 +3,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Point.h>
+#include <NAS2D/Renderer/Rectangle.h>
 #include <NAS2D/Renderer/Vector.h>
 #include <NAS2D/StringValue.h>
 #include <string>
@@ -42,6 +43,7 @@ public:
 
 	void position(NAS2D::Point<int> position);
 	NAS2D::Point<int> position() const;
+	const NAS2D::Rectangle<int>& screenRect() const;
 
 	void setDefaultFont(NAS2D::Font& font);
 	void setDefaultTitleFont(const NAS2D::Font* font);
@@ -68,7 +70,7 @@ private:
 	std::vector<CellWithPosition> mCells;
 	const std::size_t mColumnCount;
 	const std::size_t mRowCount;
-	NAS2D::Point<int> mPosition;
+	NAS2D::Rectangle<int> mScreenRect = { };
 	const NAS2D::Font* mDefaultFont;
 	const NAS2D::Font* mDefaultTitleFont;
 	NAS2D::Color mDefaultTextColor = NAS2D::Color::White;

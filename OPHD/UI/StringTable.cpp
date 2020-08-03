@@ -28,18 +28,23 @@ void StringTable::draw(NAS2D::Renderer& renderer) const
 
 		NAS2D::Color textColor = cell.textColor != Cell::ColorEmpty ? cell.textColor : mDefaultTextColor;
 
-		renderer.drawText(*getCellFont(i), cell.text, mPosition + cell.textRelativePosition, textColor);
+		renderer.drawText(*getCellFont(i), cell.text, position() + cell.textRelativePosition, textColor);
 	}
 }
 
 void StringTable::position(NAS2D::Point<int> position)
 {
-	this->mPosition = position;
+	mScreenRect = NAS2D::Rectangle<int>::Create(position, mScreenRect.size());
 }
 
 NAS2D::Point<int> StringTable::position() const
 {
-	return mPosition;
+	return mScreenRect.startPoint();
+}
+
+const NAS2D::Rectangle<int>& StringTable::screenRect() const
+{
+	return mScreenRect;
 }
 
 void StringTable::setDefaultFont(NAS2D::Font& font)
@@ -114,6 +119,16 @@ void StringTable::computeRelativeCellPositions()
 		}
 
 		columnOffset += columnWidths[column] + mHorizontalPadding;
+	}
+
+	if (mCells.size() == 0)
+	{
+		mScreenRect.size({ 0, 0 });
+	}
+	else 
+	{
+		mScreenRect.width = static_cast<int>(mCells.back().textRelativePosition.x + columnWidths.back());
+		mScreenRect.height = static_cast<int>(mCells.back().textRelativePosition.y + rowHeights.back());
 	}
 }
 
