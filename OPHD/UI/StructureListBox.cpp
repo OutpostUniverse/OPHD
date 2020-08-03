@@ -59,8 +59,8 @@ StructureListBox::~StructureListBox()
 void StructureListBox::_init()
 {
 	item_height(LIST_ITEM_HEIGHT);
-	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 12);
-	MAIN_FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 12);
+	MAIN_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, 12);
+	MAIN_FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, 12);
 }
 
 

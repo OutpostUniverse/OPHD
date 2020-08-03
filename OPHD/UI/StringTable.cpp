@@ -16,8 +16,8 @@ StringTable::StringTable(std::size_t columns, std::size_t rows) : mColumnCount(c
 {
 	mCells.resize(columns * rows);
 
-	mDefaultFont = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	mDefaultTitleFont = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	mDefaultFont = &NAS2D::Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	mDefaultTitleFont = &NAS2D::Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 void StringTable::draw(NAS2D::Renderer& renderer) const

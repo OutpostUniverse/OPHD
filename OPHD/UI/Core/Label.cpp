@@ -15,7 +15,7 @@ static const NAS2D::Font* TXT_FONT = nullptr;
 Label::Label(std::string newText)
 {
 	text(newText);
-	TXT_FONT = NAS2D::Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	TXT_FONT = &NAS2D::Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	autoSize();
 }
 

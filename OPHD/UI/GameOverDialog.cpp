@@ -54,6 +54,6 @@ void GameOverDialog::update()
 	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});
 
 	// Yeah, I know. I hate it too but it made more sense than holding onto a static pointer.
-	const auto& font = *Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	const auto& font = *&Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	renderer.drawText(font, "You have failed. Your colony is dead.", position() + NAS2D::Vector{5, 290}, NAS2D::Color::White);
 }

@@ -28,7 +28,7 @@ static const Font* SLD_FONT = nullptr;
 Slider::Slider(SliderType sliderType) :
 	mSliderType(sliderType)
 {
-	SLD_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	SLD_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMove);
