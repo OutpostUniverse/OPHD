@@ -326,6 +326,18 @@ const std::string& idleReason(IdleReason);
  */
 void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding = 4);
 
+/**
+ * State of an individual Structure.
+ */
+enum StructureState
+{
+	UNDER_CONSTRUCTION,
+	OPERATIONAL,
+	IDLE,
+	DISABLED,
+	DESTROYED
+};
+
 NAS2D::Color& structureColorFromIndex(std::size_t);
 NAS2D::Color& structureTextColorFromIndex(std::size_t);
 

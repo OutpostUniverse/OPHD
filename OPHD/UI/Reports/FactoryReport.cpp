@@ -282,7 +282,7 @@ void FactoryReport::fillFactoryList(bool surface)
 /**
  * Fills the factory list based on structure state.
  */
-void FactoryReport::fillFactoryList(Structure::StructureState state)
+void FactoryReport::fillFactoryList(StructureState state)
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
@@ -362,8 +362,8 @@ void FactoryReport::visibilityChanged(bool visible)
 {
 	if (!SELECTED_FACTORY) { return; }
 
-	Structure::StructureState _state = SELECTED_FACTORY->state();
-	btnApply.visible(visible && (_state == Structure::StructureState::OPERATIONAL || _state == Structure::StructureState::IDLE));
+	StructureState _state = SELECTED_FACTORY->state();
+	btnApply.visible(visible && (_state == StructureState::OPERATIONAL || _state == StructureState::IDLE));
 	checkFactoryActionControls();
 }
 
@@ -425,7 +425,7 @@ void FactoryReport::btnShowActiveClicked()
 {
 	filterButtonClicked(true);
 	btnShowActive.toggle(true);
-	fillFactoryList(Structure::StructureState::OPERATIONAL);
+	fillFactoryList(StructureState::OPERATIONAL);
 }
 
 
@@ -436,7 +436,7 @@ void FactoryReport::btnShowIdleClicked()
 {
 	filterButtonClicked(true);
 	btnShowIdle.toggle(true);
-	fillFactoryList(Structure::StructureState::IDLE);
+	fillFactoryList(StructureState::IDLE);
 }
 
 
@@ -447,7 +447,7 @@ void FactoryReport::btnShowDisabledClicked()
 {
 	filterButtonClicked(true);
 	btnShowDisabled.toggle(true);
-	fillFactoryList(Structure::StructureState::DISABLED);
+	fillFactoryList(StructureState::DISABLED);
 }
 
 
@@ -511,13 +511,13 @@ void FactoryReport::lstFactoryListSelectionChanged()
 
 	FACTORY_STATUS = structureStateDescription(SELECTED_FACTORY->state());
 
-	btnIdle.toggle(SELECTED_FACTORY->state() == Structure::StructureState::IDLE);
-	btnIdle.enabled(SELECTED_FACTORY->state() == Structure::StructureState::OPERATIONAL || SELECTED_FACTORY->state() == Structure::StructureState::IDLE);
+	btnIdle.toggle(SELECTED_FACTORY->state() == StructureState::IDLE);
+	btnIdle.enabled(SELECTED_FACTORY->state() == StructureState::OPERATIONAL || SELECTED_FACTORY->state() == StructureState::IDLE);
 
-	btnClearProduction.enabled(SELECTED_FACTORY->state() == Structure::StructureState::OPERATIONAL || SELECTED_FACTORY->state() == Structure::StructureState::IDLE);
+	btnClearProduction.enabled(SELECTED_FACTORY->state() == StructureState::OPERATIONAL || SELECTED_FACTORY->state() == StructureState::IDLE);
 
 	lstProducts.dropAllItems();
-	if (SELECTED_FACTORY->state() != Structure::StructureState::DESTROYED)
+	if (SELECTED_FACTORY->state() != StructureState::DESTROYED)
 	{
 		const Factory::ProductionTypeList& _pl = SELECTED_FACTORY->productList();
 		for (auto item : _pl)
@@ -529,8 +529,8 @@ void FactoryReport::lstFactoryListSelectionChanged()
 	lstProducts.setSelectionByName(productDescription(SELECTED_FACTORY->productType()));
 	SELECTED_PRODUCT_TYPE = SELECTED_FACTORY->productType();
 
-	Structure::StructureState _state = SELECTED_FACTORY->state();
-	btnApply.visible(_state == Structure::StructureState::OPERATIONAL || _state == Structure::StructureState::IDLE);
+	StructureState _state = SELECTED_FACTORY->state();
+	btnApply.visible(_state == StructureState::OPERATIONAL || _state == StructureState::IDLE);
 }
 
 

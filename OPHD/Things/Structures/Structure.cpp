@@ -9,13 +9,13 @@
 /**
  * Translation table for Structure States.
  */
-std::map<Structure::StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
+std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
 {
-	{ Structure::StructureState::UNDER_CONSTRUCTION, "Under Construction" },
-	{ Structure::StructureState::OPERATIONAL, "Operational" },
-	{ Structure::StructureState::IDLE, "Idle" },
-	{ Structure::StructureState::DISABLED, "Disabled" },
-	{ Structure::StructureState::DESTROYED, "Destroyed" },
+	{ StructureState::UNDER_CONSTRUCTION, "Under Construction" },
+	{ StructureState::OPERATIONAL, "Operational" },
+	{ StructureState::IDLE, "Idle" },
+	{ StructureState::DISABLED, "Disabled" },
+	{ StructureState::DESTROYED, "Destroyed" },
 };
 
 
@@ -48,7 +48,7 @@ std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
 };
 
 
-const std::string& structureStateDescription(Structure::StructureState _state)
+const std::string& structureStateDescription(StructureState _state)
 {
 	return STRUCTURE_STATE_TRANSLATION[_state];
 }

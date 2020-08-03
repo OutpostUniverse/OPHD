@@ -11,18 +11,6 @@ class Structure: public Thing
 {
 public:
 	/**
-	 * State of an individual Structure.
-	 */
-	enum StructureState
-	{
-		UNDER_CONSTRUCTION,
-		OPERATIONAL,
-		IDLE,
-		DISABLED,
-		DESTROYED
-	};
-
-	/**
 	 * Class of a Structure.
 	 * 
 	 * Structures are grouped by 'class'. Basically it's just an easy
@@ -207,5 +195,5 @@ private:
 
 using StructureList = std::vector<Structure*>;
 
-const std::string& structureStateDescription(Structure::StructureState);
+const std::string& structureStateDescription(StructureState);
 const std::string& structureClassDescription(Structure::StructureClass);
