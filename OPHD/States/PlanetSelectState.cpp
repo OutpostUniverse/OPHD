@@ -138,9 +138,9 @@ void PlanetSelectState::initialize()
 	renderer.showSystemPointer(true);
 	renderer.fadeIn(constants::FADE_SPEED);
 
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	FONT_TINY = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
+	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	FONT_TINY = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
 
 	EXPLODE = new Explosion();

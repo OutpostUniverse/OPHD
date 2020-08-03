@@ -53,8 +53,8 @@ void StructureInspector::init()
 	txtStateDescription.size({155, 80});
 	txtStateDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 

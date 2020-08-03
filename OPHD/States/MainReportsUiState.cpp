@@ -158,8 +158,8 @@ void MainReportsUiState::initialize()
 {
 	WINDOW_BACKGROUND = new Image("ui/skin/window_middle_middle.png");
 
-	BIG_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 16);
-	BIG_FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 16);
+	BIG_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, 16);
+	BIG_FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, 16);
 
 	Panels[NavigationPanel::PANEL_EXIT].Img = new Image("ui/icons/exit.png");
 

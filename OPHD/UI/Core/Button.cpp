@@ -53,7 +53,7 @@ Button::Button(std::string newText)
 	mSkinPressed.push_back(Image("ui/skin/button_pressed_bottom_middle.png"));
 	mSkinPressed.push_back(Image("ui/skin/button_pressed_bottom_right.png"));
 
-	mFont = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	mFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -87,7 +87,7 @@ bool Button::toggled() const
 
 void Button::fontSize(std::size_t size)
 {
-	mFont = Utility<FontManager>::get().font(constants::FONT_PRIMARY, size);
+	mFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, size);
 }
 
 

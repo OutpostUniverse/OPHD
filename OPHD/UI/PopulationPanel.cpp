@@ -27,7 +27,7 @@ PopulationPanel::PopulationPanel() : mIcons("ui/icons.png")
 	mSkin.push_back(Image("ui/skin/window_bottom_middle.png"));
 	mSkin.push_back(Image("ui/skin/window_bottom_right.png"));
 
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 

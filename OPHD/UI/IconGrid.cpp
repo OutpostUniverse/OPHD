@@ -51,7 +51,7 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	mSkin.push_back(Image("ui/skin/textbox_bottom_middle.png"));
 	mSkin.push_back(Image("ui/skin/textbox_bottom_right.png"));
 
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 

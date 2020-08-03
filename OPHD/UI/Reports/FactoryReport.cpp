@@ -84,14 +84,14 @@ FactoryReport::~FactoryReport()
  */
 void FactoryReport::init()
 {
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
-	FONT_MED = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_MED_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	FONT_MED = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
+	FONT_MED_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 
-	FONT_BIG = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
-	FONT_BIG_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
+	FONT_BIG = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
+	FONT_BIG_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
 
 	FACTORY_SEED = new Image("ui/interface/factory_seed.png");
 	FACTORY_AG = new Image("ui/interface/factory_ag.png");

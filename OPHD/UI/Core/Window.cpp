@@ -33,7 +33,7 @@ void Window::_init()
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMove);
 
-	WINDOW_TITLE_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	WINDOW_TITLE_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
 	mBody.push_back(Image("ui/skin/window_top_left.png"));
 	mBody.push_back(Image("ui/skin/window_top_middle.png"));
