@@ -10,8 +10,8 @@
 
 using namespace NAS2D;
 
-static Font* FONT = nullptr;
-static Font* FONT_BOLD = nullptr;
+static const Font* FONT = nullptr;
+static const Font* FONT_BOLD = nullptr;
 
 
 /**

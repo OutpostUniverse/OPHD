@@ -81,7 +81,7 @@ void MainMenuState::initialize()
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
-	Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	const Font* tiny_font = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	lblVersion.font(tiny_font);
 	lblVersion.color(NAS2D::Color::White);
 
@@ -92,7 +92,7 @@ void MainMenuState::initialize()
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 	Utility<Renderer>::get().showSystemPointer(true);
 
-	extern Music* MARS; /// yuck
+	extern const Music* MARS; /// yuck
 	Mixer& mixer = Utility<Mixer>::get();
 	if (!mixer.musicPlaying()) { mixer.playMusic(*MARS); }
 }

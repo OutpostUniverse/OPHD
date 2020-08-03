@@ -21,22 +21,22 @@ static int SORT_BY_PRODUCT_POSITION = 0;
 static Rectangle<int> FACTORY_LISTBOX;
 static Rectangle<int> DETAIL_PANEL;
 
-static Font* FONT = nullptr;
-static Font* FONT_BOLD = nullptr;
-static Font* FONT_MED = nullptr;
-static Font* FONT_MED_BOLD = nullptr;
-static Font* FONT_BIG = nullptr;
-static Font* FONT_BIG_BOLD = nullptr;
+static const Font* FONT = nullptr;
+static const Font* FONT_BOLD = nullptr;
+static const Font* FONT_MED = nullptr;
+static const Font* FONT_MED_BOLD = nullptr;
+static const Font* FONT_BIG = nullptr;
+static const Font* FONT_BIG_BOLD = nullptr;
 
 static Factory* SELECTED_FACTORY = nullptr;
 
-static Image* FACTORY_SEED = nullptr;
-static Image* FACTORY_AG = nullptr;
-static Image* FACTORY_UG = nullptr;
-static Image* FACTORY_IMAGE = nullptr;
+static const Image* FACTORY_SEED = nullptr;
+static const Image* FACTORY_AG = nullptr;
+static const Image* FACTORY_UG = nullptr;
+static const Image* FACTORY_IMAGE = nullptr;
 
 std::array<Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
-static Image* _PRODUCT_NONE = nullptr;
+static const Image* _PRODUCT_NONE = nullptr;
 
 static std::string FACTORY_STATUS;
 static const std::string RESOURCES_REQUIRED = "Resources Required";

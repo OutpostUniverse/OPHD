@@ -12,7 +12,7 @@
 
 using namespace NAS2D;
 
-static Font* WINDOW_TITLE_FONT;
+static const Font* WINDOW_TITLE_FONT;
 
 Window::Window(std::string newTitle)
 {

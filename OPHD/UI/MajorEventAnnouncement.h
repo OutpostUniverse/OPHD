@@ -33,9 +33,9 @@ private:
 	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
 
 private:
-	NAS2D::Image mHeader;
+	const NAS2D::Image mHeader{"ui/interface/colony_ship_crash.png"};
 
 	std::string mMessage;
 
-	Button btnClose;
+	Button btnClose{"Okay"};
 };

@@ -30,8 +30,8 @@ using namespace NAS2D;
 const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
-extern NAS2D::Image* IMG_LOADING; /// \fixme Find a sane place for this.
-extern NAS2D::Image* IMG_SAVING; /// \fixme Find a sane place for this.
+extern const NAS2D::Image* IMG_LOADING; /// \fixme Find a sane place for this.
+extern const NAS2D::Image* IMG_SAVING; /// \fixme Find a sane place for this.
 extern Point<int> MOUSE_COORDS;
 extern MainReportsUiState* MAIN_REPORTS_UI;
 
@@ -61,7 +61,7 @@ std::map <int, std::string> LEVEL_STRING_TABLE =
 };
 
 
-Font* MAIN_FONT = nullptr;
+const Font* MAIN_FONT = nullptr;
 
 
 MapViewState::MapViewState(const std::string& savegame) :
@@ -205,7 +205,7 @@ State* MapViewState::update()
 	renderer.drawImageStretched(mBackground, renderArea);
 
 	// explicit current level
-	Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	const Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - font->size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
 	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
 

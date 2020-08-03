@@ -41,7 +41,7 @@ protected:
 	void parentContainer(UIContainer* parent);
 
 private:
-	NAS2D::Image mSkin;
+	const NAS2D::Image mSkin;
 	Label mLabel;
 	ClickCallback mCallback; /**< Object to notify when the Button is activated. */
 	UIContainer* mParentContainer{nullptr};

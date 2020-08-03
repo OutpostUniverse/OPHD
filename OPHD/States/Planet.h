@@ -82,7 +82,7 @@ private:
 
 	Attributes mAttributes;
 
-	NAS2D::Image mImage;
+	const NAS2D::Image mImage;
 	NAS2D::Point<int> mPosition;
 
 	MouseCallback mMouseEnterCallback;

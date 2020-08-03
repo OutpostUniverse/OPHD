@@ -26,7 +26,7 @@ public:
 protected:
 
 private:
-	NAS2D::Image mIcons;
+	const NAS2D::Image mIcons;
 	NAS2D::ImageList mSkin;
 
 	Population* mPopulation = nullptr;

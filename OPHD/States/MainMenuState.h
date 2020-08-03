@@ -43,7 +43,7 @@ private:
 	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
 private:
-	NAS2D::Image mBgImage;
+	const NAS2D::Image mBgImage;
 
 	FileIo mFileIoDialog; /**< File IO window. */
 

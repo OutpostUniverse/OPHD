@@ -19,10 +19,10 @@ using namespace NAS2D;
 
 extern Point<int> MOUSE_COORDS;
 
-static Image* WINDOW_BACKGROUND = nullptr;
+static const Image* WINDOW_BACKGROUND = nullptr;
 
-Font* BIG_FONT = nullptr;
-Font* BIG_FONT_BOLD = nullptr;
+const Font* BIG_FONT = nullptr;
+const Font* BIG_FONT_BOLD = nullptr;
 
 
 /**
@@ -58,7 +58,7 @@ public:
 public:
 	std::string Name;
 
-	Image* Img = nullptr;
+	const Image* Img = nullptr;
 
 	Point<int> TextPosition;
 	Point<int> IconPosition;

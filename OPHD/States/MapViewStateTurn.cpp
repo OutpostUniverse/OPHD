@@ -14,7 +14,7 @@
 #include <algorithm>
 
 
-extern NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
+extern const NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
 
 
 /**

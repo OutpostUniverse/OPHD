@@ -145,7 +145,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 		throw std::runtime_error("Given map file does not exist.");
 	}
 
-	Image heightmap(path + MAP_TERRAIN_EXTENSION);
+	const Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
 	mTileMap.resize(static_cast<std::size_t>(mMaxDepth) + 1);
 	for(int level = 0; level <= mMaxDepth; level++)
@@ -230,7 +230,7 @@ void TileMap::buildMouseMap()
 		throw std::runtime_error("Unable to find the mouse map file.");
 	}
 
-	Image mousemap("ui/mouse_map.png");
+	const Image mousemap("ui/mouse_map.png");
 
 	// More sanity checks (mousemap should match dimensions of tile)
 	if (mousemap.size() != Vector{TILE_WIDTH, TILE_HEIGHT_ABSOLUTE})

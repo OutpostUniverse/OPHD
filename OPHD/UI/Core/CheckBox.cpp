@@ -29,7 +29,7 @@
 
 using namespace NAS2D;
 
-static Font* CBOX_FONT = nullptr;
+static const Font* CBOX_FONT = nullptr;
 
 /**
  * C'tor

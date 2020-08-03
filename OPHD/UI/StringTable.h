@@ -27,7 +27,7 @@ public:
 		static const NAS2D::Color ColorEmpty;
 
 		// Use StringTable::mDefaultFont if not set
-		NAS2D::Font* font = nullptr;
+		const NAS2D::Font* font = nullptr;
 		std::string text;
 		Justification justification = Justification::Left;
 		NAS2D::Color textColor = ColorEmpty;
@@ -44,7 +44,7 @@ public:
 	NAS2D::Point<int> position() const;
 
 	void setDefaultFont(NAS2D::Font& font);
-	void setDefaultTitleFont(NAS2D::Font* font);
+	void setDefaultTitleFont(const NAS2D::Font* font);
 	void setDefaultTextColor(NAS2D::Color textColor);
 
 	void setHorizontalPadding(float horizontalPadding);
@@ -69,8 +69,8 @@ private:
 	const std::size_t mColumnCount;
 	const std::size_t mRowCount;
 	NAS2D::Point<int> mPosition;
-	NAS2D::Font* mDefaultFont;
-	NAS2D::Font* mDefaultTitleFont;
+	const NAS2D::Font* mDefaultFont;
+	const NAS2D::Font* mDefaultTitleFont;
 	NAS2D::Color mDefaultTextColor = NAS2D::Color::White;
 	float mHorizontalPadding = 5;
 	float mVerticalPadding = 0;
@@ -83,6 +83,6 @@ private:
 	CellCoordinate getCellCoordinate(std::size_t index) const;
 	void checkCellIndex(const CellCoordinate& cellCoordinate) const;
 
-	NAS2D::Font* getCellFont(std::size_t index) const;
+	const NAS2D::Font* getCellFont(std::size_t index) const;
 	bool isFirstColumn(std::size_t index) const;
 };
