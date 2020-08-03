@@ -334,6 +334,7 @@ void ResourcePool::capacity(int newCapacity)
 
 void ResourcePool::serialize(NAS2D::Xml::XmlElement* element)
 {
+	/*
 	element->attribute(constants::SAVE_GAME_COMMON_METAL_ORE, commonMetalsOre());
 	element->attribute(constants::SAVE_GAME_COMMON_MINERAL_ORE, commonMineralsOre());
 	element->attribute(constants::SAVE_GAME_RARE_METAL_ORE, rareMetalsOre());
@@ -346,6 +347,7 @@ void ResourcePool::serialize(NAS2D::Xml::XmlElement* element)
 
 	element->attribute(constants::SAVE_GAME_ENERGY, energy());
 	element->attribute(constants::SAVE_GAME_FOOD, food());
+	*/
 }
 
 
@@ -354,6 +356,7 @@ void ResourcePool::deserialize(NAS2D::Xml::XmlElement* element)
 	/// \todo	This should probably trigger an exception.
 	if (element == nullptr) { return; }
 
+	/*
 	XmlAttribute* attribute = element->firstAttribute();
 	while (attribute)
 	{
@@ -372,6 +375,7 @@ void ResourcePool::deserialize(NAS2D::Xml::XmlElement* element)
 
 		attribute = attribute->next();
 	}
+	*/
 }
 
 
