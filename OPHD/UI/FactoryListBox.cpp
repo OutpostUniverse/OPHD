@@ -95,7 +95,7 @@ void FactoryListBox::addItem(Factory* factory)
 	else if (item->Text == constants::UNDERGROUND_FACTORY) { item->icon_slice = {138, 276}; }
 	else if (item->Text == constants::SEED_FACTORY) { item->icon_slice = {460, 368}; }
 	
-	if (factory->state() == Structure::StructureState::DESTROYED) { item->icon_slice = {414, 368}; }
+	if (factory->state() == StructureState::Destroyed) { item->icon_slice = {414, 368}; }
 	_update_item_display();
 }
 

@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+enum class StructureState;
 
 enum class Difficulty
 {
@@ -326,7 +327,7 @@ const std::string& idleReason(IdleReason);
  */
 void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding = 4);
 
-NAS2D::Color& structureColorFromIndex(std::size_t);
-NAS2D::Color& structureTextColorFromIndex(std::size_t);
+NAS2D::Color& structureColorFromIndex(StructureState structureState);
+NAS2D::Color& structureTextColorFromIndex(StructureState structureState);
 
 bool windowMaximized();

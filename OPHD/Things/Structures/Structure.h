@@ -7,21 +7,21 @@
 #include "../../ResourcePool.h"
 #include "../../UI/StringTable.h"
 
+/**
+ * State of an individual Structure.
+ */
+enum class StructureState
+{
+	UnderConstruction,
+	Operational,
+	Idle,
+	Disabled,
+	Destroyed
+};
+
 class Structure: public Thing
 {
 public:
-	/**
-	 * State of an individual Structure.
-	 */
-	enum StructureState
-	{
-		UNDER_CONSTRUCTION,
-		OPERATIONAL,
-		IDLE,
-		DISABLED,
-		DESTROYED
-	};
-
 	/**
 	 * Class of a Structure.
 	 * 
@@ -69,21 +69,21 @@ public:
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }
 
-	bool disabled() const { return mStructureState == StructureState::DISABLED; }
+	bool disabled() const { return mStructureState == StructureState::Disabled; }
 	void disable(DisabledReason);
 	DisabledReason disabledReason() const { return mDisabledReason; }
 
-	bool operational() const { return mStructureState == StructureState::OPERATIONAL; }
+	bool operational() const { return mStructureState == StructureState::Operational; }
 	void enable();
 
-	bool isIdle() const { return mStructureState == StructureState::IDLE; }
+	bool isIdle() const { return mStructureState == StructureState::Idle; }
 	void idle(IdleReason);
 	IdleReason idleReason() const { return mIdleReason; }
 
-	bool destroyed() const { return mStructureState == StructureState::DESTROYED; }
+	bool destroyed() const { return mStructureState == StructureState::Destroyed; }
 	void destroy();
 
-	bool underConstruction() const { return mStructureState == StructureState::UNDER_CONSTRUCTION; }
+	bool underConstruction() const { return mStructureState == StructureState::UnderConstruction; }
 
 	void forceIdle(bool force);
 	bool forceIdle() const { return mForcedIdle; }
@@ -182,7 +182,7 @@ private:
 	int mAge = 0; /**< Age of the Structure in turns. */
 	int mMaxAge = 0; /**< Maximum number of turns the Structure can remain in good repair. */
 
-	StructureState mStructureState = StructureState::UNDER_CONSTRUCTION; /**< State the structure is in. */
+	StructureState mStructureState = StructureState::UnderConstruction; /**< State the structure is in. */
 	StructureClass mStructureClass; /**< Indicates the Structure's Type. */
 	ConnectorDir mConnectorDirection = ConnectorDir::CONNECTOR_INTERSECTION; /**< Directions available for connections. */
 
@@ -207,5 +207,5 @@ private:
 
 using StructureList = std::vector<Structure*>;
 
-const std::string& structureStateDescription(Structure::StructureState);
+const std::string& structureStateDescription(StructureState);
 const std::string& structureClassDescription(Structure::StructureClass);

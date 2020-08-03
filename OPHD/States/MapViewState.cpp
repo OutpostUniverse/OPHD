@@ -1293,7 +1293,7 @@ void MapViewState::checkConnectedness()
 		throw std::runtime_error("CC coordinates do not actually point to a Command Center.");
 	}
 
-	if (cc->state() == Structure::StructureState::UNDER_CONSTRUCTION)
+	if (cc->state() == StructureState::UnderConstruction)
 	{
 		return;
 	}

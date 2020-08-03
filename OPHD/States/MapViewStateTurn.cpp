@@ -43,10 +43,10 @@ void MapViewState::updatePopulation()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 	
-	int residences = structureManager.getCountInState(Structure::StructureClass::Residence, Structure::StructureState::OPERATIONAL);
-	int universities = structureManager.getCountInState(Structure::StructureClass::University, Structure::StructureState::OPERATIONAL);
-	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, Structure::StructureState::OPERATIONAL);
-	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, Structure::StructureState::OPERATIONAL);
+	int residences = structureManager.getCountInState(Structure::StructureClass::Residence, StructureState::Operational);
+	int universities = structureManager.getCountInState(Structure::StructureClass::University, StructureState::Operational);
+	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, StructureState::Operational);
+	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
 
 	// FOOD CONSUMPTION
 	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage(), residences, universities, nurseries, hospitals);
@@ -80,7 +80,7 @@ void MapViewState::updateCommercial()
 	// No need to do anything if there are no commercial structures.
 	if (_commercial.empty()) { return; }
 
-	int luxuryCount = structureManager.getCountInState(Structure::StructureClass::Commercial, Structure::StructureState::OPERATIONAL);
+	int luxuryCount = structureManager.getCountInState(Structure::StructureClass::Commercial, StructureState::Operational);
 	int commercialCount = luxuryCount;
 
 	for (auto warehouse : _warehouses)
@@ -137,13 +137,13 @@ void MapViewState::updateMorale()
 	// POSITIVE MORALE EFFECTS
 	// =========================================
 	mCurrentMorale += mPopulation.birthCount();
-	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::Park, Structure::StructureState::OPERATIONAL);
-	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::RecreationCenter, Structure::StructureState::OPERATIONAL);
+	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::Park, StructureState::Operational);
+	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::RecreationCenter, StructureState::Operational);
 
-	int food_production = structureManager.getCountInState(Structure::StructureClass::FoodProduction, Structure::StructureState::OPERATIONAL);
+	int food_production = structureManager.getCountInState(Structure::StructureClass::FoodProduction, StructureState::Operational);
 	mCurrentMorale += food_production > 0 ? food_production : -5;
 
-	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::Commercial, Structure::StructureState::OPERATIONAL);
+	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::Commercial, StructureState::Operational);
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================

@@ -48,23 +48,23 @@ Difficulty DifficultyFromString(std::string difficultyStr)
 }
 
 
-std::map<Structure::StructureState, Color> STRUCTURE_COLOR_TABLE
+std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
 {
-	{ Structure::StructureState::UNDER_CONSTRUCTION, Color{150, 150, 150, 100} },
-	{ Structure::StructureState::OPERATIONAL, Color{0, 185, 0} },
-	{ Structure::StructureState::IDLE, Color{0, 185, 0, 100} },
-	{ Structure::StructureState::DISABLED, Color{220, 0, 0} },
-	{ Structure::StructureState::DESTROYED, Color{220, 0, 0} }
+	{ StructureState::UnderConstruction, Color{150, 150, 150, 100} },
+	{ StructureState::Operational, Color{0, 185, 0} },
+	{ StructureState::Idle, Color{0, 185, 0, 100} },
+	{ StructureState::Disabled, Color{220, 0, 0} },
+	{ StructureState::Destroyed, Color{220, 0, 0} }
 };
 
 
-std::map<Structure::StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
+std::map<StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
 {
-	{ Structure::StructureState::UNDER_CONSTRUCTION, Color{185, 185, 185, 100} },
-	{ Structure::StructureState::OPERATIONAL, Color{0, 185, 0} },
-	{ Structure::StructureState::IDLE, Color{0, 185, 0, 100} },
-	{ Structure::StructureState::DISABLED, Color{220, 0, 0} },
-	{ Structure::StructureState::DESTROYED, Color{220, 0, 0} }
+	{ StructureState::UnderConstruction, Color{185, 185, 185, 100} },
+	{ StructureState::Operational, Color{0, 185, 0} },
+	{ StructureState::Idle, Color{0, 185, 0, 100} },
+	{ StructureState::Disabled, Color{220, 0, 0} },
+	{ StructureState::Destroyed, Color{220, 0, 0} }
 };
 
 
@@ -265,15 +265,15 @@ const std::string& idleReason(IdleReason _i)
 }
 
 
-Color& structureColorFromIndex(std::size_t index)
+Color& structureColorFromIndex(StructureState structureState)
 {
-	return STRUCTURE_COLOR_TABLE[static_cast<Structure::StructureState>(index)];
+	return STRUCTURE_COLOR_TABLE[structureState];
 }
 
 
-Color& structureTextColorFromIndex(std::size_t index)
+Color& structureTextColorFromIndex(StructureState structureState)
 {
-	return STRUCTURE_TEXT_COLOR_TABLE[static_cast<Structure::StructureState>(index)];
+	return STRUCTURE_TEXT_COLOR_TABLE[structureState];
 }
 
 

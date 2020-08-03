@@ -388,7 +388,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		}
 
 		st->age(age);
-		st->forced_state_change(static_cast<Structure::StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
+		st->forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
 		st->connectorDirection(static_cast<ConnectorDir>(direction));
 		
 		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }
