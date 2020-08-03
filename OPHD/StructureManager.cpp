@@ -411,7 +411,7 @@ void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 	_ti->attribute("depth", _t->depth());
 
 	_ti->attribute("age", structure->age());
-	_ti->attribute("state", structure->state());
+	_ti->attribute("state", static_cast<int>(structure->state()));
 	_ti->attribute("forced_idle", structure->forceIdle());
 	_ti->attribute("disabled_reason", static_cast<int>(structure->disabledReason()));
 	_ti->attribute("idle_reason", static_cast<int>(structure->idleReason()));

@@ -329,7 +329,7 @@ void drawBasicProgressBar(int x, int y, int width, int height, float percent, in
 /**
  * State of an individual Structure.
  */
-enum StructureState
+enum class StructureState
 {
 	UNDER_CONSTRUCTION,
 	OPERATIONAL,
