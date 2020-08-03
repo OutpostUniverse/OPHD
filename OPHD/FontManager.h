@@ -19,19 +19,6 @@ class FontManager
 {
 public:
 	/**
-	 * C'tor
-	 */
-	FontManager()
-	{}
-	
-	/**
-	 * D'tor
-	 */
-	~FontManager()
-	{
-	}
-
-	/**
 	 * Gets a pointer to a NAS2D::Font object given a filename on disk
 	 * and a size in points.
 	 * 
