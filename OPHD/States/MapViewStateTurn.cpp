@@ -274,12 +274,14 @@ void MapViewState::updateResources()
 
 			auto& resourcePool = mineFacility->storage();
 			ResourcePool truck(100);
+			/*
 			truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::CommonMetalsOre, oreMovementPart));
 			truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::CommonMineralsOre, oreMovementPart));
 			truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RareMetalsOre, oreMovementPart));
 			truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RareMineralsOre, oreMovementPart + oreMovementRemainder));
 
 			smelter->storage().pushResources(truck);
+			*/
 		}
 	}
 
@@ -288,6 +290,7 @@ void MapViewState::updateResources()
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
+		/*
 		ResourcePool& resourcePool = smelter->storage();
 		ResourcePool truck(100);
 		truck.commonMetals(resourcePool.pullResource(ResourcePool::ResourceType::CommonMetals, 25));
@@ -295,13 +298,15 @@ void MapViewState::updateResources()
 		truck.rareMetals(resourcePool.pullResource(ResourcePool::ResourceType::RareMetals, 25));
 		truck.rareMinerals(resourcePool.pullResource(ResourcePool::ResourceType::RareMinerals, 25));
 
-		//mPlayerResources.pushResources(truck);
+		mPlayerResources.pushResources(truck);
+		
 
 		if (!truck.empty())
 		{
 			smelter->storage().pushResources(truck);
 			break; // we're at max capacity in our storage, dump what's left in the smelter it came from and barf.
 		}
+		*/
 	}
 }
 
