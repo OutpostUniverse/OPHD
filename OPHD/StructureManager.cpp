@@ -388,17 +388,6 @@ Tile* StructureManager::tileFromStructure(Structure* st)
 
 
 /**
- * 
- */
-void serializeResourcePool(XmlElement* _ti, ResourcePool& resourcePool, const std::string& name)
-{
-	XmlElement* pool = new XmlElement(name);
-	resourcePool.serialize(pool);
-	_ti->linkEndChild(pool);
-}
-
-
-/**
  *
  */
 void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
@@ -418,12 +407,20 @@ void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 
 	if (!structure->production().empty())
 	{
-		serializeResourcePool(_ti, structure->production(), "production");
+		//serializeResourcePool(_ti, structure->production(), "production");
 	}
 
-	if (!structure->storage().empty())
+	const auto stored = structure->storage();
+	if (stored > StorableResources{ 0 })
 	{
-		serializeResourcePool(_ti, structure->storage(), "storage");
+		XmlElement* pool = new XmlElement("storage");
+
+		pool->attribute(constants::SAVE_GAME_RESOURCE_0, stored.resources[0]);
+		pool->attribute(constants::SAVE_GAME_RESOURCE_1, stored.resources[1]);
+		pool->attribute(constants::SAVE_GAME_RESOURCE_2, stored.resources[2]);
+		pool->attribute(constants::SAVE_GAME_RESOURCE_3, stored.resources[3]);
+
+		_ti->linkEndChild(pool);
 	}
 
 	_ti->attribute("pop0", structure->populationAvailable()[0]);
