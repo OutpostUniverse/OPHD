@@ -2,6 +2,8 @@
 
 
 #include <NAS2D/Resources/Font.h>
+#include <NAS2D/Resources/ResourceCache.h>
+
 
 /**
  * A basic font table lookup manager for NAS2D::Font objects.
@@ -27,7 +29,6 @@ public:
 	 */
 	~FontManager()
 	{
-		for (auto font : mFontTable) { delete font.second; }
 	}
 
 	/**
@@ -44,25 +45,11 @@ public:
 	 * \warning	The pointer returned by font() is owned by FontManager. Do not dispose of the
 	 *			pointer manually.
 	 */
-	const NAS2D::Font* font(const std::string& name, std::size_t size)
+	const NAS2D::Font* font(const std::string& name, int size)
 	{
-		auto it = mFontTable.find(FontId(name, size));
-		if (it != mFontTable.end())
-		{
-			return it->second;
-		}
-		else
-		{
-			NAS2D::Font* new_font = new NAS2D::Font(name, static_cast<int>(size));
-			mFontTable[FontId(name, size)] = new_font;
-			return new_font;
-		}
+		return &mFontTable.load(name, static_cast<unsigned int>(size));
 	}
 
 private:
-	using FontId = std::pair<std::string, std::size_t>;
-	using FontTable = std::map<FontId, NAS2D::Font*>;
-
-private:
-	FontTable mFontTable;
+	ResourceCache<NAS2D::Font, std::string, unsigned int> mFontTable;
 };
