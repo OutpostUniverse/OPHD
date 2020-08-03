@@ -338,7 +338,7 @@ enum StructureState
 	DESTROYED
 };
 
-NAS2D::Color& structureColorFromIndex(std::size_t);
-NAS2D::Color& structureTextColorFromIndex(std::size_t);
+NAS2D::Color& structureColorFromIndex(StructureState structureState);
+NAS2D::Color& structureTextColorFromIndex(StructureState structureState);
 
 bool windowMaximized();

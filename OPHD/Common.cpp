@@ -265,15 +265,15 @@ const std::string& idleReason(IdleReason _i)
 }
 
 
-Color& structureColorFromIndex(std::size_t index)
+Color& structureColorFromIndex(StructureState structureState)
 {
-	return STRUCTURE_COLOR_TABLE[static_cast<StructureState>(index)];
+	return STRUCTURE_COLOR_TABLE[structureState];
 }
 
 
-Color& structureTextColorFromIndex(std::size_t index)
+Color& structureTextColorFromIndex(StructureState structureState)
 {
-	return STRUCTURE_TEXT_COLOR_TABLE[static_cast<StructureState>(index)];
+	return STRUCTURE_TEXT_COLOR_TABLE[structureState];
 }
 
 
