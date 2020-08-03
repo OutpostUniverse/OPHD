@@ -224,7 +224,7 @@ private:
 
 	Population mPopulation;
 
-	//Music mBgMusic;
+	//const Music mBgMusic;
 
 	// USER INTERFACE
 	Button mBtnTurns;

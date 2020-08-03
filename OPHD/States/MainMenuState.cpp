@@ -92,7 +92,7 @@ void MainMenuState::initialize()
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 	Utility<Renderer>::get().showSystemPointer(true);
 
-	extern Music* MARS; /// yuck
+	extern const Music* MARS; /// yuck
 	Mixer& mixer = Utility<Mixer>::get();
 	if (!mixer.musicPlaying()) { mixer.playMusic(*MARS); }
 }

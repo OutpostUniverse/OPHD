@@ -51,10 +51,10 @@ private:
 	const NAS2D::Image mCloud1;
 	const NAS2D::Image mCloud2;
 
-	NAS2D::Music mBgMusic;
+	const NAS2D::Music mBgMusic;
 
-	NAS2D::Sound mSelect;
-	NAS2D::Sound mHover;
+	const NAS2D::Sound mSelect;
+	const NAS2D::Sound mHover;
 
 	NAS2D::Point<int> mMousePosition;
 

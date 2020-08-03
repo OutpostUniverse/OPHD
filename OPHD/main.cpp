@@ -32,7 +32,7 @@ const NAS2D::Image* IMG_LOADING = nullptr;
 const NAS2D::Image* IMG_SAVING = nullptr;
 const NAS2D::Image* IMG_PROCESSING_TURN = nullptr;
 
-NAS2D::Music* MARS = nullptr;
+const NAS2D::Music* MARS = nullptr;
 
 
 /**
