@@ -7,6 +7,18 @@
 #include "../../ResourcePool.h"
 #include "../../UI/StringTable.h"
 
+/**
+ * State of an individual Structure.
+ */
+enum class StructureState
+{
+	UnderConstruction,
+	Operational,
+	Idle,
+	Disabled,
+	Destroyed
+};
+
 class Structure: public Thing
 {
 public:

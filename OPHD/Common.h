@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+enum class StructureState;
 
 enum class Difficulty
 {
@@ -325,18 +326,6 @@ const std::string& idleReason(IdleReason);
  * Super basic progress bar.
  */
 void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding = 4);
-
-/**
- * State of an individual Structure.
- */
-enum class StructureState
-{
-	UnderConstruction,
-	Operational,
-	Idle,
-	Disabled,
-	Destroyed
-};
 
 NAS2D::Color& structureColorFromIndex(StructureState structureState);
 NAS2D::Color& structureTextColorFromIndex(StructureState structureState);
