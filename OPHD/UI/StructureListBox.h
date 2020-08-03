@@ -27,7 +27,7 @@ public:
 	public:
 		Structure* structure = nullptr; /**< Pointer to a Structure. */
 		std::string structureState; /**< String description of the state of a Structure. */
-		StructureState colorIndex = StructureState::UNDER_CONSTRUCTION; /**< Index to use from the listbox color table. */
+		StructureState colorIndex = StructureState::UnderConstruction; /**< Index to use from the listbox color table. */
 	};
 
 public:

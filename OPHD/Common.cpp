@@ -50,21 +50,21 @@ Difficulty DifficultyFromString(std::string difficultyStr)
 
 std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
 {
-	{ StructureState::UNDER_CONSTRUCTION, Color{150, 150, 150, 100} },
-	{ StructureState::OPERATIONAL, Color{0, 185, 0} },
-	{ StructureState::IDLE, Color{0, 185, 0, 100} },
-	{ StructureState::DISABLED, Color{220, 0, 0} },
-	{ StructureState::DESTROYED, Color{220, 0, 0} }
+	{ StructureState::UnderConstruction, Color{150, 150, 150, 100} },
+	{ StructureState::Operational, Color{0, 185, 0} },
+	{ StructureState::Idle, Color{0, 185, 0, 100} },
+	{ StructureState::Disabled, Color{220, 0, 0} },
+	{ StructureState::Destroyed, Color{220, 0, 0} }
 };
 
 
 std::map<StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
 {
-	{ StructureState::UNDER_CONSTRUCTION, Color{185, 185, 185, 100} },
-	{ StructureState::OPERATIONAL, Color{0, 185, 0} },
-	{ StructureState::IDLE, Color{0, 185, 0, 100} },
-	{ StructureState::DISABLED, Color{220, 0, 0} },
-	{ StructureState::DESTROYED, Color{220, 0, 0} }
+	{ StructureState::UnderConstruction, Color{185, 185, 185, 100} },
+	{ StructureState::Operational, Color{0, 185, 0} },
+	{ StructureState::Idle, Color{0, 185, 0, 100} },
+	{ StructureState::Disabled, Color{220, 0, 0} },
+	{ StructureState::Destroyed, Color{220, 0, 0} }
 };
 
 

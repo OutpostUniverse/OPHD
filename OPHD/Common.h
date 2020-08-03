@@ -331,11 +331,11 @@ void drawBasicProgressBar(int x, int y, int width, int height, float percent, in
  */
 enum class StructureState
 {
-	UNDER_CONSTRUCTION,
-	OPERATIONAL,
-	IDLE,
-	DISABLED,
-	DESTROYED
+	UnderConstruction,
+	Operational,
+	Idle,
+	Disabled,
+	Destroyed
 };
 
 NAS2D::Color& structureColorFromIndex(StructureState structureState);

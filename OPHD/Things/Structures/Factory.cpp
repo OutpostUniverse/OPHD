@@ -105,7 +105,7 @@ void Factory::updateProduction()
 	 * \fixme	Most of these can be combined into a single
 	 *			compound conditional statement.
 	 */
-	if (state() != StructureState::OPERATIONAL)
+	if (state() != StructureState::Operational)
 	{
 		return;
 	}
