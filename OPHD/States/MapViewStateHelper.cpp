@@ -543,15 +543,3 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 
 	element->linkEndChild(robots);
 }
-
-
-/** 
- * Document me!
- */
-void writeResources(NAS2D::Xml::XmlElement* element, StorableResources& resources, const std::string& tagName)
-{
-	XmlElement* resources_elem = new XmlElement(tagName);
-	//resourcePool.serialize(resources);
-	//element->linkEndChild(resources);
-}
-
