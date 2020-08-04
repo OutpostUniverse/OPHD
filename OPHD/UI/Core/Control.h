@@ -26,7 +26,7 @@ public:
 	virtual ~Control() = default;
 
 	NAS2D::Point<int> position() const { return mRect.startPoint(); }
-	void position(const NAS2D::Point<int>& pos);
+	void position(NAS2D::Point<int> pos);
 
 	int positionX();
 	int positionY();
