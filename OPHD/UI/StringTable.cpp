@@ -34,7 +34,7 @@ void StringTable::draw(NAS2D::Renderer& renderer) const
 
 void StringTable::position(NAS2D::Point<int> position)
 {
-	mScreenRect = NAS2D::Rectangle<int>::Create(position, mScreenRect.size());
+	mScreenRect.startPoint(position);
 }
 
 NAS2D::Point<int> StringTable::position() const
