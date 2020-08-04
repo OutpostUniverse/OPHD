@@ -46,7 +46,7 @@ protected:
 	virtual void onMouseMove(int x, int y, int dX, int dY);
 
 private:
-	enum State
+	enum class State
 	{
 		STATE_NORMAL,
 		STATE_PRESSED
