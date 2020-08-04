@@ -49,8 +49,8 @@ public:
 	void setDefaultTitleFont(const NAS2D::Font* font);
 	void setDefaultTextColor(NAS2D::Color textColor);
 
-	void setHorizontalPadding(float horizontalPadding);
-	void setVerticalPadding(float verticalPadding);
+	void setHorizontalPadding(int horizontalPadding);
+	void setVerticalPadding(int verticalPadding);
 
 	void setColumnText(std::size_t column, const std::vector<NAS2D::StringValue>& rows);
 	void setRowText(std::size_t row, const std::vector<NAS2D::StringValue>& columns);
@@ -64,7 +64,7 @@ private:
 	struct CellWithPosition : Cell
 	{
 		// Position relative to the StringTable's position
-		NAS2D::Vector<float> textOffset;
+		NAS2D::Vector<int> textOffset;
 	};
 
 	std::vector<CellWithPosition> mCells;
@@ -74,12 +74,12 @@ private:
 	const NAS2D::Font* mDefaultFont;
 	const NAS2D::Font* mDefaultTitleFont;
 	NAS2D::Color mDefaultTextColor = NAS2D::Color::White;
-	float mHorizontalPadding = 5;
-	float mVerticalPadding = 0;
+	int mHorizontalPadding = 5;
+	int mVerticalPadding = 0;
 
-	void accountForCellJustification(std::size_t index, float columnWidth);
-	std::vector<float> computeColumnWidths() const;
-	std::vector<float> computeRowHeights() const;
+	void accountForCellJustification(std::size_t index, int columnWidth);
+	std::vector<int> computeColumnWidths() const;
+	std::vector<int> computeRowHeights() const;
 
 	std::size_t getCellIndex(const CellCoordinate& cellCoordinate) const;
 	CellCoordinate getCellCoordinate(std::size_t index) const;

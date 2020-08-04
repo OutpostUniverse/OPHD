@@ -62,12 +62,12 @@ void StringTable::setDefaultTextColor(NAS2D::Color color)
 	mDefaultTextColor = color;
 }
 
-void StringTable::setHorizontalPadding(float padding)
+void StringTable::setHorizontalPadding(int padding)
 {
 	mHorizontalPadding = padding;
 }
 
-void StringTable::setVerticalPadding(float padding)
+void StringTable::setVerticalPadding(int padding)
 {
 	mVerticalPadding = padding;
 }
@@ -105,10 +105,10 @@ void StringTable::computeRelativeCellPositions()
 	auto columnWidths = computeColumnWidths();
 	auto rowHeights = computeRowHeights();
 
-	float columnOffset = 0;
+	int columnOffset = 0;
 	for (std::size_t column = 0; column < mColumnCount; ++column)
 	{
-		float rowOffset = 0;
+		int rowOffset = 0;
 		for (std::size_t row = 0; row < mRowCount; ++row)
 		{
 			auto cellIndex = getCellIndex(CellCoordinate{column, row});
@@ -127,12 +127,12 @@ void StringTable::computeRelativeCellPositions()
 	}
 	else 
 	{
-		mScreenRect.width = static_cast<int>(mCells.back().textOffset.x + columnWidths.back());
-		mScreenRect.height = static_cast<int>(mCells.back().textOffset.y + rowHeights.back());
+		mScreenRect.width = mCells.back().textOffset.x + columnWidths.back();
+		mScreenRect.height = mCells.back().textOffset.y + rowHeights.back();
 	}
 }
 
-void StringTable::accountForCellJustification(std::size_t index, float columnWidth)
+void StringTable::accountForCellJustification(std::size_t index, int columnWidth)
 {
 	auto& cell = mCells[index];
 
@@ -148,18 +148,18 @@ void StringTable::accountForCellJustification(std::size_t index, float columnWid
 	}
 }
 
-std::vector<float> StringTable::computeColumnWidths() const
+std::vector<int> StringTable::computeColumnWidths() const
 {
-	std::vector<float> columnWidths;
+	std::vector<int> columnWidths;
 
 	for (std::size_t column = 0; column < mColumnCount; ++column)
 	{
-		float columnWidth = 0;
+		int columnWidth = 0;
 
 		for (std::size_t row = 0; row < mRowCount; ++row)
 		{
 			auto index = getCellIndex(CellCoordinate{column, row});
-			columnWidth = std::max(columnWidth, static_cast<float>(getCellFont(index)->width(mCells[index].text)));
+			columnWidth = std::max(columnWidth, getCellFont(index)->width(mCells[index].text));
 		}
 
 		columnWidths.push_back(columnWidth);
@@ -168,18 +168,18 @@ std::vector<float> StringTable::computeColumnWidths() const
 	return columnWidths;
 }
 
-std::vector<float> StringTable::computeRowHeights() const
+std::vector<int> StringTable::computeRowHeights() const
 {
-	std::vector<float> rowHeights;
+	std::vector<int> rowHeights;
 
 	for (std::size_t row = 0; row < mRowCount; ++row)
 	{
-		float rowHeight = 0;
+		int rowHeight = 0;
 
 		for (std::size_t column = 0; column < mColumnCount; ++column)
 		{
 			auto index = getCellIndex(CellCoordinate{column, row});
-			rowHeight = std::max(rowHeight, static_cast<float>(getCellFont(index)->height()));
+			rowHeight = std::max(rowHeight, getCellFont(index)->height());
 		}
 
 		rowHeights.push_back(rowHeight);
