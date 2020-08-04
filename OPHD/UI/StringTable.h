@@ -70,7 +70,7 @@ private:
 	std::vector<CellWithPosition> mCells;
 	const std::size_t mColumnCount;
 	const std::size_t mRowCount;
-	NAS2D::Rectangle<int> mScreenRect = { };
+	NAS2D::Rectangle<int> mScreenRect;
 	const NAS2D::Font* mDefaultFont;
 	const NAS2D::Font* mDefaultTitleFont;
 	NAS2D::Color mDefaultTextColor = NAS2D::Color::White;
