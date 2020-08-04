@@ -28,7 +28,7 @@ void StringTable::draw(NAS2D::Renderer& renderer) const
 
 		NAS2D::Color textColor = cell.textColor != Cell::ColorEmpty ? cell.textColor : mDefaultTextColor;
 
-		renderer.drawText(*getCellFont(i), cell.text, position() + cell.textRelativePosition, textColor);
+		renderer.drawText(*getCellFont(i), cell.text, position() + cell.textOffset, textColor);
 	}
 }
 
@@ -112,7 +112,7 @@ void StringTable::computeRelativeCellPositions()
 		for (std::size_t row = 0; row < mRowCount; ++row)
 		{
 			auto cellIndex = getCellIndex(CellCoordinate{column, row});
-			mCells[cellIndex].textRelativePosition = { columnOffset, rowOffset };
+			mCells[cellIndex].textOffset = { columnOffset, rowOffset };
 			accountForCellJustification(cellIndex, columnWidths[column]);
 
 			rowOffset += rowHeights[row] + mVerticalPadding;
@@ -127,8 +127,8 @@ void StringTable::computeRelativeCellPositions()
 	}
 	else 
 	{
-		mScreenRect.width = static_cast<int>(mCells.back().textRelativePosition.x + columnWidths.back());
-		mScreenRect.height = static_cast<int>(mCells.back().textRelativePosition.y + rowHeights.back());
+		mScreenRect.width = static_cast<int>(mCells.back().textOffset.x + columnWidths.back());
+		mScreenRect.height = static_cast<int>(mCells.back().textOffset.y + rowHeights.back());
 	}
 }
 
@@ -141,7 +141,7 @@ void StringTable::accountForCellJustification(std::size_t index, float columnWid
 	case (Justification::Left):
 		return; // No modification required for left justifited
 	case (Justification::Right):
-		cell.textRelativePosition.x += columnWidth - getCellFont(index)->width(cell.text);
+		cell.textOffset.x += columnWidth - getCellFont(index)->width(cell.text);
 		return;
 	default:
 		return;

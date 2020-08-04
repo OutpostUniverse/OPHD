@@ -60,11 +60,11 @@ public:
 	void computeRelativeCellPositions();
 
 private:
-	// Purposely hide textRelativePosition from public access
+	// Purposely hide textOffset from public access
 	struct CellWithPosition : Cell
 	{
 		// Position relative to the StringTable's position
-		NAS2D::Vector<float> textRelativePosition;
+		NAS2D::Vector<float> textOffset;
 	};
 
 	std::vector<CellWithPosition> mCells;
