@@ -7,7 +7,7 @@
 
 
 /**
- * Pretty much just an easy container for keeping track of resources.
+ * Container to track resources.
  */
 class ResourcePool
 {
