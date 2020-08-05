@@ -11,6 +11,7 @@
 
 
 #include "../Constants.h"
+#include "../IOHelper.h"
 #include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
@@ -174,6 +175,8 @@ void MapViewState::load(const std::string& filePath)
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
+	//else if (attribute->name() == constants::SAVE_GAME_ENERGY) { attribute->queryIntValue(mEnergy); }
+
 	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
 
 	checkConnectedness();
@@ -218,25 +221,6 @@ void MapViewState::load(const std::string& filePath)
 	mResourceBreakdownPanel.resourceCheck();
 
 	mMapChangedCallback();
-}
-
-
-void MapViewState::readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources)
-{
-	if (!element) { throw std::runtime_error("MapViewState::readResources(): Called with element==nullptr"); }
-
-	XmlAttribute* attribute = element->firstAttribute();
-	while (attribute)
-	{
-		if (attribute->name() == constants::SAVE_GAME_RESOURCE_0) { attribute->queryIntValue(resources.resources[0]); }
-		else if (attribute->name() == constants::SAVE_GAME_RESOURCE_1) { attribute->queryIntValue(resources.resources[1]); }
-		else if (attribute->name() == constants::SAVE_GAME_RESOURCE_2) { attribute->queryIntValue(resources.resources[2]); }
-		else if (attribute->name() == constants::SAVE_GAME_RESOURCE_3) { attribute->queryIntValue(resources.resources[3]); }
-
-		else if (attribute->name() == constants::SAVE_GAME_ENERGY) { attribute->queryIntValue(mEnergy); }
-
-		attribute = attribute->next();
-	}
 }
 
 
