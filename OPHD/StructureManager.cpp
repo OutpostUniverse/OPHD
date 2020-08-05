@@ -5,6 +5,7 @@
 
 #include "Constants.h"
 #include "ProductPool.h"
+#include "IOHelper.h"
 #include "StructureTranslator.h"
 
 #include "Things/Structures/Structures.h"
@@ -413,14 +414,7 @@ void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 	const auto stored = structure->storage();
 	if (stored > StorableResources{ 0 })
 	{
-		XmlElement* pool = new XmlElement("storage");
-
-		pool->attribute(constants::SAVE_GAME_RESOURCE_0, stored.resources[0]);
-		pool->attribute(constants::SAVE_GAME_RESOURCE_1, stored.resources[1]);
-		pool->attribute(constants::SAVE_GAME_RESOURCE_2, stored.resources[2]);
-		pool->attribute(constants::SAVE_GAME_RESOURCE_3, stored.resources[3]);
-
-		_ti->linkEndChild(pool);
+		writeResources(_ti, stored, "storage");
 	}
 
 	_ti->attribute("pop0", structure->populationAvailable()[0]);
