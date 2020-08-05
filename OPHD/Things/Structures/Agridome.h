@@ -55,7 +55,7 @@ private:
 			return 0;
 		}
 
-		return std::min(AGRIDOME_BASE_PRODUCUCTION, AGRIDOME_CAPACITY - storage().food());
+		return std::min(AGRIDOME_BASE_PRODUCUCTION, AGRIDOME_CAPACITY - mFoodLevel);
 	}
 
 	bool isStorageFull()

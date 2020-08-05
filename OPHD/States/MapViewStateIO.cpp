@@ -11,6 +11,7 @@
 
 
 #include "../Constants.h"
+#include "../IOHelper.h"
 #include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
@@ -174,6 +175,9 @@ void MapViewState::load(const std::string& filePath)
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
+	XmlElement* energy = root->firstChildElement("energy");
+	mEnergy = std::stoi(energy->attribute(constants::SAVE_GAME_ENERGY));
+
 	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
 
 	checkConnectedness();
@@ -218,25 +222,6 @@ void MapViewState::load(const std::string& filePath)
 	mResourceBreakdownPanel.resourceCheck();
 
 	mMapChangedCallback();
-}
-
-
-void MapViewState::readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources)
-{
-	if (!element) { throw std::runtime_error("MapViewState::readResources(): Called with element==nullptr"); }
-
-	XmlAttribute* attribute = element->firstAttribute();
-	while (attribute)
-	{
-		if (attribute->name() == constants::SAVE_GAME_COMMON_METAL) { attribute->queryIntValue(resources.resources[0]); }
-		else if (attribute->name() == constants::SAVE_GAME_COMMON_MINERAL) { attribute->queryIntValue(resources.resources[1]); }
-		else if (attribute->name() == constants::SAVE_GAME_RARE_METAL) { attribute->queryIntValue(resources.resources[2]); }
-		else if (attribute->name() == constants::SAVE_GAME_RARE_MINERAL) { attribute->queryIntValue(resources.resources[3]); }
-
-		else if (attribute->name() == constants::SAVE_GAME_ENERGY) { attribute->queryIntValue(mEnergy); }
-
-		attribute = attribute->next();
-	}
 }
 
 
@@ -406,7 +391,26 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }
 
 		st->production().deserialize(structure->firstChildElement("production"));
-		st->storage().deserialize(structure->firstChildElement("storage"));
+		
+		auto storedElement = structure->firstChildElement("storage");
+
+		if (storedElement)
+		{
+			StorableResources stored;
+			XmlAttribute* storedAttribute = storedElement->firstAttribute();
+			while (attribute)
+			{
+				if (storedAttribute->name() == constants::SAVE_GAME_RESOURCE_0) { storedAttribute->queryIntValue(stored.resources[0]); }
+				else if (storedAttribute->name() == constants::SAVE_GAME_RESOURCE_1) { storedAttribute->queryIntValue(stored.resources[1]); }
+				else if (storedAttribute->name() == constants::SAVE_GAME_RESOURCE_2) { storedAttribute->queryIntValue(stored.resources[2]); }
+				else if (storedAttribute->name() == constants::SAVE_GAME_RESOURCE_3) { storedAttribute->queryIntValue(stored.resources[3]); }
+
+				storedAttribute = storedAttribute->next();
+			}
+
+			st->storage() = stored;
+		}
+
 
 		if (st->isWarehouse())
 		{

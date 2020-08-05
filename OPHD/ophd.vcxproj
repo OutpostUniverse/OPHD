@@ -254,6 +254,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="GraphWalker.cpp" />
+    <ClCompile Include="IOHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map\Tile.cpp" />
     <ClCompile Include="Map\TileMap.cpp" />
@@ -329,6 +330,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClInclude Include="Constants\UiConstants.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GraphWalker.h" />
+    <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\TileMap.h" />
     <ClInclude Include="MicroPather\micropather.h" />

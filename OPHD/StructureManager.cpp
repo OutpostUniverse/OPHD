@@ -5,6 +5,7 @@
 
 #include "Constants.h"
 #include "ProductPool.h"
+#include "IOHelper.h"
 #include "StructureTranslator.h"
 
 #include "Things/Structures/Structures.h"
@@ -388,17 +389,6 @@ Tile* StructureManager::tileFromStructure(Structure* st)
 
 
 /**
- * 
- */
-void serializeResourcePool(XmlElement* _ti, ResourcePool& resourcePool, const std::string& name)
-{
-	XmlElement* pool = new XmlElement(name);
-	resourcePool.serialize(pool);
-	_ti->linkEndChild(pool);
-}
-
-
-/**
  *
  */
 void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
@@ -418,12 +408,13 @@ void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 
 	if (!structure->production().empty())
 	{
-		serializeResourcePool(_ti, structure->production(), "production");
+		//serializeResourcePool(_ti, structure->production(), "production");
 	}
 
-	if (!structure->storage().empty())
+	const auto stored = structure->storage();
+	if (stored > StorableResources{ 0 })
 	{
-		serializeResourcePool(_ti, structure->storage(), "storage");
+		writeResources(_ti, stored, "storage");
 	}
 
 	_ti->attribute("pop0", structure->populationAvailable()[0]);

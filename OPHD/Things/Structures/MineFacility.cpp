@@ -5,6 +5,10 @@
 
 #include "../../Constants.h"
 
+
+const int MineFacilityStorageCapacity = 500;
+
+
 /**
  * Computes how many units of ore should be pulled.
  */
@@ -38,7 +42,6 @@ MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY, "st
 	selfSustained(true);
 
 	production().capacity(500);
-	storage().capacity(500);
 }
 
 
@@ -74,7 +77,7 @@ void MineFacility::think()
 
 	if (isIdle() && mMine->active())
 	{
-		if (!storage().atCapacity())
+		if (storage() < StorableResources{ MineFacilityStorageCapacity / 4 })
 		{
 			enable();
 		}
@@ -88,7 +91,7 @@ void MineFacility::think()
 
 	if (mMine->active())
 	{
-		if (storage().atCapacity())
+		if (storage() >= StorableResources{ MineFacilityStorageCapacity / 4 })
 		{
 			idle(IdleReason::IDLE_MINE_EXHAUSTED);
 			return;
@@ -114,7 +117,12 @@ void MineFacility::think()
 			production().pushResource(ResourcePool::ResourceType::RareMineralsOre, mMine->pull(Mine::OreType::ORE_RARE_MINERALS, push_count(this)), false);
 		}
 
-		storage().pushResources(production());
+		StorableResources prod_{ production().commonMetalsOre(),
+			production().commonMineralsOre(),
+			production().rareMetalsOre(),
+			production().rareMineralsOre() };
+		
+		storage() + prod_;
 	}
 	else if (!isIdle())
 	{

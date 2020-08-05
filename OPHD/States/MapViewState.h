@@ -157,7 +157,6 @@ private:
 	void readStructures(NAS2D::Xml::XmlElement* element);
 	void readTurns(NAS2D::Xml::XmlElement* element);
 	void readPopulation(NAS2D::Xml::XmlElement* element);
-	void readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources);
 
 	void scrubRobotList();
 
