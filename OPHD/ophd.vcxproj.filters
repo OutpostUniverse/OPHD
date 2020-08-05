@@ -288,6 +288,9 @@
     <ClCompile Include="UI\StringTable.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="IOHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -640,6 +643,9 @@
     </ClInclude>
     <ClInclude Include="Things\Structures\FoodProduction.h">
       <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="IOHelper.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
