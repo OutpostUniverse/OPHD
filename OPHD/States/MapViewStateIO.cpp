@@ -175,7 +175,8 @@ void MapViewState::load(const std::string& filePath)
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
-	//else if (attribute->name() == constants::SAVE_GAME_ENERGY) { attribute->queryIntValue(mEnergy); }
+	XmlElement* energy = root->firstChildElement("energy");
+	mEnergy = std::stoi(energy->attribute(constants::SAVE_GAME_ENERGY));
 
 	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
 
