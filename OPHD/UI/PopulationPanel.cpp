@@ -14,11 +14,8 @@ using namespace NAS2D;
 static const Font* FONT = nullptr;
 
 PopulationPanel::PopulationPanel() :
-	mIcons("ui/icons.png")
-{
-	size({160, 220});
-
-	mSkin = {
+	mIcons("ui/icons.png"),
+	mSkin{
 		Image{"ui/skin/window_top_left.png"},
 		Image{"ui/skin/window_top_middle.png"},
 		Image{"ui/skin/window_top_right.png"},
@@ -28,7 +25,9 @@ PopulationPanel::PopulationPanel() :
 		Image{"ui/skin/window_bottom_left.png"},
 		Image{"ui/skin/window_bottom_middle.png"},
 		Image{"ui/skin/window_bottom_right.png"}
-	};
+	}
+{
+	size({160, 220});
 
 	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }

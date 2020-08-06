@@ -44,11 +44,8 @@ namespace
 
 
 ResourceBreakdownPanel::ResourceBreakdownPanel() :
-	mIcons("ui/icons.png")
-{
-	size({270, 80});
-
-	mSkin = {
+	mIcons("ui/icons.png"),
+	mSkin{
 		Image{"ui/skin/window_top_left.png"},
 		Image{"ui/skin/window_top_middle.png"},
 		Image{"ui/skin/window_top_right.png"},
@@ -58,7 +55,9 @@ ResourceBreakdownPanel::ResourceBreakdownPanel() :
 		Image{"ui/skin/window_bottom_left.png"},
 		Image{"ui/skin/window_bottom_middle.png"},
 		Image{"ui/skin/window_bottom_right.png"}
-	};
+	}
+{
+	size({270, 80});
 
 	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }

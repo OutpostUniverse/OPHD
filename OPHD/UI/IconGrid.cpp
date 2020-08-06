@@ -25,7 +25,18 @@ static const Font* FONT = nullptr;
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	mIconSize{iconEdgeSize},
 	mIconMargin{margin},
-	mIconSheet{filePath}
+	mIconSheet{filePath},
+	mSkin{
+		Image{"ui/skin/textbox_top_left.png"},
+		Image{"ui/skin/textbox_top_middle.png"},
+		Image{"ui/skin/textbox_top_right.png"},
+		Image{"ui/skin/textbox_middle_left.png"},
+		Image{"ui/skin/textbox_middle_middle.png"},
+		Image{"ui/skin/textbox_middle_right.png"},
+		Image{"ui/skin/textbox_bottom_left.png"},
+		Image{"ui/skin/textbox_bottom_middle.png"},
+		Image{"ui/skin/textbox_bottom_right.png"}
+	}
 {
 	if (iconEdgeSize <= 0)
 	{
@@ -40,18 +51,6 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMove);
 	resized().connect(this, &IconGrid::sizeChanged);
 	hasFocus(true);
-
-	mSkin = {
-		Image{"ui/skin/textbox_top_left.png"},
-		Image{"ui/skin/textbox_top_middle.png"},
-		Image{"ui/skin/textbox_top_right.png"},
-		Image{"ui/skin/textbox_middle_left.png"},
-		Image{"ui/skin/textbox_middle_middle.png"},
-		Image{"ui/skin/textbox_middle_right.png"},
-		Image{"ui/skin/textbox_bottom_left.png"},
-		Image{"ui/skin/textbox_bottom_middle.png"},
-		Image{"ui/skin/textbox_bottom_right.png"}
-	};
 
 	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }

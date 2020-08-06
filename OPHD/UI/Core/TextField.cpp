@@ -31,16 +31,8 @@ static std::locale LOC;
 static const Font* TXT_FONT = nullptr;
 
 
-TextField::TextField()
-{
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &TextField::onMouseDown);
-	Utility<EventHandler>::get().keyDown().connect(this, &TextField::onKeyDown);
-	Utility<EventHandler>::get().textInput().connect(this, &TextField::onTextInput);
-
-	hasFocus(true);
-	Utility<EventHandler>::get().textInputMode(true);
-
-	mSkinNormal = {
+TextField::TextField() :
+	mSkinNormal{
 		Image{"ui/skin/textbox_top_left.png"},
 		Image{"ui/skin/textbox_top_middle.png"},
 		Image{"ui/skin/textbox_top_right.png"},
@@ -50,9 +42,8 @@ TextField::TextField()
 		Image{"ui/skin/textbox_bottom_left.png"},
 		Image{"ui/skin/textbox_bottom_middle.png"},
 		Image{"ui/skin/textbox_bottom_right.png"}
-	};
-
-	mSkinFocus = {
+	},
+	mSkinFocus{
 		Image{"ui/skin/textbox_top_left_highlight.png"},
 		Image{"ui/skin/textbox_top_middle_highlight.png"},
 		Image{"ui/skin/textbox_top_right_highlight.png"},
@@ -62,7 +53,14 @@ TextField::TextField()
 		Image{"ui/skin/textbox_bottom_left_highlight.png"},
 		Image{"ui/skin/textbox_bottom_middle_highlight.png"},
 		Image{"ui/skin/textbox_bottom_right_highlight.png"}
-	};
+	}
+{
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &TextField::onMouseDown);
+	Utility<EventHandler>::get().keyDown().connect(this, &TextField::onKeyDown);
+	Utility<EventHandler>::get().textInput().connect(this, &TextField::onTextInput);
+
+	hasFocus(true);
+	Utility<EventHandler>::get().textInputMode(true);
 
 	TXT_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	height(TXT_FONT->height() + FIELD_PADDING * 2);

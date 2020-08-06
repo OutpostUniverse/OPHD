@@ -14,16 +14,8 @@
 using namespace NAS2D;
 
 
-Button::Button(std::string newText)
-{
-	text(newText);
-
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Button::onMouseDown);
-	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Button::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMove);
-	hasFocus(true);
-
-	mSkinNormal = {
+Button::Button(std::string newText) :
+	mSkinNormal{
 		Image{"ui/skin/button_top_left.png"},
 		Image{"ui/skin/button_top_middle.png"},
 		Image{"ui/skin/button_top_right.png"},
@@ -33,9 +25,8 @@ Button::Button(std::string newText)
 		Image{"ui/skin/button_bottom_left.png"},
 		Image{"ui/skin/button_bottom_middle.png"},
 		Image{"ui/skin/button_bottom_right.png"}
-	};
-
-	mSkinHover = {
+	},
+	mSkinHover{
 		Image{"ui/skin/button_hover_top_left.png"},
 		Image{"ui/skin/button_hover_top_middle.png"},
 		Image{"ui/skin/button_hover_top_right.png"},
@@ -45,9 +36,8 @@ Button::Button(std::string newText)
 		Image{"ui/skin/button_hover_bottom_left.png"},
 		Image{"ui/skin/button_hover_bottom_middle.png"},
 		Image{"ui/skin/button_hover_bottom_right.png"}
-	};
-
-	mSkinPressed = {
+	},
+	mSkinPressed{
 		Image{"ui/skin/button_pressed_top_left.png"},
 		Image{"ui/skin/button_pressed_top_middle.png"},
 		Image{"ui/skin/button_pressed_top_right.png"},
@@ -57,7 +47,14 @@ Button::Button(std::string newText)
 		Image{"ui/skin/button_pressed_bottom_left.png"},
 		Image{"ui/skin/button_pressed_bottom_middle.png"},
 		Image{"ui/skin/button_pressed_bottom_right.png"}
-	};
+	}
+{
+	text(newText);
+
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Button::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Button::onMouseUp);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMove);
+	hasFocus(true);
 
 	mFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
