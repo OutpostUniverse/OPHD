@@ -28,6 +28,7 @@ static const Font* SLD_FONT = nullptr;
 Slider::Slider(SliderType sliderType) :
 	mSliderType(sliderType)
 {
+	setSkins();
 	SLD_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
@@ -331,7 +332,6 @@ void Slider::update()
 	}
 
 	logic();
-	setSkins();
 	draw();
 }
 
