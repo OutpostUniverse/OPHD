@@ -64,6 +64,13 @@ protected:
 	virtual void onMouseMove(int x, int y, int dX, int dY); /*!< Event raised on mouse move. */
 	
 private:
+	struct Skins {
+		NAS2D::ImageList skinButton1;
+		NAS2D::ImageList skinMiddle;
+		NAS2D::ImageList skinButton2;
+		NAS2D::ImageList skinSlider;
+	};
+
 	float positionInternal();
 	void positionInternal(float newPosition);
 
@@ -99,13 +106,8 @@ private:
 
 
 	// drawing vars
-	NAS2D::ImageList mSkinButton1; /*!< Skin for button 1 (Up or Left). */
-	NAS2D::ImageList mSkinButton2; /*!< Skin for button 2 (Down or Right). */
-	NAS2D::ImageList mSkinMiddle; /*!< Skin for the slide area. */
-	
-	NAS2D::ImageList mSkinSlider; /*!< Skin for the slider. */
+	Skins mSkins;
 	bool mDisplayPosition = false; /*!< Indicate if the slider display the value on mouse over. */
-	
 	NAS2D::Rectangle<int> mButton1; /*!< Area on screen where the second button is displayed. (Down/Left) */
 	NAS2D::Rectangle<int> mButton2; /*!< Area on screen where the first button is displayed. (Up/Right)*/
 	NAS2D::Rectangle<int> mSlideBar; /*!< Area on screen where the slide area is displayed. */

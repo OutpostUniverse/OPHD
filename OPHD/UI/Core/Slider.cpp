@@ -58,7 +58,7 @@ void Slider::setSkins()
 {
 	if (mSliderType == SliderType::Vertical)
 	{
-		mSkinButton1 = {
+		mSkins.skinButton1 = {
 			Image{"ui/skin/sv_bu_tl.png"},
 			Image{"ui/skin/sv_bu_tm.png"},
 			Image{"ui/skin/sv_bu_tr.png"},
@@ -70,7 +70,7 @@ void Slider::setSkins()
 			Image{"ui/skin/sv_bu_br.png"}
 		};
 
-		mSkinMiddle = {
+		mSkins.skinMiddle = {
 			Image{"ui/skin/sv_sa_tl.png"},
 			Image{"ui/skin/sv_sa_tm.png"},
 			Image{"ui/skin/sv_sa_tr.png"},
@@ -82,7 +82,7 @@ void Slider::setSkins()
 			Image{"ui/skin/sv_sa_br.png"}
 		};
 
-		mSkinButton2 = {
+		mSkins.skinButton2 = {
 			Image{"ui/skin/sv_bd_tl.png"},
 			Image{"ui/skin/sv_bd_tm.png"},
 			Image{"ui/skin/sv_bd_tr.png"},
@@ -94,7 +94,7 @@ void Slider::setSkins()
 			Image{"ui/skin/sv_bd_br.png"}
 		};
 
-		mSkinSlider = {
+		mSkins.skinSlider = {
 			Image{"ui/skin/sv_sl_tl.png"},
 			Image{"ui/skin/sv_sl_tm.png"},
 			Image{"ui/skin/sv_sl_tr.png"},
@@ -108,7 +108,7 @@ void Slider::setSkins()
 	}
 	else
 	{
-		mSkinButton1 = {
+		mSkins.skinButton1 = {
 			Image{"ui/skin/sh_bl_tl.png"},
 			Image{"ui/skin/sh_bl_tm.png"},
 			Image{"ui/skin/sh_bl_tr.png"},
@@ -120,7 +120,7 @@ void Slider::setSkins()
 			Image{"ui/skin/sh_bl_br.png"}
 		};
 
-		mSkinMiddle = {
+		mSkins.skinMiddle = {
 			Image{"ui/skin/sh_sa_tl.png"},
 			Image{"ui/skin/sh_sa_tm.png"},
 			Image{"ui/skin/sh_sa_tr.png"},
@@ -132,7 +132,7 @@ void Slider::setSkins()
 			Image{"ui/skin/sh_sa_br.png"}
 		};
 
-		mSkinButton2 = {
+		mSkins.skinButton2 = {
 			Image{"ui/skin/sh_br_tl.png"},
 			Image{"ui/skin/sh_br_tm.png"},
 			Image{"ui/skin/sh_br_tr.png"},
@@ -144,7 +144,7 @@ void Slider::setSkins()
 			Image{"ui/skin/sh_br_br.png"}
 		};
 
-		mSkinSlider = {
+		mSkins.skinSlider = {
 			Image{"ui/skin/sh_sl_tl.png"},
 			Image{"ui/skin/sh_sl_tm.png"},
 			Image{"ui/skin/sh_sl_tr.png"},
@@ -344,9 +344,9 @@ void Slider::draw()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImageRect(mSlideBar, mSkinMiddle); // slide area
-	renderer.drawImageRect(mButton1, mSkinButton1); // top or left button
-	renderer.drawImageRect(mButton2, mSkinButton2); // bottom or right button
+	renderer.drawImageRect(mSlideBar, mSkins.skinMiddle); // slide area
+	renderer.drawImageRect(mButton1, mSkins.skinButton1); // top or left button
+	renderer.drawImageRect(mButton2, mSkins.skinButton2); // bottom or right button
 
 	if (mSliderType == SliderType::Vertical)
 	{
@@ -369,7 +369,7 @@ void Slider::draw()
 		mSlider = {mSlideBar.x + relativeThumbPosition, mSlideBar.y, newSize, mSlideBar.height};
 	}
 
-	renderer.drawImageRect(mSlider, mSkinSlider);
+	renderer.drawImageRect(mSlider, mSkins.skinSlider);
 
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
