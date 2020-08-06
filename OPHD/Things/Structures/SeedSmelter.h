@@ -59,7 +59,7 @@ protected:
 		{
 			if (ore.resources[i] >= resource_units)
 			{
-				converted.resources[i] = resource_units / 2;
+				converted.resources[i] = resource_units / OreConversionDivisor[i];
 				ore.resources[i] = ore.resources[i] - resource_units;
 			}
 		}
@@ -80,4 +80,6 @@ private:
 	{
 		energyRequired(5);
 	}
+
+	std::array<int, 4> OreConversionDivisor { 2, 2, 3, 3 };
 };
