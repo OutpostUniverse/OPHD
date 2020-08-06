@@ -13,7 +13,8 @@ using namespace NAS2D;
 
 static const Font* FONT = nullptr;
 
-PopulationPanel::PopulationPanel() : mIcons("ui/icons.png")
+PopulationPanel::PopulationPanel() :
+	mIcons("ui/icons.png")
 {
 	size({160, 220});
 

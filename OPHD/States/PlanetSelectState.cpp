@@ -30,7 +30,9 @@ static const Font* FONT_TINY = nullptr;
 class Explosion
 {
 public:
-	Explosion(): mSheet("fx/explosion2.png") {}
+	Explosion() :
+		mSheet("fx/explosion2.png")
+	{}
 	~Explosion() = default;
 
 	void update(int x, int y)

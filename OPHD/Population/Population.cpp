@@ -34,7 +34,10 @@ std::size_t moraleIndex(int morale)
 /**
  * C'tor
  */
-Population::Population() : mBirthCount(0), mDeathCount(0), mStarveRate(0.5f)
+Population::Population() :
+	mBirthCount(0),
+	mDeathCount(0),
+	mStarveRate(0.5f)
 {
 	init();
 }

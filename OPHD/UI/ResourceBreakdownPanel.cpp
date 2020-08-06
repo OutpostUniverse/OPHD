@@ -43,7 +43,8 @@ namespace
 }
 
 
-ResourceBreakdownPanel::ResourceBreakdownPanel() : mIcons("ui/icons.png")
+ResourceBreakdownPanel::ResourceBreakdownPanel() :
+	mIcons("ui/icons.png")
 {
 	size({270, 80});
 

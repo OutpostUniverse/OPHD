@@ -12,7 +12,9 @@ StringTable::Cell& StringTable::operator[](const CellCoordinate& coordinate)
 	return mCells[getCellIndex(coordinate)];
 }
 
-StringTable::StringTable(std::size_t columns, std::size_t rows) : mColumnCount(columns), mRowCount(rows)
+StringTable::StringTable(std::size_t columns, std::size_t rows) :
+	mColumnCount(columns),
+	mRowCount(rows)
 {
 	mCells.resize(columns * rows);
 
