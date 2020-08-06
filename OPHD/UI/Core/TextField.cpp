@@ -40,25 +40,29 @@ TextField::TextField()
 	hasFocus(true);
 	Utility<EventHandler>::get().textInputMode(true);
 
-	mSkinNormal.push_back(Image("ui/skin/textbox_top_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_top_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_top_right.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_middle_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_middle_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_middle_right.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_bottom_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_bottom_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_bottom_right.png"));
+	mSkinNormal = {
+		Image{"ui/skin/textbox_top_left.png"},
+		Image{"ui/skin/textbox_top_middle.png"},
+		Image{"ui/skin/textbox_top_right.png"},
+		Image{"ui/skin/textbox_middle_left.png"},
+		Image{"ui/skin/textbox_middle_middle.png"},
+		Image{"ui/skin/textbox_middle_right.png"},
+		Image{"ui/skin/textbox_bottom_left.png"},
+		Image{"ui/skin/textbox_bottom_middle.png"},
+		Image{"ui/skin/textbox_bottom_right.png"}
+	};
 
-	mSkinFocus.push_back(Image("ui/skin/textbox_top_left_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_top_middle_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_top_right_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_middle_left_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_middle_middle_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_middle_right_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_left_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_middle_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_right_highlight.png"));
+	mSkinFocus = {
+		Image{"ui/skin/textbox_top_left_highlight.png"},
+		Image{"ui/skin/textbox_top_middle_highlight.png"},
+		Image{"ui/skin/textbox_top_right_highlight.png"},
+		Image{"ui/skin/textbox_middle_left_highlight.png"},
+		Image{"ui/skin/textbox_middle_middle_highlight.png"},
+		Image{"ui/skin/textbox_middle_right_highlight.png"},
+		Image{"ui/skin/textbox_bottom_left_highlight.png"},
+		Image{"ui/skin/textbox_bottom_middle_highlight.png"},
+		Image{"ui/skin/textbox_bottom_right_highlight.png"}
+	};
 
 	TXT_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	height(TXT_FONT->height() + FIELD_PADDING * 2);

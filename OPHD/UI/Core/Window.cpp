@@ -35,20 +35,23 @@ void Window::_init()
 
 	WINDOW_TITLE_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
-	mBody.push_back(Image("ui/skin/window_top_left.png"));
-	mBody.push_back(Image("ui/skin/window_top_middle.png"));
-	mBody.push_back(Image("ui/skin/window_top_right.png"));
-	mBody.push_back(Image("ui/skin/window_middle_left.png"));
-	mBody.push_back(Image("ui/skin/window_middle_middle.png"));
-	mBody.push_back(Image("ui/skin/window_middle_right.png"));
-	mBody.push_back(Image("ui/skin/window_bottom_left.png"));
-	mBody.push_back(Image("ui/skin/window_bottom_middle.png"));
-	mBody.push_back(Image("ui/skin/window_bottom_right.png"));
+	mBody = {
+		Image{"ui/skin/window_top_left.png"},
+		Image{"ui/skin/window_top_middle.png"},
+		Image{"ui/skin/window_top_right.png"},
+		Image{"ui/skin/window_middle_left.png"},
+		Image{"ui/skin/window_middle_middle.png"},
+		Image{"ui/skin/window_middle_right.png"},
+		Image{"ui/skin/window_bottom_left.png"},
+		Image{"ui/skin/window_bottom_middle.png"},
+		Image{"ui/skin/window_bottom_right.png"}
+	};
 
-
-	mTitle.push_back(Image("ui/skin/window_title_left.png"));
-	mTitle.push_back(Image("ui/skin/window_title_middle.png"));
-	mTitle.push_back(Image("ui/skin/window_title_right.png"));
+	mTitle = {
+		Image{"ui/skin/window_title_left.png"},
+		Image{"ui/skin/window_title_middle.png"},
+		Image{"ui/skin/window_title_right.png"}
+	};
 }
 
 

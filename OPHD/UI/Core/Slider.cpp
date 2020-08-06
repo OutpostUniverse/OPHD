@@ -56,87 +56,103 @@ void Slider::setSkins()
 
 	if (mSliderType == SliderType::Vertical)
 	{
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_tl.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_tm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_tr.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_ml.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_mm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_mr.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_bl.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_bm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_br.png"));
+		mSkinButton1 = {
+			Image{"ui/skin/sv_bu_tl.png"},
+			Image{"ui/skin/sv_bu_tm.png"},
+			Image{"ui/skin/sv_bu_tr.png"},
+			Image{"ui/skin/sv_bu_ml.png"},
+			Image{"ui/skin/sv_bu_mm.png"},
+			Image{"ui/skin/sv_bu_mr.png"},
+			Image{"ui/skin/sv_bu_bl.png"},
+			Image{"ui/skin/sv_bu_bm.png"},
+			Image{"ui/skin/sv_bu_br.png"}
+		};
 
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_tl.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_tm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_tr.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_ml.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_mm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_mr.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_bl.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_bm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_br.png"));
+		mSkinMiddle = {
+			Image{"ui/skin/sv_sa_tl.png"},
+			Image{"ui/skin/sv_sa_tm.png"},
+			Image{"ui/skin/sv_sa_tr.png"},
+			Image{"ui/skin/sv_sa_ml.png"},
+			Image{"ui/skin/sv_sa_mm.png"},
+			Image{"ui/skin/sv_sa_mr.png"},
+			Image{"ui/skin/sv_sa_bl.png"},
+			Image{"ui/skin/sv_sa_bm.png"},
+			Image{"ui/skin/sv_sa_br.png"}
+		};
 
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_tl.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_tm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_tr.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_ml.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_mm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_mr.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_bl.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_bm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_br.png"));
+		mSkinButton2 = {
+			Image{"ui/skin/sv_bd_tl.png"},
+			Image{"ui/skin/sv_bd_tm.png"},
+			Image{"ui/skin/sv_bd_tr.png"},
+			Image{"ui/skin/sv_bd_ml.png"},
+			Image{"ui/skin/sv_bd_mm.png"},
+			Image{"ui/skin/sv_bd_mr.png"},
+			Image{"ui/skin/sv_bd_bl.png"},
+			Image{"ui/skin/sv_bd_bm.png"},
+			Image{"ui/skin/sv_bd_br.png"}
+		};
 
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_tl.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_tm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_tr.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_ml.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_mm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_mr.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_bl.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_bm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_br.png"));
+		mSkinSlider = {
+			Image{"ui/skin/sv_sl_tl.png"},
+			Image{"ui/skin/sv_sl_tm.png"},
+			Image{"ui/skin/sv_sl_tr.png"},
+			Image{"ui/skin/sv_sl_ml.png"},
+			Image{"ui/skin/sv_sl_mm.png"},
+			Image{"ui/skin/sv_sl_mr.png"},
+			Image{"ui/skin/sv_sl_bl.png"},
+			Image{"ui/skin/sv_sl_bm.png"},
+			Image{"ui/skin/sv_sl_br.png"}
+		};
 	}
 	else
 	{
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_tl.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_tm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_tr.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_ml.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_mm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_mr.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_bl.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_bm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_br.png"));
+		mSkinButton1 = {
+			Image{"ui/skin/sh_bl_tl.png"},
+			Image{"ui/skin/sh_bl_tm.png"},
+			Image{"ui/skin/sh_bl_tr.png"},
+			Image{"ui/skin/sh_bl_ml.png"},
+			Image{"ui/skin/sh_bl_mm.png"},
+			Image{"ui/skin/sh_bl_mr.png"},
+			Image{"ui/skin/sh_bl_bl.png"},
+			Image{"ui/skin/sh_bl_bm.png"},
+			Image{"ui/skin/sh_bl_br.png"}
+		};
 
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_tl.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_tm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_tr.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_ml.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_mm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_mr.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_bl.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_bm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_br.png"));
+		mSkinMiddle = {
+			Image{"ui/skin/sh_sa_tl.png"},
+			Image{"ui/skin/sh_sa_tm.png"},
+			Image{"ui/skin/sh_sa_tr.png"},
+			Image{"ui/skin/sh_sa_ml.png"},
+			Image{"ui/skin/sh_sa_mm.png"},
+			Image{"ui/skin/sh_sa_mr.png"},
+			Image{"ui/skin/sh_sa_bl.png"},
+			Image{"ui/skin/sh_sa_bm.png"},
+			Image{"ui/skin/sh_sa_br.png"}
+		};
 
-		mSkinButton2.push_back(Image("ui/skin/sh_br_tl.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_tm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_tr.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_ml.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_mm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_mr.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_bl.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_bm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_br.png"));
+		mSkinButton2 = {
+			Image{"ui/skin/sh_br_tl.png"},
+			Image{"ui/skin/sh_br_tm.png"},
+			Image{"ui/skin/sh_br_tr.png"},
+			Image{"ui/skin/sh_br_ml.png"},
+			Image{"ui/skin/sh_br_mm.png"},
+			Image{"ui/skin/sh_br_mr.png"},
+			Image{"ui/skin/sh_br_bl.png"},
+			Image{"ui/skin/sh_br_bm.png"},
+			Image{"ui/skin/sh_br_br.png"}
+		};
 
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_tl.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_tm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_tr.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_ml.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_mm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_mr.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_bl.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_bm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_br.png"));
+		mSkinSlider = {
+			Image{"ui/skin/sh_sl_tl.png"},
+			Image{"ui/skin/sh_sl_tm.png"},
+			Image{"ui/skin/sh_sl_tr.png"},
+			Image{"ui/skin/sh_sl_ml.png"},
+			Image{"ui/skin/sh_sl_mm.png"},
+			Image{"ui/skin/sh_sl_mr.png"},
+			Image{"ui/skin/sh_sl_bl.png"},
+			Image{"ui/skin/sh_sl_bm.png"},
+			Image{"ui/skin/sh_sl_br.png"}
+		};
 	}
 }
 
