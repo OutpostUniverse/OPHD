@@ -31,7 +31,7 @@ namespace {
 Slider::Slider(SliderType sliderType) :
 	mSliderType(sliderType)
 {
-	setSkins();
+	mSkins = loadSkins(sliderType);
 	sliderFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
@@ -54,106 +54,104 @@ Slider::~Slider()
 /**
  *
  */
-void Slider::setSkins()
+Slider::Skins Slider::loadSkins(SliderType sliderType)
 {
-	if (mSliderType == SliderType::Vertical)
+	if (sliderType == SliderType::Vertical)
 	{
-		mSkins.skinButton1 = {
-			Image{"ui/skin/sv_bu_tl.png"},
-			Image{"ui/skin/sv_bu_tm.png"},
-			Image{"ui/skin/sv_bu_tr.png"},
-			Image{"ui/skin/sv_bu_ml.png"},
-			Image{"ui/skin/sv_bu_mm.png"},
-			Image{"ui/skin/sv_bu_mr.png"},
-			Image{"ui/skin/sv_bu_bl.png"},
-			Image{"ui/skin/sv_bu_bm.png"},
-			Image{"ui/skin/sv_bu_br.png"}
-		};
-
-		mSkins.skinMiddle = {
-			Image{"ui/skin/sv_sa_tl.png"},
-			Image{"ui/skin/sv_sa_tm.png"},
-			Image{"ui/skin/sv_sa_tr.png"},
-			Image{"ui/skin/sv_sa_ml.png"},
-			Image{"ui/skin/sv_sa_mm.png"},
-			Image{"ui/skin/sv_sa_mr.png"},
-			Image{"ui/skin/sv_sa_bl.png"},
-			Image{"ui/skin/sv_sa_bm.png"},
-			Image{"ui/skin/sv_sa_br.png"}
-		};
-
-		mSkins.skinButton2 = {
-			Image{"ui/skin/sv_bd_tl.png"},
-			Image{"ui/skin/sv_bd_tm.png"},
-			Image{"ui/skin/sv_bd_tr.png"},
-			Image{"ui/skin/sv_bd_ml.png"},
-			Image{"ui/skin/sv_bd_mm.png"},
-			Image{"ui/skin/sv_bd_mr.png"},
-			Image{"ui/skin/sv_bd_bl.png"},
-			Image{"ui/skin/sv_bd_bm.png"},
-			Image{"ui/skin/sv_bd_br.png"}
-		};
-
-		mSkins.skinSlider = {
-			Image{"ui/skin/sv_sl_tl.png"},
-			Image{"ui/skin/sv_sl_tm.png"},
-			Image{"ui/skin/sv_sl_tr.png"},
-			Image{"ui/skin/sv_sl_ml.png"},
-			Image{"ui/skin/sv_sl_mm.png"},
-			Image{"ui/skin/sv_sl_mr.png"},
-			Image{"ui/skin/sv_sl_bl.png"},
-			Image{"ui/skin/sv_sl_bm.png"},
-			Image{"ui/skin/sv_sl_br.png"}
+		return {
+			{ // Button1
+				Image{"ui/skin/sv_bu_tl.png"},
+				Image{"ui/skin/sv_bu_tm.png"},
+				Image{"ui/skin/sv_bu_tr.png"},
+				Image{"ui/skin/sv_bu_ml.png"},
+				Image{"ui/skin/sv_bu_mm.png"},
+				Image{"ui/skin/sv_bu_mr.png"},
+				Image{"ui/skin/sv_bu_bl.png"},
+				Image{"ui/skin/sv_bu_bm.png"},
+				Image{"ui/skin/sv_bu_br.png"}
+			},
+			{ // Middle
+				Image{"ui/skin/sv_sa_tl.png"},
+				Image{"ui/skin/sv_sa_tm.png"},
+				Image{"ui/skin/sv_sa_tr.png"},
+				Image{"ui/skin/sv_sa_ml.png"},
+				Image{"ui/skin/sv_sa_mm.png"},
+				Image{"ui/skin/sv_sa_mr.png"},
+				Image{"ui/skin/sv_sa_bl.png"},
+				Image{"ui/skin/sv_sa_bm.png"},
+				Image{"ui/skin/sv_sa_br.png"}
+			},
+			{ // Button2
+				Image{"ui/skin/sv_bd_tl.png"},
+				Image{"ui/skin/sv_bd_tm.png"},
+				Image{"ui/skin/sv_bd_tr.png"},
+				Image{"ui/skin/sv_bd_ml.png"},
+				Image{"ui/skin/sv_bd_mm.png"},
+				Image{"ui/skin/sv_bd_mr.png"},
+				Image{"ui/skin/sv_bd_bl.png"},
+				Image{"ui/skin/sv_bd_bm.png"},
+				Image{"ui/skin/sv_bd_br.png"}
+			},
+			{ // Slider
+				Image{"ui/skin/sv_sl_tl.png"},
+				Image{"ui/skin/sv_sl_tm.png"},
+				Image{"ui/skin/sv_sl_tr.png"},
+				Image{"ui/skin/sv_sl_ml.png"},
+				Image{"ui/skin/sv_sl_mm.png"},
+				Image{"ui/skin/sv_sl_mr.png"},
+				Image{"ui/skin/sv_sl_bl.png"},
+				Image{"ui/skin/sv_sl_bm.png"},
+				Image{"ui/skin/sv_sl_br.png"}
+			}
 		};
 	}
 	else
 	{
-		mSkins.skinButton1 = {
-			Image{"ui/skin/sh_bl_tl.png"},
-			Image{"ui/skin/sh_bl_tm.png"},
-			Image{"ui/skin/sh_bl_tr.png"},
-			Image{"ui/skin/sh_bl_ml.png"},
-			Image{"ui/skin/sh_bl_mm.png"},
-			Image{"ui/skin/sh_bl_mr.png"},
-			Image{"ui/skin/sh_bl_bl.png"},
-			Image{"ui/skin/sh_bl_bm.png"},
-			Image{"ui/skin/sh_bl_br.png"}
-		};
-
-		mSkins.skinMiddle = {
-			Image{"ui/skin/sh_sa_tl.png"},
-			Image{"ui/skin/sh_sa_tm.png"},
-			Image{"ui/skin/sh_sa_tr.png"},
-			Image{"ui/skin/sh_sa_ml.png"},
-			Image{"ui/skin/sh_sa_mm.png"},
-			Image{"ui/skin/sh_sa_mr.png"},
-			Image{"ui/skin/sh_sa_bl.png"},
-			Image{"ui/skin/sh_sa_bm.png"},
-			Image{"ui/skin/sh_sa_br.png"}
-		};
-
-		mSkins.skinButton2 = {
-			Image{"ui/skin/sh_br_tl.png"},
-			Image{"ui/skin/sh_br_tm.png"},
-			Image{"ui/skin/sh_br_tr.png"},
-			Image{"ui/skin/sh_br_ml.png"},
-			Image{"ui/skin/sh_br_mm.png"},
-			Image{"ui/skin/sh_br_mr.png"},
-			Image{"ui/skin/sh_br_bl.png"},
-			Image{"ui/skin/sh_br_bm.png"},
-			Image{"ui/skin/sh_br_br.png"}
-		};
-
-		mSkins.skinSlider = {
-			Image{"ui/skin/sh_sl_tl.png"},
-			Image{"ui/skin/sh_sl_tm.png"},
-			Image{"ui/skin/sh_sl_tr.png"},
-			Image{"ui/skin/sh_sl_ml.png"},
-			Image{"ui/skin/sh_sl_mm.png"},
-			Image{"ui/skin/sh_sl_mr.png"},
-			Image{"ui/skin/sh_sl_bl.png"},
-			Image{"ui/skin/sh_sl_bm.png"},
-			Image{"ui/skin/sh_sl_br.png"}
+		return {
+			{ // Button1
+				Image{"ui/skin/sh_bl_tl.png"},
+				Image{"ui/skin/sh_bl_tm.png"},
+				Image{"ui/skin/sh_bl_tr.png"},
+				Image{"ui/skin/sh_bl_ml.png"},
+				Image{"ui/skin/sh_bl_mm.png"},
+				Image{"ui/skin/sh_bl_mr.png"},
+				Image{"ui/skin/sh_bl_bl.png"},
+				Image{"ui/skin/sh_bl_bm.png"},
+				Image{"ui/skin/sh_bl_br.png"}
+			},
+			{ // Middle
+				Image{"ui/skin/sh_sa_tl.png"},
+				Image{"ui/skin/sh_sa_tm.png"},
+				Image{"ui/skin/sh_sa_tr.png"},
+				Image{"ui/skin/sh_sa_ml.png"},
+				Image{"ui/skin/sh_sa_mm.png"},
+				Image{"ui/skin/sh_sa_mr.png"},
+				Image{"ui/skin/sh_sa_bl.png"},
+				Image{"ui/skin/sh_sa_bm.png"},
+				Image{"ui/skin/sh_sa_br.png"}
+			},
+			{ // Button2
+				Image{"ui/skin/sh_br_tl.png"},
+				Image{"ui/skin/sh_br_tm.png"},
+				Image{"ui/skin/sh_br_tr.png"},
+				Image{"ui/skin/sh_br_ml.png"},
+				Image{"ui/skin/sh_br_mm.png"},
+				Image{"ui/skin/sh_br_mr.png"},
+				Image{"ui/skin/sh_br_bl.png"},
+				Image{"ui/skin/sh_br_bm.png"},
+				Image{"ui/skin/sh_br_br.png"}
+			},
+			{ // Slider
+				Image{"ui/skin/sh_sl_tl.png"},
+				Image{"ui/skin/sh_sl_tm.png"},
+				Image{"ui/skin/sh_sl_tr.png"},
+				Image{"ui/skin/sh_sl_ml.png"},
+				Image{"ui/skin/sh_sl_mm.png"},
+				Image{"ui/skin/sh_sl_mr.png"},
+				Image{"ui/skin/sh_sl_bl.png"},
+				Image{"ui/skin/sh_sl_bm.png"},
+				Image{"ui/skin/sh_sl_br.png"}
+			}
 		};
 	}
 }
