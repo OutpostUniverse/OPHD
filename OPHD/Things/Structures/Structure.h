@@ -4,7 +4,6 @@
 
 #include "../../Common.h"
 #include "../../PopulationPool.h"
-#include "../../ResourcePool.h"
 #include "../../StorableResources.h"
 #include "../../UI/StringTable.h"
 
@@ -92,9 +91,9 @@ public:
 	const StorableResources& resourcesIn() const { return mResourcesInput; }
 
 	StorableResources& storage() { return mStoragePool; }
-	ResourcePool& production() { return mProductionPool; }
+	StorableResources& production() { return mProductionPool; }
 
-	virtual void input(ResourcePool& /*pool*/) {}
+	virtual void input(StorableResources& /*pool*/) {}
 
 	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
 	PopulationRequirements& populationAvailable() { return mPopulationAvailable; }
@@ -193,7 +192,7 @@ private:
 
 	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
 
-	ResourcePool mProductionPool; /**< Resource pool used for production. */
+	StorableResources mProductionPool; /**< Resource pool used for production. */
 	StorableResources mStoragePool; /**< Resource storage pool. */
 
 	DisabledReason mDisabledReason = DisabledReason::DISABLED_NONE;
