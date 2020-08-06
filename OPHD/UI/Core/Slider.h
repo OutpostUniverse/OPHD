@@ -32,10 +32,18 @@ public:
 		Horizontal /*!< Horizontal slider. */
 	};
 
+	struct Skins {
+		NAS2D::ImageList skinButton1;
+		NAS2D::ImageList skinMiddle;
+		NAS2D::ImageList skinButton2;
+		NAS2D::ImageList skinSlider;
+	};
+
 	using ValueChangedCallback = NAS2D::Signals::Signal<float>; /*!< type for Callback on value changed. */
 
 public:
 	Slider(SliderType sliderType = SliderType::Vertical);
+	Slider(Skins skins, SliderType sliderType = SliderType::Vertical);
 	~Slider() override;
 
 	void thumbPosition(float value); /*!< Set the current position. */
@@ -64,13 +72,6 @@ protected:
 	virtual void onMouseMove(int x, int y, int dX, int dY); /*!< Event raised on mouse move. */
 	
 private:
-	struct Skins {
-		NAS2D::ImageList skinButton1;
-		NAS2D::ImageList skinMiddle;
-		NAS2D::ImageList skinButton2;
-		NAS2D::ImageList skinSlider;
-	};
-
 	float positionInternal();
 	void positionInternal(float newPosition);
 
