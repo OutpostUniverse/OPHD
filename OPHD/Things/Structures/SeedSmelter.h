@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Structure.h"
-#include "Factory.h"
 
 
 class SeedSmelter : public Structure
