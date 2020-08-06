@@ -88,7 +88,7 @@ void MineFacility::think()
 	{
 		if (storage() >= StorableResources{ MineFacilityStorageCapacity / 4 })
 		{
-			idle(IdleReason::IDLE_MINE_EXHAUSTED);
+			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 			return;
 		}
 
