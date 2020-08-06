@@ -75,7 +75,6 @@ private:
 	float positionInternal();
 	void positionInternal(float newPosition);
 
-	Skins loadSkins(SliderType sliderType); /*!< Helper function that load the gui skin on the first update call. */
 	void draw() override; /*!< Draw the widget on screen. */
 	void logic(); /*!< Compute some values before drawing the control. */
 
