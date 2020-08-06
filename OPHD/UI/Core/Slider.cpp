@@ -53,8 +53,6 @@ Slider::~Slider()
  */
 void Slider::setSkins()
 {
-	if (!mSkinButton1.empty()) { return; }
-
 	if (mSliderType == SliderType::Vertical)
 	{
 		mSkinButton1 = {
