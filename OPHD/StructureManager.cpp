@@ -406,12 +406,13 @@ void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 	_ti->attribute("type", structure->name());
 	_ti->attribute("direction", structure->connectorDirection());
 
-	if (!structure->production().empty())
+	const auto& production = structure->production();
+	if (production > StorableResources{ 0 })
 	{
-		//serializeResourcePool(_ti, structure->production(), "production");
+		writeResources(_ti, production, "production");
 	}
 
-	const auto stored = structure->storage();
+	const auto& stored = structure->storage();
 	if (stored > StorableResources{ 0 })
 	{
 		writeResources(_ti, stored, "storage");
