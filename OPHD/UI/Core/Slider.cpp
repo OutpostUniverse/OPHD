@@ -20,7 +20,10 @@
 using namespace NAS2D;
 
 
-static const Font* SLD_FONT = nullptr;
+namespace {
+	static const Font* SLD_FONT = nullptr;
+}
+
 
 /**
  * C'tor
