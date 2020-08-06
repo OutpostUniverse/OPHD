@@ -29,9 +29,9 @@ namespace {
  * C'tor
  */
 Slider::Slider(SliderType sliderType) :
-	mSliderType(sliderType)
+	mSliderType{sliderType},
+	mSkins{loadSkins(sliderType)}
 {
-	mSkins = loadSkins(sliderType);
 	sliderFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
