@@ -35,7 +35,7 @@ static const Image* FACTORY_AG = nullptr;
 static const Image* FACTORY_UG = nullptr;
 static const Image* FACTORY_IMAGE = nullptr;
 
-std::array<Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
+std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
 static const Image* _PRODUCT_NONE = nullptr;
 
 static std::string FACTORY_STATUS;
