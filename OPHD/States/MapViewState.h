@@ -28,6 +28,7 @@
 #include <NAS2D/Renderer/Point.h>
 
 #include <string>
+#include <memory>
 
 
 enum PointerType
@@ -204,8 +205,8 @@ private:
 
 	const NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */
 	const NAS2D::Image mBackground{"sys/bg1.png"}; /**< Background image drawn behind the tile map. */
-	NAS2D::Image mMapDisplay; /**< Satellite view of the Site Map. */
-	NAS2D::Image mHeightMap; /**< Height view of the Site Map. */
+	std::unique_ptr<NAS2D::Image> mMapDisplay; /**< Satellite view of the Site Map. */
+	std::unique_ptr<NAS2D::Image> mHeightMap; /**< Height view of the Site Map. */
 
 	NAS2D::Point<int> mTileMapMouseHover; /**< Tile position the mouse is currently hovering over. */
 

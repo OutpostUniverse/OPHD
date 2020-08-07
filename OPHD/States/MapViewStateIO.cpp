@@ -153,8 +153,8 @@ void MapViewState::load(const std::string& filePath)
 	}
 
 	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
-	mMapDisplay = Image(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
-	mHeightMap = Image(mPlanetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION);
+	mMapDisplay = std::make_unique<Image>(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
+	mHeightMap = std::make_unique<Image>(mPlanetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION);
 	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.tilesetPath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
 
