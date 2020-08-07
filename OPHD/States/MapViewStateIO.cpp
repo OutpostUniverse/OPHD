@@ -43,6 +43,25 @@ extern NAS2D::Image* IMG_SAVING;
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 
 
+
+/*****************************************************************************
+ * LOCAL FUNCTIONS
+ *****************************************************************************/
+static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
+{
+	if (!element) { return; }
+
+	resources.resources[0] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_0));
+	resources.resources[1] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_1));
+	resources.resources[2] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_2));
+	resources.resources[3] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_3));
+}
+
+
+/*****************************************************************************
+ * CLASS FUNCTIONS
+ *****************************************************************************/
+
 /**
  * 
  */
@@ -390,26 +409,8 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		
 		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }
 
-		auto productionElement = structure->firstChildElement("production");
-		if (productionElement)
-		{
-			auto& produced = st->production();
-			produced.resources[0] = std::stoi(productionElement->attribute(constants::SAVE_GAME_RESOURCE_0));
-			produced.resources[1] = std::stoi(productionElement->attribute(constants::SAVE_GAME_RESOURCE_1));
-			produced.resources[2] = std::stoi(productionElement->attribute(constants::SAVE_GAME_RESOURCE_2));
-			produced.resources[3] = std::stoi(productionElement->attribute(constants::SAVE_GAME_RESOURCE_3));
-		}
-
-		auto storedElement = structure->firstChildElement("storage");
-		if (storedElement)
-		{
-			auto& stored = st->storage();
-			stored.resources[0] = std::stoi(storedElement->attribute(constants::SAVE_GAME_RESOURCE_0));
-			stored.resources[1] = std::stoi(storedElement->attribute(constants::SAVE_GAME_RESOURCE_1));
-			stored.resources[2] = std::stoi(storedElement->attribute(constants::SAVE_GAME_RESOURCE_2));
-			stored.resources[3] = std::stoi(storedElement->attribute(constants::SAVE_GAME_RESOURCE_3));
-		}
-
+		loadResorucesFromXmlElement(structure->firstChildElement("production"), st->production());
+		loadResorucesFromXmlElement(structure->firstChildElement("storage"), st->storage());
 
 		if (st->isWarehouse())
 		{
