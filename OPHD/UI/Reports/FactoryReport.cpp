@@ -4,6 +4,7 @@
 #include "FactoryReport.h"
 
 #include "../TextRender.h"
+#include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
 #include "../../StructureManager.h"
@@ -35,7 +36,7 @@ static const Image* FACTORY_AG = nullptr;
 static const Image* FACTORY_UG = nullptr;
 static const Image* FACTORY_IMAGE = nullptr;
 
-std::array<Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
+std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
 static const Image* _PRODUCT_NONE = nullptr;
 
 static std::string FACTORY_STATUS;
@@ -68,14 +69,7 @@ FactoryReport::FactoryReport() :
  */
 FactoryReport::~FactoryReport()
 {
-	delete FACTORY_SEED;
-	delete FACTORY_AG;
-	delete FACTORY_UG;
-	delete _PRODUCT_NONE;
-
 	SELECTED_FACTORY = nullptr;
-
-	for (auto img : PRODUCT_IMAGE_ARRAY) { delete img; }
 }
 
 
@@ -93,23 +87,23 @@ void FactoryReport::init()
 	FONT_BIG = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
 	FONT_BIG_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
 
-	FACTORY_SEED = new Image("ui/interface/factory_seed.png");
-	FACTORY_AG = new Image("ui/interface/factory_ag.png");
-	FACTORY_UG = new Image("ui/interface/factory_ug.png");
+	FACTORY_SEED = &imageCache.load("ui/interface/factory_seed.png");
+	FACTORY_AG = &imageCache.load("ui/interface/factory_ag.png");
+	FACTORY_UG = &imageCache.load("ui/interface/factory_ug.png");
 
 	/// \todo Decide if this is the best place to have these images live or if it should be done at program start.
 	PRODUCT_IMAGE_ARRAY.fill(nullptr);
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DIGGER] = new Image("ui/interface/product_robodigger.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DOZER] = new Image("ui/interface/product_robodozer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MINER] = new Image("ui/interface/product_robominer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_EXPLORER] = new Image("ui/interface/product_roboexplorer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_TRUCK] = new Image("ui/interface/product_truck.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_ROAD_MATERIALS] = new Image("ui/interface/product_road_materials.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MAINTENANCE_PARTS] = new Image("ui/interface/product_maintenance_parts.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_CLOTHING] = new Image("ui/interface/product_clothing.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MEDICINE] = new Image("ui/interface/product_medicine.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DIGGER] = &imageCache.load("ui/interface/product_robodigger.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DOZER] = &imageCache.load("ui/interface/product_robodozer.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MINER] = &imageCache.load("ui/interface/product_robominer.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_EXPLORER] = &imageCache.load("ui/interface/product_roboexplorer.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_TRUCK] = &imageCache.load("ui/interface/product_truck.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_ROAD_MATERIALS] = &imageCache.load("ui/interface/product_road_materials.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MAINTENANCE_PARTS] = &imageCache.load("ui/interface/product_maintenance_parts.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_CLOTHING] = &imageCache.load("ui/interface/product_clothing.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MEDICINE] = &imageCache.load("ui/interface/product_medicine.png");
 
-	_PRODUCT_NONE = new Image("ui/interface/product_none.png");
+	_PRODUCT_NONE = &imageCache.load("ui/interface/product_none.png");
 
 	add(&lstFactoryList, 10, 63);
 	lstFactoryList.selectionChanged().connect(this, &FactoryReport::lstFactoryListSelectionChanged);

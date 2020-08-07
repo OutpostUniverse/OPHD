@@ -3,6 +3,7 @@
 
 #include "Button.h"
 
+#include "../../Cache.h"
 #include "../../Common.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
@@ -65,8 +66,6 @@ Button::~Button()
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Button::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Button::onMouseMove);
-
-	delete mImage;
 }
 
 
@@ -96,7 +95,7 @@ void Button::fontSize(std::size_t size)
 
 void Button::image(const std::string& path)
 {
-	mImage = new Image(path);
+	mImage = &imageCache.load(path);
 }
 
 

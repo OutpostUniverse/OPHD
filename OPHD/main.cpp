@@ -1,6 +1,7 @@
 // This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
+#include "Cache.h"
 #include "Common.h"
 #include "Constants.h"
 #include "StructureTranslator.h"
@@ -147,9 +148,9 @@ int main(int /*argc*/, char *argv[])
 		std::cout << "done." << std::endl;
 
 		// Loading/Saving plaque's
-		IMG_LOADING = new Image("sys/loading.png");
-		IMG_SAVING = new Image("sys/saving.png");
-		IMG_PROCESSING_TURN = new Image("sys/processing_turn.png");
+		IMG_LOADING = &imageCache.load("sys/loading.png");
+		IMG_SAVING = &imageCache.load("sys/saving.png");
+		IMG_PROCESSING_TURN = &imageCache.load("sys/processing_turn.png");
 
 		MARS = new Music("music/mars.ogg");
 		Utility<Mixer>::get().playMusic(*MARS);
@@ -178,6 +179,8 @@ int main(int /*argc*/, char *argv[])
 	{
 		doNonFatalErrorMessage("Application Error", e.what());
 	}
+
+	imageCache.clear();
 
 	#ifdef NDEBUG
 	filestr.close();
