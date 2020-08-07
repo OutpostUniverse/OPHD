@@ -3,6 +3,7 @@
 
 #include "FactoryListBox.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -56,14 +57,13 @@ FactoryListBox::FactoryListBox()
  */
 FactoryListBox::~FactoryListBox()
 {
-	delete STRUCTURE_ICONS;
 }
 
 
 void FactoryListBox::_init()
 {
 	item_height(LIST_ITEM_HEIGHT);
-	STRUCTURE_ICONS = new Image("ui/structures.png");
+	STRUCTURE_ICONS = &imageCache.load("ui/structures.png");
 	MAIN_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, 12);
 	MAIN_FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, 12);
 }
