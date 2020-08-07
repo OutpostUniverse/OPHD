@@ -390,8 +390,16 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		
 		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }
 
-		st->production().deserialize(structure->firstChildElement("production"));
-		
+		auto productionElement = structure->firstChildElement("production");
+		if (productionElement)
+		{
+			auto& produced = st->production();
+			produced.resources[0] = std::stoi(productionElement->attribute(constants::SAVE_GAME_RESOURCE_0));
+			produced.resources[1] = std::stoi(productionElement->attribute(constants::SAVE_GAME_RESOURCE_1));
+			produced.resources[2] = std::stoi(productionElement->attribute(constants::SAVE_GAME_RESOURCE_2));
+			produced.resources[3] = std::stoi(productionElement->attribute(constants::SAVE_GAME_RESOURCE_3));
+		}
+
 		auto storedElement = structure->firstChildElement("storage");
 
 		if (storedElement)
