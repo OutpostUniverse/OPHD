@@ -259,22 +259,22 @@ void MapViewState::updateResources()
 		routeIt = mRouteTable.find(facility);
 		if (routeIt != mRouteTable.end())
 		{
-			const auto& route = routeIt->second;
-			const auto smelter = static_cast<Tile*>(route.path.back())->structure();
-			const auto mineFacility = static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
+			//const auto& route = routeIt->second;
+			//const auto smelter = static_cast<Tile*>(route.path.back())->structure();
+			//const auto mineFacility = static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
 
 			/* clamp route cost to minimum of 1.0f for next computation to avoid
 			   unintended multiplication. */
-			const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
+			//const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
 
 			/* intentional truncation of fractional component*/
+			/*
 			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost);
 			const int oreMovementPart = totalOreMovement / 4;
 			const int oreMovementRemainder = totalOreMovement % 4;
 
 			auto& resourcePool = mineFacility->storage();
 			ResourcePool truck(100);
-			/*
 			truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::CommonMetalsOre, oreMovementPart));
 			truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::CommonMineralsOre, oreMovementPart));
 			truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RareMetalsOre, oreMovementPart));

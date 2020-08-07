@@ -18,7 +18,6 @@
 
 #include "../StorableResources.h"
 
-#include "../ResourcePool.h"
 #include "../RobotPool.h"
 
 #include "../Things/Structures/Structure.h"
