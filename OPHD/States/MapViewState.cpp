@@ -74,8 +74,8 @@ MapViewState::MapViewState(const std::string& savegame) :
 MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mPlanetAttributes(planetAttributes),
-	mMapDisplay(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION),
-	mHeightMap(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)
+	mMapDisplay{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
+	mHeightMap{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)}
 {
 	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
