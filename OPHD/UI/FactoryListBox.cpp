@@ -11,7 +11,7 @@ using namespace NAS2D;
 
 
 const int LIST_ITEM_HEIGHT = 58;
-Image* STRUCTURE_ICONS = nullptr;
+const Image* STRUCTURE_ICONS = nullptr;
 
 static const Font* MAIN_FONT = nullptr;
 static const Font* MAIN_FONT_BOLD = nullptr;
