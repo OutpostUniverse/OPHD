@@ -263,7 +263,6 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClCompile Include="PopulationPool.cpp" />
     <ClCompile Include="Population\Population.cpp" />
     <ClCompile Include="ProductPool.cpp" />
-    <ClCompile Include="ResourcePool.cpp" />
     <ClCompile Include="RobotPool.cpp" />
     <ClCompile Include="States\GameState.cpp" />
     <ClCompile Include="States\MapViewState.cpp" />
@@ -341,7 +340,6 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClInclude Include="Population\Population.h" />
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />
-    <ClInclude Include="ResourcePool.h" />
     <ClInclude Include="RobotPool.h" />
     <ClInclude Include="RobotPoolHelper.h" />
     <ClInclude Include="States\GameState.h" />

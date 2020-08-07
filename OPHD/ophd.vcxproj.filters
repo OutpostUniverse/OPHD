@@ -138,9 +138,6 @@
     <ClCompile Include="StructureTranslator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ResourcePool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UI\StructureInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -414,9 +411,6 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="StructureTranslator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourcePool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Things\Structures\StorageTanks.h">
