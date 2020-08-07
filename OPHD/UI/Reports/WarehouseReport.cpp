@@ -3,6 +3,7 @@
 
 #include "WarehouseReport.h"
 
+#include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
 #include "../../StructureManager.h"
@@ -94,7 +95,6 @@ WarehouseReport::WarehouseReport() :
 WarehouseReport::~WarehouseReport()
 {
 	Control::resized().disconnect(this, &WarehouseReport::_resized);
-	delete WAREHOUSE_IMG;
 }
 
 
@@ -108,7 +108,7 @@ void WarehouseReport::init()
 	FONT_MED_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 	FONT_BIG_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
 
-	WAREHOUSE_IMG = new Image("ui/interface/warehouse.png");
+	WAREHOUSE_IMG = &imageCache.load("ui/interface/warehouse.png");
 
 	add(&btnShowAll, 10, 10);
 	btnShowAll.size({75, 20});
