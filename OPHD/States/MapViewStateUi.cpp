@@ -37,11 +37,6 @@ extern NAS2D::Rectangle<int> MOVE_UP_ICON;
 extern NAS2D::Rectangle<int> MOVE_DOWN_ICON;
 
 
-extern const NAS2D::Image* IMG_LOADING; /// \fixme Find a sane place for this.
-extern const NAS2D::Image* IMG_SAVING; /// \fixme Find a sane place for this.
-extern const NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
-
-
 /**
  * Sets up the user interface elements
  * 

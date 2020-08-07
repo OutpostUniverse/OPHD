@@ -30,8 +30,6 @@ using namespace NAS2D;
 const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
-extern const NAS2D::Image* IMG_LOADING; /// \fixme Find a sane place for this.
-extern const NAS2D::Image* IMG_SAVING; /// \fixme Find a sane place for this.
 extern Point<int> MOUSE_COORDS;
 extern MainReportsUiState* MAIN_REPORTS_UI;
 
