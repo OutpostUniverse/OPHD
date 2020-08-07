@@ -12,20 +12,17 @@ const int MineFacilityStorageCapacity = 500;
 /**
  * Computes how many units of ore should be pulled.
  */
-static int push_count(MineFacility* _mf)
+static int pull_count(MineFacility* _mf, size_t index)
 {
-	int push_count = 0;
+	const int storageCapacity = (MineFacilityStorageCapacity / 4);
+	const int remainingCapacity = storageCapacity - _mf->production().resources[index];
 
-	if (_mf->production().remainingCapacity() >= constants::BASE_MINE_PRODUCTION_RATE)
-	{
-		push_count = constants::BASE_MINE_PRODUCTION_RATE;
-	}
-	else
-	{
-		push_count = _mf->production().remainingCapacity();
-	}
+	int totalCount = 0;
+	remainingCapacity >= constants::BASE_MINE_PRODUCTION_RATE ?
+		totalCount = constants::BASE_MINE_PRODUCTION_RATE :
+		totalCount = remainingCapacity;
 
-	return push_count;
+	return totalCount;
 }
 
 
@@ -40,8 +37,6 @@ MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY, "st
 
 	requiresCHAP(false);
 	selfSustained(true);
-
-	production().capacity(500);
 }
 
 
@@ -93,36 +88,33 @@ void MineFacility::think()
 	{
 		if (storage() >= StorableResources{ MineFacilityStorageCapacity / 4 })
 		{
-			idle(IdleReason::IDLE_MINE_EXHAUSTED);
+			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 			return;
 		}
 
+		auto& ore = production();
+
 		if (mMine->miningCommonMetals())
 		{
-			production().pushResource(ResourcePool::ResourceType::CommonMetalsOre, mMine->pull(Mine::OreType::ORE_COMMON_METALS, push_count(this)), false);
+			ore.resources[0] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 0));
 		}
 		
 		if (mMine->miningCommonMinerals())
 		{
-			production().pushResource(ResourcePool::ResourceType::CommonMineralsOre, mMine->pull(Mine::OreType::ORE_COMMON_MINERALS, push_count(this)), false);
+			ore.resources[1] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 1));
 		}
 		
 		if (mMine->miningRareMetals())
 		{
-			production().pushResource(ResourcePool::ResourceType::RareMetalsOre, mMine->pull(Mine::OreType::ORE_RARE_METALS, push_count(this)), false);
+			ore.resources[2] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 2));
 		}
 		
 		if (mMine->miningRareMinerals())
 		{
-			production().pushResource(ResourcePool::ResourceType::RareMineralsOre, mMine->pull(Mine::OreType::ORE_RARE_MINERALS, push_count(this)), false);
+			ore.resources[3] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 3));
 		}
 
-		StorableResources prod_{ production().commonMetalsOre(),
-			production().commonMineralsOre(),
-			production().rareMetalsOre(),
-			production().rareMineralsOre() };
-		
-		storage() + prod_;
+		storage() + ore;
 	}
 	else if (!isIdle())
 	{

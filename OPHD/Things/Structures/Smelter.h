@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Structure.h"
-#include "Factory.h"
 
 class Smelter : public Structure
 {
@@ -14,22 +13,20 @@ public:
 		maxAge(600);
 		turnsToBuild(9);
 		requiresCHAP(false);
-
-		oreStorage().capacity(StorageCapacity);
 	}
 
-	void input(ResourcePool& _resourcePool) override
+	void input(StorableResources& resources) override
 	{
 		if (!operational()) { return; }
-		if (oreStorage().atCapacity()) { return; }
+		if (oreStorage() >= StorableResources{ StorageCapacity }) { return; }
 
-		oreStorage().pushResources(_resourcePool);
+		oreStorage() = oreStorage() + resources;
 	}
 
 protected:
 
 	// Simply to help in understanding what the internal resource pools are being used for.
-	ResourcePool& oreStorage() { return production(); }
+	StorableResources& oreStorage() { return production(); }
 
 protected:
 
@@ -54,38 +51,24 @@ protected:
 		int resource_units = constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING;
 
 		StorableResources converted;
+		StorableResources& ore = oreStorage();
 
-		if (oreStorage().commonMetalsOre() >= resource_units)
+		for (size_t i = 0; i < ore.resources.size(); ++i)
 		{
-			converted.resources[0] = resource_units / 2;
-			oreStorage().commonMetalsOre(oreStorage().commonMetalsOre() - resource_units);
-		}
-
-		if (oreStorage().commonMineralsOre() >= resource_units)
-		{
-			converted.resources[1] = resource_units / 2;
-			oreStorage().commonMineralsOre(oreStorage().commonMineralsOre() - resource_units);
-		}
-
-		if (oreStorage().rareMetalsOre() >= resource_units)
-		{
-			converted.resources[2] = resource_units / 3;
-			oreStorage().rareMetalsOre(oreStorage().rareMetalsOre() - resource_units);
-		}
-
-		if (oreStorage().rareMineralsOre() >= resource_units)
-		{
-			converted.resources[4] = resource_units / 3;
-			oreStorage().rareMineralsOre(oreStorage().rareMineralsOre() - resource_units);
+			if (ore.resources[i] >= resource_units)
+			{
+				converted.resources[i] = resource_units / OreConversionDivisor[i];
+				ore.resources[i] = ore.resources[i] - resource_units;
+			}
 		}
 
 		auto total = storage() + converted;
 		auto capped = total.cap(StorageCapacity / 4);
 		auto overflow = total - capped;
-		
-		if (overflow > StorableResources{0})
+
+		if (overflow > StorableResources{ 0 })
 		{
-			// add overflow back into production queue
+			ore = ore + overflow;
 			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
 		}
 	}
@@ -95,4 +78,6 @@ private:
 	{
 		energyRequired(5);
 	}
+
+	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
 };

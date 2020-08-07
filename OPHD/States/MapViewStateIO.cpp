@@ -43,6 +43,25 @@ extern NAS2D::Image* IMG_SAVING;
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 
 
+
+/*****************************************************************************
+ * LOCAL FUNCTIONS
+ *****************************************************************************/
+static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
+{
+	if (!element) { return; }
+
+	resources.resources[0] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_0));
+	resources.resources[1] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_1));
+	resources.resources[2] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_2));
+	resources.resources[3] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_3));
+}
+
+
+/*****************************************************************************
+ * CLASS FUNCTIONS
+ *****************************************************************************/
+
 /**
  * 
  */
@@ -390,27 +409,8 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		
 		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }
 
-		st->production().deserialize(structure->firstChildElement("production"));
-		
-		auto storedElement = structure->firstChildElement("storage");
-
-		if (storedElement)
-		{
-			StorableResources stored;
-			XmlAttribute* storedAttribute = storedElement->firstAttribute();
-			while (attribute)
-			{
-				if (storedAttribute->name() == constants::SAVE_GAME_RESOURCE_0) { storedAttribute->queryIntValue(stored.resources[0]); }
-				else if (storedAttribute->name() == constants::SAVE_GAME_RESOURCE_1) { storedAttribute->queryIntValue(stored.resources[1]); }
-				else if (storedAttribute->name() == constants::SAVE_GAME_RESOURCE_2) { storedAttribute->queryIntValue(stored.resources[2]); }
-				else if (storedAttribute->name() == constants::SAVE_GAME_RESOURCE_3) { storedAttribute->queryIntValue(stored.resources[3]); }
-
-				storedAttribute = storedAttribute->next();
-			}
-
-			st->storage() = stored;
-		}
-
+		loadResorucesFromXmlElement(structure->firstChildElement("production"), st->production());
+		loadResorucesFromXmlElement(structure->firstChildElement("storage"), st->storage());
 
 		if (st->isWarehouse())
 		{
