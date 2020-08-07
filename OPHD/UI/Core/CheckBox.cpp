@@ -34,7 +34,8 @@ static const Font* CBOX_FONT = nullptr;
 /**
  * C'tor
  */
-CheckBox::CheckBox(std::string newText) : mSkin("ui/skin/checkbox.png")
+CheckBox::CheckBox(std::string newText) :
+	mSkin("ui/skin/checkbox.png")
 {
 	CBOX_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	text(newText);

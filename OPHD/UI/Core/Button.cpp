@@ -14,7 +14,40 @@
 using namespace NAS2D;
 
 
-Button::Button(std::string newText)
+Button::Button(std::string newText) :
+	mSkinNormal{
+		Image{"ui/skin/button_top_left.png"},
+		Image{"ui/skin/button_top_middle.png"},
+		Image{"ui/skin/button_top_right.png"},
+		Image{"ui/skin/button_middle_left.png"},
+		Image{"ui/skin/button_middle_middle.png"},
+		Image{"ui/skin/button_middle_right.png"},
+		Image{"ui/skin/button_bottom_left.png"},
+		Image{"ui/skin/button_bottom_middle.png"},
+		Image{"ui/skin/button_bottom_right.png"}
+	},
+	mSkinHover{
+		Image{"ui/skin/button_hover_top_left.png"},
+		Image{"ui/skin/button_hover_top_middle.png"},
+		Image{"ui/skin/button_hover_top_right.png"},
+		Image{"ui/skin/button_hover_middle_left.png"},
+		Image{"ui/skin/button_hover_middle_middle.png"},
+		Image{"ui/skin/button_hover_middle_right.png"},
+		Image{"ui/skin/button_hover_bottom_left.png"},
+		Image{"ui/skin/button_hover_bottom_middle.png"},
+		Image{"ui/skin/button_hover_bottom_right.png"}
+	},
+	mSkinPressed{
+		Image{"ui/skin/button_pressed_top_left.png"},
+		Image{"ui/skin/button_pressed_top_middle.png"},
+		Image{"ui/skin/button_pressed_top_right.png"},
+		Image{"ui/skin/button_pressed_middle_left.png"},
+		Image{"ui/skin/button_pressed_middle_middle.png"},
+		Image{"ui/skin/button_pressed_middle_right.png"},
+		Image{"ui/skin/button_pressed_bottom_left.png"},
+		Image{"ui/skin/button_pressed_bottom_middle.png"},
+		Image{"ui/skin/button_pressed_bottom_right.png"}
+	}
 {
 	text(newText);
 
@@ -22,36 +55,6 @@ Button::Button(std::string newText)
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Button::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMove);
 	hasFocus(true);
-
-	mSkinNormal.push_back(Image("ui/skin/button_top_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_top_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_top_right.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_middle_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_middle_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_middle_right.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_bottom_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_bottom_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_bottom_right.png"));
-
-	mSkinHover.push_back(Image("ui/skin/button_hover_top_left.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_top_middle.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_top_right.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_middle_left.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_middle_middle.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_middle_right.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_bottom_left.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_bottom_middle.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_bottom_right.png"));
-
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_top_left.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_top_middle.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_top_right.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_middle_left.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_middle_middle.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_middle_right.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_bottom_left.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_bottom_middle.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_bottom_right.png"));
 
 	mFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }

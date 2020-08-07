@@ -20,6 +20,17 @@ static const Font* FONT_BOLD = nullptr;
 MineOperationsWindow::MineOperationsWindow() :
 	mUiIcon{"ui/interface/mine.png"},
 	mIcons{"ui/icons.png"},
+	mPanel{
+		Image{"ui/skin/textbox_top_left.png"},
+		Image{"ui/skin/textbox_top_middle.png"},
+		Image{"ui/skin/textbox_top_right.png"},
+		Image{"ui/skin/textbox_middle_left.png"},
+		Image{"ui/skin/textbox_middle_middle.png"},
+		Image{"ui/skin/textbox_middle_right.png"},
+		Image{"ui/skin/textbox_bottom_left.png"},
+		Image{"ui/skin/textbox_bottom_middle.png"},
+		Image{"ui/skin/textbox_bottom_right.png"}
+	},
 	chkCommonMetals{"Common Metals"},
 	chkCommonMinerals{"Common Minerals"},
 	chkRareMetals{"Rare Metals"},
@@ -73,16 +84,6 @@ void MineOperationsWindow::init()
 
 	add(&chkRareMinerals, 259, 128);
 	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
-
-	mPanel.push_back(Image("ui/skin/textbox_top_left.png"));
-	mPanel.push_back(Image("ui/skin/textbox_top_middle.png"));
-	mPanel.push_back(Image("ui/skin/textbox_top_right.png"));
-	mPanel.push_back(Image("ui/skin/textbox_middle_left.png"));
-	mPanel.push_back(Image("ui/skin/textbox_middle_middle.png"));
-	mPanel.push_back(Image("ui/skin/textbox_middle_right.png"));
-	mPanel.push_back(Image("ui/skin/textbox_bottom_left.png"));
-	mPanel.push_back(Image("ui/skin/textbox_bottom_middle.png"));
-	mPanel.push_back(Image("ui/skin/textbox_bottom_right.png"));
 
 	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);

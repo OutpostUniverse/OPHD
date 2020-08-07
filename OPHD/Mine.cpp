@@ -45,7 +45,8 @@ Mine::Mine()
 /**
  * C'tor
  */
-Mine::Mine(MineProductionRate rate) : mProductionRate(rate)
+Mine::Mine(MineProductionRate rate) :
+	mProductionRate(rate)
 {
 	setDefaultFlags(mFlags);
 }

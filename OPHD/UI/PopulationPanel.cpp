@@ -13,19 +13,21 @@ using namespace NAS2D;
 
 static const Font* FONT = nullptr;
 
-PopulationPanel::PopulationPanel() : mIcons("ui/icons.png")
+PopulationPanel::PopulationPanel() :
+	mIcons("ui/icons.png"),
+	mSkin{
+		Image{"ui/skin/window_top_left.png"},
+		Image{"ui/skin/window_top_middle.png"},
+		Image{"ui/skin/window_top_right.png"},
+		Image{"ui/skin/window_middle_left.png"},
+		Image{"ui/skin/window_middle_middle.png"},
+		Image{"ui/skin/window_middle_right.png"},
+		Image{"ui/skin/window_bottom_left.png"},
+		Image{"ui/skin/window_bottom_middle.png"},
+		Image{"ui/skin/window_bottom_right.png"}
+	}
 {
 	size({160, 220});
-
-	mSkin.push_back(Image("ui/skin/window_top_left.png"));
-	mSkin.push_back(Image("ui/skin/window_top_middle.png"));
-	mSkin.push_back(Image("ui/skin/window_top_right.png"));
-	mSkin.push_back(Image("ui/skin/window_middle_left.png"));
-	mSkin.push_back(Image("ui/skin/window_middle_middle.png"));
-	mSkin.push_back(Image("ui/skin/window_middle_right.png"));
-	mSkin.push_back(Image("ui/skin/window_bottom_left.png"));
-	mSkin.push_back(Image("ui/skin/window_bottom_middle.png"));
-	mSkin.push_back(Image("ui/skin/window_bottom_right.png"));
 
 	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
