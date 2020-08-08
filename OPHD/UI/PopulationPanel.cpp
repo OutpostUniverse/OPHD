@@ -3,6 +3,7 @@
 
 #include "PopulationPanel.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -14,7 +15,7 @@ using namespace NAS2D;
 static const Font* FONT = nullptr;
 
 PopulationPanel::PopulationPanel() :
-	mIcons("ui/icons.png"),
+	mIcons{imageCache.load("ui/icons.png")},
 	mSkin{
 		Image{"ui/skin/window_top_left.png"},
 		Image{"ui/skin/window_top_middle.png"},
