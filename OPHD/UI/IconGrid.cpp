@@ -3,6 +3,7 @@
 
 #include "IconGrid.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -25,7 +26,7 @@ static const Font* FONT = nullptr;
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	mIconSize{iconEdgeSize},
 	mIconMargin{margin},
-	mIconSheet{filePath},
+	mIconSheet{imageCache.load(filePath)},
 	mSkin{
 		Image{"ui/skin/textbox_top_left.png"},
 		Image{"ui/skin/textbox_top_middle.png"},

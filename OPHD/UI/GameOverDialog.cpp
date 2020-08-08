@@ -3,6 +3,7 @@
 
 #include "GameOverDialog.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -13,7 +14,7 @@ using namespace NAS2D;
 
 
 GameOverDialog::GameOverDialog() :
-	mHeader{"ui/interface/game_over.png"},
+	mHeader{imageCache.load("ui/interface/game_over.png")},
 	btnClose{"Return to Main Menu"}
 {
 	init();

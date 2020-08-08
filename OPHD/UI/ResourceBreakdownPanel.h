@@ -19,7 +19,7 @@ public:
 	void update() override;
 
 private:
-	const NAS2D::Image mIcons;
+	const NAS2D::Image& mIcons;
 	NAS2D::ImageList mSkin;
 
 	ResourcePool mPreviousResources;

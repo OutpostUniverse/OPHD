@@ -5,6 +5,7 @@
 
 #include "TextRender.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -18,8 +19,8 @@ static const Font* FONT_BOLD = nullptr;
  * 
  */
 MineOperationsWindow::MineOperationsWindow() :
-	mUiIcon{"ui/interface/mine.png"},
-	mIcons{"ui/icons.png"},
+	mUiIcon{imageCache.load("ui/interface/mine.png")},
+	mIcons{imageCache.load("ui/icons.png")},
 	mPanel{
 		Image{"ui/skin/textbox_top_left.png"},
 		Image{"ui/skin/textbox_top_middle.png"},

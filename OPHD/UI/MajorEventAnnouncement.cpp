@@ -3,6 +3,7 @@
 
 #include "MajorEventAnnouncement.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -11,7 +12,8 @@
 
 using namespace NAS2D;
 
-MajorEventAnnouncement::MajorEventAnnouncement()
+MajorEventAnnouncement::MajorEventAnnouncement() :
+	mHeader{imageCache.load("ui/interface/colony_ship_crash.png")}
 {
 	init();
 }
