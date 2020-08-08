@@ -33,7 +33,7 @@ private:
 	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
 
 private:
-	const NAS2D::Image mHeader{"ui/interface/colony_ship_crash.png"};
+	const NAS2D::Image& mHeader;
 
 	std::string mMessage;
 
