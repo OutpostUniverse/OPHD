@@ -34,7 +34,7 @@ private:
 
 	TextArea txtStateDescription;
 
-	const NAS2D::Image mIcons;
+	const NAS2D::Image& mIcons;
 
 	std::string mStructureClass;
 
