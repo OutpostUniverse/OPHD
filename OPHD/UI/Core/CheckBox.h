@@ -32,7 +32,7 @@ protected:
 	void onTextChanged() override;
 	
 private:
-	const NAS2D::Image mSkin;
+	const NAS2D::Image& mSkin;
 
 	ClickCallback mCallback; /**< Object to notify when the Button is activated. */
 

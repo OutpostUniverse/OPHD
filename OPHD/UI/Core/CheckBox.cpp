@@ -17,7 +17,8 @@
 
 #include "CheckBox.h"
 
-#include"../../Constants.h"
+#include "../../Cache.h"
+#include "../../Constants.h"
 #include "../../FontManager.h"
 
 #include <NAS2D/Utility.h>
@@ -35,7 +36,7 @@ static const Font* CBOX_FONT = nullptr;
  * C'tor
  */
 CheckBox::CheckBox(std::string newText) :
-	mSkin("ui/skin/checkbox.png")
+	mSkin{imageCache.load("ui/skin/checkbox.png")}
 {
 	CBOX_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	text(newText);
