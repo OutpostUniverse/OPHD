@@ -1162,7 +1162,8 @@ void MapViewState::placeStructure()
 			static_cast<Factory*>(structure)->resourcePool(&mPlayerResources);
 		}
 
-		//mPlayerResources -= StructureCatalogue::costToBuild(mCurrentStructure);
+		mPlayerResources = mPlayerResources - StructureCatalogue::costToBuild(mCurrentStructure);
+		updateStructuresAvailability();
 	}
 }
 
