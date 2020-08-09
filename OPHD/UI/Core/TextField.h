@@ -12,6 +12,7 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Resources/Image.h>
+#include <NAS2D/Renderer/RectangleSkin.h>
 
 
 /**
@@ -78,8 +79,8 @@ private:
 
 	BorderVisibility mBorderVisibility = BorderVisibility::FOCUS_ONLY; /**< Border visibility flag. */
 
-	NAS2D::ImageList mSkinNormal;
-	NAS2D::ImageList mSkinFocus;
+	NAS2D::RectangleSkin mSkinNormal;
+	NAS2D::RectangleSkin mSkinFocus;
 
 	bool mEditable = true; /**< Toggle editing of the field. */
 	bool mShowCursor = true; /**< Flag indicating whether or not to draw the cursor. */

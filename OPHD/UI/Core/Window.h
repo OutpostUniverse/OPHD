@@ -3,6 +3,7 @@
 #include "UIContainer.h"
 
 #include <NAS2D/Resources/Image.h>
+#include <NAS2D/Renderer/RectangleSkin.h>
 
 #include <string>
 
@@ -33,5 +34,5 @@ private:
 	bool mAnchored = false;
 
 	NAS2D::ImageList mTitle;
-	NAS2D::ImageList mBody;
+	NAS2D::RectangleSkin mBody;
 };

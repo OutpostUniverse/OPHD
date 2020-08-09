@@ -4,11 +4,14 @@
  * \author Goof
  */
 #pragma once
+
 #include "Button.h"
 #include "Control.h"
 #include "../../Common.h"
 
 #include <NAS2D/Timer.h>
+#include <NAS2D/Renderer/RectangleSkin.h>
+
 
  /**
  * \class	Slider
@@ -33,10 +36,10 @@ public:
 	};
 
 	struct Skins {
-		NAS2D::ImageList skinButton1;
-		NAS2D::ImageList skinMiddle;
-		NAS2D::ImageList skinButton2;
-		NAS2D::ImageList skinSlider;
+		NAS2D::RectangleSkin skinButton1;
+		NAS2D::RectangleSkin skinMiddle;
+		NAS2D::RectangleSkin skinButton2;
+		NAS2D::RectangleSkin skinSlider;
 	};
 
 	using ValueChangedCallback = NAS2D::Signals::Signal<float>; /*!< type for Callback on value changed. */
