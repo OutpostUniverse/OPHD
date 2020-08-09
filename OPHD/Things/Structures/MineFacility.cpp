@@ -111,7 +111,7 @@ void MineFacility::think()
 			ore.resources[3] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 3));
 		}
 
-		storage() + ore;
+		storage() = storage() + ore;
 	}
 	else if (!isIdle())
 	{
