@@ -6,6 +6,7 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Resources/Image.h>
 #include <NAS2D/Resources/Font.h>
+#include <NAS2D/Renderer/RectangleSkin.h>
 
 #include <string>
 
@@ -61,9 +62,9 @@ private:
 
 	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
 
-	NAS2D::ImageList mSkinNormal;
-	NAS2D::ImageList mSkinHover;
-	NAS2D::ImageList mSkinPressed;
+	NAS2D::RectangleSkin mSkinNormal;
+	NAS2D::RectangleSkin mSkinHover;
+	NAS2D::RectangleSkin mSkinPressed;
 
 	const NAS2D::Font* mFont = nullptr; /**< Buttons can have different font sizes. */
 

@@ -5,6 +5,8 @@
 #include "../Mine.h"
 #include "../Things/Structures/MineFacility.h"
 
+#include <NAS2D/Renderer/RectangleSkin.h>
+
 
 /**
  * \brief Implements the Mine Facility Operations Window
@@ -44,7 +46,7 @@ private:
 	const NAS2D::Image& mUiIcon;
 	const NAS2D::Image& mIcons;
 
-	NAS2D::ImageList mPanel;
+	NAS2D::RectangleSkin mPanel;
 
 	CheckBox chkCommonMetals;
 	CheckBox chkCommonMinerals;

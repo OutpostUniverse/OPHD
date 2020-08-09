@@ -4,6 +4,9 @@
 
 #include "../Population/Population.h"
 
+#include <NAS2D/Renderer/RectangleSkin.h>
+
+
 class PopulationPanel: public Control
 {
 public:
@@ -27,7 +30,7 @@ protected:
 
 private:
 	const NAS2D::Image& mIcons;
-	NAS2D::ImageList mSkin;
+	NAS2D::RectangleSkin mSkin;
 
 	Population* mPopulation = nullptr;
 

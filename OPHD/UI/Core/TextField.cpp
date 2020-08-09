@@ -318,7 +318,8 @@ void TextField::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto showFocused = hasFocus() && editable();
-	renderer.drawImageRect(mRect, (showFocused ? mSkinFocus : mSkinNormal));
+	const auto& skin = showFocused ? mSkinFocus : mSkinNormal;
+	skin.draw(renderer, mRect);
 
 	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::Yellow); }
 

@@ -4,6 +4,7 @@
 #include "../StorableResources.h"
 
 #include <NAS2D/Resources/Image.h>
+#include <NAS2D/Renderer/RectangleSkin.h>
 
 
 class ResourceBreakdownPanel : public Control
@@ -22,7 +23,7 @@ public:
 
 private:
 	const NAS2D::Image& mIcons;
-	NAS2D::ImageList mSkin;
+	NAS2D::RectangleSkin mSkin;
 
 	StorableResources mPreviousResources;
 	StorableResources* mPlayerResources = nullptr;
