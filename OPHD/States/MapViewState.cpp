@@ -403,8 +403,8 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		case EventHandler::KeyCode::KEY_F10:
 			if (Utility<EventHandler>::get().control(mod) && Utility<EventHandler>::get().shift(mod))
 			{
-				mPlayerResources + StorableResources{1000, 1000, 1000, 1000};
-				playerResourcePoolModified();
+				mPlayerResources = mPlayerResources + StorableResources{1000, 1000, 1000, 1000};
+				updateStructuresAvailability();
 			}
 			break;
 
@@ -916,7 +916,7 @@ void MapViewState::placeRobot()
 			 * 			themselves but I'm still not sure I love that idea. Will have to think about that one a bit.
 			 */
 			mPlayerResources = mPlayerResources + StructureCatalogue::recyclingValue(StructureTranslator::translateFromString(structure->name()));
-			playerResourcePoolModified();
+			updateStructuresAvailability();
 
 			tile->connected(false);
 			Utility<StructureManager>::get().removeStructure(structure);
