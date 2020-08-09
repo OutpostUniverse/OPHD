@@ -301,10 +301,10 @@ void MapViewState::updateResources()
 		auto& stored = smelter->storage();
 		StorableResources moved
 		{
-			std::clamp(25, 0, stored.resources[0]),
-			std::clamp(25, 0, stored.resources[1]),
-			std::clamp(25, 0, stored.resources[2]),
-			std::clamp(25, 0, stored.resources[3])
+			std::clamp(stored.resources[0], 0, 25),
+			std::clamp(stored.resources[1], 0, 25),
+			std::clamp(stored.resources[2], 0, 25),
+			std::clamp(stored.resources[3], 0, 25)
 		};
 
 		auto newResources = mPlayerResources + moved;
