@@ -8,6 +8,7 @@
  */
 #include "Slider.h"
 
+#include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
 
@@ -30,48 +31,48 @@ namespace {
 		{
 			return {
 				{ // Button1
-					Image{"ui/skin/sv_bu_tl.png"},
-					Image{"ui/skin/sv_bu_tm.png"},
-					Image{"ui/skin/sv_bu_tr.png"},
-					Image{"ui/skin/sv_bu_ml.png"},
-					Image{"ui/skin/sv_bu_mm.png"},
-					Image{"ui/skin/sv_bu_mr.png"},
-					Image{"ui/skin/sv_bu_bl.png"},
-					Image{"ui/skin/sv_bu_bm.png"},
-					Image{"ui/skin/sv_bu_br.png"}
+					imageCache.load("ui/skin/sv_bu_tl.png"),
+					imageCache.load("ui/skin/sv_bu_tm.png"),
+					imageCache.load("ui/skin/sv_bu_tr.png"),
+					imageCache.load("ui/skin/sv_bu_ml.png"),
+					imageCache.load("ui/skin/sv_bu_mm.png"),
+					imageCache.load("ui/skin/sv_bu_mr.png"),
+					imageCache.load("ui/skin/sv_bu_bl.png"),
+					imageCache.load("ui/skin/sv_bu_bm.png"),
+					imageCache.load("ui/skin/sv_bu_br.png")
 				},
 				{ // Middle
-					Image{"ui/skin/sv_sa_tl.png"},
-					Image{"ui/skin/sv_sa_tm.png"},
-					Image{"ui/skin/sv_sa_tr.png"},
-					Image{"ui/skin/sv_sa_ml.png"},
-					Image{"ui/skin/sv_sa_mm.png"},
-					Image{"ui/skin/sv_sa_mr.png"},
-					Image{"ui/skin/sv_sa_bl.png"},
-					Image{"ui/skin/sv_sa_bm.png"},
-					Image{"ui/skin/sv_sa_br.png"}
+					imageCache.load("ui/skin/sv_sa_tl.png"),
+					imageCache.load("ui/skin/sv_sa_tm.png"),
+					imageCache.load("ui/skin/sv_sa_tr.png"),
+					imageCache.load("ui/skin/sv_sa_ml.png"),
+					imageCache.load("ui/skin/sv_sa_mm.png"),
+					imageCache.load("ui/skin/sv_sa_mr.png"),
+					imageCache.load("ui/skin/sv_sa_bl.png"),
+					imageCache.load("ui/skin/sv_sa_bm.png"),
+					imageCache.load("ui/skin/sv_sa_br.png")
 				},
 				{ // Button2
-					Image{"ui/skin/sv_bd_tl.png"},
-					Image{"ui/skin/sv_bd_tm.png"},
-					Image{"ui/skin/sv_bd_tr.png"},
-					Image{"ui/skin/sv_bd_ml.png"},
-					Image{"ui/skin/sv_bd_mm.png"},
-					Image{"ui/skin/sv_bd_mr.png"},
-					Image{"ui/skin/sv_bd_bl.png"},
-					Image{"ui/skin/sv_bd_bm.png"},
-					Image{"ui/skin/sv_bd_br.png"}
+					imageCache.load("ui/skin/sv_bd_tl.png"),
+					imageCache.load("ui/skin/sv_bd_tm.png"),
+					imageCache.load("ui/skin/sv_bd_tr.png"),
+					imageCache.load("ui/skin/sv_bd_ml.png"),
+					imageCache.load("ui/skin/sv_bd_mm.png"),
+					imageCache.load("ui/skin/sv_bd_mr.png"),
+					imageCache.load("ui/skin/sv_bd_bl.png"),
+					imageCache.load("ui/skin/sv_bd_bm.png"),
+					imageCache.load("ui/skin/sv_bd_br.png")
 				},
 				{ // Slider
-					Image{"ui/skin/sv_sl_tl.png"},
-					Image{"ui/skin/sv_sl_tm.png"},
-					Image{"ui/skin/sv_sl_tr.png"},
-					Image{"ui/skin/sv_sl_ml.png"},
-					Image{"ui/skin/sv_sl_mm.png"},
-					Image{"ui/skin/sv_sl_mr.png"},
-					Image{"ui/skin/sv_sl_bl.png"},
-					Image{"ui/skin/sv_sl_bm.png"},
-					Image{"ui/skin/sv_sl_br.png"}
+					imageCache.load("ui/skin/sv_sl_tl.png"),
+					imageCache.load("ui/skin/sv_sl_tm.png"),
+					imageCache.load("ui/skin/sv_sl_tr.png"),
+					imageCache.load("ui/skin/sv_sl_ml.png"),
+					imageCache.load("ui/skin/sv_sl_mm.png"),
+					imageCache.load("ui/skin/sv_sl_mr.png"),
+					imageCache.load("ui/skin/sv_sl_bl.png"),
+					imageCache.load("ui/skin/sv_sl_bm.png"),
+					imageCache.load("ui/skin/sv_sl_br.png")
 				}
 			};
 		}
@@ -79,48 +80,48 @@ namespace {
 		{
 			return {
 				{ // Button1
-					Image{"ui/skin/sh_bl_tl.png"},
-					Image{"ui/skin/sh_bl_tm.png"},
-					Image{"ui/skin/sh_bl_tr.png"},
-					Image{"ui/skin/sh_bl_ml.png"},
-					Image{"ui/skin/sh_bl_mm.png"},
-					Image{"ui/skin/sh_bl_mr.png"},
-					Image{"ui/skin/sh_bl_bl.png"},
-					Image{"ui/skin/sh_bl_bm.png"},
-					Image{"ui/skin/sh_bl_br.png"}
+					imageCache.load("ui/skin/sh_bl_tl.png"),
+					imageCache.load("ui/skin/sh_bl_tm.png"),
+					imageCache.load("ui/skin/sh_bl_tr.png"),
+					imageCache.load("ui/skin/sh_bl_ml.png"),
+					imageCache.load("ui/skin/sh_bl_mm.png"),
+					imageCache.load("ui/skin/sh_bl_mr.png"),
+					imageCache.load("ui/skin/sh_bl_bl.png"),
+					imageCache.load("ui/skin/sh_bl_bm.png"),
+					imageCache.load("ui/skin/sh_bl_br.png")
 				},
 				{ // Middle
-					Image{"ui/skin/sh_sa_tl.png"},
-					Image{"ui/skin/sh_sa_tm.png"},
-					Image{"ui/skin/sh_sa_tr.png"},
-					Image{"ui/skin/sh_sa_ml.png"},
-					Image{"ui/skin/sh_sa_mm.png"},
-					Image{"ui/skin/sh_sa_mr.png"},
-					Image{"ui/skin/sh_sa_bl.png"},
-					Image{"ui/skin/sh_sa_bm.png"},
-					Image{"ui/skin/sh_sa_br.png"}
+					imageCache.load("ui/skin/sh_sa_tl.png"),
+					imageCache.load("ui/skin/sh_sa_tm.png"),
+					imageCache.load("ui/skin/sh_sa_tr.png"),
+					imageCache.load("ui/skin/sh_sa_ml.png"),
+					imageCache.load("ui/skin/sh_sa_mm.png"),
+					imageCache.load("ui/skin/sh_sa_mr.png"),
+					imageCache.load("ui/skin/sh_sa_bl.png"),
+					imageCache.load("ui/skin/sh_sa_bm.png"),
+					imageCache.load("ui/skin/sh_sa_br.png")
 				},
 				{ // Button2
-					Image{"ui/skin/sh_br_tl.png"},
-					Image{"ui/skin/sh_br_tm.png"},
-					Image{"ui/skin/sh_br_tr.png"},
-					Image{"ui/skin/sh_br_ml.png"},
-					Image{"ui/skin/sh_br_mm.png"},
-					Image{"ui/skin/sh_br_mr.png"},
-					Image{"ui/skin/sh_br_bl.png"},
-					Image{"ui/skin/sh_br_bm.png"},
-					Image{"ui/skin/sh_br_br.png"}
+					imageCache.load("ui/skin/sh_br_tl.png"),
+					imageCache.load("ui/skin/sh_br_tm.png"),
+					imageCache.load("ui/skin/sh_br_tr.png"),
+					imageCache.load("ui/skin/sh_br_ml.png"),
+					imageCache.load("ui/skin/sh_br_mm.png"),
+					imageCache.load("ui/skin/sh_br_mr.png"),
+					imageCache.load("ui/skin/sh_br_bl.png"),
+					imageCache.load("ui/skin/sh_br_bm.png"),
+					imageCache.load("ui/skin/sh_br_br.png")
 				},
 				{ // Slider
-					Image{"ui/skin/sh_sl_tl.png"},
-					Image{"ui/skin/sh_sl_tm.png"},
-					Image{"ui/skin/sh_sl_tr.png"},
-					Image{"ui/skin/sh_sl_ml.png"},
-					Image{"ui/skin/sh_sl_mm.png"},
-					Image{"ui/skin/sh_sl_mr.png"},
-					Image{"ui/skin/sh_sl_bl.png"},
-					Image{"ui/skin/sh_sl_bm.png"},
-					Image{"ui/skin/sh_sl_br.png"}
+					imageCache.load("ui/skin/sh_sl_tl.png"),
+					imageCache.load("ui/skin/sh_sl_tm.png"),
+					imageCache.load("ui/skin/sh_sl_tr.png"),
+					imageCache.load("ui/skin/sh_sl_ml.png"),
+					imageCache.load("ui/skin/sh_sl_mm.png"),
+					imageCache.load("ui/skin/sh_sl_mr.png"),
+					imageCache.load("ui/skin/sh_sl_bl.png"),
+					imageCache.load("ui/skin/sh_sl_bm.png"),
+					imageCache.load("ui/skin/sh_sl_br.png")
 				}
 			};
 		}

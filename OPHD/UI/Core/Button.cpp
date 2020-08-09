@@ -17,37 +17,37 @@ using namespace NAS2D;
 
 Button::Button(std::string newText) :
 	mSkinNormal{
-		Image{"ui/skin/button_top_left.png"},
-		Image{"ui/skin/button_top_middle.png"},
-		Image{"ui/skin/button_top_right.png"},
-		Image{"ui/skin/button_middle_left.png"},
-		Image{"ui/skin/button_middle_middle.png"},
-		Image{"ui/skin/button_middle_right.png"},
-		Image{"ui/skin/button_bottom_left.png"},
-		Image{"ui/skin/button_bottom_middle.png"},
-		Image{"ui/skin/button_bottom_right.png"}
+		imageCache.load("ui/skin/button_top_left.png"),
+		imageCache.load("ui/skin/button_top_middle.png"),
+		imageCache.load("ui/skin/button_top_right.png"),
+		imageCache.load("ui/skin/button_middle_left.png"),
+		imageCache.load("ui/skin/button_middle_middle.png"),
+		imageCache.load("ui/skin/button_middle_right.png"),
+		imageCache.load("ui/skin/button_bottom_left.png"),
+		imageCache.load("ui/skin/button_bottom_middle.png"),
+		imageCache.load("ui/skin/button_bottom_right.png")
 	},
 	mSkinHover{
-		Image{"ui/skin/button_hover_top_left.png"},
-		Image{"ui/skin/button_hover_top_middle.png"},
-		Image{"ui/skin/button_hover_top_right.png"},
-		Image{"ui/skin/button_hover_middle_left.png"},
-		Image{"ui/skin/button_hover_middle_middle.png"},
-		Image{"ui/skin/button_hover_middle_right.png"},
-		Image{"ui/skin/button_hover_bottom_left.png"},
-		Image{"ui/skin/button_hover_bottom_middle.png"},
-		Image{"ui/skin/button_hover_bottom_right.png"}
+		imageCache.load("ui/skin/button_hover_top_left.png"),
+		imageCache.load("ui/skin/button_hover_top_middle.png"),
+		imageCache.load("ui/skin/button_hover_top_right.png"),
+		imageCache.load("ui/skin/button_hover_middle_left.png"),
+		imageCache.load("ui/skin/button_hover_middle_middle.png"),
+		imageCache.load("ui/skin/button_hover_middle_right.png"),
+		imageCache.load("ui/skin/button_hover_bottom_left.png"),
+		imageCache.load("ui/skin/button_hover_bottom_middle.png"),
+		imageCache.load("ui/skin/button_hover_bottom_right.png")
 	},
 	mSkinPressed{
-		Image{"ui/skin/button_pressed_top_left.png"},
-		Image{"ui/skin/button_pressed_top_middle.png"},
-		Image{"ui/skin/button_pressed_top_right.png"},
-		Image{"ui/skin/button_pressed_middle_left.png"},
-		Image{"ui/skin/button_pressed_middle_middle.png"},
-		Image{"ui/skin/button_pressed_middle_right.png"},
-		Image{"ui/skin/button_pressed_bottom_left.png"},
-		Image{"ui/skin/button_pressed_bottom_middle.png"},
-		Image{"ui/skin/button_pressed_bottom_right.png"}
+		imageCache.load("ui/skin/button_pressed_top_left.png"),
+		imageCache.load("ui/skin/button_pressed_top_middle.png"),
+		imageCache.load("ui/skin/button_pressed_top_right.png"),
+		imageCache.load("ui/skin/button_pressed_middle_left.png"),
+		imageCache.load("ui/skin/button_pressed_middle_middle.png"),
+		imageCache.load("ui/skin/button_pressed_middle_right.png"),
+		imageCache.load("ui/skin/button_pressed_bottom_left.png"),
+		imageCache.load("ui/skin/button_pressed_bottom_middle.png"),
+		imageCache.load("ui/skin/button_pressed_bottom_right.png")
 	}
 {
 	text(newText);

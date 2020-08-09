@@ -17,15 +17,15 @@ static const Font* FONT = nullptr;
 PopulationPanel::PopulationPanel() :
 	mIcons{imageCache.load("ui/icons.png")},
 	mSkin{
-		Image{"ui/skin/window_top_left.png"},
-		Image{"ui/skin/window_top_middle.png"},
-		Image{"ui/skin/window_top_right.png"},
-		Image{"ui/skin/window_middle_left.png"},
-		Image{"ui/skin/window_middle_middle.png"},
-		Image{"ui/skin/window_middle_right.png"},
-		Image{"ui/skin/window_bottom_left.png"},
-		Image{"ui/skin/window_bottom_middle.png"},
-		Image{"ui/skin/window_bottom_right.png"}
+		imageCache.load("ui/skin/window_top_left.png"),
+		imageCache.load("ui/skin/window_top_middle.png"),
+		imageCache.load("ui/skin/window_top_right.png"),
+		imageCache.load("ui/skin/window_middle_left.png"),
+		imageCache.load("ui/skin/window_middle_middle.png"),
+		imageCache.load("ui/skin/window_middle_right.png"),
+		imageCache.load("ui/skin/window_bottom_left.png"),
+		imageCache.load("ui/skin/window_bottom_middle.png"),
+		imageCache.load("ui/skin/window_bottom_right.png")
 	}
 {
 	size({160, 220});

@@ -28,15 +28,15 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	mIconMargin{margin},
 	mIconSheet{imageCache.load(filePath)},
 	mSkin{
-		Image{"ui/skin/textbox_top_left.png"},
-		Image{"ui/skin/textbox_top_middle.png"},
-		Image{"ui/skin/textbox_top_right.png"},
-		Image{"ui/skin/textbox_middle_left.png"},
-		Image{"ui/skin/textbox_middle_middle.png"},
-		Image{"ui/skin/textbox_middle_right.png"},
-		Image{"ui/skin/textbox_bottom_left.png"},
-		Image{"ui/skin/textbox_bottom_middle.png"},
-		Image{"ui/skin/textbox_bottom_right.png"}
+		imageCache.load("ui/skin/textbox_top_left.png"),
+		imageCache.load("ui/skin/textbox_top_middle.png"),
+		imageCache.load("ui/skin/textbox_top_right.png"),
+		imageCache.load("ui/skin/textbox_middle_left.png"),
+		imageCache.load("ui/skin/textbox_middle_middle.png"),
+		imageCache.load("ui/skin/textbox_middle_right.png"),
+		imageCache.load("ui/skin/textbox_bottom_left.png"),
+		imageCache.load("ui/skin/textbox_bottom_middle.png"),
+		imageCache.load("ui/skin/textbox_bottom_right.png")
 	}
 {
 	if (iconEdgeSize <= 0)
