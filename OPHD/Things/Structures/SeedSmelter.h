@@ -16,6 +16,7 @@ public:
 		requiresCHAP(false);
 	}
 
+	/** \todo This is not actually used anywhere, this should probably be removed */
 	void input(StorableResources& resources) override
 	{
 		if (!operational()) { return; }

@@ -93,6 +93,7 @@ public:
 	StorableResources& storage() { return mStoragePool; }
 	StorableResources& production() { return mProductionPool; }
 
+	/** \todo This is not actually used anywhere, this should probably be removed */
 	virtual void input(StorableResources& /*pool*/) {}
 
 	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
