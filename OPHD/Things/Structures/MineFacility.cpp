@@ -17,12 +17,9 @@ static int pull_count(MineFacility* _mf, size_t index)
 	const int storageCapacity = (MineFacilityStorageCapacity / 4);
 	const int remainingCapacity = storageCapacity - _mf->production().resources[index];
 
-	int totalCount = 0;
-	remainingCapacity >= constants::BASE_MINE_PRODUCTION_RATE ?
-		totalCount = constants::BASE_MINE_PRODUCTION_RATE :
-		totalCount = remainingCapacity;
+	const int total = std::clamp(constants::BASE_MINE_PRODUCTION_RATE, 0, remainingCapacity);
 
-	return totalCount;
+	return total;
 }
 
 
@@ -92,7 +89,7 @@ void MineFacility::think()
 			return;
 		}
 
-		auto& ore = production();
+		StorableResources ore{ 0 };
 
 		if (mMine->miningCommonMetals())
 		{
