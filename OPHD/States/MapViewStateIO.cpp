@@ -82,7 +82,7 @@ void MapViewState::save(const std::string& filePath)
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
 	writeResources(root, mPlayerResources, "resources");
-	//writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
+	writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
 
 	XmlElement* turns = new XmlElement("turns");
 	turns->attribute("count", mTurnCount);
