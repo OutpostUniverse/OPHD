@@ -288,10 +288,8 @@ void MapViewState::updateResources()
 			auto capped = newResources.cap(250);
 			smelterProduction = capped;
 
-			stored = stored - moved;
-
 			auto overflow = newResources - capped;
-			stored = stored + overflow;
+			stored = stored - (moved + overflow);
 		}
 	}
 
@@ -300,31 +298,23 @@ void MapViewState::updateResources()
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
-		auto stored = smelter->storage();
-		StorableResources moved{
-			std::clamp(15, 0, stored.resources[0]),
-			std::clamp(15, 0, stored.resources[1]),
-			std::clamp(15, 0, stored.resources[2]),
-			std::clamp(15, 0, stored.resources[3])
+		auto& stored = smelter->storage();
+		StorableResources moved
+		{
+			std::clamp(25, 0, stored.resources[0]),
+			std::clamp(25, 0, stored.resources[1]),
+			std::clamp(25, 0, stored.resources[2]),
+			std::clamp(25, 0, stored.resources[3])
 		};
 
-		/*
-		ResourcePool& resourcePool = smelter->storage();
-		ResourcePool truck(100);
-		truck.commonMetals(resourcePool.pullResource(ResourcePool::ResourceType::CommonMetals, 25));
-		truck.commonMinerals(resourcePool.pullResource(ResourcePool::ResourceType::CommonMinerals, 25));
-		truck.rareMetals(resourcePool.pullResource(ResourcePool::ResourceType::RareMetals, 25));
-		truck.rareMinerals(resourcePool.pullResource(ResourcePool::ResourceType::RareMinerals, 25));
+		auto newResources = mPlayerResources + moved;
+		auto capped = newResources.cap(mRefinedResourcesCap / 4);
 
-		mPlayerResources.pushResources(truck);
-		
+		mPlayerResources = capped;
 
-		if (!truck.empty())
-		{
-			smelter->storage().pushResources(truck);
-			break; // we're at max capacity in our storage, dump what's left in the smelter it came from and barf.
-		}
-		*/
+		auto overflow = newResources - capped;
+		stored = stored - (moved + overflow);
+		std::cout << "Whatever";
 	}
 }
 
