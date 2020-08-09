@@ -169,7 +169,7 @@ void Button::draw()
 
 	const auto& skin = (mState == State::Pressed) ? mSkinPressed :
 		(enabled() && mMouseHover) ? mSkinHover : mSkinNormal;
-	renderer.drawImageRect(mRect, skin);
+	skin.draw(renderer, mRect);
 
 	if (mImage)
 	{

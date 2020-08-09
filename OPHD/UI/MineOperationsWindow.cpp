@@ -219,7 +219,7 @@ void MineOperationsWindow::update()
 	const auto width = mRect.width;
 	renderer.drawText(*FONT_BOLD, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
-	renderer.drawImageRect(NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{10, 180}, NAS2D::Vector{width - 20, 40}), mPanel);
+	mPanel.draw(renderer, NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{10, 180}, NAS2D::Vector{width - 20, 40}));
 
 	renderer.drawLine(origin + NAS2D::Vector{98, 180}, origin + NAS2D::Vector{98, 219}, NAS2D::Color{22, 22, 22});
 	renderer.drawLine(origin + NAS2D::Vector{187, 180}, origin + NAS2D::Vector{187, 219}, NAS2D::Color{22, 22, 22});

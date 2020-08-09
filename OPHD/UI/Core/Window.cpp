@@ -104,7 +104,7 @@ void Window::update()
 	renderer.drawImageRepeated(mTitle[1], NAS2D::Rectangle{mRect.x + 4, mRect.y, mRect.width - 8, sWindowTitleBarHeight});
 	renderer.drawImage(mTitle[2], NAS2D::Point{mRect.x + mRect.width - 4, mRect.y});
 
-	renderer.drawImageRect(NAS2D::Rectangle{mRect.x, mRect.y + 20, mRect.width, mRect.height - 20}, mBody);
+	mBody.draw(renderer, NAS2D::Rectangle{mRect.x, mRect.y + 20, mRect.width, mRect.height - 20});
 
 	renderer.drawText(*WINDOW_TITLE_FONT, text(), NAS2D::Point{mRect.x + 5, mRect.y + 2}, NAS2D::Color::White);
 

@@ -37,7 +37,7 @@ PopulationPanel::PopulationPanel() :
 void PopulationPanel::update()
 {
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawImageRect(mRect, mSkin);
+	mSkin.draw(renderer, mRect);
 
 	auto position = NAS2D::Point{positionX() + 5, positionY() + 5};
 	renderer.drawText(*FONT, "Morale: " + std::to_string(*mMorale), position, NAS2D::Color::White);

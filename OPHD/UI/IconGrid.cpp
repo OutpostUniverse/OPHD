@@ -387,7 +387,7 @@ void IconGrid::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImageRect(mRect, mSkin);
+	mSkin.draw(renderer, mRect);
 
 	if (mGridSize.x == 0) { return; }
 	const auto indexToGridPosition = [gridSize = mGridSize, startPoint = mRect.startPoint(), spacing = mIconSize + mIconMargin](std::size_t index) {

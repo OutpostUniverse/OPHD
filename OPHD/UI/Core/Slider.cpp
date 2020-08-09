@@ -344,9 +344,9 @@ void Slider::draw()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImageRect(mSlideBar, mSkins.skinMiddle); // slide area
-	renderer.drawImageRect(mButton1, mSkins.skinButton1); // top or left button
-	renderer.drawImageRect(mButton2, mSkins.skinButton2); // bottom or right button
+	mSkins.skinMiddle.draw(renderer, mSlideBar); // Slide area
+	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
+	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
 
 	if (mSliderType == SliderType::Vertical)
 	{
@@ -369,7 +369,7 @@ void Slider::draw()
 		mSlider = {mSlideBar.x + relativeThumbPosition, mSlideBar.y, newSize, mSlideBar.height};
 	}
 
-	renderer.drawImageRect(mSlider, mSkins.skinSlider);
+	mSkins.skinSlider.draw(renderer, mSlider);
 
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
