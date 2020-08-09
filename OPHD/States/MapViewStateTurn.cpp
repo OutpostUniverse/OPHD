@@ -259,29 +259,39 @@ void MapViewState::updateResources()
 		routeIt = mRouteTable.find(facility);
 		if (routeIt != mRouteTable.end())
 		{
-			//const auto& route = routeIt->second;
-			//const auto smelter = static_cast<Tile*>(route.path.back())->structure();
-			//const auto mineFacility = static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
+			const auto& route = routeIt->second;
+			const auto smelter = static_cast<Smelter*>(static_cast<Tile*>(route.path.back())->structure());
+			const auto mineFacility = static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
+
+			if (!smelter->operational()) { break; }
 
 			/* clamp route cost to minimum of 1.0f for next computation to avoid
 			   unintended multiplication. */
-			//const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
+			const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
 
 			/* intentional truncation of fractional component*/
-			/*
 			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost);
 			const int oreMovementPart = totalOreMovement / 4;
 			const int oreMovementRemainder = totalOreMovement % 4;
 
-			auto& resourcePool = mineFacility->storage();
-			ResourcePool truck(100);
-			truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::CommonMetalsOre, oreMovementPart));
-			truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::CommonMineralsOre, oreMovementPart));
-			truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RareMetalsOre, oreMovementPart));
-			truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RareMineralsOre, oreMovementPart + oreMovementRemainder));
+			auto& stored = mineFacility->storage();
+			StorableResources moved
+			{
+				std::clamp(oreMovementPart, 0, stored.resources[0]),
+				std::clamp(oreMovementPart, 0, stored.resources[1]),
+				std::clamp(oreMovementPart, 0, stored.resources[2]),
+				std::clamp(oreMovementPart + oreMovementRemainder, 0, stored.resources[3])
+			};
 
-			smelter->storage().pushResources(truck);
-			*/
+			auto& smelterProduction = smelter->production();
+			auto newResources = smelterProduction + moved;
+			auto capped = newResources.cap(250);
+			smelterProduction = capped;
+
+			stored = stored - moved;
+
+			auto overflow = newResources - capped;
+			stored = stored + overflow;
 		}
 	}
 
@@ -289,6 +299,14 @@ void MapViewState::updateResources()
 	for (auto smelter : smelterList)
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
+
+		auto stored = smelter->storage();
+		StorableResources moved{
+			std::clamp(15, 0, stored.resources[0]),
+			std::clamp(15, 0, stored.resources[1]),
+			std::clamp(15, 0, stored.resources[2]),
+			std::clamp(15, 0, stored.resources[3])
+		};
 
 		/*
 		ResourcePool& resourcePool = smelter->storage();
