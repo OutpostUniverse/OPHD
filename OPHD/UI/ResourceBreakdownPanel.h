@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core/Control.h"
-#include "../ResourcePool.h"
+#include "../StorableResources.h"
 
 #include <NAS2D/Resources/Image.h>
 
@@ -11,8 +11,10 @@ class ResourceBreakdownPanel : public Control
 public:
 	ResourceBreakdownPanel();
 
-	void playerResources(ResourcePool* resourcePool) { mPlayerResources = resourcePool; }
-	ResourcePool& previousResources() { return mPreviousResources; }
+	void playerResources(StorableResources* resources) { mPlayerResources = resources; }
+	void previousResources(StorableResources& resources) { mPreviousResources = resources; }
+
+	StorableResources& previousResources() { return mPreviousResources; }
 
 	void resourceCheck();
 
@@ -22,6 +24,6 @@ private:
 	const NAS2D::Image& mIcons;
 	NAS2D::ImageList mSkin;
 
-	ResourcePool mPreviousResources;
-	ResourcePool* mPlayerResources = nullptr;
+	StorableResources mPreviousResources;
+	StorableResources* mPlayerResources = nullptr;
 };

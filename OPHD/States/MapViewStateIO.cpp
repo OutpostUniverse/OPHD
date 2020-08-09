@@ -11,6 +11,7 @@
 
 
 #include "../Constants.h"
+#include "../IOHelper.h"
 #include "../StructureCatalogue.h"
 #include "../StructureTranslator.h"
 
@@ -41,6 +42,25 @@ extern const NAS2D::Image* IMG_SAVING;
 
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 
+
+
+/*****************************************************************************
+ * LOCAL FUNCTIONS
+ *****************************************************************************/
+static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
+{
+	if (!element) { return; }
+
+	resources.resources[0] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_0));
+	resources.resources[1] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_1));
+	resources.resources[2] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_2));
+	resources.resources[3] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_3));
+}
+
+
+/*****************************************************************************
+ * CLASS FUNCTIONS
+ *****************************************************************************/
 
 /**
  * 
@@ -174,18 +194,14 @@ void MapViewState::load(const std::string& filePath)
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
-	mPlayerResources.capacity(totalStorage(Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage)));
+	XmlElement* energy = root->firstChildElement("energy");
+	mEnergy = std::stoi(energy->attribute(constants::SAVE_GAME_ENERGY));
+
+	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
 
 	checkConnectedness();
 
-	/**
-	 * StructureManager::updateEnergyProduction() overwrites the energy count in the player resource
-	 * pool so we store the original value here and set it after counting the total energy available.
-	 * Kind of a kludge.
-	 */
-	int energy = mPlayerResources.energy();
-	Utility<StructureManager>::get().updateEnergyProduction(mPlayerResources, mPopulationPool);
-	mPlayerResources.energy(energy);
+	Utility<StructureManager>::get().updateEnergyProduction();
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
@@ -393,8 +409,8 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		
 		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }
 
-		st->production().deserialize(structure->firstChildElement("production"));
-		st->storage().deserialize(structure->firstChildElement("storage"));
+		loadResorucesFromXmlElement(structure->firstChildElement("production"), st->production());
+		loadResorucesFromXmlElement(structure->firstChildElement("storage"), st->storage());
 
 		if (st->isWarehouse())
 		{

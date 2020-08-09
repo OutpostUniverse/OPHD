@@ -123,8 +123,6 @@ void MapViewState::initialize()
 
 	setupUiPositions(renderer.size());
 
-	mPlayerResources.capacity(constants::BASE_STORAGE_CAPACITY);
-
 	CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
 
 	mPopulationPool.population(&mPopulation);
@@ -227,51 +225,40 @@ State* MapViewState::update()
 
 
 /**
- * Convenience function to get the amount of food currently in storage.
- */
-int MapViewState::foodInStorage()
-{
-	int food_count = 0;
-
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
-
-	for (auto structure : structures)
-	{
-		if (structure->operational() || structure->isIdle())
-		{
-			food_count += structure->storage().food();
-		}
-	}
-
-	food_count += mPlayerResources.food();
-
-	return food_count;
-}
-
-
-/**
  * Convenience function to get the total amount of food storage.
  */
-int MapViewState::foodTotalStorage()
+int MapViewState::totalStorage(Structure::StructureClass structureClass, int capacity)
 {
-	int food_storage = 0;
+	int storageCapacity = 0;
 
 	// Command Center has a limited amount of food storage for when colonists first land.
 	if (ccLocation() != CcNotPlaced)
 	{
-		food_storage += constants::BASE_STORAGE_CAPACITY;
+		storageCapacity += constants::BASE_STORAGE_CAPACITY;
 	}
 
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
+	const auto& structures = Utility<StructureManager>::get().structureList(structureClass);
 	for (auto structure : structures)
 	{
 		if (structure->operational() || structure->isIdle())
 		{
-			food_storage += AGRIDOME_CAPACITY;
+			storageCapacity += capacity;
 		}
 	}
 
-	return food_storage;
+	return storageCapacity;
+}
+
+
+int MapViewState::resourcesInStorage()
+{
+	int total = 0;
+	for (size_t i = 0; i < mPlayerResources.resources.size(); ++i)
+	{
+		total += mPlayerResources.resources[i];
+	}
+
+	return total;
 }
 
 
@@ -391,10 +378,8 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		case EventHandler::KeyCode::KEY_F10:
 			if (Utility<EventHandler>::get().control(mod) && Utility<EventHandler>::get().shift(mod))
 			{
-				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS, 1000, true);
-				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, 1000, true);
-				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS, 1000, true);
-				mPlayerResources.pushResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, 1000, true);
+				mPlayerResources = mPlayerResources + StorableResources{1000, 1000, 1000, 1000};
+				updateStructuresAvailability();
 			}
 			break;
 
@@ -905,8 +890,8 @@ void MapViewState::placeRobot()
 			 * 			way to determine this. I may go back to defining recycling values in the individual structures
 			 * 			themselves but I'm still not sure I love that idea. Will have to think about that one a bit.
 			 */
-			ResourcePool resPool = StructureCatalogue::recyclingValue(StructureTranslator::translateFromString(structure->name()));
-			mPlayerResources.pushResources(resPool);
+			mPlayerResources = mPlayerResources + StructureCatalogue::recyclingValue(StructureTranslator::translateFromString(structure->name()));
+			updateStructuresAvailability();
 
 			tile->connected(false);
 			Utility<StructureManager>::get().removeStructure(structure);
@@ -1152,7 +1137,8 @@ void MapViewState::placeStructure()
 			static_cast<Factory*>(structure)->resourcePool(&mPlayerResources);
 		}
 
-		mPlayerResources -= StructureCatalogue::costToBuild(mCurrentStructure);
+		mPlayerResources = mPlayerResources - StructureCatalogue::costToBuild(mCurrentStructure);
+		updateStructuresAvailability();
 	}
 }
 

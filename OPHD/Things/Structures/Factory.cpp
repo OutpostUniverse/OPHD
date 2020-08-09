@@ -129,16 +129,12 @@ void Factory::updateProduction()
 	}
 	
 	/**
-	 * Using explicit calls here instead of ResourcePool::operator-=() because the production
-	 * table doesn't use ResourcePool objects.
-	 * 
-	 * \todo	Add an operator-=() to ResourcePool that takes type ProductionCost to improve
-	 *			readability of below code. Not thrilled with polluting the namespace but eh.
+	 * \todo	Have this use operator- once the production table is converted to using StorableResources
 	 */
-	mResourcesPool->commonMetals(mResourcesPool->commonMetals() - PRODUCTION_TYPE_TABLE[mProduct].commonMetals());
-	mResourcesPool->commonMinerals(mResourcesPool->commonMinerals() - PRODUCTION_TYPE_TABLE[mProduct].commonMinerals());
-	mResourcesPool->rareMetals(mResourcesPool->rareMetals() - PRODUCTION_TYPE_TABLE[mProduct].rareMetals());
-	mResourcesPool->rareMinerals(mResourcesPool->rareMinerals() - PRODUCTION_TYPE_TABLE[mProduct].rareMinerals());
+	mResources->resources[0] = mResources->resources[0] - PRODUCTION_TYPE_TABLE[mProduct].commonMetals();
+	mResources->resources[1] = mResources->resources[1] - PRODUCTION_TYPE_TABLE[mProduct].commonMinerals();
+	mResources->resources[2] = mResources->resources[2] - PRODUCTION_TYPE_TABLE[mProduct].rareMetals();
+	mResources->resources[3] = mResources->resources[3] - PRODUCTION_TYPE_TABLE[mProduct].rareMinerals();
 
 	++mTurnsCompleted;
 
@@ -154,13 +150,16 @@ void Factory::updateProduction()
 bool Factory::enoughResourcesAvailable()
 {
 	#ifdef _DEBUG
-	if (mResourcesPool == nullptr) { throw std::runtime_error("Factory::enoughResourcesAvailable() called with a null Resource Pool set"); }
+	if (mResources == nullptr) { throw std::runtime_error("Factory::enoughResourcesAvailable() called with a null Resource Pool set"); }
 	#endif
 
-	if (mResourcesPool->commonMetals() >= PRODUCTION_TYPE_TABLE[mProduct].commonMetals() &&
-		mResourcesPool->commonMinerals() >= PRODUCTION_TYPE_TABLE[mProduct].commonMinerals() &&
-		mResourcesPool->rareMetals() >= PRODUCTION_TYPE_TABLE[mProduct].rareMetals() &&
-		mResourcesPool->rareMinerals() >= PRODUCTION_TYPE_TABLE[mProduct].rareMinerals())
+	/**
+	 * \todo	Have this use operator>= once the production table is converted to using StorableResources
+	 */
+	if (mResources->resources[0] >= PRODUCTION_TYPE_TABLE[mProduct].commonMetals() &&
+		mResources->resources[1] >= PRODUCTION_TYPE_TABLE[mProduct].commonMinerals() &&
+		mResources->resources[2] >= PRODUCTION_TYPE_TABLE[mProduct].rareMetals() &&
+		mResources->resources[3] >= PRODUCTION_TYPE_TABLE[mProduct].rareMinerals())
 	{
 		return true;
 	}

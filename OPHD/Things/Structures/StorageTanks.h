@@ -2,6 +2,8 @@
 
 #include "Structure.h"
 
+const int StorageTanksCapacity = 1000;
+
 class StorageTanks : public Structure
 {
 public:
@@ -11,13 +13,11 @@ public:
 		turnsToBuild(2);
 
 		requiresCHAP(false);
-
-		storage().capacity(1000);
 	}
 
 protected:
 	void defineResourceInput() override
 	{
-		resourcesIn().energy(1);
+		energyRequired(1);
 	}
 };

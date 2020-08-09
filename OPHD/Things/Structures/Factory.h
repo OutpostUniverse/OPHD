@@ -3,6 +3,7 @@
 #include "Structure.h"
 
 #include "../../ProductionCost.h"
+#include "../../StorableResources.h"
 
 /**
  * \brief	Defines the Factory interface.
@@ -31,7 +32,7 @@ public:
 
 	virtual void updateProduction();
 
-	void resourcePool(ResourcePool* newResourcePool) { mResourcesPool = newResourcePool; }
+	void resourcePool(StorableResources* resources) { mResources = resources; }
 
 	int productionTurnsToComplete() const { return mTurnsToComplete; }
 	void productionTurnsToComplete(int newTurnsToComplete) { mTurnsToComplete = newTurnsToComplete; }
@@ -58,7 +59,7 @@ protected:
 	void addProduct(ProductType type);
 	bool enoughResourcesAvailable();
 
-	ResourcePool* resourcePool() { return mResourcesPool; }
+	StorableResources* resourcePool() { return mResources; }
 
 private:
 	int mTurnsCompleted = 0;
@@ -71,7 +72,7 @@ private:
 
 	ProductionCallback mProductionComplete; /**< Callback used when production is complete. */
 
-	ResourcePool* mResourcesPool = nullptr; /**< Pointer to the player's resource pool. UGLY. */
+	StorableResources* mResources = nullptr; /**< Pointer to the player's resource pool. UGLY. */
 };
 
 const ProductionCost& productCost(ProductType);

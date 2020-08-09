@@ -5,6 +5,7 @@
 
 #include "Constants.h"
 #include "ProductPool.h"
+#include "IOHelper.h"
 #include "StructureTranslator.h"
 
 #include "Things/Structures/Structures.h"
@@ -61,43 +62,43 @@ bool StructureManager::CHAPAvailable()
 /**
  *
  */
-void StructureManager::update(ResourcePool& resourcePool, PopulationPool& popPool)
+void StructureManager::update(StorableResources& resources, PopulationPool& population)
 {
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
 	// calls to lower priority structures.
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Lander]); // No resource needs
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Command]); // Self sufficient
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::EnergyProduction]); // Nothing can work without energy
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Lander]); // No resource needs
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Command]); // Self sufficient
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::EnergyProduction]); // Nothing can work without energy
 
-	updateEnergyProduction(resourcePool, popPool);
+	updateEnergyProduction();
 
 	// Basic resource production
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Mine]); // Can't operate without resources.
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Smelter]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Mine]); // Can't operate without resources.
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Smelter]);
 
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::LifeSupport]); // Air, water food must come before others
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::FoodProduction]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::LifeSupport]); // Air, water food must come before others
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::FoodProduction]);
 
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::MedicalCenter]); // No medical facilities, people die
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Nursery]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::MedicalCenter]); // No medical facilities, people die
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Nursery]);
 
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Factory]); // Production
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Factory]); // Production
 
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Storage]); // Everything else.
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Park]);
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::SurfacePolice]);
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::UndergroundPolice]);
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::RecreationCenter]);
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Residence]);
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::RobotCommand]);
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Warehouse]);
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Laboratory]);
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Commercial]);
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::University]);
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Communication]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Storage]); // Everything else.
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Park]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::SurfacePolice]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::UndergroundPolice]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::RecreationCenter]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Residence]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::RobotCommand]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Warehouse]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Laboratory]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Commercial]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::University]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Communication]);
 
-	updateStructures(resourcePool, popPool, mStructureLists[Structure::StructureClass::Undefined]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Undefined]);
 
 	updateFactoryProduction();
 }
@@ -106,23 +107,26 @@ void StructureManager::update(ResourcePool& resourcePool, PopulationPool& popPoo
 /**
  *
  */
-void StructureManager::updateEnergyProduction(ResourcePool& resourcePool, PopulationPool& /*popPool*/)
+void StructureManager::updateEnergyProduction()
 {
 	mTotalEnergyOutput = 0;
+	mTotalEnergyUsed = 0;
 
 	for (auto structure : mStructureLists[Structure::StructureClass::EnergyProduction])
 	{
-		if (structure->operational()) { mTotalEnergyOutput += structure->resourcesOut().energy(); }
+		auto powerStructure = static_cast<PowerStructure*>(structure);
+		if (powerStructure->operational())
+		{
+			mTotalEnergyOutput += powerStructure->energyProduced();
 	}
-
-	resourcePool.energy(mTotalEnergyOutput);
+}
 }
 
 
 /**
  *
  */
-void StructureManager::updateStructures(ResourcePool& resourcePool, PopulationPool& popPool, StructureList& structures)
+void StructureManager::updateStructures(StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
 	bool chapAvailable = CHAPAvailable();
 	const PopulationRequirements* _populationRequired = nullptr;
@@ -161,47 +165,42 @@ void StructureManager::updateStructures(ResourcePool& resourcePool, PopulationPo
 		_populationRequired = &structure->populationRequirements();
 		_populationAvailable = &structure->populationAvailable();
 
-		fillPopulationRequirements(popPool, _populationRequired, _populationAvailable);
+		fillPopulationRequirements(population, _populationRequired, _populationAvailable);
 
-		if (!popPool.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, (*_populationRequired)[0]) ||
-			!popPool.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, (*_populationRequired)[1]))
+		if (!population.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, (*_populationRequired)[0]) ||
+			!population.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, (*_populationRequired)[1]))
 		{
 			structure->disable(DisabledReason::Population);
 			continue;
 		}
-		else
+
+		if (structure->energyRequirement() > totalEnergyAvailable())
 		{
-			structure->enable();
+			structure->disable(DisabledReason::Energy);
+			continue;
 		}
 
+
 		// Check that enough resources are available for input.
-		if (!structure->resourcesIn().empty() && !structure->enoughResourcesAvailable(resourcePool) && !structure->isIdle())
+		if (!structure->isIdle() && !(resources >= structure->resourcesIn()))
 		{
-			if (!structure->isIdle()) //-V571
-			{
-				/// \fixme	Ugly. Special case code specifically to determine if energy is the reason for a disabled structure.
-				if (structure->resourcesIn().energy() > resourcePool.energy()) { structure->disable(DisabledReason::Energy); }
-				else { structure->disable(DisabledReason::RefinedResources); }
-				continue;
+			structure->disable(DisabledReason::RefinedResources);
+			continue;
 			}
-		}
-		else
-		{
+
 			structure->enable();
-		}
 
 
 		if (structure->operational() || structure->isIdle())
 		{
-			popPool.usePopulation(Population::PersonRole::ROLE_WORKER, (*_populationRequired)[0]);
-			popPool.usePopulation(Population::PersonRole::ROLE_SCIENTIST, (*_populationRequired)[1]);
+			population.usePopulation(Population::PersonRole::ROLE_WORKER, (*_populationRequired)[0]);
+			population.usePopulation(Population::PersonRole::ROLE_SCIENTIST, (*_populationRequired)[1]);
 
-			resourcePool -= structure->resourcesIn();
+			resources = resources - structure->resourcesIn();
+			mTotalEnergyUsed += structure->energyRequirement();
 
 			structure->think();
 		}
-
-		// handle output resources
 	}
 }
 
@@ -392,17 +391,6 @@ Tile* StructureManager::tileFromStructure(Structure* st)
 /**
  * 
  */
-void serializeResourcePool(XmlElement* _ti, ResourcePool& resourcePool, const std::string& name)
-{
-	XmlElement* pool = new XmlElement(name);
-	resourcePool.serialize(pool);
-	_ti->linkEndChild(pool);
-}
-
-
-/**
- *
- */
 void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 {
 	const auto position = _t->position();
@@ -418,14 +406,16 @@ void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 	_ti->attribute("type", structure->name());
 	_ti->attribute("direction", structure->connectorDirection());
 
-	if (!structure->production().empty())
+	const auto& production = structure->production();
+	if (production > StorableResources{ 0 })
 	{
-		serializeResourcePool(_ti, structure->production(), "production");
+		writeResources(_ti, production, "production");
 	}
 
-	if (!structure->storage().empty())
+	const auto& stored = structure->storage();
+	if (stored > StorableResources{ 0 })
 	{
-		serializeResourcePool(_ti, structure->storage(), "storage");
+		writeResources(_ti, stored, "storage");
 	}
 
 	_ti->attribute("pop0", structure->populationAvailable()[0]);

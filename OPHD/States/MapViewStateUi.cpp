@@ -127,8 +127,6 @@ void MapViewState::initUi()
 	mStructures.showTooltip(true);
 	mStructures.selectionChanged().connect(this, &MapViewState::structuresSelectionChanged);
 
-	mPlayerResources.resourceObserver().connect(this, &MapViewState::playerResourcePoolModified);
-
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
 }
@@ -558,19 +556,6 @@ void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperati
 void MapViewState::btnTurnsClicked()
 {
 	nextTurn();
-}
-
-
-/**
- * Player ResourcePool modified, we update the IconGrid
- *
- * \todo	Could be removed and have updateStructureAvailability() used
- *			as the listener instead, but we may want to perform other
- *			functions here so I'm leaving it in - Lee
- */
-void MapViewState::playerResourcePoolModified()
-{
-	updateStructuresAvailability();
 }
 
 

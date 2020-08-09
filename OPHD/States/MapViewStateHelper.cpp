@@ -187,24 +187,6 @@ bool validLanderSite(Tile* tile)
 
 
 /**
- * Document me!
- */
-int totalStorage(StructureList& structures)
-{
-	int storage = 0;
-	for (std::size_t i = 0; i < structures.size(); ++i)
-	{
-		if (structures[i]->operational())
-		{
-			storage += structures[i]->storage().capacity();
-		}
-	}
-
-	return constants::BASE_STORAGE_CAPACITY + storage;
-}
-
-
-/**
  * Check landing site for obstructions such as mining beacons, things
  * and impassable terrain.
  * 
@@ -479,23 +461,18 @@ void moveProducts(Warehouse* wh)
  * Displays a message indicating that there are not enough resources to build
  * a structure and what the missing resources are.
  */
-void resourceShortageMessage(ResourcePool& resourcePool, StructureID sid)
+void resourceShortageMessage(StorableResources& resources, StructureID sid)
 {
-	const ResourcePool& cost = StructureCatalogue::costToBuild(sid);
+	StorableResources cost = StructureCatalogue::costToBuild(sid);
 
-	ResourcePool missing;
-	
-	if (resourcePool.commonMetals() < cost.commonMetals()) { missing.commonMetals(cost.commonMetals() - resourcePool.commonMetals()); }
-	if (resourcePool.commonMinerals() < cost.commonMinerals()) { missing.commonMinerals(cost.commonMinerals() - resourcePool.commonMinerals()); }
-	if (resourcePool.rareMetals() < cost.rareMetals()) { missing.rareMetals(cost.rareMetals() - resourcePool.rareMetals()); }
-	if (resourcePool.rareMinerals() < cost.rareMinerals()) { missing.rareMinerals(cost.rareMinerals() - resourcePool.rareMinerals()); }
+	StorableResources missing = cost - resources;
 
 	std::string message = constants::ALERT_STRUCTURE_INSUFFICIENT_RESORUCES;
 
-	if (missing.commonMetals() != 0) { message += std::to_string(missing.commonMetals()) + " Common Metals" + "\n"; }
-	if (missing.commonMinerals() != 0) { message += std::to_string(missing.commonMinerals()) + " Common Minerals" + "\n"; }
-	if (missing.rareMetals() != 0) { message += std::to_string(missing.rareMetals()) + " Rare Metals" + "\n"; }
-	if (missing.rareMinerals() != 0) { message += std::to_string(missing.rareMinerals()) + " Rare Minerals"; }
+	for (size_t i = 0; i < missing.resources.size(); ++i)
+	{
+		if (missing.resources[i] >= 0) { message += std::to_string(missing.resources[i]) + " " + ResourceNamesRefined[i] + "\n"; }
+	}
 
 	doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, message);
 }
@@ -565,24 +542,4 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 	}
 
 	element->linkEndChild(robots);
-}
-
-
-/** 
- * Document me!
- */
-void writeResources(NAS2D::Xml::XmlElement* element, ResourcePool& resourcePool, const std::string& tagName)
-{
-	XmlElement* resources = new XmlElement(tagName);
-	resourcePool.serialize(resources);
-	element->linkEndChild(resources);
-}
-
-
-/** 
- * Document me!
- */
-void readResources(NAS2D::Xml::XmlElement* element, ResourcePool& resourcePool)
-{
-	if (element) { resourcePool.deserialize(element); }
 }

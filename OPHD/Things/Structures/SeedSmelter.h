@@ -1,33 +1,28 @@
 #pragma once
 
 #include "Structure.h"
-#include "Factory.h"
+
 
 class SeedSmelter : public Structure
 {
+	const int StorageCapacity = 500;
+
 public:
 	SeedSmelter() : Structure(constants::SEED_SMELTER, "structures/seed_1.sprite", StructureClass::Smelter)
 	{
 		maxAge(150);
 		turnsToBuild(6);
 		requiresCHAP(false);
-
-		oreStorage().capacity(250);
-		storage().capacity(250);
 	}
 
-	void input(ResourcePool& _resourcePool) override
+	/** \todo This is not actually used anywhere, this should probably be removed */
+	void input(StorableResources& resources) override
 	{
 		if (!operational()) { return; }
-		if (oreStorage().atCapacity()) { return; }
+		if (production() >= StorableResources{ StorageCapacity }) { return; }
 
-		oreStorage().pushResources(_resourcePool);
+		production() = production() + resources;
 	}
-
-protected:
-
-	// Simply to help in understanding what the internal resource pools are being used for.
-	ResourcePool& oreStorage() { return production(); }
 
 protected:
 
@@ -35,7 +30,7 @@ protected:
 	{
 		if (isIdle())
 		{
-			if (!storage().atCapacity())
+			if (storage() < StorableResources{ StorageCapacity / 4 })
 			{
 				enable();
 			}
@@ -47,43 +42,40 @@ protected:
 		}
 	}
 
-	void convertOre(ResourcePool::ResourceType oreType, ResourcePool::ResourceType refinedType, int refinedAmount)
-	{
-		oreStorage().resource(oreType, oreStorage().resource(oreType) - constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING);
-		if (storage().pushResource(refinedType, refinedAmount, false) != 0)
-		{
-			idle(IdleReason::InternalStorageFull);
-		}
-	}
-
 	virtual void updateProduction()
 	{
 		int resource_units = constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING;
 
-		if (oreStorage().commonMetalsOre() >= resource_units)
+		StorableResources converted{ 0 };
+		auto& ore = production();
+
+		for (size_t i = 0; i < ore.resources.size(); ++i)
 		{
-			convertOre(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, ResourcePool::ResourceType::RESOURCE_COMMON_METALS, resource_units / 2);
+			if (ore.resources[i] >= resource_units)
+		{
+				converted.resources[i] = resource_units / OreConversionDivisor[i];
+				ore.resources[i] = ore.resources[i] - resource_units;
+		}
 		}
 
-		if (oreStorage().commonMineralsOre() >= resource_units)
-		{
-			convertOre(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, resource_units / 2);
-		}
+		auto total = storage() + converted;
+		auto capped = total.cap(StorageCapacity / 4);
+		auto overflow = total - capped;
 
-		if (oreStorage().rareMetalsOre() >= resource_units)
-		{
-			convertOre(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, ResourcePool::ResourceType::RESOURCE_RARE_METALS, resource_units / 3);
-		}
+		storage() = storage() + capped;
 
-		if (oreStorage().rareMineralsOre() >= resource_units)
+		if (overflow > StorableResources{ 0 })
 		{
-			convertOre(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, resource_units / 3);
+			ore = ore + overflow;
+			idle(IdleReason::InternalStorageFull);
 		}
 	}
 
 private:
 	void defineResourceInput() override
 	{
-		resourcesIn().energy(5);
+		energyRequired(5);
 	}
+
+	std::array<int, 4> OreConversionDivisor { 2, 2, 3, 3 };
 };

@@ -254,6 +254,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="GraphWalker.cpp" />
+    <ClCompile Include="IOHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map\Tile.cpp" />
     <ClCompile Include="Map\TileMap.cpp" />
@@ -262,7 +263,6 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClCompile Include="PopulationPool.cpp" />
     <ClCompile Include="Population\Population.cpp" />
     <ClCompile Include="ProductPool.cpp" />
-    <ClCompile Include="ResourcePool.cpp" />
     <ClCompile Include="RobotPool.cpp" />
     <ClCompile Include="States\GameState.cpp" />
     <ClCompile Include="States\MapViewState.cpp" />
@@ -330,16 +330,17 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClInclude Include="Constants\UiConstants.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GraphWalker.h" />
+    <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\TileMap.h" />
     <ClInclude Include="MicroPather\micropather.h" />
     <ClInclude Include="Mine.h" />
+    <ClInclude Include="StorableResources.h" />
     <ClInclude Include="PopulationPool.h" />
     <ClInclude Include="Population\Morale.h" />
     <ClInclude Include="Population\Population.h" />
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />
-    <ClInclude Include="ResourcePool.h" />
     <ClInclude Include="RobotPool.h" />
     <ClInclude Include="RobotPoolHelper.h" />
     <ClInclude Include="States\GameState.h" />
@@ -370,6 +371,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClInclude Include="Things\Structures\Commercial.h" />
     <ClInclude Include="Things\Structures\CommTower.h" />
     <ClInclude Include="Things\Structures\Factory.h" />
+    <ClInclude Include="Things\Structures\FoodProduction.h" />
     <ClInclude Include="Things\Structures\Laboratory.h" />
     <ClInclude Include="Things\Structures\MedicalCenter.h" />
     <ClInclude Include="Things\Structures\MineFacility.h" />

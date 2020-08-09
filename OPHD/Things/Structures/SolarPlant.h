@@ -18,11 +18,6 @@ public:
 	}
 
 protected:
-	void defineResourceOutput() override
-	{
-		resourcesOut().energy(calculateEnergyProduced());
-	}
-
 	int calculateMaxEnergyProduction() override
 	{
 		// Prevent possible dividing by zero

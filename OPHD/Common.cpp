@@ -199,6 +199,18 @@ std::array<std::string, ProductType::PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
 	"PRODUCT_RESERVED_UG_63"
 };
 
+
+std::array<std::string, 4> ResourceNamesRefined =
+{
+	{"Common Metals", "Common Minerals", "Rare Metals", "Rare Minerals" }
+};
+
+
+std::array<std::string, 4> ResourceNamesOre =
+{
+	{"Common Metals Ore", "Common Minerals Ore", "Rare Metals Ore", "Rare Minerals Ore" }
+};
+
 Difficulty CURRENT_DIFFICULTY = Difficulty::Beginner;
 
 #if defined(WINDOWS) || defined(WIN32)

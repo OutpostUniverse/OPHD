@@ -16,7 +16,8 @@
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
 
-#include "../ResourcePool.h"
+#include "../StorableResources.h"
+
 #include "../RobotPool.h"
 
 #include "../Things/Structures/Structure.h"
@@ -125,8 +126,11 @@ private:
 	void setStructureID(StructureID type, InsertMode mode);
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
-	int foodInStorage();
-	int foodTotalStorage();
+	void updateFood();
+	int resourcesInStorage();
+	int totalStorage(Structure::StructureClass, int);
+
+
 	void setMinimapView();
 
 	void checkConnectedness();
@@ -187,7 +191,6 @@ private:
 	void btnLoadGameClicked();
 	void btnReturnToGameClicked();
 	void btnGameOverClicked();
-	void playerResourcePoolModified();
 
 	void structuresSelectionChanged(const IconGrid::IconGridItem*);
 	void connectionsSelectionChanged(const IconGrid::IconGridItem*);
@@ -212,8 +215,12 @@ private:
 
 	NAS2D::Rectangle<int> mMiniMapBoundingBox; /**< Area of the site map display. */
 
+	int mEnergy{ 0 };
+	int mFood{ 0 };
+	int mRefinedResourcesCap{ 0 };
+
 	// POOL'S
-	ResourcePool mPlayerResources; /**< Player's current resources. */
+	StorableResources mPlayerResources; /**< Player's current refined resources. */
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;
 

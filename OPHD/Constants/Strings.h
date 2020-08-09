@@ -53,15 +53,10 @@ namespace constants
 	// =====================================
 	// = RESOURCES
 	// =====================================
-	const std::string SAVE_GAME_COMMON_METAL_ORE = "common_metal_ore";
-	const std::string SAVE_GAME_COMMON_MINERAL_ORE = "common_mineral_ore";
-	const std::string SAVE_GAME_RARE_METAL_ORE = "rare_metal_ore";
-	const std::string SAVE_GAME_RARE_MINERAL_ORE = "rare_mineral_ore";
-
-	const std::string SAVE_GAME_COMMON_METAL = "common_metal";
-	const std::string SAVE_GAME_COMMON_MINERAL = "common_mineral";
-	const std::string SAVE_GAME_RARE_METAL = "rare_metal";
-	const std::string SAVE_GAME_RARE_MINERAL = "rare_mineral";
+	const std::string SAVE_GAME_RESOURCE_0 = "resource_0";
+	const std::string SAVE_GAME_RESOURCE_1 = "resource_1";
+	const std::string SAVE_GAME_RESOURCE_2 = "resource_2";
+	const std::string SAVE_GAME_RESOURCE_3 = "resource_3";
 
 	const std::string SAVE_GAME_ENERGY = "energy";
 	const std::string SAVE_GAME_FOOD = "food";

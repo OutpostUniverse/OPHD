@@ -10,6 +10,8 @@
 
 #include "../Things/Structures/Structures.h"
 
+#include "../StorableResources.h"
+
 #include <vector>
 #include <algorithm>
 
@@ -20,17 +22,17 @@ extern const NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for
 /**
  * 
  */
-static int pullFood(ResourcePool& resourcePool, int amount)
+static int pullFood(int& food, int amount)
 {
-	if (amount <= resourcePool.food())
+	if (amount <= food)
 	{
-		resourcePool.food(resourcePool.food() - amount);
+		food = food - amount;
 		return amount;
 	}
 	else
 	{
-		int ret = resourcePool.food();
-		resourcePool.food(0);
+		int ret = food;
+		food = 0;
 		return ret;
 	}
 }
@@ -49,20 +51,26 @@ void MapViewState::updatePopulation()
 	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
 
 	// FOOD CONSUMPTION
-	int food_consumed = mPopulation.update(mCurrentMorale, foodInStorage(), residences, universities, nurseries, hospitals);
+	int food_consumed = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 	StructureList &foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
 	int remainder = food_consumed;
 
-	if (mPlayerResources.food() > 0)
+	if (mFood > 0)
 	{
-		remainder -= pullFood(mPlayerResources, remainder);
+		remainder -= pullFood(mFood, remainder);
 	}
 
-	for (std::size_t i = 0; i < foodproducers.size(); ++i)
+	for (auto structure : foodproducers)
 	{
 		if (remainder <= 0) { break; }
 
-		remainder -= pullFood(foodproducers[i]->storage(), remainder);
+		FoodProduction* foodProducer = static_cast<FoodProduction*>(structure);
+
+		int foodLevel = foodProducer->foodLevel();
+		int pulled = pullFood(foodLevel, remainder);
+
+		foodProducer->foodLevel(foodLevel);
+		remainder -= pulled;
 	}
 }
 
@@ -215,10 +223,7 @@ static bool routeObstructed(Route& route)
  */
 void MapViewState::updateResources()
 {
-	// Update storage capacity
-	mPlayerResources.capacity(totalStorage(NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage)));
-
-	ResourcePool truck(100);
+	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
 
 	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
 
@@ -255,8 +260,10 @@ void MapViewState::updateResources()
 		if (routeIt != mRouteTable.end())
 		{
 			const auto& route = routeIt->second;
-			const auto smelter = static_cast<Tile*>(route.path.back())->structure();
+			const auto smelter = static_cast<Smelter*>(static_cast<Tile*>(route.path.back())->structure());
 			const auto mineFacility = static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
+
+			if (!smelter->operational()) { break; }
 
 			/* clamp route cost to minimum of 1.0f for next computation to avoid
 			   unintended multiplication. */
@@ -267,13 +274,22 @@ void MapViewState::updateResources()
 			const int oreMovementPart = totalOreMovement / 4;
 			const int oreMovementRemainder = totalOreMovement % 4;
 
-			auto& resourcePool = mineFacility->storage();
-			truck.commonMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS_ORE, oreMovementPart));
-			truck.commonMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS_ORE, oreMovementPart));
-			truck.rareMetalsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS_ORE, oreMovementPart));
-			truck.rareMineralsOre(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS_ORE, oreMovementPart + oreMovementRemainder));
+			auto& stored = mineFacility->storage();
+			StorableResources moved
+			{
+				std::clamp(oreMovementPart, 0, stored.resources[0]),
+				std::clamp(oreMovementPart, 0, stored.resources[1]),
+				std::clamp(oreMovementPart, 0, stored.resources[2]),
+				std::clamp(oreMovementPart + oreMovementRemainder, 0, stored.resources[3])
+			};
 
-			smelter->storage().pushResources(truck);
+			auto& smelterProduction = smelter->production();
+			auto newResources = smelterProduction + moved;
+			auto capped = newResources.cap(250);
+			smelterProduction = capped;
+
+			auto overflow = newResources - capped;
+			stored = stored - (moved + overflow);
 		}
 	}
 
@@ -282,19 +298,23 @@ void MapViewState::updateResources()
 	{
 		if (!smelter->operational()) { continue; } // consider a different control path.
 
-		ResourcePool& resourcePool = smelter->storage();
-		truck.commonMetals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_METALS, 25));
-		truck.commonMinerals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_COMMON_MINERALS, 25));
-		truck.rareMetals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_METALS, 25));
-		truck.rareMinerals(resourcePool.pullResource(ResourcePool::ResourceType::RESOURCE_RARE_MINERALS, 25));
-
-		mPlayerResources.pushResources(truck);
-
-		if (!truck.empty())
+		auto& stored = smelter->storage();
+		StorableResources moved
 		{
-			smelter->storage().pushResources(truck);
-			break; // we're at max capacity in our storage, dump what's left in the smelter it came from and barf.
-		}
+			std::clamp(25, 0, stored.resources[0]),
+			std::clamp(25, 0, stored.resources[1]),
+			std::clamp(25, 0, stored.resources[2]),
+			std::clamp(25, 0, stored.resources[3])
+		};
+
+		auto newResources = mPlayerResources + moved;
+		auto capped = newResources.cap(mRefinedResourcesCap / 4);
+
+		mPlayerResources = capped;
+
+		auto overflow = newResources - capped;
+		stored = stored - (moved + overflow);
+		std::cout << "Whatever";
 	}
 }
 
@@ -349,6 +369,22 @@ void MapViewState::updateResidentialCapacity()
 }
 
 
+void MapViewState::updateFood()
+{
+	mFood = 0;
+
+	const auto& structures = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
+
+	for (auto structure : structures)
+	{
+		if (structure->operational() || structure->isIdle())
+		{
+			mFood += static_cast<FoodProduction*>(structure)->foodLevel();
+		}
+	}
+}
+
+
 /**
  * 
  */
@@ -362,11 +398,13 @@ void MapViewState::nextTurn()
 
 	mPopulationPool.clear();
 
-	mResourceBreakdownPanel.previousResources() = mPlayerResources;
+	mResourceBreakdownPanel.previousResources(mPlayerResources);
 
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
 	NAS2D::Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
+
+	updateFood();
 
 	mPreviousMorale = mCurrentMorale;
 
@@ -380,6 +418,8 @@ void MapViewState::nextTurn()
 	updateResources();
 
 	mResourceBreakdownPanel.resourceCheck();
+
+	updateStructuresAvailability();
 
 	populateStructureMenu();
 

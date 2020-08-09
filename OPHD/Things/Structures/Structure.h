@@ -4,7 +4,7 @@
 
 #include "../../Common.h"
 #include "../../PopulationPool.h"
-#include "../../ResourcePool.h"
+#include "../../StorableResources.h"
 #include "../../UI/StringTable.h"
 
 /**
@@ -89,14 +89,13 @@ public:
 	bool forceIdle() const { return mForcedIdle; }
 
 	// RESOURCES AND RESOURCE MANAGEMENT
-	ResourcePool& resourcesIn() { return mResourcesInput; }
-	ResourcePool& resourcesOut() { return mResourcesOutput; }
+	const StorableResources& resourcesIn() const { return mResourcesInput; }
 
-	ResourcePool& storage() { return mStoragePool; }
-	ResourcePool& production() { return mProductionPool; }
+	StorableResources& storage() { return mStoragePool; }
+	StorableResources& production() { return mProductionPool; }
 
-	virtual void input(ResourcePool& /*pool*/) {}
-	bool enoughResourcesAvailable(ResourcePool& resourcePool);
+	/** \todo This is not actually used anywhere, this should probably be removed */
+	virtual void input(StorableResources& /*pool*/) {}
 
 	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
 	PopulationRequirements& populationAvailable() { return mPopulationAvailable; }
@@ -108,6 +107,7 @@ public:
 	int turnsToBuild() const { return mTurnsToBuild; }
 	int age() const { return mAge; }
 	int maxAge() const { return mMaxAge; }
+	int energyRequirement() const { return mEnergyRequirement; }
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
@@ -152,7 +152,6 @@ protected:
 	void repairable(bool isRepairable) { mRepairable = isRepairable; }
 
 	virtual void defineResourceInput() {}
-	virtual void defineResourceOutput() {}
 
 	void activate();
 
@@ -164,6 +163,9 @@ protected:
 	void selfSustained(bool value) { mSelfSustained = value; }
 
 	void setPopulationRequirements(const PopulationRequirements& pr) { mPopulationRequirements = pr; }
+	void energyRequired(int energy) { mEnergyRequirement = energy; }
+
+	void resourcesIn(const StorableResources& resources) { mResourcesInput = resources; }
 
 private:
 	Structure() = delete;
@@ -181,6 +183,7 @@ private:
 	int mTurnsToBuild = 0; /**< Number of turns it takes to build the Structure. */
 	int mAge = 0; /**< Age of the Structure in turns. */
 	int mMaxAge = 0; /**< Maximum number of turns the Structure can remain in good repair. */
+	int mEnergyRequirement = 0;
 
 	StructureState mStructureState = StructureState::UnderConstruction; /**< State the structure is in. */
 	StructureClass mStructureClass; /**< Indicates the Structure's Type. */
@@ -189,11 +192,10 @@ private:
 	PopulationRequirements mPopulationRequirements; /**< Population requirements for structure operation. */
 	PopulationRequirements mPopulationAvailable; /**< Determine how many of each type of population required was actually supplied to the structure. */
 
-	ResourcePool mResourcesInput; /**< Resources needed to operate the Structure. */
-	ResourcePool mResourcesOutput; /**< Resources provided by the Structure if operating properly. */
+	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
 
-	ResourcePool mProductionPool; /**< Resource pool used for production. */
-	ResourcePool mStoragePool; /**< Resource storage pool. */
+	StorableResources mProductionPool; /**< Resource pool used for production. */
+	StorableResources mStoragePool; /**< Resource storage pool. */
 
 	DisabledReason mDisabledReason = DisabledReason::None;
 	IdleReason mIdleReason = IdleReason::None;

@@ -155,12 +155,6 @@ void Structure::forceIdle(bool force)
 }
 
 
-bool Structure::enoughResourcesAvailable(ResourcePool& resourcePool)
-{
-	return resourcePool >= resourcesIn();
-}
-
-
 /**
  * Called when a building is finished being built.
  *
@@ -174,7 +168,6 @@ void Structure::activate()
 	enable();
 
 	defineResourceInput();
-	defineResourceOutput();
 
 	activated();
 }
@@ -226,7 +219,6 @@ void Structure::destroy()
 void Structure::forced_state_change(StructureState structureState, DisabledReason disabledReason, IdleReason idleReason)
 {
 	defineResourceInput();
-	defineResourceOutput();
 
 	if (age() >= turnsToBuild())
 	{

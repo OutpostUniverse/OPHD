@@ -138,9 +138,6 @@
     <ClCompile Include="StructureTranslator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ResourcePool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UI\StructureInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -288,6 +285,9 @@
     <ClCompile Include="UI\StringTable.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="IOHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -414,9 +414,6 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="StructureTranslator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourcePool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Things\Structures\StorageTanks.h">
@@ -637,6 +634,15 @@
     </ClInclude>
     <ClInclude Include="States\Route.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="StorableResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Things\Structures\FoodProduction.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="IOHelper.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

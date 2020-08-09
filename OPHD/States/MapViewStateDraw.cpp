@@ -159,11 +159,12 @@ void MapViewState::drawResourceInfo()
 	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
 
 	constexpr auto iconSize = constants::RESOURCE_ICON_SIZE;
-	const std::array resources{
-		std::tuple{NAS2D::Rectangle{64, 16, iconSize, iconSize}, mPlayerResources.commonMetals(), offsetX},
-		std::tuple{NAS2D::Rectangle{80, 16, iconSize, iconSize}, mPlayerResources.rareMetals(), x + offsetX},
-		std::tuple{NAS2D::Rectangle{96, 16, iconSize, iconSize}, mPlayerResources.commonMinerals(), x + offsetX},
-		std::tuple{NAS2D::Rectangle{112, 16, iconSize, iconSize}, mPlayerResources.rareMinerals(), 0},
+	const std::array resources
+	{
+		std::tuple{NAS2D::Rectangle{64, 16, iconSize, iconSize}, mPlayerResources.resources[0], offsetX},
+		std::tuple{NAS2D::Rectangle{80, 16, iconSize, iconSize}, mPlayerResources.resources[2], x + offsetX},
+		std::tuple{NAS2D::Rectangle{96, 16, iconSize, iconSize}, mPlayerResources.resources[1], x + offsetX},
+		std::tuple{NAS2D::Rectangle{112, 16, iconSize, iconSize}, mPlayerResources.resources[3], 0},
 	};
 
 	for (const auto& [imageRect, amount, spacing] : resources)
@@ -175,10 +176,11 @@ void MapViewState::drawResourceInfo()
 	}
 
 	// Capacity (Storage, Food, Energy)
-	const std::array storageCapacities{
-		std::tuple{NAS2D::Rectangle{96, 32, iconSize, iconSize}, mPlayerResources.currentLevel(), mPlayerResources.capacity(), mPlayerResources.capacity() - mPlayerResources.currentLevel() <= 100},
-		std::tuple{NAS2D::Rectangle{64, 32, iconSize, iconSize}, foodInStorage(), foodTotalStorage(), foodInStorage() <= 10},
-		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, mPlayerResources.energy(), NAS2D::Utility<StructureManager>::get().totalEnergyProduction(), mPlayerResources.energy() <= 5}
+	const std::array storageCapacities
+	{
+		std::tuple{NAS2D::Rectangle{96, 32, iconSize, iconSize}, resourcesInStorage(), totalStorage(Structure::StructureClass::Storage, 1000), totalStorage(Structure::StructureClass::Storage, 1000) - resourcesInStorage() <= 100},
+		std::tuple{NAS2D::Rectangle{64, 32, iconSize, iconSize}, mFood, totalStorage(Structure::StructureClass::FoodProduction, 1000), mFood <= 10},
+		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, mEnergy, NAS2D::Utility<StructureManager>::get().totalEnergyProduction(), mEnergy <= 5}
 	};
 
 	position.x += x + offsetX;
