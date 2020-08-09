@@ -190,7 +190,6 @@ private:
 	void btnLoadGameClicked();
 	void btnReturnToGameClicked();
 	void btnGameOverClicked();
-	void playerResourcePoolModified();
 
 	void structuresSelectionChanged(const IconGrid::IconGridItem*);
 	void connectionsSelectionChanged(const IconGrid::IconGridItem*);

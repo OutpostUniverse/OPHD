@@ -419,7 +419,7 @@ void MapViewState::nextTurn()
 
 	mResourceBreakdownPanel.resourceCheck();
 
-	playerResourcePoolModified();
+	updateStructuresAvailability();
 
 	populateStructureMenu();
 

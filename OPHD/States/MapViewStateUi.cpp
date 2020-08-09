@@ -577,19 +577,6 @@ void MapViewState::btnTurnsClicked()
 
 
 /**
- * Player ResourcePool modified, we update the IconGrid
- *
- * \todo	Could be removed and have updateStructureAvailability() used
- *			as the listener instead, but we may want to perform other
- *			functions here so I'm leaving it in - Lee
- */
-void MapViewState::playerResourcePoolModified()
-{
-	updateStructuresAvailability();
-}
-
-
-/**
  * Update IconGridItems availability
  */
 void MapViewState::updateStructuresAvailability()
