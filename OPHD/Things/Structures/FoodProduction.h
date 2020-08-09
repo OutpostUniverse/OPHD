@@ -3,10 +3,10 @@
 #include "Structure.h"
 
 /**
-* \class	PowerStructure
-* \brief	Virtual class for structures whose primary purpose is power production
+* \class	FoodProduction
+* \brief	Virtual class for structures whose primary purpose is agricultural production
 *
-* \note	PowerStructure is an abstract class
+* \note	FoodProduction is an abstract class
 */
 class FoodProduction : public Structure
 {
