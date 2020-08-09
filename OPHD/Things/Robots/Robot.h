@@ -11,6 +11,7 @@ public:
 
 public:
 	Robot(const std::string& name, const std::string& sprite_path);
+	Robot(const std::string& name, const std::string& sprite_path, const std::string& initialAction);
 
 	void startTask(int turns);
 

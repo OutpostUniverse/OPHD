@@ -8,6 +8,7 @@
  */
 #include "Slider.h"
 
+#include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
 
@@ -20,15 +21,126 @@
 using namespace NAS2D;
 
 
-static Font* SLD_FONT = nullptr;
+namespace {
+	static const Font* sliderFont = nullptr;
+
+
+	Slider::Skins loadSkins(Slider::SliderType sliderType)
+	{
+		if (sliderType == Slider::SliderType::Vertical)
+		{
+			return {
+				{ // Button1
+					imageCache.load("ui/skin/sv_bu_tl.png"),
+					imageCache.load("ui/skin/sv_bu_tm.png"),
+					imageCache.load("ui/skin/sv_bu_tr.png"),
+					imageCache.load("ui/skin/sv_bu_ml.png"),
+					imageCache.load("ui/skin/sv_bu_mm.png"),
+					imageCache.load("ui/skin/sv_bu_mr.png"),
+					imageCache.load("ui/skin/sv_bu_bl.png"),
+					imageCache.load("ui/skin/sv_bu_bm.png"),
+					imageCache.load("ui/skin/sv_bu_br.png")
+				},
+				{ // Middle
+					imageCache.load("ui/skin/sv_sa_tl.png"),
+					imageCache.load("ui/skin/sv_sa_tm.png"),
+					imageCache.load("ui/skin/sv_sa_tr.png"),
+					imageCache.load("ui/skin/sv_sa_ml.png"),
+					imageCache.load("ui/skin/sv_sa_mm.png"),
+					imageCache.load("ui/skin/sv_sa_mr.png"),
+					imageCache.load("ui/skin/sv_sa_bl.png"),
+					imageCache.load("ui/skin/sv_sa_bm.png"),
+					imageCache.load("ui/skin/sv_sa_br.png")
+				},
+				{ // Button2
+					imageCache.load("ui/skin/sv_bd_tl.png"),
+					imageCache.load("ui/skin/sv_bd_tm.png"),
+					imageCache.load("ui/skin/sv_bd_tr.png"),
+					imageCache.load("ui/skin/sv_bd_ml.png"),
+					imageCache.load("ui/skin/sv_bd_mm.png"),
+					imageCache.load("ui/skin/sv_bd_mr.png"),
+					imageCache.load("ui/skin/sv_bd_bl.png"),
+					imageCache.load("ui/skin/sv_bd_bm.png"),
+					imageCache.load("ui/skin/sv_bd_br.png")
+				},
+				{ // Slider
+					imageCache.load("ui/skin/sv_sl_tl.png"),
+					imageCache.load("ui/skin/sv_sl_tm.png"),
+					imageCache.load("ui/skin/sv_sl_tr.png"),
+					imageCache.load("ui/skin/sv_sl_ml.png"),
+					imageCache.load("ui/skin/sv_sl_mm.png"),
+					imageCache.load("ui/skin/sv_sl_mr.png"),
+					imageCache.load("ui/skin/sv_sl_bl.png"),
+					imageCache.load("ui/skin/sv_sl_bm.png"),
+					imageCache.load("ui/skin/sv_sl_br.png")
+				}
+			};
+		}
+		else
+		{
+			return {
+				{ // Button1
+					imageCache.load("ui/skin/sh_bl_tl.png"),
+					imageCache.load("ui/skin/sh_bl_tm.png"),
+					imageCache.load("ui/skin/sh_bl_tr.png"),
+					imageCache.load("ui/skin/sh_bl_ml.png"),
+					imageCache.load("ui/skin/sh_bl_mm.png"),
+					imageCache.load("ui/skin/sh_bl_mr.png"),
+					imageCache.load("ui/skin/sh_bl_bl.png"),
+					imageCache.load("ui/skin/sh_bl_bm.png"),
+					imageCache.load("ui/skin/sh_bl_br.png")
+				},
+				{ // Middle
+					imageCache.load("ui/skin/sh_sa_tl.png"),
+					imageCache.load("ui/skin/sh_sa_tm.png"),
+					imageCache.load("ui/skin/sh_sa_tr.png"),
+					imageCache.load("ui/skin/sh_sa_ml.png"),
+					imageCache.load("ui/skin/sh_sa_mm.png"),
+					imageCache.load("ui/skin/sh_sa_mr.png"),
+					imageCache.load("ui/skin/sh_sa_bl.png"),
+					imageCache.load("ui/skin/sh_sa_bm.png"),
+					imageCache.load("ui/skin/sh_sa_br.png")
+				},
+				{ // Button2
+					imageCache.load("ui/skin/sh_br_tl.png"),
+					imageCache.load("ui/skin/sh_br_tm.png"),
+					imageCache.load("ui/skin/sh_br_tr.png"),
+					imageCache.load("ui/skin/sh_br_ml.png"),
+					imageCache.load("ui/skin/sh_br_mm.png"),
+					imageCache.load("ui/skin/sh_br_mr.png"),
+					imageCache.load("ui/skin/sh_br_bl.png"),
+					imageCache.load("ui/skin/sh_br_bm.png"),
+					imageCache.load("ui/skin/sh_br_br.png")
+				},
+				{ // Slider
+					imageCache.load("ui/skin/sh_sl_tl.png"),
+					imageCache.load("ui/skin/sh_sl_tm.png"),
+					imageCache.load("ui/skin/sh_sl_tr.png"),
+					imageCache.load("ui/skin/sh_sl_ml.png"),
+					imageCache.load("ui/skin/sh_sl_mm.png"),
+					imageCache.load("ui/skin/sh_sl_mr.png"),
+					imageCache.load("ui/skin/sh_sl_bl.png"),
+					imageCache.load("ui/skin/sh_sl_bm.png"),
+					imageCache.load("ui/skin/sh_sl_br.png")
+				}
+			};
+		}
+	}
+}
+
 
 /**
  * C'tor
  */
-Slider::Slider(SliderType sliderType) :
-	mSliderType(sliderType)
+Slider::Slider(SliderType sliderType) : Slider(loadSkins(sliderType), sliderType)
+{}
+
+
+Slider::Slider(Slider::Skins skins, SliderType sliderType) :
+	mSliderType{sliderType},
+	mSkins{skins}
 {
-	SLD_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	sliderFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMove);
@@ -44,100 +156,6 @@ Slider::~Slider()
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Slider::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Slider::onMouseMove);
-}
-
-
-/**
- *
- */
-void Slider::setSkins()
-{
-	if (!mSkinButton1.empty()) { return; }
-
-	if (mSliderType == SliderType::Vertical)
-	{
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_tl.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_tm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_tr.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_ml.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_mm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_mr.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_bl.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_bm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sv_bu_br.png"));
-
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_tl.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_tm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_tr.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_ml.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_mm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_mr.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_bl.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_bm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sv_sa_br.png"));
-
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_tl.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_tm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_tr.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_ml.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_mm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_mr.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_bl.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_bm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sv_bd_br.png"));
-
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_tl.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_tm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_tr.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_ml.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_mm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_mr.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_bl.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_bm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sv_sl_br.png"));
-	}
-	else
-	{
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_tl.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_tm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_tr.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_ml.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_mm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_mr.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_bl.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_bm.png"));
-		mSkinButton1.push_back(Image("ui/skin/sh_bl_br.png"));
-
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_tl.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_tm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_tr.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_ml.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_mm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_mr.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_bl.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_bm.png"));
-		mSkinMiddle.push_back(Image("ui/skin/sh_sa_br.png"));
-
-		mSkinButton2.push_back(Image("ui/skin/sh_br_tl.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_tm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_tr.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_ml.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_mm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_mr.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_bl.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_bm.png"));
-		mSkinButton2.push_back(Image("ui/skin/sh_br_br.png"));
-
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_tl.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_tm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_tr.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_ml.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_mm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_mr.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_bl.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_bm.png"));
-		mSkinSlider.push_back(Image("ui/skin/sh_sl_br.png"));
-	}
 }
 
 
@@ -315,7 +333,6 @@ void Slider::update()
 	}
 
 	logic();
-	setSkins();
 	draw();
 }
 
@@ -327,9 +344,9 @@ void Slider::draw()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImageRect(mSlideBar, mSkinMiddle); // slide area
-	renderer.drawImageRect(mButton1, mSkinButton1); // top or left button
-	renderer.drawImageRect(mButton2, mSkinButton2); // bottom or right button
+	renderer.drawImageRect(mSlideBar, mSkins.skinMiddle); // slide area
+	renderer.drawImageRect(mButton1, mSkins.skinButton1); // top or left button
+	renderer.drawImageRect(mButton2, mSkins.skinButton2); // bottom or right button
 
 	if (mSliderType == SliderType::Vertical)
 	{
@@ -352,19 +369,19 @@ void Slider::draw()
 		mSlider = {mSlideBar.x + relativeThumbPosition, mSlideBar.y, newSize, mSlideBar.height};
 	}
 
-	renderer.drawImageRect(mSlider, mSkinSlider);
+	renderer.drawImageRect(mSlider, mSkins.skinSlider);
 
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
 		std::string textHover = std::to_string(static_cast<int>(thumbPosition())) + " / " + std::to_string(static_cast<int>(mLength));
-		const auto boxSize = SLD_FONT->size(textHover) + NAS2D::Vector{4, 4};
+		const auto boxSize = sliderFont->size(textHover) + NAS2D::Vector{4, 4};
 		const auto boxPosition = (mSliderType == SliderType::Vertical) ?
 			NAS2D::Point{mSlideBar.x + mSlideBar.width + 2, mMousePosition.y - boxSize.y} :
 			NAS2D::Point{mMousePosition.x + 2, mSlideBar.y - 2 - boxSize.y};
 
 		renderer.drawBox(NAS2D::Rectangle{boxPosition.x, boxPosition.y, boxSize.x, boxSize.y}, NAS2D::Color{255, 255, 255, 180});
 		renderer.drawBoxFilled(NAS2D::Rectangle{boxPosition.x + 1, boxPosition.y + 1, boxSize.x - 2, boxSize.y - 2}, NAS2D::Color{0, 0, 0, 180});
-		renderer.drawText(*SLD_FONT, textHover, NAS2D::Point{boxPosition.x + 2, boxPosition.y + 2}, NAS2D::Color{220, 220, 220});
+		renderer.drawText(*sliderFont, textHover, NAS2D::Point{boxPosition.x + 2, boxPosition.y + 2}, NAS2D::Color{220, 220, 220});
 	}
 }
 

@@ -11,9 +11,8 @@ class Robodigger: public Robot
 public:
 	Robodigger() :
 		Robot(constants::ROBODIGGER, "robots/robodigger.sprite"),
-		mDirection(Direction::DIR_DOWN)
+		mDirection(Direction::Down)
 	{
-		sprite().play("running");
 	}
 
 	void direction(Direction dir) { mDirection = dir; }

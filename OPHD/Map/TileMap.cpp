@@ -145,7 +145,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 		throw std::runtime_error("Given map file does not exist.");
 	}
 
-	Image heightmap(path + MAP_TERRAIN_EXTENSION);
+	const Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
 	mTileMap.resize(static_cast<std::size_t>(mMaxDepth) + 1);
 	for(int level = 0; level <= mMaxDepth; level++)
@@ -171,7 +171,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 		{
 			for(int col = 0; col < mSizeInTiles.x; col++)
 			{
-				Color color = heightmap.pixelColor(col, row);
+				Color color = heightmap.pixelColor({col, row});
 				Tile& tile = mTileMap[depth][row][col];
 				tile = {{col, row}, depth, color.red / 50};
 				if (depth > 0) { tile.excavated(false); }
@@ -230,7 +230,7 @@ void TileMap::buildMouseMap()
 		throw std::runtime_error("Unable to find the mouse map file.");
 	}
 
-	Image mousemap("ui/mouse_map.png");
+	const Image mousemap("ui/mouse_map.png");
 
 	// More sanity checks (mousemap should match dimensions of tile)
 	if (mousemap.size() != Vector{TILE_WIDTH, TILE_HEIGHT_ABSOLUTE})
@@ -248,7 +248,7 @@ void TileMap::buildMouseMap()
 	{
 		for(std::size_t col = 0; col < TILE_WIDTH; col++)
 		{
-			const Color c = mousemap.pixelColor(static_cast<int>(col), static_cast<int>(row));
+			const Color c = mousemap.pixelColor({static_cast<int>(col), static_cast<int>(row)});
 			if (c == NAS2D::Color::Yellow) { mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_RIGHT; }
 			else if (c == NAS2D::Color::Red) { mMouseMap[row][col] = MouseMapRegion::MMR_TOP_LEFT; }
 			else if (c == NAS2D::Color::Blue) { mMouseMap[row][col] = MouseMapRegion::MMR_TOP_RIGHT; }

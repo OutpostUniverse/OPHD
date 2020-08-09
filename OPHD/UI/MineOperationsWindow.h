@@ -41,8 +41,8 @@ private:
 private:
 	MineFacility* mFacility = nullptr;
 
-	NAS2D::Image mUiIcon;
-	NAS2D::Image mIcons;
+	const NAS2D::Image& mUiIcon;
+	const NAS2D::Image& mIcons;
 
 	NAS2D::ImageList mPanel;
 

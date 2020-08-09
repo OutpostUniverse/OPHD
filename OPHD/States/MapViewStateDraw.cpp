@@ -25,7 +25,7 @@ extern NAS2D::Rectangle<int> MOVE_DOWN_ICON;
 
 extern NAS2D::Point<int> MOUSE_COORDS;
 
-extern NAS2D::Font* MAIN_FONT; /// yuck
+extern const NAS2D::Font* MAIN_FONT; /// yuck
 
 
 namespace {
@@ -66,7 +66,7 @@ void MapViewState::drawMiniMap()
 	renderer.clipRect(miniMapBoxFloat);
 
 	bool isHeightmapToggled = mBtnToggleHeightmap.toggled();
-	renderer.drawImage(isHeightmapToggled ? mHeightMap : mMapDisplay, miniMapBoxFloat.startPoint());
+	renderer.drawImage(*(isHeightmapToggled ? mHeightMap : mMapDisplay).get(), miniMapBoxFloat.startPoint());
 
 	const auto miniMapOffset = mMiniMapBoundingBox.startPoint() - NAS2D::Point{0, 0};
 	const auto ccPosition = ccLocation();

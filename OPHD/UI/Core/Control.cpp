@@ -11,7 +11,7 @@ using namespace NAS2D;
  * 
  * \param pos	2D Coordinate to position the Control at.
  */
-void Control::position(const Point<int>& pos)
+void Control::position(Point<int> pos)
 {
 	const auto displacement = pos - mRect.startPoint();
 	mRect.startPoint(pos);

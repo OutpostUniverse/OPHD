@@ -127,8 +127,8 @@ private:
 
 	TileArray mTileMap;
 
-	NAS2D::Image mTileset;
-	NAS2D::Image mMineBeacon;
+	const NAS2D::Image mTileset;
+	const NAS2D::Image mMineBeacon;
 
 	NAS2D::Timer mTimer;
 

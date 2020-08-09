@@ -7,7 +7,7 @@
 #include "../Core/UIContainer.h"
 #include "../Core/TextArea.h"
 #include "../FactoryListBox.h"
-
+#include "../../Common.h"
 
 class FactoryReport : public ReportInterface
 {
@@ -28,7 +28,7 @@ private:
 
 	void fillFactoryList(ProductType);
 	void fillFactoryList(bool);
-	void fillFactoryList(Structure::StructureState);
+	void fillFactoryList(StructureState);
 
 	void btnShowAllClicked();
 	void btnShowSurfaceClicked();

@@ -10,6 +10,7 @@
 
 #include "TextField.h"
 
+#include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
 
@@ -28,10 +29,32 @@ static const int CURSOR_BLINK_DELAY = 250;
 
 static std::locale LOC;
 
-static Font* TXT_FONT = nullptr;
+static const Font* TXT_FONT = nullptr;
 
 
-TextField::TextField()
+TextField::TextField() :
+	mSkinNormal{
+		imageCache.load("ui/skin/textbox_top_left.png"),
+		imageCache.load("ui/skin/textbox_top_middle.png"),
+		imageCache.load("ui/skin/textbox_top_right.png"),
+		imageCache.load("ui/skin/textbox_middle_left.png"),
+		imageCache.load("ui/skin/textbox_middle_middle.png"),
+		imageCache.load("ui/skin/textbox_middle_right.png"),
+		imageCache.load("ui/skin/textbox_bottom_left.png"),
+		imageCache.load("ui/skin/textbox_bottom_middle.png"),
+		imageCache.load("ui/skin/textbox_bottom_right.png")
+	},
+	mSkinFocus{
+		imageCache.load("ui/skin/textbox_top_left_highlight.png"),
+		imageCache.load("ui/skin/textbox_top_middle_highlight.png"),
+		imageCache.load("ui/skin/textbox_top_right_highlight.png"),
+		imageCache.load("ui/skin/textbox_middle_left_highlight.png"),
+		imageCache.load("ui/skin/textbox_middle_middle_highlight.png"),
+		imageCache.load("ui/skin/textbox_middle_right_highlight.png"),
+		imageCache.load("ui/skin/textbox_bottom_left_highlight.png"),
+		imageCache.load("ui/skin/textbox_bottom_middle_highlight.png"),
+		imageCache.load("ui/skin/textbox_bottom_right_highlight.png")
+	}
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &TextField::onMouseDown);
 	Utility<EventHandler>::get().keyDown().connect(this, &TextField::onKeyDown);
@@ -40,27 +63,7 @@ TextField::TextField()
 	hasFocus(true);
 	Utility<EventHandler>::get().textInputMode(true);
 
-	mSkinNormal.push_back(Image("ui/skin/textbox_top_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_top_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_top_right.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_middle_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_middle_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_middle_right.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_bottom_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_bottom_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/textbox_bottom_right.png"));
-
-	mSkinFocus.push_back(Image("ui/skin/textbox_top_left_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_top_middle_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_top_right_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_middle_left_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_middle_middle_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_middle_right_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_left_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_middle_highlight.png"));
-	mSkinFocus.push_back(Image("ui/skin/textbox_bottom_right_highlight.png"));
-
-	TXT_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	TXT_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	height(TXT_FONT->height() + FIELD_PADDING * 2);
 }
 

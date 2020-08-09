@@ -3,6 +3,7 @@
 
 #include "WarehouseReport.h"
 
+#include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
 #include "../../StructureManager.h"
@@ -13,12 +14,12 @@
 using namespace NAS2D;
 
 
-static Font* FONT_BOLD = nullptr;
-static Font* FONT_MED = nullptr;
-static Font* FONT_MED_BOLD = nullptr;
-static Font* FONT_BIG_BOLD = nullptr;
+static const Font* FONT_BOLD = nullptr;
+static const Font* FONT_MED = nullptr;
+static const Font* FONT_MED_BOLD = nullptr;
+static const Font* FONT_BIG_BOLD = nullptr;
 
-static Image* WAREHOUSE_IMG = nullptr;
+static const Image* WAREHOUSE_IMG = nullptr;
 
 static int COUNT_WIDTH = 0;
 static int CAPACITY_WIDTH = 0;
@@ -37,9 +38,9 @@ static Warehouse* SELECTED_WAREHOUSE = nullptr;
 /**
  * Internal convenience function to avoid really fugly code.
  */
-static bool useStateString(Structure::StructureState _state)
+static bool useStateString(StructureState _state)
 {
-	return _state == Structure::StructureState::DISABLED || _state == Structure::StructureState::DESTROYED || _state == Structure::StructureState::UNDER_CONSTRUCTION || _state == Structure::StructureState::IDLE;
+	return _state == StructureState::Disabled || _state == StructureState::Destroyed || _state == StructureState::UnderConstruction || _state == StructureState::Idle;
 }
 
 
@@ -94,7 +95,6 @@ WarehouseReport::WarehouseReport() :
 WarehouseReport::~WarehouseReport()
 {
 	Control::resized().disconnect(this, &WarehouseReport::_resized);
-	delete WAREHOUSE_IMG;
 }
 
 
@@ -103,12 +103,12 @@ WarehouseReport::~WarehouseReport()
  */
 void WarehouseReport::init()
 {
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
-	FONT_MED = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_MED_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	FONT_BIG_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
+	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	FONT_MED = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
+	FONT_MED_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	FONT_BIG_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
 
-	WAREHOUSE_IMG = new Image("ui/interface/warehouse.png");
+	WAREHOUSE_IMG = &imageCache.load("ui/interface/warehouse.png");
 
 	add(&btnShowAll, 10, 10);
 	btnShowAll.size({75, 20});

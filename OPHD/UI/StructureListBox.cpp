@@ -13,8 +13,8 @@ using namespace NAS2D;
 
 const int LIST_ITEM_HEIGHT = 30;
 
-static Font* MAIN_FONT = nullptr;
-static Font* MAIN_FONT_BOLD = nullptr;
+static const Font* MAIN_FONT = nullptr;
+static const Font* MAIN_FONT_BOLD = nullptr;
 
 
 static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem& item, int x, int y, int w, int offset, bool highlight)
@@ -59,8 +59,8 @@ StructureListBox::~StructureListBox()
 void StructureListBox::_init()
 {
 	item_height(LIST_ITEM_HEIGHT);
-	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 12);
-	MAIN_FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 12);
+	MAIN_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, 12);
+	MAIN_FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, 12);
 }
 
 

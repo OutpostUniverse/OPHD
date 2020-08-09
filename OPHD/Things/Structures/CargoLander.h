@@ -13,7 +13,6 @@ public:
 
 	CargoLander(Tile* t) : Structure(constants::CARGO_LANDER, "structures/lander_0.sprite", StructureClass::Lander), mTile(t)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(50);
 		turnsToBuild(1);
 		repairable(false);

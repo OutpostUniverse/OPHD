@@ -9,7 +9,6 @@ class RecreationCenter : public Structure
 public:
 	RecreationCenter() : Structure(constants::RECREATION_CENTER, "structures/recreation_center.sprite", StructureClass::RecreationCenter)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(500);
 		turnsToBuild(4);
 

@@ -12,7 +12,6 @@ class FusionReactor : public PowerStructure
 public:
 	FusionReactor() : PowerStructure(constants::FUSION_REACTOR, "structures/fusion_reactor.sprite", StructureClass::EnergyProduction)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);
 		turnsToBuild(10);
 		requiresCHAP(false);

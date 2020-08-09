@@ -3,6 +3,7 @@
 
 #include "FactoryListBox.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -11,10 +12,10 @@ using namespace NAS2D;
 
 
 const int LIST_ITEM_HEIGHT = 58;
-Image* STRUCTURE_ICONS = nullptr;
+const Image* STRUCTURE_ICONS = nullptr;
 
-static Font* MAIN_FONT = nullptr;
-static Font* MAIN_FONT_BOLD = nullptr;
+static const Font* MAIN_FONT = nullptr;
+static const Font* MAIN_FONT_BOLD = nullptr;
 
 
 static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& item, int x, int y, int w, int offset, bool highlight)
@@ -56,16 +57,15 @@ FactoryListBox::FactoryListBox()
  */
 FactoryListBox::~FactoryListBox()
 {
-	delete STRUCTURE_ICONS;
 }
 
 
 void FactoryListBox::_init()
 {
 	item_height(LIST_ITEM_HEIGHT);
-	STRUCTURE_ICONS = new Image("ui/structures.png");
-	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 12);
-	MAIN_FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 12);
+	STRUCTURE_ICONS = &imageCache.load("ui/structures.png");
+	MAIN_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, 12);
+	MAIN_FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, 12);
 }
 
 
@@ -95,7 +95,7 @@ void FactoryListBox::addItem(Factory* factory)
 	else if (item->Text == constants::UNDERGROUND_FACTORY) { item->icon_slice = {138, 276}; }
 	else if (item->Text == constants::SEED_FACTORY) { item->icon_slice = {460, 368}; }
 	
-	if (factory->state() == Structure::StructureState::DESTROYED) { item->icon_slice = {414, 368}; }
+	if (factory->state() == StructureState::Destroyed) { item->icon_slice = {414, 368}; }
 	_update_item_display();
 }
 

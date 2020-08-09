@@ -12,7 +12,6 @@ public:
 	SolarPlant(float meanSolarDistance) : PowerStructure(constants::SOLAR_PLANT, "structures/solar_plant.sprite", StructureClass::EnergyProduction),
 		mMeanSolarDistance(meanSolarDistance)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(1000);
 		turnsToBuild(4);
 		requiresCHAP(false);

@@ -8,7 +8,6 @@ class SurfaceFactory: public Factory
 public:
 	SurfaceFactory(): Factory(constants::SURFACE_FACTORY, "structures/factory_surface.sprite")
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);
 		turnsToBuild(7);
 		requiresCHAP(false);

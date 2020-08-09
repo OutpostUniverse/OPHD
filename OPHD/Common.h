@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+enum class StructureState;
 
 enum class Difficulty
 {
@@ -26,14 +27,14 @@ extern Difficulty CURRENT_DIFFICULTY;
 /**
  * Digger robot digging direction.
  */
-enum Direction
+enum class Direction
 {
-	DIR_UP,
-	DIR_DOWN,
-	DIR_EAST,
-	DIR_WEST,
-	DIR_NORTH,
-	DIR_SOUTH
+	Up,
+	Down,
+	East,
+	West,
+	North,
+	South
 };
 
 
@@ -64,35 +65,35 @@ enum class MineProductionRate
 /**
  * 
  */
-enum DisabledReason
+enum class DisabledReason
 {
-	DISABLED_NONE, /**< Not Disabled, default reason. */
+	None, /**< Not Disabled, default reason. */
 
-	DISABLED_CHAP, /**< Requires atmosphere, no atmosphere available. */
-	DISABLED_DISCONNECTED, /**< Not connected to Command Center */
-	DISABLED_ENERGY, /**< Not enough Energy to operate. */
-	DISABLED_POPULATION, /**< Insufficient workers or scientists (or both) */
-	DISABLED_REFINED_RESOURCES, /**< Insufficient mined and refined resources */
-	DISABLED_STRUCTURAL_INTEGRITY /**< Structural integrity out of operating tolerances (damaged structure) */
+	Chap, /**< Requires atmosphere, no atmosphere available. */
+	Disconnected, /**< Not connected to Command Center */
+	Energy, /**< Not enough Energy to operate. */
+	Population, /**< Insufficient workers or scientists (or both) */
+	RefinedResources, /**< Insufficient mined and refined resources */
+	StructuralIntegrity /**< Structural integrity out of operating tolerances (damaged structure) */
 };
 
 
 /**
  * 
  */
-enum IdleReason
+enum class IdleReason
 {
-	IDLE_NONE,
+	None,
 
-	IDLE_PLAYER_SET,
-	IDLE_INTERNAL_STORAGE_FULL,
-	IDLE_FACTORY_PRODUCTION_COMPLETE,
-	IDLE_FACTORY_INSUFFICIENT_RESOURCES,
-	IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY,
-	IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE,
-	IDLE_MINE_EXHAUSTED,
-	IDLE_MINE_INACTIVE,
-	IDLE_INSUFFICIENT_LUXURY_PRODUCT
+	PlayerSet,
+	InternalStorageFull,
+	FactoryProductionComplete,
+	FactoryInsufficientResources,
+	FactoryInsufficientRobotCommandCapacity,
+	FactoryInsufficientWarehouseSpace,
+	MineExhausted,
+	MineInactive,
+	InsufficientLuxuryProduct
 };
 
 /**
@@ -328,7 +329,7 @@ const std::string& idleReason(IdleReason);
  */
 void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding = 4);
 
-NAS2D::Color& structureColorFromIndex(std::size_t);
-NAS2D::Color& structureTextColorFromIndex(std::size_t);
+NAS2D::Color& structureColorFromIndex(StructureState structureState);
+NAS2D::Color& structureTextColorFromIndex(StructureState structureState);
 
 bool windowMaximized();

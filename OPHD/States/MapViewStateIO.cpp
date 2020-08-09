@@ -36,8 +36,8 @@ extern std::string CURRENT_LEVEL_STRING;
 extern std::map <int, std::string> LEVEL_STRING_TABLE;
 
 
-extern NAS2D::Image* IMG_LOADING; /// \fixme	Hate having these as externs.
-extern NAS2D::Image* IMG_SAVING;
+extern const NAS2D::Image* IMG_LOADING; /// \fixme	Hate having these as externs.
+extern const NAS2D::Image* IMG_SAVING;
 
 
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge
@@ -173,8 +173,8 @@ void MapViewState::load(const std::string& filePath)
 	}
 
 	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
-	mMapDisplay = Image(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
-	mHeightMap = Image(mPlanetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION);
+	mMapDisplay = std::make_unique<Image>(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
+	mHeightMap = std::make_unique<Image>(mPlanetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION);
 	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.tilesetPath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
 
@@ -404,7 +404,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		}
 
 		st->age(age);
-		st->forced_state_change(static_cast<Structure::StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
+		st->forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
 		st->connectorDirection(static_cast<ConnectorDir>(direction));
 		
 		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }

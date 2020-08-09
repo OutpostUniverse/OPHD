@@ -3,6 +3,7 @@
 
 #include "Window.h"
 
+#include "../../Cache.h"
 #include "../../Common.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
@@ -12,9 +13,25 @@
 
 using namespace NAS2D;
 
-static Font* WINDOW_TITLE_FONT;
+static const Font* WINDOW_TITLE_FONT;
 
-Window::Window(std::string newTitle)
+Window::Window(std::string newTitle) :
+	mTitle{
+		imageCache.load("ui/skin/window_title_left.png"),
+		imageCache.load("ui/skin/window_title_middle.png"),
+		imageCache.load("ui/skin/window_title_right.png")
+	},
+	mBody{
+		imageCache.load("ui/skin/window_top_left.png"),
+		imageCache.load("ui/skin/window_top_middle.png"),
+		imageCache.load("ui/skin/window_top_right.png"),
+		imageCache.load("ui/skin/window_middle_left.png"),
+		imageCache.load("ui/skin/window_middle_middle.png"),
+		imageCache.load("ui/skin/window_middle_right.png"),
+		imageCache.load("ui/skin/window_bottom_left.png"),
+		imageCache.load("ui/skin/window_bottom_middle.png"),
+		imageCache.load("ui/skin/window_bottom_right.png")
+	}
 {
 	text(newTitle);
 	_init();
@@ -33,22 +50,7 @@ void Window::_init()
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMove);
 
-	WINDOW_TITLE_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
-
-	mBody.push_back(Image("ui/skin/window_top_left.png"));
-	mBody.push_back(Image("ui/skin/window_top_middle.png"));
-	mBody.push_back(Image("ui/skin/window_top_right.png"));
-	mBody.push_back(Image("ui/skin/window_middle_left.png"));
-	mBody.push_back(Image("ui/skin/window_middle_middle.png"));
-	mBody.push_back(Image("ui/skin/window_middle_right.png"));
-	mBody.push_back(Image("ui/skin/window_bottom_left.png"));
-	mBody.push_back(Image("ui/skin/window_bottom_middle.png"));
-	mBody.push_back(Image("ui/skin/window_bottom_right.png"));
-
-
-	mTitle.push_back(Image("ui/skin/window_title_left.png"));
-	mTitle.push_back(Image("ui/skin/window_title_middle.png"));
-	mTitle.push_back(Image("ui/skin/window_title_right.png"));
+	WINDOW_TITLE_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 

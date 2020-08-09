@@ -3,6 +3,7 @@
 
 #include "Button.h"
 
+#include "../../Cache.h"
 #include "../../Common.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
@@ -14,7 +15,40 @@
 using namespace NAS2D;
 
 
-Button::Button(std::string newText)
+Button::Button(std::string newText) :
+	mSkinNormal{
+		imageCache.load("ui/skin/button_top_left.png"),
+		imageCache.load("ui/skin/button_top_middle.png"),
+		imageCache.load("ui/skin/button_top_right.png"),
+		imageCache.load("ui/skin/button_middle_left.png"),
+		imageCache.load("ui/skin/button_middle_middle.png"),
+		imageCache.load("ui/skin/button_middle_right.png"),
+		imageCache.load("ui/skin/button_bottom_left.png"),
+		imageCache.load("ui/skin/button_bottom_middle.png"),
+		imageCache.load("ui/skin/button_bottom_right.png")
+	},
+	mSkinHover{
+		imageCache.load("ui/skin/button_hover_top_left.png"),
+		imageCache.load("ui/skin/button_hover_top_middle.png"),
+		imageCache.load("ui/skin/button_hover_top_right.png"),
+		imageCache.load("ui/skin/button_hover_middle_left.png"),
+		imageCache.load("ui/skin/button_hover_middle_middle.png"),
+		imageCache.load("ui/skin/button_hover_middle_right.png"),
+		imageCache.load("ui/skin/button_hover_bottom_left.png"),
+		imageCache.load("ui/skin/button_hover_bottom_middle.png"),
+		imageCache.load("ui/skin/button_hover_bottom_right.png")
+	},
+	mSkinPressed{
+		imageCache.load("ui/skin/button_pressed_top_left.png"),
+		imageCache.load("ui/skin/button_pressed_top_middle.png"),
+		imageCache.load("ui/skin/button_pressed_top_right.png"),
+		imageCache.load("ui/skin/button_pressed_middle_left.png"),
+		imageCache.load("ui/skin/button_pressed_middle_middle.png"),
+		imageCache.load("ui/skin/button_pressed_middle_right.png"),
+		imageCache.load("ui/skin/button_pressed_bottom_left.png"),
+		imageCache.load("ui/skin/button_pressed_bottom_middle.png"),
+		imageCache.load("ui/skin/button_pressed_bottom_right.png")
+	}
 {
 	text(newText);
 
@@ -23,37 +57,7 @@ Button::Button(std::string newText)
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMove);
 	hasFocus(true);
 
-	mSkinNormal.push_back(Image("ui/skin/button_top_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_top_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_top_right.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_middle_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_middle_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_middle_right.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_bottom_left.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_bottom_middle.png"));
-	mSkinNormal.push_back(Image("ui/skin/button_bottom_right.png"));
-
-	mSkinHover.push_back(Image("ui/skin/button_hover_top_left.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_top_middle.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_top_right.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_middle_left.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_middle_middle.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_middle_right.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_bottom_left.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_bottom_middle.png"));
-	mSkinHover.push_back(Image("ui/skin/button_hover_bottom_right.png"));
-
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_top_left.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_top_middle.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_top_right.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_middle_left.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_middle_middle.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_middle_right.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_bottom_left.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_bottom_middle.png"));
-	mSkinPressed.push_back(Image("ui/skin/button_pressed_bottom_right.png"));
-
-	mFont = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	mFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -62,8 +66,6 @@ Button::~Button()
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Button::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Button::onMouseMove);
-
-	delete mImage;
 }
 
 
@@ -75,31 +77,31 @@ void Button::type(Type type)
 
 void Button::toggle(bool toggle)
 {
-	mState = toggle ? State::STATE_PRESSED : State::STATE_NORMAL;
+	mState = toggle ? State::Pressed : State::Normal;
 }
 
 
 bool Button::toggled() const
 {
-	return mState == State::STATE_PRESSED;
+	return mState == State::Pressed;
 }
 
 
 void Button::fontSize(std::size_t size)
 {
-	mFont = Utility<FontManager>::get().font(constants::FONT_PRIMARY, size);
+	mFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, size);
 }
 
 
 void Button::image(const std::string& path)
 {
-	mImage = new Image(path);
+	mImage = &imageCache.load(path);
 }
 
 
 bool Button::hasImage() const
 {
-	return mImage->loaded();
+	return mImage != nullptr;
 }
 
 
@@ -113,11 +115,11 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		{
 			if(mType == Type::BUTTON_NORMAL)
 			{
-				mState = State::STATE_PRESSED;
+				mState = State::Pressed;
 			}
 			else
 			{
-				mState = (mState == State::STATE_PRESSED ? State::STATE_NORMAL : State::STATE_PRESSED);
+				mState = (mState == State::Pressed ? State::Normal : State::Pressed);
 				mCallback();
 			}
 		}
@@ -133,7 +135,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	{
 		if(mType == Type::BUTTON_NORMAL)
 		{
-			mState = State::STATE_NORMAL;
+			mState = State::Normal;
 
 			if (mRect.contains(Point<int>{x, y}))
 			{
@@ -165,11 +167,11 @@ void Button::draw()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	if (enabled() && mMouseHover && mState != State::STATE_PRESSED)
+	if (enabled() && mMouseHover && mState != State::Pressed)
 	{
 		renderer.drawImageRect(mRect, mSkinHover);
 	}
-	else if (mState == State::STATE_NORMAL)
+	else if (mState == State::Normal)
 	{
 		renderer.drawImageRect(mRect, mSkinNormal);
 	}

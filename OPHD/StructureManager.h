@@ -28,7 +28,7 @@ public:
 
 	int count() const;
 
-	int getCountInState(Structure::StructureClass st, Structure::StructureState state);
+	int getCountInState(Structure::StructureClass st, StructureState state);
 
 	int disabled();
 	int destroyed();

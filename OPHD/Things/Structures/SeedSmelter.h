@@ -10,7 +10,6 @@ class SeedSmelter : public Structure
 public:
 	SeedSmelter() : Structure(constants::SEED_SMELTER, "structures/seed_1.sprite", StructureClass::Smelter)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(150);
 		turnsToBuild(6);
 		requiresCHAP(false);
@@ -53,12 +52,12 @@ protected:
 		for (size_t i = 0; i < ore.resources.size(); ++i)
 		{
 			if (ore.resources[i] >= resource_units)
-			{
+		{
 				converted.resources[i] = resource_units / OreConversionDivisor[i];
 				ore.resources[i] = ore.resources[i] - resource_units;
-			}
 		}
-		
+		}
+
 		auto total = storage() + converted;
 		auto capped = total.cap(StorageCapacity / 4);
 		auto overflow = total - capped;
@@ -68,7 +67,7 @@ protected:
 		if (overflow > StorableResources{ 0 })
 		{
 			ore = ore + overflow;
-			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
+			idle(IdleReason::InternalStorageFull);
 		}
 	}
 

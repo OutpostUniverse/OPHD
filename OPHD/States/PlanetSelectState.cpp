@@ -21,16 +21,18 @@ using namespace NAS2D;
 std::size_t planetSelection;
 constexpr std::size_t planetSelectionInvalid = std::numeric_limits<std::size_t>::max();
 
-static Font* FONT = nullptr;
-static Font* FONT_BOLD = nullptr;
-static Font* FONT_TINY = nullptr;
+static const Font* FONT = nullptr;
+static const Font* FONT_BOLD = nullptr;
+static const Font* FONT_TINY = nullptr;
 
 
 
 class Explosion
 {
 public:
-	Explosion(): mSheet("fx/explosion2.png") {}
+	Explosion() :
+		mSheet("fx/explosion2.png")
+	{}
 	~Explosion() = default;
 
 	void update(int x, int y)
@@ -52,7 +54,7 @@ public:
 	}
 
 private:
-	NAS2D::Image mSheet;
+	const NAS2D::Image mSheet;
 	NAS2D::Timer mTimer;
 
 	std::size_t mFrame = 0;
@@ -138,9 +140,9 @@ void PlanetSelectState::initialize()
 	renderer.showSystemPointer(true);
 	renderer.fadeIn(constants::FADE_SPEED);
 
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	FONT_TINY = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
+	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	FONT_TINY = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
 
 	EXPLODE = new Explosion();

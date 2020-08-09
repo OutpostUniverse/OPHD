@@ -5,21 +5,33 @@
 
 #include "TextRender.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
 using namespace NAS2D;
 
-static Font* FONT = nullptr;
-static Font* FONT_BOLD = nullptr;
+static const Font* FONT = nullptr;
+static const Font* FONT_BOLD = nullptr;
 
 
 /**
  * 
  */
 MineOperationsWindow::MineOperationsWindow() :
-	mUiIcon{"ui/interface/mine.png"},
-	mIcons{"ui/icons.png"},
+	mUiIcon{imageCache.load("ui/interface/mine.png")},
+	mIcons{imageCache.load("ui/icons.png")},
+	mPanel{
+		imageCache.load("ui/skin/textbox_top_left.png"),
+		imageCache.load("ui/skin/textbox_top_middle.png"),
+		imageCache.load("ui/skin/textbox_top_right.png"),
+		imageCache.load("ui/skin/textbox_middle_left.png"),
+		imageCache.load("ui/skin/textbox_middle_middle.png"),
+		imageCache.load("ui/skin/textbox_middle_right.png"),
+		imageCache.load("ui/skin/textbox_bottom_left.png"),
+		imageCache.load("ui/skin/textbox_bottom_middle.png"),
+		imageCache.load("ui/skin/textbox_bottom_right.png")
+	},
 	chkCommonMetals{"Common Metals"},
 	chkCommonMinerals{"Common Minerals"},
 	chkRareMetals{"Rare Metals"},
@@ -74,18 +86,8 @@ void MineOperationsWindow::init()
 	add(&chkRareMinerals, 259, 128);
 	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
 
-	mPanel.push_back(Image("ui/skin/textbox_top_left.png"));
-	mPanel.push_back(Image("ui/skin/textbox_top_middle.png"));
-	mPanel.push_back(Image("ui/skin/textbox_top_right.png"));
-	mPanel.push_back(Image("ui/skin/textbox_middle_left.png"));
-	mPanel.push_back(Image("ui/skin/textbox_middle_middle.png"));
-	mPanel.push_back(Image("ui/skin/textbox_middle_right.png"));
-	mPanel.push_back(Image("ui/skin/textbox_bottom_left.png"));
-	mPanel.push_back(Image("ui/skin/textbox_bottom_middle.png"));
-	mPanel.push_back(Image("ui/skin/textbox_bottom_right.png"));
-
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 

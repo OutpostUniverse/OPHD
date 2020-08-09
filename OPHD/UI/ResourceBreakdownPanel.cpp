@@ -3,6 +3,7 @@
 
 #include "ResourceBreakdownPanel.h"
 
+#include "../Cache.h"
 #include "../Common.h"
 #include "../Constants.h"
 #include "../FontManager.h"
@@ -15,7 +16,7 @@
 
 using namespace NAS2D;
 
-static Font* FONT = nullptr;
+static const Font* FONT = nullptr;
 
 
 enum ResourceTrend
@@ -46,21 +47,23 @@ namespace
 }
 
 
-ResourceBreakdownPanel::ResourceBreakdownPanel() : mIcons("ui/icons.png")
+ResourceBreakdownPanel::ResourceBreakdownPanel() :
+	mIcons{imageCache.load("ui/icons.png")},
+	mSkin{
+		imageCache.load("ui/skin/window_top_left.png"),
+		imageCache.load("ui/skin/window_top_middle.png"),
+		imageCache.load("ui/skin/window_top_right.png"),
+		imageCache.load("ui/skin/window_middle_left.png"),
+		imageCache.load("ui/skin/window_middle_middle.png"),
+		imageCache.load("ui/skin/window_middle_right.png"),
+		imageCache.load("ui/skin/window_bottom_left.png"),
+		imageCache.load("ui/skin/window_bottom_middle.png"),
+		imageCache.load("ui/skin/window_bottom_right.png")
+	}
 {
 	size({270, 80});
 
-	mSkin.push_back(Image("ui/skin/window_top_left.png"));
-	mSkin.push_back(Image("ui/skin/window_top_middle.png"));
-	mSkin.push_back(Image("ui/skin/window_top_right.png"));
-	mSkin.push_back(Image("ui/skin/window_middle_left.png"));
-	mSkin.push_back(Image("ui/skin/window_middle_middle.png"));
-	mSkin.push_back(Image("ui/skin/window_middle_right.png"));
-	mSkin.push_back(Image("ui/skin/window_bottom_left.png"));
-	mSkin.push_back(Image("ui/skin/window_bottom_middle.png"));
-	mSkin.push_back(Image("ui/skin/window_bottom_right.png"));
-
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 

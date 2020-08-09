@@ -322,6 +322,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClCompile Include="WindowEventWrapper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cache.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Constants\Numbers.h" />

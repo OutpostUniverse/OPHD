@@ -37,11 +37,6 @@ extern NAS2D::Rectangle<int> MOVE_UP_ICON;
 extern NAS2D::Rectangle<int> MOVE_DOWN_ICON;
 
 
-extern NAS2D::Image* IMG_LOADING; /// \fixme Find a sane place for this.
-extern NAS2D::Image* IMG_SAVING; /// \fixme Find a sane place for this.
-extern NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
-
-
 /**
  * Sets up the user interface elements
  * 
@@ -118,27 +113,17 @@ void MapViewState::initUi()
 	mBtnToggleConnectedness.click().connect(this, &MapViewState::btnToggleConnectednessClicked);
 
 	// Menus
-	mRobots.sheetPath("ui/robots.png");
 	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, BOTTOM_UI_AREA.y + MARGIN});
 	mRobots.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
-	mRobots.iconSize(46);
-	mRobots.iconMargin(constants::MARGIN_TIGHT);
 	mRobots.showTooltip(true);
 	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
 
-	mConnections.sheetPath("ui/structures.png");
 	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, BOTTOM_UI_AREA.y + MARGIN});
 	mConnections.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
-	mConnections.iconSize(46);
-	mConnections.iconMargin(constants::MARGIN_TIGHT);
 	mConnections.selectionChanged().connect(this, &MapViewState::connectionsSelectionChanged);
-	mConnections.sorted(false);
 
-	mStructures.sheetPath("ui/structures.png");
 	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y + MARGIN});
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
-	mStructures.iconSize(46);
-	mStructures.iconMargin(constants::MARGIN_TIGHT);
 	mStructures.showTooltip(true);
 	mStructures.selectionChanged().connect(this, &MapViewState::structuresSelectionChanged);
 
@@ -182,7 +167,6 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mStructures.position(NAS2D::Point{constants::MARGIN, BOTTOM_UI_AREA.y + MARGIN});
 
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
-	mStructures.iconMargin(constants::MARGIN_TIGHT);
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();
@@ -327,7 +311,6 @@ void MapViewState::populateStructureMenu()
 	updateStructuresAvailability();
 
 	mStructures.sort();
-	mConnections.sort();
 }
 
 
@@ -452,7 +435,7 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
-	if (tile->depth() > 0 && direction == Direction::DIR_DOWN)
+	if (tile->depth() > 0 && direction == Direction::Down)
 	{
 		NAS2D::Utility<StructureManager>::get().removeStructure(tile->structure());
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -469,19 +452,19 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 	robot->direction(direction);
 
 
-	if (direction == Direction::DIR_NORTH)
+	if (direction == Direction::North)
 	{
 		mTileMap->getTile(tile->position() + DirectionNorth, tile->depth())->excavated(true);
 	}
-	else if (direction == Direction::DIR_SOUTH)
+	else if (direction == Direction::South)
 	{
 		mTileMap->getTile(tile->position() + DirectionSouth, tile->depth())->excavated(true);
 	}
-	else if (direction == Direction::DIR_EAST)
+	else if (direction == Direction::East)
 	{
 		mTileMap->getTile(tile->position() + DirectionEast, tile->depth())->excavated(true);
 	}
-	else if (direction == Direction::DIR_WEST)
+	else if (direction == Direction::West)
 	{
 		mTileMap->getTile(tile->position() + DirectionWest, tile->depth())->excavated(true);
 	}

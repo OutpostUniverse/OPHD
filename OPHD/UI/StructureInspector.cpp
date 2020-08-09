@@ -3,6 +3,7 @@
 
 #include "StructureInspector.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 #include "../Things/Structures/Structure.h"
@@ -17,13 +18,13 @@
 
 using namespace NAS2D;
 
-static Font* FONT = nullptr;
-static Font* FONT_BOLD = nullptr;
+static const Font* FONT = nullptr;
+static const Font* FONT_BOLD = nullptr;
 
 
 StructureInspector::StructureInspector() :
 	btnClose{"Close"},
-	mIcons{"ui/icons.png"}
+	mIcons{imageCache.load("ui/icons.png")}
 {
 	text(constants::WINDOW_STRUCTURE_INSPECTOR);
 	init();
@@ -53,8 +54,8 @@ void StructureInspector::init()
 	txtStateDescription.size({155, 80});
 	txtStateDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 

@@ -3,6 +3,7 @@
 
 #include "MajorEventAnnouncement.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -12,7 +13,7 @@
 using namespace NAS2D;
 
 MajorEventAnnouncement::MajorEventAnnouncement() :
-	btnClose{"Okay"}
+	mHeader{imageCache.load("ui/interface/colony_ship_crash.png")}
 {
 	init();
 }
@@ -46,11 +47,9 @@ void MajorEventAnnouncement::announcement(AnnouncementType a)
 	switch (a)
 	{
 	case AnnouncementType::ANNOUNCEMENT_COLONY_SHIP_CRASH:
-		mHeader = Image("ui/interface/colony_ship_crash.png");
 		mMessage = "Colony ship deorbited and crashed on the surface.";
 		break;
 	case AnnouncementType::ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS:
-		mHeader = Image("ui/interface/colony_ship_crash.png");
 		mMessage = "Colony ship deorbited and crashed on the surface but you left colonists on board!";
 		break;
 	default:
@@ -71,6 +70,6 @@ void MajorEventAnnouncement::update()
 	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});
 
 	// Yeah, I know. I hate it too but it made more sense than holding onto a static pointer.
-	const auto& font = *Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	const auto& font = *&Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	renderer.drawText(font, mMessage, position() + NAS2D::Vector{5, 290}, NAS2D::Color::White);
 }

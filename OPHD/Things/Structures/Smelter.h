@@ -9,7 +9,6 @@ class Smelter : public Structure
 public:
 	Smelter() : Structure(constants::SMELTER, "structures/smelter.sprite", StructureClass::Smelter)
 	{
-		sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 		maxAge(600);
 		turnsToBuild(9);
 		requiresCHAP(false);
@@ -51,10 +50,10 @@ protected:
 		for (size_t i = 0; i < ore.resources.size(); ++i)
 		{
 			if (ore.resources[i] >= resource_units)
-			{
+		{
 				converted.resources[i] = resource_units / OreConversionDivisor[i];
 				ore.resources[i] = ore.resources[i] - resource_units;
-			}
+		}
 		}
 
 		auto total = storage() + converted;
@@ -66,7 +65,7 @@ protected:
 		if (overflow > StorableResources{ 0 })
 		{
 			ore = ore + overflow;
-			idle(IdleReason::IDLE_INTERNAL_STORAGE_FULL);
+			idle(IdleReason::InternalStorageFull);
 		}
 	}
 

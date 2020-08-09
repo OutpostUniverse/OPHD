@@ -3,6 +3,7 @@
 
 #include "MainReportsUiState.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -19,10 +20,10 @@ using namespace NAS2D;
 
 extern Point<int> MOUSE_COORDS;
 
-static Image* WINDOW_BACKGROUND = nullptr;
+static const Image* WINDOW_BACKGROUND = nullptr;
 
-Font* BIG_FONT = nullptr;
-Font* BIG_FONT_BOLD = nullptr;
+const Font* BIG_FONT = nullptr;
+const Font* BIG_FONT_BOLD = nullptr;
 
 
 /**
@@ -58,7 +59,7 @@ public:
 public:
 	std::string Name;
 
-	Image* Img = nullptr;
+	const Image* Img = nullptr;
 
 	Point<int> TextPosition;
 	Point<int> IconPosition;
@@ -141,11 +142,8 @@ MainReportsUiState::~MainReportsUiState()
 	Utility<EventHandler>::get().keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
 
-	delete WINDOW_BACKGROUND;
-
 	for (Panel& panel : Panels)
 	{
-		delete panel.Img;
 		delete panel.UiPanel;
 	}
 }
@@ -156,29 +154,29 @@ MainReportsUiState::~MainReportsUiState()
  */
 void MainReportsUiState::initialize()
 {
-	WINDOW_BACKGROUND = new Image("ui/skin/window_middle_middle.png");
+	WINDOW_BACKGROUND = &imageCache.load("ui/skin/window_middle_middle.png");
 
-	BIG_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 16);
-	BIG_FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 16);
+	BIG_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, 16);
+	BIG_FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, 16);
 
-	Panels[NavigationPanel::PANEL_EXIT].Img = new Image("ui/icons/exit.png");
+	Panels[NavigationPanel::PANEL_EXIT].Img = &imageCache.load("ui/icons/exit.png");
 
-	Panels[NavigationPanel::PANEL_RESEARCH].Img = new Image("ui/icons/research.png");
+	Panels[NavigationPanel::PANEL_RESEARCH].Img = &imageCache.load("ui/icons/research.png");
 	Panels[NavigationPanel::PANEL_RESEARCH].Name = "Laboratories";
 
-	Panels[NavigationPanel::PANEL_PRODUCTION].Img = new Image("ui/icons/production.png");
+	Panels[NavigationPanel::PANEL_PRODUCTION].Img = &imageCache.load("ui/icons/production.png");
 	Panels[NavigationPanel::PANEL_PRODUCTION].Name = "Factories";
 
-	Panels[NavigationPanel::PANEL_WAREHOUSE].Img = new Image("ui/icons/warehouse.png");
+	Panels[NavigationPanel::PANEL_WAREHOUSE].Img = &imageCache.load("ui/icons/warehouse.png");
 	Panels[NavigationPanel::PANEL_WAREHOUSE].Name = "Warehouses";
 
-	Panels[NavigationPanel::PANEL_MINING].Img = new Image("ui/icons/mine.png");
+	Panels[NavigationPanel::PANEL_MINING].Img = &imageCache.load("ui/icons/mine.png");
 	Panels[NavigationPanel::PANEL_MINING].Name = "Mines";
 
-	Panels[NavigationPanel::PANEL_SATELLITES].Img = new Image("ui/icons/satellite.png");
+	Panels[NavigationPanel::PANEL_SATELLITES].Img = &imageCache.load("ui/icons/satellite.png");
 	Panels[NavigationPanel::PANEL_SATELLITES].Name = "Satellites";
 
-	Panels[NavigationPanel::PANEL_SPACEPORT].Img = new Image("ui/icons/spaceport.png");
+	Panels[NavigationPanel::PANEL_SPACEPORT].Img = &imageCache.load("ui/icons/spaceport.png");
 	Panels[NavigationPanel::PANEL_SPACEPORT].Name = "Space Ports";
 
 	auto& renderer = Utility<Renderer>::get();

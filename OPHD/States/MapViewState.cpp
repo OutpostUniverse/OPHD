@@ -30,8 +30,6 @@ using namespace NAS2D;
 const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
-extern NAS2D::Image* IMG_LOADING; /// \fixme Find a sane place for this.
-extern NAS2D::Image* IMG_SAVING; /// \fixme Find a sane place for this.
 extern Point<int> MOUSE_COORDS;
 extern MainReportsUiState* MAIN_REPORTS_UI;
 
@@ -61,17 +59,10 @@ std::map <int, std::string> LEVEL_STRING_TABLE =
 };
 
 
-Font* MAIN_FONT = nullptr;
+const Font* MAIN_FONT = nullptr;
 
 
-/**
- * C'Tor
- *
- * \param	savegame	Save game filename to load.
- */
 MapViewState::MapViewState(const std::string& savegame) :
-	mBackground("sys/bg1.png"),
-	mUiIcons("ui/icons.png"),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
@@ -80,30 +71,17 @@ MapViewState::MapViewState(const std::string& savegame) :
 }
 
 
-/**
- * C'Tor
- * 
- * \param	sm	Site map to load.
- * \param	t	Tileset to use.
- * \param	d	Depth of the site map.
- * \param	mc	Mine Count - Number of mines to generate.
- */
 MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mPlanetAttributes(planetAttributes),
-	mBackground("sys/bg1.png"),
-	mMapDisplay(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION),
-	mHeightMap(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION),
-	mUiIcons("ui/icons.png")
+	mMapDisplay{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
+	mHeightMap{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)}
 {
 	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
 
 
-/**
- * D'Tor
- */
 MapViewState::~MapViewState()
 {
 	scrubRobotList();
@@ -125,9 +103,6 @@ MapViewState::~MapViewState()
 }
 
 
-/**
- * 
- */
 void MapViewState::setPopulationLevel(PopulationLevel popLevel)
 {
 	mLandersColonist = static_cast<int>(popLevel);
@@ -177,7 +152,7 @@ void MapViewState::initialize()
 
 	e.textInputMode(true);
 
-	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	MAIN_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
 	delete mPathSolver;
 	mPathSolver = new micropather::MicroPather(mTileMap);
@@ -226,7 +201,7 @@ State* MapViewState::update()
 	renderer.drawImageStretched(mBackground, renderArea);
 
 	// explicit current level
-	Font* font = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	const Font* font = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - font->size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
 	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
 
@@ -1302,7 +1277,7 @@ void MapViewState::checkConnectedness()
 		throw std::runtime_error("CC coordinates do not actually point to a Command Center.");
 	}
 
-	if (cc->state() == Structure::StructureState::UNDER_CONSTRUCTION)
+	if (cc->state() == StructureState::UnderConstruction)
 	{
 		return;
 	}

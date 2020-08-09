@@ -42,19 +42,19 @@ private:
 	void drawStar(NAS2D::Point<int> point);
 
 private:
-	NAS2D::Image mBg;
+	const NAS2D::Image mBg;
 
-	NAS2D::Image mStarFlare;
-	NAS2D::Image mDetailFlare;
-	NAS2D::Image mDetailFlare2;
+	const NAS2D::Image mStarFlare;
+	const NAS2D::Image mDetailFlare;
+	const NAS2D::Image mDetailFlare2;
 
-	NAS2D::Image mCloud1;
-	NAS2D::Image mCloud2;
+	const NAS2D::Image mCloud1;
+	const NAS2D::Image mCloud2;
 
-	NAS2D::Music mBgMusic;
+	const NAS2D::Music mBgMusic;
 
-	NAS2D::Sound mSelect;
-	NAS2D::Sound mHover;
+	const NAS2D::Sound mSelect;
+	const NAS2D::Sound mHover;
 
 	NAS2D::Point<int> mMousePosition;
 

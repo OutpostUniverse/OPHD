@@ -16,8 +16,8 @@ using namespace NAS2D;
 
 const int LIST_ITEM_HEIGHT = 30;
 
-static Font* MAIN_FONT = nullptr;
-static Font* MAIN_FONT_BOLD = nullptr;
+static const Font* MAIN_FONT = nullptr;
+static const Font* MAIN_FONT_BOLD = nullptr;
 
 
 static Color ITEM_COLOR{0, 185, 0};
@@ -61,8 +61,8 @@ ProductListBox::ProductListBox()
 void ProductListBox::_init()
 {
 	item_height(LIST_ITEM_HEIGHT);
-	MAIN_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, 12);
-	MAIN_FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, 12);
+	MAIN_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, 12);
+	MAIN_FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, 12);
 }
 
 

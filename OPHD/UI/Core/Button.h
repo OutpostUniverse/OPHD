@@ -46,26 +46,26 @@ protected:
 	virtual void onMouseMove(int x, int y, int dX, int dY);
 
 private:
-	enum State
+	enum class State
 	{
-		STATE_NORMAL,
-		STATE_PRESSED
+		Normal,
+		Pressed
 	};
 
 private:
 	void draw() override;
 
 private:
-	State mState = State::STATE_NORMAL; /**< Current state of the Button. */
+	State mState = State::Normal; /**< Current state of the Button. */
 	Type mType = Type::BUTTON_NORMAL; /**< Modifies Button behavior. */
 
-	NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
+	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
 
 	NAS2D::ImageList mSkinNormal;
 	NAS2D::ImageList mSkinHover;
 	NAS2D::ImageList mSkinPressed;
 
-	NAS2D::Font* mFont = nullptr; /**< Buttons can have different font sizes. */
+	const NAS2D::Font* mFont = nullptr; /**< Buttons can have different font sizes. */
 
 	ClickCallback mCallback; /**< Object to notify when the Button is activated. */
 

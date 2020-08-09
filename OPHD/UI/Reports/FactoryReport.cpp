@@ -4,6 +4,7 @@
 #include "FactoryReport.h"
 
 #include "../TextRender.h"
+#include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
 #include "../../StructureManager.h"
@@ -21,22 +22,22 @@ static int SORT_BY_PRODUCT_POSITION = 0;
 static Rectangle<int> FACTORY_LISTBOX;
 static Rectangle<int> DETAIL_PANEL;
 
-static Font* FONT = nullptr;
-static Font* FONT_BOLD = nullptr;
-static Font* FONT_MED = nullptr;
-static Font* FONT_MED_BOLD = nullptr;
-static Font* FONT_BIG = nullptr;
-static Font* FONT_BIG_BOLD = nullptr;
+static const Font* FONT = nullptr;
+static const Font* FONT_BOLD = nullptr;
+static const Font* FONT_MED = nullptr;
+static const Font* FONT_MED_BOLD = nullptr;
+static const Font* FONT_BIG = nullptr;
+static const Font* FONT_BIG_BOLD = nullptr;
 
 static Factory* SELECTED_FACTORY = nullptr;
 
-static Image* FACTORY_SEED = nullptr;
-static Image* FACTORY_AG = nullptr;
-static Image* FACTORY_UG = nullptr;
-static Image* FACTORY_IMAGE = nullptr;
+static const Image* FACTORY_SEED = nullptr;
+static const Image* FACTORY_AG = nullptr;
+static const Image* FACTORY_UG = nullptr;
+static const Image* FACTORY_IMAGE = nullptr;
 
-std::array<Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
-static Image* _PRODUCT_NONE = nullptr;
+std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
+static const Image* _PRODUCT_NONE = nullptr;
 
 static std::string FACTORY_STATUS;
 static const std::string RESOURCES_REQUIRED = "Resources Required";
@@ -68,14 +69,7 @@ FactoryReport::FactoryReport() :
  */
 FactoryReport::~FactoryReport()
 {
-	delete FACTORY_SEED;
-	delete FACTORY_AG;
-	delete FACTORY_UG;
-	delete _PRODUCT_NONE;
-
 	SELECTED_FACTORY = nullptr;
-
-	for (auto img : PRODUCT_IMAGE_ARRAY) { delete img; }
 }
 
 
@@ -84,32 +78,32 @@ FactoryReport::~FactoryReport()
  */
 void FactoryReport::init()
 {
-	FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
-	FONT_MED = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_MED_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	FONT_MED = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
+	FONT_MED_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 
-	FONT_BIG = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
-	FONT_BIG_BOLD = Utility<FontManager>::get().font(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
+	FONT_BIG = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
+	FONT_BIG_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
 
-	FACTORY_SEED = new Image("ui/interface/factory_seed.png");
-	FACTORY_AG = new Image("ui/interface/factory_ag.png");
-	FACTORY_UG = new Image("ui/interface/factory_ug.png");
+	FACTORY_SEED = &imageCache.load("ui/interface/factory_seed.png");
+	FACTORY_AG = &imageCache.load("ui/interface/factory_ag.png");
+	FACTORY_UG = &imageCache.load("ui/interface/factory_ug.png");
 
 	/// \todo Decide if this is the best place to have these images live or if it should be done at program start.
 	PRODUCT_IMAGE_ARRAY.fill(nullptr);
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DIGGER] = new Image("ui/interface/product_robodigger.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DOZER] = new Image("ui/interface/product_robodozer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MINER] = new Image("ui/interface/product_robominer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_EXPLORER] = new Image("ui/interface/product_roboexplorer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_TRUCK] = new Image("ui/interface/product_truck.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_ROAD_MATERIALS] = new Image("ui/interface/product_road_materials.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MAINTENANCE_PARTS] = new Image("ui/interface/product_maintenance_parts.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_CLOTHING] = new Image("ui/interface/product_clothing.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MEDICINE] = new Image("ui/interface/product_medicine.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DIGGER] = &imageCache.load("ui/interface/product_robodigger.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DOZER] = &imageCache.load("ui/interface/product_robodozer.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MINER] = &imageCache.load("ui/interface/product_robominer.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_EXPLORER] = &imageCache.load("ui/interface/product_roboexplorer.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_TRUCK] = &imageCache.load("ui/interface/product_truck.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_ROAD_MATERIALS] = &imageCache.load("ui/interface/product_road_materials.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MAINTENANCE_PARTS] = &imageCache.load("ui/interface/product_maintenance_parts.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_CLOTHING] = &imageCache.load("ui/interface/product_clothing.png");
+	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MEDICINE] = &imageCache.load("ui/interface/product_medicine.png");
 
-	_PRODUCT_NONE = new Image("ui/interface/product_none.png");
+	_PRODUCT_NONE = &imageCache.load("ui/interface/product_none.png");
 
 	add(&lstFactoryList, 10, 63);
 	lstFactoryList.selectionChanged().connect(this, &FactoryReport::lstFactoryListSelectionChanged);
@@ -282,7 +276,7 @@ void FactoryReport::fillFactoryList(bool surface)
 /**
  * Fills the factory list based on structure state.
  */
-void FactoryReport::fillFactoryList(Structure::StructureState state)
+void FactoryReport::fillFactoryList(StructureState state)
 {
 	SELECTED_FACTORY = nullptr;
 	lstFactoryList.clearItems();
@@ -362,8 +356,8 @@ void FactoryReport::visibilityChanged(bool visible)
 {
 	if (!SELECTED_FACTORY) { return; }
 
-	Structure::StructureState _state = SELECTED_FACTORY->state();
-	btnApply.visible(visible && (_state == Structure::StructureState::OPERATIONAL || _state == Structure::StructureState::IDLE));
+	StructureState _state = SELECTED_FACTORY->state();
+	btnApply.visible(visible && (_state == StructureState::Operational || _state == StructureState::Idle));
 	checkFactoryActionControls();
 }
 
@@ -425,7 +419,7 @@ void FactoryReport::btnShowActiveClicked()
 {
 	filterButtonClicked(true);
 	btnShowActive.toggle(true);
-	fillFactoryList(Structure::StructureState::OPERATIONAL);
+	fillFactoryList(StructureState::Operational);
 }
 
 
@@ -436,7 +430,7 @@ void FactoryReport::btnShowIdleClicked()
 {
 	filterButtonClicked(true);
 	btnShowIdle.toggle(true);
-	fillFactoryList(Structure::StructureState::IDLE);
+	fillFactoryList(StructureState::Idle);
 }
 
 
@@ -447,7 +441,7 @@ void FactoryReport::btnShowDisabledClicked()
 {
 	filterButtonClicked(true);
 	btnShowDisabled.toggle(true);
-	fillFactoryList(Structure::StructureState::DISABLED);
+	fillFactoryList(StructureState::Disabled);
 }
 
 
@@ -511,13 +505,13 @@ void FactoryReport::lstFactoryListSelectionChanged()
 
 	FACTORY_STATUS = structureStateDescription(SELECTED_FACTORY->state());
 
-	btnIdle.toggle(SELECTED_FACTORY->state() == Structure::StructureState::IDLE);
-	btnIdle.enabled(SELECTED_FACTORY->state() == Structure::StructureState::OPERATIONAL || SELECTED_FACTORY->state() == Structure::StructureState::IDLE);
+	btnIdle.toggle(SELECTED_FACTORY->state() == StructureState::Idle);
+	btnIdle.enabled(SELECTED_FACTORY->state() == StructureState::Operational || SELECTED_FACTORY->state() == StructureState::Idle);
 
-	btnClearProduction.enabled(SELECTED_FACTORY->state() == Structure::StructureState::OPERATIONAL || SELECTED_FACTORY->state() == Structure::StructureState::IDLE);
+	btnClearProduction.enabled(SELECTED_FACTORY->state() == StructureState::Operational || SELECTED_FACTORY->state() == StructureState::Idle);
 
 	lstProducts.dropAllItems();
-	if (SELECTED_FACTORY->state() != Structure::StructureState::DESTROYED)
+	if (SELECTED_FACTORY->state() != StructureState::Destroyed)
 	{
 		const Factory::ProductionTypeList& _pl = SELECTED_FACTORY->productList();
 		for (auto item : _pl)
@@ -529,8 +523,8 @@ void FactoryReport::lstFactoryListSelectionChanged()
 	lstProducts.setSelectionByName(productDescription(SELECTED_FACTORY->productType()));
 	SELECTED_PRODUCT_TYPE = SELECTED_FACTORY->productType();
 
-	Structure::StructureState _state = SELECTED_FACTORY->state();
-	btnApply.visible(_state == Structure::StructureState::OPERATIONAL || _state == Structure::StructureState::IDLE);
+	StructureState _state = SELECTED_FACTORY->state();
+	btnApply.visible(_state == StructureState::Operational || _state == StructureState::Idle);
 }
 
 

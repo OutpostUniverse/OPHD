@@ -118,8 +118,8 @@ void StructureManager::updateEnergyProduction()
 		if (powerStructure->operational())
 		{
 			mTotalEnergyOutput += powerStructure->energyProduced();
-		}
 	}
+}
 }
 
 
@@ -149,14 +149,14 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 		// Connection Check
 		if (!structureConnected(structure) && !structure->selfSustained())
 		{
-			structure->disable(DisabledReason::DISABLED_DISCONNECTED);
+			structure->disable(DisabledReason::Disconnected);
 			continue;
 		}
 
 		// CHAP Check
 		if (structure->requiresCHAP() && !chapAvailable)
 		{
-			structure->disable(DisabledReason::DISABLED_CHAP);
+			structure->disable(DisabledReason::Chap);
 			continue;
 		}
 
@@ -170,13 +170,13 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 		if (!population.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, (*_populationRequired)[0]) ||
 			!population.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, (*_populationRequired)[1]))
 		{
-			structure->disable(DisabledReason::DISABLED_POPULATION);
+			structure->disable(DisabledReason::Population);
 			continue;
 		}
 
 		if (structure->energyRequirement() > totalEnergyAvailable())
 		{
-			structure->disable(DisabledReason::DISABLED_ENERGY);
+			structure->disable(DisabledReason::Energy);
 			continue;
 		}
 
@@ -184,11 +184,11 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 		// Check that enough resources are available for input.
 		if (!structure->isIdle() && !(resources >= structure->resourcesIn()))
 		{
-			structure->disable(DisabledReason::DISABLED_REFINED_RESOURCES);
+			structure->disable(DisabledReason::RefinedResources);
 			continue;
-		}
+			}
 
-		structure->enable();
+			structure->enable();
 
 
 		if (structure->operational() || structure->isIdle())
@@ -317,7 +317,7 @@ int StructureManager::count() const
 /**
  *
  */
-int StructureManager::getCountInState(Structure::StructureClass st, Structure::StructureState state)
+int StructureManager::getCountInState(Structure::StructureClass st, StructureState state)
 {
 	int count = 0;
 	for (std::size_t i = 0; i < structureList(st).size(); ++i)
@@ -340,7 +340,7 @@ int StructureManager::disabled()
 	int count = 0;
 	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
 	{
-		count += getCountInState(it->first, Structure::StructureState::DISABLED);
+		count += getCountInState(it->first, StructureState::Disabled);
 	}
 
 	return count;
@@ -355,7 +355,7 @@ int StructureManager::destroyed()
 	int count = 0;
 	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
 	{
-		count += getCountInState(it->first, Structure::StructureState::DESTROYED);
+		count += getCountInState(it->first, StructureState::Destroyed);
 	}
 
 	return count;
@@ -389,7 +389,7 @@ Tile* StructureManager::tileFromStructure(Structure* st)
 
 
 /**
- *
+ * 
  */
 void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 {
@@ -399,7 +399,7 @@ void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 	_ti->attribute("depth", _t->depth());
 
 	_ti->attribute("age", structure->age());
-	_ti->attribute("state", structure->state());
+	_ti->attribute("state", static_cast<int>(structure->state()));
 	_ti->attribute("forced_idle", structure->forceIdle());
 	_ti->attribute("disabled_reason", static_cast<int>(structure->disabledReason()));
 	_ti->attribute("idle_reason", static_cast<int>(structure->idleReason()));

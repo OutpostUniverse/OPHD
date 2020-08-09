@@ -3,6 +3,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Point.h>
+#include <NAS2D/Renderer/Rectangle.h>
 #include <NAS2D/Renderer/Vector.h>
 #include <NAS2D/StringValue.h>
 #include <string>
@@ -27,7 +28,7 @@ public:
 		static const NAS2D::Color ColorEmpty;
 
 		// Use StringTable::mDefaultFont if not set
-		NAS2D::Font* font = nullptr;
+		const NAS2D::Font* font = nullptr;
 		std::string text;
 		Justification justification = Justification::Left;
 		NAS2D::Color textColor = ColorEmpty;
@@ -42,13 +43,14 @@ public:
 
 	void position(NAS2D::Point<int> position);
 	NAS2D::Point<int> position() const;
+	const NAS2D::Rectangle<int>& screenRect() const;
 
 	void setDefaultFont(NAS2D::Font& font);
-	void setDefaultTitleFont(NAS2D::Font* font);
+	void setDefaultTitleFont(const NAS2D::Font* font);
 	void setDefaultTextColor(NAS2D::Color textColor);
 
-	void setHorizontalPadding(float horizontalPadding);
-	void setVerticalPadding(float verticalPadding);
+	void setHorizontalPadding(int horizontalPadding);
+	void setVerticalPadding(int verticalPadding);
 
 	void setColumnText(std::size_t column, const std::vector<NAS2D::StringValue>& rows);
 	void setRowText(std::size_t row, const std::vector<NAS2D::StringValue>& columns);
@@ -58,31 +60,31 @@ public:
 	void computeRelativeCellPositions();
 
 private:
-	// Purposely hide textRelativePosition from public access
+	// Purposely hide textOffset from public access
 	struct CellWithPosition : Cell
 	{
 		// Position relative to the StringTable's position
-		NAS2D::Vector<float> textRelativePosition;
+		NAS2D::Vector<int> textOffset;
 	};
 
 	std::vector<CellWithPosition> mCells;
 	const std::size_t mColumnCount;
 	const std::size_t mRowCount;
-	NAS2D::Point<int> mPosition;
-	NAS2D::Font* mDefaultFont;
-	NAS2D::Font* mDefaultTitleFont;
+	NAS2D::Rectangle<int> mScreenRect;
+	const NAS2D::Font* mDefaultFont;
+	const NAS2D::Font* mDefaultTitleFont;
 	NAS2D::Color mDefaultTextColor = NAS2D::Color::White;
-	float mHorizontalPadding = 5;
-	float mVerticalPadding = 0;
+	int mHorizontalPadding = 5;
+	int mVerticalPadding = 0;
 
-	void accountForCellJustification(std::size_t index, float columnWidth);
-	std::vector<float> computeColumnWidths() const;
-	std::vector<float> computeRowHeights() const;
+	void accountForCellJustification(std::size_t index, int columnWidth);
+	std::vector<int> computeColumnWidths() const;
+	std::vector<int> computeRowHeights() const;
 
 	std::size_t getCellIndex(const CellCoordinate& cellCoordinate) const;
 	CellCoordinate getCellCoordinate(std::size_t index) const;
 	void checkCellIndex(const CellCoordinate& cellCoordinate) const;
 
-	NAS2D::Font* getCellFont(std::size_t index) const;
+	const NAS2D::Font* getCellFont(std::size_t index) const;
 	bool isFirstColumn(std::size_t index) const;
 };

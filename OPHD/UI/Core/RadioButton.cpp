@@ -4,6 +4,7 @@
 #include "RadioButton.h"
 
 #include "UIContainer.h"
+#include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
 
@@ -16,16 +17,16 @@
 
 using namespace NAS2D;
 
-static Font* CBOX_FONT = nullptr;
+static const Font* CBOX_FONT = nullptr;
 
 /**
  * C'tor
  */
 RadioButton::RadioButton(std::string newText) :
-	mSkin("ui/skin/checkbox.png"),
-	mLabel(newText)
+	mSkin{imageCache.load("ui/skin/checkbox.png")},
+	mLabel{newText}
 {
-	CBOX_FONT = Utility<FontManager>::get().font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	CBOX_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &RadioButton::onMouseDown);
 }
 

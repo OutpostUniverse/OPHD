@@ -58,7 +58,7 @@ bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnector
 
 	if (sourceConnectorDir == ConnectorDir::CONNECTOR_INTERSECTION)
 	{
-		if (dir == Direction::DIR_EAST || dir == Direction::DIR_WEST)
+		if (dir == Direction::East || dir == Direction::West)
 		{
 			if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 			{
@@ -73,14 +73,14 @@ bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnector
 			}
 		}
 	}
-	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_RIGHT && (dir == Direction::DIR_EAST || dir == Direction::DIR_WEST))
+	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_RIGHT && (dir == Direction::East || dir == Direction::West))
 	{
 		if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
 	}
-	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_LEFT && (dir == Direction::DIR_NORTH || dir == Direction::DIR_SOUTH))
+	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_LEFT && (dir == Direction::North || dir == Direction::South))
 	{
 		if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
@@ -110,7 +110,7 @@ bool checkStructurePlacement(Tile* tile, Direction dir)
 		return false;
 	}
 
-	if (dir == Direction::DIR_EAST || dir == Direction::DIR_WEST)
+	if (dir == Direction::East || dir == Direction::West)
 	{
 		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
 		{
@@ -136,10 +136,10 @@ bool checkStructurePlacement(Tile* tile, Direction dir)
  */
 bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir dir)
 {
-	return checkTubeConnection(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::DIR_EAST, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), Direction::DIR_WEST, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::DIR_SOUTH, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::DIR_NORTH, dir);
+	return checkTubeConnection(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::East, dir) ||
+		checkTubeConnection(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), Direction::West, dir) ||
+		checkTubeConnection(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::South, dir) ||
+		checkTubeConnection(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::North, dir);
 }
 
 
@@ -150,10 +150,10 @@ bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir
  */
 bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point)
 {
-	return checkStructurePlacement(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::DIR_NORTH) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::DIR_EAST) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::DIR_SOUTH) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), Direction::DIR_WEST);
+	return checkStructurePlacement(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::North) ||
+		checkStructurePlacement(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::East) ||
+		checkStructurePlacement(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::South) ||
+		checkStructurePlacement(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), Direction::West);
 }
 
 
@@ -521,7 +521,7 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 	{
 		XmlElement* robot = new XmlElement("robot");
 		checkRobotDeployment(robot, robotMap, digger, RobotType::ROBOT_DIGGER);
-		robot->attribute("direction", digger->direction());
+		robot->attribute("direction", static_cast<int>(digger->direction()));
 		robots->linkEndChild(robot);
 	}
 
