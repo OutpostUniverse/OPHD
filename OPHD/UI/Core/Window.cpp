@@ -3,6 +3,7 @@
 
 #include "Window.h"
 
+#include "../../Cache.h"
 #include "../../Common.h"
 #include "../../Constants.h"
 #include "../../FontManager.h"
@@ -16,20 +17,20 @@ static const Font* WINDOW_TITLE_FONT;
 
 Window::Window(std::string newTitle) :
 	mTitle{
-		Image{"ui/skin/window_title_left.png"},
-		Image{"ui/skin/window_title_middle.png"},
-		Image{"ui/skin/window_title_right.png"}
+		imageCache.load("ui/skin/window_title_left.png"),
+		imageCache.load("ui/skin/window_title_middle.png"),
+		imageCache.load("ui/skin/window_title_right.png")
 	},
 	mBody{
-		Image{"ui/skin/window_top_left.png"},
-		Image{"ui/skin/window_top_middle.png"},
-		Image{"ui/skin/window_top_right.png"},
-		Image{"ui/skin/window_middle_left.png"},
-		Image{"ui/skin/window_middle_middle.png"},
-		Image{"ui/skin/window_middle_right.png"},
-		Image{"ui/skin/window_bottom_left.png"},
-		Image{"ui/skin/window_bottom_middle.png"},
-		Image{"ui/skin/window_bottom_right.png"}
+		imageCache.load("ui/skin/window_top_left.png"),
+		imageCache.load("ui/skin/window_top_middle.png"),
+		imageCache.load("ui/skin/window_top_right.png"),
+		imageCache.load("ui/skin/window_middle_left.png"),
+		imageCache.load("ui/skin/window_middle_middle.png"),
+		imageCache.load("ui/skin/window_middle_right.png"),
+		imageCache.load("ui/skin/window_bottom_left.png"),
+		imageCache.load("ui/skin/window_bottom_middle.png"),
+		imageCache.load("ui/skin/window_bottom_right.png")
 	}
 {
 	text(newTitle);
