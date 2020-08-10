@@ -67,10 +67,10 @@ void MainMenuState::initialize()
 	disableButtons();
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	renderer.showSystemPointer(true);
 	renderer.fadeComplete().connect(this, &MainMenuState::onFadeComplete);
 	renderer.fadeOut(std::chrono::milliseconds{0});
 	renderer.fadeIn(constants::FadeSpeed);
-	renderer.showSystemPointer(true);
 
 	NAS2D::Mixer& mixer = NAS2D::Utility<NAS2D::Mixer>::get();
 	if (!mixer.musicPlaying()) { mixer.playMusic(*trackMars); }
