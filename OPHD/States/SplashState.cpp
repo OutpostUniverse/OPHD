@@ -56,22 +56,22 @@ void SplashState::initialize()
 }
 
 
-void setNextState(LogoState& _ls)
+void setNextState(LogoState& logoState)
 {
-	if (_ls == LogoState::LOGO_NONE)
+	if (logoState == LogoState::LOGO_NONE)
 	{
-		_ls = LogoState::LOGO_LAIRWORKS;
+		logoState = LogoState::LOGO_LAIRWORKS;
 		FADE_PAUSE_TIME = 2500;
 		return;
 	}
-	if (_ls == LogoState::LOGO_LAIRWORKS)
+	if (logoState == LogoState::LOGO_LAIRWORKS)
 	{
-		_ls = LogoState::LOGO_NAS2D;
+		logoState = LogoState::LOGO_NAS2D;
 		return;
 	}
-	if (_ls == LogoState::LOGO_NAS2D)
+	if (logoState == LogoState::LOGO_NAS2D)
 	{
-		_ls = LogoState::LOGO_OUTPOSTHD;
+		logoState = LogoState::LOGO_OUTPOSTHD;
 		BYLINE_TIMER.reset();
 		return;
 	}
