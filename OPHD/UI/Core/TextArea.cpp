@@ -13,7 +13,7 @@
 using namespace NAS2D;
 
 
-void TextArea::font(const std::string& font, std::size_t size)
+void TextArea::font(const std::string& font, unsigned int size)
 {
 	mFont = &Utility<FontManager>::get().load(font, size);
 }

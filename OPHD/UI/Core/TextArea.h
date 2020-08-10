@@ -15,7 +15,7 @@ public:
 
 	void textColor(const NAS2D::Color& color) { mTextColor = color; }
 
-	void font(const std::string&, std::size_t);
+	void font(const std::string&, unsigned int);
 
 	void update() override;
 
