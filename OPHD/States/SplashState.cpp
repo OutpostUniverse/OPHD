@@ -11,22 +11,24 @@
 #include <algorithm>
 
 
-enum LogoState
-{
-	LOGO_NONE,
-	LOGO_LAIRWORKS,
-	LOGO_NAS2D,
-	LOGO_OUTPOSTHD
-};
+namespace {
+	enum LogoState
+	{
+		LOGO_NONE,
+		LOGO_LAIRWORKS,
+		LOGO_NAS2D,
+		LOGO_OUTPOSTHD
+	};
 
 
-LogoState CURRENT_STATE = LogoState::LOGO_NONE;
+	LogoState CURRENT_STATE = LogoState::LOGO_NONE;
 
-const int PAUSE_TIME = 5800;
-unsigned int FADE_PAUSE_TIME = 5000;
-const float FADE_LENGTH = 800;
+	const int PAUSE_TIME = 5800;
+	unsigned int FADE_PAUSE_TIME = 5000;
+	const float FADE_LENGTH = 800;
 
-NAS2D::Timer BYLINE_TIMER;
+	NAS2D::Timer BYLINE_TIMER;
+}
 
 
 SplashState::SplashState() :
