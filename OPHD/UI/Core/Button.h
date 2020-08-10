@@ -32,7 +32,7 @@ public:
 	void toggle(bool toggle);
 	bool toggled() const;
 
-	void fontSize(unsigned int);
+	void fontSize(unsigned int pointSize);
 
 	void image(const std::string& path);
 	bool hasImage() const;

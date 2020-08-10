@@ -13,9 +13,9 @@
 using namespace NAS2D;
 
 
-void TextArea::font(const std::string& font, unsigned int size)
+void TextArea::font(const std::string& filePath, unsigned int pointSize)
 {
-	mFont = &Utility<FontManager>::get().load(font, size);
+	mFont = &Utility<FontManager>::get().load(filePath, pointSize);
 }
 
 

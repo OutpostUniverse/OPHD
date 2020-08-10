@@ -87,9 +87,9 @@ bool Button::toggled() const
 }
 
 
-void Button::fontSize(unsigned int size)
+void Button::fontSize(unsigned int pointSize)
 {
-	mFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, size);
+	mFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, pointSize);
 }
 
 
