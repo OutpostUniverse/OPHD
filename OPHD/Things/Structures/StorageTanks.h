@@ -15,6 +15,16 @@ public:
 		requiresCHAP(false);
 	}
 
+	StringTable createInspectorViewTable() override
+	{
+		StringTable stringTable(2, 1);
+
+		stringTable[{0, 0}].text = "Storage Capacity:";
+		stringTable[{1, 0}].text = std::to_string(StorageTanksCapacity);
+
+		return stringTable;
+	}
+
 protected:
 	void defineResourceInput() override
 	{
