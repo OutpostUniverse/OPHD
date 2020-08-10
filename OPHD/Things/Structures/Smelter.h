@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Structure.h"
+#include "OreRefining.h"
 
-class Smelter : public Structure
+class Smelter : public OreRefining
 {
 	const int StorageCapacity = 800;
 
 public:
-	Smelter() : Structure(constants::SMELTER, "structures/smelter.sprite", StructureClass::Smelter)
+	Smelter() : OreRefining(constants::SMELTER, "structures/smelter.sprite", StructureClass::Smelter)
 	{
 		maxAge(600);
 		turnsToBuild(9);
@@ -17,7 +17,7 @@ public:
 	void input(StorableResources& resources) override
 	{
 		if (!operational()) { return; }
-		if (production() >= StorableResources{ StorageCapacity }) { return; }
+		if (production() >= StorableResources{ calculateMaxStorage() }) { return; }
 
 		production() = production() + resources;
 	}
@@ -28,7 +28,7 @@ protected:
 	{
 		if (isIdle())
 		{
-			if (storage() < StorableResources{ StorageCapacity / 4 })
+			if (storage() < StorableResources{ calculateMaxStorage() / 4 })
 			{
 				enable();
 			}
@@ -57,7 +57,7 @@ protected:
 		}
 
 		auto total = storage() + converted;
-		auto capped = total.cap(StorageCapacity / 4);
+		auto capped = total.cap(calculateMaxStorage() / 4);
 		auto overflow = total - capped;
 
 		storage() = storage() + capped;
@@ -67,6 +67,11 @@ protected:
 			ore = ore + overflow;
 			idle(IdleReason::InternalStorageFull);
 		}
+	}
+
+	int calculateMaxStorage() override
+	{
+		return StorageCapacity;
 	}
 
 private:
