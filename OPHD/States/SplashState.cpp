@@ -71,14 +71,16 @@ void SplashState::initialize()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.showSystemPointer(false);
-	renderer.fadeOut(std::chrono::milliseconds{0});
 }
 
 
 void SplashState::skipSplash()
 {
 	mReturnState = new MainMenuState();
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(fadeLength);
+	if (!mFade.isFading())
+	{
+		mFade.fadeOut(fadeLength);
+	}
 }
 
 
@@ -91,12 +93,12 @@ NAS2D::State* SplashState::update()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	if (renderer.isFaded() && !renderer.isFading() && mTimer.accumulator() > fadePauseTime)
+	if (mFade.isFaded() && !mFade.isFading() && mTimer.accumulator() > fadePauseTime)
 	{
 		if (mReturnState != this) { return mReturnState; }
 
 		currentState = setNextState(currentState);
-		renderer.fadeIn(fadeLength);
+		mFade.fadeIn(fadeLength);
 		mTimer.reset();
 	}
 
@@ -133,7 +135,10 @@ NAS2D::State* SplashState::update()
 		}
 	}
 
-	if (renderer.isFading()) { return this; }
+	mFade.update();
+	mFade.draw(renderer);
+
+	if (mFade.isFaded()) { return this; }
 
 	if (currentState == LogoState::OutpostHD)
 	{
@@ -145,7 +150,7 @@ NAS2D::State* SplashState::update()
 	}
 	else if (mTimer.accumulator() > pauseTime)
 	{
-		renderer.fadeOut(fadeLength);
+		mFade.fadeOut(fadeLength);
 		mTimer.reset();
 	}
 
