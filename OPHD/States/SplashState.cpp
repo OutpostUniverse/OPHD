@@ -41,11 +41,8 @@ namespace {
 		{
 			return LogoState::LOGO_NAS2D;
 		}
-		if (logoState == LogoState::LOGO_NAS2D)
-		{
-			BYLINE_TIMER.reset();
-			return LogoState::LOGO_OUTPOSTHD;
-		}
+
+		BYLINE_TIMER.reset();
 		return LogoState::LOGO_OUTPOSTHD;
 	}
 }
