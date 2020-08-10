@@ -43,10 +43,10 @@ protected:
 		for (size_t i = 0; i < ore.resources.size(); ++i)
 		{
 			if (ore.resources[i] >= resource_units)
-		{
+			{
 				converted.resources[i] = resource_units / OreConversionDivisor[i];
 				ore.resources[i] = ore.resources[i] - resource_units;
-		}
+			}
 		}
 
 		auto total = storage() + converted;
