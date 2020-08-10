@@ -18,12 +18,28 @@ public:
 
 	StringTable createInspectorViewTable() override
 	{
-		StringTable stringTable(2, 1);
+		StringTable stringTable(2, 4);
+		
+		stringTable.setColumnText(
+			0,
+			{
+				"Common Metals Storage:",
+				"Rare Metals Storage:",
+				"Common Minerals Storage:",
+				"Rare Minerals Storage:"
+			});
 
-		stringTable[{0, 0}].text = "Storage Capacity:";
-		stringTable[{1, 0}].text = std::to_string(TotalCapacity());
+		for (std::size_t i = 0; i < storage().resources.size(); ++i)
+		{
+			stringTable[{1, i}].text = writeStorageAmount(storage().resources[i]);
+		}
 
 		return stringTable;
+	}
+
+	std::string writeStorageAmount(int storageAmount)
+	{
+		return std::to_string(storageAmount) + " / " + std::to_string(IndividualMaterialCapacity());
 	}
 
 	/**
