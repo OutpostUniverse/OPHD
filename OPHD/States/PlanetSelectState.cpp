@@ -80,6 +80,7 @@ void PlanetSelectState::initialize()
 	mPlanetDescription.position(NAS2D::Point{viewportSize.x / 2 - 275, viewportSize.y - 225});
 
 	renderer.showSystemPointer(true);
+	renderer.fadeOut(std::chrono::milliseconds{0});
 	renderer.fadeIn(constants::FadeSpeed);
 
 	NAS2D::Utility<NAS2D::Mixer>::get().playMusic(mBgMusic);

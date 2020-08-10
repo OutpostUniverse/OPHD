@@ -243,6 +243,7 @@ void MapViewState::initialize()
 	setupUiPositions(renderer.size());
 	resetPoliceOverlays();
 
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(std::chrono::milliseconds{0});
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeIn(constants::FadeSpeed);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();

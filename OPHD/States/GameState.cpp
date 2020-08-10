@@ -66,6 +66,7 @@ void GameState::initialize()
 
 	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect(MakeDelegate(this, &GameState::onMusicComplete));
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().connect(this, &GameState::onFadeComplete);
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(std::chrono::milliseconds{0});
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeIn(constants::FadeSpeed);
 }
 
