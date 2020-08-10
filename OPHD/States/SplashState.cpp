@@ -28,6 +28,28 @@ namespace {
 	const float FADE_LENGTH = 800;
 
 	NAS2D::Timer BYLINE_TIMER;
+
+
+	void setNextState(LogoState& logoState)
+	{
+		if (logoState == LogoState::LOGO_NONE)
+		{
+			FADE_PAUSE_TIME = 2500;
+			logoState = LogoState::LOGO_LAIRWORKS;
+			return;
+		}
+		if (logoState == LogoState::LOGO_LAIRWORKS)
+		{
+			logoState = LogoState::LOGO_NAS2D;
+			return;
+		}
+		if (logoState == LogoState::LOGO_NAS2D)
+		{
+			BYLINE_TIMER.reset();
+			logoState = LogoState::LOGO_OUTPOSTHD;
+			return;
+		}
+	}
 }
 
 
@@ -55,28 +77,6 @@ void SplashState::initialize()
 	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
 
 	NAS2D::Utility<NAS2D::Renderer>::get().showSystemPointer(false);
-}
-
-
-void setNextState(LogoState& logoState)
-{
-	if (logoState == LogoState::LOGO_NONE)
-	{
-		FADE_PAUSE_TIME = 2500;
-		logoState = LogoState::LOGO_LAIRWORKS;
-		return;
-	}
-	if (logoState == LogoState::LOGO_LAIRWORKS)
-	{
-		logoState = LogoState::LOGO_NAS2D;
-		return;
-	}
-	if (logoState == LogoState::LOGO_NAS2D)
-	{
-		BYLINE_TIMER.reset();
-		logoState = LogoState::LOGO_OUTPOSTHD;
-		return;
-	}
 }
 
 
