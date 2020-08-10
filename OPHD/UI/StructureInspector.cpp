@@ -132,15 +132,14 @@ void StructureInspector::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	auto position = mRect.startPoint() + NAS2D::Vector{5, 25};
 	if (mStructure == nullptr)
 	{
-		drawLabelAndValue(position, "NULLPTR!", "");
+		text("NULLPTR!");
 		return;
 	}
-	drawLabelAndValue(position, mStructure->name(), "");
+	text(mStructure->name());
 
-	position.y += 20;
+	auto position = mRect.startPoint() + NAS2D::Vector{ 5, 25 };
 	drawLabelAndValue(position,"Type: ", mStructureClass);
 
 	position = mRect.startPoint() + NAS2D::Vector{190, 25};
