@@ -1,5 +1,4 @@
 # All platforms
-/data/
 *.log
 
 # Linux - Makefile
