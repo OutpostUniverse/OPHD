@@ -26,7 +26,15 @@ public:
 		return stringTable;
 	}
 
+	/**
+	 * Maximum capacity of all refined resources combined
+	 */
 	virtual int TotalCapacity() = 0;
+
+	/**
+     * Capacity of an individual type of refined resource
+     */
+	int IndividualMaterialCapacity() { return TotalCapacity() / 4; }
 
 protected:
 	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
@@ -35,7 +43,7 @@ protected:
 	{
 		if (isIdle())
 		{
-			if (storage() < StorableResources{ TotalCapacity() / 4 })
+			if (storage() < StorableResources{ IndividualMaterialCapacity() })
 			{
 				enable();
 			}
@@ -64,7 +72,7 @@ protected:
 		}
 
 		auto total = storage() + converted;
-		auto capped = total.cap(TotalCapacity() / 4);
+		auto capped = total.cap(IndividualMaterialCapacity());
 		auto overflow = total - capped;
 
 		storage() = storage() + capped;
