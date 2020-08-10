@@ -5,6 +5,7 @@
 #include <NAS2D/State.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Resource/Image.h>
+#include <NAS2D/Renderer/Fade.h>
 
 #include <array>
 
@@ -48,4 +49,5 @@ private:
 
 	Label lblVersion;
 	NAS2D::State* mReturnState = this;
+	NAS2D::Fade mFade;
 };
