@@ -26,9 +26,9 @@ public:
 		return stringTable;
 	}
 
-protected:
 	virtual int TotalCapacity() = 0;
 
+protected:
 	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
 
 	void think() override
