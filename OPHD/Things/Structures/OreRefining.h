@@ -21,13 +21,13 @@ public:
 		StringTable stringTable(2, 1);
 
 		stringTable[{0, 0}].text = "Storage Capacity:";
-		stringTable[{1, 0}].text = std::to_string(calculateMaxStorage());
+		stringTable[{1, 0}].text = std::to_string(TotalCapacity());
 
 		return stringTable;
 	}
 
 protected:
-	virtual int calculateMaxStorage() = 0;
+	virtual int TotalCapacity() = 0;
 
 	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
 
@@ -35,7 +35,7 @@ protected:
 	{
 		if (isIdle())
 		{
-			if (storage() < StorableResources{ calculateMaxStorage() / 4 })
+			if (storage() < StorableResources{ TotalCapacity() / 4 })
 			{
 				enable();
 			}
@@ -64,7 +64,7 @@ protected:
 		}
 
 		auto total = storage() + converted;
-		auto capped = total.cap(calculateMaxStorage() / 4);
+		auto capped = total.cap(TotalCapacity() / 4);
 		auto overflow = total - capped;
 
 		storage() = storage() + capped;

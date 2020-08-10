@@ -16,7 +16,7 @@ public:
 	}
 
 protected:
-	int calculateMaxStorage() override
+	int TotalCapacity() override
 	{
 		return StorageCapacity;
 	}
