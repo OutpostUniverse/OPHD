@@ -14,14 +14,6 @@ public:
 		requiresCHAP(false);
 	}
 
-	void input(StorableResources& resources) override
-	{
-		if (!operational()) { return; }
-		if (production() >= StorableResources{ calculateMaxStorage() }) { return; }
-
-		production() = production() + resources;
-	}
-
 protected:
 
 	void think() override

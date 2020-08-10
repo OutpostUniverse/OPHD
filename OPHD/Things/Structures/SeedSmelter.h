@@ -15,15 +15,6 @@ public:
 		requiresCHAP(false);
 	}
 
-	/** \todo This is not actually used anywhere, this should probably be removed */
-	void input(StorableResources& resources) override
-	{
-		if (!operational()) { return; }
-		if (production() >= StorableResources{ calculateMaxStorage() }) { return; }
-
-		production() = production() + resources;
-	}
-
 protected:
 
 	void think() override
