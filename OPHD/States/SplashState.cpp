@@ -11,22 +11,41 @@
 #include <algorithm>
 
 
-enum LogoState
-{
-	LOGO_NONE,
-	LOGO_LAIRWORKS,
-	LOGO_NAS2D,
-	LOGO_OUTPOSTHD
-};
+namespace {
+	enum LogoState
+	{
+		LOGO_NONE,
+		LOGO_LAIRWORKS,
+		LOGO_NAS2D,
+		LOGO_OUTPOSTHD
+	};
 
 
-LogoState CURRENT_STATE = LogoState::LOGO_NONE;
+	LogoState CURRENT_STATE = LogoState::LOGO_NONE;
 
-const int PAUSE_TIME = 5800;
-unsigned int FADE_PAUSE_TIME = 5000;
-const float FADE_LENGTH = 800;
+	const int PAUSE_TIME = 5800;
+	unsigned int FADE_PAUSE_TIME = 5000;
+	const float FADE_LENGTH = 800;
 
-NAS2D::Timer BYLINE_TIMER;
+	NAS2D::Timer BYLINE_TIMER;
+
+
+	LogoState setNextState(LogoState logoState)
+	{
+		if (logoState == LogoState::LOGO_NONE)
+		{
+			FADE_PAUSE_TIME = 2500;
+			return LogoState::LOGO_LAIRWORKS;
+		}
+		if (logoState == LogoState::LOGO_LAIRWORKS)
+		{
+			return LogoState::LOGO_NAS2D;
+		}
+
+		BYLINE_TIMER.reset();
+		return LogoState::LOGO_OUTPOSTHD;
+	}
+}
 
 
 SplashState::SplashState() :
@@ -49,32 +68,12 @@ SplashState::~SplashState()
 void SplashState::initialize()
 {
 	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
-	//e.keyDown().connect(this, &SplashState::onKeyDown);
+	e.keyDown().connect(this, &SplashState::onKeyDown);
 	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
 
-	NAS2D::Utility<NAS2D::Renderer>::get().showSystemPointer(false);
-}
-
-
-void setNextState(LogoState& _ls)
-{
-	if (_ls == LogoState::LOGO_NONE)
-	{
-		_ls = LogoState::LOGO_LAIRWORKS;
-		FADE_PAUSE_TIME = 2500;
-		return;
-	}
-	if (_ls == LogoState::LOGO_LAIRWORKS)
-	{
-		_ls = LogoState::LOGO_NAS2D;
-		return;
-	}
-	if (_ls == LogoState::LOGO_NAS2D)
-	{
-		_ls = LogoState::LOGO_OUTPOSTHD;
-		BYLINE_TIMER.reset();
-		return;
-	}
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	renderer.showSystemPointer(false);
+	renderer.fadeOut(0);
 }
 
 
@@ -98,7 +97,7 @@ NAS2D::State* SplashState::update()
 	{
 		if (mReturnState != this) { return mReturnState; }
 
-		setNextState(CURRENT_STATE);
+		CURRENT_STATE = setNextState(CURRENT_STATE);
 		renderer.fadeIn(FADE_LENGTH);
 		mTimer.reset();
 	}

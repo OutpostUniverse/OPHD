@@ -131,7 +131,6 @@ int main(int /*argc*/, char *argv[])
 		renderer.addCursor(constants::MOUSE_POINTER_PLACE_TILE, PointerType::POINTER_PLACE_TILE, 16, 16);
 		renderer.addCursor(constants::MOUSE_POINTER_INSPECT, PointerType::POINTER_INSPECT, 8, 8);
 		renderer.setCursor(PointerType::POINTER_NORMAL);
-		renderer.fadeOut(0.0f);
 
 		if (cf.option("maximized") == "true")
 		{

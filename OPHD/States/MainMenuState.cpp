@@ -88,9 +88,11 @@ void MainMenuState::initialize()
 	positionButtons();
 	disableButtons();
 
-	Utility<Renderer>::get().fadeComplete().connect(this, &MainMenuState::onFadeComplete);
-	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
-	Utility<Renderer>::get().showSystemPointer(true);
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	renderer.fadeComplete().connect(this, &MainMenuState::onFadeComplete);
+	renderer.fadeOut(0);
+	renderer.fadeIn(constants::FADE_SPEED);
+	renderer.showSystemPointer(true);
 
 	extern const Music* MARS; /// yuck
 	Mixer& mixer = Utility<Mixer>::get();
