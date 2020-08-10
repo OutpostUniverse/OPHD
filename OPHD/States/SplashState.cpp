@@ -60,8 +60,8 @@ void setNextState(LogoState& logoState)
 {
 	if (logoState == LogoState::LOGO_NONE)
 	{
-		logoState = LogoState::LOGO_LAIRWORKS;
 		FADE_PAUSE_TIME = 2500;
+		logoState = LogoState::LOGO_LAIRWORKS;
 		return;
 	}
 	if (logoState == LogoState::LOGO_LAIRWORKS)
@@ -71,8 +71,8 @@ void setNextState(LogoState& logoState)
 	}
 	if (logoState == LogoState::LOGO_NAS2D)
 	{
-		logoState = LogoState::LOGO_OUTPOSTHD;
 		BYLINE_TIMER.reset();
+		logoState = LogoState::LOGO_OUTPOSTHD;
 		return;
 	}
 }
