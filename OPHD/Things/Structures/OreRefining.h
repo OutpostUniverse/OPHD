@@ -57,17 +57,17 @@ protected:
 
 	virtual void updateProduction()
 	{
-		int resource_units = constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING;
+		int processingMinimum = constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING;
 
 		StorableResources converted{ 0 };
 		auto& ore = production();
 
 		for (size_t i = 0; i < ore.resources.size(); ++i)
 		{
-			if (ore.resources[i] >= resource_units)
+			if (ore.resources[i] >= processingMinimum)
 			{
-				converted.resources[i] = resource_units / OreConversionDivisor[i];
-				ore.resources[i] = ore.resources[i] - resource_units;
+				converted.resources[i] = processingMinimum / OreConversionDivisor[i];
+				ore.resources[i] = ore.resources[i] - processingMinimum;
 			}
 		}
 
