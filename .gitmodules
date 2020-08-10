@@ -1,3 +1,6 @@
 [submodule "nas2d-core"]
 	path = nas2d-core
 	url = https://github.com/lairworks/nas2d-core.git
+[submodule "data"]
+	path = data
+	url = https://github.com/OutpostUniverse/ophd-assets.git

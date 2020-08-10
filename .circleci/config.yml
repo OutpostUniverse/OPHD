@@ -4,7 +4,7 @@ commands:
   build:
     steps:
       - checkout
-      - run: git submodule update --init
+      - run: git submodule update --init nas2d-core/
       - run: make --keep-going --jobs 2 CXXFLAGS_EXTRA="-Werror" nas2d
       - run: make --keep-going --jobs 2 CXXFLAGS_EXTRA="-Werror"
       - run: make package
@@ -32,7 +32,7 @@ jobs:
       - image: outpostuniverse/nas2d-mingw:1.4
     steps:
       - checkout
-      - run: git submodule update --init
+      - run: git submodule update --init nas2d-core/
       - run: make --keep-going --jobs 2 CXXFLAGS_EXTRA="-Werror" intermediate
 
 workflows:
