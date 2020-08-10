@@ -1,8 +1,8 @@
 #pragma once
 
-
 #include "Structure.h"
 #include <string>
+#include <array>
 
 /**
  * \class	PowerStructure
@@ -28,4 +28,6 @@ public:
 
 protected:
 	virtual int calculateMaxStorage() = 0;
+
+	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
 };

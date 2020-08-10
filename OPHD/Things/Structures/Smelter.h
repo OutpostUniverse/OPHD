@@ -71,6 +71,4 @@ private:
 	{
 		energyRequired(5);
 	}
-
-	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
 };
