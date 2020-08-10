@@ -30,25 +30,23 @@ namespace {
 	NAS2D::Timer BYLINE_TIMER;
 
 
-	void setNextState(LogoState& logoState)
+	LogoState setNextState(LogoState logoState)
 	{
 		if (logoState == LogoState::LOGO_NONE)
 		{
 			FADE_PAUSE_TIME = 2500;
-			logoState = LogoState::LOGO_LAIRWORKS;
-			return;
+			return LogoState::LOGO_LAIRWORKS;
 		}
 		if (logoState == LogoState::LOGO_LAIRWORKS)
 		{
-			logoState = LogoState::LOGO_NAS2D;
-			return;
+			return LogoState::LOGO_NAS2D;
 		}
 		if (logoState == LogoState::LOGO_NAS2D)
 		{
 			BYLINE_TIMER.reset();
-			logoState = LogoState::LOGO_OUTPOSTHD;
-			return;
+			return LogoState::LOGO_OUTPOSTHD;
 		}
+		return LogoState::LOGO_OUTPOSTHD;
 	}
 }
 
@@ -100,7 +98,7 @@ NAS2D::State* SplashState::update()
 	{
 		if (mReturnState != this) { return mReturnState; }
 
-		setNextState(CURRENT_STATE);
+		CURRENT_STATE = setNextState(CURRENT_STATE);
 		renderer.fadeIn(FADE_LENGTH);
 		mTimer.reset();
 	}
