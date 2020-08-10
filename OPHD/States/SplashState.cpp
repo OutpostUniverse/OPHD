@@ -49,7 +49,7 @@ SplashState::~SplashState()
 void SplashState::initialize()
 {
 	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
-	//e.keyDown().connect(this, &SplashState::onKeyDown);
+	e.keyDown().connect(this, &SplashState::onKeyDown);
 	e.mouseButtonDown().connect(this, &SplashState::onMouseDown);
 
 	NAS2D::Utility<NAS2D::Renderer>::get().showSystemPointer(false);
