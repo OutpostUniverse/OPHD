@@ -15,6 +15,7 @@ public:
 	{
 		connectorDirection(dir);
 		requiresCHAP(false);
+		state(StructureState::Operational);
 
 		maxAge(400);
 	}

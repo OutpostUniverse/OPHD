@@ -132,16 +132,18 @@ void StructureInspector::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	auto position = mRect.startPoint() + NAS2D::Vector{5, 25};
 	if (mStructure == nullptr)
 	{
-		drawLabelAndValue(position, "NULLPTR!", "");
+		text("NULLPTR!");
 		return;
 	}
-	drawLabelAndValue(position, mStructure->name(), "");
+	text(mStructure->name());
+
+	auto position = mRect.startPoint() + NAS2D::Vector{ 5, 25 };
+	drawLabelAndValue(position,"Type: ", mStructureClass);
 
 	position.y += 20;
-	drawLabelAndValue(position,"Type: ", mStructureClass);
+	drawLabelAndValue(position, "Power Required: ", std::to_string(mStructure->energyRequirement()));
 
 	position = mRect.startPoint() + NAS2D::Vector{190, 25};
 	drawLabelAndValue(position,"State: ", structureStateDescription(mStructure->state()));
@@ -162,7 +164,4 @@ void StructureInspector::update()
 	stringTable.computeRelativeCellPositions();
 	stringTable.position(mRect.startPoint() + NAS2D::Vector<float>{10, 135});
 	stringTable.draw(renderer);
-
-	position = mRect.startPoint() + NAS2D::Vector{5, mRect.height - FONT->height() - 5};
-	renderer.drawText(*FONT, "This window is a work in progress", position, NAS2D::Color::White);
 }
