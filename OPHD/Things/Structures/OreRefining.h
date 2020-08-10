@@ -31,6 +31,22 @@ protected:
 
 	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
 
+	void think() override
+	{
+		if (isIdle())
+		{
+			if (storage() < StorableResources{ calculateMaxStorage() / 4 })
+			{
+				enable();
+			}
+		}
+
+		if (operational())
+		{
+			updateProduction();
+		}
+	}
+
 	virtual void updateProduction()
 	{
 		int resource_units = constants::MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING;

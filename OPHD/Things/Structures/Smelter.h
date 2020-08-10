@@ -15,23 +15,6 @@ public:
 	}
 
 protected:
-
-	void think() override
-	{
-		if (isIdle())
-		{
-			if (storage() < StorableResources{ calculateMaxStorage() / 4 })
-			{
-				enable();
-			}
-		}
-
-		if (operational())
-		{
-			updateProduction();
-		}
-	}
-
 	int calculateMaxStorage() override
 	{
 		return StorageCapacity;
