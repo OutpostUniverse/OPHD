@@ -73,6 +73,7 @@ void SplashState::initialize()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.showSystemPointer(false);
+	renderer.fadeOut(0);
 }
 
 

@@ -90,6 +90,7 @@ void MainMenuState::initialize()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.fadeComplete().connect(this, &MainMenuState::onFadeComplete);
+	renderer.fadeOut(0);
 	renderer.fadeIn(constants::FADE_SPEED);
 	renderer.showSystemPointer(true);
 
