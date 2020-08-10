@@ -14,6 +14,7 @@
 
 #include <map>
 #include <sstream>
+#include <stdexcept>
 
 
 using namespace NAS2D;
@@ -134,8 +135,7 @@ void StructureInspector::update()
 
 	if (mStructure == nullptr)
 	{
-		text("NULLPTR!");
-		return;
+		throw std::runtime_error("Null pointer to structure within StructureInspector");
 	}
 	text(mStructure->name());
 
