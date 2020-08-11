@@ -51,6 +51,7 @@
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
+#include <NAS2D/Renderer/Fade.h>
 
 #include <string>
 #include <memory>
@@ -127,6 +128,8 @@ public:
 
 	Difficulty difficulty() { return mDifficulty; }
 	void difficulty(Difficulty difficulty);
+
+	bool hasGameEnded();
 
 protected:
 	void initialize() override;
@@ -393,4 +396,6 @@ private:
 	std::unique_ptr<MiniMap> mMiniMap;
 	std::unique_ptr<DetailMap> mDetailMap;
 	std::unique_ptr<NavControl> mNavControl;
+
+	NAS2D::Fade mFade;
 };

@@ -254,9 +254,6 @@ NAS2D::State* MainMenuState::update()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	// Disable renderer fade from previous or next screens, as we use Fade control here
-	renderer.fadeIn(std::chrono::milliseconds{0});
-
 	renderer.clearScreen();
 
 	renderer.drawImage(mBgImage, renderer.center() - mBgImage.size() / 2);

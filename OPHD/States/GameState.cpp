@@ -30,8 +30,6 @@ GameState::~GameState()
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().disconnect(this, &GameState::onMouseMove);
 
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &GameState::onFadeComplete);
-
 	mMainReportsState->hideReports().disconnect(this, &GameState::onHideReports);
 	mMapView->quit().disconnect(this, &GameState::onQuit);
 	mMapView->showReporstUi().disconnect(this, &GameState::onShowReports);
@@ -65,9 +63,7 @@ void GameState::initialize()
 	}
 
 	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect(MakeDelegate(this, &GameState::onMusicComplete));
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().connect(this, &GameState::onFadeComplete);
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(std::chrono::milliseconds{0});
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeIn(constants::FadeSpeed);
+	mFade.fadeIn(constants::FadeSpeed);
 }
 
 
@@ -101,19 +97,6 @@ MainReportsUiState& GameState::getMainReportsState()
 void GameState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	MOUSE_COORDS = position;
-}
-
-
-/**
- * Event hanler for a 'fade complete' event raised by the NAS2D::Renderer.
- */
-void GameState::onFadeComplete()
-{
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	if (renderer.isFaded())
-	{
-		mReturnState = new MainMenuState();
-	}
 }
 
 
@@ -199,6 +182,14 @@ NAS2D::State* GameState::update()
 	if (mActiveState)
 	{
 		mActiveState->_update();
+	}
+
+	mFade.update();
+	mFade.draw(NAS2D::Utility<NAS2D::Renderer>::get());
+
+	if (mMapView && mMapView->hasGameEnded())
+	{
+		mReturnState = new MainMenuState();
 	}
 
 	return mReturnState;
