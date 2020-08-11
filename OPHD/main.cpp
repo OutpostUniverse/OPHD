@@ -33,8 +33,6 @@ const NAS2D::Image* IMG_LOADING = nullptr;
 const NAS2D::Image* IMG_SAVING = nullptr;
 const NAS2D::Image* IMG_PROCESSING_TURN = nullptr;
 
-const NAS2D::Music* MARS = nullptr;
-
 
 /**
  * Makes sure video resolution is never less than 1024x768
@@ -151,8 +149,8 @@ int main(int /*argc*/, char *argv[])
 		IMG_SAVING = &imageCache.load("sys/saving.png");
 		IMG_PROCESSING_TURN = &imageCache.load("sys/processing_turn.png");
 
-		MARS = new Music("music/mars.ogg");
-		Utility<Mixer>::get().playMusic(*MARS);
+		trackMars = std::make_unique<NAS2D::Music>("music/mars.ogg");
+		Utility<Mixer>::get().playMusic(*trackMars);
 
 		StateManager stateManager;
 		stateManager.forceStopAudio(false);

@@ -7,6 +7,7 @@
 #include "PlanetSelectState.h"
 #include "Wrapper.h"
 
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
 
@@ -94,9 +95,8 @@ void MainMenuState::initialize()
 	renderer.fadeIn(constants::FADE_SPEED);
 	renderer.showSystemPointer(true);
 
-	extern const Music* MARS; /// yuck
 	Mixer& mixer = Utility<Mixer>::get();
-	if (!mixer.musicPlaying()) { mixer.playMusic(*MARS); }
+	if (!mixer.musicPlaying()) { mixer.playMusic(*trackMars); }
 }
 
 
