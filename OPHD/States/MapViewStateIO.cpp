@@ -88,6 +88,10 @@ void MapViewState::save(const std::string& filePath)
 	turns->attribute("count", mTurnCount);
 	root->linkEndChild(turns);
 
+	auto energy = new XmlElement("energy");
+	energy->attribute("energy", mEnergy);
+	root->linkEndChild(energy);
+
 	XmlElement* population = new XmlElement("population");
 	population->attribute("morale", mCurrentMorale);
 	population->attribute("prev_morale", mPreviousMorale);
