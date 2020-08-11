@@ -37,7 +37,7 @@ public:
 		return stringTable;
 	}
 
-	std::string writeStorageAmount(int storageAmount)
+	std::string writeStorageAmount(int storageAmount) const
 	{
 		return std::to_string(storageAmount) + " / " + std::to_string(IndividualMaterialCapacity());
 	}
@@ -45,12 +45,12 @@ public:
 	/**
 	 * Maximum capacity of all refined resources combined
 	 */
-	virtual int TotalCapacity() = 0;
+	virtual int TotalCapacity() const = 0;
 
 	/**
      * Capacity of an individual type of refined resource
      */
-	int IndividualMaterialCapacity() { return TotalCapacity() / 4; }
+	int IndividualMaterialCapacity() const { return TotalCapacity() / 4; }
 
 protected:
 	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
