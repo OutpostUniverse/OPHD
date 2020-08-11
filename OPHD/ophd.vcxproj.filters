@@ -578,9 +578,6 @@
     <ClInclude Include="UI\Reports\FactoryReport.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
-    <ClInclude Include="FontManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Things\Structures\SurfaceFactory.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
