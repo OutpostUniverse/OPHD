@@ -465,6 +465,13 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 			structure->linkEndChild(robots);
 		}
 
+		if (it->first->structureClass() == Structure::StructureClass::FoodProduction)
+		{
+			XmlElement* food = new XmlElement("food");
+			food->attribute("level", static_cast<FoodProduction*>(it->first)->foodLevel());
+			structure->linkEndChild(food);
+		}
+
 		structures->linkEndChild(structure);
 	}
 

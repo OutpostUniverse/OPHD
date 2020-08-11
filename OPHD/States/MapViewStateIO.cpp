@@ -85,6 +85,10 @@ void MapViewState::save(const std::string& filePath)
 	turns->attribute("count", mTurnCount);
 	root->linkEndChild(turns);
 
+	auto energy = new XmlElement("energy");
+	energy->attribute("energy", mEnergy);
+	root->linkEndChild(energy);
+
 	XmlElement* population = new XmlElement("population");
 	population->attribute("morale", mCurrentMorale);
 	population->attribute("prev_morale", mPreviousMorale);
@@ -192,7 +196,8 @@ void MapViewState::load(const std::string& filePath)
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
-	XmlElement* energy = root->firstChildElement("energy");
+	auto energy = root->firstChildElement("energy");
+	if (!energy) { throw std::runtime_error("MapViewState::load(): Savegame file is missing '<energy>' tag."); }
 	mEnergy = std::stoi(energy->attribute(constants::SAVE_GAME_ENERGY));
 
 	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
@@ -203,6 +208,7 @@ void MapViewState::load(const std::string& filePath)
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
+	updateFood();
 
 	if (mTurnCount == 0)
 	{
@@ -399,6 +405,20 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		if (type_id == StructureID::SID_SEED_LANDER)
 		{
 			static_cast<SeedLander*>(st)->position({x, y});
+		}
+
+		if (type_id == StructureID::SID_AGRIDOME)
+		{
+			auto agridome = static_cast<Agridome*>(st);
+
+			auto foodStorage = structure->firstChildElement("food");
+			if (foodStorage == nullptr)
+			{
+				throw std::runtime_error("MapViewState::readStructures(): Agridome saved without a food level node.");
+			}
+
+			auto foodLevel = foodStorage->attribute("level");
+			agridome->foodLevel(std::stoi(foodLevel));
 		}
 
 		st->age(age);
