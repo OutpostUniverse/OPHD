@@ -20,13 +20,6 @@ FactoryProduction::FactoryProduction()
 
 
 /**
- * D'tor
- */
-FactoryProduction::~FactoryProduction()
-{}
-
-
-/**
  * 
  */
 void FactoryProduction::init()

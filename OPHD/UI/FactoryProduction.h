@@ -18,7 +18,6 @@ public:
 	FactoryProduction();
 	FactoryProduction(const FactoryProduction&) = delete;
 	FactoryProduction& operator=(const FactoryProduction&) = delete;
-	~FactoryProduction() override;
 
 	void factory(Factory* newFactory);
 	Factory* factory() { return mFactory; }
