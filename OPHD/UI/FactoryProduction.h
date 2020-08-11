@@ -16,6 +16,8 @@ class FactoryProduction : public Window
 {
 public:
 	FactoryProduction();
+	FactoryProduction(const FactoryProduction&) = delete;
+	FactoryProduction& operator=(const FactoryProduction&) = delete;
 	~FactoryProduction() override;
 
 	void factory(Factory* newFactory);
@@ -38,10 +40,6 @@ private:
 	void clearProduct();
 
 	void productSelectionChanged(const IconGrid::IconGridItem*);
-
-private:
-	FactoryProduction(const FactoryProduction&) = delete;
-	FactoryProduction& operator=(const FactoryProduction&) = delete;
 
 private:
 	Factory* mFactory = nullptr;
