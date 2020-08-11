@@ -28,14 +28,6 @@
 using namespace NAS2D;
 
 
-/** Not thrilled with placement but this seems to be the easiest way to deal with it. */
-const NAS2D::Image* IMG_LOADING = nullptr;
-const NAS2D::Image* IMG_SAVING = nullptr;
-const NAS2D::Image* IMG_PROCESSING_TURN = nullptr;
-
-const NAS2D::Music* MARS = nullptr;
-
-
 /**
  * Makes sure video resolution is never less than 1024x768
  */
@@ -146,13 +138,8 @@ int main(int /*argc*/, char *argv[])
 
 		std::cout << "done." << std::endl;
 
-		// Loading/Saving plaque's
-		IMG_LOADING = &imageCache.load("sys/loading.png");
-		IMG_SAVING = &imageCache.load("sys/saving.png");
-		IMG_PROCESSING_TURN = &imageCache.load("sys/processing_turn.png");
-
-		MARS = new Music("music/mars.ogg");
-		Utility<Mixer>::get().playMusic(*MARS);
+		trackMars = std::make_unique<NAS2D::Music>("music/mars.ogg");
+		Utility<Mixer>::get().playMusic(*trackMars);
 
 		StateManager stateManager;
 		stateManager.forceStopAudio(false);

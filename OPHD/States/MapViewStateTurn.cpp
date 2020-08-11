@@ -10,13 +10,11 @@
 
 #include "../Things/Structures/Structures.h"
 
+#include "../Cache.h"
 #include "../StorableResources.h"
 
 #include <vector>
 #include <algorithm>
-
-
-extern const NAS2D::Image* IMG_PROCESSING_TURN; /// \fixme Find a sane place for this.
 
 
 /**
@@ -391,7 +389,8 @@ void MapViewState::updateFood()
 void MapViewState::nextTurn()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	renderer.drawImage(*IMG_PROCESSING_TURN, renderer.center() - IMG_PROCESSING_TURN->size() / 2);
+	const auto imageProcessingTurn = &imageCache.load("sys/processing_turn.png");
+	renderer.drawImage(*imageProcessingTurn, renderer.center() - imageProcessingTurn->size() / 2);
 	renderer.update();
 
 	clearMode();
