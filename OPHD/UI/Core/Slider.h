@@ -5,11 +5,10 @@
  */
 #pragma once
 
-#include "Button.h"
 #include "Control.h"
-#include "../../Common.h"
 
 #include <NAS2D/Timer.h>
+#include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 
