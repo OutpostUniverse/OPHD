@@ -5,7 +5,7 @@
 
 #include "../../Common.h"
 #include "../../Constants.h"
-#include "../../FontManager.h"
+#include "../../Cache.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -15,7 +15,7 @@ using namespace NAS2D;
 
 void TextArea::font(const std::string& filePath, unsigned int pointSize)
 {
-	mFont = &Utility<FontManager>::get().load(filePath, pointSize);
+	mFont = &fontCache.load(filePath, pointSize);
 }
 
 

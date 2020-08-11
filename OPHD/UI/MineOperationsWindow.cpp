@@ -7,7 +7,6 @@
 
 #include "../Cache.h"
 #include "../Constants.h"
-#include "../FontManager.h"
 #include "../Things/Structures/MineFacility.h"
 
 
@@ -88,8 +87,8 @@ void MineOperationsWindow::init()
 	add(&chkRareMinerals, 259, 128);
 	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
 
-	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 

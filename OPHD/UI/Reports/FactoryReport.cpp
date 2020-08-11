@@ -6,7 +6,6 @@
 #include "../TextRender.h"
 #include "../../Cache.h"
 #include "../../Constants.h"
-#include "../../FontManager.h"
 #include "../../StructureManager.h"
 
 #include "../../Things/Structures/SurfaceFactory.h"
@@ -78,14 +77,14 @@ FactoryReport::~FactoryReport()
  */
 void FactoryReport::init()
 {
-	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
-	FONT_MED = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_MED_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	FONT_MED = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
+	FONT_MED_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 
-	FONT_BIG = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
-	FONT_BIG_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
+	FONT_BIG = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
+	FONT_BIG_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
 
 	FACTORY_SEED = &imageCache.load("ui/interface/factory_seed.png");
 	FACTORY_AG = &imageCache.load("ui/interface/factory_ag.png");

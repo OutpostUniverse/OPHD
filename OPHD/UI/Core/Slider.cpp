@@ -10,7 +10,6 @@
 
 #include "../../Cache.h"
 #include "../../Constants.h"
-#include "../../FontManager.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -140,7 +139,7 @@ Slider::Slider(Slider::Skins skins, SliderType sliderType) :
 	mSliderType{sliderType},
 	mSkins{skins}
 {
-	sliderFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	sliderFont = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMove);

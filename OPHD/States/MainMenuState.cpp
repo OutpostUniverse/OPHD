@@ -9,7 +9,6 @@
 
 #include "../Cache.h"
 #include "../Constants.h"
-#include "../FontManager.h"
 
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -82,7 +81,7 @@ void MainMenuState::initialize()
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
-	const Font* tiny_font = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	const Font* tiny_font = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	lblVersion.font(tiny_font);
 	lblVersion.color(NAS2D::Color::White);
 

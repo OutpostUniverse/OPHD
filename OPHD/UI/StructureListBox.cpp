@@ -6,7 +6,7 @@
 #include "../Things/Structures/Structure.h"
 
 #include "../Constants.h"
-#include "../FontManager.h"
+#include "../Cache.h"
 
 using namespace NAS2D;
 
@@ -63,8 +63,8 @@ StructureListBox::~StructureListBox()
 void StructureListBox::_init()
 {
 	item_height(LIST_ITEM_HEIGHT);
-	MAIN_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, 12);
-	MAIN_FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, 12);
+	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, 12);
+	MAIN_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 12);
 }
 
 

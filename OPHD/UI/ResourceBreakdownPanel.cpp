@@ -6,7 +6,6 @@
 #include "../Cache.h"
 #include "../Common.h"
 #include "../Constants.h"
-#include "../FontManager.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -63,7 +62,7 @@ ResourceBreakdownPanel::ResourceBreakdownPanel() :
 {
 	size({270, 80});
 
-	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 
