@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Core/ListBoxBase.h"
-#include "../Things/Structures/Structure.h"
 
 #include <NAS2D/Signal.h>
 
