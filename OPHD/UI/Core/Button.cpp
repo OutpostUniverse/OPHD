@@ -6,7 +6,6 @@
 #include "../../Cache.h"
 #include "../../Common.h"
 #include "../../Constants.h"
-#include "../../FontManager.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -57,7 +56,7 @@ Button::Button(std::string newText) :
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMove);
 	hasFocus(true);
 
-	mFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	mFont = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -89,7 +88,7 @@ bool Button::toggled() const
 
 void Button::fontSize(unsigned int pointSize)
 {
-	mFont = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, pointSize);
+	mFont = &fontCache.load(constants::FONT_PRIMARY, pointSize);
 }
 
 

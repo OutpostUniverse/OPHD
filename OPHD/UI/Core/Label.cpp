@@ -1,7 +1,7 @@
 #include "Label.h"
 
 #include "../../Constants.h"
-#include "../../FontManager.h"
+#include "../../Cache.h"
 
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resources/Font.h>
@@ -15,7 +15,7 @@ static const NAS2D::Font* TXT_FONT = nullptr;
 Label::Label(std::string newText)
 {
 	text(newText);
-	TXT_FONT = &NAS2D::Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	TXT_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	autoSize();
 }
 

@@ -5,7 +5,6 @@
 
 #include "../Cache.h"
 #include "../Constants.h"
-#include "../FontManager.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -53,7 +52,7 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	resized().connect(this, &IconGrid::sizeChanged);
 	hasFocus(true);
 
-	FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 

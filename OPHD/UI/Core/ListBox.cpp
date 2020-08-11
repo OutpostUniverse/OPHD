@@ -4,7 +4,7 @@
 #include "ListBox.h"
 
 #include "../../Constants.h"
-#include "../../FontManager.h"
+#include "../../Cache.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/MathUtils.h>
@@ -49,7 +49,7 @@ ListBox::~ListBox()
 */
 void ListBox::_init()
 {
-	LST_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	LST_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);

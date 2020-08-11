@@ -8,7 +8,7 @@
 #include "MapViewState.h"
 
 #include "../Constants.h"
-#include "../FontManager.h"
+#include "../Cache.h"
 
 #include <string>
 #include <vector>

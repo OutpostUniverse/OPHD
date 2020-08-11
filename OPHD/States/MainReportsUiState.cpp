@@ -5,7 +5,6 @@
 
 #include "../Cache.h"
 #include "../Constants.h"
-#include "../FontManager.h"
 
 #include "../UI/Reports/ReportInterface.h"
 
@@ -156,8 +155,8 @@ void MainReportsUiState::initialize()
 {
 	WINDOW_BACKGROUND = &imageCache.load("ui/skin/window_middle_middle.png");
 
-	BIG_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, 16);
-	BIG_FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, 16);
+	BIG_FONT = &fontCache.load(constants::FONT_PRIMARY, 16);
+	BIG_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 16);
 
 	Panels[NavigationPanel::PANEL_EXIT].Img = &imageCache.load("ui/icons/exit.png");
 

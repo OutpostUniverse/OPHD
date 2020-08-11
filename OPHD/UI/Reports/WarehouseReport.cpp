@@ -5,7 +5,6 @@
 
 #include "../../Cache.h"
 #include "../../Constants.h"
-#include "../../FontManager.h"
 #include "../../StructureManager.h"
 
 #include "../../Things/Structures/Warehouse.h"
@@ -103,10 +102,10 @@ WarehouseReport::~WarehouseReport()
  */
 void WarehouseReport::init()
 {
-	FONT_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
-	FONT_MED = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_MED_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	FONT_BIG_BOLD = &Utility<FontManager>::get().load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
+	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	FONT_MED = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
+	FONT_MED_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	FONT_BIG_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
 
 	WAREHOUSE_IMG = &imageCache.load("ui/interface/warehouse.png");
 

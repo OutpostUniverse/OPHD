@@ -6,7 +6,6 @@
 #include "UIContainer.h"
 #include "../../Cache.h"
 #include "../../Constants.h"
-#include "../../FontManager.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -26,7 +25,7 @@ RadioButton::RadioButton(std::string newText) :
 	mSkin{imageCache.load("ui/skin/checkbox.png")},
 	mLabel{newText}
 {
-	CBOX_FONT = &Utility<FontManager>::get().load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	CBOX_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &RadioButton::onMouseDown);
 }
 
