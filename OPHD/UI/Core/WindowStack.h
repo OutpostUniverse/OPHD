@@ -27,7 +27,7 @@ public:
 
 	void hide();
 
-	virtual void update();
+	void update();
 
 private:
 	using WindowList = std::list<Window*>;
