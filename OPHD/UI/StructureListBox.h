@@ -21,7 +21,6 @@ public:
 	{
 	public:
 		StructureListBoxItem(Structure* s);
-		~StructureListBoxItem() override;
 
 	public:
 		Structure* structure = nullptr; /**< Pointer to a Structure. */

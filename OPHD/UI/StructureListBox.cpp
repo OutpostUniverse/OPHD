@@ -42,7 +42,6 @@ StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
 	structureState(""),
 	colorIndex(s->state())
 {}
-StructureListBox::StructureListBoxItem::~StructureListBoxItem() {}
 
 
 /**
