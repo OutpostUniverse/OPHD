@@ -1,7 +1,8 @@
 #pragma once
 
-#include "UI.h"
-#include "IconGrid.h"
+#include "Core/Window.h"
+#include "Core/Button.h"
+
 
 class Warehouse;
 
