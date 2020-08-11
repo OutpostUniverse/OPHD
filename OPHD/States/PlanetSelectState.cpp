@@ -80,8 +80,7 @@ void PlanetSelectState::initialize()
 	mPlanetDescription.position(NAS2D::Point{viewportSize.x / 2 - 275, viewportSize.y - 225});
 
 	renderer.showSystemPointer(true);
-	renderer.fadeOut(std::chrono::milliseconds{0});
-	renderer.fadeIn(constants::FadeSpeed);
+	mFade.fadeIn(constants::FadeSpeed);
 
 	NAS2D::Utility<NAS2D::Mixer>::get().playMusic(mBgMusic);
 }
@@ -113,7 +112,10 @@ NAS2D::State* PlanetSelectState::update()
 
 	renderer.drawText(mTinyFont, constants::Version, NAS2D::Point{-5, -5} + size - mTinyFont.size(constants::Version), NAS2D::Color::White);
 
-	if (renderer.isFading())
+	mFade.update();
+	mFade.draw(renderer);
+
+	if (mFade.isFading())
 	{
 		return this;
 	}
@@ -142,7 +144,7 @@ void PlanetSelectState::onMouseDown(NAS2D::EventHandler::MouseButton /*button*/,
 		{
 			NAS2D::Utility<NAS2D::Mixer>::get().playSound(mSelect);
 			mPlanetSelection = i;
-			NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(constants::FadeSpeed);
+			mFade.fadeOut(constants::FadeSpeed);
 			NAS2D::Utility<NAS2D::Mixer>::get().fadeOutMusic(constants::FadeSpeed);
 			return;
 		}
@@ -186,6 +188,6 @@ void PlanetSelectState::onWindowResized(NAS2D::Vector<int> newSize)
 
 void PlanetSelectState::onQuit()
 {
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(constants::FadeSpeed);
+	mFade.fadeOut(constants::FadeSpeed);
 	mReturnState = new MainMenuState();
 }
