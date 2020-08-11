@@ -194,7 +194,8 @@ void MapViewState::load(const std::string& filePath)
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
-	XmlElement* energy = root->firstChildElement("energy");
+	auto energy = root->firstChildElement("energy");
+	if (!energy) { throw std::runtime_error("MapViewState::load(): Savegame file is missing '<energy>' tag."); }
 	mEnergy = std::stoi(energy->attribute(constants::SAVE_GAME_ENERGY));
 
 	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
