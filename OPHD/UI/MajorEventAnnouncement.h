@@ -15,6 +15,8 @@ public:
 	};
 
 	MajorEventAnnouncement();
+	MajorEventAnnouncement(const MajorEventAnnouncement&) = delete;
+	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
 	~MajorEventAnnouncement() override;
 
 	void announcement(AnnouncementType a);
@@ -27,12 +29,7 @@ protected:
 private:
 	void btnCloseClicked();
 
-	MajorEventAnnouncement(const MajorEventAnnouncement&) = delete;
-	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
-
 	const NAS2D::Image& mHeader;
-
 	std::string mMessage;
-
 	Button btnClose{"Okay"};
 };
