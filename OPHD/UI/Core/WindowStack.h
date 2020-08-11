@@ -1,8 +1,11 @@
 #pragma once
 
-#include "Window.h"
+#include <NAS2D/Renderer/Point.h>
 
 #include <list>
+
+
+class Window;
 
 
 class WindowStack final
