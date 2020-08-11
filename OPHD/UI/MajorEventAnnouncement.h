@@ -17,7 +17,6 @@ public:
 	MajorEventAnnouncement();
 	MajorEventAnnouncement(const MajorEventAnnouncement&) = delete;
 	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
-	~MajorEventAnnouncement() override;
 
 	void announcement(AnnouncementType a);
 

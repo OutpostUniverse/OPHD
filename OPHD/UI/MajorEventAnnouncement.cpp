@@ -19,10 +19,6 @@ MajorEventAnnouncement::MajorEventAnnouncement() :
 }
 
 
-MajorEventAnnouncement::~MajorEventAnnouncement()
-{}
-
-
 void MajorEventAnnouncement::init()
 {
 	position({0, 0});
