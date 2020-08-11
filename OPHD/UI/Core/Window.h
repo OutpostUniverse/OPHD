@@ -33,6 +33,8 @@ private:
 	bool mMouseDrag = false;
 	bool mAnchored = false;
 
-	NAS2D::ImageList mTitle;
+	const NAS2D::Image& mTitleBarLeft;
+	const NAS2D::Image& mTitleBarCenter;
+	const NAS2D::Image& mTitleBarRight;
 	NAS2D::RectangleSkin mBody;
 };
