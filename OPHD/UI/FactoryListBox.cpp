@@ -3,6 +3,8 @@
 
 #include "FactoryListBox.h"
 
+#include "../Things/Structures/Factory.h"
+
 #include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
