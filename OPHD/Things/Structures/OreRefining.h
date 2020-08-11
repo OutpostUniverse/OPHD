@@ -37,11 +37,6 @@ public:
 		return stringTable;
 	}
 
-	std::string writeStorageAmount(int storageAmount) const
-	{
-		return std::to_string(storageAmount) + " / " + std::to_string(IndividualMaterialCapacity());
-	}
-
 	/**
 	 * Maximum capacity of all refined resources combined
 	 */
@@ -98,5 +93,11 @@ protected:
 			ore = ore + overflow;
 			idle(IdleReason::InternalStorageFull);
 		}
+	}
+
+private:
+	std::string writeStorageAmount(int storageAmount) const
+	{
+		return std::to_string(storageAmount) + " / " + std::to_string(IndividualMaterialCapacity());
 	}
 };
