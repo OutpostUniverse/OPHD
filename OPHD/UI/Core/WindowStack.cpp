@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 #include "WindowStack.h"
+#include "Window.h"
 
 #include "../../Common.h"
 

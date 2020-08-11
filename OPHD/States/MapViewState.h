@@ -24,6 +24,7 @@
 #include "../Things/Robots/Robots.h"
 
 #include "../UI/Gui.h"
+#include "../UI/UI.h"
 
 #include <NAS2D/Signal.h>
 #include <NAS2D/Renderer/Point.h>

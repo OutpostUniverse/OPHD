@@ -2,17 +2,14 @@
 
 #include "Core/ListBoxBase.h"
 
-#include "Core/UIContainer.h"
-#include "Core/Slider.h"
-
-#include "../Constants/UiConstants.h"
-#include "../Things/Structures/Factory.h"
-
 #include <NAS2D/Signal.h>
 #include <NAS2D/Renderer/Point.h>
 
 #include <string>
 #include <vector>
+
+
+class Factory;
 
 
 /**

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "UI.h"
+#include "Core/Window.h"
+#include "Core/Button.h"
 
-#include <NAS2D/Resources/Image.h>
 
 class MajorEventAnnouncement : public Window
 {
@@ -14,9 +14,9 @@ public:
 		ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS
 	};
 
-public:
 	MajorEventAnnouncement();
-	~MajorEventAnnouncement() override;
+	MajorEventAnnouncement(const MajorEventAnnouncement&) = delete;
+	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
 
 	void announcement(AnnouncementType a);
 
@@ -28,14 +28,7 @@ protected:
 private:
 	void btnCloseClicked();
 
-private:
-	MajorEventAnnouncement(const MajorEventAnnouncement&) = delete;
-	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
-
-private:
 	const NAS2D::Image& mHeader;
-
 	std::string mMessage;
-
 	Button btnClose{"Okay"};
 };

@@ -4,10 +4,10 @@
 
 #include "../Core/Button.h"
 #include "../Core/ComboBox.h"
-#include "../Core/UIContainer.h"
 #include "../Core/TextArea.h"
 #include "../FactoryListBox.h"
 #include "../../Common.h"
+
 
 class FactoryReport : public ReportInterface
 {

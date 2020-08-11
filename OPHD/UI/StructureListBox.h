@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Core/ListBoxBase.h"
-#include "../Things/Structures/Structure.h"
+
+#include "../Common.h"
 
 #include <NAS2D/Signal.h>
 
@@ -22,12 +23,11 @@ public:
 	{
 	public:
 		StructureListBoxItem(Structure* s);
-		~StructureListBoxItem() override;
 
 	public:
 		Structure* structure = nullptr; /**< Pointer to a Structure. */
 		std::string structureState; /**< String description of the state of a Structure. */
-		StructureState colorIndex = StructureState::UnderConstruction; /**< Index to use from the listbox color table. */
+		StructureState colorIndex; /**< Index to use from the listbox color table. */
 	};
 
 public:

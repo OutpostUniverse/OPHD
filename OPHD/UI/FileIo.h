@@ -1,6 +1,9 @@
 #pragma once
 
-#include "UI.h"
+#include "Core/Window.h"
+#include "Core/Button.h"
+#include "Core/TextField.h"
+#include "Core/ListBox.h"
 
 #include <NAS2D/Signal.h>
 #include <NAS2D/EventHandler.h>

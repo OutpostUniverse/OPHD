@@ -1,9 +1,12 @@
 #pragma once
 
-#include "UI.h"
+#include "Core/Control.h"
+
+#include "../Constants/UiConstants.h"
 
 #include <NAS2D/Signal.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/StringUtils.h>
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Renderer/Vector.h>
 #include <NAS2D/Renderer/RectangleSkin.h>

@@ -1,10 +1,13 @@
 #pragma once
 
-#include "UI.h"
+#include "Core/Window.h"
+#include "Core/Button.h"
+#include "Core/CheckBox.h"
 #include "IconGrid.h"
 
 #include "../Constants.h"
 #include "../Things/Structures/Factory.h"
+
 
 /**
  * \brief Implements a Factory Production dialog interface.
@@ -13,7 +16,8 @@ class FactoryProduction : public Window
 {
 public:
 	FactoryProduction();
-	~FactoryProduction() override;
+	FactoryProduction(const FactoryProduction&) = delete;
+	FactoryProduction& operator=(const FactoryProduction&) = delete;
 
 	void factory(Factory* newFactory);
 	Factory* factory() { return mFactory; }
@@ -35,10 +39,6 @@ private:
 	void clearProduct();
 
 	void productSelectionChanged(const IconGrid::IconGridItem*);
-
-private:
-	FactoryProduction(const FactoryProduction&) = delete;
-	FactoryProduction& operator=(const FactoryProduction&) = delete;
 
 private:
 	Factory* mFactory = nullptr;

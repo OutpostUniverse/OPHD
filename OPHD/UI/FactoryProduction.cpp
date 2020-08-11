@@ -4,7 +4,7 @@
 #include "FactoryProduction.h"
 
 #include "StringTable.h"
-#include "../Constants.h"
+
 
 using namespace NAS2D;
 
@@ -17,13 +17,6 @@ FactoryProduction::FactoryProduction()
 	text(constants::WINDOW_FACTORY_PRODUCTION);
 	init();
 }
-
-
-/**
- * D'tor
- */
-FactoryProduction::~FactoryProduction()
-{}
 
 
 /**

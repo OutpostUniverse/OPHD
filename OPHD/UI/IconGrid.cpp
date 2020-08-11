@@ -427,13 +427,8 @@ void IconGrid::update()
 }
 
 
-bool iconItemCompare(const IconGrid::IconGridItem& left, const IconGrid::IconGridItem& right)
-{
-	return left.name < right.name;
-}
-
-
 void IconGrid::sort()
 {
-	std::sort(mIconItemList.begin(), mIconItemList.end(), &iconItemCompare);
+	const auto iconItemCompare = [](const auto& left, const auto& right){ return left.name < right.name; };
+	std::sort(mIconItemList.begin(), mIconItemList.end(), iconItemCompare);
 }

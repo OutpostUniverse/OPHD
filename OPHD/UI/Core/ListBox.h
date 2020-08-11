@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UIContainer.h"
+#include "Control.h"
 #include "Slider.h"
 #include "../../Constants/UiConstants.h"
 

@@ -1,8 +1,11 @@
 #pragma once
 
-#include "Window.h"
+#include <NAS2D/Renderer/Point.h>
 
 #include <list>
+
+
+class Window;
 
 
 class WindowStack final
@@ -24,7 +27,7 @@ public:
 
 	void hide();
 
-	virtual void update();
+	void update();
 
 private:
 	using WindowList = std::list<Window*>;

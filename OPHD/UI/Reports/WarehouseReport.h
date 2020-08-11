@@ -6,11 +6,9 @@
 #include "../StructureListBox.h"
 
 #include "../Core/Button.h"
-#include "../Core/ComboBox.h"
-#include "../Core/UIContainer.h"
-#include "../Core/TextArea.h"
 
 #include "../../Things/Structures/Structure.h"
+
 
 class WarehouseReport : public ReportInterface
 {

@@ -1,11 +1,13 @@
 #pragma once
 
-#include "UI.h"
-
-#include "../Mine.h"
-#include "../Things/Structures/MineFacility.h"
+#include "Core/Window.h"
+#include "Core/Button.h"
+#include "Core/CheckBox.h"
 
 #include <NAS2D/Renderer/RectangleSkin.h>
+
+
+class MineFacility;
 
 
 /**
