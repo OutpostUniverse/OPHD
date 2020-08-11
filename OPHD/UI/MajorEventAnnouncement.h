@@ -1,8 +1,8 @@
 #pragma once
 
-#include "UI.h"
+#include "Core/Window.h"
+#include "Core/Button.h"
 
-#include <NAS2D/Resources/Image.h>
 
 class MajorEventAnnouncement : public Window
 {
