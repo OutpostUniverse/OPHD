@@ -1,8 +1,12 @@
 #pragma once
 
-#include "UI.h"
+#include "Core/Window.h"
+#include "Core/Button.h"
+#include "Core/TextArea.h"
+
 
 class Structure;
+
 
 class StructureInspector : public Window
 {
