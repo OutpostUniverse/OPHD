@@ -403,6 +403,20 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			static_cast<SeedLander*>(st)->position({x, y});
 		}
 
+		if (type_id == StructureID::SID_AGRIDOME)
+		{
+			auto agridome = static_cast<Agridome*>(st);
+
+			auto foodStorage = structure->firstChildElement("food");
+			if (foodStorage == nullptr)
+			{
+				throw std::runtime_error("MapViewState::readStructures(): Agridome saved without a food level node.");
+			}
+
+			auto foodLevel = foodStorage->attribute("level");
+			agridome->foodLevel(std::stoi(foodLevel));
+		}
+
 		st->age(age);
 		st->forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
 		st->connectorDirection(static_cast<ConnectorDir>(direction));
