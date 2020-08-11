@@ -14,7 +14,6 @@ public:
 		ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS
 	};
 
-public:
 	MajorEventAnnouncement();
 	~MajorEventAnnouncement() override;
 
@@ -28,11 +27,9 @@ protected:
 private:
 	void btnCloseClicked();
 
-private:
 	MajorEventAnnouncement(const MajorEventAnnouncement&) = delete;
 	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
 
-private:
 	const NAS2D::Image& mHeader;
 
 	std::string mMessage;
