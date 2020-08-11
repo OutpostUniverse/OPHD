@@ -1,10 +1,13 @@
 #pragma once
 
-#include "UI.h"
+#include "Core/Window.h"
+#include "Core/Button.h"
+#include "Core/CheckBox.h"
 #include "IconGrid.h"
 
 #include "../Constants.h"
 #include "../Things/Structures/Factory.h"
+
 
 /**
  * \brief Implements a Factory Production dialog interface.
