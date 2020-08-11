@@ -2,6 +2,8 @@
 
 #include "Core/ListBoxBase.h"
 
+#include "../Common.h"
+
 #include <NAS2D/Signal.h>
 
 
