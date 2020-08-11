@@ -16,11 +16,9 @@ using namespace NAS2D;
 static const Font* WINDOW_TITLE_FONT;
 
 Window::Window(std::string newTitle) :
-	mTitle{
-		imageCache.load("ui/skin/window_title_left.png"),
-		imageCache.load("ui/skin/window_title_middle.png"),
-		imageCache.load("ui/skin/window_title_right.png")
-	},
+	mTitleBarLeft{imageCache.load("ui/skin/window_title_left.png")},
+	mTitleBarCenter{imageCache.load("ui/skin/window_title_middle.png")},
+	mTitleBarRight{imageCache.load("ui/skin/window_title_right.png")},
 	mBody{
 		imageCache.load("ui/skin/window_top_left.png"),
 		imageCache.load("ui/skin/window_top_middle.png"),
@@ -100,9 +98,9 @@ void Window::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImage(mTitle[0], mRect.startPoint());
-	renderer.drawImageRepeated(mTitle[1], NAS2D::Rectangle{mRect.x + 4, mRect.y, mRect.width - 8, sWindowTitleBarHeight});
-	renderer.drawImage(mTitle[2], NAS2D::Point{mRect.x + mRect.width - 4, mRect.y});
+	renderer.drawImage(mTitleBarLeft, mRect.startPoint());
+	renderer.drawImageRepeated(mTitleBarCenter, NAS2D::Rectangle{mRect.x + 4, mRect.y, mRect.width - 8, sWindowTitleBarHeight});
+	renderer.drawImage(mTitleBarRight, NAS2D::Point{mRect.x + mRect.width - 4, mRect.y});
 
 	mBody.draw(renderer, NAS2D::Rectangle{mRect.x, mRect.y + 20, mRect.width, mRect.height - 20});
 
