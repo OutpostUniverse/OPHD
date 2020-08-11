@@ -131,13 +131,6 @@ int main(int /*argc*/, char *argv[])
 			SDL_MaximizeWindow(underlyingWindow);
 		}
 
-		std::cout << "Loading packed assets... ";
-
-		fs.mountSoftFail("fonts.dat");
-		fs.mountSoftFail("planets.dat");
-
-		std::cout << "done." << std::endl;
-
 		trackMars = std::make_unique<NAS2D::Music>("music/mars.ogg");
 		Utility<Mixer>::get().playMusic(*trackMars);
 
