@@ -9,7 +9,7 @@
 
 #include "MapViewState.h"
 
-
+#include "../Cache.h"
 #include "../Constants.h"
 #include "../IOHelper.h"
 #include "../StructureCatalogue.h"
@@ -34,10 +34,6 @@ extern const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
 extern std::string CURRENT_LEVEL_STRING;
 extern std::map <int, std::string> LEVEL_STRING_TABLE;
-
-
-extern const NAS2D::Image* IMG_LOADING; /// \fixme	Hate having these as externs.
-extern const NAS2D::Image* IMG_SAVING;
 
 
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge
@@ -69,7 +65,8 @@ void MapViewState::save(const std::string& filePath)
 {
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawBoxFilled(NAS2D::Rectangle{0, 0, renderer.size().x, renderer.size().y}, NAS2D::Color{0, 0, 0, 100});
-	renderer.drawImage(*IMG_SAVING, renderer.center() - IMG_SAVING->size() / 2);
+	const auto imageSaving = &imageCache.load("sys/saving.png");
+	renderer.drawImage(*imageSaving, renderer.center() - imageSaving->size() / 2);
 	renderer.update();
 
 	XmlDocument doc;
@@ -118,7 +115,8 @@ void MapViewState::load(const std::string& filePath)
 
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawBoxFilled(NAS2D::Rectangle{0, 0, renderer.size().x, renderer.size().y}, NAS2D::Color{0, 0, 0, 100});
-	renderer.drawImage(*IMG_LOADING, renderer.center() - IMG_LOADING->size() / 2);
+	const auto imageLoading = &imageCache.load("sys/loading.png");
+	renderer.drawImage(*imageLoading, renderer.center() - imageLoading->size() / 2);
 	renderer.update();
 
 	mBtnToggleConnectedness.toggle(false);
