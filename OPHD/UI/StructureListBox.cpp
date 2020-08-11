@@ -36,7 +36,14 @@ static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem&
 }
 
 
-StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) : ListBoxItem(s->name()), structure(s), structureState(""), colorIndex(s->state()) { Text = s->name(); }
+StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
+	ListBoxItem(s->name()),
+	structure(s),
+	structureState(""),
+	colorIndex(s->state())
+{
+	Text = s->name();
+}
 StructureListBox::StructureListBoxItem::~StructureListBoxItem() {}
 
 
