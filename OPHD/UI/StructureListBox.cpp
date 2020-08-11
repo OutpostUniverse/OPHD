@@ -41,9 +41,7 @@ StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
 	structure(s),
 	structureState(""),
 	colorIndex(s->state())
-{
-	Text = s->name();
-}
+{}
 StructureListBox::StructureListBoxItem::~StructureListBoxItem() {}
 
 
