@@ -8,6 +8,8 @@
 #include "../Cache.h"
 #include "../Constants.h"
 #include "../FontManager.h"
+#include "../Things/Structures/MineFacility.h"
+
 
 using namespace NAS2D;
 
