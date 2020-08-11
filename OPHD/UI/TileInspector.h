@@ -1,8 +1,10 @@
 #pragma once
 
-#include "UI.h"
+#include "Core/Window.h"
+#include "Core/Button.h"
 
 #include "../Map/Tile.h"
+
 
 class TileInspector: public Window
 {
