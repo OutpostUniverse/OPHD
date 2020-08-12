@@ -16,7 +16,7 @@ public:
 	}
 
 protected:
-	int TotalCapacity() override
+	int TotalCapacity() const override
 	{
 		return StorageCapacity;
 	}
