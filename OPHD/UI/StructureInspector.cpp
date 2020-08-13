@@ -107,7 +107,7 @@ void StructureInspector::drawPopulationRequirements()
 		"Scientists"
 	};
 
-	position.y += 20;
+	position.y += FONT_BOLD->height();
 	for (std::size_t populationType = 0; populationType < populationTypes.size(); ++populationType) {
 		const auto& populationRequirements = mStructure->populationRequirements();
 		const auto& populationAvailable = mStructure->populationAvailable();
@@ -116,7 +116,7 @@ void StructureInspector::drawPopulationRequirements()
 			std::string text = populationTypes[populationType] + ": " + std::to_string(populationAvailable[populationType]) + "/" + std::to_string(populationRequirements[populationType]);
 			Color color = populationAvailable[populationType] >= populationRequirements[populationType] ? Color::White : Color::Red;
 			renderer.drawText(*FONT, text, position, color);
-			position.y += 10;
+			position.y += FONT->height();
 		}
 	}
 }
