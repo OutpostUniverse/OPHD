@@ -34,12 +34,12 @@ public:
 private:
 	void onWindowMaximized()
 	{
-		NAS2D::Utility<NAS2D::Configuration>::get().option("maximized", "true");
+		NAS2D::Utility<NAS2D::Configuration>::get()["options"].set("maximized", true);
 	}
 
 	void onWindowRestored()
 	{
-		NAS2D::Utility<NAS2D::Configuration>::get().option("maximized", "false");
+		NAS2D::Utility<NAS2D::Configuration>::get()["options"].set("maximized", false);
 	}
 
 	void onWindowResized(int w, int h)
