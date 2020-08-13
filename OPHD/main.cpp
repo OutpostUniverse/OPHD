@@ -93,7 +93,7 @@ int main(int /*argc*/, char *argv[])
 		if (graphics.get<int>("screenwidth") < constants::MINIMUM_WINDOW_WIDTH) { graphics.set("screenwidth", constants::MINIMUM_WINDOW_WIDTH); }
 		if (graphics.get<int>("screenheight") < constants::MINIMUM_WINDOW_HEIGHT) { graphics.set("screenheight", constants::MINIMUM_WINDOW_HEIGHT); }
 		// Force windowed mode
-		cf.fullscreen(false);
+		graphics.set("fullscreen", false);
 
 		try
 		{
