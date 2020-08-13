@@ -46,7 +46,9 @@ private:
 	{
 		if (windowMaximized()) { return; }
 
-		NAS2D::Utility<NAS2D::Configuration>::get().graphicsWidth(w);
-		NAS2D::Utility<NAS2D::Configuration>::get().graphicsHeight(h);
+		auto& configuration = NAS2D::Utility<NAS2D::Configuration>::get();
+		auto& graphics = configuration["graphics"];
+		graphics.set("screenwidth", w);
+		graphics.set("screenheight", h);
 	}
 };
