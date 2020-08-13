@@ -117,7 +117,8 @@ int main(int /*argc*/, char *argv[])
 		renderer.addCursor(constants::MOUSE_POINTER_INSPECT, PointerType::POINTER_INSPECT, 8, 8);
 		renderer.setCursor(PointerType::POINTER_NORMAL);
 
-		if (cf.option("maximized") == "true")
+		const auto& options = cf["options"];
+		if (options.get<bool>("maximized"))
 		{
 			/** \fixme Evil hack exposing an internal NAS2D variable. */
 			extern SDL_Window* underlyingWindow;
@@ -130,7 +131,7 @@ int main(int /*argc*/, char *argv[])
 		StateManager stateManager;
 		stateManager.forceStopAudio(false);
 		
-		if (cf.option("skip-splash") == "false")
+		if (!options.get<bool>("skip-splash"))
 		{
 			stateManager.setState(new SplashState());
 		}
