@@ -28,15 +28,6 @@
 using namespace NAS2D;
 
 
-void validateVideoResolution()
-{
-	Configuration& cf = Utility<Configuration>::get();
-	auto& graphics = cf["graphics"];
-	if (graphics.get<int>("screenwidth") < constants::MINIMUM_WINDOW_WIDTH) { graphics.set("screenwidth", constants::MINIMUM_WINDOW_WIDTH); }
-	if (graphics.get<int>("screenheight") < constants::MINIMUM_WINDOW_HEIGHT) { graphics.set("screenheight", constants::MINIMUM_WINDOW_HEIGHT); }
-}
-
-
 int main(int /*argc*/, char *argv[])
 {
 	//Crude way of redirecting stream buffer when building in release (no console)
@@ -96,8 +87,13 @@ int main(int /*argc*/, char *argv[])
 			}
 		);
 		cf.load("config.xml");
-		validateVideoResolution();
-		cf.fullscreen(false); // force windowed mode.
+
+		// Ensure minimum video resolution
+		auto& graphics = cf["graphics"];
+		if (graphics.get<int>("screenwidth") < constants::MINIMUM_WINDOW_WIDTH) { graphics.set("screenwidth", constants::MINIMUM_WINDOW_WIDTH); }
+		if (graphics.get<int>("screenheight") < constants::MINIMUM_WINDOW_HEIGHT) { graphics.set("screenheight", constants::MINIMUM_WINDOW_HEIGHT); }
+		// Force windowed mode
+		cf.fullscreen(false);
 
 		try
 		{
