@@ -28,9 +28,6 @@
 using namespace NAS2D;
 
 
-/**
- * Makes sure video resolution is never less than 1024x768
- */
 void validateVideoResolution()
 {
 	Configuration& cf = Utility<Configuration>::get();
