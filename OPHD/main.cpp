@@ -31,9 +31,9 @@ using namespace NAS2D;
 void validateVideoResolution()
 {
 	Configuration& cf = Utility<Configuration>::get();
-
-	if (cf.graphicsWidth() < constants::MINIMUM_WINDOW_WIDTH) { cf.graphicsWidth(constants::MINIMUM_WINDOW_WIDTH); }
-	if (cf.graphicsHeight() < constants::MINIMUM_WINDOW_HEIGHT) { cf.graphicsHeight(constants::MINIMUM_WINDOW_HEIGHT); }
+	auto& graphics = cf["graphics"];
+	if (graphics.get<int>("screenwidth") < constants::MINIMUM_WINDOW_WIDTH) { graphics.set("screenwidth", constants::MINIMUM_WINDOW_WIDTH); }
+	if (graphics.get<int>("screenheight") < constants::MINIMUM_WINDOW_HEIGHT) { graphics.set("screenheight", constants::MINIMUM_WINDOW_HEIGHT); }
 }
 
 
