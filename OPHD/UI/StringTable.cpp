@@ -64,6 +64,21 @@ void StringTable::setDefaultTextColor(NAS2D::Color color)
 	mDefaultTextColor = color;
 }
 
+const NAS2D::Font* const StringTable::GetDefaultFont() const
+{
+	return mDefaultFont;
+}
+
+const NAS2D::Font* const StringTable::GetDefaultTitleFont() const
+{
+	return mDefaultTitleFont;
+}
+
+NAS2D::Color StringTable::GetDefaultFontColor() const
+{
+	return mDefaultTextColor;
+}
+
 void StringTable::setHorizontalPadding(int padding)
 {
 	mHorizontalPadding = padding;
