@@ -117,6 +117,22 @@ void StringTable::setColumnJustification(std::size_t column, Justification justi
 	}
 }
 
+void StringTable::setColumnFont(std::size_t column, const NAS2D::Font* const font)
+{
+	for (std::size_t row = 0; row < mRowCount; ++row)
+	{
+		mCells[getCellIndex({ column, row })].font = font;
+	}
+}
+
+void StringTable::setRowFont(std::size_t row, const NAS2D::Font* const font)
+{
+	for (std::size_t column = 0; column < mColumnCount; ++column)
+	{
+		mCells[getCellIndex({ column, row })].font = font;
+	}
+}
+
 void StringTable::computeRelativeCellPositions()
 {
 	auto columnWidths = computeColumnWidths();

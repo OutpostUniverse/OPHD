@@ -60,6 +60,9 @@ public:
 	void setRowText(std::size_t row, const std::vector<NAS2D::StringValue>& columns);
 	void setColumnJustification(std::size_t column, Justification justification);
 
+	void setColumnFont(std::size_t column, const NAS2D::Font* const font);
+	void setRowFont(std::size_t row, const NAS2D::Font* const font);
+
 	// Call after updating table properties to recompute cell positions
 	void computeRelativeCellPositions();
 
