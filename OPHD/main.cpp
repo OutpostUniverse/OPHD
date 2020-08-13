@@ -37,7 +37,6 @@ void validateVideoResolution()
 
 	if (cf.graphicsWidth() < constants::MINIMUM_WINDOW_WIDTH) { cf.graphicsWidth(constants::MINIMUM_WINDOW_WIDTH); }
 	if (cf.graphicsHeight() < constants::MINIMUM_WINDOW_HEIGHT) { cf.graphicsHeight(constants::MINIMUM_WINDOW_HEIGHT); }
-	cf.fullscreen(false); // force windowed mode.
 }
 
 
@@ -101,6 +100,7 @@ int main(int /*argc*/, char *argv[])
 		);
 		cf.load("config.xml");
 		validateVideoResolution();
+		cf.fullscreen(false); // force windowed mode.
 
 		try
 		{
