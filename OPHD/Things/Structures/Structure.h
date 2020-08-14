@@ -166,6 +166,9 @@ protected:
 
 	void resourcesIn(const StorableResources& resources) { mResourcesInput = resources; }
 
+protected:
+	StructureID mStructureId{ StructureID::SID_NONE };
+
 private:
 	Structure() = delete;
 
@@ -183,8 +186,6 @@ private:
 	int mAge = 0; /**< Age of the Structure in turns. */
 	int mMaxAge = 0; /**< Maximum number of turns the Structure can remain in good repair. */
 	int mEnergyRequirement = 0;
-
-	StructureID mStructureId{ StructureID::SID_NONE };
 
 	StructureState mStructureState = StructureState::UnderConstruction; /**< State the structure is in. */
 	StructureClass mStructureClass; /**< Indicates the Structure's Type. */
