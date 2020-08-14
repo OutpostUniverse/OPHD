@@ -2,6 +2,9 @@
 
 #include "Wrapper.h"
 
+#include <NAS2D/Signal.h>
+#include <NAS2D/EventHandler.h>
+
 #include <vector>
 
 

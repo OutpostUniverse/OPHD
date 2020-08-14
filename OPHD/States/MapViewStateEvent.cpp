@@ -13,6 +13,8 @@
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
 
+#include <NAS2D/Utility.h>
+
 
 void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 {
