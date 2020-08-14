@@ -69,6 +69,8 @@ public:
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }
 
+	StructureID structureId() const { return mStructureId; }
+
 	bool disabled() const { return mStructureState == StructureState::Disabled; }
 	void disable(DisabledReason);
 	DisabledReason disabledReason() const { return mDisabledReason; }
@@ -182,7 +184,7 @@ private:
 	int mMaxAge = 0; /**< Maximum number of turns the Structure can remain in good repair. */
 	int mEnergyRequirement = 0;
 
-	StructureID mStructureID{ StructureID::SID_NONE };
+	StructureID mStructureId{ StructureID::SID_NONE };
 
 	StructureState mStructureState = StructureState::UnderConstruction; /**< State the structure is in. */
 	StructureClass mStructureClass; /**< Indicates the Structure's Type. */
