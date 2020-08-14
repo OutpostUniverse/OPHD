@@ -182,6 +182,8 @@ private:
 	int mMaxAge = 0; /**< Maximum number of turns the Structure can remain in good repair. */
 	int mEnergyRequirement = 0;
 
+	StructureID mStructureID{ StructureID::SID_NONE };
+
 	StructureState mStructureState = StructureState::UnderConstruction; /**< State the structure is in. */
 	StructureClass mStructureClass; /**< Indicates the Structure's Type. */
 	ConnectorDir mConnectorDirection = ConnectorDir::CONNECTOR_INTERSECTION; /**< Directions available for connections. */
