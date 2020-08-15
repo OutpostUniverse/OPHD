@@ -17,8 +17,6 @@ public:
 	void structure(Structure* s);
 	Structure* structure() { return mStructure; }
 
-	void check();
-
 	void update() override;
 
 protected:
