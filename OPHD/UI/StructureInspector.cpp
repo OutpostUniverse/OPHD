@@ -138,10 +138,15 @@ void StructureInspector::update()
 	stringTable.computeRelativeCellPositions();
 	stringTable.draw(renderer);
 
-	StringTable typeSpecificStringTable = mStructure->createInspectorViewTable();
-	typeSpecificStringTable.computeRelativeCellPositions();
-	typeSpecificStringTable.position({ stringTable.position().x, stringTable.screenRect().endPoint().y + 25 });
-	typeSpecificStringTable.draw(renderer);
+	drawStructureSpecificTable({ stringTable.position().x, stringTable.screenRect().endPoint().y + 25 }, renderer);
+}
+
+void StructureInspector::drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer)
+{
+	auto structureSpecificTable = mStructure->createInspectorViewTable();
+	structureSpecificTable.computeRelativeCellPositions();
+	structureSpecificTable.position(position);
+	structureSpecificTable.draw(renderer);
 }
 
 std::string StructureInspector::getDisabledReason()
