@@ -7,7 +7,6 @@
 #include "../Constants.h"
 #include "../Things/Structures/Structure.h"
 #include "StringTable.h"
-#include "TextRender.h"
 
 #include <NAS2D/Utility.h>
 
