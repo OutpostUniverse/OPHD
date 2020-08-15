@@ -12,12 +12,14 @@
 #include "States/MapViewState.h"
 #include "States/MainReportsUiState.h"
 
+#include <NAS2D/Utility.h>
+#include <NAS2D/Filesystem.h>
+#include <NAS2D/StateManager.h>
 #include <NAS2D/Resources/Image.h>
 #include <NAS2D/Resources/Music.h>
 #include <NAS2D/Mixer/MixerSDL.h>
 #include <NAS2D/Mixer/MixerNull.h>
 #include <NAS2D/Renderer/RendererOpenGL.h>
-#include <NAS2D/StateManager.h>
 
 #include <SDL2/SDL.h>
 
@@ -26,19 +28,6 @@
 
 
 using namespace NAS2D;
-
-
-/**
- * Makes sure video resolution is never less than 1024x768
- */
-void validateVideoResolution()
-{
-	Configuration& cf = Utility<Configuration>::get();
-
-	if (cf.graphicsWidth() < constants::MINIMUM_WINDOW_WIDTH) { cf.graphicsWidth(constants::MINIMUM_WINDOW_WIDTH); }
-	if (cf.graphicsHeight() < constants::MINIMUM_WINDOW_HEIGHT) { cf.graphicsHeight(constants::MINIMUM_WINDOW_HEIGHT); }
-	cf.fullscreen(false); // force windowed mode.
-}
 
 
 int main(int /*argc*/, char *argv[])
@@ -100,7 +89,13 @@ int main(int /*argc*/, char *argv[])
 			}
 		);
 		cf.load("config.xml");
-		validateVideoResolution();
+
+		// Ensure minimum video resolution
+		auto& graphics = cf["graphics"];
+		if (graphics.get<int>("screenwidth") < constants::MINIMUM_WINDOW_WIDTH) { graphics.set("screenwidth", constants::MINIMUM_WINDOW_WIDTH); }
+		if (graphics.get<int>("screenheight") < constants::MINIMUM_WINDOW_HEIGHT) { graphics.set("screenheight", constants::MINIMUM_WINDOW_HEIGHT); }
+		// Force windowed mode
+		graphics.set("fullscreen", false);
 
 		try
 		{
@@ -124,7 +119,8 @@ int main(int /*argc*/, char *argv[])
 		renderer.addCursor(constants::MOUSE_POINTER_INSPECT, PointerType::POINTER_INSPECT, 8, 8);
 		renderer.setCursor(PointerType::POINTER_NORMAL);
 
-		if (cf.option("maximized") == "true")
+		const auto& options = cf["options"];
+		if (options.get<bool>("maximized"))
 		{
 			/** \fixme Evil hack exposing an internal NAS2D variable. */
 			extern SDL_Window* underlyingWindow;
@@ -137,7 +133,7 @@ int main(int /*argc*/, char *argv[])
 		StateManager stateManager;
 		stateManager.forceStopAudio(false);
 		
-		if (cf.option("skip-splash") == "false")
+		if (!options.get<bool>("skip-splash"))
 		{
 			stateManager.setState(new SplashState());
 		}

@@ -34,19 +34,21 @@ public:
 private:
 	void onWindowMaximized()
 	{
-		NAS2D::Utility<NAS2D::Configuration>::get().option("maximized", "true");
+		NAS2D::Utility<NAS2D::Configuration>::get()["options"].set("maximized", true);
 	}
 
 	void onWindowRestored()
 	{
-		NAS2D::Utility<NAS2D::Configuration>::get().option("maximized", "false");
+		NAS2D::Utility<NAS2D::Configuration>::get()["options"].set("maximized", false);
 	}
 
 	void onWindowResized(int w, int h)
 	{
 		if (windowMaximized()) { return; }
 
-		NAS2D::Utility<NAS2D::Configuration>::get().graphicsWidth(w);
-		NAS2D::Utility<NAS2D::Configuration>::get().graphicsHeight(h);
+		auto& configuration = NAS2D::Utility<NAS2D::Configuration>::get();
+		auto& graphics = configuration["graphics"];
+		graphics.set("screenwidth", w);
+		graphics.set("screenheight", h);
 	}
 };

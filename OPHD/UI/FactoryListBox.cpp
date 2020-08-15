@@ -8,6 +8,9 @@
 #include "../Cache.h"
 #include "../Constants.h"
 
+#include <NAS2D/Utility.h>
+#include <NAS2D/Renderer/Renderer.h>
+
 
 using namespace NAS2D;
 

@@ -2,8 +2,10 @@
 
 #include <NAS2D/State.h>
 
+
 class MapViewState;
 class Structure;
+
 
 class GameState : public NAS2D::State
 {

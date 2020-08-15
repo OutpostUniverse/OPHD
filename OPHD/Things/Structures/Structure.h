@@ -69,6 +69,8 @@ public:
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }
 
+	StructureID structureId() const { return mStructureId; }
+
 	bool disabled() const { return mStructureState == StructureState::Disabled; }
 	void disable(DisabledReason);
 	DisabledReason disabledReason() const { return mDisabledReason; }
@@ -163,6 +165,9 @@ protected:
 	void energyRequired(int energy) { mEnergyRequirement = energy; }
 
 	void resourcesIn(const StorableResources& resources) { mResourcesInput = resources; }
+
+protected:
+	StructureID mStructureId{ StructureID::SID_NONE };
 
 private:
 	Structure() = delete;

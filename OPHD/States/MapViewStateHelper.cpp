@@ -16,9 +16,10 @@
 #include "../StructureCatalogue.h"
 #include "../DirectionOffset.h"
 
-
 #include "../Things/Structures/RobotCommand.h"
 #include "../Things/Structures/Warehouse.h"
+
+#include <NAS2D/Utility.h>
 
 #include <cmath>
 
