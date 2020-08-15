@@ -212,3 +212,4 @@ using StructureList = std::vector<Structure*>;
 
 const std::string& structureStateDescription(StructureState);
 const std::string& structureClassDescription(Structure::StructureClass);
+std::string StructureName(StructureID id);
