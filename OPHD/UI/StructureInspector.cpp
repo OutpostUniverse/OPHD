@@ -49,11 +49,6 @@ void StructureInspector::init()
 	btnClose.size({50, 20});
 	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
 
-
-	add(&txtStateDescription, 190, 75);
-	txtStateDescription.size({155, 80});
-	txtStateDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-
 	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
@@ -130,9 +125,7 @@ void StructureInspector::update()
 	position = mRect.startPoint() + NAS2D::Vector{190, 25};
 	drawLabelAndValue(position,"State: ", structureStateDescription(mStructure->state()));
 
-	txtStateDescription.text("");
-	txtStateDescription.text(getDisabledReason());
-	txtStateDescription.visible(!txtStateDescription.text().empty());
+	drawLabelAndValue(mRect.startPoint() + NAS2D::Vector<int>{ 190, 75 }, "", getDisabledReason());
 
 	position.y += 20;
 	if (mStructure->underConstruction())

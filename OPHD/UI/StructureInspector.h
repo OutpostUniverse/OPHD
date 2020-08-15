@@ -34,8 +34,6 @@ private:
 private:
 	Button btnClose;
 
-	TextArea txtStateDescription;
-
 	const NAS2D::Image& mIcons;
 
 	std::string mStructureClass;
