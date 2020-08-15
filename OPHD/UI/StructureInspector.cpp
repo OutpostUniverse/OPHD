@@ -77,7 +77,7 @@ void StructureInspector::drawPopulationRequirements()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	auto position = mRect.startPoint() + NAS2D::Vector{10, 85};
+	auto position = mRect.startPoint() + NAS2D::Vector{5, 85};
 	renderer.drawText(*FONT_BOLD, "Population Required", position, NAS2D::Color::White);
 
 	const std::array<std::string, 2> populationTypes{
@@ -141,7 +141,7 @@ void StructureInspector::update()
 
 	StringTable stringTable = mStructure->createInspectorViewTable();
 	stringTable.computeRelativeCellPositions();
-	stringTable.position(mRect.startPoint() + NAS2D::Vector<float>{10, 135});
+	stringTable.position(mRect.startPoint() + NAS2D::Vector<float>{5, 135});
 	stringTable.draw(renderer);
 }
 
