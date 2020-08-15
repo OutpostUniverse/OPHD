@@ -78,14 +78,12 @@ void StructureInspector::drawPopulationRequirements()
 	auto& renderer = Utility<Renderer>::get();
 
 	auto position = mRect.startPoint() + NAS2D::Vector{5, 85};
-	renderer.drawText(*FONT_BOLD, "Population Required", position, NAS2D::Color::White);
 
 	const std::array<std::string, 2> populationTypes{
 		"Workers",
 		"Scientists"
 	};
 
-	position.y += FONT_BOLD->height();
 	for (std::size_t populationType = 0; populationType < populationTypes.size(); ++populationType) {
 		const auto& populationRequirements = mStructure->populationRequirements();
 		const auto& populationAvailable = mStructure->populationAvailable();
