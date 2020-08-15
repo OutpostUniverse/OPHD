@@ -91,7 +91,7 @@ void StructureInspector::update()
 	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
 
 	stringTable[{0, 0}].text = "Type:";
-	stringTable[{1, 0}].text = structureClassDescription(mStructure->structureClass());
+	stringTable[{1, 0}].text = mStructure->classDescription();
 
 	if (mStructure->underConstruction())
 	{

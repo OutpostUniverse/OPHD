@@ -54,9 +54,9 @@ const std::string& structureStateDescription(StructureState _state)
 }
 
 
-const std::string& structureClassDescription(Structure::StructureClass _class)
+const std::string& Structure::classDescription()
 {
-	return STRUCTURE_CLASS_TRANSLATION[_class];
+	return STRUCTURE_CLASS_TRANSLATION[mStructureClass];
 }
 
 
