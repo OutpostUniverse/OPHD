@@ -123,7 +123,8 @@ void StructureInspector::update()
 	position = mRect.startPoint() + NAS2D::Vector{190, 25};
 	drawLabelAndValue(position,"State: ", structureStateDescription(mStructure->state()));
 
-	drawLabelAndValue(mRect.startPoint() + NAS2D::Vector<int>{ 190, 75 }, "", getDisabledReason());
+	position.y += 20;
+	drawLabelAndValue(position, "", getDisabledReason());
 
 	position.y += 20;
 	if (mStructure->underConstruction())
