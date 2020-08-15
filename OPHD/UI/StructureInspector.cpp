@@ -138,10 +138,10 @@ void StructureInspector::update()
 
 	drawPopulationRequirements();
 
-	StringTable stringTable = mStructure->createInspectorViewTable();
-	stringTable.computeRelativeCellPositions();
-	stringTable.position(mRect.startPoint() + NAS2D::Vector<float>{5, 135});
-	stringTable.draw(renderer);
+	StringTable typeSpecificStringTable = mStructure->createInspectorViewTable();
+	typeSpecificStringTable.computeRelativeCellPositions();
+	typeSpecificStringTable.position(mRect.startPoint() + NAS2D::Vector<float>{5, 135});
+	typeSpecificStringTable.draw(renderer);
 }
 
 std::string StructureInspector::getDisabledReason()
