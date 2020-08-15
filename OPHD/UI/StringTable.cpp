@@ -64,12 +64,12 @@ void StringTable::setDefaultTextColor(NAS2D::Color color)
 	mDefaultTextColor = color;
 }
 
-const NAS2D::Font* const StringTable::GetDefaultFont() const
+const NAS2D::Font* StringTable::GetDefaultFont() const
 {
 	return mDefaultFont;
 }
 
-const NAS2D::Font* const StringTable::GetDefaultTitleFont() const
+const NAS2D::Font* StringTable::GetDefaultTitleFont() const
 {
 	return mDefaultTitleFont;
 }

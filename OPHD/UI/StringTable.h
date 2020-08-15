@@ -49,8 +49,8 @@ public:
 	void setDefaultTitleFont(const NAS2D::Font* font);
 	void setDefaultTextColor(NAS2D::Color textColor);
 
-	const NAS2D::Font* const GetDefaultFont() const;
-	const NAS2D::Font* const GetDefaultTitleFont() const;
+	const NAS2D::Font* GetDefaultFont() const;
+	const NAS2D::Font* GetDefaultTitleFont() const;
 	NAS2D::Color GetDefaultFontColor() const;
 
 	void setHorizontalPadding(int horizontalPadding);
