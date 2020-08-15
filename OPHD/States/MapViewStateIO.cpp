@@ -332,13 +332,12 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 void MapViewState::readStructures(Xml::XmlElement* element)
 {
-	std::string type;
-	int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0;
+	int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
 	for (XmlNode* structure = element->firstChild(); structure != nullptr; structure = structure->nextSibling())
 	{
-		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = idle_reason = pop0 = pop1 = 0;
+		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = idle_reason = pop0 = pop1 = type = 0;
 		attribute = structure->toElement()->firstAttribute();
 		while (attribute)
 		{
@@ -348,7 +347,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			else if (attribute->name() == "age") { attribute->queryIntValue(age); }
 			else if (attribute->name() == "state") { attribute->queryIntValue(state); }
 			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
-			else if (attribute->name() == "type") { type = attribute->value(); }
+			else if (attribute->name() == "type") { attribute->queryIntValue(type); }
 			else if (attribute->name() == "forced_idle") { attribute->queryIntValue(forced_idle); }
 			else if (attribute->name() == "disabled_reason") { attribute->queryIntValue(disabled_reason); }
 			else if (attribute->name() == "idle_reason") { attribute->queryIntValue(idle_reason); }
@@ -367,23 +366,23 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		t->excavated(true);
 
 		Structure* st = nullptr;
-		// case for tubes
-		if (type == constants::TUBE)
+
+		auto structureId = static_cast<StructureID>(type);
+		if (structureId == StructureID::SID_TUBE)
 		{
 			ConnectorDir cd = static_cast<ConnectorDir>(direction);
 			insertTube(cd, depth, mTileMap->getTile({x, y}, depth));
 			continue; // FIXME: ugly
 		}
 
-		StructureID type_id = StructureTranslator::translateFromString(type);
-		st = StructureCatalogue::get(type_id);
+		st = StructureCatalogue::get(structureId);
 
-		if (type_id == StructureID::SID_COMMAND_CENTER)
+		if (structureId == StructureID::SID_COMMAND_CENTER)
 		{
 			ccLocation() = {x, y};
 		}
 
-		if (type_id == StructureID::SID_MINE_FACILITY)
+		if (structureId == StructureID::SID_MINE_FACILITY)
 		{
 			Mine* m = mTileMap->getTile({x, y}, 0)->mine();
 			if (m == nullptr)
@@ -397,17 +396,17 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 		}
 
-		if (type_id == StructureID::SID_AIR_SHAFT && depth != 0)
+		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)
 		{
 			static_cast<AirShaft*>(st)->ug(); // force underground state
 		}
 
-		if (type_id == StructureID::SID_SEED_LANDER)
+		if (structureId == StructureID::SID_SEED_LANDER)
 		{
 			static_cast<SeedLander*>(st)->position({x, y});
 		}
 
-		if (type_id == StructureID::SID_AGRIDOME)
+		if (structureId == StructureID::SID_AGRIDOME)
 		{
 			auto agridome = static_cast<Agridome*>(st);
 
