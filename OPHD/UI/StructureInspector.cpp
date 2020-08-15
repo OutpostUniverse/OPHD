@@ -7,7 +7,6 @@
 #include "../Constants.h"
 #include "../Things/Structures/Structure.h"
 #include "StringTable.h"
-#include "TextRender.h"
 
 #include <NAS2D/Utility.h>
 
@@ -49,11 +48,6 @@ void StructureInspector::init()
 	btnClose.size({50, 20});
 	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
 
-
-	add(&txtStateDescription, 190, 75);
-	txtStateDescription.size({155, 80});
-	txtStateDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-
 	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
@@ -62,27 +56,10 @@ void StructureInspector::init()
 /**
  * 
  */
-void StructureInspector::structure(Structure* s)
+void StructureInspector::structure(Structure* structure)
 {
-	mStructure = s;
+	mStructure = structure;
 	mStructureClass = structureClassDescription(mStructure->structureClass());
-	check();
-}
-
-
-/**
- * Forces a state check. Used to update text area for descriptions.
- */
-void StructureInspector::check()
-{
-	if (!mStructure) { return; }
-
-	txtStateDescription.text("");
-
-	if (mStructure->disabled() || mStructure->destroyed()) { txtStateDescription.text(disabledReason(mStructure->disabledReason())); }
-	else if (mStructure->isIdle()) { txtStateDescription.text(idleReason(mStructure->idleReason())); }
-
-	txtStateDescription.visible(!txtStateDescription.text().empty());
 }
 
 
@@ -92,33 +69,6 @@ void StructureInspector::check()
 void StructureInspector::btnCloseClicked()
 {
 	visible(false);
-}
-
-
-void StructureInspector::drawPopulationRequirements()
-{
-	auto& renderer = Utility<Renderer>::get();
-
-	auto position = mRect.startPoint() + NAS2D::Vector{10, 85};
-	renderer.drawText(*FONT_BOLD, "Population Required", position, NAS2D::Color::White);
-
-	const std::array<std::string, 2> populationTypes{
-		"Workers",
-		"Scientists"
-	};
-
-	position.y += 20;
-	for (std::size_t populationType = 0; populationType < populationTypes.size(); ++populationType) {
-		const auto& populationRequirements = mStructure->populationRequirements();
-		const auto& populationAvailable = mStructure->populationAvailable();
-		if (populationRequirements[populationType] > 0)
-		{
-			std::string text = populationTypes[populationType] + ": " + std::to_string(populationAvailable[populationType]) + "/" + std::to_string(populationRequirements[populationType]);
-			Color color = populationAvailable[populationType] >= populationRequirements[populationType] ? Color::White : Color::Red;
-			renderer.drawText(*FONT, text, position, color);
-			position.y += 10;
-		}
-	}
 }
 
 
@@ -138,29 +88,72 @@ void StructureInspector::update()
 	}
 	text(mStructure->name());
 
-	auto position = mRect.startPoint() + NAS2D::Vector{ 5, 25 };
-	drawLabelAndValue(position,"Type: ", mStructureClass);
+	StringTable stringTable(4, 3);
+	stringTable.position(mRect.startPoint() + NAS2D::Vector{ 5, 25 });
+	stringTable.setVerticalPadding(5);
+	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
 
-	position.y += 20;
-	drawLabelAndValue(position, "Power Required: ", std::to_string(mStructure->energyRequirement()));
+	stringTable[{0, 0}].text = "Type:";
+	stringTable[{1, 0}].text = mStructureClass;
 
-	position = mRect.startPoint() + NAS2D::Vector{190, 25};
-	drawLabelAndValue(position,"State: ", structureStateDescription(mStructure->state()));
-
-	position.y += 20;
 	if (mStructure->underConstruction())
 	{
-		drawLabelAndValue(position,"Turns Remaining: ", std::to_string(mStructure->turnsToBuild() - mStructure->age()));
+		stringTable[{2, 0}].text = "Turns Remaining:";
+		stringTable[{3, 0}].text = std::to_string(mStructure->turnsToBuild() - mStructure->age());
 	}
 	else
 	{
-		drawLabelAndValue(position,"Age: ", std::to_string(mStructure->age()) + " of " + std::to_string(mStructure->maxAge()));
+		stringTable[{2, 0}].text = "Age:";
+		stringTable[{3, 0}].text = std::to_string(mStructure->age()) + " of " + std::to_string(mStructure->maxAge());
 	}
 
-	drawPopulationRequirements();
+	stringTable[{0, 1}].text = "Power Required:";
+	stringTable[{1, 1}].text = std::to_string(mStructure->energyRequirement());
 
-	StringTable stringTable = mStructure->createInspectorViewTable();
+	stringTable[{2, 1}].text = "State:";
+	stringTable[{3, 1}].text = structureStateDescription(mStructure->state());
+
+	stringTable[{3, 2}].text = getDisabledReason();
+
+	std::size_t workerIndex = 0;
+	std::size_t scientistIndex = 1;
+
+	const auto& populationAvailable = mStructure->populationAvailable();
+	const auto& populationRequirements = mStructure->populationRequirements();
+
+	if (populationRequirements[workerIndex] > 0)
+	{
+		stringTable[{0, 2}].text = "Workers:";
+		stringTable[{1, 2}].text = std::to_string(populationAvailable[workerIndex]) + " / " + std::to_string(populationRequirements[workerIndex]);
+		stringTable[{1, 2}].textColor = populationAvailable[workerIndex] >= populationRequirements[workerIndex] ? Color::White : Color::Red;
+	}
+
+	if (populationRequirements[scientistIndex] > 0)
+	{
+		stringTable[{0, 3}].text = "Scientists:";
+		stringTable[{1, 3}].text = std::to_string(populationAvailable[1]) + " / " + std::to_string(populationRequirements[scientistIndex]);
+		stringTable[{1, 3}].textColor = populationAvailable[scientistIndex] >= populationRequirements[scientistIndex] ? Color::White : Color::Red;
+	}
+
 	stringTable.computeRelativeCellPositions();
-	stringTable.position(mRect.startPoint() + NAS2D::Vector<float>{10, 135});
 	stringTable.draw(renderer);
+
+	StringTable typeSpecificStringTable = mStructure->createInspectorViewTable();
+	typeSpecificStringTable.computeRelativeCellPositions();
+	typeSpecificStringTable.position({ stringTable.position().x, stringTable.screenRect().endPoint().y + 25 });
+	typeSpecificStringTable.draw(renderer);
+}
+
+std::string StructureInspector::getDisabledReason()
+{
+	if (mStructure->disabled())
+	{
+		return disabledReason(mStructure->disabledReason());
+	}
+	else if (mStructure->isIdle())
+	{
+		return idleReason(mStructure->idleReason());
+	}
+
+	return "";
 }

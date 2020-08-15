@@ -18,20 +18,34 @@ public:
 
 	StringTable createInspectorViewTable() override
 	{
-		StringTable stringTable(2, 4);
+		StringTable stringTable(3, 5);
 		
+		stringTable.setColumnFont(0, stringTable.GetDefaultFont());
+		stringTable.setRowFont(0, stringTable.GetDefaultTitleFont());
+		stringTable.setHorizontalPadding(20);
+
 		stringTable.setColumnText(
 			0,
 			{
-				"Common Metals Storage:",
-				"Rare Metals Storage:",
-				"Common Minerals Storage:",
-				"Rare Minerals Storage:"
+				"",
+				"Common Metal",
+				"Rare Metal",
+				"Common Minerals",
+				"Rare Minerals"
+			});
+
+		stringTable.setRowText(
+			0,
+			{
+				"Material",
+				"Storage",
+				"Ore Conversion Rate"
 			});
 
 		for (std::size_t i = 0; i < storage().resources.size(); ++i)
 		{
-			stringTable[{1, i}].text = writeStorageAmount(storage().resources[i]);
+			stringTable[{1, i + 1}].text = std::to_string(storage().resources[i]) + " / " + std::to_string(IndividualMaterialCapacity());
+			stringTable[{2, i + 1}].text = std::to_string(OreConversionDivisor[i]) + " : 1";
 		}
 
 		return stringTable;
@@ -93,11 +107,5 @@ protected:
 			ore = ore + overflow;
 			idle(IdleReason::InternalStorageFull);
 		}
-	}
-
-private:
-	std::string writeStorageAmount(int storageAmount) const
-	{
-		return std::to_string(storageAmount) + " / " + std::to_string(IndividualMaterialCapacity());
 	}
 };

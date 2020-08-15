@@ -14,10 +14,8 @@ public:
 	StructureInspector();
 	~StructureInspector() override;
 
-	void structure(Structure* s);
+	void structure(Structure* structure);
 	Structure* structure() { return mStructure; }
-
-	void check();
 
 	void update() override;
 
@@ -26,8 +24,7 @@ protected:
 
 private:
 	void btnCloseClicked();
-
-	void drawPopulationRequirements();
+	std::string getDisabledReason();
 
 private:
 	StructureInspector(const StructureInspector&) = delete;
@@ -35,8 +32,6 @@ private:
 
 private:
 	Button btnClose;
-
-	TextArea txtStateDescription;
 
 	const NAS2D::Image& mIcons;
 
