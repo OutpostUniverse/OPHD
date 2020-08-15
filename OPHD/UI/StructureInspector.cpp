@@ -78,10 +78,7 @@ void StructureInspector::check()
 	if (!mStructure) { return; }
 
 	txtStateDescription.text("");
-
-	if (mStructure->disabled() || mStructure->destroyed()) { txtStateDescription.text(disabledReason(mStructure->disabledReason())); }
-	else if (mStructure->isIdle()) { txtStateDescription.text(idleReason(mStructure->idleReason())); }
-
+	txtStateDescription.text(getDisabledReason());
 	txtStateDescription.visible(!txtStateDescription.text().empty());
 }
 
@@ -163,4 +160,18 @@ void StructureInspector::update()
 	stringTable.computeRelativeCellPositions();
 	stringTable.position(mRect.startPoint() + NAS2D::Vector<float>{10, 135});
 	stringTable.draw(renderer);
+}
+
+std::string StructureInspector::getDisabledReason()
+{
+	if (mStructure->disabled())
+	{
+		return disabledReason(mStructure->disabledReason());
+	}
+	else if (mStructure->isIdle())
+	{
+		return idleReason(mStructure->idleReason());
+	}
+
+	return "";
 }
