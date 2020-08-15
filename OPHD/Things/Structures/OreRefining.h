@@ -44,7 +44,7 @@ public:
 
 		for (std::size_t i = 0; i < storage().resources.size(); ++i)
 		{
-			stringTable[{1, i + 1}].text = writeStorageAmount(storage().resources[i]);
+			stringTable[{1, i + 1}].text = std::to_string(storage().resources[i]) + " / " + std::to_string(IndividualMaterialCapacity());
 			stringTable[{2, i + 1}].text = std::to_string(OreConversionDivisor[i]) + " : 1";
 		}
 
@@ -107,11 +107,5 @@ protected:
 			ore = ore + overflow;
 			idle(IdleReason::InternalStorageFull);
 		}
-	}
-
-private:
-	std::string writeStorageAmount(int storageAmount) const
-	{
-		return std::to_string(storageAmount) + " / " + std::to_string(IndividualMaterialCapacity());
 	}
 };
