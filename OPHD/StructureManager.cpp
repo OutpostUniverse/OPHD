@@ -403,7 +403,7 @@ void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
 	_ti->attribute("forced_idle", structure->forceIdle());
 	_ti->attribute("disabled_reason", static_cast<int>(structure->disabledReason()));
 	_ti->attribute("idle_reason", static_cast<int>(structure->idleReason()));
-	_ti->attribute("type", structure->name());
+	_ti->attribute("type", structure->structureId());
 	_ti->attribute("direction", structure->connectorDirection());
 
 	const auto& production = structure->production();

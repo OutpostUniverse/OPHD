@@ -9,7 +9,10 @@ const int SEED_POWER_PRODUCTION = 50;
 class SeedPower: public PowerStructure
 {
 public:
-	SeedPower() : PowerStructure(constants::SEED_POWER, "structures/seed_1.sprite", StructureClass::EnergyProduction)
+	SeedPower() : PowerStructure(constants::SEED_POWER,
+		"structures/seed_1.sprite",
+		StructureClass::EnergyProduction,
+		StructureID::SID_SEED_POWER)
 	{
 		maxAge(150);
 		turnsToBuild(5);

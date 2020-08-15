@@ -63,8 +63,9 @@ const std::string& structureClassDescription(Structure::StructureClass _class)
 /**
  * C'tor
  */
-Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass) :
+Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id) :
 	Thing(name, spritePath, constants::STRUCTURE_STATE_CONSTRUCTION),
+	mStructureId(id),
 	mStructureClass(structureClass)
 {
 	mPopulationRequirements.fill(0);
@@ -72,8 +73,9 @@ Structure::Structure(const std::string& name, const std::string& spritePath, Str
 }
 
 
-Structure::Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass) :
+Structure::Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id) :
 	Thing(name, spritePath, initialAction),
+	mStructureId(id),
 	mStructureClass(structureClass)
 {
 	mPopulationRequirements.fill(0);

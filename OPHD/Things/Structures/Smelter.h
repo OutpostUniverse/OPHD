@@ -7,7 +7,10 @@ class Smelter : public OreRefining
 	const int StorageCapacity = 800;
 
 public:
-	Smelter() : OreRefining(constants::SMELTER, "structures/smelter.sprite", StructureClass::Smelter)
+	Smelter() : OreRefining(constants::SMELTER,
+		"structures/smelter.sprite",
+		StructureClass::Smelter,
+		StructureID::SID_SMELTER)
 	{
 		maxAge(600);
 		turnsToBuild(9);

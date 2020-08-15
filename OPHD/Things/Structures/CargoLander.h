@@ -11,7 +11,11 @@ public:
 
 	using Callback = NAS2D::Signals::Signal<>;
 
-	CargoLander(Tile* t) : Structure(constants::CARGO_LANDER, "structures/lander_0.sprite", StructureClass::Lander), mTile(t)
+	CargoLander(Tile* t) : Structure(constants::CARGO_LANDER,
+		"structures/lander_0.sprite",
+		StructureClass::Lander,
+		StructureID::SID_CARGO_LANDER),
+		mTile(t)
 	{
 		maxAge(50);
 		turnsToBuild(1);

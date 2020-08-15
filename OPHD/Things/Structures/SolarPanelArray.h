@@ -9,7 +9,10 @@ const int SOLAR_PANEL_BASE_PRODUCUCTION = 50;
 class SolarPanelArray : public PowerStructure
 {
 public:
-	SolarPanelArray(float meanSolarDistance) : PowerStructure(constants::SOLAR_PANEL1, "structures/solar_array1.sprite", StructureClass::EnergyProduction), 
+	SolarPanelArray(float meanSolarDistance) : PowerStructure(constants::SOLAR_PANEL1,
+		"structures/solar_array1.sprite",
+		StructureClass::EnergyProduction,
+		StructureID::SID_SOLAR_PANEL1),
 		mMeanSolarDistance(meanSolarDistance)
 	{
 		maxAge(1000);

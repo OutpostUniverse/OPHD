@@ -6,7 +6,9 @@
 class SurfaceFactory: public Factory
 {
 public:
-	SurfaceFactory(): Factory(constants::SURFACE_FACTORY, "structures/factory_surface.sprite")
+	SurfaceFactory(): Factory(constants::SURFACE_FACTORY,
+		"structures/factory_surface.sprite",
+		StructureID::SID_SURFACE_FACTORY)
 	{
 		maxAge(600);
 		turnsToBuild(7);
