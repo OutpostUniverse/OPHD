@@ -10,8 +10,6 @@
 
 #include <NAS2D/Utility.h>
 
-#include <map>
-#include <sstream>
 #include <stdexcept>
 
 
