@@ -9,7 +9,10 @@
 class MineShaft : public Structure
 {
 public:
-	MineShaft() : Structure(constants::MINE_SHAFT, "structures/mine_shaft.sprite", StructureClass::Undefined)
+	MineShaft() : Structure(constants::MINE_SHAFT,
+		"structures/mine_shaft.sprite",
+		StructureClass::Undefined,
+		StructureID::SID_MINE_SHAFT)
 	{
 		maxAge(1200);
 		turnsToBuild(2);

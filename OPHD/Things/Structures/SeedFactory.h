@@ -6,7 +6,9 @@
 class SeedFactory: public Factory
 {
 public:
-	SeedFactory(): Factory(constants::SEED_FACTORY, "structures/seed_1.sprite")
+	SeedFactory(): Factory(constants::SEED_FACTORY,
+		"structures/seed_1.sprite",
+		StructureID::SID_SEED_FACTORY)
 	{
 		maxAge(150);
 		turnsToBuild(8);

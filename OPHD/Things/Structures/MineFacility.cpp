@@ -26,7 +26,11 @@ static int pull_count(MineFacility* _mf, size_t index)
 /**
  * 
  */
-MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY, "structures/mine_facility.sprite", StructureClass::Mine), mMine(mine)
+MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY,
+	"structures/mine_facility.sprite",
+	StructureClass::Mine,
+	StructureID::SID_MINE_FACILITY),
+	mMine(mine)
 {
 	sprite().play(constants::STRUCTURE_STATE_CONSTRUCTION);
 	maxAge(1200);

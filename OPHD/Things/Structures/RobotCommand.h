@@ -15,7 +15,10 @@
 class RobotCommand : public Structure
 {
 public:
-	RobotCommand() : Structure(constants::ROBOT_COMMAND, "structures/robot_control.sprite", StructureClass::RobotCommand)
+	RobotCommand() : Structure(constants::ROBOT_COMMAND,
+		"structures/robot_control.sprite",
+		StructureClass::RobotCommand,
+		StructureID::SID_ROBOT_COMMAND)
 	{
 		maxAge(500);
 		turnsToBuild(3);

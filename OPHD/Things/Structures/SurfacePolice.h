@@ -7,7 +7,10 @@
 class SurfacePolice : public Structure
 {
 public:
-	SurfacePolice() : Structure(constants::SURFACE_POLICE, "structures/police_surface.sprite", StructureClass::SurfacePolice)
+	SurfacePolice() : Structure(constants::SURFACE_POLICE,
+		"structures/police_surface.sprite",
+		StructureClass::SurfacePolice,
+		StructureID::SID_SURFACE_POLICE)
 	{
 		maxAge(500);
 		turnsToBuild(4);

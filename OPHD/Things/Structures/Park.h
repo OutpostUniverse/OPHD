@@ -7,7 +7,10 @@
 class Park : public Structure
 {
 public:
-	Park() : Structure(constants::PARK, "structures/park.sprite", StructureClass::Park)
+	Park() : Structure(constants::PARK,
+		"structures/park.sprite",
+		StructureClass::Park,
+		StructureID::SID_PARK)
 	{
 		maxAge(500);
 		turnsToBuild(3);

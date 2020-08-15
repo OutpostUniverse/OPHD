@@ -5,7 +5,10 @@
 class Laboratory : public Structure
 {
 public:
-	Laboratory() : Structure(constants::LABORATORY, "structures/laboratory_underground.sprite", StructureClass::Laboratory)
+	Laboratory() : Structure(constants::LABORATORY,
+		"structures/laboratory_underground.sprite",
+		StructureClass::Laboratory,
+		StructureID::SID_LABORATORY)
 	{
 		maxAge(500);
 		turnsToBuild(4);
