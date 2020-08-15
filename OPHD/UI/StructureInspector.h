@@ -25,7 +25,6 @@ protected:
 private:
 	void btnCloseClicked();
 	std::string getDisabledReason();
-	void drawPopulationRequirements();
 
 private:
 	StructureInspector(const StructureInspector&) = delete;
