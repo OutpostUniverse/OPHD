@@ -27,16 +27,11 @@ private:
 	void drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer);
 	std::string getDisabledReason();
 
-private:
 	StructureInspector(const StructureInspector&) = delete;
 	StructureInspector& operator=(const StructureInspector&) = delete;
 
-private:
 	Button btnClose;
-
 	const NAS2D::Image& mIcons;
-
 	std::string mStructureClass;
-
 	Structure* mStructure = nullptr;
 };
