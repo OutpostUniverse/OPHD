@@ -57,7 +57,6 @@ void StructureInspector::init()
 void StructureInspector::structure(Structure* structure)
 {
 	mStructure = structure;
-	mStructureClass = structureClassDescription(mStructure->structureClass());
 }
 
 
@@ -92,7 +91,7 @@ void StructureInspector::update()
 	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
 
 	stringTable[{0, 0}].text = "Type:";
-	stringTable[{1, 0}].text = mStructureClass;
+	stringTable[{1, 0}].text = structureClassDescription(mStructure->structureClass());
 
 	if (mStructure->underConstruction())
 	{

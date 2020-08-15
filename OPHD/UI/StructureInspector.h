@@ -32,6 +32,5 @@ private:
 
 	Button btnClose;
 	const NAS2D::Image& mIcons;
-	std::string mStructureClass;
 	Structure* mStructure = nullptr;
 };
