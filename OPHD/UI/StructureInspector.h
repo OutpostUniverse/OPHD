@@ -14,7 +14,7 @@ public:
 	StructureInspector();
 	~StructureInspector() override;
 
-	void structure(Structure* s);
+	void structure(Structure* structure);
 	Structure* structure() { return mStructure; }
 
 	void update() override;
