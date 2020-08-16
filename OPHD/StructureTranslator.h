@@ -2,6 +2,8 @@
 
 #include "Common.h"
 
+#include "Things/Structures/Structure.h"
+
 #include <array>
 #include <string>
 #include <map>

@@ -60,6 +60,54 @@ const std::string& Structure::classDescription()
 }
 
 
+
+static std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
+{
+	constants::AGRIDOME,
+	constants::AIR_SHAFT,
+	constants::CARGO_LANDER,
+	constants::CHAP,
+	constants::COLONIST_LANDER,
+	constants::COMMAND_CENTER,
+	constants::COMMERCIAL,
+	constants::COMM_TOWER,
+	constants::FUSION_REACTOR,
+	constants::HOT_LABORATORY,
+	constants::LABORATORY,
+	constants::MEDICAL_CENTER,
+	constants::MINE_FACILITY,
+	constants::MINE_SHAFT,
+	constants::NURSERY,
+	constants::PARK,
+	constants::RECREATION_CENTER,
+	constants::RED_LIGHT_DISTRICT,
+	constants::RESIDENCE,
+	constants::ROBOT_COMMAND,
+	constants::SEED_FACTORY,
+	constants::SEED_LANDER,
+	constants::SEED_POWER,
+	constants::SEED_SMELTER,
+	constants::SMELTER,
+	constants::SOLAR_PANEL1,
+	constants::SOLAR_PLANT,
+	constants::STORAGE_TANKS,
+	constants::SURFACE_FACTORY,
+	constants::SURFACE_POLICE,
+	constants::TUBE,
+	constants::UNDERGROUND_FACTORY,
+	constants::UNDERGROUND_POLICE,
+	constants::UNIVERSITY,
+	constants::WAREHOUSE
+};
+
+
+std::string StructureName(StructureID id)
+{
+	return StructureNameTable[static_cast<size_t>(id)];
+}
+
+
+
 /**
  * C'tor
  */
