@@ -263,4 +263,5 @@ private:
 
 using StructureList = std::vector<Structure*>;
 
+const std::string& structureStateDescription(StructureState);
 std::string StructureName(StructureID id);
