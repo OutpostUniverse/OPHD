@@ -10,8 +10,6 @@
 
 #include <NAS2D/Utility.h>
 
-#include <map>
-#include <sstream>
 #include <stdexcept>
 
 
@@ -59,7 +57,6 @@ void StructureInspector::init()
 void StructureInspector::structure(Structure* structure)
 {
 	mStructure = structure;
-	mStructureClass = structureClassDescription(mStructure->structureClass());
 }
 
 
@@ -94,7 +91,7 @@ void StructureInspector::update()
 	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
 
 	stringTable[{0, 0}].text = "Type:";
-	stringTable[{1, 0}].text = mStructureClass;
+	stringTable[{1, 0}].text = mStructure->classDescription();
 
 	if (mStructure->underConstruction())
 	{
@@ -138,10 +135,15 @@ void StructureInspector::update()
 	stringTable.computeRelativeCellPositions();
 	stringTable.draw(renderer);
 
-	StringTable typeSpecificStringTable = mStructure->createInspectorViewTable();
-	typeSpecificStringTable.computeRelativeCellPositions();
-	typeSpecificStringTable.position({ stringTable.position().x, stringTable.screenRect().endPoint().y + 25 });
-	typeSpecificStringTable.draw(renderer);
+	drawStructureSpecificTable({ stringTable.position().x, stringTable.screenRect().endPoint().y + 25 }, renderer);
+}
+
+void StructureInspector::drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer)
+{
+	auto structureSpecificTable = mStructure->createInspectorViewTable();
+	structureSpecificTable.computeRelativeCellPositions();
+	structureSpecificTable.position(position);
+	structureSpecificTable.draw(renderer);
 }
 
 std::string StructureInspector::getDisabledReason()
