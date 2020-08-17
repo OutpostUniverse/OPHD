@@ -138,7 +138,7 @@ void StructureInspector::update()
 	text(mStructure->name());
 
 	auto position = mRect.startPoint() + NAS2D::Vector{ 5, 25 };
-	drawLabelAndValue(position,"Type: ", Structure::classDescription(mStructure->structureClass()));
+	drawLabelAndValue(position,"Type: ", mStructure->classDescription());
 
 	position.y += 20;
 	drawLabelAndValue(position, "Power Required: ", std::to_string(mStructure->energyRequirement()));

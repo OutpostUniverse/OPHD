@@ -202,6 +202,11 @@ const std::string& Structure::stateDescription(StructureState state)
 	return STRUCTURE_STATE_TRANSLATION[state];
 }
 
+const std::string& Structure::classDescription() const
+{
+	return classDescription(structureClass());
+}
+
 const std::string& Structure::classDescription(Structure::StructureClass structureClass)
 {
 	return STRUCTURE_CLASS_TRANSLATION[structureClass];
