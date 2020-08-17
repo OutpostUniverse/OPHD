@@ -63,6 +63,7 @@ const std::string& structureClassDescription(Structure::StructureClass _class)
 
 static std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
 {
+	"Not a Structure",
 	constants::AGRIDOME,
 	constants::AIR_SHAFT,
 	constants::CARGO_LANDER,

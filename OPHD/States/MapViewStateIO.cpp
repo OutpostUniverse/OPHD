@@ -13,7 +13,6 @@
 #include "../Constants.h"
 #include "../IOHelper.h"
 #include "../StructureCatalogue.h"
-#include "../StructureTranslator.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
@@ -210,6 +209,7 @@ void MapViewState::load(const std::string& filePath)
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
+	updateStructuresAvailability();
 	updateFood();
 
 	if (mTurnCount == 0)
