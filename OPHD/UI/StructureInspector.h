@@ -26,7 +26,6 @@ protected:
 
 private:
 	void btnCloseClicked();
-
 	void drawPopulationRequirements();
 
 private:
@@ -35,10 +34,7 @@ private:
 
 private:
 	Button btnClose;
-
 	TextArea txtStateDescription;
-
 	const NAS2D::Image& mIcons;
-
 	Structure* mStructure = nullptr;
 };
