@@ -48,12 +48,6 @@ std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
 };
 
 
-const std::string& structureStateDescription(StructureState _state)
-{
-	return STRUCTURE_STATE_TRANSLATION[_state];
-}
-
-
 const std::string& structureClassDescription(Structure::StructureClass _class)
 {
 	return STRUCTURE_CLASS_TRANSLATION[_class];
@@ -203,6 +197,12 @@ void Structure::forceIdle(bool force)
 		mForcedIdle = false;
 		enable();
 	}
+}
+
+
+const std::string& Structure::stateDescription(StructureState state)
+{
+	return STRUCTURE_STATE_TRANSLATION[state];
 }
 
 

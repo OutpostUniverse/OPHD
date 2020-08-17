@@ -207,7 +207,7 @@ void MineOperationsWindow::update()
 	const std::string statusString =
 		mFacility->extending() ? "Digging New Level" :
 		mFacility->mine()->exhausted() ? "Exhausted" :
-		structureStateDescription(mFacility->state());
+		Structure::stateDescription(mFacility->state());
 	drawLabelAndValue(origin + NAS2D::Vector{148, 45}, "Status: ", statusString);
 
 	if (mFacility && mFacility->extending())

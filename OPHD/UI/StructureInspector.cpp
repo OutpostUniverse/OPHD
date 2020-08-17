@@ -145,7 +145,7 @@ void StructureInspector::update()
 	drawLabelAndValue(position, "Power Required: ", std::to_string(mStructure->energyRequirement()));
 
 	position = mRect.startPoint() + NAS2D::Vector{190, 25};
-	drawLabelAndValue(position,"State: ", structureStateDescription(mStructure->state()));
+	drawLabelAndValue(position,"State: ", Structure::stateDescription(mStructure->state()));
 
 	position.y += 20;
 	if (mStructure->underConstruction())

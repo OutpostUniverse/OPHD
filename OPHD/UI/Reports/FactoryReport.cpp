@@ -455,7 +455,7 @@ void FactoryReport::btnShowDisabledClicked()
 void FactoryReport::btnIdleClicked()
 {
 	SELECTED_FACTORY->forceIdle(btnIdle.toggled());
-	FACTORY_STATUS = structureStateDescription(SELECTED_FACTORY->state());
+	FACTORY_STATUS = Structure::stateDescription(SELECTED_FACTORY->state());
 }
 
 
@@ -507,7 +507,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 	else if (SELECTED_FACTORY->name() == constants::SURFACE_FACTORY) { FACTORY_IMAGE = FACTORY_AG; }
 	else if (SELECTED_FACTORY->name() == constants::UNDERGROUND_FACTORY) { FACTORY_IMAGE = FACTORY_UG; }
 
-	FACTORY_STATUS = structureStateDescription(SELECTED_FACTORY->state());
+	FACTORY_STATUS = Structure::stateDescription(SELECTED_FACTORY->state());
 
 	btnIdle.toggle(SELECTED_FACTORY->state() == StructureState::Idle);
 	btnIdle.enabled(SELECTED_FACTORY->state() == StructureState::Operational || SELECTED_FACTORY->state() == StructureState::Idle);

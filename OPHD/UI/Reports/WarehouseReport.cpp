@@ -171,7 +171,7 @@ void WarehouseReport::_fillListFromStructureList(StructureList& list)
 		// \fixme	Abuse of interface to achieve custom results.
 		ProductPool& products = static_cast<Warehouse*>(structure)->products();
 
-		if (useStateString(structure->state())) { item->structureState = structureStateDescription(structure->state()); }
+		if (useStateString(structure->state())) { item->structureState = Structure::stateDescription(structure->state()); }
 		else if (products.empty()) { item->structureState = constants::WAREHOUSE_EMPTY; }
 		else if (products.atCapacity()) { item->structureState = constants::WAREHOUSE_FULL; }
 		else if (!products.empty() && !products.atCapacity()) { item->structureState = constants::WAREHOUSE_SPACE_AVAILABLE; }
