@@ -2,7 +2,8 @@
 
 #include "Core/Window.h"
 #include "Core/Button.h"
-
+#include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Renderer/Point.h>
 
 class Structure;
 
@@ -24,6 +25,7 @@ protected:
 private:
 	void btnCloseClicked();
 	std::string getDisabledReason() const;
+	void drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer);
 	void drawPopulationRequirements();
 
 private:

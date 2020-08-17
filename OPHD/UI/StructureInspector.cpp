@@ -136,9 +136,14 @@ void StructureInspector::update()
 
 	drawPopulationRequirements();
 
+	drawStructureSpecificTable(mRect.startPoint() + NAS2D::Vector<float>{5, 135}, renderer);
+}
+
+void StructureInspector::drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer)
+{
 	StringTable stringTable = mStructure->createInspectorViewTable();
 	stringTable.computeRelativeCellPositions();
-	stringTable.position(mRect.startPoint() + NAS2D::Vector<float>{5, 135});
+	stringTable.position(position);
 	stringTable.draw(renderer);
 }
 
