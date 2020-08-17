@@ -209,6 +209,7 @@ void MapViewState::load(const std::string& filePath)
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
+	updateStructuresAvailability();
 	updateFood();
 
 	if (mTurnCount == 0)
