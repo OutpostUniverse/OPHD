@@ -65,20 +65,6 @@ void StructureInspector::init()
 void StructureInspector::structure(Structure* structure)
 {
 	mStructure = structure;
-	check();
-}
-
-
-/**
- * Forces a state check. Used to update text area for descriptions.
- */
-void StructureInspector::check()
-{
-	if (!mStructure) { return; }
-
-	txtStateDescription.text("");
-	txtStateDescription.text(getDisabledReason());
-	txtStateDescription.visible(!txtStateDescription.text().empty());
 }
 
 
@@ -142,6 +128,10 @@ void StructureInspector::update()
 
 	position = mRect.startPoint() + NAS2D::Vector{190, 25};
 	drawLabelAndValue(position,"State: ", mStructure->stateDescription());
+
+	txtStateDescription.text("");
+	txtStateDescription.text(getDisabledReason());
+	txtStateDescription.visible(!txtStateDescription.text().empty());
 
 	position.y += 20;
 	if (mStructure->underConstruction())

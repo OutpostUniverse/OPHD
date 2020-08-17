@@ -427,8 +427,6 @@ void MapViewState::nextTurn()
 
 	checkColonyShip();
 
-	mStructureInspector.check();
-
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)
 	{
