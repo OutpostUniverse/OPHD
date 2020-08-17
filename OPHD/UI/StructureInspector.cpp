@@ -65,7 +65,7 @@ void StructureInspector::init()
 void StructureInspector::structure(Structure* s)
 {
 	mStructure = s;
-	mStructureClass = structureClassDescription(mStructure->structureClass());
+	mStructureClass = Structure::classDescription(mStructure->structureClass());
 	check();
 }
 

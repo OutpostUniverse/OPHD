@@ -48,13 +48,6 @@ std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
 };
 
 
-const std::string& structureClassDescription(Structure::StructureClass _class)
-{
-	return STRUCTURE_CLASS_TRANSLATION[_class];
-}
-
-
-
 static std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
 {
 	"Not a Structure",
@@ -209,6 +202,10 @@ const std::string& Structure::stateDescription(StructureState state)
 	return STRUCTURE_STATE_TRANSLATION[state];
 }
 
+const std::string& Structure::classDescription(Structure::StructureClass structureClass)
+{
+	return STRUCTURE_CLASS_TRANSLATION[structureClass];
+}
 
 /**
  * Called when a building is finished being built.
