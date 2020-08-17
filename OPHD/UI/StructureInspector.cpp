@@ -62,9 +62,9 @@ void StructureInspector::init()
 /**
  * 
  */
-void StructureInspector::structure(Structure* s)
+void StructureInspector::structure(Structure* structure)
 {
-	mStructure = s;
+	mStructure = structure;
 	check();
 }
 
