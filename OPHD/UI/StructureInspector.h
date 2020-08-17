@@ -26,6 +26,7 @@ protected:
 
 private:
 	void btnCloseClicked();
+	std::string getDisabledReason() const;
 	void drawPopulationRequirements();
 
 private:
