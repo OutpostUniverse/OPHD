@@ -101,6 +101,7 @@ public:
 
 	// ATTRIBUTES
 	StructureClass structureClass() const { return mStructureClass; }
+	const std::string& stateDescription() const;
 	static const std::string& stateDescription(StructureState state);
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 

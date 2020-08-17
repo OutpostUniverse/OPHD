@@ -199,6 +199,10 @@ void Structure::forceIdle(bool force)
 	}
 }
 
+const std::string& Structure::stateDescription() const
+{
+	return stateDescription(state());
+}
 
 const std::string& Structure::stateDescription(StructureState state)
 {
