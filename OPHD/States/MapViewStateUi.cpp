@@ -566,22 +566,9 @@ void MapViewState::btnTurnsClicked()
  */
 void MapViewState::updateStructuresAvailability()
 {
-	std::string structure;
-	for (int sid = 0; sid < StructureID::SID_COUNT; ++sid)
+	for (int sid = 1; sid < StructureID::SID_COUNT; ++sid)
 	{
-		structure = StructureName(static_cast<StructureID>(sid));
-		if (structure.empty())
-		{
-			continue;
-		}
-
-		if (StructureCatalogue::canBuild(mPlayerResources, static_cast<StructureID>(sid)))
-		{
-			mStructures.itemAvailable(structure, true);
-		}
-		else
-		{
-			mStructures.itemAvailable(structure, false);
-		}
+		const StructureID id = static_cast<StructureID>(sid);
+		mStructures.itemAvailable(StructureName(id), StructureCatalogue::canBuild(mPlayerResources, id));
 	}
 }
