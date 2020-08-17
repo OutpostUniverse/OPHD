@@ -4,7 +4,6 @@
 #include "Cache.h"
 #include "Common.h"
 #include "Constants.h"
-#include "StructureTranslator.h"
 #include "WindowEventWrapper.h"
 
 #include "States/SplashState.h"
@@ -43,8 +42,6 @@ int main(int /*argc*/, char *argv[])
 	#endif
 
 	std::cout << "OutpostHD " << constants::VERSION << std::endl << std::endl;
-
-	StructureTranslator::init(); // only needs to be done once at the start of the program.
 
 	try
 	{

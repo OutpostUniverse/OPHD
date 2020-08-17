@@ -6,7 +6,6 @@
 #include "Constants.h"
 #include "ProductPool.h"
 #include "IOHelper.h"
-#include "StructureTranslator.h"
 
 #include "Things/Structures/Structures.h"
 

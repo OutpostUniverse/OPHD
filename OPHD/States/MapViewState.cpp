@@ -9,7 +9,6 @@
 #include "../Cache.h"
 #include "../GraphWalker.h"
 #include "../StructureCatalogue.h"
-#include "../StructureTranslator.h"
 
 #include "../Map/Tile.h"
 
@@ -894,7 +893,7 @@ void MapViewState::placeRobot()
 			 * 			way to determine this. I may go back to defining recycling values in the individual structures
 			 * 			themselves but I'm still not sure I love that idea. Will have to think about that one a bit.
 			 */
-			mPlayerResources = mPlayerResources + StructureCatalogue::recyclingValue(StructureTranslator::translateFromString(structure->name()));
+			mPlayerResources = mPlayerResources + StructureCatalogue::recyclingValue(structure->structureId());
 			updateStructuresAvailability();
 
 			tile->connected(false);

@@ -13,7 +13,6 @@
 #include "../Constants.h"
 #include "../IOHelper.h"
 #include "../StructureCatalogue.h"
-#include "../StructureTranslator.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>

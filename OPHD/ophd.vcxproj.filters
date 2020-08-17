@@ -135,9 +135,6 @@
     <ClCompile Include="UI\IconGrid.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="StructureTranslator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UI\StructureInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -412,9 +409,6 @@
     </ClInclude>
     <ClInclude Include="UI\IconGrid.h">
       <Filter>Header Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="StructureTranslator.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Things\Structures\StorageTanks.h">
       <Filter>Header Files\Things\Structures</Filter>

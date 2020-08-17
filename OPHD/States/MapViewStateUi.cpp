@@ -15,7 +15,6 @@
 #include "../Constants.h"
 #include "../DirectionOffset.h"
 #include "../StructureCatalogue.h"
-#include "../StructureTranslator.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -388,7 +387,7 @@ void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _ite
 	// Check availability
 	if (!_item->available)
 	{
-		resourceShortageMessage(mPlayerResources, StructureTranslator::translateFromString(_item->name));
+		resourceShortageMessage(mPlayerResources, static_cast<StructureID>(_item->meta));
 		mStructures.clearSelection();
 		return;
 	}
@@ -570,7 +569,7 @@ void MapViewState::updateStructuresAvailability()
 	std::string structure;
 	for (int sid = 0; sid < StructureID::SID_COUNT; ++sid)
 	{
-		structure = StructureTranslator::translateToString(static_cast<StructureID>(sid));
+		structure = StructureName(static_cast<StructureID>(sid));
 		if (structure.empty())
 		{
 			continue;

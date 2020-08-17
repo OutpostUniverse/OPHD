@@ -279,7 +279,6 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClCompile Include="States\SplashState.cpp" />
     <ClCompile Include="StructureCatalogue.cpp" />
     <ClCompile Include="StructureManager.cpp" />
-    <ClCompile Include="StructureTranslator.cpp" />
     <ClCompile Include="Things\Robots\Robot.cpp" />
     <ClCompile Include="Things\Structures\Factory.cpp" />
     <ClCompile Include="Things\Structures\MineFacility.cpp" />
@@ -354,7 +353,6 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClInclude Include="States\Wrapper.h" />
     <ClInclude Include="StructureCatalogue.h" />
     <ClInclude Include="StructureManager.h" />
-    <ClInclude Include="StructureTranslator.h" />
     <ClInclude Include="Templates.h" />
     <ClInclude Include="Things\Robots\Robodigger.h" />
     <ClInclude Include="Things\Robots\Robodozer.h" />
