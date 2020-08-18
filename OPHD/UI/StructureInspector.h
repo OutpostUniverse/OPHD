@@ -2,8 +2,8 @@
 
 #include "Core/Window.h"
 #include "Core/Button.h"
-#include "Core/TextArea.h"
-
+#include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Renderer/Point.h>
 
 class Structure;
 
@@ -14,10 +14,8 @@ public:
 	StructureInspector();
 	~StructureInspector() override;
 
-	void structure(Structure* s);
+	void structure(Structure* structure);
 	Structure* structure() { return mStructure; }
-
-	void check();
 
 	void update() override;
 
@@ -26,8 +24,8 @@ protected:
 
 private:
 	void btnCloseClicked();
-
-	void drawPopulationRequirements();
+	std::string getDisabledReason() const;
+	void drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer);
 
 private:
 	StructureInspector(const StructureInspector&) = delete;
@@ -35,12 +33,6 @@ private:
 
 private:
 	Button btnClose;
-
-	TextArea txtStateDescription;
-
 	const NAS2D::Image& mIcons;
-
-	std::string mStructureClass;
-
 	Structure* mStructure = nullptr;
 };

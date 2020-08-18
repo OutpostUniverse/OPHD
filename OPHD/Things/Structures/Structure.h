@@ -101,6 +101,10 @@ public:
 
 	// ATTRIBUTES
 	StructureClass structureClass() const { return mStructureClass; }
+	const std::string& stateDescription() const;
+	static const std::string& stateDescription(StructureState state);
+	const std::string& classDescription() const;
+	static const std::string& classDescription(Structure::StructureClass structureClass);
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
 	int turnsToBuild() const { return mTurnsToBuild; }
@@ -210,6 +214,4 @@ private:
 
 using StructureList = std::vector<Structure*>;
 
-const std::string& structureStateDescription(StructureState);
-const std::string& structureClassDescription(Structure::StructureClass);
 std::string StructureName(StructureID id);

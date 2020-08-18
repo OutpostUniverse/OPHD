@@ -64,6 +64,21 @@ void StringTable::setDefaultTextColor(NAS2D::Color color)
 	mDefaultTextColor = color;
 }
 
+const NAS2D::Font* StringTable::GetDefaultFont() const
+{
+	return mDefaultFont;
+}
+
+const NAS2D::Font* StringTable::GetDefaultTitleFont() const
+{
+	return mDefaultTitleFont;
+}
+
+NAS2D::Color StringTable::GetDefaultFontColor() const
+{
+	return mDefaultTextColor;
+}
+
 void StringTable::setHorizontalPadding(int padding)
 {
 	mHorizontalPadding = padding;
@@ -99,6 +114,22 @@ void StringTable::setColumnJustification(std::size_t column, Justification justi
 	for (std::size_t row = 0; row < mRowCount; ++row)
 	{
 		mCells[getCellIndex({ column, row })].justification = justification;
+	}
+}
+
+void StringTable::setColumnFont(std::size_t column, const NAS2D::Font* const font)
+{
+	for (std::size_t row = 0; row < mRowCount; ++row)
+	{
+		mCells[getCellIndex({ column, row })].font = font;
+	}
+}
+
+void StringTable::setRowFont(std::size_t row, const NAS2D::Font* const font)
+{
+	for (std::size_t column = 0; column < mColumnCount; ++column)
+	{
+		mCells[getCellIndex({ column, row })].font = font;
 	}
 }
 
