@@ -12,38 +12,38 @@
 
 
 namespace {
-	enum LogoState
+	enum class LogoState
 	{
-		LOGO_NONE,
-		LOGO_LAIRWORKS,
-		LOGO_NAS2D,
-		LOGO_OUTPOSTHD
+		None,
+		Lairworks,
+		Nas2d,
+		OutpostHD
 	};
 
 
-	LogoState CURRENT_STATE = LogoState::LOGO_NONE;
+	LogoState currentState = LogoState::None;
 
-	const int PAUSE_TIME = 5800;
-	unsigned int FADE_PAUSE_TIME = 5000;
-	const float FADE_LENGTH = 800;
+	const int pauseTime = 5800;
+	unsigned int fadePauseTime = 5000;
+	const float fadeLength = 800;
 
-	NAS2D::Timer BYLINE_TIMER;
+	NAS2D::Timer bylineTimer;
 
 
 	LogoState setNextState(LogoState logoState)
 	{
-		if (logoState == LogoState::LOGO_NONE)
+		if (logoState == LogoState::None)
 		{
-			FADE_PAUSE_TIME = 2500;
-			return LogoState::LOGO_LAIRWORKS;
+			fadePauseTime = 2500;
+			return LogoState::Lairworks;
 		}
-		if (logoState == LogoState::LOGO_LAIRWORKS)
+		if (logoState == LogoState::Lairworks)
 		{
-			return LogoState::LOGO_NAS2D;
+			return LogoState::Nas2d;
 		}
 
-		BYLINE_TIMER.reset();
-		return LogoState::LOGO_OUTPOSTHD;
+		bylineTimer.reset();
+		return LogoState::OutpostHD;
 	}
 }
 
@@ -80,7 +80,7 @@ void SplashState::initialize()
 void SplashState::skipSplash()
 {
 	mReturnState = new MainMenuState();
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(FADE_LENGTH);
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(fadeLength);
 }
 
 
@@ -93,34 +93,34 @@ NAS2D::State* SplashState::update()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	if (renderer.isFaded() && !renderer.isFading() && mTimer.accumulator() > FADE_PAUSE_TIME)
+	if (renderer.isFaded() && !renderer.isFading() && mTimer.accumulator() > fadePauseTime)
 	{
 		if (mReturnState != this) { return mReturnState; }
 
-		CURRENT_STATE = setNextState(CURRENT_STATE);
-		renderer.fadeIn(FADE_LENGTH);
+		currentState = setNextState(currentState);
+		renderer.fadeIn(fadeLength);
 		mTimer.reset();
 	}
 
 	const auto size = renderer.size();
-	const auto backgroundColor = (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD) ? NAS2D::Color::Black : NAS2D::Color::White;
+	const auto backgroundColor = (currentState == LogoState::OutpostHD) ? NAS2D::Color::Black : NAS2D::Color::White;
 	renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create({0, 0}, size), backgroundColor);
 
 
-	if (CURRENT_STATE == LogoState::LOGO_LAIRWORKS)
+	if (currentState == LogoState::Lairworks)
 	{
 		renderer.drawImage(mLogoLairworks, renderer.center() - mLogoLairworks.size() / 2);
 	}
-	if (CURRENT_STATE == LogoState::LOGO_NAS2D)
+	if (currentState == LogoState::Nas2d)
 	{
 		renderer.drawImage(mLogoNas2d, renderer.center() - mLogoNas2d.size() / 2);
 	}
-	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
+	if (currentState == LogoState::OutpostHD)
 	{
-		const unsigned int tick = BYLINE_TIMER.accumulator();
+		const unsigned int tick = bylineTimer.accumulator();
 		const auto logoPosition = renderer.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
 
-		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, BYLINE_TIMER.tick() / 600.0f);
+		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, bylineTimer.tick() / 600.0f);
 		renderer.drawImage(mLogoOutpostHd, logoPosition);
 
 		const float bylineScaleStep = 0.000025f;
@@ -137,7 +137,7 @@ NAS2D::State* SplashState::update()
 	
 	if (renderer.isFading()) { return this; }
 
-	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
+	if (currentState == LogoState::OutpostHD)
 	{
 		if (mTimer.accumulator() > 11000)
 		{
@@ -145,9 +145,9 @@ NAS2D::State* SplashState::update()
 			return this;
 		}
 	}
-	else if (mTimer.accumulator() > PAUSE_TIME)
+	else if (mTimer.accumulator() > pauseTime)
 	{
-		renderer.fadeOut(FADE_LENGTH);
+		renderer.fadeOut(fadeLength);
 		mTimer.reset();
 	}
 
