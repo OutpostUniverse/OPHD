@@ -14,14 +14,14 @@
 namespace {
 	enum class LogoState
 	{
-		LOGO_NONE,
-		LOGO_LAIRWORKS,
-		LOGO_NAS2D,
-		LOGO_OUTPOSTHD
+		None,
+		Lairworks,
+		Nas2d,
+		OutpostHD
 	};
 
 
-	LogoState CURRENT_STATE = LogoState::LOGO_NONE;
+	LogoState CURRENT_STATE = LogoState::None;
 
 	const int PAUSE_TIME = 5800;
 	unsigned int FADE_PAUSE_TIME = 5000;
@@ -32,18 +32,18 @@ namespace {
 
 	LogoState setNextState(LogoState logoState)
 	{
-		if (logoState == LogoState::LOGO_NONE)
+		if (logoState == LogoState::None)
 		{
 			FADE_PAUSE_TIME = 2500;
-			return LogoState::LOGO_LAIRWORKS;
+			return LogoState::Lairworks;
 		}
-		if (logoState == LogoState::LOGO_LAIRWORKS)
+		if (logoState == LogoState::Lairworks)
 		{
-			return LogoState::LOGO_NAS2D;
+			return LogoState::Nas2d;
 		}
 
 		BYLINE_TIMER.reset();
-		return LogoState::LOGO_OUTPOSTHD;
+		return LogoState::OutpostHD;
 	}
 }
 
@@ -103,19 +103,19 @@ NAS2D::State* SplashState::update()
 	}
 
 	const auto size = renderer.size();
-	const auto backgroundColor = (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD) ? NAS2D::Color::Black : NAS2D::Color::White;
+	const auto backgroundColor = (CURRENT_STATE == LogoState::OutpostHD) ? NAS2D::Color::Black : NAS2D::Color::White;
 	renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create({0, 0}, size), backgroundColor);
 
 
-	if (CURRENT_STATE == LogoState::LOGO_LAIRWORKS)
+	if (CURRENT_STATE == LogoState::Lairworks)
 	{
 		renderer.drawImage(mLogoLairworks, renderer.center() - mLogoLairworks.size() / 2);
 	}
-	if (CURRENT_STATE == LogoState::LOGO_NAS2D)
+	if (CURRENT_STATE == LogoState::Nas2d)
 	{
 		renderer.drawImage(mLogoNas2d, renderer.center() - mLogoNas2d.size() / 2);
 	}
-	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
+	if (CURRENT_STATE == LogoState::OutpostHD)
 	{
 		const unsigned int tick = BYLINE_TIMER.accumulator();
 		const auto logoPosition = renderer.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
@@ -137,7 +137,7 @@ NAS2D::State* SplashState::update()
 	
 	if (renderer.isFading()) { return this; }
 
-	if (CURRENT_STATE == LogoState::LOGO_OUTPOSTHD)
+	if (CURRENT_STATE == LogoState::OutpostHD)
 	{
 		if (mTimer.accumulator() > 11000)
 		{
