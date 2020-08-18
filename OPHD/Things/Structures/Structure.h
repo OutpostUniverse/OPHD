@@ -110,6 +110,7 @@ public:
 	int turnsToBuild() const { return mTurnsToBuild; }
 	int age() const { return mAge; }
 	int maxAge() const { return mMaxAge; }
+	bool ages() const { return maxAge() > 0; }
 	int energyRequirement() const { return mEnergyRequirement; }
 
 	// FLAGS
