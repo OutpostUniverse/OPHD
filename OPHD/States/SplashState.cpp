@@ -12,7 +12,7 @@
 
 
 namespace {
-	enum LogoState
+	enum class LogoState
 	{
 		LOGO_NONE,
 		LOGO_LAIRWORKS,
