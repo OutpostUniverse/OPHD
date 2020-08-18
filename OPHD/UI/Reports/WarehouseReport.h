@@ -13,8 +13,6 @@
 class WarehouseReport : public ReportInterface
 {
 public:
-
-public:
 	WarehouseReport();
 	~WarehouseReport() override;
 
