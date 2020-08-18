@@ -26,7 +26,6 @@ private:
 	void btnCloseClicked();
 	std::string getDisabledReason() const;
 	void drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer);
-	void drawPopulationRequirements();
 
 private:
 	StructureInspector(const StructureInspector&) = delete;
