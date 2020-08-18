@@ -20,9 +20,9 @@ static const Font* FONT = nullptr;
 
 enum class ResourceTrend
 {
-	RESOURCE_TREND_NONE,
-	RESOURCE_TREND_UP,
-	RESOURCE_TREND_DOWN
+	None,
+	Up,
+	Down
 };
 
 
@@ -31,9 +31,9 @@ enum class ResourceTrend
  */
 static ResourceTrend compareResources(int src, int dst)
 {
-	if (src > dst) { return ResourceTrend::RESOURCE_TREND_UP; }
-	if (src < dst) { return ResourceTrend::RESOURCE_TREND_DOWN; }
-	return ResourceTrend::RESOURCE_TREND_NONE;
+	if (src > dst) { return ResourceTrend::Up; }
+	if (src < dst) { return ResourceTrend::Down; }
+	return ResourceTrend::None;
 }
 
 
@@ -82,17 +82,17 @@ void ResourceBreakdownPanel::update()
 
 	static std::map<ResourceTrend, Point<int>> ICON_SLICE
 	{
-		{ ResourceTrend::RESOURCE_TREND_NONE, Point{16, 64} },
-		{ ResourceTrend::RESOURCE_TREND_UP, Point{8, 64} },
-		{ ResourceTrend::RESOURCE_TREND_DOWN, Point{0, 64} }
+		{ ResourceTrend::None, Point{16, 64} },
+		{ ResourceTrend::Up, Point{8, 64} },
+		{ ResourceTrend::Down, Point{0, 64} }
 	};
 
 
 	static std::map<ResourceTrend, Color> TEXT_COLOR
 	{
-		{ ResourceTrend::RESOURCE_TREND_NONE, Color::White },
-		{ ResourceTrend::RESOURCE_TREND_UP, Color{0, 185, 0} },
-		{ ResourceTrend::RESOURCE_TREND_DOWN, Color::Red }
+		{ ResourceTrend::None, Color::White },
+		{ ResourceTrend::Up, Color{0, 185, 0} },
+		{ ResourceTrend::Down, Color::Red }
 	};
 
 	const auto commonMetalImageRect = NAS2D::Rectangle{64, 16, 16, 16};
