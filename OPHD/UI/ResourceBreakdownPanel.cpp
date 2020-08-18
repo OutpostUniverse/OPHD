@@ -18,27 +18,27 @@ using namespace NAS2D;
 static const Font* FONT = nullptr;
 
 
-enum class ResourceTrend
-{
-	None,
-	Up,
-	Down
-};
-
-
-/**
- * Convenience function for setting a resource trend.
- */
-static ResourceTrend compareResources(int src, int dst)
-{
-	return
-		(src > dst) ? ResourceTrend::Up :
-		(src < dst) ? ResourceTrend::Down : ResourceTrend::None;
-}
-
-
 namespace
 {
+	enum class ResourceTrend
+	{
+		None,
+		Up,
+		Down
+	};
+
+
+	/**
+	 * Convenience function for setting a resource trend.
+	 */
+	static ResourceTrend compareResources(int src, int dst)
+	{
+		return
+			(src > dst) ? ResourceTrend::Up :
+			(src < dst) ? ResourceTrend::Down : ResourceTrend::None;
+	}
+
+
 	std::string formatDiff(int diff)
 	{
 		return ((diff > 0) ? "+" : "") + std::to_string(diff);
