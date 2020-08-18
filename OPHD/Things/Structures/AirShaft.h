@@ -11,8 +11,6 @@ public:
 		StructureClass::Tube,
 		StructureID::SID_AIR_SHAFT)
 	{
-		maxAge(400);
-
 		connectorDirection(ConnectorDir::CONNECTOR_VERTICAL);
 
 		requiresCHAP(false);
