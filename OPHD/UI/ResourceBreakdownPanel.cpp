@@ -61,7 +61,7 @@ ResourceBreakdownPanel::ResourceBreakdownPanel() :
 {
 	size({270, 80});
 
-	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	mFont = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -111,14 +111,14 @@ void ResourceBreakdownPanel::update()
 	for (const auto& [imageRect, text, value, oldValue] : resources)
 	{
 		renderer.drawSubImage(mIcons, position, imageRect);
-		renderer.drawText(*FONT, text, position + NAS2D::Vector{23, 0}, NAS2D::Color::White);
+		renderer.drawText(*mFont, text, position + NAS2D::Vector{23, 0}, NAS2D::Color::White);
 		const auto valueString = std::to_string(value);
-		renderer.drawText(*FONT, valueString, position + NAS2D::Vector{195 - FONT->width(valueString), 0}, NAS2D::Color::White);
+		renderer.drawText(*mFont, valueString, position + NAS2D::Vector{195 - mFont->width(valueString), 0}, NAS2D::Color::White);
 		const auto resourceTrend = compareResources(value, oldValue);
 		const auto changeIconImageRect = NAS2D::Rectangle<int>::Create(ICON_SLICE[resourceTrend], NAS2D::Vector{8, 8});
 		renderer.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
 		const auto valueChangeColor = TEXT_COLOR[resourceTrend];
-		renderer.drawText(*FONT, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor);
+		renderer.drawText(*mFont, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor);
 		position.y += 18;
 	}
 }
