@@ -64,15 +64,6 @@ ResourceBreakdownPanel::ResourceBreakdownPanel() :
 }
 
 
-/**
- * Called after all resources are modified from structure updates,
- * mining and production. Allows for resource trend information.
- */
-void ResourceBreakdownPanel::resourceCheck()
-{
-}
-
-
 void ResourceBreakdownPanel::update()
 {
 	auto& renderer = Utility<Renderer>::get();

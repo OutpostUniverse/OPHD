@@ -15,11 +15,7 @@ public:
 
 	void playerResources(StorableResources* resources) { mPlayerResources = resources; }
 	void previousResources(StorableResources& resources) { mPreviousResources = resources; }
-
 	StorableResources& previousResources() { return mPreviousResources; }
-
-	void resourceCheck();
-
 	void update() override;
 
 private:
