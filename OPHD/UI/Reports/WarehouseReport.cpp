@@ -39,15 +39,6 @@ static Warehouse* SELECTED_WAREHOUSE = nullptr;
 
 
 /**
- * Internal convenience function to avoid really fugly code.
- */
-static bool useStateString(StructureState _state)
-{
-	return _state != StructureState::Operational;
-}
-
-
-/**
  * Internal function to determine current capacity of all
  * warehouses in the game.
  */
@@ -171,7 +162,7 @@ void WarehouseReport::_fillListFromStructureList(StructureList& list)
 		// \fixme	Abuse of interface to achieve custom results.
 		ProductPool& products = static_cast<Warehouse*>(structure)->products();
 
-		if (useStateString(structure->state())) { item->structureState = structure->stateDescription(); }
+		if (structure->state() != StructureState::Operational) { item->structureState = structure->stateDescription(); }
 		else if (products.empty()) { item->structureState = constants::WAREHOUSE_EMPTY; }
 		else if (products.atCapacity()) { item->structureState = constants::WAREHOUSE_FULL; }
 		else if (!products.empty() && !products.atCapacity()) { item->structureState = constants::WAREHOUSE_SPACE_AVAILABLE; }
