@@ -31,9 +31,9 @@ enum class ResourceTrend
  */
 static ResourceTrend compareResources(int src, int dst)
 {
-	if (src > dst) { return ResourceTrend::Up; }
-	if (src < dst) { return ResourceTrend::Down; }
-	return ResourceTrend::None;
+	return
+		(src > dst) ? ResourceTrend::Up :
+		(src < dst) ? ResourceTrend::Down : ResourceTrend::None;
 }
 
 
