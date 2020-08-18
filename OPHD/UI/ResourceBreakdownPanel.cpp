@@ -46,6 +46,7 @@ namespace
 
 
 ResourceBreakdownPanel::ResourceBreakdownPanel() :
+	mFont{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mIcons{imageCache.load("ui/icons.png")},
 	mSkin{
 		imageCache.load("ui/skin/window_top_left.png"),
@@ -60,8 +61,6 @@ ResourceBreakdownPanel::ResourceBreakdownPanel() :
 	}
 {
 	size({270, 80});
-
-	mFont = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 
