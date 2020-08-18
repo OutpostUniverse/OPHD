@@ -19,9 +19,6 @@ using namespace NAS2D;
 
 namespace
 {
-	static const Font* FONT = nullptr;
-
-
 	enum class ResourceTrend
 	{
 		None,
