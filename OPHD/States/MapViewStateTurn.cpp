@@ -416,11 +416,7 @@ void MapViewState::nextTurn()
 	updateCommercial();
 	updateMorale();
 	updateRobots();
-
 	updateResources();
-
-	mResourceBreakdownPanel.resourceCheck();
-
 	updateStructuresAvailability();
 
 	populateStructureMenu();
