@@ -25,7 +25,6 @@ public:
 	void update() override;
 
 private:
-	void init();
 	void _resized(Control*);
 
 	void _fillListFromStructureList(StructureList&);

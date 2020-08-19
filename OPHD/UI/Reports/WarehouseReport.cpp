@@ -79,24 +79,6 @@ WarehouseReport::WarehouseReport() :
 	btnDisabled{"Disabled"},
 	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE}
 {
-	init();
-}
-
-
-/**
- * D'tor
- */
-WarehouseReport::~WarehouseReport()
-{
-	Control::resized().disconnect(this, &WarehouseReport::_resized);
-}
-
-
-/**
- * Sets up UI positions.
- */
-void WarehouseReport::init()
-{
 	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 	FONT_MED = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
 	FONT_MED_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
@@ -149,6 +131,15 @@ void WarehouseReport::init()
 
 	Control::resized().connect(this, &WarehouseReport::_resized);
 	fillLists();
+}
+
+
+/**
+ * D'tor
+ */
+WarehouseReport::~WarehouseReport()
+{
+	Control::resized().disconnect(this, &WarehouseReport::_resized);
 }
 
 
