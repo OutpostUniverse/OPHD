@@ -36,7 +36,6 @@ static const Image* FACTORY_UG = nullptr;
 static const Image* FACTORY_IMAGE = nullptr;
 
 std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
-static const Image* _PRODUCT_NONE = nullptr;
 
 static std::string FACTORY_STATUS;
 static const std::string RESOURCES_REQUIRED = "Resources Required";
@@ -91,8 +90,6 @@ void FactoryReport::init()
 	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MAINTENANCE_PARTS] = &imageCache.load("ui/interface/product_maintenance_parts.png");
 	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_CLOTHING] = &imageCache.load("ui/interface/product_clothing.png");
 	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MEDICINE] = &imageCache.load("ui/interface/product_medicine.png");
-
-	_PRODUCT_NONE = &imageCache.load("ui/interface/product_none.png");
 
 	add(&lstFactoryList, 10, 63);
 	lstFactoryList.selectionChanged().connect(this, &FactoryReport::lstFactoryListSelectionChanged);
