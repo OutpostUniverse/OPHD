@@ -17,6 +17,7 @@
 using namespace NAS2D;
 
 
+namespace {
 static const Font* FONT_BOLD = nullptr;
 static const Font* FONT_MED = nullptr;
 static const Font* FONT_MED_BOLD = nullptr;
@@ -65,6 +66,7 @@ static void computeCapacity()
 	CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
 
 	CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);
+}
 }
 
 
