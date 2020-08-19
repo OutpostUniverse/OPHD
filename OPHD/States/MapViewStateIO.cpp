@@ -457,16 +457,16 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			{
 				StringList rl_str = split_string(robotsAttribute->value().c_str(), ',');
 
-				const RobotList& rl = mRobotPool.robots();
+				const RobotList& robots = mRobotPool.robots();
 
 				for (std::size_t i = 0; i < rl_str.size(); ++i)
 				{
 					int _rid = std::stoi(rl_str[i]);
-					for (std::size_t ri = 0; ri < rl.size(); ++ri)
+					for (std::size_t ri = 0; ri < robots.size(); ++ri)
 					{
-						if (rl[ri]->id() == _rid)
+						if (robots[ri]->id() == _rid)
 						{
-							rcc->addRobot(rl[ri]);
+							rcc->addRobot(robots[ri]);
 							break;
 						}
 					}
