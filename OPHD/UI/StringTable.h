@@ -19,7 +19,8 @@ public:
 	enum class Justification
 	{
 		Left,
-		Right
+		Right,
+		Center
 	};
 
 	struct Cell
