@@ -49,9 +49,6 @@ static const std::string RESOURCES_REQUIRED = "Resources Required";
 static ProductType SELECTED_PRODUCT_TYPE = ProductType::PRODUCT_NONE;
 
 
-/**
- * C'tor
- */
 FactoryReport::FactoryReport() :
 	btnShowAll{"All"},
 	btnShowSurface{"Surface"},
@@ -68,9 +65,6 @@ FactoryReport::FactoryReport() :
 }
 
 
-/**
- * D'tor
- */
 FactoryReport::~FactoryReport()
 {
 	SELECTED_FACTORY = nullptr;
