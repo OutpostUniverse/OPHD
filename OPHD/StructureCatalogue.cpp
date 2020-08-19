@@ -3,6 +3,8 @@
 
 #include "StructureCatalogue.h"
 
+#include <stdexcept>
+
 
 //vector<ResourcePool> StructureCatalogue::mStructureCostTable;
 std::array<StorableResources, StructureID::SID_COUNT> StructureCatalogue::mStructureCostTable;
@@ -172,8 +174,7 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 
 		default:
-			std::cout << "StructureCatalogue::get(): Unsupported structure type called." << std::endl;
-			break;
+			throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type called.");
 	}
 
 	if (structure)
