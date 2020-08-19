@@ -102,7 +102,7 @@ void StructureInspector::update()
 	else
 	{
 		stringTable[{2, 0}].text = "Age:";
-		stringTable[{3, 0}].text = std::to_string(mStructure->age()) + " of " + std::to_string(mStructure->maxAge());
+		stringTable[{3, 0}].text = formatAge();
 	}
 
 	stringTable[{0, 1}].text = "Power Required:";
@@ -159,4 +159,13 @@ std::string StructureInspector::getDisabledReason() const
 	}
 
 	return "";
+}
+
+std::string StructureInspector::formatAge() const
+{
+	if (mStructure->ages()) {
+		return std::to_string(mStructure->age()) + " of " + std::to_string(mStructure->maxAge());
+	}
+
+	return "N/A";
 }
