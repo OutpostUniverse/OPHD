@@ -366,8 +366,6 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		t->index(0);
 		t->excavated(true);
 
-		Structure* st = nullptr;
-
 		auto structureId = static_cast<StructureID>(type);
 		if (structureId == StructureID::SID_TUBE)
 		{
@@ -376,7 +374,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			continue; // FIXME: ugly
 		}
 
-		st = StructureCatalogue::get(structureId);
+		auto* st = StructureCatalogue::get(structureId);
 
 		if (structureId == StructureID::SID_COMMAND_CENTER)
 		{
