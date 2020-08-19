@@ -392,7 +392,7 @@ void FactoryReport::btnTakeMeThereClicked()
 
 void FactoryReport::btnApplyClicked()
 {
-	selectedFactory->productType(SELECTED_PRODUCT_TYPE);
+	selectedFactory->productType(selectedProductType);
 	cboFilterByProductSelectionChanged();
 }
 
@@ -428,7 +428,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 	}
 	lstProducts.clearSelection();
 	lstProducts.setSelectionByName(productDescription(selectedFactory->productType()));
-	SELECTED_PRODUCT_TYPE = selectedFactory->productType();
+	selectedProductType = selectedFactory->productType();
 
 	StructureState _state = selectedFactory->state();
 	btnApply.visible(_state == StructureState::Operational || _state == StructureState::Idle);
@@ -437,7 +437,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 
 void FactoryReport::lstProductsSelectionChanged()
 {
-	SELECTED_PRODUCT_TYPE = static_cast<ProductType>(lstProducts.selectionTag());
+	selectedProductType = static_cast<ProductType>(lstProducts.selectionTag());
 }
 
 
@@ -496,10 +496,10 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 
 	int position_x = DETAIL_PANEL.x + lstProducts.size().x + 20;
 
-	if (SELECTED_PRODUCT_TYPE != ProductType::PRODUCT_NONE)
+	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(fontBigBold, productDescription(SELECTED_PRODUCT_TYPE), NAS2D::Point{position_x, DETAIL_PANEL.y + 180}, textColor);
-		renderer.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(SELECTED_PRODUCT_TYPE)], NAS2D::Point{position_x, lstProducts.positionY()});
+		renderer.drawText(fontBigBold, productDescription(selectedProductType), NAS2D::Point{position_x, DETAIL_PANEL.y + 180}, textColor);
+		renderer.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(selectedProductType)], NAS2D::Point{position_x, lstProducts.positionY()});
 		txtProductDescription.update();
 	}
 
