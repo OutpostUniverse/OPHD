@@ -120,8 +120,6 @@ WarehouseReport::WarehouseReport() :
 	btnTakeMeThere.size({140, 30});
 	btnTakeMeThere.click().connect(this, &WarehouseReport::btnTakeMeThereClicked);
 
-
-
 	add(&lstStructures, 10, mRect.y + 115);
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
 
