@@ -314,9 +314,6 @@ void FactoryReport::checkFactoryActionControls()
 }
 
 
-/**
- * 
- */
 void FactoryReport::resized(Control* /*c*/)
 {
 	const auto comboEndPoint = cboFilterByProduct.rect().endPoint();
@@ -366,9 +363,6 @@ void FactoryReport::visibilityChanged(bool visible)
 }
 
 
-/**
- * 
- */
 void FactoryReport::filterButtonClicked(bool clearCbo)
 {
 	btnShowAll.toggle(false);
@@ -382,9 +376,6 @@ void FactoryReport::filterButtonClicked(bool clearCbo)
 }
 
 
-/**
- * 
- */
 void FactoryReport::btnShowAllClicked()
 {
 	filterButtonClicked(true);
@@ -394,9 +385,6 @@ void FactoryReport::btnShowAllClicked()
 }
 
 
-/**
- * 
- */
 void FactoryReport::btnShowSurfaceClicked()
 {
 	filterButtonClicked(true);
@@ -405,9 +393,6 @@ void FactoryReport::btnShowSurfaceClicked()
 }
 
 
-/**
- * 
- */
 void FactoryReport::btnShowUndergroundClicked()
 {
 	filterButtonClicked(true);
@@ -416,9 +401,6 @@ void FactoryReport::btnShowUndergroundClicked()
 }
 
 
-/**
- * 
- */
 void FactoryReport::btnShowActiveClicked()
 {
 	filterButtonClicked(true);
@@ -427,9 +409,6 @@ void FactoryReport::btnShowActiveClicked()
 }
 
 
-/**
- * 
- */
 void FactoryReport::btnShowIdleClicked()
 {
 	filterButtonClicked(true);
@@ -438,9 +417,6 @@ void FactoryReport::btnShowIdleClicked()
 }
 
 
-/**
- * 
- */
 void FactoryReport::btnShowDisabledClicked()
 {
 	filterButtonClicked(true);
@@ -449,9 +425,6 @@ void FactoryReport::btnShowDisabledClicked()
 }
 
 
-/**
- * 
- */
 void FactoryReport::btnIdleClicked()
 {
 	SELECTED_FACTORY->forceIdle(btnIdle.toggled());
@@ -459,9 +432,6 @@ void FactoryReport::btnIdleClicked()
 }
 
 
-/**
- * 
- */
 void FactoryReport::btnClearProductionClicked()
 {
 	SELECTED_FACTORY->productType(ProductType::PRODUCT_NONE);
@@ -470,18 +440,12 @@ void FactoryReport::btnClearProductionClicked()
 }
 
 
-/**
- * 
- */
 void FactoryReport::btnTakeMeThereClicked()
 {
 	takeMeThereCallback()(SELECTED_FACTORY);
 }
 
 
-/**
- * 
- */
 void FactoryReport::btnApplyClicked()
 {
 	SELECTED_FACTORY->productType(SELECTED_PRODUCT_TYPE);
@@ -489,9 +453,6 @@ void FactoryReport::btnApplyClicked()
 }
 
 
-/**
- * 
- */
 void FactoryReport::lstFactoryListSelectionChanged()
 {
 	SELECTED_FACTORY = lstFactoryList.selectedFactory();
@@ -532,18 +493,12 @@ void FactoryReport::lstFactoryListSelectionChanged()
 }
 
 
-/**
- * 
- */
 void FactoryReport::lstProductsSelectionChanged()
 {
 	SELECTED_PRODUCT_TYPE = static_cast<ProductType>(lstProducts.selectionTag());
 }
 
 
-/**
- * 
- */
 void FactoryReport::cboFilterByProductSelectionChanged()
 {
 	if (cboFilterByProduct.currentSelection() == constants::NO_SELECTION) { return; }
@@ -552,9 +507,6 @@ void FactoryReport::cboFilterByProductSelectionChanged()
 }
 
 
-/**
- * 
- */
 void FactoryReport::drawDetailPane(Renderer& renderer)
 {
 	NAS2D::Color defaultTextColor{0, 185, 0};
@@ -595,9 +547,6 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 }
 
 
-/**
- * 
- */
 void FactoryReport::drawProductPane(Renderer& renderer)
 {
 	const auto textColor = NAS2D::Color{0, 185, 0};
@@ -632,9 +581,6 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 }
 
 
-/**
- * 
- */
 void FactoryReport::update()
 {
 	if (!visible()) { return; }
