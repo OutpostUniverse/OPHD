@@ -301,14 +301,7 @@ void FactoryReport::resized(Control* /*c*/)
 {
 	const auto comboEndPoint = cboFilterByProduct.rect().endPoint();
 
-	const Rectangle<int> FACTORY_LISTBOX = {
-		positionX() + 10,
-		comboEndPoint.y + 10,
-		comboEndPoint.x - 10,
-		mRect.height - 74
-	};
-
-	lstFactoryList.size(FACTORY_LISTBOX.size());
+	lstFactoryList.size({comboEndPoint.x - 10, mRect.height - 74});
 
 	DETAIL_PANEL = {
 		comboEndPoint.x + 20,
