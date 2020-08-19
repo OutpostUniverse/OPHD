@@ -58,7 +58,6 @@ namespace {
 
 
 WarehouseReport::WarehouseReport() :
-	FONT_BOLD{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL)},
 	FONT_MED{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
 	FONT_MED_BOLD{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
 	FONT_BIG_BOLD{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE)},
