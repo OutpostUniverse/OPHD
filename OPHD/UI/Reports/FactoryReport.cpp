@@ -24,7 +24,6 @@ using namespace NAS2D;
 static Rectangle<int> DETAIL_PANEL;
 
 std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
-static ProductType SELECTED_PRODUCT_TYPE = ProductType::PRODUCT_NONE;
 
 
 FactoryReport::FactoryReport() :

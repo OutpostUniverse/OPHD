@@ -96,4 +96,5 @@ private:
 	TextArea txtProductDescription;
 
 	Factory* selectedFactory = nullptr;
+	ProductType SELECTED_PRODUCT_TYPE = ProductType::PRODUCT_NONE;
 };
