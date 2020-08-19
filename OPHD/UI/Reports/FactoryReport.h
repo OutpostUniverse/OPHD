@@ -95,5 +95,5 @@ private:
 
 	TextArea txtProductDescription;
 
-	Factory* SELECTED_FACTORY = nullptr;
+	Factory* selectedFactory = nullptr;
 };

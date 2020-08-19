@@ -140,7 +140,7 @@ FactoryReport::FactoryReport() :
 
 FactoryReport::~FactoryReport()
 {
-	SELECTED_FACTORY = nullptr;
+	selectedFactory = nullptr;
 }
 
 
@@ -158,7 +158,7 @@ void FactoryReport::selectStructure(Structure* structure)
 void FactoryReport::clearSelection()
 {
 	lstFactoryList.clearSelection();
-	SELECTED_FACTORY = nullptr;
+	selectedFactory = nullptr;
 }
 
 
@@ -176,7 +176,7 @@ void FactoryReport::refresh()
  */
 void FactoryReport::fillLists()
 {
-	SELECTED_FACTORY = nullptr;
+	selectedFactory = nullptr;
 	lstFactoryList.clearItems();
 	for (auto factory : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
 	{
@@ -191,7 +191,7 @@ void FactoryReport::fillLists()
  */
 void FactoryReport::fillFactoryList(ProductType type)
 {
-	SELECTED_FACTORY = nullptr;
+	selectedFactory = nullptr;
 	lstFactoryList.clearItems();
 	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
 	{
@@ -211,7 +211,7 @@ void FactoryReport::fillFactoryList(ProductType type)
  */
 void FactoryReport::fillFactoryList(bool surface)
 {
-	SELECTED_FACTORY = nullptr;
+	selectedFactory = nullptr;
 	lstFactoryList.clearItems();
 	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
 	{
@@ -235,7 +235,7 @@ void FactoryReport::fillFactoryList(bool surface)
  */
 void FactoryReport::fillFactoryList(StructureState state)
 {
-	SELECTED_FACTORY = nullptr;
+	selectedFactory = nullptr;
 	lstFactoryList.clearItems();
 	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
 	{
@@ -301,9 +301,9 @@ void FactoryReport::resized(Control* /*c*/)
  */
 void FactoryReport::visibilityChanged(bool visible)
 {
-	if (!SELECTED_FACTORY) { return; }
+	if (!selectedFactory) { return; }
 
-	StructureState _state = SELECTED_FACTORY->state();
+	StructureState _state = selectedFactory->state();
 	btnApply.visible(visible && (_state == StructureState::Operational || _state == StructureState::Idle));
 	checkFactoryActionControls();
 }
@@ -373,13 +373,13 @@ void FactoryReport::btnShowDisabledClicked()
 
 void FactoryReport::btnIdleClicked()
 {
-	SELECTED_FACTORY->forceIdle(btnIdle.toggled());
+	selectedFactory->forceIdle(btnIdle.toggled());
 }
 
 
 void FactoryReport::btnClearProductionClicked()
 {
-	SELECTED_FACTORY->productType(ProductType::PRODUCT_NONE);
+	selectedFactory->productType(ProductType::PRODUCT_NONE);
 	lstProducts.clearSelection();
 	cboFilterByProductSelectionChanged();
 }
@@ -387,51 +387,51 @@ void FactoryReport::btnClearProductionClicked()
 
 void FactoryReport::btnTakeMeThereClicked()
 {
-	takeMeThereCallback()(SELECTED_FACTORY);
+	takeMeThereCallback()(selectedFactory);
 }
 
 
 void FactoryReport::btnApplyClicked()
 {
-	SELECTED_FACTORY->productType(SELECTED_PRODUCT_TYPE);
+	selectedFactory->productType(SELECTED_PRODUCT_TYPE);
 	cboFilterByProductSelectionChanged();
 }
 
 
 void FactoryReport::lstFactoryListSelectionChanged()
 {
-	SELECTED_FACTORY = lstFactoryList.selectedFactory();
+	selectedFactory = lstFactoryList.selectedFactory();
 
-	if (!SELECTED_FACTORY)
+	if (!selectedFactory)
 	{
 		checkFactoryActionControls();
 		return;
 	}
 
 	/// \fixme Ugly
-	if (SELECTED_FACTORY->name() == constants::SEED_FACTORY) { factoryImage = &factorySeed; }
-	else if (SELECTED_FACTORY->name() == constants::SURFACE_FACTORY) { factoryImage = &factoryAboveGround; }
-	else if (SELECTED_FACTORY->name() == constants::UNDERGROUND_FACTORY) { factoryImage = &factoryUnderGround; }
+	if (selectedFactory->name() == constants::SEED_FACTORY) { factoryImage = &factorySeed; }
+	else if (selectedFactory->name() == constants::SURFACE_FACTORY) { factoryImage = &factoryAboveGround; }
+	else if (selectedFactory->name() == constants::UNDERGROUND_FACTORY) { factoryImage = &factoryUnderGround; }
 
-	btnIdle.toggle(SELECTED_FACTORY->state() == StructureState::Idle);
-	btnIdle.enabled(SELECTED_FACTORY->state() == StructureState::Operational || SELECTED_FACTORY->state() == StructureState::Idle);
+	btnIdle.toggle(selectedFactory->state() == StructureState::Idle);
+	btnIdle.enabled(selectedFactory->state() == StructureState::Operational || selectedFactory->state() == StructureState::Idle);
 
-	btnClearProduction.enabled(SELECTED_FACTORY->state() == StructureState::Operational || SELECTED_FACTORY->state() == StructureState::Idle);
+	btnClearProduction.enabled(selectedFactory->state() == StructureState::Operational || selectedFactory->state() == StructureState::Idle);
 
 	lstProducts.dropAllItems();
-	if (SELECTED_FACTORY->state() != StructureState::Destroyed)
+	if (selectedFactory->state() != StructureState::Destroyed)
 	{
-		const Factory::ProductionTypeList& _pl = SELECTED_FACTORY->productList();
+		const Factory::ProductionTypeList& _pl = selectedFactory->productList();
 		for (auto item : _pl)
 		{
 			lstProducts.addItem(productDescription(item), static_cast<int>(item));
 		}
 	}
 	lstProducts.clearSelection();
-	lstProducts.setSelectionByName(productDescription(SELECTED_FACTORY->productType()));
-	SELECTED_PRODUCT_TYPE = SELECTED_FACTORY->productType();
+	lstProducts.setSelectionByName(productDescription(selectedFactory->productType()));
+	SELECTED_PRODUCT_TYPE = selectedFactory->productType();
 
-	StructureState _state = SELECTED_FACTORY->state();
+	StructureState _state = selectedFactory->state();
 	btnApply.visible(_state == StructureState::Operational || _state == StructureState::Idle);
 }
 
@@ -456,21 +456,21 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 
 	const auto startPoint = DETAIL_PANEL.startPoint();
 	renderer.drawImage(*factoryImage, startPoint + NAS2D::Vector{0, 25});
-	renderer.drawText(fontBigBold, SELECTED_FACTORY->name(), startPoint + NAS2D::Vector{0, -8}, defaultTextColor);
+	renderer.drawText(fontBigBold, selectedFactory->name(), startPoint + NAS2D::Vector{0, -8}, defaultTextColor);
 
 	auto statusPosition = startPoint + NAS2D::Vector{138, 20};
 	renderer.drawText(fontMediumBold, "Status", statusPosition, defaultTextColor);
 
-	bool isStatusHighlighted = SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed();
+	bool isStatusHighlighted = selectedFactory->disabled() || selectedFactory->destroyed();
 	statusPosition.x += fontMediumBold.width("Status") + 20;
-	renderer.drawText(fontMedium, SELECTED_FACTORY->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : defaultTextColor));
+	renderer.drawText(fontMedium, selectedFactory->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : defaultTextColor));
 
 	renderer.drawText(fontMediumBold, "Resources Required", startPoint + NAS2D::Vector{138, 60}, defaultTextColor);
 
 	const auto labelWidth = fontMediumBold.width("Resources Required");
 
 	// MINERAL RESOURCES
-	const ProductionCost& _pc = productCost(SELECTED_FACTORY->productType());
+	const ProductionCost& _pc = productCost(selectedFactory->productType());
 	const std::array requiredResources{
 		std::pair{"Common Metals", _pc.commonMetals()},
 		std::pair{"Common Minerals", _pc.commonMinerals()},
@@ -484,8 +484,8 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	}
 
 	// POPULATION
-	bool isPopulationRequirementHighlighted = SELECTED_FACTORY->populationAvailable()[0] != SELECTED_FACTORY->populationRequirements()[0];
-	auto text = std::to_string(SELECTED_FACTORY->populationAvailable()[0]) + " / " + std::to_string(SELECTED_FACTORY->populationRequirements()[0]);
+	bool isPopulationRequirementHighlighted = selectedFactory->populationAvailable()[0] != selectedFactory->populationRequirements()[0];
+	auto text = std::to_string(selectedFactory->populationAvailable()[0]) + " / " + std::to_string(selectedFactory->populationRequirements()[0]);
 	drawLabelAndValueLeftJustify(position, labelWidth, "Workers", text, (isPopulationRequirementHighlighted ? NAS2D::Color::Red : defaultTextColor));
 }
 
@@ -504,21 +504,21 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 		txtProductDescription.update();
 	}
 
-	if (SELECTED_FACTORY->productType() == ProductType::PRODUCT_NONE) { return; }
+	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
 	
 	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, DETAIL_PANEL.y + 358}, textColor);
-	renderer.drawText(fontMedium, "Building " + productDescription(SELECTED_FACTORY->productType()), NAS2D::Point{position_x, DETAIL_PANEL.y + 393}, textColor);
+	renderer.drawText(fontMedium, "Building " + productDescription(selectedFactory->productType()), NAS2D::Point{position_x, DETAIL_PANEL.y + 393}, textColor);
 
 	float percent = 0.0f;
-	if (SELECTED_FACTORY->productType() != ProductType::PRODUCT_NONE)
+	if (selectedFactory->productType() != ProductType::PRODUCT_NONE)
 	{
-		percent = static_cast<float>(SELECTED_FACTORY->productionTurnsCompleted()) /
-			static_cast<float>(SELECTED_FACTORY->productionTurnsToComplete());
+		percent = static_cast<float>(selectedFactory->productionTurnsCompleted()) /
+			static_cast<float>(selectedFactory->productionTurnsToComplete());
 	}
 	
 	drawBasicProgressBar(position_x, DETAIL_PANEL.y + 413, mRect.width - position_x - 10, 30, percent, 4);
 
-	const auto text = std::to_string(SELECTED_FACTORY->productionTurnsCompleted()) + " / " + std::to_string(SELECTED_FACTORY->productionTurnsToComplete());
+	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());
 	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, DETAIL_PANEL.y + 449}, textColor);
 	renderer.drawText(fontMedium, text, NAS2D::Point{mRect.width - fontMedium.width(text) - 10, DETAIL_PANEL.y + 449}, textColor);
 }
@@ -534,7 +534,7 @@ void FactoryReport::update()
 	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.y + 10}, NAS2D::Point{positionX + 10, mRect.y + mRect.height - 10}, textColor);
 	renderer.drawText(font, "Filter by Product", NAS2D::Point{positionX - font.width("Filter by Product"), mRect.y + 10}, textColor);
 
-	if (SELECTED_FACTORY)
+	if (selectedFactory)
 	{
 		drawDetailPane(renderer);
 		drawProductPane(renderer);
