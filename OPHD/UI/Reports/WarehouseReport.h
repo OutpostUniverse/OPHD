@@ -10,6 +10,12 @@
 #include "../../Things/Structures/Structure.h"
 
 
+namespace NAS2D {
+	class Font;
+	class Image;
+}
+
+
 class WarehouseReport : public ReportInterface
 {
 public:
@@ -52,6 +58,12 @@ private:
 	void drawRightPanel(NAS2D::Renderer&);
 
 private:
+	const NAS2D::Font* FONT_BOLD = nullptr;
+	const NAS2D::Font* FONT_MED = nullptr;
+	const NAS2D::Font* FONT_MED_BOLD = nullptr;
+	const NAS2D::Font* FONT_BIG_BOLD = nullptr;
+	const NAS2D::Image* WAREHOUSE_IMG = nullptr;
+
 	Button btnShowAll;
 	Button btnSpaceAvailable;
 	Button btnFull;

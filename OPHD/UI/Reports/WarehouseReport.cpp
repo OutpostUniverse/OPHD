@@ -18,13 +18,6 @@ using namespace NAS2D;
 
 
 namespace {
-	static const Font* FONT_BOLD = nullptr;
-	static const Font* FONT_MED = nullptr;
-	static const Font* FONT_MED_BOLD = nullptr;
-	static const Font* FONT_BIG_BOLD = nullptr;
-
-	static const Image* WAREHOUSE_IMG = nullptr;
-
 	static int CAPACITY_BAR_WIDTH = 0;
 	static int CAPACITY_BAR_POSITION_X = 0;
 
