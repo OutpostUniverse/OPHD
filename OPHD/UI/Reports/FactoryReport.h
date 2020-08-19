@@ -14,6 +14,8 @@ namespace NAS2D {
 	class Image;
 }
 
+class Factory;
+
 
 class FactoryReport : public ReportInterface
 {
@@ -92,4 +94,6 @@ private:
 	ListBox lstProducts;
 
 	TextArea txtProductDescription;
+
+	Factory* SELECTED_FACTORY = nullptr;
 };
