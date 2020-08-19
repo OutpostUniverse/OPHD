@@ -3,6 +3,9 @@
 
 #include "StructureCatalogue.h"
 
+#include <string>
+#include <stdexcept>
+
 
 //vector<ResourcePool> StructureCatalogue::mStructureCostTable;
 std::array<StorableResources, StructureID::SID_COUNT> StructureCatalogue::mStructureCostTable;
@@ -32,9 +35,6 @@ Structure* StructureCatalogue::get(StructureID type)
 	// derived types.
 	switch (type)
 	{
-		case StructureID::SID_NONE:
-			break;
-
 		case StructureID::SID_AGRIDOME:
 			structure = new Agridome();
 			break;
@@ -171,15 +171,23 @@ Structure* StructureCatalogue::get(StructureID type)
 			structure = new Warehouse();
 			break;
 
-		default:
-			std::cout << "StructureCatalogue::get(): Unsupported structure type called." << std::endl;
+
+		case StructureID::SID_TUBE:
+			break;
+
+		case StructureID::SID_NONE:
+			break;
+
+		case StructureID::SID_COUNT:
 			break;
 	}
 
-	if (structure)
+	if (!structure)
 	{
-		structure->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
+		throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type: " + std::to_string(type));
 	}
+
+	structure->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
 
 	return structure;
 }
