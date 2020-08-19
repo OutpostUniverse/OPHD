@@ -18,55 +18,55 @@ using namespace NAS2D;
 
 
 namespace {
-static const Font* FONT_BOLD = nullptr;
-static const Font* FONT_MED = nullptr;
-static const Font* FONT_MED_BOLD = nullptr;
-static const Font* FONT_BIG_BOLD = nullptr;
+	static const Font* FONT_BOLD = nullptr;
+	static const Font* FONT_MED = nullptr;
+	static const Font* FONT_MED_BOLD = nullptr;
+	static const Font* FONT_BIG_BOLD = nullptr;
 
-static const Image* WAREHOUSE_IMG = nullptr;
+	static const Image* WAREHOUSE_IMG = nullptr;
 
-static int COUNT_WIDTH = 0;
-static int CAPACITY_WIDTH = 0;
+	static int COUNT_WIDTH = 0;
+	static int CAPACITY_WIDTH = 0;
 
-static int CAPACITY_BAR_WIDTH = 0;
-static int CAPACITY_BAR_POSITION_X = 0;
+	static int CAPACITY_BAR_WIDTH = 0;
+	static int CAPACITY_BAR_POSITION_X = 0;
 
-static float CAPACITY_PERCENT = 0.0f;
+	static float CAPACITY_PERCENT = 0.0f;
 
-static std::string WH_COUNT;
-static std::string WH_CAPACITY;
+	static std::string WH_COUNT;
+	static std::string WH_CAPACITY;
 
-static Warehouse* SELECTED_WAREHOUSE = nullptr;
+	static Warehouse* SELECTED_WAREHOUSE = nullptr;
 
 
-/**
- * Internal function to determine current capacity of all
- * warehouses in the game.
- */
-static void computeCapacity()
-{
-	int capacity_total = 0;
-	int available_capacity = 0;
-
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-	for (auto warehouse : structures)
+	/**
+	 * Internal function to determine current capacity of all
+	 * warehouses in the game.
+	 */
+	static void computeCapacity()
 	{
-		if (!warehouse->operational()) { continue; } // yuck
-		Warehouse* _wh = static_cast<Warehouse*>(warehouse);
-		available_capacity += _wh->products().availableStorage();
-		capacity_total += _wh->products().capacity();
+		int capacity_total = 0;
+		int available_capacity = 0;
+
+		const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+		for (auto warehouse : structures)
+		{
+			if (!warehouse->operational()) { continue; } // yuck
+			Warehouse* _wh = static_cast<Warehouse*>(warehouse);
+			available_capacity += _wh->products().availableStorage();
+			capacity_total += _wh->products().capacity();
+		}
+
+		int capacity_used = capacity_total - available_capacity;
+
+		WH_COUNT = std::to_string(structures.size());
+		WH_CAPACITY = std::to_string(capacity_total);
+
+		COUNT_WIDTH = FONT_MED->width(WH_COUNT);
+		CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
+
+		CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);
 	}
-
-	int capacity_used = capacity_total - available_capacity;
-
-	WH_COUNT = std::to_string(structures.size());
-	WH_CAPACITY = std::to_string(capacity_total);
-
-	COUNT_WIDTH = FONT_MED->width(WH_COUNT);
-	CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
-
-	CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);
-}
 }
 
 
