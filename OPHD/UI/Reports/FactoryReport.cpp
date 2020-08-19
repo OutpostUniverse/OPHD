@@ -29,6 +29,13 @@ static ProductType SELECTED_PRODUCT_TYPE = ProductType::PRODUCT_NONE;
 
 
 FactoryReport::FactoryReport() :
+	FONT{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	FONT_MED{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
+	FONT_MED_BOLD{&fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
+	FONT_BIG_BOLD{&fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE)},
+	FACTORY_SEED{&imageCache.load("ui/interface/factory_seed.png")},
+	FACTORY_AG{&imageCache.load("ui/interface/factory_ag.png")},
+	FACTORY_UG{&imageCache.load("ui/interface/factory_ug.png")},
 	btnShowAll{"All"},
 	btnShowSurface{"Surface"},
 	btnShowUnderground{"Underground"},
@@ -40,15 +47,6 @@ FactoryReport::FactoryReport() :
 	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE},
 	btnApply{"Apply"}
 {
-	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_MED = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_MED_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	FONT_BIG_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
-
-	FACTORY_SEED = &imageCache.load("ui/interface/factory_seed.png");
-	FACTORY_AG = &imageCache.load("ui/interface/factory_ag.png");
-	FACTORY_UG = &imageCache.load("ui/interface/factory_ug.png");
-
 	/// \todo Decide if this is the best place to have these images live or if it should be done at program start.
 	PRODUCT_IMAGE_ARRAY.fill(nullptr);
 	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DIGGER] = &imageCache.load("ui/interface/product_robodigger.png");
