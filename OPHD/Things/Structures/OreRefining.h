@@ -23,6 +23,8 @@ public:
 		stringTable.setColumnFont(0, stringTable.GetDefaultFont());
 		stringTable.setRowFont(0, stringTable.GetDefaultTitleFont());
 		stringTable.setHorizontalPadding(20);
+		stringTable.setColumnJustification(1, StringTable::Justification::Center);
+		stringTable.setColumnJustification(2, StringTable::Justification::Center);
 
 		stringTable.setColumnText(
 			0,
