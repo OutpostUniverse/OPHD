@@ -63,14 +63,14 @@ private:
 	void visibilityChanged(bool visible) override;
 
 private:
-	const NAS2D::Font* FONT = nullptr;
-	const NAS2D::Font* FONT_MED = nullptr;
-	const NAS2D::Font* FONT_MED_BOLD = nullptr;
-	const NAS2D::Font* FONT_BIG_BOLD = nullptr;
-	const NAS2D::Image* FACTORY_SEED = nullptr;
-	const NAS2D::Image* FACTORY_AG = nullptr;
-	const NAS2D::Image* FACTORY_UG = nullptr;
-	const NAS2D::Image* FACTORY_IMAGE = nullptr;
+	const NAS2D::Font* font = nullptr;
+	const NAS2D::Font* fontMedium = nullptr;
+	const NAS2D::Font* fontMediumBold = nullptr;
+	const NAS2D::Font* fontBigBold = nullptr;
+	const NAS2D::Image* factorySeed = nullptr;
+	const NAS2D::Image* factoryAboveGround = nullptr;
+	const NAS2D::Image* factoryUnderGround = nullptr;
+	const NAS2D::Image* factoryImage = nullptr;
 
 	Button btnShowAll;
 	Button btnShowSurface;
