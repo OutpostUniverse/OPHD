@@ -44,9 +44,6 @@ static Warehouse* SELECTED_WAREHOUSE = nullptr;
  */
 static void computeCapacity()
 {
-	COUNT_WIDTH = FONT_MED->width(WH_COUNT);
-	CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
-
 	int capacity_total = 0;
 	int available_capacity = 0;
 
@@ -63,6 +60,9 @@ static void computeCapacity()
 
 	WH_COUNT = std::to_string(structures.size());
 	WH_CAPACITY = std::to_string(capacity_total);
+
+	COUNT_WIDTH = FONT_MED->width(WH_COUNT);
+	CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
 
 	CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);
 }
