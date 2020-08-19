@@ -25,9 +25,6 @@ namespace {
 
 	static const Image* WAREHOUSE_IMG = nullptr;
 
-	static int COUNT_WIDTH = 0;
-	static int CAPACITY_WIDTH = 0;
-
 	static int CAPACITY_BAR_WIDTH = 0;
 	static int CAPACITY_BAR_POSITION_X = 0;
 
@@ -61,9 +58,6 @@ namespace {
 
 		WH_COUNT = std::to_string(structures.size());
 		WH_CAPACITY = std::to_string(capacity_total);
-
-		COUNT_WIDTH = FONT_MED->width(WH_COUNT);
-		CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
 
 		CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);
 	}
@@ -379,6 +373,9 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 	renderer.drawText(*FONT_MED_BOLD, "Warehouse Count", NAS2D::Point{10, positionY() + 40}, textColor);
 	renderer.drawText(*FONT_MED_BOLD, "Total Storage", NAS2D::Point{10, positionY() + 62}, textColor);
 	renderer.drawText(*FONT_MED_BOLD, "Capacity Used", NAS2D::Point{10, positionY() + 84}, textColor);
+
+	const auto COUNT_WIDTH = FONT_MED->width(WH_COUNT);
+	const auto CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
 
 	renderer.drawText(*FONT_MED, WH_COUNT, NAS2D::Point{mRect.width / 2 - 10 - COUNT_WIDTH, positionY() + 35}, textColor);
 	renderer.drawText(*FONT_MED, WH_CAPACITY, NAS2D::Point{mRect.width / 2 - 10 - CAPACITY_WIDTH, positionY() + 57}, textColor);
