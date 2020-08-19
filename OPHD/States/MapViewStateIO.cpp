@@ -336,10 +336,10 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 	int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
-	for (XmlNode* structure = element->firstChild(); structure != nullptr; structure = structure->nextSibling())
+	for (XmlNode* structureNode = element->firstChild(); structureNode != nullptr; structureNode = structureNode->nextSibling())
 	{
 		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = idle_reason = pop0 = pop1 = type = 0;
-		attribute = structure->toElement()->firstAttribute();
+		attribute = structureNode->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
@@ -409,7 +409,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		{
 			auto agridome = static_cast<Agridome*>(st);
 
-			auto foodStorage = structure->firstChildElement("food");
+			auto foodStorage = structureNode->firstChildElement("food");
 			if (foodStorage == nullptr)
 			{
 				throw std::runtime_error("MapViewState::readStructures(): Agridome saved without a food level node.");
@@ -425,13 +425,13 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		
 		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }
 
-		loadResorucesFromXmlElement(structure->firstChildElement("production"), st->production());
-		loadResorucesFromXmlElement(structure->firstChildElement("storage"), st->storage());
+		loadResorucesFromXmlElement(structureNode->firstChildElement("production"), st->production());
+		loadResorucesFromXmlElement(structureNode->firstChildElement("storage"), st->storage());
 
 		if (st->isWarehouse())
 		{
 			Warehouse* w = static_cast<Warehouse*>(st);
-			w->products().deserialize(structure->firstChildElement("warehouse_products"));
+			w->products().deserialize(structureNode->firstChildElement("warehouse_products"));
 		}
 
 		if (st->isFactory())
@@ -451,7 +451,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		if (st->isRobotCommand())
 		{
 			RobotCommand* rcc = static_cast<RobotCommand*>(st);
-			XmlAttribute* robots = structure->firstChildElement("robots")->firstAttribute();
+			XmlAttribute* robots = structureNode->firstChildElement("robots")->firstAttribute();
 
 			if (!robots->value().empty())
 			{
