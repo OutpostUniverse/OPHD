@@ -24,11 +24,7 @@ namespace {
 	static std::string WH_CAPACITY;
 
 
-	/**
-	 * Internal function to determine current capacity of all
-	 * warehouses in the game.
-	 */
-	static void computeCapacity()
+	static void computeTotalWarehouseCapacity()
 	{
 		int capacity_total = 0;
 		int available_capacity = 0;
@@ -145,7 +141,7 @@ void WarehouseReport::fillLists()
 	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse));
 
 	lstStructures.setSelection(0);
-	computeCapacity();
+	computeTotalWarehouseCapacity();
 }
 
 
@@ -166,7 +162,7 @@ void WarehouseReport::fillListSpaceAvailable()
 	_fillListFromStructureList(list);
 
 	lstStructures.setSelection(0);
-	computeCapacity();
+	computeTotalWarehouseCapacity();
 }
 
 
@@ -188,7 +184,7 @@ void WarehouseReport::fillListFull()
 	_fillListFromStructureList(list);
 
 	lstStructures.setSelection(0);
-	computeCapacity();
+	computeTotalWarehouseCapacity();
 }
 
 
@@ -209,7 +205,7 @@ void WarehouseReport::fillListEmpty()
 	_fillListFromStructureList(list);
 
 	lstStructures.setSelection(0);
-	computeCapacity();
+	computeTotalWarehouseCapacity();
 }
 
 
@@ -229,7 +225,7 @@ void WarehouseReport::fillListDisabled()
 	_fillListFromStructureList(list);
 
 	lstStructures.setSelection(0);
-	computeCapacity();
+	computeTotalWarehouseCapacity();
 }
 
 
