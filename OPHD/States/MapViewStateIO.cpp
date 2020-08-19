@@ -458,7 +458,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			{
 				for (const auto& string : NAS2D::split(robotsAttribute->value(), ','))
 				{
-					const int robotId = std::stoi(string);
+					const auto robotId = NAS2D::stringTo<int>(string);
 					for (auto* robot : mRobotPool.robots())
 					{
 						if (robot->id() == robotId)
