@@ -363,9 +363,9 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			attribute = attribute->next();
 		}
 
-		Tile* tile = mTileMap->getTile({x, y}, depth);
-		tile->index(0);
-		tile->excavated(true);
+		auto& tile = *mTileMap->getTile({x, y}, depth);
+		tile.index(0);
+		tile.excavated(true);
 
 		auto structureId = static_cast<StructureID>(type);
 		if (structureId == StructureID::SID_TUBE)
@@ -474,7 +474,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		structure.populationAvailable()[0] = pop0;
 		structure.populationAvailable()[1] = pop1;
 
-		Utility<StructureManager>::get().addStructure(&structure, tile);
+		Utility<StructureManager>::get().addStructure(&structure, &tile);
 	}
 }
 
