@@ -407,7 +407,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_AGRIDOME)
 		{
-			auto agridome = static_cast<Agridome*>(&structure);
+			auto& agridome = *static_cast<Agridome*>(&structure);
 
 			auto foodStorage = structureNode->firstChildElement("food");
 			if (foodStorage == nullptr)
@@ -416,7 +416,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			}
 
 			auto foodLevel = foodStorage->attribute("level");
-			agridome->foodLevel(std::stoi(foodLevel));
+			agridome.foodLevel(std::stoi(foodLevel));
 		}
 
 		structure.age(age);
