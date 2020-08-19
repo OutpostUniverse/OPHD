@@ -436,11 +436,11 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structure.isFactory())
 		{
-			Factory* f = static_cast<Factory*>(&structure);
-			f->productType(static_cast<ProductType>(production_type));
-			f->productionTurnsCompleted(production_completed);
-			f->resourcePool(&mPlayerResources);
-			f->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
+			Factory* factory = static_cast<Factory*>(&structure);
+			factory->productType(static_cast<ProductType>(production_type));
+			factory->productionTurnsCompleted(production_completed);
+			factory->resourcePool(&mPlayerResources);
+			factory->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 		}
 
 		/**
