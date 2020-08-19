@@ -27,10 +27,8 @@ static Rectangle<int> FACTORY_LISTBOX;
 static Rectangle<int> DETAIL_PANEL;
 
 static const Font* FONT = nullptr;
-static const Font* FONT_BOLD = nullptr;
 static const Font* FONT_MED = nullptr;
 static const Font* FONT_MED_BOLD = nullptr;
-static const Font* FONT_BIG = nullptr;
 static const Font* FONT_BIG_BOLD = nullptr;
 
 static Factory* SELECTED_FACTORY = nullptr;
@@ -77,12 +75,8 @@ FactoryReport::~FactoryReport()
 void FactoryReport::init()
 {
 	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
-
 	FONT_MED = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
 	FONT_MED_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-
-	FONT_BIG = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_HUGE);
 	FONT_BIG_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
 
 	FACTORY_SEED = &imageCache.load("ui/interface/factory_seed.png");
