@@ -15,6 +15,8 @@ namespace NAS2D {
 	class Image;
 }
 
+class Warehouse;
+
 
 class WarehouseReport : public ReportInterface
 {
@@ -62,6 +64,8 @@ private:
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;
 	const NAS2D::Image& imageWarehouse;
+
+	Warehouse* SELECTED_WAREHOUSE = nullptr;
 
 	Button btnShowAll;
 	Button btnSpaceAvailable;

@@ -26,8 +26,6 @@ namespace {
 	static std::string WH_COUNT;
 	static std::string WH_CAPACITY;
 
-	static Warehouse* SELECTED_WAREHOUSE = nullptr;
-
 
 	/**
 	 * Internal function to determine current capacity of all
