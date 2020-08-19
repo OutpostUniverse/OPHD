@@ -389,10 +389,10 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");
 			}
 
-			MineFacility* mf = static_cast<MineFacility*>(&structure);
-			mf->mine(mine);
-			mf->maxDepth(mTileMap->maxDepth());
-			mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
+			MineFacility* mineFacility = static_cast<MineFacility*>(&structure);
+			mineFacility->mine(mine);
+			mineFacility->maxDepth(mTileMap->maxDepth());
+			mineFacility->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 		}
 
 		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)
