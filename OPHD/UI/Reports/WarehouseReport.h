@@ -10,10 +10,16 @@
 #include "../../Things/Structures/Structure.h"
 
 
+namespace NAS2D {
+	class Font;
+	class Image;
+}
+
+class Warehouse;
+
+
 class WarehouseReport : public ReportInterface
 {
-public:
-
 public:
 	WarehouseReport();
 	~WarehouseReport() override;
@@ -27,7 +33,6 @@ public:
 	void update() override;
 
 private:
-	void init();
 	void _resized(Control*);
 
 	void _fillListFromStructureList(StructureList&);
@@ -55,6 +60,13 @@ private:
 	void drawRightPanel(NAS2D::Renderer&);
 
 private:
+	const NAS2D::Font& fontMedium;
+	const NAS2D::Font& fontMediumBold;
+	const NAS2D::Font& fontBigBold;
+	const NAS2D::Image& imageWarehouse;
+
+	Warehouse* selectedWarehouse = nullptr;
+
 	Button btnShowAll;
 	Button btnSpaceAvailable;
 	Button btnFull;

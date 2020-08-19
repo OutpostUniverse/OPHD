@@ -17,70 +17,44 @@
 using namespace NAS2D;
 
 
-static const Font* FONT_BOLD = nullptr;
-static const Font* FONT_MED = nullptr;
-static const Font* FONT_MED_BOLD = nullptr;
-static const Font* FONT_BIG_BOLD = nullptr;
+namespace {
+	static float CAPACITY_PERCENT = 0.0f;
 
-static const Image* WAREHOUSE_IMG = nullptr;
-
-static int COUNT_WIDTH = 0;
-static int CAPACITY_WIDTH = 0;
-
-static int CAPACITY_BAR_WIDTH = 0;
-static int CAPACITY_BAR_POSITION_X = 0;
-
-static float CAPACITY_PERCENT = 0.0f;
-
-static std::string WH_COUNT;
-static std::string WH_CAPACITY;
-
-static Warehouse* SELECTED_WAREHOUSE = nullptr;
+	static std::string WH_COUNT;
+	static std::string WH_CAPACITY;
 
 
-/**
- * Internal convenience function to avoid really fugly code.
- */
-static bool useStateString(StructureState _state)
-{
-	return _state == StructureState::Disabled || _state == StructureState::Destroyed || _state == StructureState::UnderConstruction || _state == StructureState::Idle;
-}
-
-
-/**
- * Internal function to determine current capacity of all
- * warehouses in the game.
- */
-static void computeCapacity()
-{
-	COUNT_WIDTH = FONT_MED->width(WH_COUNT);
-	CAPACITY_WIDTH = FONT_MED->width(WH_CAPACITY);
-
-	int capacity_total = 0;
-	int available_capacity = 0;
-
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-	for (auto warehouse : structures)
+	static void computeTotalWarehouseCapacity()
 	{
-		if (!warehouse->operational()) { continue; } // yuck
-		Warehouse* _wh = static_cast<Warehouse*>(warehouse);
-		available_capacity += _wh->products().availableStorage();
-		capacity_total += _wh->products().capacity();
+		int capacityTotal = 0;
+		int capacityAvailable = 0;
+
+		const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+		for (auto warehouseStructure : structures)
+		{
+			if (warehouseStructure->operational())
+			{
+				const auto& warehouseProducts = static_cast<Warehouse*>(warehouseStructure)->products();
+				capacityAvailable += warehouseProducts.availableStorage();
+				capacityTotal += warehouseProducts.capacity();
+			}
+		}
+
+		int capacityUsed = capacityTotal - capacityAvailable;
+
+		WH_COUNT = std::to_string(structures.size());
+		WH_CAPACITY = std::to_string(capacityTotal);
+
+		CAPACITY_PERCENT = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
 	}
-
-	int capacity_used = capacity_total - available_capacity;
-
-	WH_COUNT = std::to_string(structures.size());
-	WH_CAPACITY = std::to_string(capacity_total);
-
-	CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);
 }
 
 
-/**
- * C'tor
- */
 WarehouseReport::WarehouseReport() :
+	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
+	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
+	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE)},
+	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
 	btnShowAll{"All"},
 	btnSpaceAvailable{"Space Available"},
 	btnFull{"Full"},
@@ -88,31 +62,6 @@ WarehouseReport::WarehouseReport() :
 	btnDisabled{"Disabled"},
 	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE}
 {
-	init();
-}
-
-
-/**
- * D'tor
- */
-WarehouseReport::~WarehouseReport()
-{
-	Control::resized().disconnect(this, &WarehouseReport::_resized);
-}
-
-
-/**
- * Sets up UI positions.
- */
-void WarehouseReport::init()
-{
-	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
-	FONT_MED = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_MED_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	FONT_BIG_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
-
-	WAREHOUSE_IMG = &imageCache.load("ui/interface/warehouse.png");
-
 	add(&btnShowAll, 10, 10);
 	btnShowAll.size({75, 20});
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
@@ -147,8 +96,6 @@ void WarehouseReport::init()
 	btnTakeMeThere.size({140, 30});
 	btnTakeMeThere.click().connect(this, &WarehouseReport::btnTakeMeThereClicked);
 
-
-
 	add(&lstStructures, 10, mRect.y + 115);
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
 
@@ -158,6 +105,12 @@ void WarehouseReport::init()
 
 	Control::resized().connect(this, &WarehouseReport::_resized);
 	fillLists();
+}
+
+
+WarehouseReport::~WarehouseReport()
+{
+	Control::resized().disconnect(this, &WarehouseReport::_resized);
 }
 
 
@@ -171,7 +124,7 @@ void WarehouseReport::_fillListFromStructureList(StructureList& list)
 		// \fixme	Abuse of interface to achieve custom results.
 		ProductPool& products = static_cast<Warehouse*>(structure)->products();
 
-		if (useStateString(structure->state())) { item->structureState = structure->stateDescription(); }
+		if (structure->state() != StructureState::Operational) { item->structureState = structure->stateDescription(); }
 		else if (products.empty()) { item->structureState = constants::WAREHOUSE_EMPTY; }
 		else if (products.atCapacity()) { item->structureState = constants::WAREHOUSE_FULL; }
 		else if (!products.empty() && !products.atCapacity()) { item->structureState = constants::WAREHOUSE_SPACE_AVAILABLE; }
@@ -190,13 +143,10 @@ void WarehouseReport::fillLists()
 	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse));
 
 	lstStructures.setSelection(0);
-	computeCapacity();
+	computeTotalWarehouseCapacity();
 }
 
 
-/**
- * 
- */
 void WarehouseReport::fillListSpaceAvailable()
 {
 	lstStructures.clearItems();
@@ -214,14 +164,11 @@ void WarehouseReport::fillListSpaceAvailable()
 	_fillListFromStructureList(list);
 
 	lstStructures.setSelection(0);
-	computeCapacity();
+	computeTotalWarehouseCapacity();
 }
 
 
 
-/**
- * 
- */
 void WarehouseReport::fillListFull()
 {
 	lstStructures.clearItems();
@@ -239,13 +186,10 @@ void WarehouseReport::fillListFull()
 	_fillListFromStructureList(list);
 
 	lstStructures.setSelection(0);
-	computeCapacity();
+	computeTotalWarehouseCapacity();
 }
 
 
-/**
- * 
- */
 void WarehouseReport::fillListEmpty()
 {
 	lstStructures.clearItems();
@@ -263,13 +207,10 @@ void WarehouseReport::fillListEmpty()
 	_fillListFromStructureList(list);
 
 	lstStructures.setSelection(0);
-	computeCapacity();
+	computeTotalWarehouseCapacity();
 }
 
 
-/**
- * 
- */
 void WarehouseReport::fillListDisabled()
 {
 	lstStructures.clearItems();
@@ -286,57 +227,42 @@ void WarehouseReport::fillListDisabled()
 	_fillListFromStructureList(list);
 
 	lstStructures.setSelection(0);
-	computeCapacity();
+	computeTotalWarehouseCapacity();
 }
 
 
-/**
- * 
- */
 void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int y)
 {
 	if (!visible()) { return; }
 	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
 
-	if (SELECTED_WAREHOUSE && lstStructures.rect().contains(NAS2D::Point{x, y}))
+	if (selectedWarehouse && lstStructures.rect().contains(NAS2D::Point{x, y}))
 	{
-		takeMeThereCallback()(SELECTED_WAREHOUSE);
+		takeMeThereCallback()(selectedWarehouse);
 	}
 }
 
 
-/**
- * 
- */
 void WarehouseReport::clearSelection()
 {
 	lstStructures.clearSelection();
-	SELECTED_WAREHOUSE = nullptr;
+	selectedWarehouse = nullptr;
 }
 
 
-/**
- * 
- */
 void WarehouseReport::refresh()
 {
 	btnShowAllClicked();
 }
 
 
-/**
- * 
- */
 void WarehouseReport::selectStructure(Structure* structure)
 {
 	lstStructures.currentSelection(structure);
-	SELECTED_WAREHOUSE = static_cast<Warehouse*>(structure);
+	selectedWarehouse = static_cast<Warehouse*>(structure);
 }
 
 
-/**
- * 
- */
 void WarehouseReport::_resized(Control*)
 {
 	lstStructures.size({(mRect.width / 2) - 20, mRect.height - 126});
@@ -344,15 +270,9 @@ void WarehouseReport::_resized(Control*)
 	lstProducts.position({Utility<Renderer>::get().center().x + 10, lstProducts.positionY()});
 
 	btnTakeMeThere.position({Utility<Renderer>::get().size().x - 150, positionY() + 35});
-
-	CAPACITY_BAR_WIDTH = mRect.width / 2 - 30 - FONT_MED_BOLD->width("Capacity Used");
-	CAPACITY_BAR_POSITION_X = 20 + FONT_MED_BOLD->width("Capacity Used");
 }
 
 
-/**
- * 
- */
 void WarehouseReport::filterButtonClicked()
 {
 	btnShowAll.toggle(false);
@@ -363,9 +283,6 @@ void WarehouseReport::filterButtonClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnShowAllClicked()
 {
 	filterButtonClicked();
@@ -375,9 +292,6 @@ void WarehouseReport::btnShowAllClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnSpaceAvailableClicked()
 {
 	filterButtonClicked();
@@ -387,9 +301,6 @@ void WarehouseReport::btnSpaceAvailableClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnFullClicked()
 {
 	filterButtonClicked();
@@ -399,9 +310,6 @@ void WarehouseReport::btnFullClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnEmptyClicked()
 {
 	filterButtonClicked();
@@ -411,9 +319,6 @@ void WarehouseReport::btnEmptyClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnDisabledClicked()
 {
 	filterButtonClicked();
@@ -423,64 +328,56 @@ void WarehouseReport::btnDisabledClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnTakeMeThereClicked()
 {
-	takeMeThereCallback()(SELECTED_WAREHOUSE);
+	takeMeThereCallback()(selectedWarehouse);
 }
 
 
-/**
- * 
- */
 void WarehouseReport::lstStructuresSelectionChanged()
 {
-	SELECTED_WAREHOUSE = static_cast<Warehouse*>(lstStructures.selectedStructure());
+	selectedWarehouse = static_cast<Warehouse*>(lstStructures.selectedStructure());
 
-	if (SELECTED_WAREHOUSE != nullptr)
+	if (selectedWarehouse != nullptr)
 	{
-		lstProducts.productPool(SELECTED_WAREHOUSE->products());
+		lstProducts.productPool(selectedWarehouse->products());
 	}
 
-	btnTakeMeThere.visible(SELECTED_WAREHOUSE != nullptr);
+	btnTakeMeThere.visible(selectedWarehouse != nullptr);
 }
 
 
-/**
- * 
- */
 void WarehouseReport::drawLeftPanel(Renderer& renderer)
 {
 	const auto textColor = NAS2D::Color{0, 185, 0};
-	renderer.drawText(*FONT_MED_BOLD, "Warehouse Count", NAS2D::Point{10, positionY() + 40}, textColor);
-	renderer.drawText(*FONT_MED_BOLD, "Total Storage", NAS2D::Point{10, positionY() + 62}, textColor);
-	renderer.drawText(*FONT_MED_BOLD, "Capacity Used", NAS2D::Point{10, positionY() + 84}, textColor);
+	renderer.drawText(fontMediumBold, "Warehouse Count", NAS2D::Point{10, positionY() + 40}, textColor);
+	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, positionY() + 62}, textColor);
+	renderer.drawText(fontMediumBold, "Capacity Used", NAS2D::Point{10, positionY() + 84}, textColor);
 
-	renderer.drawText(*FONT_MED, WH_COUNT, NAS2D::Point{mRect.width / 2 - 10 - COUNT_WIDTH, positionY() + 35}, textColor);
-	renderer.drawText(*FONT_MED, WH_CAPACITY, NAS2D::Point{mRect.width / 2 - 10 - CAPACITY_WIDTH, positionY() + 57}, textColor);
+	const auto countTextWidth = fontMedium.width(WH_COUNT);
+	const auto capacityTextWidth = fontMedium.width(WH_CAPACITY);
 
-	drawBasicProgressBar(CAPACITY_BAR_POSITION_X, positionY() + 84, CAPACITY_BAR_WIDTH, 20, CAPACITY_PERCENT);
+	renderer.drawText(fontMedium, WH_COUNT, NAS2D::Point{mRect.width / 2 - 10 - countTextWidth, positionY() + 35}, textColor);
+	renderer.drawText(fontMedium, WH_CAPACITY, NAS2D::Point{mRect.width / 2 - 10 - capacityTextWidth, positionY() + 57}, textColor);
+
+	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
+	const auto capacityBarWidth = mRect.width / 2 - 30 - capacityUsedTextWidth;
+	const auto capacityBarPositionX = 20 + capacityUsedTextWidth;
+
+	drawBasicProgressBar(capacityBarPositionX, positionY() + 84, capacityBarWidth, 20, CAPACITY_PERCENT);
 }
 
 
-/**
- * 
- */
 void WarehouseReport::drawRightPanel(Renderer& renderer)
 {
-	if (!SELECTED_WAREHOUSE) { return; }
+	if (!selectedWarehouse) { return; }
 
 	const auto positionX = renderer.center().x + 10;
-	renderer.drawText(*FONT_BIG_BOLD, SELECTED_WAREHOUSE->name(), NAS2D::Point{positionX, positionY() + 2}, NAS2D::Color{0, 185, 0});
-	renderer.drawImage(*WAREHOUSE_IMG, NAS2D::Point{positionX, positionY() + 35});
+	renderer.drawText(fontBigBold, selectedWarehouse->name(), NAS2D::Point{positionX, positionY() + 2}, NAS2D::Color{0, 185, 0});
+	renderer.drawImage(imageWarehouse, NAS2D::Point{positionX, positionY() + 35});
 }
 
 
-/**
- * 
- */
 void WarehouseReport::update()
 {
 	if (!visible()) { return; }
