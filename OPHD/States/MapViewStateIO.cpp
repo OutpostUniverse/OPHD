@@ -370,8 +370,8 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		auto structureId = static_cast<StructureID>(type);
 		if (structureId == StructureID::SID_TUBE)
 		{
-			ConnectorDir cd = static_cast<ConnectorDir>(direction);
-			insertTube(cd, depth, mTileMap->getTile({x, y}, depth));
+			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
+			insertTube(connectorDir, depth, mTileMap->getTile({x, y}, depth));
 			continue; // FIXME: ugly
 		}
 
