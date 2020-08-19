@@ -451,7 +451,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		 */
 		if (structure.isRobotCommand())
 		{
-			RobotCommand* rcc = static_cast<RobotCommand*>(&structure);
+			auto& rcc = *static_cast<RobotCommand*>(&structure);
 			XmlAttribute* robotsAttribute = structureNode->firstChildElement("robots")->firstAttribute();
 
 			if (!robotsAttribute->value().empty())
@@ -463,7 +463,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 					{
 						if (robot->id() == robotId)
 						{
-							rcc->addRobot(robot);
+							rcc.addRobot(robot);
 							break;
 						}
 					}
