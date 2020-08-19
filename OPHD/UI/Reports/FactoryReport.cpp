@@ -40,21 +40,6 @@ FactoryReport::FactoryReport() :
 	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE},
 	btnApply{"Apply"}
 {
-	init();
-}
-
-
-FactoryReport::~FactoryReport()
-{
-	SELECTED_FACTORY = nullptr;
-}
-
-
-/**
- * Sets up UI positions.
- */
-void FactoryReport::init()
-{
 	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	FONT_MED = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
 	FONT_MED_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
@@ -153,6 +138,12 @@ void FactoryReport::init()
 
 	Control::resized().connect(this, &FactoryReport::resized);
 	fillLists();
+}
+
+
+FactoryReport::~FactoryReport()
+{
+	SELECTED_FACTORY = nullptr;
 }
 
 

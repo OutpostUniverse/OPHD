@@ -30,8 +30,6 @@ public:
 	void update() override;
 
 private:
-	void init();
-
 	void fillFactoryList(ProductType);
 	void fillFactoryList(bool);
 	void fillFactoryList(StructureState);
