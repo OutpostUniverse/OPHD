@@ -21,8 +21,6 @@
 using namespace NAS2D;
 
 
-static int SORT_BY_PRODUCT_POSITION = 0;
-
 static Rectangle<int> FACTORY_LISTBOX;
 static Rectangle<int> DETAIL_PANEL;
 
@@ -171,8 +169,6 @@ void FactoryReport::init()
 	txtProductDescription.height(128);
 	txtProductDescription.textColor(NAS2D::Color{0, 185, 0});
 	txtProductDescription.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-
-	SORT_BY_PRODUCT_POSITION = cboFilterByProduct.rect().x + cboFilterByProduct.rect().width - FONT->width("Filter by Product");
 
 	Control::resized().connect(this, &FactoryReport::resized);
 	fillLists();
@@ -576,6 +572,7 @@ void FactoryReport::update()
 
 	const auto textColor = NAS2D::Color{0, 185, 0};
 	const auto positionX = cboFilterByProduct.rect().x + cboFilterByProduct.rect().width + 10;
+	const auto SORT_BY_PRODUCT_POSITION = cboFilterByProduct.rect().x + cboFilterByProduct.rect().width - FONT->width("Filter by Product");
 	renderer.drawLine(NAS2D::Point{positionX, mRect.y + 10}, NAS2D::Point{positionX, mRect.y + mRect.height - 10}, textColor);
 	renderer.drawText(*FONT, "Filter by Product", NAS2D::Point{SORT_BY_PRODUCT_POSITION, mRect.y + 10}, textColor);
 
