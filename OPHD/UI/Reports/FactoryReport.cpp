@@ -37,8 +37,6 @@ static const Image* FACTORY_IMAGE = nullptr;
 
 std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
 
-static std::string FACTORY_STATUS;
-
 static ProductType SELECTED_PRODUCT_TYPE = ProductType::PRODUCT_NONE;
 
 
@@ -400,7 +398,6 @@ void FactoryReport::btnShowDisabledClicked()
 void FactoryReport::btnIdleClicked()
 {
 	SELECTED_FACTORY->forceIdle(btnIdle.toggled());
-	FACTORY_STATUS = SELECTED_FACTORY->stateDescription();
 }
 
 
@@ -439,8 +436,6 @@ void FactoryReport::lstFactoryListSelectionChanged()
 	if (SELECTED_FACTORY->name() == constants::SEED_FACTORY) { FACTORY_IMAGE = FACTORY_SEED; }
 	else if (SELECTED_FACTORY->name() == constants::SURFACE_FACTORY) { FACTORY_IMAGE = FACTORY_AG; }
 	else if (SELECTED_FACTORY->name() == constants::UNDERGROUND_FACTORY) { FACTORY_IMAGE = FACTORY_UG; }
-
-	FACTORY_STATUS = SELECTED_FACTORY->stateDescription();
 
 	btnIdle.toggle(SELECTED_FACTORY->state() == StructureState::Idle);
 	btnIdle.enabled(SELECTED_FACTORY->state() == StructureState::Operational || SELECTED_FACTORY->state() == StructureState::Idle);
@@ -492,7 +487,7 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 
 	bool isStatusHighlighted = SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed();
 	statusPosition.x += FONT_MED_BOLD->width("Status") + 20;
-	renderer.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : defaultTextColor));
+	renderer.drawText(*FONT_MED, SELECTED_FACTORY->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : defaultTextColor));
 
 	renderer.drawText(*FONT_MED_BOLD, "Resources Required", startPoint + NAS2D::Vector{138, 60}, defaultTextColor);
 
