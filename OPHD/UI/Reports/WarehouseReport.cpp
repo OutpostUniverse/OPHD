@@ -241,9 +241,9 @@ void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int
 	if (!visible()) { return; }
 	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
 
-	if (SELECTED_WAREHOUSE && lstStructures.rect().contains(NAS2D::Point{x, y}))
+	if (selectedWarehouse && lstStructures.rect().contains(NAS2D::Point{x, y}))
 	{
-		takeMeThereCallback()(SELECTED_WAREHOUSE);
+		takeMeThereCallback()(selectedWarehouse);
 	}
 }
 
@@ -251,7 +251,7 @@ void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int
 void WarehouseReport::clearSelection()
 {
 	lstStructures.clearSelection();
-	SELECTED_WAREHOUSE = nullptr;
+	selectedWarehouse = nullptr;
 }
 
 
@@ -264,7 +264,7 @@ void WarehouseReport::refresh()
 void WarehouseReport::selectStructure(Structure* structure)
 {
 	lstStructures.currentSelection(structure);
-	SELECTED_WAREHOUSE = static_cast<Warehouse*>(structure);
+	selectedWarehouse = static_cast<Warehouse*>(structure);
 }
 
 
@@ -338,20 +338,20 @@ void WarehouseReport::btnDisabledClicked()
 
 void WarehouseReport::btnTakeMeThereClicked()
 {
-	takeMeThereCallback()(SELECTED_WAREHOUSE);
+	takeMeThereCallback()(selectedWarehouse);
 }
 
 
 void WarehouseReport::lstStructuresSelectionChanged()
 {
-	SELECTED_WAREHOUSE = static_cast<Warehouse*>(lstStructures.selectedStructure());
+	selectedWarehouse = static_cast<Warehouse*>(lstStructures.selectedStructure());
 
-	if (SELECTED_WAREHOUSE != nullptr)
+	if (selectedWarehouse != nullptr)
 	{
-		lstProducts.productPool(SELECTED_WAREHOUSE->products());
+		lstProducts.productPool(selectedWarehouse->products());
 	}
 
-	btnTakeMeThere.visible(SELECTED_WAREHOUSE != nullptr);
+	btnTakeMeThere.visible(selectedWarehouse != nullptr);
 }
 
 
@@ -374,10 +374,10 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 
 void WarehouseReport::drawRightPanel(Renderer& renderer)
 {
-	if (!SELECTED_WAREHOUSE) { return; }
+	if (!selectedWarehouse) { return; }
 
 	const auto positionX = renderer.center().x + 10;
-	renderer.drawText(fontBigBold, SELECTED_WAREHOUSE->name(), NAS2D::Point{positionX, positionY() + 2}, NAS2D::Color{0, 185, 0});
+	renderer.drawText(fontBigBold, selectedWarehouse->name(), NAS2D::Point{positionX, positionY() + 2}, NAS2D::Color{0, 185, 0});
 	renderer.drawImage(imageWarehouse, NAS2D::Point{positionX, positionY() + 35});
 }
 

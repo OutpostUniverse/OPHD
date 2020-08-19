@@ -65,7 +65,7 @@ private:
 	const NAS2D::Font& fontBigBold;
 	const NAS2D::Image& imageWarehouse;
 
-	Warehouse* SELECTED_WAREHOUSE = nullptr;
+	Warehouse* selectedWarehouse = nullptr;
 
 	Button btnShowAll;
 	Button btnSpaceAvailable;
