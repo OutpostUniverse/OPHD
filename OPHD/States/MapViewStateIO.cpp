@@ -384,7 +384,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_MINE_FACILITY)
 		{
-			Mine* mine = mTileMap->getTile({x, y}, 0)->mine();
+			auto* mine = mTileMap->getTile({x, y}, 0)->mine();
 			if (mine == nullptr)
 			{
 				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");
