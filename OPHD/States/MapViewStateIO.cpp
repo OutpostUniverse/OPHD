@@ -16,6 +16,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
+#include <NAS2D/StringUtils.h>
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlMemoryBuffer.h>
 
@@ -455,7 +456,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 			if (!robotsAttribute->value().empty())
 			{
-				for (const auto& string : split_string(robotsAttribute->value().c_str(), ','))
+				for (const auto& string : NAS2D::split(robotsAttribute->value(), ','))
 				{
 					const int robotId = std::stoi(string);
 					for (auto* robot : mRobotPool.robots())
