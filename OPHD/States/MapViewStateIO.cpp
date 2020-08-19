@@ -461,10 +461,10 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 				for (const auto& string : rl_str)
 				{
-					int _rid = std::stoi(string);
+					const int robotId = std::stoi(string);
 					for (auto* robot : robots)
 					{
-						if (robot->id() == _rid)
+						if (robot->id() == robotId)
 						{
 							rcc->addRobot(robot);
 							break;
