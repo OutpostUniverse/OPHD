@@ -9,6 +9,12 @@
 #include "../../Common.h"
 
 
+namespace NAS2D {
+	class Font;
+	class Image;
+}
+
+
 class FactoryReport : public ReportInterface
 {
 public:
@@ -59,6 +65,15 @@ private:
 	void visibilityChanged(bool visible) override;
 
 private:
+	const NAS2D::Font* FONT = nullptr;
+	const NAS2D::Font* FONT_MED = nullptr;
+	const NAS2D::Font* FONT_MED_BOLD = nullptr;
+	const NAS2D::Font* FONT_BIG_BOLD = nullptr;
+	const NAS2D::Image* FACTORY_SEED = nullptr;
+	const NAS2D::Image* FACTORY_AG = nullptr;
+	const NAS2D::Image* FACTORY_UG = nullptr;
+	const NAS2D::Image* FACTORY_IMAGE = nullptr;
+
 	Button btnShowAll;
 	Button btnShowSurface;
 	Button btnShowUnderground;

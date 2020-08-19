@@ -22,21 +22,9 @@ using namespace NAS2D;
 
 
 static Rectangle<int> DETAIL_PANEL;
-
-static const Font* FONT = nullptr;
-static const Font* FONT_MED = nullptr;
-static const Font* FONT_MED_BOLD = nullptr;
-static const Font* FONT_BIG_BOLD = nullptr;
-
 static Factory* SELECTED_FACTORY = nullptr;
 
-static const Image* FACTORY_SEED = nullptr;
-static const Image* FACTORY_AG = nullptr;
-static const Image* FACTORY_UG = nullptr;
-static const Image* FACTORY_IMAGE = nullptr;
-
 std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
-
 static ProductType SELECTED_PRODUCT_TYPE = ProductType::PRODUCT_NONE;
 
 
