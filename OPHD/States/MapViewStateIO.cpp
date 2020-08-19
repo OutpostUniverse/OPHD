@@ -16,6 +16,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
+#include <NAS2D/StringUtils.h>
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlMemoryBuffer.h>
 
@@ -336,10 +337,10 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 	int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
 	int production_completed = 0, production_type = 0;
 	XmlAttribute* attribute = nullptr;
-	for (XmlNode* structure = element->firstChild(); structure != nullptr; structure = structure->nextSibling())
+	for (XmlNode* structureNode = element->firstChild(); structureNode != nullptr; structureNode = structureNode->nextSibling())
 	{
 		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = idle_reason = pop0 = pop1 = type = 0;
-		attribute = structure->toElement()->firstAttribute();
+		attribute = structureNode->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
@@ -362,21 +363,19 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			attribute = attribute->next();
 		}
 
-		Tile* t = mTileMap->getTile({x, y}, depth);
-		t->index(0);
-		t->excavated(true);
-
-		Structure* st = nullptr;
+		auto& tile = *mTileMap->getTile({x, y}, depth);
+		tile.index(0);
+		tile.excavated(true);
 
 		auto structureId = static_cast<StructureID>(type);
 		if (structureId == StructureID::SID_TUBE)
 		{
-			ConnectorDir cd = static_cast<ConnectorDir>(direction);
-			insertTube(cd, depth, mTileMap->getTile({x, y}, depth));
+			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
+			insertTube(connectorDir, depth, mTileMap->getTile({x, y}, depth));
 			continue; // FIXME: ugly
 		}
 
-		st = StructureCatalogue::get(structureId);
+		auto& structure = *StructureCatalogue::get(structureId);
 
 		if (structureId == StructureID::SID_COMMAND_CENTER)
 		{
@@ -385,64 +384,64 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_MINE_FACILITY)
 		{
-			Mine* m = mTileMap->getTile({x, y}, 0)->mine();
-			if (m == nullptr)
+			auto* mine = mTileMap->getTile({x, y}, 0)->mine();
+			if (mine == nullptr)
 			{
 				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");
 			}
 
-			MineFacility* mf = static_cast<MineFacility*>(st);
-			mf->mine(m);
-			mf->maxDepth(mTileMap->maxDepth());
-			mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
+			auto& mineFacility = *static_cast<MineFacility*>(&structure);
+			mineFacility.mine(mine);
+			mineFacility.maxDepth(mTileMap->maxDepth());
+			mineFacility.extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 		}
 
 		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)
 		{
-			static_cast<AirShaft*>(st)->ug(); // force underground state
+			static_cast<AirShaft*>(&structure)->ug(); // force underground state
 		}
 
 		if (structureId == StructureID::SID_SEED_LANDER)
 		{
-			static_cast<SeedLander*>(st)->position({x, y});
+			static_cast<SeedLander*>(&structure)->position({x, y});
 		}
 
 		if (structureId == StructureID::SID_AGRIDOME)
 		{
-			auto agridome = static_cast<Agridome*>(st);
+			auto& agridome = *static_cast<Agridome*>(&structure);
 
-			auto foodStorage = structure->firstChildElement("food");
+			auto foodStorage = structureNode->firstChildElement("food");
 			if (foodStorage == nullptr)
 			{
 				throw std::runtime_error("MapViewState::readStructures(): Agridome saved without a food level node.");
 			}
 
 			auto foodLevel = foodStorage->attribute("level");
-			agridome->foodLevel(std::stoi(foodLevel));
+			agridome.foodLevel(std::stoi(foodLevel));
 		}
 
-		st->age(age);
-		st->forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
-		st->connectorDirection(static_cast<ConnectorDir>(direction));
-		
-		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }
+		structure.age(age);
+		structure.forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
+		structure.connectorDirection(static_cast<ConnectorDir>(direction));
 
-		loadResorucesFromXmlElement(structure->firstChildElement("production"), st->production());
-		loadResorucesFromXmlElement(structure->firstChildElement("storage"), st->storage());
+		if (forced_idle != 0) { structure.forceIdle(forced_idle != 0); }
 
-		if (st->isWarehouse())
+		loadResorucesFromXmlElement(structureNode->firstChildElement("production"), structure.production());
+		loadResorucesFromXmlElement(structureNode->firstChildElement("storage"), structure.storage());
+
+		if (structure.isWarehouse())
 		{
-			Warehouse* w = static_cast<Warehouse*>(st);
-			w->products().deserialize(structure->firstChildElement("warehouse_products"));
+			auto& warehouse = *static_cast<Warehouse*>(&structure);
+			warehouse.products().deserialize(structureNode->firstChildElement("warehouse_products"));
 		}
 
-		if (st->isFactory())
+		if (structure.isFactory())
 		{
-			Factory* f = static_cast<Factory*>(st);
-			f->productType(static_cast<ProductType>(production_type));
-			f->productionTurnsCompleted(production_completed);
-			f->resourcePool(&mPlayerResources);
-			f->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
+			auto& factory = *static_cast<Factory*>(&structure);
+			factory.productType(static_cast<ProductType>(production_type));
+			factory.productionTurnsCompleted(production_completed);
+			factory.resourcePool(&mPlayerResources);
+			factory.productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 		}
 
 		/**
@@ -450,36 +449,29 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		 * encoded in the XML savegame. While there are some basic guards in place when
 		 * loading the code doesn't do any checking for garbage for the sake of brevity.
 		 */
-		if (st->isRobotCommand())
+		if (structure.isRobotCommand())
 		{
-			RobotCommand* rcc = static_cast<RobotCommand*>(st);
-			XmlAttribute* robots = structure->firstChildElement("robots")->firstAttribute();
+			auto& rcc = *static_cast<RobotCommand*>(&structure);
+			XmlAttribute* robotsAttribute = structureNode->firstChildElement("robots")->firstAttribute();
 
-			if (!robots->value().empty())
+			for (const auto& string : NAS2D::split(robotsAttribute->value(), ','))
 			{
-				StringList rl_str = split_string(robots->value().c_str(), ',');
-
-				const RobotList& rl = mRobotPool.robots();
-
-				for (std::size_t i = 0; i < rl_str.size(); ++i)
+				const auto robotId = NAS2D::stringTo<int>(string);
+				for (auto* robot : mRobotPool.robots())
 				{
-					int _rid = std::stoi(rl_str[i]);
-					for (std::size_t ri = 0; ri < rl.size(); ++ri)
+					if (robot->id() == robotId)
 					{
-						if (rl[ri]->id() == _rid)
-						{
-							rcc->addRobot(rl[ri]);
-							break;
-						}
+						rcc.addRobot(robot);
+						break;
 					}
 				}
 			}
 		}
 
-		st->populationAvailable()[0] = pop0;
-		st->populationAvailable()[1] = pop1;
+		structure.populationAvailable()[0] = pop0;
+		structure.populationAvailable()[1] = pop1;
 
-		Utility<StructureManager>::get().addStructure(st, t);
+		Utility<StructureManager>::get().addStructure(&structure, &tile);
 	}
 }
 
