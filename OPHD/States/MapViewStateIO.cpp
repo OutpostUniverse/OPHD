@@ -451,11 +451,11 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		if (structure.isRobotCommand())
 		{
 			RobotCommand* rcc = static_cast<RobotCommand*>(&structure);
-			XmlAttribute* robots = structureNode->firstChildElement("robots")->firstAttribute();
+			XmlAttribute* robotsAttribute = structureNode->firstChildElement("robots")->firstAttribute();
 
-			if (!robots->value().empty())
+			if (!robotsAttribute->value().empty())
 			{
-				StringList rl_str = split_string(robots->value().c_str(), ',');
+				StringList rl_str = split_string(robotsAttribute->value().c_str(), ',');
 
 				const RobotList& rl = mRobotPool.robots();
 
