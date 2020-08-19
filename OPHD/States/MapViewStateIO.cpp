@@ -383,14 +383,14 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_MINE_FACILITY)
 		{
-			Mine* m = mTileMap->getTile({x, y}, 0)->mine();
-			if (m == nullptr)
+			Mine* mine = mTileMap->getTile({x, y}, 0)->mine();
+			if (mine == nullptr)
 			{
 				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");
 			}
 
 			MineFacility* mf = static_cast<MineFacility*>(&structure);
-			mf->mine(m);
+			mf->mine(mine);
 			mf->maxDepth(mTileMap->maxDepth());
 			mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 		}
