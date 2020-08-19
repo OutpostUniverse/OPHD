@@ -3,6 +3,7 @@
 
 #include "StructureCatalogue.h"
 
+#include <string>
 #include <stdexcept>
 
 
@@ -174,7 +175,7 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 
 		default:
-			throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type called.");
+			throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type: " + std::to_string(type));
 	}
 
 	if (structure)
