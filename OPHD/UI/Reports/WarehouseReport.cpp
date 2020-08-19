@@ -356,17 +356,17 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, positionY() + 62}, textColor);
 	renderer.drawText(fontMediumBold, "Capacity Used", NAS2D::Point{10, positionY() + 84}, textColor);
 
-	const auto COUNT_WIDTH = fontMedium.width(WH_COUNT);
-	const auto CAPACITY_WIDTH = fontMedium.width(WH_CAPACITY);
+	const auto countTextWidth = fontMedium.width(WH_COUNT);
+	const auto capacityTextWidth = fontMedium.width(WH_CAPACITY);
 
-	renderer.drawText(fontMedium, WH_COUNT, NAS2D::Point{mRect.width / 2 - 10 - COUNT_WIDTH, positionY() + 35}, textColor);
-	renderer.drawText(fontMedium, WH_CAPACITY, NAS2D::Point{mRect.width / 2 - 10 - CAPACITY_WIDTH, positionY() + 57}, textColor);
+	renderer.drawText(fontMedium, WH_COUNT, NAS2D::Point{mRect.width / 2 - 10 - countTextWidth, positionY() + 35}, textColor);
+	renderer.drawText(fontMedium, WH_CAPACITY, NAS2D::Point{mRect.width / 2 - 10 - capacityTextWidth, positionY() + 57}, textColor);
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
-	const auto CAPACITY_BAR_WIDTH = mRect.width / 2 - 30 - capacityUsedTextWidth;
-	const auto CAPACITY_BAR_POSITION_X = 20 + capacityUsedTextWidth;
+	const auto capacityBarWidth = mRect.width / 2 - 30 - capacityUsedTextWidth;
+	const auto capacityBarPositionX = 20 + capacityUsedTextWidth;
 
-	drawBasicProgressBar(CAPACITY_BAR_POSITION_X, positionY() + 84, CAPACITY_BAR_WIDTH, 20, CAPACITY_PERCENT);
+	drawBasicProgressBar(capacityBarPositionX, positionY() + 84, capacityBarWidth, 20, CAPACITY_PERCENT);
 }
 
 
