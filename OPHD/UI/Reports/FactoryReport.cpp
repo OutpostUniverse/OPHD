@@ -38,7 +38,6 @@ static const Image* FACTORY_IMAGE = nullptr;
 std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
 
 static std::string FACTORY_STATUS;
-static const std::string RESOURCES_REQUIRED = "Resources Required";
 
 static ProductType SELECTED_PRODUCT_TYPE = ProductType::PRODUCT_NONE;
 
@@ -495,9 +494,9 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	statusPosition.x += FONT_MED_BOLD->width("Status") + 20;
 	renderer.drawText(*FONT_MED, FACTORY_STATUS, statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : defaultTextColor));
 
-	renderer.drawText(*FONT_MED_BOLD, RESOURCES_REQUIRED, startPoint + NAS2D::Vector{138, 60}, defaultTextColor);
+	renderer.drawText(*FONT_MED_BOLD, "Resources Required", startPoint + NAS2D::Vector{138, 60}, defaultTextColor);
 
-	const auto labelWidth = FONT_MED_BOLD->width(RESOURCES_REQUIRED);
+	const auto labelWidth = FONT_MED_BOLD->width("Resources Required");
 
 	// MINERAL RESOURCES
 	const ProductionCost& _pc = productCost(SELECTED_FACTORY->productType());
