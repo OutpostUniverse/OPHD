@@ -58,6 +58,11 @@ namespace {
 
 
 WarehouseReport::WarehouseReport() :
+	FONT_BOLD{&fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL)},
+	FONT_MED{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
+	FONT_MED_BOLD{&fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
+	FONT_BIG_BOLD{&fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE)},
+	WAREHOUSE_IMG{&imageCache.load("ui/interface/warehouse.png")},
 	btnShowAll{"All"},
 	btnSpaceAvailable{"Space Available"},
 	btnFull{"Full"},
@@ -65,13 +70,6 @@ WarehouseReport::WarehouseReport() :
 	btnDisabled{"Disabled"},
 	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE}
 {
-	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
-	FONT_MED = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_MED_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	FONT_BIG_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE);
-
-	WAREHOUSE_IMG = &imageCache.load("ui/interface/warehouse.png");
-
 	add(&btnShowAll, 10, 10);
 	btnShowAll.size({75, 20});
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
