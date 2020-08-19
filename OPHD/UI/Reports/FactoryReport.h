@@ -9,6 +9,14 @@
 #include "../../Common.h"
 
 
+namespace NAS2D {
+	class Font;
+	class Image;
+}
+
+class Factory;
+
+
 class FactoryReport : public ReportInterface
 {
 public:
@@ -24,8 +32,6 @@ public:
 	void update() override;
 
 private:
-	void init();
-
 	void fillFactoryList(ProductType);
 	void fillFactoryList(bool);
 	void fillFactoryList(StructureState);
@@ -59,6 +65,15 @@ private:
 	void visibilityChanged(bool visible) override;
 
 private:
+	const NAS2D::Font& font;
+	const NAS2D::Font& fontMedium;
+	const NAS2D::Font& fontMediumBold;
+	const NAS2D::Font& fontBigBold;
+	const NAS2D::Image& factorySeed;
+	const NAS2D::Image& factoryAboveGround;
+	const NAS2D::Image& factoryUnderGround;
+	const NAS2D::Image* factoryImage = nullptr;
+
 	Button btnShowAll;
 	Button btnShowSurface;
 	Button btnShowUnderground;
@@ -79,4 +94,7 @@ private:
 	ListBox lstProducts;
 
 	TextArea txtProductDescription;
+
+	Factory* selectedFactory = nullptr;
+	ProductType selectedProductType = ProductType::PRODUCT_NONE;
 };
