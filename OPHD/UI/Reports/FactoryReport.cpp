@@ -29,13 +29,13 @@ static ProductType SELECTED_PRODUCT_TYPE = ProductType::PRODUCT_NONE;
 
 
 FactoryReport::FactoryReport() :
-	font{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
-	fontMedium{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
-	fontMediumBold{&fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
-	fontBigBold{&fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE)},
-	factorySeed{&imageCache.load("ui/interface/factory_seed.png")},
-	factoryAboveGround{&imageCache.load("ui/interface/factory_ag.png")},
-	factoryUnderGround{&imageCache.load("ui/interface/factory_ug.png")},
+	font{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
+	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
+	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE)},
+	factorySeed{imageCache.load("ui/interface/factory_seed.png")},
+	factoryAboveGround{imageCache.load("ui/interface/factory_ag.png")},
+	factoryUnderGround{imageCache.load("ui/interface/factory_ug.png")},
 	btnShowAll{"All"},
 	btnShowSurface{"Surface"},
 	btnShowUnderground{"Underground"},
@@ -410,9 +410,9 @@ void FactoryReport::lstFactoryListSelectionChanged()
 	}
 
 	/// \fixme Ugly
-	if (SELECTED_FACTORY->name() == constants::SEED_FACTORY) { factoryImage = factorySeed; }
-	else if (SELECTED_FACTORY->name() == constants::SURFACE_FACTORY) { factoryImage = factoryAboveGround; }
-	else if (SELECTED_FACTORY->name() == constants::UNDERGROUND_FACTORY) { factoryImage = factoryUnderGround; }
+	if (SELECTED_FACTORY->name() == constants::SEED_FACTORY) { factoryImage = &factorySeed; }
+	else if (SELECTED_FACTORY->name() == constants::SURFACE_FACTORY) { factoryImage = &factoryAboveGround; }
+	else if (SELECTED_FACTORY->name() == constants::UNDERGROUND_FACTORY) { factoryImage = &factoryUnderGround; }
 
 	btnIdle.toggle(SELECTED_FACTORY->state() == StructureState::Idle);
 	btnIdle.enabled(SELECTED_FACTORY->state() == StructureState::Operational || SELECTED_FACTORY->state() == StructureState::Idle);
@@ -457,18 +457,18 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 
 	const auto startPoint = DETAIL_PANEL.startPoint();
 	renderer.drawImage(*factoryImage, startPoint + NAS2D::Vector{0, 25});
-	renderer.drawText(*fontBigBold, SELECTED_FACTORY->name(), startPoint + NAS2D::Vector{0, -8}, defaultTextColor);
+	renderer.drawText(fontBigBold, SELECTED_FACTORY->name(), startPoint + NAS2D::Vector{0, -8}, defaultTextColor);
 
 	auto statusPosition = startPoint + NAS2D::Vector{138, 20};
-	renderer.drawText(*fontMediumBold, "Status", statusPosition, defaultTextColor);
+	renderer.drawText(fontMediumBold, "Status", statusPosition, defaultTextColor);
 
 	bool isStatusHighlighted = SELECTED_FACTORY->disabled() || SELECTED_FACTORY->destroyed();
-	statusPosition.x += fontMediumBold->width("Status") + 20;
-	renderer.drawText(*fontMedium, SELECTED_FACTORY->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : defaultTextColor));
+	statusPosition.x += fontMediumBold.width("Status") + 20;
+	renderer.drawText(fontMedium, SELECTED_FACTORY->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : defaultTextColor));
 
-	renderer.drawText(*fontMediumBold, "Resources Required", startPoint + NAS2D::Vector{138, 60}, defaultTextColor);
+	renderer.drawText(fontMediumBold, "Resources Required", startPoint + NAS2D::Vector{138, 60}, defaultTextColor);
 
-	const auto labelWidth = fontMediumBold->width("Resources Required");
+	const auto labelWidth = fontMediumBold.width("Resources Required");
 
 	// MINERAL RESOURCES
 	const ProductionCost& _pc = productCost(SELECTED_FACTORY->productType());
@@ -494,21 +494,21 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 void FactoryReport::drawProductPane(Renderer& renderer)
 {
 	const auto textColor = NAS2D::Color{0, 185, 0};
-	renderer.drawText(*fontBigBold, "Production", NAS2D::Point{DETAIL_PANEL.x, DETAIL_PANEL.y + 180}, textColor);
+	renderer.drawText(fontBigBold, "Production", NAS2D::Point{DETAIL_PANEL.x, DETAIL_PANEL.y + 180}, textColor);
 
 	int position_x = DETAIL_PANEL.x + lstProducts.size().x + 20;
 
 	if (SELECTED_PRODUCT_TYPE != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(*fontBigBold, productDescription(SELECTED_PRODUCT_TYPE), NAS2D::Point{position_x, DETAIL_PANEL.y + 180}, textColor);
+		renderer.drawText(fontBigBold, productDescription(SELECTED_PRODUCT_TYPE), NAS2D::Point{position_x, DETAIL_PANEL.y + 180}, textColor);
 		renderer.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(SELECTED_PRODUCT_TYPE)], NAS2D::Point{position_x, lstProducts.positionY()});
 		txtProductDescription.update();
 	}
 
 	if (SELECTED_FACTORY->productType() == ProductType::PRODUCT_NONE) { return; }
 	
-	renderer.drawText(*fontBigBold, "Progress", NAS2D::Point{position_x, DETAIL_PANEL.y + 358}, textColor);
-	renderer.drawText(*fontMedium, "Building " + productDescription(SELECTED_FACTORY->productType()), NAS2D::Point{position_x, DETAIL_PANEL.y + 393}, textColor);
+	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, DETAIL_PANEL.y + 358}, textColor);
+	renderer.drawText(fontMedium, "Building " + productDescription(SELECTED_FACTORY->productType()), NAS2D::Point{position_x, DETAIL_PANEL.y + 393}, textColor);
 
 	float percent = 0.0f;
 	if (SELECTED_FACTORY->productType() != ProductType::PRODUCT_NONE)
@@ -520,8 +520,8 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	drawBasicProgressBar(position_x, DETAIL_PANEL.y + 413, mRect.width - position_x - 10, 30, percent, 4);
 
 	const auto text = std::to_string(SELECTED_FACTORY->productionTurnsCompleted()) + " / " + std::to_string(SELECTED_FACTORY->productionTurnsToComplete());
-	renderer.drawText(*fontMediumBold, "Turns", NAS2D::Point{position_x, DETAIL_PANEL.y + 449}, textColor);
-	renderer.drawText(*fontMedium, text, NAS2D::Point{mRect.width - fontMedium->width(text) - 10, DETAIL_PANEL.y + 449}, textColor);
+	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, DETAIL_PANEL.y + 449}, textColor);
+	renderer.drawText(fontMedium, text, NAS2D::Point{mRect.width - fontMedium.width(text) - 10, DETAIL_PANEL.y + 449}, textColor);
 }
 
 
@@ -533,7 +533,7 @@ void FactoryReport::update()
 	const auto textColor = NAS2D::Color{0, 185, 0};
 	const auto positionX = cboFilterByProduct.rect().x + cboFilterByProduct.rect().width;
 	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.y + 10}, NAS2D::Point{positionX + 10, mRect.y + mRect.height - 10}, textColor);
-	renderer.drawText(*font, "Filter by Product", NAS2D::Point{positionX - font->width("Filter by Product"), mRect.y + 10}, textColor);
+	renderer.drawText(font, "Filter by Product", NAS2D::Point{positionX - font.width("Filter by Product"), mRect.y + 10}, textColor);
 
 	if (SELECTED_FACTORY)
 	{
