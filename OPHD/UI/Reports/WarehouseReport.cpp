@@ -34,9 +34,9 @@ namespace {
 		{
 			if (warehouseStructure->operational())
 			{
-				Warehouse* warehouse = static_cast<Warehouse*>(warehouseStructure);
-				capacityAvailable += warehouse->products().availableStorage();
-				capacityTotal += warehouse->products().capacity();
+				Warehouse& warehouse = *static_cast<Warehouse*>(warehouseStructure);
+				capacityAvailable += warehouse.products().availableStorage();
+				capacityTotal += warehouse.products().capacity();
 			}
 		}
 
