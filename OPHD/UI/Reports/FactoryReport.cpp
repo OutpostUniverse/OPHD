@@ -21,7 +21,6 @@
 using namespace NAS2D;
 
 
-static Rectangle<int> FACTORY_LISTBOX;
 static Rectangle<int> DETAIL_PANEL;
 
 static const Font* FONT = nullptr;
@@ -302,7 +301,7 @@ void FactoryReport::resized(Control* /*c*/)
 {
 	const auto comboEndPoint = cboFilterByProduct.rect().endPoint();
 
-	FACTORY_LISTBOX = {
+	const Rectangle<int> FACTORY_LISTBOX = {
 		positionX() + 10,
 		comboEndPoint.y + 10,
 		comboEndPoint.x - 10,
