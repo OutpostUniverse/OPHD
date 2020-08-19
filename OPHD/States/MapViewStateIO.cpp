@@ -462,11 +462,11 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 				for (std::size_t i = 0; i < rl_str.size(); ++i)
 				{
 					int _rid = std::stoi(rl_str[i]);
-					for (std::size_t ri = 0; ri < robots.size(); ++ri)
+					for (auto* robot : robots)
 					{
-						if (robots[ri]->id() == _rid)
+						if (robot->id() == _rid)
 						{
-							rcc->addRobot(robots[ri]);
+							rcc->addRobot(robot);
 							break;
 						}
 					}
