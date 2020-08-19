@@ -68,9 +68,6 @@ static void computeCapacity()
 }
 
 
-/**
- * C'tor
- */
 WarehouseReport::WarehouseReport() :
 	btnShowAll{"All"},
 	btnSpaceAvailable{"Space Available"},
@@ -132,9 +129,6 @@ WarehouseReport::WarehouseReport() :
 }
 
 
-/**
- * D'tor
- */
 WarehouseReport::~WarehouseReport()
 {
 	Control::resized().disconnect(this, &WarehouseReport::_resized);
@@ -174,9 +168,6 @@ void WarehouseReport::fillLists()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::fillListSpaceAvailable()
 {
 	lstStructures.clearItems();
@@ -199,9 +190,6 @@ void WarehouseReport::fillListSpaceAvailable()
 
 
 
-/**
- * 
- */
 void WarehouseReport::fillListFull()
 {
 	lstStructures.clearItems();
@@ -223,9 +211,6 @@ void WarehouseReport::fillListFull()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::fillListEmpty()
 {
 	lstStructures.clearItems();
@@ -247,9 +232,6 @@ void WarehouseReport::fillListEmpty()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::fillListDisabled()
 {
 	lstStructures.clearItems();
@@ -270,9 +252,6 @@ void WarehouseReport::fillListDisabled()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int y)
 {
 	if (!visible()) { return; }
@@ -285,9 +264,6 @@ void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int
 }
 
 
-/**
- * 
- */
 void WarehouseReport::clearSelection()
 {
 	lstStructures.clearSelection();
@@ -295,18 +271,12 @@ void WarehouseReport::clearSelection()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::refresh()
 {
 	btnShowAllClicked();
 }
 
 
-/**
- * 
- */
 void WarehouseReport::selectStructure(Structure* structure)
 {
 	lstStructures.currentSelection(structure);
@@ -314,9 +284,6 @@ void WarehouseReport::selectStructure(Structure* structure)
 }
 
 
-/**
- * 
- */
 void WarehouseReport::_resized(Control*)
 {
 	lstStructures.size({(mRect.width / 2) - 20, mRect.height - 126});
@@ -330,9 +297,6 @@ void WarehouseReport::_resized(Control*)
 }
 
 
-/**
- * 
- */
 void WarehouseReport::filterButtonClicked()
 {
 	btnShowAll.toggle(false);
@@ -343,9 +307,6 @@ void WarehouseReport::filterButtonClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnShowAllClicked()
 {
 	filterButtonClicked();
@@ -355,9 +316,6 @@ void WarehouseReport::btnShowAllClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnSpaceAvailableClicked()
 {
 	filterButtonClicked();
@@ -367,9 +325,6 @@ void WarehouseReport::btnSpaceAvailableClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnFullClicked()
 {
 	filterButtonClicked();
@@ -379,9 +334,6 @@ void WarehouseReport::btnFullClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnEmptyClicked()
 {
 	filterButtonClicked();
@@ -391,9 +343,6 @@ void WarehouseReport::btnEmptyClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnDisabledClicked()
 {
 	filterButtonClicked();
@@ -403,18 +352,12 @@ void WarehouseReport::btnDisabledClicked()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::btnTakeMeThereClicked()
 {
 	takeMeThereCallback()(SELECTED_WAREHOUSE);
 }
 
 
-/**
- * 
- */
 void WarehouseReport::lstStructuresSelectionChanged()
 {
 	SELECTED_WAREHOUSE = static_cast<Warehouse*>(lstStructures.selectedStructure());
@@ -428,9 +371,6 @@ void WarehouseReport::lstStructuresSelectionChanged()
 }
 
 
-/**
- * 
- */
 void WarehouseReport::drawLeftPanel(Renderer& renderer)
 {
 	const auto textColor = NAS2D::Color{0, 185, 0};
@@ -445,9 +385,6 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 }
 
 
-/**
- * 
- */
 void WarehouseReport::drawRightPanel(Renderer& renderer)
 {
 	if (!SELECTED_WAREHOUSE) { return; }
@@ -458,9 +395,6 @@ void WarehouseReport::drawRightPanel(Renderer& renderer)
 }
 
 
-/**
- * 
- */
 void WarehouseReport::update()
 {
 	if (!visible()) { return; }
