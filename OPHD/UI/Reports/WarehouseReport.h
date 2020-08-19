@@ -58,11 +58,11 @@ private:
 	void drawRightPanel(NAS2D::Renderer&);
 
 private:
-	const NAS2D::Font* FONT_BOLD = nullptr;
-	const NAS2D::Font* FONT_MED = nullptr;
-	const NAS2D::Font* FONT_MED_BOLD = nullptr;
-	const NAS2D::Font* FONT_BIG_BOLD = nullptr;
-	const NAS2D::Image* WAREHOUSE_IMG = nullptr;
+	const NAS2D::Font& FONT_BOLD;
+	const NAS2D::Font& FONT_MED;
+	const NAS2D::Font& FONT_MED_BOLD;
+	const NAS2D::Font& FONT_BIG_BOLD;
+	const NAS2D::Image& WAREHOUSE_IMG;
 
 	Button btnShowAll;
 	Button btnSpaceAvailable;
