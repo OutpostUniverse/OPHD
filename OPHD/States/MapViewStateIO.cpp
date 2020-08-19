@@ -431,8 +431,8 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structure.isWarehouse())
 		{
-			Warehouse* warehouse = static_cast<Warehouse*>(&structure);
-			warehouse->products().deserialize(structureNode->firstChildElement("warehouse_products"));
+			auto& warehouse = *static_cast<Warehouse*>(&structure);
+			warehouse.products().deserialize(structureNode->firstChildElement("warehouse_products"));
 		}
 
 		if (structure.isFactory())
