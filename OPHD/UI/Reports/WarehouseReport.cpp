@@ -30,12 +30,12 @@ namespace {
 		int capacityAvailable = 0;
 
 		const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-		for (auto warehouse : structures)
+		for (auto warehouseStructure : structures)
 		{
-			if (!warehouse->operational()) { continue; } // yuck
-			Warehouse* _wh = static_cast<Warehouse*>(warehouse);
-			capacityAvailable += _wh->products().availableStorage();
-			capacityTotal += _wh->products().capacity();
+			if (!warehouseStructure->operational()) { continue; } // yuck
+			Warehouse* warehouse = static_cast<Warehouse*>(warehouseStructure);
+			capacityAvailable += warehouse->products().availableStorage();
+			capacityTotal += warehouse->products().capacity();
 		}
 
 		int capacityUsed = capacityTotal - capacityAvailable;
