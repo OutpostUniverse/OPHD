@@ -455,8 +455,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 			if (!robotsAttribute->value().empty())
 			{
-				StringList rl_str = split_string(robotsAttribute->value().c_str(), ',');
-				for (const auto& string : rl_str)
+				for (const auto& string : split_string(robotsAttribute->value().c_str(), ','))
 				{
 					const int robotId = std::stoi(string);
 					for (auto* robot : mRobotPool.robots())
