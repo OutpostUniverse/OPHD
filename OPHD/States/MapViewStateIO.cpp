@@ -374,7 +374,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			continue; // FIXME: ugly
 		}
 
-		auto* st = StructureCatalogue::get(structureId);
+		auto* structure = StructureCatalogue::get(structureId);
 
 		if (structureId == StructureID::SID_COMMAND_CENTER)
 		{
@@ -389,7 +389,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");
 			}
 
-			MineFacility* mf = static_cast<MineFacility*>(st);
+			MineFacility* mf = static_cast<MineFacility*>(structure);
 			mf->mine(m);
 			mf->maxDepth(mTileMap->maxDepth());
 			mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
@@ -397,17 +397,17 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)
 		{
-			static_cast<AirShaft*>(st)->ug(); // force underground state
+			static_cast<AirShaft*>(structure)->ug(); // force underground state
 		}
 
 		if (structureId == StructureID::SID_SEED_LANDER)
 		{
-			static_cast<SeedLander*>(st)->position({x, y});
+			static_cast<SeedLander*>(structure)->position({x, y});
 		}
 
 		if (structureId == StructureID::SID_AGRIDOME)
 		{
-			auto agridome = static_cast<Agridome*>(st);
+			auto agridome = static_cast<Agridome*>(structure);
 
 			auto foodStorage = structureNode->firstChildElement("food");
 			if (foodStorage == nullptr)
@@ -419,24 +419,24 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			agridome->foodLevel(std::stoi(foodLevel));
 		}
 
-		st->age(age);
-		st->forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
-		st->connectorDirection(static_cast<ConnectorDir>(direction));
+		structure->age(age);
+		structure->forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
+		structure->connectorDirection(static_cast<ConnectorDir>(direction));
 		
-		if (forced_idle != 0) { st->forceIdle(forced_idle != 0); }
+		if (forced_idle != 0) { structure->forceIdle(forced_idle != 0); }
 
-		loadResorucesFromXmlElement(structureNode->firstChildElement("production"), st->production());
-		loadResorucesFromXmlElement(structureNode->firstChildElement("storage"), st->storage());
+		loadResorucesFromXmlElement(structureNode->firstChildElement("production"), structure->production());
+		loadResorucesFromXmlElement(structureNode->firstChildElement("storage"), structure->storage());
 
-		if (st->isWarehouse())
+		if (structure->isWarehouse())
 		{
-			Warehouse* w = static_cast<Warehouse*>(st);
+			Warehouse* w = static_cast<Warehouse*>(structure);
 			w->products().deserialize(structureNode->firstChildElement("warehouse_products"));
 		}
 
-		if (st->isFactory())
+		if (structure->isFactory())
 		{
-			Factory* f = static_cast<Factory*>(st);
+			Factory* f = static_cast<Factory*>(structure);
 			f->productType(static_cast<ProductType>(production_type));
 			f->productionTurnsCompleted(production_completed);
 			f->resourcePool(&mPlayerResources);
@@ -448,9 +448,9 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		 * encoded in the XML savegame. While there are some basic guards in place when
 		 * loading the code doesn't do any checking for garbage for the sake of brevity.
 		 */
-		if (st->isRobotCommand())
+		if (structure->isRobotCommand())
 		{
-			RobotCommand* rcc = static_cast<RobotCommand*>(st);
+			RobotCommand* rcc = static_cast<RobotCommand*>(structure);
 			XmlAttribute* robots = structureNode->firstChildElement("robots")->firstAttribute();
 
 			if (!robots->value().empty())
@@ -474,10 +474,10 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			}
 		}
 
-		st->populationAvailable()[0] = pop0;
-		st->populationAvailable()[1] = pop1;
+		structure->populationAvailable()[0] = pop0;
+		structure->populationAvailable()[1] = pop1;
 
-		Utility<StructureManager>::get().addStructure(st, t);
+		Utility<StructureManager>::get().addStructure(structure, t);
 	}
 }
 
