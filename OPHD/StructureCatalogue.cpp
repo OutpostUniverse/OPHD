@@ -171,14 +171,23 @@ Structure* StructureCatalogue::get(StructureID type)
 			structure = new Warehouse();
 			break;
 
-		default:
-			throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type: " + std::to_string(type));
+
+		case StructureID::SID_TUBE:
+			break;
+
+		case StructureID::SID_NONE:
+			break;
+
+		case StructureID::SID_COUNT:
+			break;
 	}
 
-	if (structure)
+	if (!structure)
 	{
-		structure->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
+		throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type: " + std::to_string(type));
 	}
+
+	structure->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
 
 	return structure;
 }
