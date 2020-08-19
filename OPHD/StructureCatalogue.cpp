@@ -35,9 +35,6 @@ Structure* StructureCatalogue::get(StructureID type)
 	// derived types.
 	switch (type)
 	{
-		case StructureID::SID_NONE:
-			break;
-
 		case StructureID::SID_AGRIDOME:
 			structure = new Agridome();
 			break;
