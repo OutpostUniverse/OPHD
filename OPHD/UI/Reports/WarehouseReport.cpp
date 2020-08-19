@@ -26,24 +26,24 @@ namespace {
 
 	static void computeTotalWarehouseCapacity()
 	{
-		int capacity_total = 0;
-		int available_capacity = 0;
+		int capacityTotal = 0;
+		int capacityAvailable = 0;
 
 		const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
 		for (auto warehouse : structures)
 		{
 			if (!warehouse->operational()) { continue; } // yuck
 			Warehouse* _wh = static_cast<Warehouse*>(warehouse);
-			available_capacity += _wh->products().availableStorage();
-			capacity_total += _wh->products().capacity();
+			capacityAvailable += _wh->products().availableStorage();
+			capacityTotal += _wh->products().capacity();
 		}
 
-		int capacity_used = capacity_total - available_capacity;
+		int capacityUsed = capacityTotal - capacityAvailable;
 
 		WH_COUNT = std::to_string(structures.size());
-		WH_CAPACITY = std::to_string(capacity_total);
+		WH_CAPACITY = std::to_string(capacityTotal);
 
-		CAPACITY_PERCENT = static_cast<float>(capacity_used) / static_cast<float>(capacity_total);
+		CAPACITY_PERCENT = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
 	}
 }
 
