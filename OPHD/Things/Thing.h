@@ -3,10 +3,9 @@
 #include <NAS2D/Signal.h>
 #include <NAS2D/Resources/Sprite.h>
 
-class Tile;
-
 #include <iostream>
 #include <string>
+
 
 /**
  * Class implementing a Thing interface.
