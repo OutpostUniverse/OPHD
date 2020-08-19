@@ -422,7 +422,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		structure.age(age);
 		structure.forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
 		structure.connectorDirection(static_cast<ConnectorDir>(direction));
-		
+
 		if (forced_idle != 0) { structure.forceIdle(forced_idle != 0); }
 
 		loadResorucesFromXmlElement(structureNode->firstChildElement("production"), structure.production());
