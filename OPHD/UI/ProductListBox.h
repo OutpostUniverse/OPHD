@@ -31,6 +31,6 @@ public:
 
 	void update() override;
 private:
-	const NAS2D::Font* MAIN_FONT = nullptr;
-	const NAS2D::Font* MAIN_FONT_BOLD = nullptr;
+	const NAS2D::Font* mFont = nullptr;
+	const NAS2D::Font* mFontBold = nullptr;
 };

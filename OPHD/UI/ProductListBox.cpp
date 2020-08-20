@@ -17,8 +17,8 @@ using namespace NAS2D;
 ProductListBox::ProductListBox()
 {
 	item_height(30);
-	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, 12);
-	MAIN_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 12);
+	mFont = &fontCache.load(constants::FONT_PRIMARY, 12);
+	mFontBold = &fontCache.load(constants::FONT_PRIMARY_BOLD, 12);
 }
 
 
@@ -82,9 +82,9 @@ void ProductListBox::update()
 		renderer.drawLine(NAS2D::Point{x + firstStop, y + 2}, NAS2D::Point{x + firstStop, y + itemSize.y - 2}, itemColor);
 		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + itemSize.y - 2}, itemColor);
 
-		renderer.drawText(*MAIN_FONT_BOLD, item.Text, NAS2D::Point{x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, itemColor);
+		renderer.drawText(*mFontBold, item.Text, NAS2D::Point{x + 5, ((y + 15) - mFontBold->height() / 2) - offset}, itemColor);
 
-		renderer.drawText(*MAIN_FONT, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + firstStop + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2)}, itemColor);
+		renderer.drawText(*mFont, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + firstStop + 5, ((y + 15) - mFontBold->height() / 2)}, itemColor);
 
 		drawBasicProgressBar(x + secondStop + 5, y + 10, firstStop - 10, 10, item.usage, 2);
 	}
