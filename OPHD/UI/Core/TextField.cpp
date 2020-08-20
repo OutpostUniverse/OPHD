@@ -174,7 +174,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			break;
 
 		case EventHandler::KeyCode::KEY_END:
-			mCursorPosition = static_cast<int>(text().length());
+			mCursorPosition = text().length();
 			break;
 
 		case EventHandler::KeyCode::KEY_DELETE:
@@ -192,7 +192,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			break;
 
 		case EventHandler::KeyCode::KEY_RIGHT:
-			if(static_cast<std::size_t>(mCursorPosition) < text().length())
+			if(mCursorPosition < text().length())
 				++mCursorPosition;
 			break;
 
@@ -203,7 +203,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			break;
 
 		case EventHandler::KeyCode::KEY_KP6:
-			if((static_cast<std::size_t>(mCursorPosition) < text().length()) && !Utility<EventHandler>::get().query_numlock())
+			if((mCursorPosition < text().length()) && !Utility<EventHandler>::get().query_numlock())
 				++mCursorPosition;
 			break;
 
@@ -234,14 +234,14 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 	// set the position to the end and move on.
 	if(mFont.width(text()) < relativePosition)
 	{
-		mCursorPosition = static_cast<int>(text().size());
+		mCursorPosition = text().size();
 		return;
 	}
 
 
 	// Figure out where the click occured within the visible string.
-	int i = 0;
-	while(static_cast<std::size_t>(i) <= text().size() - mScrollOffset)
+	std::size_t i = 0;
+	while(i <= text().size() - mScrollOffset)
 	{
 		std::string cmpStr = text().substr(mScrollOffset, i);
 		int strLen = mFont.width(cmpStr);
