@@ -3,6 +3,10 @@
 #include "Core/ListBoxBase.h"
 
 
+namespace NAS2D {
+	class Font;
+}
+
 class ProductPool;
 
 
@@ -26,4 +30,7 @@ public:
 	void productPool(ProductPool&);
 
 	void update() override;
+private:
+	const NAS2D::Font* MAIN_FONT = nullptr;
+	const NAS2D::Font* MAIN_FONT_BOLD = nullptr;
 };

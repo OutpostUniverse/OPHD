@@ -14,12 +14,6 @@
 using namespace NAS2D;
 
 
-namespace {
-	const Font* MAIN_FONT = nullptr;
-	const Font* MAIN_FONT_BOLD = nullptr;
-}
-
-
 ProductListBox::ProductListBox()
 {
 	item_height(30);
