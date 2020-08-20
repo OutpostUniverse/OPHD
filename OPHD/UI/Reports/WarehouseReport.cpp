@@ -349,14 +349,12 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 	const auto warehouseCapacityText = std::to_string(warehouseCapacityTotal);
 	const auto countTextWidth = fontMedium.width(warehouseCountText);
 	const auto capacityTextWidth = fontMedium.width(warehouseCapacityText);
-
 	renderer.drawText(fontMedium, warehouseCountText, NAS2D::Point{mRect.width / 2 - 10 - countTextWidth, positionY() + 35}, textColor);
 	renderer.drawText(fontMedium, warehouseCapacityText, NAS2D::Point{mRect.width / 2 - 10 - capacityTextWidth, positionY() + 57}, textColor);
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
 	const auto capacityBarWidth = mRect.width / 2 - 30 - capacityUsedTextWidth;
 	const auto capacityBarPositionX = 20 + capacityUsedTextWidth;
-
 	drawBasicProgressBar(capacityBarPositionX, positionY() + 84, capacityBarWidth, 20, warehouseCapacityPercent);
 }
 
