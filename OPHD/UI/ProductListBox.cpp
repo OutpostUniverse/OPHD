@@ -22,9 +22,6 @@ namespace {
 }
 
 
-/**
- * C'tor
- */
 ProductListBox::ProductListBox()
 {
 	item_height(LIST_ITEM_HEIGHT);
