@@ -33,9 +33,9 @@ public:
 	void update() override;
 
 private:
-	void _resized(Control*);
-
 	void _fillListFromStructureList(StructureList&);
+
+	void _resized(Control*);
 
 	void btnShowAllClicked();
 	void btnSpaceAvailableClicked();
