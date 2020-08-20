@@ -24,8 +24,6 @@
 
 using namespace constants;
 
-NAS2D::Rectangle<int> BOTTOM_UI_AREA;
-
 
 /**
  * Sets up the user interface elements
