@@ -23,8 +23,8 @@ using namespace NAS2D;
 
 
 namespace {
-	constexpr int FIELD_PADDING = 4;
-	constexpr int CURSOR_BLINK_DELAY = 250;
+	constexpr int fieldPadding = 4;
+	constexpr int cursorBlinkDelay = 250;
 }
 
 
@@ -60,7 +60,7 @@ TextField::TextField() :
 	hasFocus(true);
 	Utility<EventHandler>::get().textInputMode(true);
 
-	height(mFont.height() + FIELD_PADDING * 2);
+	height(mFont.height() + fieldPadding * 2);
 }
 
 
@@ -104,7 +104,7 @@ void TextField::maxCharacters(std::size_t count)
 
 int TextField::textAreaWidth() const
 {
-	return mRect.width - FIELD_PADDING * 2;
+	return mRect.width - fieldPadding * 2;
 }
 
 
@@ -268,13 +268,13 @@ void TextField::drawCursor()
 			// updateCursor() should be called only on events relating to the cursor so this is temporary.
 			updateCursor();
 			auto& renderer = Utility<Renderer>::get();
-			const auto startPosition = NAS2D::Point{mCursorX, mRect.y + FIELD_PADDING};
-			const auto endPosition = NAS2D::Point{mCursorX, mRect.y + mRect.height - FIELD_PADDING - 1};
+			const auto startPosition = NAS2D::Point{mCursorX, mRect.y + fieldPadding};
+			const auto endPosition = NAS2D::Point{mCursorX, mRect.y + mRect.height - fieldPadding - 1};
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
 			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
 		}
 		
-		if(mCursorTimer.accumulator() > CURSOR_BLINK_DELAY)
+		if(mCursorTimer.accumulator() > cursorBlinkDelay)
 		{
 			mCursorTimer.reset();
 			mShowCursor = !mShowCursor;
@@ -304,7 +304,7 @@ void TextField::updateCursor()
 		mScrollOffset = 0;
 	}
 
-	mCursorX = mRect.x + FIELD_PADDING + cursorX - mScrollOffset;
+	mCursorX = mRect.x + fieldPadding + cursorX - mScrollOffset;
 }
 
 
@@ -322,5 +322,5 @@ void TextField::update()
 
 	drawCursor();
 
-	renderer.drawText(mFont, text(), position() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING}, NAS2D::Color::White);
+	renderer.drawText(mFont, text(), position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
 }
