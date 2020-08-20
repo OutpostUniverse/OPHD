@@ -99,10 +99,9 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 
 	int capacityUsed = capacityTotal - capacityAvailable;
 
-	WH_COUNT = std::to_string(structures.size());
-	WH_CAPACITY = std::to_string(capacityTotal);
-
-	CAPACITY_PERCENT = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
+	warehouseCount = std::to_string(structures.size());
+	warehouseCapacityTotal = std::to_string(capacityTotal);
+	warehouseCapacityPercent = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
 }
 
 
@@ -346,17 +345,17 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, positionY() + 62}, textColor);
 	renderer.drawText(fontMediumBold, "Capacity Used", NAS2D::Point{10, positionY() + 84}, textColor);
 
-	const auto countTextWidth = fontMedium.width(WH_COUNT);
-	const auto capacityTextWidth = fontMedium.width(WH_CAPACITY);
+	const auto countTextWidth = fontMedium.width(warehouseCount);
+	const auto capacityTextWidth = fontMedium.width(warehouseCapacityTotal);
 
-	renderer.drawText(fontMedium, WH_COUNT, NAS2D::Point{mRect.width / 2 - 10 - countTextWidth, positionY() + 35}, textColor);
-	renderer.drawText(fontMedium, WH_CAPACITY, NAS2D::Point{mRect.width / 2 - 10 - capacityTextWidth, positionY() + 57}, textColor);
+	renderer.drawText(fontMedium, warehouseCount, NAS2D::Point{mRect.width / 2 - 10 - countTextWidth, positionY() + 35}, textColor);
+	renderer.drawText(fontMedium, warehouseCapacityTotal, NAS2D::Point{mRect.width / 2 - 10 - capacityTextWidth, positionY() + 57}, textColor);
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
 	const auto capacityBarWidth = mRect.width / 2 - 30 - capacityUsedTextWidth;
 	const auto capacityBarPositionX = 20 + capacityUsedTextWidth;
 
-	drawBasicProgressBar(capacityBarPositionX, positionY() + 84, capacityBarWidth, 20, CAPACITY_PERCENT);
+	drawBasicProgressBar(capacityBarPositionX, positionY() + 84, capacityBarWidth, 20, warehouseCapacityPercent);
 }
 
 

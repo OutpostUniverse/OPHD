@@ -80,7 +80,7 @@ private:
 	StructureListBox lstStructures;
 	ProductListBox lstProducts;
 
-	std::string WH_COUNT;
-	std::string WH_CAPACITY;
-	float CAPACITY_PERCENT = 0.0f;
+	std::string warehouseCount;
+	std::string warehouseCapacityTotal;
+	float warehouseCapacityPercent = 0.0f;
 };
