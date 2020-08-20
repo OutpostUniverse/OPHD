@@ -15,15 +15,26 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <map>
 #include <array>
 
 
 using namespace NAS2D;
 
 
-static Rectangle<int> DETAIL_PANEL;
-
-std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
+namespace {
+	const std::map<ProductType, const Image*> productImages{
+		{ProductType::PRODUCT_DIGGER, &imageCache.load("ui/interface/product_robodigger.png")},
+		{ProductType::PRODUCT_DOZER, &imageCache.load("ui/interface/product_robodozer.png")},
+		{ProductType::PRODUCT_MINER, &imageCache.load("ui/interface/product_robominer.png")},
+		{ProductType::PRODUCT_EXPLORER, &imageCache.load("ui/interface/product_roboexplorer.png")},
+		{ProductType::PRODUCT_TRUCK, &imageCache.load("ui/interface/product_truck.png")},
+		{ProductType::PRODUCT_ROAD_MATERIALS, &imageCache.load("ui/interface/product_road_materials.png")},
+		{ProductType::PRODUCT_MAINTENANCE_PARTS, &imageCache.load("ui/interface/product_maintenance_parts.png")},
+		{ProductType::PRODUCT_CLOTHING, &imageCache.load("ui/interface/product_clothing.png")},
+		{ProductType::PRODUCT_MEDICINE, &imageCache.load("ui/interface/product_medicine.png")}
+	};
+}
 
 
 FactoryReport::FactoryReport() :
@@ -45,18 +56,6 @@ FactoryReport::FactoryReport() :
 	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE},
 	btnApply{"Apply"}
 {
-	/// \todo Decide if this is the best place to have these images live or if it should be done at program start.
-	PRODUCT_IMAGE_ARRAY.fill(nullptr);
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DIGGER] = &imageCache.load("ui/interface/product_robodigger.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DOZER] = &imageCache.load("ui/interface/product_robodozer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MINER] = &imageCache.load("ui/interface/product_robominer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_EXPLORER] = &imageCache.load("ui/interface/product_roboexplorer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_TRUCK] = &imageCache.load("ui/interface/product_truck.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_ROAD_MATERIALS] = &imageCache.load("ui/interface/product_road_materials.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MAINTENANCE_PARTS] = &imageCache.load("ui/interface/product_maintenance_parts.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_CLOTHING] = &imageCache.load("ui/interface/product_clothing.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MEDICINE] = &imageCache.load("ui/interface/product_medicine.png");
-
 	add(&lstFactoryList, 10, 63);
 	lstFactoryList.selectionChanged().connect(this, &FactoryReport::lstFactoryListSelectionChanged);
 
@@ -134,12 +133,6 @@ FactoryReport::FactoryReport() :
 
 	Control::resized().connect(this, &FactoryReport::resized);
 	fillLists();
-}
-
-
-FactoryReport::~FactoryReport()
-{
-	selectedFactory = nullptr;
 }
 
 
@@ -272,7 +265,7 @@ void FactoryReport::resized(Control* /*c*/)
 
 	lstFactoryList.size({comboEndPoint.x - 10, mRect.height - 74});
 
-	DETAIL_PANEL = {
+	detailPanelRect = {
 		comboEndPoint.x + 20,
 		rect().y + 10,
 		rect().width - comboEndPoint.x - 30,
@@ -286,7 +279,7 @@ void FactoryReport::resized(Control* /*c*/)
 
 	btnApply.position({position_x, mRect.height + 8});
 
-	lstProducts.size({DETAIL_PANEL.width / 3, DETAIL_PANEL.height - 219});
+	lstProducts.size({detailPanelRect.width / 3, detailPanelRect.height - 219});
 	lstProducts.selectionChanged().connect(this, &FactoryReport::lstProductsSelectionChanged);
 
 	txtProductDescription.position(lstProducts.rect().crossXPoint() + NAS2D::Vector{158, 0});
@@ -453,7 +446,7 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 {
 	NAS2D::Color defaultTextColor{0, 185, 0};
 
-	const auto startPoint = DETAIL_PANEL.startPoint();
+	const auto startPoint = detailPanelRect.startPoint();
 	renderer.drawImage(*factoryImage, startPoint + NAS2D::Vector{0, 25});
 	renderer.drawText(fontBigBold, selectedFactory->name(), startPoint + NAS2D::Vector{0, -8}, defaultTextColor);
 
@@ -492,21 +485,21 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 void FactoryReport::drawProductPane(Renderer& renderer)
 {
 	const auto textColor = NAS2D::Color{0, 185, 0};
-	renderer.drawText(fontBigBold, "Production", NAS2D::Point{DETAIL_PANEL.x, DETAIL_PANEL.y + 180}, textColor);
+	renderer.drawText(fontBigBold, "Production", NAS2D::Point{detailPanelRect.x, detailPanelRect.y + 180}, textColor);
 
-	int position_x = DETAIL_PANEL.x + lstProducts.size().x + 20;
+	int position_x = detailPanelRect.x + lstProducts.size().x + 20;
 
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(fontBigBold, productDescription(selectedProductType), NAS2D::Point{position_x, DETAIL_PANEL.y + 180}, textColor);
-		renderer.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(selectedProductType)], NAS2D::Point{position_x, lstProducts.positionY()});
+		renderer.drawText(fontBigBold, productDescription(selectedProductType), NAS2D::Point{position_x, detailPanelRect.y + 180}, textColor);
+		renderer.drawImage(*productImages.at(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
 		txtProductDescription.update();
 	}
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
 	
-	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, DETAIL_PANEL.y + 358}, textColor);
-	renderer.drawText(fontMedium, "Building " + productDescription(selectedFactory->productType()), NAS2D::Point{position_x, DETAIL_PANEL.y + 393}, textColor);
+	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, detailPanelRect.y + 358}, textColor);
+	renderer.drawText(fontMedium, "Building " + productDescription(selectedFactory->productType()), NAS2D::Point{position_x, detailPanelRect.y + 393}, textColor);
 
 	float percent = 0.0f;
 	if (selectedFactory->productType() != ProductType::PRODUCT_NONE)
@@ -515,11 +508,11 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 			static_cast<float>(selectedFactory->productionTurnsToComplete());
 	}
 	
-	drawBasicProgressBar(position_x, DETAIL_PANEL.y + 413, mRect.width - position_x - 10, 30, percent, 4);
+	drawBasicProgressBar(position_x, detailPanelRect.y + 413, mRect.width - position_x - 10, 30, percent, 4);
 
 	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());
-	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, DETAIL_PANEL.y + 449}, textColor);
-	renderer.drawText(fontMedium, text, NAS2D::Point{mRect.width - fontMedium.width(text) - 10, DETAIL_PANEL.y + 449}, textColor);
+	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, detailPanelRect.y + 449}, textColor);
+	renderer.drawText(fontMedium, text, NAS2D::Point{mRect.width - fontMedium.width(text) - 10, detailPanelRect.y + 449}, textColor);
 }
 
 

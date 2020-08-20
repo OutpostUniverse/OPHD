@@ -8,6 +8,8 @@
 #include "../FactoryListBox.h"
 #include "../../Common.h"
 
+#include <NAS2D/Renderer/Rectangle.h>
+
 
 namespace NAS2D {
 	class Font;
@@ -21,7 +23,6 @@ class FactoryReport : public ReportInterface
 {
 public:
 	FactoryReport();
-	~FactoryReport() override;
 
 	void selectStructure(Structure*) override;
 	void refresh() override;
@@ -73,6 +74,8 @@ private:
 	const NAS2D::Image& factoryAboveGround;
 	const NAS2D::Image& factoryUnderGround;
 	const NAS2D::Image* factoryImage = nullptr;
+
+	NAS2D::Rectangle<int> detailPanelRect;
 
 	Button btnShowAll;
 	Button btnShowSurface;
