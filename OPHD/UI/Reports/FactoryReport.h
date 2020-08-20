@@ -76,7 +76,7 @@ private:
 	const NAS2D::Image& factoryUnderGround;
 	const NAS2D::Image* factoryImage = nullptr;
 
-	NAS2D::Rectangle<int> DETAIL_PANEL;
+	NAS2D::Rectangle<int> detailPanelRect;
 
 	Button btnShowAll;
 	Button btnShowSurface;
