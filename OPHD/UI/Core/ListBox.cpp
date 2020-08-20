@@ -157,9 +157,10 @@ bool ListBox::itemExists(const std::string& item)
 
 void ListBox::setSelectionByName(const std::string& item)
 {
+	const auto target = toLowercase(item);
 	for (std::size_t i = 0; i < mItems.size(); i++)
 	{
-		if (toLowercase(mItems[i].Text) == toLowercase(item)) { mCurrentSelection = i; return; }
+		if (toLowercase(mItems[i].Text) == target) { mCurrentSelection = i; return; }
 	}
 }
 
