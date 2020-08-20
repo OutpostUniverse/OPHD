@@ -28,12 +28,6 @@ NAS2D::Rectangle<int> BOTTOM_UI_AREA;
 
 
 /**
- * \fixme	Yuck, not thrilled with this but whatever, it works.
- */
-extern NAS2D::Rectangle<int> MENU_ICON;
-
-
-/**
  * Sets up the user interface elements
  * 
  * \note	The explicit casts to int to truncate floating point values to force

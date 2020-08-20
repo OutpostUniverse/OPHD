@@ -17,7 +17,6 @@
 #include <vector>
 #include <algorithm>
 
-extern NAS2D::Rectangle<int> MENU_ICON;
 extern NAS2D::Point<int> MOUSE_COORDS;
 extern const NAS2D::Font* MAIN_FONT; /// yuck
 
