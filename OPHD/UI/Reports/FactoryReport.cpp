@@ -21,7 +21,9 @@
 using namespace NAS2D;
 
 
-std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
+namespace {
+	std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
+}
 
 
 FactoryReport::FactoryReport() :
