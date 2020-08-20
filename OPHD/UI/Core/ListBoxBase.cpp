@@ -329,7 +329,7 @@ void ListBoxBase::update()
 	renderer.clipRect(mRect);
 
 	// MOUSE HIGHLIGHT
-	int highlight_y = positionY() + (mCurrentHighlight * mItemHeight) - mCurrentOffset;
+	int highlight_y = positionY() + (static_cast<int>(mCurrentHighlight) * mItemHeight) - static_cast<int>(mCurrentOffset);
 	renderer.drawBoxFilled(NAS2D::Rectangle{positionX(), highlight_y, mItemWidth, mItemHeight}, NAS2D::Color{0, 185, 0, 50});
 
 	mSlider.update();
