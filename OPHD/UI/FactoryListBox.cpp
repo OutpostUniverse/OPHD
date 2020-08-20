@@ -168,8 +168,8 @@ void FactoryListBox::update()
 		drawItem(renderer, *static_cast<FactoryListBoxItem*>(mItems[i]),
 			positionX(),
 			positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT),
-			item_width(),
-			draw_offset(),
+			static_cast<int>(item_width()),
+			static_cast<int>(draw_offset()),
 			i == currentSelection());
 	}
 
