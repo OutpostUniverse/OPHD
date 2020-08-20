@@ -495,27 +495,27 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		if (RESOURCE_PANEL_PIN.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
 		if (POPULATION_PANEL_PIN.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
 
-		if (MOVE_NORTH_ICON.contains(MOUSE_COORDS))
+		if (mMoveNorthIconRect.contains(MOUSE_COORDS))
 		{
 			mTileMap->mapViewLocation(pt + DirectionNorth);
 		}
-		else if (MOVE_SOUTH_ICON.contains(MOUSE_COORDS))
+		else if (mMoveSouthIconRect.contains(MOUSE_COORDS))
 		{
 			mTileMap->mapViewLocation(pt + DirectionSouth);
 		}
-		else if (MOVE_EAST_ICON.contains(MOUSE_COORDS))
+		else if (mMoveEastIconRect.contains(MOUSE_COORDS))
 		{
 			mTileMap->mapViewLocation(pt + DirectionEast);
 		}
-		else if (MOVE_WEST_ICON.contains(MOUSE_COORDS))
+		else if (mMoveWestIconRect.contains(MOUSE_COORDS))
 		{
 			mTileMap->mapViewLocation(pt + DirectionWest);
 		}
-		else if (MOVE_UP_ICON.contains(MOUSE_COORDS))
+		else if (mMoveUpIconRect.contains(MOUSE_COORDS))
 		{
 			changeViewDepth(mTileMap->currentDepth() - 1);
 		}
-		else if (MOVE_DOWN_ICON.contains(MOUSE_COORDS))
+		else if (mMoveDownIconRect.contains(MOUSE_COORDS))
 		{
 			changeViewDepth(mTileMap->currentDepth()+1);
 		}

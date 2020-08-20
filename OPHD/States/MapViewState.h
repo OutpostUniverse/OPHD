@@ -260,12 +260,12 @@ private:
 
 	WindowStack mWindowStack;
 
-	NAS2D::Rectangle<int> MOVE_NORTH_ICON;
-	NAS2D::Rectangle<int> MOVE_SOUTH_ICON;
-	NAS2D::Rectangle<int> MOVE_EAST_ICON;
-	NAS2D::Rectangle<int> MOVE_WEST_ICON;
-	NAS2D::Rectangle<int> MOVE_UP_ICON;
-	NAS2D::Rectangle<int> MOVE_DOWN_ICON;
+	NAS2D::Rectangle<int> mMoveNorthIconRect;
+	NAS2D::Rectangle<int> mMoveSouthIconRect;
+	NAS2D::Rectangle<int> mMoveEastIconRect;
+	NAS2D::Rectangle<int> mMoveWestIconRect;
+	NAS2D::Rectangle<int> mMoveUpIconRect;
+	NAS2D::Rectangle<int> mMoveDownIconRect;
 
 	// SIGNALS
 	QuitCallback mQuitCallback;
