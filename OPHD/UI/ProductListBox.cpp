@@ -14,18 +14,20 @@
 using namespace NAS2D;
 
 
-constexpr int LIST_ITEM_HEIGHT = 30;
+namespace {
+	constexpr int LIST_ITEM_HEIGHT = 30;
 
-static const Font* MAIN_FONT = nullptr;
-static const Font* MAIN_FONT_BOLD = nullptr;
-
-
-static constexpr Color ITEM_COLOR{0, 185, 0};
-static constexpr Color HIGHLIGHT_COLOR{0, 185, 0, 75};
+	const Font* MAIN_FONT = nullptr;
+	const Font* MAIN_FONT_BOLD = nullptr;
 
 
-static int FIRST_STOP = 0;
-static int SECOND_STOP = 0;
+	constexpr Color ITEM_COLOR{0, 185, 0};
+	constexpr Color HIGHLIGHT_COLOR{0, 185, 0, 75};
+
+
+	int FIRST_STOP = 0;
+	int SECOND_STOP = 0;
+}
 
 
 static void drawItem(Renderer& renderer, ProductListBox::ProductListBoxItem& item, int x, int y, int w, int offset, bool highlight)
