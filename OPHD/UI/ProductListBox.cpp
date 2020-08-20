@@ -77,14 +77,14 @@ void ProductListBox::update()
 		const auto& item = *static_cast<ProductListBoxItem*>(mItems[i]);
 		const auto x = positionX();
 		const auto y = positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT);
-		const auto w = static_cast<int>(item_width());
+		const auto itemWidth = static_cast<int>(item_width());
 		const auto offset = static_cast<int>(draw_offset());
 		const auto highlight = i == currentSelection();
 
 		// draw highlight rect so as not to tint/hue colors of everything else
-		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, w, LIST_ITEM_HEIGHT}, highlightColor); }
+		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, itemWidth, LIST_ITEM_HEIGHT}, highlightColor); }
 
-		renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, itemColor);
+		renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, itemWidth - 4, LIST_ITEM_HEIGHT - 4}, itemColor);
 
 		renderer.drawLine(NAS2D::Point{x + firstStop, y + 2}, NAS2D::Point{x + firstStop, y + LIST_ITEM_HEIGHT - 2}, itemColor);
 		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + LIST_ITEM_HEIGHT - 2}, itemColor);
