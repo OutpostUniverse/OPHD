@@ -17,14 +17,6 @@
 using namespace NAS2D;
 
 
-namespace {
-	static float CAPACITY_PERCENT = 0.0f;
-
-	static std::string WH_COUNT;
-	static std::string WH_CAPACITY;
-}
-
-
 WarehouseReport::WarehouseReport() :
 	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
 	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
