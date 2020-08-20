@@ -157,7 +157,7 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 
-	mCurrentHighlight = (y - positionY() + mCurrentOffset) / mItemHeight;
+	mCurrentHighlight = (static_cast<unsigned int>(y - positionY()) + mCurrentOffset) / static_cast<unsigned int>(mItemHeight);
 
 	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
 	{
