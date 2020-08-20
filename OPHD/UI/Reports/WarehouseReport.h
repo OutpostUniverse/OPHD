@@ -33,6 +33,8 @@ public:
 	void update() override;
 
 private:
+	void computeTotalWarehouseCapacity();
+
 	void _fillListFromStructureList(StructureList&);
 
 	void _resized(Control*);

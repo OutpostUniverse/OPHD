@@ -22,31 +22,6 @@ namespace {
 
 	static std::string WH_COUNT;
 	static std::string WH_CAPACITY;
-
-
-	static void computeTotalWarehouseCapacity()
-	{
-		int capacityTotal = 0;
-		int capacityAvailable = 0;
-
-		const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-		for (auto warehouseStructure : structures)
-		{
-			if (warehouseStructure->operational())
-			{
-				const auto& warehouseProducts = static_cast<Warehouse*>(warehouseStructure)->products();
-				capacityAvailable += warehouseProducts.availableStorage();
-				capacityTotal += warehouseProducts.capacity();
-			}
-		}
-
-		int capacityUsed = capacityTotal - capacityAvailable;
-
-		WH_COUNT = std::to_string(structures.size());
-		WH_CAPACITY = std::to_string(capacityTotal);
-
-		CAPACITY_PERCENT = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
-	}
 }
 
 
@@ -111,6 +86,31 @@ WarehouseReport::WarehouseReport() :
 WarehouseReport::~WarehouseReport()
 {
 	Control::resized().disconnect(this, &WarehouseReport::_resized);
+}
+
+
+void WarehouseReport::computeTotalWarehouseCapacity()
+{
+	int capacityTotal = 0;
+	int capacityAvailable = 0;
+
+	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouseStructure : structures)
+	{
+		if (warehouseStructure->operational())
+		{
+			const auto& warehouseProducts = static_cast<Warehouse*>(warehouseStructure)->products();
+			capacityAvailable += warehouseProducts.availableStorage();
+			capacityTotal += warehouseProducts.capacity();
+		}
+	}
+
+	int capacityUsed = capacityTotal - capacityAvailable;
+
+	WH_COUNT = std::to_string(structures.size());
+	WH_CAPACITY = std::to_string(capacityTotal);
+
+	CAPACITY_PERCENT = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
 }
 
 
