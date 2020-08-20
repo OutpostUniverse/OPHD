@@ -16,11 +16,8 @@ class ProductPool;
 class ProductListBox : public ListBoxBase
 {
 public:
-	class ProductListBoxItem : public ListBoxItem
+	struct ProductListBoxItem : public ListBoxItem
 	{
-	public:
-		ProductListBoxItem() = default;
-
 		std::size_t count = 0; /**< Count of the product. */
 		float usage = 0.0f; /**< Usage of available capacity. */
 	};
