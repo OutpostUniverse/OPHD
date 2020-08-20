@@ -34,7 +34,7 @@ public:
 	*
 	* \note	TextField defaults to a BorderVisibility::FOCUS_ONLY setting.
 	*/
-	enum BorderVisibility
+	enum class BorderVisibility
 	{
 		NEVER,
 		ALWAYS,
