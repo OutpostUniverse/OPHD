@@ -24,7 +24,6 @@ using namespace NAS2D;
 
 static const int FIELD_PADDING = 4;
 static const int CURSOR_BLINK_DELAY = 250;
-static const Font* TXT_FONT = nullptr;
 
 
 TextField::TextField() :

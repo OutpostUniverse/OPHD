@@ -14,6 +14,11 @@
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 
+namespace NAS2D {
+	class Font;
+}
+
+
 /**
  * \class TextField
  * \brief A Basic Text Field.
@@ -67,6 +72,7 @@ private:
 	void updateCursor();
 
 private:
+	const NAS2D::Font* TXT_FONT = nullptr;
 	const NAS2D::RectangleSkin mSkinNormal;
 	const NAS2D::RectangleSkin mSkinFocus;
 
