@@ -13,6 +13,11 @@
 #include <cstddef>
 
 
+namespace NAS2D {
+	class Font;
+}
+
+
 /**
  * Implements a ListBox control.
  */
@@ -81,6 +86,8 @@ private:
 	void _updateItemDisplay();
 	void _init();
 
+
+	const NAS2D::Font* LST_FONT = nullptr;
 
 	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
 	std::size_t mCurrentSelection = 0; /**< Current selection index. */
