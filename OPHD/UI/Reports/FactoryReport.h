@@ -23,7 +23,6 @@ class FactoryReport : public ReportInterface
 {
 public:
 	FactoryReport();
-	~FactoryReport() override;
 
 	void selectStructure(Structure*) override;
 	void refresh() override;

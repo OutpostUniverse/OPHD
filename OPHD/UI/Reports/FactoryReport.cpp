@@ -136,11 +136,6 @@ FactoryReport::FactoryReport() :
 }
 
 
-FactoryReport::~FactoryReport()
-{
-}
-
-
 /**
  * Override of the interface provided by ReportInterface class.
  * 
