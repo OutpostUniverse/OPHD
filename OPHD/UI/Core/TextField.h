@@ -11,8 +11,12 @@
 
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Timer.h>
-#include <NAS2D/Resources/Image.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
+
+
+namespace NAS2D {
+	class Font;
+}
 
 
 /**
@@ -21,7 +25,6 @@
  *
  * The Field Control is just a set of rendered text a user can enter.
  */
-
 class TextField: public Control
 {
 public:
@@ -29,13 +32,13 @@ public:
 	* \enum	BorderVisiblity
 	* \brief	Enumerates border visibility options.
 	*
-	* \note	TextField defaults to a BorderVisibility::FOCUS_ONLY setting.
+	* \note	TextField defaults to a BorderVisibility::FocusOnly setting.
 	*/
-	enum BorderVisibility
+	enum class BorderVisibility
 	{
-		NEVER,
-		ALWAYS,
-		FOCUS_ONLY
+		Never,
+		Always,
+		FocusOnly
 	};
 
 public:
@@ -69,6 +72,10 @@ private:
 	void updateCursor();
 
 private:
+	const NAS2D::Font& mFont;
+	const NAS2D::RectangleSkin mSkinNormal;
+	const NAS2D::RectangleSkin mSkinFocus;
+
 	NAS2D::Timer mCursorTimer; /**< Timer for the cursor blink. */
 
 	int mCursorPosition = 0; /**< Position of the Insertion Cursor. */
@@ -77,10 +84,7 @@ private:
 
 	std::size_t mMaxCharacters = 0; /**< Max number of characters allowed in the text field. */
 
-	BorderVisibility mBorderVisibility = BorderVisibility::FOCUS_ONLY; /**< Border visibility flag. */
-
-	NAS2D::RectangleSkin mSkinNormal;
-	NAS2D::RectangleSkin mSkinFocus;
+	BorderVisibility mBorderVisibility = BorderVisibility::FocusOnly; /**< Border visibility flag. */
 
 	bool mEditable = true; /**< Toggle editing of the field. */
 	bool mShowCursor = true; /**< Flag indicating whether or not to draw the cursor. */

@@ -22,16 +22,14 @@
 using namespace NAS2D;
 
 
-static const int FIELD_PADDING = 4;
-
-static const int CURSOR_BLINK_DELAY = 250;
-
-static std::locale LOC;
-
-static const Font* TXT_FONT = nullptr;
+namespace {
+	constexpr int fieldPadding = 4;
+	constexpr int cursorBlinkDelay = 250;
+}
 
 
 TextField::TextField() :
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mSkinNormal{
 		imageCache.load("ui/skin/textbox_top_left.png"),
 		imageCache.load("ui/skin/textbox_top_middle.png"),
@@ -62,8 +60,7 @@ TextField::TextField() :
 	hasFocus(true);
 	Utility<EventHandler>::get().textInputMode(true);
 
-	TXT_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	height(TXT_FONT->height() + FIELD_PADDING * 2);
+	height(mFont.height() + fieldPadding * 2);
 }
 
 
@@ -107,7 +104,7 @@ void TextField::maxCharacters(std::size_t count)
 
 int TextField::textAreaWidth() const
 {
-	return mRect.width - FIELD_PADDING * 2;
+	return mRect.width - fieldPadding * 2;
 }
 
 
@@ -143,7 +140,8 @@ void TextField::onTextInput(const std::string& newTextInput)
 
 	auto prvLen = text().length();
 
-	if (mNumbersOnly && !std::isdigit(newTextInput[0], LOC)) { return; }
+	std::locale locale;
+	if (mNumbersOnly && !std::isdigit(newTextInput[0], locale)) { return; }
 
 	mText = mText.insert(mCursorPosition, newTextInput);
 
@@ -234,7 +232,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
-	if(TXT_FONT->width(text()) < relativePosition)
+	if(mFont.width(text()) < relativePosition)
 	{
 		mCursorPosition = static_cast<int>(text().size());
 		return;
@@ -246,7 +244,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 	while(static_cast<std::size_t>(i) <= text().size() - mScrollOffset)
 	{
 		std::string cmpStr = text().substr(mScrollOffset, i);
-		int strLen = TXT_FONT->width(cmpStr);
+		int strLen = mFont.width(cmpStr);
 		if(strLen > relativePosition)
 		{
 			mCursorPosition = i - 1;
@@ -270,13 +268,13 @@ void TextField::drawCursor()
 			// updateCursor() should be called only on events relating to the cursor so this is temporary.
 			updateCursor();
 			auto& renderer = Utility<Renderer>::get();
-			const auto startPosition = NAS2D::Point{mCursorX, mRect.y + FIELD_PADDING};
-			const auto endPosition = NAS2D::Point{mCursorX, mRect.y + mRect.height - FIELD_PADDING - 1};
+			const auto startPosition = NAS2D::Point{mCursorX, mRect.y + fieldPadding};
+			const auto endPosition = NAS2D::Point{mCursorX, mRect.y + mRect.height - fieldPadding - 1};
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
 			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
 		}
 		
-		if(mCursorTimer.accumulator() > CURSOR_BLINK_DELAY)
+		if(mCursorTimer.accumulator() > cursorBlinkDelay)
 		{
 			mCursorTimer.reset();
 			mShowCursor = !mShowCursor;
@@ -287,7 +285,7 @@ void TextField::drawCursor()
 
 void TextField::updateCursor()
 {
-	int cursorX = TXT_FONT->width(text().substr(0, mCursorPosition));
+	int cursorX = mFont.width(text().substr(0, mCursorPosition));
 
 	// Check if cursor is after visible area
 	if (mScrollOffset <= cursorX - textAreaWidth())
@@ -306,7 +304,7 @@ void TextField::updateCursor()
 		mScrollOffset = 0;
 	}
 
-	mCursorX = mRect.x + FIELD_PADDING + cursorX - mScrollOffset;
+	mCursorX = mRect.x + fieldPadding + cursorX - mScrollOffset;
 }
 
 
@@ -324,5 +322,5 @@ void TextField::update()
 
 	drawCursor();
 
-	renderer.drawText(*TXT_FONT, text(), position() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING}, NAS2D::Color::White);
+	renderer.drawText(mFont, text(), position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
 }
