@@ -22,10 +22,9 @@ using namespace NAS2D;
 /**
  * C'tor
  */
-ListBox::ListBox()
+ListBox::ListBox() :
+	LST_FONT{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
 {
-	LST_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
 	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
