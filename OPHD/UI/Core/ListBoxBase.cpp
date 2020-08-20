@@ -278,7 +278,7 @@ unsigned int ListBoxBase::currentSelection() const
  * 
  * \note	Out of range selection indicies will set the ListBoxBase to no selection.
  */
-void ListBoxBase::setSelection(int selection)
+void ListBoxBase::setSelection(unsigned int selection)
 {
 	mItems.empty() ? mCurrentSelection == constants::NO_SELECTION : mCurrentSelection = selection;
 	mSelectionChanged();

@@ -128,7 +128,7 @@ void StructureListBox::currentSelection(Structure* structure)
 		StructureListBoxItem* item = static_cast<StructureListBoxItem*>(mItems[i]);
 		if (item->structure == structure)
 		{
-			setSelection(static_cast<int>(i));
+			setSelection(i);
 			return;
 		}
 	}

@@ -55,7 +55,7 @@ public:
 
 	unsigned int currentHighlight() const;
 	unsigned int currentSelection() const;
-	void setSelection(int selection);
+	void setSelection(unsigned int selection);
 
 	const std::string& selectionText() const;
 

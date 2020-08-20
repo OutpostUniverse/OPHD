@@ -137,7 +137,7 @@ void FactoryListBox::currentSelection(Factory* f)
 		FactoryListBoxItem* item = static_cast<FactoryListBoxItem*>(mItems[i]);
 		if (item->factory == f)
 		{
-			setSelection(static_cast<int>(i));
+			setSelection(i);
 			return;
 		}
 	}
