@@ -23,17 +23,21 @@ using namespace NAS2D;
 
 
 namespace {
-	const std::map<ProductType, const Image*> productImages{
-		{ProductType::PRODUCT_DIGGER, &imageCache.load("ui/interface/product_robodigger.png")},
-		{ProductType::PRODUCT_DOZER, &imageCache.load("ui/interface/product_robodozer.png")},
-		{ProductType::PRODUCT_MINER, &imageCache.load("ui/interface/product_robominer.png")},
-		{ProductType::PRODUCT_EXPLORER, &imageCache.load("ui/interface/product_roboexplorer.png")},
-		{ProductType::PRODUCT_TRUCK, &imageCache.load("ui/interface/product_truck.png")},
-		{ProductType::PRODUCT_ROAD_MATERIALS, &imageCache.load("ui/interface/product_road_materials.png")},
-		{ProductType::PRODUCT_MAINTENANCE_PARTS, &imageCache.load("ui/interface/product_maintenance_parts.png")},
-		{ProductType::PRODUCT_CLOTHING, &imageCache.load("ui/interface/product_clothing.png")},
-		{ProductType::PRODUCT_MEDICINE, &imageCache.load("ui/interface/product_medicine.png")}
-	};
+	const NAS2D::Image& productImage(ProductType productType)
+	{
+		static const std::map<ProductType, const Image*> productImages{
+			{ProductType::PRODUCT_DIGGER, &imageCache.load("ui/interface/product_robodigger.png")},
+			{ProductType::PRODUCT_DOZER, &imageCache.load("ui/interface/product_robodozer.png")},
+			{ProductType::PRODUCT_MINER, &imageCache.load("ui/interface/product_robominer.png")},
+			{ProductType::PRODUCT_EXPLORER, &imageCache.load("ui/interface/product_roboexplorer.png")},
+			{ProductType::PRODUCT_TRUCK, &imageCache.load("ui/interface/product_truck.png")},
+			{ProductType::PRODUCT_ROAD_MATERIALS, &imageCache.load("ui/interface/product_road_materials.png")},
+			{ProductType::PRODUCT_MAINTENANCE_PARTS, &imageCache.load("ui/interface/product_maintenance_parts.png")},
+			{ProductType::PRODUCT_CLOTHING, &imageCache.load("ui/interface/product_clothing.png")},
+			{ProductType::PRODUCT_MEDICINE, &imageCache.load("ui/interface/product_medicine.png")}
+		};
+		return *productImages.at(productType);
+	}
 }
 
 
@@ -492,7 +496,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
 		renderer.drawText(fontBigBold, productDescription(selectedProductType), NAS2D::Point{position_x, detailPanelRect.y + 180}, textColor);
-		renderer.drawImage(*productImages.at(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
+		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
 		txtProductDescription.update();
 	}
 
