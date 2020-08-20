@@ -241,9 +241,10 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 	// Figure out where the click occured within the visible string.
 	std::size_t i = 0;
-	while(i <= text().size() - mScrollOffset)
+	const auto scrollOffset = static_cast<std::size_t>(mScrollOffset);
+	while(i <= text().size() - scrollOffset)
 	{
-		std::string cmpStr = text().substr(mScrollOffset, i);
+		std::string cmpStr = text().substr(scrollOffset, i);
 		int strLen = mFont.width(cmpStr);
 		if(strLen > relativePosition)
 		{
