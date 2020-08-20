@@ -11,7 +11,9 @@
 
 #include <algorithm>
 
+
 using Point2dList = std::vector<NAS2D::Point<int>>;
+
 
 class TileMap: public micropather::Graph
 {
