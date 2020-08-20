@@ -2,7 +2,9 @@
 
 #include "Core/ListBoxBase.h"
 
+
 class ProductPool;
+
 
 /**
  * Specialized ListBox to display a list of products in a ProductPool.
@@ -15,12 +17,10 @@ public:
 	public:
 		ProductListBoxItem() = default;
 
-	public:
 		std::size_t count = 0; /**< Count of the product. */
 		float usage = 0.0f; /**< Usage of available capacity. */
 	};
 
-public:
 	ProductListBox();
 
 	void productPool(ProductPool&);
@@ -30,6 +30,5 @@ public:
 private:
 	void _init();
 
-private:
 	using ProductItemList = std::vector<ProductListBoxItem>;
 };
