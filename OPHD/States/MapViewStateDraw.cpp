@@ -17,17 +17,7 @@
 #include <vector>
 #include <algorithm>
 
-extern NAS2D::Rectangle<int> MENU_ICON;
-
-extern NAS2D::Rectangle<int> MOVE_NORTH_ICON;
-extern NAS2D::Rectangle<int> MOVE_SOUTH_ICON;
-extern NAS2D::Rectangle<int> MOVE_EAST_ICON;
-extern NAS2D::Rectangle<int> MOVE_WEST_ICON;
-extern NAS2D::Rectangle<int> MOVE_UP_ICON;
-extern NAS2D::Rectangle<int> MOVE_DOWN_ICON;
-
 extern NAS2D::Point<int> MOUSE_COORDS;
-
 extern const NAS2D::Font* MAIN_FONT; /// yuck
 
 
@@ -222,8 +212,8 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
-	position = MENU_ICON.startPoint() + NAS2D::Vector{constants::MARGIN_TIGHT, constants::MARGIN_TIGHT};
-	bool isMouseInMenu = MENU_ICON.contains(MOUSE_COORDS);
+	position = mMenuIconRect.startPoint() + NAS2D::Vector{constants::MARGIN_TIGHT, constants::MARGIN_TIGHT};
+	bool isMouseInMenu = mMenuIconRect.contains(MOUSE_COORDS);
 	int menuGearHighlightOffsetX = isMouseInMenu ? 144 : 128;
 	const auto menuImageRect = NAS2D::Rectangle{menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
 	renderer.drawSubImage(mUiIcons, position, menuImageRect);
@@ -279,12 +269,12 @@ void MapViewState::drawNavInfo()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	drawNavIcon(renderer, MOVE_DOWN_ICON, NAS2D::Rectangle{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_UP_ICON, NAS2D::Rectangle{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_EAST_ICON, NAS2D::Rectangle{32, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_WEST_ICON, NAS2D::Rectangle{32, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_NORTH_ICON, NAS2D::Rectangle{0, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, MOVE_SOUTH_ICON, NAS2D::Rectangle{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, mMoveDownIconRect, NAS2D::Rectangle{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, mMoveUpIconRect, NAS2D::Rectangle{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, mMoveEastIconRect, NAS2D::Rectangle{32, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, mMoveWestIconRect, NAS2D::Rectangle{32, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, mMoveNorthIconRect, NAS2D::Rectangle{0, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	drawNavIcon(renderer, mMoveSouthIconRect, NAS2D::Rectangle{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
 
 	// Display the levels "bar"
 	const auto stepSizeWidth = MAIN_FONT->width("IX");

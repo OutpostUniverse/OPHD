@@ -39,16 +39,8 @@ extern MainReportsUiState* MAIN_REPORTS_UI;
 
 int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
 
-Rectangle<int> MENU_ICON;
 Rectangle<int> RESOURCE_PANEL_PIN{0, 1, 8, 19};
 Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
-
-Rectangle<int> MOVE_NORTH_ICON;
-Rectangle<int> MOVE_SOUTH_ICON;
-Rectangle<int> MOVE_EAST_ICON;
-Rectangle<int> MOVE_WEST_ICON;
-Rectangle<int> MOVE_UP_ICON;
-Rectangle<int> MOVE_DOWN_ICON;
 
 std::string CURRENT_LEVEL_STRING;
 
@@ -492,7 +484,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 		Point<int> pt = mTileMap->mapViewLocation();
 
-		if (MENU_ICON.contains(MOUSE_COORDS))
+		if (mMenuIconRect.contains(MOUSE_COORDS))
 		{
 			mGameOptionsDialog.show();
 			resetUi();
@@ -502,27 +494,27 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		if (RESOURCE_PANEL_PIN.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
 		if (POPULATION_PANEL_PIN.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
 
-		if (MOVE_NORTH_ICON.contains(MOUSE_COORDS))
+		if (mMoveNorthIconRect.contains(MOUSE_COORDS))
 		{
 			mTileMap->mapViewLocation(pt + DirectionNorth);
 		}
-		else if (MOVE_SOUTH_ICON.contains(MOUSE_COORDS))
+		else if (mMoveSouthIconRect.contains(MOUSE_COORDS))
 		{
 			mTileMap->mapViewLocation(pt + DirectionSouth);
 		}
-		else if (MOVE_EAST_ICON.contains(MOUSE_COORDS))
+		else if (mMoveEastIconRect.contains(MOUSE_COORDS))
 		{
 			mTileMap->mapViewLocation(pt + DirectionEast);
 		}
-		else if (MOVE_WEST_ICON.contains(MOUSE_COORDS))
+		else if (mMoveWestIconRect.contains(MOUSE_COORDS))
 		{
 			mTileMap->mapViewLocation(pt + DirectionWest);
 		}
-		else if (MOVE_UP_ICON.contains(MOUSE_COORDS))
+		else if (mMoveUpIconRect.contains(MOUSE_COORDS))
 		{
 			changeViewDepth(mTileMap->currentDepth() - 1);
 		}
-		else if (MOVE_DOWN_ICON.contains(MOUSE_COORDS))
+		else if (mMoveDownIconRect.contains(MOUSE_COORDS))
 		{
 			changeViewDepth(mTileMap->currentDepth()+1);
 		}
