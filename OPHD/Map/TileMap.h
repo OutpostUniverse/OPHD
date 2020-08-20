@@ -29,6 +29,8 @@ public:
 
 
 	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility /*= constants::Hostility::None*/, bool setupMines = true);
+	TileMap(const TileMap&) = delete;
+	TileMap& operator=(const TileMap&) = delete;
 	~TileMap() override;
 
 	Tile* getTile(NAS2D::Point<int> position, int level);
@@ -95,9 +97,6 @@ protected:
 private:
 	using TileGrid = std::vector<std::vector<Tile> >;
 	using TileArray = std::vector<TileGrid>;
-	
-	TileMap(const TileMap&) = delete; /**< Not Allowed */
-	TileMap& operator=(const TileMap&) = delete; /**< Not allowed */
 
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
