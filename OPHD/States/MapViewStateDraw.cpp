@@ -18,16 +18,7 @@
 #include <algorithm>
 
 extern NAS2D::Rectangle<int> MENU_ICON;
-
-extern NAS2D::Rectangle<int> MOVE_NORTH_ICON;
-extern NAS2D::Rectangle<int> MOVE_SOUTH_ICON;
-extern NAS2D::Rectangle<int> MOVE_EAST_ICON;
-extern NAS2D::Rectangle<int> MOVE_WEST_ICON;
-extern NAS2D::Rectangle<int> MOVE_UP_ICON;
-extern NAS2D::Rectangle<int> MOVE_DOWN_ICON;
-
 extern NAS2D::Point<int> MOUSE_COORDS;
-
 extern const NAS2D::Font* MAIN_FONT; /// yuck
 
 

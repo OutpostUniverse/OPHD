@@ -28,6 +28,7 @@
 
 #include <NAS2D/Signal.h>
 #include <NAS2D/Renderer/Point.h>
+#include <NAS2D/Renderer/Rectangle.h>
 
 #include <string>
 #include <memory>
@@ -258,6 +259,13 @@ private:
 	WarehouseInspector mWarehouseInspector;
 
 	WindowStack mWindowStack;
+
+	NAS2D::Rectangle<int> MOVE_NORTH_ICON;
+	NAS2D::Rectangle<int> MOVE_SOUTH_ICON;
+	NAS2D::Rectangle<int> MOVE_EAST_ICON;
+	NAS2D::Rectangle<int> MOVE_WEST_ICON;
+	NAS2D::Rectangle<int> MOVE_UP_ICON;
+	NAS2D::Rectangle<int> MOVE_DOWN_ICON;
 
 	// SIGNALS
 	QuitCallback mQuitCallback;
