@@ -280,7 +280,7 @@ unsigned int ListBoxBase::currentSelection() const
  */
 void ListBoxBase::setSelection(unsigned int selection)
 {
-	mItems.empty() ? mCurrentSelection = constants::NO_SELECTION : mCurrentSelection = selection;
+	mCurrentSelection = mItems.empty() ? constants::NO_SELECTION : selection;
 	mSelectionChanged();
 }
 
