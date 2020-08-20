@@ -32,13 +32,13 @@ public:
 	* \enum	BorderVisiblity
 	* \brief	Enumerates border visibility options.
 	*
-	* \note	TextField defaults to a BorderVisibility::FOCUS_ONLY setting.
+	* \note	TextField defaults to a BorderVisibility::FocusOnly setting.
 	*/
 	enum class BorderVisibility
 	{
-		NEVER,
-		ALWAYS,
-		FOCUS_ONLY
+		Never,
+		Always,
+		FocusOnly
 	};
 
 public:
@@ -84,7 +84,7 @@ private:
 
 	std::size_t mMaxCharacters = 0; /**< Max number of characters allowed in the text field. */
 
-	BorderVisibility mBorderVisibility = BorderVisibility::FOCUS_ONLY; /**< Border visibility flag. */
+	BorderVisibility mBorderVisibility = BorderVisibility::FocusOnly; /**< Border visibility flag. */
 
 	bool mEditable = true; /**< Toggle editing of the field. */
 	bool mShowCursor = true; /**< Flag indicating whether or not to draw the cursor. */
