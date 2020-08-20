@@ -23,7 +23,7 @@ using namespace NAS2D;
  * C'tor
  */
 ListBox::ListBox() :
-	mFont{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
@@ -35,7 +35,7 @@ ListBox::ListBox() :
 	mSlider.change().connect(this, &ListBox::slideChanged);
 	_updateItemDisplay();
 
-	mLineHeight = (mFont->height() + 2);
+	mLineHeight = (mFont.height() + 2);
 	mLineCount = static_cast<int>(mRect.height / mLineHeight);
 	_updateItemDisplay();
 }
@@ -243,7 +243,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 	
-	mCurrentHighlight = (y - mRect.y + mCurrentOffset) / (mFont->height() + 2);
+	mCurrentHighlight = (y - mRect.y + mCurrentOffset) / (mFont.height() + 2);
 
 	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
 	{
@@ -307,7 +307,7 @@ void ListBox::update()
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
 		const auto textColor = (i == mCurrentHighlight) ? mHighlightText : mText;
-		renderer.drawTextShadow(*mFont, mItems[i].Text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
+		renderer.drawTextShadow(mFont, mItems[i].Text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 		textPosition.y += mLineHeight;
 	}
 

@@ -86,7 +86,7 @@ private:
 	void _updateItemDisplay();
 
 
-	const NAS2D::Font* mFont = nullptr;
+	const NAS2D::Font& mFont;
 
 	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
 	std::size_t mCurrentSelection = 0; /**< Current selection index. */
