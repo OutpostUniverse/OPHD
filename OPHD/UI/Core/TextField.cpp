@@ -23,11 +23,7 @@ using namespace NAS2D;
 
 
 static const int FIELD_PADDING = 4;
-
 static const int CURSOR_BLINK_DELAY = 250;
-
-static std::locale LOC;
-
 static const Font* TXT_FONT = nullptr;
 
 
@@ -143,7 +139,8 @@ void TextField::onTextInput(const std::string& newTextInput)
 
 	auto prvLen = text().length();
 
-	if (mNumbersOnly && !std::isdigit(newTextInput[0], LOC)) { return; }
+	std::locale locale;
+	if (mNumbersOnly && !std::isdigit(newTextInput[0], locale)) { return; }
 
 	mText = mText.insert(mCursorPosition, newTextInput);
 
