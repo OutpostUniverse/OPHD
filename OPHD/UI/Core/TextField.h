@@ -67,6 +67,9 @@ private:
 	void updateCursor();
 
 private:
+	const NAS2D::RectangleSkin mSkinNormal;
+	const NAS2D::RectangleSkin mSkinFocus;
+
 	NAS2D::Timer mCursorTimer; /**< Timer for the cursor blink. */
 
 	int mCursorPosition = 0; /**< Position of the Insertion Cursor. */
@@ -76,9 +79,6 @@ private:
 	std::size_t mMaxCharacters = 0; /**< Max number of characters allowed in the text field. */
 
 	BorderVisibility mBorderVisibility = BorderVisibility::FOCUS_ONLY; /**< Border visibility flag. */
-
-	NAS2D::RectangleSkin mSkinNormal;
-	NAS2D::RectangleSkin mSkinFocus;
 
 	bool mEditable = true; /**< Toggle editing of the field. */
 	bool mShowCursor = true; /**< Flag indicating whether or not to draw the cursor. */
