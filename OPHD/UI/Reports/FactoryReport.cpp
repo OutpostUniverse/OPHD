@@ -138,7 +138,6 @@ FactoryReport::FactoryReport() :
 
 FactoryReport::~FactoryReport()
 {
-	selectedFactory = nullptr;
 }
 
 
