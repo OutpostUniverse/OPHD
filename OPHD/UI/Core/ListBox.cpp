@@ -268,13 +268,13 @@ void ListBox::update()
 
 	// draw boundaries of the widget
 	NAS2D::Rectangle<int> listBounds = mRect;
-	listBounds.width = mItemWidth;
+	listBounds.width = static_cast<int>(mItemWidth);
 	renderer.drawBox(listBounds, NAS2D::Color{0, 0, 0, 100});
 	renderer.drawBoxFilled(listBounds, NAS2D::Color{0, 85, 0, 220});
 
 	// Highlight currently selected item
 	auto itemBounds = listBounds;
-	itemBounds.height = mLineHeight;
+	itemBounds.height = static_cast<int>(mLineHeight);
 	itemBounds.y += static_cast<int>((mCurrentSelection * mLineHeight) - mCurrentOffset);
 	renderer.drawBoxFilled(itemBounds, mHighlightBg.alphaFade(80));
 
@@ -282,7 +282,7 @@ void ListBox::update()
 	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
 		auto highlightBounds = listBounds;
-		highlightBounds.height = mLineHeight;
+		highlightBounds.height = static_cast<int>(mLineHeight);
 		highlightBounds.y += static_cast<int>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
 		renderer.drawBox(highlightBounds, mHighlightBg);
 	}
