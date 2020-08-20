@@ -138,11 +138,11 @@ void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y
 
 
 /**
- * Updates all Control's in the UIContainer.
+ * Updates all Controls in the UIContainer.
  * 
  * \note	This function can be overridden in derived types
  *			but if done, don't forget to update all contained
- *			Control's.
+ *			Controls.
  */
 void UIContainer::update()
 {
