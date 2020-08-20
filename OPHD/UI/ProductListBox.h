@@ -28,7 +28,5 @@ public:
 	void update() override;
 
 private:
-	void _init();
-
 	using ProductItemList = std::vector<ProductListBoxItem>;
 };

@@ -51,15 +51,6 @@ static void drawItem(Renderer& renderer, ProductListBox::ProductListBoxItem& ite
  */
 ProductListBox::ProductListBox()
 {
-	_init();
-}
-
-
-/**
- * 
- */
-void ProductListBox::_init()
-{
 	item_height(LIST_ITEM_HEIGHT);
 	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, 12);
 	MAIN_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 12);
