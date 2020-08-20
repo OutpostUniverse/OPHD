@@ -72,13 +72,14 @@ void ProductListBox::update()
 	const auto firstStop = static_cast<int>(item_width() * 0.33f);
 	const auto secondStop = static_cast<int>(item_width() * 0.66f);
 
+	const auto itemWidth = static_cast<int>(item_width());
+	const auto offset = static_cast<int>(draw_offset());
+	const auto x = positionX();
+
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
 		const auto& item = *static_cast<ProductListBoxItem*>(mItems[i]);
-		const auto x = positionX();
 		const auto y = positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT);
-		const auto itemWidth = static_cast<int>(item_width());
-		const auto offset = static_cast<int>(draw_offset());
 		const auto highlight = i == currentSelection();
 
 		// draw highlight rect so as not to tint/hue colors of everything else
