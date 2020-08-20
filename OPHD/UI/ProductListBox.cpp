@@ -74,7 +74,7 @@ void ProductListBox::update()
 		const auto y = positionY() + (static_cast<int>(i) * itemSize.y);
 		const auto highlight = i == currentSelection();
 
-		// draw highlight rect so as not to tint/hue colors of everything else
+		// Draw highlight rect so as not to tint/hue colors of everything else
 		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, itemSize.x, itemSize.y}, highlightColor); }
 
 		renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, itemSize.x - 4, itemSize.y - 4}, itemColor);
