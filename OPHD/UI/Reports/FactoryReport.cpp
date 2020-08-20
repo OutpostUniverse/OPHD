@@ -15,6 +15,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <map>
 #include <array>
 
 
@@ -22,7 +23,17 @@ using namespace NAS2D;
 
 
 namespace {
-	std::array<const Image*, ProductType::PRODUCT_COUNT> PRODUCT_IMAGE_ARRAY;
+	const std::map<ProductType, const Image*> productImages{
+		{ProductType::PRODUCT_DIGGER, &imageCache.load("ui/interface/product_robodigger.png")},
+		{ProductType::PRODUCT_DOZER, &imageCache.load("ui/interface/product_robodozer.png")},
+		{ProductType::PRODUCT_MINER, &imageCache.load("ui/interface/product_robominer.png")},
+		{ProductType::PRODUCT_EXPLORER, &imageCache.load("ui/interface/product_roboexplorer.png")},
+		{ProductType::PRODUCT_TRUCK, &imageCache.load("ui/interface/product_truck.png")},
+		{ProductType::PRODUCT_ROAD_MATERIALS, &imageCache.load("ui/interface/product_road_materials.png")},
+		{ProductType::PRODUCT_MAINTENANCE_PARTS, &imageCache.load("ui/interface/product_maintenance_parts.png")},
+		{ProductType::PRODUCT_CLOTHING, &imageCache.load("ui/interface/product_clothing.png")},
+		{ProductType::PRODUCT_MEDICINE, &imageCache.load("ui/interface/product_medicine.png")}
+	};
 }
 
 
@@ -45,18 +56,6 @@ FactoryReport::FactoryReport() :
 	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE},
 	btnApply{"Apply"}
 {
-	/// \todo Decide if this is the best place to have these images live or if it should be done at program start.
-	PRODUCT_IMAGE_ARRAY.fill(nullptr);
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DIGGER] = &imageCache.load("ui/interface/product_robodigger.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_DOZER] = &imageCache.load("ui/interface/product_robodozer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MINER] = &imageCache.load("ui/interface/product_robominer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_EXPLORER] = &imageCache.load("ui/interface/product_roboexplorer.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_TRUCK] = &imageCache.load("ui/interface/product_truck.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_ROAD_MATERIALS] = &imageCache.load("ui/interface/product_road_materials.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MAINTENANCE_PARTS] = &imageCache.load("ui/interface/product_maintenance_parts.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_CLOTHING] = &imageCache.load("ui/interface/product_clothing.png");
-	PRODUCT_IMAGE_ARRAY[ProductType::PRODUCT_MEDICINE] = &imageCache.load("ui/interface/product_medicine.png");
-
 	add(&lstFactoryList, 10, 63);
 	lstFactoryList.selectionChanged().connect(this, &FactoryReport::lstFactoryListSelectionChanged);
 
@@ -499,7 +498,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
 		renderer.drawText(fontBigBold, productDescription(selectedProductType), NAS2D::Point{position_x, detailPanelRect.y + 180}, textColor);
-		renderer.drawImage(*PRODUCT_IMAGE_ARRAY[static_cast<std::size_t>(selectedProductType)], NAS2D::Point{position_x, lstProducts.positionY()});
+		renderer.drawImage(*productImages.at(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
 		txtProductDescription.update();
 	}
 
