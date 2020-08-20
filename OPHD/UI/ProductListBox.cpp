@@ -15,8 +15,6 @@ using namespace NAS2D;
 
 
 namespace {
-	constexpr int LIST_ITEM_HEIGHT = 30;
-
 	const Font* MAIN_FONT = nullptr;
 	const Font* MAIN_FONT_BOLD = nullptr;
 }
@@ -24,7 +22,7 @@ namespace {
 
 ProductListBox::ProductListBox()
 {
-	item_height(LIST_ITEM_HEIGHT);
+	item_height(30);
 	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, 12);
 	MAIN_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 12);
 }
