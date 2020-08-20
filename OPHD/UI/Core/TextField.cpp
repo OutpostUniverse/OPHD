@@ -27,6 +27,7 @@ static const int CURSOR_BLINK_DELAY = 250;
 
 
 TextField::TextField() :
+	mFont{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mSkinNormal{
 		imageCache.load("ui/skin/textbox_top_left.png"),
 		imageCache.load("ui/skin/textbox_top_middle.png"),
@@ -57,7 +58,6 @@ TextField::TextField() :
 	hasFocus(true);
 	Utility<EventHandler>::get().textInputMode(true);
 
-	mFont = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	height(mFont->height() + FIELD_PADDING * 2);
 }
 
