@@ -69,11 +69,11 @@ void ProductListBox::update()
 
 	renderer.clipRect(mRect);
 
-	constexpr Color ITEM_COLOR{0, 185, 0};
-	constexpr Color HIGHLIGHT_COLOR{0, 185, 0, 75};
+	constexpr Color itemColor{0, 185, 0};
+	constexpr Color highlightColor{0, 185, 0, 75};
 
-	const auto FIRST_STOP = static_cast<int>(item_width() * 0.33f);
-	const auto SECOND_STOP = static_cast<int>(item_width() * 0.66f);
+	const auto firstStop = static_cast<int>(item_width() * 0.33f);
+	const auto secondStop = static_cast<int>(item_width() * 0.66f);
 
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
@@ -85,18 +85,18 @@ void ProductListBox::update()
 		const auto highlight = i == currentSelection();
 
 		// draw highlight rect so as not to tint/hue colors of everything else
-		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, w, LIST_ITEM_HEIGHT}, HIGHLIGHT_COLOR); }
+		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, w, LIST_ITEM_HEIGHT}, highlightColor); }
 
-		renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, ITEM_COLOR);
+		renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, itemColor);
 
-		renderer.drawLine(NAS2D::Point{x + FIRST_STOP, y + 2}, NAS2D::Point{x + FIRST_STOP, y + LIST_ITEM_HEIGHT - 2}, ITEM_COLOR);
-		renderer.drawLine(NAS2D::Point{x + SECOND_STOP, y + 2}, NAS2D::Point{x + SECOND_STOP, y + LIST_ITEM_HEIGHT - 2}, ITEM_COLOR);
+		renderer.drawLine(NAS2D::Point{x + firstStop, y + 2}, NAS2D::Point{x + firstStop, y + LIST_ITEM_HEIGHT - 2}, itemColor);
+		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + LIST_ITEM_HEIGHT - 2}, itemColor);
 
-		renderer.drawText(*MAIN_FONT_BOLD, item.Text, NAS2D::Point{x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, ITEM_COLOR);
+		renderer.drawText(*MAIN_FONT_BOLD, item.Text, NAS2D::Point{x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, itemColor);
 
-		renderer.drawText(*MAIN_FONT, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + FIRST_STOP + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2)}, ITEM_COLOR);
+		renderer.drawText(*MAIN_FONT, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + firstStop + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2)}, itemColor);
 
-		drawBasicProgressBar(x + SECOND_STOP + 5, y + 10, FIRST_STOP - 10, 10, item.usage, 2);
+		drawBasicProgressBar(x + secondStop + 5, y + 10, firstStop - 10, 10, item.usage, 2);
 	}
 
 	renderer.clipRectClear();
