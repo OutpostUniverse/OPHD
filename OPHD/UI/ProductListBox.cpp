@@ -75,10 +75,12 @@ void ProductListBox::update()
 		// Draw highlight rect so as not to tint/hue colors of everything else
 		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, itemSize.x, itemSize.y}, highlightColor); }
 
+		// Draw item borders and column breaks
 		renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, itemSize.x - 4, itemSize.y - 4}, itemColor);
 		renderer.drawLine(NAS2D::Point{x + firstStop, y + 2}, NAS2D::Point{x + firstStop, y + itemSize.y - 2}, itemColor);
 		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + itemSize.y - 2}, itemColor);
 
+		// Draw item column contents
 		renderer.drawText(mFontBold, item.Text, NAS2D::Point{x + 5, ((y + 15) - mFontBold.height() / 2) - offset}, itemColor);
 		renderer.drawText(mFont, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + firstStop + 5, ((y + 15) - mFontBold.height() / 2)}, itemColor);
 		drawBasicProgressBar(x + secondStop + 5, y + 10, firstStop - 10, 10, item.usage, 2);
