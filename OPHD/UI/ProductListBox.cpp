@@ -14,14 +14,14 @@
 using namespace NAS2D;
 
 
-const int LIST_ITEM_HEIGHT = 30;
+constexpr int LIST_ITEM_HEIGHT = 30;
 
 static const Font* MAIN_FONT = nullptr;
 static const Font* MAIN_FONT_BOLD = nullptr;
 
 
-static Color ITEM_COLOR{0, 185, 0};
-static Color HIGHLIGHT_COLOR{0, 185, 0, 75};
+static constexpr Color ITEM_COLOR{0, 185, 0};
+static constexpr Color HIGHLIGHT_COLOR{0, 185, 0, 75};
 
 
 static int FIRST_STOP = 0;
