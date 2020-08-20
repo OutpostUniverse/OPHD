@@ -32,8 +32,8 @@ ListBox::ListBox() :
 	mSlider.change().connect(this, &ListBox::slideChanged);
 	_updateItemDisplay();
 
-	mLineHeight = (mFont.height() + 2);
-	mLineCount = static_cast<int>(mRect.height / mLineHeight);
+	mLineHeight = static_cast<unsigned int>(mFont.height() + 2);
+	mLineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
 	_updateItemDisplay();
 }
 
