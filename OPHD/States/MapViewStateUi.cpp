@@ -129,7 +129,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	// Menu / System Icon
 	const auto menuIconSpacing = constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2;
-	MENU_ICON = {size.x - menuIconSpacing, 0, menuIconSpacing, menuIconSpacing};
+	mMenuIconRect = {size.x - menuIconSpacing, 0, menuIconSpacing, menuIconSpacing};
 
 	// NAVIGATION BUTTONS
 	// Bottom line

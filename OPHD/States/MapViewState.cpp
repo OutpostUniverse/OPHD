@@ -484,7 +484,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 
 		Point<int> pt = mTileMap->mapViewLocation();
 
-		if (MENU_ICON.contains(MOUSE_COORDS))
+		if (mMenuIconRect.contains(MOUSE_COORDS))
 		{
 			mGameOptionsDialog.show();
 			resetUi();
