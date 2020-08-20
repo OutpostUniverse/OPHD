@@ -19,9 +19,6 @@
 using namespace NAS2D;
 
 
-/**
- * C'tor
- */
 ListBox::ListBox() :
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
 {
@@ -41,9 +38,6 @@ ListBox::ListBox() :
 }
 
 
-/**
- * D'tor
- */
 ListBox::~ListBox()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBox::onMouseDown);
@@ -101,9 +95,6 @@ bool ListBox::empty() const
 }
 
 
-/**
- *
- */
 const std::string& ListBox::selectionText() const
 {
 	if (mCurrentSelection == constants::NO_SELECTION) { return constants::EMPTY_STR; }
@@ -111,9 +102,6 @@ const std::string& ListBox::selectionText() const
 }
 
 
-/**
- *
- */
 int ListBox::selectionTag() const
 {
 	if (mCurrentSelection == constants::NO_SELECTION) { return 0; }
@@ -167,9 +155,6 @@ bool ListBox::itemExists(const std::string& item)
 }
 
 
-/**
- * 
- */
 void ListBox::setSelectionByName(const std::string& item)
 {
 	for (std::size_t i = 0; i < mItems.size(); i++)
