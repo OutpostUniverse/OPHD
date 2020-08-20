@@ -27,7 +27,7 @@ static const int CURSOR_BLINK_DELAY = 250;
 
 
 TextField::TextField() :
-	mFont{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mSkinNormal{
 		imageCache.load("ui/skin/textbox_top_left.png"),
 		imageCache.load("ui/skin/textbox_top_middle.png"),
@@ -58,7 +58,7 @@ TextField::TextField() :
 	hasFocus(true);
 	Utility<EventHandler>::get().textInputMode(true);
 
-	height(mFont->height() + FIELD_PADDING * 2);
+	height(mFont.height() + FIELD_PADDING * 2);
 }
 
 
@@ -230,7 +230,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
-	if(mFont->width(text()) < relativePosition)
+	if(mFont.width(text()) < relativePosition)
 	{
 		mCursorPosition = static_cast<int>(text().size());
 		return;
@@ -242,7 +242,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 	while(static_cast<std::size_t>(i) <= text().size() - mScrollOffset)
 	{
 		std::string cmpStr = text().substr(mScrollOffset, i);
-		int strLen = mFont->width(cmpStr);
+		int strLen = mFont.width(cmpStr);
 		if(strLen > relativePosition)
 		{
 			mCursorPosition = i - 1;
@@ -283,7 +283,7 @@ void TextField::drawCursor()
 
 void TextField::updateCursor()
 {
-	int cursorX = mFont->width(text().substr(0, mCursorPosition));
+	int cursorX = mFont.width(text().substr(0, mCursorPosition));
 
 	// Check if cursor is after visible area
 	if (mScrollOffset <= cursorX - textAreaWidth())
@@ -320,5 +320,5 @@ void TextField::update()
 
 	drawCursor();
 
-	renderer.drawText(*mFont, text(), position() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING}, NAS2D::Color::White);
+	renderer.drawText(mFont, text(), position() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING}, NAS2D::Color::White);
 }
