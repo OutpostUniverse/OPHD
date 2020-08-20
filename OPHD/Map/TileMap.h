@@ -16,9 +16,6 @@ using Point2dList = std::vector<NAS2D::Point<int>>;
 class TileMap: public micropather::Graph
 {
 public:
-	/**
-	 * 
-	 */
 	enum TileMapLevel
 	{
 		LEVEL_SURFACE = 0,
@@ -82,9 +79,6 @@ public:
 	void pathStartAndEnd(void* start, void* end);
 
 protected:
-	/**
-	 * 
-	 */
 	enum MouseMapRegion
 	{
 		MMR_MIDDLE,
