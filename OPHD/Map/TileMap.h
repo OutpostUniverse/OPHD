@@ -27,7 +27,7 @@ public:
 		LEVEL_UG_4
 	};
 
-public:
+
 	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility /*= constants::Hostility::None*/, bool setupMines = true);
 	~TileMap() override;
 
@@ -72,7 +72,7 @@ public:
 	void serialize(NAS2D::Xml::XmlElement* element, const Planet::Attributes& planetAttributes);
 	void deserialize(NAS2D::Xml::XmlElement* element);
 
-public:
+
 	/** MicroPather public interface implementation. */
 	float LeastCostEstimate(void* stateStart, void* stateEnd) override;
 	void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent) override;
@@ -96,11 +96,9 @@ private:
 	using TileGrid = std::vector<std::vector<Tile> >;
 	using TileArray = std::vector<TileGrid>;
 	
-private:
 	TileMap(const TileMap&) = delete; /**< Not Allowed */
 	TileMap& operator=(const TileMap&) = delete; /**< Not allowed */
 
-private:
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
 	void setupMines(int, Planet::Hostility);
@@ -109,7 +107,7 @@ private:
 
 	MouseMapRegion getMouseMapRegion(int x, int y);
 
-private:
+
 	int mEdgeLength = 0;
 	const NAS2D::Vector<int> mSizeInTiles;
 
