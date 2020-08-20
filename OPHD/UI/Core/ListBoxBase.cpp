@@ -83,7 +83,7 @@ void ListBoxBase::_update_item_display()
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(mItemHeight * mItems.size() - mRect.height));
+			mSlider.length(static_cast<float>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
 			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
 			mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
 			mSlider.visible(true);
