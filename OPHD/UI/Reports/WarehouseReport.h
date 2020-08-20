@@ -33,9 +33,11 @@ public:
 	void update() override;
 
 private:
-	void _resized(Control*);
+	void computeTotalWarehouseCapacity();
 
 	void _fillListFromStructureList(StructureList&);
+
+	void _resized(Control*);
 
 	void btnShowAllClicked();
 	void btnSpaceAvailableClicked();
@@ -77,4 +79,8 @@ private:
 
 	StructureListBox lstStructures;
 	ProductListBox lstProducts;
+
+	std::size_t warehouseCount;
+	int warehouseCapacityTotal;
+	float warehouseCapacityPercent = 0.0f;
 };

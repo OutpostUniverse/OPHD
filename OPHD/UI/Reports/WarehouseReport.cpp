@@ -17,39 +17,6 @@
 using namespace NAS2D;
 
 
-namespace {
-	static float CAPACITY_PERCENT = 0.0f;
-
-	static std::string WH_COUNT;
-	static std::string WH_CAPACITY;
-
-
-	static void computeTotalWarehouseCapacity()
-	{
-		int capacityTotal = 0;
-		int capacityAvailable = 0;
-
-		const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-		for (auto warehouseStructure : structures)
-		{
-			if (warehouseStructure->operational())
-			{
-				const auto& warehouseProducts = static_cast<Warehouse*>(warehouseStructure)->products();
-				capacityAvailable += warehouseProducts.availableStorage();
-				capacityTotal += warehouseProducts.capacity();
-			}
-		}
-
-		int capacityUsed = capacityTotal - capacityAvailable;
-
-		WH_COUNT = std::to_string(structures.size());
-		WH_CAPACITY = std::to_string(capacityTotal);
-
-		CAPACITY_PERCENT = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
-	}
-}
-
-
 WarehouseReport::WarehouseReport() :
 	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
 	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
@@ -111,6 +78,30 @@ WarehouseReport::WarehouseReport() :
 WarehouseReport::~WarehouseReport()
 {
 	Control::resized().disconnect(this, &WarehouseReport::_resized);
+}
+
+
+void WarehouseReport::computeTotalWarehouseCapacity()
+{
+	int capacityTotal = 0;
+	int capacityAvailable = 0;
+
+	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouseStructure : structures)
+	{
+		if (warehouseStructure->operational())
+		{
+			const auto& warehouseProducts = static_cast<Warehouse*>(warehouseStructure)->products();
+			capacityAvailable += warehouseProducts.availableStorage();
+			capacityTotal += warehouseProducts.capacity();
+		}
+	}
+
+	int capacityUsed = capacityTotal - capacityAvailable;
+
+	warehouseCount = structures.size();
+	warehouseCapacityTotal = capacityTotal;
+	warehouseCapacityPercent = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
 }
 
 
@@ -354,17 +345,17 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, positionY() + 62}, textColor);
 	renderer.drawText(fontMediumBold, "Capacity Used", NAS2D::Point{10, positionY() + 84}, textColor);
 
-	const auto countTextWidth = fontMedium.width(WH_COUNT);
-	const auto capacityTextWidth = fontMedium.width(WH_CAPACITY);
-
-	renderer.drawText(fontMedium, WH_COUNT, NAS2D::Point{mRect.width / 2 - 10 - countTextWidth, positionY() + 35}, textColor);
-	renderer.drawText(fontMedium, WH_CAPACITY, NAS2D::Point{mRect.width / 2 - 10 - capacityTextWidth, positionY() + 57}, textColor);
+	const auto warehouseCountText = std::to_string(warehouseCount);
+	const auto warehouseCapacityText = std::to_string(warehouseCapacityTotal);
+	const auto countTextWidth = fontMedium.width(warehouseCountText);
+	const auto capacityTextWidth = fontMedium.width(warehouseCapacityText);
+	renderer.drawText(fontMedium, warehouseCountText, NAS2D::Point{mRect.width / 2 - 10 - countTextWidth, positionY() + 35}, textColor);
+	renderer.drawText(fontMedium, warehouseCapacityText, NAS2D::Point{mRect.width / 2 - 10 - capacityTextWidth, positionY() + 57}, textColor);
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
 	const auto capacityBarWidth = mRect.width / 2 - 30 - capacityUsedTextWidth;
 	const auto capacityBarPositionX = 20 + capacityUsedTextWidth;
-
-	drawBasicProgressBar(capacityBarPositionX, positionY() + 84, capacityBarWidth, 20, CAPACITY_PERCENT);
+	drawBasicProgressBar(capacityBarPositionX, positionY() + 84, capacityBarWidth, 20, warehouseCapacityPercent);
 }
 
 
