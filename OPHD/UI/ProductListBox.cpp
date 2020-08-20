@@ -30,24 +30,6 @@ namespace {
 }
 
 
-static void drawItem(Renderer& renderer, ProductListBox::ProductListBoxItem& item, int x, int y, int w, int offset, bool highlight)
-{
-	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, w, LIST_ITEM_HEIGHT}, HIGHLIGHT_COLOR); }
-
-	renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, ITEM_COLOR);
-
-	renderer.drawLine(NAS2D::Point{x + FIRST_STOP, y + 2}, NAS2D::Point{x + FIRST_STOP, y + LIST_ITEM_HEIGHT - 2}, ITEM_COLOR);
-	renderer.drawLine(NAS2D::Point{x + SECOND_STOP, y + 2}, NAS2D::Point{x + SECOND_STOP, y + LIST_ITEM_HEIGHT - 2}, ITEM_COLOR);
-
-	renderer.drawText(*MAIN_FONT_BOLD, item.Text, NAS2D::Point{x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, ITEM_COLOR);
-
-	renderer.drawText(*MAIN_FONT, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + FIRST_STOP + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2)}, ITEM_COLOR);
-	
-	drawBasicProgressBar(x + SECOND_STOP + 5, y + 10, FIRST_STOP - 10, 10, item.usage, 2);
-}
-
-
 /**
  * C'tor
  */
@@ -100,12 +82,26 @@ void ProductListBox::update()
 
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
-		drawItem(renderer, *static_cast<ProductListBoxItem*>(mItems[i]),
-			positionX(),
-			positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT),
-			item_width(),
-			draw_offset(),
-			i == currentSelection());
+		const auto& item = *static_cast<ProductListBoxItem*>(mItems[i]);
+		const auto x = positionX();
+		const auto y = positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT);
+		const auto w = static_cast<int>(item_width());
+		const auto offset = static_cast<int>(draw_offset());
+		const auto highlight = i == currentSelection();
+
+		// draw highlight rect so as not to tint/hue colors of everything else
+		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, w, LIST_ITEM_HEIGHT}, HIGHLIGHT_COLOR); }
+
+		renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, ITEM_COLOR);
+
+		renderer.drawLine(NAS2D::Point{x + FIRST_STOP, y + 2}, NAS2D::Point{x + FIRST_STOP, y + LIST_ITEM_HEIGHT - 2}, ITEM_COLOR);
+		renderer.drawLine(NAS2D::Point{x + SECOND_STOP, y + 2}, NAS2D::Point{x + SECOND_STOP, y + LIST_ITEM_HEIGHT - 2}, ITEM_COLOR);
+
+		renderer.drawText(*MAIN_FONT_BOLD, item.Text, NAS2D::Point{x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, ITEM_COLOR);
+
+		renderer.drawText(*MAIN_FONT, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + FIRST_STOP + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2)}, ITEM_COLOR);
+
+		drawBasicProgressBar(x + SECOND_STOP + 5, y + 10, FIRST_STOP - 10, 10, item.usage, 2);
 	}
 
 	renderer.clipRectClear();
