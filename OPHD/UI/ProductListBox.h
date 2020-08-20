@@ -26,7 +26,4 @@ public:
 	void productPool(ProductPool&);
 
 	void update() override;
-
-private:
-	using ProductItemList = std::vector<ProductListBoxItem>;
 };
