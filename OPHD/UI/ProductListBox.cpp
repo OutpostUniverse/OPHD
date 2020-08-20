@@ -72,24 +72,23 @@ void ProductListBox::update()
 	const auto firstStop = static_cast<int>(item_width() * 0.33f);
 	const auto secondStop = static_cast<int>(item_width() * 0.66f);
 
-	const auto itemWidth = static_cast<int>(item_width());
-	const auto itemHeight = static_cast<int>(item_width());
+	const auto itemSize = NAS2D::Vector{item_width(), item_height()}.to<int>();
 	const auto offset = static_cast<int>(draw_offset());
 	const auto x = positionX();
 
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
 		const auto& item = *static_cast<ProductListBoxItem*>(mItems[i]);
-		const auto y = positionY() + (static_cast<int>(i) * itemHeight);
+		const auto y = positionY() + (static_cast<int>(i) * itemSize.y);
 		const auto highlight = i == currentSelection();
 
 		// draw highlight rect so as not to tint/hue colors of everything else
-		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, itemWidth, itemHeight}, highlightColor); }
+		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, itemSize.x, itemSize.y}, highlightColor); }
 
-		renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, itemWidth - 4, itemHeight - 4}, itemColor);
+		renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, itemSize.x - 4, itemSize.y - 4}, itemColor);
 
-		renderer.drawLine(NAS2D::Point{x + firstStop, y + 2}, NAS2D::Point{x + firstStop, y + itemHeight - 2}, itemColor);
-		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + itemHeight - 2}, itemColor);
+		renderer.drawLine(NAS2D::Point{x + firstStop, y + 2}, NAS2D::Point{x + firstStop, y + itemSize.y - 2}, itemColor);
+		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + itemSize.y - 2}, itemColor);
 
 		renderer.drawText(*MAIN_FONT_BOLD, item.Text, NAS2D::Point{x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, itemColor);
 
