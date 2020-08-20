@@ -19,14 +19,6 @@ namespace {
 
 	const Font* MAIN_FONT = nullptr;
 	const Font* MAIN_FONT_BOLD = nullptr;
-
-
-	constexpr Color ITEM_COLOR{0, 185, 0};
-	constexpr Color HIGHLIGHT_COLOR{0, 185, 0, 75};
-
-
-	int FIRST_STOP = 0;
-	int SECOND_STOP = 0;
 }
 
 
@@ -77,8 +69,11 @@ void ProductListBox::update()
 
 	renderer.clipRect(mRect);
 
-	FIRST_STOP = static_cast<int>(item_width() * 0.33f);
-	SECOND_STOP = static_cast<int>(item_width() * 0.66f);
+	constexpr Color ITEM_COLOR{0, 185, 0};
+	constexpr Color HIGHLIGHT_COLOR{0, 185, 0, 75};
+
+	const auto FIRST_STOP = static_cast<int>(item_width() * 0.33f);
+	const auto SECOND_STOP = static_cast<int>(item_width() * 0.66f);
 
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
