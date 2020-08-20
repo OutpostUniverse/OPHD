@@ -75,7 +75,7 @@ void ListBoxBase::_update_item_display()
 {
 	mItemWidth = mRect.width;
 
-	if ((mItemHeight * mItems.size()) > static_cast<std::size_t>(mRect.height))
+	if ((mItemHeight * static_cast<int>(mItems.size())) > mRect.height)
 	{
 		mLineCount = mRect.height / mItemHeight;
 
