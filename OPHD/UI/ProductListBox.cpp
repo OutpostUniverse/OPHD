@@ -61,10 +61,9 @@ void ProductListBox::update()
 	constexpr Color itemColor{0, 185, 0};
 	constexpr Color highlightColor{0, 185, 0, 75};
 
-	const auto firstStop = static_cast<int>(item_width() * 0.33f);
-	const auto secondStop = static_cast<int>(item_width() * 0.66f);
-
 	const auto itemSize = NAS2D::Vector{item_width(), item_height()}.to<int>();
+	const auto firstStop = itemSize.x / 3;
+	const auto secondStop = itemSize.x * 2 / 3;;
 	const auto offset = static_cast<int>(draw_offset());
 	const auto x = positionX();
 
