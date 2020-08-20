@@ -84,7 +84,6 @@ private:
 	void onSizeChanged() override;
 
 	void _updateItemDisplay();
-	void _init();
 
 
 	const NAS2D::Font* LST_FONT = nullptr;

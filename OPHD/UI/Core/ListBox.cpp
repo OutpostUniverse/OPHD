@@ -24,28 +24,6 @@ using namespace NAS2D;
  */
 ListBox::ListBox()
 {
-	_init();
-}
-
-
-/**
- * D'tor
- */
-ListBox::~ListBox()
-{
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBox::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &ListBox::onMouseMove);
-	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ListBox::onMouseWheel);
-
-	mSlider.change().disconnect(this, &ListBox::slideChanged);
-}
-
-
-/**
-*
-*/
-void ListBox::_init()
-{
 	LST_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
@@ -61,6 +39,19 @@ void ListBox::_init()
 	mLineHeight = (LST_FONT->height() + 2);
 	mLineCount = static_cast<int>(mRect.height / mLineHeight);
 	_updateItemDisplay();
+}
+
+
+/**
+ * D'tor
+ */
+ListBox::~ListBox()
+{
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBox::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &ListBox::onMouseMove);
+	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ListBox::onMouseWheel);
+
+	mSlider.change().disconnect(this, &ListBox::slideChanged);
 }
 
 
