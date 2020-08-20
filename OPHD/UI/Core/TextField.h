@@ -11,7 +11,6 @@
 
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Timer.h>
-#include <NAS2D/Resources/Image.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 
@@ -21,7 +20,6 @@
  *
  * The Field Control is just a set of rendered text a user can enter.
  */
-
 class TextField: public Control
 {
 public:
