@@ -135,12 +135,11 @@ bool TileMap::isValidPosition(NAS2D::Point<int> position, int level) const
 
 Tile* TileMap::getTile(NAS2D::Point<int> position, int level)
 {
-	if (isValidPosition(position, level))
+	if (!isValidPosition(position, level))
 	{
-		return &mTileMap[level][position.y][position.x];
+		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.x) + ", " + std::to_string(position.y) + ", " + std::to_string(level) + "}");
 	}
-
-	return nullptr;
+	return &mTileMap[level][position.y][position.x];
 }
 
 
