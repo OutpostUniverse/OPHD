@@ -139,7 +139,8 @@ Tile* TileMap::getTile(NAS2D::Point<int> position, int level)
 	{
 		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.x) + ", " + std::to_string(position.y) + ", " + std::to_string(level) + "}");
 	}
-	return &mTileMap[level][position.y][position.x];
+	const auto mapPosition = position.to<std::size_t>();
+	return &mTileMap[static_cast<std::size_t>(level)][mapPosition.y][mapPosition.x];
 }
 
 
