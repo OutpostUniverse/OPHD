@@ -624,18 +624,18 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 			continue;
 		}
 
-		Tile* adjacentTile = getTile(position, 0);
+		auto& adjacentTile = *getTile(position, 0);
 		float cost = constants::ROUTE_BASE_COST;
 
-		if (adjacentTile->index() == TerrainType::TERRAIN_IMPASSABLE)
+		if (adjacentTile.index() == TerrainType::TERRAIN_IMPASSABLE)
 		{
 			cost = FLT_MAX;
 		}
-		else if (!adjacentTile->empty())
+		else if (!adjacentTile.empty())
 		{
-			if (adjacentTile == mPathStartEndPair.first || adjacentTile == mPathStartEndPair.second)
+			if (&adjacentTile == mPathStartEndPair.first || &adjacentTile == mPathStartEndPair.second)
 			{
-				cost *= static_cast<float>(adjacentTile->index()) + 1.0f;
+				cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
 			}
 			else
 			{
@@ -644,10 +644,10 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		}
 		else
 		{
-			cost *= static_cast<float>(adjacentTile->index()) + 1.0f;
+			cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
 		}
 
-		micropather::StateCost nodeCost = { adjacentTile, cost };
+		micropather::StateCost nodeCost = { &adjacentTile, cost };
 		adjacent->push_back(nodeCost);
 	}
 }
