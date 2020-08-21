@@ -613,9 +613,8 @@ float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
 
 void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent)
 {
-	Tile* tile = static_cast<Tile*>(state);
-
-	const auto tilePosition = tile->position();
+	Tile& tile = *static_cast<Tile*>(state);
+	const auto tilePosition = tile.position();
 
 	for (const auto& offset : DirectionClockwise4)
 	{
