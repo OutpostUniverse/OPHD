@@ -436,17 +436,17 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		if (!mTileMap->tileHighlightVisible()) { return; }
 		if (!mTileMap->isValidPosition(mTileMap->tileMouseHover())) { return; }
 
-		Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover());
-		if (_t->empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
+		Tile* tile = mTileMap->getTile(mTileMap->tileMouseHover());
+		if (tile->empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
 			clearSelections();
-			mTileInspector.tile(_t);
+			mTileInspector.tile(tile);
 			mTileInspector.show();
 			mWindowStack.bringToFront(&mTileInspector);
 		}
-		else if (_t->thingIsStructure())
+		else if (tile->thingIsStructure())
 		{
-			Structure* structure = _t->structure();
+			Structure* structure = tile->structure();
 
 			if (structure->isFactory() && (structure->operational() || structure->isIdle()))
 			{
@@ -556,10 +556,10 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 		if (!mTileMap->tileHighlightVisible()) { return; }
 		if (!mTileMap->isValidPosition(mTileMap->tileMouseHover())) { return; }
 
-		Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover());
-		if (_t->thingIsStructure())
+		Tile* tile = mTileMap->getTile(mTileMap->tileMouseHover());
+		if (tile->thingIsStructure())
 		{
-			Structure* structure = _t->structure();
+			Structure* structure = tile->structure();
 
 			if (structure->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(structure); }
 			else if (structure->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(structure); }
@@ -839,8 +839,8 @@ void MapViewState::placeRobot()
 			tile->pushMine(nullptr);
 			for (std::size_t i = 0; i <= static_cast<std::size_t>(mTileMap->maxDepth()); ++i)
 			{
-				Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover(), static_cast<int>(i));
-				Utility<StructureManager>::get().removeStructure(_t->structure());
+				Tile* mineShaftTile = mTileMap->getTile(mTileMap->tileMouseHover(), static_cast<int>(i));
+				Utility<StructureManager>::get().removeStructure(mineShaftTile->structure());
 			}
 		}
 		else if (tile->thingIsStructure())
