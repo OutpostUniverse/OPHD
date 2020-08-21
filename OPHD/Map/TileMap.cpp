@@ -155,13 +155,14 @@ void TileMap::buildTerrainMap(const std::string& path)
 
 	const Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
-	mTileMap.resize(static_cast<std::size_t>(mMaxDepth) + 1);
-	for(int level = 0; level <= mMaxDepth; level++)
+	const auto levelCount = static_cast<std::size_t>(mMaxDepth) + 1;
+	mTileMap.resize(levelCount);
+	for(std::size_t level = 0; level < levelCount; level++)
 	{
-		mTileMap[level].resize(mSizeInTiles.y);
+		mTileMap[level].resize(static_cast<std::size_t>(mSizeInTiles.y));
 		for (std::size_t i = 0; i < mTileMap[level].size(); i++)
 		{
-			mTileMap[level][i].resize(mSizeInTiles.x);
+			mTileMap[level][i].resize(static_cast<std::size_t>(mSizeInTiles.x));
 		}
 	}
 
