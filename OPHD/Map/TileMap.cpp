@@ -537,8 +537,9 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		Mine* m = new Mine();
 		m->deserialize(mine->toElement());
 
-		mTileMap[0][y][x].pushMine(m);
-		mTileMap[0][y][x].index(TerrainType::TERRAIN_DOZED);
+		auto& tile = *getTile({x, y}, 0);
+		tile.pushMine(m);
+		tile.index(TerrainType::TERRAIN_DOZED);
 
 		mMineLocations.push_back(Point{x, y});
 
@@ -562,9 +563,10 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 			attribute = attribute->next();
 		}
 
-		mTileMap[depth][y][x].index(static_cast<TerrainType>(index));
+		auto& tile = *getTile({x, y}, depth);
+		tile.index(static_cast<TerrainType>(index));
 
-		if (depth > 0) { mTileMap[depth][y][x].excavated(true); }
+		if (depth > 0) { tile.excavated(true); }
 	}
 }
 
