@@ -135,7 +135,7 @@ bool TileMap::isValidPosition(NAS2D::Point<int> position, int level) const
 
 Tile* TileMap::getTile(NAS2D::Point<int> position, int level)
 {
-	if (NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position) && level >= 0 && level <= mMaxDepth)
+	if (isValidPosition(position, level))
 	{
 		return &mTileMap[level][position.y][position.x];
 	}
