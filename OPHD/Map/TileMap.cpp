@@ -487,14 +487,13 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element, const Planet::Attribute
 
 	// We're only writing out tiles that don't have structures or robots in them that are
 	// underground and excavated or surface and bulldozed.
-	Tile* tile = nullptr;
 	for (int depth = 0; depth <= maxDepth(); ++depth)
 	{
 		for (int y = 0; y < mSizeInTiles.y; ++y)
 		{
 			for (int x = 0; x < mSizeInTiles.x; ++x)
 			{
-				tile = getTile({x, y}, depth);
+				auto* tile = getTile({x, y}, depth);
 				if (depth > 0 && tile->excavated() && tile->empty() && tile->mine() == nullptr)
 				{
 					serializeTile(tiles, x, y, depth, tile->index());
