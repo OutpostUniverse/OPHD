@@ -617,7 +617,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		Tile* adjacent_tile = getTile(position, 0);
 		float cost = constants::ROUTE_BASE_COST;
 
-		if (!adjacent_tile || adjacent_tile->index() == TerrainType::TERRAIN_IMPASSABLE)
+		if (adjacent_tile->index() == TerrainType::TERRAIN_IMPASSABLE)
 		{
 			cost = FLT_MAX;
 		}
