@@ -608,7 +608,13 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 
 	for (const auto& offset : DirectionClockwise4)
 	{
-		Tile* adjacent_tile = getTile(tilePosition + offset, 0);
+		const auto position = tilePosition + offset;
+		if (!NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position))
+		{
+			continue;
+		}
+
+		Tile* adjacent_tile = getTile(position, 0);
 		float cost = constants::ROUTE_BASE_COST;
 
 		if (!adjacent_tile || adjacent_tile->index() == TerrainType::TERRAIN_IMPASSABLE)
