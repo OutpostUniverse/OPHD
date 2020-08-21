@@ -420,7 +420,8 @@ void TileMap::updateTileHighlight()
  */
 TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 {
-	return mMouseMap[y][x];
+	const auto mapPosition = NAS2D::Point{x, y}.to<std::size_t>();
+	return mMouseMap[mapPosition.y][mapPosition.x];
 }
 
 
