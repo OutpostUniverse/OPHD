@@ -547,11 +547,11 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	}
 
 	// TILES AT INDEX 0 WITH NO THING'S
-	for (XmlNode* tile = element->firstChildElement("tiles")->firstChildElement("tile"); tile; tile = tile->nextSibling())
+	for (XmlNode* tileNode = element->firstChildElement("tiles")->firstChildElement("tile"); tileNode; tileNode = tileNode->nextSibling())
 	{
 		int x = 0, y = 0, depth = 0, index = 0;
 
-		attribute = tile->toElement()->firstAttribute();
+		attribute = tileNode->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
