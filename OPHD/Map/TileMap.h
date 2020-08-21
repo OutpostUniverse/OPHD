@@ -104,6 +104,7 @@ private:
 	void buildTerrainMap(const std::string& path);
 	void setupMines(int, Planet::Hostility);
 	void addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& plist, TileArray& tileArray, MineProductionRate rate);
+	NAS2D::Point<int> findSurroundingMineLocation(NAS2D::Point<int> centerPoint, TileArray& tileArray);
 
 	void updateTileHighlight();
 

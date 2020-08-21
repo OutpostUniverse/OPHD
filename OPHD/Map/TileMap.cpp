@@ -58,19 +58,6 @@ Point<int> TRANSFORM; /**< Used to adjust mouse and screen spaces based on posit
 // = STATIC/LOCAL FUNCTIONS
 // ===============================================================================
 using TileArray = std::vector<std::vector<std::vector<Tile> > >;
-static Point<int> findSurroundingMineLocation(Point<int> centerPoint, TileArray& tileArray)
-{
-	if (tileArray[0][centerPoint.y][centerPoint.x].hasMine())
-	{
-		for (const auto& direction : DirectionScan323)
-		{
-			const auto point = centerPoint + direction;
-			if (tileArray[0][point.y][point.x].hasMine()) { return point; }
-		}
-	}
-	return centerPoint;
-}
-
 
 
 // ===============================================================================
@@ -226,6 +213,20 @@ void TileMap::addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& p
 	tileArray[0][mineLocation.y][mineLocation.x].index(TerrainType::TERRAIN_DOZED);
 
 	plist.push_back(mineLocation);
+}
+
+
+NAS2D::Point<int> TileMap::findSurroundingMineLocation(NAS2D::Point<int> centerPoint, TileArray& tileArray)
+{
+	if (tileArray[0][centerPoint.y][centerPoint.x].hasMine())
+	{
+		for (const auto& direction : DirectionScan323)
+		{
+			const auto point = centerPoint + direction;
+			if (tileArray[0][point.y][point.x].hasMine()) { return point; }
+		}
+	}
+	return centerPoint;
 }
 
 
