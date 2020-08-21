@@ -11,10 +11,10 @@
  * StateManager objects.
  *
  * This class is provided as a simple means to implement a State Stack
- * without having to modify NAS2D state's and state managers.
+ * without having to modify NAS2D states and state managers.
  *
- * \note	To prevent Wrapper's and their UI's not on the top of the stack from
- *			reacting to events, Wrapper's should test if they are active in their
+ * \note	To prevent Wrappers and their UIs not on the top of the stack from
+ *			reacting to events, Wrappers should test if they are active in their
  *			event handler functions. If the Wrapper is returning a nullptr, it
  *			should hide its UI elements (and show them again when the reset()
  *			function is called).

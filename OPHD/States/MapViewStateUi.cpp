@@ -198,7 +198,7 @@ void MapViewState::hideUi()
 
 
 /**
- * Unhide's the UI.
+ * Unhides the UI.
  */
 void MapViewState::unhideUi()
 {

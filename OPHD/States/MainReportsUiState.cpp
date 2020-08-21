@@ -29,7 +29,7 @@ const Font* BIG_FONT_BOLD = nullptr;
 
 
 /**
- * Enumerated ID's for the navigation panels.
+ * Enumerated IDs for the navigation panels.
  */
 enum NavigationPanel
 {

@@ -57,7 +57,7 @@ private:
 	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }
 
 private:
-	StructureTileTable mStructureTileTable; /**< List mapping Structure's to a particular tile. */
+	StructureTileTable mStructureTileTable; /**< List mapping Structures to a particular tile. */
 	StructureClassTable mStructureLists; /**< Map containing all of the structure list types available. */
 
 	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */

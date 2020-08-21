@@ -221,7 +221,7 @@ private:
 	int mFood{ 0 };
 	int mRefinedResourcesCap{ 0 };
 
-	// POOL'S
+	// POOLS
 	StorableResources mPlayerResources; /**< Player's current refined resources. */
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;

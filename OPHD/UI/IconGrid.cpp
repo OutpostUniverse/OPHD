@@ -304,7 +304,7 @@ void IconGrid::selection(std::size_t newSelection)
  *			the current selection index will remain unchanged.
  * 
  * \remark	IconGridItem::meta is initialized to 0 so passing a value
- *			of 0 for IconGridItem's that don't use a meta value will
+ *			of 0 for IconGridItems that don't use a meta value will
  *			effectively set the index to 0.
  */
 void IconGrid::selection_meta(int selectionMetaValue)

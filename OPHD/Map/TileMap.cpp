@@ -550,7 +550,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		if (m->depth() == 0 && m->active()) { m->increaseDepth(); }
 	}
 
-	// TILES AT INDEX 0 WITH NO THING'S
+	// TILES AT INDEX 0 WITH NO THINGS
 	for (XmlNode* tileNode = element->firstChildElement("tiles")->firstChildElement("tile"); tileNode; tileNode = tileNode->nextSibling())
 	{
 		int x = 0, y = 0, depth = 0, index = 0;
