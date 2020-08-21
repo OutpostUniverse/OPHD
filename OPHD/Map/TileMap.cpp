@@ -493,14 +493,14 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element, const Planet::Attribute
 		{
 			for (int x = 0; x < mSizeInTiles.x; ++x)
 			{
-				auto* tile = getTile({x, y}, depth);
-				if (depth > 0 && tile->excavated() && tile->empty() && tile->mine() == nullptr)
+				auto& tile = *getTile({x, y}, depth);
+				if (depth > 0 && tile.excavated() && tile.empty() && tile.mine() == nullptr)
 				{
-					serializeTile(tiles, x, y, depth, tile->index());
+					serializeTile(tiles, x, y, depth, tile.index());
 				}
-				else if (tile->index() == 0 && tile->empty() && tile->mine() == nullptr)
+				else if (tile.index() == 0 && tile.empty() && tile.mine() == nullptr)
 				{
-					serializeTile(tiles, x, y, depth, tile->index());
+					serializeTile(tiles, x, y, depth, tile.index());
 				}
 			}
 		}
