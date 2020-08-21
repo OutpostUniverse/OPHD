@@ -58,32 +58,6 @@ Point<int> TRANSFORM; /**< Used to adjust mouse and screen spaces based on posit
 // = STATIC/LOCAL FUNCTIONS
 // ===============================================================================
 using TileArray = std::vector<std::vector<std::vector<Tile> > >;
-static Point<int> findSurroundingMineLocation(Point<int> centerPoint, TileArray& tileArray)
-{
-	if (tileArray[0][centerPoint.y][centerPoint.x].hasMine())
-	{
-		for (const auto& direction : DirectionScan323)
-		{
-			const auto point = centerPoint + direction;
-			if (tileArray[0][point.y][point.x].hasMine()) { return point; }
-		}
-	}
-	return centerPoint;
-}
-
-
-static void addMineSet(Point<int> suggestedMineLocation, Point2dList& plist, TileArray& tileArray, MineProductionRate rate)
-{
-	// Mines should not be right next to each other
-	// If mines are right next to each other, then overwrite the old location with the new mine parameters
-	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation, tileArray);
-
-	tileArray[0][mineLocation.y][mineLocation.x].pushMine(new Mine(rate));
-	tileArray[0][mineLocation.y][mineLocation.x].index(TerrainType::TERRAIN_DOZED);
-
-	plist.push_back(mineLocation);
-}
-
 
 
 // ===============================================================================
@@ -127,14 +101,20 @@ void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 }
 
 
+bool TileMap::isValidPosition(NAS2D::Point<int> position, int level) const
+{
+	 return NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position) && level >= 0 && level <= mMaxDepth;
+}
+
+
 Tile* TileMap::getTile(NAS2D::Point<int> position, int level)
 {
-	if (NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position) && level >= 0 && level <= mMaxDepth)
+	if (!isValidPosition(position, level))
 	{
-		return &mTileMap[level][position.y][position.x];
+		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.x) + ", " + std::to_string(position.y) + ", " + std::to_string(level) + "}");
 	}
-
-	return nullptr;
+	const auto mapPosition = position.to<std::size_t>();
+	return &mTileMap[static_cast<std::size_t>(level)][mapPosition.y][mapPosition.x];
 }
 
 
@@ -150,13 +130,14 @@ void TileMap::buildTerrainMap(const std::string& path)
 
 	const Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
-	mTileMap.resize(static_cast<std::size_t>(mMaxDepth) + 1);
-	for(int level = 0; level <= mMaxDepth; level++)
+	const auto levelCount = static_cast<std::size_t>(mMaxDepth) + 1;
+	mTileMap.resize(levelCount);
+	for(std::size_t level = 0; level < levelCount; level++)
 	{
-		mTileMap[level].resize(mSizeInTiles.y);
+		mTileMap[level].resize(static_cast<std::size_t>(mSizeInTiles.y));
 		for (std::size_t i = 0; i < mTileMap[level].size(); i++)
 		{
-			mTileMap[level][i].resize(mSizeInTiles.x);
+			mTileMap[level][i].resize(static_cast<std::size_t>(mSizeInTiles.x));
 		}
 	}
 
@@ -175,7 +156,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 			for(int col = 0; col < mSizeInTiles.x; col++)
 			{
 				Color color = heightmap.pixelColor({col, row});
-				Tile& tile = mTileMap[depth][row][col];
+				Tile& tile = *getTile({col, row}, depth);
 				tile = {{col, row}, depth, color.red / 50};
 				if (depth > 0) { tile.excavated(false); }
 			}
@@ -212,13 +193,41 @@ void TileMap::setupMines(int mineCount, Planet::Hostility hostility)
 
 	auto generateMines = [&](int mineCountAtYield, MineProductionRate yield) {
 		for (int i = 0; i < mineCountAtYield; ++i) {
-			addMineSet(randPoint(), mMineLocations, mTileMap, yield);
+			addMineSet(randPoint(), mMineLocations, yield);
 		}
 	};
 
 	generateMines(yieldLow, MineProductionRate::Low);
 	generateMines(yieldMedium, MineProductionRate::Medium);
 	generateMines(yieldHigh, MineProductionRate::High);
+}
+
+
+void TileMap::addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& plist, MineProductionRate rate)
+{
+	// Mines should not be right next to each other
+	// If mines are right next to each other, then overwrite the old location with the new mine parameters
+	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation);
+
+	auto& tile = *getTile(mineLocation, 0);
+	tile.pushMine(new Mine(rate));
+	tile.index(TerrainType::TERRAIN_DOZED);
+
+	plist.push_back(mineLocation);
+}
+
+
+NAS2D::Point<int> TileMap::findSurroundingMineLocation(NAS2D::Point<int> centerPoint)
+{
+	if (getTile(centerPoint, 0)->hasMine())
+	{
+		for (const auto& direction : DirectionScan323)
+		{
+			const auto point = centerPoint + direction;
+			if (getTile(point, 0)->hasMine()) { return point; }
+		}
+	}
+	return centerPoint;
 }
 
 
@@ -324,7 +333,7 @@ void TileMap::draw()
 	{
 		for (int col = 0; col < mEdgeLength; col++)
 		{
-			Tile& tile = mTileMap[mCurrentDepth][row + mMapViewLocation.y][col + mMapViewLocation.x];
+			Tile& tile = *getTile(mMapViewLocation + NAS2D::Vector{col, row}, mCurrentDepth);
 
 			if (tile.excavated())
 			{
@@ -414,7 +423,8 @@ void TileMap::updateTileHighlight()
  */
 TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 {
-	return mMouseMap[y][x];
+	const auto mapPosition = NAS2D::Point{x, y}.to<std::size_t>();
+	return mMouseMap[mapPosition.y][mapPosition.x];
 }
 
 
@@ -530,8 +540,9 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		Mine* m = new Mine();
 		m->deserialize(mine->toElement());
 
-		mTileMap[0][y][x].pushMine(m);
-		mTileMap[0][y][x].index(TerrainType::TERRAIN_DOZED);
+		auto& tile = *getTile({x, y}, 0);
+		tile.pushMine(m);
+		tile.index(TerrainType::TERRAIN_DOZED);
 
 		mMineLocations.push_back(Point{x, y});
 
@@ -540,11 +551,11 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	}
 
 	// TILES AT INDEX 0 WITH NO THING'S
-	for (XmlNode* tile = element->firstChildElement("tiles")->firstChildElement("tile"); tile; tile = tile->nextSibling())
+	for (XmlNode* tileNode = element->firstChildElement("tiles")->firstChildElement("tile"); tileNode; tileNode = tileNode->nextSibling())
 	{
 		int x = 0, y = 0, depth = 0, index = 0;
 
-		attribute = tile->toElement()->firstAttribute();
+		attribute = tileNode->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
@@ -555,9 +566,10 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 			attribute = attribute->next();
 		}
 
-		mTileMap[depth][y][x].index(static_cast<TerrainType>(index));
+		auto& tile = *getTile({x, y}, depth);
+		tile.index(static_cast<TerrainType>(index));
 
-		if (depth > 0) { mTileMap[depth][y][x].excavated(true); }
+		if (depth > 0) { tile.excavated(true); }
 	}
 }
 
@@ -608,14 +620,20 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 
 	for (const auto& offset : DirectionClockwise4)
 	{
-		Tile* adjacent_tile = getTile(tilePosition + offset, 0);
+		const auto position = tilePosition + offset;
+		if (!NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position))
+		{
+			continue;
+		}
+
+		Tile* adjacent_tile = getTile(position, 0);
 		float cost = constants::ROUTE_BASE_COST;
 
-		if (!adjacent_tile || adjacent_tile->index() == TerrainType::TERRAIN_IMPASSABLE)
+		if (adjacent_tile->index() == TerrainType::TERRAIN_IMPASSABLE)
 		{
 			cost = FLT_MAX;
 		}
-		else if (adjacent_tile && !adjacent_tile->empty())
+		else if (!adjacent_tile->empty())
 		{
 			if (adjacent_tile == mPathStartEndPair.first || adjacent_tile == mPathStartEndPair.second)
 			{

@@ -55,7 +55,7 @@ public:
 
 	unsigned int currentHighlight() const;
 	unsigned int currentSelection() const;
-	void setSelection(int selection);
+	void setSelection(unsigned int selection);
 
 	const std::string& selectionText() const;
 
@@ -80,8 +80,8 @@ protected:
 
 	void _update_item_display();
 
-	unsigned int item_width() const { return mItemWidth; }
-	unsigned int item_height() const { return mItemHeight; }
+	unsigned int item_width() const { return static_cast<unsigned int>(mItemWidth); }
+	unsigned int item_height() const { return static_cast<unsigned int>(mItemHeight); }
 	void item_height(int);
 
 	unsigned int draw_offset() const { return mCurrentOffset; }

@@ -75,7 +75,7 @@ void ListBoxBase::_update_item_display()
 {
 	mItemWidth = mRect.width;
 
-	if ((mItemHeight * mItems.size()) > static_cast<std::size_t>(mRect.height))
+	if ((mItemHeight * static_cast<int>(mItems.size())) > mRect.height)
 	{
 		mLineCount = mRect.height / mItemHeight;
 
@@ -83,7 +83,7 @@ void ListBoxBase::_update_item_display()
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(mItemHeight * mItems.size() - mRect.height));
+			mSlider.length(static_cast<float>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
 			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
 			mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
 			mSlider.visible(true);
@@ -157,7 +157,7 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 
-	mCurrentHighlight = (y - positionY() + mCurrentOffset) / mItemHeight;
+	mCurrentHighlight = (static_cast<unsigned int>(y - positionY()) + mCurrentOffset) / static_cast<unsigned int>(mItemHeight);
 
 	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
 	{
@@ -278,9 +278,9 @@ unsigned int ListBoxBase::currentSelection() const
  * 
  * \note	Out of range selection indicies will set the ListBoxBase to no selection.
  */
-void ListBoxBase::setSelection(int selection)
+void ListBoxBase::setSelection(unsigned int selection)
 {
-	mItems.empty() ? mCurrentSelection == constants::NO_SELECTION : mCurrentSelection = selection;
+	mCurrentSelection = (selection < mItems.size()) ? selection : constants::NO_SELECTION;
 	mSelectionChanged();
 }
 
@@ -329,7 +329,7 @@ void ListBoxBase::update()
 	renderer.clipRect(mRect);
 
 	// MOUSE HIGHLIGHT
-	int highlight_y = positionY() + (mCurrentHighlight * mItemHeight) - mCurrentOffset;
+	int highlight_y = positionY() + (static_cast<int>(mCurrentHighlight) * mItemHeight) - static_cast<int>(mCurrentOffset);
 	renderer.drawBoxFilled(NAS2D::Rectangle{positionX(), highlight_y, mItemWidth, mItemHeight}, NAS2D::Color{0, 185, 0, 50});
 
 	mSlider.update();

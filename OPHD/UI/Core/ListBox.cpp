@@ -19,38 +19,9 @@
 using namespace NAS2D;
 
 
-static const Font* LST_FONT = nullptr;
-
-
-/**
- * C'tor
- */
-ListBox::ListBox()
+ListBox::ListBox() :
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
 {
-	_init();
-}
-
-
-/**
- * D'tor
- */
-ListBox::~ListBox()
-{
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBox::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &ListBox::onMouseMove);
-	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ListBox::onMouseWheel);
-
-	mSlider.change().disconnect(this, &ListBox::slideChanged);
-}
-
-
-/**
-*
-*/
-void ListBox::_init()
-{
-	LST_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
 	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
@@ -61,9 +32,19 @@ void ListBox::_init()
 	mSlider.change().connect(this, &ListBox::slideChanged);
 	_updateItemDisplay();
 
-	mLineHeight = (LST_FONT->height() + 2);
-	mLineCount = static_cast<int>(mRect.height / mLineHeight);
+	mLineHeight = static_cast<unsigned int>(mFont.height() + 2);
+	mLineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
 	_updateItemDisplay();
+}
+
+
+ListBox::~ListBox()
+{
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBox::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().disconnect(this, &ListBox::onMouseMove);
+	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ListBox::onMouseWheel);
+
+	mSlider.change().disconnect(this, &ListBox::slideChanged);
 }
 
 
@@ -85,12 +66,12 @@ void ListBox::_updateItemDisplay()
 
 	if ((mLineHeight * mItems.size()) > static_cast<std::size_t>(mRect.height))
 	{
-		mLineCount = static_cast<unsigned int>(mRect.height / mLineHeight);
+		mLineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
 		if (mLineCount < mItems.size())
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(mLineHeight * mItems.size() - mRect.height));
+			mSlider.length(static_cast<float>(static_cast<int>(mLineHeight * mItems.size()) - mRect.height));
 			mCurrentOffset = static_cast<std::size_t>(mSlider.thumbPosition());
 			mItemWidth = static_cast<unsigned int>(mRect.width - mSlider.size().x);
 			mSlider.visible(true);
@@ -114,9 +95,6 @@ bool ListBox::empty() const
 }
 
 
-/**
- *
- */
 const std::string& ListBox::selectionText() const
 {
 	if (mCurrentSelection == constants::NO_SELECTION) { return constants::EMPTY_STR; }
@@ -124,9 +102,6 @@ const std::string& ListBox::selectionText() const
 }
 
 
-/**
- *
- */
 int ListBox::selectionTag() const
 {
 	if (mCurrentSelection == constants::NO_SELECTION) { return 0; }
@@ -180,14 +155,12 @@ bool ListBox::itemExists(const std::string& item)
 }
 
 
-/**
- * 
- */
 void ListBox::setSelectionByName(const std::string& item)
 {
+	const auto target = toLowercase(item);
 	for (std::size_t i = 0; i < mItems.size(); i++)
 	{
-		if (toLowercase(mItems[i].Text) == toLowercase(item)) { mCurrentSelection = static_cast<int>(i); return; }
+		if (toLowercase(mItems[i].Text) == target) { mCurrentSelection = i; return; }
 	}
 }
 
@@ -256,9 +229,9 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 	
-	mCurrentHighlight = (y - mRect.y + mCurrentOffset) / (LST_FONT->height() + 2);
+	mCurrentHighlight = (static_cast<std::size_t>(y - mRect.y) + mCurrentOffset) / static_cast<std::size_t>(mFont.height() + 2);
 
-	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
+	if (mCurrentHighlight >= mItems.size())
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 	}
@@ -295,13 +268,13 @@ void ListBox::update()
 
 	// draw boundaries of the widget
 	NAS2D::Rectangle<int> listBounds = mRect;
-	listBounds.width = mItemWidth;
+	listBounds.width = static_cast<int>(mItemWidth);
 	renderer.drawBox(listBounds, NAS2D::Color{0, 0, 0, 100});
 	renderer.drawBoxFilled(listBounds, NAS2D::Color{0, 85, 0, 220});
 
 	// Highlight currently selected item
 	auto itemBounds = listBounds;
-	itemBounds.height = mLineHeight;
+	itemBounds.height = static_cast<int>(mLineHeight);
 	itemBounds.y += static_cast<int>((mCurrentSelection * mLineHeight) - mCurrentOffset);
 	renderer.drawBoxFilled(itemBounds, mHighlightBg.alphaFade(80));
 
@@ -309,7 +282,7 @@ void ListBox::update()
 	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
 		auto highlightBounds = listBounds;
-		highlightBounds.height = mLineHeight;
+		highlightBounds.height = static_cast<int>(mLineHeight);
 		highlightBounds.y += static_cast<int>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
 		renderer.drawBox(highlightBounds, mHighlightBg);
 	}
@@ -320,7 +293,7 @@ void ListBox::update()
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
 		const auto textColor = (i == mCurrentHighlight) ? mHighlightText : mText;
-		renderer.drawTextShadow(*LST_FONT, mItems[i].Text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
+		renderer.drawTextShadow(mFont, mItems[i].Text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 		textPosition.y += mLineHeight;
 	}
 

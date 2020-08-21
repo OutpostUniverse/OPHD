@@ -18,7 +18,7 @@ class ProductListBox : public ListBoxBase
 public:
 	struct ProductListBoxItem : public ListBoxItem
 	{
-		std::size_t count = 0; /**< Count of the product. */
+		int count = 0; /**< Count of the product. */
 		float usage = 0.0f; /**< Usage of available capacity. */
 	};
 

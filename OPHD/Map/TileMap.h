@@ -11,14 +11,13 @@
 
 #include <algorithm>
 
+
 using Point2dList = std::vector<NAS2D::Point<int>>;
+
 
 class TileMap: public micropather::Graph
 {
 public:
-	/**
-	 * 
-	 */
 	enum TileMapLevel
 	{
 		LEVEL_SURFACE = 0,
@@ -28,9 +27,13 @@ public:
 		LEVEL_UG_4
 	};
 
-public:
+
 	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility /*= constants::Hostility::None*/, bool setupMines = true);
+	TileMap(const TileMap&) = delete;
+	TileMap& operator=(const TileMap&) = delete;
 	~TileMap() override;
+
+	bool isValidPosition(NAS2D::Point<int> position, int level = 0) const;
 
 	Tile* getTile(NAS2D::Point<int> position, int level);
 	Tile* getTile(NAS2D::Point<int> position) { return getTile(position, mCurrentDepth); }
@@ -73,7 +76,7 @@ public:
 	void serialize(NAS2D::Xml::XmlElement* element, const Planet::Attributes& planetAttributes);
 	void deserialize(NAS2D::Xml::XmlElement* element);
 
-public:
+
 	/** MicroPather public interface implementation. */
 	float LeastCostEstimate(void* stateStart, void* stateEnd) override;
 	void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent) override;
@@ -82,9 +85,6 @@ public:
 	void pathStartAndEnd(void* start, void* end);
 
 protected:
-	/**
-	 * 
-	 */
 	enum MouseMapRegion
 	{
 		MMR_MIDDLE,
@@ -99,21 +99,18 @@ protected:
 private:
 	using TileGrid = std::vector<std::vector<Tile> >;
 	using TileArray = std::vector<TileGrid>;
-	
-private:
-	TileMap(const TileMap&) = delete; /**< Not Allowed */
-	TileMap& operator=(const TileMap&) = delete; /**< Not allowed */
 
-private:
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
 	void setupMines(int, Planet::Hostility);
+	void addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& plist, MineProductionRate rate);
+	NAS2D::Point<int> findSurroundingMineLocation(NAS2D::Point<int> centerPoint);
 
 	void updateTileHighlight();
 
 	MouseMapRegion getMouseMapRegion(int x, int y);
 
-private:
+
 	int mEdgeLength = 0;
 	const NAS2D::Vector<int> mSizeInTiles;
 

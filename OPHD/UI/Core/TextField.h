@@ -78,7 +78,7 @@ private:
 
 	NAS2D::Timer mCursorTimer; /**< Timer for the cursor blink. */
 
-	int mCursorPosition = 0; /**< Position of the Insertion Cursor. */
+	std::size_t mCursorPosition = 0; /**< Position of the Insertion Cursor. */
 	int mCursorX = 0; /**< Pixel position of the Cursor. */
 	int mScrollOffset = 0; /**< Scroller offset. */
 
