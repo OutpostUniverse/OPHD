@@ -615,7 +615,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		{
 			cost = FLT_MAX;
 		}
-		else if (adjacent_tile && !adjacent_tile->empty())
+		else if (!adjacent_tile->empty())
 		{
 			if (adjacent_tile == mPathStartEndPair.first || adjacent_tile == mPathStartEndPair.second)
 			{
