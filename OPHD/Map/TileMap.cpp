@@ -155,8 +155,8 @@ void TileMap::buildTerrainMap(const std::string& path)
 		{
 			for(int col = 0; col < mSizeInTiles.x; col++)
 			{
-				Color color = heightmap.pixelColor({col, row});
-				Tile& tile = *getTile({col, row}, depth);
+				auto color = heightmap.pixelColor({col, row});
+				auto& tile = *getTile({col, row}, depth);
 				tile = {{col, row}, depth, color.red / 50};
 				if (depth > 0) { tile.excavated(false); }
 			}
@@ -333,7 +333,7 @@ void TileMap::draw()
 	{
 		for (int col = 0; col < mEdgeLength; col++)
 		{
-			Tile& tile = *getTile(mMapViewLocation + NAS2D::Vector{col, row}, mCurrentDepth);
+			auto& tile = *getTile(mMapViewLocation + NAS2D::Vector{col, row}, mCurrentDepth);
 
 			if (tile.excavated())
 			{
