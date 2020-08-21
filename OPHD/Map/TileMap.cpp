@@ -72,19 +72,6 @@ static Point<int> findSurroundingMineLocation(Point<int> centerPoint, TileArray&
 }
 
 
-static void addMineSet(Point<int> suggestedMineLocation, Point2dList& plist, TileArray& tileArray, MineProductionRate rate)
-{
-	// Mines should not be right next to each other
-	// If mines are right next to each other, then overwrite the old location with the new mine parameters
-	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation, tileArray);
-
-	tileArray[0][mineLocation.y][mineLocation.x].pushMine(new Mine(rate));
-	tileArray[0][mineLocation.y][mineLocation.x].index(TerrainType::TERRAIN_DOZED);
-
-	plist.push_back(mineLocation);
-}
-
-
 
 // ===============================================================================
 // = CLASS/PUBLIC FUNCTIONS
@@ -226,6 +213,19 @@ void TileMap::setupMines(int mineCount, Planet::Hostility hostility)
 	generateMines(yieldLow, MineProductionRate::Low);
 	generateMines(yieldMedium, MineProductionRate::Medium);
 	generateMines(yieldHigh, MineProductionRate::High);
+}
+
+
+void TileMap::addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& plist, TileArray& tileArray, MineProductionRate rate)
+{
+	// Mines should not be right next to each other
+	// If mines are right next to each other, then overwrite the old location with the new mine parameters
+	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation, tileArray);
+
+	tileArray[0][mineLocation.y][mineLocation.x].pushMine(new Mine(rate));
+	tileArray[0][mineLocation.y][mineLocation.x].index(TerrainType::TERRAIN_DOZED);
+
+	plist.push_back(mineLocation);
 }
 
 
