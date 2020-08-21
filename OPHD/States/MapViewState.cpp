@@ -434,13 +434,10 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		}
 
 		if (!mTileMap->tileHighlightVisible()) { return; }
+		if (!mTileMap->isValidPosition(mTileMap->tileMouseHover())) { return; }
 
 		Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover());
-		if (!_t)
-		{
-			return;
-		}
-		else if (_t->empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
+		if (_t->empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
 			clearSelections();
 			mTileInspector.tile(_t);
@@ -557,9 +554,10 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 		if (!mTileMap->tileHighlightVisible()) { return; }
+		if (!mTileMap->isValidPosition(mTileMap->tileMouseHover())) { return; }
 
 		Tile* _t = mTileMap->getTile(mTileMap->tileMouseHover());
-		if (_t && _t->thingIsStructure())
+		if (_t->thingIsStructure())
 		{
 			Structure* structure = _t->structure();
 
