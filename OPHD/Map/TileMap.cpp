@@ -330,7 +330,7 @@ void TileMap::draw()
 	{
 		for (int col = 0; col < mEdgeLength; col++)
 		{
-			Tile& tile = mTileMap[mCurrentDepth][row + mMapViewLocation.y][col + mMapViewLocation.x];
+			Tile& tile = *getTile(mMapViewLocation + NAS2D::Vector{col, row}, mCurrentDepth);
 
 			if (tile.excavated())
 			{
