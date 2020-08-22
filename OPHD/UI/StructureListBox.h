@@ -29,7 +29,6 @@ public:
 
 
 	StructureListBox();
-	~StructureListBox() override;
 
 	void addItem(Structure*);
 	void removeItem(Structure*);

@@ -57,13 +57,6 @@ StructureListBox::StructureListBox()
 }
 
 
-/**
- * D'tor
- */
-StructureListBox::~StructureListBox()
-{}
-
-
 void StructureListBox::_init()
 {
 	item_height(LIST_ITEM_HEIGHT);
