@@ -200,19 +200,19 @@ bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
 {
 	for (const auto offset : DirectionScan3x3)
 	{
-		Tile* tile = tilemap->getTile(position + offset);
+		auto& tile = *tilemap->getTile(position + offset);
 
-		if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
+		if (tile.index() == TerrainType::TERRAIN_IMPASSABLE)
 		{
 			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
 			return false;
 		}
-		else if (tile->mine())
+		else if (tile.mine())
 		{
 			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_MINE);
 			return false;
 		}
-		else if (tile->thing())
+		else if (tile.thing())
 		{
 			// This is a case that should never happen. If it does, blow up loudly.
 			throw std::runtime_error("Tile obstructed by a Thing other than a Mine.");
