@@ -20,18 +20,15 @@ class FactoryListBox : public ListBoxBase
 public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<Factory*>;
 
-public:
 	struct FactoryListBoxItem : public ListBoxItem
 	{
-	public:
 		FactoryListBoxItem(Factory* newFactory) : factory(newFactory) {}
 
-	public:
 		Factory* factory = nullptr;
 		NAS2D::Point<int> icon_slice;
 	};
 
-public:
+
 	FactoryListBox();
 	~FactoryListBox() override;
 
