@@ -839,8 +839,8 @@ void MapViewState::placeRobot()
 			tile->pushMine(nullptr);
 			for (std::size_t i = 0; i <= static_cast<std::size_t>(mTileMap->maxDepth()); ++i)
 			{
-				Tile* mineShaftTile = mTileMap->getTile(mTileMap->tileMouseHover(), static_cast<int>(i));
-				Utility<StructureManager>::get().removeStructure(mineShaftTile->structure());
+				auto& mineShaftTile = *mTileMap->getTile(mTileMap->tileMouseHover(), static_cast<int>(i));
+				Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
 			}
 		}
 		else if (tile->thingIsStructure())
