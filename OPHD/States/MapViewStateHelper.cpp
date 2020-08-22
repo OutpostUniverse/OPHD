@@ -156,24 +156,22 @@ bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point)
 
 /**
  * Indicates that the selected landing site is clear of obstructions.
- *
- * \warning		Assumes \c tile is never nullptr.
  */
-bool validLanderSite(Tile* tile)
+bool validLanderSite(Tile& tile)
 {
-	if (!tile->empty())
+	if (!tile.empty())
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TILE_OBSTRUCTED);
 		return false;
 	}
 
-	if (tile->distanceTo(ccLocation()) > constants::LANDER_COM_RANGE)
+	if (tile.distanceTo(ccLocation()) > constants::LANDER_COM_RANGE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_COMM_RANGE);
 		return false;
 	}
 
-	if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
+	if (tile.index() == TerrainType::TERRAIN_IMPASSABLE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TERRAIN);
 		return false;

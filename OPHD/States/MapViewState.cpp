@@ -1073,7 +1073,7 @@ void MapViewState::placeStructure()
 	}
 	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
 	{
-		if (!validLanderSite(tile)) { return; }
+		if (!validLanderSite(*tile)) { return; }
 
 		ColonistLander* s = new ColonistLander(tile);
 		s->deployCallback().connect(this, &MapViewState::deployColonistLander);
@@ -1089,7 +1089,7 @@ void MapViewState::placeStructure()
 	}
 	else if (mCurrentStructure == StructureID::SID_CARGO_LANDER)
 	{
-		if (!validLanderSite(tile)) { return; }
+		if (!validLanderSite(*tile)) { return; }
 
 		CargoLander* _lander = new CargoLander(tile);
 		_lander->deployCallback().connect(this, &MapViewState::deployCargoLander);
