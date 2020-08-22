@@ -46,7 +46,4 @@ public:
 
 private:
 	void _init();
-
-private:
-	using FactoryItemList = std::vector<FactoryListBoxItem>;
 };
