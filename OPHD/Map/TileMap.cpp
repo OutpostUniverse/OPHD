@@ -14,14 +14,11 @@
 #include <random>
 #include <array>
 
+
 using namespace NAS2D;
 using namespace NAS2D::Xml;
 
-#pragma warning(disable: 4244)
 
-// ===============================================================================
-// = CONSTANTS
-// ===============================================================================
 const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 
 const int MAP_WIDTH = 300;
@@ -39,26 +36,14 @@ const int TILE_HEIGHT_HALF_ABSOLUTE = TILE_HEIGHT_ABSOLUTE / 2;
 const double THROB_SPEED = 250.0; // Throb speed of mine beacon
 
 /** Array indicates percent of mines that should be of yields LOW, MED, HIGH */
-const std::map<Planet::Hostility, std::array<float, 3>> HostilityMineYieldTable =
+const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYieldTable =
 {
-	{ Planet::Hostility::Low, {0.30f, 0.50f, 0.20f} },
-	{ Planet::Hostility::Medium, {0.45f, 0.35f, 0.20f} },
-	{ Planet::Hostility::High, {0.35f, 0.20f, 0.45f} },
+	{ Planet::Hostility::Low, {30, 50, 20} },
+	{ Planet::Hostility::Medium, {45, 35, 20} },
+	{ Planet::Hostility::High, {35, 20, 45} },
 };
 
 
-// ===============================================================================
-// = LOCAL VARIABLES
-// ===============================================================================
-Point<int> TRANSFORM; /**< Used to adjust mouse and screen spaces based on position of the map field. */
-
-
-// ===============================================================================
-// = CLASS/PUBLIC FUNCTIONS
-// ===============================================================================
-/**
- * C'tor
- */
 TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
 	mSizeInTiles{MAP_WIDTH, MAP_HEIGHT},
 	mMaxDepth(maxDepth),
@@ -75,10 +60,6 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 	if (shouldSetupMines) { setupMines(mineCount, hostility); }
 	std::cout << "finished!" << std::endl;
 }
-
-
-TileMap::~TileMap()
-{}
 
 
 /**
@@ -165,9 +146,9 @@ void TileMap::setupMines(int mineCount, Planet::Hostility hostility)
 {
 	if (hostility == Planet::Hostility::None) { return; }
 
-	int yieldLow = mineCount * HostilityMineYieldTable.at(hostility)[0];
-	int yieldMedium = mineCount * HostilityMineYieldTable.at(hostility)[1];
-	int yieldHigh = mineCount * HostilityMineYieldTable.at(hostility)[2];
+	int yieldLow = mineCount * HostilityMineYieldTable.at(hostility)[0] / 100;
+	int yieldMedium = mineCount * HostilityMineYieldTable.at(hostility)[1] / 100;
+	int yieldHigh = mineCount * HostilityMineYieldTable.at(hostility)[2] / 100;
 
 	// There will inevitably be cases where the total yield count will not match
 	// the required mine count. In these cases just tack on the difference to the
@@ -277,9 +258,6 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 	// Find top left corner of rectangle containing top tile of diamond
 	mMapPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BOTTOM_UI_HEIGHT - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
 	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, mMapPosition.y, TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
-
-	int transform = (mMapPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
-	TRANSFORM = {-transform, transform};
 }
 
 
@@ -343,7 +321,7 @@ void TileMap::draw()
 				// Draw a beacon on an unoccupied tile with a mine
 				if (tile.mine() != nullptr && !tile.thing())
 				{
-					uint8_t glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57;
+					uint8_t glow = static_cast<uint8_t>(120 + sin(mTimer.tick() / THROB_SPEED) * 57);
 					const auto mineBeaconPosition = position + NAS2D::Vector{TILE_HALF_WIDTH - 6, 15};
 
 					renderer.drawImage(mMineBeacon, mineBeaconPosition);
@@ -371,19 +349,16 @@ void TileMap::updateTileHighlight()
 	}
 
 	/// In the case of even edge lengths, we need to adjust the mouse picking code a bit.
-	int even_edge_length_adjust = 0;
-	if (edgeLength() % 2 == 0) { even_edge_length_adjust = TILE_HALF_WIDTH; }
+	const int evenEdgeLengthAdjust = (edgeLength() % 2 == 0) ? TILE_HALF_WIDTH : 0;
+	const int offsetX = ((mMousePosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) / TILE_WIDTH);
+	const int offsetY = ((mMousePosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
+	const int transform = (mMapPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
+	NAS2D::Vector<int> highlightOffset = {-transform + offsetY + offsetX, transform + offsetY - offsetX};
 
-	int offsetX = ((mMousePosition.x - mMapBoundingBox.x - even_edge_length_adjust) / TILE_WIDTH);
-	int offsetY = ((mMousePosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
-	NAS2D::Vector<int> highlightOffset = {TRANSFORM.x + offsetY + offsetX, TRANSFORM.y + offsetY - offsetX};
+	const int mmOffsetX = std::clamp((mMousePosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) % TILE_WIDTH, 0, TILE_WIDTH);
+	const int mmOffsetY = (mMousePosition.y - mMapBoundingBox.y) % TILE_HEIGHT_ABSOLUTE;
 
-	int mmOffsetX = std::clamp((mMousePosition.x - mMapBoundingBox.x - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
-	int mmOffsetY = (mMousePosition.y - mMapBoundingBox.y) % TILE_HEIGHT_ABSOLUTE;
-
-	MouseMapRegion mmr = getMouseMapRegion(mmOffsetX, mmOffsetY);
-
-	switch (mmr)
+	switch (getMouseMapRegion(mmOffsetX, mmOffsetY))
 	{
 	case MouseMapRegion::MMR_TOP_RIGHT:
 		--highlightOffset.y;
