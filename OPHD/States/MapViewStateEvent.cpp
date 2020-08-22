@@ -278,13 +278,13 @@ void MapViewState::minerTaskFinished(Robot* robot)
 }
 
 
-void MapViewState::mineFacilityExtended(MineFacility* mf)
+void MapViewState::mineFacilityExtended(MineFacility* mineFacility)
 {
-	if (mMineOperationsWindow.mineFacility() == mf) { mMineOperationsWindow.mineFacility(mf); }
+	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 	
-	Tile* mf_tile = NAS2D::Utility<StructureManager>::get().tileFromStructure(mf);
-	Tile* t = mTileMap->getTile(mf_tile->position(), mf->mine()->depth());
-	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), t);
-	t->index(0);
-	t->excavated(true);
+	Tile* mineFacilityTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
+	Tile* mineDepthTile = mTileMap->getTile(mineFacilityTile->position(), mineFacility->mine()->depth());
+	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), mineDepthTile);
+	mineDepthTile->index(0);
+	mineDepthTile->excavated(true);
 }
