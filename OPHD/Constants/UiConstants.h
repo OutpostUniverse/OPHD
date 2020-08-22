@@ -19,7 +19,7 @@ namespace constants
 
 	const int RESOURCE_BOX_WIDTH = 200;
 
-	const unsigned int NO_SELECTION = std::numeric_limits<unsigned int>::max();
+	const auto NO_SELECTION = std::numeric_limits<std::size_t>::max();
 
 	const unsigned int MINIMUM_DISPLAY_ITEMS = 5;
 
