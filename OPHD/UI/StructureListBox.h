@@ -18,21 +18,17 @@ class StructureListBox : public ListBoxBase
 public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<Structure*>;
 
-public:
-	class StructureListBoxItem : public ListBoxItem
+	struct StructureListBoxItem : public ListBoxItem
 	{
-	public:
 		StructureListBoxItem(Structure* s);
 
-	public:
 		Structure* structure = nullptr; /**< Pointer to a Structure. */
 		std::string structureState; /**< String description of the state of a Structure. */
 		StructureState colorIndex; /**< Index to use from the listbox color table. */
 	};
 
-public:
+
 	StructureListBox();
-	~StructureListBox() override;
 
 	void addItem(Structure*);
 	void removeItem(Structure*);
@@ -44,10 +40,4 @@ public:
 	StructureListBoxItem* last();
 
 	void update() override;
-
-private:
-	void _init();
-
-private:
-	using StructureItemList = std::vector<StructureListBoxItem>;
 };

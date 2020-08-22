@@ -48,23 +48,7 @@ StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
 {}
 
 
-/**
- * C'tor
- */
 StructureListBox::StructureListBox()
-{
-	_init();
-}
-
-
-/**
- * D'tor
- */
-StructureListBox::~StructureListBox()
-{}
-
-
-void StructureListBox::_init()
 {
 	item_height(LIST_ITEM_HEIGHT);
 	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, 12);
