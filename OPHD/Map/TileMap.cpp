@@ -330,7 +330,7 @@ void TileMap::draw()
 				// Draw a beacon on an unoccupied tile with a mine
 				if (tile.mine() != nullptr && !tile.thing())
 				{
-					uint8_t glow = 120 + sin(mTimer.tick() / THROB_SPEED) * 57;
+					uint8_t glow = static_cast<uint8_t>(120 + sin(mTimer.tick() / THROB_SPEED) * 57);
 					const auto mineBeaconPosition = position + NAS2D::Vector{TILE_HALF_WIDTH - 6, 15};
 
 					renderer.drawImage(mMineBeacon, mineBeaconPosition);
