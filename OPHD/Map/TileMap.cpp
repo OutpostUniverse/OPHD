@@ -362,9 +362,7 @@ void TileMap::updateTileHighlight()
 	}
 
 	/// In the case of even edge lengths, we need to adjust the mouse picking code a bit.
-	int even_edge_length_adjust = 0;
-	if (edgeLength() % 2 == 0) { even_edge_length_adjust = TILE_HALF_WIDTH; }
-
+	int even_edge_length_adjust = (edgeLength() % 2 == 0) ? TILE_HALF_WIDTH : 0;
 	int offsetX = ((mMousePosition.x - mMapBoundingBox.x - even_edge_length_adjust) / TILE_WIDTH);
 	int offsetY = ((mMousePosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
 	int transform = (mMapPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
