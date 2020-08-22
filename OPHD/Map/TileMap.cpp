@@ -277,9 +277,6 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 	// Find top left corner of rectangle containing top tile of diamond
 	mMapPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BOTTOM_UI_HEIGHT - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
 	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, mMapPosition.y, TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
-
-	int transform = (mMapPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
-	TRANSFORM = {-transform, transform};
 }
 
 
@@ -376,6 +373,8 @@ void TileMap::updateTileHighlight()
 
 	int offsetX = ((mMousePosition.x - mMapBoundingBox.x - even_edge_length_adjust) / TILE_WIDTH);
 	int offsetY = ((mMousePosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
+	int transform = (mMapPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
+	TRANSFORM = {-transform, transform};
 	NAS2D::Vector<int> highlightOffset = {TRANSFORM.x + offsetY + offsetX, TRANSFORM.y + offsetY - offsetX};
 
 	int mmOffsetX = std::clamp((mMousePosition.x - mMapBoundingBox.x - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
