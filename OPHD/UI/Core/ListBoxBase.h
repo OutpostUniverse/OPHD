@@ -53,9 +53,9 @@ public:
 	std::size_t count() const;
 	bool empty() const;
 
-	unsigned int currentHighlight() const;
-	unsigned int currentSelection() const;
-	void setSelection(unsigned int selection);
+	std::size_t currentHighlight() const;
+	std::size_t currentSelection() const;
+	void setSelection(std::size_t selection);
 
 	const std::string& selectionText() const;
 
@@ -102,8 +102,8 @@ private:
 	void onSizeChanged() override;
 
 
-	unsigned int mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
-	unsigned int mCurrentSelection = constants::NO_SELECTION; /**< Current selection index. */
+	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
+	std::size_t mCurrentSelection = constants::NO_SELECTION; /**< Current selection index. */
 	unsigned int mCurrentOffset = 0; /**< Draw Offset. */
 
 	int mItemHeight = 1; /**< Height of a ListBoxItem. */

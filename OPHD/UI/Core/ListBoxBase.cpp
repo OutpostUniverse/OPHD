@@ -127,7 +127,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	// A few basic checks
 	if (!rect().contains(point) || mCurrentHighlight == constants::NO_SELECTION) { return; }
 	if (mSlider.visible() && mSlider.rect().contains(point)) { return; }
-	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size()) { return; }
+	if (mCurrentHighlight >= mItems.size()) { return; }
 
 	setSelection(mCurrentHighlight);
 }
@@ -159,7 +159,7 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 
 	mCurrentHighlight = (static_cast<unsigned int>(y - positionY()) + mCurrentOffset) / static_cast<unsigned int>(mItemHeight);
 
-	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
+	if (mCurrentHighlight >= mItems.size())
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 	}
@@ -258,7 +258,7 @@ bool ListBoxBase::empty() const
 /**
  * Index of the current mouse hover highlight.
  */
-unsigned int ListBoxBase::currentHighlight() const
+std::size_t ListBoxBase::currentHighlight() const
 {
 	return mCurrentHighlight;
 }
@@ -267,7 +267,7 @@ unsigned int ListBoxBase::currentHighlight() const
 /**
  * Index of the current selection.
  */
-unsigned int ListBoxBase::currentSelection() const
+std::size_t ListBoxBase::currentSelection() const
 {
 	return mCurrentSelection;
 }
@@ -278,7 +278,7 @@ unsigned int ListBoxBase::currentSelection() const
  * 
  * \note	Out of range selection indicies will set the ListBoxBase to no selection.
  */
-void ListBoxBase::setSelection(unsigned int selection)
+void ListBoxBase::setSelection(std::size_t selection)
 {
 	mCurrentSelection = (selection < mItems.size()) ? selection : constants::NO_SELECTION;
 	mSelectionChanged();
