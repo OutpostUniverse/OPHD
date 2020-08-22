@@ -45,17 +45,15 @@ Point<int>& ccLocation()
 
 /**
  * Checks to see if a given tube connection is valid.
- * 
- * \warning		Assumes \c tile is never nullptr.
  */
-bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnectorDir)
+bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir)
 {
-	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure())
+	if (tile.mine() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure())
 	{
 		return false;
 	}
 
-	Structure* structure = tile->structure();
+	Structure* structure = tile.structure();
 
 	if (sourceConnectorDir == ConnectorDir::CONNECTOR_INTERSECTION)
 	{
@@ -95,17 +93,15 @@ bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnector
 
 /**
  * Checks to see if the given tile offers the a proper connection for a Structure.
- * 
- * \warning		Assumes \c tile is never nullptr.
  */
-bool checkStructurePlacement(Tile* tile, Direction dir)
+bool checkStructurePlacement(Tile& tile, Direction dir)
 {
-	if (tile->mine() || !tile->bulldozed() || !tile->excavated() || !tile->thingIsStructure() || !tile->connected())
+	if (tile.mine() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !tile.connected())
 	{
 		return false;
 	}
 
-	Structure* _structure = tile->structure();
+	Structure* _structure = tile.structure();
 	if (!_structure->isConnector())
 	{
 		return false;
@@ -160,24 +156,22 @@ bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point)
 
 /**
  * Indicates that the selected landing site is clear of obstructions.
- *
- * \warning		Assumes \c tile is never nullptr.
  */
-bool validLanderSite(Tile* tile)
+bool validLanderSite(Tile& tile)
 {
-	if (!tile->empty())
+	if (!tile.empty())
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TILE_OBSTRUCTED);
 		return false;
 	}
 
-	if (tile->distanceTo(ccLocation()) > constants::LANDER_COM_RANGE)
+	if (tile.distanceTo(ccLocation()) > constants::LANDER_COM_RANGE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_COMM_RANGE);
 		return false;
 	}
 
-	if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
+	if (tile.index() == TerrainType::TERRAIN_IMPASSABLE)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TERRAIN);
 		return false;
@@ -200,19 +194,19 @@ bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
 {
 	for (const auto offset : DirectionScan3x3)
 	{
-		Tile* tile = tilemap->getTile(position + offset);
+		auto& tile = tilemap->getTile(position + offset);
 
-		if (tile->index() == TerrainType::TERRAIN_IMPASSABLE)
+		if (tile.index() == TerrainType::TERRAIN_IMPASSABLE)
 		{
 			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
 			return false;
 		}
-		else if (tile->mine())
+		else if (tile.mine())
 		{
 			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_MINE);
 			return false;
 		}
-		else if (tile->thing())
+		else if (tile.thing())
 		{
 			// This is a case that should never happen. If it does, blow up loudly.
 			throw std::runtime_error("Tile obstructed by a Thing other than a Mine.");

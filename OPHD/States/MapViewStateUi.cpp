@@ -442,19 +442,19 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 
 	if (direction == Direction::North)
 	{
-		mTileMap->getTile(tile->position() + DirectionNorth, tile->depth())->excavated(true);
+		mTileMap->getTile(tile->position() + DirectionNorth, tile->depth()).excavated(true);
 	}
 	else if (direction == Direction::South)
 	{
-		mTileMap->getTile(tile->position() + DirectionSouth, tile->depth())->excavated(true);
+		mTileMap->getTile(tile->position() + DirectionSouth, tile->depth()).excavated(true);
 	}
 	else if (direction == Direction::East)
 	{
-		mTileMap->getTile(tile->position() + DirectionEast, tile->depth())->excavated(true);
+		mTileMap->getTile(tile->position() + DirectionEast, tile->depth()).excavated(true);
 	}
 	else if (direction == Direction::West)
 	{
-		mTileMap->getTile(tile->position() + DirectionWest, tile->depth())->excavated(true);
+		mTileMap->getTile(tile->position() + DirectionWest, tile->depth()).excavated(true);
 	}
 
 

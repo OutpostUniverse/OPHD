@@ -35,8 +35,8 @@ public:
 
 	bool isValidPosition(NAS2D::Point<int> position, int level = 0) const;
 
-	Tile* getTile(NAS2D::Point<int> position, int level);
-	Tile* getTile(NAS2D::Point<int> position) { return getTile(position, mCurrentDepth); }
+	Tile& getTile(NAS2D::Point<int> position, int level);
+	Tile& getTile(NAS2D::Point<int> position) { return getTile(position, mCurrentDepth); }
 
 	Tile* getVisibleTile(NAS2D::Point<int> position, int level);
 	Tile* getVisibleTile() { return getVisibleTile(tileMouseHover(), mCurrentDepth); }
