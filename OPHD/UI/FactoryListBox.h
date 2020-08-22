@@ -39,7 +39,4 @@ public:
 	Factory* selectedFactory();
 
 	void update() override;
-
-private:
-	void _init();
 };

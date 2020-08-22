@@ -49,12 +49,6 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 
 FactoryListBox::FactoryListBox()
 {
-	_init();
-}
-
-
-void FactoryListBox::_init()
-{
 	item_height(LIST_ITEM_HEIGHT);
 	STRUCTURE_ICONS = &imageCache.load("ui/structures.png");
 	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, 12);
