@@ -47,9 +47,6 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 }
 
 
-/**
- * C'tor
- */
 FactoryListBox::FactoryListBox()
 {
 	_init();
