@@ -1262,8 +1262,8 @@ void MapViewState::checkConnectedness()
 	}
 
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
-	Tile *t = mTileMap->getTile(ccLocation(), 0);
-	Structure *cc = t->structure();
+	Tile *tile = mTileMap->getTile(ccLocation(), 0);
+	Structure *cc = tile->structure();
 
 	if (!cc)
 	{
@@ -1275,7 +1275,7 @@ void MapViewState::checkConnectedness()
 		return;
 	}
 
-	t->connected(true);
+	tile->connected(true);
 
 	// Start graph walking at the CC location.
 	GraphWalker graphWalker(ccLocation(), 0, mTileMap);
