@@ -48,9 +48,6 @@ StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
 {}
 
 
-/**
- * C'tor
- */
 StructureListBox::StructureListBox()
 {
 	_init();
