@@ -71,10 +71,6 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 }
 
 
-TileMap::~TileMap()
-{}
-
-
 /**
  * Removes a mine location from the tilemap.
  * 
