@@ -19,7 +19,7 @@ public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<Structure*>;
 
 public:
-	class StructureListBoxItem : public ListBoxItem
+	struct StructureListBoxItem : public ListBoxItem
 	{
 	public:
 		StructureListBoxItem(Structure* s);
