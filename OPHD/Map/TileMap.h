@@ -69,7 +69,7 @@ public:
 	void injectMouse(NAS2D::Point<int> position) { mMousePosition = position; }
 
 	void initMapDrawParams(NAS2D::Vector<int>);
-	
+
 	void draw();
 
 	void serialize(NAS2D::Xml::XmlElement* element, const Planet::Attributes& planetAttributes);
