@@ -21,7 +21,7 @@ public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<Factory*>;
 
 public:
-	class FactoryListBoxItem : public ListBoxItem
+	struct FactoryListBoxItem : public ListBoxItem
 	{
 	public:
 		FactoryListBoxItem(Factory* newFactory) : factory(newFactory) {}
