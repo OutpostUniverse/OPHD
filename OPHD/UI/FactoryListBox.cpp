@@ -47,24 +47,7 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 }
 
 
-/**
- * C'tor
- */
 FactoryListBox::FactoryListBox()
-{
-	_init();
-}
-
-
-/**
- * D'tor
- */
-FactoryListBox::~FactoryListBox()
-{
-}
-
-
-void FactoryListBox::_init()
 {
 	item_height(LIST_ITEM_HEIGHT);
 	STRUCTURE_ICONS = &imageCache.load("ui/structures.png");
