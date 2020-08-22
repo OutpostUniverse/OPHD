@@ -47,7 +47,4 @@ public:
 
 private:
 	void _init();
-
-private:
-	using StructureItemList = std::vector<StructureListBoxItem>;
 };
