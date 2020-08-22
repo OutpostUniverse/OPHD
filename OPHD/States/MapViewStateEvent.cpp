@@ -258,21 +258,21 @@ void MapViewState::minerTaskFinished(Robot* robot)
 {
 	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::minerTaskFinished() called with a Robot not in the Robot List!"); }
 
-	Tile* t = mRobotList[robot];
+	Tile* robotTile = mRobotList[robot];
 
 	// Surface structure
-	MineFacility* _mf = new MineFacility(t->mine());
-	_mf->maxDepth(mTileMap->maxDepth());
-	NAS2D::Utility<StructureManager>::get().addStructure(_mf, t);
-	_mf->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
+	MineFacility* mineFacility = new MineFacility(robotTile->mine());
+	mineFacility->maxDepth(mTileMap->maxDepth());
+	NAS2D::Utility<StructureManager>::get().addStructure(mineFacility, robotTile);
+	mineFacility->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 
 	// Tile immediately underneath facility.
-	Tile* t2 = mTileMap->getTile(t->position(), t->depth() + 1);
-	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), t2);
+	Tile* tileBelow = mTileMap->getTile(robotTile->position(), robotTile->depth() + 1);
+	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), tileBelow);
 
-	t->index(0);
-	t2->index(0);
-	t2->excavated(true);
+	robotTile->index(0);
+	tileBelow->index(0);
+	tileBelow->excavated(true);
 
 	robot->die();
 }
