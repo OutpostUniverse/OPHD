@@ -48,12 +48,6 @@ const std::map<Planet::Hostility, std::array<float, 3>> HostilityMineYieldTable 
 
 
 // ===============================================================================
-// = LOCAL VARIABLES
-// ===============================================================================
-Point<int> TRANSFORM; /**< Used to adjust mouse and screen spaces based on position of the map field. */
-
-
-// ===============================================================================
 // = CLASS/PUBLIC FUNCTIONS
 // ===============================================================================
 /**
@@ -374,8 +368,7 @@ void TileMap::updateTileHighlight()
 	int offsetX = ((mMousePosition.x - mMapBoundingBox.x - even_edge_length_adjust) / TILE_WIDTH);
 	int offsetY = ((mMousePosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
 	int transform = (mMapPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
-	TRANSFORM = {-transform, transform};
-	NAS2D::Vector<int> highlightOffset = {TRANSFORM.x + offsetY + offsetX, TRANSFORM.y + offsetY - offsetX};
+	NAS2D::Vector<int> highlightOffset = {-transform + offsetY + offsetX, transform + offsetY - offsetX};
 
 	int mmOffsetX = std::clamp((mMousePosition.x - mMapBoundingBox.x - even_edge_length_adjust) % TILE_WIDTH, 0, TILE_WIDTH);
 	int mmOffsetY = (mMousePosition.y - mMapBoundingBox.y) % TILE_HEIGHT_ABSOLUTE;
