@@ -14,10 +14,10 @@
 #include <random>
 #include <array>
 
+
 using namespace NAS2D;
 using namespace NAS2D::Xml;
 
-#pragma warning(disable: 4244)
 
 // ===============================================================================
 // = CONSTANTS
