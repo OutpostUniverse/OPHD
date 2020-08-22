@@ -436,17 +436,17 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		if (!mTileMap->tileHighlightVisible()) { return; }
 		if (!mTileMap->isValidPosition(mTileMap->tileMouseHover())) { return; }
 
-		Tile* tile = mTileMap->getTile(mTileMap->tileMouseHover());
-		if (tile->empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
+		auto& tile = *mTileMap->getTile(mTileMap->tileMouseHover());
+		if (tile.empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
 			clearSelections();
-			mTileInspector.tile(tile);
+			mTileInspector.tile(&tile);
 			mTileInspector.show();
 			mWindowStack.bringToFront(&mTileInspector);
 		}
-		else if (tile->thingIsStructure())
+		else if (tile.thingIsStructure())
 		{
-			Structure* structure = tile->structure();
+			Structure* structure = tile.structure();
 
 			if (structure->isFactory() && (structure->operational() || structure->isIdle()))
 			{
