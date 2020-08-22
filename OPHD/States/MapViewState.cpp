@@ -556,10 +556,10 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 		if (!mTileMap->tileHighlightVisible()) { return; }
 		if (!mTileMap->isValidPosition(mTileMap->tileMouseHover())) { return; }
 
-		Tile* tile = mTileMap->getTile(mTileMap->tileMouseHover());
-		if (tile->thingIsStructure())
+		auto& tile = *mTileMap->getTile(mTileMap->tileMouseHover());
+		if (tile.thingIsStructure())
 		{
-			Structure* structure = tile->structure();
+			Structure* structure = tile.structure();
 
 			if (structure->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(structure); }
 			else if (structure->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(structure); }
