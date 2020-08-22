@@ -40,7 +40,4 @@ public:
 	StructureListBoxItem* last();
 
 	void update() override;
-
-private:
-	void _init();
 };
