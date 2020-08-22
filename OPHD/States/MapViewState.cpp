@@ -837,9 +837,9 @@ void MapViewState::placeRobot()
 			mMineOperationsWindow.hide();
 			mTileMap->removeMineLocation(mTileMap->tileMouseHover());
 			tile->pushMine(nullptr);
-			for (std::size_t i = 0; i <= static_cast<std::size_t>(mTileMap->maxDepth()); ++i)
+			for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 			{
-				auto& mineShaftTile = *mTileMap->getTile(mTileMap->tileMouseHover(), static_cast<int>(i));
+				auto& mineShaftTile = *mTileMap->getTile(mTileMap->tileMouseHover(), i);
 				Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
 			}
 		}
