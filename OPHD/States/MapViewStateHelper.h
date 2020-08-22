@@ -24,8 +24,8 @@ class RobotCommand; /**< Forward declaration for getAvailableRobotCommand() func
 extern const NAS2D::Point<int> CcNotPlaced;
 NAS2D::Point<int>& ccLocation();
 
-bool checkTubeConnection(Tile* tile, Direction dir, ConnectorDir sourceConnectorDir);
-bool checkStructurePlacement(Tile* tile, Direction dir);
+bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);
+bool checkStructurePlacement(Tile& tile, Direction dir);
 bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir dir);
 bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point);
 bool validLanderSite(Tile* t);
