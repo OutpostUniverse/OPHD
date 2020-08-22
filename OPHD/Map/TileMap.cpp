@@ -19,9 +19,6 @@ using namespace NAS2D;
 using namespace NAS2D::Xml;
 
 
-// ===============================================================================
-// = CONSTANTS
-// ===============================================================================
 const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 
 const int MAP_WIDTH = 300;
@@ -47,12 +44,6 @@ const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYieldTable =
 };
 
 
-// ===============================================================================
-// = CLASS/PUBLIC FUNCTIONS
-// ===============================================================================
-/**
- * C'tor
- */
 TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
 	mSizeInTiles{MAP_WIDTH, MAP_HEIGHT},
 	mMaxDepth(maxDepth),
