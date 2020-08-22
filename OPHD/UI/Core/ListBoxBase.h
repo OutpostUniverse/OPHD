@@ -68,7 +68,7 @@ public:
 
 protected:
 	/**
-	 * List of ListBoxItem's.
+	 * List of ListBoxItems.
 	 * 
 	 * \note	Pointers used for polymorphism.
 	 * 

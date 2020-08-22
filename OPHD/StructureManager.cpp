@@ -235,7 +235,7 @@ void StructureManager::addStructure(Structure* st, Tile* t)
 		return;
 	}
 
-	// Remove thing's from tile only if we know we're adding a structure.
+	// Remove things from tile only if we know we're adding a structure.
 	if (!t->empty())
 	{
 		t->removeThing();

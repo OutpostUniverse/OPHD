@@ -5,7 +5,7 @@
 class Structure;
 
 /**
- * Provides an abstract interface for Report UI's used in the MainReportsUiState.
+ * Provides an abstract interface for Report UIs used in the MainReportsUiState.
  * 
  * \note	Inherits from UIContainer as the report classes are treated as UI objects.
  */

@@ -7,7 +7,7 @@
 #include <vector>
 
 /**
- * UI Object that contains other UI Control's.
+ * UI Object that contains other UI Controls.
  * 
  * Generally not intended to be used by itself.
  */

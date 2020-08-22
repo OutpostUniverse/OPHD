@@ -60,7 +60,7 @@ Tile::~Tile()
  * Adds a new Thing to the tile.
  *
  * \param	thing		Pointer to a Thing.
- * \param	overwrite	Overwrite any existing Thing's that may already be in the Tile.
+ * \param	overwrite	Overwrite any existing Things that may already be in the Tile.
  */
 void Tile::pushThing(Thing* thing)
 {
