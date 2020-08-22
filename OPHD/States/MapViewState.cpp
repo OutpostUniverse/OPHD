@@ -436,7 +436,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		if (!mTileMap->tileHighlightVisible()) { return; }
 		if (!mTileMap->isValidPosition(mTileMap->tileMouseHover())) { return; }
 
-		auto& tile = *mTileMap->getTile(mTileMap->tileMouseHover());
+		auto& tile = mTileMap->getTile(mTileMap->tileMouseHover());
 		if (tile.empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
 			clearSelections();
@@ -556,7 +556,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 		if (!mTileMap->tileHighlightVisible()) { return; }
 		if (!mTileMap->isValidPosition(mTileMap->tileMouseHover())) { return; }
 
-		auto& tile = *mTileMap->getTile(mTileMap->tileMouseHover());
+		auto& tile = mTileMap->getTile(mTileMap->tileMouseHover());
 		if (tile.thingIsStructure())
 		{
 			Structure* structure = tile.structure();
@@ -693,7 +693,7 @@ void MapViewState::placeTubes()
 
 	if (validTubeConnection(mTileMap, mTileMapMouseHover, cd))
 	{
-		insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(mTileMapMouseHover));
+		insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(mTileMapMouseHover));
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		Utility<StructureManager>::get().disconnectAll();
@@ -786,7 +786,7 @@ void MapViewState::placeTubeEnd()
 		}else if (!validTubeConnection(mTileMap, position, cd)){
 			endReach = true;
 		}else{
-			insertTube(cd, mTileMap->currentDepth(), mTileMap->getTile(position));
+			insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(position));
 
 			// FIXME: Naive approach -- will be slow with larger colonies.
 			Utility<StructureManager>::get().disconnectAll();
@@ -839,7 +839,7 @@ void MapViewState::placeRobot()
 			tile->pushMine(nullptr);
 			for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 			{
-				auto& mineShaftTile = *mTileMap->getTile(mTileMap->tileMouseHover(), i);
+				auto& mineShaftTile = mTileMap->getTile(mTileMap->tileMouseHover(), i);
 				Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
 			}
 		}
@@ -918,7 +918,7 @@ void MapViewState::placeRobot()
 		if (!tile->excavated()) { return; }
 
 		// Check for obstructions underneath the the digger location.
-		if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->position(), tile->depth() + 1)->empty())
+		if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->position(), tile->depth() + 1).empty())
 		{
 			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_BLOCKED_BELOW);
 			return;
@@ -1029,7 +1029,7 @@ void MapViewState::placeStructure()
 	if (!tile) { return; }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		(tile->distanceTo(mTileMap->getTile(ccLocation(), 0)) > constants::ROBOT_COM_RANGE))
+		(tile->distanceTo(&mTileMap->getTile(ccLocation(), 0)) > constants::ROBOT_COM_RANGE))
 	{
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_OUT_OF_RANGE);
 		return;
@@ -1153,7 +1153,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 
 		SeedLander* s = new SeedLander(point);
 		s->deployCallback().connect(this, &MapViewState::deploySeedLander);
-		Utility<StructureManager>::get().addStructure(s, mTileMap->getTile(point)); // Can only ever be placed on depth level 0
+		Utility<StructureManager>::get().addStructure(s, &mTileMap->getTile(point)); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();
@@ -1262,7 +1262,7 @@ void MapViewState::checkConnectedness()
 	}
 
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
-	auto& tile = *mTileMap->getTile(ccLocation(), 0);
+	auto& tile = mTileMap->getTile(ccLocation(), 0);
 	Structure *cc = tile.structure();
 
 	if (!cc)

@@ -76,7 +76,7 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 
 GraphWalker::GraphWalker(const NAS2D::Point<int>& point, int depth, TileMap* tileMap) :
 	mTileMap(tileMap),
-	mThisTile(tileMap->getTile(point, depth)),
+	mThisTile(&tileMap->getTile(point, depth)),
 	mGridPosition(point),
 	mDepth(depth)
 {
@@ -110,7 +110,7 @@ void GraphWalker::check(NAS2D::Point<int> point, int depth, Direction direction)
 	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap->size()).contains(point)) { return; }
 	if (depth < 0 || depth > mTileMap->maxDepth()) { return; }
 
-	auto& tile = *mTileMap->getTile(point, depth);
+	auto& tile = mTileMap->getTile(point, depth);
 
 	if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { return; }
 

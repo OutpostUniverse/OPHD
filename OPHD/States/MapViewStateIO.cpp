@@ -316,7 +316,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		if (production_time > 0)
 		{
 			robot->startTask(production_time);
-			mRobotPool.insertRobotIntoTable(mRobotList, robot, mTileMap->getTile({x, y}, depth));
+			mRobotPool.insertRobotIntoTable(mRobotList, robot, &mTileMap->getTile({x, y}, depth));
 			mRobotList[robot]->index(0);
 		}
 
@@ -363,7 +363,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			attribute = attribute->next();
 		}
 
-		auto& tile = *mTileMap->getTile({x, y}, depth);
+		auto& tile = mTileMap->getTile({x, y}, depth);
 		tile.index(0);
 		tile.excavated(true);
 
@@ -371,7 +371,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		if (structureId == StructureID::SID_TUBE)
 		{
 			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
-			insertTube(connectorDir, depth, mTileMap->getTile({x, y}, depth));
+			insertTube(connectorDir, depth, &mTileMap->getTile({x, y}, depth));
 			continue; // FIXME: ugly
 		}
 
@@ -384,7 +384,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_MINE_FACILITY)
 		{
-			auto* mine = mTileMap->getTile({x, y}, 0)->mine();
+			auto* mine = mTileMap->getTile({x, y}, 0).mine();
 			if (mine == nullptr)
 			{
 				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");

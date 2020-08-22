@@ -131,7 +131,7 @@ void MapViewState::deploySeedLander(NAS2D::Point<int> point)
 	// Bulldoze lander region
 	for (const auto& direction : DirectionScan3x3)
 	{
-		mTileMap->getTile(point + direction)->index(TerrainType::TERRAIN_DOZED);
+		mTileMap->getTile(point + direction).index(TerrainType::TERRAIN_DOZED);
 	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -139,15 +139,15 @@ void MapViewState::deploySeedLander(NAS2D::Point<int> point)
 	// Place initial tubes
 	for (const auto& direction : DirectionClockwise4)
 	{
-		structureManager.addStructure(new Tube(ConnectorDir::CONNECTOR_INTERSECTION, false), mTileMap->getTile(point + direction));
+		structureManager.addStructure(new Tube(ConnectorDir::CONNECTOR_INTERSECTION, false), &mTileMap->getTile(point + direction));
 	}
 
 	// TOP ROW
-	structureManager.addStructure(new SeedPower(), mTileMap->getTile(point + DirectionNorthWest));
+	structureManager.addStructure(new SeedPower(), &mTileMap->getTile(point + DirectionNorthWest));
 
 	CommandCenter* cc = static_cast<CommandCenter*>(StructureCatalogue::get(StructureID::SID_COMMAND_CENTER));
 	cc->sprite().setFrame(3);
-	structureManager.addStructure(cc, mTileMap->getTile(point + DirectionNorthEast));
+	structureManager.addStructure(cc, &mTileMap->getTile(point + DirectionNorthEast));
 	ccLocation() = point + DirectionNorthEast;
 
 	// BOTTOM ROW
@@ -155,11 +155,11 @@ void MapViewState::deploySeedLander(NAS2D::Point<int> point)
 	sf->resourcePool(&mPlayerResources);
 	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 	sf->sprite().setFrame(7);
-	structureManager.addStructure(sf, mTileMap->getTile(point + DirectionSouthWest));
+	structureManager.addStructure(sf, &mTileMap->getTile(point + DirectionSouthWest));
 
 	SeedSmelter* ss = static_cast<SeedSmelter*>(StructureCatalogue::get(StructureID::SID_SEED_SMELTER));
 	ss->sprite().setFrame(10);
-	structureManager.addStructure(ss, mTileMap->getTile(point + DirectionSouthEast));
+	structureManager.addStructure(ss, &mTileMap->getTile(point + DirectionSouthEast));
 
 	// Robots only become available after the SEED Factory is deployed.
 	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER);
@@ -211,10 +211,10 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
-		NAS2D::Utility<StructureManager>::get().addStructure(as2, mTileMap->getTile(origin, newDepth));
+		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile(origin, newDepth));
 
-		mTileMap->getTile(origin, t->depth())->index(TerrainType::TERRAIN_DOZED);
-		mTileMap->getTile(origin, newDepth)->index(TerrainType::TERRAIN_DOZED);
+		mTileMap->getTile(origin, t->depth()).index(TerrainType::TERRAIN_DOZED);
+		mTileMap->getTile(origin, newDepth).index(TerrainType::TERRAIN_DOZED);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -244,7 +244,7 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	 */
 	for (const auto offset : DirectionScan3x3)
 	{
-		mTileMap->getTile(origin + offset, newDepth)->excavated(true);
+		mTileMap->getTile(origin + offset, newDepth).excavated(true);
 	}
 
 	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER);
@@ -267,7 +267,7 @@ void MapViewState::minerTaskFinished(Robot* robot)
 	mineFacility->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 
 	// Tile immediately underneath facility.
-	auto& tileBelow = *mTileMap->getTile(robotTile.position(), robotTile.depth() + 1);
+	auto& tileBelow = mTileMap->getTile(robotTile.position(), robotTile.depth() + 1);
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &tileBelow);
 
 	robotTile.index(0);
@@ -283,7 +283,7 @@ void MapViewState::mineFacilityExtended(MineFacility* mineFacility)
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 	
 	auto& mineFacilityTile = *NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
-	auto& mineDepthTile = *mTileMap->getTile(mineFacilityTile.position(), mineFacility->mine()->depth());
+	auto& mineDepthTile = mTileMap->getTile(mineFacilityTile.position(), mineFacility->mine()->depth());
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &mineDepthTile);
 	mineDepthTile.index(0);
 	mineDepthTile.excavated(true);
