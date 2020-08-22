@@ -56,14 +56,6 @@ FactoryListBox::FactoryListBox()
 }
 
 
-/**
- * D'tor
- */
-FactoryListBox::~FactoryListBox()
-{
-}
-
-
 void FactoryListBox::_init()
 {
 	item_height(LIST_ITEM_HEIGHT);

@@ -30,7 +30,6 @@ public:
 
 
 	FactoryListBox();
-	~FactoryListBox() override;
 
 	void addItem(Factory* factory);
 	void removeItem(Factory* factory);
