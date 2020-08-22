@@ -371,9 +371,7 @@ void TileMap::updateTileHighlight()
 	const int mmOffsetX = std::clamp((mMousePosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) % TILE_WIDTH, 0, TILE_WIDTH);
 	const int mmOffsetY = (mMousePosition.y - mMapBoundingBox.y) % TILE_HEIGHT_ABSOLUTE;
 
-	MouseMapRegion mmr = getMouseMapRegion(mmOffsetX, mmOffsetY);
-
-	switch (mmr)
+	switch (getMouseMapRegion(mmOffsetX, mmOffsetY))
 	{
 	case MouseMapRegion::MMR_TOP_RIGHT:
 		--highlightOffset.y;
