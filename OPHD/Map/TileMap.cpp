@@ -38,8 +38,7 @@ const int TILE_HEIGHT_HALF_ABSOLUTE = TILE_HEIGHT_ABSOLUTE / 2;
 
 const double THROB_SPEED = 250.0; // Throb speed of mine beacon
 
-
-/** Tuple indicates percent of mines that should be of yields LOW, MED, HIGH */
+/** Array indicates percent of mines that should be of yields LOW, MED, HIGH */
 const std::map<Planet::Hostility, std::array<float, 3>> HostilityMineYieldTable =
 {
 	{ Planet::Hostility::Low, {0.30f, 0.50f, 0.20f} },
