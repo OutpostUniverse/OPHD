@@ -344,11 +344,6 @@ void StructureCatalogue::buildPopulationRequirementsTable()
  */
 StorableResources StructureCatalogue::recycleValue(StructureID type, float percent)
 {
-	if (mStructureCostTable.empty())
-	{
-		throw std::runtime_error("StructureCatalogue::recycleValue() called before StructureCatalogue::buildCostTable().");
-	}
-
 	auto recyclingValue = mStructureCostTable[type];
 
 	for (size_t i = 0; i < recyclingValue.resources.size(); ++i)
