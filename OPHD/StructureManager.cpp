@@ -232,7 +232,6 @@ void StructureManager::addStructure(Structure* st, Tile* t)
 	if (mStructureTileTable.find(st) != mStructureTileTable.end())
 	{
 		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
-		return;
 	}
 
 	// Remove things from tile only if we know we're adding a structure.
