@@ -18,7 +18,7 @@ bool RobotCommand::commandCapacityAvailable() const
 
 
 /**
- * \param	_r	Pointer to a Robot.
+ * \param	robot	Pointer to a Robot.
  */
 bool RobotCommand::commandedByThis(Robot* robot) const
 {
@@ -29,7 +29,7 @@ bool RobotCommand::commandedByThis(Robot* robot) const
 /**
  * Adds a robot to the management pool of the Robot Command structure.
  * 
- * \param	_r	Pointer to a Robot to add to command list.
+ * \param	robot	Pointer to a Robot to add to command list.
  * 
  * \note	Performs some basic sanity checking. Will throw if list is full or
  *			the given pointer to a Robot is already in the list.
@@ -57,7 +57,7 @@ void RobotCommand::addRobot(Robot* robot)
 /**
  * Removes a robot to the management pool of the Robot Command structure.
  *
- * \param	_r	Pointer to a Robot to remove from command list.
+ * \param	robot	Pointer to a Robot to remove from command list.
  */
 void RobotCommand::removeRobot(Robot* robot)
 {
