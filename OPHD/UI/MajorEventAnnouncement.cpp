@@ -49,7 +49,6 @@ void MajorEventAnnouncement::announcement(AnnouncementType a)
 		break;
 	default:
 		throw std::runtime_error("MajorEventAnnouncement::announcement(): Called with invalid announcement type.");
-		break;
 	}
 }
 
