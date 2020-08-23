@@ -73,21 +73,18 @@ Robot* RobotPool::addRobot(RobotType type, int id /*= 0*/)
 		mDozers.back()->id(_id);
 		mRobots.push_back(mDozers.back());
 		return mDozers.back();
-		break;
 
 	case RobotType::ROBOT_DIGGER:
 		mDiggers.push_back(new Robodigger());
 		mDiggers.back()->id(_id);
 		mRobots.push_back(mDiggers.back());
 		return mDiggers.back();
-		break;
 
 	case RobotType::ROBOT_MINER:
 		mMiners.push_back(new Robominer());
 		mMiners.back()->id(_id);
 		mRobots.push_back(mMiners.back());
 		return mMiners.back();
-		break;
 
 	default:
 		break;
