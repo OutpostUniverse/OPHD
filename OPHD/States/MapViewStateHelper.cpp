@@ -324,8 +324,8 @@ bool inCommRange(NAS2D::Point<int> position)
  * Gets a pointer to a Warehouse structure that has the specified
  * amount of storage available.
  * 
- * \param	_pt		Product to store. Use value from ProductType enumerator.
- * \param	_ct		Count of products that need to be stored.
+ * \param	type		Product to store. Use value from ProductType enumerator.
+ * \param	count		Count of products that need to be stored.
  * 
  * \return	Returns a pointer to a Warehouse structure or \c nullptr if
  *			there are no warehouses available with the required space.

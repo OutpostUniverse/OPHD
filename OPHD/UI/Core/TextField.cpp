@@ -92,7 +92,7 @@ void TextField::numbers_only(bool _b)
 /**
  * Sets the maximum number of characters allowed in the text field.
  * 
- * \param	Count	Number of characters allowed in the field.
+ * \param	count	Number of characters allowed in the field.
  * 
  * \note	Calling this with \c 0 will clear character limit.
  */
