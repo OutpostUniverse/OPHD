@@ -124,7 +124,7 @@ bool Control::hasFocus() const
 /**
  * Sets highlighting of the Control.
  * 
- * \param	enabled		True highlights the Control. False turns off highlighting.
+ * \param	highlight		True highlights the Control. False turns off highlighting.
  * 
  * \note	Some controls may ignore this setting.
  */
