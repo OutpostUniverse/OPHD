@@ -17,19 +17,19 @@ jobs:
       - image: outpostuniverse/nas2d:1.4
     steps:
       - build
-  build-linux-gcc8:
+  build-linux-gcc:
     docker:
-      - image: outpostuniverse/nas2d-gcc8:1.1
+      - image: outpostuniverse/nas2d-gcc:1.2
     steps:
       - build
   build-linux-clang:
     docker:
-      - image: outpostuniverse/nas2d-clang:1.0
+      - image: outpostuniverse/nas2d-clang:1.1
     steps:
       - build
   build-linux-mingw:
     docker:
-      - image: outpostuniverse/nas2d-mingw:1.4
+      - image: outpostuniverse/nas2d-mingw:1.5
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
@@ -39,6 +39,6 @@ workflows:
   build:
     jobs:
       - build-linux
-      - build-linux-gcc8
+      - build-linux-gcc
       - build-linux-clang
       - build-linux-mingw
