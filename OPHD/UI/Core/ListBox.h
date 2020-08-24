@@ -28,8 +28,6 @@ public:
 
 	struct ListBoxItem
 	{
-		ListBoxItem(const std::string& text, int tag) : Text(text), Tag(tag) {}
-
 		bool operator==(const std::string& rhs) { return Text == rhs; }
 		bool operator<(const ListBoxItem& lhs) { return Text < lhs.Text; }
 
