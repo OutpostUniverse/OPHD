@@ -34,7 +34,7 @@ static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem&
 
 	renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
 
-	renderer.drawText(*MAIN_FONT_BOLD, item.Text, NAS2D::Point{x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
+	renderer.drawText(*MAIN_FONT_BOLD, item.text, NAS2D::Point{x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 
 	renderer.drawText(*MAIN_FONT, item.structureState, NAS2D::Point{x + w - MAIN_FONT->width(item.structureState) - 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 }

@@ -288,7 +288,7 @@ void ListBoxBase::setSelection(std::size_t selection)
 const std::string& ListBoxBase::selectionText() const
 {
 	if (currentSelection() == constants::NO_SELECTION) { return constants::EMPTY_STR; }
-	return mItems[currentSelection()]->Text;
+	return mItems[currentSelection()]->text;
 }
 
 

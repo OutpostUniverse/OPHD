@@ -98,7 +98,7 @@ bool ListBox::empty() const
 const std::string& ListBox::selectionText() const
 {
 	if (mCurrentSelection == constants::NO_SELECTION) { return constants::EMPTY_STR; }
-	return mItems[mCurrentSelection].Text;
+	return mItems[mCurrentSelection].text;
 }
 
 
@@ -160,7 +160,7 @@ void ListBox::setSelectionByName(const std::string& item)
 	const auto target = toLowercase(item);
 	for (std::size_t i = 0; i < mItems.size(); i++)
 	{
-		if (toLowercase(mItems[i].Text) == target) { mCurrentSelection = i; return; }
+		if (toLowercase(mItems[i].text) == target) { mCurrentSelection = i; return; }
 	}
 }
 
@@ -293,7 +293,7 @@ void ListBox::update()
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
 		const auto textColor = (i == mCurrentHighlight) ? mHighlightText : mText;
-		renderer.drawTextShadow(mFont, mItems[i].Text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
+		renderer.drawTextShadow(mFont, mItems[i].text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 		textPosition.y += mLineHeight;
 	}
 

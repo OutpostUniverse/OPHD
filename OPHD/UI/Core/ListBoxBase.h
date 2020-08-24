@@ -36,10 +36,10 @@ public:
 	struct ListBoxItem
 	{
 		ListBoxItem() = default;
-		ListBoxItem(std::string text) : Text(text) {}
+		ListBoxItem(std::string initialText) : text(initialText) {}
 		virtual ~ListBoxItem() = default;
 
-		std::string Text;
+		std::string text;
 	};
 
 

@@ -77,10 +77,10 @@ void FactoryListBox::addItem(Factory* factory)
 
 	/// \fixme super sloppy
 	FactoryListBoxItem* item = static_cast<FactoryListBoxItem*>(mItems.back());
-	item->Text = factory->name();
-	if (item->Text == constants::SURFACE_FACTORY) { item->icon_slice = {0, 46}; }
-	else if (item->Text == constants::UNDERGROUND_FACTORY) { item->icon_slice = {138, 276}; }
-	else if (item->Text == constants::SEED_FACTORY) { item->icon_slice = {460, 368}; }
+	item->text = factory->name();
+	if (item->text == constants::SURFACE_FACTORY) { item->icon_slice = {0, 46}; }
+	else if (item->text == constants::UNDERGROUND_FACTORY) { item->icon_slice = {138, 276}; }
+	else if (item->text == constants::SEED_FACTORY) { item->icon_slice = {460, 368}; }
 	
 	if (factory->state() == StructureState::Destroyed) { item->icon_slice = {414, 368}; }
 	_update_item_display();

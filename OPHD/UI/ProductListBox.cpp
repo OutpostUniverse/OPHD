@@ -34,7 +34,7 @@ void ProductListBox::productPool(ProductPool& pool)
 		if (pool.count(static_cast<ProductType>(product_type)) > 0)
 		{
 			ProductListBoxItem* item = new ProductListBoxItem();
-			item->Text = productDescription(static_cast<ProductType>(product_type));
+			item->text = productDescription(static_cast<ProductType>(product_type));
 			item->count = pool.count(static_cast<ProductType>(product_type));
 			item->usage = static_cast<float>(item->count) / static_cast<float>(pool.capacity());
 			mItems.push_back(item);
@@ -81,7 +81,7 @@ void ProductListBox::update()
 		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + itemSize.y - 2}, itemColor);
 
 		// Draw item column contents
-		renderer.drawText(mFontBold, item.Text, NAS2D::Point{x + 5, ((y + 15) - mFontBold.height() / 2) - offset}, itemColor);
+		renderer.drawText(mFontBold, item.text, NAS2D::Point{x + 5, ((y + 15) - mFontBold.height() / 2) - offset}, itemColor);
 		renderer.drawText(mFont, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + firstStop + 5, ((y + 15) - mFontBold.height() / 2)}, itemColor);
 		drawBasicProgressBar(x + secondStop + 5, y + 10, firstStop - 10, 10, item.usage, 2);
 	}
