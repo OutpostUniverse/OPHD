@@ -105,7 +105,7 @@ const std::string& ListBox::selectionText() const
 int ListBox::selectionTag() const
 {
 	if (mCurrentSelection == constants::NO_SELECTION) { return 0; }
-	return mItems[mCurrentSelection].Tag;
+	return mItems[mCurrentSelection].tag;
 }
 
 
