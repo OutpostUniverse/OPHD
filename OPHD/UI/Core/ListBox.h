@@ -28,11 +28,11 @@ public:
 
 	struct ListBoxItem
 	{
-		bool operator==(const std::string& rhs) { return Text == rhs; }
-		bool operator<(const ListBoxItem& lhs) { return Text < lhs.Text; }
-
 		std::string Text; /**< Text of the ListBoxItem. */
 		int Tag = 0; /**< User defined int data attached to the item. */
+
+		bool operator==(const std::string& rhs) { return Text == rhs; }
+		bool operator<(const ListBoxItem& lhs) { return Text < lhs.Text; }
 	};
 
 	using ListBoxItems = std::vector<ListBoxItem>;
