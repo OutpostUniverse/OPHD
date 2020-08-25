@@ -79,6 +79,8 @@ MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
 
 MapViewState::~MapViewState()
 {
+	delete mPathSolver;
+
 	scrubRobotList();
 	delete mTileMap;
 
