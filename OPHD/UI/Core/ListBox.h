@@ -35,8 +35,6 @@ public:
 		bool operator<(const ListBoxItem& lhs) { return text < lhs.text; }
 	};
 
-	using ListBoxItems = std::vector<ListBoxItem>;
-
 
 	ListBox();
 	~ListBox() override;
@@ -94,7 +92,7 @@ private:
 	unsigned int mLineHeight = 0; /**< Height of an item line. */
 	unsigned int mLineCount = 0; /**< Number of lines that can be displayed. */
 
-	ListBoxItems mItems; /**< List of items preserved in the order in which they're added. */
+	std::vector<ListBoxItem> mItems; /**< List of items preserved in the order in which they're added. */
 
 	NAS2D::Color mText = NAS2D::Color::White; /**< Text Color */
 	NAS2D::Color mHighlightBg = NAS2D::Color::DarkGreen; /**< Highlight Background color. */
