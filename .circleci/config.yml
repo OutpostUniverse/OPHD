@@ -20,11 +20,15 @@ jobs:
   build-linux-gcc:
     docker:
       - image: outpostuniverse/nas2d-gcc:1.2
+    environment:
+      WARN_EXTRA: -Wsuggest-override
     steps:
       - build
   build-linux-clang:
     docker:
       - image: outpostuniverse/nas2d-clang:1.1
+    environment:
+      WARN_EXTRA: -Wimplicit-int-conversion -Wunreachable-code -Wunreachable-code-return -Wunreachable-code-break -Wextra-semi-stmt -Wnewline-eof -Wdocumentation -Wheader-hygiene -Winconsistent-missing-destructor-override -Wdeprecated-copy-dtor -Wformat-nonliteral
     steps:
       - build
   build-linux-mingw:
