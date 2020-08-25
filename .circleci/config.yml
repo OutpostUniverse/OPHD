@@ -20,6 +20,8 @@ jobs:
   build-linux-gcc:
     docker:
       - image: outpostuniverse/nas2d-gcc:1.2
+    environment:
+      WARN_EXTRA: -Wsuggest-override
     steps:
       - build
   build-linux-clang:
