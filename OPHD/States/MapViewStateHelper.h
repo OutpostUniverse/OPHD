@@ -10,7 +10,6 @@
 #pragma once
 
 #include "../Common.h"
-#include "../StorableResources.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 
@@ -18,6 +17,7 @@
 class Warehouse; /**< Forward declaration for getAvailableWarehouse() function. */
 class RobotCommand; /**< Forward declaration for getAvailableRobotCommand() function. */
 class RobotPool;
+struct StorableResources;
 
 using RobotTileTable = std::map<Robot*, Tile*>;
 
