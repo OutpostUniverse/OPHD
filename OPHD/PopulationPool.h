@@ -5,8 +5,6 @@
 class PopulationPool
 {
 public:
-	PopulationPool();
-
 	void population(Population* pop);
 
 	int populationAvailable(Population::PersonRole role);

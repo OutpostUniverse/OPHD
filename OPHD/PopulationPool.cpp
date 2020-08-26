@@ -12,14 +12,6 @@ namespace {
 }
 
 
-PopulationPool::PopulationPool() :
-	mScientistsAsWorkers(0),
-	mScientistsUsed(0),
-	mWorkersUsed(0),
-	mPopulation(nullptr)
-{}
-
-
 /**
  * Sets a pointer to a Population object.
  * 
