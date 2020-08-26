@@ -11,7 +11,7 @@ using namespace NAS2D::Xml;
 /**
  * Space required to store a Product.
  */
-std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
+const std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
 {
 	{ ProductType::PRODUCT_DIGGER, 10 },
 	{ ProductType::PRODUCT_DOZER, 10 },
