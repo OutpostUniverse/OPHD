@@ -71,11 +71,10 @@ void Population::init()
  */
 void Population::clear()
 {
-	clearPopulationList(PersonRole::ROLE_CHILD);
-	clearPopulationList(PersonRole::ROLE_STUDENT);
-	clearPopulationList(PersonRole::ROLE_WORKER);
-	clearPopulationList(PersonRole::ROLE_SCIENTIST);
-	clearPopulationList(PersonRole::ROLE_RETIRED);
+	for (auto& populationRole : mPopulation)
+	{
+		populationRole = 0;
+	}
 }
 
 
