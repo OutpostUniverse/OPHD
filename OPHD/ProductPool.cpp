@@ -39,7 +39,7 @@ inline int storageRequiredPerUnit(ProductType type)
 /**
  * Gets the amount of storage required for a given number of Products.
  */
-int storageRequired(ProductType type, int count)
+inline int storageRequired(ProductType type, int count)
 {
 	return PRODUCT_STORAGE_VALUE.at(type) * count;
 }
