@@ -1,9 +1,11 @@
 #pragma once
 
 #include "Things/Structures/Structure.h"
-
-#include "StorableResources.h"
 #include "Map/Tile.h"
+
+
+struct StorableResources;
+
 
 /**
  * Handles structure updating and resource management for structures.
