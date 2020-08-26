@@ -8,7 +8,9 @@
 #include "../Constants.h"
 #include "../Common.h"
 #include "../ProductionCost.h"
-#include "../Things/Structures/Factory.h"
+
+
+class Factory;
 
 
 /**
