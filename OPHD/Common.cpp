@@ -23,7 +23,7 @@
 using namespace NAS2D;
 
 
-std::map<Difficulty, std::string> DIFFICULTY_STRING_TABLE
+const std::map<Difficulty, std::string> DIFFICULTY_STRING_TABLE
 {
 	{ Difficulty::Beginner, constants::DIFFICULTY_BEGINNER },
 	{ Difficulty::Easy, constants::DIFFICULTY_EASY },
@@ -33,7 +33,7 @@ std::map<Difficulty, std::string> DIFFICULTY_STRING_TABLE
 
 std::string StringFromDifficulty(const Difficulty& difficulty)
 {
-	return DIFFICULTY_STRING_TABLE[difficulty];
+	return DIFFICULTY_STRING_TABLE.at(difficulty);
 }
 
 Difficulty DifficultyFromString(std::string difficultyStr)
@@ -50,7 +50,7 @@ Difficulty DifficultyFromString(std::string difficultyStr)
 }
 
 
-std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
+const std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
 {
 	{ StructureState::UnderConstruction, Color{150, 150, 150, 100} },
 	{ StructureState::Operational, Color{0, 185, 0} },
@@ -60,7 +60,7 @@ std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
 };
 
 
-std::map<StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
+const std::map<StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
 {
 	{ StructureState::UnderConstruction, Color{185, 185, 185, 100} },
 	{ StructureState::Operational, Color{0, 185, 0} },
@@ -70,7 +70,7 @@ std::map<StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
 };
 
 
-std::map<int, std::string> TILE_INDEX_TRANSLATION =
+const std::map<int, std::string> TILE_INDEX_TRANSLATION =
 {
 	{ 0, constants::TILE_INDEX_TRANSLATION_BULLDOZED },
 	{ 1, constants::TILE_INDEX_TRANSLATION_CLEAR },
@@ -80,7 +80,7 @@ std::map<int, std::string> TILE_INDEX_TRANSLATION =
 };
 
 
-std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
+const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 {
 	{ MineProductionRate::High , constants::MINE_YIELD_HIGH },
 	{ MineProductionRate::Low , constants::MINE_YIELD_LOW },
@@ -88,7 +88,7 @@ std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 };
 
 
-std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
+const std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
 {
 	{ DisabledReason::None, constants::STRUCTURE_DISABLED_NONE },
 
@@ -101,7 +101,7 @@ std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
 };
 
 
-std::map<IdleReason, std::string> IDLE_REASON_TABLE =
+const std::map<IdleReason, std::string> IDLE_REASON_TABLE =
 {
 	{ IdleReason::None, constants::STRUCTURE_IDLE_NONE },
 
@@ -202,13 +202,13 @@ std::array<std::string, ProductType::PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
 };
 
 
-std::array<std::string, 4> ResourceNamesRefined =
+const std::array<std::string, 4> ResourceNamesRefined =
 {
 	{"Common Metals", "Common Minerals", "Rare Metals", "Rare Minerals" }
 };
 
 
-std::array<std::string, 4> ResourceNamesOre =
+const std::array<std::string, 4> ResourceNamesOre =
 {
 	{"Common Metals Ore", "Common Minerals Ore", "Rare Metals Ore", "Rare Minerals Ore" }
 };
@@ -269,25 +269,25 @@ ProductType productTypeFromDescription(const std::string& description)
 
 const std::string& disabledReason(DisabledReason _d)
 {
-	return DISABLED_REASON_TABLE[_d];
+	return DISABLED_REASON_TABLE.at(_d);
 }
 
 
 const std::string& idleReason(IdleReason _i)
 {
-	return IDLE_REASON_TABLE[_i];
+	return IDLE_REASON_TABLE.at(_i);
 }
 
 
-Color& structureColorFromIndex(StructureState structureState)
+Color structureColorFromIndex(StructureState structureState)
 {
-	return STRUCTURE_COLOR_TABLE[structureState];
+	return STRUCTURE_COLOR_TABLE.at(structureState);
 }
 
 
-Color& structureTextColorFromIndex(StructureState structureState)
+Color structureTextColorFromIndex(StructureState structureState)
 {
-	return STRUCTURE_TEXT_COLOR_TABLE[structureState];
+	return STRUCTURE_TEXT_COLOR_TABLE.at(structureState);
 }
 
 
