@@ -15,11 +15,11 @@
 #include "../Map/TileMap.h"
 
 
-using RobotTileTable = std::map<Robot*, Tile*>;
-
 class Warehouse; /**< Forward declaration for getAvailableWarehouse() function. */
 class RobotCommand; /**< Forward declaration for getAvailableRobotCommand() function. */
 class RobotPool;
+
+using RobotTileTable = std::map<Robot*, Tile*>;
 
 extern const NAS2D::Point<int> CcNotPlaced;
 NAS2D::Point<int>& ccLocation();
