@@ -32,7 +32,7 @@ public:
 	void addRobot(Robot* robot);
 	void removeRobot(Robot* robot);
 
-	const RobotList& robots() { return mRobotList; }
+	const std::vector<Robot*>& robots() { return mRobotList; }
 
 protected:
 	void defineResourceInput() override
@@ -41,5 +41,5 @@ protected:
 	}
 
 private:
-	RobotList mRobotList;
+	std::vector<Robot*> mRobotList;
 };
