@@ -39,12 +39,6 @@ Population::Population() :
 	mDeathCount(0),
 	mStarveRate(0.5f)
 {
-	init();
-}
-
-
-void Population::init()
-{
 	mPopulation.fill(0);
 	mPopulationGrowth.fill(0);
 	mPopulationDeath.fill(0);
