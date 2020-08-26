@@ -175,8 +175,7 @@ void Population::spawn_retiree()
 	{
 		mPopulationGrowth[PersonRole::ROLE_RETIRED] += total_adults / 10;
 
-		int divisor = total_adults;
-		if (divisor <= ADULT_TO_RETIREE_BASE) { divisor = ADULT_TO_RETIREE_BASE; }
+		int divisor = std::max(total_adults, ADULT_TO_RETIREE_BASE);
 
 		divisor = ((divisor / 40) * 3 + 40) * 4;
 
