@@ -56,10 +56,7 @@ Population::Population() :
  */
 void Population::clear()
 {
-	for (auto& populationRole : mPopulation)
-	{
-		populationRole = 0;
-	}
+	mPopulation.fill(0);
 }
 
 
