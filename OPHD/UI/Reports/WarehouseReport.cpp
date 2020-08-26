@@ -6,7 +6,7 @@
 #include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../StructureManager.h"
-
+#include "../../Things/Structures/Structure.h"
 #include "../../Things/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>

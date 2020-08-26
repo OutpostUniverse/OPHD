@@ -7,8 +7,6 @@
 
 #include "../Core/Button.h"
 
-#include "../../Things/Structures/Structure.h"
-
 #include <vector>
 
 
@@ -18,6 +16,7 @@ namespace NAS2D {
 }
 
 class Warehouse;
+class Structure;
 
 
 class WarehouseReport : public ReportInterface
