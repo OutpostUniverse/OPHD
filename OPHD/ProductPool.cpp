@@ -32,7 +32,7 @@ std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
  */
 inline int storageRequiredPerUnit(ProductType type)
 {
-	return PRODUCT_STORAGE_VALUE[type];
+	return PRODUCT_STORAGE_VALUE.at(type);
 }
 
 
@@ -41,7 +41,7 @@ inline int storageRequiredPerUnit(ProductType type)
  */
 int storageRequired(ProductType type, int count)
 {
-	return PRODUCT_STORAGE_VALUE[type] * count;
+	return PRODUCT_STORAGE_VALUE.at(type) * count;
 }
 
 
