@@ -41,13 +41,13 @@ enum class Direction
 /**
  * Terrain type enumeration
  */
-enum TerrainType
+enum class TerrainType
 {
-	TERRAIN_DOZED,
-	TERRAIN_CLEAR,
-	TERRAIN_ROUGH,
-	TERRAIN_DIFFICULT,
-	TERRAIN_IMPASSABLE
+	Dozed,
+	Clear,
+	Rough,
+	Difficult,
+	Impassable
 };
 
 
@@ -292,7 +292,7 @@ using PopulationRequirements = std::array<int, 2>;
 class Robot;
 using RobotList = std::vector<Robot*>;
 
-extern const std::map<int, std::string> TILE_INDEX_TRANSLATION;
+extern const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION;
 extern const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
 
 extern const std::array<std::string, 4> ResourceNamesRefined;

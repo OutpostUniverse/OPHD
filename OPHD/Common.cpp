@@ -70,13 +70,13 @@ const std::map<StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
 };
 
 
-const std::map<int, std::string> TILE_INDEX_TRANSLATION =
+const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
 {
-	{ 0, constants::TILE_INDEX_TRANSLATION_BULLDOZED },
-	{ 1, constants::TILE_INDEX_TRANSLATION_CLEAR },
-	{ 2, constants::TILE_INDEX_TRANSLATION_ROUGH },
-	{ 3, constants::TILE_INDEX_TRANSLATION_DIFFICULT },
-	{ 4, constants::TILE_INDEX_TRANSLATION_IMPASSABLE },
+	{ TerrainType::Dozed, constants::TILE_INDEX_TRANSLATION_BULLDOZED },
+	{ TerrainType::Clear, constants::TILE_INDEX_TRANSLATION_CLEAR },
+	{ TerrainType::Rough, constants::TILE_INDEX_TRANSLATION_ROUGH },
+	{ TerrainType::Difficult, constants::TILE_INDEX_TRANSLATION_DIFFICULT },
+	{ TerrainType::Impassable, constants::TILE_INDEX_TRANSLATION_IMPASSABLE },
 };
 
 

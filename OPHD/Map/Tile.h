@@ -16,22 +16,22 @@ class Tile
 {
 public:
 	Tile() = default;
-	Tile(NAS2D::Point<int> position, int depth, int index);
+	Tile(NAS2D::Point<int> position, int depth, TerrainType index);
 	Tile(const Tile& other) = delete;
 	Tile& operator=(const Tile& other) = delete;
 	Tile(Tile&& other) noexcept;
 	Tile& operator=(Tile&& other) noexcept;
 	~Tile();
 
-	int index() const { return mIndex; }
-	void index(int index) { mIndex = index; }
+	TerrainType index() const { return mIndex; }
+	void index(TerrainType index) { mIndex = index; }
 
 	NAS2D::Point<int> position() const { return mPosition; }
 
 	int depth() const { return mDepth; }
 	void depth(int i) { mDepth = i; }
 
-	bool bulldozed() const { return index() == 0; }
+	bool bulldozed() const { return index() == TerrainType::Dozed; }
 
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
@@ -71,7 +71,7 @@ protected:
 	void thingIsStructure(bool value) { mThingIsStructure = value; }
 
 private:
-	int mIndex = 0;
+	TerrainType mIndex = TerrainType::Dozed;
 
 	NAS2D::Point<int> mPosition; /**< Tile Position Information */
 	int mDepth = 0; /**< Tile Position Information */

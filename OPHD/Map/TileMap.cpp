@@ -131,7 +131,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 			{
 				auto color = heightmap.pixelColor({col, row});
 				auto& tile = getTile({col, row}, depth);
-				tile = {{col, row}, depth, color.red / 50};
+				tile = {{col, row}, depth, static_cast<TerrainType>(color.red / 50)};
 				if (depth > 0) { tile.excavated(false); }
 			}
 		}
@@ -185,7 +185,7 @@ void TileMap::addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& p
 
 	auto& tile = getTile(mineLocation, 0);
 	tile.pushMine(new Mine(rate));
-	tile.index(TerrainType::TERRAIN_DOZED);
+	tile.index(TerrainType::Dozed);
 
 	plist.push_back(mineLocation);
 }
@@ -309,7 +309,7 @@ void TileMap::draw()
 			if (tile.excavated())
 			{
 				const auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
-				const auto subImageRect = NAS2D::Rectangle{tile.index() * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
+				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
 				const bool isTileHighlighted = NAS2D::Vector{col, row} == highlightOffset;
 				const bool isConnectionHighlighted = mShowConnections && tile.connected();
 				const NAS2D::Color highlightColor =
@@ -396,13 +396,13 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 }
 
 
-static void serializeTile(XmlElement* _ti, int x, int y, int depth, int index)
+static void serializeTile(XmlElement* _ti, int x, int y, int depth, TerrainType index)
 {
 	XmlElement* t = new XmlElement("tile");
 	t->attribute("x", x);
 	t->attribute("y", y);
 	t->attribute("depth", depth);
-	t->attribute("index", index);
+	t->attribute("index", static_cast<int>(index));
 
 	_ti->linkEndChild(t);
 }
@@ -466,7 +466,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element, const Planet::Attribute
 				{
 					serializeTile(tiles, x, y, depth, tile.index());
 				}
-				else if (tile.index() == 0 && tile.empty() && tile.mine() == nullptr)
+				else if (tile.index() == TerrainType::Dozed && tile.empty() && tile.mine() == nullptr)
 				{
 					serializeTile(tiles, x, y, depth, tile.index());
 				}
@@ -509,7 +509,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 		auto& tile = getTile({x, y}, 0);
 		tile.pushMine(m);
-		tile.index(TerrainType::TERRAIN_DOZED);
+		tile.index(TerrainType::Dozed);
 
 		mMineLocations.push_back(Point{x, y});
 
@@ -595,7 +595,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		auto& adjacentTile = getTile(position, 0);
 		float cost = constants::ROUTE_BASE_COST;
 
-		if (adjacentTile.index() == TerrainType::TERRAIN_IMPASSABLE)
+		if (adjacentTile.index() == TerrainType::Impassable)
 		{
 			cost = FLT_MAX;
 		}

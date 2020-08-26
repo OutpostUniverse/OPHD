@@ -131,7 +131,7 @@ void MapViewState::deploySeedLander(NAS2D::Point<int> point)
 	// Bulldoze lander region
 	for (const auto& direction : DirectionScan3x3)
 	{
-		mTileMap->getTile(point + direction).index(TerrainType::TERRAIN_DOZED);
+		mTileMap->getTile(point + direction).index(TerrainType::Dozed);
 	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -213,8 +213,8 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 		as2->ug();
 		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile(origin, newDepth));
 
-		mTileMap->getTile(origin, t->depth()).index(TerrainType::TERRAIN_DOZED);
-		mTileMap->getTile(origin, newDepth).index(TerrainType::TERRAIN_DOZED);
+		mTileMap->getTile(origin, t->depth()).index(TerrainType::Dozed);
+		mTileMap->getTile(origin, newDepth).index(TerrainType::Dozed);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -270,8 +270,8 @@ void MapViewState::minerTaskFinished(Robot* robot)
 	auto& tileBelow = mTileMap->getTile(robotTile.position(), robotTile.depth() + 1);
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &tileBelow);
 
-	robotTile.index(0);
-	tileBelow.index(0);
+	robotTile.index(TerrainType::Dozed);
+	tileBelow.index(TerrainType::Dozed);
 	tileBelow.excavated(true);
 
 	robot->die();
@@ -285,6 +285,6 @@ void MapViewState::mineFacilityExtended(MineFacility* mineFacility)
 	auto& mineFacilityTile = *NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
 	auto& mineDepthTile = mTileMap->getTile(mineFacilityTile.position(), mineFacility->mine()->depth());
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &mineDepthTile);
-	mineDepthTile.index(0);
+	mineDepthTile.index(TerrainType::Dozed);
 	mineDepthTile.excavated(true);
 }
