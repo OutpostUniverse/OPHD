@@ -8,8 +8,8 @@
 #pragma once
 
 #include "Control.h"
-
 #include <NAS2D/Renderer/Color.h>
+#include <string>
 
 
 namespace NAS2D
