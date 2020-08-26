@@ -1,15 +1,13 @@
 #pragma once
 
 #include "../Common.h"
-
 #include "../Mine.h"
-
-#include "../Things/Thing.h"
 
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Renderer/Vector.h>
 
 
+class Thing;
 class Robot;
 class Structure;
 
