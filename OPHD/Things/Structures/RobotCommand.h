@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Structure.h"
-
-#include "../Robots/Robot.h"
-
 #include "../../Constants.h"
 
 #include <vector>
+
+
+class Robot;
 
 
 /**
