@@ -34,7 +34,7 @@ public:
 	void color(const NAS2D::Color& color);
 
 protected:
-	void autoSize();
+	void resize();
 
 private:
 	NAS2D::Color textColor{NAS2D::Color::White};

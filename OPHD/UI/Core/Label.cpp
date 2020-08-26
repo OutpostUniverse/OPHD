@@ -16,11 +16,11 @@ Label::Label(std::string newText)
 {
 	text(newText);
 	TXT_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	autoSize();
+	resize();
 }
 
 
-void Label::autoSize()
+void Label::resize()
 {
 	size(TXT_FONT->size(text()) + NAS2D::Vector{FIELD_PADDING * 2, FIELD_PADDING * 2});
 }
@@ -29,7 +29,7 @@ void Label::autoSize()
 void Label::font(const NAS2D::Font* font)
 {
 	TXT_FONT = font;
-	autoSize();
+	resize();
 }
 
 
