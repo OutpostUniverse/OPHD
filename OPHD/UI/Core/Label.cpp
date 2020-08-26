@@ -14,20 +14,20 @@ static const int FIELD_PADDING = 2;
 Label::Label(std::string newText)
 {
 	text(newText);
-	TXT_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	mFont = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	resize();
 }
 
 
 void Label::resize()
 {
-	size(TXT_FONT->size(text()) + NAS2D::Vector{FIELD_PADDING * 2, FIELD_PADDING * 2});
+	size(mFont->size(text()) + NAS2D::Vector{FIELD_PADDING * 2, FIELD_PADDING * 2});
 }
 
 
 void Label::font(const NAS2D::Font* font)
 {
-	TXT_FONT = font;
+	mFont = font;
 	resize();
 }
 
@@ -39,7 +39,7 @@ void Label::update()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto textPosition = mRect.startPoint() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING};
-	renderer.drawText(*TXT_FONT, text(), textPosition, textColor);
+	renderer.drawText(*mFont, text(), textPosition, textColor);
 }
 
 
