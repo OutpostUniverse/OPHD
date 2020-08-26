@@ -212,7 +212,7 @@ static bool routeObstructed(Route& route)
 		// \note	Tile being occupied by a robot is not an obstruction for the
 		//			purposes of routing/pathing.
 		if (t->thingIsStructure() && !t->structure()->isRoad()) { return true; }
-		if (t->index() == TERRAIN_IMPASSABLE) { return true; }
+		if (t->index() == TerrainType::TERRAIN_IMPASSABLE) { return true; }
 	}
 
 	return false;
