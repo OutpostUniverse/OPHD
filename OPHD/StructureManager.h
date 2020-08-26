@@ -4,6 +4,7 @@
 #include "Map/Tile.h"
 
 
+class PopulationPool;
 struct StorableResources;
 
 
