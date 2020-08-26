@@ -37,7 +37,7 @@ const ProductionCost& productCost(ProductType _pt)
 	// Sanity check
 	if (PRODUCTION_TYPE_TABLE.empty()) { throw std::runtime_error("Factory::productionCost() called before production table filled!"); }
 
-	return PRODUCTION_TYPE_TABLE[_pt];
+	return PRODUCTION_TYPE_TABLE.at(_pt);
 }
 
 
@@ -68,7 +68,7 @@ void Factory::productType(ProductType type)
 
 	productionResetTurns();
 
-	mTurnsToComplete = PRODUCTION_TYPE_TABLE[mProduct].turnsToBuild();
+	mTurnsToComplete = PRODUCTION_TYPE_TABLE.at(mProduct).turnsToBuild();
 }
 
 
@@ -131,7 +131,7 @@ void Factory::updateProduction()
 	/**
 	 * \todo	Have this use operator- once the production table is converted to using StorableResources
 	 */
-	const auto& productionCost = PRODUCTION_TYPE_TABLE[mProduct];
+	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
 	mResources->resources[0] = mResources->resources[0] - productionCost.commonMetals();
 	mResources->resources[1] = mResources->resources[1] - productionCost.commonMinerals();
 	mResources->resources[2] = mResources->resources[2] - productionCost.rareMetals();
@@ -157,7 +157,7 @@ bool Factory::enoughResourcesAvailable()
 	/**
 	 * \todo	Have this use operator>= once the production table is converted to using StorableResources
 	 */
-	const auto& productionCost = PRODUCTION_TYPE_TABLE[mProduct];
+	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
 	if (mResources->resources[0] >= productionCost.commonMetals() &&
 		mResources->resources[1] >= productionCost.commonMinerals() &&
 		mResources->resources[2] >= productionCost.rareMetals() &&
