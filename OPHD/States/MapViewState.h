@@ -17,7 +17,6 @@
 
 #include "../RobotPool.h"
 
-#include "../Things/Structures/Structure.h"
 #include "../Things/Robots/Robots.h"
 
 #include "../UI/Gui.h"
@@ -33,6 +32,7 @@
 
 class Tile;
 class TileMap;
+class Structure;
 
 
 enum PointerType
