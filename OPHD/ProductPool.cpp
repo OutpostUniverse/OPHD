@@ -6,10 +6,6 @@
 #include <algorithm>
 
 
-using namespace NAS2D;
-using namespace NAS2D::Xml;
-
-
 /**
  * Space required to store a Product.
  */
