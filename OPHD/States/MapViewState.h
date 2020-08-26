@@ -10,9 +10,6 @@
 #include "../Common.h"
 #include "../Constants.h"
 
-#include "../Map/Tile.h"
-#include "../Map/TileMap.h"
-
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
 
@@ -32,6 +29,10 @@
 
 #include <string>
 #include <memory>
+
+
+class Tile;
+class TileMap;
 
 
 enum PointerType
