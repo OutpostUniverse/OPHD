@@ -6,7 +6,7 @@
 #include <cmath>
 
 
-Tile::Tile(NAS2D::Point<int> position, int depth, int index) :
+Tile::Tile(NAS2D::Point<int> position, int depth, TerrainType index) :
 	mIndex{index},
 	mPosition{position},
 	mDepth{depth}

@@ -1195,7 +1195,7 @@ void MapViewState::updateRobots()
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				doAlertMessage("Robot Breakdown", text);
 				Robodozer* _d = dynamic_cast<Robodozer*>(robot);
-				if (_d) { tile->index(static_cast<int>(_d->tileIndex())); }
+				if (_d) { tile->index(static_cast<TerrainType>(_d->tileIndex())); }
 			}
 
 			if (tile->thing() == robot)

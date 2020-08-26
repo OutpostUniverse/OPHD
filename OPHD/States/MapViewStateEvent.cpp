@@ -270,8 +270,8 @@ void MapViewState::minerTaskFinished(Robot* robot)
 	auto& tileBelow = mTileMap->getTile(robotTile.position(), robotTile.depth() + 1);
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &tileBelow);
 
-	robotTile.index(0);
-	tileBelow.index(0);
+	robotTile.index(TerrainType::TERRAIN_DOZED);
+	tileBelow.index(TerrainType::TERRAIN_DOZED);
 	tileBelow.excavated(true);
 
 	robot->die();
@@ -285,6 +285,6 @@ void MapViewState::mineFacilityExtended(MineFacility* mineFacility)
 	auto& mineFacilityTile = *NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
 	auto& mineDepthTile = mTileMap->getTile(mineFacilityTile.position(), mineFacility->mine()->depth());
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &mineDepthTile);
-	mineDepthTile.index(0);
+	mineDepthTile.index(TerrainType::TERRAIN_DOZED);
 	mineDepthTile.excavated(true);
 }
