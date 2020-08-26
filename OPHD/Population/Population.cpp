@@ -40,11 +40,13 @@ Population::Population() :
 	mPopulationGrowth.fill(0);
 	mPopulationDeath.fill(0);
 
-	mModifiers[0] = MoraleModifier{50, 50, 110, 80};  // Excellent
-	mModifiers[1] = MoraleModifier{25, 25, 90, 75};   // Good
-	mModifiers[2] = MoraleModifier{0, 0, 60, 40};     // Fair
-	mModifiers[3] = MoraleModifier{-25, -25, 40, 20}; // Poor
-	mModifiers[4] = MoraleModifier{-50, -50, 20, 10}; // Terrible
+	mModifiers = {
+		MoraleModifier{50, 50, 110, 80},  // Excellent
+		MoraleModifier{25, 25, 90, 75},   // Good
+		MoraleModifier{0, 0, 60, 40},     // Fair
+		MoraleModifier{-25, -25, 40, 20}, // Poor
+		MoraleModifier{-50, -50, 20, 10}  // Terrible
+	};
 }
 
 
