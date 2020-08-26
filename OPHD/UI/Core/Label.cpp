@@ -8,8 +8,6 @@
 
 #include <NAS2D/Utility.h>
 
-static const int FIELD_PADDING = 2;
-
 
 Label::Label(std::string newText) :
 	mFont(&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL))
