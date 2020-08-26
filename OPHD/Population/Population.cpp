@@ -48,7 +48,6 @@ Population::Population() :
  */
 Population::~Population()
 {
-	clear();
 }
 
 
