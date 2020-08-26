@@ -466,7 +466,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element, const Planet::Attribute
 				{
 					serializeTile(tiles, x, y, depth, tile.index());
 				}
-				else if (tile.index() == 0 && tile.empty() && tile.mine() == nullptr)
+				else if (tile.index() == TerrainType::TERRAIN_DOZED && tile.empty() && tile.mine() == nullptr)
 				{
 					serializeTile(tiles, x, y, depth, tile.index());
 				}

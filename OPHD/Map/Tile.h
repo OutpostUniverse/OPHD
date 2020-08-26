@@ -31,7 +31,7 @@ public:
 	int depth() const { return mDepth; }
 	void depth(int i) { mDepth = i; }
 
-	bool bulldozed() const { return index() == 0; }
+	bool bulldozed() const { return index() == TerrainType::TERRAIN_DOZED; }
 
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
