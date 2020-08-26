@@ -199,7 +199,7 @@ const std::string& Structure::stateDescription() const
 
 const std::string& Structure::stateDescription(StructureState state)
 {
-	return STRUCTURE_STATE_TRANSLATION[state];
+	return STRUCTURE_STATE_TRANSLATION.at(state);
 }
 
 const std::string& Structure::classDescription() const
@@ -209,7 +209,7 @@ const std::string& Structure::classDescription() const
 
 const std::string& Structure::classDescription(Structure::StructureClass structureClass)
 {
-	return STRUCTURE_CLASS_TRANSLATION[structureClass];
+	return STRUCTURE_CLASS_TRANSLATION.at(structureClass);
 }
 
 /**
