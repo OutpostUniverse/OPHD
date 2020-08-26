@@ -11,6 +11,7 @@
 
 #include <NAS2D/Renderer/Color.h>
 
+
 namespace NAS2D
 {
 	class Font;
@@ -38,4 +39,5 @@ protected:
 
 private:
 	NAS2D::Color textColor{NAS2D::Color::White};
+	const NAS2D::Font* TXT_FONT = nullptr;
 };

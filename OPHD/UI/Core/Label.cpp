@@ -9,7 +9,6 @@
 #include <NAS2D/Utility.h>
 
 static const int FIELD_PADDING = 2;
-static const NAS2D::Font* TXT_FONT = nullptr;
 
 
 Label::Label(std::string newText)
