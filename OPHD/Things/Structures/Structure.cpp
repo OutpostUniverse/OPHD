@@ -48,7 +48,7 @@ const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATI
 };
 
 
-static std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
+static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
 {
 	"Not a Structure",
 	constants::AGRIDOME,
