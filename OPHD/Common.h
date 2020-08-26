@@ -292,11 +292,11 @@ using PopulationRequirements = std::array<int, 2>;
 class Robot;
 using RobotList = std::vector<Robot*>;
 
-extern std::map<int, std::string> TILE_INDEX_TRANSLATION;
-extern std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
+extern const std::map<int, std::string> TILE_INDEX_TRANSLATION;
+extern const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
 
-extern std::array<std::string, 4> ResourceNamesRefined;
-extern std::array<std::string, 4> ResourceNamesOre;
+extern const std::array<std::string, 4> ResourceNamesRefined;
+extern const std::array<std::string, 4> ResourceNamesOre;
 
 void doNonFatalErrorMessage(const std::string& title, const std::string& msg);
 void doAlertMessage(const std::string& title, const std::string& msg);
