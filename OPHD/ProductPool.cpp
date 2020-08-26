@@ -82,12 +82,7 @@ int ProductPool::availableStorage() const
  */
 bool ProductPool::canStore(ProductType type, int count)
 {
-	if (count * storageRequiredPerUnit(type) <= availableStorage())
-	{
-		return true;
-	}
-
-	return false;
+	return count * storageRequiredPerUnit(type) <= availableStorage();
 }
 
 
