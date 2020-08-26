@@ -41,7 +41,7 @@ enum class Direction
 /**
  * Terrain type enumeration
  */
-enum TerrainType
+enum class TerrainType
 {
 	TERRAIN_DOZED,
 	TERRAIN_CLEAR,
