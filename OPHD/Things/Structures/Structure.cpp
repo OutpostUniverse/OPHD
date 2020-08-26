@@ -9,7 +9,7 @@
 /**
  * Translation table for Structure States.
  */
-std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
+const std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
 {
 	{ StructureState::UnderConstruction, "Under Construction" },
 	{ StructureState::Operational, "Operational" },
@@ -22,7 +22,7 @@ std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
 /**
  * Translation table for Structure Classes.
  */
-std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
+const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
 {
 	{ Structure::StructureClass::Command, "Command" },
 	{ Structure::StructureClass::Communication, "Communication" },
