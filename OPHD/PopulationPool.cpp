@@ -12,9 +12,6 @@ namespace {
 }
 
 
-/**
- * C'tor
- */
 PopulationPool::PopulationPool() :
 	mScientistsAsWorkers(0),
 	mScientistsUsed(0),
@@ -23,9 +20,6 @@ PopulationPool::PopulationPool() :
 {}
 
 
-/**
- * D'tor
- */
 PopulationPool::~PopulationPool()
 {}
 
