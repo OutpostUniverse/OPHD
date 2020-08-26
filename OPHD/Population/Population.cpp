@@ -10,10 +10,9 @@
 
 
 namespace {
-	const int STUDENT_TO_SCIENTIST_RATE = 35;
-
-	const int STUDENT_TO_ADULT_BASE = 190;
-	const int ADULT_TO_RETIREE_BASE = 2000;
+	const int studentToScientistRate = 35;
+	const int studentToAdultBase = 190;
+	const int adultToRetireeBase = 2000;
 
 
 	std::default_random_engine pop_generator;
@@ -130,7 +129,7 @@ void Population::spawn_students()
 	{
 		mPopulationGrowth[PersonRole::ROLE_STUDENT] += mPopulation[PersonRole::ROLE_CHILD];
 
-		int divisor = std::max(adults(), STUDENT_TO_ADULT_BASE);
+		int divisor = std::max(adults(), studentToAdultBase);
 		divisor = ((divisor / 40) * 3 + 16) * 4;
 
 		int newStudents = mPopulationGrowth[PersonRole::ROLE_STUDENT] / divisor;
@@ -149,14 +148,14 @@ void Population::spawn_adults(int universities)
 	{
 		mPopulationGrowth[PersonRole::ROLE_WORKER] += mPopulation[PersonRole::ROLE_STUDENT];
 
-		int divisor = std::max(adults(), STUDENT_TO_ADULT_BASE);
+		int divisor = std::max(adults(), studentToAdultBase);
 		divisor = ((divisor / 40) * 3 + 45) * 4;
 
 		int newAdult = mPopulationGrowth[PersonRole::ROLE_WORKER] / divisor;
 		mPopulationGrowth[PersonRole::ROLE_WORKER] = mPopulationGrowth[PersonRole::ROLE_WORKER] % divisor;
 
 		// account for universities
-		if (universities > 0 && random_0_100() <= STUDENT_TO_SCIENTIST_RATE)
+		if (universities > 0 && random_0_100() <= studentToScientistRate)
 		{
 			mPopulation[PersonRole::ROLE_SCIENTIST] += newAdult;
 		}
@@ -177,7 +176,7 @@ void Population::spawn_retiree()
 	{
 		mPopulationGrowth[PersonRole::ROLE_RETIRED] += total_adults / 10;
 
-		int divisor = std::max(total_adults, ADULT_TO_RETIREE_BASE);
+		int divisor = std::max(total_adults, adultToRetireeBase);
 
 		divisor = ((divisor / 40) * 3 + 40) * 4;
 
