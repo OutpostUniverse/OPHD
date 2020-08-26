@@ -105,7 +105,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 }
 
 
-void WarehouseReport::_fillListFromStructureList(const StructureList& list)
+void WarehouseReport::_fillListFromStructureList(const std::vector<Structure*>& list)
 {
 	for (auto structure : list)
 	{

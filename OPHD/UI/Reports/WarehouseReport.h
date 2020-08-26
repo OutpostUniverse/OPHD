@@ -9,6 +9,8 @@
 
 #include "../../Things/Structures/Structure.h"
 
+#include <vector>
+
 
 namespace NAS2D {
 	class Font;
@@ -35,7 +37,7 @@ public:
 private:
 	void computeTotalWarehouseCapacity();
 
-	void _fillListFromStructureList(const StructureList&);
+	void _fillListFromStructureList(const std::vector<Structure*>&);
 
 	void _resized(Control*);
 
