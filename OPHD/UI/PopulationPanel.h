@@ -2,9 +2,10 @@
 
 #include "Core/Control.h"
 
-#include "../Population/Population.h"
-
 #include <NAS2D/Renderer/RectangleSkin.h>
+
+
+class Population;
 
 
 class PopulationPanel: public Control
