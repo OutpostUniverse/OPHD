@@ -36,10 +36,10 @@ public:
 	struct ListBoxItem
 	{
 		ListBoxItem() = default;
-		ListBoxItem(std::string text) : Text(text) {}
+		ListBoxItem(std::string initialText) : text(initialText) {}
 		virtual ~ListBoxItem() = default;
 
-		std::string Text;
+		std::string text;
 	};
 
 
@@ -67,17 +67,6 @@ public:
 
 
 protected:
-	/**
-	 * List of ListBoxItems.
-	 * 
-	 * \note	Pointers used for polymorphism.
-	 * 
-	 * \note	SpecialListBox owns pointers in this list and will
-	 *			handle memory internally.
-	 */
-	using ItemList = std::vector<ListBoxItem*>;
-
-
 	void _update_item_display();
 
 	unsigned int item_width() const { return static_cast<unsigned int>(mItemWidth); }
@@ -89,7 +78,7 @@ protected:
 	void visibilityChanged(bool) override;
 
 
-	ItemList mItems; /**< List of Items. */
+	std::vector<ListBoxItem*> mItems; /**< List of Items. Pointers used for polymorphism. */
 
 private:
 	void _init();
