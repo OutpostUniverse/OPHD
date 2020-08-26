@@ -7,8 +7,6 @@ class PopulationPool
 public:
 	PopulationPool();
 
-	~PopulationPool();
-
 	void population(Population* pop);
 
 	int populationAvailable(Population::PersonRole role);

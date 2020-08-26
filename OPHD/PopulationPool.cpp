@@ -20,10 +20,6 @@ PopulationPool::PopulationPool() :
 {}
 
 
-PopulationPool::~PopulationPool()
-{}
-
-
 /**
  * Sets a pointer to a Population object.
  * 
