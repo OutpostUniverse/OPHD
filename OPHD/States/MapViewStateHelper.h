@@ -10,7 +10,6 @@
 #pragma once
 
 #include "../Common.h"
-#include "../RobotPool.h"
 #include "../StorableResources.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
@@ -20,6 +19,7 @@ using RobotTileTable = std::map<Robot*, Tile*>;
 
 class Warehouse; /**< Forward declaration for getAvailableWarehouse() function. */
 class RobotCommand; /**< Forward declaration for getAvailableRobotCommand() function. */
+class RobotPool;
 
 extern const NAS2D::Point<int> CcNotPlaced;
 NAS2D::Point<int>& ccLocation();

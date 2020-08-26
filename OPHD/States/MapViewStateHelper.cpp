@@ -15,6 +15,7 @@
 #include "../Constants.h"
 #include "../StructureCatalogue.h"
 #include "../DirectionOffset.h"
+#include "../RobotPool.h"
 
 #include "../Things/Structures/RobotCommand.h"
 #include "../Things/Structures/Warehouse.h"
