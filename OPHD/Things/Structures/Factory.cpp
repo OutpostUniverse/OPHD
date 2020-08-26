@@ -131,10 +131,11 @@ void Factory::updateProduction()
 	/**
 	 * \todo	Have this use operator- once the production table is converted to using StorableResources
 	 */
-	mResources->resources[0] = mResources->resources[0] - PRODUCTION_TYPE_TABLE[mProduct].commonMetals();
-	mResources->resources[1] = mResources->resources[1] - PRODUCTION_TYPE_TABLE[mProduct].commonMinerals();
-	mResources->resources[2] = mResources->resources[2] - PRODUCTION_TYPE_TABLE[mProduct].rareMetals();
-	mResources->resources[3] = mResources->resources[3] - PRODUCTION_TYPE_TABLE[mProduct].rareMinerals();
+	const auto& productionCost = PRODUCTION_TYPE_TABLE[mProduct];
+	mResources->resources[0] = mResources->resources[0] - productionCost.commonMetals();
+	mResources->resources[1] = mResources->resources[1] - productionCost.commonMinerals();
+	mResources->resources[2] = mResources->resources[2] - productionCost.rareMetals();
+	mResources->resources[3] = mResources->resources[3] - productionCost.rareMinerals();
 
 	++mTurnsCompleted;
 
@@ -156,10 +157,11 @@ bool Factory::enoughResourcesAvailable()
 	/**
 	 * \todo	Have this use operator>= once the production table is converted to using StorableResources
 	 */
-	if (mResources->resources[0] >= PRODUCTION_TYPE_TABLE[mProduct].commonMetals() &&
-		mResources->resources[1] >= PRODUCTION_TYPE_TABLE[mProduct].commonMinerals() &&
-		mResources->resources[2] >= PRODUCTION_TYPE_TABLE[mProduct].rareMetals() &&
-		mResources->resources[3] >= PRODUCTION_TYPE_TABLE[mProduct].rareMinerals())
+	const auto& productionCost = PRODUCTION_TYPE_TABLE[mProduct];
+	if (mResources->resources[0] >= productionCost.commonMetals() &&
+		mResources->resources[1] >= productionCost.commonMinerals() &&
+		mResources->resources[2] >= productionCost.rareMetals() &&
+		mResources->resources[3] >= productionCost.rareMinerals())
 	{
 		return true;
 	}
