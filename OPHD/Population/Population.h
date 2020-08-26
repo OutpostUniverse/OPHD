@@ -62,6 +62,4 @@ private:
 	PopulationTable mPopulation; /**< Current population. */
 	PopulationTable mPopulationGrowth; /**< Population growth table. */
 	PopulationTable mPopulationDeath; /**< Population death table. */
-
-	MoraleModifiers mModifiers; /**< Morale modifier table */
 };

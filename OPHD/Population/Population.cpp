@@ -14,6 +14,14 @@ namespace {
 	const int studentToAdultBase = 190;
 	const int adultToRetireeBase = 2000;
 
+	const std::array moraleModifierTable{
+		MoraleModifier{50, 50, 110, 80},  // Excellent
+		MoraleModifier{25, 25, 90, 75},   // Good
+		MoraleModifier{0, 0, 60, 40},     // Fair
+		MoraleModifier{-25, -25, 40, 20}, // Poor
+		MoraleModifier{-50, -50, 20, 10}  // Terrible
+	};
+
 
 	std::default_random_engine pop_generator;
 	std::uniform_int_distribution<int> pop_distribution(0, 100);
@@ -39,14 +47,6 @@ Population::Population() :
 	mPopulation.fill(0);
 	mPopulationGrowth.fill(0);
 	mPopulationDeath.fill(0);
-
-	mModifiers = {
-		MoraleModifier{50, 50, 110, 80},  // Excellent
-		MoraleModifier{25, 25, 90, 75},   // Good
-		MoraleModifier{0, 0, 60, 40},     // Fair
-		MoraleModifier{-25, -25, 40, 20}, // Poor
-		MoraleModifier{-50, -50, 20, 10}  // Terrible
-	};
 }
 
 
@@ -114,7 +114,7 @@ void Population::spawn_children(int morale, int residences, int nurseries)
 	{
 		mPopulationGrowth[PersonRole::ROLE_CHILD] += mPopulation[PersonRole::ROLE_SCIENTIST] / 4 + mPopulation[PersonRole::ROLE_WORKER] / 2;
 
-		int divisor = mModifiers[moraleIndex(morale)].fertilityRate;
+		int divisor = moraleModifierTable[moraleIndex(morale)].fertilityRate;
 
 		int newChildren = mPopulationGrowth[PersonRole::ROLE_CHILD] / divisor;
 		mPopulationGrowth[PersonRole::ROLE_CHILD] = mPopulationGrowth[PersonRole::ROLE_CHILD] % divisor;
@@ -200,7 +200,7 @@ void Population::kill_children(int morale, int nurseries)
 	{
 		mPopulationDeath[PersonRole::ROLE_CHILD] = mPopulation[PersonRole::ROLE_CHILD];
 
-		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + (nurseries * 10);
+		int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (nurseries * 10);
 
 		int deaths = mPopulationDeath[PersonRole::ROLE_CHILD] / divisor;
 		mPopulationDeath[PersonRole::ROLE_CHILD] = mPopulationDeath[PersonRole::ROLE_CHILD] % divisor;
@@ -223,7 +223,7 @@ void Population::kill_students(int morale, int hospitals)
 	{
 		mPopulationDeath[PersonRole::ROLE_STUDENT] = mPopulation[PersonRole::ROLE_STUDENT];
 
-		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + (hospitals * 65);
+		int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (hospitals * 65);
 
 		int deaths = mPopulationDeath[PersonRole::ROLE_STUDENT] / divisor;
 		mPopulationDeath[PersonRole::ROLE_STUDENT] = mPopulationDeath[PersonRole::ROLE_CHILD] % divisor;
@@ -246,7 +246,7 @@ void Population::kill_adults(Population::PersonRole role, int morale, int hospit
 	if (mPopulation[role] > 0)
 	{
 		mPopulationDeath[role] += mPopulation[role];
-		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
+		int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
 
 		int deaths = mPopulationDeath[role] / divisor;
 		mPopulationDeath[role] = mPopulationDeath[role] % divisor;
