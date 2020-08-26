@@ -3,6 +3,7 @@
 #include "Core/Window.h"
 #include "Core/Button.h"
 
+#include "../Common.h"
 #include "../Map/Tile.h"
 
 
