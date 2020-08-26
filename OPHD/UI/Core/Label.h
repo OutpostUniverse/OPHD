@@ -32,7 +32,6 @@ public:
 	void clear() { mText.clear(); }
 	void update() override;
 
-	int textWidth() const;
 	NAS2D::Vector<int> textSize() const;
 
 	void color(const NAS2D::Color& color);
