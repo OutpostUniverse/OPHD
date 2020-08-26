@@ -16,7 +16,7 @@ using ProductionTypeTable = std::map<ProductType, ProductionCost>;
  *			produce. It is up to the individual factory to determine what they are
  *			allowed to build.
  */
-ProductionTypeTable PRODUCTION_TYPE_TABLE = 
+const ProductionTypeTable PRODUCTION_TYPE_TABLE =
 {
 	{ ProductType::PRODUCT_DIGGER, ProductionCost(5, 10, 5, 5, 2) },
 	{ ProductType::PRODUCT_DOZER, ProductionCost(5, 10, 5, 5, 2) },
