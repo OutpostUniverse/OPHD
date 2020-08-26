@@ -52,7 +52,7 @@ Population::Population() :
 
 
 /**
- * Clears entire population and frees all associated resources.
+ * Clears entire population.
  */
 void Population::clear()
 {
