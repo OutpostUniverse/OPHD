@@ -130,8 +130,7 @@ void Population::spawn_students()
 	{
 		mPopulationGrowth[PersonRole::ROLE_STUDENT] += mPopulation[PersonRole::ROLE_CHILD];
 
-		int divisor = adults();
-		if (divisor <= STUDENT_TO_ADULT_BASE) { divisor = STUDENT_TO_ADULT_BASE; }
+		int divisor = std::max(adults(), STUDENT_TO_ADULT_BASE);
 		divisor = ((divisor / 40) * 3 + 16) * 4;
 
 		int newStudents = mPopulationGrowth[PersonRole::ROLE_STUDENT] / divisor;
@@ -150,9 +149,7 @@ void Population::spawn_adults(int universities)
 	{
 		mPopulationGrowth[PersonRole::ROLE_WORKER] += mPopulation[PersonRole::ROLE_STUDENT];
 
-		int divisor = adults();
-		if (divisor <= STUDENT_TO_ADULT_BASE) { divisor = STUDENT_TO_ADULT_BASE; }
-
+		int divisor = std::max(adults(), STUDENT_TO_ADULT_BASE);
 		divisor = ((divisor / 40) * 3 + 45) * 4;
 
 		int newAdult = mPopulationGrowth[PersonRole::ROLE_WORKER] / divisor;
