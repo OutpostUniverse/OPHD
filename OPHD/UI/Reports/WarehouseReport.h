@@ -35,7 +35,7 @@ public:
 private:
 	void computeTotalWarehouseCapacity();
 
-	void _fillListFromStructureList(StructureList&);
+	void _fillListFromStructureList(const StructureList&);
 
 	void _resized(Control*);
 
