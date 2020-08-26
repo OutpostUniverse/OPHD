@@ -33,7 +33,7 @@ std::map<Difficulty, std::string> DIFFICULTY_STRING_TABLE
 
 std::string StringFromDifficulty(const Difficulty& difficulty)
 {
-	return DIFFICULTY_STRING_TABLE[difficulty];
+	return DIFFICULTY_STRING_TABLE.at(difficulty);
 }
 
 Difficulty DifficultyFromString(std::string difficultyStr)
@@ -269,25 +269,25 @@ ProductType productTypeFromDescription(const std::string& description)
 
 const std::string& disabledReason(DisabledReason _d)
 {
-	return DISABLED_REASON_TABLE[_d];
+	return DISABLED_REASON_TABLE.at(_d);
 }
 
 
 const std::string& idleReason(IdleReason _i)
 {
-	return IDLE_REASON_TABLE[_i];
+	return IDLE_REASON_TABLE.at(_i);
 }
 
 
 Color& structureColorFromIndex(StructureState structureState)
 {
-	return STRUCTURE_COLOR_TABLE[structureState];
+	return STRUCTURE_COLOR_TABLE.at(structureState);
 }
 
 
 Color& structureTextColorFromIndex(StructureState structureState)
 {
-	return STRUCTURE_TEXT_COLOR_TABLE[structureState];
+	return STRUCTURE_TEXT_COLOR_TABLE.at(structureState);
 }
 
 
