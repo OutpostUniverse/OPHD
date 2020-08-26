@@ -17,8 +17,6 @@
 
 #include "../RobotPool.h"
 
-#include "../Things/Robots/Robots.h"
-
 #include "../UI/Gui.h"
 #include "../UI/UI.h"
 
