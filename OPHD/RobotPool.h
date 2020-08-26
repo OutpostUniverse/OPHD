@@ -2,7 +2,9 @@
 
 
 #include "Things/Robots/Robots.h"
-#include "Map/Tile.h"
+
+
+class Tile;
 
 
 class RobotPool
