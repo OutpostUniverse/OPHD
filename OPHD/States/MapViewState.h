@@ -10,18 +10,12 @@
 #include "../Common.h"
 #include "../Constants.h"
 
-#include "../Map/Tile.h"
-#include "../Map/TileMap.h"
-
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
 
 #include "../StorableResources.h"
 
 #include "../RobotPool.h"
-
-#include "../Things/Structures/Structure.h"
-#include "../Things/Robots/Robots.h"
 
 #include "../UI/Gui.h"
 #include "../UI/UI.h"
@@ -32,6 +26,11 @@
 
 #include <string>
 #include <memory>
+
+
+class Tile;
+class TileMap;
+class Structure;
 
 
 enum PointerType

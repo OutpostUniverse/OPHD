@@ -3,6 +3,8 @@
 
 #include "Factory.h"
 
+#include "../../ProductionCost.h"
+
 #include <algorithm>
 
 

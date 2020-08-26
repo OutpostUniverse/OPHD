@@ -4,6 +4,8 @@
 #include "GraphWalker.h"
 #include "DirectionOffset.h"
 
+#include "Map/TileMap.h"
+
 
 using namespace NAS2D;
 

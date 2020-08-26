@@ -6,7 +6,7 @@
 #include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../StructureManager.h"
-
+#include "../../Things/Structures/Structure.h"
 #include "../../Things/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
@@ -105,7 +105,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 }
 
 
-void WarehouseReport::_fillListFromStructureList(StructureList& list)
+void WarehouseReport::_fillListFromStructureList(const std::vector<Structure*>& list)
 {
 	for (auto structure : list)
 	{

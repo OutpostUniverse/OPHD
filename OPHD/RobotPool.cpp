@@ -3,6 +3,7 @@
 
 #include "RobotPool.h"
 #include "RobotPoolHelper.h"
+#include "Map/Tile.h"
 
 #include <algorithm>
 

@@ -1,8 +1,12 @@
 #pragma once
 
-#include "Map/TileMap.h"
+#include "Common.h"
 
 #include <NAS2D/Renderer/Point.h>
+
+
+class TileMap;
+class Tile;
 
 
 /**
@@ -31,4 +35,3 @@ private:
 	NAS2D::Point<int> mGridPosition;
 	int mDepth = 0;
 };
-

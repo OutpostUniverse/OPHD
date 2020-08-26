@@ -7,6 +7,7 @@
 #include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../StructureManager.h"
+#include "../../ProductionCost.h"
 
 #include "../../Things/Structures/SurfaceFactory.h"
 #include "../../Things/Structures/SeedFactory.h"

@@ -7,7 +7,7 @@
 
 #include "../Core/Button.h"
 
-#include "../../Things/Structures/Structure.h"
+#include <vector>
 
 
 namespace NAS2D {
@@ -16,6 +16,7 @@ namespace NAS2D {
 }
 
 class Warehouse;
+class Structure;
 
 
 class WarehouseReport : public ReportInterface
@@ -35,7 +36,7 @@ public:
 private:
 	void computeTotalWarehouseCapacity();
 
-	void _fillListFromStructureList(StructureList&);
+	void _fillListFromStructureList(const std::vector<Structure*>&);
 
 	void _resized(Control*);
 

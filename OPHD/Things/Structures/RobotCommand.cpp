@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "RobotCommand.h"
 
+#include "../Robots/Robot.h"
 #include "../../Constants.h"
 
 #include <algorithm>
