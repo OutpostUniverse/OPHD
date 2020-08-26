@@ -32,9 +32,9 @@ const ProductionTypeTable PRODUCTION_TYPE_TABLE =
 };
 
 
-const ProductionCost& productCost(ProductType _pt)
+const ProductionCost& productCost(ProductType productType)
 {
-	return PRODUCTION_TYPE_TABLE.at(_pt);
+	return PRODUCTION_TYPE_TABLE.at(productType);
 }
 
 
