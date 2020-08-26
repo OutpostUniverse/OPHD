@@ -5,6 +5,7 @@
 #include <array>
 #include <vector>
 
+
 class Population
 {
 public:
@@ -17,7 +18,7 @@ public:
 		ROLE_RETIRED
 	};
 
-public:
+
 	Population();
 
 	int size();
@@ -34,8 +35,6 @@ public:
 
 	void starveRate(float rate) { mStarveRate = rate; }
 
-protected:
-
 private:
 	void spawn_children(int morale, int residences, int nurseries);
 	void spawn_students();
@@ -48,11 +47,11 @@ private:
 
 	int consume_food(int _food);
 
-private:
+
 	using PopulationTable = std::array<int, 5>;
 	using MoraleModifiers = std::array<MoraleModifier, 5>;
 
-private:
+
 	int mBirthCount; /**<  */
 	int mDeathCount; /**<  */
 
