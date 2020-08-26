@@ -396,13 +396,13 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 }
 
 
-static void serializeTile(XmlElement* _ti, int x, int y, int depth, int index)
+static void serializeTile(XmlElement* _ti, int x, int y, int depth, TerrainType index)
 {
 	XmlElement* t = new XmlElement("tile");
 	t->attribute("x", x);
 	t->attribute("y", y);
 	t->attribute("depth", depth);
-	t->attribute("index", index);
+	t->attribute("index", static_cast<int>(index));
 
 	_ti->linkEndChild(t);
 }
