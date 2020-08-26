@@ -5,13 +5,11 @@
 
 #include <algorithm>
 
-using namespace NAS2D;
-using namespace NAS2D::Xml;
 
 /**
  * Space required to store a Product.
  */
-std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
+const std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
 {
 	{ ProductType::PRODUCT_DIGGER, 10 },
 	{ ProductType::PRODUCT_DOZER, 10 },
@@ -32,16 +30,16 @@ std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
  */
 inline int storageRequiredPerUnit(ProductType type)
 {
-	return PRODUCT_STORAGE_VALUE[type];
+	return PRODUCT_STORAGE_VALUE.at(type);
 }
 
 
 /**
  * Gets the amount of storage required for a given number of Products.
  */
-int storageRequired(ProductType type, int count)
+inline int storageRequired(ProductType type, int count)
 {
-	return PRODUCT_STORAGE_VALUE[type] * count;
+	return PRODUCT_STORAGE_VALUE.at(type) * count;
 }
 
 
@@ -51,45 +49,29 @@ int storageRequired(ProductType type, int count)
 static int computeCurrentStorage(const ProductPool::ProductTypeCount& products)
 {
 	int stored = 0;
-
 	for (std::size_t i = 0; i < static_cast<std::size_t>(ProductType::PRODUCT_COUNT); ++i)
 	{
-		stored +=storageRequired(static_cast<ProductType>(i), products[i]);
+		stored += storageRequired(static_cast<ProductType>(i), products[i]);
 	}
-
 	return stored;
 }
 
 
-/**
- * 
- */
 int ProductPool::capacity() const
 {
 	return mCapacity;
 }
 
 
-/**
- * 
- */
 int ProductPool::availableStorage() const
 {
 	return mCapacity - mCurrentStorageCount;
 }
 
 
-/**
- * 
- */
 bool ProductPool::canStore(ProductType type, int count)
 {
-	if (count * storageRequiredPerUnit(type) <= availableStorage())
-	{
-		return true;
-	}
-
-	return false;
+	return count * storageRequiredPerUnit(type) <= availableStorage();
 }
 
 
@@ -103,7 +85,6 @@ bool ProductPool::atCapacity() const
 {
 	return (availableStorage() == 0);
 }
-
 
 
 /**
@@ -126,9 +107,6 @@ void ProductPool::store(ProductType type, int count)
 }
 
 
-/**
- * 
- */
 int ProductPool::pull(ProductType type, int c)
 {
 	int pulledCount = std::clamp(c, 0, mProducts[static_cast<std::size_t>(type)]);
@@ -139,9 +117,6 @@ int ProductPool::pull(ProductType type, int c)
 }
 
 
-/**
- * 
- */
 int ProductPool::count(ProductType type)
 {
 	return mProducts[static_cast<std::size_t>(type)];
@@ -154,9 +129,6 @@ void ProductPool::verifyCount()
 }
 
 
-/**
- * 
- */
 void ProductPool::serialize(NAS2D::Xml::XmlElement* element)
 {
 	element->attribute(constants::SAVE_GAME_PRODUCT_DIGGER, count(ProductType::PRODUCT_DIGGER));
@@ -171,15 +143,12 @@ void ProductPool::serialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-/**
- * 
- */
 void ProductPool::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	/// \todo	This should probably trigger an exception.
 	if (element == nullptr) { return; }
 
-	XmlAttribute* attribute = element->firstAttribute();
+	const auto* attribute = element->firstAttribute();
 	while (attribute)
 	{
 		if (attribute->name() == constants::SAVE_GAME_PRODUCT_DIGGER) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_DIGGER]); }
