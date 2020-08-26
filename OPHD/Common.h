@@ -292,7 +292,7 @@ using PopulationRequirements = std::array<int, 2>;
 class Robot;
 using RobotList = std::vector<Robot*>;
 
-extern const std::map<int, std::string> TILE_INDEX_TRANSLATION;
+extern const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION;
 extern const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
 
 extern const std::array<std::string, 4> ResourceNamesRefined;
