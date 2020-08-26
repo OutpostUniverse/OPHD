@@ -36,6 +36,8 @@ public:
 	void starveRate(float rate) { mStarveRate = rate; }
 
 private:
+	int adults() const;
+
 	void spawn_children(int morale, int residences, int nurseries);
 	void spawn_students();
 	void spawn_adults(int universities);
