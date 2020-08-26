@@ -19,7 +19,6 @@ public:
 
 public:
 	Population();
-	~Population();
 
 	int size();
 	int size(PersonRole);

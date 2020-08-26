@@ -43,14 +43,6 @@ Population::Population() :
 }
 
 
-/**
- * D'tor
- */
-Population::~Population()
-{
-}
-
-
 void Population::init()
 {
 	mPopulation.fill(0);
