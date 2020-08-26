@@ -279,13 +279,13 @@ const std::string& idleReason(IdleReason _i)
 }
 
 
-Color& structureColorFromIndex(StructureState structureState)
+Color structureColorFromIndex(StructureState structureState)
 {
 	return STRUCTURE_COLOR_TABLE.at(structureState);
 }
 
 
-Color& structureTextColorFromIndex(StructureState structureState)
+Color structureTextColorFromIndex(StructureState structureState)
 {
 	return STRUCTURE_TEXT_COLOR_TABLE.at(structureState);
 }
