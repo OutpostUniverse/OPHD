@@ -34,9 +34,6 @@ const ProductionTypeTable PRODUCTION_TYPE_TABLE =
 
 const ProductionCost& productCost(ProductType _pt)
 {
-	// Sanity check
-	if (PRODUCTION_TYPE_TABLE.empty()) { throw std::runtime_error("Factory::productionCost() called before production table filled!"); }
-
 	return PRODUCTION_TYPE_TABLE.at(_pt);
 }
 
