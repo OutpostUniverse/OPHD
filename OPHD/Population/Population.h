@@ -39,7 +39,6 @@ protected:
 
 private:
 	void init();
-	void clearPopulationList(PersonRole);
 
 	void spawn_children(int morale, int residences, int nurseries);
 	void spawn_students();

@@ -79,16 +79,6 @@ void Population::clear()
 
 
 /**
- * Clears a specified segment of the population and frees all resources
- * associated with it.
- */
-void Population::clearPopulationList(PersonRole _role)
-{
-	mPopulation[_role] = 0;
-}
-
-
-/**
  * Populates a given population with a specified number of colonists given some base values.
  *
  * \param	role		Segment of the population to populate.
