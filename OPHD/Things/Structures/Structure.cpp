@@ -9,7 +9,7 @@
 /**
  * Translation table for Structure States.
  */
-std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
+const std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
 {
 	{ StructureState::UnderConstruction, "Under Construction" },
 	{ StructureState::Operational, "Operational" },
@@ -22,7 +22,7 @@ std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
 /**
  * Translation table for Structure Classes.
  */
-std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
+const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
 {
 	{ Structure::StructureClass::Command, "Command" },
 	{ Structure::StructureClass::Communication, "Communication" },
@@ -48,7 +48,7 @@ std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
 };
 
 
-static std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
+static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
 {
 	"Not a Structure",
 	constants::AGRIDOME,
@@ -199,7 +199,7 @@ const std::string& Structure::stateDescription() const
 
 const std::string& Structure::stateDescription(StructureState state)
 {
-	return STRUCTURE_STATE_TRANSLATION[state];
+	return STRUCTURE_STATE_TRANSLATION.at(state);
 }
 
 const std::string& Structure::classDescription() const
@@ -209,7 +209,7 @@ const std::string& Structure::classDescription() const
 
 const std::string& Structure::classDescription(Structure::StructureClass structureClass)
 {
-	return STRUCTURE_CLASS_TRANSLATION[structureClass];
+	return STRUCTURE_CLASS_TRANSLATION.at(structureClass);
 }
 
 /**
