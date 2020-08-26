@@ -16,7 +16,7 @@ using ProductionTypeTable = std::map<ProductType, ProductionCost>;
  *			produce. It is up to the individual factory to determine what they are
  *			allowed to build.
  */
-ProductionTypeTable PRODUCTION_TYPE_TABLE = 
+const ProductionTypeTable PRODUCTION_TYPE_TABLE =
 {
 	{ ProductType::PRODUCT_DIGGER, ProductionCost(5, 10, 5, 5, 2) },
 	{ ProductType::PRODUCT_DOZER, ProductionCost(5, 10, 5, 5, 2) },
@@ -32,12 +32,9 @@ ProductionTypeTable PRODUCTION_TYPE_TABLE =
 };
 
 
-const ProductionCost& productCost(ProductType _pt)
+const ProductionCost& productCost(ProductType productType)
 {
-	// Sanity check
-	if (PRODUCTION_TYPE_TABLE.empty()) { throw std::runtime_error("Factory::productionCost() called before production table filled!"); }
-
-	return PRODUCTION_TYPE_TABLE[_pt];
+	return PRODUCTION_TYPE_TABLE.at(productType);
 }
 
 
@@ -68,7 +65,7 @@ void Factory::productType(ProductType type)
 
 	productionResetTurns();
 
-	mTurnsToComplete = PRODUCTION_TYPE_TABLE[mProduct].turnsToBuild();
+	mTurnsToComplete = PRODUCTION_TYPE_TABLE.at(mProduct).turnsToBuild();
 }
 
 
@@ -131,10 +128,11 @@ void Factory::updateProduction()
 	/**
 	 * \todo	Have this use operator- once the production table is converted to using StorableResources
 	 */
-	mResources->resources[0] = mResources->resources[0] - PRODUCTION_TYPE_TABLE[mProduct].commonMetals();
-	mResources->resources[1] = mResources->resources[1] - PRODUCTION_TYPE_TABLE[mProduct].commonMinerals();
-	mResources->resources[2] = mResources->resources[2] - PRODUCTION_TYPE_TABLE[mProduct].rareMetals();
-	mResources->resources[3] = mResources->resources[3] - PRODUCTION_TYPE_TABLE[mProduct].rareMinerals();
+	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
+	mResources->resources[0] = mResources->resources[0] - productionCost.commonMetals();
+	mResources->resources[1] = mResources->resources[1] - productionCost.commonMinerals();
+	mResources->resources[2] = mResources->resources[2] - productionCost.rareMetals();
+	mResources->resources[3] = mResources->resources[3] - productionCost.rareMinerals();
 
 	++mTurnsCompleted;
 
@@ -156,10 +154,11 @@ bool Factory::enoughResourcesAvailable()
 	/**
 	 * \todo	Have this use operator>= once the production table is converted to using StorableResources
 	 */
-	if (mResources->resources[0] >= PRODUCTION_TYPE_TABLE[mProduct].commonMetals() &&
-		mResources->resources[1] >= PRODUCTION_TYPE_TABLE[mProduct].commonMinerals() &&
-		mResources->resources[2] >= PRODUCTION_TYPE_TABLE[mProduct].rareMetals() &&
-		mResources->resources[3] >= PRODUCTION_TYPE_TABLE[mProduct].rareMinerals())
+	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
+	if (mResources->resources[0] >= productionCost.commonMetals() &&
+		mResources->resources[1] >= productionCost.commonMinerals() &&
+		mResources->resources[2] >= productionCost.rareMetals() &&
+		mResources->resources[3] >= productionCost.rareMinerals())
 	{
 		return true;
 	}
