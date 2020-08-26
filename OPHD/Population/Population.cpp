@@ -77,11 +77,10 @@ void Population::addPopulation(PersonRole role, int count)
 int Population::size()
 {
 	int count = 0;
-	for (std::size_t i = 0; i < mPopulation.size(); ++i)
+	for (auto& populationRole : mPopulation)
 	{
-		count += mPopulation[i];
+		count += populationRole;
 	}
-
 	return count;
 }
 
