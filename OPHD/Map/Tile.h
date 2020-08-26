@@ -31,7 +31,7 @@ public:
 	int depth() const { return mDepth; }
 	void depth(int i) { mDepth = i; }
 
-	bool bulldozed() const { return index() == TerrainType::TERRAIN_DOZED; }
+	bool bulldozed() const { return index() == TerrainType::Dozed; }
 
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
@@ -71,7 +71,7 @@ protected:
 	void thingIsStructure(bool value) { mThingIsStructure = value; }
 
 private:
-	TerrainType mIndex = TerrainType::TERRAIN_DOZED;
+	TerrainType mIndex = TerrainType::Dozed;
 
 	NAS2D::Point<int> mPosition; /**< Tile Position Information */
 	int mDepth = 0; /**< Tile Position Information */

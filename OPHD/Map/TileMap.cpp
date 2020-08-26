@@ -185,7 +185,7 @@ void TileMap::addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& p
 
 	auto& tile = getTile(mineLocation, 0);
 	tile.pushMine(new Mine(rate));
-	tile.index(TerrainType::TERRAIN_DOZED);
+	tile.index(TerrainType::Dozed);
 
 	plist.push_back(mineLocation);
 }
@@ -466,7 +466,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element, const Planet::Attribute
 				{
 					serializeTile(tiles, x, y, depth, tile.index());
 				}
-				else if (tile.index() == TerrainType::TERRAIN_DOZED && tile.empty() && tile.mine() == nullptr)
+				else if (tile.index() == TerrainType::Dozed && tile.empty() && tile.mine() == nullptr)
 				{
 					serializeTile(tiles, x, y, depth, tile.index());
 				}
@@ -509,7 +509,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 		auto& tile = getTile({x, y}, 0);
 		tile.pushMine(m);
-		tile.index(TerrainType::TERRAIN_DOZED);
+		tile.index(TerrainType::Dozed);
 
 		mMineLocations.push_back(Point{x, y});
 
@@ -595,7 +595,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		auto& adjacentTile = getTile(position, 0);
 		float cost = constants::ROUTE_BASE_COST;
 
-		if (adjacentTile.index() == TerrainType::TERRAIN_IMPASSABLE)
+		if (adjacentTile.index() == TerrainType::Impassable)
 		{
 			cost = FLT_MAX;
 		}

@@ -171,7 +171,7 @@ bool validLanderSite(Tile& tile)
 		return false;
 	}
 
-	if (tile.index() == TerrainType::TERRAIN_IMPASSABLE)
+	if (tile.index() == TerrainType::Impassable)
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TERRAIN);
 		return false;
@@ -196,7 +196,7 @@ bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
 	{
 		auto& tile = tilemap->getTile(position + offset);
 
-		if (tile.index() == TerrainType::TERRAIN_IMPASSABLE)
+		if (tile.index() == TerrainType::Impassable)
 		{
 			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
 			return false;

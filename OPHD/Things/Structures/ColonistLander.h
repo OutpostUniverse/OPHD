@@ -35,7 +35,7 @@ protected:
 		if (age() == turnsToBuild())
 		{
 			mDeploy();
-			mTile->index(TerrainType::TERRAIN_DOZED);
+			mTile->index(TerrainType::Dozed);
 		}
 	}
 

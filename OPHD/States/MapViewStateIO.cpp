@@ -317,7 +317,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		{
 			robot->startTask(production_time);
 			mRobotPool.insertRobotIntoTable(mRobotList, robot, &mTileMap->getTile({x, y}, depth));
-			mRobotList[robot]->index(TerrainType::TERRAIN_DOZED);
+			mRobotList[robot]->index(TerrainType::Dozed);
 		}
 
 		if (depth > 0)
@@ -364,7 +364,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		}
 
 		auto& tile = mTileMap->getTile({x, y}, depth);
-		tile.index(TerrainType::TERRAIN_DOZED);
+		tile.index(TerrainType::Dozed);
 		tile.excavated(true);
 
 		auto structureId = static_cast<StructureID>(type);

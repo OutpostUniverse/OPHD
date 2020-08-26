@@ -43,11 +43,11 @@ enum class Direction
  */
 enum class TerrainType
 {
-	TERRAIN_DOZED,
-	TERRAIN_CLEAR,
-	TERRAIN_ROUGH,
-	TERRAIN_DIFFICULT,
-	TERRAIN_IMPASSABLE
+	Dozed,
+	Clear,
+	Rough,
+	Difficult,
+	Impassable
 };
 
 
