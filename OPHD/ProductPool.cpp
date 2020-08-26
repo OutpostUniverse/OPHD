@@ -152,7 +152,7 @@ void ProductPool::deserialize(NAS2D::Xml::XmlElement* element)
 	/// \todo	This should probably trigger an exception.
 	if (element == nullptr) { return; }
 
-	XmlAttribute* attribute = element->firstAttribute();
+	const auto* attribute = element->firstAttribute();
 	while (attribute)
 	{
 		if (attribute->name() == constants::SAVE_GAME_PRODUCT_DIGGER) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_DIGGER]); }
