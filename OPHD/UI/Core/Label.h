@@ -39,5 +39,5 @@ protected:
 
 private:
 	NAS2D::Color textColor{NAS2D::Color::White};
-	const NAS2D::Font* mFont = nullptr;
+	const NAS2D::Font* mFont;
 };

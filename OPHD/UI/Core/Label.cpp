@@ -11,10 +11,10 @@
 static const int FIELD_PADDING = 2;
 
 
-Label::Label(std::string newText)
+Label::Label(std::string newText) :
+	mFont(&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL))
 {
 	text(newText);
-	mFont = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	resize();
 }
 
