@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "Control.h"
+#include "TextControl.h"
 #include <NAS2D/Renderer/Color.h>
 #include <string>
 
@@ -22,7 +22,7 @@ namespace NAS2D
  * \brief A control that contains readonly text.
  * 
  */
-class Label : public Control
+class Label : public TextControl
 {
 public:
 	Label(std::string newText = "");

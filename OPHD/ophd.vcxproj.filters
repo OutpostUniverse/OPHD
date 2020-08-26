@@ -638,6 +638,9 @@
     <ClInclude Include="Things\Structures\OreRefining.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
+    <ClInclude Include="UI\Core\TextControl.h">
+      <Filter>Header Files\UI\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

@@ -410,6 +410,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClInclude Include="UI\Core\RadioButton.h" />
     <ClInclude Include="UI\Core\Slider.h" />
     <ClInclude Include="UI\Core\TextArea.h" />
+    <ClInclude Include="UI\Core\TextControl.h" />
     <ClInclude Include="UI\Core\TextField.h" />
     <ClInclude Include="UI\Core\UIContainer.h" />
     <ClInclude Include="UI\Core\Window.h" />

@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "Control.h"
+#include "TextControl.h"
 
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Timer.h>
@@ -25,7 +25,7 @@ namespace NAS2D {
  *
  * The Field Control is just a set of rendered text a user can enter.
  */
-class TextField: public Control
+class TextField: public TextControl
 {
 public:
 	/**

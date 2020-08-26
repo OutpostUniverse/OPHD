@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Control.h"
+#include "TextControl.h"
 
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Resources/Font.h>
@@ -8,7 +8,7 @@
 #include <string>
 
 
-class TextArea : public Control
+class TextArea : public TextControl
 {
 public:
 	TextArea() = default;
