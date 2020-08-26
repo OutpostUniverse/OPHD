@@ -56,7 +56,7 @@ void TileInspector::update()
 		drawLabelAndValue(position, "Active: ", (mine->active() ? "Yes" : "No"));
 
 		position.y += 10;
-		drawLabelAndValue(position, "Production Rate: ", MINE_YIELD_TRANSLATION[mTile->mine()->productionRate()]);
+		drawLabelAndValue(position, "Production Rate: ", MINE_YIELD_TRANSLATION.at(mTile->mine()->productionRate()));
 	}
 
 	position = mRect.startPoint() + NAS2D::Vector{5, 62};
@@ -64,7 +64,7 @@ void TileInspector::update()
 	drawLabelAndValue(position, "Location: ", std::to_string(tilePosition.x) + ", " + std::to_string(tilePosition.y));
 
 	position.y += 10;
-	drawLabelAndValue(position, "Terrain: ", TILE_INDEX_TRANSLATION[mTile->index()]);
+	drawLabelAndValue(position, "Terrain: ", TILE_INDEX_TRANSLATION.at(mTile->index()));
 }
 
 
