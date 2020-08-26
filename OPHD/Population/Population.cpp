@@ -9,24 +9,26 @@
 #include <random>
 
 
-const int STUDENT_TO_SCIENTIST_RATE = 35;
+namespace {
+	const int STUDENT_TO_SCIENTIST_RATE = 35;
 
-const int STUDENT_TO_ADULT_BASE = 190;
-const int ADULT_TO_RETIREE_BASE = 2000;
+	const int STUDENT_TO_ADULT_BASE = 190;
+	const int ADULT_TO_RETIREE_BASE = 2000;
 
 
-std::default_random_engine pop_generator;
-std::uniform_int_distribution<int> pop_distribution(0, 100);
+	std::default_random_engine pop_generator;
+	std::uniform_int_distribution<int> pop_distribution(0, 100);
 
-auto random_0_100 = std::bind(pop_distribution, pop_generator);
+	auto random_0_100 = std::bind(pop_distribution, pop_generator);
 
-/**
- * Convenience function to cast a MoraleLevel enumerator
- * into an array index.
- */
-std::size_t moraleIndex(int morale)
-{
-	return static_cast<std::size_t>(std::clamp(morale, 1, 999) / 200);
+	/**
+	 * Convenience function to cast a MoraleLevel enumerator
+	 * into an array index.
+	 */
+	std::size_t moraleIndex(int morale)
+	{
+		return static_cast<std::size_t>(std::clamp(morale, 1, 999) / 200);
+	}
 }
 
 
