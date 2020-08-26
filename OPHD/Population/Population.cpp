@@ -88,9 +88,9 @@ int Population::size()
 /**
  * Gets the size of a specific segment of the population.
  */
-int Population::size(PersonRole _pr)
+int Population::size(PersonRole personRole)
 {
-	return mPopulation[_pr];
+	return mPopulation[personRole];
 }
 
 
