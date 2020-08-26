@@ -19,7 +19,7 @@ Label::Label(std::string newText) :
 
 void Label::resize()
 {
-	size(mFont->size(text()) + NAS2D::Vector{FIELD_PADDING * 2, FIELD_PADDING * 2});
+	size(mFont->size(text()) + NAS2D::Vector{mPadding * 2, mPadding * 2});
 }
 
 
@@ -36,7 +36,7 @@ void Label::update()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const auto textPosition = mRect.startPoint() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING};
+	const auto textPosition = mRect.startPoint() + NAS2D::Vector{mPadding, mPadding};
 	renderer.drawText(*mFont, text(), textPosition, textColor);
 }
 
