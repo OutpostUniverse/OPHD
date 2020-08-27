@@ -18,10 +18,10 @@
 /**
  * Fills population requirements fields in a Structure.
  */
-static void fillPopulationRequirements(PopulationPool& _p, const PopulationRequirements& _populationRequired, PopulationRequirements& _populationAvailable)
+static void fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required, PopulationRequirements& available)
 {
-	_populationAvailable[0] = std::min(_populationRequired[0], _p.populationAvailable(Population::PersonRole::ROLE_WORKER));
-	_populationAvailable[1] = std::min(_populationRequired[1], _p.populationAvailable(Population::PersonRole::ROLE_SCIENTIST));
+	available[0] = std::min(required[0], populationPool.populationAvailable(Population::PersonRole::ROLE_WORKER));
+	available[1] = std::min(required[1], populationPool.populationAvailable(Population::PersonRole::ROLE_SCIENTIST));
 }
 
 
