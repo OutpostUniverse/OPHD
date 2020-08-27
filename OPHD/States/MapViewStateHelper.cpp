@@ -400,8 +400,6 @@ void transferProductsPool(ProductPool& source, ProductPool& destination)
 }
 
 
-
-
 /**
  * Simulates moving the products out of a specified warehouse and raises
  * an alert to the user if not all products can be moved out of the
