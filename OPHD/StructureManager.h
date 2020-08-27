@@ -22,7 +22,7 @@ public:
 	void addStructure(Structure* st, Tile* t);
 	void removeStructure(Structure* st);
 
-	StructureList& structureList(Structure::StructureClass st) { return mStructureLists[st]; }
+	StructureList& structureList(Structure::StructureClass st);
 	Tile* tileFromStructure(Structure* st);
 
 	void disconnectAll();

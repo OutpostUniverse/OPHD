@@ -287,6 +287,12 @@ void StructureManager::removeStructure(Structure* st)
 }
 
 
+StructureList& StructureManager::structureList(Structure::StructureClass st)
+{
+	return mStructureLists[st];
+}
+
+
 /**
  * Resets the 'connected' flag on all structures in the primary structure list.
  */
