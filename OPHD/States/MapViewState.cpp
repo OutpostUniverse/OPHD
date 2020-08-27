@@ -9,6 +9,7 @@
 #include "../Cache.h"
 #include "../GraphWalker.h"
 #include "../StructureCatalogue.h"
+#include "../StructureManager.h"
 
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"

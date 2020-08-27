@@ -10,7 +10,6 @@
 #pragma once
 
 #include "../Common.h"
-#include "../StructureManager.h"
 
 
 namespace NAS2D {

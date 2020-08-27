@@ -6,8 +6,8 @@
 #include "MainMenuState.h"
 #include "MapViewState.h"
 #include "MainReportsUiState.h"
-
 #include "Wrapper.h"
+#include "../StructureManager.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>

@@ -9,6 +9,7 @@
 
 #include "../DirectionOffset.h"
 #include "../StructureCatalogue.h"
+#include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"

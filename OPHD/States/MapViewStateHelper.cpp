@@ -14,6 +14,7 @@
 
 #include "../Constants.h"
 #include "../StructureCatalogue.h"
+#include "../StructureManager.h"
 #include "../DirectionOffset.h"
 #include "../RobotPool.h"
 #include "../Map/TileMap.h"
