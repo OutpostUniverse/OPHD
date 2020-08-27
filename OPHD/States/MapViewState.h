@@ -9,13 +9,11 @@
 
 #include "../Common.h"
 #include "../Constants.h"
-
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
-
 #include "../StorableResources.h"
-
 #include "../RobotPool.h"
+#include "../Things/Structures/Structure.h"
 
 #include "../UI/Gui.h"
 #include "../UI/UI.h"
@@ -34,7 +32,6 @@ namespace micropather {
 
 class Tile;
 class TileMap;
-class Structure;
 
 
 enum PointerType
