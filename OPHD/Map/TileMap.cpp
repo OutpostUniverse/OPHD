@@ -493,11 +493,11 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 	mapViewLocation({view_x, view_y});
 	currentDepth(view_depth);
-	for (XmlNode* mine = element->firstChildElement("mines")->firstChildElement("mine"); mine; mine = mine->nextSiblingElement())
+	for (XmlNode* mineElement = element->firstChildElement("mines")->firstChildElement("mine"); mineElement; mineElement = mineElement->nextSiblingElement())
 	{
 		int x = 0, y = 0;
 	
-		attribute = mine->toElement()->firstAttribute();
+		attribute = mineElement->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
@@ -506,7 +506,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		}
 
 		Mine* m = new Mine();
-		m->deserialize(mine->toElement());
+		m->deserialize(mineElement->toElement());
 
 		auto& tile = getTile({x, y}, 0);
 		tile.pushMine(m);
@@ -519,11 +519,11 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	}
 
 	// TILES AT INDEX 0 WITH NO THINGS
-	for (XmlNode* tileNode = element->firstChildElement("tiles")->firstChildElement("tile"); tileNode; tileNode = tileNode->nextSiblingElement())
+	for (XmlNode* tileElement = element->firstChildElement("tiles")->firstChildElement("tile"); tileElement; tileElement = tileElement->nextSiblingElement())
 	{
 		int x = 0, y = 0, depth = 0, index = 0;
 
-		attribute = tileNode->toElement()->firstAttribute();
+		attribute = tileElement->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
