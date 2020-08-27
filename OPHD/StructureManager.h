@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Things/Structures/Structure.h"
-#include "Map/Tile.h"
 
 
 namespace NAS2D {
@@ -10,6 +9,7 @@ namespace NAS2D {
 	}
 }
 
+class Tile;
 class PopulationPool;
 struct StorableResources;
 
