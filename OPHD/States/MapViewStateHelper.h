@@ -14,6 +14,12 @@
 #include "../Map/TileMap.h"
 
 
+namespace NAS2D {
+	namespace Xml {
+		class XmlElement;
+	}
+}
+
 class Warehouse; /**< Forward declaration for getAvailableWarehouse() function. */
 class RobotCommand; /**< Forward declaration for getAvailableRobotCommand() function. */
 class RobotPool;
