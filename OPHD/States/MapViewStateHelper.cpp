@@ -412,7 +412,7 @@ void transferProductsPool(ProductPool& source, ProductPool& destination)
  */
 bool simulateMoveProducts(Warehouse* sourceWarehouse)
 {
-	ProductPool _pool = sourceWarehouse->products();
+	ProductPool sourcePool = sourceWarehouse->products();
 
 	/** \fixme	This is a brute force approach. It works but it's not elegant. */
 	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
@@ -423,13 +423,13 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
 			Warehouse* warehouse = static_cast<Warehouse*>(structure);
 			if (warehouse != sourceWarehouse)
 			{
-				ProductPool _tfrPool = warehouse->products();
-				transferProductsPool(_pool, _tfrPool);
+				ProductPool destinationPool = warehouse->products();
+				transferProductsPool(sourcePool, destinationPool);
 			}
 		}
 	}
 
-	if (!_pool.empty()) { return doYesNoMessage(constants::PRODUCT_TRANSFER_TITLE, constants::PRODUCT_TRANSFER_MESSAGE); }
+	if (!sourcePool.empty()) { return doYesNoMessage(constants::PRODUCT_TRANSFER_TITLE, constants::PRODUCT_TRANSFER_MESSAGE); }
 
 	return true;
 }
