@@ -399,7 +399,7 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 
 static void serializeTile(XmlElement* _ti, int x, int y, int depth, TerrainType index)
 {
-	XmlElement* t = new XmlElement("tile");
+	auto* t = new XmlElement("tile");
 	t->attribute("x", x);
 	t->attribute("y", y);
 	t->attribute("depth", depth);
@@ -481,8 +481,8 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	// VIEW PARAMETERS
 	int view_x = 0, view_y = 0, view_depth = 0;
-	XmlElement* view_parameters = element->firstChildElement("view_parameters");
-	XmlAttribute* attribute = view_parameters->firstAttribute();
+	auto* view_parameters = element->firstChildElement("view_parameters");
+	auto* attribute = view_parameters->firstAttribute();
 	while (attribute)
 	{
 		if (attribute->name() == "viewlocation_x") { attribute->queryIntValue(view_x); }
