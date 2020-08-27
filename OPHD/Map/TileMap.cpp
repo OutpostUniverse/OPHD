@@ -493,7 +493,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 	mapViewLocation({view_x, view_y});
 	currentDepth(view_depth);
-	for (XmlNode* mine = element->firstChildElement("mines")->firstChildElement("mine"); mine; mine = mine->nextSibling())
+	for (XmlNode* mine = element->firstChildElement("mines")->firstChildElement("mine"); mine; mine = mine->nextSiblingElement())
 	{
 		int x = 0, y = 0;
 	
@@ -519,7 +519,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	}
 
 	// TILES AT INDEX 0 WITH NO THINGS
-	for (XmlNode* tileNode = element->firstChildElement("tiles")->firstChildElement("tile"); tileNode; tileNode = tileNode->nextSibling())
+	for (XmlNode* tileNode = element->firstChildElement("tiles")->firstChildElement("tile"); tileNode; tileNode = tileNode->nextSiblingElement())
 	{
 		int x = 0, y = 0, depth = 0, index = 0;
 
