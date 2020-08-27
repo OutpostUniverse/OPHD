@@ -287,9 +287,9 @@ void StructureManager::removeStructure(Structure* structure)
 }
 
 
-StructureList& StructureManager::structureList(Structure::StructureClass st)
+StructureList& StructureManager::structureList(Structure::StructureClass structureClass)
 {
-	return mStructureLists[st];
+	return mStructureLists[structureClass];
 }
 
 
@@ -323,12 +323,12 @@ int StructureManager::count() const
 /**
  *
  */
-int StructureManager::getCountInState(Structure::StructureClass st, StructureState state)
+int StructureManager::getCountInState(Structure::StructureClass structureClass, StructureState state)
 {
 	int count = 0;
-	for (std::size_t i = 0; i < structureList(st).size(); ++i)
+	for (std::size_t i = 0; i < structureList(structureClass).size(); ++i)
 	{
-		if (structureList(st)[i]->state() == state)
+		if (structureList(structureClass)[i]->state() == state)
 		{
 			++count;
 		}
