@@ -12,6 +12,13 @@
 #include <algorithm>
 
 
+namespace NAS2D {
+	namespace Xml {
+		class XmlElement;
+	}
+}
+
+
 using Point2dList = std::vector<NAS2D::Point<int>>;
 
 
