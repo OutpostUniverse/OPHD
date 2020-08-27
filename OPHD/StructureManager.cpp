@@ -223,7 +223,7 @@ void StructureManager::updateFactoryProduction()
 /**
  * Adds a new Structure to the StructureManager.
  */
-void StructureManager::addStructure(Structure* st, Tile* tile)
+void StructureManager::addStructure(Structure* structure, Tile* tile)
 {
 	// Sanity checks
 	if (tile == nullptr)
@@ -231,7 +231,7 @@ void StructureManager::addStructure(Structure* st, Tile* tile)
 		return;
 	}
 
-	if (mStructureTileTable.find(st) != mStructureTileTable.end())
+	if (mStructureTileTable.find(structure) != mStructureTileTable.end())
 	{
 		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
 	}
@@ -242,10 +242,10 @@ void StructureManager::addStructure(Structure* st, Tile* tile)
 		tile->removeThing();
 	}
 
-	mStructureTileTable[st] = tile;
+	mStructureTileTable[structure] = tile;
 
-	mStructureLists[st->structureClass()].push_back(st);
-	tile->pushThing(st);
+	mStructureLists[structure->structureClass()].push_back(structure);
+	tile->pushThing(structure);
 	tile->thingIsStructure(true);
 }
 
@@ -256,9 +256,9 @@ void StructureManager::addStructure(Structure* st, Tile* tile)
  * \warning	A Structure removed from the StructureManager will be freed.
  *			Remaining pointers and references will be invalidated.
  */
-void StructureManager::removeStructure(Structure* st)
+void StructureManager::removeStructure(Structure* structure)
 {
-	StructureList& structures = mStructureLists[st->structureClass()];
+	StructureList& structures = mStructureLists[structure->structureClass()];
 
 	if (structures.empty())
 	{
@@ -267,14 +267,14 @@ void StructureManager::removeStructure(Structure* st)
 
 	for (std::size_t i = 0; i < structures.size(); ++i)
 	{
-		if (structures[i] == st)
+		if (structures[i] == structure)
 		{
 			structures.erase(structures.begin() + static_cast<std::ptrdiff_t>(i));
 			break;
 		}
 	}
 
-	auto tileTableIt = mStructureTileTable.find(st);
+	auto tileTableIt = mStructureTileTable.find(structure);
 	if (tileTableIt == mStructureTileTable.end())
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
@@ -386,9 +386,9 @@ void StructureManager::dropAllStructures()
 /**
  * 
  */
-Tile* StructureManager::tileFromStructure(Structure* st)
+Tile* StructureManager::tileFromStructure(Structure* structure)
 {
-	auto it = mStructureTileTable.find(st);
+	auto it = mStructureTileTable.find(structure);
 	if (it != mStructureTileTable.end()) { return it->second; }
 	return nullptr;
 }
@@ -485,7 +485,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-bool StructureManager::structureConnected(Structure* st)
+bool StructureManager::structureConnected(Structure* structure)
 {
-	return mStructureTileTable[st]->connected();
+	return mStructureTileTable[structure]->connected();
 }
