@@ -20,27 +20,8 @@
  */
 static void fillPopulationRequirements(PopulationPool& _p, const PopulationRequirements& _populationRequired, PopulationRequirements& _populationAvailable)
 {
-	// Verbose but a lot easier to read than the ternary operators I was using before.
-
-	// WORKERS
-	if (_p.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, _populationRequired[0]))
-	{
-		_populationAvailable[0] = _populationRequired[0];
-	}
-	else
-	{
-		_populationAvailable[0] = _p.populationAvailable(Population::PersonRole::ROLE_WORKER);
-	}
-
-	// SCIENTISTS
-	if (_p.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, _populationRequired[1]))
-	{
-		_populationAvailable[1] = _populationRequired[1];
-	}
-	else
-	{
-		_populationAvailable[1] = _p.populationAvailable(Population::PersonRole::ROLE_SCIENTIST);
-	}
+	_populationAvailable[0] = std::min(_populationRequired[0], _p.populationAvailable(Population::PersonRole::ROLE_WORKER));
+	_populationAvailable[1] = std::min(_populationRequired[1], _p.populationAvailable(Population::PersonRole::ROLE_SCIENTIST));
 }
 
 
