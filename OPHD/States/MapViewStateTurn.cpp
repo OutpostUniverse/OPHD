@@ -8,6 +8,7 @@
 #include "MapViewState.h"
 #include "MapViewStateHelper.h"
 
+#include "../Map/TileMap.h"
 #include "../Things/Structures/Structures.h"
 
 #include "../Cache.h"

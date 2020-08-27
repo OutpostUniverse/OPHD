@@ -16,13 +16,14 @@
 #include "../StructureCatalogue.h"
 #include "../DirectionOffset.h"
 #include "../RobotPool.h"
-
+#include "../Map/TileMap.h"
 #include "../Things/Structures/RobotCommand.h"
 #include "../Things/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
 
 #include <cmath>
+
 
 using namespace NAS2D;
 using namespace NAS2D::Xml;
