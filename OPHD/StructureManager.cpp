@@ -18,28 +18,28 @@
 /**
  * Fills population requirements fields in a Structure.
  */
-static void fillPopulationRequirements(PopulationPool& _p, const PopulationRequirements* _populationRequired, PopulationRequirements* _populationAvailable)
+static void fillPopulationRequirements(PopulationPool& _p, const PopulationRequirements& _populationRequired, PopulationRequirements& _populationAvailable)
 {
 	// Verbose but a lot easier to read than the ternary operators I was using before.
 
 	// WORKERS
-	if (_p.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, (*_populationRequired)[0]))
+	if (_p.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, _populationRequired[0]))
 	{
-		(*_populationAvailable)[0] = (*_populationRequired)[0];
+		_populationAvailable[0] = _populationRequired[0];
 	}
 	else
 	{
-		(*_populationAvailable)[0] = _p.populationAvailable(Population::PersonRole::ROLE_WORKER);
+		_populationAvailable[0] = _p.populationAvailable(Population::PersonRole::ROLE_WORKER);
 	}
 
 	// SCIENTISTS
-	if (_p.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, (*_populationRequired)[1]))
+	if (_p.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, _populationRequired[1]))
 	{
-		(*_populationAvailable)[1] = (*_populationRequired)[1];
+		_populationAvailable[1] = _populationRequired[1];
 	}
 	else
 	{
-		(*_populationAvailable)[1] = _p.populationAvailable(Population::PersonRole::ROLE_SCIENTIST);
+		_populationAvailable[1] = _p.populationAvailable(Population::PersonRole::ROLE_SCIENTIST);
 	}
 }
 
@@ -162,7 +162,7 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 		const auto& _populationRequired = structure->populationRequirements();
 		auto& _populationAvailable = structure->populationAvailable();
 
-		fillPopulationRequirements(population, &_populationRequired, &_populationAvailable);
+		fillPopulationRequirements(population, _populationRequired, _populationAvailable);
 
 		if (!population.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, _populationRequired[0]) ||
 			!population.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, _populationRequired[1]))
