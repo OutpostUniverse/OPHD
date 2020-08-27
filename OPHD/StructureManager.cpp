@@ -128,8 +128,6 @@ void StructureManager::updateEnergyProduction()
 void StructureManager::updateStructures(StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
 	bool chapAvailable = CHAPAvailable();
-	const PopulationRequirements* _populationRequired = nullptr;
-	PopulationRequirements* _populationAvailable = nullptr;
 
 	Structure* structure = nullptr;
 	for (std::size_t i = 0; i < structures.size(); ++i)
@@ -161,8 +159,8 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 
 
 		// Population Check
-		_populationRequired = &structure->populationRequirements();
-		_populationAvailable = &structure->populationAvailable();
+		const auto* _populationRequired = &structure->populationRequirements();
+		auto* _populationAvailable = &structure->populationAvailable();
 
 		fillPopulationRequirements(population, _populationRequired, _populationAvailable);
 
