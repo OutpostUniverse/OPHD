@@ -10,7 +10,6 @@
 #pragma once
 
 #include "../Common.h"
-#include "../StructureManager.h"
 
 
 namespace NAS2D {
@@ -19,10 +18,12 @@ namespace NAS2D {
 	}
 }
 
+class Tile;
 class TileMap;
 class Warehouse; /**< Forward declaration for getAvailableWarehouse() function. */
 class RobotCommand; /**< Forward declaration for getAvailableRobotCommand() function. */
 class RobotPool;
+class Robot;
 struct StorableResources;
 
 using RobotTileTable = std::map<Robot*, Tile*>;

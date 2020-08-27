@@ -3,12 +3,14 @@
 
 #include "MapViewState.h"
 #include "MainMenuState.h"
+#include "MainReportsUiState.h"
 
 #include "../Constants.h"
 #include "../DirectionOffset.h"
 #include "../Cache.h"
 #include "../GraphWalker.h"
 #include "../StructureCatalogue.h"
+#include "../StructureManager.h"
 
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"

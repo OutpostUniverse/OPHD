@@ -1,7 +1,6 @@
 #pragma once
 
 #include "MapViewStateHelper.h"
-#include "MainReportsUiState.h"
 #include "Wrapper.h"
 
 #include "Planet.h"
@@ -9,13 +8,11 @@
 
 #include "../Common.h"
 #include "../Constants.h"
-
+#include "../StorableResources.h"
+#include "../RobotPool.h"
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
-
-#include "../StorableResources.h"
-
-#include "../RobotPool.h"
+#include "../Things/Structures/Structure.h"
 
 #include "../UI/Gui.h"
 #include "../UI/UI.h"
@@ -28,13 +25,18 @@
 #include <memory>
 
 
+namespace NAS2D {
+	namespace Xml {
+		class XmlElement;
+	}
+}
+
 namespace micropather {
 	class MicroPather;
 }
 
 class Tile;
 class TileMap;
-class Structure;
 
 
 enum PointerType

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Structure.h"
 #include "Factory.h"
+
 
 class UndergroundFactory: public Factory
 {

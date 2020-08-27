@@ -4,7 +4,6 @@
 
 #include "../../Constants.h"
 
-#include "../../Mine.h"
 
 class MineShaft : public Structure
 {
