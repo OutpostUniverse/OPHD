@@ -399,7 +399,7 @@ Tile& StructureManager::tileFromStructure(Structure* structure)
 /**
  * 
  */
-void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
+void serializeStructure(NAS2D::Xml::XmlElement* _ti, Structure* structure, Tile* _t)
 {
 	const auto position = _t->position();
 	_ti->attribute("x", position.x);
@@ -436,11 +436,11 @@ void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
  */
 void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 {
-	auto* structures = new XmlElement("structures");
+	auto* structures = new NAS2D::Xml::XmlElement("structures");
 
 	for (auto it = mStructureTileTable.begin(); it != mStructureTileTable.end(); ++it)
 	{
-		auto* structure = new XmlElement("structure");
+		auto* structure = new NAS2D::Xml::XmlElement("structure");
 		serializeStructure(structure, it->first, it->second);
 
 		if (it->first->isFactory())
@@ -451,14 +451,14 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 
 		if (it->first->isWarehouse())
 		{
-			auto* warehouse_products = new XmlElement("warehouse_products");
+			auto* warehouse_products = new NAS2D::Xml::XmlElement("warehouse_products");
 			static_cast<Warehouse*>(it->first)->products().serialize(warehouse_products);
 			structure->linkEndChild(warehouse_products);
 		}
 
 		if (it->first->isRobotCommand())
 		{
-			auto* robots = new XmlElement("robots");
+			auto* robots = new NAS2D::Xml::XmlElement("robots");
 
 			const RobotList& rl = static_cast<RobotCommand*>(it->first)->robots();
 
@@ -475,7 +475,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 
 		if (it->first->structureClass() == Structure::StructureClass::FoodProduction)
 		{
-			auto* food = new XmlElement("food");
+			auto* food = new NAS2D::Xml::XmlElement("food");
 			food->attribute("level", static_cast<FoodProduction*>(it->first)->foodLevel());
 			structure->linkEndChild(food);
 		}
