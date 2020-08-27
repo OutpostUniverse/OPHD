@@ -19,7 +19,6 @@ public:
 	StructureManager() = default;
 	~StructureManager() = default;
 
-public:
 	void addStructure(Structure* st, Tile* t);
 	void removeStructure(Structure* st);
 
@@ -47,19 +46,17 @@ public:
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 
-protected:
-
 private:
 	using StructureTileTable = std::map<Structure*, Tile*>;
 	using StructureClassTable = std::map<Structure::StructureClass, StructureList>;
 
-private:
+
 	void updateStructures(StorableResources&, PopulationPool&, StructureList&);
 	void updateFactoryProduction();
 
 	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }
 
-private:
+
 	StructureTileTable mStructureTileTable; /**< List mapping Structures to a particular tile. */
 	StructureClassTable mStructureLists; /**< Map containing all of the structure list types available. */
 
