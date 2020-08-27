@@ -25,18 +25,18 @@ public:
 	StructureManager() = default;
 	~StructureManager() = default;
 
-	void addStructure(Structure* st, Tile* t);
-	void removeStructure(Structure* st);
+	void addStructure(Structure* structure, Tile* tile);
+	void removeStructure(Structure* structure);
 
-	StructureList& structureList(Structure::StructureClass st);
-	Tile* tileFromStructure(Structure* st);
+	StructureList& structureList(Structure::StructureClass structureClass);
+	Tile* tileFromStructure(Structure* structure);
 
 	void disconnectAll();
 	void dropAllStructures();
 
 	int count() const;
 
-	int getCountInState(Structure::StructureClass st, StructureState state);
+	int getCountInState(Structure::StructureClass structureClass, StructureState state);
 
 	int disabled();
 	int destroyed();
@@ -60,7 +60,7 @@ private:
 	void updateStructures(StorableResources&, PopulationPool&, StructureList&);
 	void updateFactoryProduction();
 
-	bool structureConnected(Structure* st);
+	bool structureConnected(Structure* structure);
 
 
 	StructureTileTable mStructureTileTable; /**< List mapping Structures to a particular tile. */
