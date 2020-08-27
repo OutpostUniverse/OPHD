@@ -326,14 +326,13 @@ int StructureManager::count() const
 int StructureManager::getCountInState(Structure::StructureClass structureClass, StructureState state)
 {
 	int count = 0;
-	for (std::size_t i = 0; i < structureList(structureClass).size(); ++i)
+	for (const auto* structure : structureList(structureClass))
 	{
-		if (structureList(structureClass)[i]->state() == state)
+		if (structure->state() == state)
 		{
 			++count;
 		}
 	}
-
 	return count;
 }
 
