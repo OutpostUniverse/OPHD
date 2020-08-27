@@ -505,17 +505,17 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 			attribute = attribute->next();
 		}
 
-		Mine* m = new Mine();
-		m->deserialize(mineElement->toElement());
+		Mine* mine = new Mine();
+		mine->deserialize(mineElement->toElement());
 
 		auto& tile = getTile({x, y}, 0);
-		tile.pushMine(m);
+		tile.pushMine(mine);
 		tile.index(TerrainType::Dozed);
 
 		mMineLocations.push_back(Point{x, y});
 
 		/// \fixme	Legacy code to assist in updating older versions of save games between 0.7.5 and 0.7.6. Remove in 0.8.0
-		if (m->depth() == 0 && m->active()) { m->increaseDepth(); }
+		if (mine->depth() == 0 && mine->active()) { mine->increaseDepth(); }
 	}
 
 	// TILES AT INDEX 0 WITH NO THINGS
