@@ -150,7 +150,7 @@ void FileIo::fileSelected()
 /**
  * 
  */
-void FileIo::fileNameModified(Control* control)
+void FileIo::fileNameModified(TextControl* control)
 {
 	std::string sFile = control->text();
 

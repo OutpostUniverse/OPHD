@@ -294,6 +294,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClCompile Include="UI\Core\RadioButton.cpp" />
     <ClCompile Include="UI\Core\Slider.cpp" />
     <ClCompile Include="UI\Core\TextArea.cpp" />
+    <ClCompile Include="UI\Core\TextControl.cpp" />
     <ClCompile Include="UI\Core\TextField.cpp" />
     <ClCompile Include="UI\Core\UIContainer.cpp" />
     <ClCompile Include="UI\Core\Window.cpp" />
