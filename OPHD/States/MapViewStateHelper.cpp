@@ -438,7 +438,7 @@ bool simulateMoveProducts(Warehouse* wh)
 /**
  * Attempts to move all products from a Warehouse into any remaining warehouses.
  */
-void moveProducts(Warehouse* wh)
+void moveProducts(Warehouse* sourceWarehouse)
 {
 	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
 	for (auto structure : structures)
@@ -446,9 +446,9 @@ void moveProducts(Warehouse* wh)
 		if (structure->operational())
 		{
 			Warehouse* warehouse = static_cast<Warehouse*>(structure);
-			if (warehouse != wh)
+			if (warehouse != sourceWarehouse)
 			{
-				transferProductsStructure(wh, warehouse);
+				transferProductsStructure(sourceWarehouse, warehouse);
 			}
 		}
 	}
