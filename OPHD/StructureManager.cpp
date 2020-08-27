@@ -7,41 +7,22 @@
 #include "ProductPool.h"
 #include "IOHelper.h"
 #include "PopulationPool.h"
-
+#include "Map/Tile.h"
 #include "Things/Robots/Robot.h"
 #include "Things/Structures/Structures.h"
 
 #include <algorithm>
 #include <sstream>
 
-using namespace NAS2D::Xml;
 
-
-/**
- * Fills population requirements fields in a Structure.
- */
-static void fillPopulationRequirements(PopulationPool& _p, const PopulationRequirements* _populationRequired, PopulationRequirements* _populationAvailable)
-{
-	// Verbose but a lot easier to read than the ternary operators I was using before.
-
-	// WORKERS
-	if (_p.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, (*_populationRequired)[0]))
+namespace {
+	/**
+	 * Fills population requirements fields in a Structure.
+	 */
+	static void fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required, PopulationRequirements& available)
 	{
-		(*_populationAvailable)[0] = (*_populationRequired)[0];
-	}
-	else
-	{
-		(*_populationAvailable)[0] = _p.populationAvailable(Population::PersonRole::ROLE_WORKER);
-	}
-
-	// SCIENTISTS
-	if (_p.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, (*_populationRequired)[1]))
-	{
-		(*_populationAvailable)[1] = (*_populationRequired)[1];
-	}
-	else
-	{
-		(*_populationAvailable)[1] = _p.populationAvailable(Population::PersonRole::ROLE_SCIENTIST);
+		available[0] = std::min(required[0], populationPool.populationAvailable(Population::PersonRole::ROLE_WORKER));
+		available[1] = std::min(required[1], populationPool.populationAvailable(Population::PersonRole::ROLE_SCIENTIST));
 	}
 }
 
@@ -119,8 +100,8 @@ void StructureManager::updateEnergyProduction()
 		if (powerStructure->operational())
 		{
 			mTotalEnergyOutput += powerStructure->energyProduced();
+		}
 	}
-}
 }
 
 
@@ -130,8 +111,6 @@ void StructureManager::updateEnergyProduction()
 void StructureManager::updateStructures(StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
 	bool chapAvailable = CHAPAvailable();
-	const PopulationRequirements* _populationRequired = nullptr;
-	PopulationRequirements* _populationAvailable = nullptr;
 
 	Structure* structure = nullptr;
 	for (std::size_t i = 0; i < structures.size(); ++i)
@@ -163,13 +142,13 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 
 
 		// Population Check
-		_populationRequired = &structure->populationRequirements();
-		_populationAvailable = &structure->populationAvailable();
+		const auto& populationRequired = structure->populationRequirements();
+		auto& populationAvailable = structure->populationAvailable();
 
-		fillPopulationRequirements(population, _populationRequired, _populationAvailable);
+		fillPopulationRequirements(population, populationRequired, populationAvailable);
 
-		if (!population.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, (*_populationRequired)[0]) ||
-			!population.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, (*_populationRequired)[1]))
+		if ((populationAvailable[0] < populationRequired[0]) ||
+			(populationAvailable[1] < populationRequired[1]))
 		{
 			structure->disable(DisabledReason::Population);
 			continue;
@@ -194,8 +173,8 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 
 		if (structure->operational() || structure->isIdle())
 		{
-			population.usePopulation(Population::PersonRole::ROLE_WORKER, (*_populationRequired)[0]);
-			population.usePopulation(Population::PersonRole::ROLE_SCIENTIST, (*_populationRequired)[1]);
+			population.usePopulation(Population::PersonRole::ROLE_WORKER, populationRequired[0]);
+			population.usePopulation(Population::PersonRole::ROLE_SCIENTIST, populationRequired[1]);
 
 			resources = resources - structure->resourcesIn();
 			mTotalEnergyUsed += structure->energyRequirement();
@@ -223,30 +202,30 @@ void StructureManager::updateFactoryProduction()
 /**
  * Adds a new Structure to the StructureManager.
  */
-void StructureManager::addStructure(Structure* st, Tile* t)
+void StructureManager::addStructure(Structure* structure, Tile* tile)
 {
 	// Sanity checks
-	if (t == nullptr)
+	if (tile == nullptr)
 	{
 		return;
 	}
 
-	if (mStructureTileTable.find(st) != mStructureTileTable.end())
+	if (mStructureTileTable.find(structure) != mStructureTileTable.end())
 	{
 		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
 	}
 
 	// Remove things from tile only if we know we're adding a structure.
-	if (!t->empty())
+	if (!tile->empty())
 	{
-		t->removeThing();
+		tile->removeThing();
 	}
 
-	mStructureTileTable[st] = t;
+	mStructureTileTable[structure] = tile;
 
-	mStructureLists[st->structureClass()].push_back(st);
-	t->pushThing(st);
-	t->thingIsStructure(true);
+	mStructureLists[structure->structureClass()].push_back(structure);
+	tile->pushThing(structure);
+	tile->thingIsStructure(true);
 }
 
 
@@ -256,9 +235,9 @@ void StructureManager::addStructure(Structure* st, Tile* t)
  * \warning	A Structure removed from the StructureManager will be freed.
  *			Remaining pointers and references will be invalidated.
  */
-void StructureManager::removeStructure(Structure* st)
+void StructureManager::removeStructure(Structure* structure)
 {
-	StructureList& structures = mStructureLists[st->structureClass()];
+	StructureList& structures = mStructureLists[structure->structureClass()];
 
 	if (structures.empty())
 	{
@@ -267,14 +246,14 @@ void StructureManager::removeStructure(Structure* st)
 
 	for (std::size_t i = 0; i < structures.size(); ++i)
 	{
-		if (structures[i] == st)
+		if (structures[i] == structure)
 		{
 			structures.erase(structures.begin() + static_cast<std::ptrdiff_t>(i));
 			break;
 		}
 	}
 
-	auto tileTableIt = mStructureTileTable.find(st);
+	auto tileTableIt = mStructureTileTable.find(structure);
 	if (tileTableIt == mStructureTileTable.end())
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
@@ -284,6 +263,12 @@ void StructureManager::removeStructure(Structure* st)
 		tileTableIt->second->deleteThing();
 		mStructureTileTable.erase(tileTableIt);
 	}
+}
+
+
+StructureList& StructureManager::structureList(Structure::StructureClass structureClass)
+{
+	return mStructureLists[structureClass];
 }
 
 
@@ -317,17 +302,16 @@ int StructureManager::count() const
 /**
  *
  */
-int StructureManager::getCountInState(Structure::StructureClass st, StructureState state)
+int StructureManager::getCountInState(Structure::StructureClass structureClass, StructureState state)
 {
 	int count = 0;
-	for (std::size_t i = 0; i < structureList(st).size(); ++i)
+	for (const auto* structure : structureList(structureClass))
 	{
-		if (structureList(st)[i]->state() == state)
+		if (structure->state() == state)
 		{
 			++count;
 		}
 	}
-
 	return count;
 }
 
@@ -380,18 +364,21 @@ void StructureManager::dropAllStructures()
 /**
  * 
  */
-Tile* StructureManager::tileFromStructure(Structure* st)
+Tile& StructureManager::tileFromStructure(Structure* structure)
 {
-	auto it = mStructureTileTable.find(st);
-	if (it != mStructureTileTable.end()) { return it->second; }
-	return nullptr;
+	auto it = mStructureTileTable.find(structure);
+	if (it == mStructureTileTable.end())
+	{
+		throw std::runtime_error("Could not find tile for structure");
+	}
+	return *it->second;
 }
 
 
 /**
  * 
  */
-void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
+void serializeStructure(NAS2D::Xml::XmlElement* _ti, Structure* structure, Tile* _t)
 {
 	const auto position = _t->position();
 	_ti->attribute("x", position.x);
@@ -428,11 +415,11 @@ void serializeStructure(XmlElement* _ti, Structure* structure, Tile* _t)
  */
 void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 {
-	XmlElement* structures = new XmlElement("structures");
+	auto* structures = new NAS2D::Xml::XmlElement("structures");
 
 	for (auto it = mStructureTileTable.begin(); it != mStructureTileTable.end(); ++it)
 	{
-		XmlElement* structure = new XmlElement("structure");
+		auto* structure = new NAS2D::Xml::XmlElement("structure");
 		serializeStructure(structure, it->first, it->second);
 
 		if (it->first->isFactory())
@@ -443,14 +430,14 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 
 		if (it->first->isWarehouse())
 		{
-			XmlElement* warehouse_products = new XmlElement("warehouse_products");
+			auto* warehouse_products = new NAS2D::Xml::XmlElement("warehouse_products");
 			static_cast<Warehouse*>(it->first)->products().serialize(warehouse_products);
 			structure->linkEndChild(warehouse_products);
 		}
 
 		if (it->first->isRobotCommand())
 		{
-			XmlElement* robots = new XmlElement("robots");
+			auto* robots = new NAS2D::Xml::XmlElement("robots");
 
 			const RobotList& rl = static_cast<RobotCommand*>(it->first)->robots();
 
@@ -467,7 +454,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 
 		if (it->first->structureClass() == Structure::StructureClass::FoodProduction)
 		{
-			XmlElement* food = new XmlElement("food");
+			auto* food = new NAS2D::Xml::XmlElement("food");
 			food->attribute("level", static_cast<FoodProduction*>(it->first)->foodLevel());
 			structure->linkEndChild(food);
 		}
@@ -476,4 +463,10 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 	}
 
 	element->linkEndChild(structures);
+}
+
+
+bool StructureManager::structureConnected(Structure* structure)
+{
+	return mStructureTileTable[structure]->connected();
 }

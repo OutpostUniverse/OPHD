@@ -309,8 +309,8 @@ bool inCommRange(NAS2D::Point<int> position)
 			continue;
 		}
 
-		const auto commTowerTile = structureManager.tileFromStructure(tower);
-		const auto towerDistance = position - commTowerTile->position();
+		const auto& commTowerTile = structureManager.tileFromStructure(tower);
+		const auto towerDistance = position - commTowerTile.position();
 		if (towerDistance.lengthSquared() <= maxTowerRangeSquared)
 		{
 			return true;

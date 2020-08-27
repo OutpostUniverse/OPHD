@@ -1,9 +1,15 @@
 #pragma once
 
 #include "Things/Structures/Structure.h"
-#include "Map/Tile.h"
 
 
+namespace NAS2D {
+	namespace Xml {
+		class XmlElement;
+	}
+}
+
+class Tile;
 class PopulationPool;
 struct StorableResources;
 
@@ -16,22 +22,18 @@ struct StorableResources;
 class StructureManager
 {
 public:
-	StructureManager() = default;
-	~StructureManager() = default;
+	void addStructure(Structure* structure, Tile* tile);
+	void removeStructure(Structure* structure);
 
-public:
-	void addStructure(Structure* st, Tile* t);
-	void removeStructure(Structure* st);
-
-	StructureList& structureList(Structure::StructureClass st) { return mStructureLists[st]; }
-	Tile* tileFromStructure(Structure* st);
+	StructureList& structureList(Structure::StructureClass structureClass);
+	Tile& tileFromStructure(Structure* structure);
 
 	void disconnectAll();
 	void dropAllStructures();
 
 	int count() const;
 
-	int getCountInState(Structure::StructureClass st, StructureState state);
+	int getCountInState(Structure::StructureClass structureClass, StructureState state);
 
 	int disabled();
 	int destroyed();
@@ -47,19 +49,17 @@ public:
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 
-protected:
-
 private:
 	using StructureTileTable = std::map<Structure*, Tile*>;
 	using StructureClassTable = std::map<Structure::StructureClass, StructureList>;
 
-private:
+
 	void updateStructures(StorableResources&, PopulationPool&, StructureList&);
 	void updateFactoryProduction();
 
-	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }
+	bool structureConnected(Structure* structure);
 
-private:
+
 	StructureTileTable mStructureTileTable; /**< List mapping Structures to a particular tile. */
 	StructureClassTable mStructureLists; /**< Map containing all of the structure list types available. */
 

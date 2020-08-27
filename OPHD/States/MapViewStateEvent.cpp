@@ -282,7 +282,7 @@ void MapViewState::mineFacilityExtended(MineFacility* mineFacility)
 {
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 	
-	auto& mineFacilityTile = *NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
+	auto& mineFacilityTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
 	auto& mineDepthTile = mTileMap->getTile(mineFacilityTile.position(), mineFacility->mine()->depth());
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &mineDepthTile);
 	mineDepthTile.index(TerrainType::Dozed);
