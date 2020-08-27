@@ -57,7 +57,7 @@ void FileIo::init()
 	add(&txtFileName, 5, 302);
 	txtFileName.size({490, 18});
 	txtFileName.maxCharacters(50);
-	txtFileName.textChanged().connect(this,&FileIo::fileNameModified);
+	txtFileName.textChanged().connect(this, &FileIo::fileNameModified);
 
 	add(&mListBox, 5, 25);
 	mListBox.size({490, 273});
