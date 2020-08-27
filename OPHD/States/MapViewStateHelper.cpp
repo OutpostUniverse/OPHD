@@ -410,9 +410,9 @@ void transferProductsPool(ProductPool& source, ProductPool& destination)
  * \return	True if all products can be moved or if the user selects "yes"
  *			if bulldozing will result in lost products.
  */
-bool simulateMoveProducts(Warehouse* wh)
+bool simulateMoveProducts(Warehouse* sourceWarehouse)
 {
-	ProductPool _pool = wh->products();
+	ProductPool _pool = sourceWarehouse->products();
 
 	/** \fixme	This is a brute force approach. It works but it's not elegant. */
 	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
@@ -421,7 +421,7 @@ bool simulateMoveProducts(Warehouse* wh)
 		if (structure->operational())
 		{
 			Warehouse* warehouse = static_cast<Warehouse*>(structure);
-			if (warehouse != wh)
+			if (warehouse != sourceWarehouse)
 			{
 				ProductPool _tfrPool = warehouse->products();
 				transferProductsPool(_pool, _tfrPool);
