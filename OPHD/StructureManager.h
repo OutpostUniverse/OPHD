@@ -22,9 +22,6 @@ struct StorableResources;
 class StructureManager
 {
 public:
-	StructureManager() = default;
-	~StructureManager() = default;
-
 	void addStructure(Structure* structure, Tile* tile);
 	void removeStructure(Structure* structure);
 
