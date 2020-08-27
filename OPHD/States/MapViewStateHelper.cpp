@@ -411,8 +411,6 @@ void transferProductsPool(ProductPool& source, ProductPool& destination)
 bool simulateMoveProducts(Warehouse* sourceWarehouse)
 {
 	ProductPool sourcePool = sourceWarehouse->products();
-
-	/** \fixme	This is a brute force approach. It works but it's not elegant. */
 	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
 	for (auto structure : structures)
 	{
