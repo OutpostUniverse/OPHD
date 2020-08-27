@@ -145,8 +145,8 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 
 		fillPopulationRequirements(population, populationRequired, populationAvailable);
 
-		if (!population.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, populationRequired[0]) ||
-			!population.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, populationRequired[1]))
+		if ((populationAvailable[0] < populationRequired[0]) ||
+			(populationAvailable[1] < populationRequired[1]))
 		{
 			structure->disable(DisabledReason::Population);
 			continue;
