@@ -26,6 +26,12 @@
 #include <memory>
 
 
+namespace NAS2D {
+	namespace Xml {
+		class XmlElement;
+	}
+}
+
 namespace micropather {
 	class MicroPather;
 }
