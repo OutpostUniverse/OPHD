@@ -5,9 +5,11 @@
 
 #include "../Constants.h"
 #include "../DirectionOffset.h"
+#include "../Mine.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
+#include <NAS2D/Xml/XmlElement.h>
 
 #include <algorithm>
 #include <functional>
@@ -398,7 +400,7 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 
 static void serializeTile(XmlElement* _ti, int x, int y, int depth, TerrainType index)
 {
-	XmlElement* t = new XmlElement("tile");
+	auto* t = new XmlElement("tile");
 	t->attribute("x", x);
 	t->attribute("y", y);
 	t->attribute("depth", depth);
@@ -480,8 +482,8 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	// VIEW PARAMETERS
 	int view_x = 0, view_y = 0, view_depth = 0;
-	XmlElement* view_parameters = element->firstChildElement("view_parameters");
-	XmlAttribute* attribute = view_parameters->firstAttribute();
+	auto* view_parameters = element->firstChildElement("view_parameters");
+	auto* attribute = view_parameters->firstAttribute();
 	while (attribute)
 	{
 		if (attribute->name() == "viewlocation_x") { attribute->queryIntValue(view_x); }
@@ -492,11 +494,11 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 	mapViewLocation({view_x, view_y});
 	currentDepth(view_depth);
-	for (XmlNode* mine = element->firstChildElement("mines")->firstChildElement("mine"); mine; mine = mine->nextSibling())
+	for (auto* mineElement = element->firstChildElement("mines")->firstChildElement("mine"); mineElement; mineElement = mineElement->nextSiblingElement())
 	{
 		int x = 0, y = 0;
 	
-		attribute = mine->toElement()->firstAttribute();
+		attribute = mineElement->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
@@ -504,25 +506,25 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 			attribute = attribute->next();
 		}
 
-		Mine* m = new Mine();
-		m->deserialize(mine->toElement());
+		Mine* mine = new Mine();
+		mine->deserialize(mineElement->toElement());
 
 		auto& tile = getTile({x, y}, 0);
-		tile.pushMine(m);
+		tile.pushMine(mine);
 		tile.index(TerrainType::Dozed);
 
 		mMineLocations.push_back(Point{x, y});
 
 		/// \fixme	Legacy code to assist in updating older versions of save games between 0.7.5 and 0.7.6. Remove in 0.8.0
-		if (m->depth() == 0 && m->active()) { m->increaseDepth(); }
+		if (mine->depth() == 0 && mine->active()) { mine->increaseDepth(); }
 	}
 
 	// TILES AT INDEX 0 WITH NO THINGS
-	for (XmlNode* tileNode = element->firstChildElement("tiles")->firstChildElement("tile"); tileNode; tileNode = tileNode->nextSibling())
+	for (auto* tileElement = element->firstChildElement("tiles")->firstChildElement("tile"); tileElement; tileElement = tileElement->nextSiblingElement())
 	{
 		int x = 0, y = 0, depth = 0, index = 0;
 
-		attribute = tileNode->toElement()->firstAttribute();
+		attribute = tileElement->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }

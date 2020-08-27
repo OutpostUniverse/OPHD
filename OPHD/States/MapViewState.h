@@ -28,6 +28,10 @@
 #include <memory>
 
 
+namespace micropather {
+	class MicroPather;
+}
+
 class Tile;
 class TileMap;
 class Structure;

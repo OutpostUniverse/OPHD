@@ -11,9 +11,15 @@
 
 #include "../Common.h"
 #include "../StructureManager.h"
-#include "../Map/TileMap.h"
 
 
+namespace NAS2D {
+	namespace Xml {
+		class XmlElement;
+	}
+}
+
+class TileMap;
 class Warehouse; /**< Forward declaration for getAvailableWarehouse() function. */
 class RobotCommand; /**< Forward declaration for getAvailableRobotCommand() function. */
 class RobotPool;

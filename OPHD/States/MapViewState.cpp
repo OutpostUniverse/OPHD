@@ -11,6 +11,7 @@
 #include "../StructureCatalogue.h"
 
 #include "../Map/Tile.h"
+#include "../Map/TileMap.h"
 
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"

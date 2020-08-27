@@ -5,6 +5,7 @@
 
 #include "TextRender.h"
 #include "../Constants.h"
+#include "../Mine.h"
 
 #include <map>
 #include <sstream>

@@ -3,6 +3,7 @@
 
 #include "PlanetSelectState.h"
 
+#include "Planet.h"
 #include "GameState.h"
 #include "MapViewState.h"
 #include "MainMenuState.h"
