@@ -140,13 +140,13 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 
 
 		// Population Check
-		const auto& _populationRequired = structure->populationRequirements();
-		auto& _populationAvailable = structure->populationAvailable();
+		const auto& populationRequired = structure->populationRequirements();
+		auto& populationAvailable = structure->populationAvailable();
 
-		fillPopulationRequirements(population, _populationRequired, _populationAvailable);
+		fillPopulationRequirements(population, populationRequired, populationAvailable);
 
-		if (!population.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, _populationRequired[0]) ||
-			!population.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, _populationRequired[1]))
+		if (!population.enoughPopulationAvailable(Population::PersonRole::ROLE_WORKER, populationRequired[0]) ||
+			!population.enoughPopulationAvailable(Population::PersonRole::ROLE_SCIENTIST, populationRequired[1]))
 		{
 			structure->disable(DisabledReason::Population);
 			continue;
@@ -171,8 +171,8 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 
 		if (structure->operational() || structure->isIdle())
 		{
-			population.usePopulation(Population::PersonRole::ROLE_WORKER, _populationRequired[0]);
-			population.usePopulation(Population::PersonRole::ROLE_SCIENTIST, _populationRequired[1]);
+			population.usePopulation(Population::PersonRole::ROLE_WORKER, populationRequired[0]);
+			population.usePopulation(Population::PersonRole::ROLE_SCIENTIST, populationRequired[1]);
 
 			resources = resources - structure->resourcesIn();
 			mTotalEnergyUsed += structure->energyRequirement();
