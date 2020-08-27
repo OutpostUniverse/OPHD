@@ -1,7 +1,6 @@
 #pragma once
 
 #include "MapViewStateHelper.h"
-#include "MainReportsUiState.h"
 #include "Wrapper.h"
 
 #include "Planet.h"
