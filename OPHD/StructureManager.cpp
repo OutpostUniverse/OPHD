@@ -14,8 +14,6 @@
 #include <algorithm>
 #include <sstream>
 
-using namespace NAS2D::Xml;
-
 
 /**
  * Fills population requirements fields in a Structure.
