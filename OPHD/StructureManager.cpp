@@ -223,10 +223,10 @@ void StructureManager::updateFactoryProduction()
 /**
  * Adds a new Structure to the StructureManager.
  */
-void StructureManager::addStructure(Structure* st, Tile* t)
+void StructureManager::addStructure(Structure* st, Tile* tile)
 {
 	// Sanity checks
-	if (t == nullptr)
+	if (tile == nullptr)
 	{
 		return;
 	}
@@ -237,16 +237,16 @@ void StructureManager::addStructure(Structure* st, Tile* t)
 	}
 
 	// Remove things from tile only if we know we're adding a structure.
-	if (!t->empty())
+	if (!tile->empty())
 	{
-		t->removeThing();
+		tile->removeThing();
 	}
 
-	mStructureTileTable[st] = t;
+	mStructureTileTable[st] = tile;
 
 	mStructureLists[st->structureClass()].push_back(st);
-	t->pushThing(st);
-	t->thingIsStructure(true);
+	tile->pushThing(st);
+	tile->thingIsStructure(true);
 }
 
 
