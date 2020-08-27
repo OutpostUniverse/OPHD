@@ -4,6 +4,12 @@
 #include "Map/Tile.h"
 
 
+namespace NAS2D {
+	namespace Xml {
+		class XmlElement;
+	}
+}
+
 class PopulationPool;
 struct StorableResources;
 
