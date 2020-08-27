@@ -425,9 +425,12 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
 		}
 	}
 
-	if (!sourcePool.empty()) { return doYesNoMessage(constants::PRODUCT_TRANSFER_TITLE, constants::PRODUCT_TRANSFER_MESSAGE); }
+	if (sourcePool.empty())
+	{
+		return true;
+	}
 
-	return true;
+	return doYesNoMessage(constants::PRODUCT_TRANSFER_TITLE, constants::PRODUCT_TRANSFER_MESSAGE);
 }
 
 
