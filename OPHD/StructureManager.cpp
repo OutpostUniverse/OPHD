@@ -477,3 +477,9 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 
 	element->linkEndChild(structures);
 }
+
+
+bool StructureManager::structureConnected(Structure* st)
+{
+	return mStructureTileTable[st]->connected();
+}

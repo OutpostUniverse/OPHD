@@ -54,7 +54,7 @@ private:
 	void updateStructures(StorableResources&, PopulationPool&, StructureList&);
 	void updateFactoryProduction();
 
-	bool structureConnected(Structure* st) { return mStructureTileTable[st]->connected(); }
+	bool structureConnected(Structure* st);
 
 
 	StructureTileTable mStructureTileTable; /**< List mapping Structures to a particular tile. */
