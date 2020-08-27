@@ -421,6 +421,10 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
 			{
 				ProductPool destinationPool = warehouse->products();
 				transferProductsPool(sourcePool, destinationPool);
+				if (sourcePool.empty())
+				{
+					return true;
+				}
 			}
 		}
 	}
