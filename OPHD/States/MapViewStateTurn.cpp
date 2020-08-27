@@ -176,16 +176,16 @@ static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, 
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	Tile* start = structureManager.tileFromStructure(mine);
+	auto& start = structureManager.tileFromStructure(mine);
 
 	RouteList routeList;
 
 	for (auto smelter : smelters)
 	{
-		Tile* end = structureManager.tileFromStructure(smelter);
-		tilemap->pathStartAndEnd(start, end);
+		auto& end = structureManager.tileFromStructure(smelter);
+		tilemap->pathStartAndEnd(&start, &end);
 		Route route;
-		solver->Solve(start, end, &route.path, &route.cost);
+		solver->Solve(&start, &end, &route.path, &route.cost);
 
 		if (!route.empty()) { routeList.push_back(route); }
 	}

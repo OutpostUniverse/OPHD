@@ -29,7 +29,7 @@ public:
 	void removeStructure(Structure* structure);
 
 	StructureList& structureList(Structure::StructureClass structureClass);
-	Tile* tileFromStructure(Structure* structure);
+	Tile& tileFromStructure(Structure* structure);
 
 	void disconnectAll();
 	void dropAllStructures();

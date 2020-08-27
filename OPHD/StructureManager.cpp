@@ -385,14 +385,14 @@ void StructureManager::dropAllStructures()
 /**
  * 
  */
-Tile* StructureManager::tileFromStructure(Structure* structure)
+Tile& StructureManager::tileFromStructure(Structure* structure)
 {
 	auto it = mStructureTileTable.find(structure);
 	if (it == mStructureTileTable.end())
 	{
 		throw std::runtime_error("Could not find tile for structure");
 	}
-	return it->second;
+	return *it->second;
 }
 
 
