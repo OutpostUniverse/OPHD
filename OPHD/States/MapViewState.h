@@ -9,10 +9,10 @@
 
 #include "../Common.h"
 #include "../Constants.h"
-#include "../PopulationPool.h"
-#include "../Population/Population.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
+#include "../PopulationPool.h"
+#include "../Population/Population.h"
 #include "../Things/Structures/Structure.h"
 
 #include "../UI/Gui.h"
