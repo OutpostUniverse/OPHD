@@ -100,8 +100,8 @@ void StructureManager::updateEnergyProduction()
 		if (powerStructure->operational())
 		{
 			mTotalEnergyOutput += powerStructure->energyProduced();
+		}
 	}
-}
 }
 
 
