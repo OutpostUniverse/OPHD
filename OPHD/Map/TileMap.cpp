@@ -6,6 +6,7 @@
 #include "../Constants.h"
 #include "../DirectionOffset.h"
 #include "../Mine.h"
+#include "../Things/Structures/Structure.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>

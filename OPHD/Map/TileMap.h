@@ -3,7 +3,6 @@
 #include "Tile.h"
 
 #include "../States/Planet.h"
-#include "../Things/Structures/Structure.h"
 #include "../MicroPather/micropather.h"
 
 #include <NAS2D/Renderer/Point.h>
