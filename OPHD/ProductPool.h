@@ -17,14 +17,13 @@ class ProductPool
 public:
 	using ProductTypeCount = std::array<int, ProductType::PRODUCT_COUNT>;
 
-public:
+
 	ProductPool() = default;
 	~ProductPool() = default;
 
 	ProductPool(const ProductPool&) = default;
 	ProductPool& operator=(const ProductPool&) = default;
 
-public:
 	int capacity() const;
 
 	bool canStore(ProductType type, int count);
@@ -45,7 +44,7 @@ public:
 private:
 	friend void transferProductsPool(ProductPool&, ProductPool&);
 
-private:
+
 	ProductTypeCount mProducts = {{ 0 }};
 
 	int mCapacity = constants::BASE_PRODUCT_CAPACITY;
