@@ -6,54 +6,53 @@
 #include <algorithm>
 
 
-/**
- * Space required to store a Product.
- */
-const std::map<ProductType, int> PRODUCT_STORAGE_VALUE =
-{
-	{ ProductType::PRODUCT_DIGGER, 10 },
-	{ ProductType::PRODUCT_DOZER, 10 },
-	{ ProductType::PRODUCT_MINER, 10 },
-	{ ProductType::PRODUCT_EXPLORER, 10 },
-	{ ProductType::PRODUCT_TRUCK, 10 },
-
-	{ ProductType::PRODUCT_ROAD_MATERIALS, 1 },
-	{ ProductType::PRODUCT_MAINTENANCE_PARTS, 1 },
-
-	{ ProductType::PRODUCT_CLOTHING, 1 },
-	{ ProductType::PRODUCT_MEDICINE, 1 }
-};
-
-
-/**
- * Gets the amount of storage required for one unit of a Product.
- */
-inline int storageRequiredPerUnit(ProductType type)
-{
-	return PRODUCT_STORAGE_VALUE.at(type);
-}
-
-
-/**
- * Gets the amount of storage required for a given number of Products.
- */
-inline int storageRequired(ProductType type, int count)
-{
-	return PRODUCT_STORAGE_VALUE.at(type) * count;
-}
-
-
-/**
- * Internal helper function.
- */
-static int computeCurrentStorage(const ProductPool::ProductTypeCount& products)
-{
-	int stored = 0;
-	for (std::size_t i = 0; i < static_cast<std::size_t>(ProductType::PRODUCT_COUNT); ++i)
+namespace {
+	/**
+	 * Space required to store a Product.
+	 */
+	const std::map<ProductType, int> productStorageSpace =
 	{
-		stored += storageRequired(static_cast<ProductType>(i), products[i]);
+		{ ProductType::PRODUCT_DIGGER, 10 },
+		{ ProductType::PRODUCT_DOZER, 10 },
+		{ ProductType::PRODUCT_MINER, 10 },
+		{ ProductType::PRODUCT_EXPLORER, 10 },
+		{ ProductType::PRODUCT_TRUCK, 10 },
+
+		{ ProductType::PRODUCT_ROAD_MATERIALS, 1 },
+		{ ProductType::PRODUCT_MAINTENANCE_PARTS, 1 },
+
+		{ ProductType::PRODUCT_CLOTHING, 1 },
+		{ ProductType::PRODUCT_MEDICINE, 1 }
+	};
+
+
+	/**
+	 * Gets the amount of storage required for one unit of a Product.
+	 */
+	inline int storageRequiredPerUnit(ProductType type)
+	{
+		return productStorageSpace.at(type);
 	}
-	return stored;
+
+
+	/**
+	 * Gets the amount of storage required for a given number of Products.
+	 */
+	inline int storageRequired(ProductType type, int count)
+	{
+		return productStorageSpace.at(type) * count;
+	}
+
+
+	int computeCurrentStorage(const ProductPool::ProductTypeCount& products)
+	{
+		int stored = 0;
+		for (std::size_t i = 0; i < static_cast<std::size_t>(ProductType::PRODUCT_COUNT); ++i)
+		{
+			stored += storageRequired(static_cast<ProductType>(i), products[i]);
+		}
+		return stored;
+	}
 }
 
 
@@ -84,6 +83,24 @@ bool ProductPool::empty() const
 bool ProductPool::atCapacity() const
 {
 	return (availableStorage() == 0);
+}
+
+
+// Attempts to transfer all or partial storage to another pool
+void ProductPool::transferAllTo(ProductPool& destination)
+{
+	if (empty() || destination.atCapacity()) { return; }
+
+	for (std::size_t i = 0; i < ProductType::PRODUCT_COUNT; ++i)
+	{
+		if (destination.availableStorage() == 0) { return; }
+
+		const auto productType = static_cast<ProductType>(i);
+		const bool canTransferAll = (destination.availableStorage() >= storageRequired(productType, mProducts[i]));
+		const int unitsToMove = canTransferAll ? mProducts[i] : destination.availableStorage() / storageRequiredPerUnit(productType);
+		destination.store(productType, unitsToMove);
+		pull(productType, unitsToMove);
+	}
 }
 
 
