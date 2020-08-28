@@ -87,6 +87,30 @@ bool ProductPool::atCapacity() const
 }
 
 
+// Attempts to transfer all or partial storage to another pool
+void ProductPool::transferAllTo(ProductPool& destination)
+{
+	if (empty() || destination.atCapacity()) { return; }
+
+	for (std::size_t i = 0; i < ProductType::PRODUCT_COUNT; ++i)
+	{
+		if (destination.availableStorage() == 0) { return; }
+
+		if (destination.availableStorage() >= storageRequired(static_cast<ProductType>(i), mProducts[i]))
+		{
+			destination.store(static_cast<ProductType>(i), mProducts[i]);
+			pull(static_cast<ProductType>(i), mProducts[i]);
+		}
+		else
+		{
+			int units_to_move = destination.availableStorage() / storageRequiredPerUnit(static_cast<ProductType>(i));
+			destination.store(static_cast<ProductType>(i), units_to_move);
+			pull(static_cast<ProductType>(i), units_to_move);
+		}
+	}
+}
+
+
 /**
  * Stores a specified amount of a ProductType.
  * 

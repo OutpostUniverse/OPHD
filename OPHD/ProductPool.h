@@ -30,6 +30,7 @@ public:
 	bool empty() const;
 	bool atCapacity() const;
 
+	void transferAllTo(ProductPool& destination);
 	void store(ProductType type, int count);
 	int pull(ProductType type, int count);
 	int count(ProductType type);
