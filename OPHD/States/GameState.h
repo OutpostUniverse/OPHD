@@ -34,6 +34,6 @@ private:
 
 private:
 	NAS2D::State* mReturnState = this;
-	MapViewState* MAP_VIEW = nullptr;
-	Wrapper* ACTIVE_STATE = nullptr;
+	MapViewState* mMapView = nullptr;
+	Wrapper* mActiveState = nullptr;
 };
