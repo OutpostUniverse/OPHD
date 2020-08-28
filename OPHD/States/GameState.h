@@ -34,6 +34,6 @@ private:
 
 private:
 	NAS2D::State* mReturnState = this;
-	MapViewState* MAP_VIEW = nullptr; /**< Pointer to a MapViewState. Memory is handled by GameState. */
-	Wrapper* ACTIVE_STATE = nullptr; /**< The currently active State. */
+	MapViewState* MAP_VIEW = nullptr;
+	Wrapper* ACTIVE_STATE = nullptr;
 };
