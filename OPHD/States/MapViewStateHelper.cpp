@@ -30,9 +30,6 @@ using namespace NAS2D;
 using namespace NAS2D::Xml;
 
 
-extern int ROBOT_ID_COUNTER; /// \fixme Kludge
-
-
 const NAS2D::Point<int> CcNotPlaced{-1, -1};
 static Point<int> commandCenterLocation = CcNotPlaced;
 
@@ -225,7 +222,7 @@ bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
  */
 void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt, Tile* /*tile*/)
 {
-	if (rcc->commandedByThis(robotToDelete))
+	if (rcc->isControlling(robotToDelete))
 	{
 		std::cout << "Cannot bulldoze Robot Command Center by a Robot under its command." << std::endl;
 		return;
@@ -486,7 +483,6 @@ void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot
 void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap)
 {
 	XmlElement* robots = new XmlElement("robots");
-	robots->attribute("id_counter", ROBOT_ID_COUNTER);
 
 	RobotPool::DiggerList& diggers = robotPool.diggers();
 

@@ -7,19 +7,15 @@
 
 #include <algorithm>
 
-extern int ROBOT_ID_COUNTER; /// \fixme	Kludge
+
+int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
 
 
-/**
- * C'tor
- */
 RobotPool::RobotPool()
 {}
 
 
 /**
- * D'tor.
- * 
  * Frees all resources from the robot pool so this class should be
  * freed after all pointers to robots attained from the pool have been
  * released.
@@ -30,9 +26,6 @@ RobotPool::~RobotPool()
 }
 
 
-/**
- * 
- */
 void RobotPool::clear()
 {
 	clearRobots(mDiggers);
@@ -102,8 +95,7 @@ Robot* RobotPool::addRobot(RobotType type, int id /*= 0*/)
  */
 Robodigger* RobotPool::getDigger()
 {
-	Robodigger* _r = static_cast<Robodigger*>(getRobot(mDiggers));
-	return _r;
+	return static_cast<Robodigger*>(getRobot(mDiggers));
 }
 
 
@@ -114,8 +106,7 @@ Robodigger* RobotPool::getDigger()
  */
 Robodozer* RobotPool::getDozer()
 {
-	Robodozer* _r = static_cast<Robodozer*>(getRobot(mDozers));
-	return _r;
+	return static_cast<Robodozer*>(getRobot(mDozers));
 }
 
 
@@ -126,8 +117,7 @@ Robodozer* RobotPool::getDozer()
  */
 Robominer* RobotPool::getMiner()
 {
-	Robominer* _r = static_cast<Robominer*>(getRobot(mMiners));
-	return _r;
+	return static_cast<Robominer*>(getRobot(mMiners));
 }
 
 
@@ -160,9 +150,6 @@ bool RobotPool::robotAvailable(RobotType type)
 }
 
 
-/**
- * 
- */
 int RobotPool::getAvailableCount(RobotType type)
 {
 	switch (type)
@@ -182,9 +169,6 @@ int RobotPool::getAvailableCount(RobotType type)
 }
 
 
-/**
- * 
- */
 void RobotPool::InitRobotCtrl(uint32_t maxRobotCtrl)
 {
 	mRobotControlMax = maxRobotCtrl;
@@ -196,9 +180,6 @@ void RobotPool::InitRobotCtrl(uint32_t maxRobotCtrl)
 }
 
 
-/**
- * 
- */
 void RobotPool::AddRobotCtrl()
 {
 	if (mRobotControlMax > mRobotControlCount)
@@ -208,9 +189,6 @@ void RobotPool::AddRobotCtrl()
 }
 
 
-/**
- * 
- */
 bool RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot* robot, Tile* tile)
 {
 	if (!tile) { return false; }

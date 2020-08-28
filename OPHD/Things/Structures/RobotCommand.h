@@ -26,7 +26,7 @@ public:
 		requiresCHAP(false);
 	}
 
-	bool commandedByThis(Robot* robot) const;
+	bool isControlling(Robot* robot) const;
 
 	bool commandCapacityAvailable() const;
 	void addRobot(Robot* robot);

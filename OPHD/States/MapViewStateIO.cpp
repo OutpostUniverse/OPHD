@@ -261,11 +261,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 	mRobotList.clear();
 	mRobots.dropAllItems();
 
-	/**
-	 * \fixme	This is fragile and prone to break if the savegame file is malformed.
-	 */
-	element->firstAttribute()->queryIntValue(ROBOT_ID_COUNTER);
-
+	ROBOT_ID_COUNTER = 0;
 	int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
 	XmlAttribute* attribute = nullptr;
 	for (XmlNode* robotNode = element->firstChild(); robotNode; robotNode = robotNode->nextSibling())
@@ -285,6 +281,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 			attribute = attribute->next();
 		}
+		ROBOT_ID_COUNTER = std::max(ROBOT_ID_COUNTER, id);
 
 		Robot* robot = nullptr;
 		switch (static_cast<RobotType>(type))
