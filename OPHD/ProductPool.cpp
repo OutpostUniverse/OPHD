@@ -96,17 +96,10 @@ void ProductPool::transferAllTo(ProductPool& destination)
 	{
 		if (destination.availableStorage() == 0) { return; }
 
-		if (destination.availableStorage() >= storageRequired(static_cast<ProductType>(i), mProducts[i]))
-		{
-			destination.store(static_cast<ProductType>(i), mProducts[i]);
-			pull(static_cast<ProductType>(i), mProducts[i]);
-		}
-		else
-		{
-			int units_to_move = destination.availableStorage() / storageRequiredPerUnit(static_cast<ProductType>(i));
-			destination.store(static_cast<ProductType>(i), units_to_move);
-			pull(static_cast<ProductType>(i), units_to_move);
-		}
+		const bool canTransferAll = (destination.availableStorage() >= storageRequired(static_cast<ProductType>(i), mProducts[i]));
+		const int unitsToMove = canTransferAll ? mProducts[i] : destination.availableStorage() / storageRequiredPerUnit(static_cast<ProductType>(i));
+		destination.store(static_cast<ProductType>(i), unitsToMove);
+		pull(static_cast<ProductType>(i), unitsToMove);
 	}
 }
 
