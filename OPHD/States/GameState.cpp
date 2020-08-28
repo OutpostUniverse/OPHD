@@ -41,8 +41,6 @@ GameState::~GameState()
 		takeMeThere->disconnect(this, &GameState::takeMeThere);
 	}
 
-	delete mMainReportsState;
-
 	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
@@ -56,7 +54,7 @@ void GameState::initialize()
 	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
 	e.mouseMotion().connect(this, &GameState::onMouseMove);
 
-	mMainReportsState = new MainReportsUiState();
+	mMainReportsState = std::make_unique<MainReportsUiState>();
 	mMainReportsState->_initialize();
 	mMainReportsState->hideReports().connect(this, &GameState::hideReportsUi);
 
@@ -153,7 +151,7 @@ void GameState::quitEvent()
 void GameState::showReportsUi()
 {
 	mActiveState->deactivate();
-	mActiveState = mMainReportsState;
+	mActiveState = mMainReportsState.get();
 	mActiveState->activate();
 }
 
