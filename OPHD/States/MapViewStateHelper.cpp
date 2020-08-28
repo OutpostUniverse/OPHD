@@ -420,7 +420,7 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
 			if (warehouse != sourceWarehouse)
 			{
 				ProductPool destinationPool = warehouse->products();
-				transferProductsPool(sourcePool, destinationPool);
+				sourcePool.transferAllTo(destinationPool);
 				if (sourcePool.empty())
 				{
 					return true;
@@ -451,7 +451,7 @@ void moveProducts(Warehouse* sourceWarehouse)
 			Warehouse* warehouse = static_cast<Warehouse*>(structure);
 			if (warehouse != sourceWarehouse)
 			{
-				transferProductsPool(sourceWarehouse->products(), warehouse->products());
+				sourceWarehouse->products().transferAllTo(warehouse->products());
 			}
 		}
 	}
