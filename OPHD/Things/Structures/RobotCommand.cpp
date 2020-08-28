@@ -45,7 +45,7 @@ void RobotCommand::addRobot(Robot* robot)
 
 	if (isControlling(robot))
 	{
-		const auto message = "RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. Robot name: " + robot->name() + " ID: " + std::to_string(robot->id());
+		const auto message = "RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. Robot name: " + robot->name();
 		std::cout << message << std::endl;
 		throw std::runtime_error(message);
 	}
