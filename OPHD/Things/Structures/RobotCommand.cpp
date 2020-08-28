@@ -5,7 +5,10 @@
 #include "../Robots/Robot.h"
 #include "../../Constants.h"
 
+#include <string>
+#include <stdexcept>
 #include <algorithm>
+
 
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 
@@ -46,9 +49,7 @@ void RobotCommand::addRobot(Robot* robot)
 	{
 		std::cout << "RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. CURRENT ID: " << ROBOT_ID_COUNTER << std::endl;
 		std::cout << "RCC:ADD: _r addr: " << robot << " name: " << robot->name() << " id: " << robot->id() << std::endl;
-		doAlertMessage("Invalid Robot Command", "Robot Command Center: Requested add of a robot already commanded by this RCC. Please submit log to developer and any steps to reproduce.");
-		return;
-		//throw std::runtime_error("RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility.");
+		throw std::runtime_error("RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. Robot name: " + robot->name() + " ID: " + std::to_string(robot->id()));
 	}
 
 	mRobotList.push_back(robot);
