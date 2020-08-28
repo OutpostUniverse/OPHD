@@ -11,16 +11,11 @@
 int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
 
 
-/**
- * C'tor
- */
 RobotPool::RobotPool()
 {}
 
 
 /**
- * D'tor.
- * 
  * Frees all resources from the robot pool so this class should be
  * freed after all pointers to robots attained from the pool have been
  * released.
@@ -31,9 +26,6 @@ RobotPool::~RobotPool()
 }
 
 
-/**
- * 
- */
 void RobotPool::clear()
 {
 	clearRobots(mDiggers);
@@ -197,9 +189,6 @@ void RobotPool::InitRobotCtrl(uint32_t maxRobotCtrl)
 }
 
 
-/**
- * 
- */
 void RobotPool::AddRobotCtrl()
 {
 	if (mRobotControlMax > mRobotControlCount)
@@ -209,9 +198,6 @@ void RobotPool::AddRobotCtrl()
 }
 
 
-/**
- * 
- */
 bool RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot* robot, Tile* tile)
 {
 	if (!tile) { return false; }
