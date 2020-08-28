@@ -31,17 +31,17 @@ GameState::~GameState()
 
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &GameState::fadeComplete);
 
-	MAIN_REPORTS_UI->hideReports().disconnect(this, &GameState::hideReportsUi);
+	mMainReportsState->hideReports().disconnect(this, &GameState::hideReportsUi);
 	mMapView->quit().disconnect(this, &GameState::quitEvent);
 	mMapView->showReporstUi().disconnect(this, &GameState::showReportsUi);
 	mMapView->mapChanged().disconnect(this, &GameState::mapChanged);
 
-	for (auto takeMeThere : MAIN_REPORTS_UI->takeMeThere())
+	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
 		takeMeThere->disconnect(this, &GameState::takeMeThere);
 	}
 
-	delete MAIN_REPORTS_UI;
+	delete mMainReportsState;
 
 	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
@@ -56,11 +56,11 @@ void GameState::initialize()
 	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
 	e.mouseMotion().connect(this, &GameState::onMouseMove);
 
-	MAIN_REPORTS_UI = new MainReportsUiState();
-	MAIN_REPORTS_UI->_initialize();
-	MAIN_REPORTS_UI->hideReports().connect(this, &GameState::hideReportsUi);
+	mMainReportsState = new MainReportsUiState();
+	mMainReportsState->_initialize();
+	mMainReportsState->hideReports().connect(this, &GameState::hideReportsUi);
 
-	for (auto takeMeThere : MAIN_REPORTS_UI->takeMeThere())
+	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
 		takeMeThere->connect(this, &GameState::takeMeThere);
 	}
@@ -94,7 +94,7 @@ void GameState::mapviewstate(MapViewState* state)
 
 MainReportsUiState& GameState::getMainReportsState()
 {
-	return *MAIN_REPORTS_UI;
+	return *mMainReportsState;
 }
 
 
@@ -141,7 +141,7 @@ void GameState::musicComplete()
 void GameState::quitEvent()
 {
 	mMapView->deactivate();
-	MAIN_REPORTS_UI->deactivate();
+	mMainReportsState->deactivate();
 }
 
 
@@ -153,7 +153,7 @@ void GameState::quitEvent()
 void GameState::showReportsUi()
 {
 	mActiveState->deactivate();
-	mActiveState = MAIN_REPORTS_UI;
+	mActiveState = mMainReportsState;
 	mActiveState->activate();
 }
 
@@ -174,7 +174,7 @@ void GameState::hideReportsUi()
 
 void GameState::mapChanged()
 {
-	MAIN_REPORTS_UI->clearLists();
+	mMainReportsState->clearLists();
 }
 
 

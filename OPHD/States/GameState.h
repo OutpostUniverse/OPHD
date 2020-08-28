@@ -40,5 +40,5 @@ private:
 	NAS2D::State* mReturnState = this;
 	std::unique_ptr<MapViewState> mMapView;
 	Wrapper* mActiveState = nullptr;
-	MainReportsUiState* MAIN_REPORTS_UI = nullptr; /**< Pointer to a MainReportsUiState. Memory is handled by GameState. */
+	MainReportsUiState* mMainReportsState = nullptr; /**< Pointer to a MainReportsUiState. Memory is handled by GameState. */
 };
