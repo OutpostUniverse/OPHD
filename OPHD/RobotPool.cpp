@@ -7,7 +7,8 @@
 
 #include <algorithm>
 
-extern int ROBOT_ID_COUNTER; /// \fixme	Kludge
+
+int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
 
 
 /**
