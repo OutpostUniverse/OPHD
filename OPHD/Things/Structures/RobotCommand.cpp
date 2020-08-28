@@ -67,12 +67,12 @@ void RobotCommand::removeRobot(Robot* robot)
 		return;
 	}
 
-	auto _it = find(mRobotList.begin(), mRobotList.end(), robot);
-	if (_it == mRobotList.end())
+	auto iter = find(mRobotList.begin(), mRobotList.end(), robot);
+	if (iter == mRobotList.end())
 	{
 		//throw std::runtime_error("RobotCommand::removeRobot(): Removing a robot that is not under the command of this Robot Command Facility.");
 		return;
 	}
 
-	mRobotList.erase(_it);
+	mRobotList.erase(iter);
 }
