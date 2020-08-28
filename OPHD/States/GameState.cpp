@@ -43,7 +43,6 @@ GameState::~GameState()
 	}
 
 	delete MAIN_REPORTS_UI;
-	delete mMapView;
 
 	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
@@ -85,8 +84,8 @@ void GameState::initialize()
  */
 void GameState::mapviewstate(MapViewState* state)
 {
-	mMapView = state;
-	mActiveState = mMapView;
+	mMapView.reset(state);
+	mActiveState = mMapView.get();
 
 	mMapView->quit().connect(this, &GameState::quitEvent);
 	mMapView->showReporstUi().connect(this, &GameState::showReportsUi);
@@ -163,7 +162,7 @@ void GameState::showReportsUi()
 void GameState::hideReportsUi()
 {
 	mActiveState->deactivate();
-	mActiveState = mMapView;
+	mActiveState = mMapView.get();
 	mActiveState->activate();
 }
 

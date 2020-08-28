@@ -2,6 +2,8 @@
 
 #include <NAS2D/State.h>
 
+#include <memory>
+
 
 class MapViewState;
 class Structure;
@@ -34,6 +36,6 @@ private:
 
 private:
 	NAS2D::State* mReturnState = this;
-	MapViewState* mMapView = nullptr;
+	std::unique_ptr<MapViewState> mMapView;
 	Wrapper* mActiveState = nullptr;
 };
