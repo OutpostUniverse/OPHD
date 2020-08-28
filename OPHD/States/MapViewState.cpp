@@ -37,7 +37,6 @@ const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
 extern Point<int> MOUSE_COORDS;
-extern MainReportsUiState* MAIN_REPORTS_UI;
 
 
 int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
