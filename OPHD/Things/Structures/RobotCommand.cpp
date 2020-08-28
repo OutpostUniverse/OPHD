@@ -47,9 +47,9 @@ void RobotCommand::addRobot(Robot* robot)
 
 	if (isControlling(robot))
 	{
-		std::cout << "RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. CURRENT ID: " << ROBOT_ID_COUNTER << std::endl;
-		std::cout << "RCC:ADD: _r addr: " << robot << " name: " << robot->name() << " id: " << robot->id() << std::endl;
-		throw std::runtime_error("RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. Robot name: " + robot->name() + " ID: " + std::to_string(robot->id()));
+		const auto message = "RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. Robot name: " + robot->name() + " ID: " + std::to_string(robot->id());
+		std::cout << message << std::endl;
+		throw std::runtime_error(message);
 	}
 
 	mRobotList.push_back(robot);
