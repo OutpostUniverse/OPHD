@@ -10,8 +10,6 @@
 #include <algorithm>
 
 
-extern int ROBOT_ID_COUNTER; /// \fixme Kludge
-
 /**
  * Gets whether the command facility has additional command capacity remaining.
  */
