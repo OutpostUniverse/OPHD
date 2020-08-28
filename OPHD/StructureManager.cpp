@@ -417,29 +417,29 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 {
 	auto* structures = new NAS2D::Xml::XmlElement("structures");
 
-	for (auto it = mStructureTileTable.begin(); it != mStructureTileTable.end(); ++it)
+	for (auto& [structure, tile] : mStructureTileTable)
 	{
 		auto* structureElement = new NAS2D::Xml::XmlElement("structure");
-		serializeStructure(structureElement, it->first, it->second);
+		serializeStructure(structureElement, structure, tile);
 
-		if (it->first->isFactory())
+		if (structure->isFactory())
 		{
-			structureElement->attribute("production_completed", static_cast<Factory*>(it->first)->productionTurnsCompleted());
-			structureElement->attribute("production_type", static_cast<Factory*>(it->first)->productType());
+			structureElement->attribute("production_completed", static_cast<Factory*>(structure)->productionTurnsCompleted());
+			structureElement->attribute("production_type", static_cast<Factory*>(structure)->productType());
 		}
 
-		if (it->first->isWarehouse())
+		if (structure->isWarehouse())
 		{
 			auto* warehouse_products = new NAS2D::Xml::XmlElement("warehouse_products");
-			static_cast<Warehouse*>(it->first)->products().serialize(warehouse_products);
+			static_cast<Warehouse*>(structure)->products().serialize(warehouse_products);
 			structureElement->linkEndChild(warehouse_products);
 		}
 
-		if (it->first->isRobotCommand())
+		if (structure->isRobotCommand())
 		{
 			auto* robotsElement = new NAS2D::Xml::XmlElement("robots");
 
-			const auto& robots = static_cast<RobotCommand*>(it->first)->robots();
+			const auto& robots = static_cast<RobotCommand*>(structure)->robots();
 
 			std::stringstream str;
 			for (std::size_t i = 0; i < robots.size(); ++i)
@@ -452,10 +452,10 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 			structureElement->linkEndChild(robotsElement);
 		}
 
-		if (it->first->structureClass() == Structure::StructureClass::FoodProduction)
+		if (structure->structureClass() == Structure::StructureClass::FoodProduction)
 		{
 			auto* food = new NAS2D::Xml::XmlElement("food");
-			food->attribute("level", static_cast<FoodProduction*>(it->first)->foodLevel());
+			food->attribute("level", static_cast<FoodProduction*>(structure)->foodLevel());
 			structureElement->linkEndChild(food);
 		}
 
