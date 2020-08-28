@@ -439,7 +439,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 		{
 			auto* robotsElement = new NAS2D::Xml::XmlElement("robots");
 
-			const RobotList& robots = static_cast<RobotCommand*>(it->first)->robots();
+			const auto& robots = static_cast<RobotCommand*>(it->first)->robots();
 
 			std::stringstream str;
 			for (std::size_t i = 0; i < robots.size(); ++i)
