@@ -373,34 +373,6 @@ RobotCommand* getAvailableRobotCommand()
 
 
 /**
- * Used in the product move simulation. Very brute force.
- */
-void transferProductsPool(ProductPool& source, ProductPool& destination)
-{
-	if (source.empty() || destination.atCapacity()) { return; }
-
-	auto& src = source.mProducts;
-
-	for (std::size_t i = 0; i < ProductType::PRODUCT_COUNT; ++i)
-	{
-		if (destination.availableStorage() == 0) { return; }
-
-		if (destination.availableStorage() >= storageRequired(static_cast<ProductType>(i), src[i]))
-		{
-			destination.store(static_cast<ProductType>(i), src[i]);
-			source.pull(static_cast<ProductType>(i), src[i]);
-		}
-		else
-		{
-			int units_to_move = destination.availableStorage() / storageRequiredPerUnit(static_cast<ProductType>(i));
-			destination.store(static_cast<ProductType>(i), units_to_move);
-			source.pull(static_cast<ProductType>(i), units_to_move);
-		}
-	}
-}
-
-
-/**
  * Simulates moving the products out of a specified warehouse and raises
  * an alert to the user if not all products can be moved out of the
  * warehouse.

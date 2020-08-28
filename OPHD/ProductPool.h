@@ -43,9 +43,6 @@ public:
 	void verifyCount();
 
 private:
-	friend void transferProductsPool(ProductPool&, ProductPool&);
-
-
 	ProductTypeCount mProducts = {{ 0 }};
 
 	int mCapacity = constants::BASE_PRODUCT_CAPACITY;
