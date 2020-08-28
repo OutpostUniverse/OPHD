@@ -150,9 +150,6 @@ bool RobotPool::robotAvailable(RobotType type)
 }
 
 
-/**
- * 
- */
 int RobotPool::getAvailableCount(RobotType type)
 {
 	switch (type)
@@ -172,9 +169,6 @@ int RobotPool::getAvailableCount(RobotType type)
 }
 
 
-/**
- * 
- */
 void RobotPool::InitRobotCtrl(uint32_t maxRobotCtrl)
 {
 	mRobotControlMax = maxRobotCtrl;
