@@ -172,11 +172,11 @@ void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperat
 	{
 		checkSavegameVersion(filename);
 
-		MapViewState* mapview = new MapViewState(filename);
+		GameState* gameState = new GameState();
+		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), filename);
 		mapview->_initialize();
 		mapview->activate();
 
-		GameState* gameState = new GameState();
 		gameState->mapviewstate(mapview);
 		mReturnState = gameState;
 		

@@ -60,7 +60,8 @@ std::map <int, std::string> LEVEL_STRING_TABLE =
 const Font* MAIN_FONT = nullptr;
 
 
-MapViewState::MapViewState(const std::string& savegame) :
+MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
+	mMainReportsState(mainReportsState),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
@@ -69,7 +70,8 @@ MapViewState::MapViewState(const std::string& savegame) :
 }
 
 
-MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
+MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes) :
+	mMainReportsState(mainReportsState),
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mPlanetAttributes(planetAttributes),
 	mMapDisplay{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},

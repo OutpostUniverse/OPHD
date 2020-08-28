@@ -200,12 +200,12 @@ State* PlanetSelectState::update()
 	}
 	else if (planetSelection != planetSelectionInvalid)
 	{
-		MapViewState* mapview = new MapViewState(planetAttributes[planetSelection]);
+		GameState* gameState = new GameState();
+		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), planetAttributes[planetSelection]);
 		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
 		mapview->_initialize();
 		mapview->activate();
 
-		GameState* gameState = new GameState();
 		gameState->mapviewstate(mapview);
 
 		return gameState;
