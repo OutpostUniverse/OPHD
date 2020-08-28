@@ -63,15 +63,13 @@ void RobotCommand::removeRobot(Robot* robot)
 {
 	if (mRobotList.empty())
 	{
-		//throw std::runtime_error("RobotCommand::removeRobot(): Robot list empty.");
-		return;
+		throw std::runtime_error("RobotCommand::removeRobot(): Robot list empty.");
 	}
 
 	auto iter = find(mRobotList.begin(), mRobotList.end(), robot);
 	if (iter == mRobotList.end())
 	{
-		//throw std::runtime_error("RobotCommand::removeRobot(): Removing a robot that is not under the command of this Robot Command Facility.");
-		return;
+		throw std::runtime_error("RobotCommand::removeRobot(): Removing a robot that is not under the command of this Robot Command Facility.");
 	}
 
 	mRobotList.erase(iter);
