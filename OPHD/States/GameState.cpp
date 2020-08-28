@@ -93,6 +93,12 @@ void GameState::mapviewstate(MapViewState* state)
 }
 
 
+MainReportsUiState& GameState::getMainReportsState()
+{
+	return *MAIN_REPORTS_UI;
+}
+
+
 /**
  * Mouse motion event handler.
  */

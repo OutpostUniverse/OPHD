@@ -5,6 +5,7 @@
 #include <memory>
 
 
+class MainReportsUiState;
 class MapViewState;
 class Structure;
 class Wrapper;
@@ -17,6 +18,7 @@ public:
 	~GameState() override;
 
 	void mapviewstate(MapViewState*);
+	MainReportsUiState& getMainReportsState();
 
 	void initialize() override;
 	State* update() override;
