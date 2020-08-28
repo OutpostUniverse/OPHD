@@ -16,7 +16,6 @@
 
 
 NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wrapers. */
-MainReportsUiState* MAIN_REPORTS_UI = nullptr; /**< Pointer to a MainReportsUiState. Memory is handled by GameState. */
 
 
 GameState::GameState()
