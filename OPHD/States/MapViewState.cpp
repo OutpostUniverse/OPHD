@@ -37,7 +37,6 @@ const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
 extern Point<int> MOUSE_COORDS;
-extern MainReportsUiState* MAIN_REPORTS_UI;
 
 
 int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
@@ -60,7 +59,8 @@ std::map <int, std::string> LEVEL_STRING_TABLE =
 const Font* MAIN_FONT = nullptr;
 
 
-MapViewState::MapViewState(const std::string& savegame) :
+MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
+	mMainReportsState(mainReportsState),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
@@ -69,7 +69,8 @@ MapViewState::MapViewState(const std::string& savegame) :
 }
 
 
-MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
+MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes) :
+	mMainReportsState(mainReportsState),
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mPlanetAttributes(planetAttributes),
 	mMapDisplay{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
@@ -566,9 +567,9 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 		{
 			Structure* structure = tile.structure();
 
-			if (structure->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(structure); }
-			else if (structure->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(structure); }
-			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter) { MAIN_REPORTS_UI->selectMinePanel(structure); }
+			if (structure->isFactory()) { mMainReportsState.selectFactoryPanel(structure); }
+			else if (structure->isWarehouse()) { mMainReportsState.selectWarehousePanel(structure); }
+			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter) { mMainReportsState.selectMinePanel(structure); }
 			else { return; } // avoids showing the full-screen UI on unhandled structures.
 
 			mReportsUiCallback();

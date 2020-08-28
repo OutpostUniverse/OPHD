@@ -37,6 +37,7 @@ namespace micropather {
 
 class Tile;
 class TileMap;
+class MainReportsUiState;
 
 
 enum PointerType
@@ -72,8 +73,8 @@ public:
 	using MapChangedCallback = NAS2D::Signals::Signal<>;
 
 public:
-	MapViewState(const std::string& savegame);
-	MapViewState(const Planet::Attributes& planetAttributes);
+	MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame);
+	MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes);
 	~MapViewState() override;
 
 	void setPopulationLevel(PopulationLevel popLevel);
@@ -209,6 +210,7 @@ private:
 
 
 private:
+	MainReportsUiState& mMainReportsState;
 	TileMap* mTileMap = nullptr;
 
 	Planet::Attributes mPlanetAttributes;
