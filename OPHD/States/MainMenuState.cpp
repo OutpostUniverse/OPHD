@@ -5,7 +5,6 @@
 #include "MapViewState.h"
 #include "MainMenuState.h"
 #include "PlanetSelectState.h"
-#include "Wrapper.h"
 
 #include "../Cache.h"
 #include "../Constants.h"
