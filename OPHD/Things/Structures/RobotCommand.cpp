@@ -21,7 +21,7 @@ bool RobotCommand::commandCapacityAvailable() const
 /**
  * \param	robot	Pointer to a Robot.
  */
-bool RobotCommand::commandedByThis(Robot* robot) const
+bool RobotCommand::isControlling(Robot* robot) const
 {
 	return find(mRobotList.begin(), mRobotList.end(), robot) != mRobotList.end();
 }
@@ -42,7 +42,7 @@ void RobotCommand::addRobot(Robot* robot)
 		throw std::runtime_error("RobotCommand::addRobot(): Facility is already at capacity.");
 	}
 
-	if (commandedByThis(robot))
+	if (isControlling(robot))
 	{
 		std::cout << "RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. CURRENT ID: " << ROBOT_ID_COUNTER << std::endl;
 		std::cout << "RCC:ADD: _r addr: " << robot << " name: " << robot->name() << " id: " << robot->id() << std::endl;

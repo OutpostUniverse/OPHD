@@ -225,7 +225,7 @@ bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
  */
 void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt, Tile* /*tile*/)
 {
-	if (rcc->commandedByThis(robotToDelete))
+	if (rcc->isControlling(robotToDelete))
 	{
 		std::cout << "Cannot bulldoze Robot Command Center by a Robot under its command." << std::endl;
 		return;
