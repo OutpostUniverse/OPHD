@@ -439,13 +439,13 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 		{
 			auto* robotsElement = new NAS2D::Xml::XmlElement("robots");
 
-			const RobotList& rl = static_cast<RobotCommand*>(it->first)->robots();
+			const RobotList& robots = static_cast<RobotCommand*>(it->first)->robots();
 
 			std::stringstream str;
-			for (std::size_t i = 0; i < rl.size(); ++i)
+			for (std::size_t i = 0; i < robots.size(); ++i)
 			{
-				str << rl[i]->id();
-				if (i != rl.size() - 1) { str << ","; } // kind of a kludge
+				str << robots[i]->id();
+				if (i != robots.size() - 1) { str << ","; } // kind of a kludge
 			}
 
 			robotsElement->attribute("robots", str.str());
