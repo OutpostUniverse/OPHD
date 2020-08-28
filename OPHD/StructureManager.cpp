@@ -437,7 +437,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 
 		if (it->first->isRobotCommand())
 		{
-			auto* robots = new NAS2D::Xml::XmlElement("robots");
+			auto* robotsElement = new NAS2D::Xml::XmlElement("robots");
 
 			const RobotList& rl = static_cast<RobotCommand*>(it->first)->robots();
 
@@ -448,8 +448,8 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 				if (i != rl.size() - 1) { str << ","; } // kind of a kludge
 			}
 
-			robots->attribute("robots", str.str());
-			structure->linkEndChild(robots);
+			robotsElement->attribute("robots", str.str());
+			structure->linkEndChild(robotsElement);
 		}
 
 		if (it->first->structureClass() == Structure::StructureClass::FoodProduction)
