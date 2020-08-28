@@ -40,8 +40,6 @@ public:
 	void verifyCount();
 
 private:
-	template <class T>
-	friend void transferProductsStructure(T&, T&);
 	friend void transferProductsPool(ProductPool&, ProductPool&);
 
 private:
