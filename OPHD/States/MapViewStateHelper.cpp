@@ -451,7 +451,7 @@ void moveProducts(Warehouse* sourceWarehouse)
 			Warehouse* warehouse = static_cast<Warehouse*>(structure);
 			if (warehouse != sourceWarehouse)
 			{
-				transferProductsStructure(sourceWarehouse, warehouse);
+				transferProductsPool(sourceWarehouse->products(), warehouse->products());
 			}
 		}
 	}
