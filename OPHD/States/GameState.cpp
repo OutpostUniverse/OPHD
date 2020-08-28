@@ -22,16 +22,10 @@ static MapViewState* MAP_VIEW = nullptr; /**< Pointer to a MapViewState. Memory 
 static Wrapper* ACTIVE_STATE = nullptr; /**< The currently active State. */
 
 
-/**
- * C'tor
- */
 GameState::GameState()
 {}
 
 
-/**
- * D'tor
- */
 GameState::~GameState()
 {
 	NAS2D::Utility<StructureManager>::get().dropAllStructures();
@@ -196,9 +190,6 @@ void GameState::takeMeThere(Structure* structure)
 }
 
 
-/**
- * Update
- */
 NAS2D::State* GameState::update()
 {
 	if (ACTIVE_STATE)
