@@ -9,6 +9,9 @@
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/MathUtils.h>
 
+#include <string>
+#include <vector>
+
 
 using namespace NAS2D;
 
@@ -121,17 +124,17 @@ void FileIo::setMode(FileOperation fileOp)
 void FileIo::scanDirectory(const std::string& directory)
 {
 	Filesystem& f = Utility<Filesystem>::get();
-	StringList dirList = f.directoryList(directory);
+	std::vector<std::string> dirList = f.directoryList(directory);
 
 	mListBox.dropAllItems();
 
-	for (std::size_t i = 0; i < dirList.size(); ++i)
+	for (auto& dir : dirList)
 	{
-		if (!f.isDirectory(directory + dirList[i]))
+		if (!f.isDirectory(directory + dir))
 		{
 			// FixMe: Naive approach: Assumes a file save extension of 3 characters.
-			dirList[i].resize(dirList[i].size() - 4);
-			mListBox.addItem(dirList[i]);
+			dir.resize(dir.size() - 4);
+			mListBox.addItem(dir);
 		}
 	}
 	mListBox.sort();
@@ -181,7 +184,7 @@ void FileIo::btnCloseClicked()
  */
 void FileIo::btnFileIoClicked()
 {
-	mCallback(txtFileName.text() , mMode);
+	mCallback(txtFileName.text(), mMode);
 	txtFileName.text("");
 	txtFileName.resetCursorPosition();
 	btnFileOp.enabled(false);
