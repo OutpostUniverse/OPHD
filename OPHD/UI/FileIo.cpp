@@ -9,6 +9,9 @@
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/MathUtils.h>
 
+#include <string>
+#include <vector>
+
 
 using namespace NAS2D;
 
@@ -121,7 +124,7 @@ void FileIo::setMode(FileOperation fileOp)
 void FileIo::scanDirectory(const std::string& directory)
 {
 	Filesystem& f = Utility<Filesystem>::get();
-	StringList dirList = f.directoryList(directory);
+	std::vector<std::string> dirList = f.directoryList(directory);
 
 	mListBox.dropAllItems();
 
