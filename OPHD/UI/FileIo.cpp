@@ -128,13 +128,13 @@ void FileIo::scanDirectory(const std::string& directory)
 
 	mListBox.dropAllItems();
 
-	for (std::size_t i = 0; i < dirList.size(); ++i)
+	for (auto& dir : dirList)
 	{
-		if (!f.isDirectory(directory + dirList[i]))
+		if (!f.isDirectory(directory + dir))
 		{
 			// FixMe: Naive approach: Assumes a file save extension of 3 characters.
-			dirList[i].resize(dirList[i].size() - 4);
-			mListBox.addItem(dirList[i]);
+			dir.resize(dir.size() - 4);
+			mListBox.addItem(dir);
 		}
 	}
 	mListBox.sort();
