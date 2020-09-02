@@ -385,6 +385,8 @@ void MapViewState::updateFood()
 			mFood += static_cast<FoodProduction*>(structure)->foodLevel();
 		}
 	}
+
+	mFood += static_cast<CommandCenter*>(mTileMap->getTile(ccLocation()).structure())->foodLevel();
 }
 
 
