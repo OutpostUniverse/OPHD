@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Structure.h"
+#include "FoodProduction.h"
 
 /**
  * Implements the Command Center structure.
  */
-class CommandCenter: public Structure
+class CommandCenter: public FoodProduction
 {
 public:
-	CommandCenter(): Structure(constants::COMMAND_CENTER,
+	CommandCenter(): FoodProduction(constants::COMMAND_CENTER,
 		"structures/command_center.sprite",
 		StructureClass::Command,
 		StructureID::SID_COMMAND_CENTER)
@@ -18,5 +18,17 @@ public:
 
 		requiresCHAP(false);
 		selfSustained(true);
+	}
+
+protected:
+	int calculateProduction() override
+	{
+		return 0;
+	}
+
+
+	int foodCapacity() override
+	{
+		return constants::BASE_STORAGE_CAPACITY;
 	}
 };
