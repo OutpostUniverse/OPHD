@@ -41,6 +41,19 @@ static int pullFood(int& food, int amount)
 }
 
 
+static inline void pullFoodFromStructure(FoodProduction* producer, int& remainder)
+{
+	if (remainder <= 0) { return; }
+
+	int foodLevel = producer->foodLevel();
+	int pulled = pullFood(foodLevel, remainder);
+
+	producer->foodLevel(foodLevel);
+	remainder -= pulled;
+}
+
+
+
 /**
  * 
  */
@@ -65,27 +78,12 @@ void MapViewState::updatePopulation()
 
 	for (auto structure : foodproducers)
 	{
-		if (remainder <= 0) { break; }
-
 		FoodProduction* foodProducer = static_cast<FoodProduction*>(structure);
-
-		int foodLevel = foodProducer->foodLevel();
-		int pulled = pullFood(foodLevel, remainder);
-
-		foodProducer->foodLevel(foodLevel);
-		remainder -= pulled;
+		pullFoodFromStructure(foodProducer, remainder);
 	}
 
-	/// \fixme There's some code repetition here that can be done better
-	if (remainder > 0)
-	{
-		auto cc = static_cast<FoodProduction*>(mTileMap->getTile(ccLocation()).structure());
-		int foodLevel = cc->foodLevel();
-		int pulled = pullFood(foodLevel, remainder);
-
-		cc->foodLevel(foodLevel);
-		remainder -= pulled;
-	}
+	auto cc = static_cast<FoodProduction*>(mTileMap->getTile(ccLocation()).structure());
+	pullFoodFromStructure(cc, remainder);
 }
 
 
