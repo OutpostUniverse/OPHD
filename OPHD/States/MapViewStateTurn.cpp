@@ -75,6 +75,17 @@ void MapViewState::updatePopulation()
 		foodProducer->foodLevel(foodLevel);
 		remainder -= pulled;
 	}
+
+	/// \fixme There's some code repetition here that can be done better
+	if (remainder > 0)
+	{
+		auto cc = static_cast<FoodProduction*>(mTileMap->getTile(ccLocation()).structure());
+		int foodLevel = cc->foodLevel();
+		int pulled = pullFood(foodLevel, remainder);
+
+		cc->foodLevel(foodLevel);
+		remainder -= pulled;
+	}
 }
 
 
