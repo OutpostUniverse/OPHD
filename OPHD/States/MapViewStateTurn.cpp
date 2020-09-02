@@ -339,7 +339,6 @@ void MapViewState::checkColonyShip()
 }
 
 
-
 void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
