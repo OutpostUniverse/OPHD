@@ -106,15 +106,8 @@ void MapViewState::updatePopulation()
 	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, StructureState::Operational);
 	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
 
-	// FOOD CONSUMPTION
-	int food_consumed = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 	StructureList &foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
-	int remainder = food_consumed;
-
-	if (mFood > 0)
-	{
-		remainder -= pullFood(mFood, remainder);
-	}
+	int remainder = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 
 	for (auto structure : foodproducers)
 	{
