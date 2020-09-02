@@ -22,9 +22,6 @@
 #include <algorithm>
 
 
-/**
- * 
- */
 static int pullFood(int& food, int amount)
 {
 	if (amount <= food)
@@ -53,10 +50,6 @@ static inline void pullFoodFromStructure(FoodProduction* producer, int& remainde
 }
 
 
-
-/**
- * 
- */
 void MapViewState::updatePopulation()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -87,9 +80,6 @@ void MapViewState::updatePopulation()
 }
 
 
-/**
- * 
- */
 void MapViewState::updateCommercial()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -147,9 +137,6 @@ void MapViewState::updateCommercial()
 }
 
 
-/**
- * 
- */
 void MapViewState::updateMorale()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -230,9 +217,6 @@ static bool routeObstructed(Route& route)
 }
 
 
-/**
- * 
- */
 void MapViewState::updateResources()
 {
 	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
@@ -363,9 +347,7 @@ void MapViewState::checkColonyShip()
 }
 
 
-/**
- * 
- */
+
 void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
@@ -399,9 +381,6 @@ void MapViewState::updateFood()
 }
 
 
-/**
- * 
- */
 void MapViewState::nextTurn()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
