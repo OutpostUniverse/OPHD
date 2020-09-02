@@ -22,9 +22,6 @@
 #include <algorithm>
 
 
-/**
- * 
- */
 static int pullFood(int& food, int amount)
 {
 	if (amount <= food)
@@ -41,9 +38,65 @@ static int pullFood(int& food, int amount)
 }
 
 
-/**
- * 
- */
+static inline void pullFoodFromStructure(FoodProduction* producer, int& remainder)
+{
+	if (remainder <= 0) { return; }
+
+	int foodLevel = producer->foodLevel();
+	int pulled = pullFood(foodLevel, remainder);
+
+	producer->foodLevel(foodLevel);
+	remainder -= pulled;
+}
+
+
+static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const StructureList& smelters)
+{
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+
+	auto& start = structureManager.tileFromStructure(mine);
+
+	RouteList routeList;
+
+	for (auto smelter : smelters)
+	{
+		auto& end = structureManager.tileFromStructure(smelter);
+		tilemap->pathStartAndEnd(&start, &end);
+		Route route;
+		solver->Solve(&start, &end, &route.path, &route.cost);
+
+		if (!route.empty()) { routeList.push_back(route); }
+	}
+
+	return routeList;
+}
+
+
+static Route findLowestCostRoute(RouteList& routeList)
+{
+	if (routeList.empty()) { return Route(); }
+
+	std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; });
+	return routeList.front();
+}
+
+
+static bool routeObstructed(Route& route)
+{
+	for (auto tile : route.path)
+	{
+		Tile* t = static_cast<Tile*>(tile);
+
+		// \note	Tile being occupied by a robot is not an obstruction for the
+		//			purposes of routing/pathing.
+		if (t->thingIsStructure() && !t->structure()->isRoad()) { return true; }
+		if (t->index() == TerrainType::Impassable) { return true; }
+	}
+
+	return false;
+}
+
+
 void MapViewState::updatePopulation()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -53,34 +106,20 @@ void MapViewState::updatePopulation()
 	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, StructureState::Operational);
 	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
 
-	// FOOD CONSUMPTION
-	int food_consumed = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 	StructureList &foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
-	int remainder = food_consumed;
-
-	if (mFood > 0)
-	{
-		remainder -= pullFood(mFood, remainder);
-	}
+	int remainder = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 
 	for (auto structure : foodproducers)
 	{
-		if (remainder <= 0) { break; }
-
 		FoodProduction* foodProducer = static_cast<FoodProduction*>(structure);
-
-		int foodLevel = foodProducer->foodLevel();
-		int pulled = pullFood(foodLevel, remainder);
-
-		foodProducer->foodLevel(foodLevel);
-		remainder -= pulled;
+		pullFoodFromStructure(foodProducer, remainder);
 	}
+
+	auto cc = static_cast<FoodProduction*>(mTileMap->getTile(ccLocation()).structure());
+	pullFoodFromStructure(cc, remainder);
 }
 
 
-/**
- * 
- */
 void MapViewState::updateCommercial()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -138,9 +177,6 @@ void MapViewState::updateCommercial()
 }
 
 
-/**
- * 
- */
 void MapViewState::updateMorale()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -173,57 +209,6 @@ void MapViewState::updateMorale()
 }
 
 
-
-static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const StructureList& smelters)
-{
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
-	auto& start = structureManager.tileFromStructure(mine);
-
-	RouteList routeList;
-
-	for (auto smelter : smelters)
-	{
-		auto& end = structureManager.tileFromStructure(smelter);
-		tilemap->pathStartAndEnd(&start, &end);
-		Route route;
-		solver->Solve(&start, &end, &route.path, &route.cost);
-
-		if (!route.empty()) { routeList.push_back(route); }
-	}
-
-	return routeList;
-}
-
-
-static Route findLowestCostRoute(RouteList& routeList)
-{
-	if (routeList.empty()) { return Route(); }
-
-	std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; } );
-	return routeList.front();
-}
-
-
-static bool routeObstructed(Route& route)
-{
-	for (auto tile : route.path)
-	{
-		Tile* t = static_cast<Tile*>(tile);
-
-		// \note	Tile being occupied by a robot is not an obstruction for the
-		//			purposes of routing/pathing.
-		if (t->thingIsStructure() && !t->structure()->isRoad()) { return true; }
-		if (t->index() == TerrainType::Impassable) { return true; }
-	}
-
-	return false;
-}
-
-
-/**
- * 
- */
 void MapViewState::updateResources()
 {
 	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
@@ -354,9 +339,6 @@ void MapViewState::checkColonyShip()
 }
 
 
-/**
- * 
- */
 void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
@@ -385,12 +367,11 @@ void MapViewState::updateFood()
 			mFood += static_cast<FoodProduction*>(structure)->foodLevel();
 		}
 	}
+
+	mFood += static_cast<CommandCenter*>(mTileMap->getTile(ccLocation()).structure())->foodLevel();
 }
 
 
-/**
- * 
- */
 void MapViewState::nextTurn()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
