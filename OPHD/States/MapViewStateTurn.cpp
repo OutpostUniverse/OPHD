@@ -50,6 +50,53 @@ static inline void pullFoodFromStructure(FoodProduction* producer, int& remainde
 }
 
 
+static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const StructureList& smelters)
+{
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+
+	auto& start = structureManager.tileFromStructure(mine);
+
+	RouteList routeList;
+
+	for (auto smelter : smelters)
+	{
+		auto& end = structureManager.tileFromStructure(smelter);
+		tilemap->pathStartAndEnd(&start, &end);
+		Route route;
+		solver->Solve(&start, &end, &route.path, &route.cost);
+
+		if (!route.empty()) { routeList.push_back(route); }
+	}
+
+	return routeList;
+}
+
+
+static Route findLowestCostRoute(RouteList& routeList)
+{
+	if (routeList.empty()) { return Route(); }
+
+	std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; });
+	return routeList.front();
+}
+
+
+static bool routeObstructed(Route& route)
+{
+	for (auto tile : route.path)
+	{
+		Tile* t = static_cast<Tile*>(tile);
+
+		// \note	Tile being occupied by a robot is not an obstruction for the
+		//			purposes of routing/pathing.
+		if (t->thingIsStructure() && !t->structure()->isRoad()) { return true; }
+		if (t->index() == TerrainType::Impassable) { return true; }
+	}
+
+	return false;
+}
+
+
 void MapViewState::updatePopulation()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -166,54 +213,6 @@ void MapViewState::updateMorale()
 	mCurrentMorale -= residentialMoraleHit;
 
 	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
-}
-
-
-
-static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const StructureList& smelters)
-{
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
-	auto& start = structureManager.tileFromStructure(mine);
-
-	RouteList routeList;
-
-	for (auto smelter : smelters)
-	{
-		auto& end = structureManager.tileFromStructure(smelter);
-		tilemap->pathStartAndEnd(&start, &end);
-		Route route;
-		solver->Solve(&start, &end, &route.path, &route.cost);
-
-		if (!route.empty()) { routeList.push_back(route); }
-	}
-
-	return routeList;
-}
-
-
-static Route findLowestCostRoute(RouteList& routeList)
-{
-	if (routeList.empty()) { return Route(); }
-
-	std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; } );
-	return routeList.front();
-}
-
-
-static bool routeObstructed(Route& route)
-{
-	for (auto tile : route.path)
-	{
-		Tile* t = static_cast<Tile*>(tile);
-
-		// \note	Tile being occupied by a robot is not an obstruction for the
-		//			purposes of routing/pathing.
-		if (t->thingIsStructure() && !t->structure()->isRoad()) { return true; }
-		if (t->index() == TerrainType::Impassable) { return true; }
-	}
-
-	return false;
 }
 
 
