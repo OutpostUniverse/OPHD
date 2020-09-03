@@ -9,6 +9,9 @@
 
 #include "../Constants.h"
 #include "../Cache.h"
+#include "../Mine.h"
+#include "../StructureManager.h"
+#include "../Map/TileMap.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -76,7 +79,7 @@ void MapViewState::drawMiniMap()
 	{
 		if (commTower->operational())
 		{
-			const auto commTowerPosition = structureManager.tileFromStructure(commTower)->position();
+			const auto commTowerPosition = structureManager.tileFromStructure(commTower).position();
 			const auto commTowerRangeImageRect = NAS2D::Rectangle{146, 236, 20, 20};
 			renderer.drawSubImage(mUiIcons, commTowerPosition + miniMapOffset - commTowerRangeImageRect.size() / 2, commTowerRangeImageRect);
 		}

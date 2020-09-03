@@ -3,13 +3,19 @@
 #include "Tile.h"
 
 #include "../States/Planet.h"
-#include "../Things/Structures/Structure.h"
 #include "../MicroPather/micropather.h"
 
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Renderer/Vector.h>
 
 #include <algorithm>
+
+
+namespace NAS2D {
+	namespace Xml {
+		class XmlElement;
+	}
+}
 
 
 using Point2dList = std::vector<NAS2D::Point<int>>;

@@ -9,7 +9,8 @@
 
 #include "../DirectionOffset.h"
 #include "../StructureCatalogue.h"
-
+#include "../StructureManager.h"
+#include "../Map/TileMap.h"
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
 
@@ -114,7 +115,10 @@ void MapViewState::deployColonistLander()
 void MapViewState::deployCargoLander()
 {
 	mPlayerResources = mPlayerResources + StorableResources{25, 25, 15, 15};
-	mFood += 125;
+
+	auto cc = static_cast<CommandCenter*>(mTileMap->getTile(ccLocation()).structure());
+	cc->foodLevel(cc->foodLevel() + 125);
+
 	updateStructuresAvailability();
 }
 
@@ -282,7 +286,7 @@ void MapViewState::mineFacilityExtended(MineFacility* mineFacility)
 {
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 	
-	auto& mineFacilityTile = *NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
+	auto& mineFacilityTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
 	auto& mineDepthTile = mTileMap->getTile(mineFacilityTile.position(), mineFacility->mine()->depth());
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &mineDepthTile);
 	mineDepthTile.index(TerrainType::Dozed);

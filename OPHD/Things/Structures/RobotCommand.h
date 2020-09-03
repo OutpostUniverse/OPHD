@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Structure.h"
-
-#include "../Robots/Robot.h"
-
 #include "../../Constants.h"
 
 #include <vector>
+
+
+class Robot;
 
 
 /**
@@ -26,13 +26,13 @@ public:
 		requiresCHAP(false);
 	}
 
-	bool commandedByThis(Robot* robot) const;
+	bool isControlling(Robot* robot) const;
 
 	bool commandCapacityAvailable() const;
 	void addRobot(Robot* robot);
 	void removeRobot(Robot* robot);
 
-	const RobotList& robots() { return mRobotList; }
+	const std::vector<Robot*>& robots() { return mRobotList; }
 
 protected:
 	void defineResourceInput() override
@@ -41,5 +41,5 @@ protected:
 	}
 
 private:
-	RobotList mRobotList;
+	std::vector<Robot*> mRobotList;
 };

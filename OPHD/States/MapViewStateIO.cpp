@@ -13,6 +13,8 @@
 #include "../Constants.h"
 #include "../IOHelper.h"
 #include "../StructureCatalogue.h"
+#include "../StructureManager.h"
+#include "../Map/TileMap.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
@@ -259,11 +261,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 	mRobotList.clear();
 	mRobots.dropAllItems();
 
-	/**
-	 * \fixme	This is fragile and prone to break if the savegame file is malformed.
-	 */
-	element->firstAttribute()->queryIntValue(ROBOT_ID_COUNTER);
-
+	ROBOT_ID_COUNTER = 0;
 	int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
 	XmlAttribute* attribute = nullptr;
 	for (XmlNode* robotNode = element->firstChild(); robotNode; robotNode = robotNode->nextSibling())
@@ -283,6 +281,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 			attribute = attribute->next();
 		}
+		ROBOT_ID_COUNTER = std::max(ROBOT_ID_COUNTER, id);
 
 		Robot* robot = nullptr;
 		switch (static_cast<RobotType>(type))
@@ -406,18 +405,19 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			static_cast<SeedLander*>(&structure)->position({x, y});
 		}
 
-		if (structureId == StructureID::SID_AGRIDOME)
+		if (structureId == StructureID::SID_AGRIDOME ||
+			structureId == StructureID::SID_COMMAND_CENTER)
 		{
-			auto& agridome = *static_cast<Agridome*>(&structure);
+			auto& foodProduction = *static_cast<FoodProduction*>(&structure);
 
 			auto foodStorage = structureNode->firstChildElement("food");
 			if (foodStorage == nullptr)
 			{
-				throw std::runtime_error("MapViewState::readStructures(): Agridome saved without a food level node.");
+				throw std::runtime_error("MapViewState::readStructures(): FoodProduction structure saved without a food level node.");
 			}
 
 			auto foodLevel = foodStorage->attribute("level");
-			agridome.foodLevel(std::stoi(foodLevel));
+			foodProduction.foodLevel(std::stoi(foodLevel));
 		}
 
 		structure.age(age);

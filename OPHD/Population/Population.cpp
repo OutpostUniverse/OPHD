@@ -9,83 +9,53 @@
 #include <random>
 
 
-const int STUDENT_TO_SCIENTIST_RATE = 35;
+namespace {
+	const int studentToScientistRate = 35;
+	const int studentToAdultBase = 190;
+	const int adultToRetireeBase = 2000;
 
-const int STUDENT_TO_ADULT_BASE = 190;
-const int ADULT_TO_RETIREE_BASE = 2000;
+	const std::array moraleModifierTable{
+		MoraleModifier{50, 50, 110, 80},  // Excellent
+		MoraleModifier{25, 25, 90, 75},   // Good
+		MoraleModifier{0, 0, 60, 40},     // Fair
+		MoraleModifier{-25, -25, 40, 20}, // Poor
+		MoraleModifier{-50, -50, 20, 10}  // Terrible
+	};
 
 
-std::default_random_engine pop_generator;
-std::uniform_int_distribution<int> pop_distribution(0, 100);
+	std::default_random_engine pop_generator;
+	std::uniform_int_distribution<int> pop_distribution(0, 100);
 
-auto random_0_100 = std::bind(pop_distribution, pop_generator);
+	auto random_0_100 = std::bind(pop_distribution, pop_generator);
 
-/**
- * Convenience function to cast a MoraleLevel enumerator
- * into an array index.
- */
-std::size_t moraleIndex(int morale)
-{
-	return static_cast<std::size_t>(std::clamp(morale, 1, 999) / 200);
+	/**
+	 * Convenience function to cast a MoraleLevel enumerator
+	 * into an array index.
+	 */
+	std::size_t moraleIndex(int morale)
+	{
+		return static_cast<std::size_t>(std::clamp(morale, 1, 999) / 200);
+	}
 }
 
 
-
-/**
- * C'tor
- */
 Population::Population() :
 	mBirthCount(0),
 	mDeathCount(0),
 	mStarveRate(0.5f)
 {
-	init();
-}
-
-
-/**
- * D'tor
- */
-Population::~Population()
-{
-	clear();
-}
-
-
-void Population::init()
-{
 	mPopulation.fill(0);
 	mPopulationGrowth.fill(0);
 	mPopulationDeath.fill(0);
-
-	mModifiers[0] = MoraleModifier{50, 50, 110, 80};  // Excellent
-	mModifiers[1] = MoraleModifier{25, 25, 90, 75};   // Good
-	mModifiers[2] = MoraleModifier{0, 0, 60, 40};     // Fair
-	mModifiers[3] = MoraleModifier{-25, -25, 40, 20}; // Poor
-	mModifiers[4] = MoraleModifier{-50, -50, 20, 10}; // Terrible
 }
 
 
 /**
- * Clears entire population and frees all associated resources.
+ * Clears entire population.
  */
 void Population::clear()
 {
-	clearPopulationList(PersonRole::ROLE_CHILD);
-	clearPopulationList(PersonRole::ROLE_STUDENT);
-	clearPopulationList(PersonRole::ROLE_WORKER);
-	clearPopulationList(PersonRole::ROLE_SCIENTIST);
-	clearPopulationList(PersonRole::ROLE_RETIRED);
-}
-
-
-/**
- * Clears a specified segment of the population and frees all resources
- * associated with it.
- */
-void Population::clearPopulationList(PersonRole _role)
-{
-	mPopulation[_role] = 0;
+	mPopulation.fill(0);
 }
 
 
@@ -107,11 +77,10 @@ void Population::addPopulation(PersonRole role, int count)
 int Population::size()
 {
 	int count = 0;
-	for (std::size_t i = 0; i < mPopulation.size(); ++i)
+	for (auto& populationRole : mPopulation)
 	{
-		count += mPopulation[i];
+		count += populationRole;
 	}
-
 	return count;
 }
 
@@ -119,11 +88,16 @@ int Population::size()
 /**
  * Gets the size of a specific segment of the population.
  */
-int Population::size(PersonRole _pr)
+int Population::size(PersonRole personRole)
 {
-	return mPopulation[_pr];
+	return mPopulation[personRole];
 }
 
+
+int Population::adults() const
+{
+	return mPopulation[PersonRole::ROLE_STUDENT] + mPopulation[PersonRole::ROLE_WORKER] + mPopulation[PersonRole::ROLE_SCIENTIST] + mPopulation[PersonRole::ROLE_CHILD];
+}
 
 /**
  * Population check for new children.
@@ -139,7 +113,7 @@ void Population::spawn_children(int morale, int residences, int nurseries)
 	{
 		mPopulationGrowth[PersonRole::ROLE_CHILD] += mPopulation[PersonRole::ROLE_SCIENTIST] / 4 + mPopulation[PersonRole::ROLE_WORKER] / 2;
 
-		int divisor = mModifiers[moraleIndex(morale)].fertilityRate;
+		int divisor = moraleModifierTable[moraleIndex(morale)].fertilityRate;
 
 		int newChildren = mPopulationGrowth[PersonRole::ROLE_CHILD] / divisor;
 		mPopulationGrowth[PersonRole::ROLE_CHILD] = mPopulationGrowth[PersonRole::ROLE_CHILD] % divisor;
@@ -156,8 +130,7 @@ void Population::spawn_students()
 	{
 		mPopulationGrowth[PersonRole::ROLE_STUDENT] += mPopulation[PersonRole::ROLE_CHILD];
 
-		int divisor = mPopulation[PersonRole::ROLE_STUDENT] + mPopulation[PersonRole::ROLE_WORKER] + mPopulation[PersonRole::ROLE_SCIENTIST] + mPopulation[PersonRole::ROLE_CHILD];
-		if (divisor <= STUDENT_TO_ADULT_BASE) { divisor = STUDENT_TO_ADULT_BASE; }
+		int divisor = std::max(adults(), studentToAdultBase);
 		divisor = ((divisor / 40) * 3 + 16) * 4;
 
 		int newStudents = mPopulationGrowth[PersonRole::ROLE_STUDENT] / divisor;
@@ -176,16 +149,14 @@ void Population::spawn_adults(int universities)
 	{
 		mPopulationGrowth[PersonRole::ROLE_WORKER] += mPopulation[PersonRole::ROLE_STUDENT];
 
-		int divisor = mPopulation[PersonRole::ROLE_STUDENT] + mPopulation[PersonRole::ROLE_WORKER] + mPopulation[PersonRole::ROLE_SCIENTIST] + mPopulation[PersonRole::ROLE_CHILD];
-		if (divisor <= STUDENT_TO_ADULT_BASE) { divisor = STUDENT_TO_ADULT_BASE; }
-
+		int divisor = std::max(adults(), studentToAdultBase);
 		divisor = ((divisor / 40) * 3 + 45) * 4;
 
 		int newAdult = mPopulationGrowth[PersonRole::ROLE_WORKER] / divisor;
 		mPopulationGrowth[PersonRole::ROLE_WORKER] = mPopulationGrowth[PersonRole::ROLE_WORKER] % divisor;
 
 		// account for universities
-		if (universities > 0 && random_0_100() <= STUDENT_TO_SCIENTIST_RATE)
+		if (universities > 0 && random_0_100() <= studentToScientistRate)
 		{
 			mPopulation[PersonRole::ROLE_SCIENTIST] += newAdult;
 		}
@@ -206,8 +177,7 @@ void Population::spawn_retiree()
 	{
 		mPopulationGrowth[PersonRole::ROLE_RETIRED] += total_adults / 10;
 
-		int divisor = total_adults;
-		if (divisor <= ADULT_TO_RETIREE_BASE) { divisor = ADULT_TO_RETIREE_BASE; }
+		int divisor = std::max(total_adults, adultToRetireeBase);
 
 		divisor = ((divisor / 40) * 3 + 40) * 4;
 
@@ -229,7 +199,7 @@ void Population::kill_children(int morale, int nurseries)
 	{
 		mPopulationDeath[PersonRole::ROLE_CHILD] = mPopulation[PersonRole::ROLE_CHILD];
 
-		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + (nurseries * 10);
+		int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (nurseries * 10);
 
 		int deaths = mPopulationDeath[PersonRole::ROLE_CHILD] / divisor;
 		mPopulationDeath[PersonRole::ROLE_CHILD] = mPopulationDeath[PersonRole::ROLE_CHILD] % divisor;
@@ -252,7 +222,7 @@ void Population::kill_students(int morale, int hospitals)
 	{
 		mPopulationDeath[PersonRole::ROLE_STUDENT] = mPopulation[PersonRole::ROLE_STUDENT];
 
-		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + (hospitals * 65);
+		int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (hospitals * 65);
 
 		int deaths = mPopulationDeath[PersonRole::ROLE_STUDENT] / divisor;
 		mPopulationDeath[PersonRole::ROLE_STUDENT] = mPopulationDeath[PersonRole::ROLE_CHILD] % divisor;
@@ -275,7 +245,7 @@ void Population::kill_adults(Population::PersonRole role, int morale, int hospit
 	if (mPopulation[role] > 0)
 	{
 		mPopulationDeath[role] += mPopulation[role];
-		int divisor = mModifiers[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
+		int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
 
 		int deaths = mPopulationDeath[role] / divisor;
 		mPopulationDeath[role] = mPopulationDeath[role] % divisor;

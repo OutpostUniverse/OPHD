@@ -6,32 +6,26 @@
 #include "MainMenuState.h"
 #include "MapViewState.h"
 #include "MainReportsUiState.h"
-
 #include "Wrapper.h"
+#include "../StructureManager.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+
 NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wrapers. */
 
-MainReportsUiState* MAIN_REPORTS_UI = nullptr; /**< Pointer to a MainReportsUiState. Memory is handled by GameState. */
-static MapViewState* MAP_VIEW = nullptr; /**< Pointer to a MapViewState. Memory is handled by GameState. */
 
-static Wrapper* ACTIVE_STATE = nullptr; /**< The currently active State. */
-
-
-/**
- * C'tor
- */
+// Explicit constructor needed in implementation file
+// If a default constructor was used instead, construction would happen in importing translation unit
+// The header uses forward declares for some types, so only incomplete types are available to importing code
+// Complete types are needed to construct the std::unique_ptr members
 GameState::GameState()
 {}
 
 
-/**
- * D'tor
- */
 GameState::~GameState()
 {
 	NAS2D::Utility<StructureManager>::get().dropAllStructures();
@@ -41,18 +35,15 @@ GameState::~GameState()
 
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &GameState::fadeComplete);
 
-	MAIN_REPORTS_UI->hideReports().disconnect(this, &GameState::hideReportsUi);
-	MAP_VIEW->quit().disconnect(this, &GameState::quitEvent);
-	MAP_VIEW->showReporstUi().disconnect(this, &GameState::showReportsUi);
-	MAP_VIEW->mapChanged().disconnect(this, &GameState::mapChanged);
+	mMainReportsState->hideReports().disconnect(this, &GameState::hideReportsUi);
+	mMapView->quit().disconnect(this, &GameState::quitEvent);
+	mMapView->showReporstUi().disconnect(this, &GameState::showReportsUi);
+	mMapView->mapChanged().disconnect(this, &GameState::mapChanged);
 
-	for (auto takeMeThere : MAIN_REPORTS_UI->takeMeThere())
+	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
 		takeMeThere->disconnect(this, &GameState::takeMeThere);
 	}
-
-	delete MAIN_REPORTS_UI;
-	delete MAP_VIEW;
 
 	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
@@ -67,11 +58,11 @@ void GameState::initialize()
 	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
 	e.mouseMotion().connect(this, &GameState::onMouseMove);
 
-	MAIN_REPORTS_UI = new MainReportsUiState();
-	MAIN_REPORTS_UI->_initialize();
-	MAIN_REPORTS_UI->hideReports().connect(this, &GameState::hideReportsUi);
+	mMainReportsState = std::make_unique<MainReportsUiState>();
+	mMainReportsState->_initialize();
+	mMainReportsState->hideReports().connect(this, &GameState::hideReportsUi);
 
-	for (auto takeMeThere : MAIN_REPORTS_UI->takeMeThere())
+	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
 		takeMeThere->connect(this, &GameState::takeMeThere);
 	}
@@ -94,12 +85,18 @@ void GameState::initialize()
  */
 void GameState::mapviewstate(MapViewState* state)
 {
-	MAP_VIEW = state;
-	ACTIVE_STATE = MAP_VIEW;
+	mMapView.reset(state);
+	mActiveState = mMapView.get();
 
-	MAP_VIEW->quit().connect(this, &GameState::quitEvent);
-	MAP_VIEW->showReporstUi().connect(this, &GameState::showReportsUi);
-	MAP_VIEW->mapChanged().connect(this, &GameState::mapChanged);
+	mMapView->quit().connect(this, &GameState::quitEvent);
+	mMapView->showReporstUi().connect(this, &GameState::showReportsUi);
+	mMapView->mapChanged().connect(this, &GameState::mapChanged);
+}
+
+
+MainReportsUiState& GameState::getMainReportsState()
+{
+	return *mMainReportsState;
 }
 
 
@@ -145,8 +142,8 @@ void GameState::musicComplete()
  */
 void GameState::quitEvent()
 {
-	MAP_VIEW->deactivate();
-	MAIN_REPORTS_UI->deactivate();
+	mMapView->deactivate();
+	mMainReportsState->deactivate();
 }
 
 
@@ -157,9 +154,9 @@ void GameState::quitEvent()
  */
 void GameState::showReportsUi()
 {
-	ACTIVE_STATE->deactivate();
-	ACTIVE_STATE = MAIN_REPORTS_UI;
-	ACTIVE_STATE->activate();
+	mActiveState->deactivate();
+	mActiveState = mMainReportsState.get();
+	mActiveState->activate();
 }
 
 
@@ -171,15 +168,15 @@ void GameState::showReportsUi()
  */
 void GameState::hideReportsUi()
 {
-	ACTIVE_STATE->deactivate();
-	ACTIVE_STATE = MAP_VIEW;
-	ACTIVE_STATE->activate();
+	mActiveState->deactivate();
+	mActiveState = mMapView.get();
+	mActiveState->activate();
 }
 
 
 void GameState::mapChanged()
 {
-	MAIN_REPORTS_UI->clearLists();
+	mMainReportsState->clearLists();
 }
 
 
@@ -192,18 +189,15 @@ void GameState::mapChanged()
 void GameState::takeMeThere(Structure* structure)
 {
 	hideReportsUi();
-	MAP_VIEW->focusOnStructure(structure);
+	mMapView->focusOnStructure(structure);
 }
 
 
-/**
- * Update
- */
 NAS2D::State* GameState::update()
 {
-	if (ACTIVE_STATE)
+	if (mActiveState)
 	{
-		ACTIVE_STATE->_update();
+		mActiveState->_update();
 	}
 
 	return mReturnState;

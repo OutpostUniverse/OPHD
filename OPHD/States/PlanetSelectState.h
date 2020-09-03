@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Planet.h"
-
 #include "../UI/UI.h"
 
 #include <NAS2D/State.h>
@@ -13,6 +11,9 @@
 #include <NAS2D/Renderer/Point.h>
 
 #include <vector>
+
+
+class Planet;
 
 
 class PlanetSelectState : public NAS2D::State

@@ -7,25 +7,9 @@
 #include <stdexcept>
 
 
-void BasicCheck(Population::PersonRole _role);
-
-
-/**
- * C'tor
- */
-PopulationPool::PopulationPool() :
-	mScientistsAsWorkers(0),
-	mScientistsUsed(0),
-	mWorkersUsed(0),
-	mPopulation(nullptr)
-{}
-
-
-/**
- * D'tor
- */
-PopulationPool::~PopulationPool()
-{}
+namespace {
+	void BasicCheck(Population::PersonRole _role);
+}
 
 
 /**
@@ -158,32 +142,33 @@ int PopulationPool::populationEmployed()
 
 // ===============================================================================
 
-
-/**
- * Does a basic check to ensure that we're only trying to pull population that can be employed.
- *
- * Generally speaking the only 'workable' population is for Workers and Scientists. Children, Students
- * and Retirees won't be pulled for labor/research so attempting to pull this should be considered
- * a mistake and should fail very loudly. In this case throws a std::runtime_error.
- *
- * In the future this may change but for now this is almost strictly a debugging aid. This failure
- * would indicate a very significant problem with the calling code.
- *
- * \throws	std::runtime_exception if Child/Student/Retired is asked for.
- */
-void BasicCheck(Population::PersonRole _role)
-{
-	if (_role == Population::PersonRole::ROLE_CHILD || _role == Population::PersonRole::ROLE_STUDENT || _role == Population::PersonRole::ROLE_RETIRED)
+namespace {
+	/**
+	 * Does a basic check to ensure that we're only trying to pull population that can be employed.
+	 *
+	 * Generally speaking the only 'workable' population is for Workers and Scientists. Children, Students
+	 * and Retirees won't be pulled for labor/research so attempting to pull this should be considered
+	 * a mistake and should fail very loudly. In this case throws a std::runtime_error.
+	 *
+	 * In the future this may change but for now this is almost strictly a debugging aid. This failure
+	 * would indicate a very significant problem with the calling code.
+	 *
+	 * \throws	std::runtime_exception if Child/Student/Retired is asked for.
+	 */
+	void BasicCheck(Population::PersonRole _role)
 	{
-		std::string _popRole;
-		switch (_role)
+		if (_role == Population::PersonRole::ROLE_CHILD || _role == Population::PersonRole::ROLE_STUDENT || _role == Population::PersonRole::ROLE_RETIRED)
 		{
-		case Population::PersonRole::ROLE_CHILD: _popRole = "Population::PersonRole::ROLE_CHILD"; break;
-		case Population::PersonRole::ROLE_STUDENT: _popRole = "Population::PersonRole::ROLE_STUDENT"; break;
-		case Population::PersonRole::ROLE_RETIRED: _popRole = "Population::PersonRole::ROLE_RETIRED"; break;
-		default: break;
-		}
+			std::string _popRole;
+			switch (_role)
+			{
+			case Population::PersonRole::ROLE_CHILD: _popRole = "Population::PersonRole::ROLE_CHILD"; break;
+			case Population::PersonRole::ROLE_STUDENT: _popRole = "Population::PersonRole::ROLE_STUDENT"; break;
+			case Population::PersonRole::ROLE_RETIRED: _popRole = "Population::PersonRole::ROLE_RETIRED"; break;
+			default: break;
+			}
 
-		throw std::runtime_error("PopulationPool::BasicCheck(): Invalid population role specified (" + _popRole + ").");
+			throw std::runtime_error("PopulationPool::BasicCheck(): Invalid population role specified (" + _popRole + ").");
+		}
 	}
 }

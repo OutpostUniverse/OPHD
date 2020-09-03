@@ -2,13 +2,10 @@
 
 #include "Population/Population.h"
 
+
 class PopulationPool
 {
 public:
-	PopulationPool();
-
-	~PopulationPool();
-
 	void population(Population* pop);
 
 	int populationAvailable(Population::PersonRole role);
@@ -23,9 +20,9 @@ public:
 	int populationEmployed();
 
 private:
-	int mScientistsAsWorkers;
-	int mScientistsUsed;
-	int mWorkersUsed;
+	int mScientistsAsWorkers{0};
+	int mScientistsUsed{0};
+	int mWorkersUsed{0};
 
-	Population* mPopulation;
+	Population* mPopulation{nullptr};
 };

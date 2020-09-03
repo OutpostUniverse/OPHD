@@ -2,7 +2,6 @@
 
 #include "Common.h"
 #include "Constants.h"
-#include "Templates.h"
 
 #include <NAS2D/Xml/XmlElement.h>
 
@@ -14,20 +13,20 @@ class ProductPool
 public:
 	using ProductTypeCount = std::array<int, ProductType::PRODUCT_COUNT>;
 
-public:
+
 	ProductPool() = default;
 	~ProductPool() = default;
 
 	ProductPool(const ProductPool&) = default;
 	ProductPool& operator=(const ProductPool&) = default;
 
-public:
 	int capacity() const;
 
 	bool canStore(ProductType type, int count);
 	bool empty() const;
 	bool atCapacity() const;
 
+	void transferAllTo(ProductPool& destination);
 	void store(ProductType type, int count);
 	int pull(ProductType type, int count);
 	int count(ProductType type);
@@ -38,11 +37,6 @@ public:
 	void deserialize(NAS2D::Xml::XmlElement* element);
 
 	void verifyCount();
-
-private:
-	template <class T>
-	friend void transferProductsStructure(T&, T&);
-	friend void transferProductsPool(ProductPool&, ProductPool&);
 
 private:
 	ProductTypeCount mProducts = {{ 0 }};

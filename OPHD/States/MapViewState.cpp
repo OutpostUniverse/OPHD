@@ -3,14 +3,17 @@
 
 #include "MapViewState.h"
 #include "MainMenuState.h"
+#include "MainReportsUiState.h"
 
 #include "../Constants.h"
 #include "../DirectionOffset.h"
 #include "../Cache.h"
 #include "../GraphWalker.h"
 #include "../StructureCatalogue.h"
+#include "../StructureManager.h"
 
 #include "../Map/Tile.h"
+#include "../Map/TileMap.h"
 
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
@@ -34,10 +37,7 @@ const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
 extern Point<int> MOUSE_COORDS;
-extern MainReportsUiState* MAIN_REPORTS_UI;
 
-
-int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
 
 Rectangle<int> RESOURCE_PANEL_PIN{0, 1, 8, 19};
 Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
@@ -57,7 +57,8 @@ std::map <int, std::string> LEVEL_STRING_TABLE =
 const Font* MAIN_FONT = nullptr;
 
 
-MapViewState::MapViewState(const std::string& savegame) :
+MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
+	mMainReportsState(mainReportsState),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
@@ -66,7 +67,8 @@ MapViewState::MapViewState(const std::string& savegame) :
 }
 
 
-MapViewState::MapViewState(const Planet::Attributes& planetAttributes) :
+MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes) :
+	mMainReportsState(mainReportsState),
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mPlanetAttributes(planetAttributes),
 	mMapDisplay{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
@@ -174,7 +176,7 @@ void MapViewState::_deactivate()
 void MapViewState::focusOnStructure(Structure* s)
 {
 	if (!s) { return; }
-	mTileMap->centerMapOnTile(Utility<StructureManager>::get().tileFromStructure(s));
+	mTileMap->centerMapOnTile(&Utility<StructureManager>::get().tileFromStructure(s));
 }
 
 
@@ -563,9 +565,9 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 		{
 			Structure* structure = tile.structure();
 
-			if (structure->isFactory()) { MAIN_REPORTS_UI->selectFactoryPanel(structure); }
-			else if (structure->isWarehouse()) { MAIN_REPORTS_UI->selectWarehousePanel(structure); }
-			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter) { MAIN_REPORTS_UI->selectMinePanel(structure); }
+			if (structure->isFactory()) { mMainReportsState.selectFactoryPanel(structure); }
+			else if (structure->isWarehouse()) { mMainReportsState.selectWarehousePanel(structure); }
+			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter) { mMainReportsState.selectMinePanel(structure); }
 			else { return; } // avoids showing the full-screen UI on unhandled structures.
 
 			mReportsUiCallback();

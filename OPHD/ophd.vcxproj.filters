@@ -551,9 +551,6 @@
     <ClInclude Include="UI\MineOperationsWindow.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Templates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="States\Wrapper.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>

@@ -6,7 +6,11 @@
 #include "IconGrid.h"
 
 #include "../Constants.h"
-#include "../Things/Structures/Factory.h"
+#include "../Common.h"
+#include "../ProductionCost.h"
+
+
+class Factory;
 
 
 /**

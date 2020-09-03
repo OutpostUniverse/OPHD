@@ -2,8 +2,11 @@
 
 #include "Structure.h"
 
-#include "../../ProductionCost.h"
 #include "../../StorableResources.h"
+
+
+class ProductionCost;
+
 
 /**
  * \brief	Defines the Factory interface.

@@ -3,6 +3,8 @@
 
 #include "Factory.h"
 
+#include "../../ProductionCost.h"
+
 #include <algorithm>
 
 
@@ -18,12 +20,14 @@ using ProductionTypeTable = std::map<ProductType, ProductionCost>;
  */
 const ProductionTypeTable PRODUCTION_TYPE_TABLE =
 {
+	{ ProductType::PRODUCT_NONE, ProductionCost() },
+
 	{ ProductType::PRODUCT_DIGGER, ProductionCost(5, 10, 5, 5, 2) },
 	{ ProductType::PRODUCT_DOZER, ProductionCost(5, 10, 5, 5, 2) },
 	{ ProductType::PRODUCT_EXPLORER, ProductionCost(5, 10, 5, 5, 2) },
 	{ ProductType::PRODUCT_MINER, ProductionCost(5, 10, 5, 5, 2) },
 	{ ProductType::PRODUCT_ROAD_MATERIALS, ProductionCost(2, 2, 5, 0, 0) },
-	{ ProductType::PRODUCT_TRUCK, ProductionCost(5, 10, 5, 5, 2) },
+	{ ProductType::PRODUCT_TRUCK, ProductionCost(2, 5, 2, 2, 0) },
 
 	{ ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost(2, 2, 2, 1, 1) },
 
@@ -36,7 +40,6 @@ const ProductionCost& productCost(ProductType productType)
 {
 	return PRODUCTION_TYPE_TABLE.at(productType);
 }
-
 
 
 Factory::Factory(const std::string& name, const std::string& spritePath, StructureID id) :

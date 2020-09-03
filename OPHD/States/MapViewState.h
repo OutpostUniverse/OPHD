@@ -1,7 +1,6 @@
 #pragma once
 
 #include "MapViewStateHelper.h"
-#include "MainReportsUiState.h"
 #include "Wrapper.h"
 
 #include "Planet.h"
@@ -9,19 +8,11 @@
 
 #include "../Common.h"
 #include "../Constants.h"
-
-#include "../Map/Tile.h"
-#include "../Map/TileMap.h"
-
+#include "../StorableResources.h"
+#include "../RobotPool.h"
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
-
-#include "../StorableResources.h"
-
-#include "../RobotPool.h"
-
 #include "../Things/Structures/Structure.h"
-#include "../Things/Robots/Robots.h"
 
 #include "../UI/Gui.h"
 #include "../UI/UI.h"
@@ -32,6 +23,21 @@
 
 #include <string>
 #include <memory>
+
+
+namespace NAS2D {
+	namespace Xml {
+		class XmlElement;
+	}
+}
+
+namespace micropather {
+	class MicroPather;
+}
+
+class Tile;
+class TileMap;
+class MainReportsUiState;
 
 
 enum PointerType
@@ -67,8 +73,8 @@ public:
 	using MapChangedCallback = NAS2D::Signals::Signal<>;
 
 public:
-	MapViewState(const std::string& savegame);
-	MapViewState(const Planet::Attributes& planetAttributes);
+	MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame);
+	MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes);
 	~MapViewState() override;
 
 	void setPopulationLevel(PopulationLevel popLevel);
@@ -204,6 +210,7 @@ private:
 
 
 private:
+	MainReportsUiState& mMainReportsState;
 	TileMap* mTileMap = nullptr;
 
 	Planet::Attributes mPlanetAttributes;

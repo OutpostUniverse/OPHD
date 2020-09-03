@@ -2,11 +2,13 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "RobotCommand.h"
 
+#include "../Robots/Robot.h"
 #include "../../Constants.h"
 
+#include <string>
+#include <stdexcept>
 #include <algorithm>
 
-extern int ROBOT_ID_COUNTER; /// \fixme Kludge
 
 /**
  * Gets whether the command facility has additional command capacity remaining.
@@ -20,7 +22,7 @@ bool RobotCommand::commandCapacityAvailable() const
 /**
  * \param	robot	Pointer to a Robot.
  */
-bool RobotCommand::commandedByThis(Robot* robot) const
+bool RobotCommand::isControlling(Robot* robot) const
 {
 	return find(mRobotList.begin(), mRobotList.end(), robot) != mRobotList.end();
 }
@@ -41,13 +43,11 @@ void RobotCommand::addRobot(Robot* robot)
 		throw std::runtime_error("RobotCommand::addRobot(): Facility is already at capacity.");
 	}
 
-	if (commandedByThis(robot))
+	if (isControlling(robot))
 	{
-		std::cout << "RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. CURRENT ID: " << ROBOT_ID_COUNTER << std::endl;
-		std::cout << "RCC:ADD: _r addr: " << robot << " name: " << robot->name() << " id: " << robot->id() << std::endl;
-		doAlertMessage("Invalid Robot Command", "Robot Command Center: Requested add of a robot already commanded by this RCC. Please submit log to developer and any steps to reproduce.");
-		return;
-		//throw std::runtime_error("RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility.");
+		const auto message = "RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. Robot name: " + robot->name();
+		std::cout << message << std::endl;
+		throw std::runtime_error(message);
 	}
 
 	mRobotList.push_back(robot);
@@ -63,16 +63,14 @@ void RobotCommand::removeRobot(Robot* robot)
 {
 	if (mRobotList.empty())
 	{
-		//throw std::runtime_error("RobotCommand::removeRobot(): Robot list empty.");
-		return;
+		throw std::runtime_error("RobotCommand::removeRobot(): Robot list empty.");
 	}
 
-	auto _it = find(mRobotList.begin(), mRobotList.end(), robot);
-	if (_it == mRobotList.end())
+	auto iter = find(mRobotList.begin(), mRobotList.end(), robot);
+	if (iter == mRobotList.end())
 	{
-		//throw std::runtime_error("RobotCommand::removeRobot(): Removing a robot that is not under the command of this Robot Command Facility.");
-		return;
+		throw std::runtime_error("RobotCommand::removeRobot(): Removing a robot that is not under the command of this Robot Command Facility.");
 	}
 
-	mRobotList.erase(_it);
+	mRobotList.erase(iter);
 }

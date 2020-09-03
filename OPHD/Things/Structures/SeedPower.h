@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Structure.h"
 #include "../../Constants.h"
+
 #include <string>
+
 
 const int SEED_POWER_PRODUCTION = 50;
 
