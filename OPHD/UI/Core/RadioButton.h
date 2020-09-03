@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Control.h"
+#include "TextControl.h"
 #include "Label.h"
 
 #include <NAS2D/Signal.h>
@@ -13,7 +13,7 @@
 class UIContainer;
 
 
-class RadioButton : public Control
+class RadioButton : public TextControl
 {
 public:
 	using ClickCallback = NAS2D::Signals::Signal<>;

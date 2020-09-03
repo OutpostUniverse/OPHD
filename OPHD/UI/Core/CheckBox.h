@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Control.h"
+#include "TextControl.h"
 
 #include <NAS2D/Signal.h>
 #include <NAS2D/EventHandler.h>
@@ -9,7 +9,7 @@
 #include <string>
 
 
-class CheckBox : public Control
+class CheckBox : public TextControl
 {
 public:
 	using ClickCallback = NAS2D::Signals::Signal<>;

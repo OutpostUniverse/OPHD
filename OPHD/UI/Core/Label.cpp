@@ -8,28 +8,25 @@
 
 #include <NAS2D/Utility.h>
 
-static const int FIELD_PADDING = 2;
-static const NAS2D::Font* TXT_FONT = nullptr;
 
-
-Label::Label(std::string newText)
+Label::Label(std::string newText) :
+	mFont(&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL))
 {
 	text(newText);
-	TXT_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	autoSize();
+	autosize();
 }
 
 
-void Label::autoSize()
+void Label::autosize()
 {
-	size(textSize() + NAS2D::Vector{FIELD_PADDING * 2, FIELD_PADDING * 2});
+	size(textSize() + NAS2D::Vector{ mPadding * 2, mPadding * 2 });
 }
 
 
 void Label::font(const NAS2D::Font* font)
 {
-	TXT_FONT = font;
-	autoSize();
+	mFont = font;
+	autosize();
 }
 
 
@@ -39,23 +36,21 @@ void Label::update()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const auto textPosition = mRect.startPoint() + NAS2D::Vector{FIELD_PADDING, FIELD_PADDING};
-	renderer.drawText(*TXT_FONT, text(), textPosition, textColor);
+	const auto textPosition = mRect.startPoint() + NAS2D::Vector{mPadding, mPadding};
+	renderer.drawText(*mFont, text(), textPosition, mTextColor);
 }
-
-
-void Label::color(const NAS2D::Color& color)
-{
-	textColor = color;
-}
-
 
 int Label::textWidth() const
 {
-	return TXT_FONT->width(text());
+	return mFont->width(text());
 }
 
 NAS2D::Vector<int> Label::textSize() const
 {
-	return TXT_FONT->size(text());
+	return mFont->size(text());
+}
+
+void Label::color(const NAS2D::Color& color)
+{
+	mTextColor = color;
 }

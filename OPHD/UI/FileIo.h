@@ -46,7 +46,7 @@ private:
 	void btnFileIoClicked();
 
 	void fileSelected();
-	void fileNameModified(Control* control);
+	void fileNameModified(TextControl* control);
 
 private:
 	FileOperationCallback mCallback;

@@ -187,13 +187,3 @@ bool Control::visible() const
 {
 	return mVisible;
 }
-
-
-/**
- * Sets the text of the Control.
- */
-void Control::text(const std::string& text)
-{
-	mText = text;
-	onTextChanged();
-}

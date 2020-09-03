@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Control.h"
+#include "TextControl.h"
 
 #include <NAS2D/Signal.h>
 #include <NAS2D/EventHandler.h>
@@ -11,7 +11,7 @@
 #include <string>
 
 
-class Button: public Control
+class Button: public TextControl
 {
 public:
 	enum class Type

@@ -285,6 +285,9 @@
     <ClCompile Include="IOHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UI\Core\TextControl.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -634,6 +637,9 @@
     </ClInclude>
     <ClInclude Include="Things\Structures\OreRefining.h">
       <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Core\TextControl.h">
+      <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

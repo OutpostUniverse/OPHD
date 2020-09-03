@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Control.h"
+#include "TextControl.h"
 
 #include <NAS2D/EventHandler.h>
 
@@ -11,7 +11,7 @@
  * 
  * Generally not intended to be used by itself.
  */
-class UIContainer: public Control
+class UIContainer: public TextControl
 {
 public:
 	UIContainer();
