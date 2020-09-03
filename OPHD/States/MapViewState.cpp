@@ -224,13 +224,14 @@ State* MapViewState::update()
 
 
 /**
- * Convenience function to get the total amount of food storage.
+ * Get the total amount of storage given a structure class and capacity of each
+ * structure.
  */
 int MapViewState::totalStorage(Structure::StructureClass structureClass, int capacity)
 {
 	int storageCapacity = 0;
 
-	// Command Center has a limited amount of food storage for when colonists first land.
+	// Command Center has a limited amount of storage for when colonists first land.
 	if (ccLocation() != CcNotPlaced)
 	{
 		storageCapacity += constants::BASE_STORAGE_CAPACITY;
