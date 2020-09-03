@@ -39,7 +39,7 @@ public:
 	void color(const NAS2D::Color& color);
 
 private:
-	NAS2D::Color textColor{NAS2D::Color::White};
+	NAS2D::Color mTextColor{NAS2D::Color::White};
 	const NAS2D::Font* mFont;
 	const int mPadding = 2;
 };

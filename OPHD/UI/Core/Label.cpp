@@ -37,7 +37,7 @@ void Label::update()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto textPosition = mRect.startPoint() + NAS2D::Vector{mPadding, mPadding};
-	renderer.drawText(*mFont, text(), textPosition, textColor);
+	renderer.drawText(*mFont, text(), textPosition, mTextColor);
 }
 
 int Label::textWidth() const
@@ -52,5 +52,5 @@ NAS2D::Vector<int> Label::textSize() const
 
 void Label::color(const NAS2D::Color& color)
 {
-	textColor = color;
+	mTextColor = color;
 }
