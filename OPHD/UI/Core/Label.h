@@ -27,15 +27,16 @@ class Label : public TextControl
 public:
 	Label(std::string newText = "");
 
+	void autosize();
 	void font(const NAS2D::Font* font);
 	bool empty() const { return text().empty(); }
 	void clear() { mText.clear(); }
 	void update() override;
 
-	void color(const NAS2D::Color& color);
+	int textWidth() const;
+	NAS2D::Vector<int> textSize() const;
 
-protected:
-	void resize();
+	void color(const NAS2D::Color& color);
 
 private:
 	NAS2D::Color textColor{NAS2D::Color::White};

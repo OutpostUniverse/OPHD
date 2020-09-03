@@ -13,20 +13,20 @@ Label::Label(std::string newText) :
 	mFont(&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL))
 {
 	text(newText);
-	resize();
+	autosize();
 }
 
 
-void Label::resize()
+void Label::autosize()
 {
-	size(mFont->size(text()) + NAS2D::Vector{mPadding * 2, mPadding * 2});
+	size(textSize() + NAS2D::Vector{ mPadding * 2, mPadding * 2 });
 }
 
 
 void Label::font(const NAS2D::Font* font)
 {
 	mFont = font;
-	resize();
+	autosize();
 }
 
 
@@ -40,9 +40,17 @@ void Label::update()
 	renderer.drawText(*mFont, text(), textPosition, textColor);
 }
 
+int Label::textWidth() const
+{
+	return mFont->width(text());
+}
+
+NAS2D::Vector<int> Label::textSize() const
+{
+	return mFont->size(text());
+}
 
 void Label::color(const NAS2D::Color& color)
 {
 	textColor = color;
 }
-
