@@ -73,5 +73,18 @@ struct StorableResources
 		resources = { 0, 0, 0, 0 };
 	}
 
+	bool empty()
+	{
+		if(resources[0] > 0 ||
+			resources[1] > 0 ||
+			resources[2] > 0 ||
+			resources[3] > 0)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	std::array<int, 4> resources{ 0 };
 };
