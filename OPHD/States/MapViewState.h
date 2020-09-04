@@ -135,7 +135,7 @@ private:
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
 	void updateFood();
-	int resourcesInStorage();
+	int refinedResourcesInStorage();
 	int totalStorage(Structure::StructureClass, int);
 
 
