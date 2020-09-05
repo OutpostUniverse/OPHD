@@ -295,14 +295,23 @@ void MapViewState::updateResources()
 			std::clamp(stored.resources[3], 0, 25)
 		};
 
-		auto newResources = mPlayerResources + moved;
-		auto capped = newResources.cap(mRefinedResourcesCap / 4);
+		auto& storageTanksList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+		for (auto storageTanks : storageTanksList)
+		{
+			if (moved.empty()) { break; }
 
-		mPlayerResources = capped;
+			auto& storageTanksResources = storageTanks->storage();
 
-		auto overflow = newResources - capped;
-		stored = stored - (moved + overflow);
-		std::cout << "Whatever";
+			auto newResources = storageTanksResources + moved;
+			auto capped = newResources.cap(StorageTanksCapacity / 4);
+
+			storageTanksResources = capped;
+
+			auto overflow = newResources - capped;
+			moved = moved + overflow;
+		}
+
+		stored = stored + moved;
 	}
 }
 
