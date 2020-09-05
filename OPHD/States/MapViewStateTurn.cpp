@@ -22,17 +22,17 @@
 #include <algorithm>
 
 
-static int pullFood(int& food, int amount)
+static int pullResource(int& resource, int amount)
 {
-	if (amount <= food)
+	if (amount <= resource)
 	{
-		food = food - amount;
+		resource -= amount;
 		return amount;
 	}
 	else
 	{
-		int ret = food;
-		food = 0;
+		int ret = resource;
+		resource = 0;
 		return ret;
 	}
 }
@@ -43,7 +43,7 @@ static inline void pullFoodFromStructure(FoodProduction* producer, int& remainde
 	if (remainder <= 0) { return; }
 
 	int foodLevel = producer->foodLevel();
-	int pulled = pullFood(foodLevel, remainder);
+	int pulled = pullResource(foodLevel, remainder);
 
 	producer->foodLevel(foodLevel);
 	remainder -= pulled;
