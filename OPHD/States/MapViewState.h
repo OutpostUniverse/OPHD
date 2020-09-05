@@ -138,7 +138,6 @@ private:
 	int refinedResourcesInStorage();
 	int totalStorage(Structure::StructureClass, int);
 
-
 	void setMinimapView();
 
 	void checkConnectedness();
@@ -226,7 +225,6 @@ private:
 
 	int mEnergy{ 0 };
 	int mFood{ 0 };
-	int mRefinedResourcesCap{ 0 };
 
 	// POOLS
 	StorableResources mPlayerResources; /**< Player's current refined resources. */

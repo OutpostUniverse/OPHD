@@ -211,8 +211,6 @@ void MapViewState::updateMorale()
 
 void MapViewState::updateResources()
 {
-	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
-
 	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
 
 	mPathSolver->Reset();

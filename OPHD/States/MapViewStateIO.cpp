@@ -204,8 +204,6 @@ void MapViewState::load(const std::string& filePath)
 	if (!energy) { throw std::runtime_error("MapViewState::load(): Savegame file is missing '<energy>' tag."); }
 	mEnergy = std::stoi(energy->attribute(constants::SAVE_GAME_ENERGY));
 
-	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
-
 	checkConnectedness();
 
 	Utility<StructureManager>::get().updateEnergyProduction();
