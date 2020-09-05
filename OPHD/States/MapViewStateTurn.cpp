@@ -284,7 +284,7 @@ void MapViewState::updateResources()
 	// Move refined resources from smelters to storage tanks
 	for (auto smelter : smelterList)
 	{
-		if (!smelter->operational()) { continue; } // consider a different control path.
+		if (!smelter->operational() && !smelter->isIdle()) { continue; } // consider a different control path.
 
 		auto& stored = smelter->storage();
 		StorableResources moved
