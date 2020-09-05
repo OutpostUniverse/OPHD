@@ -306,9 +306,7 @@ void MapViewState::updateResources()
 			auto capped = newResources.cap(StorageTanksCapacity / 4);
 
 			storageTanksResources = capped;
-
-			auto overflow = newResources - capped;
-			moved = moved + overflow;
+			moved = newResources - capped;
 		}
 
 		stored = stored + moved;
