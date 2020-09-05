@@ -293,7 +293,7 @@ void MapViewState::updateResources()
 			std::clamp(stored.resources[3], 0, 25)
 		};
 
-		auto& storageTanksList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+		auto storageTanksList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
 
 		/**
 		 * The Command Center acts as backup storage especially during the beginning of the
