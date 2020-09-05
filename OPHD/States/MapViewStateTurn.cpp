@@ -296,6 +296,14 @@ void MapViewState::updateResources()
 		};
 
 		auto& storageTanksList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+
+		/**
+		 * The Command Center acts as backup storage especially during the beginning of the
+		 * game before storage tanks are built. This ensure that the CC is in the storage
+		 * structure list and that it's always the first structure in the list.
+		 */
+		storageTanksList.insert(storageTanksList.begin(), mTileMap->getTile(ccLocation()).structure());
+
 		for (auto storageTanks : storageTanksList)
 		{
 			if (moved.empty()) { break; }
