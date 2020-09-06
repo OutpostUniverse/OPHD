@@ -19,6 +19,12 @@ struct StorableResources
 		return out;
 	}
 
+	StorableResources& operator+=(const StorableResources& other)
+	{
+		*this = *this + other;
+		return *this;
+	}
+
 	StorableResources operator-(const StorableResources& other) const
 	{
 		StorableResources out;
