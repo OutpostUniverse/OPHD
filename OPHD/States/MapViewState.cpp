@@ -268,6 +268,20 @@ int MapViewState::refinedResourcesInStorage()
 }
 
 
+void MapViewState::updatePlayerResources()
+{
+	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+	storage.insert(storage.begin(), mTileMap->getTile(ccLocation()).structure());
+
+	mPlayerResources.clear();
+
+	for (auto structure : storage)
+	{
+		mPlayerResources += structure->storage();
+	}
+}
+
+
 /**
  * Window activation handler.
  */
@@ -384,7 +398,9 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		case EventHandler::KeyCode::KEY_F10:
 			if (Utility<EventHandler>::get().control(mod) && Utility<EventHandler>::get().shift(mod))
 			{
-				mPlayerResources = mPlayerResources + StorableResources{1000, 1000, 1000, 1000};
+				StorableResources resourcesToAdd{ 1000, 1000, 1000, 1000 };
+				addRefinedResources(resourcesToAdd);
+				updatePlayerResources();
 				updateStructuresAvailability();
 			}
 			break;
