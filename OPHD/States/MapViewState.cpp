@@ -257,13 +257,6 @@ int MapViewState::refinedResourcesInStorage()
 	{
 		total += mPlayerResources.resources[i];
 	}
-
-	auto commandCenterResources = mTileMap->getTile(ccLocation()).structure()->storage();
-	for (size_t i = 0; i < commandCenterResources.resources.size(); ++i)
-	{
-		total += commandCenterResources.resources[i];
-	}
-
 	return total;
 }
 
