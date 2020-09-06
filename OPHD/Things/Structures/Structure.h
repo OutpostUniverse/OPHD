@@ -18,16 +18,16 @@ enum class StructureState
 	Destroyed
 };
 
-class Structure: public Thing
+class Structure : public Thing
 {
 public:
 	/**
 	 * Class of a Structure.
-	 * 
+	 *
 	 * Structures are grouped by 'class'. Basically it's just an easy
 	 * way to know how to sort structures so that they can be updated
 	 * based on priority.
-	 * 
+	 *
 	 * \note	Some structure classes will only have one structure
 	 *			that uses it. This is intended behavior.
 	 */
@@ -113,6 +113,7 @@ public:
 	int maxAge() const { return mMaxAge; }
 	bool ages() const { return maxAge() > 0; }
 	int energyRequirement() const { return mEnergyRequirement; }
+	int storageCapacity() const { return mStorageCapacity; }
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
@@ -131,7 +132,7 @@ public:
 
 	/**
 	 * Set the current age of the Structure.
-	 * 
+	 *
 	 * \note	Available to reset current age to simulate repairs to extend
 	 *			the life of the Structure and for loading games.
 	 */
@@ -153,7 +154,7 @@ protected:
 
 	void turnsToBuild(int newTurnsToBuild) { mTurnsToBuild = newTurnsToBuild; }
 	void maxAge(int newMaxAge) { mMaxAge = newMaxAge; }
-	
+
 	void repairable(bool isRepairable) { mRepairable = isRepairable; }
 
 	virtual void defineResourceInput() {}
@@ -172,6 +173,8 @@ protected:
 
 	void resourcesIn(const StorableResources& resources) { mResourcesInput = resources; }
 
+	void storageCapacity(int capacity) { mStorageCapacity = capacity; }
+
 private:
 	Structure() = delete;
 
@@ -189,6 +192,7 @@ private:
 	int mAge = 0; /**< Age of the Structure in turns. */
 	int mMaxAge = 0; /**< Maximum number of turns the Structure can remain in good repair. */
 	int mEnergyRequirement = 0;
+	int mStorageCapacity = 0;
 
 	StructureID mStructureId{ StructureID::SID_NONE };
 
