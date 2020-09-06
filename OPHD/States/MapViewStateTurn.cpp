@@ -322,6 +322,8 @@ void MapViewState::updateResources()
 		addRefinedResources(moved);
 		stored = stored + moved;
 	}
+
+	updatePlayerResources();
 }
 
 
