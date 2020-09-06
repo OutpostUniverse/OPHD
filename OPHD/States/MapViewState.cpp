@@ -898,12 +898,15 @@ void MapViewState::placeRobot()
 				else { return; }
 			}
 
+			auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
+			addRefinedResources(recycledResources);
+
 			/**
-			 * \fixme	Since the StructureTranslator class will be deprecated in the future, there needs to be a better
-			 * 			way to determine this. I may go back to defining recycling values in the individual structures
-			 * 			themselves but I'm still not sure I love that idea. Will have to think about that one a bit.
+			 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
 			 */
-			mPlayerResources = mPlayerResources + StructureCatalogue::recyclingValue(structure->structureId());
+			if (!recycledResources.empty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
+			
+			updatePlayerResources();
 			updateStructuresAvailability();
 
 			tile->connected(false);
