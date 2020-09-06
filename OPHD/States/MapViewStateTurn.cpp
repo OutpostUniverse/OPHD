@@ -209,6 +209,32 @@ void MapViewState::updateMorale()
 }
 
 
+void MapViewState::addRefinedResources(StorableResources& resourcesToAdd)
+{
+	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+	
+	/**
+	 * The Command Center acts as backup storage especially during the beginning of the
+	 * game before storage tanks are built. This ensure that the CC is in the storage
+	 * structure list and that it's always the first structure in the list.
+	 */
+	storage.insert(storage.begin(), mTileMap->getTile(ccLocation()).structure());
+
+	for (auto structure : storage)
+	{
+		if (resourcesToAdd.empty()) { break; }
+
+		auto& storageTanksResources = structure->storage();
+
+		auto newResources = storageTanksResources + resourcesToAdd;
+		auto capped = newResources.cap(StorageTanksCapacity / 4);
+
+		storageTanksResources = capped;
+		resourcesToAdd = newResources - capped;
+	}
+}
+
+
 void MapViewState::updateResources()
 {
 	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
@@ -293,28 +319,7 @@ void MapViewState::updateResources()
 			std::clamp(stored.resources[3], 0, 25)
 		};
 
-		auto storageTanksList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
-
-		/**
-		 * The Command Center acts as backup storage especially during the beginning of the
-		 * game before storage tanks are built. This ensure that the CC is in the storage
-		 * structure list and that it's always the first structure in the list.
-		 */
-		storageTanksList.insert(storageTanksList.begin(), mTileMap->getTile(ccLocation()).structure());
-
-		for (auto storageTanks : storageTanksList)
-		{
-			if (moved.empty()) { break; }
-
-			auto& storageTanksResources = storageTanks->storage();
-
-			auto newResources = storageTanksResources + moved;
-			auto capped = newResources.cap(StorageTanksCapacity / 4);
-
-			storageTanksResources = capped;
-			moved = newResources - capped;
-		}
-
+		addRefinedResources(moved);
 		stored = stored + moved;
 	}
 }

@@ -148,6 +148,8 @@ private:
 
 	void mineFacilityExtended(MineFacility* mf);
 
+	void addRefinedResources(StorableResources&);
+
 	// TURN LOGIC
 	void checkColonyShip();
 	void nextTurn();
