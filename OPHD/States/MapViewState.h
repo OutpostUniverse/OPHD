@@ -148,7 +148,6 @@ private:
 
 	void mineFacilityExtended(MineFacility* mf);
 
-	void addRefinedResources(StorableResources&);
 	void removeRefinedResources(StorableResources&);
 	void updatePlayerResources();
 

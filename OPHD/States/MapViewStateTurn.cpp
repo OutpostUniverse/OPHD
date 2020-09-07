@@ -209,32 +209,6 @@ void MapViewState::updateMorale()
 }
 
 
-void MapViewState::addRefinedResources(StorableResources& resourcesToAdd)
-{
-	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
-	
-	/**
-	 * The Command Center acts as backup storage especially during the beginning of the
-	 * game before storage tanks are built. This ensure that the CC is in the storage
-	 * structure list and that it's always the first structure in the list.
-	 */
-	storage.insert(storage.begin(), mTileMap->getTile(ccLocation()).structure());
-
-	for (auto structure : storage)
-	{
-		if (resourcesToAdd.empty()) { break; }
-
-		auto& storageTanksResources = structure->storage();
-
-		auto newResources = storageTanksResources + resourcesToAdd;
-		auto capped = newResources.cap(structure->storageCapacity() / 4);
-
-		storageTanksResources = capped;
-		resourcesToAdd = newResources - capped;
-	}
-}
-
-
 /**
  * \note	Assumes that enough resources are available and has already
  *			been checked.

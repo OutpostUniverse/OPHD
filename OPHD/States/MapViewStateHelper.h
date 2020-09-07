@@ -49,6 +49,9 @@ void moveProducts(Warehouse*);
 
 void resourceShortageMessage(StorableResources&, StructureID);
 
+void addRefinedResources(StorableResources&);
+
+
 // Serialize / Deserialize
 void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap);
 
