@@ -37,6 +37,12 @@ struct StorableResources
 		return out;
 	}
 
+	StorableResources& operator-=(const StorableResources& other)
+	{
+		*this = *this - other;
+		return *this;
+	}
+
 	bool operator<=(const StorableResources& other) const
 	{
 		return resources[0] <= other.resources[0] &&
