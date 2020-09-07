@@ -22,22 +22,6 @@
 #include <algorithm>
 
 
-static int pullResource(int& resource, int amount)
-{
-	if (amount <= resource)
-	{
-		resource -= amount;
-		return amount;
-	}
-	else
-	{
-		int ret = resource;
-		resource = 0;
-		return ret;
-	}
-}
-
-
 static inline void pullFoodFromStructure(FoodProduction* producer, int& remainder)
 {
 	if (remainder <= 0) { return; }
@@ -206,31 +190,6 @@ void MapViewState::updateMorale()
 	mCurrentMorale -= residentialMoraleHit;
 
 	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
-}
-
-
-/**
- * \note	Assumes that enough resources are available and has already
- *			been checked.
- */
-void MapViewState::removeRefinedResources(StorableResources& resourcesToRemove)
-{
-	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
-	
-	// Command Center is backup storage, we want to pull from it last
-	storage.push_back(mTileMap->getTile(ccLocation()).structure());
-
-	for (auto structure : storage)
-	{
-		if (resourcesToRemove.empty()) { break; }
-
-		auto& resourcesInStorage = structure->storage().resources;
-		for (size_t i = 0; i < resourcesInStorage.size(); ++i)
-		{
-			const int pulled = pullResource(resourcesInStorage[i], resourcesToRemove.resources[i]);
-			resourcesToRemove.resources[i] -= pulled;
-		}
-	}
 }
 
 

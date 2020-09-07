@@ -478,6 +478,58 @@ void addRefinedResources(StorableResources& resourcesToAdd)
 }
 
 
+/**
+ * Remove refined resources from the players storage structures.
+ * 
+ * \note	Assumes that enough resources are available and has already
+ *			been checked.
+ */
+void removeRefinedResources(StorableResources& resourcesToRemove)
+{
+	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+
+	// Command Center is backup storage, we want to pull from it last
+	auto command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+	storage.insert(storage.end(), command.begin(), command.end());
+
+	for (auto structure : storage)
+	{
+		if (resourcesToRemove.empty()) { break; }
+
+		auto& resourcesInStorage = structure->storage().resources;
+		for (size_t i = 0; i < resourcesInStorage.size(); ++i)
+		{
+			const int pulled = pullResource(resourcesInStorage[i], resourcesToRemove.resources[i]);
+			resourcesToRemove.resources[i] -= pulled;
+		}
+	}
+}
+
+
+/**
+ * Pull specified amount of resources from a given quantity.
+ * 
+ * \note	Modifies param \c resource.
+ * 
+ * \return	Actual amount pulled.
+ */
+int pullResource(int& resource, int amount)
+{
+	if (amount <= resource)
+	{
+		resource -= amount;
+		return amount;
+	}
+	else
+	{
+		int ret = resource;
+		resource = 0;
+		return ret;
+	}
+}
+
+
+
 // ==============================================================
 // = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
 // ==============================================================

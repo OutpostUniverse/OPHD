@@ -148,7 +148,6 @@ private:
 
 	void mineFacilityExtended(MineFacility* mf);
 
-	void removeRefinedResources(StorableResources&);
 	void updatePlayerResources();
 
 	// TURN LOGIC
