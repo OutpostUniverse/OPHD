@@ -101,15 +101,16 @@ protected:
 			}
 		}
 
-		auto total = storage() + converted;
+		auto& stored = storage();
+		auto total = stored + converted;
 		auto capped = total.cap(IndividualMaterialCapacity());
 		auto overflow = total - capped;
 
-		storage() = storage() + capped;
+		stored = capped;
 
-		if (overflow > StorableResources{ 0 })
+		if (!overflow.empty())
 		{
-			ore = ore + overflow;
+			ore += overflow;
 			idle(IdleReason::InternalStorageFull);
 		}
 	}
