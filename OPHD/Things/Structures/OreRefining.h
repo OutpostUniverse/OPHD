@@ -73,7 +73,10 @@ protected:
 	{
 		if (isIdle())
 		{
-			if (storage() < StorableResources{ IndividualMaterialCapacity() })
+			if (storage() < StorableResources{ IndividualMaterialCapacity(),
+				IndividualMaterialCapacity(),
+				IndividualMaterialCapacity(),
+				IndividualMaterialCapacity() })
 			{
 				enable();
 			}
@@ -110,8 +113,21 @@ protected:
 
 		if (!overflow.empty())
 		{
-			ore += overflow;
-			idle(IdleReason::InternalStorageFull);
+			StorableResources deconvertedResources{ overflow.resources[0] * OreConversionDivisor[0],
+				overflow.resources[1] * OreConversionDivisor[1],
+				overflow.resources[2] * OreConversionDivisor[2],
+				overflow.resources[3] * OreConversionDivisor[3]
+			};
+
+			ore += deconvertedResources;
+
+			if (ore >= StorableResources{ IndividualMaterialCapacity(),
+				IndividualMaterialCapacity(),
+				IndividualMaterialCapacity(),
+				IndividualMaterialCapacity() })
+			{
+				idle(IdleReason::InternalStorageFull);
+			}
 		}
 	}
 
