@@ -277,8 +277,9 @@ void MapViewState::updateResources()
 			std::clamp(stored.resources[3], 0, 25)
 		};
 
+		stored -= moved;
 		addRefinedResources(moved);
-		stored = stored + moved;
+		stored += moved;
 	}
 
 	updatePlayerResources();
