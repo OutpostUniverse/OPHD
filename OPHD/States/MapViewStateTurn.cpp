@@ -235,6 +235,10 @@ void MapViewState::addRefinedResources(StorableResources& resourcesToAdd)
 }
 
 
+/**
+ * \note	Assumes that enough resources are available and has already
+ *			been checked.
+ */
 void MapViewState::removeRefinedResources(StorableResources& resourcesToRemove)
 {
 	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
