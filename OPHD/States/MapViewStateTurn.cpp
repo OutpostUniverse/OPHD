@@ -235,6 +235,27 @@ void MapViewState::addRefinedResources(StorableResources& resourcesToAdd)
 }
 
 
+void MapViewState::removeRefinedResources(StorableResources& resourcesToRemove)
+{
+	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+	
+	// Command Center is backup storage, we want to pull from it last
+	storage.push_back(mTileMap->getTile(ccLocation()).structure());
+
+	for (auto structure : storage)
+	{
+		if (resourcesToRemove.empty()) { break; }
+
+		auto& resourcesInStorage = structure->storage().resources;
+		for (size_t i = 0; i < resourcesInStorage.size(); ++i)
+		{
+			const int pulled = pullResource(resourcesInStorage[i], resourcesToRemove.resources[i]);
+			resourcesToRemove.resources[i] -= pulled;
+		}
+	}
+}
+
+
 void MapViewState::updateResources()
 {
 	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
