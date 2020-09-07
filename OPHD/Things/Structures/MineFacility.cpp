@@ -109,17 +109,17 @@ void MineFacility::think()
 		
 		if (mMine->miningCommonMinerals())
 		{
-			ore.resources[1] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 1));
+			ore.resources[1] = mMine->pull(Mine::OreType::ORE_COMMON_MINERALS, pull_count(this, 1));
 		}
 		
 		if (mMine->miningRareMetals())
 		{
-			ore.resources[2] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 2));
+			ore.resources[2] = mMine->pull(Mine::OreType::ORE_RARE_METALS, pull_count(this, 2));
 		}
 		
 		if (mMine->miningRareMinerals())
 		{
-			ore.resources[3] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 3));
+			ore.resources[3] = mMine->pull(Mine::OreType::ORE_RARE_MINERALS, pull_count(this, 3));
 		}
 
 		storage() += ore;
