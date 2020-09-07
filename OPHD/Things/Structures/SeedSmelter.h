@@ -16,13 +16,11 @@ public:
 		maxAge(150);
 		turnsToBuild(6);
 		requiresCHAP(false);
+
+		storageCapacity(StorageCapacity);
 	}
 
 protected:
-	int TotalCapacity() const override
-	{
-		return StorageCapacity;
-	}
 
 private:
 	void defineResourceInput() override

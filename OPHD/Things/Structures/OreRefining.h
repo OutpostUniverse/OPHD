@@ -62,14 +62,9 @@ public:
 	}
 
 	/**
-	 * Maximum capacity of all refined resources combined
-	 */
-	virtual int TotalCapacity() const = 0;
-
-	/**
      * Capacity of an individual type of refined resource
      */
-	int IndividualMaterialCapacity() const { return TotalCapacity() / 4; }
+	int IndividualMaterialCapacity() const { return storageCapacity() / 4; }
 
 protected:
 	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
