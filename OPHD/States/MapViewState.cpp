@@ -1153,7 +1153,9 @@ void MapViewState::placeStructure()
 			static_cast<Factory*>(structure)->resourcePool(&mPlayerResources);
 		}
 
-		mPlayerResources = mPlayerResources - StructureCatalogue::costToBuild(mCurrentStructure);
+		auto cost = StructureCatalogue::costToBuild(mCurrentStructure);
+		removeRefinedResources(cost);
+		updatePlayerResources();
 		updateStructuresAvailability();
 	}
 }
