@@ -247,11 +247,13 @@ void MapViewState::updateResources()
 			auto& stored = mineFacility->storage();
 			StorableResources moved
 			{
-				std::clamp(oreMovementPart, 0, (mineFacility->storageCapacity() / 4) - stored.resources[0]),
-				std::clamp(oreMovementPart, 0, (mineFacility->storageCapacity() / 4) - stored.resources[1]),
-				std::clamp(oreMovementPart, 0, (mineFacility->storageCapacity() / 4) - stored.resources[2]),
-				std::clamp(oreMovementPart + oreMovementRemainder, 0, (mineFacility->storageCapacity() / 4) - stored.resources[3])
+				std::clamp(stored.resources[0], 0, oreMovementPart),
+				std::clamp(stored.resources[1], 0, oreMovementPart),
+				std::clamp(stored.resources[2], 0, oreMovementPart),
+				std::clamp(stored.resources[3], 0, oreMovementPart + oreMovementRemainder)
 			};
+
+			stored -= moved;
 
 			auto& smelterProduction = smelter->production();
 			auto newResources = smelterProduction + moved;
@@ -259,7 +261,7 @@ void MapViewState::updateResources()
 			smelterProduction = capped;
 
 			auto overflow = newResources - capped;
-			stored = stored - (moved + overflow);
+			stored += overflow;
 		}
 	}
 
