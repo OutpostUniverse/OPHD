@@ -82,7 +82,7 @@ void MapViewState::save(const std::string& filePath)
 	mTileMap->serialize(root, mPlanetAttributes);
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
-	writeResources(root, mPlayerResources, "resources");
+	//writeResources(root, mPlayerResources, "resources");
 	writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
 
 	XmlElement* turns = new XmlElement("turns");
@@ -195,7 +195,6 @@ void MapViewState::load(const std::string& filePath)
 	readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"));
 
-	readResources(root->firstChildElement("resources"), mPlayerResources);
 	readResources(root->firstChildElement("prev_resources"), mResourceBreakdownPanel.previousResources());
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
@@ -212,6 +211,7 @@ void MapViewState::load(const std::string& filePath)
 	updateResidentialCapacity();
 	updateStructuresAvailability();
 	updateFood();
+	updatePlayerResources();
 
 	if (mTurnCount == 0)
 	{
