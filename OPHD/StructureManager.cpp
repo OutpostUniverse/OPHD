@@ -46,7 +46,7 @@ bool StructureManager::CHAPAvailable()
 /**
  *
  */
-void StructureManager::update(StorableResources& resources, PopulationPool& population)
+void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
@@ -110,7 +110,7 @@ void StructureManager::updateEnergyProduction()
 /**
  *
  */
-void StructureManager::updateStructures(StorableResources& resources, PopulationPool& population, StructureList& structures)
+void StructureManager::updateStructures(const StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
 	Structure* structure = nullptr;
 	for (std::size_t i = 0; i < structures.size(); ++i)

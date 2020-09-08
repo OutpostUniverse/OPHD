@@ -431,7 +431,7 @@ void moveProducts(Warehouse* sourceWarehouse)
  * Displays a message indicating that there are not enough resources to build
  * a structure and what the missing resources are.
  */
-void resourceShortageMessage(StorableResources& resources, StructureID sid)
+void resourceShortageMessage(const StorableResources& resources, StructureID sid)
 {
 	StorableResources cost = StructureCatalogue::costToBuild(sid);
 

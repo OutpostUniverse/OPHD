@@ -45,7 +45,7 @@ public:
 	int totalEnergyUsed() const { return mTotalEnergyUsed; }
 	int totalEnergyAvailable() const { return mTotalEnergyOutput - mTotalEnergyUsed; }
 
-	void update(StorableResources&, PopulationPool&);
+	void update(const StorableResources&, PopulationPool&);
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 
@@ -54,7 +54,7 @@ private:
 	using StructureClassTable = std::map<Structure::StructureClass, StructureList>;
 
 
-	void updateStructures(StorableResources&, PopulationPool&, StructureList&);
+	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 	void updateFactoryProduction();
 
 	bool structureConnected(Structure* structure);

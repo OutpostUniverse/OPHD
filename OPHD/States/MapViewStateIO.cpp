@@ -160,7 +160,6 @@ void MapViewState::load(const std::string& filePath)
 	}
 
 	scrubRobotList();
-	mPlayerResources.clear();
 	Utility<StructureManager>::get().dropAllStructures();
 	ccLocation() = CcNotPlaced;
 

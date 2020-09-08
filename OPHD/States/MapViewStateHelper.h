@@ -47,7 +47,7 @@ RobotCommand* getAvailableRobotCommand();
 bool simulateMoveProducts(Warehouse*);
 void moveProducts(Warehouse*);
 
-void resourceShortageMessage(StorableResources&, StructureID);
+void resourceShortageMessage(const StorableResources&, StructureID);
 
 void addRefinedResources(StorableResources&);
 void removeRefinedResources(StorableResources&);
