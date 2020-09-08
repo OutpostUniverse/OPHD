@@ -110,8 +110,6 @@ void StructureManager::updateEnergyProduction()
  */
 void StructureManager::updateStructures(StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
-	bool chapAvailable = CHAPAvailable();
-
 	Structure* structure = nullptr;
 	for (std::size_t i = 0; i < structures.size(); ++i)
 	{
@@ -134,12 +132,11 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 		}
 
 		// CHAP Check
-		if (structure->requiresCHAP() && !chapAvailable)
+		if (structure->requiresCHAP() && !CHAPAvailable())
 		{
 			structure->disable(DisabledReason::Chap);
 			continue;
 		}
-
 
 		// Population Check
 		const auto& populationRequired = structure->populationRequirements();
@@ -160,16 +157,14 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 			continue;
 		}
 
-
 		// Check that enough resources are available for input.
 		if (!structure->isIdle() && !(resources >= structure->resourcesIn()))
 		{
 			structure->disable(DisabledReason::RefinedResources);
 			continue;
-			}
+		}
 
-			structure->enable();
-
+		structure->enable();
 
 		if (structure->operational() || structure->isIdle())
 		{
