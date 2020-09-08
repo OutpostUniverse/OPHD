@@ -15,12 +15,8 @@ public:
 		maxAge(600);
 		turnsToBuild(9);
 		requiresCHAP(false);
-	}
 
-protected:
-	int TotalCapacity() const override
-	{
-		return StorageCapacity;
+		storageCapacity(StorageCapacity);
 	}
 
 private:

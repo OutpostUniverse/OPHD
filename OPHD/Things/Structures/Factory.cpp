@@ -4,6 +4,7 @@
 #include "Factory.h"
 
 #include "../../ProductionCost.h"
+#include "../../States/MapViewStateHelper.h" // yuck
 
 #include <algorithm>
 
@@ -128,14 +129,17 @@ void Factory::updateProduction()
 		return;
 	}
 	
-	/**
-	 * \todo	Have this use operator- once the production table is converted to using StorableResources
-	 */
 	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
-	mResources->resources[0] = mResources->resources[0] - productionCost.commonMetals();
-	mResources->resources[1] = mResources->resources[1] - productionCost.commonMinerals();
-	mResources->resources[2] = mResources->resources[2] - productionCost.rareMetals();
-	mResources->resources[3] = mResources->resources[3] - productionCost.rareMinerals();
+	StorableResources cost {
+		productionCost.commonMetals(),
+		productionCost.commonMinerals(),
+		productionCost.rareMetals(),
+		productionCost.rareMinerals()
+	};
+
+	removeRefinedResources(cost);
+
+	if (!cost.empty()) { throw std::runtime_error("Factory::updateProduction(): Production cost not empty"); }
 
 	++mTurnsCompleted;
 

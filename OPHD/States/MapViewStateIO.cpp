@@ -82,7 +82,7 @@ void MapViewState::save(const std::string& filePath)
 	mTileMap->serialize(root, mPlanetAttributes);
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
-	writeResources(root, mPlayerResources, "resources");
+	//writeResources(root, mPlayerResources, "resources");
 	writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
 
 	XmlElement* turns = new XmlElement("turns");
@@ -160,7 +160,6 @@ void MapViewState::load(const std::string& filePath)
 	}
 
 	scrubRobotList();
-	mPlayerResources.clear();
 	Utility<StructureManager>::get().dropAllStructures();
 	ccLocation() = CcNotPlaced;
 
@@ -195,7 +194,6 @@ void MapViewState::load(const std::string& filePath)
 	readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"));
 
-	readResources(root->firstChildElement("resources"), mPlayerResources);
 	readResources(root->firstChildElement("prev_resources"), mResourceBreakdownPanel.previousResources());
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
@@ -203,8 +201,6 @@ void MapViewState::load(const std::string& filePath)
 	auto energy = root->firstChildElement("energy");
 	if (!energy) { throw std::runtime_error("MapViewState::load(): Savegame file is missing '<energy>' tag."); }
 	mEnergy = std::stoi(energy->attribute(constants::SAVE_GAME_ENERGY));
-
-	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
 
 	checkConnectedness();
 
@@ -214,6 +210,7 @@ void MapViewState::load(const std::string& filePath)
 	updateResidentialCapacity();
 	updateStructuresAvailability();
 	updateFood();
+	updatePlayerResources();
 
 	if (mTurnCount == 0)
 	{

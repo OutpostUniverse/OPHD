@@ -431,7 +431,7 @@ void moveProducts(Warehouse* sourceWarehouse)
  * Displays a message indicating that there are not enough resources to build
  * a structure and what the missing resources are.
  */
-void resourceShortageMessage(StorableResources& resources, StructureID sid)
+void resourceShortageMessage(const StorableResources& resources, StructureID sid)
 {
 	StorableResources cost = StructureCatalogue::costToBuild(sid);
 
@@ -445,6 +445,87 @@ void resourceShortageMessage(StorableResources& resources, StructureID sid)
 	}
 
 	doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, message);
+}
+
+
+/**
+ * Add refined resources to the players storage structures.
+ */
+void addRefinedResources(StorableResources& resourcesToAdd)
+{
+	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+
+	/**
+	 * The Command Center acts as backup storage especially during the beginning of the
+	 * game before storage tanks are built. This ensure that the CC is in the storage
+	 * structure list and that it's always the first structure in the list.
+	 */
+	auto command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+	storage.insert(storage.begin(), command.begin(), command.end());
+
+	for (auto structure : storage)
+	{
+		if (resourcesToAdd.empty()) { break; }
+
+		auto& storageTanksResources = structure->storage();
+
+		auto newResources = storageTanksResources + resourcesToAdd;
+		auto capped = newResources.cap(structure->storageCapacity() / 4);
+
+		storageTanksResources = capped;
+		resourcesToAdd = newResources - capped;
+	}
+}
+
+
+/**
+ * Remove refined resources from the players storage structures.
+ * 
+ * \note	Assumes that enough resources are available and has already
+ *			been checked.
+ */
+void removeRefinedResources(StorableResources& resourcesToRemove)
+{
+	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+
+	// Command Center is backup storage, we want to pull from it last
+	auto command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+	storage.insert(storage.end(), command.begin(), command.end());
+
+	for (auto structure : storage)
+	{
+		if (resourcesToRemove.empty()) { break; }
+
+		auto& resourcesInStorage = structure->storage().resources;
+		for (size_t i = 0; i < resourcesInStorage.size(); ++i)
+		{
+			const int pulled = pullResource(resourcesInStorage[i], resourcesToRemove.resources[i]);
+			resourcesToRemove.resources[i] -= pulled;
+		}
+	}
+}
+
+
+/**
+ * Pull specified amount of resources from a given quantity.
+ * 
+ * \note	Modifies param \c resource.
+ * 
+ * \return	Actual amount pulled.
+ */
+int pullResource(int& resource, int amount)
+{
+	if (amount <= resource)
+	{
+		resource -= amount;
+		return amount;
+	}
+	else
+	{
+		int ret = resource;
+		resource = 0;
+		return ret;
+	}
 }
 
 

@@ -16,6 +16,7 @@ public:
 		turnsToBuild(2);
 
 		requiresCHAP(false);
+		storageCapacity(StorageTanksCapacity);
 	}
 
 	StringTable createInspectorViewTable() override
@@ -23,7 +24,7 @@ public:
 		StringTable stringTable(2, 1);
 
 		stringTable[{0, 0}].text = "Storage Capacity:";
-		stringTable[{1, 0}].text = std::to_string(StorageTanksCapacity);
+		stringTable[{1, 0}].text = std::to_string(storageCapacity());
 
 		return stringTable;
 	}

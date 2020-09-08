@@ -5,10 +5,10 @@
 #include <array>
 
 /**
- * \class	PowerStructure
- * \brief	Virtual class for structures whose primary purpose is power production
+ * \class	OreRefining
+ * \brief	Virtual class for structures whose primary purpose is ore processing
  *
- * \note	PowerStructure is an abstract class
+ * \note	OreRefining is an abstract class
  */
 class OreRefining : public Structure
 {
@@ -44,24 +44,27 @@ public:
 				"Ore Conversion Rate"
 			});
 
-		for (std::size_t i = 0; i < storage().resources.size(); ++i)
-		{
-			stringTable[{1, i + 1}].text = writeStorageAmount(storage().resources[i]);
-			stringTable[{2, i + 1}].text = std::to_string(OreConversionDivisor[i]) + " : 1";
-		}
+		auto& resources = storage().resources;
+
+		stringTable[{1, 1}].text = writeStorageAmount(resources[0]);
+		stringTable[{2, 1}].text = std::to_string(OreConversionDivisor[0]) + " : 1";
+
+		stringTable[{1, 2}].text = writeStorageAmount(resources[2]);
+		stringTable[{2, 2}].text = std::to_string(OreConversionDivisor[2]) + " : 1";
+
+		stringTable[{1, 3}].text = writeStorageAmount(resources[1]);
+		stringTable[{2, 3}].text = std::to_string(OreConversionDivisor[1]) + " : 1";
+
+		stringTable[{1, 4}].text = writeStorageAmount(resources[3]);
+		stringTable[{2, 4}].text = std::to_string(OreConversionDivisor[3]) + " : 1";
 
 		return stringTable;
 	}
 
 	/**
-	 * Maximum capacity of all refined resources combined
-	 */
-	virtual int TotalCapacity() const = 0;
-
-	/**
      * Capacity of an individual type of refined resource
      */
-	int IndividualMaterialCapacity() const { return TotalCapacity() / 4; }
+	int IndividualMaterialCapacity() const { return storageCapacity() / 4; }
 
 protected:
 	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
@@ -70,7 +73,10 @@ protected:
 	{
 		if (isIdle())
 		{
-			if (storage() < StorableResources{ IndividualMaterialCapacity() })
+			if (storage() < StorableResources{ IndividualMaterialCapacity(),
+				IndividualMaterialCapacity(),
+				IndividualMaterialCapacity(),
+				IndividualMaterialCapacity() })
 			{
 				enable();
 			}
@@ -98,16 +104,30 @@ protected:
 			}
 		}
 
-		auto total = storage() + converted;
+		auto& stored = storage();
+		auto total = stored + converted;
 		auto capped = total.cap(IndividualMaterialCapacity());
 		auto overflow = total - capped;
 
-		storage() = storage() + capped;
+		stored = capped;
 
-		if (overflow > StorableResources{ 0 })
+		if (!overflow.empty())
 		{
-			ore = ore + overflow;
-			idle(IdleReason::InternalStorageFull);
+			StorableResources deconvertedResources{ overflow.resources[0] * OreConversionDivisor[0],
+				overflow.resources[1] * OreConversionDivisor[1],
+				overflow.resources[2] * OreConversionDivisor[2],
+				overflow.resources[3] * OreConversionDivisor[3]
+			};
+
+			ore += deconvertedResources;
+
+			if (ore >= StorableResources{ IndividualMaterialCapacity(),
+				IndividualMaterialCapacity(),
+				IndividualMaterialCapacity(),
+				IndividualMaterialCapacity() })
+			{
+				idle(IdleReason::InternalStorageFull);
+			}
 		}
 	}
 

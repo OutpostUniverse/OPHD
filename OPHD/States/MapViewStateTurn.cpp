@@ -22,28 +22,12 @@
 #include <algorithm>
 
 
-static int pullFood(int& food, int amount)
-{
-	if (amount <= food)
-	{
-		food = food - amount;
-		return amount;
-	}
-	else
-	{
-		int ret = food;
-		food = 0;
-		return ret;
-	}
-}
-
-
 static inline void pullFoodFromStructure(FoodProduction* producer, int& remainder)
 {
 	if (remainder <= 0) { return; }
 
 	int foodLevel = producer->foodLevel();
-	int pulled = pullFood(foodLevel, remainder);
+	int pulled = pullResource(foodLevel, remainder);
 
 	producer->foodLevel(foodLevel);
 	remainder -= pulled;
@@ -211,8 +195,6 @@ void MapViewState::updateMorale()
 
 void MapViewState::updateResources()
 {
-	mRefinedResourcesCap = totalStorage(Structure::StructureClass::Storage, StorageTanksCapacity);
-
 	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
 
 	mPathSolver->Reset();
@@ -271,20 +253,22 @@ void MapViewState::updateResources()
 				std::clamp(stored.resources[3], 0, oreMovementPart + oreMovementRemainder)
 			};
 
+			stored -= moved;
+
 			auto& smelterProduction = smelter->production();
 			auto newResources = smelterProduction + moved;
 			auto capped = newResources.cap(250);
 			smelterProduction = capped;
 
 			auto overflow = newResources - capped;
-			stored = stored - (moved + overflow);
+			stored += overflow;
 		}
 	}
 
 	// Move refined resources from smelters to storage tanks
 	for (auto smelter : smelterList)
 	{
-		if (!smelter->operational()) { continue; } // consider a different control path.
+		if (!smelter->operational() && !smelter->isIdle()) { continue; } // consider a different control path.
 
 		auto& stored = smelter->storage();
 		StorableResources moved
@@ -295,15 +279,12 @@ void MapViewState::updateResources()
 			std::clamp(stored.resources[3], 0, 25)
 		};
 
-		auto newResources = mPlayerResources + moved;
-		auto capped = newResources.cap(mRefinedResourcesCap / 4);
-
-		mPlayerResources = capped;
-
-		auto overflow = newResources - capped;
-		stored = stored - (moved + overflow);
-		std::cout << "Whatever";
+		stored -= moved;
+		addRefinedResources(moved);
+		stored += moved;
 	}
+
+	updatePlayerResources();
 }
 
 

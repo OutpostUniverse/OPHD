@@ -11,6 +11,8 @@
 #include "Things/Robots/Robot.h"
 #include "Things/Structures/Structures.h"
 
+#include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
+
 #include <algorithm>
 #include <sstream>
 
@@ -44,7 +46,7 @@ bool StructureManager::CHAPAvailable()
 /**
  *
  */
-void StructureManager::update(StorableResources& resources, PopulationPool& population)
+void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
@@ -108,10 +110,8 @@ void StructureManager::updateEnergyProduction()
 /**
  *
  */
-void StructureManager::updateStructures(StorableResources& resources, PopulationPool& population, StructureList& structures)
+void StructureManager::updateStructures(const StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
-	bool chapAvailable = CHAPAvailable();
-
 	Structure* structure = nullptr;
 	for (std::size_t i = 0; i < structures.size(); ++i)
 	{
@@ -134,12 +134,11 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 		}
 
 		// CHAP Check
-		if (structure->requiresCHAP() && !chapAvailable)
+		if (structure->requiresCHAP() && !CHAPAvailable())
 		{
 			structure->disable(DisabledReason::Chap);
 			continue;
 		}
-
 
 		// Population Check
 		const auto& populationRequired = structure->populationRequirements();
@@ -160,23 +159,23 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 			continue;
 		}
 
-
 		// Check that enough resources are available for input.
 		if (!structure->isIdle() && !(resources >= structure->resourcesIn()))
 		{
 			structure->disable(DisabledReason::RefinedResources);
 			continue;
-			}
+		}
 
-			structure->enable();
-
+		structure->enable();
 
 		if (structure->operational() || structure->isIdle())
 		{
 			population.usePopulation(Population::PersonRole::ROLE_WORKER, populationRequired[0]);
 			population.usePopulation(Population::PersonRole::ROLE_SCIENTIST, populationRequired[1]);
 
-			resources = resources - structure->resourcesIn();
+			auto consumed = structure->resourcesIn();
+			removeRefinedResources(consumed);
+
 			mTotalEnergyUsed += structure->energyRequirement();
 
 			structure->think();

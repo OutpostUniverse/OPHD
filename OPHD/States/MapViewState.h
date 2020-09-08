@@ -135,9 +135,8 @@ private:
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
 	void updateFood();
-	int resourcesInStorage();
+	int refinedResourcesInStorage();
 	int totalStorage(Structure::StructureClass, int);
-
 
 	void setMinimapView();
 
@@ -148,6 +147,8 @@ private:
 	void factoryProductionComplete(Factory& factory);
 
 	void mineFacilityExtended(MineFacility* mf);
+
+	void updatePlayerResources();
 
 	// TURN LOGIC
 	void checkColonyShip();
@@ -226,10 +227,9 @@ private:
 
 	int mEnergy{ 0 };
 	int mFood{ 0 };
-	int mRefinedResourcesCap{ 0 };
 
 	// POOLS
-	StorableResources mPlayerResources; /**< Player's current refined resources. */
+	const StorableResources mPlayerResources; /**< Player's current refined resources. */
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;
 

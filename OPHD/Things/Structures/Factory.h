@@ -35,7 +35,7 @@ public:
 
 	virtual void updateProduction();
 
-	void resourcePool(StorableResources* resources) { mResources = resources; }
+	void resourcePool(const StorableResources* resources) { mResources = resources; }
 
 	int productionTurnsToComplete() const { return mTurnsToComplete; }
 	void productionTurnsToComplete(int newTurnsToComplete) { mTurnsToComplete = newTurnsToComplete; }
@@ -62,7 +62,7 @@ protected:
 	void addProduct(ProductType type);
 	bool enoughResourcesAvailable();
 
-	StorableResources* resourcePool() { return mResources; }
+	const StorableResources* resourcePool() { return mResources; }
 
 private:
 	int mTurnsCompleted = 0;
@@ -75,7 +75,7 @@ private:
 
 	ProductionCallback mProductionComplete; /**< Callback used when production is complete. */
 
-	StorableResources* mResources = nullptr; /**< Pointer to the player's resource pool. UGLY. */
+	const StorableResources* mResources = nullptr; /**< Pointer to the player's resource pool. UGLY. */
 };
 
 const ProductionCost& productCost(ProductType);

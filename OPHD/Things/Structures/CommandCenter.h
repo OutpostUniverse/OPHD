@@ -18,6 +18,8 @@ public:
 
 		requiresCHAP(false);
 		selfSustained(true);
+
+		storageCapacity(constants::BASE_STORAGE_CAPACITY);
 	}
 
 protected:

@@ -13,8 +13,8 @@ class ResourceBreakdownPanel : public Control
 public:
 	ResourceBreakdownPanel();
 
-	void playerResources(StorableResources* resources) { mPlayerResources = resources; }
-	void previousResources(StorableResources& resources) { mPreviousResources = resources; }
+	void playerResources(const StorableResources* resources) { mPlayerResources = resources; }
+	void previousResources(const StorableResources& resources) { mPreviousResources = resources; }
 	StorableResources& previousResources() { return mPreviousResources; }
 	void update() override;
 
@@ -24,5 +24,5 @@ private:
 	NAS2D::RectangleSkin mSkin;
 
 	StorableResources mPreviousResources;
-	StorableResources* mPlayerResources = nullptr;
+	const StorableResources* mPlayerResources = nullptr;
 };

@@ -14,7 +14,7 @@ const int MineFacilityStorageCapacity = 500;
  */
 static int pull_count(MineFacility* _mf, size_t index)
 {
-	const int storageCapacity = (MineFacilityStorageCapacity / 4);
+	const int storageCapacity = (_mf->storageCapacity() / 4);
 	const int remainingCapacity = storageCapacity - _mf->production().resources[index];
 
 	const int total = std::clamp(constants::BASE_MINE_PRODUCTION_RATE, 0, remainingCapacity);
@@ -38,6 +38,7 @@ MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY,
 
 	requiresCHAP(false);
 	selfSustained(true);
+	storageCapacity(500);
 }
 
 
@@ -71,9 +72,15 @@ void MineFacility::think()
 		return;
 	}
 
+	static const StorableResources capacity{ MineFacilityStorageCapacity / 4,
+		MineFacilityStorageCapacity / 4,
+		MineFacilityStorageCapacity / 4,
+		MineFacilityStorageCapacity / 4
+	};
+
 	if (isIdle() && mMine->active())
 	{
-		if (storage() < StorableResources{ MineFacilityStorageCapacity / 4 })
+		if (storage() < capacity)
 		{
 			enable();
 		}
@@ -87,13 +94,13 @@ void MineFacility::think()
 
 	if (mMine->active())
 	{
-		if (storage() >= StorableResources{ MineFacilityStorageCapacity / 4 })
+		if (storage() >= capacity)
 		{
 			idle(IdleReason::MineExhausted);
 			return;
 		}
 
-		StorableResources ore{ 0 };
+		StorableResources ore;
 
 		if (mMine->miningCommonMetals())
 		{
@@ -102,20 +109,20 @@ void MineFacility::think()
 		
 		if (mMine->miningCommonMinerals())
 		{
-			ore.resources[1] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 1));
+			ore.resources[1] = mMine->pull(Mine::OreType::ORE_COMMON_MINERALS, pull_count(this, 1));
 		}
 		
 		if (mMine->miningRareMetals())
 		{
-			ore.resources[2] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 2));
+			ore.resources[2] = mMine->pull(Mine::OreType::ORE_RARE_METALS, pull_count(this, 2));
 		}
 		
 		if (mMine->miningRareMinerals())
 		{
-			ore.resources[3] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 3));
+			ore.resources[3] = mMine->pull(Mine::OreType::ORE_RARE_MINERALS, pull_count(this, 3));
 		}
 
-		storage() = storage() + ore;
+		storage() += ore;
 	}
 	else if (!isIdle())
 	{

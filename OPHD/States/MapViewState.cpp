@@ -250,15 +250,35 @@ int MapViewState::totalStorage(Structure::StructureClass structureClass, int cap
 }
 
 
-int MapViewState::resourcesInStorage()
+int MapViewState::refinedResourcesInStorage()
 {
 	int total = 0;
 	for (size_t i = 0; i < mPlayerResources.resources.size(); ++i)
 	{
 		total += mPlayerResources.resources[i];
 	}
-
 	return total;
+}
+
+
+void MapViewState::updatePlayerResources()
+{
+	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+	storage.insert(storage.begin(), mTileMap->getTile(ccLocation()).structure());
+
+	/**
+	 * This at first looks heinous. However, mPlayerResources is declared const
+	 * to ensure that it is treated as a read-only object. This function is the
+	 * only one allowed to modify it.
+	 */
+	auto& playerResources = const_cast<StorableResources&>(mPlayerResources);
+
+	playerResources.clear();
+
+	for (auto structure : storage)
+	{
+		playerResources += structure->storage();
+	}
 }
 
 
@@ -378,7 +398,9 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		case EventHandler::KeyCode::KEY_F10:
 			if (Utility<EventHandler>::get().control(mod) && Utility<EventHandler>::get().shift(mod))
 			{
-				mPlayerResources = mPlayerResources + StorableResources{1000, 1000, 1000, 1000};
+				StorableResources resourcesToAdd{ 1000, 1000, 1000, 1000 };
+				addRefinedResources(resourcesToAdd);
+				updatePlayerResources();
 				updateStructuresAvailability();
 			}
 			break;
@@ -883,12 +905,15 @@ void MapViewState::placeRobot()
 				else { return; }
 			}
 
+			auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
+			addRefinedResources(recycledResources);
+
 			/**
-			 * \fixme	Since the StructureTranslator class will be deprecated in the future, there needs to be a better
-			 * 			way to determine this. I may go back to defining recycling values in the individual structures
-			 * 			themselves but I'm still not sure I love that idea. Will have to think about that one a bit.
+			 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
 			 */
-			mPlayerResources = mPlayerResources + StructureCatalogue::recyclingValue(structure->structureId());
+			if (!recycledResources.empty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
+			
+			updatePlayerResources();
 			updateStructuresAvailability();
 
 			tile->connected(false);
@@ -1135,7 +1160,9 @@ void MapViewState::placeStructure()
 			static_cast<Factory*>(structure)->resourcePool(&mPlayerResources);
 		}
 
-		mPlayerResources = mPlayerResources - StructureCatalogue::costToBuild(mCurrentStructure);
+		auto cost = StructureCatalogue::costToBuild(mCurrentStructure);
+		removeRefinedResources(cost);
+		updatePlayerResources();
 		updateStructuresAvailability();
 	}
 }
