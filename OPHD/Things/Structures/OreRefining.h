@@ -5,10 +5,10 @@
 #include <array>
 
 /**
- * \class	PowerStructure
- * \brief	Virtual class for structures whose primary purpose is power production
+ * \class	OreRefining
+ * \brief	Virtual class for structures whose primary purpose is ore processing
  *
- * \note	PowerStructure is an abstract class
+ * \note	OreRefining is an abstract class
  */
 class OreRefining : public Structure
 {
