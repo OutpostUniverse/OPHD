@@ -11,6 +11,8 @@
 #include "Things/Robots/Robot.h"
 #include "Things/Structures/Structures.h"
 
+#include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
+
 #include <algorithm>
 #include <sstream>
 
@@ -171,7 +173,9 @@ void StructureManager::updateStructures(StorableResources& resources, Population
 			population.usePopulation(Population::PersonRole::ROLE_WORKER, populationRequired[0]);
 			population.usePopulation(Population::PersonRole::ROLE_SCIENTIST, populationRequired[1]);
 
-			resources = resources - structure->resourcesIn();
+			auto consumed = structure->resourcesIn();
+			removeRefinedResources(consumed);
+
 			mTotalEnergyUsed += structure->energyRequirement();
 
 			structure->think();
