@@ -99,7 +99,7 @@ void MapViewState::updatePopulation()
 		pullFoodFromStructure(foodProducer, remainder);
 	}
 
-	auto cc = static_cast<FoodProduction*>(mTileMap->getTile(ccLocation()).structure());
+	auto cc = static_cast<FoodProduction*>(mTileMap->getTile(ccLocation(), 0).structure());
 	pullFoodFromStructure(cc, remainder);
 }
 
@@ -349,7 +349,7 @@ void MapViewState::updateFood()
 		}
 	}
 
-	mFood += static_cast<CommandCenter*>(mTileMap->getTile(ccLocation()).structure())->foodLevel();
+	mFood += static_cast<CommandCenter*>(mTileMap->getTile(ccLocation(), 0).structure())->foodLevel();
 }
 
 
