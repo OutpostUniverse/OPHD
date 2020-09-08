@@ -114,10 +114,9 @@ void MapViewState::deployColonistLander()
  */
 void MapViewState::deployCargoLander()
 {
-	mPlayerResources = mPlayerResources + StorableResources{25, 25, 15, 15};
-
 	auto cc = static_cast<CommandCenter*>(mTileMap->getTile(ccLocation()).structure());
 	cc->foodLevel(cc->foodLevel() + 125);
+	cc->storage() += StorableResources{ 25, 25, 15, 15 };
 
 	updateStructuresAvailability();
 }
