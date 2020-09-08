@@ -264,7 +264,7 @@ int MapViewState::refinedResourcesInStorage()
 void MapViewState::updatePlayerResources()
 {
 	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
-	storage.insert(storage.begin(), mTileMap->getTile(ccLocation()).structure());
+	storage.insert(storage.begin(), mTileMap->getTile(ccLocation(), 0).structure());
 
 	/**
 	 * This at first looks heinous. However, mPlayerResources is declared const
