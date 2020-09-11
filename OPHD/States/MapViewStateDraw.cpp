@@ -176,7 +176,7 @@ void MapViewState::drawResourceInfo()
 	{
 		std::tuple{NAS2D::Rectangle{96, 32, iconSize, iconSize}, refinedResourcesInStorage(), totalStorage(Structure::StructureClass::Storage, 1000), totalStorage(Structure::StructureClass::Storage, 1000) - refinedResourcesInStorage() <= 100},
 		std::tuple{NAS2D::Rectangle{64, 32, iconSize, iconSize}, mFood, totalStorage(Structure::StructureClass::FoodProduction, 1000), mFood <= 10},
-		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, mEnergy, NAS2D::Utility<StructureManager>::get().totalEnergyProduction(), mEnergy <= 5}
+		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, NAS2D::Utility<StructureManager>::get().totalEnergyAvailable(), NAS2D::Utility<StructureManager>::get().totalEnergyProduction(), NAS2D::Utility<StructureManager>::get().totalEnergyAvailable() <= 5}
 	};
 
 	position.x += x + offsetX;
