@@ -225,7 +225,6 @@ private:
 
 	NAS2D::Rectangle<int> mMiniMapBoundingBox; /**< Area of the site map display. */
 
-	int mEnergy{ 0 };
 	int mFood{ 0 };
 
 	// POOLS
