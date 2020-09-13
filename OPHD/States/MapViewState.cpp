@@ -133,7 +133,6 @@ void MapViewState::initialize()
 		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance); 
 	}
 
-	//Utility<Mixer>::get().fadeInMusic(mBgMusic);
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
 
 	EventHandler& e = Utility<EventHandler>::get();

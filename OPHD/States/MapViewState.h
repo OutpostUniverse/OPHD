@@ -241,8 +241,6 @@ private:
 
 	Population mPopulation;
 
-	//const Music mBgMusic;
-
 	// USER INTERFACE
 	Button mBtnTurns;
 	Button mBtnToggleHeightmap;
