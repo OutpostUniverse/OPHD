@@ -41,6 +41,7 @@ public:
 	bool CHAPAvailable();
 
 	void updateEnergyProduction();
+	void updateEnergyConsumed();
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
 	int totalEnergyUsed() const { return mTotalEnergyUsed; }
 	int totalEnergyAvailable() const { return mTotalEnergyOutput - mTotalEnergyUsed; }

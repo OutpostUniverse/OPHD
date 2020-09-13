@@ -108,6 +108,27 @@ void StructureManager::updateEnergyProduction()
 
 
 /**
+ * Updates the consumed energy used cache value. Does not
+ * modify any structure values.
+ */
+void StructureManager::updateEnergyConsumed()
+{
+	mTotalEnergyUsed = 0;
+
+	for (auto structureList : mStructureLists)
+	{
+		for (auto structure : structureList.second)
+		{
+			if (structure->operational() || structure->isIdle())
+			{
+				mTotalEnergyUsed += structure->energyRequirement();
+			}
+		}
+	}
+}
+
+
+/**
  *
  */
 void StructureManager::updateStructures(const StorableResources& resources, PopulationPool& population, StructureList& structures)
