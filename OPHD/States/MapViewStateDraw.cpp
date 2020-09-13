@@ -169,11 +169,12 @@ void MapViewState::drawResourceInfo()
 	}
 
 	// Capacity (Storage, Food, Energy)
+	const auto& sm = NAS2D::Utility<StructureManager>::get();
 	const std::array storageCapacities
 	{
 		std::tuple{NAS2D::Rectangle{96, 32, iconSize, iconSize}, refinedResourcesInStorage(), totalStorage(Structure::StructureClass::Storage, 1000), totalStorage(Structure::StructureClass::Storage, 1000) - refinedResourcesInStorage() <= 100},
 		std::tuple{NAS2D::Rectangle{64, 32, iconSize, iconSize}, mFood, totalStorage(Structure::StructureClass::FoodProduction, 1000), mFood <= 10},
-		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, mEnergy, NAS2D::Utility<StructureManager>::get().totalEnergyProduction(), mEnergy <= 5}
+		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, sm.totalEnergyAvailable(), sm.totalEnergyProduction(), sm.totalEnergyAvailable() <= 5}
 	};
 
 	position.x += x + offsetX;
