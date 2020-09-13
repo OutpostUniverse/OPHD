@@ -121,9 +121,6 @@ static void drawPanel(Renderer& renderer, Panel& panel)
 }
 
 
-/**
- * C'tor
- */
 MainReportsUiState::MainReportsUiState()
 {
 	Utility<EventHandler>::get().windowResized().connect(this, &MainReportsUiState::onWindowResized);
@@ -132,9 +129,6 @@ MainReportsUiState::MainReportsUiState()
 }
 
 
-/**
- * D'tor
- */
 MainReportsUiState::~MainReportsUiState()
 {
 	Utility<EventHandler>::get().windowResized().disconnect(this, &MainReportsUiState::onWindowResized);

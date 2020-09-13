@@ -46,9 +46,6 @@ MineOperationsWindow::MineOperationsWindow() :
 }
 
 
-/**
- * D'tor
- */
 MineOperationsWindow::~MineOperationsWindow()
 {}
 

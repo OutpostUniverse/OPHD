@@ -47,9 +47,6 @@ Tile& Tile::operator=(Tile&& other) noexcept
 }
 
 
-/**
- * D'tor
- */
 Tile::~Tile()
 {
 	delete mMine;

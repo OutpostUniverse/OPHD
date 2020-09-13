@@ -14,18 +14,12 @@
 using namespace NAS2D;
 
 
-/**
- * C'tor
- */
 ListBoxBase::ListBoxBase()
 {
 	_init();
 }
 
 
-/**
- * D'tor
- */
 ListBoxBase::~ListBoxBase()
 {
 	mSlider.change().disconnect(this, &ListBoxBase::slideChanged);

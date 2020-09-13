@@ -11,18 +11,12 @@
 
 using namespace NAS2D;
 
-/**
- * C'tor
- */
 UIContainer::UIContainer()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &UIContainer::onMouseDown);
 }
 
 
-/**
- * D'tor
- */
 UIContainer::~UIContainer()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &UIContainer::onMouseDown);

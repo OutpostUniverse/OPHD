@@ -18,9 +18,6 @@ WarehouseInspector::WarehouseInspector() :
 }
 
 
-/**
- * D'tor
- */
 WarehouseInspector::~WarehouseInspector()
 {}
 

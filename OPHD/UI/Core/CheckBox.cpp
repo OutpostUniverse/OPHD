@@ -28,9 +28,6 @@ using namespace NAS2D;
 
 static const Font* CBOX_FONT = nullptr;
 
-/**
- * C'tor
- */
 CheckBox::CheckBox(std::string newText) :
 	mSkin{imageCache.load("ui/skin/checkbox.png")}
 {
@@ -40,9 +37,6 @@ CheckBox::CheckBox(std::string newText) :
 }
 
 
-/**
- * D'tor
- */
 CheckBox::~CheckBox()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &CheckBox::onMouseDown);

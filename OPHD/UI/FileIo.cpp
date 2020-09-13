@@ -13,9 +13,6 @@
 using namespace NAS2D;
 
 
-/**
- * D'tor
- */
 FileIo::FileIo() :
 	btnClose{"Cancel"},
 	btnFileOp{"FileOp"}
@@ -28,9 +25,6 @@ FileIo::FileIo() :
 }
 
 
-/**
- * D'tor
- */
 FileIo::~FileIo()
 {
 	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &FileIo::onDoubleClick);

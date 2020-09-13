@@ -8,18 +8,12 @@
 
 using namespace NAS2D;
 
-/**
- * C'tor
- */
 ComboBox::ComboBox()
 {
 	init();
 }
 
 
-/**
- * D'tor
- */
 ComboBox::~ComboBox()
 {
 	resized().disconnect(this, &ComboBox::resizedHandler);

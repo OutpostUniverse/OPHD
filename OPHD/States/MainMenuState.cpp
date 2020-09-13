@@ -15,9 +15,6 @@
 using namespace NAS2D;
 
 
-/**
- * C'tor
- */
 MainMenuState::MainMenuState() :
 	mBgImage("sys/mainmenu.png"),
 	btnNewGame{constants::MAIN_MENU_NEW_GAME},
@@ -30,9 +27,6 @@ MainMenuState::MainMenuState() :
 {}
 
 
-/**
- * C'tor
- */
 MainMenuState::~MainMenuState()
 {
 	EventHandler& e = Utility<EventHandler>::get();

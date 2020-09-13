@@ -125,9 +125,6 @@ namespace {
 }
 
 
-/**
- * C'tor
- */
 Slider::Slider(SliderType sliderType) : Slider(loadSkins(sliderType), sliderType)
 {}
 
@@ -144,9 +141,6 @@ Slider::Slider(Slider::Skins skins, SliderType sliderType) :
 }
 
 
-/**
- * D'tor
- */
 Slider::~Slider()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Slider::onMouseDown);

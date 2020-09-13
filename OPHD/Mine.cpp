@@ -30,18 +30,12 @@ static void setDefaultFlags(std::bitset<6>& flags)
 }
 
 
-/**
- * C'tor
- */
 Mine::Mine()
 {
 	setDefaultFlags(mFlags);
 }
 
 
-/**
- * C'tor
- */
 Mine::Mine(MineProductionRate rate) :
 	mProductionRate(rate)
 {
