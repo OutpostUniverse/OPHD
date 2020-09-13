@@ -43,7 +43,6 @@ private:
 	static StorableResources recycleValue(StructureID type, float percent);
 
 private:
-	//static vector<ResourcePool> mStructureCostTable;
 	static std::array<StorableResources, StructureID::SID_COUNT> mStructureCostTable;
 	static std::array<StorableResources, StructureID::SID_COUNT> mStructureRecycleValueTable;
 	static std::array<PopulationRequirements, StructureID::SID_COUNT> mPopulationRequirementsTable;
