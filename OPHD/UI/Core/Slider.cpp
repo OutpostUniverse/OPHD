@@ -1,5 +1,5 @@
 /**
- * \file	Slider.c++
+ * \file	Slider.cpp
  * \brief	Functions for sliding controls.
  * \author	Goof
  */
