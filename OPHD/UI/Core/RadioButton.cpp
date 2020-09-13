@@ -40,9 +40,6 @@ void RadioButton::checked(bool toggle)
 }
 
 
-/**
- *
- */
 bool RadioButton::checked() const
 {
 	return mChecked;
@@ -64,9 +61,6 @@ const std::string& RadioButton::text() const
 	return mLabel.text();
 }
 
-/**
- *
- */
 RadioButton::ClickCallback& RadioButton::click()
 {
 	for (auto* sibling : mParentContainer->controls())
@@ -81,9 +75,6 @@ RadioButton::ClickCallback& RadioButton::click()
 }
 
 
-/**
- *
- */
 void RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
@@ -96,9 +87,6 @@ void RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-/**
- *
- */
 void RadioButton::onTextChanged()
 {
 	const auto textWidth = CBOX_FONT->width(text());
@@ -115,9 +103,6 @@ void RadioButton::onSizeChanged()
 }
 
 
-/**
- *
- */
 void RadioButton::update()
 {
 	auto& renderer = Utility<Renderer>::get();

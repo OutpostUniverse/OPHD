@@ -182,9 +182,6 @@ void Slider::_buttonCheck(bool& buttonFlag, Rectangle<int>& rect, float value)
 }
 
 
-/**
- *
- */
 void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
@@ -203,9 +200,6 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-/**
- *
- */
 void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
 	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
@@ -246,9 +240,6 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 }
 
 
-/**
- *
- */
 void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
@@ -283,9 +274,6 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 }
 
 
-/**
- *
- */
 void Slider::logic()
 {
 	// compute position of items
@@ -304,9 +292,6 @@ void Slider::logic()
 }
 
 
-/**
- *
- */
 void Slider::update()
 {
 	if (!visible()) { return; }
@@ -327,9 +312,6 @@ void Slider::update()
 }
 
 
-/**
- *
- */
 void Slider::draw()
 {
 	auto& renderer = Utility<Renderer>::get();

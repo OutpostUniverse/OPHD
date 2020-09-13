@@ -55,27 +55,18 @@ void CheckBox::checked(bool toggle)
 }
 
 
-/**
- * 
- */
 bool CheckBox::checked() const
 {
 	return mChecked;
 }
 
 
-/**
- * 
- */
 CheckBox::ClickCallback& CheckBox::click()
 {
 	return mCallback;
 }
 
 
-/**
- * 
- */
 void CheckBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
@@ -88,9 +79,6 @@ void CheckBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-/**
- * 
- */
 void CheckBox::onTextChanged()
 {
 	const auto textWidth = CBOX_FONT->width(text());
@@ -107,9 +95,6 @@ void CheckBox::onSizeChanged()
 }
 
 
-/**
- * 
- */
 void CheckBox::update()
 {
 	auto& renderer = Utility<Renderer>::get();

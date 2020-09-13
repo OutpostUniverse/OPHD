@@ -187,9 +187,6 @@ void ComboBox::currentSelection(std::size_t index) {
 	mSelectionChanged();
 }
 
-/**
- * 
- */
 void ComboBox::update()
 {
 	txtField.update();

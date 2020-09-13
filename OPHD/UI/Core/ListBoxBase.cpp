@@ -50,9 +50,6 @@ void ListBoxBase::_init()
 }
 
 
-/**
- * 
- */
 void ListBoxBase::visibilityChanged(bool)
 {
 	_update_item_display();

@@ -94,9 +94,6 @@ void Tile::removeThing()
 }
 
 
-/**
- * 
- */
 void Tile::pushMine(Mine* _mine)
 {
 	delete mMine;
@@ -104,9 +101,6 @@ void Tile::pushMine(Mine* _mine)
 }
 
 
-/**
- * 
- */
 Structure* Tile::structure()
 {
 	if (mThingIsStructure) { return static_cast<Structure*>(thing()); }
@@ -115,9 +109,6 @@ Structure* Tile::structure()
 }
 
 
-/**
- * 
- */
 Robot* Tile::robot()
 {
 	// Assumption: Things in a tile can only be a Robot or a Structure. If the thing is not a
@@ -128,9 +119,6 @@ Robot* Tile::robot()
 }
 
 
-/**
- * 
- */
 float Tile::distanceTo(Tile* tile)
 {
 	return distanceTo(tile->position());

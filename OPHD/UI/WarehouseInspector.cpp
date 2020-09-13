@@ -7,9 +7,6 @@
 
 using namespace NAS2D;
 
-/**
- * 
- */
 WarehouseInspector::WarehouseInspector() :
 	btnClose{"Okay"}
 {
@@ -22,9 +19,6 @@ WarehouseInspector::~WarehouseInspector()
 {}
 
 
-/**
- * 
- */
 void WarehouseInspector::init()
 {
 	size({250, 350});
@@ -35,27 +29,18 @@ void WarehouseInspector::init()
 }
 
 
-/**
- * 
- */
 void WarehouseInspector::warehouse(Warehouse* w)
 {
 	mWarehouse = w;
 }
 
 
-/**
- *
- */
 void WarehouseInspector::btnCloseClicked()
 {
 	hide();
 }
 
 
-/**
- * 
- */
 void WarehouseInspector::hide()
 {
 	Control::hide();
@@ -63,9 +48,6 @@ void WarehouseInspector::hide()
 }
 
 
-/**
- * 
- */
 void WarehouseInspector::update()
 {
 	if (!visible()) { return; }

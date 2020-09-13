@@ -59,9 +59,6 @@ static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, Storabl
  * CLASS FUNCTIONS
  *****************************************************************************/
 
-/**
- * 
- */
 void MapViewState::save(const std::string& filePath)
 {
 	auto& renderer = Utility<Renderer>::get();
@@ -110,9 +107,6 @@ void MapViewState::save(const std::string& filePath)
 }
 
 
-/**
- * 
- */
 void MapViewState::load(const std::string& filePath)
 {
 	mPlanetAttributes = Planet::Attributes();
@@ -246,9 +240,6 @@ void MapViewState::load(const std::string& filePath)
 }
 
 
-/**
- * 
- */
 void MapViewState::readRobots(Xml::XmlElement* element)
 {
 	mRobotPool.clear();
@@ -470,9 +461,6 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 }
 
 
-/**
- * 
- */
 void MapViewState::readTurns(Xml::XmlElement* element)
 {
 	if (element)

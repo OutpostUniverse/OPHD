@@ -20,9 +20,6 @@ static int pull_count(MineFacility* _mf, size_t index)
 }
 
 
-/**
- * 
- */
 MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY,
 	"structures/mine_facility.sprite",
 	StructureClass::Mine,
@@ -39,9 +36,6 @@ MineFacility::MineFacility(Mine* mine) : Structure(constants::MINE_FACILITY,
 }
 
 
-/**
- * 
- */
 void MineFacility::activated()
 {
 	mMine->increaseDepth();
@@ -49,9 +43,6 @@ void MineFacility::activated()
 }
 
 
-/**
- * 
- */
 void MineFacility::think()
 {
 	if (forceIdle()) { return; }
@@ -128,18 +119,12 @@ void MineFacility::think()
 }
 
 
-/**
- * 
- */
 bool MineFacility::canExtend() const
 {
 	return (mMine->depth() < mMaxDepth) && (mDigTurnsRemaining == 0);
 }
 
 
-/**
- * 
- */
 void MineFacility::extend()
 {
 	if (!canExtend()) { return; }
@@ -147,18 +132,12 @@ void MineFacility::extend()
 }
 
 
-/**
- * 
- */
 bool MineFacility::extending() const
 {
 	return mDigTurnsRemaining > 0;
 }
 
 
-/**
- * 
- */
 int MineFacility::digTimeRemaining() const
 {
 	return mDigTurnsRemaining;

@@ -55,9 +55,6 @@ bool WindowStack::pointInWindow(const NAS2D::Point<int>& point) const
 }
 
 
-/**
- *
- */
 void WindowStack::updateStack(const NAS2D::Point<int>& point)
 {
 	for (auto* window : mWindowList)

@@ -51,9 +51,6 @@ enum class TerrainType
 };
 
 
-/**
- * 
- */
 enum class MineProductionRate
 {
 	Low,
@@ -62,9 +59,6 @@ enum class MineProductionRate
 };
 
 
-/**
- * 
- */
 enum class DisabledReason
 {
 	None, /**< Not Disabled, default reason. */
@@ -78,9 +72,6 @@ enum class DisabledReason
 };
 
 
-/**
- * 
- */
 enum class IdleReason
 {
 	None,

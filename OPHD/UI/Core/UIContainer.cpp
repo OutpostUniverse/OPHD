@@ -64,9 +64,6 @@ void UIContainer::clear()
 }
 
 
-/**
- * 
- */
 void UIContainer::bringToFront(Control* control)
 {
 	auto control_iterator = std::find(mControls.begin(), mControls.end(), control);
@@ -84,18 +81,12 @@ void UIContainer::bringToFront(Control* control)
 }
 
 
-/**
- * 
- */
 void UIContainer::visibilityChanged(bool visible)
 {
 	for (auto control : mControls) { control->visible(visible); }
 }
 
 
-/**
- * 
- */
 void UIContainer::positionChanged(int dX, int dY)
 {
 	Control::positionChanged(dX, dY);
@@ -107,9 +98,6 @@ void UIContainer::positionChanged(int dX, int dY)
 }
 
 
-/**
- * 
- */
 void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	if (!visible()) { return; }

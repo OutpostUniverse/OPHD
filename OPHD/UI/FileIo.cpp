@@ -32,9 +32,6 @@ FileIo::~FileIo()
 }
 
 
-/**
- * 
- */
 void FileIo::init()
 {
 	size({500, 350});
@@ -98,9 +95,6 @@ void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mo
 }
 
 
-/**
- * 
- */
 void FileIo::setMode(FileOperation fileOp)
 {
 	mMode = fileOp; 
@@ -109,9 +103,6 @@ void FileIo::setMode(FileOperation fileOp)
 }
 
 
-/**
- * 
- */
 void FileIo::scanDirectory(const std::string& directory)
 {
 	Filesystem& f = Utility<Filesystem>::get();
@@ -132,18 +123,12 @@ void FileIo::scanDirectory(const std::string& directory)
 }
 
 
-/**
- * 
- */
 void FileIo::fileSelected()
 {
 	txtFileName.text(mListBox.selectionText());
 }
 
 
-/**
- * 
- */
 void FileIo::fileNameModified(TextControl* control)
 {
 	std::string sFile = control->text();
@@ -159,9 +144,6 @@ void FileIo::fileNameModified(TextControl* control)
 }
 
 
-/**
- * 
- */
 void FileIo::btnCloseClicked()
 {
 	visible(false);
@@ -170,9 +152,6 @@ void FileIo::btnCloseClicked()
 }
 
 
-/**
- * 
- */
 void FileIo::btnFileIoClicked()
 {
 	mCallback(txtFileName.text(), mMode);
@@ -182,9 +161,6 @@ void FileIo::btnFileIoClicked()
 }
 
 
-/**
- * 
- */
 void FileIo::update()
 {
 	if (!visible()) { return; }

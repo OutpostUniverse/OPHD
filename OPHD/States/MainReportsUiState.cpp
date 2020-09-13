@@ -142,9 +142,6 @@ MainReportsUiState::~MainReportsUiState()
 }
 
 
-/**
- * Init
- */
 void MainReportsUiState::initialize()
 {
 	WINDOW_BACKGROUND = &imageCache.load("ui/skin/window_middle_middle.png");
@@ -284,9 +281,6 @@ void MainReportsUiState::onWindowResized(int w, int h)
 }
 
 
-/**
- * 
- */
 void MainReportsUiState::deselectAllPanels()
 {
 	for (auto& panel : Panels)

@@ -288,9 +288,6 @@ void MapViewState::onActivate(bool /*newActiveValue*/)
 }
 
 
-/**
- *
- */
 void MapViewState::onWindowResized(int w, int h)
 {
 	setupUiPositions({w, h});
@@ -657,9 +654,6 @@ void MapViewState::changeViewDepth(int depth)
 }
 
 
-/**
- * 
- */
 void MapViewState::setMinimapView()
 {
 	const auto viewSizeInTiles = NAS2D::Vector{mTileMap->edgeLength(), mTileMap->edgeLength()};
@@ -684,9 +678,6 @@ void MapViewState::clearMode()
 }
 
 
-/**
- * 
- */
 void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 {
 
@@ -699,9 +690,6 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 }
 
 
-/**
- * 
- */
 void MapViewState::placeTubes()
 {
 	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
@@ -729,9 +717,6 @@ void MapViewState::placeTubes()
 	}
 }
 
-/**
- *
- */
 void MapViewState::placeTubeStart()
 {
 	mPlacingTube = false;
@@ -756,9 +741,6 @@ void MapViewState::placeTubeStart()
 	mPlacingTube = true;
 }
 
-/**
- *
- */
 void MapViewState::placeTubeEnd()
 {
 	if (!mPlacingTube) return;
@@ -822,9 +804,6 @@ void MapViewState::placeTubeEnd()
 	} while (!endReach);
 }
 
-/**
- * 
- */
 void MapViewState::placeRobot()
 {
 	Tile* tile = mTileMap->getVisibleTile();

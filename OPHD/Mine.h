@@ -7,9 +7,6 @@
 
 #include <bitset>
 
-/**
- * 
- */
 class Mine
 {
 public:

@@ -31,9 +31,6 @@ const NAS2D::Point<int> CcNotPlaced{-1, -1};
 static Point<int> commandCenterLocation = CcNotPlaced;
 
 
-/**
- * 
- */
 Point<int>& ccLocation()
 {
 	return commandCenterLocation;

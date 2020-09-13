@@ -414,9 +414,6 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 }
 
 
-/**
- * 
- */
 void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 {
 	// Before doing anything, if we're going down and the depth is not the surface,

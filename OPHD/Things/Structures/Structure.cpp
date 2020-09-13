@@ -93,9 +93,6 @@ std::string StructureName(StructureID id)
 
 
 
-/**
- * C'tor
- */
 Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id) :
 	Thing(name, spritePath, constants::STRUCTURE_STATE_CONSTRUCTION),
 	mStructureId(id),

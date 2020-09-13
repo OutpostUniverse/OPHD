@@ -26,16 +26,10 @@ StructureInspector::StructureInspector() :
 }
 
 
-/**
- * 
- */
 StructureInspector::~StructureInspector()
 {}
 
 
-/**
- * 
- */
 void StructureInspector::init()
 {
 	size({350, 200});
@@ -49,27 +43,18 @@ void StructureInspector::init()
 }
 
 
-/**
- * 
- */
 void StructureInspector::structure(Structure* structure)
 {
 	mStructure = structure;
 }
 
 
-/**
- * 
- */
 void StructureInspector::btnCloseClicked()
 {
 	visible(false);
 }
 
 
-/**
- * 
- */
 void StructureInspector::update()
 {
 	if (!visible()) { return; }
