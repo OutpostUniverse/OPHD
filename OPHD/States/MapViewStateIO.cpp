@@ -197,6 +197,7 @@ void MapViewState::load(const std::string& filePath)
 	checkConnectedness();
 
 	Utility<StructureManager>::get().updateEnergyProduction();
+	Utility<StructureManager>::get().updateEnergyConsumed();
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
