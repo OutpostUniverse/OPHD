@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "Structure.h"
 
 #include "../../Constants.h"
@@ -96,9 +93,6 @@ std::string StructureName(StructureID id)
 
 
 
-/**
- * C'tor
- */
 Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id) :
 	Thing(name, spritePath, constants::STRUCTURE_STATE_CONSTRUCTION),
 	mStructureId(id),

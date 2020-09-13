@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "UIContainer.h"
 
 #include "RadioButton.h"
@@ -14,18 +11,12 @@
 
 using namespace NAS2D;
 
-/**
- * C'tor
- */
 UIContainer::UIContainer()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &UIContainer::onMouseDown);
 }
 
 
-/**
- * D'tor
- */
 UIContainer::~UIContainer()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &UIContainer::onMouseDown);
@@ -73,9 +64,6 @@ void UIContainer::clear()
 }
 
 
-/**
- * 
- */
 void UIContainer::bringToFront(Control* control)
 {
 	auto control_iterator = std::find(mControls.begin(), mControls.end(), control);
@@ -93,18 +81,12 @@ void UIContainer::bringToFront(Control* control)
 }
 
 
-/**
- * 
- */
 void UIContainer::visibilityChanged(bool visible)
 {
 	for (auto control : mControls) { control->visible(visible); }
 }
 
 
-/**
- * 
- */
 void UIContainer::positionChanged(int dX, int dY)
 {
 	Control::positionChanged(dX, dY);
@@ -116,9 +98,6 @@ void UIContainer::positionChanged(int dX, int dY)
 }
 
 
-/**
- * 
- */
 void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	if (!visible()) { return; }

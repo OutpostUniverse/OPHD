@@ -1,8 +1,5 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 /**
- * \file	Slider.c++
+ * \file	Slider.cpp
  * \brief	Functions for sliding controls.
  * \author	Goof
  */
@@ -128,9 +125,6 @@ namespace {
 }
 
 
-/**
- * C'tor
- */
 Slider::Slider(SliderType sliderType) : Slider(loadSkins(sliderType), sliderType)
 {}
 
@@ -147,9 +141,6 @@ Slider::Slider(Slider::Skins skins, SliderType sliderType) :
 }
 
 
-/**
- * D'tor
- */
 Slider::~Slider()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Slider::onMouseDown);
@@ -191,9 +182,6 @@ void Slider::_buttonCheck(bool& buttonFlag, Rectangle<int>& rect, float value)
 }
 
 
-/**
- *
- */
 void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
@@ -212,9 +200,6 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-/**
- *
- */
 void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
 	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
@@ -255,9 +240,6 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 }
 
 
-/**
- *
- */
 void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
@@ -292,9 +274,6 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 }
 
 
-/**
- *
- */
 void Slider::logic()
 {
 	// compute position of items
@@ -313,9 +292,6 @@ void Slider::logic()
 }
 
 
-/**
- *
- */
 void Slider::update()
 {
 	if (!visible()) { return; }
@@ -336,9 +312,6 @@ void Slider::update()
 }
 
 
-/**
- *
- */
 void Slider::draw()
 {
 	auto& renderer = Utility<Renderer>::get();

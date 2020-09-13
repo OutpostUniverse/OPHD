@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "GameState.h"
 #include "MapViewState.h"
 #include "MainMenuState.h"
@@ -18,9 +15,6 @@
 using namespace NAS2D;
 
 
-/**
- * C'tor
- */
 MainMenuState::MainMenuState() :
 	mBgImage("sys/mainmenu.png"),
 	btnNewGame{constants::MAIN_MENU_NEW_GAME},
@@ -33,9 +27,6 @@ MainMenuState::MainMenuState() :
 {}
 
 
-/**
- * C'tor
- */
 MainMenuState::~MainMenuState()
 {
 	EventHandler& e = Utility<EventHandler>::get();

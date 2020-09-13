@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 // ==================================================================================
 // = This file implements the UI and UI Event Handlers used by MapViewState. I separated
 // = it into its own file because the MapViewState.cpp file was starting to get a little
@@ -417,9 +414,6 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 }
 
 
-/**
- * 
- */
 void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 {
 	// Before doing anything, if we're going down and the depth is not the surface,

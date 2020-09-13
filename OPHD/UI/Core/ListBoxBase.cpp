@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "ListBoxBase.h"
 
 #include "../../Constants.h"
@@ -17,18 +14,12 @@
 using namespace NAS2D;
 
 
-/**
- * C'tor
- */
 ListBoxBase::ListBoxBase()
 {
 	_init();
 }
 
 
-/**
- * D'tor
- */
 ListBoxBase::~ListBoxBase()
 {
 	mSlider.change().disconnect(this, &ListBoxBase::slideChanged);
@@ -59,9 +50,6 @@ void ListBoxBase::_init()
 }
 
 
-/**
- * 
- */
 void ListBoxBase::visibilityChanged(bool)
 {
 	_update_item_display();

@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "Tile.h"
 
 #include "../Mine.h"
@@ -50,9 +47,6 @@ Tile& Tile::operator=(Tile&& other) noexcept
 }
 
 
-/**
- * D'tor
- */
 Tile::~Tile()
 {
 	delete mMine;
@@ -100,9 +94,6 @@ void Tile::removeThing()
 }
 
 
-/**
- * 
- */
 void Tile::pushMine(Mine* _mine)
 {
 	delete mMine;
@@ -110,9 +101,6 @@ void Tile::pushMine(Mine* _mine)
 }
 
 
-/**
- * 
- */
 Structure* Tile::structure()
 {
 	if (mThingIsStructure) { return static_cast<Structure*>(thing()); }
@@ -121,9 +109,6 @@ Structure* Tile::structure()
 }
 
 
-/**
- * 
- */
 Robot* Tile::robot()
 {
 	// Assumption: Things in a tile can only be a Robot or a Structure. If the thing is not a
@@ -134,9 +119,6 @@ Robot* Tile::robot()
 }
 
 
-/**
- * 
- */
 float Tile::distanceTo(Tile* tile)
 {
 	return distanceTo(tile->position());

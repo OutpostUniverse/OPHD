@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "FactoryProduction.h"
 
 #include "StringTable.h"
@@ -13,9 +10,6 @@
 using namespace NAS2D;
 
 
-/**
- * 
- */
 FactoryProduction::FactoryProduction()
 {
 	text(constants::WINDOW_FACTORY_PRODUCTION);
@@ -23,9 +17,6 @@ FactoryProduction::FactoryProduction()
 }
 
 
-/**
- * 
- */
 void FactoryProduction::init()
 {
 	size({320, 162});
@@ -59,9 +50,6 @@ void FactoryProduction::init()
 }
 
 
-/**
- * 
- */
 void FactoryProduction::clearProduct()
 {
 	mProduct = ProductType::PRODUCT_NONE;
@@ -70,9 +58,6 @@ void FactoryProduction::clearProduct()
 }
 
 
-/**
- * 
- */
 void FactoryProduction::hide()
 {
 	Control::hide();
@@ -81,9 +66,6 @@ void FactoryProduction::hide()
 }
 
 
-/**
- * 
- */
 void FactoryProduction::productSelectionChanged(const IconGrid::IconGridItem* _item)
 {
 	if (!mFactory) { return; }
@@ -99,9 +81,6 @@ void FactoryProduction::productSelectionChanged(const IconGrid::IconGridItem* _i
 }
 
 
-/**
- * 
- */
 void FactoryProduction::btnOkayClicked()
 {
 	mFactory->productType(mProduct);
@@ -109,27 +88,18 @@ void FactoryProduction::btnOkayClicked()
 }
 
 
-/**
- * 
- */
 void FactoryProduction::btnApplyClicked()
 {
 	mFactory->productType(mProduct);
 }
 
 
-/**
- * 
- */
 void FactoryProduction::btnCancelClicked()
 {
 	hide();
 }
 
 
-/**
- * 
- */
 void FactoryProduction::btnClearSelectionClicked()
 {
 	clearProduct();
@@ -137,9 +107,6 @@ void FactoryProduction::btnClearSelectionClicked()
 }
 
 
-/**
- * 
- */
 void FactoryProduction::chkIdleClicked()
 {
 	if (!mFactory) { return; }
@@ -148,9 +115,6 @@ void FactoryProduction::chkIdleClicked()
 }
 
 
-/**
- * 
- */
 void FactoryProduction::factory(Factory* newFactory)
 {
 	mFactory = newFactory;
@@ -192,9 +156,6 @@ void FactoryProduction::factory(Factory* newFactory)
 }
 
 
-/**
- * 
- */
 void FactoryProduction::update()
 {
 	if (!visible()) { return; }

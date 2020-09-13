@@ -54,8 +54,8 @@ private:
 	using MoraleModifiers = std::array<MoraleModifier, 5>;
 
 
-	int mBirthCount; /**<  */
-	int mDeathCount; /**<  */
+	int mBirthCount;
+	int mDeathCount;
 
 	float mStarveRate; /**< Amount of population that dies during food shortages in percent. */
 

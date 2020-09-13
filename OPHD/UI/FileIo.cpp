@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "FileIo.h"
 
 #include "../Constants.h"
@@ -16,9 +13,6 @@
 using namespace NAS2D;
 
 
-/**
- * D'tor
- */
 FileIo::FileIo() :
 	btnClose{"Cancel"},
 	btnFileOp{"FileOp"}
@@ -31,9 +25,6 @@ FileIo::FileIo() :
 }
 
 
-/**
- * D'tor
- */
 FileIo::~FileIo()
 {
 	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &FileIo::onDoubleClick);
@@ -41,9 +32,6 @@ FileIo::~FileIo()
 }
 
 
-/**
- * 
- */
 void FileIo::init()
 {
 	size({500, 350});
@@ -107,9 +95,6 @@ void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mo
 }
 
 
-/**
- * 
- */
 void FileIo::setMode(FileOperation fileOp)
 {
 	mMode = fileOp; 
@@ -118,9 +103,6 @@ void FileIo::setMode(FileOperation fileOp)
 }
 
 
-/**
- * 
- */
 void FileIo::scanDirectory(const std::string& directory)
 {
 	Filesystem& f = Utility<Filesystem>::get();
@@ -141,18 +123,12 @@ void FileIo::scanDirectory(const std::string& directory)
 }
 
 
-/**
- * 
- */
 void FileIo::fileSelected()
 {
 	txtFileName.text(mListBox.selectionText());
 }
 
 
-/**
- * 
- */
 void FileIo::fileNameModified(TextControl* control)
 {
 	std::string sFile = control->text();
@@ -168,9 +144,6 @@ void FileIo::fileNameModified(TextControl* control)
 }
 
 
-/**
- * 
- */
 void FileIo::btnCloseClicked()
 {
 	visible(false);
@@ -179,9 +152,6 @@ void FileIo::btnCloseClicked()
 }
 
 
-/**
- * 
- */
 void FileIo::btnFileIoClicked()
 {
 	mCallback(txtFileName.text(), mMode);
@@ -191,9 +161,6 @@ void FileIo::btnFileIoClicked()
 }
 
 
-/**
- * 
- */
 void FileIo::update()
 {
 	if (!visible()) { return; }
