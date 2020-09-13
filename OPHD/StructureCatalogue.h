@@ -2,11 +2,10 @@
 
 #include "Common.h"
 #include "Constants.h"
-
 #include "Things/Structures/Structures.h"
-
 #include "StorableResources.h"
 
+#include <array>
 
 /** 
  * \class	StructureCatalogue
