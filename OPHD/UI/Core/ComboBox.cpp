@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "ComboBox.h"
 
 #include <NAS2D/Utility.h>
@@ -11,18 +8,12 @@
 
 using namespace NAS2D;
 
-/**
- * C'tor
- */
 ComboBox::ComboBox()
 {
 	init();
 }
 
 
-/**
- * D'tor
- */
 ComboBox::~ComboBox()
 {
 	resized().disconnect(this, &ComboBox::resizedHandler);
@@ -196,9 +187,6 @@ void ComboBox::currentSelection(std::size_t index) {
 	mSelectionChanged();
 }
 
-/**
- * 
- */
 void ComboBox::update()
 {
 	txtField.update();

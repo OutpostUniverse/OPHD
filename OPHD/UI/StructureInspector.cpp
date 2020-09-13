@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "StructureInspector.h"
 
 #include "../Cache.h"
@@ -29,16 +26,10 @@ StructureInspector::StructureInspector() :
 }
 
 
-/**
- * 
- */
 StructureInspector::~StructureInspector()
 {}
 
 
-/**
- * 
- */
 void StructureInspector::init()
 {
 	size({350, 200});
@@ -52,27 +43,18 @@ void StructureInspector::init()
 }
 
 
-/**
- * 
- */
 void StructureInspector::structure(Structure* structure)
 {
 	mStructure = structure;
 }
 
 
-/**
- * 
- */
 void StructureInspector::btnCloseClicked()
 {
 	visible(false);
 }
 
 
-/**
- * 
- */
 void StructureInspector::update()
 {
 	if (!visible()) { return; }

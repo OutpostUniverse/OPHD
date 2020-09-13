@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 // ==================================================================================
 // = This file implements the non-UI event handlers like factory production, robot
 // = task completeion, etc.

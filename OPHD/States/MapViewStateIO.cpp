@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 // ==================================================================================
 // = This file implements the File Input/Outpost used by MapViewState. I separated it
 // = into its own file because the MapViewState.cpp file was starting to get a little
@@ -62,9 +59,6 @@ static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, Storabl
  * CLASS FUNCTIONS
  *****************************************************************************/
 
-/**
- * 
- */
 void MapViewState::save(const std::string& filePath)
 {
 	auto& renderer = Utility<Renderer>::get();
@@ -109,9 +103,6 @@ void MapViewState::save(const std::string& filePath)
 }
 
 
-/**
- * 
- */
 void MapViewState::load(const std::string& filePath)
 {
 	mPlanetAttributes = Planet::Attributes();
@@ -242,9 +233,6 @@ void MapViewState::load(const std::string& filePath)
 }
 
 
-/**
- * 
- */
 void MapViewState::readRobots(Xml::XmlElement* element)
 {
 	mRobotPool.clear();
@@ -466,9 +454,6 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 }
 
 
-/**
- * 
- */
 void MapViewState::readTurns(Xml::XmlElement* element)
 {
 	if (element)

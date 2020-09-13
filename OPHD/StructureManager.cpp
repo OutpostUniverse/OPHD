@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "StructureManager.h"
 
 #include "Constants.h"
@@ -29,9 +26,6 @@ namespace {
 }
 
 
-/**
- *
- */
 bool StructureManager::CHAPAvailable()
 {
 	for (auto chap : mStructureLists[Structure::StructureClass::LifeSupport])
@@ -43,9 +37,6 @@ bool StructureManager::CHAPAvailable()
 }
 
 
-/**
- *
- */
 void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
 	// Called separately so that 1) high priority structures can be updated first and
@@ -88,9 +79,6 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 }
 
 
-/**
- *
- */
 void StructureManager::updateEnergyProduction()
 {
 	mTotalEnergyOutput = 0;
@@ -128,9 +116,6 @@ void StructureManager::updateEnergyConsumed()
 }
 
 
-/**
- *
- */
 void StructureManager::updateStructures(const StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
 	Structure* structure = nullptr;
@@ -205,9 +190,6 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 }
 
 
-/**
- * 
- */
 void StructureManager::updateFactoryProduction()
 {
 	StructureList& structures = mStructureLists[Structure::StructureClass::Factory];
@@ -319,9 +301,6 @@ int StructureManager::count() const
 }
 
 
-/**
- *
- */
 int StructureManager::getCountInState(Structure::StructureClass structureClass, StructureState state)
 {
 	int count = 0;
@@ -366,9 +345,6 @@ int StructureManager::destroyed()
 }
 
 
-/**
- *
- */
 void StructureManager::dropAllStructures()
 {
 	for (auto map_it = mStructureTileTable.begin(); map_it != mStructureTileTable.end(); ++map_it)
@@ -381,9 +357,6 @@ void StructureManager::dropAllStructures()
 }
 
 
-/**
- * 
- */
 Tile& StructureManager::tileFromStructure(Structure* structure)
 {
 	auto it = mStructureTileTable.find(structure);
@@ -395,9 +368,6 @@ Tile& StructureManager::tileFromStructure(Structure* structure)
 }
 
 
-/**
- * 
- */
 void serializeStructure(NAS2D::Xml::XmlElement* _ti, Structure* structure, Tile* _t)
 {
 	const auto position = _t->position();
@@ -430,9 +400,6 @@ void serializeStructure(NAS2D::Xml::XmlElement* _ti, Structure* structure, Tile*
 }
 
 
-/**
- * 
- */
 void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 {
 	auto* structures = new NAS2D::Xml::XmlElement("structures");

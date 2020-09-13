@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "MainReportsUiState.h"
 
 #include "../Cache.h"
@@ -124,9 +121,6 @@ static void drawPanel(Renderer& renderer, Panel& panel)
 }
 
 
-/**
- * C'tor
- */
 MainReportsUiState::MainReportsUiState()
 {
 	Utility<EventHandler>::get().windowResized().connect(this, &MainReportsUiState::onWindowResized);
@@ -135,9 +129,6 @@ MainReportsUiState::MainReportsUiState()
 }
 
 
-/**
- * D'tor
- */
 MainReportsUiState::~MainReportsUiState()
 {
 	Utility<EventHandler>::get().windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
@@ -151,9 +142,6 @@ MainReportsUiState::~MainReportsUiState()
 }
 
 
-/**
- * Init
- */
 void MainReportsUiState::initialize()
 {
 	WINDOW_BACKGROUND = &imageCache.load("ui/skin/window_middle_middle.png");
@@ -293,9 +281,6 @@ void MainReportsUiState::onWindowResized(int w, int h)
 }
 
 
-/**
- * 
- */
 void MainReportsUiState::deselectAllPanels()
 {
 	for (auto& panel : Panels)

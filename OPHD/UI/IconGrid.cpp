@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "IconGrid.h"
 
 #include "../Cache.h"
@@ -19,9 +16,6 @@ using namespace NAS2D;
 
 static const Font* FONT = nullptr;
 
-/**
- * C'tor
- */
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	mIconSize{iconEdgeSize},
 	mIconMargin{margin},
@@ -56,9 +50,6 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 }
 
 
-/**
- * D'tor
- */
 IconGrid::~IconGrid()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &IconGrid::onMouseDown);

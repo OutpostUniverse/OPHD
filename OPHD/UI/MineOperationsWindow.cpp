@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "MineOperationsWindow.h"
 
 #include "TextRender.h"
@@ -19,9 +16,6 @@ static const Font* FONT = nullptr;
 static const Font* FONT_BOLD = nullptr;
 
 
-/**
- * 
- */
 MineOperationsWindow::MineOperationsWindow() :
 	mUiIcon{imageCache.load("ui/interface/mine.png")},
 	mIcons{imageCache.load("ui/icons.png")},
@@ -49,16 +43,10 @@ MineOperationsWindow::MineOperationsWindow() :
 }
 
 
-/**
- * D'tor
- */
 MineOperationsWindow::~MineOperationsWindow()
 {}
 
 
-/**
- * 
- */
 void MineOperationsWindow::init()
 {
 	size({375, 270});
@@ -95,9 +83,6 @@ void MineOperationsWindow::init()
 }
 
 
-/**
- * 
- */
 void MineOperationsWindow::hide()
 {
 	Control::hide();
@@ -105,9 +90,6 @@ void MineOperationsWindow::hide()
 }
 
 
-/**
- * 
- */
 void MineOperationsWindow::mineFacility(MineFacility* facility)
 {
 	mFacility = facility;
@@ -123,18 +105,12 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 }
 
 
-/**
- * 
- */
 void MineOperationsWindow::btnOkayClicked()
 {
 	hide();
 }
 
 
-/**
- * 
- */
 void MineOperationsWindow::btnExtendShaftClicked()
 {
 	mFacility->extend();
@@ -142,54 +118,36 @@ void MineOperationsWindow::btnExtendShaftClicked()
 }
 
 
-/**
- * 
- */
 void MineOperationsWindow::btnIdleClicked()
 {
 	mFacility->forceIdle(btnIdle.toggled());
 }
 
 
-/**
- * 
- */
 void MineOperationsWindow::chkCommonMetalsClicked()
 {
 	mFacility->mine()->miningCommonMetals(chkCommonMetals.checked());
 }
 
 
-/**
- * 
- */
 void MineOperationsWindow::chkCommonMineralsClicked()
 {
 	mFacility->mine()->miningCommonMinerals(chkCommonMinerals.checked());
 }
 
 
-/**
- * 
- */
 void MineOperationsWindow::chkRareMetalsClicked()
 {
 	mFacility->mine()->miningRareMetals(chkRareMetals.checked());
 }
 
 
-/**
- * 
- */
 void MineOperationsWindow::chkRareMineralsClicked()
 {
 	mFacility->mine()->miningRareMinerals(chkRareMinerals.checked());
 }
 
 
-/**
- * 
- */
 void MineOperationsWindow::update()
 {
 	if (!visible()) { return; }

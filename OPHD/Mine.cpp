@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "Mine.h"
 
 #include <iostream>
@@ -33,18 +30,12 @@ static void setDefaultFlags(std::bitset<6>& flags)
 }
 
 
-/**
- * C'tor
- */
 Mine::Mine()
 {
 	setDefaultFlags(mFlags);
 }
 
 
-/**
- * C'tor
- */
 Mine::Mine(MineProductionRate rate) :
 	mProductionRate(rate)
 {
@@ -52,90 +43,60 @@ Mine::Mine(MineProductionRate rate) :
 }
 
 
-/**
- * 
- */
 bool Mine::active() const
 {
 	return mFlags[4];
 }
 
 
-/**
- * 
- */
 void Mine::active(bool newActive)
 {
 	mFlags[4] = newActive;
 }
 
 
-/**
- * 
- */
 bool Mine::miningCommonMetals() const
 {
 	return mFlags[OreType::ORE_COMMON_METALS];
 }
 
 
-/**
- * 
- */
 bool Mine::miningCommonMinerals() const
 {
 	return mFlags[OreType::ORE_COMMON_MINERALS];
 }
 
 
-/**
- * 
- */
 bool Mine::miningRareMetals() const
 {
 	return mFlags[OreType::ORE_RARE_METALS];
 }
 
 
-/**
- * 
- */
 bool Mine::miningRareMinerals() const
 {
 	return mFlags[OreType::ORE_RARE_MINERALS];
 }
 
 
-/**
- * 
- */
 void Mine::miningCommonMetals(bool value)
 {
 	mFlags[OreType::ORE_COMMON_METALS] = value;
 }
 
 
-/**
- * 
- */
 void Mine::miningCommonMinerals(bool value)
 {
 	mFlags[OreType::ORE_COMMON_MINERALS] = value;
 }
 
 
-/**
- * 
- */
 void Mine::miningRareMetals(bool value)
 {
 	mFlags[OreType::ORE_RARE_METALS] = value;
 }
 
 
-/**
- * 
- */
 void Mine::miningRareMinerals(bool value)
 {
 	mFlags[OreType::ORE_RARE_MINERALS] = value;
@@ -323,9 +284,6 @@ void Mine::serialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-/**
- * 
- */
 void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	int active = 0, yield = 0, depth = 0;

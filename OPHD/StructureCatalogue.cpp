@@ -1,13 +1,9 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "StructureCatalogue.h"
 
 #include <string>
 #include <stdexcept>
 
 
-//vector<ResourcePool> StructureCatalogue::mStructureCostTable;
 std::array<StorableResources, StructureID::SID_COUNT> StructureCatalogue::mStructureCostTable;
 std::array<StorableResources, StructureID::SID_COUNT> StructureCatalogue::mStructureRecycleValueTable;
 std::array<PopulationRequirements, StructureID::SID_COUNT> StructureCatalogue::mPopulationRequirementsTable = {};

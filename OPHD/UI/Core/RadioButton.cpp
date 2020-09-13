@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "RadioButton.h"
 
 #include "UIContainer.h"
@@ -18,9 +15,6 @@ using namespace NAS2D;
 
 static const Font* CBOX_FONT = nullptr;
 
-/**
- * C'tor
- */
 RadioButton::RadioButton(std::string newText) :
 	mSkin{imageCache.load("ui/skin/checkbox.png")},
 	mLabel{newText}
@@ -46,9 +40,6 @@ void RadioButton::checked(bool toggle)
 }
 
 
-/**
- *
- */
 bool RadioButton::checked() const
 {
 	return mChecked;
@@ -70,9 +61,6 @@ const std::string& RadioButton::text() const
 	return mLabel.text();
 }
 
-/**
- *
- */
 RadioButton::ClickCallback& RadioButton::click()
 {
 	for (auto* sibling : mParentContainer->controls())
@@ -87,9 +75,6 @@ RadioButton::ClickCallback& RadioButton::click()
 }
 
 
-/**
- *
- */
 void RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
@@ -102,9 +87,6 @@ void RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-/**
- *
- */
 void RadioButton::onTextChanged()
 {
 	const auto textWidth = CBOX_FONT->width(text());
@@ -121,9 +103,6 @@ void RadioButton::onSizeChanged()
 }
 
 
-/**
- *
- */
 void RadioButton::update()
 {
 	auto& renderer = Utility<Renderer>::get();
