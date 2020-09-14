@@ -1,8 +1,3 @@
-/**
- * \file	Slider.cpp
- * \brief	Functions for sliding controls.
- * \author	Goof
- */
 #include "Slider.h"
 
 #include "../../Cache.h"
