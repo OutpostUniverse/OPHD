@@ -1,8 +1,3 @@
-/*!
- * \file	Slider.h
- * \brief	Header for sliding controls.
- * \author Goof
- */
 #pragma once
 
 #include "Control.h"
