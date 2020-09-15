@@ -114,6 +114,7 @@ namespace constants
 	const std::string RECREATION_CENTER = "Recreation Center";
 	const std::string RED_LIGHT_DISTRICT = "Red Light District";
 	const std::string RESIDENCE = "Residential Facility";
+	const std::string ROAD = "Road";
 	const std::string ROBOT_COMMAND = "Robot Command";
 	const std::string SEED_FACTORY = "SEED Factory";
 	const std::string SEED_LANDER = "SEED Lander";
