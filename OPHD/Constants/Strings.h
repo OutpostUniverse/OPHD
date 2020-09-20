@@ -46,7 +46,7 @@ namespace constants
 	// = SAVE GAMES
 	// =====================================
 	const std::string SAVE_GAME_PATH = "savegames/";
-	const std::string SAVE_GAME_VERSION = "0.30";
+	const std::string SAVE_GAME_VERSION = "0.31";
 	const std::string SAVE_GAME_ROOT_NODE = "OutpostHD_SaveGame";
 
 
