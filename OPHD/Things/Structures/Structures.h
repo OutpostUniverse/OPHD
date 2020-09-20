@@ -22,6 +22,7 @@
 #include "RecreationCenter.h"
 #include "RedLightDistrict.h"
 #include "Residence.h"
+#include "Road.h"
 #include "RobotCommand.h"
 #include "SeedFactory.h"
 #include "SeedLander.h"

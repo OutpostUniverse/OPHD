@@ -95,6 +95,10 @@ Structure* StructureCatalogue::get(StructureID type)
 			structure = new Park();
 			break;
 
+		case StructureID::SID_ROAD:
+			structure = new Road();
+			break;
+
 		case StructureID::SID_SURFACE_POLICE:
 			structure = new SurfacePolice();
 			break;
@@ -266,6 +270,7 @@ void StructureCatalogue::buildCostTable()
 	mStructureCostTable[StructureID::SID_RECREATION_CENTER] = { 25, 5, 2, 0 };
 	mStructureCostTable[StructureID::SID_RED_LIGHT_DISTRICT] = { 20, 5, 2, 0 };
 	mStructureCostTable[StructureID::SID_RESIDENCE] = { 25, 5, 2, 0 };
+	mStructureCostTable[StructureID::SID_ROAD] = { 10, 15, 0, 0 };
 	mStructureCostTable[StructureID::SID_ROBOT_COMMAND] = { 75, 50, 45, 25 };
 	mStructureCostTable[StructureID::SID_SMELTER] = { 30, 20, 10, 5 };
 	mStructureCostTable[StructureID::SID_SOLAR_PANEL1] = { 10, 20, 5, 5 };

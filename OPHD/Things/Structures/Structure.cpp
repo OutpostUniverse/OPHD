@@ -67,6 +67,7 @@ static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable 
 	constants::RECREATION_CENTER,
 	constants::RED_LIGHT_DISTRICT,
 	constants::RESIDENCE,
+	constants::ROAD,
 	constants::ROBOT_COMMAND,
 	constants::SEED_FACTORY,
 	constants::SEED_LANDER,

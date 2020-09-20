@@ -260,6 +260,7 @@ void MapViewState::populateStructureMenu()
 		mStructures.addItem(constants::HOT_LABORATORY, 18, StructureID::SID_HOT_LABORATORY);
 		mStructures.addItem(constants::ROBOT_COMMAND, 14, StructureID::SID_ROBOT_COMMAND);
 		mStructures.addItem(constants::COMM_TOWER, 22, StructureID::SID_COMM_TOWER);
+		mStructures.addItem(constants::ROAD, 24, StructureID::SID_ROAD);
 		mStructures.addItem(constants::SURFACE_POLICE, 23, StructureID::SID_SURFACE_POLICE);
 		mStructures.addItem(constants::SMELTER, 4, StructureID::SID_SMELTER);
 		mStructures.addItem(constants::SOLAR_PANEL1, 33, StructureID::SID_SOLAR_PANEL1);
