@@ -641,6 +641,9 @@
     <ClInclude Include="UI\Core\TextControl.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Things\Structures\Road.h">
+      <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">

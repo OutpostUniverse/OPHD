@@ -132,6 +132,7 @@ enum StructureID
 	SID_RECREATION_CENTER,
 	SID_RED_LIGHT_DISTRICT,
 	SID_RESIDENCE,
+	SID_ROAD,
 	SID_ROBOT_COMMAND,
 	SID_SEED_FACTORY,
 	SID_SEED_LANDER,
@@ -288,6 +289,8 @@ extern const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
 
 extern const std::array<std::string, 4> ResourceNamesRefined;
 extern const std::array<std::string, 4> ResourceNamesOre;
+
+extern const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable;
 
 void doNonFatalErrorMessage(const std::string& title, const std::string& msg);
 void doAlertMessage(const std::string& title, const std::string& msg);
