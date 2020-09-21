@@ -8,7 +8,7 @@
 #include <array>
 
 
-inline int storageRequiredPerUnit(ProductType type);
+int storageRequiredPerUnit(ProductType type);
 
 class ProductPool
 {

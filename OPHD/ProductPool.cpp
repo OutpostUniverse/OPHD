@@ -108,7 +108,7 @@ namespace {
 /**
  * Gets the amount of storage required for one unit of a Product.
  */
-inline int storageRequiredPerUnit(ProductType type)
+int storageRequiredPerUnit(ProductType type)
 {
 	return ProductStorageSpace.at(type);
 }

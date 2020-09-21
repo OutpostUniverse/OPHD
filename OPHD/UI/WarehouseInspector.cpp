@@ -62,8 +62,20 @@ void WarehouseInspector::update()
 	drawLabelAndValueLeftJustify(position, labelWidth, "Storage:", std::to_string(pool.availableStorage()) + " / " + std::to_string(pool.capacity()));
 
 	position.y += 25;
-	drawLabelAndValueLeftJustify(position, labelWidth, "Clothing:", std::to_string(pool.count(ProductType::PRODUCT_CLOTHING)));
 
-	position.y += 15;
-	drawLabelAndValueLeftJustify(position, labelWidth, "Medicine:", std::to_string(pool.count(ProductType::PRODUCT_MEDICINE)));
+	/**
+	 * This could be further improved by caching which products are going to be
+	 * displayed and looping through those instead of looping through all 64
+	 * products every frame.
+	 */
+	for (size_t i = 0; i < ProductType::PRODUCT_COUNT; ++i)
+	{
+		const auto productType = static_cast<ProductType>(i);
+		if (pool.count(productType) == 0) { continue; }
+		if (storageRequiredPerUnit(productType) == 0) { continue; }
+
+		drawLabelAndValueLeftJustify(position, labelWidth, productDescription(productType) + ":", std::to_string(pool.count(productType)));
+
+		position.y += 15;
+	}
 }
