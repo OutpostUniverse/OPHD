@@ -7,7 +7,7 @@ namespace {
 	/**
 	 * Space required to store a Product.
 	 */
-	const std::map<ProductType, int> productStorageSpace =
+	const std::map<ProductType, int> ProductStorageSpace =
 	{
 		{ ProductType::PRODUCT_DIGGER, 10 },
 		{ ProductType::PRODUCT_DOZER, 10 },
@@ -91,7 +91,7 @@ namespace {
 	 */
 	inline int storageRequiredPerUnit(ProductType type)
 	{
-		return productStorageSpace.at(type);
+		return ProductStorageSpace.at(type);
 	}
 
 
@@ -100,7 +100,7 @@ namespace {
 	 */
 	inline int storageRequired(ProductType type, int count)
 	{
-		return productStorageSpace.at(type) * count;
+		return ProductStorageSpace.at(type) * count;
 	}
 
 
