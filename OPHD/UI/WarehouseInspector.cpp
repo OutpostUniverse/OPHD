@@ -66,7 +66,4 @@ void WarehouseInspector::update()
 
 	position.y += 15;
 	drawLabelAndValueLeftJustify(position, labelWidth, "Medicine:", std::to_string(pool.count(ProductType::PRODUCT_MEDICINE)));
-
-	position.y += 15;
-	drawLabelAndValueLeftJustify(position, labelWidth, "Road Materials:", std::to_string(pool.count(ProductType::PRODUCT_ROAD_MATERIALS)));
 }
