@@ -278,11 +278,9 @@ bool selfSustained(StructureID id)
 	case StructureID::SID_COMM_TOWER:
 	case StructureID::SID_ROAD:
 		return true;
-		break;
 
 	default:
 		return false;
-		break;
 	}
 }
 
