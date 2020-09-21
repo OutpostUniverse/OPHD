@@ -72,6 +72,7 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Commercial]);
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::University]);
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Communication]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Road]);
 
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Undefined]);
 
