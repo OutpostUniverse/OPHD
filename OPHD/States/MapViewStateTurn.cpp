@@ -9,6 +9,7 @@
 #include "../Things/Structures/Structures.h"
 
 #include "../Cache.h"
+#include "../DirectionOffset.h"
 #include "../StorableResources.h"
 #include "../StructureManager.h"
 
@@ -276,9 +277,9 @@ void MapViewState::updateResources()
 			std::clamp(stored.resources[3], 0, 25)
 		};
 
-		stored -= moved;
-		addRefinedResources(moved);
-		stored += moved;
+stored -= moved;
+addRefinedResources(moved);
+stored += moved;
 	}
 
 	updatePlayerResources();
@@ -350,6 +351,34 @@ void MapViewState::updateFood()
 }
 
 
+/**
+ * Update road intersection patterns
+ */
+void MapViewState::updateRoads()
+{
+	auto roads = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Road);
+
+	for (auto road : roads)
+	{
+		if (!road->operational()) { continue; }
+
+		const auto tileLocation = NAS2D::Utility<StructureManager>::get().tileFromStructure(road).position();
+
+		std::array<bool, 4> surroundingTiles{ false, false, false, false };
+		for (size_t i = 0; i < 4; ++i)
+		{
+			const auto tileToInspect = tileLocation + DirectionClockwise4[i];
+			if (!mTileMap->isValidPosition(tileToInspect)) { continue; }
+			if (!mTileMap->getTile(tileToInspect).thingIsStructure()) { continue; }
+
+			surroundingTiles[i] = mTileMap->getTile(tileToInspect).structure()->structureId() == StructureID::SID_ROAD;
+		}
+
+		road->sprite().play(IntersectionPatternTable.at(surroundingTiles));
+	}
+}
+
+
 void MapViewState::nextTurn()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -379,6 +408,7 @@ void MapViewState::nextTurn()
 	updateRobots();
 	updateResources();
 	updateStructuresAvailability();
+	updateRoads();
 
 	populateStructureMenu();
 

@@ -158,6 +158,7 @@ private:
 	void updateMorale();
 	void updateResidentialCapacity();
 	void updateResources();
+	void updateRoads();
 	void updateRobots();
 
 
