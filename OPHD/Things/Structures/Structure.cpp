@@ -37,6 +37,7 @@ const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATI
 	{ Structure::StructureClass::RecreationCenter, "Recreation Center" },
 	{ Structure::StructureClass::Recycling, "Recycling" },
 	{ Structure::StructureClass::Residence, "Residential" },
+	{ Structure::StructureClass::Road, "Road" },
 	{ Structure::StructureClass::Smelter, "Raw Ore Processing" },
 	{ Structure::StructureClass::Storage, "Storage" },
 	{ Structure::StructureClass::Tube, "Tube" },
