@@ -172,6 +172,7 @@ void MapViewState::load(const std::string& filePath)
 
 	delete mPathSolver;
 	mPathSolver = new micropather::MicroPather(mTileMap);
+	mRouteTable.clear();
 
 	/**
 	 * In the case of loading a game, the Robot Command Center depends on the robot list
