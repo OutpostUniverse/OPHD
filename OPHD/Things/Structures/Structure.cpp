@@ -42,7 +42,8 @@ const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATI
 	{ Structure::StructureClass::Storage, "Storage" },
 	{ Structure::StructureClass::Tube, "Tube" },
 	{ Structure::StructureClass::Undefined, "UNDEFINED" },
-	{ Structure::StructureClass::University, "University" }
+	{ Structure::StructureClass::University, "University" },
+	{ Structure::StructureClass::Warehouse, "Warehouse"}
 };
 
 
