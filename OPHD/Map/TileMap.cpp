@@ -605,6 +605,10 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 			{
 				cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
 			}
+			else if (adjacentTile.thingIsStructure() && adjacentTile.structure()->structureId() == StructureID::SID_ROAD)
+			{
+				cost = 0.5f;
+			}
 			else
 			{
 				cost = FLT_MAX;
