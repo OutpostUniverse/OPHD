@@ -85,16 +85,6 @@ namespace {
 		{ ProductType::PRODUCT_RESERVED_UG_63, 0 }
 	};
 
-
-	/**
-	 * Gets the amount of storage required for one unit of a Product.
-	 */
-	inline int storageRequiredPerUnit(ProductType type)
-	{
-		return ProductStorageSpace.at(type);
-	}
-
-
 	/**
 	 * Gets the amount of storage required for a given number of Products.
 	 */
@@ -113,6 +103,14 @@ namespace {
 		}
 		return stored;
 	}
+}
+
+/**
+ * Gets the amount of storage required for one unit of a Product.
+ */
+inline int storageRequiredPerUnit(ProductType type)
+{
+	return ProductStorageSpace.at(type);
 }
 
 
