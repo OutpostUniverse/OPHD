@@ -270,14 +270,18 @@ bool structureIsLander(StructureID id)
 
 /**
  * Determines if the structure requires a tube connection or not.
- *
- * \note	At the moment this is really just a check for comm towers
- *			as all other structures that are self contained are not
- *			placeable by the user.
  */
 bool selfSustained(StructureID id)
 {
-	return id == StructureID::SID_COMM_TOWER;
+	switch (id)
+	{
+	case StructureID::SID_COMM_TOWER:
+	case StructureID::SID_ROAD:
+		return true;
+		break;
+	}
+	
+	return false;
 }
 
 
