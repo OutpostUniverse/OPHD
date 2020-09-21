@@ -29,7 +29,6 @@ namespace {
 			{ProductType::PRODUCT_MINER, &imageCache.load("ui/interface/product_robominer.png")},
 			{ProductType::PRODUCT_EXPLORER, &imageCache.load("ui/interface/product_roboexplorer.png")},
 			{ProductType::PRODUCT_TRUCK, &imageCache.load("ui/interface/product_truck.png")},
-			{ProductType::PRODUCT_ROAD_MATERIALS, &imageCache.load("ui/interface/product_road_materials.png")},
 			{ProductType::PRODUCT_MAINTENANCE_PARTS, &imageCache.load("ui/interface/product_maintenance_parts.png")},
 			{ProductType::PRODUCT_CLOTHING, &imageCache.load("ui/interface/product_clothing.png")},
 			{ProductType::PRODUCT_MEDICINE, &imageCache.load("ui/interface/product_medicine.png")}
@@ -121,7 +120,6 @@ FactoryReport::FactoryReport() :
 	cboFilterByProduct.addItem(constants::ROBODOZER, ProductType::PRODUCT_DOZER);
 	cboFilterByProduct.addItem(constants::ROBOEXPLORER, ProductType::PRODUCT_EXPLORER);
 	cboFilterByProduct.addItem(constants::ROBOMINER, ProductType::PRODUCT_MINER);
-	cboFilterByProduct.addItem(constants::ROAD_MATERIALS, ProductType::PRODUCT_ROAD_MATERIALS);
 	cboFilterByProduct.addItem(constants::TRUCK, ProductType::PRODUCT_TRUCK);
 
 	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::cboFilterByProductSelectionChanged);

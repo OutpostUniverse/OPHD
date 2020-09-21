@@ -15,7 +15,6 @@ namespace {
 		{ ProductType::PRODUCT_EXPLORER, 10 },
 		{ ProductType::PRODUCT_TRUCK, 10 },
 
-		{ ProductType::PRODUCT_ROAD_MATERIALS, 1 },
 		{ ProductType::PRODUCT_MAINTENANCE_PARTS, 1 },
 
 		{ ProductType::PRODUCT_CLOTHING, 1 },
@@ -150,7 +149,6 @@ void ProductPool::serialize(NAS2D::Xml::XmlElement* element)
 	element->attribute(constants::SAVE_GAME_PRODUCT_MINER, count(ProductType::PRODUCT_MINER));
 	element->attribute(constants::SAVE_GAME_PRODUCT_EXPLORER, count(ProductType::PRODUCT_EXPLORER));
 	element->attribute(constants::SAVE_GAME_PRODUCT_TRUCK, count(ProductType::PRODUCT_TRUCK));
-	element->attribute(constants::SAVE_GAME_PRODUCT_ROAD_MATERIALS, count(ProductType::PRODUCT_ROAD_MATERIALS));
 	element->attribute(constants::SAVE_GAME_MAINTENANCE_PARTS, count(ProductType::PRODUCT_MAINTENANCE_PARTS));
 	element->attribute(constants::SAVE_GAME_PRODUCT_CLOTHING, count(ProductType::PRODUCT_CLOTHING));
 	element->attribute(constants::SAVE_GAME_PRODUCT_MEDICINE, count(ProductType::PRODUCT_MEDICINE));
@@ -170,7 +168,6 @@ void ProductPool::deserialize(NAS2D::Xml::XmlElement* element)
 		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_MINER) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_MINER]); }
 		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_EXPLORER) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_EXPLORER]); }
 		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_TRUCK) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_TRUCK]); }
-		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_ROAD_MATERIALS) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_ROAD_MATERIALS]); }
 		else if (attribute->name() == constants::SAVE_GAME_MAINTENANCE_PARTS) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_MAINTENANCE_PARTS]); }
 		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_CLOTHING) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_CLOTHING]); }
 		else if (attribute->name() == constants::SAVE_GAME_PRODUCT_MEDICINE) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_MEDICINE]); }

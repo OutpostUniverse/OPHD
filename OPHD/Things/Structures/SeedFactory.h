@@ -24,7 +24,6 @@ protected:
 		addProduct(ProductType::PRODUCT_DIGGER);
 		addProduct(ProductType::PRODUCT_DOZER);
 		addProduct(ProductType::PRODUCT_MINER);
-		addProduct(ProductType::PRODUCT_ROAD_MATERIALS);
 	}
 
 private:

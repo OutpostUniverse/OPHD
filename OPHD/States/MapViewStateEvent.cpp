@@ -78,7 +78,7 @@ void MapViewState::factoryProductionComplete(Factory& factory)
 		pullRobotFromFactory(ProductType::PRODUCT_MINER, factory);
 		break;
 
-	case ProductType::PRODUCT_ROAD_MATERIALS:
+	case ProductType::PRODUCT_TRUCK:
 	case ProductType::PRODUCT_CLOTHING:
 	case ProductType::PRODUCT_MEDICINE:
 		{
