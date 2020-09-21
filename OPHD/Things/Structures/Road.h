@@ -16,5 +16,6 @@ public:
 		turnsToBuild(2);
 
 		requiresCHAP(false);
+		selfSustained(true);
 	}
 };
