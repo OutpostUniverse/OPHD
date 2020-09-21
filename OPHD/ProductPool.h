@@ -8,6 +8,8 @@
 #include <array>
 
 
+inline int storageRequiredPerUnit(ProductType type);
+
 class ProductPool
 {
 public:
