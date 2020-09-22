@@ -410,6 +410,12 @@ void MapViewState::nextTurn()
 	updateStructuresAvailability();
 	updateRoads();
 
+	auto& factories = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory);
+	for (auto factory : factories)
+	{
+		static_cast<Factory*>(factory)->updateProduction();
+	}
+
 	populateStructureMenu();
 
 	checkColonyShip();
