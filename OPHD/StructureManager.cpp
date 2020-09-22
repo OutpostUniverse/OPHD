@@ -75,8 +75,6 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Road]);
 
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Undefined]);
-
-	updateFactoryProduction();
 }
 
 
@@ -187,17 +185,6 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 
 			structure->think();
 		}
-	}
-}
-
-
-void StructureManager::updateFactoryProduction()
-{
-	StructureList& structures = mStructureLists[Structure::StructureClass::Factory];
-
-	for (std::size_t i = 0; i < structures.size(); ++i)
-	{
-		static_cast<Factory*>(structures[i])->updateProduction();
 	}
 }
 

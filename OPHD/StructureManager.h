@@ -54,12 +54,9 @@ private:
 	using StructureTileTable = std::map<Structure*, Tile*>;
 	using StructureClassTable = std::map<Structure::StructureClass, StructureList>;
 
-
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
-	void updateFactoryProduction();
 
 	bool structureConnected(Structure* structure);
-
 
 	StructureTileTable mStructureTileTable; /**< List mapping Structures to a particular tile. */
 	StructureClassTable mStructureLists; /**< Map containing all of the structure list types available. */
