@@ -66,16 +66,16 @@ void MineOperationsWindow::init()
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
 
 	// ORE TOGGLE BUTTONS
-	add(&chkCommonMetals, 148, 93);
+	add(&chkCommonMetals, 148, 125);
 	chkCommonMetals.click().connect(this, &MineOperationsWindow::chkCommonMetalsClicked);
 
-	add(&chkCommonMinerals, 259, 93);
+	add(&chkCommonMinerals, 259, 125);
 	chkCommonMinerals.click().connect(this, &MineOperationsWindow::chkCommonMineralsClicked);
 
-	add(&chkRareMetals, 148, 128);
+	add(&chkRareMetals, 148, 145);
 	chkRareMetals.click().connect(this, &MineOperationsWindow::chkRareMetalsClicked);
 
-	add(&chkRareMinerals, 259, 128);
+	add(&chkRareMinerals, 259, 145);
 	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
 
 	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
