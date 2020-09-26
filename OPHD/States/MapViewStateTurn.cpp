@@ -420,6 +420,9 @@ void MapViewState::nextTurn()
 
 	checkColonyShip();
 
+	/// \fixme There's probably a cleaner way to do this
+	mMineOperationsWindow.updateTruckAvailability();
+
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)
 	{
