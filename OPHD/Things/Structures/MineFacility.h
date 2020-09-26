@@ -23,6 +23,10 @@ public:
 
 	int digTimeRemaining() const;
 
+	int assignedTrucks()  const { return mAssignedTrucks; }
+	void addTruck() { mAssignedTrucks = std::clamp(++mAssignedTrucks, 1, 10); }
+	void removeTruck() { mAssignedTrucks = std::clamp(--mAssignedTrucks, 1, 10); }
+
 	/**
 	 * Gets a pointer to the mine the MineFacility manages.
 	 */
@@ -44,6 +48,7 @@ private:
 private:
 	int mMaxDepth = 0; /**< Maximum digging depth. */
 	int mDigTurnsRemaining = 0; /**< Turns remaining before extension is complete. */
+	int mAssignedTrucks = 1; /**< All mine facilities are built with at least one truck. */
 
 	Mine* mMine = nullptr; /**< Mine that this facility manages. */
 
