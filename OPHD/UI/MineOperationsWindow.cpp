@@ -4,7 +4,9 @@
 
 #include "../Cache.h"
 #include "../Constants.h"
+#include "../StructureManager.h"
 #include "../Things/Structures/MineFacility.h"
+#include "../Things/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -112,6 +114,8 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 
 	btnIdle.toggle(mFacility->forceIdle());
 	btnExtendShaft.enabled(mFacility->canExtend());
+
+	updateTruckAvailability();
 }
 
 
@@ -137,13 +141,44 @@ void MineOperationsWindow::btnIdleClicked()
 
 void MineOperationsWindow::btnAssignTruckClicked()
 {
+	updateTruckAvailability();
 
+	if (mAvailableTrucks == 0) { return; }
+	
+	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouse : warehouseList)
+	{
+		Warehouse* w = static_cast<Warehouse*>(warehouse);
+		if (w->products().pull(ProductType::PRODUCT_TRUCK, 1) > 0)
+		{
+			mFacility->addTruck();
+			updateTruckAvailability();
+			return;
+		}
+	}
+
+	throw std::runtime_error("MineOperationsWindow::btnAssignTruckClicked(): No trucks pulled even though trucks available is greater than 0.");
 }
 
 
 void MineOperationsWindow::btnUnassignTruckClicked()
 {
+	const int storageNeededForTruck = storageRequiredPerUnit(ProductType::PRODUCT_TRUCK);
 
+	if (mFacility->assignedTrucks() == 1) { return; }
+	
+	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouse : warehouseList)
+	{
+		Warehouse* w = static_cast<Warehouse*>(warehouse);
+		if (w->products().availableStorage() >= storageNeededForTruck)
+		{
+			mFacility->removeTruck();
+			w->products().store(ProductType::PRODUCT_TRUCK, 1);
+			updateTruckAvailability();
+			return;
+		}
+	}
 }
 
 
@@ -168,6 +203,19 @@ void MineOperationsWindow::chkRareMetalsClicked()
 void MineOperationsWindow::chkRareMineralsClicked()
 {
 	mFacility->mine()->miningRareMinerals(chkRareMinerals.checked());
+}
+
+
+void MineOperationsWindow::updateTruckAvailability()
+{
+	mAvailableTrucks = 0;
+
+	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouse : warehouseList)
+	{
+		Warehouse* w = static_cast<Warehouse*>(warehouse);
+		mAvailableTrucks += w->products().count(ProductType::PRODUCT_TRUCK);
+	}
 }
 
 
@@ -200,8 +248,8 @@ void MineOperationsWindow::update()
 	const auto mineDepth = std::to_string(mFacility->mine()->depth());
 	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
 
-	drawLabelAndValue(origin + NAS2D::Vector{ 148, 65 }, "Trucks Assigned: ", "0");
-	drawLabelAndValue(origin + NAS2D::Vector{ 148, 80 }, "Trucks Available: ", "0");
+	drawLabelAndValue(origin + NAS2D::Vector{ 148, 65 }, "Trucks Assigned: ", std::to_string(mFacility->assignedTrucks()));
+	drawLabelAndValue(origin + NAS2D::Vector{ 148, 80 }, "Trucks Available: ", std::to_string(mAvailableTrucks));
 
 
 	// REMAINING ORE PANEL
