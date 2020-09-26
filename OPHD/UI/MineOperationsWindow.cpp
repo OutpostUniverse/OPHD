@@ -67,11 +67,11 @@ void MineOperationsWindow::init()
 	btnOkay.size({60, 30});
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
 
-	add(&btnAssignTruck, mRect.width - 85, 90);
+	add(&btnAssignTruck, mRect.width - 85, 100);
 	btnAssignTruck.size({ 80, 20 });
 	btnAssignTruck.click().connect(this, &MineOperationsWindow::btnAssignTruckClicked);
 
-	add(&btnUnassignTruck, mRect.width - 170, 90);
+	add(&btnUnassignTruck, mRect.width - 170, 100);
 	btnUnassignTruck.size({ 80, 20 });
 	btnUnassignTruck.click().connect(this, &MineOperationsWindow::btnUnassignTruckClicked);
 
@@ -199,6 +199,10 @@ void MineOperationsWindow::update()
 
 	const auto mineDepth = std::to_string(mFacility->mine()->depth());
 	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
+
+	drawLabelAndValue(origin + NAS2D::Vector{ 148, 65 }, "Trucks Assigned: ", "0");
+	drawLabelAndValue(origin + NAS2D::Vector{ 148, 80 }, "Trucks Available: ", "0");
+
 
 	// REMAINING ORE PANEL
 	const auto width = mRect.width;
