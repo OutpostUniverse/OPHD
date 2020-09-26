@@ -36,7 +36,9 @@ MineOperationsWindow::MineOperationsWindow() :
 	chkRareMinerals{"Rare Minerals"},
 	btnIdle{"Idle"},
 	btnExtendShaft{"Dig New Level"},
-	btnOkay{"Close"}
+	btnOkay{"Close"},
+	btnAssignTruck{"Add Truck"},
+	btnUnassignTruck{"Remove Truck"}
 {
 	text(constants::WINDOW_MINE_OPERATIONS);
 	init();
@@ -64,6 +66,14 @@ void MineOperationsWindow::init()
 	add(&btnOkay, mRect.width - 70, 230);
 	btnOkay.size({60, 30});
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
+
+	add(&btnAssignTruck, mRect.width - 85, 90);
+	btnAssignTruck.size({ 80, 20 });
+	btnAssignTruck.click().connect(this, &MineOperationsWindow::btnAssignTruckClicked);
+
+	add(&btnUnassignTruck, mRect.width - 170, 90);
+	btnUnassignTruck.size({ 80, 20 });
+	btnUnassignTruck.click().connect(this, &MineOperationsWindow::btnUnassignTruckClicked);
 
 	// ORE TOGGLE BUTTONS
 	add(&chkCommonMetals, 148, 125);
@@ -121,6 +131,19 @@ void MineOperationsWindow::btnExtendShaftClicked()
 void MineOperationsWindow::btnIdleClicked()
 {
 	mFacility->forceIdle(btnIdle.toggled());
+}
+
+
+
+void MineOperationsWindow::btnAssignTruckClicked()
+{
+
+}
+
+
+void MineOperationsWindow::btnUnassignTruckClicked()
+{
+
 }
 
 

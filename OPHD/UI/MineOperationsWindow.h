@@ -42,6 +42,9 @@ private:
 	void btnExtendShaftClicked();
 	void btnIdleClicked();
 
+	void btnAssignTruckClicked();
+	void btnUnassignTruckClicked();
+
 private:
 	MineFacility* mFacility = nullptr;
 
@@ -58,4 +61,7 @@ private:
 	Button btnIdle;
 	Button btnExtendShaft;
 	Button btnOkay;
+
+	Button btnAssignTruck;
+	Button btnUnassignTruck;
 };
