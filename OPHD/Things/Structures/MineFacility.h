@@ -24,8 +24,8 @@ public:
 	int digTimeRemaining() const;
 
 	int assignedTrucks()  const { return mAssignedTrucks; }
-	void addTruck() { mAssignedTrucks = std::clamp(++mAssignedTrucks, 1, 10); }
-	void removeTruck() { mAssignedTrucks = std::clamp(--mAssignedTrucks, 1, 10); }
+	void addTruck() { mAssignedTrucks = std::clamp(mAssignedTrucks + 1, 1, 10); }
+	void removeTruck() { mAssignedTrucks = std::clamp(mAssignedTrucks - 1, 1, 10); }
 
 	/**
 	 * Gets a pointer to the mine the MineFacility manages.
