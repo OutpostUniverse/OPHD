@@ -4,7 +4,9 @@
 
 #include "../Cache.h"
 #include "../Constants.h"
+#include "../StructureManager.h"
 #include "../Things/Structures/MineFacility.h"
+#include "../Things/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -36,7 +38,9 @@ MineOperationsWindow::MineOperationsWindow() :
 	chkRareMinerals{"Rare Minerals"},
 	btnIdle{"Idle"},
 	btnExtendShaft{"Dig New Level"},
-	btnOkay{"Close"}
+	btnOkay{"Close"},
+	btnAssignTruck{"Add Truck"},
+	btnUnassignTruck{"Remove Truck"}
 {
 	text(constants::WINDOW_MINE_OPERATIONS);
 	init();
@@ -65,17 +69,25 @@ void MineOperationsWindow::init()
 	btnOkay.size({60, 30});
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
 
+	add(&btnAssignTruck, mRect.width - 85, 100);
+	btnAssignTruck.size({ 80, 20 });
+	btnAssignTruck.click().connect(this, &MineOperationsWindow::btnAssignTruckClicked);
+
+	add(&btnUnassignTruck, mRect.width - 170, 100);
+	btnUnassignTruck.size({ 80, 20 });
+	btnUnassignTruck.click().connect(this, &MineOperationsWindow::btnUnassignTruckClicked);
+
 	// ORE TOGGLE BUTTONS
-	add(&chkCommonMetals, 148, 93);
+	add(&chkCommonMetals, 148, 125);
 	chkCommonMetals.click().connect(this, &MineOperationsWindow::chkCommonMetalsClicked);
 
-	add(&chkCommonMinerals, 259, 93);
+	add(&chkCommonMinerals, 259, 125);
 	chkCommonMinerals.click().connect(this, &MineOperationsWindow::chkCommonMineralsClicked);
 
-	add(&chkRareMetals, 148, 128);
+	add(&chkRareMetals, 148, 145);
 	chkRareMetals.click().connect(this, &MineOperationsWindow::chkRareMetalsClicked);
 
-	add(&chkRareMinerals, 259, 128);
+	add(&chkRareMinerals, 259, 145);
 	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
 
 	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
@@ -102,6 +114,8 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 
 	btnIdle.toggle(mFacility->forceIdle());
 	btnExtendShaft.enabled(mFacility->canExtend());
+
+	updateTruckAvailability();
 }
 
 
@@ -121,6 +135,50 @@ void MineOperationsWindow::btnExtendShaftClicked()
 void MineOperationsWindow::btnIdleClicked()
 {
 	mFacility->forceIdle(btnIdle.toggled());
+}
+
+
+
+void MineOperationsWindow::btnAssignTruckClicked()
+{
+	updateTruckAvailability();
+
+	if (mAvailableTrucks == 0) { return; }
+	
+	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouse : warehouseList)
+	{
+		Warehouse* w = static_cast<Warehouse*>(warehouse);
+		if (w->products().pull(ProductType::PRODUCT_TRUCK, 1) > 0)
+		{
+			mFacility->addTruck();
+			updateTruckAvailability();
+			return;
+		}
+	}
+
+	throw std::runtime_error("MineOperationsWindow::btnAssignTruckClicked(): No trucks pulled even though trucks available is greater than 0.");
+}
+
+
+void MineOperationsWindow::btnUnassignTruckClicked()
+{
+	const int storageNeededForTruck = storageRequiredPerUnit(ProductType::PRODUCT_TRUCK);
+
+	if (mFacility->assignedTrucks() == 1) { return; }
+	
+	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouse : warehouseList)
+	{
+		Warehouse* w = static_cast<Warehouse*>(warehouse);
+		if (w->products().availableStorage() >= storageNeededForTruck)
+		{
+			mFacility->removeTruck();
+			w->products().store(ProductType::PRODUCT_TRUCK, 1);
+			updateTruckAvailability();
+			return;
+		}
+	}
 }
 
 
@@ -145,6 +203,19 @@ void MineOperationsWindow::chkRareMetalsClicked()
 void MineOperationsWindow::chkRareMineralsClicked()
 {
 	mFacility->mine()->miningRareMinerals(chkRareMinerals.checked());
+}
+
+
+void MineOperationsWindow::updateTruckAvailability()
+{
+	mAvailableTrucks = 0;
+
+	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouse : warehouseList)
+	{
+		Warehouse* w = static_cast<Warehouse*>(warehouse);
+		mAvailableTrucks += w->products().count(ProductType::PRODUCT_TRUCK);
+	}
 }
 
 
@@ -176,6 +247,10 @@ void MineOperationsWindow::update()
 
 	const auto mineDepth = std::to_string(mFacility->mine()->depth());
 	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
+
+	drawLabelAndValue(origin + NAS2D::Vector{ 148, 65 }, "Trucks Assigned: ", std::to_string(mFacility->assignedTrucks()));
+	drawLabelAndValue(origin + NAS2D::Vector{ 148, 80 }, "Trucks Available: ", std::to_string(mAvailableTrucks));
+
 
 	// REMAINING ORE PANEL
 	const auto width = mRect.width;

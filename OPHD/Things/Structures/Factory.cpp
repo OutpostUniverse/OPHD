@@ -24,7 +24,7 @@ const ProductionTypeTable PRODUCTION_TYPE_TABLE =
 	{ ProductType::PRODUCT_DOZER, ProductionCost(5, 10, 5, 5, 2) },
 	{ ProductType::PRODUCT_EXPLORER, ProductionCost(5, 10, 5, 5, 2) },
 	{ ProductType::PRODUCT_MINER, ProductionCost(5, 10, 5, 5, 2) },
-	{ ProductType::PRODUCT_TRUCK, ProductionCost(2, 5, 2, 2, 0) },
+	{ ProductType::PRODUCT_TRUCK, ProductionCost(3, 6, 3, 2, 1) },
 
 	{ ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost(2, 2, 2, 1, 1) },
 

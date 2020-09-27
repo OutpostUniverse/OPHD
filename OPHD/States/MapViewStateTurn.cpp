@@ -238,7 +238,7 @@ void MapViewState::updateResources()
 			const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
 
 			/* intentional truncation of fractional component*/
-			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost);
+			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mineFacility->assignedTrucks();
 			const int oreMovementPart = totalOreMovement / 4;
 			const int oreMovementRemainder = totalOreMovement % 4;
 
@@ -419,6 +419,9 @@ void MapViewState::nextTurn()
 	populateStructureMenu();
 
 	checkColonyShip();
+
+	/// \fixme There's probably a cleaner way to do this
+	mMineOperationsWindow.updateTruckAvailability();
 
 	// Check for Game Over conditions
 	if (mPopulation.size() < 1 && mLandersColonist == 0)

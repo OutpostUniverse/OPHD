@@ -22,6 +22,8 @@ public:
 	void mineFacility(MineFacility* facility);
 	MineFacility* mineFacility() { return mFacility; }
 
+	void updateTruckAvailability();
+
 	void update() override;
 	void hide() override;
 
@@ -42,6 +44,9 @@ private:
 	void btnExtendShaftClicked();
 	void btnIdleClicked();
 
+	void btnAssignTruckClicked();
+	void btnUnassignTruckClicked();
+
 private:
 	MineFacility* mFacility = nullptr;
 
@@ -58,4 +63,9 @@ private:
 	Button btnIdle;
 	Button btnExtendShaft;
 	Button btnOkay;
+
+	Button btnAssignTruck;
+	Button btnUnassignTruck;
+
+	int mAvailableTrucks = 0;
 };
