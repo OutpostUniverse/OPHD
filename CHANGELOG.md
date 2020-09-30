@@ -7,13 +7,25 @@ Includes improved mined resource management and a proper implementation of truck
 
 ### Added
 - Added 64bit build configurations. OutpostHD will now be available as 32-bit and 64-bit builds.
+- Truck manufacturing has been implemented.
+- Mine Operations Window allows assignment of trucks from Warehouse storage.
+- Roads have been added. These are taken into account when calculating transport routes.
+- Planets now define a mean distance from the host star.
 
 ### Changed
-- OutpostHD now builds against the latest versions of NAS2D.
-- Lots of internal code cleanup.
+- SaveGame version changes -- saves from older versions of the game are no longer supported.
+- A LOT of internal code cleanup and improvements.
+- Road Materials have been removed from the game.
+- Resources are now moved via trucks from Mine Facilities to Smelters.
+- Refined resources are now stored in Storage Tanks instead of in an accumulator value.
+- Command Center now stores up to 250 units of Refined Resources.
+- Command Center now stores up to 250 units of Food.
+- Loss of resources or CHAP is no longer an instant game over as the Command Center now acts as a sort of buffer.
+- Solar Panel energy production will vary based on mean distance from the host star.
 
 ### Fixed
-- 
+- Fix a crash when going back to the Main Menu and starting a new game.
+- Fix for weird values shown in Residential Capacity reporting.
 
 
 ## [0.7.11] - 2019-03-01
