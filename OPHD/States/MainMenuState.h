@@ -44,6 +44,9 @@ private:
 
 private:
 	const NAS2D::Image mBgImage;
+	const NAS2D::Image mNoise;
+
+	NAS2D::Timer mTimer;
 
 	FileIo mFileIoDialog; /**< File IO window. */
 

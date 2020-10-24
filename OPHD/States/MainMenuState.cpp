@@ -11,12 +11,77 @@
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <GL/glew.h>
+
 
 using namespace NAS2D;
+
+static GLint NoiseShader = 0;
+
+
+GLuint createShader(const std::string& vertShaderFile, const std::string& fragShaderFile)
+{
+	char str[4096]; // For error messages from the GLSL compiler and linker
+
+	// Create the vertex shader.
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	NAS2D::File vertexShaderSource = Utility<Filesystem>::get().open(vertShaderFile);
+	const char* vertSource = vertexShaderSource.bytes().c_str();
+
+	glShaderSource(vertexShader, 1, &vertSource, NULL);
+	glCompileShader(vertexShader);
+
+	GLint vertexCompiled = 0;
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vertexCompiled);
+	if (vertexCompiled == GL_FALSE)
+	{
+		glGetShaderInfoLog(vertexShader, sizeof(str), NULL, str);
+		std::cout << "Vertex shader compile error " << str << std::endl;
+	}
+
+
+	// Create the fragment shader.
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+	NAS2D::File fragmentShaderSource = Utility<Filesystem>::get().open(fragShaderFile);
+	const char* fragSource = fragmentShaderSource.bytes().c_str();
+
+	glShaderSource(fragmentShader, 1, &fragSource, NULL);
+	glCompileShader(fragmentShader);
+
+	GLint fragmentCompiled = 0;
+	glGetProgramiv(fragmentShader, GL_COMPILE_STATUS, &fragmentCompiled);
+	if (fragmentCompiled == GL_FALSE)
+	{
+		glGetShaderInfoLog(fragmentShader, sizeof(str), NULL, str);
+		std::cout << "Fragment shader compile error: " << str << std::endl;
+	}
+
+	// Create a program object and attach the two compiled shaders.
+	GLint programObject = glCreateProgram();
+	glAttachShader(programObject, vertexShader);
+	glAttachShader(programObject, fragmentShader);
+
+	// Link the program object and print out the info log.
+	glLinkProgram(programObject);
+
+	GLint shadersLinked = 0;
+	glGetProgramiv(programObject, GL_LINK_STATUS, &shadersLinked);
+
+	if (shadersLinked == GL_FALSE)
+	{
+		glGetProgramInfoLog(programObject, sizeof(str), NULL, str);
+		std::cout << "Program object linking error" << str << std::endl;
+	}
+
+	return programObject;
+}
+
 
 
 MainMenuState::MainMenuState() :
 	mBgImage("sys/mainmenu.png"),
+	mNoise("sys/noise.png"),
 	btnNewGame{constants::MAIN_MENU_NEW_GAME},
 	btnContinueGame{constants::MAIN_MENU_CONTINUE},
 	btnOptions{constants::MAIN_MENU_OPTIONS},
@@ -88,6 +153,8 @@ void MainMenuState::initialize()
 
 	Mixer& mixer = Utility<Mixer>::get();
 	if (!mixer.musicPlaying()) { mixer.playMusic(*trackMars); }
+
+	NoiseShader = createShader("shaders/noise.vert", "shaders/noise.frag");
 }
 
 
@@ -298,7 +365,18 @@ NAS2D::State* MainMenuState::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	renderer.clearScreen();
+
 	renderer.drawImage(mBgImage, renderer.center() - mBgImage.size() / 2);
+
+	glBlendFunc(GL_SRC_COLOR, GL_DST_COLOR);
+
+	NAS2D::Rectangle rect1{ 0, -1 * static_cast<int>(mTimer.tick() % renderer.size().y), renderer.size().x, renderer.size().y };
+	NAS2D::Rectangle rect2{ 0, rect1.y + renderer.size().y, renderer.size().x, renderer.size().y };
+
+	renderer.drawImageRepeated(mNoise, rect1);
+	renderer.drawImageRepeated(mNoise, rect2);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
 	if (!mFileIoDialog.visible())
