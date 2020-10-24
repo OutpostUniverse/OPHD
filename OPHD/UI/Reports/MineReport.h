@@ -5,7 +5,7 @@
 #include "../Core/Button.h"
 #include "../Core/ComboBox.h"
 #include "../Core/TextArea.h"
-#include "../FactoryListBox.h"
+#include "../StructureListBox.h"
 #include "../../Common.h"
 
 #include <NAS2D/Renderer/Rectangle.h>
