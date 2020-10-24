@@ -68,9 +68,9 @@ MineReport::MineReport() :
 	btnShowIdle.click().connect(this, &MineReport::btnShowIdleClicked);
 
 	add(&btnShowTappedOut, 241, 10);
-	btnShowIdle.size({ 75, 20 });
-	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
-	btnShowIdle.click().connect(this, &MineReport::btnShowTappedOutClicked);
+	btnShowTappedOut.size({ 75, 20 });
+	btnShowTappedOut.type(Button::Type::BUTTON_TOGGLE);
+	btnShowTappedOut.click().connect(this, &MineReport::btnShowTappedOutClicked);
 
 	add(&btnShowDisabled, 318, 10);
 	btnShowDisabled.size({ 75, 20 });
@@ -181,10 +181,8 @@ void MineReport::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto textColor = NAS2D::Color{ 0, 185, 0 };
-	const auto positionX = 200;
+	const auto positionX = rect().center().x;
 	renderer.drawLine(NAS2D::Point{ positionX + 10, mRect.y + 10 }, NAS2D::Point{ positionX + 10, mRect.y + mRect.height - 10 }, textColor);
-	renderer.drawText(font, "Filter by Product", NAS2D::Point{ positionX - font.width("Filter by Product"), mRect.y + 10 }, textColor);
-
-
+	
 	UIContainer::update();
 }
