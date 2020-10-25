@@ -111,11 +111,31 @@ void MineReport::refresh()
  */
 void MineReport::fillLists()
 {
+	selectedFacility = nullptr;
+	lstMineFacilities.clearItems();
+	std::size_t id = 1;
+	for (auto mineFacility : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
+	{
+		lstMineFacilities.addItem(mineFacility);
+		
+		/**
+		 * Adding a numeric ID to the text to avoid a monotonous look in the structure list.
+		 * Since numeric structure ID's were done away with this is purely a cosmetic thing
+		 * that could haunt us later if the player is looking to search for a mine by id
+		 * as these are going to change between play/save/load sessions and most during
+		 * gameplay as well since list position is not guaranteed.
+		 */
+		lstMineFacilities.last()->text = mineFacility->name() + " #" + std::to_string(id);
+		++id;
+	}
+
+	lstMineFacilities.setSelection(0);
 }
 
 
 void MineReport::resized(Control* /*c*/)
 {
+	lstMineFacilities.size({ rect().center().x - 20, rect().height - 50 });
 }
 
 
