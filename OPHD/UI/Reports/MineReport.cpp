@@ -73,6 +73,9 @@ MineReport::MineReport() :
 	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
 	btnShowDisabled.click().connect(this, &MineReport::btnShowDisabledClicked);
 
+	add(&lstMineFacilities, 10, 40);
+	lstMineFacilities.selectionChanged().connect(this, &MineReport::lstMineFacilitySelectionChanged);
+
 	Control::resized().connect(this, &MineReport::resized);
 	fillLists();
 }
@@ -85,6 +88,7 @@ MineReport::MineReport() :
  */
 void MineReport::selectStructure(Structure* structure)
 {
+	lstMineFacilities.currentSelection(structure);
 }
 
 
@@ -168,6 +172,12 @@ void MineReport::btnShowDisabledClicked()
 {
 	filterButtonClicked();
 	btnShowDisabled.toggle(true);
+}
+
+
+void MineReport::lstMineFacilitySelectionChanged()
+{
+	
 }
 
 

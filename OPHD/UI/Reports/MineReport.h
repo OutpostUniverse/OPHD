@@ -45,6 +45,8 @@ private:
 
 	void filterButtonClicked();
 
+	void lstMineFacilitySelectionChanged();
+
 	void resized(Control*);
 
 	void visibilityChanged(bool visible) override;
@@ -64,6 +66,8 @@ private:
 	Button btnShowDisabled;
 
 	Button btnApply;
+
+	StructureListBox lstMineFacilities;
 
 	MineFacility* selectedFacility = nullptr;
 	ProductType selectedProductType = ProductType::PRODUCT_NONE;
