@@ -16,24 +16,6 @@
 using namespace NAS2D;
 
 
-namespace {
-	const NAS2D::Image& productImage(ProductType productType)
-	{
-		static const std::map<ProductType, const Image*> productImages{
-			{ProductType::PRODUCT_DIGGER, &imageCache.load("ui/interface/product_robodigger.png")},
-			{ProductType::PRODUCT_DOZER, &imageCache.load("ui/interface/product_robodozer.png")},
-			{ProductType::PRODUCT_MINER, &imageCache.load("ui/interface/product_robominer.png")},
-			{ProductType::PRODUCT_EXPLORER, &imageCache.load("ui/interface/product_roboexplorer.png")},
-			{ProductType::PRODUCT_TRUCK, &imageCache.load("ui/interface/product_truck.png")},
-			{ProductType::PRODUCT_MAINTENANCE_PARTS, &imageCache.load("ui/interface/product_maintenance_parts.png")},
-			{ProductType::PRODUCT_CLOTHING, &imageCache.load("ui/interface/product_clothing.png")},
-			{ProductType::PRODUCT_MEDICINE, &imageCache.load("ui/interface/product_medicine.png")}
-		};
-		return *productImages.at(productType);
-	}
-}
-
-
 MineReport::MineReport() :
 	font{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
 	fontMedium{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM) },
@@ -145,6 +127,7 @@ void MineReport::resized(Control* /*c*/)
  */
 void MineReport::visibilityChanged(bool visible)
 {
+	if (!visible) { return; }
 }
 
 
@@ -192,6 +175,11 @@ void MineReport::btnShowDisabledClicked()
 {
 	filterButtonClicked();
 	btnShowDisabled.toggle(true);
+}
+
+
+void MineReport::btnApplyClicked()
+{
 }
 
 
