@@ -21,6 +21,7 @@ MineReport::MineReport() :
 	fontMedium{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM) },
 	fontMediumBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM) },
 	fontBigBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE) },
+	mineFacility{ imageCache.load("ui/interface/mine.png") },
 	btnShowAll{ "All" },
 	btnShowActive{ "Active" },
 	btnShowIdle{ "Idle" },
@@ -97,9 +98,9 @@ void MineReport::fillLists()
 {
 	lstMineFacilities.clearItems();
 	std::size_t id = 1;
-	for (auto mineFacility : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
+	for (auto facility : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
 	{
-		lstMineFacilities.addItem(mineFacility);
+		lstMineFacilities.addItem(facility);
 		
 		/**
 		 * Adding a numeric ID to the text to avoid a monotonous look in the structure list.
@@ -108,7 +109,7 @@ void MineReport::fillLists()
 		 * as these are going to change between play/save/load sessions and most during
 		 * gameplay as well since list position is not guaranteed.
 		 */
-		lstMineFacilities.last()->text = mineFacility->name() + " #" + std::to_string(id);
+		lstMineFacilities.last()->text = facility->name() + " #" + std::to_string(id);
 		++id;
 	}
 
@@ -190,14 +191,30 @@ void MineReport::lstMineFacilitySelectionChanged()
 }
 
 
+void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& startPoint)
+{
+	if (!selectedFacility) { return; }
+
+	auto& r = Utility<Renderer>::get();
+	const auto textColor = NAS2D::Color{ 0, 185, 0 };
+
+	r.drawImage(mineFacility, startPoint + NAS2D::Vector{ 10, 25 });
+	r.drawText(fontBigBold, "Mine Facility", startPoint + NAS2D::Vector{ 10, -8 }, textColor);
+}
+
+
 void MineReport::update()
 {
 	if (!visible()) { return; }
+
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto textColor = NAS2D::Color{ 0, 185, 0 };
-	const auto positionX = rect().center().x;
-	renderer.drawLine(NAS2D::Point{ positionX + 10, mRect.y + 10 }, NAS2D::Point{ positionX + 10, mRect.y + mRect.height - 10 }, textColor);
+	const auto startPoint = NAS2D::Point{ rect().center().x , rect().y + 10 };
+
+	renderer.drawLine(startPoint, startPoint + NAS2D::Vector{ 0, rect().height - 20 }, textColor);
+
+	drawMineFacilityPane(startPoint);
 	
 	UIContainer::update();
 }

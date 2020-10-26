@@ -51,13 +51,14 @@ private:
 
 	void visibilityChanged(bool visible) override;
 
+	void drawMineFacilityPane(const NAS2D::Point<int>&);
+
 private:
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;
-
-	NAS2D::Rectangle<int> detailPanelRect;
+	const NAS2D::Image& mineFacility;
 
 	Button btnShowAll;
 	Button btnShowActive;
