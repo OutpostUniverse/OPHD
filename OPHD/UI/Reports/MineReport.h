@@ -71,5 +71,4 @@ private:
 	StructureListBox lstMineFacilities;
 
 	Structure* selectedFacility = nullptr;
-	ProductType selectedProductType = ProductType::PRODUCT_NONE;
 };
