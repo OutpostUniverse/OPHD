@@ -76,6 +76,8 @@ void MineReport::selectStructure(Structure* structure)
 
 void MineReport::clearSelection()
 {
+	lstMineFacilities.clearSelection();
+	selectedFacility = nullptr;
 }
 
 
@@ -93,7 +95,6 @@ void MineReport::refresh()
  */
 void MineReport::fillLists()
 {
-	selectedFacility = nullptr;
 	lstMineFacilities.clearItems();
 	std::size_t id = 1;
 	for (auto mineFacility : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
@@ -111,7 +112,7 @@ void MineReport::fillLists()
 		++id;
 	}
 
-	lstMineFacilities.setSelection(0);
+	lstMineFacilities.currentSelection(selectedFacility);
 }
 
 
@@ -185,7 +186,7 @@ void MineReport::btnApplyClicked()
 
 void MineReport::lstMineFacilitySelectionChanged()
 {
-	
+	selectedFacility = lstMineFacilities.selectedStructure();
 }
 
 
