@@ -41,7 +41,9 @@ private:
 	void btnShowTappedOutClicked();
 	void btnShowDisabledClicked();
 
-	void btnApplyClicked();
+	void btnIdleClicked();
+	void btnDigNewLevelClicked();
+	void btnTakeMeThereClicked();
 
 	void filterButtonClicked();
 
@@ -58,7 +60,9 @@ private:
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;
+	
 	const NAS2D::Image& mineFacility;
+	const NAS2D::Image& uiIcons;
 
 	Button btnShowAll;
 	Button btnShowActive;
@@ -66,7 +70,9 @@ private:
 	Button btnShowTappedOut;
 	Button btnShowDisabled;
 
-	Button btnApply;
+	Button btnIdle;
+	Button btnDigNewLevel;
+	Button btnTakeMeThere;
 
 	StructureListBox lstMineFacilities;
 

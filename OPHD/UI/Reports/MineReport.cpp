@@ -22,12 +22,15 @@ MineReport::MineReport() :
 	fontMediumBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM) },
 	fontBigBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE) },
 	mineFacility{ imageCache.load("ui/interface/mine.png") },
+	uiIcons{ imageCache.load("ui/icons.png") },
 	btnShowAll{ "All" },
 	btnShowActive{ "Active" },
 	btnShowIdle{ "Idle" },
 	btnShowTappedOut{ "Tapped Out" },
 	btnShowDisabled{ "Disabled" },
-	btnApply{ "Apply" }
+	btnIdle{ "Idle" },
+	btnDigNewLevel{ "Dig New Level" },
+	btnTakeMeThere{ constants::BUTTON_TAKE_ME_THERE }
 {
 
 	add(&btnShowAll, 10, 10);
@@ -58,6 +61,20 @@ MineReport::MineReport() :
 
 	add(&lstMineFacilities, 10, 40);
 	lstMineFacilities.selectionChanged().connect(this, &MineReport::lstMineFacilitySelectionChanged);
+
+	// DETAIL PANE
+	add(&btnIdle, 0, 40);
+	btnIdle.type(Button::Type::BUTTON_TOGGLE);
+	btnIdle.size({ 140, 30 });
+	btnIdle.click().connect(this, &MineReport::btnIdleClicked);
+
+	add(&btnDigNewLevel, 0, 80);
+	btnDigNewLevel.size({ 140, 30 });
+	btnDigNewLevel.click().connect(this, &MineReport::btnDigNewLevelClicked);
+
+	add(&btnTakeMeThere, 0, 120);
+	btnTakeMeThere.size({ 140, 30 });
+	btnTakeMeThere.click().connect(this, &MineReport::btnTakeMeThereClicked);
 
 	Control::resized().connect(this, &MineReport::resized);
 	fillLists();
@@ -120,6 +137,11 @@ void MineReport::fillLists()
 void MineReport::resized(Control* /*c*/)
 {
 	lstMineFacilities.size({ rect().center().x - 20, rect().height - 50 });
+
+	int position_x = rect().width - 150;
+	btnIdle.position({ position_x, btnIdle.positionY() });
+	btnDigNewLevel.position({ position_x, btnDigNewLevel.positionY() });
+	btnTakeMeThere.position({ position_x, btnTakeMeThere.positionY() });
 }
 
 
@@ -180,8 +202,21 @@ void MineReport::btnShowDisabledClicked()
 }
 
 
-void MineReport::btnApplyClicked()
+void MineReport::btnIdleClicked()
 {
+
+}
+
+
+void MineReport::btnDigNewLevelClicked()
+{
+
+}
+
+
+void MineReport::btnTakeMeThereClicked()
+{
+
 }
 
 
@@ -198,8 +233,16 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& startPoint)
 	auto& r = Utility<Renderer>::get();
 	const auto textColor = NAS2D::Color{ 0, 185, 0 };
 
-	r.drawImage(mineFacility, startPoint + NAS2D::Vector{ 10, 25 });
-	r.drawText(fontBigBold, "Mine Facility", startPoint + NAS2D::Vector{ 10, -8 }, textColor);
+	const auto origin = startPoint + NAS2D::Vector{ 10, 30 };
+
+	r.drawImage(mineFacility, origin);
+	r.drawText(fontBigBold, lstMineFacilities.selectionText(), origin + NAS2D::Vector{ 0, -33 }, textColor);
+	
+	r.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{ 138, 0 }, textColor);
+
+	bool isStatusHighlighted = selectedFacility->disabled() || selectedFacility->destroyed();
+	const auto statusPosition = btnIdle.position() - NAS2D::Vector{ fontMedium.width(selectedFacility->stateDescription()) + 10, 0 };
+	r.drawText(fontMedium, selectedFacility->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : textColor));
 }
 
 
