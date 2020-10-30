@@ -1,10 +1,13 @@
 #include "MineReport.h"
 
 #include "../TextRender.h"
+
 #include "../../Cache.h"
 #include "../../Constants.h"
 #include "../../StructureManager.h"
 #include "../../ProductionCost.h"
+
+#include "../../Things/Structures/MineFacility.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -18,6 +21,7 @@ using namespace NAS2D;
 
 MineReport::MineReport() :
 	font{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
+	fontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL) },
 	fontMedium{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM) },
 	fontMediumBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM) },
 	fontBigBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE) },
@@ -241,8 +245,31 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& startPoint)
 	r.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{ 138, 0 }, textColor);
 
 	bool isStatusHighlighted = selectedFacility->disabled() || selectedFacility->destroyed();
-	const auto statusPosition = btnIdle.position() - NAS2D::Vector{ fontMedium.width(selectedFacility->stateDescription()) + 10, 0 };
+	auto statusPosition = btnIdle.position() - NAS2D::Vector{ fontMedium.width(selectedFacility->stateDescription()) + 5, 0 };
 	r.drawText(fontMedium, selectedFacility->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : textColor));
+
+	const auto CommonMetalIconRect = NAS2D::Rectangle{ 64, 0, 16, 16 };
+	const auto CommonMineralIconRect = NAS2D::Rectangle{ 96, 0, 16, 16 };
+	const auto RareMetalIconRect = NAS2D::Rectangle{ 80, 0, 16, 16 };
+	const auto RareMineralIconRect = NAS2D::Rectangle{ 112, 0, 16, 16 };
+
+	auto resourceTextOrigin = origin + NAS2D::Vector{ 138, 30 };
+
+	MineFacility* facility = static_cast<MineFacility*>(selectedFacility);
+	const auto& mine = *facility->mine();
+
+	const auto barOrigin = resourceTextOrigin.x + 125;
+	const auto barWidth = btnIdle.positionX() - barOrigin - 10;
+
+	for (size_t i = 0; i < ResourceNamesOre.size(); ++i)
+	{
+		r.drawText(font, ResourceNamesOre[i], resourceTextOrigin, textColor);
+
+		const float percent = static_cast<float>(mine.oreAvailable(i)) / static_cast<float>(mine.oreTotalYield(i));
+
+		drawBasicProgressBar(barOrigin, resourceTextOrigin.y, barWidth, 12, percent, 2);
+		resourceTextOrigin.y += 15;
+	}
 }
 
 
