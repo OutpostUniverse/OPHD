@@ -31,7 +31,7 @@ public:
 	bool exhausted() const;
 	void checkExhausted();
 
-	MineProductionRate productionRate() { return mProductionRate; }
+	MineProductionRate productionRate() const { return mProductionRate; }
 
 	int depth() const;
 	void increaseDepth();
@@ -40,6 +40,9 @@ public:
 	int commonMineralsAvailable() const;
 	int rareMetalsAvailable() const;
 	int rareMineralsAvailable() const;
+
+	int oreAvailable(size_t) const;
+	int oreTotalYield(size_t) const;
 
 	bool miningCommonMetals() const;
 	bool miningCommonMinerals() const;
