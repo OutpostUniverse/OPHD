@@ -264,13 +264,22 @@ void MineReport::btnRemoveTruckClicked()
 }
 
 
+void MineReport::updateManagementButtonsVisiblity()
+{
+	btnIdle.visible(selectedFacility);
+	btnDigNewLevel.visible(selectedFacility);
+	btnTakeMeThere.visible(selectedFacility);
+
+	btnAddTruck.visible(selectedFacility);
+	btnRemoveTruck.visible(selectedFacility);
+}
+
+
 void MineReport::lstMineFacilitySelectionChanged()
 {
 	selectedFacility = lstMineFacilities.selectedStructure();
 
-	btnIdle.visible(selectedFacility);
-	btnDigNewLevel.visible(selectedFacility);
-	btnTakeMeThere.visible(selectedFacility);
+	updateManagementButtonsVisiblity();
 
 	if (selectedFacility)
 	{

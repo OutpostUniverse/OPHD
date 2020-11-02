@@ -52,6 +52,8 @@ private:
 
 	void lstMineFacilitySelectionChanged();
 
+	void updateManagementButtonsVisiblity();
+
 	void resized(Control*);
 
 	void drawMineFacilityPane(const NAS2D::Point<int>&);
