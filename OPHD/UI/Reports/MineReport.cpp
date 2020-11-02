@@ -32,9 +32,11 @@ MineReport::MineReport() :
 	btnShowIdle{ "Idle" },
 	btnShowTappedOut{ "Tapped Out" },
 	btnShowDisabled{ "Disabled" },
-	btnIdle{ "Idle" },
+	btnIdle{ constants::BUTTON_IDLE },
 	btnDigNewLevel{ "Dig New Level" },
-	btnTakeMeThere{ constants::BUTTON_TAKE_ME_THERE }
+	btnTakeMeThere{ constants::BUTTON_TAKE_ME_THERE },
+	btnAddTruck { constants::BUTTON_ADD_TRUCK },
+	btnRemoveTruck{ constants::BUTTON_REMOVE_TRUCK }
 {
 
 	add(&btnShowAll, 10, 10);
@@ -69,16 +71,24 @@ MineReport::MineReport() :
 	// DETAIL PANE
 	add(&btnIdle, 0, 40);
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
-	btnIdle.size({ 140, 30 });
+	btnIdle.size({ 140, 28 });
 	btnIdle.click().connect(this, &MineReport::btnIdleClicked);
 
-	add(&btnDigNewLevel, 0, 80);
-	btnDigNewLevel.size({ 140, 30 });
+	add(&btnDigNewLevel, 0, 70);
+	btnDigNewLevel.size({ 140, 28 });
 	btnDigNewLevel.click().connect(this, &MineReport::btnDigNewLevelClicked);
 
-	add(&btnTakeMeThere, 0, 120);
-	btnTakeMeThere.size({ 140, 30 });
+	add(&btnTakeMeThere, 0, 100);
+	btnTakeMeThere.size({ 140, 28 });
 	btnTakeMeThere.click().connect(this, &MineReport::btnTakeMeThereClicked);
+
+	add(&btnAddTruck, 0, 130);
+	btnAddTruck.size({ 63, 28 });
+	btnAddTruck.click().connect(this, &MineReport::btnAddTruckClicked);
+
+	add(&btnRemoveTruck, 65, 130);
+	btnRemoveTruck.size({ 75, 28 });
+	btnRemoveTruck.click().connect(this, &MineReport::btnRemoveTruckClicked);
 
 	Control::resized().connect(this, &MineReport::resized);
 	fillLists();
@@ -146,6 +156,9 @@ void MineReport::resized(Control* /*c*/)
 	btnIdle.position({ position_x, btnIdle.positionY() });
 	btnDigNewLevel.position({ position_x, btnDigNewLevel.positionY() });
 	btnTakeMeThere.position({ position_x, btnTakeMeThere.positionY() });
+
+	btnAddTruck.position({ position_x, btnAddTruck.positionY() });
+	btnRemoveTruck.position({ position_x + 65, btnRemoveTruck.positionY() });
 }
 
 
@@ -228,6 +241,18 @@ void MineReport::btnTakeMeThereClicked()
 }
 
 
+void MineReport::btnAddTruckClicked()
+{
+
+}
+
+
+void MineReport::btnRemoveTruckClicked()
+{
+
+}
+
+
 void MineReport::lstMineFacilitySelectionChanged()
 {
 	selectedFacility = lstMineFacilities.selectedStructure();
@@ -281,7 +306,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& startPoint)
 		const float percent = static_cast<float>(mine.oreAvailable(i)) / static_cast<float>(mine.oreTotalYield(i));
 
 		drawBasicProgressBar(barOrigin, resourceTextOrigin.y, barWidth, 12, percent, 2);
-		resourceTextOrigin.y += 15;
+		resourceTextOrigin.y += 20;
 	}
 }
 

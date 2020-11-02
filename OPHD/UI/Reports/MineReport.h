@@ -45,6 +45,9 @@ private:
 	void btnDigNewLevelClicked();
 	void btnTakeMeThereClicked();
 
+	void btnAddTruckClicked();
+	void btnRemoveTruckClicked();
+
 	void filterButtonClicked();
 
 	void lstMineFacilitySelectionChanged();
@@ -74,6 +77,9 @@ private:
 	Button btnIdle;
 	Button btnDigNewLevel;
 	Button btnTakeMeThere;
+
+	Button btnAddTruck;
+	Button btnRemoveTruck;
 
 	StructureListBox lstMineFacilities;
 
