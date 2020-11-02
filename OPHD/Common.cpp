@@ -469,7 +469,7 @@ int pullTruckFromInventory()
 {
 	int trucksAvailable = getTruckAvailability();
 
-	if (trucksAvailable == 0) { return; }
+	if (trucksAvailable == 0) { return 0; }
 
 	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
 	for (auto warehouse : warehouseList)
