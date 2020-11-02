@@ -208,25 +208,43 @@ void MineReport::btnShowDisabledClicked()
 
 void MineReport::btnIdleClicked()
 {
-
+	selectedFacility->forceIdle(btnIdle.toggled());
 }
 
 
 void MineReport::btnDigNewLevelClicked()
 {
-
+	auto facility = static_cast<MineFacility*>(selectedFacility);
+	facility->extend();
+	
+	btnDigNewLevel.toggle(facility->extending());
+	btnDigNewLevel.enabled(facility->canExtend());
 }
 
 
 void MineReport::btnTakeMeThereClicked()
 {
-
+	takeMeThereCallback()(selectedFacility);
 }
 
 
 void MineReport::lstMineFacilitySelectionChanged()
 {
 	selectedFacility = lstMineFacilities.selectedStructure();
+
+	btnIdle.visible(selectedFacility);
+	btnDigNewLevel.visible(selectedFacility);
+	btnTakeMeThere.visible(selectedFacility);
+
+	if (selectedFacility)
+	{
+		auto facility = static_cast<MineFacility*>(selectedFacility);
+		btnIdle.toggle(facility->state() == StructureState::Idle);
+		btnIdle.enabled(facility->state() == StructureState::Operational || facility->state() == StructureState::Idle);
+
+		btnDigNewLevel.toggle(facility->extending());
+		btnDigNewLevel.enabled(facility->canExtend());
+	}
 }
 
 
