@@ -163,16 +163,6 @@ void MineReport::resized(Control* /*c*/)
 }
 
 
-/**
- * This has been overridden to handle some UI elements that need
- * special handling.
- */
-void MineReport::visibilityChanged(bool visible)
-{
-	if (!visible) { return; }
-}
-
-
 void MineReport::filterButtonClicked()
 {
 	btnShowAll.toggle(false);

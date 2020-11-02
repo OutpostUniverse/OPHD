@@ -54,8 +54,6 @@ private:
 
 	void resized(Control*);
 
-	void visibilityChanged(bool visible) override;
-
 	void drawMineFacilityPane(const NAS2D::Point<int>&);
 
 private:
