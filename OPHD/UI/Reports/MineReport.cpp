@@ -95,11 +95,6 @@ MineReport::MineReport() :
 }
 
 
-/**
- * Override of the interface provided by ReportInterface class.
- *
- * \note	Pointer
- */
 void MineReport::selectStructure(Structure* structure)
 {
 	lstMineFacilities.currentSelection(structure);
@@ -119,9 +114,6 @@ void MineReport::refresh()
 }
 
 
-/**
- * Fills the factory list with all available factories.
- */
 void MineReport::fillLists()
 {
 	lstMineFacilities.clearItems();
