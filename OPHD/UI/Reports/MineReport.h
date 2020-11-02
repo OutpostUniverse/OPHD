@@ -84,4 +84,6 @@ private:
 	StructureListBox lstMineFacilities;
 
 	Structure* selectedFacility = nullptr;
+
+	int mAvailableTrucks = 0;
 };

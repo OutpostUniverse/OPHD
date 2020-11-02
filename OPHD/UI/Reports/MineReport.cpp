@@ -145,6 +145,7 @@ void MineReport::fillLists()
 	}
 
 	lstMineFacilities.currentSelection(selectedFacility);
+	mAvailableTrucks = getTruckAvailability();
 }
 
 
@@ -243,13 +244,33 @@ void MineReport::btnTakeMeThereClicked()
 
 void MineReport::btnAddTruckClicked()
 {
+	if (!selectedFacility) { return; }
 
+	auto mFacility = static_cast<MineFacility*>(selectedFacility);
+
+	if (mFacility->assignedTrucks() == mFacility->maxTruckCount()) { return; }
+
+	if (pullTruckFromInventory())
+	{
+		mFacility->addTruck();
+		mAvailableTrucks = getTruckAvailability();
+	}
 }
 
 
 void MineReport::btnRemoveTruckClicked()
 {
+	auto mFacility = static_cast<MineFacility*>(selectedFacility);
 
+	if (!selectedFacility) { return; }
+
+	if (mFacility->assignedTrucks() == 1) { return; }
+
+	if (pushTruckIntoInventory())
+	{
+		mFacility->removeTruck();
+		mAvailableTrucks = getTruckAvailability();
+	}
 }
 
 
