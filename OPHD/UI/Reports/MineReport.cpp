@@ -113,9 +113,6 @@ void MineReport::clearSelection()
 }
 
 
-/**
- * Pass-through function to simulate clicking on the Show All button.
- */
 void MineReport::refresh()
 {
 	btnShowAllClicked();
@@ -134,7 +131,7 @@ void MineReport::fillLists()
 		lstMineFacilities.addItem(facility);
 		
 		/**
-		 * Adding a numeric ID to the text to avoid a monotonous look in the structure list.
+		 * Add a numeric ID to the text to avoid a monotonous look in the structure list.
 		 * Since numeric structure ID's were done away with this is purely a cosmetic thing
 		 * that could haunt us later if the player is looking to search for a mine by id
 		 * as these are going to change between play/save/load sessions and most during
