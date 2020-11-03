@@ -14,8 +14,9 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
-#include <map>
 #include <array>
+#include <cfloat>
+#include <map>
 
 
 using namespace NAS2D;
