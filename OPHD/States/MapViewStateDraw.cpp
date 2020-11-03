@@ -98,7 +98,8 @@ void MapViewState::drawMiniMap()
 
 	// Temporary debug aid, will be slow with high numbers of mines
 	// especially with routes of longer lengths.
-	for (auto route : mRouteTable)
+	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	for (auto route : routeTable)
 	{
 		for (auto tile : route.second.path)
 		{
