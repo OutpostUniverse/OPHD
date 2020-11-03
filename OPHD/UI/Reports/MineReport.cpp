@@ -71,23 +71,24 @@ MineReport::MineReport() :
 	// DETAIL PANE
 	add(&btnIdle, 0, 40);
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
-	btnIdle.size({ 140, 28 });
+	btnIdle.size({ 140, 30 });
 	btnIdle.click().connect(this, &MineReport::btnIdleClicked);
 
-	add(&btnDigNewLevel, 0, 70);
-	btnDigNewLevel.size({ 140, 28 });
+	add(&btnDigNewLevel, 0, 75);
+	btnDigNewLevel.size({ 140, 30 });
 	btnDigNewLevel.click().connect(this, &MineReport::btnDigNewLevelClicked);
 
-	add(&btnTakeMeThere, 0, 100);
-	btnTakeMeThere.size({ 140, 28 });
+	add(&btnTakeMeThere, 0, 110);
+	btnTakeMeThere.size({ 140, 30 });
 	btnTakeMeThere.click().connect(this, &MineReport::btnTakeMeThereClicked);
 
-	add(&btnAddTruck, 0, 130);
-	btnAddTruck.size({ 63, 28 });
+	// Truck Management Pane
+	add(&btnAddTruck, 0, 215);
+	btnAddTruck.size({ 140, 30 });
 	btnAddTruck.click().connect(this, &MineReport::btnAddTruckClicked);
 
-	add(&btnRemoveTruck, 65, 130);
-	btnRemoveTruck.size({ 75, 28 });
+	add(&btnRemoveTruck, 0, 250);
+	btnRemoveTruck.size({ 140, 30 });
 	btnRemoveTruck.click().connect(this, &MineReport::btnRemoveTruckClicked);
 
 	Control::resized().connect(this, &MineReport::resized);
@@ -148,7 +149,7 @@ void MineReport::resized(Control* /*c*/)
 	btnTakeMeThere.position({ position_x, btnTakeMeThere.positionY() });
 
 	btnAddTruck.position({ position_x, btnAddTruck.positionY() });
-	btnRemoveTruck.position({ position_x + 65, btnRemoveTruck.positionY() });
+	btnRemoveTruck.position({ position_x, btnRemoveTruck.positionY() });
 }
 
 
@@ -282,14 +283,10 @@ void MineReport::lstMineFacilitySelectionChanged()
 }
 
 
-void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& startPoint)
+void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 {
-	if (!selectedFacility) { return; }
-
 	auto& r = Utility<Renderer>::get();
 	const auto textColor = NAS2D::Color{ 0, 185, 0 };
-
-	const auto origin = startPoint + NAS2D::Vector{ 10, 30 };
 
 	r.drawImage(mineFacility, origin);
 	r.drawText(fontBigBold, lstMineFacilities.selectionText(), origin + NAS2D::Vector{ 0, -33 }, textColor);
@@ -320,6 +317,25 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& startPoint)
 }
 
 
+void MineReport::drawTruckMangementPane(const NAS2D::Point<int>& origin)
+{
+	auto& r = Utility<Renderer>::get();
+	const auto textColor = NAS2D::Color{ 0, 185, 0 };
+	const auto mFacility = static_cast<MineFacility*>(selectedFacility);
+
+	r.drawText(fontMediumBold, "Trucks & Routing", origin, textColor);
+	r.drawLine(origin + NAS2D::Vector{ 0, 20 }, { static_cast<float>(r.size().x - 10), static_cast<float>(origin.y + 20) }, textColor, 1);
+
+	r.drawText(fontBold, "Trucks Assigned to Facility", origin + NAS2D::Vector{ 0, 30 }, textColor);
+
+	const auto labelWidth = btnAddTruck.positionX() - origin.x - 10;
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 30 }, labelWidth, "Trucks Assigned to Facility", std::to_string(mFacility->assignedTrucks()), textColor);
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 45 }, labelWidth, "Trucks Available in Storage", std::to_string(mAvailableTrucks), textColor);
+	
+	//drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 65 }, labelWidth, "Route Available", mFacility->route, textColor);
+}
+
+
 void MineReport::update()
 {
 	if (!visible()) { return; }
@@ -331,7 +347,11 @@ void MineReport::update()
 
 	renderer.drawLine(startPoint, startPoint + NAS2D::Vector{ 0, rect().height - 20 }, textColor);
 
-	drawMineFacilityPane(startPoint);
+	if (selectedFacility)
+	{
+		drawMineFacilityPane(startPoint + NAS2D::Vector{ 10, 30 });
+		drawTruckMangementPane(startPoint + NAS2D::Vector{ 10, 180 });
+	}
 	
 	UIContainer::update();
 }
