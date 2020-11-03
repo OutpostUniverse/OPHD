@@ -7,6 +7,8 @@
 #include "../../StructureManager.h"
 #include "../../ProductionCost.h"
 
+#include "../../States/Route.h"
+
 #include "../../Things/Structures/MineFacility.h"
 
 #include <NAS2D/Utility.h>
@@ -134,8 +136,9 @@ void MineReport::fillLists()
 		++id;
 	}
 
-	lstMineFacilities.currentSelection(selectedFacility);
+	selectedFacility == nullptr ? lstMineFacilities.setSelection(0) : lstMineFacilities.currentSelection(selectedFacility);
 	mAvailableTrucks = getTruckAvailability();
+	updateManagementButtonsVisiblity();
 }
 
 
@@ -332,7 +335,81 @@ void MineReport::drawTruckMangementPane(const NAS2D::Point<int>& origin)
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 30 }, labelWidth, "Trucks Assigned to Facility", std::to_string(mFacility->assignedTrucks()), textColor);
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 45 }, labelWidth, "Trucks Available in Storage", std::to_string(mAvailableTrucks), textColor);
 	
-	//drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 65 }, labelWidth, "Route Available", mFacility->route, textColor);
+	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	bool routeAvailable = routeTable.find(mFacility) != routeTable.end();
+
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 65 },
+		labelWidth,
+		"Route Available",
+		routeAvailable ? "Yes" : "No",
+		routeAvailable ? textColor : NAS2D::Color::Red);
+
+	if (routeAvailable)
+	{
+		drawTruckHaulInfo(origin + NAS2D::Vector{ 0, 80 });
+	}
+}
+
+
+void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
+{
+	auto& r = Utility<Renderer>::get();
+	const auto textColor = NAS2D::Color{ 0, 185, 0 };
+	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	const auto mFacility = static_cast<MineFacility*>(selectedFacility);
+
+	auto& route = routeTable[mFacility];
+	drawLabelAndValueRightJustify(origin,
+		btnAddTruck.positionX() - origin.x - 10,
+		"Route Cost",
+		std::to_string(route.cost).substr(0, std::to_string(route.cost).find(".") + 3), // hack-ish and probably slow, this could be cached
+		textColor);
+
+
+	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
+	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mFacility->assignedTrucks();
+	const int oreMovementLabelWidth = r.size().x - origin.x - 10;
+	const int oreMovementPart = totalOreMovement / 4;
+	const int oreLabelWidth = (oreMovementLabelWidth - 10) / 2;
+
+	const NAS2D::Rectangle<int> tableRect({ origin.x - 2, origin.y + 18, oreMovementLabelWidth + 5, 47 });
+
+	r.drawBoxFilled(tableRect, { 0, 0, 0, 100 });
+	r.drawBox(tableRect, textColor);
+
+	r.drawLine(origin + NAS2D::Vector{ 0, 34 }, origin + NAS2D::Vector{ oreMovementLabelWidth, 34 }, textColor);
+	r.drawLine(origin + NAS2D::Vector{ 0, 50 }, origin + NAS2D::Vector{ oreMovementLabelWidth, 50 }, textColor);
+	r.drawLine(origin + NAS2D::Vector{ oreLabelWidth + 5, 37 }, origin + NAS2D::Vector{ oreLabelWidth + 5, 63 }, textColor);
+
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 20 },
+		oreMovementLabelWidth,
+		"Total Haul Capacity per Turn",
+		std::to_string(totalOreMovement),
+		textColor);
+
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 35 },
+		oreLabelWidth,
+		ResourceNamesOre[0] + " Haul Capacity",
+		std::to_string(oreMovementPart),
+		textColor);
+
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ oreLabelWidth + 10, 35 },
+		oreLabelWidth,
+		ResourceNamesOre[1] + " Haul Capacity",
+		std::to_string(oreMovementPart),
+		textColor);
+
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 50 },
+		oreLabelWidth,
+		ResourceNamesOre[2] + " Haul Capacity",
+		std::to_string(oreMovementPart),
+		textColor);
+
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ oreLabelWidth + 10, 50 },
+		oreLabelWidth,
+		ResourceNamesOre[3] + " Haul Capacity",
+		std::to_string(oreMovementPart + (totalOreMovement % 4)),
+		textColor);
 }
 
 

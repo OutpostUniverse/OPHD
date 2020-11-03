@@ -58,6 +58,7 @@ private:
 
 	void drawMineFacilityPane(const NAS2D::Point<int>&);
 	void drawTruckMangementPane(const NAS2D::Point<int>&);
+	void drawTruckHaulInfo(const NAS2D::Point<int>&);
 
 private:
 	const NAS2D::Font& font;
