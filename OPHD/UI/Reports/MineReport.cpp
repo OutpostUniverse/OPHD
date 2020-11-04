@@ -145,15 +145,16 @@ void MineReport::fillLists()
 
 void MineReport::resized(Control* /*c*/)
 {
-	lstMineFacilities.size({ rect().center().x - 20, rect().height - 50 });
+	lstMineFacilities.size({ rect().center().x - 20, rect().height - 51 });
 
 	int position_x = rect().width - 150;
 	btnIdle.position({ position_x, btnIdle.positionY() });
 	btnDigNewLevel.position({ position_x, btnDigNewLevel.positionY() });
 	btnTakeMeThere.position({ position_x, btnTakeMeThere.positionY() });
 
-	btnAddTruck.position({ position_x, btnAddTruck.positionY() });
-	btnRemoveTruck.position({ position_x, btnRemoveTruck.positionY() });
+	auto& r = NAS2D::Utility<Renderer>::get();
+	btnAddTruck.position({ position_x, r.size().y - 130 });
+	btnRemoveTruck.position({ position_x, r.size().y - 95 });
 }
 
 
@@ -328,7 +329,7 @@ void MineReport::drawTruckMangementPane(const NAS2D::Point<int>& origin)
 	const auto mFacility = static_cast<MineFacility*>(selectedFacility);
 
 	r.drawText(fontMediumBold, "Trucks & Routing", origin, textColor);
-	r.drawLine(origin + NAS2D::Vector{ 0, 20 }, { static_cast<float>(r.size().x - 10), static_cast<float>(origin.y + 20) }, textColor, 1);
+	r.drawLine(origin + NAS2D::Vector{ 0, 21 }, { static_cast<float>(r.size().x - 10), static_cast<float>(origin.y + 21) }, textColor, 1);
 
 	r.drawText(fontBold, "Trucks Assigned to Facility", origin + NAS2D::Vector{ 0, 30 }, textColor);
 
@@ -418,17 +419,17 @@ void MineReport::update()
 {
 	if (!visible()) { return; }
 
-	auto& renderer = Utility<Renderer>::get();
+	auto& r = Utility<Renderer>::get();
 
 	const auto textColor = NAS2D::Color{ 0, 185, 0 };
 	const auto startPoint = NAS2D::Point{ rect().center().x , rect().y + 10 };
 
-	renderer.drawLine(startPoint, startPoint + NAS2D::Vector{ 0, rect().height - 20 }, textColor);
+	r.drawLine(startPoint, startPoint + NAS2D::Vector{ 0, rect().height - 20 }, textColor);
 
 	if (selectedFacility)
 	{
 		drawMineFacilityPane(startPoint + NAS2D::Vector{ 10, 30 });
-		drawTruckMangementPane(startPoint + NAS2D::Vector{ 10, 180 });
+		drawTruckMangementPane(startPoint + NAS2D::Vector{ 10, r.size().y - 214 });
 	}
 	
 	UIContainer::update();
