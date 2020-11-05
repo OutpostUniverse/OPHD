@@ -57,6 +57,7 @@ private:
 	void resized(Control*);
 
 	void drawMineFacilityPane(const NAS2D::Point<int>&);
+	void drawOreProductionPane(const NAS2D::Point<int>&);
 	void drawTruckMangementPane(const NAS2D::Point<int>&);
 	void drawTruckHaulInfo(const NAS2D::Point<int>&);
 
