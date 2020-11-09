@@ -39,7 +39,11 @@ MineReport::MineReport() :
 	btnDigNewLevel{ "Dig New Level" },
 	btnTakeMeThere{ constants::BUTTON_TAKE_ME_THERE },
 	btnAddTruck { constants::BUTTON_ADD_TRUCK },
-	btnRemoveTruck{ constants::BUTTON_REMOVE_TRUCK }
+	btnRemoveTruck{ constants::BUTTON_REMOVE_TRUCK },
+	chkCommonMetals{ "Mine Common Metals" },
+	chkCommonMinerals{ "Mine Common Minerals" },
+	chkRareMetals{ "Mine Rare Metals" },
+	chkRareMinerals{ "Mine Rare Minerals" }
 {
 
 	add(&btnShowAll, 10, 10);
@@ -84,6 +88,19 @@ MineReport::MineReport() :
 	add(&btnTakeMeThere, 0, 110);
 	btnTakeMeThere.size({ 140, 30 });
 	btnTakeMeThere.click().connect(this, &MineReport::btnTakeMeThereClicked);
+
+	// Ore Management Pane
+	add(&chkCommonMetals, 0, 210);
+	chkCommonMetals.click().connect(this, &MineReport::chkCommonMetalsClicked);
+
+	add(&chkCommonMinerals, 0, 280);
+	chkCommonMinerals.click().connect(this, &MineReport::chkCommonMineralsClicked);
+
+	add(&chkRareMetals, 0, 350);
+	chkRareMetals.click().connect(this, &MineReport::chkRareMetalsClicked);
+
+	add(&chkRareMinerals, 0, 420);
+	chkRareMinerals.click().connect(this, &MineReport::chkRareMineralsClicked);
 
 	// Truck Management Pane
 	add(&btnAddTruck, 0, 215);
@@ -152,9 +169,15 @@ void MineReport::resized(Control* /*c*/)
 	btnDigNewLevel.position({ position_x, btnDigNewLevel.positionY() });
 	btnTakeMeThere.position({ position_x, btnTakeMeThere.positionY() });
 
-	auto& r = NAS2D::Utility<Renderer>::get();
-	btnAddTruck.position({ position_x, r.size().y - 130 });
-	btnRemoveTruck.position({ position_x, r.size().y - 95 });
+	auto& renderer = NAS2D::Utility<Renderer>::get();
+	btnAddTruck.position({ position_x, renderer.size().y - 130 });
+	btnRemoveTruck.position({ position_x, renderer.size().y - 95 });
+
+	position_x -= 20;
+	chkCommonMetals.position({ position_x, chkCommonMetals.positionY() });
+	chkCommonMinerals.position({ position_x, chkCommonMinerals.positionY() });
+	chkRareMetals.position({ position_x, chkRareMetals.positionY() });
+	chkRareMinerals.position({ position_x, chkRareMinerals.positionY() });
 }
 
 
@@ -259,6 +282,34 @@ void MineReport::btnRemoveTruckClicked()
 }
 
 
+void MineReport::chkCommonMetalsClicked()
+{
+	MineFacility* facility = static_cast<MineFacility*>(selectedFacility);
+	facility->mine()->miningCommonMetals(chkCommonMetals.checked());
+}
+
+
+void MineReport::chkCommonMineralsClicked()
+{
+	MineFacility* facility = static_cast<MineFacility*>(selectedFacility);
+	facility->mine()->miningCommonMinerals(chkCommonMinerals.checked());
+}
+
+
+void MineReport::chkRareMetalsClicked()
+{
+	MineFacility* facility = static_cast<MineFacility*>(selectedFacility);
+	facility->mine()->miningRareMetals(chkRareMetals.checked());
+}
+
+
+void MineReport::chkRareMineralsClicked()
+{
+	MineFacility* facility = static_cast<MineFacility*>(selectedFacility);
+	facility->mine()->miningRareMinerals(chkRareMinerals.checked());
+}
+
+
 void MineReport::updateManagementButtonsVisiblity()
 {
 	btnIdle.visible(selectedFacility);
@@ -267,6 +318,11 @@ void MineReport::updateManagementButtonsVisiblity()
 
 	btnAddTruck.visible(selectedFacility);
 	btnRemoveTruck.visible(selectedFacility);
+
+	chkCommonMetals.visible(selectedFacility);
+	chkCommonMinerals.visible(selectedFacility);
+	chkRareMetals.visible(selectedFacility);
+	chkRareMinerals.visible(selectedFacility);
 }
 
 
@@ -284,6 +340,11 @@ void MineReport::lstMineFacilitySelectionChanged()
 
 		btnDigNewLevel.toggle(facility->extending());
 		btnDigNewLevel.enabled(facility->canExtend());
+
+		chkCommonMetals.checked(facility->mine()->miningCommonMetals());
+		chkCommonMinerals.checked(facility->mine()->miningCommonMinerals());
+		chkRareMetals.checked(facility->mine()->miningRareMetals());
+		chkRareMinerals.checked(facility->mine()->miningRareMinerals());
 	}
 }
 

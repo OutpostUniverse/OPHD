@@ -3,6 +3,7 @@
 #include "ReportInterface.h"
 
 #include "../Core/Button.h"
+#include "../Core/CheckBox.h"
 #include "../Core/ComboBox.h"
 #include "../Core/TextArea.h"
 #include "../StructureListBox.h"
@@ -48,6 +49,11 @@ private:
 	void btnAddTruckClicked();
 	void btnRemoveTruckClicked();
 
+	void chkCommonMetalsClicked();
+	void chkCommonMineralsClicked();
+	void chkRareMetalsClicked();
+	void chkRareMineralsClicked();
+
 	void filterButtonClicked();
 
 	void lstMineFacilitySelectionChanged();
@@ -83,6 +89,11 @@ private:
 
 	Button btnAddTruck;
 	Button btnRemoveTruck;
+
+	CheckBox chkCommonMetals;
+	CheckBox chkCommonMinerals;
+	CheckBox chkRareMetals;
+	CheckBox chkRareMinerals;
 
 	StructureListBox lstMineFacilities;
 
