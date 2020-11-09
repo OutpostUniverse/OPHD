@@ -385,27 +385,24 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 
 void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 {
-	auto& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	const auto textColor = NAS2D::Color{ 0, 185, 0 };
+	const auto& mine = *static_cast<MineFacility*>(selectedFacility)->mine();
 
-	r.drawText(fontMediumBold, "Ore Production", origin, textColor);
-	r.drawLine(origin + NAS2D::Vector{ 0, 21 }, { static_cast<float>(r.size().x - 10), static_cast<float>(origin.y + 21) }, textColor, 1);
+	renderer.drawText(fontMediumBold, "Ore Production", origin, textColor);
+	renderer.drawLine(origin + NAS2D::Vector{ 0, 21 }, { static_cast<float>(renderer.size().x - 10), static_cast<float>(origin.y + 21) }, textColor, 1);
 
-	r.drawSubImage(uiIcons, origin + NAS2D::Vector{ 0, 30 }, NAS2D::Rectangle{ 64, 0, 16, 16 });
-	r.drawText(fontBold, ResourceNamesOre[0], origin + NAS2D::Vector{ 20, 30 }, textColor);
-	drawBasicProgressBar(origin.x, origin.y + 50, r.size().x - origin.x - 10, 25, 0.10f);
+	int offsetY = 0;
+	for (size_t i = 0; i < 4; ++i)
+	{
+		renderer.drawSubImage(uiIcons, origin + NAS2D::Vector{ 0, 30 + offsetY }, NAS2D::Rectangle{ 64, 0, 16, 16 });
+		renderer.drawText(fontBold, ResourceNamesOre[0], origin + NAS2D::Vector{ 20, 30 + offsetY }, textColor);
 
-	r.drawSubImage(uiIcons, origin + NAS2D::Vector{ 0, 100 }, NAS2D::Rectangle{ 96, 0, 16, 16 });
-	r.drawText(fontBold, ResourceNamesOre[1], origin + NAS2D::Vector{ 20, 100 }, textColor);
-	drawBasicProgressBar(origin.x, origin.y + 120, r.size().x - origin.x - 10, 25, 0.10f);
+		const auto percent = static_cast<float>(mine.oreAvailable(i)) / static_cast<float>(mine.oreTotalYield(i));
+		drawBasicProgressBar(origin.x, origin.y + 50 + offsetY, renderer.size().x - origin.x - 10, 25, percent);
 
-	r.drawSubImage(uiIcons, origin + NAS2D::Vector{ 0, 170 }, NAS2D::Rectangle{ 80, 0, 16, 16 });
-	r.drawText(fontBold, ResourceNamesOre[2], origin + NAS2D::Vector{ 20, 170 }, textColor);
-	drawBasicProgressBar(origin.x, origin.y + 190, r.size().x - origin.x - 10, 25, 0.10f);
-
-	r.drawSubImage(uiIcons, origin + NAS2D::Vector{ 0, 240 }, NAS2D::Rectangle{ 112, 0, 16, 16 });
-	r.drawText(fontBold, ResourceNamesOre[3], origin + NAS2D::Vector{ 20, 240 }, textColor);
-	drawBasicProgressBar(origin.x, origin.y + 260, r.size().x - origin.x - 10, 25, 0.10f);
+		offsetY += 70;
+	}
 }
 
 
