@@ -204,6 +204,9 @@ namespace constants
 	// = UI STRINGS
 	// =====================================
 	const std::string BUTTON_TAKE_ME_THERE = "Take Me There";
+	const std::string BUTTON_IDLE = "Idle";
+	const std::string BUTTON_ADD_TRUCK = "Add Truck";
+	const std::string BUTTON_REMOVE_TRUCK = "Remove Truck";
 
 	// =====================================
 	// = STRUCTURE DISABLED REASONS

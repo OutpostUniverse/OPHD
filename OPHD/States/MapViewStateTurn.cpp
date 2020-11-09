@@ -194,6 +194,7 @@ void MapViewState::updateMorale()
 void MapViewState::updateResources()
 {
 	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
+	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 
 	mPathSolver->Reset();
 
@@ -204,12 +205,12 @@ void MapViewState::updateResources()
 
 		if (!mine->operational() && !mine->isIdle()) { continue; } // consider a different control path.
 
-		auto routeIt = mRouteTable.find(facility);
-		bool findNewRoute = routeIt == mRouteTable.end();
+		auto routeIt = routeTable.find(facility);
+		bool findNewRoute = routeIt == routeTable.end();
 
 		if (!findNewRoute && routeObstructed(routeIt->second))
 		{
-			mRouteTable.erase(facility);
+			routeTable.erase(facility);
 			findNewRoute = true;
 		}
 
@@ -220,12 +221,12 @@ void MapViewState::updateResources()
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine
 
-			mRouteTable[facility] = newRoute;
+			routeTable[facility] = newRoute;
 		}
 
 		/* Route table may have changed, ensure we have a valid iterator. */
-		routeIt = mRouteTable.find(facility);
-		if (routeIt != mRouteTable.end())
+		routeIt = routeTable.find(facility);
+		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;
 			const auto smelter = static_cast<Smelter*>(static_cast<Tile*>(route.path.back())->structure());

@@ -2,7 +2,28 @@
 
 #include <iostream>
 
+#include <array>
+#include <map>
+
 using namespace NAS2D::Xml;
+
+
+/**
+ * Yield ore table
+ * 
+ * \note Follows the array layout conventions of the StorableResources class
+ * 
+ * [0] Common Metals
+ * [1] Common Minerals
+ * [2] Rare Metals
+ * [3] Rare Minerals
+ */
+static const std::map<MineProductionRate, std::array<int, 4>> YieldTable =
+{
+	{ MineProductionRate::Low, { 600, 500, 600, 500 }},
+	{ MineProductionRate::Medium, { 700, 550, 700, 550 }},
+	{ MineProductionRate::High, { 850, 600, 850, 600 }}
+};
 
 
 /**
@@ -111,33 +132,7 @@ void Mine::miningRareMinerals(bool value)
  */
 void Mine::increaseDepth()
 {
-	auto vein = MineVein{0,0,0,0};
-
-	switch (productionRate())
-	{
-	case MineProductionRate::Low:
-		vein[OreType::ORE_COMMON_METALS] = 600;
-		vein[OreType::ORE_COMMON_MINERALS] = 500;
-		vein[OreType::ORE_RARE_METALS] = 600;
-		vein[OreType::ORE_RARE_MINERALS] = 500;
-		break;
-
-	case MineProductionRate::Medium:
-		vein[OreType::ORE_COMMON_METALS] = 700;
-		vein[OreType::ORE_COMMON_MINERALS] = 550;
-		vein[OreType::ORE_RARE_METALS] = 700;
-		vein[OreType::ORE_RARE_MINERALS] = 550;
-		break;
-
-	case MineProductionRate::High:
-		vein[OreType::ORE_COMMON_METALS] = 850;
-		vein[OreType::ORE_COMMON_MINERALS] = 600;
-		vein[OreType::ORE_RARE_METALS] = 850;
-		vein[OreType::ORE_RARE_MINERALS] = 600;
-		break;
-	}
-
-	mVeins.push_back(vein);
+	mVeins.push_back(YieldTable.at(productionRate()));
 }
 
 
@@ -187,6 +182,42 @@ int Mine::rareMetalsAvailable() const
 int Mine::rareMineralsAvailable() const
 {
 	return getOreCount(mVeins, OreType::ORE_RARE_MINERALS, depth());
+}
+
+
+/**
+ * Gets the available count of a specified resource
+ *
+ * Follows the array index conventions of a StorableResource
+ *
+ * [0] Common Metals
+ * [1] Common Minerals
+ * [2] Rare Metals
+ * [3] Rare Minerals
+ *
+ * \throws std::out_of_range index is out of range
+ */
+int Mine::oreAvailable(size_t index) const
+{
+	return getOreCount(mVeins, static_cast<Mine::OreType>(index), depth());
+}
+
+
+/**
+ * Gets the total yield of a specified resource
+ * 
+ * Follows the array index conventions of a StorableResource
+ * 
+ * [0] Common Metals
+ * [1] Common Minerals
+ * [2] Rare Metals
+ * [3] Rare Minerals
+ * 
+ * \throws std::out_of_range index is out of range
+ */
+int Mine::oreTotalYield(size_t index) const
+{
+	return YieldTable.at(productionRate())[index] * depth();
 }
 
 

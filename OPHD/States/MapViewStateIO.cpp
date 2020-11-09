@@ -172,7 +172,8 @@ void MapViewState::load(const std::string& filePath)
 
 	delete mPathSolver;
 	mPathSolver = new micropather::MicroPather(mTileMap);
-	mRouteTable.clear();
+	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	routeTable.clear();
 
 	/**
 	 * In the case of loading a game, the Robot Command Center depends on the robot list

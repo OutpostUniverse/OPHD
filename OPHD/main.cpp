@@ -3,6 +3,7 @@
 #include "Constants.h"
 #include "WindowEventWrapper.h"
 
+#include "States/GameState.h"
 #include "States/SplashState.h"
 #include "States/MainMenuState.h"
 #include "States/MapViewState.h"
@@ -26,7 +27,7 @@
 using namespace NAS2D;
 
 
-int main(int /*argc*/, char *argv[])
+int main(int argc, char *argv[])
 {
 	//Crude way of redirecting stream buffer when building in release (no console)
 	#ifdef NDEBUG
@@ -126,8 +127,27 @@ int main(int /*argc*/, char *argv[])
 
 		StateManager stateManager;
 		stateManager.forceStopAudio(false);
-		
-		if (!options.get<bool>("skip-splash"))
+
+		if (argc > 1)
+		{
+			std::string filename = constants::SAVE_GAME_PATH + argv[1] + ".xml";
+			if(!fs.exists(filename))
+			{
+				std::cout << "Savegame specified on command line: " << argv[1] << " could not be found." << std::endl;
+				stateManager.setState(new MainMenuState());
+			}
+
+			Utility<Mixer>::get().stopMusic();
+
+			GameState* gameState = new GameState();
+			MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), filename);
+			mapview->_initialize();
+			mapview->activate();
+
+			gameState->mapviewstate(mapview);
+			stateManager.setState(gameState);
+		}
+		else if (!options.get<bool>("skip-splash"))
 		{
 			stateManager.setState(new SplashState());
 		}

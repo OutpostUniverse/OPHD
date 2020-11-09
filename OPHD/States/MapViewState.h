@@ -281,7 +281,6 @@ private:
 
 	// ROUTING
 	micropather::MicroPather* mPathSolver = nullptr;
-	std::map<class MineFacility*, Route> mRouteTable;
 
 	// MISCELLANEOUS
 	int mTurnCount = 0;

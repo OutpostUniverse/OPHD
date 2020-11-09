@@ -325,3 +325,15 @@ NAS2D::Color structureColorFromIndex(StructureState structureState);
 NAS2D::Color structureTextColorFromIndex(StructureState structureState);
 
 bool windowMaximized();
+
+int getTruckAvailability();
+
+/**
+ * \return 1 on success, 0 otherwise.
+ */
+int pullTruckFromInventory();
+
+/**
+ * \return 1 on success, 0 otherwise.
+ */
+int pushTruckIntoInventory();

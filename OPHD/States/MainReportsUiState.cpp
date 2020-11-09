@@ -6,6 +6,7 @@
 #include "../UI/Reports/ReportInterface.h"
 
 #include "../UI/Reports/FactoryReport.h"
+#include "../UI/Reports/MineReport.h"
 #include "../UI/Reports/WarehouseReport.h"
 
 #include <NAS2D/Utility.h>
@@ -185,6 +186,12 @@ void MainReportsUiState::initialize()
 	warehouse_report->position({0, 48});
 	warehouse_report->size({size.x, size.y - 48});
 	warehouse_report->hide();
+
+	ReportInterface* mining_report = new MineReport();
+	Panels[NavigationPanel::PANEL_MINING].UiPanel = mining_report;
+	mining_report->position({ 0, 48 });
+	mining_report->size({ size.x, size.y - 48 });
+	mining_report->hide();
 }
 
 
@@ -198,6 +205,10 @@ void MainReportsUiState::_activate()
 
 	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->fillLists();
 	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->refresh();
+
+	Panels[NavigationPanel::PANEL_MINING].UiPanel->fillLists();
+	Panels[NavigationPanel::PANEL_MINING].UiPanel->refresh();
+
 }
 
 
@@ -214,6 +225,7 @@ void MainReportsUiState::_deactivate()
 
 	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->clearSelection();
 	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->clearSelection();
+	Panels[NavigationPanel::PANEL_MINING].UiPanel->clearSelection();
 }
 
 
@@ -320,13 +332,13 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 /**
  * Structure pointer is assumed to be a Mine Facility or Smelter.
  */
-void MainReportsUiState::selectMinePanel(Structure* /*structure*/)
+void MainReportsUiState::selectMinePanel(Structure* structure)
 {
 	deselectAllPanels();
 	Panels[NavigationPanel::PANEL_MINING].Selected(true);
-	//Panels[NavigationPanel::PANEL_MINING].UiPanel->visible(true);
-	//Panels[NavigationPanel::PANEL_MINING].UiPanel->refresh();
-	//Panels[NavigationPanel::PANEL_MINING].UiPanel->selectStructure(structure);
+	Panels[NavigationPanel::PANEL_MINING].UiPanel->visible(true);
+	Panels[NavigationPanel::PANEL_MINING].UiPanel->refresh();
+	Panels[NavigationPanel::PANEL_MINING].UiPanel->selectStructure(structure);
 }
 
 
@@ -334,7 +346,7 @@ void MainReportsUiState::clearLists()
 {
 	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->fillLists();
 	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->fillLists();
-	//Panels[NavigationPanel::PANEL_MINING].UiPanel->fillLists();
+	Panels[NavigationPanel::PANEL_MINING].UiPanel->fillLists();
 }
 
 

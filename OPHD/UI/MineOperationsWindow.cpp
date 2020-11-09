@@ -3,6 +3,7 @@
 #include "TextRender.h"
 
 #include "../Cache.h"
+#include "../Common.h"
 #include "../Constants.h"
 #include "../StructureManager.h"
 #include "../Things/Structures/MineFacility.h"
@@ -141,43 +142,24 @@ void MineOperationsWindow::btnIdleClicked()
 
 void MineOperationsWindow::btnAssignTruckClicked()
 {
-	updateTruckAvailability();
+	if (mFacility->assignedTrucks() == mFacility->maxTruckCount()) { return; }
 
-	if (mAvailableTrucks == 0) { return; }
-	
-	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-	for (auto warehouse : warehouseList)
+	if (pullTruckFromInventory())
 	{
-		Warehouse* w = static_cast<Warehouse*>(warehouse);
-		if (w->products().pull(ProductType::PRODUCT_TRUCK, 1) > 0)
-		{
-			mFacility->addTruck();
-			updateTruckAvailability();
-			return;
-		}
+		mFacility->addTruck();
+		updateTruckAvailability();
 	}
-
-	throw std::runtime_error("MineOperationsWindow::btnAssignTruckClicked(): No trucks pulled even though trucks available is greater than 0.");
 }
 
 
 void MineOperationsWindow::btnUnassignTruckClicked()
 {
-	const int storageNeededForTruck = storageRequiredPerUnit(ProductType::PRODUCT_TRUCK);
-
 	if (mFacility->assignedTrucks() == 1) { return; }
 	
-	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-	for (auto warehouse : warehouseList)
+	if (pushTruckIntoInventory())
 	{
-		Warehouse* w = static_cast<Warehouse*>(warehouse);
-		if (w->products().availableStorage() >= storageNeededForTruck)
-		{
-			mFacility->removeTruck();
-			w->products().store(ProductType::PRODUCT_TRUCK, 1);
-			updateTruckAvailability();
-			return;
-		}
+		mFacility->removeTruck();
+		updateTruckAvailability();
 	}
 }
 
@@ -208,14 +190,7 @@ void MineOperationsWindow::chkRareMineralsClicked()
 
 void MineOperationsWindow::updateTruckAvailability()
 {
-	mAvailableTrucks = 0;
-
-	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-	for (auto warehouse : warehouseList)
-	{
-		Warehouse* w = static_cast<Warehouse*>(warehouse);
-		mAvailableTrucks += w->products().count(ProductType::PRODUCT_TRUCK);
-	}
+	mAvailableTrucks = getTruckAvailability();
 }
 
 

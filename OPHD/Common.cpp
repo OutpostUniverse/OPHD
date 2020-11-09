@@ -1,7 +1,9 @@
 #include "Common.h"
 #include "Constants.h"
+#include "StructureManager.h"
 
 #include "Things/Structures/Structure.h"
+#include "Things/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
@@ -445,4 +447,58 @@ void drawBasicProgressBar(int x, int y, int width, int height, float percent, in
 		int bar_width = static_cast<int>(static_cast<float>(width - (padding + padding)) * percent);
 		renderer.drawBoxFilled(NAS2D::Rectangle{x + padding, y + padding + 1, bar_width - 1, height - (padding + padding) - 1}, NAS2D::Color{0, 100, 0});
 	}
+}
+
+
+int getTruckAvailability()
+{
+	int trucksAvailable = 0;
+
+	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouse : warehouseList)
+	{
+		Warehouse* w = static_cast<Warehouse*>(warehouse);
+		trucksAvailable += w->products().count(ProductType::PRODUCT_TRUCK);
+	}
+
+	return trucksAvailable;
+}
+
+
+int pullTruckFromInventory()
+{
+	int trucksAvailable = getTruckAvailability();
+
+	if (trucksAvailable == 0) { return 0; }
+
+	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouse : warehouseList)
+	{
+		Warehouse* w = static_cast<Warehouse*>(warehouse);
+		if (w->products().pull(ProductType::PRODUCT_TRUCK, 1) > 0)
+		{
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
+
+int pushTruckIntoInventory()
+{
+	const int storageNeededForTruck = storageRequiredPerUnit(ProductType::PRODUCT_TRUCK);
+
+	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+	for (auto warehouse : warehouseList)
+	{
+		Warehouse* w = static_cast<Warehouse*>(warehouse);
+		if (w->products().availableStorage() >= storageNeededForTruck)
+		{
+			w->products().store(ProductType::PRODUCT_TRUCK, 1);
+			return 1;
+		}
+	}
+
+	return 0;
 }
