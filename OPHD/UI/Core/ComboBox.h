@@ -41,8 +41,6 @@ public:
 	const std::string& text() const;
 
 private:
-	void init();
-
 	void resizedHandler(Control* control);
 	void repositioned(int, int);
 	void lstItemsSelectionChanged();
