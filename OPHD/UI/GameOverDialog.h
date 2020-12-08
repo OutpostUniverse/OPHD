@@ -17,9 +17,6 @@ public:
 
 	void update() override;
 
-protected:
-	virtual void init();
-
 private:
 	GameOverDialog(const GameOverDialog&) = delete;
 	GameOverDialog& operator=(const GameOverDialog&) = delete;
