@@ -44,16 +44,6 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnAssignTruck{"Add Truck"},
 	btnUnassignTruck{"Remove Truck"}
 {
-	init();
-}
-
-
-MineOperationsWindow::~MineOperationsWindow()
-{}
-
-
-void MineOperationsWindow::init()
-{
 	size({375, 270});
 
 	// Set up GUI Layout
@@ -94,6 +84,10 @@ void MineOperationsWindow::init()
 	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
+
+
+MineOperationsWindow::~MineOperationsWindow()
+{}
 
 
 void MineOperationsWindow::hide()
