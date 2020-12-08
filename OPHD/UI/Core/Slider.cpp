@@ -396,7 +396,7 @@ void Slider::changeThumbPosition(float change)
 
 void Slider::thumbPositionNormalized(float value) {
 	value = std::clamp(value, 0.0f, 1.0f);
-	if(mBackward) { value = 1.0f - value; }
+	if (mBackward) { value = 1.0f - value; }
 	mPosition = mLength * value;
 	mCallback(thumbPosition());
 }

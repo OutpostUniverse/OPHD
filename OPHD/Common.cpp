@@ -40,7 +40,7 @@ Difficulty DifficultyFromString(std::string difficultyStr)
 	difficultyStr = NAS2D::toLowercase(difficultyStr);
 	for(const auto& difficulty : DIFFICULTY_STRING_TABLE)
 	{
-		if(NAS2D::toLowercase(difficulty.second) == difficultyStr)
+		if (NAS2D::toLowercase(difficulty.second) == difficultyStr)
 		{
 			return difficulty.first;
 		}

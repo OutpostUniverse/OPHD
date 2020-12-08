@@ -202,7 +202,7 @@ void MapViewState::drawResourceInfo()
 
 	bool isMouseInPopPanel = NAS2D::Rectangle{675, 1, 75, 19}.contains(MOUSE_COORDS);
 	bool shouldShowPopPanel = mPinPopulationPanel || isMouseInPopPanel;
-	if(shouldShowPopPanel) { mPopulationPanel.update(); }
+	if (shouldShowPopPanel) { mPopulationPanel.update(); }
 
 	bool isMouseInResourcePanel = NAS2D::Rectangle{0, 1, mResourceBreakdownPanel.size().x, 19}.contains(MOUSE_COORDS);
 	bool shouldShowResourcePanel = mPinResourcePanel || isMouseInResourcePanel;
