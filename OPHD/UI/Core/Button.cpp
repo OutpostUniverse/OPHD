@@ -8,6 +8,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/MathUtils.h>
 
+
 using namespace NAS2D;
 
 

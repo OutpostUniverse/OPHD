@@ -12,8 +12,8 @@
 #include <NAS2D/Renderer/RectangleSkin.h>
 #include <NAS2D/Resources/Image.h>
 
-
 #include <algorithm>
+
 
 /**
  * \class IconGrid

@@ -5,7 +5,9 @@
 
 #include "../Things/Structures/Warehouse.h"
 
+
 using namespace NAS2D;
+
 
 WarehouseInspector::WarehouseInspector() :
 	Window{constants::WINDOW_WH_INSPECTOR},

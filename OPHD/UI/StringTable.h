@@ -6,9 +6,11 @@
 #include <NAS2D/Renderer/Rectangle.h>
 #include <NAS2D/Renderer/Vector.h>
 #include <NAS2D/StringValue.h>
+
 #include <string>
 #include <vector>
 #include <cstddef>
+
 
 // Draw a 2 dimensional table of text. Determine cell size based on inserted text, font, and padding. Only allows one line of text per cell.
 class StringTable

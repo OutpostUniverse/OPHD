@@ -11,7 +11,6 @@
 
 using namespace NAS2D;
 
-
 const int LIST_ITEM_HEIGHT = 30;
 
 static const Font* MAIN_FONT = nullptr;

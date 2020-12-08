@@ -1,11 +1,16 @@
 #include "StringTable.h"
+
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
+
 #include <NAS2D/Utility.h>
+
 #include <stdexcept>
 #include <algorithm>
 
+
 const NAS2D::Color StringTable::Cell::ColorEmpty = NAS2D::Color::NoAlpha;
+
 
 StringTable::Cell& StringTable::operator[](const CellCoordinate& coordinate)
 {

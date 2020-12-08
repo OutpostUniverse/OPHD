@@ -18,7 +18,6 @@ namespace NAS2D
 	class Image;
 }
 
-
 class MineFacility;
 
 

@@ -2,6 +2,7 @@
 
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Renderer/Color.h>
+
 #include <string>
 
 
