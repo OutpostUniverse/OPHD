@@ -27,9 +27,6 @@ protected:
 	static inline constexpr int sWindowTitleBarHeight = 20;
 
 private:
-	void _init();
-
-private:
 	bool mMouseDrag = false;
 	bool mAnchored = false;
 
