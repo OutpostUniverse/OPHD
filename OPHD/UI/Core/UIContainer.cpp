@@ -30,8 +30,7 @@ void UIContainer::add(Control& control, NAS2D::Vector<int> offset)
 {
 	if (std::find(mControls.begin(), mControls.end(), &control) != mControls.end())
 	{
-		std::cout << "UIContainer::addControl(): Duplicate control." << std::endl;
-		return;
+		throw std::runtime_error("UIContainer::add(): Duplicate control");
 	}
 
 	if (mControls.size() > 0) { mControls.back()->hasFocus(false); }
