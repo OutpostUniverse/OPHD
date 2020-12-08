@@ -77,7 +77,7 @@ private:
 
 	void _buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, float value);
 
-	const NAS2D::Font* sliderFont = nullptr;
+	const NAS2D::Font& sliderFont;
 
 	NAS2D::Timer mTimer;
 
