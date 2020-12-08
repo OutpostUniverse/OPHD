@@ -22,29 +22,29 @@ void FactoryProduction::init()
 	size({320, 162});
 
 	// Set up GUI Layout
-	add(&mProductGrid, constants::MARGIN, 25);
+	add(mProductGrid, {constants::MARGIN, 25});
 	mProductGrid.size({140, 110});
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
 	mProductGrid.selectionChanged().connect(this, &FactoryProduction::productSelectionChanged);
 
-	add(&btnOkay, 233, 138);
+	add(btnOkay, {233, 138});
 	btnOkay.size({40, 20});
 	btnOkay.click().connect(this, &FactoryProduction::btnOkayClicked);
 
-	add(&btnCancel, 276, 138);
+	add(btnCancel, {276, 138});
 	btnCancel.size({40, 20});
 	btnCancel.click().connect(this, &FactoryProduction::btnCancelClicked);
 
-	add(&btnClearSelection, 5, 138);
+	add(btnClearSelection, {5, 138});
 	btnClearSelection.size({mProductGrid.size().x, 20});
 	btnClearSelection.click().connect(this, &FactoryProduction::btnClearSelectionClicked);
 
-	add(&btnApply, mProductGrid.size().x + 12, btnClearSelection.positionY());
+	add(btnApply, {mProductGrid.size().x + 12, btnClearSelection.positionY()});
 	btnApply.size({40, 20});
 	btnApply.click().connect(this, &FactoryProduction::btnApplyClicked);
 
-	add(&chkIdle, mProductGrid.size().x + 12, 115);
+	add(chkIdle, {mProductGrid.size().x + 12, 115});
 	chkIdle.size({50, 20});
 	chkIdle.click().connect(this, &FactoryProduction::chkIdleClicked);
 }
