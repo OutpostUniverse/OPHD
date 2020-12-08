@@ -28,7 +28,7 @@ UIContainer::~UIContainer()
  */
 void UIContainer::add(Control* control, int x, int y)
 {
-	if(control == nullptr)
+	if (control == nullptr)
 	{
 		std::cout << "UIContainer::addControl(): Attempting to add a NULL Control." << std::endl;
 		return;
