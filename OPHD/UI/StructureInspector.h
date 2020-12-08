@@ -25,10 +25,6 @@ private:
 	std::string formatAge() const;
 
 private:
-	StructureInspector(const StructureInspector&) = delete;
-	StructureInspector& operator=(const StructureInspector&) = delete;
-
-private:
 	Button btnClose;
 	const NAS2D::Image& mIcons;
 	Structure* mStructure = nullptr;

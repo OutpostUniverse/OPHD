@@ -36,10 +36,6 @@ protected:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 
 private:
-	FileIo(const FileIo&) = delete;
-	FileIo& operator=(const FileIo&) = delete;
-
-private:
 	void btnCloseClicked();
 	void btnFileIoClicked();
 

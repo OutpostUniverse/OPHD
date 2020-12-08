@@ -39,10 +39,6 @@ private:
 	void btnDiggerWestClicked();
 
 private:
-	DiggerDirection(const DiggerDirection&) = delete; /**< Not allowed. */
-	DiggerDirection& operator=(const DiggerDirection&) = delete; /**< Not allowed. */
-
-private:
 	Button btnDown;
 	Button btnNorth;
 	Button btnEast;

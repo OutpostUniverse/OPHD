@@ -27,10 +27,6 @@ public:
 	void hide() override;
 
 private:
-	MineOperationsWindow(const MineOperationsWindow&) = delete;
-	MineOperationsWindow& operator=(const MineOperationsWindow&) = delete;
-
-private:
 	void chkCommonMetalsClicked();
 	void chkCommonMineralsClicked();
 	void chkRareMetalsClicked();

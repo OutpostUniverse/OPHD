@@ -20,8 +20,6 @@ class FactoryProduction : public Window
 {
 public:
 	FactoryProduction();
-	FactoryProduction(const FactoryProduction&) = delete;
-	FactoryProduction& operator=(const FactoryProduction&) = delete;
 
 	void factory(Factory* newFactory);
 	Factory* factory() { return mFactory; }

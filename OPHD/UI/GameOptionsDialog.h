@@ -21,10 +21,6 @@ public:
 	ClickCallback& returnToMainMenu() { return mCallbackClose; }
 
 private:
-	GameOptionsDialog(const GameOptionsDialog&) = delete;
-	GameOptionsDialog& operator=(const GameOptionsDialog&) = delete;
-
-private:
 	void btnLoadClicked();
 	void btnSaveClicked();
 	void btnReturnClicked();

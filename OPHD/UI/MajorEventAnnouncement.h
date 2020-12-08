@@ -15,8 +15,6 @@ public:
 	};
 
 	MajorEventAnnouncement();
-	MajorEventAnnouncement(const MajorEventAnnouncement&) = delete;
-	MajorEventAnnouncement& operator=(const MajorEventAnnouncement&) = delete;
 
 	void announcement(AnnouncementType a);
 

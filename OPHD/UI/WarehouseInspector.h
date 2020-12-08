@@ -23,10 +23,6 @@ private:
 	void btnCloseClicked();
 
 private:
-	WarehouseInspector(const WarehouseInspector&) = delete;
-	WarehouseInspector& operator=(const WarehouseInspector&) = delete;
-
-private:
 	Warehouse* mWarehouse = nullptr;
 	Button btnClose;
 };
