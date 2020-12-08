@@ -267,13 +267,13 @@ void ListBox::update()
 	NAS2D::Rectangle<int> listBounds = mRect;
 	listBounds.width = static_cast<int>(mItemWidth);
 	renderer.drawBox(listBounds, NAS2D::Color{0, 0, 0, 100});
-	renderer.drawBoxFilled(listBounds, NAS2D::Color{0, 85, 0, 220});
+	renderer.drawBoxFilled(listBounds, mBackgroundColorNormal);
 
 	// Highlight currently selected item
 	auto itemBounds = listBounds;
 	itemBounds.height = static_cast<int>(mLineHeight);
 	itemBounds.y += static_cast<int>((mCurrentSelection * mLineHeight) - mCurrentOffset);
-	renderer.drawBoxFilled(itemBounds, mHighlightBg.alphaFade(80));
+	renderer.drawBoxFilled(itemBounds, mBackgroundColorSelected);
 
 	// Highlight On mouse Over
 	if (mCurrentHighlight != constants::NO_SELECTION)
@@ -281,7 +281,7 @@ void ListBox::update()
 		auto highlightBounds = listBounds;
 		highlightBounds.height = static_cast<int>(mLineHeight);
 		highlightBounds.y += static_cast<int>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
-		renderer.drawBox(highlightBounds, mHighlightBg);
+		renderer.drawBox(highlightBounds, mBackgroundColorMouseHover);
 	}
 
 	// display actuals values that are meant to be
