@@ -22,16 +22,6 @@ StructureInspector::StructureInspector() :
 	btnClose{"Close"},
 	mIcons{imageCache.load("ui/icons.png")}
 {
-	init();
-}
-
-
-StructureInspector::~StructureInspector()
-{}
-
-
-void StructureInspector::init()
-{
 	size({350, 200});
 
 	add(btnClose, {295, 175});
@@ -41,6 +31,10 @@ void StructureInspector::init()
 	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
+
+
+StructureInspector::~StructureInspector()
+{}
 
 
 void StructureInspector::structure(Structure* structure)
