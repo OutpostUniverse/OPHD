@@ -30,7 +30,6 @@ public:
 	void allEnabled();
 
 protected:
-	virtual void init();
 	void btnCancelClicked();
 
 private:
