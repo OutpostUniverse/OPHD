@@ -40,7 +40,7 @@ protected:
 	void parentContainer(UIContainer* parent);
 
 private:
-	const NAS2D::Font& CBOX_FONT;
+	const NAS2D::Font& mFont;
 	const NAS2D::Image& mSkin;
 	Label mLabel;
 	ClickCallback mCallback; /**< Object to notify when the Button is activated. */
