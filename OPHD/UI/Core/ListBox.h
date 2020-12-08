@@ -91,8 +91,8 @@ private:
 
 	std::vector<ListBoxItem> mItems; /**< List of items preserved in the order in which they're added. */
 
-	NAS2D::Color mTextColorNormal = NAS2D::Color::White; /**< Text Color */
-	NAS2D::Color mTextColorMouseHover = NAS2D::Color::White; /**< Text Color for an item that is currently highlighted. */
+	NAS2D::Color mTextColorNormal = NAS2D::Color::White;
+	NAS2D::Color mTextColorMouseHover = NAS2D::Color::White;
 
 	NAS2D::Color mBackgroundColorNormal = NAS2D::Color{0, 85, 0, 220};
 	NAS2D::Color mBackgroundColorMouseHover = NAS2D::Color::DarkGreen;
