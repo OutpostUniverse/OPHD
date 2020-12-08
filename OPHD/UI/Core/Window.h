@@ -2,6 +2,7 @@
 
 #include "UIContainer.h"
 
+#include <NAS2D/Resources/Font.h>
 #include <NAS2D/Resources/Image.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
@@ -27,6 +28,7 @@ protected:
 	static inline constexpr int sWindowTitleBarHeight = 20;
 
 private:
+	const NAS2D::Font* WINDOW_TITLE_FONT;
 	bool mMouseDrag = false;
 	bool mAnchored = false;
 

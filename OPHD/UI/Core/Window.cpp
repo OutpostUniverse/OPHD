@@ -10,8 +10,6 @@
 
 using namespace NAS2D;
 
-static const Font* WINDOW_TITLE_FONT;
-
 
 Window::Window(std::string newTitle) :
 	mTitleBarLeft{imageCache.load("ui/skin/window_title_left.png")},
