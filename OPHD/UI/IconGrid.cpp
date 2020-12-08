@@ -16,7 +16,7 @@ using namespace NAS2D;
 
 
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
-	FONT{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mIconSize{iconEdgeSize},
 	mIconMargin{margin},
 	mIconSheet{imageCache.load(filePath)},
@@ -405,10 +405,10 @@ void IconGrid::update()
 		if (mShowTooltip)
 		{
 			const auto& highlightedName = mIconItemList[mHighlightIndex].name;
-			const auto tooltipRect = NAS2D::Rectangle{position.x, position.y - 15, FONT.width(highlightedName) + 4, FONT.height()};
+			const auto tooltipRect = NAS2D::Rectangle{position.x, position.y - 15, mFont.width(highlightedName) + 4, mFont.height()};
 			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
 			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
-			renderer.drawText(FONT, highlightedName, position + NAS2D::Vector{2, -15}, NAS2D::Color::Black);
+			renderer.drawText(mFont, highlightedName, position + NAS2D::Vector{2, -15}, NAS2D::Color::Black);
 		}
 	}
 }
