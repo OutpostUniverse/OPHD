@@ -22,9 +22,6 @@ public:
 
 	void update() override;
 
-protected:
-	virtual void init();
-
 private:
 	void btnCloseClicked();
 
