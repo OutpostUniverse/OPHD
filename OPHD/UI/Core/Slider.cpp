@@ -123,10 +123,10 @@ Slider::Slider(SliderType sliderType) : Slider(loadSkins(sliderType), sliderType
 
 
 Slider::Slider(Slider::Skins skins, SliderType sliderType) :
+	sliderFont{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mSliderType{sliderType},
 	mSkins{skins}
 {
-	sliderFont = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMove);
