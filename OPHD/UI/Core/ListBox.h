@@ -39,9 +39,6 @@ public:
 	ListBox();
 	~ListBox() override;
 
-	void textColor(const NAS2D::Color& color) { mText = color; }
-	void selectColor(const NAS2D::Color& color) { mHighlightBg = color; }
-
 	void addItem(const std::string& item, int tag = 0);
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
