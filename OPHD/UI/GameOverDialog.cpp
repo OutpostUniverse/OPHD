@@ -26,7 +26,7 @@ void GameOverDialog::init()
 	position({0, 0});
 	size({522, 340});
 
-	add(&btnClose, 5, 310);
+	add(btnClose, {5, 310});
 	btnClose.size({512, 25});
 	btnClose.click().connect(this, &GameOverDialog::btnCloseClicked);
 

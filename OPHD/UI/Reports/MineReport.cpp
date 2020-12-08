@@ -46,68 +46,68 @@ MineReport::MineReport() :
 	chkRareMinerals{ "Mine Rare Minerals" }
 {
 
-	add(&btnShowAll, 10, 10);
+	add(btnShowAll, {10, 10});
 	btnShowAll.size({ 75, 20 });
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
 	btnShowAll.click().connect(this, &MineReport::btnShowAllClicked);
 
-	add(&btnShowActive, 87, 10);
+	add(btnShowActive, {87, 10});
 	btnShowActive.size({ 75, 20 });
 	btnShowActive.type(Button::Type::BUTTON_TOGGLE);
 	btnShowActive.click().connect(this, &MineReport::btnShowActiveClicked);
 
-	add(&btnShowIdle, 164, 10);
+	add(btnShowIdle, {164, 10});
 	btnShowIdle.size({ 75, 20 });
 	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnShowIdle.click().connect(this, &MineReport::btnShowIdleClicked);
 
-	add(&btnShowTappedOut, 241, 10);
+	add(btnShowTappedOut, {241, 10});
 	btnShowTappedOut.size({ 75, 20 });
 	btnShowTappedOut.type(Button::Type::BUTTON_TOGGLE);
 	btnShowTappedOut.click().connect(this, &MineReport::btnShowTappedOutClicked);
 
-	add(&btnShowDisabled, 318, 10);
+	add(btnShowDisabled, {318, 10});
 	btnShowDisabled.size({ 75, 20 });
 	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
 	btnShowDisabled.click().connect(this, &MineReport::btnShowDisabledClicked);
 
-	add(&lstMineFacilities, 10, 40);
+	add(lstMineFacilities, {10, 40});
 	lstMineFacilities.selectionChanged().connect(this, &MineReport::lstMineFacilitySelectionChanged);
 
 	// DETAIL PANE
-	add(&btnIdle, 0, 40);
+	add(btnIdle, {0, 40});
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size({ 140, 30 });
 	btnIdle.click().connect(this, &MineReport::btnIdleClicked);
 
-	add(&btnDigNewLevel, 0, 75);
+	add(btnDigNewLevel, {0, 75});
 	btnDigNewLevel.size({ 140, 30 });
 	btnDigNewLevel.click().connect(this, &MineReport::btnDigNewLevelClicked);
 
-	add(&btnTakeMeThere, 0, 110);
+	add(btnTakeMeThere, {0, 110});
 	btnTakeMeThere.size({ 140, 30 });
 	btnTakeMeThere.click().connect(this, &MineReport::btnTakeMeThereClicked);
 
 	// Ore Management Pane
-	add(&chkCommonMetals, 0, 210);
+	add(chkCommonMetals, {0, 210});
 	chkCommonMetals.click().connect(this, &MineReport::chkCommonMetalsClicked);
 
-	add(&chkCommonMinerals, 0, 280);
+	add(chkCommonMinerals, {0, 280});
 	chkCommonMinerals.click().connect(this, &MineReport::chkCommonMineralsClicked);
 
-	add(&chkRareMetals, 0, 350);
+	add(chkRareMetals, {0, 350});
 	chkRareMetals.click().connect(this, &MineReport::chkRareMetalsClicked);
 
-	add(&chkRareMinerals, 0, 420);
+	add(chkRareMinerals, {0, 420});
 	chkRareMinerals.click().connect(this, &MineReport::chkRareMineralsClicked);
 
 	// Truck Management Pane
-	add(&btnAddTruck, 0, 215);
+	add(btnAddTruck, {0, 215});
 	btnAddTruck.size({ 140, 30 });
 	btnAddTruck.click().connect(this, &MineReport::btnAddTruckClicked);
 
-	add(&btnRemoveTruck, 0, 250);
+	add(btnRemoveTruck, {0, 250});
 	btnRemoveTruck.size({ 140, 30 });
 	btnRemoveTruck.click().connect(this, &MineReport::btnRemoveTruckClicked);
 

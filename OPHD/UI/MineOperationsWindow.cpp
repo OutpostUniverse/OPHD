@@ -57,38 +57,38 @@ void MineOperationsWindow::init()
 	size({375, 270});
 
 	// Set up GUI Layout
-	add(&btnIdle, 10, 230);
+	add(btnIdle, {10, 230});
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size({60, 30});
 	btnIdle.click().connect(this, &MineOperationsWindow::btnIdleClicked);
 
-	add(&btnExtendShaft, 72, 230);
+	add(btnExtendShaft, {72, 230});
 	btnExtendShaft.size({100, 30});
 	btnExtendShaft.click().connect(this, &MineOperationsWindow::btnExtendShaftClicked);
 
-	add(&btnOkay, mRect.width - 70, 230);
+	add(btnOkay, {mRect.width - 70, 230});
 	btnOkay.size({60, 30});
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
 
-	add(&btnAssignTruck, mRect.width - 85, 100);
+	add(btnAssignTruck, {mRect.width - 85, 100});
 	btnAssignTruck.size({ 80, 20 });
 	btnAssignTruck.click().connect(this, &MineOperationsWindow::btnAssignTruckClicked);
 
-	add(&btnUnassignTruck, mRect.width - 170, 100);
+	add(btnUnassignTruck, {mRect.width - 170, 100});
 	btnUnassignTruck.size({ 80, 20 });
 	btnUnassignTruck.click().connect(this, &MineOperationsWindow::btnUnassignTruckClicked);
 
 	// ORE TOGGLE BUTTONS
-	add(&chkCommonMetals, 148, 125);
+	add(chkCommonMetals, {148, 125});
 	chkCommonMetals.click().connect(this, &MineOperationsWindow::chkCommonMetalsClicked);
 
-	add(&chkCommonMinerals, 259, 125);
+	add(chkCommonMinerals, {259, 125});
 	chkCommonMinerals.click().connect(this, &MineOperationsWindow::chkCommonMineralsClicked);
 
-	add(&chkRareMetals, 148, 145);
+	add(chkRareMetals, {148, 145});
 	chkRareMetals.click().connect(this, &MineOperationsWindow::chkRareMetalsClicked);
 
-	add(&chkRareMinerals, 259, 145);
+	add(chkRareMinerals, {259, 145});
 	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
 
 	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);

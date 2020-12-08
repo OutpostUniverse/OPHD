@@ -8,8 +8,11 @@
 
 #include <algorithm>
 #include <iostream>
+#include <stdexcept>
+
 
 using namespace NAS2D;
+
 
 UIContainer::UIContainer()
 {
@@ -23,35 +26,23 @@ UIContainer::~UIContainer()
 }
 
 
-/**
- * Adds a Control to the UIContainer.
- */
-void UIContainer::add(Control* control, int x, int y)
+void UIContainer::add(Control& control, NAS2D::Vector<int> offset)
 {
-	if(control == nullptr)
+	if (std::find(mControls.begin(), mControls.end(), &control) != mControls.end())
 	{
-		std::cout << "UIContainer::addControl(): Attempting to add a NULL Control." << std::endl;
-		return;
-	}
-
-	if (std::find(mControls.begin(), mControls.end(), control) != mControls.end())
-	{
-		std::cout << "UIContainer::addControl(): Duplicate control." << std::endl;
-		return;
+		throw std::runtime_error("UIContainer::add(): Duplicate control");
 	}
 
 	if (mControls.size() > 0) { mControls.back()->hasFocus(false); }
-	mControls.push_back(control);
+	mControls.push_back(&control);
 
-	control->position(mRect.startPoint() + NAS2D::Vector{x, y});
-	control->visible(visible());
-	control->hasFocus(true);
-	if (auto* asRadioButton = dynamic_cast<RadioButton*>(control))
+	control.position(mRect.startPoint() + offset);
+	control.visible(visible());
+	control.hasFocus(true);
+	if (auto* asRadioButton = dynamic_cast<RadioButton*>(&control))
 	{
 		asRadioButton->parentContainer(this);
 	}
-
-	/// todo\	Add validation to contain controls within a UIContainer.
 }
 
 

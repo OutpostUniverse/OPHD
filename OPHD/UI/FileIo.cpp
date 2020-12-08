@@ -36,21 +36,21 @@ void FileIo::init()
 {
 	size({500, 350});
 
-	add(&btnFileOp, 445, 325);
+	add(btnFileOp, {445, 325});
 	btnFileOp.size({50, 20});
 	btnFileOp.click().connect(this, &FileIo::btnFileIoClicked);
 	btnFileOp.enabled(false);
 
-	add(&btnClose, 390, 325);
+	add(btnClose, {390, 325});
 	btnClose.size({50, 20});
 	btnClose.click().connect(this, &FileIo::btnCloseClicked);
 
-	add(&txtFileName, 5, 302);
+	add(txtFileName, {5, 302});
 	txtFileName.size({490, 18});
 	txtFileName.maxCharacters(50);
 	txtFileName.textChanged().connect(this, &FileIo::fileNameModified);
 
-	add(&mListBox, 5, 25);
+	add(mListBox, {5, 25});
 	mListBox.size({490, 273});
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect(this, &FileIo::fileSelected);
