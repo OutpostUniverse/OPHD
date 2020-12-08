@@ -14,22 +14,16 @@ TileInspector::TileInspector() :
 	Window{constants::WINDOW_TILE_INSPECTOR},
 	btnClose{"Close"}
 {
-	init();
-}
-
-
-TileInspector::~TileInspector()
-{
-}
-
-
-void TileInspector::init()
-{
 	size({200, 88});
 
 	add(btnClose, {145, 63});
 	btnClose.size({50, 20});
 	btnClose.click().connect(this, &TileInspector::btnCloseClicked);
+}
+
+
+TileInspector::~TileInspector()
+{
 }
 
 
