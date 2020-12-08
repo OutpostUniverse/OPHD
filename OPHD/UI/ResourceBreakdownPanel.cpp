@@ -27,7 +27,7 @@ namespace
 	/**
 	 * Convenience function for setting a resource trend.
 	 */
-	static ResourceTrend compareResources(int src, int dst)
+	ResourceTrend compareResources(int src, int dst)
 	{
 		return
 			(src > dst) ? ResourceTrend::Up :

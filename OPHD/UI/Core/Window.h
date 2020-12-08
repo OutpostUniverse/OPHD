@@ -25,7 +25,7 @@ protected:
 	void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int dX, int dY);
 
-	static inline constexpr int sWindowTitleBarHeight = 20;
+	static constexpr int sWindowTitleBarHeight = 20;
 
 private:
 	const NAS2D::Font& mTitleFont;
