@@ -20,10 +20,6 @@ public:
 	ClickCallback& returnToGame() { return mCallbackReturn; }
 	ClickCallback& returnToMainMenu() { return mCallbackClose; }
 
-
-protected:
-	virtual void init();
-
 private:
 	GameOptionsDialog(const GameOptionsDialog&) = delete;
 	GameOptionsDialog& operator=(const GameOptionsDialog&) = delete;

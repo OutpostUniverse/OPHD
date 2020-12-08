@@ -10,21 +10,6 @@ GameOptionsDialog::GameOptionsDialog() :
 	btnReturn{"Return to current game"},
 	btnClose{"Return to Main Menu"}
 {
-	init();
-}
-
-
-GameOptionsDialog::~GameOptionsDialog()
-{
-	btnSave.click().disconnect(this, &GameOptionsDialog::btnSaveClicked);
-	btnLoad.click().disconnect(this, &GameOptionsDialog::btnLoadClicked);
-	btnReturn.click().disconnect(this, &GameOptionsDialog::btnReturnClicked);
-	btnClose.click().disconnect(this, &GameOptionsDialog::btnCloseClicked);
-}
-
-
-void GameOptionsDialog::init()
-{
 	position({0, 0});
 	size({210, 160});
 
@@ -45,6 +30,15 @@ void GameOptionsDialog::init()
 	btnClose.click().connect(this, &GameOptionsDialog::btnCloseClicked);
 
 	anchored(true);
+}
+
+
+GameOptionsDialog::~GameOptionsDialog()
+{
+	btnSave.click().disconnect(this, &GameOptionsDialog::btnSaveClicked);
+	btnLoad.click().disconnect(this, &GameOptionsDialog::btnLoadClicked);
+	btnReturn.click().disconnect(this, &GameOptionsDialog::btnReturnClicked);
+	btnClose.click().disconnect(this, &GameOptionsDialog::btnCloseClicked);
 }
 
 
