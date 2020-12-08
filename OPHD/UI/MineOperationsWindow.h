@@ -39,6 +39,9 @@ private:
 	void btnAssignTruckClicked();
 	void btnUnassignTruckClicked();
 
+	const NAS2D::Font* FONT = nullptr;
+	const NAS2D::Font* FONT_BOLD = nullptr;
+
 	MineFacility* mFacility = nullptr;
 
 	const NAS2D::Image& mUiIcon;

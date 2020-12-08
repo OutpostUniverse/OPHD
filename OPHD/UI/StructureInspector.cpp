@@ -13,9 +13,6 @@
 
 using namespace NAS2D;
 
-static const Font* FONT = nullptr;
-static const Font* FONT_BOLD = nullptr;
-
 
 StructureInspector::StructureInspector() :
 	Window{constants::WINDOW_STRUCTURE_INSPECTOR},

@@ -15,9 +15,6 @@
 
 using namespace NAS2D;
 
-static const Font* FONT = nullptr;
-static const Font* FONT_BOLD = nullptr;
-
 
 MineOperationsWindow::MineOperationsWindow() :
 	Window{constants::WINDOW_MINE_OPERATIONS},

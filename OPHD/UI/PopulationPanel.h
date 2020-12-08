@@ -2,6 +2,7 @@
 
 #include "Core/Control.h"
 
+#include <NAS2D/Resources/Font.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 
@@ -28,6 +29,7 @@ public:
 	void update() override;
 
 private:
+	const NAS2D::Font* FONT = nullptr;
 	const NAS2D::Image& mIcons;
 	NAS2D::RectangleSkin mSkin;
 

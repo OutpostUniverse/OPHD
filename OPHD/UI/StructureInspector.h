@@ -26,6 +26,8 @@ private:
 	void drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer);
 	std::string formatAge() const;
 
+	const NAS2D::Font* FONT = nullptr;
+	const NAS2D::Font* FONT_BOLD = nullptr;
 	Button btnClose;
 	const NAS2D::Image& mIcons;
 	Structure* mStructure = nullptr;
