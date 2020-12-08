@@ -32,6 +32,5 @@ public:
 private:
 	using WindowList = std::list<Window*>;
 
-private:
 	WindowList mWindowList;
 };

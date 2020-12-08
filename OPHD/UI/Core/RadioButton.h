@@ -18,7 +18,6 @@ class RadioButton : public TextControl
 public:
 	using ClickCallback = NAS2D::Signals::Signal<>;
 
-public:
 	RadioButton(std::string newText = "");
 	~RadioButton() override;
 

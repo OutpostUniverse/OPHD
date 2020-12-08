@@ -26,6 +26,7 @@ public:
 	void update() override;
 
 	std::vector<Control*> controls() const;
+
 protected:
 	void visibilityChanged(bool visible) override;
 	void positionChanged(int dX, int dY) override;

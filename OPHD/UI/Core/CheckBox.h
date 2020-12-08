@@ -14,7 +14,6 @@ class CheckBox : public TextControl
 public:
 	using ClickCallback = NAS2D::Signals::Signal<>;
 
-public:
 	CheckBox(std::string newText = "");
 	~CheckBox() override;
 

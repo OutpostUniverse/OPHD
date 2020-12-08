@@ -19,7 +19,6 @@ public:
 	using ResizeCallback = NAS2D::Signals::Signal<Control*>;
 	using PositionChangedCallback = NAS2D::Signals::Signal<int, int>;
 
-public:
 	Control() = default;
 	virtual ~Control() = default;
 
@@ -77,7 +76,6 @@ protected:
 
 	virtual void onSizeChanged() { mResized(this); }
 
-protected:
 	PositionChangedCallback mPositionChanged; /**< Callback fired whenever the position of the Control changes. */
 	ResizeCallback mResized;
 
