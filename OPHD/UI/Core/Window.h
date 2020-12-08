@@ -28,7 +28,7 @@ protected:
 	static inline constexpr int sWindowTitleBarHeight = 20;
 
 private:
-	const NAS2D::Font& WINDOW_TITLE_FONT;
+	const NAS2D::Font& mTitleFont;
 	bool mMouseDrag = false;
 	bool mAnchored = false;
 

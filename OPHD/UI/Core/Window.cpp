@@ -12,7 +12,7 @@ using namespace NAS2D;
 
 
 Window::Window(std::string newTitle) :
-	WINDOW_TITLE_FONT{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL)},
+	mTitleFont{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL)},
 	mTitleBarLeft{imageCache.load("ui/skin/window_title_left.png")},
 	mTitleBarCenter{imageCache.load("ui/skin/window_title_middle.png")},
 	mTitleBarRight{imageCache.load("ui/skin/window_title_right.png")},
@@ -94,7 +94,7 @@ void Window::update()
 
 	mBody.draw(renderer, NAS2D::Rectangle{mRect.x, mRect.y + 20, mRect.width, mRect.height - 20});
 
-	renderer.drawText(WINDOW_TITLE_FONT, text(), NAS2D::Point{mRect.x + 5, mRect.y + 2}, NAS2D::Color::White);
+	renderer.drawText(mTitleFont, text(), NAS2D::Point{mRect.x + 5, mRect.y + 2}, NAS2D::Color::White);
 
 	UIContainer::update();
 }
