@@ -16,8 +16,6 @@ using namespace NAS2D;
 
 StructureInspector::StructureInspector() :
 	Window{constants::WINDOW_STRUCTURE_INSPECTOR},
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
-	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL)},
 	btnClose{"Close"},
 	mIcons{imageCache.load("ui/icons.png")}
 {
