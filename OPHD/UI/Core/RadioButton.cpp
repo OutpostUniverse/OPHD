@@ -13,8 +13,6 @@
 
 using namespace NAS2D;
 
-static const Font* CBOX_FONT = nullptr;
-
 
 RadioButton::RadioButton(std::string newText) :
 	mSkin{imageCache.load("ui/skin/checkbox.png")},
