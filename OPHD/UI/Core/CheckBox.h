@@ -31,7 +31,7 @@ protected:
 	void onTextChanged() override;
 
 private:
-	const NAS2D::Font& CBOX_FONT;
+	const NAS2D::Font& mFont;
 	const NAS2D::Image& mSkin;
 
 	ClickCallback mCallback; /**< Object to notify when the Button is activated. */
