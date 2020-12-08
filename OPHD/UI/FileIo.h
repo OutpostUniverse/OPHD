@@ -20,7 +20,6 @@ public:
 
 	using FileOperationCallback = NAS2D::Signals::Signal<const std::string&, FileOperation>;
 
-public:
 	FileIo();
 	~FileIo() override;
 
@@ -36,17 +35,12 @@ protected:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 
 private:
-	FileIo(const FileIo&) = delete;
-	FileIo& operator=(const FileIo&) = delete;
-
-private:
 	void btnCloseClicked();
 	void btnFileIoClicked();
 
 	void fileSelected();
 	void fileNameModified(TextControl* control);
 
-private:
 	FileOperationCallback mCallback;
 
 	FileOperation mMode;

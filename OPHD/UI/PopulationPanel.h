@@ -27,8 +27,6 @@ public:
 
 	void update() override;
 
-protected:
-
 private:
 	const NAS2D::Image& mIcons;
 	NAS2D::RectangleSkin mSkin;

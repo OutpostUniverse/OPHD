@@ -62,7 +62,6 @@ private:
 	void drawLeftPanel(NAS2D::Renderer&);
 	void drawRightPanel(NAS2D::Renderer&);
 
-private:
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;

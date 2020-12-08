@@ -33,10 +33,6 @@ StructureInspector::StructureInspector() :
 }
 
 
-StructureInspector::~StructureInspector()
-{}
-
-
 void StructureInspector::structure(Structure* structure)
 {
 	mStructure = structure;

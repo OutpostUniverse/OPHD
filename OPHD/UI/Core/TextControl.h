@@ -14,7 +14,6 @@ class TextControl : public Control
 public:
 	using TextChangedCallback = NAS2D::Signals::Signal<TextControl*>;
 
-public:
 	void text(const std::string& text);
 	const std::string& text() const { return mText; }
 	TextChangedCallback& textChanged() { return mTextChanged; }

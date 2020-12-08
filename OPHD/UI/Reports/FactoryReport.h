@@ -65,7 +65,6 @@ private:
 
 	void visibilityChanged(bool visible) override;
 
-private:
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;

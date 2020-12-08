@@ -17,13 +17,8 @@ public:
 	void update() override;
 
 private:
-	TileInspector(const TileInspector&) = delete;
-	TileInspector& operator=(const TileInspector&) = delete;
-
-private:
 	void btnCloseClicked();
 
-private:
 	Button btnClose;
 	Tile* mTile = nullptr;
 };

@@ -17,7 +17,6 @@ class MineOperationsWindow final : public Window
 {
 public:
 	MineOperationsWindow();
-	~MineOperationsWindow() override;
 
 	void mineFacility(MineFacility* facility);
 	MineFacility* mineFacility() { return mFacility; }
@@ -26,10 +25,6 @@ public:
 
 	void update() override;
 	void hide() override;
-
-private:
-	MineOperationsWindow(const MineOperationsWindow&) = delete;
-	MineOperationsWindow& operator=(const MineOperationsWindow&) = delete;
 
 private:
 	void chkCommonMetalsClicked();
@@ -44,7 +39,6 @@ private:
 	void btnAssignTruckClicked();
 	void btnUnassignTruckClicked();
 
-private:
 	MineFacility* mFacility = nullptr;
 
 	const NAS2D::Image& mUiIcon;

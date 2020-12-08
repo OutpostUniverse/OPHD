@@ -71,7 +71,6 @@ private:
 
 	void updateCursor();
 
-private:
 	const NAS2D::Font& mFont;
 	const NAS2D::RectangleSkin mSkinNormal;
 	const NAS2D::RectangleSkin mSkinFocus;

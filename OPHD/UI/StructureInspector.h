@@ -12,7 +12,6 @@ class StructureInspector : public Window
 {
 public:
 	StructureInspector();
-	~StructureInspector() override;
 
 	void structure(Structure* structure);
 	Structure* structure() { return mStructure; }
@@ -25,11 +24,6 @@ private:
 	void drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer);
 	std::string formatAge() const;
 
-private:
-	StructureInspector(const StructureInspector&) = delete;
-	StructureInspector& operator=(const StructureInspector&) = delete;
-
-private:
 	Button btnClose;
 	const NAS2D::Image& mIcons;
 	Structure* mStructure = nullptr;

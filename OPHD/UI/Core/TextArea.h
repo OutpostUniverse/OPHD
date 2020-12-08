@@ -22,7 +22,6 @@ public:
 private:
 	using StringList = std::vector<std::string>;
 
-private:
 	void onSizeChanged() override;
 	void onTextChanged() override;
 	virtual void onFontChanged();
@@ -30,7 +29,6 @@ private:
 	void draw() override;
 	void processString();
 
-private:
 	std::size_t mNumLines = 0;
 
 	StringList mFormattedList;

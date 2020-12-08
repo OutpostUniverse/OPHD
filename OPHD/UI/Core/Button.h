@@ -20,10 +20,8 @@ public:
 		BUTTON_TOGGLE
 	};
 
-public:
 	using ClickCallback = NAS2D::Signals::Signal<>;
 
-public:
 	Button(std::string newText = "");
 	~Button() override;
 
@@ -53,10 +51,8 @@ private:
 		Pressed
 	};
 
-private:
 	void draw() override;
 
-private:
 	State mState = State::Normal; /**< Current state of the Button. */
 	Type mType = Type::BUTTON_NORMAL; /**< Modifies Button behavior. */
 

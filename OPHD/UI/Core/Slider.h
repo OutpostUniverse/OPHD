@@ -38,7 +38,6 @@ public:
 
 	using ValueChangedCallback = NAS2D::Signals::Signal<float>; /*!< type for Callback on value changed. */
 
-public:
 	Slider(SliderType sliderType = SliderType::Vertical);
 	Slider(Skins skins, SliderType sliderType = SliderType::Vertical);
 	~Slider() override;
@@ -77,7 +76,6 @@ private:
 
 	void _buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, float value);
 
-private:
 	NAS2D::Timer mTimer;
 
 	ValueChangedCallback mCallback; /*!< Callback executed when the value is changed. */

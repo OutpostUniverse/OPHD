@@ -24,10 +24,6 @@ GameOverDialog::GameOverDialog() :
 }
 
 
-GameOverDialog::~GameOverDialog()
-{}
-
-
 void GameOverDialog::btnCloseClicked()
 {
 	mCallback();

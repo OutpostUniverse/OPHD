@@ -86,10 +86,6 @@ MineOperationsWindow::MineOperationsWindow() :
 }
 
 
-MineOperationsWindow::~MineOperationsWindow()
-{}
-
-
 void MineOperationsWindow::hide()
 {
 	Control::hide();

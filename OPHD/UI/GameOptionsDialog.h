@@ -9,7 +9,6 @@ class GameOptionsDialog : public Window
 public:
 	using ClickCallback = NAS2D::Signals::Signal<>;
 
-public:
 	GameOptionsDialog();
 	~GameOptionsDialog() override;
 
@@ -21,10 +20,6 @@ public:
 	ClickCallback& returnToMainMenu() { return mCallbackClose; }
 
 private:
-	GameOptionsDialog(const GameOptionsDialog&) = delete;
-	GameOptionsDialog& operator=(const GameOptionsDialog&) = delete;
-
-private:
 	void btnLoadClicked();
 	void btnSaveClicked();
 	void btnReturnClicked();
@@ -32,7 +27,6 @@ private:
 
 	void enabledChanged() override;
 
-private:
 	Button btnSave;
 	Button btnLoad;
 	Button btnReturn;

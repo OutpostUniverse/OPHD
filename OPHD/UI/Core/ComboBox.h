@@ -16,7 +16,6 @@ class ComboBox : public Control
 public:
 	using SelectionChanged = NAS2D::Signals::Signal<>;
 
-public:
 	ComboBox();
 	~ComboBox() override;
 
@@ -48,7 +47,6 @@ private:
 	void onMouseWheel(int x, int y);
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
-private:
 	Button btnDown;
 	ListBox lstItems;
 	TextField txtField;

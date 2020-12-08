@@ -19,7 +19,6 @@ public:
 	using ResizeCallback = NAS2D::Signals::Signal<Control*>;
 	using PositionChangedCallback = NAS2D::Signals::Signal<int, int>;
 
-public:
 	Control() = default;
 	virtual ~Control() = default;
 
@@ -77,18 +76,16 @@ protected:
 
 	virtual void onSizeChanged() { mResized(this); }
 
-protected:
 	PositionChangedCallback mPositionChanged; /**< Callback fired whenever the position of the Control changes. */
 	ResizeCallback mResized;
 
 	NAS2D::Rectangle<int> mRect; /**< Area of the Control. */
 
-private:
-	virtual void draw() {}
-
-protected:
 	bool mEnabled = true; /**< Flag indicating whether or not the Control is enabled. */
 	bool mHasFocus = false; /**< Flag indicating that the Control has input focus. */
 	bool mVisible = true; /**< Flag indicating visibility of the Control. */
 	bool mHighlight = false; /**< Flag indicating that this Control is highlighted. */
+
+private:
+	virtual void draw() {}
 };

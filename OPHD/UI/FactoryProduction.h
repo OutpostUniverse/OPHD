@@ -20,8 +20,6 @@ class FactoryProduction : public Window
 {
 public:
 	FactoryProduction();
-	FactoryProduction(const FactoryProduction&) = delete;
-	FactoryProduction& operator=(const FactoryProduction&) = delete;
 
 	void factory(Factory* newFactory);
 	Factory* factory() { return mFactory; }
@@ -41,7 +39,6 @@ private:
 
 	void productSelectionChanged(const IconGrid::IconGridItem*);
 
-private:
 	Factory* mFactory = nullptr;
 
 	ProductType mProduct = ProductType::PRODUCT_NONE;
