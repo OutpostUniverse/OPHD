@@ -11,22 +11,16 @@ WarehouseInspector::WarehouseInspector() :
 	Window{constants::WINDOW_WH_INSPECTOR},
 	btnClose{"Okay"}
 {
-	init();
-}
-
-
-WarehouseInspector::~WarehouseInspector()
-{}
-
-
-void WarehouseInspector::init()
-{
 	size({250, 350});
 
 	add(btnClose, {105, 325});
 	btnClose.size({40, 20});
 	btnClose.click().connect(this, &WarehouseInspector::btnCloseClicked);
 }
+
+
+WarehouseInspector::~WarehouseInspector()
+{}
 
 
 void WarehouseInspector::warehouse(Warehouse* w)
