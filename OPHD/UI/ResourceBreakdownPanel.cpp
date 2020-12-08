@@ -16,25 +16,6 @@ using namespace NAS2D;
 
 namespace
 {
-	enum class ResourceTrend
-	{
-		None,
-		Up,
-		Down
-	};
-
-
-	/**
-	 * Convenience function for setting a resource trend.
-	 */
-	ResourceTrend compareResources(int src, int dst)
-	{
-		return
-			(src > dst) ? ResourceTrend::Up :
-			(src < dst) ? ResourceTrend::Down : ResourceTrend::None;
-	}
-
-
 	std::string formatDiff(int diff)
 	{
 		return ((diff > 0) ? "+" : "") + std::to_string(diff);
@@ -66,19 +47,15 @@ void ResourceBreakdownPanel::update()
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
-	static std::map<ResourceTrend, Point<int>> iconStartPoint
-	{
-		{ ResourceTrend::None, Point{16, 64} },
-		{ ResourceTrend::Up, Point{8, 64} },
-		{ ResourceTrend::Down, Point{0, 64} }
+	const auto trendIndex = [](int newValue, int oldValue){
+		return
+			(newValue == oldValue) ? 0 :
+			(newValue > oldValue) ? 1 : 2;
 	};
-
-
-	static std::map<ResourceTrend, Color> valueChangeColor
-	{
-		{ ResourceTrend::None, Color::White },
-		{ ResourceTrend::Up, Color{0, 185, 0} },
-		{ ResourceTrend::Down, Color::Red }
+	const std::array trend{
+		std::tuple{Color::White, Point{16, 64}},
+		std::tuple{Color{0, 185, 0}, Point{8, 64}},
+		std::tuple{Color::Red, Point{0, 64}}
 	};
 
 	const auto commonMetalImageRect = NAS2D::Rectangle{64, 16, 16, 16};
@@ -101,10 +78,10 @@ void ResourceBreakdownPanel::update()
 		renderer.drawText(mFont, text, position + NAS2D::Vector{23, 0}, NAS2D::Color::White);
 		const auto valueString = std::to_string(value);
 		renderer.drawText(mFont, valueString, position + NAS2D::Vector{195 - mFont.width(valueString), 0}, NAS2D::Color::White);
-		const auto resourceTrend = compareResources(value, oldValue);
-		const auto changeIconImageRect = NAS2D::Rectangle<int>::Create(iconStartPoint[resourceTrend], NAS2D::Vector{8, 8});
+		const auto& [textColor, iconStartPoint] = trend[trendIndex(value, oldValue)];
+		const auto changeIconImageRect = NAS2D::Rectangle<int>::Create(iconStartPoint, NAS2D::Vector{8, 8});
 		renderer.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
-		renderer.drawText(mFont, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor[resourceTrend]);
+		renderer.drawText(mFont, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, textColor);
 		position.y += 18;
 	}
 }
