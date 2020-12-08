@@ -26,13 +26,11 @@
 
 using namespace NAS2D;
 
-static const Font* CBOX_FONT = nullptr;
-
 
 CheckBox::CheckBox(std::string newText) :
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mSkin{imageCache.load("ui/skin/checkbox.png")}
 {
-	CBOX_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	text(newText);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &CheckBox::onMouseDown);
 }
@@ -82,7 +80,7 @@ void CheckBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 void CheckBox::onTextChanged()
 {
-	const auto textWidth = CBOX_FONT->width(text());
+	const auto textWidth = mFont.width(text());
 	width((textWidth > 0) ? 20 + textWidth : 13);
 }
 
@@ -106,5 +104,5 @@ void CheckBox::update()
 	const auto checkedIconRect = NAS2D::Rectangle{13, 0, 13, 13};
 
 	renderer.drawSubImage(mSkin, position(), (mChecked ? checkedIconRect : uncheckedIconRect));
-	renderer.drawText(*CBOX_FONT, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
+	renderer.drawText(mFont, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
 }

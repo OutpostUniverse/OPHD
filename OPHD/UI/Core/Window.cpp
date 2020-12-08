@@ -10,10 +10,9 @@
 
 using namespace NAS2D;
 
-static const Font* WINDOW_TITLE_FONT;
-
 
 Window::Window(std::string newTitle) :
+	mTitleFont{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL)},
 	mTitleBarLeft{imageCache.load("ui/skin/window_title_left.png")},
 	mTitleBarCenter{imageCache.load("ui/skin/window_title_middle.png")},
 	mTitleBarRight{imageCache.load("ui/skin/window_title_right.png")},
@@ -33,8 +32,6 @@ Window::Window(std::string newTitle) :
 
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMove);
-
-	WINDOW_TITLE_FONT = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -97,7 +94,7 @@ void Window::update()
 
 	mBody.draw(renderer, NAS2D::Rectangle{mRect.x, mRect.y + 20, mRect.width, mRect.height - 20});
 
-	renderer.drawText(*WINDOW_TITLE_FONT, text(), NAS2D::Point{mRect.x + 5, mRect.y + 2}, NAS2D::Color::White);
+	renderer.drawText(mTitleFont, text(), NAS2D::Point{mRect.x + 5, mRect.y + 2}, NAS2D::Color::White);
 
 	UIContainer::update();
 }

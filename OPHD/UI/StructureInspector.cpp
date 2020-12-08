@@ -13,9 +13,6 @@
 
 using namespace NAS2D;
 
-static const Font* FONT = nullptr;
-static const Font* FONT_BOLD = nullptr;
-
 
 StructureInspector::StructureInspector() :
 	Window{constants::WINDOW_STRUCTURE_INSPECTOR},
@@ -27,9 +24,6 @@ StructureInspector::StructureInspector() :
 	add(btnClose, {295, 175});
 	btnClose.size({50, 20});
 	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
-
-	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 

@@ -10,6 +10,7 @@
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Renderer/Vector.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
+#include <NAS2D/Resources/Font.h>
 #include <NAS2D/Resources/Image.h>
 
 #include <algorithm>
@@ -101,6 +102,8 @@ private:
 	std::size_t translateCoordsToIndex(NAS2D::Vector<int> relativeOffset);
 
 	void raiseChangedEvent();
+
+	const NAS2D::Font& mFont;
 
 	Index mHighlightIndex = constants::NO_SELECTION; /**< Current highlight index. */
 	Index mCurrentSelection = constants::NO_SELECTION; /**< Currently selected item index. */
