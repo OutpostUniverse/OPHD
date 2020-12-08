@@ -11,8 +11,6 @@ public:
 
 public:
 	GameOverDialog();
-	GameOverDialog(const GameOverDialog&) = delete;
-	GameOverDialog& operator=(const GameOverDialog&) = delete;
 
 	ClickCallback& returnToMainMenu() { return mCallback; }
 
