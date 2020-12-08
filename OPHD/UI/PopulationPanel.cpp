@@ -12,6 +12,7 @@ using namespace NAS2D;
 
 
 PopulationPanel::PopulationPanel() :
+	FONT{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mIcons{imageCache.load("ui/icons.png")},
 	mSkin{
 		imageCache.load("ui/skin/window_top_left.png"),
@@ -26,8 +27,6 @@ PopulationPanel::PopulationPanel() :
 	}
 {
 	size({160, 220});
-
-	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 

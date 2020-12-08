@@ -16,6 +16,7 @@ using namespace NAS2D;
 
 
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
+	FONT{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mIconSize{iconEdgeSize},
 	mIconMargin{margin},
 	mIconSheet{imageCache.load(filePath)},
@@ -44,8 +45,6 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMove);
 	resized().connect(this, &IconGrid::sizeChanged);
 	hasFocus(true);
-
-	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 

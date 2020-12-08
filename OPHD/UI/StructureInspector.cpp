@@ -16,6 +16,8 @@ using namespace NAS2D;
 
 StructureInspector::StructureInspector() :
 	Window{constants::WINDOW_STRUCTURE_INSPECTOR},
+	FONT{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	FONT_BOLD{&fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL)},
 	btnClose{"Close"},
 	mIcons{imageCache.load("ui/icons.png")}
 {
@@ -24,9 +26,6 @@ StructureInspector::StructureInspector() :
 	add(btnClose, {295, 175});
 	btnClose.size({50, 20});
 	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
-
-	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 

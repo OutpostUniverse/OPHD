@@ -18,6 +18,8 @@ using namespace NAS2D;
 
 MineOperationsWindow::MineOperationsWindow() :
 	Window{constants::WINDOW_MINE_OPERATIONS},
+	FONT{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	FONT_BOLD{&fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL)},
 	mUiIcon{imageCache.load("ui/interface/mine.png")},
 	mIcons{imageCache.load("ui/icons.png")},
 	mPanel{
@@ -77,9 +79,6 @@ MineOperationsWindow::MineOperationsWindow() :
 
 	add(chkRareMinerals, {259, 145});
 	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
-
-	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 
