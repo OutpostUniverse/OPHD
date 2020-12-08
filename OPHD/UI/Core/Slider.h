@@ -55,7 +55,7 @@ public:
 
 	float length(); /*!< Get the max value for the slide area. */
 	void length(float length); /*!< Set the max value for the slide area. */
-	
+
 	bool backward() { return mBackward; } /*!< Get the backward flag. */
 	void backward(bool isBackward) { mBackward = isBackward; } /*!< Set the backward flag. */
 
@@ -67,7 +67,7 @@ protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y); /*!< Event raised on mouse button down. */
 	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y); /*!< Event raised on mouse button up. */
 	virtual void onMouseMove(int x, int y, int dX, int dY); /*!< Event raised on mouse move. */
-	
+
 private:
 	float positionInternal();
 	void positionInternal(float newPosition);
@@ -83,7 +83,7 @@ private:
 	ValueChangedCallback mCallback; /*!< Callback executed when the value is changed. */
 
 	SliderType mSliderType{SliderType::Vertical}; /*!< Type of the Slider. */
-	
+
 	// mouse event related vars
 	NAS2D::Point<int> mMousePosition; /**< Mouse coordinates. */
 

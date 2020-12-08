@@ -38,7 +38,7 @@ private:
 	static void buildCostTable();
 	static void buildPopulationRequirementsTable();
 	static void buildRecycleValueTable();
-	
+
 	static StorableResources recycleValue(StructureID type, float percent);
 
 private:

@@ -141,7 +141,7 @@ void ComboBox::lstItemsSelectionChanged()
 void ComboBox::maxDisplayItems(std::size_t count)
 {
 	mMaxDisplayItems = count;
-	
+
 	if (count < constants::MINIMUM_DISPLAY_ITEMS)
 	{
 		mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;

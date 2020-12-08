@@ -18,7 +18,7 @@ public:
 	void text(const std::string& text);
 	const std::string& text() const { return mText; }
 	TextChangedCallback& textChanged() { return mTextChanged; }
-	
+
 	virtual void onTextChanged() { mTextChanged(this); }
 
 protected:

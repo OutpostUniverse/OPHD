@@ -32,7 +32,7 @@ namespace {
 		{ ProductType::PRODUCT_RESERVED_AG_17, 0 },
 		{ ProductType::PRODUCT_RESERVED_AG_18, 0 },
 		{ ProductType::PRODUCT_RESERVED_AG_19, 0 },
-		
+
 		{ ProductType::PRODUCT_RESERVED_AG_20, 0 },
 		{ ProductType::PRODUCT_RESERVED_AG_21, 0 },
 		{ ProductType::PRODUCT_RESERVED_AG_22, 0 },

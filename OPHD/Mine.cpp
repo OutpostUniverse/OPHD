@@ -241,7 +241,7 @@ bool Mine::exhausted() const
 void Mine::checkExhausted()
 {
 	if (!active()) { return; }
-	
+
 	int ore_count = 0;
 	for (auto vein : mVeins)
 	{

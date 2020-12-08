@@ -53,7 +53,7 @@ public:
 		_selected = _b;
 		if (UiPanel) { UiPanel->enabled(_b); }
 	}
-	
+
 	bool Selected() { return _selected; }
 
 public:

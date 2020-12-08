@@ -37,7 +37,7 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	renderer.drawText(*MAIN_FONT_BOLD, f->name(), NAS2D::Point{x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
 
 	renderer.drawText(*MAIN_FONT, productDescription(f->productType()), NAS2D::Point{x + w - 112, ((y + 19) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
-	
+
 	// PROGRESS BAR
 	float percentage = (f->productType() == ProductType::PRODUCT_NONE) ? 0.0f : (f->productionTurnsCompleted() / f->productionTurnsToComplete());
 	drawBasicProgressBar(x + w - 112, y + 30 - offset, 105, 11, percentage, 2);
@@ -78,7 +78,7 @@ void FactoryListBox::addItem(Factory* factory)
 	if (item->text == constants::SURFACE_FACTORY) { item->icon_slice = {0, 46}; }
 	else if (item->text == constants::UNDERGROUND_FACTORY) { item->icon_slice = {138, 276}; }
 	else if (item->text == constants::SEED_FACTORY) { item->icon_slice = {460, 368}; }
-	
+
 	if (factory->state() == StructureState::Destroyed) { item->icon_slice = {414, 368}; }
 	_update_item_display();
 }

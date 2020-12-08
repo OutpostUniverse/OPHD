@@ -44,7 +44,7 @@ void TextArea::processString()
 				//++i;
 				break;
 			}
-			
+
 			if (tokenList[i] == "\n")
 			{
 				++i;

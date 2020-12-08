@@ -19,7 +19,7 @@ public:
 	ClickCallback& LoadGame() { return mCallbackLoad; }
 	ClickCallback& returnToGame() { return mCallbackReturn; }
 	ClickCallback& returnToMainMenu() { return mCallbackClose; }
-	
+
 
 protected:
 	virtual void init();

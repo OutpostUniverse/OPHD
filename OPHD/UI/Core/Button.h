@@ -36,7 +36,7 @@ public:
 
 	void image(const std::string& path);
 	bool hasImage() const;
-	
+
 	ClickCallback& click() { return mCallback; }
 
 	void update() override;

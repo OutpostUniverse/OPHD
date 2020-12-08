@@ -30,7 +30,7 @@ protected:
 
 	void onSizeChanged() override;
 	void onTextChanged() override;
-	
+
 private:
 	const NAS2D::Image& mSkin;
 

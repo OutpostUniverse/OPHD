@@ -170,7 +170,7 @@ void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperat
 
 		gameState->mapviewstate(mapview);
 		mReturnState = gameState;
-		
+
 		Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 		Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 	}

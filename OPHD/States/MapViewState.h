@@ -92,7 +92,7 @@ protected:
 private:
 	void _deactivate() override;
 	void _activate() override;
-	
+
 	// EVENT HANDLERS
 	void onActivate(bool newActiveValue);
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);

@@ -198,7 +198,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
 	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
-	
+
 	mButton1Held = false;
 	mButton2Held = false;
 	mThumbPressed = false;

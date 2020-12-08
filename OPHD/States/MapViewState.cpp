@@ -808,7 +808,7 @@ void MapViewState::placeRobot()
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
 	if (!mRobotPool.robotCtrlAvailable()) { return; }
-	
+
 	if (!inCommRange(tile->position()))
 	{
 		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_OUT_OF_COMM_RANGE);
@@ -848,7 +848,7 @@ void MapViewState::placeRobot()
 		else if (tile->thingIsStructure())
 		{
 			if (mStructureInspector.structure() == tile->structure()) { mStructureInspector.hide(); }
-			
+
 			Structure* structure = tile->structure();
 
 			if (structure->isMineFacility()) { return; }
@@ -887,7 +887,7 @@ void MapViewState::placeRobot()
 			 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
 			 */
 			if (!recycledResources.empty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
-			
+
 			updatePlayerResources();
 			updateStructuresAvailability();
 
@@ -1045,7 +1045,7 @@ void MapViewState::placeStructure()
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_MINE_IN_WAY);
 		return;
 	}
-	
+
 	if (tile->thing())
 	{
 		if (tile->thingIsStructure())

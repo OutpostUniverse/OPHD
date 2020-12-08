@@ -82,7 +82,7 @@ static bool routeObstructed(Route& route)
 void MapViewState::updatePopulation()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
-	
+
 	int residences = structureManager.getCountInState(Structure::StructureClass::Residence, StructureState::Operational);
 	int universities = structureManager.getCountInState(Structure::StructureClass::University, StructureState::Operational);
 	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, StructureState::Operational);
