@@ -26,20 +26,6 @@ UIContainer::~UIContainer()
 }
 
 
-/**
- * Adds a Control to the UIContainer.
- */
-void UIContainer::add(Control* control, int x, int y)
-{
-	if (control == nullptr)
-	{
-		throw std::runtime_error("UIContainer::addControl(): Attempting to add a NULL Control");
-	}
-
-	add(*control, {x, y});
-}
-
-
 void UIContainer::add(Control& control, NAS2D::Vector<int> offset)
 {
 	if (std::find(mControls.begin(), mControls.end(), &control) != mControls.end())

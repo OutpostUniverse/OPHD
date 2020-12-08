@@ -18,7 +18,6 @@ public:
 	UIContainer();
 	~UIContainer() override;
 
-	void add(Control* control, int x, int y);
 	void add(Control& control, NAS2D::Vector<int> offset);
 	void clear();
 
