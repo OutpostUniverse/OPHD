@@ -15,10 +15,10 @@ using namespace NAS2D;
 
 
 RadioButton::RadioButton(std::string newText) :
+	CBOX_FONT{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mSkin{imageCache.load("ui/skin/checkbox.png")},
 	mLabel{newText}
 {
-	CBOX_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &RadioButton::onMouseDown);
 }
 
