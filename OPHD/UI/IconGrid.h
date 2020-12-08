@@ -97,13 +97,11 @@ private:
 	using IconItemList = std::vector<IconGridItem>;
 	using Index = IconItemList::size_type;
 
-private:
 	void updateGrid();
 	std::size_t translateCoordsToIndex(NAS2D::Vector<int> relativeOffset);
 
 	void raiseChangedEvent();
 
-private:
 	Index mHighlightIndex = constants::NO_SELECTION; /**< Current highlight index. */
 	Index mCurrentSelection = constants::NO_SELECTION; /**< Currently selected item index. */
 

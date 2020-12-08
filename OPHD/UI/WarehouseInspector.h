@@ -22,7 +22,6 @@ public:
 private:
 	void btnCloseClicked();
 
-private:
 	Warehouse* mWarehouse = nullptr;
 	Button btnClose;
 };

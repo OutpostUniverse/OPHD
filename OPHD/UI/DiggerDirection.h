@@ -13,7 +13,6 @@ class DiggerDirection: public Window
 public:
 	using Callback = NAS2D::Signals::Signal<Direction, Tile*>;
 
-public:
 	DiggerDirection();
 
 	void update() override;
@@ -38,7 +37,6 @@ private:
 	void btnDiggerEastClicked();
 	void btnDiggerWestClicked();
 
-private:
 	Button btnDown;
 	Button btnNorth;
 	Button btnEast;

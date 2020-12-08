@@ -39,7 +39,6 @@ private:
 
 	void productSelectionChanged(const IconGrid::IconGridItem*);
 
-private:
 	Factory* mFactory = nullptr;
 
 	ProductType mProduct = ProductType::PRODUCT_NONE;

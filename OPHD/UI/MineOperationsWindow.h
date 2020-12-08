@@ -39,7 +39,6 @@ private:
 	void btnAssignTruckClicked();
 	void btnUnassignTruckClicked();
 
-private:
 	MineFacility* mFacility = nullptr;
 
 	const NAS2D::Image& mUiIcon;

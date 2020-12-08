@@ -20,7 +20,6 @@ public:
 
 	using FileOperationCallback = NAS2D::Signals::Signal<const std::string&, FileOperation>;
 
-public:
 	FileIo();
 	~FileIo() override;
 
@@ -42,7 +41,6 @@ private:
 	void fileSelected();
 	void fileNameModified(TextControl* control);
 
-private:
 	FileOperationCallback mCallback;
 
 	FileOperation mMode;

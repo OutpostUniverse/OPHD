@@ -19,7 +19,6 @@ public:
 private:
 	void btnCloseClicked();
 
-private:
 	Button btnClose;
 	Tile* mTile = nullptr;
 };

@@ -9,7 +9,6 @@ class GameOptionsDialog : public Window
 public:
 	using ClickCallback = NAS2D::Signals::Signal<>;
 
-public:
 	GameOptionsDialog();
 	~GameOptionsDialog() override;
 
@@ -28,7 +27,6 @@ private:
 
 	void enabledChanged() override;
 
-private:
 	Button btnSave;
 	Button btnLoad;
 	Button btnReturn;

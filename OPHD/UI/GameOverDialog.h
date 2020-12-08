@@ -19,7 +19,6 @@ public:
 private:
 	void btnCloseClicked();
 
-private:
 	const NAS2D::Image& mHeader;
 
 	Button btnClose;
