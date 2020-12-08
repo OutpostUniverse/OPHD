@@ -66,7 +66,7 @@ void ResourceBreakdownPanel::update()
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
-	static std::map<ResourceTrend, Point<int>> ICON_SLICE
+	static std::map<ResourceTrend, Point<int>> iconStartPoint
 	{
 		{ ResourceTrend::None, Point{16, 64} },
 		{ ResourceTrend::Up, Point{8, 64} },
@@ -74,7 +74,7 @@ void ResourceBreakdownPanel::update()
 	};
 
 
-	static std::map<ResourceTrend, Color> TEXT_COLOR
+	static std::map<ResourceTrend, Color> valueChangeColor
 	{
 		{ ResourceTrend::None, Color::White },
 		{ ResourceTrend::Up, Color{0, 185, 0} },
@@ -102,10 +102,9 @@ void ResourceBreakdownPanel::update()
 		const auto valueString = std::to_string(value);
 		renderer.drawText(mFont, valueString, position + NAS2D::Vector{195 - mFont.width(valueString), 0}, NAS2D::Color::White);
 		const auto resourceTrend = compareResources(value, oldValue);
-		const auto changeIconImageRect = NAS2D::Rectangle<int>::Create(ICON_SLICE[resourceTrend], NAS2D::Vector{8, 8});
+		const auto changeIconImageRect = NAS2D::Rectangle<int>::Create(iconStartPoint[resourceTrend], NAS2D::Vector{8, 8});
 		renderer.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
-		const auto valueChangeColor = TEXT_COLOR[resourceTrend];
-		renderer.drawText(mFont, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor);
+		renderer.drawText(mFont, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, valueChangeColor[resourceTrend]);
 		position.y += 18;
 	}
 }
