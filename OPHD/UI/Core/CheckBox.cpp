@@ -28,9 +28,9 @@ using namespace NAS2D;
 
 
 CheckBox::CheckBox(std::string newText) :
+	CBOX_FONT{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mSkin{imageCache.load("ui/skin/checkbox.png")}
 {
-	CBOX_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	text(newText);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &CheckBox::onMouseDown);
 }
