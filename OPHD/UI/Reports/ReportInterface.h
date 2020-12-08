@@ -18,10 +18,8 @@ public:
 	 */
 	using TakeMeThere = NAS2D::Signals::Signal<Structure*>;
 
-public:
 	ReportInterface() {}
 
-public:
 	/**
 	 * Instructs the Report UI to clear any selections it may have.
 	 */
