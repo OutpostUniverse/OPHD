@@ -8,6 +8,7 @@
 
 using namespace NAS2D;
 
+
 ComboBox::ComboBox()
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ComboBox::onMouseDown);

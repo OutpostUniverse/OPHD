@@ -2,8 +2,10 @@
 
 #include "Core/Window.h"
 #include "Core/Button.h"
+
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Renderer/Point.h>
+
 
 class Structure;
 

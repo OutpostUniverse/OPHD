@@ -1,7 +1,6 @@
 #include "UIContainer.h"
 
 #include "RadioButton.h"
-
 #include "../../Common.h"
 
 #include <NAS2D/Utility.h>

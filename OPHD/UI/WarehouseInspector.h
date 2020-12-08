@@ -6,6 +6,7 @@
 
 class Warehouse;
 
+
 /**
 * \brief Implements a Factory Production dialog interface.
 */

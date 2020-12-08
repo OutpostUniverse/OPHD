@@ -1,13 +1,17 @@
 #pragma once
 
 #include "Control.h"
+
 #include <NAS2D/Signal.h>
+
 #include <string>
+
 
 namespace NAS2D 
 {
 	class Font;
 }
+
 
 class TextControl : public Control
 {

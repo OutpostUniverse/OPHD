@@ -8,7 +8,9 @@
 #pragma once
 
 #include "TextControl.h"
+
 #include <NAS2D/Renderer/Color.h>
+
 #include <string>
 
 
@@ -16,6 +18,7 @@ namespace NAS2D
 {
 	class Font;
 }
+
 
 /**
  * \class Label

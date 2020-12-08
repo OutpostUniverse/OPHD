@@ -16,6 +16,7 @@
 
 #include <locale>
 
+
 using namespace NAS2D;
 
 

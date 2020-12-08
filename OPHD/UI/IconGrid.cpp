@@ -16,6 +16,7 @@ using namespace NAS2D;
 
 static const Font* FONT = nullptr;
 
+
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	mIconSize{iconEdgeSize},
 	mIconMargin{margin},

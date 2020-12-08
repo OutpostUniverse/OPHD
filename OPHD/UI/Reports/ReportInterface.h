@@ -2,7 +2,9 @@
 
 #include "../Core/UIContainer.h"
 
+
 class Structure;
+
 
 /**
  * Provides an abstract interface for Report UIs used in the MainReportsUiState.
