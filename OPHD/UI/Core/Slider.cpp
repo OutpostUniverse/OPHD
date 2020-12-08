@@ -123,7 +123,7 @@ Slider::Slider(SliderType sliderType) : Slider(loadSkins(sliderType), sliderType
 
 
 Slider::Slider(Slider::Skins skins, SliderType sliderType) :
-	sliderFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mSliderType{sliderType},
 	mSkins{skins}
 {
@@ -339,14 +339,14 @@ void Slider::draw()
 	if (mDisplayPosition && mMouseHoverSlide)
 	{
 		std::string textHover = std::to_string(static_cast<int>(thumbPosition())) + " / " + std::to_string(static_cast<int>(mLength));
-		const auto boxSize = sliderFont.size(textHover) + NAS2D::Vector{4, 4};
+		const auto boxSize = mFont.size(textHover) + NAS2D::Vector{4, 4};
 		const auto boxPosition = (mSliderType == SliderType::Vertical) ?
 			NAS2D::Point{mSlideBar.x + mSlideBar.width + 2, mMousePosition.y - boxSize.y} :
 			NAS2D::Point{mMousePosition.x + 2, mSlideBar.y - 2 - boxSize.y};
 
 		renderer.drawBox(NAS2D::Rectangle{boxPosition.x, boxPosition.y, boxSize.x, boxSize.y}, NAS2D::Color{255, 255, 255, 180});
 		renderer.drawBoxFilled(NAS2D::Rectangle{boxPosition.x + 1, boxPosition.y + 1, boxSize.x - 2, boxSize.y - 2}, NAS2D::Color{0, 0, 0, 180});
-		renderer.drawText(sliderFont, textHover, NAS2D::Point{boxPosition.x + 2, boxPosition.y + 2}, NAS2D::Color{220, 220, 220});
+		renderer.drawText(mFont, textHover, NAS2D::Point{boxPosition.x + 2, boxPosition.y + 2}, NAS2D::Color{220, 220, 220});
 	}
 }
 
