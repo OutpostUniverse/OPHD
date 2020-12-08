@@ -223,7 +223,7 @@ void TileMap::buildMouseMap()
 	{
 		throw std::runtime_error("Mouse map is the wrong dimensions.");
 	}
-	
+
 	mMouseMap.resize(TILE_HEIGHT_ABSOLUTE);
 	for (std::size_t i = 0; i < mMouseMap.size(); i++)
 	{
@@ -495,7 +495,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	for (auto* mineElement = element->firstChildElement("mines")->firstChildElement("mine"); mineElement; mineElement = mineElement->nextSiblingElement())
 	{
 		int x = 0, y = 0;
-	
+
 		attribute = mineElement->toElement()->firstAttribute();
 		while (attribute)
 		{
@@ -563,7 +563,7 @@ bool TileMap::isVisibleTile(NAS2D::Point<int> position, int z) const
 	{
 		return false;
 	}
-	
+
 	return true;
 }
 

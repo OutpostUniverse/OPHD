@@ -87,7 +87,7 @@ struct StorableResources
 
 	bool empty()
 	{
-		if(resources[0] > 0 ||
+		if (resources[0] > 0 ||
 			resources[1] > 0 ||
 			resources[2] > 0 ||
 			resources[3] > 0)

@@ -21,7 +21,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 	if ((_rc != nullptr) || mRobotPool.commandCapacityAvailable())
 	{
 		Robot* robot = nullptr;
-		
+
 		switch (pt)
 		{
 		case ProductType::PRODUCT_DIGGER:
@@ -201,7 +201,7 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	NAS2D::Point<int> origin = t->position();
 	int newDepth = t->depth();
 
-	if(dir == Direction::Down)
+	if (dir == Direction::Down)
 	{
 		++newDepth;
 
@@ -220,19 +220,19 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		checkConnectedness();
 	}
-	else if(dir == Direction::North)
+	else if (dir == Direction::North)
 	{
 		origin += DirectionNorth;
 	}
-	else if(dir == Direction::South)
+	else if (dir == Direction::South)
 	{
 		origin += DirectionSouth;
 	}
-	else if(dir == Direction::West)
+	else if (dir == Direction::West)
 	{
 		origin += DirectionWest;
 	}
-	else if(dir == Direction::East)
+	else if (dir == Direction::East)
 	{
 		origin += DirectionEast;
 	}
@@ -281,7 +281,7 @@ void MapViewState::minerTaskFinished(Robot* robot)
 void MapViewState::mineFacilityExtended(MineFacility* mineFacility)
 {
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
-	
+
 	auto& mineFacilityTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
 	auto& mineDepthTile = mTileMap->getTile(mineFacilityTile.position(), mineFacility->mine()->depth());
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &mineDepthTile);

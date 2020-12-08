@@ -808,14 +808,14 @@ void MapViewState::placeRobot()
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
 	if (!mRobotPool.robotCtrlAvailable()) { return; }
-	
+
 	if (!inCommRange(tile->position()))
 	{
 		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_OUT_OF_COMM_RANGE);
 		return;
 	}
 
-	if(mCurrentRobot == RobotType::ROBOT_DOZER)
+	if (mCurrentRobot == RobotType::ROBOT_DOZER)
 	{
 		Robot* robot = mRobotPool.getDozer();
 
@@ -848,7 +848,7 @@ void MapViewState::placeRobot()
 		else if (tile->thingIsStructure())
 		{
 			if (mStructureInspector.structure() == tile->structure()) { mStructureInspector.hide(); }
-			
+
 			Structure* structure = tile->structure();
 
 			if (structure->isMineFacility()) { return; }
@@ -887,7 +887,7 @@ void MapViewState::placeRobot()
 			 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
 			 */
 			if (!recycledResources.empty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
-			
+
 			updatePlayerResources();
 			updateStructuresAvailability();
 
@@ -905,13 +905,13 @@ void MapViewState::placeRobot()
 		static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile->index()));
 		tile->index(TerrainType::Dozed);
 
-		if(!mRobotPool.robotAvailable(RobotType::ROBOT_DOZER))
+		if (!mRobotPool.robotAvailable(RobotType::ROBOT_DOZER))
 		{
 			mRobots.removeItem(constants::ROBODOZER);
 			clearMode();
 		}
 	}
-	else if(mCurrentRobot == RobotType::ROBOT_DIGGER)
+	else if (mCurrentRobot == RobotType::ROBOT_DIGGER)
 	{
 		// Keep digger within a safe margin of the map boundaries.
 		if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(mTileMapMouseHover))
@@ -990,7 +990,7 @@ void MapViewState::placeRobot()
 			mDiggerDirection.position(position);
 		}
 	}
-	else if(mCurrentRobot == RobotType::ROBOT_MINER)
+	else if (mCurrentRobot == RobotType::ROBOT_MINER)
 	{
 		if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
 		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
@@ -1045,7 +1045,7 @@ void MapViewState::placeStructure()
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_MINE_IN_WAY);
 		return;
 	}
-	
+
 	if (tile->thing())
 	{
 		if (tile->thingIsStructure())
@@ -1059,7 +1059,7 @@ void MapViewState::placeStructure()
 		return;
 	}
 
-	if((!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
+	if ((!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
 	{
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_TERRAIN);
 		return;
@@ -1072,7 +1072,7 @@ void MapViewState::placeStructure()
 	}
 
 	// Seed lander is a special case and only one can ever be placed by the player ever.
-	if(mCurrentStructure == StructureID::SID_SEED_LANDER)
+	if (mCurrentStructure == StructureID::SID_SEED_LANDER)
 	{
 		insertSeedLander(mTileMapMouseHover);
 	}
@@ -1218,7 +1218,7 @@ void MapViewState::updateRobots()
 			delete robot;
 			robot_it = mRobotList.erase(robot_it);
 		}
-		else if(robot->idle())
+		else if (robot->idle())
 		{
 			if (tile->thing() == robot)
 			{

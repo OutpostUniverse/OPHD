@@ -105,11 +105,11 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	if(button == EventHandler::MouseButton::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
-		if(mRect.contains(Point<int>{x, y}))
+		if (mRect.contains(Point<int>{x, y}))
 		{
-			if(mType == Type::BUTTON_NORMAL)
+			if (mType == Type::BUTTON_NORMAL)
 			{
 				mState = State::Pressed;
 			}
@@ -125,11 +125,11 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
-	if(!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	if(button == EventHandler::MouseButton::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::BUTTON_LEFT)
 	{
-		if(mType == Type::BUTTON_NORMAL)
+		if (mType == Type::BUTTON_NORMAL)
 		{
 			mState = State::Normal;
 

@@ -110,7 +110,7 @@ void FactoryProduction::btnClearSelectionClicked()
 void FactoryProduction::chkIdleClicked()
 {
 	if (!mFactory) { return; }
-	
+
 	mFactory->forceIdle(chkIdle.checked());
 }
 

@@ -98,7 +98,7 @@ protected:
 		MMR_BOTTOM_RIGHT,
 		MMR_BOTTOM_LEFT
 	};
-	
+
 	std::vector<std::vector<MouseMapRegion> > mMouseMap;
 
 private:

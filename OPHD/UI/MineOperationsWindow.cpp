@@ -155,7 +155,7 @@ void MineOperationsWindow::btnAssignTruckClicked()
 void MineOperationsWindow::btnUnassignTruckClicked()
 {
 	if (mFacility->assignedTrucks() == 1) { return; }
-	
+
 	if (pushTruckIntoInventory())
 	{
 		mFacility->removeTruck();
@@ -236,7 +236,7 @@ void MineOperationsWindow::update()
 	renderer.drawLine(origin + NAS2D::Vector{98, 180}, origin + NAS2D::Vector{98, 219}, NAS2D::Color{22, 22, 22});
 	renderer.drawLine(origin + NAS2D::Vector{187, 180}, origin + NAS2D::Vector{187, 219}, NAS2D::Color{22, 22, 22});
 	renderer.drawLine(origin + NAS2D::Vector{275, 180}, origin + NAS2D::Vector{275, 219}, NAS2D::Color{22, 22, 22});
-	
+
 	renderer.drawLine(origin + NAS2D::Vector{11, 200}, origin + NAS2D::Vector{width - 11, 200}, NAS2D::Color{22, 22, 22});
 
 	const auto CommonMetalIconRect = NAS2D::Rectangle{64, 0, 16, 16};

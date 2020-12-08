@@ -158,7 +158,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 	{
 		// COMMAND KEYS
 		case EventHandler::KeyCode::KEY_BACKSPACE:
-			if(!text().empty() && mCursorPosition > 0)
+			if (!text().empty() && mCursorPosition > 0)
 			{
 				mCursorPosition--;
 				mText.erase(mCursorPosition, 1);
@@ -184,23 +184,23 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 
 		// ARROW KEYS
 		case EventHandler::KeyCode::KEY_LEFT:
-			if(mCursorPosition > 0)
+			if (mCursorPosition > 0)
 				--mCursorPosition;
 			break;
 
 		case EventHandler::KeyCode::KEY_RIGHT:
-			if(mCursorPosition < text().length())
+			if (mCursorPosition < text().length())
 				++mCursorPosition;
 			break;
 
 		// KEYPAD ARROWS
 		case EventHandler::KeyCode::KEY_KP4:
-			if((mCursorPosition > 0) && !Utility<EventHandler>::get().query_numlock())
+			if ((mCursorPosition > 0) && !Utility<EventHandler>::get().query_numlock())
 				--mCursorPosition;
 			break;
 
 		case EventHandler::KeyCode::KEY_KP6:
-			if((mCursorPosition < text().length()) && !Utility<EventHandler>::get().query_numlock())
+			if ((mCursorPosition < text().length()) && !Utility<EventHandler>::get().query_numlock())
 				++mCursorPosition;
 			break;
 
@@ -229,7 +229,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
-	if(mFont.width(text()) < relativePosition)
+	if (mFont.width(text()) < relativePosition)
 	{
 		mCursorPosition = text().size();
 		return;
@@ -243,7 +243,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 	{
 		std::string cmpStr = text().substr(scrollOffset, i);
 		int strLen = mFont.width(cmpStr);
-		if(strLen > relativePosition)
+		if (strLen > relativePosition)
 		{
 			mCursorPosition = i - 1;
 			break;
@@ -259,9 +259,9 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
  */
 void TextField::drawCursor()
 {
-	if(hasFocus() && editable())
+	if (hasFocus() && editable())
 	{
-		if(mShowCursor)
+		if (mShowCursor)
 		{
 			// updateCursor() should be called only on events relating to the cursor so this is temporary.
 			updateCursor();
@@ -271,8 +271,8 @@ void TextField::drawCursor()
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
 			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
 		}
-		
-		if(mCursorTimer.accumulator() > cursorBlinkDelay)
+
+		if (mCursorTimer.accumulator() > cursorBlinkDelay)
 		{
 			mCursorTimer.reset();
 			mShowCursor = !mShowCursor;

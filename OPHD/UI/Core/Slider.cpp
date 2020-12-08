@@ -198,7 +198,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
 	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
-	
+
 	mButton1Held = false;
 	mButton2Held = false;
 	mThumbPressed = false;
@@ -396,7 +396,7 @@ void Slider::changeThumbPosition(float change)
 
 void Slider::thumbPositionNormalized(float value) {
 	value = std::clamp(value, 0.0f, 1.0f);
-	if(mBackward) { value = 1.0f - value; }
+	if (mBackward) { value = 1.0f - value; }
 	mPosition = mLength * value;
 	mCallback(thumbPosition());
 }

@@ -225,7 +225,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		mCurrentHighlight = constants::NO_SELECTION;
 		return;
 	}
-	
+
 	mCurrentHighlight = (static_cast<std::size_t>(y - mRect.y) + mCurrentOffset) / static_cast<std::size_t>(mFont.height() + 2);
 
 	if (mCurrentHighlight >= mItems.size())
@@ -283,7 +283,7 @@ void ListBox::update()
 		highlightBounds.y += static_cast<int>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
 		renderer.drawBox(highlightBounds, mHighlightBg);
 	}
-	
+
 	// display actuals values that are meant to be
 	auto textPosition = listBounds.startPoint();
 	textPosition.y -= static_cast<int>(mCurrentOffset);

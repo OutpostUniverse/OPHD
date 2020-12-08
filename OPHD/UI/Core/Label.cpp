@@ -32,7 +32,7 @@ void Label::font(const NAS2D::Font* font)
 
 void Label::update()
 {
-	if(!visible()) { return; }
+	if (!visible()) { return; }
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 

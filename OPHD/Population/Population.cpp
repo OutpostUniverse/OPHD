@@ -293,7 +293,7 @@ int Population::consume_food(int food)
 		{
 			role_idx = role_idx + counter;
 			if (role_idx > 4) { role_idx = 0; }
-			
+
 			if (mPopulation[role_idx] > 0)
 			{
 				break;

@@ -27,7 +27,7 @@ public:
 	Factory* factory() { return mFactory; }
 
 	void hide() override;
-	
+
 	void update() override;
 
 protected:

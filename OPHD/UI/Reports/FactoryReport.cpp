@@ -497,7 +497,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	}
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
-	
+
 	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, detailPanelRect.y + 358}, textColor);
 	renderer.drawText(fontMedium, "Building " + productDescription(selectedFactory->productType()), NAS2D::Point{position_x, detailPanelRect.y + 393}, textColor);
 
@@ -507,7 +507,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 		percent = static_cast<float>(selectedFactory->productionTurnsCompleted()) /
 			static_cast<float>(selectedFactory->productionTurnsToComplete());
 	}
-	
+
 	drawBasicProgressBar(position_x, detailPanelRect.y + 413, mRect.width - position_x - 10, 30, percent, 4);
 
 	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());

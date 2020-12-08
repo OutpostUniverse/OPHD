@@ -31,7 +31,7 @@ distribution.
  */
 
 /** @mainpage MicroPather
-	
+
 	MicroPather is a path finder and A* solver (astar or a-star) written in platform independent 
 	C++ that can be easily integrated into existing code. MicroPather focuses on being a path 
 	finding engine for video games but is a generic A* solver. MicroPather is open source, with 

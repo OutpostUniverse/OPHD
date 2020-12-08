@@ -486,7 +486,7 @@ MicroPather::MicroPather(Graph* _graph, std::size_t allocate, std::size_t typica
 	pathCache = nullptr;
 	if (cache)
 	{
-		pathCache = new PathCache(allocate * 4);	// untuned arbitrary constant	
+		pathCache = new PathCache(allocate * 4);	// untuned arbitrary constant
 	}
 }
 

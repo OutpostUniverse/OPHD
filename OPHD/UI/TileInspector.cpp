@@ -35,10 +35,10 @@ void TileInspector::init()
 
 void TileInspector::update()
 {
-	if(!visible())
+	if (!visible())
 		return;
 
-	if(!mTile)
+	if (!mTile)
 		return;
 
 	Window::update();
@@ -48,7 +48,7 @@ void TileInspector::update()
 	auto position = mRect.startPoint() + NAS2D::Vector{5, 25};
 	drawLabelAndValue(position, "Has Mine: ", (mine ? "Yes" : "No"));
 
-	if(mine)
+	if (mine)
 	{
 		position.y += 10;
 		drawLabelAndValue(position, "Active: ", (mine->active() ? "Yes" : "No"));

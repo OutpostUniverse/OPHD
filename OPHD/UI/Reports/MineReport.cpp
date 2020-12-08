@@ -142,7 +142,7 @@ void MineReport::fillLists()
 	for (auto facility : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
 	{
 		lstMineFacilities.addItem(facility);
-		
+
 		/**
 		 * Add a numeric ID to the text to avoid a monotonous look in the structure list.
 		 * Since numeric structure ID's were done away with this is purely a cosmetic thing
@@ -238,7 +238,7 @@ void MineReport::btnDigNewLevelClicked()
 {
 	auto facility = static_cast<MineFacility*>(selectedFacility);
 	facility->extend();
-	
+
 	btnDigNewLevel.toggle(facility->extending());
 	btnDigNewLevel.enabled(facility->canExtend());
 }
@@ -356,7 +356,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 
 	r.drawImage(mineFacility, origin);
 	r.drawText(fontBigBold, lstMineFacilities.selectionText(), origin + NAS2D::Vector{ 0, -33 }, textColor);
-	
+
 	r.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{ 138, 0 }, textColor);
 
 	bool isStatusHighlighted = selectedFacility->disabled() || selectedFacility->destroyed();
@@ -426,7 +426,7 @@ void MineReport::drawTruckMangementPane(const NAS2D::Point<int>& origin)
 	const auto labelWidth = btnAddTruck.positionX() - origin.x - 10;
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 30 }, labelWidth, "Trucks Assigned to Facility", std::to_string(mFacility->assignedTrucks()), textColor);
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 45 }, labelWidth, "Trucks Available in Storage", std::to_string(mAvailableTrucks), textColor);
-	
+
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	bool routeAvailable = routeTable.find(mFacility) != routeTable.end();
 
@@ -522,6 +522,6 @@ void MineReport::update()
 		drawOreProductionPane(startPoint + NAS2D::Vector{ 10, 170 });
 		drawTruckMangementPane(startPoint + NAS2D::Vector{ 10, r.size().y - 214 });
 	}
-	
+
 	UIContainer::update();
 }

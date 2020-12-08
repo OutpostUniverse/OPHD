@@ -124,7 +124,7 @@ void Factory::updateProduction()
 		idle(IdleReason::FactoryInsufficientResources);
 		return;
 	}
-	
+
 	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
 	StorableResources cost {
 		productionCost.commonMetals(),

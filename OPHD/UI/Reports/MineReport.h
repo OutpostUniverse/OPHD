@@ -73,7 +73,7 @@ private:
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;
-	
+
 	const NAS2D::Image& mineFacility;
 	const NAS2D::Image& uiIcons;
 
