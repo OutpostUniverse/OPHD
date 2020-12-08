@@ -41,10 +41,6 @@ DiggerDirection::DiggerDirection() :
 }
 
 
-DiggerDirection::~DiggerDirection()
-{}
-
-
 void DiggerDirection::setParameters(Tile* tile)
 {
 	mTile = tile;

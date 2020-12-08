@@ -12,7 +12,6 @@ class StructureInspector : public Window
 {
 public:
 	StructureInspector();
-	~StructureInspector() override;
 
 	void structure(Structure* structure);
 	Structure* structure() { return mStructure; }

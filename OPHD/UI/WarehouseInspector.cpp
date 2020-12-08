@@ -19,10 +19,6 @@ WarehouseInspector::WarehouseInspector() :
 }
 
 
-WarehouseInspector::~WarehouseInspector()
-{}
-
-
 void WarehouseInspector::warehouse(Warehouse* w)
 {
 	mWarehouse = w;

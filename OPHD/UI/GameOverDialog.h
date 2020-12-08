@@ -11,7 +11,6 @@ public:
 
 public:
 	GameOverDialog();
-	~GameOverDialog() override;
 
 	ClickCallback& returnToMainMenu() { return mCallback; }
 

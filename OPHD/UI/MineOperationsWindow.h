@@ -17,7 +17,6 @@ class MineOperationsWindow final : public Window
 {
 public:
 	MineOperationsWindow();
-	~MineOperationsWindow() override;
 
 	void mineFacility(MineFacility* facility);
 	MineFacility* mineFacility() { return mFacility; }

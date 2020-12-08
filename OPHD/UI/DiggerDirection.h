@@ -15,7 +15,6 @@ public:
 
 public:
 	DiggerDirection();
-	~DiggerDirection() override;
 
 	void update() override;
 

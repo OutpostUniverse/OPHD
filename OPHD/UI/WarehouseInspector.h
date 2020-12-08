@@ -13,7 +13,6 @@ class WarehouseInspector : public Window
 {
 public:
 	WarehouseInspector();
-	~WarehouseInspector() override;
 
 	void warehouse(Warehouse* w);
 
