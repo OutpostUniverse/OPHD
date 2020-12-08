@@ -30,9 +30,6 @@ public:
 
 	void update() override;
 
-protected:
-	void init();
-
 private:
 	void btnOkayClicked();
 	void btnCancelClicked();

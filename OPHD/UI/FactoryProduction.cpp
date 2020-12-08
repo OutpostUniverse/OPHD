@@ -13,12 +13,6 @@ using namespace NAS2D;
 FactoryProduction::FactoryProduction() :
 	Window{constants::WINDOW_FACTORY_PRODUCTION}
 {
-	init();
-}
-
-
-void FactoryProduction::init()
-{
 	size({320, 162});
 
 	// Set up GUI Layout
