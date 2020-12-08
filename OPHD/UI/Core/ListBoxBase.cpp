@@ -16,7 +16,16 @@ using namespace NAS2D;
 
 ListBoxBase::ListBoxBase()
 {
-	_init();
+	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBoxBase::onMouseWheel);
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBoxBase::onMouseMove);
+
+	mSlider.displayPosition(false);
+	mSlider.length(0);
+	mSlider.thumbPosition(0);
+	mSlider.change().connect(this, &ListBoxBase::slideChanged);
+
+	_update_item_display();
 }
 
 
@@ -29,24 +38,6 @@ ListBoxBase::~ListBoxBase()
 	Utility<EventHandler>::get().mouseMotion().disconnect(this, &ListBoxBase::onMouseMove);
 
 	for (auto item : mItems) { delete item; }
-}
-
-
-/**
- * Internal initializer function.
- */
-void ListBoxBase::_init()
-{
-	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBoxBase::onMouseWheel);
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBoxBase::onMouseMove);
-
-	mSlider.displayPosition(false);
-	mSlider.length(0);
-	mSlider.thumbPosition(0);
-	mSlider.change().connect(this, &ListBoxBase::slideChanged);
-
-	_update_item_display();
 }
 
 
