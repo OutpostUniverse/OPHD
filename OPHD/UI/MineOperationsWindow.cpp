@@ -20,6 +20,7 @@ static const Font* FONT_BOLD = nullptr;
 
 
 MineOperationsWindow::MineOperationsWindow() :
+	Window{constants::WINDOW_MINE_OPERATIONS},
 	mUiIcon{imageCache.load("ui/interface/mine.png")},
 	mIcons{imageCache.load("ui/icons.png")},
 	mPanel{
@@ -42,17 +43,6 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnOkay{"Close"},
 	btnAssignTruck{"Add Truck"},
 	btnUnassignTruck{"Remove Truck"}
-{
-	text(constants::WINDOW_MINE_OPERATIONS);
-	init();
-}
-
-
-MineOperationsWindow::~MineOperationsWindow()
-{}
-
-
-void MineOperationsWindow::init()
 {
 	size({375, 270});
 
@@ -94,6 +84,10 @@ void MineOperationsWindow::init()
 	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
+
+
+MineOperationsWindow::~MineOperationsWindow()
+{}
 
 
 void MineOperationsWindow::hide()

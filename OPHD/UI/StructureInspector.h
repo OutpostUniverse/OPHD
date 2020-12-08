@@ -19,9 +19,6 @@ public:
 
 	void update() override;
 
-protected:
-	void init();
-
 private:
 	void btnCloseClicked();
 	std::string getDisabledReason() const;

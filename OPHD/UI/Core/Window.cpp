@@ -28,7 +28,11 @@ Window::Window(std::string newTitle) :
 	}
 {
 	text(newTitle);
-	_init();
+
+	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
+	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMove);
+
+	WINDOW_TITLE_FONT = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -36,15 +40,6 @@ Window::~Window()
 {
 	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Window::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Window::onMouseMove);
-}
-
-
-void Window::_init()
-{
-	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMove);
-
-	WINDOW_TITLE_FONT = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 }
 
 

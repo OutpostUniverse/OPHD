@@ -3,18 +3,8 @@
 
 
 DiggerDirection::DiggerDirection() :
+	Window{"Direction"},
 	btnCancel{"Cancel"}
-{
-	text("Direction");
-	init();
-}
-
-
-DiggerDirection::~DiggerDirection()
-{}
-
-
-void DiggerDirection::init()
 {
 	position({0, 0});
 	size({74, 170});
@@ -49,6 +39,10 @@ void DiggerDirection::init()
 	btnCancel.size({64, 25});
 	btnCancel.click().connect(this, &DiggerDirection::btnCancelClicked);
 }
+
+
+DiggerDirection::~DiggerDirection()
+{}
 
 
 void DiggerDirection::setParameters(Tile* tile)

@@ -8,18 +8,8 @@
 using namespace NAS2D;
 
 WarehouseInspector::WarehouseInspector() :
+	Window{constants::WINDOW_WH_INSPECTOR},
 	btnClose{"Okay"}
-{
-	text(constants::WINDOW_WH_INSPECTOR);
-	init();
-}
-
-
-WarehouseInspector::~WarehouseInspector()
-{}
-
-
-void WarehouseInspector::init()
 {
 	size({250, 350});
 
@@ -27,6 +17,10 @@ void WarehouseInspector::init()
 	btnClose.size({40, 20});
 	btnClose.click().connect(this, &WarehouseInspector::btnCloseClicked);
 }
+
+
+WarehouseInspector::~WarehouseInspector()
+{}
 
 
 void WarehouseInspector::warehouse(Warehouse* w)

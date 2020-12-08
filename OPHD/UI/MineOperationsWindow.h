@@ -27,9 +27,6 @@ public:
 	void update() override;
 	void hide() override;
 
-protected:
-	void init();
-
 private:
 	MineOperationsWindow(const MineOperationsWindow&) = delete;
 	MineOperationsWindow& operator=(const MineOperationsWindow&) = delete;

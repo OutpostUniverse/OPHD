@@ -20,9 +20,6 @@ public:
 	void hide() override;
 	void update() override;
 
-protected:
-	void init();
-
 private:
 	void btnCloseClicked();
 

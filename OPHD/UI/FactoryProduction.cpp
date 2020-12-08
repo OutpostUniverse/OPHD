@@ -10,14 +10,8 @@
 using namespace NAS2D;
 
 
-FactoryProduction::FactoryProduction()
-{
-	text(constants::WINDOW_FACTORY_PRODUCTION);
-	init();
-}
-
-
-void FactoryProduction::init()
+FactoryProduction::FactoryProduction() :
+	Window{constants::WINDOW_FACTORY_PRODUCTION}
 {
 	size({320, 162});
 

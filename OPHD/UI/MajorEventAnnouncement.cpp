@@ -11,12 +11,6 @@ using namespace NAS2D;
 MajorEventAnnouncement::MajorEventAnnouncement() :
 	mHeader{imageCache.load("ui/interface/colony_ship_crash.png")}
 {
-	init();
-}
-
-
-void MajorEventAnnouncement::init()
-{
 	position({0, 0});
 	size({522, 340});
 

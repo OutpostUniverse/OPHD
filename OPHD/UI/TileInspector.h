@@ -16,9 +16,6 @@ public:
 
 	void update() override;
 
-protected:
-	void init();
-
 private:
 	TileInspector(const TileInspector&) = delete;
 	TileInspector& operator=(const TileInspector&) = delete;

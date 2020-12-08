@@ -10,27 +10,6 @@ using namespace NAS2D;
 
 ComboBox::ComboBox()
 {
-	init();
-}
-
-
-ComboBox::~ComboBox()
-{
-	resized().disconnect(this, &ComboBox::resizedHandler);
-	moved().disconnect(this, &ComboBox::repositioned);
-	lstItems.selectionChanged().disconnect(this, &ComboBox::lstItemsSelectionChanged);
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ComboBox::onMouseDown);
-	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ComboBox::onMouseWheel);
-}
-
-
-/**
- * Internal initializer.
- * 
- * Performs basic init'ing of internal components.
- */
-void ComboBox::init()
-{
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ComboBox::onMouseDown);
 	Utility<EventHandler>::get().mouseWheel().connect(this, &ComboBox::onMouseWheel);
 
@@ -44,6 +23,16 @@ void ComboBox::init()
 	resized().connect(this, &ComboBox::resizedHandler);
 	moved().connect(this, &ComboBox::repositioned);
 	lstItems.selectionChanged().connect(this, &ComboBox::lstItemsSelectionChanged);
+}
+
+
+ComboBox::~ComboBox()
+{
+	resized().disconnect(this, &ComboBox::resizedHandler);
+	moved().disconnect(this, &ComboBox::repositioned);
+	lstItems.selectionChanged().disconnect(this, &ComboBox::lstItemsSelectionChanged);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ComboBox::onMouseDown);
+	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ComboBox::onMouseWheel);
 }
 
 

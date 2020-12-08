@@ -14,26 +14,13 @@ using namespace NAS2D;
 
 
 FileIo::FileIo() :
+	Window{"File I/O"},
 	btnClose{"Cancel"},
 	btnFileOp{"FileOp"}
 {
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
 	Utility<EventHandler>::get().keyDown().connect(this, &FileIo::onKeyDown);
 
-	text("File I/O");
-	init();
-}
-
-
-FileIo::~FileIo()
-{
-	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &FileIo::onDoubleClick);
-	Utility<EventHandler>::get().keyDown().disconnect(this, &FileIo::onKeyDown);
-}
-
-
-void FileIo::init()
-{
 	size({500, 350});
 
 	add(btnFileOp, {445, 325});
@@ -54,6 +41,13 @@ void FileIo::init()
 	mListBox.size({490, 273});
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect(this, &FileIo::fileSelected);
+}
+
+
+FileIo::~FileIo()
+{
+	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &FileIo::onDoubleClick);
+	Utility<EventHandler>::get().keyDown().disconnect(this, &FileIo::onKeyDown);
 }
 
 

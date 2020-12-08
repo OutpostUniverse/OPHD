@@ -13,16 +13,6 @@ GameOverDialog::GameOverDialog() :
 	mHeader{imageCache.load("ui/interface/game_over.png")},
 	btnClose{"Return to Main Menu"}
 {
-	init();
-}
-
-
-GameOverDialog::~GameOverDialog()
-{}
-
-
-void GameOverDialog::init()
-{
 	position({0, 0});
 	size({522, 340});
 
@@ -32,6 +22,10 @@ void GameOverDialog::init()
 
 	anchored(true);
 }
+
+
+GameOverDialog::~GameOverDialog()
+{}
 
 
 void GameOverDialog::btnCloseClicked()
