@@ -289,7 +289,7 @@ void ListBox::update()
 	textPosition.y -= static_cast<int>(mCurrentOffset);
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
-		const auto textColor = (i == mCurrentHighlight) ? mHighlightText : mText;
+		const auto textColor = (i == mCurrentHighlight) ? mTextColorMouseHover : mTextColorNormal;
 		renderer.drawTextShadow(mFont, mItems[i].text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 		textPosition.y += mLineHeight;
 	}
