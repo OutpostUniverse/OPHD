@@ -14,13 +14,13 @@ using namespace NAS2D;
 
 
 FileIo::FileIo() :
+	Window{"File I/O"},
 	btnClose{"Cancel"},
 	btnFileOp{"FileOp"}
 {
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
 	Utility<EventHandler>::get().keyDown().connect(this, &FileIo::onKeyDown);
 
-	text("File I/O");
 	init();
 }
 

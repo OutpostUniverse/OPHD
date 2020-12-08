@@ -20,6 +20,7 @@ static const Font* FONT_BOLD = nullptr;
 
 
 MineOperationsWindow::MineOperationsWindow() :
+	Window{constants::WINDOW_MINE_OPERATIONS},
 	mUiIcon{imageCache.load("ui/interface/mine.png")},
 	mIcons{imageCache.load("ui/icons.png")},
 	mPanel{
@@ -43,7 +44,6 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnAssignTruck{"Add Truck"},
 	btnUnassignTruck{"Remove Truck"}
 {
-	text(constants::WINDOW_MINE_OPERATIONS);
 	init();
 }
 

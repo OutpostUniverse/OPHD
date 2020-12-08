@@ -8,9 +8,9 @@
 using namespace NAS2D;
 
 WarehouseInspector::WarehouseInspector() :
+	Window{constants::WINDOW_WH_INSPECTOR},
 	btnClose{"Okay"}
 {
-	text(constants::WINDOW_WH_INSPECTOR);
 	init();
 }
 

@@ -11,9 +11,9 @@ using namespace NAS2D;
 
 
 TileInspector::TileInspector() :
+	Window{constants::WINDOW_TILE_INSPECTOR},
 	btnClose{"Close"}
 {
-	text(constants::WINDOW_TILE_INSPECTOR);
 	init();
 }
 

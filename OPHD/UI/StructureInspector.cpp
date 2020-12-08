@@ -18,10 +18,10 @@ static const Font* FONT_BOLD = nullptr;
 
 
 StructureInspector::StructureInspector() :
+	Window{constants::WINDOW_STRUCTURE_INSPECTOR},
 	btnClose{"Close"},
 	mIcons{imageCache.load("ui/icons.png")}
 {
-	text(constants::WINDOW_STRUCTURE_INSPECTOR);
 	init();
 }
 

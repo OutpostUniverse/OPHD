@@ -3,9 +3,9 @@
 
 
 DiggerDirection::DiggerDirection() :
+	Window{"Direction"},
 	btnCancel{"Cancel"}
 {
-	text("Direction");
 	init();
 }
 
