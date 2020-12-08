@@ -32,8 +32,6 @@ public:
 	void update() override;
 
 protected:
-	void init();
-
 	void onDoubleClick(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 
