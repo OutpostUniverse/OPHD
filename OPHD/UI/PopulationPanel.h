@@ -29,7 +29,7 @@ public:
 	void update() override;
 
 private:
-	const NAS2D::Font* FONT = nullptr;
+	const NAS2D::Font& FONT;
 	const NAS2D::Image& mIcons;
 	NAS2D::RectangleSkin mSkin;
 

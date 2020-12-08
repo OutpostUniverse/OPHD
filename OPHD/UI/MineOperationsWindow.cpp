@@ -18,8 +18,8 @@ using namespace NAS2D;
 
 MineOperationsWindow::MineOperationsWindow() :
 	Window{constants::WINDOW_MINE_OPERATIONS},
-	FONT{&fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
-	FONT_BOLD{&fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL)},
+	FONT{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	FONT_BOLD{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL)},
 	mUiIcon{imageCache.load("ui/interface/mine.png")},
 	mIcons{imageCache.load("ui/icons.png")},
 	mPanel{
@@ -215,7 +215,7 @@ void MineOperationsWindow::update()
 
 	// REMAINING ORE PANEL
 	const auto width = mRect.width;
-	renderer.drawText(*FONT_BOLD, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
+	renderer.drawText(FONT_BOLD, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
 	mPanel.draw(renderer, NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{10, 180}, NAS2D::Vector{width - 20, 40}));
 
@@ -239,8 +239,8 @@ void MineOperationsWindow::update()
 
 	for (const auto& [offsetX, iconRect, resourceCount] : resources) {
 		const auto resourceCountString = std::to_string(resourceCount);
-		const auto textOffsetX = offsetX - (FONT->width(resourceCountString) / 2) + 8;
+		const auto textOffsetX = offsetX - (FONT.width(resourceCountString) / 2) + 8;
 		renderer.drawSubImage(mIcons, origin + NAS2D::Vector{offsetX, 183}, iconRect);
-		renderer.drawText(*FONT, resourceCountString, origin + NAS2D::Vector{textOffsetX, 202}, NAS2D::Color::White);
+		renderer.drawText(FONT, resourceCountString, origin + NAS2D::Vector{textOffsetX, 202}, NAS2D::Color::White);
 	}
 }

@@ -103,7 +103,7 @@ private:
 
 	void raiseChangedEvent();
 
-	const NAS2D::Font* FONT = nullptr;
+	const NAS2D::Font& FONT;
 
 	Index mHighlightIndex = constants::NO_SELECTION; /**< Current highlight index. */
 	Index mCurrentSelection = constants::NO_SELECTION; /**< Currently selected item index. */
