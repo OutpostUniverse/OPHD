@@ -8,8 +8,11 @@
 
 #include <algorithm>
 #include <iostream>
+#include <stdexcept>
+
 
 using namespace NAS2D;
+
 
 UIContainer::UIContainer()
 {
@@ -30,8 +33,7 @@ void UIContainer::add(Control* control, int x, int y)
 {
 	if (control == nullptr)
 	{
-		std::cout << "UIContainer::addControl(): Attempting to add a NULL Control." << std::endl;
-		return;
+		throw std::runtime_error("UIContainer::addControl(): Attempting to add a NULL Control");
 	}
 
 	add(*control, {x, y});
