@@ -187,7 +187,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 	const auto point = NAS2D::Point{x, y};
 
-	if (!rect().contains(point) || mCurrentHighlight == constants::NO_SELECTION)
+	if (!rect().contains(point) || mHighlightIndex == constants::NO_SELECTION)
 	{
 		return;
 	}
@@ -197,12 +197,12 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 		return; // if the mouse is on the slider then the slider should handle that
 	}
 
-	if (static_cast<std::size_t>(mCurrentHighlight) >= mItems.size())
+	if (static_cast<std::size_t>(mHighlightIndex) >= mItems.size())
 	{
 		return;
 	}
 
-	currentSelection(mCurrentHighlight);
+	currentSelection(mHighlightIndex);
 }
 
 
@@ -215,14 +215,14 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 
 	if (!mScrollArea.contains(point))
 	{
-		mCurrentHighlight = constants::NO_SELECTION;
+		mHighlightIndex = constants::NO_SELECTION;
 		return;
 	}
 
-	mCurrentHighlight = (static_cast<std::size_t>(y - mRect.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mLineHeight);
-	if (mCurrentHighlight >= mItems.size())
+	mHighlightIndex = (static_cast<std::size_t>(y - mRect.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mLineHeight);
+	if (mHighlightIndex >= mItems.size())
 	{
-		mCurrentHighlight = constants::NO_SELECTION;
+		mHighlightIndex = constants::NO_SELECTION;
 	}
 }
 
@@ -258,11 +258,11 @@ void ListBox::update()
 	renderer.drawBoxFilled(itemBounds, mBackgroundColorSelected);
 
 	// Highlight On mouse Over
-	if (mCurrentHighlight != constants::NO_SELECTION)
+	if (mHighlightIndex != constants::NO_SELECTION)
 	{
 		auto highlightBounds = mScrollArea;
 		highlightBounds.height = static_cast<int>(mLineHeight);
-		highlightBounds.y += static_cast<int>((mCurrentHighlight * mLineHeight) - mScrollOffsetInPixels);
+		highlightBounds.y += static_cast<int>((mHighlightIndex * mLineHeight) - mScrollOffsetInPixels);
 		renderer.drawBox(highlightBounds, mBackgroundColorMouseHover);
 	}
 
@@ -271,7 +271,7 @@ void ListBox::update()
 	textPosition += {constants::MARGIN_TIGHT, -static_cast<int>(mScrollOffsetInPixels)};
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
-		const auto textColor = (i == mCurrentHighlight) ? mTextColorMouseHover : mTextColorNormal;
+		const auto textColor = (i == mHighlightIndex) ? mTextColorMouseHover : mTextColorNormal;
 		renderer.drawTextShadow(mFont, mItems[i].text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 		textPosition.y += mLineHeight;
 	}

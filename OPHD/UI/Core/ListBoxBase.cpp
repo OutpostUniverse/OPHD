@@ -104,11 +104,11 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	}
 
 	// A few basic checks
-	if (!rect().contains(point) || mCurrentHighlight == constants::NO_SELECTION) { return; }
+	if (!rect().contains(point) || mHighlightIndex == constants::NO_SELECTION) { return; }
 	if (mSlider.visible() && mSlider.rect().contains(point)) { return; }
-	if (mCurrentHighlight >= mItems.size()) { return; }
+	if (mHighlightIndex >= mItems.size()) { return; }
 
-	setSelection(mCurrentHighlight);
+	setSelection(mHighlightIndex);
 }
 
 
@@ -125,22 +125,22 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
 	if (!mHasFocus)
 	{
-		mCurrentHighlight = constants::NO_SELECTION;
+		mHighlightIndex = constants::NO_SELECTION;
 		return;
 	}
 
 	// if the mouse is on the slider then the slider should handle that
 	if (mSlider.visible() && mSlider.rect().contains(mousePosition))
 	{
-		mCurrentHighlight = constants::NO_SELECTION;
+		mHighlightIndex = constants::NO_SELECTION;
 		return;
 	}
 
-	mCurrentHighlight = (static_cast<unsigned int>(y - positionY()) + mCurrentOffset) / static_cast<unsigned int>(mItemHeight);
+	mHighlightIndex = (static_cast<unsigned int>(y - positionY()) + mCurrentOffset) / static_cast<unsigned int>(mItemHeight);
 
-	if (mCurrentHighlight >= mItems.size())
+	if (mHighlightIndex >= mItems.size())
 	{
-		mCurrentHighlight = constants::NO_SELECTION;
+		mHighlightIndex = constants::NO_SELECTION;
 	}
 }
 
@@ -211,7 +211,7 @@ void ListBoxBase::clearItems()
 	for (auto item : mItems) { delete item; }
 	mItems.clear();
 	mSelectedIndex = constants::NO_SELECTION;
-	mCurrentHighlight = constants::NO_SELECTION;
+	mHighlightIndex = constants::NO_SELECTION;
 	_update_item_display();
 }
 
@@ -239,7 +239,7 @@ bool ListBoxBase::empty() const
  */
 std::size_t ListBoxBase::currentHighlight() const
 {
-	return mCurrentHighlight;
+	return mHighlightIndex;
 }
 
 
@@ -308,7 +308,7 @@ void ListBoxBase::update()
 	renderer.clipRect(mRect);
 
 	// MOUSE HIGHLIGHT
-	int highlight_y = positionY() + (static_cast<int>(mCurrentHighlight) * mItemHeight) - static_cast<int>(mCurrentOffset);
+	int highlight_y = positionY() + (static_cast<int>(mHighlightIndex) * mItemHeight) - static_cast<int>(mCurrentOffset);
 	renderer.drawBoxFilled(NAS2D::Rectangle{positionX(), highlight_y, mItemWidth, mItemHeight}, NAS2D::Color{0, 185, 0, 50});
 
 	mSlider.update();

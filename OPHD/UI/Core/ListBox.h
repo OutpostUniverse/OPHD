@@ -56,7 +56,7 @@ public:
 	bool isItemSelected() const;
 	const ListBoxItem& selected() const;
 
-	std::size_t currentHighlight() const { return mCurrentHighlight; }
+	std::size_t currentHighlight() const { return mHighlightIndex; }
 
 	void update() override;
 
@@ -80,7 +80,7 @@ private:
 
 	const NAS2D::Font& mFont;
 
-	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
+	std::size_t mHighlightIndex = constants::NO_SELECTION; /**< Currently highlighted selection index. */
 	std::size_t mSelectedIndex = 0;
 	std::size_t mScrollOffsetInPixels = 0;
 

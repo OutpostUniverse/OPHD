@@ -90,7 +90,7 @@ private:
 	void onSizeChanged() override;
 
 
-	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
+	std::size_t mHighlightIndex = constants::NO_SELECTION; /**< Currently highlighted selection index. */
 	std::size_t mSelectedIndex = constants::NO_SELECTION;
 	unsigned int mCurrentOffset = 0; /**< Draw Offset. */
 
