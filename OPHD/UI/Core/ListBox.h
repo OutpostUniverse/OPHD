@@ -91,6 +91,8 @@ private:
 
 	std::vector<ListBoxItem> mItems; /**< List of items preserved in the order in which they're added. */
 
+	NAS2D::Rectangle<int> mScrollArea;
+
 	NAS2D::Color mBorderColorNormal = NAS2D::Color{75, 75, 75};
 	NAS2D::Color mBorderColorActive = NAS2D::Color{0, 185, 0};
 
