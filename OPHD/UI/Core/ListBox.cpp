@@ -286,7 +286,7 @@ void ListBox::update()
 
 	// display actuals values that are meant to be
 	auto textPosition = listBounds.startPoint();
-	textPosition.y -= static_cast<int>(mCurrentOffset);
+	textPosition += {constants::MARGIN_TIGHT, -static_cast<int>(mCurrentOffset)};
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
 		const auto textColor = (i == mCurrentHighlight) ? mTextColorMouseHover : mTextColorNormal;
