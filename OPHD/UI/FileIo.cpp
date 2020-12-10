@@ -119,7 +119,7 @@ void FileIo::scanDirectory(const std::string& directory)
 
 void FileIo::fileSelected()
 {
-	txtFileName.text(mListBox.selectionText());
+	txtFileName.text(mListBox.isItemSelected() ? mListBox.selected().text : "");
 }
 
 
