@@ -247,8 +247,6 @@ void ListBox::update()
 
 	renderer.clipRect(mRect);
 
-	// draw boundaries of the widget
-	renderer.drawBox(mScrollArea, NAS2D::Color{0, 0, 0, 100});
 	renderer.drawBoxFilled(mScrollArea, mBackgroundColorNormal);
 
 	// Highlight currently selected item
