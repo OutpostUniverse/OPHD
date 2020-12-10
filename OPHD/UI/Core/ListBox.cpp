@@ -244,10 +244,9 @@ void ListBox::update()
 
 	const auto borderColor = hasFocus() ? mBorderColorActive : mBorderColorNormal;
 	renderer.drawBox(mRect, borderColor);
+	renderer.drawBoxFilled(mScrollArea, mBackgroundColorNormal);
 
 	renderer.clipRect(mRect);
-
-	renderer.drawBoxFilled(mScrollArea, mBackgroundColorNormal);
 
 	// Highlight currently selected item
 	auto itemBounds = mScrollArea;
@@ -274,9 +273,9 @@ void ListBox::update()
 		textPosition.y += mLineHeight;
 	}
 
-	mSlider.update();
-
 	renderer.clipRectClear();
+
+	mSlider.update();
 }
 
 
