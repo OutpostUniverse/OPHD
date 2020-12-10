@@ -46,12 +46,12 @@ public:
 	ListBoxBase();
 	~ListBoxBase() override;
 
+	bool isEmpty() const;
+	std::size_t count() const;
+
 	void addItem(ListBoxItem*);
 	void removeItem(ListBoxItem*);
 	void clear();
-
-	std::size_t count() const;
-	bool isEmpty() const;
 
 	std::size_t currentHighlight() const;
 	std::size_t selectedIndex() const;

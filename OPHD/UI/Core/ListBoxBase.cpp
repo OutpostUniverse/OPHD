@@ -41,6 +41,24 @@ ListBoxBase::~ListBoxBase()
 }
 
 
+/**
+ * True if no items are in the list.
+ */
+bool ListBoxBase::isEmpty() const
+{
+	return mItems.empty();
+}
+
+
+/**
+ * Number of items in the ListBoxBase.
+ */
+std::size_t ListBoxBase::count() const
+{
+	return mItems.size();
+}
+
+
 void ListBoxBase::visibilityChanged(bool)
 {
 	_update_item_display();
@@ -213,24 +231,6 @@ void ListBoxBase::clear()
 	mSelectedIndex = constants::NO_SELECTION;
 	mHighlightIndex = constants::NO_SELECTION;
 	_update_item_display();
-}
-
-
-/**
- * Number of items in the ListBoxBase.
- */
-std::size_t ListBoxBase::count() const
-{
-	return mItems.size();
-}
-
-
-/**
- * True if no items are in the list.
- */
-bool ListBoxBase::isEmpty() const
-{
-	return mItems.empty();
 }
 
 

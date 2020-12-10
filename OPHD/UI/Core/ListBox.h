@@ -39,13 +39,15 @@ public:
 	ListBox();
 	~ListBox() override;
 
+	bool isEmpty() const;
+	std::size_t count() const { return mItems.size(); }
+
 	void addItem(const std::string& item, int tag = 0);
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
 	void clear();
 	void sort();
 
-	std::size_t count() const { return mItems.size(); }
 	unsigned int lineHeight() const { return mLineHeight; }
 
 	std::size_t selectedIndex() const { return mSelectedIndex; }
@@ -59,8 +61,6 @@ public:
 	std::size_t currentHighlight() const { return mHighlightIndex; }
 
 	void update() override;
-
-	bool isEmpty() const;
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 

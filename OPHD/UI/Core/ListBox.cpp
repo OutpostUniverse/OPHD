@@ -42,6 +42,15 @@ ListBox::~ListBox()
 }
 
 
+/**
+ * Gets whether the menu is empty or not.
+ */
+bool ListBox::isEmpty() const
+{
+	return mItems.empty();
+}
+
+
 void ListBox::onSizeChanged()
 {
 	_updateItemDisplay();
@@ -78,15 +87,6 @@ void ListBox::_updateItemDisplay()
 		mSlider.length(0);
 		mSlider.visible(false);
 	}
-}
-
-
-/**
- * Gets whether the menu is empty or not.
- */
-bool ListBox::isEmpty() const
-{
-	return mItems.empty();
 }
 
 
