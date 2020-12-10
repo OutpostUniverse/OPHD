@@ -167,8 +167,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	if (!visible() || mHighlightIndex == constants::NO_SELECTION || mHighlightIndex >= mItems.size()) { return; }
 
-	const auto point = NAS2D::Point{x, y};
-	if (!mScrollArea.contains(point))
+	if (!mScrollArea.contains({x, y}))
 	{
 		return;
 	}
