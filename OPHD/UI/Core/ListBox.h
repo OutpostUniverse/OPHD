@@ -53,6 +53,7 @@ public:
 	void setSelectionByName(const std::string& item);
 	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
 
+	bool isItemSelected() const;
 	const std::string& selectionText() const;
 	int selectionTag() const;
 

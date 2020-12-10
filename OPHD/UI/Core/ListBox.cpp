@@ -160,6 +160,12 @@ void ListBox::setSelectionByName(const std::string& item)
 }
 
 
+bool ListBox::isItemSelected() const
+{
+	return mCurrentSelection != constants::NO_SELECTION;
+}
+
+
 /**
  * Drops all items from the list.
  */
