@@ -176,9 +176,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 {
-	if (!visible()) { return; }
-
-	if (!mScrollArea.contains({x, y}))
+	if (!visible() || !mScrollArea.contains({x, y}))
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 		return;
