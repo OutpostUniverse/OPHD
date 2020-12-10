@@ -169,7 +169,7 @@ const ListBox::ListBoxItem& ListBox::selected() const
 void ListBox::clear()
 {
 	mItems.clear();
-	mSelectedIndex = 0;
+	mSelectedIndex = constants::NO_SELECTION;
 	_updateItemDisplay();
 }
 
