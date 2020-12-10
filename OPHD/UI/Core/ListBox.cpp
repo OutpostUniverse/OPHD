@@ -165,8 +165,7 @@ void ListBox::sort()
 
 void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
-	// Ignore if menu is empty or invisible
-	if (isEmpty() || !visible()) { return; }
+	if (!visible()) { return; }
 
 	const auto point = NAS2D::Point{x, y};
 
