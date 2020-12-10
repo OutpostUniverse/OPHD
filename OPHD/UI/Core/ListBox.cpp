@@ -185,7 +185,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 
-	mHighlightIndex = (static_cast<std::size_t>(y - mRect.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mLineHeight);
+	mHighlightIndex = (static_cast<std::size_t>(y - mScrollArea.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mLineHeight);
 	if (mHighlightIndex >= mItems.size())
 	{
 		mHighlightIndex = constants::NO_SELECTION;
