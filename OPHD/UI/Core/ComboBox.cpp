@@ -1,5 +1,7 @@
 #include "ComboBox.h"
 
+#include "../../Constants/Strings.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/MathUtils.h>
 
@@ -118,7 +120,7 @@ void ComboBox::clearSelection()
  */
 void ComboBox::lstItemsSelectionChanged()
 {
-	txtField.text(lstItems.selectionText());
+	txtField.text(selectionText());
 	lstItems.visible(false);
 	mRect = mBaseArea;
 	mSelectionChanged();
@@ -158,7 +160,7 @@ void ComboBox::addItem(const std::string& item, int tag)
  */
 const std::string& ComboBox::selectionText() const
 {
-	return lstItems.selectionText();
+	return lstItems.isItemSelected() ? lstItems.selected().text : constants::EMPTY_STR;
 }
 
 
@@ -173,7 +175,7 @@ int ComboBox::selectionTag() const
 
 void ComboBox::currentSelection(std::size_t index) {
 	lstItems.currentSelection(index);
-	text(lstItems.selectionText());
+	text(selectionText());
 	mSelectionChanged();
 }
 
