@@ -247,7 +247,7 @@ void FactoryReport::fillFactoryList(StructureState state)
  */
 void FactoryReport::checkFactoryActionControls()
 {
-	bool actionControlVisible = !lstFactoryList.empty();
+	bool actionControlVisible = !lstFactoryList.isEmpty();
 
 	btnIdle.visible(actionControlVisible);
 	btnClearProduction.visible(actionControlVisible);

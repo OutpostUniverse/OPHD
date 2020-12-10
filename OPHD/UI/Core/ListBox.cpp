@@ -84,7 +84,7 @@ void ListBox::_updateItemDisplay()
 /**
  * Gets whether the menu is empty or not.
  */
-bool ListBox::empty() const
+bool ListBox::isEmpty() const
 {
 	return mItems.empty();
 }
@@ -117,7 +117,7 @@ void ListBox::addItem(const std::string& item, int tag)
  */
 void ListBox::removeItem(const std::string& item)
 {
-	if (empty()) { return; }
+	if (isEmpty()) { return; }
 
 	auto it = std::find(mItems.begin(), mItems.end(), item);
 
@@ -183,7 +183,7 @@ void ListBox::sort()
 void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	// Ignore if menu is empty or invisible
-	if (empty() || !visible()) { return; }
+	if (isEmpty() || !visible()) { return; }
 
 	const auto point = NAS2D::Point{x, y};
 
@@ -209,7 +209,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 {
 	// Ignore if menu is empty or invisible
-	if (empty() || !visible()) { return; }
+	if (isEmpty() || !visible()) { return; }
 
 	const auto point = NAS2D::Point{x, y};
 
@@ -232,7 +232,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
  */
 void ListBox::onMouseWheel(int /*x*/, int y)
 {
-	if (empty() || !visible()) { return; }
+	if (isEmpty() || !visible()) { return; }
 
 	mSlider.changeThumbPosition((y < 0 ? 16.0f : -16.0f));
 }

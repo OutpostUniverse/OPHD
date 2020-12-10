@@ -51,7 +51,7 @@ public:
 	void clear();
 
 	std::size_t count() const;
-	bool empty() const;
+	bool isEmpty() const;
 
 	std::size_t currentHighlight() const;
 	std::size_t selectedIndex() const;

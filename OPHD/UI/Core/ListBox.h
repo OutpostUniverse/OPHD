@@ -60,7 +60,7 @@ public:
 
 	void update() override;
 
-	bool empty() const;
+	bool isEmpty() const;
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 

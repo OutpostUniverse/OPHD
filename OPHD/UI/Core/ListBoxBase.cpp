@@ -95,7 +95,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if (!visible() || !hasFocus()) { return; }
 
-	if (empty() || button == EventHandler::MouseButton::BUTTON_MIDDLE) { return; }
+	if (isEmpty() || button == EventHandler::MouseButton::BUTTON_MIDDLE) { return; }
 
 	if (button == EventHandler::MouseButton::BUTTON_RIGHT && mRect.contains(point))
 	{
@@ -117,7 +117,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 {
-	if (!visible() || empty()) { return; }
+	if (!visible() || isEmpty()) { return; }
 
 	const auto mousePosition = NAS2D::Point{x, y};
 	mHasFocus = rect().contains(mousePosition);
@@ -228,7 +228,7 @@ std::size_t ListBoxBase::count() const
 /**
  * True if no items are in the list.
  */
-bool ListBoxBase::empty() const
+bool ListBoxBase::isEmpty() const
 {
 	return mItems.empty();
 }
