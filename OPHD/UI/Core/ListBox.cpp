@@ -217,7 +217,6 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	}
 
 	mCurrentHighlight = (static_cast<std::size_t>(y - mRect.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mLineHeight);
-
 	if (mCurrentHighlight >= mItems.size())
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
