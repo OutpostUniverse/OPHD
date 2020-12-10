@@ -48,10 +48,10 @@ public:
 	std::size_t count() const { return mItems.size(); }
 	unsigned int lineHeight() const { return mLineHeight; }
 
-	std::size_t selectedIndex() const { return mCurrentSelection; }
-	void currentSelection(std::size_t selection) { mCurrentSelection = selection; mSelectionChanged(); }
+	std::size_t selectedIndex() const { return mSelectedIndex; }
+	void currentSelection(std::size_t selection) { mSelectedIndex = selection; mSelectionChanged(); }
 	void setSelectionByName(const std::string& item);
-	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
+	void clearSelection() { mSelectedIndex = constants::NO_SELECTION; }
 
 	bool isItemSelected() const;
 	const ListBoxItem& selected() const;
@@ -81,7 +81,7 @@ private:
 	const NAS2D::Font& mFont;
 
 	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
-	std::size_t mCurrentSelection = 0; /**< Current selection index. */
+	std::size_t mSelectedIndex = 0; /**< Current selection index. */
 	std::size_t mScrollOffsetInPixels = 0;
 
 	unsigned int mLineHeight = 0; /**< Height of an item line. */

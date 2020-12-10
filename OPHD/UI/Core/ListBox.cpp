@@ -124,7 +124,7 @@ void ListBox::removeItem(const std::string& item)
 	if (it != mItems.end())
 	{
 		mItems.erase(it);
-		mCurrentSelection = constants::NO_SELECTION;
+		mSelectedIndex = constants::NO_SELECTION;
 		_updateItemDisplay();
 	}
 }
@@ -141,25 +141,25 @@ void ListBox::setSelectionByName(const std::string& item)
 	const auto target = toLowercase(item);
 	for (std::size_t i = 0; i < mItems.size(); i++)
 	{
-		if (toLowercase(mItems[i].text) == target) { mCurrentSelection = i; return; }
+		if (toLowercase(mItems[i].text) == target) { mSelectedIndex = i; return; }
 	}
 }
 
 
 bool ListBox::isItemSelected() const
 {
-	return mCurrentSelection != constants::NO_SELECTION;
+	return mSelectedIndex != constants::NO_SELECTION;
 }
 
 
 const ListBox::ListBoxItem& ListBox::selected() const
 {
-	if (mCurrentSelection == constants::NO_SELECTION)
+	if (mSelectedIndex == constants::NO_SELECTION)
 	{
 		throw std::runtime_error("ListBox has no selected item");
 	}
 
-	return mItems[mCurrentSelection];
+	return mItems[mSelectedIndex];
 }
 
 
@@ -169,7 +169,7 @@ const ListBox::ListBoxItem& ListBox::selected() const
 void ListBox::dropAllItems()
 {
 	mItems.clear();
-	mCurrentSelection = 0;
+	mSelectedIndex = 0;
 	_updateItemDisplay();
 }
 
@@ -254,7 +254,7 @@ void ListBox::update()
 	// Highlight currently selected item
 	auto itemBounds = mScrollArea;
 	itemBounds.height = static_cast<int>(mLineHeight);
-	itemBounds.y += static_cast<int>((mCurrentSelection * mLineHeight) - mScrollOffsetInPixels);
+	itemBounds.y += static_cast<int>((mSelectedIndex * mLineHeight) - mScrollOffsetInPixels);
 	renderer.drawBoxFilled(itemBounds, mBackgroundColorSelected);
 
 	// Highlight On mouse Over

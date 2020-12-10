@@ -91,7 +91,7 @@ private:
 
 
 	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
-	std::size_t mCurrentSelection = constants::NO_SELECTION; /**< Current selection index. */
+	std::size_t mSelectedIndex = constants::NO_SELECTION; /**< Current selection index. */
 	unsigned int mCurrentOffset = 0; /**< Draw Offset. */
 
 	int mItemHeight = 1; /**< Height of a ListBoxItem. */

@@ -210,7 +210,7 @@ void ListBoxBase::clearItems()
 {
 	for (auto item : mItems) { delete item; }
 	mItems.clear();
-	mCurrentSelection = constants::NO_SELECTION;
+	mSelectedIndex = constants::NO_SELECTION;
 	mCurrentHighlight = constants::NO_SELECTION;
 	_update_item_display();
 }
@@ -248,7 +248,7 @@ std::size_t ListBoxBase::currentHighlight() const
  */
 std::size_t ListBoxBase::selectedIndex() const
 {
-	return mCurrentSelection;
+	return mSelectedIndex;
 }
 
 
@@ -259,7 +259,7 @@ std::size_t ListBoxBase::selectedIndex() const
  */
 void ListBoxBase::setSelection(std::size_t selection)
 {
-	mCurrentSelection = (selection < mItems.size()) ? selection : constants::NO_SELECTION;
+	mSelectedIndex = (selection < mItems.size()) ? selection : constants::NO_SELECTION;
 	mSelectionChanged();
 }
 
@@ -276,7 +276,7 @@ const std::string& ListBoxBase::selectionText() const
  */
 void ListBoxBase::clearSelection()
 {
-	mCurrentSelection = constants::NO_SELECTION;
+	mSelectedIndex = constants::NO_SELECTION;
 }
 
 
