@@ -17,7 +17,8 @@ using namespace NAS2D;
 
 
 ListBox::ListBox() :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	mLineHeight{static_cast<unsigned int>(mFont.height() + constants::MARGIN_TIGHT)}
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
@@ -27,10 +28,6 @@ ListBox::ListBox() :
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBox::slideChanged);
-	_updateItemDisplay();
-
-	mLineHeight = static_cast<unsigned int>(mFont.height() + 2);
-	mLineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
 	_updateItemDisplay();
 }
 
@@ -59,24 +56,25 @@ void ListBox::visibilityChanged(bool /*visible*/)
 
 void ListBox::_updateItemDisplay()
 {
-	mItemWidth = static_cast<unsigned int>(mRect.width);
+	// Account for border around control
+	mScrollArea = mRect.inset(1);
 
 	if ((mLineHeight * mItems.size()) > static_cast<std::size_t>(mRect.height))
 	{
-		mLineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
-		if (mLineCount < mItems.size())
+		const auto lineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
+		if (lineCount < mItems.size())
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
 			mSlider.length(static_cast<float>(static_cast<int>(mLineHeight * mItems.size()) - mRect.height));
-			mCurrentOffset = static_cast<std::size_t>(mSlider.thumbPosition());
-			mItemWidth = static_cast<unsigned int>(mRect.width - mSlider.size().x);
+			mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.thumbPosition());
+			mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
 			mSlider.visible(true);
 		}
 	}
 	else
 	{
-		mCurrentOffset = 0;
+		mScrollOffsetInPixels = 0;
 		mSlider.length(0);
 		mSlider.visible(false);
 	}
@@ -212,22 +210,13 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 
 	const auto point = NAS2D::Point{x, y};
 
-	// Ignore mouse motion events if the pointer isn't within the menu rect.
-	if (!rect().contains(point))
+	if (!mScrollArea.contains(point))
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 		return;
 	}
 
-	// if the mouse is on the slider then the slider should handle that
-	if (mSlider.visible() && mSlider.rect().contains(point))
-	{
-		mCurrentHighlight = constants::NO_SELECTION;
-		return;
-	}
-
-	mCurrentHighlight = (static_cast<std::size_t>(y - mRect.y) + mCurrentOffset) / static_cast<std::size_t>(mFont.height() + 2);
-
+	mCurrentHighlight = (static_cast<std::size_t>(y - mRect.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mLineHeight);
 	if (mCurrentHighlight >= mItems.size())
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
@@ -253,50 +242,40 @@ void ListBox::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	if (empty())
-	{
-		renderer.drawBoxFilled(mRect, NAS2D::Color::Black);
-		const auto boxColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
-		renderer.drawBox(mRect, boxColor);
-		return;
-	}
+	const auto borderColor = hasFocus() ? mBorderColorActive : mBorderColorNormal;
+	renderer.drawBox(mRect, borderColor);
+	renderer.drawBoxFilled(mScrollArea, mBackgroundColorNormal);
 
 	renderer.clipRect(mRect);
 
-	// draw boundaries of the widget
-	NAS2D::Rectangle<int> listBounds = mRect;
-	listBounds.width = static_cast<int>(mItemWidth);
-	renderer.drawBox(listBounds, NAS2D::Color{0, 0, 0, 100});
-	renderer.drawBoxFilled(listBounds, NAS2D::Color{0, 85, 0, 220});
-
 	// Highlight currently selected item
-	auto itemBounds = listBounds;
+	auto itemBounds = mScrollArea;
 	itemBounds.height = static_cast<int>(mLineHeight);
-	itemBounds.y += static_cast<int>((mCurrentSelection * mLineHeight) - mCurrentOffset);
-	renderer.drawBoxFilled(itemBounds, mHighlightBg.alphaFade(80));
+	itemBounds.y += static_cast<int>((mCurrentSelection * mLineHeight) - mScrollOffsetInPixels);
+	renderer.drawBoxFilled(itemBounds, mBackgroundColorSelected);
 
 	// Highlight On mouse Over
 	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
-		auto highlightBounds = listBounds;
+		auto highlightBounds = mScrollArea;
 		highlightBounds.height = static_cast<int>(mLineHeight);
-		highlightBounds.y += static_cast<int>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
-		renderer.drawBox(highlightBounds, mHighlightBg);
+		highlightBounds.y += static_cast<int>((mCurrentHighlight * mLineHeight) - mScrollOffsetInPixels);
+		renderer.drawBox(highlightBounds, mBackgroundColorMouseHover);
 	}
 
 	// display actuals values that are meant to be
-	auto textPosition = listBounds.startPoint();
-	textPosition.y -= static_cast<int>(mCurrentOffset);
+	auto textPosition = mScrollArea.startPoint();
+	textPosition += {constants::MARGIN_TIGHT, -static_cast<int>(mScrollOffsetInPixels)};
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
-		const auto textColor = (i == mCurrentHighlight) ? mHighlightText : mText;
+		const auto textColor = (i == mCurrentHighlight) ? mTextColorMouseHover : mTextColorNormal;
 		renderer.drawTextShadow(mFont, mItems[i].text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 		textPosition.y += mLineHeight;
 	}
 
-	mSlider.update();
-
 	renderer.clipRectClear();
+
+	mSlider.update();
 }
 
 

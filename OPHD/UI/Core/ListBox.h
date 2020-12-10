@@ -39,9 +39,6 @@ public:
 	ListBox();
 	~ListBox() override;
 
-	void textColor(const NAS2D::Color& color) { mText = color; }
-	void selectColor(const NAS2D::Color& color) { mHighlightBg = color; }
-
 	void addItem(const std::string& item, int tag = 0);
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
@@ -86,17 +83,23 @@ private:
 
 	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
 	std::size_t mCurrentSelection = 0; /**< Current selection index. */
-	std::size_t mCurrentOffset = 0; /**< Current selection index. */
+	std::size_t mScrollOffsetInPixels = 0;
 
-	unsigned int mItemWidth = 0; /**< Width of items. */
 	unsigned int mLineHeight = 0; /**< Height of an item line. */
-	unsigned int mLineCount = 0; /**< Number of lines that can be displayed. */
 
 	std::vector<ListBoxItem> mItems; /**< List of items preserved in the order in which they're added. */
 
-	NAS2D::Color mText = NAS2D::Color::White; /**< Text Color */
-	NAS2D::Color mHighlightBg = NAS2D::Color::DarkGreen; /**< Highlight Background color. */
-	NAS2D::Color mHighlightText = NAS2D::Color::White; /**< Text Color for an item that is currently highlighted. */
+	NAS2D::Rectangle<int> mScrollArea;
+
+	NAS2D::Color mBorderColorNormal = NAS2D::Color{75, 75, 75};
+	NAS2D::Color mBorderColorActive = NAS2D::Color{0, 185, 0};
+
+	NAS2D::Color mBackgroundColorNormal = NAS2D::Color{0, 85, 0, 220};
+	NAS2D::Color mBackgroundColorMouseHover = NAS2D::Color::DarkGreen;
+	NAS2D::Color mBackgroundColorSelected = NAS2D::Color::DarkGreen.alphaFade(80);
+
+	NAS2D::Color mTextColorNormal = NAS2D::Color::White;
+	NAS2D::Color mTextColorMouseHover = NAS2D::Color::White;
 
 	SelectionChangedCallback mSelectionChanged; /**< Callback for selection changed callback. */
 	Slider mSlider;
