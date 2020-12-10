@@ -252,6 +252,23 @@ std::size_t ListBoxBase::selectedIndex() const
 }
 
 
+bool ListBoxBase::isItemSelected() const
+{
+	return mSelectedIndex != constants::NO_SELECTION;
+}
+
+
+const ListBoxBase::ListBoxItem& ListBoxBase::selected() const
+{
+	if (mSelectedIndex == constants::NO_SELECTION)
+	{
+		throw std::runtime_error("ListBox has no selected item");
+	}
+
+	return *mItems[mSelectedIndex];
+}
+
+
 /**
  * Sets the current selection index.
  * 

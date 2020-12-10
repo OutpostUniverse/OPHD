@@ -53,6 +53,8 @@ public:
 	void removeItem(ListBoxItem*);
 	void clear();
 
+	bool isItemSelected() const;
+	const ListBoxItem& selected() const;
 	const std::string& selectionText() const;
 	std::size_t selectedIndex() const;
 	void setSelection(std::size_t selection);
