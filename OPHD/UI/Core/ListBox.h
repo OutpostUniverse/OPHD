@@ -52,7 +52,6 @@ public:
 	const ListBoxItem& selected() const;
 	std::size_t selectedIndex() const { return mSelectedIndex; }
 	void setSelected(std::size_t index) { mSelectedIndex = index; mSelectionChanged(); }
-	void setSelectedByName(const std::string& item);
 	void clearSelected() { mSelectedIndex = constants::NO_SELECTION; }
 
 	template <typename UnaryPredicate>
