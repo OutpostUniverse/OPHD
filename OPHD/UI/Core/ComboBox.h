@@ -31,6 +31,7 @@ public:
 	const std::string& selectionText() const;
 	int selectionTag() const;
 
+	bool isItemSelected() const;
 	std::size_t currentSelection() { return lstItems.currentSelection(); }
 	void currentSelection(std::size_t index);
 

@@ -173,6 +173,12 @@ int ComboBox::selectionTag() const
 }
 
 
+bool ComboBox::isItemSelected() const
+{
+	return lstItems.isItemSelected();
+}
+
+
 void ComboBox::currentSelection(std::size_t index) {
 	lstItems.currentSelection(index);
 	text(selectionText());
