@@ -5,7 +5,6 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/MathUtils.h>
-#include <NAS2D/StringUtils.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Renderer/Point.h>
 
@@ -133,16 +132,6 @@ void ListBox::removeItem(const std::string& item)
 bool ListBox::itemExists(const std::string& item)
 {
 	return std::find(mItems.begin(), mItems.end(), item) != mItems.end();
-}
-
-
-void ListBox::setSelectedByName(const std::string& item)
-{
-	const auto target = toLowercase(item);
-	for (std::size_t i = 0; i < mItems.size(); i++)
-	{
-		if (toLowercase(mItems[i].text) == target) { mSelectedIndex = i; return; }
-	}
 }
 
 

@@ -52,8 +52,17 @@ public:
 	const ListBoxItem& selected() const;
 	std::size_t selectedIndex() const { return mSelectedIndex; }
 	void setSelected(std::size_t index) { mSelectedIndex = index; mSelectionChanged(); }
-	void setSelectedByName(const std::string& item);
 	void clearSelected() { mSelectedIndex = constants::NO_SELECTION; }
+
+	template <typename UnaryPredicate>
+	void selectIf(UnaryPredicate predicate) {
+		for (std::size_t i = 0; i < mItems.size(); ++i) {
+			if (predicate(mItems[i])) {
+				mSelectedIndex = i;
+				return;
+			}
+		}
+	}
 
 	std::size_t currentHighlight() const { return mHighlightIndex; }
 
