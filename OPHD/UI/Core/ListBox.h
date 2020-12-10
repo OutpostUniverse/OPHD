@@ -48,16 +48,15 @@ public:
 	std::size_t count() const { return mItems.size(); }
 	unsigned int lineHeight() const { return mLineHeight; }
 
-	void setSelectionByName(const std::string& item);
-
 	std::size_t currentSelection() const { return mCurrentSelection; }
 	void currentSelection(std::size_t selection) { mCurrentSelection = selection; mSelectionChanged(); }
+	void setSelectionByName(const std::string& item);
 	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
-
-	std::size_t currentHighlight() const { return mCurrentHighlight; }
 
 	const std::string& selectionText() const;
 	int selectionTag() const;
+
+	std::size_t currentHighlight() const { return mCurrentHighlight; }
 
 	void update() override;
 
