@@ -1,5 +1,7 @@
 #include "ComboBox.h"
 
+#include "../../Constants/Strings.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/MathUtils.h>
 
@@ -106,9 +108,9 @@ void ComboBox::onMouseWheel(int /*x*/, int /*y*/)
 }
 
 
-void ComboBox::clearSelection()
+void ComboBox::clearSelected()
 {
-	lstItems.clearSelection();
+	lstItems.clearSelected();
 	txtField.clear();
 }
 
@@ -118,7 +120,7 @@ void ComboBox::clearSelection()
  */
 void ComboBox::lstItemsSelectionChanged()
 {
-	txtField.text(lstItems.selectionText());
+	txtField.text(selectionText());
 	lstItems.visible(false);
 	mRect = mBaseArea;
 	mSelectionChanged();
@@ -149,7 +151,7 @@ void ComboBox::addItem(const std::string& item, int tag)
 	if (lstItems.count() > mMaxDisplayItems) { return; }
 	lstItems.height(static_cast<int>(lstItems.count() * lstItems.lineHeight()));
 
-	lstItems.clearSelection();
+	lstItems.clearSelected();
 }
 
 
@@ -158,7 +160,7 @@ void ComboBox::addItem(const std::string& item, int tag)
  */
 const std::string& ComboBox::selectionText() const
 {
-	return lstItems.selectionText();
+	return lstItems.isItemSelected() ? lstItems.selected().text : constants::EMPTY_STR;
 }
 
 
@@ -167,13 +169,19 @@ const std::string& ComboBox::selectionText() const
  */
 int ComboBox::selectionTag() const
 {
-	return lstItems.selectionTag();
+	return lstItems.isItemSelected() ? lstItems.selected().tag : 0;
 }
 
 
-void ComboBox::currentSelection(std::size_t index) {
-	lstItems.currentSelection(index);
-	text(lstItems.selectionText());
+bool ComboBox::isItemSelected() const
+{
+	return lstItems.isItemSelected();
+}
+
+
+void ComboBox::setSelected(std::size_t index) {
+	lstItems.setSelected(index);
+	text(selectionText());
 	mSelectionChanged();
 }
 
@@ -186,8 +194,7 @@ void ComboBox::update()
 
 void ComboBox::text(const std::string& text) {
 	txtField.text(text);
-	txtField.textChanged();
-	lstItems.setSelectionByName(txtField.text());
+	lstItems.setSelectedByName(txtField.text());
 	mSelectionChanged();
 }
 

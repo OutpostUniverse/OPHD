@@ -143,13 +143,13 @@ FactoryReport::FactoryReport() :
  */
 void FactoryReport::selectStructure(Structure* structure)
 {
-	lstFactoryList.currentSelection(dynamic_cast<Factory*>(structure));
+	lstFactoryList.setSelected(dynamic_cast<Factory*>(structure));
 }
 
 
-void FactoryReport::clearSelection()
+void FactoryReport::clearSelected()
 {
-	lstFactoryList.clearSelection();
+	lstFactoryList.clearSelected();
 	selectedFactory = nullptr;
 }
 
@@ -169,7 +169,7 @@ void FactoryReport::refresh()
 void FactoryReport::fillLists()
 {
 	selectedFactory = nullptr;
-	lstFactoryList.clearItems();
+	lstFactoryList.clear();
 	for (auto factory : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
 	{
 		lstFactoryList.addItem(static_cast<Factory*>(factory));
@@ -184,7 +184,7 @@ void FactoryReport::fillLists()
 void FactoryReport::fillFactoryList(ProductType type)
 {
 	selectedFactory = nullptr;
-	lstFactoryList.clearItems();
+	lstFactoryList.clear();
 	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
 	{
 		Factory* factory = static_cast<Factory*>(f);
@@ -204,7 +204,7 @@ void FactoryReport::fillFactoryList(ProductType type)
 void FactoryReport::fillFactoryList(bool surface)
 {
 	selectedFactory = nullptr;
-	lstFactoryList.clearItems();
+	lstFactoryList.clear();
 	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
 	{
 		Factory* factory = static_cast<Factory*>(f);
@@ -228,7 +228,7 @@ void FactoryReport::fillFactoryList(bool surface)
 void FactoryReport::fillFactoryList(StructureState state)
 {
 	selectedFactory = nullptr;
-	lstFactoryList.clearItems();
+	lstFactoryList.clear();
 	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
 	{
 		if (f->state() == state)
@@ -247,7 +247,7 @@ void FactoryReport::fillFactoryList(StructureState state)
  */
 void FactoryReport::checkFactoryActionControls()
 {
-	bool actionControlVisible = !lstFactoryList.empty();
+	bool actionControlVisible = !lstFactoryList.isEmpty();
 
 	btnIdle.visible(actionControlVisible);
 	btnClearProduction.visible(actionControlVisible);
@@ -310,7 +310,7 @@ void FactoryReport::filterButtonClicked(bool clearCbo)
 	btnShowIdle.toggle(false);
 	btnShowDisabled.toggle(false);
 
-	if (clearCbo) { cboFilterByProduct.clearSelection(); }
+	if (clearCbo) { cboFilterByProduct.clearSelected(); }
 }
 
 
@@ -372,7 +372,7 @@ void FactoryReport::btnIdleClicked()
 void FactoryReport::btnClearProductionClicked()
 {
 	selectedFactory->productType(ProductType::PRODUCT_NONE);
-	lstProducts.clearSelection();
+	lstProducts.clearSelected();
 	cboFilterByProductSelectionChanged();
 }
 
@@ -410,7 +410,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 
 	btnClearProduction.enabled(selectedFactory->state() == StructureState::Operational || selectedFactory->state() == StructureState::Idle);
 
-	lstProducts.dropAllItems();
+	lstProducts.clear();
 	if (selectedFactory->state() != StructureState::Destroyed)
 	{
 		const Factory::ProductionTypeList& _pl = selectedFactory->productList();
@@ -419,8 +419,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 			lstProducts.addItem(productDescription(item), static_cast<int>(item));
 		}
 	}
-	lstProducts.clearSelection();
-	lstProducts.setSelectionByName(productDescription(selectedFactory->productType()));
+	lstProducts.setSelectedByName(productDescription(selectedFactory->productType()));
 	selectedProductType = selectedFactory->productType();
 
 	StructureState _state = selectedFactory->state();
@@ -430,13 +429,13 @@ void FactoryReport::lstFactoryListSelectionChanged()
 
 void FactoryReport::lstProductsSelectionChanged()
 {
-	selectedProductType = static_cast<ProductType>(lstProducts.selectionTag());
+	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().tag : 0);
 }
 
 
 void FactoryReport::cboFilterByProductSelectionChanged()
 {
-	if (cboFilterByProduct.currentSelection() == constants::NO_SELECTION) { return; }
+	if (!cboFilterByProduct.isItemSelected()) { return; }
 	filterButtonClicked(false);
 	fillFactoryList(static_cast<ProductType>(cboFilterByProduct.selectionTag()));
 }

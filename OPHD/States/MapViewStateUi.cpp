@@ -241,8 +241,8 @@ void MapViewState::clearSelections()
  */
 void MapViewState::populateStructureMenu()
 {
-	mStructures.dropAllItems();
-	mConnections.dropAllItems();
+	mStructures.clear();
+	mConnections.clear();
 
 	// Above Ground structures only
 	if (NAS2D::Utility<StructureManager>::get().count() == 0)

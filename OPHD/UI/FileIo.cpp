@@ -102,7 +102,7 @@ void FileIo::scanDirectory(const std::string& directory)
 	Filesystem& f = Utility<Filesystem>::get();
 	std::vector<std::string> dirList = f.directoryList(directory);
 
-	mListBox.dropAllItems();
+	mListBox.clear();
 
 	for (auto& dir : dirList)
 	{
@@ -119,7 +119,7 @@ void FileIo::scanDirectory(const std::string& directory)
 
 void FileIo::fileSelected()
 {
-	txtFileName.text(mListBox.selectionText());
+	txtFileName.text(mListBox.isItemSelected() ? mListBox.selected().text : "");
 }
 
 

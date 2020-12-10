@@ -126,7 +126,7 @@ void WarehouseReport::_fillListFromStructureList(const std::vector<Structure*>& 
  */
 void WarehouseReport::fillLists()
 {
-	lstStructures.clearItems();
+	lstStructures.clear();
 
 	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse));
 
@@ -137,7 +137,7 @@ void WarehouseReport::fillLists()
 
 void WarehouseReport::fillListSpaceAvailable()
 {
-	lstStructures.clearItems();
+	lstStructures.clear();
 
 	StructureList list;
 	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
@@ -159,7 +159,7 @@ void WarehouseReport::fillListSpaceAvailable()
 
 void WarehouseReport::fillListFull()
 {
-	lstStructures.clearItems();
+	lstStructures.clear();
 
 	StructureList list;
 	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
@@ -180,7 +180,7 @@ void WarehouseReport::fillListFull()
 
 void WarehouseReport::fillListEmpty()
 {
-	lstStructures.clearItems();
+	lstStructures.clear();
 
 	StructureList list;
 	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
@@ -201,7 +201,7 @@ void WarehouseReport::fillListEmpty()
 
 void WarehouseReport::fillListDisabled()
 {
-	lstStructures.clearItems();
+	lstStructures.clear();
 
 	StructureList list;
 	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
@@ -231,9 +231,9 @@ void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int
 }
 
 
-void WarehouseReport::clearSelection()
+void WarehouseReport::clearSelected()
 {
-	lstStructures.clearSelection();
+	lstStructures.clearSelected();
 	selectedWarehouse = nullptr;
 }
 
@@ -246,7 +246,7 @@ void WarehouseReport::refresh()
 
 void WarehouseReport::selectStructure(Structure* structure)
 {
-	lstStructures.currentSelection(structure);
+	lstStructures.setSelected(structure);
 	selectedWarehouse = static_cast<Warehouse*>(structure);
 }
 

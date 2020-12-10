@@ -39,29 +39,27 @@ public:
 	ListBox();
 	~ListBox() override;
 
+	bool isEmpty() const;
+	std::size_t count() const { return mItems.size(); }
+
 	void addItem(const std::string& item, int tag = 0);
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
-	void dropAllItems();
+	void clear();
 	void sort();
 
-	std::size_t count() const { return mItems.size(); }
+	bool isItemSelected() const;
+	const ListBoxItem& selected() const;
+	std::size_t selectedIndex() const { return mSelectedIndex; }
+	void setSelected(std::size_t index) { mSelectedIndex = index; mSelectionChanged(); }
+	void setSelectedByName(const std::string& item);
+	void clearSelected() { mSelectedIndex = constants::NO_SELECTION; }
+
+	std::size_t currentHighlight() const { return mHighlightIndex; }
+
 	unsigned int lineHeight() const { return mLineHeight; }
 
-	void setSelectionByName(const std::string& item);
-
-	std::size_t currentSelection() const { return mCurrentSelection; }
-	void currentSelection(std::size_t selection) { mCurrentSelection = selection; mSelectionChanged(); }
-	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
-
-	std::size_t currentHighlight() const { return mCurrentHighlight; }
-
-	const std::string& selectionText() const;
-	int selectionTag() const;
-
 	void update() override;
-
-	bool empty() const;
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 
@@ -81,8 +79,8 @@ private:
 
 	const NAS2D::Font& mFont;
 
-	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
-	std::size_t mCurrentSelection = 0; /**< Current selection index. */
+	std::size_t mHighlightIndex = constants::NO_SELECTION;
+	std::size_t mSelectedIndex = 0;
 	std::size_t mScrollOffsetInPixels = 0;
 
 	unsigned int mLineHeight = 0; /**< Height of an item line. */

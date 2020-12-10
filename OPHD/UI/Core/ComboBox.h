@@ -24,15 +24,16 @@ public:
 	std::size_t maxDisplayItems() const { return mMaxDisplayItems; }
 	void maxDisplayItems(std::size_t count);
 
-	void clearSelection();
+	void clearSelected();
 
 	SelectionChanged& selectionChanged() { return mSelectionChanged; }
 
 	const std::string& selectionText() const;
 	int selectionTag() const;
 
-	std::size_t currentSelection() { return lstItems.currentSelection(); }
-	void currentSelection(std::size_t index);
+	bool isItemSelected() const;
+	std::size_t selectedIndex() { return lstItems.selectedIndex(); }
+	void setSelected(std::size_t index);
 
 	void update() override;
 

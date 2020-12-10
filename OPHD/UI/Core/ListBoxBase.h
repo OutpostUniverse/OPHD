@@ -46,25 +46,24 @@ public:
 	ListBoxBase();
 	~ListBoxBase() override;
 
+	bool isEmpty() const;
+	std::size_t count() const;
+
 	void addItem(ListBoxItem*);
 	void removeItem(ListBoxItem*);
-	void clearItems();
+	void clear();
 
-	std::size_t count() const;
-	bool empty() const;
+	bool isItemSelected() const;
+	const ListBoxItem& selected() const;
+	std::size_t selectedIndex() const;
+	void setSelection(std::size_t selection);
+	void clearSelected();
 
 	std::size_t currentHighlight() const;
-	std::size_t currentSelection() const;
-	void setSelection(std::size_t selection);
-
-	const std::string& selectionText() const;
-
-	void clearSelection();
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 
 	void update() override = 0;
-
 
 protected:
 	void _update_item_display();
@@ -73,7 +72,7 @@ protected:
 	unsigned int item_height() const { return static_cast<unsigned int>(mItemHeight); }
 	void item_height(int);
 
-	unsigned int draw_offset() const { return mCurrentOffset; }
+	unsigned int draw_offset() const { return mScrollOffsetInPixels; }
 
 	void visibilityChanged(bool) override;
 
@@ -90,9 +89,9 @@ private:
 	void onSizeChanged() override;
 
 
-	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
-	std::size_t mCurrentSelection = constants::NO_SELECTION; /**< Current selection index. */
-	unsigned int mCurrentOffset = 0; /**< Draw Offset. */
+	std::size_t mHighlightIndex = constants::NO_SELECTION;
+	std::size_t mSelectedIndex = constants::NO_SELECTION;
+	unsigned int mScrollOffsetInPixels = 0;
 
 	int mItemHeight = 1; /**< Height of a ListBoxItem. */
 	int mItemWidth = 0; /**< Width of a ListBoxItem. */

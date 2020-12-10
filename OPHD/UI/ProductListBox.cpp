@@ -24,7 +24,7 @@ ProductListBox::ProductListBox() :
  */
 void ProductListBox::productPool(ProductPool& pool)
 {
-	clearItems();
+	clear();
 
 	for (std::size_t product_type = 0; product_type < static_cast<std::size_t>(ProductType::PRODUCT_COUNT); ++product_type)
 	{
@@ -67,7 +67,7 @@ void ProductListBox::update()
 	{
 		const auto& item = *static_cast<ProductListBoxItem*>(mItems[i]);
 		const auto y = positionY() + (static_cast<int>(i) * itemSize.y);
-		const auto highlight = i == currentSelection();
+		const auto highlight = i == selectedIndex();
 
 		// Draw highlight rect so as not to tint/hue colors of everything else
 		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, itemSize.x, itemSize.y}, highlightColor); }

@@ -86,16 +86,16 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		return;
 	}
 
-	mCurrentSelection = translateCoordsToIndex(mousePoint - startPoint);
+	mSelectedIndex = translateCoordsToIndex(mousePoint - startPoint);
 
-	if (mCurrentSelection >= mIconItemList.size())
+	if (mSelectedIndex >= mIconItemList.size())
 	{
-		mCurrentSelection = constants::NO_SELECTION;
+		mSelectedIndex = constants::NO_SELECTION;
 	}
-	/* else if (!mIconItemList[mCurrentSelection].available)
+	/* else if (!mIconItemList[mSelectedIndex].available)
 	{
 		cout << "Insufficient resources" <<endl;
-		mCurrentSelection = constants::NO_SELECTION;
+		mSelectedIndex = constants::NO_SELECTION;
 		return;
 	} */
 
@@ -259,7 +259,7 @@ bool IconGrid::itemExists(const std::string& item)
 /**
  * Drops all items from the IconGrid.
  */
-void IconGrid::dropAllItems()
+void IconGrid::clear()
 {
 	mIconItemList.clear();
 	clearSelection();
@@ -272,7 +272,7 @@ void IconGrid::dropAllItems()
 void IconGrid::clearSelection()
 {
 	mHighlightIndex = constants::NO_SELECTION;
-	mCurrentSelection = constants::NO_SELECTION;
+	mSelectedIndex = constants::NO_SELECTION;
 }
 
 
@@ -281,7 +281,7 @@ void IconGrid::clearSelection()
  */
 void IconGrid::selection(std::size_t newSelection)
 {
-	mCurrentSelection = (newSelection < mIconItemList.size()) ? newSelection : constants::NO_SELECTION;
+	mSelectedIndex = (newSelection < mIconItemList.size()) ? newSelection : constants::NO_SELECTION;
 }
 
 
@@ -302,7 +302,7 @@ void IconGrid::selection_meta(int selectionMetaValue)
 	{
 		if (mIconItemList[i].meta == selectionMetaValue)
 		{
-			mCurrentSelection = i;
+			mSelectedIndex = i;
 			return;
 		}
 	}
@@ -311,15 +311,15 @@ void IconGrid::selection_meta(int selectionMetaValue)
 
 void IconGrid::incrementSelection()
 {
-	++mCurrentSelection;
-	if (mCurrentSelection >= mIconItemList.size())
+	++mSelectedIndex;
+	if (mSelectedIndex >= mIconItemList.size())
 	{
-		mCurrentSelection = 0;
+		mSelectedIndex = 0;
 	}
 
 	if (mIconItemList.empty())
 	{
-		mCurrentSelection = constants::NO_SELECTION;
+		mSelectedIndex = constants::NO_SELECTION;
 	}
 
 	raiseChangedEvent();
@@ -328,15 +328,15 @@ void IconGrid::incrementSelection()
 
 void IconGrid::decrementSelection()
 {
-	if (mCurrentSelection == 0)
+	if (mSelectedIndex == 0)
 	{
-		mCurrentSelection = mIconItemList.size();
+		mSelectedIndex = mIconItemList.size();
 	}
-	--mCurrentSelection;
+	--mSelectedIndex;
 
 	if (mIconItemList.empty())
 	{
-		mCurrentSelection = constants::NO_SELECTION;
+		mSelectedIndex = constants::NO_SELECTION;
 	}
 
 	raiseChangedEvent();
@@ -345,9 +345,9 @@ void IconGrid::decrementSelection()
 
 void IconGrid::raiseChangedEvent()
 {
-	if (mCurrentSelection != constants::NO_SELECTION)
+	if (mSelectedIndex != constants::NO_SELECTION)
 	{
-		mCallback(&mIconItemList[mCurrentSelection]);
+		mCallback(&mIconItemList[mSelectedIndex]);
 	}
 	else
 	{
@@ -390,9 +390,9 @@ void IconGrid::update()
 		renderer.drawSubImage(mIconSheet, position, NAS2D::Rectangle{mIconItemList[i].pos.x, mIconItemList[i].pos.y, mIconSize, mIconSize}, highlightColor);
 	}
 
-	if (mCurrentSelection != constants::NO_SELECTION)
+	if (mSelectedIndex != constants::NO_SELECTION)
 	{
-		const auto position = indexToGridPosition(mCurrentSelection) + NAS2D::Vector{mIconMargin, mIconMargin};
+		const auto position = indexToGridPosition(mSelectedIndex) + NAS2D::Vector{mIconMargin, mIconMargin};
 		renderer.drawBox(NAS2D::Rectangle<int>::Create(position, NAS2D::Vector{mIconSize, mIconSize}), NAS2D::Color{0, 100, 255});
 	}
 

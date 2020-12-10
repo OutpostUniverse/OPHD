@@ -118,13 +118,13 @@ MineReport::MineReport() :
 
 void MineReport::selectStructure(Structure* structure)
 {
-	lstMineFacilities.currentSelection(structure);
+	lstMineFacilities.setSelected(structure);
 }
 
 
-void MineReport::clearSelection()
+void MineReport::clearSelected()
 {
-	lstMineFacilities.clearSelection();
+	lstMineFacilities.clearSelected();
 	selectedFacility = nullptr;
 }
 
@@ -137,7 +137,7 @@ void MineReport::refresh()
 
 void MineReport::fillLists()
 {
-	lstMineFacilities.clearItems();
+	lstMineFacilities.clear();
 	std::size_t id = 1;
 	for (auto facility : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
 	{
@@ -154,7 +154,7 @@ void MineReport::fillLists()
 		++id;
 	}
 
-	selectedFacility == nullptr ? lstMineFacilities.setSelection(0) : lstMineFacilities.currentSelection(selectedFacility);
+	selectedFacility == nullptr ? lstMineFacilities.setSelection(0) : lstMineFacilities.setSelected(selectedFacility);
 	mAvailableTrucks = getTruckAvailability();
 	updateManagementButtonsVisiblity();
 }
@@ -355,7 +355,8 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 	const auto textColor = NAS2D::Color{ 0, 185, 0 };
 
 	r.drawImage(mineFacility, origin);
-	r.drawText(fontBigBold, lstMineFacilities.selectionText(), origin + NAS2D::Vector{ 0, -33 }, textColor);
+	const auto text = lstMineFacilities.isItemSelected() ? lstMineFacilities.selected().text : "";
+	r.drawText(fontBigBold, text, origin + NAS2D::Vector{ 0, -33 }, textColor);
 
 	r.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{ 138, 0 }, textColor);
 

@@ -87,7 +87,7 @@ void StructureListBox::removeItem(Structure* structure)
 		{
 			mItems.erase(it);
 			_update_item_display();
-			clearSelection();
+			clearSelected();
 			return;
 		}
 	}
@@ -99,7 +99,7 @@ void StructureListBox::removeItem(Structure* structure)
  * 
  * \param structure		Pointer to a Structure object. Save to pass \c nullptr.
  */
-void StructureListBox::currentSelection(Structure* structure)
+void StructureListBox::setSelected(Structure* structure)
 {
 	if (mItems.empty() || structure == nullptr) { return; }
 
@@ -117,7 +117,7 @@ void StructureListBox::currentSelection(Structure* structure)
 
 Structure* StructureListBox::selectedStructure()
 {
-	return (currentSelection() == constants::NO_SELECTION) ? nullptr : static_cast<StructureListBoxItem*>(mItems[currentSelection()])->structure;
+	return (selectedIndex() == constants::NO_SELECTION) ? nullptr : static_cast<StructureListBoxItem*>(mItems[selectedIndex()])->structure;
 }
 
 
@@ -150,7 +150,7 @@ void StructureListBox::update()
 			positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT),
 			static_cast<int>(item_width()),
 			static_cast<int>(draw_offset()),
-			i == currentSelection());
+			i == selectedIndex());
 	}
 
 	renderer.clipRectClear();

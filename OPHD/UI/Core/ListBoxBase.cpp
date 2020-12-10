@@ -41,6 +41,24 @@ ListBoxBase::~ListBoxBase()
 }
 
 
+/**
+ * True if no items are in the list.
+ */
+bool ListBoxBase::isEmpty() const
+{
+	return mItems.empty();
+}
+
+
+/**
+ * Number of items in the ListBoxBase.
+ */
+std::size_t ListBoxBase::count() const
+{
+	return mItems.size();
+}
+
+
 void ListBoxBase::visibilityChanged(bool)
 {
 	_update_item_display();
@@ -63,14 +81,14 @@ void ListBoxBase::_update_item_display()
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
 			mSlider.length(static_cast<float>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
-			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
+			mScrollOffsetInPixels = static_cast<unsigned int>(mSlider.thumbPosition());
 			mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
 			mSlider.visible(true);
 		}
 	}
 	else
 	{
-		mCurrentOffset = 0;
+		mScrollOffsetInPixels = 0;
 		mSlider.length(0);
 		mSlider.visible(false);
 	}
@@ -95,7 +113,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if (!visible() || !hasFocus()) { return; }
 
-	if (empty() || button == EventHandler::MouseButton::BUTTON_MIDDLE) { return; }
+	if (isEmpty() || button == EventHandler::MouseButton::BUTTON_MIDDLE) { return; }
 
 	if (button == EventHandler::MouseButton::BUTTON_RIGHT && mRect.contains(point))
 	{
@@ -104,11 +122,11 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	}
 
 	// A few basic checks
-	if (!rect().contains(point) || mCurrentHighlight == constants::NO_SELECTION) { return; }
+	if (!rect().contains(point) || mHighlightIndex == constants::NO_SELECTION) { return; }
 	if (mSlider.visible() && mSlider.rect().contains(point)) { return; }
-	if (mCurrentHighlight >= mItems.size()) { return; }
+	if (mHighlightIndex >= mItems.size()) { return; }
 
-	setSelection(mCurrentHighlight);
+	setSelection(mHighlightIndex);
 }
 
 
@@ -117,7 +135,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 {
-	if (!visible() || empty()) { return; }
+	if (!visible() || isEmpty()) { return; }
 
 	const auto mousePosition = NAS2D::Point{x, y};
 	mHasFocus = rect().contains(mousePosition);
@@ -125,22 +143,22 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
 	if (!mHasFocus)
 	{
-		mCurrentHighlight = constants::NO_SELECTION;
+		mHighlightIndex = constants::NO_SELECTION;
 		return;
 	}
 
 	// if the mouse is on the slider then the slider should handle that
 	if (mSlider.visible() && mSlider.rect().contains(mousePosition))
 	{
-		mCurrentHighlight = constants::NO_SELECTION;
+		mHighlightIndex = constants::NO_SELECTION;
 		return;
 	}
 
-	mCurrentHighlight = (static_cast<unsigned int>(y - positionY()) + mCurrentOffset) / static_cast<unsigned int>(mItemHeight);
+	mHighlightIndex = (static_cast<unsigned int>(y - positionY()) + mScrollOffsetInPixels) / static_cast<unsigned int>(mItemHeight);
 
-	if (mCurrentHighlight >= mItems.size())
+	if (mHighlightIndex >= mItems.size())
 	{
-		mCurrentHighlight = constants::NO_SELECTION;
+		mHighlightIndex = constants::NO_SELECTION;
 	}
 }
 
@@ -206,31 +224,13 @@ void ListBoxBase::removeItem(ListBoxItem* item)
 /**
  * Clears all items from the list.
  */
-void ListBoxBase::clearItems()
+void ListBoxBase::clear()
 {
 	for (auto item : mItems) { delete item; }
 	mItems.clear();
-	mCurrentSelection = constants::NO_SELECTION;
-	mCurrentHighlight = constants::NO_SELECTION;
+	mSelectedIndex = constants::NO_SELECTION;
+	mHighlightIndex = constants::NO_SELECTION;
 	_update_item_display();
-}
-
-
-/**
- * Number of items in the ListBoxBase.
- */
-std::size_t ListBoxBase::count() const
-{
-	return mItems.size();
-}
-
-
-/**
- * True if no items are in the list.
- */
-bool ListBoxBase::empty() const
-{
-	return mItems.empty();
 }
 
 
@@ -239,16 +239,33 @@ bool ListBoxBase::empty() const
  */
 std::size_t ListBoxBase::currentHighlight() const
 {
-	return mCurrentHighlight;
+	return mHighlightIndex;
 }
 
 
 /**
  * Index of the current selection.
  */
-std::size_t ListBoxBase::currentSelection() const
+std::size_t ListBoxBase::selectedIndex() const
 {
-	return mCurrentSelection;
+	return mSelectedIndex;
+}
+
+
+bool ListBoxBase::isItemSelected() const
+{
+	return mSelectedIndex != constants::NO_SELECTION;
+}
+
+
+const ListBoxBase::ListBoxItem& ListBoxBase::selected() const
+{
+	if (mSelectedIndex == constants::NO_SELECTION)
+	{
+		throw std::runtime_error("ListBox has no selected item");
+	}
+
+	return *mItems[mSelectedIndex];
 }
 
 
@@ -259,24 +276,17 @@ std::size_t ListBoxBase::currentSelection() const
  */
 void ListBoxBase::setSelection(std::size_t selection)
 {
-	mCurrentSelection = (selection < mItems.size()) ? selection : constants::NO_SELECTION;
+	mSelectedIndex = (selection < mItems.size()) ? selection : constants::NO_SELECTION;
 	mSelectionChanged();
-}
-
-
-const std::string& ListBoxBase::selectionText() const
-{
-	if (currentSelection() == constants::NO_SELECTION) { return constants::EMPTY_STR; }
-	return mItems[currentSelection()]->text;
 }
 
 
 /**
  * Clears the current selection.
  */
-void ListBoxBase::clearSelection()
+void ListBoxBase::clearSelected()
 {
-	mCurrentSelection = constants::NO_SELECTION;
+	mSelectedIndex = constants::NO_SELECTION;
 }
 
 
@@ -308,7 +318,7 @@ void ListBoxBase::update()
 	renderer.clipRect(mRect);
 
 	// MOUSE HIGHLIGHT
-	int highlight_y = positionY() + (static_cast<int>(mCurrentHighlight) * mItemHeight) - static_cast<int>(mCurrentOffset);
+	int highlight_y = positionY() + (static_cast<int>(mHighlightIndex) * mItemHeight) - static_cast<int>(mScrollOffsetInPixels);
 	renderer.drawBoxFilled(NAS2D::Rectangle{positionX(), highlight_y, mItemWidth, mItemHeight}, NAS2D::Color{0, 185, 0, 50});
 
 	mSlider.update();

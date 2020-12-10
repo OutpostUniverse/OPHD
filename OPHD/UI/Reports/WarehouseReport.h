@@ -26,7 +26,7 @@ public:
 	~WarehouseReport() override;
 
 	void fillLists() override;
-	void clearSelection() override;
+	void clearSelected() override;
 
 	void refresh() override;
 	void selectStructure(Structure*) override;

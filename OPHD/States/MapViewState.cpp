@@ -1165,7 +1165,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 		clearMode();
 		resetUi();
 
-		mStructures.dropAllItems();
+		mStructures.clear();
 		mBtnTurns.enabled(true);
 	}
 	else
