@@ -85,7 +85,6 @@ private:
 	std::size_t mCurrentSelection = 0; /**< Current selection index. */
 	std::size_t mCurrentOffset = 0; /**< Current selection index. */
 
-	unsigned int mItemWidth = 0; /**< Width of items. */
 	unsigned int mLineHeight = 0; /**< Height of an item line. */
 	unsigned int mLineCount = 0; /**< Number of lines that can be displayed. */
 
