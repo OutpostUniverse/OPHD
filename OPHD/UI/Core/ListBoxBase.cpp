@@ -206,7 +206,7 @@ void ListBoxBase::removeItem(ListBoxItem* item)
 /**
  * Clears all items from the list.
  */
-void ListBoxBase::clearItems()
+void ListBoxBase::clear()
 {
 	for (auto item : mItems) { delete item; }
 	mItems.clear();

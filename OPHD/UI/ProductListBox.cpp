@@ -24,7 +24,7 @@ ProductListBox::ProductListBox() :
  */
 void ProductListBox::productPool(ProductPool& pool)
 {
-	clearItems();
+	clear();
 
 	for (std::size_t product_type = 0; product_type < static_cast<std::size_t>(ProductType::PRODUCT_COUNT); ++product_type)
 	{

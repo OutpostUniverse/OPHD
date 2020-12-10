@@ -48,7 +48,7 @@ public:
 
 	void addItem(ListBoxItem*);
 	void removeItem(ListBoxItem*);
-	void clearItems();
+	void clear();
 
 	std::size_t count() const;
 	bool empty() const;

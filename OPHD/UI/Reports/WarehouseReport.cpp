@@ -126,7 +126,7 @@ void WarehouseReport::_fillListFromStructureList(const std::vector<Structure*>& 
  */
 void WarehouseReport::fillLists()
 {
-	lstStructures.clearItems();
+	lstStructures.clear();
 
 	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse));
 
@@ -137,7 +137,7 @@ void WarehouseReport::fillLists()
 
 void WarehouseReport::fillListSpaceAvailable()
 {
-	lstStructures.clearItems();
+	lstStructures.clear();
 
 	StructureList list;
 	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
@@ -159,7 +159,7 @@ void WarehouseReport::fillListSpaceAvailable()
 
 void WarehouseReport::fillListFull()
 {
-	lstStructures.clearItems();
+	lstStructures.clear();
 
 	StructureList list;
 	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
@@ -180,7 +180,7 @@ void WarehouseReport::fillListFull()
 
 void WarehouseReport::fillListEmpty()
 {
-	lstStructures.clearItems();
+	lstStructures.clear();
 
 	StructureList list;
 	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
@@ -201,7 +201,7 @@ void WarehouseReport::fillListEmpty()
 
 void WarehouseReport::fillListDisabled()
 {
-	lstStructures.clearItems();
+	lstStructures.clear();
 
 	StructureList list;
 	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
