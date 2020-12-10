@@ -168,15 +168,9 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 	if (!visible() || mHighlightIndex == constants::NO_SELECTION || mHighlightIndex >= mItems.size()) { return; }
 
 	const auto point = NAS2D::Point{x, y};
-
-	if (!rect().contains(point))
+	if (!mScrollArea.contains(point))
 	{
 		return;
-	}
-
-	if (mSlider.visible() && mSlider.rect().contains(point))
-	{
-		return; // if the mouse is on the slider then the slider should handle that
 	}
 
 	setSelected(mHighlightIndex);
