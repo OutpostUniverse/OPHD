@@ -54,6 +54,7 @@ public:
 	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }
 
 	bool isItemSelected() const;
+	const ListBoxItem& selected() const;
 	const std::string& selectionText() const;
 	int selectionTag() const;
 

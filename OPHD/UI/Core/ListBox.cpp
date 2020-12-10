@@ -166,6 +166,17 @@ bool ListBox::isItemSelected() const
 }
 
 
+const ListBox::ListBoxItem& ListBox::selected() const
+{
+	if (mCurrentSelection == constants::NO_SELECTION)
+	{
+		throw std::runtime_error("ListBox has no selected item");
+	}
+
+	return mItems[mCurrentSelection];
+}
+
+
 /**
  * Drops all items from the list.
  */
