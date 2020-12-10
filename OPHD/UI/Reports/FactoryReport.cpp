@@ -419,7 +419,6 @@ void FactoryReport::lstFactoryListSelectionChanged()
 			lstProducts.addItem(productDescription(item), static_cast<int>(item));
 		}
 	}
-	lstProducts.clearSelected();
 	lstProducts.setSelectedByName(productDescription(selectedFactory->productType()));
 	selectedProductType = selectedFactory->productType();
 
