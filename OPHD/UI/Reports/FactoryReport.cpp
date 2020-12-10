@@ -430,7 +430,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 
 void FactoryReport::lstProductsSelectionChanged()
 {
-	selectedProductType = static_cast<ProductType>(lstProducts.selectionTag());
+	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().tag : 0);
 }
 
 
