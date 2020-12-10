@@ -179,9 +179,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	// Ignore if menu is empty or invisible
 	if (isEmpty() || !visible()) { return; }
 
-	const auto point = NAS2D::Point{x, y};
-
-	if (!mScrollArea.contains(point))
+	if (!mScrollArea.contains({x, y}))
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 		return;
