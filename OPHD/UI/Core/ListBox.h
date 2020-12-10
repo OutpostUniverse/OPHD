@@ -81,7 +81,7 @@ private:
 	const NAS2D::Font& mFont;
 
 	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
-	std::size_t mSelectedIndex = 0; /**< Current selection index. */
+	std::size_t mSelectedIndex = 0;
 	std::size_t mScrollOffsetInPixels = 0;
 
 	unsigned int mLineHeight = 0; /**< Height of an item line. */
