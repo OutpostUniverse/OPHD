@@ -17,7 +17,8 @@ using namespace NAS2D;
 
 
 ListBox::ListBox() :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	mLineHeight{static_cast<unsigned int>(mFont.height() + constants::MARGIN_TIGHT)}
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
@@ -29,7 +30,6 @@ ListBox::ListBox() :
 	mSlider.change().connect(this, &ListBox::slideChanged);
 	_updateItemDisplay();
 
-	mLineHeight = static_cast<unsigned int>(mFont.height() + constants::MARGIN_TIGHT);
 	_updateItemDisplay();
 }
 
