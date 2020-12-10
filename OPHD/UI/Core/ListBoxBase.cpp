@@ -281,13 +281,6 @@ void ListBoxBase::setSelection(std::size_t selection)
 }
 
 
-const std::string& ListBoxBase::selectionText() const
-{
-	if (selectedIndex() == constants::NO_SELECTION) { return constants::EMPTY_STR; }
-	return mItems[selectedIndex()]->text;
-}
-
-
 /**
  * Clears the current selection.
  */
