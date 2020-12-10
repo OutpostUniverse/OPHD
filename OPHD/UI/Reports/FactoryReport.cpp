@@ -420,7 +420,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 		}
 	}
 	lstProducts.clearSelected();
-	lstProducts.setSelectionByName(productDescription(selectedFactory->productType()));
+	lstProducts.setSelectedByName(productDescription(selectedFactory->productType()));
 	selectedProductType = selectedFactory->productType();
 
 	StructureState _state = selectedFactory->state();

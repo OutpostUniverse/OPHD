@@ -50,7 +50,7 @@ public:
 
 	std::size_t selectedIndex() const { return mSelectedIndex; }
 	void setSelected(std::size_t index) { mSelectedIndex = index; mSelectionChanged(); }
-	void setSelectionByName(const std::string& item);
+	void setSelectedByName(const std::string& item);
 	void clearSelected() { mSelectedIndex = constants::NO_SELECTION; }
 
 	bool isItemSelected() const;
