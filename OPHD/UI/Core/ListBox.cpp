@@ -29,8 +29,6 @@ ListBox::ListBox() :
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBox::slideChanged);
 	_updateItemDisplay();
-
-	_updateItemDisplay();
 }
 
 
