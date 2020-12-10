@@ -170,6 +170,7 @@ void ListBox::clear()
 {
 	mItems.clear();
 	mSelectedIndex = constants::NO_SELECTION;
+	mHighlightIndex = constants::NO_SELECTION;
 	_updateItemDisplay();
 }
 
