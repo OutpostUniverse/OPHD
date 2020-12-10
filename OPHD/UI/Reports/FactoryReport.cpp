@@ -147,9 +147,9 @@ void FactoryReport::selectStructure(Structure* structure)
 }
 
 
-void FactoryReport::clearSelection()
+void FactoryReport::clearSelected()
 {
-	lstFactoryList.clearSelection();
+	lstFactoryList.clearSelected();
 	selectedFactory = nullptr;
 }
 
@@ -310,7 +310,7 @@ void FactoryReport::filterButtonClicked(bool clearCbo)
 	btnShowIdle.toggle(false);
 	btnShowDisabled.toggle(false);
 
-	if (clearCbo) { cboFilterByProduct.clearSelection(); }
+	if (clearCbo) { cboFilterByProduct.clearSelected(); }
 }
 
 
@@ -372,7 +372,7 @@ void FactoryReport::btnIdleClicked()
 void FactoryReport::btnClearProductionClicked()
 {
 	selectedFactory->productType(ProductType::PRODUCT_NONE);
-	lstProducts.clearSelection();
+	lstProducts.clearSelected();
 	cboFilterByProductSelectionChanged();
 }
 
@@ -419,7 +419,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 			lstProducts.addItem(productDescription(item), static_cast<int>(item));
 		}
 	}
-	lstProducts.clearSelection();
+	lstProducts.clearSelected();
 	lstProducts.setSelectionByName(productDescription(selectedFactory->productType()));
 	selectedProductType = selectedFactory->productType();
 

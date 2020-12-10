@@ -122,9 +122,9 @@ void MineReport::selectStructure(Structure* structure)
 }
 
 
-void MineReport::clearSelection()
+void MineReport::clearSelected()
 {
-	lstMineFacilities.clearSelection();
+	lstMineFacilities.clearSelected();
 	selectedFacility = nullptr;
 }
 

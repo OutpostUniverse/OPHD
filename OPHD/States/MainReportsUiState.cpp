@@ -223,9 +223,9 @@ void MainReportsUiState::_deactivate()
 		panel.Selected(false);
 	}
 
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->clearSelection();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->clearSelection();
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->clearSelection();
+	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->clearSelected();
+	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->clearSelected();
+	Panels[NavigationPanel::PANEL_MINING].UiPanel->clearSelected();
 }
 
 
@@ -273,7 +273,7 @@ void MainReportsUiState::exit()
 
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel) { panel.UiPanel->clearSelection(); }
+		if (panel.UiPanel) { panel.UiPanel->clearSelected(); }
 	}
 
 	mReportsUiCallback();

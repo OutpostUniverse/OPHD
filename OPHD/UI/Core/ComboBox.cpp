@@ -108,9 +108,9 @@ void ComboBox::onMouseWheel(int /*x*/, int /*y*/)
 }
 
 
-void ComboBox::clearSelection()
+void ComboBox::clearSelected()
 {
-	lstItems.clearSelection();
+	lstItems.clearSelected();
 	txtField.clear();
 }
 
@@ -151,7 +151,7 @@ void ComboBox::addItem(const std::string& item, int tag)
 	if (lstItems.count() > mMaxDisplayItems) { return; }
 	lstItems.height(static_cast<int>(lstItems.count() * lstItems.lineHeight()));
 
-	lstItems.clearSelection();
+	lstItems.clearSelected();
 }
 
 

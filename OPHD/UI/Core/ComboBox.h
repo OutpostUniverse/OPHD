@@ -24,7 +24,7 @@ public:
 	std::size_t maxDisplayItems() const { return mMaxDisplayItems; }
 	void maxDisplayItems(std::size_t count);
 
-	void clearSelection();
+	void clearSelected();
 
 	SelectionChanged& selectionChanged() { return mSelectionChanged; }
 

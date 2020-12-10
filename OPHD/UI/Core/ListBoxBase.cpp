@@ -274,7 +274,7 @@ const std::string& ListBoxBase::selectionText() const
 /**
  * Clears the current selection.
  */
-void ListBoxBase::clearSelection()
+void ListBoxBase::clearSelected()
 {
 	mSelectedIndex = constants::NO_SELECTION;
 }

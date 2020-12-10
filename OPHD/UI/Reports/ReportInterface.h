@@ -25,7 +25,7 @@ public:
 	/**
 	 * Instructs the Report UI to clear any selections it may have.
 	 */
-	virtual void clearSelection() = 0;
+	virtual void clearSelected() = 0;
 
 	/**
 	 * Instructs the Report UI that it should fill any lists it needs to (the

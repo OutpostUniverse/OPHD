@@ -231,9 +231,9 @@ void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int
 }
 
 
-void WarehouseReport::clearSelection()
+void WarehouseReport::clearSelected()
 {
-	lstStructures.clearSelection();
+	lstStructures.clearSelected();
 	selectedWarehouse = nullptr;
 }
 

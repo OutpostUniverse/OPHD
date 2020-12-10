@@ -59,7 +59,7 @@ public:
 
 	const std::string& selectionText() const;
 
-	void clearSelection();
+	void clearSelected();
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 

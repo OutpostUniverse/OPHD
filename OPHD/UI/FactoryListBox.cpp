@@ -97,7 +97,7 @@ void FactoryListBox::removeItem(Factory* factory)
 		{
 			mItems.erase(it);
 			_update_item_display();
-			clearSelection();
+			clearSelected();
 			return;
 		}
 	}

@@ -30,7 +30,7 @@ public:
 	void refresh() override;
 
 	void fillLists() override;
-	void clearSelection() override;
+	void clearSelected() override;
 
 	void update() override;
 
