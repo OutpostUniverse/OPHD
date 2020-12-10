@@ -32,7 +32,7 @@ public:
 	int selectionTag() const;
 
 	bool isItemSelected() const;
-	std::size_t currentSelection() { return lstItems.currentSelection(); }
+	std::size_t selectedIndex() { return lstItems.selectedIndex(); }
 	void currentSelection(std::size_t index);
 
 	void update() override;

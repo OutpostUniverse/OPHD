@@ -126,7 +126,7 @@ void FactoryListBox::currentSelection(Factory* f)
 
 Factory* FactoryListBox::selectedFactory()
 {
-	return (currentSelection() == constants::NO_SELECTION) ? nullptr : static_cast<FactoryListBoxItem*>(mItems[currentSelection()])->factory;
+	return (selectedIndex() == constants::NO_SELECTION) ? nullptr : static_cast<FactoryListBoxItem*>(mItems[selectedIndex()])->factory;
 }
 
 
@@ -150,7 +150,7 @@ void FactoryListBox::update()
 			positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT),
 			static_cast<int>(item_width()),
 			static_cast<int>(draw_offset()),
-			i == currentSelection());
+			i == selectedIndex());
 	}
 
 	renderer.clipRectClear();

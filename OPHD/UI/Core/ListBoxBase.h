@@ -54,7 +54,7 @@ public:
 	bool empty() const;
 
 	std::size_t currentHighlight() const;
-	std::size_t currentSelection() const;
+	std::size_t selectedIndex() const;
 	void setSelection(std::size_t selection);
 
 	const std::string& selectionText() const;

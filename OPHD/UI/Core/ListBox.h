@@ -48,7 +48,7 @@ public:
 	std::size_t count() const { return mItems.size(); }
 	unsigned int lineHeight() const { return mLineHeight; }
 
-	std::size_t currentSelection() const { return mCurrentSelection; }
+	std::size_t selectedIndex() const { return mCurrentSelection; }
 	void currentSelection(std::size_t selection) { mCurrentSelection = selection; mSelectionChanged(); }
 	void setSelectionByName(const std::string& item);
 	void clearSelection() { mCurrentSelection = constants::NO_SELECTION; }

@@ -246,7 +246,7 @@ std::size_t ListBoxBase::currentHighlight() const
 /**
  * Index of the current selection.
  */
-std::size_t ListBoxBase::currentSelection() const
+std::size_t ListBoxBase::selectedIndex() const
 {
 	return mCurrentSelection;
 }
@@ -266,8 +266,8 @@ void ListBoxBase::setSelection(std::size_t selection)
 
 const std::string& ListBoxBase::selectionText() const
 {
-	if (currentSelection() == constants::NO_SELECTION) { return constants::EMPTY_STR; }
-	return mItems[currentSelection()]->text;
+	if (selectedIndex() == constants::NO_SELECTION) { return constants::EMPTY_STR; }
+	return mItems[selectedIndex()]->text;
 }
 
 
