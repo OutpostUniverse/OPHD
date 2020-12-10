@@ -256,8 +256,8 @@ void ListBox::update()
 	if (empty())
 	{
 		renderer.drawBoxFilled(mRect, NAS2D::Color::Black);
-		const auto boxColor = hasFocus() ? mBorderColorActive : mBorderColorNormal;
-		renderer.drawBox(mRect, boxColor);
+		const auto borderColor = hasFocus() ? mBorderColorActive : mBorderColorNormal;
+		renderer.drawBox(mRect, borderColor);
 		return;
 	}
 
