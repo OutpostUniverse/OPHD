@@ -176,8 +176,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 {
-	// Ignore if menu is empty or invisible
-	if (isEmpty() || !visible()) { return; }
+	if (!visible()) { return; }
 
 	if (!mScrollArea.contains({x, y}))
 	{
