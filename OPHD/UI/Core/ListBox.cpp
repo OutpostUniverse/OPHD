@@ -112,10 +112,7 @@ void ListBox::addItem(const std::string& item, int tag)
  */
 void ListBox::removeItem(const std::string& item)
 {
-	if (isEmpty()) { return; }
-
 	auto it = std::find(mItems.begin(), mItems.end(), item);
-
 	if (it != mItems.end())
 	{
 		mItems.erase(it);
