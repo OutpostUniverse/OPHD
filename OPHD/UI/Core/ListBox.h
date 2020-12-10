@@ -80,7 +80,7 @@ private:
 
 	const NAS2D::Font& mFont;
 
-	std::size_t mHighlightIndex = constants::NO_SELECTION; /**< Currently highlighted selection index. */
+	std::size_t mHighlightIndex = constants::NO_SELECTION;
 	std::size_t mSelectedIndex = 0;
 	std::size_t mScrollOffsetInPixels = 0;
 
