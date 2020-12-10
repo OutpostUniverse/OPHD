@@ -83,7 +83,7 @@ private:
 
 	std::size_t mCurrentHighlight = constants::NO_SELECTION; /**< Currently highlighted selection index. */
 	std::size_t mCurrentSelection = 0; /**< Current selection index. */
-	std::size_t mCurrentOffset = 0;
+	std::size_t mScrollOffsetInPixels = 0;
 
 	unsigned int mLineHeight = 0; /**< Height of an item line. */
 	unsigned int mLineCount = 0; /**< Number of lines that can be displayed. */

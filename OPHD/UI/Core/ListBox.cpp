@@ -70,14 +70,14 @@ void ListBox::_updateItemDisplay()
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
 			mSlider.length(static_cast<float>(static_cast<int>(mLineHeight * mItems.size()) - mRect.height));
-			mCurrentOffset = static_cast<std::size_t>(mSlider.thumbPosition());
+			mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.thumbPosition());
 			mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
 			mSlider.visible(true);
 		}
 	}
 	else
 	{
-		mCurrentOffset = 0;
+		mScrollOffsetInPixels = 0;
 		mSlider.length(0);
 		mSlider.visible(false);
 	}
@@ -227,7 +227,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 
-	mCurrentHighlight = (static_cast<std::size_t>(y - mRect.y) + mCurrentOffset) / static_cast<std::size_t>(mFont.height() + 2);
+	mCurrentHighlight = (static_cast<std::size_t>(y - mRect.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mFont.height() + 2);
 
 	if (mCurrentHighlight >= mItems.size())
 	{
@@ -271,7 +271,7 @@ void ListBox::update()
 	// Highlight currently selected item
 	auto itemBounds = mScrollArea;
 	itemBounds.height = static_cast<int>(mLineHeight);
-	itemBounds.y += static_cast<int>((mCurrentSelection * mLineHeight) - mCurrentOffset);
+	itemBounds.y += static_cast<int>((mCurrentSelection * mLineHeight) - mScrollOffsetInPixels);
 	renderer.drawBoxFilled(itemBounds, mBackgroundColorSelected);
 
 	// Highlight On mouse Over
@@ -279,13 +279,13 @@ void ListBox::update()
 	{
 		auto highlightBounds = mScrollArea;
 		highlightBounds.height = static_cast<int>(mLineHeight);
-		highlightBounds.y += static_cast<int>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
+		highlightBounds.y += static_cast<int>((mCurrentHighlight * mLineHeight) - mScrollOffsetInPixels);
 		renderer.drawBox(highlightBounds, mBackgroundColorMouseHover);
 	}
 
 	// display actuals values that are meant to be
 	auto textPosition = mScrollArea.startPoint();
-	textPosition += {constants::MARGIN_TIGHT, -static_cast<int>(mCurrentOffset)};
+	textPosition += {constants::MARGIN_TIGHT, -static_cast<int>(mScrollOffsetInPixels)};
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
 		const auto textColor = (i == mCurrentHighlight) ? mTextColorMouseHover : mTextColorNormal;
