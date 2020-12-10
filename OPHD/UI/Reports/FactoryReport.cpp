@@ -436,7 +436,7 @@ void FactoryReport::lstProductsSelectionChanged()
 
 void FactoryReport::cboFilterByProductSelectionChanged()
 {
-	if (cboFilterByProduct.currentSelection() == constants::NO_SELECTION) { return; }
+	if (!cboFilterByProduct.isItemSelected()) { return; }
 	filterButtonClicked(false);
 	fillFactoryList(static_cast<ProductType>(cboFilterByProduct.selectionTag()));
 }
