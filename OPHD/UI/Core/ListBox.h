@@ -55,8 +55,6 @@ public:
 
 	bool isItemSelected() const;
 	const ListBoxItem& selected() const;
-	const std::string& selectionText() const;
-	int selectionTag() const;
 
 	std::size_t currentHighlight() const { return mCurrentHighlight; }
 

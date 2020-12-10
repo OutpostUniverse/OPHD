@@ -90,20 +90,6 @@ bool ListBox::empty() const
 }
 
 
-const std::string& ListBox::selectionText() const
-{
-	if (mCurrentSelection == constants::NO_SELECTION) { return constants::EMPTY_STR; }
-	return mItems[mCurrentSelection].text;
-}
-
-
-int ListBox::selectionTag() const
-{
-	if (mCurrentSelection == constants::NO_SELECTION) { return 0; }
-	return mItems[mCurrentSelection].tag;
-}
-
-
 /**
  * Adds an item to the Menu.
  *
