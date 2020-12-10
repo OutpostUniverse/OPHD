@@ -109,7 +109,7 @@ void FactoryListBox::removeItem(Factory* factory)
  * 
  * \param f	Pointer to a Factory object. Safe to pass \c nullptr.
  */
-void FactoryListBox::currentSelection(Factory* f)
+void FactoryListBox::setSelected(Factory* f)
 {
 	if (mItems.empty() || f == nullptr) { return; }
 	for (std::size_t i = 0; i < mItems.size(); ++i)

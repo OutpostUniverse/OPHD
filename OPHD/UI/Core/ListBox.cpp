@@ -202,7 +202,7 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 		return;
 	}
 
-	currentSelection(mHighlightIndex);
+	setSelected(mHighlightIndex);
 }
 
 

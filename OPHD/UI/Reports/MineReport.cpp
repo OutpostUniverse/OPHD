@@ -118,7 +118,7 @@ MineReport::MineReport() :
 
 void MineReport::selectStructure(Structure* structure)
 {
-	lstMineFacilities.currentSelection(structure);
+	lstMineFacilities.setSelected(structure);
 }
 
 
@@ -154,7 +154,7 @@ void MineReport::fillLists()
 		++id;
 	}
 
-	selectedFacility == nullptr ? lstMineFacilities.setSelection(0) : lstMineFacilities.currentSelection(selectedFacility);
+	selectedFacility == nullptr ? lstMineFacilities.setSelection(0) : lstMineFacilities.setSelected(selectedFacility);
 	mAvailableTrucks = getTruckAvailability();
 	updateManagementButtonsVisiblity();
 }

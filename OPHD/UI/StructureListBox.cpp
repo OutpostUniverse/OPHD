@@ -99,7 +99,7 @@ void StructureListBox::removeItem(Structure* structure)
  * 
  * \param structure		Pointer to a Structure object. Save to pass \c nullptr.
  */
-void StructureListBox::currentSelection(Structure* structure)
+void StructureListBox::setSelected(Structure* structure)
 {
 	if (mItems.empty() || structure == nullptr) { return; }
 

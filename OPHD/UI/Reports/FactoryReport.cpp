@@ -143,7 +143,7 @@ FactoryReport::FactoryReport() :
  */
 void FactoryReport::selectStructure(Structure* structure)
 {
-	lstFactoryList.currentSelection(dynamic_cast<Factory*>(structure));
+	lstFactoryList.setSelected(dynamic_cast<Factory*>(structure));
 }
 
 

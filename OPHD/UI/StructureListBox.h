@@ -32,7 +32,7 @@ public:
 
 	void addItem(Structure*);
 	void removeItem(Structure*);
-	void currentSelection(Structure*);
+	void setSelected(Structure*);
 
 	Structure* selectedStructure();
 

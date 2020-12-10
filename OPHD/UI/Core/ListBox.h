@@ -49,7 +49,7 @@ public:
 	unsigned int lineHeight() const { return mLineHeight; }
 
 	std::size_t selectedIndex() const { return mSelectedIndex; }
-	void currentSelection(std::size_t selection) { mSelectedIndex = selection; mSelectionChanged(); }
+	void setSelected(std::size_t index) { mSelectedIndex = index; mSelectionChanged(); }
 	void setSelectionByName(const std::string& item);
 	void clearSelection() { mSelectedIndex = constants::NO_SELECTION; }
 

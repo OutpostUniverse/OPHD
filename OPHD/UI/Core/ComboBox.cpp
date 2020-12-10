@@ -179,8 +179,8 @@ bool ComboBox::isItemSelected() const
 }
 
 
-void ComboBox::currentSelection(std::size_t index) {
-	lstItems.currentSelection(index);
+void ComboBox::setSelected(std::size_t index) {
+	lstItems.setSelected(index);
 	text(selectionText());
 	mSelectionChanged();
 }

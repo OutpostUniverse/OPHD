@@ -33,7 +33,7 @@ public:
 
 	bool isItemSelected() const;
 	std::size_t selectedIndex() { return lstItems.selectedIndex(); }
-	void currentSelection(std::size_t index);
+	void setSelected(std::size_t index);
 
 	void update() override;
 

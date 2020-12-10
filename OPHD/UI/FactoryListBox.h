@@ -33,7 +33,7 @@ public:
 
 	void addItem(Factory* factory);
 	void removeItem(Factory* factory);
-	void currentSelection(Factory*);
+	void setSelected(Factory*);
 
 	Factory* selectedFactory();
 
