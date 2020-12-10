@@ -29,7 +29,7 @@ ListBox::ListBox() :
 	mSlider.change().connect(this, &ListBox::slideChanged);
 	_updateItemDisplay();
 
-	mLineHeight = static_cast<unsigned int>(mFont.height() + 2);
+	mLineHeight = static_cast<unsigned int>(mFont.height() + constants::MARGIN_TIGHT);
 	mLineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
 	_updateItemDisplay();
 }
