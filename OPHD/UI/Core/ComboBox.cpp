@@ -194,7 +194,6 @@ void ComboBox::update()
 
 void ComboBox::text(const std::string& text) {
 	txtField.text(text);
-	txtField.textChanged();
 	lstItems.setSelectedByName(txtField.text());
 	mSelectionChanged();
 }
