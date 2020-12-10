@@ -63,14 +63,14 @@ void ListBoxBase::_update_item_display()
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
 			mSlider.length(static_cast<float>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
-			mCurrentOffset = static_cast<unsigned int>(mSlider.thumbPosition());
+			mScrollOffsetInPixels = static_cast<unsigned int>(mSlider.thumbPosition());
 			mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
 			mSlider.visible(true);
 		}
 	}
 	else
 	{
-		mCurrentOffset = 0;
+		mScrollOffsetInPixels = 0;
 		mSlider.length(0);
 		mSlider.visible(false);
 	}
@@ -136,7 +136,7 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 
-	mHighlightIndex = (static_cast<unsigned int>(y - positionY()) + mCurrentOffset) / static_cast<unsigned int>(mItemHeight);
+	mHighlightIndex = (static_cast<unsigned int>(y - positionY()) + mScrollOffsetInPixels) / static_cast<unsigned int>(mItemHeight);
 
 	if (mHighlightIndex >= mItems.size())
 	{
@@ -308,7 +308,7 @@ void ListBoxBase::update()
 	renderer.clipRect(mRect);
 
 	// MOUSE HIGHLIGHT
-	int highlight_y = positionY() + (static_cast<int>(mHighlightIndex) * mItemHeight) - static_cast<int>(mCurrentOffset);
+	int highlight_y = positionY() + (static_cast<int>(mHighlightIndex) * mItemHeight) - static_cast<int>(mScrollOffsetInPixels);
 	renderer.drawBoxFilled(NAS2D::Rectangle{positionX(), highlight_y, mItemWidth, mItemHeight}, NAS2D::Color{0, 185, 0, 50});
 
 	mSlider.update();

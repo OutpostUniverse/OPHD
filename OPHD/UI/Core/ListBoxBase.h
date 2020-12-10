@@ -73,7 +73,7 @@ protected:
 	unsigned int item_height() const { return static_cast<unsigned int>(mItemHeight); }
 	void item_height(int);
 
-	unsigned int draw_offset() const { return mCurrentOffset; }
+	unsigned int draw_offset() const { return mScrollOffsetInPixels; }
 
 	void visibilityChanged(bool) override;
 
@@ -92,7 +92,7 @@ private:
 
 	std::size_t mHighlightIndex = constants::NO_SELECTION;
 	std::size_t mSelectedIndex = constants::NO_SELECTION;
-	unsigned int mCurrentOffset = 0; /**< Draw Offset. */
+	unsigned int mScrollOffsetInPixels = 0;
 
 	int mItemHeight = 1; /**< Height of a ListBoxItem. */
 	int mItemWidth = 0; /**< Width of a ListBoxItem. */
