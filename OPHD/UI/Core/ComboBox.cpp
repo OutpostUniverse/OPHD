@@ -4,6 +4,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/MathUtils.h>
+#include <NAS2D/StringUtils.h>
 
 #include <algorithm>
 
@@ -194,7 +195,7 @@ void ComboBox::update()
 
 void ComboBox::text(const std::string& text) {
 	txtField.text(text);
-	lstItems.setSelectedByName(txtField.text());
+	lstItems.selectIf([target = toLowercase(txtField.text())](const auto& item){ return toLowercase(item.text) == target; });
 	mSelectionChanged();
 }
 
