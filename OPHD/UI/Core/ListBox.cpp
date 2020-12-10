@@ -30,7 +30,6 @@ ListBox::ListBox() :
 	_updateItemDisplay();
 
 	mLineHeight = static_cast<unsigned int>(mFont.height() + constants::MARGIN_TIGHT);
-	mLineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
 	_updateItemDisplay();
 }
 
@@ -64,8 +63,8 @@ void ListBox::_updateItemDisplay()
 
 	if ((mLineHeight * mItems.size()) > static_cast<std::size_t>(mRect.height))
 	{
-		mLineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
-		if (mLineCount < mItems.size())
+		const auto lineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
+		if (lineCount < mItems.size())
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});

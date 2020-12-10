@@ -86,7 +86,6 @@ private:
 	std::size_t mScrollOffsetInPixels = 0;
 
 	unsigned int mLineHeight = 0; /**< Height of an item line. */
-	unsigned int mLineCount = 0; /**< Number of lines that can be displayed. */
 
 	std::vector<ListBoxItem> mItems; /**< List of items preserved in the order in which they're added. */
 
