@@ -219,8 +219,8 @@ void MapViewState::load(const std::string& filePath)
 
 			s->deployCallback().connect(this, &MapViewState::deploySeedLander);
 
-			mStructures.dropAllItems();
-			mConnections.dropAllItems();
+			mStructures.clear();
+			mConnections.clear();
 			mBtnTurns.enabled(true);
 		}
 	}
@@ -239,7 +239,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 {
 	mRobotPool.clear();
 	mRobotList.clear();
-	mRobots.dropAllItems();
+	mRobots.clear();
 
 	ROBOT_ID_COUNTER = 0;
 	int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;

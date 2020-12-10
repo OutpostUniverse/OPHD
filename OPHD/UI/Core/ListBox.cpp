@@ -166,7 +166,7 @@ const ListBox::ListBoxItem& ListBox::selected() const
 /**
  * Drops all items from the list.
  */
-void ListBox::dropAllItems()
+void ListBox::clear()
 {
 	mItems.clear();
 	mSelectedIndex = 0;

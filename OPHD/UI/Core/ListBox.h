@@ -42,7 +42,7 @@ public:
 	void addItem(const std::string& item, int tag = 0);
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
-	void dropAllItems();
+	void clear();
 	void sort();
 
 	std::size_t count() const { return mItems.size(); }

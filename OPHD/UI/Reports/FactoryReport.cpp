@@ -410,7 +410,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 
 	btnClearProduction.enabled(selectedFactory->state() == StructureState::Operational || selectedFactory->state() == StructureState::Idle);
 
-	lstProducts.dropAllItems();
+	lstProducts.clear();
 	if (selectedFactory->state() != StructureState::Destroyed)
 	{
 		const Factory::ProductionTypeList& _pl = selectedFactory->productList();

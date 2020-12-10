@@ -115,7 +115,7 @@ void FactoryProduction::factory(Factory* newFactory)
 
 	if (!mFactory) { return; }
 
-	mProductGrid.dropAllItems();
+	mProductGrid.clear();
 	clearProduct();
 
 	// destroyed factories can't produce anything at all ever.

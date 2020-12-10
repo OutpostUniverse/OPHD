@@ -259,7 +259,7 @@ bool IconGrid::itemExists(const std::string& item)
 /**
  * Drops all items from the IconGrid.
  */
-void IconGrid::dropAllItems()
+void IconGrid::clear()
 {
 	mIconItemList.clear();
 	clearSelection();
