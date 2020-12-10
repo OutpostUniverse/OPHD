@@ -268,13 +268,11 @@ void ListBox::update()
 	renderer.clipRect(mRect);
 
 	// draw boundaries of the widget
-	NAS2D::Rectangle<int> listBounds = mRect;
-	listBounds.width = static_cast<int>(mItemWidth);
-	renderer.drawBox(listBounds, NAS2D::Color{0, 0, 0, 100});
-	renderer.drawBoxFilled(listBounds, mBackgroundColorNormal);
+	renderer.drawBox(mScrollArea, NAS2D::Color{0, 0, 0, 100});
+	renderer.drawBoxFilled(mScrollArea, mBackgroundColorNormal);
 
 	// Highlight currently selected item
-	auto itemBounds = listBounds;
+	auto itemBounds = mScrollArea;
 	itemBounds.height = static_cast<int>(mLineHeight);
 	itemBounds.y += static_cast<int>((mCurrentSelection * mLineHeight) - mCurrentOffset);
 	renderer.drawBoxFilled(itemBounds, mBackgroundColorSelected);
@@ -282,14 +280,14 @@ void ListBox::update()
 	// Highlight On mouse Over
 	if (mCurrentHighlight != constants::NO_SELECTION)
 	{
-		auto highlightBounds = listBounds;
+		auto highlightBounds = mScrollArea;
 		highlightBounds.height = static_cast<int>(mLineHeight);
 		highlightBounds.y += static_cast<int>((mCurrentHighlight * mLineHeight) - mCurrentOffset);
 		renderer.drawBox(highlightBounds, mBackgroundColorMouseHover);
 	}
 
 	// display actuals values that are meant to be
-	auto textPosition = listBounds.startPoint();
+	auto textPosition = mScrollArea.startPoint();
 	textPosition += {constants::MARGIN_TIGHT, -static_cast<int>(mCurrentOffset)};
 	for(std::size_t i = 0; i < mItems.size(); i++)
 	{
