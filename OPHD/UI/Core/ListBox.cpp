@@ -165,9 +165,7 @@ void ListBox::sort()
 
 void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
-	if (!visible() || mHighlightIndex == constants::NO_SELECTION || mHighlightIndex >= mItems.size()) { return; }
-
-	if (!mScrollArea.contains({x, y}))
+	if (!visible() || mHighlightIndex == constants::NO_SELECTION || mHighlightIndex >= mItems.size() || !mScrollArea.contains({x, y}))
 	{
 		return;
 	}
