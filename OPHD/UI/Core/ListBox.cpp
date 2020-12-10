@@ -109,10 +109,6 @@ void ListBox::addItem(const std::string& item, int tag)
 
 /**
  * Removes a named item from the Menu.
- *
- * \todo	Complete this function.
- *
- * \note	Safe to call if Menu is empty.
  */
 void ListBox::removeItem(const std::string& item)
 {
