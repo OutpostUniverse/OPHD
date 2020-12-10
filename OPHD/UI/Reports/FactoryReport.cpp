@@ -419,7 +419,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 			lstProducts.addItem(productDescription(item), static_cast<int>(item));
 		}
 	}
-	lstProducts.setSelectedByName(productDescription(selectedFactory->productType()));
+	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.tag == productType; });
 	selectedProductType = selectedFactory->productType();
 
 	StructureState _state = selectedFactory->state();
