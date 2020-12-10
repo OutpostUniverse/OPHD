@@ -210,15 +210,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 
 	const auto point = NAS2D::Point{x, y};
 
-	// Ignore mouse motion events if the pointer isn't within the menu rect.
-	if (!rect().contains(point))
-	{
-		mCurrentHighlight = constants::NO_SELECTION;
-		return;
-	}
-
-	// if the mouse is on the slider then the slider should handle that
-	if (mSlider.visible() && mSlider.rect().contains(point))
+	if (!mScrollArea.contains(point))
 	{
 		mCurrentHighlight = constants::NO_SELECTION;
 		return;
