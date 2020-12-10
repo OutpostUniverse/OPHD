@@ -53,18 +53,16 @@ public:
 	void removeItem(ListBoxItem*);
 	void clear();
 
-	std::size_t currentHighlight() const;
+	const std::string& selectionText() const;
 	std::size_t selectedIndex() const;
 	void setSelection(std::size_t selection);
-
-	const std::string& selectionText() const;
-
 	void clearSelected();
+
+	std::size_t currentHighlight() const;
 
 	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
 
 	void update() override = 0;
-
 
 protected:
 	void _update_item_display();

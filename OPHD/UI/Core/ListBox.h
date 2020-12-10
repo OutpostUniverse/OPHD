@@ -48,17 +48,16 @@ public:
 	void clear();
 	void sort();
 
-	unsigned int lineHeight() const { return mLineHeight; }
-
+	bool isItemSelected() const;
+	const ListBoxItem& selected() const;
 	std::size_t selectedIndex() const { return mSelectedIndex; }
 	void setSelected(std::size_t index) { mSelectedIndex = index; mSelectionChanged(); }
 	void setSelectedByName(const std::string& item);
 	void clearSelected() { mSelectedIndex = constants::NO_SELECTION; }
 
-	bool isItemSelected() const;
-	const ListBoxItem& selected() const;
-
 	std::size_t currentHighlight() const { return mHighlightIndex; }
+
+	unsigned int lineHeight() const { return mLineHeight; }
 
 	void update() override;
 
