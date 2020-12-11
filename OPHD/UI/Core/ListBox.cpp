@@ -109,17 +109,10 @@ void ListBox::addItem(const std::string& item, int tag)
 
 /**
  * Removes a named item from the Menu.
- *
- * \todo	Complete this function.
- *
- * \note	Safe to call if Menu is empty.
  */
 void ListBox::removeItem(const std::string& item)
 {
-	if (isEmpty()) { return; }
-
 	auto it = std::find(mItems.begin(), mItems.end(), item);
-
 	if (it != mItems.end())
 	{
 		mItems.erase(it);
@@ -172,22 +165,7 @@ void ListBox::sort()
 
 void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
-	// Ignore if menu is empty or invisible
-	if (isEmpty() || !visible()) { return; }
-
-	const auto point = NAS2D::Point{x, y};
-
-	if (!rect().contains(point) || mHighlightIndex == constants::NO_SELECTION)
-	{
-		return;
-	}
-
-	if (mSlider.visible() && mSlider.rect().contains(point))
-	{
-		return; // if the mouse is on the slider then the slider should handle that
-	}
-
-	if (static_cast<std::size_t>(mHighlightIndex) >= mItems.size())
+	if (!visible() || mHighlightIndex == constants::NO_SELECTION || mHighlightIndex >= mItems.size() || !mScrollArea.contains({x, y}))
 	{
 		return;
 	}
@@ -198,18 +176,13 @@ void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 
 void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 {
-	// Ignore if menu is empty or invisible
-	if (isEmpty() || !visible()) { return; }
-
-	const auto point = NAS2D::Point{x, y};
-
-	if (!mScrollArea.contains(point))
+	if (!visible() || !mScrollArea.contains({x, y}))
 	{
 		mHighlightIndex = constants::NO_SELECTION;
 		return;
 	}
 
-	mHighlightIndex = (static_cast<std::size_t>(y - mRect.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mLineHeight);
+	mHighlightIndex = (static_cast<std::size_t>(y - mScrollArea.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mLineHeight);
 	if (mHighlightIndex >= mItems.size())
 	{
 		mHighlightIndex = constants::NO_SELECTION;
