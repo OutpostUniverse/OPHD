@@ -69,16 +69,12 @@ void ListBox::_updateItemDisplay()
 
 	if ((mLineHeight * mItems.size()) > static_cast<std::size_t>(mRect.height))
 	{
-		const auto lineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
-		if (lineCount < mItems.size())
-		{
-			mSlider.position({rect().x + mRect.width - 14, mRect.y});
-			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(static_cast<int>(mLineHeight * mItems.size()) - mRect.height));
-			mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.thumbPosition());
-			mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
-			mSlider.visible(true);
-		}
+		mSlider.position({rect().x + mRect.width - 14, mRect.y});
+		mSlider.size({14, mRect.height});
+		mSlider.length(static_cast<float>(static_cast<int>(mLineHeight * mItems.size()) - mRect.height));
+		mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.thumbPosition());
+		mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
+		mSlider.visible(true);
 	}
 	else
 	{
