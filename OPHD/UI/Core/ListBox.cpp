@@ -93,12 +93,6 @@ void ListBox::_updateItemDisplay()
  * Adds an item to the Menu.
  *
  * \param	item	Item to add.
- *
- * \warning	Menu::font(Font& font) must have been called with a valid Font
- *			before this function can be safely called.
- *
- * \todo	Make this function safe to call regardless of whether a font
- *			has been defined or not.
  */
 void ListBox::addItem(const std::string& item, int tag)
 {
