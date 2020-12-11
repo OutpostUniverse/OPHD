@@ -67,11 +67,12 @@ void ListBox::_updateItemDisplay()
 	// Account for border around control
 	mScrollArea = mRect.inset(1);
 
-	if ((mLineHeight * mItems.size()) > static_cast<std::size_t>(mRect.height))
+	const auto neededDisplaySize = mLineHeight * mItems.size();
+	if (neededDisplaySize > static_cast<std::size_t>(mRect.height))
 	{
 		mSlider.position({rect().x + mRect.width - 14, mRect.y});
 		mSlider.size({14, mRect.height});
-		mSlider.length(static_cast<float>(static_cast<int>(mLineHeight * mItems.size()) - mRect.height));
+		mSlider.length(static_cast<float>(static_cast<int>(neededDisplaySize) - mRect.height));
 		mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.thumbPosition());
 		mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
 		mSlider.visible(true);
