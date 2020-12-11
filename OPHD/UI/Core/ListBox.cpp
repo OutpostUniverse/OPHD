@@ -122,12 +122,6 @@ void ListBox::removeItem(const std::string& item)
 }
 
 
-bool ListBox::itemExists(const std::string& item)
-{
-	return std::find(mItems.begin(), mItems.end(), item) != mItems.end();
-}
-
-
 bool ListBox::isItemSelected() const
 {
 	return mSelectedIndex != constants::NO_SELECTION;
