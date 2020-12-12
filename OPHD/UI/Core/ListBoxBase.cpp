@@ -74,16 +74,12 @@ void ListBoxBase::updateScrollLayout()
 
 	if ((mItemHeight * static_cast<int>(mItems.size())) > mRect.height)
 	{
-		auto lineCount = mRect.height / mItemHeight;
-		if (static_cast<std::size_t>(lineCount) < mItems.size())
-		{
-			mSlider.position({rect().x + mRect.width - 14, mRect.y});
-			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
-			mScrollOffsetInPixels = static_cast<unsigned int>(mSlider.thumbPosition());
-			mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
-			mSlider.visible(true);
-		}
+		mSlider.position({rect().x + mRect.width - 14, mRect.y});
+		mSlider.size({14, mRect.height});
+		mSlider.length(static_cast<float>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
+		mScrollOffsetInPixels = static_cast<unsigned int>(mSlider.thumbPosition());
+		mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
+		mSlider.visible(true);
 	}
 	else
 	{
