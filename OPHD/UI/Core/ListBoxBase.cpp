@@ -74,9 +74,8 @@ void ListBoxBase::updateScrollLayout()
 
 	if ((mItemHeight * static_cast<int>(mItems.size())) > mRect.height)
 	{
-		mLineCount = mRect.height / mItemHeight;
-
-		if (static_cast<std::size_t>(mLineCount) < mItems.size())
+		auto lineCount = mRect.height / mItemHeight;
+		if (static_cast<std::size_t>(lineCount) < mItems.size())
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});

@@ -95,7 +95,6 @@ private:
 
 	int mItemHeight = 1; /**< Height of a ListBoxItem. */
 	int mItemWidth = 0; /**< Width of a ListBoxItem. */
-	int mLineCount = 0; /**< Number of lines that can be displayed. */
 
 	bool mHasFocus = false;
 
