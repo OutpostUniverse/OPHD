@@ -81,8 +81,7 @@ protected:
 
 private:
 	void onSizeChanged() override;
-
-	void _updateItemDisplay();
+	void updateScrollLayout();
 
 
 	const NAS2D::Font& mFont;

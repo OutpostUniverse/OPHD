@@ -66,7 +66,7 @@ public:
 	void update() override = 0;
 
 protected:
-	void _update_item_display();
+	void updateScrollLayout();
 
 	unsigned int item_width() const { return static_cast<unsigned int>(mItemWidth); }
 	unsigned int item_height() const { return static_cast<unsigned int>(mItemHeight); }

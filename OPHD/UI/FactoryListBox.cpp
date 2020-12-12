@@ -80,7 +80,7 @@ void FactoryListBox::addItem(Factory* factory)
 	else if (item->text == constants::SEED_FACTORY) { item->icon_slice = {460, 368}; }
 
 	if (factory->state() == StructureState::Destroyed) { item->icon_slice = {414, 368}; }
-	_update_item_display();
+	updateScrollLayout();
 }
 
 
@@ -96,7 +96,7 @@ void FactoryListBox::removeItem(Factory* factory)
 		if (static_cast<FactoryListBoxItem*>(*it)->factory == factory)
 		{
 			mItems.erase(it);
-			_update_item_display();
+			updateScrollLayout();
 			clearSelected();
 			return;
 		}

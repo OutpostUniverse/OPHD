@@ -38,7 +38,7 @@ void ProductListBox::productPool(ProductPool& pool)
 		}
 	}
 
-	_update_item_display();
+	updateScrollLayout();
 }
 
 

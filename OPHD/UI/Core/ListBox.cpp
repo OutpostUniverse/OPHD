@@ -27,7 +27,7 @@ ListBox::ListBox() :
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBox::slideChanged);
-	_updateItemDisplay();
+	updateScrollLayout();
 }
 
 
@@ -52,17 +52,17 @@ bool ListBox::isEmpty() const
 
 void ListBox::onSizeChanged()
 {
-	_updateItemDisplay();
+	updateScrollLayout();
 }
 
 
 void ListBox::visibilityChanged(bool /*visible*/)
 {
-	_updateItemDisplay();
+	updateScrollLayout();
 }
 
 
-void ListBox::_updateItemDisplay()
+void ListBox::updateScrollLayout()
 {
 	// Account for border around control
 	mScrollArea = mRect.inset(1);
@@ -94,7 +94,7 @@ void ListBox::_updateItemDisplay()
 void ListBox::addItem(const std::string& item, int tag)
 {
 	mItems.push_back(ListBoxItem{item, tag});
-	_updateItemDisplay();
+	updateScrollLayout();
 }
 
 
@@ -108,7 +108,7 @@ void ListBox::removeItem(const std::string& item)
 	{
 		mItems.erase(it);
 		mSelectedIndex = constants::NO_SELECTION;
-		_updateItemDisplay();
+		updateScrollLayout();
 	}
 }
 
@@ -138,7 +138,7 @@ void ListBox::clear()
 	mItems.clear();
 	mSelectedIndex = constants::NO_SELECTION;
 	mHighlightIndex = constants::NO_SELECTION;
-	_updateItemDisplay();
+	updateScrollLayout();
 }
 
 
@@ -232,7 +232,7 @@ void ListBox::update()
 
 void ListBox::slideChanged(float newPosition)
 {
-	_updateItemDisplay();
+	updateScrollLayout();
 	// Intentional truncation of fractional value
 	const auto pos = std::floor(newPosition);
 	if (pos != newPosition)

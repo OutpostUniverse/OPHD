@@ -70,7 +70,7 @@ void StructureListBox::addItem(Structure* structure)
 	}
 
 	mItems.push_back(new StructureListBoxItem(structure));
-	_update_item_display();
+	updateScrollLayout();
 }
 
 
@@ -86,7 +86,7 @@ void StructureListBox::removeItem(Structure* structure)
 		if (static_cast<StructureListBoxItem*>(*it)->structure == structure)
 		{
 			mItems.erase(it);
-			_update_item_display();
+			updateScrollLayout();
 			clearSelected();
 			return;
 		}
