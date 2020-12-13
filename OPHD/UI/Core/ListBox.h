@@ -43,7 +43,6 @@ public:
 	std::size_t count() const { return mItems.size(); }
 
 	void addItem(const std::string& item, int tag = 0);
-	void removeItem(const std::string& item);
 	void clear();
 	void sort();
 

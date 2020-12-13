@@ -50,7 +50,6 @@ public:
 	std::size_t count() const;
 
 	void addItem(ListBoxItem*);
-	void removeItem(ListBoxItem*);
 	void clear();
 
 	bool isItemSelected() const;

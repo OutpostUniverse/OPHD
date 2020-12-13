@@ -98,21 +98,6 @@ void ListBox::addItem(const std::string& item, int tag)
 }
 
 
-/**
- * Removes a named item from the Menu.
- */
-void ListBox::removeItem(const std::string& item)
-{
-	auto it = std::find(mItems.begin(), mItems.end(), item);
-	if (it != mItems.end())
-	{
-		mItems.erase(it);
-		mSelectedIndex = constants::NO_SELECTION;
-		updateScrollLayout();
-	}
-}
-
-
 bool ListBox::isItemSelected() const
 {
 	return mSelectedIndex != constants::NO_SELECTION;

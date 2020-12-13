@@ -202,21 +202,6 @@ void ListBoxBase::addItem(ListBoxItem* item)
 
 
 /**
- * Removes a ListBoxItem.
- * 
- * \warning	Frees memory allocated for a ListBoxItem. All pointers
- *			and/or references will become invalidated.
- */
-void ListBoxBase::removeItem(ListBoxItem* item)
-{
-	auto it = std::find(mItems.begin(), mItems.end(), item);
-	if (it == mItems.end()) { return; }
-	delete (*it);
-	mItems.erase(it);
-}
-
-
-/**
  * Clears all items from the list.
  */
 void ListBoxBase::clear()
