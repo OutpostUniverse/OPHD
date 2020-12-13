@@ -69,8 +69,7 @@ void StructureListBox::addItem(Structure* structure)
 		}
 	}
 
-	mItems.push_back(new StructureListBoxItem(structure));
-	updateScrollLayout();
+	add<StructureListBoxItem>(structure);
 }
 
 
