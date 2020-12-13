@@ -416,7 +416,7 @@ void FactoryReport::lstFactoryListSelectionChanged()
 		const Factory::ProductionTypeList& _pl = selectedFactory->productList();
 		for (auto item : _pl)
 		{
-			lstProducts.addItem(productDescription(item), static_cast<int>(item));
+			lstProducts.add(productDescription(item), static_cast<int>(item));
 		}
 	}
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.tag == productType; });

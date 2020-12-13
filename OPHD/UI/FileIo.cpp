@@ -110,7 +110,7 @@ void FileIo::scanDirectory(const std::string& directory)
 		{
 			// FixMe: Naive approach: Assumes a file save extension of 3 characters.
 			dir.resize(dir.size() - 4);
-			mListBox.addItem(dir);
+			mListBox.add(dir);
 		}
 	}
 	mListBox.sort();
