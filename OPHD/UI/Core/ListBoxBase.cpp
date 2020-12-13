@@ -25,7 +25,7 @@ ListBoxBase::ListBoxBase()
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBoxBase::slideChanged);
 
-	_update_item_display();
+	updateScrollLayout();
 }
 
 
@@ -61,30 +61,25 @@ std::size_t ListBoxBase::count() const
 
 void ListBoxBase::visibilityChanged(bool)
 {
-	_update_item_display();
+	updateScrollLayout();
 }
 
 
 /**
  * Updates values required for properly displaying list items.
  */
-void ListBoxBase::_update_item_display()
+void ListBoxBase::updateScrollLayout()
 {
 	mItemWidth = mRect.width;
 
 	if ((mItemHeight * static_cast<int>(mItems.size())) > mRect.height)
 	{
-		mLineCount = mRect.height / mItemHeight;
-
-		if (static_cast<std::size_t>(mLineCount) < mItems.size())
-		{
-			mSlider.position({rect().x + mRect.width - 14, mRect.y});
-			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
-			mScrollOffsetInPixels = static_cast<unsigned int>(mSlider.thumbPosition());
-			mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
-			mSlider.visible(true);
-		}
+		mSlider.position({rect().x + mRect.width - 14, mRect.y});
+		mSlider.size({14, mRect.height});
+		mSlider.length(static_cast<float>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
+		mScrollOffsetInPixels = static_cast<unsigned int>(mSlider.thumbPosition());
+		mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
+		mSlider.visible(true);
 	}
 	else
 	{
@@ -100,7 +95,7 @@ void ListBoxBase::_update_item_display()
  */
 void ListBoxBase::onSizeChanged()
 {
-	_update_item_display();
+	updateScrollLayout();
 }
 
 
@@ -184,40 +179,12 @@ void ListBoxBase::onMouseWheel(int /*x*/, int y)
  */
 void ListBoxBase::slideChanged(float newPosition)
 {
-	_update_item_display();
+	updateScrollLayout();
 	auto pos = std::floor(newPosition);
 	if (pos != newPosition)
 	{
 		mSlider.thumbPosition(pos);
 	}
-}
-
-
-/**
- * Adds a ListBoxItem.
- * 
- * \warning	Requires a pointer to a ListBoxItem -- memory is owned
- *			and managed by ListBoxBase.
- */
-void ListBoxBase::addItem(ListBoxItem* item)
-{
-	auto it = std::find(mItems.begin(), mItems.end(), item);
-	if (it == mItems.end()) { mItems.push_back(item); }
-}
-
-
-/**
- * Removes a ListBoxItem.
- * 
- * \warning	Frees memory allocated for a ListBoxItem. All pointers
- *			and/or references will become invalidated.
- */
-void ListBoxBase::removeItem(ListBoxItem* item)
-{
-	auto it = std::find(mItems.begin(), mItems.end(), item);
-	if (it == mItems.end()) { return; }
-	delete (*it);
-	mItems.erase(it);
 }
 
 
@@ -230,7 +197,7 @@ void ListBoxBase::clear()
 	mItems.clear();
 	mSelectedIndex = constants::NO_SELECTION;
 	mHighlightIndex = constants::NO_SELECTION;
-	_update_item_display();
+	updateScrollLayout();
 }
 
 

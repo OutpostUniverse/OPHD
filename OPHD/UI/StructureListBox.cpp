@@ -69,28 +69,7 @@ void StructureListBox::addItem(Structure* structure)
 		}
 	}
 
-	mItems.push_back(new StructureListBoxItem(structure));
-	_update_item_display();
-}
-
-
-/**
- * Removes a Factory from the FactoryListBox.
- * 
- * Specialized version of the default addItem(ListBoxItem*) function.
- */
-void StructureListBox::removeItem(Structure* structure)
-{
-	for (auto it = mItems.begin(); it != mItems.end(); ++it)
-	{
-		if (static_cast<StructureListBoxItem*>(*it)->structure == structure)
-		{
-			mItems.erase(it);
-			_update_item_display();
-			clearSelected();
-			return;
-		}
-	}
+	add<StructureListBoxItem>(structure);
 }
 
 

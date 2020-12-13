@@ -49,8 +49,6 @@ public:
 	bool isEmpty() const;
 	std::size_t count() const;
 
-	void addItem(ListBoxItem*);
-	void removeItem(ListBoxItem*);
 	void clear();
 
 	bool isItemSelected() const;
@@ -66,7 +64,13 @@ public:
 	void update() override = 0;
 
 protected:
-	void _update_item_display();
+	template <typename ItemType, typename... Args>
+	void add(Args&&... args) {
+		mItems.emplace_back(new ItemType{std::forward<Args>(args)...});
+		updateScrollLayout();
+	}
+
+	void updateScrollLayout();
 
 	unsigned int item_width() const { return static_cast<unsigned int>(mItemWidth); }
 	unsigned int item_height() const { return static_cast<unsigned int>(mItemHeight); }
@@ -95,7 +99,6 @@ private:
 
 	int mItemHeight = 1; /**< Height of a ListBoxItem. */
 	int mItemWidth = 0; /**< Width of a ListBoxItem. */
-	int mLineCount = 0; /**< Number of lines that can be displayed. */
 
 	bool mHasFocus = false;
 

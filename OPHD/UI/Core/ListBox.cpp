@@ -27,7 +27,7 @@ ListBox::ListBox() :
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBox::slideChanged);
-	_updateItemDisplay();
+	updateScrollLayout();
 }
 
 
@@ -52,33 +52,30 @@ bool ListBox::isEmpty() const
 
 void ListBox::onSizeChanged()
 {
-	_updateItemDisplay();
+	updateScrollLayout();
 }
 
 
 void ListBox::visibilityChanged(bool /*visible*/)
 {
-	_updateItemDisplay();
+	updateScrollLayout();
 }
 
 
-void ListBox::_updateItemDisplay()
+void ListBox::updateScrollLayout()
 {
 	// Account for border around control
 	mScrollArea = mRect.inset(1);
 
-	if ((mLineHeight * mItems.size()) > static_cast<std::size_t>(mRect.height))
+	const auto neededDisplaySize = mLineHeight * mItems.size();
+	if (neededDisplaySize > static_cast<std::size_t>(mRect.height))
 	{
-		const auto lineCount = static_cast<unsigned int>(mRect.height) / mLineHeight;
-		if (lineCount < mItems.size())
-		{
-			mSlider.position({rect().x + mRect.width - 14, mRect.y});
-			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(static_cast<int>(mLineHeight * mItems.size()) - mRect.height));
-			mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.thumbPosition());
-			mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
-			mSlider.visible(true);
-		}
+		mSlider.position({rect().x + mRect.width - 14, mRect.y});
+		mSlider.size({14, mRect.height});
+		mSlider.length(static_cast<float>(static_cast<int>(neededDisplaySize) - mRect.height));
+		mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.thumbPosition());
+		mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
+		mSlider.visible(true);
 	}
 	else
 	{
@@ -86,45 +83,6 @@ void ListBox::_updateItemDisplay()
 		mSlider.length(0);
 		mSlider.visible(false);
 	}
-}
-
-
-/**
- * Adds an item to the Menu.
- *
- * \param	item	Item to add.
- *
- * \warning	Menu::font(Font& font) must have been called with a valid Font
- *			before this function can be safely called.
- *
- * \todo	Make this function safe to call regardless of whether a font
- *			has been defined or not.
- */
-void ListBox::addItem(const std::string& item, int tag)
-{
-	mItems.push_back(ListBoxItem{item, tag});
-	_updateItemDisplay();
-}
-
-
-/**
- * Removes a named item from the Menu.
- */
-void ListBox::removeItem(const std::string& item)
-{
-	auto it = std::find(mItems.begin(), mItems.end(), item);
-	if (it != mItems.end())
-	{
-		mItems.erase(it);
-		mSelectedIndex = constants::NO_SELECTION;
-		_updateItemDisplay();
-	}
-}
-
-
-bool ListBox::itemExists(const std::string& item)
-{
-	return std::find(mItems.begin(), mItems.end(), item) != mItems.end();
 }
 
 
@@ -153,7 +111,7 @@ void ListBox::clear()
 	mItems.clear();
 	mSelectedIndex = constants::NO_SELECTION;
 	mHighlightIndex = constants::NO_SELECTION;
-	_updateItemDisplay();
+	updateScrollLayout();
 }
 
 
@@ -247,7 +205,7 @@ void ListBox::update()
 
 void ListBox::slideChanged(float newPosition)
 {
-	_updateItemDisplay();
+	updateScrollLayout();
 	// Intentional truncation of fractional value
 	const auto pos = std::floor(newPosition);
 	if (pos != newPosition)

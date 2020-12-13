@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <utility>
 #include <cstddef>
 
 
@@ -42,9 +43,12 @@ public:
 	bool isEmpty() const;
 	std::size_t count() const { return mItems.size(); }
 
-	void addItem(const std::string& item, int tag = 0);
-	void removeItem(const std::string& item);
-	bool itemExists(const std::string& item);
+	template <typename... Args>
+	void add(Args&&... args) {
+		mItems.emplace_back(ListBoxItem{std::forward<Args>(args)...});
+		updateScrollLayout();
+	}
+
 	void clear();
 	void sort();
 
@@ -82,8 +86,7 @@ protected:
 
 private:
 	void onSizeChanged() override;
-
-	void _updateItemDisplay();
+	void updateScrollLayout();
 
 
 	const NAS2D::Font& mFont;
