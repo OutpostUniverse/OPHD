@@ -192,7 +192,7 @@ void ListBox::update()
 		// Draw highlight on mouse over
 		if (isHighlighted)
 		{
-			renderer.drawBox(itemDrawArea, mBackgroundColorMouseHover);
+			renderer.drawBox(itemDrawArea, mItemBorderColorMouseHover);
 		}
 
 		// Draw item contents
