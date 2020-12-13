@@ -178,15 +178,6 @@ void ListBox::update()
 	itemBounds.y += static_cast<int>((mSelectedIndex * mLineHeight) - mScrollOffsetInPixels);
 	renderer.drawBoxFilled(itemBounds, mBackgroundColorSelected);
 
-	// Highlight On mouse Over
-	if (mHighlightIndex != constants::NO_SELECTION)
-	{
-		auto highlightBounds = mScrollArea;
-		highlightBounds.height = static_cast<int>(mLineHeight);
-		highlightBounds.y += static_cast<int>((mHighlightIndex * mLineHeight) - mScrollOffsetInPixels);
-		renderer.drawBox(highlightBounds, mBackgroundColorMouseHover);
-	}
-
 	// display actuals values that are meant to be
 	const auto firstVisibleIndex = mScrollOffsetInPixels / mLineHeight;
 	const auto lastVisibleIndex = (mScrollOffsetInPixels + mScrollArea.height + (mLineHeight - 1)) / mLineHeight;
@@ -196,8 +187,13 @@ void ListBox::update()
 	itemDrawArea.height = static_cast<int>(mLineHeight);
 	for(std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
 	{
+		const auto isHighlighted = (i == mHighlightIndex);
 		const auto textPosition = itemDrawArea.startPoint() + NAS2D::Vector{constants::MARGIN_TIGHT, 0};
-		const auto textColor = (i == mHighlightIndex) ? mTextColorMouseHover : mTextColorNormal;
+		const auto textColor = isHighlighted ? mTextColorMouseHover : mTextColorNormal;
+		if (isHighlighted)
+		{
+			renderer.drawBox(itemDrawArea, mBackgroundColorMouseHover);
+		}
 		renderer.drawTextShadow(mFont, mItems[i].text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 		itemDrawArea.y += mLineHeight;
 	}
