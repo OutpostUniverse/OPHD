@@ -75,11 +75,11 @@ void FactoryListBox::addItem(Factory* factory)
 	/// \fixme super sloppy
 	FactoryListBoxItem* item = static_cast<FactoryListBoxItem*>(mItems.back());
 	item->text = factory->name();
-	if (item->text == constants::SURFACE_FACTORY) { item->icon_slice = {0, 46}; }
-	else if (item->text == constants::UNDERGROUND_FACTORY) { item->icon_slice = {138, 276}; }
-	else if (item->text == constants::SEED_FACTORY) { item->icon_slice = {460, 368}; }
+	item->icon_slice = (factory->state() == StructureState::Destroyed) ? NAS2D::Point<int>{414, 368} :
+		(item->text == constants::UNDERGROUND_FACTORY) ? NAS2D::Point<int>{138, 276} :
+		(item->text == constants::SEED_FACTORY) ? NAS2D::Point<int>{460, 368} :
+		NAS2D::Point<int>{0, 46}; // Surface factory
 
-	if (factory->state() == StructureState::Destroyed) { item->icon_slice = {414, 368}; }
 	updateScrollLayout();
 }
 
