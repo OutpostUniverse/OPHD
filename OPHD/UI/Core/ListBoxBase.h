@@ -64,6 +64,12 @@ public:
 	void update() override = 0;
 
 protected:
+	template <typename ItemType, typename... Args>
+	void add(Args&&... args) {
+		mItems.emplace_back(new ItemType{std::forward<Args>(args)...});
+		updateScrollLayout();
+	}
+
 	void updateScrollLayout();
 
 	unsigned int item_width() const { return static_cast<unsigned int>(mItemWidth); }
