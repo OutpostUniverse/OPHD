@@ -17,7 +17,7 @@ using namespace NAS2D;
 
 ListBox::ListBox() :
 	mContext{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
-	mLineHeight{static_cast<unsigned int>(mContext.mFont.height() + constants::MARGIN_TIGHT)}
+	mLineHeight{static_cast<unsigned int>(mContext.font.height() + constants::MARGIN_TIGHT)}
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
@@ -166,7 +166,7 @@ void ListBox::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto borderColor = hasFocus() ? mContext.mBorderColorActive : mContext.mBorderColorNormal;
+	const auto borderColor = hasFocus() ? mContext.borderColorActive : mContext.borderColorNormal;
 	renderer.drawBox(mRect, borderColor);
 
 	renderer.clipRect(mRect);
@@ -183,27 +183,27 @@ void ListBox::update()
 		const auto isSelected = (i == mSelectedIndex);
 		const auto isHighlighted = (i == mHighlightIndex);
 		const auto textPosition = itemDrawArea.startPoint() + NAS2D::Vector{constants::MARGIN_TIGHT, 0};
-		const auto textColor = isHighlighted ? mContext.mTextColorMouseHover : mContext.mTextColorNormal;
+		const auto textColor = isHighlighted ? mContext.textColorMouseHover : mContext.textColorNormal;
 
 		// Draw background rect
-		const auto backgroundColor = isSelected ? mContext.mBackgroundColorSelected : mContext.mBackgroundColorNormal;
+		const auto backgroundColor = isSelected ? mContext.backgroundColorSelected : mContext.backgroundColorNormal;
 		renderer.drawBoxFilled(itemDrawArea, backgroundColor);
 
 		// Draw highlight on mouse over
 		if (isHighlighted)
 		{
-			renderer.drawBox(itemDrawArea, mContext.mItemBorderColorMouseHover);
+			renderer.drawBox(itemDrawArea, mContext.itemBorderColorMouseHover);
 		}
 
 		// Draw item contents
-		renderer.drawTextShadow(mContext.mFont, mItems[i].text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
+		renderer.drawTextShadow(mContext.font, mItems[i].text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 
 		itemDrawArea.y += mLineHeight;
 	}
 
 	// Paint remaining section of scroll area not covered by items
 	itemDrawArea.height = mScrollArea.endPoint().y - itemDrawArea.startPoint().y;
-	renderer.drawBoxFilled(itemDrawArea, mContext.mBackgroundColorNormal);
+	renderer.drawBoxFilled(itemDrawArea, mContext.backgroundColorNormal);
 
 	renderer.clipRectClear();
 
