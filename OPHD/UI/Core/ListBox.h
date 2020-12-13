@@ -16,6 +16,7 @@
 
 namespace NAS2D {
 	class Font;
+	class Renderer;
 }
 
 
@@ -47,6 +48,8 @@ public:
 			NAS2D::Color textColorNormal = NAS2D::Color::White;
 			NAS2D::Color textColorMouseHover = NAS2D::Color::White;
 		};
+
+		void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted);
 
 		bool operator==(const std::string& rhs) { return text == rhs; }
 		bool operator<(const ListBoxItem& lhs) { return text < lhs.text; }

@@ -15,6 +15,26 @@
 using namespace NAS2D;
 
 
+void ListBox::ListBoxItem::draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, const Context& context, bool isSelected, bool isHighlighted)
+{
+	const auto textPosition = drawArea.startPoint() + NAS2D::Vector{constants::MARGIN_TIGHT, 0};
+	const auto textColor = isHighlighted ? context.textColorMouseHover : context.textColorNormal;
+
+	// Draw background rect
+	const auto backgroundColor = isSelected ? context.backgroundColorSelected : context.backgroundColorNormal;
+	renderer.drawBoxFilled(drawArea, backgroundColor);
+
+	// Draw highlight on mouse over
+	if (isHighlighted)
+	{
+		renderer.drawBox(drawArea, context.itemBorderColorMouseHover);
+	}
+
+	// Draw item contents
+	renderer.drawTextShadow(context.font, text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
+}
+
+
 ListBox::ListBox() :
 	mContext{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mLineHeight{static_cast<unsigned int>(mContext.font.height() + constants::MARGIN_TIGHT)}
@@ -182,21 +202,8 @@ void ListBox::update()
 	{
 		const auto isSelected = (i == mSelectedIndex);
 		const auto isHighlighted = (i == mHighlightIndex);
-		const auto textPosition = itemDrawArea.startPoint() + NAS2D::Vector{constants::MARGIN_TIGHT, 0};
-		const auto textColor = isHighlighted ? mContext.textColorMouseHover : mContext.textColorNormal;
 
-		// Draw background rect
-		const auto backgroundColor = isSelected ? mContext.backgroundColorSelected : mContext.backgroundColorNormal;
-		renderer.drawBoxFilled(itemDrawArea, backgroundColor);
-
-		// Draw highlight on mouse over
-		if (isHighlighted)
-		{
-			renderer.drawBox(itemDrawArea, mContext.itemBorderColorMouseHover);
-		}
-
-		// Draw item contents
-		renderer.drawTextShadow(mContext.font, mItems[i].text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
+		mItems[i].draw(renderer, itemDrawArea, mContext, isSelected, isHighlighted);
 
 		itemDrawArea.y += mLineHeight;
 	}
