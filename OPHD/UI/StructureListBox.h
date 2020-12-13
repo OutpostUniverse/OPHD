@@ -31,7 +31,6 @@ public:
 	StructureListBox();
 
 	void addItem(Structure*);
-	void removeItem(Structure*);
 	void setSelected(Structure*);
 
 	Structure* selectedStructure();

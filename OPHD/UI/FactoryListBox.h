@@ -32,7 +32,6 @@ public:
 	FactoryListBox();
 
 	void addItem(Factory* factory);
-	void removeItem(Factory* factory);
 	void setSelected(Factory*);
 
 	Factory* selectedFactory();

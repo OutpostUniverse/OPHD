@@ -75,26 +75,6 @@ void StructureListBox::addItem(Structure* structure)
 
 
 /**
- * Removes a Factory from the FactoryListBox.
- * 
- * Specialized version of the default addItem(ListBoxItem*) function.
- */
-void StructureListBox::removeItem(Structure* structure)
-{
-	for (auto it = mItems.begin(); it != mItems.end(); ++it)
-	{
-		if (static_cast<StructureListBoxItem*>(*it)->structure == structure)
-		{
-			mItems.erase(it);
-			updateScrollLayout();
-			clearSelected();
-			return;
-		}
-	}
-}
-
-
-/**
  * Sets the current selection.
  * 
  * \param structure		Pointer to a Structure object. Save to pass \c nullptr.

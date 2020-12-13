@@ -85,26 +85,6 @@ void FactoryListBox::addItem(Factory* factory)
 
 
 /**
- * Removes a Factory from the FactoryListBox.
- * 
- * Specialized version of the default addItem(ListBoxItem*) function.
- */
-void FactoryListBox::removeItem(Factory* factory)
-{
-	for (auto it = mItems.begin(); it != mItems.end(); ++it)
-	{
-		if (static_cast<FactoryListBoxItem*>(*it)->factory == factory)
-		{
-			mItems.erase(it);
-			updateScrollLayout();
-			clearSelected();
-			return;
-		}
-	}
-}
-
-
-/**
  * Sets the current selection.
  * 
  * \param f	Pointer to a Factory object. Safe to pass \c nullptr.
