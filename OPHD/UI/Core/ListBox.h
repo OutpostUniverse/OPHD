@@ -106,7 +106,7 @@ private:
 
 	NAS2D::Color mBackgroundColorNormal = NAS2D::Color{0, 85, 0, 220};
 	NAS2D::Color mBackgroundColorMouseHover = NAS2D::Color::DarkGreen;
-	NAS2D::Color mBackgroundColorSelected = NAS2D::Color::DarkGreen.alphaFade(80);
+	NAS2D::Color mBackgroundColorSelected = NAS2D::Color{0, 100, 0, 231};
 
 	NAS2D::Color mTextColorNormal = NAS2D::Color::White;
 	NAS2D::Color mTextColorMouseHover = NAS2D::Color::White;

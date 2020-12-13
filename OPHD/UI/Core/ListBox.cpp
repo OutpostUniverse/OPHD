@@ -168,7 +168,6 @@ void ListBox::update()
 
 	const auto borderColor = hasFocus() ? mBorderColorActive : mBorderColorNormal;
 	renderer.drawBox(mRect, borderColor);
-	renderer.drawBoxFilled(mScrollArea, mBackgroundColorNormal);
 
 	renderer.clipRect(mRect);
 
@@ -187,10 +186,8 @@ void ListBox::update()
 		const auto textColor = isHighlighted ? mTextColorMouseHover : mTextColorNormal;
 
 		// Draw background rect
-		if (isSelected)
-		{
-			renderer.drawBoxFilled(itemDrawArea, mBackgroundColorSelected);
-		}
+		const auto backgroundColor = isSelected ? mBackgroundColorSelected : mBackgroundColorNormal;
+		renderer.drawBoxFilled(itemDrawArea, backgroundColor);
 
 		// Draw highlight on mouse over
 		if (isHighlighted)
@@ -203,6 +200,10 @@ void ListBox::update()
 
 		itemDrawArea.y += mLineHeight;
 	}
+
+	// Paint remaining section of scroll area not covered by items
+	itemDrawArea.height = mScrollArea.endPoint().y - itemDrawArea.startPoint().y;
+	renderer.drawBoxFilled(itemDrawArea, mBackgroundColorNormal);
 
 	renderer.clipRectClear();
 
