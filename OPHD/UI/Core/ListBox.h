@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <utility>
 #include <cstddef>
 
 
@@ -41,6 +42,12 @@ public:
 
 	bool isEmpty() const;
 	std::size_t count() const { return mItems.size(); }
+
+	template <typename... Args>
+	void add(Args&&... args) {
+		mItems.emplace_back(ListBoxItem{std::forward<Args>(args)...});
+		updateScrollLayout();
+	}
 
 	void addItem(const std::string& item, int tag = 0);
 	void clear();
