@@ -86,18 +86,6 @@ void ListBox::updateScrollLayout()
 }
 
 
-/**
- * Adds an item to the Menu.
- *
- * \param	item	Item to add.
- */
-void ListBox::addItem(const std::string& item, int tag)
-{
-	mItems.push_back(ListBoxItem{item, tag});
-	updateScrollLayout();
-}
-
-
 bool ListBox::isItemSelected() const
 {
 	return mSelectedIndex != constants::NO_SELECTION;

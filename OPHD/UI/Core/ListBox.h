@@ -49,7 +49,6 @@ public:
 		updateScrollLayout();
 	}
 
-	void addItem(const std::string& item, int tag = 0);
 	void clear();
 	void sort();
 
