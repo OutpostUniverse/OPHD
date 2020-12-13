@@ -188,9 +188,12 @@ void ListBox::update()
 	}
 
 	// display actuals values that are meant to be
+	const auto firstVisibleIndex = mScrollOffsetInPixels / mLineHeight;
+	const auto lastVisibleIndex = (mScrollOffsetInPixels + mScrollArea.height + (mLineHeight - 1)) / mLineHeight;
+	const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
 	auto textPosition = mScrollArea.startPoint();
-	textPosition += {constants::MARGIN_TIGHT, -static_cast<int>(mScrollOffsetInPixels)};
-	for(std::size_t i = 0; i < mItems.size(); i++)
+	textPosition += {constants::MARGIN_TIGHT, -static_cast<int>(mScrollOffsetInPixels % mLineHeight)};
+	for(std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
 	{
 		const auto textColor = (i == mHighlightIndex) ? mTextColorMouseHover : mTextColorNormal;
 		renderer.drawTextShadow(mFont, mItems[i].text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
