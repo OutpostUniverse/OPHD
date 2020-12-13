@@ -76,10 +76,7 @@ void FactoryListBox::addItem(Factory* factory)
 		(text == constants::UNDERGROUND_FACTORY) ? NAS2D::Point<int>{138, 276} :
 		(text == constants::SEED_FACTORY) ? NAS2D::Point<int>{460, 368} :
 		NAS2D::Point<int>{0, 46}; // Surface factory
-	mItems.push_back(new FactoryListBoxItem(factory));
-	FactoryListBoxItem* item = static_cast<FactoryListBoxItem*>(mItems.back());
-	item->text = text;
-	item->icon_slice = iconPosition;
+	mItems.push_back(new FactoryListBoxItem{text, factory, iconPosition});
 
 	updateScrollLayout();
 }

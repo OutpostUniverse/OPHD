@@ -22,7 +22,11 @@ public:
 
 	struct FactoryListBoxItem : public ListBoxItem
 	{
-		FactoryListBoxItem(Factory* newFactory) : factory(newFactory) {}
+		FactoryListBoxItem(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition) :
+			ListBoxItem{textDescription},
+			factory{newFactory},
+			icon_slice{iconPosition}
+		{}
 
 		Factory* factory = nullptr;
 		NAS2D::Point<int> icon_slice;
