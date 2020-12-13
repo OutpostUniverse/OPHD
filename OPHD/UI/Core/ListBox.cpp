@@ -191,13 +191,15 @@ void ListBox::update()
 	const auto firstVisibleIndex = mScrollOffsetInPixels / mLineHeight;
 	const auto lastVisibleIndex = (mScrollOffsetInPixels + mScrollArea.height + (mLineHeight - 1)) / mLineHeight;
 	const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
-	auto textPosition = mScrollArea.startPoint();
-	textPosition += {constants::MARGIN_TIGHT, -static_cast<int>(mScrollOffsetInPixels % mLineHeight)};
+	auto itemDrawArea = mScrollArea;
+	itemDrawArea.y += -static_cast<int>(mScrollOffsetInPixels % mLineHeight);
+	itemDrawArea.height = static_cast<int>(mLineHeight);
 	for(std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
 	{
+		const auto textPosition = itemDrawArea.startPoint() + NAS2D::Vector{constants::MARGIN_TIGHT, 0};
 		const auto textColor = (i == mHighlightIndex) ? mTextColorMouseHover : mTextColorNormal;
 		renderer.drawTextShadow(mFont, mItems[i].text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
-		textPosition.y += mLineHeight;
+		itemDrawArea.y += mLineHeight;
 	}
 
 	renderer.clipRectClear();
