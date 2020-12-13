@@ -189,19 +189,6 @@ void ListBoxBase::slideChanged(float newPosition)
 
 
 /**
- * Adds a ListBoxItem.
- * 
- * \warning	Requires a pointer to a ListBoxItem -- memory is owned
- *			and managed by ListBoxBase.
- */
-void ListBoxBase::addItem(ListBoxItem* item)
-{
-	auto it = std::find(mItems.begin(), mItems.end(), item);
-	if (it == mItems.end()) { mItems.push_back(item); }
-}
-
-
-/**
  * Clears all items from the list.
  */
 void ListBoxBase::clear()

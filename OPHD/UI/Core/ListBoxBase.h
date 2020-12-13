@@ -49,7 +49,6 @@ public:
 	bool isEmpty() const;
 	std::size_t count() const;
 
-	void addItem(ListBoxItem*);
 	void clear();
 
 	bool isItemSelected() const;
