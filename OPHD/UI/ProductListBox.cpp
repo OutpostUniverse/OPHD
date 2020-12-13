@@ -28,12 +28,13 @@ void ProductListBox::productPool(ProductPool& pool)
 
 	for (std::size_t product_type = 0; product_type < static_cast<std::size_t>(ProductType::PRODUCT_COUNT); ++product_type)
 	{
-		if (pool.count(static_cast<ProductType>(product_type)) > 0)
+		const auto productCount = pool.count(static_cast<ProductType>(product_type));
+		if (productCount > 0)
 		{
 			ProductListBoxItem* item = new ProductListBoxItem();
 			item->text = productDescription(static_cast<ProductType>(product_type));
-			item->count = pool.count(static_cast<ProductType>(product_type));
-			item->usage = static_cast<float>(item->count) / static_cast<float>(pool.capacity());
+			item->count = productCount;
+			item->usage = static_cast<float>(productCount) / static_cast<float>(pool.capacity());
 			mItems.push_back(item);
 		}
 	}
