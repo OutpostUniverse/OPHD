@@ -20,7 +20,7 @@ namespace NAS2D {
 }
 
 
-struct ListBoxItem
+struct ListBoxItemText
 {
 	std::string text; /**< Text of the ListBoxItem. */
 	int tag = 0; /**< User defined int data attached to the item. */
@@ -46,7 +46,7 @@ struct ListBoxItem
 	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted);
 
 	bool operator==(const std::string& rhs) { return text == rhs; }
-	bool operator<(const ListBoxItem& lhs) { return text < lhs.text; }
+	bool operator<(const ListBoxItemText& lhs) { return text < lhs.text; }
 };
 
 
@@ -57,6 +57,7 @@ class ListBox : public Control
 {
 public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
+	using ListBoxItem = ListBoxItemText;
 
 	ListBox();
 	~ListBox() override;

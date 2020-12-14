@@ -15,13 +15,13 @@
 using namespace NAS2D;
 
 
-unsigned int ListBoxItem::Context::itemHeight() const
+unsigned int ListBoxItemText::Context::itemHeight() const
 {
 	return font.height() + constants::MARGIN_TIGHT;
 }
 
 
-void ListBoxItem::draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, const Context& context, bool isSelected, bool isHighlighted)
+void ListBoxItemText::draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, const Context& context, bool isSelected, bool isHighlighted)
 {
 	// Draw background rect
 	const auto backgroundColor = isSelected ? context.backgroundColorSelected : context.backgroundColorNormal;
@@ -116,7 +116,7 @@ bool ListBox::isItemSelected() const
 }
 
 
-const ListBoxItem& ListBox::selected() const
+const ListBox::ListBoxItem& ListBox::selected() const
 {
 	if (mSelectedIndex == constants::NO_SELECTION)
 	{
