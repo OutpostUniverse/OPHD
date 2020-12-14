@@ -2,21 +2,24 @@
 
 #include "Control.h"
 #include "Slider.h"
+#include "../../Cache.h"
 #include "../../Constants/UiConstants.h"
 
+#include <NAS2D/Utility.h>
 #include <NAS2D/Signal.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Color.h>
+#include <NAS2D/Renderer/Renderer.h>
 
 #include <string>
 #include <vector>
 #include <utility>
 #include <cstddef>
+#include <cmath>
 
 
 namespace NAS2D {
 	class Font;
-	class Renderer;
 }
 
 
@@ -56,10 +59,31 @@ public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
 	using ListBoxItem = ListBoxItemText;
 
-	ListBox();
-	~ListBox() override;
+	ListBox() :
+		mContext{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
+	{
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
 
-	bool isEmpty() const;
+		mSlider.displayPosition(false);
+		mSlider.length(0);
+		mSlider.thumbPosition(0);
+		mSlider.change().connect(this, &ListBox::slideChanged);
+		updateScrollLayout();
+	}
+
+	~ListBox() override {
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect(this, &ListBox::onMouseDown);
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect(this, &ListBox::onMouseMove);
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().disconnect(this, &ListBox::onMouseWheel);
+
+		mSlider.change().disconnect(this, &ListBox::slideChanged);
+	}
+
+	bool isEmpty() const {
+		return mItems.empty();
+	}
 
 	std::size_t count() const {
 		return mItems.size();
@@ -71,11 +95,27 @@ public:
 		updateScrollLayout();
 	}
 
-	void clear();
+	void clear() {
+		mItems.clear();
+		mSelectedIndex = constants::NO_SELECTION;
+		mHighlightIndex = constants::NO_SELECTION;
+		updateScrollLayout();
+	}
 
-	bool isItemSelected() const;
 
-	const ListBoxItem& selected() const;
+	bool isItemSelected() const {
+		return mSelectedIndex != constants::NO_SELECTION;
+	}
+
+	const ListBoxItem& selected() const {
+		if (mSelectedIndex == constants::NO_SELECTION)
+		{
+			throw std::runtime_error("ListBox has no selected item");
+		}
+
+		return mItems[mSelectedIndex];
+	}
+
 
 	std::size_t selectedIndex() const {
 		return mSelectedIndex;
@@ -108,23 +148,120 @@ public:
 		return mContext.itemHeight();
 	}
 
-	void update() override;
+	void update() override {
+		// Ignore if menu is empty or invisible
+		if (!visible()) { return; }
+
+		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+
+		const auto borderColor = hasFocus() ? mContext.borderColorActive : mContext.borderColorNormal;
+		renderer.drawBox(mRect, borderColor);
+
+		renderer.clipRect(mRect);
+
+		// display actuals values that are meant to be
+		const auto lineHeight = mContext.itemHeight();
+		const auto firstVisibleIndex = mScrollOffsetInPixels / lineHeight;
+		const auto lastVisibleIndex = (mScrollOffsetInPixels + mScrollArea.height + (lineHeight - 1)) / lineHeight;
+		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
+		auto itemDrawArea = mScrollArea;
+		itemDrawArea.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
+		itemDrawArea.height = static_cast<int>(lineHeight);
+		for(std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
+		{
+			const auto isSelected = (i == mSelectedIndex);
+			const auto isHighlighted = (i == mHighlightIndex);
+
+			mItems[i].draw(renderer, itemDrawArea, mContext, isSelected, isHighlighted);
+
+			itemDrawArea.y += lineHeight;
+		}
+
+		// Paint remaining section of scroll area not covered by items
+		itemDrawArea.height = mScrollArea.endPoint().y - itemDrawArea.startPoint().y;
+		renderer.drawBoxFilled(itemDrawArea, mContext.backgroundColorNormal);
+
+		renderer.clipRectClear();
+
+		mSlider.update();
+	}
 
 	SelectionChangedCallback& selectionChanged() {
 		return mSelectionChanged;
 	}
 
 protected:
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
-	virtual void onMouseMove(int x, int y, int relX, int relY);
-	void onMouseWheel(int x, int y);
-	virtual void slideChanged(float newPosition);
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, int x, int y) {
+		if (!visible() || mHighlightIndex == constants::NO_SELECTION || mHighlightIndex >= mItems.size() || !mScrollArea.contains({x, y}))
+		{
+			return;
+		}
 
-	void visibilityChanged(bool visible) override;
+		setSelected(mHighlightIndex);
+	}
+
+	virtual void onMouseMove(int x, int y, int /*relX*/, int /*relY*/) {
+		if (!visible() || !mScrollArea.contains({x, y}))
+		{
+			mHighlightIndex = constants::NO_SELECTION;
+			return;
+		}
+
+		mHighlightIndex = (static_cast<std::size_t>(y - mScrollArea.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
+		if (mHighlightIndex >= mItems.size())
+		{
+			mHighlightIndex = constants::NO_SELECTION;
+		}
+	}
+
+	void onMouseWheel(int /*x*/, int y) {
+		if (isEmpty() || !visible()) { return; }
+
+		mSlider.changeThumbPosition((y < 0 ? 16.0f : -16.0f));
+	}
+
+	virtual void slideChanged(float newPosition) {
+		updateScrollLayout();
+		// Intentional truncation of fractional value
+		const auto pos = std::floor(newPosition);
+		if (pos != newPosition)
+		{
+			mSlider.thumbPosition(pos);
+		}
+	}
+
+
+	void visibilityChanged(bool /*visible*/) override {
+		updateScrollLayout();
+	}
 
 private:
-	void onSizeChanged() override;
-	void updateScrollLayout();
+	void onSizeChanged() override {
+		updateScrollLayout();
+	}
+
+	void updateScrollLayout() {
+		// Account for border around control
+		mScrollArea = mRect.inset(1);
+
+		const auto neededDisplaySize = mContext.itemHeight() * mItems.size();
+		if (neededDisplaySize > static_cast<std::size_t>(mRect.height))
+		{
+			mSlider.position({rect().x + mRect.width - 14, mRect.y});
+			mSlider.size({14, mRect.height});
+			mSlider.length(static_cast<float>(static_cast<int>(neededDisplaySize) - mRect.height));
+			mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.thumbPosition());
+			mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
+			mSlider.visible(true);
+		}
+		else
+		{
+			mScrollOffsetInPixels = 0;
+			mSlider.length(0);
+			mSlider.visible(false);
+		}
+	}
+
 
 	ListBoxItem::Context mContext;
 
