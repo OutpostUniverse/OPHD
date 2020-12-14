@@ -49,7 +49,7 @@ private:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
 	Button btnDown;
-	ListBox lstItems;
+	ListBox<> lstItems;
 	TextField txtField;
 
 	NAS2D::Rectangle<int> mBaseArea;
