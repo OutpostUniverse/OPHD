@@ -50,5 +50,5 @@ private:
 
 	TextField txtFileName;
 
-	ListBox mListBox;
+	ListBox<> mListBox;
 };

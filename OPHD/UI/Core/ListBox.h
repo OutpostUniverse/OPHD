@@ -53,11 +53,11 @@ struct ListBoxItemText
 /**
  * Implements a ListBox control.
  */
+template <typename ListBoxItem = ListBoxItemText>
 class ListBox : public Control
 {
 public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
-	using ListBoxItem = ListBoxItemText;
 
 	ListBox() :
 		mContext{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
@@ -263,7 +263,7 @@ private:
 	}
 
 
-	ListBoxItem::Context mContext;
+	typename ListBoxItem::Context mContext;
 
 	std::size_t mHighlightIndex = constants::NO_SELECTION;
 	std::size_t mSelectedIndex = 0;

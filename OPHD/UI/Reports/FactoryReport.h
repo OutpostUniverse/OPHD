@@ -93,7 +93,7 @@ private:
 
 	FactoryListBox lstFactoryList;
 
-	ListBox lstProducts;
+	ListBox<> lstProducts;
 
 	TextArea txtProductDescription;
 
