@@ -47,6 +47,8 @@ public:
 
 			NAS2D::Color textColorNormal = NAS2D::Color::White;
 			NAS2D::Color textColorMouseHover = NAS2D::Color::White;
+
+			unsigned int itemHeight() const;
 		};
 
 		void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted);
@@ -89,7 +91,7 @@ public:
 
 	std::size_t currentHighlight() const { return mHighlightIndex; }
 
-	unsigned int lineHeight() const { return mLineHeight; }
+	unsigned int lineHeight() const { return mContext.itemHeight(); }
 
 	void update() override;
 
@@ -112,8 +114,6 @@ private:
 	std::size_t mHighlightIndex = constants::NO_SELECTION;
 	std::size_t mSelectedIndex = 0;
 	std::size_t mScrollOffsetInPixels = 0;
-
-	unsigned int mLineHeight = 0; /**< Height of an item line. */
 
 	std::vector<ListBoxItem> mItems; /**< List of items preserved in the order in which they're added. */
 

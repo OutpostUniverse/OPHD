@@ -15,6 +15,12 @@
 using namespace NAS2D;
 
 
+unsigned int ListBox::ListBoxItem::Context::itemHeight() const
+{
+	return font.height() + constants::MARGIN_TIGHT;
+}
+
+
 void ListBox::ListBoxItem::draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, const Context& context, bool isSelected, bool isHighlighted)
 {
 	// Draw background rect
@@ -35,8 +41,7 @@ void ListBox::ListBoxItem::draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int>
 
 
 ListBox::ListBox() :
-	mContext{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
-	mLineHeight{static_cast<unsigned int>(mContext.font.height() + constants::MARGIN_TIGHT)}
+	mContext{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
@@ -86,7 +91,7 @@ void ListBox::updateScrollLayout()
 	// Account for border around control
 	mScrollArea = mRect.inset(1);
 
-	const auto neededDisplaySize = mLineHeight * mItems.size();
+	const auto neededDisplaySize = mContext.itemHeight() * mItems.size();
 	if (neededDisplaySize > static_cast<std::size_t>(mRect.height))
 	{
 		mSlider.position({rect().x + mRect.width - 14, mRect.y});
@@ -159,7 +164,7 @@ void ListBox::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 
-	mHighlightIndex = (static_cast<std::size_t>(y - mScrollArea.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mLineHeight);
+	mHighlightIndex = (static_cast<std::size_t>(y - mScrollArea.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
 	if (mHighlightIndex >= mItems.size())
 	{
 		mHighlightIndex = constants::NO_SELECTION;
@@ -191,12 +196,13 @@ void ListBox::update()
 	renderer.clipRect(mRect);
 
 	// display actuals values that are meant to be
-	const auto firstVisibleIndex = mScrollOffsetInPixels / mLineHeight;
-	const auto lastVisibleIndex = (mScrollOffsetInPixels + mScrollArea.height + (mLineHeight - 1)) / mLineHeight;
+	const auto lineHeight = mContext.itemHeight();
+	const auto firstVisibleIndex = mScrollOffsetInPixels / lineHeight;
+	const auto lastVisibleIndex = (mScrollOffsetInPixels + mScrollArea.height + (lineHeight - 1)) / lineHeight;
 	const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
 	auto itemDrawArea = mScrollArea;
-	itemDrawArea.y += -static_cast<int>(mScrollOffsetInPixels % mLineHeight);
-	itemDrawArea.height = static_cast<int>(mLineHeight);
+	itemDrawArea.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
+	itemDrawArea.height = static_cast<int>(lineHeight);
 	for(std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
 	{
 		const auto isSelected = (i == mSelectedIndex);
@@ -204,7 +210,7 @@ void ListBox::update()
 
 		mItems[i].draw(renderer, itemDrawArea, mContext, isSelected, isHighlighted);
 
-		itemDrawArea.y += mLineHeight;
+		itemDrawArea.y += lineHeight;
 	}
 
 	// Paint remaining section of scroll area not covered by items
