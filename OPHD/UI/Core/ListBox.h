@@ -16,26 +16,48 @@
 
 namespace NAS2D {
 	class Font;
+	class Renderer;
 }
+
+
+struct ListBoxItemText
+{
+	std::string text; /**< Text of the ListBoxItem. */
+	int tag = 0; /**< User defined int data attached to the item. */
+
+	struct Context
+	{
+		const NAS2D::Font& font;
+
+		NAS2D::Color borderColorNormal = NAS2D::Color{75, 75, 75};
+		NAS2D::Color borderColorActive = NAS2D::Color{0, 185, 0};
+
+		NAS2D::Color itemBorderColorMouseHover = NAS2D::Color::DarkGreen;
+
+		NAS2D::Color backgroundColorNormal = NAS2D::Color{0, 85, 0, 220};
+		NAS2D::Color backgroundColorSelected = NAS2D::Color{0, 100, 0, 231};
+
+		NAS2D::Color textColorNormal = NAS2D::Color::White;
+		NAS2D::Color textColorMouseHover = NAS2D::Color::White;
+
+		unsigned int itemHeight() const;
+	};
+
+	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted);
+
+	bool operator==(const std::string& rhs) { return text == rhs; }
+	bool operator<(const ListBoxItemText& lhs) { return text < lhs.text; }
+};
 
 
 /**
  * Implements a ListBox control.
  */
-class ListBox: public Control
+class ListBox : public Control
 {
 public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
-
-	struct ListBoxItem
-	{
-		std::string text; /**< Text of the ListBoxItem. */
-		int tag = 0; /**< User defined int data attached to the item. */
-
-		bool operator==(const std::string& rhs) { return text == rhs; }
-		bool operator<(const ListBoxItem& lhs) { return text < lhs.text; }
-	};
-
+	using ListBoxItem = ListBoxItemText;
 
 	ListBox();
 	~ListBox() override;
@@ -70,7 +92,7 @@ public:
 
 	std::size_t currentHighlight() const { return mHighlightIndex; }
 
-	unsigned int lineHeight() const { return mLineHeight; }
+	unsigned int lineHeight() const { return mContext.itemHeight(); }
 
 	void update() override;
 
@@ -88,28 +110,15 @@ private:
 	void onSizeChanged() override;
 	void updateScrollLayout();
 
-
-	const NAS2D::Font& mFont;
+	ListBoxItem::Context mContext;
 
 	std::size_t mHighlightIndex = constants::NO_SELECTION;
 	std::size_t mSelectedIndex = 0;
 	std::size_t mScrollOffsetInPixels = 0;
 
-	unsigned int mLineHeight = 0; /**< Height of an item line. */
-
 	std::vector<ListBoxItem> mItems; /**< List of items preserved in the order in which they're added. */
 
 	NAS2D::Rectangle<int> mScrollArea;
-
-	NAS2D::Color mBorderColorNormal = NAS2D::Color{75, 75, 75};
-	NAS2D::Color mBorderColorActive = NAS2D::Color{0, 185, 0};
-
-	NAS2D::Color mBackgroundColorNormal = NAS2D::Color{0, 85, 0, 220};
-	NAS2D::Color mBackgroundColorMouseHover = NAS2D::Color::DarkGreen;
-	NAS2D::Color mBackgroundColorSelected = NAS2D::Color::DarkGreen.alphaFade(80);
-
-	NAS2D::Color mTextColorNormal = NAS2D::Color::White;
-	NAS2D::Color mTextColorMouseHover = NAS2D::Color::White;
 
 	SelectionChangedCallback mSelectionChanged; /**< Callback for selection changed callback. */
 	Slider mSlider;
