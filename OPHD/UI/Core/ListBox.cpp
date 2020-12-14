@@ -139,12 +139,6 @@ void ListBox::clear()
 }
 
 
-void ListBox::sort()
-{
-	std::sort(mItems.begin(), mItems.end());
-}
-
-
 void ListBox::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	if (!visible() || mHighlightIndex == constants::NO_SELECTION || mHighlightIndex >= mItems.size() || !mScrollArea.contains({x, y}))

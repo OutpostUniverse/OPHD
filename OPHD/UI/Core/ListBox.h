@@ -44,9 +44,6 @@ struct ListBoxItemText
 	};
 
 	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted);
-
-	bool operator==(const std::string& rhs) { return text == rhs; }
-	bool operator<(const ListBoxItemText& lhs) { return text < lhs.text; }
 };
 
 
@@ -72,7 +69,6 @@ public:
 	}
 
 	void clear();
-	void sort();
 
 	bool isItemSelected() const;
 	const ListBoxItem& selected() const;
