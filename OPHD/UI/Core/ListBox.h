@@ -53,7 +53,7 @@ struct ListBoxItem
 /**
  * Implements a ListBox control.
  */
-class ListBox: public Control
+class ListBox : public Control
 {
 public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
