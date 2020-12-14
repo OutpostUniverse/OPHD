@@ -72,7 +72,6 @@ public:
 	}
 
 	void clear();
-	void sort();
 
 	bool isItemSelected() const;
 	const ListBoxItem& selected() const;
