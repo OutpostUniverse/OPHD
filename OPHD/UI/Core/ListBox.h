@@ -20,6 +20,36 @@ namespace NAS2D {
 }
 
 
+struct ListBoxItem
+{
+	std::string text; /**< Text of the ListBoxItem. */
+	int tag = 0; /**< User defined int data attached to the item. */
+
+	struct Context
+	{
+		const NAS2D::Font& font;
+
+		NAS2D::Color borderColorNormal = NAS2D::Color{75, 75, 75};
+		NAS2D::Color borderColorActive = NAS2D::Color{0, 185, 0};
+
+		NAS2D::Color itemBorderColorMouseHover = NAS2D::Color::DarkGreen;
+
+		NAS2D::Color backgroundColorNormal = NAS2D::Color{0, 85, 0, 220};
+		NAS2D::Color backgroundColorSelected = NAS2D::Color{0, 100, 0, 231};
+
+		NAS2D::Color textColorNormal = NAS2D::Color::White;
+		NAS2D::Color textColorMouseHover = NAS2D::Color::White;
+
+		unsigned int itemHeight() const;
+	};
+
+	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted);
+
+	bool operator==(const std::string& rhs) { return text == rhs; }
+	bool operator<(const ListBoxItem& lhs) { return text < lhs.text; }
+};
+
+
 /**
  * Implements a ListBox control.
  */
@@ -27,36 +57,6 @@ class ListBox: public Control
 {
 public:
 	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
-
-	struct ListBoxItem
-	{
-		std::string text; /**< Text of the ListBoxItem. */
-		int tag = 0; /**< User defined int data attached to the item. */
-
-		struct Context
-		{
-			const NAS2D::Font& font;
-
-			NAS2D::Color borderColorNormal = NAS2D::Color{75, 75, 75};
-			NAS2D::Color borderColorActive = NAS2D::Color{0, 185, 0};
-
-			NAS2D::Color itemBorderColorMouseHover = NAS2D::Color::DarkGreen;
-
-			NAS2D::Color backgroundColorNormal = NAS2D::Color{0, 85, 0, 220};
-			NAS2D::Color backgroundColorSelected = NAS2D::Color{0, 100, 0, 231};
-
-			NAS2D::Color textColorNormal = NAS2D::Color::White;
-			NAS2D::Color textColorMouseHover = NAS2D::Color::White;
-
-			unsigned int itemHeight() const;
-		};
-
-		void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted);
-
-		bool operator==(const std::string& rhs) { return text == rhs; }
-		bool operator<(const ListBoxItem& lhs) { return text < lhs.text; }
-	};
-
 
 	ListBox();
 	~ListBox() override;
