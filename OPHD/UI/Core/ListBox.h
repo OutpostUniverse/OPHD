@@ -60,7 +60,10 @@ public:
 	~ListBox() override;
 
 	bool isEmpty() const;
-	std::size_t count() const { return mItems.size(); }
+
+	std::size_t count() const {
+		return mItems.size();
+	}
 
 	template <typename... Args>
 	void add(Args&&... args) {
@@ -71,10 +74,21 @@ public:
 	void clear();
 
 	bool isItemSelected() const;
+
 	const ListBoxItem& selected() const;
-	std::size_t selectedIndex() const { return mSelectedIndex; }
-	void setSelected(std::size_t index) { mSelectedIndex = index; mSelectionChanged(); }
-	void clearSelected() { mSelectedIndex = constants::NO_SELECTION; }
+
+	std::size_t selectedIndex() const {
+		return mSelectedIndex;
+	}
+
+	void setSelected(std::size_t index) {
+		mSelectedIndex = index;
+		mSelectionChanged();
+	}
+
+	void clearSelected() {
+		mSelectedIndex = constants::NO_SELECTION;
+	}
 
 	template <typename UnaryPredicate>
 	void selectIf(UnaryPredicate predicate) {
@@ -86,13 +100,19 @@ public:
 		}
 	}
 
-	std::size_t currentHighlight() const { return mHighlightIndex; }
+	std::size_t currentHighlight() const {
+		return mHighlightIndex;
+	}
 
-	unsigned int lineHeight() const { return mContext.itemHeight(); }
+	unsigned int lineHeight() const {
+		return mContext.itemHeight();
+	}
 
 	void update() override;
 
-	SelectionChangedCallback& selectionChanged() { return mSelectionChanged; }
+	SelectionChangedCallback& selectionChanged() {
+		return mSelectionChanged;
+	}
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
