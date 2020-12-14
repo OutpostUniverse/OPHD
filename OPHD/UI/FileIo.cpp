@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 
 using namespace NAS2D;
@@ -101,9 +102,9 @@ void FileIo::scanDirectory(const std::string& directory)
 {
 	Filesystem& f = Utility<Filesystem>::get();
 	std::vector<std::string> dirList = f.directoryList(directory);
+	std::sort(dirList.begin(), dirList.end());
 
 	mListBox.clear();
-
 	for (auto& dir : dirList)
 	{
 		if (!f.isDirectory(directory + dir))
@@ -113,7 +114,6 @@ void FileIo::scanDirectory(const std::string& directory)
 			mListBox.add(dir);
 		}
 	}
-	mListBox.sort();
 }
 
 
