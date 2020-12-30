@@ -3,6 +3,7 @@
 #include <NAS2D/Renderer/Color.h>
 
 #include <limits>
+#include <string>
 
 
 namespace constants
