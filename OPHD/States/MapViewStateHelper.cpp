@@ -186,7 +186,7 @@ bool validLanderSite(Tile& tile)
  */
 bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
 {
-	for (const auto offset : DirectionScan3x3)
+	for (const auto& offset : DirectionScan3x3)
 	{
 		auto& tile = tilemap->getTile(position + offset);
 

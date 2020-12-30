@@ -242,7 +242,7 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 	 *			a digger gets in the way (or should diggers be smarter than
 	 *			puncturing a fusion reactor containment vessel?)
 	 */
-	for (const auto offset : DirectionScan3x3)
+	for (const auto& offset : DirectionScan3x3)
 	{
 		mTileMap->getTile(origin + offset, newDepth).excavated(true);
 	}
