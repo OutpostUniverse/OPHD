@@ -53,7 +53,7 @@ jobs:
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
-      - run: make --keep-going --jobs 2 CXXFLAGS_EXTRA="-Werror" intermediate
+      - run: make --keep-going --jobs 8 CXXFLAGS_EXTRA="-Werror" intermediate
   build-macos:
     macos:
       xcode: "12.3.0"
