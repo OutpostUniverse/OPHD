@@ -10,6 +10,22 @@ commands:
       - run: make package
       - store_artifacts:
           path: .build/package/
+  brew-install:
+    description: "Brew install MacOS dependencies (or restore from cache)"
+    parameters:
+      packages:
+        type: string
+    steps:
+      - restore_cache:
+          name: Restoring brew dependencies
+          key: deps-OPHD-v1-{{ arch }}
+      - run: HOMEBREW_NO_AUTO_UPDATE=1 brew install << parameters.packages >>
+      - save_cache:
+          name: Caching brew dependencies
+          key: deps-OPHD-v1-{{ arch }}
+          paths:
+            - /usr/local/Cellar
+      - run: brew link << parameters.packages >>
 
 jobs:
   build-linux:
@@ -38,6 +54,15 @@ jobs:
       - checkout
       - run: git submodule update --init nas2d-core/
       - run: make --keep-going --jobs 2 CXXFLAGS_EXTRA="-Werror" intermediate
+  build-macos:
+    macos:
+      xcode: "12.3.0"
+    environment:
+      - WARN_EXTRA: "-Wno-double-promotion"
+    steps:
+      - brew-install:
+          packages: physfs sdl2 sdl2_image sdl2_mixer sdl2_ttf libpng libjpeg libtiff webp libmodplug libvorbis libogg freetype glew googletest
+      - build
 
 workflows:
   build:
@@ -46,3 +71,4 @@ workflows:
       - build-linux-gcc
       - build-linux-clang
       - build-linux-mingw
+      - build-macos
