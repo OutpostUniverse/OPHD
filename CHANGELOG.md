@@ -1,7 +1,7 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.8.0] - YYYY-MM-DD
+## [0.8.0] - 2021-01-01
 
 Includes improved mined resource management and a proper implementation of truck routing for mines and mine to smelter routes.
 
