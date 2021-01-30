@@ -25,13 +25,22 @@ public:
 	}
 
 	int capacity() const { return mCapacity; }
+	int wasteCapacity() const { return 0; }
+	int wasteAccumulated() const { return 0; }
+	int pullWaste(int amount) { return 0; }
 
 	StringTable createInspectorViewTable() override
 	{
-		StringTable stringTable(2, 1);
+		StringTable stringTable(2, 3);
 
 		stringTable[{0, 0}].text = "Colonist Capacity:";
 		stringTable[{1, 0}].text = std::to_string(capacity());
+
+		stringTable[{0, 1}].text = "Waste Capacity:";
+		stringTable[{1, 1}].text = std::to_string(wasteCapacity());
+
+		stringTable[{0, 2}].text = "Waste Accumulated:";
+		stringTable[{1, 2}].text = std::to_string(wasteAccumulated());
 
 		return stringTable;
 	}
