@@ -25,8 +25,8 @@ public:
 	}
 
 	int capacity() const { return mCapacity; }
-	int wasteCapacity() const { return 0; }
-	int wasteAccumulated() const { return 0; }
+	int wasteCapacity() const { return mWasteCapacity; }
+	int wasteAccumulated() const { return mWasteAccumulated; }
 	int pullWaste(int amount) { return 0; }
 
 	StringTable createInspectorViewTable() override
@@ -51,6 +51,13 @@ protected:
 		energyRequired(2);
 	}
 
+	void think() override
+	{
+
+	}
+
 protected:
 	int mCapacity = 25; /**< Override this value in derived residences.*/
+	int mWasteCapacity = 50;
+	int mWasteAccumulated = 0;
 };
