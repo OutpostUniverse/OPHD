@@ -5,6 +5,9 @@
 #include <algorithm>
 
 
+const int ResidentialWasteCapacity = 1000;
+
+
 /**
  * \class	Residence
  * \brief	Base Residential structure.
@@ -27,8 +30,9 @@ public:
 	}
 
 	int capacity() const { return mCapacity; }
-	int wasteCapacity() const { return mWasteCapacity; }
+	int wasteCapacity() const { return ResidentialWasteCapacity; }
 	int wasteAccumulated() const { return mWasteAccumulated; }
+	int wasteOverflow() const { return mWasteOverflow; }
 	
 	int pullWaste(int amount)
 	{
@@ -68,7 +72,6 @@ protected:
 
 protected:
 	int mCapacity = 25; /**< Override this value in derived residences.*/
-	int mWasteCapacity = 50;
 	int mWasteAccumulated = 0;
 	int mWasteOverflow = 0;
 
