@@ -59,27 +59,38 @@ public:
 	}
 
 
+	int assignedColonists() const { return mAssignedColonists; }
+
+
 	StringTable createInspectorViewTable() override
 	{
-		StringTable stringTable(2, 3);
+		StringTable stringTable(2, 6);
 
 		stringTable[{0, 0}].text = "Colonist Capacity:";
 		stringTable[{1, 0}].text = std::to_string(capacity());
 
-		stringTable[{0, 1}].text = "Waste Capacity:";
-		stringTable[{1, 1}].text = std::to_string(wasteCapacity());
+		stringTable[{0, 1}].text = "Colonists Assigned:";
+		stringTable[{1, 1}].text = std::to_string(assignedColonists());
 
-		stringTable[{0, 2}].text = "Waste Accumulated:";
-		stringTable[{1, 2}].text = std::to_string(wasteAccumulated());
+		stringTable[{0, 3}].text = "Waste Capacity:";
+		stringTable[{1, 3}].text = std::to_string(wasteCapacity());
+
+		stringTable[{0, 4}].text = "Waste Accumulated:";
+		stringTable[{1, 4}].text = std::to_string(wasteAccumulated());
+
+		stringTable[{0, 5}].text = "Waste Overflow:";
+		stringTable[{1, 5}].text = std::to_string(wasteOverflow());
 
 		return stringTable;
 	}
+
 
 protected:
 	void defineResourceInput() override
 	{
 		energyRequired(2);
 	}
+
 
 	void think() override
 	{
