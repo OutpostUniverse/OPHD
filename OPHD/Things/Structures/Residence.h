@@ -32,9 +32,14 @@ public:
 
 
 	int capacity() const { return ResidentialColonistCapacityBase; }
+
 	int wasteCapacity() const { return ResidentialWasteCapacityBase; }
+
 	int wasteAccumulated() const { return mWasteAccumulated; }
+	void wasteAccumulated(int amount) { mWasteAccumulated = amount; }
+
 	int wasteOverflow() const { return mWasteOverflow; }
+	void wasteOverflow(int amount) { mWasteOverflow = amount; }
 	
 
 	int pullWaste(int amount)
