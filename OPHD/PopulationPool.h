@@ -19,6 +19,8 @@ public:
 	int workersEmployed();
 	int populationEmployed();
 
+	int size() const { return mPopulation->size(); }
+
 private:
 	int mScientistsAsWorkers{0};
 	int mScientistsUsed{0};

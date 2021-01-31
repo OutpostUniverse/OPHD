@@ -75,6 +75,8 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Road]);
 
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Undefined]);
+
+	assignColonistsToResidences(population);
 }
 
 
@@ -110,6 +112,21 @@ void StructureManager::updateEnergyConsumed()
 			{
 				mTotalEnergyUsed += structure->energyRequirement();
 			}
+		}
+	}
+}
+
+
+void StructureManager::assignColonistsToResidences(PopulationPool& population)
+{
+	int populationCount = population.size();
+	for (auto structure : mStructureLists[Structure::StructureClass::Residence])
+	{
+		Residence* residence = static_cast<Residence*>(structure);
+		if (residence->operational())
+		{
+			residence->assignColonists(populationCount);
+			populationCount -= residence->assignedColonists();
 		}
 	}
 }
@@ -433,6 +450,15 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 			auto* food = new NAS2D::Xml::XmlElement("food");
 			food->attribute("level", static_cast<FoodProduction*>(structure)->foodLevel());
 			structureElement->linkEndChild(food);
+		}
+
+		if (structure->structureClass() == Structure::StructureClass::Residence)
+		{
+			Residence* residence = static_cast<Residence*>(structure);
+			auto* waste = new NAS2D::Xml::XmlElement("waste");
+			waste->attribute("accumulated", residence->wasteAccumulated());
+			waste->attribute("overflow", residence->wasteOverflow());
+			structureElement->linkEndChild(waste);
 		}
 
 		structures->linkEndChild(structureElement);

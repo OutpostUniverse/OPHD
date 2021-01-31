@@ -191,6 +191,7 @@ void MapViewState::load(const std::string& filePath)
 
 	Utility<StructureManager>::get().updateEnergyProduction();
 	Utility<StructureManager>::get().updateEnergyConsumed();
+	Utility<StructureManager>::get().assignColonistsToResidences(mPopulationPool);
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
@@ -408,6 +409,21 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		loadResorucesFromXmlElement(structureNode->firstChildElement("production"), structure.production());
 		loadResorucesFromXmlElement(structureNode->firstChildElement("storage"), structure.storage());
+
+		if (structure.structureClass() == Structure::StructureClass::Residence)
+		{
+			auto waste = structureNode->firstChildElement("waste");
+			if (waste)
+			{
+				Residence* residence = static_cast<Residence*>(&structure);
+				auto accumulated = waste->attribute("accumulated");
+				residence->wasteAccumulated(std::stoi(accumulated));
+
+				auto overflow = waste->attribute("overflow");
+				residence->wasteOverflow(std::stoi(overflow));
+			}
+
+		}
 
 		if (structure.isWarehouse())
 		{

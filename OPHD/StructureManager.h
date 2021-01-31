@@ -46,6 +46,8 @@ public:
 	int totalEnergyUsed() const { return mTotalEnergyUsed; }
 	int totalEnergyAvailable() const { return mTotalEnergyOutput - mTotalEnergyUsed; }
 
+	void assignColonistsToResidences(PopulationPool&);
+
 	void update(const StorableResources&, PopulationPool&);
 
 	void serialize(NAS2D::Xml::XmlElement* element);
