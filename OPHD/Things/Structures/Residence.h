@@ -36,7 +36,17 @@ public:
 	
 	int pullWaste(int amount)
 	{
-		return 0;
+		const int pulledAmount = std::clamp(amount, 0, wasteAccumulated() + wasteOverflow());
+
+		const int pulledOverflow = std::clamp(pulledAmount, 0, wasteOverflow());
+		mWasteOverflow -= pulledOverflow;
+
+		if (pulledOverflow < amount)
+		{
+			mWasteAccumulated -= pulledAmount - pulledOverflow;
+		}
+
+		return pulledAmount;
 	}
 
 	int assignColonists(int amount) { mAssignedColonists = std::clamp(amount, 0, capacity()); }
