@@ -102,6 +102,7 @@ protected:
 		}
 	}
 
+
 protected:
 	int mWasteAccumulated = 0;
 	int mWasteOverflow = 0;
