@@ -75,6 +75,8 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Road]);
 
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Undefined]);
+
+	assignColonistsToResidences(population);
 }
 
 
@@ -110,6 +112,21 @@ void StructureManager::updateEnergyConsumed()
 			{
 				mTotalEnergyUsed += structure->energyRequirement();
 			}
+		}
+	}
+}
+
+
+void StructureManager::assignColonistsToResidences(PopulationPool& population)
+{
+	int populationCount = population.size();
+	for (auto structure : mStructureLists[Structure::StructureClass::Residence])
+	{
+		Residence* residence = static_cast<Residence*>(structure);
+		if (residence->operational())
+		{
+			residence->assignColonists(populationCount);
+			populationCount -= residence->assignedColonists();
 		}
 	}
 }
