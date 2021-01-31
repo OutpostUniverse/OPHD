@@ -452,6 +452,15 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 			structureElement->linkEndChild(food);
 		}
 
+		if (structure->structureClass() == Structure::StructureClass::Residence)
+		{
+			Residence* residence = static_cast<Residence*>(structure);
+			auto* waste = new NAS2D::Xml::XmlElement("waste");
+			waste->attribute("accumulated", residence->wasteAccumulated());
+			waste->attribute("overflow", residence->wasteOverflow());
+			structureElement->linkEndChild(waste);
+		}
+
 		structures->linkEndChild(structureElement);
 	}
 
