@@ -191,6 +191,7 @@ void MapViewState::load(const std::string& filePath)
 
 	Utility<StructureManager>::get().updateEnergyProduction();
 	Utility<StructureManager>::get().updateEnergyConsumed();
+	Utility<StructureManager>::get().assignColonistsToResidences(mPopulationPool);
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
