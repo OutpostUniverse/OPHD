@@ -94,9 +94,12 @@ protected:
 
 	void think() override
 	{
-		const int oldWasteAccumulated = mWasteAccumulated;
-		mWasteAccumulated = std::clamp(mAssignedColonists, 0, wasteCapacity());
-		mWasteOverflow += mWasteAccumulated - oldWasteAccumulated;
+		mWasteAccumulated += mAssignedColonists;
+		if (mWasteAccumulated > wasteCapacity())
+		{
+			mWasteOverflow += mWasteAccumulated - wasteCapacity();
+			mWasteAccumulated = wasteCapacity();
+		}
 	}
 
 protected:
