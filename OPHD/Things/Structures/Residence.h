@@ -67,7 +67,7 @@ protected:
 	{
 		const int oldWasteAccumulated = mWasteAccumulated;
 		mWasteAccumulated = std::clamp(mAssignedColonists, 0, wasteCapacity());
-		mWasteOverflow = mWasteAccumulated - oldWasteAccumulated;
+		mWasteOverflow += mWasteAccumulated - oldWasteAccumulated;
 	}
 
 protected:
