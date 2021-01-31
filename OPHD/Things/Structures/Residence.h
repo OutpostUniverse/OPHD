@@ -2,6 +2,8 @@
 
 #include "Structure.h"
 
+#include <algorithm>
+
 
 /**
  * \class	Residence
@@ -27,7 +29,13 @@ public:
 	int capacity() const { return mCapacity; }
 	int wasteCapacity() const { return mWasteCapacity; }
 	int wasteAccumulated() const { return mWasteAccumulated; }
-	int pullWaste(int amount) { return 0; }
+	
+	int pullWaste(int amount)
+	{
+		return 0;
+	}
+
+	int assignColonists(int amount) { mAssignedColonists = std::clamp(amount, 0, capacity()); }
 
 	StringTable createInspectorViewTable() override
 	{
@@ -53,11 +61,16 @@ protected:
 
 	void think() override
 	{
-
+		const int oldWasteAccumulated = mWasteAccumulated;
+		mWasteAccumulated = std::clamp(mAssignedColonists, 0, wasteCapacity());
+		mWasteOverflow = mWasteAccumulated - oldWasteAccumulated;
 	}
 
 protected:
 	int mCapacity = 25; /**< Override this value in derived residences.*/
 	int mWasteCapacity = 50;
 	int mWasteAccumulated = 0;
+	int mWasteOverflow = 0;
+
+	int mAssignedColonists = 0;
 };
