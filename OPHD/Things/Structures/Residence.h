@@ -2,6 +2,12 @@
 
 #include "Structure.h"
 
+#include <algorithm>
+
+
+const int ResidentialWasteCapacityBase = 1000;
+const int ResidentialColonistCapacityBase = 25;
+
 
 /**
  * \class	Residence
@@ -24,14 +30,47 @@ public:
 		requiresCHAP(true);
 	}
 
-	int capacity() const { return mCapacity; }
+
+	int capacity() const { return ResidentialColonistCapacityBase; }
+	int wasteCapacity() const { return ResidentialWasteCapacityBase; }
+	int wasteAccumulated() const { return mWasteAccumulated; }
+	int wasteOverflow() const { return mWasteOverflow; }
+	
+
+	int pullWaste(int amount)
+	{
+		const int pulledAmount = std::clamp(amount, 0, wasteAccumulated() + wasteOverflow());
+
+		const int pulledOverflow = std::clamp(pulledAmount, 0, wasteOverflow());
+		mWasteOverflow -= pulledOverflow;
+
+		if (pulledOverflow < amount)
+		{
+			mWasteAccumulated -= pulledAmount - pulledOverflow;
+		}
+
+		return pulledAmount;
+	}
+
+
+	void assignColonists(int amount)
+	{
+		mAssignedColonists = std::clamp(amount, 0, capacity());
+	}
+
 
 	StringTable createInspectorViewTable() override
 	{
-		StringTable stringTable(2, 1);
+		StringTable stringTable(2, 3);
 
 		stringTable[{0, 0}].text = "Colonist Capacity:";
 		stringTable[{1, 0}].text = std::to_string(capacity());
+
+		stringTable[{0, 1}].text = "Waste Capacity:";
+		stringTable[{1, 1}].text = std::to_string(wasteCapacity());
+
+		stringTable[{0, 2}].text = "Waste Accumulated:";
+		stringTable[{1, 2}].text = std::to_string(wasteAccumulated());
 
 		return stringTable;
 	}
@@ -42,6 +81,16 @@ protected:
 		energyRequired(2);
 	}
 
+	void think() override
+	{
+		const int oldWasteAccumulated = mWasteAccumulated;
+		mWasteAccumulated = std::clamp(mAssignedColonists, 0, wasteCapacity());
+		mWasteOverflow += mWasteAccumulated - oldWasteAccumulated;
+	}
+
 protected:
-	int mCapacity = 25; /**< Override this value in derived residences.*/
+	int mWasteAccumulated = 0;
+	int mWasteOverflow = 0;
+
+	int mAssignedColonists = 0;
 };
