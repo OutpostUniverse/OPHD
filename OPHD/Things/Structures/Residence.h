@@ -30,11 +30,13 @@ public:
 		requiresCHAP(true);
 	}
 
+
 	int capacity() const { return ResidentialColonistCapacityBase; }
 	int wasteCapacity() const { return ResidentialWasteCapacityBase; }
 	int wasteAccumulated() const { return mWasteAccumulated; }
 	int wasteOverflow() const { return mWasteOverflow; }
 	
+
 	int pullWaste(int amount)
 	{
 		const int pulledAmount = std::clamp(amount, 0, wasteAccumulated() + wasteOverflow());
@@ -50,7 +52,12 @@ public:
 		return pulledAmount;
 	}
 
-	int assignColonists(int amount) { mAssignedColonists = std::clamp(amount, 0, capacity()); }
+
+	void assignColonists(int amount)
+	{
+		mAssignedColonists = std::clamp(amount, 0, capacity());
+	}
+
 
 	StringTable createInspectorViewTable() override
 	{
