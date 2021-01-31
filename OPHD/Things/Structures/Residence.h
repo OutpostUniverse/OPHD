@@ -5,7 +5,8 @@
 #include <algorithm>
 
 
-const int ResidentialWasteCapacity = 1000;
+const int ResidentialWasteCapacityBase = 1000;
+const int ResidentialColonistCapacityBase = 25;
 
 
 /**
@@ -29,8 +30,8 @@ public:
 		requiresCHAP(true);
 	}
 
-	int capacity() const { return mCapacity; }
-	int wasteCapacity() const { return ResidentialWasteCapacity; }
+	int capacity() const { return ResidentialColonistCapacityBase; }
+	int wasteCapacity() const { return ResidentialWasteCapacityBase; }
 	int wasteAccumulated() const { return mWasteAccumulated; }
 	int wasteOverflow() const { return mWasteOverflow; }
 	
@@ -81,7 +82,6 @@ protected:
 	}
 
 protected:
-	int mCapacity = 25; /**< Override this value in derived residences.*/
 	int mWasteAccumulated = 0;
 	int mWasteOverflow = 0;
 
