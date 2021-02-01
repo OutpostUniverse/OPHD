@@ -20,6 +20,7 @@
 #include "SurfacePolice.h"
 #include "UndergroundPolice.h"
 #include "RecreationCenter.h"
+#include "Recycling.h"
 #include "RedLightDistrict.h"
 #include "Residence.h"
 #include "Road.h"

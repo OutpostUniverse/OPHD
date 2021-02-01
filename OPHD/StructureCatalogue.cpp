@@ -111,6 +111,10 @@ Structure* StructureCatalogue::get(StructureID type)
 			structure = new RecreationCenter();
 			break;
 
+		case StructureID::SID_RECYCLING:
+			structure = new Recycling();
+			break;
+
 		case StructureID::SID_RED_LIGHT_DISTRICT:
 			structure = new RedLightDistrict();
 			break;
@@ -268,6 +272,7 @@ void StructureCatalogue::buildCostTable()
 	mStructureCostTable[StructureID::SID_SURFACE_POLICE] = { 25, 5, 2, 0 };
 	mStructureCostTable[StructureID::SID_UNDERGROUND_POLICE] = { 25, 5, 2, 0 };
 	mStructureCostTable[StructureID::SID_RECREATION_CENTER] = { 25, 5, 2, 0 };
+	mStructureCostTable[StructureID::SID_RECYCLING] = { 20, 10, 8, 3 };
 	mStructureCostTable[StructureID::SID_RED_LIGHT_DISTRICT] = { 20, 5, 2, 0 };
 	mStructureCostTable[StructureID::SID_RESIDENCE] = { 25, 5, 2, 0 };
 	mStructureCostTable[StructureID::SID_ROAD] = { 10, 15, 0, 0 };
@@ -325,6 +330,7 @@ void StructureCatalogue::buildPopulationRequirementsTable()
 	mPopulationRequirementsTable[StructureID::SID_SURFACE_POLICE] = { 5, 0 };
 	mPopulationRequirementsTable[StructureID::SID_UNDERGROUND_POLICE] = { 5, 0 };
 	mPopulationRequirementsTable[StructureID::SID_RECREATION_CENTER] = { 2, 0 };
+	mPopulationRequirementsTable[StructureID::SID_RECYCLING] = { 1, 1 };
 	mPopulationRequirementsTable[StructureID::SID_RED_LIGHT_DISTRICT] = { 2, 0 };
 	mPopulationRequirementsTable[StructureID::SID_ROBOT_COMMAND] = { 4, 0 };
 	mPopulationRequirementsTable[StructureID::SID_SEED_FACTORY] = { 2, 0 };

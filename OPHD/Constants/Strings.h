@@ -112,6 +112,7 @@ namespace constants
 	const std::string NURSERY = "Nursery";
 	const std::string PARK = "Park / Reservoir ";
 	const std::string RECREATION_CENTER = "Recreation Center";
+	const std::string RECYCLING = "Recycling Facility";
 	const std::string RED_LIGHT_DISTRICT = "Red Light District";
 	const std::string RESIDENCE = "Residential Facility";
 	const std::string ROAD = "Road";
