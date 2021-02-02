@@ -52,7 +52,7 @@ void StructureInspector::update()
 	}
 	text(mStructure->name());
 
-	StringTable stringTable(4, 3);
+	StringTable stringTable(4, 4);
 	stringTable.position(mRect.startPoint() + NAS2D::Vector{ 5, 25 });
 	stringTable.setVerticalPadding(5);
 	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
