@@ -336,7 +336,27 @@ void MapViewState::updateResidentialCapacity()
 
 void MapViewState::updateBiowasteRecycling()
 {
+	auto& residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Residence);
+	auto& recyclingFacilities = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Recycling);
 
+	if (residences.empty() || recyclingFacilities.empty()) { return; }
+
+	auto residenceIterator = residences.begin();
+	for (auto recyclingFacility : recyclingFacilities)
+	{
+		int count = 0;
+
+		// Consider a different control path
+		if (!recyclingFacility->operational()) { continue; }
+
+		for (; residenceIterator != residences.end(); ++residenceIterator)
+		{
+			Residence* residence = static_cast<Residence*>(*residenceIterator);
+			residence->pullWaste(30);
+			++count;
+			if (count >= 10) { break; }
+		}
+	}
 }
 
 
