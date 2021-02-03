@@ -88,7 +88,7 @@ void MapViewState::updatePopulation()
 	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, StructureState::Operational);
 	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
 
-	StructureList &foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
+	const auto& foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
 	int remainder = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 
 	for (auto structure : foodproducers)
@@ -106,8 +106,8 @@ void MapViewState::updateCommercial()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	StructureList& _warehouses = structureManager.structureList(Structure::StructureClass::Warehouse);
-	StructureList& _commercial = structureManager.structureList(Structure::StructureClass::Commercial);
+	const auto& _warehouses = structureManager.structureList(Structure::StructureClass::Warehouse);
+	const auto& _commercial = structureManager.structureList(Structure::StructureClass::Commercial);
 
 	// No need to do anything if there are no commercial structures.
 	if (_commercial.empty()) { return; }
