@@ -334,6 +334,12 @@ void MapViewState::updateResidentialCapacity()
 }
 
 
+void MapViewState::updateBiowasteRecycling()
+{
+
+}
+
+
 void MapViewState::updateFood()
 {
 	mFood = 0;
@@ -405,6 +411,7 @@ void MapViewState::nextTurn()
 
 	updatePopulation();
 	updateCommercial();
+	updateBiowasteRecycling();
 	updateMorale();
 	updateRobots();
 	updateResources();
