@@ -273,7 +273,7 @@ void StructureManager::removeStructure(Structure* structure)
 }
 
 
-StructureList& StructureManager::structureList(Structure::StructureClass structureClass)
+const StructureList& StructureManager::structureList(Structure::StructureClass structureClass)
 {
 	return mStructureLists[structureClass];
 }

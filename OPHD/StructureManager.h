@@ -25,7 +25,7 @@ public:
 	void addStructure(Structure* structure, Tile* tile);
 	void removeStructure(Structure* structure);
 
-	StructureList& structureList(Structure::StructureClass structureClass);
+	const StructureList& structureList(Structure::StructureClass structureClass);
 	Tile& tileFromStructure(Structure* structure);
 
 	void disconnectAll();
