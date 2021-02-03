@@ -6,6 +6,10 @@
 
 class Recycling : public Structure
 {
+private:
+	const int WasteProcessingCapacity = 30;
+	const int ResidentialSupportCount = 10;
+
 public:
 	Recycling() : Structure(constants::RECYCLING,
 		"structures/recycling.sprite",
@@ -17,6 +21,26 @@ public:
 
 		requiresCHAP(true);
 	}
+
+
+	/**
+	 * Amount of waste the facility can process per turn.
+	 */
+	virtual int wasteProcessingCapacity() const
+	{
+		return WasteProcessingCapacity;
+	}
+	
+	
+	/**
+	 * Number of residential units the facility can support
+	 * each turn.
+	 */
+	virtual int residentialSupportCount() const
+	{
+	return ResidentialSupportCount;
+	}
+
 
 protected:
 	void defineResourceInput() override
