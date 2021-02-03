@@ -345,17 +345,27 @@ void MapViewState::updateBiowasteRecycling()
 	for (auto recyclingFacility : recyclingFacilities)
 	{
 		int count = 0;
+		
+		if (!recyclingFacility->operational()) { continue; } // Consider a different control structure
 
-		// Consider a different control path
-		if (!recyclingFacility->operational()) { continue; }
+		Recycling* recycling = static_cast<Recycling*>(recyclingFacility);
 
 		for (; residenceIterator != residences.end(); ++residenceIterator)
 		{
 			Residence* residence = static_cast<Residence*>(*residenceIterator);
-			residence->pullWaste(30);
+			residence->pullWaste(recycling->wasteProcessingCapacity());
+			
 			++count;
-			if (count >= 10) { break; }
+			
+			if (count >= recycling->residentialSupportCount())
+			{
+				break;
+			}
 		}
+
+		// We got to the end of the residence list, don't waste time iterating over
+		// any remaining recycling facilities.
+		if (residenceIterator == residences.end()) { break; }
 	}
 }
 
