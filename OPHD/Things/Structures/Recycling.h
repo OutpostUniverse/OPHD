@@ -7,9 +7,9 @@
 class Recycling : public Structure
 {
 public:
-	Recycling() : Structure(constants::RECREATION_CENTER,
+	Recycling() : Structure(constants::RECYCLING,
 		"structures/recycling.sprite",
-		StructureClass::RecreationCenter,
+		StructureClass::Recycling,
 		StructureID::SID_RECYCLING)
 	{
 		maxAge(500);
