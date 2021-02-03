@@ -65,6 +65,7 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::SurfacePolice]);
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::UndergroundPolice]);
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::RecreationCenter]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Recycling]);
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Residence]);
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::RobotCommand]);
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Warehouse]);
