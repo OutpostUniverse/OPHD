@@ -185,6 +185,13 @@ void MapViewState::updateMorale()
 	// Ensure that there is always a morale hit if residential capacity is more than 100%.
 	if (mPopulationPanel.capacity() > 100 && residentialMoraleHit < constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT) { residentialMoraleHit = constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT; }
 
+	auto& residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Residence);
+	for (auto residence : residences)
+	{
+		Residence* unit = static_cast<Residence*>(residence);
+		if (unit->wasteOverflow() > 0) { mCurrentMorale -= 2; } /// \fixme magic number
+	}
+
 	mCurrentMorale -= residentialMoraleHit;
 
 	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
