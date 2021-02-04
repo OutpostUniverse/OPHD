@@ -157,6 +157,7 @@ private:
 	void updateCommercial();
 	void updateMorale();
 	void updateResidentialCapacity();
+	void updateBiowasteRecycling();
 	void updateResources();
 	void updateRoads();
 	void updateRobots();

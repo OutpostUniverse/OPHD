@@ -185,6 +185,13 @@ void MapViewState::updateMorale()
 	// Ensure that there is always a morale hit if residential capacity is more than 100%.
 	if (mPopulationPanel.capacity() > 100 && residentialMoraleHit < constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT) { residentialMoraleHit = constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT; }
 
+	auto& residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Residence);
+	for (auto residence : residences)
+	{
+		Residence* unit = static_cast<Residence*>(residence);
+		if (unit->wasteOverflow() > 0) { mCurrentMorale -= 2; } /// \fixme magic number
+	}
+
 	mCurrentMorale -= residentialMoraleHit;
 
 	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
@@ -334,6 +341,42 @@ void MapViewState::updateResidentialCapacity()
 }
 
 
+void MapViewState::updateBiowasteRecycling()
+{
+	auto& residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Residence);
+	auto& recyclingFacilities = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Recycling);
+
+	if (residences.empty() || recyclingFacilities.empty()) { return; }
+
+	auto residenceIterator = residences.begin();
+	for (auto recyclingFacility : recyclingFacilities)
+	{
+		int count = 0;
+		
+		if (!recyclingFacility->operational()) { continue; } // Consider a different control structure
+
+		Recycling* recycling = static_cast<Recycling*>(recyclingFacility);
+
+		for (; residenceIterator != residences.end(); ++residenceIterator)
+		{
+			Residence* residence = static_cast<Residence*>(*residenceIterator);
+			residence->pullWaste(recycling->wasteProcessingCapacity());
+			
+			++count;
+			
+			if (count >= recycling->residentialSupportCount())
+			{
+				break;
+			}
+		}
+
+		// We got to the end of the residence list, don't waste time iterating over
+		// any remaining recycling facilities.
+		if (residenceIterator == residences.end()) { break; }
+	}
+}
+
+
 void MapViewState::updateFood()
 {
 	mFood = 0;
@@ -405,6 +448,7 @@ void MapViewState::nextTurn()
 
 	updatePopulation();
 	updateCommercial();
+	updateBiowasteRecycling();
 	updateMorale();
 	updateRobots();
 	updateResources();
