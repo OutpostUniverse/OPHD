@@ -356,7 +356,8 @@ void MapViewState::updateBiowasteRecycling()
 		Recycling* recycling = static_cast<Recycling*>(recyclingFacility);
 		for (int count = 0; count < recycling->residentialSupportCount(); ++count)
 		{
-			if (residenceIterator == residences.end()) {
+			if (residenceIterator == residences.end())
+			{
 				return; // No more residences, so don't waste time iterating over remaining recycling facilities
 			}
 
