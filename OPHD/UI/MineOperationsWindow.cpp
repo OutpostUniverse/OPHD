@@ -1,5 +1,6 @@
 #include "MineOperationsWindow.h"
 
+#include "StringTable.h"
 #include "TextRender.h"
 
 #include "../Cache.h"
@@ -59,25 +60,25 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnOkay.size({60, 30});
 	btnOkay.click().connect(this, &MineOperationsWindow::btnOkayClicked);
 
-	add(btnAssignTruck, {mRect.width - 85, 100});
+	add(btnAssignTruck, {mRect.width - 85, 115});
 	btnAssignTruck.size({ 80, 20 });
 	btnAssignTruck.click().connect(this, &MineOperationsWindow::btnAssignTruckClicked);
 
-	add(btnUnassignTruck, {mRect.width - 170, 100});
+	add(btnUnassignTruck, {mRect.width - 170, 115});
 	btnUnassignTruck.size({ 80, 20 });
 	btnUnassignTruck.click().connect(this, &MineOperationsWindow::btnUnassignTruckClicked);
 
 	// ORE TOGGLE BUTTONS
-	add(chkCommonMetals, {148, 125});
+	add(chkCommonMetals, {148, 140});
 	chkCommonMetals.click().connect(this, &MineOperationsWindow::chkCommonMetalsClicked);
 
-	add(chkCommonMinerals, {259, 125});
+	add(chkCommonMinerals, {259, 140});
 	chkCommonMinerals.click().connect(this, &MineOperationsWindow::chkCommonMineralsClicked);
 
-	add(chkRareMetals, {148, 145});
+	add(chkRareMetals, {148, 160});
 	chkRareMetals.click().connect(this, &MineOperationsWindow::chkRareMetalsClicked);
 
-	add(chkRareMinerals, {259, 145});
+	add(chkRareMinerals, {259, 160});
 	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
 }
 
@@ -209,9 +210,10 @@ void MineOperationsWindow::update()
 	const auto mineDepth = std::to_string(mFacility->mine()->depth());
 	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
 
-	drawLabelAndValue(origin + NAS2D::Vector{ 148, 65 }, "Trucks Assigned: ", std::to_string(mFacility->assignedTrucks()));
-	drawLabelAndValue(origin + NAS2D::Vector{ 148, 80 }, "Trucks Available: ", std::to_string(mAvailableTrucks));
-
+	// TRUCK ASSIGNMENT
+	renderer.drawText(mFontBold, "Trucks", origin + NAS2D::Vector{ 148, 80 }, NAS2D::Color::White);
+	drawLabelAndValue(origin + NAS2D::Vector{ 148, 95 }, "Assigned: ", std::to_string(mFacility->assignedTrucks()));
+	drawLabelAndValue(origin + NAS2D::Vector{ 260, 95 }, "Available: ", std::to_string(mAvailableTrucks));
 
 	// REMAINING ORE PANEL
 	const auto width = mRect.width;
