@@ -190,25 +190,26 @@ void MineOperationsWindow::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto origin = mRect.startPoint();
-	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{10, 30});
+	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{ 10, 30 });
 
 	const auto mineYield = MINE_YIELD_TRANSLATION.at(mFacility->mine()->productionRate());
-	drawLabelAndValue(origin + NAS2D::Vector{148, 30}, "Mine Yield: ", mineYield);
+	drawLabelAndValue(origin + NAS2D::Vector{ 148, 30 }, "Mine Yield: ", mineYield);
 
 	const std::string statusString =
 		mFacility->extending() ? "Digging New Level" :
 		mFacility->mine()->exhausted() ? "Exhausted" :
 		mFacility->stateDescription();
-	drawLabelAndValue(origin + NAS2D::Vector{148, 45}, "Status: ", statusString);
+
+	drawLabelAndValue(origin + NAS2D::Vector{ 148, 45 }, "Status: ", statusString);
 
 	if (mFacility && mFacility->extending())
 	{
 		const auto extensionTimeRemaining = std::to_string(mFacility->digTimeRemaining());
-		drawLabelAndValue(origin + NAS2D::Vector{148, 60}, "Turns Remaining: ", extensionTimeRemaining);
+		drawLabelAndValue(origin + NAS2D::Vector{ 148, 60 }, "Turns Remaining: ", extensionTimeRemaining);
 	}
 
 	const auto mineDepth = std::to_string(mFacility->mine()->depth());
-	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
+	drawLabelAndValue(origin + NAS2D::Vector{ 300, 30 }, "Depth: ", mineDepth);
 
 	// TRUCK ASSIGNMENT
 	renderer.drawText(mFontBold, "Trucks", origin + NAS2D::Vector{ 148, 80 }, NAS2D::Color::White);
@@ -217,32 +218,34 @@ void MineOperationsWindow::update()
 
 	// REMAINING ORE PANEL
 	const auto width = mRect.width;
-	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
+	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{ 10, 164 }, NAS2D::Color::White);
 
-	mPanel.draw(renderer, NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{10, 180}, NAS2D::Vector{width - 20, 40}));
+	mPanel.draw(renderer, NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{ 10, 180 }, NAS2D::Vector{ width - 20, 40 }));
 
-	renderer.drawLine(origin + NAS2D::Vector{98, 180}, origin + NAS2D::Vector{98, 219}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine(origin + NAS2D::Vector{187, 180}, origin + NAS2D::Vector{187, 219}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine(origin + NAS2D::Vector{275, 180}, origin + NAS2D::Vector{275, 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(origin + NAS2D::Vector{ 98, 180 }, origin + NAS2D::Vector{ 98, 219 }, NAS2D::Color{ 22, 22, 22 });
+	renderer.drawLine(origin + NAS2D::Vector{ 187, 180 }, origin + NAS2D::Vector{ 187, 219 }, NAS2D::Color{ 22, 22, 22 });
+	renderer.drawLine(origin + NAS2D::Vector{ 275, 180 }, origin + NAS2D::Vector{ 275, 219 }, NAS2D::Color{ 22, 22, 22 });
 
-	renderer.drawLine(origin + NAS2D::Vector{11, 200}, origin + NAS2D::Vector{width - 11, 200}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(origin + NAS2D::Vector{ 11, 200 }, origin + NAS2D::Vector{ width - 11, 200 }, NAS2D::Color{ 22, 22, 22 });
 
-	const auto CommonMetalIconRect = NAS2D::Rectangle{64, 0, 16, 16};
-	const auto CommonMineralIconRect = NAS2D::Rectangle{96, 0, 16, 16};
-	const auto RareMetalIconRect = NAS2D::Rectangle{80, 0, 16, 16};
-	const auto RareMineralIconRect = NAS2D::Rectangle{112, 0, 16, 16};
+	const auto CommonMetalIconRect = NAS2D::Rectangle{ 64, 0, 16, 16 };
+	const auto CommonMineralIconRect = NAS2D::Rectangle{ 96, 0, 16, 16 };
+	const auto RareMetalIconRect = NAS2D::Rectangle{ 80, 0, 16, 16 };
+	const auto RareMineralIconRect = NAS2D::Rectangle{ 112, 0, 16, 16 };
 
-	const std::array resources{
+	const std::array resources
+	{
 		std::tuple{46,  CommonMetalIconRect,   mFacility->mine()->commonMetalsAvailable()},
 		std::tuple{135, CommonMineralIconRect, mFacility->mine()->commonMineralsAvailable()},
 		std::tuple{224, RareMetalIconRect,     mFacility->mine()->rareMetalsAvailable()},
 		std::tuple{313, RareMineralIconRect,   mFacility->mine()->rareMineralsAvailable()}
 	};
 
-	for (const auto& [offsetX, iconRect, resourceCount] : resources) {
+	for (const auto& [offsetX, iconRect, resourceCount] : resources)
+	{
 		const auto resourceCountString = std::to_string(resourceCount);
 		const auto textOffsetX = offsetX - (mFont.width(resourceCountString) / 2) + 8;
-		renderer.drawSubImage(mIcons, origin + NAS2D::Vector{offsetX, 183}, iconRect);
-		renderer.drawText(mFont, resourceCountString, origin + NAS2D::Vector{textOffsetX, 202}, NAS2D::Color::White);
+		renderer.drawSubImage(mIcons, origin + NAS2D::Vector{ offsetX, 183 }, iconRect);
+		renderer.drawText(mFont, resourceCountString, origin + NAS2D::Vector{ textOffsetX, 202 }, NAS2D::Color::White);
 	}
 }
