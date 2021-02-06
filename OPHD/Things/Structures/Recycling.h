@@ -38,7 +38,7 @@ public:
 	 */
 	virtual int residentialSupportCount() const
 	{
-	return ResidentialSupportCount;
+		return ResidentialSupportCount;
 	}
 
 
