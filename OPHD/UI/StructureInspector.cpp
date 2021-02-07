@@ -39,19 +39,8 @@ void StructureInspector::btnCloseClicked()
 }
 
 
-void StructureInspector::update()
+StringTable StructureInspector::buildStringTable() const
 {
-	if (!visible()) { return; }
-	Window::update();
-
-	auto& renderer = Utility<Renderer>::get();
-
-	if (mStructure == nullptr)
-	{
-		throw std::runtime_error("Null pointer to structure within StructureInspector");
-	}
-	text(mStructure->name());
-
 	StringTable stringTable(4, 4);
 	stringTable.position(mRect.startPoint() + NAS2D::Vector{ 5, 25 });
 	stringTable.setVerticalPadding(5);
@@ -100,6 +89,25 @@ void StructureInspector::update()
 	}
 
 	stringTable.computeRelativeCellPositions();
+
+	return stringTable;
+}
+
+
+void StructureInspector::update()
+{
+	if (!visible()) { return; }
+	Window::update();
+
+	auto& renderer = Utility<Renderer>::get();
+
+	if (mStructure == nullptr)
+	{
+		throw std::runtime_error("Null pointer to structure within StructureInspector");
+	}
+	text(mStructure->name());
+
+	auto stringTable = buildStringTable();
 	stringTable.draw(renderer);
 
 	drawStructureSpecificTable({ stringTable.position().x, stringTable.screenRect().endPoint().y + 25 }, renderer);
