@@ -19,10 +19,10 @@ StructureInspector::StructureInspector() :
 	btnClose{"Close"},
 	mIcons{imageCache.load("ui/icons.png")}
 {
-	size({350, 200});
+	size({ 350, 220 });
 
-	add(btnClose, {295, 175});
-	btnClose.size({50, 20});
+	add(btnClose, { 295, 195 });
+	btnClose.size({ 50, 20 });
 	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
 }
 
@@ -30,6 +30,15 @@ StructureInspector::StructureInspector() :
 void StructureInspector::structure(Structure* structure)
 {
 	mStructure = structure;
+
+	if (!mStructure) { return; }
+
+	auto stringTable = buildStringTable();
+
+	auto windowWidth = stringTable.screenRect().width + 10;
+	size({ windowWidth < 350 ? 350 : windowWidth, rect().height });
+
+	btnClose.position({ positionX() + rect().width - 55, btnClose.positionY() });
 }
 
 
@@ -39,19 +48,8 @@ void StructureInspector::btnCloseClicked()
 }
 
 
-void StructureInspector::update()
+StringTable StructureInspector::buildStringTable() const
 {
-	if (!visible()) { return; }
-	Window::update();
-
-	auto& renderer = Utility<Renderer>::get();
-
-	if (mStructure == nullptr)
-	{
-		throw std::runtime_error("Null pointer to structure within StructureInspector");
-	}
-	text(mStructure->name());
-
 	StringTable stringTable(4, 4);
 	stringTable.position(mRect.startPoint() + NAS2D::Vector{ 5, 25 });
 	stringTable.setVerticalPadding(5);
@@ -100,6 +98,25 @@ void StructureInspector::update()
 	}
 
 	stringTable.computeRelativeCellPositions();
+
+	return stringTable;
+}
+
+
+void StructureInspector::update()
+{
+	if (!visible()) { return; }
+	Window::update();
+
+	auto& renderer = Utility<Renderer>::get();
+
+	if (mStructure == nullptr)
+	{
+		throw std::runtime_error("Null pointer to structure within StructureInspector");
+	}
+	text(mStructure->name());
+
+	auto stringTable = buildStringTable();
 	stringTable.draw(renderer);
 
 	drawStructureSpecificTable({ stringTable.position().x, stringTable.screenRect().endPoint().y + 25 }, renderer);
