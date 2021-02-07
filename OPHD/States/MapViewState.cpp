@@ -471,19 +471,21 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 			const bool inspectModifier = NAS2D::Utility<EventHandler>::get().query_shift() ||
 				button == EventHandler::MouseButton::BUTTON_MIDDLE;
 
-			if (structure->isFactory() && (structure->operational() || structure->isIdle()) && !inspectModifier)
+			const bool notDisabled = structure->operational() || structure->isIdle();
+
+			if (structure->isFactory() && notDisabled && !inspectModifier)
 			{
 				mFactoryProduction.factory(static_cast<Factory*>(structure));
 				mFactoryProduction.show();
 				mWindowStack.bringToFront(&mFactoryProduction);
 			}
-			else if (structure->isWarehouse() && (structure->operational() || structure->isIdle()) && !inspectModifier)
+			else if (structure->isWarehouse() && notDisabled && !inspectModifier)
 			{
 				mWarehouseInspector.warehouse(static_cast<Warehouse*>(structure));
 				mWarehouseInspector.show();
 				mWindowStack.bringToFront(&mWarehouseInspector);
 			}
-			else if (structure->isMineFacility() && (structure->operational() || structure->isIdle()) && !inspectModifier)
+			else if (structure->isMineFacility() && notDisabled && !inspectModifier)
 			{
 				mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(structure));
 				mMineOperationsWindow.show();
