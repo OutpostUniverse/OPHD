@@ -445,7 +445,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		return;
 	}
 
-	if (button == EventHandler::MouseButton::BUTTON_RIGHT)
+	if (button == EventHandler::MouseButton::BUTTON_RIGHT || button == EventHandler::MouseButton::BUTTON_MIDDLE)
 	{
 		if (mInsertMode != InsertMode::None)
 		{
@@ -468,19 +468,22 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		{
 			Structure* structure = tile.structure();
 
-			if (structure->isFactory() && (structure->operational() || structure->isIdle()))
+			const bool inspectModifier = NAS2D::Utility<EventHandler>::get().query_shift() ||
+				button == EventHandler::MouseButton::BUTTON_MIDDLE;
+
+			if (structure->isFactory() && (structure->operational() || structure->isIdle()) && !inspectModifier)
 			{
 				mFactoryProduction.factory(static_cast<Factory*>(structure));
 				mFactoryProduction.show();
 				mWindowStack.bringToFront(&mFactoryProduction);
 			}
-			else if (structure->isWarehouse() && (structure->operational() || structure->isIdle()))
+			else if (structure->isWarehouse() && (structure->operational() || structure->isIdle()) && !inspectModifier)
 			{
 				mWarehouseInspector.warehouse(static_cast<Warehouse*>(structure));
 				mWarehouseInspector.show();
 				mWindowStack.bringToFront(&mWarehouseInspector);
 			}
-			else if (structure->isMineFacility() && (structure->operational() || structure->isIdle()))
+			else if (structure->isMineFacility() && (structure->operational() || structure->isIdle()) && !inspectModifier)
 			{
 				mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(structure));
 				mMineOperationsWindow.show();
