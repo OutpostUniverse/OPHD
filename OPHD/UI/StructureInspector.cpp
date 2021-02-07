@@ -19,10 +19,10 @@ StructureInspector::StructureInspector() :
 	btnClose{"Close"},
 	mIcons{imageCache.load("ui/icons.png")}
 {
-	size({350, 200});
+	size({ 350, 220 });
 
-	add(btnClose, {295, 175});
-	btnClose.size({50, 20});
+	add(btnClose, { 295, 195 });
+	btnClose.size({ 50, 20 });
 	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
 }
 
@@ -30,6 +30,15 @@ StructureInspector::StructureInspector() :
 void StructureInspector::structure(Structure* structure)
 {
 	mStructure = structure;
+
+	if (!mStructure) { return; }
+
+	auto stringTable = buildStringTable();
+
+	auto windowWidth = stringTable.screenRect().width + 10;
+	size({ windowWidth < 350 ? 350 : windowWidth, rect().height });
+
+	btnClose.position({ positionX() + rect().width - 55, btnClose.positionY() });
 }
 
 
