@@ -38,11 +38,6 @@ struct StorableResources
 		return true;
 	}
 
-	constexpr bool operator>=(const StorableResources& other) const
-	{
-		return other <= *this;
-	}
-
 	constexpr bool operator<(const StorableResources& other) const
 	{
 		for (size_t i = 0; i < resources.size(); ++i)
@@ -53,6 +48,11 @@ struct StorableResources
 			}
 		}
 		return true;
+	}
+
+	constexpr bool operator>=(const StorableResources& other) const
+	{
+		return other <= *this;
 	}
 
 	constexpr bool operator>(const StorableResources& other) const
