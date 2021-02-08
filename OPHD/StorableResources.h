@@ -28,10 +28,14 @@ struct StorableResources
 
 	constexpr bool operator<=(const StorableResources& other) const
 	{
-		return resources[0] <= other.resources[0] &&
-			resources[1] <= other.resources[1] &&
-			resources[2] <= other.resources[2] &&
-			resources[3] <= other.resources[3];
+		for (size_t i = 0; i < resources.size(); ++i)
+		{
+			if (!(resources[i] <= other.resources[i]))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 	constexpr bool operator>=(const StorableResources& other) const
@@ -41,10 +45,14 @@ struct StorableResources
 
 	constexpr bool operator<(const StorableResources& other) const
 	{
-		return resources[0] < other.resources[0] &&
-			resources[1] < other.resources[1] &&
-			resources[2] < other.resources[2] &&
-			resources[3] < other.resources[3];
+		for (size_t i = 0; i < resources.size(); ++i)
+		{
+			if (!(resources[i] < other.resources[i]))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 	constexpr bool operator>(const StorableResources& other) const
@@ -65,14 +73,13 @@ struct StorableResources
 
 	constexpr bool isEmpty() const
 	{
-		if (resources[0] > 0 ||
-			resources[1] > 0 ||
-			resources[2] > 0 ||
-			resources[3] > 0)
+		for (size_t i = 0; i < resources.size(); ++i)
 		{
-			return false;
+			if (resources[i] > 0)
+			{
+				return false;
+			}
 		}
-
 		return true;
 	}
 
