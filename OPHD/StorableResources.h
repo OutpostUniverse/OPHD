@@ -80,12 +80,12 @@ struct StorableResources
 };
 
 
-constexpr inline StorableResources operator+(StorableResources lhs, const StorableResources& rhs)
+constexpr StorableResources operator+(StorableResources lhs, const StorableResources& rhs)
 {
 	return lhs += rhs;
 }
 
-constexpr inline StorableResources operator-(StorableResources lhs, const StorableResources& rhs)
+constexpr StorableResources operator-(StorableResources lhs, const StorableResources& rhs)
 {
 	return lhs -= rhs;
 }
