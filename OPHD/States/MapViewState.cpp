@@ -891,7 +891,7 @@ void MapViewState::placeRobot()
 			/**
 			 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
 			 */
-			if (!recycledResources.empty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
+			if (!recycledResources.isEmpty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
 
 			updatePlayerResources();
 			updateStructuresAvailability();

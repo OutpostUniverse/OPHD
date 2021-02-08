@@ -463,7 +463,7 @@ void addRefinedResources(StorableResources& resourcesToAdd)
 
 	for (auto structure : storage)
 	{
-		if (resourcesToAdd.empty()) { break; }
+		if (resourcesToAdd.isEmpty()) { break; }
 
 		auto& storageTanksResources = structure->storage();
 
@@ -492,7 +492,7 @@ void removeRefinedResources(StorableResources& resourcesToRemove)
 
 	for (auto structure : storage)
 	{
-		if (resourcesToRemove.empty()) { break; }
+		if (resourcesToRemove.isEmpty()) { break; }
 
 		auto& resourcesInStorage = structure->storage().resources;
 		for (size_t i = 0; i < resourcesInStorage.size(); ++i)
