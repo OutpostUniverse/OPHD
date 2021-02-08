@@ -269,12 +269,12 @@ void MapViewState::updatePlayerResources()
 	 */
 	auto& playerResources = const_cast<StorableResources&>(mPlayerResources);
 
-	playerResources.clear();
-
+	StorableResources resources;
 	for (auto structure : storage)
 	{
-		playerResources += structure->storage();
+		resources += structure->storage();
 	}
+	playerResources = resources;
 }
 
 
