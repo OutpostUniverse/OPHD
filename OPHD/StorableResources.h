@@ -5,8 +5,6 @@
 
 struct StorableResources
 {
-	StorableResources() = default;
-
 	StorableResources operator+(const StorableResources& other) const
 	{
 		StorableResources out;
