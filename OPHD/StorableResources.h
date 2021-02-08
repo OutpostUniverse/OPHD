@@ -68,7 +68,7 @@ struct StorableResources
 		resources = { 0, 0, 0, 0 };
 	}
 
-	bool isEmpty()
+	bool isEmpty() const
 	{
 		if (resources[0] > 0 ||
 			resources[1] > 0 ||
