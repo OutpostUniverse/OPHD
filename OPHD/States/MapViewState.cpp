@@ -262,19 +262,12 @@ void MapViewState::updatePlayerResources()
 	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
 	storage.insert(storage.begin(), mTileMap->getTile(ccLocation(), 0).structure());
 
-	/**
-	 * This at first looks heinous. However, mPlayerResources is declared const
-	 * to ensure that it is treated as a read-only object. This function is the
-	 * only one allowed to modify it.
-	 */
-	auto& playerResources = const_cast<StorableResources&>(mPlayerResources);
-
 	StorableResources resources;
 	for (auto structure : storage)
 	{
 		resources += structure->storage();
 	}
-	playerResources = resources;
+	mPlayerResources = resources;
 }
 
 

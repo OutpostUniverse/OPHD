@@ -230,7 +230,7 @@ private:
 	int mFood{ 0 };
 
 	// POOLS
-	const StorableResources mPlayerResources; /**< Player's current refined resources. */
+	StorableResources mPlayerResources; /**< Player's current refined resources. */
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;
 
