@@ -36,7 +36,7 @@ struct StorableResources
 
 	bool operator>=(const StorableResources& other) const
 	{
-		return other.resources <= resources;
+		return other <= *this;
 	}
 
 	bool operator<(const StorableResources& other) const
@@ -49,7 +49,7 @@ struct StorableResources
 
 	bool operator>(const StorableResources& other) const
 	{
-		return other.resources < resources;
+		return other < *this;
 	}
 
 	StorableResources cap(int max) const
