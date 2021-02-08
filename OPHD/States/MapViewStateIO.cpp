@@ -450,15 +450,18 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto& rcc = *static_cast<RobotCommand*>(&structure);
 			XmlAttribute* robotsAttribute = structureNode->firstChildElement("robots")->firstAttribute();
 
-			for (const auto& string : NAS2D::split(robotsAttribute->value(), ','))
+			if (!robotsAttribute->value().empty())
 			{
-				const auto robotId = NAS2D::stringTo<int>(string);
-				for (auto* robot : mRobotPool.robots())
+				for (const auto& id_string : NAS2D::split(robotsAttribute->value(), ','))
 				{
-					if (robot->id() == robotId)
+					const auto robotId = NAS2D::stringTo<int>(id_string);
+					for (auto* robot : mRobotPool.robots())
 					{
-						rcc.addRobot(robot);
-						break;
+						if (robot->id() == robotId)
+						{
+							rcc.addRobot(robot);
+							break;
+						}
 					}
 				}
 			}
