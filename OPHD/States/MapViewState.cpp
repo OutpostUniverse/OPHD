@@ -1213,7 +1213,6 @@ void MapViewState::updateRobots()
 				tile->removeThing();
 			}
 
-			/// \fixme	Brute force.
 			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::StructureClass::RobotCommand))
 			{
 				static_cast<RobotCommand*>(rcc)->removeRobot(robot);

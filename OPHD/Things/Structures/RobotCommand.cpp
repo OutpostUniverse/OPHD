@@ -53,22 +53,15 @@ void RobotCommand::addRobot(Robot* robot)
 
 
 /**
- * Removes a robot to the management pool of the Robot Command structure.
- *
- * \param	robot	Pointer to a Robot to remove from command list.
+ * Removes a robot from the management pool of the Robot Command structure.
  */
 void RobotCommand::removeRobot(Robot* robot)
 {
-	if (mRobotList.empty())
-	{
-		throw std::runtime_error("RobotCommand::removeRobot(): Robot list empty.");
-	}
+	if (!robot) { throw std::runtime_error("RobotCommand::removeRobot() called with nullptr"); }
+	if (mRobotList.empty()) { return; }
 
 	auto iter = find(mRobotList.begin(), mRobotList.end(), robot);
-	if (iter == mRobotList.end())
-	{
-		throw std::runtime_error("RobotCommand::removeRobot(): Removing a robot that is not under the command of this Robot Command Facility.");
-	}
+	if (iter == mRobotList.end()) { return; }
 
 	mRobotList.erase(iter);
 }
