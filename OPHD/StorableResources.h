@@ -6,7 +6,7 @@
 
 struct StorableResources
 {
-	StorableResources& operator+=(const StorableResources& other)
+	constexpr StorableResources& operator+=(const StorableResources& other)
 	{
 		for (size_t i = 0; i < resources.size(); ++i)
 		{
@@ -16,7 +16,7 @@ struct StorableResources
 		return *this;
 	}
 
-	StorableResources& operator-=(const StorableResources& other)
+	constexpr StorableResources& operator-=(const StorableResources& other)
 	{
 		for (size_t i = 0; i < resources.size(); ++i)
 		{
@@ -26,7 +26,7 @@ struct StorableResources
 		return *this;
 	}
 
-	bool operator<=(const StorableResources& other) const
+	constexpr bool operator<=(const StorableResources& other) const
 	{
 		return resources[0] <= other.resources[0] &&
 			resources[1] <= other.resources[1] &&
@@ -34,12 +34,12 @@ struct StorableResources
 			resources[3] <= other.resources[3];
 	}
 
-	bool operator>=(const StorableResources& other) const
+	constexpr bool operator>=(const StorableResources& other) const
 	{
 		return other <= *this;
 	}
 
-	bool operator<(const StorableResources& other) const
+	constexpr bool operator<(const StorableResources& other) const
 	{
 		return resources[0] < other.resources[0] &&
 			resources[1] < other.resources[1] &&
@@ -47,12 +47,12 @@ struct StorableResources
 			resources[3] < other.resources[3];
 	}
 
-	bool operator>(const StorableResources& other) const
+	constexpr bool operator>(const StorableResources& other) const
 	{
 		return other < *this;
 	}
 
-	StorableResources cap(int max) const
+	constexpr StorableResources cap(int max) const
 	{
 		StorableResources out;
 		for (std::size_t i = 0; i < resources.size(); ++i)
@@ -63,7 +63,7 @@ struct StorableResources
 		return out;
 	}
 
-	bool isEmpty() const
+	constexpr bool isEmpty() const
 	{
 		if (resources[0] > 0 ||
 			resources[1] > 0 ||
@@ -80,12 +80,12 @@ struct StorableResources
 };
 
 
-inline StorableResources operator+(StorableResources lhs, const StorableResources& rhs)
+constexpr inline StorableResources operator+(StorableResources lhs, const StorableResources& rhs)
 {
 	return lhs += rhs;
 }
 
-inline StorableResources operator-(StorableResources lhs, const StorableResources& rhs)
+constexpr inline StorableResources operator-(StorableResources lhs, const StorableResources& rhs)
 {
 	return lhs -= rhs;
 }
