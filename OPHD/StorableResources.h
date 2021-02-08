@@ -6,39 +6,23 @@
 
 struct StorableResources
 {
-	StorableResources operator+(const StorableResources& other) const
-	{
-		StorableResources out;
-
-		for (size_t i = 0; i < resources.size(); ++i)
-		{
-			out.resources[i] = resources[i] + other.resources[i];
-		}
-
-		return out;
-	}
-
 	StorableResources& operator+=(const StorableResources& other)
 	{
-		*this = *this + other;
-		return *this;
-	}
-
-	StorableResources operator-(const StorableResources& other) const
-	{
-		StorableResources out;
-
 		for (size_t i = 0; i < resources.size(); ++i)
 		{
-			out.resources[i] = resources[i] - other.resources[i];
+			resources[i] += other.resources[i];
 		}
 
-		return out;
+		return *this;
 	}
 
 	StorableResources& operator-=(const StorableResources& other)
 	{
-		*this = *this - other;
+		for (size_t i = 0; i < resources.size(); ++i)
+		{
+			resources[i] -= other.resources[i];
+		}
+
 		return *this;
 	}
 
@@ -99,3 +83,14 @@ struct StorableResources
 
 	std::array<int, 4> resources{ 0 };
 };
+
+
+inline StorableResources operator+(StorableResources lhs, const StorableResources& rhs)
+{
+	return lhs += rhs;
+}
+
+inline StorableResources operator-(StorableResources lhs, const StorableResources& rhs)
+{
+	return lhs -= rhs;
+}
