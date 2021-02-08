@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <array>
 
+
 struct StorableResources
 {
 	StorableResources operator+(const StorableResources& other) const
