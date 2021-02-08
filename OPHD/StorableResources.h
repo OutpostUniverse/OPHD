@@ -81,7 +81,7 @@ struct StorableResources
 		return true;
 	}
 
-	std::array<int, 4> resources{ 0 };
+	std::array<int, 4> resources{};
 };
 
 
