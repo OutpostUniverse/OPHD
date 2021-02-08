@@ -63,11 +63,6 @@ struct StorableResources
 		return out;
 	}
 
-	void clear()
-	{
-		resources = { 0, 0, 0, 0 };
-	}
-
 	bool isEmpty() const
 	{
 		if (resources[0] > 0 ||
