@@ -135,7 +135,7 @@ void Factory::updateProduction()
 
 	removeRefinedResources(cost);
 
-	if (!cost.empty()) { throw std::runtime_error("Factory::updateProduction(): Production cost not empty"); }
+	if (!cost.isEmpty()) { throw std::runtime_error("Factory::updateProduction(): Production cost not empty"); }
 
 	++mTurnsCompleted;
 

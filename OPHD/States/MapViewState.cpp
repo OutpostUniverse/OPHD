@@ -249,9 +249,9 @@ int MapViewState::totalStorage(Structure::StructureClass structureClass, int cap
 int MapViewState::refinedResourcesInStorage()
 {
 	int total = 0;
-	for (size_t i = 0; i < mPlayerResources.resources.size(); ++i)
+	for (size_t i = 0; i < mResourcesCount.resources.size(); ++i)
 	{
-		total += mPlayerResources.resources[i];
+		total += mResourcesCount.resources[i];
 	}
 	return total;
 }
@@ -262,19 +262,12 @@ void MapViewState::updatePlayerResources()
 	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
 	storage.insert(storage.begin(), mTileMap->getTile(ccLocation(), 0).structure());
 
-	/**
-	 * This at first looks heinous. However, mPlayerResources is declared const
-	 * to ensure that it is treated as a read-only object. This function is the
-	 * only one allowed to modify it.
-	 */
-	auto& playerResources = const_cast<StorableResources&>(mPlayerResources);
-
-	playerResources.clear();
-
+	StorableResources resources;
 	for (auto structure : storage)
 	{
-		playerResources += structure->storage();
+		resources += structure->storage();
 	}
+	mResourcesCount = resources;
 }
 
 
@@ -891,7 +884,7 @@ void MapViewState::placeRobot()
 			/**
 			 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
 			 */
-			if (!recycledResources.empty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
+			if (!recycledResources.isEmpty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
 
 			updatePlayerResources();
 			updateStructuresAvailability();
@@ -1122,9 +1115,9 @@ void MapViewState::placeStructure()
 		}
 
 		// Check build cost
-		if (!StructureCatalogue::canBuild(mPlayerResources, mCurrentStructure))
+		if (!StructureCatalogue::canBuild(mResourcesCount, mCurrentStructure))
 		{
-			resourceShortageMessage(mPlayerResources, mCurrentStructure);
+			resourceShortageMessage(mResourcesCount, mCurrentStructure);
 			return;
 		}
 
@@ -1137,7 +1130,7 @@ void MapViewState::placeStructure()
 		if (structure->isFactory())
 		{
 			static_cast<Factory*>(structure)->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
-			static_cast<Factory*>(structure)->resourcePool(&mPlayerResources);
+			static_cast<Factory*>(structure)->resourcePool(&mResourcesCount);
 		}
 
 		auto cost = StructureCatalogue::costToBuild(mCurrentStructure);

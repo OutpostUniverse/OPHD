@@ -3,73 +3,64 @@
 #include <algorithm>
 #include <array>
 
+
 struct StorableResources
 {
-	StorableResources() = default;
-
-	StorableResources operator+(const StorableResources& other) const
+	constexpr StorableResources& operator+=(const StorableResources& other)
 	{
-		StorableResources out;
-
 		for (size_t i = 0; i < resources.size(); ++i)
 		{
-			out.resources[i] = resources[i] + other.resources[i];
+			resources[i] += other.resources[i];
 		}
 
-		return out;
-	}
-
-	StorableResources& operator+=(const StorableResources& other)
-	{
-		*this = *this + other;
 		return *this;
 	}
 
-	StorableResources operator-(const StorableResources& other) const
+	constexpr StorableResources& operator-=(const StorableResources& other)
 	{
-		StorableResources out;
-
 		for (size_t i = 0; i < resources.size(); ++i)
 		{
-			out.resources[i] = resources[i] - other.resources[i];
+			resources[i] -= other.resources[i];
 		}
 
-		return out;
-	}
-
-	StorableResources& operator-=(const StorableResources& other)
-	{
-		*this = *this - other;
 		return *this;
 	}
 
-	bool operator<=(const StorableResources& other) const
+	constexpr bool operator<=(const StorableResources& other) const
 	{
-		return resources[0] <= other.resources[0] &&
-			resources[1] <= other.resources[1] &&
-			resources[2] <= other.resources[2] &&
-			resources[3] <= other.resources[3];
+		for (size_t i = 0; i < resources.size(); ++i)
+		{
+			if (!(resources[i] <= other.resources[i]))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
-	bool operator>=(const StorableResources& other) const
+	constexpr bool operator<(const StorableResources& other) const
 	{
-		return other.resources <= resources;
+		for (size_t i = 0; i < resources.size(); ++i)
+		{
+			if (!(resources[i] < other.resources[i]))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
-	bool operator<(const StorableResources& other) const
+	constexpr bool operator>=(const StorableResources& other) const
 	{
-		return resources[0] < other.resources[0] &&
-			resources[1] < other.resources[1] &&
-			resources[2] < other.resources[2] &&
-			resources[3] < other.resources[3];
+		return other <= *this;
 	}
 
-	bool operator>(const StorableResources& other) const
+	constexpr bool operator>(const StorableResources& other) const
 	{
-		return other.resources < resources;
+		return other < *this;
 	}
 
-	StorableResources cap(int max) const
+	constexpr StorableResources cap(int max) const
 	{
 		StorableResources out;
 		for (std::size_t i = 0; i < resources.size(); ++i)
@@ -80,23 +71,28 @@ struct StorableResources
 		return out;
 	}
 
-	void clear()
+	constexpr bool isEmpty() const
 	{
-		resources = { 0, 0, 0, 0 };
-	}
-
-	bool empty()
-	{
-		if (resources[0] > 0 ||
-			resources[1] > 0 ||
-			resources[2] > 0 ||
-			resources[3] > 0)
+		for (size_t i = 0; i < resources.size(); ++i)
 		{
-			return false;
+			if (resources[i] > 0)
+			{
+				return false;
+			}
 		}
-
 		return true;
 	}
 
-	std::array<int, 4> resources{ 0 };
+	std::array<int, 4> resources{};
 };
+
+
+constexpr StorableResources operator+(StorableResources lhs, const StorableResources& rhs)
+{
+	return lhs += rhs;
+}
+
+constexpr StorableResources operator-(StorableResources lhs, const StorableResources& rhs)
+{
+	return lhs -= rhs;
+}

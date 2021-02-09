@@ -111,7 +111,7 @@ protected:
 
 		stored = capped;
 
-		if (!overflow.empty())
+		if (!overflow.isEmpty())
 		{
 			StorableResources deconvertedResources{ overflow.resources[0] * OreConversionDivisor[0],
 				overflow.resources[1] * OreConversionDivisor[1],
