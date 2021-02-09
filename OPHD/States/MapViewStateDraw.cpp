@@ -155,10 +155,10 @@ void MapViewState::drawResourceInfo()
 	constexpr auto iconSize = constants::RESOURCE_ICON_SIZE;
 	const std::array resources
 	{
-		std::tuple{NAS2D::Rectangle{64, 16, iconSize, iconSize}, mPlayerResources.resources[0], offsetX},
-		std::tuple{NAS2D::Rectangle{80, 16, iconSize, iconSize}, mPlayerResources.resources[2], x + offsetX},
-		std::tuple{NAS2D::Rectangle{96, 16, iconSize, iconSize}, mPlayerResources.resources[1], x + offsetX},
-		std::tuple{NAS2D::Rectangle{112, 16, iconSize, iconSize}, mPlayerResources.resources[3], 0},
+		std::tuple{NAS2D::Rectangle{64, 16, iconSize, iconSize}, mResourcesCount.resources[0], offsetX},
+		std::tuple{NAS2D::Rectangle{80, 16, iconSize, iconSize}, mResourcesCount.resources[2], x + offsetX},
+		std::tuple{NAS2D::Rectangle{96, 16, iconSize, iconSize}, mResourcesCount.resources[1], x + offsetX},
+		std::tuple{NAS2D::Rectangle{112, 16, iconSize, iconSize}, mResourcesCount.resources[3], 0},
 	};
 
 	for (const auto& [imageRect, amount, spacing] : resources)

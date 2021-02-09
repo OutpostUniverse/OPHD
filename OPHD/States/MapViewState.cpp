@@ -249,9 +249,9 @@ int MapViewState::totalStorage(Structure::StructureClass structureClass, int cap
 int MapViewState::refinedResourcesInStorage()
 {
 	int total = 0;
-	for (size_t i = 0; i < mPlayerResources.resources.size(); ++i)
+	for (size_t i = 0; i < mResourcesCount.resources.size(); ++i)
 	{
-		total += mPlayerResources.resources[i];
+		total += mResourcesCount.resources[i];
 	}
 	return total;
 }
@@ -267,7 +267,7 @@ void MapViewState::updatePlayerResources()
 	{
 		resources += structure->storage();
 	}
-	mPlayerResources = resources;
+	mResourcesCount = resources;
 }
 
 
@@ -1115,9 +1115,9 @@ void MapViewState::placeStructure()
 		}
 
 		// Check build cost
-		if (!StructureCatalogue::canBuild(mPlayerResources, mCurrentStructure))
+		if (!StructureCatalogue::canBuild(mResourcesCount, mCurrentStructure))
 		{
-			resourceShortageMessage(mPlayerResources, mCurrentStructure);
+			resourceShortageMessage(mResourcesCount, mCurrentStructure);
 			return;
 		}
 
@@ -1130,7 +1130,7 @@ void MapViewState::placeStructure()
 		if (structure->isFactory())
 		{
 			static_cast<Factory*>(structure)->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
-			static_cast<Factory*>(structure)->resourcePool(&mPlayerResources);
+			static_cast<Factory*>(structure)->resourcePool(&mResourcesCount);
 		}
 
 		auto cost = StructureCatalogue::costToBuild(mCurrentStructure);

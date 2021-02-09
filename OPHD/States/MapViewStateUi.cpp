@@ -57,7 +57,7 @@ void MapViewState::initUi()
 	mPopulationPanel.old_morale(&mPreviousMorale);
 
 	mResourceBreakdownPanel.position({0, 22});
-	mResourceBreakdownPanel.playerResources(&mPlayerResources);
+	mResourceBreakdownPanel.playerResources(&mResourcesCount);
 
 	mGameOverDialog.returnToMainMenu().connect(this, &MapViewState::btnGameOverClicked);
 	mGameOverDialog.hide();
@@ -374,7 +374,7 @@ void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _ite
 	// Check availability
 	if (!_item->available)
 	{
-		resourceShortageMessage(mPlayerResources, static_cast<StructureID>(_item->meta));
+		resourceShortageMessage(mResourcesCount, static_cast<StructureID>(_item->meta));
 		mStructures.clearSelection();
 		return;
 	}
@@ -553,6 +553,6 @@ void MapViewState::updateStructuresAvailability()
 	for (int sid = 1; sid < StructureID::SID_COUNT; ++sid)
 	{
 		const StructureID id = static_cast<StructureID>(sid);
-		mStructures.itemAvailable(StructureName(id), StructureCatalogue::canBuild(mPlayerResources, id));
+		mStructures.itemAvailable(StructureName(id), StructureCatalogue::canBuild(mResourcesCount, id));
 	}
 }

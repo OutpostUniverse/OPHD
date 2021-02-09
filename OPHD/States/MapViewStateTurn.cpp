@@ -425,11 +425,11 @@ void MapViewState::nextTurn()
 
 	mPopulationPool.clear();
 
-	mResourceBreakdownPanel.previousResources(mPlayerResources);
+	mResourceBreakdownPanel.previousResources(mResourcesCount);
 
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
-	NAS2D::Utility<StructureManager>::get().update(mPlayerResources, mPopulationPool);
+	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
 
 	updateFood();
 

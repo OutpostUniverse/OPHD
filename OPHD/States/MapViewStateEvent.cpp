@@ -152,7 +152,7 @@ void MapViewState::deploySeedLander(NAS2D::Point<int> point)
 
 	// BOTTOM ROW
 	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(StructureID::SID_SEED_FACTORY));
-	sf->resourcePool(&mPlayerResources);
+	sf->resourcePool(&mResourcesCount);
 	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 	sf->sprite().setFrame(7);
 	structureManager.addStructure(sf, &mTileMap->getTile(point + DirectionSouthWest));
