@@ -57,11 +57,5 @@ void RobotCommand::addRobot(Robot* robot)
  */
 void RobotCommand::removeRobot(Robot* robot)
 {
-	if (!robot) { throw std::runtime_error("RobotCommand::removeRobot() called with nullptr"); }
-	if (mRobotList.empty()) { return; }
-
-	auto iter = find(mRobotList.begin(), mRobotList.end(), robot);
-	if (iter == mRobotList.end()) { return; }
-
-	mRobotList.erase(iter);
+	mRobotList.erase(std::remove_if(mRobotList.begin(), mRobotList.end(), [robot](Robot* r1) { return r1 == robot; }), mRobotList.end());
 }
