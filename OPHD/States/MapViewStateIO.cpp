@@ -55,6 +55,26 @@ static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, Storabl
 }
 
 
+static void readRccRobots(NAS2D::Xml::XmlAttribute* attr, Structure& structure, RobotPool& pool)
+{
+	if (!attr) { return; }
+
+	for (const auto& string : NAS2D::split(attr->value(), ','))
+	{
+		const auto robotId = NAS2D::stringTo<int>(string);
+		for (auto* robot : pool.robots())
+		{
+			if (robot->id() == robotId)
+			{
+				static_cast<RobotCommand*>(&structure)->addRobot(robot);
+				break;
+			}
+		}
+	}
+}
+
+
+
 /*****************************************************************************
  * CLASS FUNCTIONS
  *****************************************************************************/
@@ -445,22 +465,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto robotsElement = structureNode->firstChildElement("robots");
 			if (robotsElement)
 			{
-				auto robotsAttribute = robotsElement->firstAttribute();
-				if (robotsAttribute)
-				{
-					for (const auto& string : NAS2D::split(robotsAttribute->value(), ','))
-					{
-						const auto robotId = NAS2D::stringTo<int>(string);
-						for (auto* robot : mRobotPool.robots())
-						{
-							if (robot->id() == robotId)
-							{
-								static_cast<RobotCommand*>(&structure)->addRobot(robot);
-								break;
-							}
-						}
-					}
-				}
+				readRccRobots(robotsElement->firstAttribute(), structure, mRobotPool);
 			}
 		}
 
