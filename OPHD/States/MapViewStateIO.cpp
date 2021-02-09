@@ -440,25 +440,25 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			factory.productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 		}
 
-		/**
-		 * This is a little fragile in that it assumes that everything it expects is
-		 * encoded in the XML savegame. While there are some basic guards in place when
-		 * loading the code doesn't do any checking for garbage for the sake of brevity.
-		 */
 		if (structure.isRobotCommand())
 		{
-			auto& rcc = *static_cast<RobotCommand*>(&structure);
-			XmlAttribute* robotsAttribute = structureNode->firstChildElement("robots")->firstAttribute();
-
-			for (const auto& string : NAS2D::split(robotsAttribute->value(), ','))
+			auto robotsElement = structureNode->firstChildElement("robots");
+			if (robotsElement)
 			{
-				const auto robotId = NAS2D::stringTo<int>(string);
-				for (auto* robot : mRobotPool.robots())
+				auto robotsAttribute = robotsElement->firstAttribute();
+				if (robotsAttribute)
 				{
-					if (robot->id() == robotId)
+					for (const auto& string : NAS2D::split(robotsAttribute->value(), ','))
 					{
-						rcc.addRobot(robot);
-						break;
+						const auto robotId = NAS2D::stringTo<int>(string);
+						for (auto* robot : mRobotPool.robots())
+						{
+							if (robot->id() == robotId)
+							{
+								static_cast<RobotCommand*>(&structure)->addRobot(robot);
+								break;
+							}
+						}
 					}
 				}
 			}
