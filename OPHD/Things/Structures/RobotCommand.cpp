@@ -28,11 +28,6 @@ bool RobotCommand::isControlling(Robot* robot) const
 
 /**
  * Adds a robot to the management pool of the Robot Command structure.
- * 
- * \param	robot	Pointer to a Robot to add to command list.
- * 
- * \note	Performs some basic sanity checking. Will throw if list is full or
- *			the given pointer to a Robot is already in the list.
  */
 void RobotCommand::addRobot(Robot* robot)
 {
@@ -43,9 +38,7 @@ void RobotCommand::addRobot(Robot* robot)
 
 	if (isControlling(robot))
 	{
-		const auto message = "RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. Robot name: " + robot->name();
-		std::cout << message << std::endl;
-		throw std::runtime_error(message);
+		throw std::runtime_error("RobotCommand::addRobot(): Adding a robot that is already under the command of this Robot Command Facility. Robot name: " + robot->name());
 	}
 
 	mRobotList.push_back(robot);
