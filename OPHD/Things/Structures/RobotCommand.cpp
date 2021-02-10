@@ -50,5 +50,5 @@ void RobotCommand::addRobot(Robot* robot)
  */
 void RobotCommand::removeRobot(Robot* robot)
 {
-	mRobotList.erase(std::remove_if(mRobotList.begin(), mRobotList.end(), [robot](Robot* r1) { return r1 == robot; }), mRobotList.end());
+	mRobotList.erase(std::remove(mRobotList.begin(), mRobotList.end(), robot), mRobotList.end());
 }
