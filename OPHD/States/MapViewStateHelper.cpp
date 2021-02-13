@@ -487,7 +487,7 @@ void removeRefinedResources(StorableResources& resourcesToRemove)
 	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
 
 	// Command Center is backup storage, we want to pull from it last
-	auto command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
 	storage.insert(storage.end(), command.begin(), command.end());
 
 	for (auto structure : storage)
