@@ -386,6 +386,12 @@ void MapViewState::countFood()
 }
 
 
+void MapViewState::transferFoodToCommandCenter()
+{
+
+}
+
+
 /**
  * Update road intersection patterns
  */
@@ -431,6 +437,7 @@ void MapViewState::nextTurn()
 	checkConnectedness();
 	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
 
+	transferFoodToCommandCenter();
 	countFood();
 
 	mPreviousMorale = mCurrentMorale;
