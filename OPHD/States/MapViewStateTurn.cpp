@@ -368,7 +368,7 @@ void MapViewState::updateBiowasteRecycling()
 }
 
 
-void MapViewState::updateFood()
+void MapViewState::countFood()
 {
 	mFood = 0;
 
@@ -431,7 +431,7 @@ void MapViewState::nextTurn()
 	checkConnectedness();
 	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
 
-	updateFood();
+	countFood();
 
 	mPreviousMorale = mCurrentMorale;
 

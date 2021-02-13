@@ -134,7 +134,7 @@ private:
 	void setStructureID(StructureID type, InsertMode mode);
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
-	void updateFood();
+	void countFood();
 	int refinedResourcesInStorage();
 	int totalStorage(Structure::StructureClass, int);
 
