@@ -372,7 +372,10 @@ void MapViewState::countFood()
 {
 	mFood = 0;
 
-	const auto& structures = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
+	auto structures = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
+	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+
+	structures.insert(structures.begin(), command.begin(), command.end());
 
 	for (auto structure : structures)
 	{
@@ -381,8 +384,6 @@ void MapViewState::countFood()
 			mFood += static_cast<FoodProduction*>(structure)->foodLevel();
 		}
 	}
-
-	mFood += static_cast<CommandCenter*>(mTileMap->getTile(ccLocation(), 0).structure())->foodLevel();
 }
 
 
