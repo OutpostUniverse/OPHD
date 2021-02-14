@@ -388,7 +388,32 @@ void MapViewState::countFood()
 
 void MapViewState::transferFoodToCommandCenter()
 {
+	auto& foodProducers = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
+	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
 
+	auto foodProducerIterator = foodProducers.begin();
+	for (auto cc : command)
+	{
+		if (!cc->operational()) { continue; }
+
+		CommandCenter* commandCenter = static_cast<CommandCenter*>(cc);
+		int foodToMove = commandCenter->foodCapacity() - commandCenter->foodLevel();
+
+		while (foodProducerIterator != foodProducers.end())
+		{
+			auto foodProducer = static_cast<FoodProduction*>(*foodProducerIterator);
+			const int foodMoved = std::clamp(foodToMove, 0, foodProducer->foodLevel());
+			foodProducer->foodLevel(foodProducer->foodLevel() - foodMoved);
+			commandCenter->foodLevel(commandCenter->foodLevel() + foodMoved);
+
+			foodToMove -= foodMoved;
+
+			if (foodToMove == 0) { return; }
+			
+			++foodProducerIterator;
+		}
+		
+	}
 }
 
 
