@@ -363,6 +363,7 @@ void MapViewState::updateBiowasteRecycling()
 
 			Residence* residence = static_cast<Residence*>(*residenceIterator);
 			residence->pullWaste(recycling->wasteProcessingCapacity());
+			++residenceIterator;
 		}
 	}
 }
