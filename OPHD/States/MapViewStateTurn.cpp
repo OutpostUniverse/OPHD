@@ -88,7 +88,10 @@ void MapViewState::updatePopulation()
 	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, StructureState::Operational);
 	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
 
-	const auto& foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
+	auto foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
+	auto& command = structureManager.structureList(Structure::StructureClass::Command);
+	foodproducers.insert(foodproducers.end(), command.begin(), command.end());
+
 	int remainder = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 
 	for (auto structure : foodproducers)
@@ -96,9 +99,6 @@ void MapViewState::updatePopulation()
 		FoodProduction* foodProducer = static_cast<FoodProduction*>(structure);
 		pullFoodFromStructure(foodProducer, remainder);
 	}
-
-	auto cc = static_cast<FoodProduction*>(mTileMap->getTile(ccLocation(), 0).structure());
-	pullFoodFromStructure(cc, remainder);
 }
 
 
