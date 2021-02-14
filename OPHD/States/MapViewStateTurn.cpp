@@ -290,7 +290,7 @@ void MapViewState::updateResources()
 		stored += moved;
 	}
 
-	updatePlayerResources();
+	countPlayerResources();
 }
 
 

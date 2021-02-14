@@ -257,7 +257,7 @@ int MapViewState::refinedResourcesInStorage()
 }
 
 
-void MapViewState::updatePlayerResources()
+void MapViewState::countPlayerResources()
 {
 	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
 	storage.insert(storage.begin(), mTileMap->getTile(ccLocation(), 0).structure());
@@ -386,7 +386,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 			{
 				StorableResources resourcesToAdd{ 1000, 1000, 1000, 1000 };
 				addRefinedResources(resourcesToAdd);
-				updatePlayerResources();
+				countPlayerResources();
 				updateStructuresAvailability();
 			}
 			break;
@@ -886,7 +886,7 @@ void MapViewState::placeRobot()
 			 */
 			if (!recycledResources.isEmpty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
 
-			updatePlayerResources();
+			countPlayerResources();
 			updateStructuresAvailability();
 
 			tile->connected(false);
@@ -1135,7 +1135,7 @@ void MapViewState::placeStructure()
 
 		auto cost = StructureCatalogue::costToBuild(mCurrentStructure);
 		removeRefinedResources(cost);
-		updatePlayerResources();
+		countPlayerResources();
 		updateStructuresAvailability();
 	}
 }

@@ -217,7 +217,7 @@ void MapViewState::load(const std::string& filePath)
 	updateResidentialCapacity();
 	updateStructuresAvailability();
 	countFood();
-	updatePlayerResources();
+	countPlayerResources();
 
 	if (mTurnCount == 0)
 	{
