@@ -463,14 +463,14 @@ void MapViewState::nextTurn()
 	checkConnectedness();
 	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
 
-	transferFoodToCommandCenter();
-	countFood();
-
 	mPreviousMorale = mCurrentMorale;
 
+	transferFoodToCommandCenter();
 	updateResidentialCapacity();
 
 	updatePopulation();
+	countFood();
+
 	updateCommercial();
 	updateBiowasteRecycling();
 	updateMorale();
