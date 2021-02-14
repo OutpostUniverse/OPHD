@@ -149,7 +149,7 @@ private:
 
 	void mineFacilityExtended(MineFacility* mf);
 
-	void updatePlayerResources();
+	void countPlayerResources();
 
 	// TURN LOGIC
 	void checkColonyShip();
