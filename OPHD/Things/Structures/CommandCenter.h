@@ -22,15 +22,14 @@ public:
 		storageCapacity(constants::BASE_STORAGE_CAPACITY);
 	}
 
+	int foodCapacity() override
+	{
+		return constants::BASE_STORAGE_CAPACITY;
+	}
+
 protected:
 	int calculateProduction() override
 	{
 		return 0;
-	}
-
-
-	int foodCapacity() override
-	{
-		return constants::BASE_STORAGE_CAPACITY;
 	}
 };

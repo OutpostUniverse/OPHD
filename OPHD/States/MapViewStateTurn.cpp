@@ -88,7 +88,10 @@ void MapViewState::updatePopulation()
 	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, StructureState::Operational);
 	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
 
-	const auto& foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
+	auto foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
+	auto& command = structureManager.structureList(Structure::StructureClass::Command);
+	foodproducers.insert(foodproducers.end(), command.begin(), command.end());
+
 	int remainder = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 
 	for (auto structure : foodproducers)
@@ -96,9 +99,6 @@ void MapViewState::updatePopulation()
 		FoodProduction* foodProducer = static_cast<FoodProduction*>(structure);
 		pullFoodFromStructure(foodProducer, remainder);
 	}
-
-	auto cc = static_cast<FoodProduction*>(mTileMap->getTile(ccLocation(), 0).structure());
-	pullFoodFromStructure(cc, remainder);
 }
 
 
@@ -368,11 +368,14 @@ void MapViewState::updateBiowasteRecycling()
 }
 
 
-void MapViewState::updateFood()
+void MapViewState::countFood()
 {
 	mFood = 0;
 
-	const auto& structures = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
+	auto structures = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
+	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+
+	structures.insert(structures.begin(), command.begin(), command.end());
 
 	for (auto structure : structures)
 	{
@@ -381,8 +384,37 @@ void MapViewState::updateFood()
 			mFood += static_cast<FoodProduction*>(structure)->foodLevel();
 		}
 	}
+}
 
-	mFood += static_cast<CommandCenter*>(mTileMap->getTile(ccLocation(), 0).structure())->foodLevel();
+
+void MapViewState::transferFoodToCommandCenter()
+{
+	auto& foodProducers = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
+	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+
+	auto foodProducerIterator = foodProducers.begin();
+	for (auto cc : command)
+	{
+		if (!cc->operational()) { continue; }
+
+		CommandCenter* commandCenter = static_cast<CommandCenter*>(cc);
+		int foodToMove = commandCenter->foodCapacity() - commandCenter->foodLevel();
+
+		while (foodProducerIterator != foodProducers.end())
+		{
+			auto foodProducer = static_cast<FoodProduction*>(*foodProducerIterator);
+			const int foodMoved = std::clamp(foodToMove, 0, foodProducer->foodLevel());
+			foodProducer->foodLevel(foodProducer->foodLevel() - foodMoved);
+			commandCenter->foodLevel(commandCenter->foodLevel() + foodMoved);
+
+			foodToMove -= foodMoved;
+
+			if (foodToMove == 0) { return; }
+			
+			++foodProducerIterator;
+		}
+		
+	}
 }
 
 
@@ -431,13 +463,14 @@ void MapViewState::nextTurn()
 	checkConnectedness();
 	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
 
-	updateFood();
-
 	mPreviousMorale = mCurrentMorale;
 
+	transferFoodToCommandCenter();
 	updateResidentialCapacity();
 
 	updatePopulation();
+	countFood();
+
 	updateCommercial();
 	updateBiowasteRecycling();
 	updateMorale();

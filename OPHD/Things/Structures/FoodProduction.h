@@ -30,9 +30,10 @@ public:
 	int foodLevel() const { return mFoodLevel; }
 	void foodLevel(int level) { mFoodLevel = std::clamp(level, 0, foodCapacity()); }
 
+	virtual int foodCapacity() = 0;
+
 protected:
 	virtual int calculateProduction() = 0;
-	virtual int foodCapacity() = 0;
 
 	int mFoodLevel = 0;
 };
