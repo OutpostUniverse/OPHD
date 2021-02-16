@@ -164,6 +164,7 @@ namespace constants
 	const std::string MoraleFair = "Fair";
 	const std::string MoraleGood = "Good";
 	const std::string MoraleExcellent = "Excellent";
+	const std::string MoraleDescription = "Morale is ";
 
 
 	// =====================================
