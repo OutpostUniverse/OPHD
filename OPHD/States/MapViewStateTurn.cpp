@@ -170,7 +170,6 @@ void MapViewState::updateMorale()
 	const int recreationCount = structureManager.getCountInState(Structure::StructureClass::RecreationCenter, StructureState::Operational);
 	const int foodProducingStructures = structureManager.getCountInState(Structure::StructureClass::FoodProduction, StructureState::Operational);
 	const int commercialCount = structureManager.getCountInState(Structure::StructureClass::Commercial, StructureState::Operational);
-	
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================
@@ -202,18 +201,17 @@ void MapViewState::updateMorale()
 	mCurrentMorale -= structuresDisabled;
 	mCurrentMorale -= structuresDestroyed;
 
-
 	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
 
-	// Provide reason values for PopulationPanel
+	mPopulationPanel.clearMoraleReasons();
 	if (birthCount > 0) { mPopulationPanel.addMoraleReason("Births", birthCount); }
 	if (deathCount > 0) { mPopulationPanel.addMoraleReason("Deaths", -deathCount); }
 	if (foodProducingStructures == 0) { mPopulationPanel.addMoraleReason("No food production", -5);	}
 	if (parkCount > 0) { mPopulationPanel.addMoraleReason("Parks & Arboretums", parkCount); }
 	if (recreationCount > 0) { mPopulationPanel.addMoraleReason("Recreational Facilities", recreationCount); }
-	if (commercialCount > 0) { mPopulationPanel.addMoraleReason("Commercial Structures", commercialCount); }
-	if (residentialOverCapacityHit > 0) { mPopulationPanel.addMoraleReason("Residential Over Capacity", -residentialOverCapacityHit); }
-	if (residentialOverCapacityHit > 0) { mPopulationPanel.addMoraleReason("Biowaste Overflowing", bioWasteAccumulation * -2); }
+	if (commercialCount > 0) { mPopulationPanel.addMoraleReason("Luxury Availability", commercialCount); }
+	if (residentialOverCapacityHit != 0) { mPopulationPanel.addMoraleReason("Residential Over Capacity", residentialOverCapacityHit); }
+	if (bioWasteAccumulation > 0) { mPopulationPanel.addMoraleReason("Biowaste Overflowing", bioWasteAccumulation * -2); }
 	if (structuresDisabled > 0) { mPopulationPanel.addMoraleReason("Structures Disabled", -structuresDisabled); }
 	if (structuresDestroyed > 0) { mPopulationPanel.addMoraleReason("Structures Destroyed", -structuresDestroyed); }
 }
