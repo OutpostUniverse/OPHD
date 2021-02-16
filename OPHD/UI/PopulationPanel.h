@@ -45,4 +45,5 @@ private:
 	int mMorale{ 0 };
 	int mPreviousMorale{ 0 };
 	int mResidentialCapacity{ 0 };
+	int mPopulationPanelWidth{ 0 };
 };

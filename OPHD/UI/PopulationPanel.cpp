@@ -48,8 +48,8 @@ static const std::array moraleStringColor
 
 
 PopulationPanel::PopulationPanel() :
-	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
-	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL) },
+	mFont{ fontCache.load(constants::FONT_PRIMARY, 14) },
+	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, 14) },
 	mIcons{ imageCache.load("ui/icons.png") },
 	mSkin
 	{
@@ -64,7 +64,28 @@ PopulationPanel::PopulationPanel() :
 		imageCache.load("ui/skin/window_bottom_right.png")
 	}
 {
-	size({ 320, 195 });
+	constexpr int linesOfText = 15;
+	constexpr int edgeBuffer = constants::MARGIN * 2;
+	
+	const int windowHeight = mFont.height() * linesOfText + edgeBuffer;
+
+	int largestStringLength = 0;
+	for (int i = 0; i < moraleStringTableCount(); ++i)
+	{
+		const int legnthCompare = mFont.width(moraleString(i));
+		if (legnthCompare > largestStringLength)
+		{
+			largestStringLength = legnthCompare;
+		}
+	}
+
+	largestStringLength += (edgeBuffer) * 2 + mFont.width("999999");
+
+	mPopulationPanelWidth = mFont.width(constants::PopulationBreakdown) + edgeBuffer;
+	const int windowWidth = largestStringLength + edgeBuffer + mPopulationPanelWidth;
+
+
+	size({ windowWidth, windowHeight });
 }
 
 
@@ -73,23 +94,10 @@ void PopulationPanel::update()
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
-	/*
-	auto position = NAS2D::Point{positionX() + 5, positionY() + 5};
-	renderer.drawText(mFont, "Morale: " + std::to_string(*mMorale), position, NAS2D::Color::White);
-	position.y += 10;
-	renderer.drawText(mFont, "Previous: " + std::to_string(*mPreviousMorale), position, NAS2D::Color::White);
-
-	mCapacity = (mResidentialCapacity > 0) ? (mPopulation->size() * 100 / mResidentialCapacity) : 0;
-
-	position.y += 15;
-	const auto text = "Housing: " + std::to_string(mPopulation->size()) + " / " + std::to_string(mResidentialCapacity) + "  (" + std::to_string(mCapacity) + "%)";
-	renderer.drawText(mFont, text, position, NAS2D::Color::White);
-	*/
-
-	auto position = NAS2D::Point{ positionX() + 5, positionY() + 5 };
+	auto position = NAS2D::Point{ positionX() + constants::MARGIN, positionY() + constants::MARGIN };
 
 	// POPULATION
-	renderer.drawText(mFontBold, "Population Breakdown", position);
+	renderer.drawText(mFontBold, constants::PopulationBreakdown, position);
 	const std::array populationData
 	{
 		std::pair{NAS2D::Rectangle{0, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_CHILD)},
@@ -108,31 +116,52 @@ void PopulationPanel::update()
 		position.y += 34;
 	}
 
+	const int fontHeight = mFont.height();
+
+
 	// MORALE
-	position = NAS2D::Point{ positionX() + 140, positionY() + 5 };
-	renderer.drawLine(position, position + NAS2D::Vector<int>{ 0, 185 });
+	position = NAS2D::Point{ positionX() + mPopulationPanelWidth, positionY() + constants::MARGIN };
+	renderer.drawLine(position, position + NAS2D::Vector<int>{ 0, rect().height - 10 }, Color::DarkGray);
 
-	position.x += 5;
-	renderer.drawText(mFontBold, "Morale Breakdown", position);
+	position.x += constants::MARGIN;
+	renderer.drawText(mFontBold, constants::MoraleBreakdown, position);
 
-	position.y += 15;
+	position.y += fontHeight;
 	const auto moraleLevel = moraleIndex(mMorale);
-	renderer.drawText(mFont, constants::MoraleDescription + moraleDescription(moraleLevel), position, moraleStringColor[moraleLevel]);
+	renderer.drawText(mFont, moraleString(Morale::Description) + moraleString(moraleLevel), position, moraleStringColor[moraleLevel]);
 
-	position.y += 13;
+	position.y += fontHeight;
 	renderer.drawText(mFont, "Current: " + std::to_string(mMorale) + " / Previous: " + std::to_string(mPreviousMorale), position);
 
-	position.y += 27;
+	position.y += fontHeight;
+	int capacityPercent = (mResidentialCapacity > 0) ? (mPopulation->size() * 100 / mResidentialCapacity) : 0;
+	const auto housingText = "Housing: " + std::to_string(mPopulation->size()) + " / " + std::to_string(mResidentialCapacity) + "  (" + std::to_string(capacityPercent) + "%)";
+	renderer.drawText(mFont, housingText, position, NAS2D::Color::White);
 
+	position.y += fontHeight + fontHeight / 2;
+
+	renderer.drawLine(position, position + NAS2D::Vector<int>{ rect().width - 160, 0 }, Color::DarkGray);
+
+	position.y += fontHeight / 2;
+
+	
 	for (auto& item : mMoraleChangeReasons)
 	{
 		renderer.drawText(mFont, item.first, position);
-		position.x += 140;
 
-		const std::string text = formatDiff(item.second);
+		const auto text = formatDiff(item.second);
 		const NAS2D::Point<int> labelPosition = { rect().x + rect().width - mFont.width(text) - 5 , position.y };
 
 		renderer.drawText(mFont, text, labelPosition, trend[trendIndex(item.second)]);
-		position += NAS2D::Vector{ -140, 13 };
+		position.y += fontHeight;
 	}
+	
+
+	/*
+	for (size_t i = 0; i < 10; ++i)
+	{
+		renderer.drawText(mFont, "Some Line of Text........", position);
+		position.y += fontHeight;
+	}
+	*/
 }
