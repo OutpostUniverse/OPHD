@@ -506,8 +506,16 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 		XmlAttribute* attribute = element->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "morale") { attribute->queryIntValue(mCurrentMorale); }
-			else if (attribute->name() == "prev_morale") { attribute->queryIntValue(mPreviousMorale); }
+			if (attribute->name() == "morale")
+			{
+				attribute->queryIntValue(mCurrentMorale);
+				mPopulationPanel.morale(mCurrentMorale);
+			}
+			else if (attribute->name() == "prev_morale")
+			{
+				attribute->queryIntValue(mPreviousMorale);
+				mPopulationPanel.old_morale(mPreviousMorale);
+			}
 			else if (attribute->name() == "colonist_landers") { attribute->queryIntValue(mLandersColonist); }
 			else if (attribute->name() == "cargo_landers") { attribute->queryIntValue(mLandersCargo); }
 
