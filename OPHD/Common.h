@@ -318,6 +318,11 @@ const std::string& disabledReason(DisabledReason);
 const std::string& idleReason(IdleReason);
 
 /**
+ * Gets a morale string based on value;
+ */
+const std::string& moraleDescription(int);
+
+/**
  * Super basic progress bar.
  */
 void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding = 4);

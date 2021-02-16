@@ -116,6 +116,22 @@ const std::map<IdleReason, std::string> IDLE_REASON_TABLE =
 };
 
 
+const std::array<std::string, 5> MoraleStringTable =
+{
+	constants::MoraleTerrible,
+	constants::MoralePoor,
+	constants::MoraleFair,
+	constants::MoraleGood,
+	constants::MoraleExcellent
+};
+
+
+const std::string& moraleDescription(int index)
+{
+	return MoraleStringTable[index];
+}
+
+
 /**
  * Description table for products.
  */
