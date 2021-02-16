@@ -165,36 +165,57 @@ void MapViewState::updateMorale()
 
 	// POSITIVE MORALE EFFECTS
 	// =========================================
-	mCurrentMorale += mPopulation.birthCount();
-	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::Park, StructureState::Operational);
-	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::RecreationCenter, StructureState::Operational);
-
-	int food_production = structureManager.getCountInState(Structure::StructureClass::FoodProduction, StructureState::Operational);
-	mCurrentMorale += food_production > 0 ? food_production : -5;
-
-	mCurrentMorale += structureManager.getCountInState(Structure::StructureClass::Commercial, StructureState::Operational);
+	const int birthCount = mPopulation.birthCount();
+	const int parkCount = structureManager.getCountInState(Structure::StructureClass::Park, StructureState::Operational);
+	const int recreationCount = structureManager.getCountInState(Structure::StructureClass::RecreationCenter, StructureState::Operational);
+	const int foodProducingStructures = structureManager.getCountInState(Structure::StructureClass::FoodProduction, StructureState::Operational);
+	const int commercialCount = structureManager.getCountInState(Structure::StructureClass::Commercial, StructureState::Operational);
+	
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================
-	mCurrentMorale -= mPopulation.deathCount();
-	mCurrentMorale -= structureManager.disabled();
-	mCurrentMorale -= structureManager.destroyed();
-
-	int residentialMoraleHit = mPopulationPanel.capacity() / 100;
-
-	// Ensure that there is always a morale hit if residential capacity is more than 100%.
-	if (mPopulationPanel.capacity() > 100 && residentialMoraleHit < constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT) { residentialMoraleHit = constants::MINIMUM_RESIDENCE_OVERCAPACITY_HIT; }
+	const int deathCount = mPopulation.deathCount();
+	const int structuresDisabled = structureManager.disabled();
+	const int structuresDestroyed = structureManager.destroyed();
+	
+	const int residentialOverCapacityHit = mPopulation.size() > mResidentialCapacity ? -2 : 0;
 
 	auto& residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Residence);
+	int bioWasteAccumulation = 0;
 	for (auto residence : residences)
 	{
 		Residence* unit = static_cast<Residence*>(residence);
-		if (unit->wasteOverflow() > 0) { mCurrentMorale -= 2; } /// \fixme magic number
+		if (unit->wasteOverflow() > 0) { ++bioWasteAccumulation; }
 	}
 
-	mCurrentMorale -= residentialMoraleHit;
+	// positive
+	mCurrentMorale += birthCount;
+	mCurrentMorale += parkCount;
+	mCurrentMorale += recreationCount;
+	mCurrentMorale += commercialCount;
+	mCurrentMorale += foodProducingStructures > 0 ? 0 : -5;
+
+	// negative
+	mCurrentMorale -= deathCount;
+	mCurrentMorale -= residentialOverCapacityHit;
+	mCurrentMorale -= bioWasteAccumulation * 2;
+	mCurrentMorale -= structuresDisabled;
+	mCurrentMorale -= structuresDestroyed;
+
 
 	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
+
+	// Provide reason values for PopulationPanel
+	if (birthCount > 0) { mPopulationPanel.addMoraleReason("Births", birthCount); }
+	if (deathCount > 0) { mPopulationPanel.addMoraleReason("Deaths", -deathCount); }
+	if (foodProducingStructures == 0) { mPopulationPanel.addMoraleReason("No food production", -5);	}
+	if (parkCount > 0) { mPopulationPanel.addMoraleReason("Parks & Arboretums", parkCount); }
+	if (recreationCount > 0) { mPopulationPanel.addMoraleReason("Recreational Facilities", recreationCount); }
+	if (commercialCount > 0) { mPopulationPanel.addMoraleReason("Commercial Structures", commercialCount); }
+	if (residentialOverCapacityHit > 0) { mPopulationPanel.addMoraleReason("Residential Over Capacity", -residentialOverCapacityHit); }
+	if (residentialOverCapacityHit > 0) { mPopulationPanel.addMoraleReason("Biowaste Overflowing", bioWasteAccumulation * -2); }
+	if (structuresDisabled > 0) { mPopulationPanel.addMoraleReason("Structures Disabled", -structuresDisabled); }
+	if (structuresDestroyed > 0) { mPopulationPanel.addMoraleReason("Structures Destroyed", -structuresDestroyed); }
 }
 
 
@@ -337,7 +358,7 @@ void MapViewState::updateResidentialCapacity()
 
 	if (residences.empty()) { mResidentialCapacity = constants::COMMAND_CENTER_POPULATION_CAPACITY; }
 
-	mPopulationPanel.residential_capacity(mResidentialCapacity);
+	mPopulationPanel.residentialCapacity(mResidentialCapacity);
 }
 
 
