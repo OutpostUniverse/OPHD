@@ -24,6 +24,7 @@ public:
 
 	void addMoraleReason(const std::string& str, int val)
 	{
+		if (val == 0) { return; }
 		mMoraleChangeReasons.push_back(std::make_pair(str, val));
 	}
 
