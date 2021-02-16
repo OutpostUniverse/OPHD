@@ -5,6 +5,7 @@
 #include <NAS2D/Resources/Font.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
+#include <vector>
 
 class Population;
 
@@ -19,13 +20,14 @@ public:
 	void morale(int val) { mMorale = val; }
 	void old_morale(int val) { mPreviousMorale = val; }
 
-	void residential_capacity(int m) { mResidentialCapacity = m; }
+	void residentialCapacity(int val) { mResidentialCapacity = val; }
 
-	/**
-	 * \fixme	This class/function is use to store residence capacity
-	 *			by the MapViewState. Probably not an appropriate place.
-	 */
-	int capacity() const { return mCapacity; }
+	void addMoraleReason(const std::string& str, int val)
+	{
+		mMoraleChangeReasons.push_back(std::make_pair(str, val));
+	}
+
+	void clearMoraleReasons() { mMoraleChangeReasons.clear(); }
 
 	void update() override;
 
@@ -35,12 +37,11 @@ private:
 	const NAS2D::Image& mIcons;
 	NAS2D::RectangleSkin mSkin;
 
-	Population* mPopulation = nullptr;
+	std::vector<std::pair<std::string,int>> mMoraleChangeReasons;
 
-	int mResidentialCapacity = 0;
+	Population* mPopulation = nullptr;
 
 	int mMorale{ 0 };
 	int mPreviousMorale{ 0 };
-
-	int mCapacity{ 0 };
+	int mResidentialCapacity{ 0 };
 };
