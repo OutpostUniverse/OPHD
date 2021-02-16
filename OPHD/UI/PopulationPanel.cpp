@@ -17,11 +17,6 @@ using namespace NAS2D;
 static constexpr int IconSize = 32;
 
 
-static const auto formatDiff = [](int diff)
-{
-	return ((diff > 0) ? "+" : "") + std::to_string(diff);
-};
-
 static const auto trendIndex = [](int value)
 {
 	return (value >= 0) ? 0 : 1;
@@ -82,7 +77,7 @@ PopulationPanel::PopulationPanel() :
 		}
 	}
 
-	largestStringLength += (edgeBuffer) + mFont.width("999999");
+	largestStringLength += edgeBuffer + mFont.width("999999");
 
 	mPopulationPanelWidth = mFontBold.width(constants::PopulationBreakdown) + edgeBuffer;
 	const int windowWidth = largestStringLength + edgeBuffer + mPopulationPanelWidth;

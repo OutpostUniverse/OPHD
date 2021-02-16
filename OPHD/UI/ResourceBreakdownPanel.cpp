@@ -38,9 +38,6 @@ void ResourceBreakdownPanel::update()
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
-	const auto formatDiff = [](int diff){
-		return ((diff > 0) ? "+" : "") + std::to_string(diff);
-	};
 	const auto trendIndex = [](int newValue, int oldValue){
 		return
 			(newValue == oldValue) ? 0 :

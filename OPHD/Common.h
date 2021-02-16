@@ -367,3 +367,9 @@ int pullTruckFromInventory();
  * \return 1 on success, 0 otherwise.
  */
 int pushTruckIntoInventory();
+
+
+const auto formatDiff = [](int diff)
+{
+	return ((diff > 0) ? "+" : "") + std::to_string(diff);
+};
