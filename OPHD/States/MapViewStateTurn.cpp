@@ -9,6 +9,7 @@
 #include "../Things/Structures/Structures.h"
 
 #include "../Cache.h"
+#include "../Common.h"
 #include "../DirectionOffset.h"
 #include "../StorableResources.h"
 #include "../StructureManager.h"
@@ -204,16 +205,17 @@ void MapViewState::updateMorale()
 	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
 
 	mPopulationPanel.clearMoraleReasons();
-	if (birthCount > 0) { mPopulationPanel.addMoraleReason("Births", birthCount); }
-	if (deathCount > 0) { mPopulationPanel.addMoraleReason("Deaths", -deathCount); }
-	if (foodProducingStructures == 0) { mPopulationPanel.addMoraleReason("No food production", -5);	}
-	if (parkCount > 0) { mPopulationPanel.addMoraleReason("Parks & Arboretums", parkCount); }
-	if (recreationCount > 0) { mPopulationPanel.addMoraleReason("Recreational Facilities", recreationCount); }
-	if (commercialCount > 0) { mPopulationPanel.addMoraleReason("Luxury Availability", commercialCount); }
-	if (residentialOverCapacityHit != 0) { mPopulationPanel.addMoraleReason("Residential Over Capacity", residentialOverCapacityHit); }
-	if (bioWasteAccumulation > 0) { mPopulationPanel.addMoraleReason("Biowaste Overflowing", bioWasteAccumulation * -2); }
-	if (structuresDisabled > 0) { mPopulationPanel.addMoraleReason("Structures Disabled", -structuresDisabled); }
-	if (structuresDestroyed > 0) { mPopulationPanel.addMoraleReason("Structures Destroyed", -structuresDestroyed); }
+
+	mPopulationPanel.addMoraleReason(moraleString(Morale::Births), birthCount);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::Deaths), -deathCount);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::NoFoodProduction), foodProducingStructures > 0 ? 0 : -5);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::Parks), parkCount);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::Recreation), recreationCount);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::Commercial), commercialCount);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::ResidentialOverflow), residentialOverCapacityHit);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::BiowasteOverflow), bioWasteAccumulation * -2);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDisabled), -structuresDisabled);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDestroyed), -structuresDestroyed);
 }
 
 

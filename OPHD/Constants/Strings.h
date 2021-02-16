@@ -157,17 +157,6 @@ namespace constants
 
 
 	// =====================================
-	// = MORALE STRINGS
-	// =====================================
-	const std::string MoraleTerrible = "Terrible";
-	const std::string MoralePoor = "Poor";
-	const std::string MoraleFair = "Fair";
-	const std::string MoraleGood = "Good";
-	const std::string MoraleExcellent = "Excellent";
-	const std::string MoraleDescription = "Morale is ";
-
-
-	// =====================================
 	// = STRUCTURE ANIMATION STATES
 	// =====================================
 	const std::string STRUCTURE_STATE_CONSTRUCTION = "construction";
