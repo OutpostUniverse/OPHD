@@ -1,11 +1,14 @@
 #include "PopulationPanel.h"
 
 #include "../Cache.h"
+#include "../Common.h"
 #include "../Constants.h"
 #include "../Population/Population.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
+
+#include <algorithm>
 
 
 using namespace NAS2D;
@@ -52,9 +55,8 @@ void PopulationPanel::update()
 
 	auto position = NAS2D::Point{ positionX() + 5, positionY() + 5 };
 
+	// POPULATION
 	renderer.drawText(mFontBold, "Population Breakdown", position);
-
-
 	const std::array populationData
 	{
 		std::pair{NAS2D::Rectangle{0, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_CHILD)},
@@ -72,4 +74,20 @@ void PopulationPanel::update()
 		renderer.drawText(mFont, std::to_string(personCount), position + fontOffset, { 0, 185, 0 });
 		position.y += 34;
 	}
+
+	// MORALE
+	position = NAS2D::Point{ positionX() + 160, positionY() + 5 };
+
+	renderer.drawLine(position, position + NAS2D::Vector<int>{ 0, 185 });
+
+	position.x += 5;
+
+	renderer.drawText(mFontBold, "Morale Breakdown", position);
+
+	position.y += 20;
+
+	const auto moraleLevel = (std::clamp(mMorale, 1, 999) / 200);
+	const auto popMoraleImageRect = NAS2D::Rectangle{ 176 + moraleLevel * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE };
+	renderer.drawSubImage(mIcons, position, popMoraleImageRect);
+	renderer.drawText(mFont, constants::MoraleDescription + moraleDescription(moraleLevel), position + NAS2D::Vector<int> { 20, 0 });
 }

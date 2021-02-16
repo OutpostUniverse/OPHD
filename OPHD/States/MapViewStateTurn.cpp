@@ -500,5 +500,8 @@ void MapViewState::nextTurn()
 		mGameOverDialog.show();
 	}
 
+	mPopulationPanel.morale(mCurrentMorale);
+	mPopulationPanel.old_morale(mPreviousMorale);
+
 	mTurnCount++;
 }

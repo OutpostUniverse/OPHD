@@ -15,8 +15,9 @@ public:
 	PopulationPanel();
 
 	void population(Population* pop) { mPopulation = pop; }
-	void morale(int* m) { mMorale = m; }
-	void old_morale(int* m) { mPreviousMorale = m; }
+
+	void morale(int val) { mMorale = val; }
+	void old_morale(int val) { mPreviousMorale = val; }
 
 	void residential_capacity(int m) { mResidentialCapacity = m; }
 
@@ -38,8 +39,8 @@ private:
 
 	int mResidentialCapacity = 0;
 
-	int* mMorale = nullptr;
-	int* mPreviousMorale = nullptr;
+	int mMorale{ 0 };
+	int mPreviousMorale{ 0 };
 
-	int mCapacity = 0;
+	int mCapacity{ 0 };
 };
