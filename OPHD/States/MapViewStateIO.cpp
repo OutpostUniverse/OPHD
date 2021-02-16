@@ -136,6 +136,7 @@ void MapViewState::load(const std::string& filePath)
 
 	mBtnToggleConnectedness.toggle(false);
 	mBtnToggleHeightmap.toggle(false);
+	mPopulationPanel.clearMoraleReasons();
 
 
 	if (!Utility<Filesystem>::get().exists(filePath))
