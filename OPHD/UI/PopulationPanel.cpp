@@ -14,6 +14,9 @@
 using namespace NAS2D;
 
 
+static constexpr int IconSize = 32;
+
+
 static const auto formatDiff = [](int diff)
 {
 	return ((diff > 0) ? "+" : "") + std::to_string(diff);
@@ -48,8 +51,8 @@ static const std::array moraleStringColor
 
 
 PopulationPanel::PopulationPanel() :
-	mFont{ fontCache.load(constants::FONT_PRIMARY, 14) },
-	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, 14) },
+	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
+	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL) },
 	mIcons{ imageCache.load("ui/icons.png") },
 	mSkin
 	{
@@ -64,24 +67,24 @@ PopulationPanel::PopulationPanel() :
 		imageCache.load("ui/skin/window_bottom_right.png")
 	}
 {
-	constexpr int linesOfText = 15;
+	constexpr int linesOfText = 14;
 	constexpr int edgeBuffer = constants::MARGIN * 2;
 	
-	const int windowHeight = mFont.height() * linesOfText + edgeBuffer;
+	const int windowHeight = mFontBold.height() + (mFont.height() * linesOfText) + edgeBuffer;
 
-	int largestStringLength = 0;
+	int largestStringLength = mFontBold.width(constants::MoraleBreakdown);
 	for (int i = 0; i < moraleStringTableCount(); ++i)
 	{
-		const int legnthCompare = mFont.width(moraleString(i));
-		if (legnthCompare > largestStringLength)
+		const int lengthCompare = mFont.width(moraleString(i));
+		if (lengthCompare > largestStringLength)
 		{
-			largestStringLength = legnthCompare;
+			largestStringLength = lengthCompare;
 		}
 	}
 
-	largestStringLength += (edgeBuffer) * 2 + mFont.width("999999");
+	largestStringLength += (edgeBuffer) + mFont.width("999999");
 
-	mPopulationPanelWidth = mFont.width(constants::PopulationBreakdown) + edgeBuffer;
+	mPopulationPanelWidth = mFontBold.width(constants::PopulationBreakdown) + edgeBuffer;
 	const int windowWidth = largestStringLength + edgeBuffer + mPopulationPanelWidth;
 
 
@@ -94,39 +97,45 @@ void PopulationPanel::update()
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
+	const int fontHeight = mFont.height();
+	const int fontBoldHeight = mFontBold.height();
+
 	auto position = NAS2D::Point{ positionX() + constants::MARGIN, positionY() + constants::MARGIN };
 
 	// POPULATION
 	renderer.drawText(mFontBold, constants::PopulationBreakdown, position);
 	const std::array populationData
 	{
-		std::pair{NAS2D::Rectangle{0, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_CHILD)},
-		std::pair{NAS2D::Rectangle{32, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_STUDENT)},
-		std::pair{NAS2D::Rectangle{64, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_WORKER)},
-		std::pair{NAS2D::Rectangle{96, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_SCIENTIST)},
-		std::pair{NAS2D::Rectangle{128, 96, 32, 32}, mPopulation->size(Population::PersonRole::ROLE_RETIRED)},
+		std::tuple{NAS2D::Rectangle{0, 96, IconSize, IconSize}, mPopulation->size(Population::PersonRole::ROLE_CHILD), std::string("Children")},
+		std::tuple{NAS2D::Rectangle{32, 96, IconSize, IconSize}, mPopulation->size(Population::PersonRole::ROLE_STUDENT), std::string("Students")},
+		std::tuple{NAS2D::Rectangle{64, 96, IconSize, IconSize}, mPopulation->size(Population::PersonRole::ROLE_WORKER), std::string("Workers")},
+		std::tuple{NAS2D::Rectangle{96, 96, IconSize, IconSize}, mPopulation->size(Population::PersonRole::ROLE_SCIENTIST), std::string("Scientists")},
+		std::tuple{NAS2D::Rectangle{128, 96, IconSize, IconSize}, mPopulation->size(Population::PersonRole::ROLE_RETIRED), std::string("Retired")},
 	};
 
-	position.y += 15;
-	const auto fontOffset = NAS2D::Vector{ 40, 16 - (mFont.height() / 2) };
-	for (const auto& [imageRect, personCount] : populationData)
+	position.y += fontBoldHeight + constants::MARGIN;
+	const auto textOffset = NAS2D::Vector{ IconSize + constants::MARGIN, (IconSize / 2) - (fontHeight / 2) };
+	for (const auto& [imageRect, personCount, personRole] : populationData)
 	{
 		renderer.drawSubImage(mIcons, position, imageRect);
-		renderer.drawText(mFont, std::to_string(personCount), position + fontOffset, { 0, 185, 0 });
-		position.y += 34;
+	
+		const auto roleCount = std::to_string(personCount);
+		renderer.drawText(mFont, personRole + ": ", position + textOffset);
+
+		const NAS2D::Point<int> labelPosition = { positionX() + mPopulationPanelWidth - mFont.width(roleCount) - constants::MARGIN , position.y + textOffset.y };
+		renderer.drawText(mFont, roleCount, labelPosition);
+		position.y += IconSize + constants::MARGIN;
 	}
 
-	const int fontHeight = mFont.height();
-
-
-	// MORALE
+	// DIVIDER LINE
 	position = NAS2D::Point{ positionX() + mPopulationPanelWidth, positionY() + constants::MARGIN };
 	renderer.drawLine(position, position + NAS2D::Vector<int>{ 0, rect().height - 10 }, Color::DarkGray);
 
+	// MORALE
 	position.x += constants::MARGIN;
 	renderer.drawText(mFontBold, constants::MoraleBreakdown, position);
 
-	position.y += fontHeight;
+	position.y += fontBoldHeight;
 	const auto moraleLevel = moraleIndex(mMorale);
 	renderer.drawText(mFont, moraleString(Morale::Description) + moraleString(moraleLevel), position, moraleStringColor[moraleLevel]);
 
@@ -140,10 +149,9 @@ void PopulationPanel::update()
 
 	position.y += fontHeight + fontHeight / 2;
 
-	renderer.drawLine(position, position + NAS2D::Vector<int>{ rect().width - 160, 0 }, Color::DarkGray);
+	renderer.drawLine(position, position + NAS2D::Vector<int>{ rect().width - mPopulationPanelWidth - constants::MARGIN * 2, 0 }, Color::DarkGray);
 
-	position.y += fontHeight / 2;
-
+	position.y += fontHeight / 2;	
 	
 	for (auto& item : mMoraleChangeReasons)
 	{
@@ -155,13 +163,4 @@ void PopulationPanel::update()
 		renderer.drawText(mFont, text, labelPosition, trend[trendIndex(item.second)]);
 		position.y += fontHeight;
 	}
-	
-
-	/*
-	for (size_t i = 0; i < 10; ++i)
-	{
-		renderer.drawText(mFont, "Some Line of Text........", position);
-		position.y += fontHeight;
-	}
-	*/
 }
