@@ -30,6 +30,7 @@ public:
 
 private:
 	const NAS2D::Font& mFont;
+	const NAS2D::Font& mFontBold;
 	const NAS2D::Image& mIcons;
 	NAS2D::RectangleSkin mSkin;
 
