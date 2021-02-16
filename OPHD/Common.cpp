@@ -152,7 +152,7 @@ const std::string& moraleString(Morale m)
 
 int moraleStringTableCount()
 {
-	return MoraleStringTable.size();
+	return static_cast<int>(MoraleStringTable.size());
 }
 
 
