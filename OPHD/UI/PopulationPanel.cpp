@@ -14,6 +14,39 @@
 using namespace NAS2D;
 
 
+static const auto formatDiff = [](int diff)
+{
+	return ((diff > 0) ? "+" : "") + std::to_string(diff);
+};
+
+static const auto trendIndex = [](int value)
+{
+	return (value >= 0) ? 0 : 1;
+};
+
+static const std::array trend
+{
+	Color{ 0, 185, 0 },
+	Color::Red
+};
+
+
+static const auto moraleIndex = [](int val)
+{
+	return std::clamp(val, 0, 999) / 200;
+};
+
+
+static const std::array moraleStringColor
+{
+	Color::Red,
+	Color::Orange,
+	Color::Yellow,
+	Color::White,
+	Color{ 0, 185, 0 }
+};
+
+
 PopulationPanel::PopulationPanel() :
 	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
 	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL) },
@@ -76,18 +109,30 @@ void PopulationPanel::update()
 	}
 
 	// MORALE
-	position = NAS2D::Point{ positionX() + 160, positionY() + 5 };
-
+	position = NAS2D::Point{ positionX() + 140, positionY() + 5 };
 	renderer.drawLine(position, position + NAS2D::Vector<int>{ 0, 185 });
 
 	position.x += 5;
-
 	renderer.drawText(mFontBold, "Morale Breakdown", position);
 
-	position.y += 20;
+	position.y += 15;
+	const auto moraleLevel = moraleIndex(mMorale);
+	renderer.drawText(mFont, constants::MoraleDescription + moraleDescription(moraleLevel), position, moraleStringColor[moraleLevel]);
 
-	const auto moraleLevel = (std::clamp(mMorale, 1, 999) / 200);
-	const auto popMoraleImageRect = NAS2D::Rectangle{ 176 + moraleLevel * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE };
-	renderer.drawSubImage(mIcons, position, popMoraleImageRect);
-	renderer.drawText(mFont, constants::MoraleDescription + moraleDescription(moraleLevel), position + NAS2D::Vector<int> { 20, 0 });
+	position.y += 13;
+	renderer.drawText(mFont, "Current: " + std::to_string(mMorale) + " / Previous: " + std::to_string(mPreviousMorale), position);
+
+	position.y += 27;
+
+	for (auto& item : mMoraleChangeReasons)
+	{
+		renderer.drawText(mFont, item.first, position);
+		position.x += 140;
+
+		const std::string text = formatDiff(item.second);
+		const NAS2D::Point<int> labelPosition = { rect().x + rect().width - mFont.width(text) - 5 , position.y };
+
+		renderer.drawText(mFont, text, labelPosition, trend[trendIndex(item.second)]);
+		position += NAS2D::Vector{ -140, 13 };
+	}
 }
