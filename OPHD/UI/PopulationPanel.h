@@ -28,6 +28,8 @@ public:
 		mMoraleChangeReasons.push_back(std::make_pair(str, val));
 	}
 
+	const auto& moraleReasonList() const { return mMoraleChangeReasons; }
+
 	void clearMoraleReasons() { mMoraleChangeReasons.clear(); }
 
 	void update() override;

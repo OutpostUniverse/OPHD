@@ -205,14 +205,13 @@ void MapViewState::updateMorale()
 	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
 
 	mPopulationPanel.clearMoraleReasons();
-
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Births), birthCount);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Deaths), -deathCount);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::NoFoodProduction), foodProducingStructures > 0 ? 0 : -5);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Parks), parkCount);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Recreation), recreationCount);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Commercial), commercialCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::ResidentialOverflow), residentialOverCapacityHit);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::ResidentialOverflow), -residentialOverCapacityHit);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::BiowasteOverflow), bioWasteAccumulation * -2);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDisabled), -structuresDisabled);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDestroyed), -structuresDestroyed);
