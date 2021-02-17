@@ -23,6 +23,7 @@ Introduces biowaste produced by residential units and some quality of life impro
 - Fix crash when right-clicking a Robot Command Center
 - Fix a mistake that tallied food totals before population consumption which resulted in incorrect value displayed in the HUD
 - Fix Mine full-screen UI showing "no routes" when loading a game
+- Fix for phantom mine routes being drawn on the Mini Map if you quit to the main menu from an active game and start a new game
 
 
 ## [0.8.0] - 2021-01-01
