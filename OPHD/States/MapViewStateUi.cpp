@@ -115,10 +115,38 @@ void MapViewState::initUi()
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
 
+
+	// tooltip control sizes
+	constexpr auto hudHeight = constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2;
+	mTooltipResourceBreakdown.size({ 265, hudHeight });
+
+	mTooltipResourceStorage.position({ 275, 0 });
+	mTooltipResourceStorage.size({ 85, hudHeight });
+
+	mTooltipFoodStorage.position({ 420, 0 });
+	mTooltipFoodStorage.size({ 75, hudHeight });
+
+	mTooltipEnergy.position({ 560, 0 });
+	mTooltipEnergy.size({ 55, hudHeight });
+
+	mTooltipPopulation.position({ 670, 0 });
+	mTooltipPopulation.size({ 75, hudHeight });
+
+	mTooltipCurrentTurns.size({ 45, hudHeight });
+	mTooltipSystemButton.size({ hudHeight, hudHeight });
+
 	// Tool Tips
 	mToolTip.add(mBtnTurns, constants::ToolTipBtnTurns);
 	mToolTip.add(mBtnToggleHeightmap, constants::ToolTipBtnHeightmap);
 	mToolTip.add(mBtnToggleConnectedness, constants::ToolTipBtnConnectedness);
+
+	mToolTip.add(mTooltipResourceBreakdown, "Resource breakdown");
+	mToolTip.add(mTooltipResourceStorage, "Resource storage");
+	mToolTip.add(mTooltipSystemButton, "System Menu");
+	mToolTip.add(mTooltipFoodStorage, "Food Storage. Current Level / Capacity");
+	mToolTip.add(mTooltipEnergy, "Energy Availability. Available / Total Production");
+	mToolTip.add(mTooltipPopulation, "Population & Morale");
+	mToolTip.add(mTooltipCurrentTurns, "Current turns");
 }
 
 
@@ -128,8 +156,8 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mBottomUiRect = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
 
 	// Menu / System Icon
-	const auto menuIconSpacing = constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2;
-	mMenuIconRect = {size.x - menuIconSpacing, 0, menuIconSpacing, menuIconSpacing};
+	mTooltipSystemButton.position({ size.x - (constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2), 0 });
+	mTooltipCurrentTurns.position({ size.x - 80 , 0 });
 
 	// NAVIGATION BUTTONS
 	// Bottom line
@@ -327,9 +355,9 @@ void MapViewState::drawUI()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Bottom UI
-	renderer.drawBoxFilled(mBottomUiRect, NAS2D::Color{39, 39, 39});
-	renderer.drawBox(mBottomUiRect, NAS2D::Color{21, 21, 21});
-	renderer.drawLine(NAS2D::Point{mBottomUiRect.x + 1, mBottomUiRect.y}, NAS2D::Point{mBottomUiRect.x + mBottomUiRect.width - 2, mBottomUiRect.y}, NAS2D::Color{56, 56, 56});
+	renderer.drawBoxFilled(mBottomUiRect, NAS2D::Color{ 39, 39, 39 });
+	renderer.drawBox(mBottomUiRect, NAS2D::Color{ 21, 21, 21 });
+	renderer.drawLine(NAS2D::Point{ mBottomUiRect.x + 1, mBottomUiRect.y }, NAS2D::Point{ mBottomUiRect.x + mBottomUiRect.width - 2, mBottomUiRect.y }, NAS2D::Color{ 56, 56, 56 });
 
 	drawMiniMap();
 	drawResourceInfo();
@@ -339,7 +367,6 @@ void MapViewState::drawUI()
 	// Buttons
 	mBtnToggleHeightmap.update();
 	mBtnToggleConnectedness.update();
-
 	mBtnTurns.update();
 
 	// Menus

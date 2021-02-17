@@ -279,7 +279,6 @@ private:
 
 	WindowStack mWindowStack;
 
-	NAS2D::Rectangle<int> mMenuIconRect;
 	NAS2D::Rectangle<int> mMoveNorthIconRect;
 	NAS2D::Rectangle<int> mMoveSouthIconRect;
 	NAS2D::Rectangle<int> mMoveEastIconRect;

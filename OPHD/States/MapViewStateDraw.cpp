@@ -140,7 +140,7 @@ void MapViewState::drawResourceInfo()
 	// Resources
 	int x = constants::MARGIN_TIGHT + 12;
 	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
-	auto position = NAS2D::Point{ constants::MARGIN_TIGHT + 12, constants::MARGIN_TIGHT };
+	auto position = NAS2D::Point{ x, constants::MARGIN_TIGHT };
 	constexpr auto textOffset = NAS2D::Vector{ constants::RESOURCE_ICON_SIZE + constants::MARGIN, 3 - constants::MARGIN_TIGHT };
 
 	const auto unpinnedImageRect = NAS2D::Rectangle{ 0, 72, 8, 8 };
@@ -216,8 +216,8 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
-	position = mMenuIconRect.startPoint() + NAS2D::Vector{ constants::MARGIN_TIGHT, constants::MARGIN_TIGHT };
-	bool isMouseInMenu = mMenuIconRect.contains(MOUSE_COORDS);
+	position = mTooltipSystemButton.rect().startPoint() + NAS2D::Vector{ constants::MARGIN_TIGHT, constants::MARGIN_TIGHT };
+	bool isMouseInMenu = mTooltipSystemButton.rect().contains(MOUSE_COORDS);
 	int menuGearHighlightOffsetX = isMouseInMenu ? 144 : 128;
 	const auto menuImageRect = NAS2D::Rectangle{ menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE };
 	renderer.drawSubImage(mUiIcons, position, menuImageRect);
