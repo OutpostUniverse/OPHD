@@ -319,7 +319,6 @@ void StructureCatalogue::buildPopulationRequirementsTable()
 	// WORKERS, SCIENTISTS
 	mPopulationRequirementsTable[StructureID::SID_AGRIDOME] = { 1, 0 };
 	mPopulationRequirementsTable[StructureID::SID_CHAP] = { 2, 0 };
-	mPopulationRequirementsTable[StructureID::SID_COMMAND_CENTER] = { 3, 0 };
 	mPopulationRequirementsTable[StructureID::SID_COMMERCIAL] = { 1, 0 };
 	mPopulationRequirementsTable[StructureID::SID_FUSION_REACTOR] = { 1, 2 };
 	mPopulationRequirementsTable[StructureID::SID_HOT_LABORATORY] = { 1, 5 };
