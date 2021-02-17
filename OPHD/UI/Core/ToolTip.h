@@ -33,7 +33,7 @@ private:
 
 	NAS2D::Point<int> mMouseCoords;
 
-	std::pair<Control*, std::string>* mFocusedControl;
+	std::pair<Control*, std::string>* mFocusedControl{ nullptr };
 
 	std::vector<std::pair<Control*, std::string>> mControls;
 };
