@@ -212,7 +212,14 @@ namespace constants
 	// =====================================
 	const std::string ToolTipBtnTurns = "Advances to the next turn";
 	const std::string ToolTipBtnHeightmap = "Toggles display of the Terrain Height Map";
-	const std::string ToolTipBtnConnectedness = "Toggles display of the tile connection overlay";
+	const std::string ToolTipBtnConnectedness = "Toggles display of the Tile Connection Overlay";
+	const std::string ToolTipRefinedResources = "Breakdown of storage levels for Smelted Resources";
+	const std::string ToolTipResourceStorage = "Smelted Resources Storage. Current Level / Capacity";
+	const std::string ToolTipFoodStorage = "Food Storage. Current Level / Capacity";
+	const std::string ToolTipEnergy = "Energy Availability. Available / Total Production";
+	const std::string ToolTipPopulation = "Population and Morale details";
+	const std::string ToolTipCurrentTurns = "Current turn count";
+	const std::string ToolTipSystemMenu = "System Menu. Options for saving, loading and etc";
 
 	// =====================================
 	// = UI STRINGS
