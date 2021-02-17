@@ -39,7 +39,7 @@ void ToolTip::add(Control& c, const std::string& str)
 }
 
 
-void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item)
+void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
 {
 	constexpr int padding = constants::MARGIN_TIGHT * 2;
 
@@ -47,6 +47,7 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item)
 	const int tooltipHeight = mFont.height() + padding;
 	
 	auto tooltipPosition = item.first->position();
+	tooltipPosition.x = mouseX;
 
 	auto offset = Vector{ 0, -tooltipHeight - constants::MARGIN };
 
@@ -86,7 +87,7 @@ void ToolTip::onMouseMove(int x, int y, int dX, int dY)
 		if (item.first->rect().contains({ x, y }))
 		{
 			mFocusedControl = &item;
-			buildDrawParams(item);
+			buildDrawParams(item, x);
 			return;
 		}
 	}
