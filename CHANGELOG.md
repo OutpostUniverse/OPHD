@@ -16,6 +16,7 @@ Introduces biowaste produced by residential units and some quality of life impro
 - Depleted food stores in the Command Center will be refilled each turn from the production of food producing facilities
 - Morale will take a take a hit whenever biowaste in residences overflows
 - Improve behavior of UI elements in full-screen Mine Operations UI
+- Command Center no longer requires any population to operate
 
 ### Fixed
 - Fix text overlap in Mine Operations Window
@@ -24,6 +25,7 @@ Introduces biowaste produced by residential units and some quality of life impro
 - Fix a mistake that tallied food totals before population consumption which resulted in incorrect value displayed in the HUD
 - Fix Mine full-screen UI showing "no routes" when loading a game
 - Fix for phantom mine routes being drawn on the Mini Map if you quit to the main menu from an active game and start a new game
+- Fix for immediate colony death when landing colonists
 
 
 ## [0.8.0] - 2021-01-01
