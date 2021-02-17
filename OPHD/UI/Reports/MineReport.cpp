@@ -319,6 +319,13 @@ void MineReport::updateManagementButtonsVisiblity()
 	btnAddTruck.visible(selectedFacility);
 	btnRemoveTruck.visible(selectedFacility);
 
+	if (selectedFacility->destroyed() ||
+		selectedFacility->underConstruction())
+	{
+		btnAddTruck.visible(false);
+		btnRemoveTruck.visible(false);
+	}
+
 	chkCommonMetals.visible(selectedFacility);
 	chkCommonMinerals.visible(selectedFacility);
 	chkRareMetals.visible(selectedFacility);
@@ -415,31 +422,40 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 
 void MineReport::drawTruckMangementPane(const NAS2D::Point<int>& origin)
 {
+	const auto miningFacility = static_cast<MineFacility*>(selectedFacility);
+
+	if (miningFacility->destroyed() ||
+		miningFacility->underConstruction())
+	{
+		return;
+	}
+
 	auto& r = Utility<Renderer>::get();
 	const auto textColor = NAS2D::Color{ 0, 185, 0 };
-	const auto mFacility = static_cast<MineFacility*>(selectedFacility);
-
 	r.drawText(fontMediumBold, "Trucks & Routing", origin, textColor);
 	r.drawLine(origin + NAS2D::Vector{ 0, 21 }, { static_cast<float>(r.size().x - 10), static_cast<float>(origin.y + 21) }, textColor, 1);
 
 	r.drawText(fontBold, "Trucks Assigned to Facility", origin + NAS2D::Vector{ 0, 30 }, textColor);
 
 	const auto labelWidth = btnAddTruck.positionX() - origin.x - 10;
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 30 }, labelWidth, "Trucks Assigned to Facility", std::to_string(mFacility->assignedTrucks()), textColor);
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 30 }, labelWidth, "Trucks Assigned to Facility", std::to_string(miningFacility->assignedTrucks()), textColor);
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 45 }, labelWidth, "Trucks Available in Storage", std::to_string(mAvailableTrucks), textColor);
 
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	bool routeAvailable = routeTable.find(mFacility) != routeTable.end();
+	bool routeAvailable = routeTable.find(miningFacility) != routeTable.end();
 
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 65 },
-		labelWidth,
-		"Route Available",
-		routeAvailable ? "Yes" : "No",
-		routeAvailable ? textColor : NAS2D::Color::Red);
-
-	if (routeAvailable)
+	if (miningFacility->operational() || miningFacility->isIdle())
 	{
-		drawTruckHaulInfo(origin + NAS2D::Vector{ 0, 80 });
+		drawLabelAndValueRightJustify(origin + NAS2D::Vector{ 0, 65 },
+			labelWidth,
+			"Route Available",
+			routeAvailable ? "Yes" : "No",
+			routeAvailable ? textColor : NAS2D::Color::Red);
+
+		if (routeAvailable)
+		{
+			drawTruckHaulInfo(origin + NAS2D::Vector{ 0, 80 });
+		}
 	}
 }
 
