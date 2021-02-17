@@ -95,7 +95,7 @@ private:
 
 	StructureListBox lstMineFacilities;
 
-	Structure* selectedFacility = nullptr;
+	Structure* mSelectedFacility{ nullptr };
 
-	int mAvailableTrucks = 0;
+	int mAvailableTrucks{ 0 };
 };

@@ -218,11 +218,10 @@ void MapViewState::updateMorale()
 }
 
 
-void MapViewState::updateResources()
+void MapViewState::findMineRoutes()
 {
-	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
+	auto& smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-
 	mPathSolver->Reset();
 
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
@@ -250,9 +249,16 @@ void MapViewState::updateResources()
 
 			routeTable[facility] = newRoute;
 		}
+	}
+}
 
-		/* Route table may have changed, ensure we have a valid iterator. */
-		routeIt = routeTable.find(facility);
+
+void MapViewState::transportOreFromMines()
+{
+	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
+	{
+		auto routeIt = routeTable.find(static_cast<MineFacility*>(mine));
 		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;
@@ -290,11 +296,15 @@ void MapViewState::updateResources()
 			stored += overflow;
 		}
 	}
+}
 
-	// Move refined resources from smelters to storage tanks
+
+void MapViewState::transportResourcesToStorage()
+{
+	auto& smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
 	for (auto smelter : smelterList)
 	{
-		if (!smelter->operational() && !smelter->isIdle()) { continue; } // consider a different control path.
+		if (!smelter->operational() && !smelter->isIdle()) { continue; }
 
 		auto& stored = smelter->storage();
 		StorableResources moved
@@ -309,7 +319,14 @@ void MapViewState::updateResources()
 		addRefinedResources(moved);
 		stored += moved;
 	}
+}
 
+
+void MapViewState::updateResources()
+{
+	findMineRoutes();
+	transportOreFromMines();
+	transportResourcesToStorage();
 	countPlayerResources();
 }
 
