@@ -31,8 +31,6 @@ private:
 	const NAS2D::Font& mFont;
 	NAS2D::Timer mTimer;
 
-	NAS2D::Point<int> mMouseCoords;
-
 	std::pair<Control*, std::string>* mFocusedControl{ nullptr };
 
 	std::vector<std::pair<Control*, std::string>> mControls;

@@ -43,14 +43,18 @@ void ToolTip::onMouseMove(int x, int y, int dX, int dY)
 {
 	if (dX != 0 || dY != 0)
 	{
+		if (mFocusedControl)
+		{
+			if (mFocusedControl->first->rect().contains({ x, y })) { return; }
+			else { mFocusedControl = nullptr; }
+		}
+
 		mTimer.reset();
 	}
 
-	mMouseCoords = { x, y };
-
 	for (auto& item : mControls)
 	{
-		if (item.first->rect().contains(mMouseCoords))
+		if (item.first->rect().contains({ x, y }))
 		{
 			mFocusedControl = &item;
 			return;
@@ -63,7 +67,7 @@ void ToolTip::onMouseMove(int x, int y, int dX, int dY)
 
 void ToolTip::update()
 {
-	if (mTimer.accumulator() < 2000)
+	if (mTimer.accumulator() < 1000)
 	{
 		return;
 	}
