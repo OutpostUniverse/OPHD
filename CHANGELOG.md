@@ -1,6 +1,30 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.8.1] - 2019-02-17
+
+Introduces biowaste produced by residential units and some quality of life improvements in the GUI.
+
+### Added
+- Recycling Facility
+- Biowaste accumulation
+- GUI ToolTip's
+
+### Changed
+- StructureInspector window now dynamically resizes to accommodate contents
+- Middle mouse button and `shift + right mouse button` will now bring up Structure Inspector window regardless of structure type
+- Depleted food stores in the Command Center will be refilled each turn from the production of food producing facilities
+- Morale will take a take a hit whenever biowaste in residences overflows
+- Improve behavior of UI elements in full-screen Mine Operations UI
+
+### Fixed
+- Fix text overlap in Mine Operations Window
+- Fix crash when opening the Structure Inspector Window on any structure that employs Scientists
+- Fix crash when right-clicking a Robot Command Center
+- Fix a mistake that tallied food totals before population consumption which resulted in incorrect value displayed in the HUD
+- Fix Mine full-screen UI showing "no routes" when loading a game
+
+
 ## [0.8.0] - 2021-01-01
 
 Includes improved mined resource management and a proper implementation of truck routing for mines and mine to smelter routes.
