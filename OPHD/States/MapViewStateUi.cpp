@@ -378,7 +378,7 @@ void MapViewState::drawUI()
 	mGameOptionsDialog.update();
 	mWindowStack.update();
 
-	mToolTip.update();
+	if (!modalUiElementDisplayed()) { mToolTip.update(); }
 }
 
 
