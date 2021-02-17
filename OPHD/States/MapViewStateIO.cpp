@@ -230,6 +230,8 @@ void MapViewState::load(const std::string& filePath)
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
 	updateStructuresAvailability();
+
+	findMineRoutes();
 	countFood();
 	countPlayerResources();
 
