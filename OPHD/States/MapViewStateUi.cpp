@@ -114,6 +114,11 @@ void MapViewState::initUi()
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
+
+	// Tool Tips
+	mToolTip.add(mBtnTurns, constants::ToolTipBtnTurns);
+	mToolTip.add(mBtnToggleHeightmap, constants::ToolTipBtnHeightmap);
+	mToolTip.add(mBtnToggleConnectedness, constants::ToolTipBtnConnectedness);
 }
 
 
@@ -346,6 +351,8 @@ void MapViewState::drawUI()
 	mFileIoDialog.update();
 	mGameOptionsDialog.update();
 	mWindowStack.update();
+
+	mToolTip.update();
 }
 
 

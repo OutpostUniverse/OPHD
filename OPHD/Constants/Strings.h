@@ -207,6 +207,12 @@ namespace constants
 	const std::string PopulationBreakdown = "Population Breakdown";
 	const std::string MoraleBreakdown = "Morale Breakdown";
 
+	// =====================================
+	// = POPULATION PANEL STRINGS
+	// =====================================
+	const std::string ToolTipBtnTurns = "Advances to the next turn";
+	const std::string ToolTipBtnHeightmap = "Toggles display of the Terrain Height Map";
+	const std::string ToolTipBtnConnectedness = "Toggles display of the tile connection overlay";
 
 	// =====================================
 	// = UI STRINGS
