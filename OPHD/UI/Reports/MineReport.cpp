@@ -319,6 +319,13 @@ void MineReport::updateManagementButtonsVisiblity()
 	btnAddTruck.visible(mSelectedFacility);
 	btnRemoveTruck.visible(mSelectedFacility);
 
+	if (mSelectedFacility->destroyed() ||
+		mSelectedFacility->underConstruction())
+	{
+		btnAddTruck.visible(false);
+		btnRemoveTruck.visible(false);
+	}
+
 	chkCommonMetals.visible(mSelectedFacility);
 	chkCommonMinerals.visible(mSelectedFacility);
 	chkRareMetals.visible(mSelectedFacility);
@@ -335,11 +342,11 @@ void MineReport::lstMineFacilitySelectionChanged()
 	if (!mSelectedFacility) { return; }
 
 	auto facility = static_cast<MineFacility*>(mSelectedFacility);
-	btnIdle.toggle(facility->state() == StructureState::Idle);
-	btnIdle.enabled(facility->state() == StructureState::Operational || facility->state() == StructureState::Idle);
+	btnIdle.toggle(mSelectedFacility->isIdle());
+	btnIdle.enabled(mSelectedFacility->operational() || mSelectedFacility->isIdle());
 
 	btnDigNewLevel.toggle(facility->extending());
-	btnDigNewLevel.enabled(facility->canExtend() && mSelectedFacility->operational() || mSelectedFacility->isIdle());
+	btnDigNewLevel.enabled(facility->canExtend() && (mSelectedFacility->operational() || mSelectedFacility->isIdle()));
 
 	chkCommonMetals.checked(facility->mine()->miningCommonMetals());
 	chkCommonMinerals.checked(facility->mine()->miningCommonMinerals());
