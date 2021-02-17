@@ -139,14 +139,13 @@ void MapViewState::initUi()
 	mToolTip.add(mBtnTurns, constants::ToolTipBtnTurns);
 	mToolTip.add(mBtnToggleHeightmap, constants::ToolTipBtnHeightmap);
 	mToolTip.add(mBtnToggleConnectedness, constants::ToolTipBtnConnectedness);
-
-	mToolTip.add(mTooltipResourceBreakdown, "Resource breakdown");
-	mToolTip.add(mTooltipResourceStorage, "Resource storage");
-	mToolTip.add(mTooltipSystemButton, "System Menu");
-	mToolTip.add(mTooltipFoodStorage, "Food Storage. Current Level / Capacity");
-	mToolTip.add(mTooltipEnergy, "Energy Availability. Available / Total Production");
-	mToolTip.add(mTooltipPopulation, "Population & Morale");
-	mToolTip.add(mTooltipCurrentTurns, "Current turns");
+	mToolTip.add(mTooltipResourceBreakdown, constants::ToolTipRefinedResources);
+	mToolTip.add(mTooltipResourceStorage, constants::ToolTipResourceStorage);
+	mToolTip.add(mTooltipFoodStorage, constants::ToolTipFoodStorage);
+	mToolTip.add(mTooltipEnergy, constants::ToolTipEnergy);
+	mToolTip.add(mTooltipPopulation, constants::ToolTipPopulation);
+	mToolTip.add(mTooltipCurrentTurns, constants::ToolTipCurrentTurns);
+	mToolTip.add(mTooltipSystemButton, constants::ToolTipSystemMenu);
 }
 
 
