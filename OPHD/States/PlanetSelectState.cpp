@@ -25,50 +25,8 @@ static const Font* FONT_BOLD = nullptr;
 static const Font* FONT_TINY = nullptr;
 
 
-
-class Explosion
-{
-public:
-	Explosion() :
-		mSheet("fx/explosion2.png")
-	{}
-	~Explosion() = default;
-
-	void update(int x, int y)
-	{
-		auto& renderer = Utility<Renderer>::get();
-
-		if (mTimer.accumulator() > 7)
-		{
-			mFrame = (mFrame + 1) % 64;
-			mTimer.reset();
-		}
-
-		auto width = 128.0f;
-		auto height = 128.0f;
-		auto posX = (mFrame % 8u) * width;
-		auto posY = (mFrame / 8u) * height;
-		auto orientationDegrees = 270.0f;
-		renderer.drawSubImageRotated(mSheet, Point<int>{x, y}, {posX, posY, width, height}, orientationDegrees);
-	}
-
-private:
-	const NAS2D::Image mSheet;
-	NAS2D::Timer mTimer;
-
-	std::size_t mFrame = 0;
-};
-
-
-Explosion* EXPLODE = nullptr;
-
-
-
 PlanetSelectState::PlanetSelectState() :
 	mBg{"sys/bg1.png"},
-	mStarFlare{"sys/flare_1.png"},
-	mDetailFlare{"sys/flare_2.png"},
-	mDetailFlare2{"sys/flare_3.png"},
 	mCloud1{"sys/cloud_1.png"},
 	mCloud2{"sys/cloud_2.png"},
 	mBgMusic{"music/menu.ogg"},
@@ -143,20 +101,7 @@ void PlanetSelectState::initialize()
 	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
 	FONT_TINY = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 
-
-	EXPLODE = new Explosion();
-
 	Utility<Mixer>::get().playMusic(mBgMusic);
-}
-
-
-void PlanetSelectState::drawStar(NAS2D::Point<int> point)
-{
-	float rotation = (mTimer.tick() / 125.0f);
-	auto& renderer = Utility<Renderer>::get();
-	renderer.drawImageRotated(mStarFlare, point, -rotation * 0.75f, NAS2D::Color{255, 255, 0, 180});
-	renderer.drawImageRotated(mDetailFlare2, point, -rotation * 0.25f, NAS2D::Color{255, 255, 100});
-	renderer.drawImageRotated(mDetailFlare, point, rotation, NAS2D::Color::White);
 }
 
 
@@ -171,20 +116,15 @@ State* PlanetSelectState::update()
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
 	renderer.drawImageRotated(mCloud1, NAS2D::Point{size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
-	drawStar({-40, -55});
-
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
 		mPlanets[i]->update();
 	}
 
-	//EXPLODE->update(100, 100);
-
 	renderer.drawText(*FONT_BOLD, "Mercury Type", mPlanets[0]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Mercury Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
 	renderer.drawText(*FONT_BOLD, "Mars Type", mPlanets[1]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Mars Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
 	renderer.drawText(*FONT_BOLD, "Ganymede Type", mPlanets[2]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Ganymede Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
 
-	renderer.drawText(*FONT, "AI Gender", {5, 5}, NAS2D::Color::White);
 	mQuit.update();
 
 	mPlanetDescription.update();

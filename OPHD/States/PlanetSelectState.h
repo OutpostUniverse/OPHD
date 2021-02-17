@@ -40,14 +40,8 @@ private:
 
 	void btnQuitClicked();
 
-	void drawStar(NAS2D::Point<int> point);
-
 private:
 	const NAS2D::Image mBg;
-
-	const NAS2D::Image mStarFlare;
-	const NAS2D::Image mDetailFlare;
-	const NAS2D::Image mDetailFlare2;
 
 	const NAS2D::Image mCloud1;
 	const NAS2D::Image mCloud2;
