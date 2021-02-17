@@ -19,7 +19,7 @@ class ToolTip : public Control
 {
 public:
 	ToolTip();
-	virtual ~ToolTip();
+	~ToolTip() override;
 
 	void add(Control&, const std::string&);
 	void update() override;
