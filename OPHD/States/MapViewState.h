@@ -165,6 +165,7 @@ private:
 
 	void findMineRoutes();
 	void transportOreFromMines();
+	void transportResourcesToStorage();
 
 
 	// SAVE GAME MANAGEMENT FUNCTIONS

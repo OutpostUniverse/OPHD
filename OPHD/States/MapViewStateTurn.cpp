@@ -299,18 +299,12 @@ void MapViewState::transportOreFromMines()
 }
 
 
-void MapViewState::updateResources()
+void MapViewState::transportResourcesToStorage()
 {
 	auto& smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
-
-	findMineRoutes();
-	transportOreFromMines();
-
-
-	// Move refined resources from smelters to storage tanks
 	for (auto smelter : smelterList)
 	{
-		if (!smelter->operational() && !smelter->isIdle()) { continue; } // consider a different control path.
+		if (!smelter->operational() && !smelter->isIdle()) { continue; }
 
 		auto& stored = smelter->storage();
 		StorableResources moved
@@ -325,7 +319,14 @@ void MapViewState::updateResources()
 		addRefinedResources(moved);
 		stored += moved;
 	}
+}
 
+
+void MapViewState::updateResources()
+{
+	findMineRoutes();
+	transportOreFromMines();
+	transportResourcesToStorage();
 	countPlayerResources();
 }
 
