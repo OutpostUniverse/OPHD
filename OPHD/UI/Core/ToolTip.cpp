@@ -39,6 +39,34 @@ void ToolTip::add(Control& c, const std::string& str)
 }
 
 
+void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item)
+{
+	constexpr int padding = constants::MARGIN_TIGHT * 2;
+
+	const int tooltipWidth = mFont.width(item.second) + padding;
+	const int tooltipHeight = mFont.height() + padding;
+	
+	auto tooltipPosition = item.first->position();
+
+	auto offset = Vector{ 0, -tooltipHeight - constants::MARGIN };
+
+	if (tooltipPosition.y + offset.y < 0)
+	{
+		offset.y = tooltipHeight + constants::MARGIN;
+	}
+
+
+	auto& renderer = Utility<Renderer>::get();
+	if (tooltipPosition.x + tooltipWidth > renderer.size().x)
+	{
+		offset.x -= (tooltipPosition.x + tooltipWidth) - (renderer.size().x - constants::MARGIN);
+	}
+
+	position(tooltipPosition + offset);
+	size({ tooltipWidth, tooltipHeight });
+}
+
+
 void ToolTip::onMouseMove(int x, int y, int dX, int dY)
 {
 	if (dX != 0 || dY != 0)
@@ -54,9 +82,11 @@ void ToolTip::onMouseMove(int x, int y, int dX, int dY)
 
 	for (auto& item : mControls)
 	{
+		if (mFocusedControl) { break; }
 		if (item.first->rect().contains({ x, y }))
 		{
 			mFocusedControl = &item;
+			buildDrawParams(item);
 			return;
 		}
 	}
@@ -75,10 +105,8 @@ void ToolTip::update()
 	if (mFocusedControl)
 	{
 		auto& renderer = Utility<Renderer>::get();
-
-		const Rectangle r = { 0, 0, 100, 100 };
-
-		renderer.drawBoxFilled(r, Color::Navy);
-		renderer.drawText(mFont, mFocusedControl->second, Point{ r.x + constants::MARGIN, r.y + constants::MARGIN });
+		renderer.drawBoxFilled(rect(), Color::DarkGray);
+		renderer.drawBox(rect(), Color::Black);
+		renderer.drawText(mFont, mFocusedControl->second, Point{ positionX() + constants::MARGIN_TIGHT, positionY() + constants::MARGIN_TIGHT });
 	}
 }

@@ -27,6 +27,8 @@ public:
 private:
 	void onMouseMove(int, int, int, int);
 
+	void buildDrawParams(std::pair<Control*, std::string>&);
+
 private:
 	const NAS2D::Font& mFont;
 	NAS2D::Timer mTimer;
