@@ -116,9 +116,9 @@ void MapViewState::initUi()
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
 
 	// Tool Tips
-	mToolTip.add(mBtnTurns, "Advances to the next turn.");
-	mToolTip.add(mBtnToggleHeightmap, "Toggles display of the Terrain Height Map.");
-	mToolTip.add(mBtnToggleConnectedness, "Toggles display of the tile connection overlay.");
+	mToolTip.add(mBtnTurns, constants::ToolTipBtnTurns);
+	mToolTip.add(mBtnToggleHeightmap, constants::ToolTipBtnHeightmap);
+	mToolTip.add(mBtnToggleConnectedness, constants::ToolTipBtnConnectedness);
 }
 
 
