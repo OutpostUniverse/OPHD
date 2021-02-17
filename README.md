@@ -22,7 +22,15 @@ OutpostHD is built in C++ using Microsoft's Visual Studio 2019. If you haven't a
 https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
 
 ### MacOS X Dependencies
-The only current build of OutpostHD is Windows but as I understand MacOS X development and program distribution, MacOS distributions come as a 'bundle' with all necessary dependencies packaged in. That stated, there aren't any official osX builds (yet) but we're working on it!
+MacOS X applications are generally distributed as App Bundles which include all necessary dependencies. OutpostHD doesn't yet have a MacOS maintainer that can put together official app Bundles together.
+
+In the mean time, for users of MacOS 10.14 (Mojave) and above, you can install all of OPHD's dependencies using Homebrew (https://brew.sh -- follow instructions for installation) and then run the following command in terminal:
+
+    brew install physfs sdl2 sdl2_image sdl2_mixer sdl2_ttf libpng libjpeg libtiff webp libmodplug libvorbis libogg freetype glew googletest
+
+It will take a few minutes but all dependencies will be installed. From here you can clone the OPHD git repository and run `make` in terminal to build OutpostHD. When built, you can launch OutpostHD by entering `./ophd.exe` from the terminal.
+
+You can make OPHD double-clickable to run by opening the File Info window and renaming it from 'ophd.exe' to simply 'ophd'. This is an artifact of the makefile configuration that we're looking into solving.
 
 ### Linux
 OutpostHD does build and run under Linux. Some of the contributing maintainers have been able to build and run OPHD on Arch Linux and Ubuntu Linux. No official Linux build is available yet but we're working on it!
