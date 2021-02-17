@@ -272,6 +272,28 @@ enum ProductType
 };
 
 
+enum class Morale
+{
+	Terrible,
+	Poor,
+	Fair,
+	Good,
+	Excellent,
+
+	Description,
+	Births,
+	Deaths,
+	NoFoodProduction,
+	Parks,
+	Recreation,
+	Commercial,
+	ResidentialOverflow,
+	BiowasteOverflow,
+	StructuresDisabled,
+	StructuresDestroyed
+};
+
+
 /**
  * Contains population requirements for a given Structure.
  * 
@@ -318,6 +340,13 @@ const std::string& disabledReason(DisabledReason);
 const std::string& idleReason(IdleReason);
 
 /**
+ * Gets a morale string based on value;
+ */
+const std::string& moraleString(int);
+const std::string& moraleString(Morale);
+int moraleStringTableCount();
+
+/**
  * Super basic progress bar.
  */
 void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding = 4);
@@ -338,3 +367,9 @@ int pullTruckFromInventory();
  * \return 1 on success, 0 otherwise.
  */
 int pushTruckIntoInventory();
+
+
+const auto formatDiff = [](int diff)
+{
+	return ((diff > 0) ? "+" : "") + std::to_string(diff);
+};

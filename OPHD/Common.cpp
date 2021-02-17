@@ -116,6 +116,46 @@ const std::map<IdleReason, std::string> IDLE_REASON_TABLE =
 };
 
 
+const std::array MoraleStringTable =
+{
+	std::string("Terrible"),
+	std::string("Poor"),
+	std::string("Fair"),
+	std::string("Good"),
+	std::string("Excellent"),
+
+	std::string("Morale is "),
+	std::string("Births"),
+	std::string("Deaths"),
+	std::string("No active Food Production"),
+	std::string("Parks & Arboretums"),
+	std::string("Recreational Facilities"),
+	std::string("Luxury Availability"),
+	std::string("Residential Over Capacity"),
+	std::string("Biowaste Overflowing"),
+	std::string("Structures Disabled"),
+	std::string("Structures Destroyed")
+};
+
+
+const std::string& moraleString(int index)
+{
+	return MoraleStringTable[index];
+}
+
+
+const std::string& moraleString(Morale m)
+{
+	return MoraleStringTable[static_cast<int>(m)];
+}
+
+
+int moraleStringTableCount()
+{
+	return static_cast<int>(MoraleStringTable.size());
+}
+
+
 /**
  * Description table for products.
  */

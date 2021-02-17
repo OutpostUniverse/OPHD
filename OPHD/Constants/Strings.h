@@ -202,6 +202,13 @@ namespace constants
 	const std::string WAREHOUSE_SPACE_AVAILABLE = "Space Available";
 
 	// =====================================
+	// = POPULATION PANEL STRINGS
+	// =====================================
+	const std::string PopulationBreakdown = "Population Breakdown";
+	const std::string MoraleBreakdown = "Morale Breakdown";
+
+
+	// =====================================
 	// = UI STRINGS
 	// =====================================
 	const std::string BUTTON_TAKE_ME_THERE = "Take Me There";

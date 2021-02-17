@@ -115,6 +115,17 @@ void MapViewState::save(const std::string& filePath)
 	population->attribute("retired", mPopulation.size(Population::PersonRole::ROLE_RETIRED));
 	root->linkEndChild(population);
 
+	auto moraleChangeReasons = new XmlElement("morale_change");
+	auto& moraleChangeList = mPopulationPanel.moraleReasonList();
+	for (auto& reason : moraleChangeList)
+	{
+		auto reasonElement = new XmlElement("change");
+		reasonElement->attribute("message", reason.first);
+		reasonElement->attribute("val", reason.second);
+		moraleChangeReasons->linkEndChild(reasonElement);
+	}
+	root->linkEndChild(moraleChangeReasons);
+
 	// Write out the XML file.
 	XmlMemoryBuffer buff;
 	doc.accept(&buff);
@@ -136,6 +147,7 @@ void MapViewState::load(const std::string& filePath)
 
 	mBtnToggleConnectedness.toggle(false);
 	mBtnToggleHeightmap.toggle(false);
+	mPopulationPanel.clearMoraleReasons();
 
 
 	if (!Utility<Filesystem>::get().exists(filePath))
@@ -206,6 +218,8 @@ void MapViewState::load(const std::string& filePath)
 	readResources(root->firstChildElement("prev_resources"), mResourceBreakdownPanel.previousResources());
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
+
+	readMoraleChanges(root->firstChildElement("morale_change"));
 
 	checkConnectedness();
 
@@ -506,8 +520,16 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 		XmlAttribute* attribute = element->firstAttribute();
 		while (attribute)
 		{
-			if (attribute->name() == "morale") { attribute->queryIntValue(mCurrentMorale); }
-			else if (attribute->name() == "prev_morale") { attribute->queryIntValue(mPreviousMorale); }
+			if (attribute->name() == "morale")
+			{
+				attribute->queryIntValue(mCurrentMorale);
+				mPopulationPanel.morale(mCurrentMorale);
+			}
+			else if (attribute->name() == "prev_morale")
+			{
+				attribute->queryIntValue(mPreviousMorale);
+				mPopulationPanel.old_morale(mPreviousMorale);
+			}
 			else if (attribute->name() == "colonist_landers") { attribute->queryIntValue(mLandersColonist); }
 			else if (attribute->name() == "cargo_landers") { attribute->queryIntValue(mLandersCargo); }
 
@@ -525,5 +547,24 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 		mPopulation.addPopulation(Population::PersonRole::ROLE_WORKER, workers);
 		mPopulation.addPopulation(Population::PersonRole::ROLE_SCIENTIST, scientists);
 		mPopulation.addPopulation(Population::PersonRole::ROLE_RETIRED, retired);
+	}
+}
+
+
+void MapViewState::readMoraleChanges(Xml::XmlElement* elem)
+{
+	if (!elem) { return; }
+
+	for (auto node = elem->firstChild(); node; node = node->nextSibling())
+	{
+		auto attribute = node->toElement()->firstAttribute();
+		std::string message; int val = 0;
+		while (attribute)
+		{
+			if (attribute->name() == "message") { message = attribute->value(); }
+			else if (attribute->name() == "val") { attribute->queryIntValue(val); }
+			attribute = attribute->next();
+		}
+		mPopulationPanel.addMoraleReason(message, val);
 	}
 }
