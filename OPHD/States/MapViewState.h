@@ -249,6 +249,15 @@ private:
 	Button mBtnToggleHeightmap;
 	Button mBtnToggleConnectedness;
 
+	// Bare Control's use for ToolTips
+	Control mTooltipSystemButton;
+	Control mTooltipCurrentTurns;
+	Control mTooltipPopulation;
+	Control mTooltipEnergy;
+	Control mTooltipFoodStorage;
+	Control mTooltipResourceStorage;
+	Control mTooltipResourceBreakdown;
+
 	ToolTip mToolTip;
 
 	IconGrid mStructures{"ui/structures.png", 46, constants::MARGIN_TIGHT};
