@@ -164,6 +164,7 @@ private:
 	void updateRobots();
 
 	void findMineRoutes();
+	void transportOreFromMines();
 
 
 	// SAVE GAME MANAGEMENT FUNCTIONS

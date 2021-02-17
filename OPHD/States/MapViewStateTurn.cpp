@@ -253,12 +253,8 @@ void MapViewState::findMineRoutes()
 }
 
 
-void MapViewState::updateResources()
+void MapViewState::transportOreFromMines()
 {
-	auto& smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
-
-	findMineRoutes();
-
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
 	{
@@ -300,6 +296,16 @@ void MapViewState::updateResources()
 			stored += overflow;
 		}
 	}
+}
+
+
+void MapViewState::updateResources()
+{
+	auto& smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
+
+	findMineRoutes();
+	transportOreFromMines();
+
 
 	// Move refined resources from smelters to storage tanks
 	for (auto smelter : smelterList)
