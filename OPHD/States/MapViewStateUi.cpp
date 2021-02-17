@@ -343,8 +343,6 @@ void MapViewState::drawUI()
 
 	mBtnTurns.update();
 
-	mToolTip.update();
-
 	// Menus
 	mRobots.update();
 	mStructures.update();
@@ -354,6 +352,8 @@ void MapViewState::drawUI()
 	mFileIoDialog.update();
 	mGameOptionsDialog.update();
 	mWindowStack.update();
+
+	mToolTip.update();
 }
 
 
