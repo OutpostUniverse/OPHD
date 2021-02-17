@@ -218,11 +218,10 @@ void MapViewState::updateMorale()
 }
 
 
-void MapViewState::updateResources()
+void MapViewState::findMineRoutes()
 {
-	StructureList smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
+	auto& smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-
 	mPathSolver->Reset();
 
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
@@ -250,9 +249,20 @@ void MapViewState::updateResources()
 
 			routeTable[facility] = newRoute;
 		}
+	}
+}
 
-		/* Route table may have changed, ensure we have a valid iterator. */
-		routeIt = routeTable.find(facility);
+
+void MapViewState::updateResources()
+{
+	auto& smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
+
+	findMineRoutes();
+
+	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
+	{
+		auto routeIt = routeTable.find(static_cast<MineFacility*>(mine));
 		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;

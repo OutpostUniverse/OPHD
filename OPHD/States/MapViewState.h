@@ -163,6 +163,8 @@ private:
 	void updateRoads();
 	void updateRobots();
 
+	void findMineRoutes();
+
 
 	// SAVE GAME MANAGEMENT FUNCTIONS
 	void readRobots(NAS2D::Xml::XmlElement* element);
