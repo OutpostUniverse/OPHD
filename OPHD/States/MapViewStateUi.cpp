@@ -97,6 +97,12 @@ void MapViewState::initUi()
 	mBtnToggleConnectedness.type(Button::Type::BUTTON_TOGGLE);
 	mBtnToggleConnectedness.click().connect(this, &MapViewState::btnToggleConnectednessClicked);
 
+
+	mToolTip.add(mBtnTurns, "Advances to the next turn.");
+	mToolTip.add(mBtnToggleHeightmap, "Toggles display of the Terrain Height Map.");
+	mToolTip.add(mBtnToggleConnectedness, "Toggles display of the tile connection overlay.");
+
+
 	// Menus
 	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
 	mRobots.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
@@ -336,6 +342,8 @@ void MapViewState::drawUI()
 	mBtnToggleConnectedness.update();
 
 	mBtnTurns.update();
+
+	mToolTip.update();
 
 	// Menus
 	mRobots.update();

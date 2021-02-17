@@ -249,6 +249,8 @@ private:
 	Button mBtnToggleHeightmap;
 	Button mBtnToggleConnectedness;
 
+	ToolTip mToolTip;
+
 	IconGrid mStructures{"ui/structures.png", 46, constants::MARGIN_TIGHT};
 	IconGrid mRobots{"ui/robots.png", 46, constants::MARGIN_TIGHT};
 	IconGrid mConnections{"ui/structures.png", 46, constants::MARGIN_TIGHT};
