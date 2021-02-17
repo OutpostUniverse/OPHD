@@ -133,24 +133,24 @@ void MapViewState::drawResourceInfo()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	renderer.drawBoxFilled(NAS2D::Rectangle{0, 0, renderer.size().x, constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{39, 39, 39});
-	renderer.drawBox(NAS2D::Rectangle{0, 0, renderer.size().x, constants::RESOURCE_ICON_SIZE + 4}, NAS2D::Color{21, 21, 21});
-	renderer.drawLine(NAS2D::Point{1, 0}, NAS2D::Point{renderer.size().x - 2, 0}, NAS2D::Color{56, 56, 56});
+	renderer.drawBoxFilled(NAS2D::Rectangle{ 0, 0, renderer.size().x, constants::RESOURCE_ICON_SIZE + 4 }, NAS2D::Color{ 39, 39, 39 });
+	renderer.drawBox(NAS2D::Rectangle{ 0, 0, renderer.size().x, constants::RESOURCE_ICON_SIZE + 4 }, NAS2D::Color{ 21, 21, 21 });
+	renderer.drawLine(NAS2D::Point{ 1, 0 }, NAS2D::Point{ renderer.size().x - 2, 0 }, NAS2D::Color{ 56, 56, 56 });
 
 	// Resources
 	int x = constants::MARGIN_TIGHT + 12;
 	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
-	auto position = NAS2D::Point{constants::MARGIN_TIGHT + 12, constants::MARGIN_TIGHT};
-	constexpr auto textOffset = NAS2D::Vector{constants::RESOURCE_ICON_SIZE + constants::MARGIN, 3 - constants::MARGIN_TIGHT};
+	auto position = NAS2D::Point{ constants::MARGIN_TIGHT + 12, constants::MARGIN_TIGHT };
+	constexpr auto textOffset = NAS2D::Vector{ constants::RESOURCE_ICON_SIZE + constants::MARGIN, 3 - constants::MARGIN_TIGHT };
 
-	const auto unpinnedImageRect = NAS2D::Rectangle{0, 72, 8, 8};
-	const auto pinnedImageRect = NAS2D::Rectangle{8, 72, 8, 8};
+	const auto unpinnedImageRect = NAS2D::Rectangle{ 0, 72, 8, 8 };
+	const auto pinnedImageRect = NAS2D::Rectangle{ 8, 72, 8, 8 };
 
-	renderer.drawSubImage(mUiIcons, NAS2D::Point{2, 7}, mPinResourcePanel ? unpinnedImageRect : pinnedImageRect);
-	renderer.drawSubImage(mUiIcons, NAS2D::Point{675, 7}, mPinPopulationPanel ? unpinnedImageRect : pinnedImageRect);
+	renderer.drawSubImage(mUiIcons, NAS2D::Point{ 2, 7 }, mPinResourcePanel ? unpinnedImageRect : pinnedImageRect);
+	renderer.drawSubImage(mUiIcons, NAS2D::Point{ 675, 7 }, mPinPopulationPanel ? unpinnedImageRect : pinnedImageRect);
 
 	const auto glowIntensity = calcGlowIntensity();
-	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
+	const auto glowColor = NAS2D::Color{ 255, glowIntensity, glowIntensity };
 
 	constexpr auto iconSize = constants::RESOURCE_ICON_SIZE;
 	const std::array resources
@@ -189,35 +189,37 @@ void MapViewState::drawResourceInfo()
 	}
 
 	// Population / Morale
-	position.x -= 17;
-	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 16 : 32);
-	const auto popMoraleDirectionImageRect = NAS2D::Rectangle{popMoraleDeltaImageOffsetX, 48, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	position.x -= 13;
+	position.y += 4;
+	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 8 : 16);
+	const auto popMoraleDirectionImageRect = NAS2D::Rectangle{ popMoraleDeltaImageOffsetX, 64, 8, 8 };
 	renderer.drawSubImage(mUiIcons, position, popMoraleDirectionImageRect);
 
-	position.x += 17;
+	position.x += 13;
+	position.y -= 4;
 	const auto moraleLevel = (std::clamp(mCurrentMorale, 1, 999) / 200);
-	const auto popMoraleImageRect = NAS2D::Rectangle{176 + moraleLevel * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	const auto popMoraleImageRect = NAS2D::Rectangle{ 176 + moraleLevel * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE };
 	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.size()), position + textOffset, NAS2D::Color::White);
 
-	bool isMouseInPopPanel = NAS2D::Rectangle{675, 1, 75, 19}.contains(MOUSE_COORDS);
+	bool isMouseInPopPanel = NAS2D::Rectangle{ 675, 1, 75, 19 }.contains(MOUSE_COORDS);
 	bool shouldShowPopPanel = mPinPopulationPanel || isMouseInPopPanel;
 	if (shouldShowPopPanel) { mPopulationPanel.update(); }
 
-	bool isMouseInResourcePanel = NAS2D::Rectangle{0, 1, mResourceBreakdownPanel.size().x, 19}.contains(MOUSE_COORDS);
+	bool isMouseInResourcePanel = NAS2D::Rectangle{ 0, 1, mResourceBreakdownPanel.size().x, 19 }.contains(MOUSE_COORDS);
 	bool shouldShowResourcePanel = mPinResourcePanel || isMouseInResourcePanel;
 	if (shouldShowResourcePanel) { mResourceBreakdownPanel.update(); }
 
 	// Turns
 	position.x = renderer.size().x - 80;
-	const auto turnImageRect = NAS2D::Rectangle{128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	const auto turnImageRect = NAS2D::Rectangle{ 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE };
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
-	position = mMenuIconRect.startPoint() + NAS2D::Vector{constants::MARGIN_TIGHT, constants::MARGIN_TIGHT};
+	position = mMenuIconRect.startPoint() + NAS2D::Vector{ constants::MARGIN_TIGHT, constants::MARGIN_TIGHT };
 	bool isMouseInMenu = mMenuIconRect.contains(MOUSE_COORDS);
 	int menuGearHighlightOffsetX = isMouseInMenu ? 144 : 128;
-	const auto menuImageRect = NAS2D::Rectangle{menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE};
+	const auto menuImageRect = NAS2D::Rectangle{ menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE };
 	renderer.drawSubImage(mUiIcons, position, menuImageRect);
 }
 
