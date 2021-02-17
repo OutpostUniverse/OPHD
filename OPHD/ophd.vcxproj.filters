@@ -291,6 +291,9 @@
     <ClCompile Include="UI\Reports\MineReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
+    <ClCompile Include="UI\Core\ToolTip.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -652,6 +655,9 @@
     </ClInclude>
     <ClInclude Include="Things\Structures\Recycling.h">
       <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Core\ToolTip.h">
+      <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

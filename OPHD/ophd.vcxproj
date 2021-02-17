@@ -296,6 +296,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClCompile Include="UI\Core\TextArea.cpp" />
     <ClCompile Include="UI\Core\TextControl.cpp" />
     <ClCompile Include="UI\Core\TextField.cpp" />
+    <ClCompile Include="UI\Core\ToolTip.cpp" />
     <ClCompile Include="UI\Core\UIContainer.cpp" />
     <ClCompile Include="UI\Core\Window.cpp" />
     <ClCompile Include="UI\Core\WindowStack.cpp" />
@@ -415,6 +416,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClInclude Include="UI\Core\TextArea.h" />
     <ClInclude Include="UI\Core\TextControl.h" />
     <ClInclude Include="UI\Core\TextField.h" />
+    <ClInclude Include="UI\Core\ToolTip.h" />
     <ClInclude Include="UI\Core\UIContainer.h" />
     <ClInclude Include="UI\Core\Window.h" />
     <ClInclude Include="UI\Core\WindowStack.h" />
