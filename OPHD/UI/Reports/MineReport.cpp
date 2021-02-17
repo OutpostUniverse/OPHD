@@ -319,8 +319,8 @@ void MineReport::updateManagementButtonsVisiblity()
 	btnAddTruck.visible(mSelectedFacility);
 	btnRemoveTruck.visible(mSelectedFacility);
 
-	if (mSelectedFacility->destroyed() ||
-		mSelectedFacility->underConstruction())
+	if (mSelectedFacility &&
+		(mSelectedFacility->destroyed() || mSelectedFacility->underConstruction()))
 	{
 		btnAddTruck.visible(false);
 		btnRemoveTruck.visible(false);
