@@ -26,6 +26,7 @@ Introduces biowaste produced by residential units and some quality of life impro
 - Fix Mine full-screen UI showing "no routes" when loading a game
 - Fix for phantom mine routes being drawn on the Mini Map if you quit to the main menu from an active game and start a new game
 - Fix for immediate colony death when landing colonists
+- Fix crash when double-clicking after returning to Main Menu from Game State
 
 
 ## [0.8.0] - 2021-01-01
