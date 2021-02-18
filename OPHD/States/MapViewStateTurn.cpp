@@ -177,8 +177,8 @@ void MapViewState::updateMorale()
 	const int deathCount = mPopulation.deathCount();
 	const int structuresDisabled = structureManager.disabled();
 	const int structuresDestroyed = structureManager.destroyed();
-	
-	const int residentialOverCapacityHit = mPopulation.size() > mResidentialCapacity ? -2 : 0;
+	const int residentialOverCapacityHit = mPopulation.size() > mResidentialCapacity ? 2 : 0;
+	const int foodProductionHit = foodProducingStructures > 0 ? 0 : 5;
 
 	auto& residences = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Residence);
 	int bioWasteAccumulation = 0;
@@ -193,7 +193,6 @@ void MapViewState::updateMorale()
 	mCurrentMorale += parkCount;
 	mCurrentMorale += recreationCount;
 	mCurrentMorale += commercialCount;
-	mCurrentMorale += foodProducingStructures > 0 ? 0 : -5;
 
 	// negative
 	mCurrentMorale -= deathCount;
@@ -201,13 +200,14 @@ void MapViewState::updateMorale()
 	mCurrentMorale -= bioWasteAccumulation * 2;
 	mCurrentMorale -= structuresDisabled;
 	mCurrentMorale -= structuresDestroyed;
+	mCurrentMorale -= foodProductionHit;
 
 	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
 
 	mPopulationPanel.clearMoraleReasons();
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Births), birthCount);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Deaths), -deathCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::NoFoodProduction), foodProducingStructures > 0 ? 0 : -5);
+	mPopulationPanel.addMoraleReason(moraleString(Morale::NoFoodProduction), -foodProductionHit);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Parks), parkCount);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Recreation), recreationCount);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Commercial), commercialCount);
