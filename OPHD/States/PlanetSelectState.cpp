@@ -146,7 +146,7 @@ State* PlanetSelectState::update()
 }
 
 
-void PlanetSelectState::onMouseDown(EventHandler::MouseButton /*button*/, int /*x*/, int /*y*/)
+void PlanetSelectState::onMouseDown(EventHandler::MouseButton, int, int)
 {
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
@@ -162,7 +162,7 @@ void PlanetSelectState::onMouseDown(EventHandler::MouseButton /*button*/, int /*
 }
 
 
-void PlanetSelectState::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
+void PlanetSelectState::onMouseMove(int x, int y, int, int)
 {
 	mMousePosition = {x, y};
 }

@@ -27,9 +27,6 @@ protected:
 	State* update() override;
 
 private:
-	using PlanetPtrList = std::vector<Planet*>;
-
-private:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
 	void onMouseMove(int, int, int, int);
 
@@ -56,7 +53,7 @@ private:
 
 	NAS2D::Point<int> mMousePosition;
 
-	PlanetPtrList mPlanets;
+	std::vector<Planet*> mPlanets;
 
 	Button mQuit;
 
