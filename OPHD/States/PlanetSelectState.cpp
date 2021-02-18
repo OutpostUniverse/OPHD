@@ -19,10 +19,6 @@
 using namespace NAS2D;
 
 
-std::size_t planetSelection;
-constexpr std::size_t planetSelectionInvalid = std::numeric_limits<std::size_t>::max();
-
-
 namespace
 {
 	std::vector<Planet::Attributes> PlanetAttributes =
@@ -87,8 +83,6 @@ void PlanetSelectState::initialize()
 	mPlanets[2]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[2]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
-	planetSelection = planetSelectionInvalid;
-
 	mQuit.size({100, 20});
 	mQuit.position({renderer.size().x - 105, 30});
 	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
@@ -135,10 +129,10 @@ State* PlanetSelectState::update()
 	{
 		return this;
 	}
-	else if (planetSelection != planetSelectionInvalid)
+	else if (mPlanetSelection != constants::NO_SELECTION)
 	{
 		GameState* gameState = new GameState();
-		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), PlanetAttributes[planetSelection]);
+		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), PlanetAttributes[mPlanetSelection]);
 		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
 		mapview->_initialize();
 		mapview->activate();
@@ -159,7 +153,7 @@ void PlanetSelectState::onMouseDown(EventHandler::MouseButton /*button*/, int /*
 		if (mPlanets[i]->mouseHovering())
 		{
 			Utility<Mixer>::get().playSound(mSelect);
-			planetSelection = i;
+			mPlanetSelection = i;
 			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 			Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 			return;
