@@ -27,9 +27,6 @@ protected:
 	State* update() override;
 
 private:
-	using PlanetPtrList = std::vector<Planet*>;
-
-private:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
 	void onMouseMove(int, int, int, int);
 
@@ -40,15 +37,11 @@ private:
 
 	void btnQuitClicked();
 
-	void drawStar(NAS2D::Point<int> point);
-
 private:
+	const NAS2D::Font& mFontBold;
+	const NAS2D::Font& mTinyFont;
+
 	const NAS2D::Image mBg;
-
-	const NAS2D::Image mStarFlare;
-	const NAS2D::Image mDetailFlare;
-	const NAS2D::Image mDetailFlare2;
-
 	const NAS2D::Image mCloud1;
 	const NAS2D::Image mCloud2;
 
@@ -59,11 +52,13 @@ private:
 
 	NAS2D::Point<int> mMousePosition;
 
-	PlanetPtrList mPlanets;
+	std::vector<Planet*> mPlanets;
 
 	Button mQuit;
 
 	TextArea mPlanetDescription;
+
+	std::size_t mPlanetSelection{ constants::NO_SELECTION };
 
 	NAS2D::Timer mTimer;
 

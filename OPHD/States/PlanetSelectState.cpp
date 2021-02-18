@@ -15,60 +15,25 @@
 #include <cstddef>
 #include <limits>
 
+
 using namespace NAS2D;
 
-std::size_t planetSelection;
-constexpr std::size_t planetSelectionInvalid = std::numeric_limits<std::size_t>::max();
 
-static const Font* FONT = nullptr;
-static const Font* FONT_BOLD = nullptr;
-static const Font* FONT_TINY = nullptr;
-
-
-
-class Explosion
+namespace
 {
-public:
-	Explosion() :
-		mSheet("fx/explosion2.png")
-	{}
-	~Explosion() = default;
-
-	void update(int x, int y)
+	std::vector<Planet::Attributes> PlanetAttributes =
 	{
-		auto& renderer = Utility<Renderer>::get();
-
-		if (mTimer.accumulator() > 7)
-		{
-			mFrame = (mFrame + 1) % 64;
-			mTimer.reset();
-		}
-
-		auto width = 128.0f;
-		auto height = 128.0f;
-		auto posX = (mFrame % 8u) * width;
-		auto posY = (mFrame / 8u) * height;
-		auto orientationDegrees = 270.0f;
-		renderer.drawSubImageRotated(mSheet, Point<int>{x, y}, {posX, posY, width, height}, orientationDegrees);
-	}
-
-private:
-	const NAS2D::Image mSheet;
-	NAS2D::Timer mTimer;
-
-	std::size_t mFrame = 0;
-};
-
-
-Explosion* EXPLODE = nullptr;
-
+		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10, "maps/merc_01", "tsets/mercury.png", "Mercury Type", 0.4f} },
+		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30, "maps/mars_04", "tsets/mars.png", "Mars Type", 1.524f} },
+		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15, "maps/ganymede_01", "tsets/ganymede.png", "Ganymede Type", 5.2f} }
+	};
+}
 
 
 PlanetSelectState::PlanetSelectState() :
+	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM) },
+	mTinyFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
 	mBg{"sys/bg1.png"},
-	mStarFlare{"sys/flare_1.png"},
-	mDetailFlare{"sys/flare_2.png"},
-	mDetailFlare2{"sys/flare_3.png"},
 	mCloud1{"sys/cloud_1.png"},
 	mCloud2{"sys/cloud_2.png"},
 	mBgMusic{"music/menu.ogg"},
@@ -91,13 +56,6 @@ PlanetSelectState::~PlanetSelectState()
 	Utility<Mixer>::get().stopAllAudio();
 }
 
-namespace {
-	std::vector<Planet::Attributes> planetAttributes = {
-		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10, "maps/merc_01", "tsets/mercury.png", 0.4f} },
-		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30, "maps/mars_04", "tsets/mars.png", 1.524f} },
-		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15, "maps/ganymede_01", "tsets/ganymede.png", 5.2f} }
-	};
-}
 
 void PlanetSelectState::initialize()
 {
@@ -106,7 +64,7 @@ void PlanetSelectState::initialize()
 	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 	e.windowResized().connect(this, &PlanetSelectState::onWindowResized);
 
-	for (const auto& planetAttribute : planetAttributes)
+	for (const auto& planetAttribute : PlanetAttributes)
 	{
 		mPlanets.push_back(new Planet(planetAttribute));
 	}
@@ -125,8 +83,6 @@ void PlanetSelectState::initialize()
 	mPlanets[2]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
 	mPlanets[2]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
 
-	planetSelection = planetSelectionInvalid;
-
 	mQuit.size({100, 20});
 	mQuit.position({renderer.size().x - 105, 30});
 	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
@@ -139,24 +95,7 @@ void PlanetSelectState::initialize()
 	renderer.showSystemPointer(true);
 	renderer.fadeIn(constants::FADE_SPEED);
 
-	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	FONT_TINY = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-
-
-	EXPLODE = new Explosion();
-
 	Utility<Mixer>::get().playMusic(mBgMusic);
-}
-
-
-void PlanetSelectState::drawStar(NAS2D::Point<int> point)
-{
-	float rotation = (mTimer.tick() / 125.0f);
-	auto& renderer = Utility<Renderer>::get();
-	renderer.drawImageRotated(mStarFlare, point, -rotation * 0.75f, NAS2D::Color{255, 255, 0, 180});
-	renderer.drawImageRotated(mDetailFlare2, point, -rotation * 0.25f, NAS2D::Color{255, 255, 100});
-	renderer.drawImageRotated(mDetailFlare, point, rotation, NAS2D::Color::White);
 }
 
 
@@ -171,34 +110,29 @@ State* PlanetSelectState::update()
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
 	renderer.drawImageRotated(mCloud1, NAS2D::Point{size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
-	drawStar({-40, -55});
-
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
 		mPlanets[i]->update();
 	}
 
-	//EXPLODE->update(100, 100);
+	renderer.drawText(mFontBold, PlanetAttributes[0].name, mPlanets[0]->position() + NAS2D::Vector{64 - (mFontBold.width(PlanetAttributes[0].name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+	renderer.drawText(mFontBold, PlanetAttributes[1].name, mPlanets[1]->position() + NAS2D::Vector{64 - (mFontBold.width(PlanetAttributes[1].name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+	renderer.drawText(mFontBold, PlanetAttributes[2].name, mPlanets[2]->position() + NAS2D::Vector{64 - (mFontBold.width(PlanetAttributes[2].name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
 
-	renderer.drawText(*FONT_BOLD, "Mercury Type", mPlanets[0]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Mercury Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
-	renderer.drawText(*FONT_BOLD, "Mars Type", mPlanets[1]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Mars Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
-	renderer.drawText(*FONT_BOLD, "Ganymede Type", mPlanets[2]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Ganymede Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
-
-	renderer.drawText(*FONT, "AI Gender", {5, 5}, NAS2D::Color::White);
 	mQuit.update();
 
 	mPlanetDescription.update();
 
-	renderer.drawText(*FONT_TINY, constants::VERSION, NAS2D::Point{-5, -5} + size - FONT_TINY->size(constants::VERSION), NAS2D::Color::White);
+	renderer.drawText(mTinyFont, constants::VERSION, NAS2D::Point{-5, -5} + size - mTinyFont.size(constants::VERSION), NAS2D::Color::White);
 
 	if (renderer.isFading())
 	{
 		return this;
 	}
-	else if (planetSelection != planetSelectionInvalid)
+	else if (mPlanetSelection != constants::NO_SELECTION)
 	{
 		GameState* gameState = new GameState();
-		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), planetAttributes[planetSelection]);
+		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), PlanetAttributes[mPlanetSelection]);
 		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
 		mapview->_initialize();
 		mapview->activate();
@@ -212,14 +146,14 @@ State* PlanetSelectState::update()
 }
 
 
-void PlanetSelectState::onMouseDown(EventHandler::MouseButton /*button*/, int /*x*/, int /*y*/)
+void PlanetSelectState::onMouseDown(EventHandler::MouseButton, int, int)
 {
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
 		if (mPlanets[i]->mouseHovering())
 		{
 			Utility<Mixer>::get().playSound(mSelect);
-			planetSelection = i;
+			mPlanetSelection = i;
 			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 			Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
 			return;
@@ -228,7 +162,7 @@ void PlanetSelectState::onMouseDown(EventHandler::MouseButton /*button*/, int /*
 }
 
 
-void PlanetSelectState::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
+void PlanetSelectState::onMouseMove(int x, int y, int, int)
 {
 	mMousePosition = {x, y};
 }
