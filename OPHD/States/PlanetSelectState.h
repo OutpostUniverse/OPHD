@@ -41,6 +41,9 @@ private:
 	void btnQuitClicked();
 
 private:
+	const NAS2D::Font& mFontBold;
+	const NAS2D::Font& mTinyFont;
+
 	const NAS2D::Image mBg;
 
 	const NAS2D::Image mCloud1;

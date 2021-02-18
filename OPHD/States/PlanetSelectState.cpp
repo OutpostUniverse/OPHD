@@ -15,17 +15,17 @@
 #include <cstddef>
 #include <limits>
 
+
 using namespace NAS2D;
+
 
 std::size_t planetSelection;
 constexpr std::size_t planetSelectionInvalid = std::numeric_limits<std::size_t>::max();
 
-static const Font* FONT = nullptr;
-static const Font* FONT_BOLD = nullptr;
-static const Font* FONT_TINY = nullptr;
-
 
 PlanetSelectState::PlanetSelectState() :
+	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM) },
+	mTinyFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
 	mBg{"sys/bg1.png"},
 	mCloud1{"sys/cloud_1.png"},
 	mCloud2{"sys/cloud_2.png"},
@@ -97,10 +97,6 @@ void PlanetSelectState::initialize()
 	renderer.showSystemPointer(true);
 	renderer.fadeIn(constants::FADE_SPEED);
 
-	FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
-	FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
-	FONT_TINY = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-
 	Utility<Mixer>::get().playMusic(mBgMusic);
 }
 
@@ -121,15 +117,15 @@ State* PlanetSelectState::update()
 		mPlanets[i]->update();
 	}
 
-	renderer.drawText(*FONT_BOLD, "Mercury Type", mPlanets[0]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Mercury Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
-	renderer.drawText(*FONT_BOLD, "Mars Type", mPlanets[1]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Mars Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
-	renderer.drawText(*FONT_BOLD, "Ganymede Type", mPlanets[2]->position() + NAS2D::Vector{64 - (FONT_BOLD->width("Ganymede Type") / 2), -FONT_BOLD->height() - 10}, NAS2D::Color::White);
+	renderer.drawText(mFontBold, "Mercury Type", mPlanets[0]->position() + NAS2D::Vector{64 - (mFontBold.width("Mercury Type") / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+	renderer.drawText(mFontBold, "Mars Type", mPlanets[1]->position() + NAS2D::Vector{64 - (mFontBold.width("Mars Type") / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+	renderer.drawText(mFontBold, "Ganymede Type", mPlanets[2]->position() + NAS2D::Vector{64 - (mFontBold.width("Ganymede Type") / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
 
 	mQuit.update();
 
 	mPlanetDescription.update();
 
-	renderer.drawText(*FONT_TINY, constants::VERSION, NAS2D::Point{-5, -5} + size - FONT_TINY->size(constants::VERSION), NAS2D::Color::White);
+	renderer.drawText(mTinyFont, constants::VERSION, NAS2D::Point{-5, -5} + size - mTinyFont.size(constants::VERSION), NAS2D::Color::White);
 
 	if (renderer.isFading())
 	{
