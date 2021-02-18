@@ -23,9 +23,9 @@ namespace
 {
 	std::vector<Planet::Attributes> PlanetAttributes =
 	{
-		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10, "maps/merc_01", "tsets/mercury.png", 0.4f} },
-		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30, "maps/mars_04", "tsets/mars.png", 1.524f} },
-		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15, "maps/ganymede_01", "tsets/ganymede.png", 5.2f} }
+		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10, "maps/merc_01", "tsets/mercury.png", "Mercury Type", 0.4f} },
+		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30, "maps/mars_04", "tsets/mars.png", "Mars Type", 1.524f} },
+		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15, "maps/ganymede_01", "tsets/ganymede.png", "Ganymede Type", 5.2f} }
 	};
 }
 
@@ -115,9 +115,9 @@ State* PlanetSelectState::update()
 		mPlanets[i]->update();
 	}
 
-	renderer.drawText(mFontBold, "Mercury Type", mPlanets[0]->position() + NAS2D::Vector{64 - (mFontBold.width("Mercury Type") / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
-	renderer.drawText(mFontBold, "Mars Type", mPlanets[1]->position() + NAS2D::Vector{64 - (mFontBold.width("Mars Type") / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
-	renderer.drawText(mFontBold, "Ganymede Type", mPlanets[2]->position() + NAS2D::Vector{64 - (mFontBold.width("Ganymede Type") / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+	renderer.drawText(mFontBold, PlanetAttributes[0].name, mPlanets[0]->position() + NAS2D::Vector{64 - (mFontBold.width(PlanetAttributes[0].name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+	renderer.drawText(mFontBold, PlanetAttributes[1].name, mPlanets[1]->position() + NAS2D::Vector{64 - (mFontBold.width(PlanetAttributes[1].name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+	renderer.drawText(mFontBold, PlanetAttributes[2].name, mPlanets[2]->position() + NAS2D::Vector{64 - (mFontBold.width(PlanetAttributes[2].name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
 
 	mQuit.update();
 

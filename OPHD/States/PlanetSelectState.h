@@ -42,7 +42,6 @@ private:
 	const NAS2D::Font& mTinyFont;
 
 	const NAS2D::Image mBg;
-
 	const NAS2D::Image mCloud1;
 	const NAS2D::Image mCloud2;
 
