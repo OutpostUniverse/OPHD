@@ -23,6 +23,17 @@ std::size_t planetSelection;
 constexpr std::size_t planetSelectionInvalid = std::numeric_limits<std::size_t>::max();
 
 
+namespace
+{
+	std::vector<Planet::Attributes> PlanetAttributes =
+	{
+		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10, "maps/merc_01", "tsets/mercury.png", 0.4f} },
+		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30, "maps/mars_04", "tsets/mars.png", 1.524f} },
+		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15, "maps/ganymede_01", "tsets/ganymede.png", 5.2f} }
+	};
+}
+
+
 PlanetSelectState::PlanetSelectState() :
 	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM) },
 	mTinyFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
@@ -49,13 +60,6 @@ PlanetSelectState::~PlanetSelectState()
 	Utility<Mixer>::get().stopAllAudio();
 }
 
-namespace {
-	std::vector<Planet::Attributes> planetAttributes = {
-		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10, "maps/merc_01", "tsets/mercury.png", 0.4f} },
-		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30, "maps/mars_04", "tsets/mars.png", 1.524f} },
-		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15, "maps/ganymede_01", "tsets/ganymede.png", 5.2f} }
-	};
-}
 
 void PlanetSelectState::initialize()
 {
@@ -64,7 +68,7 @@ void PlanetSelectState::initialize()
 	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 	e.windowResized().connect(this, &PlanetSelectState::onWindowResized);
 
-	for (const auto& planetAttribute : planetAttributes)
+	for (const auto& planetAttribute : PlanetAttributes)
 	{
 		mPlanets.push_back(new Planet(planetAttribute));
 	}
@@ -134,7 +138,7 @@ State* PlanetSelectState::update()
 	else if (planetSelection != planetSelectionInvalid)
 	{
 		GameState* gameState = new GameState();
-		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), planetAttributes[planetSelection]);
+		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), PlanetAttributes[planetSelection]);
 		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
 		mapview->_initialize();
 		mapview->activate();
