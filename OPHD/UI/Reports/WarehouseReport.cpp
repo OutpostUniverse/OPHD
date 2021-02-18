@@ -75,6 +75,7 @@ WarehouseReport::WarehouseReport() :
 WarehouseReport::~WarehouseReport()
 {
 	Control::resized().disconnect(this, &WarehouseReport::_resized);
+	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &WarehouseReport::doubleClicked);
 }
 
 
