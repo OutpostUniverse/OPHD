@@ -228,6 +228,7 @@ namespace constants
 	const std::string BUTTON_IDLE = "Idle";
 	const std::string BUTTON_ADD_TRUCK = "Add Truck";
 	const std::string BUTTON_REMOVE_TRUCK = "Remove Truck";
+	const std::string ButtonCancel = "Cancel";
 
 	// =====================================
 	// = STRUCTURE DISABLED REASONS
