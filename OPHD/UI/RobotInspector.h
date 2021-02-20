@@ -17,6 +17,7 @@ public:
 	RobotInspector();
 
 	void focusOnRobot(Robot*);
+	const Robot* focusedRobot() const { return mRobot; }
 
 	NAS2D::Signals::Signal<Robot*>& actionButtonClicked() { return mCallback; }
 
