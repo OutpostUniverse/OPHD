@@ -26,13 +26,11 @@ private:
 	void init();
 
 private:
-	const NAS2D::Font& mFont;
-	const NAS2D::Font& mFontBold;
-
 	Button btnCancelOrders;
 	Button btnSelfDestruct;
-	Button btnIdle;
 	Button btnCancel;
+
+	NAS2D::Rectangle<int> mContentArea;
 
 	NAS2D::Signals::Signal<Robot*> mCallback;
 

@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 #include "RobotInspector.h"
 #include "TextRender.h"
 
@@ -30,11 +27,8 @@ namespace
 
 
 RobotInspector::RobotInspector() :
-	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
-	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL) },
 	btnCancelOrders{ "Cancel Orders" },
 	btnSelfDestruct{ "Self Destruct" },
-	btnIdle{ "Set Idle" },
 	btnCancel{ constants::ButtonCancel }
 {
 	init();
@@ -43,28 +37,39 @@ RobotInspector::RobotInspector() :
 
 void RobotInspector::init()
 {
+	const NAS2D::Font& mainFont = fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	const NAS2D::Font& mainFontBold = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+
 	constexpr int padding = constants::MARGIN * 2;
-	const int buttonWidth = mFont.width("Cancel Orders") + padding;
-	const int buttonHeight = mFont.height() + padding;
+	const int buttonWidth = mainFont.width("Cancel Orders") + padding;
+	const int buttonHeight = mainFont.height() + padding;
+	const int buttonOffsetY = buttonHeight + constants::MARGIN_TIGHT;
 
-	const int contentHeight = (buttonHeight + constants::MARGIN) * 4;
-	const int imgHeight = robotImage(Robot::Type::Digger).size().y + padding;
+	const int imgSize = robotImage(Robot::Type::Digger).size().y + padding;
 
-	const int largestHeight = imgHeight > contentHeight ? imgHeight : contentHeight;
+	mContentArea = { imgSize,
+		sWindowTitleBarHeight + constants::MARGIN,
+		mainFontBold.width("Age") + mainFont.width("    9999"),
+		mainFont.height() + constants::MARGIN };
 
-	size({ buttonWidth + robotImage(Robot::Type::Digger).size().x + padding + constants::MARGIN, 300 });
+	if (mContentArea.width < buttonWidth) { mContentArea.width = buttonWidth; }
 
-	add(btnCancelOrders, { 0, 0 });
+	size({ buttonWidth + robotImage(Robot::Type::Digger).size().x + padding + constants::MARGIN, 0 });
+
+	auto buttonPosition = Vector{ imgSize,  mContentArea.y + mContentArea.height + constants::MARGIN };
+
 	btnCancelOrders.size({ buttonWidth, buttonHeight });
+	add(btnCancelOrders, buttonPosition);
+	buttonPosition.y += buttonOffsetY;
 
-	add(btnSelfDestruct, { 0, 0 });
 	btnSelfDestruct.size({ buttonWidth, buttonHeight });
+	add(btnSelfDestruct, buttonPosition);
 
-	add(btnIdle, { 0, 0 });
-	btnIdle.size({ buttonWidth, buttonHeight });
+	btnCancel.size({ mainFont.width(constants::ButtonCancel) + padding, buttonHeight });
+	buttonPosition = { rect().width - btnCancel.size().x - constants::MARGIN, buttonPosition.y + buttonOffsetY * 2 };
+	add(btnCancel, buttonPosition);
 
-	add(btnCancel, { 0, 0 });
-	btnCancel.size({ mFont.width(constants::ButtonCancel), buttonHeight });
+	size({ size().x, buttonPosition.y + buttonHeight + constants::MARGIN });
 }
 
 
@@ -83,9 +88,8 @@ void RobotInspector::update()
 	Window::update();
 
 	auto& renderer = Utility<Renderer>::get();
+	renderer.drawImage(robotImage(mRobot->type()), position() + Vector{ constants::MARGIN, constants::MARGIN + sWindowTitleBarHeight });
 
-	const auto labelPosition = Point{ btnCancelOrders.positionX(), positionY() + sWindowTitleBarHeight + constants::MARGIN };
-	const auto labelWidth = btnCancelOrders.rect().width + (constants::MARGIN * 2);
-
-	drawLabelAndValueRightJustify(labelPosition, labelWidth, "Something Something Robot", "Value");
+	const auto labelPosition = rect().startPoint() + Vector{ mContentArea.x, mContentArea.y };
+	drawLabelAndValueRightJustify(labelPosition, mContentArea.width, "Age", std::to_string(mRobot->fuelCellAge()));
 }
