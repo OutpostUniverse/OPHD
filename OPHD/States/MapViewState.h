@@ -25,13 +25,16 @@
 #include <memory>
 
 
-namespace NAS2D {
-	namespace Xml {
+namespace NAS2D
+{
+	namespace Xml
+	{
 		class XmlElement;
 	}
 }
 
-namespace micropather {
+namespace micropather
+{
 	class MicroPather;
 }
 
