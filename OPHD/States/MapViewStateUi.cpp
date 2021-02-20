@@ -77,6 +77,7 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mAnnouncement);
 	mWindowStack.addWindow(&mWarehouseInspector);
 	mWindowStack.addWindow(&mMineOperationsWindow);
+	mWindowStack.addWindow(&mRobotInspector);
 
 	const auto size = renderer.size().to<int>();
 	mBottomUiRect = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};

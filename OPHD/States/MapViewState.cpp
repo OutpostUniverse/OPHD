@@ -459,6 +459,12 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 			mTileInspector.show();
 			mWindowStack.bringToFront(&mTileInspector);
 		}
+		else if (tile.thingIsRobot())
+		{
+			mRobotInspector.focusOnRobot(tile.robot());
+			mRobotInspector.show();
+			mWindowStack.bringToFront(&mRobotInspector);
+		}
 		else if (tile.thingIsStructure())
 		{
 			Structure* structure = tile.structure();

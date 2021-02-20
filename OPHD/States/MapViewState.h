@@ -277,6 +277,7 @@ private:
 	MineOperationsWindow mMineOperationsWindow;
 	PopulationPanel mPopulationPanel;
 	ResourceBreakdownPanel mResourceBreakdownPanel;
+	RobotInspector mRobotInspector;
 	StructureInspector mStructureInspector;
 	TileInspector mTileInspector;
 	WarehouseInspector mWarehouseInspector;
