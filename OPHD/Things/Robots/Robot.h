@@ -10,8 +10,8 @@ public:
 	using TaskCallback = NAS2D::Signals::Signal<Robot*>;
 
 public:
-	Robot(const std::string& name, const std::string& sprite_path);
-	Robot(const std::string& name, const std::string& sprite_path, const std::string& initialAction);
+	Robot(const std::string&, const std::string&, RobotType);
+	Robot(const std::string&, const std::string&, const std::string&, RobotType);
 
 	void startTask(int turns);
 
@@ -23,6 +23,8 @@ public:
 	void seldDestruct(bool value) { mSelfDestruct = value; }
 
 	bool idle() const { return turnsToCompleteTask() == 0; }
+
+	RobotType type() const { return mType; }
 
 	TaskCallback& taskComplete() { return mTaskCompleteCallback; }
 	Callback& selfDestruct() { return mSelfDestructCallback; }
@@ -40,6 +42,8 @@ private:
 	int mTurnsToCompleteTask = 0;
 
 	bool mSelfDestruct = false;
+
+	RobotType mType{ RobotType::None };
 
 	TaskCallback mTaskCompleteCallback;
 	Callback mSelfDestructCallback;
