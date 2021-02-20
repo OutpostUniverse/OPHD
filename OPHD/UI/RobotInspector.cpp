@@ -70,6 +70,10 @@ void RobotInspector::init()
 	add(btnCancel, buttonPosition);
 
 	size({ size().x, buttonPosition.y + buttonHeight + constants::MARGIN });
+
+	btnCancelOrders.click().connect(this, &RobotInspector::btnCancelOrdersClicked);
+	btnSelfDestruct.click().connect(this, &RobotInspector::btnSelfDestructClicked);
+	btnCancel.click().connect(this, &RobotInspector::btnCancelClicked);
 }
 
 
@@ -79,6 +83,24 @@ void RobotInspector::focusOnRobot(Robot* robot)
 
 	mRobot = robot;
 	text(robot->name());
+}
+
+
+void RobotInspector::btnCancelOrdersClicked()
+{
+
+}
+
+
+void RobotInspector::btnSelfDestructClicked()
+{
+
+}
+
+
+void RobotInspector::btnCancelClicked()
+{
+
 }
 
 

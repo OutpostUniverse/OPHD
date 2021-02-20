@@ -25,6 +25,10 @@ public:
 private:
 	void init();
 
+	void btnCancelOrdersClicked();
+	void btnSelfDestructClicked();
+	void btnCancelClicked();
+
 private:
 	Button btnCancelOrders;
 	Button btnSelfDestruct;
