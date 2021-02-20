@@ -244,9 +244,9 @@ void MapViewState::drawRobotInfo()
 	const auto robotSummaryImageRect = NAS2D::Rectangle{231, 43, 25, 25};
 
 	const std::array icons{
-		std::tuple{minerImageRect, mRobotPool.getAvailableCount(RobotType::Miner), mRobotPool.miners().size()},
-		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(RobotType::Dozer), mRobotPool.dozers().size()},
-		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(RobotType::Digger), mRobotPool.diggers().size()},
+		std::tuple{minerImageRect, mRobotPool.getAvailableCount(Robot::Type::Miner), mRobotPool.miners().size()},
+		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(Robot::Type::Dozer), mRobotPool.dozers().size()},
+		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(Robot::Type::Digger), mRobotPool.diggers().size()},
 		std::tuple{robotSummaryImageRect, static_cast<int>(mRobotPool.currentControlCount()), static_cast<std::size_t>(mRobotPool.robotControlMax())},
 	};
 

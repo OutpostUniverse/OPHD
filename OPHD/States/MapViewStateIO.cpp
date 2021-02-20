@@ -301,21 +301,21 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		ROBOT_ID_COUNTER = std::max(ROBOT_ID_COUNTER, id);
 
 		Robot* robot = nullptr;
-		switch (static_cast<RobotType>(type))
+		switch (static_cast<Robot::Type>(type))
 		{
-		case RobotType::Digger:
-			robot = mRobotPool.addRobot(RobotType::Digger, id);
+		case Robot::Type::Digger:
+			robot = mRobotPool.addRobot(Robot::Type::Digger, id);
 			robot->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
 			break;
 
-		case RobotType::Dozer:
-			robot = mRobotPool.addRobot(RobotType::Dozer, id);
+		case Robot::Type::Dozer:
+			robot = mRobotPool.addRobot(Robot::Type::Dozer, id);
 			robot->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			break;
 
-		case RobotType::Miner:
-			robot = mRobotPool.addRobot(RobotType::Miner, id);
+		case Robot::Type::Miner:
+			robot = mRobotPool.addRobot(Robot::Type::Miner, id);
 			robot->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			break;
 
@@ -342,9 +342,9 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		}
 	}
 
-	if (mRobotPool.robotAvailable(RobotType::Digger)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::Digger); }
-	if (mRobotPool.robotAvailable(RobotType::Dozer)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::Dozer); }
-	if (mRobotPool.robotAvailable(RobotType::Miner)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::Miner); }
+	if (mRobotPool.robotAvailable(Robot::Type::Digger)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, Robot::Type::Digger); }
+	if (mRobotPool.robotAvailable(Robot::Type::Dozer)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, Robot::Type::Dozer); }
+	if (mRobotPool.robotAvailable(Robot::Type::Miner)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, Robot::Type::Miner); }
 }
 
 

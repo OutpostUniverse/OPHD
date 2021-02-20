@@ -535,7 +535,7 @@ int pullResource(int& resource, int amount)
 /** 
  * Document me!
  */
-void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, RobotType _type)
+void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot::Type _type)
 {
 	_ti->attribute("id", _r->id());
 	_ti->attribute("type", static_cast<int>(_type));
@@ -568,7 +568,7 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 	for (auto digger : diggers)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, digger, RobotType::Digger);
+		checkRobotDeployment(robot, robotMap, digger, Robot::Type::Digger);
 		robot->attribute("direction", static_cast<int>(digger->direction()));
 		robots->linkEndChild(robot);
 	}
@@ -577,7 +577,7 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 	for (auto dozer : dozers)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, dozer, RobotType::Dozer);
+		checkRobotDeployment(robot, robotMap, dozer, Robot::Type::Dozer);
 		robots->linkEndChild(robot);
 	}
 
@@ -585,7 +585,7 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 	for (auto miner : miners)
 	{
 		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, miner, RobotType::Miner);
+		checkRobotDeployment(robot, robotMap, miner, Robot::Type::Miner);
 		robots->linkEndChild(robot);
 	}
 

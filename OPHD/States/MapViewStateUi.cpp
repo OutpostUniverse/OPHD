@@ -441,7 +441,7 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 		return;
 	}
 
-	mCurrentRobot = static_cast<RobotType>(_item->meta);
+	mCurrentRobot = static_cast<Robot::Type>(_item->meta);
 
 	mInsertMode = InsertMode::Robot;
 	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
@@ -488,7 +488,7 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 	}
 
 
-	if (!mRobotPool.robotAvailable(RobotType::Digger))
+	if (!mRobotPool.robotAvailable(Robot::Type::Digger))
 	{
 		mRobots.removeItem(constants::ROBODIGGER);
 		clearMode();

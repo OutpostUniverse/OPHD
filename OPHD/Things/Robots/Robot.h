@@ -6,12 +6,21 @@
 class Robot: public Thing
 {
 public:
+	enum class Type
+	{
+		Digger,
+		Dozer,
+		Miner,
+
+		None
+	};
+
 	using Callback = NAS2D::Signals::Signal<>;
 	using TaskCallback = NAS2D::Signals::Signal<Robot*>;
 
 public:
-	Robot(const std::string&, const std::string&, RobotType);
-	Robot(const std::string&, const std::string&, const std::string&, RobotType);
+	Robot(const std::string&, const std::string&, Type);
+	Robot(const std::string&, const std::string&, const std::string&, Type);
 
 	void startTask(int turns);
 
@@ -24,7 +33,7 @@ public:
 
 	bool idle() const { return turnsToCompleteTask() == 0; }
 
-	RobotType type() const { return mType; }
+	Type type() const { return mType; }
 
 	TaskCallback& taskComplete() { return mTaskCompleteCallback; }
 	Callback& selfDestruct() { return mSelfDestructCallback; }
@@ -43,7 +52,7 @@ private:
 
 	bool mSelfDestruct = false;
 
-	RobotType mType{ RobotType::None };
+	Type mType{ Type::None };
 
 	TaskCallback mTaskCompleteCallback;
 	Callback mSelfDestructCallback;

@@ -677,7 +677,7 @@ void MapViewState::clearMode()
 	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
 	mCurrentStructure = StructureID::SID_NONE;
-	mCurrentRobot = RobotType::None;
+	mCurrentRobot = Robot::Type::None;
 
 	clearSelections();
 }
@@ -821,7 +821,7 @@ void MapViewState::placeRobot()
 		return;
 	}
 
-	if (mCurrentRobot == RobotType::Dozer)
+	if (mCurrentRobot == Robot::Type::Dozer)
 	{
 		Robot* robot = mRobotPool.getDozer();
 
@@ -911,13 +911,13 @@ void MapViewState::placeRobot()
 		static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile->index()));
 		tile->index(TerrainType::Dozed);
 
-		if (!mRobotPool.robotAvailable(RobotType::Dozer))
+		if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
 		{
 			mRobots.removeItem(constants::ROBODOZER);
 			clearMode();
 		}
 	}
-	else if (mCurrentRobot == RobotType::Digger)
+	else if (mCurrentRobot == Robot::Type::Digger)
 	{
 		// Keep digger within a safe margin of the map boundaries.
 		if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(mTileMapMouseHover))
@@ -996,7 +996,7 @@ void MapViewState::placeRobot()
 			mDiggerDirection.position(position);
 		}
 	}
-	else if (mCurrentRobot == RobotType::Miner)
+	else if (mCurrentRobot == Robot::Type::Miner)
 	{
 		if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
 		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
@@ -1007,7 +1007,7 @@ void MapViewState::placeRobot()
 		mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 		tile->index(TerrainType::Dozed);
 
-		if (!mRobotPool.robotAvailable(RobotType::Miner))
+		if (!mRobotPool.robotAvailable(Robot::Type::Miner))
 		{
 			mRobots.removeItem(constants::ROBOMINER);
 			clearMode();
@@ -1020,7 +1020,7 @@ void MapViewState::placeRobot()
  * Checks the robot selection interface and if the robot is not available in it, adds
  * it back in.
  */
-void MapViewState::checkRobotSelectionInterface(const std::string& rType, int sheetIndex, RobotType _rid)
+void MapViewState::checkRobotSelectionInterface(const std::string& rType, int sheetIndex, Robot::Type _rid)
 {
 	if (!mRobots.itemExists(rType))
 	{

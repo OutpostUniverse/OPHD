@@ -25,24 +25,24 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 		switch (pt)
 		{
 		case ProductType::PRODUCT_DIGGER:
-			robot = mRobotPool.addRobot(RobotType::Digger);
+			robot = mRobotPool.addRobot(Robot::Type::Digger);
 			robot->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			factory.pullProduct();
-			checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::Digger);
+			checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, Robot::Type::Digger);
 			break;
 
 		case ProductType::PRODUCT_DOZER:
-			robot = mRobotPool.addRobot(RobotType::Dozer);
+			robot = mRobotPool.addRobot(Robot::Type::Dozer);
 			robot->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			factory.pullProduct();
-			checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::Dozer);
+			checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, Robot::Type::Dozer);
 			break;
 
 		case ProductType::PRODUCT_MINER:
-			robot = mRobotPool.addRobot(RobotType::Miner);
+			robot = mRobotPool.addRobot(Robot::Type::Miner);
 			robot->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			factory.pullProduct();
-			checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::Miner);
+			checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, Robot::Type::Miner);
 			break;
 
 		default:
@@ -162,14 +162,14 @@ void MapViewState::deploySeedLander(NAS2D::Point<int> point)
 	structureManager.addStructure(ss, &mTileMap->getTile(point + DirectionSouthEast));
 
 	// Robots only become available after the SEED Factory is deployed.
-	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, static_cast<int>(RobotType::Dozer));
-	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, static_cast<int>(RobotType::Digger));
-	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, static_cast<int>(RobotType::Miner));
+	mRobots.addItem(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, static_cast<int>(Robot::Type::Dozer));
+	mRobots.addItem(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, static_cast<int>(Robot::Type::Digger));
+	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, static_cast<int>(Robot::Type::Miner));
 	mRobots.sort();
 
-	mRobotPool.addRobot(RobotType::Dozer)->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
-	mRobotPool.addRobot(RobotType::Digger)->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
-	mRobotPool.addRobot(RobotType::Miner)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+	mRobotPool.addRobot(Robot::Type::Dozer)->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+	mRobotPool.addRobot(Robot::Type::Digger)->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+	mRobotPool.addRobot(Robot::Type::Miner)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 }
 
 
@@ -178,7 +178,7 @@ void MapViewState::deploySeedLander(NAS2D::Point<int> point)
  */
 void MapViewState::dozerTaskFinished(Robot* /*robot*/)
 {
-	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::Dozer);
+	checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, Robot::Type::Dozer);
 }
 
 
@@ -247,7 +247,7 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 		mTileMap->getTile(origin + offset, newDepth).excavated(true);
 	}
 
-	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::Digger);
+	checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, Robot::Type::Digger);
 }
 
 
