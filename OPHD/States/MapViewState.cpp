@@ -1198,14 +1198,15 @@ void MapViewState::updateRobots()
 		{
 			std::cout << "dead robot" << std::endl;
 
+			const auto position = tile->position();
+			const auto robotLocationText ="(" +  std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
+
 			if (robot->selfDestruct())
 			{
-				doAlertMessage("Robot Breakdown", "Your " + robot->name() + " self destructed.");
+				doAlertMessage("Robot Breakdown", "Your " + robot->name() + " at location " + robotLocationText + " self destructed.");
 			}
 			else if (robot->type() != Robot::Type::Miner)
 			{
-				const auto position = tile->position();
-				const auto robotLocationText = std::to_string(position.x) + ", " + std::to_string(position.y);
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				doAlertMessage("Robot Breakdown", text);
 				Robodozer* _d = dynamic_cast<Robodozer*>(robot);
