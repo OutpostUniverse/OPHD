@@ -94,13 +94,14 @@ void RobotInspector::btnCancelOrdersClicked()
 
 void RobotInspector::btnSelfDestructClicked()
 {
-
+	mRobot->seldDestruct(true);
+	hide();
 }
 
 
 void RobotInspector::btnCancelClicked()
 {
-
+	hide();
 }
 
 
