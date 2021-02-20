@@ -237,7 +237,7 @@ namespace constants
 	const std::string STRUCTURE_DISABLED_DISCONNECTED = "Not connected to a Command Center";
 	const std::string STRUCTURE_DISABLED_ENERGY = "Insufficient Energy";
 	const std::string STRUCTURE_DISABLED_POPULATION = "Insufficient Population";
-	const std::string STRUCTURE_DISABLED_REFINED_RESOURCES = "Insufficient refned resources";
+	const std::string STRUCTURE_DISABLED_REFINED_RESOURCES = "Insufficient refined resources";
 	const std::string STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY = "Structural Integrity below operating threshold";
 
 	// =====================================
@@ -245,7 +245,7 @@ namespace constants
 	// =====================================
 	const std::string STRUCTURE_IDLE_NONE = "Not Idle";
 	const std::string STRUCTURE_IDLE_PLAYER_SET = "Manually set to Idle";
-	const std::string STRUCTURE_IDLE_INTERNAL_STORAGE_FULL = "Insternal storage pool full";
+	const std::string STRUCTURE_IDLE_INTERNAL_STORAGE_FULL = "Internal storage pool full";
 	const std::string STRUCTURE_IDLE_FACTORY_PRODUCTION_COMPLETE = "Production complete, waiting on product pull.";
 	const std::string STRUCTURE_IDLE_FACTORY_INSUFFICIENT_RESOURCES = "Insufficient resources to continue production";
 	const std::string STRUCTURE_IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY = "Cannot pull robot due to lack of robot command capacity";
