@@ -49,6 +49,7 @@ public:
 	Robot* robot();
 
 	bool thingIsStructure() const { return mThingIsStructure; }
+	bool thingIsRobot() { return robot() != nullptr; }
 
 	void pushThing(Thing* thing);
 	void deleteThing();
