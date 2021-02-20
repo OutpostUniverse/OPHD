@@ -15,7 +15,6 @@ public:
 		None
 	};
 
-	using Callback = NAS2D::Signals::Signal<>;
 	using TaskCallback = NAS2D::Signals::Signal<Robot*>;
 
 public:
@@ -36,7 +35,6 @@ public:
 	Type type() const { return mType; }
 
 	TaskCallback& taskComplete() { return mTaskCompleteCallback; }
-	Callback& selfDestruct() { return mSelfDestructCallback; }
 
 	void id(int newId) { mId = newId; }
 	int id() const { return mId; }
@@ -55,5 +53,4 @@ private:
 	Type mType{ Type::None };
 
 	TaskCallback mTaskCompleteCallback;
-	Callback mSelfDestructCallback;
 };

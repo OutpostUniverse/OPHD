@@ -23,7 +23,6 @@ void Robot::updateTask()
 {
 	if (mSelfDestruct)
 	{
-		mSelfDestructCallback();
 		die();
 	}
 
