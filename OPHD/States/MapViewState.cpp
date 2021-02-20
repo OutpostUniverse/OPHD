@@ -1198,8 +1198,11 @@ void MapViewState::updateRobots()
 		{
 			std::cout << "dead robot" << std::endl;
 
-			// \fixme	This is an awful way of doing this.
-			if (robot->name() != constants::ROBOMINER)
+			if (robot->selfDestruct())
+			{
+				doAlertMessage("Robot Breakdown", "Your " + robot->name() + " self destructed.");
+			}
+			else if (robot->type() != Robot::Type::Miner)
 			{
 				const auto position = tile->position();
 				const auto robotLocationText = std::to_string(position.x) + ", " + std::to_string(position.y);
