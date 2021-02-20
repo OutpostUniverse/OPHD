@@ -48,7 +48,7 @@ public:
 	Structure* structure();
 	Robot* robot();
 
-	bool thingIsStructure() const { return mThingIsStructure; }
+	bool thingIsStructure() { return structure() != nullptr; }
 	bool thingIsRobot() { return robot() != nullptr; }
 
 	void pushThing(Thing* thing);
@@ -65,12 +65,6 @@ public:
 	void color(const NAS2D::Color& c) { mColor = c; }
 	const NAS2D::Color& color() const { return mColor; }
 
-protected:
-	friend class StructureManager;
-
-	// Access to this function should be very, very limited.
-	void thingIsStructure(bool value) { mThingIsStructure = value; }
-
 private:
 	TerrainType mIndex = TerrainType::Dozed;
 
@@ -84,5 +78,4 @@ private:
 
 	bool mExcavated = true; /**< Used when a Digger uncovers underground tiles. */
 	bool mConnected = false; /**< Flag indicating that this tile is connected to the Command Center. */
-	bool mThingIsStructure = false; /**< Flag indicating that the Thing in the tile is a Structure. */
 };

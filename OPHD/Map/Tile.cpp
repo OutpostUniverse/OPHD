@@ -21,8 +21,7 @@ Tile::Tile(Tile&& other) noexcept :
 	mThing{other.mThing},
 	mMine{other.mMine},
 	mColor{other.mColor},
-	mExcavated{other.mExcavated},
-	mThingIsStructure{other.mThingIsStructure}
+	mExcavated{other.mExcavated}
 {
 	other.mThing = nullptr;
 	other.mMine = nullptr;
@@ -38,7 +37,6 @@ Tile& Tile::operator=(Tile&& other) noexcept
 	mMine = other.mMine;
 	mColor = other.mColor;
 	mExcavated = other.mExcavated;
-	mThingIsStructure = other.mThingIsStructure;
 
 	other.mThing = nullptr;
 	other.mMine = nullptr;
@@ -90,7 +88,6 @@ void Tile::deleteThing()
 void Tile::removeThing()
 {
 	mThing = nullptr;
-	thingIsStructure(false); // Cover all bases.
 }
 
 
@@ -103,19 +100,13 @@ void Tile::pushMine(Mine* _mine)
 
 Structure* Tile::structure()
 {
-	if (mThingIsStructure) { return static_cast<Structure*>(thing()); }
-
-	return nullptr;
+	return dynamic_cast<Structure*>(thing());
 }
 
 
 Robot* Tile::robot()
 {
-	// Assumption: Things in a tile can only be a Robot or a Structure. If the thing is not a
-	// structure, it can only be a robot.
-	if (!empty() && structure() == nullptr) { return static_cast<Robot*>(thing()); }
-
-	return nullptr;
+	return dynamic_cast<Robot*>(thing());
 }
 
 
