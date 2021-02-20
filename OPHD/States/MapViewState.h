@@ -247,7 +247,7 @@ private:
 
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
-	RobotType mCurrentRobot = RobotType::ROBOT_NONE; /**< Robot being placed. */
+	RobotType mCurrentRobot = RobotType::None; /**< Robot being placed. */
 
 	Population mPopulation;
 

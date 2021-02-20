@@ -677,7 +677,7 @@ void MapViewState::clearMode()
 	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
 	mCurrentStructure = StructureID::SID_NONE;
-	mCurrentRobot = RobotType::ROBOT_NONE;
+	mCurrentRobot = RobotType::None;
 
 	clearSelections();
 }
@@ -821,7 +821,7 @@ void MapViewState::placeRobot()
 		return;
 	}
 
-	if (mCurrentRobot == RobotType::ROBOT_DOZER)
+	if (mCurrentRobot == RobotType::Dozer)
 	{
 		Robot* robot = mRobotPool.getDozer();
 
@@ -911,13 +911,13 @@ void MapViewState::placeRobot()
 		static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile->index()));
 		tile->index(TerrainType::Dozed);
 
-		if (!mRobotPool.robotAvailable(RobotType::ROBOT_DOZER))
+		if (!mRobotPool.robotAvailable(RobotType::Dozer))
 		{
 			mRobots.removeItem(constants::ROBODOZER);
 			clearMode();
 		}
 	}
-	else if (mCurrentRobot == RobotType::ROBOT_DIGGER)
+	else if (mCurrentRobot == RobotType::Digger)
 	{
 		// Keep digger within a safe margin of the map boundaries.
 		if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(mTileMapMouseHover))
@@ -996,7 +996,7 @@ void MapViewState::placeRobot()
 			mDiggerDirection.position(position);
 		}
 	}
-	else if (mCurrentRobot == RobotType::ROBOT_MINER)
+	else if (mCurrentRobot == RobotType::Miner)
 	{
 		if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
 		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
@@ -1007,7 +1007,7 @@ void MapViewState::placeRobot()
 		mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 		tile->index(TerrainType::Dozed);
 
-		if (!mRobotPool.robotAvailable(RobotType::ROBOT_MINER))
+		if (!mRobotPool.robotAvailable(RobotType::Miner))
 		{
 			mRobots.removeItem(constants::ROBOMINER);
 			clearMode();
@@ -1024,7 +1024,7 @@ void MapViewState::checkRobotSelectionInterface(const std::string& rType, int sh
 {
 	if (!mRobots.itemExists(rType))
 	{
-		mRobots.addItemSorted(rType, sheetIndex, _rid);
+		mRobots.addItemSorted(rType, sheetIndex, static_cast<int>(_rid));
 	}
 }
 

@@ -488,7 +488,7 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 	}
 
 
-	if (!mRobotPool.robotAvailable(RobotType::ROBOT_DIGGER))
+	if (!mRobotPool.robotAvailable(RobotType::Digger))
 	{
 		mRobots.removeItem(constants::ROBODIGGER);
 		clearMode();

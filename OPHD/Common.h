@@ -158,12 +158,13 @@ enum StructureID
 /**
  * Robot type enumeration
  */
-enum RobotType
+enum class RobotType
 {
-	ROBOT_NONE,
-	ROBOT_DIGGER,
-	ROBOT_DOZER,
-	ROBOT_MINER
+	Digger,
+	Dozer,
+	Miner,
+
+	None
 };
 
 

@@ -303,19 +303,19 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		Robot* robot = nullptr;
 		switch (static_cast<RobotType>(type))
 		{
-		case RobotType::ROBOT_DIGGER:
-			robot = mRobotPool.addRobot(RobotType::ROBOT_DIGGER, id);
+		case RobotType::Digger:
+			robot = mRobotPool.addRobot(RobotType::Digger, id);
 			robot->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
 			break;
 
-		case RobotType::ROBOT_DOZER:
-			robot = mRobotPool.addRobot(RobotType::ROBOT_DOZER, id);
+		case RobotType::Dozer:
+			robot = mRobotPool.addRobot(RobotType::Dozer, id);
 			robot->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			break;
 
-		case RobotType::ROBOT_MINER:
-			robot = mRobotPool.addRobot(RobotType::ROBOT_MINER, id);
+		case RobotType::Miner:
+			robot = mRobotPool.addRobot(RobotType::Miner, id);
 			robot->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			break;
 
@@ -342,9 +342,9 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		}
 	}
 
-	if (mRobotPool.robotAvailable(RobotType::ROBOT_DIGGER)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER); }
-	if (mRobotPool.robotAvailable(RobotType::ROBOT_DOZER)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER); }
-	if (mRobotPool.robotAvailable(RobotType::ROBOT_MINER)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::ROBOT_MINER); }
+	if (mRobotPool.robotAvailable(RobotType::Digger)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::Digger); }
+	if (mRobotPool.robotAvailable(RobotType::Dozer)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::Dozer); }
+	if (mRobotPool.robotAvailable(RobotType::Miner)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::Miner); }
 }
 
 
