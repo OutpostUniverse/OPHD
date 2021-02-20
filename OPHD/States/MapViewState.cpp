@@ -1223,6 +1223,8 @@ void MapViewState::updateRobots()
 				static_cast<RobotCommand*>(rcc)->removeRobot(robot);
 			}
 
+			if (mRobotInspector.focusedRobot() == robot) { mRobotInspector.hide(); }
+
 			mRobotPool.erase(robot);
 			delete robot;
 			robot_it = mRobotList.erase(robot_it);
