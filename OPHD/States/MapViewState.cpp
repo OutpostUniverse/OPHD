@@ -54,6 +54,21 @@ std::map <int, std::string> LEVEL_STRING_TABLE =
 const Font* MAIN_FONT = nullptr;
 
 
+/** \fixme Find a sane place for these */
+struct RobotMeta
+{
+	std::string name;
+	const int sheetIndex;
+};
+
+const std::map<Robot::Type, RobotMeta> RobotMetaTable
+{
+	{ Robot::Type::Digger, RobotMeta{constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID}},
+	{ Robot::Type::Dozer, RobotMeta{constants::ROBODOZER, constants::ROBODOZER_SHEET_ID}},
+	{ Robot::Type::Miner, RobotMeta{constants::ROBOMINER, constants::ROBOMINER_SHEET_ID}}
+};
+
+
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mMainReportsState(mainReportsState),
 	mLoadingExisting(true),
@@ -1020,11 +1035,12 @@ void MapViewState::placeRobot()
  * Checks the robot selection interface and if the robot is not available in it, adds
  * it back in.
  */
-void MapViewState::checkRobotSelectionInterface(const std::string& rType, int sheetIndex, Robot::Type _rid)
+void MapViewState::checkRobotSelectionInterface(Robot::Type rType)
 {
-	if (!mRobots.itemExists(rType))
+	const auto& robotInfo = RobotMetaTable.at(rType);
+	if (!mRobots.itemExists(robotInfo.name))
 	{
-		mRobots.addItemSorted(rType, sheetIndex, static_cast<int>(_rid));
+		mRobots.addItemSorted(robotInfo.name, robotInfo.sheetIndex, static_cast<int>(rType));
 	}
 }
 
