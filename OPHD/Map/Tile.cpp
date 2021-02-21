@@ -98,13 +98,13 @@ void Tile::pushMine(Mine* _mine)
 }
 
 
-Structure* Tile::structure()
+Structure* Tile::structure() const
 {
 	return dynamic_cast<Structure*>(thing());
 }
 
 
-Robot* Tile::robot()
+Robot* Tile::robot() const
 {
 	return dynamic_cast<Robot*>(thing());
 }
