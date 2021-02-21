@@ -289,7 +289,7 @@ void TileMap::centerMapOnTile(Tile* _t)
  */
 bool TileMap::tileHighlightVisible() const
 {
-	return NAS2D::Rectangle<int>::Create(mMapViewLocation, NAS2D::Vector{mEdgeLength - 1, mEdgeLength - 1}).contains(mMapHighlight);
+	return isVisibleTile(mMapHighlight, mCurrentDepth);
 }
 
 
