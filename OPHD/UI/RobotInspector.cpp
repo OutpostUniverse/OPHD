@@ -88,7 +88,8 @@ void RobotInspector::focusOnRobot(Robot* robot)
 
 void RobotInspector::btnCancelOrdersClicked()
 {
-
+	mRobot->cancelTask();
+	hide();
 }
 
 
