@@ -51,7 +51,7 @@ void RobotPool::erase(Robot* robot)
  * \return Returns a pointer to the recently.
  * \return Returns a nullptr if the robot type was invalid or unsupported.
  */
-Robot* RobotPool::addRobot(RobotType type, int id /*= 0*/)
+Robot* RobotPool::addRobot(Robot::Type type, int id /*= 0*/)
 {
 	int _id = 0;
 	if (id == 0) { _id = ++ROBOT_ID_COUNTER; }
@@ -59,19 +59,19 @@ Robot* RobotPool::addRobot(RobotType type, int id /*= 0*/)
 
 	switch (type)
 	{
-	case RobotType::ROBOT_DOZER:
+	case Robot::Type::Dozer:
 		mDozers.push_back(new Robodozer());
 		mDozers.back()->id(_id);
 		mRobots.push_back(mDozers.back());
 		return mDozers.back();
 
-	case RobotType::ROBOT_DIGGER:
+	case Robot::Type::Digger:
 		mDiggers.push_back(new Robodigger());
 		mDiggers.back()->id(_id);
 		mRobots.push_back(mDiggers.back());
 		return mDiggers.back();
 
-	case RobotType::ROBOT_MINER:
+	case Robot::Type::Miner:
 		mMiners.push_back(new Robominer());
 		mMiners.back()->id(_id);
 		mRobots.push_back(mMiners.back());
@@ -123,19 +123,19 @@ Robominer* RobotPool::getMiner()
  * 
  * \return	Returns true if the requested robot type is available. False otherwise.
  */
-bool RobotPool::robotAvailable(RobotType type)
+bool RobotPool::robotAvailable(Robot::Type type)
 {
 	switch (type)
 	{
-	case RobotType::ROBOT_DIGGER:
+	case Robot::Type::Digger:
 	{
 		return getDigger() != nullptr;
 	}
-	case RobotType::ROBOT_DOZER:
+	case Robot::Type::Dozer:
 	{
 		return getDozer() != nullptr;
 	}
-	case RobotType::ROBOT_MINER:
+	case Robot::Type::Miner:
 	{
 		return getMiner() != nullptr;
 	}
@@ -147,17 +147,17 @@ bool RobotPool::robotAvailable(RobotType type)
 }
 
 
-int RobotPool::getAvailableCount(RobotType type)
+int RobotPool::getAvailableCount(Robot::Type type)
 {
 	switch (type)
 	{
-	case RobotType::ROBOT_DIGGER:
+	case Robot::Type::Digger:
 		return getIdleCount(mDiggers);
 
-	case RobotType::ROBOT_DOZER:
+	case Robot::Type::Dozer:
 		return getIdleCount(mDozers);
 
-	case RobotType::ROBOT_MINER:
+	case Robot::Type::Miner:
 		return getIdleCount(mMiners);
 
 	default:

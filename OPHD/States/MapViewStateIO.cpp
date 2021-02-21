@@ -301,21 +301,21 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		ROBOT_ID_COUNTER = std::max(ROBOT_ID_COUNTER, id);
 
 		Robot* robot = nullptr;
-		switch (static_cast<RobotType>(type))
+		switch (static_cast<Robot::Type>(type))
 		{
-		case RobotType::ROBOT_DIGGER:
-			robot = mRobotPool.addRobot(RobotType::ROBOT_DIGGER, id);
+		case Robot::Type::Digger:
+			robot = mRobotPool.addRobot(Robot::Type::Digger, id);
 			robot->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
 			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
 			break;
 
-		case RobotType::ROBOT_DOZER:
-			robot = mRobotPool.addRobot(RobotType::ROBOT_DOZER, id);
+		case Robot::Type::Dozer:
+			robot = mRobotPool.addRobot(Robot::Type::Dozer, id);
 			robot->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
 			break;
 
-		case RobotType::ROBOT_MINER:
-			robot = mRobotPool.addRobot(RobotType::ROBOT_MINER, id);
+		case Robot::Type::Miner:
+			robot = mRobotPool.addRobot(Robot::Type::Miner, id);
 			robot->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 			break;
 
@@ -342,9 +342,9 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		}
 	}
 
-	if (mRobotPool.robotAvailable(RobotType::ROBOT_DIGGER)) { checkRobotSelectionInterface(constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID, RobotType::ROBOT_DIGGER); }
-	if (mRobotPool.robotAvailable(RobotType::ROBOT_DOZER)) { checkRobotSelectionInterface(constants::ROBODOZER, constants::ROBODOZER_SHEET_ID, RobotType::ROBOT_DOZER); }
-	if (mRobotPool.robotAvailable(RobotType::ROBOT_MINER)) { checkRobotSelectionInterface(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, RobotType::ROBOT_MINER); }
+	if (mRobotPool.robotAvailable(Robot::Type::Digger)) { checkRobotSelectionInterface(Robot::Type::Digger); }
+	if (mRobotPool.robotAvailable(Robot::Type::Dozer)) { checkRobotSelectionInterface(Robot::Type::Dozer); }
+	if (mRobotPool.robotAvailable(Robot::Type::Miner)) { checkRobotSelectionInterface(Robot::Type::Miner); }
 }
 
 

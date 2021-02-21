@@ -43,6 +43,9 @@ void MapViewState::initUi()
 	mStructureInspector.position(renderer.center() - NAS2D::Vector{mStructureInspector.size().x / 2.0f, 175.0f});
 	mStructureInspector.hide();
 
+	mRobotInspector.position(renderer.center() - NAS2D::Vector{ mRobotInspector.size().x / 2.0f, 175.0f });
+	mRobotInspector.hide();
+
 	mFactoryProduction.position(NAS2D::Point{renderer.center().x - mFactoryProduction.size().x / 2.0f, 175.0f});
 	mFactoryProduction.hide();
 
@@ -77,6 +80,7 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mAnnouncement);
 	mWindowStack.addWindow(&mWarehouseInspector);
 	mWindowStack.addWindow(&mMineOperationsWindow);
+	mWindowStack.addWindow(&mRobotInspector);
 
 	const auto size = renderer.size().to<int>();
 	mBottomUiRect = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
@@ -440,7 +444,7 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 		return;
 	}
 
-	mCurrentRobot = static_cast<RobotType>(_item->meta);
+	mCurrentRobot = static_cast<Robot::Type>(_item->meta);
 
 	mInsertMode = InsertMode::Robot;
 	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
@@ -487,7 +491,7 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 	}
 
 
-	if (!mRobotPool.robotAvailable(RobotType::ROBOT_DIGGER))
+	if (!mRobotPool.robotAvailable(Robot::Type::Digger))
 	{
 		mRobots.removeItem(constants::ROBODIGGER);
 		clearMode();

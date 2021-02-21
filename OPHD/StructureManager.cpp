@@ -233,7 +233,6 @@ void StructureManager::addStructure(Structure* structure, Tile* tile)
 
 	mStructureLists[structure->structureClass()].push_back(structure);
 	tile->pushThing(structure);
-	tile->thingIsStructure(true);
 }
 
 

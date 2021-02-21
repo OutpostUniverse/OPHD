@@ -19,14 +19,14 @@ public:
 	RobotPool();
 	~RobotPool();
 
-	Robot* addRobot(RobotType type, int id = 0);
+	Robot* addRobot(Robot::Type type, int id = 0);
 
 	Robodigger* getDigger();
 	Robodozer* getDozer();
 	Robominer* getMiner();
 
-	bool robotAvailable(RobotType type);
-	int getAvailableCount(RobotType type);
+	bool robotAvailable(Robot::Type type);
+	int getAvailableCount(Robot::Type type);
 
 	void InitRobotCtrl(uint32_t MaxRobotCtrl);
 	bool robotCtrlAvailable() { return mRobotControlCount < mRobotControlMax; }

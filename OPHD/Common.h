@@ -156,18 +156,6 @@ enum StructureID
 
 
 /**
- * Robot type enumeration
- */
-enum RobotType
-{
-	ROBOT_NONE,
-	ROBOT_DIGGER,
-	ROBOT_DOZER,
-	ROBOT_MINER
-};
-
-
-/**
  * Factory Product enumeration
  * 
  * \note	Products are arranged to match the order in which they appear

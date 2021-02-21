@@ -7,7 +7,7 @@
 class Robodozer: public Robot
 {
 public:
-	Robodozer(): Robot(constants::ROBODOZER, "robots/robodozer.sprite")
+	Robodozer(): Robot(constants::ROBODOZER, "robots/robodozer.sprite", Robot::Type::Dozer)
 	{
 	}
 

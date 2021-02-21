@@ -54,6 +54,21 @@ std::map <int, std::string> LEVEL_STRING_TABLE =
 const Font* MAIN_FONT = nullptr;
 
 
+/** \fixme Find a sane place for these */
+struct RobotMeta
+{
+	std::string name;
+	const int sheetIndex;
+};
+
+const std::map<Robot::Type, RobotMeta> RobotMetaTable
+{
+	{ Robot::Type::Digger, RobotMeta{constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID}},
+	{ Robot::Type::Dozer, RobotMeta{constants::ROBODOZER, constants::ROBODOZER_SHEET_ID}},
+	{ Robot::Type::Miner, RobotMeta{constants::ROBOMINER, constants::ROBOMINER_SHEET_ID}}
+};
+
+
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mMainReportsState(mainReportsState),
 	mLoadingExisting(true),
@@ -459,6 +474,12 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 			mTileInspector.show();
 			mWindowStack.bringToFront(&mTileInspector);
 		}
+		else if (tile.thingIsRobot())
+		{
+			mRobotInspector.focusOnRobot(tile.robot());
+			mRobotInspector.show();
+			mWindowStack.bringToFront(&mRobotInspector);
+		}
 		else if (tile.thingIsStructure())
 		{
 			Structure* structure = tile.structure();
@@ -671,7 +692,7 @@ void MapViewState::clearMode()
 	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
 	mCurrentStructure = StructureID::SID_NONE;
-	mCurrentRobot = RobotType::ROBOT_NONE;
+	mCurrentRobot = Robot::Type::None;
 
 	clearSelections();
 }
@@ -815,7 +836,7 @@ void MapViewState::placeRobot()
 		return;
 	}
 
-	if (mCurrentRobot == RobotType::ROBOT_DOZER)
+	if (mCurrentRobot == Robot::Type::Dozer)
 	{
 		Robot* robot = mRobotPool.getDozer();
 
@@ -905,13 +926,13 @@ void MapViewState::placeRobot()
 		static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile->index()));
 		tile->index(TerrainType::Dozed);
 
-		if (!mRobotPool.robotAvailable(RobotType::ROBOT_DOZER))
+		if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
 		{
 			mRobots.removeItem(constants::ROBODOZER);
 			clearMode();
 		}
 	}
-	else if (mCurrentRobot == RobotType::ROBOT_DIGGER)
+	else if (mCurrentRobot == Robot::Type::Digger)
 	{
 		// Keep digger within a safe margin of the map boundaries.
 		if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(mTileMapMouseHover))
@@ -990,7 +1011,7 @@ void MapViewState::placeRobot()
 			mDiggerDirection.position(position);
 		}
 	}
-	else if (mCurrentRobot == RobotType::ROBOT_MINER)
+	else if (mCurrentRobot == Robot::Type::Miner)
 	{
 		if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
 		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
@@ -1001,7 +1022,7 @@ void MapViewState::placeRobot()
 		mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 		tile->index(TerrainType::Dozed);
 
-		if (!mRobotPool.robotAvailable(RobotType::ROBOT_MINER))
+		if (!mRobotPool.robotAvailable(Robot::Type::Miner))
 		{
 			mRobots.removeItem(constants::ROBOMINER);
 			clearMode();
@@ -1014,11 +1035,12 @@ void MapViewState::placeRobot()
  * Checks the robot selection interface and if the robot is not available in it, adds
  * it back in.
  */
-void MapViewState::checkRobotSelectionInterface(const std::string& rType, int sheetIndex, RobotType _rid)
+void MapViewState::checkRobotSelectionInterface(Robot::Type rType)
 {
-	if (!mRobots.itemExists(rType))
+	const auto& robotInfo = RobotMetaTable.at(rType);
+	if (!mRobots.itemExists(robotInfo.name))
 	{
-		mRobots.addItemSorted(rType, sheetIndex, _rid);
+		mRobots.addItemSorted(robotInfo.name, robotInfo.sheetIndex, static_cast<int>(rType));
 	}
 }
 
@@ -1192,15 +1214,18 @@ void MapViewState::updateRobots()
 		{
 			std::cout << "dead robot" << std::endl;
 
-			// \fixme	This is an awful way of doing this.
-			if (robot->name() != constants::ROBOMINER)
+			const auto position = tile->position();
+			const auto robotLocationText ="(" +  std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
+
+			if (robot->selfDestruct())
 			{
-				const auto position = tile->position();
-				const auto robotLocationText = std::to_string(position.x) + ", " + std::to_string(position.y);
+				doAlertMessage("Robot Breakdown", "Your " + robot->name() + " at location " + robotLocationText + " self destructed.");
+			}
+			else if (robot->type() != Robot::Type::Miner)
+			{
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				doAlertMessage("Robot Breakdown", text);
-				Robodozer* _d = dynamic_cast<Robodozer*>(robot);
-				if (_d) { tile->index(static_cast<TerrainType>(_d->tileIndex())); }
+				resetTileIndexFromDozer(robot, tile);
 			}
 
 			if (tile->thing() == robot)
@@ -1213,6 +1238,8 @@ void MapViewState::updateRobots()
 				static_cast<RobotCommand*>(rcc)->removeRobot(robot);
 			}
 
+			if (mRobotInspector.focusedRobot() == robot) { mRobotInspector.hide(); }
+
 			mRobotPool.erase(robot);
 			delete robot;
 			robot_it = mRobotList.erase(robot_it);
@@ -1223,8 +1250,14 @@ void MapViewState::updateRobots()
 			{
 				tile->removeThing();
 			}
-
 			robot_it = mRobotList.erase(robot_it);
+
+			if (robot->taskCanceled())
+			{
+				resetTileIndexFromDozer(robot, tile);
+				checkRobotSelectionInterface(robot->type());
+				robot->reset();
+			}
 		}
 		else
 		{

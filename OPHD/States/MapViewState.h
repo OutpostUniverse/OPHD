@@ -25,13 +25,16 @@
 #include <memory>
 
 
-namespace NAS2D {
-	namespace Xml {
+namespace NAS2D
+{
+	namespace Xml
+	{
 		class XmlElement;
 	}
 }
 
-namespace micropather {
+namespace micropather
+{
 	class MicroPather;
 }
 
@@ -193,7 +196,7 @@ private:
 
 	void setupUiPositions(NAS2D::Vector<int> size);
 
-	void checkRobotSelectionInterface(const std::string& rType, int sheetIndex, RobotType);
+	void checkRobotSelectionInterface(Robot::Type);
 
 	void populateStructureMenu();
 
@@ -244,7 +247,7 @@ private:
 
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
-	RobotType mCurrentRobot = RobotType::ROBOT_NONE; /**< Robot being placed. */
+	Robot::Type mCurrentRobot = Robot::Type::None; /**< Robot being placed. */
 
 	Population mPopulation;
 
@@ -277,6 +280,7 @@ private:
 	MineOperationsWindow mMineOperationsWindow;
 	PopulationPanel mPopulationPanel;
 	ResourceBreakdownPanel mResourceBreakdownPanel;
+	RobotInspector mRobotInspector;
 	StructureInspector mStructureInspector;
 	TileInspector mTileInspector;
 	WarehouseInspector mWarehouseInspector;
