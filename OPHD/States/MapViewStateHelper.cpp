@@ -527,6 +527,16 @@ int pullResource(int& resource, int amount)
 }
 
 
+void resetTileIndexFromDozer(Robot* robot, Tile* tile)
+{
+	Robodozer* dozer = dynamic_cast<Robodozer*>(robot);
+	if (dozer)
+	{
+		tile->index(static_cast<TerrainType>(dozer->tileIndex()));
+	}
+}
+
+
 
 // ==============================================================
 // = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION

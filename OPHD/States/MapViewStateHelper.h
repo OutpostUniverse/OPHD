@@ -53,6 +53,8 @@ void addRefinedResources(StorableResources&);
 void removeRefinedResources(StorableResources&);
 int pullResource(int& resource, int amount);
 
+void resetTileIndexFromDozer(Robot* robot, Tile* tile);
+
 // Serialize / Deserialize
 void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap);
 

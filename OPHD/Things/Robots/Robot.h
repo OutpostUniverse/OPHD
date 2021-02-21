@@ -32,6 +32,8 @@ public:
 
 	bool idle() const { return turnsToCompleteTask() == 0; }
 	void cancelTask() { mCancelTask = true; }
+	bool taskCanceled() const { return mCancelTask; }
+	void reset() { mCancelTask = false; }
 
 	Type type() const { return mType; }
 
