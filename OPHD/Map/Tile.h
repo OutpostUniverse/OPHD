@@ -39,17 +39,17 @@ public:
 	bool connected() const { return mConnected; }
 	void connected(bool value) { mConnected = value; }
 
-	Thing* thing() { return mThing; }
+	Thing* thing() const { return mThing; }
 
 	bool empty() const { return mThing == nullptr; }
 
 	bool hasMine() const { return mMine != nullptr; }
 
-	Structure* structure();
-	Robot* robot();
+	Structure* structure() const;
+	Robot* robot() const;
 
-	bool thingIsStructure() { return structure() != nullptr; }
-	bool thingIsRobot() { return robot() != nullptr; }
+	bool thingIsStructure() const { return structure() != nullptr; }
+	bool thingIsRobot() const { return robot() != nullptr; }
 
 	void pushThing(Thing* thing);
 	void deleteThing();
