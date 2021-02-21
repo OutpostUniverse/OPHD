@@ -26,6 +26,12 @@ void Robot::updateTask()
 		die();
 	}
 
+	if (mCancelTask)
+	{
+		mTurnsToCompleteTask = 0;
+		return;
+	}
+
 	mTurnsToCompleteTask--;
 
 	if (mTurnsToCompleteTask == 0)

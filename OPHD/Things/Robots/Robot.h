@@ -31,6 +31,7 @@ public:
 	void seldDestruct(bool value) { mSelfDestruct = value; }
 
 	bool idle() const { return turnsToCompleteTask() == 0; }
+	void cancelTask() { mCancelTask = true; }
 
 	Type type() const { return mType; }
 
@@ -49,6 +50,7 @@ private:
 	int mTurnsToCompleteTask = 0;
 
 	bool mSelfDestruct = false;
+	bool mCancelTask{ false };
 
 	Type mType{ Type::None };
 
