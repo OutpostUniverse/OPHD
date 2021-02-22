@@ -71,7 +71,7 @@ public:
 	float distanceTo(Tile* tile);
 	float distanceTo(NAS2D::Point<int> point);
 
-	void overlay(Overlay overlay);
+	void overlay(Overlay overlay) { mOverlay = overlay; }
 	Overlay overlay() const { return mOverlay; }
 
 private:
