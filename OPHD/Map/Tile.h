@@ -15,6 +15,15 @@ class Structure;
 class Tile
 {
 public:
+	enum class Overlay
+	{
+		Communications,
+		Connectedness,
+
+		None
+	};
+
+public:
 	Tile() = default;
 	Tile(NAS2D::Point<int> position, int depth, TerrainType index);
 	Tile(const Tile& other) = delete;
@@ -62,8 +71,8 @@ public:
 	float distanceTo(Tile* tile);
 	float distanceTo(NAS2D::Point<int> point);
 
-	void color(const NAS2D::Color& c) { mColor = c; }
-	const NAS2D::Color& color() const { return mColor; }
+	void overlay(Overlay overlay) { mOverlay = overlay; }
+	Overlay overlay() const { return mOverlay; }
 
 private:
 	TerrainType mIndex = TerrainType::Dozed;
@@ -74,8 +83,12 @@ private:
 	Thing* mThing = nullptr;
 	Mine* mMine = nullptr;
 
-	NAS2D::Color mColor = NAS2D::Color::Normal;
+	Overlay mOverlay{ Overlay::None };
 
 	bool mExcavated = true; /**< Used when a Digger uncovers underground tiles. */
 	bool mConnected = false; /**< Flag indicating that this tile is connected to the Command Center. */
 };
+
+const NAS2D::Color& overlayColor(Tile::Overlay, bool);
+const NAS2D::Color& overlayColor(Tile::Overlay);
+const NAS2D::Color& overlayHighlightColor(Tile::Overlay);
