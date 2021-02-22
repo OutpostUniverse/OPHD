@@ -22,6 +22,17 @@ std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColorTable =
 };
 
 
+const NAS2D::Color& overlayColor(Tile::Overlay overlay, bool isHighlighted)
+{
+	if (isHighlighted)
+	{
+		return overlayHighlightColor(overlay);
+	}
+		
+	return overlayColor(overlay);
+}
+
+
 const NAS2D::Color& overlayColor(Tile::Overlay overlay)
 {
 	return OverlayColorTable.at(overlay);
@@ -47,7 +58,6 @@ Tile::Tile(Tile&& other) noexcept :
 	mDepth{other.mDepth},
 	mThing{other.mThing},
 	mMine{other.mMine},
-	mColor{other.mColor},
 	mOverlay{other.mOverlay},
 	mExcavated{other.mExcavated}
 {
@@ -63,7 +73,6 @@ Tile& Tile::operator=(Tile&& other) noexcept
 	mDepth = other.mDepth;
 	mThing = other.mThing;
 	mMine = other.mMine;
-	mColor = other.mColor;
 	mOverlay = other.mOverlay;
 	mExcavated = other.mExcavated;
 
@@ -155,5 +164,4 @@ float Tile::distanceTo(NAS2D::Point<int> point)
 void Tile::overlay(Overlay overlay)
 {
 	mOverlay = overlay;
-	mColor = overlayColor(overlay);
 }
