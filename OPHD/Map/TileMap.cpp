@@ -312,9 +312,7 @@ void TileMap::draw()
 				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
 				const bool isTileHighlighted = NAS2D::Vector{col, row} == highlightOffset;
 
-				const NAS2D::Color tileColor = isTileHighlighted ? overlayHighlightColor(tile.overlay()) : overlayColor(tile.overlay());
-				
-				renderer.drawSubImage(mTileset, position, subImageRect, tileColor);
+				renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
 
 				// Draw a beacon on an unoccupied tile with a mine
 				if (tile.mine() != nullptr && !tile.thing())
