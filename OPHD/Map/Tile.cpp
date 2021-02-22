@@ -7,6 +7,33 @@
 #include <cmath>
 
 
+std::map<Tile::Overlay, NAS2D::Color> OverlayColorTable =
+{
+	{ Tile::Overlay::None, NAS2D::Color::Normal },
+	{ Tile::Overlay::Communications, { 125, 200, 255 } },
+	{ Tile::Overlay::Connectedness, NAS2D::Color::Green }
+};
+
+std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColorTable =
+{
+	{ Tile::Overlay::None, NAS2D::Color{ 125, 200, 255 } },
+	{ Tile::Overlay::Communications, { 100, 180, 230 } },
+	{ Tile::Overlay::Connectedness, NAS2D::Color{ 71, 224, 146 } }
+};
+
+
+const NAS2D::Color& overlayColor(Tile::Overlay overlay)
+{
+	return OverlayColorTable.at(overlay);
+}
+
+
+const NAS2D::Color& overlayHighlightColor(Tile::Overlay overlay)
+{
+	return OverlayHighlightColorTable.at(overlay);
+}
+
+
 Tile::Tile(NAS2D::Point<int> position, int depth, TerrainType index) :
 	mIndex{index},
 	mPosition{position},
@@ -120,4 +147,10 @@ float Tile::distanceTo(NAS2D::Point<int> point)
 {
 	const auto direction = point - position();
 	return static_cast<float>(std::sqrt((direction.x * direction.x) + (direction.y * direction.y)));
+}
+
+
+void Tile::overlay(Overlay overlay)
+{
+	mColor = overlayColor(overlay);
 }
