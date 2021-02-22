@@ -48,6 +48,7 @@ Tile::Tile(Tile&& other) noexcept :
 	mThing{other.mThing},
 	mMine{other.mMine},
 	mColor{other.mColor},
+	mOverlay{other.mOverlay},
 	mExcavated{other.mExcavated}
 {
 	other.mThing = nullptr;
@@ -63,6 +64,7 @@ Tile& Tile::operator=(Tile&& other) noexcept
 	mThing = other.mThing;
 	mMine = other.mMine;
 	mColor = other.mColor;
+	mOverlay = other.mOverlay;
 	mExcavated = other.mExcavated;
 
 	other.mThing = nullptr;
@@ -152,5 +154,6 @@ float Tile::distanceTo(NAS2D::Point<int> point)
 
 void Tile::overlay(Overlay overlay)
 {
+	mOverlay = overlay;
 	mColor = overlayColor(overlay);
 }

@@ -71,9 +71,10 @@ public:
 	float distanceTo(Tile* tile);
 	float distanceTo(NAS2D::Point<int> point);
 
-	//void color(const NAS2D::Color& c) { mColor = c; }
+
 	const NAS2D::Color& color() const { return mColor; }
 	void overlay(Overlay overlay);
+	Overlay overlay() const { return mOverlay; }
 
 private:
 	TerrainType mIndex = TerrainType::Dozed;
@@ -85,6 +86,8 @@ private:
 	Mine* mMine = nullptr;
 
 	NAS2D::Color mColor = NAS2D::Color::Normal;
+	
+	Overlay mOverlay{ Overlay::None };
 
 	bool mExcavated = true; /**< Used when a Digger uncovers underground tiles. */
 	bool mConnected = false; /**< Flag indicating that this tile is connected to the Command Center. */
