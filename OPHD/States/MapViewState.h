@@ -207,6 +207,7 @@ private:
 	// UI EVENT HANDLERS
 	void btnTurnsClicked();
 	void btnToggleConnectednessClicked();
+	void btnToggleCommRangeOverlayClicked();
 
 	void btnSaveGameClicked();
 	void btnLoadGameClicked();
@@ -255,6 +256,8 @@ private:
 	// USER INTERFACE
 	Button mBtnTurns;
 	Button mBtnToggleHeightmap;
+	Button mBtnToggleConnectedness;
+	Button mBtnToggleCommRangeOverlay;
 
 	// Bare Control's use for ToolTips
 	Control mTooltipSystemButton;
