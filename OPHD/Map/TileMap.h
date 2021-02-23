@@ -62,8 +62,6 @@ public:
 	const Point2dList& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
 
-	void toggleShowConnections() { mShowConnections = !mShowConnections; }
-
 	int edgeLength() const { return mEdgeLength; }
 	NAS2D::Vector<int> size() const { return mSizeInTiles; }
 
@@ -143,6 +141,4 @@ private:
 	Point2dList mMineLocations; /**< Location of all mines on the map. */
 
 	NAS2D::Rectangle<int> mMapBoundingBox; /** Area that the TileMap fills when drawn. */
-
-	bool mShowConnections = false; /**< Flag indicating whether or not to highlight connectedness. */
 };

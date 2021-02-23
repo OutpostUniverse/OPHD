@@ -314,6 +314,8 @@ private:
 
 	int mResidentialCapacity = 0;
 
+	TileList mConnectednessOverlay;
+
 	NAS2D::Point<int> mTubeStart;
 	bool mPlacingTube = false;
 

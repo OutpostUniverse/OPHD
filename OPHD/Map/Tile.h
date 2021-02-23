@@ -92,3 +92,5 @@ private:
 const NAS2D::Color& overlayColor(Tile::Overlay, bool);
 const NAS2D::Color& overlayColor(Tile::Overlay);
 const NAS2D::Color& overlayHighlightColor(Tile::Overlay);
+
+using TileList = std::vector<Tile*>;

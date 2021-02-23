@@ -2,11 +2,9 @@
 
 #include "Common.h"
 
+#include "Map/TileMap.h"
+
 #include <NAS2D/Renderer/Point.h>
-
-
-class TileMap;
-class Tile;
 
 
 /**
@@ -16,7 +14,7 @@ class Tile;
 class GraphWalker
 {
 public:
-	GraphWalker(const NAS2D::Point<int>& point, int depth, TileMap* tileMap);
+	GraphWalker(const NAS2D::Point<int>&, int, TileMap&, TileList&);
 	~GraphWalker() = default;
 
 private:
@@ -29,9 +27,10 @@ private:
 	void check(NAS2D::Point<int> point, int depth, Direction direction);
 
 private:
-	TileMap* mTileMap = nullptr;
-	Tile* mThisTile = nullptr;
+	TileMap& mTileMap;
+	Tile& mThisTile;
+	TileList& mTileList;
 
 	NAS2D::Point<int> mGridPosition;
-	int mDepth = 0;
+	int mDepth{ 0 };
 };

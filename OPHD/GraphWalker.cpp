@@ -1,7 +1,6 @@
 #include "GraphWalker.h"
 #include "DirectionOffset.h"
 
-#include "Map/TileMap.h"
 #include "Things/Structures/Structure.h"
 
 
@@ -74,11 +73,12 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 }
 
 
-GraphWalker::GraphWalker(const NAS2D::Point<int>& point, int depth, TileMap* tileMap) :
-	mTileMap(tileMap),
-	mThisTile(&tileMap->getTile(point, depth)),
-	mGridPosition(point),
-	mDepth(depth)
+GraphWalker::GraphWalker(const NAS2D::Point<int>& point, int depth, TileMap& tileMap, TileList& tileList) :
+	mTileMap{ tileMap },
+	mThisTile{ tileMap.getTile(point, depth) },
+	mTileList{ tileList },
+	mGridPosition{ point },
+	mDepth{ depth }
 {
 	walkGraph();
 }
@@ -86,10 +86,11 @@ GraphWalker::GraphWalker(const NAS2D::Point<int>& point, int depth, TileMap* til
 
 void GraphWalker::walkGraph()
 {
-	mThisTile->connected(true);
+	mThisTile.connected(true);
+	mTileList.push_back(&mThisTile);
 
 	if (mDepth > 0) { check(mGridPosition, mDepth - 1, Direction::Up); }
-	if (mDepth < mTileMap->maxDepth()) { check(mGridPosition, mDepth + 1, Direction::Down); }
+	if (mDepth < mTileMap.maxDepth()) { check(mGridPosition, mDepth + 1, Direction::Down); }
 
 	check(mGridPosition + DirectionNorth, mDepth, Direction::North);
 	check(mGridPosition + DirectionEast, mDepth, Direction::East);
@@ -107,15 +108,15 @@ void GraphWalker::walkGraph()
  */
 void GraphWalker::check(NAS2D::Point<int> point, int depth, Direction direction)
 {
-	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap->size()).contains(point)) { return; }
-	if (depth < 0 || depth > mTileMap->maxDepth()) { return; }
+	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap.size()).contains(point)) { return; }
+	if (depth < 0 || depth > mTileMap.maxDepth()) { return; }
 
-	auto& tile = mTileMap->getTile(point, depth);
+	auto& tile = mTileMap.getTile(point, depth);
 
 	if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { return; }
 
-	if (validConnection(mThisTile->structure(), tile.structure(), direction))
+	if (validConnection(mThisTile.structure(), tile.structure(), direction))
 	{
-		GraphWalker walker(point, depth, mTileMap);
+		GraphWalker walker(point, depth, mTileMap, mTileList);
 	}
 }
