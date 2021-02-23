@@ -391,7 +391,11 @@ void MapViewState::drawUI()
  */
 void MapViewState::btnToggleConnectednessClicked()
 {
-	mTileMap->toggleShowConnections();
+	auto overlay = mBtnToggleConnectedness.toggled() ? Tile::Overlay::Connectedness : Tile::Overlay::None;
+	for (auto tile : mConnectednessOverlay)
+	{
+		tile->overlay(overlay);
+	}
 }
 
 
