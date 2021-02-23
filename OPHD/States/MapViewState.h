@@ -144,6 +144,7 @@ private:
 
 	void setMinimapView();
 
+	void checkCommRangeOverlay();
 	void checkConnectedness();
 	void changeViewDepth(int);
 
@@ -254,7 +255,6 @@ private:
 	// USER INTERFACE
 	Button mBtnTurns;
 	Button mBtnToggleHeightmap;
-	Button mBtnToggleConnectedness;
 
 	// Bare Control's use for ToolTips
 	Control mTooltipSystemButton;
@@ -315,6 +315,7 @@ private:
 	int mResidentialCapacity = 0;
 
 	TileList mConnectednessOverlay;
+	TileList mCommRangeOverlay;
 
 	NAS2D::Point<int> mTubeStart;
 	bool mPlacingTube = false;

@@ -499,6 +499,7 @@ void MapViewState::nextTurn()
 
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
+	checkCommRangeOverlay();
 	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
 
 	mPreviousMorale = mCurrentMorale;
