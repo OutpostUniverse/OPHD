@@ -148,37 +148,63 @@ void MainMenuState::enableButtons()
  */
 void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
-	if (fileOp != FileIo::FileOperation::FILE_LOAD) { return; }
-	if (filePath.empty()) { return; }
-
-	std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
-
-	if (!Utility<Filesystem>::get().exists(filename))
+	if (fileOp == FileIo::FileOperation::FILE_SAVE)
 	{
-		doNonFatalErrorMessage("Load Failed", "File '" + filename + "' was not found.");
 		return;
 	}
 
-	try
+	if (filePath.empty())
 	{
-		checkSavegameVersion(filename);
-
-		GameState* gameState = new GameState();
-		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), filename);
-		mapview->_initialize();
-		mapview->activate();
-
-		gameState->mapviewstate(mapview);
-		mReturnState = gameState;
-
-		Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
-		Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
+		return;
 	}
-	catch (const std::exception& e)
+
+	if (fileOp == FileIo::FileOperation::FILE_LOAD)
 	{
-		mReturnState = this;
-		doNonFatalErrorMessage("Load Failed", e.what());
+		std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
+
+		if (!Utility<Filesystem>::get().exists(filename))
+		{
+			doNonFatalErrorMessage("Load Failed", "File '" + filename + "' was not found.");
+			return;
+		}
+
+		try
+		{
+			checkSavegameVersion(filename);
+
+			GameState* gameState = new GameState();
+			MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), filename);
+			mapview->_initialize();
+			mapview->activate();
+
+			gameState->mapviewstate(mapview);
+			mReturnState = gameState;
+
+			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+			Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
+		}
+		catch (const std::exception& e)
+		{
+			mReturnState = this;
+			doNonFatalErrorMessage("Load Failed", e.what());
+		}
 	}
+
+	if (fileOp == FileIo::FileOperation::FILE_DELETE)
+	{
+		std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
+
+		if (!Utility<Filesystem>::get().exists(filename))
+		{
+			doNonFatalErrorMessage("Delete Failed", "File '" + filename + "' was not found.");
+			return;
+		}
+		else
+		{
+			Utility<Filesystem>::get().del(filename);
+		}
+	}
+
 }
 
 

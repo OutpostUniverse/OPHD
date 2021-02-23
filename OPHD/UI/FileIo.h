@@ -15,7 +15,8 @@ public:
 	enum FileOperation
 	{
 		FILE_LOAD,
-		FILE_SAVE
+		FILE_SAVE,
+		FILE_DELETE
 	};
 
 	using FileOperationCallback = NAS2D::Signals::Signal<const std::string&, FileOperation>;
@@ -37,6 +38,7 @@ protected:
 private:
 	void btnCloseClicked();
 	void btnFileIoClicked();
+	void btnFileDeleteClicked();
 
 	void fileSelected();
 	void fileNameModified(TextControl* control);
@@ -47,6 +49,7 @@ private:
 
 	Button btnClose;
 	Button btnFileOp;
+	Button btnFileDelete;
 
 	TextField txtFileName;
 

@@ -565,13 +565,24 @@ void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperati
 			doNonFatalErrorMessage("Load Failed", e.what());
 			return;
 		}
+		mFileIoDialog.hide();
 	}
-	else
+	else if (fileOp == FileIo::FileOperation::FILE_SAVE)
 	{
 		save(constants::SAVE_GAME_PATH + filePath + ".xml");
+		mFileIoDialog.hide();
 	}
-
-	mFileIoDialog.hide();
+	else if (fileOp == FileIo::FileOperation::FILE_DELETE) {
+		try
+		{
+			del(constants::SAVE_GAME_PATH + filePath + ".xml");
+		}
+		catch (const std::exception& e)
+		{
+			doNonFatalErrorMessage("Delete Failed", e.what());
+			return;
+		}
+	}
 }
 
 
