@@ -276,8 +276,9 @@ int MapViewState::refinedResourcesInStorage()
 
 void MapViewState::countPlayerResources()
 {
-	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
-	storage.insert(storage.begin(), mTileMap->getTile(ccLocation(), 0).structure());
+	auto storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+	storage.insert(storage.begin(), command.begin(), command.end());
 
 	StorableResources resources;
 	for (auto structure : storage)
