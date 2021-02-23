@@ -24,6 +24,16 @@
 using namespace constants;
 
 
+static void setOverlay(Button& button, TileList& tileList, Tile::Overlay overlay)
+{
+	auto overlayToUse = button.toggled() ? overlay : Tile::Overlay::None;
+	for (auto tile : tileList)
+	{
+		tile->overlay(overlayToUse);
+	}
+}
+
+
 /**
  * Sets up the user interface elements
  * 
@@ -402,21 +412,13 @@ void MapViewState::drawUI()
  */
 void MapViewState::btnToggleConnectednessClicked()
 {
-	auto overlay = mBtnToggleConnectedness.toggled() ? Tile::Overlay::Connectedness : Tile::Overlay::None;
-	for (auto tile : mConnectednessOverlay)
-	{
-		tile->overlay(overlay);
-	}
+	setOverlay(mBtnToggleConnectedness, mConnectednessOverlay, Tile::Overlay::Connectedness);
 }
 
 
 void MapViewState::btnToggleCommRangeOverlayClicked()
 {
-	auto overlay = mBtnToggleCommRangeOverlay.toggled() ? Tile::Overlay::Communications : Tile::Overlay::None;
-	for (auto tile : mConnectednessOverlay)
-	{
-		tile->overlay(overlay);
-	}
+	setOverlay(mBtnToggleCommRangeOverlay, mCommRangeOverlay, Tile::Overlay::Communications);
 }
 
 
