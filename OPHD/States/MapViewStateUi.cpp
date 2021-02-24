@@ -580,7 +580,6 @@ void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperati
 		catch (const std::exception& e)
 		{
 			doNonFatalErrorMessage("Delete Failed", e.what());
-			return;
 		}
 	}
 }

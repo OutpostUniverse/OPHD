@@ -194,14 +194,13 @@ void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperat
 	{
 		std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
 
-		if (!Utility<Filesystem>::get().exists(filename))
-		{
-			doNonFatalErrorMessage("Delete Failed", "File '" + filename + "' was not found.");
-			return;
-		}
-		else
+		try
 		{
 			Utility<Filesystem>::get().del(filename);
+		}
+		catch(const std::exception& e)
+		{
+			doNonFatalErrorMessage("Delete Failed", e.what());
 		}
 	}
 
