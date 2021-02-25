@@ -158,36 +158,33 @@ void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperat
 		return;
 	}
 
-	if (fileOp == FileIo::FileOperation::FILE_LOAD)
+	std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
+
+	if (!Utility<Filesystem>::get().exists(filename))
 	{
-		std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
+		doNonFatalErrorMessage("Load Failed", "File '" + filename + "' was not found.");
+		return;
+	}
 
-		if (!Utility<Filesystem>::get().exists(filename))
-		{
-			doNonFatalErrorMessage("Load Failed", "File '" + filename + "' was not found.");
-			return;
-		}
+	try
+	{
+		checkSavegameVersion(filename);
 
-		try
-		{
-			checkSavegameVersion(filename);
+		GameState* gameState = new GameState();
+		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), filename);
+		mapview->_initialize();
+		mapview->activate();
 
-			GameState* gameState = new GameState();
-			MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), filename);
-			mapview->_initialize();
-			mapview->activate();
+		gameState->mapviewstate(mapview);
+		mReturnState = gameState;
 
-			gameState->mapviewstate(mapview);
-			mReturnState = gameState;
-
-			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
-			Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
-		}
-		catch (const std::exception& e)
-		{
-			mReturnState = this;
-			doNonFatalErrorMessage("Load Failed", e.what());
-		}
+		Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+		Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
+	}
+	catch (const std::exception& e)
+	{
+		mReturnState = this;
+		doNonFatalErrorMessage("Load Failed", e.what());
 	}
 }
 
