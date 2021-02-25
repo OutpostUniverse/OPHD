@@ -569,7 +569,6 @@ void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperati
 	else
 	{
 		save(constants::SAVE_GAME_PATH + filePath + ".xml");
-
 	}
 
 	mFileIoDialog.hide();
