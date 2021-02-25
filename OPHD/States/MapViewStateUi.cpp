@@ -412,12 +412,24 @@ void MapViewState::drawUI()
  */
 void MapViewState::btnToggleConnectednessClicked()
 {
+	if (mBtnToggleConnectedness.toggled())
+	{
+		mBtnToggleCommRangeOverlay.toggle(false);
+		btnToggleCommRangeOverlayClicked();
+	}
+
 	setOverlay(mBtnToggleConnectedness, mConnectednessOverlay, Tile::Overlay::Connectedness);
 }
 
 
 void MapViewState::btnToggleCommRangeOverlayClicked()
 {
+	if (mBtnToggleCommRangeOverlay.toggled())
+	{
+		mBtnToggleConnectedness.toggle(false);
+		btnToggleConnectednessClicked();
+	}
+
 	setOverlay(mBtnToggleCommRangeOverlay, mCommRangeOverlay, Tile::Overlay::Communications);
 }
 
