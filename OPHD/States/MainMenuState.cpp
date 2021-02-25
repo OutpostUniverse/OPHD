@@ -160,12 +160,6 @@ void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperat
 
 	std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
 
-	if (!Utility<Filesystem>::get().exists(filename))
-	{
-		doNonFatalErrorMessage("Load Failed", "File '" + filename + "' was not found.");
-		return;
-	}
-
 	try
 	{
 		checkSavegameVersion(filename);
