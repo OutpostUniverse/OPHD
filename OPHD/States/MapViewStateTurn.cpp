@@ -499,7 +499,6 @@ void MapViewState::nextTurn()
 
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
-	checkCommRangeOverlay();
 	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
 
 	mPreviousMorale = mCurrentMorale;
@@ -517,6 +516,8 @@ void MapViewState::nextTurn()
 	updateResources();
 	updateStructuresAvailability();
 	updateRoads();
+
+	checkCommRangeOverlay();
 
 	auto& factories = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory);
 	for (auto factory : factories)
