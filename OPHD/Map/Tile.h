@@ -25,11 +25,11 @@ public:
 
 public:
 	Tile() = default;
-	Tile(NAS2D::Point<int> position, int depth, TerrainType index);
-	Tile(const Tile& other) = delete;
-	Tile& operator=(const Tile& other) = delete;
-	Tile(Tile&& other) noexcept;
-	Tile& operator=(Tile&& other) noexcept;
+	Tile(NAS2D::Point<int>, int, TerrainType);
+	Tile(const Tile&) = delete;
+	Tile& operator=(const Tile&) = delete;
+	Tile(Tile&&) noexcept;
+	Tile& operator=(Tile&&) noexcept;
 	~Tile();
 
 	TerrainType index() const { return mIndex; }
@@ -60,7 +60,7 @@ public:
 	bool thingIsStructure() const { return structure() != nullptr; }
 	bool thingIsRobot() const { return robot() != nullptr; }
 
-	void pushThing(Thing* thing);
+	void pushThing(Thing*);
 	void deleteThing();
 
 	void removeThing();
@@ -68,8 +68,8 @@ public:
 	Mine* mine() { return mMine; }
 	void pushMine(Mine*);
 
-	float distanceTo(Tile* tile);
-	float distanceTo(NAS2D::Point<int> point);
+	float distanceTo(Tile*);
+	float distanceTo(NAS2D::Point<int>);
 
 	void overlay(Overlay overlay) { mOverlay = overlay; }
 	Overlay overlay() const { return mOverlay; }
