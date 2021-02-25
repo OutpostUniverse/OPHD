@@ -1376,6 +1376,7 @@ void MapViewState::checkCommRangeOverlay()
 	
 	for (auto cc : command)
 	{
+		if (!cc->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(cc);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, constants::ROBOT_COM_RANGE);
 		fillCommList(mCommRangeOverlay, *mTileMap, centerTile, commAreaRect, constants::ROBOT_COM_RANGE);
@@ -1383,6 +1384,7 @@ void MapViewState::checkCommRangeOverlay()
 
 	for (auto tower : commTowers)
 	{
+		if (!tower->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(tower);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, constants::COMM_TOWER_BASE_RANGE);
 		fillCommList(mCommRangeOverlay, *mTileMap, centerTile, commAreaRect, constants::COMM_TOWER_BASE_RANGE);
