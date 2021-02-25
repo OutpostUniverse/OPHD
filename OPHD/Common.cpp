@@ -440,7 +440,7 @@ bool doYesNoMessage(const std::string& title, const std::string msg)
  */
 void checkSavegameVersion(const std::string& filename)
 {
-	File xmlFile = Utility<Filesystem>::get().open(filename);
+	auto xmlFile = Utility<Filesystem>::get().open(filename);
 
 	NAS2D::Xml::XmlDocument doc;
 	doc.parse(xmlFile.raw_bytes());

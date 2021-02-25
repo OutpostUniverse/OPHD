@@ -155,7 +155,7 @@ void MapViewState::load(const std::string& filePath)
 		throw std::runtime_error("File '" + filePath + "' was not found.");
 	}
 
-	File xmlFile = Utility<Filesystem>::get().open(filePath);
+	auto xmlFile = Utility<Filesystem>::get().open(filePath);
 
 	XmlDocument doc;
 
