@@ -144,6 +144,7 @@ private:
 
 	void setMinimapView();
 
+	void checkCommRangeOverlay();
 	void checkConnectedness();
 	void changeViewDepth(int);
 
@@ -206,6 +207,7 @@ private:
 	// UI EVENT HANDLERS
 	void btnTurnsClicked();
 	void btnToggleConnectednessClicked();
+	void btnToggleCommRangeOverlayClicked();
 
 	void btnSaveGameClicked();
 	void btnLoadGameClicked();
@@ -255,6 +257,7 @@ private:
 	Button mBtnTurns;
 	Button mBtnToggleHeightmap;
 	Button mBtnToggleConnectedness;
+	Button mBtnToggleCommRangeOverlay;
 
 	// Bare Control's use for ToolTips
 	Control mTooltipSystemButton;
@@ -315,6 +318,7 @@ private:
 	int mResidentialCapacity = 0;
 
 	TileList mConnectednessOverlay;
+	TileList mCommRangeOverlay;
 
 	NAS2D::Point<int> mTubeStart;
 	bool mPlacingTube = false;

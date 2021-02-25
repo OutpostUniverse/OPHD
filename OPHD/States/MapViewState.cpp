@@ -69,6 +69,43 @@ const std::map<Robot::Type, RobotMeta> RobotMetaTable
 };
 
 
+static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int commRange)
+{
+	const NAS2D::Point commAreaStartPoint
+	{
+		std::clamp(centerTile.position().x - commRange, 0, 299),
+		std::clamp(centerTile.position().y - commRange, 0, 149)
+	};
+
+	const NAS2D::Point commAreaEndPoint
+	{
+		std::clamp(centerTile.position().x + commRange, 0, 299),
+		std::clamp(centerTile.position().y + commRange, 0, 149)
+	};
+
+	return NAS2D::Rectangle<int>::Create(commAreaStartPoint, commAreaEndPoint);
+}
+
+
+static void fillCommList(TileList& tileList, TileMap& tileMap, Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange)
+{
+	for (int y = 0; y < area.height; ++y)
+	{
+		for (int x = 0; x < area.width; ++x)
+		{
+			auto& tile = tileMap.getTile({ x + area.x, y + area.y });
+			if (centerTile.distanceTo(&tile) <= commRange)
+			{
+				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
+				{
+					tileList.push_back(&tile);
+				}
+			}
+		}
+	}
+}
+
+
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mMainReportsState(mainReportsState),
 	mLoadingExisting(true),
@@ -902,6 +939,11 @@ void MapViewState::placeRobot()
 				else { return; }
 			}
 
+			if (structure->structureClass() == Structure::StructureClass::Communication)
+			{
+				checkCommRangeOverlay();
+			}
+
 			auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
 			addRefinedResources(recycledResources);
 
@@ -1320,6 +1362,33 @@ void MapViewState::checkConnectedness()
 	// Start graph walking at the CC location.
 	mConnectednessOverlay.clear();
 	GraphWalker graphWalker(ccLocation(), 0, *mTileMap, mConnectednessOverlay);
+}
+
+
+void MapViewState::checkCommRangeOverlay()
+{
+	mCommRangeOverlay.clear();
+
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+
+	const auto& commTowers = structureManager.structureList(Structure::StructureClass::Communication);
+	const auto& command = structureManager.structureList(Structure::StructureClass::Command);
+	
+	for (auto cc : command)
+	{
+		if (!cc->operational()) { continue; }
+		auto& centerTile = structureManager.tileFromStructure(cc);
+		auto commAreaRect = buildAreaRectFromTile(centerTile, constants::ROBOT_COM_RANGE);
+		fillCommList(mCommRangeOverlay, *mTileMap, centerTile, commAreaRect, constants::ROBOT_COM_RANGE);
+	}
+
+	for (auto tower : commTowers)
+	{
+		if (!tower->operational()) { continue; }
+		auto& centerTile = structureManager.tileFromStructure(tower);
+		auto commAreaRect = buildAreaRectFromTile(centerTile, constants::COMM_TOWER_BASE_RANGE);
+		fillCommList(mCommRangeOverlay, *mTileMap, centerTile, commAreaRect, constants::COMM_TOWER_BASE_RANGE);
+	}
 }
 
 
