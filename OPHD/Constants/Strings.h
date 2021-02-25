@@ -191,6 +191,7 @@ namespace constants
 	const std::string WINDOW_FILEIO_TITLE_SAVE = "Save Game";
 	const std::string WINDOW_FILEIO_LOAD = "Load";
 	const std::string WINDOW_FILEIO_SAVE = "Save";
+	const std::string WINDOW_FILEIO_DELETE = "Delete";
 
 	const std::string WINDOW_SYSTEM_TITLE = "Options";
 

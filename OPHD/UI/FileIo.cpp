@@ -1,6 +1,7 @@
 #include "FileIo.h"
 
 #include "../Constants.h"
+#include "../Common.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
@@ -17,7 +18,8 @@ using namespace NAS2D;
 FileIo::FileIo() :
 	Window{"File I/O"},
 	btnClose{"Cancel"},
-	btnFileOp{"FileOp"}
+	btnFileOp{"FileOp"},
+	btnFileDelete{"Delete"}
 {
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
 	Utility<EventHandler>::get().keyDown().connect(this, &FileIo::onKeyDown);
@@ -28,6 +30,11 @@ FileIo::FileIo() :
 	btnFileOp.size({50, 20});
 	btnFileOp.click().connect(this, &FileIo::btnFileIoClicked);
 	btnFileOp.enabled(false);
+
+	add(btnFileDelete, {5, 325});
+	btnFileDelete.size({50, 20});
+	btnFileDelete.click().connect(this, &FileIo::btnFileDeleteClicked);
+	btnFileDelete.enabled(false);
 
 	add(btnClose, {390, 325});
 	btnClose.size({50, 20});
@@ -130,11 +137,20 @@ void FileIo::fileNameModified(TextControl* control)
 	const std::string RestrictedFilenameChars = "\\/:*?\"<>|";
 
 	if (sFile.empty()) // no blank filename
+	{
 		btnFileOp.enabled(false);
+		btnFileDelete.enabled(false);
+	}
 	else if (sFile.find_first_of(RestrictedFilenameChars) != std::string::npos)
+	{
 		btnFileOp.enabled(false);
+		btnFileDelete.enabled(false);
+	}
 	else
+	{
 		btnFileOp.enabled(true);
+		btnFileDelete.enabled(true);
+	}
 }
 
 
@@ -153,6 +169,26 @@ void FileIo::btnFileIoClicked()
 	txtFileName.resetCursorPosition();
 	btnFileOp.enabled(false);
 }
+
+void FileIo::btnFileDeleteClicked()
+{
+	std::string filename = constants::SAVE_GAME_PATH + txtFileName.text()+ ".xml";
+
+	try
+	{
+		Utility<Filesystem>::get().del(filename);
+	}
+	catch(const std::exception& e)
+	{
+		doNonFatalErrorMessage("Delete Failed", e.what());
+	}
+
+	txtFileName.text("");
+	txtFileName.resetCursorPosition();
+	btnFileDelete.enabled(false);
+	scanDirectory(constants::SAVE_GAME_PATH);
+}
+
 
 
 void FileIo::update()

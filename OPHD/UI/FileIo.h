@@ -37,6 +37,7 @@ protected:
 private:
 	void btnCloseClicked();
 	void btnFileIoClicked();
+	void btnFileDeleteClicked();
 
 	void fileSelected();
 	void fileNameModified(TextControl* control);
@@ -47,6 +48,7 @@ private:
 
 	Button btnClose;
 	Button btnFileOp;
+	Button btnFileDelete;
 
 	TextField txtFileName;
 

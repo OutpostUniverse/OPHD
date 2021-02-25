@@ -148,8 +148,15 @@ void MainMenuState::enableButtons()
  */
 void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
-	if (fileOp != FileIo::FileOperation::FILE_LOAD) { return; }
-	if (filePath.empty()) { return; }
+	if (fileOp == FileIo::FileOperation::FILE_SAVE)
+	{
+		return;
+	}
+
+	if (filePath.empty())
+	{
+		return;
+	}
 
 	std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
 
