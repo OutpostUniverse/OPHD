@@ -517,7 +517,11 @@ void MapViewState::nextTurn()
 	updateStructuresAvailability();
 	updateRoads();
 
+	// Overlay Updates
 	checkCommRangeOverlay();
+	btnToggleConnectednessClicked();
+	btnToggleCommRangeOverlayClicked();
+
 
 	auto& factories = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory);
 	for (auto factory : factories)
