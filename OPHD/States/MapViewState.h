@@ -182,7 +182,6 @@ private:
 
 	void load(const std::string& filePath);
 	void save(const std::string& filePath);
-	void del(const std::string& filePath);
 
 	// UI MANAGEMENT FUNCTIONS
 	void clearMode();

@@ -1,6 +1,7 @@
 #include "FileIo.h"
 
 #include "../Constants.h"
+#include "../Common.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
@@ -171,7 +172,17 @@ void FileIo::btnFileIoClicked()
 
 void FileIo::btnFileDeleteClicked()
 {
-	mCallback(txtFileName.text(), FILE_DELETE);
+	std::string filename = constants::SAVE_GAME_PATH + txtFileName.text()+ ".xml";
+
+	try
+	{
+		Utility<Filesystem>::get().del(filename);
+	}
+	catch(const std::exception& e)
+	{
+		doNonFatalErrorMessage("Delete Failed", e.what());
+	}
+
 	txtFileName.text("");
 	txtFileName.resetCursorPosition();
 	btnFileDelete.enabled(false);

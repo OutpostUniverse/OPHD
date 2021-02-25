@@ -572,16 +572,6 @@ void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperati
 		save(constants::SAVE_GAME_PATH + filePath + ".xml");
 		mFileIoDialog.hide();
 	}
-	else if (fileOp == FileIo::FileOperation::FILE_DELETE) {
-		try
-		{
-			del(constants::SAVE_GAME_PATH + filePath + ".xml");
-		}
-		catch (const std::exception& e)
-		{
-			doNonFatalErrorMessage("Delete Failed", e.what());
-		}
-	}
 }
 
 

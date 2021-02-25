@@ -15,8 +15,7 @@ public:
 	enum FileOperation
 	{
 		FILE_LOAD,
-		FILE_SAVE,
-		FILE_DELETE
+		FILE_SAVE
 	};
 
 	using FileOperationCallback = NAS2D::Signals::Signal<const std::string&, FileOperation>;

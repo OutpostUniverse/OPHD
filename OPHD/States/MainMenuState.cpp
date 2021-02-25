@@ -189,21 +189,6 @@ void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperat
 			doNonFatalErrorMessage("Load Failed", e.what());
 		}
 	}
-
-	if (fileOp == FileIo::FileOperation::FILE_DELETE)
-	{
-		std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
-
-		try
-		{
-			Utility<Filesystem>::get().del(filename);
-		}
-		catch(const std::exception& e)
-		{
-			doNonFatalErrorMessage("Delete Failed", e.what());
-		}
-	}
-
 }
 
 

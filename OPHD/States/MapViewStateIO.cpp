@@ -79,17 +79,6 @@ static void readRccRobots(NAS2D::Xml::XmlAttribute* attr, Structure& structure, 
  * CLASS FUNCTIONS
  *****************************************************************************/
 
-void MapViewState::del(const std::string& filePath) {
-	if (Utility<Filesystem>::get().exists(filePath))
-	{
-		Utility<Filesystem>::get().del(filePath);
-	}
-	else
-	{
-		throw std::runtime_error("File '" + filePath + "' was not found.");
-	}
-}
-
 void MapViewState::save(const std::string& filePath)
 {
 	auto& renderer = Utility<Renderer>::get();
