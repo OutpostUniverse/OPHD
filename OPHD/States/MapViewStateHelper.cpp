@@ -290,6 +290,8 @@ bool selfSustained(StructureID id)
  */
 bool inCommRange(NAS2D::Point<int> position)
 {
+
+
 	const auto maxCCRangeSquared = constants::ROBOT_COM_RANGE * constants::ROBOT_COM_RANGE;
 	const auto ccDistance = position - ccLocation();
 	if (ccDistance.lengthSquared() <= maxCCRangeSquared)
@@ -315,6 +317,12 @@ bool inCommRange(NAS2D::Point<int> position)
 	}
 
 	return false;
+}
+
+
+bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance)
+{
+	return ((point2.x - point1.x) * (point2.x - point1.x)) + ((point2.y - point1.y) * (point2.y - point1.y)) <= distance * distance;
 }
 
 
