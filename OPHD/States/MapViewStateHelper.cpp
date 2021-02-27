@@ -320,7 +320,7 @@ bool inCommRange(NAS2D::Point<int> position)
 
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance)
 {
-	return ((point2.x - point1.x) * (point2.x - point1.x)) + ((point2.y - point1.y) * (point2.y - point1.y)) <= distance * distance;
+	return (point2 - point1).lengthSquared() <= distance * distance;
 }
 
 
