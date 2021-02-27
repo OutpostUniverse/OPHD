@@ -157,5 +157,5 @@ float Tile::distanceTo(Tile* tile)
 float Tile::distanceTo(NAS2D::Point<int> point)
 {
 	const auto direction = point - position();
-	return static_cast<float>(std::sqrt((direction.x * direction.x) + (direction.y * direction.y)));
+	return static_cast<float>(std::sqrt(direction.lengthSquared()));
 }
