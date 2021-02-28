@@ -68,9 +68,6 @@ public:
 	Mine* mine() { return mMine; }
 	void pushMine(Mine*);
 
-	float distanceTo(Tile*);
-	float distanceTo(NAS2D::Point<int>);
-
 	void overlay(Overlay overlay) { mOverlay = overlay; }
 	Overlay overlay() const { return mOverlay; }
 

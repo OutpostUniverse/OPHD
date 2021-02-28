@@ -571,7 +571,7 @@ bool TileMap::isVisibleTile(NAS2D::Point<int> position, int z) const
  */
 float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
 {
-	return static_cast<Tile*>(stateStart)->distanceTo(static_cast<Tile*>(stateEnd));
+	return sqrtf(static_cast<float>((static_cast<Tile*>(stateEnd)->position() - static_cast<Tile*>(stateStart)->position()).lengthSquared()));
 }
 
 
