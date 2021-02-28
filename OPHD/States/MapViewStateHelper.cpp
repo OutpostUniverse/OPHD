@@ -290,31 +290,37 @@ bool selfSustained(StructureID id)
  */
 bool inCommRange(NAS2D::Point<int> position)
 {
-	const auto maxCCRangeSquared = constants::ROBOT_COM_RANGE * constants::ROBOT_COM_RANGE;
-	const auto ccDistance = position - ccLocation();
-	if (ccDistance.lengthSquared() <= maxCCRangeSquared)
+	auto& structureManager = Utility<StructureManager>::get();
+
+	const auto& command = structureManager.structureList(Structure::StructureClass::Command);
+	for (auto cc : command)
 	{
-		return true;
+		if (!cc->operational()) { continue; }
+
+		if (isPointInRange(position, structureManager.tileFromStructure(cc).position(), constants::ROBOT_COM_RANGE))
+		{
+			return true;
+		}
 	}
 
-	const auto maxTowerRangeSquared = constants::COMM_TOWER_BASE_RANGE * constants::COMM_TOWER_BASE_RANGE;
-	auto structureManager = Utility<StructureManager>::get();
-	for (auto tower : structureManager.structureList(Structure::StructureClass::Communication))
+	const auto& commTowers = structureManager.structureList(Structure::StructureClass::Communication);
+	for (auto tower : commTowers)
 	{
-		if (!tower->operational())
-		{
-			continue;
-		}
+		if (!tower->operational()) { continue; }
 
-		const auto& commTowerTile = structureManager.tileFromStructure(tower);
-		const auto towerDistance = position - commTowerTile.position();
-		if (towerDistance.lengthSquared() <= maxTowerRangeSquared)
+		if (isPointInRange(position, structureManager.tileFromStructure(tower).position(), constants::COMM_TOWER_BASE_RANGE))
 		{
 			return true;
 		}
 	}
 
 	return false;
+}
+
+
+bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance)
+{
+	return (point2 - point1).lengthSquared() <= distance * distance;
 }
 
 
