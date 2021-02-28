@@ -146,16 +146,3 @@ Robot* Tile::robot() const
 {
 	return dynamic_cast<Robot*>(thing());
 }
-
-
-float Tile::distanceTo(Tile* tile)
-{
-	return distanceTo(tile->position());
-}
-
-
-float Tile::distanceTo(NAS2D::Point<int> point)
-{
-	const auto direction = point - position();
-	return static_cast<float>(std::sqrt(direction.lengthSquared()));
-}
