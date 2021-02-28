@@ -94,7 +94,7 @@ static void fillCommList(TileList& tileList, TileMap& tileMap, Tile& centerTile,
 		for (int x = 0; x < area.width; ++x)
 		{
 			auto& tile = tileMap.getTile({ x + area.x, y + area.y });
-			if (centerTile.distanceTo(&tile) <= commRange)
+			if (isPointInRange(centerTile.position(), tile.position(), commRange))
 			{
 				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
 				{
@@ -1099,7 +1099,7 @@ void MapViewState::placeStructure()
 	if (!tile) { return; }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		(tile->distanceTo(&mTileMap->getTile(ccLocation(), 0)) > constants::ROBOT_COM_RANGE))
+		isPointInRange(tile->position(), ccLocation(), constants::ROBOT_COM_RANGE))
 	{
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_OUT_OF_RANGE);
 		return;
