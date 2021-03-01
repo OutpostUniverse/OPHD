@@ -869,7 +869,7 @@ void MapViewState::placeRobodozer()
 	Robot* robot = mRobotPool.getDozer();
 	Tile* tile = mTileMap->getVisibleTile();
 
-	if (!tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
+	if (tile->thing() && !tile->thingIsStructure())
 	{
 		return;
 	}
@@ -968,10 +968,92 @@ void MapViewState::placeRobodozer()
 }
 
 
+void MapViewState::placeRobodigger()
+{
+	Tile* tile = mTileMap->getVisibleTile();
+
+	// Keep digger within a safe margin of the map boundaries.
+	if (!NAS2D::Rectangle<int>::Create({ 4, 4 }, NAS2D::Point{ -4, -4 } + mTileMap->size()).contains(mTileMapMouseHover))
+	{
+		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_EDGE_BUFFER);
+		return;
+	}
+
+	// Check for obstructions underneath the the digger location.
+	if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->position(), tile->depth() + 1).empty())
+	{
+		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_BLOCKED_BELOW);
+		return;
+	}
+
+	if (tile->hasMine())
+	{
+		if (!doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE)) { return; }
+
+		const auto position = tile->position();
+		std::cout << "Digger destroyed a Mine at (" << position.x << ", " << position.y << ")." << std::endl;
+		mTileMap->removeMineLocation(position);
+	}
+
+	// Die if tile is occupied or not excavated.
+	if (!tile->empty())
+	{
+		if (tile->depth() > constants::DEPTH_SURFACE)
+		{
+			if (tile->thingIsStructure() && tile->structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) //air shaft
+			{
+				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
+				return;
+			}
+			else if (tile->thingIsStructure() && tile->structure()->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL && tile->depth() == mTileMap->maxDepth())
+			{
+				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MAX_DIG_DEPTH);
+				return;
+			}
+		}
+		else
+		{
+			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
+			return;
+		}
+	}
+
+	if (!tile->thing() && mTileMap->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
+	else { mDiggerDirection.downOnlyEnabled(); }
+
+	mDiggerDirection.setParameters(tile);
+
+	// NOTE:	Unlike the Dozer and Miner, Diggers aren't removed here but instead
+	//			are removed after responses to the DiggerDirection dialog.
+
+	// If we're placing on the top level we can only ever go down.
+	if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
+	{
+		mDiggerDirection.selectDown();
+	}
+	else
+	{
+		mDiggerDirection.show();
+		mWindowStack.bringToFront(&mDiggerDirection);
+
+		// Popup to the right of the mouse
+		auto position = MOUSE_COORDS + NAS2D::Vector{ 20, -32 };
+		// Check if popup position is off the right edge of the display area
+		if (position.x + mDiggerDirection.size().x > Utility<Renderer>::get().size().x)
+		{
+			// Popup to the left of the mouse
+			position = MOUSE_COORDS + NAS2D::Vector{ -20 - mDiggerDirection.size().x, -32 };
+		}
+		mDiggerDirection.position(position);
+	}
+}
+
+
 void MapViewState::placeRobot()
 {
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
+	if (!tile->excavated()) { return; }
 	if (!mRobotPool.robotCtrlAvailable()) { return; }
 
 	if (!inCommRange(tile->position()))
@@ -986,82 +1068,7 @@ void MapViewState::placeRobot()
 	}
 	else if (mCurrentRobot == Robot::Type::Digger)
 	{
-		// Keep digger within a safe margin of the map boundaries.
-		if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(mTileMapMouseHover))
-		{
-			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_EDGE_BUFFER);
-			return;
-		}
-
-		if (!tile->excavated()) { return; }
-
-		// Check for obstructions underneath the the digger location.
-		if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->position(), tile->depth() + 1).empty())
-		{
-			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_BLOCKED_BELOW);
-			return;
-		}
-
-		if (tile->hasMine())
-		{
-			if (!doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE)) { return; }
-
-			const auto position = tile->position();
-			std::cout << "Digger destroyed a Mine at (" << position.x << ", " << position.y << ")." << std::endl;
-			mTileMap->removeMineLocation(position);
-		}
-
-		// Die if tile is occupied or not excavated.
-		if (!tile->empty())
-		{
-			if (tile->depth() > constants::DEPTH_SURFACE)
-			{
-				if (tile->thingIsStructure() && tile->structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) //air shaft
-				{
-					doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
-					return;
-				}
-				else if (tile->thingIsStructure() && tile->structure()->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL && tile->depth() == mTileMap->maxDepth())
-				{
-					doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MAX_DIG_DEPTH);
-					return;
-				}
-			}
-			else
-			{
-				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
-				return;
-			}
-		}
-
-		if (!tile->thing() && mTileMap->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
-		else { mDiggerDirection.downOnlyEnabled(); }
-
-		mDiggerDirection.setParameters(tile);
-
-		// NOTE:	Unlike the Dozer and Miner, Diggers aren't removed here but instead
-		//			are removed after responses to the DiggerDirection dialog.
-
-		// If we're placing on the top level we can only ever go down.
-		if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
-		{
-			mDiggerDirection.selectDown();
-		}
-		else
-		{
-			mDiggerDirection.show();
-			mWindowStack.bringToFront(&mDiggerDirection);
-
-			// Popup to the right of the mouse
-			auto position = MOUSE_COORDS + NAS2D::Vector{20, -32};
-			// Check if popup position is off the right edge of the display area
-			if (position.x + mDiggerDirection.size().x > Utility<Renderer>::get().size().x)
-			{
-				// Popup to the left of the mouse
-				position = MOUSE_COORDS + NAS2D::Vector{-20 - mDiggerDirection.size().x, -32};
-			}
-			mDiggerDirection.position(position);
-		}
+		placeRobodigger();
 	}
 	else if (mCurrentRobot == Robot::Type::Miner)
 	{

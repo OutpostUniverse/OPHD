@@ -135,6 +135,8 @@ private:
 	void placeTubeEnd();
 
 	void placeRobodozer();
+	void placeRobodigger();
+
 
 	void setStructureID(StructureID type, InsertMode mode);
 
