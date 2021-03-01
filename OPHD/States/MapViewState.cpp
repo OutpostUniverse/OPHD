@@ -1079,17 +1079,19 @@ void MapViewState::placeRobot()
 		return;
 	}
 
-	if (mCurrentRobot == Robot::Type::Dozer)
+	switch (mCurrentRobot)
 	{
+	case Robot::Type::Dozer:
 		placeRobodozer(*tile);
-	}
-	else if (mCurrentRobot == Robot::Type::Digger)
-	{
+		break;
+	case Robot::Type::Digger:
 		placeRobodigger(*tile);
-	}
-	else if (mCurrentRobot == Robot::Type::Miner)
-	{
+		break;
+	case Robot::Type::Miner:
 		placeRobominer(*tile);
+		break;
+	default:
+		break;
 	}
 }
 
