@@ -134,6 +134,8 @@ private:
 	void placeTubeStart();
 	void placeTubeEnd();
 
+	void placeRobodozer();
+
 	void setStructureID(StructureID type, InsertMode mode);
 
 	// MISCELLANEOUS UTILITY FUNCTIONS

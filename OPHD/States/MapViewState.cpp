@@ -799,6 +799,7 @@ void MapViewState::placeTubeStart()
 	mPlacingTube = true;
 }
 
+
 void MapViewState::placeTubeEnd()
 {
 	if (!mPlacingTube) return;
@@ -862,6 +863,111 @@ void MapViewState::placeTubeEnd()
 	} while (!endReach);
 }
 
+
+void MapViewState::placeRobodozer()
+{
+	Robot* robot = mRobotPool.getDozer();
+	Tile* tile = mTileMap->getVisibleTile();
+
+	if (!tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
+	{
+		return;
+	}
+	else if (tile->index() == TerrainType::Dozed && !tile->thingIsStructure())
+	{
+		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_TILE_BULLDOZED);
+		return;
+	}
+	else if (tile->mine())
+	{
+		if (tile->mine()->depth() != mTileMap->maxDepth() || !tile->mine()->exhausted())
+		{
+			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINE_NOT_EXHAUSTED);
+			return;
+		}
+
+		mMineOperationsWindow.hide();
+		mTileMap->removeMineLocation(mTileMap->tileMouseHover());
+		tile->pushMine(nullptr);
+		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
+		{
+			auto& mineShaftTile = mTileMap->getTile(mTileMap->tileMouseHover(), i);
+			Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
+		}
+	}
+	else if (tile->thingIsStructure())
+	{
+		if (mStructureInspector.structure() == tile->structure()) { mStructureInspector.hide(); }
+
+		Structure* structure = tile->structure();
+
+		if (structure->isMineFacility()) { return; }
+		if (structure->structureClass() == Structure::StructureClass::Command)
+		{
+			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_CC);
+			return;
+		}
+
+		if (structure->structureClass() == Structure::StructureClass::Lander && structure->age() == 0)
+		{
+			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_LANDING_SITE);
+			return;
+		}
+
+		if (structure->isRobotCommand())
+		{
+			deleteRobotsInRCC(robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, tile);
+		}
+
+		if (structure->isFactory() && static_cast<Factory*>(structure) == mFactoryProduction.factory())
+		{
+			mFactoryProduction.hide();
+		}
+
+		if (structure->isWarehouse())
+		{
+			if (simulateMoveProducts(static_cast<Warehouse*>(structure))) { moveProducts(static_cast<Warehouse*>(structure)); }
+			else { return; }
+		}
+
+		if (structure->structureClass() == Structure::StructureClass::Communication)
+		{
+			checkCommRangeOverlay();
+		}
+
+		auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
+		addRefinedResources(recycledResources);
+
+		/**
+		 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
+		 */
+		if (!recycledResources.isEmpty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
+
+		countPlayerResources();
+		updateStructuresAvailability();
+
+		tile->connected(false);
+		Utility<StructureManager>::get().removeStructure(structure);
+		tile->deleteThing();
+		Utility<StructureManager>::get().disconnectAll();
+		static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
+		checkConnectedness();
+	}
+
+	int taskTime = tile->index() == TerrainType::Dozed ? 1 : static_cast<int>(tile->index());
+	robot->startTask(taskTime);
+	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
+	static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile->index()));
+	tile->index(TerrainType::Dozed);
+
+	if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
+	{
+		mRobots.removeItem(constants::ROBODOZER);
+		clearMode();
+	}
+}
+
+
 void MapViewState::placeRobot()
 {
 	Tile* tile = mTileMap->getVisibleTile();
@@ -876,104 +982,7 @@ void MapViewState::placeRobot()
 
 	if (mCurrentRobot == Robot::Type::Dozer)
 	{
-		Robot* robot = mRobotPool.getDozer();
-
-		if (!tile->excavated() || (tile->thing() && !tile->thingIsStructure()))
-		{
-			return;
-		}
-		else if (tile->index() == TerrainType::Dozed && !tile->thingIsStructure())
-		{
-			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_TILE_BULLDOZED);
-			return;
-		}
-		else if (tile->mine())
-		{
-			if (tile->mine()->depth() != mTileMap->maxDepth() || !tile->mine()->exhausted())
-			{
-				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINE_NOT_EXHAUSTED);
-				return;
-			}
-
-			mMineOperationsWindow.hide();
-			mTileMap->removeMineLocation(mTileMap->tileMouseHover());
-			tile->pushMine(nullptr);
-			for (int i = 0; i <= mTileMap->maxDepth(); ++i)
-			{
-				auto& mineShaftTile = mTileMap->getTile(mTileMap->tileMouseHover(), i);
-				Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
-			}
-		}
-		else if (tile->thingIsStructure())
-		{
-			if (mStructureInspector.structure() == tile->structure()) { mStructureInspector.hide(); }
-
-			Structure* structure = tile->structure();
-
-			if (structure->isMineFacility()) { return; }
-			if (structure->structureClass() == Structure::StructureClass::Command)
-			{
-				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_CC);
-				return;
-			}
-
-			if (structure->structureClass() == Structure::StructureClass::Lander && structure->age() == 0)
-			{
-				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_LANDING_SITE);
-				return;
-			}
-
-			if (structure->isRobotCommand())
-			{
-				deleteRobotsInRCC(robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, tile);
-			}
-
-			if (structure->isFactory() && static_cast<Factory*>(structure) == mFactoryProduction.factory())
-			{
-				mFactoryProduction.hide();
-			}
-
-			if (structure->isWarehouse())
-			{
-				if (simulateMoveProducts(static_cast<Warehouse*>(structure))) { moveProducts(static_cast<Warehouse*>(structure)); }
-				else { return; }
-			}
-
-			if (structure->structureClass() == Structure::StructureClass::Communication)
-			{
-				checkCommRangeOverlay();
-			}
-
-			auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
-			addRefinedResources(recycledResources);
-
-			/**
-			 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
-			 */
-			if (!recycledResources.isEmpty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
-
-			countPlayerResources();
-			updateStructuresAvailability();
-
-			tile->connected(false);
-			Utility<StructureManager>::get().removeStructure(structure);
-			tile->deleteThing();
-			Utility<StructureManager>::get().disconnectAll();
-			static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
-			checkConnectedness();
-		}
-
-		int taskTime = tile->index() == TerrainType::Dozed ? 1 : static_cast<int>(tile->index());
-		robot->startTask(taskTime);
-		mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
-		static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile->index()));
-		tile->index(TerrainType::Dozed);
-
-		if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
-		{
-			mRobots.removeItem(constants::ROBODOZER);
-			clearMode();
-		}
+		placeRobodozer();
 	}
 	else if (mCurrentRobot == Robot::Type::Digger)
 	{
