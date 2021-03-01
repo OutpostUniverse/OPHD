@@ -1020,9 +1020,6 @@ void MapViewState::placeRobodigger(Tile& tile)
 
 	mDiggerDirection.setParameters(&tile);
 
-	// NOTE:	Unlike the Dozer and Miner, Diggers aren't removed here but instead
-	//			are removed after responses to the DiggerDirection dialog.
-
 	// If we're placing on the top level we can only ever go down.
 	if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 	{
