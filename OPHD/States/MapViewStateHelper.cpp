@@ -269,7 +269,7 @@ bool structureIsLander(StructureID id)
 
 
 /**
- * Determines if the structure requires a tube connection or not.
+ * Determines if the structure is able to operate without a tube connection.
  */
 bool selfSustained(StructureID id)
 {
