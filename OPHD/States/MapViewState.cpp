@@ -864,23 +864,22 @@ void MapViewState::placeTubeEnd()
 }
 
 
-void MapViewState::placeRobodozer()
+void MapViewState::placeRobodozer(Tile& tile)
 {
 	Robot* robot = mRobotPool.getDozer();
-	Tile* tile = mTileMap->getVisibleTile();
 
-	if (tile->thing() && !tile->thingIsStructure())
+	if (tile.thing() && !tile.thingIsStructure())
 	{
 		return;
 	}
-	else if (tile->index() == TerrainType::Dozed && !tile->thingIsStructure())
+	else if (tile.index() == TerrainType::Dozed && !tile.thingIsStructure())
 	{
 		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_TILE_BULLDOZED);
 		return;
 	}
-	else if (tile->mine())
+	else if (tile.mine())
 	{
-		if (tile->mine()->depth() != mTileMap->maxDepth() || !tile->mine()->exhausted())
+		if (tile.mine()->depth() != mTileMap->maxDepth() || !tile.mine()->exhausted())
 		{
 			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINE_NOT_EXHAUSTED);
 			return;
@@ -888,18 +887,18 @@ void MapViewState::placeRobodozer()
 
 		mMineOperationsWindow.hide();
 		mTileMap->removeMineLocation(mTileMap->tileMouseHover());
-		tile->pushMine(nullptr);
+		tile.pushMine(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
 			auto& mineShaftTile = mTileMap->getTile(mTileMap->tileMouseHover(), i);
 			Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
 		}
 	}
-	else if (tile->thingIsStructure())
+	else if (tile.thingIsStructure())
 	{
-		if (mStructureInspector.structure() == tile->structure()) { mStructureInspector.hide(); }
+		if (mStructureInspector.structure() == tile.structure()) { mStructureInspector.hide(); }
 
-		Structure* structure = tile->structure();
+		Structure* structure = tile.structure();
 
 		if (structure->isMineFacility()) { return; }
 		if (structure->structureClass() == Structure::StructureClass::Command)
@@ -916,7 +915,7 @@ void MapViewState::placeRobodozer()
 
 		if (structure->isRobotCommand())
 		{
-			deleteRobotsInRCC(robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, tile);
+			deleteRobotsInRCC(robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, &tile);
 		}
 
 		if (structure->isFactory() && static_cast<Factory*>(structure) == mFactoryProduction.factory())
@@ -946,19 +945,19 @@ void MapViewState::placeRobodozer()
 		countPlayerResources();
 		updateStructuresAvailability();
 
-		tile->connected(false);
+		tile.connected(false);
 		Utility<StructureManager>::get().removeStructure(structure);
-		tile->deleteThing();
+		tile.deleteThing();
 		Utility<StructureManager>::get().disconnectAll();
 		static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
 		checkConnectedness();
 	}
 
-	int taskTime = tile->index() == TerrainType::Dozed ? 1 : static_cast<int>(tile->index());
+	int taskTime = tile.index() == TerrainType::Dozed ? 1 : static_cast<int>(tile.index());
 	robot->startTask(taskTime);
-	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
-	static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile->index()));
-	tile->index(TerrainType::Dozed);
+	mRobotPool.insertRobotIntoTable(mRobotList, robot, &tile);
+	static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile.index()));
+	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
 	{
@@ -968,10 +967,8 @@ void MapViewState::placeRobodozer()
 }
 
 
-void MapViewState::placeRobodigger()
+void MapViewState::placeRobodigger(Tile& tile)
 {
-	Tile* tile = mTileMap->getVisibleTile();
-
 	// Keep digger within a safe margin of the map boundaries.
 	if (!NAS2D::Rectangle<int>::Create({ 4, 4 }, NAS2D::Point{ -4, -4 } + mTileMap->size()).contains(mTileMapMouseHover))
 	{
@@ -980,32 +977,32 @@ void MapViewState::placeRobodigger()
 	}
 
 	// Check for obstructions underneath the the digger location.
-	if (tile->depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile->position(), tile->depth() + 1).empty())
+	if (tile.depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile.position(), tile.depth() + 1).empty())
 	{
 		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_BLOCKED_BELOW);
 		return;
 	}
 
-	if (tile->hasMine())
+	if (tile.hasMine())
 	{
 		if (!doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE)) { return; }
 
-		const auto position = tile->position();
+		const auto position = tile.position();
 		std::cout << "Digger destroyed a Mine at (" << position.x << ", " << position.y << ")." << std::endl;
 		mTileMap->removeMineLocation(position);
 	}
 
 	// Die if tile is occupied or not excavated.
-	if (!tile->empty())
+	if (!tile.empty())
 	{
-		if (tile->depth() > constants::DEPTH_SURFACE)
+		if (tile.depth() > constants::DEPTH_SURFACE)
 		{
-			if (tile->thingIsStructure() && tile->structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) //air shaft
+			if (tile.thingIsStructure() && tile.structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) //air shaft
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
 				return;
 			}
-			else if (tile->thingIsStructure() && tile->structure()->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL && tile->depth() == mTileMap->maxDepth())
+			else if (tile.thingIsStructure() && tile.structure()->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL && tile.depth() == mTileMap->maxDepth())
 			{
 				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MAX_DIG_DEPTH);
 				return;
@@ -1018,10 +1015,10 @@ void MapViewState::placeRobodigger()
 		}
 	}
 
-	if (!tile->thing() && mTileMap->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
+	if (!tile.thing() && mTileMap->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
 	else { mDiggerDirection.downOnlyEnabled(); }
 
-	mDiggerDirection.setParameters(tile);
+	mDiggerDirection.setParameters(&tile);
 
 	// NOTE:	Unlike the Dozer and Miner, Diggers aren't removed here but instead
 	//			are removed after responses to the DiggerDirection dialog.
@@ -1049,18 +1046,16 @@ void MapViewState::placeRobodigger()
 }
 
 
-void MapViewState::placeRobominer()
+void MapViewState::placeRobominer(Tile& tile)
 {
-	Tile* tile = mTileMap->getVisibleTile();
-
-	if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
+	if (tile.thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
 	if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
-	if (!tile->mine()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_NOT_ON_MINE); return; }
+	if (!tile.mine()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_NOT_ON_MINE); return; }
 
 	Robot* robot = mRobotPool.getMiner();
 	robot->startTask(constants::MINER_TASK_TIME);
-	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
-	tile->index(TerrainType::Dozed);
+	mRobotPool.insertRobotIntoTable(mRobotList, robot, &tile);
+	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Miner))
 	{
@@ -1086,15 +1081,15 @@ void MapViewState::placeRobot()
 
 	if (mCurrentRobot == Robot::Type::Dozer)
 	{
-		placeRobodozer();
+		placeRobodozer(*tile);
 	}
 	else if (mCurrentRobot == Robot::Type::Digger)
 	{
-		placeRobodigger();
+		placeRobodigger(*tile);
 	}
 	else if (mCurrentRobot == Robot::Type::Miner)
 	{
-		placeRobominer();
+		placeRobominer(*tile);
 	}
 }
 
