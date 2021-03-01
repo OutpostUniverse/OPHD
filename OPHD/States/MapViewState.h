@@ -136,7 +136,7 @@ private:
 
 	void placeRobodozer();
 	void placeRobodigger();
-
+	void placeRobominer();
 
 	void setStructureID(StructureID type, InsertMode mode);
 

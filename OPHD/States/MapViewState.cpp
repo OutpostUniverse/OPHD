@@ -1049,6 +1049,28 @@ void MapViewState::placeRobodigger()
 }
 
 
+void MapViewState::placeRobominer()
+{
+	Tile* tile = mTileMap->getVisibleTile();
+
+	if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
+	if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
+	if (!tile->mine()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_NOT_ON_MINE); return; }
+
+	Robot* robot = mRobotPool.getMiner();
+	robot->startTask(constants::MINER_TASK_TIME);
+	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
+	tile->index(TerrainType::Dozed);
+
+	if (!mRobotPool.robotAvailable(Robot::Type::Miner))
+	{
+		mRobots.removeItem(constants::ROBOMINER);
+		clearMode();
+	}
+
+}
+
+
 void MapViewState::placeRobot()
 {
 	Tile* tile = mTileMap->getVisibleTile();
@@ -1072,20 +1094,7 @@ void MapViewState::placeRobot()
 	}
 	else if (mCurrentRobot == Robot::Type::Miner)
 	{
-		if (tile->thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
-		if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
-		if (!tile->mine()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_NOT_ON_MINE); return; }
-
-		Robot* robot = mRobotPool.getMiner();
-		robot->startTask(constants::MINER_TASK_TIME);
-		mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
-		tile->index(TerrainType::Dozed);
-
-		if (!mRobotPool.robotAvailable(Robot::Type::Miner))
-		{
-			mRobots.removeItem(constants::ROBOMINER);
-			clearMode();
-		}
+		placeRobominer();
 	}
 }
 
