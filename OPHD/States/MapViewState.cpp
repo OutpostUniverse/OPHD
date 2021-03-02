@@ -1118,7 +1118,7 @@ void MapViewState::placeStructure()
 	if (!tile) { return; }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		isPointInRange(tile->position(), ccLocation(), constants::ROBOT_COM_RANGE))
+		!isPointInRange(tile->position(), ccLocation(), constants::ROBOT_COM_RANGE))
 	{
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_OUT_OF_RANGE);
 		return;
