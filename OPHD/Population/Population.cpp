@@ -309,8 +309,8 @@ int Population::consume_food(int food)
 
 	mDeathCount = population_to_kill;
 
-	// actual amount of population fed.
-	return population_fed;
+	// actual amount of food used for the fed part of the population.
+	return population_fed / 10;
 }
 
 
