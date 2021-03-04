@@ -93,7 +93,7 @@ int Population::size(PersonRole personRole)
 
 int Population::adults() const
 {
-	return mPopulation[PersonRole::ROLE_STUDENT] + mPopulation[PersonRole::ROLE_WORKER] + mPopulation[PersonRole::ROLE_SCIENTIST] + mPopulation[PersonRole::ROLE_CHILD];
+	return mPopulation[PersonRole::ROLE_STUDENT] + mPopulation[PersonRole::ROLE_WORKER] + mPopulation[PersonRole::ROLE_SCIENTIST] + mPopulation[PersonRole::ROLE_RETIRED];
 }
 
 /**
@@ -194,7 +194,7 @@ void Population::kill_children(int morale, int nurseries)
 {
 	if (mPopulation[PersonRole::ROLE_CHILD] > 0)
 	{
-		mPopulationDeath[PersonRole::ROLE_CHILD] = mPopulation[PersonRole::ROLE_CHILD];
+		mPopulationDeath[PersonRole::ROLE_CHILD] += mPopulation[PersonRole::ROLE_CHILD];
 
 		int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (nurseries * 10);
 
@@ -217,12 +217,12 @@ void Population::kill_students(int morale, int hospitals)
 {
 	if (mPopulation[PersonRole::ROLE_CHILD] > 0)
 	{
-		mPopulationDeath[PersonRole::ROLE_STUDENT] = mPopulation[PersonRole::ROLE_STUDENT];
+		mPopulationDeath[PersonRole::ROLE_STUDENT] += mPopulation[PersonRole::ROLE_STUDENT];
 
 		int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (hospitals * 65);
 
 		int deaths = mPopulationDeath[PersonRole::ROLE_STUDENT] / divisor;
-		mPopulationDeath[PersonRole::ROLE_STUDENT] = mPopulationDeath[PersonRole::ROLE_CHILD] % divisor;
+		mPopulationDeath[PersonRole::ROLE_STUDENT] = mPopulationDeath[PersonRole::ROLE_STUDENT] % divisor;
 
 		mPopulation[PersonRole::ROLE_STUDENT] -= deaths;
 		mDeathCount += deaths;
@@ -309,8 +309,8 @@ int Population::consume_food(int food)
 
 	mDeathCount = population_to_kill;
 
-	// actual amount of population fed.
-	return population_fed;
+	// actual amount of food used for the fed part of the population.
+	return population_fed / 10;
 }
 
 
