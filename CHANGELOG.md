@@ -1,6 +1,25 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.8.2] - UNRELEASED
+
+Introduces communcations range overlays, additional GUI quality of life improvements and a number of bug fixes that correct some subtle behavior issues.
+
+### Added
+- Tile highlight overlays for communication ranges
+- Robot Inspector Window -- allows for changing robot orders and issuing robot self destruct
+
+### Changed
+- FileIO Window now has a 'delete' button so save games can be deleted from within the game
+
+### Fixed
+- Fixed some computations in the population simulation that caused subtle behavior issues
+- Fixed typos in some string literals
+- Robots and structures can now be placed at the edges of the diamond map view
+- Tile Inspector window can now be opened when right-clicking a tile on the edge
+- Fix savegame issue where game breaks when loading a savegame saved on turn 0 before the seed lander is placed
+
+
 ## [0.8.1] - 2019-02-17
 
 Introduces biowaste produced by residential units and some quality of life improvements in the GUI.
