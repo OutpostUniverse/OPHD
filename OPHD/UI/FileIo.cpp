@@ -176,7 +176,8 @@ void FileIo::btnFileDeleteClicked()
 
 	try
 	{
-		if(doYesNoMessage(constants::WINDOW_FILEIO_TITLE_DELETE, "Are you sure you want to delete " + txtFileName.text() + "?")) {
+		if(doYesNoMessage(constants::WINDOW_FILEIO_TITLE_DELETE, "Are you sure you want to delete " + txtFileName.text() + "?"))
+		{
 			Utility<Filesystem>::get().del(filename);
 		}
 	}
