@@ -172,11 +172,13 @@ void FileIo::btnFileIoClicked()
 
 void FileIo::btnFileDeleteClicked()
 {
-	std::string filename = constants::SAVE_GAME_PATH + txtFileName.text()+ ".xml";
+	std::string filename = constants::SAVE_GAME_PATH + txtFileName.text() + ".xml";
 
 	try
 	{
-		Utility<Filesystem>::get().del(filename);
+		if(doYesNoMessage(constants::WINDOW_FILEIO_TITLE_DELETE, "Are you sure you want to delete " + txtFileName.text() + "?")) {
+			Utility<Filesystem>::get().del(filename);
+		}
 	}
 	catch(const std::exception& e)
 	{
