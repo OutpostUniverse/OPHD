@@ -11,6 +11,7 @@ Introduces communcations range overlays, additional GUI quality of life improvem
 
 ### Changed
 - FileIO Window now has a 'delete' button so save games can be deleted from within the game
+- Change order of food counting and population update so that landing cargo/colonist landers at the same time doesn't result in an immediate game over
 
 ### Fixed
 - Fixed some computations in the population simulation that caused subtle behavior issues
