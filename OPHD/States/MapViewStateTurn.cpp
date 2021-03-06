@@ -506,8 +506,8 @@ void MapViewState::nextTurn()
 	transferFoodToCommandCenter();
 	updateResidentialCapacity();
 
-	updatePopulation();
 	countFood();
+	updatePopulation();
 
 	updateCommercial();
 	updateBiowasteRecycling();
