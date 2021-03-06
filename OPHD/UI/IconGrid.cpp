@@ -89,8 +89,6 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	auto previousIndex = mSelectedIndex;
 	mSelectedIndex = translateCoordsToIndex(mousePoint - startPoint);
 
-	if (previousIndex == mSelectedIndex) { return; }
-
 	if (mSelectedIndex >= mIconItemList.size())
 	{
 		mSelectedIndex = constants::NO_SELECTION;
@@ -102,7 +100,10 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		return;
 	} */
 
-	raiseChangedEvent();
+	if (previousIndex != mSelectedIndex)
+	{
+		raiseChangedEvent();
+	}
 }
 
 
