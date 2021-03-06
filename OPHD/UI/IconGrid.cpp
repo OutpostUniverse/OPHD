@@ -86,7 +86,10 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		return;
 	}
 
+	auto previousIndex = mSelectedIndex;
 	mSelectedIndex = translateCoordsToIndex(mousePoint - startPoint);
+
+	if (previousIndex == mSelectedIndex) { return; }
 
 	if (mSelectedIndex >= mIconItemList.size())
 	{
