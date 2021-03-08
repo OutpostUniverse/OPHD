@@ -119,7 +119,7 @@ void MapViewState::initUi()
 	mBtnToggleRouteOverlay.image("ui/icons/route.png");
 	mBtnToggleRouteOverlay.size(constants::MAIN_BUTTON_SIZE);
 	mBtnToggleRouteOverlay.type(Button::Type::BUTTON_TOGGLE);
-	//mBtnToggleRouteOverlay.click().connect(this, &MapViewState::mBtnToggleRouteOverlayClicked);
+	mBtnToggleRouteOverlay.click().connect(this, &MapViewState::btnToggleRouteOverlayClicked);
 
 	// Menus
 	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
@@ -424,7 +424,9 @@ void MapViewState::btnToggleConnectednessClicked()
 	{
 		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
+
 		btnToggleCommRangeOverlayClicked();
+		btnToggleRouteOverlayClicked();
 	}
 
 	setOverlay(mBtnToggleConnectedness, mConnectednessOverlay, Tile::Overlay::Connectedness);
@@ -437,10 +439,27 @@ void MapViewState::btnToggleCommRangeOverlayClicked()
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
+
 		btnToggleConnectednessClicked();
+		btnToggleRouteOverlayClicked();
 	}
 
 	setOverlay(mBtnToggleCommRangeOverlay, mCommRangeOverlay, Tile::Overlay::Communications);
+}
+
+
+void MapViewState::btnToggleRouteOverlayClicked()
+{
+	if (mBtnToggleRouteOverlay.toggled())
+	{
+		mBtnToggleConnectedness.toggle(false);
+		mBtnToggleCommRangeOverlay.toggle(false);
+
+		btnToggleCommRangeOverlayClicked();
+		btnToggleConnectednessClicked();
+	}
+
+	//setOverlay(mBtnToggleRouteOverlay, mCommRangeOverlay, Tile::Overlay::TruckingRoutes);
 }
 
 

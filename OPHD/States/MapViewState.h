@@ -212,6 +212,7 @@ private:
 	void btnTurnsClicked();
 	void btnToggleConnectednessClicked();
 	void btnToggleCommRangeOverlayClicked();
+	void btnToggleRouteOverlayClicked();
 
 	void btnSaveGameClicked();
 	void btnLoadGameClicked();
