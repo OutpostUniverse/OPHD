@@ -223,6 +223,7 @@ void MapViewState::findMineRoutes()
 	auto& smelterList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Smelter);
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	mPathSolver->Reset();
+	mTruckRouteOverlay.clear();
 
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
 	{
@@ -248,6 +249,11 @@ void MapViewState::findMineRoutes()
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine
 
 			routeTable[facility] = newRoute;
+
+			for (auto tile : newRoute.path)
+			{
+				mTruckRouteOverlay.push_back(static_cast<Tile*>(tile));
+			}
 		}
 	}
 }
@@ -521,7 +527,7 @@ void MapViewState::nextTurn()
 	checkCommRangeOverlay();
 	btnToggleConnectednessClicked();
 	btnToggleCommRangeOverlayClicked();
-
+	btnToggleRouteOverlayClicked();
 
 	auto& factories = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory);
 	for (auto factory : factories)

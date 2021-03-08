@@ -19,6 +19,7 @@ public:
 	{
 		Communications,
 		Connectedness,
+		TruckingRoutes,
 
 		None
 	};

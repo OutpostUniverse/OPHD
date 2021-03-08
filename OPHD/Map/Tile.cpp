@@ -11,14 +11,16 @@ std::map<Tile::Overlay, NAS2D::Color> OverlayColorTable =
 {
 	{ Tile::Overlay::None, NAS2D::Color::Normal },
 	{ Tile::Overlay::Communications, { 125, 200, 255 } },
-	{ Tile::Overlay::Connectedness, NAS2D::Color::Green }
+	{ Tile::Overlay::Connectedness, NAS2D::Color::Green },
+	{ Tile::Overlay::TruckingRoutes, NAS2D::Color::Orange }
 };
 
 std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColorTable =
 {
 	{ Tile::Overlay::None, NAS2D::Color{ 125, 200, 255 } },
 	{ Tile::Overlay::Communications, { 100, 180, 230 } },
-	{ Tile::Overlay::Connectedness, NAS2D::Color{ 71, 224, 146 } }
+	{ Tile::Overlay::Connectedness, NAS2D::Color{ 71, 224, 146 } },
+	{ Tile::Overlay::TruckingRoutes, NAS2D::Color{ 125, 200, 255 } }
 };
 
 

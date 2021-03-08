@@ -212,6 +212,7 @@ private:
 	void btnTurnsClicked();
 	void btnToggleConnectednessClicked();
 	void btnToggleCommRangeOverlayClicked();
+	void btnToggleRouteOverlayClicked();
 
 	void btnSaveGameClicked();
 	void btnLoadGameClicked();
@@ -262,6 +263,7 @@ private:
 	Button mBtnToggleHeightmap;
 	Button mBtnToggleConnectedness;
 	Button mBtnToggleCommRangeOverlay;
+	Button mBtnToggleRouteOverlay;
 
 	// Bare Control's use for ToolTips
 	Control mTooltipSystemButton;
@@ -323,6 +325,7 @@ private:
 
 	TileList mConnectednessOverlay;
 	TileList mCommRangeOverlay;
+	TileList mTruckRouteOverlay;
 
 	NAS2D::Point<int> mTubeStart;
 	bool mPlacingTube = false;
