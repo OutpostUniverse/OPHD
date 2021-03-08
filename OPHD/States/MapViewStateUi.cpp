@@ -459,7 +459,7 @@ void MapViewState::btnToggleRouteOverlayClicked()
 		btnToggleConnectednessClicked();
 	}
 
-	//setOverlay(mBtnToggleRouteOverlay, mCommRangeOverlay, Tile::Overlay::TruckingRoutes);
+	setOverlay(mBtnToggleRouteOverlay, mTruckRouteOverlay, Tile::Overlay::TruckingRoutes);
 }
 
 

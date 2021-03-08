@@ -325,6 +325,7 @@ private:
 
 	TileList mConnectednessOverlay;
 	TileList mCommRangeOverlay;
+	TileList mTruckRouteOverlay;
 
 	NAS2D::Point<int> mTubeStart;
 	bool mPlacingTube = false;
