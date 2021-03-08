@@ -202,9 +202,9 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	// Position UI Buttons
 	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
 	mBtnToggleHeightmap.position({mBtnTurns.positionX(), mMiniMapBoundingBox.y});
-	mBtnToggleConnectedness.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT });
-	mBtnToggleCommRangeOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT) * 2 });
-	mBtnToggleRouteOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MAIN_BUTTON_SIZE + constants::MARGIN_TIGHT) * 3 });
+	mBtnToggleConnectedness.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + constants::MAIN_BUTTON_SIZE });
+	mBtnToggleCommRangeOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MAIN_BUTTON_SIZE * 2) });
+	mBtnToggleRouteOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MAIN_BUTTON_SIZE * 3) });
 
 	// UI Panels
 	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
