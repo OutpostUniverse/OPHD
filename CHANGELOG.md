@@ -7,6 +7,7 @@ Introduces communcations range overlays, additional GUI quality of life improvem
 
 ### Added
 - Tile highlight overlays for communication ranges
+- Tile highlight overlays for truck routes
 - Robot Inspector Window -- allows for changing robot orders and issuing robot self destruct
 
 ### Changed
