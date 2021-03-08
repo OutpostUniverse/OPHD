@@ -262,6 +262,7 @@ private:
 	Button mBtnToggleHeightmap;
 	Button mBtnToggleConnectedness;
 	Button mBtnToggleCommRangeOverlay;
+	Button mBtnToggleRouteOverlay;
 
 	// Bare Control's use for ToolTips
 	Control mTooltipSystemButton;

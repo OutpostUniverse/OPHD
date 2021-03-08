@@ -216,6 +216,7 @@ namespace constants
 	const std::string ToolTipBtnHeightmap = "Toggles display of the Terrain Height Map";
 	const std::string ToolTipBtnConnectedness = "Toggles display of the Tile Connection Overlay";
 	const std::string ToolTipBtnCommRange = "Toggles display of the Communications Range Overlay";
+	const std::string ToolTipBtnRoutes = "Toggles display of the Trucking Routes Overlay";
 	const std::string ToolTipRefinedResources = "Breakdown of storage levels for Smelted Resources";
 	const std::string ToolTipResourceStorage = "Smelted Resources Storage. Current Level / Capacity";
 	const std::string ToolTipFoodStorage = "Food Storage. Current Level / Capacity";
