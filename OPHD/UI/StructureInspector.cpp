@@ -114,7 +114,7 @@ void StructureInspector::update()
 	{
 		throw std::runtime_error("Null pointer to structure within StructureInspector");
 	}
-	text(mStructure->name());
+	title(mStructure->name());
 
 	auto stringTable = buildStringTable();
 	stringTable.draw(renderer);
