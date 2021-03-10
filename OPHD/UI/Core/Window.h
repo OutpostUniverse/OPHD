@@ -24,7 +24,7 @@ public:
 
 	void title(const std::string& title);
 	const std::string& title() const { return mTitle; }
-	TitleChangedCallback& textChanged() { return mTitleChanged; }
+	TitleChangedCallback& titleChanged() { return mTitleChanged; }
 
 	virtual void onTitleChanged() { mTitleChanged(this); }
 
