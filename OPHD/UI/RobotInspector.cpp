@@ -82,7 +82,7 @@ void RobotInspector::focusOnRobot(Robot* robot)
 	if (!robot) { throw std::runtime_error("RobotInspector::focusOnRobot(): nullptr passed "); }
 
 	mRobot = robot;
-	text(robot->name());
+	title(robot->name());
 }
 
 

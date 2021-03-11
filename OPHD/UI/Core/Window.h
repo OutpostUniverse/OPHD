@@ -20,6 +20,14 @@ public:
 	void show() override;
 	void update() override;
 
+	using TitleChangedCallback = NAS2D::Signals::Signal<Window*>;
+
+	void title(const std::string& title);
+	const std::string& title() const { return mTitle; }
+	TitleChangedCallback& titleChanged() { return mTitleChanged; }
+
+	virtual void onTitleChanged() { mTitleChanged(this); }
+
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
 	void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
@@ -36,4 +44,8 @@ private:
 	const NAS2D::Image& mTitleBarCenter;
 	const NAS2D::Image& mTitleBarRight;
 	NAS2D::RectangleSkin mBody;
+
+	TitleChangedCallback mTitleChanged;
+
+	std::string mTitle;
 };
