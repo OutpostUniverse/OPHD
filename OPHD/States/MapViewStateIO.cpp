@@ -156,15 +156,15 @@ void MapViewState::load(const std::string& filePath)
 		throw std::runtime_error("File '" + filePath + "' was not found.");
 	}
 
-	auto xmlDocument = openSavegame(filePath);
-	auto* root = xmlDocument.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
-
 	scrubRobotList();
 	Utility<StructureManager>::get().dropAllStructures();
 	ccLocation() = CcNotPlaced;
 
 	delete mTileMap;
 	mTileMap = nullptr;
+
+	auto xmlDocument = openSavegame(filePath);
+	auto* root = xmlDocument.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
 
 	XmlElement* map = root->firstChildElement("properties");
 	XmlAttribute* attribute = map->firstAttribute();
