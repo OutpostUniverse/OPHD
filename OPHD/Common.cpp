@@ -430,12 +430,18 @@ bool doYesNoMessage(const std::string& title, const std::string msg)
 	return yes;
 }
 
+void checkSavegameVersion(const std::string& filename)
+{
+	// openSavegame checks version number after opening file
+	openSavegame(filename);
+}
+
 /**
- * Checks a savegame version.
+ * Open a saved game and validate version.
  *
  * \throws	Throws a std::runtime_error if there are any errors with a savegame version, formation or missing root nodes.
  */
-void checkSavegameVersion(const std::string& filename)
+NAS2D::Xml::XmlDocument openSavegame(const std::string& filename)
 {
 	auto xmlDocument = openXmlFile(filename, constants::SAVE_GAME_ROOT_NODE);
 
@@ -445,6 +451,8 @@ void checkSavegameVersion(const std::string& filename)
 	{
 		throw std::runtime_error("Savegame version mismatch: '" + filename + "'. Expected " + constants::SAVE_GAME_VERSION + ", found " + savegameVersion + ".");
 	}
+
+	return xmlDocument;
 }
 
 
