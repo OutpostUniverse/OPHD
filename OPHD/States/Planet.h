@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include <string>
+#include <unordered_map>
 
 
 class Planet
@@ -31,6 +32,9 @@ public:
 		Medium,
 		High
 	};
+
+	static const std::unordered_map<std::string, PlanetType> planetTypeTable;
+	static const std::unordered_map<std::string, Hostility> hostilityTable;
 
 	struct Attributes
 	{
@@ -91,3 +95,13 @@ private:
 
 	NAS2D::Timer mTimer;
 };
+
+namespace NAS2D::Xml {
+	class XmlElement;
+}
+
+void parseElementValue(Planet::PlanetType& destination, const NAS2D::Xml::XmlElement* element);
+void parseElementValue(Planet::Hostility& destination, const NAS2D::Xml::XmlElement* element);
+
+std::vector<Planet::Attributes> parsePlanetAttributes();
+Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode);
