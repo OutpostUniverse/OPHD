@@ -23,21 +23,3 @@ Xml::XmlDocument openXmlFile(std::string filename, std::string rootElementName)
 
 	return xmlDocument;
 }
-
-
-int elementToInt(const NAS2D::Xml::XmlElement* element)
-{
-	try
-	{
-		return std::stoi(element->getText());
-	}
-	catch (const std::invalid_argument&)
-	{
-		throw std::runtime_error("Unable to convert value " + element->getText() +
-			" from XML element " + element->value() + " into an integer");
-	}
-	catch (const std::out_of_range&)
-	{
-		throw std::runtime_error("Value from XML element " + element->value() + " is out of range for an integer");
-	}
-}

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <NAS2D/StringUtils.h>
 #include <NAS2D/Xml/Xml.h>
 #include <string>
 #include <unordered_map>
@@ -12,7 +13,6 @@
 // Throws a runtime_error if the xml is ill formed or the root element name is incorrect
 NAS2D::Xml::XmlDocument openXmlFile(std::string filename, std::string rootElementName);
 
-int elementToInt(const NAS2D::Xml::XmlElement* element);
 
 template<typename T>
 T stringToEnum(const std::unordered_map<std::string, T>& table, std::string value)
@@ -31,24 +31,14 @@ T stringToEnum(const std::unordered_map<std::string, T>& table, std::string valu
 template<typename T, std::enable_if_t<!std::is_enum<T>::value, bool> = true>
 void parseElementValue(T& destination, const NAS2D::Xml::XmlElement* element)
 {
-	if constexpr (std::is_same_v<T, int>)
+	try 
 	{
-		destination = elementToInt(element);
+		destination = NAS2D::stringTo<T>(element->getText());
 	}
-	else if constexpr (std::is_same_v<T, float>)
+	catch (const std::exception& e)
 	{
-		destination = static_cast<float>(std::atof(element->getText().c_str()));
-	}
-	else if constexpr (std::is_same_v<T, double>)
-	{
-		destination = std::atof(element->getText().c_str());
-	}
-	else if constexpr (std::is_same_v<T, std::string>)
-	{
-		destination = element->getText();
-	}
-	else
-	{
-		throw std::logic_error("Unable to parse type " + std::string(typeid(T).name()) + " from XML");
+		throw std::logic_error("Unable to parse the value of " + element->getText() + 
+			" from XML element " + element->value() + " as type of " + std::string(typeid(T).name()) + 
+			". " + std::string(e.what()));
 	}
 }
