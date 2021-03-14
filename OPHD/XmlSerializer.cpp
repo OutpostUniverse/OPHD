@@ -4,6 +4,7 @@
 
 using namespace NAS2D;
 
+
 Xml::XmlDocument openXmlFile(std::string filename, std::string rootElementName)
 {
 	Xml::XmlDocument xmlDocument;
@@ -22,6 +23,7 @@ Xml::XmlDocument openXmlFile(std::string filename, std::string rootElementName)
 
 	return xmlDocument;
 }
+
 
 int elementToInt(const NAS2D::Xml::XmlElement* element)
 {

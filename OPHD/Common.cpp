@@ -30,10 +30,12 @@ const std::map<Difficulty, std::string> DIFFICULTY_STRING_TABLE
 	{ Difficulty::Hard, constants::DIFFICULTY_HARD },
 };
 
+
 std::string StringFromDifficulty(const Difficulty& difficulty)
 {
 	return DIFFICULTY_STRING_TABLE.at(difficulty);
 }
+
 
 Difficulty DifficultyFromString(std::string difficultyStr)
 {
@@ -430,11 +432,13 @@ bool doYesNoMessage(const std::string& title, const std::string msg)
 	return yes;
 }
 
+
 void checkSavegameVersion(const std::string& filename)
 {
 	// openSavegame checks version number after opening file
 	openSavegame(filename);
 }
+
 
 /**
  * Open a saved game and validate version.
