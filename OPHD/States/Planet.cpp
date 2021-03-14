@@ -78,18 +78,18 @@ namespace
 
 	const std::unordered_map<std::string, Planet::PlanetType> planetTypeTable
 	{
-		{"none", Planet::PlanetType::None},
-		{"mercury", Planet::PlanetType::Mercury},
-		{"mars", Planet::PlanetType::Mars},
-		{"ganymede", Planet::PlanetType::Ganymede}
+		{"None", Planet::PlanetType::None},
+		{"Mercury", Planet::PlanetType::Mercury},
+		{"Mars", Planet::PlanetType::Mars},
+		{"Ganymede", Planet::PlanetType::Ganymede}
 	};
 
 	const std::unordered_map<std::string, Planet::Hostility> hostilityTable
 	{
-		{"none", Planet::Hostility::None},
-		{"low", Planet::Hostility::Low},
-		{"medium", Planet::Hostility::Medium},
-		{"high", Planet::Hostility::High}
+		{"None", Planet::Hostility::None},
+		{"Low", Planet::Hostility::Low},
+		{"Medium", Planet::Hostility::Medium},
+		{"High", Planet::Hostility::High}
 	};
 
 

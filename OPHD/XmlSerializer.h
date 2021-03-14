@@ -1,6 +1,5 @@
 #pragma once
 
-#include <NAS2D/StringUtils.h>
 #include <NAS2D/Xml/Xml.h>
 #include <string>
 #include <unordered_map>
@@ -18,7 +17,7 @@ int elementToInt(const NAS2D::Xml::XmlElement* element);
 template<typename T>
 T stringToEnum(const std::unordered_map<std::string, T>& table, std::string value)
 {
-	auto it = table.find(NAS2D::toLowercase(value));
+	auto it = table.find(value);
 	if (it != table.end())
 	{
 		return it->second;
