@@ -146,28 +146,36 @@ namespace
 			{
 				parseElementValue(attributes.type, element);
 			}
-			else if (element->value() == "ImagePath") {
+			else if (element->value() == "ImagePath")
+			{
 				::parseElementValue(attributes.imagePath, element);
 			}
-			else if (element->value() == "Hostility") {
+			else if (element->value() == "Hostility")
+			{
 				parseElementValue(attributes.hostility, element);
 			}
-			else if (element->value() == "MaxDepth") {
+			else if (element->value() == "MaxDepth")
+			{
 				::parseElementValue(attributes.maxDepth, element);
 			}
-			else if (element->value() == "MaxMines") {
+			else if (element->value() == "MaxMines")
+			{
 				::parseElementValue(attributes.maxMines, element);
 			}
-			else if (element->value() == "MapImagePath") {
+			else if (element->value() == "MapImagePath")
+			{
 				::parseElementValue(attributes.mapImagePath, element);
 			}
-			else if (element->value() == "TilesetPath") {
+			else if (element->value() == "TilesetPath")
+			{
 				::parseElementValue(attributes.tilesetPath, element);
 			}
-			else if (element->value() == "Name") {
+			else if (element->value() == "Name")
+			{
 				::parseElementValue(attributes.name, element);
 			}
-			else if (element->value() == "MeanSolarDistance") {
+			else if (element->value() == "MeanSolarDistance")
+			{
 				::parseElementValue(attributes.meanSolarDistance, element);
 			}
 		}
