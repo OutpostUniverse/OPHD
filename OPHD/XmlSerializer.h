@@ -19,7 +19,8 @@ template<typename T>
 T stringToEnum(const std::unordered_map<std::string, T>& table, std::string value)
 {
 	auto it = table.find(NAS2D::toLowercase(value));
-	if (it != table.end()) {
+	if (it != table.end())
+	{
 		return it->second;
 	}
 
@@ -31,19 +32,24 @@ T stringToEnum(const std::unordered_map<std::string, T>& table, std::string valu
 template<typename T, std::enable_if_t<!std::is_enum<T>::value, bool> = true>
 void parseElementValue(T& destination, const NAS2D::Xml::XmlElement* element)
 {
-	if constexpr (std::is_same_v<T, int>) {
+	if constexpr (std::is_same_v<T, int>)
+	{
 		destination = elementToInt(element);
 	}
-	else if constexpr (std::is_same_v<T, float>) {
+	else if constexpr (std::is_same_v<T, float>)
+	{
 		destination = static_cast<float>(std::atof(element->getText().c_str()));
 	}
-	else if constexpr (std::is_same_v<T, double>) {
+	else if constexpr (std::is_same_v<T, double>)
+	{
 		destination = std::atof(element->getText().c_str());
 	}
-	else if constexpr (std::is_same_v<T, std::string>) {
+	else if constexpr (std::is_same_v<T, std::string>)
+	{
 		destination = element->getText();
 	}
-	else {
+	else
+	{
 		throw std::logic_error("Unable to parse type " + std::string(typeid(T).name()) + " from XML");
 	}
 }

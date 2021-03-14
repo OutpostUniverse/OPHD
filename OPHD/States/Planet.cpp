@@ -17,14 +17,16 @@ namespace {
 	constexpr auto PlanetSize = NAS2D::Vector{PlanetRadius * 2, PlanetRadius * 2};
 }
 
-const std::unordered_map<std::string, Planet::PlanetType> Planet::planetTypeTable{
+const std::unordered_map<std::string, Planet::PlanetType> Planet::planetTypeTable
+{
 	{"none", PlanetType::None},
 	{"mercury", PlanetType::Mercury},
 	{"mars", PlanetType::Mars},
 	{"ganymede", PlanetType::Ganymede}
 };
 
-const std::unordered_map<std::string, Planet::Hostility> Planet::hostilityTable{
+const std::unordered_map<std::string, Planet::Hostility> Planet::hostilityTable
+{
 	{"none", Hostility::None},
 	{"low", Hostility::Low},
 	{"medium", Hostility::Medium},
@@ -105,7 +107,8 @@ Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode)
 	{
 		const auto* element = node->toElement();
 
-		if (element->value() == "PlanetType") {
+		if (element->value() == "PlanetType")
+		{
 			parseElementValue(attributes.type, element);
 		}
 		else if (element->value() == "ImagePath") {
@@ -150,7 +153,8 @@ std::vector<Planet::Attributes> parsePlanetAttributes()
 		node = rootElement->iterateChildren(node))
 	{
 		std::string elementName("Planet");
-		if (node->value() != elementName) {
+		if (node->value() != elementName)
+		{
 			throw std::runtime_error(xmlDocument.value() + " missing " + elementName + " tag");
 		}
 		planetAttributes.push_back(parsePlanet(node->toElement()));
