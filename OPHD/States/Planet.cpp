@@ -17,21 +17,6 @@ namespace {
 	constexpr auto PlanetSize = NAS2D::Vector{PlanetRadius * 2, PlanetRadius * 2};
 }
 
-const std::unordered_map<std::string, Planet::PlanetType> Planet::planetTypeTable
-{
-	{"none", PlanetType::None},
-	{"mercury", PlanetType::Mercury},
-	{"mars", PlanetType::Mars},
-	{"ganymede", PlanetType::Ganymede}
-};
-
-const std::unordered_map<std::string, Planet::Hostility> Planet::hostilityTable
-{
-	{"none", Hostility::None},
-	{"low", Hostility::Low},
-	{"medium", Hostility::Medium},
-	{"high", Hostility::High}
-};
 
 Planet::Planet(const Attributes& attributes) :
 	mAttributes(attributes),
@@ -84,61 +69,42 @@ void Planet::update()
 	renderer.drawSubImage(mImage, mPosition, NAS2D::Rectangle<int>::Create(spriteFrameOffset, PlanetSize));
 }
 
-
-void parseElementValue(Planet::PlanetType& destination, const NAS2D::Xml::XmlElement* element)
+namespace
 {
-	destination = stringToEnum(Planet::planetTypeTable, element->getText());
-}
+	Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode);
 
+	void parseElementValue(Planet::PlanetType& destination, const NAS2D::Xml::XmlElement* element);
+	void parseElementValue(Planet::Hostility& destination, const NAS2D::Xml::XmlElement* element);
 
-void parseElementValue(Planet::Hostility& destination, const NAS2D::Xml::XmlElement* element)
-{
-	destination = stringToEnum(Planet::hostilityTable, element->getText());
-}
-
-
-Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode)
-{
-	Planet::Attributes attributes;
-
-	for (const auto* node = xmlNode->iterateChildren(nullptr);
-		node != nullptr;
-		node = xmlNode->iterateChildren(node))
+	const std::unordered_map<std::string, Planet::PlanetType> planetTypeTable
 	{
-		const auto* element = node->toElement();
+		{"none", Planet::PlanetType::None},
+		{"mercury", Planet::PlanetType::Mercury},
+		{"mars", Planet::PlanetType::Mars},
+		{"ganymede", Planet::PlanetType::Ganymede}
+	};
 
-		if (element->value() == "PlanetType")
-		{
-			parseElementValue(attributes.type, element);
-		}
-		else if (element->value() == "ImagePath") {
-			parseElementValue(attributes.imagePath, element);
-		}
-		else if (element->value() == "Hostility") {
-			parseElementValue(attributes.hostility, element);
-		}
-		else if (element->value() == "MaxDepth") {
-			parseElementValue(attributes.maxDepth, element);
-		}
-		else if (element->value() == "MaxMines") {
-			parseElementValue(attributes.maxMines, element);
-		}
-		else if (element->value() == "MapImagePath") {
-			parseElementValue(attributes.mapImagePath, element);
-		}
-		else if (element->value() == "TilesetPath") {
-			parseElementValue(attributes.tilesetPath, element);
-		}
-		else if (element->value() == "Name") {
-			parseElementValue(attributes.name, element);
-		}
-		else if (element->value() == "MeanSolarDistance") {
-			parseElementValue(attributes.meanSolarDistance, element);
-		}
+	const std::unordered_map<std::string, Planet::Hostility> hostilityTable
+	{
+		{"none", Planet::Hostility::None},
+		{"low", Planet::Hostility::Low},
+		{"medium", Planet::Hostility::Medium},
+		{"high", Planet::Hostility::High}
+	};
+
+
+	void parseElementValue(Planet::PlanetType& destination, const NAS2D::Xml::XmlElement* element)
+	{
+		destination = stringToEnum(planetTypeTable, element->getText());
 	}
 
-	return attributes;
+
+	void parseElementValue(Planet::Hostility& destination, const NAS2D::Xml::XmlElement* element)
+	{
+		destination = stringToEnum(hostilityTable, element->getText());
+	}
 }
+
 
 std::vector<Planet::Attributes> parsePlanetAttributes()
 {
@@ -161,4 +127,51 @@ std::vector<Planet::Attributes> parsePlanetAttributes()
 	}
 
 	return planetAttributes;
+}
+
+
+namespace 
+{
+	Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode)
+	{
+		Planet::Attributes attributes;
+
+		for (const auto* node = xmlNode->iterateChildren(nullptr);
+			node != nullptr;
+			node = xmlNode->iterateChildren(node))
+		{
+			const auto* element = node->toElement();
+
+			if (element->value() == "PlanetType")
+			{
+				parseElementValue(attributes.type, element);
+			}
+			else if (element->value() == "ImagePath") {
+				::parseElementValue(attributes.imagePath, element);
+			}
+			else if (element->value() == "Hostility") {
+				parseElementValue(attributes.hostility, element);
+			}
+			else if (element->value() == "MaxDepth") {
+				::parseElementValue(attributes.maxDepth, element);
+			}
+			else if (element->value() == "MaxMines") {
+				::parseElementValue(attributes.maxMines, element);
+			}
+			else if (element->value() == "MapImagePath") {
+				::parseElementValue(attributes.mapImagePath, element);
+			}
+			else if (element->value() == "TilesetPath") {
+				::parseElementValue(attributes.tilesetPath, element);
+			}
+			else if (element->value() == "Name") {
+				::parseElementValue(attributes.name, element);
+			}
+			else if (element->value() == "MeanSolarDistance") {
+				::parseElementValue(attributes.meanSolarDistance, element);
+			}
+		}
+
+		return attributes;
+	}
 }
