@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include <string>
+#include <unordered_map>
 
 
 class Planet
@@ -91,3 +92,5 @@ private:
 
 	NAS2D::Timer mTimer;
 };
+
+std::vector<Planet::Attributes> parsePlanetAttributes();

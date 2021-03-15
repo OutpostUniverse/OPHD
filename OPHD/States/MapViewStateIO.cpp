@@ -12,6 +12,7 @@
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
+#include "../XmlSerializer.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
@@ -155,35 +156,15 @@ void MapViewState::load(const std::string& filePath)
 		throw std::runtime_error("File '" + filePath + "' was not found.");
 	}
 
-	auto xmlFile = Utility<Filesystem>::get().open(filePath);
-
-	XmlDocument doc;
-
-	// Load the XML document and handle any errors if occuring
-	doc.parse(xmlFile.raw_bytes());
-	if (doc.error())
-	{
-		throw std::runtime_error("Malformed savegame ('" + filePath + "'). Error on Row " + std::to_string(doc.errorRow()) + ", Column " + std::to_string(doc.errorCol()) + ": " + doc.errorDesc());
-	}
-
-	XmlElement* root = doc.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
-	if (root == nullptr)
-	{
-		throw std::runtime_error("Root element in '" + filePath + "' is not '" + constants::SAVE_GAME_ROOT_NODE + "'.");
-	}
-
-	std::string sg_version = root->attribute("version");
-	if (sg_version != constants::SAVE_GAME_VERSION)
-	{
-		throw std::runtime_error("Savegame version mismatch: '" + filePath + "'. Expected " + constants::SAVE_GAME_VERSION + ", found " + sg_version + ".");
-	}
-
 	scrubRobotList();
 	Utility<StructureManager>::get().dropAllStructures();
 	ccLocation() = CcNotPlaced;
 
 	delete mTileMap;
 	mTileMap = nullptr;
+
+	auto xmlDocument = openSavegame(filePath);
+	auto* root = xmlDocument.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
 
 	XmlElement* map = root->firstChildElement("properties");
 	XmlAttribute* attribute = map->firstAttribute();

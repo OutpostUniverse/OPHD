@@ -1,12 +1,12 @@
 #include "Common.h"
 #include "Constants.h"
 #include "StructureManager.h"
+#include "XmlSerializer.h"
 
 #include "Things/Structures/Structure.h"
 #include "Things/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
-#include <NAS2D/Filesystem.h>
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlElement.h>
 
@@ -30,10 +30,12 @@ const std::map<Difficulty, std::string> DIFFICULTY_STRING_TABLE
 	{ Difficulty::Hard, constants::DIFFICULTY_HARD },
 };
 
+
 std::string StringFromDifficulty(const Difficulty& difficulty)
 {
 	return DIFFICULTY_STRING_TABLE.at(difficulty);
 }
+
 
 Difficulty DifficultyFromString(std::string difficultyStr)
 {
@@ -431,35 +433,30 @@ bool doYesNoMessage(const std::string& title, const std::string msg)
 }
 
 
-/**
- * Checks a savegame version.
- * 
- * \throws	Throws a std::runtime_error if there are any errors with a savegame version, formation or missing root nodes.
- * 
- * \fixme	Find a more efficient way to do this.
- */
 void checkSavegameVersion(const std::string& filename)
 {
-	auto xmlFile = Utility<Filesystem>::get().open(filename);
+	// openSavegame checks version number after opening file
+	openSavegame(filename);
+}
 
-	NAS2D::Xml::XmlDocument doc;
-	doc.parse(xmlFile.raw_bytes());
-	if (doc.error())
+
+/**
+ * Open a saved game and validate version.
+ *
+ * \throws	Throws a std::runtime_error if there are any errors with a savegame version, formation or missing root nodes.
+ */
+NAS2D::Xml::XmlDocument openSavegame(const std::string& filename)
+{
+	auto xmlDocument = openXmlFile(filename, constants::SAVE_GAME_ROOT_NODE);
+
+	auto savegameVersion = xmlDocument.firstChildElement(constants::SAVE_GAME_ROOT_NODE)->attribute("version");
+
+	if (savegameVersion != constants::SAVE_GAME_VERSION)
 	{
-		throw std::runtime_error("Malformed savegame ('" + filename + "'). Error on Row " + std::to_string(doc.errorRow()) + ", Column " + std::to_string(doc.errorCol()) + ": " + doc.errorDesc());
+		throw std::runtime_error("Savegame version mismatch: '" + filename + "'. Expected " + constants::SAVE_GAME_VERSION + ", found " + savegameVersion + ".");
 	}
 
-	NAS2D::Xml::XmlElement* root = doc.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
-	if (root == nullptr)
-	{
-		throw std::runtime_error("Root element in '" + filename + "' is not '" + constants::SAVE_GAME_ROOT_NODE + "'.");
-	}
-
-	std::string sg_version = root->attribute("version");
-	if (sg_version != constants::SAVE_GAME_VERSION)
-	{
-		throw std::runtime_error("Savegame version mismatch: '" + filename + "'. Expected " + constants::SAVE_GAME_VERSION + ", found " + sg_version + ".");
-	}
+	return xmlDocument;
 }
 
 
