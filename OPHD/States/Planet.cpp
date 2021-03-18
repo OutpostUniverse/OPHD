@@ -178,6 +178,10 @@ namespace
 			{
 				::parseElementValue(attributes.meanSolarDistance, element);
 			}
+			else if (element->value() == "Description")
+			{
+				::parseElementValue(attributes.description, element);
+			}
 		}
 
 		return attributes;
