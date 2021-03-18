@@ -182,6 +182,10 @@ namespace
 			{
 				::parseElementValue(attributes.description, element);
 			}
+			else
+			{
+				throw std::runtime_error("Unexpected Xml node named " + xmlNode->value() + " encountered. when parsing planet attributes");
+			}
 		}
 
 		return attributes;
