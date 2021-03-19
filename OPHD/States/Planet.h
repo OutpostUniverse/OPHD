@@ -46,6 +46,8 @@ public:
 
 		/* Mean distance from star in astronomical units (AU) */
 		float meanSolarDistance = 0;
+
+		std::string description;
 	};
 
 public:

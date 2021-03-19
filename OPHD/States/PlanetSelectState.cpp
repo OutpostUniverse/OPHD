@@ -166,12 +166,8 @@ void PlanetSelectState::onMousePlanetEnter()
 	{
 		if (mPlanets[i]->mouseHovering())
 		{
-			auto iterator = constants::PLANET_DESCRIPTIONS.find(mPlanets[i]->attributes().type);
-
-			if (iterator != constants::PLANET_DESCRIPTIONS.end())
-			{
-				mPlanetDescription.text(iterator->second);
-			}
+			mPlanetDescription.text(mPlanets[i]->attributes().description);
+			break;
 		}
 	}
 }
