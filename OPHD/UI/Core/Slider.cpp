@@ -179,7 +179,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	if (button == EventHandler::MouseButton::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::Left)
 	{
 		if (mSlider.contains(NAS2D::Point{x, y}))
 		{
@@ -195,7 +195,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
-	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
+	if (button != EventHandler::MouseButton::Left) { return; }
 
 	mButton1Held = false;
 	mButton2Held = false;

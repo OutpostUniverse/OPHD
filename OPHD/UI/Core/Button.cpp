@@ -106,7 +106,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	if (button == EventHandler::MouseButton::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::Left)
 	{
 		if (mRect.contains(Point<int>{x, y}))
 		{
@@ -128,7 +128,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	if (button == EventHandler::MouseButton::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::Left)
 	{
 		if (mType == Type::BUTTON_NORMAL)
 		{

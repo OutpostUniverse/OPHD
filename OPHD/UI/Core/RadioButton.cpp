@@ -78,7 +78,7 @@ void RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
-	if (button == EventHandler::MouseButton::BUTTON_LEFT && mRect.contains(Point{x, y}))
+	if (button == EventHandler::MouseButton::Left && mRect.contains(Point{x, y}))
 	{
 		click();
 		mCallback();

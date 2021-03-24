@@ -493,7 +493,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		return;
 	}
 
-	if (button == EventHandler::MouseButton::BUTTON_RIGHT || button == EventHandler::MouseButton::BUTTON_MIDDLE)
+	if (button == EventHandler::MouseButton::Right || button == EventHandler::MouseButton::Middle)
 	{
 		if (mInsertMode != InsertMode::None)
 		{
@@ -523,7 +523,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 			Structure* structure = tile.structure();
 
 			const bool inspectModifier = NAS2D::Utility<EventHandler>::get().query_shift() ||
-				button == EventHandler::MouseButton::BUTTON_MIDDLE;
+				button == EventHandler::MouseButton::Middle;
 
 			const bool notDisabled = structure->operational() || structure->isIdle();
 
@@ -554,7 +554,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		}
 	}
 
-	if (button == EventHandler::MouseButton::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::Left)
 	{
 		mLeftButtonDown = true;
 
@@ -629,7 +629,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 {
 	if (!active()) { return; }
 
-	if (button == EventHandler::MouseButton::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::Left)
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 		if (!mTileMap->tileHighlightVisible()) { return; }
@@ -656,7 +656,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 */
 void MapViewState::onMouseUp(EventHandler::MouseButton button, int /*x*/, int /*y*/)
 {
-	if (button == EventHandler::MouseButton::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::Left)
 	{
 		mLeftButtonDown = false;
 		EventHandler& e = Utility<EventHandler>::get();
