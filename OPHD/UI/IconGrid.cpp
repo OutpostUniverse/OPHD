@@ -72,7 +72,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	if (!visible() || !hasFocus()) { return; }
 
 	// Don't respond to anything unless it's the left mouse button.
-	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
+	if (button != EventHandler::MouseButton::Left) { return; }
 
 	if (!visible())
 	{

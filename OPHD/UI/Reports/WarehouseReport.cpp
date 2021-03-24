@@ -223,7 +223,7 @@ void WarehouseReport::fillListDisabled()
 void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int y)
 {
 	if (!visible()) { return; }
-	if (button != EventHandler::MouseButton::BUTTON_LEFT) { return; }
+	if (button != EventHandler::MouseButton::Left) { return; }
 
 	if (selectedWarehouse && lstStructures.rect().contains(NAS2D::Point{x, y}))
 	{

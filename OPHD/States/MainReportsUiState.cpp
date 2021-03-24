@@ -248,7 +248,7 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 
 	if (!NAS2D::Rectangle{0, 0, Utility<Renderer>::get().size().x, 40}.contains(Point{x, y})) { return; } // ignore clicks in the UI area.
 
-	if (button == EventHandler::MouseButton::BUTTON_LEFT)
+	if (button == EventHandler::MouseButton::Left)
 	{
 		for (Panel& panel : Panels)
 		{
