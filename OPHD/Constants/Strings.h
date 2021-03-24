@@ -19,7 +19,7 @@ namespace constants
 	// =====================================
 	// = MISCELLANEOUS
 	// =====================================
-	const std::string VERSION = "v0.8.1";
+	const std::string VERSION = "v0.8.2";
 	const std::string EMPTY_STR = ""; /**< Used in a few places to return an empty string without having to create one. */
 
 	const std::string TILE_INDEX_TRANSLATION_BULLDOZED = "Bulldozed";
