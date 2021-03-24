@@ -1,7 +1,7 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.8.2] - UNRELEASED
+## [0.8.2] - 2019-03-24
 
 Introduces communcations range overlays, additional GUI quality of life improvements and a number of bug fixes that correct some subtle behavior issues.
 
@@ -13,6 +13,9 @@ Introduces communcations range overlays, additional GUI quality of life improvem
 ### Changed
 - FileIO Window now has a 'delete' button so save games can be deleted from within the game
 - Change order of food counting and population update so that landing cargo/colonist landers at the same time doesn't result in an immediate game over
+- Planet attribute and definitions moved out of the code and into external XML definition in the data files
+- Air shaft now behaves as a four-directional tube
+- Recycling Center now shows more information in the Structure Inspector window
 
 ### Fixed
 - Fixed some computations in the population simulation that caused subtle behavior issues
