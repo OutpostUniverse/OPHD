@@ -671,6 +671,9 @@
     <ClInclude Include="XmlSerializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StructureComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">
