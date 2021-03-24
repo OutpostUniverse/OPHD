@@ -9,6 +9,10 @@
 #include <string>
 #include <vector>
 
+namespace NAS2D::Xml {
+	class XmlDocument;
+}
+
 enum class StructureState;
 
 enum class Difficulty
@@ -308,6 +312,7 @@ void doAlertMessage(const std::string& title, const std::string& msg);
 bool doYesNoMessage(const std::string& title, const std::string msg);
 
 void checkSavegameVersion(const std::string& filename);
+NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
 
 NAS2D::StringList split_string(const char *str, char delim);
 

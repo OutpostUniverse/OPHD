@@ -1,12 +1,12 @@
 #include "PlanetSelectState.h"
 
-#include "Planet.h"
 #include "GameState.h"
 #include "MapViewState.h"
 #include "MainMenuState.h"
 
 #include "../Constants.h"
 #include "../Cache.h"
+#include "../XmlSerializer.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Mixer/Mixer.h>
@@ -19,17 +19,6 @@
 using namespace NAS2D;
 
 
-namespace
-{
-	std::vector<Planet::Attributes> PlanetAttributes =
-	{
-		{ Planet::Attributes{Planet::PlanetType::Mercury, "planets/planet_d.png", Planet::Hostility::High, 1, 10, "maps/merc_01", "tsets/mercury.png", "Mercury Type", 0.4f} },
-		{ Planet::Attributes{Planet::PlanetType::Mars, "planets/planet_c.png", Planet::Hostility::Low, 4, 30, "maps/mars_04", "tsets/mars.png", "Mars Type", 1.524f} },
-		{ Planet::Attributes{Planet::PlanetType::Ganymede, "planets/planet_e.png", Planet::Hostility::Medium, 2, 15, "maps/ganymede_01", "tsets/ganymede.png", "Ganymede Type", 5.2f} }
-	};
-}
-
-
 PlanetSelectState::PlanetSelectState() :
 	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM) },
 	mTinyFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
@@ -40,7 +29,8 @@ PlanetSelectState::PlanetSelectState() :
 	mSelect{"sfx/click.ogg"},
 	mHover{"sfx/menu4.ogg"},
 	mQuit{"Main Menu"},
-	mReturnState{this}
+	mReturnState{this},
+	PlanetAttributes(parsePlanetAttributes())
 {}
 
 
@@ -176,12 +166,8 @@ void PlanetSelectState::onMousePlanetEnter()
 	{
 		if (mPlanets[i]->mouseHovering())
 		{
-			auto iterator = constants::PLANET_DESCRIPTIONS.find(mPlanets[i]->attributes().type);
-
-			if (iterator != constants::PLANET_DESCRIPTIONS.end())
-			{
-				mPlanetDescription.text(iterator->second);
-			}
+			mPlanetDescription.text(mPlanets[i]->attributes().description);
+			break;
 		}
 	}
 }

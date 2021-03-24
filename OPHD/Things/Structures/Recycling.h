@@ -3,6 +3,7 @@
 #include "Structure.h"
 
 #include "../../Constants.h"
+#include <NAS2D/StringUtils.h>
 
 class Recycling : public Structure
 {
@@ -28,6 +29,10 @@ public:
 	 */
 	virtual int wasteProcessingCapacity() const
 	{
+		if (!operational()) {
+			return 0;
+		}
+
 		return WasteProcessingCapacity;
 	}
 	
@@ -38,7 +43,30 @@ public:
 	 */
 	virtual int residentialSupportCount() const
 	{
+		if (!operational()) {
+			return 0;
+		}
+
 		return ResidentialSupportCount;
+	}
+
+
+	StringTable createInspectorViewTable() override
+	{
+		StringTable stringTable(2, 2);
+
+		stringTable[{0, 0}].text = "Max Residents Supported:";
+		stringTable[{1, 0}].text = NAS2D::stringFrom(residentialSupportCount());
+
+		stringTable[{0, 1}].text = "Max Waste Processing Capacity:";
+		stringTable[{1, 1}].text = NAS2D::stringFrom(wasteProcessingCapacity());
+
+		if (!operational()) {
+			stringTable[{1, 0}].textColor = constants::WARNING_TEXT_COLOR;
+			stringTable[{1, 1}].textColor = constants::WARNING_TEXT_COLOR;
+		}
+
+		return stringTable;
 	}
 
 

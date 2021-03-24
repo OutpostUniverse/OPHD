@@ -90,27 +90,22 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
  */
 bool checkStructurePlacement(Tile& tile, Direction dir)
 {
-	if (tile.mine() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !tile.connected())
-	{
-		return false;
-	}
-
 	Structure* _structure = tile.structure();
-	if (!_structure->isConnector())
+	if (tile.mine() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !tile.connected() || !_structure->isConnector())
 	{
 		return false;
 	}
 
 	if (dir == Direction::East || dir == Direction::West)
 	{
-		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
+		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT || _structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
 	}
 	else // NORTH/SOUTH
 	{
-		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
+		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT || _structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}

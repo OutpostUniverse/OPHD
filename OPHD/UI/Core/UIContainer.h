@@ -13,7 +13,7 @@
  * 
  * Generally not intended to be used by itself.
  */
-class UIContainer: public TextControl
+class UIContainer: public Control
 {
 public:
 	UIContainer();

@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include <string>
+#include <unordered_map>
 
 
 class Planet
@@ -45,6 +46,8 @@ public:
 
 		/* Mean distance from star in astronomical units (AU) */
 		float meanSolarDistance = 0;
+
+		std::string description;
 	};
 
 public:
@@ -91,3 +94,5 @@ private:
 
 	NAS2D::Timer mTimer;
 };
+
+std::vector<Planet::Attributes> parsePlanetAttributes();

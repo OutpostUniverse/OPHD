@@ -28,7 +28,7 @@ Window::Window(std::string newTitle) :
 		imageCache.load("ui/skin/window_bottom_right.png")
 	}
 {
-	text(newTitle);
+	title(newTitle);
 
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Window::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Window::onMouseMove);
@@ -94,7 +94,13 @@ void Window::update()
 
 	mBody.draw(renderer, NAS2D::Rectangle{mRect.x, mRect.y + 20, mRect.width, mRect.height - 20});
 
-	renderer.drawText(mTitleFont, text(), NAS2D::Point{mRect.x + 5, mRect.y + 2}, NAS2D::Color::White);
+	renderer.drawText(mTitleFont, title(), NAS2D::Point{mRect.x + 5, mRect.y + 2}, NAS2D::Color::White);
 
 	UIContainer::update();
+}
+
+void Window::title(const std::string& title)
+{
+	mTitle = title;
+	onTitleChanged();
 }
