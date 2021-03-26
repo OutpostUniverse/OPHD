@@ -244,6 +244,18 @@ void StructureManager::addStructure(Structure* structure, Tile* tile)
  */
 void StructureManager::removeStructure(Structure* structure)
 {
+	// Destroy all components belonging to the structure.
+	SKey s = SKey(structure);
+	for (auto& [componentTypeID, table] : mComponents)
+	{
+		auto cit = table.find(s);
+		if (cit != table.end())
+		{
+			delete cit->second;
+			table.erase(cit);
+		}
+	}
+
 	StructureList& structures = mStructureLists[structure->structureClass()];
 
 	if (structures.empty())
@@ -251,14 +263,12 @@ void StructureManager::removeStructure(Structure* structure)
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
 
-	for (std::size_t i = 0; i < structures.size(); ++i)
+	auto structureIt = std::find(structures.begin(), structures.end(), structure);
+	if (structureIt == structures.end())
 	{
-		if (structures[i] == structure)
-		{
-			structures.erase(structures.begin() + static_cast<std::ptrdiff_t>(i));
-			break;
-		}
+		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
+	structures.erase(structureIt);
 
 	auto tileTableIt = mStructureTileTable.find(structure);
 	if (tileTableIt == mStructureTileTable.end())
