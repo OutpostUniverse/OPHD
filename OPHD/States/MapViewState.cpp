@@ -729,7 +729,7 @@ void MapViewState::clearMode()
 	mInsertMode = InsertMode::None;
 	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
-	mCurrentStructure = StructureID::SID_NONE;
+	mCurrentStructure = StructureTypeID::SID_NONE;
 	mCurrentRobot = Robot::Type::None;
 
 	clearSelections();
@@ -1112,7 +1112,7 @@ void MapViewState::checkRobotSelectionInterface(Robot::Type rType)
  */
 void MapViewState::placeStructure()
 {
-	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
+	if (mCurrentStructure == StructureTypeID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
 
 	Tile* tile = mTileMap->getVisibleTile();
 	if (!tile) { return; }
@@ -1156,11 +1156,11 @@ void MapViewState::placeStructure()
 	}
 
 	// Seed lander is a special case and only one can ever be placed by the player ever.
-	if (mCurrentStructure == StructureID::SID_SEED_LANDER)
+	if (mCurrentStructure == StructureTypeID::SID_SEED_LANDER)
 	{
 		insertSeedLander(mTileMapMouseHover);
 	}
-	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
+	else if (mCurrentStructure == StructureTypeID::SID_COLONIST_LANDER)
 	{
 		if (!validLanderSite(*tile)) { return; }
 
@@ -1176,7 +1176,7 @@ void MapViewState::placeStructure()
 			populateStructureMenu();
 		}
 	}
-	else if (mCurrentStructure == StructureID::SID_CARGO_LANDER)
+	else if (mCurrentStructure == StructureTypeID::SID_CARGO_LANDER)
 	{
 		if (!validLanderSite(*tile)) { return; }
 
@@ -1334,10 +1334,10 @@ void MapViewState::updateRobots()
 /**
  * Checks and sets the current structure mode.
  */
-void MapViewState::setStructureID(StructureID type, InsertMode mode)
+void MapViewState::setStructureID(StructureTypeID type, InsertMode mode)
 {
 
-	if (type == StructureID::SID_NONE)
+	if (type == StructureTypeID::SID_NONE)
 	{
 		clearMode();
 		return;

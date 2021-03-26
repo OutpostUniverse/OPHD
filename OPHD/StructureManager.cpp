@@ -455,7 +455,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 		}
 
 		if (structure->structureClass() == Structure::StructureClass::FoodProduction ||
-			structure->structureId() == StructureID::SID_COMMAND_CENTER)
+			structure->structureId() == StructureTypeID::SID_COMMAND_CENTER)
 		{
 			auto* food = new NAS2D::Xml::XmlElement("food");
 			food->attribute("level", static_cast<FoodProduction*>(structure)->foodLevel());

@@ -255,23 +255,23 @@ void updateRobotControl(RobotPool& robotPool)
 
 
 /** 
- * Indicates that a given StructureID is a Lander of sorts.
+ * Indicates that a given StructureTypeID is a Lander of sorts.
  */
-bool structureIsLander(StructureID id)
+bool structureIsLander(StructureTypeID id)
 {
-	return id == StructureID::SID_SEED_LANDER || id == StructureID::SID_COLONIST_LANDER || id == StructureID::SID_CARGO_LANDER;
+	return id == StructureTypeID::SID_SEED_LANDER || id == StructureTypeID::SID_COLONIST_LANDER || id == StructureTypeID::SID_CARGO_LANDER;
 }
 
 
 /**
  * Determines if the structure is able to operate without a tube connection.
  */
-bool selfSustained(StructureID id)
+bool selfSustained(StructureTypeID id)
 {
 	switch (id)
 	{
-	case StructureID::SID_COMM_TOWER:
-	case StructureID::SID_ROAD:
+	case StructureTypeID::SID_COMM_TOWER:
+	case StructureTypeID::SID_ROAD:
 		return true;
 
 	default:
@@ -430,7 +430,7 @@ void moveProducts(Warehouse* sourceWarehouse)
  * Displays a message indicating that there are not enough resources to build
  * a structure and what the missing resources are.
  */
-void resourceShortageMessage(const StorableResources& resources, StructureID sid)
+void resourceShortageMessage(const StorableResources& resources, StructureTypeID sid)
 {
 	StorableResources cost = StructureCatalogue::costToBuild(sid);
 

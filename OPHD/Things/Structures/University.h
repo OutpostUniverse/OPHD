@@ -10,7 +10,7 @@ public:
 	University() : Structure(constants::UNIVERSITY,
 		"structures/university.sprite",
 		StructureClass::University,
-		StructureID::SID_UNIVERSITY)
+		StructureTypeID::SID_UNIVERSITY)
 	{
 		maxAge(500);
 		turnsToBuild(4);

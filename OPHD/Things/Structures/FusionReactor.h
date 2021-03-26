@@ -13,7 +13,7 @@ public:
 	FusionReactor() : PowerStructure(constants::FUSION_REACTOR,
 		"structures/fusion_reactor.sprite",
 		StructureClass::EnergyProduction,
-		StructureID::SID_FUSION_REACTOR)
+		StructureTypeID::SID_FUSION_REACTOR)
 	{
 		maxAge(1000);
 		turnsToBuild(10);

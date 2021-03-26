@@ -482,7 +482,7 @@ void MapViewState::updateRoads()
 			if (!mTileMap->isValidPosition(tileToInspect)) { continue; }
 			if (!mTileMap->getTile(tileToInspect).thingIsStructure()) { continue; }
 
-			surroundingTiles[i] = mTileMap->getTile(tileToInspect).structure()->structureId() == StructureID::SID_ROAD;
+			surroundingTiles[i] = mTileMap->getTile(tileToInspect).structure()->structureId() == StructureTypeID::SID_ROAD;
 		}
 
 		road->sprite().play(IntersectionPatternTable.at(surroundingTiles));

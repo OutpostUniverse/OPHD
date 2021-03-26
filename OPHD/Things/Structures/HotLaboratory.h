@@ -8,7 +8,7 @@ public:
 	HotLaboratory() : Structure(constants::HOT_LABORATORY,
 		"structures/labo_surface.sprite",
 		StructureClass::Laboratory,
-		StructureID::SID_HOT_LABORATORY)
+		StructureTypeID::SID_HOT_LABORATORY)
 	{
 		maxAge(500);
 		turnsToBuild(5);

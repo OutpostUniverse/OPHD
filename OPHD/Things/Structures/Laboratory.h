@@ -8,7 +8,7 @@ public:
 	Laboratory() : Structure(constants::LABORATORY,
 		"structures/laboratory_underground.sprite",
 		StructureClass::Laboratory,
-		StructureID::SID_LABORATORY)
+		StructureTypeID::SID_LABORATORY)
 	{
 		maxAge(500);
 		turnsToBuild(4);

@@ -14,7 +14,7 @@ public:
 	CargoLander(Tile* t) : Structure(constants::CARGO_LANDER,
 		"structures/lander_0.sprite",
 		StructureClass::Lander,
-		StructureID::SID_CARGO_LANDER),
+		StructureTypeID::SID_CARGO_LANDER),
 		mTile(t)
 	{
 		maxAge(50);

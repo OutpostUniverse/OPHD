@@ -31,7 +31,7 @@ public:
 	using ProductionTypeList = std::vector<ProductType>;
 
 public:
-	Factory(const std::string& name, const std::string& spritePath, StructureID id);
+	Factory(const std::string& name, const std::string& spritePath, StructureTypeID id);
 
 	virtual void updateProduction();
 

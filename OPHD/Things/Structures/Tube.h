@@ -14,7 +14,7 @@ public:
 		Structure(constants::TUBE, "structures/tubes.sprite",
 			getAnimationName(dir, underground),
 			StructureClass::Tube,
-			StructureID::SID_TUBE)
+			StructureTypeID::SID_TUBE)
 	{
 		connectorDirection(dir);
 		requiresCHAP(false);

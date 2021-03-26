@@ -10,7 +10,7 @@ public:
 	MedicalCenter() : Structure(constants::MEDICAL_CENTER,
 		"structures/medical.sprite",
 		StructureClass::MedicalCenter,
-		StructureID::SID_MEDICAL_CENTER)
+		StructureTypeID::SID_MEDICAL_CENTER)
 	{
 		maxAge(500);
 		turnsToBuild(4);

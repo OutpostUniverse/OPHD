@@ -10,7 +10,7 @@ public:
 	StorageTanks() : Structure(constants::STORAGE_TANKS,
 		"structures/storage_tanks.sprite",
 		StructureClass::Storage,
-		StructureID::SID_STORAGE_TANKS)
+		StructureTypeID::SID_STORAGE_TANKS)
 	{
 		maxAge(500);
 		turnsToBuild(2);

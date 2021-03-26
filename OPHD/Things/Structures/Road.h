@@ -10,7 +10,7 @@ public:
 	Road() : Structure(constants::ROAD,
 		"structures/roads.sprite",
 		StructureClass::Road,
-		StructureID::SID_ROAD)
+		StructureTypeID::SID_ROAD)
 	{
 		maxAge(150);
 		turnsToBuild(2);

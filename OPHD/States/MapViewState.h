@@ -138,7 +138,7 @@ private:
 	void placeRobodigger(Tile&);
 	void placeRobominer(Tile&);
 
-	void setStructureID(StructureID type, InsertMode mode);
+	void setStructureID(StructureTypeID type, InsertMode mode);
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
 	void countFood();
@@ -253,7 +253,7 @@ private:
 	RobotTileTable mRobotList; /**< List of active robots and their positions on the map. */
 
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
-	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
+	StructureTypeID mCurrentStructure = StructureTypeID::SID_NONE; /**< Structure being placed. */
 	Robot::Type mCurrentRobot = Robot::Type::None; /**< Robot being placed. */
 
 	Population mPopulation;

@@ -10,7 +10,7 @@ public:
 	Nursery() : Structure(constants::NURSERY,
 		"structures/nursery_01.sprite",
 		StructureClass::Nursery,
-		StructureID::SID_NURSERY)
+		StructureTypeID::SID_NURSERY)
 	{
 		maxAge(500);
 		turnsToBuild(4);

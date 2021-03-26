@@ -15,7 +15,7 @@ public:
 	Recycling() : Structure(constants::RECYCLING,
 		"structures/recycling.sprite",
 		StructureClass::Recycling,
-		StructureID::SID_RECYCLING)
+		StructureTypeID::SID_RECYCLING)
 	{
 		maxAge(500);
 		turnsToBuild(4);

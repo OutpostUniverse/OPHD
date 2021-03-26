@@ -366,8 +366,8 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		tile.index(TerrainType::Dozed);
 		tile.excavated(true);
 
-		auto structureId = static_cast<StructureID>(type);
-		if (structureId == StructureID::SID_TUBE)
+		auto structureId = static_cast<StructureTypeID>(type);
+		if (structureId == StructureTypeID::SID_TUBE)
 		{
 			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
 			insertTube(connectorDir, depth, &mTileMap->getTile({x, y}, depth));
@@ -376,12 +376,12 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		auto& structure = *StructureCatalogue::get(structureId);
 
-		if (structureId == StructureID::SID_COMMAND_CENTER)
+		if (structureId == StructureTypeID::SID_COMMAND_CENTER)
 		{
 			ccLocation() = {x, y};
 		}
 
-		if (structureId == StructureID::SID_MINE_FACILITY)
+		if (structureId == StructureTypeID::SID_MINE_FACILITY)
 		{
 			auto* mine = mTileMap->getTile({x, y}, 0).mine();
 			if (mine == nullptr)
@@ -395,18 +395,18 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			mineFacility.extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
 		}
 
-		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)
+		if (structureId == StructureTypeID::SID_AIR_SHAFT && depth != 0)
 		{
 			static_cast<AirShaft*>(&structure)->ug(); // force underground state
 		}
 
-		if (structureId == StructureID::SID_SEED_LANDER)
+		if (structureId == StructureTypeID::SID_SEED_LANDER)
 		{
 			static_cast<SeedLander*>(&structure)->position({x, y});
 		}
 
-		if (structureId == StructureID::SID_AGRIDOME ||
-			structureId == StructureID::SID_COMMAND_CENTER)
+		if (structureId == StructureTypeID::SID_AGRIDOME ||
+			structureId == StructureTypeID::SID_COMMAND_CENTER)
 		{
 			auto& foodProduction = *static_cast<FoodProduction*>(&structure);
 

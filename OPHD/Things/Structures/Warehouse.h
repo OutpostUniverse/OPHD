@@ -10,7 +10,7 @@ public:
 	Warehouse() : Structure(constants::WAREHOUSE,
 		"structures/warehouse.sprite",
 		StructureClass::Warehouse,
-		StructureID::SID_WAREHOUSE)
+		StructureTypeID::SID_WAREHOUSE)
 	{
 		maxAge(500);
 		turnsToBuild(2);

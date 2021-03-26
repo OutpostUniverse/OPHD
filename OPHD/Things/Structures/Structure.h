@@ -62,15 +62,15 @@ public:
 	};
 
 public:
-	Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id);
-	Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id);
+	Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureTypeID id);
+	Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureTypeID id);
 
 	~Structure() override = default;
 
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }
 
-	StructureID structureId() const { return mStructureId; }
+	StructureTypeID structureId() const { return mStructureId; }
 
 	bool disabled() const { return mStructureState == StructureState::Disabled; }
 	void disable(DisabledReason);
@@ -194,7 +194,7 @@ private:
 	int mEnergyRequirement = 0;
 	int mStorageCapacity = 0;
 
-	StructureID mStructureId{ StructureID::SID_NONE };
+	StructureTypeID mStructureId{ StructureTypeID::SID_NONE };
 
 	StructureState mStructureState = StructureState::UnderConstruction; /**< State the structure is in. */
 	StructureClass mStructureClass; /**< Indicates the Structure's Type. */
@@ -220,4 +220,4 @@ private:
 
 using StructureList = std::vector<Structure*>;
 
-std::string StructureName(StructureID id);
+std::string StructureName(StructureTypeID id);

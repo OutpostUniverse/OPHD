@@ -22,7 +22,7 @@ public:
 	Residence() : Structure(constants::RESIDENCE,
 		"structures/residential_1.sprite",
 		StructureClass::Residence,
-		StructureID::SID_RESIDENCE)
+		StructureTypeID::SID_RESIDENCE)
 	{
 		maxAge(500);
 		turnsToBuild(2);

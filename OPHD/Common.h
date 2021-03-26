@@ -113,7 +113,7 @@ enum ConnectorDir
  *			the structure Class code which is used to group like structures into
  *			lists for structure updates.
  */
-enum StructureID
+enum StructureTypeID
 {
 	SID_NONE,
 

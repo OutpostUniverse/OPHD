@@ -145,19 +145,19 @@ void MapViewState::deploySeedLander(NAS2D::Point<int> point)
 	// TOP ROW
 	structureManager.addStructure(new SeedPower(), &mTileMap->getTile(point + DirectionNorthWest));
 
-	CommandCenter* cc = static_cast<CommandCenter*>(StructureCatalogue::get(StructureID::SID_COMMAND_CENTER));
+	CommandCenter* cc = static_cast<CommandCenter*>(StructureCatalogue::get(StructureTypeID::SID_COMMAND_CENTER));
 	cc->sprite().setFrame(3);
 	structureManager.addStructure(cc, &mTileMap->getTile(point + DirectionNorthEast));
 	ccLocation() = point + DirectionNorthEast;
 
 	// BOTTOM ROW
-	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(StructureID::SID_SEED_FACTORY));
+	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(StructureTypeID::SID_SEED_FACTORY));
 	sf->resourcePool(&mResourcesCount);
 	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
 	sf->sprite().setFrame(7);
 	structureManager.addStructure(sf, &mTileMap->getTile(point + DirectionSouthWest));
 
-	SeedSmelter* ss = static_cast<SeedSmelter*>(StructureCatalogue::get(StructureID::SID_SEED_SMELTER));
+	SeedSmelter* ss = static_cast<SeedSmelter*>(StructureCatalogue::get(StructureTypeID::SID_SEED_SMELTER));
 	ss->sprite().setFrame(10);
 	structureManager.addStructure(ss, &mTileMap->getTile(point + DirectionSouthEast));
 
