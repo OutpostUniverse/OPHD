@@ -4,6 +4,7 @@
 #include "ProductPool.h"
 #include "IOHelper.h"
 #include "PopulationPool.h"
+#include "StructureComponent.h"
 #include "Map/Tile.h"
 #include "Things/Robots/Robot.h"
 #include "Things/Structures/Structures.h"
@@ -248,6 +249,7 @@ void StructureManager::removeStructure(Structure* structure)
 	SKey s = SKey(structure);
 	for (auto& [componentTypeID, table] : mComponents)
 	{
+		UNUSED(componentTypeID);
 		auto cit = table.find(s);
 		if (cit != table.end())
 		{

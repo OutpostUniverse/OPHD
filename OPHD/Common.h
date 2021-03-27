@@ -366,3 +366,8 @@ const auto formatDiff = [](int diff)
 {
 	return ((diff > 0) ? "+" : "") + std::to_string(diff);
 };
+
+/**
+ * Silence compiler warnings about unused variable
+ */
+#define UNUSED(x) (void)(x)
