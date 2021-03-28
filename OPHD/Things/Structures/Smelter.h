@@ -10,7 +10,7 @@ public:
 	Smelter() : OreRefining(constants::SMELTER,
 		"structures/smelter.sprite",
 		StructureClass::Smelter,
-		StructureID::SID_SMELTER)
+		StructureTypeID::SID_SMELTER)
 	{
 		maxAge(600);
 		turnsToBuild(9);

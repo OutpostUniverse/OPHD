@@ -16,7 +16,7 @@ public:
 		Structure{constants::SEED_LANDER,
 		"structures/seed_0.sprite",
 		StructureClass::Lander,
-		StructureID::SID_SEED_LANDER},
+		StructureTypeID::SID_SEED_LANDER},
 		mPosition{position}
 	{
 		maxAge(50);

@@ -13,7 +13,7 @@ public:
 	SeedPower() : PowerStructure(constants::SEED_POWER,
 		"structures/seed_1.sprite",
 		StructureClass::EnergyProduction,
-		StructureID::SID_SEED_POWER)
+		StructureTypeID::SID_SEED_POWER)
 	{
 		maxAge(150);
 		turnsToBuild(5);

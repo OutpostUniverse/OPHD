@@ -37,10 +37,10 @@ bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir
 bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point);
 bool validLanderSite(Tile& t);
 bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position);
-bool structureIsLander(StructureID id);
+bool structureIsLander(StructureTypeID id);
 bool inCommRange(NAS2D::Point<int> position);
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);
-bool selfSustained(StructureID id);
+bool selfSustained(StructureTypeID id);
 
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count);
 RobotCommand* getAvailableRobotCommand();
@@ -48,7 +48,7 @@ RobotCommand* getAvailableRobotCommand();
 bool simulateMoveProducts(Warehouse*);
 void moveProducts(Warehouse*);
 
-void resourceShortageMessage(const StorableResources&, StructureID);
+void resourceShortageMessage(const StorableResources&, StructureTypeID);
 
 void addRefinedResources(StorableResources&);
 void removeRefinedResources(StorableResources&);

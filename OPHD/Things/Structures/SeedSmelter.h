@@ -11,7 +11,7 @@ public:
 	SeedSmelter() : OreRefining(constants::SEED_SMELTER,
 		"structures/seed_1.sprite",
 		StructureClass::Smelter,
-		StructureID::SID_SEED_SMELTER)
+		StructureTypeID::SID_SEED_SMELTER)
 	{
 		maxAge(150);
 		turnsToBuild(6);

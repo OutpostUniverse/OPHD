@@ -50,7 +50,7 @@ const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATI
 };
 
 
-static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
+static const std::array<std::string, StructureTypeID::SID_COUNT> StructureNameTable =
 {
 	"Not a Structure",
 	constants::AGRIDOME,
@@ -92,14 +92,14 @@ static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable 
 };
 
 
-std::string StructureName(StructureID id)
+std::string StructureName(StructureTypeID id)
 {
 	return StructureNameTable[static_cast<size_t>(id)];
 }
 
 
 
-Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id) :
+Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureTypeID id) :
 	Thing(name, spritePath, constants::STRUCTURE_STATE_CONSTRUCTION),
 	mStructureId(id),
 	mStructureClass(structureClass)
@@ -109,7 +109,7 @@ Structure::Structure(const std::string& name, const std::string& spritePath, Str
 }
 
 
-Structure::Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id) :
+Structure::Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureTypeID id) :
 	Thing(name, spritePath, initialAction),
 	mStructureId(id),
 	mStructureClass(structureClass)

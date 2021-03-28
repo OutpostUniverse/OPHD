@@ -8,7 +8,7 @@ class UndergroundFactory: public Factory
 public:
 	UndergroundFactory(): Factory(constants::UNDERGROUND_FACTORY,
 		"structures/factory_underground.sprite",
-		StructureID::SID_UNDERGROUND_FACTORY)
+		StructureTypeID::SID_UNDERGROUND_FACTORY)
 	{
 		maxAge(600);
 		turnsToBuild(4);

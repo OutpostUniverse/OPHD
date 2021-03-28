@@ -11,7 +11,7 @@ public:
 	CommandCenter(): FoodProduction(constants::COMMAND_CENTER,
 		"structures/command_center.sprite",
 		StructureClass::Command,
-		StructureID::SID_COMMAND_CENTER)
+		StructureTypeID::SID_COMMAND_CENTER)
 	{
 		maxAge(500);
 		turnsToBuild(4);

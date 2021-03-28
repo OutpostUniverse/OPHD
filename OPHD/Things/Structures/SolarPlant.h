@@ -12,7 +12,7 @@ public:
 	SolarPlant(float meanSolarDistance) : PowerStructure(constants::SOLAR_PLANT,
 		"structures/solar_plant.sprite",
 		StructureClass::EnergyProduction,
-		StructureID::SID_SOLAR_PLANT),
+		StructureTypeID::SID_SOLAR_PLANT),
 		mMeanSolarDistance(meanSolarDistance)
 	{
 		maxAge(1000);

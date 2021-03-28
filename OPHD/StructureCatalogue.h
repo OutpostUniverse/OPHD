@@ -23,13 +23,13 @@ class StructureCatalogue
 public:
 	static void init(float meanSolarDistance);
 
-	static Structure* get(StructureID type);
+	static Structure* get(StructureTypeID type);
 
-	static const PopulationRequirements& populationRequirements(StructureID type);
-	static const StorableResources& costToBuild(StructureID type);
-	static const StorableResources recyclingValue(StructureID type);
+	static const PopulationRequirements& populationRequirements(StructureTypeID type);
+	static const StorableResources& costToBuild(StructureTypeID type);
+	static const StorableResources recyclingValue(StructureTypeID type);
 
-	static bool canBuild(const StorableResources& source, StructureID type);
+	static bool canBuild(const StorableResources& source, StructureTypeID type);
 
 private:
 	StructureCatalogue() {} // Explicitly declared private to prevent instantiation.
@@ -39,11 +39,11 @@ private:
 	static void buildPopulationRequirementsTable();
 	static void buildRecycleValueTable();
 
-	static StorableResources recycleValue(StructureID type, float percent);
+	static StorableResources recycleValue(StructureTypeID type, float percent);
 
 private:
-	static std::array<StorableResources, StructureID::SID_COUNT> mStructureCostTable;
-	static std::array<StorableResources, StructureID::SID_COUNT> mStructureRecycleValueTable;
-	static std::array<PopulationRequirements, StructureID::SID_COUNT> mPopulationRequirementsTable;
+	static std::array<StorableResources, StructureTypeID::SID_COUNT> mStructureCostTable;
+	static std::array<StorableResources, StructureTypeID::SID_COUNT> mStructureRecycleValueTable;
+	static std::array<PopulationRequirements, StructureTypeID::SID_COUNT> mPopulationRequirementsTable;
 	static float mMeanSolarDistance;
 };

@@ -10,7 +10,7 @@ public:
 	Commercial() : Structure(constants::COMMERCIAL,
 		"structures/commercial.sprite",
 		StructureClass::Commercial,
-		StructureID::SID_COMMERCIAL)
+		StructureTypeID::SID_COMMERCIAL)
 	{
 		maxAge(500);
 		turnsToBuild(3);

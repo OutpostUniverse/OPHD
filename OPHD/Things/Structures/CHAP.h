@@ -5,7 +5,7 @@
 class CHAP : public Structure
 {
 public:
-	CHAP() : Structure(constants::CHAP, "structures/chap.sprite", StructureClass::LifeSupport, StructureID::SID_CHAP)
+	CHAP() : Structure(constants::CHAP, "structures/chap.sprite", StructureClass::LifeSupport, StructureTypeID::SID_CHAP)
 	{
 		maxAge(600);
 		turnsToBuild(5);

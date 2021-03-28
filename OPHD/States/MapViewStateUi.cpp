@@ -137,7 +137,7 @@ void MapViewState::initUi()
 	mStructures.selectionChanged().connect(this, &MapViewState::structuresSelectionChanged);
 
 	// Initial Structures
-	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
+	mStructures.addItem(constants::SEED_LANDER, 0, StructureTypeID::SID_SEED_LANDER);
 
 
 	// tooltip control sizes
@@ -310,48 +310,48 @@ void MapViewState::populateStructureMenu()
 	{
 		if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 		{
-			mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
+			mStructures.addItem(constants::SEED_LANDER, 0, StructureTypeID::SID_SEED_LANDER);
 		}
 	}
 	else if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
 	{
-		mStructures.addItem(constants::AGRIDOME, 5, StructureID::SID_AGRIDOME);
-		mStructures.addItem(constants::CHAP, 3, StructureID::SID_CHAP);
-		mStructures.addItem(constants::FUSION_REACTOR, 21, StructureID::SID_FUSION_REACTOR);
-		mStructures.addItem(constants::HOT_LABORATORY, 18, StructureID::SID_HOT_LABORATORY);
-		mStructures.addItem(constants::ROBOT_COMMAND, 14, StructureID::SID_ROBOT_COMMAND);
-		mStructures.addItem(constants::COMM_TOWER, 22, StructureID::SID_COMM_TOWER);
-		mStructures.addItem(constants::RECYCLING, 16, StructureID::SID_RECYCLING);
-		mStructures.addItem(constants::ROAD, 24, StructureID::SID_ROAD);
-		mStructures.addItem(constants::SURFACE_POLICE, 23, StructureID::SID_SURFACE_POLICE);
-		mStructures.addItem(constants::SMELTER, 4, StructureID::SID_SMELTER);
-		mStructures.addItem(constants::SOLAR_PANEL1, 33, StructureID::SID_SOLAR_PANEL1);
-		mStructures.addItem(constants::SOLAR_PLANT, 10, StructureID::SID_SOLAR_PLANT);
-		mStructures.addItem(constants::STORAGE_TANKS, 8, StructureID::SID_STORAGE_TANKS);
-		mStructures.addItem(constants::SURFACE_FACTORY, 11, StructureID::SID_SURFACE_FACTORY);
-		mStructures.addItem(constants::WAREHOUSE, 9, StructureID::SID_WAREHOUSE);
+		mStructures.addItem(constants::AGRIDOME, 5, StructureTypeID::SID_AGRIDOME);
+		mStructures.addItem(constants::CHAP, 3, StructureTypeID::SID_CHAP);
+		mStructures.addItem(constants::FUSION_REACTOR, 21, StructureTypeID::SID_FUSION_REACTOR);
+		mStructures.addItem(constants::HOT_LABORATORY, 18, StructureTypeID::SID_HOT_LABORATORY);
+		mStructures.addItem(constants::ROBOT_COMMAND, 14, StructureTypeID::SID_ROBOT_COMMAND);
+		mStructures.addItem(constants::COMM_TOWER, 22, StructureTypeID::SID_COMM_TOWER);
+		mStructures.addItem(constants::RECYCLING, 16, StructureTypeID::SID_RECYCLING);
+		mStructures.addItem(constants::ROAD, 24, StructureTypeID::SID_ROAD);
+		mStructures.addItem(constants::SURFACE_POLICE, 23, StructureTypeID::SID_SURFACE_POLICE);
+		mStructures.addItem(constants::SMELTER, 4, StructureTypeID::SID_SMELTER);
+		mStructures.addItem(constants::SOLAR_PANEL1, 33, StructureTypeID::SID_SOLAR_PANEL1);
+		mStructures.addItem(constants::SOLAR_PLANT, 10, StructureTypeID::SID_SOLAR_PLANT);
+		mStructures.addItem(constants::STORAGE_TANKS, 8, StructureTypeID::SID_STORAGE_TANKS);
+		mStructures.addItem(constants::SURFACE_FACTORY, 11, StructureTypeID::SID_SURFACE_FACTORY);
+		mStructures.addItem(constants::WAREHOUSE, 9, StructureTypeID::SID_WAREHOUSE);
 
 		mConnections.addItem(constants::AG_TUBE_INTERSECTION, 110, ConnectorDir::CONNECTOR_INTERSECTION);
 		mConnections.addItem(constants::AG_TUBE_RIGHT, 112, ConnectorDir::CONNECTOR_RIGHT);
 		mConnections.addItem(constants::AG_TUBE_LEFT, 111, ConnectorDir::CONNECTOR_LEFT);
 
 		// Special case code, not thrilled with this
-		if (mLandersColonist > 0) { mStructures.addItem(constants::COLONIST_LANDER, 2, StructureID::SID_COLONIST_LANDER); }
-		if (mLandersCargo > 0) { mStructures.addItem(constants::CARGO_LANDER, 1, StructureID::SID_CARGO_LANDER); }
+		if (mLandersColonist > 0) { mStructures.addItem(constants::COLONIST_LANDER, 2, StructureTypeID::SID_COLONIST_LANDER); }
+		if (mLandersCargo > 0) { mStructures.addItem(constants::CARGO_LANDER, 1, StructureTypeID::SID_CARGO_LANDER); }
 	}
 	else
 	{
-		mStructures.addItem(constants::LABORATORY, 58, StructureID::SID_LABORATORY);
-		mStructures.addItem(constants::PARK, 75, StructureID::SID_PARK);
-		mStructures.addItem(constants::UNDERGROUND_POLICE, 61, StructureID::SID_UNDERGROUND_POLICE);
-		mStructures.addItem(constants::RECREATION_CENTER, 73, StructureID::SID_RECREATION_CENTER);
-		mStructures.addItem(constants::RESIDENCE, 55, StructureID::SID_RESIDENCE);
-		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69, StructureID::SID_UNDERGROUND_FACTORY);
-		mStructures.addItem(constants::MEDICAL_CENTER, 62, StructureID::SID_MEDICAL_CENTER);
-		mStructures.addItem(constants::NURSERY, 77, StructureID::SID_NURSERY);
-		mStructures.addItem(constants::COMMERCIAL, 66, StructureID::SID_COMMERCIAL);
-		mStructures.addItem(constants::RED_LIGHT_DISTRICT, 76, StructureID::SID_RED_LIGHT_DISTRICT);
-		mStructures.addItem(constants::UNIVERSITY, 63, StructureID::SID_UNIVERSITY);
+		mStructures.addItem(constants::LABORATORY, 58, StructureTypeID::SID_LABORATORY);
+		mStructures.addItem(constants::PARK, 75, StructureTypeID::SID_PARK);
+		mStructures.addItem(constants::UNDERGROUND_POLICE, 61, StructureTypeID::SID_UNDERGROUND_POLICE);
+		mStructures.addItem(constants::RECREATION_CENTER, 73, StructureTypeID::SID_RECREATION_CENTER);
+		mStructures.addItem(constants::RESIDENCE, 55, StructureTypeID::SID_RESIDENCE);
+		mStructures.addItem(constants::UNDERGROUND_FACTORY, 69, StructureTypeID::SID_UNDERGROUND_FACTORY);
+		mStructures.addItem(constants::MEDICAL_CENTER, 62, StructureTypeID::SID_MEDICAL_CENTER);
+		mStructures.addItem(constants::NURSERY, 77, StructureTypeID::SID_NURSERY);
+		mStructures.addItem(constants::COMMERCIAL, 66, StructureTypeID::SID_COMMERCIAL);
+		mStructures.addItem(constants::RED_LIGHT_DISTRICT, 76, StructureTypeID::SID_RED_LIGHT_DISTRICT);
+		mStructures.addItem(constants::UNIVERSITY, 63, StructureTypeID::SID_UNIVERSITY);
 
 		mConnections.addItem(constants::UG_TUBE_INTERSECTION, 113, ConnectorDir::CONNECTOR_INTERSECTION);
 		mConnections.addItem(constants::UG_TUBE_RIGHT, 115, ConnectorDir::CONNECTOR_RIGHT);
@@ -477,12 +477,12 @@ void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _ite
 	// Check availability
 	if (!_item->available)
 	{
-		resourceShortageMessage(mResourcesCount, static_cast<StructureID>(_item->meta));
+		resourceShortageMessage(mResourcesCount, static_cast<StructureTypeID>(_item->meta));
 		mStructures.clearSelection();
 		return;
 	}
 
-	setStructureID(static_cast<StructureID>(_item->meta), InsertMode::Structure);
+	setStructureID(static_cast<StructureTypeID>(_item->meta), InsertMode::Structure);
 }
 
 
@@ -494,7 +494,7 @@ void MapViewState::connectionsSelectionChanged(const IconGrid::IconGridItem* /*_
 	mRobots.clearSelection();
 	mStructures.clearSelection();
 
-	setStructureID(StructureID::SID_TUBE, InsertMode::Tube);
+	setStructureID(StructureTypeID::SID_TUBE, InsertMode::Tube);
 }
 
 
@@ -653,9 +653,9 @@ void MapViewState::btnTurnsClicked()
  */
 void MapViewState::updateStructuresAvailability()
 {
-	for (int sid = 1; sid < StructureID::SID_COUNT; ++sid)
+	for (int sid = 1; sid < StructureTypeID::SID_COUNT; ++sid)
 	{
-		const StructureID id = static_cast<StructureID>(sid);
+		const StructureTypeID id = static_cast<StructureTypeID>(sid);
 		mStructures.itemAvailable(StructureName(id), StructureCatalogue::canBuild(mResourcesCount, id));
 	}
 }

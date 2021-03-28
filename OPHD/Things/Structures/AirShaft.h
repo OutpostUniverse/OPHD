@@ -9,7 +9,7 @@ public:
 	AirShaft() : Structure(constants::AIR_SHAFT, "structures/air_shaft.sprite",
 		constants::STRUCTURE_STATE_OPERATIONAL,
 		StructureClass::Tube,
-		StructureID::SID_AIR_SHAFT)
+		StructureTypeID::SID_AIR_SHAFT)
 	{
 		connectorDirection(ConnectorDir::CONNECTOR_VERTICAL);
 
