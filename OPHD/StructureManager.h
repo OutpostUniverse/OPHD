@@ -1,6 +1,5 @@
 #pragma once
 
-#include "StructureComponent.h"
 #include "Things/Structures/Structure.h"
 
 
@@ -13,6 +12,31 @@ namespace NAS2D {
 class Tile;
 class PopulationPool;
 struct StorableResources;
+
+class StructureComponent;
+typedef int ComponentTypeID; // TODO: replace by enum class?
+
+/**
+ * Key type for identifying a specific structure instance.
+ * The key for any given structure is guaranteed to remain unchanged for the lifetime of the structure.
+ * The key for any given structure is guaranteed to be unique during the lifetime of the structure.
+ *
+ * Every structure has a Structure instance. The Structure pointer is used as key to allow O(1) access
+ * to the Structure instance. This is an internal detail and should not be relied upon by code handling the key.
+ */
+class SKey
+{
+private:
+	Structure* mStructure;
+public:
+	SKey(Structure* structure) : mStructure(structure) {}
+
+	/** Comparison operators to allow using this type in ordered containers such as maps and sets. */
+	bool operator<(const SKey& rhs) const { return mStructure < rhs.mStructure; }
+
+	/** Do not call this function directly. It is intended only for GetComponent/TryGetComponent. */
+	Structure* getInternal() { return mStructure; }
+};
 
 
 /**
@@ -69,6 +93,8 @@ public:
 		{
 			throw std::runtime_error("Structure::Attach() was called on a Structure that already had the component!");
 		}
+#else
+		UNUSED(success);
 #endif
 	}
 
@@ -92,16 +118,6 @@ public:
 	}
 
 	/**
-	 * Return a reference to the Structure type belonging to a structure.
-	 * This allows writing code that's agnostic to the SKey type.
-	 */
-	template<>
-	Structure& get<Structure>(SKey s)
-	{
-		return *s.getInternal();
-	}
-
-	/**
 	 * Return a pointer to the given StructureComponent type belonging
 	 * to a structure, if it has the corresponding component type.
 	 * Otherwise return nullptr.
@@ -112,18 +128,8 @@ public:
 		auto& table = mComponents[ComponentTy::componentTypeID];
 		auto it = table.find(s);
 		if (it != table.end())
-			return reinterpret_cast<ComponentTy*>(it->second);
+			return static_cast<ComponentTy*>(it->second);
 		return nullptr;
-	}
-
-	/**
-	 * Return a pointer to the Structure type belonging to a structure.
-	 * This allows writing code that's agnostic to the SKey type.
-	 */
-	template<>
-	Structure* tryGet<Structure>(SKey s)
-	{
-		return s.getInternal();
 	}
 
 private:
@@ -144,8 +150,29 @@ private:
 	 * Only keys to structures that actually have a given StructureComponent type
 	 * are present in the respective sub-tables.
 	 */
-	std::map<StructureComponent::ComponentTypeID, std::map<SKey, StructureComponent*>> mComponents;
+	std::map<ComponentTypeID, std::map<SKey, StructureComponent*>> mComponents;
 
 	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */
 	int mTotalEnergyUsed = 0;
 };
+
+/**
+ * Return a reference to the Structure type belonging to a structure.
+ * This allows writing code that's agnostic to whether Structure is a component or not.
+ */
+template<>
+inline Structure& StructureManager::get<Structure>(SKey s)
+{
+	return *s.getInternal();
+}
+
+/**
+ * Return a pointer to the Structure type belonging to a structure.
+ * This allows writing code that's agnostic to whether Structure is a component or not.
+ */
+template<>
+inline Structure* StructureManager::tryGet<Structure>(SKey s)
+{
+	return s.getInternal();
+}
+

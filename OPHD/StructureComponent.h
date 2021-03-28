@@ -1,33 +1,7 @@
 #pragma once
 
+#include "StructureManager.h"
 #include <NAS2D/Utility.h>
-
-class Structure;
-class StructureManager;
-class StructureComponent;
-
-
-/**
- * Key type for identifying a specific structure instance.
- * The key for any given structure is guaranteed to remain unchanged for the lifetime of the structure.
- * The key for any given structure is guaranteed to be unique during the lifetime of the structure.
- *
- * Every structure has a Structure instance. The Structure pointer is used as key to allow O(1) access
- * to the Structure instance. This is an internal detail and should not be relied upon by code handling the key.
- */
-class SKey
-{
-private:
-	Structure* mStructure;
-public:
-	SKey(Structure* structure) : mStructure(structure) {}
-
-	/** Comparison operators to allow using this type in ordered containers such as maps and sets. */
-	bool operator<(const SKey& rhs) const { return mStructure < rhs.mStructure; }
-
-	/** Do not call this function directly. It is intended only for GetComponent/TryGetComponent. */
-	Structure* getInternal() { return mStructure; }
-};
 
 
 /**
@@ -86,9 +60,6 @@ inline Structure* TryGetComponent<Structure>(SKey s)
  */
 class StructureComponent
 {
-public:
-	typedef int ComponentTypeID; // TODO: replace by enum class.
-
 private:
 	SKey mKey; /**< Key of the structure owning this component. */
 
