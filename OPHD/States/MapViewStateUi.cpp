@@ -22,6 +22,7 @@
 
 
 using namespace constants;
+using namespace NAS2D;
 
 
 static void setOverlay(Button& button, TileList& tileList, Tile::Overlay overlay)
@@ -139,7 +140,6 @@ void MapViewState::initUi()
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
 
-
 	// tooltip control sizes
 	constexpr auto hudHeight = constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2;
 	mTooltipResourceBreakdown.size({ 265, hudHeight });
@@ -195,6 +195,11 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mMoveUpIconRect = {mMoveDownIconRect.x, mMoveDownIconRect.y - navIconSpacing, 32, 32};
 	mMoveNorthIconRect = {mMoveUpIconRect.x - navIconSpacing, mMoveUpIconRect.y + 8, 32, 16};
 	mMoveWestIconRect = {mMoveUpIconRect.x - 2 * navIconSpacing, mMoveUpIconRect.y + 8, 32, 16};
+
+	// Notification Area
+	auto& renderer = Utility<Renderer>::get();
+	mNotificationArea.size({ 48, mMoveUpIconRect.y - 22 - constants::MARGIN_TIGHT });
+	mNotificationArea.position({ renderer.size().x - mNotificationArea.size().x, 22 });
 
 	// Mini Map
 	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, mBottomUiRect.y + constants::MARGIN, 300, 150};
