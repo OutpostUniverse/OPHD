@@ -39,7 +39,6 @@ public:
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int, int);
-	void onMouseMove(int, int, int, int);
 
 private:
 	const NAS2D::Image& mIcons;
