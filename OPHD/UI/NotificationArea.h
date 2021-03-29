@@ -5,8 +5,7 @@
 
 #include <vector>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/Resource/Image.h>
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Resources/Image.h>
 
 
 class NotificationArea : public Control
@@ -24,11 +23,8 @@ public:
 	{
 		std::string message{ "" };
 		NotificationType type{ NotificationType::Information };
+		NAS2D::Point<int> position{ 0, 0 };
 	};
-
-	const int Width = 48;
-	
-	using NotificationCallback = NAS2D::Signal<int>;
 
 public:
 	NotificationArea();
@@ -36,28 +32,15 @@ public:
 
 	void push(const std::string& message, NotificationType type);
 
-	void clear()
-	{
-		mNotificationList.clear();
-		mNotificationRectList.clear();
-	}
+	void clear() { mNotificationList.clear(); }
 
 	void update() override;
 
-	NotificationCallback& notificationClicked() { return mNotificationClicked; }
-
 protected:
-	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
-
-	void positionChanged(int dX, int dY);
-	void onSizeChanged();
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int, int);
+	void onMouseMove(int, int, int, int);
 
 private:
-	void updateRectListPositions();
-
 	const NAS2D::Image& mIcons;
 	std::vector<Notification> mNotificationList;
-	std::vector<NAS2D::Rectangle<int>> mNotificationRectList;
-
-	NotificationCallback mNotificationClicked;
 };
