@@ -15,6 +15,7 @@
 #include "../Things/Structures/Structure.h"
 
 #include "../UI/Gui.h"
+#include "../UI/NotificationArea.h"
 #include "../UI/UI.h"
 
 #include <NAS2D/Signal.h>
@@ -287,6 +288,7 @@ private:
 	GameOptionsDialog mGameOptionsDialog;
 	MajorEventAnnouncement mAnnouncement;
 	MineOperationsWindow mMineOperationsWindow;
+	NotificationArea mNotificationArea;
 	PopulationPanel mPopulationPanel;
 	ResourceBreakdownPanel mResourceBreakdownPanel;
 	RobotInspector mRobotInspector;
