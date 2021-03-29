@@ -497,6 +497,9 @@ void MapViewState::nextTurn()
 	renderer.drawImage(*imageProcessingTurn, renderer.center() - imageProcessingTurn->size() / 2);
 	renderer.update();
 
+	mNotificationArea.clear();
+	mNotificationArea.push("Test notification message", NotificationArea::NotificationType::Information);
+
 	clearMode();
 
 	mPopulationPool.clear();
