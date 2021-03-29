@@ -498,7 +498,9 @@ void MapViewState::nextTurn()
 	renderer.update();
 
 	mNotificationArea.clear();
-	mNotificationArea.push("Test notification message", NotificationArea::NotificationType::Information);
+	mNotificationArea.push("Test notification message: Information", NotificationArea::NotificationType::Information);
+	mNotificationArea.push("Test notification message: Critical/Error", NotificationArea::NotificationType::Critical);
+	mNotificationArea.push("Test notification message: Warning", NotificationArea::NotificationType::Warning);
 
 	clearMode();
 
