@@ -393,6 +393,8 @@ void MapViewState::drawUI()
 	drawNavInfo();
 	drawRobotInfo();
 
+	mNotificationArea.update();
+
 	// Buttons
 	mBtnTurns.update();
 	mBtnToggleHeightmap.update();
