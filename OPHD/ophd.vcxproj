@@ -309,6 +309,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClCompile Include="UI\IconGrid.cpp" />
     <ClCompile Include="UI\MajorEventAnnouncement.cpp" />
     <ClCompile Include="UI\MineOperationsWindow.cpp" />
+    <ClCompile Include="UI\NotificationArea.cpp" />
     <ClCompile Include="UI\PopulationPanel.cpp" />
     <ClCompile Include="UI\ProductListBox.cpp" />
     <ClCompile Include="UI\Reports\FactoryReport.cpp" />
@@ -431,6 +432,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClInclude Include="UI\IconGrid.h" />
     <ClInclude Include="UI\MajorEventAnnouncement.h" />
     <ClInclude Include="UI\MineOperationsWindow.h" />
+    <ClInclude Include="UI\NotificationArea.h" />
     <ClInclude Include="UI\PopulationPanel.h" />
     <ClInclude Include="UI\ProductListBox.h" />
     <ClInclude Include="UI\Reports\FactoryReport.h" />
