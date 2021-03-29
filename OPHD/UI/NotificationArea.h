@@ -24,6 +24,7 @@ public:
 		std::string message{ "" };
 		NotificationType type{ NotificationType::Information };
 		NAS2D::Point<int> position{ 0, 0 };
+		NAS2D::Vector<int> size{ 32, 32 };
 	};
 
 public:
