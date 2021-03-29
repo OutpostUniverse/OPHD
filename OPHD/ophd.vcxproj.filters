@@ -300,6 +300,9 @@
     <ClCompile Include="XmlSerializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UI\NotificationArea.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -670,6 +673,9 @@
     </ClInclude>
     <ClInclude Include="XmlSerializer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\NotificationArea.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
