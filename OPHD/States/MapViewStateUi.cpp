@@ -273,7 +273,6 @@ void MapViewState::unhideUi()
 
 	mGameOverDialog.enabled(true);
 	mGameOptionsDialog.enabled(true);
-
 }
 
 
