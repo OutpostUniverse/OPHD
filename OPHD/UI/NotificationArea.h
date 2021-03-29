@@ -2,8 +2,11 @@
 
 #include "Core/Control.h"
 
+
 #include <vector>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Resources/Image.h>
+
 
 class NotificationArea : public Control
 {
@@ -18,8 +21,8 @@ public:
 
 	struct Notification
 	{
-		std::string message;
-		NotificationType type;
+		std::string message{ "" };
+		NotificationType type{ NotificationType::Information };
 		NAS2D::Point<int> position{ 0, 0 };
 	};
 
@@ -27,7 +30,7 @@ public:
 	NotificationArea();
 	~NotificationArea() override;
 
-	void push(Notification);
+	void push(const std::string& message, NotificationType type);
 
 	void clear() { mNotificationList.clear(); }
 
@@ -38,5 +41,6 @@ protected:
 	void onMouseMove(int, int, int, int);
 
 private:
+	const NAS2D::Image& mIcons;
 	std::vector<Notification> mNotificationList;
 };
