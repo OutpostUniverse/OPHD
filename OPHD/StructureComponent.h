@@ -16,16 +16,6 @@ inline T& getComponent(SKey s)
 	return NAS2D::Utility<StructureManager>::get().get<T>(s);
 }
 
-/**
- * Return a reference to the Structure type belonging to a structure.
- * This allows writing code that's agnostic to the SKey type.
- */
-template<>
-inline Structure& getComponent<Structure>(SKey s)
-{
-	return *s.getInternal();
-}
-
 
 /**
  * Return a pointer to the given StructureComponent type belonging
@@ -36,16 +26,6 @@ template<typename T>
 inline T* tryGetComponent(SKey s)
 {
 	return NAS2D::Utility<StructureManager>::get().tryGet<T>(s);
-}
-
-/**
- * Return a pointer to the Structure type belonging to a structure.
- * This allows writing code that's agnostic to the SKey type.
- */
-template<>
-inline Structure* tryGetComponent<Structure>(SKey s)
-{
-	return s.getInternal();
 }
 
 
