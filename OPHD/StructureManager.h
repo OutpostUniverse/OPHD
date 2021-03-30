@@ -88,14 +88,10 @@ public:
 	{
 		auto& table = mComponents[ComponentTy::componentTypeID];
 		bool success = table.insert(std::make_pair(s, static_cast<StructureComponent*>(component))).second;
-#if defined(_DEBUG)
 		if (!success)
 		{
 			throw std::runtime_error("Structure::Attach() was called on a Structure that already had the component!");
 		}
-#else
-		UNUSED(success);
-#endif
 	}
 
 	/**
@@ -108,12 +104,10 @@ public:
 	ComponentTy& get(SKey s)
 	{
 		ComponentTy* component = tryGet<ComponentTy>(s);
-#if defined(_DEBUG)
 		if (!component)
 		{
 			throw std::runtime_error("StructureManager::get() was called on a Structure without the requested component!");
 		}
-#endif
 		return *component;
 	}
 
