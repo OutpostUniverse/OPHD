@@ -27,15 +27,13 @@ typedef int ComponentTypeID; // TODO: replace by enum class?
 class SKey
 {
 private:
+	friend class StructureManager;
 	Structure* mStructure;
 public:
 	SKey(Structure* structure) : mStructure(structure) {}
 
 	/** Comparison operators to allow using this type in ordered containers such as maps and sets. */
 	bool operator<(const SKey& rhs) const { return mStructure < rhs.mStructure; }
-
-	/** Do not call this function directly. It is intended only for GetComponent/TryGetComponent. */
-	Structure* getInternal() { return mStructure; }
 };
 
 
@@ -157,7 +155,7 @@ private:
 template<>
 inline Structure& StructureManager::get<Structure>(SKey s)
 {
-	return *s.getInternal();
+	return *s.mStructure;
 }
 
 /**
@@ -167,6 +165,5 @@ inline Structure& StructureManager::get<Structure>(SKey s)
 template<>
 inline Structure* StructureManager::tryGet<Structure>(SKey s)
 {
-	return s.getInternal();
+	return s.mStructure;
 }
-
