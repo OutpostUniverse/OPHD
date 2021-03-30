@@ -11,7 +11,7 @@
  * does not have it.
  */
 template<typename T>
-inline T& GetComponent(SKey s)
+inline T& getComponent(SKey s)
 {
 	return NAS2D::Utility<StructureManager>::get().get<T>(s);
 }
@@ -21,7 +21,7 @@ inline T& GetComponent(SKey s)
  * This allows writing code that's agnostic to the SKey type.
  */
 template<>
-inline Structure& GetComponent<Structure>(SKey s)
+inline Structure& getComponent<Structure>(SKey s)
 {
 	return *s.getInternal();
 }
@@ -33,7 +33,7 @@ inline Structure& GetComponent<Structure>(SKey s)
  * Otherwise return nullptr.
  */
 template<typename T>
-inline T* TryGetComponent(SKey s)
+inline T* tryGetComponent(SKey s)
 {
 	return NAS2D::Utility<StructureManager>::get().tryGet<T>(s);
 }
@@ -43,7 +43,7 @@ inline T* TryGetComponent(SKey s)
  * This allows writing code that's agnostic to the SKey type.
  */
 template<>
-inline Structure* TryGetComponent<Structure>(SKey s)
+inline Structure* tryGetComponent<Structure>(SKey s)
 {
 	return s.getInternal();
 }
@@ -75,15 +75,15 @@ public:
 	 * Obtain a reference to the Structure instance belonging to this structure.
 	 * It is guaranteed to exist.
 	 */
-	Structure& structure() const { return GetComponent<Structure>(mKey); }
+	Structure& structure() const { return getComponent<Structure>(mKey); }
 
 	/**
 	 * Convenience function to get a different component type from the same structure.
 	 */
-	template<typename T> T& Get() { return GetComponent<T>(mKey); }
+	template<typename T> T& get() { return getComponent<T>(mKey); }
 
 	/**
 	 * Convenience function to get a different component type from the same structure.
 	 */
-	template<typename T> T* TryGet() { return TryGetComponent<T>(mKey); }
+	template<typename T> T* tryGet() { return tryGetComponent<T>(mKey); }
 };
