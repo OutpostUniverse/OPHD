@@ -247,9 +247,9 @@ void StructureManager::removeStructure(Structure* structure)
 {
 	// Destroy all components belonging to the structure.
 	SKey s = SKey(structure);
-	for (auto& [componentTypeID, table] : mComponents)
+	for (auto& kv : mComponents)
 	{
-		UNUSED(componentTypeID);
+		auto& table = kv.second;
 		auto cit = table.find(s);
 		if (cit != table.end())
 		{

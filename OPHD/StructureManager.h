@@ -27,15 +27,13 @@ typedef int ComponentTypeID; // TODO: replace by enum class?
 class SKey
 {
 private:
+	friend class StructureManager;
 	Structure* mStructure;
 public:
 	SKey(Structure* structure) : mStructure(structure) {}
 
 	/** Comparison operators to allow using this type in ordered containers such as maps and sets. */
 	bool operator<(const SKey& rhs) const { return mStructure < rhs.mStructure; }
-
-	/** Do not call this function directly. It is intended only for GetComponent/TryGetComponent. */
-	Structure* getInternal() { return mStructure; }
 };
 
 
@@ -88,14 +86,10 @@ public:
 	{
 		auto& table = mComponents[ComponentTy::componentTypeID];
 		bool success = table.insert(std::make_pair(s, static_cast<StructureComponent*>(component))).second;
-#if defined(_DEBUG)
 		if (!success)
 		{
 			throw std::runtime_error("Structure::Attach() was called on a Structure that already had the component!");
 		}
-#else
-		UNUSED(success);
-#endif
 	}
 
 	/**
@@ -108,12 +102,10 @@ public:
 	ComponentTy& get(SKey s)
 	{
 		ComponentTy* component = tryGet<ComponentTy>(s);
-#if defined(_DEBUG)
 		if (!component)
 		{
 			throw std::runtime_error("StructureManager::get() was called on a Structure without the requested component!");
 		}
-#endif
 		return *component;
 	}
 
@@ -163,7 +155,7 @@ private:
 template<>
 inline Structure& StructureManager::get<Structure>(SKey s)
 {
-	return *s.getInternal();
+	return *s.mStructure;
 }
 
 /**
@@ -173,6 +165,5 @@ inline Structure& StructureManager::get<Structure>(SKey s)
 template<>
 inline Structure* StructureManager::tryGet<Structure>(SKey s)
 {
-	return s.getInternal();
+	return s.mStructure;
 }
-
