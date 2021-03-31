@@ -30,6 +30,17 @@ inline T* tryGetComponent(SKey s)
 
 
 /**
+ * Returns a range object that can be used to iterate over all instances of the
+ * given StructureComponent type. It is suitable for use in range-based for loops.
+ */
+template<typename ComponentTy>
+const ComponentRange<ComponentTy> enumerateComponent()
+{
+	return NAS2D::Utility<StructureManager>::get().enumerateComponent<ComponentTy>();
+}
+
+
+/**
  * Common base class for all structure components.
  * Each structure is associated with a set of components that define the functional properties of the structure.
  * A structure either has a given component or not - it can never have multiple instances of the same component type.

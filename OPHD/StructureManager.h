@@ -38,6 +38,38 @@ public:
 
 
 /**
+ * Object suitable for range-based for loops.
+ * This class allows code to iterate over instances of a given component
+ * without exposing the internal component storage container type.
+ */
+template<typename ComponentTy>
+class ComponentRange
+{
+private:
+	class Iterator
+	{
+	private:
+		std::map<SKey, StructureComponent*>::iterator mIt;
+	public:
+		Iterator(std::map<SKey, StructureComponent*>::iterator it) : mIt(it) {}
+		bool operator!= (const Iterator& rhs) const { return mIt != rhs.mIt; }
+		Iterator& operator++() { ++mIt; return *this; }
+		operator ComponentTy* () const { return static_cast<ComponentTy*>(mIt->second); }
+		ComponentTy* operator->() const { return static_cast<ComponentTy*>(mIt->second); }
+	};
+
+	std::map<SKey, StructureComponent*>& mComponents;
+
+public:
+	ComponentRange(std::map<SKey, StructureComponent*>& components) : mComponents(components) {}
+
+	Iterator begin() const { return Iterator(mComponents.begin()); }
+	Iterator end() const { return Iterator(mComponents.end()); }
+	size_t size() const { return mComponents.size(); }
+};
+
+
+/**
  * Handles structure updating and resource management for structures.
  *
  * Keeps track of which structures are operational, idle and disabled.
@@ -122,6 +154,16 @@ public:
 		if (it != table.end())
 			return static_cast<ComponentTy*>(it->second);
 		return nullptr;
+	}
+
+	/**
+	 * Returns a range object that can be used to iterate over all instances of the
+	 * given StructureComponent type. It is suitable for use in range-based for loops.
+	 */
+	template<typename ComponentTy>
+	const ComponentRange<ComponentTy> enumerateComponent()
+	{
+		return ComponentRange<ComponentTy>(mComponents[ComponentTy::componentTypeID]);
 	}
 
 private:
