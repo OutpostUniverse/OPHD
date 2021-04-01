@@ -140,9 +140,9 @@ public:
 			std::map<SKey, StructureComponent*>::iterator mIt;
 		public:
 			Iterator(std::map<SKey, StructureComponent*>::iterator it) : mIt(it) {}
-			bool operator!= (const Iterator& rhs) const { return mIt != rhs.mIt; }
+			bool operator!=(const Iterator& rhs) const { return mIt != rhs.mIt; }
 			Iterator& operator++() { ++mIt; return *this; }
-			operator ComponentTy* () const { return static_cast<ComponentTy*>(mIt->second); }
+			operator ComponentTy*() const { return static_cast<ComponentTy*>(mIt->second); }
 			ComponentTy* operator->() const { return static_cast<ComponentTy*>(mIt->second); }
 		};
 
