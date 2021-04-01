@@ -1,44 +1,6 @@
 #pragma once
 
 #include "StructureManager.h"
-#include <NAS2D/Utility.h>
-
-
-/**
- * Return a reference to the given StructureComponent type belonging to
- * a structure. The structure is assumed to have the given component,
- * and it is an error to try to get a component from a structure that
- * does not have it.
- */
-template<typename T>
-inline T& getComponent(SKey s)
-{
-	return NAS2D::Utility<StructureManager>::get().get<T>(s);
-}
-
-
-/**
- * Return a pointer to the given StructureComponent type belonging
- * to a structure, if it has the corresponding component type.
- * Otherwise return nullptr.
- */
-template<typename T>
-inline T* tryGetComponent(SKey s)
-{
-	return NAS2D::Utility<StructureManager>::get().tryGet<T>(s);
-}
-
-
-/**
- * Returns a range object that can be used to iterate over all instances of the
- * given StructureComponent type. It is suitable for use in range-based for loops.
- */
-template<typename ComponentTy>
-const ComponentRange<ComponentTy> enumerateComponent()
-{
-	return NAS2D::Utility<StructureManager>::get().enumerateComponent<ComponentTy>();
-}
-
 
 /**
  * Common base class for all structure components.

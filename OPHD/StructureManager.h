@@ -1,5 +1,6 @@
 #pragma once
 
+#include <NAS2D/Utility.h>
 #include "Things/Structures/Structure.h"
 
 
@@ -34,38 +35,6 @@ public:
 
 	/** Comparison operators to allow using this type in ordered containers such as maps and sets. */
 	bool operator<(const SKey& rhs) const { return mStructure < rhs.mStructure; }
-};
-
-
-/**
- * Object suitable for range-based for loops.
- * This class allows code to iterate over instances of a given component
- * without exposing the internal component storage container type.
- */
-template<typename ComponentTy>
-class ComponentRange
-{
-private:
-	class Iterator
-	{
-	private:
-		std::map<SKey, StructureComponent*>::iterator mIt;
-	public:
-		Iterator(std::map<SKey, StructureComponent*>::iterator it) : mIt(it) {}
-		bool operator!= (const Iterator& rhs) const { return mIt != rhs.mIt; }
-		Iterator& operator++() { ++mIt; return *this; }
-		operator ComponentTy* () const { return static_cast<ComponentTy*>(mIt->second); }
-		ComponentTy* operator->() const { return static_cast<ComponentTy*>(mIt->second); }
-	};
-
-	std::map<SKey, StructureComponent*>& mComponents;
-
-public:
-	ComponentRange(std::map<SKey, StructureComponent*>& components) : mComponents(components) {}
-
-	Iterator begin() const { return Iterator(mComponents.begin()); }
-	Iterator end() const { return Iterator(mComponents.end()); }
-	size_t size() const { return mComponents.size(); }
 };
 
 
@@ -157,6 +126,37 @@ public:
 	}
 
 	/**
+	 * Object suitable for range-based for loops.
+	 * This class allows code to iterate over instances of a given component
+	 * without exposing the internal component storage container type.
+	 */
+	template<typename ComponentTy>
+	class ComponentRange
+	{
+	private:
+		class Iterator
+		{
+		private:
+			std::map<SKey, StructureComponent*>::iterator mIt;
+		public:
+			Iterator(std::map<SKey, StructureComponent*>::iterator it) : mIt(it) {}
+			bool operator!= (const Iterator& rhs) const { return mIt != rhs.mIt; }
+			Iterator& operator++() { ++mIt; return *this; }
+			operator ComponentTy* () const { return static_cast<ComponentTy*>(mIt->second); }
+			ComponentTy* operator->() const { return static_cast<ComponentTy*>(mIt->second); }
+		};
+
+		std::map<SKey, StructureComponent*>& mComponents;
+
+	public:
+		ComponentRange(std::map<SKey, StructureComponent*>& components) : mComponents(components) {}
+
+		Iterator begin() const { return Iterator(mComponents.begin()); }
+		Iterator end() const { return Iterator(mComponents.end()); }
+		size_t size() const { return mComponents.size(); }
+	};
+
+	/**
 	 * Returns a range object that can be used to iterate over all instances of the
 	 * given StructureComponent type. It is suitable for use in range-based for loops.
 	 */
@@ -208,4 +208,40 @@ template<>
 inline Structure* StructureManager::tryGet<Structure>(SKey s)
 {
 	return s.mStructure;
+}
+
+
+/**
+ * Return a reference to the given StructureComponent type belonging to
+ * a structure. The structure is assumed to have the given component,
+ * and it is an error to try to get a component from a structure that
+ * does not have it.
+ */
+template<typename T>
+inline T& getComponent(SKey s)
+{
+	return NAS2D::Utility<StructureManager>::get().get<T>(s);
+}
+
+
+/**
+ * Return a pointer to the given StructureComponent type belonging
+ * to a structure, if it has the corresponding component type.
+ * Otherwise return nullptr.
+ */
+template<typename T>
+inline T* tryGetComponent(SKey s)
+{
+	return NAS2D::Utility<StructureManager>::get().tryGet<T>(s);
+}
+
+
+/**
+ * Returns a range object that can be used to iterate over all instances of the
+ * given StructureComponent type. It is suitable for use in range-based for loops.
+ */
+template<typename ComponentTy>
+const StructureManager::ComponentRange<ComponentTy> enumerateComponent()
+{
+	return NAS2D::Utility<StructureManager>::get().enumerateComponent<ComponentTy>();
 }
