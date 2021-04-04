@@ -18,27 +18,6 @@ class StructureComponent;
 typedef int ComponentTypeID; // TODO: replace by enum class?
 
 /**
- * Key type for identifying a specific structure instance.
- * The key for any given structure is guaranteed to remain unchanged for the lifetime of the structure.
- * The key for any given structure is guaranteed to be unique during the lifetime of the structure.
- *
- * Every structure has a Structure instance. The Structure pointer is used as key to allow O(1) access
- * to the Structure instance. This is an internal detail and should not be relied upon by code handling the key.
- */
-class SKey
-{
-private:
-	friend class StructureManager;
-	Structure* mStructure;
-public:
-	SKey(Structure* structure) : mStructure(structure) {}
-
-	/** Comparison operators to allow using this type in ordered containers such as maps and sets. */
-	bool operator<(const SKey& rhs) const { return mStructure < rhs.mStructure; }
-};
-
-
-/**
  * Handles structure updating and resource management for structures.
  *
  * Keeps track of which structures are operational, idle and disabled.
@@ -83,7 +62,7 @@ public:
 	 * structure with which it is associated is removed.
 	 */
 	template<typename ComponentTy>
-	void attachComponent(SKey s, ComponentTy* component)
+	void attachComponent(Structure* s, ComponentTy* component)
 	{
 		auto& table = mComponents[ComponentTy::componentTypeID];
 		bool success = table.insert(std::make_pair(s, static_cast<StructureComponent*>(component))).second;
@@ -100,7 +79,7 @@ public:
 	 * does not have it.
 	 */
 	template<typename ComponentTy>
-	ComponentTy& get(SKey s)
+	ComponentTy& get(Structure* s)
 	{
 		ComponentTy* component = tryGet<ComponentTy>(s);
 		if (!component)
@@ -116,7 +95,7 @@ public:
 	 * Otherwise return nullptr.
 	 */
 	template<typename ComponentTy>
-	ComponentTy* tryGet(SKey s)
+	ComponentTy* tryGet(Structure* s)
 	{
 		auto& table = mComponents[ComponentTy::componentTypeID];
 		auto it = table.find(s);
@@ -137,19 +116,19 @@ public:
 		class Iterator
 		{
 		private:
-			std::map<SKey, StructureComponent*>::iterator mIt;
+			std::map<Structure*, StructureComponent*>::iterator mIt;
 		public:
-			Iterator(std::map<SKey, StructureComponent*>::iterator it) : mIt(it) {}
+			Iterator(std::map<Structure*, StructureComponent*>::iterator it) : mIt(it) {}
 			bool operator!=(const Iterator& rhs) const { return mIt != rhs.mIt; }
 			Iterator& operator++() { ++mIt; return *this; }
 			operator ComponentTy*() const { return static_cast<ComponentTy*>(mIt->second); }
 			ComponentTy* operator->() const { return static_cast<ComponentTy*>(mIt->second); }
 		};
 
-		std::map<SKey, StructureComponent*>& mComponents;
+		std::map<Structure*, StructureComponent*>& mComponents;
 
 	public:
-		ComponentRange(std::map<SKey, StructureComponent*>& components) : mComponents(components) {}
+		ComponentRange(std::map<Structure*, StructureComponent*>& components) : mComponents(components) {}
 
 		Iterator begin() const { return Iterator(mComponents.begin()); }
 		Iterator end() const { return Iterator(mComponents.end()); }
@@ -181,34 +160,14 @@ private:
 	 * Master table of all StructureComponent instances.
 	 * It is divided into one sub-table per StructureComponent type.
 	 * Each sub-table maps structure keys to a StructureComponent-derived instance.
-	 * Only keys to structures that actually have a given StructureComponent type
+	 * Only structures that actually have a given StructureComponent type
 	 * are present in the respective sub-tables.
 	 */
-	std::map<ComponentTypeID, std::map<SKey, StructureComponent*>> mComponents;
+	std::map<ComponentTypeID, std::map<Structure*, StructureComponent*>> mComponents;
 
 	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */
 	int mTotalEnergyUsed = 0;
 };
-
-/**
- * Return a reference to the Structure type belonging to a structure.
- * This allows writing code that's agnostic to whether Structure is a component or not.
- */
-template<>
-inline Structure& StructureManager::get<Structure>(SKey s)
-{
-	return *s.mStructure;
-}
-
-/**
- * Return a pointer to the Structure type belonging to a structure.
- * This allows writing code that's agnostic to whether Structure is a component or not.
- */
-template<>
-inline Structure* StructureManager::tryGet<Structure>(SKey s)
-{
-	return s.mStructure;
-}
 
 
 /**
@@ -218,7 +177,7 @@ inline Structure* StructureManager::tryGet<Structure>(SKey s)
  * does not have it.
  */
 template<typename T>
-inline T& getComponent(SKey s)
+inline T& getComponent(Structure* s)
 {
 	return NAS2D::Utility<StructureManager>::get().get<T>(s);
 }
@@ -230,7 +189,7 @@ inline T& getComponent(SKey s)
  * Otherwise return nullptr.
  */
 template<typename T>
-inline T* tryGetComponent(SKey s)
+inline T* tryGetComponent(Structure* s)
 {
 	return NAS2D::Utility<StructureManager>::get().tryGet<T>(s);
 }

@@ -246,11 +246,10 @@ void StructureManager::addStructure(Structure* structure, Tile* tile)
 void StructureManager::removeStructure(Structure* structure)
 {
 	// Destroy all components belonging to the structure.
-	SKey s = SKey(structure);
 	for (auto& kv : mComponents)
 	{
 		auto& table = kv.second;
-		auto cit = table.find(s);
+		auto cit = table.find(structure);
 		if (cit != table.end())
 		{
 			delete cit->second;

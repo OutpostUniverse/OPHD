@@ -14,29 +14,27 @@
 class StructureComponent
 {
 private:
-	SKey mKey; /**< Key of the structure owning this component. */
+	Structure* mStructure; /**< The structure owning this component. */
 
 protected:
-	StructureComponent(SKey key) : mKey(key) {}
+	StructureComponent(Structure* structure) : mStructure(structure) {}
 
 public:
 	virtual ~StructureComponent() {}
-
-	SKey key() const { return mKey; }
 
 	/**
 	 * Obtain a reference to the Structure instance belonging to this structure.
 	 * It is guaranteed to exist.
 	 */
-	Structure& structure() const { return getComponent<Structure>(mKey); }
+	Structure& structure() const { return *mStructure; }
 
 	/**
 	 * Convenience function to get a different component type from the same structure.
 	 */
-	template<typename T> T& get() { return getComponent<T>(mKey); }
+	template<typename T> T& get() { return getComponent<T>(mStructure); }
 
 	/**
 	 * Convenience function to get a different component type from the same structure.
 	 */
-	template<typename T> T* tryGet() { return tryGetComponent<T>(mKey); }
+	template<typename T> T* tryGet() { return tryGetComponent<T>(mStructure); }
 };
