@@ -63,7 +63,22 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 {
 	if (button != EventHandler::MouseButton::Left) { return; }
 
-	NAS2D::Point clickPoint{ x, y };
+	const NAS2D::Point clickPoint{ x, y };
+
+	size_t count = 0;
+	for (auto& rect : mNotificationRectList)
+	{
+		if (rect.contains(clickPoint))
+		{
+			// fire off some event with notification here
+			mNotificationList.erase(mNotificationList.begin() + count);
+			mNotificationRectList.erase(mNotificationRectList.begin() + count);
+			updateRectListPositions();
+			return;
+		}
+
+		count++;
+	}
 }
 
 
