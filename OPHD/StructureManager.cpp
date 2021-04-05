@@ -290,6 +290,21 @@ const StructureList& StructureManager::structureList(Structure::StructureClass s
 }
 
 
+std::vector<std::pair<ComponentTypeID, StructureComponent*>> StructureManager::structureComponents(Structure* structure) const
+{
+	std::vector<std::pair<ComponentTypeID, StructureComponent*>> components;
+	for (auto& [type, table] : mComponents)
+	{
+		auto it = table.find(structure);
+		if (it != table.end())
+		{
+			components.push_back(std::make_pair(type, it->second));
+		}
+	}
+	return components;
+}
+
+
 /**
  * Resets the 'connected' flag on all structures in the primary structure list.
  */
