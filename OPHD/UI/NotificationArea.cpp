@@ -26,6 +26,8 @@ static const std::map<NotificationArea::NotificationType, NAS2D::Color> Notifica
 };
 
 
+static constexpr int Offset = constants::MARGIN_TIGHT + 32;
+
 
 NotificationArea::NotificationArea() :
 	mIcons{ imageCache.load("ui/icons.png") }
@@ -49,6 +51,11 @@ NotificationArea::~NotificationArea()
 void NotificationArea::push(const std::string& message, NotificationType type)
 {
 	mNotificationList.emplace_back(Notification{ message, type });
+
+	const int posX = positionX() + (Width / 2) - 16;
+	const int posY = positionY() + size().y - (Offset * static_cast<int>(mNotificationList.size()));
+
+	mNotificationRectList.emplace_back(Rectangle<int>{ posX, posY, 32, 32 });
 }
 
 
@@ -60,6 +67,35 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 }
 
 
+void NotificationArea::positionChanged(int dX, int dY)
+{
+	Control::positionChanged(dX, dY);
+	updateRectListPositions();
+}
+
+
+void NotificationArea::onSizeChanged()
+{
+	Control::onSizeChanged();
+	updateRectListPositions();
+}
+
+
+void NotificationArea::updateRectListPositions()
+{
+	size_t count = 1;
+	for (auto& rect : mNotificationRectList)
+	{
+		const int posX = positionX() + (Width / 2) - 16;
+		const int posY = positionY() + size().y - (Offset * static_cast<int>(count));
+
+		rect.startPoint({ posX, posY });
+
+		count++;
+	}
+}
+
+
 void NotificationArea::update()
 {
 	auto& renderer = Utility<Renderer>::get();
@@ -67,19 +103,16 @@ void NotificationArea::update()
 	renderer.drawBox(rect());
 
 	constexpr Rectangle<float> bgRect{128, 64, 32, 32};
-	constexpr int offset = constants::MARGIN_TIGHT + 32;
-
 	const int posX = positionX() + (Width / 2) - 16;
 
-	int count = 1;
+	size_t count = 0;
 	for (auto& notification : mNotificationList)
 	{
-		auto position = Point<int>{ posX, positionY() + size().y - (offset * count) };
-		renderer.drawSubImage(mIcons, position, bgRect, NotificationIconColor.at(notification.type));
-		renderer.drawSubImage(mIcons, position, NotificationIconRect.at(notification.type), Color::Normal);
+		auto& rect = mNotificationRectList.at(count);
 
-		renderer.drawBox(Rectangle<int>{ position.x, position.y, 32, 32 });
-
+		renderer.drawSubImage(mIcons, rect.startPoint(), bgRect, NotificationIconColor.at(notification.type));
+		renderer.drawSubImage(mIcons, rect.startPoint(), NotificationIconRect.at(notification.type), Color::Normal);
+		
 		count++;
 	}
 }
