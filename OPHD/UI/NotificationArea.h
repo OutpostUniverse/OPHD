@@ -27,6 +27,8 @@ public:
 
 	const int Width = 48;
 
+	using NotificationCallback = NAS2D::Signals::Signal<int>;
+
 public:
 	NotificationArea();
 	~NotificationArea() override;
@@ -41,6 +43,8 @@ public:
 
 	void update() override;
 
+	NotificationCallback& notificationClicked() { return mNotificationClicked; }
+
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
 
@@ -53,4 +57,6 @@ private:
 	const NAS2D::Image& mIcons;
 	std::vector<Notification> mNotificationList;
 	std::vector<NAS2D::Rectangle<int>> mNotificationRectList;
+
+	NotificationCallback mNotificationClicked;
 };
