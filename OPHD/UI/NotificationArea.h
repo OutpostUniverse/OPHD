@@ -33,14 +33,24 @@ public:
 
 	void push(const std::string& message, NotificationType type);
 
-	void clear() { mNotificationList.clear(); }
+	void clear()
+	{
+		mNotificationList.clear();
+		mNotificationRectList.clear();
+	}
 
 	void update() override;
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int, int);
 
+	void positionChanged(int dX, int dY) override;
+	void onSizeChanged() override;
+
 private:
+	void updateRectListPositions();
+
 	const NAS2D::Image& mIcons;
 	std::vector<Notification> mNotificationList;
+	std::vector<NAS2D::Rectangle<int>> mNotificationRectList;
 };
