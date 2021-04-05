@@ -42,7 +42,7 @@ public:
 	void update() override;
 
 protected:
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, int, int);
+	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
 
 	void positionChanged(int dX, int dY) override;
 	void onSizeChanged() override;
