@@ -25,6 +25,8 @@ public:
 		NotificationType type{ NotificationType::Information };
 	};
 
+	const int Width = 48;
+
 public:
 	NotificationArea();
 	~NotificationArea() override;
