@@ -33,6 +33,8 @@ NotificationArea::NotificationArea() :
 	auto& eventhandler = Utility<EventHandler>::get();
 
 	eventhandler.mouseButtonDown().connect(this, &NotificationArea::onMouseDown);
+
+	width(Width);
 }
 
 
@@ -67,7 +69,7 @@ void NotificationArea::update()
 	constexpr Rectangle<float> bgRect{128, 64, 32, 32};
 	constexpr int offset = constants::MARGIN_TIGHT + 32;
 
-	const int posX = positionX() + (size().x / 2) - 16;
+	const int posX = positionX() + (Width / 2) - 16;
 
 	int count = 1;
 	for (auto& notification : mNotificationList)
@@ -75,6 +77,8 @@ void NotificationArea::update()
 		auto position = Point<int>{ posX, positionY() + size().y - (offset * count) };
 		renderer.drawSubImage(mIcons, position, bgRect, NotificationIconColor.at(notification.type));
 		renderer.drawSubImage(mIcons, position, NotificationIconRect.at(notification.type), Color::Normal);
+
+		renderer.drawBox(Rectangle<int>{ position.x, position.y, 32, 32 });
 
 		count++;
 	}

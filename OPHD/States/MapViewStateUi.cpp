@@ -198,7 +198,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	// Notification Area
 	auto& renderer = Utility<Renderer>::get();
-	mNotificationArea.size({ 48, mMoveUpIconRect.y - 22 - constants::MARGIN });
+	mNotificationArea.height(mMoveUpIconRect.y - 22 - constants::MARGIN);
 	mNotificationArea.position({ renderer.size().x - mNotificationArea.size().x, 22 });
 
 	// Mini Map
