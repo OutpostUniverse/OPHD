@@ -145,6 +145,11 @@ public:
 		return ComponentRange<ComponentTy>(mComponents[ComponentTy::componentTypeID]);
 	}
 
+	/**
+	 * Returns all components belonging to a structure.
+	 */
+	std::vector<std::pair<ComponentTypeID, StructureComponent*>> structureComponents(Structure*) const;
+
 private:
 	using StructureTileTable = std::map<Structure*, Tile*>;
 	using StructureClassTable = std::map<Structure::StructureClass, StructureList>;
