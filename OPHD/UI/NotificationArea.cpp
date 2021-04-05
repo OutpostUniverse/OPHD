@@ -118,7 +118,6 @@ void NotificationArea::update()
 	renderer.drawBox(rect());
 
 	constexpr Rectangle<float> bgRect{128, 64, 32, 32};
-	const int posX = positionX() + (Width / 2) - 16;
 
 	size_t count = 0;
 	for (auto& notification : mNotificationList)
