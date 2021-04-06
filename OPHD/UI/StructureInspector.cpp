@@ -2,6 +2,8 @@
 
 #include "../Cache.h"
 #include "../Constants.h"
+#include "../StructureComponent.h"
+#include "../StructureManager.h"
 #include "../Things/Structures/Structure.h"
 #include "StringTable.h"
 #include "TextRender.h"
@@ -128,6 +130,19 @@ void StructureInspector::drawStructureSpecificTable(NAS2D::Point<int> position, 
 	stringTable.computeRelativeCellPositions();
 	stringTable.position(position);
 	stringTable.draw(renderer);
+	position.y = stringTable.screenRect().endPoint().y + 25;
+
+	for (auto& component : NAS2D::Utility<StructureManager>::get().structureComponents(mStructure))
+	{
+		StringTable componentStringTable = component.second->createInspectorViewTable();
+		componentStringTable.computeRelativeCellPositions();
+		if (componentStringTable.screenRect().height > 0)
+		{
+			componentStringTable.position(position);
+			componentStringTable.draw(renderer);
+			position.y = componentStringTable.screenRect().endPoint().y + 25;
+		}
+	}
 }
 
 std::string StructureInspector::getDisabledReason() const
