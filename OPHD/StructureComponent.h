@@ -22,6 +22,8 @@ protected:
 public:
 	virtual ~StructureComponent() {}
 
+	virtual StringTable createInspectorViewTable() { return StringTable(0, 0); }
+
 	/**
 	 * Obtain a reference to the Structure instance belonging to this structure.
 	 * It is guaranteed to exist.
