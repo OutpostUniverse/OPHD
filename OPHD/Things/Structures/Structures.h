@@ -1,5 +1,8 @@
 #pragma once
 
+// Includes all StructureComponents
+#include "FoodProduction.h"
+
 // Includes all Structures
 #include "Agridome.h"
 #include "AirShaft.h"

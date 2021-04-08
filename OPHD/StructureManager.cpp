@@ -474,7 +474,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 			structure->structureId() == StructureTypeID::SID_COMMAND_CENTER)
 		{
 			auto* food = new NAS2D::Xml::XmlElement("food");
-			food->attribute("level", static_cast<FoodProduction*>(structure)->foodLevel());
+			food->attribute("level", get<FoodProduction>(structure).foodLevel());
 			structureElement->linkEndChild(food);
 		}
 

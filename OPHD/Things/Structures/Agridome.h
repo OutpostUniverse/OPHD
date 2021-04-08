@@ -1,4 +1,5 @@
 #pragma once
+#if 0 // TODO: remove file
 
 #include "FoodProduction.h"
 #include <algorithm>
@@ -62,3 +63,4 @@ private:
 		return mFoodLevel >= AGRIDOME_CAPACITY;
 	}
 };
+#endif
