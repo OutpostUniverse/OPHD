@@ -4,12 +4,10 @@
 #include "FoodProduction.h"
 
 // Includes all Structures
-#include "Agridome.h"
 #include "AirShaft.h"
 #include "CargoLander.h"
 #include "CHAP.h"
 #include "ColonistLander.h"
-#include "CommandCenter.h"
 #include "Commercial.h"
 #include "CommTower.h"
 #include "FusionReactor.h"
