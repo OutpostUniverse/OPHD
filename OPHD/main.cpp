@@ -29,14 +29,13 @@ using namespace NAS2D;
 
 int main(int argc, char *argv[])
 {
-	//Crude way of redirecting stream buffer when building in release (no console)
+	// Crude way of redirecting stream buffer when building in release (no console)
 	#ifdef NDEBUG
-	std::streambuf *backup;
-	std::ofstream filestr;
-	filestr.open("ophd.log");
-
-	backup = std::cout.rdbuf();
-	std::cout.rdbuf(filestr.rdbuf());
+	// Save for later
+	std::streambuf* originalCoutBuffer = std::cout.rdbuf();
+	// Redirect output to log file
+	std::ofstream logFile("ophd.log");
+	std::cout.rdbuf(logFile.rdbuf());
 	#endif
 
 	std::cout << "OutpostHD " << constants::VERSION << std::endl << std::endl;
@@ -172,7 +171,8 @@ int main(int argc, char *argv[])
 	imageCache.clear();
 
 	#ifdef NDEBUG
-	filestr.close();
+	// Reset to stdout again (prevents crashes on exit)
+	std::cout.rdbuf(originalCoutBuffer);
 	#endif
 
 	SDL_Quit();
