@@ -1,4 +1,5 @@
 #include "StructureCatalogue.h"
+#include "StructureManager.h"
 
 #include <string>
 #include <stdexcept>
@@ -29,11 +30,32 @@ Structure* StructureCatalogue::get(StructureTypeID type)
 	// This seems like a naive approach... I usually see these implemented as the base
 	// object type has a static function that is used as an interface to instantiate
 	// derived types.
+	// TODO: (#843) Pulling component-based structure component in here for now.
+	//       This class has friend access to Structure and can therefore call the various
+	//       initialization functions. This will be replaced by a generic factory function
+	//       that deserializes descriptions from the structure catalog and save files.
 	switch (type)
 	{
 		case StructureTypeID::SID_AGRIDOME:
-			structure = new Agridome();
+		{
+			structure = new Structure(
+				constants::AGRIDOME,
+				"structures/agridome.sprite",
+				Structure::StructureClass::FoodProduction,
+				StructureTypeID::SID_AGRIDOME);
+			structure->maxAge(600);
+			structure->turnsToBuild(3);
+			structure->requiresCHAP(true);
+			structure->resourcesIn({ 1, 0, 0, 0 });
+			structure->energyRequired(2);
+
+			const int AGRIDOME_CAPACITY = 1000;
+			const int AGRIDOME_BASE_PRODUCUCTION = 10;
+			FoodProduction* foodProduction = new FoodProduction(structure);
+			foodProduction->initialize(AGRIDOME_BASE_PRODUCUCTION, AGRIDOME_CAPACITY);
+			NAS2D::Utility<StructureManager>::get().attachComponent(structure, foodProduction);
 			break;
+		}
 
 		case StructureTypeID::SID_AIR_SHAFT:
 			structure = new AirShaft();
@@ -52,8 +74,23 @@ Structure* StructureCatalogue::get(StructureTypeID type)
 			break;
 
 		case StructureTypeID::SID_COMMAND_CENTER:
-			structure = new CommandCenter();
+		{
+			structure = new Structure(
+				constants::COMMAND_CENTER,
+				"structures/command_center.sprite",
+				Structure::StructureClass::Command,
+				StructureTypeID::SID_COMMAND_CENTER);
+			structure->maxAge(500);
+			structure->turnsToBuild(4);
+			structure->requiresCHAP(false);
+			structure->selfSustained(true);
+			structure->storageCapacity(constants::BASE_STORAGE_CAPACITY);
+
+			FoodProduction* foodProduction = new FoodProduction(structure);
+			foodProduction->initialize(0, constants::BASE_STORAGE_CAPACITY);
+			NAS2D::Utility<StructureManager>::get().attachComponent(structure, foodProduction);
 			break;
+		}
 
 		case StructureTypeID::SID_COMMERCIAL:
 			structure = new Commercial();

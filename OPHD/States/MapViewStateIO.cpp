@@ -408,7 +408,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		if (structureId == StructureTypeID::SID_AGRIDOME ||
 			structureId == StructureTypeID::SID_COMMAND_CENTER)
 		{
-			auto& foodProduction = *static_cast<FoodProduction*>(&structure);
+			auto& foodProduction = getComponent<FoodProduction>(&structure);
 
 			auto foodStorage = structureNode->firstChildElement("food");
 			if (foodStorage == nullptr)

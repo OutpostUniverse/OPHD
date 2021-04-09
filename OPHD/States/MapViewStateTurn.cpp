@@ -21,14 +21,14 @@
 #include <algorithm>
 
 
-static inline void pullFoodFromStructure(FoodProduction* producer, int& remainder)
+static inline void pullFoodFromStructure(FoodProduction& producer, int& remainder)
 {
 	if (remainder <= 0) { return; }
 
-	int foodLevel = producer->foodLevel();
+	int foodLevel = producer.foodLevel();
 	int pulled = pullResource(foodLevel, remainder);
 
-	producer->foodLevel(foodLevel);
+	producer.foodLevel(foodLevel);
 	remainder -= pulled;
 }
 
@@ -89,15 +89,10 @@ void MapViewState::updatePopulation()
 	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, StructureState::Operational);
 	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
 
-	auto foodproducers = structureManager.structureList(Structure::StructureClass::FoodProduction);
-	auto& command = structureManager.structureList(Structure::StructureClass::Command);
-	foodproducers.insert(foodproducers.end(), command.begin(), command.end());
-
 	int remainder = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 
-	for (auto structure : foodproducers)
+	for (auto& foodProducer : enumerateComponent<FoodProduction>())
 	{
-		FoodProduction* foodProducer = static_cast<FoodProduction*>(structure);
 		pullFoodFromStructure(foodProducer, remainder);
 	}
 }
@@ -412,21 +407,22 @@ void MapViewState::updateBiowasteRecycling()
 }
 
 
+void MapViewState::produceFood()
+{
+	for (auto& foodProducer : enumerateComponent<FoodProduction>())
+	{
+		foodProducer.produce();
+	}
+}
+
+
 void MapViewState::countFood()
 {
 	mFood = 0;
 
-	auto structures = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::FoodProduction);
-	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
-
-	structures.insert(structures.begin(), command.begin(), command.end());
-
-	for (auto structure : structures)
+	for (auto& foodProducer : enumerateComponent<FoodProduction>())
 	{
-		if (structure->operational() || structure->isIdle())
-		{
-			mFood += static_cast<FoodProduction*>(structure)->foodLevel();
-		}
+		mFood += foodProducer.foodLevel();
 	}
 }
 
@@ -441,15 +437,15 @@ void MapViewState::transferFoodToCommandCenter()
 	{
 		if (!cc->operational()) { continue; }
 
-		CommandCenter* commandCenter = static_cast<CommandCenter*>(cc);
-		int foodToMove = commandCenter->foodCapacity() - commandCenter->foodLevel();
+		FoodProduction& commandCenter = getComponent<FoodProduction>(cc);
+		int foodToMove = commandCenter.foodCapacity() - commandCenter.foodLevel();
 
 		while (foodProducerIterator != foodProducers.end())
 		{
-			auto foodProducer = static_cast<FoodProduction*>(*foodProducerIterator);
-			const int foodMoved = std::clamp(foodToMove, 0, foodProducer->foodLevel());
-			foodProducer->foodLevel(foodProducer->foodLevel() - foodMoved);
-			commandCenter->foodLevel(commandCenter->foodLevel() + foodMoved);
+			auto& foodProducer = getComponent<FoodProduction>(*foodProducerIterator);
+			const int foodMoved = std::clamp(foodToMove, 0, foodProducer.foodLevel());
+			foodProducer.foodLevel(foodProducer.foodLevel() - foodMoved);
+			commandCenter.foodLevel(commandCenter.foodLevel() + foodMoved);
 
 			foodToMove -= foodMoved;
 
@@ -509,11 +505,13 @@ void MapViewState::nextTurn()
 
 	mPreviousMorale = mCurrentMorale;
 
+	produceFood();
 	transferFoodToCommandCenter();
 	updateResidentialCapacity();
 
 	countFood();
 	updatePopulation();
+	countFood();
 
 	updateCommercial();
 	updateBiowasteRecycling();

@@ -338,9 +338,6 @@
     <ClInclude Include="Things\Structures\AirShaft.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\CommandCenter.h">
-      <Filter>Header Files\Things\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="Things\Structures\MineFacility.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
@@ -385,9 +382,6 @@
     </ClInclude>
     <ClInclude Include="GraphWalker.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Things\Structures\Agridome.h">
-      <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
     <ClInclude Include="Things\Structures\CHAP.h">
       <Filter>Header Files\Things\Structures</Filter>
