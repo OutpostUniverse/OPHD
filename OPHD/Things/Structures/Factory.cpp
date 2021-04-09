@@ -150,9 +150,7 @@ void Factory::updateProduction()
 
 bool Factory::enoughResourcesAvailable()
 {
-	#ifdef _DEBUG
 	if (mResources == nullptr) { throw std::runtime_error("Factory::enoughResourcesAvailable() called with a null Resource Pool set"); }
-	#endif
 
 	/**
 	 * \todo	Have this use operator>= once the production table is converted to using StorableResources

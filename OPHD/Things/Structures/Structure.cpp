@@ -310,8 +310,5 @@ void Structure::die()
 {
 	Thing::die();
 
-	#if defined(_DEBUG)
-	std::cout << "Holy shit, a Structure died!!!" << std::endl;
 	throw std::runtime_error("Thing::die() was called on a Structure!");
-	#endif
 }
