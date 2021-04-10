@@ -8,7 +8,6 @@
 std::array<StorableResources, StructureTypeID::SID_COUNT> StructureCatalogue::mStructureCostTable;
 std::array<StorableResources, StructureTypeID::SID_COUNT> StructureCatalogue::mStructureRecycleValueTable;
 std::array<PopulationRequirements, StructureTypeID::SID_COUNT> StructureCatalogue::mPopulationRequirementsTable = {};
-float StructureCatalogue::mMeanSolarDistance = 0;
 
 /**	Default recycle value. Currently set at 90% but this should probably be
  *	lowered for actual gameplay with modifiers to improve efficiency. */
@@ -101,8 +100,23 @@ Structure* StructureCatalogue::get(StructureTypeID type)
 			break;
 
 		case StructureTypeID::SID_FUSION_REACTOR:
-			structure = new FusionReactor();
+		{
+			structure = new Structure(
+				constants::FUSION_REACTOR,
+				"structures/fusion_reactor.sprite",
+				Structure::StructureClass::EnergyProduction,
+				StructureTypeID::SID_FUSION_REACTOR);
+			structure->maxAge(1000);
+			structure->turnsToBuild(10);
+			structure->requiresCHAP(false);
+			structure->resourcesIn({ 2, 2, 1, 1 });
+
+			const int FUSION_REACTOR_BASE_PRODUCUCTION = 1000;
+			auto power = new PowerStructure(structure);
+			power->initialize(FUSION_REACTOR_BASE_PRODUCUCTION, 0.0f);
+			NAS2D::Utility<StructureManager>::get().attachComponent(structure, power);
 			break;
+		}
 
 		case StructureTypeID::SID_HOT_LABORATORY:
 			structure = new HotLaboratory();
@@ -173,8 +187,22 @@ Structure* StructureCatalogue::get(StructureTypeID type)
 			break;
 
 		case StructureTypeID::SID_SEED_POWER:
-			structure = new SeedPower();
+		{
+			structure = new Structure(
+				constants::SEED_POWER,
+				"structures/seed_1.sprite",
+				Structure::StructureClass::EnergyProduction,
+				StructureTypeID::SID_SEED_POWER);
+			structure->maxAge(150);
+			structure->turnsToBuild(5);
+			structure->requiresCHAP(false);
+
+			const int SEED_POWER_PRODUCTION = 50;
+			auto power = new PowerStructure(structure);
+			power->initialize(SEED_POWER_PRODUCTION, 0.0f);
+			NAS2D::Utility<StructureManager>::get().attachComponent(structure, power);
 			break;
+		}
 
 		case StructureTypeID::SID_SEED_SMELTER:
 			structure = new SeedSmelter();
@@ -185,12 +213,40 @@ Structure* StructureCatalogue::get(StructureTypeID type)
 			break;
 
 		case StructureTypeID::SID_SOLAR_PANEL1:
-			structure = new SolarPanelArray(mMeanSolarDistance);
+		{
+			structure = new Structure(
+				constants::SOLAR_PANEL1,
+				"structures/solar_array1.sprite",
+				Structure::StructureClass::EnergyProduction,
+				StructureTypeID::SID_SOLAR_PANEL1);
+			structure->maxAge(1000);
+			structure->turnsToBuild(4);
+			structure->requiresCHAP(false);
+
+			const int SOLAR_PANEL_BASE_PRODUCUCTION = 50;
+			auto power = new PowerStructure(structure);
+			power->initialize(0, SOLAR_PANEL_BASE_PRODUCUCTION);
+			NAS2D::Utility<StructureManager>::get().attachComponent(structure, power);
 			break;
+		}
 
 		case StructureTypeID::SID_SOLAR_PLANT:
-			structure = new SolarPlant(mMeanSolarDistance);
+		{
+			structure = new Structure(
+				constants::SOLAR_PLANT,
+				"structures/solar_plant.sprite",
+				Structure::StructureClass::EnergyProduction,
+				StructureTypeID::SID_SOLAR_PLANT);
+			structure->maxAge(1000);
+			structure->turnsToBuild(4);
+			structure->requiresCHAP(false);
+
+			const int SOLAR_PLANT_BASE_PRODUCUCTION = 2000;
+			auto power = new PowerStructure(structure);
+			power->initialize(0, SOLAR_PLANT_BASE_PRODUCUCTION);
+			NAS2D::Utility<StructureManager>::get().attachComponent(structure, power);
 			break;
+		}
 
 		case StructureTypeID::SID_STORAGE_TANKS:
 			structure = new StorageTanks();
@@ -270,9 +326,8 @@ const StorableResources StructureCatalogue::recyclingValue(StructureTypeID type)
 /**
  * Initializes StructureCatalogue and builds the requirements tables.
  */
-void StructureCatalogue::init(float meanSolarDistance)
+void StructureCatalogue::init()
 {
-	mMeanSolarDistance = meanSolarDistance;
 	buildCostTable();
 	buildRecycleValueTable();
 	buildPopulationRequirementsTable();

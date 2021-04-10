@@ -43,7 +43,7 @@ public:
 
 	bool CHAPAvailable();
 
-	void updateEnergyProduction();
+	void updateEnergyProduction(float meanSolarDistance);
 	void updateEnergyConsumed();
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
 	int totalEnergyUsed() const { return mTotalEnergyUsed; }
@@ -51,7 +51,7 @@ public:
 
 	void assignColonistsToResidences(PopulationPool&);
 
-	void update(const StorableResources&, PopulationPool&);
+	void update(const StorableResources&, PopulationPool&, float meanSolarDistance);
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 

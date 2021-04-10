@@ -21,7 +21,7 @@
 class StructureCatalogue
 {
 public:
-	static void init(float meanSolarDistance);
+	static void init();
 
 	static Structure* get(StructureTypeID type);
 
@@ -45,5 +45,4 @@ private:
 	static std::array<StorableResources, StructureTypeID::SID_COUNT> mStructureCostTable;
 	static std::array<StorableResources, StructureTypeID::SID_COUNT> mStructureRecycleValueTable;
 	static std::array<PopulationRequirements, StructureTypeID::SID_COUNT> mPopulationRequirementsTable;
-	static float mMeanSolarDistance;
 };

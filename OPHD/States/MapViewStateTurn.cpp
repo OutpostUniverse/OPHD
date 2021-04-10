@@ -501,7 +501,7 @@ void MapViewState::nextTurn()
 
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
-	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
+	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool, mPlanetAttributes.meanSolarDistance);
 
 	mPreviousMorale = mCurrentMorale;
 
