@@ -347,9 +347,6 @@
     <ClInclude Include="Things\Structures\SeedLander.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\SeedPower.h">
-      <Filter>Header Files\Things\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="Things\Structures\SeedSmelter.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
@@ -434,9 +431,6 @@
     <ClInclude Include="States\SplashState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\FusionReactor.h">
-      <Filter>Header Files\Things\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="UI\Core\TextArea.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
@@ -447,9 +441,6 @@
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
     <ClInclude Include="Things\Structures\Park.h">
-      <Filter>Header Files\Things\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="Things\Structures\SolarPlant.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\Window.h">
@@ -547,9 +538,6 @@
     </ClInclude>
     <ClInclude Include="States\MainMenuState.h">
       <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Things\Structures\SolarPanelArray.h">
-      <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
     <ClInclude Include="RobotPoolHelper.h">
       <Filter>Header Files</Filter>

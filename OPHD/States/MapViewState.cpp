@@ -184,7 +184,7 @@ void MapViewState::initialize()
 	else 
 	{ 
 		// StructureCatalogue is initialized in load routine if saved game present to load existing structures
-		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance); 
+		StructureCatalogue::init();
 	}
 
 	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);

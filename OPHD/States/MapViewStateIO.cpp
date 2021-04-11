@@ -177,7 +177,7 @@ void MapViewState::load(const std::string& filePath)
 		attribute = attribute->next();
 	}
 
-	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
+	StructureCatalogue::init();
 	mMapDisplay = std::make_unique<Image>(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
 	mHeightMap = std::make_unique<Image>(mPlanetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION);
 	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.tilesetPath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
@@ -204,7 +204,7 @@ void MapViewState::load(const std::string& filePath)
 
 	checkConnectedness();
 
-	Utility<StructureManager>::get().updateEnergyProduction();
+	Utility<StructureManager>::get().updateEnergyProduction(mPlanetAttributes.meanSolarDistance);
 	Utility<StructureManager>::get().updateEnergyConsumed();
 	Utility<StructureManager>::get().assignColonistsToResidences(mPopulationPool);
 

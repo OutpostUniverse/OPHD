@@ -2,6 +2,7 @@
 
 // Includes all StructureComponents
 #include "FoodProduction.h"
+#include "PowerStructure.h"
 
 // Includes all Structures
 #include "AirShaft.h"
@@ -10,7 +11,6 @@
 #include "ColonistLander.h"
 #include "Commercial.h"
 #include "CommTower.h"
-#include "FusionReactor.h"
 #include "HotLaboratory.h"
 #include "Laboratory.h"
 #include "MedicalCenter.h"
@@ -28,11 +28,8 @@
 #include "RobotCommand.h"
 #include "SeedFactory.h"
 #include "SeedLander.h"
-#include "SeedPower.h"
 #include "SeedSmelter.h"
 #include "Smelter.h"
-#include "SolarPanelArray.h"
-#include "SolarPlant.h"
 #include "StorageTanks.h"
 #include "SurfaceFactory.h"
 #include "Tube.h"

@@ -38,7 +38,7 @@ bool StructureManager::CHAPAvailable()
 }
 
 
-void StructureManager::update(const StorableResources& resources, PopulationPool& population)
+void StructureManager::update(const StorableResources& resources, PopulationPool& population, float meanSolarDistance)
 {
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
@@ -47,7 +47,7 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Command]); // Self sufficient
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::EnergyProduction]); // Nothing can work without energy
 
-	updateEnergyProduction();
+	updateEnergyProduction(meanSolarDistance);
 
 	// Basic resource production
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Mine]); // Can't operate without resources.
@@ -82,18 +82,16 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 }
 
 
-void StructureManager::updateEnergyProduction()
+void StructureManager::updateEnergyProduction(float meanSolarDistance)
 {
+	float solarFactor = 1.0f / meanSolarDistance;
+
 	mTotalEnergyOutput = 0;
 	mTotalEnergyUsed = 0;
 
-	for (auto structure : mStructureLists[Structure::StructureClass::EnergyProduction])
+	for (auto& powerStructure : enumerateComponent<PowerStructure>())
 	{
-		auto powerStructure = static_cast<PowerStructure*>(structure);
-		if (powerStructure->operational())
-		{
-			mTotalEnergyOutput += powerStructure->energyProduced();
-		}
+		mTotalEnergyOutput += powerStructure.energyProduced(solarFactor);
 	}
 }
 
