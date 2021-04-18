@@ -4,7 +4,7 @@
 
 #include "../Constants/UiConstants.h"
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/StringUtils.h>
 #include <NAS2D/Renderer/Point.h>
@@ -47,7 +47,7 @@ public:
 		NAS2D::Point<int> pos;
 	};
 
-	using Callback = NAS2D::Signals::Signal<const IconGridItem*>;
+	using Callback = NAS2D::Signal<const IconGridItem*>;
 
 public:
 	IconGrid(const std::string& filePath, int iconSize, int margin);

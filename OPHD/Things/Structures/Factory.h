@@ -26,7 +26,7 @@ class Factory : public Structure
 {
 public:
 	// Callback providing what was complete and a reference to the Factory.
-	using ProductionCallback = NAS2D::Signals::Signal<Factory&>;
+	using ProductionCallback = NAS2D::Signal<Factory&>;
 
 	using ProductionTypeList = std::vector<ProductType>;
 

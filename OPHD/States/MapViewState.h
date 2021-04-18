@@ -17,7 +17,7 @@
 #include "../UI/Gui.h"
 #include "../UI/UI.h"
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Renderer/Rectangle.h>
 
@@ -71,9 +71,9 @@ public:
 	};
 
 public:
-	using QuitCallback = NAS2D::Signals::Signal<>;
-	using ReportsUiCallback = NAS2D::Signals::Signal<>;
-	using MapChangedCallback = NAS2D::Signals::Signal<>;
+	using QuitCallback = NAS2D::Signal<>;
+	using ReportsUiCallback = NAS2D::Signal<>;
+	using MapChangedCallback = NAS2D::Signal<>;
 
 public:
 	MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame);

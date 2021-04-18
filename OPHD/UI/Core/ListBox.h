@@ -6,7 +6,7 @@
 #include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Utility.h>
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -57,7 +57,7 @@ template <typename ListBoxItem = ListBoxItemText>
 class ListBox : public Control
 {
 public:
-	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
+	using SelectionChangedCallback = NAS2D::Signal<>;
 
 	ListBox() :
 		mContext{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}

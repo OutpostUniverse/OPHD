@@ -8,7 +8,7 @@
 class SeedLander: public Structure
 {
 public:
-	using Callback = NAS2D::Signals::Signal<NAS2D::Point<int>>;
+	using Callback = NAS2D::Signal<NAS2D::Point<int>>;
 
 public:
 	SeedLander() = delete;

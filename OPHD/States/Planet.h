@@ -1,6 +1,6 @@
 #pragma once
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Resources/Image.h>
@@ -51,7 +51,7 @@ public:
 	};
 
 public:
-	using MouseCallback = NAS2D::Signals::Signal<>;
+	using MouseCallback = NAS2D::Signal<>;
 
 public:
 	Planet(const Attributes& attributes);

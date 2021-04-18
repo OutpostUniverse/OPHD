@@ -8,7 +8,7 @@
 class ColonistLander : public Structure
 {
 public:
-	using Callback = NAS2D::Signals::Signal<>;
+	using Callback = NAS2D::Signal<>;
 
 public:
 

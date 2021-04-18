@@ -7,7 +7,7 @@
 class GameOptionsDialog : public Window
 {
 public:
-	using ClickCallback = NAS2D::Signals::Signal<>;
+	using ClickCallback = NAS2D::Signal<>;
 
 	GameOptionsDialog();
 	~GameOptionsDialog() override;

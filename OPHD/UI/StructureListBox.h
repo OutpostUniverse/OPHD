@@ -4,7 +4,7 @@
 
 #include "../Common.h"
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 
 
 class Structure;
@@ -16,7 +16,7 @@ class Structure;
 class StructureListBox : public ListBoxBase
 {
 public:
-	using SelectionChangedCallback = NAS2D::Signals::Signal<Structure*>;
+	using SelectionChangedCallback = NAS2D::Signal<Structure*>;
 
 	struct StructureListBoxItem : public ListBoxItem
 	{

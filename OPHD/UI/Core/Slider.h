@@ -37,7 +37,7 @@ public:
 		NAS2D::RectangleSkin skinSlider;
 	};
 
-	using ValueChangedCallback = NAS2D::Signals::Signal<float>; /*!< type for Callback on value changed. */
+	using ValueChangedCallback = NAS2D::Signal<float>; /*!< type for Callback on value changed. */
 
 	Slider(SliderType sliderType = SliderType::Vertical);
 	Slider(Skins skins, SliderType sliderType = SliderType::Vertical);

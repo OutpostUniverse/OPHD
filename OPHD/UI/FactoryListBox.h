@@ -2,7 +2,7 @@
 
 #include "Core/ListBoxBase.h"
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Renderer/Point.h>
 
 #include <string>
@@ -18,7 +18,7 @@ class Factory;
 class FactoryListBox : public ListBoxBase
 {
 public:
-	using SelectionChangedCallback = NAS2D::Signals::Signal<Factory*>;
+	using SelectionChangedCallback = NAS2D::Signal<Factory*>;
 
 	struct FactoryListBoxItem : public ListBoxItem
 	{

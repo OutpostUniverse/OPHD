@@ -20,7 +20,7 @@ public:
 	void show() override;
 	void update() override;
 
-	using TitleChangedCallback = NAS2D::Signals::Signal<Window*>;
+	using TitleChangedCallback = NAS2D::Signal<Window*>;
 
 	void title(const std::string& title);
 	const std::string& title() const { return mTitle; }

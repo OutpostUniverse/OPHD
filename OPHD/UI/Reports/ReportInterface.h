@@ -18,7 +18,7 @@ public:
 	 * Callback signal used to handle clicks of a "Take Me There" button to center
 	 * the map view on a given structure.
 	 */
-	using TakeMeThere = NAS2D::Signals::Signal<Structure*>;
+	using TakeMeThere = NAS2D::Signal<Structure*>;
 
 	ReportInterface() {}
 

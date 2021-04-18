@@ -1,6 +1,6 @@
 #pragma once
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Renderer/Vector.h>
 #include <NAS2D/Renderer/Rectangle.h>
@@ -16,8 +16,8 @@
 class Control
 {
 public:
-	using ResizeCallback = NAS2D::Signals::Signal<Control*>;
-	using PositionChangedCallback = NAS2D::Signals::Signal<int, int>;
+	using ResizeCallback = NAS2D::Signal<Control*>;
+	using PositionChangedCallback = NAS2D::Signal<int, int>;
 
 	Control() = default;
 	virtual ~Control() = default;
