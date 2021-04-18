@@ -4,7 +4,7 @@
 #include "ListBox.h"
 #include "TextField.h"
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Rectangle.h>
 
@@ -14,7 +14,7 @@
 class ComboBox : public Control
 {
 public:
-	using SelectionChanged = NAS2D::Signals::Signal<>;
+	using SelectionChanged = NAS2D::Signal<>;
 
 	ComboBox();
 	~ComboBox() override;

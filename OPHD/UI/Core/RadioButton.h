@@ -3,9 +3,9 @@
 #include "TextControl.h"
 #include "Label.h"
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/Resources/Image.h>
+#include <NAS2D/Resource/Image.h>
 
 #include <string>
 
@@ -16,7 +16,7 @@ class UIContainer;
 class RadioButton : public TextControl
 {
 public:
-	using ClickCallback = NAS2D::Signals::Signal<>;
+	using ClickCallback = NAS2D::Signal<>;
 
 	RadioButton(std::string newText = "");
 	~RadioButton() override;

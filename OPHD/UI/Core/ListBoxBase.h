@@ -4,7 +4,7 @@
 #include "Slider.h"
 #include "../../Constants/UiConstants.h"
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Color.h>
 
@@ -27,7 +27,7 @@ public:
 	/**
 	 * Callback signal fired whenever the list selection changes.
 	 */
-	using SelectionChangedCallback = NAS2D::Signals::Signal<>;
+	using SelectionChangedCallback = NAS2D::Signal<>;
 
 	/**
 	 * Derived SpecialListBox types can inherit from this struct

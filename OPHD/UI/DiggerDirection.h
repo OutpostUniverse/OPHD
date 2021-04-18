@@ -11,7 +11,7 @@ class Tile;
 class DiggerDirection: public Window
 {
 public:
-	using Callback = NAS2D::Signals::Signal<Direction, Tile*>;
+	using Callback = NAS2D::Signal<Direction, Tile*>;
 
 	DiggerDirection();
 

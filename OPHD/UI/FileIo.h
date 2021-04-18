@@ -5,7 +5,7 @@
 #include "Core/TextField.h"
 #include "Core/ListBox.h"
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
 
 
@@ -18,7 +18,7 @@ public:
 		FILE_SAVE
 	};
 
-	using FileOperationCallback = NAS2D::Signals::Signal<const std::string&, FileOperation>;
+	using FileOperationCallback = NAS2D::Signal<const std::string&, FileOperation>;
 
 	FileIo();
 	~FileIo() override;

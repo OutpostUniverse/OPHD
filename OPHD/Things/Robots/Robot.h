@@ -15,7 +15,7 @@ public:
 		None
 	};
 
-	using TaskCallback = NAS2D::Signals::Signal<Robot*>;
+	using TaskCallback = NAS2D::Signal<Robot*>;
 
 public:
 	Robot(const std::string&, const std::string&, Type);

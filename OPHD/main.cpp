@@ -12,8 +12,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/StateManager.h>
-#include <NAS2D/Resources/Image.h>
-#include <NAS2D/Resources/Music.h>
+#include <NAS2D/Resource/Image.h>
+#include <NAS2D/Resource/Music.h>
 #include <NAS2D/Mixer/MixerSDL.h>
 #include <NAS2D/Mixer/MixerNull.h>
 #include <NAS2D/Renderer/RendererOpenGL.h>

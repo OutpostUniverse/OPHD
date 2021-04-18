@@ -2,10 +2,10 @@
 
 #include "TextControl.h"
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/Resources/Image.h>
-#include <NAS2D/Resources/Font.h>
+#include <NAS2D/Resource/Image.h>
+#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 #include <string>
@@ -20,7 +20,7 @@ public:
 		BUTTON_TOGGLE
 	};
 
-	using ClickCallback = NAS2D::Signals::Signal<>;
+	using ClickCallback = NAS2D::Signal<>;
 
 	Button(std::string newText = "");
 	~Button() override;

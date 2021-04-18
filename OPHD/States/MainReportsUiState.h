@@ -2,7 +2,7 @@
 
 #include "Wrapper.h"
 
-#include <NAS2D/Signal.h>
+#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
 
 #include <vector>
@@ -13,8 +13,8 @@ class Structure;
 class MainReportsUiState : public Wrapper
 {
 public:
-	using ReportsUiCallback = NAS2D::Signals::Signal<>;
-	using TakeMeThere = NAS2D::Signals::Signal<Structure*>;
+	using ReportsUiCallback = NAS2D::Signal<>;
+	using TakeMeThere = NAS2D::Signal<Structure*>;
 	using TakeMeThereList = std::vector<TakeMeThere*>;
 
 public:
