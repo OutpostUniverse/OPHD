@@ -3,8 +3,8 @@
 #include "Core/Control.h"
 #include "../StorableResources.h"
 
-#include <NAS2D/Resources/Font.h>
-#include <NAS2D/Resources/Image.h>
+#include <NAS2D/Resource/Font.h>
+#include <NAS2D/Resource/Image.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 

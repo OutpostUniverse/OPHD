@@ -1,7 +1,7 @@
 #pragma once
 
 #include <NAS2D/Signal/Signal.h>
-#include <NAS2D/Resources/Sprite.h>
+#include <NAS2D/Resource/Sprite.h>
 
 #include <iostream>
 #include <string>

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <NAS2D/Resources/Font.h>
-#include <NAS2D/Resources/Image.h>
-#include <NAS2D/Resources/Music.h>
-#include <NAS2D/Resources/ResourceCache.h>
+#include <NAS2D/Resource/Font.h>
+#include <NAS2D/Resource/Image.h>
+#include <NAS2D/Resource/Music.h>
+#include <NAS2D/Resource/ResourceCache.h>
 
 #include <memory>
 

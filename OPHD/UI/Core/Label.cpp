@@ -4,7 +4,7 @@
 #include "../../Cache.h"
 
 #include <NAS2D/Renderer/Renderer.h>
-#include <NAS2D/Resources/Font.h>
+#include <NAS2D/Resource/Font.h>
 
 #include <NAS2D/Utility.h>
 

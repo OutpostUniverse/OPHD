@@ -6,9 +6,9 @@
 #include <NAS2D/State.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/Resources/Image.h>
-#include <NAS2D/Resources/Music.h>
-#include <NAS2D/Resources/Sound.h>
+#include <NAS2D/Resource/Image.h>
+#include <NAS2D/Resource/Music.h>
+#include <NAS2D/Resource/Sound.h>
 #include <NAS2D/Renderer/Point.h>
 
 #include <vector>

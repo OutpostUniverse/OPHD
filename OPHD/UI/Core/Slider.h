@@ -4,7 +4,7 @@
 
 #include <NAS2D/Timer.h>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/Resources/Font.h>
+#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 

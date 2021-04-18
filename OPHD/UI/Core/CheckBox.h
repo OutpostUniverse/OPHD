@@ -4,7 +4,7 @@
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/Resources/Image.h>
+#include <NAS2D/Resource/Image.h>
 
 #include <string>
 
