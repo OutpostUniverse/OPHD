@@ -66,7 +66,7 @@ protected:
 	 */
 	virtual void onMove(NAS2D::Vector<int> displacement) { mOnMoveSignal(displacement); }
 
-	virtual void onResize() { mResized(this); }
+	virtual void onResize() { mOnResizeSignal(this); }
 
 	virtual void onVisibilityChange(bool /*visible*/) {}
 
@@ -75,7 +75,7 @@ protected:
 	virtual void onFocusChange() {}
 
 	OnMoveCallback mOnMoveSignal; /**< Callback fired whenever the position of the Control changes. */
-	ResizeCallback mResized;
+	ResizeCallback mOnResizeSignal;
 
 	NAS2D::Rectangle<int> mRect; /**< Area of the Control. */
 

@@ -85,7 +85,7 @@ void Control::height(int h)
 
 Control::ResizeCallback& Control::resized()
 {
-	return mResized;
+	return mOnResizeSignal;
 }
 
 
