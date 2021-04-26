@@ -65,8 +65,8 @@ protected:
 	 * \param	dX	Difference in X Position.
 	 * \param	dY	Difference in Y Position.
 	 */
-	virtual void positionChanged(int dX, int dY) { mPositionChanged({dX, dY}); }
-	void positionChanged(NAS2D::Vector<int> displacement) { positionChanged(displacement.x, displacement.y); }
+	virtual void positionChanged(int dX, int dY) { positionChanged({dX, dY}); }
+	void positionChanged(NAS2D::Vector<int> displacement) { mPositionChanged(displacement); }
 
 	virtual void visibilityChanged(bool /*visible*/) {}
 
