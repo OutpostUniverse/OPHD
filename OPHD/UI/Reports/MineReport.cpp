@@ -91,16 +91,16 @@ MineReport::MineReport() :
 
 	// Ore Management Pane
 	add(chkCommonMetals, {0, 210});
-	chkCommonMetals.click().connect(this, &MineReport::chkCommonMetalsClicked);
+	chkCommonMetals.click().connect(this, &MineReport::onCheckBoxCommonMetalsChange);
 
 	add(chkCommonMinerals, {0, 280});
-	chkCommonMinerals.click().connect(this, &MineReport::chkCommonMineralsClicked);
+	chkCommonMinerals.click().connect(this, &MineReport::onCheckBoxCommonMineralsChange);
 
 	add(chkRareMetals, {0, 350});
-	chkRareMetals.click().connect(this, &MineReport::chkRareMetalsClicked);
+	chkRareMetals.click().connect(this, &MineReport::onCheckBoxRareMetalsChange);
 
 	add(chkRareMinerals, {0, 420});
-	chkRareMinerals.click().connect(this, &MineReport::chkRareMineralsClicked);
+	chkRareMinerals.click().connect(this, &MineReport::onCheckBoxRareMineralsChange);
 
 	// Truck Management Pane
 	add(btnAddTruck, {0, 215});
@@ -283,28 +283,28 @@ void MineReport::onRemoveTruck()
 }
 
 
-void MineReport::chkCommonMetalsClicked()
+void MineReport::onCheckBoxCommonMetalsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
 	facility->mine()->miningCommonMetals(chkCommonMetals.checked());
 }
 
 
-void MineReport::chkCommonMineralsClicked()
+void MineReport::onCheckBoxCommonMineralsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
 	facility->mine()->miningCommonMinerals(chkCommonMinerals.checked());
 }
 
 
-void MineReport::chkRareMetalsClicked()
+void MineReport::onCheckBoxRareMetalsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
 	facility->mine()->miningRareMetals(chkRareMetals.checked());
 }
 
 
-void MineReport::chkRareMineralsClicked()
+void MineReport::onCheckBoxRareMineralsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
 	facility->mine()->miningRareMinerals(chkRareMinerals.checked());

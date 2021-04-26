@@ -48,10 +48,10 @@ private:
 	void onAddTruck();
 	void onRemoveTruck();
 
-	void chkCommonMetalsClicked();
-	void chkCommonMineralsClicked();
-	void chkRareMetalsClicked();
-	void chkRareMineralsClicked();
+	void onCheckBoxCommonMetalsChange();
+	void onCheckBoxCommonMineralsChange();
+	void onCheckBoxRareMetalsChange();
+	void onCheckBoxRareMineralsChange();
 
 	void filterButtonClicked();
 
