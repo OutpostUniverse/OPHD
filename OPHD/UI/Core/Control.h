@@ -17,7 +17,7 @@ class Control
 {
 public:
 	using ResizeCallback = NAS2D::Signal<Control*>;
-	using PositionChangedCallback = NAS2D::Signal<int, int>;
+	using PositionChangedCallback = NAS2D::Signal<NAS2D::Vector<int>>;
 
 	Control() = default;
 	virtual ~Control() = default;
@@ -65,7 +65,7 @@ protected:
 	 * \param	dX	Difference in X Position.
 	 * \param	dY	Difference in Y Position.
 	 */
-	virtual void positionChanged(int dX, int dY) { mPositionChanged(dX, dY); }
+	virtual void positionChanged(int dX, int dY) { mPositionChanged({dX, dY}); }
 	void positionChanged(NAS2D::Vector<int> displacement) { positionChanged(displacement.x, displacement.y); }
 
 	virtual void visibilityChanged(bool /*visible*/) {}
