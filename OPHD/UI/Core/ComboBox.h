@@ -41,8 +41,8 @@ public:
 	const std::string& text() const;
 
 private:
-	void resizedHandler(Control* control);
-	void repositioned(int, int);
+	void onSizeChanged() override;
+	void positionChanged(int dX, int dY) override;
 	void lstItemsSelectionChanged();
 
 	void onMouseWheel(int x, int y);

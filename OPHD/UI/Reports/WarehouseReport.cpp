@@ -67,14 +67,12 @@ WarehouseReport::WarehouseReport() :
 
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::doubleClicked);
 
-	Control::resized().connect(this, &WarehouseReport::_resized);
 	fillLists();
 }
 
 
 WarehouseReport::~WarehouseReport()
 {
-	Control::resized().disconnect(this, &WarehouseReport::_resized);
 	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &WarehouseReport::doubleClicked);
 }
 
@@ -252,8 +250,10 @@ void WarehouseReport::selectStructure(Structure* structure)
 }
 
 
-void WarehouseReport::_resized(Control*)
+void WarehouseReport::onSizeChanged()
 {
+	Control::onSizeChanged();
+
 	lstStructures.size({(mRect.width / 2) - 20, mRect.height - 126});
 	lstProducts.size({(mRect.width / 2) - 20, mRect.height - 184});
 	lstProducts.position({Utility<Renderer>::get().center().x + 10, lstProducts.positionY()});
