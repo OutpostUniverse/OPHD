@@ -55,7 +55,7 @@ private:
 
 	void doubleClicked(NAS2D::EventHandler::MouseButton, int, int);
 
-	void lstStructuresSelectionChanged();
+	void onStructureSelectionChange();
 
 	void filterButtonClicked();
 

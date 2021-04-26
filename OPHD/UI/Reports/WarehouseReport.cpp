@@ -61,7 +61,7 @@ WarehouseReport::WarehouseReport() :
 	btnTakeMeThere.click().connect(this, &WarehouseReport::onTakeMeThere);
 
 	add(lstStructures, {10, mRect.y + 115});
-	lstStructures.selectionChanged().connect(this, &WarehouseReport::lstStructuresSelectionChanged);
+	lstStructures.selectionChanged().connect(this, &WarehouseReport::onStructureSelectionChange);
 
 	add(lstProducts, {Utility<Renderer>::get().center().x + 10, mRect.y + 173});
 
@@ -323,7 +323,7 @@ void WarehouseReport::onTakeMeThere()
 }
 
 
-void WarehouseReport::lstStructuresSelectionChanged()
+void WarehouseReport::onStructureSelectionChange()
 {
 	selectedWarehouse = static_cast<Warehouse*>(lstStructures.selectedStructure());
 
