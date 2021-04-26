@@ -58,7 +58,7 @@ private:
 
 	void checkFactoryActionControls();
 
-	void resized(Control*);
+	void onSizeChanged() override;
 
 	void drawDetailPane(NAS2D::Renderer&);
 	void drawProductPane(NAS2D::Renderer&);
