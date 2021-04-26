@@ -25,7 +25,7 @@ private:
 	void btnReturnClicked();
 	void btnCloseClicked();
 
-	void enabledChanged() override;
+	void onEnableChange() override;
 
 	Button btnSave;
 	Button btnLoad;

@@ -17,7 +17,7 @@ class Control
 {
 public:
 	using ResizeCallback = NAS2D::Signal<Control*>;
-	using PositionChangedCallback = NAS2D::Signal<NAS2D::Vector<int>>;
+	using OnMoveCallback = NAS2D::Signal<NAS2D::Vector<int>>;
 
 	Control() = default;
 	virtual ~Control() = default;
@@ -28,7 +28,7 @@ public:
 	int positionX();
 	int positionY();
 
-	PositionChangedCallback& moved();
+	OnMoveCallback& moved();
 
 	void highlight(bool highlight);
 	bool highlight() const;
@@ -64,18 +64,18 @@ protected:
 	 * 
 	 * \param	displacement	Difference in position.
 	 */
-	virtual void positionChanged(NAS2D::Vector<int> displacement) { mPositionChanged(displacement); }
+	virtual void onMove(NAS2D::Vector<int> displacement) { mOnMoveSignal(displacement); }
 
-	virtual void visibilityChanged(bool /*visible*/) {}
+	virtual void onResize() { mOnResizeSignal(this); }
 
-	virtual void enabledChanged() {}
+	virtual void onVisibilityChange(bool /*visible*/) {}
 
-	virtual void onFocusChanged() {}
+	virtual void onEnableChange() {}
 
-	virtual void onSizeChanged() { mResized(this); }
+	virtual void onFocusChange() {}
 
-	PositionChangedCallback mPositionChanged; /**< Callback fired whenever the position of the Control changes. */
-	ResizeCallback mResized;
+	OnMoveCallback mOnMoveSignal; /**< Callback fired whenever the position of the Control changes. */
+	ResizeCallback mOnResizeSignal;
 
 	NAS2D::Rectangle<int> mRect; /**< Area of the Control. */
 

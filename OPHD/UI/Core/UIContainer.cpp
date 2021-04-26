@@ -71,15 +71,15 @@ void UIContainer::bringToFront(Control* control)
 }
 
 
-void UIContainer::visibilityChanged(bool visible)
+void UIContainer::onVisibilityChange(bool visible)
 {
 	for (auto control : mControls) { control->visible(visible); }
 }
 
 
-void UIContainer::positionChanged(NAS2D::Vector<int> displacement)
+void UIContainer::onMove(NAS2D::Vector<int> displacement)
 {
-	Control::positionChanged(displacement);
+	Control::onMove(displacement);
 
 	for (auto control : mControls)
 	{

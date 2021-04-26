@@ -13,7 +13,7 @@ void Control::position(Point<int> pos)
 {
 	const auto displacement = pos - mRect.startPoint();
 	mRect.startPoint(pos);
-	positionChanged(displacement);
+	onMove(displacement);
 }
 
 
@@ -38,16 +38,16 @@ int Control::positionY()
 /**
  * Callback fired whenever the Control's position changes.
  */
-Control::PositionChangedCallback& Control::moved()
+Control::OnMoveCallback& Control::moved()
 {
-	return mPositionChanged;
+	return mOnMoveSignal;
 }
 
 
 void Control::size(NAS2D::Vector<int> newSize)
 {
 	mRect.size(newSize);
-	onSizeChanged();
+	onResize();
 }
 
 
@@ -66,7 +66,7 @@ void Control::size(int newSize)
 void Control::width(int w)
 {
 	mRect.width = w;
-	onSizeChanged();
+	onResize();
 }
 
 
@@ -79,13 +79,13 @@ void Control::width(int w)
 void Control::height(int h)
 {
 	mRect.height = h;
-	onSizeChanged();
+	onResize();
 }
 
 
 Control::ResizeCallback& Control::resized()
 {
-	return mResized;
+	return mOnResizeSignal;
 }
 
 
@@ -106,7 +106,7 @@ const Rectangle<int>& Control::rect() const
 void Control::hasFocus(bool focus)
 {
 	mHasFocus = focus;
-	onFocusChanged();
+	onFocusChange();
 }
 
 
@@ -151,7 +151,7 @@ bool Control::highlight() const
 void Control::enabled(bool enabled)
 {
 	mEnabled = enabled;
-	enabledChanged();
+	onEnableChange();
 }
 
 
@@ -174,7 +174,7 @@ bool Control::enabled() const
 void Control::visible(bool visible)
 {
 	mVisible = visible;
-	visibilityChanged(mVisible);
+	onVisibilityChange(mVisible);
 }
 
 

@@ -159,9 +159,9 @@ void MineReport::fillLists()
 }
 
 
-void MineReport::onSizeChanged()
+void MineReport::onResize()
 {
-	Control::onSizeChanged();
+	Control::onResize();
 
 	lstMineFacilities.size({ rect().center().x - 20, rect().height - 51 });
 

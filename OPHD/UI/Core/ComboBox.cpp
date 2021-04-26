@@ -39,9 +39,9 @@ ComboBox::~ComboBox()
 /**
  * Resized event handler.
  */
-void ComboBox::onSizeChanged()
+void ComboBox::onResize()
 {
-	Control::onSizeChanged();
+	Control::onResize();
 
 	// Enforce minimum size
 	if (mRect.width < 50 || mRect.height < 20)
@@ -62,9 +62,9 @@ void ComboBox::onSizeChanged()
 /**
  * Position changed event handler.
  */
-void ComboBox::positionChanged(NAS2D::Vector<int> displacement)
+void ComboBox::onMove(NAS2D::Vector<int> displacement)
 {
-	Control::positionChanged(displacement);
+	Control::onMove(displacement);
 
 	txtField.position(position());
 	btnDown.position(txtField.rect().crossXPoint());

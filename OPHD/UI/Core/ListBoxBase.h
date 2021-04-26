@@ -78,7 +78,7 @@ protected:
 
 	unsigned int draw_offset() const { return mScrollOffsetInPixels; }
 
-	void visibilityChanged(bool) override;
+	void onVisibilityChange(bool) override;
 
 
 	std::vector<ListBoxItem*> mItems; /**< List of Items. Pointers used for polymorphism. */
@@ -90,7 +90,7 @@ private:
 	void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseWheel(int x, int y);
 
-	void onSizeChanged() override;
+	void onResize() override;
 
 
 	std::size_t mHighlightIndex = constants::NO_SELECTION;

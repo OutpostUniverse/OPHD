@@ -231,12 +231,12 @@ protected:
 	}
 
 
-	void visibilityChanged(bool /*visible*/) override {
+	void onVisibilityChange(bool /*visible*/) override {
 		updateScrollLayout();
 	}
 
 private:
-	void onSizeChanged() override {
+	void onResize() override {
 		updateScrollLayout();
 	}
 

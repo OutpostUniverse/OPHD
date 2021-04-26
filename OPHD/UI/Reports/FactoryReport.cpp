@@ -258,9 +258,9 @@ void FactoryReport::checkFactoryActionControls()
 }
 
 
-void FactoryReport::onSizeChanged()
+void FactoryReport::onResize()
 {
-	Control::onSizeChanged();
+	Control::onResize();
 
 	const auto comboEndPoint = cboFilterByProduct.rect().endPoint();
 
@@ -292,7 +292,7 @@ void FactoryReport::onSizeChanged()
  * This has been overridden to handle some UI elements that need
  * special handling.
  */
-void FactoryReport::visibilityChanged(bool visible)
+void FactoryReport::onVisibilityChange(bool visible)
 {
 	if (!selectedFactory) { return; }
 

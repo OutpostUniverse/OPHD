@@ -42,7 +42,7 @@ GameOptionsDialog::~GameOptionsDialog()
 }
 
 
-void GameOptionsDialog::enabledChanged()
+void GameOptionsDialog::onEnableChange()
 {
 	btnSave.enabled(enabled());
 	btnLoad.enabled(enabled());

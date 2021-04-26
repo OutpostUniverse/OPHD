@@ -41,8 +41,8 @@ public:
 	const std::string& text() const;
 
 private:
-	void onSizeChanged() override;
-	void positionChanged(NAS2D::Vector<int> displacement) override;
+	void onResize() override;
+	void onMove(NAS2D::Vector<int> displacement) override;
 	void lstItemsSelectionChanged();
 
 	void onMouseWheel(int x, int y);
