@@ -48,7 +48,7 @@ FileIo::FileIo() :
 	add(mListBox, {5, 25});
 	mListBox.size({490, 273});
 	mListBox.visible(true);
-	mListBox.selectionChanged().connect(this, &FileIo::fileSelected);
+	mListBox.selectionChanged().connect(this, &FileIo::onFileSelect);
 }
 
 
@@ -124,7 +124,7 @@ void FileIo::scanDirectory(const std::string& directory)
 }
 
 
-void FileIo::fileSelected()
+void FileIo::onFileSelect()
 {
 	txtFileName.text(mListBox.isItemSelected() ? mListBox.selected().text : "");
 }
