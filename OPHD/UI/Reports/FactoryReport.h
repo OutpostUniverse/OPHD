@@ -53,7 +53,7 @@ private:
 	void filterButtonClicked(bool clearCbo);
 
 	void onListSelectionChange();
-	void lstProductsSelectionChanged();
+	void onProductSelectionChange();
 	void onProductFilterSelectionChange();
 
 	void checkFactoryActionControls();

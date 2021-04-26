@@ -281,7 +281,7 @@ void FactoryReport::onResize()
 	btnApply.position({position_x, mRect.height + 8});
 
 	lstProducts.size({detailPanelRect.width / 3, detailPanelRect.height - 219});
-	lstProducts.selectionChanged().connect(this, &FactoryReport::lstProductsSelectionChanged);
+	lstProducts.selectionChanged().connect(this, &FactoryReport::onProductSelectionChange);
 
 	txtProductDescription.position(lstProducts.rect().crossXPoint() + NAS2D::Vector{158, 0});
 	txtProductDescription.width(mRect.width - txtProductDescription.positionX() - 30);
@@ -428,7 +428,7 @@ void FactoryReport::onListSelectionChange()
 }
 
 
-void FactoryReport::lstProductsSelectionChanged()
+void FactoryReport::onProductSelectionChange()
 {
 	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().tag : 0);
 }
