@@ -22,7 +22,7 @@ public:
 private:
 	using StringList = std::vector<std::string>;
 
-	void onSizeChanged() override;
+	void onResize() override;
 	void onTextChanged() override;
 	virtual void onFontChanged();
 

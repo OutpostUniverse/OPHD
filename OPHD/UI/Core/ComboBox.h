@@ -41,7 +41,7 @@ public:
 	const std::string& text() const;
 
 private:
-	void onSizeChanged() override;
+	void onResize() override;
 	void onMove(NAS2D::Vector<int> displacement) override;
 	void lstItemsSelectionChanged();
 

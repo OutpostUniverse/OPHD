@@ -47,7 +47,7 @@ Control::PositionChangedCallback& Control::moved()
 void Control::size(NAS2D::Vector<int> newSize)
 {
 	mRect.size(newSize);
-	onSizeChanged();
+	onResize();
 }
 
 
@@ -66,7 +66,7 @@ void Control::size(int newSize)
 void Control::width(int w)
 {
 	mRect.width = w;
-	onSizeChanged();
+	onResize();
 }
 
 
@@ -79,7 +79,7 @@ void Control::width(int w)
 void Control::height(int h)
 {
 	mRect.height = h;
-	onSizeChanged();
+	onResize();
 }
 
 

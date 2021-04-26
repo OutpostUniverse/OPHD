@@ -66,7 +66,7 @@ protected:
 	 */
 	virtual void onMove(NAS2D::Vector<int> displacement) { mPositionChanged(displacement); }
 
-	virtual void onSizeChanged() { mResized(this); }
+	virtual void onResize() { mResized(this); }
 
 	virtual void visibilityChanged(bool /*visible*/) {}
 

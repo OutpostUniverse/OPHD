@@ -27,7 +27,7 @@ public:
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
-	void onSizeChanged() override;
+	void onResize() override;
 	void onTextChanged() override;
 
 private:

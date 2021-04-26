@@ -258,9 +258,9 @@ void FactoryReport::checkFactoryActionControls()
 }
 
 
-void FactoryReport::onSizeChanged()
+void FactoryReport::onResize()
 {
-	Control::onSizeChanged();
+	Control::onResize();
 
 	const auto comboEndPoint = cboFilterByProduct.rect().endPoint();
 

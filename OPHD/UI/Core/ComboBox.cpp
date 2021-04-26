@@ -39,9 +39,9 @@ ComboBox::~ComboBox()
 /**
  * Resized event handler.
  */
-void ComboBox::onSizeChanged()
+void ComboBox::onResize()
 {
-	Control::onSizeChanged();
+	Control::onResize();
 
 	// Enforce minimum size
 	if (mRect.width < 50 || mRect.height < 20)

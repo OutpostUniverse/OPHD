@@ -96,7 +96,7 @@ void RadioButton::onTextChanged()
 /**
  * Enforces minimum and maximum sizes.
  */
-void RadioButton::onSizeChanged()
+void RadioButton::onResize()
 {
 	mRect.size({std::max(mRect.width, 13), 13});
 }

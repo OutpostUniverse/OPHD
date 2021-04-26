@@ -88,7 +88,7 @@ void CheckBox::onTextChanged()
 /**
  * Enforces minimum and maximum sizes.
  */
-void CheckBox::onSizeChanged()
+void CheckBox::onResize()
 {
 	mRect.size({std::max(mRect.width, 13), 13});
 }

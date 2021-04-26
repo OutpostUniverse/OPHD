@@ -236,7 +236,7 @@ protected:
 	}
 
 private:
-	void onSizeChanged() override {
+	void onResize() override {
 		updateScrollLayout();
 	}
 

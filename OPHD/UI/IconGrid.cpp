@@ -145,9 +145,9 @@ std::size_t IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
 /**
  * Called whenever the size of the IconGrid is changed.
  */
-void IconGrid::onSizeChanged()
+void IconGrid::onResize()
 {
-	Control::onSizeChanged();
+	Control::onResize();
 
 	updateGrid();
 }

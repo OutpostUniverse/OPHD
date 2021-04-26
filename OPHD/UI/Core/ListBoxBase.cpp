@@ -93,7 +93,7 @@ void ListBoxBase::updateScrollLayout()
 /**
  * Resized event handler.
  */
-void ListBoxBase::onSizeChanged()
+void ListBoxBase::onResize()
 {
 	updateScrollLayout();
 }

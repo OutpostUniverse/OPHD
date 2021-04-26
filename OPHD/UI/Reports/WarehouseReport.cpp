@@ -250,9 +250,9 @@ void WarehouseReport::selectStructure(Structure* structure)
 }
 
 
-void WarehouseReport::onSizeChanged()
+void WarehouseReport::onResize()
 {
-	Control::onSizeChanged();
+	Control::onResize();
 
 	lstStructures.size({(mRect.width / 2) - 20, mRect.height - 126});
 	lstProducts.size({(mRect.width / 2) - 20, mRect.height - 184});
