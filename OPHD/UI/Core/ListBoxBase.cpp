@@ -59,7 +59,7 @@ std::size_t ListBoxBase::count() const
 }
 
 
-void ListBoxBase::visibilityChanged(bool)
+void ListBoxBase::onVisibilityChange(bool)
 {
 	updateScrollLayout();
 }

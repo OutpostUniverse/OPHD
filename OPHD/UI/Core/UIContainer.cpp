@@ -71,7 +71,7 @@ void UIContainer::bringToFront(Control* control)
 }
 
 
-void UIContainer::visibilityChanged(bool visible)
+void UIContainer::onVisibilityChange(bool visible)
 {
 	for (auto control : mControls) { control->visible(visible); }
 }

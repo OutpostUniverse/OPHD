@@ -29,7 +29,7 @@ public:
 	std::vector<Control*> controls() const;
 
 protected:
-	void visibilityChanged(bool visible) override;
+	void onVisibilityChange(bool visible) override;
 	void onMove(NAS2D::Vector<int> displacement) override;
 
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);

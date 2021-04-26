@@ -63,7 +63,7 @@ private:
 	void drawDetailPane(NAS2D::Renderer&);
 	void drawProductPane(NAS2D::Renderer&);
 
-	void visibilityChanged(bool visible) override;
+	void onVisibilityChange(bool visible) override;
 
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontMedium;

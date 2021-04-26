@@ -68,9 +68,9 @@ protected:
 
 	virtual void onResize() { mResized(this); }
 
-	virtual void visibilityChanged(bool /*visible*/) {}
+	virtual void onVisibilityChange(bool /*visible*/) {}
 
-	virtual void enabledChanged() {}
+	virtual void onEnableChange() {}
 
 	virtual void onFocusChanged() {}
 

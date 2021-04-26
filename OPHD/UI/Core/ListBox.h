@@ -231,7 +231,7 @@ protected:
 	}
 
 
-	void visibilityChanged(bool /*visible*/) override {
+	void onVisibilityChange(bool /*visible*/) override {
 		updateScrollLayout();
 	}
 

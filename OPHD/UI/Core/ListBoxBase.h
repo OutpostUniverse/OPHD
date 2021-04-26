@@ -78,7 +78,7 @@ protected:
 
 	unsigned int draw_offset() const { return mScrollOffsetInPixels; }
 
-	void visibilityChanged(bool) override;
+	void onVisibilityChange(bool) override;
 
 
 	std::vector<ListBoxItem*> mItems; /**< List of Items. Pointers used for polymorphism. */

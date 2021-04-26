@@ -151,7 +151,7 @@ bool Control::highlight() const
 void Control::enabled(bool enabled)
 {
 	mEnabled = enabled;
-	enabledChanged();
+	onEnableChange();
 }
 
 
@@ -174,7 +174,7 @@ bool Control::enabled() const
 void Control::visible(bool visible)
 {
 	mVisible = visible;
-	visibilityChanged(mVisible);
+	onVisibilityChange(mVisible);
 }
 
 
