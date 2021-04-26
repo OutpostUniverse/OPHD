@@ -73,7 +73,7 @@ MineReport::MineReport() :
 	btnShowDisabled.click().connect(this, &MineReport::onShowDisabled);
 
 	add(lstMineFacilities, {10, 40});
-	lstMineFacilities.selectionChanged().connect(this, &MineReport::lstMineFacilitySelectionChanged);
+	lstMineFacilities.selectionChanged().connect(this, &MineReport::onMineFacilitySelectionChange);
 
 	// DETAIL PANE
 	add(btnIdle, {0, 40});
@@ -334,7 +334,7 @@ void MineReport::updateManagementButtonsVisiblity()
 }
 
 
-void MineReport::lstMineFacilitySelectionChanged()
+void MineReport::onMineFacilitySelectionChange()
 {
 	mSelectedFacility = lstMineFacilities.selectedStructure();
 

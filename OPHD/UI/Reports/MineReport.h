@@ -55,7 +55,7 @@ private:
 
 	void filterButtonClicked();
 
-	void lstMineFacilitySelectionChanged();
+	void onMineFacilitySelectionChange();
 
 	void updateManagementButtonsVisiblity();
 
