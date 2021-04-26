@@ -38,7 +38,7 @@ int Control::positionY()
 /**
  * Callback fired whenever the Control's position changes.
  */
-Control::PositionChangedCallback& Control::moved()
+Control::OnMoveCallback& Control::moved()
 {
 	return mPositionChanged;
 }
