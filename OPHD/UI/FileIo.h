@@ -40,7 +40,7 @@ private:
 	void onFileDelete();
 
 	void fileSelected();
-	void fileNameModified(TextControl* control);
+	void onFileNameChange(TextControl* control);
 
 	FileOperationCallback mCallback;
 
