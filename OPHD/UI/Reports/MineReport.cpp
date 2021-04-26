@@ -111,7 +111,6 @@ MineReport::MineReport() :
 	btnRemoveTruck.size({ 140, 30 });
 	btnRemoveTruck.click().connect(this, &MineReport::btnRemoveTruckClicked);
 
-	Control::resized().connect(this, &MineReport::resized);
 	fillLists();
 }
 
@@ -160,8 +159,10 @@ void MineReport::fillLists()
 }
 
 
-void MineReport::resized(Control* /*c*/)
+void MineReport::onSizeChanged()
 {
+	Control::onSizeChanged();
+
 	lstMineFacilities.size({ rect().center().x - 20, rect().height - 51 });
 
 	int position_x = rect().width - 150;
