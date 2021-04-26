@@ -52,7 +52,7 @@ private:
 
 	void filterButtonClicked(bool clearCbo);
 
-	void lstFactoryListSelectionChanged();
+	void onListSelectionChange();
 	void lstProductsSelectionChanged();
 	void cboFilterByProductSelectionChanged();
 

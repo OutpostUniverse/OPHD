@@ -58,7 +58,7 @@ FactoryReport::FactoryReport() :
 	btnApply{"Apply"}
 {
 	add(lstFactoryList, {10, 63});
-	lstFactoryList.selectionChanged().connect(this, &FactoryReport::lstFactoryListSelectionChanged);
+	lstFactoryList.selectionChanged().connect(this, &FactoryReport::onListSelectionChange);
 
 	add(btnShowAll, {10, 10});
 	btnShowAll.size({75, 20});
@@ -391,7 +391,7 @@ void FactoryReport::onApply()
 }
 
 
-void FactoryReport::lstFactoryListSelectionChanged()
+void FactoryReport::onListSelectionChange()
 {
 	selectedFactory = lstFactoryList.selectedFactory();
 
