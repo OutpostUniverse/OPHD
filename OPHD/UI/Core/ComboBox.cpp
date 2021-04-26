@@ -62,9 +62,9 @@ void ComboBox::onSizeChanged()
 /**
  * Position changed event handler.
  */
-void ComboBox::positionChanged(int dX, int dY)
+void ComboBox::positionChanged(NAS2D::Vector<int> displacement)
 {
-	Control::positionChanged(dX, dY);
+	Control::positionChanged(displacement);
 
 	txtField.position(position());
 	btnDown.position(txtField.rect().crossXPoint());
