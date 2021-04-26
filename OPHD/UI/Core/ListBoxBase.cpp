@@ -23,7 +23,7 @@ ListBoxBase::ListBoxBase()
 	mSlider.displayPosition(false);
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
-	mSlider.change().connect(this, &ListBoxBase::slideChanged);
+	mSlider.change().connect(this, &ListBoxBase::onSlideChange);
 
 	updateScrollLayout();
 }
@@ -31,7 +31,7 @@ ListBoxBase::ListBoxBase()
 
 ListBoxBase::~ListBoxBase()
 {
-	mSlider.change().disconnect(this, &ListBoxBase::slideChanged);
+	mSlider.change().disconnect(this, &ListBoxBase::onSlideChange);
 
 	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ListBoxBase::onMouseWheel);
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBoxBase::onMouseDown);
@@ -177,7 +177,7 @@ void ListBoxBase::onMouseWheel(int /*x*/, int y)
 /**
  * Slider changed event handler.
  */
-void ListBoxBase::slideChanged(float newPosition)
+void ListBoxBase::onSlideChange(float newPosition)
 {
 	updateScrollLayout();
 	auto pos = std::floor(newPosition);

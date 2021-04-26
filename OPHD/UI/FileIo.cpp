@@ -43,12 +43,12 @@ FileIo::FileIo() :
 	add(txtFileName, {5, 302});
 	txtFileName.size({490, 18});
 	txtFileName.maxCharacters(50);
-	txtFileName.textChanged().connect(this, &FileIo::fileNameModified);
+	txtFileName.textChanged().connect(this, &FileIo::onFileNameChange);
 
 	add(mListBox, {5, 25});
 	mListBox.size({490, 273});
 	mListBox.visible(true);
-	mListBox.selectionChanged().connect(this, &FileIo::fileSelected);
+	mListBox.selectionChanged().connect(this, &FileIo::onFileSelect);
 }
 
 
@@ -124,13 +124,13 @@ void FileIo::scanDirectory(const std::string& directory)
 }
 
 
-void FileIo::fileSelected()
+void FileIo::onFileSelect()
 {
 	txtFileName.text(mListBox.isItemSelected() ? mListBox.selected().text : "");
 }
 
 
-void FileIo::fileNameModified(TextControl* control)
+void FileIo::onFileNameChange(TextControl* control)
 {
 	std::string sFile = control->text();
 

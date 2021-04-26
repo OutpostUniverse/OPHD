@@ -70,16 +70,16 @@ MineOperationsWindow::MineOperationsWindow() :
 
 	// ORE TOGGLE BUTTONS
 	add(chkCommonMetals, {148, 140});
-	chkCommonMetals.click().connect(this, &MineOperationsWindow::chkCommonMetalsClicked);
+	chkCommonMetals.click().connect(this, &MineOperationsWindow::onCheckBoxCommonMetalsChange);
 
 	add(chkCommonMinerals, {259, 140});
-	chkCommonMinerals.click().connect(this, &MineOperationsWindow::chkCommonMineralsClicked);
+	chkCommonMinerals.click().connect(this, &MineOperationsWindow::onCheckBoxCommonMineralsChange);
 
 	add(chkRareMetals, {148, 160});
-	chkRareMetals.click().connect(this, &MineOperationsWindow::chkRareMetalsClicked);
+	chkRareMetals.click().connect(this, &MineOperationsWindow::onCheckBoxRareMetalsChange);
 
 	add(chkRareMinerals, {259, 160});
-	chkRareMinerals.click().connect(this, &MineOperationsWindow::chkRareMineralsClicked);
+	chkRareMinerals.click().connect(this, &MineOperationsWindow::onCheckBoxRareMineralsChange);
 }
 
 
@@ -151,25 +151,25 @@ void MineOperationsWindow::onUnassignTruck()
 }
 
 
-void MineOperationsWindow::chkCommonMetalsClicked()
+void MineOperationsWindow::onCheckBoxCommonMetalsChange()
 {
 	mFacility->mine()->miningCommonMetals(chkCommonMetals.checked());
 }
 
 
-void MineOperationsWindow::chkCommonMineralsClicked()
+void MineOperationsWindow::onCheckBoxCommonMineralsChange()
 {
 	mFacility->mine()->miningCommonMinerals(chkCommonMinerals.checked());
 }
 
 
-void MineOperationsWindow::chkRareMetalsClicked()
+void MineOperationsWindow::onCheckBoxRareMetalsChange()
 {
 	mFacility->mine()->miningRareMetals(chkRareMetals.checked());
 }
 
 
-void MineOperationsWindow::chkRareMineralsClicked()
+void MineOperationsWindow::onCheckBoxRareMineralsChange()
 {
 	mFacility->mine()->miningRareMinerals(chkRareMinerals.checked());
 }

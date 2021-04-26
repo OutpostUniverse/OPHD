@@ -20,7 +20,7 @@ FactoryProduction::FactoryProduction() :
 	mProductGrid.size({140, 110});
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
-	mProductGrid.selectionChanged().connect(this, &FactoryProduction::productSelectionChanged);
+	mProductGrid.selectionChanged().connect(this, &FactoryProduction::onProductSelectionChange);
 
 	add(btnOkay, {233, 138});
 	btnOkay.size({40, 20});
@@ -40,7 +40,7 @@ FactoryProduction::FactoryProduction() :
 
 	add(chkIdle, {mProductGrid.size().x + 12, 115});
 	chkIdle.size({50, 20});
-	chkIdle.click().connect(this, &FactoryProduction::chkIdleClicked);
+	chkIdle.click().connect(this, &FactoryProduction::onCheckBoxIdleChange);
 }
 
 
@@ -60,7 +60,7 @@ void FactoryProduction::hide()
 }
 
 
-void FactoryProduction::productSelectionChanged(const IconGrid::IconGridItem* _item)
+void FactoryProduction::onProductSelectionChange(const IconGrid::IconGridItem* _item)
 {
 	if (!mFactory) { return; }
 
@@ -101,7 +101,7 @@ void FactoryProduction::onClearSelection()
 }
 
 
-void FactoryProduction::chkIdleClicked()
+void FactoryProduction::onCheckBoxIdleChange()
 {
 	if (!mFactory) { return; }
 

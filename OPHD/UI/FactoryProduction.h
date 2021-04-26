@@ -32,12 +32,12 @@ private:
 	void onOkay();
 	void onCancel();
 	void onClearSelection();
-	void chkIdleClicked();
+	void onCheckBoxIdleChange();
 	void onApply();
 
 	void clearProduct();
 
-	void productSelectionChanged(const IconGrid::IconGridItem*);
+	void onProductSelectionChange(const IconGrid::IconGridItem*);
 
 	Factory* mFactory = nullptr;
 
