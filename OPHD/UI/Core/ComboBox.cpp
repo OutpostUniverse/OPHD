@@ -24,7 +24,6 @@ ComboBox::ComboBox()
 	lstItems.visible(false);
 	lstItems.height(300);
 
-	resized().connect(this, &ComboBox::resizedHandler);
 	moved().connect(this, &ComboBox::repositioned);
 	lstItems.selectionChanged().connect(this, &ComboBox::lstItemsSelectionChanged);
 }
@@ -32,7 +31,6 @@ ComboBox::ComboBox()
 
 ComboBox::~ComboBox()
 {
-	resized().disconnect(this, &ComboBox::resizedHandler);
 	moved().disconnect(this, &ComboBox::repositioned);
 	lstItems.selectionChanged().disconnect(this, &ComboBox::lstItemsSelectionChanged);
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ComboBox::onMouseDown);
@@ -43,8 +41,10 @@ ComboBox::~ComboBox()
 /**
  * Resized event handler.
  */
-void ComboBox::resizedHandler(Control* /*control*/)
+void ComboBox::onSizeChanged()
 {
+	Control::onSizeChanged();
+
 	// Enforce minimum size
 	if (mRect.width < 50 || mRect.height < 20)
 	{
