@@ -38,7 +38,7 @@ private:
 
 	void _fillListFromStructureList(const std::vector<Structure*>&);
 
-	void _resized(Control*);
+	void onSizeChanged() override;
 
 	void btnShowAllClicked();
 	void btnSpaceAvailableClicked();
