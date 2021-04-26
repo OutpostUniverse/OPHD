@@ -66,13 +66,13 @@ protected:
 	 */
 	virtual void onMove(NAS2D::Vector<int> displacement) { mPositionChanged(displacement); }
 
+	virtual void onSizeChanged() { mResized(this); }
+
 	virtual void visibilityChanged(bool /*visible*/) {}
 
 	virtual void enabledChanged() {}
 
 	virtual void onFocusChanged() {}
-
-	virtual void onSizeChanged() { mResized(this); }
 
 	PositionChangedCallback mPositionChanged; /**< Callback fired whenever the position of the Control changes. */
 	ResizeCallback mResized;
