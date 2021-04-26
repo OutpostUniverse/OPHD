@@ -14,7 +14,7 @@
 class ComboBox : public Control
 {
 public:
-	using SelectionChanged = NAS2D::Signal<>;
+	using SelectionChangeCallback = NAS2D::Signal<>;
 
 	ComboBox();
 	~ComboBox() override;
@@ -26,7 +26,7 @@ public:
 
 	void clearSelected();
 
-	SelectionChanged& selectionChanged() { return mSelectionChanged; }
+	SelectionChangeCallback& selectionChanged() { return mSelectionChanged; }
 
 	const std::string& selectionText() const;
 	int selectionTag() const;
@@ -43,7 +43,7 @@ public:
 private:
 	void onResize() override;
 	void onMove(NAS2D::Vector<int> displacement) override;
-	void lstItemsSelectionChanged();
+	void onListSelectionChange();
 
 	void onMouseWheel(int x, int y);
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
@@ -54,7 +54,7 @@ private:
 
 	NAS2D::Rectangle<int> mBaseArea;
 
-	SelectionChanged mSelectionChanged;
+	SelectionChangeCallback mSelectionChanged;
 
 	std::size_t mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
 };

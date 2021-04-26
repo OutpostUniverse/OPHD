@@ -35,7 +35,7 @@ protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
 	void onResize() override;
-	void onTextChanged() override;
+	void onTextChange() override;
 
 	void parentContainer(UIContainer* parent);
 

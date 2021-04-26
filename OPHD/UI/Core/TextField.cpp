@@ -145,7 +145,7 @@ void TextField::onTextInput(const std::string& newTextInput)
 
 	if (text().length() - prvLen != 0u)
 	{
-		onTextChanged();
+		onTextChange();
 		mCursorPosition++;
 	}
 }
@@ -163,7 +163,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			{
 				mCursorPosition--;
 				mText.erase(mCursorPosition, 1);
-				onTextChanged();
+				onTextChange();
 			}
 			break;
 
@@ -179,7 +179,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			if (text().length() > 0)
 			{
 				mText = mText.erase(mCursorPosition, 1);
-				onTextChanged();
+				onTextChange();
 			}
 			break;
 
