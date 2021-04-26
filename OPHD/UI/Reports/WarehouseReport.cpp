@@ -65,7 +65,7 @@ WarehouseReport::WarehouseReport() :
 
 	add(lstProducts, {Utility<Renderer>::get().center().x + 10, mRect.y + 173});
 
-	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::doubleClicked);
+	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::onDoubleClick);
 
 	fillLists();
 }
@@ -73,7 +73,7 @@ WarehouseReport::WarehouseReport() :
 
 WarehouseReport::~WarehouseReport()
 {
-	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &WarehouseReport::doubleClicked);
+	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &WarehouseReport::onDoubleClick);
 }
 
 
@@ -218,7 +218,7 @@ void WarehouseReport::fillListDisabled()
 }
 
 
-void WarehouseReport::doubleClicked(EventHandler::MouseButton button, int x, int y)
+void WarehouseReport::onDoubleClick(EventHandler::MouseButton button, int x, int y)
 {
 	if (!visible()) { return; }
 	if (button != EventHandler::MouseButton::Left) { return; }
