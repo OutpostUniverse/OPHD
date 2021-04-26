@@ -43,7 +43,6 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMove);
-	resized().connect(this, &IconGrid::sizeChanged);
 	hasFocus(true);
 }
 
@@ -146,8 +145,10 @@ std::size_t IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
 /**
  * Called whenever the size of the IconGrid is changed.
  */
-void IconGrid::sizeChanged(Control*)
+void IconGrid::onSizeChanged()
 {
+	Control::onSizeChanged();
+
 	updateGrid();
 }
 
