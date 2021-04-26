@@ -24,13 +24,13 @@ ComboBox::ComboBox()
 	lstItems.visible(false);
 	lstItems.height(300);
 
-	lstItems.selectionChanged().connect(this, &ComboBox::lstItemsSelectionChanged);
+	lstItems.selectionChanged().connect(this, &ComboBox::onListSelectionChange);
 }
 
 
 ComboBox::~ComboBox()
 {
-	lstItems.selectionChanged().disconnect(this, &ComboBox::lstItemsSelectionChanged);
+	lstItems.selectionChanged().disconnect(this, &ComboBox::onListSelectionChange);
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ComboBox::onMouseDown);
 	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ComboBox::onMouseWheel);
 }
@@ -119,7 +119,7 @@ void ComboBox::clearSelected()
 /**
  * ListBox selection changed event handler.
  */
-void ComboBox::lstItemsSelectionChanged()
+void ComboBox::onListSelectionChange()
 {
 	txtField.text(selectionText());
 	lstItems.visible(false);
