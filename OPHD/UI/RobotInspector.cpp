@@ -71,9 +71,9 @@ void RobotInspector::init()
 
 	size({ size().x, buttonPosition.y + buttonHeight + constants::MARGIN });
 
-	btnCancelOrders.click().connect(this, &RobotInspector::btnCancelOrdersClicked);
-	btnSelfDestruct.click().connect(this, &RobotInspector::btnSelfDestructClicked);
-	btnCancel.click().connect(this, &RobotInspector::btnCancelClicked);
+	btnCancelOrders.click().connect(this, &RobotInspector::onCancelOrders);
+	btnSelfDestruct.click().connect(this, &RobotInspector::onSelfDestruct);
+	btnCancel.click().connect(this, &RobotInspector::onCancel);
 }
 
 
@@ -86,21 +86,21 @@ void RobotInspector::focusOnRobot(Robot* robot)
 }
 
 
-void RobotInspector::btnCancelOrdersClicked()
+void RobotInspector::onCancelOrders()
 {
 	mRobot->cancelTask();
 	hide();
 }
 
 
-void RobotInspector::btnSelfDestructClicked()
+void RobotInspector::onSelfDestruct()
 {
 	mRobot->seldDestruct(true);
 	hide();
 }
 
 
-void RobotInspector::btnCancelClicked()
+void RobotInspector::onCancel()
 {
 	hide();
 }

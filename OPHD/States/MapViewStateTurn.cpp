@@ -525,9 +525,9 @@ void MapViewState::nextTurn()
 
 	// Overlay Updates
 	checkCommRangeOverlay();
-	btnToggleConnectednessClicked();
-	btnToggleCommRangeOverlayClicked();
-	btnToggleRouteOverlayClicked();
+	onToggleConnectedness();
+	onToggleCommRangeOverlay();
+	onToggleRouteOverlay();
 
 	auto& factories = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory);
 	for (auto factory : factories)

@@ -35,27 +35,27 @@ public:
 	void update() override;
 
 private:
-	void btnShowAllClicked();
-	void btnShowActiveClicked();
-	void btnShowIdleClicked();
-	void btnShowTappedOutClicked();
-	void btnShowDisabledClicked();
+	void onShowAll();
+	void onShowActive();
+	void onShowIdle();
+	void onShowTappedOut();
+	void onShowDisabled();
 
-	void btnIdleClicked();
-	void btnDigNewLevelClicked();
-	void btnTakeMeThereClicked();
+	void onIdle();
+	void onDigNewLevel();
+	void onTakeMeThere();
 
-	void btnAddTruckClicked();
-	void btnRemoveTruckClicked();
+	void onAddTruck();
+	void onRemoveTruck();
 
-	void chkCommonMetalsClicked();
-	void chkCommonMineralsClicked();
-	void chkRareMetalsClicked();
-	void chkRareMineralsClicked();
+	void onCheckBoxCommonMetalsChange();
+	void onCheckBoxCommonMineralsChange();
+	void onCheckBoxRareMetalsChange();
+	void onCheckBoxRareMineralsChange();
 
 	void filterButtonClicked();
 
-	void lstMineFacilitySelectionChanged();
+	void onMineFacilitySelectionChange();
 
 	void updateManagementButtonsVisiblity();
 

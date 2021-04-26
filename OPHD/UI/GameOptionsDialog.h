@@ -20,10 +20,10 @@ public:
 	ClickCallback& returnToMainMenu() { return mCallbackClose; }
 
 private:
-	void btnLoadClicked();
-	void btnSaveClicked();
-	void btnReturnClicked();
-	void btnCloseClicked();
+	void onLoad();
+	void onSave();
+	void onReturn();
+	void onClose();
 
 	void onEnableChange() override;
 

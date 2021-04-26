@@ -23,7 +23,7 @@ StructureInspector::StructureInspector() :
 
 	add(btnClose, { 295, 195 });
 	btnClose.size({ 50, 20 });
-	btnClose.click().connect(this, &StructureInspector::btnCloseClicked);
+	btnClose.click().connect(this, &StructureInspector::onClose);
 }
 
 
@@ -42,7 +42,7 @@ void StructureInspector::structure(Structure* structure)
 }
 
 
-void StructureInspector::btnCloseClicked()
+void StructureInspector::onClose()
 {
 	visible(false);
 }

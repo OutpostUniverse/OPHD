@@ -49,24 +49,24 @@ void MainMenuState::initialize()
 
 	btnNewGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnNewGame.size({200, 30});
-	btnNewGame.click().connect(this, &MainMenuState::btnNewGameClicked);
+	btnNewGame.click().connect(this, &MainMenuState::onNewGame);
 
 	btnContinueGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnContinueGame.size({200, 30});
-	btnContinueGame.click().connect(this, &MainMenuState::btnContinueGameClicked);
+	btnContinueGame.click().connect(this, &MainMenuState::onContinueGame);
 
 	btnOptions.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnOptions.size({200, 30});
 	btnOptions.enabled(false);
-	btnOptions.click().connect(this, &MainMenuState::btnOptionsClicked);
+	btnOptions.click().connect(this, &MainMenuState::onOptions);
 
 	btnHelp.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnHelp.size({200, 30});
-	btnHelp.click().connect(this, &MainMenuState::btnHelpClicked);
+	btnHelp.click().connect(this, &MainMenuState::onHelp);
 
 	btnQuit.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnQuit.size({200, 30});
-	btnQuit.click().connect(this, &MainMenuState::btnQuitClicked);
+	btnQuit.click().connect(this, &MainMenuState::onQuit);
 
 	mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
 	mFileIoDialog.fileOperation().connect(this, &MainMenuState::fileIoAction);
@@ -212,7 +212,7 @@ void MainMenuState::onFadeComplete()
 /**
  * Click handler for New Game button.
  */
-void MainMenuState::btnNewGameClicked()
+void MainMenuState::onNewGame()
 {
 	if (mFileIoDialog.visible()) { return; }
 
@@ -241,7 +241,7 @@ void MainMenuState::newGameCancelled()
 /**
  * Click handler for Continue button.
  */
-void MainMenuState::btnContinueGameClicked()
+void MainMenuState::onContinueGame()
 {
 	if (mFileIoDialog.visible()) { return; }
 
@@ -253,7 +253,7 @@ void MainMenuState::btnContinueGameClicked()
 /**
  * Click handler for Options button.
  */
-void MainMenuState::btnOptionsClicked()
+void MainMenuState::onOptions()
 {
 	if (mFileIoDialog.visible()) { return; }
 }
@@ -262,7 +262,7 @@ void MainMenuState::btnOptionsClicked()
 /**
  * Click handler for the Help button.
  */
-void MainMenuState::btnHelpClicked()
+void MainMenuState::onHelp()
 {
 	if (mFileIoDialog.visible()) { return; }
 
@@ -282,7 +282,7 @@ void MainMenuState::btnHelpClicked()
 /**
  * Click handler for Quit button.
  */
-void MainMenuState::btnQuitClicked()
+void MainMenuState::onQuit()
 {
 	if (mFileIoDialog.visible()) { return; }
 

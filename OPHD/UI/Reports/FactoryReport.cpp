@@ -58,56 +58,56 @@ FactoryReport::FactoryReport() :
 	btnApply{"Apply"}
 {
 	add(lstFactoryList, {10, 63});
-	lstFactoryList.selectionChanged().connect(this, &FactoryReport::lstFactoryListSelectionChanged);
+	lstFactoryList.selectionChanged().connect(this, &FactoryReport::onListSelectionChange);
 
 	add(btnShowAll, {10, 10});
 	btnShowAll.size({75, 20});
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
-	btnShowAll.click().connect(this, &FactoryReport::btnShowAllClicked);
+	btnShowAll.click().connect(this, &FactoryReport::onShowAll);
 
 	add(btnShowSurface, {87, 10});
 	btnShowSurface.size({75, 20});
 	btnShowSurface.type(Button::Type::BUTTON_TOGGLE);
-	btnShowSurface.click().connect(this, &FactoryReport::btnShowSurfaceClicked);
+	btnShowSurface.click().connect(this, &FactoryReport::onShowSurface);
 
 	add(btnShowUnderground, {164, 10});
 	btnShowUnderground.size({75, 20});
 	btnShowUnderground.type(Button::Type::BUTTON_TOGGLE);
-	btnShowUnderground.click().connect(this, &FactoryReport::btnShowUndergroundClicked);
+	btnShowUnderground.click().connect(this, &FactoryReport::onShowUnderground);
 
 	add(btnShowActive, {10, 33});
 	btnShowActive.size({75, 20});
 	btnShowActive.type(Button::Type::BUTTON_TOGGLE);
-	btnShowActive.click().connect(this, &FactoryReport::btnShowActiveClicked);
+	btnShowActive.click().connect(this, &FactoryReport::onShowActive);
 
 	add(btnShowIdle, {87, 33});
 	btnShowIdle.size({75, 20});
 	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
-	btnShowIdle.click().connect(this, &FactoryReport::btnShowIdleClicked);
+	btnShowIdle.click().connect(this, &FactoryReport::onShowIdle);
 
 	add(btnShowDisabled, {164, 33});
 	btnShowDisabled.size({75, 20});
 	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
-	btnShowDisabled.click().connect(this, &FactoryReport::btnShowDisabledClicked);
+	btnShowDisabled.click().connect(this, &FactoryReport::onShowDisabled);
 
 	int position_x = Utility<Renderer>::get().size().x - 110;
 	add(btnIdle, {position_x, 35});
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size({140, 30});
-	btnIdle.click().connect(this, &FactoryReport::btnIdleClicked);
+	btnIdle.click().connect(this, &FactoryReport::onIdle);
 
 	add(btnClearProduction, {position_x, 75});
 	btnClearProduction.size({140, 30});
-	btnClearProduction.click().connect(this, &FactoryReport::btnClearProductionClicked);
+	btnClearProduction.click().connect(this, &FactoryReport::onClearProduction);
 
 	add(btnTakeMeThere, {position_x, 115});
 	btnTakeMeThere.size({140, 30});
-	btnTakeMeThere.click().connect(this, &FactoryReport::btnTakeMeThereClicked);
+	btnTakeMeThere.click().connect(this, &FactoryReport::onTakeMeThere);
 
 	add(btnApply, {0, 0});
 	btnApply.size({140, 30});
-	btnApply.click().connect(this, &FactoryReport::btnApplyClicked);
+	btnApply.click().connect(this, &FactoryReport::onApply);
 
 	add(cboFilterByProduct, {250, 33});
 	cboFilterByProduct.size({200, 20});
@@ -122,7 +122,7 @@ FactoryReport::FactoryReport() :
 	cboFilterByProduct.addItem(constants::ROBOMINER, ProductType::PRODUCT_MINER);
 	cboFilterByProduct.addItem(constants::TRUCK, ProductType::PRODUCT_TRUCK);
 
-	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::cboFilterByProductSelectionChanged);
+	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::onProductFilterSelectionChange);
 
 	add(lstProducts, {cboFilterByProduct.rect().x + cboFilterByProduct.rect().width + 20, mRect.y + 230});
 
@@ -158,7 +158,7 @@ void FactoryReport::clearSelected()
  */
 void FactoryReport::refresh()
 {
-	btnShowAllClicked();
+	onShowAll();
 }
 
 
@@ -281,7 +281,7 @@ void FactoryReport::onResize()
 	btnApply.position({position_x, mRect.height + 8});
 
 	lstProducts.size({detailPanelRect.width / 3, detailPanelRect.height - 219});
-	lstProducts.selectionChanged().connect(this, &FactoryReport::lstProductsSelectionChanged);
+	lstProducts.selectionChanged().connect(this, &FactoryReport::onProductSelectionChange);
 
 	txtProductDescription.position(lstProducts.rect().crossXPoint() + NAS2D::Vector{158, 0});
 	txtProductDescription.width(mRect.width - txtProductDescription.positionX() - 30);
@@ -315,7 +315,7 @@ void FactoryReport::filterButtonClicked(bool clearCbo)
 }
 
 
-void FactoryReport::btnShowAllClicked()
+void FactoryReport::onShowAll()
 {
 	filterButtonClicked(true);
 	btnShowAll.toggle(true);
@@ -324,7 +324,7 @@ void FactoryReport::btnShowAllClicked()
 }
 
 
-void FactoryReport::btnShowSurfaceClicked()
+void FactoryReport::onShowSurface()
 {
 	filterButtonClicked(true);
 	btnShowSurface.toggle(true);
@@ -332,7 +332,7 @@ void FactoryReport::btnShowSurfaceClicked()
 }
 
 
-void FactoryReport::btnShowUndergroundClicked()
+void FactoryReport::onShowUnderground()
 {
 	filterButtonClicked(true);
 	btnShowUnderground.toggle(true);
@@ -340,7 +340,7 @@ void FactoryReport::btnShowUndergroundClicked()
 }
 
 
-void FactoryReport::btnShowActiveClicked()
+void FactoryReport::onShowActive()
 {
 	filterButtonClicked(true);
 	btnShowActive.toggle(true);
@@ -348,7 +348,7 @@ void FactoryReport::btnShowActiveClicked()
 }
 
 
-void FactoryReport::btnShowIdleClicked()
+void FactoryReport::onShowIdle()
 {
 	filterButtonClicked(true);
 	btnShowIdle.toggle(true);
@@ -356,7 +356,7 @@ void FactoryReport::btnShowIdleClicked()
 }
 
 
-void FactoryReport::btnShowDisabledClicked()
+void FactoryReport::onShowDisabled()
 {
 	filterButtonClicked(true);
 	btnShowDisabled.toggle(true);
@@ -364,34 +364,34 @@ void FactoryReport::btnShowDisabledClicked()
 }
 
 
-void FactoryReport::btnIdleClicked()
+void FactoryReport::onIdle()
 {
 	selectedFactory->forceIdle(btnIdle.toggled());
 }
 
 
-void FactoryReport::btnClearProductionClicked()
+void FactoryReport::onClearProduction()
 {
 	selectedFactory->productType(ProductType::PRODUCT_NONE);
 	lstProducts.clearSelected();
-	cboFilterByProductSelectionChanged();
+	onProductFilterSelectionChange();
 }
 
 
-void FactoryReport::btnTakeMeThereClicked()
+void FactoryReport::onTakeMeThere()
 {
 	takeMeThereCallback()(selectedFactory);
 }
 
 
-void FactoryReport::btnApplyClicked()
+void FactoryReport::onApply()
 {
 	selectedFactory->productType(selectedProductType);
-	cboFilterByProductSelectionChanged();
+	onProductFilterSelectionChange();
 }
 
 
-void FactoryReport::lstFactoryListSelectionChanged()
+void FactoryReport::onListSelectionChange()
 {
 	selectedFactory = lstFactoryList.selectedFactory();
 
@@ -428,13 +428,13 @@ void FactoryReport::lstFactoryListSelectionChanged()
 }
 
 
-void FactoryReport::lstProductsSelectionChanged()
+void FactoryReport::onProductSelectionChange()
 {
 	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().tag : 0);
 }
 
 
-void FactoryReport::cboFilterByProductSelectionChanged()
+void FactoryReport::onProductFilterSelectionChange()
 {
 	if (!cboFilterByProduct.isItemSelected()) { return; }
 	filterButtonClicked(false);

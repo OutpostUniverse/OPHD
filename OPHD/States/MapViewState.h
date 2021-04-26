@@ -209,15 +209,15 @@ private:
 	void updateStructuresAvailability();
 
 	// UI EVENT HANDLERS
-	void btnTurnsClicked();
-	void btnToggleConnectednessClicked();
-	void btnToggleCommRangeOverlayClicked();
-	void btnToggleRouteOverlayClicked();
+	void onTurns();
+	void onToggleConnectedness();
+	void onToggleCommRangeOverlay();
+	void onToggleRouteOverlay();
 
-	void btnSaveGameClicked();
-	void btnLoadGameClicked();
-	void btnReturnToGameClicked();
-	void btnGameOverClicked();
+	void onSaveGame();
+	void onLoadGame();
+	void onReturnToGame();
+	void onGameOver();
 
 	void structuresSelectionChanged(const IconGrid::IconGridItem*);
 	void connectionsSelectionChanged(const IconGrid::IconGridItem*);
