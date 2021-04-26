@@ -40,7 +40,7 @@ FactoryProduction::FactoryProduction() :
 
 	add(chkIdle, {mProductGrid.size().x + 12, 115});
 	chkIdle.size({50, 20});
-	chkIdle.click().connect(this, &FactoryProduction::chkIdleClicked);
+	chkIdle.click().connect(this, &FactoryProduction::onCheckBoxIdleChange);
 }
 
 
@@ -101,7 +101,7 @@ void FactoryProduction::onClearSelection()
 }
 
 
-void FactoryProduction::chkIdleClicked()
+void FactoryProduction::onCheckBoxIdleChange()
 {
 	if (!mFactory) { return; }
 

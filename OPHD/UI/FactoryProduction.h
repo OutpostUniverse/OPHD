@@ -32,7 +32,7 @@ private:
 	void onOkay();
 	void onCancel();
 	void onClearSelection();
-	void chkIdleClicked();
+	void onCheckBoxIdleChange();
 	void onApply();
 
 	void clearProduct();
