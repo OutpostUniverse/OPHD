@@ -72,7 +72,7 @@ protected:
 
 	virtual void onEnableChange() {}
 
-	virtual void onFocusChanged() {}
+	virtual void onFocusChange() {}
 
 	PositionChangedCallback mPositionChanged; /**< Callback fired whenever the position of the Control changes. */
 	ResizeCallback mResized;

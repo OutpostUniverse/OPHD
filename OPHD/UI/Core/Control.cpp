@@ -106,7 +106,7 @@ const Rectangle<int>& Control::rect() const
 void Control::hasFocus(bool focus)
 {
 	mHasFocus = focus;
-	onFocusChanged();
+	onFocusChange();
 }
 
 
