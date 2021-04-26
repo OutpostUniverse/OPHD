@@ -16,16 +16,16 @@ namespace NAS2D
 class TextControl : public Control
 {
 public:
-	using TextChangedCallback = NAS2D::Signal<TextControl*>;
+	using TextChangeCallback = NAS2D::Signal<TextControl*>;
 
 	void text(const std::string& text);
 	const std::string& text() const { return mText; }
-	TextChangedCallback& textChanged() { return mTextChanged; }
+	TextChangeCallback& textChanged() { return mTextChanged; }
 
 	virtual void onTextChange() { mTextChanged(this); }
 
 protected:
-	TextChangedCallback mTextChanged;
+	TextChangeCallback mTextChanged;
 
 	std::string mText; /**< Internal text string. */
 };
