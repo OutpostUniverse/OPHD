@@ -37,18 +37,18 @@ private:
 	void fillFactoryList(bool);
 	void fillFactoryList(StructureState);
 
-	void btnShowAllClicked();
-	void btnShowSurfaceClicked();
-	void btnShowUndergroundClicked();
-	void btnShowActiveClicked();
-	void btnShowIdleClicked();
-	void btnShowDisabledClicked();
+	void onShowAll();
+	void onShowSurface();
+	void onShowUnderground();
+	void onShowActive();
+	void onShowIdle();
+	void onShowDisabled();
 
-	void btnIdleClicked();
-	void btnClearProductionClicked();
-	void btnTakeMeThereClicked();
+	void onIdle();
+	void onClearProduction();
+	void onTakeMeThere();
 
-	void btnApplyClicked();
+	void onApply();
 
 	void filterButtonClicked(bool clearCbo);
 

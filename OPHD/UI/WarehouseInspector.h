@@ -21,7 +21,7 @@ public:
 	void update() override;
 
 private:
-	void btnCloseClicked();
+	void onClose();
 
 	Warehouse* mWarehouse = nullptr;
 	Button btnClose;

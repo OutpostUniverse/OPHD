@@ -29,11 +29,11 @@ public:
 	void update() override;
 
 private:
-	void btnOkayClicked();
-	void btnCancelClicked();
-	void btnClearSelectionClicked();
+	void onOkay();
+	void onCancel();
+	void onClearSelection();
 	void chkIdleClicked();
-	void btnApplyClicked();
+	void onApply();
 
 	void clearProduct();
 

@@ -33,7 +33,7 @@ private:
 
 	void onWindowResized(int, int);
 
-	void btnQuitClicked();
+	void onQuit();
 
 private:
 	const NAS2D::Font& mFontBold;

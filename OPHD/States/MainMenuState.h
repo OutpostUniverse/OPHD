@@ -31,11 +31,11 @@ private:
 	void disableButtons();
 	void enableButtons();
 
-	void btnNewGameClicked();
-	void btnContinueGameClicked();
-	void btnOptionsClicked();
-	void btnHelpClicked();
-	void btnQuitClicked();
+	void onNewGame();
+	void onContinueGame();
+	void onOptions();
+	void onHelp();
+	void onQuit();
 
 	void wasDifficultyOkClicked();
 	void newGameCancelled();

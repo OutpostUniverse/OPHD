@@ -40,13 +40,13 @@ private:
 
 	void onResize() override;
 
-	void btnShowAllClicked();
-	void btnSpaceAvailableClicked();
-	void btnFullClicked();
-	void btnEmptyClicked();
-	void btnDisabledClicked();
+	void onShowAll();
+	void onSpaceAvailable();
+	void onFull();
+	void onEmpty();
+	void onDisabled();
 
-	void btnTakeMeThereClicked();
+	void onTakeMeThere();
 
 	void fillListSpaceAvailable();
 	void fillListFull();

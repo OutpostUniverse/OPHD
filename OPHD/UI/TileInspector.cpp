@@ -19,7 +19,7 @@ TileInspector::TileInspector() :
 
 	add(btnClose, {145, 63});
 	btnClose.size({50, 20});
-	btnClose.click().connect(this, &TileInspector::btnCloseClicked);
+	btnClose.click().connect(this, &TileInspector::onClose);
 }
 
 
@@ -61,7 +61,7 @@ void TileInspector::update()
 }
 
 
-void TileInspector::btnCloseClicked()
+void TileInspector::onClose()
 {
 	visible(false);
 }

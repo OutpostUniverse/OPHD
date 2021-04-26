@@ -35,9 +35,9 @@ protected:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 
 private:
-	void btnCloseClicked();
-	void btnFileIoClicked();
-	void btnFileDeleteClicked();
+	void onClose();
+	void onFileIo();
+	void onFileDelete();
 
 	void fileSelected();
 	void fileNameModified(TextControl* control);

@@ -50,27 +50,27 @@ MineReport::MineReport() :
 	btnShowAll.size({ 75, 20 });
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
-	btnShowAll.click().connect(this, &MineReport::btnShowAllClicked);
+	btnShowAll.click().connect(this, &MineReport::onShowAll);
 
 	add(btnShowActive, {87, 10});
 	btnShowActive.size({ 75, 20 });
 	btnShowActive.type(Button::Type::BUTTON_TOGGLE);
-	btnShowActive.click().connect(this, &MineReport::btnShowActiveClicked);
+	btnShowActive.click().connect(this, &MineReport::onShowActive);
 
 	add(btnShowIdle, {164, 10});
 	btnShowIdle.size({ 75, 20 });
 	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
-	btnShowIdle.click().connect(this, &MineReport::btnShowIdleClicked);
+	btnShowIdle.click().connect(this, &MineReport::onShowIdle);
 
 	add(btnShowTappedOut, {241, 10});
 	btnShowTappedOut.size({ 75, 20 });
 	btnShowTappedOut.type(Button::Type::BUTTON_TOGGLE);
-	btnShowTappedOut.click().connect(this, &MineReport::btnShowTappedOutClicked);
+	btnShowTappedOut.click().connect(this, &MineReport::onShowTappedOut);
 
 	add(btnShowDisabled, {318, 10});
 	btnShowDisabled.size({ 75, 20 });
 	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
-	btnShowDisabled.click().connect(this, &MineReport::btnShowDisabledClicked);
+	btnShowDisabled.click().connect(this, &MineReport::onShowDisabled);
 
 	add(lstMineFacilities, {10, 40});
 	lstMineFacilities.selectionChanged().connect(this, &MineReport::lstMineFacilitySelectionChanged);
@@ -79,15 +79,15 @@ MineReport::MineReport() :
 	add(btnIdle, {0, 40});
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size({ 140, 30 });
-	btnIdle.click().connect(this, &MineReport::btnIdleClicked);
+	btnIdle.click().connect(this, &MineReport::onIdle);
 
 	add(btnDigNewLevel, {0, 75});
 	btnDigNewLevel.size({ 140, 30 });
-	btnDigNewLevel.click().connect(this, &MineReport::btnDigNewLevelClicked);
+	btnDigNewLevel.click().connect(this, &MineReport::onDigNewLevel);
 
 	add(btnTakeMeThere, {0, 110});
 	btnTakeMeThere.size({ 140, 30 });
-	btnTakeMeThere.click().connect(this, &MineReport::btnTakeMeThereClicked);
+	btnTakeMeThere.click().connect(this, &MineReport::onTakeMeThere);
 
 	// Ore Management Pane
 	add(chkCommonMetals, {0, 210});
@@ -105,11 +105,11 @@ MineReport::MineReport() :
 	// Truck Management Pane
 	add(btnAddTruck, {0, 215});
 	btnAddTruck.size({ 140, 30 });
-	btnAddTruck.click().connect(this, &MineReport::btnAddTruckClicked);
+	btnAddTruck.click().connect(this, &MineReport::onAddTruck);
 
 	add(btnRemoveTruck, {0, 250});
 	btnRemoveTruck.size({ 140, 30 });
-	btnRemoveTruck.click().connect(this, &MineReport::btnRemoveTruckClicked);
+	btnRemoveTruck.click().connect(this, &MineReport::onRemoveTruck);
 
 	fillLists();
 }
@@ -130,7 +130,7 @@ void MineReport::clearSelected()
 
 void MineReport::refresh()
 {
-	btnShowAllClicked();
+	onShowAll();
 }
 
 
@@ -192,7 +192,7 @@ void MineReport::filterButtonClicked()
 }
 
 
-void MineReport::btnShowAllClicked()
+void MineReport::onShowAll()
 {
 	filterButtonClicked();
 	btnShowAll.toggle(true);
@@ -201,41 +201,41 @@ void MineReport::btnShowAllClicked()
 }
 
 
-void MineReport::btnShowActiveClicked()
+void MineReport::onShowActive()
 {
 	filterButtonClicked();
 	btnShowActive.toggle(true);
 }
 
 
-void MineReport::btnShowIdleClicked()
+void MineReport::onShowIdle()
 {
 	filterButtonClicked();
 	btnShowIdle.toggle(true);
 }
 
 
-void MineReport::btnShowTappedOutClicked()
+void MineReport::onShowTappedOut()
 {
 	filterButtonClicked();
 	btnShowTappedOut.toggle(true);
 }
 
 
-void MineReport::btnShowDisabledClicked()
+void MineReport::onShowDisabled()
 {
 	filterButtonClicked();
 	btnShowDisabled.toggle(true);
 }
 
 
-void MineReport::btnIdleClicked()
+void MineReport::onIdle()
 {
 	mSelectedFacility->forceIdle(btnIdle.toggled());
 }
 
 
-void MineReport::btnDigNewLevelClicked()
+void MineReport::onDigNewLevel()
 {
 	auto facility = static_cast<MineFacility*>(mSelectedFacility);
 	facility->extend();
@@ -245,13 +245,13 @@ void MineReport::btnDigNewLevelClicked()
 }
 
 
-void MineReport::btnTakeMeThereClicked()
+void MineReport::onTakeMeThere()
 {
 	takeMeThereCallback()(mSelectedFacility);
 }
 
 
-void MineReport::btnAddTruckClicked()
+void MineReport::onAddTruck()
 {
 	if (!mSelectedFacility) { return; }
 
@@ -267,7 +267,7 @@ void MineReport::btnAddTruckClicked()
 }
 
 
-void MineReport::btnRemoveTruckClicked()
+void MineReport::onRemoveTruck()
 {
 	auto mFacility = static_cast<MineFacility*>(mSelectedFacility);
 

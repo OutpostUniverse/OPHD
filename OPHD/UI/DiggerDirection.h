@@ -28,14 +28,14 @@ public:
 	void allEnabled();
 
 protected:
-	void btnCancelClicked();
+	void onCancel();
 
 private:
-	void btnDiggerDownClicked();
-	void btnDiggerNorthClicked();
-	void btnDiggerSouthClicked();
-	void btnDiggerEastClicked();
-	void btnDiggerWestClicked();
+	void onDiggerDown();
+	void onDiggerNorth();
+	void onDiggerSouth();
+	void onDiggerEast();
+	void onDiggerWest();
 
 	Button btnDown;
 	Button btnNorth;

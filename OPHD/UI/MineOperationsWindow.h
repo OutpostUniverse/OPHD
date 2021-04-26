@@ -32,12 +32,12 @@ private:
 	void chkRareMetalsClicked();
 	void chkRareMineralsClicked();
 
-	void btnOkayClicked();
-	void btnExtendShaftClicked();
-	void btnIdleClicked();
+	void onOkay();
+	void onExtendShaft();
+	void onIdle();
 
-	void btnAssignTruckClicked();
-	void btnUnassignTruckClicked();
+	void onAssignTruck();
+	void onUnassignTruck();
 
 	const NAS2D::Font& mFont;
 	const NAS2D::Font& mFontBold;

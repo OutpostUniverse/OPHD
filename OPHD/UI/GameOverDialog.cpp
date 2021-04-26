@@ -19,13 +19,13 @@ GameOverDialog::GameOverDialog() :
 
 	add(btnClose, {5, 310});
 	btnClose.size({512, 25});
-	btnClose.click().connect(this, &GameOverDialog::btnCloseClicked);
+	btnClose.click().connect(this, &GameOverDialog::onClose);
 
 	anchored(true);
 }
 
 
-void GameOverDialog::btnCloseClicked()
+void GameOverDialog::onClose()
 {
 	mCallback();
 }

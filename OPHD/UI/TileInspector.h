@@ -17,7 +17,7 @@ public:
 	void update() override;
 
 private:
-	void btnCloseClicked();
+	void onClose();
 
 	Button btnClose;
 	Tile* mTile = nullptr;

@@ -17,7 +17,7 @@ WarehouseInspector::WarehouseInspector() :
 
 	add(btnClose, {105, 325});
 	btnClose.size({40, 20});
-	btnClose.click().connect(this, &WarehouseInspector::btnCloseClicked);
+	btnClose.click().connect(this, &WarehouseInspector::onClose);
 }
 
 
@@ -27,7 +27,7 @@ void WarehouseInspector::warehouse(Warehouse* w)
 }
 
 
-void WarehouseInspector::btnCloseClicked()
+void WarehouseInspector::onClose()
 {
 	hide();
 }

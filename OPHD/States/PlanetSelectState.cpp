@@ -75,7 +75,7 @@ void PlanetSelectState::initialize()
 
 	mQuit.size({100, 20});
 	mQuit.position({renderer.size().x - 105, 30});
-	mQuit.click().connect(this, &PlanetSelectState::btnQuitClicked);
+	mQuit.click().connect(this, &PlanetSelectState::onQuit);
 
 	mPlanetDescription.text("");
 	mPlanetDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
@@ -192,7 +192,7 @@ void PlanetSelectState::onWindowResized(int w, int h)
 }
 
 
-void PlanetSelectState::btnQuitClicked()
+void PlanetSelectState::onQuit()
 {
 	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
 	mReturnState = new MainMenuState();

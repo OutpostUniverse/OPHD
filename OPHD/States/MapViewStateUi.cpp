@@ -70,13 +70,13 @@ void MapViewState::initUi()
 	mResourceBreakdownPanel.position({0, 22});
 	mResourceBreakdownPanel.playerResources(&mResourcesCount);
 
-	mGameOverDialog.returnToMainMenu().connect(this, &MapViewState::btnGameOverClicked);
+	mGameOverDialog.returnToMainMenu().connect(this, &MapViewState::onGameOver);
 	mGameOverDialog.hide();
 
-	mGameOptionsDialog.SaveGame().connect(this, &MapViewState::btnSaveGameClicked);
-	mGameOptionsDialog.LoadGame().connect(this, &MapViewState::btnLoadGameClicked);
-	mGameOptionsDialog.returnToGame().connect(this, &MapViewState::btnReturnToGameClicked);
-	mGameOptionsDialog.returnToMainMenu().connect(this, &MapViewState::btnGameOverClicked);
+	mGameOptionsDialog.SaveGame().connect(this, &MapViewState::onSaveGame);
+	mGameOptionsDialog.LoadGame().connect(this, &MapViewState::onLoadGame);
+	mGameOptionsDialog.returnToGame().connect(this, &MapViewState::onReturnToGame);
+	mGameOptionsDialog.returnToMainMenu().connect(this, &MapViewState::onGameOver);
 	mGameOptionsDialog.hide();
 
 	mAnnouncement.hide();
@@ -99,7 +99,7 @@ void MapViewState::initUi()
 	mBtnTurns.image("ui/icons/turns.png");
 	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
 	mBtnTurns.size(constants::MAIN_BUTTON_SIZE);
-	mBtnTurns.click().connect(this, &MapViewState::btnTurnsClicked);
+	mBtnTurns.click().connect(this, &MapViewState::onTurns);
 	mBtnTurns.enabled(false);
 
 	mBtnToggleHeightmap.image("ui/icons/height.png");
@@ -109,17 +109,17 @@ void MapViewState::initUi()
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
 	mBtnToggleConnectedness.size(constants::MAIN_BUTTON_SIZE);
 	mBtnToggleConnectedness.type(Button::Type::BUTTON_TOGGLE);
-	mBtnToggleConnectedness.click().connect(this, &MapViewState::btnToggleConnectednessClicked);
+	mBtnToggleConnectedness.click().connect(this, &MapViewState::onToggleConnectedness);
 
 	mBtnToggleCommRangeOverlay.image("ui/icons/comm_overlay.png");
 	mBtnToggleCommRangeOverlay.size(constants::MAIN_BUTTON_SIZE);
 	mBtnToggleCommRangeOverlay.type(Button::Type::BUTTON_TOGGLE);
-	mBtnToggleCommRangeOverlay.click().connect(this, &MapViewState::btnToggleCommRangeOverlayClicked);
+	mBtnToggleCommRangeOverlay.click().connect(this, &MapViewState::onToggleCommRangeOverlay);
 
 	mBtnToggleRouteOverlay.image("ui/icons/route.png");
 	mBtnToggleRouteOverlay.size(constants::MAIN_BUTTON_SIZE);
 	mBtnToggleRouteOverlay.type(Button::Type::BUTTON_TOGGLE);
-	mBtnToggleRouteOverlay.click().connect(this, &MapViewState::btnToggleRouteOverlayClicked);
+	mBtnToggleRouteOverlay.click().connect(this, &MapViewState::onToggleRouteOverlay);
 
 	// Menus
 	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
@@ -418,45 +418,45 @@ void MapViewState::drawUI()
 /**
  * Handles clicks of the Connectedness Overlay button.
  */
-void MapViewState::btnToggleConnectednessClicked()
+void MapViewState::onToggleConnectedness()
 {
 	if (mBtnToggleConnectedness.toggled())
 	{
 		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
 
-		btnToggleCommRangeOverlayClicked();
-		btnToggleRouteOverlayClicked();
+		onToggleCommRangeOverlay();
+		onToggleRouteOverlay();
 	}
 
 	setOverlay(mBtnToggleConnectedness, mConnectednessOverlay, Tile::Overlay::Connectedness);
 }
 
 
-void MapViewState::btnToggleCommRangeOverlayClicked()
+void MapViewState::onToggleCommRangeOverlay()
 {
 	if (mBtnToggleCommRangeOverlay.toggled())
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
 
-		btnToggleConnectednessClicked();
-		btnToggleRouteOverlayClicked();
+		onToggleConnectedness();
+		onToggleRouteOverlay();
 	}
 
 	setOverlay(mBtnToggleCommRangeOverlay, mCommRangeOverlay, Tile::Overlay::Communications);
 }
 
 
-void MapViewState::btnToggleRouteOverlayClicked()
+void MapViewState::onToggleRouteOverlay()
 {
 	if (mBtnToggleRouteOverlay.toggled())
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleCommRangeOverlay.toggle(false);
 
-		btnToggleCommRangeOverlayClicked();
-		btnToggleConnectednessClicked();
+		onToggleCommRangeOverlay();
+		onToggleConnectedness();
 	}
 
 	setOverlay(mBtnToggleRouteOverlay, mTruckRouteOverlay, Tile::Overlay::TruckingRoutes);
@@ -572,7 +572,7 @@ void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
 /**
  * Click handler for the main menu Save Game button.
  */
-void MapViewState::btnSaveGameClicked()
+void MapViewState::onSaveGame()
 {
 	mGameOptionsDialog.hide();
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
@@ -584,7 +584,7 @@ void MapViewState::btnSaveGameClicked()
 /**
  * Click handler for the main menu Load Game button.
  */
-void MapViewState::btnLoadGameClicked()
+void MapViewState::onLoadGame()
 {
 	mGameOptionsDialog.hide();
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
@@ -597,7 +597,7 @@ void MapViewState::btnLoadGameClicked()
 /**
  * Click handler for the main menu Return to Game button.
  */
-void MapViewState::btnReturnToGameClicked()
+void MapViewState::onReturnToGame()
 {
 	mGameOptionsDialog.hide();
 }
@@ -606,7 +606,7 @@ void MapViewState::btnReturnToGameClicked()
 /**
  * Click handler for the main menu Return to Main Menu Screen button.
  */
-void MapViewState::btnGameOverClicked()
+void MapViewState::onGameOver()
 {
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
 	mQuitCallback();
@@ -642,7 +642,7 @@ void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperati
 /**
  * Turns button clicked.
  */
-void MapViewState::btnTurnsClicked()
+void MapViewState::onTurns()
 {
 	nextTurn();
 }
