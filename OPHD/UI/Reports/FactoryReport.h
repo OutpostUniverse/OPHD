@@ -54,7 +54,7 @@ private:
 
 	void onListSelectionChange();
 	void lstProductsSelectionChanged();
-	void cboFilterByProductSelectionChanged();
+	void onProductFilterSelectionChange();
 
 	void checkFactoryActionControls();
 

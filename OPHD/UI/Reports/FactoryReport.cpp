@@ -122,7 +122,7 @@ FactoryReport::FactoryReport() :
 	cboFilterByProduct.addItem(constants::ROBOMINER, ProductType::PRODUCT_MINER);
 	cboFilterByProduct.addItem(constants::TRUCK, ProductType::PRODUCT_TRUCK);
 
-	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::cboFilterByProductSelectionChanged);
+	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::onProductFilterSelectionChange);
 
 	add(lstProducts, {cboFilterByProduct.rect().x + cboFilterByProduct.rect().width + 20, mRect.y + 230});
 
@@ -374,7 +374,7 @@ void FactoryReport::onClearProduction()
 {
 	selectedFactory->productType(ProductType::PRODUCT_NONE);
 	lstProducts.clearSelected();
-	cboFilterByProductSelectionChanged();
+	onProductFilterSelectionChange();
 }
 
 
@@ -387,7 +387,7 @@ void FactoryReport::onTakeMeThere()
 void FactoryReport::onApply()
 {
 	selectedFactory->productType(selectedProductType);
-	cboFilterByProductSelectionChanged();
+	onProductFilterSelectionChange();
 }
 
 
@@ -434,7 +434,7 @@ void FactoryReport::lstProductsSelectionChanged()
 }
 
 
-void FactoryReport::cboFilterByProductSelectionChanged()
+void FactoryReport::onProductFilterSelectionChange()
 {
 	if (!cboFilterByProduct.isItemSelected()) { return; }
 	filterButtonClicked(false);
