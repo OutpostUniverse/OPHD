@@ -75,7 +75,7 @@ void TextArea::onTextChange()
 }
 
 
-void TextArea::onFontChanged()
+void TextArea::onFontChange()
 {
 	processString();
 }

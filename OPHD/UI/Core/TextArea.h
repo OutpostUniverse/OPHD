@@ -24,7 +24,7 @@ private:
 
 	void onResize() override;
 	void onTextChange() override;
-	virtual void onFontChanged();
+	virtual void onFontChange();
 
 	void draw() override;
 	void processString();
