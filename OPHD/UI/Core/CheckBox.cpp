@@ -78,7 +78,7 @@ void CheckBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-void CheckBox::onTextChanged()
+void CheckBox::onTextChange()
 {
 	const auto textWidth = mFont.width(text());
 	width((textWidth > 0) ? 20 + textWidth : 13);

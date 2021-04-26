@@ -69,7 +69,7 @@ void TextArea::onResize()
 }
 
 
-void TextArea::onTextChanged()
+void TextArea::onTextChange()
 {
 	processString();
 }

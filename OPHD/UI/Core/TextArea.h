@@ -23,7 +23,7 @@ private:
 	using StringList = std::vector<std::string>;
 
 	void onResize() override;
-	void onTextChanged() override;
+	void onTextChange() override;
 	virtual void onFontChanged();
 
 	void draw() override;

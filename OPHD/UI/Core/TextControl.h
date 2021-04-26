@@ -22,7 +22,7 @@ public:
 	const std::string& text() const { return mText; }
 	TextChangedCallback& textChanged() { return mTextChanged; }
 
-	virtual void onTextChanged() { mTextChanged(this); }
+	virtual void onTextChange() { mTextChanged(this); }
 
 protected:
 	TextChangedCallback mTextChanged;

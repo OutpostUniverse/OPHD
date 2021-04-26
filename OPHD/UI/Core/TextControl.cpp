@@ -6,5 +6,5 @@
 void TextControl::text(const std::string& text)
 {
 	mText = text;
-	onTextChanged();
+	onTextChange();
 }
