@@ -69,7 +69,7 @@ public:
 		mSlider.displayPosition(false);
 		mSlider.length(0);
 		mSlider.thumbPosition(0);
-		mSlider.change().connect(this, &ListBox::slideChanged);
+		mSlider.change().connect(this, &ListBox::onSlideChange);
 		updateScrollLayout();
 	}
 
@@ -78,7 +78,7 @@ public:
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect(this, &ListBox::onMouseMove);
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().disconnect(this, &ListBox::onMouseWheel);
 
-		mSlider.change().disconnect(this, &ListBox::slideChanged);
+		mSlider.change().disconnect(this, &ListBox::onSlideChange);
 	}
 
 	bool isEmpty() const {
@@ -220,7 +220,7 @@ protected:
 		mSlider.changeThumbPosition((y < 0 ? 16.0f : -16.0f));
 	}
 
-	virtual void slideChanged(float newPosition) {
+	virtual void onSlideChange(float newPosition) {
 		updateScrollLayout();
 		// Intentional truncation of fractional value
 		const auto pos = std::floor(newPosition);
