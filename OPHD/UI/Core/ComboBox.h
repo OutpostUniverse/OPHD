@@ -42,7 +42,7 @@ public:
 
 private:
 	void onSizeChanged() override;
-	void positionChanged(NAS2D::Vector<int> displacement) override;
+	void onMove(NAS2D::Vector<int> displacement) override;
 	void lstItemsSelectionChanged();
 
 	void onMouseWheel(int x, int y);

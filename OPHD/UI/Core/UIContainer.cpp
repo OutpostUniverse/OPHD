@@ -77,9 +77,9 @@ void UIContainer::visibilityChanged(bool visible)
 }
 
 
-void UIContainer::positionChanged(NAS2D::Vector<int> displacement)
+void UIContainer::onMove(NAS2D::Vector<int> displacement)
 {
-	Control::positionChanged(displacement);
+	Control::onMove(displacement);
 
 	for (auto control : mControls)
 	{

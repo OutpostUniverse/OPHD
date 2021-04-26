@@ -64,7 +64,7 @@ protected:
 	 * 
 	 * \param	displacement	Difference in position.
 	 */
-	virtual void positionChanged(NAS2D::Vector<int> displacement) { mPositionChanged(displacement); }
+	virtual void onMove(NAS2D::Vector<int> displacement) { mPositionChanged(displacement); }
 
 	virtual void visibilityChanged(bool /*visible*/) {}
 

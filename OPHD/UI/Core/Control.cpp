@@ -13,7 +13,7 @@ void Control::position(Point<int> pos)
 {
 	const auto displacement = pos - mRect.startPoint();
 	mRect.startPoint(pos);
-	positionChanged(displacement);
+	onMove(displacement);
 }
 
 
