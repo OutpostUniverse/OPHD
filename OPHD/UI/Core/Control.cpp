@@ -40,7 +40,7 @@ int Control::positionY()
  */
 Control::OnMoveCallback& Control::moved()
 {
-	return mPositionChanged;
+	return mOnMoveSignal;
 }
 
 

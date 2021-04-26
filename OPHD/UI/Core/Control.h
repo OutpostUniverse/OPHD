@@ -64,7 +64,7 @@ protected:
 	 * 
 	 * \param	displacement	Difference in position.
 	 */
-	virtual void onMove(NAS2D::Vector<int> displacement) { mPositionChanged(displacement); }
+	virtual void onMove(NAS2D::Vector<int> displacement) { mOnMoveSignal(displacement); }
 
 	virtual void onResize() { mResized(this); }
 
@@ -74,7 +74,7 @@ protected:
 
 	virtual void onFocusChange() {}
 
-	OnMoveCallback mPositionChanged; /**< Callback fired whenever the position of the Control changes. */
+	OnMoveCallback mOnMoveSignal; /**< Callback fired whenever the position of the Control changes. */
 	ResizeCallback mResized;
 
 	NAS2D::Rectangle<int> mRect; /**< Area of the Control. */
