@@ -62,10 +62,8 @@ protected:
 	/**
 	 * Called whenever the Control's position is changed.
 	 * 
-	 * \param	dX	Difference in X Position.
-	 * \param	dY	Difference in Y Position.
+	 * \param	displacement	Difference in position.
 	 */
-	void positionChanged(int dX, int dY) { positionChanged({dX, dY}); }
 	virtual void positionChanged(NAS2D::Vector<int> displacement) { mPositionChanged(displacement); }
 
 	virtual void visibilityChanged(bool /*visible*/) {}
