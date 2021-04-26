@@ -42,7 +42,7 @@ public:
 
 private:
 	void onSizeChanged() override;
-	void repositioned(int, int);
+	void positionChanged(int dX, int dY) override;
 	void lstItemsSelectionChanged();
 
 	void onMouseWheel(int x, int y);

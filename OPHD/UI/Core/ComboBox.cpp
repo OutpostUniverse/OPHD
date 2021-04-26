@@ -24,14 +24,12 @@ ComboBox::ComboBox()
 	lstItems.visible(false);
 	lstItems.height(300);
 
-	moved().connect(this, &ComboBox::repositioned);
 	lstItems.selectionChanged().connect(this, &ComboBox::lstItemsSelectionChanged);
 }
 
 
 ComboBox::~ComboBox()
 {
-	moved().disconnect(this, &ComboBox::repositioned);
 	lstItems.selectionChanged().disconnect(this, &ComboBox::lstItemsSelectionChanged);
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ComboBox::onMouseDown);
 	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ComboBox::onMouseWheel);
@@ -64,8 +62,10 @@ void ComboBox::onSizeChanged()
 /**
  * Position changed event handler.
  */
-void ComboBox::repositioned(int, int)
+void ComboBox::positionChanged(int dX, int dY)
 {
+	Control::positionChanged(dX, dY);
+
 	txtField.position(position());
 	btnDown.position(txtField.rect().crossXPoint());
 	lstItems.position(rect().crossYPoint());
