@@ -129,7 +129,7 @@ void MapViewState::initUi()
 
 	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
 	mConnections.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
-	mConnections.selectionChanged().connect(this, &MapViewState::connectionsSelectionChanged);
+	mConnections.selectionChanged().connect(this, &MapViewState::onConnectionsSelectionChange);
 
 	mStructures.position(NAS2D::Point{constants::MARGIN, mBottomUiRect.y + MARGIN});
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
@@ -489,7 +489,7 @@ void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _ite
 /**
  * Handler for the Tubes Pallette dialog.
  */
-void MapViewState::connectionsSelectionChanged(const IconGrid::IconGridItem* /*_item*/)
+void MapViewState::onConnectionsSelectionChange(const IconGrid::IconGridItem* /*_item*/)
 {
 	mRobots.clearSelection();
 	mStructures.clearSelection();

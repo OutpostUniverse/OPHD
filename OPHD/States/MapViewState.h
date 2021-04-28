@@ -220,7 +220,7 @@ private:
 	void onGameOver();
 
 	void structuresSelectionChanged(const IconGrid::IconGridItem*);
-	void connectionsSelectionChanged(const IconGrid::IconGridItem*);
+	void onConnectionsSelectionChange(const IconGrid::IconGridItem*);
 	void onRobotsSelectionChange(const IconGrid::IconGridItem*);
 
 	void onDiggerSelectionDialog(Direction direction, Tile* tile);
