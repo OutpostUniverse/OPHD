@@ -14,7 +14,7 @@
 class ComboBox : public Control
 {
 public:
-	using SelectionChangeCallback = NAS2D::Signal<>;
+	using SelectionChangeSignal = NAS2D::Signal<>;
 
 	ComboBox();
 	~ComboBox() override;
@@ -26,7 +26,7 @@ public:
 
 	void clearSelected();
 
-	SelectionChangeCallback::Source& selectionChanged() { return mSelectionChanged; }
+	SelectionChangeSignal::Source& selectionChanged() { return mSelectionChanged; }
 
 	const std::string& selectionText() const;
 	int selectionTag() const;
@@ -54,7 +54,7 @@ private:
 
 	NAS2D::Rectangle<int> mBaseArea;
 
-	SelectionChangeCallback mSelectionChanged;
+	SelectionChangeSignal mSelectionChanged;
 
 	std::size_t mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
 };

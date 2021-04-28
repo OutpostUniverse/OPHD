@@ -60,7 +60,7 @@ const std::string& RadioButton::text() const
 	return mLabel.text();
 }
 
-RadioButton::ClickCallback::Source& RadioButton::click()
+RadioButton::ClickSignal::Source& RadioButton::click()
 {
 	for (auto* sibling : mParentContainer->controls())
 	{
@@ -70,7 +70,7 @@ RadioButton::ClickCallback::Source& RadioButton::click()
 		}
 	}
 	checked(true);
-	return mCallback;
+	return mSignal;
 }
 
 
@@ -81,7 +81,7 @@ void RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	if (button == EventHandler::MouseButton::Left && mRect.contains(Point{x, y}))
 	{
 		click();
-		mCallback();
+		mSignal();
 	}
 }
 

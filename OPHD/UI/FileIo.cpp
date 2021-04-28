@@ -164,7 +164,7 @@ void FileIo::onClose()
 
 void FileIo::onFileIo()
 {
-	mCallback(txtFileName.text(), mMode);
+	mSignal(txtFileName.text(), mMode);
 	txtFileName.text("");
 	txtFileName.resetCursorPosition();
 	btnFileOp.enabled(false);

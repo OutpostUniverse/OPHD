@@ -18,7 +18,7 @@ class Factory;
 class FactoryListBox : public ListBoxBase
 {
 public:
-	using SelectionChangedCallback = NAS2D::Signal<Factory*>;
+	using SelectionChangedSignal = NAS2D::Signal<Factory*>;
 
 	struct FactoryListBoxItem : public ListBoxItem
 	{

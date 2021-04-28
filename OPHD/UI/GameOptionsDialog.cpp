@@ -60,20 +60,20 @@ void GameOptionsDialog::update()
 
 void GameOptionsDialog::onSave()
 {
-	mCallbackSave();
+	mSignalSave();
 }
 
 void GameOptionsDialog::onLoad()
 {
-	mCallbackLoad();
+	mSignalLoad();
 }
 
 void GameOptionsDialog::onReturn()
 {
-	mCallbackReturn();
+	mSignalReturn();
 }
 
 void GameOptionsDialog::onClose()
 {
-	mCallbackClose();
+	mSignalClose();
 }

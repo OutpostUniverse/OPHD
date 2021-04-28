@@ -225,7 +225,7 @@ void WarehouseReport::onDoubleClick(EventHandler::MouseButton button, int x, int
 
 	if (selectedWarehouse && lstStructures.rect().contains(NAS2D::Point{x, y}))
 	{
-		takeMeThereCallback()(selectedWarehouse);
+		takeMeThereSignal()(selectedWarehouse);
 	}
 }
 
@@ -319,7 +319,7 @@ void WarehouseReport::onDisabled()
 
 void WarehouseReport::onTakeMeThere()
 {
-	takeMeThereCallback()(selectedWarehouse);
+	takeMeThereSignal()(selectedWarehouse);
 }
 
 

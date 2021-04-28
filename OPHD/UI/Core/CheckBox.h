@@ -12,7 +12,7 @@
 class CheckBox : public TextControl
 {
 public:
-	using ClickCallback = NAS2D::Signal<>;
+	using ClickSignal = NAS2D::Signal<>;
 
 	CheckBox(std::string newText = "");
 	~CheckBox() override;
@@ -20,7 +20,7 @@ public:
 	void checked(bool toggle);
 	bool checked() const;
 
-	ClickCallback::Source& click();
+	ClickSignal::Source& click();
 
 	void update() override;
 
@@ -34,7 +34,7 @@ private:
 	const NAS2D::Font& mFont;
 	const NAS2D::Image& mSkin;
 
-	ClickCallback mCallback; /**< Object to notify when the Button is activated. */
+	ClickSignal mSignal; /**< Object to notify when the Button is activated. */
 
 	bool mChecked = false;
 };

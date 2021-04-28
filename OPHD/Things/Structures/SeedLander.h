@@ -8,7 +8,7 @@
 class SeedLander: public Structure
 {
 public:
-	using Callback = NAS2D::Signal<NAS2D::Point<int>>;
+	using Signal = NAS2D::Signal<NAS2D::Point<int>>;
 
 public:
 	SeedLander() = delete;
@@ -33,7 +33,7 @@ public:
 		mPosition = position;
 	}
 
-	Callback::Source& deployCallback() { return mDeploy; }
+	Signal::Source& deploySignal() { return mDeploy; }
 
 protected:
 	void think() override
@@ -48,6 +48,6 @@ protected:
 	}
 
 private:
-	Callback mDeploy;
+	Signal mDeploy;
 	NAS2D::Point<int> mPosition;
 };

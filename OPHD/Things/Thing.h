@@ -13,7 +13,7 @@
 class Thing
 {
 public:
-	using DieCallback = NAS2D::Signal<Thing*>;
+	using DieSignal = NAS2D::Signal<Thing*>;
 
 public:
 	Thing(const std::string& name, const std::string& spritePath, const std::string& initialAction) :
@@ -43,10 +43,10 @@ public:
 	 */
 	NAS2D::Sprite& sprite() { return mSprite; }
 
-	virtual void die() { mIsDead = true; mDieCallback(this); }
+	virtual void die() { mIsDead = true; mDieSignal(this); }
 	bool dead() const { return mIsDead; }
 
-	DieCallback::Source& onDie() { return mDieCallback; }
+	DieSignal::Source& onDie() { return mDieSignal; }
 
 private:
 	// No default copy constructor, or copy operator
@@ -60,5 +60,5 @@ private:
 
 	bool mIsDead = false;/**< Thing is dead and should be cleaned up. */
 
-	DieCallback mDieCallback;
+	DieSignal mDieSignal;
 };

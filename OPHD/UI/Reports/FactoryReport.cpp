@@ -380,7 +380,7 @@ void FactoryReport::onClearProduction()
 
 void FactoryReport::onTakeMeThere()
 {
-	takeMeThereCallback()(selectedFactory);
+	takeMeThereSignal()(selectedFactory);
 }
 
 

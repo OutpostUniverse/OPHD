@@ -50,7 +50,7 @@ void Planet::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
 	if (inArea != mMouseInArea)
 	{
 		mMouseInArea = inArea;
-		mMouseInArea ? mMouseEnterCallback() : mMouseExitCallback();
+		mMouseInArea ? mMouseEnterSignal() : mMouseExitSignal();
 		mTimer.reset();
 	}
 }

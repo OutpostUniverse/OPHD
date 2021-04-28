@@ -7,12 +7,12 @@
 class GameOverDialog : public Window
 {
 public:
-	using ClickCallback = NAS2D::Signal<>;
+	using ClickSignal = NAS2D::Signal<>;
 
 public:
 	GameOverDialog();
 
-	ClickCallback::Source& returnToMainMenu() { return mCallback; }
+	ClickSignal::Source& returnToMainMenu() { return mSignal; }
 
 	void update() override;
 
@@ -23,5 +23,5 @@ private:
 
 	Button btnClose;
 
-	ClickCallback mCallback;
+	ClickSignal mSignal;
 };

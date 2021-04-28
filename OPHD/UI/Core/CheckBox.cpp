@@ -60,9 +60,9 @@ bool CheckBox::checked() const
 }
 
 
-CheckBox::ClickCallback::Source& CheckBox::click()
+CheckBox::ClickSignal::Source& CheckBox::click()
 {
-	return mCallback;
+	return mSignal;
 }
 
 
@@ -73,7 +73,7 @@ void CheckBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	if (button == EventHandler::MouseButton::Left && mRect.contains(Point{x, y}))
 	{
 		mChecked = !mChecked;
-		mCallback();
+		mSignal();
 	}
 }
 

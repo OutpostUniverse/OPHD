@@ -13,7 +13,7 @@ class Structure;
 class MainReportsUiState : public Wrapper
 {
 public:
-	using ReportsUiCallback = NAS2D::Signal<>;
+	using ReportsUiSignal = NAS2D::Signal<>;
 	using TakeMeThere = NAS2D::Signal<Structure*>;
 	using TakeMeThereList = std::vector<TakeMeThere*>;
 
@@ -27,7 +27,7 @@ public:
 
 	void clearLists();
 
-	ReportsUiCallback::Source& hideReports() { return mReportsUiCallback; }
+	ReportsUiSignal::Source& hideReports() { return mReportsUiSignal; }
 	TakeMeThereList takeMeThere();
 
 protected:
@@ -48,5 +48,5 @@ private:
 	void exit();
 
 private:
-	ReportsUiCallback mReportsUiCallback;
+	ReportsUiSignal mReportsUiSignal;
 };

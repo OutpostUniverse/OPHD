@@ -157,7 +157,7 @@ float Slider::positionInternal()
 void Slider::positionInternal(float newPosition)
 {
 	mPosition = std::clamp(newPosition, 0.0f, mLength);
-	mCallback(mPosition);
+	mSignal(mPosition);
 }
 
 
@@ -360,7 +360,7 @@ void Slider::thumbPosition(float value)
 
 	mPosition = std::clamp(value, 0.0f, mLength);
 
-	mCallback(thumbPosition());
+	mSignal(thumbPosition());
 }
 
 
@@ -396,7 +396,7 @@ void Slider::thumbPositionNormalized(float value) {
 	value = std::clamp(value, 0.0f, 1.0f);
 	if (mBackward) { value = 1.0f - value; }
 	mPosition = mLength * value;
-	mCallback(thumbPosition());
+	mSignal(thumbPosition());
 }
 
 float Slider::thumbPositionNormalized() {

@@ -25,8 +25,8 @@ class ProductionCost;
 class Factory : public Structure
 {
 public:
-	// Callback providing what was complete and a reference to the Factory.
-	using ProductionCallback = NAS2D::Signal<Factory&>;
+	// Signal providing what was complete and a reference to the Factory.
+	using ProductionSignal = NAS2D::Signal<Factory&>;
 
 	using ProductionTypeList = std::vector<ProductType>;
 
@@ -54,7 +54,7 @@ public:
 
 	virtual void initFactory() = 0;
 
-	ProductionCallback::Source& productionComplete() { return mProductionComplete; }
+	ProductionSignal::Source& productionComplete() { return mProductionComplete; }
 
 protected:
 	void clearProduction();
@@ -73,7 +73,7 @@ private:
 
 	ProductionTypeList mAvailableProducts; /**< List of products that the Factory can produce. */
 
-	ProductionCallback mProductionComplete; /**< Callback used when production is complete. */
+	ProductionSignal mProductionComplete; /**< Signal used when production is complete. */
 
 	const StorableResources* mResources = nullptr; /**< Pointer to the player's resource pool. UGLY. */
 };

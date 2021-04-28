@@ -27,7 +27,7 @@ GameOverDialog::GameOverDialog() :
 
 void GameOverDialog::onClose()
 {
-	mCallback();
+	mSignal();
 }
 
 

@@ -247,7 +247,7 @@ void MineReport::onDigNewLevel()
 
 void MineReport::onTakeMeThere()
 {
-	takeMeThereCallback()(mSelectedFacility);
+	takeMeThereSignal()(mSelectedFacility);
 }
 
 

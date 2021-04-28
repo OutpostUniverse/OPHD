@@ -235,7 +235,7 @@ void MapViewState::load(const std::string& filePath)
 			SeedLander* s = dynamic_cast<SeedLander*>(list[0]);
 			if (!s) { throw std::runtime_error("MapViewState::load(): Structure in list is not a SeedLander."); }
 
-			s->deployCallback().connect(this, &MapViewState::onDeploySeedLander);
+			s->deploySignal().connect(this, &MapViewState::onDeploySeedLander);
 
 			mStructures.clear();
 			mConnections.clear();
@@ -251,7 +251,7 @@ void MapViewState::load(const std::string& filePath)
 
 	checkCommRangeOverlay();
 
-	mMapChangedCallback();
+	mMapChangedSignal();
 }
 
 

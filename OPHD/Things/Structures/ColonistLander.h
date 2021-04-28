@@ -8,7 +8,7 @@
 class ColonistLander : public Structure
 {
 public:
-	using Callback = NAS2D::Signal<>;
+	using Signal = NAS2D::Signal<>;
 
 public:
 
@@ -27,7 +27,7 @@ public:
 		enable();
 	}
 
-	Callback::Source& deployCallback() { return mDeploy; }
+	Signal::Source& deploySignal() { return mDeploy; }
 
 protected:
 	void think() override
@@ -40,7 +40,7 @@ protected:
 	}
 
 private:
-	Callback mDeploy;
+	Signal mDeploy;
 
 	Tile* mTile;
 };
