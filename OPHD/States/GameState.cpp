@@ -39,7 +39,7 @@ GameState::~GameState()
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
-		takeMeThere->disconnect(this, &GameState::takeMeThere);
+		takeMeThere->disconnect(this, &GameState::onTakeMeThere);
 	}
 
 	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::onMusicComplete));
@@ -61,7 +61,7 @@ void GameState::initialize()
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
-		takeMeThere->connect(this, &GameState::takeMeThere);
+		takeMeThere->connect(this, &GameState::onTakeMeThere);
 	}
 
 	NAS2D::Utility<NAS2D::Mixer>::get().addMusicCompleteHandler(MakeDelegate(this, &GameState::onMusicComplete));
@@ -183,7 +183,7 @@ void GameState::onMapChange()
  * This event is raised by the MainReportsUiState whenever a "Take Me There" button in any
  * of the report UI panels is clicked.
  */
-void GameState::takeMeThere(Structure* structure)
+void GameState::onTakeMeThere(Structure* structure)
 {
 	onHideReports();
 	mMapView->focusOnStructure(structure);
