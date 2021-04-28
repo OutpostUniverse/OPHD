@@ -7,7 +7,6 @@
 
 
 /**
- * \class Control
  * \brief Implements a base for all GUI Controls to derive from.
  * 
  * The Control class is the base class from which all GUI controls inherit

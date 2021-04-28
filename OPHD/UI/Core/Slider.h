@@ -9,7 +9,6 @@
 
 
  /**
- * \class	Slider
  * \brief	Base class for all sliding controls.
  * 
  * Handle horizontal and vertical slide bar.

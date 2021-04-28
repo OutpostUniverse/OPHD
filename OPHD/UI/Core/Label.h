@@ -21,9 +21,7 @@ namespace NAS2D
 
 
 /**
- * \class Label
  * \brief A control that contains readonly text.
- * 
  */
 class Label : public TextControl
 {

@@ -8,7 +8,6 @@
 #include <array>
 
 /** 
- * \class	StructureCatalogue
  * \brief	Provides a means of instantiating new structures and getting build
  *			cost / recycle value / population requirements.
  * 
