@@ -42,7 +42,7 @@ GameState::~GameState()
 		takeMeThere->disconnect(this, &GameState::takeMeThere);
 	}
 
-	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
+	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::onMusicComplete));
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
 
@@ -64,7 +64,7 @@ void GameState::initialize()
 		takeMeThere->connect(this, &GameState::takeMeThere);
 	}
 
-	NAS2D::Utility<NAS2D::Mixer>::get().addMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
+	NAS2D::Utility<NAS2D::Mixer>::get().addMusicCompleteHandler(MakeDelegate(this, &GameState::onMusicComplete));
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().connect(this, &GameState::onFadeComplete);
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeIn(constants::FADE_SPEED);
 }
@@ -125,7 +125,7 @@ void GameState::onFadeComplete()
  * Called by NAS2D::Mixer upon completion of a music track. This function
  * changes the background music track to a different track in the lineup.
  */
-void GameState::musicComplete()
+void GameState::onMusicComplete()
 {
 	/// \todo	Make me work... once there's some music to listen to. 0.0
 }
