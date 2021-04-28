@@ -122,7 +122,7 @@ private:
 
 	// INSERT OBJECT HANDLING
 	void deployCargoLander();
-	void deployColonistLander();
+	void onDeployColonistLander();
 	void deploySeedLander(NAS2D::Point<int> point);
 	void insertSeedLander(NAS2D::Point<int> point);
 	void insertTube(ConnectorDir dir, int depth, Tile* tile);

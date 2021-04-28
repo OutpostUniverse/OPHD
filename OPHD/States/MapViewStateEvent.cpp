@@ -98,7 +98,7 @@ void MapViewState::factoryProductionComplete(Factory& factory)
 /**
  * Lands colonists on the surfaces and adds them to the population pool.
  */
-void MapViewState::deployColonistLander()
+void MapViewState::onDeployColonistLander()
 {
 	mPopulation.addPopulation(Population::PersonRole::ROLE_STUDENT, 10);
 	mPopulation.addPopulation(Population::PersonRole::ROLE_WORKER, 20);

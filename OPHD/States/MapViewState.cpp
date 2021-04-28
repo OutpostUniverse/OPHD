@@ -1165,7 +1165,7 @@ void MapViewState::placeStructure()
 		if (!validLanderSite(*tile)) { return; }
 
 		ColonistLander* s = new ColonistLander(tile);
-		s->deployCallback().connect(this, &MapViewState::deployColonistLander);
+		s->deployCallback().connect(this, &MapViewState::onDeployColonistLander);
 		Utility<StructureManager>::get().addStructure(s, tile);
 
 		--mLandersColonist;
