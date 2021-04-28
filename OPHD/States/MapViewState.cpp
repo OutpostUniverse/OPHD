@@ -1181,7 +1181,7 @@ void MapViewState::placeStructure()
 		if (!validLanderSite(*tile)) { return; }
 
 		CargoLander* _lander = new CargoLander(tile);
-		_lander->deployCallback().connect(this, &MapViewState::deployCargoLander);
+		_lander->deployCallback().connect(this, &MapViewState::onDeployCargoLander);
 		Utility<StructureManager>::get().addStructure(_lander, tile);
 
 		--mLandersCargo;

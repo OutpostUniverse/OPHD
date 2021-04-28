@@ -109,7 +109,7 @@ void MapViewState::onDeployColonistLander()
 /**
  * Lands cargo on the surface and adds resources to the resource pool.
  */
-void MapViewState::deployCargoLander()
+void MapViewState::onDeployCargoLander()
 {
 	auto cc = static_cast<CommandCenter*>(mTileMap->getTile(ccLocation(), 0).structure());
 	cc->foodLevel(cc->foodLevel() + 125);

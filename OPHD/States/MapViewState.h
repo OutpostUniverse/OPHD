@@ -121,7 +121,7 @@ private:
 	void drawRobotInfo();
 
 	// INSERT OBJECT HANDLING
-	void deployCargoLander();
+	void onDeployCargoLander();
 	void onDeployColonistLander();
 	void deploySeedLander(NAS2D::Point<int> point);
 	void insertSeedLander(NAS2D::Point<int> point);
