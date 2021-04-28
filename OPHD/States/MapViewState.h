@@ -155,7 +155,7 @@ private:
 	void pullRobotFromFactory(ProductType pt, Factory& factory);
 	void onFactoryProductionComplete(Factory& factory);
 
-	void mineFacilityExtended(MineFacility* mf);
+	void onMineFacilityExtend(MineFacility* mf);
 
 	void countPlayerResources();
 

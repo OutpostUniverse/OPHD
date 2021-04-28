@@ -392,7 +392,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto& mineFacility = *static_cast<MineFacility*>(&structure);
 			mineFacility.mine(mine);
 			mineFacility.maxDepth(mTileMap->maxDepth());
-			mineFacility.extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
+			mineFacility.extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
 		}
 
 		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)
