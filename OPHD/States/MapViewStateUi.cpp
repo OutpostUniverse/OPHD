@@ -60,7 +60,7 @@ void MapViewState::initUi()
 	mFactoryProduction.hide();
 
 	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
-	mFileIoDialog.fileOperation().connect(this, &MapViewState::fileIoAction);
+	mFileIoDialog.fileOperation().connect(this, &MapViewState::onFileIoAction);
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
@@ -616,7 +616,7 @@ void MapViewState::onGameOver()
 /**
  * Handler for File I/O actions.
  */
-void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
+void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
 	if (fileOp == FileIo::FileOperation::FILE_LOAD)
 	{

@@ -225,7 +225,7 @@ private:
 
 	void onDiggerSelectionDialog(Direction direction, Tile* tile);
 
-	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
+	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
 
 private:
