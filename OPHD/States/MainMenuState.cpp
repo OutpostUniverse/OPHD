@@ -218,7 +218,6 @@ void MainMenuState::onNewGame()
 
 	disableButtons();
 
-	//dlgNewGame.show();
 	wasDifficultyOkClicked();
 }
 
