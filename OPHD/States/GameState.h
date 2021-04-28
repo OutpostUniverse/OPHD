@@ -26,7 +26,7 @@ public:
 private:
 	void onMouseMove(int x, int y, int relX, int relY);
 
-	void fadeComplete();
+	void onFadeComplete();
 	void musicComplete();
 
 	void quitEvent();
