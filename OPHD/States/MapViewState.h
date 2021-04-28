@@ -223,7 +223,7 @@ private:
 	void connectionsSelectionChanged(const IconGrid::IconGridItem*);
 	void robotsSelectionChanged(const IconGrid::IconGridItem*);
 
-	void diggerSelectionDialog(Direction direction, Tile* tile);
+	void onDiggerSelectionDialog(Direction direction, Tile* tile);
 
 	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 

@@ -44,7 +44,7 @@ void MapViewState::initUi()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	mDiggerDirection.directionSelected().connect(this, &MapViewState::diggerSelectionDialog);
+	mDiggerDirection.directionSelected().connect(this, &MapViewState::onDiggerSelectionDialog);
 	mDiggerDirection.hide();
 
 	mTileInspector.position(renderer.center() - NAS2D::Vector{mTileInspector.size().x / 2.0f, 175.0f});
@@ -519,7 +519,7 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 }
 
 
-void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
+void MapViewState::onDiggerSelectionDialog(Direction direction, Tile* tile)
 {
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
