@@ -125,7 +125,7 @@ void MapViewState::initUi()
 	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
 	mRobots.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mRobots.showTooltip(true);
-	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
+	mRobots.selectionChanged().connect(this, &MapViewState::onRobotsSelectionChange);
 
 	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
 	mConnections.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
@@ -501,7 +501,7 @@ void MapViewState::connectionsSelectionChanged(const IconGrid::IconGridItem* /*_
 /**
  * Handles clicks of the Robot Selection Menu.
  */
-void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
+void MapViewState::onRobotsSelectionChange(const IconGrid::IconGridItem* _item)
 {
 	mConnections.clearSelection();
 	mStructures.clearSelection();

@@ -221,7 +221,7 @@ private:
 
 	void structuresSelectionChanged(const IconGrid::IconGridItem*);
 	void connectionsSelectionChanged(const IconGrid::IconGridItem*);
-	void robotsSelectionChanged(const IconGrid::IconGridItem*);
+	void onRobotsSelectionChange(const IconGrid::IconGridItem*);
 
 	void onDiggerSelectionDialog(Direction direction, Tile* tile);
 
