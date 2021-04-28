@@ -235,7 +235,7 @@ void MapViewState::load(const std::string& filePath)
 			SeedLander* s = dynamic_cast<SeedLander*>(list[0]);
 			if (!s) { throw std::runtime_error("MapViewState::load(): Structure in list is not a SeedLander."); }
 
-			s->deployCallback().connect(this, &MapViewState::deploySeedLander);
+			s->deployCallback().connect(this, &MapViewState::onDeploySeedLander);
 
 			mStructures.clear();
 			mConnections.clear();
@@ -288,18 +288,18 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		{
 		case Robot::Type::Digger:
 			robot = mRobotPool.addRobot(Robot::Type::Digger, id);
-			robot->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
 			break;
 
 		case Robot::Type::Dozer:
 			robot = mRobotPool.addRobot(Robot::Type::Dozer, id);
-			robot->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 			break;
 
 		case Robot::Type::Miner:
 			robot = mRobotPool.addRobot(Robot::Type::Miner, id);
-			robot->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 			break;
 
 		default:
@@ -392,7 +392,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto& mineFacility = *static_cast<MineFacility*>(&structure);
 			mineFacility.mine(mine);
 			mineFacility.maxDepth(mTileMap->maxDepth());
-			mineFacility.extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
+			mineFacility.extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
 		}
 
 		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)
@@ -456,7 +456,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			factory.productType(static_cast<ProductType>(production_type));
 			factory.productionTurnsCompleted(production_completed);
 			factory.resourcePool(&mResourcesCount);
-			factory.productionComplete().connect(this, &MapViewState::factoryProductionComplete);
+			factory.productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
 		}
 
 		if (structure.isRobotCommand())

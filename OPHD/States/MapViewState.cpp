@@ -1165,7 +1165,7 @@ void MapViewState::placeStructure()
 		if (!validLanderSite(*tile)) { return; }
 
 		ColonistLander* s = new ColonistLander(tile);
-		s->deployCallback().connect(this, &MapViewState::deployColonistLander);
+		s->deployCallback().connect(this, &MapViewState::onDeployColonistLander);
 		Utility<StructureManager>::get().addStructure(s, tile);
 
 		--mLandersColonist;
@@ -1181,7 +1181,7 @@ void MapViewState::placeStructure()
 		if (!validLanderSite(*tile)) { return; }
 
 		CargoLander* _lander = new CargoLander(tile);
-		_lander->deployCallback().connect(this, &MapViewState::deployCargoLander);
+		_lander->deployCallback().connect(this, &MapViewState::onDeployCargoLander);
 		Utility<StructureManager>::get().addStructure(_lander, tile);
 
 		--mLandersCargo;
@@ -1215,7 +1215,7 @@ void MapViewState::placeStructure()
 		// FIXME: Ugly
 		if (structure->isFactory())
 		{
-			static_cast<Factory*>(structure)->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
+			static_cast<Factory*>(structure)->productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
 			static_cast<Factory*>(structure)->resourcePool(&mResourcesCount);
 		}
 
@@ -1243,7 +1243,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 		}
 
 		SeedLander* s = new SeedLander(point);
-		s->deployCallback().connect(this, &MapViewState::deploySeedLander);
+		s->deployCallback().connect(this, &MapViewState::onDeploySeedLander);
 		Utility<StructureManager>::get().addStructure(s, &mTileMap->getTile(point)); // Can only ever be placed on depth level 0
 
 		clearMode();

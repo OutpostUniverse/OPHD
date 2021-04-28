@@ -40,7 +40,7 @@ private:
 	void wasDifficultyOkClicked();
 	void newGameCancelled();
 
-	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
+	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
 private:
 	const NAS2D::Image mBgImage;

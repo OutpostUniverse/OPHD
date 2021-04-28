@@ -44,7 +44,7 @@ void MapViewState::initUi()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	mDiggerDirection.directionSelected().connect(this, &MapViewState::diggerSelectionDialog);
+	mDiggerDirection.directionSelected().connect(this, &MapViewState::onDiggerSelectionDialog);
 	mDiggerDirection.hide();
 
 	mTileInspector.position(renderer.center() - NAS2D::Vector{mTileInspector.size().x / 2.0f, 175.0f});
@@ -60,7 +60,7 @@ void MapViewState::initUi()
 	mFactoryProduction.hide();
 
 	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
-	mFileIoDialog.fileOperation().connect(this, &MapViewState::fileIoAction);
+	mFileIoDialog.fileOperation().connect(this, &MapViewState::onFileIoAction);
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
@@ -125,16 +125,16 @@ void MapViewState::initUi()
 	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
 	mRobots.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mRobots.showTooltip(true);
-	mRobots.selectionChanged().connect(this, &MapViewState::robotsSelectionChanged);
+	mRobots.selectionChanged().connect(this, &MapViewState::onRobotsSelectionChange);
 
 	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
 	mConnections.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
-	mConnections.selectionChanged().connect(this, &MapViewState::connectionsSelectionChanged);
+	mConnections.selectionChanged().connect(this, &MapViewState::onConnectionsSelectionChange);
 
 	mStructures.position(NAS2D::Point{constants::MARGIN, mBottomUiRect.y + MARGIN});
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mStructures.showTooltip(true);
-	mStructures.selectionChanged().connect(this, &MapViewState::structuresSelectionChanged);
+	mStructures.selectionChanged().connect(this, &MapViewState::onStructuresSelectionChange);
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
@@ -467,7 +467,7 @@ void MapViewState::onToggleRouteOverlay()
 * Currently uses a text comparison function. Not inherently bad but
 * should really be turned into a key/value pair table for easier lookups.
 */
-void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _item)
+void MapViewState::onStructuresSelectionChange(const IconGrid::IconGridItem* _item)
 {
 	mConnections.clearSelection();
 	mRobots.clearSelection();
@@ -489,7 +489,7 @@ void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _ite
 /**
  * Handler for the Tubes Pallette dialog.
  */
-void MapViewState::connectionsSelectionChanged(const IconGrid::IconGridItem* /*_item*/)
+void MapViewState::onConnectionsSelectionChange(const IconGrid::IconGridItem* /*_item*/)
 {
 	mRobots.clearSelection();
 	mStructures.clearSelection();
@@ -501,7 +501,7 @@ void MapViewState::connectionsSelectionChanged(const IconGrid::IconGridItem* /*_
 /**
  * Handles clicks of the Robot Selection Menu.
  */
-void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
+void MapViewState::onRobotsSelectionChange(const IconGrid::IconGridItem* _item)
 {
 	mConnections.clearSelection();
 	mStructures.clearSelection();
@@ -519,7 +519,7 @@ void MapViewState::robotsSelectionChanged(const IconGrid::IconGridItem* _item)
 }
 
 
-void MapViewState::diggerSelectionDialog(Direction direction, Tile* tile)
+void MapViewState::onDiggerSelectionDialog(Direction direction, Tile* tile)
 {
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
@@ -616,7 +616,7 @@ void MapViewState::onGameOver()
 /**
  * Handler for File I/O actions.
  */
-void MapViewState::fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
+void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
 	if (fileOp == FileIo::FileOperation::FILE_LOAD)
 	{

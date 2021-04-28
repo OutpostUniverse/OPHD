@@ -69,7 +69,7 @@ void MainMenuState::initialize()
 	btnQuit.click().connect(this, &MainMenuState::onQuit);
 
 	mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
-	mFileIoDialog.fileOperation().connect(this, &MainMenuState::fileIoAction);
+	mFileIoDialog.fileOperation().connect(this, &MainMenuState::onFileIoAction);
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
@@ -146,7 +146,7 @@ void MainMenuState::enableButtons()
 /**
  * Event handler for file I/O operations via the FileIO Window.
  */
-void MainMenuState::fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
+void MainMenuState::onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
 	if (fileOp == FileIo::FileOperation::FILE_SAVE)
 	{

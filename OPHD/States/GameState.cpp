@@ -30,19 +30,19 @@ GameState::~GameState()
 	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
 	e.mouseMotion().disconnect(this, &GameState::onMouseMove);
 
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &GameState::fadeComplete);
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &GameState::onFadeComplete);
 
-	mMainReportsState->hideReports().disconnect(this, &GameState::hideReportsUi);
-	mMapView->quit().disconnect(this, &GameState::quitEvent);
-	mMapView->showReporstUi().disconnect(this, &GameState::showReportsUi);
-	mMapView->mapChanged().disconnect(this, &GameState::mapChanged);
+	mMainReportsState->hideReports().disconnect(this, &GameState::onHideReports);
+	mMapView->quit().disconnect(this, &GameState::onQuit);
+	mMapView->showReporstUi().disconnect(this, &GameState::onShowReports);
+	mMapView->mapChanged().disconnect(this, &GameState::onMapChange);
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
-		takeMeThere->disconnect(this, &GameState::takeMeThere);
+		takeMeThere->disconnect(this, &GameState::onTakeMeThere);
 	}
 
-	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
+	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler(MakeDelegate(this, &GameState::onMusicComplete));
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
 
@@ -57,15 +57,15 @@ void GameState::initialize()
 
 	mMainReportsState = std::make_unique<MainReportsUiState>();
 	mMainReportsState->_initialize();
-	mMainReportsState->hideReports().connect(this, &GameState::hideReportsUi);
+	mMainReportsState->hideReports().connect(this, &GameState::onHideReports);
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
-		takeMeThere->connect(this, &GameState::takeMeThere);
+		takeMeThere->connect(this, &GameState::onTakeMeThere);
 	}
 
-	NAS2D::Utility<NAS2D::Mixer>::get().addMusicCompleteHandler(MakeDelegate(this, &GameState::musicComplete));
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().connect(this, &GameState::fadeComplete);
+	NAS2D::Utility<NAS2D::Mixer>::get().addMusicCompleteHandler(MakeDelegate(this, &GameState::onMusicComplete));
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().connect(this, &GameState::onFadeComplete);
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeIn(constants::FADE_SPEED);
 }
 
@@ -85,9 +85,9 @@ void GameState::mapviewstate(MapViewState* state)
 	mMapView.reset(state);
 	mActiveState = mMapView.get();
 
-	mMapView->quit().connect(this, &GameState::quitEvent);
-	mMapView->showReporstUi().connect(this, &GameState::showReportsUi);
-	mMapView->mapChanged().connect(this, &GameState::mapChanged);
+	mMapView->quit().connect(this, &GameState::onQuit);
+	mMapView->showReporstUi().connect(this, &GameState::onShowReports);
+	mMapView->mapChanged().connect(this, &GameState::onMapChange);
 }
 
 
@@ -109,7 +109,7 @@ void GameState::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 /**
  * Event hanler for a 'fade complete' event raised by the NAS2D::Renderer.
  */
-void GameState::fadeComplete()
+void GameState::onFadeComplete()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	if (renderer.isFaded())
@@ -125,7 +125,7 @@ void GameState::fadeComplete()
  * Called by NAS2D::Mixer upon completion of a music track. This function
  * changes the background music track to a different track in the lineup.
  */
-void GameState::musicComplete()
+void GameState::onMusicComplete()
 {
 	/// \todo	Make me work... once there's some music to listen to. 0.0
 }
@@ -137,7 +137,7 @@ void GameState::musicComplete()
  * This event is raised on game overs and when the user chooses the "Return
  * to Main Menu" from the system options window.
  */
-void GameState::quitEvent()
+void GameState::onQuit()
 {
 	mMapView->deactivate();
 	mMainReportsState->deactivate();
@@ -149,7 +149,7 @@ void GameState::quitEvent()
  * 
  * This event is raised whenever a user double-clicks on a factory in the MapViewState.
  */
-void GameState::showReportsUi()
+void GameState::onShowReports()
 {
 	mActiveState->deactivate();
 	mActiveState = mMainReportsState.get();
@@ -163,7 +163,7 @@ void GameState::showReportsUi()
  * This event is raised by the MainReportsUiState whenever the user clicks the Exit
  * UI panel or if the Escape key is pressed.
  */
-void GameState::hideReportsUi()
+void GameState::onHideReports()
 {
 	mActiveState->deactivate();
 	mActiveState = mMapView.get();
@@ -171,7 +171,7 @@ void GameState::hideReportsUi()
 }
 
 
-void GameState::mapChanged()
+void GameState::onMapChange()
 {
 	mMainReportsState->clearLists();
 }
@@ -183,9 +183,9 @@ void GameState::mapChanged()
  * This event is raised by the MainReportsUiState whenever a "Take Me There" button in any
  * of the report UI panels is clicked.
  */
-void GameState::takeMeThere(Structure* structure)
+void GameState::onTakeMeThere(Structure* structure)
 {
-	hideReportsUi();
+	onHideReports();
 	mMapView->focusOnStructure(structure);
 }
 

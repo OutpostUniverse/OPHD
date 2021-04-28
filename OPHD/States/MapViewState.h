@@ -107,9 +107,9 @@ private:
 	void onWindowResized(int w, int h);
 
 	// ROBOT EVENT HANDLERS
-	void dozerTaskFinished(Robot* robot);
-	void diggerTaskFinished(Robot* robot);
-	void minerTaskFinished(Robot* robot);
+	void onDozerTaskComplete(Robot* robot);
+	void onDiggerTaskComplete(Robot* robot);
+	void onMinerTaskComplete(Robot* robot);
 
 	// DRAWING FUNCTIONS
 	void drawUI();
@@ -121,9 +121,9 @@ private:
 	void drawRobotInfo();
 
 	// INSERT OBJECT HANDLING
-	void deployCargoLander();
-	void deployColonistLander();
-	void deploySeedLander(NAS2D::Point<int> point);
+	void onDeployCargoLander();
+	void onDeployColonistLander();
+	void onDeploySeedLander(NAS2D::Point<int> point);
 	void insertSeedLander(NAS2D::Point<int> point);
 	void insertTube(ConnectorDir dir, int depth, Tile* tile);
 
@@ -153,9 +153,9 @@ private:
 	void changeViewDepth(int);
 
 	void pullRobotFromFactory(ProductType pt, Factory& factory);
-	void factoryProductionComplete(Factory& factory);
+	void onFactoryProductionComplete(Factory& factory);
 
-	void mineFacilityExtended(MineFacility* mf);
+	void onMineFacilityExtend(MineFacility* mf);
 
 	void countPlayerResources();
 
@@ -219,13 +219,13 @@ private:
 	void onReturnToGame();
 	void onGameOver();
 
-	void structuresSelectionChanged(const IconGrid::IconGridItem*);
-	void connectionsSelectionChanged(const IconGrid::IconGridItem*);
-	void robotsSelectionChanged(const IconGrid::IconGridItem*);
+	void onStructuresSelectionChange(const IconGrid::IconGridItem*);
+	void onConnectionsSelectionChange(const IconGrid::IconGridItem*);
+	void onRobotsSelectionChange(const IconGrid::IconGridItem*);
 
-	void diggerSelectionDialog(Direction direction, Tile* tile);
+	void onDiggerSelectionDialog(Direction direction, Tile* tile);
 
-	void fileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
+	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
 
 private:

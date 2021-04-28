@@ -26,21 +26,21 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 		{
 		case ProductType::PRODUCT_DIGGER:
 			robot = mRobotPool.addRobot(Robot::Type::Digger);
-			robot->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 			factory.pullProduct();
 			checkRobotSelectionInterface(Robot::Type::Digger);
 			break;
 
 		case ProductType::PRODUCT_DOZER:
 			robot = mRobotPool.addRobot(Robot::Type::Dozer);
-			robot->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 			factory.pullProduct();
 			checkRobotSelectionInterface(Robot::Type::Dozer);
 			break;
 
 		case ProductType::PRODUCT_MINER:
 			robot = mRobotPool.addRobot(Robot::Type::Miner);
-			robot->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 			factory.pullProduct();
 			checkRobotSelectionInterface(Robot::Type::Miner);
 			break;
@@ -62,7 +62,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 /**
  * Called whenever a Factory's production is complete.
  */
-void MapViewState::factoryProductionComplete(Factory& factory)
+void MapViewState::onFactoryProductionComplete(Factory& factory)
 {
 	switch (factory.productWaiting())
 	{
@@ -98,7 +98,7 @@ void MapViewState::factoryProductionComplete(Factory& factory)
 /**
  * Lands colonists on the surfaces and adds them to the population pool.
  */
-void MapViewState::deployColonistLander()
+void MapViewState::onDeployColonistLander()
 {
 	mPopulation.addPopulation(Population::PersonRole::ROLE_STUDENT, 10);
 	mPopulation.addPopulation(Population::PersonRole::ROLE_WORKER, 20);
@@ -109,7 +109,7 @@ void MapViewState::deployColonistLander()
 /**
  * Lands cargo on the surface and adds resources to the resource pool.
  */
-void MapViewState::deployCargoLander()
+void MapViewState::onDeployCargoLander()
 {
 	auto cc = static_cast<CommandCenter*>(mTileMap->getTile(ccLocation(), 0).structure());
 	cc->foodLevel(cc->foodLevel() + 125);
@@ -126,7 +126,7 @@ void MapViewState::deployCargoLander()
  *			need to disconnect the callback since it will automatically be
  *			released when the seed lander is destroyed.
  */
-void MapViewState::deploySeedLander(NAS2D::Point<int> point)
+void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 {
 	// Bulldoze lander region
 	for (const auto& direction : DirectionScan3x3)
@@ -153,7 +153,7 @@ void MapViewState::deploySeedLander(NAS2D::Point<int> point)
 	// BOTTOM ROW
 	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(StructureID::SID_SEED_FACTORY));
 	sf->resourcePool(&mResourcesCount);
-	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
+	sf->productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
 	sf->sprite().setFrame(7);
 	structureManager.addStructure(sf, &mTileMap->getTile(point + DirectionSouthWest));
 
@@ -167,16 +167,16 @@ void MapViewState::deploySeedLander(NAS2D::Point<int> point)
 	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, static_cast<int>(Robot::Type::Miner));
 	mRobots.sort();
 
-	mRobotPool.addRobot(Robot::Type::Dozer)->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
-	mRobotPool.addRobot(Robot::Type::Digger)->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
-	mRobotPool.addRobot(Robot::Type::Miner)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+	mRobotPool.addRobot(Robot::Type::Dozer)->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
+	mRobotPool.addRobot(Robot::Type::Digger)->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
+	mRobotPool.addRobot(Robot::Type::Miner)->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 }
 
 
 /**
  * Called whenever a RoboDozer completes its task.
  */
-void MapViewState::dozerTaskFinished(Robot* /*robot*/)
+void MapViewState::onDozerTaskComplete(Robot* /*robot*/)
 {
 	checkRobotSelectionInterface(Robot::Type::Dozer);
 }
@@ -185,9 +185,9 @@ void MapViewState::dozerTaskFinished(Robot* /*robot*/)
 /**
  * Called whenever a RoboDigger completes its task.
  */
-void MapViewState::diggerTaskFinished(Robot* robot)
+void MapViewState::onDiggerTaskComplete(Robot* robot)
 {
-	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::diggerTaskFinished() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!"); }
 
 	Tile* t = mRobotList[robot];
 
@@ -254,9 +254,9 @@ void MapViewState::diggerTaskFinished(Robot* robot)
 /**
  * Called whenever a RoboMiner completes its task.
  */
-void MapViewState::minerTaskFinished(Robot* robot)
+void MapViewState::onMinerTaskComplete(Robot* robot)
 {
-	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::minerTaskFinished() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onMinerTaskComplete() called with a Robot not in the Robot List!"); }
 
 	auto& robotTile = *mRobotList[robot];
 
@@ -264,7 +264,7 @@ void MapViewState::minerTaskFinished(Robot* robot)
 	MineFacility* mineFacility = new MineFacility(robotTile.mine());
 	mineFacility->maxDepth(mTileMap->maxDepth());
 	NAS2D::Utility<StructureManager>::get().addStructure(mineFacility, &robotTile);
-	mineFacility->extensionComplete().connect(this, &MapViewState::mineFacilityExtended);
+	mineFacility->extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
 
 	// Tile immediately underneath facility.
 	auto& tileBelow = mTileMap->getTile(robotTile.position(), robotTile.depth() + 1);
@@ -278,7 +278,7 @@ void MapViewState::minerTaskFinished(Robot* robot)
 }
 
 
-void MapViewState::mineFacilityExtended(MineFacility* mineFacility)
+void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 {
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 

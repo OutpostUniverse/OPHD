@@ -26,15 +26,15 @@ public:
 private:
 	void onMouseMove(int x, int y, int relX, int relY);
 
-	void fadeComplete();
-	void musicComplete();
+	void onFadeComplete();
+	void onMusicComplete();
 
-	void quitEvent();
-	void showReportsUi();
-	void hideReportsUi();
-	void mapChanged();
+	void onQuit();
+	void onShowReports();
+	void onHideReports();
+	void onMapChange();
 
-	void takeMeThere(Structure*);
+	void onTakeMeThere(Structure*);
 
 private:
 	NAS2D::State* mReturnState = this;
