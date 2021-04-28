@@ -46,7 +46,7 @@ public:
 	virtual void die() { mIsDead = true; mDieCallback(this); }
 	bool dead() const { return mIsDead; }
 
-	DieCallback& onDie() { return mDieCallback; }
+	DieCallback::Source& onDie() { return mDieCallback; }
 
 private:
 	// No default copy constructor, or copy operator

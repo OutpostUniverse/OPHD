@@ -59,7 +59,7 @@ public:
 
 	std::size_t currentHighlight() const;
 
-	SelectionChangeCallback& selectionChanged() { return mSelectionChanged; }
+	SelectionChangeCallback::Source& selectionChanged() { return mSelectionChanged; }
 
 	void update() override = 0;
 

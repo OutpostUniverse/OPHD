@@ -79,7 +79,7 @@ public:
 	void incrementSelection();
 	void decrementSelection();
 
-	Callback& selectionChanged() { return mCallback; }
+	Callback::Source& selectionChanged() { return mCallback; }
 
 	void hide() override;
 

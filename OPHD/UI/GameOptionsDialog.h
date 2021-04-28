@@ -14,10 +14,10 @@ public:
 
 	void update() override;
 
-	ClickCallback& SaveGame() { return mCallbackSave; }
-	ClickCallback& LoadGame() { return mCallbackLoad; }
-	ClickCallback& returnToGame() { return mCallbackReturn; }
-	ClickCallback& returnToMainMenu() { return mCallbackClose; }
+	ClickCallback::Source& SaveGame() { return mCallbackSave; }
+	ClickCallback::Source& LoadGame() { return mCallbackLoad; }
+	ClickCallback::Source& returnToGame() { return mCallbackReturn; }
+	ClickCallback::Source& returnToMainMenu() { return mCallbackClose; }
 
 private:
 	void onLoad();

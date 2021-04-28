@@ -60,7 +60,7 @@ bool CheckBox::checked() const
 }
 
 
-CheckBox::ClickCallback& CheckBox::click()
+CheckBox::ClickCallback::Source& CheckBox::click()
 {
 	return mCallback;
 }

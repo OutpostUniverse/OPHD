@@ -28,7 +28,7 @@ public:
 	int positionX();
 	int positionY();
 
-	OnMoveCallback& moved();
+	OnMoveCallback::Source& moved();
 
 	void highlight(bool highlight);
 	bool highlight() const;
@@ -54,7 +54,7 @@ public:
 	void width(int w);
 	void height(int h);
 
-	ResizeCallback& resized();
+	ResizeCallback::Source& resized();
 
 	virtual void update() {}
 

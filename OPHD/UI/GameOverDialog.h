@@ -12,7 +12,7 @@ public:
 public:
 	GameOverDialog();
 
-	ClickCallback& returnToMainMenu() { return mCallback; }
+	ClickCallback::Source& returnToMainMenu() { return mCallback; }
 
 	void update() override;
 

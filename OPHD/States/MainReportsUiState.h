@@ -27,7 +27,7 @@ public:
 
 	void clearLists();
 
-	ReportsUiCallback& hideReports() { return mReportsUiCallback; }
+	ReportsUiCallback::Source& hideReports() { return mReportsUiCallback; }
 	TakeMeThereList takeMeThere();
 
 protected:

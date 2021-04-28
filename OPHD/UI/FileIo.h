@@ -26,7 +26,7 @@ public:
 	void setMode(FileOperation fileOp);
 	void scanDirectory(const std::string& directory);
 
-	FileOperationCallback& fileOperation() { return mCallback; }
+	FileOperationCallback::Source& fileOperation() { return mCallback; }
 
 	void update() override;
 

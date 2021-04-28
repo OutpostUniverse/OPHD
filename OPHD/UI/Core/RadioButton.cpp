@@ -60,7 +60,7 @@ const std::string& RadioButton::text() const
 	return mLabel.text();
 }
 
-RadioButton::ClickCallback& RadioButton::click()
+RadioButton::ClickCallback::Source& RadioButton::click()
 {
 	for (auto* sibling : mParentContainer->controls())
 	{

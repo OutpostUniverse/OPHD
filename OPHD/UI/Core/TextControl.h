@@ -20,7 +20,7 @@ public:
 
 	void text(const std::string& text);
 	const std::string& text() const { return mText; }
-	TextChangeCallback& textChanged() { return mTextChanged; }
+	TextChangeCallback::Source& textChanged() { return mTextChanged; }
 
 	virtual void onTextChange() { mTextChanged(this); }
 

@@ -34,7 +34,7 @@ public:
 	 */
 	Mine* mine() { return mMine; }
 
-	ExtensionCompleteCallback& extensionComplete() { return mExtensionComplete; }
+	ExtensionCompleteCallback::Source& extensionComplete() { return mExtensionComplete; }
 
 protected:
 	void think() override;

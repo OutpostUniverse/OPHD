@@ -33,7 +33,7 @@ public:
 		mPosition = position;
 	}
 
-	Callback& deployCallback() { return mDeploy; }
+	Callback::Source& deployCallback() { return mDeploy; }
 
 protected:
 	void think() override
