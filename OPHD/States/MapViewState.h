@@ -107,7 +107,7 @@ private:
 	void onWindowResized(int w, int h);
 
 	// ROBOT EVENT HANDLERS
-	void dozerTaskFinished(Robot* robot);
+	void onDozerTaskComplete(Robot* robot);
 	void onDiggerTaskComplete(Robot* robot);
 	void minerTaskFinished(Robot* robot);
 

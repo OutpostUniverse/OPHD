@@ -33,7 +33,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 
 		case ProductType::PRODUCT_DOZER:
 			robot = mRobotPool.addRobot(Robot::Type::Dozer);
-			robot->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 			factory.pullProduct();
 			checkRobotSelectionInterface(Robot::Type::Dozer);
 			break;
@@ -167,7 +167,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	mRobots.addItem(constants::ROBOMINER, constants::ROBOMINER_SHEET_ID, static_cast<int>(Robot::Type::Miner));
 	mRobots.sort();
 
-	mRobotPool.addRobot(Robot::Type::Dozer)->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+	mRobotPool.addRobot(Robot::Type::Dozer)->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 	mRobotPool.addRobot(Robot::Type::Digger)->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 	mRobotPool.addRobot(Robot::Type::Miner)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 }
@@ -176,7 +176,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 /**
  * Called whenever a RoboDozer completes its task.
  */
-void MapViewState::dozerTaskFinished(Robot* /*robot*/)
+void MapViewState::onDozerTaskComplete(Robot* /*robot*/)
 {
 	checkRobotSelectionInterface(Robot::Type::Dozer);
 }

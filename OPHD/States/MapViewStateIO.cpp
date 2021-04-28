@@ -294,7 +294,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 		case Robot::Type::Dozer:
 			robot = mRobotPool.addRobot(Robot::Type::Dozer, id);
-			robot->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 			break;
 
 		case Robot::Type::Miner:
