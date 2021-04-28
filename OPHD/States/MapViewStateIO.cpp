@@ -456,7 +456,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			factory.productType(static_cast<ProductType>(production_type));
 			factory.productionTurnsCompleted(production_completed);
 			factory.resourcePool(&mResourcesCount);
-			factory.productionComplete().connect(this, &MapViewState::factoryProductionComplete);
+			factory.productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
 		}
 
 		if (structure.isRobotCommand())

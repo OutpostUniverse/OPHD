@@ -1215,7 +1215,7 @@ void MapViewState::placeStructure()
 		// FIXME: Ugly
 		if (structure->isFactory())
 		{
-			static_cast<Factory*>(structure)->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
+			static_cast<Factory*>(structure)->productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
 			static_cast<Factory*>(structure)->resourcePool(&mResourcesCount);
 		}
 

@@ -62,7 +62,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 /**
  * Called whenever a Factory's production is complete.
  */
-void MapViewState::factoryProductionComplete(Factory& factory)
+void MapViewState::onFactoryProductionComplete(Factory& factory)
 {
 	switch (factory.productWaiting())
 	{
@@ -153,7 +153,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	// BOTTOM ROW
 	SeedFactory* sf = static_cast<SeedFactory*>(StructureCatalogue::get(StructureID::SID_SEED_FACTORY));
 	sf->resourcePool(&mResourcesCount);
-	sf->productionComplete().connect(this, &MapViewState::factoryProductionComplete);
+	sf->productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
 	sf->sprite().setFrame(7);
 	structureManager.addStructure(sf, &mTileMap->getTile(point + DirectionSouthWest));
 

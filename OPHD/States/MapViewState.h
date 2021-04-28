@@ -153,7 +153,7 @@ private:
 	void changeViewDepth(int);
 
 	void pullRobotFromFactory(ProductType pt, Factory& factory);
-	void factoryProductionComplete(Factory& factory);
+	void onFactoryProductionComplete(Factory& factory);
 
 	void mineFacilityExtended(MineFacility* mf);
 
