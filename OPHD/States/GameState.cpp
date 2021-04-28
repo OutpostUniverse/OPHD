@@ -34,7 +34,7 @@ GameState::~GameState()
 
 	mMainReportsState->hideReports().disconnect(this, &GameState::onHideReports);
 	mMapView->quit().disconnect(this, &GameState::onQuit);
-	mMapView->showReporstUi().disconnect(this, &GameState::showReportsUi);
+	mMapView->showReporstUi().disconnect(this, &GameState::onShowReports);
 	mMapView->mapChanged().disconnect(this, &GameState::mapChanged);
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
@@ -86,7 +86,7 @@ void GameState::mapviewstate(MapViewState* state)
 	mActiveState = mMapView.get();
 
 	mMapView->quit().connect(this, &GameState::onQuit);
-	mMapView->showReporstUi().connect(this, &GameState::showReportsUi);
+	mMapView->showReporstUi().connect(this, &GameState::onShowReports);
 	mMapView->mapChanged().connect(this, &GameState::mapChanged);
 }
 
@@ -149,7 +149,7 @@ void GameState::onQuit()
  * 
  * This event is raised whenever a user double-clicks on a factory in the MapViewState.
  */
-void GameState::showReportsUi()
+void GameState::onShowReports()
 {
 	mActiveState->deactivate();
 	mActiveState = mMainReportsState.get();

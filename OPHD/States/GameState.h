@@ -30,7 +30,7 @@ private:
 	void onMusicComplete();
 
 	void onQuit();
-	void showReportsUi();
+	void onShowReports();
 	void onHideReports();
 	void mapChanged();
 
