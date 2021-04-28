@@ -35,7 +35,7 @@ GameState::~GameState()
 	mMainReportsState->hideReports().disconnect(this, &GameState::onHideReports);
 	mMapView->quit().disconnect(this, &GameState::onQuit);
 	mMapView->showReporstUi().disconnect(this, &GameState::onShowReports);
-	mMapView->mapChanged().disconnect(this, &GameState::mapChanged);
+	mMapView->mapChanged().disconnect(this, &GameState::onMapChange);
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
@@ -87,7 +87,7 @@ void GameState::mapviewstate(MapViewState* state)
 
 	mMapView->quit().connect(this, &GameState::onQuit);
 	mMapView->showReporstUi().connect(this, &GameState::onShowReports);
-	mMapView->mapChanged().connect(this, &GameState::mapChanged);
+	mMapView->mapChanged().connect(this, &GameState::onMapChange);
 }
 
 
@@ -171,7 +171,7 @@ void GameState::onHideReports()
 }
 
 
-void GameState::mapChanged()
+void GameState::onMapChange()
 {
 	mMainReportsState->clearLists();
 }

@@ -32,7 +32,7 @@ private:
 	void onQuit();
 	void onShowReports();
 	void onHideReports();
-	void mapChanged();
+	void onMapChange();
 
 	void takeMeThere(Structure*);
 
