@@ -218,12 +218,6 @@ void MainMenuState::onNewGame()
 
 	disableButtons();
 
-	wasDifficultyOkClicked();
-}
-
-
-void MainMenuState::wasDifficultyOkClicked()
-{
 	mReturnState = new PlanetSelectState();
 
 	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));

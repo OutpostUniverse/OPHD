@@ -37,8 +37,6 @@ private:
 	void onHelp();
 	void onQuit();
 
-	void wasDifficultyOkClicked();
-
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
 private:
