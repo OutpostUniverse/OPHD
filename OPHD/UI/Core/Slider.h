@@ -37,7 +37,7 @@ public:
 		NAS2D::RectangleSkin skinSlider;
 	};
 
-	using ValueChangeCallback = NAS2D::Signal<float>; /*!< type for Callback on value changed. */
+	using ValueChangeSignal = NAS2D::Signal<float>; /*!< type for Signal on value changed. */
 
 	Slider(SliderType sliderType = SliderType::Vertical);
 	Slider(Skins skins, SliderType sliderType = SliderType::Vertical);
@@ -61,7 +61,7 @@ public:
 
 	void update() override; /*!< Called to display the slider. */
 
-	ValueChangeCallback::Source& change() { return mCallback; } /*!< Give the callback to enable another control or a window to dis/connect to this event call. */
+	ValueChangeSignal::Source& change() { return mSignal; } /*!< Give the callback to enable another control or a window to dis/connect to this event call. */
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y); /*!< Event raised on mouse button down. */
@@ -81,7 +81,7 @@ private:
 
 	NAS2D::Timer mTimer;
 
-	ValueChangeCallback mCallback; /*!< Callback executed when the value is changed. */
+	ValueChangeSignal mSignal; /*!< Signal executed when the value is changed. */
 
 	SliderType mSliderType{SliderType::Vertical}; /*!< Type of the Slider. */
 

@@ -51,7 +51,7 @@ public:
 	};
 
 public:
-	using MouseCallback = NAS2D::Signal<>;
+	using MouseSignal = NAS2D::Signal<>;
 
 public:
 	Planet(const Attributes& attributes);
@@ -65,8 +65,8 @@ public:
 
 	bool mouseHovering() const { return mMouseInArea; }
 
-	MouseCallback::Source& mouseEnter() { return mMouseEnterCallback; }
-	MouseCallback::Source& mouseExit() { return mMouseExitCallback; }
+	MouseSignal::Source& mouseEnter() { return mMouseEnterSignal; }
+	MouseSignal::Source& mouseExit() { return mMouseExitSignal; }
 
 	void update();
 
@@ -87,8 +87,8 @@ private:
 	const NAS2D::Image mImage;
 	NAS2D::Point<int> mPosition;
 
-	MouseCallback mMouseEnterCallback;
-	MouseCallback mMouseExitCallback;
+	MouseSignal mMouseEnterSignal;
+	MouseSignal mMouseExitSignal;
 
 	bool mMouseInArea = false;
 

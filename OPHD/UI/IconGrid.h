@@ -47,7 +47,7 @@ public:
 		NAS2D::Point<int> pos;
 	};
 
-	using Callback = NAS2D::Signal<const IconGridItem*>;
+	using Signal = NAS2D::Signal<const IconGridItem*>;
 
 public:
 	IconGrid(const std::string& filePath, int iconSize, int margin);
@@ -79,7 +79,7 @@ public:
 	void incrementSelection();
 	void decrementSelection();
 
-	Callback::Source& selectionChanged() { return mCallback; }
+	Signal::Source& selectionChanged() { return mSignal; }
 
 	void hide() override;
 
@@ -121,5 +121,5 @@ private:
 
 	IconItemList mIconItemList; /**< List of items. */
 
-	Callback mCallback; /**< Callback whenever a selection is made. */
+	Signal mSignal; /**< Signal whenever a selection is made. */
 };

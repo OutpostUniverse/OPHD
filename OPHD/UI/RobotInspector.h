@@ -19,7 +19,7 @@ public:
 	void focusOnRobot(Robot*);
 	const Robot* focusedRobot() const { return mRobot; }
 
-	NAS2D::Signal<Robot*>& actionButtonClicked() { return mCallback; }
+	NAS2D::Signal<Robot*>& actionButtonClicked() { return mSignal; }
 
 	void update() override;
 
@@ -37,7 +37,7 @@ private:
 
 	NAS2D::Rectangle<int> mContentArea;
 
-	NAS2D::Signal<Robot*> mCallback;
+	NAS2D::Signal<Robot*> mSignal;
 
 	Robot* mRobot{ nullptr };
 };

@@ -16,7 +16,7 @@ class UIContainer;
 class RadioButton : public TextControl
 {
 public:
-	using ClickCallback = NAS2D::Signal<>;
+	using ClickSignal = NAS2D::Signal<>;
 
 	RadioButton(std::string newText = "");
 	~RadioButton() override;
@@ -27,7 +27,7 @@ public:
 	void text(const std::string& text);
 	const std::string& text() const;
 
-	ClickCallback::Source& click();
+	ClickSignal::Source& click();
 
 	void update() override;
 
@@ -43,7 +43,7 @@ private:
 	const NAS2D::Font& mFont;
 	const NAS2D::Image& mSkin;
 	Label mLabel;
-	ClickCallback mCallback; /**< Object to notify when the Button is activated. */
+	ClickSignal mSignal; /**< Object to notify when the Button is activated. */
 	UIContainer* mParentContainer{nullptr};
 	bool mChecked{false};
 

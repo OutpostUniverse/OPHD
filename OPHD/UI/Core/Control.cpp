@@ -36,9 +36,9 @@ int Control::positionY()
 
 
 /**
- * Callback fired whenever the Control's position changes.
+ * Signal fired whenever the Control's position changes.
  */
-Control::OnMoveCallback::Source& Control::moved()
+Control::OnMoveSignal::Source& Control::moved()
 {
 	return mOnMoveSignal;
 }
@@ -83,7 +83,7 @@ void Control::height(int h)
 }
 
 
-Control::ResizeCallback::Source& Control::resized()
+Control::ResizeSignal::Source& Control::resized()
 {
 	return mOnResizeSignal;
 }

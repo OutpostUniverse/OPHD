@@ -11,13 +11,13 @@ class Tile;
 class DiggerDirection: public Window
 {
 public:
-	using Callback = NAS2D::Signal<Direction, Tile*>;
+	using Signal = NAS2D::Signal<Direction, Tile*>;
 
 	DiggerDirection();
 
 	void update() override;
 
-	Callback::Source& directionSelected() { return mCallback; }
+	Signal::Source& directionSelected() { return mSignal; }
 
 	void setParameters(Tile* tile);
 
@@ -44,7 +44,7 @@ private:
 	Button btnWest;
 	Button btnCancel;
 
-	Callback mCallback;
+	Signal mSignal;
 
 	Tile* mTile = nullptr;
 };

@@ -357,7 +357,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 
 	if (key == EventHandler::KeyCode::KEY_F1)
 	{
-		mReportsUiCallback();
+		mReportsUiSignal();
 		return;
 	}
 
@@ -645,7 +645,7 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter) { mMainReportsState.selectMinePanel(structure); }
 			else { return; } // avoids showing the full-screen UI on unhandled structures.
 
-			mReportsUiCallback();
+			mReportsUiSignal();
 		}
 	}
 }
@@ -1165,7 +1165,7 @@ void MapViewState::placeStructure()
 		if (!validLanderSite(*tile)) { return; }
 
 		ColonistLander* s = new ColonistLander(tile);
-		s->deployCallback().connect(this, &MapViewState::onDeployColonistLander);
+		s->deploySignal().connect(this, &MapViewState::onDeployColonistLander);
 		Utility<StructureManager>::get().addStructure(s, tile);
 
 		--mLandersColonist;
@@ -1181,7 +1181,7 @@ void MapViewState::placeStructure()
 		if (!validLanderSite(*tile)) { return; }
 
 		CargoLander* _lander = new CargoLander(tile);
-		_lander->deployCallback().connect(this, &MapViewState::onDeployCargoLander);
+		_lander->deploySignal().connect(this, &MapViewState::onDeployCargoLander);
 		Utility<StructureManager>::get().addStructure(_lander, tile);
 
 		--mLandersCargo;
@@ -1243,7 +1243,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 		}
 
 		SeedLander* s = new SeedLander(point);
-		s->deployCallback().connect(this, &MapViewState::onDeploySeedLander);
+		s->deploySignal().connect(this, &MapViewState::onDeploySeedLander);
 		Utility<StructureManager>::get().addStructure(s, &mTileMap->getTile(point)); // Can only ever be placed on depth level 0
 
 		clearMode();

@@ -117,7 +117,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			else
 			{
 				mState = (mState == State::Pressed ? State::Normal : State::Pressed);
-				mCallback();
+				mSignal();
 			}
 		}
 	}
@@ -136,7 +136,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 			if (mRect.contains(Point<int>{x, y}))
 			{
-				mCallback();
+				mSignal();
 			}
 		}
 	}

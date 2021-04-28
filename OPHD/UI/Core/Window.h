@@ -20,11 +20,11 @@ public:
 	void show() override;
 	void update() override;
 
-	using TitleChangeCallback = NAS2D::Signal<Window*>;
+	using TitleChangeSignal = NAS2D::Signal<Window*>;
 
 	void title(const std::string& title);
 	const std::string& title() const { return mTitle; }
-	TitleChangeCallback::Source& titleChanged() { return mTitleChanged; }
+	TitleChangeSignal::Source& titleChanged() { return mTitleChanged; }
 
 	virtual void onTitleChanged() { mTitleChanged(this); }
 
@@ -45,7 +45,7 @@ private:
 	const NAS2D::Image& mTitleBarRight;
 	NAS2D::RectangleSkin mBody;
 
-	TitleChangeCallback mTitleChanged;
+	TitleChangeSignal mTitleChanged;
 
 	std::string mTitle;
 };

@@ -71,9 +71,9 @@ public:
 	};
 
 public:
-	using QuitCallback = NAS2D::Signal<>;
-	using ReportsUiCallback = NAS2D::Signal<>;
-	using MapChangedCallback = NAS2D::Signal<>;
+	using QuitSignal = NAS2D::Signal<>;
+	using ReportsUiSignal = NAS2D::Signal<>;
+	using MapChangedSignal = NAS2D::Signal<>;
 
 public:
 	MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame);
@@ -82,9 +82,9 @@ public:
 
 	void setPopulationLevel(PopulationLevel popLevel);
 
-	ReportsUiCallback::Source& showReporstUi() { return mReportsUiCallback; }
-	QuitCallback::Source& quit() { return mQuitCallback; }
-	MapChangedCallback::Source& mapChanged() { return mMapChangedCallback; }
+	ReportsUiSignal::Source& showReporstUi() { return mReportsUiSignal; }
+	QuitSignal::Source& quit() { return mQuitSignal; }
+	MapChangedSignal::Source& mapChanged() { return mMapChangedSignal; }
 
 	void focusOnStructure(Structure* s);
 
@@ -305,9 +305,9 @@ private:
 	NAS2D::Rectangle<int> mBottomUiRect;
 
 	// SIGNALS
-	QuitCallback mQuitCallback;
-	ReportsUiCallback mReportsUiCallback;
-	MapChangedCallback mMapChangedCallback;
+	QuitSignal mQuitSignal;
+	ReportsUiSignal mReportsUiSignal;
+	MapChangedSignal mMapChangedSignal;
 
 	// ROUTING
 	micropather::MicroPather* mPathSolver = nullptr;

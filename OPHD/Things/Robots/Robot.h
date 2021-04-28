@@ -15,7 +15,7 @@ public:
 		None
 	};
 
-	using TaskCallback = NAS2D::Signal<Robot*>;
+	using TaskSignal = NAS2D::Signal<Robot*>;
 
 public:
 	Robot(const std::string&, const std::string&, Type);
@@ -37,7 +37,7 @@ public:
 
 	Type type() const { return mType; }
 
-	TaskCallback::Source& taskComplete() { return mTaskCompleteCallback; }
+	TaskSignal::Source& taskComplete() { return mTaskCompleteSignal; }
 
 	void id(int newId) { mId = newId; }
 	int id() const { return mId; }
@@ -56,5 +56,5 @@ private:
 
 	Type mType{ Type::None };
 
-	TaskCallback mTaskCompleteCallback;
+	TaskSignal mTaskCompleteSignal;
 };

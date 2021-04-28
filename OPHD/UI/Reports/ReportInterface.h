@@ -15,7 +15,7 @@ class ReportInterface : public UIContainer
 {
 public:
 	/**
-	 * Callback signal used to handle clicks of a "Take Me There" button to center
+	 * Signal signal used to handle clicks of a "Take Me There" button to center
 	 * the map view on a given structure.
 	 */
 	using TakeMeThere = NAS2D::Signal<Structure*>;
@@ -48,8 +48,8 @@ public:
 	 */
 	virtual void selectStructure(Structure*) = 0;
 
-	TakeMeThere& takeMeThereCallback() { return mTakeMeThereCallback; }
+	TakeMeThere& takeMeThereSignal() { return mTakeMeThereSignal; }
 
 private:
-	TakeMeThere mTakeMeThereCallback;
+	TakeMeThere mTakeMeThereSignal;
 };

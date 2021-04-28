@@ -100,29 +100,29 @@ void DiggerDirection::selectDown()
 
 void DiggerDirection::onDiggerDown()
 {
-	mCallback(Direction::Down, mTile);
+	mSignal(Direction::Down, mTile);
 }
 
 
 void DiggerDirection::onDiggerNorth()
 {
-	mCallback(Direction::North, mTile);
+	mSignal(Direction::North, mTile);
 }
 
 
 void DiggerDirection::onDiggerSouth()
 {
-	mCallback(Direction::South, mTile);
+	mSignal(Direction::South, mTile);
 }
 
 
 void DiggerDirection::onDiggerEast()
 {
-	mCallback(Direction::East, mTile);
+	mSignal(Direction::East, mTile);
 }
 
 
 void DiggerDirection::onDiggerWest()
 {
-	mCallback(Direction::West, mTile);
+	mSignal(Direction::West, mTile);
 }

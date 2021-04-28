@@ -57,7 +57,7 @@ template <typename ListBoxItem = ListBoxItemText>
 class ListBox : public Control
 {
 public:
-	using SelectionChangeCallback = NAS2D::Signal<>;
+	using SelectionChangeSignal = NAS2D::Signal<>;
 
 	ListBox() :
 		mContext{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)}
@@ -186,7 +186,7 @@ public:
 		mSlider.update();
 	}
 
-	SelectionChangeCallback::Source& selectionChanged() {
+	SelectionChangeSignal::Source& selectionChanged() {
 		return mSelectionChanged;
 	}
 
@@ -273,6 +273,6 @@ private:
 
 	NAS2D::Rectangle<int> mScrollArea;
 
-	SelectionChangeCallback mSelectionChanged; /**< Callback for selection changed callback. */
+	SelectionChangeSignal mSelectionChanged; /**< Signal for selection changed callback. */
 	Slider mSlider;
 };

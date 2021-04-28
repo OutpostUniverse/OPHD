@@ -10,7 +10,7 @@
 class MineFacility: public Structure
 {
 public:
-	using ExtensionCompleteCallback = NAS2D::Signal<MineFacility*>;
+	using ExtensionCompleteSignal = NAS2D::Signal<MineFacility*>;
 public:
 	MineFacility(Mine* mine);
 
@@ -34,7 +34,7 @@ public:
 	 */
 	Mine* mine() { return mMine; }
 
-	ExtensionCompleteCallback::Source& extensionComplete() { return mExtensionComplete; }
+	ExtensionCompleteSignal::Source& extensionComplete() { return mExtensionComplete; }
 
 protected:
 	void think() override;
@@ -55,5 +55,5 @@ private:
 
 	Mine* mMine = nullptr; /**< Mine that this facility manages. */
 
-	ExtensionCompleteCallback mExtensionComplete; /**< Called whenever an extension is completed. */
+	ExtensionCompleteSignal mExtensionComplete; /**< Called whenever an extension is completed. */
 };

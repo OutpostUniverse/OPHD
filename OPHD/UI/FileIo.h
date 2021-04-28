@@ -18,7 +18,7 @@ public:
 		FILE_SAVE
 	};
 
-	using FileOperationCallback = NAS2D::Signal<const std::string&, FileOperation>;
+	using FileOperationSignal = NAS2D::Signal<const std::string&, FileOperation>;
 
 	FileIo();
 	~FileIo() override;
@@ -26,7 +26,7 @@ public:
 	void setMode(FileOperation fileOp);
 	void scanDirectory(const std::string& directory);
 
-	FileOperationCallback::Source& fileOperation() { return mCallback; }
+	FileOperationSignal::Source& fileOperation() { return mSignal; }
 
 	void update() override;
 
@@ -42,7 +42,7 @@ private:
 	void onFileSelect();
 	void onFileNameChange(TextControl* control);
 
-	FileOperationCallback mCallback;
+	FileOperationSignal mSignal;
 
 	FileOperation mMode;
 

@@ -276,7 +276,7 @@ void MainReportsUiState::exit()
 		if (panel.UiPanel) { panel.UiPanel->clearSelected(); }
 	}
 
-	mReportsUiCallback();
+	mReportsUiSignal();
 }
 
 
@@ -360,7 +360,7 @@ MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
 	TakeMeThereList takeMeThereList;
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel) { takeMeThereList.push_back(&panel.UiPanel->takeMeThereCallback()); }
+		if (panel.UiPanel) { takeMeThereList.push_back(&panel.UiPanel->takeMeThereSignal()); }
 	}
 	return takeMeThereList;
 }

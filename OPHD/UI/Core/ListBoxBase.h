@@ -25,9 +25,9 @@ class ListBoxBase : public Control
 {
 public:
 	/**
-	 * Callback signal fired whenever the list selection changes.
+	 * Signal signal fired whenever the list selection changes.
 	 */
-	using SelectionChangeCallback = NAS2D::Signal<>;
+	using SelectionChangeSignal = NAS2D::Signal<>;
 
 	/**
 	 * Derived SpecialListBox types can inherit from this struct
@@ -59,7 +59,7 @@ public:
 
 	std::size_t currentHighlight() const;
 
-	SelectionChangeCallback::Source& selectionChanged() { return mSelectionChanged; }
+	SelectionChangeSignal::Source& selectionChanged() { return mSelectionChanged; }
 
 	void update() override = 0;
 
@@ -106,6 +106,6 @@ private:
 	NAS2D::Color mHighlightBg = NAS2D::Color::DarkGreen; /**< Highlight Background color. */
 	NAS2D::Color mHighlightText = NAS2D::Color::White; /**< Text Color for an item that is currently highlighted. */
 
-	SelectionChangeCallback mSelectionChanged; /**< Callback for selection changed callback. */
+	SelectionChangeSignal mSelectionChanged; /**< Signal for selection changed callback. */
 	Slider mSlider; /**< Slider control. */
 };

@@ -352,11 +352,11 @@ void IconGrid::raiseChangedEvent()
 {
 	if (mSelectedIndex != constants::NO_SELECTION)
 	{
-		mCallback(&mIconItemList[mSelectedIndex]);
+		mSignal(&mIconItemList[mSelectedIndex]);
 	}
 	else
 	{
-		mCallback(nullptr);
+		mSignal(nullptr);
 	}
 }
 
