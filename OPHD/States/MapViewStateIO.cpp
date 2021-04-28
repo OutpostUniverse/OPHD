@@ -299,7 +299,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 		case Robot::Type::Miner:
 			robot = mRobotPool.addRobot(Robot::Type::Miner, id);
-			robot->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 			break;
 
 		default:

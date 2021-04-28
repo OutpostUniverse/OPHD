@@ -40,7 +40,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 
 		case ProductType::PRODUCT_MINER:
 			robot = mRobotPool.addRobot(Robot::Type::Miner);
-			robot->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 			factory.pullProduct();
 			checkRobotSelectionInterface(Robot::Type::Miner);
 			break;
@@ -169,7 +169,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 
 	mRobotPool.addRobot(Robot::Type::Dozer)->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 	mRobotPool.addRobot(Robot::Type::Digger)->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
-	mRobotPool.addRobot(Robot::Type::Miner)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
+	mRobotPool.addRobot(Robot::Type::Miner)->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 }
 
 
@@ -254,9 +254,9 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 /**
  * Called whenever a RoboMiner completes its task.
  */
-void MapViewState::minerTaskFinished(Robot* robot)
+void MapViewState::onMinerTaskComplete(Robot* robot)
 {
-	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::minerTaskFinished() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onMinerTaskComplete() called with a Robot not in the Robot List!"); }
 
 	auto& robotTile = *mRobotList[robot];
 
