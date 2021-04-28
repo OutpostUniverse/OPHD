@@ -31,7 +31,7 @@ private:
 
 	void quitEvent();
 	void showReportsUi();
-	void hideReportsUi();
+	void onHideReports();
 	void mapChanged();
 
 	void takeMeThere(Structure*);

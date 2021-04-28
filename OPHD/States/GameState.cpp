@@ -32,7 +32,7 @@ GameState::~GameState()
 
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &GameState::onFadeComplete);
 
-	mMainReportsState->hideReports().disconnect(this, &GameState::hideReportsUi);
+	mMainReportsState->hideReports().disconnect(this, &GameState::onHideReports);
 	mMapView->quit().disconnect(this, &GameState::quitEvent);
 	mMapView->showReporstUi().disconnect(this, &GameState::showReportsUi);
 	mMapView->mapChanged().disconnect(this, &GameState::mapChanged);
@@ -57,7 +57,7 @@ void GameState::initialize()
 
 	mMainReportsState = std::make_unique<MainReportsUiState>();
 	mMainReportsState->_initialize();
-	mMainReportsState->hideReports().connect(this, &GameState::hideReportsUi);
+	mMainReportsState->hideReports().connect(this, &GameState::onHideReports);
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
@@ -163,7 +163,7 @@ void GameState::showReportsUi()
  * This event is raised by the MainReportsUiState whenever the user clicks the Exit
  * UI panel or if the Escape key is pressed.
  */
-void GameState::hideReportsUi()
+void GameState::onHideReports()
 {
 	mActiveState->deactivate();
 	mActiveState = mMapView.get();
@@ -185,7 +185,7 @@ void GameState::mapChanged()
  */
 void GameState::takeMeThere(Structure* structure)
 {
-	hideReportsUi();
+	onHideReports();
 	mMapView->focusOnStructure(structure);
 }
 
