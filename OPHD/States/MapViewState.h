@@ -219,7 +219,7 @@ private:
 	void onReturnToGame();
 	void onGameOver();
 
-	void structuresSelectionChanged(const IconGrid::IconGridItem*);
+	void onStructuresSelectionChange(const IconGrid::IconGridItem*);
 	void onConnectionsSelectionChange(const IconGrid::IconGridItem*);
 	void onRobotsSelectionChange(const IconGrid::IconGridItem*);
 

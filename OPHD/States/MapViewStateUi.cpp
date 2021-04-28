@@ -134,7 +134,7 @@ void MapViewState::initUi()
 	mStructures.position(NAS2D::Point{constants::MARGIN, mBottomUiRect.y + MARGIN});
 	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
 	mStructures.showTooltip(true);
-	mStructures.selectionChanged().connect(this, &MapViewState::structuresSelectionChanged);
+	mStructures.selectionChanged().connect(this, &MapViewState::onStructuresSelectionChange);
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
@@ -467,7 +467,7 @@ void MapViewState::onToggleRouteOverlay()
 * Currently uses a text comparison function. Not inherently bad but
 * should really be turned into a key/value pair table for easier lookups.
 */
-void MapViewState::structuresSelectionChanged(const IconGrid::IconGridItem* _item)
+void MapViewState::onStructuresSelectionChange(const IconGrid::IconGridItem* _item)
 {
 	mConnections.clearSelection();
 	mRobots.clearSelection();
