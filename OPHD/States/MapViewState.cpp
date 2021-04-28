@@ -1243,7 +1243,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 		}
 
 		SeedLander* s = new SeedLander(point);
-		s->deployCallback().connect(this, &MapViewState::deploySeedLander);
+		s->deployCallback().connect(this, &MapViewState::onDeploySeedLander);
 		Utility<StructureManager>::get().addStructure(s, &mTileMap->getTile(point)); // Can only ever be placed on depth level 0
 
 		clearMode();
