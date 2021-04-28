@@ -288,7 +288,7 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 		{
 		case Robot::Type::Digger:
 			robot = mRobotPool.addRobot(Robot::Type::Digger, id);
-			robot->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
 			break;
 

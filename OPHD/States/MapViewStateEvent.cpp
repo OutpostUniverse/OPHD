@@ -26,7 +26,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 		{
 		case ProductType::PRODUCT_DIGGER:
 			robot = mRobotPool.addRobot(Robot::Type::Digger);
-			robot->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 			factory.pullProduct();
 			checkRobotSelectionInterface(Robot::Type::Digger);
 			break;
@@ -168,7 +168,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	mRobots.sort();
 
 	mRobotPool.addRobot(Robot::Type::Dozer)->taskComplete().connect(this, &MapViewState::dozerTaskFinished);
-	mRobotPool.addRobot(Robot::Type::Digger)->taskComplete().connect(this, &MapViewState::diggerTaskFinished);
+	mRobotPool.addRobot(Robot::Type::Digger)->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 	mRobotPool.addRobot(Robot::Type::Miner)->taskComplete().connect(this, &MapViewState::minerTaskFinished);
 }
 
@@ -185,9 +185,9 @@ void MapViewState::dozerTaskFinished(Robot* /*robot*/)
 /**
  * Called whenever a RoboDigger completes its task.
  */
-void MapViewState::diggerTaskFinished(Robot* robot)
+void MapViewState::onDiggerTaskComplete(Robot* robot)
 {
-	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::diggerTaskFinished() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!"); }
 
 	Tile* t = mRobotList[robot];
 

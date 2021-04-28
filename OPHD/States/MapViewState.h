@@ -108,7 +108,7 @@ private:
 
 	// ROBOT EVENT HANDLERS
 	void dozerTaskFinished(Robot* robot);
-	void diggerTaskFinished(Robot* robot);
+	void onDiggerTaskComplete(Robot* robot);
 	void minerTaskFinished(Robot* robot);
 
 	// DRAWING FUNCTIONS
