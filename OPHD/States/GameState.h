@@ -29,7 +29,7 @@ private:
 	void onFadeComplete();
 	void onMusicComplete();
 
-	void quitEvent();
+	void onQuit();
 	void showReportsUi();
 	void onHideReports();
 	void mapChanged();

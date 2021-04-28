@@ -33,7 +33,7 @@ GameState::~GameState()
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &GameState::onFadeComplete);
 
 	mMainReportsState->hideReports().disconnect(this, &GameState::onHideReports);
-	mMapView->quit().disconnect(this, &GameState::quitEvent);
+	mMapView->quit().disconnect(this, &GameState::onQuit);
 	mMapView->showReporstUi().disconnect(this, &GameState::showReportsUi);
 	mMapView->mapChanged().disconnect(this, &GameState::mapChanged);
 
@@ -85,7 +85,7 @@ void GameState::mapviewstate(MapViewState* state)
 	mMapView.reset(state);
 	mActiveState = mMapView.get();
 
-	mMapView->quit().connect(this, &GameState::quitEvent);
+	mMapView->quit().connect(this, &GameState::onQuit);
 	mMapView->showReporstUi().connect(this, &GameState::showReportsUi);
 	mMapView->mapChanged().connect(this, &GameState::mapChanged);
 }
@@ -137,7 +137,7 @@ void GameState::onMusicComplete()
  * This event is raised on game overs and when the user chooses the "Return
  * to Main Menu" from the system options window.
  */
-void GameState::quitEvent()
+void GameState::onQuit()
 {
 	mMapView->deactivate();
 	mMainReportsState->deactivate();
