@@ -82,9 +82,9 @@ public:
 
 	void setPopulationLevel(PopulationLevel popLevel);
 
-	ReportsUiCallback& showReporstUi() { return mReportsUiCallback; }
-	QuitCallback& quit() { return mQuitCallback; }
-	MapChangedCallback& mapChanged() { return mMapChangedCallback; }
+	ReportsUiCallback::Source& showReporstUi() { return mReportsUiCallback; }
+	QuitCallback::Source& quit() { return mQuitCallback; }
+	MapChangedCallback::Source& mapChanged() { return mMapChangedCallback; }
 
 	void focusOnStructure(Structure* s);
 

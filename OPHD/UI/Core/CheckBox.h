@@ -20,7 +20,7 @@ public:
 	void checked(bool toggle);
 	bool checked() const;
 
-	ClickCallback& click();
+	ClickCallback::Source& click();
 
 	void update() override;
 

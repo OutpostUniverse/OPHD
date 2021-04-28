@@ -26,7 +26,7 @@ public:
 
 	void clearSelected();
 
-	SelectionChangeCallback& selectionChanged() { return mSelectionChanged; }
+	SelectionChangeCallback::Source& selectionChanged() { return mSelectionChanged; }
 
 	const std::string& selectionText() const;
 	int selectionTag() const;

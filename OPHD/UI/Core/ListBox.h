@@ -186,7 +186,7 @@ public:
 		mSlider.update();
 	}
 
-	SelectionChangeCallback& selectionChanged() {
+	SelectionChangeCallback::Source& selectionChanged() {
 		return mSelectionChanged;
 	}
 

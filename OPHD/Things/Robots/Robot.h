@@ -37,7 +37,7 @@ public:
 
 	Type type() const { return mType; }
 
-	TaskCallback& taskComplete() { return mTaskCompleteCallback; }
+	TaskCallback::Source& taskComplete() { return mTaskCompleteCallback; }
 
 	void id(int newId) { mId = newId; }
 	int id() const { return mId; }

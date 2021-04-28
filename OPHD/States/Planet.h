@@ -65,8 +65,8 @@ public:
 
 	bool mouseHovering() const { return mMouseInArea; }
 
-	MouseCallback& mouseEnter() { return mMouseEnterCallback; }
-	MouseCallback& mouseExit() { return mMouseExitCallback; }
+	MouseCallback::Source& mouseEnter() { return mMouseEnterCallback; }
+	MouseCallback::Source& mouseExit() { return mMouseExitCallback; }
 
 	void update();
 

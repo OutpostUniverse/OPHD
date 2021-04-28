@@ -17,7 +17,7 @@ public:
 
 	void update() override;
 
-	Callback& directionSelected() { return mCallback; }
+	Callback::Source& directionSelected() { return mCallback; }
 
 	void setParameters(Tile* tile);
 

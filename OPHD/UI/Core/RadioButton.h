@@ -27,7 +27,7 @@ public:
 	void text(const std::string& text);
 	const std::string& text() const;
 
-	ClickCallback& click();
+	ClickCallback::Source& click();
 
 	void update() override;
 

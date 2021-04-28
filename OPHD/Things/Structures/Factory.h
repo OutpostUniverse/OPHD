@@ -54,7 +54,7 @@ public:
 
 	virtual void initFactory() = 0;
 
-	ProductionCallback& productionComplete() { return mProductionComplete; }
+	ProductionCallback::Source& productionComplete() { return mProductionComplete; }
 
 protected:
 	void clearProduction();

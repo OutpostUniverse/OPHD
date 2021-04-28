@@ -61,7 +61,7 @@ public:
 
 	void update() override; /*!< Called to display the slider. */
 
-	ValueChangeCallback& change() { return mCallback; } /*!< Give the callback to enable another control or a window to dis/connect to this event call. */
+	ValueChangeCallback::Source& change() { return mCallback; } /*!< Give the callback to enable another control or a window to dis/connect to this event call. */
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y); /*!< Event raised on mouse button down. */
