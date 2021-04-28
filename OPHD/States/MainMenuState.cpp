@@ -232,12 +232,6 @@ void MainMenuState::wasDifficultyOkClicked()
 }
 
 
-void MainMenuState::newGameCancelled()
-{
-	enableButtons();
-}
-
-
 /**
  * Click handler for Continue button.
  */

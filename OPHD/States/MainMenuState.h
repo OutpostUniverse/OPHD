@@ -38,7 +38,6 @@ private:
 	void onQuit();
 
 	void wasDifficultyOkClicked();
-	void newGameCancelled();
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
