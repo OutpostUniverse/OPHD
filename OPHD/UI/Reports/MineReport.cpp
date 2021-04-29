@@ -325,15 +325,11 @@ void MineReport::updateManagementButtonsVisiblity()
 	btnDigNewLevel.visible(isVisible);
 	btnTakeMeThere.visible(isVisible);
 
-	btnAddTruck.visible(isVisible);
-	btnRemoveTruck.visible(isVisible);
+	bool isTruckButtonVisible = isVisible &&
+		!(mSelectedFacility->destroyed() || mSelectedFacility->underConstruction());
 
-	if (isVisible &&
-		(mSelectedFacility->destroyed() || mSelectedFacility->underConstruction()))
-	{
-		btnAddTruck.visible(false);
-		btnRemoveTruck.visible(false);
-	}
+	btnAddTruck.visible(isTruckButtonVisible);
+	btnRemoveTruck.visible(isTruckButtonVisible);
 
 	chkCommonMetals.visible(isVisible);
 	chkCommonMinerals.visible(isVisible);
