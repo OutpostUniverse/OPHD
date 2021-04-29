@@ -68,7 +68,7 @@ void MainMenuState::initialize()
 	btnQuit.size({200, 30});
 	btnQuit.click().connect(this, &MainMenuState::onQuit);
 
-	mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
+	mFileIoDialog.setMode(FileIo::FileOperation::Load);
 	mFileIoDialog.fileOperation().connect(this, &MainMenuState::onFileIoAction);
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
@@ -148,7 +148,7 @@ void MainMenuState::enableButtons()
  */
 void MainMenuState::onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
-	if (fileOp == FileIo::FileOperation::FILE_SAVE)
+	if (fileOp == FileIo::FileOperation::Save)
 	{
 		return;
 	}
