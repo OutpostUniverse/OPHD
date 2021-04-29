@@ -14,7 +14,7 @@ class Factory;
 
 
 /**
- * \brief Implements a Factory Production dialog interface.
+ * Implements a Factory Production dialog interface.
  */
 class FactoryProduction : public Window
 {

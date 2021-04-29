@@ -20,7 +20,7 @@ namespace NAS2D {
 
 
 /**
- * \brief A Basic Text Field.
+ * A Basic Text Field.
  *
  * The Field Control is just a set of rendered text a user can enter.
  */

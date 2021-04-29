@@ -11,7 +11,7 @@ class MineFacility;
 
 
 /**
- * \brief Implements the Mine Facility Operations Window
+ * Implements the Mine Facility Operations Window
  */
 class MineOperationsWindow final : public Window
 {
