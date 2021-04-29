@@ -17,7 +17,6 @@
 
 
 /**
- * \class IconGrid
  * \brief Represents a 2D grid of Icon items that can be selected with a mouse.
  */
 class IconGrid : public Control

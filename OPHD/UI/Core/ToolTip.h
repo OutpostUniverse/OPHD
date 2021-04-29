@@ -10,11 +10,6 @@
 #include <vector>
 
 
-/**
- * \class Label
- * \brief A control that contains readonly text.
- *
- */
 class ToolTip : public Control
 {
 public:

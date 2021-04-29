@@ -10,7 +10,6 @@ const int ResidentialColonistCapacityBase = 25;
 
 
 /**
- * \class	Residence
  * \brief	Base Residential structure.
  * 
  * Implements the base Residence structures. Upgraded residences should derive

@@ -5,7 +5,6 @@
 #include <array>
 
 /**
- * \class	OreRefining
  * \brief	Virtual class for structures whose primary purpose is ore processing
  *
  * \note	OreRefining is an abstract class
