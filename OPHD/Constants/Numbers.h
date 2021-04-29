@@ -1,5 +1,7 @@
 #pragma once
 
+#include <NAS2D/Renderer/Vector.h>
+
 
 /**
  * Numeric constants
@@ -47,8 +49,7 @@ namespace constants
 
 	const int DEFAULT_STARTING_MORALE = 600;
 
-	const int MINIMUM_WINDOW_WIDTH = 1000;
-	const int MINIMUM_WINDOW_HEIGHT = 700;
+	const auto MinimumWindowSize = NAS2D::Vector{1000, 700};
 
 	const int ROBOT_COM_RANGE = 15;
 	const int COMM_TOWER_BASE_RANGE = 10;
