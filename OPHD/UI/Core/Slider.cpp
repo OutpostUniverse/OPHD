@@ -142,7 +142,7 @@ Slider::~Slider()
 }
 
 
-/*!
+/**
  * Get internal slider position.
  */
 float Slider::positionInternal()
