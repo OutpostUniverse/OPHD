@@ -3,7 +3,7 @@
 #include "Structure.h"
 
 /**
-* \brief	Virtual class for structures whose primary purpose is agricultural production
+* Virtual class for structures whose primary purpose is agricultural production
 *
 * \note	FoodProduction is an abstract class
 */

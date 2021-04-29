@@ -9,7 +9,7 @@
 
 
  /**
- * \brief	Base class for all sliding controls.
+ * Base class for all sliding controls.
  * 
  * Handle horizontal and vertical slide bar.
  * The handle could go backward or forward.
@@ -21,7 +21,7 @@ class Slider : public Control
 public:
 	/*!
 	 * \enum 	SliderType
-	 * \brief	List the types of slider that could be used
+	 * List the types of slider that could be used
 	 */
 	enum class SliderType
 	{
