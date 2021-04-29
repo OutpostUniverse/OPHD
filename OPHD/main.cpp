@@ -55,8 +55,8 @@ int main(int argc, char *argv[])
 				{
 					"graphics",
 					{{
-						{"screenwidth", constants::MINIMUM_WINDOW_WIDTH},
-						{"screenheight", constants::MINIMUM_WINDOW_HEIGHT},
+						{"screenwidth", constants::MinimumWindowSize.x},
+						{"screenheight", constants::MinimumWindowSize.y},
 						{"bitdepth", 32},
 						{"fullscreen", false},
 						{"vsync", true}
@@ -86,8 +86,8 @@ int main(int argc, char *argv[])
 
 		// Ensure minimum video resolution
 		auto& graphics = cf["graphics"];
-		if (graphics.get<int>("screenwidth") < constants::MINIMUM_WINDOW_WIDTH) { graphics.set("screenwidth", constants::MINIMUM_WINDOW_WIDTH); }
-		if (graphics.get<int>("screenheight") < constants::MINIMUM_WINDOW_HEIGHT) { graphics.set("screenheight", constants::MINIMUM_WINDOW_HEIGHT); }
+		if (graphics.get<int>("screenwidth") < constants::MinimumWindowSize.x) { graphics.set("screenwidth", constants::MinimumWindowSize.x); }
+		if (graphics.get<int>("screenheight") < constants::MinimumWindowSize.y) { graphics.set("screenheight", constants::MinimumWindowSize.y); }
 		// Force windowed mode
 		graphics.set("fullscreen", false);
 
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
-		renderer.minimumSize({1000, 700});
+		renderer.minimumSize(constants::MinimumWindowSize);
 		renderer.resizeable(true);
 		renderer.addCursor(constants::MOUSE_POINTER_NORMAL, PointerType::POINTER_NORMAL, 0, 0);
 		renderer.addCursor(constants::MOUSE_POINTER_PLACE_TILE, PointerType::POINTER_PLACE_TILE, 16, 16);
