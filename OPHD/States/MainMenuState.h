@@ -24,7 +24,7 @@ protected:
 
 private:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
-	void onWindowResized(int width, int height);
+	void onWindowResized(NAS2D::Vector<int> newSize);
 	void onFadeComplete();
 
 	void positionButtons();

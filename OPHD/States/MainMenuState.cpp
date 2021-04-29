@@ -193,7 +193,7 @@ void MainMenuState::onKeyDown(NAS2D::EventHandler::KeyCode /*key*/, NAS2D::Event
 /**
  * Window resize event handler.
  */
-void MainMenuState::onWindowResized(int /*width*/, int /*height*/)
+void MainMenuState::onWindowResized(NAS2D::Vector<int> /*newSize*/)
 {
 	positionButtons();
 }

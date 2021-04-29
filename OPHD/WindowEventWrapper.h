@@ -42,13 +42,13 @@ private:
 		NAS2D::Utility<NAS2D::Configuration>::get()["options"].set("maximized", false);
 	}
 
-	void onWindowResized(int w, int h)
+	void onWindowResized(NAS2D::Vector<int> newSize)
 	{
 		if (windowMaximized()) { return; }
 
 		auto& configuration = NAS2D::Utility<NAS2D::Configuration>::get();
 		auto& graphics = configuration["graphics"];
-		graphics.set("screenwidth", w);
-		graphics.set("screenheight", h);
+		graphics.set("screenwidth", newSize.x);
+		graphics.set("screenheight", newSize.y);
 	}
 };

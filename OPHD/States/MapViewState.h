@@ -104,7 +104,7 @@ private:
 	void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int rX, int rY);
 	void onMouseWheel(int x, int y);
-	void onWindowResized(int w, int h);
+	void onWindowResized(NAS2D::Vector<int> newSize);
 
 	// ROBOT EVENT HANDLERS
 	void onDozerTaskComplete(Robot* robot);

@@ -283,12 +283,12 @@ void MainReportsUiState::exit()
 /**
  * Window resized event handler.
  */
-void MainReportsUiState::onWindowResized(int w, int h)
+void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 {
-	setPanelRects(w);
+	setPanelRects(newSize.x);
 	for (Panel& panel : Panels)
 	{
-		if (panel.UiPanel) { panel.UiPanel->size(NAS2D::Vector{w, h - 48}); }
+		if (panel.UiPanel) { panel.UiPanel->size(NAS2D::Vector{newSize.x, newSize.y - 48}); }
 	}
 }
 

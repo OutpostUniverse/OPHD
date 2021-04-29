@@ -335,10 +335,10 @@ void MapViewState::onActivate(bool /*newActiveValue*/)
 }
 
 
-void MapViewState::onWindowResized(int w, int h)
+void MapViewState::onWindowResized(NAS2D::Vector<int> newSize)
 {
-	setupUiPositions({w, h});
-	mTileMap->initMapDrawParams({w, h});
+	setupUiPositions(newSize);
+	mTileMap->initMapDrawParams(newSize);
 }
 
 
