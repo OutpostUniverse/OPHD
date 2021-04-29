@@ -59,7 +59,7 @@ void MapViewState::initUi()
 	mFactoryProduction.position(NAS2D::Point{renderer.center().x - mFactoryProduction.size().x / 2.0f, 175.0f});
 	mFactoryProduction.hide();
 
-	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
+	mFileIoDialog.setMode(FileIo::FileOperation::Save);
 	mFileIoDialog.fileOperation().connect(this, &MapViewState::onFileIoAction);
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
@@ -576,7 +576,7 @@ void MapViewState::onSaveGame()
 {
 	mGameOptionsDialog.hide();
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
-	mFileIoDialog.setMode(FileIo::FileOperation::FILE_SAVE);
+	mFileIoDialog.setMode(FileIo::FileOperation::Save);
 	mFileIoDialog.show();
 }
 
@@ -588,7 +588,7 @@ void MapViewState::onLoadGame()
 {
 	mGameOptionsDialog.hide();
 	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
-	mFileIoDialog.setMode(FileIo::FileOperation::FILE_LOAD);
+	mFileIoDialog.setMode(FileIo::FileOperation::Load);
 	mFileIoDialog.show();
 
 }
@@ -618,7 +618,7 @@ void MapViewState::onGameOver()
  */
 void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
-	if (fileOp == FileIo::FileOperation::FILE_LOAD)
+	if (fileOp == FileIo::FileOperation::Load)
 	{
 		try
 		{

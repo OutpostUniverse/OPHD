@@ -14,8 +14,8 @@ class FileIo : public Window
 public:
 	enum class FileOperation
 	{
-		FILE_LOAD,
-		FILE_SAVE
+		Load,
+		Save
 	};
 
 	using FileOperationSignal = NAS2D::Signal<const std::string&, FileOperation>;
