@@ -8,7 +8,7 @@
 
 
 /**
- * \brief	GraphWalker does a basic depth-first connection check
+ * GraphWalker does a basic depth-first connection check
  *			on a TileMap given a starting point.
  */
 class GraphWalker

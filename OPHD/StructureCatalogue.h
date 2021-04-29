@@ -8,7 +8,7 @@
 #include <array>
 
 /** 
- * \brief	Provides a means of instantiating new structures and getting build
+ * Provides a means of instantiating new structures and getting build
  *			cost / recycle value / population requirements.
  * 
  * StructureCatalogue is implemented as a static class and should never be

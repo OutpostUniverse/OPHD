@@ -9,7 +9,7 @@ class ProductionCost;
 
 
 /**
- * \brief	Defines the Factory interface.
+ * Defines the Factory interface.
  *
  * Factory derives from Structure and provides the basic factory interface and
  * the underlying factory production code. Exactly what a factory is capable of

@@ -8,7 +8,7 @@ class Warehouse;
 
 
 /**
-* \brief Implements a Factory Production dialog interface.
+* Implements a Factory Production dialog interface.
 */
 class WarehouseInspector : public Window
 {

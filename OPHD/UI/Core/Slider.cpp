@@ -142,7 +142,7 @@ Slider::~Slider()
 }
 
 
-/*!
+/**
  * Get internal slider position.
  */
 float Slider::positionInternal()
@@ -152,7 +152,7 @@ float Slider::positionInternal()
 
 
 /**
- * \brief set internal slider position
+ * set internal slider position
  */
 void Slider::positionInternal(float newPosition)
 {
