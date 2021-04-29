@@ -319,24 +319,26 @@ void MineReport::onCheckBoxRareMineralsChange()
 
 void MineReport::updateManagementButtonsVisiblity()
 {
-	btnIdle.visible(mSelectedFacility);
-	btnDigNewLevel.visible(mSelectedFacility);
-	btnTakeMeThere.visible(mSelectedFacility);
+	bool isVisible = visible() && mSelectedFacility;
 
-	btnAddTruck.visible(mSelectedFacility);
-	btnRemoveTruck.visible(mSelectedFacility);
+	btnIdle.visible(isVisible);
+	btnDigNewLevel.visible(isVisible);
+	btnTakeMeThere.visible(isVisible);
 
-	if (mSelectedFacility &&
+	btnAddTruck.visible(isVisible);
+	btnRemoveTruck.visible(isVisible);
+
+	if (isVisible &&
 		(mSelectedFacility->destroyed() || mSelectedFacility->underConstruction()))
 	{
 		btnAddTruck.visible(false);
 		btnRemoveTruck.visible(false);
 	}
 
-	chkCommonMetals.visible(mSelectedFacility);
-	chkCommonMinerals.visible(mSelectedFacility);
-	chkRareMetals.visible(mSelectedFacility);
-	chkRareMinerals.visible(mSelectedFacility);
+	chkCommonMetals.visible(isVisible);
+	chkCommonMinerals.visible(isVisible);
+	chkRareMetals.visible(isVisible);
+	chkRareMinerals.visible(isVisible);
 }
 
 
