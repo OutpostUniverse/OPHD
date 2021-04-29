@@ -60,6 +60,7 @@ private:
 	void updateManagementButtonsVisiblity();
 
 	void onResize() override;
+	void onVisibilityChange(bool visible) override;
 
 	void drawMineFacilityPane(const NAS2D::Point<int>&);
 	void drawOreProductionPane(const NAS2D::Point<int>&);

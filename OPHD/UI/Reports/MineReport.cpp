@@ -182,6 +182,12 @@ void MineReport::onResize()
 }
 
 
+void MineReport::onVisibilityChange(bool /*visible*/)
+{
+	updateManagementButtonsVisiblity();
+}
+
+
 void MineReport::filterButtonClicked()
 {
 	btnShowAll.toggle(false);
