@@ -12,7 +12,7 @@
 class FileIo : public Window
 {
 public:
-	enum FileOperation
+	enum class FileOperation
 	{
 		FILE_LOAD,
 		FILE_SAVE
