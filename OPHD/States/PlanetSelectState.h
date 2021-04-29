@@ -31,7 +31,7 @@ private:
 	void onMousePlanetEnter();
 	void onMousePlanetExit();
 
-	void onWindowResized(int, int);
+	void onWindowResized(NAS2D::Vector<int> newSize);
 
 	void onQuit();
 

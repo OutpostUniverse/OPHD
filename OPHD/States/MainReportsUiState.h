@@ -41,7 +41,7 @@ private:
 private:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
-	void onWindowResized(int w, int h);
+	void onWindowResized(NAS2D::Vector<int> newSize);
 
 	void deselectAllPanels();
 
