@@ -236,6 +236,10 @@ protected:
 	}
 
 private:
+	void onMove(NAS2D::Vector<int> /*displacement*/) override {
+		updateScrollLayout();
+	}
+
 	void onResize() override {
 		updateScrollLayout();
 	}
