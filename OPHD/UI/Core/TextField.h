@@ -28,7 +28,6 @@ class TextField : public TextControl
 {
 public:
 	/**
-	* \enum	BorderVisiblity
 	* Enumerates border visibility options.
 	*
 	* \note	TextField defaults to a BorderVisibility::FocusOnly setting.

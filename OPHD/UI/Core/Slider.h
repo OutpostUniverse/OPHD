@@ -20,7 +20,6 @@ class Slider : public Control
 {
 public:
 	/*!
-	 * \enum 	SliderType
 	 * List the types of slider that could be used
 	 */
 	enum class SliderType
