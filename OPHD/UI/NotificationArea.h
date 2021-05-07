@@ -5,7 +5,8 @@
 
 #include <vector>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/Resources/Image.h>
+#include <NAS2D/Resource/Image.h>
+#include <NAS2D/Signal/Signal.h>
 
 
 class NotificationArea : public Control
@@ -26,8 +27,8 @@ public:
 	};
 
 	const int Width = 48;
-
-	using NotificationCallback = NAS2D::Signals::Signal<int>;
+	
+	using NotificationCallback = NAS2D::Signal<int>;
 
 public:
 	NotificationArea();
@@ -48,8 +49,8 @@ public:
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
 
-	void positionChanged(int dX, int dY) override;
-	void onSizeChanged() override;
+	void positionChanged(int dX, int dY);
+	void onSizeChanged();
 
 private:
 	void updateRectListPositions();
