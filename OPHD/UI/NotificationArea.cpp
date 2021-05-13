@@ -70,9 +70,9 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 	{
 		if (rect.contains(clickPoint))
 		{
+			mNotificationClicked(mNotificationList.at(count));
 			mNotificationList.erase(mNotificationList.begin() + count);
 			mNotificationRectList.erase(mNotificationRectList.begin() + count);
-			mNotificationClicked(static_cast<int>(count));
 			updateRectListPositions();
 			return;
 		}

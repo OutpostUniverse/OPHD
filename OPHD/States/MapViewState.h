@@ -215,7 +215,7 @@ private:
 	void onToggleCommRangeOverlay();
 	void onToggleRouteOverlay();
 
-	void onNotificationClicked(int);
+	void onNotificationClicked(const NotificationArea::Notification&);
 
 	void onSaveGame();
 	void onLoadGame();

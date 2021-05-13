@@ -471,9 +471,9 @@ void MapViewState::onToggleRouteOverlay()
 }
 
 
-void MapViewState::onNotificationClicked(int index)
+void MapViewState::onNotificationClicked(const NotificationArea::Notification& notification)
 {
-	const auto& notification = mNotificationArea.notificationFromIndex(index);
+	
 }
 
 
