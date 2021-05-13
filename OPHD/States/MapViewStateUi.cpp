@@ -93,6 +93,8 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mMineOperationsWindow);
 	mWindowStack.addWindow(&mRobotInspector);
 
+	mNotificationArea.notificationClicked().connect(this, &MapViewState::onNotificationClicked);
+
 	const auto size = renderer.size().to<int>();
 	mBottomUiRect = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
 
@@ -466,6 +468,11 @@ void MapViewState::onToggleRouteOverlay()
 	}
 
 	setOverlay(mBtnToggleRouteOverlay, mTruckRouteOverlay, Tile::Overlay::TruckingRoutes);
+}
+
+
+void MapViewState::onNotificationClicked(int index)
+{
 }
 
 
