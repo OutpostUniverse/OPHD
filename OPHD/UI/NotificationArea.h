@@ -49,8 +49,8 @@ public:
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
 
-	void positionChanged(int dX, int dY);
-	void onSizeChanged();
+	void positionChanged(int, int);
+	void onResize() override;
 
 private:
 	void updateRectListPositions();
