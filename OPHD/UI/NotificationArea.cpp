@@ -82,14 +82,16 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 }
 
 
-void NotificationArea::positionChanged(int, int)
+void NotificationArea::onMove(NAS2D::Vector<int> displacement)
 {
+	Control::onMove(displacement);
 	updateRectListPositions();
 }
 
 
 void NotificationArea::onResize()
 {
+	Control::onResize();
 	updateRectListPositions();
 }
 

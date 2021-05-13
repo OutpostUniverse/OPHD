@@ -49,7 +49,7 @@ public:
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
 
-	void positionChanged(int, int);
+	void onMove(NAS2D::Vector<int> displacement) override;
 	void onResize() override;
 
 private:
