@@ -42,9 +42,9 @@ public:
 		mNotificationRectList.clear();
 	}
 
-	void update() override;
-
 	NotificationCallback& notificationClicked() { return mNotificationClicked; }
+
+	void update() override;
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
