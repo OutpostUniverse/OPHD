@@ -82,14 +82,14 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 }
 
 
-void NotificationArea::positionChanged(int dX, int dY)
+void NotificationArea::positionChanged(int, int)
 {
 	Control::positionChanged(dX, dY);
 	updateRectListPositions();
 }
 
 
-void NotificationArea::onSizeChanged()
+void NotificationArea::onResize()
 {
 	Control::onSizeChanged();
 	updateRectListPositions();
