@@ -215,6 +215,8 @@ private:
 	void onToggleCommRangeOverlay();
 	void onToggleRouteOverlay();
 
+	void onNotificationClicked(int);
+
 	void onSaveGame();
 	void onLoadGame();
 	void onReturnToGame();
