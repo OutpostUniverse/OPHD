@@ -1,6 +1,5 @@
 #include "UIContainer.h"
 
-#include "RadioButton.h"
 #include "../../Common.h"
 
 #include <NAS2D/Utility.h>
@@ -38,10 +37,6 @@ void UIContainer::add(Control& control, NAS2D::Vector<int> offset)
 	control.position(mRect.startPoint() + offset);
 	control.visible(visible());
 	control.hasFocus(true);
-	if (auto* asRadioButton = dynamic_cast<RadioButton*>(&control))
-	{
-		asRadioButton->parentContainer(this);
-	}
 }
 
 

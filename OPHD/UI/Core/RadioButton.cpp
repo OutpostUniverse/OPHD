@@ -1,30 +1,22 @@
-#include "RadioButton.h"
-
-#include "UIContainer.h"
-#include "../../Cache.h"
-#include "../../Constants.h"
-
-#include <NAS2D/Utility.h>
-#include <NAS2D/Renderer/Renderer.h>
-#include <NAS2D/MathUtils.h>
-
-#include <algorithm>
-
+#include "RadioButtonGroup.h"
 
 using namespace NAS2D;
 
-
-RadioButton::RadioButton(std::string newText) :
+RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::DelegateX<void> delegate) :
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
-	mSkin{imageCache.load("ui/skin/checkbox.png")},
-	mLabel{newText}
+	mSkin{imageCache.load("ui/skin/radio.png")},
+	mLabel{newText},
+	mParentContainer{parentContainer}
 {
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &RadioButton::onMouseDown);
+	text(newText);
+	mRbgDelegate = delegate;
+	Utility<EventHandler>::get().mouseButtonDown().connect(this, &RadioButtonGroup::RadioButton::onMouseDown);
+	onTextChange();
 }
 
-RadioButton::~RadioButton()
+RadioButtonGroup::RadioButton::~RadioButton()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &RadioButton::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &RadioButtonGroup::RadioButton::onMouseDown);
 }
 
 /**
@@ -33,60 +25,48 @@ RadioButton::~RadioButton()
  * \note	Setting check state with this method will not fire
  *			a clicked event.
  */
-void RadioButton::checked(bool toggle)
+void RadioButtonGroup::RadioButton::checked(bool toggle)
 {
 	mChecked = toggle;
 }
 
 
-bool RadioButton::checked() const
+bool RadioButtonGroup::RadioButton::checked() const
 {
 	return mChecked;
 }
 
-void RadioButton::parentContainer(UIContainer* parent)
+void RadioButtonGroup::RadioButton::parentContainer(RadioButtonGroup* parent)
 {
 	mParentContainer = parent;
 }
 
-void RadioButton::text(const std::string& text)
+void RadioButtonGroup::RadioButton::text(const std::string& text)
 {
 	mLabel.text(text);
 	onTextChange();
 }
 
-const std::string& RadioButton::text() const
+const std::string& RadioButtonGroup::RadioButton::text() const
 {
 	return mLabel.text();
 }
 
-RadioButton::ClickSignal::Source& RadioButton::click()
-{
-	for (auto* sibling : mParentContainer->controls())
-	{
-		if (auto* asRadioButton = dynamic_cast<RadioButton*>(sibling))
-		{
-			asRadioButton->checked(false);
-		}
-	}
-	checked(true);
-	return mSignal;
-}
-
-
-void RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
+void RadioButtonGroup::RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible() || !hasFocus()) { return; }
 
 	if (button == EventHandler::MouseButton::Left && mRect.contains(Point{x, y}))
 	{
-		click();
-		mSignal();
+		mParentContainer->clearSelection();
+		mRbgDelegate();
+
+		checked(true);
 	}
 }
 
 
-void RadioButton::onTextChange()
+void RadioButtonGroup::RadioButton::onTextChange()
 {
 	const auto textWidth = mFont.width(text());
 	width((textWidth > 0) ? 20 + textWidth : 13);
@@ -96,13 +76,13 @@ void RadioButton::onTextChange()
 /**
  * Enforces minimum and maximum sizes.
  */
-void RadioButton::onResize()
+void RadioButtonGroup::RadioButton::onResize()
 {
 	mRect.size({std::max(mRect.width, 13), 13});
 }
 
 
-void RadioButton::update()
+void RadioButtonGroup::RadioButton::update()
 {
 	auto& renderer = Utility<Renderer>::get();
 
