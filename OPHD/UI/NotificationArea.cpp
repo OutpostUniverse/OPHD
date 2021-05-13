@@ -70,9 +70,9 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 	{
 		if (rect.contains(clickPoint))
 		{
-			// fire off some event with notification here
 			mNotificationList.erase(mNotificationList.begin() + count);
 			mNotificationRectList.erase(mNotificationRectList.begin() + count);
+			mNotificationClicked(static_cast<int>(count));
 			updateRectListPositions();
 			return;
 		}
@@ -82,16 +82,16 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 }
 
 
-void NotificationArea::positionChanged(int, int)
+void NotificationArea::onMove(NAS2D::Vector<int> displacement)
 {
-	Control::positionChanged(dX, dY);
+	Control::onMove(displacement);
 	updateRectListPositions();
 }
 
 
 void NotificationArea::onResize()
 {
-	Control::onSizeChanged();
+	Control::onResize();
 	updateRectListPositions();
 }
 
