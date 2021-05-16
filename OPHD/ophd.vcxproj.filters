@@ -303,6 +303,9 @@
     <ClCompile Include="UI\NotificationArea.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI\NotificationWindow.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -675,6 +678,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\NotificationArea.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\NotificationWindow.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
