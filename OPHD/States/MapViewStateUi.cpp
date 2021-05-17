@@ -92,6 +92,7 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mWarehouseInspector);
 	mWindowStack.addWindow(&mMineOperationsWindow);
 	mWindowStack.addWindow(&mRobotInspector);
+	mWindowStack.addWindow(&mNotificationWindow);
 
 	mNotificationArea.notificationClicked().connect(this, &MapViewState::onNotificationClicked);
 
@@ -234,6 +235,8 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	mWarehouseInspector.position(centerPosition(mWarehouseInspector) - NAS2D::Vector{0, 100});
 	mMineOperationsWindow.position(centerPosition(mMineOperationsWindow) - NAS2D::Vector{0, 100});
+
+	mNotificationWindow.position(centerPosition(mMineOperationsWindow) - NAS2D::Vector{ 0, 100 });
 
 	/**
 	 * \note	We are not setting the tile inspector window's position here because it's something that can be
@@ -473,7 +476,9 @@ void MapViewState::onToggleRouteOverlay()
 
 void MapViewState::onNotificationClicked(const NotificationArea::Notification& notification)
 {
-	
+	mNotificationWindow.notification(notification);
+	mNotificationWindow.show();
+	mWindowStack.bringToFront(&mNotificationWindow);
 }
 
 
