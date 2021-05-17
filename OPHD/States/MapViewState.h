@@ -15,6 +15,8 @@
 #include "../Things/Structures/Structure.h"
 
 #include "../UI/Gui.h"
+#include "../UI/NotificationArea.h"
+#include "../UI/NotificationWindow.h"
 #include "../UI/UI.h"
 
 #include <NAS2D/Signal/Signal.h>
@@ -214,6 +216,8 @@ private:
 	void onToggleCommRangeOverlay();
 	void onToggleRouteOverlay();
 
+	void onNotificationClicked(const NotificationArea::Notification&);
+
 	void onSaveGame();
 	void onLoadGame();
 	void onReturnToGame();
@@ -287,6 +291,8 @@ private:
 	GameOptionsDialog mGameOptionsDialog;
 	MajorEventAnnouncement mAnnouncement;
 	MineOperationsWindow mMineOperationsWindow;
+	NotificationArea mNotificationArea;
+	NotificationWindow mNotificationWindow;
 	PopulationPanel mPopulationPanel;
 	ResourceBreakdownPanel mResourceBreakdownPanel;
 	RobotInspector mRobotInspector;

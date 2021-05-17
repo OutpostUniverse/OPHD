@@ -22,6 +22,7 @@
 
 
 using namespace constants;
+using namespace NAS2D;
 
 
 static void setOverlay(Button& button, TileList& tileList, Tile::Overlay overlay)
@@ -91,6 +92,9 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mWarehouseInspector);
 	mWindowStack.addWindow(&mMineOperationsWindow);
 	mWindowStack.addWindow(&mRobotInspector);
+	mWindowStack.addWindow(&mNotificationWindow);
+
+	mNotificationArea.notificationClicked().connect(this, &MapViewState::onNotificationClicked);
 
 	const auto size = renderer.size().to<int>();
 	mBottomUiRect = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
@@ -138,7 +142,6 @@ void MapViewState::initUi()
 
 	// Initial Structures
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
-
 
 	// tooltip control sizes
 	constexpr auto hudHeight = constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2;
@@ -196,6 +199,11 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mMoveNorthIconRect = {mMoveUpIconRect.x - navIconSpacing, mMoveUpIconRect.y + 8, 32, 16};
 	mMoveWestIconRect = {mMoveUpIconRect.x - 2 * navIconSpacing, mMoveUpIconRect.y + 8, 32, 16};
 
+	// Notification Area
+	auto& renderer = Utility<Renderer>::get();
+	mNotificationArea.height(mMoveUpIconRect.y - 22 - constants::MARGIN);
+	mNotificationArea.position({ renderer.size().x - mNotificationArea.size().x, 22 });
+
 	// Mini Map
 	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, mBottomUiRect.y + constants::MARGIN, 300, 150};
 
@@ -227,6 +235,8 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	mWarehouseInspector.position(centerPosition(mWarehouseInspector) - NAS2D::Vector{0, 100});
 	mMineOperationsWindow.position(centerPosition(mMineOperationsWindow) - NAS2D::Vector{0, 100});
+
+	mNotificationWindow.position(centerPosition(mMineOperationsWindow) - NAS2D::Vector{ 0, 100 });
 
 	/**
 	 * \note	We are not setting the tile inspector window's position here because it's something that can be
@@ -273,7 +283,6 @@ void MapViewState::unhideUi()
 
 	mGameOverDialog.enabled(true);
 	mGameOptionsDialog.enabled(true);
-
 }
 
 
@@ -394,6 +403,8 @@ void MapViewState::drawUI()
 	drawNavInfo();
 	drawRobotInfo();
 
+	mNotificationArea.update();
+
 	// Buttons
 	mBtnTurns.update();
 	mBtnToggleHeightmap.update();
@@ -460,6 +471,14 @@ void MapViewState::onToggleRouteOverlay()
 	}
 
 	setOverlay(mBtnToggleRouteOverlay, mTruckRouteOverlay, Tile::Overlay::TruckingRoutes);
+}
+
+
+void MapViewState::onNotificationClicked(const NotificationArea::Notification& notification)
+{
+	mNotificationWindow.notification(notification);
+	mNotificationWindow.show();
+	mWindowStack.bringToFront(&mNotificationWindow);
 }
 
 
