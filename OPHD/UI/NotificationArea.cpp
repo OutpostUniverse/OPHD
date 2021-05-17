@@ -26,6 +26,15 @@ static const std::map<NotificationArea::NotificationType, NAS2D::Color> Notifica
 };
 
 
+static const std::map<NotificationArea::NotificationType, std::string> NotificationText
+{
+	{ NotificationArea::NotificationType::Critical, "Critical" },
+	{ NotificationArea::NotificationType::Information, "Information" },
+	{ NotificationArea::NotificationType::Warning, "Warning" }
+};
+
+
+
 const Rectangle<float>& IconRectFromNotificationType(const NotificationArea::NotificationType type)
 {
 	return NotificationIconRect.at(type);
@@ -35,6 +44,12 @@ const Color ColorFromNotification(const NotificationArea::NotificationType type)
 {
 	return NotificationIconColor.at(type);
 }
+
+const std::string& StringFromNotificationType(const NotificationArea::NotificationType type)
+{
+	return NotificationText.at(type);
+}
+
 
 
 static constexpr int Offset = constants::MARGIN_TIGHT + 32;
