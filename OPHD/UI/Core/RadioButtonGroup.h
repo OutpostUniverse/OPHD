@@ -56,7 +56,7 @@ private:
         Label mLabel;
         RadioButtonGroup* mParentContainer{nullptr};
         bool mChecked{false};
-        NAS2D::DelegateX<void> mRbgDelegate;
+        NAS2D::DelegateX<void> mSignal;
     };
 
     std::size_t mIndex = constants::NO_SELECTION;

@@ -9,7 +9,7 @@ RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup* parentContainer, st
 	mParentContainer{parentContainer}
 {
 	text(newText);
-	mRbgDelegate = delegate;
+	mSignal = delegate;
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &RadioButtonGroup::RadioButton::onMouseDown);
 	onTextChange();
 }
@@ -59,7 +59,7 @@ void RadioButtonGroup::RadioButton::onMouseDown(EventHandler::MouseButton button
 	if (button == EventHandler::MouseButton::Left && mRect.contains(Point{x, y}))
 	{
 		mParentContainer->clearSelection();
-		mRbgDelegate();
+		mSignal();
 
 		checked(true);
 	}
