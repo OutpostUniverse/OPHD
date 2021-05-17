@@ -1,37 +1,44 @@
 version: 2.1
 
 commands:
+  brew-install:
+    description: "Brew install MacOS dependencies (or restore from cache)"
+    steps:
+      - restore_cache:
+          name: Restoring brew dependencies
+          key: deps-OPHD-{{ arch }}-v1-{{ checksum "nas2d-core/BrewDeps.txt" }}
+      - run: make --directory nas2d-core/ install-dependencies
+      - save_cache:
+          name: Caching brew dependencies
+          key: deps-OPHD-{{ arch }}-v1-{{ checksum "nas2d-core/BrewDeps.txt" }}
+          paths:
+            - /usr/local/Cellar
   build:
     steps:
-      - checkout
-      - run: git submodule update --init nas2d-core/
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" nas2d
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror"
       - run: make package
       - store_artifacts:
           path: .build/package/
-  brew-install:
-    description: "Brew install MacOS dependencies (or restore from cache)"
-    parameters:
-      packages:
-        type: string
-    steps:
-      - restore_cache:
-          name: Restoring brew dependencies
-          key: deps-OPHD-v1-{{ arch }}
-      - run: HOMEBREW_NO_AUTO_UPDATE=1 brew install << parameters.packages >>
-      - save_cache:
-          name: Caching brew dependencies
-          key: deps-OPHD-v1-{{ arch }}
-          paths:
-            - /usr/local/Cellar
-      - run: brew link << parameters.packages >>
 
 jobs:
+  build-macos:
+    macos:
+      xcode: "12.4.0"
+    environment:
+      - HOMEBREW_NO_AUTO_UPDATE: 1
+      - WARN_EXTRA: "-Wno-double-promotion"
+    steps:
+      - checkout
+      - run: git submodule update --init nas2d-core/
+      - brew-install
+      - build
   build-linux:
     docker:
       - image: outpostuniverse/nas2d:1.4
     steps:
+      - checkout
+      - run: git submodule update --init nas2d-core/
       - build
   build-linux-gcc:
     docker:
@@ -39,6 +46,8 @@ jobs:
     environment:
       WARN_EXTRA: -Wsuggest-override
     steps:
+      - checkout
+      - run: git submodule update --init nas2d-core/
       - build
   build-linux-clang:
     docker:
@@ -46,6 +55,8 @@ jobs:
     environment:
       WARN_EXTRA: -Wimplicit-int-conversion -Wunreachable-code -Wunreachable-code-return -Wunreachable-code-break -Wextra-semi-stmt -Wnewline-eof -Wdocumentation -Wheader-hygiene -Winconsistent-missing-destructor-override -Wdeprecated-copy-dtor -Wformat-nonliteral
     steps:
+      - checkout
+      - run: git submodule update --init nas2d-core/
       - build
   build-linux-mingw:
     docker:
@@ -54,21 +65,12 @@ jobs:
       - checkout
       - run: git submodule update --init nas2d-core/
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" intermediate
-  build-macos:
-    macos:
-      xcode: "12.3.0"
-    environment:
-      - WARN_EXTRA: "-Wno-double-promotion"
-    steps:
-      - brew-install:
-          packages: physfs sdl2 sdl2_image sdl2_mixer sdl2_ttf libpng libjpeg libtiff webp libmodplug libvorbis libogg freetype glew googletest
-      - build
 
 workflows:
   build:
     jobs:
+      - build-macos
       - build-linux
       - build-linux-gcc
       - build-linux-clang
       - build-linux-mingw
-      - build-macos
