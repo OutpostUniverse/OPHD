@@ -1,13 +1,6 @@
 version: 2.1
 
 commands:
-  build:
-    steps:
-      - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" nas2d
-      - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror"
-      - run: make package
-      - store_artifacts:
-          path: .build/package/
   brew-install:
     description: "Brew install MacOS dependencies (or restore from cache)"
     parameters:
@@ -24,6 +17,13 @@ commands:
           paths:
             - /usr/local/Cellar
       - run: brew link << parameters.packages >>
+  build:
+    steps:
+      - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" nas2d
+      - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror"
+      - run: make package
+      - store_artifacts:
+          path: .build/package/
 
 jobs:
   build-macos:
