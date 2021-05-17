@@ -3,7 +3,6 @@ version: 2.1
 commands:
   build:
     steps:
-      - run: git submodule update --init nas2d-core/
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" nas2d
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror"
       - run: make package
@@ -34,6 +33,7 @@ jobs:
       - WARN_EXTRA: "-Wno-double-promotion"
     steps:
       - checkout
+      - run: git submodule update --init nas2d-core/
       - brew-install:
           packages: physfs sdl2 sdl2_image sdl2_mixer sdl2_ttf libpng libjpeg libtiff webp libmodplug libvorbis libogg freetype glew googletest
       - build
@@ -42,6 +42,7 @@ jobs:
       - image: outpostuniverse/nas2d:1.4
     steps:
       - checkout
+      - run: git submodule update --init nas2d-core/
       - build
   build-linux-gcc:
     docker:
@@ -50,6 +51,7 @@ jobs:
       WARN_EXTRA: -Wsuggest-override
     steps:
       - checkout
+      - run: git submodule update --init nas2d-core/
       - build
   build-linux-clang:
     docker:
@@ -58,6 +60,7 @@ jobs:
       WARN_EXTRA: -Wimplicit-int-conversion -Wunreachable-code -Wunreachable-code-return -Wunreachable-code-break -Wextra-semi-stmt -Wnewline-eof -Wdocumentation -Wheader-hygiene -Winconsistent-missing-destructor-override -Wdeprecated-copy-dtor -Wformat-nonliteral
     steps:
       - checkout
+      - run: git submodule update --init nas2d-core/
       - build
   build-linux-mingw:
     docker:
