@@ -10,7 +10,7 @@ commands:
       - restore_cache:
           name: Restoring brew dependencies
           key: deps-OPHD-v1-{{ arch }}
-      - run: HOMEBREW_NO_AUTO_UPDATE=1 brew install << parameters.packages >>
+      - run: brew install << parameters.packages >>
       - save_cache:
           name: Caching brew dependencies
           key: deps-OPHD-v1-{{ arch }}
@@ -30,6 +30,7 @@ jobs:
     macos:
       xcode: "12.4.0"
     environment:
+      - HOMEBREW_NO_AUTO_UPDATE: 1
       - WARN_EXTRA: "-Wno-double-promotion"
     steps:
       - checkout
