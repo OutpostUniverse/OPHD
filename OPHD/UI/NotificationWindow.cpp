@@ -12,11 +12,18 @@ using namespace NAS2D;
 NotificationWindow::NotificationWindow():
 	mIcons{ imageCache.load("ui/icons.png") }
 {
-	size({ 350, 220 });
+	size({ 300, 220 });
 
-	add(btnOkay, { 295, 195 });
+	add(btnOkay, { 245, 195 });
 	btnOkay.size({ 50, 20 });
 	btnOkay.click().connect(this, &NotificationWindow::btnOkayClicked);
+}
+
+
+void NotificationWindow::notification(const NotificationArea::Notification& notification)
+{
+	mNotification = notification;
+	title(StringFromNotificationType(mNotification.type));
 }
 
 
