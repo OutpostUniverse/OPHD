@@ -10,7 +10,6 @@ class NotificationWindow : public Window
 {
 public:
 	NotificationWindow();
-	~NotificationWindow() = default;
 
 	void notification(const NotificationArea::Notification&);
 
