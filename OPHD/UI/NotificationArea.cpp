@@ -141,16 +141,12 @@ void NotificationArea::update()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawBox(rect());
-
-	constexpr Rectangle<float> bgRect{128, 64, 32, 32};
-
 	size_t count = 0;
 	for (auto& notification : mNotificationList)
 	{
 		auto& rect = mNotificationRectList.at(count);
 
-		renderer.drawSubImage(mIcons, rect.startPoint(), bgRect, NotificationIconColor.at(notification.type));
+		renderer.drawSubImage(mIcons, rect.startPoint(), { 128, 64, 32, 32 }, NotificationIconColor.at(notification.type));
 		renderer.drawSubImage(mIcons, rect.startPoint(), NotificationIconRect.at(notification.type), Color::Normal);
 		
 		count++;
