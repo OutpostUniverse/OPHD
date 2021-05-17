@@ -11,15 +11,18 @@ public:
 	NotificationWindow();
 	~NotificationWindow() = default;
 
-	void notification(const NotificationArea::Notification& notification);
+	void notification(const NotificationArea::Notification& notification)
+	{
+		mNotification = notification;
+	}
 
 	void update() override;
 
 private:
 	void btnOkayClicked();
 
-
 	const NAS2D::Image& mIcons;
 
+	NotificationArea::Notification mNotification;
 	Button btnOkay{ "Okay" };
 };
