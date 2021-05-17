@@ -1,6 +1,7 @@
 #include "NotificationWindow.h"
 
 #include "../Cache.h"
+#include "../Constants.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -17,6 +18,10 @@ NotificationWindow::NotificationWindow():
 	add(btnOkay, { 245, 195 });
 	btnOkay.size({ 50, 20 });
 	btnOkay.click().connect(this, &NotificationWindow::btnOkayClicked);
+
+	add(mMessageArea, { 5, 65 });
+	mMessageArea.size({ size().x - 10, 125 });
+	mMessageArea.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
 
 
@@ -24,6 +29,7 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 {
 	mNotification = notification;
 	title(StringFromNotificationType(mNotification.type));
+	mMessageArea.text(mNotification.message);
 }
 
 

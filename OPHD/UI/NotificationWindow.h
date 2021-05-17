@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Core/Window.h"
 #include "Core/Button.h"
+#include "Core/TextArea.h"
+#include "Core/Window.h"
 
 #include "NotificationArea.h"
 
@@ -22,4 +23,5 @@ private:
 
 	NotificationArea::Notification mNotification;
 	Button btnOkay{ "Okay" };
+	TextArea mMessageArea;
 };
