@@ -30,7 +30,7 @@ commands:
 jobs:
   build-macos:
     macos:
-      xcode: "12.3.0"
+      xcode: "12.4.0"
     environment:
       - WARN_EXTRA: "-Wno-double-promotion"
     steps:
