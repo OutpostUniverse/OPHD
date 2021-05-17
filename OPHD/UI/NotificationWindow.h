@@ -11,10 +11,7 @@ public:
 	NotificationWindow();
 	~NotificationWindow() = default;
 
-	void notification(const NotificationArea::Notification& notification)
-	{
-		mNotification = notification;
-	}
+	void notification(const NotificationArea::Notification&);
 
 	void update() override;
 
