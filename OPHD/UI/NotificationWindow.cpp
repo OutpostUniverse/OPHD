@@ -2,7 +2,6 @@
 
 #include "../Cache.h"
 
-
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -34,4 +33,9 @@ void NotificationWindow::update()
 	Window::update();
 
 	auto& renderer = Utility<Renderer>::get();
+
+	Point<float> iconLocation = position() + Vector{ 10, 30 };
+
+	renderer.drawSubImage(mIcons, iconLocation, { 128, 64, 32, 32 }, ColorFromNotification(mNotification.type));
+	renderer.drawSubImage(mIcons, iconLocation, IconRectFromNotificationType(mNotification.type), Color::Normal);
 }
