@@ -69,3 +69,4 @@ private:
 
 const NAS2D::Rectangle<float>& IconRectFromNotificationType(const NotificationArea::NotificationType);
 const NAS2D::Color ColorFromNotification(const NotificationArea::NotificationType);
+const std::string& StringFromNotificationType(const NotificationArea::NotificationType);
