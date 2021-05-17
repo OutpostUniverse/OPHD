@@ -28,6 +28,15 @@ commands:
       - run: brew link << parameters.packages >>
 
 jobs:
+  build-macos:
+    macos:
+      xcode: "12.3.0"
+    environment:
+      - WARN_EXTRA: "-Wno-double-promotion"
+    steps:
+      - brew-install:
+          packages: physfs sdl2 sdl2_image sdl2_mixer sdl2_ttf libpng libjpeg libtiff webp libmodplug libvorbis libogg freetype glew googletest
+      - build
   build-linux:
     docker:
       - image: outpostuniverse/nas2d:1.4
@@ -54,21 +63,12 @@ jobs:
       - checkout
       - run: git submodule update --init nas2d-core/
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" intermediate
-  build-macos:
-    macos:
-      xcode: "12.3.0"
-    environment:
-      - WARN_EXTRA: "-Wno-double-promotion"
-    steps:
-      - brew-install:
-          packages: physfs sdl2 sdl2_image sdl2_mixer sdl2_ttf libpng libjpeg libtiff webp libmodplug libvorbis libogg freetype glew googletest
-      - build
 
 workflows:
   build:
     jobs:
+      - build-macos
       - build-linux
       - build-linux-gcc
       - build-linux-clang
       - build-linux-mingw
-      - build-macos
