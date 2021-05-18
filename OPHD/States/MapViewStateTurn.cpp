@@ -215,6 +215,22 @@ void MapViewState::updateMorale()
 	mPopulationPanel.addMoraleReason(moraleString(Morale::BiowasteOverflow), bioWasteAccumulation * -2);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDisabled), -structuresDisabled);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDestroyed), -structuresDestroyed);
+
+	// Push notifications
+	if (birthCount)
+	{
+		mNotificationArea.push(std::to_string(birthCount) +
+			(birthCount > 1 ? " babies were born." : " baby was born."),
+			NotificationArea::NotificationType::Information);
+	}
+
+	if (deathCount)
+	{
+		mNotificationArea.push(std::to_string(deathCount) +
+			(birthCount > 1 ? " colonists met their demise." : " colonist met their demise."),
+			NotificationArea::NotificationType::Warning);
+
+	}
 }
 
 
