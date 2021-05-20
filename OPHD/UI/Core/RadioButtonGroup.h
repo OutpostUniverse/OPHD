@@ -18,20 +18,6 @@
 
 class RadioButtonGroup : public Control
 {
-public:
-	struct ButtonInfo
-	{
-		std::string name;
-		NAS2D::DelegateX<void> delegate;
-	};
-
-	RadioButtonGroup() = default;
-	RadioButtonGroup(std::vector<ButtonInfo> buttonInfos);
-	void setSelected(std::size_t index);
-	void onMove(NAS2D::Vector<int> displacement) override;
-	void update() override;
-	void clearSelection();
-
 private:
     class RadioButton : public TextControl
     {
@@ -59,6 +45,22 @@ private:
         NAS2D::DelegateX<void> mSignal;
     };
 
+public:
+	struct ButtonInfo
+	{
+		std::string name;
+		NAS2D::DelegateX<void> delegate;
+	};
+
+	RadioButtonGroup() = default;
+	RadioButtonGroup(std::vector<ButtonInfo> buttonInfos);
+	void onMove(NAS2D::Vector<int> displacement) override;
+	void update() override;
+	void clearSelection();
+	void setSelected(std::size_t index);
+	void setSelected(RadioButtonGroup::RadioButton* button);
+
+private:
     std::size_t mIndex = constants::NO_SELECTION;
     std::vector<RadioButton> mRadioButtons;
 };
