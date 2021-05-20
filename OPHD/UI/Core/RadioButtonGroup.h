@@ -33,7 +33,6 @@ private:
     protected:
         void onResize() override;
         void onTextChange() override;
-        void parentContainer(RadioButtonGroup* parent);
         void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
     private:

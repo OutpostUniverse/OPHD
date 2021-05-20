@@ -36,11 +36,6 @@ bool RadioButtonGroup::RadioButton::checked() const
 	return mChecked;
 }
 
-void RadioButtonGroup::RadioButton::parentContainer(RadioButtonGroup* parent)
-{
-	mParentContainer = parent;
-}
-
 void RadioButtonGroup::RadioButton::text(const std::string& text)
 {
 	mLabel.text(text);
