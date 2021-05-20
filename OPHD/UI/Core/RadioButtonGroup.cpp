@@ -48,7 +48,7 @@ void RadioButtonGroup::update()
 	}
 }
 
-void RadioButtonGroup::clearSelection()
+void RadioButtonGroup::clear()
 {
 	if (mIndex != constants::NO_SELECTION)
 	{
@@ -57,15 +57,15 @@ void RadioButtonGroup::clearSelection()
 	mIndex = constants::NO_SELECTION;
 }
 
-void RadioButtonGroup::setSelected(std::size_t index)
+void RadioButtonGroup::select(std::size_t index)
 {
-	clearSelection();
+	clear();
 	mIndex = index;
 	mRadioButtons[index].checked(true);
 }
 
-void RadioButtonGroup::setSelected(RadioButtonGroup::RadioButton* button)
+void RadioButtonGroup::select(RadioButtonGroup::RadioButton* button)
 {
 	auto index = button - mRadioButtons.data();
-	setSelected(index);
+	select(index);
 }

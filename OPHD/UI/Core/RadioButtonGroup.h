@@ -56,9 +56,9 @@ public:
 	RadioButtonGroup(std::vector<ButtonInfo> buttonInfos);
 	void onMove(NAS2D::Vector<int> displacement) override;
 	void update() override;
-	void clearSelection();
-	void setSelected(std::size_t index);
-	void setSelected(RadioButtonGroup::RadioButton* button);
+	void clear();
+	void select(std::size_t index);
+	void select(RadioButtonGroup::RadioButton* button);
 
 private:
     std::size_t mIndex = constants::NO_SELECTION;

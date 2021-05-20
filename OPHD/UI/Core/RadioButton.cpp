@@ -59,7 +59,7 @@ void RadioButtonGroup::RadioButton::onMouseDown(EventHandler::MouseButton button
 	if (button == EventHandler::MouseButton::Left && mRect.contains(Point{x, y}))
 	{
 		mSignal();
-		mParentContainer->setSelected(this);
+		mParentContainer->select(this);
 	}
 }
 
