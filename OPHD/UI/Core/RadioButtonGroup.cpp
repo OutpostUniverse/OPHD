@@ -66,6 +66,6 @@ void RadioButtonGroup::select(std::size_t index)
 
 void RadioButtonGroup::select(RadioButtonGroup::RadioButton* button)
 {
-	auto index = button - mRadioButtons.data();
+	auto index = std::distance(mRadioButtons.data(), button);
 	select(index);
 }
