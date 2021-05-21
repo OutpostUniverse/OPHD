@@ -47,34 +47,6 @@ const std::string& RadioButtonGroup::RadioButton::text() const
 	return mLabel.text();
 }
 
-void RadioButtonGroup::RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	if (!enabled() || !visible() || !hasFocus()) { return; }
-
-	if (button == EventHandler::MouseButton::Left && mRect.contains(Point{x, y}))
-	{
-		mParentContainer->select(this);
-		mSignal();
-	}
-}
-
-
-void RadioButtonGroup::RadioButton::onTextChange()
-{
-	const auto textWidth = mFont.width(text());
-	width((textWidth > 0) ? 20 + textWidth : 13);
-}
-
-
-/**
- * Enforces minimum and maximum sizes.
- */
-void RadioButtonGroup::RadioButton::onResize()
-{
-	mRect.size({std::max(mRect.width, 13), 13});
-}
-
-
 void RadioButtonGroup::RadioButton::update()
 {
 	auto& renderer = Utility<Renderer>::get();
@@ -84,4 +56,29 @@ void RadioButtonGroup::RadioButton::update()
 
 	renderer.drawSubImage(mSkin, position(), (mChecked ? selectedIconRect : unselectedIconRect));
 	renderer.drawText(mFont, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
+}
+
+/**
+ * Enforces minimum and maximum sizes.
+ */
+void RadioButtonGroup::RadioButton::onResize()
+{
+	mRect.size({std::max(mRect.width, 13), 13});
+}
+
+void RadioButtonGroup::RadioButton::onTextChange()
+{
+	const auto textWidth = mFont.width(text());
+	width((textWidth > 0) ? 20 + textWidth : 13);
+}
+
+void RadioButtonGroup::RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
+{
+	if (!enabled() || !visible() || !hasFocus()) { return; }
+
+	if (button == EventHandler::MouseButton::Left && mRect.contains(Point{x, y}))
+	{
+		mParentContainer->select(this);
+		mSignal();
+	}
 }

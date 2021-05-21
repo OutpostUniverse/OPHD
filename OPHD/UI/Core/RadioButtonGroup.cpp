@@ -37,17 +37,6 @@ void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
 	}
 }
 
-void RadioButtonGroup::update()
-{
-	if (!visible()) { return; }
-
-	for (auto &control : mRadioButtons)
-	{
-		control.update();
-		control.hasFocus(true);
-	}
-}
-
 void RadioButtonGroup::clear()
 {
 	if (mIndex != constants::NO_SELECTION)
@@ -68,4 +57,15 @@ void RadioButtonGroup::select(RadioButtonGroup::RadioButton* button)
 {
 	auto index = std::distance(mRadioButtons.data(), button);
 	select(index);
+}
+
+void RadioButtonGroup::update()
+{
+	if (!visible()) { return; }
+
+	for (auto &control : mRadioButtons)
+	{
+		control.update();
+		control.hasFocus(true);
+	}
 }

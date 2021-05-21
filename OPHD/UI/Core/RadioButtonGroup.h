@@ -24,10 +24,13 @@ private:
     public:
         RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::DelegateX<void> delegate);
         ~RadioButton() override;
+
         void checked(bool toggle);
         bool checked() const;
+
         void text(const std::string& text);
         const std::string& text() const;
+
         void update() override;
 
     protected:
@@ -53,11 +56,16 @@ public:
 
 	RadioButtonGroup() = default;
 	RadioButtonGroup(std::vector<ButtonInfo> buttonInfos);
-	void onMove(NAS2D::Vector<int> displacement) override;
-	void update() override;
+
 	void clear();
+
 	void select(std::size_t index);
 	void select(RadioButtonGroup::RadioButton* button);
+
+	void update() override;
+
+protected:
+	void onMove(NAS2D::Vector<int> displacement) override;
 
 private:
     std::size_t mIndex = constants::NO_SELECTION;
