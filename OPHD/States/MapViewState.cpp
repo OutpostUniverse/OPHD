@@ -106,6 +106,21 @@ static void fillCommList(TileList& tileList, TileMap& tileMap, Tile& centerTile,
 }
 
 
+static void pushAgingRobotMessage(const Robot* robot, const Point<int> position, NotificationArea& notificationArea)
+{
+	const auto robotLocationText = "(" + std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
+
+	if (robot->fuelCellAge() == 190) /// \fixme magic number
+	{
+		notificationArea.push("Robot '" + RobotMetaTable.at(robot->type()).name + "' at location " + robotLocationText + " is approaching its maximum age.", NotificationArea::NotificationType::Warning);
+	}
+	else if (robot->fuelCellAge() == 195) /// \fixme magic number
+	{
+		notificationArea.push("Robot '" + RobotMetaTable.at(robot->type()).name + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.", NotificationArea::NotificationType::Critical);
+	}
+}
+
+
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mMainReportsState(mainReportsState),
 	mLoadingExisting(true),
@@ -1255,21 +1270,6 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 	else
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_EDGE_BUFFER);
-	}
-}
-
-
-static void pushAgingRobotMessage(const Robot* robot, const Point<int> position, NotificationArea& notificationArea)
-{
-	const auto robotLocationText = "(" + std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
-
-	if (robot->fuelCellAge() == 190) /// \fixme magic number
-	{
-		notificationArea.push("Robot '" + RobotMetaTable.at(robot->type()).name + "' at location " + robotLocationText + " is approaching its maximum age.", NotificationArea::NotificationType::Warning);
-	}
-	else if (robot->fuelCellAge() == 195) /// \fixme magic number
-	{
-		notificationArea.push("Robot '" + RobotMetaTable.at(robot->type()).name + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.", NotificationArea::NotificationType::Critical);
 	}
 }
 
