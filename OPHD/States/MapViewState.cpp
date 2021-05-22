@@ -1303,10 +1303,7 @@ void MapViewState::updateRobots()
 			else if (robot->type() != Robot::Type::Miner)
 			{
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
-				
-				mNotificationArea.push(RobotMetaTable.at(robot->type()).name + " at location " + robotLocationText + " self destructed.", NotificationArea::NotificationType::Critical);
-
-				doAlertMessage("Robot Breakdown", text);
+				mNotificationArea.push(text, NotificationArea::NotificationType::Critical);
 				resetTileIndexFromDozer(robot, tile);
 			}
 
