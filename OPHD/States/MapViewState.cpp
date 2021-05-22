@@ -106,6 +106,21 @@ static void fillCommList(TileList& tileList, TileMap& tileMap, Tile& centerTile,
 }
 
 
+static void pushAgingRobotMessage(const Robot* robot, const Point<int> position, NotificationArea& notificationArea)
+{
+	const auto robotLocationText = "(" + std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
+
+	if (robot->fuelCellAge() == 190) /// \fixme magic number
+	{
+		notificationArea.push("Robot '" + RobotMetaTable.at(robot->type()).name + "' at location " + robotLocationText + " is approaching its maximum age.", NotificationArea::NotificationType::Warning);
+	}
+	else if (robot->fuelCellAge() == 195) /// \fixme magic number
+	{
+		notificationArea.push("Robot '" + RobotMetaTable.at(robot->type()).name + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.", NotificationArea::NotificationType::Critical);
+	}
+}
+
+
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mMainReportsState(mainReportsState),
 	mLoadingExisting(true),
@@ -1272,11 +1287,13 @@ void MapViewState::updateRobots()
 
 		robot->update();
 
+		const auto position = tile->position();
+		pushAgingRobotMessage(robot, position, mNotificationArea);
+
 		if (robot->dead())
 		{
 			std::cout << "dead robot" << std::endl;
 
-			const auto position = tile->position();
 			const auto robotLocationText ="(" +  std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
 
 			if (robot->selfDestruct())
