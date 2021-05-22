@@ -1298,7 +1298,7 @@ void MapViewState::updateRobots()
 
 			if (robot->selfDestruct())
 			{
-				doAlertMessage("Robot Breakdown", "Your " + robot->name() + " at location " + robotLocationText + " self destructed.");
+				mNotificationArea.push(RobotMetaTable.at(robot->type()).name + " at location " + robotLocationText + " self destructed.", NotificationArea::NotificationType::Critical);
 			}
 			else if (robot->type() != Robot::Type::Miner)
 			{
