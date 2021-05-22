@@ -276,6 +276,9 @@
     <ClCompile Include="UI\Core\RadioButton.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
+    <ClCompile Include="UI\Core\RadioButtonGroup.cpp">
+      <Filter>Source Files\UI\Core</Filter>
+    </ClCompile>
     <ClCompile Include="UI\TextRender.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -623,7 +626,7 @@
     <ClInclude Include="UI\Core\Label.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Core\RadioButton.h">
+    <ClInclude Include="UI\Core\RadioButtonGroup.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
     <ClInclude Include="Things\Structures\SurfacePolice.h">
