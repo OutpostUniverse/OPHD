@@ -25,6 +25,11 @@ private:
         RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::Delegate<void()> delegate);
         ~RadioButton() override;
 
+        // TODO: Best to delete these, but they need to exist for now
+        // The default methods do not properly handle global event connect/disconnect
+        RadioButton(const RadioButton&) = default;
+        RadioButton(RadioButton&&) = default;
+
         void checked(bool toggle);
         bool checked() const;
 
