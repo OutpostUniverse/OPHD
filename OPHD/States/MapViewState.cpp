@@ -112,11 +112,11 @@ static void pushAgingRobotMessage(const Robot* robot, const Point<int> position,
 
 	if (robot->fuelCellAge() == 190) /// \fixme magic number
 	{
-		notificationArea.push("Robot '" + RobotMetaTable.at(robot->type()).name + "' at location " + robotLocationText + " is approaching its maximum age.", NotificationArea::NotificationType::Warning);
+		notificationArea.push("Robot '" + robot->name() + "' at location " + robotLocationText + " is approaching its maximum age.", NotificationArea::NotificationType::Warning);
 	}
 	else if (robot->fuelCellAge() == 195) /// \fixme magic number
 	{
-		notificationArea.push("Robot '" + RobotMetaTable.at(robot->type()).name + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.", NotificationArea::NotificationType::Critical);
+		notificationArea.push("Robot '" + robot->name() + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.", NotificationArea::NotificationType::Critical);
 	}
 }
 
@@ -1298,12 +1298,12 @@ void MapViewState::updateRobots()
 
 			if (robot->selfDestruct())
 			{
-				doAlertMessage("Robot Breakdown", "Your " + robot->name() + " at location " + robotLocationText + " self destructed.");
+				mNotificationArea.push(robot->name() + " at location " + robotLocationText + " self destructed.", NotificationArea::NotificationType::Critical);
 			}
 			else if (robot->type() != Robot::Type::Miner)
 			{
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
-				doAlertMessage("Robot Breakdown", text);
+				mNotificationArea.push(text, NotificationArea::NotificationType::Critical);
 				resetTileIndexFromDozer(robot, tile);
 			}
 
