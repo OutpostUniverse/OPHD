@@ -60,7 +60,7 @@ public:
 	void clear();
 
 	void select(std::size_t index);
-	void select(RadioButtonGroup::RadioButton* button);
+	void select(RadioButtonGroup::RadioButton& button);
 
 	void update() override;
 
