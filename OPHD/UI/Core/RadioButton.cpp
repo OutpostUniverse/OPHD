@@ -2,14 +2,14 @@
 
 using namespace NAS2D;
 
-RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::DelegateX<void> delegate) :
+RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::Delegate<void()> delegate) :
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
 	mSkin{imageCache.load("ui/skin/radio.png")},
 	mLabel{newText},
 	mParentContainer{parentContainer}
 {
 	text(newText);
-	mSignal = delegate;
+	mSignal.connect(delegate);
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &RadioButtonGroup::RadioButton::onMouseDown);
 	onTextChange();
 }

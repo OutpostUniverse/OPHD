@@ -22,7 +22,7 @@ private:
     class RadioButton : public TextControl
     {
     public:
-        RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::DelegateX<void> delegate);
+        RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::Delegate<void()> delegate);
         ~RadioButton() override;
 
         void checked(bool toggle);
@@ -44,14 +44,14 @@ private:
         Label mLabel;
         RadioButtonGroup* mParentContainer{nullptr};
         bool mChecked{false};
-        NAS2D::DelegateX<void> mSignal;
+        NAS2D::Signal<> mSignal;
     };
 
 public:
 	struct ButtonInfo
 	{
 		std::string name;
-		NAS2D::DelegateX<void> delegate;
+		NAS2D::Delegate<void()> delegate;
 	};
 
 	RadioButtonGroup() = default;
