@@ -27,6 +27,7 @@ RadioButtonGroup::RadioButtonGroup(std::vector<ButtonInfo> buttonInfos)
 	}
 }
 
+
 void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
 {
 	Control::onMove(displacement);
@@ -37,6 +38,7 @@ void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
 	}
 }
 
+
 void RadioButtonGroup::clear()
 {
 	if (mIndex != constants::NO_SELECTION)
@@ -46,6 +48,7 @@ void RadioButtonGroup::clear()
 	mIndex = constants::NO_SELECTION;
 }
 
+
 void RadioButtonGroup::select(std::size_t index)
 {
 	clear();
@@ -53,11 +56,13 @@ void RadioButtonGroup::select(std::size_t index)
 	mRadioButtons[index].checked(true);
 }
 
+
 void RadioButtonGroup::select(RadioButtonGroup::RadioButton& button)
 {
 	auto index = std::distance(mRadioButtons.data(), &button);
 	select(index);
 }
+
 
 void RadioButtonGroup::update()
 {
