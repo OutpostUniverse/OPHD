@@ -31,26 +31,6 @@ const std::map<Difficulty, std::string> DIFFICULTY_STRING_TABLE
 };
 
 
-std::string StringFromDifficulty(const Difficulty& difficulty)
-{
-	return DIFFICULTY_STRING_TABLE.at(difficulty);
-}
-
-
-Difficulty DifficultyFromString(std::string difficultyStr)
-{
-	difficultyStr = NAS2D::toLowercase(difficultyStr);
-	for(const auto& difficulty : DIFFICULTY_STRING_TABLE)
-	{
-		if (NAS2D::toLowercase(difficulty.second) == difficultyStr)
-		{
-			return difficulty.first;
-		}
-	}
-	throw std::runtime_error(difficultyStr + " is not a valid difficulty.");
-}
-
-
 const std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
 {
 	{ StructureState::UnderConstruction, Color{150, 150, 150, 100} },
@@ -279,9 +259,6 @@ const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
 	{ { true, true, false, true }, "intersection" },
 	{ { true, true, true, false }, "intersection" }
 };
-
-
-Difficulty CURRENT_DIFFICULTY = Difficulty::Beginner;
 
 
 #if defined(WINDOWS) || defined(WIN32)
