@@ -37,20 +37,6 @@ std::string StringFromDifficulty(const Difficulty& difficulty)
 }
 
 
-Difficulty DifficultyFromString(std::string difficultyStr)
-{
-	difficultyStr = NAS2D::toLowercase(difficultyStr);
-	for(const auto& difficulty : DIFFICULTY_STRING_TABLE)
-	{
-		if (NAS2D::toLowercase(difficulty.second) == difficultyStr)
-		{
-			return difficulty.first;
-		}
-	}
-	throw std::runtime_error(difficultyStr + " is not a valid difficulty.");
-}
-
-
 const std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
 {
 	{ StructureState::UnderConstruction, Color{150, 150, 150, 100} },

@@ -24,7 +24,6 @@ enum class Difficulty
 };
 
 std::string StringFromDifficulty(const Difficulty& difficulty);
-Difficulty DifficultyFromString(std::string difficultyStr);
 
 extern Difficulty CURRENT_DIFFICULTY;
 
