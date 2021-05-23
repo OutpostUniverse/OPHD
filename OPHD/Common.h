@@ -23,9 +23,6 @@ enum class Difficulty
 	Hard,
 };
 
-std::string StringFromDifficulty(const Difficulty& difficulty);
-
-extern Difficulty CURRENT_DIFFICULTY;
 
 /**
  * Digger robot digging direction.
