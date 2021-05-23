@@ -19,13 +19,14 @@ RadioButtonGroup::RadioButtonGroup(std::vector<ButtonInfo> buttonInfos)
 	for(auto &buttonInfo : buttonInfos)
 	{
 		NAS2D::Vector<int> offset = {0, 13};
-		offset.y = mRadioButtons.size() * offset.y;
+		offset.y = static_cast<int>(mRadioButtons.size()) * offset.y;
 
 		auto &button = mRadioButtons.emplace_back(this, buttonInfo.name, buttonInfo.delegate);
 		button.visible(visible());
 		button.position(mRect.startPoint() + offset);
 	}
 }
+
 
 void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
 {
@@ -37,6 +38,7 @@ void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
 	}
 }
 
+
 void RadioButtonGroup::clear()
 {
 	if (mIndex != constants::NO_SELECTION)
@@ -46,6 +48,7 @@ void RadioButtonGroup::clear()
 	mIndex = constants::NO_SELECTION;
 }
 
+
 void RadioButtonGroup::select(std::size_t index)
 {
 	clear();
@@ -53,11 +56,13 @@ void RadioButtonGroup::select(std::size_t index)
 	mRadioButtons[index].checked(true);
 }
 
+
 void RadioButtonGroup::select(RadioButtonGroup::RadioButton& button)
 {
 	auto index = std::distance(mRadioButtons.data(), &button);
 	select(index);
 }
+
 
 void RadioButtonGroup::update()
 {

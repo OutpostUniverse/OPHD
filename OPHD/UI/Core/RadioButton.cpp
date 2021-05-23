@@ -1,6 +1,8 @@
 #include "RadioButtonGroup.h"
 
+
 using namespace NAS2D;
+
 
 RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::Delegate<void()> delegate) :
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
@@ -14,10 +16,12 @@ RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup* parentContainer, st
 	onTextChange();
 }
 
+
 RadioButtonGroup::RadioButton::~RadioButton()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &RadioButtonGroup::RadioButton::onMouseDown);
 }
+
 
 /**
  * Sets checked state.
@@ -36,16 +40,19 @@ bool RadioButtonGroup::RadioButton::checked() const
 	return mChecked;
 }
 
+
 void RadioButtonGroup::RadioButton::text(const std::string& text)
 {
 	mLabel.text(text);
 	onTextChange();
 }
 
+
 const std::string& RadioButtonGroup::RadioButton::text() const
 {
 	return mLabel.text();
 }
+
 
 void RadioButtonGroup::RadioButton::update()
 {
@@ -58,6 +65,7 @@ void RadioButtonGroup::RadioButton::update()
 	renderer.drawText(mFont, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
 }
 
+
 /**
  * Enforces minimum and maximum sizes.
  */
@@ -66,11 +74,13 @@ void RadioButtonGroup::RadioButton::onResize()
 	mRect.size({std::max(mRect.width, 13), 13});
 }
 
+
 void RadioButtonGroup::RadioButton::onTextChange()
 {
 	const auto textWidth = mFont.width(text());
 	width((textWidth > 0) ? 20 + textWidth : 13);
 }
+
 
 void RadioButtonGroup::RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
