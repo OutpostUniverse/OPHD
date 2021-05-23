@@ -1,7 +1,7 @@
 # OutpostHD Readme
 OutpostHD is a reimplementation of OUTPOST published by Sierra On-Line in 1994. It is not a clone. It's a complete redesign of OUTPOST taking the core concepts and reimplementing them in a much more fun and more responsive game.
 
-For up to the minute information, please visit The Outpost Universe's [online forum](http://forum.outpost2.net). You may also view [OutpostHD's Forum Thread](http://forum.outpost2.net/index.php/topic,5718.0.html) for additional details or to participate in the discussion.
+For up to the minute information, please visit [The Outpost Universe's Forums](http://forum.outpost2.net). You may also view [OutpostHD's Forum Thread](http://forum.outpost2.net/index.php/topic,5718.0.html) for additional details or to participate in the discussion.
 
 ## Requirements
 *For Windows*
@@ -43,7 +43,7 @@ The User directory will vary from platform to platform. On Windows, for example,
 Note that the file will only be generated after running the game for the first time.
 
 ## Troubleshooting
-OutpostHD is still under heavy development so there are likely kinks to work out. If you're having trouble, head on over to [the forums](http://forum.outpost2.net) or our [Discord server](https://discord.gg/kDz5Q3t) for help getting OutpostHD running.
+OutpostHD is still under heavy development so there are likely kinks to work out. If you're having trouble, head on over to [The Outpost Universe Forums](http://forum.outpost2.net) or the [Outpost Universe Discord Server](https://discord.gg/kDz5Q3t) for help getting OutpostHD running.
 
 ## Key Bindings
 
@@ -126,7 +126,7 @@ A: Structures must be built within the comm range of a Command Center. This is t
 
 **Q: I have a question that's not answered here. How can I get help?**
 
-A: You can visit The Outpost Universe's Forums (http://forum.outpost2.net) and visit the Main Projects forum or join the [OPU Discord Server](https://discord.gg/kDz5Q3t).
+A: You can visit [The Outpost Universe Forums](http://forum.outpost2.net) and visit the Main Projects forum or join the [Outpost Universe Discord Server](https://discord.gg/kDz5Q3t).
 
 ## License
 OutpostHD is distributed under a BSD 3-clause license. See LICENSE.txt for details.
