@@ -89,19 +89,16 @@ static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int c
 
 void MapViewState::fillCommList(Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange)
 {
-	TileList& tileList = mCommRangeOverlay;
-	TileMap& tileMap = *mTileMap;
-
 	for (int y = 0; y < area.height; ++y)
 	{
 		for (int x = 0; x < area.width; ++x)
 		{
-			auto& tile = tileMap.getTile({ x + area.x, y + area.y });
+			auto& tile = (*mTileMap).getTile({ x + area.x, y + area.y });
 			if (isPointInRange(centerTile.position(), tile.position(), commRange))
 			{
-				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
+				if (std::find(mCommRangeOverlay.begin(), mCommRangeOverlay.end(), &tile) == mCommRangeOverlay.end())
 				{
-					tileList.push_back(&tile);
+					mCommRangeOverlay.push_back(&tile);
 				}
 			}
 		}
