@@ -139,7 +139,7 @@ OutpostHD is developed and maintained by the following contributors:
 - White Claw: *Graphics*
 
 ## Special Thanks
-I'd like to give a special thanks and shout out to the following contributers who have helped to shape the direction of OutpostHD and provide extremely valuable insight in alphabetical order:
+I'd like to give a special thanks and shout out to the following contributors who have helped to shape the direction of OutpostHD and provide extremely valuable insight in alphabetical order:
 
 - belgianguy
 - dave_erald
