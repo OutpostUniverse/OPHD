@@ -469,10 +469,10 @@ int getTruckAvailability()
 	int trucksAvailable = 0;
 
 	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-	for (auto warehouse : warehouseList)
+	for (auto structure : warehouseList)
 	{
-		Warehouse* w = static_cast<Warehouse*>(warehouse);
-		trucksAvailable += w->products().count(ProductType::PRODUCT_TRUCK);
+		Warehouse* warehouse = static_cast<Warehouse*>(structure);
+		trucksAvailable += warehouse->products().count(ProductType::PRODUCT_TRUCK);
 	}
 
 	return trucksAvailable;
@@ -486,10 +486,10 @@ int pullTruckFromInventory()
 	if (trucksAvailable == 0) { return 0; }
 
 	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-	for (auto warehouse : warehouseList)
+	for (auto structure : warehouseList)
 	{
-		Warehouse* w = static_cast<Warehouse*>(warehouse);
-		if (w->products().pull(ProductType::PRODUCT_TRUCK, 1) > 0)
+		Warehouse* warehouse = static_cast<Warehouse*>(structure);
+		if (warehouse->products().pull(ProductType::PRODUCT_TRUCK, 1) > 0)
 		{
 			return 1;
 		}
@@ -504,12 +504,12 @@ int pushTruckIntoInventory()
 	const int storageNeededForTruck = storageRequiredPerUnit(ProductType::PRODUCT_TRUCK);
 
 	auto& warehouseList = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-	for (auto warehouse : warehouseList)
+	for (auto structure : warehouseList)
 	{
-		Warehouse* w = static_cast<Warehouse*>(warehouse);
-		if (w->products().availableStorage() >= storageNeededForTruck)
+		Warehouse* warehouse = static_cast<Warehouse*>(structure);
+		if (warehouse->products().availableStorage() >= storageNeededForTruck)
 		{
-			w->products().store(ProductType::PRODUCT_TRUCK, 1);
+			warehouse->products().store(ProductType::PRODUCT_TRUCK, 1);
 			return 1;
 		}
 	}
