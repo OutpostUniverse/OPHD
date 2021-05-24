@@ -27,6 +27,11 @@ public:
 		return constants::BASE_STORAGE_CAPACITY;
 	}
 
+	int getRange() const
+	{
+		return operational() ? constants::ROBOT_COM_RANGE : 0;
+	}
+
 protected:
 	int calculateProduction() override
 	{
