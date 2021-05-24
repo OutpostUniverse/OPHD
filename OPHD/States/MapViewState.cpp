@@ -87,8 +87,11 @@ static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int c
 }
 
 
-void MapViewState::fillCommList(TileList& tileList, TileMap& tileMap, Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange)
+void MapViewState::fillCommList(Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange)
 {
+	TileList& tileList = mCommRangeOverlay;
+	TileMap& tileMap = *mTileMap;
+
 	for (int y = 0; y < area.height; ++y)
 	{
 		for (int x = 0; x < area.width; ++x)
@@ -1415,7 +1418,7 @@ void MapViewState::checkCommRangeOverlay()
 		if (!cc->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(cc);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, constants::ROBOT_COM_RANGE);
-		fillCommList(mCommRangeOverlay, *mTileMap, centerTile, commAreaRect, constants::ROBOT_COM_RANGE);
+		fillCommList(centerTile, commAreaRect, constants::ROBOT_COM_RANGE);
 	}
 
 	for (auto tower : commTowers)
@@ -1423,7 +1426,7 @@ void MapViewState::checkCommRangeOverlay()
 		if (!tower->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(tower);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, constants::COMM_TOWER_BASE_RANGE);
-		fillCommList(mCommRangeOverlay, *mTileMap, centerTile, commAreaRect, constants::COMM_TOWER_BASE_RANGE);
+		fillCommList(centerTile, commAreaRect, constants::COMM_TOWER_BASE_RANGE);
 	}
 }
 

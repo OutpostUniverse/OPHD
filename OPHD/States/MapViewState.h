@@ -231,7 +231,7 @@ private:
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
-	void MapViewState::fillCommList(TileList& tileList, TileMap& tileMap, Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange);
+	void MapViewState::fillCommList(Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange);
 
 private:
 	MainReportsUiState& mMainReportsState;
