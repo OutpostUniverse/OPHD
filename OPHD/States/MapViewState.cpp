@@ -87,7 +87,7 @@ static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int c
 }
 
 
-static void fillCommList(TileList& tileList, TileMap& tileMap, Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange)
+void MapViewState::fillCommList(TileList& tileList, TileMap& tileMap, Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange)
 {
 	for (int y = 0; y < area.height; ++y)
 	{
