@@ -151,6 +151,7 @@ private:
 	void setMinimapView();
 
 	void checkCommRangeOverlay();
+	void fillCommList(Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange);
 	void checkConnectedness();
 	void changeViewDepth(int);
 
@@ -230,8 +231,6 @@ private:
 	void onDiggerSelectionDialog(Direction direction, Tile* tile);
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
-
-	void fillCommList(Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange);
 
 private:
 	MainReportsUiState& mMainReportsState;

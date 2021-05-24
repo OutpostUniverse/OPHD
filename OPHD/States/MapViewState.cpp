@@ -87,25 +87,6 @@ static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int c
 }
 
 
-void MapViewState::fillCommList(Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange)
-{
-	for (int y = 0; y < area.height; ++y)
-	{
-		for (int x = 0; x < area.width; ++x)
-		{
-			auto& tile = (*mTileMap).getTile({ x + area.x, y + area.y });
-			if (isPointInRange(centerTile.position(), tile.position(), commRange))
-			{
-				if (std::find(mCommRangeOverlay.begin(), mCommRangeOverlay.end(), &tile) == mCommRangeOverlay.end())
-				{
-					mCommRangeOverlay.push_back(&tile);
-				}
-			}
-		}
-	}
-}
-
-
 static void pushAgingRobotMessage(const Robot* robot, const Point<int> position, NotificationArea& notificationArea)
 {
 	const auto robotLocationText = "(" + std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
@@ -1424,6 +1405,25 @@ void MapViewState::checkCommRangeOverlay()
 		auto& centerTile = structureManager.tileFromStructure(tower);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, constants::COMM_TOWER_BASE_RANGE);
 		fillCommList(centerTile, commAreaRect, constants::COMM_TOWER_BASE_RANGE);
+	}
+}
+
+
+void MapViewState::fillCommList(Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange)
+{
+	for (int y = 0; y < area.height; ++y)
+	{
+		for (int x = 0; x < area.width; ++x)
+		{
+			auto& tile = (*mTileMap).getTile({ x + area.x, y + area.y });
+			if (isPointInRange(centerTile.position(), tile.position(), commRange))
+			{
+				if (std::find(mCommRangeOverlay.begin(), mCommRangeOverlay.end(), &tile) == mCommRangeOverlay.end())
+				{
+					mCommRangeOverlay.push_back(&tile);
+				}
+			}
+		}
 	}
 }
 
