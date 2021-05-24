@@ -270,16 +270,16 @@ void MapViewState::hideUi()
  */
 void MapViewState::unhideUi()
 {
-	mBtnTurns.visible(true);
+	mBtnTurns.show();
 
-	mBtnToggleHeightmap.visible(true);
-	mBtnToggleConnectedness.visible(true);
-	mBtnToggleCommRangeOverlay.visible(true);
+	mBtnToggleHeightmap.show();
+	mBtnToggleConnectedness.show();
+	mBtnToggleCommRangeOverlay.show();
 	mBtnToggleRouteOverlay.show();
 
-	mStructures.visible(true);
-	mRobots.visible(true);
-	mConnections.visible(true);
+	mStructures.show();
+	mRobots.show();
+	mConnections.show();
 
 	mGameOverDialog.enabled(true);
 	mGameOptionsDialog.enabled(true);
