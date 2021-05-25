@@ -1397,7 +1397,7 @@ void MapViewState::checkCommRangeOverlay()
 		auto range = dynamic_cast<CommandCenter*>(cc)->getRange();
 		auto& centerTile = structureManager.tileFromStructure(cc);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, range);
-		fillCommList(centerTile, commAreaRect, range);
+		fillRangedAreaList(mCommRangeOverlay, centerTile, commAreaRect, range);
 	}
 
 	for (auto tower : commTowers)
@@ -1406,23 +1406,24 @@ void MapViewState::checkCommRangeOverlay()
 		auto range = dynamic_cast<CommTower*>(tower)->getRange();
 		auto& centerTile = structureManager.tileFromStructure(tower);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, range);
-		fillCommList(centerTile, commAreaRect, range);
+		fillRangedAreaList(mCommRangeOverlay, centerTile, commAreaRect, range);
 	}
 }
 
 
-void MapViewState::fillCommList(Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange)
+
+void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, const NAS2D::Rectangle<int>& area, int range)
 {
 	for (int y = 0; y < area.height; ++y)
 	{
 		for (int x = 0; x < area.width; ++x)
 		{
 			auto& tile = (*mTileMap).getTile({ x + area.x, y + area.y });
-			if (isPointInRange(centerTile.position(), tile.position(), commRange))
+			if (isPointInRange(centerTile.position(), tile.position(), range))
 			{
-				if (std::find(mCommRangeOverlay.begin(), mCommRangeOverlay.end(), &tile) == mCommRangeOverlay.end())
+				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
 				{
-					mCommRangeOverlay.push_back(&tile);
+					tileList.push_back(&tile);
 				}
 			}
 		}
