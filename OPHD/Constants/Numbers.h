@@ -52,7 +52,6 @@ namespace constants
 	const auto MinimumWindowSize = NAS2D::Vector{1000, 700};
 
 	const int ROBOT_COM_RANGE = 15;
-	const int COMM_TOWER_BASE_RANGE = 10;
 	const int LANDER_COM_RANGE = 5;
 
 	const float ROUTE_BASE_COST = 0.5f;

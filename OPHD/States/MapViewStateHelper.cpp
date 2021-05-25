@@ -292,7 +292,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	{
 		if (!cc->operational()) { continue; }
 
-		if (isPointInRange(position, structureManager.tileFromStructure(cc).position(), constants::ROBOT_COM_RANGE))
+		if (isPointInRange(position, structureManager.tileFromStructure(cc).position(), dynamic_cast<CommandCenter*>(cc)->getRange()))
 		{
 			return true;
 		}
@@ -303,7 +303,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	{
 		if (!tower->operational()) { continue; }
 
-		if (isPointInRange(position, structureManager.tileFromStructure(tower).position(), constants::COMM_TOWER_BASE_RANGE))
+		if (isPointInRange(position, structureManager.tileFromStructure(tower).position(), dynamic_cast<CommTower*>(tower)->getRange()))
 		{
 			return true;
 		}
