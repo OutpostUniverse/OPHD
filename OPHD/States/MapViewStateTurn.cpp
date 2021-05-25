@@ -544,6 +544,7 @@ void MapViewState::nextTurn()
 
 	// Overlay Updates
 	checkCommRangeOverlay();
+	checkSurfacePoliceOverlay();
 	onToggleConnectedness();
 	onToggleCommRangeOverlay();
 	onToggleRouteOverlay();

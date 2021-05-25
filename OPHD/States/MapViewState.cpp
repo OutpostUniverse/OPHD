@@ -1411,6 +1411,23 @@ void MapViewState::checkCommRangeOverlay()
 }
 
 
+void MapViewState::checkSurfacePoliceOverlay()
+{
+	mSurfacePoliceOverlay.clear();
+
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+
+	const auto& policeStations = structureManager.structureList(Structure::StructureClass::SurfacePolice);
+
+	for (auto policeStation : policeStations)
+	{
+		if (!policeStation->operational()) { continue; }
+		auto& centerTile = structureManager.tileFromStructure(policeStation);
+		auto commAreaRect = buildAreaRectFromTile(centerTile, 10);
+		fillRangedAreaList(mSurfacePoliceOverlay, centerTile, commAreaRect, dynamic_cast<SurfacePolice*>(policeStation)->getRange());
+	}
+}
+
 
 void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, const NAS2D::Rectangle<int>& area, int range)
 {

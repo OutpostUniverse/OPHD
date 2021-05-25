@@ -250,6 +250,7 @@ void MapViewState::load(const std::string& filePath)
 	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
 
 	checkCommRangeOverlay();
+	checkSurfacePoliceOverlay();
 
 	mMapChangedSignal();
 }

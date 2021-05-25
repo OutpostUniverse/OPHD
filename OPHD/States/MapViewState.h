@@ -151,7 +151,7 @@ private:
 	void setMinimapView();
 
 	void checkCommRangeOverlay();
-	void fillCommList(Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange);
+	void checkSurfacePoliceOverlay();
 	void fillRangedAreaList(TileList& tileList, Tile& centerTile, const NAS2D::Rectangle<int>& area, int range);
 	void checkConnectedness();
 	void changeViewDepth(int);
@@ -332,6 +332,7 @@ private:
 
 	TileList mConnectednessOverlay;
 	TileList mCommRangeOverlay;
+	TileList mSurfacePoliceOverlay;
 	TileList mTruckRouteOverlay;
 
 	NAS2D::Point<int> mTubeStart;
