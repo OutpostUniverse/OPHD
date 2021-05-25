@@ -7,8 +7,10 @@
 
 class CommTower : public Structure
 {
-public:
+private:
+	const int BaseRange = 10;
 
+public:
 	CommTower() : Structure(constants::COMM_TOWER,
 		"structures/communications_tower.sprite",
 		StructureClass::Communication,
@@ -24,7 +26,7 @@ public:
 
 	int getRange() const
 	{
-		return operational() ? constants::COMM_TOWER_BASE_RANGE : 0;
+		return operational() ? BaseRange : 0;
 	}
 
 
