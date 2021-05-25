@@ -1151,7 +1151,7 @@ void MapViewState::placeStructure()
 		return;
 	}
 
-	// Seed lander is a special case and only one can ever be placed by the player ever.
+	// The player may only place one seed lander per game.
 	if (mCurrentStructure == StructureID::SID_SEED_LANDER)
 	{
 		insertSeedLander(mTileMapMouseHover);
