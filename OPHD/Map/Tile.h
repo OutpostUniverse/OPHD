@@ -20,6 +20,7 @@ public:
 		Communications,
 		Connectedness,
 		TruckingRoutes,
+		Police,
 
 		None
 	};
