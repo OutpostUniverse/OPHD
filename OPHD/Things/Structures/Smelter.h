@@ -2,6 +2,9 @@
 
 #include "OreRefining.h"
 
+#include "../../Constants.h"
+
+
 class Smelter : public OreRefining
 {
 	const int StorageCapacity = 800;

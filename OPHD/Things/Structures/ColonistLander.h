@@ -5,6 +5,7 @@
 #include "../../Constants.h"
 #include "../../Map/Tile.h"
 
+
 class ColonistLander : public Structure
 {
 public:

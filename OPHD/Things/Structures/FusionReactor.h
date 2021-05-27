@@ -3,9 +3,12 @@
 #include "PowerStructure.h"
 
 #include "../../Constants.h"
+
 #include <string>
 
+
 const int FUSION_REACTOR_BASE_PRODUCUCTION = 1000;
+
 
 class FusionReactor : public PowerStructure
 {

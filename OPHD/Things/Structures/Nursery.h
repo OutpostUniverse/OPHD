@@ -4,6 +4,7 @@
 
 #include "../../Constants.h"
 
+
 class Nursery : public Structure
 {
 public:

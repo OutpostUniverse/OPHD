@@ -2,6 +2,8 @@
 
 #include "OreRefining.h"
 
+#include "../../Constants.h"
+
 
 class SeedSmelter : public OreRefining
 {

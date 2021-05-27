@@ -5,6 +5,7 @@
 #include "../../Constants.h"
 #include "../../Map/Tile.h"
 
+
 class CargoLander : public Structure
 {
 public:

@@ -4,7 +4,9 @@
 
 #include "../../Constants.h"
 
+
 const int SOLAR_PLANT_BASE_PRODUCUCTION = 2000;
+
 
 class SolarPlant : public PowerStructure
 {
