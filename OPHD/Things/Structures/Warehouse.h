@@ -2,7 +2,9 @@
 
 #include "Structure.h"
 
+#include "../../Constants.h"
 #include "../../ProductPool.h"
+
 
 class Warehouse : public Structure
 {

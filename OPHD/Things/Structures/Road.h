@@ -4,6 +4,7 @@
 
 #include "../../Constants/Strings.h"
 
+
 class Road : public Structure
 {
 public:

@@ -2,6 +2,9 @@
 
 #include "Structure.h"
 
+#include "../../Constants.h"
+
+
 class HotLaboratory : public Structure
 {
 public:

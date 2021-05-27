@@ -4,6 +4,7 @@
 
 #include "../../Constants.h"
 
+
 class MedicalCenter : public Structure
 {
 public:

@@ -1,8 +1,11 @@
 #pragma once
 
 #include "Structure.h"
+
 #include "../../Constants.h"
+
 #include <string>
+
 
 /**
  * Virtual class for structures whose primary purpose is power production

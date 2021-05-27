@@ -2,7 +2,9 @@
 
 #include "Structure.h"
 
+#include "../../Constants.h"
 #include "../../Common.h"
+
 
 /**
  * Implements a Tube Structure.

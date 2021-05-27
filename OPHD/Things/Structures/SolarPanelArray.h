@@ -4,7 +4,9 @@
 
 #include "../../Constants.h"
 
+
 const int SOLAR_PANEL_BASE_PRODUCUCTION = 50;
+
 
 class SolarPanelArray : public PowerStructure
 {
