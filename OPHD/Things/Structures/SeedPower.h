@@ -1,5 +1,7 @@
 #pragma once
 
+#include "PowerStructure.h"
+
 #include "../../Constants.h"
 
 #include <string>

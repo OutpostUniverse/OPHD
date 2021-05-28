@@ -3,7 +3,9 @@
 #include "Structure.h"
 
 #include "../../Constants.h"
+
 #include <NAS2D/StringUtils.h>
+
 
 class Recycling : public Structure
 {

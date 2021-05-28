@@ -4,6 +4,7 @@
 
 #include "../../Constants.h"
 
+
 class UndergroundPolice : public Structure
 {
 public:

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Structure.h"
+
 #include "../../Constants.h"
 
 #include <vector>

@@ -2,7 +2,11 @@
 
 #include "Structure.h"
 
+#include "../../Constants.h"
+
+
 const int StorageTanksCapacity = 1000;
+
 
 class StorageTanks : public Structure
 {

@@ -2,6 +2,8 @@
 
 #include "Structure.h"
 
+#include "../../Constants.h"
+
 
 class AirShaft: public Structure
 {

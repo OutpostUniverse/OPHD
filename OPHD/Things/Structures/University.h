@@ -4,6 +4,7 @@
 
 #include "../../Constants.h"
 
+
 class University : public Structure
 {
 public:
