@@ -238,16 +238,16 @@ void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& robot
  */
 void updateRobotControl(RobotPool& robotPool)
 {
-	const auto& CommandCenter = Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
-	const auto& RobotCommand = Utility<StructureManager>::get().structureList(Structure::StructureClass::RobotCommand);
+	const auto& commandCenters = Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+	const auto& robotCommands = Utility<StructureManager>::get().structureList(Structure::StructureClass::RobotCommand);
 
 	// 3 for the first command center
 	uint32_t _maxRobots = 0;
-	if (CommandCenter.size() > 0) { _maxRobots += 3; }
+	if (commandCenters.size() > 0) { _maxRobots += 3; }
 	// the 10 per robot command facility
-	for (std::size_t s = 0; s < RobotCommand.size(); ++s)
+	for (std::size_t s = 0; s < robotCommands.size(); ++s)
 	{
-		if (RobotCommand[s]->operational()) { _maxRobots += 10; }
+		if (robotCommands[s]->operational()) { _maxRobots += 10; }
 	}
 
 	robotPool.InitRobotCtrl(_maxRobots);
