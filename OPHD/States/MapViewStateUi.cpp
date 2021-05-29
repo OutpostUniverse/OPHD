@@ -95,6 +95,7 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mNotificationWindow);
 
 	mNotificationArea.notificationClicked().connect(this, &MapViewState::onNotificationClicked);
+	mNotificationWindow.hide();
 
 	const auto size = renderer.size().to<int>();
 	mBottomUiRect = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
