@@ -19,6 +19,11 @@ public:
 		requiresCHAP(true);
 	}
 
+	int getRange() const
+	{
+		return 5;
+	}
+
 protected:
 	void defineResourceInput() override
 	{

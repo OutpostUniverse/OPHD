@@ -125,6 +125,11 @@ void MapViewState::initUi()
 	mBtnToggleRouteOverlay.type(Button::Type::BUTTON_TOGGLE);
 	mBtnToggleRouteOverlay.click().connect(this, &MapViewState::onToggleRouteOverlay);
 
+	mBtnTogglePoliceOverlay.image("ui/icons/PoliceIcon.png");
+	mBtnTogglePoliceOverlay.size(constants::MAIN_BUTTON_SIZE);
+	mBtnTogglePoliceOverlay.type(Button::Type::BUTTON_TOGGLE);
+	mBtnTogglePoliceOverlay.click().connect(this, &MapViewState::onTogglePoliceOverlay);
+
 	// Menus
 	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
 	mRobots.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
@@ -168,6 +173,7 @@ void MapViewState::initUi()
 	mToolTip.add(mBtnToggleConnectedness, constants::ToolTipBtnConnectedness);
 	mToolTip.add(mBtnToggleCommRangeOverlay, constants::ToolTipBtnCommRange);
 	mToolTip.add(mBtnToggleRouteOverlay, constants::ToolTipBtnRoutes);
+	mToolTip.add(mBtnTogglePoliceOverlay, constants::ToolTipBtnPolice);
 	mToolTip.add(mTooltipResourceBreakdown, constants::ToolTipRefinedResources);
 	mToolTip.add(mTooltipResourceStorage, constants::ToolTipResourceStorage);
 	mToolTip.add(mTooltipFoodStorage, constants::ToolTipFoodStorage);
@@ -213,9 +219,10 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mBtnToggleConnectedness.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + constants::MAIN_BUTTON_SIZE });
 	mBtnToggleCommRangeOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MAIN_BUTTON_SIZE * 2) });
 	mBtnToggleRouteOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MAIN_BUTTON_SIZE * 3) });
+	mBtnTogglePoliceOverlay.position({ mBtnTurns.positionX() - constants::MAIN_BUTTON_SIZE, mMiniMapBoundingBox.y});
 
 	// UI Panels
-	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
+	mRobots.position({mBtnTogglePoliceOverlay.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
 	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
 	mStructures.position(NAS2D::Point{constants::MARGIN, mBottomUiRect.y + MARGIN});
 
@@ -256,6 +263,7 @@ void MapViewState::hideUi()
 	mBtnToggleConnectedness.hide();
 	mBtnToggleCommRangeOverlay.hide();
 	mBtnToggleRouteOverlay.hide();
+	mBtnTogglePoliceOverlay.hide();
 
 	mStructures.hide();
 	mRobots.hide();
@@ -275,6 +283,7 @@ void MapViewState::unhideUi()
 	mBtnToggleHeightmap.show();
 	mBtnToggleConnectedness.show();
 	mBtnToggleCommRangeOverlay.show();
+	mBtnTogglePoliceOverlay.visible(true);
 	mBtnToggleRouteOverlay.show();
 
 	mStructures.show();
@@ -411,6 +420,7 @@ void MapViewState::drawUI()
 	mBtnToggleConnectedness.update();
 	mBtnToggleCommRangeOverlay.update();
 	mBtnToggleRouteOverlay.update();
+	mBtnTogglePoliceOverlay.update();
 
 	// Menus
 	mRobots.update();
@@ -435,9 +445,11 @@ void MapViewState::onToggleConnectedness()
 	{
 		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
+		mBtnTogglePoliceOverlay.toggle(false);
 
 		onToggleCommRangeOverlay();
 		onToggleRouteOverlay();
+		onTogglePoliceOverlay();
 	}
 
 	setOverlay(mBtnToggleConnectedness, mConnectednessOverlay, Tile::Overlay::Connectedness);
@@ -450,14 +462,31 @@ void MapViewState::onToggleCommRangeOverlay()
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
+		mBtnTogglePoliceOverlay.toggle(false);
 
 		onToggleConnectedness();
 		onToggleRouteOverlay();
+		onTogglePoliceOverlay();
 	}
 
 	setOverlay(mBtnToggleCommRangeOverlay, mCommRangeOverlay, Tile::Overlay::Communications);
 }
 
+void MapViewState::onTogglePoliceOverlay()
+{
+	if (mBtnTogglePoliceOverlay.toggled())
+	{
+		mBtnToggleCommRangeOverlay.toggle(false);
+		mBtnToggleConnectedness.toggle(false);
+		mBtnToggleRouteOverlay.toggle(false);
+
+		onToggleCommRangeOverlay();
+		onToggleConnectedness();
+		onToggleRouteOverlay();
+	}
+
+	setOverlay(mBtnTogglePoliceOverlay, mSurfacePoliceOverlay, Tile::Overlay::Police);
+}
 
 void MapViewState::onToggleRouteOverlay()
 {
@@ -465,9 +494,11 @@ void MapViewState::onToggleRouteOverlay()
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleCommRangeOverlay.toggle(false);
+		mBtnTogglePoliceOverlay.toggle(false);
 
 		onToggleCommRangeOverlay();
 		onToggleConnectedness();
+		onTogglePoliceOverlay();
 	}
 
 	setOverlay(mBtnToggleRouteOverlay, mTruckRouteOverlay, Tile::Overlay::TruckingRoutes);

@@ -151,7 +151,8 @@ private:
 	void setMinimapView();
 
 	void checkCommRangeOverlay();
-	void fillCommList(Tile& centerTile, const NAS2D::Rectangle<int>& area, int commRange);
+	void checkSurfacePoliceOverlay();
+	void fillRangedAreaList(TileList& tileList, Tile& centerTile, const NAS2D::Rectangle<int>& area, int range);
 	void checkConnectedness();
 	void changeViewDepth(int);
 
@@ -216,6 +217,7 @@ private:
 	void onToggleConnectedness();
 	void onToggleCommRangeOverlay();
 	void onToggleRouteOverlay();
+	void onTogglePoliceOverlay();
 
 	void onNotificationClicked(const NotificationArea::Notification&);
 
@@ -268,6 +270,7 @@ private:
 	Button mBtnToggleConnectedness;
 	Button mBtnToggleCommRangeOverlay;
 	Button mBtnToggleRouteOverlay;
+	Button mBtnTogglePoliceOverlay;
 
 	// Bare Control's use for ToolTips
 	Control mTooltipSystemButton;
@@ -331,6 +334,7 @@ private:
 
 	TileList mConnectednessOverlay;
 	TileList mCommRangeOverlay;
+	TileList mSurfacePoliceOverlay;
 	TileList mTruckRouteOverlay;
 
 	NAS2D::Point<int> mTubeStart;
