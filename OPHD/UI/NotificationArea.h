@@ -23,6 +23,7 @@ public:
 	struct Notification
 	{
 		std::string message{ "" };
+		std::string brief{ "" };
 		NotificationType type{ NotificationType::Information };
 	};
 
