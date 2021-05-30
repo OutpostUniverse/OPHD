@@ -297,9 +297,9 @@ void StructureManager::disconnectAll()
 int StructureManager::count() const
 {
 	int count = 0;
-	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+	for (auto pair : mStructureLists)
 	{
-		count += static_cast<int>(it->second.size());
+		count += static_cast<int>(pair.second.size());
 	}
 
 	return count;
