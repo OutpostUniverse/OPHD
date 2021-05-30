@@ -180,6 +180,7 @@ private:
 	void transportResourcesToStorage();
 
 	void checkAgingStructures();
+	void checkNewlyBuiltStructures();
 
 	// SAVE GAME MANAGEMENT FUNCTIONS
 	void readRobots(NAS2D::Xml::XmlElement* element);
