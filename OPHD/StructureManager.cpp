@@ -284,9 +284,9 @@ const StructureList& StructureManager::structureList(Structure::StructureClass s
  */
 void StructureManager::disconnectAll()
 {
-	for (auto st_it = mStructureTileTable.begin(); st_it != mStructureTileTable.end(); ++st_it)
+	for (auto pair : mStructureTileTable)
 	{
-		st_it->second->connected(false);
+		pair.second->connected(false);
 	}
 }
 
