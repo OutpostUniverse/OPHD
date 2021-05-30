@@ -19,17 +19,10 @@ namespace
 	template <typename Predicate>
 	std::vector<Warehouse*> selectWarehouses(const Predicate& predicate)
 	{
-		const auto& warehouses = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+		const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
 
 		std::vector<Warehouse*> output;
-		for (auto structure : warehouses)
-		{
-			auto* warehouse = static_cast<Warehouse*>(structure);
-			if (predicate(warehouse))
-			{
-				output.push_back(warehouse);
-			}
-		}
+		std::copy_if(warehouses.begin(), warehouses.end(), output.end(), predicate);
 
 		return output;
 	}
@@ -104,12 +97,12 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 	int capacityTotal = 0;
 	int capacityAvailable = 0;
 
-	const auto& structures = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
-	for (auto warehouseStructure : structures)
+	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
+	for (auto warehouse : warehouses)
 	{
-		if (warehouseStructure->operational())
+		if (warehouse->operational())
 		{
-			const auto& warehouseProducts = static_cast<Warehouse*>(warehouseStructure)->products();
+			const auto& warehouseProducts = warehouse->products();
 			capacityAvailable += warehouseProducts.availableStorage();
 			capacityTotal += warehouseProducts.capacity();
 		}
@@ -117,7 +110,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 
 	int capacityUsed = capacityTotal - capacityAvailable;
 
-	warehouseCount = structures.size();
+	warehouseCount = warehouses.size();
 	warehouseCapacityTotal = capacityTotal;
 	warehouseCapacityPercent = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
 }

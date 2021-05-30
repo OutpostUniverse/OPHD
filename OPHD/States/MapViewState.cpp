@@ -309,8 +309,8 @@ int MapViewState::refinedResourcesInStorage()
 
 void MapViewState::countPlayerResources()
 {
-	auto& storageTanks = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
-	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+	auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
+	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
 
 	std::vector<Structure*> storage;
 	storage.insert(storage.end(), command.begin(), command.end());
@@ -1296,9 +1296,9 @@ void MapViewState::updateRobots()
 				tile->removeThing();
 			}
 
-			for (auto rcc : Utility<StructureManager>::get().structureList(Structure::StructureClass::RobotCommand))
+			for (auto rcc : Utility<StructureManager>::get().getStructures<RobotCommand>())
 			{
-				static_cast<RobotCommand*>(rcc)->removeRobot(robot);
+				rcc->removeRobot(robot);
 			}
 
 			if (mRobotInspector.focusedRobot() == robot) { mRobotInspector.hide(); }
@@ -1391,13 +1391,13 @@ void MapViewState::checkCommRangeOverlay()
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	const auto& commTowers = structureManager.structureList(Structure::StructureClass::Communication);
-	const auto& command = structureManager.structureList(Structure::StructureClass::Command);
+	const auto& commTowers = structureManager.getStructures<CommTower>();
+	const auto& command = structureManager.getStructures<CommandCenter>();
 	
 	for (auto cc : command)
 	{
 		if (!cc->operational()) { continue; }
-		auto range = dynamic_cast<CommandCenter*>(cc)->getRange();
+		auto range = cc->getRange();
 		auto& centerTile = structureManager.tileFromStructure(cc);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, range);
 		fillRangedAreaList(mCommRangeOverlay, centerTile, commAreaRect, range);
@@ -1406,7 +1406,7 @@ void MapViewState::checkCommRangeOverlay()
 	for (auto tower : commTowers)
 	{
 		if (!tower->operational()) { continue; }
-		auto range = dynamic_cast<CommTower*>(tower)->getRange();
+		auto range = tower->getRange();
 		auto& centerTile = structureManager.tileFromStructure(tower);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, range);
 		fillRangedAreaList(mCommRangeOverlay, centerTile, commAreaRect, range);
@@ -1420,14 +1420,14 @@ void MapViewState::checkSurfacePoliceOverlay()
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	const auto& policeStations = structureManager.structureList(Structure::StructureClass::SurfacePolice);
+	const auto& policeStations = structureManager.getStructures<SurfacePolice>();
 
 	for (auto policeStation : policeStations)
 	{
 		if (!policeStation->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(policeStation);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, 10);
-		fillRangedAreaList(mSurfacePoliceOverlay, centerTile, commAreaRect, dynamic_cast<SurfacePolice*>(policeStation)->getRange());
+		fillRangedAreaList(mSurfacePoliceOverlay, centerTile, commAreaRect, policeStation->getRange());
 	}
 }
 

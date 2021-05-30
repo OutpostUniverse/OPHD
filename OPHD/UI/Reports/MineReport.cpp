@@ -138,7 +138,7 @@ void MineReport::fillLists()
 {
 	lstMineFacilities.clear();
 	std::size_t id = 1;
-	for (auto facility : NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Mine))
+	for (auto facility : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
 	{
 		lstMineFacilities.addItem(facility);
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Things/Structures/Structure.h"
+#include "Things/Structures/Structures.h"
 
 
 namespace NAS2D {
@@ -14,6 +15,55 @@ class PopulationPool;
 struct StorableResources;
 
 
+template <typename T> constexpr bool dependent_false = false;
+
+template <typename StructureType>
+constexpr Structure::StructureClass structureTypeToClass() {
+	if constexpr (std::is_same_v<StructureType, Agridome>) { return Structure::StructureClass::FoodProduction; }
+	else if constexpr (std::is_same_v<StructureType, AirShaft>) { return Structure::StructureClass::Tube; }
+	else if constexpr (std::is_same_v<StructureType, CargoLander>) { return Structure::StructureClass::Lander; }
+	else if constexpr (std::is_same_v<StructureType, CHAP>) { return Structure::StructureClass::LifeSupport; }
+	else if constexpr (std::is_same_v<StructureType, ColonistLander>) { return Structure::StructureClass::Lander; }
+	else if constexpr (std::is_same_v<StructureType, CommandCenter>) { return Structure::StructureClass::Command; }
+	else if constexpr (std::is_same_v<StructureType, Commercial>) { return Structure::StructureClass::Commercial; }
+	else if constexpr (std::is_same_v<StructureType, CommTower>) { return Structure::StructureClass::Communication; }
+	else if constexpr (std::is_same_v<StructureType, Factory>) { return Structure::StructureClass::Factory; }
+	else if constexpr (std::is_same_v<StructureType, FoodProduction>) { return Structure::StructureClass::FoodProduction; }
+	else if constexpr (std::is_same_v<StructureType, FusionReactor>) { return Structure::StructureClass::EnergyProduction; }
+	else if constexpr (std::is_same_v<StructureType, HotLaboratory>) { return Structure::StructureClass::Laboratory; }
+	else if constexpr (std::is_same_v<StructureType, Laboratory>) { return Structure::StructureClass::Laboratory; }
+	else if constexpr (std::is_same_v<StructureType, MedicalCenter>) { return Structure::StructureClass::MedicalCenter; }
+	else if constexpr (std::is_same_v<StructureType, MineFacility>) { return Structure::StructureClass::Mine; }
+	else if constexpr (std::is_same_v<StructureType, MineShaft>) { return Structure::StructureClass::Undefined; }
+	else if constexpr (std::is_same_v<StructureType, Nursery>) { return Structure::StructureClass::Nursery; }
+	else if constexpr (std::is_same_v<StructureType, OreRefining>) { return Structure::StructureClass::Smelter; }
+	else if constexpr (std::is_same_v<StructureType, Park>) { return Structure::StructureClass::Park; }
+	else if constexpr (std::is_same_v<StructureType, PowerStructure>) { return Structure::StructureClass::EnergyProduction; }
+	else if constexpr (std::is_same_v<StructureType, RecreationCenter>) { return Structure::StructureClass::RecreationCenter; }
+	else if constexpr (std::is_same_v<StructureType, Recycling>) { return Structure::StructureClass::Recycling; }
+	else if constexpr (std::is_same_v<StructureType, RedLightDistrict>) { return Structure::StructureClass::Residence; }
+	else if constexpr (std::is_same_v<StructureType, Residence>) { return Structure::StructureClass::Residence; }
+	else if constexpr (std::is_same_v<StructureType, Road>) { return Structure::StructureClass::Road; }
+	else if constexpr (std::is_same_v<StructureType, RobotCommand>) { return Structure::StructureClass::RobotCommand; }
+	else if constexpr (std::is_same_v<StructureType, SeedFactory>) { return Structure::StructureClass::Factory; }
+	else if constexpr (std::is_same_v<StructureType, SeedLander>) { return Structure::StructureClass::Lander; }
+	else if constexpr (std::is_same_v<StructureType, SeedPower>) { return Structure::StructureClass::EnergyProduction; }
+	else if constexpr (std::is_same_v<StructureType, SeedSmelter>) { return Structure::StructureClass::Smelter; }
+	else if constexpr (std::is_same_v<StructureType, Smelter>) { return Structure::StructureClass::Smelter; }
+	else if constexpr (std::is_same_v<StructureType, SolarPanelArray>) { return Structure::StructureClass::EnergyProduction; }
+	else if constexpr (std::is_same_v<StructureType, SolarPlant>) { return Structure::StructureClass::EnergyProduction; }
+	else if constexpr (std::is_same_v<StructureType, StorageTanks>) { return Structure::StructureClass::Storage; }
+	else if constexpr (std::is_same_v<StructureType, SurfaceFactory>) { return Structure::StructureClass::Factory; }
+	else if constexpr (std::is_same_v<StructureType, SurfacePolice>) { return Structure::StructureClass::SurfacePolice; }
+	else if constexpr (std::is_same_v<StructureType, Tube>) { return Structure::StructureClass::Tube; }
+	else if constexpr (std::is_same_v<StructureType, UndergroundFactory>) { return Structure::StructureClass::Factory; }
+	else if constexpr (std::is_same_v<StructureType, UndergroundPolice>) { return Structure::StructureClass::UndergroundPolice; }
+	else if constexpr (std::is_same_v<StructureType, University>) { return Structure::StructureClass::University; }
+	else if constexpr (std::is_same_v<StructureType, Warehouse>) { return Structure::StructureClass::Warehouse; }
+	else { static_assert(dependent_false<StructureType>, "Unknown type"); }
+}
+
+
 /**
  * Handles structure updating and resource management for structures.
  *
@@ -24,6 +74,25 @@ class StructureManager
 public:
 	void addStructure(Structure* structure, Tile* tile);
 	void removeStructure(Structure* structure);
+
+	template <typename StructureType>
+	const std::vector<StructureType*> getStructures()
+	{
+		// Get list of structures with same function
+		const auto& sameClassStructures = structureList(structureTypeToClass<StructureType>());
+
+		std::vector<StructureType*> output;
+		// Filter for instances of the exact type parameter
+		for (auto structure : sameClassStructures)
+		{
+			StructureType* derivedStructure = dynamic_cast<StructureType*>(structure);
+			if (derivedStructure)
+			{
+				output.push_back(derivedStructure);
+			}
+		}
+		return output;
+	}
 
 	const StructureList& structureList(Structure::StructureClass structureClass);
 	Tile& tileFromStructure(Structure* structure);
