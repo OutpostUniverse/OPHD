@@ -349,8 +349,8 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
  * 
  * \note	Assumes a check for only one robot at any given time.
  * 
- * \return	Returns a pointer to a Warehouse structure or \c nullptr if
- *			there are no warehouses available with the required space.
+ * \return	Returns a pointer to a RobotCommand structure or \c nullptr if
+ *			there are no robot commands available with the required space.
  */
 RobotCommand* getAvailableRobotCommand()
 {
