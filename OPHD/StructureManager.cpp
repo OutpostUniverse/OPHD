@@ -352,9 +352,9 @@ int StructureManager::destroyed()
 
 void StructureManager::dropAllStructures()
 {
-	for (auto map_it = mStructureTileTable.begin(); map_it != mStructureTileTable.end(); ++map_it)
+	for (auto pair : mStructureTileTable)
 	{
-		map_it->second->deleteThing();
+		pair.second->deleteThing();
 	}
 
 	mStructureTileTable.clear();
