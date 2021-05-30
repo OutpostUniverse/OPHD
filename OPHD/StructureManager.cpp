@@ -341,9 +341,9 @@ int StructureManager::disabled()
 int StructureManager::destroyed()
 {
 	int count = 0;
-	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+	for (auto pair : mStructureLists)
 	{
-		count += getCountInState(it->first, StructureState::Destroyed);
+		count += getCountInState(pair.first, StructureState::Destroyed);
 	}
 
 	return count;
