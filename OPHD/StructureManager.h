@@ -75,6 +75,25 @@ public:
 	void addStructure(Structure* structure, Tile* tile);
 	void removeStructure(Structure* structure);
 
+	template <typename StructureType>
+	const std::vector<StructureType*> structures()
+	{
+		// Get list of structures with same function
+		const auto& sameClassStructures = structureList(structureTypeToClass<StructureType>());
+
+		std::vector<StructureType*> output;
+		// Filter for instances of the exact type parameter
+		for (auto structure : sameClassStructures)
+		{
+			StructureType* derivedStructure = dynamic_cast<StructureType*>(structure);
+			if (derivedStructure)
+			{
+				output.push_back(derivedStructure);
+			}
+		}
+		return output;
+	}
+
 	const StructureList& structureList(Structure::StructureClass structureClass);
 	Tile& tileFromStructure(Structure* structure);
 
