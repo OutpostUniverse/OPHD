@@ -508,7 +508,19 @@ void MapViewState::updateRoads()
 
 void MapViewState::checkAgingStructures()
 {
+	const auto& structures = NAS2D::Utility<StructureManager>::get().agingStructures();
 
+	for (auto structure : structures)
+	{
+		if (structure->age() == structure->maxAge() - 10)
+		{
+			mNotificationArea.push(structure->name() + " is getting old. You should replace it soon.", NotificationArea::NotificationType::Warning);
+		}
+		else if (structure->age() == structure->maxAge() - 5)
+		{
+			mNotificationArea.push(structure->name() + " is about to collapse. You should replace it right away or consider demolishing it.", NotificationArea::NotificationType::Critical);
+		}
+	}
 }
 
 
