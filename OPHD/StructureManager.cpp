@@ -251,16 +251,13 @@ void StructureManager::removeStructure(Structure* structure)
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
 
-	for (std::size_t i = 0; i < structures.size(); ++i)
+	const auto it = std::find(structures.begin(), structures.end(), structure);
+	if (it != structures.end())
 	{
-		if (structures[i] == structure)
-		{
-			structures.erase(structures.begin() + static_cast<std::ptrdiff_t>(i));
-			break;
-		}
+		structures.erase(it);
 	}
 
-	auto tileTableIt = mStructureTileTable.find(structure);
+	const auto tileTableIt = mStructureTileTable.find(structure);
 	if (tileTableIt == mStructureTileTable.end())
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
