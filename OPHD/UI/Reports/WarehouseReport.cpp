@@ -22,9 +22,8 @@ namespace
 		const auto& warehouses = Utility<StructureManager>::get().structures<Warehouse>();
 
 		std::vector<Warehouse*> output;
-		for (auto structure : warehouses)
+		for (auto warehouse : warehouses)
 		{
-			auto* warehouse = static_cast<Warehouse*>(structure);
 			if (predicate(warehouse))
 			{
 				output.push_back(warehouse);
@@ -104,12 +103,12 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 	int capacityTotal = 0;
 	int capacityAvailable = 0;
 
-	const auto& structures = Utility<StructureManager>::get().structures<Warehouse>();
-	for (auto warehouseStructure : structures)
+	const auto& warehouses = Utility<StructureManager>::get().structures<Warehouse>();
+	for (auto warehouse : warehouses)
 	{
-		if (warehouseStructure->operational())
+		if (warehouse->operational())
 		{
-			const auto& warehouseProducts = static_cast<Warehouse*>(warehouseStructure)->products();
+			const auto& warehouseProducts = warehouse->products();
 			capacityAvailable += warehouseProducts.availableStorage();
 			capacityTotal += warehouseProducts.capacity();
 		}
@@ -117,7 +116,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 
 	int capacityUsed = capacityTotal - capacityAvailable;
 
-	warehouseCount = structures.size();
+	warehouseCount = warehouses.size();
 	warehouseCapacityTotal = capacityTotal;
 	warehouseCapacityPercent = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
 }

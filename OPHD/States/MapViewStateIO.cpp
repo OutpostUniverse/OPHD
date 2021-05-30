@@ -232,10 +232,10 @@ void MapViewState::load(const std::string& filePath)
 			const auto& list = Utility<StructureManager>::get().structures<SeedLander>();
 			if (list.size() != 1) { throw std::runtime_error("MapViewState::load(): Turn counter at 0 but more than one structure in list."); }
 
-			SeedLander* s = dynamic_cast<SeedLander*>(list[0]);
-			if (!s) { throw std::runtime_error("MapViewState::load(): Structure in list is not a SeedLander."); }
+			SeedLander* seedLander = list[0];
+			if (!seedLander) { throw std::runtime_error("MapViewState::load(): Structure in list is not a SeedLander."); }
 
-			s->deploySignal().connect(this, &MapViewState::onDeploySeedLander);
+			seedLander->deploySignal().connect(this, &MapViewState::onDeploySeedLander);
 
 			mStructures.clear();
 			mConnections.clear();

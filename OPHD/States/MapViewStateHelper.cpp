@@ -292,7 +292,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	{
 		if (!cc->operational()) { continue; }
 
-		if (isPointInRange(position, structureManager.tileFromStructure(cc).position(), dynamic_cast<CommandCenter*>(cc)->getRange()))
+		if (isPointInRange(position, structureManager.tileFromStructure(cc).position(), cc->getRange()))
 		{
 			return true;
 		}
@@ -303,7 +303,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	{
 		if (!tower->operational()) { continue; }
 
-		if (isPointInRange(position, structureManager.tileFromStructure(tower).position(), dynamic_cast<CommTower*>(tower)->getRange()))
+		if (isPointInRange(position, structureManager.tileFromStructure(tower).position(), tower->getRange()))
 		{
 			return true;
 		}
@@ -331,12 +331,11 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
  */
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 {
-	for (auto structure : Utility<StructureManager>::get().structures<Warehouse>())
+	for (auto warehouse : Utility<StructureManager>::get().structures<Warehouse>())
 	{
-		Warehouse* _wh = static_cast<Warehouse*>(structure);
-		if (_wh->products().canStore(type, static_cast<int>(count)))
+		if (warehouse->products().canStore(type, static_cast<int>(count)))
 		{
-			return _wh;
+			return warehouse;
 		}
 	}
 
@@ -355,12 +354,11 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
  */
 RobotCommand* getAvailableRobotCommand()
 {
-	for (auto structure : Utility<StructureManager>::get().structures<RobotCommand>())
+	for (auto robotCommand : Utility<StructureManager>::get().structures<RobotCommand>())
 	{
-		RobotCommand* _rc = static_cast<RobotCommand*>(structure);
-		if (_rc->operational() && _rc->commandCapacityAvailable())
+		if (robotCommand->operational() && robotCommand->commandCapacityAvailable())
 		{
-			return _rc;
+			return robotCommand;
 		}
 	}
 
@@ -379,12 +377,11 @@ RobotCommand* getAvailableRobotCommand()
 bool simulateMoveProducts(Warehouse* sourceWarehouse)
 {
 	ProductPool sourcePool = sourceWarehouse->products();
-	const auto& structures = Utility<StructureManager>::get().structures<Warehouse>();
-	for (auto structure : structures)
+	const auto& warehouses = Utility<StructureManager>::get().structures<Warehouse>();
+	for (auto warehouse : warehouses)
 	{
-		if (structure->operational())
+		if (warehouse->operational())
 		{
-			Warehouse* warehouse = static_cast<Warehouse*>(structure);
 			if (warehouse != sourceWarehouse)
 			{
 				ProductPool destinationPool = warehouse->products();
@@ -411,12 +408,11 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
  */
 void moveProducts(Warehouse* sourceWarehouse)
 {
-	const auto& structures = Utility<StructureManager>::get().structures<Warehouse>();
-	for (auto structure : structures)
+	const auto& warehouses = Utility<StructureManager>::get().structures<Warehouse>();
+	for (auto warehouse : warehouses)
 	{
-		if (structure->operational())
+		if (warehouse->operational())
 		{
-			Warehouse* warehouse = static_cast<Warehouse*>(structure);
 			if (warehouse != sourceWarehouse)
 			{
 				sourceWarehouse->products().transferAllTo(warehouse->products());

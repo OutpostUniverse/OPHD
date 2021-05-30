@@ -1298,7 +1298,7 @@ void MapViewState::updateRobots()
 
 			for (auto rcc : Utility<StructureManager>::get().structures<RobotCommand>())
 			{
-				static_cast<RobotCommand*>(rcc)->removeRobot(robot);
+				rcc->removeRobot(robot);
 			}
 
 			if (mRobotInspector.focusedRobot() == robot) { mRobotInspector.hide(); }
@@ -1397,7 +1397,7 @@ void MapViewState::checkCommRangeOverlay()
 	for (auto cc : command)
 	{
 		if (!cc->operational()) { continue; }
-		auto range = dynamic_cast<CommandCenter*>(cc)->getRange();
+		auto range = cc->getRange();
 		auto& centerTile = structureManager.tileFromStructure(cc);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, range);
 		fillRangedAreaList(mCommRangeOverlay, centerTile, commAreaRect, range);
@@ -1406,7 +1406,7 @@ void MapViewState::checkCommRangeOverlay()
 	for (auto tower : commTowers)
 	{
 		if (!tower->operational()) { continue; }
-		auto range = dynamic_cast<CommTower*>(tower)->getRange();
+		auto range = tower->getRange();
 		auto& centerTile = structureManager.tileFromStructure(tower);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, range);
 		fillRangedAreaList(mCommRangeOverlay, centerTile, commAreaRect, range);
@@ -1427,7 +1427,7 @@ void MapViewState::checkSurfacePoliceOverlay()
 		if (!policeStation->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(policeStation);
 		auto commAreaRect = buildAreaRectFromTile(centerTile, 10);
-		fillRangedAreaList(mSurfacePoliceOverlay, centerTile, commAreaRect, dynamic_cast<SurfacePolice*>(policeStation)->getRange());
+		fillRangedAreaList(mSurfacePoliceOverlay, centerTile, commAreaRect, policeStation->getRange());
 	}
 }
 

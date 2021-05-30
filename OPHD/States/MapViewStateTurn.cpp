@@ -89,15 +89,14 @@ void MapViewState::updatePopulation()
 	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, StructureState::Operational);
 	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
 
-	auto foodproducers = structureManager.structures<FoodProduction>();
-	auto& command = structureManager.structures<CommandCenter>();
-	foodproducers.insert(foodproducers.end(), command.begin(), command.end());
+	auto foodProducers = structureManager.structures<FoodProduction>();
+	auto& commandCenters = structureManager.structures<CommandCenter>();
+	foodProducers.insert(foodProducers.end(), commandCenters.begin(), commandCenters.end());
 
 	int remainder = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
 
-	for (auto structure : foodproducers)
+	for (auto foodProducer : foodProducers)
 	{
-		FoodProduction* foodProducer = static_cast<FoodProduction*>(structure);
 		pullFoodFromStructure(foodProducer, remainder);
 	}
 }
@@ -118,7 +117,7 @@ void MapViewState::updateCommercial()
 
 	for (auto warehouse : _warehouses)
 	{
-		ProductPool& _pl = static_cast<Warehouse*>(warehouse)->products();
+		ProductPool& _pl = warehouse->products();
 
 		/**
 		 * inspect for luxury products.
@@ -184,8 +183,7 @@ void MapViewState::updateMorale()
 	int bioWasteAccumulation = 0;
 	for (auto residence : residences)
 	{
-		Residence* unit = static_cast<Residence*>(residence);
-		if (unit->wasteOverflow() > 0) { ++bioWasteAccumulation; }
+		if (residence->wasteOverflow() > 0) { ++bioWasteAccumulation; }
 	}
 
 	// positive
@@ -243,17 +241,16 @@ void MapViewState::findMineRoutes()
 
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structures<MineFacility>())
 	{
-		MineFacility* facility = static_cast<MineFacility*>(mine);
-		facility->mine()->checkExhausted();
+		mine->mine()->checkExhausted();
 
 		if (!mine->operational() && !mine->isIdle()) { continue; } // consider a different control path.
 
-		auto routeIt = routeTable.find(facility);
+		auto routeIt = routeTable.find(mine);
 		bool findNewRoute = routeIt == routeTable.end();
 
 		if (!findNewRoute && routeObstructed(routeIt->second))
 		{
-			routeTable.erase(facility);
+			routeTable.erase(mine);
 			findNewRoute = true;
 		}
 
@@ -264,7 +261,7 @@ void MapViewState::findMineRoutes()
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine
 
-			routeTable[facility] = newRoute;
+			routeTable[mine] = newRoute;
 
 			for (auto tile : newRoute.path)
 			{
@@ -280,7 +277,7 @@ void MapViewState::transportOreFromMines()
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	for (auto mine : NAS2D::Utility<StructureManager>::get().structures<MineFacility>())
 	{
-		auto routeIt = routeTable.find(static_cast<MineFacility*>(mine));
+		auto routeIt = routeTable.find(mine);
 		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;
@@ -391,7 +388,7 @@ void MapViewState::updateResidentialCapacity()
 	const auto& residences = NAS2D::Utility<StructureManager>::get().structures<Residence>();
 	for (auto residence : residences)
 	{
-		if (residence->operational()) { mResidentialCapacity += static_cast<Residence*>(residence)->capacity(); }
+		if (residence->operational()) { mResidentialCapacity += residence->capacity(); }
 	}
 
 	if (residences.empty()) { mResidentialCapacity = constants::COMMAND_CENTER_POPULATION_CAPACITY; }
@@ -408,11 +405,10 @@ void MapViewState::updateBiowasteRecycling()
 	if (residences.empty() || recyclingFacilities.empty()) { return; }
 
 	auto residenceIterator = residences.begin();
-	for (auto recyclingFacility : recyclingFacilities)
+	for (auto recycling : recyclingFacilities)
 	{
-		if (!recyclingFacility->operational()) { continue; } // Consider a different control structure
+		if (!recycling->operational()) { continue; } // Consider a different control structure
 
-		Recycling* recycling = static_cast<Recycling*>(recyclingFacility);
 		for (int count = 0; count < recycling->residentialSupportCount(); ++count)
 		{
 			if (residenceIterator == residences.end())
@@ -432,16 +428,16 @@ void MapViewState::countFood()
 {
 	mFood = 0;
 
-	auto structures = NAS2D::Utility<StructureManager>::get().structures<FoodProduction>();
+	auto foodProducers = NAS2D::Utility<StructureManager>::get().structures<FoodProduction>();
 	auto& command = NAS2D::Utility<StructureManager>::get().structures<CommandCenter>();
 
-	structures.insert(structures.begin(), command.begin(), command.end());
+	foodProducers.insert(foodProducers.begin(), command.begin(), command.end());
 
-	for (auto structure : structures)
+	for (auto foodProdcer : foodProducers)
 	{
-		if (structure->operational() || structure->isIdle())
+		if (foodProdcer->operational() || foodProdcer->isIdle())
 		{
-			mFood += static_cast<FoodProduction*>(structure)->foodLevel();
+			mFood += foodProdcer->foodLevel();
 		}
 	}
 }
@@ -450,14 +446,13 @@ void MapViewState::countFood()
 void MapViewState::transferFoodToCommandCenter()
 {
 	auto& foodProducers = NAS2D::Utility<StructureManager>::get().structures<FoodProduction>();
-	auto& command = NAS2D::Utility<StructureManager>::get().structures<CommandCenter>();
+	auto& commandCenters = NAS2D::Utility<StructureManager>::get().structures<CommandCenter>();
 
 	auto foodProducerIterator = foodProducers.begin();
-	for (auto cc : command)
+	for (auto commandCenter : commandCenters)
 	{
-		if (!cc->operational()) { continue; }
+		if (!commandCenter->operational()) { continue; }
 
-		CommandCenter* commandCenter = static_cast<CommandCenter*>(cc);
 		int foodToMove = commandCenter->foodCapacity() - commandCenter->foodLevel();
 
 		while (foodProducerIterator != foodProducers.end())
@@ -553,7 +548,7 @@ void MapViewState::nextTurn()
 	auto& factories = NAS2D::Utility<StructureManager>::get().structures<Factory>();
 	for (auto factory : factories)
 	{
-		static_cast<Factory*>(factory)->updateProduction();
+		factory->updateProduction();
 	}
 
 	populateStructureMenu();
