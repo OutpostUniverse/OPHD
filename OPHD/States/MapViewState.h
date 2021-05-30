@@ -179,6 +179,7 @@ private:
 	void transportOreFromMines();
 	void transportResourcesToStorage();
 
+	void checkAgingStructures();
 
 	// SAVE GAME MANAGEMENT FUNCTIONS
 	void readRobots(NAS2D::Xml::XmlElement* element);
