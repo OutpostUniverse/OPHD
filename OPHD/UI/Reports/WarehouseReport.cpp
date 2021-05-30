@@ -14,6 +14,26 @@
 using namespace NAS2D;
 
 
+namespace
+{
+	template <typename Predicate>
+	std::vector<Structure*> selectWarehouses(const Predicate& predicate)
+	{
+		const auto& warehouses = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+
+		const auto typeConvertedPredicate = [&predicate](Structure* structure) {
+			auto* warehouse = static_cast<Warehouse*>(structure);
+			return predicate(warehouse);
+		};
+
+		std::vector<Structure*> output;
+		std::copy_if(warehouses.begin(), warehouses.end(), output.end(), typeConvertedPredicate);
+
+		return output;
+	}
+}
+
+
 WarehouseReport::WarehouseReport() :
 	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
 	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
