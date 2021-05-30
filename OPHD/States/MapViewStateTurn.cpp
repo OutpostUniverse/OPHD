@@ -217,15 +217,15 @@ void MapViewState::updateMorale()
 	// Push notifications
 	if (birthCount)
 	{
-		mNotificationArea.push(std::to_string(birthCount) +
-			(birthCount > 1 ? " babies were born." : " baby was born."),
+		mNotificationArea.push("Baby Born",
+			std::to_string(birthCount) + (birthCount > 1 ? " babies were born." : " baby was born."),
 			NotificationArea::NotificationType::Information);
 	}
 
 	if (deathCount)
 	{
-		mNotificationArea.push(std::to_string(deathCount) +
-			(birthCount > 1 ? " colonists met their demise." : " colonist met their demise."),
+		mNotificationArea.push("Colonist Died",
+			std::to_string(deathCount) + (birthCount > 1 ? " colonists met their demise." : " colonist met their demise."),
 			NotificationArea::NotificationType::Warning);
 
 	}

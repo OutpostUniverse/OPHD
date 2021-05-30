@@ -22,8 +22,8 @@ public:
 
 	struct Notification
 	{
-		std::string message{ "" };
 		std::string brief{ "" };
+		std::string message{ "" };
 		NotificationType type{ NotificationType::Information };
 	};
 
@@ -35,7 +35,7 @@ public:
 	NotificationArea();
 	~NotificationArea() override;
 
-	void push(const std::string& message, NotificationType type);
+	void push(const std::string& brief, const std::string& message, NotificationType type);
 
 	void clear()
 	{
