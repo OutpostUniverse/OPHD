@@ -17,11 +17,11 @@ using namespace NAS2D;
 namespace
 {
 	template <typename Predicate>
-	std::vector<Structure*> selectWarehouses(const Predicate& predicate)
+	std::vector<Warehouse*> selectWarehouses(const Predicate& predicate)
 	{
 		const auto& warehouses = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
 
-		std::vector<Structure*> output;
+		std::vector<Warehouse*> output;
 		for (auto structure : warehouses)
 		{
 			auto* warehouse = static_cast<Warehouse*>(structure);
@@ -123,7 +123,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 }
 
 
-void WarehouseReport::_fillListFromStructureList(const std::vector<Structure*>& list)
+void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& list)
 {
 	for (auto structure : list)
 	{
