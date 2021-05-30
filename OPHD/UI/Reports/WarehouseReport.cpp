@@ -21,13 +21,15 @@ namespace
 	{
 		const auto& warehouses = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
 
-		const auto typeConvertedPredicate = [&predicate](Structure* structure) {
-			auto* warehouse = static_cast<Warehouse*>(structure);
-			return predicate(warehouse);
-		};
-
 		std::vector<Structure*> output;
-		std::copy_if(warehouses.begin(), warehouses.end(), output.end(), typeConvertedPredicate);
+		for (auto structure : warehouses)
+		{
+			auto* warehouse = static_cast<Warehouse*>(structure);
+			if (predicate(warehouse))
+			{
+				output.push_back(warehouse);
+			}
+		}
 
 		return output;
 	}
