@@ -14,6 +14,28 @@
 using namespace NAS2D;
 
 
+namespace
+{
+	template <typename Predicate>
+	std::vector<Warehouse*> selectWarehouses(const Predicate& predicate)
+	{
+		const auto& warehouses = Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse);
+
+		std::vector<Warehouse*> output;
+		for (auto structure : warehouses)
+		{
+			auto* warehouse = static_cast<Warehouse*>(structure);
+			if (predicate(warehouse))
+			{
+				output.push_back(warehouse);
+			}
+		}
+
+		return output;
+	}
+}
+
+
 WarehouseReport::WarehouseReport() :
 	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
 	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
@@ -101,17 +123,17 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 }
 
 
-void WarehouseReport::_fillListFromStructureList(const std::vector<Structure*>& list)
+void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& warehouses)
 {
-	for (auto structure : list)
+	for (auto warehouse : warehouses)
 	{
-		lstStructures.addItem(structure);
+		lstStructures.addItem(warehouse);
 		StructureListBox::StructureListBoxItem* item = lstStructures.last();
 
 		// \fixme	Abuse of interface to achieve custom results.
-		ProductPool& products = static_cast<Warehouse*>(structure)->products();
+		ProductPool& products = warehouse->products();
 
-		if (structure->state() != StructureState::Operational) { item->structureState = structure->stateDescription(); }
+		if (warehouse->state() != StructureState::Operational) { item->structureState = warehouse->stateDescription(); }
 		else if (products.empty()) { item->structureState = constants::WAREHOUSE_EMPTY; }
 		else if (products.atCapacity()) { item->structureState = constants::WAREHOUSE_FULL; }
 		else if (!products.empty() && !products.atCapacity()) { item->structureState = constants::WAREHOUSE_SPACE_AVAILABLE; }
@@ -127,7 +149,7 @@ void WarehouseReport::fillLists()
 {
 	lstStructures.clear();
 
-	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse));
+	_fillListFromStructureList(selectWarehouses([](Warehouse*) { return true; }));
 
 	lstStructures.setSelection(0);
 	computeTotalWarehouseCapacity();
@@ -138,17 +160,11 @@ void WarehouseReport::fillListSpaceAvailable()
 {
 	lstStructures.clear();
 
-	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
-	{
-		Warehouse* wh = static_cast<Warehouse*>(structure);
-		if (!wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle()))
-		{
-			list.push_back(structure);
-		}
-	}
+	const auto predicate = [](Warehouse* wh) {
+		return !wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle());
+	};
 
-	_fillListFromStructureList(list);
+	_fillListFromStructureList(selectWarehouses(predicate));
 
 	lstStructures.setSelection(0);
 	computeTotalWarehouseCapacity();
@@ -160,17 +176,11 @@ void WarehouseReport::fillListFull()
 {
 	lstStructures.clear();
 
-	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
-	{
-		Warehouse* wh = static_cast<Warehouse*>(structure);
-		if (wh->products().atCapacity() && (wh->operational() || wh->isIdle()))
-		{
-			list.push_back(structure);
-		}
-	}
+	const auto predicate = [](Warehouse* wh) {
+		return wh->products().atCapacity() && (wh->operational() || wh->isIdle());
+	};
 
-	_fillListFromStructureList(list);
+	_fillListFromStructureList(selectWarehouses(predicate));
 
 	lstStructures.setSelection(0);
 	computeTotalWarehouseCapacity();
@@ -181,17 +191,11 @@ void WarehouseReport::fillListEmpty()
 {
 	lstStructures.clear();
 
-	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
-	{
-		Warehouse* wh = static_cast<Warehouse*>(structure);
-		if (wh->products().empty() && (wh->operational() || wh->isIdle()))
-		{
-			list.push_back(structure);
-		}
-	}
+	const auto predicate = [](Warehouse* wh) {
+		return wh->products().empty() && (wh->operational() || wh->isIdle());
+	};
 
-	_fillListFromStructureList(list);
+	_fillListFromStructureList(selectWarehouses(predicate));
 
 	lstStructures.setSelection(0);
 	computeTotalWarehouseCapacity();
@@ -202,16 +206,11 @@ void WarehouseReport::fillListDisabled()
 {
 	lstStructures.clear();
 
-	StructureList list;
-	for (auto structure : Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse))
-	{
-		if (structure->disabled() || structure->destroyed())
-		{
-			list.push_back(structure);
-		}
-	}
+	const auto predicate = [](Warehouse* structure) {
+		return structure->disabled() || structure->destroyed();
+	};
 
-	_fillListFromStructureList(list);
+	_fillListFromStructureList(selectWarehouses(predicate));
 
 	lstStructures.setSelection(0);
 	computeTotalWarehouseCapacity();
