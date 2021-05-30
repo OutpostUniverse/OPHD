@@ -15,6 +15,8 @@ class PopulationPool;
 struct StorableResources;
 
 
+template <typename T> constexpr bool dependent_false = false;
+
 template <typename StructureType>
 constexpr Structure::StructureClass structureTypeToClass() {
 	if constexpr (std::is_same_v<StructureType, Agridome>) { return Structure::StructureClass::FoodProduction; }
@@ -58,6 +60,7 @@ constexpr Structure::StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, UndergroundPolice>) { return Structure::StructureClass::UndergroundPolice; }
 	else if constexpr (std::is_same_v<StructureType, University>) { return Structure::StructureClass::University; }
 	else if constexpr (std::is_same_v<StructureType, Warehouse>) { return Structure::StructureClass::Warehouse; }
+	else { static_assert(dependent_false<StructureType>, "Unknown type"); }
 }
 
 
