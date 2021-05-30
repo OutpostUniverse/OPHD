@@ -526,7 +526,12 @@ void MapViewState::checkAgingStructures()
 
 void MapViewState::checkNewlyBuiltStructures()
 {
+	const auto& structures = NAS2D::Utility<StructureManager>::get().newlyBuiltStructures();
 
+	for (auto structure : structures)
+	{
+		mNotificationArea.push(structure->name() + " completed construction.", NotificationArea::NotificationType::Information);
+	}
 }
 
 
