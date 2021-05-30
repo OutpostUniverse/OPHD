@@ -105,9 +105,9 @@ void StructureManager::updateEnergyConsumed()
 {
 	mTotalEnergyUsed = 0;
 
-	for (auto structureList : mStructureLists)
+	for (auto classListPair : mStructureLists)
 	{
-		for (auto structure : structureList.second)
+		for (auto structure : classListPair.second)
 		{
 			if (structure->operational() || structure->isIdle())
 			{
@@ -246,29 +246,22 @@ void StructureManager::removeStructure(Structure* structure)
 {
 	StructureList& structures = mStructureLists[structure->structureClass()];
 
-	if (structures.empty())
+	const auto it = std::find(structures.begin(), structures.end(), structure);
+	if (it != structures.end())
 	{
-		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
+		structures.erase(it);
 	}
 
-	for (std::size_t i = 0; i < structures.size(); ++i)
-	{
-		if (structures[i] == structure)
-		{
-			structures.erase(structures.begin() + static_cast<std::ptrdiff_t>(i));
-			break;
-		}
-	}
-
-	auto tileTableIt = mStructureTileTable.find(structure);
-	if (tileTableIt == mStructureTileTable.end())
-	{
-		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
-	}
-	else
+	const auto tileTableIt = mStructureTileTable.find(structure);
+	if (tileTableIt != mStructureTileTable.end())
 	{
 		tileTableIt->second->deleteThing();
 		mStructureTileTable.erase(tileTableIt);
+	}
+
+	if ((it == structures.end()) || (tileTableIt == mStructureTileTable.end()))
+	{
+		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
 }
 
@@ -284,9 +277,9 @@ const StructureList& StructureManager::structureList(Structure::StructureClass s
  */
 void StructureManager::disconnectAll()
 {
-	for (auto st_it = mStructureTileTable.begin(); st_it != mStructureTileTable.end(); ++st_it)
+	for (auto pair : mStructureTileTable)
 	{
-		st_it->second->connected(false);
+		pair.second->connected(false);
 	}
 }
 
@@ -297,9 +290,9 @@ void StructureManager::disconnectAll()
 int StructureManager::count() const
 {
 	int count = 0;
-	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+	for (auto pair : mStructureLists)
 	{
-		count += static_cast<int>(it->second.size());
+		count += static_cast<int>(pair.second.size());
 	}
 
 	return count;
@@ -326,9 +319,9 @@ int StructureManager::getCountInState(Structure::StructureClass structureClass, 
 int StructureManager::disabled()
 {
 	int count = 0;
-	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+	for (auto pair : mStructureLists)
 	{
-		count += getCountInState(it->first, StructureState::Disabled);
+		count += getCountInState(pair.first, StructureState::Disabled);
 	}
 
 	return count;
@@ -341,9 +334,9 @@ int StructureManager::disabled()
 int StructureManager::destroyed()
 {
 	int count = 0;
-	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+	for (auto pair : mStructureLists)
 	{
-		count += getCountInState(it->first, StructureState::Destroyed);
+		count += getCountInState(pair.first, StructureState::Destroyed);
 	}
 
 	return count;
@@ -352,9 +345,9 @@ int StructureManager::destroyed()
 
 void StructureManager::dropAllStructures()
 {
-	for (auto map_it = mStructureTileTable.begin(); map_it != mStructureTileTable.end(); ++map_it)
+	for (auto pair : mStructureTileTable)
 	{
-		map_it->second->deleteThing();
+		pair.second->deleteThing();
 	}
 
 	mStructureTileTable.clear();
