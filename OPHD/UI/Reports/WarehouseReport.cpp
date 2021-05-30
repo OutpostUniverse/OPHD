@@ -147,7 +147,7 @@ void WarehouseReport::fillLists()
 {
 	lstStructures.clear();
 
-	_fillListFromStructureList(Utility<StructureManager>::get().structureList(Structure::StructureClass::Warehouse));
+	_fillListFromStructureList(selectWarehouses([](Warehouse*) { return true; }));
 
 	lstStructures.setSelection(0);
 	computeTotalWarehouseCapacity();
