@@ -39,6 +39,8 @@ bool StructureManager::CHAPAvailable()
 
 void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
+	mAgingStructures.clear();
+
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
 	// calls to lower priority structures.
@@ -140,6 +142,11 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 	{
 		structure = structures[i];
 		structure->update();
+
+		if (structure->ages() && (structure->age() >= structure->maxAge() - 10))
+		{
+			mAgingStructures.push_back(structure);
+		}
 
 		// State Check
 		// ASSUMPTION:	Construction sites are considered self sufficient until they are

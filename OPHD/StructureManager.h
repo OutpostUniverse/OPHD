@@ -104,6 +104,8 @@ public:
 
 	int getCountInState(Structure::StructureClass structureClass, StructureState state);
 
+	const StructureList& agingStructures() const { return mAgingStructures; }
+
 	int disabled();
 	int destroyed();
 
@@ -131,6 +133,8 @@ private:
 
 	StructureTileTable mStructureTileTable; /**< List mapping Structures to a particular tile. */
 	StructureClassTable mStructureLists; /**< Map containing all of the structure list types available. */
+
+	StructureList mAgingStructures;
 
 	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */
 	int mTotalEnergyUsed = 0;
