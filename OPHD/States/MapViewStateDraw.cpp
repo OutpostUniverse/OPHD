@@ -72,7 +72,7 @@ void MapViewState::drawMiniMap()
 	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	for (auto commTower : structureManager.structureList(Structure::StructureClass::Communication))
+	for (auto commTower : structureManager.structures<CommTower>())
 	{
 		if (commTower->operational())
 		{

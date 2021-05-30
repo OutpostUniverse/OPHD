@@ -169,7 +169,7 @@ void FactoryReport::fillLists()
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto factory : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
+	for (auto factory : Utility<StructureManager>::get().structures<Factory>())
 	{
 		lstFactoryList.addItem(static_cast<Factory*>(factory));
 	}
@@ -184,7 +184,7 @@ void FactoryReport::fillFactoryList(ProductType type)
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
+	for (auto f : Utility<StructureManager>::get().structures<Factory>())
 	{
 		Factory* factory = static_cast<Factory*>(f);
 		if (factory->productType() == type)
@@ -204,7 +204,7 @@ void FactoryReport::fillFactoryList(bool surface)
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
+	for (auto f : Utility<StructureManager>::get().structures<Factory>())
 	{
 		Factory* factory = static_cast<Factory*>(f);
 		if (surface && (factory->name() == constants::SURFACE_FACTORY || factory->name() == constants::SEED_FACTORY))
@@ -228,7 +228,7 @@ void FactoryReport::fillFactoryList(StructureState state)
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto f : Utility<StructureManager>::get().structureList(Structure::StructureClass::Factory))
+	for (auto f : Utility<StructureManager>::get().structures<Factory>())
 	{
 		if (f->state() == state)
 		{
