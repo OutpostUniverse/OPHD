@@ -507,6 +507,12 @@ void MapViewState::checkAgingStructures()
 }
 
 
+void MapViewState::checkNewlyBuiltStructures()
+{
+
+}
+
+
 void MapViewState::nextTurn()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -528,6 +534,7 @@ void MapViewState::nextTurn()
 	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
 
 	checkAgingStructures();
+	checkNewlyBuiltStructures();
 
 	mPreviousMorale = mCurrentMorale;
 
