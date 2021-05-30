@@ -105,9 +105,9 @@ void StructureManager::updateEnergyConsumed()
 {
 	mTotalEnergyUsed = 0;
 
-	for (auto structureList : mStructureLists)
+	for (auto classListPair : mStructureLists)
 	{
-		for (auto structure : structureList.second)
+		for (auto structure : classListPair.second)
 		{
 			if (structure->operational() || structure->isIdle())
 			{
