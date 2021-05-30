@@ -131,7 +131,7 @@ void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& 
 		StructureListBox::StructureListBoxItem* item = lstStructures.last();
 
 		// \fixme	Abuse of interface to achieve custom results.
-		ProductPool& products = static_cast<Warehouse*>(warehouse)->products();
+		ProductPool& products = warehouse->products();
 
 		if (warehouse->state() != StructureState::Operational) { item->structureState = warehouse->stateDescription(); }
 		else if (products.empty()) { item->structureState = constants::WAREHOUSE_EMPTY; }
