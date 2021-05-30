@@ -326,9 +326,9 @@ int StructureManager::getCountInState(Structure::StructureClass structureClass, 
 int StructureManager::disabled()
 {
 	int count = 0;
-	for (auto it = mStructureLists.begin(); it != mStructureLists.end(); ++it)
+	for (auto pair : mStructureLists)
 	{
-		count += getCountInState(it->first, StructureState::Disabled);
+		count += getCountInState(pair.first, StructureState::Disabled);
 	}
 
 	return count;
