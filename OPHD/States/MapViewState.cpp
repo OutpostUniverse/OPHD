@@ -309,8 +309,8 @@ int MapViewState::refinedResourcesInStorage()
 
 void MapViewState::countPlayerResources()
 {
-	auto& storageTanks = NAS2D::Utility<StructureManager>::get().structures<StorageTanks>();
-	auto& command = NAS2D::Utility<StructureManager>::get().structures<CommandCenter>();
+	auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
+	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
 
 	std::vector<Structure*> storage;
 	storage.insert(storage.end(), command.begin(), command.end());
@@ -1296,7 +1296,7 @@ void MapViewState::updateRobots()
 				tile->removeThing();
 			}
 
-			for (auto rcc : Utility<StructureManager>::get().structures<RobotCommand>())
+			for (auto rcc : Utility<StructureManager>::get().getStructures<RobotCommand>())
 			{
 				rcc->removeRobot(robot);
 			}
@@ -1391,8 +1391,8 @@ void MapViewState::checkCommRangeOverlay()
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	const auto& commTowers = structureManager.structures<CommTower>();
-	const auto& command = structureManager.structures<CommandCenter>();
+	const auto& commTowers = structureManager.getStructures<CommTower>();
+	const auto& command = structureManager.getStructures<CommandCenter>();
 	
 	for (auto cc : command)
 	{
@@ -1420,7 +1420,7 @@ void MapViewState::checkSurfacePoliceOverlay()
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	const auto& policeStations = structureManager.structures<SurfacePolice>();
+	const auto& policeStations = structureManager.getStructures<SurfacePolice>();
 
 	for (auto policeStation : policeStations)
 	{

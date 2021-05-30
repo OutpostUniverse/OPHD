@@ -229,7 +229,7 @@ void MapViewState::load(const std::string& filePath)
 			 * There should only ever be one structure if the turn count is 0, the
 			 * SEED Lander which at this point should not have been deployed.
 			 */
-			const auto& list = Utility<StructureManager>::get().structures<SeedLander>();
+			const auto& list = Utility<StructureManager>::get().getStructures<SeedLander>();
 			if (list.size() != 1) { throw std::runtime_error("MapViewState::load(): Turn counter at 0 but more than one structure in list."); }
 
 			SeedLander* seedLander = list[0];

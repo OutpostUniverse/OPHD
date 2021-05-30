@@ -19,7 +19,7 @@ namespace
 	template <typename Predicate>
 	std::vector<Warehouse*> selectWarehouses(const Predicate& predicate)
 	{
-		const auto& warehouses = Utility<StructureManager>::get().structures<Warehouse>();
+		const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
 
 		std::vector<Warehouse*> output;
 		std::copy_if(warehouses.begin(), warehouses.end(), output.end(), predicate);
@@ -97,7 +97,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 	int capacityTotal = 0;
 	int capacityAvailable = 0;
 
-	const auto& warehouses = Utility<StructureManager>::get().structures<Warehouse>();
+	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
 	for (auto warehouse : warehouses)
 	{
 		if (warehouse->operational())

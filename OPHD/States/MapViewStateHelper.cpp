@@ -238,8 +238,8 @@ void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& robot
  */
 void updateRobotControl(RobotPool& robotPool)
 {
-	const auto& commandCenters = Utility<StructureManager>::get().structures<CommandCenter>();
-	const auto& robotCommands = Utility<StructureManager>::get().structures<RobotCommand>();
+	const auto& commandCenters = Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& robotCommands = Utility<StructureManager>::get().getStructures<RobotCommand>();
 
 	// 3 for the first command center
 	uint32_t _maxRobots = 0;
@@ -287,7 +287,7 @@ bool inCommRange(NAS2D::Point<int> position)
 {
 	auto& structureManager = Utility<StructureManager>::get();
 
-	const auto& command = structureManager.structures<CommandCenter>();
+	const auto& command = structureManager.getStructures<CommandCenter>();
 	for (auto cc : command)
 	{
 		if (!cc->operational()) { continue; }
@@ -298,7 +298,7 @@ bool inCommRange(NAS2D::Point<int> position)
 		}
 	}
 
-	const auto& commTowers = structureManager.structures<CommTower>();
+	const auto& commTowers = structureManager.getStructures<CommTower>();
 	for (auto tower : commTowers)
 	{
 		if (!tower->operational()) { continue; }
@@ -331,7 +331,7 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
  */
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 {
-	for (auto warehouse : Utility<StructureManager>::get().structures<Warehouse>())
+	for (auto warehouse : Utility<StructureManager>::get().getStructures<Warehouse>())
 	{
 		if (warehouse->products().canStore(type, static_cast<int>(count)))
 		{
@@ -354,7 +354,7 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
  */
 RobotCommand* getAvailableRobotCommand()
 {
-	for (auto robotCommand : Utility<StructureManager>::get().structures<RobotCommand>())
+	for (auto robotCommand : Utility<StructureManager>::get().getStructures<RobotCommand>())
 	{
 		if (robotCommand->operational() && robotCommand->commandCapacityAvailable())
 		{
@@ -377,7 +377,7 @@ RobotCommand* getAvailableRobotCommand()
 bool simulateMoveProducts(Warehouse* sourceWarehouse)
 {
 	ProductPool sourcePool = sourceWarehouse->products();
-	const auto& warehouses = Utility<StructureManager>::get().structures<Warehouse>();
+	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
 	for (auto warehouse : warehouses)
 	{
 		if (warehouse->operational())
@@ -408,7 +408,7 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
  */
 void moveProducts(Warehouse* sourceWarehouse)
 {
-	const auto& warehouses = Utility<StructureManager>::get().structures<Warehouse>();
+	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
 	for (auto warehouse : warehouses)
 	{
 		if (warehouse->operational())
@@ -454,8 +454,8 @@ void addRefinedResources(StorableResources& resourcesToAdd)
 	 * structure list and that it's always the first structure in the list.
 	 */
 
-	auto& command = NAS2D::Utility<StructureManager>::get().structures<CommandCenter>();
-	auto& storageTanks = NAS2D::Utility<StructureManager>::get().structures<StorageTanks>();
+	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
 
 	std::vector<Structure*> storage;
 	storage.insert(storage.end(), command.begin(), command.end());
@@ -486,8 +486,8 @@ void removeRefinedResources(StorableResources& resourcesToRemove)
 {
 	// Command Center is backup storage, we want to pull from it last
 
-	auto& command = NAS2D::Utility<StructureManager>::get().structures<CommandCenter>();
-	auto& storageTanks = NAS2D::Utility<StructureManager>::get().structures<StorageTanks>();
+	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
 
 	std::vector<Structure*> storage;
 	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());

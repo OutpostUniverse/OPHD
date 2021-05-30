@@ -76,7 +76,7 @@ public:
 	void removeStructure(Structure* structure);
 
 	template <typename StructureType>
-	const std::vector<StructureType*> structures()
+	const std::vector<StructureType*> getStructures()
 	{
 		// Get list of structures with same function
 		const auto& sameClassStructures = structureList(structureTypeToClass<StructureType>());
