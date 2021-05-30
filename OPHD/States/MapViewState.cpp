@@ -309,9 +309,12 @@ int MapViewState::refinedResourcesInStorage()
 
 void MapViewState::countPlayerResources()
 {
-	auto storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+	auto& storageTanks = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
 	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
-	storage.insert(storage.begin(), command.begin(), command.end());
+
+	std::vector<Structure*> storage;
+	storage.insert(storage.end(), command.begin(), command.end());
+	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
 
 	StorableResources resources;
 	for (auto structure : storage)
