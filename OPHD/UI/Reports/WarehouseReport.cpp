@@ -123,17 +123,17 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 }
 
 
-void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& list)
+void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& warehouses)
 {
-	for (auto structure : list)
+	for (auto warehouse : warehouses)
 	{
-		lstStructures.addItem(structure);
+		lstStructures.addItem(warehouse);
 		StructureListBox::StructureListBoxItem* item = lstStructures.last();
 
 		// \fixme	Abuse of interface to achieve custom results.
-		ProductPool& products = static_cast<Warehouse*>(structure)->products();
+		ProductPool& products = static_cast<Warehouse*>(warehouse)->products();
 
-		if (structure->state() != StructureState::Operational) { item->structureState = structure->stateDescription(); }
+		if (warehouse->state() != StructureState::Operational) { item->structureState = warehouse->stateDescription(); }
 		else if (products.empty()) { item->structureState = constants::WAREHOUSE_EMPTY; }
 		else if (products.atCapacity()) { item->structureState = constants::WAREHOUSE_FULL; }
 		else if (!products.empty() && !products.atCapacity()) { item->structureState = constants::WAREHOUSE_SPACE_AVAILABLE; }
