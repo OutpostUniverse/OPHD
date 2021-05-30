@@ -452,15 +452,18 @@ void resourceShortageMessage(const StorableResources& resources, StructureID sid
  */
 void addRefinedResources(StorableResources& resourcesToAdd)
 {
-	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
-
 	/**
 	 * The Command Center acts as backup storage especially during the beginning of the
 	 * game before storage tanks are built. This ensure that the CC is in the storage
 	 * structure list and that it's always the first structure in the list.
 	 */
+
 	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
-	storage.insert(storage.begin(), command.begin(), command.end());
+	auto& storageTanks = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+
+	std::vector<Structure*> storage;
+	storage.insert(storage.end(), command.begin(), command.end());
+	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
 
 	for (auto structure : storage)
 	{
@@ -485,10 +488,13 @@ void addRefinedResources(StorableResources& resourcesToAdd)
  */
 void removeRefinedResources(StorableResources& resourcesToRemove)
 {
-	StructureList storage = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
-
 	// Command Center is backup storage, we want to pull from it last
+
 	auto& command = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Command);
+	auto& storageTanks = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::Storage);
+
+	std::vector<Structure*> storage;
+	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
 	storage.insert(storage.end(), command.begin(), command.end());
 
 	for (auto structure : storage)
