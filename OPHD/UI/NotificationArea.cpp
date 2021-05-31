@@ -74,9 +74,9 @@ NotificationArea::~NotificationArea()
 }
 
 
-void NotificationArea::push(const std::string& brief, const std::string& message, NotificationType type)
+void NotificationArea::push(const std::string& brief, const std::string& message, NAS2D::Point<int> position, NotificationType type)
 {
-	mNotificationList.emplace_back(Notification{ brief, message, type });
+	mNotificationList.emplace_back(Notification{ brief, message, position, type });
 
 	const int posX = positionX() + (Width / 2) - 16;
 	const int posY = positionY() + size().y - (Offset * static_cast<int>(mNotificationList.size()));
