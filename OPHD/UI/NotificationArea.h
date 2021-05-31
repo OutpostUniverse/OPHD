@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Signal/Signal.h>
 
@@ -24,6 +25,7 @@ public:
 	{
 		std::string brief{ "" };
 		std::string message{ "" };
+		NAS2D::Point<int> position{ -1, -1 };
 		NotificationType type{ NotificationType::Information };
 	};
 
