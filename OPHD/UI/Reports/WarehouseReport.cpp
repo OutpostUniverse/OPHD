@@ -22,7 +22,7 @@ namespace
 		const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
 
 		std::vector<Warehouse*> output;
-		std::copy_if(warehouses.begin(), warehouses.end(), output.end(), predicate);
+		std::copy_if(warehouses.begin(), warehouses.end(), std::back_inserter(output), predicate);
 
 		return output;
 	}
