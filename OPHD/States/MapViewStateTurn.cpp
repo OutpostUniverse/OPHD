@@ -217,17 +217,16 @@ void MapViewState::updateMorale()
 	// Push notifications
 	if (birthCount)
 	{
-		mNotificationArea.push(std::to_string(birthCount) +
-			(birthCount > 1 ? " babies were born." : " baby was born."),
+		mNotificationArea.push("Baby Born",
+			std::to_string(birthCount) + (birthCount > 1 ? " babies were born." : " baby was born."),
 			NotificationArea::NotificationType::Information);
 	}
 
 	if (deathCount)
 	{
-		mNotificationArea.push(std::to_string(deathCount) +
-			(birthCount > 1 ? " colonists met their demise." : " colonist met their demise."),
+		mNotificationArea.push("Colonist Died",
+			std::to_string(deathCount) + (birthCount > 1 ? " colonists met their demise." : " colonist met their demise."),
 			NotificationArea::NotificationType::Warning);
-
 	}
 }
 
@@ -509,11 +508,15 @@ void MapViewState::checkAgingStructures()
 	{
 		if (structure->age() == structure->maxAge() - 10)
 		{
-			mNotificationArea.push(structure->name() + " is getting old. You should replace it soon.", NotificationArea::NotificationType::Warning);
+			mNotificationArea.push("Aging Structure",
+				structure->name() + " is getting old. You should replace it soon.",
+				NotificationArea::NotificationType::Warning);
 		}
 		else if (structure->age() == structure->maxAge() - 5)
 		{
-			mNotificationArea.push(structure->name() + " is about to collapse. You should replace it right away or consider demolishing it.", NotificationArea::NotificationType::Critical);
+			mNotificationArea.push("Aging Structure",
+				structure->name() + " is about to collapse. You should replace it right away or consider demolishing it.",
+				NotificationArea::NotificationType::Critical);
 		}
 	}
 }
@@ -525,7 +528,9 @@ void MapViewState::checkNewlyBuiltStructures()
 
 	for (auto structure : structures)
 	{
-		mNotificationArea.push(structure->name() + " completed construction.", NotificationArea::NotificationType::Information);
+		mNotificationArea.push("Construction Finished",
+			structure->name() + " completed construction.",
+			NotificationArea::NotificationType::Information);
 	}
 }
 
