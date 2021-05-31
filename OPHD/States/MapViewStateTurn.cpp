@@ -227,7 +227,6 @@ void MapViewState::updateMorale()
 		mNotificationArea.push("Colonist Died",
 			std::to_string(deathCount) + (birthCount > 1 ? " colonists met their demise." : " colonist met their demise."),
 			NotificationArea::NotificationType::Warning);
-
 	}
 }
 
@@ -501,6 +500,41 @@ void MapViewState::updateRoads()
 }
 
 
+void MapViewState::checkAgingStructures()
+{
+	const auto& structures = NAS2D::Utility<StructureManager>::get().agingStructures();
+
+	for (auto structure : structures)
+	{
+		if (structure->age() == structure->maxAge() - 10)
+		{
+			mNotificationArea.push("Aging Structure",
+				structure->name() + " is getting old. You should replace it soon.",
+				NotificationArea::NotificationType::Warning);
+		}
+		else if (structure->age() == structure->maxAge() - 5)
+		{
+			mNotificationArea.push("Aging Structure",
+				structure->name() + " is about to collapse. You should replace it right away or consider demolishing it.",
+				NotificationArea::NotificationType::Critical);
+		}
+	}
+}
+
+
+void MapViewState::checkNewlyBuiltStructures()
+{
+	const auto& structures = NAS2D::Utility<StructureManager>::get().newlyBuiltStructures();
+
+	for (auto structure : structures)
+	{
+		mNotificationArea.push("Construction Finished",
+			structure->name() + " completed construction.",
+			NotificationArea::NotificationType::Information);
+	}
+}
+
+
 void MapViewState::nextTurn()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -520,6 +554,9 @@ void MapViewState::nextTurn()
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	checkConnectedness();
 	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
+
+	checkAgingStructures();
+	checkNewlyBuiltStructures();
 
 	mPreviousMorale = mCurrentMorale;
 
