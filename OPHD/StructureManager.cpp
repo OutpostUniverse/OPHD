@@ -260,19 +260,21 @@ void StructureManager::removeStructure(Structure* structure)
 	StructureList& structures = mStructureLists[structure->structureClass()];
 
 	const auto it = std::find(structures.begin(), structures.end(), structure);
-	if (it != structures.end())
+	const auto isFoundStructureTable = it != structures.end();
+	if (isFoundStructureTable)
 	{
 		structures.erase(it);
 	}
 
 	const auto tileTableIt = mStructureTileTable.find(structure);
-	if (tileTableIt != mStructureTileTable.end())
+	const auto isFoundTileTable = tileTableIt != mStructureTileTable.end();
+	if (isFoundTileTable)
 	{
 		tileTableIt->second->deleteThing();
 		mStructureTileTable.erase(tileTableIt);
 	}
 
-	if ((it == structures.end()) || (tileTableIt == mStructureTileTable.end()))
+	if (!isFoundStructureTable || !isFoundTileTable)
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
