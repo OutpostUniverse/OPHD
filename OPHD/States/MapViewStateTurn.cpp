@@ -33,7 +33,7 @@ static inline void pullFoodFromStructure(FoodProduction* producer, int& remainde
 }
 
 
-static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<Smelter*>& smelters)
+static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
@@ -235,7 +235,7 @@ void MapViewState::updateMorale()
 
 void MapViewState::findMineRoutes()
 {
-	auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<Smelter>();
+	auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	mPathSolver->Reset();
 	mTruckRouteOverlay.clear();
