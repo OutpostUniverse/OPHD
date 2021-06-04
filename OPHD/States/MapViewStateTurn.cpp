@@ -282,7 +282,7 @@ void MapViewState::transportOreFromMines()
 		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;
-			const auto smelter = static_cast<Smelter*>(static_cast<Tile*>(route.path.back())->structure());
+			const auto smelter = static_cast<OreRefining*>(static_cast<Tile*>(route.path.back())->structure());
 			const auto mineFacility = static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
 
 			if (!smelter->operational()) { break; }
