@@ -37,6 +37,12 @@ public:
 	ExtensionCompleteSignal::Source& extensionComplete() { return mExtensionComplete; }
 
 protected:
+	friend class MapViewState;
+
+	void assignedTrucks(int count) { mAssignedTrucks = count; }
+	void digTimeRemaining(int count) { mDigTurnsRemaining = count; }
+
+protected:
 	void think() override;
 
 private:
