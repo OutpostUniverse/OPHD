@@ -23,7 +23,7 @@ public:
 
 	int digTimeRemaining() const;
 
-	int assignedTrucks()  const { return mAssignedTrucks; }
+	int assignedTrucks() const { return mAssignedTrucks; }
 	int maxTruckCount() const { return mMaxTruckCount; }
 
 	void addTruck() { mAssignedTrucks = std::clamp(mAssignedTrucks + 1, 1, mMaxTruckCount); }
