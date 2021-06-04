@@ -469,6 +469,20 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 			structureElement->linkEndChild(waste);
 		}
 
+		if (structure->isMineFacility())
+		{
+			MineFacility* facility = static_cast<MineFacility*>(structure);
+			
+			auto* trucks = new NAS2D::Xml::XmlElement("trucks");
+			trucks->attribute("assigned", facility->assignedTrucks());
+
+			auto* extension = new NAS2D::Xml::XmlElement("extension");
+			extension->attribute("turns_remaining", facility->digTimeRemaining());
+
+			structureElement->linkEndChild(trucks);
+			structureElement->linkEndChild(extension);
+		}
+
 		structures->linkEndChild(structureElement);
 	}
 

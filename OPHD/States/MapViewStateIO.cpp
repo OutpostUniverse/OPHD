@@ -97,7 +97,6 @@ void MapViewState::save(const std::string& filePath)
 	mTileMap->serialize(root, mPlanetAttributes);
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
-	//writeResources(root, mPlayerResources, "resources");
 	writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
 
 	XmlElement* turns = new XmlElement("turns");
@@ -394,6 +393,24 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			mineFacility.mine(mine);
 			mineFacility.maxDepth(mTileMap->maxDepth());
 			mineFacility.extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
+
+			auto trucks = structureNode->firstChildElement("trucks");
+			if (trucks == nullptr)
+			{
+				throw std::runtime_error("MapViewState::readStructures(): MineFacility structure saved without a trucks node.");
+			}
+
+			auto trucksAssigned = trucks->attribute("assigned");
+			mineFacility.assignedTrucks(std::stoi(trucksAssigned));
+
+			auto extension = structureNode->firstChildElement("extension");
+			if (extension == nullptr)
+			{
+				throw std::runtime_error("MapViewState::readStructures(): MineFacility structure saved without an extension node.");
+			}
+
+			auto turnsRemaining = extension->attribute("turns_remaining");
+			mineFacility.digTimeRemaining(std::stoi(turnsRemaining));
 		}
 
 		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)

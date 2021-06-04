@@ -23,7 +23,7 @@ public:
 
 	int digTimeRemaining() const;
 
-	int assignedTrucks()  const { return mAssignedTrucks; }
+	int assignedTrucks() const { return mAssignedTrucks; }
 	int maxTruckCount() const { return mMaxTruckCount; }
 
 	void addTruck() { mAssignedTrucks = std::clamp(mAssignedTrucks + 1, 1, mMaxTruckCount); }
@@ -35,6 +35,12 @@ public:
 	Mine* mine() { return mMine; }
 
 	ExtensionCompleteSignal::Source& extensionComplete() { return mExtensionComplete; }
+
+protected:
+	friend class MapViewState;
+
+	void assignedTrucks(int count) { mAssignedTrucks = count; }
+	void digTimeRemaining(int count) { mDigTurnsRemaining = count; }
 
 protected:
 	void think() override;
