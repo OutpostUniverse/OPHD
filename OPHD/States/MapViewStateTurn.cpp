@@ -43,6 +43,8 @@ static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, 
 
 	for (auto smelter : smelters)
 	{
+		if (!smelter->operational()) { continue; }
+
 		auto& end = structureManager.tileFromStructure(smelter);
 		tilemap->pathStartAndEnd(&start, &end);
 		Route route;
@@ -321,7 +323,7 @@ void MapViewState::transportOreFromMines()
 
 void MapViewState::transportResourcesToStorage()
 {
-	auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<Smelter>();
+	auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
 	for (auto smelter : smelterList)
 	{
 		if (!smelter->operational() && !smelter->isIdle()) { continue; }
