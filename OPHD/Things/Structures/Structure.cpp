@@ -88,7 +88,8 @@ static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable 
 	constants::UNDERGROUND_FACTORY,
 	constants::UNDERGROUND_POLICE,
 	constants::UNIVERSITY,
-	constants::WAREHOUSE
+	constants::WAREHOUSE,
+	constants::RECYCLING
 };
 
 
