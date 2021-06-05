@@ -396,6 +396,11 @@ void serializeStructure(NAS2D::Xml::XmlElement* _ti, Structure* structure, Tile*
 	_ti->attribute("type", structure->structureId());
 	_ti->attribute("direction", structure->connectorDirection());
 
+	if (structure->hasCrime())
+	{
+		_ti->attribute("crime_rate", structure->crimeRate());
+	}
+
 	const auto& production = structure->production();
 	if (production > StorableResources{ 0 })
 	{
