@@ -61,6 +61,7 @@ NotificationArea::NotificationArea() :
 	auto& eventhandler = Utility<EventHandler>::get();
 
 	eventhandler.mouseButtonDown().connect(this, &NotificationArea::onMouseDown);
+	eventhandler.mouseMotion().connect(this, &NotificationArea::onMouseMove);
 
 	width(Width);
 }
@@ -71,6 +72,7 @@ NotificationArea::~NotificationArea()
 	auto& eventhandler = Utility<EventHandler>::get();
 
 	eventhandler.mouseButtonDown().disconnect(this, &NotificationArea::onMouseDown);
+	eventhandler.mouseMotion().disconnect(this, &NotificationArea::onMouseMove);
 }
 
 
@@ -113,6 +115,12 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 
 		count++;
 	}
+}
+
+
+void NotificationArea::onMouseMove(int x, int y, int dX, int dY)
+{
+
 }
 
 
