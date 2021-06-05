@@ -1402,7 +1402,7 @@ void MapViewState::checkCommRangeOverlay()
 
 	const auto& commTowers = structureManager.getStructures<CommTower>();
 	const auto& command = structureManager.getStructures<CommandCenter>();
-	
+
 	for (auto cc : command)
 	{
 		if (!cc->operational()) { continue; }
