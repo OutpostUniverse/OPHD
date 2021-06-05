@@ -236,6 +236,8 @@ private:
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
+	void onNotificationWindowTakeMeThere(NAS2D::Point<int> position);
+
 private:
 	MainReportsUiState& mMainReportsState;
 	TileMap* mTileMap = nullptr;
