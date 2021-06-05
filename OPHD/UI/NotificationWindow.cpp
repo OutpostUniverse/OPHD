@@ -36,6 +36,8 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 	title(StringFromNotificationType(mNotification.type));
 	mMessageArea.text(mNotification.message);
 
+	title(mNotification.brief);
+
 	mTakeMeThereVisible = mNotification.position != Point<int>{-1, -1}; //\fixme magic value
 }
 
