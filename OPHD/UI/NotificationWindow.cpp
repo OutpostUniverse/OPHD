@@ -19,6 +19,11 @@ NotificationWindow::NotificationWindow():
 	btnOkay.size({ 50, 20 });
 	btnOkay.click().connect(this, &NotificationWindow::btnOkayClicked);
 
+	add(btnTakeMeThere, { 10, 195 });
+	btnTakeMeThere.size({ 125, 20 });
+	btnTakeMeThere.click().connect(this, &NotificationWindow::btnTakeMeThereClicked);
+	btnTakeMeThere.hide();
+
 	add(mMessageArea, { 5, 65 });
 	mMessageArea.size({ size().x - 10, 125 });
 	mMessageArea.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
@@ -30,6 +35,8 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 	mNotification = notification;
 	title(StringFromNotificationType(mNotification.type));
 	mMessageArea.text(mNotification.message);
+
+	mTakeMeThereHidden = mNotification.position != Point<int>{-1, -1}; //\fixme magic value
 }
 
 
@@ -39,11 +46,19 @@ void NotificationWindow::btnOkayClicked()
 }
 
 
+void NotificationWindow::btnTakeMeThereClicked()
+{
+
+}
+
+
 void NotificationWindow::update()
 {
 	if (!visible()) { return; }
 
 	Window::update();
+
+	btnTakeMeThere.visible(mTakeMeThereHidden); // bit of a hack
 
 	auto& renderer = Utility<Renderer>::get();
 

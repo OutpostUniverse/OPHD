@@ -17,10 +17,13 @@ public:
 
 private:
 	void btnOkayClicked();
+	void btnTakeMeThereClicked();
 
 	const NAS2D::Image& mIcons;
 
 	NotificationArea::Notification mNotification;
 	Button btnOkay{ "Okay" };
+	Button btnTakeMeThere{ "Take Me There" };
 	TextArea mMessageArea;
+	bool mTakeMeThereHidden{ false };
 };
