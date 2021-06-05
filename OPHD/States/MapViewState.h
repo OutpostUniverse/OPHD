@@ -339,7 +339,7 @@ private:
 
 	TileList mConnectednessOverlay;
 	TileList mCommRangeOverlay;
-	TileList mSurfacePoliceOverlay;
+	std::vector<TileList> mPoliceOverlays;
 	TileList mTruckRouteOverlay;
 
 	NAS2D::Point<int> mTubeStart;

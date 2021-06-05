@@ -488,7 +488,7 @@ void MapViewState::onTogglePoliceOverlay()
 		onToggleRouteOverlay();
 	}
 
-	setOverlay(mBtnTogglePoliceOverlay, mSurfacePoliceOverlay, Tile::Overlay::Police);
+	setOverlay(mBtnTogglePoliceOverlay, mPoliceOverlays[0], Tile::Overlay::Police);
 }
 
 void MapViewState::onToggleRouteOverlay()

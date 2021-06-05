@@ -1421,7 +1421,11 @@ void MapViewState::checkCommRangeOverlay()
 
 void MapViewState::checkSurfacePoliceOverlay()
 {
-	mSurfacePoliceOverlay.clear();
+	mPoliceOverlays.clear();
+	for (std::size_t i = 0; i <= mTileMap->maxDepth(); ++i)
+	{
+		mPoliceOverlays.push_back(TileList());
+	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
@@ -1431,7 +1435,17 @@ void MapViewState::checkSurfacePoliceOverlay()
 	{
 		if (!policeStation->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(policeStation);
-		fillRangedAreaList(mPoliceOverlay, centerTile, policeStation->getRange());
+		fillRangedAreaList(mPoliceOverlays[0], centerTile, policeStation->getRange());
+	}
+
+	const auto& undergroundPoliceStations = structureManager.getStructures<UndergroundPolice>();
+
+	for (auto undergroundPoliceStation : undergroundPoliceStations)
+	{
+		if (!undergroundPoliceStation->operational()) { continue; }
+		auto depth = structureManager.tileFromStructure(undergroundPoliceStation).depth();
+		auto& centerTile = structureManager.tileFromStructure(undergroundPoliceStation);
+		fillRangedAreaList(mPoliceOverlays[depth], centerTile, undergroundPoliceStation->getRange(), depth);
 	}
 }
 
