@@ -15,6 +15,7 @@ public:
 		maxAge(600);
 		turnsToBuild(7);
 		requiresCHAP(false);
+		hasCrime(true);
 
 		initFactory();
 	}

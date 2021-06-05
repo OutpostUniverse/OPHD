@@ -29,6 +29,7 @@ public:
 		turnsToBuild(2);
 
 		requiresCHAP(true);
+		hasCrime(true);
 	}
 
 

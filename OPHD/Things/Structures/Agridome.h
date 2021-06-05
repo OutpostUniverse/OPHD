@@ -19,6 +19,7 @@ public:
 		turnsToBuild(3);
 
 		requiresCHAP(true);
+		hasCrime(true);
 	}
 
 protected:

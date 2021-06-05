@@ -18,6 +18,7 @@ public:
 		turnsToBuild(2);
 
 		requiresCHAP(false);
+		hasCrime(true);
 	}
 
 	ProductPool& products() { return mProducts; }
