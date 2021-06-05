@@ -36,7 +36,7 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 	title(StringFromNotificationType(mNotification.type));
 	mMessageArea.text(mNotification.message);
 
-	mTakeMeThereHidden = mNotification.position != Point<int>{-1, -1}; //\fixme magic value
+	mTakeMeThereVisible = mNotification.position != Point<int>{-1, -1}; //\fixme magic value
 }
 
 
@@ -59,7 +59,7 @@ void NotificationWindow::update()
 
 	Window::update();
 
-	btnTakeMeThere.visible(mTakeMeThereHidden); // bit of a hack
+	btnTakeMeThere.visible(mTakeMeThereVisible); // bit of a hack
 
 	auto& renderer = Utility<Renderer>::get();
 

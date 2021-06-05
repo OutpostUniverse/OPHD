@@ -32,7 +32,7 @@ private:
 	Button btnOkay{ "Okay" };
 	Button btnTakeMeThere{ "Take Me There" };
 	TextArea mMessageArea;
-	bool mTakeMeThereHidden{ false };
+	bool mTakeMeThereVisible{ false };
 
 	Signal mTakeMeThereClicked;
 };
