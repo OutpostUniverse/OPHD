@@ -118,9 +118,23 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 }
 
 
-void NotificationArea::onMouseMove(int x, int y, int dX, int dY)
+void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
+	if (!rect().contains({ x, y })) { return; }
 
+	size_t count = 0;
+	for (auto& rect : mNotificationRectList)
+	{
+		if (rect.contains({ x, y }))
+		{
+			mNotificationIndex = count;
+			return;
+		}
+
+		count++;
+	}
+
+	mNotificationIndex = SIZE_MAX;
 }
 
 
@@ -164,6 +178,11 @@ void NotificationArea::update()
 
 		renderer.drawSubImage(mIcons, rect.startPoint(), { 128, 64, 32, 32 }, NotificationIconColor.at(notification.type));
 		renderer.drawSubImage(mIcons, rect.startPoint(), NotificationIconRect.at(notification.type), Color::Normal);
+
+		if (mNotificationIndex == count)
+		{
+			renderer.drawBox(rect);
+		}
 		
 		count++;
 	}

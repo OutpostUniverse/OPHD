@@ -68,6 +68,8 @@ private:
 	std::vector<Notification> mNotificationList;
 	std::vector<NAS2D::Rectangle<int>> mNotificationRectList;
 
+	std::size_t mNotificationIndex{ SIZE_MAX };
+
 	NotificationCallback mNotificationClicked;
 };
 
