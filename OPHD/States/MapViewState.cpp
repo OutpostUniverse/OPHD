@@ -1443,7 +1443,7 @@ void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int 
 
 void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int range, int depth)
 {
-	auto area = buildAreaRectFromTile(centerTile, range);
+	auto area = buildAreaRectFromTile(centerTile, range + 1);
 
 	for (int y = 0; y < area.height; ++y)
 	{
