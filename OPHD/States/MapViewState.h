@@ -152,7 +152,8 @@ private:
 
 	void checkCommRangeOverlay();
 	void checkSurfacePoliceOverlay();
-	void fillRangedAreaList(TileList& tileList, Tile& centerTile, const NAS2D::Rectangle<int>& area, int range);
+	void fillRangedAreaList(TileList& tileList, Tile& centerTile, int range);
+	void fillRangedAreaList(TileList& tileList, Tile& centerTile, int range, int depth);
 	void checkConnectedness();
 	void changeViewDepth(int);
 

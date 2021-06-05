@@ -1406,19 +1406,15 @@ void MapViewState::checkCommRangeOverlay()
 	for (auto cc : command)
 	{
 		if (!cc->operational()) { continue; }
-		auto range = cc->getRange();
 		auto& centerTile = structureManager.tileFromStructure(cc);
-		auto commAreaRect = buildAreaRectFromTile(centerTile, range);
-		fillRangedAreaList(mCommRangeOverlay, centerTile, commAreaRect, range);
+		fillRangedAreaList(mCommRangeOverlay, centerTile, cc->getRange());
 	}
 
 	for (auto tower : commTowers)
 	{
 		if (!tower->operational()) { continue; }
-		auto range = tower->getRange();
 		auto& centerTile = structureManager.tileFromStructure(tower);
-		auto commAreaRect = buildAreaRectFromTile(centerTile, range);
-		fillRangedAreaList(mCommRangeOverlay, centerTile, commAreaRect, range);
+		fillRangedAreaList(mCommRangeOverlay, centerTile, tower->getRange());
 	}
 }
 
@@ -1435,19 +1431,25 @@ void MapViewState::checkSurfacePoliceOverlay()
 	{
 		if (!policeStation->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(policeStation);
-		auto commAreaRect = buildAreaRectFromTile(centerTile, 10);
-		fillRangedAreaList(mSurfacePoliceOverlay, centerTile, commAreaRect, policeStation->getRange());
+		fillRangedAreaList(mPoliceOverlay, centerTile, policeStation->getRange());
 	}
 }
 
 
-void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, const NAS2D::Rectangle<int>& area, int range)
+void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int range)
 {
+	fillRangedAreaList(tileList, centerTile, range, 0);
+}
+
+void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int range, int depth)
+{
+	auto area = buildAreaRectFromTile(centerTile, range);
+
 	for (int y = 0; y < area.height; ++y)
 	{
 		for (int x = 0; x < area.width; ++x)
 		{
-			auto& tile = (*mTileMap).getTile({ x + area.x, y + area.y });
+			auto& tile = (*mTileMap).getTile({ x + area.x, y + area.y }, depth);
 			if (isPointInRange(centerTile.position(), tile.position(), range))
 			{
 				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
