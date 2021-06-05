@@ -56,7 +56,8 @@ static constexpr int Offset = constants::MARGIN_TIGHT + 32;
 
 
 NotificationArea::NotificationArea() :
-	mIcons{ imageCache.load("ui/icons.png") }
+	mIcons{ imageCache.load("ui/icons.png") },
+	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) }
 {
 	auto& eventhandler = Utility<EventHandler>::get();
 
@@ -128,6 +129,9 @@ void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 		if (rect.contains({ x, y }))
 		{
 			mNotificationIndex = count;
+
+			mNotificationBriefRect = { 100, 100, 100, 25 };
+
 			return;
 		}
 
