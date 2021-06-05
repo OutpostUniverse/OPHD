@@ -21,8 +21,8 @@ StructureInspector::StructureInspector() :
 {
 	size({ 350, 220 });
 
-	add(btnClose, { 295, 195 });
 	btnClose.size({ 50, 20 });
+	add(btnClose, { rect().width - btnClose.rect().width - 5, rect().height - btnClose.rect().height - 5 });
 	btnClose.click().connect(this, &StructureInspector::onClose);
 }
 
