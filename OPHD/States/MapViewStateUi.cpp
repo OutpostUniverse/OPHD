@@ -95,6 +95,8 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mNotificationWindow);
 
 	mNotificationArea.notificationClicked().connect(this, &MapViewState::onNotificationClicked);
+	
+	mNotificationWindow.takeMeThere().connect(this, &MapViewState::onNotificationWindowTakeMeThere);
 	mNotificationWindow.hide();
 
 	const auto size = renderer.size().to<int>();
@@ -687,6 +689,12 @@ void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOpera
 	}
 
 	mFileIoDialog.hide();
+}
+
+
+void MapViewState::onNotificationWindowTakeMeThere(NAS2D::Point<int> position)
+{
+	mTileMap->centerMapOnTile(&mTileMap->getTile(position));
 }
 
 
