@@ -87,7 +87,11 @@ void NotificationArea::push(const std::string& brief, const std::string& message
 
 void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (button != EventHandler::MouseButton::Left) { return; }
+	if (button != EventHandler::MouseButton::Left &&
+		button != EventHandler::MouseButton::Right)
+	{
+		return;
+	}
 
 	const NAS2D::Point clickPoint{ x, y };
 
@@ -96,7 +100,11 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 	{
 		if (rect.contains(clickPoint))
 		{
-			mNotificationClicked(mNotificationList.at(count));
+			if (button == EventHandler::MouseButton::Left)
+			{
+				mNotificationClicked(mNotificationList.at(count));
+			}
+
 			mNotificationList.erase(mNotificationList.begin() + count);
 			mNotificationRectList.erase(mNotificationRectList.begin() + count);
 			updateRectListPositions();
