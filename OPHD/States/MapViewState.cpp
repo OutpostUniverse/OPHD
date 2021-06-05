@@ -69,21 +69,21 @@ const std::map<Robot::Type, RobotMeta> RobotMetaTable
 };
 
 
-static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int commRange)
+static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int radius)
 {
-	const NAS2D::Point commAreaStartPoint
+	const NAS2D::Point areaStartPoint
 	{
-		std::clamp(centerTile.position().x - commRange, 0, 299),
-		std::clamp(centerTile.position().y - commRange, 0, 149)
+		std::clamp(centerTile.position().x - radius, 0, 299),
+		std::clamp(centerTile.position().y - radius, 0, 149)
 	};
 
-	const NAS2D::Point commAreaEndPoint
+	const NAS2D::Point areaEndPoint
 	{
-		std::clamp(centerTile.position().x + commRange, 0, 299),
-		std::clamp(centerTile.position().y + commRange, 0, 149)
+		std::clamp(centerTile.position().x + radius, 0, 299),
+		std::clamp(centerTile.position().y + radius, 0, 149)
 	};
 
-	return NAS2D::Rectangle<int>::Create(commAreaStartPoint, commAreaEndPoint);
+	return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
 }
 
 
