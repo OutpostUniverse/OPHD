@@ -142,6 +142,9 @@ void PopulationPanel::update()
 	const auto housingText = "Housing: " + std::to_string(mPopulation->size()) + " / " + std::to_string(mResidentialCapacity) + "  (" + std::to_string(capacityPercent) + "%)";
 	renderer.drawText(mFont, housingText, position, NAS2D::Color::White);
 
+	position.y += fontHeight;
+	renderer.drawText(mFont, "Mean Crime Rate: " + std::to_string(mCrimeRate) + "%", position, NAS2D::Color::White);
+
 	position.y += fontHeight + fontHeight / 2;
 
 	renderer.drawLine(position, position + NAS2D::Vector<int>{ rect().width - mPopulationPanelWidth - constants::MARGIN * 2, 0 }, Color::DarkGray);
