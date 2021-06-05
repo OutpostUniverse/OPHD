@@ -1374,7 +1374,7 @@ void MapViewState::checkConnectedness()
 
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
 	auto& tile = mTileMap->getTile(ccLocation(), 0);
-	Structure *cc = tile.structure();
+	Structure* cc = tile.structure();
 
 	if (!cc)
 	{
