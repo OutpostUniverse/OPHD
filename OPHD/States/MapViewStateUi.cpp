@@ -25,16 +25,6 @@ using namespace constants;
 using namespace NAS2D;
 
 
-static void setOverlay(Button& button, TileList& tileList, Tile::Overlay overlay)
-{
-	auto overlayToUse = button.toggled() ? overlay : Tile::Overlay::None;
-	for (auto tile : tileList)
-	{
-		tile->overlay(overlayToUse);
-	}
-}
-
-
 /**
  * Sets up the user interface elements
  * 
@@ -436,6 +426,16 @@ void MapViewState::drawUI()
 	mWindowStack.update();
 
 	if (!modalUiElementDisplayed()) { mToolTip.update(); }
+}
+
+
+void MapViewState::setOverlay(Button& button, TileList& tileList, Tile::Overlay overlay)
+{
+	auto overlayToUse = button.toggled() ? overlay : Tile::Overlay::None;
+	for (auto tile : tileList)
+	{
+		tile->overlay(overlayToUse);
+	}
 }
 
 
