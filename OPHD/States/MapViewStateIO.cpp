@@ -395,22 +395,18 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			mineFacility.extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
 
 			auto trucks = structureNode->firstChildElement("trucks");
-			if (trucks == nullptr)
+			if (trucks)
 			{
-				throw std::runtime_error("MapViewState::readStructures(): MineFacility structure saved without a trucks node.");
+				auto trucksAssigned = trucks->attribute("assigned");
+				mineFacility.assignedTrucks(std::stoi(trucksAssigned));
 			}
-
-			auto trucksAssigned = trucks->attribute("assigned");
-			mineFacility.assignedTrucks(std::stoi(trucksAssigned));
 
 			auto extension = structureNode->firstChildElement("extension");
-			if (extension == nullptr)
+			if (extension)
 			{
-				throw std::runtime_error("MapViewState::readStructures(): MineFacility structure saved without an extension node.");
+				auto turnsRemaining = extension->attribute("turns_remaining");
+				mineFacility.digTimeRemaining(std::stoi(turnsRemaining));
 			}
-
-			auto turnsRemaining = extension->attribute("turns_remaining");
-			mineFacility.digTimeRemaining(std::stoi(turnsRemaining));
 		}
 
 		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)
