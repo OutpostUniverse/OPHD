@@ -132,9 +132,10 @@ void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 			mNotificationIndex = count;
 
 			const int stringWidth = mFont.width(mNotificationList[count].brief) + 8;
-			const int briefPositionX = positionX() - stringWidth - 4;
+			const int briefPositionX = positionX() - stringWidth;
+			const int briefPositionY = rect.y + (rect.height / 2) - (mFont.height() / 2) - 2;
 
-			mNotificationBriefRect = { briefPositionX, rect.y, stringWidth, mFont.height() + 4 };
+			mNotificationBriefRect = { briefPositionX, briefPositionY, stringWidth, mFont.height() + 4 };
 
 			return;
 		}
@@ -189,8 +190,6 @@ void NotificationArea::update()
 
 		if (mNotificationIndex == count)
 		{
-			renderer.drawBox(rect);
-
 			renderer.drawBoxFilled(mNotificationBriefRect, Color::DarkGray);
 			renderer.drawBox(mNotificationBriefRect, Color::Black);
 
