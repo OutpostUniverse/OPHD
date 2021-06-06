@@ -1427,7 +1427,7 @@ void MapViewState::checkCommRangeOverlay()
 void MapViewState::checkSurfacePoliceOverlay()
 {
 	mPoliceOverlays.clear();
-	for (std::size_t i = 0; i <= mTileMap->maxDepth(); ++i)
+	for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 	{
 		mPoliceOverlays.push_back(TileList());
 	}
