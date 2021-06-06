@@ -111,6 +111,7 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 			mNotificationList.erase(mNotificationList.begin() + count);
 			mNotificationRectList.erase(mNotificationRectList.begin() + count);
 			updateRectListPositions();
+			onMouseMove(x, y, 0, 0);
 			return;
 		}
 
@@ -130,7 +131,10 @@ void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 		{
 			mNotificationIndex = count;
 
-			mNotificationBriefRect = { 100, 100, 100, 25 };
+			const int stringWidth = mFont.width(mNotificationList[count].brief) + 8;
+			const int briefPositionX = positionX() - stringWidth - 4;
+
+			mNotificationBriefRect = { briefPositionX, rect.y, stringWidth, mFont.height() + 4 };
 
 			return;
 		}
@@ -186,6 +190,12 @@ void NotificationArea::update()
 		if (mNotificationIndex == count)
 		{
 			renderer.drawBox(rect);
+
+			renderer.drawBoxFilled(mNotificationBriefRect, Color::DarkGray);
+			renderer.drawBox(mNotificationBriefRect, Color::Black);
+
+			const auto textPosition = mNotificationBriefRect.startPoint() + Vector<int>{ 4, 2 };
+			renderer.drawText(mFont, notification.brief, textPosition, Color::White);
 		}
 		
 		count++;
