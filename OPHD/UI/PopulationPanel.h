@@ -23,6 +23,7 @@ public:
 	void residentialCapacity(int val) { mResidentialCapacity = val; }
 
 	void crimeRate(int val) { mCrimeRate = val; }
+	int crimeRate() { return mCrimeRate; } const
 
 	void addMoraleReason(const std::string& str, int val)
 	{
