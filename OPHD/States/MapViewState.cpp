@@ -709,6 +709,11 @@ void MapViewState::onMouseWheel(int /*x*/, int y)
  */
 void MapViewState::changeViewDepth(int depth)
 {
+	if (mBtnTogglePoliceOverlay.toggled())
+	{
+		changePoliceOverlayDepth(mTileMap->currentDepth(), depth);
+	}
+
 	mTileMap->currentDepth(depth);
 
 	if (mInsertMode != InsertMode::Robot) { clearMode(); }
