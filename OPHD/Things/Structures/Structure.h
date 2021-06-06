@@ -220,7 +220,7 @@ private:
 	bool mRepairable = true; /**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
 	bool mRequiresCHAP = true; /**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
 	bool mSelfSustained = false; /**< Indicates that the Structure is self contained and can operate by itself. */
-	bool mHasCrime = false; /*< Indicates that the Structure acculumates a crime rate over time.*/
+	bool mHasCrime = false; /**< Indicates that the Structure acculumates a crime rate over time. */
 	bool mForcedIdle = false; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };
 
