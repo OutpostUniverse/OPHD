@@ -218,6 +218,8 @@ private:
 	// UI EVENT HANDLERS
 	void onTurns();
 	void setOverlay(TileList& tileList, Tile::Overlay overlay);
+	void clearOverlays();
+	void clearOverlay(TileList& tileList);
 	void onToggleConnectedness();
 	void onToggleCommRangeOverlay();
 	void onToggleRouteOverlay();
