@@ -1,7 +1,31 @@
 # Change Log
 This is the changelog for OutpostHD.
 
-## [0.8.2] - 2019-03-24
+## [0.8.3] - 2021-06-6
+
+Introduces the NotificationArea UI element to inform users of non-critical issues or notifications that don't interrupt gameplay and the user can look at and respond to at their leisure.
+
+### Added
+- Added a NotificationArea to display notifications
+- Added a NotificationWindow to show detailed information about new notifications
+- Added RadioButton and RadioButtonGroup
+- Added Police Coverage overlay
+
+### Changed
+- Certain conditions will now throw exceptions -- these are logic bugs that should be reported and not ignored
+- Population changes (births and deaths) will now push notifications to the player
+- Robot aging and failure will now push notifications to the player
+- Robot self-destruct will now push a notification instead of display a message box
+- Structure state changes (construction complete, destroyed, disabled, etc.) will now push notifications to the player
+
+### Fixed
+- Log output redirect crash
+- Disabled or destroyed Smelters will now be ignored in truck routing
+- Assigned trucks will now be saved/loaded properly from save games
+- Recycling structure will now be properly highlighted red if insufficient resources are available to build it
+
+
+## [0.8.2] - 2021-03-24
 
 Introduces communcations range overlays, additional GUI quality of life improvements and a number of bug fixes that correct some subtle behavior issues.
 
@@ -25,7 +49,7 @@ Introduces communcations range overlays, additional GUI quality of life improvem
 - Fix savegame issue where game breaks when loading a savegame saved on turn 0 before the seed lander is placed
 
 
-## [0.8.1] - 2019-02-17
+## [0.8.1] - 2021-02-17
 
 Introduces biowaste produced by residential units and some quality of life improvements in the GUI.
 
