@@ -10,7 +10,7 @@
 class Population;
 
 
-class PopulationPanel: public Control
+class PopulationPanel : public Control
 {
 public:
 	PopulationPanel();
