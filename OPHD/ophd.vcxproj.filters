@@ -309,6 +309,9 @@
     <ClCompile Include="UI\NotificationWindow.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="States\CrimeRateUpdate.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -685,6 +688,9 @@
     </ClInclude>
     <ClInclude Include="UI\NotificationWindow.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="States\CrimeRateUpdate.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

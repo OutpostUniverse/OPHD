@@ -4,6 +4,7 @@
 
 #include "MapViewState.h"
 #include "MapViewStateHelper.h"
+#include "CrimeRateUpdate.h"
 
 #include "../Map/TileMap.h"
 #include "../Things/Structures/Structures.h"
@@ -580,6 +581,7 @@ void MapViewState::nextTurn()
 	updateResources();
 	updateStructuresAvailability();
 	updateRoads();
+	mCurrentMorale += CrimeRate::update(mPoliceOverlays, mPopulationPanel);
 
 	// Overlay Updates
 	checkCommRangeOverlay();
