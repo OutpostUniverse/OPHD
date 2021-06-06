@@ -113,6 +113,7 @@ void MapViewState::save(const std::string& filePath)
 	population->attribute("workers", mPopulation.size(Population::PersonRole::ROLE_WORKER));
 	population->attribute("scientists", mPopulation.size(Population::PersonRole::ROLE_SCIENTIST));
 	population->attribute("retired", mPopulation.size(Population::PersonRole::ROLE_RETIRED));
+	population->attribute("mean_crime", mPopulationPanel.crimeRate());
 	root->linkEndChild(population);
 
 	auto moraleChangeReasons = new XmlElement("morale_change");
@@ -535,6 +536,12 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 			{
 				attribute->queryIntValue(mPreviousMorale);
 				mPopulationPanel.old_morale(mPreviousMorale);
+			}
+			else if (attribute->name() == "mean_crime")
+			{
+				int meanCrimeRate = 0;
+				attribute->queryIntValue(meanCrimeRate);
+				mPopulationPanel.crimeRate(meanCrimeRate);
 			}
 			else if (attribute->name() == "colonist_landers") { attribute->queryIntValue(mLandersColonist); }
 			else if (attribute->name() == "cargo_landers") { attribute->queryIntValue(mLandersCargo); }
