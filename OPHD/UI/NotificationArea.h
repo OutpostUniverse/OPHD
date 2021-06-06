@@ -6,6 +6,7 @@
 #include <vector>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Point.h>
+#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Signal/Signal.h>
 
@@ -56,6 +57,7 @@ public:
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
+	void onMouseMove(int x, int y, int dX, int dY);
 
 	void onMove(NAS2D::Vector<int> displacement) override;
 	void onResize() override;
@@ -64,8 +66,13 @@ private:
 	void updateRectListPositions();
 
 	const NAS2D::Image& mIcons;
+	const NAS2D::Font& mFont;
+
 	std::vector<Notification> mNotificationList;
 	std::vector<NAS2D::Rectangle<int>> mNotificationRectList;
+
+	std::size_t mNotificationIndex{ SIZE_MAX };
+	NAS2D::Rectangle<int> mNotificationBriefRect{ 0 };
 
 	NotificationCallback mNotificationClicked;
 };

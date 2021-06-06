@@ -56,11 +56,13 @@ static constexpr int Offset = constants::MARGIN_TIGHT + 32;
 
 
 NotificationArea::NotificationArea() :
-	mIcons{ imageCache.load("ui/icons.png") }
+	mIcons{ imageCache.load("ui/icons.png") },
+	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) }
 {
 	auto& eventhandler = Utility<EventHandler>::get();
 
 	eventhandler.mouseButtonDown().connect(this, &NotificationArea::onMouseDown);
+	eventhandler.mouseMotion().connect(this, &NotificationArea::onMouseMove);
 
 	width(Width);
 }
@@ -71,6 +73,7 @@ NotificationArea::~NotificationArea()
 	auto& eventhandler = Utility<EventHandler>::get();
 
 	eventhandler.mouseButtonDown().disconnect(this, &NotificationArea::onMouseDown);
+	eventhandler.mouseMotion().disconnect(this, &NotificationArea::onMouseMove);
 }
 
 
@@ -108,11 +111,39 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 			mNotificationList.erase(mNotificationList.begin() + count);
 			mNotificationRectList.erase(mNotificationRectList.begin() + count);
 			updateRectListPositions();
+			onMouseMove(x, y, 0, 0);
 			return;
 		}
 
 		count++;
 	}
+}
+
+
+void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
+{
+	if (!rect().contains({ x, y })) { return; }
+
+	size_t count = 0;
+	for (auto& rect : mNotificationRectList)
+	{
+		if (rect.contains({ x, y }))
+		{
+			mNotificationIndex = count;
+
+			const int stringWidth = mFont.width(mNotificationList[count].brief) + 8;
+			const int briefPositionX = positionX() - stringWidth;
+			const int briefPositionY = rect.y + (rect.height / 2) - (mFont.height() / 2) - 2;
+
+			mNotificationBriefRect = { briefPositionX, briefPositionY, stringWidth, mFont.height() + 4 };
+
+			return;
+		}
+
+		count++;
+	}
+
+	mNotificationIndex = SIZE_MAX;
 }
 
 
@@ -156,6 +187,15 @@ void NotificationArea::update()
 
 		renderer.drawSubImage(mIcons, rect.startPoint(), { 128, 64, 32, 32 }, NotificationIconColor.at(notification.type));
 		renderer.drawSubImage(mIcons, rect.startPoint(), NotificationIconRect.at(notification.type), Color::Normal);
+
+		if (mNotificationIndex == count)
+		{
+			renderer.drawBoxFilled(mNotificationBriefRect, Color::DarkGray);
+			renderer.drawBox(mNotificationBriefRect, Color::Black);
+
+			const auto textPosition = mNotificationBriefRect.startPoint() + Vector<int>{ 4, 2 };
+			renderer.drawText(mFont, notification.brief, textPosition, Color::White);
+		}
 		
 		count++;
 	}
