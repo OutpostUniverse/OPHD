@@ -18,6 +18,7 @@ public:
 		maxAge(600);
 		turnsToBuild(9);
 		requiresCHAP(false);
+		hasCrime(true);
 
 		storageCapacity(StorageCapacity);
 	}

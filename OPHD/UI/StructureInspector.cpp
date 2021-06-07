@@ -19,10 +19,10 @@ StructureInspector::StructureInspector() :
 	btnClose{"Close"},
 	mIcons{imageCache.load("ui/icons.png")}
 {
-	size({ 350, 220 });
+	size({ 350, 240 });
 
-	add(btnClose, { 295, 195 });
 	btnClose.size({ 50, 20 });
+	add(btnClose, { rect().width - btnClose.rect().width - 5, rect().height - btnClose.rect().height - 5, });
 	btnClose.click().connect(this, &StructureInspector::onClose);
 }
 
@@ -50,7 +50,7 @@ void StructureInspector::onClose()
 
 StringTable StructureInspector::buildStringTable() const
 {
-	StringTable stringTable(4, 4);
+	StringTable stringTable(4, 5);
 	stringTable.position(mRect.startPoint() + NAS2D::Vector{ 5, 25 });
 	stringTable.setVerticalPadding(5);
 	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
@@ -95,6 +95,12 @@ StringTable StructureInspector::buildStringTable() const
 		stringTable[{0, 3}].text = "Scientists:";
 		stringTable[{1, 3}].text = std::to_string(populationAvailable[1]) + " / " + std::to_string(populationRequirements[scientistIndex]);
 		stringTable[{1, 3}].textColor = populationAvailable[scientistIndex] >= populationRequirements[scientistIndex] ? Color::White : Color::Red;
+	}
+
+	if (mStructure->hasCrime())
+	{
+		stringTable[{0, 4}].text = "Crime Rate:";
+		stringTable[{1, 4}].text = std::to_string(mStructure->crimeRate()) + "%";
 	}
 
 	stringTable.computeRelativeCellPositions();

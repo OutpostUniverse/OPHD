@@ -69,21 +69,21 @@ const std::map<Robot::Type, RobotMeta> RobotMetaTable
 };
 
 
-static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int commRange)
+static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int radius)
 {
-	const NAS2D::Point commAreaStartPoint
+	const NAS2D::Point areaStartPoint
 	{
-		std::clamp(centerTile.position().x - commRange, 0, 299),
-		std::clamp(centerTile.position().y - commRange, 0, 149)
+		std::clamp(centerTile.position().x - radius, 0, 299),
+		std::clamp(centerTile.position().y - radius, 0, 149)
 	};
 
-	const NAS2D::Point commAreaEndPoint
+	const NAS2D::Point areaEndPoint
 	{
-		std::clamp(centerTile.position().x + commRange, 0, 299),
-		std::clamp(centerTile.position().y + commRange, 0, 149)
+		std::clamp(centerTile.position().x + radius, 0, 299),
+		std::clamp(centerTile.position().y + radius, 0, 149)
 	};
 
-	return NAS2D::Rectangle<int>::Create(commAreaStartPoint, commAreaEndPoint);
+	return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
 }
 
 
@@ -709,6 +709,11 @@ void MapViewState::onMouseWheel(int /*x*/, int y)
  */
 void MapViewState::changeViewDepth(int depth)
 {
+	if (mBtnTogglePoliceOverlay.toggled())
+	{
+		changePoliceOverlayDepth(mTileMap->currentDepth(), depth);
+	}
+
 	mTileMap->currentDepth(depth);
 
 	if (mInsertMode != InsertMode::Robot) { clearMode(); }
@@ -1374,7 +1379,7 @@ void MapViewState::checkConnectedness()
 
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
 	auto& tile = mTileMap->getTile(ccLocation(), 0);
-	Structure *cc = tile.structure();
+	Structure* cc = tile.structure();
 
 	if (!cc)
 	{
@@ -1402,30 +1407,30 @@ void MapViewState::checkCommRangeOverlay()
 
 	const auto& commTowers = structureManager.getStructures<CommTower>();
 	const auto& command = structureManager.getStructures<CommandCenter>();
-	
+
 	for (auto cc : command)
 	{
 		if (!cc->operational()) { continue; }
-		auto range = cc->getRange();
 		auto& centerTile = structureManager.tileFromStructure(cc);
-		auto commAreaRect = buildAreaRectFromTile(centerTile, range);
-		fillRangedAreaList(mCommRangeOverlay, centerTile, commAreaRect, range);
+		fillRangedAreaList(mCommRangeOverlay, centerTile, cc->getRange());
 	}
 
 	for (auto tower : commTowers)
 	{
 		if (!tower->operational()) { continue; }
-		auto range = tower->getRange();
 		auto& centerTile = structureManager.tileFromStructure(tower);
-		auto commAreaRect = buildAreaRectFromTile(centerTile, range);
-		fillRangedAreaList(mCommRangeOverlay, centerTile, commAreaRect, range);
+		fillRangedAreaList(mCommRangeOverlay, centerTile, tower->getRange());
 	}
 }
 
 
 void MapViewState::checkSurfacePoliceOverlay()
 {
-	mSurfacePoliceOverlay.clear();
+	mPoliceOverlays.clear();
+	for (int i = 0; i <= mTileMap->maxDepth(); ++i)
+	{
+		mPoliceOverlays.push_back(TileList());
+	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
@@ -1435,19 +1440,35 @@ void MapViewState::checkSurfacePoliceOverlay()
 	{
 		if (!policeStation->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(policeStation);
-		auto commAreaRect = buildAreaRectFromTile(centerTile, 10);
-		fillRangedAreaList(mSurfacePoliceOverlay, centerTile, commAreaRect, policeStation->getRange());
+		fillRangedAreaList(mPoliceOverlays[0], centerTile, policeStation->getRange());
+	}
+
+	const auto& undergroundPoliceStations = structureManager.getStructures<UndergroundPolice>();
+
+	for (auto undergroundPoliceStation : undergroundPoliceStations)
+	{
+		if (!undergroundPoliceStation->operational()) { continue; }
+		auto depth = structureManager.tileFromStructure(undergroundPoliceStation).depth();
+		auto& centerTile = structureManager.tileFromStructure(undergroundPoliceStation);
+		fillRangedAreaList(mPoliceOverlays[depth], centerTile, undergroundPoliceStation->getRange(), depth);
 	}
 }
 
 
-void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, const NAS2D::Rectangle<int>& area, int range)
+void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int range)
 {
+	fillRangedAreaList(tileList, centerTile, range, 0);
+}
+
+void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int range, int depth)
+{
+	auto area = buildAreaRectFromTile(centerTile, range + 1);
+
 	for (int y = 0; y < area.height; ++y)
 	{
 		for (int x = 0; x < area.width; ++x)
 		{
-			auto& tile = (*mTileMap).getTile({ x + area.x, y + area.y });
+			auto& tile = (*mTileMap).getTile({ x + area.x, y + area.y }, depth);
 			if (isPointInRange(centerTile.position(), tile.position(), range))
 			{
 				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())

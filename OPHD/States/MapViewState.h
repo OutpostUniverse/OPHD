@@ -152,7 +152,8 @@ private:
 
 	void checkCommRangeOverlay();
 	void checkSurfacePoliceOverlay();
-	void fillRangedAreaList(TileList& tileList, Tile& centerTile, const NAS2D::Rectangle<int>& area, int range);
+	void fillRangedAreaList(TileList& tileList, Tile& centerTile, int range);
+	void fillRangedAreaList(TileList& tileList, Tile& centerTile, int range, int depth);
 	void checkConnectedness();
 	void changeViewDepth(int);
 
@@ -216,6 +217,10 @@ private:
 
 	// UI EVENT HANDLERS
 	void onTurns();
+	void setOverlay(TileList& tileList, Tile::Overlay overlay);
+	void clearOverlays();
+	void clearOverlay(TileList& tileList);
+	void changePoliceOverlayDepth(int oldDepth, int newDepth);
 	void onToggleConnectedness();
 	void onToggleCommRangeOverlay();
 	void onToggleRouteOverlay();
@@ -338,7 +343,7 @@ private:
 
 	TileList mConnectednessOverlay;
 	TileList mCommRangeOverlay;
-	TileList mSurfacePoliceOverlay;
+	std::vector<TileList> mPoliceOverlays;
 	TileList mTruckRouteOverlay;
 
 	NAS2D::Point<int> mTubeStart;

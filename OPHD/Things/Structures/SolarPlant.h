@@ -20,6 +20,7 @@ public:
 		maxAge(1000);
 		turnsToBuild(4);
 		requiresCHAP(false);
+		hasCrime(true);
 	}
 
 protected:

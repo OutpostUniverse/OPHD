@@ -106,6 +106,7 @@ public:
 
 	const StructureList& agingStructures() const { return mAgingStructures; }
 	const StructureList& newlyBuiltStructures() const { return mNewlyBuiltStructures; }
+	const StructureList& structuresWithCrime() const { return mStructuresWithCrime; }
 
 	int disabled();
 	int destroyed();
@@ -137,6 +138,7 @@ private:
 
 	StructureList mAgingStructures;
 	StructureList mNewlyBuiltStructures;
+	StructureList mStructuresWithCrime;
 
 	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */
 	int mTotalEnergyUsed = 0;

@@ -21,6 +21,7 @@ public:
 
 		requiresCHAP(false);
 		storageCapacity(StorageTanksCapacity);
+		hasCrime(true);
 	}
 
 	StringTable createInspectorViewTable() override

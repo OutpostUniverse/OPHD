@@ -41,6 +41,7 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 {
 	mAgingStructures.clear();
 	mNewlyBuiltStructures.clear();
+	mStructuresWithCrime.clear();
 
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
@@ -152,6 +153,11 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 		if (structure->age() == structure->turnsToBuild())
 		{
 			mNewlyBuiltStructures.push_back(structure);
+		}
+
+		if (structure->hasCrime() && !structure->underConstruction())
+		{
+			mStructuresWithCrime.push_back(structure);
 		}
 
 		// State Check
@@ -395,6 +401,11 @@ void serializeStructure(NAS2D::Xml::XmlElement* _ti, Structure* structure, Tile*
 	_ti->attribute("idle_reason", static_cast<int>(structure->idleReason()));
 	_ti->attribute("type", structure->structureId());
 	_ti->attribute("direction", structure->connectorDirection());
+
+	if (structure->hasCrime())
+	{
+		_ti->attribute("crime_rate", structure->crimeRate());
+	}
 
 	const auto& production = structure->production();
 	if (production > StorableResources{ 0 })

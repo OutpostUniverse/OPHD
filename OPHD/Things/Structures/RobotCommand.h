@@ -25,6 +25,7 @@ public:
 		turnsToBuild(3);
 
 		requiresCHAP(false);
+		hasCrime(true);
 	}
 
 	bool isControlling(Robot* robot) const;

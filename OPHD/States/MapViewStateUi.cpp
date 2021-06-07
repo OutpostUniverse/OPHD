@@ -25,16 +25,6 @@ using namespace constants;
 using namespace NAS2D;
 
 
-static void setOverlay(Button& button, TileList& tileList, Tile::Overlay overlay)
-{
-	auto overlayToUse = button.toggled() ? overlay : Tile::Overlay::None;
-	for (auto tile : tileList)
-	{
-		tile->overlay(overlayToUse);
-	}
-}
-
-
 /**
  * Sets up the user interface elements
  * 
@@ -439,72 +429,95 @@ void MapViewState::drawUI()
 }
 
 
+void MapViewState::setOverlay(TileList& tileList, Tile::Overlay overlay)
+{
+	for (auto tile : tileList)
+	{
+		tile->overlay(overlay);
+	}
+}
+
+
+void MapViewState::clearOverlays()
+{
+	clearOverlay(mConnectednessOverlay);
+	clearOverlay(mCommRangeOverlay);
+	clearOverlay(mPoliceOverlays[mTileMap->currentDepth()]);
+	clearOverlay(mTruckRouteOverlay);
+}
+
+
+void MapViewState::clearOverlay(TileList& tileList)
+{
+	setOverlay(tileList, Tile::Overlay::None);
+}
+
+
+void MapViewState::changePoliceOverlayDepth(int oldDepth, int newDepth)
+{
+	clearOverlay(mPoliceOverlays[oldDepth]);
+	setOverlay(mPoliceOverlays[newDepth], Tile::Overlay::Police);
+}
+
+
 /**
  * Handles clicks of the Connectedness Overlay button.
  */
 void MapViewState::onToggleConnectedness()
 {
+	clearOverlays();
+
 	if (mBtnToggleConnectedness.toggled())
 	{
 		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
 		mBtnTogglePoliceOverlay.toggle(false);
 
-		onToggleCommRangeOverlay();
-		onToggleRouteOverlay();
-		onTogglePoliceOverlay();
+		setOverlay(mConnectednessOverlay, Tile::Overlay::Connectedness);
 	}
-
-	setOverlay(mBtnToggleConnectedness, mConnectednessOverlay, Tile::Overlay::Connectedness);
 }
 
 
 void MapViewState::onToggleCommRangeOverlay()
 {
+	clearOverlays();
+
 	if (mBtnToggleCommRangeOverlay.toggled())
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
 		mBtnTogglePoliceOverlay.toggle(false);
 
-		onToggleConnectedness();
-		onToggleRouteOverlay();
-		onTogglePoliceOverlay();
+		setOverlay(mCommRangeOverlay, Tile::Overlay::Communications);
 	}
-
-	setOverlay(mBtnToggleCommRangeOverlay, mCommRangeOverlay, Tile::Overlay::Communications);
 }
 
 void MapViewState::onTogglePoliceOverlay()
 {
+	clearOverlays();
+
 	if (mBtnTogglePoliceOverlay.toggled())
 	{
 		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
 
-		onToggleCommRangeOverlay();
-		onToggleConnectedness();
-		onToggleRouteOverlay();
+		setOverlay(mPoliceOverlays[mTileMap->currentDepth()], Tile::Overlay::Police);
 	}
-
-	setOverlay(mBtnTogglePoliceOverlay, mSurfacePoliceOverlay, Tile::Overlay::Police);
 }
 
 void MapViewState::onToggleRouteOverlay()
 {
+	clearOverlays();
+
 	if (mBtnToggleRouteOverlay.toggled())
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnTogglePoliceOverlay.toggle(false);
 
-		onToggleCommRangeOverlay();
-		onToggleConnectedness();
-		onTogglePoliceOverlay();
+		setOverlay(mTruckRouteOverlay, Tile::Overlay::TruckingRoutes);
 	}
-
-	setOverlay(mBtnToggleRouteOverlay, mTruckRouteOverlay, Tile::Overlay::TruckingRoutes);
 }
 
 

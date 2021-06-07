@@ -113,6 +113,7 @@ void MapViewState::save(const std::string& filePath)
 	population->attribute("workers", mPopulation.size(Population::PersonRole::ROLE_WORKER));
 	population->attribute("scientists", mPopulation.size(Population::PersonRole::ROLE_SCIENTIST));
 	population->attribute("retired", mPopulation.size(Population::PersonRole::ROLE_RETIRED));
+	population->attribute("mean_crime", mPopulationPanel.crimeRate());
 	root->linkEndChild(population);
 
 	auto moraleChangeReasons = new XmlElement("morale_change");
@@ -335,10 +336,11 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 {
 	int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
 	int production_completed = 0, production_type = 0;
+	int crime_rate = 0;
 	XmlAttribute* attribute = nullptr;
 	for (XmlNode* structureNode = element->firstChild(); structureNode != nullptr; structureNode = structureNode->nextSibling())
 	{
-		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = idle_reason = pop0 = pop1 = type = 0;
+		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = idle_reason = pop0 = pop1 = type = crime_rate = 0;
 		attribute = structureNode->toElement()->firstAttribute();
 		while (attribute)
 		{
@@ -352,6 +354,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			else if (attribute->name() == "forced_idle") { attribute->queryIntValue(forced_idle); }
 			else if (attribute->name() == "disabled_reason") { attribute->queryIntValue(disabled_reason); }
 			else if (attribute->name() == "idle_reason") { attribute->queryIntValue(idle_reason); }
+			else if (attribute->name() == "crime_rate") { attribute->queryIntValue(crime_rate); }
 
 			else if (attribute->name() == "production_completed") { attribute->queryIntValue(production_completed); }
 			else if (attribute->name() == "production_type") { attribute->queryIntValue(production_type); }
@@ -482,6 +485,11 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			}
 		}
 
+		if (structure.hasCrime())
+		{
+			structure.crimeRate(crime_rate);
+		}
+
 		structure.populationAvailable()[0] = pop0;
 		structure.populationAvailable()[1] = pop1;
 
@@ -528,6 +536,12 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 			{
 				attribute->queryIntValue(mPreviousMorale);
 				mPopulationPanel.old_morale(mPreviousMorale);
+			}
+			else if (attribute->name() == "mean_crime")
+			{
+				int meanCrimeRate = 0;
+				attribute->queryIntValue(meanCrimeRate);
+				mPopulationPanel.crimeRate(meanCrimeRate);
 			}
 			else if (attribute->name() == "colonist_landers") { attribute->queryIntValue(mLandersColonist); }
 			else if (attribute->name() == "cargo_landers") { attribute->queryIntValue(mLandersCargo); }
