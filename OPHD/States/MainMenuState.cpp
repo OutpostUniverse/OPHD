@@ -46,21 +46,14 @@ void MainMenuState::initialize()
 	e.windowResized().connect(this, &MainMenuState::onWindowResized);
 	e.keyDown().connect(this, &MainMenuState::onKeyDown);
 
-	btnNewGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnNewGame.size({200, 30});
+	auto buttons = std::array{&btnNewGame, &btnContinueGame, &btnOptions, &btnHelp, &btnQuit};
+	for (auto button : buttons)
+	{
+		button->fontSize(constants::FONT_PRIMARY_MEDIUM);
+		button->size({200, 30});
+	}
 
-	btnContinueGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnContinueGame.size({200, 30});
-
-	btnOptions.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnOptions.size({200, 30});
 	btnOptions.enabled(false);
-
-	btnHelp.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnHelp.size({200, 30});
-
-	btnQuit.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnQuit.size({200, 30});
 
 	mFileIoDialog.setMode(FileIo::FileOperation::Load);
 	mFileIoDialog.fileOperation().connect(this, &MainMenuState::onFileIoAction);
