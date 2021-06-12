@@ -107,7 +107,7 @@ void FileIo::setMode(FileOperation fileOp)
 
 void FileIo::scanDirectory(const std::string& directory)
 {
-	Filesystem& filesystem = Utility<Filesystem>::get();
+	const auto& filesystem = Utility<Filesystem>::get();
 	std::vector<std::string> dirList = filesystem.directoryList(directory);
 	std::sort(dirList.begin(), dirList.end());
 
