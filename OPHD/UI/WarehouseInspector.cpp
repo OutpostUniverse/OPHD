@@ -11,13 +11,12 @@ using namespace NAS2D;
 
 WarehouseInspector::WarehouseInspector() :
 	Window{constants::WINDOW_WH_INSPECTOR},
-	btnClose{"Okay"}
+	btnClose{"Okay", {this, &WarehouseInspector::onClose}}
 {
 	size({250, 350});
 
 	add(btnClose, {105, 325});
 	btnClose.size({40, 20});
-	btnClose.click().connect(this, &WarehouseInspector::onClose);
 }
 
 

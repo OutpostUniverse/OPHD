@@ -30,47 +30,41 @@ MineReport::MineReport() :
 	fontBigBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE) },
 	mineFacility{ imageCache.load("ui/interface/mine.png") },
 	uiIcons{ imageCache.load("ui/icons.png") },
-	btnShowAll{ "All" },
-	btnShowActive{ "Active" },
-	btnShowIdle{ "Idle" },
-	btnShowTappedOut{ "Tapped Out" },
-	btnShowDisabled{ "Disabled" },
-	btnIdle{ constants::BUTTON_IDLE },
-	btnDigNewLevel{ "Dig New Level" },
-	btnTakeMeThere{ constants::BUTTON_TAKE_ME_THERE },
-	btnAddTruck { constants::BUTTON_ADD_TRUCK },
-	btnRemoveTruck{ constants::BUTTON_REMOVE_TRUCK },
+	btnShowAll{ "All", {this, &MineReport::onShowAll} },
+	btnShowActive{ "Active", {this, &MineReport::onShowActive} },
+	btnShowIdle{ "Idle", {this, &MineReport::onShowIdle} },
+	btnShowTappedOut{ "Tapped Out", {this, &MineReport::onShowTappedOut} },
+	btnShowDisabled{ "Disabled", {this, &MineReport::onShowDisabled} },
+	btnIdle{ constants::BUTTON_IDLE, {this, &MineReport::onIdle} },
+	btnDigNewLevel{ "Dig New Level", {this, &MineReport::onDigNewLevel} },
+	btnTakeMeThere{ constants::BUTTON_TAKE_ME_THERE, {this, &MineReport::onTakeMeThere} },
+	btnAddTruck{ constants::BUTTON_ADD_TRUCK, {this, &MineReport::onAddTruck} },
+	btnRemoveTruck{ constants::BUTTON_REMOVE_TRUCK, {this, &MineReport::onRemoveTruck} },
 	chkCommonMetals{ "Mine Common Metals" },
 	chkCommonMinerals{ "Mine Common Minerals" },
 	chkRareMetals{ "Mine Rare Metals" },
 	chkRareMinerals{ "Mine Rare Minerals" }
 {
-
 	add(btnShowAll, {10, 10});
 	btnShowAll.size({ 75, 20 });
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
-	btnShowAll.click().connect(this, &MineReport::onShowAll);
 
 	add(btnShowActive, {87, 10});
 	btnShowActive.size({ 75, 20 });
 	btnShowActive.type(Button::Type::BUTTON_TOGGLE);
-	btnShowActive.click().connect(this, &MineReport::onShowActive);
 
 	add(btnShowIdle, {164, 10});
 	btnShowIdle.size({ 75, 20 });
 	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
-	btnShowIdle.click().connect(this, &MineReport::onShowIdle);
 
 	add(btnShowTappedOut, {241, 10});
 	btnShowTappedOut.size({ 75, 20 });
 	btnShowTappedOut.type(Button::Type::BUTTON_TOGGLE);
-	btnShowTappedOut.click().connect(this, &MineReport::onShowTappedOut);
 
 	add(btnShowDisabled, {318, 10});
 	btnShowDisabled.size({ 75, 20 });
 	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
-	btnShowDisabled.click().connect(this, &MineReport::onShowDisabled);
 
 	add(lstMineFacilities, {10, 40});
 	lstMineFacilities.selectionChanged().connect(this, &MineReport::onMineFacilitySelectionChange);
@@ -79,15 +73,12 @@ MineReport::MineReport() :
 	add(btnIdle, {0, 40});
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size({ 140, 30 });
-	btnIdle.click().connect(this, &MineReport::onIdle);
 
 	add(btnDigNewLevel, {0, 75});
 	btnDigNewLevel.size({ 140, 30 });
-	btnDigNewLevel.click().connect(this, &MineReport::onDigNewLevel);
 
 	add(btnTakeMeThere, {0, 110});
 	btnTakeMeThere.size({ 140, 30 });
-	btnTakeMeThere.click().connect(this, &MineReport::onTakeMeThere);
 
 	// Ore Management Pane
 	add(chkCommonMetals, {0, 210});
@@ -105,11 +96,9 @@ MineReport::MineReport() :
 	// Truck Management Pane
 	add(btnAddTruck, {0, 215});
 	btnAddTruck.size({ 140, 30 });
-	btnAddTruck.click().connect(this, &MineReport::onAddTruck);
 
 	add(btnRemoveTruck, {0, 250});
 	btnRemoveTruck.size({ 140, 30 });
-	btnRemoveTruck.click().connect(this, &MineReport::onRemoveTruck);
 
 	fillLists();
 }

@@ -10,7 +10,6 @@ class TileInspector: public Window
 {
 public:
 	TileInspector();
-	~TileInspector() override;
 
 	void tile(Tile* t) { mTile = t; }
 

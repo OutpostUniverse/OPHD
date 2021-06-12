@@ -17,9 +17,9 @@ using namespace NAS2D;
 
 FileIo::FileIo() :
 	Window{"File I/O"},
-	btnClose{"Cancel"},
-	btnFileOp{"FileOp"},
-	btnFileDelete{"Delete"}
+	btnClose{"Cancel", {this, &FileIo::onClose}},
+	btnFileOp{"FileOp", {this, &FileIo::onFileIo}},
+	btnFileDelete{"Delete", {this, &FileIo::onFileDelete}}
 {
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
 	Utility<EventHandler>::get().keyDown().connect(this, &FileIo::onKeyDown);
@@ -28,17 +28,14 @@ FileIo::FileIo() :
 
 	add(btnFileOp, {445, 325});
 	btnFileOp.size({50, 20});
-	btnFileOp.click().connect(this, &FileIo::onFileIo);
 	btnFileOp.enabled(false);
 
 	add(btnFileDelete, {5, 325});
 	btnFileDelete.size({50, 20});
-	btnFileDelete.click().connect(this, &FileIo::onFileDelete);
 	btnFileDelete.enabled(false);
 
 	add(btnClose, {390, 325});
 	btnClose.size({50, 20});
-	btnClose.click().connect(this, &FileIo::onClose);
 
 	add(txtFileName, {5, 302});
 	txtFileName.size({490, 18});

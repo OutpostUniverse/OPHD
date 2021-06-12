@@ -5,29 +5,25 @@
 
 GameOptionsDialog::GameOptionsDialog() :
 	Window{constants::WINDOW_SYSTEM_TITLE},
-	btnSave{"Save current game"},
-	btnLoad{"Load a saved game"},
-	btnReturn{"Return to current game"},
-	btnClose{"Return to Main Menu"}
+	btnSave{"Save current game", {this, &GameOptionsDialog::onSave}},
+	btnLoad{"Load a saved game", {this, &GameOptionsDialog::onLoad}},
+	btnReturn{"Return to current game", {this, &GameOptionsDialog::onReturn}},
+	btnClose{"Return to Main Menu", {this, &GameOptionsDialog::onClose}}
 {
 	position({0, 0});
 	size({210, 160});
 
 	add(btnSave, {5, 25});
 	btnSave.size({200, 25});
-	btnSave.click().connect(this, &GameOptionsDialog::onSave);
 
 	add(btnLoad, {5, 53});
 	btnLoad.size({200, 25});
-	btnLoad.click().connect(this, &GameOptionsDialog::onLoad);
 
 	add(btnReturn, {5, 91});
 	btnReturn.size({200, 25});
-	btnReturn.click().connect(this, &GameOptionsDialog::onReturn);
 
 	add(btnClose, {5, 129});
 	btnClose.size({200, 25});
-	btnClose.click().connect(this, &GameOptionsDialog::onClose);
 
 	anchored(true);
 }

@@ -24,19 +24,15 @@ FactoryProduction::FactoryProduction() :
 
 	add(btnOkay, {233, 138});
 	btnOkay.size({40, 20});
-	btnOkay.click().connect(this, &FactoryProduction::onOkay);
 
 	add(btnCancel, {276, 138});
 	btnCancel.size({40, 20});
-	btnCancel.click().connect(this, &FactoryProduction::onCancel);
 
 	add(btnClearSelection, {5, 138});
 	btnClearSelection.size({mProductGrid.size().x, 20});
-	btnClearSelection.click().connect(this, &FactoryProduction::onClearSelection);
 
 	add(btnApply, {mProductGrid.size().x + 12, btnClearSelection.positionY()});
 	btnApply.size({40, 20});
-	btnApply.click().connect(this, &FactoryProduction::onApply);
 
 	add(chkIdle, {mProductGrid.size().x + 12, 115});
 	chkIdle.size({50, 20});

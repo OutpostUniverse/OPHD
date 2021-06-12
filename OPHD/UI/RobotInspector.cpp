@@ -27,9 +27,9 @@ namespace
 
 
 RobotInspector::RobotInspector() :
-	btnCancelOrders{ "Cancel Orders" },
-	btnSelfDestruct{ "Self Destruct" },
-	btnCancel{ constants::ButtonCancel }
+	btnCancelOrders{ "Cancel Orders", {this, &RobotInspector::onCancelOrders} },
+	btnSelfDestruct{ "Self Destruct", {this, &RobotInspector::onSelfDestruct} },
+	btnCancel{ constants::ButtonCancel, {this, &RobotInspector::onCancel} }
 {
 	init();
 }
@@ -70,10 +70,6 @@ void RobotInspector::init()
 	add(btnCancel, buttonPosition);
 
 	size({ size().x, buttonPosition.y + buttonHeight + constants::MARGIN });
-
-	btnCancelOrders.click().connect(this, &RobotInspector::onCancelOrders);
-	btnSelfDestruct.click().connect(this, &RobotInspector::onSelfDestruct);
-	btnCancel.click().connect(this, &RobotInspector::onCancel);
 }
 
 

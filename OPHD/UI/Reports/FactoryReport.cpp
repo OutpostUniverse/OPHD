@@ -46,16 +46,16 @@ FactoryReport::FactoryReport() :
 	factorySeed{imageCache.load("ui/interface/factory_seed.png")},
 	factoryAboveGround{imageCache.load("ui/interface/factory_ag.png")},
 	factoryUnderGround{imageCache.load("ui/interface/factory_ug.png")},
-	btnShowAll{"All"},
-	btnShowSurface{"Surface"},
-	btnShowUnderground{"Underground"},
-	btnShowActive{"Active"},
-	btnShowIdle{"Idle"},
-	btnShowDisabled{"Disabled"},
-	btnIdle{"Idle"},
-	btnClearProduction{"Clear Production"},
-	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE},
-	btnApply{"Apply"}
+	btnShowAll{"All", {this, &FactoryReport::onShowAll}},
+	btnShowSurface{"Surface", {this, &FactoryReport::onShowSurface}},
+	btnShowUnderground{"Underground", {this, &FactoryReport::onShowUnderground}},
+	btnShowActive{"Active", {this, &FactoryReport::onShowActive}},
+	btnShowIdle{"Idle", {this, &FactoryReport::onShowIdle}},
+	btnShowDisabled{"Disabled", {this, &FactoryReport::onShowDisabled}},
+	btnIdle{"Idle", {this, &FactoryReport::onIdle}},
+	btnClearProduction{"Clear Production", {this, &FactoryReport::onClearProduction}},
+	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE, {this, &FactoryReport::onTakeMeThere}},
+	btnApply{"Apply", {this, &FactoryReport::onApply}}
 {
 	add(lstFactoryList, {10, 63});
 	lstFactoryList.selectionChanged().connect(this, &FactoryReport::onListSelectionChange);
@@ -64,50 +64,40 @@ FactoryReport::FactoryReport() :
 	btnShowAll.size({75, 20});
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
-	btnShowAll.click().connect(this, &FactoryReport::onShowAll);
 
 	add(btnShowSurface, {87, 10});
 	btnShowSurface.size({75, 20});
 	btnShowSurface.type(Button::Type::BUTTON_TOGGLE);
-	btnShowSurface.click().connect(this, &FactoryReport::onShowSurface);
 
 	add(btnShowUnderground, {164, 10});
 	btnShowUnderground.size({75, 20});
 	btnShowUnderground.type(Button::Type::BUTTON_TOGGLE);
-	btnShowUnderground.click().connect(this, &FactoryReport::onShowUnderground);
 
 	add(btnShowActive, {10, 33});
 	btnShowActive.size({75, 20});
 	btnShowActive.type(Button::Type::BUTTON_TOGGLE);
-	btnShowActive.click().connect(this, &FactoryReport::onShowActive);
 
 	add(btnShowIdle, {87, 33});
 	btnShowIdle.size({75, 20});
 	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
-	btnShowIdle.click().connect(this, &FactoryReport::onShowIdle);
 
 	add(btnShowDisabled, {164, 33});
 	btnShowDisabled.size({75, 20});
 	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
-	btnShowDisabled.click().connect(this, &FactoryReport::onShowDisabled);
 
 	int position_x = Utility<Renderer>::get().size().x - 110;
 	add(btnIdle, {position_x, 35});
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size({140, 30});
-	btnIdle.click().connect(this, &FactoryReport::onIdle);
 
 	add(btnClearProduction, {position_x, 75});
 	btnClearProduction.size({140, 30});
-	btnClearProduction.click().connect(this, &FactoryReport::onClearProduction);
 
 	add(btnTakeMeThere, {position_x, 115});
 	btnTakeMeThere.size({140, 30});
-	btnTakeMeThere.click().connect(this, &FactoryReport::onTakeMeThere);
 
 	add(btnApply, {0, 0});
 	btnApply.size({140, 30});
-	btnApply.click().connect(this, &FactoryReport::onApply);
 
 	add(cboFilterByProduct, {250, 33});
 	cboFilterByProduct.size({200, 20});

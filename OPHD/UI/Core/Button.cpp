@@ -58,6 +58,12 @@ Button::Button(std::string newText) :
 }
 
 
+Button::Button(std::string newText, ClickSignal::DelegateType clickHandler) : Button(newText)
+{
+	mSignal.connect(clickHandler);
+}
+
+
 Button::~Button()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Button::onMouseDown);

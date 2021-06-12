@@ -34,46 +34,40 @@ WarehouseReport::WarehouseReport() :
 	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
 	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE)},
 	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
-	btnShowAll{"All"},
-	btnSpaceAvailable{"Space Available"},
-	btnFull{"Full"},
-	btnEmpty{"Empty"},
-	btnDisabled{"Disabled"},
-	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE}
+	btnShowAll{"All", {this, &WarehouseReport::onShowAll}},
+	btnSpaceAvailable{"Space Available", {this, &WarehouseReport::onSpaceAvailable}},
+	btnFull{"Full", {this, &WarehouseReport::onFull}},
+	btnEmpty{"Empty", {this, &WarehouseReport::onEmpty}},
+	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
+	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE, {this, &WarehouseReport::onTakeMeThere}}
 {
 	add(btnShowAll, {10, 10});
 	btnShowAll.size({75, 20});
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
-	btnShowAll.click().connect(this, &WarehouseReport::onShowAll);
 
 	add(btnSpaceAvailable, {90, 10});
 	btnSpaceAvailable.size({100, 20});
 	btnSpaceAvailable.type(Button::Type::BUTTON_TOGGLE);
 	btnSpaceAvailable.toggle(false);
-	btnSpaceAvailable.click().connect(this, &WarehouseReport::onSpaceAvailable);
 
 	add(btnFull, {195, 10});
 	btnFull.size({75, 20});
 	btnFull.type(Button::Type::BUTTON_TOGGLE);
 	btnFull.toggle(false);
-	btnFull.click().connect(this, &WarehouseReport::onFull);
 
 	add(btnEmpty, {275, 10});
 	btnEmpty.size({75, 20});
 	btnEmpty.type(Button::Type::BUTTON_TOGGLE);
 	btnEmpty.toggle(false);
-	btnEmpty.click().connect(this, &WarehouseReport::onEmpty);
 
 	add(btnDisabled, {355, 10});
 	btnDisabled.size({75, 20});
 	btnDisabled.type(Button::Type::BUTTON_TOGGLE);
 	btnDisabled.toggle(false);
-	btnDisabled.click().connect(this, &WarehouseReport::onDisabled);
 
 	add(btnTakeMeThere, {10, 10});
 	btnTakeMeThere.size({140, 30});
-	btnTakeMeThere.click().connect(this, &WarehouseReport::onTakeMeThere);
 
 	add(lstStructures, {10, mRect.y + 115});
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::onStructureSelectionChange);
