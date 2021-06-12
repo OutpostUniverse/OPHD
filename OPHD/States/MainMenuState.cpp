@@ -16,11 +16,13 @@ using namespace NAS2D;
 
 MainMenuState::MainMenuState() :
 	mBgImage{"sys/mainmenu.png"},
-	btnNewGame{constants::MAIN_MENU_NEW_GAME, {this, &MainMenuState::onNewGame}},
-	btnContinueGame{constants::MAIN_MENU_CONTINUE, {this, &MainMenuState::onContinueGame}},
-	btnOptions{constants::MAIN_MENU_OPTIONS, {this, &MainMenuState::onOptions}},
-	btnHelp{constants::MAIN_MENU_HELP, {this, &MainMenuState::onHelp}},
-	btnQuit{constants::MAIN_MENU_QUIT, {this, &MainMenuState::onQuit}},
+	buttons{{
+		{constants::MAIN_MENU_NEW_GAME, {this, &MainMenuState::onNewGame}},
+		{constants::MAIN_MENU_CONTINUE, {this, &MainMenuState::onContinueGame}},
+		{constants::MAIN_MENU_OPTIONS, {this, &MainMenuState::onOptions}},
+		{constants::MAIN_MENU_HELP, {this, &MainMenuState::onHelp}},
+		{constants::MAIN_MENU_QUIT, {this, &MainMenuState::onQuit}}
+	}},
 	lblVersion{constants::VERSION},
 	mReturnState{this}
 {}
@@ -46,11 +48,10 @@ void MainMenuState::initialize()
 	e.windowResized().connect(this, &MainMenuState::onWindowResized);
 	e.keyDown().connect(this, &MainMenuState::onKeyDown);
 
-	auto buttons = std::array{&btnNewGame, &btnContinueGame, &btnOptions, &btnHelp, &btnQuit};
-	for (auto button : buttons)
+	for (auto& button : buttons)
 	{
-		button->fontSize(constants::FONT_PRIMARY_MEDIUM);
-		button->size({200, 30});
+		button.fontSize(constants::FONT_PRIMARY_MEDIUM);
+		button.size({200, 30});
 	}
 
 	mFileIoDialog.setMode(FileIo::FileOperation::Load);
@@ -86,10 +87,9 @@ void MainMenuState::positionButtons()
 
 	auto buttonPosition = center - NAS2D::Vector{100, (35 * 4) / 2};
 
-	auto buttons = std::array{&btnNewGame, &btnContinueGame, &btnOptions, &btnHelp, &btnQuit};
-	for (auto button : buttons)
+	for (auto& button : buttons)
 	{
-		button->position(buttonPosition);
+		button.position(buttonPosition);
 		buttonPosition.y += 35;
 	}
 
@@ -104,10 +104,9 @@ void MainMenuState::positionButtons()
  */
 void MainMenuState::disableButtons()
 {
-	auto buttons = std::array{&btnNewGame, &btnContinueGame, &btnOptions, &btnHelp, &btnQuit};
-	for (auto button : buttons)
+	for (auto& button : buttons)
 	{
-		button->enabled(false);
+		button.enabled(false);
 	}
 }
 
@@ -117,12 +116,12 @@ void MainMenuState::disableButtons()
  */
 void MainMenuState::enableButtons()
 {
-	auto buttons = std::array{&btnNewGame, &btnContinueGame, &btnOptions, &btnHelp, &btnQuit};
-	for (auto button : buttons)
+	for (auto& button : buttons)
 	{
-		button->enabled(true);
+		button.enabled(true);
 	}
-	btnOptions.enabled(false);
+	// "Options" (currently not implemented)
+	buttons[2].enabled(false);
 }
 
 
@@ -275,14 +274,13 @@ NAS2D::State* MainMenuState::update()
 	if (!mFileIoDialog.visible())
 	{
 		const auto padding = NAS2D::Vector{5, 5};
-		const auto menuRect = NAS2D::Rectangle<int>::Create(btnNewGame.rect().startPoint() - padding, btnQuit.rect().endPoint() + padding);
+		const auto menuRect = NAS2D::Rectangle<int>::Create(buttons.front().rect().startPoint() - padding, buttons.back().rect().endPoint() + padding);
 		renderer.drawBoxFilled(menuRect, NAS2D::Color{0, 0, 0, 150});
 		renderer.drawBox(menuRect, NAS2D::Color{0, 185, 0, 255});
 
-		auto buttons = std::array{&btnNewGame, &btnContinueGame, &btnOptions, &btnHelp, &btnQuit};
-		for (auto button : buttons)
+		for (auto& button : buttons)
 		{
-			button->update();
+			button.update();
 		}
 	}
 
