@@ -17,11 +17,9 @@ NotificationWindow::NotificationWindow():
 
 	add(btnOkay, { 245, 195 });
 	btnOkay.size({ 50, 20 });
-	btnOkay.click().connect(this, &NotificationWindow::btnOkayClicked);
 
 	add(btnTakeMeThere, { 10, 195 });
 	btnTakeMeThere.size({ 125, 20 });
-	btnTakeMeThere.click().connect(this, &NotificationWindow::btnTakeMeThereClicked);
 	btnTakeMeThere.hide();
 
 	add(mMessageArea, { 5, 65 });
