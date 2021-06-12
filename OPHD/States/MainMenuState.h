@@ -8,6 +8,8 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Resource/Image.h>
 
+#include <array>
+
 
 /**
  * Implements the main menu screen.
@@ -44,11 +46,7 @@ private:
 
 	FileIo mFileIoDialog; /**< File IO window. */
 
-	Button btnNewGame;
-	Button btnContinueGame;
-	Button btnOptions;
-	Button btnHelp;
-	Button btnQuit;
+	std::array<Button, 5> buttons;
 
 	Label lblVersion;
 	NAS2D::State* mReturnState = this;

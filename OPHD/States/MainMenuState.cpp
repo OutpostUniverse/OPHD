@@ -16,11 +16,13 @@ using namespace NAS2D;
 
 MainMenuState::MainMenuState() :
 	mBgImage{"sys/mainmenu.png"},
-	btnNewGame{constants::MAIN_MENU_NEW_GAME, {this, &MainMenuState::onNewGame}},
-	btnContinueGame{constants::MAIN_MENU_CONTINUE, {this, &MainMenuState::onContinueGame}},
-	btnOptions{constants::MAIN_MENU_OPTIONS, {this, &MainMenuState::onOptions}},
-	btnHelp{constants::MAIN_MENU_HELP, {this, &MainMenuState::onHelp}},
-	btnQuit{constants::MAIN_MENU_QUIT, {this, &MainMenuState::onQuit}},
+	buttons{{
+		{constants::MAIN_MENU_NEW_GAME, {this, &MainMenuState::onNewGame}},
+		{constants::MAIN_MENU_CONTINUE, {this, &MainMenuState::onContinueGame}},
+		{constants::MAIN_MENU_OPTIONS, {this, &MainMenuState::onOptions}},
+		{constants::MAIN_MENU_HELP, {this, &MainMenuState::onHelp}},
+		{constants::MAIN_MENU_QUIT, {this, &MainMenuState::onQuit}}
+	}},
 	lblVersion{constants::VERSION},
 	mReturnState{this}
 {}
@@ -46,21 +48,11 @@ void MainMenuState::initialize()
 	e.windowResized().connect(this, &MainMenuState::onWindowResized);
 	e.keyDown().connect(this, &MainMenuState::onKeyDown);
 
-	btnNewGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnNewGame.size({200, 30});
-
-	btnContinueGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnContinueGame.size({200, 30});
-
-	btnOptions.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnOptions.size({200, 30});
-	btnOptions.enabled(false);
-
-	btnHelp.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnHelp.size({200, 30});
-
-	btnQuit.fontSize(constants::FONT_PRIMARY_MEDIUM);
-	btnQuit.size({200, 30});
+	for (auto& button : buttons)
+	{
+		button.fontSize(constants::FONT_PRIMARY_MEDIUM);
+		button.size({200, 30});
+	}
 
 	mFileIoDialog.setMode(FileIo::FileOperation::Load);
 	mFileIoDialog.fileOperation().connect(this, &MainMenuState::onFileIoAction);
@@ -95,15 +87,11 @@ void MainMenuState::positionButtons()
 
 	auto buttonPosition = center - NAS2D::Vector{100, (35 * 4) / 2};
 
-	btnNewGame.position(buttonPosition);
-	buttonPosition.y += 35;
-	btnContinueGame.position(buttonPosition);
-	buttonPosition.y += 35;
-	btnOptions.position(buttonPosition);
-	buttonPosition.y += 35;
-	btnHelp.position(buttonPosition);
-	buttonPosition.y += 35;
-	btnQuit.position(buttonPosition);
+	for (auto& button : buttons)
+	{
+		button.position(buttonPosition);
+		buttonPosition.y += 35;
+	}
 
 	mFileIoDialog.position(center - mFileIoDialog.size() / 2);
 
@@ -116,11 +104,10 @@ void MainMenuState::positionButtons()
  */
 void MainMenuState::disableButtons()
 {
-	btnNewGame.enabled(false);
-	btnContinueGame.enabled(false);
-	btnOptions.enabled(false);
-	btnHelp.enabled(false);
-	btnQuit.enabled(false);
+	for (auto& button : buttons)
+	{
+		button.enabled(false);
+	}
 }
 
 
@@ -129,11 +116,12 @@ void MainMenuState::disableButtons()
  */
 void MainMenuState::enableButtons()
 {
-	btnNewGame.enabled(true);
-	btnContinueGame.enabled(true);
-	btnOptions.enabled(false);
-	btnHelp.enabled(true);
-	btnQuit.enabled(true);
+	for (auto& button : buttons)
+	{
+		button.enabled(true);
+	}
+	// "Options" (currently not implemented)
+	buttons[2].enabled(false);
 }
 
 
@@ -286,15 +274,14 @@ NAS2D::State* MainMenuState::update()
 	if (!mFileIoDialog.visible())
 	{
 		const auto padding = NAS2D::Vector{5, 5};
-		const auto menuRect = NAS2D::Rectangle<int>::Create(btnNewGame.rect().startPoint() - padding, btnQuit.rect().endPoint() + padding);
+		const auto menuRect = NAS2D::Rectangle<int>::Create(buttons.front().rect().startPoint() - padding, buttons.back().rect().endPoint() + padding);
 		renderer.drawBoxFilled(menuRect, NAS2D::Color{0, 0, 0, 150});
 		renderer.drawBox(menuRect, NAS2D::Color{0, 185, 0, 255});
 
-		btnNewGame.update();
-		btnContinueGame.update();
-		btnOptions.update();
-		btnHelp.update();
-		btnQuit.update();
+		for (auto& button : buttons)
+		{
+			button.update();
+		}
 	}
 
 	if (mFileIoDialog.visible())
