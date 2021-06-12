@@ -15,14 +15,14 @@ using namespace NAS2D;
 
 
 MainMenuState::MainMenuState() :
-	mBgImage("sys/mainmenu.png"),
+	mBgImage{"sys/mainmenu.png"},
 	btnNewGame{constants::MAIN_MENU_NEW_GAME, {this, &MainMenuState::onNewGame}},
 	btnContinueGame{constants::MAIN_MENU_CONTINUE, {this, &MainMenuState::onContinueGame}},
 	btnOptions{constants::MAIN_MENU_OPTIONS, {this, &MainMenuState::onOptions}},
 	btnHelp{constants::MAIN_MENU_HELP, {this, &MainMenuState::onHelp}},
 	btnQuit{constants::MAIN_MENU_QUIT, {this, &MainMenuState::onQuit}},
 	lblVersion{constants::VERSION},
-	mReturnState(this)
+	mReturnState{this}
 {}
 
 
