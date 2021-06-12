@@ -42,13 +42,13 @@ int main(int argc, char *argv[])
 
 	try
 	{
-		auto& fs = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks");
+		auto& filesystem = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks");
 		// Prioritize data from working directory, fallback on data from executable path
-		fs.mountSoftFail("data");
-		fs.mountSoftFail(fs.basePath() + "data");
-		fs.mountReadWrite(fs.prefPath());
+		filesystem.mountSoftFail("data");
+		filesystem.mountSoftFail(filesystem.basePath() + "data");
+		filesystem.mountReadWrite(filesystem.prefPath());
 
-		fs.makeDirectory(constants::SAVE_GAME_PATH);
+		filesystem.makeDirectory(constants::SAVE_GAME_PATH);
 
 		Configuration& cf = Utility<Configuration>::init(
 			std::map<std::string, Dictionary>{
@@ -130,7 +130,7 @@ int main(int argc, char *argv[])
 		if (argc > 1)
 		{
 			std::string filename = constants::SAVE_GAME_PATH + argv[1] + ".xml";
-			if (!fs.exists(filename))
+			if (!filesystem.exists(filename))
 			{
 				std::cout << "Savegame specified on command line: " << argv[1] << " could not be found." << std::endl;
 				stateManager.setState(new MainMenuState());
