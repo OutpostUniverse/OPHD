@@ -39,7 +39,7 @@ RobotInspector::RobotInspector() :
 	const int buttonHeight = mainFont.height() + padding;
 	const int buttonOffsetY = buttonHeight + constants::MARGIN_TIGHT;
 
-	const int imgSize = robotImage(Robot::Type::Digger).size().y + padding;
+	const int imgSize = robotImage(Robot::Type::Digger).size().x + padding;
 
 	mContentArea = {
 		imgSize,
