@@ -16,14 +16,13 @@ using namespace NAS2D;
 
 StructureInspector::StructureInspector() :
 	Window{constants::WINDOW_STRUCTURE_INSPECTOR},
-	btnClose{"Close"},
+	btnClose{"Close", {this, &StructureInspector::onClose}},
 	mIcons{imageCache.load("ui/icons.png")}
 {
 	size({ 350, 240 });
 
 	btnClose.size({ 50, 20 });
 	add(btnClose, { rect().width - btnClose.rect().width - 5, rect().height - btnClose.rect().height - 5, });
-	btnClose.click().connect(this, &StructureInspector::onClose);
 }
 
 
