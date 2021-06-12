@@ -107,14 +107,14 @@ void FileIo::setMode(FileOperation fileOp)
 
 void FileIo::scanDirectory(const std::string& directory)
 {
-	Filesystem& f = Utility<Filesystem>::get();
-	std::vector<std::string> dirList = f.directoryList(directory);
+	const auto& filesystem = Utility<Filesystem>::get();
+	std::vector<std::string> dirList = filesystem.directoryList(directory);
 	std::sort(dirList.begin(), dirList.end());
 
 	mListBox.clear();
 	for (auto& dir : dirList)
 	{
-		if (!f.isDirectory(directory + dir))
+		if (!filesystem.isDirectory(directory + dir))
 		{
 			// FixMe: Naive approach: Assumes a file save extension of 3 characters.
 			dir.resize(dir.size() - 4);
