@@ -31,12 +31,6 @@ RobotInspector::RobotInspector() :
 	btnSelfDestruct{ "Self Destruct", {this, &RobotInspector::onSelfDestruct} },
 	btnCancel{ constants::ButtonCancel, {this, &RobotInspector::onCancel} }
 {
-	init();
-}
-
-
-void RobotInspector::init()
-{
 	const NAS2D::Font& mainFont = fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	const NAS2D::Font& mainFontBold = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
