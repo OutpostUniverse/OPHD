@@ -50,7 +50,7 @@ RobotInspector::RobotInspector() :
 
 	if (mContentArea.width < buttonWidth) { mContentArea.width = buttonWidth; }
 
-	size({ buttonWidth + robotImage(Robot::Type::Digger).size().x + padding + constants::MARGIN, 0 });
+	size({ buttonWidth + imageWidth + constants::MARGIN, 0 });
 
 	auto buttonPosition = Vector{ imageWidth,  mContentArea.y + mContentArea.height + constants::MARGIN };
 
