@@ -53,8 +53,6 @@ void MainMenuState::initialize()
 		button->size({200, 30});
 	}
 
-	btnOptions.enabled(false);
-
 	mFileIoDialog.setMode(FileIo::FileOperation::Load);
 	mFileIoDialog.fileOperation().connect(this, &MainMenuState::onFileIoAction);
 	mFileIoDialog.anchored(false);
