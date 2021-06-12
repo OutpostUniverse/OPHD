@@ -16,11 +16,11 @@ using namespace NAS2D;
 
 MainMenuState::MainMenuState() :
 	mBgImage("sys/mainmenu.png"),
-	btnNewGame{constants::MAIN_MENU_NEW_GAME},
-	btnContinueGame{constants::MAIN_MENU_CONTINUE},
-	btnOptions{constants::MAIN_MENU_OPTIONS},
-	btnHelp{constants::MAIN_MENU_HELP},
-	btnQuit{constants::MAIN_MENU_QUIT},
+	btnNewGame{constants::MAIN_MENU_NEW_GAME, {this, &MainMenuState::onNewGame}},
+	btnContinueGame{constants::MAIN_MENU_CONTINUE, {this, &MainMenuState::onContinueGame}},
+	btnOptions{constants::MAIN_MENU_OPTIONS, {this, &MainMenuState::onOptions}},
+	btnHelp{constants::MAIN_MENU_HELP, {this, &MainMenuState::onHelp}},
+	btnQuit{constants::MAIN_MENU_QUIT, {this, &MainMenuState::onQuit}},
 	lblVersion{constants::VERSION},
 	mReturnState(this)
 {}
@@ -48,24 +48,19 @@ void MainMenuState::initialize()
 
 	btnNewGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnNewGame.size({200, 30});
-	btnNewGame.click().connect(this, &MainMenuState::onNewGame);
 
 	btnContinueGame.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnContinueGame.size({200, 30});
-	btnContinueGame.click().connect(this, &MainMenuState::onContinueGame);
 
 	btnOptions.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnOptions.size({200, 30});
 	btnOptions.enabled(false);
-	btnOptions.click().connect(this, &MainMenuState::onOptions);
 
 	btnHelp.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnHelp.size({200, 30});
-	btnHelp.click().connect(this, &MainMenuState::onHelp);
 
 	btnQuit.fontSize(constants::FONT_PRIMARY_MEDIUM);
 	btnQuit.size({200, 30});
-	btnQuit.click().connect(this, &MainMenuState::onQuit);
 
 	mFileIoDialog.setMode(FileIo::FileOperation::Load);
 	mFileIoDialog.fileOperation().connect(this, &MainMenuState::onFileIoAction);
