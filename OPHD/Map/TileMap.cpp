@@ -97,11 +97,6 @@ Tile& TileMap::getTile(NAS2D::Point<int> position, int level)
  */
 void TileMap::buildTerrainMap(const std::string& path)
 {
-	if (!Utility<Filesystem>::get().exists(path + MAP_TERRAIN_EXTENSION))
-	{
-		throw std::runtime_error("Given map file does not exist.");
-	}
-
 	const Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
 	const auto levelCount = static_cast<std::size_t>(mMaxDepth) + 1;
@@ -210,12 +205,6 @@ NAS2D::Point<int> TileMap::findSurroundingMineLocation(NAS2D::Point<int> centerP
  */
 void TileMap::buildMouseMap()
 {
-	// Sanity checks
-	if (!Utility<Filesystem>::get().exists("ui/mouse_map.png"))
-	{
-		throw std::runtime_error("Unable to find the mouse map file.");
-	}
-
 	const Image mousemap("ui/mouse_map.png");
 
 	// More sanity checks (mousemap should match dimensions of tile)
