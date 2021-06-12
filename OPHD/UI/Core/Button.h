@@ -23,6 +23,7 @@ public:
 	using ClickSignal = NAS2D::Signal<>;
 
 	Button(std::string newText = "");
+	Button(std::string newText, ClickSignal::DelegateType clickHandler);
 	~Button() override;
 
 	void type(Type type);
