@@ -41,10 +41,12 @@ RobotInspector::RobotInspector() :
 
 	const int imgSize = robotImage(Robot::Type::Digger).size().y + padding;
 
-	mContentArea = { imgSize,
+	mContentArea = {
+		imgSize,
 		sWindowTitleBarHeight + constants::MARGIN,
 		mainFontBold.width("Age") + mainFont.width("    9999"),
-		mainFont.height() + constants::MARGIN };
+		mainFont.height() + constants::MARGIN
+	};
 
 	if (mContentArea.width < buttonWidth) { mContentArea.width = buttonWidth; }
 
