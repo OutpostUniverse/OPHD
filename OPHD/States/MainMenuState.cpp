@@ -119,11 +119,12 @@ void MainMenuState::disableButtons()
  */
 void MainMenuState::enableButtons()
 {
-	btnNewGame.enabled(true);
-	btnContinueGame.enabled(true);
+	auto buttons = std::array{&btnNewGame, &btnContinueGame, &btnOptions, &btnHelp, &btnQuit};
+	for (auto button : buttons)
+	{
+		button->enabled(true);
+	}
 	btnOptions.enabled(false);
-	btnHelp.enabled(true);
-	btnQuit.enabled(true);
 }
 
 
