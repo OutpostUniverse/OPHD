@@ -88,15 +88,12 @@ void MainMenuState::positionButtons()
 
 	auto buttonPosition = center - NAS2D::Vector{100, (35 * 4) / 2};
 
-	btnNewGame.position(buttonPosition);
-	buttonPosition.y += 35;
-	btnContinueGame.position(buttonPosition);
-	buttonPosition.y += 35;
-	btnOptions.position(buttonPosition);
-	buttonPosition.y += 35;
-	btnHelp.position(buttonPosition);
-	buttonPosition.y += 35;
-	btnQuit.position(buttonPosition);
+	auto buttons = std::array{&btnNewGame, &btnContinueGame, &btnOptions, &btnHelp, &btnQuit};
+	for (auto button : buttons)
+	{
+		button->position(buttonPosition);
+		buttonPosition.y += 35;
+	}
 
 	mFileIoDialog.position(center - mFileIoDialog.size() / 2);
 
