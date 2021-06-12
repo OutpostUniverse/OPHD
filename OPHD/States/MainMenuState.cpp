@@ -281,11 +281,11 @@ NAS2D::State* MainMenuState::update()
 		renderer.drawBoxFilled(menuRect, NAS2D::Color{0, 0, 0, 150});
 		renderer.drawBox(menuRect, NAS2D::Color{0, 185, 0, 255});
 
-		btnNewGame.update();
-		btnContinueGame.update();
-		btnOptions.update();
-		btnHelp.update();
-		btnQuit.update();
+		auto buttons = std::array{&btnNewGame, &btnContinueGame, &btnOptions, &btnHelp, &btnQuit};
+		for (auto button : buttons)
+		{
+			button->update();
+		}
 	}
 
 	if (mFileIoDialog.visible())
