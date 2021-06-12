@@ -13,13 +13,12 @@ using namespace NAS2D;
 
 TileInspector::TileInspector() :
 	Window{constants::WINDOW_TILE_INSPECTOR},
-	btnClose{"Close"}
+	btnClose{"Close", {this, &TileInspector::onClose}}
 {
 	size({200, 88});
 
 	add(btnClose, {145, 63});
 	btnClose.size({50, 20});
-	btnClose.click().connect(this, &TileInspector::onClose);
 }
 
 
