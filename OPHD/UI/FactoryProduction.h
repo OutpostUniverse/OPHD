@@ -46,10 +46,10 @@ private:
 
 	IconGrid mProductGrid{"ui/factory.png", 32, constants::MARGIN_TIGHT};
 
-	Button btnOkay{"Okay"};
-	Button btnCancel{"Cancel"};
-	Button btnClearSelection{"Clear Selection"};
-	Button btnApply{"Apply"};
+	Button btnOkay{"Okay", {this, &FactoryProduction::onOkay}};
+	Button btnCancel{"Cancel", {this, &FactoryProduction::onCancel}};
+	Button btnClearSelection{"Clear Selection", {this, &FactoryProduction::onClearSelection}};
+	Button btnApply{"Apply", {this, &FactoryProduction::onApply}};
 
 	CheckBox chkIdle{"Idle"};
 };
