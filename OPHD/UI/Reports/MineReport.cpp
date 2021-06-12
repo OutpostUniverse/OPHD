@@ -38,14 +38,13 @@ MineReport::MineReport() :
 	btnIdle{ constants::BUTTON_IDLE, {this, &MineReport::onIdle} },
 	btnDigNewLevel{ "Dig New Level", {this, &MineReport::onDigNewLevel} },
 	btnTakeMeThere{ constants::BUTTON_TAKE_ME_THERE, {this, &MineReport::onTakeMeThere} },
-	btnAddTruck { constants::BUTTON_ADD_TRUCK, {this, &MineReport::onAddTruck} },
+	btnAddTruck{ constants::BUTTON_ADD_TRUCK, {this, &MineReport::onAddTruck} },
 	btnRemoveTruck{ constants::BUTTON_REMOVE_TRUCK, {this, &MineReport::onRemoveTruck} },
 	chkCommonMetals{ "Mine Common Metals" },
 	chkCommonMinerals{ "Mine Common Minerals" },
 	chkRareMetals{ "Mine Rare Metals" },
 	chkRareMinerals{ "Mine Rare Minerals" }
 {
-
 	add(btnShowAll, {10, 10});
 	btnShowAll.size({ 75, 20 });
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
