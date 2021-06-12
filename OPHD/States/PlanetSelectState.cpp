@@ -28,7 +28,7 @@ PlanetSelectState::PlanetSelectState() :
 	mBgMusic{"music/menu.ogg"},
 	mSelect{"sfx/click.ogg"},
 	mHover{"sfx/menu4.ogg"},
-	mQuit{"Main Menu"},
+	mQuit{"Main Menu", {this, &PlanetSelectState::onQuit}},
 	mReturnState{this},
 	PlanetAttributes(parsePlanetAttributes())
 {}
@@ -75,7 +75,6 @@ void PlanetSelectState::initialize()
 
 	mQuit.size({100, 20});
 	mQuit.position({renderer.size().x - 105, 30});
-	mQuit.click().connect(this, &PlanetSelectState::onQuit);
 
 	mPlanetDescription.text("");
 	mPlanetDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
