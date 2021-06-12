@@ -46,7 +46,7 @@ private:
 
 	FileIo mFileIoDialog; /**< File IO window. */
 
-	std::array<Button, 5> buttons;
+	std::array<Button, 4> buttons;
 
 	Label lblVersion;
 	NAS2D::State* mReturnState = this;
