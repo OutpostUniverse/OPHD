@@ -39,10 +39,10 @@ RobotInspector::RobotInspector() :
 	const int buttonHeight = mainFont.height() + padding;
 	const int buttonOffsetY = buttonHeight + constants::MARGIN_TIGHT;
 
-	const int imgSize = robotImage(Robot::Type::Digger).size().x + padding;
+	const int imageWidth = robotImage(Robot::Type::Digger).size().x + padding;
 
 	mContentArea = {
-		imgSize,
+		imageWidth,
 		sWindowTitleBarHeight + constants::MARGIN,
 		mainFontBold.width("Age") + mainFont.width("    9999"),
 		mainFont.height() + constants::MARGIN
@@ -52,7 +52,7 @@ RobotInspector::RobotInspector() :
 
 	size({ buttonWidth + robotImage(Robot::Type::Digger).size().x + padding + constants::MARGIN, 0 });
 
-	auto buttonPosition = Vector{ imgSize,  mContentArea.y + mContentArea.height + constants::MARGIN };
+	auto buttonPosition = Vector{ imageWidth,  mContentArea.y + mContentArea.height + constants::MARGIN };
 
 	btnCancelOrders.size({ buttonWidth, buttonHeight });
 	add(btnCancelOrders, buttonPosition);
