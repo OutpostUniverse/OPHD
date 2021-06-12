@@ -22,11 +22,6 @@ TileInspector::TileInspector() :
 }
 
 
-TileInspector::~TileInspector()
-{
-}
-
-
 void TileInspector::update()
 {
 	if (!visible())
