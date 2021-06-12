@@ -18,7 +18,6 @@ MajorEventAnnouncement::MajorEventAnnouncement() :
 
 	add(btnClose, {5, 310});
 	btnClose.size({512, 25});
-	btnClose.click().connect(this, &MajorEventAnnouncement::onClose);
 
 	anchored(true);
 }
