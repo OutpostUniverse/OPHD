@@ -24,8 +24,6 @@ public:
 	void update() override;
 
 private:
-	void init();
-
 	void onCancelOrders();
 	void onSelfDestruct();
 	void onCancel();

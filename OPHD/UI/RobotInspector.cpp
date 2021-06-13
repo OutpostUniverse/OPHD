@@ -31,45 +31,39 @@ RobotInspector::RobotInspector() :
 	btnSelfDestruct{ "Self Destruct", {this, &RobotInspector::onSelfDestruct} },
 	btnCancel{ constants::ButtonCancel, {this, &RobotInspector::onCancel} }
 {
-	init();
-}
-
-
-void RobotInspector::init()
-{
 	const NAS2D::Font& mainFont = fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 	const NAS2D::Font& mainFontBold = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
 	constexpr int padding = constants::MARGIN * 2;
-	const int buttonWidth = mainFont.width("Cancel Orders") + padding;
-	const int buttonHeight = mainFont.height() + padding;
-	const int buttonOffsetY = buttonHeight + constants::MARGIN_TIGHT;
+	const auto buttonSize = mainFont.size("Cancel Orders") + NAS2D::Vector{padding, padding};
+	const int buttonOffsetY = buttonSize.y + constants::MARGIN_TIGHT;
 
-	const int imgSize = robotImage(Robot::Type::Digger).size().y + padding;
+	const int imageWidth = robotImage(Robot::Type::Digger).size().x + padding;
+	const int contentWidth = imageWidth + buttonSize.x;
 
-	mContentArea = { imgSize,
+	mContentArea = {
+		imageWidth,
 		sWindowTitleBarHeight + constants::MARGIN,
 		mainFontBold.width("Age") + mainFont.width("    9999"),
-		mainFont.height() + constants::MARGIN };
+		mainFont.height() + constants::MARGIN
+	};
 
-	if (mContentArea.width < buttonWidth) { mContentArea.width = buttonWidth; }
+	if (mContentArea.width < buttonSize.x) { mContentArea.width = buttonSize.x; }
 
-	size({ buttonWidth + robotImage(Robot::Type::Digger).size().x + padding + constants::MARGIN, 0 });
+	auto buttonPosition = Vector{ imageWidth,  mContentArea.y + mContentArea.height + constants::MARGIN };
 
-	auto buttonPosition = Vector{ imgSize,  mContentArea.y + mContentArea.height + constants::MARGIN };
-
-	btnCancelOrders.size({ buttonWidth, buttonHeight });
+	btnCancelOrders.size(buttonSize);
 	add(btnCancelOrders, buttonPosition);
 	buttonPosition.y += buttonOffsetY;
 
-	btnSelfDestruct.size({ buttonWidth, buttonHeight });
+	btnSelfDestruct.size(buttonSize);
 	add(btnSelfDestruct, buttonPosition);
 
-	btnCancel.size({ mainFont.width(constants::ButtonCancel) + padding, buttonHeight });
-	buttonPosition = { rect().width - btnCancel.size().x - constants::MARGIN, buttonPosition.y + buttonOffsetY * 2 };
+	btnCancel.size({ mainFont.width(constants::ButtonCancel) + padding, buttonSize.y });
+	buttonPosition = { contentWidth - btnCancel.size().x, buttonPosition.y + buttonOffsetY * 2 };
 	add(btnCancel, buttonPosition);
 
-	size({ size().x, buttonPosition.y + buttonHeight + constants::MARGIN });
+	size({ contentWidth + constants::MARGIN, buttonPosition.y + buttonSize.y + constants::MARGIN });
 }
 
 
