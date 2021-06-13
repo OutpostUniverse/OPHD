@@ -35,12 +35,11 @@ RobotInspector::RobotInspector() :
 	const NAS2D::Font& mainFontBold = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
 
 	constexpr int padding = constants::MARGIN * 2;
-	const int buttonWidth = mainFont.width("Cancel Orders") + padding;
-	const int buttonHeight = mainFont.height() + padding;
-	const int buttonOffsetY = buttonHeight + constants::MARGIN_TIGHT;
+	const auto buttonSize = mainFont.size("Cancel Orders") + NAS2D::Vector{padding, padding};
+	const int buttonOffsetY = buttonSize.y + constants::MARGIN_TIGHT;
 
 	const int imageWidth = robotImage(Robot::Type::Digger).size().x + padding;
-	const int contentWidth = imageWidth + buttonWidth;
+	const int contentWidth = imageWidth + buttonSize.x;
 
 	mContentArea = {
 		imageWidth,
@@ -49,22 +48,22 @@ RobotInspector::RobotInspector() :
 		mainFont.height() + constants::MARGIN
 	};
 
-	if (mContentArea.width < buttonWidth) { mContentArea.width = buttonWidth; }
+	if (mContentArea.width < buttonSize.x) { mContentArea.width = buttonSize.x; }
 
 	auto buttonPosition = Vector{ imageWidth,  mContentArea.y + mContentArea.height + constants::MARGIN };
 
-	btnCancelOrders.size({ buttonWidth, buttonHeight });
+	btnCancelOrders.size(buttonSize);
 	add(btnCancelOrders, buttonPosition);
 	buttonPosition.y += buttonOffsetY;
 
-	btnSelfDestruct.size({ buttonWidth, buttonHeight });
+	btnSelfDestruct.size(buttonSize);
 	add(btnSelfDestruct, buttonPosition);
 
-	btnCancel.size({ mainFont.width(constants::ButtonCancel) + padding, buttonHeight });
+	btnCancel.size({ mainFont.width(constants::ButtonCancel) + padding, buttonSize.y });
 	buttonPosition = { contentWidth - btnCancel.size().x, buttonPosition.y + buttonOffsetY * 2 };
 	add(btnCancel, buttonPosition);
 
-	size({ contentWidth + constants::MARGIN, buttonPosition.y + buttonHeight + constants::MARGIN });
+	size({ contentWidth + constants::MARGIN, buttonPosition.y + buttonSize.y + constants::MARGIN });
 }
 
 
