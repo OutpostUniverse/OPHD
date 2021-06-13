@@ -51,8 +51,6 @@ RobotInspector::RobotInspector() :
 
 	if (mContentArea.width < buttonWidth) { mContentArea.width = buttonWidth; }
 
-	size({ contentWidth + constants::MARGIN, 0 });
-
 	auto buttonPosition = Vector{ imageWidth,  mContentArea.y + mContentArea.height + constants::MARGIN };
 
 	btnCancelOrders.size({ buttonWidth, buttonHeight });
@@ -66,7 +64,7 @@ RobotInspector::RobotInspector() :
 	buttonPosition = { contentWidth - btnCancel.size().x, buttonPosition.y + buttonOffsetY * 2 };
 	add(btnCancel, buttonPosition);
 
-	size({ size().x, buttonPosition.y + buttonHeight + constants::MARGIN });
+	size({ contentWidth + constants::MARGIN, buttonPosition.y + buttonHeight + constants::MARGIN });
 }
 
 
