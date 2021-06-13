@@ -40,6 +40,7 @@ RobotInspector::RobotInspector() :
 	const int buttonOffsetY = buttonHeight + constants::MARGIN_TIGHT;
 
 	const int imageWidth = robotImage(Robot::Type::Digger).size().x + padding;
+	const int contentWidth = imageWidth + buttonWidth;
 
 	mContentArea = {
 		imageWidth,
@@ -50,7 +51,7 @@ RobotInspector::RobotInspector() :
 
 	if (mContentArea.width < buttonWidth) { mContentArea.width = buttonWidth; }
 
-	size({ buttonWidth + imageWidth + constants::MARGIN, 0 });
+	size({ contentWidth + constants::MARGIN, 0 });
 
 	auto buttonPosition = Vector{ imageWidth,  mContentArea.y + mContentArea.height + constants::MARGIN };
 
