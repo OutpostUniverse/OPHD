@@ -63,7 +63,7 @@ RobotInspector::RobotInspector() :
 	add(btnSelfDestruct, buttonPosition);
 
 	btnCancel.size({ mainFont.width(constants::ButtonCancel) + padding, buttonHeight });
-	buttonPosition = { rect().width - btnCancel.size().x - constants::MARGIN, buttonPosition.y + buttonOffsetY * 2 };
+	buttonPosition = { contentWidth - btnCancel.size().x, buttonPosition.y + buttonOffsetY * 2 };
 	add(btnCancel, buttonPosition);
 
 	size({ size().x, buttonPosition.y + buttonHeight + constants::MARGIN });
