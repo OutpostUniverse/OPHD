@@ -287,6 +287,16 @@ bool inCommRange(NAS2D::Point<int> position)
 {
 	auto& structureManager = Utility<StructureManager>::get();
 
+	const auto& seedLanders = structureManager.getStructures<SeedLander>();
+	for (auto lander : seedLanders)
+	{
+		if (!lander->operational()) { continue; }
+		if (isPointInRange(position, structureManager.tileFromStructure(lander).position(), 5)) // \fixme magic number
+		{
+			return true;
+		}
+	}
+
 	const auto& command = structureManager.getStructures<CommandCenter>();
 	for (auto cc : command)
 	{
