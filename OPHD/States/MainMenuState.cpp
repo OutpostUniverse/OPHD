@@ -19,7 +19,6 @@ MainMenuState::MainMenuState() :
 	buttons{{
 		{constants::MAIN_MENU_NEW_GAME, {this, &MainMenuState::onNewGame}},
 		{constants::MAIN_MENU_CONTINUE, {this, &MainMenuState::onContinueGame}},
-		{constants::MAIN_MENU_OPTIONS, {this, &MainMenuState::onOptions}},
 		{constants::MAIN_MENU_HELP, {this, &MainMenuState::onHelp}},
 		{constants::MAIN_MENU_QUIT, {this, &MainMenuState::onQuit}}
 	}},
@@ -120,8 +119,6 @@ void MainMenuState::enableButtons()
 	{
 		button.enabled(true);
 	}
-	// "Options" (currently not implemented)
-	buttons[2].enabled(false);
 }
 
 
