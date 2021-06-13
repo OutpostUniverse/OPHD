@@ -26,7 +26,7 @@ namespace CrimeRate
 		for (auto structure : structuresWithCrime)
 		{
 			int crimeRateChange = isProtectedByPolice(policeOverlays, structure) ? -1 : 1;
-			structure->IncreaseCrimeRate(crimeRateChange);
+			structure->increaseCrimeRate(crimeRateChange);
 
 			accumulatedCrime += structure->crimeRate();
 		}

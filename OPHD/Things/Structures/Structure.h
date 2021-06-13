@@ -117,7 +117,7 @@ public:
 	bool hasCrime() const { return mHasCrime; }
 	int crimeRate() const { return mCrimeRate; }
 	void crimeRate(int crimeRate);
-	void IncreaseCrimeRate(int deltaCrimeRate);
+	void increaseCrimeRate(int deltaCrimeRate);
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
