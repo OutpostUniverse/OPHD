@@ -320,7 +320,7 @@ void Structure::crimeRate(int crimeRate)
 	mCrimeRate = std::clamp(crimeRate, 0, 100); 
 }
 
-void Structure::IncreaseCrimeRate(int deltaCrimeRate) 
+void Structure::increaseCrimeRate(int deltaCrimeRate) 
 { 
 	mCrimeRate = std::clamp(mCrimeRate + deltaCrimeRate, 0, 100); 
 }
