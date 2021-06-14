@@ -16,9 +16,9 @@
 
 void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 {
-	RobotCommand* _rc = getAvailableRobotCommand();
+	RobotCommand* robotCommand = getAvailableRobotCommand();
 
-	if ((_rc != nullptr) || mRobotPool.commandCapacityAvailable())
+	if ((robotCommand != nullptr) || mRobotPool.commandCapacityAvailable())
 	{
 		Robot* robot = nullptr;
 
@@ -49,7 +49,7 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 			throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
 		}
 
-		if (_rc != nullptr) { _rc->addRobot(robot); }
+		if (robotCommand != nullptr) { robotCommand->addRobot(robot); }
 	}
 	else
 	{
