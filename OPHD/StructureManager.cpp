@@ -387,12 +387,12 @@ Tile& StructureManager::tileFromStructure(Structure* structure)
 }
 
 
-void serializeStructure(NAS2D::Xml::XmlElement* structureElement, Structure* structure, Tile* _t)
+void serializeStructure(NAS2D::Xml::XmlElement* structureElement, Structure* structure, Tile* tile)
 {
-	const auto position = _t->position();
+	const auto position = tile->position();
 	structureElement->attribute("x", position.x);
 	structureElement->attribute("y", position.y);
-	structureElement->attribute("depth", _t->depth());
+	structureElement->attribute("depth", tile->depth());
 
 	structureElement->attribute("age", structure->age());
 	structureElement->attribute("state", static_cast<int>(structure->state()));
