@@ -112,14 +112,18 @@ public:
 	int age() const { return mAge; }
 	int maxAge() const { return mMaxAge; }
 	bool ages() const { return maxAge() > 0; }
+	
 	int energyRequirement() const { return mEnergyRequirement; }
 	int storageCapacity() const { return mStorageCapacity; }
+	
 	bool hasCrime() const { return mHasCrime; }
 	int crimeRate() const { return mCrimeRate; }
 	void crimeRate(int crimeRate);
 	void increaseCrimeRate(int deltaCrimeRate);
+	
 	int integrity() const { return mIntegrity; }
 	void integrity(int integrity);
+	int integrityDecayRate() const { return mIntegrityDecayRate; }
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
@@ -196,6 +200,7 @@ private:
 	int mStorageCapacity{ 0 };
 	int mCrimeRate{ 0 };
 	int mIntegrity{ 100 };
+	int mIntegrityDecayRate{ 1 };
 
 	StructureID mStructureId{ StructureID::SID_NONE };
 
