@@ -45,21 +45,14 @@ MineReport::MineReport() :
 	chkRareMetals{ "Mine Rare Metals" },
 	chkRareMinerals{ "Mine Rare Minerals" }
 {
-	btnShowAll.size({ 75, 20 });
-	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
+	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowTappedOut, &btnShowDisabled};
+	for (auto button : buttons)
+	{
+		button->size({ 75, 20 });
+		button->type(Button::Type::BUTTON_TOGGLE);
+	}
+
 	btnShowAll.toggle(true);
-
-	btnShowActive.size({ 75, 20 });
-	btnShowActive.type(Button::Type::BUTTON_TOGGLE);
-
-	btnShowIdle.size({ 75, 20 });
-	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
-
-	btnShowTappedOut.size({ 75, 20 });
-	btnShowTappedOut.type(Button::Type::BUTTON_TOGGLE);
-
-	btnShowDisabled.size({ 75, 20 });
-	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
 
 	lstMineFacilities.selectionChanged().connect(this, &MineReport::onMineFacilitySelectionChange);
 
