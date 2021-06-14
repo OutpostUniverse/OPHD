@@ -109,7 +109,7 @@ void MapViewState::updateCommercial()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	const auto& _warehouses = structureManager.getStructures<Warehouse>();
+	const auto& warehouses = structureManager.getStructures<Warehouse>();
 	const auto& _commercial = structureManager.getStructures<Commercial>();
 
 	// No need to do anything if there are no commercial structures.
@@ -118,7 +118,7 @@ void MapViewState::updateCommercial()
 	int luxuryCount = structureManager.getCountInState(Structure::StructureClass::Commercial, StructureState::Operational);
 	int commercialCount = luxuryCount;
 
-	for (auto warehouse : _warehouses)
+	for (auto warehouse : warehouses)
 	{
 		ProductPool& _pl = warehouse->products();
 
