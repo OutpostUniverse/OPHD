@@ -90,22 +90,22 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
  */
 bool checkStructurePlacement(Tile& tile, Direction dir)
 {
-	Structure* _structure = tile.structure();
-	if (tile.mine() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !tile.connected() || !_structure->isConnector())
+	Structure* structure = tile.structure();
+	if (tile.mine() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !tile.connected() || !structure->isConnector())
 	{
 		return false;
 	}
 
 	if (dir == Direction::East || dir == Direction::West)
 	{
-		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT || _structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
+		if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
 	}
 	else // NORTH/SOUTH
 	{
-		if (_structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || _structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT || _structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
+		if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
@@ -242,15 +242,15 @@ void updateRobotControl(RobotPool& robotPool)
 	const auto& robotCommands = Utility<StructureManager>::get().getStructures<RobotCommand>();
 
 	// 3 for the first command center
-	uint32_t _maxRobots = 0;
-	if (commandCenters.size() > 0) { _maxRobots += 3; }
+	uint32_t maxRobots = 0;
+	if (commandCenters.size() > 0) { maxRobots += 3; }
 	// the 10 per robot command facility
 	for (std::size_t s = 0; s < robotCommands.size(); ++s)
 	{
-		if (robotCommands[s]->operational()) { _maxRobots += 10; }
+		if (robotCommands[s]->operational()) { maxRobots += 10; }
 	}
 
-	robotPool.InitRobotCtrl(_maxRobots);
+	robotPool.InitRobotCtrl(maxRobots);
 }
 
 
@@ -558,21 +558,21 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 /** 
  * Document me!
  */
-void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot::Type _type)
+void checkRobotDeployment(XmlElement* robotElement, RobotTileTable& robotTileTable, Robot* robot, Robot::Type type)
 {
-	_ti->attribute("id", _r->id());
-	_ti->attribute("type", static_cast<int>(_type));
-	_ti->attribute("age", _r->fuelCellAge());
-	_ti->attribute("production", _r->turnsToCompleteTask());
+	robotElement->attribute("id", robot->id());
+	robotElement->attribute("type", static_cast<int>(type));
+	robotElement->attribute("age", robot->fuelCellAge());
+	robotElement->attribute("production", robot->turnsToCompleteTask());
 
-	const auto it = _rm.find(_r);
-	if (it != _rm.end())
+	const auto it = robotTileTable.find(robot);
+	if (it != robotTileTable.end())
 	{
 		const auto& tile = *it->second;
 		const auto position = tile.position();
-		_ti->attribute("x", position.x);
-		_ti->attribute("y", position.y);
-		_ti->attribute("depth", tile.depth());
+		robotElement->attribute("x", position.x);
+		robotElement->attribute("y", position.y);
+		robotElement->attribute("depth", tile.depth());
 	}
 }
 

@@ -56,17 +56,17 @@ void FactoryProduction::hide()
 }
 
 
-void FactoryProduction::onProductSelectionChange(const IconGrid::IconGridItem* _item)
+void FactoryProduction::onProductSelectionChange(const IconGrid::IconGridItem* item)
 {
 	if (!mFactory) { return; }
 
-	if (!_item)
+	if (!item)
 	{
 		mProductCost.clear();
 		return;
 	}
 
-	mProduct = static_cast<ProductType>(_item->meta);
+	mProduct = static_cast<ProductType>(item->meta);
 	mProductCost = productCost(mProduct);
 }
 

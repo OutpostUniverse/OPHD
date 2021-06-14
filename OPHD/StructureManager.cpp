@@ -387,40 +387,40 @@ Tile& StructureManager::tileFromStructure(Structure* structure)
 }
 
 
-void serializeStructure(NAS2D::Xml::XmlElement* _ti, Structure* structure, Tile* _t)
+void serializeStructure(NAS2D::Xml::XmlElement* structureElement, Structure* structure, Tile* tile)
 {
-	const auto position = _t->position();
-	_ti->attribute("x", position.x);
-	_ti->attribute("y", position.y);
-	_ti->attribute("depth", _t->depth());
+	const auto position = tile->position();
+	structureElement->attribute("x", position.x);
+	structureElement->attribute("y", position.y);
+	structureElement->attribute("depth", tile->depth());
 
-	_ti->attribute("age", structure->age());
-	_ti->attribute("state", static_cast<int>(structure->state()));
-	_ti->attribute("forced_idle", structure->forceIdle());
-	_ti->attribute("disabled_reason", static_cast<int>(structure->disabledReason()));
-	_ti->attribute("idle_reason", static_cast<int>(structure->idleReason()));
-	_ti->attribute("type", structure->structureId());
-	_ti->attribute("direction", structure->connectorDirection());
+	structureElement->attribute("age", structure->age());
+	structureElement->attribute("state", static_cast<int>(structure->state()));
+	structureElement->attribute("forced_idle", structure->forceIdle());
+	structureElement->attribute("disabled_reason", static_cast<int>(structure->disabledReason()));
+	structureElement->attribute("idle_reason", static_cast<int>(structure->idleReason()));
+	structureElement->attribute("type", structure->structureId());
+	structureElement->attribute("direction", structure->connectorDirection());
 
 	if (structure->hasCrime())
 	{
-		_ti->attribute("crime_rate", structure->crimeRate());
+		structureElement->attribute("crime_rate", structure->crimeRate());
 	}
 
 	const auto& production = structure->production();
 	if (production > StorableResources{ 0 })
 	{
-		writeResources(_ti, production, "production");
+		writeResources(structureElement, production, "production");
 	}
 
 	const auto& stored = structure->storage();
 	if (stored > StorableResources{ 0 })
 	{
-		writeResources(_ti, stored, "storage");
+		writeResources(structureElement, stored, "storage");
 	}
 
-	_ti->attribute("pop0", structure->populationAvailable()[0]);
-	_ti->attribute("pop1", structure->populationAvailable()[1]);
+	structureElement->attribute("pop0", structure->populationAvailable()[0]);
+	structureElement->attribute("pop1", structure->populationAvailable()[1]);
 }
 
 
