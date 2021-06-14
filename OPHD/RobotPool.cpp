@@ -48,32 +48,42 @@ void RobotPool::erase(Robot* robot)
 /**
  * Adds a robot of specified type to the pool.
  *
- * \return Returns a pointer to the recently.
- * \return Returns a nullptr if the robot type was invalid or unsupported.
+ * Generates a new unique ID for the robot.
+ *
+ * \return Returns a pointer to the robot, or nullptr if type was invalid.
  */
-Robot* RobotPool::addRobot(Robot::Type type, int id /*= 0*/)
+Robot* RobotPool::addRobot(Robot::Type type)
 {
-	int _id = 0;
-	if (id == 0) { _id = ++ROBOT_ID_COUNTER; }
-	else { _id = id; }
+	// Generate a new unique ID
+	const auto id = ++ROBOT_ID_COUNTER;
+	return addRobot(type, id);
+}
 
+
+/**
+ * Adds a robot of specified type to the pool.
+ *
+ * \return Returns a pointer to the robot, or nullptr if type was invalid.
+ */
+Robot* RobotPool::addRobot(Robot::Type type, int id)
+{
 	switch (type)
 	{
 	case Robot::Type::Dozer:
 		mDozers.push_back(new Robodozer());
-		mDozers.back()->id(_id);
+		mDozers.back()->id(id);
 		mRobots.push_back(mDozers.back());
 		return mDozers.back();
 
 	case Robot::Type::Digger:
 		mDiggers.push_back(new Robodigger());
-		mDiggers.back()->id(_id);
+		mDiggers.back()->id(id);
 		mRobots.push_back(mDiggers.back());
 		return mDiggers.back();
 
 	case Robot::Type::Miner:
 		mMiners.push_back(new Robominer());
-		mMiners.back()->id(_id);
+		mMiners.back()->id(id);
 		mRobots.push_back(mMiners.back());
 		return mMiners.back();
 
