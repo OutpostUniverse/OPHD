@@ -48,9 +48,24 @@ void RobotPool::erase(Robot* robot)
 /**
  * Adds a robot of specified type to the pool.
  *
+ * Generates a new unique ID for the robot.
+ *
  * \return Returns a pointer to the robot, or nullptr if type was invalid.
  */
-Robot* RobotPool::addRobot(Robot::Type type, int id /*= 0*/)
+Robot* RobotPool::addRobot(Robot::Type type)
+{
+	// Generate a new unique ID
+	const auto id = ++ROBOT_ID_COUNTER;
+	return addRobot(type, id);
+}
+
+
+/**
+ * Adds a robot of specified type to the pool.
+ *
+ * \return Returns a pointer to the robot, or nullptr if type was invalid.
+ */
+Robot* RobotPool::addRobot(Robot::Type type, int id)
 {
 	int _id = 0;
 	if (id == 0) { _id = ++ROBOT_ID_COUNTER; }
