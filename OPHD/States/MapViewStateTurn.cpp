@@ -569,7 +569,7 @@ void MapViewState::nextTurn()
 
 	transferFoodToCommandCenter();
 
-	mCrimeRateUpdate.update(mPoliceOverlays, mPopulationPanel);
+	mCrimeRateUpdate.update(mPoliceOverlays);
 	mCurrentMorale += mCrimeRateUpdate.getMoraleChange();
 
 	updateResidentialCapacity();

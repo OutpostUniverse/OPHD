@@ -5,7 +5,10 @@
 #include <NAS2D/Utility.h>
 
 
-void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays, PopulationPanel& populationPanel)
+CrimeRateUpdate::CrimeRateUpdate(PopulationPanel& populationPanel) : mPopulationPanel(populationPanel) { }
+
+
+void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
 {
 	mMoraleChange = 0;
 
@@ -13,7 +16,7 @@ void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays, Popula
 
 	// Colony will not have a crime rate until at least one structure that supports crime is built
 	if (structuresWithCrime.empty()) {
-		setPopulationPanel(0, 0, populationPanel);
+		setPopulationPanel(0, 0);
 		return;
 	}
 
@@ -30,7 +33,7 @@ void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays, Popula
 	int meanCrimeRate = static_cast<int>(accumulatedCrime / structuresWithCrime.size());
 	mMoraleChange = calculateMoraleChange(meanCrimeRate);
 
-	setPopulationPanel(mMoraleChange, meanCrimeRate, populationPanel);
+	setPopulationPanel(mMoraleChange, meanCrimeRate);
 }
 
 
@@ -66,16 +69,16 @@ int CrimeRateUpdate::calculateMoraleChange(int meanCrimeRate)
 }
 
 
-void CrimeRateUpdate::setPopulationPanel(int moraleChange, int meanCrimeRate, PopulationPanel& populationPanel)
+void CrimeRateUpdate::setPopulationPanel(int moraleChange, int meanCrimeRate)
 {
-	populationPanel.crimeRate(meanCrimeRate);
+	mPopulationPanel.crimeRate(meanCrimeRate);
 
 	if (moraleChange > 0)
 	{
-		populationPanel.addMoraleReason("Low Crime Rate", moraleChange);
+		mPopulationPanel.addMoraleReason("Low Crime Rate", moraleChange);
 	}
 	else if (moraleChange < 0)
 	{
-		populationPanel.addMoraleReason("High Crime Rate", moraleChange);
+		mPopulationPanel.addMoraleReason("High Crime Rate", moraleChange);
 	}
 }
