@@ -558,15 +558,15 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 /** 
  * Document me!
  */
-void checkRobotDeployment(XmlElement* robotElement, RobotTileTable& _rm, Robot* _r, Robot::Type _type)
+void checkRobotDeployment(XmlElement* robotElement, RobotTileTable& robotTileTable, Robot* _r, Robot::Type _type)
 {
 	robotElement->attribute("id", _r->id());
 	robotElement->attribute("type", static_cast<int>(_type));
 	robotElement->attribute("age", _r->fuelCellAge());
 	robotElement->attribute("production", _r->turnsToCompleteTask());
 
-	const auto it = _rm.find(_r);
-	if (it != _rm.end())
+	const auto it = robotTileTable.find(_r);
+	if (it != robotTileTable.end())
 	{
 		const auto& tile = *it->second;
 		const auto position = tile.position();
