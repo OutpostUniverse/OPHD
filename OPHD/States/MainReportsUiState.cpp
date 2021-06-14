@@ -50,11 +50,11 @@ class Panel
 public:
 	void Selected(bool isSelected)
 	{
-		_selected = isSelected;
+		mIsSelected = isSelected;
 		if (UiPanel) { UiPanel->enabled(isSelected); }
 	}
 
-	bool Selected() { return _selected; }
+	bool Selected() { return mIsSelected; }
 
 public:
 	std::string Name;
@@ -69,7 +69,7 @@ public:
 	ReportInterface* UiPanel = nullptr;
 
 private:
-	bool _selected = false;
+	bool mIsSelected = false;
 };
 
 
