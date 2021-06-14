@@ -82,8 +82,8 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 	case ProductType::PRODUCT_CLOTHING:
 	case ProductType::PRODUCT_MEDICINE:
 		{
-			Warehouse* _wh = getAvailableWarehouse(factory.productWaiting(), 1);
-			if (_wh) { _wh->products().store(factory.productWaiting(), 1); factory.pullProduct(); }
+			Warehouse* warehouse = getAvailableWarehouse(factory.productWaiting(), 1);
+			if (warehouse) { warehouse->products().store(factory.productWaiting(), 1); factory.pullProduct(); }
 			else { factory.idle(IdleReason::FactoryInsufficientWarehouseSpace); }
 			break;
 		}
