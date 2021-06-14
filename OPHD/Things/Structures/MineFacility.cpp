@@ -9,7 +9,7 @@ const int MineFacilityStorageCapacity = 500;
 /**
  * Computes how many units of ore should be pulled.
  */
-static int pull_count(MineFacility* mineFacility, size_t index)
+static int pullCount(MineFacility* mineFacility, size_t index)
 {
 	const int storageCapacity = (mineFacility->storageCapacity() / 4);
 	const int remainingCapacity = storageCapacity - mineFacility->production().resources[index];
@@ -92,22 +92,22 @@ void MineFacility::think()
 
 		if (mMine->miningCommonMetals())
 		{
-			ore.resources[0] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pull_count(this, 0));
+			ore.resources[0] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pullCount(this, 0));
 		}
 
 		if (mMine->miningCommonMinerals())
 		{
-			ore.resources[1] = mMine->pull(Mine::OreType::ORE_COMMON_MINERALS, pull_count(this, 1));
+			ore.resources[1] = mMine->pull(Mine::OreType::ORE_COMMON_MINERALS, pullCount(this, 1));
 		}
 
 		if (mMine->miningRareMetals())
 		{
-			ore.resources[2] = mMine->pull(Mine::OreType::ORE_RARE_METALS, pull_count(this, 2));
+			ore.resources[2] = mMine->pull(Mine::OreType::ORE_RARE_METALS, pullCount(this, 2));
 		}
 
 		if (mMine->miningRareMinerals())
 		{
-			ore.resources[3] = mMine->pull(Mine::OreType::ORE_RARE_MINERALS, pull_count(this, 3));
+			ore.resources[3] = mMine->pull(Mine::OreType::ORE_RARE_MINERALS, pullCount(this, 3));
 		}
 
 		storage() += ore;
