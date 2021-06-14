@@ -242,15 +242,15 @@ void updateRobotControl(RobotPool& robotPool)
 	const auto& robotCommands = Utility<StructureManager>::get().getStructures<RobotCommand>();
 
 	// 3 for the first command center
-	uint32_t _maxRobots = 0;
-	if (commandCenters.size() > 0) { _maxRobots += 3; }
+	uint32_t maxRobots = 0;
+	if (commandCenters.size() > 0) { maxRobots += 3; }
 	// the 10 per robot command facility
 	for (std::size_t s = 0; s < robotCommands.size(); ++s)
 	{
-		if (robotCommands[s]->operational()) { _maxRobots += 10; }
+		if (robotCommands[s]->operational()) { maxRobots += 10; }
 	}
 
-	robotPool.InitRobotCtrl(_maxRobots);
+	robotPool.InitRobotCtrl(maxRobots);
 }
 
 
