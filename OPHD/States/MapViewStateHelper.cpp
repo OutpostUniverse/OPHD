@@ -558,21 +558,21 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 /** 
  * Document me!
  */
-void checkRobotDeployment(XmlElement* _ti, RobotTileTable& _rm, Robot* _r, Robot::Type _type)
+void checkRobotDeployment(XmlElement* robotElement, RobotTileTable& _rm, Robot* _r, Robot::Type _type)
 {
-	_ti->attribute("id", _r->id());
-	_ti->attribute("type", static_cast<int>(_type));
-	_ti->attribute("age", _r->fuelCellAge());
-	_ti->attribute("production", _r->turnsToCompleteTask());
+	robotElement->attribute("id", _r->id());
+	robotElement->attribute("type", static_cast<int>(_type));
+	robotElement->attribute("age", _r->fuelCellAge());
+	robotElement->attribute("production", _r->turnsToCompleteTask());
 
 	const auto it = _rm.find(_r);
 	if (it != _rm.end())
 	{
 		const auto& tile = *it->second;
 		const auto position = tile.position();
-		_ti->attribute("x", position.x);
-		_ti->attribute("y", position.y);
-		_ti->attribute("depth", tile.depth());
+		robotElement->attribute("x", position.x);
+		robotElement->attribute("y", position.y);
+		robotElement->attribute("depth", tile.depth());
 	}
 }
 
