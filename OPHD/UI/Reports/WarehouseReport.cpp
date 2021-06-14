@@ -60,11 +60,13 @@ WarehouseReport::WarehouseReport() :
 
 	fillLists();
 
-	add(btnShowAll, {10, 10});
-	add(btnSpaceAvailable, {90, 10});
-	add(btnFull, {195, 10});
-	add(btnEmpty, {275, 10});
-	add(btnDisabled, {355, 10});
+	auto buttonOffset = NAS2D::Vector{10, 10};
+	const auto margin = 5;
+	for (auto button : buttons)
+	{
+		add(*button, buttonOffset);
+		buttonOffset.x += button->size().x + margin;
+	}
 	add(btnTakeMeThere, {10, 10});
 	add(lstStructures, {10, 115});
 	add(lstProducts, {Utility<Renderer>::get().center().x + 10, 173});
