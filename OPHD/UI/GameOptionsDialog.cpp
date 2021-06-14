@@ -2,6 +2,8 @@
 
 #include "../Constants.h"
 
+#include <array>
+
 
 GameOptionsDialog::GameOptionsDialog() :
 	Window{constants::WINDOW_SYSTEM_TITLE},
@@ -13,17 +15,16 @@ GameOptionsDialog::GameOptionsDialog() :
 	position({0, 0});
 	size({210, 160});
 
+	const auto buttons = std::array{&btnSave, &btnLoad, &btnReturn, &btnClose};
+	for (auto button : buttons)
+	{
+		button->size({200, 25});
+	}
+
 	add(btnSave, {5, 25});
-	btnSave.size({200, 25});
-
 	add(btnLoad, {5, 53});
-	btnLoad.size({200, 25});
-
 	add(btnReturn, {5, 91});
-	btnReturn.size({200, 25});
-
 	add(btnClose, {5, 129});
-	btnClose.size({200, 25});
 
 	anchored(true);
 }

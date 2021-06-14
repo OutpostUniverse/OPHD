@@ -45,60 +45,50 @@ MineReport::MineReport() :
 	chkRareMetals{ "Mine Rare Metals" },
 	chkRareMinerals{ "Mine Rare Minerals" }
 {
-	add(btnShowAll, {10, 10});
-	btnShowAll.size({ 75, 20 });
-	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
+	auto buttonOffset = NAS2D::Vector{10, 10};
+	const auto margin = 2;
+	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowTappedOut, &btnShowDisabled};
+	for (auto button : buttons)
+	{
+		button->size({ 75, 20 });
+		button->type(Button::Type::BUTTON_TOGGLE);
+		add(*button, buttonOffset);
+		buttonOffset.x += button->size().x + margin;
+	}
+
 	btnShowAll.toggle(true);
 
-	add(btnShowActive, {87, 10});
-	btnShowActive.size({ 75, 20 });
-	btnShowActive.type(Button::Type::BUTTON_TOGGLE);
-
-	add(btnShowIdle, {164, 10});
-	btnShowIdle.size({ 75, 20 });
-	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
-
-	add(btnShowTappedOut, {241, 10});
-	btnShowTappedOut.size({ 75, 20 });
-	btnShowTappedOut.type(Button::Type::BUTTON_TOGGLE);
-
-	add(btnShowDisabled, {318, 10});
-	btnShowDisabled.size({ 75, 20 });
-	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
-
-	add(lstMineFacilities, {10, 40});
 	lstMineFacilities.selectionChanged().connect(this, &MineReport::onMineFacilitySelectionChange);
+	add(lstMineFacilities, {10, 40});
 
 	// DETAIL PANE
-	add(btnIdle, {0, 40});
 	btnIdle.type(Button::Type::BUTTON_TOGGLE);
 	btnIdle.size({ 140, 30 });
 
-	add(btnDigNewLevel, {0, 75});
 	btnDigNewLevel.size({ 140, 30 });
-
-	add(btnTakeMeThere, {0, 110});
 	btnTakeMeThere.size({ 140, 30 });
 
+	add(btnIdle, {0, 40});
+	add(btnDigNewLevel, {0, 75});
+	add(btnTakeMeThere, {0, 110});
+
 	// Ore Management Pane
-	add(chkCommonMetals, {0, 210});
 	chkCommonMetals.click().connect(this, &MineReport::onCheckBoxCommonMetalsChange);
-
-	add(chkCommonMinerals, {0, 280});
 	chkCommonMinerals.click().connect(this, &MineReport::onCheckBoxCommonMineralsChange);
-
-	add(chkRareMetals, {0, 350});
 	chkRareMetals.click().connect(this, &MineReport::onCheckBoxRareMetalsChange);
-
-	add(chkRareMinerals, {0, 420});
 	chkRareMinerals.click().connect(this, &MineReport::onCheckBoxRareMineralsChange);
 
-	// Truck Management Pane
-	add(btnAddTruck, {0, 215});
-	btnAddTruck.size({ 140, 30 });
+	add(chkCommonMetals, {0, 210});
+	add(chkCommonMinerals, {0, 280});
+	add(chkRareMetals, {0, 350});
+	add(chkRareMinerals, {0, 420});
 
-	add(btnRemoveTruck, {0, 250});
+	// Truck Management Pane
+	btnAddTruck.size({ 140, 30 });
 	btnRemoveTruck.size({ 140, 30 });
+
+	add(btnAddTruck, {0, 215});
+	add(btnRemoveTruck, {0, 250});
 
 	fillLists();
 }
