@@ -149,12 +149,12 @@ void MapViewState::updateCommercial()
 		}
 	}
 
-	auto _comm_r_it = commercial.rbegin();
-	for (std::size_t i = 0; i < static_cast<std::size_t>(luxuryCount) && _comm_r_it != commercial.rend(); ++i, ++_comm_r_it)
+	auto commercialReverseIterator = commercial.rbegin();
+	for (std::size_t i = 0; i < static_cast<std::size_t>(luxuryCount) && commercialReverseIterator != commercial.rend(); ++i, ++commercialReverseIterator)
 	{
-		if ((*_comm_r_it)->operational())
+		if ((*commercialReverseIterator)->operational())
 		{
-			(*_comm_r_it)->idle(IdleReason::InsufficientLuxuryProduct);
+			(*commercialReverseIterator)->idle(IdleReason::InsufficientLuxuryProduct);
 		}
 	}
 
