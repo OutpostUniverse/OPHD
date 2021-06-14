@@ -558,10 +558,10 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 /** 
  * Document me!
  */
-void checkRobotDeployment(XmlElement* robotElement, RobotTileTable& robotTileTable, Robot* robot, Robot::Type _type)
+void checkRobotDeployment(XmlElement* robotElement, RobotTileTable& robotTileTable, Robot* robot, Robot::Type type)
 {
 	robotElement->attribute("id", robot->id());
-	robotElement->attribute("type", static_cast<int>(_type));
+	robotElement->attribute("type", static_cast<int>(type));
 	robotElement->attribute("age", robot->fuelCellAge());
 	robotElement->attribute("production", robot->turnsToCompleteTask());
 
