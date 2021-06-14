@@ -41,42 +41,42 @@ WarehouseReport::WarehouseReport() :
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
 	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE, {this, &WarehouseReport::onTakeMeThere}}
 {
-	add(btnShowAll, {10, 10});
 	btnShowAll.size({75, 20});
 	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
 	btnShowAll.toggle(true);
 
-	add(btnSpaceAvailable, {90, 10});
 	btnSpaceAvailable.size({100, 20});
 	btnSpaceAvailable.type(Button::Type::BUTTON_TOGGLE);
 	btnSpaceAvailable.toggle(false);
 
-	add(btnFull, {195, 10});
 	btnFull.size({75, 20});
 	btnFull.type(Button::Type::BUTTON_TOGGLE);
 	btnFull.toggle(false);
 
-	add(btnEmpty, {275, 10});
 	btnEmpty.size({75, 20});
 	btnEmpty.type(Button::Type::BUTTON_TOGGLE);
 	btnEmpty.toggle(false);
 
-	add(btnDisabled, {355, 10});
 	btnDisabled.size({75, 20});
 	btnDisabled.type(Button::Type::BUTTON_TOGGLE);
 	btnDisabled.toggle(false);
 
-	add(btnTakeMeThere, {10, 10});
 	btnTakeMeThere.size({140, 30});
 
-	add(lstStructures, {10, 115});
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::onStructureSelectionChange);
-
-	add(lstProducts, {Utility<Renderer>::get().center().x + 10, 173});
 
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::onDoubleClick);
 
 	fillLists();
+
+	add(btnShowAll, {10, 10});
+	add(btnSpaceAvailable, {90, 10});
+	add(btnFull, {195, 10});
+	add(btnEmpty, {275, 10});
+	add(btnDisabled, {355, 10});
+	add(btnTakeMeThere, {10, 10});
+	add(lstStructures, {10, 115});
+	add(lstProducts, {Utility<Renderer>::get().center().x + 10, 173});
 }
 
 
