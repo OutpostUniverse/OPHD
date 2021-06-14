@@ -103,7 +103,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 }
 
 
-void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& warehouses)
+void WarehouseReport::fillListFromStructureList(const std::vector<Warehouse*>& warehouses)
 {
 	lstStructures.clear();
 
@@ -132,7 +132,7 @@ void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& 
  */
 void WarehouseReport::fillLists()
 {
-	_fillListFromStructureList(selectWarehouses([](Warehouse*) { return true; }));
+	fillListFromStructureList(selectWarehouses([](Warehouse*) { return true; }));
 }
 
 
@@ -142,7 +142,7 @@ void WarehouseReport::fillListSpaceAvailable()
 		return !wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle());
 	};
 
-	_fillListFromStructureList(selectWarehouses(predicate));
+	fillListFromStructureList(selectWarehouses(predicate));
 }
 
 
@@ -153,7 +153,7 @@ void WarehouseReport::fillListFull()
 		return wh->products().atCapacity() && (wh->operational() || wh->isIdle());
 	};
 
-	_fillListFromStructureList(selectWarehouses(predicate));
+	fillListFromStructureList(selectWarehouses(predicate));
 }
 
 
@@ -163,7 +163,7 @@ void WarehouseReport::fillListEmpty()
 		return wh->products().empty() && (wh->operational() || wh->isIdle());
 	};
 
-	_fillListFromStructureList(selectWarehouses(predicate));
+	fillListFromStructureList(selectWarehouses(predicate));
 }
 
 
@@ -173,7 +173,7 @@ void WarehouseReport::fillListDisabled()
 		return structure->disabled() || structure->destroyed();
 	};
 
-	_fillListFromStructureList(selectWarehouses(predicate));
+	fillListFromStructureList(selectWarehouses(predicate));
 }
 
 
