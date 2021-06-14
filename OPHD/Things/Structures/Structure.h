@@ -199,7 +199,7 @@ private:
 	int mEnergyRequirement{ 0 };
 	int mStorageCapacity{ 0 };
 	int mCrimeRate{ 0 };
-	int mIntegrity{ 0 };
+	int mIntegrity{ 100 };
 
 	StructureID mStructureId{ StructureID::SID_NONE };
 
