@@ -284,8 +284,8 @@ void FactoryReport::onVisibilityChange(bool visible)
 {
 	if (!selectedFactory) { return; }
 
-	StructureState _state = selectedFactory->state();
-	btnApply.visible(visible && (_state == StructureState::Operational || _state == StructureState::Idle));
+	StructureState state = selectedFactory->state();
+	btnApply.visible(visible && (state == StructureState::Operational || state == StructureState::Idle));
 	checkFactoryActionControls();
 }
 
@@ -411,8 +411,8 @@ void FactoryReport::onListSelectionChange()
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.tag == productType; });
 	selectedProductType = selectedFactory->productType();
 
-	StructureState _state = selectedFactory->state();
-	btnApply.visible(_state == StructureState::Operational || _state == StructureState::Idle);
+	StructureState state = selectedFactory->state();
+	btnApply.visible(state == StructureState::Operational || state == StructureState::Idle);
 }
 
 
