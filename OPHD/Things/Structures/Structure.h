@@ -193,19 +193,19 @@ private:
 	virtual void activated() {}
 
 private:
-	int mTurnsToBuild = 0; /**< Number of turns it takes to build the Structure. */
-	int mAge = 0; /**< Age of the Structure in turns. */
-	int mMaxAge = 0; /**< Maximum number of turns the Structure can remain in good repair. */
-	int mEnergyRequirement = 0;
-	int mStorageCapacity = 0;
-	int mCrimeRate = 0;
+	int mTurnsToBuild{ 0 }; /**< Number of turns it takes to build the Structure. */
+	int mAge{ 0 }; /**< Age of the Structure in turns. */
+	int mMaxAge{ 0 }; /**< Maximum number of turns the Structure can remain in good repair. */
+	int mEnergyRequirement{ 0 };
+	int mStorageCapacity{ 0 };
+	int mCrimeRate{ 0 };
 	int mIntegrity{ 0 };
 
 	StructureID mStructureId{ StructureID::SID_NONE };
 
-	StructureState mStructureState = StructureState::UnderConstruction; /**< State the structure is in. */
-	StructureClass mStructureClass; /**< Indicates the Structure's Type. */
-	ConnectorDir mConnectorDirection = ConnectorDir::CONNECTOR_INTERSECTION; /**< Directions available for connections. */
+	StructureState mStructureState{ StructureState::UnderConstruction }; /**< State the structure is in. */
+	StructureClass mStructureClass{ StructureClass::Undefined }; /**< Indicates the Structure's Type. */
+	ConnectorDir mConnectorDirection{ ConnectorDir::CONNECTOR_INTERSECTION }; /**< Directions available for connections. */
 
 	PopulationRequirements mPopulationRequirements; /**< Population requirements for structure operation. */
 	PopulationRequirements mPopulationAvailable; /**< Determine how many of each type of population required was actually supplied to the structure. */
@@ -215,14 +215,14 @@ private:
 	StorableResources mProductionPool; /**< Resource pool used for production. */
 	StorableResources mStoragePool; /**< Resource storage pool. */
 
-	DisabledReason mDisabledReason = DisabledReason::None;
-	IdleReason mIdleReason = IdleReason::None;
+	DisabledReason mDisabledReason{ DisabledReason::None };
+	IdleReason mIdleReason{ IdleReason::None };
 
-	bool mRepairable = true; /**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
-	bool mRequiresCHAP = true; /**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
-	bool mSelfSustained = false; /**< Indicates that the Structure is self contained and can operate by itself. */
-	bool mHasCrime = false; /**< Indicates that the Structure acculumates a crime rate over time. */
-	bool mForcedIdle = false; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
+	bool mRepairable{ true }; /**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
+	bool mRequiresCHAP{ true }; /**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
+	bool mSelfSustained{ false }; /**< Indicates that the Structure is self contained and can operate by itself. */
+	bool mHasCrime{ false }; /**< Indicates that the Structure acculumates a crime rate over time. */
+	bool mForcedIdle{ false }; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };
 
 
