@@ -401,9 +401,9 @@ bool doYesNoMessage(const std::string& title, const std::string msg)
 		nullptr
 	};
 
-	int _bid = 0;
-	SDL_ShowMessageBox(&messageboxdata, &_bid);
-	yes = (_bid == 1);
+	int buttonId = 0;
+	SDL_ShowMessageBox(&messageboxdata, &buttonId);
+	yes = (buttonId == 1);
 #endif
 
 	return yes;
