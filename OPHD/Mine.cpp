@@ -31,12 +31,12 @@ static const std::map<MineProductionRate, std::array<int, 4>> YieldTable =
  */
 static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, int depth)
 {
-	int _value = 0;
+	int value = 0;
 	for (std::size_t i = 0; i < static_cast<std::size_t>(depth); ++i)
 	{
-		_value += veins[i][ore];
+		value += veins[i][ore];
 	}
-	return _value;
+	return value;
 }
 
 
