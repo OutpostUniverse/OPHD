@@ -41,25 +41,16 @@ WarehouseReport::WarehouseReport() :
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
 	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE, {this, &WarehouseReport::onTakeMeThere}}
 {
-	btnShowAll.size({75, 20});
-	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
+	const auto buttons = std::array{&btnShowAll, &btnSpaceAvailable, &btnFull, &btnEmpty, &btnDisabled};
+	for (auto button : buttons)
+	{
+		button->size({75, 20});
+		button->type(Button::Type::BUTTON_TOGGLE);
+		button->toggle(false);
+	}
+
 	btnShowAll.toggle(true);
-
 	btnSpaceAvailable.size({100, 20});
-	btnSpaceAvailable.type(Button::Type::BUTTON_TOGGLE);
-	btnSpaceAvailable.toggle(false);
-
-	btnFull.size({75, 20});
-	btnFull.type(Button::Type::BUTTON_TOGGLE);
-	btnFull.toggle(false);
-
-	btnEmpty.size({75, 20});
-	btnEmpty.type(Button::Type::BUTTON_TOGGLE);
-	btnEmpty.toggle(false);
-
-	btnDisabled.size({75, 20});
-	btnDisabled.type(Button::Type::BUTTON_TOGGLE);
-	btnDisabled.toggle(false);
 
 	btnTakeMeThere.size({140, 30});
 
