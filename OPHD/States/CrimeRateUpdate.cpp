@@ -4,10 +4,6 @@
 #include "../StructureManager.h"
 #include <NAS2D/Utility.h>
 
-bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure);
-int calculateMoraleChange(int meanCrimeRate);
-void setPopulationPanel(int moraleChange, int meanCrimeRate, PopulationPanel& populationPanel);
-
 
 int CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays, PopulationPanel& populationPanel)
 {
@@ -38,7 +34,7 @@ int CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays, Populat
 }
 
 
-bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure)
+bool CrimeRateUpdate::isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure)
 {
 	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
 
@@ -54,7 +50,7 @@ bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure*
 }
 
 
-int calculateMoraleChange(int meanCrimeRate)
+int CrimeRateUpdate::calculateMoraleChange(int meanCrimeRate)
 {
 	if (meanCrimeRate > 50)
 	{
@@ -70,7 +66,7 @@ int calculateMoraleChange(int meanCrimeRate)
 }
 
 
-void setPopulationPanel(int moraleChange, int meanCrimeRate, PopulationPanel& populationPanel)
+void CrimeRateUpdate::setPopulationPanel(int moraleChange, int meanCrimeRate, PopulationPanel& populationPanel)
 {
 	populationPanel.crimeRate(meanCrimeRate);
 
