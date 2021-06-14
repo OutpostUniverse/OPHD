@@ -5,14 +5,16 @@
 #include <NAS2D/Utility.h>
 
 
-int CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays, PopulationPanel& populationPanel)
+void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays, PopulationPanel& populationPanel)
 {
+	mMoraleChange = 0;
+
 	const auto& structuresWithCrime = NAS2D::Utility<StructureManager>::get().structuresWithCrime();
 
 	// Colony will not have a crime rate until at least one structure that supports crime is built
 	if (structuresWithCrime.empty()) {
 		setPopulationPanel(0, 0, populationPanel);
-		return 0;
+		return;
 	}
 
 	double accumulatedCrime = 0;
@@ -26,11 +28,9 @@ int CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays, Populat
 	}
 
 	int meanCrimeRate = static_cast<int>(accumulatedCrime / structuresWithCrime.size());
-	int moraleChange = calculateMoraleChange(meanCrimeRate);
+	mMoraleChange = calculateMoraleChange(meanCrimeRate);
 
-	setPopulationPanel(moraleChange, meanCrimeRate, populationPanel);
-
-	return moraleChange;
+	setPopulationPanel(mMoraleChange, meanCrimeRate, populationPanel);
 }
 
 

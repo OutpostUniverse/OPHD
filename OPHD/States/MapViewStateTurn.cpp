@@ -580,7 +580,9 @@ void MapViewState::nextTurn()
 	updateResources();
 	updateStructuresAvailability();
 	updateRoads();
-	mCurrentMorale += CrimeRate::update(mPoliceOverlays, mPopulationPanel);
+
+	mCrimeRateUpdate.update(mPoliceOverlays, mPopulationPanel);
+	mCurrentMorale += mCrimeRateUpdate.getMoraleChange();
 
 	// Overlay Updates
 	checkCommRangeOverlay();

@@ -9,10 +9,13 @@ class Structure;
 class CrimeRateUpdate
 {
 public:
-	// Returns change in current morale caused by colony's mean crime rate
-	int update(const std::vector<TileList>& policeOverlays, PopulationPanel& populationPanel);
+	void update(const std::vector<TileList>& policeOverlays, PopulationPanel& populationPanel);
+
+	int getMoraleChange() const { return mMoraleChange; }
 
 private:
+	int mMoraleChange = 0;
+
 	bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure);
 	int calculateMoraleChange(int meanCrimeRate);
 	void setPopulationPanel(int moraleChange, int meanCrimeRate, PopulationPanel& populationPanel);
