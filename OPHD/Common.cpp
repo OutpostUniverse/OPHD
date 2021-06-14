@@ -319,9 +319,9 @@ const std::string& disabledReason(DisabledReason disabledReason)
 }
 
 
-const std::string& idleReason(IdleReason _i)
+const std::string& idleReason(IdleReason idleReason)
 {
-	return IDLE_REASON_TABLE.at(_i);
+	return IDLE_REASON_TABLE.at(idleReason);
 }
 
 
