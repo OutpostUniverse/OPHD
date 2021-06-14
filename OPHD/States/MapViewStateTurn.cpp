@@ -120,7 +120,7 @@ void MapViewState::updateCommercial()
 
 	for (auto warehouse : warehouses)
 	{
-		ProductPool& _pl = warehouse->products();
+		ProductPool& productPool = warehouse->products();
 
 		/**
 		 * inspect for luxury products.
@@ -129,17 +129,17 @@ void MapViewState::updateCommercial()
 		 *			is only one luxury item, clothing, but as this changes more
 		 *			items may be seen as luxury.
 		 */
-		int clothing = _pl.count(ProductType::PRODUCT_CLOTHING);
+		int clothing = productPool.count(ProductType::PRODUCT_CLOTHING);
 
 		if (clothing >= luxuryCount)
 		{
-			_pl.pull(ProductType::PRODUCT_CLOTHING, luxuryCount);
+			productPool.pull(ProductType::PRODUCT_CLOTHING, luxuryCount);
 			luxuryCount = 0;
 			break;
 		}
 		else if (clothing < luxuryCount)
 		{
-			_pl.pull(ProductType::PRODUCT_CLOTHING, clothing);
+			productPool.pull(ProductType::PRODUCT_CLOTHING, clothing);
 			luxuryCount -= clothing;
 		}
 
