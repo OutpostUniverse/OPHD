@@ -105,6 +105,8 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 
 void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& warehouses)
 {
+	lstStructures.clear();
+
 	for (auto warehouse : warehouses)
 	{
 		lstStructures.addItem(warehouse);
@@ -127,8 +129,6 @@ void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& 
  */
 void WarehouseReport::fillLists()
 {
-	lstStructures.clear();
-
 	_fillListFromStructureList(selectWarehouses([](Warehouse*) { return true; }));
 
 	lstStructures.setSelection(0);
@@ -138,8 +138,6 @@ void WarehouseReport::fillLists()
 
 void WarehouseReport::fillListSpaceAvailable()
 {
-	lstStructures.clear();
-
 	const auto predicate = [](Warehouse* wh) {
 		return !wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle());
 	};
@@ -154,8 +152,6 @@ void WarehouseReport::fillListSpaceAvailable()
 
 void WarehouseReport::fillListFull()
 {
-	lstStructures.clear();
-
 	const auto predicate = [](Warehouse* wh) {
 		return wh->products().atCapacity() && (wh->operational() || wh->isIdle());
 	};
@@ -169,8 +165,6 @@ void WarehouseReport::fillListFull()
 
 void WarehouseReport::fillListEmpty()
 {
-	lstStructures.clear();
-
 	const auto predicate = [](Warehouse* wh) {
 		return wh->products().empty() && (wh->operational() || wh->isIdle());
 	};
@@ -184,8 +178,6 @@ void WarehouseReport::fillListEmpty()
 
 void WarehouseReport::fillListDisabled()
 {
-	lstStructures.clear();
-
 	const auto predicate = [](Warehouse* structure) {
 		return structure->disabled() || structure->destroyed();
 	};
