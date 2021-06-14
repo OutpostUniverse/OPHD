@@ -131,15 +131,9 @@ public:
 	bool isRobotCommand() const { return structureClass() == StructureClass::RobotCommand; }
 	bool isMineFacility() const { return structureClass() == StructureClass::Mine; }
 	bool energyProducer() const { return structureClass() == StructureClass::EnergyProduction; }
-	bool isConnector() const { return structureClass() == StructureClass::Tube; } /** Indicates that the structure can act as a connector (tube) */
+	bool isConnector() const { return structureClass() == StructureClass::Tube; }
 	bool isRoad() const { return structureClass() == StructureClass::Road; }
 
-	/**
-	 * Set the current age of the Structure.
-	 *
-	 * \note	Available to reset current age to simulate repairs to extend
-	 *			the life of the Structure and for loading games.
-	 */
 	void age(int newAge) { mAge = newAge; }
 	void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
 
