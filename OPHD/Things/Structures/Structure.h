@@ -118,6 +118,8 @@ public:
 	int crimeRate() const { return mCrimeRate; }
 	void crimeRate(int crimeRate);
 	void increaseCrimeRate(int deltaCrimeRate);
+	int integrity() const { return mIntegrity; }
+	void integrity(int integrity);
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }

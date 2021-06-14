@@ -324,3 +324,9 @@ void Structure::increaseCrimeRate(int deltaCrimeRate)
 { 
 	mCrimeRate = std::clamp(mCrimeRate + deltaCrimeRate, 0, 100); 
 }
+
+
+void Structure::integrity(int integrity)
+{
+	mIntegrity = integrity;
+}
