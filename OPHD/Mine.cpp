@@ -336,18 +336,18 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 	mVeins.resize(static_cast<std::size_t>(depth));
 	for (XmlNode* vein = element->firstChild(); vein != nullptr; vein = vein->nextSibling())
 	{
-		auto _mv = MineVein{0, 0, 0, 0};
+		auto mineVein = MineVein{0, 0, 0, 0};
 		attribute = vein->toElement()->firstAttribute();
 		int id = 0;
 		while (attribute)
 		{
-			if (attribute->name() == "common_metals") { attribute->queryIntValue(_mv[OreType::ORE_COMMON_METALS]); }
-			else if (attribute->name() == "common_minerals") { attribute->queryIntValue(_mv[OreType::ORE_COMMON_MINERALS]); }
-			else if (attribute->name() == "rare_metals") { attribute->queryIntValue(_mv[OreType::ORE_RARE_METALS]); }
-			else if (attribute->name() == "rare_minerals") { attribute->queryIntValue(_mv[OreType::ORE_RARE_MINERALS]); }
+			if (attribute->name() == "common_metals") { attribute->queryIntValue(mineVein[OreType::ORE_COMMON_METALS]); }
+			else if (attribute->name() == "common_minerals") { attribute->queryIntValue(mineVein[OreType::ORE_COMMON_MINERALS]); }
+			else if (attribute->name() == "rare_metals") { attribute->queryIntValue(mineVein[OreType::ORE_RARE_METALS]); }
+			else if (attribute->name() == "rare_minerals") { attribute->queryIntValue(mineVein[OreType::ORE_RARE_MINERALS]); }
 			else if (attribute->name() == "id") { attribute->queryIntValue(id); }
 			attribute = attribute->next();
 		}
-		mVeins[static_cast<std::size_t>(id)] = _mv;
+		mVeins[static_cast<std::size_t>(id)] = mineVein;
 	}
 }
