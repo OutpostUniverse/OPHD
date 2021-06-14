@@ -2,6 +2,8 @@
 
 #include "../Constants.h"
 
+#include <array>
+
 
 GameOptionsDialog::GameOptionsDialog() :
 	Window{constants::WINDOW_SYSTEM_TITLE},
