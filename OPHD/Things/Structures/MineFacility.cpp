@@ -9,10 +9,10 @@ const int MineFacilityStorageCapacity = 500;
 /**
  * Computes how many units of ore should be pulled.
  */
-static int pull_count(MineFacility* _mf, size_t index)
+static int pull_count(MineFacility* mineFacility, size_t index)
 {
-	const int storageCapacity = (_mf->storageCapacity() / 4);
-	const int remainingCapacity = storageCapacity - _mf->production().resources[index];
+	const int storageCapacity = (mineFacility->storageCapacity() / 4);
+	const int remainingCapacity = storageCapacity - mineFacility->production().resources[index];
 
 	const int total = std::clamp(constants::BASE_MINE_PRODUCTION_RATE, 0, remainingCapacity);
 
