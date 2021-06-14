@@ -315,10 +315,12 @@ void Structure::die()
 	throw std::runtime_error("Thing::die() was called on a Structure!");
 }
 
+
 void Structure::crimeRate(int crimeRate) 
 { 
 	mCrimeRate = std::clamp(crimeRate, 0, 100); 
 }
+
 
 void Structure::increaseCrimeRate(int deltaCrimeRate) 
 { 
