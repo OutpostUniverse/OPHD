@@ -48,10 +48,10 @@ enum NavigationPanel
 class Panel
 {
 public:
-	void Selected(bool _b)
+	void Selected(bool isSelected)
 	{
-		_selected = _b;
-		if (UiPanel) { UiPanel->enabled(_b); }
+		_selected = isSelected;
+		if (UiPanel) { UiPanel->enabled(isSelected); }
 	}
 
 	bool Selected() { return _selected; }
