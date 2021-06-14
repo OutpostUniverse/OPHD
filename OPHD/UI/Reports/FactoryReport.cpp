@@ -402,8 +402,7 @@ void FactoryReport::onListSelectionChange()
 	lstProducts.clear();
 	if (selectedFactory->state() != StructureState::Destroyed)
 	{
-		const Factory::ProductionTypeList& _pl = selectedFactory->productList();
-		for (auto item : _pl)
+		for (auto item : selectedFactory->productList())
 		{
 			lstProducts.add(productDescription(item), static_cast<int>(item));
 		}
