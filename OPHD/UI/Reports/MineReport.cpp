@@ -45,22 +45,20 @@ MineReport::MineReport() :
 	chkRareMetals{ "Mine Rare Metals" },
 	chkRareMinerals{ "Mine Rare Minerals" }
 {
+	auto buttonOffset = NAS2D::Vector{10, 10};
+	const auto margin = 2;
 	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowTappedOut, &btnShowDisabled};
 	for (auto button : buttons)
 	{
 		button->size({ 75, 20 });
 		button->type(Button::Type::BUTTON_TOGGLE);
+		add(*button, buttonOffset);
+		buttonOffset.x += button->size().x + margin;
 	}
 
 	btnShowAll.toggle(true);
 
 	lstMineFacilities.selectionChanged().connect(this, &MineReport::onMineFacilitySelectionChange);
-
-	add(btnShowAll, {10, 10});
-	add(btnShowActive, {87, 10});
-	add(btnShowIdle, {164, 10});
-	add(btnShowTappedOut, {241, 10});
-	add(btnShowDisabled, {318, 10});
 	add(lstMineFacilities, {10, 40});
 
 	// DETAIL PANE
