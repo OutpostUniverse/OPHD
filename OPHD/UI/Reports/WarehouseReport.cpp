@@ -69,10 +69,10 @@ WarehouseReport::WarehouseReport() :
 	add(btnTakeMeThere, {10, 10});
 	btnTakeMeThere.size({140, 30});
 
-	add(lstStructures, {10, mRect.y + 115});
+	add(lstStructures, {10, 115});
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::onStructureSelectionChange);
 
-	add(lstProducts, {Utility<Renderer>::get().center().x + 10, mRect.y + 173});
+	add(lstProducts, {Utility<Renderer>::get().center().x + 10, 173});
 
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::onDoubleClick);
 
