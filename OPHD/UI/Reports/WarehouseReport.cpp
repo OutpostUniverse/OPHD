@@ -41,42 +41,35 @@ WarehouseReport::WarehouseReport() :
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
 	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE, {this, &WarehouseReport::onTakeMeThere}}
 {
-	add(btnShowAll, {10, 10});
-	btnShowAll.size({75, 20});
-	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
+	const auto buttons = std::array{&btnShowAll, &btnSpaceAvailable, &btnFull, &btnEmpty, &btnDisabled};
+	for (auto button : buttons)
+	{
+		button->size({75, 20});
+		button->type(Button::Type::BUTTON_TOGGLE);
+		button->toggle(false);
+	}
+
 	btnShowAll.toggle(true);
-
-	add(btnSpaceAvailable, {90, 10});
 	btnSpaceAvailable.size({100, 20});
-	btnSpaceAvailable.type(Button::Type::BUTTON_TOGGLE);
-	btnSpaceAvailable.toggle(false);
 
-	add(btnFull, {195, 10});
-	btnFull.size({75, 20});
-	btnFull.type(Button::Type::BUTTON_TOGGLE);
-	btnFull.toggle(false);
-
-	add(btnEmpty, {275, 10});
-	btnEmpty.size({75, 20});
-	btnEmpty.type(Button::Type::BUTTON_TOGGLE);
-	btnEmpty.toggle(false);
-
-	add(btnDisabled, {355, 10});
-	btnDisabled.size({75, 20});
-	btnDisabled.type(Button::Type::BUTTON_TOGGLE);
-	btnDisabled.toggle(false);
-
-	add(btnTakeMeThere, {10, 10});
 	btnTakeMeThere.size({140, 30});
 
-	add(lstStructures, {10, mRect.y + 115});
 	lstStructures.selectionChanged().connect(this, &WarehouseReport::onStructureSelectionChange);
-
-	add(lstProducts, {Utility<Renderer>::get().center().x + 10, mRect.y + 173});
 
 	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::onDoubleClick);
 
 	fillLists();
+
+	auto buttonOffset = NAS2D::Vector{10, 10};
+	const auto margin = 5;
+	for (auto button : buttons)
+	{
+		add(*button, buttonOffset);
+		buttonOffset.x += button->size().x + margin;
+	}
+	add(btnTakeMeThere, {10, 10});
+	add(lstStructures, {10, 115});
+	add(lstProducts, {Utility<Renderer>::get().center().x + 10, 173});
 }
 
 
@@ -110,8 +103,10 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 }
 
 
-void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& warehouses)
+void WarehouseReport::fillListFromStructureList(const std::vector<Warehouse*>& warehouses)
 {
+	lstStructures.clear();
+
 	for (auto warehouse : warehouses)
 	{
 		lstStructures.addItem(warehouse);
@@ -125,6 +120,9 @@ void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& 
 		else if (products.atCapacity()) { item->structureState = constants::WAREHOUSE_FULL; }
 		else if (!products.empty() && !products.atCapacity()) { item->structureState = constants::WAREHOUSE_SPACE_AVAILABLE; }
 	}
+
+	lstStructures.setSelection(0);
+	computeTotalWarehouseCapacity();
 }
 
 
@@ -134,73 +132,48 @@ void WarehouseReport::_fillListFromStructureList(const std::vector<Warehouse*>& 
  */
 void WarehouseReport::fillLists()
 {
-	lstStructures.clear();
-
-	_fillListFromStructureList(selectWarehouses([](Warehouse*) { return true; }));
-
-	lstStructures.setSelection(0);
-	computeTotalWarehouseCapacity();
+	fillListFromStructureList(selectWarehouses([](Warehouse*) { return true; }));
 }
 
 
 void WarehouseReport::fillListSpaceAvailable()
 {
-	lstStructures.clear();
-
 	const auto predicate = [](Warehouse* wh) {
 		return !wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle());
 	};
 
-	_fillListFromStructureList(selectWarehouses(predicate));
-
-	lstStructures.setSelection(0);
-	computeTotalWarehouseCapacity();
+	fillListFromStructureList(selectWarehouses(predicate));
 }
 
 
 
 void WarehouseReport::fillListFull()
 {
-	lstStructures.clear();
-
 	const auto predicate = [](Warehouse* wh) {
 		return wh->products().atCapacity() && (wh->operational() || wh->isIdle());
 	};
 
-	_fillListFromStructureList(selectWarehouses(predicate));
-
-	lstStructures.setSelection(0);
-	computeTotalWarehouseCapacity();
+	fillListFromStructureList(selectWarehouses(predicate));
 }
 
 
 void WarehouseReport::fillListEmpty()
 {
-	lstStructures.clear();
-
 	const auto predicate = [](Warehouse* wh) {
 		return wh->products().empty() && (wh->operational() || wh->isIdle());
 	};
 
-	_fillListFromStructureList(selectWarehouses(predicate));
-
-	lstStructures.setSelection(0);
-	computeTotalWarehouseCapacity();
+	fillListFromStructureList(selectWarehouses(predicate));
 }
 
 
 void WarehouseReport::fillListDisabled()
 {
-	lstStructures.clear();
-
 	const auto predicate = [](Warehouse* structure) {
 		return structure->disabled() || structure->destroyed();
 	};
 
-	_fillListFromStructureList(selectWarehouses(predicate));
-
-	lstStructures.setSelection(0);
-	computeTotalWarehouseCapacity();
+	fillListFromStructureList(selectWarehouses(predicate));
 }
 
 

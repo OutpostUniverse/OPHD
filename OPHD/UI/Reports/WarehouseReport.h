@@ -36,7 +36,7 @@ public:
 private:
 	void computeTotalWarehouseCapacity();
 
-	void _fillListFromStructureList(const std::vector<Warehouse*>&);
+	void fillListFromStructureList(const std::vector<Warehouse*>&);
 
 	void onResize() override;
 
