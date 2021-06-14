@@ -313,9 +313,9 @@ ProductType productTypeFromDescription(const std::string& description)
 }
 
 
-const std::string& disabledReason(DisabledReason _d)
+const std::string& disabledReason(DisabledReason disabledReason)
 {
-	return DISABLED_REASON_TABLE.at(_d);
+	return DISABLED_REASON_TABLE.at(disabledReason);
 }
 
 
