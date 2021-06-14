@@ -568,6 +568,10 @@ void MapViewState::nextTurn()
 	mPreviousMorale = mCurrentMorale;
 
 	transferFoodToCommandCenter();
+
+	mCrimeRateUpdate.update(mPoliceOverlays, mPopulationPanel);
+	mCurrentMorale += mCrimeRateUpdate.getMoraleChange();
+
 	updateResidentialCapacity();
 
 	countFood();
@@ -580,9 +584,6 @@ void MapViewState::nextTurn()
 	updateResources();
 	updateStructuresAvailability();
 	updateRoads();
-
-	mCrimeRateUpdate.update(mPoliceOverlays, mPopulationPanel);
-	mCurrentMorale += mCrimeRateUpdate.getMoraleChange();
 
 	// Overlay Updates
 	checkCommRangeOverlay();
