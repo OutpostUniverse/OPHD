@@ -5,7 +5,7 @@
 
 
 namespace {
-	void BasicCheck(Population::PersonRole _role);
+	void BasicCheck(Population::PersonRole role);
 }
 
 
@@ -152,12 +152,12 @@ namespace {
 	 *
 	 * \throws	std::runtime_exception if Child/Student/Retired is asked for.
 	 */
-	void BasicCheck(Population::PersonRole _role)
+	void BasicCheck(Population::PersonRole role)
 	{
-		if (_role == Population::PersonRole::ROLE_CHILD || _role == Population::PersonRole::ROLE_STUDENT || _role == Population::PersonRole::ROLE_RETIRED)
+		if (role == Population::PersonRole::ROLE_CHILD || role == Population::PersonRole::ROLE_STUDENT || role == Population::PersonRole::ROLE_RETIRED)
 		{
 			std::string _popRole;
-			switch (_role)
+			switch (role)
 			{
 			case Population::PersonRole::ROLE_CHILD: _popRole = "Population::PersonRole::ROLE_CHILD"; break;
 			case Population::PersonRole::ROLE_STUDENT: _popRole = "Population::PersonRole::ROLE_STUDENT"; break;
