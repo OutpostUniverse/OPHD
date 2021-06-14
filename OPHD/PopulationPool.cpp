@@ -156,16 +156,16 @@ namespace {
 	{
 		if (role == Population::PersonRole::ROLE_CHILD || role == Population::PersonRole::ROLE_STUDENT || role == Population::PersonRole::ROLE_RETIRED)
 		{
-			std::string _popRole;
+			std::string roleTypeName;
 			switch (role)
 			{
-			case Population::PersonRole::ROLE_CHILD: _popRole = "Population::PersonRole::ROLE_CHILD"; break;
-			case Population::PersonRole::ROLE_STUDENT: _popRole = "Population::PersonRole::ROLE_STUDENT"; break;
-			case Population::PersonRole::ROLE_RETIRED: _popRole = "Population::PersonRole::ROLE_RETIRED"; break;
+			case Population::PersonRole::ROLE_CHILD: roleTypeName = "Population::PersonRole::ROLE_CHILD"; break;
+			case Population::PersonRole::ROLE_STUDENT: roleTypeName = "Population::PersonRole::ROLE_STUDENT"; break;
+			case Population::PersonRole::ROLE_RETIRED: roleTypeName = "Population::PersonRole::ROLE_RETIRED"; break;
 			default: break;
 			}
 
-			throw std::runtime_error("PopulationPool::BasicCheck(): Invalid population role specified (" + _popRole + ").");
+			throw std::runtime_error("PopulationPool::BasicCheck(): Invalid population role specified (" + roleTypeName + ").");
 		}
 	}
 }
