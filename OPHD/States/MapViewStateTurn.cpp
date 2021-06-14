@@ -4,7 +4,6 @@
 
 #include "MapViewState.h"
 #include "MapViewStateHelper.h"
-#include "CrimeRateUpdate.h"
 
 #include "../Map/TileMap.h"
 #include "../Things/Structures/Structures.h"

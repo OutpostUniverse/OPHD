@@ -4,14 +4,12 @@
 #include "../StructureManager.h"
 #include <NAS2D/Utility.h>
 
-namespace CrimeRate
-{
 	bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure);
 	int calculateMoraleChange(int meanCrimeRate);
 	void setPopulationPanel(int moraleChange, int meanCrimeRate, PopulationPanel& populationPanel);
 
 
-	int update(const std::vector<TileList>& policeOverlays, PopulationPanel& populationPanel)
+	int CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays, PopulationPanel& populationPanel)
 	{
 		const auto& structuresWithCrime = NAS2D::Utility<StructureManager>::get().structuresWithCrime();
 
@@ -85,4 +83,3 @@ namespace CrimeRate
 			populationPanel.addMoraleReason("High Crime Rate", moraleChange);
 		}
 	}
-}

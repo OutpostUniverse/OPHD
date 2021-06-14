@@ -2,6 +2,7 @@
 
 #include "MapViewStateHelper.h"
 #include "Wrapper.h"
+#include "CrimeRateUpdate.h"
 
 #include "Planet.h"
 #include "Route.h"
@@ -246,6 +247,7 @@ private:
 private:
 	MainReportsUiState& mMainReportsState;
 	TileMap* mTileMap = nullptr;
+	CrimeRateUpdate mCrimeRateUpdate;
 
 	Planet::Attributes mPlanetAttributes;
 
