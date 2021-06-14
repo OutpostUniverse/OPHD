@@ -261,14 +261,14 @@ void TileMap::mapViewLocation(NAS2D::Point<int> point)
 /**
  * Convenience function to focus the TileMap's view on a specified tile.
  * 
- * \param	_t	Pointer to a Tile. Safe to pass nullptr.
+ * \param	tile	Pointer to a Tile. Safe to pass nullptr.
  */
-void TileMap::centerMapOnTile(Tile* _t)
+void TileMap::centerMapOnTile(Tile* tile)
 {
-	if (!_t) { return; }
+	if (!tile) { return; }
 
-	mapViewLocation(_t->position() - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2);
-	currentDepth(_t->depth());
+	mapViewLocation(tile->position() - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2);
+	currentDepth(tile->depth());
 }
 
 
