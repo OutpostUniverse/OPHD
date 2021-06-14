@@ -48,8 +48,7 @@ void RobotPool::erase(Robot* robot)
 /**
  * Adds a robot of specified type to the pool.
  *
- * \return Returns a pointer to the recently.
- * \return Returns a nullptr if the robot type was invalid or unsupported.
+ * \return Returns a pointer to the robot, or nullptr if type was invalid.
  */
 Robot* RobotPool::addRobot(Robot::Type type, int id /*= 0*/)
 {
