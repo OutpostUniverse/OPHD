@@ -8,7 +8,7 @@
 CrimeExecution::CrimeExecution(NotificationArea& notificationArea) : mNotificationArea(notificationArea) {}
 
 
-void CrimeExecution::executeCrimes(std::vector<Structure*> structuresCommittingCrime)
+void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresCommittingCrime)
 {
 	for (auto& structure : structuresCommittingCrime)
 	{
@@ -26,13 +26,6 @@ void CrimeExecution::executeCrimes(std::vector<Structure*> structuresCommittingC
 			break;
 		}
 	}
-}
-
-
-void CrimeExecution::executeCrimes(std::vector<Structure*>&& structuresCommittingCrime)
-{
-	// Delegate to lvalue function overload
-	executeCrimes(structuresCommittingCrime);
 }
 
 

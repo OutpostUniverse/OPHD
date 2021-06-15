@@ -10,8 +10,7 @@ class CrimeExecution
 public:
 	CrimeExecution(NotificationArea& notificationArea);
 
-	void executeCrimes(std::vector<Structure*> structuresCommittingCrime);
-	void executeCrimes(std::vector<Structure*>&& structuresCommittingCrime);
+	void executeCrimes(const std::vector<Structure*>& structuresCommittingCrime);
 
 	void executeStealingFood(FoodProduction& structure);
 
