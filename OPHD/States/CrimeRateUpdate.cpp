@@ -7,7 +7,8 @@
 #include <functional>
 
 
-namespace {
+namespace
+{
 	std::random_device randomDevice;
 	std::mt19937 generator(randomDevice());
 	std::uniform_int_distribution<int> distribution(0, 1000);
@@ -26,7 +27,8 @@ void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
 	const auto& structuresWithCrime = NAS2D::Utility<StructureManager>::get().structuresWithCrime();
 
 	// Colony will not have a crime rate until at least one structure that supports crime is built
-	if (structuresWithCrime.empty()) {
+	if (structuresWithCrime.empty())
+	{
 		setPopulationPanel(0, 0);
 		return;
 	}
