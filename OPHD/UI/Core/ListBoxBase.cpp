@@ -165,7 +165,7 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
  */
 void ListBoxBase::onMouseWheel(int /*x*/, int y)
 {
-	if (!visible()) { return; }
+	if (!enabled() || !visible()) { return; }
 	if (!mHasFocus) { return; }
 
 	float change = static_cast<float>(mItemHeight);
