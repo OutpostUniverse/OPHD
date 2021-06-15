@@ -84,7 +84,7 @@ void RadioButtonGroup::RadioButton::onTextChange()
 
 void RadioButtonGroup::RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	if (button == EventHandler::MouseButton::Left && mRect.contains(Point{x, y}))
 	{

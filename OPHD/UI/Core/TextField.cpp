@@ -55,7 +55,6 @@ TextField::TextField() :
 	Utility<EventHandler>::get().keyDown().connect(this, &TextField::onKeyDown);
 	Utility<EventHandler>::get().textInput().connect(this, &TextField::onTextInput);
 
-	hasFocus(true);
 	Utility<EventHandler>::get().textInputMode(true);
 
 	height(mFont.height() + fieldPadding * 2);
@@ -224,7 +223,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	hasFocus(mRect.contains(Point{x, y})); // This is a very useful check, should probably include this in all controls.
 
-	if (!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	int relativePosition = x - mRect.x;
 

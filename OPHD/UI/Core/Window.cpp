@@ -44,7 +44,7 @@ Window::~Window()
 
 void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	UIContainer::onMouseDown(button, x, y);
 
@@ -61,7 +61,7 @@ void Window::onMouseUp(EventHandler::MouseButton /*button*/, int /*x*/, int /*y*
 
 void Window::onMouseMove(int /*x*/, int /*y*/, int dX, int dY)
 {
-	if (!visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	if (mMouseDrag && !mAnchored)
 	{
@@ -78,7 +78,6 @@ void Window::anchored(bool isAnchored)
 void Window::show()
 {
 	Control::show();
-	hasFocus(true);
 }
 
 

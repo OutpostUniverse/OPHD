@@ -130,7 +130,6 @@ Slider::Slider(Slider::Skins skins, SliderType sliderType) :
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMove);
-	hasFocus(true);
 }
 
 
@@ -177,7 +176,7 @@ void Slider::buttonCheck(bool& buttonFlag, Rectangle<int>& rect, float value)
 
 void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	if (button == EventHandler::MouseButton::Left)
 	{
@@ -201,7 +200,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	mButton2Held = false;
 	mThumbPressed = false;
 
-	if (!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	if (mSlider.contains(NAS2D::Point{x, y}))
 	{
@@ -235,7 +234,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
-	if (!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	mMousePosition = {x, y};
 

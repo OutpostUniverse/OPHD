@@ -52,7 +52,6 @@ Button::Button(std::string newText) :
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Button::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Button::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMove);
-	hasFocus(true);
 
 	mFont = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
 }
@@ -110,7 +109,7 @@ bool Button::hasImage() const
 
 void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	if (button == EventHandler::MouseButton::Left)
 	{
@@ -132,7 +131,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
-	if (!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	if (button == EventHandler::MouseButton::Left)
 	{
