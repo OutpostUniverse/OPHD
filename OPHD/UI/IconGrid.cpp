@@ -43,7 +43,6 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &IconGrid::onMouseDown);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMove);
-	hasFocus(true);
 }
 
 

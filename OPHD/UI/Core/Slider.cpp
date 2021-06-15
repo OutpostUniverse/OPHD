@@ -130,7 +130,6 @@ Slider::Slider(Slider::Skins skins, SliderType sliderType) :
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
 	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
 	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMove);
-	hasFocus(true);
 }
 
 
