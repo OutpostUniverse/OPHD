@@ -133,10 +133,10 @@ void Tile::removeThing()
 }
 
 
-void Tile::pushMine(Mine* _mine)
+void Tile::pushMine(Mine* mine)
 {
 	delete mMine;
-	mMine = _mine;
+	mMine = mine;
 }
 
 

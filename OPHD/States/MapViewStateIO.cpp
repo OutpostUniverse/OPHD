@@ -263,12 +263,10 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 	mRobots.clear();
 
 	ROBOT_ID_COUNTER = 0;
-	int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
-	XmlAttribute* attribute = nullptr;
 	for (XmlNode* robotNode = element->firstChild(); robotNode; robotNode = robotNode->nextSibling())
 	{
-		id = type = age = production_time = x = y = depth = direction = 0;
-		attribute = robotNode->toElement()->firstAttribute();
+		int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
+		auto* attribute = robotNode->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "id") { attribute->queryIntValue(id); }
@@ -334,14 +332,12 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 void MapViewState::readStructures(Xml::XmlElement* element)
 {
-	int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
-	int production_completed = 0, production_type = 0;
-	int crime_rate = 0;
-	XmlAttribute* attribute = nullptr;
 	for (XmlNode* structureNode = element->firstChild(); structureNode != nullptr; structureNode = structureNode->nextSibling())
 	{
-		x = y = depth = age = state = direction = production_completed = production_type = disabled_reason = idle_reason = pop0 = pop1 = type = crime_rate = 0;
-		attribute = structureNode->toElement()->firstAttribute();
+		int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
+		int production_completed = 0, production_type = 0;
+		int crime_rate = 0;
+		auto* attribute = structureNode->toElement()->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }

@@ -47,7 +47,7 @@ private:
 	void kill_students(int morale, int hospitals);
 	void kill_adults(Population::PersonRole role, int morale, int hospitals);
 
-	int consume_food(int _food);
+	int consume_food(int food);
 
 
 	using PopulationTable = std::array<int, 5>;

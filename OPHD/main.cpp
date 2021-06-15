@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
 			Utility<Mixer>::init<MixerNull>();
 		}
 
-		WindowEventWrapper _wew;
+		WindowEventWrapper windowEventWrapper;
 
 		auto& renderer = Utility<Renderer>::init<RendererOpenGL>("OutpostHD");
 

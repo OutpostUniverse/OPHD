@@ -79,11 +79,11 @@ void TextField::resetCursorPosition()
 /**
  * When set, will only allow numbers to be entered into the TextField.
  * 
- * \param _b True or False.
+ * \param isNumbersOnly True or False.
  */
-void TextField::numbers_only(bool _b)
+void TextField::numbers_only(bool isNumbersOnly)
 {
-	mNumbersOnly = _b;
+	mNumbersOnly = isNumbersOnly;
 }
 
 

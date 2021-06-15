@@ -313,15 +313,15 @@ ProductType productTypeFromDescription(const std::string& description)
 }
 
 
-const std::string& disabledReason(DisabledReason _d)
+const std::string& disabledReason(DisabledReason disabledReason)
 {
-	return DISABLED_REASON_TABLE.at(_d);
+	return DISABLED_REASON_TABLE.at(disabledReason);
 }
 
 
-const std::string& idleReason(IdleReason _i)
+const std::string& idleReason(IdleReason idleReason)
 {
-	return IDLE_REASON_TABLE.at(_i);
+	return IDLE_REASON_TABLE.at(idleReason);
 }
 
 
@@ -401,9 +401,9 @@ bool doYesNoMessage(const std::string& title, const std::string msg)
 		nullptr
 	};
 
-	int _bid = 0;
-	SDL_ShowMessageBox(&messageboxdata, &_bid);
-	yes = (_bid == 1);
+	int buttonId = 0;
+	SDL_ShowMessageBox(&messageboxdata, &buttonId);
+	yes = (buttonId == 1);
 #endif
 
 	return yes;

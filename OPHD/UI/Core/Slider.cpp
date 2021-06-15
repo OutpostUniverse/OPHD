@@ -161,7 +161,7 @@ void Slider::positionInternal(float newPosition)
 }
 
 
-void Slider::_buttonCheck(bool& buttonFlag, Rectangle<int>& rect, float value)
+void Slider::buttonCheck(bool& buttonFlag, Rectangle<int>& rect, float value)
 {
 	if (rect.contains(mMousePosition))
 	{
@@ -187,8 +187,8 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			return;
 		}
 
-		_buttonCheck(mButton1Held, mButton1, -1.0);
-		_buttonCheck(mButton2Held, mButton2, 1.0);
+		buttonCheck(mButton1Held, mButton1, -1.0);
+		buttonCheck(mButton2Held, mButton2, 1.0);
 	}
 }
 

@@ -112,12 +112,18 @@ public:
 	int age() const { return mAge; }
 	int maxAge() const { return mMaxAge; }
 	bool ages() const { return maxAge() > 0; }
+	
 	int energyRequirement() const { return mEnergyRequirement; }
 	int storageCapacity() const { return mStorageCapacity; }
+	
 	bool hasCrime() const { return mHasCrime; }
 	int crimeRate() const { return mCrimeRate; }
 	void crimeRate(int crimeRate);
 	void increaseCrimeRate(int deltaCrimeRate);
+	
+	int integrity() const { return mIntegrity; }
+	void integrity(int integrity);
+	int integrityDecayRate() const { return mIntegrityDecayRate; }
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
@@ -131,15 +137,9 @@ public:
 	bool isRobotCommand() const { return structureClass() == StructureClass::RobotCommand; }
 	bool isMineFacility() const { return structureClass() == StructureClass::Mine; }
 	bool energyProducer() const { return structureClass() == StructureClass::EnergyProduction; }
-	bool isConnector() const { return structureClass() == StructureClass::Tube; } /** Indicates that the structure can act as a connector (tube) */
+	bool isConnector() const { return structureClass() == StructureClass::Tube; }
 	bool isRoad() const { return structureClass() == StructureClass::Road; }
 
-	/**
-	 * Set the current age of the Structure.
-	 *
-	 * \note	Available to reset current age to simulate repairs to extend
-	 *			the life of the Structure and for loading games.
-	 */
 	void age(int newAge) { mAge = newAge; }
 	void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
 
@@ -193,18 +193,20 @@ private:
 	virtual void activated() {}
 
 private:
-	int mTurnsToBuild = 0; /**< Number of turns it takes to build the Structure. */
-	int mAge = 0; /**< Age of the Structure in turns. */
-	int mMaxAge = 0; /**< Maximum number of turns the Structure can remain in good repair. */
-	int mEnergyRequirement = 0;
-	int mStorageCapacity = 0;
-	int mCrimeRate = 0;
+	int mTurnsToBuild{ 0 };
+	int mAge{ 0 };
+	int mMaxAge{ 0 };
+	int mEnergyRequirement{ 0 };
+	int mStorageCapacity{ 0 };
+	int mCrimeRate{ 0 };
+	int mIntegrity{ 100 };
+	int mIntegrityDecayRate{ 1 };
 
 	StructureID mStructureId{ StructureID::SID_NONE };
 
-	StructureState mStructureState = StructureState::UnderConstruction; /**< State the structure is in. */
-	StructureClass mStructureClass; /**< Indicates the Structure's Type. */
-	ConnectorDir mConnectorDirection = ConnectorDir::CONNECTOR_INTERSECTION; /**< Directions available for connections. */
+	StructureState mStructureState{ StructureState::UnderConstruction };
+	StructureClass mStructureClass{ StructureClass::Undefined };
+	ConnectorDir mConnectorDirection{ ConnectorDir::CONNECTOR_INTERSECTION };
 
 	PopulationRequirements mPopulationRequirements; /**< Population requirements for structure operation. */
 	PopulationRequirements mPopulationAvailable; /**< Determine how many of each type of population required was actually supplied to the structure. */
@@ -214,14 +216,14 @@ private:
 	StorableResources mProductionPool; /**< Resource pool used for production. */
 	StorableResources mStoragePool; /**< Resource storage pool. */
 
-	DisabledReason mDisabledReason = DisabledReason::None;
-	IdleReason mIdleReason = IdleReason::None;
+	DisabledReason mDisabledReason{ DisabledReason::None };
+	IdleReason mIdleReason{ IdleReason::None };
 
-	bool mRepairable = true; /**< Indicates whether or not the Structure can be repaired. Useful for forcing some Structures to die at the end of their life. */
-	bool mRequiresCHAP = true; /**< Indicates that the Structure needs to have an active CHAP facility in order to operate. */
-	bool mSelfSustained = false; /**< Indicates that the Structure is self contained and can operate by itself. */
-	bool mHasCrime = false; /**< Indicates that the Structure acculumates a crime rate over time. */
-	bool mForcedIdle = false; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
+	bool mRepairable{ true };
+	bool mRequiresCHAP{ true };
+	bool mSelfSustained{ false };
+	bool mHasCrime{ false };
+	bool mForcedIdle{ false }; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };
 
 
