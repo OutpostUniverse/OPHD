@@ -18,5 +18,6 @@ public:
 
 		requiresCHAP(false);
 		selfSustained(true);
+		integrityDecayRate(0);
 	}
 };
