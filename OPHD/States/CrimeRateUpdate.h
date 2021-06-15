@@ -13,8 +13,8 @@ public:
 
 	void update(const std::vector<TileList>& policeOverlays);
 
-	int getMoraleChange() const { return mMoraleChange; }
-	std::vector<Structure*> getStructuresCommittingCrimes() const { return mStructuresCommittingCrimes; }
+	int moraleChange() const { return mMoraleChange; }
+	std::vector<Structure*> structuresCommittingCrimes() const { return mStructuresCommittingCrimes; }
 
 private:
 	PopulationPanel& mPopulationPanel;
@@ -23,5 +23,5 @@ private:
 
 	bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure);
 	int calculateMoraleChange(int meanCrimeRate);
-	void setPopulationPanel(int moraleChange, int meanCrimeRate);
+	void updateCrimeOnPopulationPanel(int moraleChange, int meanCrimeRate);
 };

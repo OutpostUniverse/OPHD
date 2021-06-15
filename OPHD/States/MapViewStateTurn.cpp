@@ -570,8 +570,8 @@ void MapViewState::nextTurn()
 	transferFoodToCommandCenter();
 
 	mCrimeRateUpdate.update(mPoliceOverlays);
-	mCurrentMorale += mCrimeRateUpdate.getMoraleChange();
-	auto structuresCommittingCrimes = mCrimeRateUpdate.getStructuresCommittingCrimes();
+	mCurrentMorale += mCrimeRateUpdate.moraleChange();
+	auto structuresCommittingCrimes = mCrimeRateUpdate.structuresCommittingCrimes();
 	mCrimeExecution.executeCrimes(structuresCommittingCrimes);
 	
 

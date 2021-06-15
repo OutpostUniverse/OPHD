@@ -29,7 +29,7 @@ void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
 	// Colony will not have a crime rate until at least one structure that supports crime is built
 	if (structuresWithCrime.empty())
 	{
-		setPopulationPanel(0, 0);
+		updateCrimeOnPopulationPanel(0, 0);
 		return;
 	}
 
@@ -53,7 +53,7 @@ void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
 	int meanCrimeRate = static_cast<int>(accumulatedCrime / structuresWithCrime.size());
 	mMoraleChange = calculateMoraleChange(meanCrimeRate);
 
-	setPopulationPanel(mMoraleChange, meanCrimeRate);
+	updateCrimeOnPopulationPanel(mMoraleChange, meanCrimeRate);
 }
 
 
@@ -89,7 +89,7 @@ int CrimeRateUpdate::calculateMoraleChange(int meanCrimeRate)
 }
 
 
-void CrimeRateUpdate::setPopulationPanel(int moraleChange, int meanCrimeRate)
+void CrimeRateUpdate::updateCrimeOnPopulationPanel(int moraleChange, int meanCrimeRate)
 {
 	mPopulationPanel.crimeRate(meanCrimeRate);
 
