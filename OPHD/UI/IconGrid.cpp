@@ -68,7 +68,7 @@ void IconGrid::updateGrid()
  */
 void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible() || !hasFocus()) { return; }
 
 	// Don't respond to anything unless it's the left mouse button.
 	if (button != EventHandler::MouseButton::Left) { return; }
@@ -111,7 +111,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
  */
 void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
-	if (!visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible() || !hasFocus()) { return; }
 
 	auto startPoint = mRect.startPoint();
 	auto mousePoint = NAS2D::Point{x, y};

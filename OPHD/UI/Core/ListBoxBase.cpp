@@ -106,7 +106,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	const auto point = NAS2D::Point{x, y};
 
-	if (!visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible() || !hasFocus()) { return; }
 
 	if (isEmpty() || button == EventHandler::MouseButton::Middle) { return; }
 
