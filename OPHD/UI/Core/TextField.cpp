@@ -55,7 +55,6 @@ TextField::TextField() :
 	Utility<EventHandler>::get().keyDown().connect(this, &TextField::onKeyDown);
 	Utility<EventHandler>::get().textInput().connect(this, &TextField::onTextInput);
 
-	hasFocus(true);
 	Utility<EventHandler>::get().textInputMode(true);
 
 	height(mFont.height() + fieldPadding * 2);
