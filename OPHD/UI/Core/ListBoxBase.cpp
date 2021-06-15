@@ -106,7 +106,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	const auto point = NAS2D::Point{x, y};
 
-	if (!visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	if (isEmpty() || button == EventHandler::MouseButton::Middle) { return; }
 
@@ -165,7 +165,7 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
  */
 void ListBoxBase::onMouseWheel(int /*x*/, int y)
 {
-	if (!visible()) { return; }
+	if (!enabled() || !visible()) { return; }
 	if (!mHasFocus) { return; }
 
 	float change = static_cast<float>(mItemHeight);

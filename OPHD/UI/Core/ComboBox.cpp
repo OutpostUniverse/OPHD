@@ -79,7 +79,7 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
  */
 void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	if (button != EventHandler::MouseButton::Left) { return; }
 

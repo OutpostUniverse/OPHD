@@ -118,7 +118,7 @@ void MapViewState::initUi()
 	mBtnToggleRouteOverlay.type(Button::Type::BUTTON_TOGGLE);
 	mBtnToggleRouteOverlay.click().connect(this, &MapViewState::onToggleRouteOverlay);
 
-	mBtnTogglePoliceOverlay.image("ui/icons/PoliceIcon.png");
+	mBtnTogglePoliceOverlay.image("ui/icons/police.png");
 	mBtnTogglePoliceOverlay.size(constants::MAIN_BUTTON_SIZE);
 	mBtnTogglePoliceOverlay.type(Button::Type::BUTTON_TOGGLE);
 	mBtnTogglePoliceOverlay.click().connect(this, &MapViewState::onTogglePoliceOverlay);

@@ -19,6 +19,7 @@ public:
 		turnsToBuild(9);
 		requiresCHAP(false);
 		hasCrime(true);
+		integrityDecayRate(2);
 
 		storageCapacity(StorageCapacity);
 	}

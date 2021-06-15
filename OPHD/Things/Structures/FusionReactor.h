@@ -22,6 +22,7 @@ public:
 		turnsToBuild(10);
 		requiresCHAP(false);
 		hasCrime(true);
+		integrityDecayRate(2);
 	}
 
 protected:
