@@ -26,7 +26,7 @@ public:
 
 	void update() override;
 
-	std::vector<Control*> controls() const;
+	const std::vector<Control*>& controls() const;
 
 protected:
 	void onVisibilityChange(bool visible) override;
