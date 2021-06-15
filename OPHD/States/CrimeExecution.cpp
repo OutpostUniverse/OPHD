@@ -22,6 +22,8 @@ void CrimeExecution::executeCrimes(std::vector<Structure*> structuresCommittingC
 		case StructureID::SID_AGRIDOME:
 			executeStealingFood(static_cast<FoodProduction&>(*structure));
 			break;
+		default:
+			break;
 		}
 	}
 }

@@ -11,7 +11,7 @@ namespace {
 	std::random_device randomDevice;
 	std::mt19937 generator(randomDevice());
 	std::uniform_int_distribution<int> distribution(0, 1000);
-	auto random = std::bind(distribution, std::ref(generator));
+	auto randomNumberGenerator = std::bind(distribution, std::ref(generator));
 }
 
 
@@ -40,7 +40,7 @@ void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
 
 		// Crime Rate of 0% means no crime
 		// Crime Rate of 100% means crime occurs 10% of the time
-		if (structure->crimeRate() + random() > 1000)
+		if (structure->crimeRate() + randomNumberGenerator() > 1000)
 		{
 			mStructuresCommittingCrimes.push_back(structure);
 		}
