@@ -78,7 +78,6 @@ void Window::anchored(bool isAnchored)
 void Window::show()
 {
 	Control::show();
-	hasFocus(true);
 }
 
 
