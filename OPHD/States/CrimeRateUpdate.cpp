@@ -31,7 +31,7 @@ void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
 		return;
 	}
 
-	double accumulatedCrime = 0;
+	double accumulatedCrime{ 0 };
 
 	for (auto structure : structuresWithCrime)
 	{

@@ -18,7 +18,7 @@ public:
 
 private:
 	PopulationPanel& mPopulationPanel;
-	int mMoraleChange = 0;
+	int mMoraleChange{ 0 };
 	std::vector<Structure*> mStructuresCommittingCrimes;
 
 	bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure);

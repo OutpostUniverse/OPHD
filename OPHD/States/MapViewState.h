@@ -247,7 +247,7 @@ private:
 
 private:
 	MainReportsUiState& mMainReportsState;
-	TileMap* mTileMap = nullptr;
+	TileMap* mTileMap{ nullptr };
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 
