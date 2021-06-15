@@ -73,7 +73,7 @@ private:
 	void draw() override; /**< Draw the widget on screen. */
 	void logic(); /**< Compute some values before drawing the control. */
 
-	void _buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, float value);
+	void buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, float value);
 
 	const NAS2D::Font& mFont;
 

@@ -284,8 +284,8 @@ void FactoryReport::onVisibilityChange(bool visible)
 {
 	if (!selectedFactory) { return; }
 
-	StructureState _state = selectedFactory->state();
-	btnApply.visible(visible && (_state == StructureState::Operational || _state == StructureState::Idle));
+	StructureState state = selectedFactory->state();
+	btnApply.visible(visible && (state == StructureState::Operational || state == StructureState::Idle));
 	checkFactoryActionControls();
 }
 
@@ -402,8 +402,7 @@ void FactoryReport::onListSelectionChange()
 	lstProducts.clear();
 	if (selectedFactory->state() != StructureState::Destroyed)
 	{
-		const Factory::ProductionTypeList& _pl = selectedFactory->productList();
-		for (auto item : _pl)
+		for (auto item : selectedFactory->productList())
 		{
 			lstProducts.add(productDescription(item), static_cast<int>(item));
 		}
@@ -411,8 +410,8 @@ void FactoryReport::onListSelectionChange()
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.tag == productType; });
 	selectedProductType = selectedFactory->productType();
 
-	StructureState _state = selectedFactory->state();
-	btnApply.visible(_state == StructureState::Operational || _state == StructureState::Idle);
+	StructureState state = selectedFactory->state();
+	btnApply.visible(state == StructureState::Operational || state == StructureState::Idle);
 }
 
 
@@ -450,12 +449,12 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	const auto labelWidth = fontMediumBold.width("Resources Required");
 
 	// MINERAL RESOURCES
-	const ProductionCost& _pc = productCost(selectedFactory->productType());
+	const ProductionCost& productionCost = productCost(selectedFactory->productType());
 	const std::array requiredResources{
-		std::pair{"Common Metals", _pc.commonMetals()},
-		std::pair{"Common Minerals", _pc.commonMinerals()},
-		std::pair{"Rare Metals", _pc.rareMetals()},
-		std::pair{"Rare Minerals", _pc.rareMinerals()},
+		std::pair{"Common Metals", productionCost.commonMetals()},
+		std::pair{"Common Minerals", productionCost.commonMinerals()},
+		std::pair{"Rare Metals", productionCost.rareMetals()},
+		std::pair{"Rare Minerals", productionCost.rareMinerals()},
 	};
 	auto position = startPoint + NAS2D::Vector{138, 80};
 	for (auto [title, value] : requiredResources) {

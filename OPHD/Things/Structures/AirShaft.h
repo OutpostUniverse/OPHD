@@ -23,17 +23,17 @@ public:
 	void ug()
 	{
 		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL_UG);
-		_ug = true;
+		mIsUnderground = true;
 	}
 
 	void forced_state_change(StructureState, DisabledReason, IdleReason) override
 	{
-		if (_ug)
+		if (mIsUnderground)
 		{
 			return;
 		}
 	}
 
 private:
-	bool _ug = false;
+	bool mIsUnderground = false;
 };

@@ -115,6 +115,6 @@ void UIContainer::update()
 }
 
 
-std::vector<Control*> UIContainer::controls() const {
+const std::vector<Control*>& UIContainer::controls() const {
 	return mControls;
 }

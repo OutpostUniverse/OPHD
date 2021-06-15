@@ -261,14 +261,14 @@ void TileMap::mapViewLocation(NAS2D::Point<int> point)
 /**
  * Convenience function to focus the TileMap's view on a specified tile.
  * 
- * \param	_t	Pointer to a Tile. Safe to pass nullptr.
+ * \param	tile	Pointer to a Tile. Safe to pass nullptr.
  */
-void TileMap::centerMapOnTile(Tile* _t)
+void TileMap::centerMapOnTile(Tile* tile)
 {
-	if (!_t) { return; }
+	if (!tile) { return; }
 
-	mapViewLocation(_t->position() - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2);
-	currentDepth(_t->depth());
+	mapViewLocation(tile->position() - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2);
+	currentDepth(tile->depth());
 }
 
 
@@ -380,15 +380,15 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 }
 
 
-static void serializeTile(XmlElement* _ti, int x, int y, int depth, TerrainType index)
+static void serializeTile(XmlElement* tilesElement, int x, int y, int depth, TerrainType index)
 {
-	auto* t = new XmlElement("tile");
-	t->attribute("x", x);
-	t->attribute("y", y);
-	t->attribute("depth", depth);
-	t->attribute("index", static_cast<int>(index));
+	auto* tileElement = new XmlElement("tile");
+	tileElement->attribute("x", x);
+	tileElement->attribute("y", y);
+	tileElement->attribute("depth", depth);
+	tileElement->attribute("index", static_cast<int>(index));
 
-	_ti->linkEndChild(t);
+	tilesElement->linkEndChild(tileElement);
 }
 
 

@@ -23,15 +23,15 @@
 class Wrapper : public NAS2D::State
 {
 public:
-	Wrapper() : _active(false) {}
+	Wrapper() : mIsActive(false) {}
 
 	State* _update() { return update(); }
 
 	void _initialize() { initialize(); }
 
-	void deactivate() { _active = false; _deactivate(); }
-	void activate() { _active = true; _activate(); }
-	bool active() { return _active; }
+	void deactivate() { mIsActive = false; _deactivate(); }
+	void activate() { mIsActive = true; _activate(); }
+	bool active() { return mIsActive; }
 
 private:
 
@@ -52,7 +52,7 @@ private:
 
 
 private:
-	bool _active;
+	bool mIsActive;
 };
 
 

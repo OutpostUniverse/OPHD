@@ -109,18 +109,18 @@ void MapViewState::updateCommercial()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	const auto& _warehouses = structureManager.getStructures<Warehouse>();
-	const auto& _commercial = structureManager.getStructures<Commercial>();
+	const auto& warehouses = structureManager.getStructures<Warehouse>();
+	const auto& commercial = structureManager.getStructures<Commercial>();
 
 	// No need to do anything if there are no commercial structures.
-	if (_commercial.empty()) { return; }
+	if (commercial.empty()) { return; }
 
 	int luxuryCount = structureManager.getCountInState(Structure::StructureClass::Commercial, StructureState::Operational);
 	int commercialCount = luxuryCount;
 
-	for (auto warehouse : _warehouses)
+	for (auto warehouse : warehouses)
 	{
-		ProductPool& _pl = warehouse->products();
+		ProductPool& productPool = warehouse->products();
 
 		/**
 		 * inspect for luxury products.
@@ -129,17 +129,17 @@ void MapViewState::updateCommercial()
 		 *			is only one luxury item, clothing, but as this changes more
 		 *			items may be seen as luxury.
 		 */
-		int clothing = _pl.count(ProductType::PRODUCT_CLOTHING);
+		int clothing = productPool.count(ProductType::PRODUCT_CLOTHING);
 
 		if (clothing >= luxuryCount)
 		{
-			_pl.pull(ProductType::PRODUCT_CLOTHING, luxuryCount);
+			productPool.pull(ProductType::PRODUCT_CLOTHING, luxuryCount);
 			luxuryCount = 0;
 			break;
 		}
 		else if (clothing < luxuryCount)
 		{
-			_pl.pull(ProductType::PRODUCT_CLOTHING, clothing);
+			productPool.pull(ProductType::PRODUCT_CLOTHING, clothing);
 			luxuryCount -= clothing;
 		}
 
@@ -149,12 +149,12 @@ void MapViewState::updateCommercial()
 		}
 	}
 
-	auto _comm_r_it = _commercial.rbegin();
-	for (std::size_t i = 0; i < static_cast<std::size_t>(luxuryCount) && _comm_r_it != _commercial.rend(); ++i, ++_comm_r_it)
+	auto commercialReverseIterator = commercial.rbegin();
+	for (std::size_t i = 0; i < static_cast<std::size_t>(luxuryCount) && commercialReverseIterator != commercial.rend(); ++i, ++commercialReverseIterator)
 	{
-		if ((*_comm_r_it)->operational())
+		if ((*commercialReverseIterator)->operational())
 		{
-			(*_comm_r_it)->idle(IdleReason::InsufficientLuxuryProduct);
+			(*commercialReverseIterator)->idle(IdleReason::InsufficientLuxuryProduct);
 		}
 	}
 

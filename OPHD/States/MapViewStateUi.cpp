@@ -118,7 +118,7 @@ void MapViewState::initUi()
 	mBtnToggleRouteOverlay.type(Button::Type::BUTTON_TOGGLE);
 	mBtnToggleRouteOverlay.click().connect(this, &MapViewState::onToggleRouteOverlay);
 
-	mBtnTogglePoliceOverlay.image("ui/icons/PoliceIcon.png");
+	mBtnTogglePoliceOverlay.image("ui/icons/police.png");
 	mBtnTogglePoliceOverlay.size(constants::MAIN_BUTTON_SIZE);
 	mBtnTogglePoliceOverlay.type(Button::Type::BUTTON_TOGGLE);
 	mBtnTogglePoliceOverlay.click().connect(this, &MapViewState::onTogglePoliceOverlay);
@@ -533,29 +533,29 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 * Currently uses a text comparison function. Not inherently bad but
 * should really be turned into a key/value pair table for easier lookups.
 */
-void MapViewState::onStructuresSelectionChange(const IconGrid::IconGridItem* _item)
+void MapViewState::onStructuresSelectionChange(const IconGrid::IconGridItem* item)
 {
 	mConnections.clearSelection();
 	mRobots.clearSelection();
 
-	if (!_item) { return; }
+	if (!item) { return; }
 
 	// Check availability
-	if (!_item->available)
+	if (!item->available)
 	{
-		resourceShortageMessage(mResourcesCount, static_cast<StructureID>(_item->meta));
+		resourceShortageMessage(mResourcesCount, static_cast<StructureID>(item->meta));
 		mStructures.clearSelection();
 		return;
 	}
 
-	setStructureID(static_cast<StructureID>(_item->meta), InsertMode::Structure);
+	setStructureID(static_cast<StructureID>(item->meta), InsertMode::Structure);
 }
 
 
 /**
  * Handler for the Tubes Pallette dialog.
  */
-void MapViewState::onConnectionsSelectionChange(const IconGrid::IconGridItem* /*_item*/)
+void MapViewState::onConnectionsSelectionChange(const IconGrid::IconGridItem* /*item*/)
 {
 	mRobots.clearSelection();
 	mStructures.clearSelection();
@@ -567,18 +567,18 @@ void MapViewState::onConnectionsSelectionChange(const IconGrid::IconGridItem* /*
 /**
  * Handles clicks of the Robot Selection Menu.
  */
-void MapViewState::onRobotsSelectionChange(const IconGrid::IconGridItem* _item)
+void MapViewState::onRobotsSelectionChange(const IconGrid::IconGridItem* item)
 {
 	mConnections.clearSelection();
 	mStructures.clearSelection();
 
-	if (!_item)
+	if (!item)
 	{
 		clearMode();
 		return;
 	}
 
-	mCurrentRobot = static_cast<Robot::Type>(_item->meta);
+	mCurrentRobot = static_cast<Robot::Type>(item->meta);
 
 	mInsertMode = InsertMode::Robot;
 	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
