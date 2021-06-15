@@ -224,7 +224,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 {
 	hasFocus(mRect.contains(Point{x, y})); // This is a very useful check, should probably include this in all controls.
 
-	if (!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	int relativePosition = x - mRect.x;
 

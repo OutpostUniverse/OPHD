@@ -68,7 +68,7 @@ CheckBox::ClickSignal::Source& CheckBox::click()
 
 void CheckBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!enabled() || !visible() || !hasFocus()) { return; }
+	if (!enabled() || !visible()) { return; }
 
 	if (button == EventHandler::MouseButton::Left && mRect.contains(Point{x, y}))
 	{
