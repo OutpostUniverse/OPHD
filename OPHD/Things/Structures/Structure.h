@@ -159,6 +159,8 @@ protected:
 	void turnsToBuild(int newTurnsToBuild) { mTurnsToBuild = newTurnsToBuild; }
 	void maxAge(int newMaxAge) { mMaxAge = newMaxAge; }
 
+	void integrityDecayRate(int decayRate) { mIntegrityDecayRate = decayRate; }
+
 	void repairable(bool isRepairable) { mRepairable = isRepairable; }
 
 	virtual void defineResourceInput() {}

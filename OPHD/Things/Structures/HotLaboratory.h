@@ -15,6 +15,7 @@ public:
 	{
 		maxAge(500);
 		turnsToBuild(5);
+		integrityDecayRate(2);
 
 		requiresCHAP(false);
 	}

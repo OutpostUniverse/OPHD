@@ -23,6 +23,7 @@ public:
 		repairable(false);
 		requiresCHAP(false);
 		selfSustained(true);
+		integrityDecayRate(2);
 
 		enable();
 	}

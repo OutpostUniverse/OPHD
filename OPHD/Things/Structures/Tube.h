@@ -21,6 +21,7 @@ public:
 		connectorDirection(dir);
 		requiresCHAP(false);
 		state(StructureState::Operational);
+		integrityDecayRate(0);
 	}
 
 private:
