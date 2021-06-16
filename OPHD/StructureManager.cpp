@@ -168,6 +168,11 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 			continue;
 		}
 
+		if (structure->disabled() &&structure->disabledReason() == DisabledReason::StructuralIntegrity)
+		{
+			continue;
+		}
+
 		// Connection Check
 		if (!structureConnected(structure) && !structure->selfSustained())
 		{
