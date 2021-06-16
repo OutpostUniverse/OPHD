@@ -260,7 +260,16 @@ void Structure::incrementAge()
 
 void Structure::updateIntegrityDecay()
 {
+	mIntegrity = std::clamp(mIntegrity - integrityDecayRate(), 0, mIntegrity);
 
+	if (mIntegrity <= 35 && !disabled())
+	{
+		disable(DisabledReason::StructuralIntegrity);
+	}
+	else if (mIntegrity <= 20 && !destroyed())
+	{
+		// one in ten chance the structure collapses
+	}
 }
 
 
