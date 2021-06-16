@@ -237,7 +237,7 @@ namespace constants
 	const std::string STRUCTURE_DISABLED_ENERGY = "Insufficient Energy";
 	const std::string STRUCTURE_DISABLED_POPULATION = "Insufficient Population";
 	const std::string STRUCTURE_DISABLED_REFINED_RESOURCES = "Insufficient refined resources";
-	const std::string STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY = "Structural Integrity below operating threshold";
+	const std::string STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY = "Structural Integrity is compromised";
 
 	// =====================================
 	// = STRUCTURE IDLE REASONS
