@@ -186,6 +186,7 @@ private:
 	Structure() = delete;
 
 	void incrementAge();
+	void updateIntegrityDecay();
 	void die() override;
 
 	/**

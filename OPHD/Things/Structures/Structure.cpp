@@ -236,6 +236,7 @@ void Structure::update()
 {
 	if (disabled() || destroyed()) { return; }
 	incrementAge();
+	updateIntegrityDecay();
 }
 
 
@@ -254,6 +255,12 @@ void Structure::incrementAge()
 	{
 		destroy();
 	}
+}
+
+
+void Structure::updateIntegrityDecay()
+{
+
 }
 
 
