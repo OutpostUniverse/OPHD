@@ -5,6 +5,25 @@
 
 
 /**
+ * \fixme Copy/paste code.
+ * 
+ * fix when https://github.com/OutpostUniverse/OPHD/issues/974
+ * is implemented.
+ */
+#include <random>
+#include <functional>
+
+namespace
+{
+	std::random_device randomDevice;
+	std::mt19937 generator(randomDevice());
+	std::uniform_int_distribution<int> distribution(0, 1000);
+	auto randomNumberGenerator = std::bind(distribution, std::ref(generator));
+}
+/** end fixme */
+
+
+/**
  * Translation table for Structure States.
  */
 const std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
@@ -268,7 +287,11 @@ void Structure::updateIntegrityDecay()
 	}
 	else if (mIntegrity <= 20 && !destroyed())
 	{
-		// one in ten chance the structure collapses
+		/* range is 0 - 1000, 0 - 100 for 10% chance */
+		if (randomNumberGenerator() < 100)
+		{
+			destroy();
+		}
 	}
 }
 
