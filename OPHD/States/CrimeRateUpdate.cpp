@@ -3,86 +3,102 @@
 #include "../Things/Structures/Structure.h"
 #include "../StructureManager.h"
 #include <NAS2D/Utility.h>
+#include <random>
+#include <functional>
 
-namespace CrimeRate
+
+namespace
 {
-	bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure);
-	int calculateMoraleChange(int meanCrimeRate);
-	void setPopulationPanel(int moraleChange, int meanCrimeRate, PopulationPanel& populationPanel);
+	std::random_device randomDevice;
+	std::mt19937 generator(randomDevice());
+	std::uniform_int_distribution<int> distribution(0, 1000);
+	auto randomNumberGenerator = std::bind(distribution, std::ref(generator));
+}
 
 
-	int update(const std::vector<TileList>& policeOverlays, PopulationPanel& populationPanel)
+CrimeRateUpdate::CrimeRateUpdate(PopulationPanel& populationPanel) : mPopulationPanel(populationPanel) { }
+
+
+void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
+{
+	mStructuresCommittingCrimes.clear();
+	mMoraleChange = 0;
+
+	const auto& structuresWithCrime = NAS2D::Utility<StructureManager>::get().structuresWithCrime();
+
+	// Colony will not have a crime rate until at least one structure that supports crime is built
+	if (structuresWithCrime.empty())
 	{
-		const auto& structuresWithCrime = NAS2D::Utility<StructureManager>::get().structuresWithCrime();
-
-		// Colony will not have a crime rate until at least one structure that supports crime is built
-		if (structuresWithCrime.empty()) {
-			setPopulationPanel(0, 0, populationPanel);
-			return 0;
-		}
-
-		double accumulatedCrime = 0;
-
-		for (auto structure : structuresWithCrime)
-		{
-			int crimeRateChange = isProtectedByPolice(policeOverlays, structure) ? -1 : 1;
-			structure->increaseCrimeRate(crimeRateChange);
-
-			accumulatedCrime += structure->crimeRate();
-		}
-
-		int meanCrimeRate = static_cast<int>(accumulatedCrime / structuresWithCrime.size());
-		int moraleChange = calculateMoraleChange(meanCrimeRate);
-
-		setPopulationPanel(moraleChange, meanCrimeRate, populationPanel);
-
-		return moraleChange;
+		updateCrimeOnPopulationPanel(0, 0);
+		return;
 	}
 
+	double accumulatedCrime{ 0 };
 
-	bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure)
+	for (auto structure : structuresWithCrime)
 	{
-		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
+		int crimeRateChange = isProtectedByPolice(policeOverlays, structure) ? -1 : 1;
+		structure->increaseCrimeRate(crimeRateChange);
 
-		for (const auto& tile : policeOverlays[structureTile.depth()])
+		// Crime Rate of 0% means no crime
+		// Crime Rate of 100% means crime occurs 10% of the time
+		if (structure->crimeRate() + randomNumberGenerator() > 1000)
 		{
-			if (tile->position() == structureTile.position())
-			{
-				return true;
-			}
+			mStructuresCommittingCrimes.push_back(structure);
 		}
 
-		return false;
+		accumulatedCrime += structure->crimeRate();
 	}
 
+	int meanCrimeRate = static_cast<int>(accumulatedCrime / structuresWithCrime.size());
+	mMoraleChange = calculateMoraleChange(meanCrimeRate);
 
-	int calculateMoraleChange(int meanCrimeRate)
+	updateCrimeOnPopulationPanel(mMoraleChange, meanCrimeRate);
+}
+
+
+bool CrimeRateUpdate::isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure)
+{
+	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
+
+	for (const auto& tile : policeOverlays[structureTile.depth()])
 	{
-		if (meanCrimeRate > 50)
+		if (tile->position() == structureTile.position())
 		{
-			// Reduce morale by 1 for every 10% above 50%
-			return -1 * (meanCrimeRate / 10 - 4);
+			return true;
 		}
-		else if (meanCrimeRate < 10)
-		{
-			return 1;
-		}
-
-		return 0;
 	}
 
+	return false;
+}
 
-	void setPopulationPanel(int moraleChange, int meanCrimeRate, PopulationPanel& populationPanel)
+
+int CrimeRateUpdate::calculateMoraleChange(int meanCrimeRate)
+{
+	if (meanCrimeRate > 50)
 	{
-		populationPanel.crimeRate(meanCrimeRate);
+		// Reduce morale by 1 for every 10% above 50%
+		return -1 * (meanCrimeRate / 10 - 4);
+	}
+	else if (meanCrimeRate < 10)
+	{
+		return 1;
+	}
 
-		if (moraleChange > 0)
-		{
-			populationPanel.addMoraleReason("Low Crime Rate", moraleChange);
-		}
-		else if (moraleChange < 0)
-		{
-			populationPanel.addMoraleReason("High Crime Rate", moraleChange);
-		}
+	return 0;
+}
+
+
+void CrimeRateUpdate::updateCrimeOnPopulationPanel(int moraleChange, int meanCrimeRate)
+{
+	mPopulationPanel.crimeRate(meanCrimeRate);
+
+	if (moraleChange > 0)
+	{
+		mPopulationPanel.addMoraleReason("Low Crime Rate", moraleChange);
+	}
+	else if (moraleChange < 0)
+	{
+		mPopulationPanel.addMoraleReason("High Crime Rate", moraleChange);
 	}
 }

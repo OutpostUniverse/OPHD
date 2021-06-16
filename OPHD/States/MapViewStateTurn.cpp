@@ -4,7 +4,6 @@
 
 #include "MapViewState.h"
 #include "MapViewStateHelper.h"
-#include "CrimeRateUpdate.h"
 
 #include "../Map/TileMap.h"
 #include "../Things/Structures/Structures.h"
@@ -569,6 +568,13 @@ void MapViewState::nextTurn()
 	mPreviousMorale = mCurrentMorale;
 
 	transferFoodToCommandCenter();
+
+	mCrimeRateUpdate.update(mPoliceOverlays);
+	mCurrentMorale += mCrimeRateUpdate.moraleChange();
+	auto structuresCommittingCrimes = mCrimeRateUpdate.structuresCommittingCrimes();
+	mCrimeExecution.executeCrimes(structuresCommittingCrimes);
+	
+
 	updateResidentialCapacity();
 
 	countFood();
@@ -581,7 +587,6 @@ void MapViewState::nextTurn()
 	updateResources();
 	updateStructuresAvailability();
 	updateRoads();
-	mCurrentMorale += CrimeRate::update(mPoliceOverlays, mPopulationPanel);
 
 	// Overlay Updates
 	checkCommRangeOverlay();
