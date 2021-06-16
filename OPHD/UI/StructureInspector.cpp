@@ -49,7 +49,7 @@ void StructureInspector::onClose()
 
 StringTable StructureInspector::buildStringTable() const
 {
-	StringTable stringTable(4, 5);
+	StringTable stringTable(4, 6);
 	stringTable.position(mRect.startPoint() + NAS2D::Vector{ 5, 25 });
 	stringTable.setVerticalPadding(5);
 	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
@@ -76,6 +76,12 @@ StringTable StructureInspector::buildStringTable() const
 
 	stringTable[{3, 2}].text = getDisabledReason();
 
+	if (!mStructure->underConstruction() && !mStructure->destroyed())
+	{
+		stringTable[{0, 2}].text = "Integrity:";
+		stringTable[{1, 2}].text = std::to_string(mStructure->integrity());
+	}
+
 	std::size_t workerIndex = 0;
 	std::size_t scientistIndex = 1;
 
@@ -84,22 +90,22 @@ StringTable StructureInspector::buildStringTable() const
 
 	if (populationRequirements[workerIndex] > 0)
 	{
-		stringTable[{0, 2}].text = "Workers:";
-		stringTable[{1, 2}].text = std::to_string(populationAvailable[workerIndex]) + " / " + std::to_string(populationRequirements[workerIndex]);
-		stringTable[{1, 2}].textColor = populationAvailable[workerIndex] >= populationRequirements[workerIndex] ? Color::White : Color::Red;
+		stringTable[{0, 3}].text = "Workers:";
+		stringTable[{1, 3}].text = std::to_string(populationAvailable[workerIndex]) + " / " + std::to_string(populationRequirements[workerIndex]);
+		stringTable[{1, 3}].textColor = populationAvailable[workerIndex] >= populationRequirements[workerIndex] ? Color::White : Color::Red;
 	}
 
 	if (populationRequirements[scientistIndex] > 0)
 	{
-		stringTable[{0, 3}].text = "Scientists:";
-		stringTable[{1, 3}].text = std::to_string(populationAvailable[1]) + " / " + std::to_string(populationRequirements[scientistIndex]);
-		stringTable[{1, 3}].textColor = populationAvailable[scientistIndex] >= populationRequirements[scientistIndex] ? Color::White : Color::Red;
+		stringTable[{0, 4}].text = "Scientists:";
+		stringTable[{1, 4}].text = std::to_string(populationAvailable[1]) + " / " + std::to_string(populationRequirements[scientistIndex]);
+		stringTable[{1, 4}].textColor = populationAvailable[scientistIndex] >= populationRequirements[scientistIndex] ? Color::White : Color::Red;
 	}
 
 	if (mStructure->hasCrime())
 	{
-		stringTable[{0, 4}].text = "Crime Rate:";
-		stringTable[{1, 4}].text = std::to_string(mStructure->crimeRate()) + "%";
+		stringTable[{0, 5}].text = "Crime Rate:";
+		stringTable[{1, 5}].text = std::to_string(mStructure->crimeRate()) + "%";
 	}
 
 	stringTable.computeRelativeCellPositions();
