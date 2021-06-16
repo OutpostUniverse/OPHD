@@ -293,6 +293,10 @@ void Structure::updateIntegrityDecay()
 			destroy();
 		}
 	}
+	else if (mIntegrity == 0)
+	{
+		destroy();
+	}
 }
 
 
