@@ -234,7 +234,7 @@ void Structure::activate()
 
 void Structure::update()
 {
-	if (disabled() || destroyed()) { return; }
+	if (destroyed()) { return; }
 	incrementAge();
 	updateIntegrityDecay();
 }
