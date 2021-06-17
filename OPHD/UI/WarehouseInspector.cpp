@@ -10,7 +10,7 @@ using namespace NAS2D;
 
 
 WarehouseInspector::WarehouseInspector() :
-	Window{constants::WINDOW_WH_INSPECTOR},
+	Window{constants::WindowWarehouseInspector},
 	btnClose{"Okay", {this, &WarehouseInspector::onClose}}
 {
 	size({250, 350});

@@ -54,7 +54,7 @@ FactoryReport::FactoryReport() :
 	btnShowDisabled{"Disabled", {this, &FactoryReport::onShowDisabled}},
 	btnIdle{"Idle", {this, &FactoryReport::onIdle}},
 	btnClearProduction{"Clear Production", {this, &FactoryReport::onClearProduction}},
-	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE, {this, &FactoryReport::onTakeMeThere}},
+	btnTakeMeThere{constants::TakeMeThere, {this, &FactoryReport::onTakeMeThere}},
 	btnApply{"Apply", {this, &FactoryReport::onApply}}
 {
 	add(lstFactoryList, {10, 63});
@@ -102,15 +102,15 @@ FactoryReport::FactoryReport() :
 	add(cboFilterByProduct, {250, 33});
 	cboFilterByProduct.size({200, 20});
 
-	cboFilterByProduct.addItem(constants::NONE, ProductType::PRODUCT_NONE);
-	cboFilterByProduct.addItem(constants::CLOTHING, ProductType::PRODUCT_CLOTHING);
-	cboFilterByProduct.addItem(constants::MAINTENANCE_SUPPLIES, ProductType::PRODUCT_MAINTENANCE_PARTS);
-	cboFilterByProduct.addItem(constants::MEDICINE, ProductType::PRODUCT_MEDICINE);
-	cboFilterByProduct.addItem(constants::ROBODIGGER, ProductType::PRODUCT_DIGGER);
-	cboFilterByProduct.addItem(constants::ROBODOZER, ProductType::PRODUCT_DOZER);
-	cboFilterByProduct.addItem(constants::ROBOEXPLORER, ProductType::PRODUCT_EXPLORER);
-	cboFilterByProduct.addItem(constants::ROBOMINER, ProductType::PRODUCT_MINER);
-	cboFilterByProduct.addItem(constants::TRUCK, ProductType::PRODUCT_TRUCK);
+	cboFilterByProduct.addItem(constants::None, ProductType::PRODUCT_NONE);
+	cboFilterByProduct.addItem(constants::Clothing, ProductType::PRODUCT_CLOTHING);
+	cboFilterByProduct.addItem(constants::MaintenanceSupplies, ProductType::PRODUCT_MAINTENANCE_PARTS);
+	cboFilterByProduct.addItem(constants::Medicine, ProductType::PRODUCT_MEDICINE);
+	cboFilterByProduct.addItem(constants::Robodigger, ProductType::PRODUCT_DIGGER);
+	cboFilterByProduct.addItem(constants::Robodozer, ProductType::PRODUCT_DOZER);
+	cboFilterByProduct.addItem(constants::Roboexplorer, ProductType::PRODUCT_EXPLORER);
+	cboFilterByProduct.addItem(constants::Robominer, ProductType::PRODUCT_MINER);
+	cboFilterByProduct.addItem(constants::Truck, ProductType::PRODUCT_TRUCK);
 
 	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::onProductFilterSelectionChange);
 
@@ -195,11 +195,11 @@ void FactoryReport::fillFactoryList(bool surface)
 	lstFactoryList.clear();
 	for (auto factory : Utility<StructureManager>::get().getStructures<Factory>())
 	{
-		if (surface && (factory->name() == constants::SURFACE_FACTORY || factory->name() == constants::SEED_FACTORY))
+		if (surface && (factory->name() == constants::SurfaceFactory || factory->name() == constants::SeedFactory))
 		{
 			lstFactoryList.addItem(factory);
 		}
-		else if (!surface && factory->name() == constants::UNDERGROUND_FACTORY)
+		else if (!surface && factory->name() == constants::UndergroundFactory)
 		{
 			lstFactoryList.addItem(factory);
 		}
@@ -390,9 +390,9 @@ void FactoryReport::onListSelectionChange()
 	}
 
 	/// \fixme Ugly
-	if (selectedFactory->name() == constants::SEED_FACTORY) { factoryImage = &factorySeed; }
-	else if (selectedFactory->name() == constants::SURFACE_FACTORY) { factoryImage = &factoryAboveGround; }
-	else if (selectedFactory->name() == constants::UNDERGROUND_FACTORY) { factoryImage = &factoryUnderGround; }
+	if (selectedFactory->name() == constants::SeedFactory) { factoryImage = &factorySeed; }
+	else if (selectedFactory->name() == constants::SurfaceFactory) { factoryImage = &factoryAboveGround; }
+	else if (selectedFactory->name() == constants::UndergroundFactory) { factoryImage = &factoryUnderGround; }
 
 	btnIdle.toggle(selectedFactory->state() == StructureState::Idle);
 	btnIdle.enabled(selectedFactory->state() == StructureState::Operational || selectedFactory->state() == StructureState::Idle);

@@ -30,7 +30,7 @@ public:
 
 		if (produced == 0)
 		{
-			stringTable[{1, 0}].textColor = constants::WARNING_TEXT_COLOR;
+			stringTable[{1, 0}].textColor = constants::WarningTextColor;
 		}
 
 		return stringTable;

@@ -8,7 +8,7 @@
 class RedLightDistrict : public Structure
 {
 public:
-	RedLightDistrict() : Structure(constants::RED_LIGHT_DISTRICT,
+	RedLightDistrict() : Structure(constants::RedLightDistrict,
 		"structures/red_light_district.sprite",
 		StructureClass::Residence,
 		StructureID::SID_RED_LIGHT_DISTRICT)

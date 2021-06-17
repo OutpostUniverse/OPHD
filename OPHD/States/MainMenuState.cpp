@@ -17,12 +17,12 @@ using namespace NAS2D;
 MainMenuState::MainMenuState() :
 	mBgImage{"sys/mainmenu.png"},
 	buttons{{
-		{constants::MAIN_MENU_NEW_GAME, {this, &MainMenuState::onNewGame}},
-		{constants::MAIN_MENU_CONTINUE, {this, &MainMenuState::onContinueGame}},
-		{constants::MAIN_MENU_HELP, {this, &MainMenuState::onHelp}},
-		{constants::MAIN_MENU_QUIT, {this, &MainMenuState::onQuit}}
+		{constants::MainMenuNewGame, {this, &MainMenuState::onNewGame}},
+		{constants::MainMenuContinue, {this, &MainMenuState::onContinueGame}},
+		{constants::MainMenuHelp, {this, &MainMenuState::onHelp}},
+		{constants::MainMenuQuit, {this, &MainMenuState::onQuit}}
 	}},
-	lblVersion{constants::VERSION},
+	lblVersion{constants::Version},
 	mReturnState{this}
 {}
 
@@ -137,7 +137,7 @@ void MainMenuState::onFileIoAction(const std::string& filePath, FileIo::FileOper
 		return;
 	}
 
-	std::string filename = constants::SAVE_GAME_PATH + filePath + ".xml";
+	std::string filename = constants::SaveGamePath + filePath + ".xml";
 
 	try
 	{
@@ -211,7 +211,7 @@ void MainMenuState::onContinueGame()
 {
 	if (mFileIoDialog.visible()) { return; }
 
-	mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
+	mFileIoDialog.scanDirectory(constants::SaveGamePath);
 	mFileIoDialog.show();
 }
 

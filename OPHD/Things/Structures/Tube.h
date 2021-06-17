@@ -13,7 +13,7 @@ class Tube : public Structure
 {
 public:
 	Tube(ConnectorDir dir, bool underground) :
-		Structure(constants::TUBE, "structures/tubes.sprite",
+		Structure(constants::Tube, "structures/tubes.sprite",
 			getAnimationName(dir, underground),
 			StructureClass::Tube,
 			StructureID::SID_TUBE)
@@ -30,11 +30,11 @@ private:
 	{
 		return *(
 			(dir == ConnectorDir::CONNECTOR_INTERSECTION) ?
-				(underground ? &constants::UG_TUBE_INTERSECTION : &constants::AG_TUBE_INTERSECTION) :
+				(underground ? &constants::UgTubeIntersection : &constants::AgTubeIntersection) :
 			(dir == ConnectorDir::CONNECTOR_RIGHT) ?
-				(underground ? &constants::UG_TUBE_RIGHT : &constants::AG_TUBE_RIGHT) :
+				(underground ? &constants::UgTubeRight : &constants::AgTubeRight) :
 			(dir == ConnectorDir::CONNECTOR_LEFT) ?
-				(underground ? &constants::UG_TUBE_LEFT : &constants::AG_TUBE_LEFT) :
+				(underground ? &constants::UgTubelLeft : &constants::AgTubeLeft) :
 			throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter."));
 	}
 };

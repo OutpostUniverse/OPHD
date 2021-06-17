@@ -97,8 +97,8 @@ void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mo
 void FileIo::setMode(FileOperation fileOp)
 {
 	mMode = fileOp; 
-	title(mMode == FileOperation::Load ? constants::WINDOW_FILEIO_TITLE_LOAD : constants::WINDOW_FILEIO_TITLE_SAVE);
-	btnFileOp.text(mMode == FileOperation::Load ? constants::WINDOW_FILEIO_LOAD : constants::WINDOW_FILEIO_SAVE);
+	title(mMode == FileOperation::Load ? constants::WindowFileIoTitleLoad : constants::WindowFileIoTitleSave);
+	btnFileOp.text(mMode == FileOperation::Load ? constants::WindowFileIoLoad : constants::WindowFileIoSave);
 }
 
 
@@ -169,11 +169,11 @@ void FileIo::onFileIo()
 
 void FileIo::onFileDelete()
 {
-	std::string filename = constants::SAVE_GAME_PATH + txtFileName.text() + ".xml";
+	std::string filename = constants::SaveGamePath + txtFileName.text() + ".xml";
 
 	try
 	{
-		if(doYesNoMessage(constants::WINDOW_FILEIO_TITLE_DELETE, "Are you sure you want to delete " + txtFileName.text() + "?"))
+		if(doYesNoMessage(constants::WindowFileIoTitleDelete, "Are you sure you want to delete " + txtFileName.text() + "?"))
 		{
 			Utility<Filesystem>::get().del(filename);
 		}
@@ -186,7 +186,7 @@ void FileIo::onFileDelete()
 	txtFileName.text("");
 	txtFileName.resetCursorPosition();
 	btnFileDelete.enabled(false);
-	scanDirectory(constants::SAVE_GAME_PATH);
+	scanDirectory(constants::SaveGamePath);
 }
 
 

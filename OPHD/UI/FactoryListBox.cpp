@@ -73,8 +73,8 @@ void FactoryListBox::addItem(Factory* factory)
 	/// \fixme super sloppy
 	const auto& text = factory->name();
 	const auto iconPosition = (factory->state() == StructureState::Destroyed) ? NAS2D::Point<int>{414, 368} :
-		(text == constants::UNDERGROUND_FACTORY) ? NAS2D::Point<int>{138, 276} :
-		(text == constants::SEED_FACTORY) ? NAS2D::Point<int>{460, 368} :
+		(text == constants::UndergroundFactory) ? NAS2D::Point<int>{138, 276} :
+		(text == constants::SeedFactory) ? NAS2D::Point<int>{460, 368} :
 		NAS2D::Point<int>{0, 46}; // Surface factory
 	add<FactoryListBoxItem>(text, factory, iconPosition);
 }

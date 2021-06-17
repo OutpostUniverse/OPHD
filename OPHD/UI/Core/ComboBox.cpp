@@ -161,7 +161,7 @@ void ComboBox::addItem(const std::string& item, int tag)
  */
 const std::string& ComboBox::selectionText() const
 {
-	return lstItems.isItemSelected() ? lstItems.selected().text : constants::EMPTY_STR;
+	return lstItems.isItemSelected() ? lstItems.selected().text : constants::EmptyString;
 }
 
 

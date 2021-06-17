@@ -11,7 +11,7 @@ const int SOLAR_PLANT_BASE_PRODUCUCTION = 2000;
 class SolarPlant : public PowerStructure
 {
 public:
-	SolarPlant(float meanSolarDistance) : PowerStructure(constants::SOLAR_PLANT,
+	SolarPlant(float meanSolarDistance) : PowerStructure(constants::SolarPlant,
 		"structures/solar_plant.sprite",
 		StructureClass::EnergyProduction,
 		StructureID::SID_SOLAR_PLANT),

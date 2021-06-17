@@ -15,7 +15,7 @@ using namespace NAS2D;
 
 
 StructureInspector::StructureInspector() :
-	Window{constants::WINDOW_STRUCTURE_INSPECTOR},
+	Window{constants::WindowStructureInspector},
 	btnClose{"Close", {this, &StructureInspector::onClose}},
 	mIcons{imageCache.load("ui/icons.png")}
 {

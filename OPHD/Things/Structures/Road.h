@@ -8,7 +8,7 @@
 class Road : public Structure
 {
 public:
-	Road() : Structure(constants::ROAD,
+	Road() : Structure(constants::Road,
 		"structures/roads.sprite",
 		StructureClass::Road,
 		StructureID::SID_ROAD)

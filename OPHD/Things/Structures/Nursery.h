@@ -8,7 +8,7 @@
 class Nursery : public Structure
 {
 public:
-	Nursery() : Structure(constants::NURSERY,
+	Nursery() : Structure(constants::Nursery,
 		"structures/nursery_01.sprite",
 		StructureClass::Nursery,
 		StructureID::SID_NURSERY)

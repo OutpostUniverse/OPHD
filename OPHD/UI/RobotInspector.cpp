@@ -29,7 +29,7 @@ namespace
 RobotInspector::RobotInspector() :
 	btnCancelOrders{ "Cancel Orders", {this, &RobotInspector::onCancelOrders} },
 	btnSelfDestruct{ "Self Destruct", {this, &RobotInspector::onSelfDestruct} },
-	btnCancel{ constants::ButtonCancel, {this, &RobotInspector::onCancel} }
+	btnCancel{ constants::Cancel, {this, &RobotInspector::onCancel} }
 {
 	const NAS2D::Font& mainFont = fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 	const NAS2D::Font& mainFontBold = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal);
@@ -59,7 +59,7 @@ RobotInspector::RobotInspector() :
 	btnSelfDestruct.size(buttonSize);
 	add(btnSelfDestruct, buttonPosition);
 
-	btnCancel.size({ mainFont.width(constants::ButtonCancel) + padding, buttonSize.y });
+	btnCancel.size({ mainFont.width(constants::Cancel) + padding, buttonSize.y });
 	buttonPosition = { contentWidth - btnCancel.size().x, buttonPosition.y + buttonOffsetY * 2 };
 	add(btnCancel, buttonPosition);
 

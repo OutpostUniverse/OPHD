@@ -29,15 +29,14 @@ namespace constants
 	inline constexpr int RobodozerSheetId{ 0 };
 	inline constexpr int RobominerSheetId{ 2 };
 
-	const NAS2D::Color MINE_COLOR = NAS2D::Color::Red;
-	const NAS2D::Color ACTIVE_MINE_COLOR = NAS2D::Color::Yellow;
+	const NAS2D::Color MineColor = NAS2D::Color::Red;
+	const NAS2D::Color ActiveMineColor = NAS2D::Color::Yellow;
 
 	// =====================================
 	// = MOUSE POINTERS
 	// =====================================
-	const std::string MOUSE_POINTER_NORMAL = "ui/pointers/normal.png";
-	const std::string MOUSE_POINTER_PLACE_TILE = "ui/pointers/place_tile.png";
-	const std::string MOUSE_POINTER_INSPECT = "ui/pointers/inspect.png";
+	const std::string MousePointerNormal = "ui/pointers/normal.png";
+	const std::string MousePointerPlaceTile = "ui/pointers/place_tile.png";
 
 
 	// =====================================
@@ -58,5 +57,5 @@ namespace constants
 	// =====================================
 	// = FONT COLORS
 	// =====================================
-	const auto WARNING_TEXT_COLOR = NAS2D::Color::Red;
+	const auto WarningTextColor = NAS2D::Color::Red;
 }

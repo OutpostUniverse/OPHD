@@ -11,7 +11,7 @@
 class CommandCenter: public FoodProduction
 {
 public:
-	CommandCenter(): FoodProduction(constants::COMMAND_CENTER,
+	CommandCenter(): FoodProduction(constants::CommandCenter,
 		"structures/command_center.sprite",
 		StructureClass::Command,
 		StructureID::SID_COMMAND_CENTER)

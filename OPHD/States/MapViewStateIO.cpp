@@ -49,10 +49,10 @@ static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, Storabl
 {
 	if (!element) { return; }
 
-	resources.resources[0] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_0));
-	resources.resources[1] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_1));
-	resources.resources[2] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_2));
-	resources.resources[3] = std::stoi(element->attribute(constants::SAVE_GAME_RESOURCE_3));
+	resources.resources[0] = std::stoi(element->attribute(constants::SaveGameResource0));
+	resources.resources[1] = std::stoi(element->attribute(constants::SaveGameResource1));
+	resources.resources[2] = std::stoi(element->attribute(constants::SaveGameResource2));
+	resources.resources[3] = std::stoi(element->attribute(constants::SaveGameResource3));
 }
 
 
@@ -90,8 +90,8 @@ void MapViewState::save(const std::string& filePath)
 
 	XmlDocument doc;
 
-	XmlElement* root = new XmlElement(constants::SAVE_GAME_ROOT_NODE);
-	root->attribute("version", constants::SAVE_GAME_VERSION);
+	XmlElement* root = new XmlElement(constants::SaveGameRootNode);
+	root->attribute("version", constants::SaveGameVersion);
 	doc.linkEndChild(root);
 
 	mTileMap->serialize(root, mPlanetAttributes);
@@ -164,7 +164,7 @@ void MapViewState::load(const std::string& filePath)
 	mTileMap = nullptr;
 
 	auto xmlDocument = openSavegame(filePath);
-	auto* root = xmlDocument.firstChildElement(constants::SAVE_GAME_ROOT_NODE);
+	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
 
 	XmlElement* map = root->firstChildElement("properties");
 	XmlAttribute* attribute = map->firstAttribute();

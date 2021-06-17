@@ -8,7 +8,7 @@
 class Laboratory : public Structure
 {
 public:
-	Laboratory() : Structure(constants::LABORATORY,
+	Laboratory() : Structure(constants::Laboratory,
 		"structures/laboratory_underground.sprite",
 		StructureClass::Laboratory,
 		StructureID::SID_LABORATORY)

@@ -8,7 +8,7 @@
 class UndergroundFactory: public Factory
 {
 public:
-	UndergroundFactory(): Factory(constants::UNDERGROUND_FACTORY,
+	UndergroundFactory(): Factory(constants::UndergroundFactory,
 		"structures/factory_underground.sprite",
 		StructureID::SID_UNDERGROUND_FACTORY)
 	{

@@ -8,8 +8,8 @@
 class AirShaft: public Structure
 {
 public:
-	AirShaft() : Structure(constants::AIR_SHAFT, "structures/air_shaft.sprite",
-		constants::STRUCTURE_STATE_OPERATIONAL,
+	AirShaft() : Structure(constants::AirShaft, "structures/air_shaft.sprite",
+		constants::StructureStateOperational,
 		StructureClass::Tube,
 		StructureID::SID_AIR_SHAFT)
 	{
@@ -22,7 +22,7 @@ public:
 
 	void ug()
 	{
-		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL_UG);
+		sprite().play(constants::StructureStateOperationalUg);
 		mIsUnderground = true;
 	}
 
