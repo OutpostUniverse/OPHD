@@ -8,26 +8,26 @@
 
 namespace constants
 {
-	const int BOTTOM_UI_HEIGHT = 162;
+	inline constexpr int BOTTOM_UI_HEIGHT{ 162 };
 
-	const int MARGIN = 6;
-	const int MARGIN_TIGHT = 2;
+	inline constexpr int MARGIN{ 6 };
+	inline constexpr int MARGIN_TIGHT{ 2 };
 
-	const int MAIN_BUTTON_SIZE = 30;
-	const int MINI_MAP_BUTTON_SIZE = 20;
+	inline constexpr int MAIN_BUTTON_SIZE{ 30 };
+	inline constexpr int MINI_MAP_BUTTON_SIZE{ 20 };
 
-	const int RESOURCE_ICON_SIZE = 16;
+	inline constexpr int RESOURCE_ICON_SIZE{ 16 };
 
-	const int RESOURCE_BOX_WIDTH = 200;
+	inline constexpr int RESOURCE_BOX_WIDTH{ 200 };
 
-	const auto NO_SELECTION = std::numeric_limits<std::size_t>::max();
+	inline constexpr auto NO_SELECTION{ std::numeric_limits<std::size_t>::max() };
 
-	const unsigned int MINIMUM_DISPLAY_ITEMS = 5;
+	inline constexpr unsigned int MINIMUM_DISPLAY_ITEMS{ 5 };
 
 	// ROBOT SELECTION UI SHEET ID
-	const int ROBODIGGER_SHEET_ID = 1;
-	const int ROBODOZER_SHEET_ID = 0;
-	const int ROBOMINER_SHEET_ID = 2;
+	inline constexpr int ROBODIGGER_SHEET_ID{ 1 };
+	inline constexpr int ROBODOZER_SHEET_ID{ 0 };
+	inline constexpr int ROBOMINER_SHEET_ID{ 2 };
 
 	const NAS2D::Color MINE_COLOR = NAS2D::Color::Red;
 	const NAS2D::Color ACTIVE_MINE_COLOR = NAS2D::Color::Yellow;
@@ -50,10 +50,10 @@ namespace constants
 	// =====================================
 	// = FONT SIZES
 	// =====================================
-	const int FONT_PRIMARY_NORMAL = 10;
-	const int FONT_PRIMARY_MEDIUM = 14;
-	const int FONT_PRIMARY_LARGE = 16;
-	const int FONT_PRIMARY_HUGE = 20;
+	inline constexpr int FONT_PRIMARY_NORMAL{ 10 };
+	inline constexpr int FONT_PRIMARY_MEDIUM{ 14 };
+	inline constexpr int FONT_PRIMARY_LARGE{ 16 };
+	inline constexpr int FONT_PRIMARY_HUGE{ 20 };
 
 	// =====================================
 	// = FONT COLORS
