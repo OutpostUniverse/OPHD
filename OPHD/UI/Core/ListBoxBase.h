@@ -93,8 +93,8 @@ private:
 	void onResize() override;
 
 
-	std::size_t mHighlightIndex = constants::NO_SELECTION;
-	std::size_t mSelectedIndex = constants::NO_SELECTION;
+	std::size_t mHighlightIndex = constants::NoSelection;
+	std::size_t mSelectedIndex = constants::NoSelection;
 	unsigned int mScrollOffsetInPixels = 0;
 
 	int mItemHeight = 1; /**< Height of a ListBoxItem. */

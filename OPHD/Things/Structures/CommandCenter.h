@@ -22,17 +22,17 @@ public:
 		requiresCHAP(false);
 		selfSustained(true);
 
-		storageCapacity(constants::BASE_STORAGE_CAPACITY);
+		storageCapacity(constants::BaseStorageCapacity);
 	}
 
 	int foodCapacity() override
 	{
-		return constants::BASE_STORAGE_CAPACITY;
+		return constants::BaseStorageCapacity;
 	}
 
 	int getRange() const
 	{
-		return operational() ? constants::ROBOT_COM_RANGE : 0;
+		return operational() ? constants::RobotCommRange : 0;
 	}
 
 protected:

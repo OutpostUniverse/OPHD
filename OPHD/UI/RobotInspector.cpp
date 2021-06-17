@@ -31,26 +31,26 @@ RobotInspector::RobotInspector() :
 	btnSelfDestruct{ "Self Destruct", {this, &RobotInspector::onSelfDestruct} },
 	btnCancel{ constants::ButtonCancel, {this, &RobotInspector::onCancel} }
 {
-	const NAS2D::Font& mainFont = fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
-	const NAS2D::Font& mainFontBold = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL);
+	const NAS2D::Font& mainFont = fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	const NAS2D::Font& mainFontBold = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal);
 
-	constexpr int padding = constants::MARGIN * 2;
+	constexpr int padding = constants::Margin * 2;
 	const auto buttonSize = mainFont.size("Cancel Orders") + NAS2D::Vector{padding, padding};
-	const int buttonOffsetY = buttonSize.y + constants::MARGIN_TIGHT;
+	const int buttonOffsetY = buttonSize.y + constants::MarginTight;
 
 	const int imageWidth = robotImage(Robot::Type::Digger).size().x + padding;
 	const int contentWidth = imageWidth + buttonSize.x;
 
 	mContentArea = {
 		imageWidth,
-		sWindowTitleBarHeight + constants::MARGIN,
+		sWindowTitleBarHeight + constants::Margin,
 		mainFontBold.width("Age") + mainFont.width("    9999"),
-		mainFont.height() + constants::MARGIN
+		mainFont.height() + constants::Margin
 	};
 
 	if (mContentArea.width < buttonSize.x) { mContentArea.width = buttonSize.x; }
 
-	auto buttonPosition = Vector{ imageWidth,  mContentArea.y + mContentArea.height + constants::MARGIN };
+	auto buttonPosition = Vector{ imageWidth,  mContentArea.y + mContentArea.height + constants::Margin };
 
 	btnCancelOrders.size(buttonSize);
 	add(btnCancelOrders, buttonPosition);
@@ -63,7 +63,7 @@ RobotInspector::RobotInspector() :
 	buttonPosition = { contentWidth - btnCancel.size().x, buttonPosition.y + buttonOffsetY * 2 };
 	add(btnCancel, buttonPosition);
 
-	size({ contentWidth + constants::MARGIN, buttonPosition.y + buttonSize.y + constants::MARGIN });
+	size({ contentWidth + constants::Margin, buttonPosition.y + buttonSize.y + constants::Margin });
 }
 
 
@@ -102,7 +102,7 @@ void RobotInspector::update()
 	Window::update();
 
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawImage(robotImage(mRobot->type()), position() + Vector{ constants::MARGIN, constants::MARGIN + sWindowTitleBarHeight });
+	renderer.drawImage(robotImage(mRobot->type()), position() + Vector{ constants::Margin, constants::Margin + sWindowTitleBarHeight });
 
 	const auto labelPosition = rect().startPoint() + Vector{ mContentArea.x, mContentArea.y };
 	drawLabelAndValueRightJustify(labelPosition, mContentArea.width, "Age", std::to_string(mRobot->fuelCellAge()));

@@ -43,11 +43,11 @@ std::string CURRENT_LEVEL_STRING;
 
 std::map <int, std::string> LEVEL_STRING_TABLE = 
 {
-	{ constants::DEPTH_SURFACE, constants::LEVEL_SURFACE },
-	{ constants::DEPTH_UNDERGROUND_1, constants::LEVEL_UG1 },
-	{ constants::DEPTH_UNDERGROUND_2, constants::LEVEL_UG2 },
-	{ constants::DEPTH_UNDERGROUND_3, constants::LEVEL_UG3 },
-	{ constants::DEPTH_UNDERGROUND_4, constants::LEVEL_UG4 }
+	{ constants::DepthSurface, constants::LEVEL_SURFACE },
+	{ constants::DepthUnderground1, constants::LEVEL_UG1 },
+	{ constants::DepthUnderground2, constants::LEVEL_UG2 },
+	{ constants::DepthUnderground3, constants::LEVEL_UG3 },
+	{ constants::DepthUnderground4, constants::LEVEL_UG4 }
 };
 
 
@@ -63,9 +63,9 @@ struct RobotMeta
 
 const std::map<Robot::Type, RobotMeta> RobotMetaTable
 {
-	{ Robot::Type::Digger, RobotMeta{constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID}},
-	{ Robot::Type::Dozer, RobotMeta{constants::ROBODOZER, constants::ROBODOZER_SHEET_ID}},
-	{ Robot::Type::Miner, RobotMeta{constants::ROBOMINER, constants::ROBOMINER_SHEET_ID}}
+	{ Robot::Type::Digger, RobotMeta{constants::ROBODIGGER, constants::RobodiggerSheetId}},
+	{ Robot::Type::Dozer, RobotMeta{constants::ROBODOZER, constants::RobodozerSheetId}},
+	{ Robot::Type::Miner, RobotMeta{constants::ROBOMINER, constants::RobominerSheetId}}
 };
 
 
@@ -193,7 +193,7 @@ void MapViewState::initialize()
 		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance); 
 	}
 
-	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
+	Utility<Renderer>::get().fadeIn(constants::FadeSpeed);
 
 	EventHandler& e = Utility<EventHandler>::get();
 
@@ -207,7 +207,7 @@ void MapViewState::initialize()
 
 	e.textInputMode(true);
 
-	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 
 	delete mPathSolver;
 	mPathSolver = new micropather::MicroPather(mTileMap);
@@ -256,7 +256,7 @@ State* MapViewState::update()
 	renderer.drawImageStretched(mBackground, renderArea);
 
 	// explicit current level
-	const Font* font = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	const Font* font = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
 	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - font->size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
 	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
 
@@ -290,7 +290,7 @@ int MapViewState::totalStorage(Structure::StructureClass structureClass, int cap
 	// Command Center has a limited amount of storage for when colonists first land.
 	if (ccLocation() != CcNotPlaced)
 	{
-		storageCapacity += constants::BASE_STORAGE_CAPACITY;
+		storageCapacity += constants::BaseStorageCapacity;
 	}
 
 	const auto& structures = Utility<StructureManager>::get().structureList(structureClass);
@@ -1009,7 +1009,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	// Die if tile is occupied or not excavated.
 	if (!tile.empty())
 	{
-		if (tile.depth() > constants::DEPTH_SURFACE)
+		if (tile.depth() > constants::DepthSurface)
 		{
 			if (tile.thingIsStructure() && tile.structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) //air shaft
 			{
@@ -1035,7 +1035,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	mDiggerDirection.setParameters(&tile);
 
 	// If we're placing on the top level we can only ever go down.
-	if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
+	if (mTileMap->currentDepth() == constants::DepthSurface)
 	{
 		mDiggerDirection.selectDown();
 	}
@@ -1060,11 +1060,11 @@ void MapViewState::placeRobodigger(Tile& tile)
 void MapViewState::placeRobominer(Tile& tile)
 {
 	if (tile.thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
-	if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
+	if (mTileMap->currentDepth() != constants::DepthSurface) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
 	if (!tile.mine()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_NOT_ON_MINE); return; }
 
 	Robot* robot = mRobotPool.getMiner();
-	robot->startTask(constants::MINER_TASK_TIME);
+	robot->startTask(constants::MinerTaskTime);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, &tile);
 	tile.index(TerrainType::Dozed);
 
@@ -1132,7 +1132,7 @@ void MapViewState::placeStructure()
 	if (!tile) { return; }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		!isPointInRange(tile->position(), ccLocation(), constants::ROBOT_COM_RANGE))
+		!isPointInRange(tile->position(), ccLocation(), constants::RobotCommRange))
 	{
 		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_OUT_OF_RANGE);
 		return;

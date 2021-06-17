@@ -13,7 +13,7 @@
  */
 bool RobotCommand::commandCapacityAvailable() const
 {
-	return mRobotList.size() < constants::ROBOT_COMMAND_CAPACITY;
+	return mRobotList.size() < constants::RobotCommandCapacity;
 }
 
 
@@ -31,7 +31,7 @@ bool RobotCommand::isControlling(Robot* robot) const
  */
 void RobotCommand::addRobot(Robot* robot)
 {
-	if (mRobotList.size() >= constants::ROBOT_COMMAND_CAPACITY)
+	if (mRobotList.size() >= constants::RobotCommandCapacity)
 	{
 		throw std::runtime_error("RobotCommand::addRobot(): Facility is already at capacity.");
 	}

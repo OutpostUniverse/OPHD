@@ -49,7 +49,7 @@ void MainMenuState::initialize()
 
 	for (auto& button : buttons)
 	{
-		button.fontSize(constants::FONT_PRIMARY_MEDIUM);
+		button.fontSize(constants::FontPrimaryMedium);
 		button.size({200, 30});
 	}
 
@@ -58,7 +58,7 @@ void MainMenuState::initialize()
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
-	const Font* tiny_font = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	const Font* tiny_font = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 	lblVersion.font(tiny_font);
 	lblVersion.color(NAS2D::Color::White);
 
@@ -68,7 +68,7 @@ void MainMenuState::initialize()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.fadeComplete().connect(this, &MainMenuState::onFadeComplete);
 	renderer.fadeOut(0);
-	renderer.fadeIn(constants::FADE_SPEED);
+	renderer.fadeIn(constants::FadeSpeed);
 	renderer.showSystemPointer(true);
 
 	Mixer& mixer = Utility<Mixer>::get();
@@ -151,8 +151,8 @@ void MainMenuState::onFileIoAction(const std::string& filePath, FileIo::FileOper
 		gameState->mapviewstate(mapview);
 		mReturnState = gameState;
 
-		Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
-		Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
+		Utility<Renderer>::get().fadeOut(constants::FadeSpeed);
+		Utility<Mixer>::get().fadeOutMusic(constants::FadeSpeed);
 	}
 	catch (const std::exception& e)
 	{
@@ -199,8 +199,8 @@ void MainMenuState::onNewGame()
 
 	mReturnState = new PlanetSelectState();
 
-	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
-	Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
+	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FadeSpeed));
+	Utility<Mixer>::get().fadeOutMusic(constants::FadeSpeed);
 }
 
 

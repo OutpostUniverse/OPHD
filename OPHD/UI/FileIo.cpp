@@ -65,7 +65,7 @@ void FileIo::onDoubleClick(EventHandler::MouseButton /*button*/, int x, int y)
 
 	if (mListBox.rect().contains(NAS2D::Point{x, y}))
 	{
-		if (mListBox.currentHighlight() != constants::NO_SELECTION && !txtFileName.empty())
+		if (mListBox.currentHighlight() != constants::NoSelection && !txtFileName.empty())
 		{
 			onFileIo();
 		}

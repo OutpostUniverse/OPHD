@@ -39,10 +39,10 @@ namespace {
 
 
 FactoryReport::FactoryReport() :
-	font{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
-	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
-	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
-	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE)},
+	font{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
+	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
+	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge)},
 	factorySeed{imageCache.load("ui/interface/factory_seed.png")},
 	factoryAboveGround{imageCache.load("ui/interface/factory_ag.png")},
 	factoryUnderGround{imageCache.load("ui/interface/factory_ug.png")},
@@ -116,7 +116,7 @@ FactoryReport::FactoryReport() :
 
 	add(lstProducts, {cboFilterByProduct.rect().x + cboFilterByProduct.rect().width + 20, mRect.y + 230});
 
-	txtProductDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	txtProductDescription.font(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 	txtProductDescription.height(128);
 	txtProductDescription.textColor(NAS2D::Color{0, 185, 0});
 	txtProductDescription.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");

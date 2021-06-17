@@ -52,12 +52,12 @@ const std::string& StringFromNotificationType(const NotificationArea::Notificati
 }
 
 
-static constexpr int Offset = constants::MARGIN_TIGHT + 32;
+static constexpr int Offset = constants::MarginTight + 32;
 
 
 NotificationArea::NotificationArea() :
 	mIcons{ imageCache.load("ui/icons.png") },
-	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) }
+	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal) }
 {
 	auto& eventhandler = Utility<EventHandler>::get();
 

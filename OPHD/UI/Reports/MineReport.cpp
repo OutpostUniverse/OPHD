@@ -23,11 +23,11 @@ using namespace NAS2D;
 
 
 MineReport::MineReport() :
-	font{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
-	fontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_NORMAL) },
-	fontMedium{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM) },
-	fontMediumBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM) },
-	fontBigBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE) },
+	font{ fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal) },
+	fontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal) },
+	fontMedium{ fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium) },
+	fontMediumBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium) },
+	fontBigBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge) },
 	mineFacility{ imageCache.load("ui/interface/mine.png") },
 	uiIcons{ imageCache.load("ui/icons.png") },
 	btnShowAll{ "All", {this, &MineReport::onShowAll} },

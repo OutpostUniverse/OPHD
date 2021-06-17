@@ -73,6 +73,6 @@ protected:
 	void onMove(NAS2D::Vector<int> displacement) override;
 
 private:
-    std::size_t mIndex = constants::NO_SELECTION;
+    std::size_t mIndex = constants::NoSelection;
     std::vector<RadioButton> mRadioButtons;
 };

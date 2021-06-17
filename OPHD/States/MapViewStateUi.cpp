@@ -21,7 +21,6 @@
 #include <cmath>
 
 
-using namespace constants;
 using namespace NAS2D;
 
 
@@ -55,7 +54,7 @@ void MapViewState::initUi()
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
-	mPopulationPanel.position({675, constants::RESOURCE_ICON_SIZE + 4 + constants::MARGIN_TIGHT});
+	mPopulationPanel.position({675, constants::ResourceIconSize + 4 + constants::MarginTight});
 	mPopulationPanel.population(&mPopulation);
 
 	mResourceBreakdownPanel.position({0, 22});
@@ -90,51 +89,51 @@ void MapViewState::initUi()
 	mNotificationWindow.hide();
 
 	const auto size = renderer.size().to<int>();
-	mBottomUiRect = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
+	mBottomUiRect = {0, size.y - constants::BottomUiHeight, size.x, constants::BottomUiHeight};
 
 	// BUTTONS
 	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
-	mBtnTurns.size(constants::MAIN_BUTTON_SIZE);
+	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
+	mBtnTurns.size(constants::MainButtonSize);
 	mBtnTurns.click().connect(this, &MapViewState::onTurns);
 	mBtnTurns.enabled(false);
 
 	mBtnToggleHeightmap.image("ui/icons/height.png");
-	mBtnToggleHeightmap.size(constants::MAIN_BUTTON_SIZE);
+	mBtnToggleHeightmap.size(constants::MainButtonSize);
 	mBtnToggleHeightmap.type(Button::Type::BUTTON_TOGGLE);
 
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
-	mBtnToggleConnectedness.size(constants::MAIN_BUTTON_SIZE);
+	mBtnToggleConnectedness.size(constants::MainButtonSize);
 	mBtnToggleConnectedness.type(Button::Type::BUTTON_TOGGLE);
 	mBtnToggleConnectedness.click().connect(this, &MapViewState::onToggleConnectedness);
 
 	mBtnToggleCommRangeOverlay.image("ui/icons/comm_overlay.png");
-	mBtnToggleCommRangeOverlay.size(constants::MAIN_BUTTON_SIZE);
+	mBtnToggleCommRangeOverlay.size(constants::MainButtonSize);
 	mBtnToggleCommRangeOverlay.type(Button::Type::BUTTON_TOGGLE);
 	mBtnToggleCommRangeOverlay.click().connect(this, &MapViewState::onToggleCommRangeOverlay);
 
 	mBtnToggleRouteOverlay.image("ui/icons/route.png");
-	mBtnToggleRouteOverlay.size(constants::MAIN_BUTTON_SIZE);
+	mBtnToggleRouteOverlay.size(constants::MainButtonSize);
 	mBtnToggleRouteOverlay.type(Button::Type::BUTTON_TOGGLE);
 	mBtnToggleRouteOverlay.click().connect(this, &MapViewState::onToggleRouteOverlay);
 
 	mBtnTogglePoliceOverlay.image("ui/icons/police.png");
-	mBtnTogglePoliceOverlay.size(constants::MAIN_BUTTON_SIZE);
+	mBtnTogglePoliceOverlay.size(constants::MainButtonSize);
 	mBtnTogglePoliceOverlay.type(Button::Type::BUTTON_TOGGLE);
 	mBtnTogglePoliceOverlay.click().connect(this, &MapViewState::onTogglePoliceOverlay);
 
 	// Menus
-	mRobots.position({mBtnTurns.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
-	mRobots.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
+	mRobots.position({mBtnTurns.positionX() - constants::MarginTight - 52, mBottomUiRect.y + constants::Margin});
+	mRobots.size({52, constants::BottomUiHeight - constants::Margin * 2});
 	mRobots.showTooltip(true);
 	mRobots.selectionChanged().connect(this, &MapViewState::onRobotsSelectionChange);
 
-	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
-	mConnections.size({52, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
+	mConnections.position({mRobots.positionX() - constants::MarginTight - 52, mBottomUiRect.y + constants::Margin});
+	mConnections.size({52, constants::BottomUiHeight - constants::Margin * 2});
 	mConnections.selectionChanged().connect(this, &MapViewState::onConnectionsSelectionChange);
 
-	mStructures.position(NAS2D::Point{constants::MARGIN, mBottomUiRect.y + MARGIN});
-	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
+	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.y + constants::Margin});
+	mStructures.size({mConnections.positionX() - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
 	mStructures.showTooltip(true);
 	mStructures.selectionChanged().connect(this, &MapViewState::onStructuresSelectionChange);
 
@@ -142,7 +141,7 @@ void MapViewState::initUi()
 	mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
 
 	// tooltip control sizes
-	constexpr auto hudHeight = constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2;
+	constexpr auto hudHeight = constants::ResourceIconSize + constants::MarginTight * 2;
 	mTooltipResourceBreakdown.size({ 265, hudHeight });
 
 	mTooltipResourceStorage.position({ 275, 0 });
@@ -180,16 +179,16 @@ void MapViewState::initUi()
 void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 {
 	// Bottom UI Area
-	mBottomUiRect = {0, size.y - constants::BOTTOM_UI_HEIGHT, size.x, constants::BOTTOM_UI_HEIGHT};
+	mBottomUiRect = {0, size.y - constants::BottomUiHeight, size.x, constants::BottomUiHeight };
 
 	// Menu / System Icon
-	mTooltipSystemButton.position({ size.x - (constants::RESOURCE_ICON_SIZE + constants::MARGIN_TIGHT * 2), 0 });
+	mTooltipSystemButton.position({ size.x - (constants::ResourceIconSize + constants::MarginTight * 2), 0 });
 	mTooltipCurrentTurns.position({ size.x - 80 , 0 });
 
 	// NAVIGATION BUTTONS
 	// Bottom line
-	const auto navIconSpacing = 32 + constants::MARGIN_TIGHT;
-	mMoveDownIconRect = {size.x - navIconSpacing, size.y - constants::BOTTOM_UI_HEIGHT - 65, 32, 32};
+	const auto navIconSpacing = 32 + constants::MarginTight;
+	mMoveDownIconRect = {size.x - navIconSpacing, size.y - constants::BottomUiHeight - 65, 32, 32};
 	mMoveEastIconRect = {mMoveDownIconRect.x - navIconSpacing, mMoveDownIconRect.y + 8, 32, 16};
 	mMoveSouthIconRect = {mMoveDownIconRect.x - 2 * navIconSpacing, mMoveDownIconRect.y + 8, 32, 16};
 
@@ -200,26 +199,26 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	// Notification Area
 	auto& renderer = Utility<Renderer>::get();
-	mNotificationArea.height(mMoveUpIconRect.y - 22 - constants::MARGIN);
+	mNotificationArea.height(mMoveUpIconRect.y - 22 - constants::Margin);
 	mNotificationArea.position({ renderer.size().x - mNotificationArea.size().x, 22 });
 
 	// Mini Map
-	mMiniMapBoundingBox = {size.x - 300 - constants::MARGIN, mBottomUiRect.y + constants::MARGIN, 300, 150};
+	mMiniMapBoundingBox = {size.x - 300 - constants::Margin, mBottomUiRect.y + constants::Margin, 300, 150};
 
 	// Position UI Buttons
-	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MAIN_BUTTON_SIZE - constants::MARGIN_TIGHT, size.y - constants::MARGIN - MAIN_BUTTON_SIZE});
+	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
 	mBtnToggleHeightmap.position({mBtnTurns.positionX(), mMiniMapBoundingBox.y});
-	mBtnToggleConnectedness.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + constants::MAIN_BUTTON_SIZE });
-	mBtnToggleCommRangeOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MAIN_BUTTON_SIZE * 2) });
-	mBtnToggleRouteOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MAIN_BUTTON_SIZE * 3) });
-	mBtnTogglePoliceOverlay.position({ mBtnTurns.positionX() - constants::MAIN_BUTTON_SIZE, mMiniMapBoundingBox.y});
+	mBtnToggleConnectedness.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + constants::MainButtonSize });
+	mBtnToggleCommRangeOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MainButtonSize * 2) });
+	mBtnToggleRouteOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MainButtonSize * 3) });
+	mBtnTogglePoliceOverlay.position({ mBtnTurns.positionX() - constants::MainButtonSize, mMiniMapBoundingBox.y});
 
 	// UI Panels
-	mRobots.position({mBtnTogglePoliceOverlay.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
-	mConnections.position({mRobots.positionX() - constants::MARGIN_TIGHT - 52, mBottomUiRect.y + MARGIN});
-	mStructures.position(NAS2D::Point{constants::MARGIN, mBottomUiRect.y + MARGIN});
+	mRobots.position({mBtnTogglePoliceOverlay.positionX() - constants::MarginTight - 52, mBottomUiRect.y + constants::Margin });
+	mConnections.position({mRobots.positionX() - constants::MarginTight - 52, mBottomUiRect.y + constants::Margin });
+	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.y + constants::Margin });
 
-	mStructures.size({mConnections.positionX() - constants::MARGIN - constants::MARGIN_TIGHT, BOTTOM_UI_HEIGHT - constants::MARGIN * 2});
+	mStructures.size({mConnections.positionX() - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();
@@ -319,12 +318,12 @@ void MapViewState::populateStructureMenu()
 	// Above Ground structures only
 	if (NAS2D::Utility<StructureManager>::get().count() == 0)
 	{
-		if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
+		if (mTileMap->currentDepth() == constants::DepthSurface)
 		{
 			mStructures.addItem(constants::SEED_LANDER, 0, StructureID::SID_SEED_LANDER);
 		}
 	}
-	else if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
+	else if (mTileMap->currentDepth() == constants::DepthSurface)
 	{
 		mStructures.addItem(constants::AGRIDOME, 5, StructureID::SID_AGRIDOME);
 		mStructures.addItem(constants::CHAP, 3, StructureID::SID_CHAP);
@@ -601,7 +600,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile* tile)
 
 	// Assumes a digger is available.
 	Robodigger* robot = mRobotPool.getDigger();
-	robot->startTask(static_cast<int>(tile->index()) + DIGGER_TASK_TIME);
+	robot->startTask(static_cast<int>(tile->index()) + constants::DiggerTaskTime);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 
 	robot->direction(direction);
@@ -674,7 +673,7 @@ void MapViewState::onReturnToGame()
  */
 void MapViewState::onGameOver()
 {
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(static_cast<float>(constants::FADE_SPEED));
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(static_cast<float>(constants::FadeSpeed));
 	mQuitSignal();
 }
 

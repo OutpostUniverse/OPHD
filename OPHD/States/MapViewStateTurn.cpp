@@ -359,7 +359,7 @@ void MapViewState::updateResources()
  */
 void MapViewState::checkColonyShip()
 {
-	if (mTurnCount == constants::COLONY_SHIP_ORBIT_TIME)
+	if (mTurnCount == constants::ColonyShipOrbitTime)
 	{
 		if (mLandersColonist > 0 || mLandersCargo > 0)
 		{
@@ -394,7 +394,7 @@ void MapViewState::updateResidentialCapacity()
 		if (residence->operational()) { mResidentialCapacity += residence->capacity(); }
 	}
 
-	if (residences.empty()) { mResidentialCapacity = constants::COMMAND_CENTER_POPULATION_CAPACITY; }
+	if (residences.empty()) { mResidentialCapacity = constants::CommandCenterPopulationCapacity; }
 
 	mPopulationPanel.residentialCapacity(mResidentialCapacity);
 }

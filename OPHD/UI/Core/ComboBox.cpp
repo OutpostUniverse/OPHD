@@ -135,9 +135,9 @@ void ComboBox::maxDisplayItems(std::size_t count)
 {
 	mMaxDisplayItems = count;
 
-	if (count < constants::MINIMUM_DISPLAY_ITEMS)
+	if (count < constants::MinimumDisplayItems)
 	{
-		mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
+		mMaxDisplayItems = constants::MinimumDisplayItems;
 	}
 }
 

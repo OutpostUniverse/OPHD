@@ -154,7 +154,7 @@ bool validLanderSite(Tile& tile)
 		return false;
 	}
 
-	if (!isPointInRange(tile.position(), ccLocation(), constants::LANDER_COM_RANGE))
+	if (!isPointInRange(tile.position(), ccLocation(), constants::LanderCommRange))
 	{
 		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_COMM_RANGE);
 		return false;

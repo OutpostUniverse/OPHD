@@ -244,7 +244,7 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 	mEdgeLength = std::max(3, std::min(lengthX, lengthY));
 
 	// Find top left corner of rectangle containing top tile of diamond
-	mMapPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BOTTOM_UI_HEIGHT - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
+	mMapPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BottomUiHeight - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
 	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, mMapPosition.y, TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
 }
 
@@ -577,7 +577,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		}
 
 		auto& adjacentTile = getTile(position, 0);
-		float cost = constants::ROUTE_BASE_COST;
+		float cost = constants::RobotCommRange;
 
 		if (adjacentTile.index() == TerrainType::Impassable)
 		{

@@ -44,7 +44,7 @@ private:
 	ProductType mProduct = ProductType::PRODUCT_NONE;
 	ProductionCost mProductCost;
 
-	IconGrid mProductGrid{"ui/factory.png", 32, constants::MARGIN_TIGHT};
+	IconGrid mProductGrid{"ui/factory.png", 32, constants::MarginTight};
 
 	Button btnOkay{"Okay", {this, &FactoryProduction::onOkay}};
 	Button btnCancel{"Cancel", {this, &FactoryProduction::onCancel}};

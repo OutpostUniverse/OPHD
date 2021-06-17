@@ -12,7 +12,7 @@ using namespace NAS2D;
 
 
 ToolTip::ToolTip():
-	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) }
+	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal) }
 {
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ToolTip::onMouseMove);
 }
@@ -41,7 +41,7 @@ void ToolTip::add(Control& c, const std::string& str)
 
 void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
 {
-	constexpr int padding = constants::MARGIN_TIGHT * 2;
+	constexpr int padding = constants::MarginTight * 2;
 
 	const int tooltipWidth = mFont.width(item.second) + padding;
 	const int tooltipHeight = mFont.height() + padding;
@@ -49,18 +49,18 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 	auto tooltipPosition = item.first->position();
 	tooltipPosition.x = mouseX;
 
-	auto offset = Vector{ 0, -tooltipHeight - constants::MARGIN };
+	auto offset = Vector{ 0, -tooltipHeight - constants::Margin };
 
 	if (tooltipPosition.y + offset.y < 0)
 	{
-		offset.y = tooltipHeight + constants::MARGIN;
+		offset.y = tooltipHeight + constants::Margin;
 	}
 
 
 	auto& renderer = Utility<Renderer>::get();
 	if (tooltipPosition.x + tooltipWidth > renderer.size().x)
 	{
-		offset.x -= (tooltipPosition.x + tooltipWidth) - (renderer.size().x - constants::MARGIN);
+		offset.x -= (tooltipPosition.x + tooltipWidth) - (renderer.size().x - constants::Margin);
 	}
 
 	position(tooltipPosition + offset);
@@ -108,6 +108,6 @@ void ToolTip::update()
 		auto& renderer = Utility<Renderer>::get();
 		renderer.drawBoxFilled(rect(), Color::DarkGray);
 		renderer.drawBox(rect(), Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, Point{ positionX() + constants::MARGIN_TIGHT, positionY() + constants::MARGIN_TIGHT });
+		renderer.drawText(mFont, mFocusedControl->second, Point{ positionX() + constants::MarginTight, positionY() + constants::MarginTight });
 	}
 }

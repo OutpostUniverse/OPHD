@@ -43,6 +43,6 @@ public:
 private:
 	ProductTypeCount mProducts = {{ 0 }};
 
-	int mCapacity = constants::BASE_PRODUCT_CAPACITY;
+	int mCapacity = constants::BaseProductCapacity;
 	int mCurrentStorageCount = 0;
 };

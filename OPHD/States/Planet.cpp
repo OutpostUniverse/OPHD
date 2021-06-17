@@ -58,7 +58,7 @@ void Planet::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
 
 void Planet::update()
 {
-	if (mMouseInArea && mTimer.accumulator() >= constants::PLANET_ANIMATION_SPEED)
+	if (mMouseInArea && mTimer.accumulator() >= constants::PlanetAnimationSpeed)
 	{
 		mTimer.reset(); // don't care about frame skips.
 		++mTick;

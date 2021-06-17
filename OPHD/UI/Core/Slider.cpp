@@ -123,7 +123,7 @@ Slider::Slider(SliderType sliderType) : Slider(loadSkins(sliderType), sliderType
 
 
 Slider::Slider(Slider::Skins skins, SliderType sliderType) :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mSliderType{sliderType},
 	mSkins{skins}
 {

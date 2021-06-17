@@ -20,8 +20,8 @@ using namespace NAS2D;
 
 
 PlanetSelectState::PlanetSelectState() :
-	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM) },
-	mTinyFont{ fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL) },
+	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium) },
+	mTinyFont{ fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal) },
 	mBg{"sys/bg1.png"},
 	mCloud1{"sys/cloud_1.png"},
 	mCloud2{"sys/cloud_2.png"},
@@ -77,12 +77,12 @@ void PlanetSelectState::initialize()
 	mQuit.position({renderer.size().x - 105, 30});
 
 	mPlanetDescription.text("");
-	mPlanetDescription.font(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM);
+	mPlanetDescription.font(constants::FONT_PRIMARY, constants::FontPrimaryMedium);
 	mPlanetDescription.size({550, 200});
 	mPlanetDescription.position(NAS2D::Point{viewportSize.x / 2 - 275, viewportSize.y - 225});
 
 	renderer.showSystemPointer(true);
-	renderer.fadeIn(constants::FADE_SPEED);
+	renderer.fadeIn(constants::FadeSpeed);
 
 	Utility<Mixer>::get().playMusic(mBgMusic);
 }
@@ -118,7 +118,7 @@ State* PlanetSelectState::update()
 	{
 		return this;
 	}
-	else if (mPlanetSelection != constants::NO_SELECTION)
+	else if (mPlanetSelection != constants::NoSelection)
 	{
 		GameState* gameState = new GameState();
 		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), PlanetAttributes[mPlanetSelection]);
@@ -143,8 +143,8 @@ void PlanetSelectState::onMouseDown(EventHandler::MouseButton, int, int)
 		{
 			Utility<Mixer>::get().playSound(mSelect);
 			mPlanetSelection = i;
-			Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
-			Utility<Mixer>::get().fadeOutMusic(constants::FADE_SPEED);
+			Utility<Renderer>::get().fadeOut(constants::FadeSpeed);
+			Utility<Mixer>::get().fadeOutMusic(constants::FadeSpeed);
 			return;
 		}
 	}
@@ -193,6 +193,6 @@ void PlanetSelectState::onWindowResized(NAS2D::Vector<int> newSize)
 
 void PlanetSelectState::onQuit()
 {
-	Utility<Renderer>::get().fadeOut(constants::FADE_SPEED);
+	Utility<Renderer>::get().fadeOut(constants::FadeSpeed);
 	mReturnState = new MainMenuState();
 }
