@@ -108,9 +108,8 @@ int main(int argc, char *argv[])
 
 		renderer.minimumSize(constants::MinimumWindowSize);
 		renderer.resizeable(true);
-		renderer.addCursor(constants::MOUSE_POINTER_NORMAL, PointerType::POINTER_NORMAL, 0, 0);
-		renderer.addCursor(constants::MOUSE_POINTER_PLACE_TILE, PointerType::POINTER_PLACE_TILE, 16, 16);
-		renderer.addCursor(constants::MOUSE_POINTER_INSPECT, PointerType::POINTER_INSPECT, 8, 8);
+		renderer.addCursor(constants::MousePointerNormal, PointerType::POINTER_NORMAL, 0, 0);
+		renderer.addCursor(constants::MousePointerPlaceTile, PointerType::POINTER_PLACE_TILE, 16, 16);
 		renderer.setCursor(PointerType::POINTER_NORMAL);
 
 		const auto& options = cf["options"];

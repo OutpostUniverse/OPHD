@@ -65,8 +65,8 @@ public:
 		stringTable[{1, 1}].text = NAS2D::stringFrom(wasteProcessingCapacity());
 
 		if (!operational()) {
-			stringTable[{1, 0}].textColor = constants::WARNING_TEXT_COLOR;
-			stringTable[{1, 1}].textColor = constants::WARNING_TEXT_COLOR;
+			stringTable[{1, 0}].textColor = constants::WarningTextColor;
+			stringTable[{1, 1}].textColor = constants::WarningTextColor;
 		}
 
 		return stringTable;
