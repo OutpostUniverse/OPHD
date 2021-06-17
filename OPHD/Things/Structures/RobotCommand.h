@@ -16,7 +16,7 @@ class Robot;
 class RobotCommand : public Structure
 {
 public:
-	RobotCommand() : Structure(constants::ROBOT_COMMAND,
+	RobotCommand() : Structure(constants::RobotCommand,
 		"structures/robot_control.sprite",
 		StructureClass::RobotCommand,
 		StructureID::SID_ROBOT_COMMAND)

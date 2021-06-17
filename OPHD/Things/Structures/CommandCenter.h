@@ -11,7 +11,7 @@
 class CommandCenter: public FoodProduction
 {
 public:
-	CommandCenter(): FoodProduction(constants::COMMAND_CENTER,
+	CommandCenter(): FoodProduction(constants::CommandCenter,
 		"structures/command_center.sprite",
 		StructureClass::Command,
 		StructureID::SID_COMMAND_CENTER)
@@ -22,17 +22,17 @@ public:
 		requiresCHAP(false);
 		selfSustained(true);
 
-		storageCapacity(constants::BASE_STORAGE_CAPACITY);
+		storageCapacity(constants::BaseStorageCapacity);
 	}
 
 	int foodCapacity() override
 	{
-		return constants::BASE_STORAGE_CAPACITY;
+		return constants::BaseStorageCapacity;
 	}
 
 	int getRange() const
 	{
-		return operational() ? constants::ROBOT_COM_RANGE : 0;
+		return operational() ? constants::RobotCommRange : 0;
 	}
 
 protected:

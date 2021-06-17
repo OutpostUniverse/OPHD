@@ -150,19 +150,19 @@ bool validLanderSite(Tile& tile)
 {
 	if (!tile.empty())
 	{
-		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TILE_OBSTRUCTED);
+		doAlertMessage(constants::AlertLanderLocation, constants::AlertLanderTileObstructed);
 		return false;
 	}
 
-	if (!isPointInRange(tile.position(), ccLocation(), constants::LANDER_COM_RANGE))
+	if (!isPointInRange(tile.position(), ccLocation(), constants::LanderCommRange))
 	{
-		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_COMM_RANGE);
+		doAlertMessage(constants::AlertLanderLocation, constants::AlertLanderCommRange);
 		return false;
 	}
 
 	if (tile.index() == TerrainType::Impassable)
 	{
-		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_LANDER_TERRAIN);
+		doAlertMessage(constants::AlertLanderLocation, constants::AlertLanderTerrain);
 		return false;
 	}
 
@@ -187,12 +187,12 @@ bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
 
 		if (tile.index() == TerrainType::Impassable)
 		{
-			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_TERRAIN);
+			doAlertMessage(constants::AlertLanderLocation, constants::AlertSeedTerrain);
 			return false;
 		}
 		else if (tile.mine())
 		{
-			doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_MINE);
+			doAlertMessage(constants::AlertLanderLocation, constants::AlertSeedMine);
 			return false;
 		}
 		else if (tile.thing())
@@ -409,7 +409,7 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
 		return true;
 	}
 
-	return doYesNoMessage(constants::PRODUCT_TRANSFER_TITLE, constants::PRODUCT_TRANSFER_MESSAGE);
+	return doYesNoMessage(constants::ProductTransferTitle, constants::ProductTransferMessage);
 }
 
 
@@ -442,14 +442,14 @@ void resourceShortageMessage(const StorableResources& resources, StructureID sid
 
 	StorableResources missing = cost - resources;
 
-	std::string message = constants::ALERT_STRUCTURE_INSUFFICIENT_RESORUCES;
+	std::string message = constants::AlertStructureInsufficientResources;
 
 	for (size_t i = 0; i < missing.resources.size(); ++i)
 	{
 		if (missing.resources[i] >= 0) { message += std::to_string(missing.resources[i]) + " " + ResourceNamesRefined[i] + "\n"; }
 	}
 
-	doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, message);
+	doAlertMessage(constants::AlertInvalidStructureAction, message);
 }
 
 

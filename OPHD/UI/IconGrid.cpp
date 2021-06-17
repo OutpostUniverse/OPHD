@@ -16,7 +16,7 @@ using namespace NAS2D;
 
 
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mIconSize{iconEdgeSize},
 	mIconMargin{margin},
 	mIconSheet{imageCache.load(filePath)},
@@ -89,12 +89,12 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if (mSelectedIndex >= mIconItemList.size())
 	{
-		mSelectedIndex = constants::NO_SELECTION;
+		mSelectedIndex = constants::NoSelection;
 	}
 	/* else if (!mIconItemList[mSelectedIndex].available)
 	{
 		cout << "Insufficient resources" <<endl;
-		mSelectedIndex = constants::NO_SELECTION;
+		mSelectedIndex = constants::NoSelection;
 		return;
 	} */
 
@@ -116,7 +116,7 @@ void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 	auto mousePoint = NAS2D::Point{x, y};
 	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(mousePoint))
 	{
-		mHighlightIndex = constants::NO_SELECTION;
+		mHighlightIndex = constants::NoSelection;
 		return;
 	}
 
@@ -125,7 +125,7 @@ void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 
 	if (mHighlightIndex >= mIconItemList.size())
 	{
-		mHighlightIndex = constants::NO_SELECTION;
+		mHighlightIndex = constants::NoSelection;
 	}
 }
 
@@ -275,8 +275,8 @@ void IconGrid::clear()
  */
 void IconGrid::clearSelection()
 {
-	mHighlightIndex = constants::NO_SELECTION;
-	mSelectedIndex = constants::NO_SELECTION;
+	mHighlightIndex = constants::NoSelection;
+	mSelectedIndex = constants::NoSelection;
 }
 
 
@@ -285,7 +285,7 @@ void IconGrid::clearSelection()
  */
 void IconGrid::selection(std::size_t newSelection)
 {
-	mSelectedIndex = (newSelection < mIconItemList.size()) ? newSelection : constants::NO_SELECTION;
+	mSelectedIndex = (newSelection < mIconItemList.size()) ? newSelection : constants::NoSelection;
 }
 
 
@@ -323,7 +323,7 @@ void IconGrid::incrementSelection()
 
 	if (mIconItemList.empty())
 	{
-		mSelectedIndex = constants::NO_SELECTION;
+		mSelectedIndex = constants::NoSelection;
 	}
 
 	raiseChangedEvent();
@@ -340,7 +340,7 @@ void IconGrid::decrementSelection()
 
 	if (mIconItemList.empty())
 	{
-		mSelectedIndex = constants::NO_SELECTION;
+		mSelectedIndex = constants::NoSelection;
 	}
 
 	raiseChangedEvent();
@@ -349,7 +349,7 @@ void IconGrid::decrementSelection()
 
 void IconGrid::raiseChangedEvent()
 {
-	if (mSelectedIndex != constants::NO_SELECTION)
+	if (mSelectedIndex != constants::NoSelection)
 	{
 		mSignal(&mIconItemList[mSelectedIndex]);
 	}
@@ -394,13 +394,13 @@ void IconGrid::update()
 		renderer.drawSubImage(mIconSheet, position, NAS2D::Rectangle{mIconItemList[i].pos.x, mIconItemList[i].pos.y, mIconSize, mIconSize}, highlightColor);
 	}
 
-	if (mSelectedIndex != constants::NO_SELECTION)
+	if (mSelectedIndex != constants::NoSelection)
 	{
 		const auto position = indexToGridPosition(mSelectedIndex) + NAS2D::Vector{mIconMargin, mIconMargin};
 		renderer.drawBox(NAS2D::Rectangle<int>::Create(position, NAS2D::Vector{mIconSize, mIconSize}), NAS2D::Color{0, 100, 255});
 	}
 
-	if (mHighlightIndex != constants::NO_SELECTION)
+	if (mHighlightIndex != constants::NoSelection)
 	{
 		const auto position = indexToGridPosition(mHighlightIndex) + NAS2D::Vector{mIconMargin, mIconMargin};
 		renderer.drawBox(NAS2D::Rectangle<int>::Create(position, NAS2D::Vector{mIconSize, mIconSize}), NAS2D::Color{0, 180, 0});

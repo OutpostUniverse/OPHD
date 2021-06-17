@@ -8,36 +8,35 @@
 
 namespace constants
 {
-	const int BOTTOM_UI_HEIGHT = 162;
+	inline constexpr int BottomUiHeight{ 162 };
 
-	const int MARGIN = 6;
-	const int MARGIN_TIGHT = 2;
+	inline constexpr int Margin{ 6 };
+	inline constexpr int MarginTight{ 2 };
 
-	const int MAIN_BUTTON_SIZE = 30;
-	const int MINI_MAP_BUTTON_SIZE = 20;
+	inline constexpr int MainButtonSize{ 30 };
+	inline constexpr int MiniMapButtonSize{ 20 };
 
-	const int RESOURCE_ICON_SIZE = 16;
+	inline constexpr int ResourceIconSize{ 16 };
 
-	const int RESOURCE_BOX_WIDTH = 200;
+	inline constexpr int ResourceBoxWidth{ 200 };
 
-	const auto NO_SELECTION = std::numeric_limits<std::size_t>::max();
+	inline constexpr auto NoSelection{ std::numeric_limits<std::size_t>::max() };
 
-	const unsigned int MINIMUM_DISPLAY_ITEMS = 5;
+	inline constexpr unsigned int MinimumDisplayItems{ 5 };
 
 	// ROBOT SELECTION UI SHEET ID
-	const int ROBODIGGER_SHEET_ID = 1;
-	const int ROBODOZER_SHEET_ID = 0;
-	const int ROBOMINER_SHEET_ID = 2;
+	inline constexpr int RobodiggerSheetId{ 1 };
+	inline constexpr int RobodozerSheetId{ 0 };
+	inline constexpr int RobominerSheetId{ 2 };
 
-	const NAS2D::Color MINE_COLOR = NAS2D::Color::Red;
-	const NAS2D::Color ACTIVE_MINE_COLOR = NAS2D::Color::Yellow;
+	const NAS2D::Color MineColor = NAS2D::Color::Red;
+	const NAS2D::Color ActiveMineColor = NAS2D::Color::Yellow;
 
 	// =====================================
 	// = MOUSE POINTERS
 	// =====================================
-	const std::string MOUSE_POINTER_NORMAL = "ui/pointers/normal.png";
-	const std::string MOUSE_POINTER_PLACE_TILE = "ui/pointers/place_tile.png";
-	const std::string MOUSE_POINTER_INSPECT = "ui/pointers/inspect.png";
+	const std::string MousePointerNormal = "ui/pointers/normal.png";
+	const std::string MousePointerPlaceTile = "ui/pointers/place_tile.png";
 
 
 	// =====================================
@@ -50,13 +49,13 @@ namespace constants
 	// =====================================
 	// = FONT SIZES
 	// =====================================
-	const int FONT_PRIMARY_NORMAL = 10;
-	const int FONT_PRIMARY_MEDIUM = 14;
-	const int FONT_PRIMARY_LARGE = 16;
-	const int FONT_PRIMARY_HUGE = 20;
+	inline constexpr int FontPrimaryNormal{ 10 };
+	inline constexpr int FontPrimaryMedium{ 14 };
+	inline constexpr int FontPrimaryLarge{ 16 };
+	inline constexpr int FontPrimaryHuge{ 20 };
 
 	// =====================================
 	// = FONT COLORS
 	// =====================================
-	const auto WARNING_TEXT_COLOR = NAS2D::Color::Red;
+	const auto WarningTextColor = NAS2D::Color::Red;
 }

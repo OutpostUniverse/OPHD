@@ -104,8 +104,8 @@ private:
 
 	const NAS2D::Font& mFont;
 
-	Index mHighlightIndex = constants::NO_SELECTION; /**< Current highlight index. */
-	Index mSelectedIndex = constants::NO_SELECTION; /**< Currently selected item index. */
+	Index mHighlightIndex = constants::NoSelection; /**< Current highlight index. */
+	Index mSelectedIndex = constants::NoSelection; /**< Currently selected item index. */
 
 	int mIconSize = 1; /**< Size of the icons. */
 	int mIconMargin = 0; /**< Spacing between icons and edges of the IconGrid. */

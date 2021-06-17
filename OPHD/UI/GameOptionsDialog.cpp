@@ -6,7 +6,7 @@
 
 
 GameOptionsDialog::GameOptionsDialog() :
-	Window{constants::WINDOW_SYSTEM_TITLE},
+	Window{constants::WindowSystemTitle},
 	btnSave{"Save current game", {this, &GameOptionsDialog::onSave}},
 	btnLoad{"Load a saved game", {this, &GameOptionsDialog::onLoad}},
 	btnReturn{"Return to current game", {this, &GameOptionsDialog::onReturn}},

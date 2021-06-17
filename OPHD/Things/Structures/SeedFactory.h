@@ -8,7 +8,7 @@
 class SeedFactory: public Factory
 {
 public:
-	SeedFactory(): Factory(constants::SEED_FACTORY,
+	SeedFactory(): Factory(constants::SeedFactory,
 		"structures/seed_1.sprite",
 		StructureID::SID_SEED_FACTORY)
 	{

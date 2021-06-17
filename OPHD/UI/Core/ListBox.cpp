@@ -10,7 +10,7 @@ using namespace NAS2D;
 
 unsigned int ListBoxItemText::Context::itemHeight() const
 {
-	return font.height() + constants::MARGIN_TIGHT;
+	return font.height() + constants::MarginTight;
 }
 
 
@@ -27,7 +27,7 @@ void ListBoxItemText::draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> draw
 	}
 
 	// Draw item contents
-	const auto textPosition = drawArea.startPoint() + NAS2D::Vector{constants::MARGIN_TIGHT, 0};
+	const auto textPosition = drawArea.startPoint() + NAS2D::Vector{constants::MarginTight, 0};
 	const auto textColor = isHighlighted ? context.textColorMouseHover : context.textColorNormal;
 	renderer.drawTextShadow(context.font, text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 }

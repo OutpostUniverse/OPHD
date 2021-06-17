@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 	std::cout.rdbuf(logFile.rdbuf());
 	#endif
 
-	std::cout << "OutpostHD " << constants::VERSION << std::endl << std::endl;
+	std::cout << "OutpostHD " << constants::Version << std::endl << std::endl;
 
 	try
 	{
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 		filesystem.mountSoftFail(filesystem.basePath() + "data");
 		filesystem.mountReadWrite(filesystem.prefPath());
 
-		filesystem.makeDirectory(constants::SAVE_GAME_PATH);
+		filesystem.makeDirectory(constants::SaveGamePath);
 
 		Configuration& cf = Utility<Configuration>::init(
 			std::map<std::string, Dictionary>{
@@ -108,9 +108,8 @@ int main(int argc, char *argv[])
 
 		renderer.minimumSize(constants::MinimumWindowSize);
 		renderer.resizeable(true);
-		renderer.addCursor(constants::MOUSE_POINTER_NORMAL, PointerType::POINTER_NORMAL, 0, 0);
-		renderer.addCursor(constants::MOUSE_POINTER_PLACE_TILE, PointerType::POINTER_PLACE_TILE, 16, 16);
-		renderer.addCursor(constants::MOUSE_POINTER_INSPECT, PointerType::POINTER_INSPECT, 8, 8);
+		renderer.addCursor(constants::MousePointerNormal, PointerType::POINTER_NORMAL, 0, 0);
+		renderer.addCursor(constants::MousePointerPlaceTile, PointerType::POINTER_PLACE_TILE, 16, 16);
 		renderer.setCursor(PointerType::POINTER_NORMAL);
 
 		const auto& options = cf["options"];
@@ -129,7 +128,7 @@ int main(int argc, char *argv[])
 
 		if (argc > 1)
 		{
-			std::string filename = constants::SAVE_GAME_PATH + argv[1] + ".xml";
+			std::string filename = constants::SaveGamePath + argv[1] + ".xml";
 			if (!filesystem.exists(filename))
 			{
 				std::cout << "Savegame specified on command line: " << argv[1] << " could not be found." << std::endl;

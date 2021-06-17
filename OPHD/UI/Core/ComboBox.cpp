@@ -135,9 +135,9 @@ void ComboBox::maxDisplayItems(std::size_t count)
 {
 	mMaxDisplayItems = count;
 
-	if (count < constants::MINIMUM_DISPLAY_ITEMS)
+	if (count < constants::MinimumDisplayItems)
 	{
-		mMaxDisplayItems = constants::MINIMUM_DISPLAY_ITEMS;
+		mMaxDisplayItems = constants::MinimumDisplayItems;
 	}
 }
 
@@ -161,7 +161,7 @@ void ComboBox::addItem(const std::string& item, int tag)
  */
 const std::string& ComboBox::selectionText() const
 {
-	return lstItems.isItemSelected() ? lstItems.selected().text : constants::EMPTY_STR;
+	return lstItems.isItemSelected() ? lstItems.selected().text : constants::EmptyString;
 }
 
 

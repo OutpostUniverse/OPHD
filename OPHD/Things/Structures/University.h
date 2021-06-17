@@ -8,7 +8,7 @@
 class University : public Structure
 {
 public:
-	University() : Structure(constants::UNIVERSITY,
+	University() : Structure(constants::University,
 		"structures/university.sprite",
 		StructureClass::University,
 		StructureID::SID_UNIVERSITY)

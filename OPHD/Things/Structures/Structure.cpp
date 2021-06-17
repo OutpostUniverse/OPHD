@@ -73,43 +73,43 @@ const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATI
 static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
 {
 	"Not a Structure",
-	constants::AGRIDOME,
-	constants::AIR_SHAFT,
-	constants::CARGO_LANDER,
-	constants::CHAP,
-	constants::COLONIST_LANDER,
-	constants::COMMAND_CENTER,
-	constants::COMMERCIAL,
-	constants::COMM_TOWER,
-	constants::FUSION_REACTOR,
-	constants::HOT_LABORATORY,
-	constants::LABORATORY,
-	constants::MEDICAL_CENTER,
-	constants::MINE_FACILITY,
-	constants::MINE_SHAFT,
-	constants::NURSERY,
-	constants::PARK,
-	constants::RECREATION_CENTER,
-	constants::RED_LIGHT_DISTRICT,
-	constants::RESIDENCE,
-	constants::ROAD,
-	constants::ROBOT_COMMAND,
-	constants::SEED_FACTORY,
-	constants::SEED_LANDER,
-	constants::SEED_POWER,
-	constants::SEED_SMELTER,
-	constants::SMELTER,
-	constants::SOLAR_PANEL1,
-	constants::SOLAR_PLANT,
-	constants::STORAGE_TANKS,
-	constants::SURFACE_FACTORY,
-	constants::SURFACE_POLICE,
-	constants::TUBE,
-	constants::UNDERGROUND_FACTORY,
-	constants::UNDERGROUND_POLICE,
-	constants::UNIVERSITY,
-	constants::WAREHOUSE,
-	constants::RECYCLING
+	constants::Agridome,
+	constants::AirShaft,
+	constants::CargoLander,
+	constants::Chap,
+	constants::ColonistLander,
+	constants::CommandCenter,
+	constants::Commercial,
+	constants::CommTower,
+	constants::FusionReactor,
+	constants::HotLaboratory,
+	constants::Laboratory,
+	constants::MedicalCenter,
+	constants::MineFacility,
+	constants::MineShaft,
+	constants::Nursery,
+	constants::Park,
+	constants::RecreationCenter,
+	constants::RedLightDistrict,
+	constants::Residence,
+	constants::Road,
+	constants::RobotCommand,
+	constants::SeedFactory,
+	constants::SeedLander,
+	constants::SeedPower,
+	constants::SeedSmelter,
+	constants::Smelter,
+	constants::SolarPanel1,
+	constants::SolarPlant,
+	constants::StorageTanks,
+	constants::SurfaceFactory,
+	constants::SurfacePolice,
+	constants::Tube,
+	constants::UndergroundFactory,
+	constants::UndergroundPolice,
+	constants::University,
+	constants::Warehouse,
+	constants::Recycling
 };
 
 
@@ -121,7 +121,7 @@ std::string StructureName(StructureID id)
 
 
 Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id) :
-	Thing(name, spritePath, constants::STRUCTURE_STATE_CONSTRUCTION),
+	Thing(name, spritePath, constants::StructureStateConstruction),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
@@ -242,7 +242,7 @@ const std::string& Structure::classDescription(Structure::StructureClass structu
  */
 void Structure::activate()
 {
-	sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
+	sprite().play(constants::StructureStateOperational);
 	enable();
 
 	defineResourceInput();
@@ -307,7 +307,7 @@ void Structure::updateIntegrityDecay()
 */
 void Structure::destroy()
 {
-	sprite().play(constants::STRUCTURE_STATE_DESTROYED);
+	sprite().play(constants::StructureStateDestroyed);
 	state(StructureState::Destroyed);
 
 	// Destroyed buildings just need to be rebuilt right?
@@ -324,7 +324,7 @@ void Structure::forced_state_change(StructureState structureState, DisabledReaso
 
 	if (age() >= turnsToBuild())
 	{
-		sprite().play(constants::STRUCTURE_STATE_OPERATIONAL);
+		sprite().play(constants::StructureStateOperational);
 		//enable();
 	}
 

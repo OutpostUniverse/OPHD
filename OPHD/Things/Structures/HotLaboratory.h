@@ -8,7 +8,7 @@
 class HotLaboratory : public Structure
 {
 public:
-	HotLaboratory() : Structure(constants::HOT_LABORATORY,
+	HotLaboratory() : Structure(constants::HotLaboratory,
 		"structures/labo_surface.sprite",
 		StructureClass::Laboratory,
 		StructureID::SID_HOT_LABORATORY)

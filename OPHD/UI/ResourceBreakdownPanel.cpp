@@ -15,7 +15,7 @@ using namespace NAS2D;
 
 
 ResourceBreakdownPanel::ResourceBreakdownPanel() :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mIcons{imageCache.load("ui/icons.png")},
 	mSkin{
 		imageCache.load("ui/skin/window_top_left.png"),

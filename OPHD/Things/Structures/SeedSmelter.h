@@ -10,7 +10,7 @@ class SeedSmelter : public OreRefining
 	const int StorageCapacity = 500;
 
 public:
-	SeedSmelter() : OreRefining(constants::SEED_SMELTER,
+	SeedSmelter() : OreRefining(constants::SeedSmelter,
 		"structures/seed_1.sprite",
 		StructureClass::Smelter,
 		StructureID::SID_SEED_SMELTER)

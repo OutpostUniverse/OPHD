@@ -11,7 +11,7 @@ private:
 	const int BaseRange = 10;
 
 public:
-	CommTower() : Structure(constants::COMM_TOWER,
+	CommTower() : Structure(constants::CommTower,
 		"structures/communications_tower.sprite",
 		StructureClass::Communication,
 		StructureID::SID_COMM_TOWER)
@@ -41,7 +41,7 @@ public:
 
 		if (communicationRange == 0)
 		{
-			stringTable[{1, 0}].textColor = constants::WARNING_TEXT_COLOR;
+			stringTable[{1, 0}].textColor = constants::WarningTextColor;
 		}
 
 		return stringTable;

@@ -22,15 +22,6 @@
 using namespace NAS2D;
 
 
-const std::map<Difficulty, std::string> DIFFICULTY_STRING_TABLE
-{
-	{ Difficulty::Beginner, constants::DIFFICULTY_BEGINNER },
-	{ Difficulty::Easy, constants::DIFFICULTY_EASY },
-	{ Difficulty::Medium, constants::DIFFICULTY_MEDIUM },
-	{ Difficulty::Hard, constants::DIFFICULTY_HARD },
-};
-
-
 const std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
 {
 	{ StructureState::UnderConstruction, Color{150, 150, 150, 100} },
@@ -53,48 +44,48 @@ const std::map<StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
 
 const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
 {
-	{ TerrainType::Dozed, constants::TILE_INDEX_TRANSLATION_BULLDOZED },
-	{ TerrainType::Clear, constants::TILE_INDEX_TRANSLATION_CLEAR },
-	{ TerrainType::Rough, constants::TILE_INDEX_TRANSLATION_ROUGH },
-	{ TerrainType::Difficult, constants::TILE_INDEX_TRANSLATION_DIFFICULT },
-	{ TerrainType::Impassable, constants::TILE_INDEX_TRANSLATION_IMPASSABLE },
+	{ TerrainType::Dozed, constants::TileBulldozed },
+	{ TerrainType::Clear, constants::TileClear },
+	{ TerrainType::Rough, constants::TileRough },
+	{ TerrainType::Difficult, constants::TileDifficult },
+	{ TerrainType::Impassable, constants::TileImpassable },
 };
 
 
 const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 {
-	{ MineProductionRate::High , constants::MINE_YIELD_HIGH },
-	{ MineProductionRate::Low , constants::MINE_YIELD_LOW },
-	{ MineProductionRate::Medium , constants::MINE_YIELD_MEDIUM }
+	{ MineProductionRate::High , constants::MineYieldHigh },
+	{ MineProductionRate::Low , constants::MineYieldLow },
+	{ MineProductionRate::Medium , constants::MineYieldMedium }
 };
 
 
 const std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
 {
-	{ DisabledReason::None, constants::STRUCTURE_DISABLED_NONE },
+	{ DisabledReason::None, constants::StructureDisabledNone },
 
-	{ DisabledReason::Chap, constants::STRUCTURE_DISABLED_CHAP },
-	{ DisabledReason::Disconnected, constants::STRUCTURE_DISABLED_DISCONNECTED },
-	{ DisabledReason::Energy, constants::STRUCTURE_DISABLED_ENERGY },
-	{ DisabledReason::Population, constants::STRUCTURE_DISABLED_POPULATION },
-	{ DisabledReason::RefinedResources, constants::STRUCTURE_DISABLED_REFINED_RESOURCES },
-	{ DisabledReason::StructuralIntegrity, constants::STRUCTURE_DISABLED_STRUCTURAL_INTEGRITY }
+	{ DisabledReason::Chap, constants::StructureDisabledChap },
+	{ DisabledReason::Disconnected, constants::StructureDisabledDisconnected },
+	{ DisabledReason::Energy, constants::StructureDisabledEnergy },
+	{ DisabledReason::Population, constants::StructureDisabledPopulation },
+	{ DisabledReason::RefinedResources, constants::StructureDisabledRefinedResources },
+	{ DisabledReason::StructuralIntegrity, constants::StructureDisabledStructuralIntegrity }
 };
 
 
 const std::map<IdleReason, std::string> IDLE_REASON_TABLE =
 {
-	{ IdleReason::None, constants::STRUCTURE_IDLE_NONE },
+	{ IdleReason::None, constants::StructureIdleNone },
 
-	{ IdleReason::PlayerSet, constants::STRUCTURE_IDLE_PLAYER_SET },
-	{ IdleReason::InternalStorageFull, constants::STRUCTURE_IDLE_INTERNAL_STORAGE_FULL },
-	{ IdleReason::FactoryProductionComplete, constants::STRUCTURE_IDLE_FACTORY_PRODUCTION_COMPLETE },
-	{ IdleReason::FactoryInsufficientResources, constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_RESOURCES },
-	{ IdleReason::FactoryInsufficientRobotCommandCapacity, constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_ROBOT_COMMAND_CAPACITY },
-	{ IdleReason::FactoryInsufficientWarehouseSpace, constants::STRUCTURE_IDLE_FACTORY_INSUFFICIENT_WAREHOUSE_SPACE },
-	{ IdleReason::MineExhausted, constants::STRUCTURE_IDLE_MINE_EXHAUSTED },
-	{ IdleReason::MineInactive, constants::STRUCTURE_IDLE_MINE_INACTIVE },
-	{ IdleReason::InsufficientLuxuryProduct, constants::STRUCTURE_IDLE_INSUFFICIENT_LUXURY_PRODUCT }
+	{ IdleReason::PlayerSet, constants::StructureIdlePlayerSet },
+	{ IdleReason::InternalStorageFull, constants::StructureIdleInternalStorageFull },
+	{ IdleReason::FactoryProductionComplete, constants::StructureIdleFactoryProductionComplete },
+	{ IdleReason::FactoryInsufficientResources, constants::StructureIdleFactoryInsufficientResources },
+	{ IdleReason::FactoryInsufficientRobotCommandCapacity, constants::StructureIdleFactoryInsufficientRobotCommandCapacity },
+	{ IdleReason::FactoryInsufficientWarehouseSpace, constants::StructureIdleFactoryInsufficnetWarehouseCapacity },
+	{ IdleReason::MineExhausted, constants::StructureIdleMineExhausted },
+	{ IdleReason::MineInactive, constants::StructureIdleMineInactive },
+	{ IdleReason::InsufficientLuxuryProduct, constants::StructureIdleInsufficientLuxuryProduct }
 };
 
 
@@ -143,18 +134,18 @@ int moraleStringTableCount()
  */
 std::array<std::string, ProductType::PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
 {
-	constants::ROBODIGGER,
-	constants::ROBODOZER,
-	constants::ROBOMINER,
-	constants::ROBOEXPLORER,
-	constants::TRUCK,
+	constants::Robodigger,
+	constants::Robodozer,
+	constants::Robominer,
+	constants::Roboexplorer,
+	constants::Truck,
 
 	"PRODUCT_RESERVED_AG_05",
 	"PRODUCT_RESERVED_AG_06",
 	"PRODUCT_RESERVED_AG_07",
+	"PRODUCT_RESERVED_AG_08",
 
-	constants::ROAD_MATERIALS,
-	constants::MAINTENANCE_SUPPLIES,
+	constants::MaintenanceSupplies,
 
 	"PRODUCT_RESERVED_AG_10",
 	"PRODUCT_RESERVED_AG_11",
@@ -185,8 +176,8 @@ std::array<std::string, ProductType::PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
 	// =====================================
 	// = UNDERGROUND FACTORIES
 	// =====================================
-	constants::CLOTHING,
-	constants::MEDICINE,
+	constants::Clothing,
+	constants::Medicine,
 	"PRODUCT_RESERVED_UG_34",
 	"PRODUCT_RESERVED_UG_35",
 	"PRODUCT_RESERVED_UG_36",
@@ -292,7 +283,7 @@ HWND WIN32_getWindowHandle()
 
 const std::string& productDescription(ProductType type)
 {
-	if (type == ProductType::PRODUCT_NONE) { return constants::NONE; }
+	if (type == ProductType::PRODUCT_NONE) { return constants::None; }
 
 	return PRODUCT_DESCRIPTION_TABLE[static_cast<std::size_t>(type)];
 }
@@ -424,13 +415,13 @@ void checkSavegameVersion(const std::string& filename)
  */
 NAS2D::Xml::XmlDocument openSavegame(const std::string& filename)
 {
-	auto xmlDocument = openXmlFile(filename, constants::SAVE_GAME_ROOT_NODE);
+	auto xmlDocument = openXmlFile(filename, constants::SaveGameRootNode);
 
-	auto savegameVersion = xmlDocument.firstChildElement(constants::SAVE_GAME_ROOT_NODE)->attribute("version");
+	auto savegameVersion = xmlDocument.firstChildElement(constants::SaveGameRootNode)->attribute("version");
 
-	if (savegameVersion != constants::SAVE_GAME_VERSION)
+	if (savegameVersion != constants::SaveGameVersion)
 	{
-		throw std::runtime_error("Savegame version mismatch: '" + filename + "'. Expected " + constants::SAVE_GAME_VERSION + ", found " + savegameVersion + ".");
+		throw std::runtime_error("Savegame version mismatch: '" + filename + "'. Expected " + constants::SaveGameVersion + ", found " + savegameVersion + ".");
 	}
 
 	return xmlDocument;

@@ -8,18 +8,18 @@
  */
 namespace constants
 {
-	const int FADE_SPEED = 300;
+	inline constexpr int FadeSpeed{ 300 };
 
-	const int PLANET_ANIMATION_SPEED = 50;
+	inline constexpr int PlanetAnimationSpeed{ 50 };
 
-	const int MINIMUM_RESOURCES_REQUIRE_FOR_SMELTING = 20;
+	inline constexpr int SmeltingMinimumResourcesCount{ 20 };
 
-	const int BASE_STORAGE_CAPACITY = 250;
+	inline constexpr int BaseStorageCapacity{ 250 };
 
-	const int BASE_PRODUCT_CAPACITY = 100;
+	inline constexpr int BaseProductCapacity{ 100 };
 
-	const int BASE_MINE_PRODUCTION_RATE = 10;
-	const int BASE_MINE_SHAFT_EXTENSION_TIME = 10;
+	inline constexpr int BaseMineProductionRate{ 10 };
+	inline constexpr int BaseMineExtensionTime{ 10 };
 
 	/**<
 	 * The number of times a truck can traverse the shortest possible path
@@ -28,32 +28,31 @@ namespace constants
 	 * represents 100 round trips between the mine/smelter for effectively 100
 	 * units of ore transported per turn.
 	 */
-	const float ShortestPathTraversalCount = 100.0f;
+	inline constexpr float ShortestPathTraversalCount{ 100.0f };
 
-	const int DEPTH_SURFACE = 0;
-	const int DEPTH_UNDERGROUND_1 = 1;
-	const int DEPTH_UNDERGROUND_2 = 2;
-	const int DEPTH_UNDERGROUND_3 = 3;
-	const int DEPTH_UNDERGROUND_4 = 4;
+	inline constexpr int DepthSurface{ 0 };
+	inline constexpr int DepthUnderground1{ 1 };
+	inline constexpr int DepthUnderground2{ 2 };
+	inline constexpr int DepthUnderground3{ 3 };
+	inline constexpr int DepthUnderground4{ 4 };
 
-	const int COLONY_SHIP_ORBIT_TIME = 24;
+	inline constexpr int ColonyShipOrbitTime{ 24 };
 
-	const int MINER_TASK_TIME = 6;
+	inline constexpr int MinerTaskTime{ 6 };
 
-	const int DIGGER_TASK_TIME = 5;
+	inline constexpr int DiggerTaskTime{ 5 };
 
-	const int COMMAND_CENTER_POPULATION_CAPACITY = 10;
-	const int MINIMUM_RESIDENCE_OVERCAPACITY_HIT = 1;
+	inline constexpr int CommandCenterPopulationCapacity{ 10 };
 
-	const int ROBOT_COMMAND_CAPACITY = 10;
+	inline constexpr int RobotCommandCapacity{ 10 };
 
-	const int DEFAULT_STARTING_MORALE = 600;
+	inline constexpr int DefaultStartingMorale{ 600 };
 
-	const auto MinimumWindowSize = NAS2D::Vector{1000, 700};
+	inline constexpr auto MinimumWindowSize{ NAS2D::Vector{1000, 700} };
 
-	const int ROBOT_COM_RANGE = 15;
-	const int LANDER_COM_RANGE = 5;
+	inline constexpr int RobotCommRange{ 15 };
+	inline constexpr int LanderCommRange{ 5 };
 
-	const float ROUTE_BASE_COST = 0.5f;
-	const float ROUTE_ROAD_COST = 0.25;
+	inline constexpr float RouteBaseCost{ 0.5f };
+	inline constexpr float RouteRoadCost{ 0.25f };
 }

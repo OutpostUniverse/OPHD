@@ -32,16 +32,16 @@ namespace
 
 
 WarehouseReport::WarehouseReport() :
-	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_MEDIUM)},
-	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM)},
-	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_HUGE)},
+	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
+	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
+	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge)},
 	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
 	btnShowAll{"All", {this, &WarehouseReport::onShowAll}},
 	btnSpaceAvailable{"Space Available", {this, &WarehouseReport::onSpaceAvailable}},
 	btnFull{"Full", {this, &WarehouseReport::onFull}},
 	btnEmpty{"Empty", {this, &WarehouseReport::onEmpty}},
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
-	btnTakeMeThere{constants::BUTTON_TAKE_ME_THERE, {this, &WarehouseReport::onTakeMeThere}}
+	btnTakeMeThere{constants::TakeMeThere, {this, &WarehouseReport::onTakeMeThere}}
 {
 	const auto buttons = std::array{&btnShowAll, &btnSpaceAvailable, &btnFull, &btnEmpty, &btnDisabled};
 	for (auto button : buttons)
@@ -118,9 +118,9 @@ void WarehouseReport::fillListFromStructureList(const std::vector<Warehouse*>& w
 		ProductPool& products = warehouse->products();
 
 		if (warehouse->state() != StructureState::Operational) { item->structureState = warehouse->stateDescription(); }
-		else if (products.empty()) { item->structureState = constants::WAREHOUSE_EMPTY; }
-		else if (products.atCapacity()) { item->structureState = constants::WAREHOUSE_FULL; }
-		else if (!products.empty() && !products.atCapacity()) { item->structureState = constants::WAREHOUSE_SPACE_AVAILABLE; }
+		else if (products.empty()) { item->structureState = constants::WarehouseEmpty; }
+		else if (products.atCapacity()) { item->structureState = constants::WarehouseFull; }
+		else if (!products.empty() && !products.atCapacity()) { item->structureState = constants::WarehouseSpaceAvailable; }
 	}
 
 	lstStructures.setSelection(0);

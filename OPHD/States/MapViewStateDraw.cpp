@@ -133,15 +133,15 @@ void MapViewState::drawResourceInfo()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	renderer.drawBoxFilled(NAS2D::Rectangle{ 0, 0, renderer.size().x, constants::RESOURCE_ICON_SIZE + 4 }, NAS2D::Color{ 39, 39, 39 });
-	renderer.drawBox(NAS2D::Rectangle{ 0, 0, renderer.size().x, constants::RESOURCE_ICON_SIZE + 4 }, NAS2D::Color{ 21, 21, 21 });
+	renderer.drawBoxFilled(NAS2D::Rectangle{ 0, 0, renderer.size().x, constants::ResourceIconSize + 4 }, NAS2D::Color{ 39, 39, 39 });
+	renderer.drawBox(NAS2D::Rectangle{ 0, 0, renderer.size().x, constants::ResourceIconSize + 4 }, NAS2D::Color{ 21, 21, 21 });
 	renderer.drawLine(NAS2D::Point{ 1, 0 }, NAS2D::Point{ renderer.size().x - 2, 0 }, NAS2D::Color{ 56, 56, 56 });
 
 	// Resources
-	int x = constants::MARGIN_TIGHT + 12;
-	int offsetX = constants::RESOURCE_ICON_SIZE + 40;
-	auto position = NAS2D::Point{ x, constants::MARGIN_TIGHT };
-	constexpr auto textOffset = NAS2D::Vector{ constants::RESOURCE_ICON_SIZE + constants::MARGIN, 3 - constants::MARGIN_TIGHT };
+	int x = constants::MarginTight + 12;
+	int offsetX = constants::ResourceIconSize + 40;
+	auto position = NAS2D::Point{ x, constants::MarginTight };
+	constexpr auto textOffset = NAS2D::Vector{ constants::ResourceIconSize + constants::Margin, 3 - constants::MarginTight };
 
 	const auto unpinnedImageRect = NAS2D::Rectangle{ 0, 72, 8, 8 };
 	const auto pinnedImageRect = NAS2D::Rectangle{ 8, 72, 8, 8 };
@@ -152,7 +152,7 @@ void MapViewState::drawResourceInfo()
 	const auto glowIntensity = calcGlowIntensity();
 	const auto glowColor = NAS2D::Color{ 255, glowIntensity, glowIntensity };
 
-	constexpr auto iconSize = constants::RESOURCE_ICON_SIZE;
+	constexpr auto iconSize = constants::ResourceIconSize;
 	const std::array resources
 	{
 		std::tuple{NAS2D::Rectangle{64, 16, iconSize, iconSize}, mResourcesCount.resources[0], offsetX},
@@ -198,7 +198,7 @@ void MapViewState::drawResourceInfo()
 	position.x += 13;
 	position.y -= 4;
 	const auto moraleLevel = (std::clamp(mCurrentMorale, 1, 999) / 200);
-	const auto popMoraleImageRect = NAS2D::Rectangle{ 176 + moraleLevel * constants::RESOURCE_ICON_SIZE, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE };
+	const auto popMoraleImageRect = NAS2D::Rectangle{ 176 + moraleLevel * constants::ResourceIconSize, 0, constants::ResourceIconSize, constants::ResourceIconSize };
 	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.size()), position + textOffset, NAS2D::Color::White);
 
@@ -212,14 +212,14 @@ void MapViewState::drawResourceInfo()
 
 	// Turns
 	position.x = renderer.size().x - 80;
-	const auto turnImageRect = NAS2D::Rectangle{ 128, 0, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE };
+	const auto turnImageRect = NAS2D::Rectangle{ 128, 0, constants::ResourceIconSize, constants::ResourceIconSize };
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
-	position = mTooltipSystemButton.rect().startPoint() + NAS2D::Vector{ constants::MARGIN_TIGHT, constants::MARGIN_TIGHT };
+	position = mTooltipSystemButton.rect().startPoint() + NAS2D::Vector{ constants::MarginTight, constants::MarginTight };
 	bool isMouseInMenu = mTooltipSystemButton.rect().contains(MOUSE_COORDS);
 	int menuGearHighlightOffsetX = isMouseInMenu ? 144 : 128;
-	const auto menuImageRect = NAS2D::Rectangle{ menuGearHighlightOffsetX, 32, constants::RESOURCE_ICON_SIZE, constants::RESOURCE_ICON_SIZE };
+	const auto menuImageRect = NAS2D::Rectangle{ menuGearHighlightOffsetX, 32, constants::ResourceIconSize, constants::ResourceIconSize };
 	renderer.drawSubImage(mUiIcons, position, menuImageRect);
 }
 
@@ -235,7 +235,7 @@ void MapViewState::drawRobotInfo()
 
 	// Robots: Miner (last one), Dozer (middle one), Digger (first one)
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
-	auto position = NAS2D::Point{8, renderer.size().y - constants::BOTTOM_UI_HEIGHT - 25 - 8};
+	auto position = NAS2D::Point{8, renderer.size().y - constants::BottomUiHeight - 25 - 8};
 	constexpr auto textOffset = NAS2D::Vector{30, 7};
 
 	const auto minerImageRect = NAS2D::Rectangle{231, 18, 25, 25};

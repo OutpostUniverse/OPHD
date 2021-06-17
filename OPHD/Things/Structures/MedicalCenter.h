@@ -8,7 +8,7 @@
 class MedicalCenter : public Structure
 {
 public:
-	MedicalCenter() : Structure(constants::MEDICAL_CENTER,
+	MedicalCenter() : Structure(constants::MedicalCenter,
 		"structures/medical.sprite",
 		StructureClass::MedicalCenter,
 		StructureID::SID_MEDICAL_CENTER)

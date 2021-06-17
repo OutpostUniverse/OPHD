@@ -43,11 +43,11 @@ std::string CURRENT_LEVEL_STRING;
 
 std::map <int, std::string> LEVEL_STRING_TABLE = 
 {
-	{ constants::DEPTH_SURFACE, constants::LEVEL_SURFACE },
-	{ constants::DEPTH_UNDERGROUND_1, constants::LEVEL_UG1 },
-	{ constants::DEPTH_UNDERGROUND_2, constants::LEVEL_UG2 },
-	{ constants::DEPTH_UNDERGROUND_3, constants::LEVEL_UG3 },
-	{ constants::DEPTH_UNDERGROUND_4, constants::LEVEL_UG4 }
+	{ constants::DepthSurface, constants::LevelSurface },
+	{ constants::DepthUnderground1, constants::Levelunderground1 },
+	{ constants::DepthUnderground2, constants::Levelunderground2 },
+	{ constants::DepthUnderground3, constants::Levelunderground3 },
+	{ constants::DepthUnderground4, constants::Levelunderground4 }
 };
 
 
@@ -63,9 +63,9 @@ struct RobotMeta
 
 const std::map<Robot::Type, RobotMeta> RobotMetaTable
 {
-	{ Robot::Type::Digger, RobotMeta{constants::ROBODIGGER, constants::ROBODIGGER_SHEET_ID}},
-	{ Robot::Type::Dozer, RobotMeta{constants::ROBODOZER, constants::ROBODOZER_SHEET_ID}},
-	{ Robot::Type::Miner, RobotMeta{constants::ROBOMINER, constants::ROBOMINER_SHEET_ID}}
+	{ Robot::Type::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
+	{ Robot::Type::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
+	{ Robot::Type::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
 };
 
 
@@ -179,7 +179,7 @@ void MapViewState::initialize()
 
 	setupUiPositions(renderer.size());
 
-	CURRENT_LEVEL_STRING = constants::LEVEL_SURFACE;
+	CURRENT_LEVEL_STRING = constants::LevelSurface;
 
 	mPopulationPool.population(&mPopulation);
 
@@ -193,7 +193,7 @@ void MapViewState::initialize()
 		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance); 
 	}
 
-	Utility<Renderer>::get().fadeIn(constants::FADE_SPEED);
+	Utility<Renderer>::get().fadeIn(constants::FadeSpeed);
 
 	EventHandler& e = Utility<EventHandler>::get();
 
@@ -207,7 +207,7 @@ void MapViewState::initialize()
 
 	e.textInputMode(true);
 
-	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL);
+	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 
 	delete mPathSolver;
 	mPathSolver = new micropather::MicroPather(mTileMap);
@@ -256,7 +256,7 @@ State* MapViewState::update()
 	renderer.drawImageStretched(mBackground, renderArea);
 
 	// explicit current level
-	const Font* font = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FONT_PRIMARY_MEDIUM);
+	const Font* font = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
 	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - font->size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
 	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
 
@@ -290,7 +290,7 @@ int MapViewState::totalStorage(Structure::StructureClass structureClass, int cap
 	// Command Center has a limited amount of storage for when colonists first land.
 	if (ccLocation() != CcNotPlaced)
 	{
-		storageCapacity += constants::BASE_STORAGE_CAPACITY;
+		storageCapacity += constants::BaseStorageCapacity;
 	}
 
 	const auto& structures = Utility<StructureManager>::get().structureList(structureClass);
@@ -456,13 +456,13 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 			break;
 
 		case EventHandler::KeyCode::KEY_F2:
-			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
+			mFileIoDialog.scanDirectory(constants::SaveGamePath);
 			mFileIoDialog.setMode(FileIo::FileOperation::Save);
 			mFileIoDialog.show();
 			break;
 
 		case EventHandler::KeyCode::KEY_F3:
-			mFileIoDialog.scanDirectory(constants::SAVE_GAME_PATH);
+			mFileIoDialog.scanDirectory(constants::SaveGamePath);
 			mFileIoDialog.setMode(FileIo::FileOperation::Load);
 			mFileIoDialog.show();
 			break;
@@ -785,7 +785,7 @@ void MapViewState::placeTubes()
 	}
 	else
 	{
-		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_TUBE_INVALID_LOCATION);
+		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeInvalidLocation);
 	}
 }
 
@@ -806,7 +806,7 @@ void MapViewState::placeTubeStart()
 
 	if (!validTubeConnection(mTileMap, mTileMapMouseHover, cd))
 	{
-		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_TUBE_INVALID_LOCATION);
+		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeInvalidLocation);
 		return;
 	}
 	mTubeStart = tile->position();
@@ -888,14 +888,14 @@ void MapViewState::placeRobodozer(Tile& tile)
 	}
 	else if (tile.index() == TerrainType::Dozed && !tile.thingIsStructure())
 	{
-		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_TILE_BULLDOZED);
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertTileBulldozed);
 		return;
 	}
 	else if (tile.mine())
 	{
 		if (tile.mine()->depth() != mTileMap->maxDepth() || !tile.mine()->exhausted())
 		{
-			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINE_NOT_EXHAUSTED);
+			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMineNotExhausted);
 			return;
 		}
 
@@ -917,13 +917,13 @@ void MapViewState::placeRobodozer(Tile& tile)
 		if (structure->isMineFacility()) { return; }
 		if (structure->structureClass() == Structure::StructureClass::Command)
 		{
-			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_CC);
+			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertCannotBulldozeCc);
 			return;
 		}
 
 		if (structure->structureClass() == Structure::StructureClass::Lander && structure->age() == 0)
 		{
-			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_CANNOT_BULLDOZE_LANDING_SITE);
+			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertCannotBulldozeLandingSite);
 			return;
 		}
 
@@ -975,7 +975,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
 	{
-		mRobots.removeItem(constants::ROBODOZER);
+		mRobots.removeItem(constants::Robodozer);
 		clearMode();
 	}
 }
@@ -986,20 +986,20 @@ void MapViewState::placeRobodigger(Tile& tile)
 	// Keep digger within a safe margin of the map boundaries.
 	if (!NAS2D::Rectangle<int>::Create({ 4, 4 }, NAS2D::Point{ -4, -4 } + mTileMap->size()).contains(mTileMapMouseHover))
 	{
-		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_EDGE_BUFFER);
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerEdgeBuffer);
 		return;
 	}
 
 	// Check for obstructions underneath the the digger location.
 	if (tile.depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile.position(), tile.depth() + 1).empty())
 	{
-		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_DIGGER_BLOCKED_BELOW);
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerBlockedBelow);
 		return;
 	}
 
 	if (tile.hasMine())
 	{
-		if (!doYesNoMessage(constants::ALERT_DIGGER_MINE_TITLE, constants::ALERT_DIGGER_MINE)) { return; }
+		if (!doYesNoMessage(constants::AlertDiggerMineTile, constants::AlertDiggerMine)) { return; }
 
 		const auto position = tile.position();
 		std::cout << "Digger destroyed a Mine at (" << position.x << ", " << position.y << ")." << std::endl;
@@ -1009,22 +1009,22 @@ void MapViewState::placeRobodigger(Tile& tile)
 	// Die if tile is occupied or not excavated.
 	if (!tile.empty())
 	{
-		if (tile.depth() > constants::DEPTH_SURFACE)
+		if (tile.depth() > constants::DepthSurface)
 		{
 			if (tile.thingIsStructure() && tile.structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) //air shaft
 			{
-				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
+				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertStructureInWay);
 				return;
 			}
 			else if (tile.thingIsStructure() && tile.structure()->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL && tile.depth() == mTileMap->maxDepth())
 			{
-				doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MAX_DIG_DEPTH);
+				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMaxDigDepth);
 				return;
 			}
 		}
 		else
 		{
-			doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_STRUCTURE_IN_WAY);
+			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertStructureInWay);
 			return;
 		}
 	}
@@ -1035,7 +1035,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	mDiggerDirection.setParameters(&tile);
 
 	// If we're placing on the top level we can only ever go down.
-	if (mTileMap->currentDepth() == constants::DEPTH_SURFACE)
+	if (mTileMap->currentDepth() == constants::DepthSurface)
 	{
 		mDiggerDirection.selectDown();
 	}
@@ -1059,18 +1059,18 @@ void MapViewState::placeRobodigger(Tile& tile)
 
 void MapViewState::placeRobominer(Tile& tile)
 {
-	if (tile.thing()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_TILE_OBSTRUCTED); return; }
-	if (mTileMap->currentDepth() != constants::DEPTH_SURFACE) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_SURFACE_ONLY); return; }
-	if (!tile.mine()) { doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_MINER_NOT_ON_MINE); return; }
+	if (tile.thing()) { doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerTileObstructed); return; }
+	if (mTileMap->currentDepth() != constants::DepthSurface) { doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerSurfaceOnly); return; }
+	if (!tile.mine()) { doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerNotOnMine); return; }
 
 	Robot* robot = mRobotPool.getMiner();
-	robot->startTask(constants::MINER_TASK_TIME);
+	robot->startTask(constants::MinerTaskTime);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, &tile);
 	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Miner))
 	{
-		mRobots.removeItem(constants::ROBOMINER);
+		mRobots.removeItem(constants::Robominer);
 		clearMode();
 	}
 
@@ -1086,7 +1086,7 @@ void MapViewState::placeRobot()
 
 	if (!inCommRange(tile->position()))
 	{
-		doAlertMessage(constants::ALERT_INVALID_ROBOT_PLACEMENT, constants::ALERT_OUT_OF_COMM_RANGE);
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertOutOfCommRange);
 		return;
 	}
 
@@ -1132,15 +1132,15 @@ void MapViewState::placeStructure()
 	if (!tile) { return; }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		!isPointInRange(tile->position(), ccLocation(), constants::ROBOT_COM_RANGE))
+		!isPointInRange(tile->position(), ccLocation(), constants::RobotCommRange))
 	{
-		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_OUT_OF_RANGE);
+		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
 	}
 
 	if (tile->mine())
 	{
-		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_MINE_IN_WAY);
+		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureMineInWay);
 		return;
 	}
 
@@ -1148,24 +1148,24 @@ void MapViewState::placeStructure()
 	{
 		if (tile->thingIsStructure())
 		{
-			doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_TILE_OBSTRUCTED);
+			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTileObstructed);
 		}
 		else
 		{
-			doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_TILE_THING);
+			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTileThing);
 		}
 		return;
 	}
 
 	if ((!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
 	{
-		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_TERRAIN);
+		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTerrain);
 		return;
 	}
 
 	if (!tile->excavated())
 	{
-		doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_EXCAVATED);
+		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureExcavated);
 		return;
 	}
 
@@ -1210,7 +1210,7 @@ void MapViewState::placeStructure()
 	{
 		if (!validStructurePlacement(mTileMap, mTileMapMouseHover) && !selfSustained(mCurrentStructure))
 		{
-			doAlertMessage(constants::ALERT_INVALID_STRUCTURE_ACTION, constants::ALERT_STRUCTURE_NO_TUBE);
+			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureNoTube);
 			return;
 		}
 
@@ -1268,7 +1268,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 	}
 	else
 	{
-		doAlertMessage(constants::ALERT_LANDER_LOCATION, constants::ALERT_SEED_EDGE_BUFFER);
+		doAlertMessage(constants::AlertLanderLocation, constants::AlertSeedEdgeBuffer);
 	}
 }
 

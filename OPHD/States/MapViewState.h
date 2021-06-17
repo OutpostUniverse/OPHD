@@ -50,9 +50,7 @@ class MainReportsUiState;
 enum PointerType
 {
 	POINTER_NORMAL,
-	POINTER_PLACE_TILE,
-	POINTER_INSPECT,
-	NUMBER_OF_POINTER_TYPES = PointerType::POINTER_INSPECT
+	POINTER_PLACE_TILE
 };
 
 
@@ -296,9 +294,9 @@ private:
 
 	ToolTip mToolTip;
 
-	IconGrid mStructures{"ui/structures.png", 46, constants::MARGIN_TIGHT};
-	IconGrid mRobots{"ui/robots.png", 46, constants::MARGIN_TIGHT};
-	IconGrid mConnections{"ui/structures.png", 46, constants::MARGIN_TIGHT};
+	IconGrid mStructures{"ui/structures.png", 46, constants::MarginTight};
+	IconGrid mRobots{"ui/robots.png", 46, constants::MarginTight};
+	IconGrid mConnections{"ui/structures.png", 46, constants::MarginTight};
 
 	DiggerDirection mDiggerDirection;
 	FactoryProduction mFactoryProduction;
@@ -337,8 +335,8 @@ private:
 	// MISCELLANEOUS
 	int mTurnCount = 0;
 
-	int mCurrentMorale = constants::DEFAULT_STARTING_MORALE;
-	int mPreviousMorale = constants::DEFAULT_STARTING_MORALE;
+	int mCurrentMorale = constants::DefaultStartingMorale;
+	int mPreviousMorale = constants::DefaultStartingMorale;
 
 	int mLandersColonist = 0;
 	int mLandersCargo = 0;

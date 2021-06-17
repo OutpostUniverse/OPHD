@@ -8,7 +8,7 @@
 class Park : public Structure
 {
 public:
-	Park() : Structure(constants::PARK,
+	Park() : Structure(constants::Park,
 		"structures/park.sprite",
 		StructureClass::Park,
 		StructureID::SID_PARK)

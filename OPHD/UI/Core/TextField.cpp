@@ -27,7 +27,7 @@ namespace {
 
 
 TextField::TextField() :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FONT_PRIMARY_NORMAL)},
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mSkinNormal{
 		imageCache.load("ui/skin/textbox_top_left.png"),
 		imageCache.load("ui/skin/textbox_top_middle.png"),
