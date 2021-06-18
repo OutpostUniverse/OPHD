@@ -29,6 +29,7 @@ MineFacility::MineFacility(Mine* mine) : Structure(constants::MineFacility,
 	sprite().play(constants::StructureStateConstruction);
 	maxAge(1200);
 	turnsToBuild(2);
+	integrityDecayRate(0);
 
 	requiresCHAP(false);
 	selfSustained(true);
