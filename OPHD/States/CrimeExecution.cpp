@@ -22,6 +22,9 @@ void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresComm
 		case StructureID::SID_AGRIDOME:
 			stealFood(static_cast<FoodProduction&>(*structure));
 			break;
+		case StructureID::SID_SMELTER:
+			stealRawResources(*structure);
+			break;
 		case StructureID::SID_STORAGE_TANKS:
 			stealRefinedResources(*structure);
 			break;
@@ -51,6 +54,18 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 
 void CrimeExecution::stealRefinedResources(Structure& structure)
 {
+	stealResources(structure, ResourceNamesRefined);
+}
+
+
+void CrimeExecution::stealRawResources(Structure& structure)
+{
+	stealResources(structure, ResourceNamesOre);
+}
+
+
+void CrimeExecution::stealResources(Structure& structure, const std::array<std::string, 4>& resourceNames)
+{
 	if (structure.storage().isEmpty())
 	{
 		return;
@@ -68,8 +83,7 @@ void CrimeExecution::stealRefinedResources(Structure& structure)
 	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
 
 	mNotificationArea.push("Resources Stolen",
-		NAS2D::stringFrom(amountStolen) + " units of " + ResourceNamesRefined[indexToStealFrom] + " were stolen from a " + structure.name() + ".",
+		NAS2D::stringFrom(amountStolen) + " units of " + resourceNames[indexToStealFrom] + " were stolen from a " + structure.name() + ".",
 		structureTile.position(),
 		NotificationArea::NotificationType::Warning);
-	stealResources(structure, ResourceNamesRefined);
 }
