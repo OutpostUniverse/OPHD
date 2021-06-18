@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <array>
+#include <vector>
 
 
 struct StorableResources
@@ -82,6 +83,23 @@ struct StorableResources
 		}
 		return true;
 	}
+
+
+	std::vector<std::size_t> getIndicesWithStock()
+	{
+		std::vector<std::size_t> indicesWithStock;
+
+		for (std::size_t i = 0; i < resources.size(); ++i)
+		{
+			if (resources[i] > 0)
+			{
+				indicesWithStock.push_back(i);
+			}
+		}
+
+		return indicesWithStock;
+	}
+
 
 	std::array<int, 4> resources{};
 };

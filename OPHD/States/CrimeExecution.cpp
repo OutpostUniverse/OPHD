@@ -22,6 +22,9 @@ void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresComm
 		case StructureID::SID_AGRIDOME:
 			stealFood(static_cast<FoodProduction&>(*structure));
 			break;
+		case StructureID::SID_STORAGE_TANKS:
+			stealRefinedResources(*structure);
+			break;
 		default:
 			break;
 		}
@@ -43,4 +46,30 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 			structureTile.position(),
 			NotificationArea::NotificationType::Warning);
 	}
+}
+
+
+void CrimeExecution::stealRefinedResources(Structure& structure)
+{
+	if (structure.storage().isEmpty())
+	{
+		return;
+	}
+
+	auto resourceIndicesWithStock = structure.storage().getIndicesWithStock();
+
+	// TODO: Rob randomly from stock, for now it just robs from first available indice with resources
+	auto indexToStealFrom = resourceIndicesWithStock[0];
+
+	int amountStolen = std::clamp(100, 0, structure.storage().resources[indexToStealFrom]);
+
+	structure.storage().resources[0] -= amountStolen;
+
+	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
+
+	mNotificationArea.push("Resources Stolen",
+		NAS2D::stringFrom(amountStolen) + " units of " + ResourceNamesRefined[indexToStealFrom] + " were stolen from a " + structure.name() + ".",
+		structureTile.position(),
+		NotificationArea::NotificationType::Warning);
+	stealResources(structure, ResourceNamesRefined);
 }

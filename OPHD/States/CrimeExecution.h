@@ -16,6 +16,7 @@ public:
 	void executeCrimes(const std::vector<Structure*>& structuresCommittingCrime);
 
 	void stealFood(FoodProduction& structure);
+	void stealRefinedResources(Structure& structure);
 
 private:
 	Difficulty mDifficulty{ Difficulty::Medium };
