@@ -20,7 +20,7 @@ void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresComm
 		switch (structure->structureId())
 		{
 		case StructureID::SID_AGRIDOME:
-			executeStealingFood(static_cast<FoodProduction&>(*structure));
+			stealFood(static_cast<FoodProduction&>(*structure));
 			break;
 		default:
 			break;
@@ -29,7 +29,7 @@ void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresComm
 }
 
 
-void CrimeExecution::executeStealingFood(FoodProduction& structure)
+void CrimeExecution::stealFood(FoodProduction& structure)
 {
 	if (structure.foodLevel() > 0)
 	{
