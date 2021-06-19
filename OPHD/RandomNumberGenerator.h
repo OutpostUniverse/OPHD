@@ -18,12 +18,12 @@ public:
 			throw std::runtime_error("When requesting a random number, min must be less than or equal to max.");
 		}
 
-		if (std::is_integral_v(T))
+		if constexpr (std::is_integral_v<T>)
 		{
 			std::uniform_int_distribution<T> distribution(min, max);
 			return distribution(generator);
 		}
-		else if (std::is_floating_point_v(T))
+		else if constexpr (std::is_floating_point_v<T>)
 		{
 			std::uniform_real_distribution<T> distribution(min, max);
 			return distribution(generator);
