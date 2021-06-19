@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <array>
+#include <numeric>
 
 
 struct StorableResources
@@ -82,6 +83,14 @@ struct StorableResources
 		}
 		return true;
 	}
+
+
+	// Sum of all resource types
+	int total()
+	{
+		return std::accumulate(resources.begin(), resources.end(), 0);
+	}
+
 
 	std::array<int, 4> resources{};
 };
