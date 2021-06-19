@@ -26,10 +26,27 @@ public:
 
 	StringTable createInspectorViewTable() override
 	{
-		StringTable stringTable(2, 1);
+		StringTable stringTable(2, 5);
 
-		stringTable[{0, 0}].text = "Storage Capacity:";
-		stringTable[{1, 0}].text = std::to_string(storageCapacity());
+		stringTable.setColumnText(
+			0,
+			{ 
+				"Storage Capacity",
+				ResourceNamesRefined[0],
+				ResourceNamesRefined[2],
+				ResourceNamesRefined[1],
+				ResourceNamesRefined[3],
+			});
+
+		stringTable.setColumnText(
+			1,
+			{
+				std::to_string(storage().total()) + " / " + std::to_string(storageCapacity()),
+				storage().resources[0],
+				storage().resources[2],
+				storage().resources[1],
+				storage().resources[3]
+			});
 
 		return stringTable;
 	}
