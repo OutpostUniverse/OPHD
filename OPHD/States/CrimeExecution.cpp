@@ -38,7 +38,7 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 {
 	if (structure.foodLevel() > 0)
 	{
-		int foodStolen = 100;
+		int foodStolen = 15;
 		if (foodStolen > structure.foodLevel())
 		{
 			foodStolen = structure.foodLevel();
@@ -80,7 +80,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 	// TODO: Rob randomly from stock, for now it just robs from first available indice with resources
 	auto indexToStealFrom = resourceIndicesWithStock[0];
 
-	int amountStolen = 100;
+	int amountStolen = 5;
 	if (amountStolen > structure.storage().resources[indexToStealFrom])
 	{
 		amountStolen = structure.storage().resources[indexToStealFrom];
