@@ -63,6 +63,7 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Nursery]);
 
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Factory]); // Production
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Maintenance]);
 
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Storage]); // Everything else.
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Park]);
@@ -406,6 +407,7 @@ void serializeStructure(NAS2D::Xml::XmlElement* structureElement, Structure* str
 	structureElement->attribute("idle_reason", static_cast<int>(structure->idleReason()));
 	structureElement->attribute("type", structure->structureId());
 	structureElement->attribute("direction", structure->connectorDirection());
+	structureElement->attribute("integrity", structure->integrity());
 
 	if (structure->hasCrime())
 	{
