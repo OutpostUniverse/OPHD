@@ -12,6 +12,7 @@
 #include "FusionReactor.h"
 #include "HotLaboratory.h"
 #include "Laboratory.h"
+#include "MaintenanceFacility.h"
 #include "MedicalCenter.h"
 #include "MineFacility.h"
 #include "MineShaft.h"
