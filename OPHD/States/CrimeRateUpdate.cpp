@@ -2,18 +2,8 @@
 #include "../UI/PopulationPanel.h"
 #include "../Things/Structures/Structure.h"
 #include "../StructureManager.h"
+#include "../RandomNumberGenerator.h"
 #include <NAS2D/Utility.h>
-#include <random>
-#include <functional>
-
-
-namespace
-{
-	std::random_device randomDevice;
-	std::mt19937 generator(randomDevice());
-	std::uniform_int_distribution<int> distribution(0, 1000);
-	auto randomNumberGenerator = std::bind(distribution, std::ref(generator));
-}
 
 
 CrimeRateUpdate::CrimeRateUpdate(PopulationPanel& populationPanel) : mPopulationPanel(populationPanel) { }
@@ -43,7 +33,7 @@ void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
 		// Crime Rate of 0% means no crime
 		// Crime Rate of 100% means crime occurs 10% of the time on medium difficulty
 		// chanceCrimeOccurs multiplier increases or decreases chance based on difficulty
-		if (structure->crimeRate() * chanceCrimeOccurs[mDifficulty] + randomNumberGenerator() > 1000)
+		if (structure->crimeRate() * chanceCrimeOccurs[mDifficulty] + randomNumber.generate<int>(0, 1000) > 1000)
 		{
 			mStructuresCommittingCrimes.push_back(structure);
 		}
