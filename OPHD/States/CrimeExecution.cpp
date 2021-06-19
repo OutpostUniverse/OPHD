@@ -45,7 +45,8 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 
 		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
 		
-		mNotificationArea.push("Food Stolen", NAS2D::stringFrom(foodStolen) + " units of food was pilfered.",
+		mNotificationArea.push("Food Stolen",
+			NAS2D::stringFrom(foodStolen) + " units of food was pilfered from a " + structure.name() + ".",
 			structureTile.position(),
 			NotificationArea::NotificationType::Warning);
 	}
