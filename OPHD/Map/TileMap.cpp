@@ -577,7 +577,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		}
 
 		auto& adjacentTile = getTile(position, 0);
-		float cost = constants::RobotCommRange;
+		float cost = constants::RouteBaseCost;
 
 		if (adjacentTile.index() == TerrainType::Impassable)
 		{
