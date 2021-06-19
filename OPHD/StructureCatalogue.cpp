@@ -75,6 +75,10 @@ Structure* StructureCatalogue::get(StructureID type)
 			structure = new Laboratory();
 			break;
 
+		case StructureID::SID_MAINTENANCE_FACILITY:
+			structure = new MaintenanceFacility();
+			break;
+
 		case StructureID::SID_MEDICAL_CENTER:
 			structure = new MedicalCenter();
 			break;
@@ -266,6 +270,7 @@ void StructureCatalogue::buildCostTable()
 	mStructureCostTable[StructureID::SID_FUSION_REACTOR] = { 75, 25, 50, 30 };
 	mStructureCostTable[StructureID::SID_HOT_LABORATORY] = { 45, 10, 15, 5 };
 	mStructureCostTable[StructureID::SID_LABORATORY] = { 20, 10, 10, 5 };
+	mStructureCostTable[StructureID::SID_MAINTENANCE_FACILITY] = { 15, 10, 2, 1 };
 	mStructureCostTable[StructureID::SID_MEDICAL_CENTER] = { 25, 5, 2, 0 };
 	mStructureCostTable[StructureID::SID_NURSERY] = { 20, 10, 5, 0 };
 	mStructureCostTable[StructureID::SID_PARK] = { 25, 5, 2, 0 };

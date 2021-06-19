@@ -327,18 +327,19 @@ void MapViewState::populateStructureMenu()
 	{
 		mStructures.addItem(constants::Agridome, 5, StructureID::SID_AGRIDOME);
 		mStructures.addItem(constants::Chap, 3, StructureID::SID_CHAP);
+		mStructures.addItem(constants::CommTower, 22, StructureID::SID_COMM_TOWER);
 		mStructures.addItem(constants::FusionReactor, 21, StructureID::SID_FUSION_REACTOR);
 		mStructures.addItem(constants::HotLaboratory, 18, StructureID::SID_HOT_LABORATORY);
-		mStructures.addItem(constants::RobotCommand, 14, StructureID::SID_ROBOT_COMMAND);
-		mStructures.addItem(constants::CommTower, 22, StructureID::SID_COMM_TOWER);
+		mStructures.addItem(constants::MaintenanceFacility, 54, StructureID::SID_MAINTENANCE_FACILITY);
 		mStructures.addItem(constants::Recycling, 16, StructureID::SID_RECYCLING);
 		mStructures.addItem(constants::Road, 24, StructureID::SID_ROAD);
-		mStructures.addItem(constants::SurfacePolice, 23, StructureID::SID_SURFACE_POLICE);
+		mStructures.addItem(constants::RobotCommand, 14, StructureID::SID_ROBOT_COMMAND);
 		mStructures.addItem(constants::Smelter, 4, StructureID::SID_SMELTER);
 		mStructures.addItem(constants::SolarPanel1, 33, StructureID::SID_SOLAR_PANEL1);
 		mStructures.addItem(constants::SolarPlant, 10, StructureID::SID_SOLAR_PLANT);
 		mStructures.addItem(constants::StorageTanks, 8, StructureID::SID_STORAGE_TANKS);
 		mStructures.addItem(constants::SurfaceFactory, 11, StructureID::SID_SURFACE_FACTORY);
+		mStructures.addItem(constants::SurfacePolice, 23, StructureID::SID_SURFACE_POLICE);
 		mStructures.addItem(constants::Warehouse, 9, StructureID::SID_WAREHOUSE);
 
 		mConnections.addItem(constants::AgTubeIntersection, 110, ConnectorDir::CONNECTOR_INTERSECTION);

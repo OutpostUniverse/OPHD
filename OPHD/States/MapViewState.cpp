@@ -1233,6 +1233,11 @@ void MapViewState::placeStructure()
 			static_cast<Factory*>(structure)->resourcePool(&mResourcesCount);
 		}
 
+		if (structure->structureId() == StructureID::SID_MAINTENANCE_FACILITY)
+		{
+			static_cast<MaintenanceFacility*>(structure)->resources(mResourcesCount);
+		}
+
 		auto cost = StructureCatalogue::costToBuild(mCurrentStructure);
 		removeRefinedResources(cost);
 		countPlayerResources();
