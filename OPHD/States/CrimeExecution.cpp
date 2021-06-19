@@ -2,7 +2,6 @@
 #include "../StructureManager.h"
 #include <NAS2D/StringUtils.h>
 #include <NAS2D/Utility.h>
-#include <algorithm>
 
 
 CrimeExecution::CrimeExecution(NotificationArea& notificationArea) : mNotificationArea(notificationArea) {}
@@ -39,7 +38,11 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 {
 	if (structure.foodLevel() > 0)
 	{
-		int foodStolen = std::clamp(100, 0, structure.foodLevel());
+		int foodStolen = 100;
+		if (foodStolen > structure.foodLevel())
+		{
+			foodStolen = structure.foodLevel();
+		}
 		
 		structure.foodLevel(-foodStolen);
 
@@ -77,7 +80,11 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 	// TODO: Rob randomly from stock, for now it just robs from first available indice with resources
 	auto indexToStealFrom = resourceIndicesWithStock[0];
 
-	int amountStolen = std::clamp(100, 0, structure.storage().resources[indexToStealFrom]);
+	int amountStolen = 100;
+	if (amountStolen > structure.storage().resources[indexToStealFrom])
+	{
+		amountStolen = structure.storage().resources[indexToStealFrom];
+	}
 
 	structure.storage().resources[0] -= amountStolen;
 
