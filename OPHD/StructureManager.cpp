@@ -14,7 +14,8 @@
 #include <sstream>
 
 
-namespace {
+namespace
+{
 	/**
 	 * Fills population requirements fields in a Structure.
 	 */
