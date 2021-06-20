@@ -24,6 +24,45 @@ namespace
 		available[0] = std::min(required[0], populationPool.populationAvailable(Population::PersonRole::ROLE_WORKER));
 		available[1] = std::min(required[1], populationPool.populationAvailable(Population::PersonRole::ROLE_SCIENTIST));
 	}
+
+
+	void serializeStructure(NAS2D::Xml::XmlElement* structureElement, Structure* structure, Tile* tile)
+	{
+		const auto position = tile->position();
+		structureElement->attribute("x", position.x);
+		structureElement->attribute("y", position.y);
+		structureElement->attribute("depth", tile->depth());
+
+		structureElement->attribute("age", structure->age());
+		structureElement->attribute("state", static_cast<int>(structure->state()));
+		structureElement->attribute("forced_idle", structure->forceIdle());
+		structureElement->attribute("disabled_reason", static_cast<int>(structure->disabledReason()));
+		structureElement->attribute("idle_reason", static_cast<int>(structure->idleReason()));
+		structureElement->attribute("type", structure->structureId());
+		structureElement->attribute("direction", structure->connectorDirection());
+		structureElement->attribute("integrity", structure->integrity());
+
+		if (structure->hasCrime())
+		{
+			structureElement->attribute("crime_rate", structure->crimeRate());
+		}
+
+		const auto& production = structure->production();
+		if (production > StorableResources{ 0 })
+		{
+			writeResources(structureElement, production, "production");
+		}
+
+		const auto& stored = structure->storage();
+		if (stored > StorableResources{ 0 })
+		{
+			writeResources(structureElement, stored, "storage");
+		}
+
+		structureElement->attribute("pop0", structure->populationAvailable()[0]);
+		structureElement->attribute("pop1", structure->populationAvailable()[1]);
+	}
+
 }
 
 
@@ -391,44 +430,6 @@ Tile& StructureManager::tileFromStructure(Structure* structure)
 		throw std::runtime_error("Could not find tile for structure");
 	}
 	return *it->second;
-}
-
-
-void serializeStructure(NAS2D::Xml::XmlElement* structureElement, Structure* structure, Tile* tile)
-{
-	const auto position = tile->position();
-	structureElement->attribute("x", position.x);
-	structureElement->attribute("y", position.y);
-	structureElement->attribute("depth", tile->depth());
-
-	structureElement->attribute("age", structure->age());
-	structureElement->attribute("state", static_cast<int>(structure->state()));
-	structureElement->attribute("forced_idle", structure->forceIdle());
-	structureElement->attribute("disabled_reason", static_cast<int>(structure->disabledReason()));
-	structureElement->attribute("idle_reason", static_cast<int>(structure->idleReason()));
-	structureElement->attribute("type", structure->structureId());
-	structureElement->attribute("direction", structure->connectorDirection());
-	structureElement->attribute("integrity", structure->integrity());
-
-	if (structure->hasCrime())
-	{
-		structureElement->attribute("crime_rate", structure->crimeRate());
-	}
-
-	const auto& production = structure->production();
-	if (production > StorableResources{ 0 })
-	{
-		writeResources(structureElement, production, "production");
-	}
-
-	const auto& stored = structure->storage();
-	if (stored > StorableResources{ 0 })
-	{
-		writeResources(structureElement, stored, "storage");
-	}
-
-	structureElement->attribute("pop0", structure->populationAvailable()[0]);
-	structureElement->attribute("pop1", structure->populationAvailable()[1]);
 }
 
 
