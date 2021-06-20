@@ -23,11 +23,11 @@ public:
 private:
 	// Lower number indicates criminal activity occurs more often
 	std::map<Difficulty, float> chanceCrimeOccurs
-	{ 
-		{Difficulty::Beginner, 0.5},
-		{Difficulty::Easy, 0.75},
-		{Difficulty::Medium, 1},
-		{Difficulty::Hard, 2}
+	{
+		{ Difficulty::Beginner, 0.5f },
+		{ Difficulty::Easy, 0.75f },
+		{ Difficulty::Medium, 1.0f },
+		{ Difficulty::Hard, 2.0f }
 	};
 
 	Difficulty mDifficulty{ Difficulty::Medium };

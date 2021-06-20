@@ -21,8 +21,9 @@ FileIo::FileIo() :
 	btnFileOp{"FileOp", {this, &FileIo::onFileIo}},
 	btnFileDelete{"Delete", {this, &FileIo::onFileDelete}}
 {
-	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
-	Utility<EventHandler>::get().keyDown().connect(this, &FileIo::onKeyDown);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
+	eventHandler.keyDown().connect(this, &FileIo::onKeyDown);
 
 	size({500, 350});
 
@@ -51,8 +52,9 @@ FileIo::FileIo() :
 
 FileIo::~FileIo()
 {
-	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &FileIo::onDoubleClick);
-	Utility<EventHandler>::get().keyDown().disconnect(this, &FileIo::onKeyDown);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseDoubleClick().disconnect(this, &FileIo::onDoubleClick);
+	eventHandler.keyDown().disconnect(this, &FileIo::onKeyDown);
 }
 
 
