@@ -159,8 +159,10 @@ void TileMap::setupMines(int mineCount, Planet::Hostility hostility)
 	auto mheight = std::bind(distributionHeight, std::ref(generator));
 	auto randPoint = [&mwidth, &mheight]() { return NAS2D::Point{mwidth(), mheight()}; };
 
-	auto generateMines = [&](int mineCountAtYield, MineProductionRate yield) {
-		for (int i = 0; i < mineCountAtYield; ++i) {
+	auto generateMines = [&](int mineCountAtYield, MineProductionRate yield)
+	{
+		for (int i = 0; i < mineCountAtYield; ++i)
+		{
 			addMineSet(randPoint(), mMineLocations, yield);
 		}
 	};
