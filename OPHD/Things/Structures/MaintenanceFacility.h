@@ -44,6 +44,8 @@ public:
 		mMaintenancePersonnel = std::clamp(mMaintenancePersonnel - 1, MinimumPersonnel, MaximumPersonnel);
 	}
 
+	int personnel() const { return mMaintenancePersonnel; }
+
 protected:
 	void defineResourceInput() override
 	{

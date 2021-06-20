@@ -503,6 +503,14 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 			structureElement->linkEndChild(extension);
 		}
 
+		if (structure->structureClass() == Structure::StructureClass::Maintenance)
+		{
+			auto maintenance = static_cast<MaintenanceFacility*>(structure);
+			auto personnel = new NAS2D::Xml::XmlElement("personnel");
+			personnel->attribute("assigned", maintenance->personnel());
+			structureElement->linkEndChild(personnel);
+		}
+
 		structures->linkEndChild(structureElement);
 	}
 
