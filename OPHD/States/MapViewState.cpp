@@ -143,17 +143,17 @@ MapViewState::~MapViewState()
 
 	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
-	EventHandler& e = Utility<EventHandler>::get();
-	e.activate().disconnect(this, &MapViewState::onActivate);
-	e.keyDown().disconnect(this, &MapViewState::onKeyDown);
-	e.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
-	e.mouseButtonUp().disconnect(this, &MapViewState::onMouseUp);
-	e.mouseDoubleClick().disconnect(this, &MapViewState::onMouseDoubleClick);
-	e.mouseMotion().disconnect(this, &MapViewState::onMouseMove);
-	e.mouseWheel().disconnect(this, &MapViewState::onMouseWheel);
-	e.windowResized().disconnect(this, &MapViewState::onWindowResized);
+	EventHandler& eventHandler = Utility<EventHandler>::get();
+	eventHandler.activate().disconnect(this, &MapViewState::onActivate);
+	eventHandler.keyDown().disconnect(this, &MapViewState::onKeyDown);
+	eventHandler.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
+	eventHandler.mouseButtonUp().disconnect(this, &MapViewState::onMouseUp);
+	eventHandler.mouseDoubleClick().disconnect(this, &MapViewState::onMouseDoubleClick);
+	eventHandler.mouseMotion().disconnect(this, &MapViewState::onMouseMove);
+	eventHandler.mouseWheel().disconnect(this, &MapViewState::onMouseWheel);
+	eventHandler.windowResized().disconnect(this, &MapViewState::onWindowResized);
 
-	e.textInputMode(false);
+	eventHandler.textInputMode(false);
 
 	NAS2D::Utility<std::map<class MineFacility*, Route>>::get().clear();
 }
@@ -195,17 +195,17 @@ void MapViewState::initialize()
 
 	Utility<Renderer>::get().fadeIn(constants::FadeSpeed);
 
-	EventHandler& e = Utility<EventHandler>::get();
+	EventHandler& eventHandler = Utility<EventHandler>::get();
 
-	e.activate().connect(this, &MapViewState::onActivate);
-	e.keyDown().connect(this, &MapViewState::onKeyDown);
-	e.mouseButtonDown().connect(this, &MapViewState::onMouseDown);
-	e.mouseButtonUp().connect(this, &MapViewState::onMouseUp);
-	e.mouseDoubleClick().connect(this, &MapViewState::onMouseDoubleClick);
-	e.mouseMotion().connect(this, &MapViewState::onMouseMove);
-	e.mouseWheel().connect(this, &MapViewState::onMouseWheel);
+	eventHandler.activate().connect(this, &MapViewState::onActivate);
+	eventHandler.keyDown().connect(this, &MapViewState::onKeyDown);
+	eventHandler.mouseButtonDown().connect(this, &MapViewState::onMouseDown);
+	eventHandler.mouseButtonUp().connect(this, &MapViewState::onMouseUp);
+	eventHandler.mouseDoubleClick().connect(this, &MapViewState::onMouseDoubleClick);
+	eventHandler.mouseMotion().connect(this, &MapViewState::onMouseMove);
+	eventHandler.mouseWheel().connect(this, &MapViewState::onMouseWheel);
 
-	e.textInputMode(true);
+	eventHandler.textInputMode(true);
 
 	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 
@@ -612,7 +612,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		// Click was within the bounds of the TileMap.
 		else if (mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
-			EventHandler& e = Utility<EventHandler>::get();
+			EventHandler& eventHandler = Utility<EventHandler>::get();
 			if (mInsertMode == InsertMode::Structure)
 			{
 				placeStructure();
@@ -621,7 +621,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 			{
 				placeRobot();
 			}
-			else if ( (mInsertMode == InsertMode::Tube) && e.query_shift())
+			else if ( (mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 			{
 				placeTubeStart();
 			}
@@ -668,8 +668,8 @@ void MapViewState::onMouseUp(EventHandler::MouseButton button, int /*x*/, int /*
 	if (button == EventHandler::MouseButton::Left)
 	{
 		mLeftButtonDown = false;
-		EventHandler& e = Utility<EventHandler>::get();
-		if ((mInsertMode == InsertMode::Tube) && e.query_shift())
+		EventHandler& eventHandler = Utility<EventHandler>::get();
+		if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 		{
 			placeTubeEnd();
 		}

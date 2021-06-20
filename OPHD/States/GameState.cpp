@@ -27,8 +27,8 @@ GameState::~GameState()
 {
 	NAS2D::Utility<StructureManager>::get().dropAllStructures();
 
-	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
-	e.mouseMotion().disconnect(this, &GameState::onMouseMove);
+	NAS2D::EventHandler& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseMotion().disconnect(this, &GameState::onMouseMove);
 
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &GameState::onFadeComplete);
 
@@ -52,8 +52,8 @@ GameState::~GameState()
  */
 void GameState::initialize()
 {
-	NAS2D::EventHandler& e = NAS2D::Utility<NAS2D::EventHandler>::get();
-	e.mouseMotion().connect(this, &GameState::onMouseMove);
+	NAS2D::EventHandler& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseMotion().connect(this, &GameState::onMouseMove);
 
 	mMainReportsState = std::make_unique<MainReportsUiState>();
 	mMainReportsState->_initialize();
