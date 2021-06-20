@@ -10,8 +10,9 @@ class RandomNumberGenerator
 public:
 	RandomNumberGenerator() : generator(randomDevice()) {};
 
-	template<typename T, std::enable_if_t<std::is_arithmetic_v<T>>>
-	T generate(T min, T max)
+	template<typename T>
+	std::enable_if_t<std::is_arithmetic_v<T>, T>
+	generate(T min, T max)
 	{
 		if (min > max)
 		{
