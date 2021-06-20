@@ -41,15 +41,17 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 		throw std::runtime_error("IconGrid::iconMargin must be non-negative: " + std::to_string(margin));
 	}
 
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &IconGrid::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &IconGrid::onMouseMove);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().connect(this, &IconGrid::onMouseDown);
+	eventHandler.mouseMotion().connect(this, &IconGrid::onMouseMove);
 }
 
 
 IconGrid::~IconGrid()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &IconGrid::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &IconGrid::onMouseMove);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect(this, &IconGrid::onMouseDown);
+	eventHandler.mouseMotion().disconnect(this, &IconGrid::onMouseMove);
 }
 
 

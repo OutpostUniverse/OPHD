@@ -124,17 +124,19 @@ static void drawPanel(Renderer& renderer, Panel& panel)
 
 MainReportsUiState::MainReportsUiState()
 {
-	Utility<EventHandler>::get().windowResized().connect(this, &MainReportsUiState::onWindowResized);
-	Utility<EventHandler>::get().keyDown().connect(this, &MainReportsUiState::onKeyDown);
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.windowResized().connect(this, &MainReportsUiState::onWindowResized);
+	eventHandler.keyDown().connect(this, &MainReportsUiState::onKeyDown);
+	eventHandler.mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
 }
 
 
 MainReportsUiState::~MainReportsUiState()
 {
-	Utility<EventHandler>::get().windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
-	Utility<EventHandler>::get().keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
+	eventHandler.keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
+	eventHandler.mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
 
 	for (Panel& panel : Panels)
 	{

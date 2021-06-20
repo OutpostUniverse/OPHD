@@ -51,11 +51,12 @@ TextField::TextField() :
 		imageCache.load("ui/skin/textbox_bottom_right_highlight.png")
 	}
 {
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &TextField::onMouseDown);
-	Utility<EventHandler>::get().keyDown().connect(this, &TextField::onKeyDown);
-	Utility<EventHandler>::get().textInput().connect(this, &TextField::onTextInput);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().connect(this, &TextField::onMouseDown);
+	eventHandler.keyDown().connect(this, &TextField::onKeyDown);
+	eventHandler.textInput().connect(this, &TextField::onTextInput);
 
-	Utility<EventHandler>::get().textInputMode(true);
+	eventHandler.textInputMode(true);
 
 	height(mFont.height() + fieldPadding * 2);
 }
@@ -63,9 +64,10 @@ TextField::TextField() :
 
 TextField::~TextField()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &TextField::onMouseDown);
-	Utility<EventHandler>::get().keyDown().disconnect(this, &TextField::onKeyDown);
-	Utility<EventHandler>::get().textInput().disconnect(this, &TextField::onTextInput);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect(this, &TextField::onMouseDown);
+	eventHandler.keyDown().disconnect(this, &TextField::onKeyDown);
+	eventHandler.textInput().disconnect(this, &TextField::onTextInput);
 }
 
 
