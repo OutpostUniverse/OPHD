@@ -36,7 +36,7 @@ PlanetSelectState::PlanetSelectState() :
 
 PlanetSelectState::~PlanetSelectState()
 {
-	EventHandler& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseButtonDown().disconnect(this, &PlanetSelectState::onMouseDown);
 	eventHandler.mouseMotion().disconnect(this, &PlanetSelectState::onMouseMove);
 	eventHandler.windowResized().disconnect(this, &PlanetSelectState::onWindowResized);
@@ -49,7 +49,7 @@ PlanetSelectState::~PlanetSelectState()
 
 void PlanetSelectState::initialize()
 {
-	EventHandler& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseButtonDown().connect(this, &PlanetSelectState::onMouseDown);
 	eventHandler.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 	eventHandler.windowResized().connect(this, &PlanetSelectState::onWindowResized);

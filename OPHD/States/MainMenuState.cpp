@@ -29,7 +29,7 @@ MainMenuState::MainMenuState() :
 
 MainMenuState::~MainMenuState()
 {
-	EventHandler& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.windowResized().disconnect(this, &MainMenuState::onWindowResized);
 	eventHandler.keyDown().disconnect(this, &MainMenuState::onKeyDown);
 
@@ -43,7 +43,7 @@ MainMenuState::~MainMenuState()
  */
 void MainMenuState::initialize()
 {
-	EventHandler& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.windowResized().connect(this, &MainMenuState::onWindowResized);
 	eventHandler.keyDown().connect(this, &MainMenuState::onKeyDown);
 

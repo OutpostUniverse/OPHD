@@ -143,7 +143,7 @@ MapViewState::~MapViewState()
 
 	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
-	EventHandler& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.activate().disconnect(this, &MapViewState::onActivate);
 	eventHandler.keyDown().disconnect(this, &MapViewState::onKeyDown);
 	eventHandler.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
@@ -195,7 +195,7 @@ void MapViewState::initialize()
 
 	Utility<Renderer>::get().fadeIn(constants::FadeSpeed);
 
-	EventHandler& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = Utility<EventHandler>::get();
 
 	eventHandler.activate().connect(this, &MapViewState::onActivate);
 	eventHandler.keyDown().connect(this, &MapViewState::onKeyDown);
@@ -612,7 +612,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		// Click was within the bounds of the TileMap.
 		else if (mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
-			EventHandler& eventHandler = Utility<EventHandler>::get();
+			auto& eventHandler = Utility<EventHandler>::get();
 			if (mInsertMode == InsertMode::Structure)
 			{
 				placeStructure();
@@ -668,7 +668,7 @@ void MapViewState::onMouseUp(EventHandler::MouseButton button, int /*x*/, int /*
 	if (button == EventHandler::MouseButton::Left)
 	{
 		mLeftButtonDown = false;
-		EventHandler& eventHandler = Utility<EventHandler>::get();
+		auto& eventHandler = Utility<EventHandler>::get();
 		if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 		{
 			placeTubeEnd();
