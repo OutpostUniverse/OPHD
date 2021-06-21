@@ -469,6 +469,8 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 				{
 					maintenanceFacility->personnel(std::stoi(assigned));
 				}
+
+				maintenanceFacility->resources(mResourcesCount);
 			}
 		}
 
