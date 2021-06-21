@@ -45,6 +45,7 @@ public:
 	}
 
 	int personnel() const { return mMaintenancePersonnel; }
+	void personnel(int assigned) { mMaintenancePersonnel = assigned; }
 
 protected:
 	void defineResourceInput() override

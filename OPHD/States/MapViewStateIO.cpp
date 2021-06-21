@@ -456,7 +456,20 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 				auto overflow = waste->attribute("overflow");
 				residence->wasteOverflow(std::stoi(overflow));
 			}
+		}
 
+		if (structure.structureClass() == Structure::StructureClass::Maintenance)
+		{
+			auto personnel = structureNode->firstChildElement("personnel");
+			if (personnel)
+			{
+				auto maintenanceFacility = static_cast<MaintenanceFacility*>(&structure);
+				auto assigned = personnel->attribute("assigned");
+				if (!assigned.empty())
+				{
+					maintenanceFacility->personnel(std::stoi(assigned));
+				}
+			}
 		}
 
 		if (structure.isWarehouse())
