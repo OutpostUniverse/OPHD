@@ -1,5 +1,6 @@
 #include "CrimeExecution.h"
 #include "../StructureManager.h"
+#include "../RandomNumberGenerator.h"
 #include <NAS2D/StringUtils.h>
 #include <NAS2D/Utility.h>
 
@@ -77,8 +78,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 
 	auto resourceIndicesWithStock = structure.storage().getIndicesWithStock();
 
-	// TODO: Rob randomly from stock, for now it just robs from first available indice with resources
-	auto indexToStealFrom = resourceIndicesWithStock[0];
+	auto indexToStealFrom = randomNumber.generate<int>(0, static_cast<int>(resourceIndicesWithStock.size()) - 1);
 
 	int amountStolen = 5;
 	if (amountStolen > structure.storage().resources[indexToStealFrom])
@@ -86,7 +86,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 		amountStolen = structure.storage().resources[indexToStealFrom];
 	}
 
-	structure.storage().resources[0] -= amountStolen;
+	structure.storage().resources[indexToStealFrom] -= amountStolen;
 
 	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
 
