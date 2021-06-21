@@ -573,7 +573,6 @@ void MapViewState::nextTurn()
 	mCurrentMorale += mCrimeRateUpdate.moraleChange();
 	auto structuresCommittingCrimes = mCrimeRateUpdate.structuresCommittingCrimes();
 	mCrimeExecution.executeCrimes(structuresCommittingCrimes);
-	
 
 	updateResidentialCapacity();
 
