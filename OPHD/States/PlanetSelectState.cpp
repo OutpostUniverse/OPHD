@@ -36,10 +36,10 @@ PlanetSelectState::PlanetSelectState() :
 
 PlanetSelectState::~PlanetSelectState()
 {
-	EventHandler& e = Utility<EventHandler>::get();
-	e.mouseButtonDown().disconnect(this, &PlanetSelectState::onMouseDown);
-	e.mouseMotion().disconnect(this, &PlanetSelectState::onMouseMove);
-	e.windowResized().disconnect(this, &PlanetSelectState::onWindowResized);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect(this, &PlanetSelectState::onMouseDown);
+	eventHandler.mouseMotion().disconnect(this, &PlanetSelectState::onMouseMove);
+	eventHandler.windowResized().disconnect(this, &PlanetSelectState::onWindowResized);
 
 	for (auto planet : mPlanets) { delete planet; }
 
@@ -49,10 +49,10 @@ PlanetSelectState::~PlanetSelectState()
 
 void PlanetSelectState::initialize()
 {
-	EventHandler& e = Utility<EventHandler>::get();
-	e.mouseButtonDown().connect(this, &PlanetSelectState::onMouseDown);
-	e.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
-	e.windowResized().connect(this, &PlanetSelectState::onWindowResized);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().connect(this, &PlanetSelectState::onMouseDown);
+	eventHandler.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
+	eventHandler.windowResized().connect(this, &PlanetSelectState::onWindowResized);
 
 	for (const auto& planetAttribute : PlanetAttributes)
 	{

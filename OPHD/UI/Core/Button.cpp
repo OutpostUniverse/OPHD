@@ -49,9 +49,10 @@ Button::Button(std::string newText) :
 {
 	text(newText);
 
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Button::onMouseDown);
-	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Button::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &Button::onMouseMove);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().connect(this, &Button::onMouseDown);
+	eventHandler.mouseButtonUp().connect(this, &Button::onMouseUp);
+	eventHandler.mouseMotion().connect(this, &Button::onMouseMove);
 
 	mFont = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 }
@@ -65,9 +66,10 @@ Button::Button(std::string newText, ClickSignal::DelegateType clickHandler) : Bu
 
 Button::~Button()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Button::onMouseDown);
-	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Button::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Button::onMouseMove);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect(this, &Button::onMouseDown);
+	eventHandler.mouseButtonUp().disconnect(this, &Button::onMouseUp);
+	eventHandler.mouseMotion().disconnect(this, &Button::onMouseMove);
 }
 
 

@@ -29,9 +29,9 @@ MainMenuState::MainMenuState() :
 
 MainMenuState::~MainMenuState()
 {
-	EventHandler& e = Utility<EventHandler>::get();
-	e.windowResized().disconnect(this, &MainMenuState::onWindowResized);
-	e.keyDown().disconnect(this, &MainMenuState::onKeyDown);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.windowResized().disconnect(this, &MainMenuState::onWindowResized);
+	eventHandler.keyDown().disconnect(this, &MainMenuState::onKeyDown);
 
 	Utility<Mixer>::get().stopAllAudio();
 	Utility<Renderer>::get().fadeComplete().disconnect(this, &MainMenuState::onFadeComplete);
@@ -43,9 +43,9 @@ MainMenuState::~MainMenuState()
  */
 void MainMenuState::initialize()
 {
-	EventHandler& e = Utility<EventHandler>::get();
-	e.windowResized().connect(this, &MainMenuState::onWindowResized);
-	e.keyDown().connect(this, &MainMenuState::onKeyDown);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.windowResized().connect(this, &MainMenuState::onWindowResized);
+	eventHandler.keyDown().connect(this, &MainMenuState::onKeyDown);
 
 	for (auto& button : buttons)
 	{

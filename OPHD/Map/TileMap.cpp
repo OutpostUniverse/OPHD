@@ -4,13 +4,13 @@
 #include "../DirectionOffset.h"
 #include "../Mine.h"
 #include "../Things/Structures/Structure.h"
+#include "../RandomNumberGenerator.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Xml/XmlElement.h>
 
 #include <algorithm>
 #include <functional>
-#include <random>
 #include <array>
 
 
@@ -149,18 +149,16 @@ void TileMap::setupMines(int mineCount, Planet::Hostility hostility)
 	// low yield mines. Difficulty settings could shift this to other yields.
 	int yieldTotal = yieldLow + yieldMedium + yieldHigh;
 	if (yieldTotal < mineCount) { yieldLow += mineCount - yieldTotal; }
+	
+	auto mwidth = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, MAP_WIDTH - 5);
+	auto mheight = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, MAP_HEIGHT - 5);
 
-	std::random_device rd;
-	std::mt19937 generator(rd());
-	std::uniform_int_distribution<int> distributionWidth(5, MAP_WIDTH - 5);
-	std::uniform_int_distribution<int> distributionHeight(5, MAP_HEIGHT - 5);
-
-	auto mwidth = std::bind(distributionWidth, std::ref(generator));
-	auto mheight = std::bind(distributionHeight, std::ref(generator));
 	auto randPoint = [&mwidth, &mheight]() { return NAS2D::Point{mwidth(), mheight()}; };
 
-	auto generateMines = [&](int mineCountAtYield, MineProductionRate yield) {
-		for (int i = 0; i < mineCountAtYield; ++i) {
+	auto generateMines = [&](int mineCountAtYield, MineProductionRate yield)
+	{
+		for (int i = 0; i < mineCountAtYield; ++i)
+		{
 			addMineSet(randPoint(), mMineLocations, yield);
 		}
 	};

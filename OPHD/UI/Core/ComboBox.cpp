@@ -14,8 +14,9 @@ using namespace NAS2D;
 
 ComboBox::ComboBox()
 {
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ComboBox::onMouseDown);
-	Utility<EventHandler>::get().mouseWheel().connect(this, &ComboBox::onMouseWheel);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().connect(this, &ComboBox::onMouseDown);
+	eventHandler.mouseWheel().connect(this, &ComboBox::onMouseWheel);
 
 	btnDown.image("ui/icons/down.png");
 	btnDown.size({20, 20});
@@ -31,8 +32,9 @@ ComboBox::ComboBox()
 ComboBox::~ComboBox()
 {
 	lstItems.selectionChanged().disconnect(this, &ComboBox::onListSelectionChange);
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ComboBox::onMouseDown);
-	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ComboBox::onMouseWheel);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect(this, &ComboBox::onMouseDown);
+	eventHandler.mouseWheel().disconnect(this, &ComboBox::onMouseWheel);
 }
 
 

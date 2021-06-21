@@ -16,9 +16,10 @@ using namespace NAS2D;
 
 ListBoxBase::ListBoxBase()
 {
-	Utility<EventHandler>::get().mouseWheel().connect(this, &ListBoxBase::onMouseWheel);
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &ListBoxBase::onMouseMove);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseWheel().connect(this, &ListBoxBase::onMouseWheel);
+	eventHandler.mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
+	eventHandler.mouseMotion().connect(this, &ListBoxBase::onMouseMove);
 
 	mSlider.displayPosition(false);
 	mSlider.length(0);
@@ -33,9 +34,10 @@ ListBoxBase::~ListBoxBase()
 {
 	mSlider.change().disconnect(this, &ListBoxBase::onSlideChange);
 
-	Utility<EventHandler>::get().mouseWheel().disconnect(this, &ListBoxBase::onMouseWheel);
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &ListBoxBase::onMouseDown);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &ListBoxBase::onMouseMove);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseWheel().disconnect(this, &ListBoxBase::onMouseWheel);
+	eventHandler.mouseButtonDown().disconnect(this, &ListBoxBase::onMouseDown);
+	eventHandler.mouseMotion().disconnect(this, &ListBoxBase::onMouseMove);
 
 	for (auto item : mItems) { delete item; }
 }
