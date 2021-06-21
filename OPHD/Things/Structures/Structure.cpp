@@ -281,6 +281,9 @@ void Structure::incrementAge()
 
 void Structure::updateIntegrityDecay()
 {
+	// structures being built don't decay
+	if (state() == StructureState::UnderConstruction) { return; }
+
 	mIntegrity = std::clamp(mIntegrity - integrityDecayRate(), 0, mIntegrity);
 
 	if (mIntegrity <= 35 && !disabled())
