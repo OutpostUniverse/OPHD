@@ -127,17 +127,19 @@ Slider::Slider(Slider::Skins skins, SliderType sliderType) :
 	mSliderType{sliderType},
 	mSkins{skins}
 {
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &Slider::onMouseDown);
-	Utility<EventHandler>::get().mouseButtonUp().connect(this, &Slider::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().connect(this, &Slider::onMouseMove);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().connect(this, &Slider::onMouseDown);
+	eventHandler.mouseButtonUp().connect(this, &Slider::onMouseUp);
+	eventHandler.mouseMotion().connect(this, &Slider::onMouseMove);
 }
 
 
 Slider::~Slider()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &Slider::onMouseDown);
-	Utility<EventHandler>::get().mouseButtonUp().disconnect(this, &Slider::onMouseUp);
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &Slider::onMouseMove);
+	auto& eventHandler = Utility<EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect(this, &Slider::onMouseDown);
+	eventHandler.mouseButtonUp().disconnect(this, &Slider::onMouseUp);
+	eventHandler.mouseMotion().disconnect(this, &Slider::onMouseMove);
 }
 
 

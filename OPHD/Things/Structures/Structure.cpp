@@ -1,26 +1,8 @@
 #include "Structure.h"
 
+#include "../../RandomNumberGenerator.h"
 #include "../../Constants.h"
 #include <algorithm>
-
-
-/**
- * \fixme Copy/paste code.
- * 
- * fix when https://github.com/OutpostUniverse/OPHD/issues/974
- * is implemented.
- */
-#include <random>
-#include <functional>
-
-namespace
-{
-	std::random_device randomDevice;
-	std::mt19937 generator(randomDevice());
-	std::uniform_int_distribution<int> distribution(0, 1000);
-	auto randomNumberGenerator = std::bind(distribution, std::ref(generator));
-}
-/** end fixme */
 
 
 /**
@@ -50,6 +32,7 @@ const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATI
 	{ Structure::StructureClass::Laboratory, "Laboratory" },
 	{ Structure::StructureClass::Lander, "Lander" },
 	{ Structure::StructureClass::LifeSupport, "Life Support" },
+	{ Structure::StructureClass::Maintenance, "Maintenance Facility" },
 	{ Structure::StructureClass::Mine, "Mine Facility" },
 	{ Structure::StructureClass::MedicalCenter, "Mine Facility" },
 	{ Structure::StructureClass::Nursery, "Mine Facility" },
@@ -109,7 +92,8 @@ static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable 
 	constants::UndergroundPolice,
 	constants::University,
 	constants::Warehouse,
-	constants::Recycling
+	constants::Recycling,
+	constants::MaintenanceFacility
 };
 
 
@@ -279,6 +263,9 @@ void Structure::incrementAge()
 
 void Structure::updateIntegrityDecay()
 {
+	// structures being built don't decay
+	if (state() == StructureState::UnderConstruction) { return; }
+
 	mIntegrity = std::clamp(mIntegrity - integrityDecayRate(), 0, mIntegrity);
 
 	if (mIntegrity <= 35 && !disabled())
@@ -288,7 +275,7 @@ void Structure::updateIntegrityDecay()
 	else if (mIntegrity <= 20 && !destroyed())
 	{
 		/* range is 0 - 1000, 0 - 100 for 10% chance */
-		if (randomNumberGenerator() < 100)
+		if (randomNumber.generate(0, 1000) < 100)
 		{
 			destroy();
 		}

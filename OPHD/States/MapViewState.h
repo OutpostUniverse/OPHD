@@ -220,6 +220,7 @@ private:
 	void setOverlay(TileList& tileList, Tile::Overlay overlay);
 	void clearOverlays();
 	void clearOverlay(TileList& tileList);
+	void updateOverlays();
 	void changePoliceOverlayDepth(int oldDepth, int newDepth);
 	void onToggleConnectedness();
 	void onToggleCommRangeOverlay();

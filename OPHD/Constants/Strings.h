@@ -97,6 +97,7 @@ namespace constants
 	const std::string FusionReactor = "Fusion Reactor";
 	const std::string HotLaboratory = "Hot Laboratory";
 	const std::string Laboratory = "Laboratory";
+	const std::string MaintenanceFacility = "Maintenance Facility";
 	const std::string MedicalCenter = "Medical Center";
 	const std::string MineFacility = "Mine Facility";
 	const std::string MineShaft = "Mine Shaft";
