@@ -336,7 +336,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 	{
 		int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
 		int production_completed = 0, production_type = 0;
-		int crime_rate = 0;
+		int crime_rate = 0, integrity = 0;
 		auto* attribute = structureNode->toElement()->firstAttribute();
 		while (attribute)
 		{
@@ -351,6 +351,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			else if (attribute->name() == "disabled_reason") { attribute->queryIntValue(disabled_reason); }
 			else if (attribute->name() == "idle_reason") { attribute->queryIntValue(idle_reason); }
 			else if (attribute->name() == "crime_rate") { attribute->queryIntValue(crime_rate); }
+			else if (attribute->name() == "integrity") { attribute->queryIntValue(integrity); }
 
 			else if (attribute->name() == "production_completed") { attribute->queryIntValue(production_completed); }
 			else if (attribute->name() == "production_type") { attribute->queryIntValue(production_type); }
@@ -436,6 +437,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		structure.age(age);
 		structure.forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
 		structure.connectorDirection(static_cast<ConnectorDir>(direction));
+		structure.integrity(integrity);
 
 		if (forced_idle != 0) { structure.forceIdle(forced_idle != 0); }
 
@@ -454,7 +456,20 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 				auto overflow = waste->attribute("overflow");
 				residence->wasteOverflow(std::stoi(overflow));
 			}
+		}
 
+		if (structure.structureClass() == Structure::StructureClass::Maintenance)
+		{
+			auto personnel = structureNode->firstChildElement("personnel");
+			if (personnel)
+			{
+				auto maintenanceFacility = static_cast<MaintenanceFacility*>(&structure);
+				auto assigned = personnel->attribute("assigned");
+				if (!assigned.empty())
+				{
+					maintenanceFacility->personnel(std::stoi(assigned));
+				}
+			}
 		}
 
 		if (structure.isWarehouse())

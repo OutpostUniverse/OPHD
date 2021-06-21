@@ -32,6 +32,7 @@ const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATI
 	{ Structure::StructureClass::Laboratory, "Laboratory" },
 	{ Structure::StructureClass::Lander, "Lander" },
 	{ Structure::StructureClass::LifeSupport, "Life Support" },
+	{ Structure::StructureClass::Maintenance, "Maintenance Facility" },
 	{ Structure::StructureClass::Mine, "Mine Facility" },
 	{ Structure::StructureClass::MedicalCenter, "Mine Facility" },
 	{ Structure::StructureClass::Nursery, "Mine Facility" },
@@ -91,7 +92,8 @@ static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable 
 	constants::UndergroundPolice,
 	constants::University,
 	constants::Warehouse,
-	constants::Recycling
+	constants::Recycling,
+	constants::MaintenanceFacility
 };
 
 
@@ -261,6 +263,9 @@ void Structure::incrementAge()
 
 void Structure::updateIntegrityDecay()
 {
+	// structures being built don't decay
+	if (state() == StructureState::UnderConstruction) { return; }
+
 	mIntegrity = std::clamp(mIntegrity - integrityDecayRate(), 0, mIntegrity);
 
 	if (mIntegrity <= 35 && !disabled())

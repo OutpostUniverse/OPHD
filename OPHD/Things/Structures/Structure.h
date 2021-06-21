@@ -42,6 +42,7 @@ public:
 		Laboratory,
 		Lander,
 		LifeSupport,
+		Maintenance,
 		Mine,
 		MedicalCenter,
 		Nursery,
