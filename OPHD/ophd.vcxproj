@@ -343,6 +343,7 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <ClInclude Include="Map\TileMap.h" />
     <ClInclude Include="MicroPather\micropather.h" />
     <ClInclude Include="Mine.h" />
+    <ClInclude Include="RandomNumberGenerator.h" />
     <ClInclude Include="States\CrimeExecution.h" />
     <ClInclude Include="States\CrimeRateUpdate.h" />
     <ClInclude Include="StorableResources.h" />
