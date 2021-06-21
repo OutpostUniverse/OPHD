@@ -542,6 +542,18 @@ void MapViewState::checkNewlyBuiltStructures()
 }
 
 
+void MapViewState::updateOverlays()
+{
+	checkCommRangeOverlay();
+	checkSurfacePoliceOverlay();
+
+	if (mBtnToggleConnectedness.toggled()) { onToggleConnectedness(); }
+	if (mBtnToggleCommRangeOverlay.toggled()) { onToggleCommRangeOverlay(); }
+	if (mBtnToggleRouteOverlay.toggled()) { onToggleRouteOverlay(); }
+	if (mBtnTogglePoliceOverlay.toggled()) { onTogglePoliceOverlay(); }
+}
+
+
 void MapViewState::nextTurn()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -587,14 +599,7 @@ void MapViewState::nextTurn()
 	updateStructuresAvailability();
 	updateRoads();
 
-	// Overlay Updates
-	checkCommRangeOverlay();
-	checkSurfacePoliceOverlay();
-
-	if (mBtnToggleConnectedness.toggled()) { onToggleConnectedness(); }
-	if (mBtnToggleCommRangeOverlay.toggled()) { onToggleCommRangeOverlay(); }
-	if (mBtnToggleRouteOverlay.toggled()) { onToggleRouteOverlay(); }
-	if (mBtnTogglePoliceOverlay.toggled()) { onTogglePoliceOverlay(); }
+	updateOverlays();
 
 	auto& factories = NAS2D::Utility<StructureManager>::get().getStructures<Factory>();
 	for (auto factory : factories)
