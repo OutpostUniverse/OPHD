@@ -1,9 +1,8 @@
 #include "Population.h"
 
+#include "../RandomNumberGenerator.h"
 #include <algorithm>
-#include <functional>
 #include <iostream>
-#include <random>
 
 
 namespace {
@@ -19,11 +18,6 @@ namespace {
 		MoraleModifier{-50, -50, 20, 10}  // Terrible
 	};
 
-
-	std::default_random_engine pop_generator;
-	std::uniform_int_distribution<int> pop_distribution(0, 100);
-
-	auto random_0_100 = std::bind(pop_distribution, pop_generator);
 
 	/**
 	 * Convenience function to cast a MoraleLevel enumerator
@@ -153,7 +147,7 @@ void Population::spawn_adults(int universities)
 		mPopulationGrowth[PersonRole::ROLE_WORKER] = mPopulationGrowth[PersonRole::ROLE_WORKER] % divisor;
 
 		// account for universities
-		if (universities > 0 && random_0_100() <= studentToScientistRate)
+		if (universities > 0 && randomNumber.generate(0, 100) <= studentToScientistRate)
 		{
 			mPopulation[PersonRole::ROLE_SCIENTIST] += newAdult;
 		}
@@ -184,7 +178,7 @@ void Population::spawn_retiree()
 		mPopulation[PersonRole::ROLE_RETIRED] += retiree;
 
 		/** Workers retire earlier than scientists. */
-		if (random_0_100() <= 45) { if (mPopulation[PersonRole::ROLE_SCIENTIST] > 0) { mPopulation[PersonRole::ROLE_SCIENTIST] -= retiree; } }
+		if (randomNumber.generate(0, 100) <= 45) { if (mPopulation[PersonRole::ROLE_SCIENTIST] > 0) { mPopulation[PersonRole::ROLE_SCIENTIST] -= retiree; } }
 		else { if (mPopulation[PersonRole::ROLE_WORKER] > 0) { mPopulation[PersonRole::ROLE_WORKER] -= retiree; } }
 	}
 }
@@ -331,7 +325,7 @@ int Population::update(int morale, int food, int residences, int universities, i
 	kill_students(morale, hospitals);
 
 	// Workers will die more often than scientists.
-	if (random_0_100() <= 45) { kill_adults(PersonRole::ROLE_SCIENTIST, morale, hospitals); }
+	if (randomNumber.generate(0, 100) <= 45) { kill_adults(PersonRole::ROLE_SCIENTIST, morale, hospitals); }
 	else { kill_adults(PersonRole::ROLE_WORKER, morale, hospitals); }
 
 	kill_adults(PersonRole::ROLE_RETIRED, morale, hospitals);
