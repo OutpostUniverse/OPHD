@@ -209,7 +209,7 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 			continue;
 		}
 
-		if (structure->disabled() &&structure->disabledReason() == DisabledReason::StructuralIntegrity)
+		if (structure->disabled() && structure->disabledReason() == DisabledReason::StructuralIntegrity)
 		{
 			continue;
 		}
