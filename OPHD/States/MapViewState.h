@@ -169,6 +169,7 @@ private:
 	void nextTurn();
 	void updatePopulation();
 	void updateCommercial();
+	void updateMaintenance();
 	void updateMorale();
 	void updateResidentialCapacity();
 	void updateBiowasteRecycling();

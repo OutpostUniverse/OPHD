@@ -542,6 +542,12 @@ void MapViewState::checkNewlyBuiltStructures()
 }
 
 
+void MapViewState::updateMaintenance()
+{
+
+}
+
+
 void MapViewState::updateOverlays()
 {
 	checkCommRangeOverlay();
@@ -591,6 +597,7 @@ void MapViewState::nextTurn()
 	countFood();
 	updatePopulation();
 
+	updateMaintenance();
 	updateCommercial();
 	updateBiowasteRecycling();
 	updateMorale();
