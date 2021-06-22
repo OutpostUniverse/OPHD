@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <array>
 #include <numeric>
+#include <vector>
 
 
 struct StorableResources
@@ -89,6 +90,22 @@ struct StorableResources
 	int total()
 	{
 		return std::accumulate(resources.begin(), resources.end(), 0);
+	}
+
+
+	std::vector<std::size_t> getIndicesWithStock()
+	{
+		std::vector<std::size_t> indicesWithStock;
+
+		for (std::size_t i = 0; i < resources.size(); ++i)
+		{
+			if (resources[i] > 0)
+			{
+				indicesWithStock.push_back(i);
+			}
+		}
+
+		return indicesWithStock;
 	}
 
 
