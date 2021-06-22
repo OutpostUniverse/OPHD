@@ -339,6 +339,20 @@ const StructureList& StructureManager::structureList(Structure::StructureClass s
 }
 
 
+StructureList StructureManager::allStructures()
+{
+	StructureList structuresOut;
+
+	for(auto& structures : mStructureLists)
+	{
+		auto& list = structures.second;
+		std::copy(list.begin(), list.end(), std::back_inserter(structuresOut));
+	}
+
+	return structuresOut;
+}
+
+
 /**
  * Resets the 'connected' flag on all structures in the primary structure list.
  */

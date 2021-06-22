@@ -95,6 +95,8 @@ public:
 	}
 
 	const StructureList& structureList(Structure::StructureClass structureClass);
+	StructureList allStructures();
+
 	Tile& tileFromStructure(Structure* structure);
 
 	void disconnectAll();
