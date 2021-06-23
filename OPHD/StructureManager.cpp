@@ -10,6 +10,8 @@
 
 #include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
 
+#include <NAS2D/ParserHelper.h>
+
 #include <algorithm>
 #include <sstream>
 
@@ -28,23 +30,16 @@ namespace
 
 	NAS2D::Xml::XmlElement* serializeStructure(Structure* structure, Tile* tile)
 	{
-		auto* structureElement = new NAS2D::Xml::XmlElement("structure");
-
 		const auto position = tile->position();
-		structureElement->attribute("x", position.x);
-		structureElement->attribute("y", position.y);
-		structureElement->attribute("depth", tile->depth());
+		NAS2D::Dictionary dict =
+		{{
+			{"x", position.x},
+			{"y", position.y},
+			{"depth", tile->depth()},
+		}};
+		dict += structure->getDataDict();
 
-		structureElement->attribute("age", structure->age());
-		structureElement->attribute("state", static_cast<int>(structure->state()));
-		structureElement->attribute("forced_idle", structure->forceIdle());
-		structureElement->attribute("disabled_reason", static_cast<int>(structure->disabledReason()));
-		structureElement->attribute("idle_reason", static_cast<int>(structure->idleReason()));
-		structureElement->attribute("type", structure->structureId());
-		structureElement->attribute("direction", structure->connectorDirection());
-		structureElement->attribute("integrity", structure->integrity());
-		structureElement->attribute("pop0", structure->populationAvailable()[0]);
-		structureElement->attribute("pop1", structure->populationAvailable()[1]);
+		auto* structureElement = dictionaryToAttributes("structure", dict);
 
 		if (structure->hasCrime())
 		{
