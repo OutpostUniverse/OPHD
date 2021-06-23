@@ -113,7 +113,7 @@ namespace
 		if (structure->isMineFacility())
 		{
 			MineFacility* facility = static_cast<MineFacility*>(structure);
-			
+
 			auto* trucks = new NAS2D::Xml::XmlElement("trucks");
 			trucks->attribute("assigned", facility->assignedTrucks());
 
