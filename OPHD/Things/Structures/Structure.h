@@ -137,7 +137,7 @@ public:
 	bool isWarehouse() const { return structureClass() == StructureClass::Warehouse; }
 	bool isRobotCommand() const { return structureClass() == StructureClass::RobotCommand; }
 	bool isMineFacility() const { return structureClass() == StructureClass::Mine; }
-	bool energyProducer() const { return structureClass() == StructureClass::EnergyProduction; }
+	bool isEnergyProducer() const { return structureClass() == StructureClass::EnergyProduction; }
 	bool isConnector() const { return structureClass() == StructureClass::Tube; }
 	bool isRoad() const { return structureClass() == StructureClass::Road; }
 
