@@ -63,6 +63,75 @@ namespace
 			writeResources(structureElement, stored, "storage");
 		}
 
+		if (structure->isFactory())
+		{
+			structureElement->attribute("production_completed", static_cast<Factory*>(structure)->productionTurnsCompleted());
+			structureElement->attribute("production_type", static_cast<Factory*>(structure)->productType());
+		}
+
+		if (structure->isWarehouse())
+		{
+			auto* warehouse_products = new NAS2D::Xml::XmlElement("warehouse_products");
+			static_cast<Warehouse*>(structure)->products().serialize(warehouse_products);
+			structureElement->linkEndChild(warehouse_products);
+		}
+
+		if (structure->isRobotCommand())
+		{
+			auto* robotsElement = new NAS2D::Xml::XmlElement("robots");
+
+			const auto& robots = static_cast<RobotCommand*>(structure)->robots();
+
+			std::stringstream str;
+			for (std::size_t i = 0; i < robots.size(); ++i)
+			{
+				str << robots[i]->id();
+				if (i != robots.size() - 1) { str << ","; } // kind of a kludge
+			}
+
+			robotsElement->attribute("robots", str.str());
+			structureElement->linkEndChild(robotsElement);
+		}
+
+		if (structure->structureClass() == Structure::StructureClass::FoodProduction ||
+			structure->structureId() == StructureID::SID_COMMAND_CENTER)
+		{
+			auto* food = new NAS2D::Xml::XmlElement("food");
+			food->attribute("level", static_cast<FoodProduction*>(structure)->foodLevel());
+			structureElement->linkEndChild(food);
+		}
+
+		if (structure->structureClass() == Structure::StructureClass::Residence)
+		{
+			Residence* residence = static_cast<Residence*>(structure);
+			auto* waste = new NAS2D::Xml::XmlElement("waste");
+			waste->attribute("accumulated", residence->wasteAccumulated());
+			waste->attribute("overflow", residence->wasteOverflow());
+			structureElement->linkEndChild(waste);
+		}
+
+		if (structure->isMineFacility())
+		{
+			MineFacility* facility = static_cast<MineFacility*>(structure);
+			
+			auto* trucks = new NAS2D::Xml::XmlElement("trucks");
+			trucks->attribute("assigned", facility->assignedTrucks());
+
+			auto* extension = new NAS2D::Xml::XmlElement("extension");
+			extension->attribute("turns_remaining", facility->digTimeRemaining());
+
+			structureElement->linkEndChild(trucks);
+			structureElement->linkEndChild(extension);
+		}
+
+		if (structure->structureClass() == Structure::StructureClass::Maintenance)
+		{
+			auto maintenance = static_cast<MaintenanceFacility*>(structure);
+			auto personnel = new NAS2D::Xml::XmlElement("personnel");
+			personnel->attribute("assigned", maintenance->personnel());
+			structureElement->linkEndChild(personnel);
+		}
+
 		return structureElement;
 	}
 }
@@ -442,76 +511,6 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 	for (auto& [structure, tile] : mStructureTileTable)
 	{
 		auto* structureElement = serializeStructure(structure, tile);
-
-		if (structure->isFactory())
-		{
-			structureElement->attribute("production_completed", static_cast<Factory*>(structure)->productionTurnsCompleted());
-			structureElement->attribute("production_type", static_cast<Factory*>(structure)->productType());
-		}
-
-		if (structure->isWarehouse())
-		{
-			auto* warehouse_products = new NAS2D::Xml::XmlElement("warehouse_products");
-			static_cast<Warehouse*>(structure)->products().serialize(warehouse_products);
-			structureElement->linkEndChild(warehouse_products);
-		}
-
-		if (structure->isRobotCommand())
-		{
-			auto* robotsElement = new NAS2D::Xml::XmlElement("robots");
-
-			const auto& robots = static_cast<RobotCommand*>(structure)->robots();
-
-			std::stringstream str;
-			for (std::size_t i = 0; i < robots.size(); ++i)
-			{
-				str << robots[i]->id();
-				if (i != robots.size() - 1) { str << ","; } // kind of a kludge
-			}
-
-			robotsElement->attribute("robots", str.str());
-			structureElement->linkEndChild(robotsElement);
-		}
-
-		if (structure->structureClass() == Structure::StructureClass::FoodProduction ||
-			structure->structureId() == StructureID::SID_COMMAND_CENTER)
-		{
-			auto* food = new NAS2D::Xml::XmlElement("food");
-			food->attribute("level", static_cast<FoodProduction*>(structure)->foodLevel());
-			structureElement->linkEndChild(food);
-		}
-
-		if (structure->structureClass() == Structure::StructureClass::Residence)
-		{
-			Residence* residence = static_cast<Residence*>(structure);
-			auto* waste = new NAS2D::Xml::XmlElement("waste");
-			waste->attribute("accumulated", residence->wasteAccumulated());
-			waste->attribute("overflow", residence->wasteOverflow());
-			structureElement->linkEndChild(waste);
-		}
-
-		if (structure->isMineFacility())
-		{
-			MineFacility* facility = static_cast<MineFacility*>(structure);
-			
-			auto* trucks = new NAS2D::Xml::XmlElement("trucks");
-			trucks->attribute("assigned", facility->assignedTrucks());
-
-			auto* extension = new NAS2D::Xml::XmlElement("extension");
-			extension->attribute("turns_remaining", facility->digTimeRemaining());
-
-			structureElement->linkEndChild(trucks);
-			structureElement->linkEndChild(extension);
-		}
-
-		if (structure->structureClass() == Structure::StructureClass::Maintenance)
-		{
-			auto maintenance = static_cast<MaintenanceFacility*>(structure);
-			auto personnel = new NAS2D::Xml::XmlElement("personnel");
-			personnel->attribute("assigned", maintenance->personnel());
-			structureElement->linkEndChild(personnel);
-		}
-
 		structures->linkEndChild(structureElement);
 	}
 
