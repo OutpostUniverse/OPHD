@@ -26,8 +26,10 @@ namespace
 	}
 
 
-	void serializeStructure(NAS2D::Xml::XmlElement* structureElement, Structure* structure, Tile* tile)
+	NAS2D::Xml::XmlElement* serializeStructure(Structure* structure, Tile* tile)
 	{
+		auto* structureElement = new NAS2D::Xml::XmlElement("structure");
+
 		const auto position = tile->position();
 		structureElement->attribute("x", position.x);
 		structureElement->attribute("y", position.y);
@@ -61,8 +63,9 @@ namespace
 
 		structureElement->attribute("pop0", structure->populationAvailable()[0]);
 		structureElement->attribute("pop1", structure->populationAvailable()[1]);
-	}
 
+		return structureElement;
+	}
 }
 
 
@@ -439,8 +442,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 
 	for (auto& [structure, tile] : mStructureTileTable)
 	{
-		auto* structureElement = new NAS2D::Xml::XmlElement("structure");
-		serializeStructure(structureElement, structure, tile);
+		auto* structureElement = serializeStructure(structure, tile);
 
 		if (structure->isFactory())
 		{
