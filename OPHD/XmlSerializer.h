@@ -3,6 +3,7 @@
 #include <NAS2D/StringUtils.h>
 #include <NAS2D/Xml/Xml.h>
 #include <string>
+#include <map>
 #include <unordered_map>
 #include <typeinfo>
 #include <type_traits>
@@ -16,6 +17,19 @@ NAS2D::Xml::XmlDocument openXmlFile(std::string filename, std::string rootElemen
 
 template<typename T>
 T stringToEnum(const std::unordered_map<std::string, T>& table, std::string value)
+{
+	auto it = table.find(value);
+	if (it != table.end())
+	{
+		return it->second;
+	}
+
+	throw std::runtime_error("Unable to parse enum with value of " + value);
+}
+
+
+template<typename T>
+T stringToEnum(const std::map<std::string, T>& table, std::string value)
 {
 	auto it = table.find(value);
 	if (it != table.end())
