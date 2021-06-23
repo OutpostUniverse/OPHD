@@ -146,6 +146,8 @@ void MapViewState::serializeProperties(NAS2D::Xml::XmlElement* element)
 	properties->attribute("diggingdepth", mPlanetAttributes.maxDepth);
 	// NAS2D only supports double for floating point conversions as of 26July2020
 	properties->attribute("meansolardistance", static_cast<double>(mPlanetAttributes.meanSolarDistance));
+	auto diffString = difficultyString(difficulty());
+	properties->attribute("difficulty", diffString);
 }
 
 
@@ -188,6 +190,7 @@ void MapViewState::load(const std::string& filePath)
 		else if (attribute->name() == "sitemap") { mPlanetAttributes.mapImagePath = attribute->value(); }
 		else if (attribute->name() == "tset") { mPlanetAttributes.tilesetPath = attribute->value(); }
 		else if (attribute->name() == "meansolardistance") { mPlanetAttributes.meanSolarDistance = std::stof(attribute->value()); }
+		else if (attribute->name() == "difficulty") { difficulty(stringToEnum(difficultyTable, attribute->value())); }
 		attribute = attribute->next();
 	}
 
