@@ -510,8 +510,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 
 	for (auto& [structure, tile] : mStructureTileTable)
 	{
-		auto* structureElement = serializeStructure(structure, tile);
-		structures->linkEndChild(structureElement);
+		structures->linkEndChild(serializeStructure(structure, tile));
 	}
 
 	element->linkEndChild(structures);
