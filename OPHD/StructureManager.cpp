@@ -41,11 +41,6 @@ namespace
 
 		auto* structureElement = dictionaryToAttributes("structure", dict);
 
-		if (structure->hasCrime())
-		{
-			structureElement->attribute("crime_rate", structure->crimeRate());
-		}
-
 		const auto& production = structure->production();
 		if (!production.isEmpty())
 		{

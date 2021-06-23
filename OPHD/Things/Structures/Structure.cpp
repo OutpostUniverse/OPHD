@@ -380,5 +380,10 @@ NAS2D::Dictionary Structure::getDataDict() const
 		{"pop1", mPopulationAvailable[1]},
 	}};
 
+	if (mHasCrime)
+	{
+		dict.set("crime_rate", mCrimeRate);
+	}
+
 	return dict;
 }
