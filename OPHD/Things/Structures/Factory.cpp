@@ -148,6 +148,15 @@ void Factory::updateProduction()
 }
 
 
+NAS2D::Dictionary Factory::getDataDict() const
+{
+	auto dict = Structure::getDataDict();
+	dict.set("production_completed", mTurnsCompleted);
+	dict.set("production_type", mProduct);
+	return dict;
+}
+
+
 bool Factory::enoughResourcesAvailable()
 {
 	if (mResources == nullptr) { throw std::runtime_error("Factory::enoughResourcesAvailable() called with a null Resource Pool set"); }

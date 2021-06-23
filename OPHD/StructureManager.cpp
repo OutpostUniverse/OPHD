@@ -53,12 +53,6 @@ namespace
 			writeResources(structureElement, stored, "storage");
 		}
 
-		if (structure->isFactory())
-		{
-			structureElement->attribute("production_completed", static_cast<Factory*>(structure)->productionTurnsCompleted());
-			structureElement->attribute("production_type", static_cast<Factory*>(structure)->productType());
-		}
-
 		if (structure->isWarehouse())
 		{
 			auto* warehouse_products = new NAS2D::Xml::XmlElement("warehouse_products");

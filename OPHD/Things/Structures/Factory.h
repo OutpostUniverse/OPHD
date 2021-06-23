@@ -56,6 +56,8 @@ public:
 
 	ProductionSignal::Source& productionComplete() { return mProductionComplete; }
 
+	NAS2D::Dictionary getDataDict() const override;
+
 protected:
 	void clearProduction();
 
