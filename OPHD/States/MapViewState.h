@@ -194,6 +194,7 @@ private:
 
 	void load(const std::string& filePath);
 	void save(const std::string& filePath);
+	void serializeProperties(NAS2D::Xml::XmlElement* element, const Planet::Attributes& planetAttributes);
 
 	// UI MANAGEMENT FUNCTIONS
 	void clearMode();

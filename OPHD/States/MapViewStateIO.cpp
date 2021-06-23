@@ -94,7 +94,8 @@ void MapViewState::save(const std::string& filePath)
 	root->attribute("version", constants::SaveGameVersion);
 	doc.linkEndChild(root);
 
-	mTileMap->serialize(root, mPlanetAttributes);
+	serializeProperties(root, mPlanetAttributes);
+	mTileMap->serialize(root);
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
 	writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
@@ -132,6 +133,19 @@ void MapViewState::save(const std::string& filePath)
 	doc.accept(&buff);
 
 	Utility<Filesystem>::get().write(File(buff.buffer(), filePath));
+}
+
+
+void MapViewState::serializeProperties(NAS2D::Xml::XmlElement* element, const Planet::Attributes& planetAttributes)
+{
+	XmlElement* properties = new XmlElement("properties");
+	element->linkEndChild(properties);
+
+	properties->attribute("sitemap", planetAttributes.mapImagePath);
+	properties->attribute("tset", planetAttributes.tilesetPath);
+	properties->attribute("diggingdepth", planetAttributes.maxDepth);
+	// NAS2D only supports double for floating point conversions as of 26July2020
+	properties->attribute("meansolardistance", static_cast<double>(planetAttributes.meanSolarDistance));
 }
 
 
