@@ -43,6 +43,8 @@ namespace
 		structureElement->attribute("type", structure->structureId());
 		structureElement->attribute("direction", structure->connectorDirection());
 		structureElement->attribute("integrity", structure->integrity());
+		structureElement->attribute("pop0", structure->populationAvailable()[0]);
+		structureElement->attribute("pop1", structure->populationAvailable()[1]);
 
 		if (structure->hasCrime())
 		{
@@ -60,9 +62,6 @@ namespace
 		{
 			writeResources(structureElement, stored, "storage");
 		}
-
-		structureElement->attribute("pop0", structure->populationAvailable()[0]);
-		structureElement->attribute("pop1", structure->populationAvailable()[1]);
 
 		return structureElement;
 	}
