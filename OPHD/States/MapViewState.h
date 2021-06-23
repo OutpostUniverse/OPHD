@@ -79,7 +79,7 @@ public:
 
 public:
 	MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame);
-	MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes);
+	MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~MapViewState() override;
 
 	void setPopulationLevel(PopulationLevel popLevel);
@@ -89,6 +89,9 @@ public:
 	MapChangedSignal::Source& mapChanged() { return mMapChangedSignal; }
 
 	void focusOnStructure(Structure* s);
+
+	Difficulty difficulty() { return mDifficulty; }
+	void difficulty(Difficulty difficulty);
 
 protected:
 	void initialize() override;
@@ -252,6 +255,7 @@ private:
 	CrimeExecution mCrimeExecution;
 
 	Planet::Attributes mPlanetAttributes;
+	Difficulty mDifficulty = Difficulty::Medium;
 
 	const NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */
 	const NAS2D::Image mBackground{"sys/bg1.png"}; /**< Background image drawn behind the tile map. */

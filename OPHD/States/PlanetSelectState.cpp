@@ -121,7 +121,7 @@ State* PlanetSelectState::update()
 	else if (mPlanetSelection != constants::NoSelection)
 	{
 		GameState* gameState = new GameState();
-		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), PlanetAttributes[mPlanetSelection]);
+		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), PlanetAttributes[mPlanetSelection], Difficulty::Medium);
 		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
 		mapview->_initialize();
 		mapview->activate();
