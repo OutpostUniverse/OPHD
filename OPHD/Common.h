@@ -24,6 +24,18 @@ enum class Difficulty
 };
 
 
+inline std::map<std::string, Difficulty> difficultyTable
+{
+	{"Beginner", Difficulty::Beginner},
+	{ "Easy", Difficulty::Easy },
+	{ "Medium", Difficulty::Medium },
+	{ "Hard", Difficulty::Hard }
+};
+
+
+std::string difficultyString(Difficulty difficulty);
+
+
 /**
  * Digger robot digging direction.
  */
