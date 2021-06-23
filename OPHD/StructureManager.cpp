@@ -48,13 +48,13 @@ namespace
 		}
 
 		const auto& production = structure->production();
-		if (production > StorableResources{ 0 })
+		if (!production.isEmpty())
 		{
 			writeResources(structureElement, production, "production");
 		}
 
 		const auto& stored = structure->storage();
-		if (stored > StorableResources{ 0 })
+		if (!stored.isEmpty())
 		{
 			writeResources(structureElement, stored, "storage");
 		}
