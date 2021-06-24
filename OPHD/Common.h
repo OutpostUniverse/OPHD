@@ -24,7 +24,7 @@ enum class Difficulty
 };
 
 
-inline std::map<std::string, Difficulty> difficultyTable
+inline const std::map<std::string, Difficulty> difficultyTable
 {
 	{"Beginner", Difficulty::Beginner},
 	{ "Easy", Difficulty::Easy },
