@@ -31,15 +31,15 @@ namespace
 	NAS2D::Xml::XmlElement* serializeStructure(Structure* structure, Tile* tile)
 	{
 		const auto position = tile->position();
-		NAS2D::Dictionary dict =
+		NAS2D::Dictionary dictionary =
 		{{
 			{"x", position.x},
 			{"y", position.y},
 			{"depth", tile->depth()},
 		}};
-		dict += structure->getDataDict();
+		dictionary += structure->getDataDict();
 
-		auto* structureElement = dictionaryToAttributes("structure", dict);
+		auto* structureElement = dictionaryToAttributes("structure", dictionary);
 
 		const auto& production = structure->production();
 		if (!production.isEmpty())

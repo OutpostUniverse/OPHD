@@ -366,7 +366,7 @@ void Structure::integrity(int integrity)
 
 NAS2D::Dictionary Structure::getDataDict() const
 {
-	NAS2D::Dictionary dict =
+	NAS2D::Dictionary dictionary =
 	{{
 		{"age", mAge},
 		{"state", static_cast<int>(mStructureState)},
@@ -382,8 +382,8 @@ NAS2D::Dictionary Structure::getDataDict() const
 
 	if (mHasCrime)
 	{
-		dict.set("crime_rate", mCrimeRate);
+		dictionary.set("crime_rate", mCrimeRate);
 	}
 
-	return dict;
+	return dictionary;
 }

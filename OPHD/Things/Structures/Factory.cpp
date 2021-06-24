@@ -150,10 +150,10 @@ void Factory::updateProduction()
 
 NAS2D::Dictionary Factory::getDataDict() const
 {
-	auto dict = Structure::getDataDict();
-	dict.set("production_completed", mTurnsCompleted);
-	dict.set("production_type", mProduct);
-	return dict;
+	auto dictionary = Structure::getDataDict();
+	dictionary.set("production_completed", mTurnsCompleted);
+	dictionary.set("production_type", mProduct);
+	return dictionary;
 }
 
 
