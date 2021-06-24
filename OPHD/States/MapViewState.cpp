@@ -120,7 +120,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 }
 
 
-MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes) :
+MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mMainReportsState(mainReportsState),
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mCrimeRateUpdate(mPopulationPanel),
@@ -129,6 +129,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mMapDisplay{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
 	mHeightMap{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)}
 {
+	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
@@ -233,6 +234,14 @@ void MapViewState::focusOnStructure(Structure* s)
 {
 	if (!s) { return; }
 	mTileMap->centerMapOnTile(&Utility<StructureManager>::get().tileFromStructure(s));
+}
+
+
+void MapViewState::difficulty(Difficulty difficulty)
+{
+	mDifficulty = difficulty;
+	mCrimeRateUpdate.difficulty(difficulty);
+	mCrimeExecution.difficulty(difficulty);
 }
 
 

@@ -94,7 +94,8 @@ void MapViewState::save(const std::string& filePath)
 	root->attribute("version", constants::SaveGameVersion);
 	doc.linkEndChild(root);
 
-	mTileMap->serialize(root, mPlanetAttributes);
+	serializeProperties(root);
+	mTileMap->serialize(root);
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
 	writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
@@ -132,6 +133,21 @@ void MapViewState::save(const std::string& filePath)
 	doc.accept(&buff);
 
 	Utility<Filesystem>::get().write(File(buff.buffer(), filePath));
+}
+
+
+void MapViewState::serializeProperties(NAS2D::Xml::XmlElement* element)
+{
+	XmlElement* properties = new XmlElement("properties");
+	element->linkEndChild(properties);
+
+	properties->attribute("sitemap", mPlanetAttributes.mapImagePath);
+	properties->attribute("tset", mPlanetAttributes.tilesetPath);
+	properties->attribute("diggingdepth", mPlanetAttributes.maxDepth);
+	// NAS2D only supports double for floating point conversions as of 26July2020
+	properties->attribute("meansolardistance", static_cast<double>(mPlanetAttributes.meanSolarDistance));
+	auto diffString = difficultyString(difficulty());
+	properties->attribute("difficulty", diffString);
 }
 
 
@@ -174,6 +190,7 @@ void MapViewState::load(const std::string& filePath)
 		else if (attribute->name() == "sitemap") { mPlanetAttributes.mapImagePath = attribute->value(); }
 		else if (attribute->name() == "tset") { mPlanetAttributes.tilesetPath = attribute->value(); }
 		else if (attribute->name() == "meansolardistance") { mPlanetAttributes.meanSolarDistance = std::stof(attribute->value()); }
+		else if (attribute->name() == "difficulty") { difficulty(stringToEnum(difficultyTable, attribute->value())); }
 		attribute = attribute->next();
 	}
 

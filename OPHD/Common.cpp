@@ -22,6 +22,20 @@
 using namespace NAS2D;
 
 
+std::string difficultyString(Difficulty difficulty)
+{
+	for (const auto& difficultyPair : difficultyTable)
+	{
+		if (difficultyPair.second == difficulty)
+		{
+			return difficultyPair.first;
+		}
+	}
+
+	throw std::runtime_error("Provided difficulty does not exist in the difficultyMap");
+}
+
+
 const std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
 {
 	{ StructureState::UnderConstruction, Color{150, 150, 150, 100} },
