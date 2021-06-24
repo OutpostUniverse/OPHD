@@ -24,8 +24,7 @@ using namespace NAS2D;
 
 std::string difficultyString(Difficulty difficulty)
 {
-	auto it = difficultyTable.value_comp();
-	for (auto difficultyPair : difficultyTable)
+	for (const auto& difficultyPair : difficultyTable)
 	{
 		if (difficultyPair.second == difficulty)
 		{
