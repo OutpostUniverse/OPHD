@@ -343,10 +343,10 @@ StructureList StructureManager::allStructures()
 {
 	StructureList structuresOut;
 
-	for(auto& structures : mStructureLists)
+	for(auto& classListPair : mStructureLists)
 	{
-		auto& list = structures.second;
-		std::copy(list.begin(), list.end(), std::back_inserter(structuresOut));
+		auto& structures = classListPair.second;
+		std::copy(structures.begin(), structures.end(), std::back_inserter(structuresOut));
 	}
 
 	return structuresOut;
