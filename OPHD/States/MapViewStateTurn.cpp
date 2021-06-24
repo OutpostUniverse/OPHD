@@ -544,9 +544,9 @@ void MapViewState::checkNewlyBuiltStructures()
 
 void MapViewState::updateMaintenance()
 {
-	auto sortLambda = [](const Structure* rhs, const Structure* lhs) -> bool
+	auto sortLambda = [](const Structure* lhs, const Structure* rhs) -> bool
 	{
-		return rhs->integrity() < lhs->integrity();
+		return lhs->integrity() < rhs->integrity();
 	};
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
