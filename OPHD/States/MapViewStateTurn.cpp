@@ -542,6 +542,25 @@ void MapViewState::checkNewlyBuiltStructures()
 }
 
 
+void MapViewState::updateMaintenance()
+{
+	auto sortLambda = [](const Structure* lhs, const Structure* rhs) -> bool
+	{
+		return lhs->integrity() < rhs->integrity();
+	};
+
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	auto structures = structureManager.allStructures();
+	std::sort(structures.begin(), structures.end(), sortLambda);
+
+	auto& maintenanceFacilities = structureManager.getStructures<MaintenanceFacility>();
+	for (auto maintenanceFacility : maintenanceFacilities)
+	{
+		maintenanceFacility->repairStructures(structures);
+	}
+}
+
+
 void MapViewState::updateOverlays()
 {
 	checkCommRangeOverlay();
@@ -591,6 +610,7 @@ void MapViewState::nextTurn()
 	countFood();
 	updatePopulation();
 
+	updateMaintenance();
 	updateCommercial();
 	updateBiowasteRecycling();
 	updateMorale();

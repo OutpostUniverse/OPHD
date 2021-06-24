@@ -32,6 +32,7 @@ constexpr Structure::StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, FusionReactor>) { return Structure::StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, HotLaboratory>) { return Structure::StructureClass::Laboratory; }
 	else if constexpr (std::is_same_v<StructureType, Laboratory>) { return Structure::StructureClass::Laboratory; }
+	else if constexpr (std::is_same_v<StructureType, MaintenanceFacility>) { return Structure::StructureClass::Maintenance; }
 	else if constexpr (std::is_same_v<StructureType, MedicalCenter>) { return Structure::StructureClass::MedicalCenter; }
 	else if constexpr (std::is_same_v<StructureType, MineFacility>) { return Structure::StructureClass::Mine; }
 	else if constexpr (std::is_same_v<StructureType, MineShaft>) { return Structure::StructureClass::Undefined; }
@@ -95,6 +96,8 @@ public:
 	}
 
 	const StructureList& structureList(Structure::StructureClass structureClass);
+	StructureList allStructures();
+
 	Tile& tileFromStructure(Structure* structure);
 
 	void disconnectAll();

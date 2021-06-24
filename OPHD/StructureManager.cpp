@@ -205,7 +205,7 @@ void StructureManager::updateEnergyConsumed()
 {
 	mTotalEnergyUsed = 0;
 
-	for (auto classListPair : mStructureLists)
+	for (auto& classListPair : mStructureLists)
 	{
 		for (auto structure : classListPair.second)
 		{
@@ -264,7 +264,7 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 			continue;
 		}
 
-		if (structure->disabled() &&structure->disabledReason() == DisabledReason::StructuralIntegrity)
+		if (structure->disabled() && structure->disabledReason() == DisabledReason::StructuralIntegrity)
 		{
 			continue;
 		}
@@ -394,12 +394,26 @@ const StructureList& StructureManager::structureList(Structure::StructureClass s
 }
 
 
+StructureList StructureManager::allStructures()
+{
+	StructureList structuresOut;
+
+	for(auto& classListPair : mStructureLists)
+	{
+		auto& structures = classListPair.second;
+		std::copy(structures.begin(), structures.end(), std::back_inserter(structuresOut));
+	}
+
+	return structuresOut;
+}
+
+
 /**
  * Resets the 'connected' flag on all structures in the primary structure list.
  */
 void StructureManager::disconnectAll()
 {
-	for (auto pair : mStructureTileTable)
+	for (auto& pair : mStructureTileTable)
 	{
 		pair.second->connected(false);
 	}
@@ -412,7 +426,7 @@ void StructureManager::disconnectAll()
 int StructureManager::count() const
 {
 	int count = 0;
-	for (auto pair : mStructureLists)
+	for (auto& pair : mStructureLists)
 	{
 		count += static_cast<int>(pair.second.size());
 	}
@@ -441,7 +455,7 @@ int StructureManager::getCountInState(Structure::StructureClass structureClass, 
 int StructureManager::disabled()
 {
 	int count = 0;
-	for (auto pair : mStructureLists)
+	for (auto& pair : mStructureLists)
 	{
 		count += getCountInState(pair.first, StructureState::Disabled);
 	}
@@ -456,7 +470,7 @@ int StructureManager::disabled()
 int StructureManager::destroyed()
 {
 	int count = 0;
-	for (auto pair : mStructureLists)
+	for (auto& pair : mStructureLists)
 	{
 		count += getCountInState(pair.first, StructureState::Destroyed);
 	}
@@ -467,7 +481,7 @@ int StructureManager::destroyed()
 
 void StructureManager::dropAllStructures()
 {
-	for (auto pair : mStructureTileTable)
+	for (auto& pair : mStructureTileTable)
 	{
 		pair.second->deleteThing();
 	}

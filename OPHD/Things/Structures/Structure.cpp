@@ -280,8 +280,9 @@ void Structure::updateIntegrityDecay()
 			destroy();
 		}
 	}
-	else if (mIntegrity == 0)
+	else if (mIntegrity <= 0)
 	{
+		mIntegrity = 0;
 		destroy();
 	}
 }
