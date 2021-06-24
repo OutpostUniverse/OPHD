@@ -544,7 +544,20 @@ void MapViewState::checkNewlyBuiltStructures()
 
 void MapViewState::updateMaintenance()
 {
+	auto sortLambda = [](const Structure* rhs, const Structure* lhs) -> bool
+	{
+		return rhs->integrity() < lhs->integrity();
+	};
 
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	auto structures = structureManager.allStructures();
+	std::sort(structures.begin(), structures.end(), sortLambda);
+
+	auto& maintenanceFacilities = structureManager.getStructures<MaintenanceFacility>();
+	for (auto maintenanceFacility : maintenanceFacilities)
+	{
+		maintenanceFacility->repairStructures(structures);
+	}
 }
 
 
