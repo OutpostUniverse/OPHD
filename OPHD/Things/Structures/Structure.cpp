@@ -362,3 +362,28 @@ void Structure::integrity(int integrity)
 {
 	mIntegrity = integrity;
 }
+
+
+NAS2D::Dictionary Structure::getDataDict() const
+{
+	NAS2D::Dictionary dictionary =
+	{{
+		{"age", mAge},
+		{"state", static_cast<int>(mStructureState)},
+		{"forced_idle", mForcedIdle},
+		{"disabled_reason", static_cast<int>(mDisabledReason)},
+		{"idle_reason", static_cast<int>(mIdleReason)},
+		{"type", mStructureId},
+		{"direction", mConnectorDirection},
+		{"integrity", mIntegrity},
+		{"pop0", mPopulationAvailable[0]},
+		{"pop1", mPopulationAvailable[1]},
+	}};
+
+	if (mHasCrime)
+	{
+		dictionary.set("crime_rate", mCrimeRate);
+	}
+
+	return dictionary;
+}

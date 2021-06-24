@@ -6,6 +6,9 @@
 #include "../../StorableResources.h"
 #include "../../UI/StringTable.h"
 
+#include <NAS2D/Dictionary.h>
+
+
 /**
  * State of an individual Structure.
  */
@@ -153,6 +156,8 @@ public:
 	* Pass limited structure specific details for drawing. Use a custom UI window if needed.
 	*/
 	virtual StringTable createInspectorViewTable() { return StringTable(0, 0); }
+
+	virtual NAS2D::Dictionary getDataDict() const;
 
 protected:
 	friend class StructureCatalogue;
