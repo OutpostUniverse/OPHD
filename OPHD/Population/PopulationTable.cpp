@@ -28,10 +28,10 @@ void PopulationTable::clear()
 /**
  * Gets the size of the entire population.
  */
-int PopulationTable::size()
+int PopulationTable::size() const
 {
 	int count = 0;
-	for (auto& populationRole : table)
+	for (auto populationRole : table)
 	{
 		count += populationRole;
 	}
@@ -42,7 +42,7 @@ int PopulationTable::size()
 /**
  * Gets the size of a specific segment of the population.
  */
-int PopulationTable::size(Role personRole)
+int PopulationTable::size(Role personRole) const
 {
 	return table[static_cast<int>(personRole)];
 }

@@ -20,8 +20,8 @@ public:
 
 	void clear();
 
-	int size();
-	int size(Role role);
+	int size() const;
+	int size(Role role)const ;
 
 private:
 	std::array<int, 5> table;
