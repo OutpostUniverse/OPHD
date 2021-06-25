@@ -94,7 +94,7 @@ void MapViewState::save(const std::string& filePath)
 	root->attribute("version", constants::SaveGameVersion);
 	doc.linkEndChild(root);
 
-	serializeProperties(root);
+	root->linkEndChild(serializeProperties());
 	mTileMap->serialize(root);
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
@@ -136,10 +136,9 @@ void MapViewState::save(const std::string& filePath)
 }
 
 
-void MapViewState::serializeProperties(NAS2D::Xml::XmlElement* element)
+XmlElement* MapViewState::serializeProperties()
 {
 	XmlElement* properties = new XmlElement("properties");
-	element->linkEndChild(properties);
 
 	properties->attribute("sitemap", mPlanetAttributes.mapImagePath);
 	properties->attribute("tset", mPlanetAttributes.tilesetPath);
@@ -148,6 +147,8 @@ void MapViewState::serializeProperties(NAS2D::Xml::XmlElement* element)
 	properties->attribute("meansolardistance", static_cast<double>(mPlanetAttributes.meanSolarDistance));
 	auto diffString = difficultyString(difficulty());
 	properties->attribute("difficulty", diffString);
+
+	return properties;
 }
 
 

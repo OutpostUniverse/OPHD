@@ -198,7 +198,7 @@ private:
 
 	void load(const std::string& filePath);
 	void save(const std::string& filePath);
-	void serializeProperties(NAS2D::Xml::XmlElement* element);
+	NAS2D::Xml::XmlElement* serializeProperties();
 
 	// UI MANAGEMENT FUNCTIONS
 	void clearMode();
