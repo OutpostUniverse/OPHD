@@ -23,8 +23,8 @@ namespace
 	 */
 	void fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required, PopulationRequirements& available)
 	{
-		available[0] = std::min(required[0], populationPool.populationAvailable(Population::PersonRole::ROLE_WORKER));
-		available[1] = std::min(required[1], populationPool.populationAvailable(Population::PersonRole::ROLE_SCIENTIST));
+		available[0] = std::min(required[0], populationPool.populationAvailable(PopulationTable::PersonRole::ROLE_WORKER));
+		available[1] = std::min(required[1], populationPool.populationAvailable(PopulationTable::PersonRole::ROLE_SCIENTIST));
 	}
 
 
@@ -313,8 +313,8 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 
 		if (structure->operational() || structure->isIdle())
 		{
-			population.usePopulation(Population::PersonRole::ROLE_WORKER, populationRequired[0]);
-			population.usePopulation(Population::PersonRole::ROLE_SCIENTIST, populationRequired[1]);
+			population.usePopulation(PopulationTable::PersonRole::ROLE_WORKER, populationRequired[0]);
+			population.usePopulation(PopulationTable::PersonRole::ROLE_SCIENTIST, populationRequired[1]);
 
 			auto consumed = structure->resourcesIn();
 			removeRefinedResources(consumed);

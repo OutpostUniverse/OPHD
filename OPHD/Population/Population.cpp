@@ -35,9 +35,9 @@ Population::Population() :
 	mDeathCount(0),
 	mStarveRate(0.5f)
 {
-	mPopulation.fill(0);
-	mPopulationGrowth.fill(0);
-	mPopulationDeath.fill(0);
+	mPopulation.clear();
+	mPopulationGrowth.clear();
+	mPopulationDeath.clear();
 }
 
 
@@ -46,7 +46,7 @@ Population::Population() :
  */
 void Population::clear()
 {
-	mPopulation.fill(0);
+	mPopulation.clear();
 }
 
 
@@ -56,38 +56,15 @@ void Population::clear()
  * \param	role		Segment of the population to populate.
  * \param	count		Base age in months of the population to populated.
  */
-void Population::addPopulation(PersonRole role, int count)
+void Population::addPopulation(PopulationTable::PersonRole role, int count)
 {
 	mPopulation[role] += count;
 }
 
 
-/**
- * Gets the size of the entire population.
- */
-int Population::size()
-{
-	int count = 0;
-	for (auto& populationRole : mPopulation)
-	{
-		count += populationRole;
-	}
-	return count;
-}
-
-
-/**
- * Gets the size of a specific segment of the population.
- */
-int Population::size(PersonRole personRole)
-{
-	return mPopulation[personRole];
-}
-
-
 int Population::adults() const
 {
-	return mPopulation[PersonRole::ROLE_STUDENT] + mPopulation[PersonRole::ROLE_WORKER] + mPopulation[PersonRole::ROLE_SCIENTIST] + mPopulation[PersonRole::ROLE_RETIRED];
+	return mPopulation[PopulationTable::PersonRole::ROLE_STUDENT] + mPopulation[PopulationTable::PersonRole::ROLE_WORKER] + mPopulation[PopulationTable::PersonRole::ROLE_SCIENTIST] + mPopulation[PopulationTable::PersonRole::ROLE_RETIRED];
 }
 
 /**
@@ -100,16 +77,16 @@ void Population::spawn_children(int morale, int residences, int nurseries)
 	if (residences < 1 && nurseries < 1) { return; }
 
 	// This should be adjusted to maybe two or three kids per couple to allow for higher growth rates.
-	if (mPopulation[PersonRole::ROLE_SCIENTIST] + mPopulation[PersonRole::ROLE_WORKER] > mPopulation[PersonRole::ROLE_CHILD])
+	if (mPopulation[PopulationTable::PersonRole::ROLE_SCIENTIST] + mPopulation[PopulationTable::PersonRole::ROLE_WORKER] > mPopulation[PopulationTable::PersonRole::ROLE_CHILD])
 	{
-		mPopulationGrowth[PersonRole::ROLE_CHILD] += mPopulation[PersonRole::ROLE_SCIENTIST] / 4 + mPopulation[PersonRole::ROLE_WORKER] / 2;
+		mPopulationGrowth[PopulationTable::PersonRole::ROLE_CHILD] += mPopulation[PopulationTable::PersonRole::ROLE_SCIENTIST] / 4 + mPopulation[PopulationTable::PersonRole::ROLE_WORKER] / 2;
 
 		int divisor = moraleModifierTable[moraleIndex(morale)].fertilityRate;
 
-		int newChildren = mPopulationGrowth[PersonRole::ROLE_CHILD] / divisor;
-		mPopulationGrowth[PersonRole::ROLE_CHILD] = mPopulationGrowth[PersonRole::ROLE_CHILD] % divisor;
+		int newChildren = mPopulationGrowth[PopulationTable::PersonRole::ROLE_CHILD] / divisor;
+		mPopulationGrowth[PopulationTable::PersonRole::ROLE_CHILD] = mPopulationGrowth[PopulationTable::PersonRole::ROLE_CHILD] % divisor;
 
-		mPopulation[PersonRole::ROLE_CHILD] += newChildren;
+		mPopulation[PopulationTable::PersonRole::ROLE_CHILD] += newChildren;
 		mBirthCount = newChildren;
 	}
 }
@@ -117,18 +94,18 @@ void Population::spawn_children(int morale, int residences, int nurseries)
 
 void Population::spawn_students()
 {
-	if (mPopulation[PersonRole::ROLE_CHILD] > 0)
+	if (mPopulation[PopulationTable::PersonRole::ROLE_CHILD] > 0)
 	{
-		mPopulationGrowth[PersonRole::ROLE_STUDENT] += mPopulation[PersonRole::ROLE_CHILD];
+		mPopulationGrowth[PopulationTable::PersonRole::ROLE_STUDENT] += mPopulation[PopulationTable::PersonRole::ROLE_CHILD];
 
 		int divisor = std::max(adults(), studentToAdultBase);
 		divisor = ((divisor / 40) * 3 + 16) * 4;
 
-		int newStudents = mPopulationGrowth[PersonRole::ROLE_STUDENT] / divisor;
-		mPopulationGrowth[PersonRole::ROLE_STUDENT] = mPopulationGrowth[PersonRole::ROLE_STUDENT] % divisor;
+		int newStudents = mPopulationGrowth[PopulationTable::PersonRole::ROLE_STUDENT] / divisor;
+		mPopulationGrowth[PopulationTable::PersonRole::ROLE_STUDENT] = mPopulationGrowth[PopulationTable::PersonRole::ROLE_STUDENT] % divisor;
 
-		mPopulation[PersonRole::ROLE_STUDENT] += newStudents;
-		mPopulation[PersonRole::ROLE_CHILD] -= newStudents;
+		mPopulation[PopulationTable::PersonRole::ROLE_STUDENT] += newStudents;
+		mPopulation[PopulationTable::PersonRole::ROLE_CHILD] -= newStudents;
 	}
 }
 
@@ -136,72 +113,72 @@ void Population::spawn_students()
 void Population::spawn_adults(int universities)
 {
 	//-- New Adults --//
-	if (mPopulation[PersonRole::ROLE_STUDENT] > 0)
+	if (mPopulation[PopulationTable::PersonRole::ROLE_STUDENT] > 0)
 	{
-		mPopulationGrowth[PersonRole::ROLE_WORKER] += mPopulation[PersonRole::ROLE_STUDENT];
+		mPopulationGrowth[PopulationTable::PersonRole::ROLE_WORKER] += mPopulation[PopulationTable::PersonRole::ROLE_STUDENT];
 
 		int divisor = std::max(adults(), studentToAdultBase);
 		divisor = ((divisor / 40) * 3 + 45) * 4;
 
-		int newAdult = mPopulationGrowth[PersonRole::ROLE_WORKER] / divisor;
-		mPopulationGrowth[PersonRole::ROLE_WORKER] = mPopulationGrowth[PersonRole::ROLE_WORKER] % divisor;
+		int newAdult = mPopulationGrowth[PopulationTable::PersonRole::ROLE_WORKER] / divisor;
+		mPopulationGrowth[PopulationTable::PersonRole::ROLE_WORKER] = mPopulationGrowth[PopulationTable::PersonRole::ROLE_WORKER] % divisor;
 
 		// account for universities
 		if (universities > 0 && randomNumber.generate(0, 100) <= studentToScientistRate)
 		{
-			mPopulation[PersonRole::ROLE_SCIENTIST] += newAdult;
+			mPopulation[PopulationTable::PersonRole::ROLE_SCIENTIST] += newAdult;
 		}
 		else
 		{
-			mPopulation[PersonRole::ROLE_WORKER] += newAdult;
+			mPopulation[PopulationTable::PersonRole::ROLE_WORKER] += newAdult;
 		}
 
-		mPopulation[PersonRole::ROLE_STUDENT] -= newAdult;
+		mPopulation[PopulationTable::PersonRole::ROLE_STUDENT] -= newAdult;
 	}
 }
 
 
 void Population::spawn_retiree()
 {
-	int total_adults = mPopulation[PersonRole::ROLE_WORKER] + mPopulation[PersonRole::ROLE_SCIENTIST];
+	int total_adults = mPopulation[PopulationTable::PersonRole::ROLE_WORKER] + mPopulation[PopulationTable::PersonRole::ROLE_SCIENTIST];
 	if (total_adults > 0)
 	{
-		mPopulationGrowth[PersonRole::ROLE_RETIRED] += total_adults / 10;
+		mPopulationGrowth[PopulationTable::PersonRole::ROLE_RETIRED] += total_adults / 10;
 
 		int divisor = std::max(total_adults, adultToRetireeBase);
 
 		divisor = ((divisor / 40) * 3 + 40) * 4;
 
-		int retiree = mPopulationGrowth[PersonRole::ROLE_RETIRED] / divisor;
-		mPopulationGrowth[PersonRole::ROLE_RETIRED] = mPopulationGrowth[PersonRole::ROLE_RETIRED] % divisor;
+		int retiree = mPopulationGrowth[PopulationTable::PersonRole::ROLE_RETIRED] / divisor;
+		mPopulationGrowth[PopulationTable::PersonRole::ROLE_RETIRED] = mPopulationGrowth[PopulationTable::PersonRole::ROLE_RETIRED] % divisor;
 
-		mPopulation[PersonRole::ROLE_RETIRED] += retiree;
+		mPopulation[PopulationTable::PersonRole::ROLE_RETIRED] += retiree;
 
 		/** Workers retire earlier than scientists. */
-		if (randomNumber.generate(0, 100) <= 45) { if (mPopulation[PersonRole::ROLE_SCIENTIST] > 0) { mPopulation[PersonRole::ROLE_SCIENTIST] -= retiree; } }
-		else { if (mPopulation[PersonRole::ROLE_WORKER] > 0) { mPopulation[PersonRole::ROLE_WORKER] -= retiree; } }
+		if (randomNumber.generate(0, 100) <= 45) { if (mPopulation[PopulationTable::PersonRole::ROLE_SCIENTIST] > 0) { mPopulation[PopulationTable::PersonRole::ROLE_SCIENTIST] -= retiree; } }
+		else { if (mPopulation[PopulationTable::PersonRole::ROLE_WORKER] > 0) { mPopulation[PopulationTable::PersonRole::ROLE_WORKER] -= retiree; } }
 	}
 }
 
 
 void Population::kill_children(int morale, int nurseries)
 {
-	if (mPopulation[PersonRole::ROLE_CHILD] > 0)
+	if (mPopulation[PopulationTable::PersonRole::ROLE_CHILD] > 0)
 	{
-		mPopulationDeath[PersonRole::ROLE_CHILD] += mPopulation[PersonRole::ROLE_CHILD];
+		mPopulationDeath[PopulationTable::PersonRole::ROLE_CHILD] += mPopulation[PopulationTable::PersonRole::ROLE_CHILD];
 
 		int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (nurseries * 10);
 
-		int deaths = mPopulationDeath[PersonRole::ROLE_CHILD] / divisor;
-		mPopulationDeath[PersonRole::ROLE_CHILD] = mPopulationDeath[PersonRole::ROLE_CHILD] % divisor;
+		int deaths = mPopulationDeath[PopulationTable::PersonRole::ROLE_CHILD] / divisor;
+		mPopulationDeath[PopulationTable::PersonRole::ROLE_CHILD] = mPopulationDeath[PopulationTable::PersonRole::ROLE_CHILD] % divisor;
 
-		mPopulation[PersonRole::ROLE_CHILD] -= deaths;
+		mPopulation[PopulationTable::PersonRole::ROLE_CHILD] -= deaths;
 		mDeathCount += deaths;
 
-		if (mPopulation[PersonRole::ROLE_CHILD] <= 0)
+		if (mPopulation[PopulationTable::PersonRole::ROLE_CHILD] <= 0)
 		{
-			mPopulationDeath[PersonRole::ROLE_CHILD] = 0;
-			mPopulationGrowth[PersonRole::ROLE_STUDENT] = 0;
+			mPopulationDeath[PopulationTable::PersonRole::ROLE_CHILD] = 0;
+			mPopulationGrowth[PopulationTable::PersonRole::ROLE_STUDENT] = 0;
 		}
 	}
 }
@@ -209,28 +186,28 @@ void Population::kill_children(int morale, int nurseries)
 
 void Population::kill_students(int morale, int hospitals)
 {
-	if (mPopulation[PersonRole::ROLE_CHILD] > 0)
+	if (mPopulation[PopulationTable::PersonRole::ROLE_CHILD] > 0)
 	{
-		mPopulationDeath[PersonRole::ROLE_STUDENT] += mPopulation[PersonRole::ROLE_STUDENT];
+		mPopulationDeath[PopulationTable::PersonRole::ROLE_STUDENT] += mPopulation[PopulationTable::PersonRole::ROLE_STUDENT];
 
 		int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (hospitals * 65);
 
-		int deaths = mPopulationDeath[PersonRole::ROLE_STUDENT] / divisor;
-		mPopulationDeath[PersonRole::ROLE_STUDENT] = mPopulationDeath[PersonRole::ROLE_STUDENT] % divisor;
+		int deaths = mPopulationDeath[PopulationTable::PersonRole::ROLE_STUDENT] / divisor;
+		mPopulationDeath[PopulationTable::PersonRole::ROLE_STUDENT] = mPopulationDeath[PopulationTable::PersonRole::ROLE_STUDENT] % divisor;
 
-		mPopulation[PersonRole::ROLE_STUDENT] -= deaths;
+		mPopulation[PopulationTable::PersonRole::ROLE_STUDENT] -= deaths;
 		mDeathCount += deaths;
 
-		if (mPopulation[PersonRole::ROLE_STUDENT] <= 0)
+		if (mPopulation[PopulationTable::PersonRole::ROLE_STUDENT] <= 0)
 		{
-			mPopulationDeath[PersonRole::ROLE_STUDENT] = 0;
-			mPopulationGrowth[PersonRole::ROLE_WORKER] = 0;
+			mPopulationDeath[PopulationTable::PersonRole::ROLE_STUDENT] = 0;
+			mPopulationGrowth[PopulationTable::PersonRole::ROLE_WORKER] = 0;
 		}
 	}
 }
 
 
-void Population::kill_adults(Population::PersonRole role, int morale, int hospitals)
+void Population::kill_adults(PopulationTable::PersonRole role, int morale, int hospitals)
 {
 	// Worker Deaths
 	if (mPopulation[role] > 0)
@@ -263,20 +240,20 @@ int Population::consume_food(int food)
 	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
 	if (food == 0)
 	{
-		mDeathCount = size();
+		mDeathCount = mPopulation.size();
 		clear();
 		return 0;
 	}
 
 	int population_fed = food * 10;
-	if (population_fed > size())
+	if (population_fed > mPopulation.size())
 	{
-		return size() / 10;
+		return mPopulation.size() / 10;
 	}
 
 
-	int population_to_kill = static_cast<int>((size() - population_fed) * mStarveRate);
-	if (size() == 1) { population_to_kill = 1; }
+	int population_to_kill = static_cast<int>((mPopulation.size() - population_fed) * mStarveRate);
+	if (mPopulation.size() == 1) { population_to_kill = 1; }
 
 	for (int i = 0; i < population_to_kill; /**/ )
 	{
@@ -325,10 +302,10 @@ int Population::update(int morale, int food, int residences, int universities, i
 	kill_students(morale, hospitals);
 
 	// Workers will die more often than scientists.
-	if (randomNumber.generate(0, 100) <= 45) { kill_adults(PersonRole::ROLE_SCIENTIST, morale, hospitals); }
-	else { kill_adults(PersonRole::ROLE_WORKER, morale, hospitals); }
+	if (randomNumber.generate(0, 100) <= 45) { kill_adults(PopulationTable::PersonRole::ROLE_SCIENTIST, morale, hospitals); }
+	else { kill_adults(PopulationTable::PersonRole::ROLE_WORKER, morale, hospitals); }
 
-	kill_adults(PersonRole::ROLE_RETIRED, morale, hospitals);
+	kill_adults(PopulationTable::PersonRole::ROLE_RETIRED, morale, hospitals);
 
 	return consume_food(food);
 }

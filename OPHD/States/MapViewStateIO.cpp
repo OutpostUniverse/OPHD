@@ -109,11 +109,11 @@ void MapViewState::save(const std::string& filePath)
 	population->attribute("prev_morale", mPreviousMorale);
 	population->attribute("colonist_landers", mLandersColonist);
 	population->attribute("cargo_landers", mLandersCargo);
-	population->attribute("children", mPopulation.size(Population::PersonRole::ROLE_CHILD));
-	population->attribute("students", mPopulation.size(Population::PersonRole::ROLE_STUDENT));
-	population->attribute("workers", mPopulation.size(Population::PersonRole::ROLE_WORKER));
-	population->attribute("scientists", mPopulation.size(Population::PersonRole::ROLE_SCIENTIST));
-	population->attribute("retired", mPopulation.size(Population::PersonRole::ROLE_RETIRED));
+	population->attribute("children", mPopulation.size(PopulationTable::PersonRole::ROLE_CHILD));
+	population->attribute("students", mPopulation.size(PopulationTable::PersonRole::ROLE_STUDENT));
+	population->attribute("workers", mPopulation.size(PopulationTable::PersonRole::ROLE_WORKER));
+	population->attribute("scientists", mPopulation.size(PopulationTable::PersonRole::ROLE_SCIENTIST));
+	population->attribute("retired", mPopulation.size(PopulationTable::PersonRole::ROLE_RETIRED));
 	population->attribute("mean_crime", mPopulationPanel.crimeRate());
 	root->linkEndChild(population);
 
@@ -585,11 +585,11 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 			attribute = attribute->next();
 		}
 
-		mPopulation.addPopulation(Population::PersonRole::ROLE_CHILD, children);
-		mPopulation.addPopulation(Population::PersonRole::ROLE_STUDENT, students);
-		mPopulation.addPopulation(Population::PersonRole::ROLE_WORKER, workers);
-		mPopulation.addPopulation(Population::PersonRole::ROLE_SCIENTIST, scientists);
-		mPopulation.addPopulation(Population::PersonRole::ROLE_RETIRED, retired);
+		mPopulation.addPopulation(PopulationTable::PersonRole::ROLE_CHILD, children);
+		mPopulation.addPopulation(PopulationTable::PersonRole::ROLE_STUDENT, students);
+		mPopulation.addPopulation(PopulationTable::PersonRole::ROLE_WORKER, workers);
+		mPopulation.addPopulation(PopulationTable::PersonRole::ROLE_SCIENTIST, scientists);
+		mPopulation.addPopulation(PopulationTable::PersonRole::ROLE_RETIRED, retired);
 	}
 }
 
