@@ -1,6 +1,6 @@
 #include "Population.h"
 
-int& PopulationTable::operator[](int index)
+int& PopulationTable::operator[](std::size_t index)
 {
 	return table[index];
 }
@@ -9,7 +9,7 @@ int& PopulationTable::operator[](int index)
 // reference as array element can be put on left side
 int& PopulationTable::operator[](Role role)
 {
-    return table[static_cast<int>(role)];
+    return table[static_cast<std::size_t>(role)];
 }
 
 
@@ -44,5 +44,5 @@ int PopulationTable::size() const
  */
 int PopulationTable::size(Role personRole) const
 {
-	return table[static_cast<int>(personRole)];
+	return table[static_cast<std::size_t > (personRole)];
 }

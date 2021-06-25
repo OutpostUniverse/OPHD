@@ -14,7 +14,7 @@ public:
 		Retired
 	};
 
-	int& operator[](int);
+	int& operator[](std::size_t);
 	int& operator[](Role);
 	int operator[](Role) const;
 
