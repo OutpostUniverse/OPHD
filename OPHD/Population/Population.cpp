@@ -257,15 +257,15 @@ int Population::consume_food(int food)
 
 	for (int i = 0; i < population_to_kill; /**/ )
 	{
-		std::size_t role_idx = i % 5;
+		std::size_t roleIndex = i % 5;
 
 		std::size_t counter = 0;
 		for (;;)
 		{
-			role_idx = role_idx + counter;
-			if (role_idx > 4) { role_idx = 0; }
+			roleIndex = roleIndex + counter;
+			if (roleIndex > 4) { roleIndex = 0; }
 
-			if (mPopulation[role_idx] > 0)
+			if (mPopulation[roleIndex] > 0)
 			{
 				break;
 			}
@@ -274,7 +274,7 @@ int Population::consume_food(int food)
 			if (counter > 4) { counter = 0; }
 		}
 
-		--mPopulation[role_idx];
+		--mPopulation[roleIndex];
 		++i;
 	}
 
