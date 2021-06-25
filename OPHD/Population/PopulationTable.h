@@ -5,23 +5,23 @@
 struct PopulationTable
 {
 public:
-	enum class PersonRole
+	enum class Role
 	{
-		ROLE_CHILD,
-		ROLE_STUDENT,
-		ROLE_WORKER,
-		ROLE_SCIENTIST,
-		ROLE_RETIRED
+		Child,
+		Student,
+		Worker,
+		Scientist,
+		Retired
 	};
 
 	int& operator[](int);
-	int& operator[](PersonRole);
-	int operator[](PersonRole) const;
+	int& operator[](Role);
+	int operator[](Role) const;
 
 	void clear();
 
 	int size();
-	int size(PersonRole role);
+	int size(Role role);
 
 private:
 	std::array<int, 5> table;

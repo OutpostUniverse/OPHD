@@ -16,9 +16,9 @@ public:
 	void clear();
 	
 	int size() { return mPopulation.size(); }
-	int size(PopulationTable::PersonRole role) { return mPopulation.size(role); }
+	int size(PopulationTable::Role role) { return mPopulation.size(role); }
 
-	void addPopulation(PopulationTable::PersonRole role, int count);
+	void addPopulation(PopulationTable::Role role, int count);
 
 	int update(int morale, int food, int residences, int universities, int nurseries, int hospitals);
 
@@ -34,7 +34,7 @@ private:
 
 	void kill_children(int morale, int nurseries);
 	void kill_students(int morale, int hospitals);
-	void kill_adults(PopulationTable::PersonRole role, int morale, int hospitals);
+	void kill_adults(PopulationTable::Role role, int morale, int hospitals);
 
 	int consume_food(int food);
 

@@ -7,13 +7,13 @@ int& PopulationTable::operator[](int index)
 
 // Implementation of [] operator.  This function must return a
 // reference as array element can be put on left side
-int& PopulationTable::operator[](PersonRole role)
+int& PopulationTable::operator[](Role role)
 {
     return table[static_cast<int>(role)];
 }
 
 
-int PopulationTable::operator[](PersonRole role) const
+int PopulationTable::operator[](Role role) const
 {
 	return table[static_cast<int>(role)];
 }
@@ -42,7 +42,7 @@ int PopulationTable::size()
 /**
  * Gets the size of a specific segment of the population.
  */
-int PopulationTable::size(PersonRole personRole)
+int PopulationTable::size(Role personRole)
 {
 	return table[static_cast<int>(personRole)];
 }
