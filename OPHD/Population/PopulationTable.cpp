@@ -9,13 +9,13 @@ int& PopulationTable::operator[](int index)
 // reference as array element can be put on left side
 int& PopulationTable::operator[](PersonRole role)
 {
-    return table[role];
+    return table[static_cast<int>(role)];
 }
 
 
 int PopulationTable::operator[](PersonRole role) const
 {
-	return table[role];
+	return table[static_cast<int>(role)];
 }
 
 
@@ -44,5 +44,5 @@ int PopulationTable::size()
  */
 int PopulationTable::size(PersonRole personRole)
 {
-	return table[personRole];
+	return table[static_cast<int>(personRole)];
 }

@@ -5,7 +5,7 @@
 struct PopulationTable
 {
 public:
-	enum PersonRole
+	enum class PersonRole
 	{
 		ROLE_CHILD,
 		ROLE_STUDENT,
