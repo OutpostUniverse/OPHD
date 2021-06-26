@@ -585,14 +585,11 @@ void MapViewState::readMoraleChanges(Xml::XmlElement* elem)
 
 	for (auto node = elem->firstChildElement(); node; node = node->nextSiblingElement())
 	{
-		auto attribute = node->firstAttribute();
-		std::string message; int val = 0;
-		while (attribute)
-		{
-			if (attribute->name() == "message") { message = attribute->value(); }
-			else if (attribute->name() == "val") { attribute->queryIntValue(val); }
-			attribute = attribute->next();
-		}
+		const auto dictionary = NAS2D::attributesToDictionary(*node);
+
+		const auto message = dictionary.get("message");
+		const auto val = dictionary.get<int>("val");
+
 		mPopulationPanel.addMoraleReason(message, val);
 	}
 }
