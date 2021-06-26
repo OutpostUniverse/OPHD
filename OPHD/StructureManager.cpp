@@ -62,8 +62,6 @@ namespace
 
 		if (structure->isRobotCommand())
 		{
-			auto* robotsElement = new NAS2D::Xml::XmlElement("robots");
-
 			const auto& robots = static_cast<RobotCommand*>(structure)->robots();
 
 			std::stringstream str;
@@ -73,47 +71,63 @@ namespace
 				if (i != robots.size() - 1) { str << ","; } // kind of a kludge
 			}
 
-			robotsElement->attribute("robots", str.str());
-			structureElement->linkEndChild(robotsElement);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes("robots", {{{"robots", str.str()}}})
+			);
 		}
 
 		if (structure->structureClass() == Structure::StructureClass::FoodProduction ||
 			structure->structureId() == StructureID::SID_COMMAND_CENTER)
 		{
-			auto* food = new NAS2D::Xml::XmlElement("food");
-			food->attribute("level", static_cast<FoodProduction*>(structure)->foodLevel());
-			structureElement->linkEndChild(food);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes(
+					"food",
+					{{{"level", static_cast<FoodProduction*>(structure)->foodLevel()}}}
+				)
+			);
 		}
 
 		if (structure->structureClass() == Structure::StructureClass::Residence)
 		{
 			Residence* residence = static_cast<Residence*>(structure);
-			auto* waste = new NAS2D::Xml::XmlElement("waste");
-			waste->attribute("accumulated", residence->wasteAccumulated());
-			waste->attribute("overflow", residence->wasteOverflow());
-			structureElement->linkEndChild(waste);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes(
+					"waste",
+					{{
+						{"accumulated", residence->wasteAccumulated()},
+						{"overflow", residence->wasteOverflow()},
+					}}
+				)
+			);
 		}
 
 		if (structure->isMineFacility())
 		{
 			MineFacility* facility = static_cast<MineFacility*>(structure);
 
-			auto* trucks = new NAS2D::Xml::XmlElement("trucks");
-			trucks->attribute("assigned", facility->assignedTrucks());
-
-			auto* extension = new NAS2D::Xml::XmlElement("extension");
-			extension->attribute("turns_remaining", facility->digTimeRemaining());
-
-			structureElement->linkEndChild(trucks);
-			structureElement->linkEndChild(extension);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes(
+					"trucks",
+					{{{"assigned", facility->assignedTrucks()}}}
+				)
+			);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes(
+					"extension",
+					{{{"turns_remaining", facility->digTimeRemaining()}}}
+				)
+			);
 		}
 
 		if (structure->structureClass() == Structure::StructureClass::Maintenance)
 		{
 			auto maintenance = static_cast<MaintenanceFacility*>(structure);
-			auto personnel = new NAS2D::Xml::XmlElement("personnel");
-			personnel->attribute("assigned", maintenance->personnel());
-			structureElement->linkEndChild(personnel);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes(
+					"personnel",
+					{{{"assigned", maintenance->personnel()}}}
+				)
+			);
 		}
 
 		return structureElement;
