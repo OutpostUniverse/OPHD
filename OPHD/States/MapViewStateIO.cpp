@@ -95,7 +95,7 @@ void MapViewState::save(const std::string& filePath)
 	root->linkEndChild(serializeProperties());
 	mTileMap->serialize(root);
 	Utility<StructureManager>::get().serialize(root);
-	writeRobots(root, mRobotPool, mRobotList);
+	root->linkEndChild(writeRobots(mRobotPool, mRobotList));
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 
 	root->linkEndChild(dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));

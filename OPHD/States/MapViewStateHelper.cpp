@@ -19,19 +19,17 @@
 #include "../Things/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
+#include <NAS2D/Dictionary.h>
+#include <NAS2D/ParserHelper.h>
 
 #include <cmath>
 
 
-using namespace NAS2D;
-using namespace NAS2D::Xml;
-
-
 const NAS2D::Point<int> CcNotPlaced{-1, -1};
-static Point<int> commandCenterLocation = CcNotPlaced;
+static NAS2D::Point<int> commandCenterLocation = CcNotPlaced;
 
 
-Point<int>& ccLocation()
+NAS2D::Point<int>& ccLocation()
 {
 	return commandCenterLocation;
 }
@@ -206,9 +204,6 @@ bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
 }
 
 
-/**
- * Document me!
- */
 void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt, Tile* /*tile*/)
 {
 	if (rcc->isControlling(robotToDelete))
@@ -233,13 +228,10 @@ void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& robot
 }
 
 
-/**
- * Document me!
- */
 void updateRobotControl(RobotPool& robotPool)
 {
-	const auto& commandCenters = Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& robotCommands = Utility<StructureManager>::get().getStructures<RobotCommand>();
+	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>();
 
 	// 3 for the first command center
 	uint32_t maxRobots = 0;
@@ -285,7 +277,7 @@ bool selfSustained(StructureID id)
  */
 bool inCommRange(NAS2D::Point<int> position)
 {
-	auto& structureManager = Utility<StructureManager>::get();
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
 	const auto& seedLanders = structureManager.getStructures<SeedLander>();
 	for (auto lander : seedLanders)
@@ -341,7 +333,7 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
  */
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 {
-	for (auto warehouse : Utility<StructureManager>::get().getStructures<Warehouse>())
+	for (auto warehouse : NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>())
 	{
 		if (!warehouse->operational())
 		{
@@ -369,7 +361,7 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
  */
 RobotCommand* getAvailableRobotCommand()
 {
-	for (auto robotCommand : Utility<StructureManager>::get().getStructures<RobotCommand>())
+	for (auto robotCommand : NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>())
 	{
 		if (robotCommand->operational() && robotCommand->commandCapacityAvailable())
 		{
@@ -392,7 +384,7 @@ RobotCommand* getAvailableRobotCommand()
 bool simulateMoveProducts(Warehouse* sourceWarehouse)
 {
 	ProductPool sourcePool = sourceWarehouse->products();
-	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
+	const auto& warehouses = NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>();
 	for (auto warehouse : warehouses)
 	{
 		if (warehouse->operational())
@@ -423,7 +415,7 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
  */
 void moveProducts(Warehouse* sourceWarehouse)
 {
-	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
+	const auto& warehouses = NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>();
 	for (auto warehouse : warehouses)
 	{
 		if (warehouse->operational())
@@ -560,62 +552,53 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 // = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
 // ==============================================================
 
-/** 
- * Document me!
- */
-void checkRobotDeployment(XmlElement* robotElement, RobotTileTable& robotTileTable, Robot* robot, Robot::Type type)
+NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot, Robot::Type type)
 {
-	robotElement->attribute("id", robot->id());
-	robotElement->attribute("type", static_cast<int>(type));
-	robotElement->attribute("age", robot->fuelCellAge());
-	robotElement->attribute("production", robot->turnsToCompleteTask());
+	NAS2D::Dictionary dictionary{{
+		{"id", robot.id()},
+		{"type", static_cast<int>(type)},
+		{"age", robot.fuelCellAge()},
+		{"production", robot.turnsToCompleteTask()},
+	}};
 
-	const auto it = robotTileTable.find(robot);
+	const auto it = robotTileTable.find(&robot);
 	if (it != robotTileTable.end())
 	{
 		const auto& tile = *it->second;
 		const auto position = tile.position();
-		robotElement->attribute("x", position.x);
-		robotElement->attribute("y", position.y);
-		robotElement->attribute("depth", tile.depth());
+		dictionary += NAS2D::Dictionary{{
+			{"x", position.x},
+			{"y", position.y},
+			{"depth", tile.depth()},
+		}};
 	}
+
+	return dictionary;
 }
 
 
-/** 
- * Document me!
- * 
- * Convenience function
- */
-void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap)
+NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap)
 {
-	XmlElement* robots = new XmlElement("robots");
+	auto* robots = new NAS2D::Xml::XmlElement("robots");
 
-	RobotPool::DiggerList& diggers = robotPool.diggers();
-
-	for (auto digger : diggers)
+	for (auto digger : robotPool.diggers())
 	{
-		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, digger, Robot::Type::Digger);
-		robot->attribute("direction", static_cast<int>(digger->direction()));
-		robots->linkEndChild(robot);
+		auto dictionary = robotToDictionary(robotMap, *digger, Robot::Type::Digger);
+		dictionary.set("direction", static_cast<int>(digger->direction()));
+		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
-	RobotPool::DozerList& dozers = robotPool.dozers();
-	for (auto dozer : dozers)
+	for (auto dozer : robotPool.dozers())
 	{
-		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, dozer, Robot::Type::Dozer);
-		robots->linkEndChild(robot);
+		auto dictionary = robotToDictionary(robotMap, *dozer, Robot::Type::Dozer);
+		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
-	RobotPool::MinerList& miners = robotPool.miners();
-	for (auto miner : miners)
+	for (auto miner : robotPool.miners())
 	{
-		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, miner, Robot::Type::Miner);
-		robots->linkEndChild(robot);
+		auto dictionary = robotToDictionary(robotMap, *miner, Robot::Type::Miner);
+		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
-	element->linkEndChild(robots);
+	return robots;
 }
