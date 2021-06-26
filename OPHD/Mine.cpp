@@ -262,18 +262,18 @@ void Mine::checkExhausted()
  */
 int Mine::pull(OreType type, int quantity)
 {
-	int pulled_count = 0;
+	int pullCount = 0;
 
 	for (auto& vein : mVeins)
 	{
-		const auto transferAmount = std::min(vein[type], quantity - pulled_count);
-		pulled_count += transferAmount;
+		const auto transferAmount = std::min(vein[type], quantity - pullCount);
+		pullCount += transferAmount;
 		vein[type] -= transferAmount;
 
-		if (pulled_count == quantity) { break; }
+		if (pullCount == quantity) { break; }
 	}
 
-	return pulled_count;
+	return pullCount;
 }
 
 
