@@ -583,9 +583,9 @@ void MapViewState::readMoraleChanges(Xml::XmlElement* elem)
 {
 	if (!elem) { return; }
 
-	for (auto node = elem->firstChild(); node; node = node->nextSibling())
+	for (auto node = elem->firstChildElement(); node; node = node->nextSiblingElement())
 	{
-		auto attribute = node->toElement()->firstAttribute();
+		auto attribute = node->firstAttribute();
 		std::string message; int val = 0;
 		while (attribute)
 		{
