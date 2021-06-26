@@ -305,10 +305,8 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 		}}
 	);
 
-	for (std::size_t i = 0; i < mVeins.size(); ++i)
+	for (const auto& mineVein : mVeins)
 	{
-		const MineVein& mineVein = mVeins[i];
-
 		element->linkEndChild(NAS2D::dictionaryToAttributes(
 			"vein",
 			{{
