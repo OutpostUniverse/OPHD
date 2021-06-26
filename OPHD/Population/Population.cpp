@@ -72,7 +72,7 @@ int Population::adults() const
  * 
  * \todo	Account for nurseries when implemented.
  */
-void Population::spawn_children(int morale, int residences, int nurseries)
+void Population::spawnChildren(int morale, int residences, int nurseries)
 {
 	if (residences < 1 && nurseries < 1) { return; }
 
@@ -92,7 +92,7 @@ void Population::spawn_children(int morale, int residences, int nurseries)
 }
 
 
-void Population::spawn_students()
+void Population::spawnStudents()
 {
 	if (mPopulation[PopulationTable::Role::Child] > 0)
 	{
@@ -110,7 +110,7 @@ void Population::spawn_students()
 }
 
 
-void Population::spawn_adults(int universities)
+void Population::spawnAdults(int universities)
 {
 	//-- New Adults --//
 	if (mPopulation[PopulationTable::Role::Student] > 0)
@@ -138,7 +138,7 @@ void Population::spawn_adults(int universities)
 }
 
 
-void Population::spawn_retiree()
+void Population::spawnRetiree()
 {
 	int total_adults = mPopulation[PopulationTable::Role::Worker] + mPopulation[PopulationTable::Role::Scientist];
 	if (total_adults > 0)
@@ -161,7 +161,7 @@ void Population::spawn_retiree()
 }
 
 
-void Population::kill_children(int morale, int nurseries)
+void Population::killChildren(int morale, int nurseries)
 {
 	if (mPopulation[PopulationTable::Role::Child] > 0)
 	{
@@ -184,7 +184,7 @@ void Population::kill_children(int morale, int nurseries)
 }
 
 
-void Population::kill_students(int morale, int hospitals)
+void Population::killStudents(int morale, int hospitals)
 {
 	if (mPopulation[PopulationTable::Role::Child] > 0)
 	{
@@ -293,13 +293,13 @@ int Population::update(int morale, int food, int residences, int universities, i
 	mBirthCount = 0;
 	mDeathCount = 0;
 
-	spawn_children(morale, residences, nurseries);
-	spawn_students();
-	spawn_adults(universities);
-	spawn_retiree();
+	spawnChildren(morale, residences, nurseries);
+	spawnStudents();
+	spawnAdults(universities);
+	spawnRetiree();
 
-	kill_children(morale, nurseries);
-	kill_students(morale, hospitals);
+	killChildren(morale, nurseries);
+	killStudents(morale, hospitals);
 
 	// Workers will die more often than scientists.
 	if (randomNumber.generate(0, 100) <= 45) { kill_adults(PopulationTable::Role::Scientist, morale, hospitals); }
