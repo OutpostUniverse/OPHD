@@ -50,10 +50,7 @@ static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, Storabl
 {
 	if (!element) { return; }
 
-	resources.resources[0] = std::stoi(element->attribute(constants::SaveGameResource0));
-	resources.resources[1] = std::stoi(element->attribute(constants::SaveGameResource1));
-	resources.resources[2] = std::stoi(element->attribute(constants::SaveGameResource2));
-	resources.resources[3] = std::stoi(element->attribute(constants::SaveGameResource3));
+	resources = readResources(element);
 }
 
 
@@ -185,16 +182,14 @@ void MapViewState::load(const std::string& filePath)
 	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
 
 	XmlElement* map = root->firstChildElement("properties");
-	XmlAttribute* attribute = map->firstAttribute();
-	while (attribute)
-	{
-		if (attribute->name() == "diggingdepth") { attribute->queryIntValue(mPlanetAttributes.maxDepth); }
-		else if (attribute->name() == "sitemap") { mPlanetAttributes.mapImagePath = attribute->value(); }
-		else if (attribute->name() == "tset") { mPlanetAttributes.tilesetPath = attribute->value(); }
-		else if (attribute->name() == "meansolardistance") { mPlanetAttributes.meanSolarDistance = std::stof(attribute->value()); }
-		else if (attribute->name() == "difficulty") { difficulty(stringToEnum(difficultyTable, attribute->value())); }
-		attribute = attribute->next();
-	}
+	const auto dictionary = NAS2D::attributesToDictionary(*map);
+
+	mPlanetAttributes.maxDepth = dictionary.get<int>("diggingdepth");
+	mPlanetAttributes.mapImagePath = dictionary.get("sitemap");
+	mPlanetAttributes.tilesetPath = dictionary.get("tset");
+	mPlanetAttributes.meanSolarDistance = dictionary.get<float>("meansolardistance");
+
+	difficulty(stringToEnum(difficultyTable, dictionary.get("difficulty", std::string{"Medium"})));
 
 	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
 	mMapDisplay = std::make_unique<Image>(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
@@ -282,23 +277,19 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 	mRobots.clear();
 
 	ROBOT_ID_COUNTER = 0;
-	for (XmlNode* robotNode = element->firstChild(); robotNode; robotNode = robotNode->nextSibling())
+	for (XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
 	{
-		int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
-		auto* attribute = robotNode->toElement()->firstAttribute();
-		while (attribute)
-		{
-			if (attribute->name() == "id") { attribute->queryIntValue(id); }
-			else if (attribute->name() == "type") { attribute->queryIntValue(type); }
-			else if (attribute->name() == "age") { attribute->queryIntValue(age); }
-			else if (attribute->name() == "production") { attribute->queryIntValue(production_time); }
-			else if (attribute->name() == "x") { attribute->queryIntValue(x); }
-			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
-			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
-			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
+		const auto dictionary = NAS2D::attributesToDictionary(*robotElement);
 
-			attribute = attribute->next();
-		}
+		const auto id = dictionary.get<int>("id");
+		const auto type = dictionary.get<int>("type");
+		const auto age = dictionary.get<int>("age");
+		const auto production_time = dictionary.get<int>("production");
+		const auto x = dictionary.get<int>("x", 0);
+		const auto y = dictionary.get<int>("y", 0);
+		const auto depth = dictionary.get<int>("depth", 0);
+		const auto direction = dictionary.get<int>("direction", 0);
+
 		ROBOT_ID_COUNTER = std::max(ROBOT_ID_COUNTER, id);
 
 		Robot* robot = nullptr;
@@ -351,35 +342,30 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 void MapViewState::readStructures(Xml::XmlElement* element)
 {
-	for (XmlNode* structureNode = element->firstChild(); structureNode != nullptr; structureNode = structureNode->nextSibling())
+	for (XmlElement* structureElement = element->firstChildElement(); structureElement != nullptr; structureElement = structureElement->nextSiblingElement())
 	{
-		int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
-		int production_completed = 0, production_type = 0;
-		int crime_rate = 0, integrity = 0;
-		auto* attribute = structureNode->toElement()->firstAttribute();
-		while (attribute)
-		{
-			if (attribute->name() == "x") { attribute->queryIntValue(x); }
-			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
-			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
-			else if (attribute->name() == "age") { attribute->queryIntValue(age); }
-			else if (attribute->name() == "state") { attribute->queryIntValue(state); }
-			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
-			else if (attribute->name() == "type") { attribute->queryIntValue(type); }
-			else if (attribute->name() == "forced_idle") { attribute->queryIntValue(forced_idle); }
-			else if (attribute->name() == "disabled_reason") { attribute->queryIntValue(disabled_reason); }
-			else if (attribute->name() == "idle_reason") { attribute->queryIntValue(idle_reason); }
-			else if (attribute->name() == "crime_rate") { attribute->queryIntValue(crime_rate); }
-			else if (attribute->name() == "integrity") { attribute->queryIntValue(integrity); }
+		const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
 
-			else if (attribute->name() == "production_completed") { attribute->queryIntValue(production_completed); }
-			else if (attribute->name() == "production_type") { attribute->queryIntValue(production_type); }
+		const auto x = dictionary.get<int>("x");
+		const auto y = dictionary.get<int>("y");
+		const auto depth = dictionary.get<int>("depth");
 
-			else if (attribute->name() == "pop0") { attribute->queryIntValue(pop0); }
-			else if (attribute->name() == "pop1") { attribute->queryIntValue(pop1); }
+		const auto type = dictionary.get<int>("type");
+		const auto age = dictionary.get<int>("age");
+		const auto state = dictionary.get<int>("state");
+		const auto direction = dictionary.get<int>("direction");
+		const auto forced_idle = dictionary.get<bool>("forced_idle");
+		const auto disabled_reason = dictionary.get<int>("disabled_reason");
+		const auto idle_reason = dictionary.get<int>("idle_reason");
 
-			attribute = attribute->next();
-		}
+		const auto crime_rate = dictionary.get<int>("crime_rate", 0);
+		const auto integrity = dictionary.get<int>("integrity", 0);
+
+		const auto production_completed = dictionary.get<int>("production_completed", 0);
+		const auto production_type = dictionary.get<int>("production_type", 0);
+
+		const auto pop0 = dictionary.get<int>("pop0");
+		const auto pop1 = dictionary.get<int>("pop1");
 
 		auto& tile = mTileMap->getTile({x, y}, depth);
 		tile.index(TerrainType::Dozed);
@@ -413,14 +399,14 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			mineFacility.maxDepth(mTileMap->maxDepth());
 			mineFacility.extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
 
-			auto trucks = structureNode->firstChildElement("trucks");
+			auto trucks = structureElement->firstChildElement("trucks");
 			if (trucks)
 			{
 				auto trucksAssigned = trucks->attribute("assigned");
 				mineFacility.assignedTrucks(std::stoi(trucksAssigned));
 			}
 
-			auto extension = structureNode->firstChildElement("extension");
+			auto extension = structureElement->firstChildElement("extension");
 			if (extension)
 			{
 				auto turnsRemaining = extension->attribute("turns_remaining");
@@ -443,7 +429,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		{
 			auto& foodProduction = *static_cast<FoodProduction*>(&structure);
 
-			auto foodStorage = structureNode->firstChildElement("food");
+			auto foodStorage = structureElement->firstChildElement("food");
 			if (foodStorage == nullptr)
 			{
 				throw std::runtime_error("MapViewState::readStructures(): FoodProduction structure saved without a food level node.");
@@ -460,12 +446,12 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (forced_idle != 0) { structure.forceIdle(forced_idle != 0); }
 
-		loadResorucesFromXmlElement(structureNode->firstChildElement("production"), structure.production());
-		loadResorucesFromXmlElement(structureNode->firstChildElement("storage"), structure.storage());
+		loadResorucesFromXmlElement(structureElement->firstChildElement("production"), structure.production());
+		loadResorucesFromXmlElement(structureElement->firstChildElement("storage"), structure.storage());
 
 		if (structure.structureClass() == Structure::StructureClass::Residence)
 		{
-			auto waste = structureNode->firstChildElement("waste");
+			auto waste = structureElement->firstChildElement("waste");
 			if (waste)
 			{
 				Residence* residence = static_cast<Residence*>(&structure);
@@ -479,7 +465,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structure.structureClass() == Structure::StructureClass::Maintenance)
 		{
-			auto personnel = structureNode->firstChildElement("personnel");
+			auto personnel = structureElement->firstChildElement("personnel");
 			if (personnel)
 			{
 				auto maintenanceFacility = static_cast<MaintenanceFacility*>(&structure);
@@ -497,7 +483,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		{
 			auto& warehouse = *static_cast<Warehouse*>(&structure);
 			warehouse.products().deserialize(NAS2D::attributesToDictionary(
-				*structureNode->firstChildElement("warehouse_products")
+				*structureElement->firstChildElement("warehouse_products")
 			));
 		}
 
@@ -512,7 +498,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structure.isRobotCommand())
 		{
-			auto robotsElement = structureNode->firstChildElement("robots");
+			auto robotsElement = structureElement->firstChildElement("robots");
 			if (robotsElement)
 			{
 				readRccRobots(robotsElement->firstAttribute(), structure, mRobotPool);
@@ -524,8 +510,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			structure.crimeRate(crime_rate);
 		}
 
-		structure.populationAvailable()[0] = pop0;
-		structure.populationAvailable()[1] = pop1;
+		structure.populationAvailable() = {pop0, pop1};
 
 		Utility<StructureManager>::get().addStructure(&structure, &tile);
 	}
@@ -556,38 +541,25 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 	{
 		mPopulation.clear();
 
-		int children = 0, students = 0, workers = 0, scientists = 0, retired = 0;
+		const auto dictionary = NAS2D::attributesToDictionary(*element);
 
-		XmlAttribute* attribute = element->firstAttribute();
-		while (attribute)
-		{
-			if (attribute->name() == "morale")
-			{
-				attribute->queryIntValue(mCurrentMorale);
-				mPopulationPanel.morale(mCurrentMorale);
-			}
-			else if (attribute->name() == "prev_morale")
-			{
-				attribute->queryIntValue(mPreviousMorale);
-				mPopulationPanel.old_morale(mPreviousMorale);
-			}
-			else if (attribute->name() == "mean_crime")
-			{
-				int meanCrimeRate = 0;
-				attribute->queryIntValue(meanCrimeRate);
-				mPopulationPanel.crimeRate(meanCrimeRate);
-			}
-			else if (attribute->name() == "colonist_landers") { attribute->queryIntValue(mLandersColonist); }
-			else if (attribute->name() == "cargo_landers") { attribute->queryIntValue(mLandersCargo); }
+		mLandersColonist = dictionary.get<int>("colonist_landers");
+		mLandersCargo = dictionary.get<int>("cargo_landers");
 
-			else if (attribute->name() == "children") { attribute->queryIntValue(children); }
-			else if (attribute->name() == "students") { attribute->queryIntValue(students); }
-			else if (attribute->name() == "workers") { attribute->queryIntValue(workers); }
-			else if (attribute->name() == "scientists") { attribute->queryIntValue(scientists); }
-			else if (attribute->name() == "retired") { attribute->queryIntValue(retired); }
+		mCurrentMorale = dictionary.get<int>("morale");
+		mPreviousMorale = dictionary.get<int>("prev_morale");
 
-			attribute = attribute->next();
-		}
+		const auto meanCrimeRate = dictionary.get<int>("mean_crime", 0);
+
+		const auto children = dictionary.get<int>("children");
+		const auto students = dictionary.get<int>("students");
+		const auto workers = dictionary.get<int>("workers");
+		const auto scientists = dictionary.get<int>("scientists");
+		const auto retired = dictionary.get<int>("retired");
+
+		mPopulationPanel.morale(mCurrentMorale);
+		mPopulationPanel.old_morale(mPreviousMorale);
+		mPopulationPanel.crimeRate(meanCrimeRate);
 
 		mPopulation.addPopulation(Population::PersonRole::ROLE_CHILD, children);
 		mPopulation.addPopulation(Population::PersonRole::ROLE_STUDENT, students);
@@ -598,20 +570,17 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 }
 
 
-void MapViewState::readMoraleChanges(Xml::XmlElement* elem)
+void MapViewState::readMoraleChanges(Xml::XmlElement* moraleChangeElement)
 {
-	if (!elem) { return; }
+	if (!moraleChangeElement) { return; }
 
-	for (auto node = elem->firstChild(); node; node = node->nextSibling())
+	for (auto messageElement = moraleChangeElement->firstChildElement(); messageElement; messageElement = messageElement->nextSiblingElement())
 	{
-		auto attribute = node->toElement()->firstAttribute();
-		std::string message; int val = 0;
-		while (attribute)
-		{
-			if (attribute->name() == "message") { message = attribute->value(); }
-			else if (attribute->name() == "val") { attribute->queryIntValue(val); }
-			attribute = attribute->next();
-		}
+		const auto dictionary = NAS2D::attributesToDictionary(*messageElement);
+
+		const auto message = dictionary.get("message");
+		const auto val = dictionary.get<int>("val");
+
 		mPopulationPanel.addMoraleReason(message, val);
 	}
 }
