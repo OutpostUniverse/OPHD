@@ -550,38 +550,25 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 	{
 		mPopulation.clear();
 
-		int children = 0, students = 0, workers = 0, scientists = 0, retired = 0;
+		const auto dictionary = NAS2D::attributesToDictionary(*element);
 
-		XmlAttribute* attribute = element->firstAttribute();
-		while (attribute)
-		{
-			if (attribute->name() == "morale")
-			{
-				attribute->queryIntValue(mCurrentMorale);
-				mPopulationPanel.morale(mCurrentMorale);
-			}
-			else if (attribute->name() == "prev_morale")
-			{
-				attribute->queryIntValue(mPreviousMorale);
-				mPopulationPanel.old_morale(mPreviousMorale);
-			}
-			else if (attribute->name() == "mean_crime")
-			{
-				int meanCrimeRate = 0;
-				attribute->queryIntValue(meanCrimeRate);
-				mPopulationPanel.crimeRate(meanCrimeRate);
-			}
-			else if (attribute->name() == "colonist_landers") { attribute->queryIntValue(mLandersColonist); }
-			else if (attribute->name() == "cargo_landers") { attribute->queryIntValue(mLandersCargo); }
+		mLandersColonist = dictionary.get<int>("colonist_landers");
+		mLandersCargo = dictionary.get<int>("cargo_landers");
 
-			else if (attribute->name() == "children") { attribute->queryIntValue(children); }
-			else if (attribute->name() == "students") { attribute->queryIntValue(students); }
-			else if (attribute->name() == "workers") { attribute->queryIntValue(workers); }
-			else if (attribute->name() == "scientists") { attribute->queryIntValue(scientists); }
-			else if (attribute->name() == "retired") { attribute->queryIntValue(retired); }
+		mCurrentMorale = dictionary.get<int>("morale");
+		mPreviousMorale = dictionary.get<int>("prev_morale");
 
-			attribute = attribute->next();
-		}
+		const auto meanCrimeRate = dictionary.get<int>("mean_crime", 0);
+
+		const auto children = dictionary.get<int>("children");
+		const auto students = dictionary.get<int>("students");
+		const auto workers = dictionary.get<int>("workers");
+		const auto scientists = dictionary.get<int>("scientists");
+		const auto retired = dictionary.get<int>("retired");
+
+		mPopulationPanel.morale(mCurrentMorale);
+		mPopulationPanel.old_morale(mPreviousMorale);
+		mPopulationPanel.crimeRate(meanCrimeRate);
 
 		mPopulation.addPopulation(Population::PersonRole::ROLE_CHILD, children);
 		mPopulation.addPopulation(Population::PersonRole::ROLE_STUDENT, students);
