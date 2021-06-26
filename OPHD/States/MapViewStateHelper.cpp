@@ -240,8 +240,8 @@ void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& robot
  */
 void updateRobotControl(RobotPool& robotPool)
 {
-	const auto& commandCenters = Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& robotCommands = Utility<StructureManager>::get().getStructures<RobotCommand>();
+	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>();
 
 	// 3 for the first command center
 	uint32_t maxRobots = 0;
@@ -287,7 +287,7 @@ bool selfSustained(StructureID id)
  */
 bool inCommRange(NAS2D::Point<int> position)
 {
-	auto& structureManager = Utility<StructureManager>::get();
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
 	const auto& seedLanders = structureManager.getStructures<SeedLander>();
 	for (auto lander : seedLanders)
@@ -343,7 +343,7 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
  */
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 {
-	for (auto warehouse : Utility<StructureManager>::get().getStructures<Warehouse>())
+	for (auto warehouse : NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>())
 	{
 		if (!warehouse->operational())
 		{
@@ -371,7 +371,7 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
  */
 RobotCommand* getAvailableRobotCommand()
 {
-	for (auto robotCommand : Utility<StructureManager>::get().getStructures<RobotCommand>())
+	for (auto robotCommand : NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>())
 	{
 		if (robotCommand->operational() && robotCommand->commandCapacityAvailable())
 		{
@@ -394,7 +394,7 @@ RobotCommand* getAvailableRobotCommand()
 bool simulateMoveProducts(Warehouse* sourceWarehouse)
 {
 	ProductPool sourcePool = sourceWarehouse->products();
-	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
+	const auto& warehouses = NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>();
 	for (auto warehouse : warehouses)
 	{
 		if (warehouse->operational())
@@ -425,7 +425,7 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
  */
 void moveProducts(Warehouse* sourceWarehouse)
 {
-	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
+	const auto& warehouses = NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>();
 	for (auto warehouse : warehouses)
 	{
 		if (warehouse->operational())
