@@ -122,9 +122,12 @@ namespace
 		if (structure->structureClass() == Structure::StructureClass::Maintenance)
 		{
 			auto maintenance = static_cast<MaintenanceFacility*>(structure);
-			auto personnel = new NAS2D::Xml::XmlElement("personnel");
-			personnel->attribute("assigned", maintenance->personnel());
-			structureElement->linkEndChild(personnel);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes(
+					"personnel",
+					{{{"assigned", maintenance->personnel()}}}
+				)
+			);
 		}
 
 		return structureElement;
