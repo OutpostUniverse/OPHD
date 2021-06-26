@@ -563,8 +563,10 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 /** 
  * Document me!
  */
-void checkRobotDeployment(XmlElement* robotElement, RobotTileTable& robotTileTable, Robot* robot, Robot::Type type)
+XmlElement* checkRobotDeployment(RobotTileTable& robotTileTable, Robot* robot, Robot::Type type)
 {
+	XmlElement* robotElement = new XmlElement("robot");
+
 	robotElement->attribute("id", robot->id());
 	robotElement->attribute("type", static_cast<int>(type));
 	robotElement->attribute("age", robot->fuelCellAge());
@@ -579,6 +581,8 @@ void checkRobotDeployment(XmlElement* robotElement, RobotTileTable& robotTileTab
 		robotElement->attribute("y", position.y);
 		robotElement->attribute("depth", tile.depth());
 	}
+
+	return robotElement;
 }
 
 
@@ -595,8 +599,7 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 
 	for (auto digger : diggers)
 	{
-		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, digger, Robot::Type::Digger);
+		auto* robot = checkRobotDeployment(robotMap, digger, Robot::Type::Digger);
 		robot->attribute("direction", static_cast<int>(digger->direction()));
 		robots->linkEndChild(robot);
 	}
@@ -604,16 +607,14 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 	RobotPool::DozerList& dozers = robotPool.dozers();
 	for (auto dozer : dozers)
 	{
-		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, dozer, Robot::Type::Dozer);
+		auto* robot = checkRobotDeployment(robotMap, dozer, Robot::Type::Dozer);
 		robots->linkEndChild(robot);
 	}
 
 	RobotPool::MinerList& miners = robotPool.miners();
 	for (auto miner : miners)
 	{
-		XmlElement* robot = new XmlElement("robot");
-		checkRobotDeployment(robot, robotMap, miner, Robot::Type::Miner);
+		auto* robot = checkRobotDeployment(robotMap, miner, Robot::Type::Miner);
 		robots->linkEndChild(robot);
 	}
 
