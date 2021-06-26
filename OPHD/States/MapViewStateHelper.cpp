@@ -343,6 +343,11 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 {
 	for (auto warehouse : Utility<StructureManager>::get().getStructures<Warehouse>())
 	{
+		if (!warehouse->operational())
+		{
+			continue;
+		}
+
 		if (warehouse->products().canStore(type, static_cast<int>(count)))
 		{
 			return warehouse;
