@@ -463,12 +463,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			if (personnel)
 			{
 				auto maintenanceFacility = static_cast<MaintenanceFacility*>(&structure);
-				auto assigned = personnel->attribute("assigned");
-				if (!assigned.empty())
-				{
-					maintenanceFacility->personnel(std::stoi(assigned));
-				}
-
+				maintenanceFacility->personnel(attributesToDictionary(*personnel).get<int>("assigned", 0));
 				maintenanceFacility->resources(mResourcesCount);
 			}
 		}
