@@ -7,6 +7,7 @@
 #include "../RandomNumberGenerator.h"
 
 #include <NAS2D/Utility.h>
+#include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
 
 #include <algorithm>
@@ -380,11 +381,15 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 
 static void serializeTile(XmlElement* tilesElement, int x, int y, int depth, TerrainType index)
 {
-	auto* tileElement = new XmlElement("tile");
-	tileElement->attribute("x", x);
-	tileElement->attribute("y", y);
-	tileElement->attribute("depth", depth);
-	tileElement->attribute("index", static_cast<int>(index));
+	const auto tileElement = NAS2D::dictionaryToAttributes(
+		"tile",
+		{{
+			{"x", x},
+			{"y", y},
+			{"depth", depth},
+			{"index", static_cast<int>(index)},
+		}}
+	);
 
 	tilesElement->linkEndChild(tileElement);
 }
