@@ -565,7 +565,7 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 /** 
  * Document me!
  */
-XmlElement* checkRobotDeployment(RobotTileTable& robotTileTable, Robot* robot, Robot::Type type)
+NAS2D::Dictionary checkRobotDeployment(RobotTileTable& robotTileTable, Robot* robot, Robot::Type type)
 {
 	NAS2D::Dictionary dictionary{{
 		{"id", robot->id()},
@@ -586,7 +586,7 @@ XmlElement* checkRobotDeployment(RobotTileTable& robotTileTable, Robot* robot, R
 		}};
 	}
 
-	return NAS2D::dictionaryToAttributes("robot", dictionary);
+	return dictionary;
 }
 
 
@@ -603,23 +603,23 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 
 	for (auto digger : diggers)
 	{
-		auto* robot = checkRobotDeployment(robotMap, digger, Robot::Type::Digger);
-		robot->attribute("direction", static_cast<int>(digger->direction()));
-		robots->linkEndChild(robot);
+		auto dictionary = checkRobotDeployment(robotMap, digger, Robot::Type::Digger);
+		dictionary.set("direction", static_cast<int>(digger->direction()));
+		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
 	RobotPool::DozerList& dozers = robotPool.dozers();
 	for (auto dozer : dozers)
 	{
-		auto* robot = checkRobotDeployment(robotMap, dozer, Robot::Type::Dozer);
-		robots->linkEndChild(robot);
+		auto dictionary = checkRobotDeployment(robotMap, dozer, Robot::Type::Dozer);
+		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
 	RobotPool::MinerList& miners = robotPool.miners();
 	for (auto miner : miners)
 	{
-		auto* robot = checkRobotDeployment(robotMap, miner, Robot::Type::Miner);
-		robots->linkEndChild(robot);
+		auto dictionary = checkRobotDeployment(robotMap, miner, Robot::Type::Miner);
+		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
 	element->linkEndChild(robots);
