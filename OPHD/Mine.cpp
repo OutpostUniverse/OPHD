@@ -329,27 +329,21 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 
 void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 {
-	int active = 0, yield = 0, depth = 0;
-	std::string flags;
+	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
-	XmlAttribute* attribute = element->firstAttribute();
-	while (attribute)
-	{
-		if (attribute->name() == "active") { attribute->queryIntValue(active); }
-		else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
-		else if (attribute->name() == "yield") { attribute->queryIntValue(yield); }
-		else if (attribute->name() == "flags") { mFlags = std::bitset<6>(attribute->value()); }
-		attribute = attribute->next();
-	}
+	const auto active = dictionary.get<bool>("active");
+	const auto depth = dictionary.get<int>("depth");
+	const auto yield = dictionary.get<int>("yield");
+	mFlags = std::bitset<6>(dictionary.get("flags"));
 
-	this->active(active != 0);
+	this->active(active);
 	mProductionRate = static_cast<MineProductionRate>(yield);
 
 	mVeins.resize(static_cast<std::size_t>(depth));
 	for (XmlNode* vein = element->firstChild(); vein != nullptr; vein = vein->nextSibling())
 	{
 		auto mineVein = MineVein{0, 0, 0, 0};
-		attribute = vein->toElement()->firstAttribute();
+		auto* attribute = vein->toElement()->firstAttribute();
 		int id = 0;
 		while (attribute)
 		{
