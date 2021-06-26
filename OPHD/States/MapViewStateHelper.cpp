@@ -25,10 +25,6 @@
 #include <cmath>
 
 
-using namespace NAS2D;
-using namespace NAS2D::Xml;
-
-
 const NAS2D::Point<int> CcNotPlaced{-1, -1};
 static NAS2D::Point<int> commandCenterLocation = CcNotPlaced;
 
