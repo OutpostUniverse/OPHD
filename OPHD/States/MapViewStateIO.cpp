@@ -450,10 +450,10 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto waste = structureElement->firstChildElement("waste");
 			if (waste)
 			{
-				Residence* residence = static_cast<Residence*>(&structure);
+				auto& residence = *static_cast<Residence*>(&structure);
 				const auto wasteDictionary = attributesToDictionary(*waste);
-				residence->wasteAccumulated(wasteDictionary.get<int>("accumulated"));
-				residence->wasteOverflow(wasteDictionary.get<int>("overflow"));
+				residence.wasteAccumulated(wasteDictionary.get<int>("accumulated"));
+				residence.wasteOverflow(wasteDictionary.get<int>("overflow"));
 			}
 		}
 
@@ -462,9 +462,9 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto personnel = structureElement->firstChildElement("personnel");
 			if (personnel)
 			{
-				auto maintenanceFacility = static_cast<MaintenanceFacility*>(&structure);
-				maintenanceFacility->personnel(attributesToDictionary(*personnel).get<int>("assigned", 0));
-				maintenanceFacility->resources(mResourcesCount);
+				auto& maintenanceFacility = *static_cast<MaintenanceFacility*>(&structure);
+				maintenanceFacility.personnel(attributesToDictionary(*personnel).get<int>("assigned", 0));
+				maintenanceFacility.resources(mResourcesCount);
 			}
 		}
 
