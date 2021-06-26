@@ -570,11 +570,11 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 }
 
 
-void MapViewState::readMoraleChanges(Xml::XmlElement* elem)
+void MapViewState::readMoraleChanges(Xml::XmlElement* moraleChangeElement)
 {
-	if (!elem) { return; }
+	if (!moraleChangeElement) { return; }
 
-	for (auto messageElement = elem->firstChildElement(); messageElement; messageElement = messageElement->nextSiblingElement())
+	for (auto messageElement = moraleChangeElement->firstChildElement(); messageElement; messageElement = messageElement->nextSiblingElement())
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*messageElement);
 
