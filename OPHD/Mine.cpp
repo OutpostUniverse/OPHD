@@ -263,10 +263,8 @@ int Mine::pull(OreType type, int quantity)
 {
 	int pulled_count = 0, to_pull = quantity;
 
-	for (std::size_t i = 0; i < mVeins.size(); ++i)
+	for (auto& vein : mVeins)
 	{
-		MineVein& vein = mVeins[i];
-
 		if (vein[type] >= to_pull)
 		{
 			pulled_count = to_pull;
