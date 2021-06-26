@@ -437,8 +437,8 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 			{
 				auto& tile = getTile({x, y}, depth);
 				if (
-					(depth > 0 && tile.excavated() && tile.empty() && tile.mine() == nullptr) ||
-					(tile.index() == TerrainType::Dozed && tile.empty() && tile.mine() == nullptr)
+					((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
+					(tile.empty() && tile.mine() == nullptr)
 				)
 				{
 					tiles->linkEndChild(serializeTile(x, y, depth, tile.index()));
