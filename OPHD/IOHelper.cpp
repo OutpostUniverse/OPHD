@@ -13,7 +13,7 @@ StorableResources readResources(NAS2D::Xml::XmlElement* element)
 
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
-	const auto requiredFields = {constants::SaveGameResource0, constants::SaveGameResource1, constants::SaveGameResource2, constants::SaveGameResource3};
+	const auto requiredFields = std::vector<std::string>{constants::SaveGameResource0, constants::SaveGameResource1, constants::SaveGameResource2, constants::SaveGameResource3};
 	NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
 
 	return StorableResources{{
