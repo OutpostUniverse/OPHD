@@ -337,7 +337,8 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 	this->active(active);
 	mProductionRate = static_cast<MineProductionRate>(yield);
 
-	mVeins.resize(static_cast<std::size_t>(depth));
+	mVeins.resize(0);
+	mVeins.reserve(static_cast<std::size_t>(depth));
 	for (auto* vein = element->firstChildElement(); vein != nullptr; vein = vein->nextSiblingElement())
 	{
 		const auto veinDictionary = NAS2D::attributesToDictionary(*vein);
@@ -347,8 +348,7 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 		mineVein[OreType::ORE_COMMON_MINERALS] = veinDictionary.get<int>("common_minerals");
 		mineVein[OreType::ORE_RARE_METALS] = veinDictionary.get<int>("rare_metals");
 		mineVein[OreType::ORE_RARE_MINERALS] = veinDictionary.get<int>("rare_minerals");
-		const auto id = veinDictionary.get<int>("id");
 
-		mVeins[static_cast<std::size_t>(id)] = mineVein;
+		mVeins.push_back(mineVein);
 	}
 }
