@@ -62,8 +62,6 @@ namespace
 
 		if (structure->isRobotCommand())
 		{
-			auto* robotsElement = new NAS2D::Xml::XmlElement("robots");
-
 			const auto& robots = static_cast<RobotCommand*>(structure)->robots();
 
 			std::stringstream str;
@@ -73,6 +71,7 @@ namespace
 				if (i != robots.size() - 1) { str << ","; } // kind of a kludge
 			}
 
+			auto* robotsElement = new NAS2D::Xml::XmlElement("robots");
 			robotsElement->attribute("robots", str.str());
 			structureElement->linkEndChild(robotsElement);
 		}
