@@ -16,7 +16,6 @@
 
 
 using namespace NAS2D;
-using namespace NAS2D::Xml;
 
 
 const std::string MAP_TERRAIN_EXTENSION = "_a.png";
