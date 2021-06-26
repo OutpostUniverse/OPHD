@@ -90,10 +90,15 @@ namespace
 		if (structure->structureClass() == Structure::StructureClass::Residence)
 		{
 			Residence* residence = static_cast<Residence*>(structure);
-			auto* waste = new NAS2D::Xml::XmlElement("waste");
-			waste->attribute("accumulated", residence->wasteAccumulated());
-			waste->attribute("overflow", residence->wasteOverflow());
-			structureElement->linkEndChild(waste);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes(
+					"waste",
+					{{
+						{"accumulated", residence->wasteAccumulated()},
+						{"overflow", residence->wasteOverflow()},
+					}}
+				)
+			);
 		}
 
 		if (structure->isMineFacility())
