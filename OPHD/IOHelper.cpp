@@ -12,6 +12,10 @@ StorableResources readResources(NAS2D::Xml::XmlElement* element)
 	if (!element) { throw std::runtime_error("MapViewState::readResources(): Called with element==nullptr"); }
 
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
+
+	const auto requiredFields = {constants::SaveGameResource0, constants::SaveGameResource1, constants::SaveGameResource2, constants::SaveGameResource3};
+	NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
+
 	StorableResources resources{{
 		dictionary.get<int>(constants::SaveGameResource0),
 		dictionary.get<int>(constants::SaveGameResource1),
