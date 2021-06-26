@@ -466,7 +466,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	{
 		int x = 0, y = 0;
 
-		auto* attribute = mineElement->toElement()->firstAttribute();
+		auto* attribute = mineElement->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
@@ -475,7 +475,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		}
 
 		Mine* mine = new Mine();
-		mine->deserialize(mineElement->toElement());
+		mine->deserialize(mineElement);
 
 		auto& tile = getTile({x, y}, 0);
 		tile.pushMine(mine);
@@ -492,7 +492,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	{
 		int x = 0, y = 0, depth = 0, index = 0;
 
-		auto* attribute = tileElement->toElement()->firstAttribute();
+		auto* attribute = tileElement->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
