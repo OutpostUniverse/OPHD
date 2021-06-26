@@ -379,7 +379,7 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 }
 
 
-static XmlElement* serializeTile(int x, int y, int depth, TerrainType index)
+static NAS2D::Xml::XmlElement* serializeTile(int x, int y, int depth, TerrainType index)
 {
 	return NAS2D::dictionaryToAttributes(
 		"tile",
@@ -410,7 +410,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// ==========================================
 	// MINES
 	// ==========================================
-	XmlElement *mines = new XmlElement("mines");
+	NAS2D::Xml::XmlElement *mines = new NAS2D::Xml::XmlElement("mines");
 	element->linkEndChild(mines);
 
 	for (const auto& location : mMineLocations)
@@ -424,7 +424,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// ==========================================
 	// TILES
 	// ==========================================
-	XmlElement *tiles = new XmlElement("tiles");
+	NAS2D::Xml::XmlElement *tiles = new NAS2D::Xml::XmlElement("tiles");
 	element->linkEndChild(tiles);
 
 	// We're only writing out tiles that don't have structures or robots in them that are
