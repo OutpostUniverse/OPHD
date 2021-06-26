@@ -86,8 +86,10 @@ void MapViewState::save(const std::string& filePath)
 
 	XmlDocument doc;
 
-	XmlElement* root = new XmlElement(constants::SaveGameRootNode);
-	root->attribute("version", constants::SaveGameVersion);
+	auto* root = dictionaryToAttributes(
+		constants::SaveGameRootNode,
+		{{{"version", constants::SaveGameVersion}}}
+	);
 	doc.linkEndChild(root);
 
 	root->linkEndChild(serializeProperties());
