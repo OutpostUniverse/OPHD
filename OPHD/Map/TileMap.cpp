@@ -7,6 +7,7 @@
 #include "../RandomNumberGenerator.h"
 
 #include <NAS2D/Utility.h>
+#include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
 
 #include <algorithm>
@@ -15,7 +16,6 @@
 
 
 using namespace NAS2D;
-using namespace NAS2D::Xml;
 
 
 const std::string MAP_TERRAIN_EXTENSION = "_a.png";
@@ -378,15 +378,17 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 }
 
 
-static void serializeTile(XmlElement* tilesElement, int x, int y, int depth, TerrainType index)
+static NAS2D::Xml::XmlElement* serializeTile(int x, int y, int depth, TerrainType index)
 {
-	auto* tileElement = new XmlElement("tile");
-	tileElement->attribute("x", x);
-	tileElement->attribute("y", y);
-	tileElement->attribute("depth", depth);
-	tileElement->attribute("index", static_cast<int>(index));
-
-	tilesElement->linkEndChild(tileElement);
+	return NAS2D::dictionaryToAttributes(
+		"tile",
+		{{
+			{"x", x},
+			{"y", y},
+			{"depth", depth},
+			{"index", static_cast<int>(index)},
+		}}
+	);
 }
 
 
@@ -395,25 +397,25 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// ==========================================
 	// VIEW PARAMETERS
 	// ==========================================
-	XmlElement *viewparams = new XmlElement("view_parameters");
-	element->linkEndChild(viewparams);
-
-	viewparams->attribute("currentdepth", mCurrentDepth);
-	viewparams->attribute("viewlocation_x", mMapViewLocation.x);
-	viewparams->attribute("viewlocation_y", mMapViewLocation.y);
+	element->linkEndChild(NAS2D::dictionaryToAttributes(
+		"view_parameters",
+		{{
+			{"currentdepth", mCurrentDepth},
+			{"viewlocation_x", mMapViewLocation.x},
+			{"viewlocation_y", mMapViewLocation.y},
+		}}
+	));
 
 	// ==========================================
 	// MINES
 	// ==========================================
-	XmlElement *mines = new XmlElement("mines");
+	auto* mines = new NAS2D::Xml::XmlElement("mines");
 	element->linkEndChild(mines);
 
-	for (std::size_t i = 0; i < mMineLocations.size(); ++i)
+	for (const auto& location : mMineLocations)
 	{
-		XmlElement *mine = new XmlElement("mine");
-		mine->attribute("x", mMineLocations[i].x);
-		mine->attribute("y", mMineLocations[i].y);
-		getTile(mMineLocations[i], TileMapLevel::LEVEL_SURFACE).mine()->serialize(mine);
+		auto* mine = NAS2D::dictionaryToAttributes("mine", {{{"x", location.x}, {"y", location.y}}});
+		getTile(location, TileMapLevel::LEVEL_SURFACE).mine()->serialize(mine);
 		mines->linkEndChild(mine);
 	}
 
@@ -421,7 +423,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// ==========================================
 	// TILES
 	// ==========================================
-	XmlElement *tiles = new XmlElement("tiles");
+	auto* tiles = new NAS2D::Xml::XmlElement("tiles");
 	element->linkEndChild(tiles);
 
 	// We're only writing out tiles that don't have structures or robots in them that are
@@ -433,13 +435,12 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 			for (int x = 0; x < mSizeInTiles.x; ++x)
 			{
 				auto& tile = getTile({x, y}, depth);
-				if (depth > 0 && tile.excavated() && tile.empty() && tile.mine() == nullptr)
+				if (
+					((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
+					(tile.empty() && tile.mine() == nullptr)
+				)
 				{
-					serializeTile(tiles, x, y, depth, tile.index());
-				}
-				else if (tile.index() == TerrainType::Dozed && tile.empty() && tile.mine() == nullptr)
-				{
-					serializeTile(tiles, x, y, depth, tile.index());
+					tiles->linkEndChild(serializeTile(x, y, depth, tile.index()));
 				}
 			}
 		}
@@ -450,33 +451,25 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	// VIEW PARAMETERS
-	int view_x = 0, view_y = 0, view_depth = 0;
 	auto* view_parameters = element->firstChildElement("view_parameters");
-	auto* attribute = view_parameters->firstAttribute();
-	while (attribute)
-	{
-		if (attribute->name() == "viewlocation_x") { attribute->queryIntValue(view_x); }
-		else if (attribute->name() == "viewlocation_y") { attribute->queryIntValue(view_y); }
-		else if (attribute->name() == "currentdepth") { attribute->queryIntValue(view_depth); }
-		attribute = attribute->next();
-	}
+	const auto dictionary = NAS2D::attributesToDictionary(*view_parameters);
+
+	const auto view_x = dictionary.get<int>("viewlocation_x");
+	const auto view_y = dictionary.get<int>("viewlocation_y");
+	const auto view_depth = dictionary.get<int>("currentdepth");
 
 	mapViewLocation({view_x, view_y});
 	currentDepth(view_depth);
+
 	for (auto* mineElement = element->firstChildElement("mines")->firstChildElement("mine"); mineElement; mineElement = mineElement->nextSiblingElement())
 	{
-		int x = 0, y = 0;
+		const auto mineDictionary = NAS2D::attributesToDictionary(*mineElement);
 
-		attribute = mineElement->toElement()->firstAttribute();
-		while (attribute)
-		{
-			if (attribute->name() == "x") { attribute->queryIntValue(x); }
-			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
-			attribute = attribute->next();
-		}
+		const auto x = mineDictionary.get<int>("x");
+		const auto y = mineDictionary.get<int>("y");
 
 		Mine* mine = new Mine();
-		mine->deserialize(mineElement->toElement());
+		mine->deserialize(mineElement);
 
 		auto& tile = getTile({x, y}, 0);
 		tile.pushMine(mine);
@@ -491,18 +484,12 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	// TILES AT INDEX 0 WITH NO THINGS
 	for (auto* tileElement = element->firstChildElement("tiles")->firstChildElement("tile"); tileElement; tileElement = tileElement->nextSiblingElement())
 	{
-		int x = 0, y = 0, depth = 0, index = 0;
+		const auto tileDictionary = NAS2D::attributesToDictionary(*tileElement);
 
-		attribute = tileElement->toElement()->firstAttribute();
-		while (attribute)
-		{
-			if (attribute->name() == "x") { attribute->queryIntValue(x); }
-			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
-			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
-			else if (attribute->name() == "index") { attribute->queryIntValue(index); }
-
-			attribute = attribute->next();
-		}
+		const auto x = tileDictionary.get<int>("x");
+		const auto y = tileDictionary.get<int>("y");
+		const auto depth = tileDictionary.get<int>("depth");
+		const auto index = tileDictionary.get<int>("index");
 
 		auto& tile = getTile({x, y}, depth);
 		tile.index(static_cast<TerrainType>(index));
