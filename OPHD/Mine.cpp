@@ -340,10 +340,10 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 	mProductionRate = static_cast<MineProductionRate>(yield);
 
 	mVeins.resize(static_cast<std::size_t>(depth));
-	for (XmlNode* vein = element->firstChild(); vein != nullptr; vein = vein->nextSibling())
+	for (auto* vein = element->firstChildElement(); vein != nullptr; vein = vein->nextSiblingElement())
 	{
 		auto mineVein = MineVein{0, 0, 0, 0};
-		auto* attribute = vein->toElement()->firstAttribute();
+		auto* attribute = vein->firstAttribute();
 		int id = 0;
 		while (attribute)
 		{
