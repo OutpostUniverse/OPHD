@@ -1,11 +1,11 @@
 #include "Mine.h"
 
+#include <NAS2D/ParserHelper.h>
+
 #include <iostream>
 
 #include <array>
 #include <map>
-
-using namespace NAS2D::Xml;
 
 
 /**
@@ -291,63 +291,64 @@ int Mine::pull(OreType type, int quantity)
 /**
  * Serializes current mine information.
  */
-void Mine::serialize(NAS2D::Xml::XmlElement* element)
+NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 {
-	element->attribute("depth", depth());
-	element->attribute("active", active());
-	element->attribute("yield", static_cast<int>(productionRate()));
-	element->attribute("flags", mFlags.to_string());
+	auto* element = NAS2D::dictionaryToAttributes(
+		"mine",
+		{{
+			{"x", location.x},
+			{"y", location.y},
+			{"depth", depth()},
+			{"active", active()},
+			{"yield", static_cast<int>(productionRate())},
+			{"flags", mFlags.to_string()},
+		}}
+	);
 
 	for (std::size_t i = 0; i < mVeins.size(); ++i)
 	{
-		const MineVein& mv = mVeins[i];
+		const MineVein& mineVein = mVeins[i];
 
-		XmlElement* vein = new XmlElement("vein");
-
-		vein->attribute("id", static_cast<int>(i));
-		vein->attribute("common_metals", mv[OreType::ORE_COMMON_METALS]);
-		vein->attribute("common_minerals", mv[OreType::ORE_COMMON_MINERALS]);
-		vein->attribute("rare_metals", mv[OreType::ORE_RARE_METALS]);
-		vein->attribute("rare_minerals", mv[OreType::ORE_RARE_MINERALS]);
-
-		element->linkEndChild(vein);
+		element->linkEndChild(NAS2D::dictionaryToAttributes(
+			"vein",
+			{{
+				{"id", static_cast<int>(i)},
+				{"common_metals", mineVein[OreType::ORE_COMMON_METALS]},
+				{"common_minerals", mineVein[OreType::ORE_COMMON_MINERALS]},
+				{"rare_metals", mineVein[OreType::ORE_RARE_METALS]},
+				{"rare_minerals", mineVein[OreType::ORE_RARE_MINERALS]},
+			}}
+		));
 	}
+
+	return element;
 }
 
 
 void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 {
-	int active = 0, yield = 0, depth = 0;
-	std::string flags;
+	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
-	XmlAttribute* attribute = element->firstAttribute();
-	while (attribute)
-	{
-		if (attribute->name() == "active") { attribute->queryIntValue(active); }
-		else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
-		else if (attribute->name() == "yield") { attribute->queryIntValue(yield); }
-		else if (attribute->name() == "flags") { mFlags = std::bitset<6>(attribute->value()); }
-		attribute = attribute->next();
-	}
+	const auto active = dictionary.get<bool>("active");
+	const auto depth = dictionary.get<int>("depth");
+	const auto yield = dictionary.get<int>("yield");
+	mFlags = std::bitset<6>(dictionary.get("flags"));
 
-	this->active(active != 0);
+	this->active(active);
 	mProductionRate = static_cast<MineProductionRate>(yield);
 
 	mVeins.resize(static_cast<std::size_t>(depth));
-	for (XmlNode* vein = element->firstChild(); vein != nullptr; vein = vein->nextSibling())
+	for (auto* vein = element->firstChildElement(); vein != nullptr; vein = vein->nextSiblingElement())
 	{
-		auto mineVein = MineVein{0, 0, 0, 0};
-		attribute = vein->toElement()->firstAttribute();
-		int id = 0;
-		while (attribute)
-		{
-			if (attribute->name() == "common_metals") { attribute->queryIntValue(mineVein[OreType::ORE_COMMON_METALS]); }
-			else if (attribute->name() == "common_minerals") { attribute->queryIntValue(mineVein[OreType::ORE_COMMON_MINERALS]); }
-			else if (attribute->name() == "rare_metals") { attribute->queryIntValue(mineVein[OreType::ORE_RARE_METALS]); }
-			else if (attribute->name() == "rare_minerals") { attribute->queryIntValue(mineVein[OreType::ORE_RARE_MINERALS]); }
-			else if (attribute->name() == "id") { attribute->queryIntValue(id); }
-			attribute = attribute->next();
-		}
+		const auto veinDictionary = NAS2D::attributesToDictionary(*vein);
+
+		MineVein mineVein{0, 0, 0, 0};
+		mineVein[OreType::ORE_COMMON_METALS] = veinDictionary.get<int>("common_metals");
+		mineVein[OreType::ORE_COMMON_MINERALS] = veinDictionary.get<int>("common_minerals");
+		mineVein[OreType::ORE_RARE_METALS] = veinDictionary.get<int>("rare_metals");
+		mineVein[OreType::ORE_RARE_MINERALS] = veinDictionary.get<int>("rare_minerals");
+		const auto id = veinDictionary.get<int>("id");
+
 		mVeins[static_cast<std::size_t>(id)] = mineVein;
 	}
 }

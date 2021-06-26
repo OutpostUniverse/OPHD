@@ -3,6 +3,7 @@
 #include "Common.h"
 #include "Constants.h"
 
+#include <NAS2D/Renderer/Point.h>
 #include <NAS2D/Xml/XmlElement.h>
 
 #include <bitset>
@@ -57,7 +58,7 @@ public:
 	int pull(OreType type, int quantity);
 
 public:
-	void serialize(NAS2D::Xml::XmlElement* element);
+	NAS2D::Xml::XmlElement* serialize(NAS2D::Point<int> location);
 	void deserialize(NAS2D::Xml::XmlElement* element);
 
 private:
