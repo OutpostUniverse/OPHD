@@ -432,8 +432,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 				throw std::runtime_error("MapViewState::readStructures(): FoodProduction structure saved without a food level node.");
 			}
 
-			auto foodLevel = foodStorage->attribute("level");
-			foodProduction.foodLevel(std::stoi(foodLevel));
+			foodProduction.foodLevel(attributesToDictionary(*foodStorage).get<int>("level"));
 		}
 
 		structure.age(age);
