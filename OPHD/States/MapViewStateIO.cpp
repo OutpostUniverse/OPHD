@@ -19,6 +19,7 @@
 #include <NAS2D/StringUtils.h>
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlMemoryBuffer.h>
+#include <NAS2D/ParserHelper.h>
 
 #include <map>
 #include <string>
@@ -495,7 +496,9 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		if (structure.isWarehouse())
 		{
 			auto& warehouse = *static_cast<Warehouse*>(&structure);
-			warehouse.products().deserialize(structureNode->firstChildElement("warehouse_products"));
+			warehouse.products().deserialize(NAS2D::attributesToDictionary(
+				*structureNode->firstChildElement("warehouse_products")
+			));
 		}
 
 		if (structure.isFactory())

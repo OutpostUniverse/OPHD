@@ -55,9 +55,10 @@ namespace
 
 		if (structure->isWarehouse())
 		{
-			auto* warehouse_products = new NAS2D::Xml::XmlElement("warehouse_products");
-			static_cast<Warehouse*>(structure)->products().serialize(warehouse_products);
-			structureElement->linkEndChild(warehouse_products);
+			structureElement->linkEndChild(NAS2D::dictionaryToAttributes(
+				"warehouse_products",
+				static_cast<Warehouse*>(structure)->products().serialize()
+			));
 		}
 
 		if (structure->isRobotCommand())

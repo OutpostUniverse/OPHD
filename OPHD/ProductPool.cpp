@@ -1,5 +1,7 @@
 #include "ProductPool.h"
 
+#include <NAS2D/ParserHelper.h>
+
 #include <algorithm>
 
 
@@ -210,37 +212,34 @@ void ProductPool::verifyCount()
 }
 
 
-void ProductPool::serialize(NAS2D::Xml::XmlElement* element)
+NAS2D::Dictionary ProductPool::serialize()
 {
-	element->attribute(constants::SaveGameProductDigger, count(ProductType::PRODUCT_DIGGER));
-	element->attribute(constants::SaveGameProductDozer, count(ProductType::PRODUCT_DOZER));
-	element->attribute(constants::SaveGameProductMiner, count(ProductType::PRODUCT_MINER));
-	element->attribute(constants::SaveGameProductExplorer, count(ProductType::PRODUCT_EXPLORER));
-	element->attribute(constants::SaveGameProductTruck, count(ProductType::PRODUCT_TRUCK));
-	element->attribute(constants::SaveGameProductMaintenanceParts, count(ProductType::PRODUCT_MAINTENANCE_PARTS));
-	element->attribute(constants::SaveGameProductClothing, count(ProductType::PRODUCT_CLOTHING));
-	element->attribute(constants::SaveGameProductMedicine, count(ProductType::PRODUCT_MEDICINE));
+	return NAS2D::Dictionary{{
+		{constants::SaveGameProductDigger, count(ProductType::PRODUCT_DIGGER)},
+		{constants::SaveGameProductDozer, count(ProductType::PRODUCT_DOZER)},
+		{constants::SaveGameProductMiner, count(ProductType::PRODUCT_MINER)},
+		{constants::SaveGameProductExplorer, count(ProductType::PRODUCT_EXPLORER)},
+		{constants::SaveGameProductTruck, count(ProductType::PRODUCT_TRUCK)},
+		{constants::SaveGameProductMaintenanceParts, count(ProductType::PRODUCT_MAINTENANCE_PARTS)},
+		{constants::SaveGameProductClothing, count(ProductType::PRODUCT_CLOTHING)},
+		{constants::SaveGameProductMedicine, count(ProductType::PRODUCT_MEDICINE)},
+	}};
 }
 
 
-void ProductPool::deserialize(NAS2D::Xml::XmlElement* element)
+void ProductPool::deserialize(const NAS2D::Dictionary& dictionary)
 {
-	/// \todo	This should probably trigger an exception.
-	if (element == nullptr) { return; }
+	const auto required = std::vector<std::string>{constants::SaveGameProductDigger, constants::SaveGameProductDozer, constants::SaveGameProductMiner, constants::SaveGameProductExplorer, constants::SaveGameProductTruck, constants::SaveGameProductMaintenanceParts, constants::SaveGameProductClothing, constants::SaveGameProductMedicine};
+	NAS2D::reportMissingOrUnexpected(dictionary.keys(), required, {});
 
-	const auto* attribute = element->firstAttribute();
-	while (attribute)
-	{
-		if (attribute->name() == constants::SaveGameProductDigger) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_DIGGER]); }
-		else if (attribute->name() == constants::SaveGameProductDozer) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_DOZER]); }
-		else if (attribute->name() == constants::SaveGameProductMiner) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_MINER]); }
-		else if (attribute->name() == constants::SaveGameProductExplorer) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_EXPLORER]); }
-		else if (attribute->name() == constants::SaveGameProductTruck) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_TRUCK]); }
-		else if (attribute->name() == constants::SaveGameProductMaintenanceParts) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_MAINTENANCE_PARTS]); }
-		else if (attribute->name() == constants::SaveGameProductClothing) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_CLOTHING]); }
-		else if (attribute->name() == constants::SaveGameProductMedicine) { attribute->queryIntValue(mProducts[ProductType::PRODUCT_MEDICINE]); }
+	mProducts[ProductType::PRODUCT_DIGGER] = dictionary.get<int>(constants::SaveGameProductDigger);
+	mProducts[ProductType::PRODUCT_DOZER] = dictionary.get<int>(constants::SaveGameProductDozer);
+	mProducts[ProductType::PRODUCT_MINER] = dictionary.get<int>(constants::SaveGameProductMiner);
+	mProducts[ProductType::PRODUCT_EXPLORER] = dictionary.get<int>(constants::SaveGameProductExplorer);
+	mProducts[ProductType::PRODUCT_TRUCK] = dictionary.get<int>(constants::SaveGameProductTruck);
+	mProducts[ProductType::PRODUCT_MAINTENANCE_PARTS] = dictionary.get<int>(constants::SaveGameProductMaintenanceParts);
+	mProducts[ProductType::PRODUCT_CLOTHING] = dictionary.get<int>(constants::SaveGameProductClothing);
+	mProducts[ProductType::PRODUCT_MEDICINE] = dictionary.get<int>(constants::SaveGameProductMedicine);
 
-		attribute = attribute->next();
-	}
 	mCurrentStorageCount = computeCurrentStorage(mProducts);
 }

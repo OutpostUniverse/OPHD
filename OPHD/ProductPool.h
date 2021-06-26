@@ -3,7 +3,7 @@
 #include "Common.h"
 #include "Constants.h"
 
-#include <NAS2D/Xml/XmlElement.h>
+#include <NAS2D/Dictionary.h>
 
 #include <array>
 
@@ -37,8 +37,8 @@ public:
 
 	int availableStorage() const;
 
-	void serialize(NAS2D::Xml::XmlElement* element);
-	void deserialize(NAS2D::Xml::XmlElement* element);
+	NAS2D::Dictionary serialize();
+	void deserialize(const NAS2D::Dictionary& dictionary);
 
 	void verifyCount();
 
