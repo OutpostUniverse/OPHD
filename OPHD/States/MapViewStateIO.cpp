@@ -98,7 +98,7 @@ void MapViewState::save(const std::string& filePath)
 	mTileMap->serialize(root);
 	Utility<StructureManager>::get().serialize(root);
 	writeRobots(root, mRobotPool, mRobotList);
-	writeResources(root, mResourceBreakdownPanel.previousResources(), "prev_resources");
+	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 
 	XmlElement* turns = new XmlElement("turns");
 	turns->attribute("count", mTurnCount);
@@ -214,7 +214,7 @@ void MapViewState::load(const std::string& filePath)
 	readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"));
 
-	readResources(root->firstChildElement("prev_resources"), mResourceBreakdownPanel.previousResources());
+	mResourceBreakdownPanel.previousResources() = readResources(root->firstChildElement("prev_resources"));
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 

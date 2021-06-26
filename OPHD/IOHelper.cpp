@@ -4,32 +4,36 @@
 
 #include "StorableResources.h"
 
+#include <NAS2D/ParserHelper.h>
 
-void readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources)
+
+StorableResources readResources(NAS2D::Xml::XmlElement* element)
 {
 	if (!element) { throw std::runtime_error("MapViewState::readResources(): Called with element==nullptr"); }
 
-	NAS2D::Xml::XmlAttribute* attribute = element->firstAttribute();
-	while (attribute)
-	{
-		if (attribute->name() == constants::SaveGameResource0) { attribute->queryIntValue(resources.resources[0]); }
-		else if (attribute->name() == constants::SaveGameResource1) { attribute->queryIntValue(resources.resources[1]); }
-		else if (attribute->name() == constants::SaveGameResource2) { attribute->queryIntValue(resources.resources[2]); }
-		else if (attribute->name() == constants::SaveGameResource3) { attribute->queryIntValue(resources.resources[3]); }
+	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
-		attribute = attribute->next();
-	}
+	const auto requiredFields = std::vector<std::string>{constants::SaveGameResource0, constants::SaveGameResource1, constants::SaveGameResource2, constants::SaveGameResource3};
+	NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
+
+	return StorableResources{{
+		dictionary.get<int>(constants::SaveGameResource0),
+		dictionary.get<int>(constants::SaveGameResource1),
+		dictionary.get<int>(constants::SaveGameResource2),
+		dictionary.get<int>(constants::SaveGameResource3),
+	}};
 }
 
 
-void writeResources(NAS2D::Xml::XmlElement* element, const StorableResources& resources, const std::string& tagName)
+NAS2D::Xml::XmlElement* writeResources(const StorableResources& resources, const std::string& tagName)
 {
-	NAS2D::Xml::XmlElement* resources_elem = new NAS2D::Xml::XmlElement(tagName);
-
-	resources_elem->attribute(constants::SaveGameResource0, resources.resources[0]);
-	resources_elem->attribute(constants::SaveGameResource1, resources.resources[1]);
-	resources_elem->attribute(constants::SaveGameResource2, resources.resources[2]);
-	resources_elem->attribute(constants::SaveGameResource3, resources.resources[3]);
-
-	element->linkEndChild(resources_elem);
+	return NAS2D::dictionaryToAttributes(
+		tagName,
+		{{
+			{constants::SaveGameResource0, resources.resources[0]},
+			{constants::SaveGameResource1, resources.resources[1]},
+			{constants::SaveGameResource2, resources.resources[2]},
+			{constants::SaveGameResource3, resources.resources[3]},
+		}}
+	);
 }

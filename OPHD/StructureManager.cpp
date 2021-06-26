@@ -44,13 +44,13 @@ namespace
 		const auto& production = structure->production();
 		if (!production.isEmpty())
 		{
-			writeResources(structureElement, production, "production");
+			structureElement->linkEndChild(writeResources(production, "production"));
 		}
 
 		const auto& stored = structure->storage();
 		if (!stored.isEmpty())
 		{
-			writeResources(structureElement, stored, "storage");
+			structureElement->linkEndChild(writeResources(stored, "storage"));
 		}
 
 		if (structure->isWarehouse())
