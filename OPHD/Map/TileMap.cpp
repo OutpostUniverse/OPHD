@@ -413,12 +413,12 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	XmlElement *mines = new XmlElement("mines");
 	element->linkEndChild(mines);
 
-	for (std::size_t i = 0; i < mMineLocations.size(); ++i)
+	for (const auto& location : mMineLocations)
 	{
 		XmlElement *mine = new XmlElement("mine");
-		mine->attribute("x", mMineLocations[i].x);
-		mine->attribute("y", mMineLocations[i].y);
-		getTile(mMineLocations[i], TileMapLevel::LEVEL_SURFACE).mine()->serialize(mine);
+		mine->attribute("x", location.x);
+		mine->attribute("y", location.y);
+		getTile(location, TileMapLevel::LEVEL_SURFACE).mine()->serialize(mine);
 		mines->linkEndChild(mine);
 	}
 
