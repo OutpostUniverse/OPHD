@@ -410,7 +410,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// ==========================================
 	// MINES
 	// ==========================================
-	NAS2D::Xml::XmlElement *mines = new NAS2D::Xml::XmlElement("mines");
+	auto* mines = new NAS2D::Xml::XmlElement("mines");
 	element->linkEndChild(mines);
 
 	for (const auto& location : mMineLocations)
@@ -424,7 +424,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// ==========================================
 	// TILES
 	// ==========================================
-	NAS2D::Xml::XmlElement *tiles = new NAS2D::Xml::XmlElement("tiles");
+	auto* tiles = new NAS2D::Xml::XmlElement("tiles");
 	element->linkEndChild(tiles);
 
 	// We're only writing out tiles that don't have structures or robots in them that are
