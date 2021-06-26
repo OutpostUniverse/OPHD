@@ -71,9 +71,9 @@ namespace
 				if (i != robots.size() - 1) { str << ","; } // kind of a kludge
 			}
 
-			auto* robotsElement = new NAS2D::Xml::XmlElement("robots");
-			robotsElement->attribute("robots", str.str());
-			structureElement->linkEndChild(robotsElement);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes("robots", {{{"robots", str.str()}}})
+			);
 		}
 
 		if (structure->structureClass() == Structure::StructureClass::FoodProduction ||
