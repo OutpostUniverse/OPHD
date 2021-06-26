@@ -1,5 +1,7 @@
 #include "ProductPool.h"
 
+#include <NAS2D/ParserHelper.h>
+
 #include <algorithm>
 
 
@@ -227,6 +229,9 @@ NAS2D::Dictionary ProductPool::serialize()
 
 void ProductPool::deserialize(const NAS2D::Dictionary& dictionary)
 {
+	const auto required = std::vector<std::string>{constants::SaveGameProductDigger, constants::SaveGameProductDozer, constants::SaveGameProductMiner, constants::SaveGameProductExplorer, constants::SaveGameProductTruck, constants::SaveGameProductMaintenanceParts, constants::SaveGameProductClothing, constants::SaveGameProductMedicine};
+	NAS2D::reportMissingOrUnexpected(dictionary.keys(), required, {});
+
 	mProducts[ProductType::PRODUCT_DIGGER] = dictionary.get<int>(constants::SaveGameProductDigger);
 	mProducts[ProductType::PRODUCT_DOZER] = dictionary.get<int>(constants::SaveGameProductDozer);
 	mProducts[ProductType::PRODUCT_MINER] = dictionary.get<int>(constants::SaveGameProductMiner);
