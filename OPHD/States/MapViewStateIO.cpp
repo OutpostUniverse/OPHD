@@ -98,9 +98,7 @@ void MapViewState::save(const std::string& filePath)
 	writeRobots(root, mRobotPool, mRobotList);
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 
-	XmlElement* turns = new XmlElement("turns");
-	turns->attribute("count", mTurnCount);
-	root->linkEndChild(turns);
+	root->linkEndChild(dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
 
 	root->linkEndChild(dictionaryToAttributes(
 		"population",
