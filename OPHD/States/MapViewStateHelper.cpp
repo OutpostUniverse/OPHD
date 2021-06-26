@@ -587,7 +587,7 @@ NAS2D::Dictionary checkRobotDeployment(RobotTileTable& robotTileTable, Robot& ro
 }
 
 
-void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap)
+NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap)
 {
 	XmlElement* robots = new XmlElement("robots");
 
@@ -610,5 +610,5 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
-	element->linkEndChild(robots);
+	return robots;
 }

@@ -57,7 +57,7 @@ int pullResource(int& resource, int amount);
 void resetTileIndexFromDozer(Robot* robot, Tile* tile);
 
 // Serialize / Deserialize
-void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap);
+NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap);
 
 void updateRobotControl(RobotPool& robotPool);
 void deleteRobotsInRCC(Robot* robot, RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt, Tile* tile);
