@@ -100,18 +100,21 @@ void MapViewState::save(const std::string& filePath)
 	turns->attribute("count", mTurnCount);
 	root->linkEndChild(turns);
 
-	XmlElement* population = new XmlElement("population");
-	population->attribute("morale", mCurrentMorale);
-	population->attribute("prev_morale", mPreviousMorale);
-	population->attribute("colonist_landers", mLandersColonist);
-	population->attribute("cargo_landers", mLandersCargo);
-	population->attribute("children", mPopulation.size(Population::PersonRole::ROLE_CHILD));
-	population->attribute("students", mPopulation.size(Population::PersonRole::ROLE_STUDENT));
-	population->attribute("workers", mPopulation.size(Population::PersonRole::ROLE_WORKER));
-	population->attribute("scientists", mPopulation.size(Population::PersonRole::ROLE_SCIENTIST));
-	population->attribute("retired", mPopulation.size(Population::PersonRole::ROLE_RETIRED));
-	population->attribute("mean_crime", mPopulationPanel.crimeRate());
-	root->linkEndChild(population);
+	root->linkEndChild(dictionaryToAttributes(
+		"population",
+		{{
+			{"morale", mCurrentMorale},
+			{"prev_morale", mPreviousMorale},
+			{"colonist_landers", mLandersColonist},
+			{"cargo_landers", mLandersCargo},
+			{"children", mPopulation.size(Population::PersonRole::ROLE_CHILD)},
+			{"students", mPopulation.size(Population::PersonRole::ROLE_STUDENT)},
+			{"workers", mPopulation.size(Population::PersonRole::ROLE_WORKER)},
+			{"scientists", mPopulation.size(Population::PersonRole::ROLE_SCIENTIST)},
+			{"retired", mPopulation.size(Population::PersonRole::ROLE_RETIRED)},
+			{"mean_crime", mPopulationPanel.crimeRate()},
+		}}
+	));
 
 	auto moraleChangeReasons = new XmlElement("morale_change");
 	auto& moraleChangeList = mPopulationPanel.moraleReasonList();
