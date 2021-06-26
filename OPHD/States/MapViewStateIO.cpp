@@ -451,11 +451,9 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			if (waste)
 			{
 				Residence* residence = static_cast<Residence*>(&structure);
-				auto accumulated = waste->attribute("accumulated");
-				residence->wasteAccumulated(std::stoi(accumulated));
-
-				auto overflow = waste->attribute("overflow");
-				residence->wasteOverflow(std::stoi(overflow));
+				const auto wasteDictionary = attributesToDictionary(*waste);
+				residence->wasteAccumulated(wasteDictionary.get<int>("accumulated"));
+				residence->wasteOverflow(wasteDictionary.get<int>("overflow"));
 			}
 		}
 
