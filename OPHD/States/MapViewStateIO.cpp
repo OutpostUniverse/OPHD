@@ -353,33 +353,28 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 {
 	for (XmlElement* structureElement = element->firstChildElement(); structureElement != nullptr; structureElement = structureElement->nextSiblingElement())
 	{
-		int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
-		int production_completed = 0, production_type = 0;
-		int crime_rate = 0, integrity = 0;
-		auto* attribute = structureElement->firstAttribute();
-		while (attribute)
-		{
-			if (attribute->name() == "x") { attribute->queryIntValue(x); }
-			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
-			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
-			else if (attribute->name() == "age") { attribute->queryIntValue(age); }
-			else if (attribute->name() == "state") { attribute->queryIntValue(state); }
-			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
-			else if (attribute->name() == "type") { attribute->queryIntValue(type); }
-			else if (attribute->name() == "forced_idle") { attribute->queryIntValue(forced_idle); }
-			else if (attribute->name() == "disabled_reason") { attribute->queryIntValue(disabled_reason); }
-			else if (attribute->name() == "idle_reason") { attribute->queryIntValue(idle_reason); }
-			else if (attribute->name() == "crime_rate") { attribute->queryIntValue(crime_rate); }
-			else if (attribute->name() == "integrity") { attribute->queryIntValue(integrity); }
+		const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
 
-			else if (attribute->name() == "production_completed") { attribute->queryIntValue(production_completed); }
-			else if (attribute->name() == "production_type") { attribute->queryIntValue(production_type); }
+		const auto x = dictionary.get<int>("x");
+		const auto y = dictionary.get<int>("y");
+		const auto depth = dictionary.get<int>("depth");
 
-			else if (attribute->name() == "pop0") { attribute->queryIntValue(pop0); }
-			else if (attribute->name() == "pop1") { attribute->queryIntValue(pop1); }
+		const auto type = dictionary.get<int>("type");
+		const auto age = dictionary.get<int>("age");
+		const auto state = dictionary.get<int>("state");
+		const auto direction = dictionary.get<int>("direction");
+		const auto forced_idle = dictionary.get<bool>("forced_idle");
+		const auto disabled_reason = dictionary.get<int>("disabled_reason");
+		const auto idle_reason = dictionary.get<int>("idle_reason");
 
-			attribute = attribute->next();
-		}
+		const auto crime_rate = dictionary.get<int>("crime_rate", 0);
+		const auto integrity = dictionary.get<int>("integrity", 0);
+
+		const auto production_completed = dictionary.get<int>("production_completed", 0);
+		const auto production_type = dictionary.get<int>("production_type", 0);
+
+		const auto pop0 = dictionary.get<int>("pop0");
+		const auto pop1 = dictionary.get<int>("pop1");
 
 		auto& tile = mTileMap->getTile({x, y}, depth);
 		tile.index(TerrainType::Dozed);
