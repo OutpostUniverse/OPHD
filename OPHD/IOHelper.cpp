@@ -16,14 +16,12 @@ StorableResources readResources(NAS2D::Xml::XmlElement* element)
 	const auto requiredFields = {constants::SaveGameResource0, constants::SaveGameResource1, constants::SaveGameResource2, constants::SaveGameResource3};
 	NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
 
-	StorableResources resources{{
+	return StorableResources{{
 		dictionary.get<int>(constants::SaveGameResource0),
 		dictionary.get<int>(constants::SaveGameResource1),
 		dictionary.get<int>(constants::SaveGameResource2),
 		dictionary.get<int>(constants::SaveGameResource3),
 	}};
-
-	return resources;
 }
 
 
