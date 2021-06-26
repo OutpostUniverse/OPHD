@@ -136,17 +136,16 @@ void MapViewState::save(const std::string& filePath)
 
 XmlElement* MapViewState::serializeProperties()
 {
-	XmlElement* properties = new XmlElement("properties");
-
-	properties->attribute("sitemap", mPlanetAttributes.mapImagePath);
-	properties->attribute("tset", mPlanetAttributes.tilesetPath);
-	properties->attribute("diggingdepth", mPlanetAttributes.maxDepth);
-	// NAS2D only supports double for floating point conversions as of 26July2020
-	properties->attribute("meansolardistance", static_cast<double>(mPlanetAttributes.meanSolarDistance));
-	auto diffString = difficultyString(difficulty());
-	properties->attribute("difficulty", diffString);
-
-	return properties;
+	return dictionaryToAttributes(
+		"properties",
+		{{
+			{"sitemap", mPlanetAttributes.mapImagePath},
+			{"tset", mPlanetAttributes.tilesetPath},
+			{"diggingdepth", mPlanetAttributes.maxDepth},
+			{"meansolardistance", mPlanetAttributes.meanSolarDistance},
+			{"difficulty", difficultyString(difficulty())},
+		}}
+	);
 }
 
 
