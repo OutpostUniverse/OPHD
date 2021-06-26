@@ -214,7 +214,7 @@ void MapViewState::load(const std::string& filePath)
 	readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"));
 
-	readResources(root->firstChildElement("prev_resources"), mResourceBreakdownPanel.previousResources());
+	mResourceBreakdownPanel.previousResources() = readResources(root->firstChildElement("prev_resources"));
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 

@@ -7,10 +7,11 @@
 #include <NAS2D/ParserHelper.h>
 
 
-void readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources)
+StorableResources readResources(NAS2D::Xml::XmlElement* element)
 {
 	if (!element) { throw std::runtime_error("MapViewState::readResources(): Called with element==nullptr"); }
 
+	StorableResources resources{};
 	NAS2D::Xml::XmlAttribute* attribute = element->firstAttribute();
 	while (attribute)
 	{
@@ -21,6 +22,7 @@ void readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources
 
 		attribute = attribute->next();
 	}
+	return resources;
 }
 
 
