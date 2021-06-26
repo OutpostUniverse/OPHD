@@ -54,7 +54,7 @@ static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, Storabl
 }
 
 
-static void readRccRobots(NAS2D::Xml::XmlAttribute* attr, Structure& structure, RobotPool& pool)
+static void readRccRobots(NAS2D::Xml::XmlAttribute* attr, RobotCommand& robotCommand, RobotPool& pool)
 {
 	if (!attr) { return; }
 
@@ -65,7 +65,7 @@ static void readRccRobots(NAS2D::Xml::XmlAttribute* attr, Structure& structure, 
 		{
 			if (robot->id() == robotId)
 			{
-				static_cast<RobotCommand*>(&structure)->addRobot(robot);
+				robotCommand.addRobot(robot);
 				break;
 			}
 		}
@@ -501,7 +501,8 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto robotsElement = structureElement->firstChildElement("robots");
 			if (robotsElement)
 			{
-				readRccRobots(robotsElement->firstAttribute(), structure, mRobotPool);
+				auto& robotCommand = *static_cast<RobotCommand*>(&structure);
+				readRccRobots(robotsElement->firstAttribute(), robotCommand, mRobotPool);
 			}
 		}
 
