@@ -11,17 +11,14 @@ StorableResources readResources(NAS2D::Xml::XmlElement* element)
 {
 	if (!element) { throw std::runtime_error("MapViewState::readResources(): Called with element==nullptr"); }
 
-	StorableResources resources{};
-	NAS2D::Xml::XmlAttribute* attribute = element->firstAttribute();
-	while (attribute)
-	{
-		if (attribute->name() == constants::SaveGameResource0) { attribute->queryIntValue(resources.resources[0]); }
-		else if (attribute->name() == constants::SaveGameResource1) { attribute->queryIntValue(resources.resources[1]); }
-		else if (attribute->name() == constants::SaveGameResource2) { attribute->queryIntValue(resources.resources[2]); }
-		else if (attribute->name() == constants::SaveGameResource3) { attribute->queryIntValue(resources.resources[3]); }
+	const auto dictionary = NAS2D::attributesToDictionary(*element);
+	StorableResources resources{{
+		dictionary.get<int>(constants::SaveGameResource0),
+		dictionary.get<int>(constants::SaveGameResource1),
+		dictionary.get<int>(constants::SaveGameResource2),
+		dictionary.get<int>(constants::SaveGameResource3),
+	}};
 
-		attribute = attribute->next();
-	}
 	return resources;
 }
 
