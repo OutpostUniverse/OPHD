@@ -562,9 +562,6 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 // = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
 // ==============================================================
 
-/** 
- * Document me!
- */
 NAS2D::Dictionary checkRobotDeployment(RobotTileTable& robotTileTable, Robot* robot, Robot::Type type)
 {
 	NAS2D::Dictionary dictionary{{
@@ -590,11 +587,6 @@ NAS2D::Dictionary checkRobotDeployment(RobotTileTable& robotTileTable, Robot* ro
 }
 
 
-/** 
- * Document me!
- * 
- * Convenience function
- */
 void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTileTable& robotMap)
 {
 	XmlElement* robots = new XmlElement("robots");
