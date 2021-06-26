@@ -86,8 +86,10 @@ void MapViewState::save(const std::string& filePath)
 
 	XmlDocument doc;
 
-	XmlElement* root = new XmlElement(constants::SaveGameRootNode);
-	root->attribute("version", constants::SaveGameVersion);
+	auto* root = dictionaryToAttributes(
+		constants::SaveGameRootNode,
+		{{{"version", constants::SaveGameVersion}}}
+	);
 	doc.linkEndChild(root);
 
 	root->linkEndChild(serializeProperties());
@@ -96,31 +98,31 @@ void MapViewState::save(const std::string& filePath)
 	writeRobots(root, mRobotPool, mRobotList);
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 
-	XmlElement* turns = new XmlElement("turns");
-	turns->attribute("count", mTurnCount);
-	root->linkEndChild(turns);
+	root->linkEndChild(dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
 
-	XmlElement* population = new XmlElement("population");
-	population->attribute("morale", mCurrentMorale);
-	population->attribute("prev_morale", mPreviousMorale);
-	population->attribute("colonist_landers", mLandersColonist);
-	population->attribute("cargo_landers", mLandersCargo);
-	population->attribute("children", mPopulation.size(Population::PersonRole::ROLE_CHILD));
-	population->attribute("students", mPopulation.size(Population::PersonRole::ROLE_STUDENT));
-	population->attribute("workers", mPopulation.size(Population::PersonRole::ROLE_WORKER));
-	population->attribute("scientists", mPopulation.size(Population::PersonRole::ROLE_SCIENTIST));
-	population->attribute("retired", mPopulation.size(Population::PersonRole::ROLE_RETIRED));
-	population->attribute("mean_crime", mPopulationPanel.crimeRate());
-	root->linkEndChild(population);
+	root->linkEndChild(dictionaryToAttributes(
+		"population",
+		{{
+			{"morale", mCurrentMorale},
+			{"prev_morale", mPreviousMorale},
+			{"colonist_landers", mLandersColonist},
+			{"cargo_landers", mLandersCargo},
+			{"children", mPopulation.size(Population::PersonRole::ROLE_CHILD)},
+			{"students", mPopulation.size(Population::PersonRole::ROLE_STUDENT)},
+			{"workers", mPopulation.size(Population::PersonRole::ROLE_WORKER)},
+			{"scientists", mPopulation.size(Population::PersonRole::ROLE_SCIENTIST)},
+			{"retired", mPopulation.size(Population::PersonRole::ROLE_RETIRED)},
+			{"mean_crime", mPopulationPanel.crimeRate()},
+		}}
+	));
 
 	auto moraleChangeReasons = new XmlElement("morale_change");
 	auto& moraleChangeList = mPopulationPanel.moraleReasonList();
-	for (auto& reason : moraleChangeList)
+	for (auto& [message, value] : moraleChangeList)
 	{
-		auto reasonElement = new XmlElement("change");
-		reasonElement->attribute("message", reason.first);
-		reasonElement->attribute("val", reason.second);
-		moraleChangeReasons->linkEndChild(reasonElement);
+		moraleChangeReasons->linkEndChild(dictionaryToAttributes(
+			"change", {{{"message", message}, {"val", value}}}
+		));
 	}
 	root->linkEndChild(moraleChangeReasons);
 
@@ -134,17 +136,16 @@ void MapViewState::save(const std::string& filePath)
 
 XmlElement* MapViewState::serializeProperties()
 {
-	XmlElement* properties = new XmlElement("properties");
-
-	properties->attribute("sitemap", mPlanetAttributes.mapImagePath);
-	properties->attribute("tset", mPlanetAttributes.tilesetPath);
-	properties->attribute("diggingdepth", mPlanetAttributes.maxDepth);
-	// NAS2D only supports double for floating point conversions as of 26July2020
-	properties->attribute("meansolardistance", static_cast<double>(mPlanetAttributes.meanSolarDistance));
-	auto diffString = difficultyString(difficulty());
-	properties->attribute("difficulty", diffString);
-
-	return properties;
+	return dictionaryToAttributes(
+		"properties",
+		{{
+			{"sitemap", mPlanetAttributes.mapImagePath},
+			{"tset", mPlanetAttributes.tilesetPath},
+			{"diggingdepth", mPlanetAttributes.maxDepth},
+			{"meansolardistance", mPlanetAttributes.meanSolarDistance},
+			{"difficulty", difficultyString(difficulty())},
+		}}
+	);
 }
 
 
