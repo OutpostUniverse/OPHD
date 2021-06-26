@@ -485,18 +485,12 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	// TILES AT INDEX 0 WITH NO THINGS
 	for (auto* tileElement = element->firstChildElement("tiles")->firstChildElement("tile"); tileElement; tileElement = tileElement->nextSiblingElement())
 	{
-		int x = 0, y = 0, depth = 0, index = 0;
+		const auto tileDictionary = NAS2D::attributesToDictionary(*tileElement);
 
-		auto* attribute = tileElement->firstAttribute();
-		while (attribute)
-		{
-			if (attribute->name() == "x") { attribute->queryIntValue(x); }
-			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
-			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
-			else if (attribute->name() == "index") { attribute->queryIntValue(index); }
-
-			attribute = attribute->next();
-		}
+		const auto x = tileDictionary.get<int>("x");
+		const auto y = tileDictionary.get<int>("y");
+		const auto depth = tileDictionary.get<int>("depth");
+		const auto index = tileDictionary.get<int>("index");
 
 		auto& tile = getTile({x, y}, depth);
 		tile.index(static_cast<TerrainType>(index));
