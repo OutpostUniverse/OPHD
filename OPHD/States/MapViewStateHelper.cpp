@@ -562,7 +562,7 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 // = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
 // ==============================================================
 
-NAS2D::Dictionary checkRobotDeployment(RobotTileTable& robotTileTable, Robot& robot, Robot::Type type)
+NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot, Robot::Type type)
 {
 	NAS2D::Dictionary dictionary{{
 		{"id", robot.id()},
@@ -593,20 +593,20 @@ NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotM
 
 	for (auto digger : robotPool.diggers())
 	{
-		auto dictionary = checkRobotDeployment(robotMap, *digger, Robot::Type::Digger);
+		auto dictionary = robotToDictionary(robotMap, *digger, Robot::Type::Digger);
 		dictionary.set("direction", static_cast<int>(digger->direction()));
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
 	for (auto dozer : robotPool.dozers())
 	{
-		auto dictionary = checkRobotDeployment(robotMap, *dozer, Robot::Type::Dozer);
+		auto dictionary = robotToDictionary(robotMap, *dozer, Robot::Type::Dozer);
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
 	for (auto miner : robotPool.miners())
 	{
-		auto dictionary = checkRobotDeployment(robotMap, *miner, Robot::Type::Miner);
+		auto dictionary = robotToDictionary(robotMap, *miner, Robot::Type::Miner);
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
