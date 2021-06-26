@@ -277,9 +277,9 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 	mRobots.clear();
 
 	ROBOT_ID_COUNTER = 0;
-	for (XmlElement* robotNode = element->firstChildElement(); robotNode; robotNode = robotNode->nextSiblingElement())
+	for (XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
 	{
-		const auto dictionary = NAS2D::attributesToDictionary(*robotNode);
+		const auto dictionary = NAS2D::attributesToDictionary(*robotElement);
 
 		const auto id = dictionary.get<int>("id");
 		const auto type = dictionary.get<int>("type");
