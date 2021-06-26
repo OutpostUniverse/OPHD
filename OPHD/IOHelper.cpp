@@ -4,6 +4,8 @@
 
 #include "StorableResources.h"
 
+#include <NAS2D/ParserHelper.h>
+
 
 void readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources)
 {
@@ -24,12 +26,13 @@ void readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources
 
 NAS2D::Xml::XmlElement* writeResources(const StorableResources& resources, const std::string& tagName)
 {
-	NAS2D::Xml::XmlElement* resourcesElement = new NAS2D::Xml::XmlElement(tagName);
-
-	resourcesElement->attribute(constants::SaveGameResource0, resources.resources[0]);
-	resourcesElement->attribute(constants::SaveGameResource1, resources.resources[1]);
-	resourcesElement->attribute(constants::SaveGameResource2, resources.resources[2]);
-	resourcesElement->attribute(constants::SaveGameResource3, resources.resources[3]);
-
-	return resourcesElement;
+	return NAS2D::dictionaryToAttributes(
+		tagName,
+		{{
+			{constants::SaveGameResource0, resources.resources[0]},
+			{constants::SaveGameResource1, resources.resources[1]},
+			{constants::SaveGameResource2, resources.resources[2]},
+			{constants::SaveGameResource3, resources.resources[3]},
+		}}
+	);
 }
