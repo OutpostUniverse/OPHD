@@ -19,6 +19,8 @@
 #include "../Things/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
+#include <NAS2D/Dictionary.h>
+#include <NAS2D/ParserHelper.h>
 
 #include <cmath>
 
@@ -565,24 +567,26 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
  */
 XmlElement* checkRobotDeployment(RobotTileTable& robotTileTable, Robot* robot, Robot::Type type)
 {
-	XmlElement* robotElement = new XmlElement("robot");
-
-	robotElement->attribute("id", robot->id());
-	robotElement->attribute("type", static_cast<int>(type));
-	robotElement->attribute("age", robot->fuelCellAge());
-	robotElement->attribute("production", robot->turnsToCompleteTask());
+	NAS2D::Dictionary dictionary{{
+		{"id", robot->id()},
+		{"type", static_cast<int>(type)},
+		{"age", robot->fuelCellAge()},
+		{"production", robot->turnsToCompleteTask()},
+	}};
 
 	const auto it = robotTileTable.find(robot);
 	if (it != robotTileTable.end())
 	{
 		const auto& tile = *it->second;
 		const auto position = tile.position();
-		robotElement->attribute("x", position.x);
-		robotElement->attribute("y", position.y);
-		robotElement->attribute("depth", tile.depth());
+		dictionary += NAS2D::Dictionary{{
+			{"x", position.x},
+			{"y", position.y},
+			{"depth", tile.depth()},
+		}};
 	}
 
-	return robotElement;
+	return NAS2D::dictionaryToAttributes("robot", dictionary);
 }
 
 
