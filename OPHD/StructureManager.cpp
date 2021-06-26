@@ -79,9 +79,12 @@ namespace
 		if (structure->structureClass() == Structure::StructureClass::FoodProduction ||
 			structure->structureId() == StructureID::SID_COMMAND_CENTER)
 		{
-			auto* food = new NAS2D::Xml::XmlElement("food");
-			food->attribute("level", static_cast<FoodProduction*>(structure)->foodLevel());
-			structureElement->linkEndChild(food);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes(
+					"food",
+					{{{"level", static_cast<FoodProduction*>(structure)->foodLevel()}}}
+				)
+			);
 		}
 
 		if (structure->structureClass() == Structure::StructureClass::Residence)
