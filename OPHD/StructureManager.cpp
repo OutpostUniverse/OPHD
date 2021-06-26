@@ -105,14 +105,18 @@ namespace
 		{
 			MineFacility* facility = static_cast<MineFacility*>(structure);
 
-			auto* trucks = new NAS2D::Xml::XmlElement("trucks");
-			trucks->attribute("assigned", facility->assignedTrucks());
-
-			auto* extension = new NAS2D::Xml::XmlElement("extension");
-			extension->attribute("turns_remaining", facility->digTimeRemaining());
-
-			structureElement->linkEndChild(trucks);
-			structureElement->linkEndChild(extension);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes(
+					"trucks",
+					{{{"assigned", facility->assignedTrucks()}}}
+				)
+			);
+			structureElement->linkEndChild(
+				NAS2D::dictionaryToAttributes(
+					"extension",
+					{{{"turns_remaining", facility->digTimeRemaining()}}}
+				)
+			);
 		}
 
 		if (structure->structureClass() == Structure::StructureClass::Maintenance)
