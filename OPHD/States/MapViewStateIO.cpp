@@ -519,8 +519,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			structure.crimeRate(crime_rate);
 		}
 
-		structure.populationAvailable()[0] = pop0;
-		structure.populationAvailable()[1] = pop1;
+		structure.populationAvailable() = {pop0, pop1};
 
 		Utility<StructureManager>::get().addStructure(&structure, &tile);
 	}
