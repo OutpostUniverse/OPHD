@@ -398,12 +398,14 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// ==========================================
 	// VIEW PARAMETERS
 	// ==========================================
-	XmlElement *viewparams = new XmlElement("view_parameters");
-	element->linkEndChild(viewparams);
-
-	viewparams->attribute("currentdepth", mCurrentDepth);
-	viewparams->attribute("viewlocation_x", mMapViewLocation.x);
-	viewparams->attribute("viewlocation_y", mMapViewLocation.y);
+	element->linkEndChild(NAS2D::dictionaryToAttributes(
+		"view_parameters",
+		{{
+			{"currentdepth", mCurrentDepth},
+			{"viewlocation_x", mMapViewLocation.x},
+			{"viewlocation_y", mMapViewLocation.y},
+		}}
+	));
 
 	// ==========================================
 	// MINES
