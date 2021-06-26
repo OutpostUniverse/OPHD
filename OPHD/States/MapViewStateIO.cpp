@@ -500,11 +500,8 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			if (robotsElement)
 			{
 				const auto robotIds = robotsElement->attribute("robots");
-				if (robotIds != "")
-				{
-					auto& robotCommand = *static_cast<RobotCommand*>(&structure);
-					readRccRobots(robotIds, robotCommand, mRobotPool);
-				}
+				auto& robotCommand = *static_cast<RobotCommand*>(&structure);
+				readRccRobots(robotIds, robotCommand, mRobotPool);
 			}
 		}
 
