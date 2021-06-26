@@ -589,7 +589,7 @@ NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot
 
 NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap)
 {
-	XmlElement* robots = new XmlElement("robots");
+	auto* robots = new XmlElement("robots");
 
 	for (auto digger : robotPool.diggers())
 	{
