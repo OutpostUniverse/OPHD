@@ -54,9 +54,9 @@ static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, Storabl
 }
 
 
-static void readRccRobots(NAS2D::Xml::XmlAttribute* attr, RobotCommand& robotCommand, RobotPool& pool)
+static void readRccRobots(std::string robotIds, RobotCommand& robotCommand, RobotPool& pool)
 {
-	for (const auto& string : NAS2D::split(attr->value(), ','))
+	for (const auto& string : NAS2D::split(robotIds, ','))
 	{
 		const auto robotId = NAS2D::stringTo<int>(string);
 		for (auto* robot : pool.robots())
@@ -503,7 +503,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 				if (robotsAttribute)
 				{
 					auto& robotCommand = *static_cast<RobotCommand*>(&structure);
-					readRccRobots(robotsAttribute, robotCommand, mRobotPool);
+					readRccRobots(robotsAttribute->value(), robotCommand, mRobotPool);
 				}
 			}
 		}
