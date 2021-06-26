@@ -299,14 +299,13 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 		"mine",
 		{{
 			{"x", location.x},
-			{"y", location.y}
+			{"y", location.y},
+			{"depth", depth()},
+			{"active", active()},
+			{"yield", static_cast<int>(productionRate())},
+			{"flags", mFlags.to_string()},
 		}}
 	);
-
-	element->attribute("depth", depth());
-	element->attribute("active", active());
-	element->attribute("yield", static_cast<int>(productionRate()));
-	element->attribute("flags", mFlags.to_string());
 
 	for (std::size_t i = 0; i < mVeins.size(); ++i)
 	{
