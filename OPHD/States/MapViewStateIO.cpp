@@ -120,10 +120,9 @@ void MapViewState::save(const std::string& filePath)
 	auto& moraleChangeList = mPopulationPanel.moraleReasonList();
 	for (auto& [message, value] : moraleChangeList)
 	{
-		auto reasonElement = new XmlElement("change");
-		reasonElement->attribute("message", message);
-		reasonElement->attribute("val", value);
-		moraleChangeReasons->linkEndChild(reasonElement);
+		moraleChangeReasons->linkEndChild(dictionaryToAttributes(
+			"change", {{{"message", message}, {"val", value}}}
+		));
 	}
 	root->linkEndChild(moraleChangeReasons);
 
