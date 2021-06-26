@@ -574,9 +574,9 @@ void MapViewState::readMoraleChanges(Xml::XmlElement* elem)
 {
 	if (!elem) { return; }
 
-	for (auto node = elem->firstChildElement(); node; node = node->nextSiblingElement())
+	for (auto messageElement = elem->firstChildElement(); messageElement; messageElement = messageElement->nextSiblingElement())
 	{
-		const auto dictionary = NAS2D::attributesToDictionary(*node);
+		const auto dictionary = NAS2D::attributesToDictionary(*messageElement);
 
 		const auto message = dictionary.get("message");
 		const auto val = dictionary.get<int>("val");
