@@ -490,7 +490,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto robotsElement = structureElement->firstChildElement("robots");
 			if (robotsElement)
 			{
-				const auto robotIds = robotsElement->attribute("robots");
+				const auto robotIds = attributesToDictionary(*robotsElement).get("robots");
 				auto& robotCommand = *static_cast<RobotCommand*>(&structure);
 				readRccRobots(robotIds, robotCommand, mRobotPool);
 			}
