@@ -1,5 +1,7 @@
 #include "Mine.h"
 
+#include <NAS2D/ParserHelper.h>
+
 #include <iostream>
 
 #include <array>
@@ -291,8 +293,16 @@ int Mine::pull(OreType type, int quantity)
 /**
  * Serializes current mine information.
  */
-void Mine::serialize(NAS2D::Xml::XmlElement* element)
+NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 {
+	auto* element = NAS2D::dictionaryToAttributes(
+		"mine",
+		{{
+			{"x", location.x},
+			{"y", location.y}
+		}}
+	);
+
 	element->attribute("depth", depth());
 	element->attribute("active", active());
 	element->attribute("yield", static_cast<int>(productionRate()));
@@ -312,6 +322,8 @@ void Mine::serialize(NAS2D::Xml::XmlElement* element)
 
 		element->linkEndChild(vein);
 	}
+
+	return element;
 }
 
 
