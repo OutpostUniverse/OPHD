@@ -401,15 +401,13 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto trucks = structureElement->firstChildElement("trucks");
 			if (trucks)
 			{
-				auto trucksAssigned = trucks->attribute("assigned");
-				mineFacility.assignedTrucks(std::stoi(trucksAssigned));
+				mineFacility.assignedTrucks(attributesToDictionary(*trucks).get<int>("assigned"));
 			}
 
 			auto extension = structureElement->firstChildElement("extension");
 			if (extension)
 			{
-				auto turnsRemaining = extension->attribute("turns_remaining");
-				mineFacility.digTimeRemaining(std::stoi(turnsRemaining));
+				mineFacility.digTimeRemaining(attributesToDictionary(*trucks).get<int>("turns_remaining"));
 			}
 		}
 
@@ -434,8 +432,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 				throw std::runtime_error("MapViewState::readStructures(): FoodProduction structure saved without a food level node.");
 			}
 
-			auto foodLevel = foodStorage->attribute("level");
-			foodProduction.foodLevel(std::stoi(foodLevel));
+			foodProduction.foodLevel(attributesToDictionary(*foodStorage).get<int>("level"));
 		}
 
 		structure.age(age);
@@ -453,12 +450,10 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto waste = structureElement->firstChildElement("waste");
 			if (waste)
 			{
-				Residence* residence = static_cast<Residence*>(&structure);
-				auto accumulated = waste->attribute("accumulated");
-				residence->wasteAccumulated(std::stoi(accumulated));
-
-				auto overflow = waste->attribute("overflow");
-				residence->wasteOverflow(std::stoi(overflow));
+				auto& residence = *static_cast<Residence*>(&structure);
+				const auto wasteDictionary = attributesToDictionary(*waste);
+				residence.wasteAccumulated(wasteDictionary.get<int>("accumulated"));
+				residence.wasteOverflow(wasteDictionary.get<int>("overflow"));
 			}
 		}
 
@@ -467,14 +462,9 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto personnel = structureElement->firstChildElement("personnel");
 			if (personnel)
 			{
-				auto maintenanceFacility = static_cast<MaintenanceFacility*>(&structure);
-				auto assigned = personnel->attribute("assigned");
-				if (!assigned.empty())
-				{
-					maintenanceFacility->personnel(std::stoi(assigned));
-				}
-
-				maintenanceFacility->resources(mResourcesCount);
+				auto& maintenanceFacility = *static_cast<MaintenanceFacility*>(&structure);
+				maintenanceFacility.personnel(attributesToDictionary(*personnel).get<int>("assigned", 0));
+				maintenanceFacility.resources(mResourcesCount);
 			}
 		}
 
@@ -500,7 +490,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto robotsElement = structureElement->firstChildElement("robots");
 			if (robotsElement)
 			{
-				const auto robotIds = robotsElement->attribute("robots");
+				const auto robotIds = attributesToDictionary(*robotsElement).get("robots");
 				auto& robotCommand = *static_cast<RobotCommand*>(&structure);
 				readRccRobots(robotIds, robotCommand, mRobotPool);
 			}
@@ -522,7 +512,7 @@ void MapViewState::readTurns(Xml::XmlElement* element)
 {
 	if (element)
 	{
-		element->firstAttribute()->queryIntValue(mTurnCount);
+		mTurnCount = attributesToDictionary(*element).get<int>("count");
 
 		if (mTurnCount > 0)
 		{
