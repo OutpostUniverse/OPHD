@@ -11,6 +11,8 @@
 #include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
 
 #include <NAS2D/ParserHelper.h>
+#include <NAS2D/StringUtils.h>
+#include <NAS2D/ContainerUtils.h>
 
 #include <algorithm>
 #include <sstream>
@@ -65,15 +67,11 @@ namespace
 		{
 			const auto& robots = static_cast<RobotCommand*>(structure)->robots();
 
-			std::stringstream str;
-			for (std::size_t i = 0; i < robots.size(); ++i)
-			{
-				str << robots[i]->id();
-				if (i != robots.size() - 1) { str << ","; } // kind of a kludge
-			}
+			const auto robotToIdString = [](const Robot* robot){ return NAS2D::stringFrom(robot->id()); };
+			const auto idsString = NAS2D::join(NAS2D::mapToVector(robots, robotToIdString), ",");
 
 			structureElement->linkEndChild(
-				NAS2D::dictionaryToAttributes("robots", {{{"robots", str.str()}}})
+				NAS2D::dictionaryToAttributes("robots", {{{"robots", idsString}}})
 			);
 		}
 
