@@ -7,8 +7,6 @@
 #include <array>
 #include <map>
 
-using namespace NAS2D::Xml;
-
 
 /**
  * Yield ore table
