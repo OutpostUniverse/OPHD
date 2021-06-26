@@ -599,24 +599,20 @@ void writeRobots(NAS2D::Xml::XmlElement* element, RobotPool& robotPool, RobotTil
 {
 	XmlElement* robots = new XmlElement("robots");
 
-	RobotPool::DiggerList& diggers = robotPool.diggers();
-
-	for (auto digger : diggers)
+	for (auto digger : robotPool.diggers())
 	{
 		auto dictionary = checkRobotDeployment(robotMap, digger, Robot::Type::Digger);
 		dictionary.set("direction", static_cast<int>(digger->direction()));
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
-	RobotPool::DozerList& dozers = robotPool.dozers();
-	for (auto dozer : dozers)
+	for (auto dozer : robotPool.dozers())
 	{
 		auto dictionary = checkRobotDeployment(robotMap, dozer, Robot::Type::Dozer);
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
-	RobotPool::MinerList& miners = robotPool.miners();
-	for (auto miner : miners)
+	for (auto miner : robotPool.miners())
 	{
 		auto dictionary = checkRobotDeployment(robotMap, miner, Robot::Type::Miner);
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
