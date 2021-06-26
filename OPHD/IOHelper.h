@@ -7,4 +7,4 @@ struct StorableResources;
 
 void readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources);
 
-void writeResources(NAS2D::Xml::XmlElement*, const StorableResources&, const std::string&);
+NAS2D::Xml::XmlElement* writeResources(const StorableResources&, const std::string&);

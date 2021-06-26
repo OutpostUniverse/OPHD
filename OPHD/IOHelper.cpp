@@ -22,7 +22,7 @@ void readResources(NAS2D::Xml::XmlElement* element, StorableResources& resources
 }
 
 
-void writeResources(NAS2D::Xml::XmlElement* element, const StorableResources& resources, const std::string& tagName)
+NAS2D::Xml::XmlElement* writeResources(const StorableResources& resources, const std::string& tagName)
 {
 	NAS2D::Xml::XmlElement* resources_elem = new NAS2D::Xml::XmlElement(tagName);
 
@@ -31,5 +31,5 @@ void writeResources(NAS2D::Xml::XmlElement* element, const StorableResources& re
 	resources_elem->attribute(constants::SaveGameResource2, resources.resources[2]);
 	resources_elem->attribute(constants::SaveGameResource3, resources.resources[3]);
 
-	element->linkEndChild(resources_elem);
+	return resources_elem;
 }
