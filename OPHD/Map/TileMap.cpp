@@ -464,15 +464,10 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 	for (auto* mineElement = element->firstChildElement("mines")->firstChildElement("mine"); mineElement; mineElement = mineElement->nextSiblingElement())
 	{
-		int x = 0, y = 0;
+		const auto mineDictionary = NAS2D::attributesToDictionary(*mineElement);
 
-		auto* attribute = mineElement->firstAttribute();
-		while (attribute)
-		{
-			if (attribute->name() == "x") { attribute->queryIntValue(x); }
-			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
-			attribute = attribute->next();
-		}
+		const auto x = mineDictionary.get<int>("x");
+		const auto y = mineDictionary.get<int>("y");
 
 		Mine* mine = new Mine();
 		mine->deserialize(mineElement);
