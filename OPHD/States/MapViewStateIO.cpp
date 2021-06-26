@@ -401,8 +401,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto trucks = structureElement->firstChildElement("trucks");
 			if (trucks)
 			{
-				auto trucksAssigned = trucks->attribute("assigned");
-				mineFacility.assignedTrucks(std::stoi(trucksAssigned));
+				mineFacility.assignedTrucks(attributesToDictionary(*trucks).get<int>("assigned"));
 			}
 
 			auto extension = structureElement->firstChildElement("extension");
