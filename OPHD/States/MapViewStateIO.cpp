@@ -351,12 +351,12 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 void MapViewState::readStructures(Xml::XmlElement* element)
 {
-	for (XmlNode* structureNode = element->firstChild(); structureNode != nullptr; structureNode = structureNode->nextSibling())
+	for (XmlElement* structureNode = element->firstChildElement(); structureNode != nullptr; structureNode = structureNode->nextSiblingElement())
 	{
 		int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
 		int production_completed = 0, production_type = 0;
 		int crime_rate = 0, integrity = 0;
-		auto* attribute = structureNode->toElement()->firstAttribute();
+		auto* attribute = structureNode->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
