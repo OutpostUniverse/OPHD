@@ -185,16 +185,14 @@ void MapViewState::load(const std::string& filePath)
 	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
 
 	XmlElement* map = root->firstChildElement("properties");
-	XmlAttribute* attribute = map->firstAttribute();
-	while (attribute)
-	{
-		if (attribute->name() == "diggingdepth") { attribute->queryIntValue(mPlanetAttributes.maxDepth); }
-		else if (attribute->name() == "sitemap") { mPlanetAttributes.mapImagePath = attribute->value(); }
-		else if (attribute->name() == "tset") { mPlanetAttributes.tilesetPath = attribute->value(); }
-		else if (attribute->name() == "meansolardistance") { mPlanetAttributes.meanSolarDistance = std::stof(attribute->value()); }
-		else if (attribute->name() == "difficulty") { difficulty(stringToEnum(difficultyTable, attribute->value())); }
-		attribute = attribute->next();
-	}
+	const auto dictionary = NAS2D::attributesToDictionary(*map);
+
+	mPlanetAttributes.maxDepth = dictionary.get<int>("diggingdepth");
+	mPlanetAttributes.mapImagePath = dictionary.get("sitemap");
+	mPlanetAttributes.tilesetPath = dictionary.get("tset");
+	mPlanetAttributes.meanSolarDistance = dictionary.get<float>("meansolardistance");
+
+	difficulty(stringToEnum(difficultyTable, dictionary.get("difficulty", std::string{"Medium"})));
 
 	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
 	mMapDisplay = std::make_unique<Image>(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
