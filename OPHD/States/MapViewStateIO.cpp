@@ -282,21 +282,17 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 	ROBOT_ID_COUNTER = 0;
 	for (XmlElement* robotNode = element->firstChildElement(); robotNode; robotNode = robotNode->nextSiblingElement())
 	{
-		int id = 0, type = 0, age = 0, production_time = 0, x = 0, y = 0, depth = 0, direction = 0;
-		auto* attribute = robotNode->firstAttribute();
-		while (attribute)
-		{
-			if (attribute->name() == "id") { attribute->queryIntValue(id); }
-			else if (attribute->name() == "type") { attribute->queryIntValue(type); }
-			else if (attribute->name() == "age") { attribute->queryIntValue(age); }
-			else if (attribute->name() == "production") { attribute->queryIntValue(production_time); }
-			else if (attribute->name() == "x") { attribute->queryIntValue(x); }
-			else if (attribute->name() == "y") { attribute->queryIntValue(y); }
-			else if (attribute->name() == "depth") { attribute->queryIntValue(depth); }
-			else if (attribute->name() == "direction") { attribute->queryIntValue(direction); }
+		const auto dictionary = NAS2D::attributesToDictionary(*robotNode);
 
-			attribute = attribute->next();
-		}
+		const auto id = dictionary.get<int>("id");
+		const auto type = dictionary.get<int>("type");
+		const auto age = dictionary.get<int>("age");
+		const auto production_time = dictionary.get<int>("production");
+		const auto x = dictionary.get<int>("x", 0);
+		const auto y = dictionary.get<int>("y", 0);
+		const auto depth = dictionary.get<int>("depth", 0);
+		const auto direction = dictionary.get<int>("direction", 0);
+
 		ROBOT_ID_COUNTER = std::max(ROBOT_ID_COUNTER, id);
 
 		Robot* robot = nullptr;
