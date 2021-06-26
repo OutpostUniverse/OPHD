@@ -351,12 +351,12 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 
 void MapViewState::readStructures(Xml::XmlElement* element)
 {
-	for (XmlElement* structureNode = element->firstChildElement(); structureNode != nullptr; structureNode = structureNode->nextSiblingElement())
+	for (XmlElement* structureElement = element->firstChildElement(); structureElement != nullptr; structureElement = structureElement->nextSiblingElement())
 	{
 		int x = 0, y = 0, depth = 0, age = 0, state = 0, direction = 0, forced_idle = 0, disabled_reason = 0, idle_reason = 0, pop0 = 0, pop1 = 0, type = 0;
 		int production_completed = 0, production_type = 0;
 		int crime_rate = 0, integrity = 0;
-		auto* attribute = structureNode->firstAttribute();
+		auto* attribute = structureElement->firstAttribute();
 		while (attribute)
 		{
 			if (attribute->name() == "x") { attribute->queryIntValue(x); }
@@ -413,14 +413,14 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			mineFacility.maxDepth(mTileMap->maxDepth());
 			mineFacility.extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
 
-			auto trucks = structureNode->firstChildElement("trucks");
+			auto trucks = structureElement->firstChildElement("trucks");
 			if (trucks)
 			{
 				auto trucksAssigned = trucks->attribute("assigned");
 				mineFacility.assignedTrucks(std::stoi(trucksAssigned));
 			}
 
-			auto extension = structureNode->firstChildElement("extension");
+			auto extension = structureElement->firstChildElement("extension");
 			if (extension)
 			{
 				auto turnsRemaining = extension->attribute("turns_remaining");
@@ -443,7 +443,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		{
 			auto& foodProduction = *static_cast<FoodProduction*>(&structure);
 
-			auto foodStorage = structureNode->firstChildElement("food");
+			auto foodStorage = structureElement->firstChildElement("food");
 			if (foodStorage == nullptr)
 			{
 				throw std::runtime_error("MapViewState::readStructures(): FoodProduction structure saved without a food level node.");
@@ -460,12 +460,12 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (forced_idle != 0) { structure.forceIdle(forced_idle != 0); }
 
-		loadResorucesFromXmlElement(structureNode->firstChildElement("production"), structure.production());
-		loadResorucesFromXmlElement(structureNode->firstChildElement("storage"), structure.storage());
+		loadResorucesFromXmlElement(structureElement->firstChildElement("production"), structure.production());
+		loadResorucesFromXmlElement(structureElement->firstChildElement("storage"), structure.storage());
 
 		if (structure.structureClass() == Structure::StructureClass::Residence)
 		{
-			auto waste = structureNode->firstChildElement("waste");
+			auto waste = structureElement->firstChildElement("waste");
 			if (waste)
 			{
 				Residence* residence = static_cast<Residence*>(&structure);
@@ -479,7 +479,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structure.structureClass() == Structure::StructureClass::Maintenance)
 		{
-			auto personnel = structureNode->firstChildElement("personnel");
+			auto personnel = structureElement->firstChildElement("personnel");
 			if (personnel)
 			{
 				auto maintenanceFacility = static_cast<MaintenanceFacility*>(&structure);
@@ -497,7 +497,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 		{
 			auto& warehouse = *static_cast<Warehouse*>(&structure);
 			warehouse.products().deserialize(NAS2D::attributesToDictionary(
-				*structureNode->firstChildElement("warehouse_products")
+				*structureElement->firstChildElement("warehouse_products")
 			));
 		}
 
@@ -512,7 +512,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		if (structure.isRobotCommand())
 		{
-			auto robotsElement = structureNode->firstChildElement("robots");
+			auto robotsElement = structureElement->firstChildElement("robots");
 			if (robotsElement)
 			{
 				readRccRobots(robotsElement->firstAttribute(), structure, mRobotPool);
