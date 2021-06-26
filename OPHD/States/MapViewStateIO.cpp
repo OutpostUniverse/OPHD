@@ -522,7 +522,7 @@ void MapViewState::readTurns(Xml::XmlElement* element)
 {
 	if (element)
 	{
-		element->firstAttribute()->queryIntValue(mTurnCount);
+		mTurnCount = attributesToDictionary(*element).get<int>("count");
 
 		if (mTurnCount > 0)
 		{
