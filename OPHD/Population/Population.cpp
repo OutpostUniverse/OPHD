@@ -96,7 +96,7 @@ int Population::adults() const
  * 
  * \todo	Account for nurseries when implemented.
  */
-void Population::spawn_children(int morale, int residences, int nurseries)
+void Population::spawnChildren(int morale, int residences, int nurseries)
 {
 	if (residences < 1 && nurseries < 1) { return; }
 	if (mPopulation[PersonRole::ROLE_SCIENTIST] + mPopulation[PersonRole::ROLE_WORKER] < 1) { return; }
@@ -113,7 +113,7 @@ void Population::spawn_children(int morale, int residences, int nurseries)
 }
 
 
-void Population::spawn_students()
+void Population::spawnStudents()
 {
 	if (mPopulation[PersonRole::ROLE_CHILD] < 1) { return; }
 
@@ -130,7 +130,7 @@ void Population::spawn_students()
 }
 
 
-void Population::spawn_adults(int universities)
+void Population::spawnAdults(int universities)
 {
 	if (mPopulation[PersonRole::ROLE_STUDENT] < 1) { return; }
 
@@ -156,7 +156,7 @@ void Population::spawn_adults(int universities)
 }
 
 
-void Population::spawn_retiree()
+void Population::spawnRetiree()
 {
 	int total_adults = mPopulation[PersonRole::ROLE_WORKER] + mPopulation[PersonRole::ROLE_SCIENTIST];
 
@@ -179,7 +179,7 @@ void Population::spawn_retiree()
 }
 
 
-void Population::kill_children(int morale, int nurseries)
+void Population::killChildren(int morale, int nurseries)
 {
 	if (mPopulation[PersonRole::ROLE_CHILD] < 1) { return; }
 
@@ -201,7 +201,7 @@ void Population::kill_children(int morale, int nurseries)
 }
 
 
-void Population::kill_students(int morale, int hospitals)
+void Population::killStudents(int morale, int hospitals)
 {
 	if (mPopulation[PersonRole::ROLE_STUDENT] < 1) { return; }
 
@@ -223,7 +223,7 @@ void Population::kill_students(int morale, int hospitals)
 }
 
 
-void Population::kill_adults(Population::PersonRole role, int morale, int hospitals)
+void Population::killAdults(Population::PersonRole role, int morale, int hospitals)
 {
 	if (mPopulation[role] < 1) { return; }
 		
@@ -249,7 +249,7 @@ void Population::kill_adults(Population::PersonRole role, int morale, int hospit
  *
  * \return	Actual amount of food consumed.
  */
-int Population::consume_food(int food)
+int Population::consumeFood(int food)
 {
 	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
 	if (food == 0)
@@ -307,19 +307,19 @@ int Population::update(int morale, int food, int residences, int universities, i
 	mBirthCount = 0;
 	mDeathCount = 0;
 
-	spawn_children(morale, residences, nurseries);
-	spawn_students();
-	spawn_adults(universities);
-	spawn_retiree();
+	spawnChildren(morale, residences, nurseries);
+	spawnStudents();
+	spawnAdults(universities);
+	spawnRetiree();
 
-	kill_children(morale, nurseries);
-	kill_students(morale, hospitals);
+	killChildren(morale, nurseries);
+	killStudents(morale, hospitals);
 
 	// Workers will die more often than scientists.
-	if (randomNumber.generate(0, 100) <= 45) { kill_adults(PersonRole::ROLE_SCIENTIST, morale, hospitals); }
-	else { kill_adults(PersonRole::ROLE_WORKER, morale, hospitals); }
+	if (randomNumber.generate(0, 100) <= 45) { killAdults(PersonRole::ROLE_SCIENTIST, morale, hospitals); }
+	else { killAdults(PersonRole::ROLE_WORKER, morale, hospitals); }
 
-	kill_adults(PersonRole::ROLE_RETIRED, morale, hospitals);
+	killAdults(PersonRole::ROLE_RETIRED, morale, hospitals);
 
-	return consume_food(food);
+	return consumeFood(food);
 }

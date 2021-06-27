@@ -38,16 +38,16 @@ public:
 private:
 	int adults() const;
 
-	void spawn_children(int morale, int residences, int nurseries);
-	void spawn_students();
-	void spawn_adults(int universities);
-	void spawn_retiree();
+	void spawnChildren(int morale, int residences, int nurseries);
+	void spawnStudents();
+	void spawnAdults(int universities);
+	void spawnRetiree();
 
-	void kill_children(int morale, int nurseries);
-	void kill_students(int morale, int hospitals);
-	void kill_adults(Population::PersonRole role, int morale, int hospitals);
+	void killChildren(int morale, int nurseries);
+	void killStudents(int morale, int hospitals);
+	void killAdults(Population::PersonRole role, int morale, int hospitals);
 
-	int consume_food(int food);
+	int consumeFood(int food);
 
 
 	using PopulationTable = std::array<int, 5>;
