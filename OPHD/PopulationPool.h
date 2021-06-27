@@ -8,9 +8,9 @@ class PopulationPool
 public:
 	void population(Population* pop);
 
-	int populationAvailable(Population::PersonRole role);
-	bool enoughPopulationAvailable(Population::PersonRole role, int amount);
-	bool usePopulation(Population::PersonRole role, int amount);
+	int populationAvailable(PopulationTable::PersonRole role);
+	bool enoughPopulationAvailable(PopulationTable::PersonRole role, int amount);
+	bool usePopulation(PopulationTable::PersonRole role, int amount);
 
 	void clear();
 

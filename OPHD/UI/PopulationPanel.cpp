@@ -101,11 +101,11 @@ void PopulationPanel::update()
 	renderer.drawText(mFontBold, constants::PopulationBreakdown, position);
 	const std::array populationData
 	{
-		std::tuple{NAS2D::Rectangle{0, 96, IconSize, IconSize}, mPopulation->size(Population::PersonRole::ROLE_CHILD), std::string("Children")},
-		std::tuple{NAS2D::Rectangle{32, 96, IconSize, IconSize}, mPopulation->size(Population::PersonRole::ROLE_STUDENT), std::string("Students")},
-		std::tuple{NAS2D::Rectangle{64, 96, IconSize, IconSize}, mPopulation->size(Population::PersonRole::ROLE_WORKER), std::string("Workers")},
-		std::tuple{NAS2D::Rectangle{96, 96, IconSize, IconSize}, mPopulation->size(Population::PersonRole::ROLE_SCIENTIST), std::string("Scientists")},
-		std::tuple{NAS2D::Rectangle{128, 96, IconSize, IconSize}, mPopulation->size(Population::PersonRole::ROLE_RETIRED), std::string("Retired")},
+		std::tuple{NAS2D::Rectangle{0, 96, IconSize, IconSize}, mPopulation->size(PopulationTable::PersonRole::ROLE_CHILD), std::string("Children")},
+		std::tuple{NAS2D::Rectangle{32, 96, IconSize, IconSize}, mPopulation->size(PopulationTable::PersonRole::ROLE_STUDENT), std::string("Students")},
+		std::tuple{NAS2D::Rectangle{64, 96, IconSize, IconSize}, mPopulation->size(PopulationTable::PersonRole::ROLE_WORKER), std::string("Workers")},
+		std::tuple{NAS2D::Rectangle{96, 96, IconSize, IconSize}, mPopulation->size(PopulationTable::PersonRole::ROLE_SCIENTIST), std::string("Scientists")},
+		std::tuple{NAS2D::Rectangle{128, 96, IconSize, IconSize}, mPopulation->size(PopulationTable::PersonRole::ROLE_RETIRED), std::string("Retired")},
 	};
 
 	position.y += fontBoldHeight + constants::Margin;
