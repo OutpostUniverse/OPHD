@@ -1,6 +1,7 @@
 #include "Population.h"
 
 #include "../RandomNumberGenerator.h"
+
 #include <algorithm>
 #include <iostream>
 
