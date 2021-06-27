@@ -287,8 +287,9 @@ int Population::update(int morale, int food, int residences, int universities, i
 	killStudents(morale, hospitals);
 
 	// Workers will die more often than scientists.
-	if (randomNumber.generate(0, 100) <= 45) { killAdults(PopulationTable::Role::Scientist, morale, hospitals); }
-	else { killAdults(PopulationTable::Role::Worker, morale, hospitals); }
+	auto employableRoleToKill = randomNumber.generate(0, 100) <= 45 ? 
+		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
+	killAdults(employableRoleToKill, morale, hospitals);
 
 	killAdults(PopulationTable::Role::Retired, morale, hospitals);
 
