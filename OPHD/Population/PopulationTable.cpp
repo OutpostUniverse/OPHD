@@ -14,13 +14,13 @@ int PopulationTable::operator[](std::size_t index) const
 }
 
 
-int& PopulationTable::operator[](PersonRole role)
+int& PopulationTable::operator[](Role role)
 {
 	return table[static_cast<std::size_t>(role)];
 }
 
 
-int PopulationTable::operator[](PersonRole role) const
+int PopulationTable::operator[](Role role) const
 {
 	return table[static_cast<int>(role)];
 }
@@ -44,7 +44,7 @@ int PopulationTable::size() const
 /**
  * Gets the size of a specific segment of the population.
  */
-int PopulationTable::size(PersonRole personRole) const
+int PopulationTable::size(Role personRole) const
 {
 	return table[static_cast<std::size_t>(personRole)];
 }

@@ -107,11 +107,11 @@ void MapViewState::save(const std::string& filePath)
 			{"prev_morale", mPreviousMorale},
 			{"colonist_landers", mLandersColonist},
 			{"cargo_landers", mLandersCargo},
-			{"children", mPopulation.size(PopulationTable::PersonRole::ROLE_CHILD)},
-			{"students", mPopulation.size(PopulationTable::PersonRole::ROLE_STUDENT)},
-			{"workers", mPopulation.size(PopulationTable::PersonRole::ROLE_WORKER)},
-			{"scientists", mPopulation.size(PopulationTable::PersonRole::ROLE_SCIENTIST)},
-			{"retired", mPopulation.size(PopulationTable::PersonRole::ROLE_RETIRED)},
+			{"children", mPopulation.size(PopulationTable::Role::Child)},
+			{"students", mPopulation.size(PopulationTable::Role::Student)},
+			{"workers", mPopulation.size(PopulationTable::Role::Worker)},
+			{"scientists", mPopulation.size(PopulationTable::Role::Scientist)},
+			{"retired", mPopulation.size(PopulationTable::Role::Retired)},
 			{"mean_crime", mPopulationPanel.crimeRate()},
 		}}
 	));
@@ -552,11 +552,11 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 		mPopulationPanel.old_morale(mPreviousMorale);
 		mPopulationPanel.crimeRate(meanCrimeRate);
 
-		mPopulation.addPopulation(PopulationTable::PersonRole::ROLE_CHILD, children);
-		mPopulation.addPopulation(PopulationTable::PersonRole::ROLE_STUDENT, students);
-		mPopulation.addPopulation(PopulationTable::PersonRole::ROLE_WORKER, workers);
-		mPopulation.addPopulation(PopulationTable::PersonRole::ROLE_SCIENTIST, scientists);
-		mPopulation.addPopulation(PopulationTable::PersonRole::ROLE_RETIRED, retired);
+		mPopulation.addPopulation(PopulationTable::Role::Child, children);
+		mPopulation.addPopulation(PopulationTable::Role::Student, students);
+		mPopulation.addPopulation(PopulationTable::Role::Worker, workers);
+		mPopulation.addPopulation(PopulationTable::Role::Scientist, scientists);
+		mPopulation.addPopulation(PopulationTable::Role::Retired, retired);
 	}
 }
 
