@@ -70,8 +70,8 @@ void Population::addPopulation(PopulationTable::Role role, int count)
  */
 void Population::spawnChildren(int morale, int residences, int nurseries)
 {
-	if (residences < 1 && nurseries < 1) { return; }
-	if (mPopulation[PopulationTable::Role::Scientist] + mPopulation[PopulationTable::Role::Worker] < 1) { return; }
+	if (residences <= 0 && nurseries <= 0) { return; }
+	if (mPopulation[PopulationTable::Role::Scientist] + mPopulation[PopulationTable::Role::Worker] <= 0) { return; }
 
 	mPopulationGrowth[PopulationTable::Role::Child] += mPopulation[PopulationTable::Role::Scientist] / 4 + mPopulation[PopulationTable::Role::Worker] / 2;
 
@@ -87,7 +87,7 @@ void Population::spawnChildren(int morale, int residences, int nurseries)
 
 void Population::spawnStudents()
 {
-	if (mPopulation[PopulationTable::Role::Child] < 1) { return; }
+	if (mPopulation[PopulationTable::Role::Child] <= 0) { return; }
 
 	mPopulationGrowth[PopulationTable::Role::Student] += mPopulation[PopulationTable::Role::Child];
 
@@ -104,7 +104,7 @@ void Population::spawnStudents()
 
 void Population::spawnAdults(int universities)
 {
-	if (mPopulation[PopulationTable::Role::Student] < 1) { return; }
+	if (mPopulation[PopulationTable::Role::Student] <= 0) { return; }
 
 	mPopulationGrowth[PopulationTable::Role::Worker] += mPopulation[PopulationTable::Role::Student];
 
@@ -132,7 +132,7 @@ void Population::spawnRetiree()
 {
 	int total_adults = mPopulation[PopulationTable::Role::Worker] + mPopulation[PopulationTable::Role::Scientist];
 
-	if (total_adults < 1) { return; }
+	if (total_adults <= 0) { return; }
 
 	mPopulationGrowth[PopulationTable::Role::Retired] += total_adults / 10;
 
@@ -153,7 +153,7 @@ void Population::spawnRetiree()
 
 void Population::killChildren(int morale, int nurseries)
 {
-	if (mPopulation[PopulationTable::Role::Child] < 1) { return; }
+	if (mPopulation[PopulationTable::Role::Child] <= 0) { return; }
 
 	mPopulationDeath[PopulationTable::Role::Child] += mPopulation[PopulationTable::Role::Child];
 
@@ -175,7 +175,7 @@ void Population::killChildren(int morale, int nurseries)
 
 void Population::killStudents(int morale, int hospitals)
 {
-	if (mPopulation[PopulationTable::Role::Student] < 1) { return; }
+	if (mPopulation[PopulationTable::Role::Student] <= 0) { return; }
 
 	mPopulationDeath[PopulationTable::Role::Student] += mPopulation[PopulationTable::Role::Student];
 
@@ -197,7 +197,7 @@ void Population::killStudents(int morale, int hospitals)
 
 void Population::killAdults(PopulationTable::Role role, int morale, int hospitals)
 {
-	if (mPopulation[role] < 1) { return; }
+	if (mPopulation[role] <= 0) { return; }
 		
 	mPopulationDeath[role] += mPopulation[role];
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
