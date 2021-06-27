@@ -3,6 +3,7 @@
 #include "../RandomNumberGenerator.h"
 #include <algorithm>
 #include <iostream>
+#include <numeric>
 
 
 namespace {
@@ -67,12 +68,7 @@ void Population::addPopulation(PersonRole role, int count)
  */
 int Population::size() const
 {
-	int count = 0;
-	for (auto& populationRole : mPopulation)
-	{
-		count += populationRole;
-	}
-	return count;
+	return std::accumulate(mPopulation.begin(), mPopulation.end(), 0);
 }
 
 
