@@ -48,3 +48,9 @@ int PopulationTable::size(Role personRole) const
 {
 	return table[static_cast<std::size_t>(personRole)];
 }
+
+
+int PopulationTable::adults() const
+{
+	return size() - size(PopulationTable::Role::Child);
+}

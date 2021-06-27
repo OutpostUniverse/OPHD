@@ -62,12 +62,6 @@ void Population::addPopulation(PopulationTable::Role role, int count)
 }
 
 
-int Population::adults() const
-{
-	return size() - size(PopulationTable::Role::Child);
-}
-
-
 /**
  * Population check for new children.
  * 
@@ -96,7 +90,7 @@ void Population::spawnStudents()
 
 	mPopulationGrowth[PopulationTable::Role::Student] += mPopulation[PopulationTable::Role::Child];
 
-	int divisor = std::max(adults(), studentToAdultBase);
+	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
 	divisor = ((divisor / 40) * 3 + 16) * 4;
 
 	int newStudents = mPopulationGrowth[PopulationTable::Role::Student] / divisor;
@@ -113,7 +107,7 @@ void Population::spawnAdults(int universities)
 
 	mPopulationGrowth[PopulationTable::Role::Worker] += mPopulation[PopulationTable::Role::Student];
 
-	int divisor = std::max(adults(), studentToAdultBase);
+	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
 	divisor = ((divisor / 40) * 3 + 45) * 4;
 
 	int newAdult = mPopulationGrowth[PopulationTable::Role::Worker] / divisor;

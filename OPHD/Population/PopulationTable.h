@@ -24,6 +24,7 @@ public:
 
 	int size() const;
 	int size(Role role)const;
+	int adults() const;
 
 private:
 	std::array<int, 5> table;
