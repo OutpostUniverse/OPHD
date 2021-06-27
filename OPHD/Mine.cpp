@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+#include <algorithm>
 #include <array>
 #include <map>
 
@@ -261,27 +262,18 @@ void Mine::checkExhausted()
  */
 int Mine::pull(OreType type, int quantity)
 {
-	int pulled_count = 0, to_pull = quantity;
+	int pullCount = 0;
 
-	for (std::size_t i = 0; i < mVeins.size(); ++i)
+	for (auto& vein : mVeins)
 	{
-		MineVein& vein = mVeins[i];
+		const auto transferAmount = std::min(vein[type], quantity - pullCount);
+		pullCount += transferAmount;
+		vein[type] -= transferAmount;
 
-		if (vein[type] >= to_pull)
-		{
-			pulled_count = to_pull;
-			vein[type] -= to_pull;
-			break;
-		}
-		else if (vein[type] < to_pull)
-		{
-			pulled_count += vein[type];
-			to_pull = to_pull - vein[type];
-			vein[type] = 0;
-		}
+		if (pullCount == quantity) { break; }
 	}
 
-	return pulled_count;
+	return pullCount;
 }
 
 
