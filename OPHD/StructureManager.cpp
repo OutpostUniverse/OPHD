@@ -515,7 +515,7 @@ Tile& StructureManager::tileFromStructure(Structure* structure)
 }
 
 
-void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
+NAS2D::Xml::XmlElement* StructureManager::serialize()
 {
 	auto* structures = new NAS2D::Xml::XmlElement("structures");
 
@@ -524,7 +524,7 @@ void StructureManager::serialize(NAS2D::Xml::XmlElement* element)
 		structures->linkEndChild(serializeStructure(structure, tile));
 	}
 
-	element->linkEndChild(structures);
+	return structures;
 }
 
 

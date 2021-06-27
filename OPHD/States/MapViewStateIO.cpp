@@ -94,7 +94,7 @@ void MapViewState::save(const std::string& filePath)
 
 	root->linkEndChild(serializeProperties());
 	mTileMap->serialize(root);
-	Utility<StructureManager>::get().serialize(root);
+	root->linkEndChild(Utility<StructureManager>::get().serialize());
 	root->linkEndChild(writeRobots(mRobotPool, mRobotList));
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 

@@ -126,7 +126,7 @@ public:
 
 	void update(const StorableResources&, PopulationPool&);
 
-	void serialize(NAS2D::Xml::XmlElement* element);
+	NAS2D::Xml::XmlElement* serialize();
 
 private:
 	using StructureTileTable = std::map<Structure*, Tile*>;
