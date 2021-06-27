@@ -65,7 +65,7 @@ void Population::addPopulation(PersonRole role, int count)
 /**
  * Gets the size of the entire population.
  */
-int Population::size()
+int Population::size() const
 {
 	int count = 0;
 	for (auto& populationRole : mPopulation)
@@ -79,7 +79,7 @@ int Population::size()
 /**
  * Gets the size of a specific segment of the population.
  */
-int Population::size(PersonRole personRole)
+int Population::size(PersonRole personRole) const
 {
 	return mPopulation[personRole];
 }

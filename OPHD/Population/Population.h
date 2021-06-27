@@ -21,8 +21,8 @@ public:
 
 	Population();
 
-	int size();
-	int size(PersonRole);
+	int size() const;
+	int size(PersonRole) const;
 
 	int birthCount() const { return mBirthCount; }
 	int deathCount() const { return mDeathCount; }
