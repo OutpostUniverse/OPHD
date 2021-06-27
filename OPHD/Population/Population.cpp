@@ -259,27 +259,27 @@ int Population::consumeFood(int food)
 		return 0;
 	}
 
-	int population_fed = food * 10;
-	if (population_fed > size())
+	int PopulationFed = food * 10;
+	if (PopulationFed > size())
 	{
 		return size() / 10;
 	}
 
 
-	int population_to_kill = static_cast<int>((size() - population_fed) * mStarveRate);
-	if (size() == 1) { population_to_kill = 1; }
+	int populationToKill = static_cast<int>((size() - PopulationFed) * mStarveRate);
+	if (size() == 1) { populationToKill = 1; }
 
-	for (int i = 0; i < population_to_kill; /**/ )
+	for (int i = 0; i < populationToKill; /**/ )
 	{
-		std::size_t role_idx = i % 5;
+		std::size_t roleIndex = i % 5;
 
 		std::size_t counter = 0;
 		for (;;)
 		{
-			role_idx = role_idx + counter;
-			if (role_idx > 4) { role_idx = 0; }
+			roleIndex = roleIndex + counter;
+			if (roleIndex > 4) { roleIndex = 0; }
 
-			if (mPopulation[role_idx] > 0)
+			if (mPopulation[roleIndex] > 0)
 			{
 				break;
 			}
@@ -288,14 +288,14 @@ int Population::consumeFood(int food)
 			if (counter > 4) { counter = 0; }
 		}
 
-		--mPopulation[role_idx];
+		--mPopulation[roleIndex];
 		++i;
 	}
 
-	mDeathCount = population_to_kill;
+	mDeathCount = populationToKill;
 
 	// actual amount of food used for the fed part of the population.
-	return population_fed / 10;
+	return PopulationFed / 10;
 }
 
 
