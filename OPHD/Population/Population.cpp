@@ -64,7 +64,7 @@ void Population::addPopulation(PopulationTable::Role role, int count)
 
 int Population::adults() const
 {
-	return mPopulation[PopulationTable::Role::Student] + mPopulation[PopulationTable::Role::Worker] + mPopulation[PopulationTable::Role::Scientist] + mPopulation[PopulationTable::Role::Retired];
+	return size() - size(PopulationTable::Role::Child);
 }
 
 
