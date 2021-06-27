@@ -5,7 +5,7 @@
 
 
 namespace {
-	void BasicCheck(Population::PersonRole role);
+	void BasicCheck(PopulationTable::Role role);
 }
 
 
@@ -24,12 +24,12 @@ void PopulationPool::population(Population* pop)
 /**
  * Gets the amount of population available for a given role.
  */
-int PopulationPool::populationAvailable(Population::PersonRole role)
+int PopulationPool::populationAvailable(PopulationTable::Role role)
 {
 	BasicCheck(role);
 
 	int employed = 0;
-	employed = role == Population::PersonRole::ROLE_SCIENTIST ? scientistsEmployed() : workersEmployed();
+	employed = role == PopulationTable::Role::Scientist ? scientistsEmployed() : workersEmployed();
 
 	return mPopulation->size(role) - employed;
 }
@@ -40,7 +40,7 @@ int PopulationPool::populationAvailable(Population::PersonRole role)
  * 
  * \returns	True if available is the same or greater than what is being asked for. False otherwise.
  */
-bool PopulationPool::enoughPopulationAvailable(Population::PersonRole role, int amount)
+bool PopulationPool::enoughPopulationAvailable(PopulationTable::Role role, int amount)
 {
 	BasicCheck(role);
 	return populationAvailable(role) >= amount;
@@ -50,18 +50,18 @@ bool PopulationPool::enoughPopulationAvailable(Population::PersonRole role, int 
 /**
  * Marks a given amount of the population as set.
  * 
- * \warning	Will throw an exception if any role other than Population::PersonRole::ROLE_SCIENTIST or Population::PersonRole::ROLE_WORKER is specified.
+ * \warning	Will throw an exception if any role other than Population::Role::Scientist or Population::Role::Worker is specified.
  * 
  * \return	Returns true if population was assigned. False if insufficient population.
  */
-bool PopulationPool::usePopulation(Population::PersonRole role, int amount)
+bool PopulationPool::usePopulation(PopulationTable::Role role, int amount)
 {
 	BasicCheck(role);
-	int scientistsAvailable = mPopulation->size(Population::PersonRole::ROLE_SCIENTIST) - (mScientistsAsWorkers + mScientistsUsed);
-	int workersAvailable = mPopulation->size(Population::PersonRole::ROLE_WORKER) - mWorkersUsed;
+	int scientistsAvailable = mPopulation->size(PopulationTable::Role::Scientist) - (mScientistsAsWorkers + mScientistsUsed);
+	int workersAvailable = mPopulation->size(PopulationTable::Role::Worker) - mWorkersUsed;
 
 
-	if (role == Population::PersonRole::ROLE_SCIENTIST)
+	if (role == PopulationTable::Role::Scientist)
 	{
 		if (amount <= scientistsAvailable)
 		{
@@ -69,7 +69,7 @@ bool PopulationPool::usePopulation(Population::PersonRole role, int amount)
 			return true;
 		}
 	}
-	else if (role == Population::PersonRole::ROLE_WORKER)
+	else if (role == PopulationTable::Role::Worker)
 	{
 		if (amount <= workersAvailable + scientistsAvailable)
 		{
@@ -152,16 +152,16 @@ namespace {
 	 *
 	 * \throws	std::runtime_exception if Child/Student/Retired is asked for.
 	 */
-	void BasicCheck(Population::PersonRole role)
+	void BasicCheck(PopulationTable::Role role)
 	{
-		if (role == Population::PersonRole::ROLE_CHILD || role == Population::PersonRole::ROLE_STUDENT || role == Population::PersonRole::ROLE_RETIRED)
+		if (role == PopulationTable::Role::Child || role == PopulationTable::Role::Student || role == PopulationTable::Role::Retired)
 		{
 			std::string roleTypeName;
 			switch (role)
 			{
-			case Population::PersonRole::ROLE_CHILD: roleTypeName = "Population::PersonRole::ROLE_CHILD"; break;
-			case Population::PersonRole::ROLE_STUDENT: roleTypeName = "Population::PersonRole::ROLE_STUDENT"; break;
-			case Population::PersonRole::ROLE_RETIRED: roleTypeName = "Population::PersonRole::ROLE_RETIRED"; break;
+			case PopulationTable::Role::Child: roleTypeName = "PopulationTable::Role::Child"; break;
+			case PopulationTable::Role::Student: roleTypeName = "PopulationTable::Role::Student"; break;
+			case PopulationTable::Role::Retired: roleTypeName = "PopulationTable::Role::Retired"; break;
 			default: break;
 			}
 
