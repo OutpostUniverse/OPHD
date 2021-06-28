@@ -26,11 +26,11 @@ void ProductListBox::productPool(ProductPool& pool)
 {
 	clear();
 
-	const auto totalProducts = static_cast<std::size_t>(ProductType::PRODUCT_COUNT);
+	const auto productTypeCount = static_cast<std::size_t>(ProductType::PRODUCT_COUNT);
 
-	for (std::size_t product_type = 0; product_type < totalProducts; ++product_type)
+	for (std::size_t productTypeIndex = 0; productTypeIndex < productTypeCount; ++productTypeIndex)
 	{
-		const auto productType = static_cast<ProductType>(product_type);
+		const auto productType = static_cast<ProductType>(productTypeIndex);
 		const auto productCount = pool.count(productType);
 
 		if (productCount > 0)
