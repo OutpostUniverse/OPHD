@@ -115,6 +115,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
+	resetPoliceOverlays();
 	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
@@ -129,6 +130,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mMapDisplay{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
 	mHeightMap{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)}
 {
+	resetPoliceOverlays();
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
@@ -1444,11 +1446,7 @@ void MapViewState::checkCommRangeOverlay()
 
 void MapViewState::checkSurfacePoliceOverlay()
 {
-	mPoliceOverlays.clear();
-	for (int i = 0; i <= mTileMap->maxDepth(); ++i)
-	{
-		mPoliceOverlays.push_back(TileList());
-	}
+	resetPoliceOverlays();
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
@@ -1469,6 +1467,16 @@ void MapViewState::checkSurfacePoliceOverlay()
 		auto depth = structureManager.tileFromStructure(undergroundPoliceStation).depth();
 		auto& centerTile = structureManager.tileFromStructure(undergroundPoliceStation);
 		fillRangedAreaList(mPoliceOverlays[depth], centerTile, undergroundPoliceStation->getRange(), depth);
+	}
+}
+
+
+void MapViewState::resetPoliceOverlays()
+{
+	mPoliceOverlays.clear();
+	for (int i = 0; i <= mTileMap->maxDepth(); ++i)
+	{
+		mPoliceOverlays.push_back(TileList());
 	}
 }
 
