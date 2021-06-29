@@ -115,7 +115,6 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
 {
-	resetPoliceOverlays();
 	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
@@ -130,7 +129,6 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mMapDisplay{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
 	mHeightMap{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)}
 {
-	resetPoliceOverlays();
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
 	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
@@ -195,6 +193,8 @@ void MapViewState::initialize()
 		// StructureCatalogue is initialized in load routine if saved game present to load existing structures
 		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance); 
 	}
+
+	resetPoliceOverlays();
 
 	Utility<Renderer>::get().fadeIn(constants::FadeSpeed);
 
