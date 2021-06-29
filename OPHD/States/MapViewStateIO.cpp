@@ -164,7 +164,6 @@ void MapViewState::load(const std::string& filePath)
 	mBtnToggleHeightmap.toggle(false);
 	mPopulationPanel.clearMoraleReasons();
 
-
 	if (!Utility<Filesystem>::get().exists(filePath))
 	{
 		throw std::runtime_error("File '" + filePath + "' was not found.");
