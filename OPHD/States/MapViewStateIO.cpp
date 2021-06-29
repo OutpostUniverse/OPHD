@@ -407,7 +407,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto extension = structureElement->firstChildElement("extension");
 			if (extension)
 			{
-				mineFacility.digTimeRemaining(attributesToDictionary(*trucks).get<int>("turns_remaining"));
+				mineFacility.digTimeRemaining(attributesToDictionary(*extension).get<int>("turns_remaining"));
 			}
 		}
 
