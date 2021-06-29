@@ -225,6 +225,7 @@ void MapViewState::load(const std::string& filePath)
 	updateResidentialCapacity();
 	updateStructuresAvailability();
 
+	updateRoads();
 	findMineRoutes();
 	countFood();
 	countPlayerResources();
