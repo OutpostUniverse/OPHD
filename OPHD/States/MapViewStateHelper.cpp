@@ -552,14 +552,9 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 // = CONVENIENCE FUNCTIONS FOR WRITING OUT GAME STATE INFORMATION
 // ==============================================================
 
-NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot, Robot::Type type)
+NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot)
 {
-	NAS2D::Dictionary dictionary{{
-		{"id", robot.id()},
-		{"type", static_cast<int>(type)},
-		{"age", robot.fuelCellAge()},
-		{"production", robot.turnsToCompleteTask()},
-	}};
+	NAS2D::Dictionary dictionary = robot.getDataDict();
 
 	const auto it = robotTileTable.find(&robot);
 	if (it != robotTileTable.end())
@@ -583,20 +578,20 @@ NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotM
 
 	for (auto digger : robotPool.diggers())
 	{
-		auto dictionary = robotToDictionary(robotMap, *digger, Robot::Type::Digger);
+		auto dictionary = robotToDictionary(robotMap, *digger);
 		dictionary.set("direction", static_cast<int>(digger->direction()));
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
 	for (auto dozer : robotPool.dozers())
 	{
-		auto dictionary = robotToDictionary(robotMap, *dozer, Robot::Type::Dozer);
+		auto dictionary = robotToDictionary(robotMap, *dozer);
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
 	for (auto miner : robotPool.miners())
 	{
-		auto dictionary = robotToDictionary(robotMap, *miner, Robot::Type::Miner);
+		auto dictionary = robotToDictionary(robotMap, *miner);
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
