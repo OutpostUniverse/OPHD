@@ -2,6 +2,8 @@
 
 #include "../Thing.h"
 
+#include <NAS2D/Dictionary.h>
+
 
 class Robot: public Thing
 {
@@ -41,6 +43,8 @@ public:
 
 	void id(int newId) { mId = newId; }
 	int id() const { return mId; }
+
+	virtual NAS2D::Dictionary getDataDict() const;
 
 protected:
 	void incrementFuelCellAge() { mFuelCellAge++; }

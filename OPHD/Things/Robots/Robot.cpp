@@ -19,6 +19,17 @@ void Robot::startTask(int turns)
 }
 
 
+NAS2D::Dictionary Robot::getDataDict() const
+{
+	return {{
+		{"id", mId},
+		{"type", static_cast<int>(mType)},
+		{"age", mFuelCellAge},
+		{"production", mTurnsToCompleteTask},
+	}};
+}
+
+
 void Robot::updateTask()
 {
 	if (mSelfDestruct)

@@ -20,6 +20,13 @@ public:
 
 	void update() override { updateTask(); }
 
+	NAS2D::Dictionary getDataDict() const override
+	{
+		auto dictionary = Robot::getDataDict();
+		dictionary.set("direction", static_cast<int>(mDirection));
+		return dictionary;
+	}
+
 private:
 
 	Direction mDirection;
