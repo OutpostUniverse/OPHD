@@ -579,7 +579,6 @@ NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotM
 	for (auto digger : robotPool.diggers())
 	{
 		auto dictionary = robotToDictionary(robotMap, *digger);
-		dictionary.set("direction", static_cast<int>(digger->direction()));
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
