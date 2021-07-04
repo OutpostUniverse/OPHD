@@ -130,7 +130,7 @@ void MapViewState::save(const std::string& filePath)
 	XmlMemoryBuffer buff;
 	doc.accept(&buff);
 
-	Utility<Filesystem>::get().write(File(buff.buffer(), filePath));
+	Utility<Filesystem>::get().write(filePath, buff.buffer());
 }
 
 
