@@ -39,7 +39,7 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 {
 	if (structure.foodLevel() > 0)
 	{
-		int foodStolen = 15;
+		int foodStolen = static_cast<int>(stealingMultipliers.at(mDifficulty) * 15);
 		if (foodStolen > structure.foodLevel())
 		{
 			foodStolen = structure.foodLevel();
@@ -80,7 +80,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 
 	auto indexToStealFrom = randomNumber.generate<int>(0, static_cast<int>(resourceIndicesWithStock.size()) - 1);
 
-	int amountStolen = 5;
+	int amountStolen = static_cast<int>(stealingMultipliers.at(mDifficulty) * 5);
 	if (amountStolen > structure.storage().resources[indexToStealFrom])
 	{
 		amountStolen = structure.storage().resources[indexToStealFrom];
