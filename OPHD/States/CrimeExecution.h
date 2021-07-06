@@ -34,4 +34,5 @@ private:
 	NotificationArea& mNotificationArea;
 
 	void stealResources(Structure& structure, const std::array<std::string, 4>& resourceNames);
+	int calcAmountForStealing(int unadjustedMin, int unadjustedMax);
 };
