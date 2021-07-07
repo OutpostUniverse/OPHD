@@ -50,7 +50,7 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
 		
 		mNotificationArea.push("Food Stolen",
-			NAS2D::stringFrom(foodStolen) + " units of food was pilfered from a " + structure.name() + ".",
+			NAS2D::stringFrom(foodStolen) + " units of food was pilfered from a " + structure.name() + ". " + getReasonForStealing() + ".",
 			structureTile.position(),
 			NotificationArea::NotificationType::Warning);
 	}
@@ -91,7 +91,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
 
 	mNotificationArea.push("Resources Stolen",
-		NAS2D::stringFrom(amountStolen) + " units of " + resourceNames[indexToStealFrom] + " were stolen from a " + structure.name() + ".",
+		NAS2D::stringFrom(amountStolen) + " units of " + resourceNames[indexToStealFrom] + " were stolen from a " + structure.name() + ". " + getReasonForStealing() + ".",
 		structureTile.position(),
 		NotificationArea::NotificationType::Warning);
 }
@@ -101,4 +101,9 @@ int CrimeExecution::calcAmountForStealing(int unadjustedMin, int unadjustedMax)
 	auto amountToSteal = randomNumber.generate(unadjustedMin, unadjustedMax);
 	
 	return static_cast<int>(stealingMultipliers.at(mDifficulty) * amountToSteal);
+}
+
+std::string CrimeExecution::getReasonForStealing()
+{
+	return stealingResoureReasons[randomNumber.generate<std::size_t>(0, stealingResoureReasons.size() - 1)];
 }

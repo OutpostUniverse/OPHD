@@ -6,6 +6,7 @@
 #include <vector>
 #include <array>
 #include <map>
+#include <string>
 
 
 class CrimeExecution 
@@ -30,9 +31,20 @@ private:
 		{Difficulty::Hard, 1.5f}
 	};
 
+	const static inline std::vector<std::string> stealingResoureReasons
+	{
+		"There are no identified suspects",
+		"An investigation has been opened",
+		"A local crime syndicate is under investigation",
+		"A suspect was aprehended but the goods remain unaccounted for",
+		"A separatist political movement has claimed responsibility",
+		"The rebel faction is suspected in preparation for a splinter colony"
+	};
+
 	Difficulty mDifficulty{ Difficulty::Medium };
 	NotificationArea& mNotificationArea;
 
 	void stealResources(Structure& structure, const std::array<std::string, 4>& resourceNames);
 	int calcAmountForStealing(int unadjustedMin, int unadjustedMax);
+	std::string getReasonForStealing();
 };
