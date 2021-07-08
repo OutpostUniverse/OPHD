@@ -131,9 +131,9 @@ const std::string& moraleString(int index)
 }
 
 
-const std::string& moraleString(Morale m)
+const std::string& moraleString(Morale morale)
 {
-	return MoraleStringTable[static_cast<int>(m)];
+	return MoraleStringTable[static_cast<int>(morale)];
 }
 
 

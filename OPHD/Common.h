@@ -344,8 +344,8 @@ const std::string& idleReason(IdleReason);
 /**
  * Gets a morale string based on value;
  */
-const std::string& moraleString(int);
-const std::string& moraleString(Morale);
+const std::string& moraleString(int index);
+const std::string& moraleString(Morale morale);
 int moraleStringTableCount();
 
 /**
