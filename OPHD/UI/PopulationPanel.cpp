@@ -29,9 +29,9 @@ static const std::array trend
 };
 
 
-static const auto moraleIndex = [](int val)
+static int moraleIndex(int morale)
 {
-	return std::clamp(val, 0, 999) / 200;
+	return std::clamp(morale, 0, 999) / 200;
 };
 
 
