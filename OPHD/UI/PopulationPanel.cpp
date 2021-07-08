@@ -32,7 +32,7 @@ static const std::array trend
 static int moraleIndex(int morale)
 {
 	return std::clamp(morale, 0, 999) / 200;
-};
+}
 
 
 static const std::array moraleStringColor
