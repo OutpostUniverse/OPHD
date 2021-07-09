@@ -4,19 +4,19 @@
 #include "../Common.h"
 #include <vector>
 #include <map>
+#include <string>
+#include <utility>
 
-class PopulationPanel;
 class Structure;
 
 
 class CrimeRateUpdate
 {
 public:
-	CrimeRateUpdate(PopulationPanel& populationPanel);
-
 	void update(const std::vector<TileList>& policeOverlays);
 
-	int moraleChange() const { return mMoraleChange; }
+	int meanCrimeRate() const { return mMeanCrimeRate; }
+	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
 	void difficulty(Difficulty difficulty) { mDifficulty = difficulty; }
 	std::vector<Structure*> structuresCommittingCrimes() const { return mStructuresCommittingCrimes; }
 
@@ -31,11 +31,11 @@ private:
 	};
 
 	Difficulty mDifficulty{ Difficulty::Medium };
-	PopulationPanel& mPopulationPanel;
-	int mMoraleChange{ 0 };
+	int mMeanCrimeRate{ 0 };
+	std::vector<std::pair<std::string, int>> mMoraleChanges;
 	std::vector<Structure*> mStructuresCommittingCrimes;
 
 	bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure);
-	int calculateMoraleChange(int meanCrimeRate);
-	void updateCrimeOnPopulationPanel(int moraleChange, int meanCrimeRate);
+	int calculateMoraleChange();
+	void updateMoraleChanges();
 };
