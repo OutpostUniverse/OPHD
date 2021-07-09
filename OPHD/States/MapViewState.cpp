@@ -232,10 +232,10 @@ void MapViewState::_deactivate()
 }
 
 
-void MapViewState::focusOnStructure(Structure* s)
+void MapViewState::focusOnStructure(Structure* structure)
 {
-	if (!s) { return; }
-	mTileMap->centerMapOnTile(&Utility<StructureManager>::get().tileFromStructure(s));
+	if (!structure) { return; }
+	mTileMap->centerMapOnTile(&Utility<StructureManager>::get().tileFromStructure(structure));
 }
 
 
