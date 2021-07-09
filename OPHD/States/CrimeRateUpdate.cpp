@@ -6,20 +6,17 @@
 #include <NAS2D/Utility.h>
 
 
-CrimeRateUpdate::CrimeRateUpdate(PopulationPanel& populationPanel) : mPopulationPanel(populationPanel) { }
-
-
 void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
 {
+	mMeanCrimeRate = 0;
 	mStructuresCommittingCrimes.clear();
-	mMoraleChange = 0;
+	mMoraleChanges.clear();
 
 	const auto& structuresWithCrime = NAS2D::Utility<StructureManager>::get().structuresWithCrime();
 
 	// Colony will not have a crime rate until at least one structure that supports crime is built
 	if (structuresWithCrime.empty())
 	{
-		updateCrimeOnPopulationPanel(0, 0);
 		return;
 	}
 
@@ -41,10 +38,9 @@ void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
 		accumulatedCrime += structure->crimeRate();
 	}
 
-	int meanCrimeRate = static_cast<int>(accumulatedCrime / structuresWithCrime.size());
-	mMoraleChange = calculateMoraleChange(meanCrimeRate);
+	mMeanCrimeRate = static_cast<int>(accumulatedCrime / structuresWithCrime.size());
 
-	updateCrimeOnPopulationPanel(mMoraleChange, meanCrimeRate);
+	updateMoraleChanges();
 }
 
 
@@ -64,14 +60,14 @@ bool CrimeRateUpdate::isProtectedByPolice(const std::vector<TileList>& policeOve
 }
 
 
-int CrimeRateUpdate::calculateMoraleChange(int meanCrimeRate)
+int CrimeRateUpdate::calculateMoraleChange()
 {
-	if (meanCrimeRate > 50)
+	if (mMeanCrimeRate > 50)
 	{
 		// Reduce morale by 1 for every 10% above 50%
-		return -1 * (meanCrimeRate / 10 - 4);
+		return -1 * (mMeanCrimeRate / 10 - 4);
 	}
-	else if (meanCrimeRate < 10)
+	else if (mMeanCrimeRate < 10)
 	{
 		return 1;
 	}
@@ -80,16 +76,16 @@ int CrimeRateUpdate::calculateMoraleChange(int meanCrimeRate)
 }
 
 
-void CrimeRateUpdate::updateCrimeOnPopulationPanel(int moraleChange, int meanCrimeRate)
+void CrimeRateUpdate::updateMoraleChanges()
 {
-	mPopulationPanel.crimeRate(meanCrimeRate);
+	auto moraleChange = calculateMoraleChange();
 
 	if (moraleChange > 0)
 	{
-		mPopulationPanel.addMoraleReason("Low Crime Rate", moraleChange);
+		mMoraleChanges.push_back(std::make_pair("Low Crime Rate", moraleChange));
 	}
 	else if (moraleChange < 0)
 	{
-		mPopulationPanel.addMoraleReason("High Crime Rate", moraleChange);
+		mMoraleChanges.push_back(std::make_pair("High Crime Rate", moraleChange));
 	}
 }

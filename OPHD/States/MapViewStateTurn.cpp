@@ -215,6 +215,14 @@ void MapViewState::updateMorale()
 	mPopulationPanel.addMoraleReason(moraleString(Morale::BiowasteOverflow), bioWasteAccumulation * -2);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDisabled), -structuresDisabled);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDestroyed), -structuresDestroyed);
+	
+	for (const auto& moraleReason : mCrimeRateUpdate.moraleChanges())
+	{
+		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
+		mCurrentMorale += moraleReason.second;
+	}
+
+	mPopulationPanel.crimeRate(mCrimeRateUpdate.meanCrimeRate());
 
 	// Push notifications
 	if (birthCount)
@@ -601,7 +609,6 @@ void MapViewState::nextTurn()
 	transferFoodToCommandCenter();
 
 	mCrimeRateUpdate.update(mPoliceOverlays);
-	mCurrentMorale += mCrimeRateUpdate.moraleChange();
 	auto structuresCommittingCrimes = mCrimeRateUpdate.structuresCommittingCrimes();
 	mCrimeExecution.executeCrimes(structuresCommittingCrimes);
 

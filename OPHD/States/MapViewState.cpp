@@ -110,7 +110,6 @@ static void pushAgingRobotMessage(const Robot* robot, const Point<int> position,
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mMainReportsState(mainReportsState),
-	mCrimeRateUpdate(mPopulationPanel),
 	mCrimeExecution(mNotificationArea),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame)
@@ -123,7 +122,6 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mMainReportsState(mainReportsState),
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
-	mCrimeRateUpdate(mPopulationPanel),
 	mCrimeExecution(mNotificationArea),
 	mPlanetAttributes(planetAttributes),
 	mMapDisplay{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
