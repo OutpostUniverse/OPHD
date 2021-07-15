@@ -16,7 +16,7 @@ using namespace NAS2D;
 RadioButtonGroup::RadioButtonGroup(std::vector<ButtonInfo> buttonInfos)
 {
 	mRadioButtons.reserve(buttonInfos.size());
-	for(auto &buttonInfo : buttonInfos)
+	for (auto &buttonInfo : buttonInfos)
 	{
 		NAS2D::Vector<int> offset = {0, 13};
 		offset.y = static_cast<int>(mRadioButtons.size()) * offset.y;
