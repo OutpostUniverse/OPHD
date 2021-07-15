@@ -130,7 +130,7 @@ std::vector<Planet::Attributes> parsePlanetAttributes()
 }
 
 
-namespace 
+namespace
 {
 	Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode)
 	{

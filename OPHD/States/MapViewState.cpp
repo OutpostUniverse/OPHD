@@ -41,7 +41,7 @@ Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
 
 std::string CURRENT_LEVEL_STRING;
 
-std::map <int, std::string> LEVEL_STRING_TABLE = 
+std::map <int, std::string> LEVEL_STRING_TABLE =
 {
 	{ constants::DepthSurface, constants::LevelSurface },
 	{ constants::DepthUnderground1, constants::Levelunderground1 },
@@ -182,14 +182,14 @@ void MapViewState::initialize()
 
 	mPopulationPool.population(&mPopulation);
 
-	if (mLoadingExisting) 
-	{ 
-		load(mExistingToLoad); 
+	if (mLoadingExisting)
+	{
+		load(mExistingToLoad);
 	}
-	else 
-	{ 
+	else
+	{
 		// StructureCatalogue is initialized in load routine if saved game present to load existing structures
-		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance); 
+		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
 	}
 
 	resetPoliceOverlays();

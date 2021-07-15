@@ -163,7 +163,7 @@ void StringTable::computeRelativeCellPositions()
 	{
 		mScreenRect.size({ 0, 0 });
 	}
-	else 
+	else
 	{
 		mScreenRect.width = mCells.back().textOffset.x + columnWidths.back();
 		mScreenRect.height = mCells.back().textOffset.y + rowHeights.back();

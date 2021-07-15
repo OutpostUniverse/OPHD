@@ -9,7 +9,7 @@
 #include <string>
 
 
-class CrimeExecution 
+class CrimeExecution
 {
 public:
 	CrimeExecution(NotificationArea& notificationArea);

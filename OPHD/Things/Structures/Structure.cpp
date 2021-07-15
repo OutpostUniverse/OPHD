@@ -336,7 +336,7 @@ void Structure::forced_state_change(StructureState structureState, DisabledReaso
  *
  * \note	This is for debug purposes only. Release modes will silently ignore this condition
  *			and simply act as a passthrough.
- * 
+ *
  * \throws	Throws \c std::runtime_error
  */
 void Structure::die()
@@ -347,15 +347,15 @@ void Structure::die()
 }
 
 
-void Structure::crimeRate(int crimeRate) 
-{ 
-	mCrimeRate = std::clamp(crimeRate, 0, 100); 
+void Structure::crimeRate(int crimeRate)
+{
+	mCrimeRate = std::clamp(crimeRate, 0, 100);
 }
 
 
-void Structure::increaseCrimeRate(int deltaCrimeRate) 
-{ 
-	mCrimeRate = std::clamp(mCrimeRate + deltaCrimeRate, 0, 100); 
+void Structure::increaseCrimeRate(int deltaCrimeRate)
+{
+	mCrimeRate = std::clamp(mCrimeRate + deltaCrimeRate, 0, 100);
 }
 
 

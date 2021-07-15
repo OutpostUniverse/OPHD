@@ -98,7 +98,7 @@ void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mo
 
 void FileIo::setMode(FileOperation fileOp)
 {
-	mMode = fileOp; 
+	mMode = fileOp;
 	title(mMode == FileOperation::Load ? constants::WindowFileIoTitleLoad : constants::WindowFileIoTitleSave);
 	btnFileOp.text(mMode == FileOperation::Load ? constants::WindowFileIoLoad : constants::WindowFileIoSave);
 }

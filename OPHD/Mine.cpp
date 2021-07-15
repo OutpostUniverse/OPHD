@@ -11,9 +11,9 @@
 
 /**
  * Yield ore table
- * 
+ *
  * \note Follows the array layout conventions of the StorableResources class
- * 
+ *
  * [0] Common Metals
  * [1] Common Minerals
  * [2] Rare Metals
@@ -28,7 +28,7 @@ static const std::map<MineProductionRate, std::array<int, 4>> YieldTable =
 
 
 /**
- * Helper function that gets the total amount of ore 
+ * Helper function that gets the total amount of ore
  */
 static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, int depth)
 {
