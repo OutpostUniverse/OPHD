@@ -100,7 +100,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 
 	const auto levelCount = static_cast<std::size_t>(mMaxDepth) + 1;
 	mTileMap.resize(levelCount);
-	for(std::size_t level = 0; level < levelCount; level++)
+	for (std::size_t level = 0; level < levelCount; level++)
 	{
 		mTileMap[level].resize(static_cast<std::size_t>(mSizeInTiles.y));
 		for (std::size_t i = 0; i < mTileMap[level].size(); i++)
