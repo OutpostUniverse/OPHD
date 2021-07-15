@@ -198,7 +198,7 @@ void Population::killStudents(int morale, int hospitals)
 void Population::killAdults(PopulationTable::Role role, int morale, int hospitals)
 {
 	if (mPopulation[role] <= 0) { return; }
-		
+
 	mPopulationDeath[role] += mPopulation[role];
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
 
