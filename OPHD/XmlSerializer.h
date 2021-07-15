@@ -15,7 +15,7 @@
 NAS2D::Xml::XmlDocument openXmlFile(std::string filename, std::string rootElementName);
 
 
-template<typename T>
+template <typename T>
 T stringToEnum(const std::unordered_map<std::string, T>& table, std::string value)
 {
 	auto it = table.find(value);
@@ -28,7 +28,7 @@ T stringToEnum(const std::unordered_map<std::string, T>& table, std::string valu
 }
 
 
-template<typename T>
+template <typename T>
 T stringToEnum(const std::map<std::string, T>& table, std::string value)
 {
 	auto it = table.find(value);
@@ -42,7 +42,7 @@ T stringToEnum(const std::map<std::string, T>& table, std::string value)
 
 
 // Create an overload to parse specific enums
-template<typename T, std::enable_if_t<!std::is_enum<T>::value, bool> = true>
+template <typename T, std::enable_if_t<!std::is_enum<T>::value, bool> = true>
 void parseElementValue(T& destination, const NAS2D::Xml::XmlElement* element)
 {
 	try 
