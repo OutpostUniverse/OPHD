@@ -230,7 +230,7 @@ void IconGrid::removeItem(const std::string& item)
 {
 	const auto lowerCaseTarget = toLowercase(item);
 
-	const auto iter = std::find_if (
+	const auto iter = std::find_if(
 		mIconItemList.begin(),
 		mIconItemList.end(),
 		[&lowerCaseTarget](const auto& iconItem) {
