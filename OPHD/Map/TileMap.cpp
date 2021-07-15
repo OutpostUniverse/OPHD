@@ -76,7 +76,7 @@ void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 
 bool TileMap::isValidPosition(NAS2D::Point<int> position, int level) const
 {
-	 return NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position) && level >= 0 && level <= mMaxDepth;
+	return NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position) && level >= 0 && level <= mMaxDepth;
 }
 
 
