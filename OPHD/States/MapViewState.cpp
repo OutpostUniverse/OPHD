@@ -630,7 +630,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 			{
 				placeRobot();
 			}
-			else if ( (mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
+			else if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 			{
 				placeTubeStart();
 			}
