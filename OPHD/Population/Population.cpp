@@ -241,7 +241,7 @@ int Population::consumeFood(int food)
 	int populationToKill = static_cast<int>((mPopulation.size() - PopulationFed) * mStarveRate);
 	if (mPopulation.size() == 1) { populationToKill = 1; }
 
-	for (int i = 0; i < populationToKill; /**/ )
+	for (int i = 0; i < populationToKill; /**/)
 	{
 		std::size_t roleIndex = i % 5;
 
