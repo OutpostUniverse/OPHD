@@ -32,7 +32,7 @@ const NAS2D::Color& overlayColor(Tile::Overlay overlay, bool isHighlighted)
 	{
 		return overlayHighlightColor(overlay);
 	}
-		
+
 	return overlayColor(overlay);
 }
 
