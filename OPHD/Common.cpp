@@ -442,12 +442,12 @@ NAS2D::Xml::XmlDocument openSavegame(const std::string& filename)
 }
 
 
-NAS2D::StringList split_string(const char *str, char delim)
+NAS2D::StringList split_string(const char* str, char delim)
 {
 	std::vector<std::string> result;
 	do
 	{
-		const char *begin = str;
+		const char* begin = str;
 		while (*str != delim && *str) { str++; }
 		result.push_back(std::string(begin, str));
 	} while (0 != *str++);

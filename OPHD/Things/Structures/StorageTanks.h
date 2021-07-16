@@ -30,7 +30,7 @@ public:
 
 		stringTable.setColumnText(
 			0,
-			{ 
+			{
 				"Storage Capacity",
 				ResourceNamesRefined[0],
 				ResourceNamesRefined[2],

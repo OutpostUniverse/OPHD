@@ -23,7 +23,7 @@ public:
 	void clear();
 
 	int size() const;
-	int size(Role role)const;
+	int size(Role role) const;
 	int adults() const;
 
 private:

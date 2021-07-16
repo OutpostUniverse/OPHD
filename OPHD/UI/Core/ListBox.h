@@ -167,7 +167,7 @@ public:
 		auto itemDrawArea = mScrollArea;
 		itemDrawArea.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
 		itemDrawArea.height = static_cast<int>(lineHeight);
-		for(std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
+		for (std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
 		{
 			const auto isSelected = (i == mSelectedIndex);
 			const auto isHighlighted = (i == mHighlightIndex);

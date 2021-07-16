@@ -198,7 +198,7 @@ void Population::killStudents(int morale, int hospitals)
 void Population::killAdults(PopulationTable::Role role, int morale, int hospitals)
 {
 	if (mPopulation[role] <= 0) { return; }
-		
+
 	mPopulationDeath[role] += mPopulation[role];
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
 
@@ -241,7 +241,7 @@ int Population::consumeFood(int food)
 	int populationToKill = static_cast<int>((mPopulation.size() - PopulationFed) * mStarveRate);
 	if (mPopulation.size() == 1) { populationToKill = 1; }
 
-	for (int i = 0; i < populationToKill; /**/ )
+	for (int i = 0; i < populationToKill; /**/)
 	{
 		std::size_t roleIndex = i % 5;
 
@@ -288,7 +288,7 @@ int Population::update(int morale, int food, int residences, int universities, i
 	killStudents(morale, hospitals);
 
 	// Workers will die more often than scientists.
-	auto employableRoleToKill = randomNumber.generate(0, 100) <= 45 ? 
+	auto employableRoleToKill = randomNumber.generate(0, 100) <= 45 ?
 		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
 	killAdults(employableRoleToKill, morale, hospitals);
 

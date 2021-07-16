@@ -240,7 +240,7 @@ void MainMenuState::onHelp()
 	system("xdg-open https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
 #else
 	//#error Open a web page support on the current platform not implemented.
-	#pragma message( "Open a web page support on the current platform not implemented." )
+	#pragma message("Open a web page support on the current platform not implemented.")
 #endif
 }
 

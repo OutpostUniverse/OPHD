@@ -76,7 +76,7 @@ void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 
 bool TileMap::isValidPosition(NAS2D::Point<int> position, int level) const
 {
-	 return NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position) && level >= 0 && level <= mMaxDepth;
+	return NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position) && level >= 0 && level <= mMaxDepth;
 }
 
 
@@ -100,7 +100,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 
 	const auto levelCount = static_cast<std::size_t>(mMaxDepth) + 1;
 	mTileMap.resize(levelCount);
-	for(std::size_t level = 0; level < levelCount; level++)
+	for (std::size_t level = 0; level < levelCount; level++)
 	{
 		mTileMap[level].resize(static_cast<std::size_t>(mSizeInTiles.y));
 		for (std::size_t i = 0; i < mTileMap[level].size(); i++)
@@ -117,11 +117,11 @@ void TileMap::buildTerrainMap(const std::string& path)
 	 * that all channels are the same value so it only looks at the red.
 	 * Color values are divided by 50 to get a height value from 1 - 4.
 	 */
-	for(int depth = 0; depth <= mMaxDepth; depth++)
+	for (int depth = 0; depth <= mMaxDepth; depth++)
 	{
-		for(int row = 0; row < mSizeInTiles.y; row++)
+		for (int row = 0; row < mSizeInTiles.y; row++)
 		{
-			for(int col = 0; col < mSizeInTiles.x; col++)
+			for (int col = 0; col < mSizeInTiles.x; col++)
 			{
 				auto color = heightmap.pixelColor({col, row});
 				auto& tile = getTile({col, row}, depth);
@@ -216,9 +216,9 @@ void TileMap::buildMouseMap()
 		mMouseMap[i].resize(TILE_WIDTH);
 	}
 
-	for(std::size_t row = 0; row < TILE_HEIGHT_ABSOLUTE; row++)
+	for (std::size_t row = 0; row < TILE_HEIGHT_ABSOLUTE; row++)
 	{
-		for(std::size_t col = 0; col < TILE_WIDTH; col++)
+		for (std::size_t col = 0; col < TILE_WIDTH; col++)
 		{
 			const Color c = mousemap.pixelColor({static_cast<int>(col), static_cast<int>(row)});
 			if (c == NAS2D::Color::Yellow) { mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_RIGHT; }

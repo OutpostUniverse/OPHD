@@ -12,7 +12,7 @@ void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresComm
 {
 	for (auto& structure : structuresCommittingCrime)
 	{
-		if (structure == nullptr) 
+		if (structure == nullptr)
 		{
 			continue;
 		}

@@ -334,7 +334,7 @@ unsigned PathNodePool::Hash(void* voidval)
 	const unsigned char *p = (unsigned char *)(&val);
 	unsigned int h = 2166136261;
 
-	for( std::size_t i=0; i<sizeof(MP_UPTR); ++i, ++p ) {
+	for (std::size_t i=0; i<sizeof(MP_UPTR); ++i, ++p) {
 		h ^= *p;
 		h *= 16777619;
 	}
