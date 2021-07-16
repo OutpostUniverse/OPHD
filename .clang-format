@@ -1,0 +1,82 @@
+Language: Cpp
+AccessModifierOffset: -4
+AlignTrailingComments: false
+AllowShortBlocksOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+
+AllowShortLambdasOnASingleLine: All
+AlwaysBreakTemplateDeclarations: MultiLine
+BinPackArguments: true
+BinPackParameters: false
+#BreakBeforeBraces: Allman
+BreakBeforeBraces: Custom #Allman, but not quite
+BraceWrapping:
+    AfterClass: true
+    AfterControlStatement: true
+    AfterEnum: true
+    AfterFunction: true
+    AfterNamespace: true
+    AfterStruct: true
+    AfterUnion: true
+    AfterExternBlock: true
+    BeforeCatch: true
+    BeforeElse: true
+    IndentBraces: false
+    SplitEmptyFunction: false
+    SplitEmptyRecord: false
+    SplitEmptyNamespace: false
+
+BreakBeforeBinaryOperators: NonAssignment
+BreakConstructorInitializers: AfterColon
+ColumnLimit: 0
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+ConstructorInitializerIndentWidth: 4
+FixNamespaceComments: false
+IncludeBlocks: Preserve
+IncludeCategories:
+# Prefer project-specific includes first
+#i.e. Prefer "my" includes before other libraries
+#First local multi-folder (usually not in the same directory) includes
+# e.g. #include "NAS2D/Renderer/Renderer.h"
+    - Regex: '\"([[:alnum:]_]+\/)+[[:alnum:]_]+\.(h|c)(pp)?\"'
+    - Priority: 4
+#Then local project-specific includes
+# e.g. #include "Mixer.h" in MixerSDL.h file
+    - Regex: '\"[[:alnum:]_]+\.(h|c)(pp)?\"'
+    - Priority: 3
+#Followed by global STL and Library headers
+# e.g. #include <iostream>
+    - Regex: '\<[[:alnum:]_]+\>'
+    - Priority: 2
+#Lastly, global linked libraries and C and OS-specific headers.
+# e.g. #include <windows.h>
+    - Regex: '\<[[:alnum:]_]+\.h(pp)?\>'
+    - Priority: 1
+
+IndentCaseLabels: false
+IndentPPDirectives: BeforeHash
+IndentWidth: 4
+IndentWrappedFunctionNames: false
+MaxEmptyLinesToKeep: 2
+NamespaceIndentation: All
+PointerAlignment: Left
+ReflowComments: false
+SortIncludes: false
+SortUsingDeclarations: true
+SpaceAfterTemplateKeyword: true
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeRangeBasedForLoopColon: true
+SpaceInEmptyParentheses: false
+SpacesInAngles: false
+SpacesInCStyleCastParentheses: false
+SpacesInContainerLiterals: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+Standard: Cpp11
+TabWidth: 4
+UseTab: Always
