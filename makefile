@@ -109,3 +109,7 @@ cppcheck:
 .PHONY: cppclean
 cppclean:
 	cppclean --quiet --include-path "$(NAS2DINCLUDEDIR)" --include-path "/usr/include/SDL2" --exclude "MicroPather" "$(SRCDIR)"
+
+.PHONY: format
+format:
+	find OPHD/ -path OPHD/MicroPather -prune -name '*.cpp' -o -name '*.h' | xargs clang-format -i
