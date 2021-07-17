@@ -146,8 +146,8 @@ void Population::spawnRetiree()
 	mPopulation[PopulationTable::Role::Retired] += retiree;
 
 	/** Workers retire earlier than scientists. */
-	if (randomNumber.generate(0, 100) <= 45) { if (mPopulation[PopulationTable::Role::Scientist] > 0) { mPopulation[PopulationTable::Role::Scientist] -= retiree; } }
-	else { if (mPopulation[PopulationTable::Role::Worker] > 0) { mPopulation[PopulationTable::Role::Worker] -= retiree; } }
+	const auto retirePopulationType = randomNumber.generate(0, 100) <= 45 ? PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
+	if (mPopulation[retirePopulationType] > 0) { mPopulation[retirePopulationType] -= retiree; }
 }
 
 
