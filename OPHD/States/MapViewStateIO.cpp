@@ -36,7 +36,7 @@ extern const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 extern const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
 extern std::string CURRENT_LEVEL_STRING;
-extern std::map <int, std::string> LEVEL_STRING_TABLE;
+extern std::map<int, std::string> LEVEL_STRING_TABLE;
 
 
 extern int ROBOT_ID_COUNTER; /// \fixme Kludge

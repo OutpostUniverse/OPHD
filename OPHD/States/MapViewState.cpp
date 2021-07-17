@@ -41,7 +41,7 @@ Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
 
 std::string CURRENT_LEVEL_STRING;
 
-std::map <int, std::string> LEVEL_STRING_TABLE =
+std::map<int, std::string> LEVEL_STRING_TABLE =
 {
 	{ constants::DepthSurface, constants::LevelSurface },
 	{ constants::DepthUnderground1, constants::Levelunderground1 },
