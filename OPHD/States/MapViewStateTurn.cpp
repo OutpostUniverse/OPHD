@@ -224,6 +224,12 @@ void MapViewState::updateMorale()
 
 	mPopulationPanel.crimeRate(mCrimeRateUpdate.meanCrimeRate());
 
+	for (const auto& moraleReason : mCrimeExecution.moraleChanges())
+	{
+		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
+		mCurrentMorale += moraleReason.second;
+	}
+
 	// Push notifications
 	if (birthCount)
 	{

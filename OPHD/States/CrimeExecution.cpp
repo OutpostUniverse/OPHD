@@ -10,6 +10,8 @@ CrimeExecution::CrimeExecution(NotificationArea& notificationArea) : mNotificati
 
 void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresCommittingCrime)
 {
+	mMoraleChanges.clear();
+
 	for (auto& structure : structuresCommittingCrime)
 	{
 		if (structure == nullptr)
@@ -27,6 +29,9 @@ void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresComm
 			break;
 		case StructureID::SID_STORAGE_TANKS:
 			stealRefinedResources(*structure);
+			break;
+		case StructureID::SID_PARK:
+			vandalize(*structure);
 			break;
 		default:
 			break;
@@ -95,6 +100,20 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 		structureTile.position(),
 		NotificationArea::NotificationType::Warning);
 }
+
+
+void CrimeExecution::vandalize(Structure& structure)
+{
+	mMoraleChanges.push_back(std::make_pair("Vandalism", -1));
+
+	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
+
+	mNotificationArea.push("Vandalism",
+		"A " + structure.name() + " was vandalized.",
+		structureTile.position(),
+		NotificationArea::NotificationType::Warning);
+}
+
 
 int CrimeExecution::calcAmountForStealing(int unadjustedMin, int unadjustedMax)
 {
