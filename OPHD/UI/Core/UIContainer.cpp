@@ -111,7 +111,16 @@ void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y
 void UIContainer::update()
 {
 	if (!visible()) { return; }
-	for (auto control : mControls) { control->update(); /*if (control->hasFocus()) { Utility<Renderer>::get().drawBox(control->rect(), 255, 0, 255); }*/ }
+	for (auto control : mControls)
+	{
+		control->update();
+		/*
+		if (control->hasFocus())
+		{
+			Utility<Renderer>::get().drawBox(control->rect(), 255, 0, 255);
+		}
+		*/
+	}
 }
 
 
