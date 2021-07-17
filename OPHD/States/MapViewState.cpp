@@ -761,7 +761,6 @@ void MapViewState::clearMode()
 
 void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 {
-
 	if (dir == ConnectorDir::CONNECTOR_VERTICAL)
 	{
 		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir paramter.");
@@ -1082,7 +1081,6 @@ void MapViewState::placeRobominer(Tile& tile)
 		mRobots.removeItem(constants::Robominer);
 		clearMode();
 	}
-
 }
 
 
@@ -1369,7 +1367,6 @@ void MapViewState::updateRobots()
  */
 void MapViewState::setStructureID(StructureID type, InsertMode mode)
 {
-
 	if (type == StructureID::SID_NONE)
 	{
 		clearMode();
@@ -1380,7 +1377,6 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
 
 	mInsertMode = mode;
 	Utility<Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
-
 }
 
 
