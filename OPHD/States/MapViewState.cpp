@@ -610,7 +610,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		}
 		else if (mMoveDownIconRect.contains(MOUSE_COORDS))
 		{
-			changeViewDepth(mTileMap->currentDepth()+1);
+			changeViewDepth(mTileMap->currentDepth() + 1);
 		}
 
 		// MiniMap Check
