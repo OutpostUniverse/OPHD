@@ -103,6 +103,7 @@ int CrimeExecution::calcAmountForStealing(int unadjustedMin, int unadjustedMax)
 	return static_cast<int>(stealingMultipliers.at(mDifficulty) * amountToSteal);
 }
 
+
 std::string CrimeExecution::getReasonForStealing()
 {
 	return stealingResoureReasons[randomNumber.generate<std::size_t>(0, stealingResoureReasons.size() - 1)];
