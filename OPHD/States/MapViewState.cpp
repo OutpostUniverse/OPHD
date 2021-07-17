@@ -24,7 +24,7 @@
 #include <vector>
 
 // Disable some warnings that can be safely ignored.
-#pragma warning(disable: 4244) // possible loss of data (floats to int and vice versa)
+#pragma warning(disable : 4244) // possible loss of data (floats to int and vice versa)
 
 
 using namespace NAS2D;
