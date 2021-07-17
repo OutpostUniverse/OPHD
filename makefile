@@ -112,5 +112,5 @@ cppclean:
 
 .PHONY: format
 format:
-	clang-format --version
+	@clang-format --version
 	find OPHD/ \( -name '*.cpp' -o -name '*.h' \) \! -name 'resource.h' -o -path 'OPHD/MicroPather' -prune -type f | xargs clang-format -i
