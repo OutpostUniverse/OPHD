@@ -28,7 +28,7 @@ private:
 	const NAS2D::Font& mFont;
 	NAS2D::Timer mTimer;
 
-	std::pair<Control*, std::string>* mFocusedControl{ nullptr };
+	std::pair<Control*, std::string>* mFocusedControl{nullptr};
 
 	std::vector<std::pair<Control*, std::string>> mControls;
 };

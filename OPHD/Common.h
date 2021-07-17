@@ -27,10 +27,10 @@ enum class Difficulty
 
 inline const std::map<std::string, Difficulty> difficultyTable
 {
-	{ "Beginner", Difficulty::Beginner },
-	{ "Easy", Difficulty::Easy },
-	{ "Medium", Difficulty::Medium },
-	{ "Hard", Difficulty::Hard }
+	{"Beginner", Difficulty::Beginner},
+	{"Easy", Difficulty::Easy},
+	{"Medium", Difficulty::Medium},
+	{"Hard", Difficulty::Hard}
 };
 
 

@@ -12,7 +12,7 @@ using namespace NAS2D;
 
 
 ToolTip::ToolTip():
-	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal) }
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)}
 {
 	Utility<EventHandler>::get().mouseMotion().connect(this, &ToolTip::onMouseMove);
 }
@@ -49,7 +49,7 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 	auto tooltipPosition = item.first->position();
 	tooltipPosition.x = mouseX;
 
-	auto offset = Vector{ 0, -tooltipHeight - constants::Margin };
+	auto offset = Vector{0, -tooltipHeight - constants::Margin};
 
 	if (tooltipPosition.y + offset.y < 0)
 	{
@@ -64,7 +64,7 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 	}
 
 	position(tooltipPosition + offset);
-	size({ tooltipWidth, tooltipHeight });
+	size({tooltipWidth, tooltipHeight});
 }
 
 
@@ -74,7 +74,7 @@ void ToolTip::onMouseMove(int x, int y, int dX, int dY)
 	{
 		if (mFocusedControl)
 		{
-			if (mFocusedControl->first->rect().contains({ x, y })) { return; }
+			if (mFocusedControl->first->rect().contains({x, y})) { return; }
 			else { mFocusedControl = nullptr; }
 		}
 
@@ -84,7 +84,7 @@ void ToolTip::onMouseMove(int x, int y, int dX, int dY)
 	for (auto& item : mControls)
 	{
 		if (mFocusedControl) { break; }
-		if (item.first->rect().contains({ x, y }))
+		if (item.first->rect().contains({x, y}))
 		{
 			mFocusedControl = &item;
 			buildDrawParams(item, x);
@@ -108,6 +108,6 @@ void ToolTip::update()
 		auto& renderer = Utility<Renderer>::get();
 		renderer.drawBoxFilled(rect(), Color::DarkGray);
 		renderer.drawBox(rect(), Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, Point{ positionX() + constants::MarginTight, positionY() + constants::MarginTight });
+		renderer.drawText(mFont, mFocusedControl->second, Point{positionX() + constants::MarginTight, positionY() + constants::MarginTight});
 	}
 }

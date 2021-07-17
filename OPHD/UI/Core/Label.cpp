@@ -19,7 +19,7 @@ Label::Label(std::string newText) :
 
 void Label::autosize()
 {
-	size(textSize() + NAS2D::Vector{ mPadding * 2, mPadding * 2 });
+	size(textSize() + NAS2D::Vector{mPadding * 2, mPadding * 2});
 }
 
 

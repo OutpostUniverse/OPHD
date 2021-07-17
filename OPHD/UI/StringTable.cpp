@@ -96,21 +96,21 @@ void StringTable::setVerticalPadding(int padding)
 
 void StringTable::setColumnText(std::size_t column, const std::vector<NAS2D::StringValue>& rows)
 {
-	checkCellIndex({ column, rows.size() - 1});
+	checkCellIndex({column, rows.size() - 1});
 
 	for (std::size_t row = 0; row < rows.size(); ++row)
 	{
-		mCells[getCellIndex({ column, row })].text = rows[row].value;
+		mCells[getCellIndex({column, row})].text = rows[row].value;
 	}
 }
 
 void StringTable::setRowText(std::size_t row, const std::vector<NAS2D::StringValue>& columns)
 {
-	checkCellIndex({ columns.size() - 1, row });
+	checkCellIndex({columns.size() - 1, row});
 
 	for (std::size_t column = 0; column < columns.size(); ++column)
 	{
-		mCells[getCellIndex({ column, row })].text = columns[column].value;
+		mCells[getCellIndex({column, row})].text = columns[column].value;
 	}
 }
 
@@ -118,7 +118,7 @@ void StringTable::setColumnJustification(std::size_t column, Justification justi
 {
 	for (std::size_t row = 0; row < mRowCount; ++row)
 	{
-		mCells[getCellIndex({ column, row })].justification = justification;
+		mCells[getCellIndex({column, row})].justification = justification;
 	}
 }
 
@@ -126,7 +126,7 @@ void StringTable::setColumnFont(std::size_t column, const NAS2D::Font* const fon
 {
 	for (std::size_t row = 0; row < mRowCount; ++row)
 	{
-		mCells[getCellIndex({ column, row })].font = font;
+		mCells[getCellIndex({column, row})].font = font;
 	}
 }
 
@@ -134,7 +134,7 @@ void StringTable::setRowFont(std::size_t row, const NAS2D::Font* const font)
 {
 	for (std::size_t column = 0; column < mColumnCount; ++column)
 	{
-		mCells[getCellIndex({ column, row })].font = font;
+		mCells[getCellIndex({column, row})].font = font;
 	}
 }
 
@@ -150,7 +150,7 @@ void StringTable::computeRelativeCellPositions()
 		for (std::size_t row = 0; row < mRowCount; ++row)
 		{
 			auto cellIndex = getCellIndex(CellCoordinate{column, row});
-			mCells[cellIndex].textOffset = { columnOffset, rowOffset };
+			mCells[cellIndex].textOffset = {columnOffset, rowOffset};
 			accountForCellJustification(cellIndex, columnWidths[column]);
 
 			rowOffset += rowHeights[row] + mVerticalPadding;
@@ -161,7 +161,7 @@ void StringTable::computeRelativeCellPositions()
 
 	if (mCells.size() == 0)
 	{
-		mScreenRect.size({ 0, 0 });
+		mScreenRect.size({0, 0});
 	}
 	else
 	{
@@ -238,7 +238,7 @@ std::size_t StringTable::getCellIndex(const CellCoordinate& cellCoordinate) cons
 
 StringTable::CellCoordinate StringTable::getCellCoordinate(std::size_t index) const
 {
-	return CellCoordinate{ index % mColumnCount, index / mColumnCount };
+	return CellCoordinate{index % mColumnCount, index / mColumnCount};
 }
 
 void StringTable::checkCellIndex(const CellCoordinate& cellCoordinate) const

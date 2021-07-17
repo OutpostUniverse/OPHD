@@ -19,10 +19,10 @@ StructureInspector::StructureInspector() :
 	btnClose{"Close", {this, &StructureInspector::onClose}},
 	mIcons{imageCache.load("ui/icons.png")}
 {
-	size({ 350, 240 });
+	size({350, 240});
 
-	btnClose.size({ 50, 20 });
-	add(btnClose, { rect().width - btnClose.rect().width - 5, rect().height - btnClose.rect().height - 5, });
+	btnClose.size({50, 20});
+	add(btnClose, {rect().width - btnClose.rect().width - 5, rect().height - btnClose.rect().height - 5,});
 }
 
 
@@ -35,9 +35,9 @@ void StructureInspector::structure(Structure* structure)
 	auto stringTable = buildStringTable();
 
 	auto windowWidth = stringTable.screenRect().width + 10;
-	size({ windowWidth < 350 ? 350 : windowWidth, rect().height });
+	size({windowWidth < 350 ? 350 : windowWidth, rect().height});
 
-	btnClose.position({ positionX() + rect().width - 55, btnClose.positionY() });
+	btnClose.position({positionX() + rect().width - 55, btnClose.positionY()});
 }
 
 
@@ -50,7 +50,7 @@ void StructureInspector::onClose()
 StringTable StructureInspector::buildStringTable() const
 {
 	StringTable stringTable(4, 6);
-	stringTable.position(mRect.startPoint() + NAS2D::Vector{ 5, 25 });
+	stringTable.position(mRect.startPoint() + NAS2D::Vector{5, 25});
 	stringTable.setVerticalPadding(5);
 	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
 
@@ -130,7 +130,7 @@ void StructureInspector::update()
 	auto stringTable = buildStringTable();
 	stringTable.draw(renderer);
 
-	drawStructureSpecificTable({ stringTable.position().x, stringTable.screenRect().endPoint().y + 25 }, renderer);
+	drawStructureSpecificTable({stringTable.position().x, stringTable.screenRect().endPoint().y + 25}, renderer);
 }
 
 void StructureInspector::drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer)

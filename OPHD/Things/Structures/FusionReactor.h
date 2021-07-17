@@ -28,7 +28,7 @@ public:
 protected:
 	void defineResourceInput() override
 	{
-		resourcesIn({ 2, 2, 1, 1 });
+		resourcesIn({2, 2, 1, 1});
 	}
 
 protected:

@@ -45,7 +45,7 @@ private:
 		"The rebel faction is suspected in preparation for a splinter colony"
 	};
 
-	Difficulty mDifficulty{ Difficulty::Medium };
+	Difficulty mDifficulty{Difficulty::Medium};
 	NotificationArea& mNotificationArea;
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
 

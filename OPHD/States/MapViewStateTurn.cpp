@@ -235,7 +235,7 @@ void MapViewState::updateMorale()
 	{
 		mNotificationArea.push("Baby Born",
 			std::to_string(birthCount) + (birthCount > 1 ? " babies were born." : " baby was born."),
-			{ -1, -1 },
+			{-1, -1},
 			NotificationArea::NotificationType::Information);
 	}
 
@@ -243,7 +243,7 @@ void MapViewState::updateMorale()
 	{
 		mNotificationArea.push("Colonist Died",
 			std::to_string(deathCount) + (birthCount > 1 ? " colonists met their demise." : " colonist met their demise."),
-			{ -1, -1 },
+			{-1, -1},
 			NotificationArea::NotificationType::Warning);
 	}
 }
@@ -503,7 +503,7 @@ void MapViewState::updateRoads()
 
 		const auto tileLocation = NAS2D::Utility<StructureManager>::get().tileFromStructure(road).position();
 
-		std::array<bool, 4> surroundingTiles{ false, false, false, false };
+		std::array<bool, 4> surroundingTiles{false, false, false, false};
 		for (size_t i = 0; i < 4; ++i)
 		{
 			const auto tileToInspect = tileLocation + DirectionClockwise4[i];

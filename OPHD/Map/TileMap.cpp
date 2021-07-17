@@ -37,9 +37,9 @@ const double THROB_SPEED = 250.0; // Throb speed of mine beacon
 /** Array indicates percent of mines that should be of yields LOW, MED, HIGH */
 const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYieldTable =
 {
-	{ Planet::Hostility::Low, {30, 50, 20} },
-	{ Planet::Hostility::Medium, {45, 35, 20} },
-	{ Planet::Hostility::High, {35, 20, 45} },
+	{Planet::Hostility::Low, {30, 50, 20}},
+	{Planet::Hostility::Medium, {45, 35, 20}},
+	{Planet::Hostility::High, {35, 20, 45}},
 };
 
 
@@ -304,10 +304,10 @@ void TileMap::draw()
 				if (tile.mine() != nullptr && !tile.thing())
 				{
 					uint8_t glow = static_cast<uint8_t>(120 + sin(mTimer.tick() / THROB_SPEED) * 57);
-					const auto mineBeaconPosition = position + NAS2D::Vector{ 0, -64 };
+					const auto mineBeaconPosition = position + NAS2D::Vector{0, -64};
 
 					renderer.drawImage(mMineBeacon, mineBeaconPosition);
-					renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{ 59, 15 }, NAS2D::Rectangle{ 59, 79, 10, 7 }, NAS2D::Color{ glow, glow, glow });
+					renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{59, 15}, NAS2D::Rectangle{59, 79, 10, 7}, NAS2D::Color{glow, glow, glow});
 				}
 
 				// Tell an occupying thing to update itself.
@@ -576,7 +576,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 			cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
 		}
 
-		micropather::StateCost nodeCost = { &adjacentTile, cost };
+		micropather::StateCost nodeCost = {&adjacentTile, cost};
 		adjacent->push_back(nodeCost);
 	}
 }

@@ -47,9 +47,9 @@ private:
 
 	Population* mPopulation = nullptr;
 
-	int mMorale{ 0 };
-	int mPreviousMorale{ 0 };
-	int mResidentialCapacity{ 0 };
-	int mCrimeRate{ 0 };
-	int mPopulationPanelWidth{ 0 };
+	int mMorale{0};
+	int mPreviousMorale{0};
+	int mResidentialCapacity{0};
+	int mCrimeRate{0};
+	int mPopulationPanelWidth{0};
 };

@@ -56,9 +56,9 @@ private:
 	int mTurnsToCompleteTask = 0;
 
 	bool mSelfDestruct = false;
-	bool mCancelTask{ false };
+	bool mCancelTask{false};
 
-	Type mType{ Type::None };
+	Type mType{Type::None};
 
 	TaskSignal mTaskCompleteSignal;
 };

@@ -10,11 +10,11 @@
  */
 const std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
 {
-	{ StructureState::UnderConstruction, "Under Construction" },
-	{ StructureState::Operational, "Operational" },
-	{ StructureState::Idle, "Idle" },
-	{ StructureState::Disabled, "Disabled" },
-	{ StructureState::Destroyed, "Destroyed" },
+	{StructureState::UnderConstruction, "Under Construction"},
+	{StructureState::Operational, "Operational"},
+	{StructureState::Idle, "Idle"},
+	{StructureState::Disabled, "Disabled"},
+	{StructureState::Destroyed, "Destroyed"},
 };
 
 
@@ -23,33 +23,33 @@ const std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
  */
 const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
 {
-	{ Structure::StructureClass::Command, "Command" },
-	{ Structure::StructureClass::Communication, "Communication" },
-	{ Structure::StructureClass::Commercial, "Commercial" },
-	{ Structure::StructureClass::EnergyProduction, "Energy Production" },
-	{ Structure::StructureClass::Factory, "Factory" },
-	{ Structure::StructureClass::FoodProduction, "Food Production" },
-	{ Structure::StructureClass::Laboratory, "Laboratory" },
-	{ Structure::StructureClass::Lander, "Lander" },
-	{ Structure::StructureClass::LifeSupport, "Life Support" },
-	{ Structure::StructureClass::Maintenance, "Maintenance Facility" },
-	{ Structure::StructureClass::Mine, "Mine Facility" },
-	{ Structure::StructureClass::MedicalCenter, "Mine Facility" },
-	{ Structure::StructureClass::Nursery, "Mine Facility" },
-	{ Structure::StructureClass::Park, "Park / Reservoir" },
-	{ Structure::StructureClass::Road, "Road" },
-	{ Structure::StructureClass::SurfacePolice, "Police" },
-	{ Structure::StructureClass::UndergroundPolice, "Police" },
-	{ Structure::StructureClass::RecreationCenter, "Recreation Center" },
-	{ Structure::StructureClass::Recycling, "Recycling" },
-	{ Structure::StructureClass::Residence, "Residential" },
-	{ Structure::StructureClass::RobotCommand, "Robot Command Center" },
-	{ Structure::StructureClass::Smelter, "Raw Ore Processing" },
-	{ Structure::StructureClass::Storage, "Storage" },
-	{ Structure::StructureClass::Tube, "Tube" },
-	{ Structure::StructureClass::Undefined, "UNDEFINED" },
-	{ Structure::StructureClass::University, "University" },
-	{ Structure::StructureClass::Warehouse, "Warehouse"}
+	{Structure::StructureClass::Command, "Command"},
+	{Structure::StructureClass::Communication, "Communication"},
+	{Structure::StructureClass::Commercial, "Commercial"},
+	{Structure::StructureClass::EnergyProduction, "Energy Production"},
+	{Structure::StructureClass::Factory, "Factory"},
+	{Structure::StructureClass::FoodProduction, "Food Production"},
+	{Structure::StructureClass::Laboratory, "Laboratory"},
+	{Structure::StructureClass::Lander, "Lander"},
+	{Structure::StructureClass::LifeSupport, "Life Support"},
+	{Structure::StructureClass::Maintenance, "Maintenance Facility"},
+	{Structure::StructureClass::Mine, "Mine Facility"},
+	{Structure::StructureClass::MedicalCenter, "Mine Facility"},
+	{Structure::StructureClass::Nursery, "Mine Facility"},
+	{Structure::StructureClass::Park, "Park / Reservoir"},
+	{Structure::StructureClass::Road, "Road"},
+	{Structure::StructureClass::SurfacePolice, "Police"},
+	{Structure::StructureClass::UndergroundPolice, "Police"},
+	{Structure::StructureClass::RecreationCenter, "Recreation Center"},
+	{Structure::StructureClass::Recycling, "Recycling"},
+	{Structure::StructureClass::Residence, "Residential"},
+	{Structure::StructureClass::RobotCommand, "Robot Command Center"},
+	{Structure::StructureClass::Smelter, "Raw Ore Processing"},
+	{Structure::StructureClass::Storage, "Storage"},
+	{Structure::StructureClass::Tube, "Tube"},
+	{Structure::StructureClass::Undefined, "UNDEFINED"},
+	{Structure::StructureClass::University, "University"},
+	{Structure::StructureClass::Warehouse, "Warehouse"}
 };
 
 

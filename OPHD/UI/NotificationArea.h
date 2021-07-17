@@ -24,10 +24,10 @@ public:
 
 	struct Notification
 	{
-		std::string brief{ "" };
-		std::string message{ "" };
-		NAS2D::Point<int> position{ -1, -1 };
-		NotificationType type{ NotificationType::Information };
+		std::string brief{""};
+		std::string message{""};
+		NAS2D::Point<int> position{-1, -1};
+		NotificationType type{NotificationType::Information};
 	};
 
 	const int Width = 48;
@@ -71,8 +71,8 @@ private:
 	std::vector<Notification> mNotificationList;
 	std::vector<NAS2D::Rectangle<int>> mNotificationRectList;
 
-	std::size_t mNotificationIndex{ SIZE_MAX };
-	NAS2D::Rectangle<int> mNotificationBriefRect{ 0 };
+	std::size_t mNotificationIndex{SIZE_MAX};
+	NAS2D::Rectangle<int> mNotificationBriefRect{0};
 
 	NotificationCallback mNotificationClicked;
 };

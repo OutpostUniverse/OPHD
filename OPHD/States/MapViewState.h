@@ -252,7 +252,7 @@ private:
 
 private:
 	MainReportsUiState& mMainReportsState;
-	TileMap* mTileMap{ nullptr };
+	TileMap* mTileMap{nullptr};
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 
@@ -268,7 +268,7 @@ private:
 
 	NAS2D::Rectangle<int> mMiniMapBoundingBox; /**< Area of the site map display. */
 
-	int mFood{ 0 };
+	int mFood{0};
 
 	// POOLS
 	StorableResources mResourcesCount;

@@ -19,7 +19,7 @@ public:
 protected:
 	void defineResourceInput() override
 	{
-		resourcesIn({ 2, 0, 1, 1 });
+		resourcesIn({2, 0, 1, 1});
 		energyRequired(10);
 	}
 };

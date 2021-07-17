@@ -82,7 +82,7 @@ private:
 	Thing* mThing = nullptr;
 	Mine* mMine = nullptr;
 
-	Overlay mOverlay{ Overlay::None };
+	Overlay mOverlay{Overlay::None};
 
 	bool mExcavated = true; /**< Used when a Digger uncovers underground tiles. */
 	bool mConnected = false; /**< Flag indicating that this tile is connected to the Command Center. */

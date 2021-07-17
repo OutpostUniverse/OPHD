@@ -43,7 +43,7 @@ void MapViewState::initUi()
 	mStructureInspector.position(renderer.center() - NAS2D::Vector{mStructureInspector.size().x / 2.0f, 175.0f});
 	mStructureInspector.hide();
 
-	mRobotInspector.position(renderer.center() - NAS2D::Vector{ mRobotInspector.size().x / 2.0f, 175.0f });
+	mRobotInspector.position(renderer.center() - NAS2D::Vector{mRobotInspector.size().x / 2.0f, 175.0f});
 	mRobotInspector.hide();
 
 	mFactoryProduction.position(NAS2D::Point{renderer.center().x - mFactoryProduction.size().x / 2.0f, 175.0f});
@@ -142,22 +142,22 @@ void MapViewState::initUi()
 
 	// tooltip control sizes
 	constexpr auto hudHeight = constants::ResourceIconSize + constants::MarginTight * 2;
-	mTooltipResourceBreakdown.size({ 265, hudHeight });
+	mTooltipResourceBreakdown.size({265, hudHeight});
 
-	mTooltipResourceStorage.position({ 275, 0 });
-	mTooltipResourceStorage.size({ 85, hudHeight });
+	mTooltipResourceStorage.position({275, 0});
+	mTooltipResourceStorage.size({85, hudHeight});
 
-	mTooltipFoodStorage.position({ 420, 0 });
-	mTooltipFoodStorage.size({ 75, hudHeight });
+	mTooltipFoodStorage.position({420, 0});
+	mTooltipFoodStorage.size({75, hudHeight});
 
-	mTooltipEnergy.position({ 560, 0 });
-	mTooltipEnergy.size({ 55, hudHeight });
+	mTooltipEnergy.position({560, 0});
+	mTooltipEnergy.size({55, hudHeight});
 
-	mTooltipPopulation.position({ 670, 0 });
-	mTooltipPopulation.size({ 75, hudHeight });
+	mTooltipPopulation.position({670, 0});
+	mTooltipPopulation.size({75, hudHeight});
 
-	mTooltipCurrentTurns.size({ 45, hudHeight });
-	mTooltipSystemButton.size({ hudHeight, hudHeight });
+	mTooltipCurrentTurns.size({45, hudHeight});
+	mTooltipSystemButton.size({hudHeight, hudHeight});
 
 	// Tool Tips
 	mToolTip.add(mBtnTurns, constants::ToolTipBtnTurns);
@@ -179,11 +179,11 @@ void MapViewState::initUi()
 void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 {
 	// Bottom UI Area
-	mBottomUiRect = {0, size.y - constants::BottomUiHeight, size.x, constants::BottomUiHeight };
+	mBottomUiRect = {0, size.y - constants::BottomUiHeight, size.x, constants::BottomUiHeight};
 
 	// Menu / System Icon
-	mTooltipSystemButton.position({ size.x - (constants::ResourceIconSize + constants::MarginTight * 2), 0 });
-	mTooltipCurrentTurns.position({ size.x - 80 , 0 });
+	mTooltipSystemButton.position({size.x - (constants::ResourceIconSize + constants::MarginTight * 2), 0});
+	mTooltipCurrentTurns.position({size.x - 80 , 0});
 
 	// NAVIGATION BUTTONS
 	// Bottom line
@@ -200,7 +200,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	// Notification Area
 	auto& renderer = Utility<Renderer>::get();
 	mNotificationArea.height(mMoveUpIconRect.y - 22 - constants::Margin);
-	mNotificationArea.position({ renderer.size().x - mNotificationArea.size().x, 22 });
+	mNotificationArea.position({renderer.size().x - mNotificationArea.size().x, 22});
 
 	// Mini Map
 	mMiniMapBoundingBox = {size.x - 300 - constants::Margin, mBottomUiRect.y + constants::Margin, 300, 150};
@@ -208,15 +208,15 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	// Position UI Buttons
 	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
 	mBtnToggleHeightmap.position({mBtnTurns.positionX(), mMiniMapBoundingBox.y});
-	mBtnToggleConnectedness.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + constants::MainButtonSize });
-	mBtnToggleCommRangeOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MainButtonSize * 2) });
-	mBtnToggleRouteOverlay.position({ mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MainButtonSize * 3) });
-	mBtnTogglePoliceOverlay.position({ mBtnTurns.positionX() - constants::MainButtonSize, mMiniMapBoundingBox.y});
+	mBtnToggleConnectedness.position({mBtnTurns.positionX(), mMiniMapBoundingBox.y + constants::MainButtonSize});
+	mBtnToggleCommRangeOverlay.position({mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MainButtonSize * 2)});
+	mBtnToggleRouteOverlay.position({mBtnTurns.positionX(), mMiniMapBoundingBox.y + (constants::MainButtonSize * 3)});
+	mBtnTogglePoliceOverlay.position({mBtnTurns.positionX() - constants::MainButtonSize, mMiniMapBoundingBox.y});
 
 	// UI Panels
-	mRobots.position({mBtnTogglePoliceOverlay.positionX() - constants::MarginTight - 52, mBottomUiRect.y + constants::Margin });
-	mConnections.position({mRobots.positionX() - constants::MarginTight - 52, mBottomUiRect.y + constants::Margin });
-	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.y + constants::Margin });
+	mRobots.position({mBtnTogglePoliceOverlay.positionX() - constants::MarginTight - 52, mBottomUiRect.y + constants::Margin});
+	mConnections.position({mRobots.positionX() - constants::MarginTight - 52, mBottomUiRect.y + constants::Margin});
+	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.y + constants::Margin});
 
 	mStructures.size({mConnections.positionX() - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
 
@@ -235,7 +235,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mWarehouseInspector.position(centerPosition(mWarehouseInspector) - NAS2D::Vector{0, 100});
 	mMineOperationsWindow.position(centerPosition(mMineOperationsWindow) - NAS2D::Vector{0, 100});
 
-	mNotificationWindow.position(centerPosition(mMineOperationsWindow) - NAS2D::Vector{ 0, 100 });
+	mNotificationWindow.position(centerPosition(mMineOperationsWindow) - NAS2D::Vector{0, 100});
 
 	/**
 	 * \note	We are not setting the tile inspector window's position here because it's something that can be
@@ -396,9 +396,9 @@ void MapViewState::drawUI()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// Bottom UI
-	renderer.drawBoxFilled(mBottomUiRect, NAS2D::Color{ 39, 39, 39 });
-	renderer.drawBox(mBottomUiRect, NAS2D::Color{ 21, 21, 21 });
-	renderer.drawLine(NAS2D::Point{ mBottomUiRect.x + 1, mBottomUiRect.y }, NAS2D::Point{ mBottomUiRect.x + mBottomUiRect.width - 2, mBottomUiRect.y }, NAS2D::Color{ 56, 56, 56 });
+	renderer.drawBoxFilled(mBottomUiRect, NAS2D::Color{39, 39, 39});
+	renderer.drawBox(mBottomUiRect, NAS2D::Color{21, 21, 21});
+	renderer.drawLine(NAS2D::Point{mBottomUiRect.x + 1, mBottomUiRect.y}, NAS2D::Point{mBottomUiRect.x + mBottomUiRect.width - 2, mBottomUiRect.y}, NAS2D::Color{56, 56, 56});
 
 	drawMiniMap();
 	drawResourceInfo();

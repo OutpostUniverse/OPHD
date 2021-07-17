@@ -32,5 +32,5 @@ private:
 	TileList& mTileList;
 
 	NAS2D::Point<int> mGridPosition;
-	int mDepth{ 0 };
+	int mDepth{0};
 };
