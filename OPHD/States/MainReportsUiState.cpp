@@ -88,7 +88,8 @@ static void setPanelRects(int width)
 	const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
 
 	auto panelPosition = NAS2D::Point{0, 0};
-	for (std::size_t i = 0; i < NavigationPanel::PANEL_EXIT; ++i) {
+	for (std::size_t i = 0; i < NavigationPanel::PANEL_EXIT; ++i)
+	{
 		auto& panel = Panels[i];
 		panel.Rect = NAS2D::Rectangle<int>::Create(panelPosition, panelSize);
 		panel.TextPosition = panelPosition + (panelSize - BIG_FONT->size(panel.Name)) / 2 + NAS2D::Vector{20, 0};

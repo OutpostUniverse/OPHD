@@ -21,7 +21,8 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 extern const NAS2D::Font* MAIN_FONT; /// yuck
 
 
-namespace {
+namespace
+{
 	uint8_t calcGlowIntensity()
 	{
 		static NAS2D::Timer glowTimer;

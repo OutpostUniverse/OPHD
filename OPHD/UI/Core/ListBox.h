@@ -18,7 +18,8 @@
 #include <cmath>
 
 
-namespace NAS2D {
+namespace NAS2D
+{
 	class Font;
 }
 

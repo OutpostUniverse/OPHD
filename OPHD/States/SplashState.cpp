@@ -8,7 +8,8 @@
 #include <algorithm>
 
 
-namespace {
+namespace
+{
 	enum class LogoState
 	{
 		None,

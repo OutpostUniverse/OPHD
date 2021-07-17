@@ -6,7 +6,8 @@
 #include <iostream>
 
 
-namespace {
+namespace
+{
 	const int studentToScientistRate = 35;
 	const int studentToAdultBase = 190;
 	const int adultToRetireeBase = 2000;

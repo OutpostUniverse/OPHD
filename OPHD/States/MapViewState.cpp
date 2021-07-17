@@ -41,7 +41,7 @@ Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
 
 std::string CURRENT_LEVEL_STRING;
 
-std::map <int, std::string> LEVEL_STRING_TABLE =
+std::map<int, std::string> LEVEL_STRING_TABLE =
 {
 	{ constants::DepthSurface, constants::LevelSurface },
 	{ constants::DepthUnderground1, constants::Levelunderground1 },
@@ -761,7 +761,6 @@ void MapViewState::clearMode()
 
 void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 {
-
 	if (dir == ConnectorDir::CONNECTOR_VERTICAL)
 	{
 		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir paramter.");
@@ -1082,7 +1081,6 @@ void MapViewState::placeRobominer(Tile& tile)
 		mRobots.removeItem(constants::Robominer);
 		clearMode();
 	}
-
 }
 
 
@@ -1293,7 +1291,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 void MapViewState::updateRobots()
 {
 	auto robot_it = mRobotList.begin();
-	while(robot_it != mRobotList.end())
+	while (robot_it != mRobotList.end())
 	{
 		auto robot = robot_it->first;
 		auto tile = robot_it->second;
@@ -1369,7 +1367,6 @@ void MapViewState::updateRobots()
  */
 void MapViewState::setStructureID(StructureID type, InsertMode mode)
 {
-
 	if (type == StructureID::SID_NONE)
 	{
 		clearMode();
@@ -1380,7 +1377,6 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
 
 	mInsertMode = mode;
 	Utility<Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
-
 }
 
 

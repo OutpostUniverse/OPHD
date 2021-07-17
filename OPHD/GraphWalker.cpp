@@ -50,8 +50,14 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 	{
 		if (dst->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || dst->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
-			if (!src->isConnector()) { return true; }
-			else { return checkSourceTubeAlignment(src, direction); }
+			if (!src->isConnector())
+			{
+				return true;
+			}
+			else
+			{
+				return checkSourceTubeAlignment(src, direction);
+			}
 		}
 		else if (direction == Direction::East || direction == Direction::West)
 		{

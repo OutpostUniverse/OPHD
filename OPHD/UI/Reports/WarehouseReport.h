@@ -10,7 +10,8 @@
 #include <vector>
 
 
-namespace NAS2D {
+namespace NAS2D
+{
 	class Font;
 	class Image;
 }

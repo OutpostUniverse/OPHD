@@ -13,7 +13,8 @@
 using namespace NAS2D;
 
 
-namespace {
+namespace
+{
 	Slider::Skins loadSkins(Slider::SliderType sliderType)
 	{
 		if (sliderType == Slider::SliderType::Vertical)
