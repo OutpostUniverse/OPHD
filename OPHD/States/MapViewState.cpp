@@ -1291,7 +1291,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 void MapViewState::updateRobots()
 {
 	auto robot_it = mRobotList.begin();
-	while(robot_it != mRobotList.end())
+	while (robot_it != mRobotList.end())
 	{
 		auto robot = robot_it->first;
 		auto tile = robot_it->second;
