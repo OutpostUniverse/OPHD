@@ -5,7 +5,8 @@
 #include <algorithm>
 
 
-namespace {
+namespace
+{
 	/**
 	 * Space required to store a Product.
 	 */

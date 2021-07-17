@@ -20,7 +20,8 @@
 using namespace NAS2D;
 
 
-namespace {
+namespace
+{
 	const NAS2D::Image& productImage(ProductType productType)
 	{
 		static const std::map<ProductType, const Image*> productImages{

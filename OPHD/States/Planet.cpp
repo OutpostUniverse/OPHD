@@ -12,7 +12,8 @@
 #include <stdexcept>
 
 
-namespace {
+namespace
+{
 	constexpr auto PlanetRadius = 64;
 	constexpr auto PlanetSize = NAS2D::Vector{PlanetRadius * 2, PlanetRadius * 2};
 }

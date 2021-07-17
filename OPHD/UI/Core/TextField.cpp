@@ -20,7 +20,8 @@
 using namespace NAS2D;
 
 
-namespace {
+namespace
+{
 	constexpr int fieldPadding = 4;
 	constexpr int cursorBlinkDelay = 250;
 }

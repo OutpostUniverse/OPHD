@@ -4,7 +4,8 @@
 #include <stdexcept>
 
 
-namespace {
+namespace
+{
 	void BasicCheck(PopulationTable::Role role);
 }
 
@@ -138,7 +139,8 @@ int PopulationPool::populationEmployed()
 
 // ===============================================================================
 
-namespace {
+namespace
+{
 	/**
 	 * Does a basic check to ensure that we're only trying to pull population that can be employed.
 	 *
