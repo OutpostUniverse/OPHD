@@ -458,7 +458,8 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 		std::pair{"Rare Minerals", productionCost.rareMinerals()},
 	};
 	auto position = startPoint + NAS2D::Vector{138, 80};
-	for (auto [title, value] : requiredResources) {
+	for (auto [title, value] : requiredResources)
+	{
 		drawLabelAndValueLeftJustify(position, labelWidth, title, std::to_string(value), defaultTextColor);
 		position.y += 15;
 	}
