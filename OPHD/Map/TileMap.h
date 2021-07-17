@@ -11,8 +11,10 @@
 #include <algorithm>
 
 
-namespace NAS2D {
-	namespace Xml {
+namespace NAS2D
+{
+	namespace Xml
+	{
 		class XmlElement;
 	}
 }

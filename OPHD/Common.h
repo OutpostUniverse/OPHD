@@ -9,7 +9,8 @@
 #include <string>
 #include <vector>
 
-namespace NAS2D::Xml {
+namespace NAS2D::Xml
+{
 	class XmlDocument;
 }
 
