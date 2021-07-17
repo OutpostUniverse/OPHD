@@ -1067,9 +1067,21 @@ void MapViewState::placeRobodigger(Tile& tile)
 
 void MapViewState::placeRobominer(Tile& tile)
 {
-	if (tile.thing()) { doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerTileObstructed); return; }
-	if (mTileMap->currentDepth() != constants::DepthSurface) { doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerSurfaceOnly); return; }
-	if (!tile.mine()) { doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerNotOnMine); return; }
+	if (tile.thing())
+	{
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerTileObstructed);
+		return;
+	}
+	if (mTileMap->currentDepth() != constants::DepthSurface)
+	{
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerSurfaceOnly);
+		return;
+	}
+	if (!tile.mine())
+	{
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerNotOnMine);
+		return;
+	}
 
 	Robot* robot = mRobotPool.getMiner();
 	robot->startTask(constants::MinerTaskTime);
