@@ -7,6 +7,7 @@
 #include <array>
 #include <map>
 #include <string>
+#include <utility>
 
 
 class CrimeExecution
@@ -21,6 +22,9 @@ public:
 	void stealFood(FoodProduction& structure);
 	void stealRefinedResources(Structure& structure);
 	void stealRawResources(Structure& structure);
+	void vandalize(Structure& structure);
+
+	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
 
 private:
 	const static inline std::map<Difficulty, double> stealingMultipliers
@@ -43,6 +47,7 @@ private:
 
 	Difficulty mDifficulty{ Difficulty::Medium };
 	NotificationArea& mNotificationArea;
+	std::vector<std::pair<std::string, int>> mMoraleChanges;
 
 	void stealResources(Structure& structure, const std::array<std::string, 4>& resourceNames);
 	int calcAmountForStealing(int unadjustedMin, int unadjustedMax);
