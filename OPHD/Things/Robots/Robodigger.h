@@ -28,6 +28,5 @@ public:
 	}
 
 private:
-
 	Direction mDirection;
 };

@@ -20,7 +20,6 @@ public:
 	}
 
 protected:
-
 	void initFactory() override
 	{
 		addProduct(ProductType::PRODUCT_DIGGER);
@@ -30,7 +29,6 @@ protected:
 	}
 
 private:
-
 	void defineResourceInput() override
 	{
 		energyRequired(5);
