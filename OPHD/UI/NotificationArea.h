@@ -31,7 +31,7 @@ public:
 	};
 
 	const int Width = 48;
-	
+
 	using NotificationCallback = NAS2D::Signal<const Notification&>;
 
 public:

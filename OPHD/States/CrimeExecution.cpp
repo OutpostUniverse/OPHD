@@ -49,11 +49,11 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 		{
 			foodStolen = structure.foodLevel();
 		}
-		
+
 		structure.foodLevel(-foodStolen);
 
 		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
-		
+
 		mNotificationArea.push("Food Stolen",
 			NAS2D::stringFrom(foodStolen) + " units of food was pilfered from a " + structure.name() + ". " + getReasonForStealing() + ".",
 			structureTile.position(),
@@ -118,7 +118,7 @@ void CrimeExecution::vandalize(Structure& structure)
 int CrimeExecution::calcAmountForStealing(int unadjustedMin, int unadjustedMax)
 {
 	auto amountToSteal = randomNumber.generate(unadjustedMin, unadjustedMax);
-	
+
 	return static_cast<int>(stealingMultipliers.at(mDifficulty) * amountToSteal);
 }
 

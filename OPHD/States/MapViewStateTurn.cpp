@@ -215,7 +215,7 @@ void MapViewState::updateMorale()
 	mPopulationPanel.addMoraleReason(moraleString(Morale::BiowasteOverflow), bioWasteAccumulation * -2);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDisabled), -structuresDisabled);
 	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDestroyed), -structuresDestroyed);
-	
+
 	for (const auto& moraleReason : mCrimeRateUpdate.moraleChanges())
 	{
 		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
@@ -482,10 +482,9 @@ void MapViewState::transferFoodToCommandCenter()
 			foodToMove -= foodMoved;
 
 			if (foodToMove == 0) { return; }
-			
+
 			++foodProducerIterator;
 		}
-		
 	}
 }
 

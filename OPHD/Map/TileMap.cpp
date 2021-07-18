@@ -149,7 +149,7 @@ void TileMap::setupMines(int mineCount, Planet::Hostility hostility)
 	// low yield mines. Difficulty settings could shift this to other yields.
 	int yieldTotal = yieldLow + yieldMedium + yieldHigh;
 	if (yieldTotal < mineCount) { yieldLow += mineCount - yieldTotal; }
-	
+
 	auto mwidth = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, MAP_WIDTH - 5);
 	auto mheight = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, MAP_HEIGHT - 5);
 

@@ -64,7 +64,7 @@ PopulationPanel::PopulationPanel() :
 {
 	constexpr int linesOfText = 14;
 	constexpr int edgeBuffer = constants::Margin * 2;
-	
+
 	const int windowHeight = mFontBold.height() + (mFont.height() * linesOfText) + edgeBuffer;
 
 	int largestStringLength = mFontBold.width(constants::MoraleBreakdown);
@@ -113,7 +113,7 @@ void PopulationPanel::update()
 	for (const auto& [imageRect, personCount, personRole] : populationData)
 	{
 		renderer.drawSubImage(mIcons, position, imageRect);
-	
+
 		const auto roleCount = std::to_string(personCount);
 		renderer.drawText(mFont, personRole + ": ", position + textOffset);
 
@@ -149,8 +149,8 @@ void PopulationPanel::update()
 
 	renderer.drawLine(position, position + NAS2D::Vector<int>{rect().width - mPopulationPanelWidth - constants::Margin * 2, 0}, Color::DarkGray);
 
-	position.y += fontHeight / 2;	
-	
+	position.y += fontHeight / 2;
+
 	for (auto& item : mMoraleChangeReasons)
 	{
 		renderer.drawText(mFont, item.first, position);
