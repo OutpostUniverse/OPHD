@@ -93,14 +93,16 @@ static void pushAgingRobotMessage(const Robot* robot, const Point<int> position,
 
 	if (robot->fuelCellAge() == 190) /// \fixme magic number
 	{
-		notificationArea.push("Aging Robot",
+		notificationArea.push(
+			"Aging Robot",
 			"Robot '" + robot->name() + "' at location " + robotLocationText + " is approaching its maximum age.",
 			position,
 			NotificationArea::NotificationType::Warning);
 	}
 	else if (robot->fuelCellAge() == 195) /// \fixme magic number
 	{
-		notificationArea.push("Aging Robot",
+		notificationArea.push(
+			"Aging Robot",
 			"Robot '" + robot->name() + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.",
 			position,
 			NotificationArea::NotificationType::Critical);
