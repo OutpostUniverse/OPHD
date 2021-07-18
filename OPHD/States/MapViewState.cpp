@@ -1332,7 +1332,7 @@ void MapViewState::updateRobots()
 		{
 			std::cout << "dead robot" << std::endl;
 
-			const auto robotLocationText ="(" +  std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
+			const auto robotLocationText = "(" +  std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
 
 			if (robot->selfDestruct())
 			{
