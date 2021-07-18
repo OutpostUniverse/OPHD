@@ -6,7 +6,7 @@
 #include "../../Constants/Strings.h"
 
 
-class Robodigger: public Robot
+class Robodigger : public Robot
 {
 public:
 	Robodigger() :
