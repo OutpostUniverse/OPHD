@@ -24,7 +24,7 @@ static const auto trendIndex = [](int value)
 
 static const std::array trend
 {
-	Color{ 0, 185, 0 },
+	Color{0, 185, 0},
 	Color::Red
 };
 
@@ -41,14 +41,14 @@ static const std::array moraleStringColor
 	Color::Orange,
 	Color::Yellow,
 	Color::White,
-	Color{ 0, 185, 0 }
+	Color{0, 185, 0}
 };
 
 
 PopulationPanel::PopulationPanel() :
-	mFont{ fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal) },
-	mFontBold{ fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal) },
-	mIcons{ imageCache.load("ui/icons.png") },
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal)},
+	mIcons{imageCache.load("ui/icons.png")},
 	mSkin
 	{
 		imageCache.load("ui/skin/window_top_left.png"),
@@ -83,7 +83,7 @@ PopulationPanel::PopulationPanel() :
 	const int windowWidth = largestStringLength + edgeBuffer + mPopulationPanelWidth;
 
 
-	size({ windowWidth, windowHeight });
+	size({windowWidth, windowHeight});
 }
 
 
@@ -95,7 +95,7 @@ void PopulationPanel::update()
 	const int fontHeight = mFont.height();
 	const int fontBoldHeight = mFontBold.height();
 
-	auto position = NAS2D::Point{ positionX() + constants::Margin, positionY() + constants::Margin };
+	auto position = NAS2D::Point{positionX() + constants::Margin, positionY() + constants::Margin};
 
 	// POPULATION
 	renderer.drawText(mFontBold, constants::PopulationBreakdown, position);
@@ -109,7 +109,7 @@ void PopulationPanel::update()
 	};
 
 	position.y += fontBoldHeight + constants::Margin;
-	const auto textOffset = NAS2D::Vector{ IconSize + constants::Margin, (IconSize / 2) - (fontHeight / 2) };
+	const auto textOffset = NAS2D::Vector{IconSize + constants::Margin, (IconSize / 2) - (fontHeight / 2)};
 	for (const auto& [imageRect, personCount, personRole] : populationData)
 	{
 		renderer.drawSubImage(mIcons, position, imageRect);
@@ -117,14 +117,14 @@ void PopulationPanel::update()
 		const auto roleCount = std::to_string(personCount);
 		renderer.drawText(mFont, personRole + ": ", position + textOffset);
 
-		const NAS2D::Point<int> labelPosition = { positionX() + mPopulationPanelWidth - mFont.width(roleCount) - constants::Margin , position.y + textOffset.y };
+		const NAS2D::Point<int> labelPosition = {positionX() + mPopulationPanelWidth - mFont.width(roleCount) - constants::Margin , position.y + textOffset.y};
 		renderer.drawText(mFont, roleCount, labelPosition);
 		position.y += IconSize + constants::Margin;
 	}
 
 	// DIVIDER LINE
-	position = NAS2D::Point{ positionX() + mPopulationPanelWidth, positionY() + constants::Margin };
-	renderer.drawLine(position, position + NAS2D::Vector<int>{ 0, rect().height - 10 }, Color::DarkGray);
+	position = NAS2D::Point{positionX() + mPopulationPanelWidth, positionY() + constants::Margin};
+	renderer.drawLine(position, position + NAS2D::Vector<int>{0, rect().height - 10}, Color::DarkGray);
 
 	// MORALE
 	position.x += constants::Margin;
@@ -147,7 +147,7 @@ void PopulationPanel::update()
 
 	position.y += fontHeight + fontHeight / 2;
 
-	renderer.drawLine(position, position + NAS2D::Vector<int>{ rect().width - mPopulationPanelWidth - constants::Margin * 2, 0 }, Color::DarkGray);
+	renderer.drawLine(position, position + NAS2D::Vector<int>{rect().width - mPopulationPanelWidth - constants::Margin * 2, 0}, Color::DarkGray);
 
 	position.y += fontHeight / 2;	
 	
@@ -156,7 +156,7 @@ void PopulationPanel::update()
 		renderer.drawText(mFont, item.first, position);
 
 		const auto text = formatDiff(item.second);
-		const NAS2D::Point<int> labelPosition = { rect().x + rect().width - mFont.width(text) - 5 , position.y };
+		const NAS2D::Point<int> labelPosition = {rect().x + rect().width - mFont.width(text) - 5 , position.y};
 
 		renderer.drawText(mFont, text, labelPosition, trend[trendIndex(item.second)]);
 		position.y += fontHeight;

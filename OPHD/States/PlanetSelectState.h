@@ -56,7 +56,7 @@ private:
 
 	TextArea mPlanetDescription;
 
-	std::size_t mPlanetSelection{ constants::NoSelection };
+	std::size_t mPlanetSelection{constants::NoSelection};
 
 	NAS2D::Timer mTimer;
 

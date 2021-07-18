@@ -113,7 +113,7 @@ void MapViewState::onDeployCargoLander()
 {
 	auto cc = static_cast<CommandCenter*>(mTileMap->getTile(ccLocation(), 0).structure());
 	cc->foodLevel(cc->foodLevel() + 125);
-	cc->storage() += StorableResources{ 25, 25, 15, 15 };
+	cc->storage() += StorableResources{25, 25, 15, 15};
 
 	updateStructuresAvailability();
 }

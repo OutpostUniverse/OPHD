@@ -38,68 +38,68 @@ std::string difficultyString(Difficulty difficulty)
 
 const std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
 {
-	{ StructureState::UnderConstruction, Color{150, 150, 150, 100} },
-	{ StructureState::Operational, Color{0, 185, 0} },
-	{ StructureState::Idle, Color{0, 185, 0, 100} },
-	{ StructureState::Disabled, Color{220, 0, 0} },
-	{ StructureState::Destroyed, Color{220, 0, 0} }
+	{StructureState::UnderConstruction, Color{150, 150, 150, 100}},
+	{StructureState::Operational, Color{0, 185, 0}},
+	{StructureState::Idle, Color{0, 185, 0, 100}},
+	{StructureState::Disabled, Color{220, 0, 0}},
+	{StructureState::Destroyed, Color{220, 0, 0}}
 };
 
 
 const std::map<StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
 {
-	{ StructureState::UnderConstruction, Color{185, 185, 185, 100} },
-	{ StructureState::Operational, Color{0, 185, 0} },
-	{ StructureState::Idle, Color{0, 185, 0, 100} },
-	{ StructureState::Disabled, Color{220, 0, 0} },
-	{ StructureState::Destroyed, Color{220, 0, 0} }
+	{StructureState::UnderConstruction, Color{185, 185, 185, 100}},
+	{StructureState::Operational, Color{0, 185, 0}},
+	{StructureState::Idle, Color{0, 185, 0, 100}},
+	{StructureState::Disabled, Color{220, 0, 0}},
+	{StructureState::Destroyed, Color{220, 0, 0}}
 };
 
 
 const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
 {
-	{ TerrainType::Dozed, constants::TileBulldozed },
-	{ TerrainType::Clear, constants::TileClear },
-	{ TerrainType::Rough, constants::TileRough },
-	{ TerrainType::Difficult, constants::TileDifficult },
-	{ TerrainType::Impassable, constants::TileImpassable },
+	{TerrainType::Dozed, constants::TileBulldozed},
+	{TerrainType::Clear, constants::TileClear},
+	{TerrainType::Rough, constants::TileRough},
+	{TerrainType::Difficult, constants::TileDifficult},
+	{TerrainType::Impassable, constants::TileImpassable},
 };
 
 
 const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 {
-	{ MineProductionRate::High , constants::MineYieldHigh },
-	{ MineProductionRate::Low , constants::MineYieldLow },
-	{ MineProductionRate::Medium , constants::MineYieldMedium }
+	{MineProductionRate::High , constants::MineYieldHigh},
+	{MineProductionRate::Low , constants::MineYieldLow},
+	{MineProductionRate::Medium , constants::MineYieldMedium}
 };
 
 
 const std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
 {
-	{ DisabledReason::None, constants::StructureDisabledNone },
+	{DisabledReason::None, constants::StructureDisabledNone},
 
-	{ DisabledReason::Chap, constants::StructureDisabledChap },
-	{ DisabledReason::Disconnected, constants::StructureDisabledDisconnected },
-	{ DisabledReason::Energy, constants::StructureDisabledEnergy },
-	{ DisabledReason::Population, constants::StructureDisabledPopulation },
-	{ DisabledReason::RefinedResources, constants::StructureDisabledRefinedResources },
-	{ DisabledReason::StructuralIntegrity, constants::StructureDisabledStructuralIntegrity }
+	{DisabledReason::Chap, constants::StructureDisabledChap},
+	{DisabledReason::Disconnected, constants::StructureDisabledDisconnected},
+	{DisabledReason::Energy, constants::StructureDisabledEnergy},
+	{DisabledReason::Population, constants::StructureDisabledPopulation},
+	{DisabledReason::RefinedResources, constants::StructureDisabledRefinedResources},
+	{DisabledReason::StructuralIntegrity, constants::StructureDisabledStructuralIntegrity}
 };
 
 
 const std::map<IdleReason, std::string> IDLE_REASON_TABLE =
 {
-	{ IdleReason::None, constants::StructureIdleNone },
+	{IdleReason::None, constants::StructureIdleNone},
 
-	{ IdleReason::PlayerSet, constants::StructureIdlePlayerSet },
-	{ IdleReason::InternalStorageFull, constants::StructureIdleInternalStorageFull },
-	{ IdleReason::FactoryProductionComplete, constants::StructureIdleFactoryProductionComplete },
-	{ IdleReason::FactoryInsufficientResources, constants::StructureIdleFactoryInsufficientResources },
-	{ IdleReason::FactoryInsufficientRobotCommandCapacity, constants::StructureIdleFactoryInsufficientRobotCommandCapacity },
-	{ IdleReason::FactoryInsufficientWarehouseSpace, constants::StructureIdleFactoryInsufficnetWarehouseCapacity },
-	{ IdleReason::MineExhausted, constants::StructureIdleMineExhausted },
-	{ IdleReason::MineInactive, constants::StructureIdleMineInactive },
-	{ IdleReason::InsufficientLuxuryProduct, constants::StructureIdleInsufficientLuxuryProduct }
+	{IdleReason::PlayerSet, constants::StructureIdlePlayerSet},
+	{IdleReason::InternalStorageFull, constants::StructureIdleInternalStorageFull},
+	{IdleReason::FactoryProductionComplete, constants::StructureIdleFactoryProductionComplete},
+	{IdleReason::FactoryInsufficientResources, constants::StructureIdleFactoryInsufficientResources},
+	{IdleReason::FactoryInsufficientRobotCommandCapacity, constants::StructureIdleFactoryInsufficientRobotCommandCapacity},
+	{IdleReason::FactoryInsufficientWarehouseSpace, constants::StructureIdleFactoryInsufficnetWarehouseCapacity},
+	{IdleReason::MineExhausted, constants::StructureIdleMineExhausted},
+	{IdleReason::MineInactive, constants::StructureIdleMineInactive},
+	{IdleReason::InsufficientLuxuryProduct, constants::StructureIdleInsufficientLuxuryProduct}
 };
 
 
@@ -230,39 +230,39 @@ std::array<std::string, ProductType::PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
 
 const std::array<std::string, 4> ResourceNamesRefined =
 {
-	{"Common Metals", "Common Minerals", "Rare Metals", "Rare Minerals" }
+	{"Common Metals", "Common Minerals", "Rare Metals", "Rare Minerals"}
 };
 
 
 const std::array<std::string, 4> ResourceNamesOre =
 {
-	{"Common Metals Ore", "Common Minerals Ore", "Rare Metals Ore", "Rare Minerals Ore" }
+	{"Common Metals Ore", "Common Minerals Ore", "Rare Metals Ore", "Rare Minerals Ore"}
 };
 
 
 const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
 {
-	{ { true, false, true, false }, "left" },
-	{ { true, false, false, false }, "left" },
-	{ { false, false, true, false }, "left" },
+	{{true, false, true, false}, "left"},
+	{{true, false, false, false}, "left"},
+	{{false, false, true, false}, "left"},
 
-	{ { false, true, false, true }, "right" },
-	{ { false, true, false, false }, "right" },
-	{ { false, false, false, true }, "right" },
+	{{false, true, false, true}, "right"},
+	{{false, true, false, false}, "right"},
+	{{false, false, false, true}, "right"},
 
-	{ { false, false, false, false }, "intersection" },
-	{ { true, true, false, false }, "intersection" },
-	{ { false, false, true, true }, "intersection" },
-	{ { false, true, true, true }, "intersection" },
-	{ { true, true, true, false }, "intersection" },
-	{ { true, true, true, true }, "intersection" },
-	{ { true, false, false, true }, "intersection" },
-	{ { false, true, true, false }, "intersection" },
+	{{false, false, false, false}, "intersection"},
+	{{true, true, false, false}, "intersection"},
+	{{false, false, true, true}, "intersection"},
+	{{false, true, true, true}, "intersection"},
+	{{true, true, true, false}, "intersection"},
+	{{true, true, true, true}, "intersection"},
+	{{true, false, false, true}, "intersection"},
+	{{false, true, true, false}, "intersection"},
 
-	{ { false, true, true, true }, "intersection" },
-	{ { true, false, true, true }, "intersection" },
-	{ { true, true, false, true }, "intersection" },
-	{ { true, true, true, false }, "intersection" }
+	{{false, true, true, true}, "intersection"},
+	{{true, false, true, true}, "intersection"},
+	{{true, true, false, true}, "intersection"},
+	{{true, true, true, false}, "intersection"}
 };
 
 
@@ -391,8 +391,8 @@ bool doYesNoMessage(const std::string& title, const std::string msg)
 #else
 	const SDL_MessageBoxButtonData buttons[] =
 	{
-		{ SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 0, "No" },
-		{ SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 1, "Yes" }
+		{SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 0, "No"},
+		{SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 1, "Yes"}
 	};
 
 	const SDL_MessageBoxData messageboxdata =

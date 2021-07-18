@@ -24,14 +24,14 @@ private:
 	// Lower number indicates criminal activity occurs more often
 	std::map<Difficulty, float> chanceCrimeOccurs
 	{
-		{ Difficulty::Beginner, 0.5f },
-		{ Difficulty::Easy, 0.75f },
-		{ Difficulty::Medium, 1.0f },
-		{ Difficulty::Hard, 2.0f }
+		{Difficulty::Beginner, 0.5f},
+		{Difficulty::Easy, 0.75f},
+		{Difficulty::Medium, 1.0f},
+		{Difficulty::Hard, 2.0f}
 	};
 
-	Difficulty mDifficulty{ Difficulty::Medium };
-	int mMeanCrimeRate{ 0 };
+	Difficulty mDifficulty{Difficulty::Medium};
+	int mMeanCrimeRate{0};
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
 	std::vector<Structure*> mStructuresCommittingCrimes;
 

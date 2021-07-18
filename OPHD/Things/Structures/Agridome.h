@@ -37,7 +37,7 @@ protected:
 
 	void defineResourceInput() override
 	{
-		resourcesIn({ 1, 0, 0, 0 });
+		resourcesIn({1, 0, 0, 0});
 		energyRequired(2);
 	}
 

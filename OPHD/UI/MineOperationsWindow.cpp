@@ -58,10 +58,10 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnOkay.size({60, 30});
 
 	add(btnAssignTruck, {mRect.width - 85, 115});
-	btnAssignTruck.size({ 80, 20 });
+	btnAssignTruck.size({80, 20});
 
 	add(btnUnassignTruck, {mRect.width - 170, 115});
-	btnUnassignTruck.size({ 80, 20 });
+	btnUnassignTruck.size({80, 20});
 
 	// ORE TOGGLE BUTTONS
 	add(chkCommonMetals, {148, 140});
@@ -185,48 +185,48 @@ void MineOperationsWindow::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto origin = mRect.startPoint();
-	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{ 10, 30 });
+	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{10, 30});
 
 	const auto& mineYield = MINE_YIELD_TRANSLATION.at(mFacility->mine()->productionRate());
-	drawLabelAndValue(origin + NAS2D::Vector{ 148, 30 }, "Mine Yield: ", mineYield);
+	drawLabelAndValue(origin + NAS2D::Vector{148, 30}, "Mine Yield: ", mineYield);
 
 	const std::string statusString =
 		mFacility->extending() ? "Digging New Level" :
 		mFacility->mine()->exhausted() ? "Exhausted" :
 		mFacility->stateDescription();
 
-	drawLabelAndValue(origin + NAS2D::Vector{ 148, 45 }, "Status: ", statusString);
+	drawLabelAndValue(origin + NAS2D::Vector{148, 45}, "Status: ", statusString);
 
 	if (mFacility && mFacility->extending())
 	{
 		const auto extensionTimeRemaining = std::to_string(mFacility->digTimeRemaining());
-		drawLabelAndValue(origin + NAS2D::Vector{ 148, 60 }, "Turns Remaining: ", extensionTimeRemaining);
+		drawLabelAndValue(origin + NAS2D::Vector{148, 60}, "Turns Remaining: ", extensionTimeRemaining);
 	}
 
 	const auto mineDepth = std::to_string(mFacility->mine()->depth());
-	drawLabelAndValue(origin + NAS2D::Vector{ 300, 30 }, "Depth: ", mineDepth);
+	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
 
 	// TRUCK ASSIGNMENT
-	renderer.drawText(mFontBold, "Trucks", origin + NAS2D::Vector{ 148, 80 }, NAS2D::Color::White);
-	drawLabelAndValue(origin + NAS2D::Vector{ 148, 95 }, "Assigned: ", std::to_string(mFacility->assignedTrucks()));
-	drawLabelAndValue(origin + NAS2D::Vector{ 260, 95 }, "Available: ", std::to_string(mAvailableTrucks));
+	renderer.drawText(mFontBold, "Trucks", origin + NAS2D::Vector{148, 80}, NAS2D::Color::White);
+	drawLabelAndValue(origin + NAS2D::Vector{148, 95}, "Assigned: ", std::to_string(mFacility->assignedTrucks()));
+	drawLabelAndValue(origin + NAS2D::Vector{260, 95}, "Available: ", std::to_string(mAvailableTrucks));
 
 	// REMAINING ORE PANEL
 	const auto width = mRect.width;
-	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{ 10, 164 }, NAS2D::Color::White);
+	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
-	mPanel.draw(renderer, NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{ 10, 180 }, NAS2D::Vector{ width - 20, 40 }));
+	mPanel.draw(renderer, NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{10, 180}, NAS2D::Vector{width - 20, 40}));
 
-	renderer.drawLine(origin + NAS2D::Vector{ 98, 180 }, origin + NAS2D::Vector{ 98, 219 }, NAS2D::Color{ 22, 22, 22 });
-	renderer.drawLine(origin + NAS2D::Vector{ 187, 180 }, origin + NAS2D::Vector{ 187, 219 }, NAS2D::Color{ 22, 22, 22 });
-	renderer.drawLine(origin + NAS2D::Vector{ 275, 180 }, origin + NAS2D::Vector{ 275, 219 }, NAS2D::Color{ 22, 22, 22 });
+	renderer.drawLine(origin + NAS2D::Vector{98, 180}, origin + NAS2D::Vector{98, 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(origin + NAS2D::Vector{187, 180}, origin + NAS2D::Vector{187, 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(origin + NAS2D::Vector{275, 180}, origin + NAS2D::Vector{275, 219}, NAS2D::Color{22, 22, 22});
 
-	renderer.drawLine(origin + NAS2D::Vector{ 11, 200 }, origin + NAS2D::Vector{ width - 11, 200 }, NAS2D::Color{ 22, 22, 22 });
+	renderer.drawLine(origin + NAS2D::Vector{11, 200}, origin + NAS2D::Vector{width - 11, 200}, NAS2D::Color{22, 22, 22});
 
-	const auto CommonMetalIconRect = NAS2D::Rectangle{ 64, 0, 16, 16 };
-	const auto CommonMineralIconRect = NAS2D::Rectangle{ 96, 0, 16, 16 };
-	const auto RareMetalIconRect = NAS2D::Rectangle{ 80, 0, 16, 16 };
-	const auto RareMineralIconRect = NAS2D::Rectangle{ 112, 0, 16, 16 };
+	const auto CommonMetalIconRect = NAS2D::Rectangle{64, 0, 16, 16};
+	const auto CommonMineralIconRect = NAS2D::Rectangle{96, 0, 16, 16};
+	const auto RareMetalIconRect = NAS2D::Rectangle{80, 0, 16, 16};
+	const auto RareMineralIconRect = NAS2D::Rectangle{112, 0, 16, 16};
 
 	const std::array resources
 	{
@@ -240,7 +240,7 @@ void MineOperationsWindow::update()
 	{
 		const auto resourceCountString = std::to_string(resourceCount);
 		const auto textOffsetX = offsetX - (mFont.width(resourceCountString) / 2) + 8;
-		renderer.drawSubImage(mIcons, origin + NAS2D::Vector{ offsetX, 183 }, iconRect);
-		renderer.drawText(mFont, resourceCountString, origin + NAS2D::Vector{ textOffsetX, 202 }, NAS2D::Color::White);
+		renderer.drawSubImage(mIcons, origin + NAS2D::Vector{offsetX, 183}, iconRect);
+		renderer.drawText(mFont, resourceCountString, origin + NAS2D::Vector{textOffsetX, 202}, NAS2D::Color::White);
 	}
 }

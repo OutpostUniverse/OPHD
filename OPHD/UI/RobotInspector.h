@@ -37,5 +37,5 @@ private:
 
 	NAS2D::Signal<Robot*> mSignal;
 
-	Robot* mRobot{ nullptr };
+	Robot* mRobot{nullptr};
 };

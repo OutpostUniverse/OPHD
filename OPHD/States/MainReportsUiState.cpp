@@ -192,8 +192,8 @@ void MainReportsUiState::initialize()
 
 	ReportInterface* mining_report = new MineReport();
 	Panels[NavigationPanel::PANEL_MINING].UiPanel = mining_report;
-	mining_report->position({ 0, 48 });
-	mining_report->size({ size.x, size.y - 48 });
+	mining_report->position({0, 48});
+	mining_report->size({size.x, size.y - 48});
 	mining_report->hide();
 }
 

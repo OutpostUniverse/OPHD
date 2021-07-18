@@ -732,7 +732,7 @@ void PathCache::Add(const std::vector< void* >& path, const std::vector< float >
 		// in and out and how to set.
 
 		void* end = path[path.size() - 1];
-		Item item = { path[i], end, path[i + 1], cost[i] };
+		Item item = {path[i], end, path[i + 1], cost[i]};
 		AddItem(item);
 	}
 }
@@ -746,7 +746,7 @@ void PathCache::AddNoSolution(void* end, void* states[], std::size_t count)
 
 	for (std::size_t i = 0; i < count; ++i)
 	{
-		Item item = { states[i], end, nullptr, FLT_MAX };
+		Item item = {states[i], end, nullptr, FLT_MAX};
 		AddItem(item);
 	}
 }
@@ -812,7 +812,7 @@ void PathCache::AddItem(const Item& item)
 const PathCache::Item* PathCache::Find(void* start, void* end)
 {
 	MPASSERT(allocated);
-	Item fake = { start, end, nullptr, 0 };
+	Item fake = {start, end, nullptr, 0};
 	unsigned index = fake.Hash() % allocated;
 	while (true)
 	{

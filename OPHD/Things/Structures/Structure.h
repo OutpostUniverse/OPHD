@@ -202,20 +202,20 @@ private:
 	virtual void activated() {}
 
 private:
-	int mTurnsToBuild{ 0 };
-	int mAge{ 0 };
-	int mMaxAge{ 0 };
-	int mEnergyRequirement{ 0 };
-	int mStorageCapacity{ 0 };
-	int mCrimeRate{ 0 };
-	int mIntegrity{ 100 };
-	int mIntegrityDecayRate{ 1 };
+	int mTurnsToBuild{0};
+	int mAge{0};
+	int mMaxAge{0};
+	int mEnergyRequirement{0};
+	int mStorageCapacity{0};
+	int mCrimeRate{0};
+	int mIntegrity{100};
+	int mIntegrityDecayRate{1};
 
-	StructureID mStructureId{ StructureID::SID_NONE };
+	StructureID mStructureId{StructureID::SID_NONE};
 
-	StructureState mStructureState{ StructureState::UnderConstruction };
-	StructureClass mStructureClass{ StructureClass::Undefined };
-	ConnectorDir mConnectorDirection{ ConnectorDir::CONNECTOR_INTERSECTION };
+	StructureState mStructureState{StructureState::UnderConstruction};
+	StructureClass mStructureClass{StructureClass::Undefined};
+	ConnectorDir mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION};
 
 	PopulationRequirements mPopulationRequirements; /**< Population requirements for structure operation. */
 	PopulationRequirements mPopulationAvailable; /**< Determine how many of each type of population required was actually supplied to the structure. */
@@ -225,14 +225,14 @@ private:
 	StorableResources mProductionPool; /**< Resource pool used for production. */
 	StorableResources mStoragePool; /**< Resource storage pool. */
 
-	DisabledReason mDisabledReason{ DisabledReason::None };
-	IdleReason mIdleReason{ IdleReason::None };
+	DisabledReason mDisabledReason{DisabledReason::None};
+	IdleReason mIdleReason{IdleReason::None};
 
-	bool mRepairable{ true };
-	bool mRequiresCHAP{ true };
-	bool mSelfSustained{ false };
-	bool mHasCrime{ false };
-	bool mForcedIdle{ false }; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
+	bool mRepairable{true};
+	bool mRequiresCHAP{true};
+	bool mSelfSustained{false};
+	bool mHasCrime{false};
+	bool mForcedIdle{false}; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };
 
 

@@ -18,18 +18,18 @@ using ProductionTypeTable = std::map<ProductType, ProductionCost>;
  */
 const ProductionTypeTable PRODUCTION_TYPE_TABLE =
 {
-	{ ProductType::PRODUCT_NONE, ProductionCost() },
+	{ProductType::PRODUCT_NONE, ProductionCost()},
 
-	{ ProductType::PRODUCT_DIGGER, ProductionCost(5, 10, 5, 5, 2) },
-	{ ProductType::PRODUCT_DOZER, ProductionCost(5, 10, 5, 5, 2) },
-	{ ProductType::PRODUCT_EXPLORER, ProductionCost(5, 10, 5, 5, 2) },
-	{ ProductType::PRODUCT_MINER, ProductionCost(5, 10, 5, 5, 2) },
-	{ ProductType::PRODUCT_TRUCK, ProductionCost(3, 6, 3, 2, 1) },
+	{ProductType::PRODUCT_DIGGER, ProductionCost(5, 10, 5, 5, 2)},
+	{ProductType::PRODUCT_DOZER, ProductionCost(5, 10, 5, 5, 2)},
+	{ProductType::PRODUCT_EXPLORER, ProductionCost(5, 10, 5, 5, 2)},
+	{ProductType::PRODUCT_MINER, ProductionCost(5, 10, 5, 5, 2)},
+	{ProductType::PRODUCT_TRUCK, ProductionCost(3, 6, 3, 2, 1)},
 
-	{ ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost(2, 2, 2, 1, 1) },
+	{ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost(2, 2, 2, 1, 1)},
 
-	{ ProductType::PRODUCT_CLOTHING, ProductionCost(1, 0, 1, 0, 0) },
-	{ ProductType::PRODUCT_MEDICINE, ProductionCost(1, 0, 2, 0, 1) },
+	{ProductType::PRODUCT_CLOTHING, ProductionCost(1, 0, 1, 0, 0)},
+	{ProductType::PRODUCT_MEDICINE, ProductionCost(1, 0, 2, 0, 1)},
 };
 
 

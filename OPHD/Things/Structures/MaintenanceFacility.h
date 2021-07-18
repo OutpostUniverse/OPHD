@@ -13,9 +13,9 @@
 class MaintenanceFacility : public Structure
 {
 public:
-	static constexpr int MaintenanceSuppliesCapacity{ 100 };
-	static constexpr int MaximumPersonnel{ 10 };
-	static constexpr int MinimumPersonnel{ 1 };
+	static constexpr int MaintenanceSuppliesCapacity{100};
+	static constexpr int MaximumPersonnel{10};
+	static constexpr int MinimumPersonnel{1};
 
 public:
 	MaintenanceFacility() : Structure(constants::MaintenanceFacility,
@@ -195,7 +195,7 @@ protected:
 	{
 		if (mMaterialsLevel == MaintenanceSuppliesCapacity) { return; }
 
-		StorableResources maintenanceSuppliesCost{ 1, 1, 1, 1 };
+		StorableResources maintenanceSuppliesCost{1, 1, 1, 1};
 
 		if (resources() >= maintenanceSuppliesCost)
 		{
@@ -210,11 +210,11 @@ protected:
 private:
 	const StorableResources& resources() { return *mResources; }
 
-	int mMaterialsLevel{ 0 };
-	int mMaintenancePersonnel{ MinimumPersonnel };
-	int mAssignedPersonnel{ 0 };
+	int mMaterialsLevel{0};
+	int mMaintenancePersonnel{MinimumPersonnel};
+	int mAssignedPersonnel{0};
 
 	StructureList mPriorityList;
 
-	const StorableResources* mResources{ nullptr };
+	const StorableResources* mResources{nullptr};
 };

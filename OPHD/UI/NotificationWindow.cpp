@@ -11,19 +11,19 @@ using namespace NAS2D;
 
 
 NotificationWindow::NotificationWindow():
-	mIcons{ imageCache.load("ui/icons.png") }
+	mIcons{imageCache.load("ui/icons.png")}
 {
-	size({ 300, 220 });
+	size({300, 220});
 
-	add(btnOkay, { 245, 195 });
-	btnOkay.size({ 50, 20 });
+	add(btnOkay, {245, 195});
+	btnOkay.size({50, 20});
 
-	add(btnTakeMeThere, { 10, 195 });
-	btnTakeMeThere.size({ 125, 20 });
+	add(btnTakeMeThere, {10, 195});
+	btnTakeMeThere.size({125, 20});
 	btnTakeMeThere.hide();
 
-	add(mMessageArea, { 5, 65 });
-	mMessageArea.size({ size().x - 10, 125 });
+	add(mMessageArea, {5, 65});
+	mMessageArea.size({size().x - 10, 125});
 	mMessageArea.font(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 }
 
@@ -63,8 +63,8 @@ void NotificationWindow::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	Point<float> iconLocation = position() + Vector{ 10, 30 };
+	Point<float> iconLocation = position() + Vector{10, 30};
 
-	renderer.drawSubImage(mIcons, iconLocation, { 128, 64, 32, 32 }, ColorFromNotification(mNotification.type));
+	renderer.drawSubImage(mIcons, iconLocation, {128, 64, 32, 32}, ColorFromNotification(mNotification.type));
 	renderer.drawSubImage(mIcons, iconLocation, IconRectFromNotificationType(mNotification.type), Color::Normal);
 }

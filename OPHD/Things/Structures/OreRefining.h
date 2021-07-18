@@ -66,16 +66,16 @@ public:
 	int IndividualMaterialCapacity() const { return storageCapacity() / 4; }
 
 protected:
-	std::array<int, 4> OreConversionDivisor{ 2, 2, 3, 3 };
+	std::array<int, 4> OreConversionDivisor{2, 2, 3, 3};
 
 	void think() override
 	{
 		if (isIdle())
 		{
-			if (storage() < StorableResources{ IndividualMaterialCapacity(),
+			if (storage() < StorableResources{IndividualMaterialCapacity(),
 				IndividualMaterialCapacity(),
 				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity() })
+				IndividualMaterialCapacity()})
 			{
 				enable();
 			}
@@ -89,7 +89,7 @@ protected:
 
 	virtual void updateProduction()
 	{
-		StorableResources converted{ 0 };
+		StorableResources converted{0};
 		auto& ore = production();
 
 		for (size_t i = 0; i < ore.resources.size(); ++i)
@@ -118,10 +118,10 @@ protected:
 
 			ore += deconvertedResources;
 
-			if (ore >= StorableResources{ IndividualMaterialCapacity(),
+			if (ore >= StorableResources{IndividualMaterialCapacity(),
 				IndividualMaterialCapacity(),
 				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity() })
+				IndividualMaterialCapacity()})
 			{
 				idle(IdleReason::InternalStorageFull);
 			}

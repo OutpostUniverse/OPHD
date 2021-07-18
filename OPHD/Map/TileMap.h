@@ -122,7 +122,7 @@ private:
 	int mMaxDepth = 0; /**< Maximum digging depth. */
 	int mCurrentDepth = 0; /**< Current depth level to view. */
 
-	std::pair<void*, void*> mPathStartEndPair = { nullptr, nullptr };
+	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 
 	std::string mMapPath;
 	std::string mTsetPath;

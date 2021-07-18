@@ -43,11 +43,11 @@ std::string CURRENT_LEVEL_STRING;
 
 std::map<int, std::string> LEVEL_STRING_TABLE =
 {
-	{ constants::DepthSurface, constants::LevelSurface },
-	{ constants::DepthUnderground1, constants::Levelunderground1 },
-	{ constants::DepthUnderground2, constants::Levelunderground2 },
-	{ constants::DepthUnderground3, constants::Levelunderground3 },
-	{ constants::DepthUnderground4, constants::Levelunderground4 }
+	{constants::DepthSurface, constants::LevelSurface},
+	{constants::DepthUnderground1, constants::Levelunderground1},
+	{constants::DepthUnderground2, constants::Levelunderground2},
+	{constants::DepthUnderground3, constants::Levelunderground3},
+	{constants::DepthUnderground4, constants::Levelunderground4}
 };
 
 
@@ -63,9 +63,9 @@ struct RobotMeta
 
 const std::map<Robot::Type, RobotMeta> RobotMetaTable
 {
-	{ Robot::Type::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
-	{ Robot::Type::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
-	{ Robot::Type::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
+	{Robot::Type::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
+	{Robot::Type::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
+	{Robot::Type::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
 };
 
 
@@ -457,7 +457,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		case EventHandler::KeyCode::KEY_F10:
 			if (Utility<EventHandler>::get().control(mod) && Utility<EventHandler>::get().shift(mod))
 			{
-				StorableResources resourcesToAdd{ 1000, 1000, 1000, 1000 };
+				StorableResources resourcesToAdd{1000, 1000, 1000, 1000};
 				addRefinedResources(resourcesToAdd);
 				countPlayerResources();
 				updateStructuresAvailability();
@@ -992,7 +992,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 void MapViewState::placeRobodigger(Tile& tile)
 {
 	// Keep digger within a safe margin of the map boundaries.
-	if (!NAS2D::Rectangle<int>::Create({ 4, 4 }, NAS2D::Point{ -4, -4 } + mTileMap->size()).contains(mTileMapMouseHover))
+	if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(mTileMapMouseHover))
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerEdgeBuffer);
 		return;
@@ -1053,12 +1053,12 @@ void MapViewState::placeRobodigger(Tile& tile)
 		mWindowStack.bringToFront(&mDiggerDirection);
 
 		// Popup to the right of the mouse
-		auto position = MOUSE_COORDS + NAS2D::Vector{ 20, -32 };
+		auto position = MOUSE_COORDS + NAS2D::Vector{20, -32};
 		// Check if popup position is off the right edge of the display area
 		if (position.x + mDiggerDirection.size().x > Utility<Renderer>::get().size().x)
 		{
 			// Popup to the left of the mouse
-			position = MOUSE_COORDS + NAS2D::Vector{ -20 - mDiggerDirection.size().x, -32 };
+			position = MOUSE_COORDS + NAS2D::Vector{-20 - mDiggerDirection.size().x, -32};
 		}
 		mDiggerDirection.position(position);
 	}
@@ -1488,7 +1488,7 @@ void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int 
 	{
 		for (int x = 0; x < area.width; ++x)
 		{
-			auto& tile = (*mTileMap).getTile({ x + area.x, y + area.y }, depth);
+			auto& tile = (*mTileMap).getTile({x + area.x, y + area.y}, depth);
 			if (isPointInRange(centerTile.position(), tile.position(), range))
 			{
 				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
