@@ -84,7 +84,7 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mNotificationWindow);
 
 	mNotificationArea.notificationClicked().connect(this, &MapViewState::onNotificationClicked);
-	
+
 	mNotificationWindow.takeMeThere().connect(this, &MapViewState::onNotificationWindowTakeMeThere);
 	mNotificationWindow.hide();
 

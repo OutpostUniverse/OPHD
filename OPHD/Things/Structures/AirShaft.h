@@ -5,7 +5,7 @@
 #include "../../Constants.h"
 
 
-class AirShaft: public Structure
+class AirShaft : public Structure
 {
 public:
 	AirShaft() : Structure(constants::AirShaft, "structures/air_shaft.sprite",

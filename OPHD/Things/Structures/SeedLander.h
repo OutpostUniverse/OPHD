@@ -7,7 +7,7 @@
 #include <NAS2D/Renderer/Point.h>
 
 
-class SeedLander: public Structure
+class SeedLander : public Structure
 {
 public:
 	using Signal = NAS2D::Signal<NAS2D::Point<int>>;

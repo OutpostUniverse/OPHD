@@ -24,7 +24,7 @@
 #include <vector>
 
 // Disable some warnings that can be safely ignored.
-#pragma warning(disable: 4244) // possible loss of data (floats to int and vice versa)
+#pragma warning(disable : 4244) // possible loss of data (floats to int and vice versa)
 
 
 using namespace NAS2D;
@@ -93,14 +93,16 @@ static void pushAgingRobotMessage(const Robot* robot, const Point<int> position,
 
 	if (robot->fuelCellAge() == 190) /// \fixme magic number
 	{
-		notificationArea.push("Aging Robot",
+		notificationArea.push(
+			"Aging Robot",
 			"Robot '" + robot->name() + "' at location " + robotLocationText + " is approaching its maximum age.",
 			position,
 			NotificationArea::NotificationType::Warning);
 	}
 	else if (robot->fuelCellAge() == 195) /// \fixme magic number
 	{
-		notificationArea.push("Aging Robot",
+		notificationArea.push(
+			"Aging Robot",
 			"Robot '" + robot->name() + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.",
 			position,
 			NotificationArea::NotificationType::Critical);
@@ -610,7 +612,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		}
 		else if (mMoveDownIconRect.contains(MOUSE_COORDS))
 		{
-			changeViewDepth(mTileMap->currentDepth()+1);
+			changeViewDepth(mTileMap->currentDepth() + 1);
 		}
 
 		// MiniMap Check
@@ -658,10 +660,23 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 		{
 			Structure* structure = tile.structure();
 
-			if (structure->isFactory()) { mMainReportsState.selectFactoryPanel(structure); }
-			else if (structure->isWarehouse()) { mMainReportsState.selectWarehousePanel(structure); }
-			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter) { mMainReportsState.selectMinePanel(structure); }
-			else { return; } // avoids showing the full-screen UI on unhandled structures.
+			if (structure->isFactory())
+			{
+				mMainReportsState.selectFactoryPanel(structure);
+			}
+			else if (structure->isWarehouse())
+			{
+				mMainReportsState.selectWarehousePanel(structure);
+			}
+			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter)
+			{
+				mMainReportsState.selectMinePanel(structure);
+			}
+			else
+			{
+				// avoids showing the full-screen UI on unhandled structures.
+				return;
+			}
 
 			mReportsUiSignal();
 		}
@@ -1067,9 +1082,21 @@ void MapViewState::placeRobodigger(Tile& tile)
 
 void MapViewState::placeRobominer(Tile& tile)
 {
-	if (tile.thing()) { doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerTileObstructed); return; }
-	if (mTileMap->currentDepth() != constants::DepthSurface) { doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerSurfaceOnly); return; }
-	if (!tile.mine()) { doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerNotOnMine); return; }
+	if (tile.thing())
+	{
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerTileObstructed);
+		return;
+	}
+	if (mTileMap->currentDepth() != constants::DepthSurface)
+	{
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerSurfaceOnly);
+		return;
+	}
+	if (!tile.mine())
+	{
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerNotOnMine);
+		return;
+	}
 
 	Robot* robot = mRobotPool.getMiner();
 	robot->startTask(constants::MinerTaskTime);
@@ -1305,11 +1332,12 @@ void MapViewState::updateRobots()
 		{
 			std::cout << "dead robot" << std::endl;
 
-			const auto robotLocationText ="(" +  std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
+			const auto robotLocationText = "(" +  std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
 
 			if (robot->selfDestruct())
 			{
-				mNotificationArea.push("Robot Self-Destructed",
+				mNotificationArea.push(
+					"Robot Self-Destructed",
 					robot->name() + " at location " + robotLocationText + " self destructed.",
 					position,
 					NotificationArea::NotificationType::Critical);

@@ -42,7 +42,7 @@ public:
 
 	int wasteOverflow() const { return mWasteOverflow; }
 	void wasteOverflow(int amount) { mWasteOverflow = amount; }
-	
+
 
 	int pullWaste(int amount)
 	{

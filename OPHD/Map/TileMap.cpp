@@ -149,7 +149,7 @@ void TileMap::setupMines(int mineCount, Planet::Hostility hostility)
 	// low yield mines. Difficulty settings could shift this to other yields.
 	int yieldTotal = yieldLow + yieldMedium + yieldHigh;
 	if (yieldTotal < mineCount) { yieldLow += mineCount - yieldTotal; }
-	
+
 	auto mwidth = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, MAP_WIDTH - 5);
 	auto mheight = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, MAP_HEIGHT - 5);
 
@@ -221,11 +221,26 @@ void TileMap::buildMouseMap()
 		for (std::size_t col = 0; col < TILE_WIDTH; col++)
 		{
 			const Color c = mousemap.pixelColor({static_cast<int>(col), static_cast<int>(row)});
-			if (c == NAS2D::Color::Yellow) { mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_RIGHT; }
-			else if (c == NAS2D::Color::Red) { mMouseMap[row][col] = MouseMapRegion::MMR_TOP_LEFT; }
-			else if (c == NAS2D::Color::Blue) { mMouseMap[row][col] = MouseMapRegion::MMR_TOP_RIGHT; }
-			else if (c == NAS2D::Color::Green) { mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_LEFT; }
-			else { mMouseMap[row][col] = MouseMapRegion::MMR_MIDDLE; }
+			if (c == NAS2D::Color::Yellow)
+			{
+				mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_RIGHT;
+			}
+			else if (c == NAS2D::Color::Red)
+			{
+				mMouseMap[row][col] = MouseMapRegion::MMR_TOP_LEFT;
+			}
+			else if (c == NAS2D::Color::Blue)
+			{
+				mMouseMap[row][col] = MouseMapRegion::MMR_TOP_RIGHT;
+			}
+			else if (c == NAS2D::Color::Green)
+			{
+				mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_LEFT;
+			}
+			else
+			{
+				mMouseMap[row][col] = MouseMapRegion::MMR_MIDDLE;
+			}
 		}
 	}
 }

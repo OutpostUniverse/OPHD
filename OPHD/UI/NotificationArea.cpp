@@ -196,7 +196,7 @@ void NotificationArea::update()
 			const auto textPosition = mNotificationBriefRect.startPoint() + Vector<int>{4, 2};
 			renderer.drawText(mFont, notification.brief, textPosition, Color::White);
 		}
-		
+
 		count++;
 	}
 }

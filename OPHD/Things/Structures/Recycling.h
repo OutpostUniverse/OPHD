@@ -38,8 +38,8 @@ public:
 
 		return WasteProcessingCapacity;
 	}
-	
-	
+
+
 	/**
 	 * Number of residential units the facility can support
 	 * each turn.

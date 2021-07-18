@@ -47,13 +47,13 @@ public:
 	{
 		return mMaintenancePersonnel;
 	}
-	
+
 
 	void addPersonnel()
 	{
 		mMaintenancePersonnel = std::clamp(mMaintenancePersonnel + 1, MinimumPersonnel, MaximumPersonnel);
 	}
-	
+
 
 	void removePersonnel()
 	{

@@ -8,10 +8,10 @@
 /**
  * Implements the Command Center structure.
  */
-class CommandCenter: public FoodProduction
+class CommandCenter : public FoodProduction
 {
 public:
-	CommandCenter(): FoodProduction(constants::CommandCenter,
+	CommandCenter() : FoodProduction(constants::CommandCenter,
 		"structures/command_center.sprite",
 		StructureClass::Command,
 		StructureID::SID_COMMAND_CENTER)

@@ -5,7 +5,7 @@
 #include <NAS2D/Dictionary.h>
 
 
-class Robot: public Thing
+class Robot : public Thing
 {
 public:
 	enum class Type

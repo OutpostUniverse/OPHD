@@ -315,8 +315,9 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 			break;
 		}
 
-		if (!robot) { continue; } // Could be done in the default handler in the above switch
-								// but may be better here as an explicit statement.
+		// Could be done in the default handler in the above switch
+		// but may be better here as an explicit statement.
+		if (!robot) { continue; }
 
 		robot->fuelCellAge(age);
 

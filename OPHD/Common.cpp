@@ -68,9 +68,9 @@ const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
 
 const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 {
-	{MineProductionRate::High , constants::MineYieldHigh},
-	{MineProductionRate::Low , constants::MineYieldLow},
-	{MineProductionRate::Medium , constants::MineYieldMedium}
+	{MineProductionRate::High, constants::MineYieldHigh},
+	{MineProductionRate::Low, constants::MineYieldLow},
+	{MineProductionRate::Medium, constants::MineYieldMedium}
 };
 
 

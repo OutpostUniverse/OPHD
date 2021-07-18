@@ -45,7 +45,7 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 
 	const int tooltipWidth = mFont.width(item.second) + padding;
 	const int tooltipHeight = mFont.height() + padding;
-	
+
 	auto tooltipPosition = item.first->position();
 	tooltipPosition.x = mouseX;
 

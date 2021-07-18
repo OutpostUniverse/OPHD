@@ -4,7 +4,7 @@
 
 #include "../../Constants/Strings.h"
 
-class Robodozer: public Robot
+class Robodozer : public Robot
 {
 public:
 	Robodozer(): Robot(constants::Robodozer, "robots/robodozer.sprite", Robot::Type::Dozer)
