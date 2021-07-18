@@ -43,8 +43,8 @@ public:
 	void verifyCount();
 
 private:
-	ProductTypeCount mProducts = {{0}};
+	ProductTypeCount mProducts{{0}};
 
-	int mCapacity = constants::BaseProductCapacity;
-	int mCurrentStorageCount = 0;
+	int mCapacity{constants::BaseProductCapacity};
+	int mCurrentStorageCount{0};
 };
