@@ -54,7 +54,8 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 
 		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
 
-		mNotificationArea.push("Food Stolen",
+		mNotificationArea.push(
+			"Food Stolen",
 			NAS2D::stringFrom(foodStolen) + " units of food was pilfered from a " + structure.name() + ". " + getReasonForStealing() + ".",
 			structureTile.position(),
 			NotificationArea::NotificationType::Warning);
@@ -95,7 +96,8 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 
 	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
 
-	mNotificationArea.push("Resources Stolen",
+	mNotificationArea.push(
+		"Resources Stolen",
 		NAS2D::stringFrom(amountStolen) + " units of " + resourceNames[indexToStealFrom] + " were stolen from a " + structure.name() + ". " + getReasonForStealing() + ".",
 		structureTile.position(),
 		NotificationArea::NotificationType::Warning);
@@ -108,7 +110,8 @@ void CrimeExecution::vandalize(Structure& structure)
 
 	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
 
-	mNotificationArea.push("Vandalism",
+	mNotificationArea.push(
+		"Vandalism",
 		"A " + structure.name() + " was vandalized.",
 		structureTile.position(),
 		NotificationArea::NotificationType::Warning);
