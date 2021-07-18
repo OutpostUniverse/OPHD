@@ -658,10 +658,23 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 		{
 			Structure* structure = tile.structure();
 
-			if (structure->isFactory()) { mMainReportsState.selectFactoryPanel(structure); }
-			else if (structure->isWarehouse()) { mMainReportsState.selectWarehousePanel(structure); }
-			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter) { mMainReportsState.selectMinePanel(structure); }
-			else { return; } // avoids showing the full-screen UI on unhandled structures.
+			if (structure->isFactory())
+			{
+				mMainReportsState.selectFactoryPanel(structure);
+			}
+			else if (structure->isWarehouse())
+			{
+				mMainReportsState.selectWarehousePanel(structure);
+			}
+			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter)
+			{
+				mMainReportsState.selectMinePanel(structure);
+			}
+			else
+			{
+				// avoids showing the full-screen UI on unhandled structures.
+				return;
+			}
 
 			mReportsUiSignal();
 		}
