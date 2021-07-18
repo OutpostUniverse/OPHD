@@ -126,7 +126,7 @@ void Factory::updateProduction()
 	}
 
 	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
-	StorableResources cost {
+	StorableResources cost{
 		productionCost.commonMetals(),
 		productionCost.commonMinerals(),
 		productionCost.rareMetals(),
