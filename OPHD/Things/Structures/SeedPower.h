@@ -9,7 +9,7 @@
 
 const int SEED_POWER_PRODUCTION = 50;
 
-class SeedPower: public PowerStructure
+class SeedPower : public PowerStructure
 {
 public:
 	SeedPower() : PowerStructure(constants::SeedPower,

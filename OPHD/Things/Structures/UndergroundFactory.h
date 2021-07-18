@@ -5,10 +5,10 @@
 #include "../../Constants.h"
 
 
-class UndergroundFactory: public Factory
+class UndergroundFactory : public Factory
 {
 public:
-	UndergroundFactory(): Factory(constants::UndergroundFactory,
+	UndergroundFactory() : Factory(constants::UndergroundFactory,
 		"structures/factory_underground.sprite",
 		StructureID::SID_UNDERGROUND_FACTORY)
 	{

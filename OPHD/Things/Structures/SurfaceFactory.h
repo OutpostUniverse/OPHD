@@ -5,10 +5,10 @@
 #include "../../Constants.h"
 
 
-class SurfaceFactory: public Factory
+class SurfaceFactory : public Factory
 {
 public:
-	SurfaceFactory(): Factory(constants::SurfaceFactory,
+	SurfaceFactory() : Factory(constants::SurfaceFactory,
 		"structures/factory_surface.sprite",
 		StructureID::SID_SURFACE_FACTORY)
 	{

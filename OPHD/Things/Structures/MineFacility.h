@@ -7,7 +7,7 @@
 /**
  * Implements the Mine Facility.
  */
-class MineFacility: public Structure
+class MineFacility : public Structure
 {
 public:
 	using ExtensionCompleteSignal = NAS2D::Signal<MineFacility*>;
