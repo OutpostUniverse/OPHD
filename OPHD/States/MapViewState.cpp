@@ -1334,7 +1334,8 @@ void MapViewState::updateRobots()
 
 			if (robot->selfDestruct())
 			{
-				mNotificationArea.push("Robot Self-Destructed",
+				mNotificationArea.push(
+					"Robot Self-Destructed",
 					robot->name() + " at location " + robotLocationText + " self destructed.",
 					position,
 					NotificationArea::NotificationType::Critical);
