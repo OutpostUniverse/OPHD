@@ -211,7 +211,6 @@ void MainReportsUiState::_activate()
 
 	Panels[NavigationPanel::PANEL_MINING].UiPanel->fillLists();
 	Panels[NavigationPanel::PANEL_MINING].UiPanel->refresh();
-
 }
 
 
@@ -267,7 +266,6 @@ void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, in
 		exit();
 	}
 }
-
 
 
 void MainReportsUiState::exit()
