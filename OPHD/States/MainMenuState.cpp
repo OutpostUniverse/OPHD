@@ -67,7 +67,7 @@ void MainMenuState::initialize()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.fadeComplete().connect(this, &MainMenuState::onFadeComplete);
-	renderer.fadeOut(0);
+	renderer.fadeOut(std::chrono::milliseconds{0});
 	renderer.fadeIn(constants::FadeSpeed);
 	renderer.showSystemPointer(true);
 
@@ -199,7 +199,7 @@ void MainMenuState::onNewGame()
 
 	mReturnState = new PlanetSelectState();
 
-	Utility<Renderer>::get().fadeOut(static_cast<float>(constants::FadeSpeed));
+	Utility<Renderer>::get().fadeOut(constants::FadeSpeed);
 	Utility<Mixer>::get().fadeOutMusic(constants::FadeSpeed);
 }
 

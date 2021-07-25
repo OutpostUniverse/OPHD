@@ -674,7 +674,7 @@ void MapViewState::onReturnToGame()
  */
 void MapViewState::onGameOver()
 {
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(static_cast<float>(constants::FadeSpeed));
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(constants::FadeSpeed);
 	mQuitSignal();
 }
 

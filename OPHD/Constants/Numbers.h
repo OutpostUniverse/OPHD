@@ -2,13 +2,15 @@
 
 #include <NAS2D/Renderer/Vector.h>
 
+#include <chrono>
+
 
 /**
  * Numeric constants
  */
 namespace constants
 {
-	inline constexpr int FadeSpeed{300};
+	inline constexpr std::chrono::milliseconds FadeSpeed{300};
 
 	inline constexpr int PlanetAnimationSpeed{50};
 

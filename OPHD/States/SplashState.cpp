@@ -23,7 +23,7 @@ namespace
 
 	const int pauseTime = 5800;
 	unsigned int fadePauseTime = 5000;
-	const float fadeLength = 800;
+	const std::chrono::milliseconds fadeLength{800};
 
 	NAS2D::Timer bylineTimer;
 
@@ -71,7 +71,7 @@ void SplashState::initialize()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.showSystemPointer(false);
-	renderer.fadeOut(0);
+	renderer.fadeOut(std::chrono::milliseconds{0});
 }
 
 
