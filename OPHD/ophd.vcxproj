@@ -109,13 +109,7 @@
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
 IF NOT "$(VcpkgInstalledDir)" == "" (
-  IF "$(ConfigurationName)" == "Debug" (
-    SET configDir="debug\"
-  ) ELSE (
-    SET configDir=""
-  )
-
-  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\%configDir%bin\"
+  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\$(VcpkgConfigSubdir)bin\"
 
   xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
   xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
@@ -150,13 +144,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
 IF NOT "$(VcpkgInstalledDir)" == "" (
-  IF "$(ConfigurationName)" == "Debug" (
-    SET configDir="debug\"
-  ) ELSE (
-    SET configDir=""
-  )
-
-  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\%configDir%bin\"
+  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\$(VcpkgConfigSubdir)bin\"
 
   xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
   xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
@@ -193,13 +181,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
 IF NOT "$(VcpkgInstalledDir)" == "" (
-  IF "$(ConfigurationName)" == "Debug" (
-    SET configDir="debug\"
-  ) ELSE (
-    SET configDir=""
-  )
-
-  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\%configDir%bin\"
+  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\$(VcpkgConfigSubdir)bin\"
 
   xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
   xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
@@ -236,13 +218,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
 IF NOT "$(VcpkgInstalledDir)" == "" (
-  IF "$(ConfigurationName)" == "Debug" (
-    SET configDir="debug\"
-  ) ELSE (
-    SET configDir=""
-  )
-
-  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\%configDir%bin\"
+  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\$(VcpkgConfigSubdir)bin\"
 
   xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
   xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
