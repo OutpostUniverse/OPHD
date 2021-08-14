@@ -108,14 +108,14 @@
     <PostBuildEvent>
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
-IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+IF NOT "$(VcpkgInstalledDir)" == "" (
   IF "$(ConfigurationName)" == "Debug" (
     SET configDir="debug\"
   ) ELSE (
     SET configDir=""
   )
 
-  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
+  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\%configDir%bin\"
 
   xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
   xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
@@ -149,14 +149,14 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <PostBuildEvent>
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
-IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+IF NOT "$(VcpkgInstalledDir)" == "" (
   IF "$(ConfigurationName)" == "Debug" (
     SET configDir="debug\"
   ) ELSE (
     SET configDir=""
   )
 
-  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
+  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\%configDir%bin\"
 
   xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
   xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
@@ -192,14 +192,14 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <PostBuildEvent>
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
-IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+IF NOT "$(VcpkgInstalledDir)" == "" (
   IF "$(ConfigurationName)" == "Debug" (
     SET configDir="debug\"
   ) ELSE (
     SET configDir=""
   )
 
-  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
+  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\%configDir%bin\"
 
   xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
   xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
@@ -235,14 +235,14 @@ IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
     <PostBuildEvent>
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
 
-IF NOT "$(VcpkgCurrentInstalledDir)" == "" (
+IF NOT "$(VcpkgInstalledDir)" == "" (
   IF "$(ConfigurationName)" == "Debug" (
     SET configDir="debug\"
   ) ELSE (
     SET configDir=""
   )
 
-  SET sourceDir="$(VcpkgCurrentInstalledDir)%configDir%bin\"
+  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\%configDir%bin\"
 
   xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
   xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
