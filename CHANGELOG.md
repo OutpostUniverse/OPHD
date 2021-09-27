@@ -1,6 +1,30 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.8.5] - 2021-09-26
+
+Introduces integrity decay and the Maintenance Facility.
+
+### Added
+- Maintenance Facility
+- Structure Integrity & Decay
+- Criminal Activity
+
+### Changed
+- Structures will now slowly lose integrity (decay) over time
+- Decayed roads will negatively affect route traversal times
+- Maintenance Facility required to repair decaying buildings
+- Improved descriptions of criminal activity
+
+### Fixed
+- Factories will no longer push new products into warehouses that aren't operational
+- Fixed misreported warehouse usage in full-screen warehouse UI
+- Fixed display of tilemap overlays being cleared when turns are run
+- Fixed a mistake in route cost calculation that caused extremely low movement of resources
+- Fixed an issue that made it impossible to place robots before the Command Center was built
+- Fixed an issue that caused roads to be set to an incorrect animation state during loading
+
+
 ## [0.8.3] - 2021-06-6
 
 Introduces the NotificationArea UI element to inform users of non-critical issues or notifications that don't interrupt gameplay and the user can look at and respond to at their leisure.
