@@ -186,8 +186,12 @@ protected:
 			--mMaterialsLevel;
 			++mAssignedPersonnel;
 			structure->integrity(100);
-		}
 
+			if (structure->structureId() == StructureID::SID_ROAD)
+			{
+				structure->rebuild(1);
+			}
+		}
 	}
 
 
