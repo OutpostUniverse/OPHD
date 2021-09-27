@@ -514,7 +514,12 @@ void MapViewState::updateRoads()
 			surroundingTiles[i] = mTileMap->getTile(tileToInspect).structure()->structureId() == StructureID::SID_ROAD;
 		}
 
-		road->sprite().play(IntersectionPatternTable.at(surroundingTiles));
+		std::string tag = "";
+		
+		if (road->integrity() < 80) { tag = "-decayed"; }
+		else if (road->integrity() == 0) { tag = "-destroyed"; }
+
+		road->sprite().play(IntersectionPatternTable.at(surroundingTiles) + tag);
 	}
 }
 

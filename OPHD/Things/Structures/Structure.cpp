@@ -235,6 +235,17 @@ void Structure::activate()
 }
 
 
+void Structure::rebuild(size_t turnsToRebuild)
+{
+	sprite().play(constants::StructureStateConstruction);
+	state(StructureState::UnderConstruction);
+
+	age(0);
+
+	turnsToBuild(static_cast<int>(turnsToRebuild));
+}
+
+
 void Structure::update()
 {
 	if (destroyed()) { return; }
