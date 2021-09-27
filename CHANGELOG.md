@@ -24,6 +24,7 @@ Introduces integrity decay and the Maintenance Facility.
 - Fixed a mistake in route cost calculation that caused extremely low movement of resources
 - Fixed an issue that made it impossible to place robots before the Command Center was built
 - Fixed an issue that caused roads to be set to an incorrect animation state during loading
+- Fixed an issue where the "Take Me There" button on the Notification Window failed to set the tilemap depth
 
 
 ## [0.8.3] - 2021-06-6
