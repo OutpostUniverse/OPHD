@@ -15,6 +15,7 @@ Introduces integrity decay and the Maintenance Facility.
 - Decayed roads will negatively affect route traversal times
 - Maintenance Facility required to repair decaying buildings
 - Improved descriptions of criminal activity
+- Adjusted cost of structures to make it a little less punishing
 
 ### Fixed
 - Factories will no longer push new products into warehouses that aren't operational
