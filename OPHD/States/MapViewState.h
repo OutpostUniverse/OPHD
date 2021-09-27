@@ -248,7 +248,7 @@ private:
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
-	void onNotificationWindowTakeMeThere(NAS2D::Point<int> position);
+	void onNotificationWindowTakeMeThere(NAS2D::Point<int> position, int depth);
 
 private:
 	MainReportsUiState& mMainReportsState;

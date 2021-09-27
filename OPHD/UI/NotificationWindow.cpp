@@ -48,7 +48,7 @@ void NotificationWindow::btnOkayClicked()
 
 void NotificationWindow::btnTakeMeThereClicked()
 {
-	mTakeMeThereClicked(mNotification.position);
+	mTakeMeThereClicked(mNotification.position, mNotification.depth);
 	hide();
 }
 

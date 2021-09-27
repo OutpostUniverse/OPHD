@@ -237,6 +237,7 @@ void MapViewState::updateMorale()
 			"Baby Born",
 			std::to_string(birthCount) + (birthCount > 1 ? " babies were born." : " baby was born."),
 			{-1, -1},
+			0,
 			NotificationArea::NotificationType::Information);
 	}
 
@@ -246,6 +247,7 @@ void MapViewState::updateMorale()
 			"Colonist Died",
 			std::to_string(deathCount) + (birthCount > 1 ? " colonists met their demise." : " colonist met their demise."),
 			{-1, -1},
+			0,
 			NotificationArea::NotificationType::Warning);
 	}
 }
@@ -530,12 +532,15 @@ void MapViewState::checkAgingStructures()
 
 	for (auto structure : structures)
 	{
+		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
+
 		if (structure->age() == structure->maxAge() - 10)
 		{
 			mNotificationArea.push(
 				"Aging Structure",
 				structure->name() + " is getting old. You should replace it soon.",
-				NAS2D::Utility<StructureManager>::get().tileFromStructure(structure).position(),
+				structureTile.position(),
+				structureTile.depth(),
 				NotificationArea::NotificationType::Warning);
 		}
 		else if (structure->age() == structure->maxAge() - 5)
@@ -543,7 +548,8 @@ void MapViewState::checkAgingStructures()
 			mNotificationArea.push(
 				"Aging Structure",
 				structure->name() + " is about to collapse. You should replace it right away or consider demolishing it.",
-				NAS2D::Utility<StructureManager>::get().tileFromStructure(structure).position(),
+				structureTile.position(),
+				structureTile.depth(),
 				NotificationArea::NotificationType::Critical);
 		}
 	}
@@ -556,10 +562,13 @@ void MapViewState::checkNewlyBuiltStructures()
 
 	for (auto structure : structures)
 	{
+		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
+
 		mNotificationArea.push(
 			"Construction Finished",
 			structure->name() + " completed construction.",
-			NAS2D::Utility<StructureManager>::get().tileFromStructure(structure).position(),
+			structureTile.position(),
+			structureTile.depth(),
 			NotificationArea::NotificationType::Information);
 	}
 }
