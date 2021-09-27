@@ -579,7 +579,20 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 			}
 			else if (adjacentTile.thingIsStructure() && adjacentTile.structure()->structureId() == StructureID::SID_ROAD)
 			{
-				cost = 0.5f;
+				Structure& road = *adjacentTile.structure();
+
+				if (road.state() != StructureState::Operational)
+				{
+					cost *= static_cast<float>(TerrainType::Difficult) + 1.0f;
+				}
+				else if (road.integrity() < constants::RoadIntegrityChange)
+				{
+					cost = 0.75f;
+				}
+				else
+				{
+					cost = 0.5f;
+				}		
 			}
 			else
 			{
