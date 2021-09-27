@@ -149,6 +149,8 @@ public:
 
 	virtual void forced_state_change(StructureState, DisabledReason, IdleReason);
 
+	void rebuild(size_t turnsToRebuild);
+
 	void update() override;
 	virtual void think() {}
 
