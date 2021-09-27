@@ -516,7 +516,7 @@ void MapViewState::updateRoads()
 
 		std::string tag = "";
 		
-		if (road->integrity() < 80) { tag = "-decayed"; }
+		if (road->integrity() < constants::RoadIntegrityChange) { tag = "-decayed"; }
 		else if (road->integrity() == 0) { tag = "-destroyed"; }
 
 		road->sprite().play(IntersectionPatternTable.at(surroundingTiles) + tag);

@@ -585,7 +585,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 				{
 					cost *= static_cast<float>(TerrainType::Difficult) + 1.0f;
 				}
-				else if (road.integrity() < 80)
+				else if (road.integrity() < constants::RoadIntegrityChange)
 				{
 					cost = 0.75f;
 				}
