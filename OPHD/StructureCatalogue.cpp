@@ -262,34 +262,34 @@ bool StructureCatalogue::canBuild(const StorableResources& source, StructureID t
 void StructureCatalogue::buildCostTable()
 {
 	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
-	mStructureCostTable[StructureID::SID_AGRIDOME] = {20, 10, 5, 0};
-	mStructureCostTable[StructureID::SID_CHAP] = {50, 10, 20, 5};
+	mStructureCostTable[StructureID::SID_AGRIDOME] = {12, 10, 2, 2};
+	mStructureCostTable[StructureID::SID_CHAP] = {25, 10, 10, 5};
 	mStructureCostTable[StructureID::SID_COMMAND_CENTER] = {100, 75, 65, 35};
-	mStructureCostTable[StructureID::SID_COMMERCIAL] = {25, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_COMM_TOWER] = {30, 10, 5, 5};
-	mStructureCostTable[StructureID::SID_FUSION_REACTOR] = {75, 25, 50, 30};
-	mStructureCostTable[StructureID::SID_HOT_LABORATORY] = {45, 10, 15, 5};
+	mStructureCostTable[StructureID::SID_COMMERCIAL] = {15, 8, 5, 2};
+	mStructureCostTable[StructureID::SID_COMM_TOWER] = {10, 5, 5, 3};
+	mStructureCostTable[StructureID::SID_FUSION_REACTOR] = {50, 30, 25, 15};
+	mStructureCostTable[StructureID::SID_HOT_LABORATORY] = {30, 10, 15, 5};
 	mStructureCostTable[StructureID::SID_LABORATORY] = {20, 10, 10, 5};
 	mStructureCostTable[StructureID::SID_MAINTENANCE_FACILITY] = {15, 10, 2, 1};
-	mStructureCostTable[StructureID::SID_MEDICAL_CENTER] = {25, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_NURSERY] = {20, 10, 5, 0};
-	mStructureCostTable[StructureID::SID_PARK] = {25, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_SURFACE_POLICE] = {25, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_UNDERGROUND_POLICE] = {25, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_RECREATION_CENTER] = {25, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_RECYCLING] = {20, 10, 8, 3};
-	mStructureCostTable[StructureID::SID_RED_LIGHT_DISTRICT] = {20, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_RESIDENCE] = {25, 5, 2, 0};
+	mStructureCostTable[StructureID::SID_MEDICAL_CENTER] = {15, 5, 5, 3};
+	mStructureCostTable[StructureID::SID_NURSERY] = {15, 5, 5, 3};
+	mStructureCostTable[StructureID::SID_PARK] = {10, 10, 3, 2};
+	mStructureCostTable[StructureID::SID_SURFACE_POLICE] = {15, 5, 8, 2};
+	mStructureCostTable[StructureID::SID_UNDERGROUND_POLICE] = {15, 5, 8, 2};
+	mStructureCostTable[StructureID::SID_RECREATION_CENTER] = {20, 5, 2, 0};
+	mStructureCostTable[StructureID::SID_RECYCLING] = {15, 10, 8, 3};
+	mStructureCostTable[StructureID::SID_RED_LIGHT_DISTRICT] = {20, 10, 10, 3};
+	mStructureCostTable[StructureID::SID_RESIDENCE] = {15, 5, 2, 0};
 	mStructureCostTable[StructureID::SID_ROAD] = {10, 15, 0, 0};
-	mStructureCostTable[StructureID::SID_ROBOT_COMMAND] = {75, 50, 45, 25};
+	mStructureCostTable[StructureID::SID_ROBOT_COMMAND] = {35, 20, 25, 10};
 	mStructureCostTable[StructureID::SID_SMELTER] = {30, 20, 10, 5};
 	mStructureCostTable[StructureID::SID_SOLAR_PANEL1] = {10, 20, 5, 5};
 	mStructureCostTable[StructureID::SID_SOLAR_PLANT] = {50, 25, 50, 20};
-	mStructureCostTable[StructureID::SID_STORAGE_TANKS] = {15, 5, 6, 1};
-	mStructureCostTable[StructureID::SID_SURFACE_FACTORY] = {20, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_UNDERGROUND_FACTORY] = {20, 10, 10, 5};
+	mStructureCostTable[StructureID::SID_STORAGE_TANKS] = {10, 5, 6, 1};
+	mStructureCostTable[StructureID::SID_SURFACE_FACTORY] = {25, 10, 10, 5};
+	mStructureCostTable[StructureID::SID_UNDERGROUND_FACTORY] = {25, 10, 10, 5};
 	mStructureCostTable[StructureID::SID_UNIVERSITY] = {20, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_WAREHOUSE] = {15, 5, 6, 1};
+	mStructureCostTable[StructureID::SID_WAREHOUSE] = {10, 8, 5, 5};
 }
 
 
@@ -331,8 +331,8 @@ void StructureCatalogue::buildPopulationRequirementsTable()
 	mPopulationRequirementsTable[StructureID::SID_MEDICAL_CENTER] = {1, 2};
 	mPopulationRequirementsTable[StructureID::SID_NURSERY] = {1, 1};
 	mPopulationRequirementsTable[StructureID::SID_PARK] = {1, 0};
-	mPopulationRequirementsTable[StructureID::SID_SURFACE_POLICE] = {5, 0};
-	mPopulationRequirementsTable[StructureID::SID_UNDERGROUND_POLICE] = {5, 0};
+	mPopulationRequirementsTable[StructureID::SID_SURFACE_POLICE] = {3, 0};
+	mPopulationRequirementsTable[StructureID::SID_UNDERGROUND_POLICE] = {3, 0};
 	mPopulationRequirementsTable[StructureID::SID_RECREATION_CENTER] = {2, 0};
 	mPopulationRequirementsTable[StructureID::SID_RECYCLING] = {1, 1};
 	mPopulationRequirementsTable[StructureID::SID_RED_LIGHT_DISTRICT] = {2, 0};
@@ -340,7 +340,7 @@ void StructureCatalogue::buildPopulationRequirementsTable()
 	mPopulationRequirementsTable[StructureID::SID_SEED_FACTORY] = {2, 0};
 	mPopulationRequirementsTable[StructureID::SID_SEED_SMELTER] = {2, 0};
 	mPopulationRequirementsTable[StructureID::SID_SMELTER] = {4, 0};
-	mPopulationRequirementsTable[StructureID::SID_SOLAR_PANEL1] = {1, 0};
+	mPopulationRequirementsTable[StructureID::SID_SOLAR_PANEL1] = {0, 0};
 	mPopulationRequirementsTable[StructureID::SID_SURFACE_FACTORY] = {4, 0};
 	mPopulationRequirementsTable[StructureID::SID_UNDERGROUND_FACTORY] = {2, 0};
 	mPopulationRequirementsTable[StructureID::SID_UNIVERSITY] = {1, 3};

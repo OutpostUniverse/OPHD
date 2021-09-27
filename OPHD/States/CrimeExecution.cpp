@@ -58,6 +58,7 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 			"Food Stolen",
 			NAS2D::stringFrom(foodStolen) + " units of food was pilfered from a " + structure.name() + ". " + getReasonForStealing() + ".",
 			structureTile.position(),
+			structureTile.depth(),
 			NotificationArea::NotificationType::Warning);
 	}
 }
@@ -100,6 +101,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 		"Resources Stolen",
 		NAS2D::stringFrom(amountStolen) + " units of " + resourceNames[indexToStealFrom] + " were stolen from a " + structure.name() + ". " + getReasonForStealing() + ".",
 		structureTile.position(),
+		structureTile.depth(),
 		NotificationArea::NotificationType::Warning);
 }
 
@@ -114,6 +116,7 @@ void CrimeExecution::vandalize(Structure& structure)
 		"Vandalism",
 		"A " + structure.name() + " was vandalized.",
 		structureTile.position(),
+		structureTile.depth(),
 		NotificationArea::NotificationType::Warning);
 }
 

@@ -87,7 +87,7 @@ static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int r
 }
 
 
-static void pushAgingRobotMessage(const Robot* robot, const Point<int> position, NotificationArea& notificationArea)
+static void pushAgingRobotMessage(const Robot* robot, const Point<int> position, int depth, NotificationArea& notificationArea)
 {
 	const auto robotLocationText = "(" + std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
 
@@ -97,6 +97,7 @@ static void pushAgingRobotMessage(const Robot* robot, const Point<int> position,
 			"Aging Robot",
 			"Robot '" + robot->name() + "' at location " + robotLocationText + " is approaching its maximum age.",
 			position,
+			depth,
 			NotificationArea::NotificationType::Warning);
 	}
 	else if (robot->fuelCellAge() == 195) /// \fixme magic number
@@ -105,6 +106,7 @@ static void pushAgingRobotMessage(const Robot* robot, const Point<int> position,
 			"Aging Robot",
 			"Robot '" + robot->name() + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.",
 			position,
+			depth,
 			NotificationArea::NotificationType::Critical);
 	}
 }
@@ -1326,7 +1328,9 @@ void MapViewState::updateRobots()
 		robot->update();
 
 		const auto position = tile->position();
-		pushAgingRobotMessage(robot, position, mNotificationArea);
+		const auto depth = tile->depth();
+
+		pushAgingRobotMessage(robot, position, depth, mNotificationArea);
 
 		if (robot->dead())
 		{
@@ -1340,12 +1344,13 @@ void MapViewState::updateRobots()
 					"Robot Self-Destructed",
 					robot->name() + " at location " + robotLocationText + " self destructed.",
 					position,
+					depth,
 					NotificationArea::NotificationType::Critical);
 			}
 			else if (robot->type() != Robot::Type::Miner)
 			{
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
-				mNotificationArea.push("Robot Broke Down", text, position, NotificationArea::NotificationType::Critical);
+				mNotificationArea.push("Robot Broke Down", text, position, depth, NotificationArea::NotificationType::Critical);
 				resetTileIndexFromDozer(robot, tile);
 			}
 

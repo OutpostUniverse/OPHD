@@ -11,7 +11,7 @@
 class NotificationWindow : public Window
 {
 public:
-	using Signal = NAS2D::Signal<NAS2D::Point<int>>;
+	using Signal = NAS2D::Signal<NAS2D::Point<int>, int>;
 
 public:
 	NotificationWindow();

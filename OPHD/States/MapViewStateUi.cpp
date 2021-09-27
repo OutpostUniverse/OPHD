@@ -705,9 +705,10 @@ void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOpera
 }
 
 
-void MapViewState::onNotificationWindowTakeMeThere(NAS2D::Point<int> position)
+void MapViewState::onNotificationWindowTakeMeThere(NAS2D::Point<int> position, int depth)
 {
 	mTileMap->centerMapOnTile(&mTileMap->getTile(position));
+	mTileMap->currentDepth(depth);
 }
 
 

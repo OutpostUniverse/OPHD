@@ -27,6 +27,7 @@ public:
 		std::string brief{""};
 		std::string message{""};
 		NAS2D::Point<int> position{-1, -1};
+		int depth{0};
 		NotificationType type{NotificationType::Information};
 	};
 
@@ -38,7 +39,7 @@ public:
 	NotificationArea();
 	~NotificationArea() override;
 
-	void push(const std::string& brief, const std::string& message, NAS2D::Point<int> position, NotificationType type);
+	void push(const std::string& brief, const std::string& message, NAS2D::Point<int> position, int depth, NotificationType type);
 
 	void clear()
 	{

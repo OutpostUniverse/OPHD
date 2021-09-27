@@ -19,7 +19,7 @@ StructureInspector::StructureInspector() :
 	btnClose{"Close", {this, &StructureInspector::onClose}},
 	mIcons{imageCache.load("ui/icons.png")}
 {
-	size({350, 240});
+	size({350, 250});
 
 	btnClose.size({50, 20});
 	add(btnClose, {rect().width - btnClose.rect().width - 5, rect().height - btnClose.rect().height - 5,});
