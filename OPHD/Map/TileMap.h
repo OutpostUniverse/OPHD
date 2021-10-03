@@ -5,8 +5,8 @@
 #include "../States/Planet.h"
 #include "../MicroPather/micropather.h"
 
-#include <NAS2D/Renderer/Point.h>
-#include <NAS2D/Renderer/Vector.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 
 #include <algorithm>
 

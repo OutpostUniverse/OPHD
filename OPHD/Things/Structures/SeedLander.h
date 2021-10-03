@@ -4,7 +4,7 @@
 
 #include "../../Constants.h"
 
-#include <NAS2D/Renderer/Point.h>
+#include <NAS2D/Math/Point.h>
 
 
 class SeedLander : public Structure

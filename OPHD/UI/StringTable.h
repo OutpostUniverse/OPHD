@@ -2,9 +2,9 @@
 
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Renderer/Color.h>
-#include <NAS2D/Renderer/Point.h>
-#include <NAS2D/Renderer/Rectangle.h>
-#include <NAS2D/Renderer/Vector.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Rectangle.h>
+#include <NAS2D/Math/Vector.h>
 #include <NAS2D/StringValue.h>
 
 #include <string>

@@ -22,8 +22,8 @@
 #include "../UI/UI.h"
 
 #include <NAS2D/Signal/Signal.h>
-#include <NAS2D/Renderer/Point.h>
-#include <NAS2D/Renderer/Rectangle.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Rectangle.h>
 
 #include <string>
 #include <memory>

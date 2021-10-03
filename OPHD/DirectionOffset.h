@@ -1,6 +1,6 @@
 #pragma once
 
-#include <NAS2D/Renderer/Vector.h>
+#include <NAS2D/Math/Vector.h>
 
 #include <array>
 

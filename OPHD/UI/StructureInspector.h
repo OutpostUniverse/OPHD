@@ -6,7 +6,7 @@
 #include "StringTable.h"
 
 #include <NAS2D/Renderer/Renderer.h>
-#include <NAS2D/Renderer/Point.h>
+#include <NAS2D/Math/Point.h>
 
 
 class Structure;
