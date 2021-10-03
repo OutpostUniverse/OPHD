@@ -2,8 +2,8 @@
 
 #include "../Common.h"
 
-#include <NAS2D/Renderer/Point.h>
-#include <NAS2D/Renderer/Vector.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 
 
 class Mine;

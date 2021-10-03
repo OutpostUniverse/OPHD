@@ -6,7 +6,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
-#include <NAS2D/Renderer/Rectangle.h>
+#include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Xml/Xml.h>
 
 #include <stdexcept>

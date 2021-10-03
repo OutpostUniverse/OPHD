@@ -3,7 +3,7 @@
 #include "../../Constants/Strings.h"
 
 #include <NAS2D/Utility.h>
-#include <NAS2D/MathUtils.h>
+#include <NAS2D/Math/MathUtils.h>
 #include <NAS2D/StringUtils.h>
 
 #include <algorithm>

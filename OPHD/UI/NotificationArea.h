@@ -5,7 +5,7 @@
 
 #include <vector>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/Renderer/Point.h>
+#include <NAS2D/Math/Point.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Signal/Signal.h>

@@ -9,7 +9,7 @@
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Resource/Music.h>
 #include <NAS2D/Resource/Sound.h>
-#include <NAS2D/Renderer/Point.h>
+#include <NAS2D/Math/Point.h>
 
 #include <vector>
 

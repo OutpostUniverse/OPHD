@@ -3,7 +3,7 @@
 #include "Core/ListBoxBase.h"
 
 #include <NAS2D/Signal/Signal.h>
-#include <NAS2D/Renderer/Point.h>
+#include <NAS2D/Math/Point.h>
 
 #include <string>
 #include <vector>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <NAS2D/Renderer/Rectangle.h>
+#include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/StringUtils.h>
 

@@ -9,7 +9,7 @@
 #include "../StructureListBox.h"
 #include "../../Common.h"
 
-#include <NAS2D/Renderer/Rectangle.h>
+#include <NAS2D/Math/Rectangle.h>
 
 
 namespace NAS2D

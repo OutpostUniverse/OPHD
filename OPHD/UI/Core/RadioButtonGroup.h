@@ -11,7 +11,7 @@
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
-#include <NAS2D/MathUtils.h>
+#include <NAS2D/Math/MathUtils.h>
 
 #include <algorithm>
 #include <string>
