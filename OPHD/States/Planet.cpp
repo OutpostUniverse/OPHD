@@ -131,9 +131,7 @@ namespace
 	{
 		Planet::Attributes attributes;
 
-		for (const auto* node = xmlNode->iterateChildren(nullptr);
-			node != nullptr;
-			node = xmlNode->iterateChildren(node))
+		for (const auto* node = xmlNode->firstChildElement(); node; node = node->nextSiblingElement())
 		{
 			const auto* element = node->toElement();
 
