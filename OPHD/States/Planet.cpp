@@ -131,10 +131,8 @@ namespace
 	{
 		Planet::Attributes attributes;
 
-		for (const auto* node = xmlNode->firstChildElement(); node; node = node->nextSiblingElement())
+		for (const auto* element = xmlNode->firstChildElement(); element; element = element->nextSiblingElement())
 		{
-			const auto* element = node->toElement();
-
 			if (element->value() == "PlanetType")
 			{
 				parseElementValue(attributes.type, element);
