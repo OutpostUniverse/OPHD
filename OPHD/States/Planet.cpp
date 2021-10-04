@@ -116,9 +116,7 @@ std::vector<Planet::Attributes> parsePlanetAttributes()
 	std::vector<Planet::Attributes> planetAttributes;
 
 	auto rootElement = xmlDocument.firstChildElement(rootElementName);
-	for (const auto* node = rootElement->iterateChildren(nullptr);
-		node != nullptr;
-		node = rootElement->iterateChildren(node))
+	for (const auto* node = rootElement->firstChildElement("Planet"); node; node = node->nextSiblingElement("Planet"))
 	{
 		std::string elementName("Planet");
 		if (node->value() != elementName)
