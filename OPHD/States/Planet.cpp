@@ -118,11 +118,6 @@ std::vector<Planet::Attributes> parsePlanetAttributes()
 	auto rootElement = xmlDocument.firstChildElement(rootElementName);
 	for (const auto* node = rootElement->firstChildElement("Planet"); node; node = node->nextSiblingElement("Planet"))
 	{
-		std::string elementName("Planet");
-		if (node->value() != elementName)
-		{
-			throw std::runtime_error(xmlDocument.value() + " missing " + elementName + " tag");
-		}
 		planetAttributes.push_back(parsePlanet(node->toElement()));
 	}
 
