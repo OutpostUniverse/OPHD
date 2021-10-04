@@ -5,6 +5,8 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Dictionary.h>
+#include <NAS2D/ParserHelper.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Xml/Xml.h>
@@ -75,9 +77,6 @@ namespace
 {
 	Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode);
 
-	void parseElementValue(Planet::PlanetType& destination, const NAS2D::Xml::XmlElement* element);
-	void parseElementValue(Planet::Hostility& destination, const NAS2D::Xml::XmlElement* element);
-
 	const std::unordered_map<std::string, Planet::PlanetType> planetTypeTable
 	{
 		{"None", Planet::PlanetType::None},
@@ -93,18 +92,6 @@ namespace
 		{"Medium", Planet::Hostility::Medium},
 		{"High", Planet::Hostility::High}
 	};
-
-
-	void parseElementValue(Planet::PlanetType& destination, const NAS2D::Xml::XmlElement* element)
-	{
-		destination = stringToEnum(planetTypeTable, element->getText());
-	}
-
-
-	void parseElementValue(Planet::Hostility& destination, const NAS2D::Xml::XmlElement* element)
-	{
-		destination = stringToEnum(hostilityTable, element->getText());
-	}
 }
 
 
@@ -131,53 +118,25 @@ namespace
 	{
 		Planet::Attributes attributes;
 
+		NAS2D::Dictionary dictionary{};
 		for (const auto* element = xmlNode->firstChildElement(); element; element = element->nextSiblingElement())
 		{
-			if (element->value() == "PlanetType")
-			{
-				parseElementValue(attributes.type, element);
-			}
-			else if (element->value() == "ImagePath")
-			{
-				::parseElementValue(attributes.imagePath, element);
-			}
-			else if (element->value() == "Hostility")
-			{
-				parseElementValue(attributes.hostility, element);
-			}
-			else if (element->value() == "MaxDepth")
-			{
-				::parseElementValue(attributes.maxDepth, element);
-			}
-			else if (element->value() == "MaxMines")
-			{
-				::parseElementValue(attributes.maxMines, element);
-			}
-			else if (element->value() == "MapImagePath")
-			{
-				::parseElementValue(attributes.mapImagePath, element);
-			}
-			else if (element->value() == "TilesetPath")
-			{
-				::parseElementValue(attributes.tilesetPath, element);
-			}
-			else if (element->value() == "Name")
-			{
-				::parseElementValue(attributes.name, element);
-			}
-			else if (element->value() == "MeanSolarDistance")
-			{
-				::parseElementValue(attributes.meanSolarDistance, element);
-			}
-			else if (element->value() == "Description")
-			{
-				::parseElementValue(attributes.description, element);
-			}
-			else
-			{
-				throw std::runtime_error("Unexpected Xml node named " + xmlNode->value() + " encountered. when parsing planet attributes");
-			}
+			dictionary.set(element->value(), element->getText());
 		}
+
+		const auto requiredFields = std::vector<std::string>{"PlanetType", "ImagePath", "Hostility", "MaxDepth", "MaxMines", "MapImagePath", "TilesetPath", "Name", "MeanSolarDistance", "Description"};
+		NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
+
+		attributes.type = stringToEnum(planetTypeTable, dictionary.get("PlanetType"));
+		attributes.hostility = stringToEnum(hostilityTable, dictionary.get("Hostility"));
+		attributes.imagePath = dictionary.get("ImagePath");
+		attributes.maxDepth = dictionary.get<int>("MaxDepth");
+		attributes.maxMines = dictionary.get<int>("MaxMines");
+		attributes.mapImagePath = dictionary.get("MapImagePath");
+		attributes.tilesetPath = dictionary.get("TilesetPath");
+		attributes.name = dictionary.get("Name");
+		attributes.meanSolarDistance = dictionary.get<float>("MeanSolarDistance");
+		attributes.description = dictionary.get("Description");
 
 		return attributes;
 	}
