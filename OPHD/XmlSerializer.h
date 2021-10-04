@@ -39,20 +39,3 @@ T stringToEnum(const std::map<std::string, T>& table, std::string value)
 
 	throw std::runtime_error("Unable to parse enum with value of " + value);
 }
-
-
-// Create an overload to parse specific enums
-template <typename T, std::enable_if_t<!std::is_enum<T>::value, bool> = true>
-void parseElementValue(T& destination, const NAS2D::Xml::XmlElement* element)
-{
-	try
-	{
-		destination = NAS2D::stringTo<T>(element->getText());
-	}
-	catch (const std::exception& e)
-	{
-		throw std::logic_error("Unable to parse the value of " + element->getText() +
-			" from XML element " + element->value() + " as type of " + std::string(typeid(T).name()) +
-			". " + std::string(e.what()));
-	}
-}
