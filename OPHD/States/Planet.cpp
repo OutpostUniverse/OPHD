@@ -116,8 +116,6 @@ namespace
 {
 	Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode)
 	{
-		Planet::Attributes attributes;
-
 		NAS2D::Dictionary dictionary{};
 		for (const auto* element = xmlNode->firstChildElement(); element; element = element->nextSiblingElement())
 		{
@@ -127,6 +125,7 @@ namespace
 		const auto requiredFields = std::vector<std::string>{"PlanetType", "ImagePath", "Hostility", "MaxDepth", "MaxMines", "MapImagePath", "TilesetPath", "Name", "MeanSolarDistance", "Description"};
 		NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
 
+		Planet::Attributes attributes;
 		attributes.type = stringToEnum(planetTypeTable, dictionary.get("PlanetType"));
 		attributes.hostility = stringToEnum(hostilityTable, dictionary.get("Hostility"));
 		attributes.imagePath = dictionary.get("ImagePath");
