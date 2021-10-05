@@ -393,20 +393,6 @@ TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
 }
 
 
-static NAS2D::Xml::XmlElement* serializeTile(int x, int y, int depth, TerrainType index)
-{
-	return NAS2D::dictionaryToAttributes(
-		"tile",
-		{{
-			{"x", x},
-			{"y", y},
-			{"depth", depth},
-			{"index", static_cast<int>(index)},
-		}}
-	);
-}
-
-
 void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 {
 	// ==========================================
@@ -454,7 +440,17 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 					(tile.empty() && tile.mine() == nullptr)
 				)
 				{
-					tiles->linkEndChild(serializeTile(x, y, depth, tile.index()));
+					tiles->linkEndChild(
+						NAS2D::dictionaryToAttributes(
+							"tile",
+							{{
+								{"x", x},
+								{"y", y},
+								{"depth", depth},
+								{"index", static_cast<int>(tile.index())},
+							}}
+						)
+					);
 				}
 			}
 		}
