@@ -125,7 +125,7 @@ namespace
 		const auto requiredFields = std::vector<std::string>{"PlanetType", "ImagePath", "Hostility", "MaxDepth", "MaxMines", "MapImagePath", "TilesetPath", "Name", "MeanSolarDistance", "Description"};
 		NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
 
-		Planet::Attributes attributes{
+		return {
 			stringToEnum(planetTypeTable, dictionary.get("PlanetType")),
 			dictionary.get("ImagePath"),
 			stringToEnum(hostilityTable, dictionary.get("Hostility")),
@@ -137,7 +137,5 @@ namespace
 			dictionary.get<float>("MeanSolarDistance"),
 			dictionary.get("Description"),
 		};
-
-		return attributes;
 	}
 }
