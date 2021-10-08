@@ -127,8 +127,8 @@ namespace
 
 		Planet::Attributes attributes;
 		attributes.type = stringToEnum(planetTypeTable, dictionary.get("PlanetType"));
-		attributes.hostility = stringToEnum(hostilityTable, dictionary.get("Hostility"));
 		attributes.imagePath = dictionary.get("ImagePath");
+		attributes.hostility = stringToEnum(hostilityTable, dictionary.get("Hostility"));
 		attributes.maxDepth = dictionary.get<int>("MaxDepth");
 		attributes.maxMines = dictionary.get<int>("MaxMines");
 		attributes.mapImagePath = dictionary.get("MapImagePath");
