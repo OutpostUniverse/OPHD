@@ -125,17 +125,18 @@ namespace
 		const auto requiredFields = std::vector<std::string>{"PlanetType", "ImagePath", "Hostility", "MaxDepth", "MaxMines", "MapImagePath", "TilesetPath", "Name", "MeanSolarDistance", "Description"};
 		NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
 
-		Planet::Attributes attributes;
-		attributes.type = stringToEnum(planetTypeTable, dictionary.get("PlanetType"));
-		attributes.imagePath = dictionary.get("ImagePath");
-		attributes.hostility = stringToEnum(hostilityTable, dictionary.get("Hostility"));
-		attributes.maxDepth = dictionary.get<int>("MaxDepth");
-		attributes.maxMines = dictionary.get<int>("MaxMines");
-		attributes.mapImagePath = dictionary.get("MapImagePath");
-		attributes.tilesetPath = dictionary.get("TilesetPath");
-		attributes.name = dictionary.get("Name");
-		attributes.meanSolarDistance = dictionary.get<float>("MeanSolarDistance");
-		attributes.description = dictionary.get("Description");
+		Planet::Attributes attributes{
+			stringToEnum(planetTypeTable, dictionary.get("PlanetType")),
+			dictionary.get("ImagePath"),
+			stringToEnum(hostilityTable, dictionary.get("Hostility")),
+			dictionary.get<int>("MaxDepth"),
+			dictionary.get<int>("MaxMines"),
+			dictionary.get("MapImagePath"),
+			dictionary.get("TilesetPath"),
+			dictionary.get("Name"),
+			dictionary.get<float>("MeanSolarDistance"),
+			dictionary.get("Description"),
+		};
 
 		return attributes;
 	}
