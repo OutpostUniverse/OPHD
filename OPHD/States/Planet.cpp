@@ -116,8 +116,6 @@ namespace
 {
 	Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode)
 	{
-		Planet::Attributes attributes;
-
 		NAS2D::Dictionary dictionary{};
 		for (const auto* element = xmlNode->firstChildElement(); element; element = element->nextSiblingElement())
 		{
@@ -127,17 +125,17 @@ namespace
 		const auto requiredFields = std::vector<std::string>{"PlanetType", "ImagePath", "Hostility", "MaxDepth", "MaxMines", "MapImagePath", "TilesetPath", "Name", "MeanSolarDistance", "Description"};
 		NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
 
-		attributes.type = stringToEnum(planetTypeTable, dictionary.get("PlanetType"));
-		attributes.hostility = stringToEnum(hostilityTable, dictionary.get("Hostility"));
-		attributes.imagePath = dictionary.get("ImagePath");
-		attributes.maxDepth = dictionary.get<int>("MaxDepth");
-		attributes.maxMines = dictionary.get<int>("MaxMines");
-		attributes.mapImagePath = dictionary.get("MapImagePath");
-		attributes.tilesetPath = dictionary.get("TilesetPath");
-		attributes.name = dictionary.get("Name");
-		attributes.meanSolarDistance = dictionary.get<float>("MeanSolarDistance");
-		attributes.description = dictionary.get("Description");
-
-		return attributes;
+		return {
+			stringToEnum(planetTypeTable, dictionary.get("PlanetType")),
+			dictionary.get("ImagePath"),
+			stringToEnum(hostilityTable, dictionary.get("Hostility")),
+			dictionary.get<int>("MaxDepth"),
+			dictionary.get<int>("MaxMines"),
+			dictionary.get("MapImagePath"),
+			dictionary.get("TilesetPath"),
+			dictionary.get("Name"),
+			dictionary.get<float>("MeanSolarDistance"),
+			dictionary.get("Description"),
+		};
 	}
 }
