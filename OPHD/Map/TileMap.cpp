@@ -150,8 +150,8 @@ void TileMap::setupMines(int mineCount, Planet::Hostility hostility)
 	int yieldTotal = yieldLow + yieldMedium + yieldHigh;
 	if (yieldTotal < mineCount) { yieldLow += mineCount - yieldTotal; }
 
-	auto mwidth = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, MAP_WIDTH - 5);
-	auto mheight = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, MAP_HEIGHT - 5);
+	auto mwidth = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, mSizeInTiles.x - 5);
+	auto mheight = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, mSizeInTiles.y - 5);
 
 	auto randPoint = [&mwidth, &mheight]() { return NAS2D::Point{mwidth(), mheight()}; };
 
