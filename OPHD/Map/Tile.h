@@ -29,7 +29,7 @@ public:
 
 public:
 	Tile() = default;
-	Tile(NAS2D::Point<int>, int, TerrainType);
+	Tile(const MapCoordinate& position, TerrainType);
 	Tile(const Tile&) = delete;
 	Tile& operator=(const Tile&) = delete;
 	Tile(Tile&&) noexcept;

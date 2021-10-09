@@ -49,9 +49,9 @@ const NAS2D::Color& overlayHighlightColor(Tile::Overlay overlay)
 }
 
 
-Tile::Tile(NAS2D::Point<int> position, int depth, TerrainType index) :
+Tile::Tile(const MapCoordinate& position, TerrainType index) :
 	mIndex{index},
-	mPosition{position, depth}
+	mPosition{position}
 {}
 
 
