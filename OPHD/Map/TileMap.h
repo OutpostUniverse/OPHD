@@ -43,7 +43,8 @@ public:
 	bool isValidPosition(const MapCoordinate& position) const;
 	bool isValidPosition(NAS2D::Point<int> position, int level = 0) const { return isValidPosition({position, level}); }
 
-	Tile& getTile(NAS2D::Point<int> position, int level);
+	Tile& getTile(const MapCoordinate& position);
+	Tile& getTile(NAS2D::Point<int> position, int level) { return getTile({position, level}); }
 	Tile& getTile(NAS2D::Point<int> position) { return getTile(position, mCurrentDepth); }
 
 	Tile* getVisibleTile(NAS2D::Point<int> position, int level);

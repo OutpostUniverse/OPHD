@@ -80,14 +80,14 @@ bool TileMap::isValidPosition(const MapCoordinate& position) const
 }
 
 
-Tile& TileMap::getTile(NAS2D::Point<int> position, int level)
+Tile& TileMap::getTile(const MapCoordinate& position)
 {
-	if (!isValidPosition(position, level))
+	if (!isValidPosition(position))
 	{
-		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.x) + ", " + std::to_string(position.y) + ", " + std::to_string(level) + "}");
+		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ", " + std::to_string(position.z) + "}");
 	}
-	const auto mapPosition = position.to<std::size_t>();
-	return mTileMap[static_cast<std::size_t>(level)][mapPosition.y][mapPosition.x];
+	const auto mapPosition = position.xy.to<std::size_t>();
+	return mTileMap[static_cast<std::size_t>(position.z)][mapPosition.y][mapPosition.x];
 }
 
 
