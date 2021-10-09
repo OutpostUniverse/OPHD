@@ -120,10 +120,10 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
  */
 bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir dir)
 {
-	return checkTubeConnection(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::East, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), Direction::West, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::South, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::North, dir);
+	return checkTubeConnection(tilemap->getTile({point + DirectionEast, tilemap->currentDepth()}), Direction::East, dir) ||
+		checkTubeConnection(tilemap->getTile({point + DirectionWest, tilemap->currentDepth()}), Direction::West, dir) ||
+		checkTubeConnection(tilemap->getTile({point + DirectionSouth, tilemap->currentDepth()}), Direction::South, dir) ||
+		checkTubeConnection(tilemap->getTile({point + DirectionNorth, tilemap->currentDepth()}), Direction::North, dir);
 }
 
 
@@ -134,10 +134,10 @@ bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir
  */
 bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point)
 {
-	return checkStructurePlacement(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::North) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::East) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::South) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), Direction::West);
+	return checkStructurePlacement(tilemap->getTile({point + DirectionNorth, tilemap->currentDepth()}), Direction::North) ||
+		checkStructurePlacement(tilemap->getTile({point + DirectionEast, tilemap->currentDepth()}), Direction::East) ||
+		checkStructurePlacement(tilemap->getTile({point + DirectionSouth, tilemap->currentDepth()}), Direction::South) ||
+		checkStructurePlacement(tilemap->getTile({point + DirectionWest, tilemap->currentDepth()}), Direction::West);
 }
 
 

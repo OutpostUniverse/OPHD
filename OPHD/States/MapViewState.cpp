@@ -929,7 +929,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		tile.pushMine(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
-			auto& mineShaftTile = mTileMap->getTile(mTileMap->tileMouseHover(), i);
+			auto& mineShaftTile = mTileMap->getTile({mTileMap->tileMouseHover(), i});
 			Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
 		}
 	}
@@ -1016,7 +1016,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	}
 
 	// Check for obstructions underneath the the digger location.
-	if (tile.depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile.xy(), tile.depth() + 1).empty())
+	if (tile.depth() != mTileMap->maxDepth() && !mTileMap->getTile({tile.xy(), tile.depth() + 1}).empty())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerBlockedBelow);
 		return;
@@ -1425,7 +1425,7 @@ void MapViewState::checkConnectedness()
 	}
 
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
-	auto& tile = mTileMap->getTile(ccLocation(), 0);
+	auto& tile = mTileMap->getTile({ccLocation(), 0});
 	Structure* cc = tile.structure();
 
 	if (!cc)
@@ -1521,7 +1521,7 @@ void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int 
 	{
 		for (int x = 0; x < area.width; ++x)
 		{
-			auto& tile = (*mTileMap).getTile({x + area.x, y + area.y}, depth);
+			auto& tile = (*mTileMap).getTile({{x + area.x, y + area.y}, depth});
 			if (isPointInRange(centerTile.xy(), tile.xy(), range))
 			{
 				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())

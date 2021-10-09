@@ -70,7 +70,7 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 {
 	mMineLocations.erase(find(mMineLocations.begin(), mMineLocations.end(), pt));
-	getTile(pt, 0).pushMine(nullptr);
+	getTile({pt, 0}).pushMine(nullptr);
 }
 
 
@@ -124,7 +124,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 			for (int col = 0; col < mSizeInTiles.x; col++)
 			{
 				auto color = heightmap.pixelColor({col, row});
-				auto& tile = getTile({col, row}, depth);
+				auto& tile = getTile({{col, row}, depth});
 				tile = {{col, row}, depth, static_cast<TerrainType>(color.red / 50)};
 				if (depth > 0) { tile.excavated(false); }
 			}
@@ -175,7 +175,7 @@ void TileMap::addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& p
 	// If mines are right next to each other, then overwrite the old location with the new mine parameters
 	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation);
 
-	auto& tile = getTile(mineLocation, 0);
+	auto& tile = getTile({mineLocation, 0});
 	tile.pushMine(new Mine(rate));
 	tile.index(TerrainType::Dozed);
 
@@ -185,12 +185,12 @@ void TileMap::addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& p
 
 NAS2D::Point<int> TileMap::findSurroundingMineLocation(NAS2D::Point<int> centerPoint)
 {
-	if (getTile(centerPoint, 0).hasMine())
+	if (getTile({centerPoint, 0}).hasMine())
 	{
 		for (const auto& direction : DirectionScan323)
 		{
 			const auto point = centerPoint + direction;
-			if (getTile(point, 0).hasMine()) { return point; }
+			if (getTile({point, 0}).hasMine()) { return point; }
 		}
 	}
 	return centerPoint;
@@ -305,7 +305,7 @@ void TileMap::draw()
 	{
 		for (int col = 0; col < mEdgeLength; col++)
 		{
-			auto& tile = getTile(mMapViewLocation + NAS2D::Vector{col, row}, mCurrentDepth);
+			auto& tile = getTile({mMapViewLocation + NAS2D::Vector{col, row}, mCurrentDepth});
 
 			if (tile.excavated())
 			{
@@ -415,7 +415,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 
 	for (const auto& location : mMineLocations)
 	{
-		auto& mine = *getTile(location, TileMapLevel::LEVEL_SURFACE).mine();
+		auto& mine = *getTile({location, TileMapLevel::LEVEL_SURFACE}).mine();
 		mines->linkEndChild(mine.serialize(location));
 	}
 
@@ -434,7 +434,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 		{
 			for (int x = 0; x < mSizeInTiles.x; ++x)
 			{
-				auto& tile = getTile({x, y}, depth);
+				auto& tile = getTile({{x, y}, depth});
 				if (
 					((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
 					(tile.empty() && tile.mine() == nullptr)
@@ -481,7 +481,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		Mine* mine = new Mine();
 		mine->deserialize(mineElement);
 
-		auto& tile = getTile({x, y}, 0);
+		auto& tile = getTile({{x, y}, 0});
 		tile.pushMine(mine);
 		tile.index(TerrainType::Dozed);
 
@@ -501,7 +501,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		const auto depth = tileDictionary.get<int>("depth");
 		const auto index = tileDictionary.get<int>("index");
 
-		auto& tile = getTile({x, y}, depth);
+		auto& tile = getTile({{x, y}, depth});
 		tile.index(static_cast<TerrainType>(index));
 
 		if (depth > 0) { tile.excavated(true); }
@@ -560,7 +560,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 			continue;
 		}
 
-		auto& adjacentTile = getTile(position, 0);
+		auto& adjacentTile = getTile({position, 0});
 		float cost = constants::RouteBaseCost;
 
 		if (adjacentTile.index() == TerrainType::Impassable)

@@ -111,7 +111,7 @@ void MapViewState::onDeployColonistLander()
  */
 void MapViewState::onDeployCargoLander()
 {
-	auto cc = static_cast<CommandCenter*>(mTileMap->getTile(ccLocation(), 0).structure());
+	auto cc = static_cast<CommandCenter*>(mTileMap->getTile({ccLocation(), 0}).structure());
 	cc->foodLevel(cc->foodLevel() + 125);
 	cc->storage() += StorableResources{25, 25, 15, 15};
 
@@ -211,10 +211,10 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
-		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile(origin, newDepth));
+		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile({origin, newDepth}));
 
-		mTileMap->getTile(origin, t->depth()).index(TerrainType::Dozed);
-		mTileMap->getTile(origin, newDepth).index(TerrainType::Dozed);
+		mTileMap->getTile({origin, t->depth()}).index(TerrainType::Dozed);
+		mTileMap->getTile({origin, newDepth}).index(TerrainType::Dozed);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -244,7 +244,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 	 */
 	for (const auto& offset : DirectionScan3x3)
 	{
-		mTileMap->getTile(origin + offset, newDepth).excavated(true);
+		mTileMap->getTile({origin + offset, newDepth}).excavated(true);
 	}
 
 	checkRobotSelectionInterface(Robot::Type::Digger);
@@ -267,7 +267,7 @@ void MapViewState::onMinerTaskComplete(Robot* robot)
 	mineFacility->extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
 
 	// Tile immediately underneath facility.
-	auto& tileBelow = mTileMap->getTile(robotTile.xy(), robotTile.depth() + 1);
+	auto& tileBelow = mTileMap->getTile({robotTile.xy(), robotTile.depth() + 1});
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &tileBelow);
 
 	robotTile.index(TerrainType::Dozed);
@@ -283,7 +283,7 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 
 	auto& mineFacilityTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
-	auto& mineDepthTile = mTileMap->getTile(mineFacilityTile.xy(), mineFacility->mine()->depth());
+	auto& mineDepthTile = mTileMap->getTile({mineFacilityTile.xy(), mineFacility->mine()->depth()});
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &mineDepthTile);
 	mineDepthTile.index(TerrainType::Dozed);
 	mineDepthTile.excavated(true);
