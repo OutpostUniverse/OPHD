@@ -290,7 +290,7 @@ void TileMap::centerMapOnTile(Tile* tile)
  */
 bool TileMap::tileHighlightVisible() const
 {
-	return isVisibleTile(mMapHighlight, mCurrentDepth);
+	return isVisibleTile({mMapHighlight, mCurrentDepth});
 }
 
 
@@ -511,7 +511,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 Tile* TileMap::getVisibleTile(NAS2D::Point<int> position, int level)
 {
-	if (!isVisibleTile(position, level))
+	if (!isVisibleTile({position, level}))
 	{
 		return nullptr;
 	}
