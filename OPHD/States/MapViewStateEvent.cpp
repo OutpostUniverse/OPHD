@@ -187,7 +187,10 @@ void MapViewState::onDozerTaskComplete(Robot* /*robot*/)
  */
 void MapViewState::onDiggerTaskComplete(Robot* robot)
 {
-	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(robot) == mRobotList.end())
+	{
+		throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!");
+	}
 
 	Tile* tile = mRobotList[robot];
 	const auto position = tile->xyz();
