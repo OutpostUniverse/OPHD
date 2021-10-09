@@ -68,10 +68,8 @@ namespace
 	};
 
 
-	NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int radius)
+	NAS2D::Rectangle<int> buildAreaRectFromCenter(const NAS2D::Point<int>& centerPoint, int radius)
 	{
-		const auto centerPoint = centerTile.xy();
-
 		const NAS2D::Point areaStartPoint
 		{
 			std::clamp(centerPoint.x - radius, 0, 299),
@@ -1384,7 +1382,7 @@ void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& center
 
 void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range, int depth)
 {
-	auto area = buildAreaRectFromTile(centerTile, range + 1);
+	auto area = buildAreaRectFromCenter(centerTile.xy(), range + 1);
 
 	for (int y = 0; y < area.height; ++y)
 	{
