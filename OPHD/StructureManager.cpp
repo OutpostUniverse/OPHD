@@ -32,12 +32,12 @@ namespace
 
 	NAS2D::Xml::XmlElement* serializeStructure(Structure* structure, Tile* tile)
 	{
-		const auto position = tile->xy();
+		const auto position = tile->xyz();
 		NAS2D::Dictionary dictionary =
 		{{
-			{"x", position.x},
-			{"y", position.y},
-			{"depth", tile->depth()},
+			{"x", position.xy.x},
+			{"y", position.xy.y},
+			{"depth", position.z},
 		}};
 		dictionary += structure->getDataDict();
 
