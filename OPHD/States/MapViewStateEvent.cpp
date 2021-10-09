@@ -214,7 +214,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 		as2->ug();
 		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile({origin, newDepth}));
 
-		mTileMap->getTile({origin, position.z}).index(TerrainType::Dozed);
+		mTileMap->getTile({position.xy, position.z}).index(TerrainType::Dozed);
 		mTileMap->getTile({origin, newDepth}).index(TerrainType::Dozed);
 
 		/// \fixme Naive approach; will be slow with large colonies.
