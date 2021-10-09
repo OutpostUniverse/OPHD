@@ -52,32 +52,20 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
 	{
 		if (dir == Direction::East || dir == Direction::West)
 		{
-			if (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_RIGHT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL)
-			{
-				return true;
-			}
+			return (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_RIGHT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL);
 		}
 		else // NORTH/SOUTH
 		{
-			if (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_LEFT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL)
-			{
-				return true;
-			}
+			return (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_LEFT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL);
 		}
 	}
 	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_RIGHT && (dir == Direction::East || dir == Direction::West))
 	{
-		if (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_RIGHT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL)
-		{
-			return true;
-		}
+		return (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_RIGHT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL);
 	}
 	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_LEFT && (dir == Direction::North || dir == Direction::South))
 	{
-		if (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_LEFT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL)
-		{
-			return true;
-		}
+		return (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_LEFT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL);
 	}
 
 	return false;
