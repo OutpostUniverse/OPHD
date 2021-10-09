@@ -222,22 +222,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		checkConnectedness();
 	}
-	else if (dir == Direction::North)
-	{
-		newPosition.xy += DirectionNorth;
-	}
-	else if (dir == Direction::South)
-	{
-		newPosition.xy += DirectionSouth;
-	}
-	else if (dir == Direction::West)
-	{
-		newPosition.xy += DirectionWest;
-	}
-	else if (dir == Direction::East)
-	{
-		newPosition.xy += DirectionEast;
-	}
+	newPosition.xy += directionEnumToOffset(dir);
 
 	/**
 	 * \todo	Add checks for obstructions and things that explode if
