@@ -114,8 +114,8 @@ void GraphWalker::walkGraph()
  */
 void GraphWalker::check(const MapCoordinate& position, Direction direction)
 {
-	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap.size()).contains(position.xy)) { return; }
 	if (position.z < 0 || position.z > mTileMap.maxDepth()) { return; }
+	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap.size()).contains(position.xy)) { return; }
 
 	auto& tile = mTileMap.getTile(position);
 
