@@ -96,9 +96,10 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
 	}
 
 	const auto connectorDirection = structure->connectorDirection();
-	return (dir == Direction::East || dir == Direction::West) ?
-		(connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_RIGHT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL) :
-		(connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_LEFT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL);
+	return (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL) ||
+		(dir == Direction::East || dir == Direction::West) ?
+			(connectorDirection == ConnectorDir::CONNECTOR_RIGHT) :  // East/West
+			(connectorDirection == ConnectorDir::CONNECTOR_LEFT);  // North/South
 }
 
 
