@@ -192,8 +192,8 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 		throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!");
 	}
 
-	Tile* tile = mRobotList[robot];
-	const auto position = tile->xyz();
+	Tile& tile = *mRobotList[robot];
+	const auto position = tile.xyz();
 
 	if (position.z > mTileMap->maxDepth())
 	{
@@ -210,7 +210,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 
 		AirShaft* as1 = new AirShaft();
 		if (position.z > 0) { as1->ug(); }
-		NAS2D::Utility<StructureManager>::get().addStructure(as1, tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(as1, &tile);
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
