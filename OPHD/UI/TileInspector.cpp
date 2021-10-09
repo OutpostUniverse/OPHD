@@ -47,7 +47,7 @@ void TileInspector::update()
 	}
 
 	position = mRect.startPoint() + NAS2D::Vector{5, 62};
-	const auto tilePosition = mTile->position();
+	const auto tilePosition = mTile->xy();
 	drawLabelAndValue(position, "Location: ", std::to_string(tilePosition.x) + ", " + std::to_string(tilePosition.y));
 
 	position.y += 10;

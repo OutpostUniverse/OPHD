@@ -79,12 +79,12 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 }
 
 
-GraphWalker::GraphWalker(const NAS2D::Point<int>& point, int depth, TileMap& tileMap, TileList& tileList) :
+GraphWalker::GraphWalker(const MapCoordinate& position, TileMap& tileMap, TileList& tileList) :
 	mTileMap{tileMap},
-	mThisTile{tileMap.getTile(point, depth)},
+	mThisTile{tileMap.getTile(position)},
 	mTileList{tileList},
-	mGridPosition{point},
-	mDepth{depth}
+	mGridPosition{position.xy},
+	mDepth{position.z}
 {
 	walkGraph();
 }
@@ -95,13 +95,13 @@ void GraphWalker::walkGraph()
 	mThisTile.connected(true);
 	mTileList.push_back(&mThisTile);
 
-	if (mDepth > 0) { check(mGridPosition, mDepth - 1, Direction::Up); }
-	if (mDepth < mTileMap.maxDepth()) { check(mGridPosition, mDepth + 1, Direction::Down); }
+	if (mDepth > 0) { check({mGridPosition, mDepth - 1}, Direction::Up); }
+	if (mDepth < mTileMap.maxDepth()) { check({mGridPosition, mDepth + 1}, Direction::Down); }
 
-	check(mGridPosition + DirectionNorth, mDepth, Direction::North);
-	check(mGridPosition + DirectionEast, mDepth, Direction::East);
-	check(mGridPosition + DirectionSouth, mDepth, Direction::South);
-	check(mGridPosition + DirectionWest, mDepth, Direction::West);
+	check({mGridPosition + DirectionNorth, mDepth}, Direction::North);
+	check({mGridPosition + DirectionEast, mDepth}, Direction::East);
+	check({mGridPosition + DirectionSouth, mDepth}, Direction::South);
+	check({mGridPosition + DirectionWest, mDepth}, Direction::West);
 }
 
 
@@ -112,17 +112,17 @@ void GraphWalker::walkGraph()
  *			to take a source and destination tile instead of looking them up. By using the internal
  *			positional information in the Tiles we can deduce direction between source and destination.
  */
-void GraphWalker::check(NAS2D::Point<int> point, int depth, Direction direction)
+void GraphWalker::check(const MapCoordinate& position, Direction direction)
 {
-	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap.size()).contains(point)) { return; }
-	if (depth < 0 || depth > mTileMap.maxDepth()) { return; }
+	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap.size()).contains(position.xy)) { return; }
+	if (position.z < 0 || position.z > mTileMap.maxDepth()) { return; }
 
-	auto& tile = mTileMap.getTile(point, depth);
+	auto& tile = mTileMap.getTile(position);
 
 	if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { return; }
 
 	if (validConnection(mThisTile.structure(), tile.structure(), direction))
 	{
-		GraphWalker walker(point, depth, mTileMap, mTileList);
+		GraphWalker walker(position, mTileMap, mTileList);
 	}
 }

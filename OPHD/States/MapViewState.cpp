@@ -73,14 +73,14 @@ static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int r
 {
 	const NAS2D::Point areaStartPoint
 	{
-		std::clamp(centerTile.position().x - radius, 0, 299),
-		std::clamp(centerTile.position().y - radius, 0, 149)
+		std::clamp(centerTile.xy().x - radius, 0, 299),
+		std::clamp(centerTile.xy().y - radius, 0, 149)
 	};
 
 	const NAS2D::Point areaEndPoint
 	{
-		std::clamp(centerTile.position().x + radius, 0, 299),
-		std::clamp(centerTile.position().y + radius, 0, 149)
+		std::clamp(centerTile.xy().x + radius, 0, 299),
+		std::clamp(centerTile.xy().y + radius, 0, 149)
 	};
 
 	return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
@@ -789,7 +789,7 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 
 void MapViewState::placeTubes()
 {
-	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile({mTileMapMouseHover, mTileMap->currentDepth()});
 	if (!tile) { return; }
 
 	// Check the basics.
@@ -818,7 +818,7 @@ void MapViewState::placeTubeStart()
 {
 	mPlacingTube = false;
 
-	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile({mTileMapMouseHover, mTileMap->currentDepth()});
 	if (!tile) { return; }
 
 	// Check the basics.
@@ -834,7 +834,7 @@ void MapViewState::placeTubeStart()
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeInvalidLocation);
 		return;
 	}
-	mTubeStart = tile->position();
+	mTubeStart = tile->xy();
 	mPlacingTube = true;
 }
 
@@ -843,7 +843,7 @@ void MapViewState::placeTubeEnd()
 {
 	if (!mPlacingTube) return;
 	mPlacingTube = false;
-	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile({mTileMapMouseHover, mTileMap->currentDepth()});
 	if (!tile) { return; }
 
 	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
@@ -851,7 +851,7 @@ void MapViewState::placeTubeEnd()
 	 */
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	const auto startEndDirection = tile->position() - mTubeStart;
+	const auto startEndDirection = tile->xy() - mTubeStart;
 	NAS2D::Vector<int> tubeEndOffset;
 
 	switch (cd)
@@ -882,7 +882,7 @@ void MapViewState::placeTubeEnd()
 	bool endReach = false;
 
 	do {
-		tile = mTileMap->getVisibleTile(mTubeStart, mTileMap->currentDepth());
+		tile = mTileMap->getVisibleTile({mTubeStart, mTileMap->currentDepth()});
 		if (!tile) {
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
@@ -929,7 +929,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		tile.pushMine(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
-			auto& mineShaftTile = mTileMap->getTile(mTileMap->tileMouseHover(), i);
+			auto& mineShaftTile = mTileMap->getTile({mTileMap->tileMouseHover(), i});
 			Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
 		}
 	}
@@ -1016,7 +1016,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	}
 
 	// Check for obstructions underneath the the digger location.
-	if (tile.depth() != mTileMap->maxDepth() && !mTileMap->getTile(tile.position(), tile.depth() + 1).empty())
+	if (tile.depth() != mTileMap->maxDepth() && !mTileMap->getTile({tile.xy(), tile.depth() + 1}).empty())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerBlockedBelow);
 		return;
@@ -1026,7 +1026,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	{
 		if (!doYesNoMessage(constants::AlertDiggerMineTile, constants::AlertDiggerMine)) { return; }
 
-		const auto position = tile.position();
+		const auto position = tile.xy();
 		std::cout << "Digger destroyed a Mine at (" << position.x << ", " << position.y << ")." << std::endl;
 		mTileMap->removeMineLocation(position);
 	}
@@ -1120,7 +1120,7 @@ void MapViewState::placeRobot()
 	if (!tile->excavated()) { return; }
 	if (!mRobotPool.robotCtrlAvailable()) { return; }
 
-	if (!inCommRange(tile->position()))
+	if (!inCommRange(tile->xy()))
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertOutOfCommRange);
 		return;
@@ -1168,7 +1168,7 @@ void MapViewState::placeStructure()
 	if (!tile) { return; }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		!isPointInRange(tile->position(), ccLocation(), constants::RobotCommRange))
+		!isPointInRange(tile->xy(), ccLocation(), constants::RobotCommRange))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
@@ -1327,7 +1327,7 @@ void MapViewState::updateRobots()
 
 		robot->update();
 
-		const auto position = tile->position();
+		const auto position = tile->xy();
 		const auto depth = tile->depth();
 
 		pushAgingRobotMessage(robot, position, depth, mNotificationArea);
@@ -1425,7 +1425,7 @@ void MapViewState::checkConnectedness()
 	}
 
 	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
-	auto& tile = mTileMap->getTile(ccLocation(), 0);
+	auto& tile = mTileMap->getTile({ccLocation(), 0});
 	Structure* cc = tile.structure();
 
 	if (!cc)
@@ -1442,7 +1442,7 @@ void MapViewState::checkConnectedness()
 
 	// Start graph walking at the CC location.
 	mConnectednessOverlay.clear();
-	GraphWalker graphWalker(ccLocation(), 0, *mTileMap, mConnectednessOverlay);
+	GraphWalker graphWalker({ccLocation(), 0}, *mTileMap, mConnectednessOverlay);
 }
 
 
@@ -1521,8 +1521,8 @@ void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int 
 	{
 		for (int x = 0; x < area.width; ++x)
 		{
-			auto& tile = (*mTileMap).getTile({x + area.x, y + area.y}, depth);
-			if (isPointInRange(centerTile.position(), tile.position(), range))
+			auto& tile = (*mTileMap).getTile({{x + area.x, y + area.y}, depth});
+			if (isPointInRange(centerTile.xy(), tile.xy(), range))
 			{
 				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
 				{

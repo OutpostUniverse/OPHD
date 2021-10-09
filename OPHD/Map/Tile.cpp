@@ -49,17 +49,15 @@ const NAS2D::Color& overlayHighlightColor(Tile::Overlay overlay)
 }
 
 
-Tile::Tile(NAS2D::Point<int> position, int depth, TerrainType index) :
+Tile::Tile(const MapCoordinate& position, TerrainType index) :
 	mIndex{index},
-	mPosition{position},
-	mDepth{depth}
+	mPosition{position}
 {}
 
 
 Tile::Tile(Tile&& other) noexcept :
 	mIndex{other.mIndex},
 	mPosition{other.mPosition},
-	mDepth{other.mDepth},
 	mThing{other.mThing},
 	mMine{other.mMine},
 	mOverlay{other.mOverlay},
@@ -74,7 +72,6 @@ Tile& Tile::operator=(Tile&& other) noexcept
 {
 	mIndex = other.mIndex;
 	mPosition = other.mPosition;
-	mDepth = other.mDepth;
 	mThing = other.mThing;
 	mMine = other.mMine;
 	mOverlay = other.mOverlay;

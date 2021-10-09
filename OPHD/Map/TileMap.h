@@ -40,17 +40,16 @@ public:
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;
 
-	bool isValidPosition(NAS2D::Point<int> position, int level = 0) const;
+	bool isValidPosition(const MapCoordinate& position) const;
+	bool isValidPosition(NAS2D::Point<int> position, int level = 0) const { return isValidPosition({position, level}); }
 
-	Tile& getTile(NAS2D::Point<int> position, int level);
-	Tile& getTile(NAS2D::Point<int> position) { return getTile(position, mCurrentDepth); }
+	Tile& getTile(const MapCoordinate& position);
+	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mCurrentDepth}); }
 
-	Tile* getVisibleTile(NAS2D::Point<int> position, int level);
-	Tile* getVisibleTile() { return getVisibleTile(tileMouseHover(), mCurrentDepth); }
+	Tile* getVisibleTile(const MapCoordinate& position);
+	Tile* getVisibleTile() { return getVisibleTile({tileMouseHover(), mCurrentDepth}); }
 
-	bool isVisibleTile(NAS2D::Point<int> position, int z) const;
-	bool isVisibleTile(NAS2D::Point<int> position) const { return isVisibleTile(position, mCurrentDepth); }
-	bool isVisibleTile(const Tile& t) { return isVisibleTile(t.position(), t.depth()); }
+	bool isVisibleTile(const MapCoordinate& position) const;
 
 	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 

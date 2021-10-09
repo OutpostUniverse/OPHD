@@ -50,7 +50,7 @@ bool CrimeRateUpdate::isProtectedByPolice(const std::vector<TileList>& policeOve
 
 	for (const auto& tile : policeOverlays[structureTile.depth()])
 	{
-		if (tile->position() == structureTile.position())
+		if (tile->xy() == structureTile.xy())
 		{
 			return true;
 		}

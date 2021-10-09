@@ -2,6 +2,8 @@
 
 #include "../Common.h"
 
+#include "MapCoordinate.h"
+
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 
@@ -27,7 +29,7 @@ public:
 
 public:
 	Tile() = default;
-	Tile(NAS2D::Point<int>, int, TerrainType);
+	Tile(const MapCoordinate& position, TerrainType);
 	Tile(const Tile&) = delete;
 	Tile& operator=(const Tile&) = delete;
 	Tile(Tile&&) noexcept;
@@ -37,10 +39,10 @@ public:
 	TerrainType index() const { return mIndex; }
 	void index(TerrainType index) { mIndex = index; }
 
-	NAS2D::Point<int> position() const { return mPosition; }
-
-	int depth() const { return mDepth; }
-	void depth(int i) { mDepth = i; }
+	const MapCoordinate& xyz() const { return mPosition; }
+	NAS2D::Point<int> xy() const { return mPosition.xy; }
+	int depth() const { return mPosition.z; }
+	void depth(int i) { mPosition.z = i; }
 
 	bool bulldozed() const { return index() == TerrainType::Dozed; }
 
@@ -76,8 +78,7 @@ public:
 private:
 	TerrainType mIndex = TerrainType::Dozed;
 
-	NAS2D::Point<int> mPosition; /**< Tile Position Information */
-	int mDepth = 0; /**< Tile Position Information */
+	MapCoordinate mPosition;
 
 	Thing* mThing = nullptr;
 	Mine* mMine = nullptr;

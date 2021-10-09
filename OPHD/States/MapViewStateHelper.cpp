@@ -120,10 +120,10 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
  */
 bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir dir)
 {
-	return checkTubeConnection(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::East, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), Direction::West, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::South, dir) ||
-		checkTubeConnection(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::North, dir);
+	return checkTubeConnection(tilemap->getTile({point + DirectionEast, tilemap->currentDepth()}), Direction::East, dir) ||
+		checkTubeConnection(tilemap->getTile({point + DirectionWest, tilemap->currentDepth()}), Direction::West, dir) ||
+		checkTubeConnection(tilemap->getTile({point + DirectionSouth, tilemap->currentDepth()}), Direction::South, dir) ||
+		checkTubeConnection(tilemap->getTile({point + DirectionNorth, tilemap->currentDepth()}), Direction::North, dir);
 }
 
 
@@ -134,10 +134,10 @@ bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir
  */
 bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point)
 {
-	return checkStructurePlacement(tilemap->getTile(point + DirectionNorth, tilemap->currentDepth()), Direction::North) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionEast, tilemap->currentDepth()), Direction::East) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionSouth, tilemap->currentDepth()), Direction::South) ||
-		checkStructurePlacement(tilemap->getTile(point + DirectionWest, tilemap->currentDepth()), Direction::West);
+	return checkStructurePlacement(tilemap->getTile({point + DirectionNorth, tilemap->currentDepth()}), Direction::North) ||
+		checkStructurePlacement(tilemap->getTile({point + DirectionEast, tilemap->currentDepth()}), Direction::East) ||
+		checkStructurePlacement(tilemap->getTile({point + DirectionSouth, tilemap->currentDepth()}), Direction::South) ||
+		checkStructurePlacement(tilemap->getTile({point + DirectionWest, tilemap->currentDepth()}), Direction::West);
 }
 
 
@@ -152,7 +152,7 @@ bool validLanderSite(Tile& tile)
 		return false;
 	}
 
-	if (!isPointInRange(tile.position(), ccLocation(), constants::LanderCommRange))
+	if (!isPointInRange(tile.xy(), ccLocation(), constants::LanderCommRange))
 	{
 		doAlertMessage(constants::AlertLanderLocation, constants::AlertLanderCommRange);
 		return false;
@@ -283,7 +283,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	for (auto lander : seedLanders)
 	{
 		if (!lander->operational()) { continue; }
-		if (isPointInRange(position, structureManager.tileFromStructure(lander).position(), 5)) // \fixme magic number
+		if (isPointInRange(position, structureManager.tileFromStructure(lander).xy(), 5)) // \fixme magic number
 		{
 			return true;
 		}
@@ -294,7 +294,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	{
 		if (!cc->operational()) { continue; }
 
-		if (isPointInRange(position, structureManager.tileFromStructure(cc).position(), cc->getRange()))
+		if (isPointInRange(position, structureManager.tileFromStructure(cc).xy(), cc->getRange()))
 		{
 			return true;
 		}
@@ -305,7 +305,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	{
 		if (!tower->operational()) { continue; }
 
-		if (isPointInRange(position, structureManager.tileFromStructure(tower).position(), tower->getRange()))
+		if (isPointInRange(position, structureManager.tileFromStructure(tower).xy(), tower->getRange()))
 		{
 			return true;
 		}
@@ -560,7 +560,7 @@ NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot
 	if (it != robotTileTable.end())
 	{
 		const auto& tile = *it->second;
-		const auto position = tile.position();
+		const auto position = tile.xy();
 		dictionary += NAS2D::Dictionary{{
 			{"x", position.x},
 			{"y", position.y},
