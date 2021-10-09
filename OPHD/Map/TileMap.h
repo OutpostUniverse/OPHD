@@ -48,9 +48,10 @@ public:
 	Tile* getVisibleTile(NAS2D::Point<int> position, int level);
 	Tile* getVisibleTile() { return getVisibleTile(tileMouseHover(), mCurrentDepth); }
 
-	bool isVisibleTile(NAS2D::Point<int> position, int z) const;
+	bool isVisibleTile(const MapCoordinate& position) const;
+	bool isVisibleTile(NAS2D::Point<int> position, int z) const { return isVisibleTile({position, z}); }
 	bool isVisibleTile(NAS2D::Point<int> position) const { return isVisibleTile(position, mCurrentDepth); }
-	bool isVisibleTile(const Tile& t) { return isVisibleTile(t.xy(), t.depth()); }
+	bool isVisibleTile(const Tile& t) { return isVisibleTile(t.xyz()); }
 
 	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 

@@ -520,14 +520,14 @@ Tile* TileMap::getVisibleTile(NAS2D::Point<int> position, int level)
 }
 
 
-bool TileMap::isVisibleTile(NAS2D::Point<int> position, int z) const
+bool TileMap::isVisibleTile(const MapCoordinate& position) const
 {
-	if (!NAS2D::Rectangle{mMapViewLocation.x, mMapViewLocation.y, mEdgeLength, mEdgeLength}.contains(position))
+	if (!NAS2D::Rectangle{mMapViewLocation.x, mMapViewLocation.y, mEdgeLength, mEdgeLength}.contains(position.xy))
 	{
 		return false;
 	}
 
-	if (z != mCurrentDepth)
+	if (position.z != mCurrentDepth)
 	{
 		return false;
 	}
