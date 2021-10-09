@@ -789,7 +789,7 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 
 void MapViewState::placeTubes()
 {
-	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile({mTileMapMouseHover, mTileMap->currentDepth()});
 	if (!tile) { return; }
 
 	// Check the basics.
@@ -818,7 +818,7 @@ void MapViewState::placeTubeStart()
 {
 	mPlacingTube = false;
 
-	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile({mTileMapMouseHover, mTileMap->currentDepth()});
 	if (!tile) { return; }
 
 	// Check the basics.
@@ -843,7 +843,7 @@ void MapViewState::placeTubeEnd()
 {
 	if (!mPlacingTube) return;
 	mPlacingTube = false;
-	Tile* tile = mTileMap->getVisibleTile(mTileMapMouseHover, mTileMap->currentDepth());
+	Tile* tile = mTileMap->getVisibleTile({mTileMapMouseHover, mTileMap->currentDepth()});
 	if (!tile) { return; }
 
 	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
@@ -882,7 +882,7 @@ void MapViewState::placeTubeEnd()
 	bool endReach = false;
 
 	do {
-		tile = mTileMap->getVisibleTile(mTubeStart, mTileMap->currentDepth());
+		tile = mTileMap->getVisibleTile({mTubeStart, mTileMap->currentDepth()});
 		if (!tile) {
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
