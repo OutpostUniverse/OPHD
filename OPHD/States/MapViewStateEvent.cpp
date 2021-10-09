@@ -190,30 +190,31 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!"); }
 
 	Tile* tile = mRobotList[robot];
+	const auto position = tile->xyz();
 
-	if (tile->depth() > mTileMap->maxDepth())
+	if (position.z > mTileMap->maxDepth())
 	{
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
 	Direction dir = static_cast<Robodigger*>(robot)->direction(); // fugly
 
-	NAS2D::Point<int> origin = tile->xy();
-	int newDepth = tile->depth();
+	NAS2D::Point<int> origin = position.xy;
+	int newDepth = position.z;
 
 	if (dir == Direction::Down)
 	{
 		++newDepth;
 
 		AirShaft* as1 = new AirShaft();
-		if (tile->depth() > 0) { as1->ug(); }
+		if (position.z > 0) { as1->ug(); }
 		NAS2D::Utility<StructureManager>::get().addStructure(as1, tile);
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
 		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile({origin, newDepth}));
 
-		mTileMap->getTile({origin, tile->depth()}).index(TerrainType::Dozed);
+		mTileMap->getTile({origin, position.z}).index(TerrainType::Dozed);
 		mTileMap->getTile({origin, newDepth}).index(TerrainType::Dozed);
 
 		/// \fixme Naive approach; will be slow with large colonies.
