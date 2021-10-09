@@ -85,7 +85,7 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
 
 
 /**
- * Checks to see if the given tile offers the a proper connection for a Structure.
+ * Checks to see if the given tile offers a proper connection for a Structure.
  */
 bool checkStructurePlacement(Tile& tile, Direction dir)
 {
