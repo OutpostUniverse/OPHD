@@ -199,12 +199,11 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 
 	Direction dir = static_cast<Robodigger*>(robot)->direction(); // fugly
 
-	NAS2D::Point<int> origin = position.xy;
-	int newDepth = position.z;
+	auto newPosition = position;
 
 	if (dir == Direction::Down)
 	{
-		++newDepth;
+		++newPosition.z;
 
 		AirShaft* as1 = new AirShaft();
 		if (position.z > 0) { as1->ug(); }
@@ -212,10 +211,10 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
-		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile({origin, newDepth}));
+		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile({newPosition.xy, newPosition.z}));
 
 		mTileMap->getTile({position.xy, position.z}).index(TerrainType::Dozed);
-		mTileMap->getTile({origin, newDepth}).index(TerrainType::Dozed);
+		mTileMap->getTile({newPosition.xy, newPosition.z}).index(TerrainType::Dozed);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -223,19 +222,19 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 	}
 	else if (dir == Direction::North)
 	{
-		origin += DirectionNorth;
+		newPosition.xy += DirectionNorth;
 	}
 	else if (dir == Direction::South)
 	{
-		origin += DirectionSouth;
+		newPosition.xy += DirectionSouth;
 	}
 	else if (dir == Direction::West)
 	{
-		origin += DirectionWest;
+		newPosition.xy += DirectionWest;
 	}
 	else if (dir == Direction::East)
 	{
-		origin += DirectionEast;
+		newPosition.xy += DirectionEast;
 	}
 
 	/**
@@ -245,7 +244,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 	 */
 	for (const auto& offset : DirectionScan3x3)
 	{
-		mTileMap->getTile({origin + offset, newDepth}).excavated(true);
+		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavated(true);
 	}
 
 	checkRobotSelectionInterface(Robot::Type::Digger);
