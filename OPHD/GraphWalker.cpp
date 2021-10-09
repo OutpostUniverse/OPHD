@@ -95,9 +95,8 @@ void GraphWalker::walkGraph()
 	mThisTile.connected(true);
 	mTileList.push_back(&mThisTile);
 
-	if (mDepth > 0) { check({mGridPosition, mDepth - 1}, Direction::Up); }
-	if (mDepth < mTileMap.maxDepth()) { check({mGridPosition, mDepth + 1}, Direction::Down); }
-
+	check({mGridPosition, mDepth - 1}, Direction::Up);
+	check({mGridPosition, mDepth + 1}, Direction::Down);
 	check({mGridPosition + DirectionNorth, mDepth}, Direction::North);
 	check({mGridPosition + DirectionEast, mDepth}, Direction::East);
 	check({mGridPosition + DirectionSouth, mDepth}, Direction::South);
