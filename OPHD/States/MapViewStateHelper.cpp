@@ -50,9 +50,10 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
 
 	if (sourceConnectorDir == ConnectorDir::CONNECTOR_INTERSECTION)
 	{
-		return (dir == Direction::East || dir == Direction::West) ?
-			(connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_RIGHT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL) :  // East/West
-			(connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_LEFT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL);  // North/South
+		return (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL) ||
+			(dir == Direction::East || dir == Direction::West) ?
+				(connectorDirection == ConnectorDir::CONNECTOR_RIGHT) :  // East/West
+				(connectorDirection == ConnectorDir::CONNECTOR_LEFT);  // North/South
 	}
 	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_RIGHT && (dir == Direction::East || dir == Direction::West))
 	{
