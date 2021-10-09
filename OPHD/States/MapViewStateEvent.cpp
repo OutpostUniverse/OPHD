@@ -211,10 +211,10 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 
 		AirShaft* as2 = new AirShaft();
 		as2->ug();
-		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile({newPosition.xy, newPosition.z}));
+		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile(newPosition));
 
-		mTileMap->getTile({position.xy, position.z}).index(TerrainType::Dozed);
-		mTileMap->getTile({newPosition.xy, newPosition.z}).index(TerrainType::Dozed);
+		mTileMap->getTile(position).index(TerrainType::Dozed);
+		mTileMap->getTile(newPosition).index(TerrainType::Dozed);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
