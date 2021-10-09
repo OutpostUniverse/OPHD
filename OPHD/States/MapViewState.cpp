@@ -1442,7 +1442,7 @@ void MapViewState::checkConnectedness()
 
 	// Start graph walking at the CC location.
 	mConnectednessOverlay.clear();
-	GraphWalker graphWalker(ccLocation(), 0, *mTileMap, mConnectednessOverlay);
+	GraphWalker graphWalker({ccLocation(), 0}, *mTileMap, mConnectednessOverlay);
 }
 
 
