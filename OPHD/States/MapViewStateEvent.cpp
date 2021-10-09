@@ -187,34 +187,36 @@ void MapViewState::onDozerTaskComplete(Robot* /*robot*/)
  */
 void MapViewState::onDiggerTaskComplete(Robot* robot)
 {
-	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(robot) == mRobotList.end())
+	{
+		throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!");
+	}
 
-	Tile* t = mRobotList[robot];
+	auto& tile = *mRobotList[robot];
+	const auto position = tile.xyz();
 
-	if (t->depth() > mTileMap->maxDepth())
+	if (position.z > mTileMap->maxDepth())
 	{
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
-	Direction dir = static_cast<Robodigger*>(robot)->direction(); // fugly
-
-	NAS2D::Point<int> origin = t->xy();
-	int newDepth = t->depth();
+	const auto dir = static_cast<Robodigger*>(robot)->direction(); // fugly
+	auto newPosition = position;
 
 	if (dir == Direction::Down)
 	{
-		++newDepth;
+		++newPosition.z;
 
-		AirShaft* as1 = new AirShaft();
-		if (t->depth() > 0) { as1->ug(); }
-		NAS2D::Utility<StructureManager>::get().addStructure(as1, t);
+		auto* as1 = new AirShaft();
+		if (position.z > 0) { as1->ug(); }
+		NAS2D::Utility<StructureManager>::get().addStructure(as1, &tile);
 
-		AirShaft* as2 = new AirShaft();
+		auto* as2 = new AirShaft();
 		as2->ug();
-		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile({origin, newDepth}));
+		NAS2D::Utility<StructureManager>::get().addStructure(as2, &mTileMap->getTile(newPosition));
 
-		mTileMap->getTile({origin, t->depth()}).index(TerrainType::Dozed);
-		mTileMap->getTile({origin, newDepth}).index(TerrainType::Dozed);
+		mTileMap->getTile(position).index(TerrainType::Dozed);
+		mTileMap->getTile(newPosition).index(TerrainType::Dozed);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -222,19 +224,19 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 	}
 	else if (dir == Direction::North)
 	{
-		origin += DirectionNorth;
+		newPosition.xy += DirectionNorth;
 	}
 	else if (dir == Direction::South)
 	{
-		origin += DirectionSouth;
+		newPosition.xy += DirectionSouth;
 	}
 	else if (dir == Direction::West)
 	{
-		origin += DirectionWest;
+		newPosition.xy += DirectionWest;
 	}
 	else if (dir == Direction::East)
 	{
-		origin += DirectionEast;
+		newPosition.xy += DirectionEast;
 	}
 
 	/**
@@ -244,7 +246,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 	 */
 	for (const auto& offset : DirectionScan3x3)
 	{
-		mTileMap->getTile({origin + offset, newDepth}).excavated(true);
+		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavated(true);
 	}
 
 	checkRobotSelectionInterface(Robot::Type::Digger);
