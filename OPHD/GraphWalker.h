@@ -24,7 +24,7 @@ private:
 
 private:
 	void walkGraph();
-	void check(NAS2D::Point<int> point, int depth, Direction direction);
+	void check(const MapCoordinate& position, Direction direction);
 
 private:
 	TileMap& mTileMap;
