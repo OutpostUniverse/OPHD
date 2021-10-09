@@ -94,16 +94,17 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
 		return false;
 	}
 
+	const auto connectorDirection = structure->connectorDirection();
 	if (dir == Direction::East || dir == Direction::West)
 	{
-		if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
+		if (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_RIGHT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
 	}
 	else // NORTH/SOUTH
 	{
-		if (structure->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || structure->connectorDirection() == ConnectorDir::CONNECTOR_LEFT || structure->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
+		if (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_LEFT || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL)
 		{
 			return true;
 		}
