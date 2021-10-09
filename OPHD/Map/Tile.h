@@ -39,8 +39,8 @@ public:
 	TerrainType index() const { return mIndex; }
 	void index(TerrainType index) { mIndex = index; }
 
+	const MapCoordinate& xyz() const { return mPosition; }
 	NAS2D::Point<int> xy() const { return mPosition.xy; }
-
 	int depth() const { return mPosition.z; }
 	void depth(int i) { mPosition.z = i; }
 
