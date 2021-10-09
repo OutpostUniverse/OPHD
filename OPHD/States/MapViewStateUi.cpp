@@ -606,24 +606,11 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile* tile)
 
 	robot->direction(direction);
 
-
-	if (direction == Direction::North)
+	const auto directionOffset = directionEnumToOffset(direction);
+	if (directionOffset != DirectionCenter)
 	{
-		mTileMap->getTile({tile->xy() + DirectionNorth, tile->depth()}).excavated(true);
+		mTileMap->getTile({tile->xy() + directionOffset, tile->depth()}).excavated(true);
 	}
-	else if (direction == Direction::South)
-	{
-		mTileMap->getTile({tile->xy() + DirectionSouth, tile->depth()}).excavated(true);
-	}
-	else if (direction == Direction::East)
-	{
-		mTileMap->getTile({tile->xy() + DirectionEast, tile->depth()}).excavated(true);
-	}
-	else if (direction == Direction::West)
-	{
-		mTileMap->getTile({tile->xy() + DirectionWest, tile->depth()}).excavated(true);
-	}
-
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Digger))
 	{
