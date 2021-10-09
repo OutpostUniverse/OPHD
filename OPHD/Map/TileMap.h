@@ -50,7 +50,7 @@ public:
 
 	bool isVisibleTile(NAS2D::Point<int> position, int z) const;
 	bool isVisibleTile(NAS2D::Point<int> position) const { return isVisibleTile(position, mCurrentDepth); }
-	bool isVisibleTile(const Tile& t) { return isVisibleTile(t.position(), t.depth()); }
+	bool isVisibleTile(const Tile& t) { return isVisibleTile(t.xy(), t.depth()); }
 
 	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 

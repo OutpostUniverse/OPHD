@@ -37,7 +37,7 @@ public:
 	TerrainType index() const { return mIndex; }
 	void index(TerrainType index) { mIndex = index; }
 
-	NAS2D::Point<int> position() const { return mPosition; }
+	NAS2D::Point<int> xy() const { return mPosition; }
 
 	int depth() const { return mDepth; }
 	void depth(int i) { mDepth = i; }

@@ -504,7 +504,7 @@ void MapViewState::updateRoads()
 	{
 		if (!road->operational()) { continue; }
 
-		const auto tileLocation = NAS2D::Utility<StructureManager>::get().tileFromStructure(road).position();
+		const auto tileLocation = NAS2D::Utility<StructureManager>::get().tileFromStructure(road).xy();
 
 		std::array<bool, 4> surroundingTiles{false, false, false, false};
 		for (size_t i = 0; i < 4; ++i)
@@ -539,7 +539,7 @@ void MapViewState::checkAgingStructures()
 			mNotificationArea.push(
 				"Aging Structure",
 				structure->name() + " is getting old. You should replace it soon.",
-				structureTile.position(),
+				structureTile.xy(),
 				structureTile.depth(),
 				NotificationArea::NotificationType::Warning);
 		}
@@ -548,7 +548,7 @@ void MapViewState::checkAgingStructures()
 			mNotificationArea.push(
 				"Aging Structure",
 				structure->name() + " is about to collapse. You should replace it right away or consider demolishing it.",
-				structureTile.position(),
+				structureTile.xy(),
 				structureTile.depth(),
 				NotificationArea::NotificationType::Critical);
 		}
@@ -567,7 +567,7 @@ void MapViewState::checkNewlyBuiltStructures()
 		mNotificationArea.push(
 			"Construction Finished",
 			structure->name() + " completed construction.",
-			structureTile.position(),
+			structureTile.xy(),
 			structureTile.depth(),
 			NotificationArea::NotificationType::Information);
 	}

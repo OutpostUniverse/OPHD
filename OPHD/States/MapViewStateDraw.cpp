@@ -77,7 +77,7 @@ void MapViewState::drawMiniMap()
 	{
 		if (commTower->operational())
 		{
-			const auto commTowerPosition = structureManager.tileFromStructure(commTower).position();
+			const auto commTowerPosition = structureManager.tileFromStructure(commTower).xy();
 			const auto commTowerRangeImageRect = NAS2D::Rectangle{146, 236, 20, 20};
 			renderer.drawSubImage(mUiIcons, commTowerPosition + miniMapOffset - commTowerRangeImageRect.size() / 2, commTowerRangeImageRect);
 		}
@@ -104,14 +104,14 @@ void MapViewState::drawMiniMap()
 	{
 		for (auto tile : route.second.path)
 		{
-			const auto tilePosition = static_cast<Tile*>(tile)->position();
+			const auto tilePosition = static_cast<Tile*>(tile)->xy();
 			renderer.drawPoint(tilePosition + miniMapOffset, NAS2D::Color::Magenta);
 		}
 	}
 
 	for (auto robotEntry : mRobotList)
 	{
-		const auto robotPosition = robotEntry.second->position();
+		const auto robotPosition = robotEntry.second->xy();
 		renderer.drawPoint(robotPosition + miniMapOffset, NAS2D::Color::Cyan);
 	}
 

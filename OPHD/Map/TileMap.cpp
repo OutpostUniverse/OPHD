@@ -280,7 +280,7 @@ void TileMap::centerMapOnTile(Tile* tile)
 {
 	if (!tile) { return; }
 
-	mapViewLocation(tile->position() - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2);
+	mapViewLocation(tile->xy() - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2);
 	currentDepth(tile->depth());
 }
 
@@ -543,14 +543,14 @@ bool TileMap::isVisibleTile(NAS2D::Point<int> position, int z) const
  */
 float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
 {
-	return sqrtf(static_cast<float>((static_cast<Tile*>(stateEnd)->position() - static_cast<Tile*>(stateStart)->position()).lengthSquared()));
+	return sqrtf(static_cast<float>((static_cast<Tile*>(stateEnd)->xy() - static_cast<Tile*>(stateStart)->xy()).lengthSquared()));
 }
 
 
 void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent)
 {
 	auto& tile = *static_cast<Tile*>(state);
-	const auto tilePosition = tile.position();
+	const auto tilePosition = tile.xy();
 
 	for (const auto& offset : DirectionClockwise4)
 	{

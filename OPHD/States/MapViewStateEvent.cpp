@@ -198,7 +198,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 
 	Direction dir = static_cast<Robodigger*>(robot)->direction(); // fugly
 
-	NAS2D::Point<int> origin = t->position();
+	NAS2D::Point<int> origin = t->xy();
 	int newDepth = t->depth();
 
 	if (dir == Direction::Down)
@@ -267,7 +267,7 @@ void MapViewState::onMinerTaskComplete(Robot* robot)
 	mineFacility->extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
 
 	// Tile immediately underneath facility.
-	auto& tileBelow = mTileMap->getTile(robotTile.position(), robotTile.depth() + 1);
+	auto& tileBelow = mTileMap->getTile(robotTile.xy(), robotTile.depth() + 1);
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &tileBelow);
 
 	robotTile.index(TerrainType::Dozed);
@@ -283,7 +283,7 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 
 	auto& mineFacilityTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
-	auto& mineDepthTile = mTileMap->getTile(mineFacilityTile.position(), mineFacility->mine()->depth());
+	auto& mineDepthTile = mTileMap->getTile(mineFacilityTile.xy(), mineFacility->mine()->depth());
 	NAS2D::Utility<StructureManager>::get().addStructure(new MineShaft(), &mineDepthTile);
 	mineDepthTile.index(TerrainType::Dozed);
 	mineDepthTile.excavated(true);
