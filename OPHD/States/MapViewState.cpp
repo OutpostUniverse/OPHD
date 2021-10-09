@@ -70,16 +70,18 @@ namespace
 
 	NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int radius)
 	{
+		const auto centerPoint = centerTile.xy();
+
 		const NAS2D::Point areaStartPoint
 		{
-			std::clamp(centerTile.xy().x - radius, 0, 299),
-			std::clamp(centerTile.xy().y - radius, 0, 149)
+			std::clamp(centerPoint.x - radius, 0, 299),
+			std::clamp(centerPoint.y - radius, 0, 149)
 		};
 
 		const NAS2D::Point areaEndPoint
 		{
-			std::clamp(centerTile.xy().x + radius, 0, 299),
-			std::clamp(centerTile.xy().y + radius, 0, 149)
+			std::clamp(centerPoint.x + radius, 0, 299),
+			std::clamp(centerPoint.y + radius, 0, 149)
 		};
 
 		return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
