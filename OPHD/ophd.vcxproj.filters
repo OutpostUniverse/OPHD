@@ -156,6 +156,9 @@
     <ClCompile Include="Population\Population.cpp">
       <Filter>Source Files\Population</Filter>
     </ClCompile>
+    <ClCompile Include="Map\MapCoordinate.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
     <ClCompile Include="Map\Tile.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
