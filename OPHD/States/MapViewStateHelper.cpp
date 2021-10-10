@@ -89,29 +89,25 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
 
 /**
  * Checks to see if a tile is a valid tile to place a tube onto.
- * 
- * \warning		Assumes \c tilemap is never nullptr.
  */
-bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir dir)
+bool validTubeConnection(TileMap& tilemap, NAS2D::Point<int> point, ConnectorDir dir)
 {
-	return checkTubeConnection(tilemap->getTile({point + DirectionEast, tilemap->currentDepth()}), Direction::East, dir) ||
-		checkTubeConnection(tilemap->getTile({point + DirectionWest, tilemap->currentDepth()}), Direction::West, dir) ||
-		checkTubeConnection(tilemap->getTile({point + DirectionSouth, tilemap->currentDepth()}), Direction::South, dir) ||
-		checkTubeConnection(tilemap->getTile({point + DirectionNorth, tilemap->currentDepth()}), Direction::North, dir);
+	return checkTubeConnection(tilemap.getTile({point + DirectionEast, tilemap.currentDepth()}), Direction::East, dir) ||
+		checkTubeConnection(tilemap.getTile({point + DirectionWest, tilemap.currentDepth()}), Direction::West, dir) ||
+		checkTubeConnection(tilemap.getTile({point + DirectionSouth, tilemap.currentDepth()}), Direction::South, dir) ||
+		checkTubeConnection(tilemap.getTile({point + DirectionNorth, tilemap.currentDepth()}), Direction::North, dir);
 }
 
 
 /**
  * Checks a tile to see if a valid Tube connection is available for Structure placement.
- *
- * \warning		Assumes \c tilemap is never nullptr.
  */
-bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point)
+bool validStructurePlacement(TileMap& tilemap, NAS2D::Point<int> point)
 {
-	return checkStructurePlacement(tilemap->getTile({point + DirectionNorth, tilemap->currentDepth()}), Direction::North) ||
-		checkStructurePlacement(tilemap->getTile({point + DirectionEast, tilemap->currentDepth()}), Direction::East) ||
-		checkStructurePlacement(tilemap->getTile({point + DirectionSouth, tilemap->currentDepth()}), Direction::South) ||
-		checkStructurePlacement(tilemap->getTile({point + DirectionWest, tilemap->currentDepth()}), Direction::West);
+	return checkStructurePlacement(tilemap.getTile({point + DirectionNorth, tilemap.currentDepth()}), Direction::North) ||
+		checkStructurePlacement(tilemap.getTile({point + DirectionEast, tilemap.currentDepth()}), Direction::East) ||
+		checkStructurePlacement(tilemap.getTile({point + DirectionSouth, tilemap.currentDepth()}), Direction::South) ||
+		checkStructurePlacement(tilemap.getTile({point + DirectionWest, tilemap.currentDepth()}), Direction::West);
 }
 
 
@@ -151,11 +147,11 @@ bool validLanderSite(Tile& tile)
  * \note	This function will trigger modal dialog boxes to alert
  *			the user as to why the landing site isn't suitable.
  */
-bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
+bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 {
 	for (const auto& offset : DirectionScan3x3)
 	{
-		auto& tile = tilemap->getTile(position + offset);
+		auto& tile = tilemap.getTile(position + offset);
 
 		if (tile.index() == TerrainType::Impassable)
 		{

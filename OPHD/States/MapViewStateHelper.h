@@ -35,10 +35,10 @@ NAS2D::Point<int>& ccLocation();
 
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile& tile, Direction dir);
-bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir dir);
-bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point);
+bool validTubeConnection(TileMap& tilemap, NAS2D::Point<int> point, ConnectorDir dir);
+bool validStructurePlacement(TileMap& tilemap, NAS2D::Point<int> point);
 bool validLanderSite(Tile& t);
-bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position);
+bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position);
 bool structureIsLander(StructureID id);
 bool inCommRange(NAS2D::Point<int> position);
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);

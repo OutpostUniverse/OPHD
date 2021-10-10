@@ -800,7 +800,7 @@ void MapViewState::placeTubes()
 	 */
 	auto cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	if (validTubeConnection(mTileMap, mTileMapMouseHover, cd))
+	if (validTubeConnection(*mTileMap, mTileMapMouseHover, cd))
 	{
 		insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(mTileMapMouseHover));
 
@@ -829,7 +829,7 @@ void MapViewState::placeTubeStart()
 	 */
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	if (!validTubeConnection(mTileMap, mTileMapMouseHover, cd))
+	if (!validTubeConnection(*mTileMap, mTileMapMouseHover, cd))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeInvalidLocation);
 		return;
@@ -887,7 +887,7 @@ void MapViewState::placeTubeEnd()
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
 			endReach = true;
-		}else if (!validTubeConnection(mTileMap, position, cd)){
+		}else if (!validTubeConnection(*mTileMap, position, cd)){
 			endReach = true;
 		}else{
 			insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(position));
@@ -1244,7 +1244,7 @@ void MapViewState::placeStructure()
 	}
 	else
 	{
-		if (!validStructurePlacement(mTileMap, mTileMapMouseHover) && !selfSustained(mCurrentStructure))
+		if (!validStructurePlacement(*mTileMap, mTileMapMouseHover) && !selfSustained(mCurrentStructure))
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureNoTube);
 			return;
@@ -1292,7 +1292,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 	if (NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(point))
 	{
 		// check for obstructions
-		if (!landingSiteSuitable(mTileMap, point))
+		if (!landingSiteSuitable(*mTileMap, point))
 		{
 			return;
 		}
