@@ -83,8 +83,7 @@ GraphWalker::GraphWalker(const MapCoordinate& position, TileMap& tileMap, TileLi
 	mTileMap{tileMap},
 	mThisTile{tileMap.getTile(position)},
 	mTileList{tileList},
-	mGridPosition{position.xy},
-	mDepth{position.z}
+	mPosition{position.xy, position.z}
 {
 	walkGraph();
 }
@@ -95,12 +94,12 @@ void GraphWalker::walkGraph()
 	mThisTile.connected(true);
 	mTileList.push_back(&mThisTile);
 
-	check({mGridPosition, mDepth}, Direction::Up);
-	check({mGridPosition, mDepth}, Direction::Down);
-	check({mGridPosition, mDepth}, Direction::North);
-	check({mGridPosition, mDepth}, Direction::East);
-	check({mGridPosition, mDepth}, Direction::South);
-	check({mGridPosition, mDepth}, Direction::West);
+	check(mPosition, Direction::Up);
+	check(mPosition, Direction::Down);
+	check(mPosition, Direction::North);
+	check(mPosition, Direction::East);
+	check(mPosition, Direction::South);
+	check(mPosition, Direction::West);
 }
 
 
