@@ -1292,7 +1292,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 	if (NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(point))
 	{
 		// check for obstructions
-		if (!landingSiteSuitable(mTileMap, point))
+		if (!landingSiteSuitable(*mTileMap, point))
 		{
 			return;
 		}

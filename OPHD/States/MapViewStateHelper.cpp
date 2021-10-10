@@ -147,11 +147,11 @@ bool validLanderSite(Tile& tile)
  * \note	This function will trigger modal dialog boxes to alert
  *			the user as to why the landing site isn't suitable.
  */
-bool landingSiteSuitable(TileMap* tilemap, NAS2D::Point<int> position)
+bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 {
 	for (const auto& offset : DirectionScan3x3)
 	{
-		auto& tile = tilemap->getTile(position + offset);
+		auto& tile = tilemap.getTile(position + offset);
 
 		if (tile.index() == TerrainType::Impassable)
 		{
