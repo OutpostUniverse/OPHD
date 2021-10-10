@@ -83,7 +83,7 @@ GraphWalker::GraphWalker(const MapCoordinate& position, TileMap& tileMap, TileLi
 	mTileMap{tileMap},
 	mThisTile{tileMap.getTile(position)},
 	mTileList{tileList},
-	mPosition{position.xy, position.z}
+	mPosition{position}
 {
 	walkGraph();
 }
