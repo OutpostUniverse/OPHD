@@ -101,15 +101,13 @@ bool validTubeConnection(TileMap& tilemap, NAS2D::Point<int> point, ConnectorDir
 
 /**
  * Checks a tile to see if a valid Tube connection is available for Structure placement.
- *
- * \warning		Assumes \c tilemap is never nullptr.
  */
-bool validStructurePlacement(TileMap* tilemap, NAS2D::Point<int> point)
+bool validStructurePlacement(TileMap& tilemap, NAS2D::Point<int> point)
 {
-	return checkStructurePlacement(tilemap->getTile({point + DirectionNorth, tilemap->currentDepth()}), Direction::North) ||
-		checkStructurePlacement(tilemap->getTile({point + DirectionEast, tilemap->currentDepth()}), Direction::East) ||
-		checkStructurePlacement(tilemap->getTile({point + DirectionSouth, tilemap->currentDepth()}), Direction::South) ||
-		checkStructurePlacement(tilemap->getTile({point + DirectionWest, tilemap->currentDepth()}), Direction::West);
+	return checkStructurePlacement(tilemap.getTile({point + DirectionNorth, tilemap.currentDepth()}), Direction::North) ||
+		checkStructurePlacement(tilemap.getTile({point + DirectionEast, tilemap.currentDepth()}), Direction::East) ||
+		checkStructurePlacement(tilemap.getTile({point + DirectionSouth, tilemap.currentDepth()}), Direction::South) ||
+		checkStructurePlacement(tilemap.getTile({point + DirectionWest, tilemap.currentDepth()}), Direction::West);
 }
 
 

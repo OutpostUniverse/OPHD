@@ -1244,7 +1244,7 @@ void MapViewState::placeStructure()
 	}
 	else
 	{
-		if (!validStructurePlacement(mTileMap, mTileMapMouseHover) && !selfSustained(mCurrentStructure))
+		if (!validStructurePlacement(*mTileMap, mTileMapMouseHover) && !selfSustained(mCurrentStructure))
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureNoTube);
 			return;
