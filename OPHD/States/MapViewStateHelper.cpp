@@ -89,15 +89,13 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
 
 /**
  * Checks to see if a tile is a valid tile to place a tube onto.
- * 
- * \warning		Assumes \c tilemap is never nullptr.
  */
-bool validTubeConnection(TileMap* tilemap, NAS2D::Point<int> point, ConnectorDir dir)
+bool validTubeConnection(TileMap& tilemap, NAS2D::Point<int> point, ConnectorDir dir)
 {
-	return checkTubeConnection(tilemap->getTile({point + DirectionEast, tilemap->currentDepth()}), Direction::East, dir) ||
-		checkTubeConnection(tilemap->getTile({point + DirectionWest, tilemap->currentDepth()}), Direction::West, dir) ||
-		checkTubeConnection(tilemap->getTile({point + DirectionSouth, tilemap->currentDepth()}), Direction::South, dir) ||
-		checkTubeConnection(tilemap->getTile({point + DirectionNorth, tilemap->currentDepth()}), Direction::North, dir);
+	return checkTubeConnection(tilemap.getTile({point + DirectionEast, tilemap.currentDepth()}), Direction::East, dir) ||
+		checkTubeConnection(tilemap.getTile({point + DirectionWest, tilemap.currentDepth()}), Direction::West, dir) ||
+		checkTubeConnection(tilemap.getTile({point + DirectionSouth, tilemap.currentDepth()}), Direction::South, dir) ||
+		checkTubeConnection(tilemap.getTile({point + DirectionNorth, tilemap.currentDepth()}), Direction::North, dir);
 }
 
 
