@@ -19,3 +19,17 @@ NAS2D::Vector<int> directionEnumToOffset(Direction direction)
 			return DirectionCenter;
 	}
 }
+
+
+int directionEnumToVerticalOffset(Direction direction)
+{
+	switch(direction)
+	{
+		case Direction::Up:
+			return -1;
+		case Direction::Down:
+			return 1;
+		default:
+			return 0;
+	}
+}

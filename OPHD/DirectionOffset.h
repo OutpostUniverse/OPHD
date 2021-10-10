@@ -61,3 +61,4 @@ constexpr auto DirectionClockwise4 = std::array{
 enum class Direction;
 
 NAS2D::Vector<int> directionEnumToOffset(Direction direction);
+int directionEnumToVerticalOffset(Direction direction);
