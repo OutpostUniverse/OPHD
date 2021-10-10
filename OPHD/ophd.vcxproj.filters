@@ -509,6 +509,9 @@
     <ClInclude Include="Population\Population.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
+    <ClInclude Include="Map\MapCoordinate.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
     <ClInclude Include="Map\Tile.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
