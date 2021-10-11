@@ -11,7 +11,6 @@ public:
 	int availableWorkers();
 	int availableScientists();
 
-	int populationAvailable(PopulationTable::Role role);
 	bool usePopulation(PopulationTable::Role role, int amount);
 
 	void clear();
@@ -24,6 +23,9 @@ public:
 	int size() const { return mPopulation->size(); }
 
 private:
+	int populationAvailable(PopulationTable::Role role);
+
+
 	int mScientistsAsWorkers{0};
 	int mScientistsUsed{0};
 	int mWorkersUsed{0};
