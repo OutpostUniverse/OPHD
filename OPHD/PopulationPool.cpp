@@ -50,48 +50,6 @@ bool PopulationPool::usePopulation(PopulationRequirements populationRequirements
 
 
 /**
- * Marks a given amount of the population as set.
- * 
- * \warning	Will throw an exception if any role other than PopulationTable::Role::Scientist or PopulationTable::Role::Worker is specified.
- * 
- * \return	Returns true if population was assigned. False if insufficient population.
- */
-bool PopulationPool::usePopulation(PopulationTable::Role role, int amount)
-{
-	int scientistsAvailable = mPopulation->size(PopulationTable::Role::Scientist) - (mScientistsAsWorkers + mScientistsUsed);
-	int workersAvailable = mPopulation->size(PopulationTable::Role::Worker) - mWorkersUsed;
-
-
-	if (role == PopulationTable::Role::Scientist)
-	{
-		if (amount <= scientistsAvailable)
-		{
-			mScientistsUsed += amount;
-			return true;
-		}
-	}
-	else if (role == PopulationTable::Role::Worker)
-	{
-		if (amount <= workersAvailable + scientistsAvailable)
-		{
-			if (amount <= workersAvailable)
-			{
-				mWorkersUsed += amount;
-				return true;
-			}
-
-			int remainder = amount - workersAvailable;
-			mWorkersUsed += amount - remainder;
-			mScientistsAsWorkers += remainder;
-			return true;
-		}
-	}
-
-	return false;
-}
-
-
-/**
  * Resets used population counts to 0.
  */
 void PopulationPool::clear()

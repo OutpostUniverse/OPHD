@@ -34,8 +34,6 @@ public:
 	int size() const { return mPopulation->size(); }
 
 private:
-	bool usePopulation(PopulationTable::Role role, int amount);
-
 	int mScientistsAsWorkers{0};
 	int mScientistsUsed{0};
 	int mWorkersUsed{0};
