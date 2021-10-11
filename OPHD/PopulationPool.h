@@ -23,9 +23,6 @@ public:
 	int size() const { return mPopulation->size(); }
 
 private:
-	int populationAvailable(PopulationTable::Role role);
-
-
 	int mScientistsAsWorkers{0};
 	int mScientistsUsed{0};
 	int mWorkersUsed{0};

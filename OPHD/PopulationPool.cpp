@@ -35,16 +35,6 @@ int PopulationPool::availableScientists()
 
 
 /**
- * Gets the amount of population available for a given role.
- */
-int PopulationPool::populationAvailable(PopulationTable::Role role)
-{
-	int employed = role == PopulationTable::Role::Scientist ? scientistsEmployed() : workersEmployed();
-	return mPopulation->size(role) - employed;
-}
-
-
-/**
  * Marks a given amount of the population as set.
  * 
  * \warning	Will throw an exception if any role other than PopulationTable::Role::Scientist or PopulationTable::Role::Worker is specified.
