@@ -22,6 +22,18 @@ void PopulationPool::population(Population* pop)
 }
 
 
+int PopulationPool::availableWorkers()
+{
+	return populationAvailable(PopulationTable::Role::Worker);
+}
+
+
+int PopulationPool::availableScientists()
+{
+	return populationAvailable(PopulationTable::Role::Scientist);
+}
+
+
 /**
  * Gets the amount of population available for a given role.
  */
