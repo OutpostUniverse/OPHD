@@ -23,10 +23,19 @@
 #include <NAS2D/ParserHelper.h>
 
 #include <cmath>
+#include <algorithm>
 
 
 const NAS2D::Point<int> CcNotPlaced{-1, -1};
 static NAS2D::Point<int> commandCenterLocation = CcNotPlaced;
+
+
+constexpr std::array AllDirections4{
+	Direction::North,
+	Direction::East,
+	Direction::South,
+	Direction::West,
+};
 
 
 NAS2D::Point<int>& ccLocation()
@@ -90,24 +99,22 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
 /**
  * Checks to see if a tile is a valid tile to place a tube onto.
  */
-bool validTubeConnection(TileMap& tilemap, NAS2D::Point<int> point, ConnectorDir dir)
+bool validTubeConnection(TileMap& tilemap, MapCoordinate position, ConnectorDir dir)
 {
-	return checkTubeConnection(tilemap.getTile({point + DirectionEast, tilemap.currentDepth()}), Direction::East, dir) ||
-		checkTubeConnection(tilemap.getTile({point + DirectionWest, tilemap.currentDepth()}), Direction::West, dir) ||
-		checkTubeConnection(tilemap.getTile({point + DirectionSouth, tilemap.currentDepth()}), Direction::South, dir) ||
-		checkTubeConnection(tilemap.getTile({point + DirectionNorth, tilemap.currentDepth()}), Direction::North, dir);
+	return std::any_of(AllDirections4.begin(), AllDirections4.end(), [&](Direction direction){
+		return checkTubeConnection(tilemap.getTile(position.offset(direction)), direction, dir);
+	});
 }
 
 
 /**
  * Checks a tile to see if a valid Tube connection is available for Structure placement.
  */
-bool validStructurePlacement(TileMap& tilemap, NAS2D::Point<int> point)
+bool validStructurePlacement(TileMap& tilemap, MapCoordinate position)
 {
-	return checkStructurePlacement(tilemap.getTile({point + DirectionNorth, tilemap.currentDepth()}), Direction::North) ||
-		checkStructurePlacement(tilemap.getTile({point + DirectionEast, tilemap.currentDepth()}), Direction::East) ||
-		checkStructurePlacement(tilemap.getTile({point + DirectionSouth, tilemap.currentDepth()}), Direction::South) ||
-		checkStructurePlacement(tilemap.getTile({point + DirectionWest, tilemap.currentDepth()}), Direction::West);
+	return std::any_of(AllDirections4.begin(), AllDirections4.end(), [&](Direction direction){
+		return checkStructurePlacement(tilemap.getTile(position.offset(direction)), direction);
+	});
 }
 
 
