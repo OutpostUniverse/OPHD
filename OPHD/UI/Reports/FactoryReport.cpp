@@ -465,8 +465,10 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	}
 
 	// POPULATION
-	bool isPopulationRequirementHighlighted = selectedFactory->populationAvailable()[0] != selectedFactory->populationRequirements()[0];
-	auto text = std::to_string(selectedFactory->populationAvailable()[0]) + " / " + std::to_string(selectedFactory->populationRequirements()[0]);
+	const auto populationAvailable = selectedFactory->populationAvailable();
+	const auto populationRequirements = selectedFactory->populationRequirements();
+	bool isPopulationRequirementHighlighted = populationAvailable[0] != populationRequirements[0];
+	auto text = std::to_string(populationAvailable[0]) + " / " + std::to_string(populationRequirements[0]);
 	drawLabelAndValueLeftJustify(position, labelWidth, "Workers", text, (isPopulationRequirementHighlighted ? NAS2D::Color::Red : defaultTextColor));
 }
 
