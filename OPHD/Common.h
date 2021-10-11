@@ -296,16 +296,6 @@ enum class Morale
 };
 
 
-/**
- * Contains population requirements for a given Structure.
- * 
- * Index 0: Workers.
- * Index 1: Scientists.
- * 
- * Any other index will result in exceptions being thrown.
- */
-using PopulationRequirements = std::array<int, 2>;
-
 class Robot;
 using RobotList = std::vector<Robot*>;
 

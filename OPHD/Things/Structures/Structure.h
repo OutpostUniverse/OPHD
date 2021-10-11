@@ -3,6 +3,7 @@
 #include "../Thing.h"
 
 #include "../../Common.h"
+#include "../../PopulationPool.h"
 #include "../../StorableResources.h"
 #include "../../UI/StringTable.h"
 
