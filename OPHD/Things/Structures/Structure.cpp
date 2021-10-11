@@ -109,8 +109,6 @@ Structure::Structure(const std::string& name, const std::string& spritePath, Str
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
-	mPopulationRequirements.fill(0);
-	mPopulationAvailable.fill(0);
 }
 
 
@@ -119,8 +117,6 @@ Structure::Structure(const std::string& name, const std::string& spritePath, con
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
-	mPopulationRequirements.fill(0);
-	mPopulationAvailable.fill(0);
 }
 
 
@@ -388,8 +384,8 @@ NAS2D::Dictionary Structure::getDataDict() const
 		{"type", mStructureId},
 		{"direction", mConnectorDirection},
 		{"integrity", mIntegrity},
-		{"pop0", mPopulationAvailable[0]},
-		{"pop1", mPopulationAvailable[1]},
+		{"pop0", mPopulationAvailable.workers},
+		{"pop1", mPopulationAvailable.scientists},
 	}};
 
 	if (mHasCrime)

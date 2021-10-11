@@ -23,10 +23,12 @@ namespace
 	/**
 	 * Fills population requirements fields in a Structure.
 	 */
-	void fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required, PopulationRequirements& available)
+	PopulationRequirements fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required)
 	{
-		available[0] = std::min(required[0], populationPool.populationAvailable(PopulationTable::Role::Worker));
-		available[1] = std::min(required[1], populationPool.populationAvailable(PopulationTable::Role::Scientist));
+		return {
+			std::min(required.workers, populationPool.availableWorkers()),
+			std::min(required.scientists, populationPool.availableScientists())
+		};
 	}
 
 
@@ -300,10 +302,10 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 		const auto& populationRequired = structure->populationRequirements();
 		auto& populationAvailable = structure->populationAvailable();
 
-		fillPopulationRequirements(population, populationRequired, populationAvailable);
+		populationAvailable = fillPopulationRequirements(population, populationRequired);
 
-		if ((populationAvailable[0] < populationRequired[0]) ||
-			(populationAvailable[1] < populationRequired[1]))
+		if ((populationAvailable.workers < populationRequired.workers) ||
+			(populationAvailable.scientists < populationRequired.scientists))
 		{
 			structure->disable(DisabledReason::Population);
 			continue;
@@ -326,8 +328,7 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 
 		if (structure->operational() || structure->isIdle())
 		{
-			population.usePopulation(PopulationTable::Role::Worker, populationRequired[0]);
-			population.usePopulation(PopulationTable::Role::Scientist, populationRequired[1]);
+			population.usePopulation(populationRequired);
 
 			auto consumed = structure->resourcesIn();
 			removeRefinedResources(consumed);

@@ -3,14 +3,22 @@
 #include "Population/Population.h"
 
 
+struct PopulationRequirements
+{
+	int workers;
+	int scientists;
+};
+
+
 class PopulationPool
 {
 public:
 	void population(Population* pop);
 
-	int populationAvailable(PopulationTable::Role role);
-	bool enoughPopulationAvailable(PopulationTable::Role role, int amount);
-	bool usePopulation(PopulationTable::Role role, int amount);
+	int availableWorkers();
+	int availableScientists();
+
+	bool usePopulation(PopulationRequirements populationRequirements);
 
 	void clear();
 
