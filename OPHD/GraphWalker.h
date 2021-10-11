@@ -24,13 +24,12 @@ private:
 
 private:
 	void walkGraph();
-	void check(const MapCoordinate& position, Direction direction);
+	void check(const MapCoordinate& fromPosition, Direction direction);
 
 private:
 	TileMap& mTileMap;
 	Tile& mThisTile;
 	TileList& mTileList;
 
-	NAS2D::Point<int> mGridPosition;
-	int mDepth{0};
+	MapCoordinate mPosition{};
 };

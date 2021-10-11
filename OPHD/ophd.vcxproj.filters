@@ -156,6 +156,9 @@
     <ClCompile Include="Population\Population.cpp">
       <Filter>Source Files\Population</Filter>
     </ClCompile>
+    <ClCompile Include="Map\MapCoordinate.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
     <ClCompile Include="Map\Tile.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
@@ -508,6 +511,9 @@
     </ClInclude>
     <ClInclude Include="Population\Population.h">
       <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapCoordinate.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Map\Tile.h">
       <Filter>Header Files\Map</Filter>
