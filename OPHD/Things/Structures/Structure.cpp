@@ -109,8 +109,6 @@ Structure::Structure(const std::string& name, const std::string& spritePath, Str
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
-	mPopulationRequirements.fill(0);
-	mPopulationAvailable.fill(0);
 }
 
 
@@ -119,8 +117,6 @@ Structure::Structure(const std::string& name, const std::string& spritePath, con
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
-	mPopulationRequirements.fill(0);
-	mPopulationAvailable.fill(0);
 }
 
 

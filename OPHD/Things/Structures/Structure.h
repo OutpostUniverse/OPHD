@@ -220,8 +220,8 @@ private:
 	StructureClass mStructureClass{StructureClass::Undefined};
 	ConnectorDir mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION};
 
-	PopulationRequirements mPopulationRequirements; /**< Population requirements for structure operation. */
-	PopulationRequirements mPopulationAvailable; /**< Determine how many of each type of population required was actually supplied to the structure. */
+	PopulationRequirements mPopulationRequirements{}; /**< Population requirements for structure operation. */
+	PopulationRequirements mPopulationAvailable{}; /**< Determine how many of each type of population required was actually supplied to the structure. */
 
 	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
 
