@@ -3,15 +3,11 @@
 #include "Population/Population.h"
 
 
-/**
- * Contains population requirements for a given Structure.
- * 
- * Index 0: Workers.
- * Index 1: Scientists.
- * 
- * Any other index will result in exceptions being thrown.
- */
-using PopulationRequirements = std::array<int, 2>;
+struct PopulationRequirements
+{
+	int workers;
+	int scientists;
+};
 
 
 class PopulationPool

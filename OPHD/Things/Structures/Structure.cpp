@@ -384,8 +384,8 @@ NAS2D::Dictionary Structure::getDataDict() const
 		{"type", mStructureId},
 		{"direction", mConnectorDirection},
 		{"integrity", mIntegrity},
-		{"pop0", mPopulationAvailable[0]},
-		{"pop1", mPopulationAvailable[1]},
+		{"pop0", mPopulationAvailable.workers},
+		{"pop1", mPopulationAvailable.scientists},
 	}};
 
 	if (mHasCrime)

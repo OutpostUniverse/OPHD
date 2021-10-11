@@ -26,8 +26,8 @@ namespace
 	PopulationRequirements fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required)
 	{
 		return {
-			std::min(required[0], populationPool.availableWorkers()),
-			std::min(required[1], populationPool.availableScientists())
+			std::min(required.workers, populationPool.availableWorkers()),
+			std::min(required.scientists, populationPool.availableScientists())
 		};
 	}
 
@@ -304,8 +304,8 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 
 		populationAvailable = fillPopulationRequirements(population, populationRequired);
 
-		if ((populationAvailable[0] < populationRequired[0]) ||
-			(populationAvailable[1] < populationRequired[1]))
+		if ((populationAvailable.workers < populationRequired.workers) ||
+			(populationAvailable.scientists < populationRequired.scientists))
 		{
 			structure->disable(DisabledReason::Population);
 			continue;
