@@ -34,6 +34,13 @@ int PopulationPool::availableScientists()
 }
 
 
+bool PopulationPool::usePopulation(PopulationRequirements populationRequirements)
+{
+	return usePopulation(PopulationTable::Role::Worker, populationRequirements[0]) &&
+		usePopulation(PopulationTable::Role::Scientist, populationRequirements[1]);
+}
+
+
 /**
  * Marks a given amount of the population as set.
  * 

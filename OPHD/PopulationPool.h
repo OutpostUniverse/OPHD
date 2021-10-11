@@ -22,6 +22,7 @@ public:
 	int availableWorkers();
 	int availableScientists();
 
+	bool usePopulation(PopulationRequirements populationRequirements);
 	bool usePopulation(PopulationTable::Role role, int amount);
 
 	void clear();
