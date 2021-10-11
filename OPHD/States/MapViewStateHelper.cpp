@@ -23,10 +23,19 @@
 #include <NAS2D/ParserHelper.h>
 
 #include <cmath>
+#include <algorithm>
 
 
 const NAS2D::Point<int> CcNotPlaced{-1, -1};
 static NAS2D::Point<int> commandCenterLocation = CcNotPlaced;
+
+
+constexpr std::array AllDirections4{
+	Direction::North,
+	Direction::East,
+	Direction::South,
+	Direction::West,
+};
 
 
 NAS2D::Point<int>& ccLocation()
@@ -92,10 +101,9 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
  */
 bool validTubeConnection(TileMap& tilemap, MapCoordinate position, ConnectorDir dir)
 {
-	return checkTubeConnection(tilemap.getTile(position.offset(Direction::North)), Direction::North, dir) ||
-		checkTubeConnection(tilemap.getTile(position.offset(Direction::East)), Direction::East, dir) ||
-		checkTubeConnection(tilemap.getTile(position.offset(Direction::South)), Direction::South, dir) ||
-		checkTubeConnection(tilemap.getTile(position.offset(Direction::West)), Direction::West, dir);
+	return std::any_of(AllDirections4.begin(), AllDirections4.end(), [&](Direction direction){
+		return checkTubeConnection(tilemap.getTile(position.offset(direction)), direction, dir);
+	});
 }
 
 
@@ -104,10 +112,9 @@ bool validTubeConnection(TileMap& tilemap, MapCoordinate position, ConnectorDir 
  */
 bool validStructurePlacement(TileMap& tilemap, MapCoordinate position)
 {
-	return checkStructurePlacement(tilemap.getTile(position.offset(Direction::North)), Direction::North) ||
-		checkStructurePlacement(tilemap.getTile(position.offset(Direction::East)), Direction::East) ||
-		checkStructurePlacement(tilemap.getTile(position.offset(Direction::South)), Direction::South) ||
-		checkStructurePlacement(tilemap.getTile(position.offset(Direction::West)), Direction::West);
+	return std::any_of(AllDirections4.begin(), AllDirections4.end(), [&](Direction direction){
+		return checkStructurePlacement(tilemap.getTile(position.offset(direction)), direction);
+	});
 }
 
 
