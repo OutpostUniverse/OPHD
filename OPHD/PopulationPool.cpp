@@ -32,8 +32,20 @@ bool PopulationPool::usePopulation(PopulationRequirements populationRequirements
 {
 	const auto [workersRequired, scientistsRequired] = populationRequirements;
 
-	return usePopulation(PopulationTable::Role::Worker, workersRequired) &&
-		usePopulation(PopulationTable::Role::Scientist, scientistsRequired);
+	const auto scientistsAvailable = mPopulation->size(PopulationTable::Role::Scientist) - (mScientistsAsWorkers + mScientistsUsed);
+	const auto workersAvailable = mPopulation->size(PopulationTable::Role::Worker) - mWorkersUsed;
+
+	if ((scientistsRequired > scientistsAvailable) || (workersRequired > workersAvailable + (scientistsAvailable - scientistsRequired)))
+	{
+		return false;
+	}
+
+	mScientistsUsed += scientistsRequired;
+	const auto workersUsed = std::min(workersRequired, workersAvailable);
+	mWorkersUsed += workersUsed;
+	mScientistsAsWorkers += workersRequired - workersUsed;
+
+	return true;
 }
 
 
