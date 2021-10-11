@@ -12,7 +12,6 @@ public:
 	int availableScientists();
 
 	int populationAvailable(PopulationTable::Role role);
-	bool enoughPopulationAvailable(PopulationTable::Role role, int amount);
 	bool usePopulation(PopulationTable::Role role, int amount);
 
 	void clear();

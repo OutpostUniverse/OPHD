@@ -48,18 +48,6 @@ int PopulationPool::populationAvailable(PopulationTable::Role role)
 
 
 /**
- * Gets whether the specified amount of a particular population role is available.
- * 
- * \returns	True if available is the same or greater than what is being asked for. False otherwise.
- */
-bool PopulationPool::enoughPopulationAvailable(PopulationTable::Role role, int amount)
-{
-	BasicCheck(role);
-	return populationAvailable(role) >= amount;
-}
-
-
-/**
  * Marks a given amount of the population as set.
  * 
  * \warning	Will throw an exception if any role other than PopulationTable::Role::Scientist or PopulationTable::Role::Worker is specified.
