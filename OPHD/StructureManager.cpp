@@ -326,8 +326,7 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 
 		if (structure->operational() || structure->isIdle())
 		{
-			population.usePopulation(PopulationTable::Role::Worker, populationRequired[0]);
-			population.usePopulation(PopulationTable::Role::Scientist, populationRequired[1]);
+			population.usePopulation(populationRequired);
 
 			auto consumed = structure->resourcesIn();
 			removeRefinedResources(consumed);
