@@ -39,10 +39,7 @@ int PopulationPool::availableScientists()
  */
 int PopulationPool::populationAvailable(PopulationTable::Role role)
 {
-	BasicCheck(role);
-
 	int employed = role == PopulationTable::Role::Scientist ? scientistsEmployed() : workersEmployed();
-
 	return mPopulation->size(role) - employed;
 }
 
