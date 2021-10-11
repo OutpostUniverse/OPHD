@@ -25,8 +25,8 @@ namespace
 	 */
 	void fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required, PopulationRequirements& available)
 	{
-		available[0] = std::min(required[0], populationPool.populationAvailable(PopulationTable::Role::Worker));
-		available[1] = std::min(required[1], populationPool.populationAvailable(PopulationTable::Role::Scientist));
+		available[0] = std::min(required[0], populationPool.availableWorkers());
+		available[1] = std::min(required[1], populationPool.availableScientists());
 	}
 
 
