@@ -41,12 +41,12 @@ private:
 	using MoraleModifiers = std::array<MoraleModifier, 5>;
 
 
-	int mBirthCount;
-	int mDeathCount;
+	int mBirthCount{0};
+	int mDeathCount{0};
 
-	float mStarveRate; /**< Amount of population that dies during food shortages in percent. */
+	float mStarveRate{0.5f}; /**< Amount of population that dies during food shortages in percent. */
 
-	PopulationTable mPopulation; /**< Current population. */
-	PopulationTable mPopulationGrowth; /**< Population growth table. */
-	PopulationTable mPopulationDeath; /**< Population death table. */
+	PopulationTable mPopulation{}; /**< Current population. */
+	PopulationTable mPopulationGrowth{}; /**< Population growth table. */
+	PopulationTable mPopulationDeath{}; /**< Population death table. */
 };

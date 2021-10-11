@@ -32,14 +32,8 @@ namespace
 }
 
 
-Population::Population() :
-	mBirthCount{0},
-	mDeathCount{0},
-	mStarveRate{0.5f}
+Population::Population()
 {
-	mPopulation.clear();
-	mPopulationGrowth.clear();
-	mPopulationDeath.clear();
 }
 
 
