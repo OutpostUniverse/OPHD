@@ -24,13 +24,13 @@ void PopulationPool::population(Population* pop)
 
 int PopulationPool::availableWorkers()
 {
-	return populationAvailable(PopulationTable::Role::Worker);
+	return mPopulation->size(PopulationTable::Role::Worker) - workersEmployed();
 }
 
 
 int PopulationPool::availableScientists()
 {
-	return populationAvailable(PopulationTable::Role::Scientist);
+	return mPopulation->size(PopulationTable::Role::Scientist) - scientistsEmployed();
 }
 
 
