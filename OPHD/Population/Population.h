@@ -9,8 +9,6 @@
 class Population
 {
 public:
-	Population();
-
 	int birthCount() const { return mBirthCount; }
 	int deathCount() const { return mDeathCount; }
 

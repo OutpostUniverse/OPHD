@@ -32,11 +32,6 @@ namespace
 }
 
 
-Population::Population()
-{
-}
-
-
 /**
  * Clears entire population.
  */
