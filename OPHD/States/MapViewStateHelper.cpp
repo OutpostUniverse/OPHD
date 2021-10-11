@@ -92,10 +92,10 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
  */
 bool validTubeConnection(TileMap& tilemap, MapCoordinate position, ConnectorDir dir)
 {
-	return checkTubeConnection(tilemap.getTile({position.xy + DirectionEast, position.z}), Direction::East, dir) ||
-		checkTubeConnection(tilemap.getTile({position.xy + DirectionWest, position.z}), Direction::West, dir) ||
-		checkTubeConnection(tilemap.getTile({position.xy + DirectionSouth, position.z}), Direction::South, dir) ||
-		checkTubeConnection(tilemap.getTile({position.xy + DirectionNorth, position.z}), Direction::North, dir);
+	return checkTubeConnection(tilemap.getTile(position.offset(Direction::East)), Direction::East, dir) ||
+		checkTubeConnection(tilemap.getTile(position.offset(Direction::West)), Direction::West, dir) ||
+		checkTubeConnection(tilemap.getTile(position.offset(Direction::South)), Direction::South, dir) ||
+		checkTubeConnection(tilemap.getTile(position.offset(Direction::North)), Direction::North, dir);
 }
 
 
@@ -104,10 +104,10 @@ bool validTubeConnection(TileMap& tilemap, MapCoordinate position, ConnectorDir 
  */
 bool validStructurePlacement(TileMap& tilemap, MapCoordinate position)
 {
-	return checkStructurePlacement(tilemap.getTile({position.xy + DirectionNorth, position.z}), Direction::North) ||
-		checkStructurePlacement(tilemap.getTile({position.xy + DirectionEast, position.z}), Direction::East) ||
-		checkStructurePlacement(tilemap.getTile({position.xy + DirectionSouth, position.z}), Direction::South) ||
-		checkStructurePlacement(tilemap.getTile({position.xy + DirectionWest, position.z}), Direction::West);
+	return checkStructurePlacement(tilemap.getTile(position.offset(Direction::North)), Direction::North) ||
+		checkStructurePlacement(tilemap.getTile(position.offset(Direction::East)), Direction::East) ||
+		checkStructurePlacement(tilemap.getTile(position.offset(Direction::South)), Direction::South) ||
+		checkStructurePlacement(tilemap.getTile(position.offset(Direction::West)), Direction::West);
 }
 
 
