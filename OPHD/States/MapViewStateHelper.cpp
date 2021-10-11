@@ -92,10 +92,10 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
  */
 bool validTubeConnection(TileMap& tilemap, MapCoordinate position, ConnectorDir dir)
 {
-	return checkTubeConnection(tilemap.getTile(position.offset(Direction::East)), Direction::East, dir) ||
-		checkTubeConnection(tilemap.getTile(position.offset(Direction::West)), Direction::West, dir) ||
+	return checkTubeConnection(tilemap.getTile(position.offset(Direction::North)), Direction::North, dir) ||
+		checkTubeConnection(tilemap.getTile(position.offset(Direction::East)), Direction::East, dir) ||
 		checkTubeConnection(tilemap.getTile(position.offset(Direction::South)), Direction::South, dir) ||
-		checkTubeConnection(tilemap.getTile(position.offset(Direction::North)), Direction::North, dir);
+		checkTubeConnection(tilemap.getTile(position.offset(Direction::West)), Direction::West, dir);
 }
 
 
