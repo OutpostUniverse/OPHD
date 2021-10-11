@@ -23,10 +23,12 @@ namespace
 	/**
 	 * Fills population requirements fields in a Structure.
 	 */
-	void fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required, PopulationRequirements& available)
+	PopulationRequirements fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required)
 	{
-		available[0] = std::min(required[0], populationPool.availableWorkers());
-		available[1] = std::min(required[1], populationPool.availableScientists());
+		return {
+			std::min(required[0], populationPool.availableWorkers()),
+			std::min(required[1], populationPool.availableScientists())
+		};
 	}
 
 
@@ -300,7 +302,7 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 		const auto& populationRequired = structure->populationRequirements();
 		auto& populationAvailable = structure->populationAvailable();
 
-		fillPopulationRequirements(population, populationRequired, populationAvailable);
+		populationAvailable = fillPopulationRequirements(population, populationRequired);
 
 		if ((populationAvailable[0] < populationRequired[0]) ||
 			(populationAvailable[1] < populationRequired[1]))
