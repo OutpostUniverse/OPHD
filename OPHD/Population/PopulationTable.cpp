@@ -42,12 +42,6 @@ PopulationTable& PopulationTable::operator+=(const PopulationTable& other)
 }
 
 
-void PopulationTable::clear()
-{
-	table.fill(0);
-}
-
-
 /**
  * Gets the size of the entire population.
  */

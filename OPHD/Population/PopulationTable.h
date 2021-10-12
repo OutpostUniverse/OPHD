@@ -25,8 +25,6 @@ public:
 
 	PopulationTable& operator+=(const PopulationTable& other);
 
-	void clear();
-
 	int size() const;
 	int size(Role role) const;
 	int adults() const;
