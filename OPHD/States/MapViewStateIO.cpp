@@ -108,11 +108,11 @@ void MapViewState::save(const std::string& filePath)
 			{"prev_morale", mPreviousMorale},
 			{"colonist_landers", mLandersColonist},
 			{"cargo_landers", mLandersCargo},
-			{"children", population.size(PopulationTable::Role::Child)},
-			{"students", population.size(PopulationTable::Role::Student)},
-			{"workers", population.size(PopulationTable::Role::Worker)},
-			{"scientists", population.size(PopulationTable::Role::Scientist)},
-			{"retired", population.size(PopulationTable::Role::Retired)},
+			{"children", population.child},
+			{"students", population.student},
+			{"workers", population.worker},
+			{"scientists", population.scientist},
+			{"retired", population.retiree},
 			{"mean_crime", mPopulationPanel.crimeRate()},
 		}}
 	));
