@@ -666,7 +666,7 @@ void MapViewState::nextTurn()
 	mMineOperationsWindow.updateTruckAvailability();
 
 	// Check for Game Over conditions
-	if (mPopulation.getPopulations().size() < 1 && mLandersColonist == 0)
+	if (mPopulation.getPopulations().size() <= 0 && mLandersColonist == 0)
 	{
 		hideUi();
 		mGameOverDialog.show();
