@@ -2,6 +2,12 @@
 #include <numeric>
 
 
+PopulationTable::PopulationTable(std::array<int, 5> values) :
+	table(values)
+{
+}
+
+
 int& PopulationTable::operator[](std::size_t index)
 {
 	return table[index];

@@ -14,6 +14,9 @@ public:
 		Retired
 	};
 
+	PopulationTable() = default;
+	PopulationTable(std::array<int, 5> values);
+
 	int& operator[](std::size_t);
 	int operator[](std::size_t) const;
 
