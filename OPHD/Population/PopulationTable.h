@@ -29,6 +29,5 @@ struct PopulationTable
 	PopulationTable& operator+=(const PopulationTable& other);
 
 	int size() const;
-	int size(Role role) const;
 	int adults() const;
 };

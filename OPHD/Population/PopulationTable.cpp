@@ -78,15 +78,6 @@ int PopulationTable::size() const
 }
 
 
-/**
- * Gets the size of a specific segment of the population.
- */
-int PopulationTable::size(Role personRole) const
-{
-	return operator[](static_cast<std::size_t>(personRole));
-}
-
-
 int PopulationTable::adults() const
 {
 	return size() - child;
