@@ -37,7 +37,7 @@ namespace
  */
 void Population::clear()
 {
-	mPopulation.clear();
+	mPopulation = {};
 }
 
 
