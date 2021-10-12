@@ -108,11 +108,11 @@ void MapViewState::save(const std::string& filePath)
 			{"prev_morale", mPreviousMorale},
 			{"colonist_landers", mLandersColonist},
 			{"cargo_landers", mLandersCargo},
-			{"children", population.size(PopulationTable::Role::Child)},
-			{"students", population.size(PopulationTable::Role::Student)},
-			{"workers", population.size(PopulationTable::Role::Worker)},
-			{"scientists", population.size(PopulationTable::Role::Scientist)},
-			{"retired", population.size(PopulationTable::Role::Retired)},
+			{"children", population.child},
+			{"students", population.student},
+			{"workers", population.worker},
+			{"scientists", population.scientist},
+			{"retired", population.retiree},
 			{"mean_crime", mPopulationPanel.crimeRate()},
 		}}
 	));
@@ -554,7 +554,7 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 		mPopulationPanel.old_morale(mPreviousMorale);
 		mPopulationPanel.crimeRate(meanCrimeRate);
 
-		mPopulation.addPopulation(PopulationTable{{children, students, workers, scientists, retired}});
+		mPopulation.addPopulation({children, students, workers, scientists, retired});
 	}
 }
 

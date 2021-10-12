@@ -100,7 +100,7 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
  */
 void MapViewState::onDeployColonistLander()
 {
-	mPopulation.addPopulation(PopulationTable{{0, 10, 20, 20, 0}});
+	mPopulation.addPopulation({0, 10, 20, 20, 0});
 }
 
 

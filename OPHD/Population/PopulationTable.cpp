@@ -1,50 +1,71 @@
 #include "PopulationTable.h"
+
 #include <numeric>
-
-
-PopulationTable::PopulationTable(std::array<int, 5> values) :
-	table(values)
-{
-}
+#include <stdexcept>
+#include <string>
 
 
 int& PopulationTable::operator[](std::size_t index)
 {
-	return table[index];
+	switch (index)
+	{
+		case 0:
+			return child;
+		case 1:
+			return student;
+		case 2:
+			return worker;
+		case 3:
+			return scientist;
+		case 4:
+			return retiree;
+		default:
+			throw std::runtime_error("Invalid index to PopulationTable::operator[]: " + std::to_string(index));
+	}
 }
 
 
 int PopulationTable::operator[](std::size_t index) const
 {
-	return table[index];
+	switch (index)
+	{
+		case 0:
+			return child;
+		case 1:
+			return student;
+		case 2:
+			return worker;
+		case 3:
+			return scientist;
+		case 4:
+			return retiree;
+		default:
+			throw std::runtime_error("Invalid index to PopulationTable::operator[]: " + std::to_string(index));
+	}
 }
 
 
 int& PopulationTable::operator[](Role role)
 {
-	return table[static_cast<std::size_t>(role)];
+	return operator[](static_cast<std::size_t>(role));
 }
 
 
 int PopulationTable::operator[](Role role) const
 {
-	return table[static_cast<int>(role)];
+	return operator[](static_cast<std::size_t>(role));
 }
 
 
 PopulationTable& PopulationTable::operator+=(const PopulationTable& other)
 {
-	for (std::size_t i = 0; i < table.size(); ++i)
-	{
-		table[i] += other.table[i];
-	}
+	child += other.child;
+	student += other.student;
+	worker += other.worker;
+	scientist += other.scientist;
+	retiree += other.retiree;
+
 	return *this;
-}
-
-
-void PopulationTable::clear()
-{
-	table.fill(0);
 }
 
 
@@ -53,20 +74,11 @@ void PopulationTable::clear()
  */
 int PopulationTable::size() const
 {
-	return std::accumulate(table.begin(), table.end(), 0);
-}
-
-
-/**
- * Gets the size of a specific segment of the population.
- */
-int PopulationTable::size(Role personRole) const
-{
-	return table[static_cast<std::size_t>(personRole)];
+	return child + student + worker + scientist + retiree;
 }
 
 
 int PopulationTable::adults() const
 {
-	return size() - size(PopulationTable::Role::Child);
+	return size() - child;
 }
