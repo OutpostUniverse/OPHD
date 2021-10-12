@@ -41,6 +41,12 @@ void Population::clear()
 }
 
 
+void Population::addPopulation(const PopulationTable& population)
+{
+	mPopulation += population;
+}
+
+
 /**
  * Populates a given population with a specified number of colonists given some base values.
  *
