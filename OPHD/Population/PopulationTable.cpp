@@ -89,5 +89,5 @@ int PopulationTable::size(Role personRole) const
 
 int PopulationTable::adults() const
 {
-	return size() - size(PopulationTable::Role::Child);
+	return size() - child;
 }
