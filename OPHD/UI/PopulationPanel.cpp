@@ -99,13 +99,14 @@ void PopulationPanel::update()
 
 	// POPULATION
 	renderer.drawText(mFontBold, constants::PopulationBreakdown, position);
+	const auto population = mPopulation->getPopulations();
 	const std::array populationData
 	{
-		std::tuple{NAS2D::Rectangle{0, 96, IconSize, IconSize}, mPopulation->size(PopulationTable::Role::Child), std::string("Children")},
-		std::tuple{NAS2D::Rectangle{32, 96, IconSize, IconSize}, mPopulation->size(PopulationTable::Role::Student), std::string("Students")},
-		std::tuple{NAS2D::Rectangle{64, 96, IconSize, IconSize}, mPopulation->size(PopulationTable::Role::Worker), std::string("Workers")},
-		std::tuple{NAS2D::Rectangle{96, 96, IconSize, IconSize}, mPopulation->size(PopulationTable::Role::Scientist), std::string("Scientists")},
-		std::tuple{NAS2D::Rectangle{128, 96, IconSize, IconSize}, mPopulation->size(PopulationTable::Role::Retired), std::string("Retired")},
+		std::tuple{NAS2D::Rectangle{0, 96, IconSize, IconSize}, population.size(PopulationTable::Role::Child), std::string("Children")},
+		std::tuple{NAS2D::Rectangle{32, 96, IconSize, IconSize}, population.size(PopulationTable::Role::Student), std::string("Students")},
+		std::tuple{NAS2D::Rectangle{64, 96, IconSize, IconSize}, population.size(PopulationTable::Role::Worker), std::string("Workers")},
+		std::tuple{NAS2D::Rectangle{96, 96, IconSize, IconSize}, population.size(PopulationTable::Role::Scientist), std::string("Scientists")},
+		std::tuple{NAS2D::Rectangle{128, 96, IconSize, IconSize}, population.size(PopulationTable::Role::Retired), std::string("Retired")},
 	};
 
 	position.y += fontBoldHeight + constants::Margin;
@@ -138,8 +139,8 @@ void PopulationPanel::update()
 	renderer.drawText(mFont, "Current: " + std::to_string(mMorale) + " / Previous: " + std::to_string(mPreviousMorale), position);
 
 	position.y += fontHeight;
-	int capacityPercent = (mResidentialCapacity > 0) ? (mPopulation->size() * 100 / mResidentialCapacity) : 0;
-	const auto housingText = "Housing: " + std::to_string(mPopulation->size()) + " / " + std::to_string(mResidentialCapacity) + "  (" + std::to_string(capacityPercent) + "%)";
+	int capacityPercent = (mResidentialCapacity > 0) ? (population.size() * 100 / mResidentialCapacity) : 0;
+	const auto housingText = "Housing: " + std::to_string(population.size()) + " / " + std::to_string(mResidentialCapacity) + "  (" + std::to_string(capacityPercent) + "%)";
 	renderer.drawText(mFont, housingText, position, NAS2D::Color::White);
 
 	position.y += fontHeight;

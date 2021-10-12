@@ -178,7 +178,7 @@ void MapViewState::updateMorale()
 	const int deathCount = mPopulation.deathCount();
 	const int structuresDisabled = structureManager.disabled();
 	const int structuresDestroyed = structureManager.destroyed();
-	const int residentialOverCapacityHit = mPopulation.size() > mResidentialCapacity ? 2 : 0;
+	const int residentialOverCapacityHit = mPopulation.getPopulations().size() > mResidentialCapacity ? 2 : 0;
 	const int foodProductionHit = foodProducingStructures > 0 ? 0 : 5;
 
 	auto& residences = NAS2D::Utility<StructureManager>::get().getStructures<Residence>();
@@ -666,7 +666,7 @@ void MapViewState::nextTurn()
 	mMineOperationsWindow.updateTruckAvailability();
 
 	// Check for Game Over conditions
-	if (mPopulation.size() < 1 && mLandersColonist == 0)
+	if (mPopulation.getPopulations().size() <= 0 && mLandersColonist == 0)
 	{
 		hideUi();
 		mGameOverDialog.show();

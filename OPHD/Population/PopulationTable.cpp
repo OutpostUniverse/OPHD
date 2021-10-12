@@ -2,6 +2,12 @@
 #include <numeric>
 
 
+PopulationTable::PopulationTable(std::array<int, 5> values) :
+	table(values)
+{
+}
+
+
 int& PopulationTable::operator[](std::size_t index)
 {
 	return table[index];
@@ -23,6 +29,16 @@ int& PopulationTable::operator[](Role role)
 int PopulationTable::operator[](Role role) const
 {
 	return table[static_cast<int>(role)];
+}
+
+
+PopulationTable& PopulationTable::operator+=(const PopulationTable& other)
+{
+	for (std::size_t i = 0; i < table.size(); ++i)
+	{
+		table[i] += other.table[i];
+	}
+	return *this;
 }
 
 

@@ -201,7 +201,7 @@ void MapViewState::drawResourceInfo()
 	const auto moraleLevel = (std::clamp(mCurrentMorale, 1, 999) / 200);
 	const auto popMoraleImageRect = NAS2D::Rectangle{176 + moraleLevel * constants::ResourceIconSize, 0, constants::ResourceIconSize, constants::ResourceIconSize};
 	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
-	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.size()), position + textOffset, NAS2D::Color::White);
+	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.getPopulations().size()), position + textOffset, NAS2D::Color::White);
 
 	bool isMouseInPopPanel = NAS2D::Rectangle{675, 1, 75, 19}.contains(MOUSE_COORDS);
 	bool shouldShowPopPanel = mPinPopulationPanel || isMouseInPopPanel;

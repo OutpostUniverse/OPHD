@@ -32,17 +32,6 @@ namespace
 }
 
 
-Population::Population() :
-	mBirthCount{0},
-	mDeathCount{0},
-	mStarveRate{0.5f}
-{
-	mPopulation.clear();
-	mPopulationGrowth.clear();
-	mPopulationDeath.clear();
-}
-
-
 /**
  * Clears entire population.
  */
@@ -52,15 +41,15 @@ void Population::clear()
 }
 
 
-/**
- * Populates a given population with a specified number of colonists given some base values.
- *
- * \param	role		Segment of the population to populate.
- * \param	count		Base age in months of the population to populated.
- */
-void Population::addPopulation(PopulationTable::Role role, int count)
+const PopulationTable& Population::getPopulations() const
 {
-	mPopulation[role] += count;
+	return mPopulation;
+}
+
+
+void Population::addPopulation(const PopulationTable& population)
+{
+	mPopulation += population;
 }
 
 

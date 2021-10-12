@@ -9,17 +9,14 @@
 class Population
 {
 public:
-	Population();
-
 	int birthCount() const { return mBirthCount; }
 	int deathCount() const { return mDeathCount; }
 
 	void clear();
 
-	int size() const { return mPopulation.size(); }
-	int size(PopulationTable::Role role) const { return mPopulation.size(role); }
+	const PopulationTable& getPopulations() const;
 
-	void addPopulation(PopulationTable::Role role, int count);
+	void addPopulation(const PopulationTable& population);
 
 	int update(int morale, int food, int residences, int universities, int nurseries, int hospitals);
 
@@ -41,12 +38,12 @@ private:
 	using MoraleModifiers = std::array<MoraleModifier, 5>;
 
 
-	int mBirthCount;
-	int mDeathCount;
+	int mBirthCount{0};
+	int mDeathCount{0};
 
-	float mStarveRate; /**< Amount of population that dies during food shortages in percent. */
+	float mStarveRate{0.5f}; /**< Amount of population that dies during food shortages in percent. */
 
-	PopulationTable mPopulation; /**< Current population. */
-	PopulationTable mPopulationGrowth; /**< Population growth table. */
-	PopulationTable mPopulationDeath; /**< Population death table. */
+	PopulationTable mPopulation{}; /**< Current population. */
+	PopulationTable mPopulationGrowth{}; /**< Population growth table. */
+	PopulationTable mPopulationDeath{}; /**< Population death table. */
 };
