@@ -20,6 +20,8 @@ public:
 	int& operator[](Role);
 	int operator[](Role) const;
 
+	PopulationTable& operator+=(const PopulationTable& other);
+
 	void clear();
 
 	int size() const;

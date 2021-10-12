@@ -26,6 +26,16 @@ int PopulationTable::operator[](Role role) const
 }
 
 
+PopulationTable& PopulationTable::operator+=(const PopulationTable& other)
+{
+	for (std::size_t i = 0; i < table.size(); ++i)
+	{
+		table[i] += other.table[i];
+	}
+	return *this;
+}
+
+
 void PopulationTable::clear()
 {
 	table.fill(0);
