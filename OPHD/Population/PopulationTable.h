@@ -4,7 +4,13 @@
 
 struct PopulationTable
 {
-public:
+	int child;
+	int student;
+	int worker;
+	int scientist;
+	int retiree;
+
+
 	enum class Role
 	{
 		Child,
@@ -13,9 +19,6 @@ public:
 		Scientist,
 		Retired
 	};
-
-	PopulationTable() = default;
-	PopulationTable(std::array<int, 5> values);
 
 	int& operator[](std::size_t);
 	int operator[](std::size_t) const;
@@ -28,7 +31,4 @@ public:
 	int size() const;
 	int size(Role role) const;
 	int adults() const;
-
-private:
-	std::array<int, 5> table;
 };

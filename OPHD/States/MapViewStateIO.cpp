@@ -554,7 +554,7 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 		mPopulationPanel.old_morale(mPreviousMorale);
 		mPopulationPanel.crimeRate(meanCrimeRate);
 
-		mPopulation.addPopulation(PopulationTable{{children, students, workers, scientists, retired}});
+		mPopulation.addPopulation(PopulationTable{children, students, workers, scientists, retired});
 	}
 }
 

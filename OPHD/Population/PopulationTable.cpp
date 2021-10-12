@@ -1,22 +1,47 @@
 #include "PopulationTable.h"
+
 #include <numeric>
-
-
-PopulationTable::PopulationTable(std::array<int, 5> values) :
-	table(values)
-{
-}
+#include <stdexcept>
+#include <string>
 
 
 int& PopulationTable::operator[](std::size_t index)
 {
-	return table[index];
+	switch (index)
+	{
+		case 0:
+			return child;
+		case 1:
+			return student;
+		case 2:
+			return worker;
+		case 3:
+			return scientist;
+		case 4:
+			return retiree;
+		default:
+			throw std::runtime_error("Invalid index to PopulationTable::operator[]: " + std::to_string(index));
+	}
 }
 
 
 int PopulationTable::operator[](std::size_t index) const
 {
-	return table[index];
+	switch (index)
+	{
+		case 0:
+			return child;
+		case 1:
+			return student;
+		case 2:
+			return worker;
+		case 3:
+			return scientist;
+		case 4:
+			return retiree;
+		default:
+			throw std::runtime_error("Invalid index to PopulationTable::operator[]: " + std::to_string(index));
+	}
 }
 
 
@@ -34,10 +59,12 @@ int PopulationTable::operator[](Role role) const
 
 PopulationTable& PopulationTable::operator+=(const PopulationTable& other)
 {
-	for (std::size_t i = 0; i < table.size(); ++i)
-	{
-		table[i] += other.table[i];
-	}
+	child += other.child;
+	student += other.student;
+	worker += other.worker;
+	scientist += other.scientist;
+	retiree += other.retiree;
+
 	return *this;
 }
 
@@ -47,7 +74,7 @@ PopulationTable& PopulationTable::operator+=(const PopulationTable& other)
  */
 int PopulationTable::size() const
 {
-	return std::accumulate(table.begin(), table.end(), 0);
+	return child + student + worker + scientist + retiree;
 }
 
 
