@@ -18,13 +18,13 @@ void PopulationPool::population(Population* pop)
 
 int PopulationPool::availableWorkers()
 {
-	return mPopulation->getPopulations().size(PopulationTable::Role::Worker) - workersEmployed();
+	return mPopulation->getPopulations().worker - workersEmployed();
 }
 
 
 int PopulationPool::availableScientists()
 {
-	return mPopulation->getPopulations().size(PopulationTable::Role::Scientist) - scientistsEmployed();
+	return mPopulation->getPopulations().scientist - scientistsEmployed();
 }
 
 
@@ -33,8 +33,8 @@ bool PopulationPool::usePopulation(PopulationRequirements populationRequirements
 	const auto [workersRequired, scientistsRequired] = populationRequirements;
 
 	const auto population = mPopulation->getPopulations();
-	const auto scientistsAvailable = population.size(PopulationTable::Role::Scientist) - (mScientistsAsWorkers + mScientistsUsed);
-	const auto workersAvailable = population.size(PopulationTable::Role::Worker) - mWorkersUsed;
+	const auto scientistsAvailable = population.scientist - (mScientistsAsWorkers + mScientistsUsed);
+	const auto workersAvailable = population.worker - mWorkersUsed;
 
 	if ((scientistsRequired > scientistsAvailable) || (workersRequired > workersAvailable + (scientistsAvailable - scientistsRequired)))
 	{
