@@ -17,6 +17,8 @@ public:
 	int size() const { return mPopulation.size(); }
 	int size(PopulationTable::Role role) const { return mPopulation.size(role); }
 
+	const PopulationTable& getPopulations() const;
+
 	void addPopulation(const PopulationTable& population);
 
 	int update(int morale, int food, int residences, int universities, int nurseries, int hospitals);

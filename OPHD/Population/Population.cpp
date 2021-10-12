@@ -41,6 +41,12 @@ void Population::clear()
 }
 
 
+const PopulationTable& Population::getPopulations() const
+{
+	return mPopulation;
+}
+
+
 void Population::addPopulation(const PopulationTable& population)
 {
 	mPopulation += population;
