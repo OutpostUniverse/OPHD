@@ -48,18 +48,6 @@ void Population::addPopulation(const PopulationTable& population)
 
 
 /**
- * Populates a given population with a specified number of colonists given some base values.
- *
- * \param	role		Segment of the population to populate.
- * \param	count		Base age in months of the population to populated.
- */
-void Population::addPopulation(PopulationTable::Role role, int count)
-{
-	mPopulation[role] += count;
-}
-
-
-/**
  * Population check for new children.
  * 
  * \todo	Account for nurseries when implemented.
