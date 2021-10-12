@@ -22,13 +22,13 @@ int PopulationTable::operator[](std::size_t index) const
 
 int& PopulationTable::operator[](Role role)
 {
-	return table[static_cast<std::size_t>(role)];
+	return operator[](static_cast<std::size_t>(role));
 }
 
 
 int PopulationTable::operator[](Role role) const
 {
-	return table[static_cast<std::size_t>(role)];
+	return operator[](static_cast<std::size_t>(role));
 }
 
 
@@ -56,7 +56,7 @@ int PopulationTable::size() const
  */
 int PopulationTable::size(Role personRole) const
 {
-	return table[static_cast<std::size_t>(personRole)];
+	return operator[](static_cast<std::size_t>(personRole));
 }
 
 
