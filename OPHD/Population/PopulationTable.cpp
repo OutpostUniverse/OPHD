@@ -28,7 +28,7 @@ int& PopulationTable::operator[](Role role)
 
 int PopulationTable::operator[](Role role) const
 {
-	return table[static_cast<int>(role)];
+	return table[static_cast<std::size_t>(role)];
 }
 
 
