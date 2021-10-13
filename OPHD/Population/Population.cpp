@@ -61,7 +61,6 @@ void Population::addPopulation(const PopulationTable& population)
 void Population::spawnChildren(int morale, int residences, int nurseries)
 {
 	if (residences <= 0 && nurseries <= 0) { return; }
-	if (mPopulation.scientist + mPopulation.worker <= 0) { return; }
 
 	mPopulationGrowth.child += mPopulation.scientist / 4 + mPopulation.worker / 2;
 
@@ -77,8 +76,6 @@ void Population::spawnChildren(int morale, int residences, int nurseries)
 
 void Population::spawnStudents()
 {
-	if (mPopulation.child <= 0) { return; }
-
 	mPopulationGrowth.student += mPopulation.child;
 
 	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
@@ -94,8 +91,6 @@ void Population::spawnStudents()
 
 void Population::spawnAdults(int universities)
 {
-	if (mPopulation.student <= 0) { return; }
-
 	mPopulationGrowth.worker += mPopulation.student;
 
 	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
@@ -121,13 +116,9 @@ void Population::spawnAdults(int universities)
 void Population::spawnRetiree()
 {
 	int total_adults = mPopulation.worker + mPopulation.scientist;
-
-	if (total_adults <= 0) { return; }
-
 	mPopulationGrowth.retiree += total_adults / 10;
 
 	int divisor = std::max(total_adults, adultToRetireeBase);
-
 	divisor = ((divisor / 40) * 3 + 40) * 4;
 
 	int retiree = mPopulationGrowth.retiree / divisor;
