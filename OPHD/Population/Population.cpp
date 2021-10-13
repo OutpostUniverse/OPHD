@@ -134,19 +134,11 @@ void Population::spawnRetiree()
 
 void Population::killChildren(int morale, int nurseries)
 {
-	mPopulationDeath.child += mPopulation.child;
-
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (nurseries * 10);
-
-	int deaths = std::min(mPopulationDeath.child / divisor, mPopulation.child);
-	mPopulationDeath.child = mPopulationDeath.child % divisor;
-
-	mPopulation.child -= deaths;
-	mDeathCount += deaths;
+	killRole(PopulationTable::Role::Child, divisor);
 
 	if (mPopulation.child <= 0)
 	{
-		mPopulationDeath.child = 0;
 		mPopulationGrowth.student = 0;
 	}
 }
