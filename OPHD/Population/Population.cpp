@@ -57,35 +57,26 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 {
 	const int growthChild = (residences > 0 || nurseries > 0) ?
 		mPopulation.scientist / 4 + mPopulation.worker / 2 : 0;
-	int divisorChild = moraleModifierTable[moraleIndex(morale)].fertilityRate;
-
-	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisorChild);
-
-	mBirthCount = newChildren;
-
-
-	int divisorStudent = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 16) * 4;
-
-	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisorStudent);
-
-	mPopulation.child -= newStudents;
-
-
-	int divisorAdult = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 45) * 4;
 
 	// account for universities
 	const auto role = (universities > 0 && randomNumber.generate(0, 100) <= studentToScientistRate) ?
 		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
 
-	const auto newAdult = spawnRole(role, mPopulation.student, divisorAdult);
-
-	mPopulation.student -= newAdult;
-
-
 	int total_adults = mPopulation.worker + mPopulation.scientist;
+
+	int divisorChild = moraleModifierTable[moraleIndex(morale)].fertilityRate;
+	int divisorStudent = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 16) * 4;
+	int divisorAdult = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 45) * 4;
 	int divisorRetiree = ((std::max(total_adults, adultToRetireeBase) / 40) * 3 + 40) * 4;
 
+	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisorChild);
+	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisorStudent);
+	const auto newAdult = spawnRole(role, mPopulation.student, divisorAdult);
 	const auto retiree = spawnRole(PopulationTable::Role::Retired, total_adults / 10, divisorRetiree);
+
+	mBirthCount = newChildren;
+	mPopulation.child -= newStudents;
+	mPopulation.student -= newAdult;
 
 	/** Workers retire earlier than scientists. */
 	const auto retirePopulationType = randomNumber.generate(0, 100) <= 45 ? PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
