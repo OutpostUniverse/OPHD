@@ -53,146 +53,53 @@ void Population::addPopulation(const PopulationTable& population)
 }
 
 
-/**
- * Population check for new children.
- * 
- * \todo	Account for nurseries when implemented.
- */
-void Population::spawnChildren(int morale, int residences, int nurseries)
+void Population::spawnPopulation(int morale, int residences, int nurseries, int universities)
 {
-	if (residences <= 0 && nurseries <= 0) { return; }
-	if (mPopulation.scientist + mPopulation.worker <= 0) { return; }
-
-	mPopulationGrowth.child += mPopulation.scientist / 4 + mPopulation.worker / 2;
-
-	int divisor = moraleModifierTable[moraleIndex(morale)].fertilityRate;
-
-	int newChildren = mPopulationGrowth.child / divisor;
-	mPopulationGrowth.child = mPopulationGrowth.child % divisor;
-
-	mPopulation.child += newChildren;
-	mBirthCount = newChildren;
-}
-
-
-void Population::spawnStudents()
-{
-	if (mPopulation.child <= 0) { return; }
-
-	mPopulationGrowth.student += mPopulation.child;
-
-	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
-	divisor = ((divisor / 40) * 3 + 16) * 4;
-
-	int newStudents = mPopulationGrowth.student / divisor;
-	mPopulationGrowth.student = mPopulationGrowth.student % divisor;
-
-	mPopulation.student += newStudents;
-	mPopulation.child -= newStudents;
-}
-
-
-void Population::spawnAdults(int universities)
-{
-	if (mPopulation.student <= 0) { return; }
-
-	mPopulationGrowth.worker += mPopulation.student;
-
-	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
-	divisor = ((divisor / 40) * 3 + 45) * 4;
-
-	int newAdult = mPopulationGrowth.worker / divisor;
-	mPopulationGrowth.worker = mPopulationGrowth.worker % divisor;
+	const int growthChild = (residences > 0 || nurseries > 0) ?
+		mPopulation.scientist / 4 + mPopulation.worker / 2 : 0;
 
 	// account for universities
-	if (universities > 0 && randomNumber.generate(0, 100) <= studentToScientistRate)
-	{
-		mPopulation.scientist += newAdult;
-	}
-	else
-	{
-		mPopulation.worker += newAdult;
-	}
+	const auto newAdultRole = (universities > 0 && randomNumber.generate(0, 100) <= studentToScientistRate) ?
+		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
 
-	mPopulation.student -= newAdult;
-}
-
-
-void Population::spawnRetiree()
-{
 	int total_adults = mPopulation.worker + mPopulation.scientist;
 
-	if (total_adults <= 0) { return; }
+	int divisorChild = moraleModifierTable[moraleIndex(morale)].fertilityRate;
+	int divisorStudent = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 16) * 4;
+	int divisorAdult = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 45) * 4;
+	int divisorRetiree = ((std::max(total_adults, adultToRetireeBase) / 40) * 3 + 40) * 4;
 
-	mPopulationGrowth.retiree += total_adults / 10;
+	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisorChild);
+	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisorStudent);
+	const auto newAdult = spawnRole(newAdultRole, mPopulation.student, divisorAdult);
+	const auto retiree = spawnRole(PopulationTable::Role::Retired, total_adults / 10, divisorRetiree);
 
-	int divisor = std::max(total_adults, adultToRetireeBase);
-
-	divisor = ((divisor / 40) * 3 + 40) * 4;
-
-	int retiree = mPopulationGrowth.retiree / divisor;
-	mPopulationGrowth.retiree = mPopulationGrowth.retiree % divisor;
-
-	mPopulation.retiree += retiree;
+	mBirthCount = newChildren;
+	mPopulation.child -= newStudents;
+	mPopulation.student -= newAdult;
 
 	/** Workers retire earlier than scientists. */
-	const auto retirePopulationType = randomNumber.generate(0, 100) <= 45 ? PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
-	if (mPopulation[retirePopulationType] > 0) { mPopulation[retirePopulationType] -= retiree; }
+	const auto retireRole = randomNumber.generate(0, 100) <= 45 ?
+		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
+	if (mPopulation[retireRole] > 0) { mPopulation[retireRole] -= retiree; }
 }
 
 
-void Population::killChildren(int morale, int nurseries)
+int Population::spawnRole(PopulationTable::Role role, int growth, int divisor)
 {
-	if (mPopulation.child <= 0) { return; }
-
-	mPopulationDeath.child += mPopulation.child;
-
-	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (nurseries * 10);
-
-	int deaths = mPopulationDeath.child / divisor;
-	mPopulationDeath.child = mPopulationDeath.child % divisor;
-
-	mPopulation.child -= deaths;
-	mDeathCount += deaths;
-
-	if (mPopulation.child <= 0)
-	{
-		mPopulationDeath.child = 0;
-		mPopulationGrowth.student = 0;
-	}
+	mPopulationGrowth[role] += growth;
+	const auto newRoleCount = mPopulationGrowth[role] / divisor;
+	mPopulationGrowth[role] = mPopulationGrowth[role] % divisor;
+	mPopulation[role] += newRoleCount;
+	return newRoleCount;
 }
 
 
-void Population::killStudents(int morale, int hospitals)
+void Population::killRole(PopulationTable::Role role, int divisor)
 {
-	if (mPopulation.student <= 0) { return; }
-
-	mPopulationDeath.student += mPopulation.student;
-
-	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (hospitals * 65);
-
-	int deaths = mPopulationDeath.student / divisor;
-	mPopulationDeath.student = mPopulationDeath.student % divisor;
-
-	mPopulation.student -= deaths;
-	mDeathCount += deaths;
-
-	if (mPopulation.student <= 0)
-	{
-		mPopulationDeath.student = 0;
-		mPopulationGrowth.worker = 0;
-	}
-}
-
-
-void Population::killAdults(PopulationTable::Role role, int morale, int hospitals)
-{
-	if (mPopulation[role] <= 0) { return; }
-
 	mPopulationDeath[role] += mPopulation[role];
-	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
 
-	int deaths = mPopulationDeath[role] / divisor;
+	int deaths = std::min(mPopulationDeath[role] / divisor, mPopulation[role]);
 	mPopulationDeath[role] = mPopulationDeath[role] % divisor;
 
 	mPopulation[role] -= deaths;
@@ -201,6 +108,34 @@ void Population::killAdults(PopulationTable::Role role, int morale, int hospital
 	if (mPopulation[role] == 0)
 	{
 		mPopulationDeath[role] = 0;
+	}
+}
+
+
+void Population::killPopulation(int morale, int nurseries, int hospitals)
+{
+	const auto mortalityRate = moraleModifierTable[moraleIndex(morale)].mortalityRate;
+
+	int divisorChild = mortalityRate + (nurseries * 10);
+	int divisorStudent = mortalityRate + (hospitals * 65);
+	int divisorAdult = mortalityRate + 250 + (hospitals * 60);
+
+	// Workers will die more often than scientists.
+	auto employableRoleToKill = randomNumber.generate(0, 100) <= 45 ?
+		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
+
+	killRole(PopulationTable::Role::Child, divisorChild);
+	killRole(PopulationTable::Role::Student, divisorStudent);
+	killRole(employableRoleToKill, divisorAdult);
+	killRole(PopulationTable::Role::Retired, divisorAdult);
+
+	if (mPopulation.child <= 0)
+	{
+		mPopulationGrowth.student = 0;
+	}
+	if (mPopulation.student <= 0)
+	{
+		mPopulationGrowth.worker = 0;
 	}
 }
 
@@ -269,20 +204,8 @@ int Population::update(int morale, int food, int residences, int universities, i
 	mBirthCount = 0;
 	mDeathCount = 0;
 
-	spawnChildren(morale, residences, nurseries);
-	spawnStudents();
-	spawnAdults(universities);
-	spawnRetiree();
-
-	killChildren(morale, nurseries);
-	killStudents(morale, hospitals);
-
-	// Workers will die more often than scientists.
-	auto employableRoleToKill = randomNumber.generate(0, 100) <= 45 ?
-		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
-	killAdults(employableRoleToKill, morale, hospitals);
-
-	killAdults(PopulationTable::Role::Retired, morale, hospitals);
+	spawnPopulation(morale, residences, nurseries, universities);
+	killPopulation(morale, nurseries, hospitals);
 
 	return consumeFood(food);
 }
