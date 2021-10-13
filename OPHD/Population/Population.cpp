@@ -180,6 +180,20 @@ void Population::killRole(PopulationTable::Role role, int divisor)
 }
 
 
+void Population::killPopulation(int morale, int nurseries, int hospitals)
+{
+	killChildren(morale, nurseries);
+	killStudents(morale, hospitals);
+
+	// Workers will die more often than scientists.
+	auto employableRoleToKill = randomNumber.generate(0, 100) <= 45 ?
+		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
+	killAdults(employableRoleToKill, morale, hospitals);
+
+	killAdults(PopulationTable::Role::Retired, morale, hospitals);
+}
+
+
 /**
  * Determine how much food should be consumed and kill off any population that
  * starves.
@@ -249,15 +263,7 @@ int Population::update(int morale, int food, int residences, int universities, i
 	spawnAdults(universities);
 	spawnRetiree();
 
-	killChildren(morale, nurseries);
-	killStudents(morale, hospitals);
-
-	// Workers will die more often than scientists.
-	auto employableRoleToKill = randomNumber.generate(0, 100) <= 45 ?
-		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
-	killAdults(employableRoleToKill, morale, hospitals);
-
-	killAdults(PopulationTable::Role::Retired, morale, hospitals);
+	killPopulation(morale, nurseries, hospitals);
 
 	return consumeFood(food);
 }
