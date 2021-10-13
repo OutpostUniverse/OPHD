@@ -28,9 +28,6 @@ private:
 	void spawnAdults(int universities);
 	void spawnRetiree();
 
-	void killChildren(int morale, int nurseries);
-	void killStudents(int morale, int hospitals);
-	void killAdults(PopulationTable::Role role, int morale, int hospitals);
 	void killRole(PopulationTable::Role role, int divisor);
 	void killPopulation(int morale, int nurseries, int hospitals);
 

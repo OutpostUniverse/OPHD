@@ -132,37 +132,6 @@ void Population::spawnRetiree()
 }
 
 
-void Population::killChildren(int morale, int nurseries)
-{
-	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (nurseries * 10);
-	killRole(PopulationTable::Role::Child, divisor);
-
-	if (mPopulation.child <= 0)
-	{
-		mPopulationGrowth.student = 0;
-	}
-}
-
-
-void Population::killStudents(int morale, int hospitals)
-{
-	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (hospitals * 65);
-	killRole(PopulationTable::Role::Student, divisor);
-
-	if (mPopulation.student <= 0)
-	{
-		mPopulationGrowth.worker = 0;
-	}
-}
-
-
-void Population::killAdults(PopulationTable::Role role, int morale, int hospitals)
-{
-	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
-	killRole(role, divisor);
-}
-
-
 void Population::killRole(PopulationTable::Role role, int divisor)
 {
 	mPopulationDeath[role] += mPopulation[role];
@@ -182,15 +151,30 @@ void Population::killRole(PopulationTable::Role role, int divisor)
 
 void Population::killPopulation(int morale, int nurseries, int hospitals)
 {
-	killChildren(morale, nurseries);
-	killStudents(morale, hospitals);
+	int divisorChild = moraleModifierTable[moraleIndex(morale)].mortalityRate + (nurseries * 10);
+	killRole(PopulationTable::Role::Child, divisorChild);
+
+	if (mPopulation.child <= 0)
+	{
+		mPopulationGrowth.student = 0;
+	}
+
+	int divisorStudent = moraleModifierTable[moraleIndex(morale)].mortalityRate + (hospitals * 65);
+	killRole(PopulationTable::Role::Student, divisorStudent);
+
+	if (mPopulation.student <= 0)
+	{
+		mPopulationGrowth.worker = 0;
+	}
 
 	// Workers will die more often than scientists.
 	auto employableRoleToKill = randomNumber.generate(0, 100) <= 45 ?
 		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
-	killAdults(employableRoleToKill, morale, hospitals);
 
-	killAdults(PopulationTable::Role::Retired, morale, hospitals);
+	int divisorAdult = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
+	killRole(employableRoleToKill, divisorAdult);
+
+	killRole(PopulationTable::Role::Retired, divisorAdult);
 }
 
 
