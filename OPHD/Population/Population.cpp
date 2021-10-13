@@ -62,9 +62,9 @@ void Population::spawnChildren(int morale, int residences, int nurseries)
 {
 	const int growthChild = (residences > 0 || nurseries > 0) ?
 		mPopulation.scientist / 4 + mPopulation.worker / 2 : 0;
-	int divisor = moraleModifierTable[moraleIndex(morale)].fertilityRate;
+	int divisorChild = moraleModifierTable[moraleIndex(morale)].fertilityRate;
 
-	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisor);
+	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisorChild);
 
 	mBirthCount = newChildren;
 }
@@ -72,10 +72,9 @@ void Population::spawnChildren(int morale, int residences, int nurseries)
 
 void Population::spawnStudents()
 {
-	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
-	divisor = ((divisor / 40) * 3 + 16) * 4;
+	int divisorStudent = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 16) * 4;
 
-	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisor);
+	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisorStudent);
 
 	mPopulation.child -= newStudents;
 }
@@ -83,14 +82,13 @@ void Population::spawnStudents()
 
 void Population::spawnAdults(int universities)
 {
-	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
-	divisor = ((divisor / 40) * 3 + 45) * 4;
+	int divisorAdult = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 45) * 4;
 
 	// account for universities
 	const auto role = (universities > 0 && randomNumber.generate(0, 100) <= studentToScientistRate) ?
 		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
 
-	const auto newAdult = spawnRole(role, mPopulation.student, divisor);
+	const auto newAdult = spawnRole(role, mPopulation.student, divisorAdult);
 
 	mPopulation.student -= newAdult;
 }
@@ -99,10 +97,9 @@ void Population::spawnAdults(int universities)
 void Population::spawnRetiree()
 {
 	int total_adults = mPopulation.worker + mPopulation.scientist;
-	int divisor = std::max(total_adults, adultToRetireeBase);
-	divisor = ((divisor / 40) * 3 + 40) * 4;
+	int divisorRetiree = ((std::max(total_adults, adultToRetireeBase) / 40) * 3 + 40) * 4;
 
-	const auto retiree = spawnRole(PopulationTable::Role::Retired, total_adults / 10, divisor);
+	const auto retiree = spawnRole(PopulationTable::Role::Retired, total_adults / 10, divisorRetiree);
 
 	/** Workers retire earlier than scientists. */
 	const auto retirePopulationType = randomNumber.generate(0, 100) <= 45 ? PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
