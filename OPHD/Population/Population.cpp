@@ -154,19 +154,11 @@ void Population::killChildren(int morale, int nurseries)
 
 void Population::killStudents(int morale, int hospitals)
 {
-	mPopulationDeath.student += mPopulation.student;
-
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (hospitals * 65);
-
-	int deaths = std::min(mPopulationDeath.student / divisor, mPopulation.student);
-	mPopulationDeath.student = mPopulationDeath.student % divisor;
-
-	mPopulation.student -= deaths;
-	mDeathCount += deaths;
+	killRole(PopulationTable::Role::Student, divisor);
 
 	if (mPopulation.student <= 0)
 	{
-		mPopulationDeath.student = 0;
 		mPopulationGrowth.worker = 0;
 	}
 }
