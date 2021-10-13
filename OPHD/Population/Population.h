@@ -23,11 +23,8 @@ public:
 	void starveRate(float rate) { mStarveRate = rate; }
 
 private:
-	void spawnChildren(int morale, int residences, int nurseries);
-	void spawnStudents();
-	void spawnAdults(int universities);
-	void spawnRetiree();
 	int spawnRole(PopulationTable::Role role, int growth, int divisor);
+	void spawnPopulation(int morale, int residences, int nurseries, int universities);
 
 	void killRole(PopulationTable::Role role, int divisor);
 	void killPopulation(int morale, int nurseries, int hospitals);

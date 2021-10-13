@@ -53,12 +53,7 @@ void Population::addPopulation(const PopulationTable& population)
 }
 
 
-/**
- * Population check for new children.
- * 
- * \todo	Account for nurseries when implemented.
- */
-void Population::spawnChildren(int morale, int residences, int nurseries)
+void Population::spawnPopulation(int morale, int residences, int nurseries, int universities)
 {
 	const int growthChild = (residences > 0 || nurseries > 0) ?
 		mPopulation.scientist / 4 + mPopulation.worker / 2 : 0;
@@ -67,21 +62,15 @@ void Population::spawnChildren(int morale, int residences, int nurseries)
 	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisorChild);
 
 	mBirthCount = newChildren;
-}
 
 
-void Population::spawnStudents()
-{
 	int divisorStudent = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 16) * 4;
 
 	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisorStudent);
 
 	mPopulation.child -= newStudents;
-}
 
 
-void Population::spawnAdults(int universities)
-{
 	int divisorAdult = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 45) * 4;
 
 	// account for universities
@@ -91,11 +80,8 @@ void Population::spawnAdults(int universities)
 	const auto newAdult = spawnRole(role, mPopulation.student, divisorAdult);
 
 	mPopulation.student -= newAdult;
-}
 
 
-void Population::spawnRetiree()
-{
 	int total_adults = mPopulation.worker + mPopulation.scientist;
 	int divisorRetiree = ((std::max(total_adults, adultToRetireeBase) / 40) * 3 + 40) * 4;
 
@@ -226,11 +212,7 @@ int Population::update(int morale, int food, int residences, int universities, i
 	mBirthCount = 0;
 	mDeathCount = 0;
 
-	spawnChildren(morale, residences, nurseries);
-	spawnStudents();
-	spawnAdults(universities);
-	spawnRetiree();
-
+	spawnPopulation(morale, residences, nurseries, universities);
 	killPopulation(morale, nurseries, hospitals);
 
 	return consumeFood(food);
