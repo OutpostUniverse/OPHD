@@ -79,7 +79,8 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 	mPopulation.student -= newAdult;
 
 	/** Workers retire earlier than scientists. */
-	const auto retirePopulationType = randomNumber.generate(0, 100) <= 45 ? PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
+	const auto retirePopulationType = randomNumber.generate(0, 100) <= 45 ?
+		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
 	if (mPopulation[retirePopulationType] > 0) { mPopulation[retirePopulationType] -= retiree; }
 }
 
