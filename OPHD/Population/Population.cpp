@@ -92,13 +92,13 @@ void Population::spawnAdults(int universities)
 	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
 	divisor = ((divisor / 40) * 3 + 45) * 4;
 
-	mPopulationGrowth.worker += mPopulation.student;
-	int newAdult = mPopulationGrowth.worker / divisor;
-	mPopulationGrowth.worker = mPopulationGrowth.worker % divisor;
-
 	// account for universities
 	const auto role = (universities > 0 && randomNumber.generate(0, 100) <= studentToScientistRate) ?
 		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
+
+	mPopulationGrowth.worker += mPopulation.student;
+	int newAdult = mPopulationGrowth.worker / divisor;
+	mPopulationGrowth.worker = mPopulationGrowth.worker % divisor;
 	mPopulation[role] += newAdult;
 
 	mPopulation.student -= newAdult;
