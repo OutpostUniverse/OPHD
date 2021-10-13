@@ -96,9 +96,9 @@ void Population::spawnAdults(int universities)
 	const auto role = (universities > 0 && randomNumber.generate(0, 100) <= studentToScientistRate) ?
 		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
 
-	mPopulationGrowth.worker += mPopulation.student;
-	int newAdult = mPopulationGrowth.worker / divisor;
-	mPopulationGrowth.worker = mPopulationGrowth.worker % divisor;
+	mPopulationGrowth[role] += mPopulation.student;
+	int newAdult = mPopulationGrowth[role] / divisor;
+	mPopulationGrowth[role] = mPopulationGrowth[role] % divisor;
 	mPopulation[role] += newAdult;
 
 	mPopulation.student -= newAdult;
