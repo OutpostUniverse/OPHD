@@ -138,7 +138,7 @@ void Population::killChildren(int morale, int nurseries)
 
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (nurseries * 10);
 
-	int deaths = mPopulationDeath.child / divisor;
+	int deaths = std::min(mPopulationDeath.child / divisor, mPopulation.child);
 	mPopulationDeath.child = mPopulationDeath.child % divisor;
 
 	mPopulation.child -= deaths;
@@ -158,7 +158,7 @@ void Population::killStudents(int morale, int hospitals)
 
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (hospitals * 65);
 
-	int deaths = mPopulationDeath.student / divisor;
+	int deaths = std::min(mPopulationDeath.student / divisor, mPopulation.student);
 	mPopulationDeath.student = mPopulationDeath.student % divisor;
 
 	mPopulation.student -= deaths;
@@ -177,7 +177,7 @@ void Population::killAdults(PopulationTable::Role role, int morale, int hospital
 	mPopulationDeath[role] += mPopulation[role];
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
 
-	int deaths = mPopulationDeath[role] / divisor;
+	int deaths = std::min(mPopulationDeath[role] / divisor, mPopulation[role]);
 	mPopulationDeath[role] = mPopulationDeath[role] % divisor;
 
 	mPopulation[role] -= deaths;
