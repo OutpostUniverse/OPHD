@@ -62,10 +62,9 @@ void Population::spawnChildren(int morale, int residences, int nurseries)
 {
 	if (residences <= 0 && nurseries <= 0) { return; }
 
-	mPopulationGrowth.child += mPopulation.scientist / 4 + mPopulation.worker / 2;
-
 	int divisor = moraleModifierTable[moraleIndex(morale)].fertilityRate;
 
+	mPopulationGrowth.child += mPopulation.scientist / 4 + mPopulation.worker / 2;
 	int newChildren = mPopulationGrowth.child / divisor;
 	mPopulationGrowth.child = mPopulationGrowth.child % divisor;
 
@@ -76,11 +75,10 @@ void Population::spawnChildren(int morale, int residences, int nurseries)
 
 void Population::spawnStudents()
 {
-	mPopulationGrowth.student += mPopulation.child;
-
 	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
 	divisor = ((divisor / 40) * 3 + 16) * 4;
 
+	mPopulationGrowth.student += mPopulation.child;
 	int newStudents = mPopulationGrowth.student / divisor;
 	mPopulationGrowth.student = mPopulationGrowth.student % divisor;
 
@@ -91,11 +89,10 @@ void Population::spawnStudents()
 
 void Population::spawnAdults(int universities)
 {
-	mPopulationGrowth.worker += mPopulation.student;
-
 	int divisor = std::max(mPopulation.adults(), studentToAdultBase);
 	divisor = ((divisor / 40) * 3 + 45) * 4;
 
+	mPopulationGrowth.worker += mPopulation.student;
 	int newAdult = mPopulationGrowth.worker / divisor;
 	mPopulationGrowth.worker = mPopulationGrowth.worker % divisor;
 
@@ -116,14 +113,12 @@ void Population::spawnAdults(int universities)
 void Population::spawnRetiree()
 {
 	int total_adults = mPopulation.worker + mPopulation.scientist;
-	mPopulationGrowth.retiree += total_adults / 10;
-
 	int divisor = std::max(total_adults, adultToRetireeBase);
 	divisor = ((divisor / 40) * 3 + 40) * 4;
 
+	mPopulationGrowth.retiree += total_adults / 10;
 	int retiree = mPopulationGrowth.retiree / divisor;
 	mPopulationGrowth.retiree = mPopulationGrowth.retiree % divisor;
-
 	mPopulation.retiree += retiree;
 
 	/** Workers retire earlier than scientists. */
