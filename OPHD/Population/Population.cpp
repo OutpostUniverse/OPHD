@@ -134,8 +134,6 @@ void Population::spawnRetiree()
 
 void Population::killChildren(int morale, int nurseries)
 {
-	if (mPopulation.child <= 0) { return; }
-
 	mPopulationDeath.child += mPopulation.child;
 
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (nurseries * 10);
@@ -156,8 +154,6 @@ void Population::killChildren(int morale, int nurseries)
 
 void Population::killStudents(int morale, int hospitals)
 {
-	if (mPopulation.student <= 0) { return; }
-
 	mPopulationDeath.student += mPopulation.student;
 
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + (hospitals * 65);
@@ -178,8 +174,6 @@ void Population::killStudents(int morale, int hospitals)
 
 void Population::killAdults(PopulationTable::Role role, int morale, int hospitals)
 {
-	if (mPopulation[role] <= 0) { return; }
-
 	mPopulationDeath[role] += mPopulation[role];
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
 
