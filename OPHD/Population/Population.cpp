@@ -154,29 +154,26 @@ void Population::killPopulation(int morale, int nurseries, int hospitals)
 	const auto mortalityRate = moraleModifierTable[moraleIndex(morale)].mortalityRate;
 
 	int divisorChild = mortalityRate + (nurseries * 10);
-	killRole(PopulationTable::Role::Child, divisorChild);
-
-	if (mPopulation.child <= 0)
-	{
-		mPopulationGrowth.student = 0;
-	}
-
 	int divisorStudent = mortalityRate + (hospitals * 65);
-	killRole(PopulationTable::Role::Student, divisorStudent);
-
-	if (mPopulation.student <= 0)
-	{
-		mPopulationGrowth.worker = 0;
-	}
+	int divisorAdult = mortalityRate + 250 + (hospitals * 60);
 
 	// Workers will die more often than scientists.
 	auto employableRoleToKill = randomNumber.generate(0, 100) <= 45 ?
 		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
 
-	int divisorAdult = mortalityRate + 250 + (hospitals * 60);
+	killRole(PopulationTable::Role::Child, divisorChild);
+	killRole(PopulationTable::Role::Student, divisorStudent);
 	killRole(employableRoleToKill, divisorAdult);
-
 	killRole(PopulationTable::Role::Retired, divisorAdult);
+
+	if (mPopulation.child <= 0)
+	{
+		mPopulationGrowth.student = 0;
+	}
+	if (mPopulation.student <= 0)
+	{
+		mPopulationGrowth.worker = 0;
+	}
 }
 
 
