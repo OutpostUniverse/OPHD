@@ -174,8 +174,14 @@ void Population::killStudents(int morale, int hospitals)
 
 void Population::killAdults(PopulationTable::Role role, int morale, int hospitals)
 {
-	mPopulationDeath[role] += mPopulation[role];
 	int divisor = moraleModifierTable[moraleIndex(morale)].mortalityRate + 250 + (hospitals * 60);
+	killRole(role, divisor);
+}
+
+
+void Population::killRole(PopulationTable::Role role, int divisor)
+{
+	mPopulationDeath[role] += mPopulation[role];
 
 	int deaths = std::min(mPopulationDeath[role] / divisor, mPopulation[role]);
 	mPopulationDeath[role] = mPopulationDeath[role] % divisor;

@@ -31,6 +31,7 @@ private:
 	void killChildren(int morale, int nurseries);
 	void killStudents(int morale, int hospitals);
 	void killAdults(PopulationTable::Role role, int morale, int hospitals);
+	void killRole(PopulationTable::Role role, int divisor);
 
 	int consumeFood(int food);
 
