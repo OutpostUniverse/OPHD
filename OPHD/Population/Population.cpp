@@ -60,8 +60,8 @@ void Population::addPopulation(const PopulationTable& population)
  */
 void Population::spawnChildren(int morale, int residences, int nurseries)
 {
-	const int growthChild = (residences <= 0 && nurseries <= 0) ?
-		0 : mPopulation.scientist / 4 + mPopulation.worker / 2;
+	const int growthChild = (residences > 0 || nurseries > 0) ?
+		mPopulation.scientist / 4 + mPopulation.worker / 2 : 0;
 	int divisor = moraleModifierTable[moraleIndex(morale)].fertilityRate;
 
 	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisor);
