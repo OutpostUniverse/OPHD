@@ -168,18 +168,16 @@ int Population::consumeFood(int food)
 
 	for (int i = 0; i < populationToKill; /**/)
 	{
-		std::size_t roleIndex = i % 5;
-
 		for (;;)
 		{
-			roleIndex = (roleIndex + 1) % 5;
-			if (mPopulation[roleIndex] > 0)
+			mStarveRoleIndex = (mStarveRoleIndex + 1) % 5;
+			if (mPopulation[mStarveRoleIndex] > 0)
 			{
 				break;
 			}
 		}
 
-		--mPopulation[roleIndex];
+		--mPopulation[mStarveRoleIndex];
 		++i;
 	}
 
