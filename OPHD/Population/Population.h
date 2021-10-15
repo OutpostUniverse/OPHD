@@ -38,7 +38,7 @@ private:
 	int mBirthCount{0};
 	int mDeathCount{0};
 
-	float mStarveRate{0.5f}; /**< Amount of population that dies during food shortages in percent. */
+	float mStarveRate{0.5f}; /**< Fraction of population that dies during food shortages. */
 	std::size_t mStarveRoleIndex{0};
 
 	PopulationTable mPopulation{}; /**< Current population. */
