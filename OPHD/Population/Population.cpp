@@ -150,12 +150,6 @@ int Population::consumeFood(int food)
 {
 	const int PopulationPerFood = 10;
 	const int populationFed = food * PopulationPerFood;
-	if (populationFed >= mPopulation.size())
-	{
-		// Round up food consumption
-		return (mPopulation.size() + (PopulationPerFood - 1)) / PopulationPerFood;
-	}
-
 	const int populationUnfed = mPopulation.size() - populationFed;
 	const int minKill = std::clamp(populationUnfed, 0, 1);
 	const int populationToKill = std::clamp(static_cast<int>(populationUnfed * mStarveRate), minKill, mPopulation.size());
@@ -170,8 +164,8 @@ int Population::consumeFood(int food)
 		}
 	}
 
-	// actual amount of food used for the fed part of the population.
-	return food;
+	// Round up food consumption for remaining people
+	return (mPopulation.size() + (PopulationPerFood - 1)) / PopulationPerFood;
 }
 
 
