@@ -165,8 +165,8 @@ int Population::consumeFood(int food)
 	}
 
 	const int populationUnfed = mPopulation.size() - populationFed;
-	const int populationToKill = static_cast<int>(populationUnfed * mStarveRate);
-	if (mPopulation.size() == 1) { populationToKill = 1; }
+	const int minKill = std::clamp(populationUnfed, 0, 1);
+	const int populationToKill = std::clamp(static_cast<int>(populationUnfed * mStarveRate), minKill, mPopulation.size());
 	mDeathCount += populationToKill;
 
 	for (int i = populationToKill; i > 0; mStarveRoleIndex = (mStarveRoleIndex + 1) % 5)
