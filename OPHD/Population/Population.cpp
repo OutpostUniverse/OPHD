@@ -164,7 +164,8 @@ int Population::consumeFood(int food)
 		return 0;
 	}
 
-	int populationToKill = static_cast<int>((mPopulation.size() - populationFed) * mStarveRate);
+	const int populationUnfed = mPopulation.size() - populationFed;
+	const int populationToKill = static_cast<int>(populationUnfed * mStarveRate);
 	if (mPopulation.size() == 1) { populationToKill = 1; }
 	mDeathCount += populationToKill;
 
