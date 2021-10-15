@@ -166,18 +166,13 @@ int Population::consumeFood(int food)
 	int populationToKill = static_cast<int>((mPopulation.size() - PopulationFed) * mStarveRate);
 	if (mPopulation.size() == 1) { populationToKill = 1; }
 
-	for (int i = 0; i < populationToKill; ++i)
+	for (int i = populationToKill; i > 0; mStarveRoleIndex = (mStarveRoleIndex + 1) % 5)
 	{
-		for (;;)
+		if (mPopulation[mStarveRoleIndex] > 0)
 		{
-			mStarveRoleIndex = (mStarveRoleIndex + 1) % 5;
-			if (mPopulation[mStarveRoleIndex] > 0)
-			{
-				break;
-			}
+			--mPopulation[mStarveRoleIndex];
+			--i;
 		}
-
-		--mPopulation[mStarveRoleIndex];
 	}
 
 	mDeathCount += populationToKill;
