@@ -159,7 +159,7 @@ int Population::consumeFood(int food)
 	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
 	if (food == 0)
 	{
-		mDeathCount = mPopulation.size();
+		mDeathCount += mPopulation.size();
 		clear();
 		return 0;
 	}
