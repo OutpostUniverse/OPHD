@@ -170,19 +170,13 @@ int Population::consumeFood(int food)
 	{
 		std::size_t roleIndex = i % 5;
 
-		std::size_t counter = 0;
 		for (;;)
 		{
-			roleIndex = roleIndex + counter;
-			if (roleIndex > 4) { roleIndex = 0; }
-
+			roleIndex = (roleIndex + 1) % 5;
 			if (mPopulation[roleIndex] > 0)
 			{
 				break;
 			}
-
-			++counter;
-			if (counter > 4) { counter = 0; }
 		}
 
 		--mPopulation[roleIndex];
