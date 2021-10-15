@@ -157,7 +157,7 @@ int Population::consumeFood(int food)
 	}
 
 	int PopulationFed = food * 10;
-	if (PopulationFed > mPopulation.size())
+	if (PopulationFed >= mPopulation.size())
 	{
 		return mPopulation.size() / 10;
 	}
