@@ -165,6 +165,7 @@ int Population::consumeFood(int food)
 
 	int populationToKill = static_cast<int>((mPopulation.size() - PopulationFed) * mStarveRate);
 	if (mPopulation.size() == 1) { populationToKill = 1; }
+	mDeathCount += populationToKill;
 
 	for (int i = populationToKill; i > 0; mStarveRoleIndex = (mStarveRoleIndex + 1) % 5)
 	{
@@ -174,8 +175,6 @@ int Population::consumeFood(int food)
 			--i;
 		}
 	}
-
-	mDeathCount += populationToKill;
 
 	// actual amount of food used for the fed part of the population.
 	return food;
