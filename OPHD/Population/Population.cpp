@@ -149,8 +149,8 @@ void Population::killPopulation(int morale, int nurseries, int hospitals)
 int Population::consumeFood(int food)
 {
 	const int PopulationPerFood = 10;
-	int PopulationFed = food * PopulationPerFood;
-	if (PopulationFed >= mPopulation.size())
+	const int populationFed = food * PopulationPerFood;
+	if (populationFed >= mPopulation.size())
 	{
 		return mPopulation.size() / PopulationPerFood;
 	}
@@ -163,7 +163,7 @@ int Population::consumeFood(int food)
 		return 0;
 	}
 
-	int populationToKill = static_cast<int>((mPopulation.size() - PopulationFed) * mStarveRate);
+	int populationToKill = static_cast<int>((mPopulation.size() - populationFed) * mStarveRate);
 	if (mPopulation.size() == 1) { populationToKill = 1; }
 	mDeathCount += populationToKill;
 
