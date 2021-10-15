@@ -156,14 +156,6 @@ int Population::consumeFood(int food)
 		return (mPopulation.size() + (PopulationPerFood - 1)) / PopulationPerFood;
 	}
 
-	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
-	if (food == 0)
-	{
-		mDeathCount += mPopulation.size();
-		clear();
-		return 0;
-	}
-
 	const int populationUnfed = mPopulation.size() - populationFed;
 	const int minKill = std::clamp(populationUnfed, 0, 1);
 	const int populationToKill = std::clamp(static_cast<int>(populationUnfed * mStarveRate), minKill, mPopulation.size());
