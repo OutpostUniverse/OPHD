@@ -148,10 +148,11 @@ void Population::killPopulation(int morale, int nurseries, int hospitals)
  */
 int Population::consumeFood(int food)
 {
-	int PopulationFed = food * 10;
+	const int PopulationPerFood = 10;
+	int PopulationFed = food * PopulationPerFood;
 	if (PopulationFed >= mPopulation.size())
 	{
-		return mPopulation.size() / 10;
+		return mPopulation.size() / PopulationPerFood;
 	}
 
 	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
