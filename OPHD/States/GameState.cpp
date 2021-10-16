@@ -168,9 +168,12 @@ void GameState::onShowReports()
  */
 void GameState::onHideReports()
 {
-	mActiveState->deactivate();
-	mActiveState = mMapView.get();
-	mActiveState->activate();
+	if (mMapView)
+	{
+		mActiveState->deactivate();
+		mActiveState = mMapView.get();
+		mActiveState->activate();
+	}
 }
 
 
