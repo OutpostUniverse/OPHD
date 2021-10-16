@@ -120,13 +120,10 @@ void Population::killPopulation(int morale, int nurseries, int hospitals)
 	int divisorStudent = mortalityRate + (hospitals * 65);
 	int divisorAdult = mortalityRate + 250 + (hospitals * 60);
 
-	// Workers will die more often than scientists.
-	auto employableRoleToKill = randomNumber.generate(0, 100) <= 45 ?
-		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
-
 	killRole(PopulationTable::Role::Child, divisorChild);
 	killRole(PopulationTable::Role::Student, divisorStudent);
-	killRole(employableRoleToKill, divisorAdult);
+	killRole(PopulationTable::Role::Worker, divisorAdult * 2 - 50);
+	killRole(PopulationTable::Role::Scientist, divisorAdult * 2 + 50);
 	killRole(PopulationTable::Role::Retired, divisorAdult);
 
 	if (mPopulation.child <= 0)
