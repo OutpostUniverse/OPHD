@@ -58,9 +58,10 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 	const int growthChild = (residences > 0 || nurseries > 0) ?
 		mPopulation.scientist / 4 + mPopulation.worker / 2 : 0;
 
-	// account for universities
-	const auto newAdultRole = (universities > 0 && randomNumber.generate(0, 100) <= studentToScientistRate) ?
-		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
+	// Account for universities
+	const int convertRate = (universities > 0) ? studentToScientistRate : 0;
+	const int growthWorker = mPopulation.student * (100 - convertRate) / 100;
+	const int growthScientist = mPopulation.student * convertRate / 100;
 
 	int total_adults = mPopulation.worker + mPopulation.scientist;
 
@@ -71,12 +72,13 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 
 	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisorChild);
 	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisorStudent);
-	const auto newAdult = spawnRole(newAdultRole, mPopulation.student, divisorAdult);
+	const auto newWorker = spawnRole(PopulationTable::Role::Worker, growthWorker, divisorAdult);
+	const auto newScientist = spawnRole(PopulationTable::Role::Scientist, growthScientist, divisorAdult);
 	const auto retiree = spawnRole(PopulationTable::Role::Retired, total_adults / 10, divisorRetiree);
 
 	mBirthCount = newChildren;
 	mPopulation.child -= newStudents;
-	mPopulation.student -= newAdult;
+	mPopulation.student -= (newWorker + newScientist);
 
 	/** Workers retire earlier than scientists. */
 	const auto retireRole = randomNumber.generate(0, 100) <= 45 ?
