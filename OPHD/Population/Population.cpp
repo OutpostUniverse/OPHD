@@ -74,7 +74,7 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisorStudent);
 	const auto newWorker = spawnRole(PopulationTable::Role::Worker, growthWorker, divisorAdult);
 	const auto newScientist = spawnRole(PopulationTable::Role::Scientist, growthScientist, divisorAdult);
-	const auto retiree = spawnRole(PopulationTable::Role::Retired, totalAdults / 10, divisorRetiree);
+	const auto newRetiree = spawnRole(PopulationTable::Role::Retired, totalAdults / 10, divisorRetiree);
 
 	mBirthCount = newChildren;
 	mPopulation.child -= newStudents;
@@ -83,7 +83,7 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 	/** Workers retire earlier than scientists. */
 	const auto retireRole = randomNumber.generate(0, 100) <= 45 ?
 		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
-	if (mPopulation[retireRole] > 0) { mPopulation[retireRole] -= retiree; }
+	if (mPopulation[retireRole] > 0) { mPopulation[retireRole] -= newRetiree; }
 }
 
 
