@@ -151,9 +151,12 @@ void GameState::onQuit()
  */
 void GameState::onShowReports()
 {
-	mActiveState->deactivate();
-	mActiveState = mMainReportsState.get();
-	mActiveState->activate();
+	if (mMainReportsState)
+	{
+		mActiveState->deactivate();
+		mActiveState = mMainReportsState.get();
+		mActiveState->activate();
+	}
 }
 
 
