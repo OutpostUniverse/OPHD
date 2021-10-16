@@ -63,18 +63,18 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 	const int growthWorker = mPopulation.student * (100 - convertRate) / 100;
 	const int growthScientist = mPopulation.student * convertRate / 100;
 
-	int total_adults = mPopulation.worker + mPopulation.scientist;
+	int totalAdults = mPopulation.worker + mPopulation.scientist;
 
 	int divisorChild = moraleModifierTable[moraleIndex(morale)].fertilityRate;
 	int divisorStudent = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 16) * 4;
 	int divisorAdult = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 45) * 4;
-	int divisorRetiree = ((std::max(total_adults, adultToRetireeBase) / 40) * 3 + 40) * 4;
+	int divisorRetiree = ((std::max(totalAdults, adultToRetireeBase) / 40) * 3 + 40) * 4;
 
 	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisorChild);
 	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisorStudent);
 	const auto newWorker = spawnRole(PopulationTable::Role::Worker, growthWorker, divisorAdult);
 	const auto newScientist = spawnRole(PopulationTable::Role::Scientist, growthScientist, divisorAdult);
-	const auto retiree = spawnRole(PopulationTable::Role::Retired, total_adults / 10, divisorRetiree);
+	const auto retiree = spawnRole(PopulationTable::Role::Retired, totalAdults / 10, divisorRetiree);
 
 	mBirthCount = newChildren;
 	mPopulation.child -= newStudents;
