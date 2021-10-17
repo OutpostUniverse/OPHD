@@ -66,6 +66,13 @@ Button::Button(std::string newText, ClickSignal::DelegateType clickHandler) : Bu
 }
 
 
+Button::Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHandler) :
+	mButtonSkin{buttonSkin}
+{
+	mSignal.connect(clickHandler);
+}
+
+
 Button::~Button()
 {
 	auto& eventHandler = Utility<EventHandler>::get();
