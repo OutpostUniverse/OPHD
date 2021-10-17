@@ -20,10 +20,18 @@ public:
 		BUTTON_TOGGLE
 	};
 
+	struct ButtonSkin
+	{
+		NAS2D::RectangleSkin normal;
+		NAS2D::RectangleSkin hover;
+		NAS2D::RectangleSkin pressed;
+	};
+
 	using ClickSignal = NAS2D::Signal<>;
 
 	Button(std::string newText = "");
 	Button(std::string newText, ClickSignal::DelegateType clickHandler);
+	Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHandler);
 	~Button() override;
 
 	void type(Type type);
@@ -57,12 +65,8 @@ private:
 	State mState = State::Normal; /**< Current state of the Button. */
 	Type mType = Type::BUTTON_NORMAL; /**< Modifies Button behavior. */
 
+	const ButtonSkin mButtonSkin;
 	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
-
-	NAS2D::RectangleSkin mSkinNormal;
-	NAS2D::RectangleSkin mSkinHover;
-	NAS2D::RectangleSkin mSkinPressed;
-
 	const NAS2D::Font* mFont = nullptr; /**< Buttons can have different font sizes. */
 
 	ClickSignal mSignal; /**< Object to notify when the Button is activated. */

@@ -13,38 +13,40 @@ using namespace NAS2D;
 
 
 Button::Button(std::string newText) :
-	mSkinNormal{
-		imageCache.load("ui/skin/button_top_left.png"),
-		imageCache.load("ui/skin/button_top_middle.png"),
-		imageCache.load("ui/skin/button_top_right.png"),
-		imageCache.load("ui/skin/button_middle_left.png"),
-		imageCache.load("ui/skin/button_middle_middle.png"),
-		imageCache.load("ui/skin/button_middle_right.png"),
-		imageCache.load("ui/skin/button_bottom_left.png"),
-		imageCache.load("ui/skin/button_bottom_middle.png"),
-		imageCache.load("ui/skin/button_bottom_right.png")
-	},
-	mSkinHover{
-		imageCache.load("ui/skin/button_hover_top_left.png"),
-		imageCache.load("ui/skin/button_hover_top_middle.png"),
-		imageCache.load("ui/skin/button_hover_top_right.png"),
-		imageCache.load("ui/skin/button_hover_middle_left.png"),
-		imageCache.load("ui/skin/button_hover_middle_middle.png"),
-		imageCache.load("ui/skin/button_hover_middle_right.png"),
-		imageCache.load("ui/skin/button_hover_bottom_left.png"),
-		imageCache.load("ui/skin/button_hover_bottom_middle.png"),
-		imageCache.load("ui/skin/button_hover_bottom_right.png")
-	},
-	mSkinPressed{
-		imageCache.load("ui/skin/button_pressed_top_left.png"),
-		imageCache.load("ui/skin/button_pressed_top_middle.png"),
-		imageCache.load("ui/skin/button_pressed_top_right.png"),
-		imageCache.load("ui/skin/button_pressed_middle_left.png"),
-		imageCache.load("ui/skin/button_pressed_middle_middle.png"),
-		imageCache.load("ui/skin/button_pressed_middle_right.png"),
-		imageCache.load("ui/skin/button_pressed_bottom_left.png"),
-		imageCache.load("ui/skin/button_pressed_bottom_middle.png"),
-		imageCache.load("ui/skin/button_pressed_bottom_right.png")
+	mButtonSkin{
+		{
+			imageCache.load("ui/skin/button_top_left.png"),
+			imageCache.load("ui/skin/button_top_middle.png"),
+			imageCache.load("ui/skin/button_top_right.png"),
+			imageCache.load("ui/skin/button_middle_left.png"),
+			imageCache.load("ui/skin/button_middle_middle.png"),
+			imageCache.load("ui/skin/button_middle_right.png"),
+			imageCache.load("ui/skin/button_bottom_left.png"),
+			imageCache.load("ui/skin/button_bottom_middle.png"),
+			imageCache.load("ui/skin/button_bottom_right.png")
+		},
+		{
+			imageCache.load("ui/skin/button_hover_top_left.png"),
+			imageCache.load("ui/skin/button_hover_top_middle.png"),
+			imageCache.load("ui/skin/button_hover_top_right.png"),
+			imageCache.load("ui/skin/button_hover_middle_left.png"),
+			imageCache.load("ui/skin/button_hover_middle_middle.png"),
+			imageCache.load("ui/skin/button_hover_middle_right.png"),
+			imageCache.load("ui/skin/button_hover_bottom_left.png"),
+			imageCache.load("ui/skin/button_hover_bottom_middle.png"),
+			imageCache.load("ui/skin/button_hover_bottom_right.png")
+		},
+		{
+			imageCache.load("ui/skin/button_pressed_top_left.png"),
+			imageCache.load("ui/skin/button_pressed_top_middle.png"),
+			imageCache.load("ui/skin/button_pressed_top_right.png"),
+			imageCache.load("ui/skin/button_pressed_middle_left.png"),
+			imageCache.load("ui/skin/button_pressed_middle_middle.png"),
+			imageCache.load("ui/skin/button_pressed_middle_right.png"),
+			imageCache.load("ui/skin/button_pressed_bottom_left.png"),
+			imageCache.load("ui/skin/button_pressed_bottom_middle.png"),
+			imageCache.load("ui/skin/button_pressed_bottom_right.png")
+		}
 	}
 {
 	text(newText);
@@ -59,6 +61,13 @@ Button::Button(std::string newText) :
 
 
 Button::Button(std::string newText, ClickSignal::DelegateType clickHandler) : Button(newText)
+{
+	mSignal.connect(clickHandler);
+}
+
+
+Button::Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHandler) :
+	mButtonSkin{buttonSkin}
 {
 	mSignal.connect(clickHandler);
 }
@@ -171,8 +180,8 @@ void Button::draw()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto& skin = (mState == State::Pressed) ? mSkinPressed :
-		(enabled() && mMouseHover) ? mSkinHover : mSkinNormal;
+	const auto& skin = (mState == State::Pressed) ? mButtonSkin.pressed :
+		(enabled() && mMouseHover) ? mButtonSkin.hover : mButtonSkin.normal;
 	skin.draw(renderer, mRect);
 
 	if (mImage)
