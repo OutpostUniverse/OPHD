@@ -65,7 +65,7 @@ private:
 	State mState = State::Normal; /**< Current state of the Button. */
 	Type mType = Type::BUTTON_NORMAL; /**< Modifies Button behavior. */
 
-	ButtonSkin mButtonSkin;
+	const ButtonSkin mButtonSkin;
 	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
 	const NAS2D::Font* mFont = nullptr; /**< Buttons can have different font sizes. */
 
