@@ -20,6 +20,13 @@ public:
 		BUTTON_TOGGLE
 	};
 
+	struct ButtonSkin
+	{
+		NAS2D::RectangleSkin normal;
+		NAS2D::RectangleSkin hover;
+		NAS2D::RectangleSkin pressed;
+	};
+
 	using ClickSignal = NAS2D::Signal<>;
 
 	Button(std::string newText = "");
@@ -59,9 +66,7 @@ private:
 
 	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
 
-	NAS2D::RectangleSkin mSkinNormal;
-	NAS2D::RectangleSkin mSkinHover;
-	NAS2D::RectangleSkin mSkinPressed;
+	ButtonSkin mButtonSkin;
 
 	const NAS2D::Font* mFont = nullptr; /**< Buttons can have different font sizes. */
 
