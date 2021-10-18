@@ -2,6 +2,7 @@
 
 #include "Core/Control.h"
 
+#include "../Map/MapCoordinate.h"
 
 #include <vector>
 #include <NAS2D/EventHandler.h>
@@ -26,8 +27,7 @@ public:
 	{
 		std::string brief{""};
 		std::string message{""};
-		NAS2D::Point<int> position{-1, -1};
-		int depth{0};
+		MapCoordinate position{{-1, -1}, 0};
 		NotificationType type{NotificationType::Information};
 	};
 

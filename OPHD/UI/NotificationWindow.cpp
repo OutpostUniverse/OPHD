@@ -36,7 +36,7 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 
 	title(mNotification.brief);
 
-	mTakeMeThereVisible = mNotification.position != Point<int>{-1, -1}; //\fixme magic value
+	mTakeMeThereVisible = mNotification.position.xy != Point<int>{-1, -1}; //\fixme magic value
 }
 
 
@@ -48,7 +48,7 @@ void NotificationWindow::btnOkayClicked()
 
 void NotificationWindow::btnTakeMeThereClicked()
 {
-	mTakeMeThereClicked(mNotification.position, mNotification.depth);
+	mTakeMeThereClicked(mNotification.position.xy, mNotification.position.z);
 	hide();
 }
 
