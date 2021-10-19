@@ -36,6 +36,7 @@ protected:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 
 private:
+	void onOpenFolder() const;
 	void onClose();
 	void onFileIo();
 	void onFileDelete();
@@ -48,6 +49,7 @@ private:
 	FileOperation mMode;
 
 	Label mLabelFilePath;
+	Button mOpenSaveFolder;
 
 	Button btnClose;
 	Button btnFileOp;

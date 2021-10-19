@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
 
 
 using namespace NAS2D;
@@ -18,6 +19,7 @@ using namespace NAS2D;
 FileIo::FileIo() :
 	Window{"File I/O"},
 	mLabelFilePath{"Save game path :  " + Utility<Filesystem>::get().prefPath()},
+	mOpenSaveFolder{"Open Folder", {this, &FileIo::onOpenFolder}},
 	btnClose{"Cancel", {this, &FileIo::onClose}},
 	btnFileOp{"FileOp", {this, &FileIo::onFileIo}},
 	btnFileDelete{"Delete", {this, &FileIo::onFileDelete}}
@@ -29,7 +31,9 @@ FileIo::FileIo() :
 	size({500, 350});
 
 	add(mLabelFilePath, {5, 25});
-	mLabelFilePath.size({500, 20});
+	mLabelFilePath.size({400, 20});
+	add(mOpenSaveFolder, {400, 25});
+	mOpenSaveFolder.size({95, 15});
 
 	add(btnFileOp, {445, 325});
 	btnFileOp.size({50, 20});
@@ -154,6 +158,21 @@ void FileIo::onFileNameChange(TextControl* control)
 		btnFileOp.enabled(true);
 		btnFileDelete.enabled(true);
 	}
+}
+
+
+void FileIo::onOpenFolder() const
+{
+	const auto saveGameFolder = Utility<Filesystem>::get().prefPath();
+#if defined(_WIN32)
+	system(("start " + saveGameFolder).c_str());
+#elif defined(__APPLE__)
+	system(("open " + saveGameFolder).c_str());
+#elif defined(__linux__)
+	system(("xdg-open " + saveGameFolder).c_str());
+#else
+	#pragma message("Open folder on the current platform not implemented.")
+#endif
 }
 
 
