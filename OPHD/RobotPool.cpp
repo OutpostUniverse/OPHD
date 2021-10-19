@@ -102,7 +102,7 @@ Robot* RobotPool::addRobot(Robot::Type type, int id)
  */
 Robodigger* RobotPool::getDigger()
 {
-	return static_cast<Robodigger*>(getRobot(mDiggers));
+	return static_cast<Robodigger*>(getIdleRobot(mDiggers));
 }
 
 
@@ -113,7 +113,7 @@ Robodigger* RobotPool::getDigger()
  */
 Robodozer* RobotPool::getDozer()
 {
-	return static_cast<Robodozer*>(getRobot(mDozers));
+	return static_cast<Robodozer*>(getIdleRobot(mDozers));
 }
 
 
@@ -124,7 +124,7 @@ Robodozer* RobotPool::getDozer()
  */
 Robominer* RobotPool::getMiner()
 {
-	return static_cast<Robominer*>(getRobot(mMiners));
+	return static_cast<Robominer*>(getIdleRobot(mMiners));
 }
 
 
@@ -139,15 +139,15 @@ bool RobotPool::robotAvailable(Robot::Type type)
 	{
 	case Robot::Type::Digger:
 	{
-		return getRobotOrNull(mDiggers) != nullptr;
+		return getIdleRobotOrNull(mDiggers) != nullptr;
 	}
 	case Robot::Type::Dozer:
 	{
-		return getRobotOrNull(mDozers) != nullptr;
+		return getIdleRobotOrNull(mDozers) != nullptr;
 	}
 	case Robot::Type::Miner:
 	{
-		return getRobotOrNull(mMiners) != nullptr;
+		return getIdleRobotOrNull(mMiners) != nullptr;
 	}
 	default:
 	{

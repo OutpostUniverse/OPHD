@@ -20,7 +20,7 @@ void clearRobots(T& t)
 
 
 template <class T>
-Robot* getRobotOrNull(const T& t)
+Robot* getIdleRobotOrNull(const T& t)
 {
 	for (auto robot : t)
 	{
@@ -31,9 +31,9 @@ Robot* getRobotOrNull(const T& t)
 
 
 template <class T>
-Robot* getRobot(const T& list)
+Robot* getIdleRobot(const T& list)
 {
-	auto* robot = getRobotOrNull(list);
+	auto* robot = getIdleRobotOrNull(list);
 	if (robot == nullptr)
 	{
 		throw std::runtime_error("Failed to get an idle robot");
