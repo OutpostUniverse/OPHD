@@ -17,6 +17,7 @@ using namespace NAS2D;
 
 FileIo::FileIo() :
 	Window{"File I/O"},
+	mLabelFilePath{"Save game path :  " + Utility<Filesystem>::get().prefPath()},
 	btnClose{"Cancel", {this, &FileIo::onClose}},
 	btnFileOp{"FileOp", {this, &FileIo::onFileIo}},
 	btnFileDelete{"Delete", {this, &FileIo::onFileDelete}}
@@ -26,6 +27,9 @@ FileIo::FileIo() :
 	eventHandler.keyDown().connect(this, &FileIo::onKeyDown);
 
 	size({500, 350});
+
+	add(mLabelFilePath, {5, 25});
+	mLabelFilePath.size({500, 20});
 
 	add(btnFileOp, {445, 325});
 	btnFileOp.size({50, 20});
@@ -43,8 +47,8 @@ FileIo::FileIo() :
 	txtFileName.maxCharacters(50);
 	txtFileName.textChanged().connect(this, &FileIo::onFileNameChange);
 
-	add(mListBox, {5, 25});
-	mListBox.size({490, 273});
+	add(mListBox, {5, 45});
+	mListBox.size({490, 253});
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect(this, &FileIo::onFileSelect);
 }
