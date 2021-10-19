@@ -1098,7 +1098,7 @@ void MapViewState::placeRobominer(Tile& tile)
 		return;
 	}
 
-	Robot& robot = mRobotPool.getMiner();
+	auto& robot = mRobotPool.getMiner();
 	robot.startTask(constants::MinerTaskTime);
 	mRobotPool.insertRobotIntoTable(mRobotList, &robot, &tile);
 	tile.index(TerrainType::Dozed);
