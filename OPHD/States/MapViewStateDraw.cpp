@@ -157,8 +157,8 @@ void MapViewState::drawResourceInfo()
 	const std::array resources
 	{
 		std::tuple{NAS2D::Rectangle{64, 16, iconSize, iconSize}, mResourcesCount.resources[0], offsetX},
-		std::tuple{NAS2D::Rectangle{80, 16, iconSize, iconSize}, mResourcesCount.resources[2], x + offsetX},
 		std::tuple{NAS2D::Rectangle{96, 16, iconSize, iconSize}, mResourcesCount.resources[1], x + offsetX},
+		std::tuple{NAS2D::Rectangle{80, 16, iconSize, iconSize}, mResourcesCount.resources[2], x + offsetX},
 		std::tuple{NAS2D::Rectangle{112, 16, iconSize, iconSize}, mResourcesCount.resources[3], 0},
 	};
 
