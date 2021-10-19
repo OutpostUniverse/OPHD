@@ -903,7 +903,7 @@ void MapViewState::placeTubeEnd()
 
 void MapViewState::placeRobodozer(Tile& tile)
 {
-	Robot* robot = mRobotPool.getDozer();
+	auto* robot = mRobotPool.getDozer();
 
 	if (tile.thing() && !tile.thingIsStructure())
 	{
@@ -986,14 +986,14 @@ void MapViewState::placeRobodozer(Tile& tile)
 		Utility<StructureManager>::get().removeStructure(structure);
 		tile.deleteThing();
 		Utility<StructureManager>::get().disconnectAll();
-		static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
+		robot->tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
 		checkConnectedness();
 	}
 
 	int taskTime = tile.index() == TerrainType::Dozed ? 1 : static_cast<int>(tile.index());
 	robot->startTask(taskTime);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, &tile);
-	static_cast<Robodozer*>(robot)->tileIndex(static_cast<std::size_t>(tile.index()));
+	robot->tileIndex(static_cast<std::size_t>(tile.index()));
 	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
