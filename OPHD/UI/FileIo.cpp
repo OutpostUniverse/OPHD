@@ -18,7 +18,6 @@ using namespace NAS2D;
 
 FileIo::FileIo() :
 	Window{"File I/O"},
-	mLabelFilePath{"Save game path :  " + Utility<Filesystem>::get().prefPath()},
 	mOpenSaveFolder{"Open Folder", {this, &FileIo::onOpenFolder}},
 	btnClose{"Cancel", {this, &FileIo::onClose}},
 	btnFileOp{"FileOp", {this, &FileIo::onFileIo}},
@@ -114,6 +113,9 @@ void FileIo::setMode(FileOperation fileOp)
 
 void FileIo::scanDirectory(const std::string& directory)
 {
+	mScanPath = Utility<Filesystem>::get().prefPath() + directory;
+	mLabelFilePath.text("Save game path :  " + mScanPath);
+
 	const auto& filesystem = Utility<Filesystem>::get();
 	std::vector<std::string> dirList = filesystem.directoryList(directory);
 	std::sort(dirList.begin(), dirList.end());
@@ -163,13 +165,12 @@ void FileIo::onFileNameChange(TextControl* control)
 
 void FileIo::onOpenFolder() const
 {
-	const auto saveGameFolder = Utility<Filesystem>::get().prefPath();
 #if defined(_WIN32)
-	system(("start " + saveGameFolder).c_str());
+	system(("start " + mScanPath).c_str());
 #elif defined(__APPLE__)
-	system(("open " + saveGameFolder).c_str());
+	system(("open " + mScanPath).c_str());
 #elif defined(__linux__)
-	system(("xdg-open " + saveGameFolder).c_str());
+	system(("xdg-open " + mScanPath).c_str());
 #else
 	#pragma message("Open folder on the current platform not implemented.")
 #endif

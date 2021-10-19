@@ -50,6 +50,7 @@ private:
 
 	Label mLabelFilePath;
 	Button mOpenSaveFolder;
+	std::string mScanPath;
 
 	Button btnClose;
 	Button btnFileOp;
