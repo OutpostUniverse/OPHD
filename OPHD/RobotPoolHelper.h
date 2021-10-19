@@ -20,13 +20,25 @@ void clearRobots(T& t)
 
 
 template <class T>
-Robot* getRobot(const T& t)
+typename T::value_type getIdleRobotOrNull(const T& t)
 {
 	for (auto robot : t)
 	{
 		if (robot->idle()) { return robot; }
 	}
 	return nullptr;
+}
+
+
+template <class T>
+auto& getIdleRobot(const T& list)
+{
+	auto* robot = getIdleRobotOrNull(list);
+	if (robot == nullptr)
+	{
+		throw std::runtime_error("Failed to get an idle robot");
+	}
+	return *robot;
 }
 
 

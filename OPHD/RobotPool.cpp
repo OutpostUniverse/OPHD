@@ -96,35 +96,29 @@ Robot* RobotPool::addRobot(Robot::Type type, int id)
 
 
 /**
- * Gets a Robodigger from the pool.
- * 
- * \return	Returns a pointer to an available Robodigger. If no digger is available, returns nullptr.
+ * Gets an idle Robodigger from the pool.
  */
-Robodigger* RobotPool::getDigger()
+Robodigger& RobotPool::getDigger()
 {
-	return static_cast<Robodigger*>(getRobot(mDiggers));
+	return getIdleRobot(mDiggers);
 }
 
 
 /**
- * Gets a Robodozer from the pool.
- *
- * \return	Returns a pointer to an available Robodozer. If no dozer is available, returns nullptr.
+ * Gets an idle Robodozer from the pool.
  */
-Robodozer* RobotPool::getDozer()
+Robodozer& RobotPool::getDozer()
 {
-	return static_cast<Robodozer*>(getRobot(mDozers));
+	return getIdleRobot(mDozers);
 }
 
 
 /**
- * Gets a Robominer from the pool.
- *
- * \return	Returns a pointer to an available Robominer. If no miner is available, returns nullptr.
+ * Gets an idle Robominer from the pool.
  */
-Robominer* RobotPool::getMiner()
+Robominer& RobotPool::getMiner()
 {
-	return static_cast<Robominer*>(getRobot(mMiners));
+	return getIdleRobot(mMiners);
 }
 
 
@@ -139,15 +133,15 @@ bool RobotPool::robotAvailable(Robot::Type type)
 	{
 	case Robot::Type::Digger:
 	{
-		return getDigger() != nullptr;
+		return getIdleRobotOrNull(mDiggers) != nullptr;
 	}
 	case Robot::Type::Dozer:
 	{
-		return getDozer() != nullptr;
+		return getIdleRobotOrNull(mDozers) != nullptr;
 	}
 	case Robot::Type::Miner:
 	{
-		return getMiner() != nullptr;
+		return getIdleRobotOrNull(mMiners) != nullptr;
 	}
 	default:
 	{

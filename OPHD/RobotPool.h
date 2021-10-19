@@ -22,9 +22,9 @@ public:
 	Robot* addRobot(Robot::Type type);
 	Robot* addRobot(Robot::Type type, int id);
 
-	Robodigger* getDigger();
-	Robodozer* getDozer();
-	Robominer* getMiner();
+	Robodigger& getDigger();
+	Robodozer& getDozer();
+	Robominer& getMiner();
 
 	bool robotAvailable(Robot::Type type);
 	int getAvailableCount(Robot::Type type);
