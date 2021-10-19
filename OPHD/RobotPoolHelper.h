@@ -20,7 +20,7 @@ void clearRobots(T& t)
 
 
 template <class T>
-Robot* getIdleRobotOrNull(const T& t)
+typename T::value_type getIdleRobotOrNull(const T& t)
 {
 	for (auto robot : t)
 	{
@@ -31,7 +31,7 @@ Robot* getIdleRobotOrNull(const T& t)
 
 
 template <class T>
-Robot* getIdleRobot(const T& list)
+typename T::value_type getIdleRobot(const T& list)
 {
 	auto* robot = getIdleRobotOrNull(list);
 	if (robot == nullptr)
