@@ -537,7 +537,7 @@ void MapViewState::checkAgingStructures()
 			mNotificationArea.push(
 				"Aging Structure",
 				structure->name() + " is getting old. You should replace it soon.",
-				{structureTile.xy(), structureTile.depth()},
+				structureTile.xyz(),
 				NotificationArea::NotificationType::Warning);
 		}
 		else if (structure->age() == structure->maxAge() - 5)
@@ -545,7 +545,7 @@ void MapViewState::checkAgingStructures()
 			mNotificationArea.push(
 				"Aging Structure",
 				structure->name() + " is about to collapse. You should replace it right away or consider demolishing it.",
-				{structureTile.xy(), structureTile.depth()},
+				structureTile.xyz(),
 				NotificationArea::NotificationType::Critical);
 		}
 	}
@@ -563,7 +563,7 @@ void MapViewState::checkNewlyBuiltStructures()
 		mNotificationArea.push(
 			"Construction Finished",
 			structure->name() + " completed construction.",
-			{structureTile.xy(), structureTile.depth()},
+			structureTile.xyz(),
 			NotificationArea::NotificationType::Information);
 	}
 }
