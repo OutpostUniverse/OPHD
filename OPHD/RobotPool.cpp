@@ -96,9 +96,7 @@ Robot* RobotPool::addRobot(Robot::Type type, int id)
 
 
 /**
- * Gets a Robodigger from the pool.
- * 
- * \return	Returns a pointer to an available Robodigger. If no digger is available, returns nullptr.
+ * Gets an idle Robodigger from the pool.
  */
 Robodigger* RobotPool::getDigger()
 {
@@ -107,9 +105,7 @@ Robodigger* RobotPool::getDigger()
 
 
 /**
- * Gets a Robodozer from the pool.
- *
- * \return	Returns a pointer to an available Robodozer. If no dozer is available, returns nullptr.
+ * Gets an idle Robodozer from the pool.
  */
 Robodozer* RobotPool::getDozer()
 {
@@ -118,9 +114,7 @@ Robodozer* RobotPool::getDozer()
 
 
 /**
- * Gets a Robominer from the pool.
- *
- * \return	Returns a pointer to an available Robominer. If no miner is available, returns nullptr.
+ * Gets an idle Robominer from the pool.
  */
 Robominer* RobotPool::getMiner()
 {
