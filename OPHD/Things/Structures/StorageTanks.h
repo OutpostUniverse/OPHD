@@ -33,8 +33,8 @@ public:
 			{
 				"Storage Capacity",
 				ResourceNamesRefined[0],
-				ResourceNamesRefined[2],
 				ResourceNamesRefined[1],
+				ResourceNamesRefined[2],
 				ResourceNamesRefined[3],
 			});
 
@@ -43,8 +43,8 @@ public:
 			{
 				std::to_string(storage().total()) + " / " + std::to_string(storageCapacity()),
 				storage().resources[0],
-				storage().resources[2],
 				storage().resources[1],
+				storage().resources[2],
 				storage().resources[3]
 			});
 

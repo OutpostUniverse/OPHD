@@ -50,15 +50,15 @@ void ResourceBreakdownPanel::update()
 	};
 
 	const auto commonMetalImageRect = NAS2D::Rectangle{64, 16, 16, 16};
-	const auto rareMetalImageRect = NAS2D::Rectangle{80, 16, 16, 16};
 	const auto commonMineralImageRect = NAS2D::Rectangle{96, 16, 16, 16};
+	const auto rareMetalImageRect = NAS2D::Rectangle{80, 16, 16, 16};
 	const auto rareMineralImageRect = NAS2D::Rectangle{112, 16, 16, 16};
 
 	const std::array resources
 	{
 		std::tuple{commonMetalImageRect, ResourceNamesRefined[0], mPlayerResources->resources[0], mPreviousResources.resources[0]},
-		std::tuple{rareMetalImageRect, ResourceNamesRefined[2], mPlayerResources->resources[2], mPreviousResources.resources[2]},
 		std::tuple{commonMineralImageRect, ResourceNamesRefined[1], mPlayerResources->resources[1], mPreviousResources.resources[1]},
+		std::tuple{rareMetalImageRect, ResourceNamesRefined[2], mPlayerResources->resources[2], mPreviousResources.resources[2]},
 		std::tuple{rareMineralImageRect, ResourceNamesRefined[3], mPlayerResources->resources[3], mPreviousResources.resources[3]},
 	};
 
