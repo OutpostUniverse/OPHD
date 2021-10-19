@@ -27,14 +27,14 @@ FileIo::FileIo() :
 	eventHandler.mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
 	eventHandler.keyDown().connect(this, &FileIo::onKeyDown);
 
-	size({500, 350});
+	size({700, 350});
 
 	add(mLabelFilePath, {5, 25});
-	mLabelFilePath.size({400, 20});
-	add(mOpenSaveFolder, {400, 25});
+	mLabelFilePath.size({600, 20});
+	add(mOpenSaveFolder, {600, 25});
 	mOpenSaveFolder.size({95, 15});
 
-	add(btnFileOp, {445, 325});
+	add(btnFileOp, {645, 325});
 	btnFileOp.size({50, 20});
 	btnFileOp.enabled(false);
 
@@ -42,16 +42,16 @@ FileIo::FileIo() :
 	btnFileDelete.size({50, 20});
 	btnFileDelete.enabled(false);
 
-	add(btnClose, {390, 325});
+	add(btnClose, {590, 325});
 	btnClose.size({50, 20});
 
 	add(txtFileName, {5, 302});
-	txtFileName.size({490, 18});
+	txtFileName.size({690, 18});
 	txtFileName.maxCharacters(50);
 	txtFileName.textChanged().connect(this, &FileIo::onFileNameChange);
 
 	add(mListBox, {5, 45});
-	mListBox.size({490, 253});
+	mListBox.size({690, 253});
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect(this, &FileIo::onFileSelect);
 }
