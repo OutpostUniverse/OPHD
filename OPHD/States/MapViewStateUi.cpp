@@ -13,6 +13,7 @@
 #include "../DirectionOffset.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
+#include "../Map/MapCoordinate.h"
 #include "../Map/TileMap.h"
 
 #include <NAS2D/Utility.h>
@@ -692,10 +693,10 @@ void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOpera
 }
 
 
-void MapViewState::onNotificationWindowTakeMeThere(NAS2D::Point<int> position, int depth)
+void MapViewState::onNotificationWindowTakeMeThere(const MapCoordinate& position)
 {
-	mTileMap->centerMapOnTile(&mTileMap->getTile(position));
-	mTileMap->currentDepth(depth);
+	mTileMap->centerMapOnTile(&mTileMap->getTile(position.xy));
+	mTileMap->currentDepth(position.z);
 }
 
 

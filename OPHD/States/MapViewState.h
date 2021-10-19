@@ -42,6 +42,7 @@ namespace micropather
 	class MicroPather;
 }
 
+struct MapCoordinate;
 class Tile;
 class TileMap;
 class MainReportsUiState;
@@ -248,7 +249,7 @@ private:
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
-	void onNotificationWindowTakeMeThere(NAS2D::Point<int> position, int depth);
+	void onNotificationWindowTakeMeThere(const MapCoordinate& position);
 
 private:
 	MainReportsUiState& mMainReportsState;

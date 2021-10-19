@@ -236,8 +236,7 @@ void MapViewState::updateMorale()
 		mNotificationArea.push(
 			"Baby Born",
 			std::to_string(birthCount) + (birthCount > 1 ? " babies were born." : " baby was born."),
-			{-1, -1},
-			0,
+			{{-1, -1}, 0},
 			NotificationArea::NotificationType::Information);
 	}
 
@@ -246,8 +245,7 @@ void MapViewState::updateMorale()
 		mNotificationArea.push(
 			"Colonist Died",
 			std::to_string(deathCount) + (birthCount > 1 ? " colonists met their demise." : " colonist met their demise."),
-			{-1, -1},
-			0,
+			{{-1, -1}, 0},
 			NotificationArea::NotificationType::Warning);
 	}
 }
@@ -539,8 +537,7 @@ void MapViewState::checkAgingStructures()
 			mNotificationArea.push(
 				"Aging Structure",
 				structure->name() + " is getting old. You should replace it soon.",
-				structureTile.xy(),
-				structureTile.depth(),
+				structureTile.xyz(),
 				NotificationArea::NotificationType::Warning);
 		}
 		else if (structure->age() == structure->maxAge() - 5)
@@ -548,8 +545,7 @@ void MapViewState::checkAgingStructures()
 			mNotificationArea.push(
 				"Aging Structure",
 				structure->name() + " is about to collapse. You should replace it right away or consider demolishing it.",
-				structureTile.xy(),
-				structureTile.depth(),
+				structureTile.xyz(),
 				NotificationArea::NotificationType::Critical);
 		}
 	}
@@ -567,8 +563,7 @@ void MapViewState::checkNewlyBuiltStructures()
 		mNotificationArea.push(
 			"Construction Finished",
 			structure->name() + " completed construction.",
-			structureTile.xy(),
-			structureTile.depth(),
+			structureTile.xyz(),
 			NotificationArea::NotificationType::Information);
 	}
 }

@@ -8,10 +8,14 @@
 
 #include <NAS2D/Signal/Signal.h>
 
+
+struct MapCoordinate;
+
+
 class NotificationWindow : public Window
 {
 public:
-	using Signal = NAS2D::Signal<NAS2D::Point<int>, int>;
+	using Signal = NAS2D::Signal<const MapCoordinate&>;
 
 public:
 	NotificationWindow();
