@@ -100,7 +100,7 @@ Robot* RobotPool::addRobot(Robot::Type type, int id)
  */
 Robodigger* RobotPool::getDigger()
 {
-	return static_cast<Robodigger*>(getIdleRobot(mDiggers));
+	return getIdleRobot(mDiggers);
 }
 
 
@@ -109,7 +109,7 @@ Robodigger* RobotPool::getDigger()
  */
 Robodozer* RobotPool::getDozer()
 {
-	return static_cast<Robodozer*>(getIdleRobot(mDozers));
+	return getIdleRobot(mDozers);
 }
 
 
@@ -118,7 +118,7 @@ Robodozer* RobotPool::getDozer()
  */
 Robominer* RobotPool::getMiner()
 {
-	return static_cast<Robominer*>(getIdleRobot(mMiners));
+	return getIdleRobot(mMiners);
 }
 
 
