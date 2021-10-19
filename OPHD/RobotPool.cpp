@@ -98,7 +98,7 @@ Robot* RobotPool::addRobot(Robot::Type type, int id)
 /**
  * Gets an idle Robodigger from the pool.
  */
-Robodigger* RobotPool::getDigger()
+Robodigger& RobotPool::getDigger()
 {
 	return getIdleRobot(mDiggers);
 }
@@ -107,7 +107,7 @@ Robodigger* RobotPool::getDigger()
 /**
  * Gets an idle Robodozer from the pool.
  */
-Robodozer* RobotPool::getDozer()
+Robodozer& RobotPool::getDozer()
 {
 	return getIdleRobot(mDozers);
 }
@@ -116,7 +116,7 @@ Robodozer* RobotPool::getDozer()
 /**
  * Gets an idle Robominer from the pool.
  */
-Robominer* RobotPool::getMiner()
+Robominer& RobotPool::getMiner()
 {
 	return getIdleRobot(mMiners);
 }

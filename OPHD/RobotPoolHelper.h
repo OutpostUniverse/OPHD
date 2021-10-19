@@ -31,14 +31,14 @@ typename T::value_type getIdleRobotOrNull(const T& t)
 
 
 template <class T>
-typename T::value_type getIdleRobot(const T& list)
+auto& getIdleRobot(const T& list)
 {
 	auto* robot = getIdleRobotOrNull(list);
 	if (robot == nullptr)
 	{
 		throw std::runtime_error("Failed to get an idle robot");
 	}
-	return robot;
+	return *robot;
 }
 
 

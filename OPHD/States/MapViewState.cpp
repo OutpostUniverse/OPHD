@@ -903,7 +903,7 @@ void MapViewState::placeTubeEnd()
 
 void MapViewState::placeRobodozer(Tile& tile)
 {
-	auto* robot = mRobotPool.getDozer();
+	auto& robot = mRobotPool.getDozer();
 
 	if (tile.thing() && !tile.thingIsStructure())
 	{
@@ -952,7 +952,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		if (structure->isRobotCommand())
 		{
-			deleteRobotsInRCC(robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, &tile);
+			deleteRobotsInRCC(&robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, &tile);
 		}
 
 		if (structure->isFactory() && static_cast<Factory*>(structure) == mFactoryProduction.factory())
@@ -986,14 +986,14 @@ void MapViewState::placeRobodozer(Tile& tile)
 		Utility<StructureManager>::get().removeStructure(structure);
 		tile.deleteThing();
 		Utility<StructureManager>::get().disconnectAll();
-		robot->tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
+		robot.tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
 		checkConnectedness();
 	}
 
 	int taskTime = tile.index() == TerrainType::Dozed ? 1 : static_cast<int>(tile.index());
-	robot->startTask(taskTime);
-	mRobotPool.insertRobotIntoTable(mRobotList, robot, &tile);
-	robot->tileIndex(static_cast<std::size_t>(tile.index()));
+	robot.startTask(taskTime);
+	mRobotPool.insertRobotIntoTable(mRobotList, &robot, &tile);
+	robot.tileIndex(static_cast<std::size_t>(tile.index()));
 	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
@@ -1098,9 +1098,9 @@ void MapViewState::placeRobominer(Tile& tile)
 		return;
 	}
 
-	Robot* robot = mRobotPool.getMiner();
-	robot->startTask(constants::MinerTaskTime);
-	mRobotPool.insertRobotIntoTable(mRobotList, robot, &tile);
+	Robot& robot = mRobotPool.getMiner();
+	robot.startTask(constants::MinerTaskTime);
+	mRobotPool.insertRobotIntoTable(mRobotList, &robot, &tile);
 	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Miner))
