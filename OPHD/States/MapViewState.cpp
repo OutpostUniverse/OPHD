@@ -87,9 +87,8 @@ static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int r
 }
 
 
-static void pushAgingRobotMessage(const Robot* robot, const Point<int> xy, int depth, NotificationArea& notificationArea)
+static void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
 {
-	const auto position = MapCoordinate{xy, depth};
 	const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
 
 	if (robot->fuelCellAge() == 190) /// \fixme magic number
@@ -1328,7 +1327,7 @@ void MapViewState::updateRobots()
 
 		const auto position = tile->xyz();
 
-		pushAgingRobotMessage(robot, position.xy, position.z, mNotificationArea);
+		pushAgingRobotMessage(robot, position, mNotificationArea);
 
 		if (robot->dead())
 		{
