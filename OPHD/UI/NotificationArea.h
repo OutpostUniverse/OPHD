@@ -39,7 +39,7 @@ public:
 	NotificationArea();
 	~NotificationArea() override;
 
-	void push(const std::string& brief, const std::string& message, NAS2D::Point<int> position, int depth, NotificationType type);
+	void push(const std::string& brief, const std::string& message, const MapCoordinate& position, NotificationType type);
 
 	void clear()
 	{
