@@ -100,6 +100,10 @@ void Tile::pushThing(Thing* thing)
 {
 	if (mThing)
 	{
+		if (mThing == thing)
+		{
+			throw std::runtime_error("Attempting to pushThing on a tile where it's already set");
+		}
 		deleteThing();
 	}
 
