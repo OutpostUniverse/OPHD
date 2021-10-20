@@ -158,46 +158,6 @@ StorableResources Mine::availableResources() const
 
 
 /**
- * Convenience function that gets the common metal ore available
- * given the current level.
- */
-int Mine::commonMetalsAvailable() const
-{
-	return getOreCount(mVeins, OreType::ORE_COMMON_METALS, depth());
-}
-
-
-/**
- * Convenience function that gets the common mineral ore available
- * given the current level.
- */
-int Mine::commonMineralsAvailable() const
-{
-	return getOreCount(mVeins, OreType::ORE_COMMON_MINERALS, depth());
-}
-
-
-/**
- * Convenience function that gets the rare metal ore available
- * given the current level.
- */
-int Mine::rareMetalsAvailable() const
-{
-	return getOreCount(mVeins, OreType::ORE_RARE_METALS, depth());
-}
-
-
-/**
- * Convenience function that gets the rare mineral ore available
- * given the current level.
- */
-int Mine::rareMineralsAvailable() const
-{
-	return getOreCount(mVeins, OreType::ORE_RARE_MINERALS, depth());
-}
-
-
-/**
  * Gets the available count of a specified resource
  *
  * Follows the array index conventions of a StorableResource

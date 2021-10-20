@@ -40,11 +40,6 @@ public:
 
 	StorableResources availableResources() const;
 
-	int commonMetalsAvailable() const;
-	int commonMineralsAvailable() const;
-	int rareMetalsAvailable() const;
-	int rareMineralsAvailable() const;
-
 	int oreAvailable(size_t) const;
 	int oreTotalYield(size_t) const;
 
