@@ -362,11 +362,13 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 	const auto barOrigin = resourceTextOrigin.x + 125;
 	const auto barWidth = btnIdle.positionX() - barOrigin - 10;
 
+	const auto oreAvailable = mine.availableResources();
+	const auto oreTotalYield = mine.totalYield();
 	for (size_t i = 0; i < ResourceNamesOre.size(); ++i)
 	{
 		r.drawText(font, ResourceNamesOre[i], resourceTextOrigin, textColor);
 
-		const float percent = static_cast<float>(mine.oreAvailable(i)) / static_cast<float>(mine.oreTotalYield(i));
+		const float percent = static_cast<float>(oreAvailable.resources[i]) / static_cast<float>(oreTotalYield.resources[i]);
 
 		drawBasicProgressBar(barOrigin, resourceTextOrigin.y, barWidth, 12, percent, 2);
 		resourceTextOrigin.y += 20;
@@ -383,6 +385,9 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	renderer.drawText(fontMediumBold, "Ore Production", origin, textColor);
 	renderer.drawLine(origin + NAS2D::Vector{0, 21}, {static_cast<float>(renderer.size().x - 10), static_cast<float>(origin.y + 21)}, textColor, 1);
 
+	const auto oreAvailable = mine.availableResources();
+	const auto oreTotalYield = mine.totalYield();
+
 	int offsetY = 0;
 	const int barWidth = renderer.size().x - origin.x - 10;
 	for (size_t i = 0; i < 4; ++i)
@@ -390,10 +395,10 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 		renderer.drawSubImage(uiIcons, origin + NAS2D::Vector{0, 30 + offsetY}, ResourceImageRectsOre[i]);
 		renderer.drawText(fontBold, ResourceNamesOre[i], origin + NAS2D::Vector{20, 30 + offsetY}, textColor);
 
-		const auto percent = static_cast<float>(mine.oreAvailable(i)) / static_cast<float>(mine.oreTotalYield(i));
+		const auto percent = static_cast<float>(oreAvailable.resources[i]) / static_cast<float>(oreTotalYield.resources[i]);
 		drawBasicProgressBar(origin.x, origin.y + 50 + offsetY, barWidth, 25, percent);
 
-		const std::string str = std::to_string(mine.oreAvailable(i)) + " of " + std::to_string(mine.oreTotalYield(i)) + " Remaining";
+		const std::string str = std::to_string(oreAvailable.resources[i]) + " of " + std::to_string(oreTotalYield.resources[i]) + " Remaining";
 		const int strOffsetX = (barWidth / 2) - (fontBold.width(str) / 2);
 		const int strOffsetY = (fontBold.height() / 2) - 1;
 		renderer.drawText(fontBold, str, origin + NAS2D::Vector{strOffsetX, 50 + offsetY + strOffsetY});
