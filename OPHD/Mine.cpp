@@ -86,6 +86,13 @@ void Mine::active(bool newActive)
 }
 
 
+std::bitset<4> Mine::miningEnabled() const
+{
+	// We only want ore mining enabled bits
+	return {mFlags.to_ulong() & 0xF};
+}
+
+
 bool Mine::miningCommonMetals() const
 {
 	return mFlags[OreType::ORE_COMMON_METALS];

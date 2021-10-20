@@ -43,6 +43,8 @@ public:
 	StorableResources availableResources() const;
 	StorableResources totalYield() const;
 
+	std::bitset<4> miningEnabled() const;
+
 	bool miningCommonMetals() const;
 	bool miningCommonMinerals() const;
 	bool miningRareMetals() const;
