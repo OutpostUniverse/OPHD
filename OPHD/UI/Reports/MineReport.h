@@ -11,6 +11,8 @@
 
 #include <NAS2D/Math/Rectangle.h>
 
+#include <array>
+
 
 namespace NAS2D
 {
@@ -89,10 +91,7 @@ private:
 	Button btnAddTruck;
 	Button btnRemoveTruck;
 
-	CheckBox chkCommonMetals;
-	CheckBox chkCommonMinerals;
-	CheckBox chkRareMetals;
-	CheckBox chkRareMinerals;
+	std::array<CheckBox, 4> chkResources;
 
 	StructureListBox lstMineFacilities;
 

@@ -40,10 +40,12 @@ MineReport::MineReport() :
 	btnTakeMeThere{constants::TakeMeThere, {this, &MineReport::onTakeMeThere}},
 	btnAddTruck{constants::AddTruck, {this, &MineReport::onAddTruck}},
 	btnRemoveTruck{constants::RemoveTruck, {this, &MineReport::onRemoveTruck}},
-	chkCommonMetals{"Mine " + ResourceNamesRefined[0], {this, &MineReport::onCheckBoxCommonMetalsChange}},
-	chkCommonMinerals{"Mine " + ResourceNamesRefined[1], {this, &MineReport::onCheckBoxCommonMineralsChange}},
-	chkRareMetals{"Mine " + ResourceNamesRefined[2], {this, &MineReport::onCheckBoxRareMetalsChange}},
-	chkRareMinerals{"Mine " + ResourceNamesRefined[3], {this, &MineReport::onCheckBoxRareMineralsChange}}
+	chkResources{{
+		{"Mine " + ResourceNamesRefined[0], {this, &MineReport::onCheckBoxCommonMetalsChange}},
+		{"Mine " + ResourceNamesRefined[1], {this, &MineReport::onCheckBoxCommonMineralsChange}},
+		{"Mine " + ResourceNamesRefined[2], {this, &MineReport::onCheckBoxRareMetalsChange}},
+		{"Mine " + ResourceNamesRefined[3], {this, &MineReport::onCheckBoxRareMineralsChange}}
+	}}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
 	const auto margin = 2;
@@ -72,10 +74,10 @@ MineReport::MineReport() :
 	add(btnDigNewLevel, {0, 75});
 	add(btnTakeMeThere, {0, 110});
 
-	add(chkCommonMetals, {0, 210});
-	add(chkCommonMinerals, {0, 280});
-	add(chkRareMetals, {0, 350});
-	add(chkRareMinerals, {0, 420});
+	add(chkResources[0], {0, 210});
+	add(chkResources[1], {0, 280});
+	add(chkResources[2], {0, 350});
+	add(chkResources[3], {0, 420});
 
 	// Truck Management Pane
 	btnAddTruck.size({140, 30});
@@ -148,10 +150,10 @@ void MineReport::onResize()
 	btnRemoveTruck.position({position_x, renderer.size().y - 95});
 
 	position_x -= 20;
-	chkCommonMetals.position({position_x, chkCommonMetals.positionY()});
-	chkCommonMinerals.position({position_x, chkCommonMinerals.positionY()});
-	chkRareMetals.position({position_x, chkRareMetals.positionY()});
-	chkRareMinerals.position({position_x, chkRareMinerals.positionY()});
+	chkResources[0].position({position_x, chkResources[0].positionY()});
+	chkResources[1].position({position_x, chkResources[1].positionY()});
+	chkResources[2].position({position_x, chkResources[2].positionY()});
+	chkResources[3].position({position_x, chkResources[3].positionY()});
 }
 
 
@@ -265,28 +267,28 @@ void MineReport::onRemoveTruck()
 void MineReport::onCheckBoxCommonMetalsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningCommonMetals(chkCommonMetals.checked());
+	facility->mine()->miningCommonMetals(chkResources[0].checked());
 }
 
 
 void MineReport::onCheckBoxCommonMineralsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningCommonMinerals(chkCommonMinerals.checked());
+	facility->mine()->miningCommonMinerals(chkResources[1].checked());
 }
 
 
 void MineReport::onCheckBoxRareMetalsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningRareMetals(chkRareMetals.checked());
+	facility->mine()->miningRareMetals(chkResources[2].checked());
 }
 
 
 void MineReport::onCheckBoxRareMineralsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningRareMinerals(chkRareMinerals.checked());
+	facility->mine()->miningRareMinerals(chkResources[3].checked());
 }
 
 
@@ -304,10 +306,10 @@ void MineReport::updateManagementButtonsVisiblity()
 	btnAddTruck.visible(isTruckButtonVisible);
 	btnRemoveTruck.visible(isTruckButtonVisible);
 
-	chkCommonMetals.visible(isVisible);
-	chkCommonMinerals.visible(isVisible);
-	chkRareMetals.visible(isVisible);
-	chkRareMinerals.visible(isVisible);
+	for (auto& chkResource : chkResources)
+	{
+		chkResource.visible(isVisible);
+	}
 }
 
 
@@ -326,10 +328,10 @@ void MineReport::onMineFacilitySelectionChange()
 	btnDigNewLevel.toggle(facility->extending());
 	btnDigNewLevel.enabled(facility->canExtend() && (mSelectedFacility->operational() || mSelectedFacility->isIdle()));
 
-	chkCommonMetals.checked(facility->mine()->miningCommonMetals());
-	chkCommonMinerals.checked(facility->mine()->miningCommonMinerals());
-	chkRareMetals.checked(facility->mine()->miningRareMetals());
-	chkRareMinerals.checked(facility->mine()->miningRareMinerals());
+	chkResources[0].checked(facility->mine()->miningCommonMetals());
+	chkResources[1].checked(facility->mine()->miningCommonMinerals());
+	chkResources[2].checked(facility->mine()->miningRareMetals());
+	chkResources[3].checked(facility->mine()->miningRareMinerals());
 }
 
 
