@@ -188,13 +188,13 @@ void Mine::checkExhausted()
 {
 	if (!active()) { return; }
 
-	int ore_count = 0;
+	int oreCount = 0;
 	for (auto vein : mVeins)
 	{
-		ore_count += vein.total();
+		oreCount += vein.total();
 	}
 
-	mFlags[5] = (ore_count == 0);
+	mFlags[5] = (oreCount == 0);
 }
 
 
