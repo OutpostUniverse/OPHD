@@ -34,10 +34,10 @@ MineOperationsWindow::MineOperationsWindow() :
 		imageCache.load("ui/skin/textbox_bottom_middle.png"),
 		imageCache.load("ui/skin/textbox_bottom_right.png")
 	},
-	chkCommonMetals{ResourceNamesRefined[0]},
-	chkCommonMinerals{ResourceNamesRefined[1]},
-	chkRareMetals{ResourceNamesRefined[2]},
-	chkRareMinerals{ResourceNamesRefined[3]},
+	chkCommonMetals{ResourceNamesRefined[0], {this, &MineOperationsWindow::onCheckBoxCommonMetalsChange}},
+	chkCommonMinerals{ResourceNamesRefined[1], {this, &MineOperationsWindow::onCheckBoxCommonMineralsChange}},
+	chkRareMetals{ResourceNamesRefined[2], {this, &MineOperationsWindow::onCheckBoxRareMetalsChange}},
+	chkRareMinerals{ResourceNamesRefined[3], {this, &MineOperationsWindow::onCheckBoxRareMineralsChange}},
 	btnIdle{"Idle", {this, &MineOperationsWindow::onIdle}},
 	btnExtendShaft{"Dig New Level", {this, &MineOperationsWindow::onExtendShaft}},
 	btnOkay{"Close", {this, &MineOperationsWindow::onOkay}},
@@ -65,16 +65,9 @@ MineOperationsWindow::MineOperationsWindow() :
 
 	// ORE TOGGLE BUTTONS
 	add(chkCommonMetals, {148, 140});
-	chkCommonMetals.click().connect(this, &MineOperationsWindow::onCheckBoxCommonMetalsChange);
-
 	add(chkCommonMinerals, {259, 140});
-	chkCommonMinerals.click().connect(this, &MineOperationsWindow::onCheckBoxCommonMineralsChange);
-
 	add(chkRareMetals, {148, 160});
-	chkRareMetals.click().connect(this, &MineOperationsWindow::onCheckBoxRareMetalsChange);
-
 	add(chkRareMinerals, {259, 160});
-	chkRareMinerals.click().connect(this, &MineOperationsWindow::onCheckBoxRareMineralsChange);
 }
 
 
