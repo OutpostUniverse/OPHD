@@ -387,8 +387,8 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	const int barWidth = renderer.size().x - origin.x - 10;
 	for (size_t i = 0; i < 4; ++i)
 	{
-		renderer.drawSubImage(uiIcons, origin + NAS2D::Vector{0, 30 + offsetY}, NAS2D::Rectangle{64, 0, 16, 16});
-		renderer.drawText(fontBold, ResourceNamesOre[0], origin + NAS2D::Vector{20, 30 + offsetY}, textColor);
+		renderer.drawSubImage(uiIcons, origin + NAS2D::Vector{0, 30 + offsetY}, ResourceImageRectsOre[i]);
+		renderer.drawText(fontBold, ResourceNamesOre[i], origin + NAS2D::Vector{20, 30 + offsetY}, textColor);
 
 		const auto percent = static_cast<float>(mine.oreAvailable(i)) / static_cast<float>(mine.oreTotalYield(i));
 		drawBasicProgressBar(origin.x, origin.y + 50 + offsetY, barWidth, 25, percent);

@@ -240,6 +240,24 @@ const std::array<std::string, 4> ResourceNamesOre =
 };
 
 
+const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsRefined =
+{
+	NAS2D::Rectangle{64, 16, 16, 16},
+	NAS2D::Rectangle{96, 16, 16, 16},
+	NAS2D::Rectangle{80, 16, 16, 16},
+	NAS2D::Rectangle{112, 16, 16, 16},
+};
+
+
+const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsOre =
+{
+	NAS2D::Rectangle{64, 0, 16, 16},
+	NAS2D::Rectangle{96, 0, 16, 16},
+	NAS2D::Rectangle{80, 0, 16, 16},
+	NAS2D::Rectangle{112, 0, 16, 16},
+};
+
+
 const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
 {
 	{{true, false, true, false}, "left"},

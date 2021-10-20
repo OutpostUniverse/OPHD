@@ -305,6 +305,9 @@ extern const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
 extern const std::array<std::string, 4> ResourceNamesRefined;
 extern const std::array<std::string, 4> ResourceNamesOre;
 
+extern const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsRefined;
+extern const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsOre;
+
 extern const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable;
 
 void doNonFatalErrorMessage(const std::string& title, const std::string& msg);
