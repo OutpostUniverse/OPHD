@@ -39,6 +39,7 @@ public:
 	void increaseDepth();
 
 	StorableResources availableResources() const;
+	StorableResources totalYield() const;
 
 	int oreAvailable(size_t) const;
 	int oreTotalYield(size_t) const;

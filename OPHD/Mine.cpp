@@ -175,6 +175,12 @@ StorableResources Mine::availableResources() const
 }
 
 
+StorableResources Mine::totalYield() const
+{
+	return YieldTable.at(productionRate()) * depth();
+}
+
+
 /**
  * Gets the available count of a specified resource
  *
