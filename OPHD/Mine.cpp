@@ -302,14 +302,11 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 	for (auto* vein = element->firstChildElement(); vein != nullptr; vein = vein->nextSiblingElement())
 	{
 		const auto veinDictionary = NAS2D::attributesToDictionary(*vein);
-
-		MineVein mineVein{
+		mVeins.push_back({
 			veinDictionary.get<int>("common_metals", 0),
 			veinDictionary.get<int>("common_minerals", 0),
 			veinDictionary.get<int>("rare_metals", 0),
 			veinDictionary.get<int>("rare_minerals", 0),
-		};
-
-		mVeins.push_back(mineVein);
+		});
 	}
 }
