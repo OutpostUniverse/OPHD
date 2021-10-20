@@ -5,7 +5,7 @@
 #include "../../StorableResources.h"
 
 
-class ProductionCost;
+struct ProductionCost;
 
 
 /**

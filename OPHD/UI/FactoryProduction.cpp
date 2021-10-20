@@ -43,7 +43,7 @@ FactoryProduction::FactoryProduction() :
 void FactoryProduction::clearProduct()
 {
 	mProduct = ProductType::PRODUCT_NONE;
-	mProductCost.clear();
+	mProductCost = {};
 	mProductGrid.clearSelection();
 }
 
@@ -62,7 +62,7 @@ void FactoryProduction::onProductSelectionChange(const IconGrid::IconGridItem* i
 
 	if (!item)
 	{
-		mProductCost.clear();
+		mProductCost = {};
 		return;
 	}
 
@@ -165,13 +165,14 @@ void FactoryProduction::update()
 			ResourceNamesRefined[3] + ":",
 		});
 
+	const auto totalCost = mProductCost.resourceCost * mProductCost.turnsToBuild;
 	stringTable.setColumnText(1,
 		{
-			std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild()),
-			mProductCost.commonMetals()* mProductCost.turnsToBuild(),
-			mProductCost.commonMinerals()* mProductCost.turnsToBuild(),
-			mProductCost.rareMetals()* mProductCost.turnsToBuild(),
-			mProductCost.rareMinerals()* mProductCost.turnsToBuild()
+			std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild),
+			totalCost.resources[0],
+			totalCost.resources[1],
+			totalCost.resources[2],
+			totalCost.resources[3],
 		});
 
 	stringTable.computeRelativeCellPositions();

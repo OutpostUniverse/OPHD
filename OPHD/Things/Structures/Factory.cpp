@@ -6,9 +6,6 @@
 #include <algorithm>
 
 
-using ProductionTypeTable = std::map<ProductType, ProductionCost>;
-
-
 /**
  * Table with production information for each product that factories can produce.
  *
@@ -16,26 +13,26 @@ using ProductionTypeTable = std::map<ProductType, ProductionCost>;
  *			produce. It is up to the individual factory to determine what they are
  *			allowed to build.
  */
-const ProductionTypeTable PRODUCTION_TYPE_TABLE =
+const std::map<ProductType, ProductionCost> ProductionCostTable =
 {
 	{ProductType::PRODUCT_NONE, ProductionCost{}},
 
-	{ProductType::PRODUCT_DIGGER, ProductionCost{5, 10, 5, 5, 2}},
-	{ProductType::PRODUCT_DOZER, ProductionCost{5, 10, 5, 5, 2}},
-	{ProductType::PRODUCT_EXPLORER, ProductionCost{5, 10, 5, 5, 2}},
-	{ProductType::PRODUCT_MINER, ProductionCost{5, 10, 5, 5, 2}},
-	{ProductType::PRODUCT_TRUCK, ProductionCost{3, 6, 3, 2, 1}},
+	{ProductType::PRODUCT_DIGGER, ProductionCost{5, {10, 5, 5, 2}}},
+	{ProductType::PRODUCT_DOZER, ProductionCost{5, {10, 5, 5, 2}}},
+	{ProductType::PRODUCT_EXPLORER, ProductionCost{5, {10, 5, 5, 2}}},
+	{ProductType::PRODUCT_MINER, ProductionCost{5, {10, 5, 5, 2}}},
+	{ProductType::PRODUCT_TRUCK, ProductionCost{3, {6, 3, 2, 1}}},
 
-	{ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost{2, 2, 2, 1, 1}},
+	{ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost{2, {2, 2, 1, 1}}},
 
-	{ProductType::PRODUCT_CLOTHING, ProductionCost{1, 0, 1, 0, 0}},
-	{ProductType::PRODUCT_MEDICINE, ProductionCost{1, 0, 2, 0, 1}},
+	{ProductType::PRODUCT_CLOTHING, ProductionCost{1, {0, 1, 0, 0}}},
+	{ProductType::PRODUCT_MEDICINE, ProductionCost{1, {0, 2, 0, 1}}},
 };
 
 
 const ProductionCost& productCost(ProductType productType)
 {
-	return PRODUCTION_TYPE_TABLE.at(productType);
+	return ProductionCostTable.at(productType);
 }
 
 
@@ -65,7 +62,7 @@ void Factory::productType(ProductType type)
 
 	productionResetTurns();
 
-	mTurnsToComplete = PRODUCTION_TYPE_TABLE.at(mProduct).turnsToBuild();
+	mTurnsToComplete = productCost(mProduct).turnsToBuild;
 }
 
 
@@ -125,13 +122,8 @@ void Factory::updateProduction()
 		return;
 	}
 
-	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
-	StorableResources cost{
-		productionCost.commonMetals(),
-		productionCost.commonMinerals(),
-		productionCost.rareMetals(),
-		productionCost.rareMinerals()
-	};
+	const auto& productionCost = productCost(mProduct);
+	auto cost = productionCost.resourceCost;
 
 	removeRefinedResources(cost);
 
@@ -161,19 +153,8 @@ bool Factory::enoughResourcesAvailable()
 {
 	if (mResources == nullptr) { throw std::runtime_error("Factory::enoughResourcesAvailable() called with a null Resource Pool set"); }
 
-	/**
-	 * \todo	Have this use operator>= once the production table is converted to using StorableResources
-	 */
-	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
-	if (mResources->resources[0] >= productionCost.commonMetals() &&
-		mResources->resources[1] >= productionCost.commonMinerals() &&
-		mResources->resources[2] >= productionCost.rareMetals() &&
-		mResources->resources[3] >= productionCost.rareMinerals())
-	{
-		return true;
-	}
-
-	return false;
+	const auto& productionCost = productCost(mProduct);
+	return (*mResources >= productionCost.resourceCost);
 }
 
 
