@@ -19,15 +19,6 @@ public:
 		mRareMinerals(rareMinerals)
 	{}
 
-	void clear()
-	{
-		mTurnsToBuild = 0;
-		mCommonMetals = 0;
-		mCommonMinerals = 0;
-		mRareMetals = 0;
-		mRareMinerals = 0;
-	}
-
 	int turnsToBuild() const { return mTurnsToBuild; }
 	int commonMetals() const { return mCommonMetals; }
 	int commonMinerals() const { return mCommonMinerals; }
