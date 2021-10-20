@@ -65,7 +65,7 @@ void Factory::productType(ProductType type)
 
 	productionResetTurns();
 
-	mTurnsToComplete = PRODUCTION_TYPE_TABLE.at(mProduct).turnsToBuild;
+	mTurnsToComplete = productCost(mProduct).turnsToBuild;
 }
 
 
@@ -125,7 +125,7 @@ void Factory::updateProduction()
 		return;
 	}
 
-	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
+	const auto& productionCost = productCost(mProduct);
 	auto cost = productionCost.resourceCost;
 
 	removeRefinedResources(cost);
@@ -156,7 +156,7 @@ bool Factory::enoughResourcesAvailable()
 {
 	if (mResources == nullptr) { throw std::runtime_error("Factory::enoughResourcesAvailable() called with a null Resource Pool set"); }
 
-	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
+	const auto& productionCost = productCost(mProduct);
 	return (*mResources >= productionCost.resourceCost);
 }
 
