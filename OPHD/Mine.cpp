@@ -303,11 +303,12 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 	{
 		const auto veinDictionary = NAS2D::attributesToDictionary(*vein);
 
-		MineVein mineVein{0, 0, 0, 0};
-		mineVein[OreType::ORE_COMMON_METALS] = veinDictionary.get<int>("common_metals");
-		mineVein[OreType::ORE_COMMON_MINERALS] = veinDictionary.get<int>("common_minerals");
-		mineVein[OreType::ORE_RARE_METALS] = veinDictionary.get<int>("rare_metals");
-		mineVein[OreType::ORE_RARE_MINERALS] = veinDictionary.get<int>("rare_minerals");
+		MineVein mineVein{
+			veinDictionary.get<int>("common_metals", 0),
+			veinDictionary.get<int>("common_minerals", 0),
+			veinDictionary.get<int>("rare_metals", 0),
+			veinDictionary.get<int>("rare_minerals", 0),
+		};
 
 		mVeins.push_back(mineVein);
 	}
