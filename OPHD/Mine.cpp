@@ -279,10 +279,10 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 		element->linkEndChild(NAS2D::dictionaryToAttributes(
 			"vein",
 			{{
-				{ResourceFieldNames[0], mineVein[OreType::ORE_COMMON_METALS]},
-				{ResourceFieldNames[1], mineVein[OreType::ORE_COMMON_MINERALS]},
-				{ResourceFieldNames[2], mineVein[OreType::ORE_RARE_METALS]},
-				{ResourceFieldNames[3], mineVein[OreType::ORE_RARE_MINERALS]},
+				{ResourceFieldNames[0], mineVein[0]},
+				{ResourceFieldNames[1], mineVein[1]},
+				{ResourceFieldNames[2], mineVein[2]},
+				{ResourceFieldNames[3], mineVein[3]},
 			}}
 		));
 	}
