@@ -157,12 +157,7 @@ bool Factory::enoughResourcesAvailable()
 	if (mResources == nullptr) { throw std::runtime_error("Factory::enoughResourcesAvailable() called with a null Resource Pool set"); }
 
 	const auto& productionCost = PRODUCTION_TYPE_TABLE.at(mProduct);
-	if (*mResources >= productionCost.resourceCost)
-	{
-		return true;
-	}
-
-	return false;
+	return (*mResources >= productionCost.resourceCost);
 }
 
 
