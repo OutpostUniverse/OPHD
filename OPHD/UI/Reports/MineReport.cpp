@@ -40,10 +40,10 @@ MineReport::MineReport() :
 	btnTakeMeThere{constants::TakeMeThere, {this, &MineReport::onTakeMeThere}},
 	btnAddTruck{constants::AddTruck, {this, &MineReport::onAddTruck}},
 	btnRemoveTruck{constants::RemoveTruck, {this, &MineReport::onRemoveTruck}},
-	chkCommonMetals{"Mine " + ResourceNamesRefined[0]},
-	chkCommonMinerals{"Mine " + ResourceNamesRefined[1]},
-	chkRareMetals{"Mine " + ResourceNamesRefined[2]},
-	chkRareMinerals{"Mine " + ResourceNamesRefined[3]}
+	chkCommonMetals{"Mine " + ResourceNamesRefined[0], {this, &MineReport::onCheckBoxCommonMetalsChange}},
+	chkCommonMinerals{"Mine " + ResourceNamesRefined[1], {this, &MineReport::onCheckBoxCommonMineralsChange}},
+	chkRareMetals{"Mine " + ResourceNamesRefined[2], {this, &MineReport::onCheckBoxRareMetalsChange}},
+	chkRareMinerals{"Mine " + ResourceNamesRefined[3], {this, &MineReport::onCheckBoxRareMineralsChange}}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
 	const auto margin = 2;
@@ -71,12 +71,6 @@ MineReport::MineReport() :
 	add(btnIdle, {0, 40});
 	add(btnDigNewLevel, {0, 75});
 	add(btnTakeMeThere, {0, 110});
-
-	// Ore Management Pane
-	chkCommonMetals.click().connect(this, &MineReport::onCheckBoxCommonMetalsChange);
-	chkCommonMinerals.click().connect(this, &MineReport::onCheckBoxCommonMineralsChange);
-	chkRareMetals.click().connect(this, &MineReport::onCheckBoxRareMetalsChange);
-	chkRareMinerals.click().connect(this, &MineReport::onCheckBoxRareMineralsChange);
 
 	add(chkCommonMetals, {0, 210});
 	add(chkCommonMinerals, {0, 280});
