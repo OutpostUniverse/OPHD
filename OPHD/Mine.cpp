@@ -49,20 +49,6 @@ namespace
 	}
 
 
-	/**
-	 * Helper function that gets the total amount of ore
-	 */
-	int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, int depth)
-	{
-		int value = 0;
-		for (std::size_t i = 0; i < static_cast<std::size_t>(depth); ++i)
-		{
-			value += veins[i].resources[ore];
-		}
-		return value;
-	}
-
-
 	void setDefaultFlags(std::bitset<6>& flags)
 	{
 		flags[Mine::OreType::ORE_COMMON_METALS] = true;
@@ -178,42 +164,6 @@ StorableResources Mine::availableResources() const
 StorableResources Mine::totalYield() const
 {
 	return YieldTable.at(productionRate()) * depth();
-}
-
-
-/**
- * Gets the available count of a specified resource
- *
- * Follows the array index conventions of a StorableResource
- *
- * [0] Common Metals
- * [1] Common Minerals
- * [2] Rare Metals
- * [3] Rare Minerals
- *
- * \throws std::out_of_range index is out of range
- */
-int Mine::oreAvailable(size_t index) const
-{
-	return getOreCount(mVeins, static_cast<Mine::OreType>(index), depth());
-}
-
-
-/**
- * Gets the total yield of a specified resource
- * 
- * Follows the array index conventions of a StorableResource
- * 
- * [0] Common Metals
- * [1] Common Minerals
- * [2] Rare Metals
- * [3] Rare Minerals
- * 
- * \throws std::out_of_range index is out of range
- */
-int Mine::oreTotalYield(size_t index) const
-{
-	return YieldTable.at(productionRate()).resources[index] * depth();
 }
 
 
