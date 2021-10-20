@@ -6,6 +6,8 @@
 
 #include <NAS2D/Renderer/RectangleSkin.h>
 
+#include <array>
+
 
 class MineFacility;
 
@@ -49,10 +51,7 @@ private:
 
 	NAS2D::RectangleSkin mPanel;
 
-	CheckBox chkCommonMetals;
-	CheckBox chkCommonMinerals;
-	CheckBox chkRareMetals;
-	CheckBox chkRareMinerals;
+	std::array<CheckBox, 4> chkResources;
 
 	Button btnIdle;
 	Button btnExtendShaft;
