@@ -14,7 +14,7 @@ static int pullCount(MineFacility* mineFacility, size_t index)
 	const int storageCapacity = (mineFacility->storageCapacity() / 4);
 	const int remainingCapacity = storageCapacity - mineFacility->production().resources[index];
 
-	const int total = std::clamp(constants::BaseMineProductionRate, 0, remainingCapacity);
+	const int total = std::clamp(remainingCapacity, 0, constants::BaseMineProductionRate);
 
 	return total;
 }
