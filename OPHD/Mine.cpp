@@ -27,6 +27,12 @@ static const std::map<MineProductionRate, std::array<int, 4>> YieldTable =
 };
 
 
+static const std::array<std::string, 4> ResourceFieldNames =
+{
+	"common_metals", "common_minerals", "rare_metals", "rare_minerals"
+};
+
+
 /**
  * Helper function that gets the total amount of ore
  */
@@ -273,10 +279,10 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 		element->linkEndChild(NAS2D::dictionaryToAttributes(
 			"vein",
 			{{
-				{"common_metals", mineVein[OreType::ORE_COMMON_METALS]},
-				{"common_minerals", mineVein[OreType::ORE_COMMON_MINERALS]},
-				{"rare_metals", mineVein[OreType::ORE_RARE_METALS]},
-				{"rare_minerals", mineVein[OreType::ORE_RARE_MINERALS]},
+				{ResourceFieldNames[0], mineVein[OreType::ORE_COMMON_METALS]},
+				{ResourceFieldNames[1], mineVein[OreType::ORE_COMMON_MINERALS]},
+				{ResourceFieldNames[2], mineVein[OreType::ORE_RARE_METALS]},
+				{ResourceFieldNames[3], mineVein[OreType::ORE_RARE_MINERALS]},
 			}}
 		));
 	}
@@ -303,10 +309,10 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 	{
 		const auto veinDictionary = NAS2D::attributesToDictionary(*vein);
 		mVeins.push_back({
-			veinDictionary.get<int>("common_metals", 0),
-			veinDictionary.get<int>("common_minerals", 0),
-			veinDictionary.get<int>("rare_metals", 0),
-			veinDictionary.get<int>("rare_minerals", 0),
+			veinDictionary.get<int>(ResourceFieldNames[0], 0),
+			veinDictionary.get<int>(ResourceFieldNames[1], 0),
+			veinDictionary.get<int>(ResourceFieldNames[2], 0),
+			veinDictionary.get<int>(ResourceFieldNames[3], 0),
 		});
 	}
 }
