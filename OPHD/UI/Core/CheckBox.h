@@ -15,6 +15,7 @@ public:
 	using ClickSignal = NAS2D::Signal<>;
 
 	CheckBox(std::string newText = "");
+	CheckBox(std::string newText, ClickSignal::DelegateType clickHandler);
 	~CheckBox() override;
 
 	void checked(bool toggle);
