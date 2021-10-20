@@ -159,10 +159,10 @@ void FactoryProduction::update()
 	stringTable.setColumnText(0,
 		{
 			"Turns Completed:",
-			"Common Metals:",
-			"Common Minerals:",
-			"Rare Metals:",
-			"Rare Minerals:"
+			ResourceNamesRefined[0] + ":",
+			ResourceNamesRefined[1] + ":",
+			ResourceNamesRefined[2] + ":",
+			ResourceNamesRefined[3] + ":",
 		});
 
 	stringTable.setColumnText(1,
