@@ -146,6 +146,17 @@ int Mine::depth() const
 }
 
 
+StorableResources Mine::availableResources() const
+{
+	return {
+		getOreCount(mVeins, OreType::ORE_COMMON_METALS, depth()),
+		getOreCount(mVeins, OreType::ORE_COMMON_MINERALS, depth()),
+		getOreCount(mVeins, OreType::ORE_RARE_METALS, depth()),
+		getOreCount(mVeins, OreType::ORE_RARE_MINERALS, depth()),
+	};
+}
+
+
 /**
  * Convenience function that gets the common metal ore available
  * given the current level.

@@ -2,6 +2,7 @@
 
 #include "Common.h"
 #include "Constants.h"
+#include "StorableResources.h"
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Xml/XmlElement.h>
@@ -36,6 +37,8 @@ public:
 
 	int depth() const;
 	void increaseDepth();
+
+	StorableResources availableResources() const;
 
 	int commonMetalsAvailable() const;
 	int commonMineralsAvailable() const;
