@@ -4,6 +4,7 @@
 #include "Core/Button.h"
 #include "Core/TextField.h"
 #include "Core/ListBox.h"
+#include "Core/Label.h"
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
@@ -35,6 +36,7 @@ protected:
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 
 private:
+	void onOpenFolder() const;
 	void onClose();
 	void onFileIo();
 	void onFileDelete();
@@ -45,6 +47,10 @@ private:
 	FileOperationSignal mSignal;
 
 	FileOperation mMode;
+
+	Label mLabelFilePath;
+	Button mOpenSaveFolder;
+	std::string mScanPath;
 
 	Button btnClose;
 	Button btnFileOp;

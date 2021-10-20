@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
 
 
 using namespace NAS2D;
@@ -17,6 +18,7 @@ using namespace NAS2D;
 
 FileIo::FileIo() :
 	Window{"File I/O"},
+	mOpenSaveFolder{"Open Folder", {this, &FileIo::onOpenFolder}},
 	btnClose{"Cancel", {this, &FileIo::onClose}},
 	btnFileOp{"FileOp", {this, &FileIo::onFileIo}},
 	btnFileDelete{"Delete", {this, &FileIo::onFileDelete}}
@@ -25,9 +27,14 @@ FileIo::FileIo() :
 	eventHandler.mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
 	eventHandler.keyDown().connect(this, &FileIo::onKeyDown);
 
-	size({500, 350});
+	size({700, 350});
 
-	add(btnFileOp, {445, 325});
+	add(mLabelFilePath, {5, 25});
+	mLabelFilePath.size({600, 20});
+	add(mOpenSaveFolder, {600, 25});
+	mOpenSaveFolder.size({95, 15});
+
+	add(btnFileOp, {645, 325});
 	btnFileOp.size({50, 20});
 	btnFileOp.enabled(false);
 
@@ -35,16 +42,16 @@ FileIo::FileIo() :
 	btnFileDelete.size({50, 20});
 	btnFileDelete.enabled(false);
 
-	add(btnClose, {390, 325});
+	add(btnClose, {590, 325});
 	btnClose.size({50, 20});
 
 	add(txtFileName, {5, 302});
-	txtFileName.size({490, 18});
+	txtFileName.size({690, 18});
 	txtFileName.maxCharacters(50);
 	txtFileName.textChanged().connect(this, &FileIo::onFileNameChange);
 
-	add(mListBox, {5, 25});
-	mListBox.size({490, 273});
+	add(mListBox, {5, 45});
+	mListBox.size({690, 253});
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect(this, &FileIo::onFileSelect);
 }
@@ -106,6 +113,9 @@ void FileIo::setMode(FileOperation fileOp)
 
 void FileIo::scanDirectory(const std::string& directory)
 {
+	mScanPath = Utility<Filesystem>::get().prefPath() + directory;
+	mLabelFilePath.text("Save game path :  " + mScanPath);
+
 	const auto& filesystem = Utility<Filesystem>::get();
 	std::vector<std::string> dirList = filesystem.directoryList(directory);
 	std::sort(dirList.begin(), dirList.end());
@@ -150,6 +160,20 @@ void FileIo::onFileNameChange(TextControl* control)
 		btnFileOp.enabled(true);
 		btnFileDelete.enabled(true);
 	}
+}
+
+
+void FileIo::onOpenFolder() const
+{
+#if defined(_WIN32)
+	system(("start " + mScanPath).c_str());
+#elif defined(__APPLE__)
+	system(("open " + mScanPath).c_str());
+#elif defined(__linux__)
+	system(("xdg-open " + mScanPath).c_str());
+#else
+	#pragma message("Open folder on the current platform not implemented.")
+#endif
 }
 
 
