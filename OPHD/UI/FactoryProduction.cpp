@@ -43,7 +43,7 @@ FactoryProduction::FactoryProduction() :
 void FactoryProduction::clearProduct()
 {
 	mProduct = ProductType::PRODUCT_NONE;
-	mProductCost.clear();
+	mProductCost = {};
 	mProductGrid.clearSelection();
 }
 
@@ -62,7 +62,7 @@ void FactoryProduction::onProductSelectionChange(const IconGrid::IconGridItem* i
 
 	if (!item)
 	{
-		mProductCost.clear();
+		mProductCost = {};
 		return;
 	}
 
