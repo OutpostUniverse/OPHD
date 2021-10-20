@@ -20,7 +20,7 @@ public:
 		ORE_RARE_MINERALS,
 	};
 
-	using MineVein = std::array<int, 4>;
+	using MineVein = StorableResources;
 	using MineVeins = std::vector<MineVein>;
 
 public:

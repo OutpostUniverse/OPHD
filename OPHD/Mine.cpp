@@ -41,7 +41,7 @@ static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, int dept
 	int value = 0;
 	for (std::size_t i = 0; i < static_cast<std::size_t>(depth); ++i)
 	{
-		value += veins[i][ore];
+		value += veins[i].resources[ore];
 	}
 	return value;
 }
@@ -195,7 +195,7 @@ int Mine::oreAvailable(size_t index) const
  */
 int Mine::oreTotalYield(size_t index) const
 {
-	return YieldTable.at(productionRate())[index] * depth();
+	return YieldTable.at(productionRate()).resources[index] * depth();
 }
 
 
@@ -223,10 +223,7 @@ void Mine::checkExhausted()
 	int ore_count = 0;
 	for (auto vein : mVeins)
 	{
-		ore_count += vein[OreType::ORE_COMMON_METALS];
-		ore_count += vein[OreType::ORE_COMMON_MINERALS];
-		ore_count += vein[OreType::ORE_RARE_METALS];
-		ore_count += vein[OreType::ORE_RARE_MINERALS];
+		ore_count += vein.total();
 	}
 
 	mFlags[5] = (ore_count == 0);
@@ -243,9 +240,9 @@ int Mine::pull(OreType type, int quantity)
 
 	for (auto& vein : mVeins)
 	{
-		const auto transferAmount = std::min(vein[type], quantity - pullCount);
+		const auto transferAmount = std::min(vein.resources[type], quantity - pullCount);
 		pullCount += transferAmount;
-		vein[type] -= transferAmount;
+		vein.resources[type] -= transferAmount;
 
 		if (pullCount == quantity) { break; }
 	}
@@ -279,10 +276,10 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 		element->linkEndChild(NAS2D::dictionaryToAttributes(
 			"vein",
 			{{
-				{ResourceFieldNames[0], mineVein[0]},
-				{ResourceFieldNames[1], mineVein[1]},
-				{ResourceFieldNames[2], mineVein[2]},
-				{ResourceFieldNames[3], mineVein[3]},
+				{ResourceFieldNames[0], mineVein.resources[0]},
+				{ResourceFieldNames[1], mineVein.resources[1]},
+				{ResourceFieldNames[2], mineVein.resources[2]},
+				{ResourceFieldNames[3], mineVein.resources[3]},
 			}}
 		));
 	}
