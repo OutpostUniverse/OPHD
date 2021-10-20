@@ -13,7 +13,7 @@
  *			produce. It is up to the individual factory to determine what they are
  *			allowed to build.
  */
-const std::map<ProductType, ProductionCost> PRODUCTION_TYPE_TABLE =
+const std::map<ProductType, ProductionCost> ProductionCostTable =
 {
 	{ProductType::PRODUCT_NONE, ProductionCost{}},
 
@@ -32,7 +32,7 @@ const std::map<ProductType, ProductionCost> PRODUCTION_TYPE_TABLE =
 
 const ProductionCost& productCost(ProductType productType)
 {
-	return PRODUCTION_TYPE_TABLE.at(productType);
+	return ProductionCostTable.at(productType);
 }
 
 
