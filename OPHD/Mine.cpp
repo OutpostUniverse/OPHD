@@ -19,7 +19,7 @@
  * [2] Rare Metals
  * [3] Rare Minerals
  */
-static const std::map<MineProductionRate, std::array<int, 4>> YieldTable =
+static const std::map<MineProductionRate, Mine::MineVein> YieldTable =
 {
 	{MineProductionRate::Low, {600, 500, 600, 500}},
 	{MineProductionRate::Medium, {700, 550, 700, 550}},
