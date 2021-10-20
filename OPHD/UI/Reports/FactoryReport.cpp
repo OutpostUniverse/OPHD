@@ -452,10 +452,10 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	// MINERAL RESOURCES
 	const ProductionCost& productionCost = productCost(selectedFactory->productType());
 	const std::array requiredResources{
-		std::pair{"Common Metals", productionCost.commonMetals()},
-		std::pair{"Common Minerals", productionCost.commonMinerals()},
-		std::pair{"Rare Metals", productionCost.rareMetals()},
-		std::pair{"Rare Minerals", productionCost.rareMinerals()},
+		std::pair{ResourceNamesRefined[0], productionCost.commonMetals()},
+		std::pair{ResourceNamesRefined[1], productionCost.commonMinerals()},
+		std::pair{ResourceNamesRefined[2], productionCost.rareMetals()},
+		std::pair{ResourceNamesRefined[3], productionCost.rareMinerals()},
 	};
 	auto position = startPoint + NAS2D::Vector{138, 80};
 	for (auto [title, value] : requiredResources)

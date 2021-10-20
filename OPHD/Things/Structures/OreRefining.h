@@ -29,10 +29,10 @@ public:
 			0,
 			{
 				"",
-				"Common Metal",
-				"Common Minerals",
-				"Rare Metal",
-				"Rare Minerals"
+				ResourceNamesRefined[0],
+				ResourceNamesRefined[1],
+				ResourceNamesRefined[2],
+				ResourceNamesRefined[3],
 			});
 
 		stringTable.setRowText(

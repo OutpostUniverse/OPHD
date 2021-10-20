@@ -40,10 +40,10 @@ MineReport::MineReport() :
 	btnTakeMeThere{constants::TakeMeThere, {this, &MineReport::onTakeMeThere}},
 	btnAddTruck{constants::AddTruck, {this, &MineReport::onAddTruck}},
 	btnRemoveTruck{constants::RemoveTruck, {this, &MineReport::onRemoveTruck}},
-	chkCommonMetals{"Mine Common Metals"},
-	chkCommonMinerals{"Mine Common Minerals"},
-	chkRareMetals{"Mine Rare Metals"},
-	chkRareMinerals{"Mine Rare Minerals"}
+	chkCommonMetals{"Mine " + ResourceNamesRefined[0]},
+	chkCommonMinerals{"Mine " + ResourceNamesRefined[1]},
+	chkRareMetals{"Mine " + ResourceNamesRefined[2]},
+	chkRareMinerals{"Mine " + ResourceNamesRefined[3]}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
 	const auto margin = 2;
