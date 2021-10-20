@@ -36,6 +36,12 @@ CheckBox::CheckBox(std::string newText) :
 }
 
 
+CheckBox::CheckBox(std::string newText, ClickSignal::DelegateType clickHandler) : CheckBox(newText)
+{
+	mSignal.connect(clickHandler);
+}
+
+
 CheckBox::~CheckBox()
 {
 	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &CheckBox::onMouseDown);

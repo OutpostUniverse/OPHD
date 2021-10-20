@@ -34,10 +34,12 @@ MineOperationsWindow::MineOperationsWindow() :
 		imageCache.load("ui/skin/textbox_bottom_middle.png"),
 		imageCache.load("ui/skin/textbox_bottom_right.png")
 	},
-	chkCommonMetals{ResourceNamesRefined[0]},
-	chkCommonMinerals{ResourceNamesRefined[1]},
-	chkRareMetals{ResourceNamesRefined[2]},
-	chkRareMinerals{ResourceNamesRefined[3]},
+	chkResources{{
+		{ResourceNamesRefined[0], {this, &MineOperationsWindow::onCheckBoxCommonMetalsChange}},
+		{ResourceNamesRefined[1], {this, &MineOperationsWindow::onCheckBoxCommonMineralsChange}},
+		{ResourceNamesRefined[2], {this, &MineOperationsWindow::onCheckBoxRareMetalsChange}},
+		{ResourceNamesRefined[3], {this, &MineOperationsWindow::onCheckBoxRareMineralsChange}},
+	}},
 	btnIdle{"Idle", {this, &MineOperationsWindow::onIdle}},
 	btnExtendShaft{"Dig New Level", {this, &MineOperationsWindow::onExtendShaft}},
 	btnOkay{"Close", {this, &MineOperationsWindow::onOkay}},
@@ -64,17 +66,10 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnUnassignTruck.size({80, 20});
 
 	// ORE TOGGLE BUTTONS
-	add(chkCommonMetals, {148, 140});
-	chkCommonMetals.click().connect(this, &MineOperationsWindow::onCheckBoxCommonMetalsChange);
-
-	add(chkCommonMinerals, {259, 140});
-	chkCommonMinerals.click().connect(this, &MineOperationsWindow::onCheckBoxCommonMineralsChange);
-
-	add(chkRareMetals, {148, 160});
-	chkRareMetals.click().connect(this, &MineOperationsWindow::onCheckBoxRareMetalsChange);
-
-	add(chkRareMinerals, {259, 160});
-	chkRareMinerals.click().connect(this, &MineOperationsWindow::onCheckBoxRareMineralsChange);
+	add(chkResources[0], {148, 140});
+	add(chkResources[1], {259, 140});
+	add(chkResources[2], {148, 160});
+	add(chkResources[3], {259, 160});
 }
 
 
@@ -90,10 +85,10 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 	mFacility = facility;
 	if (!mFacility) { return; }
 
-	chkCommonMetals.checked(mFacility->mine()->miningCommonMetals());
-	chkCommonMinerals.checked(mFacility->mine()->miningCommonMinerals());
-	chkRareMetals.checked(mFacility->mine()->miningRareMetals());
-	chkRareMinerals.checked(mFacility->mine()->miningRareMinerals());
+	chkResources[0].checked(mFacility->mine()->miningCommonMetals());
+	chkResources[1].checked(mFacility->mine()->miningCommonMinerals());
+	chkResources[2].checked(mFacility->mine()->miningRareMetals());
+	chkResources[3].checked(mFacility->mine()->miningRareMinerals());
 
 	btnIdle.toggle(mFacility->forceIdle());
 	btnExtendShaft.enabled(mFacility->canExtend());
@@ -148,25 +143,25 @@ void MineOperationsWindow::onUnassignTruck()
 
 void MineOperationsWindow::onCheckBoxCommonMetalsChange()
 {
-	mFacility->mine()->miningCommonMetals(chkCommonMetals.checked());
+	mFacility->mine()->miningCommonMetals(chkResources[0].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxCommonMineralsChange()
 {
-	mFacility->mine()->miningCommonMinerals(chkCommonMinerals.checked());
+	mFacility->mine()->miningCommonMinerals(chkResources[1].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxRareMetalsChange()
 {
-	mFacility->mine()->miningRareMetals(chkRareMetals.checked());
+	mFacility->mine()->miningRareMetals(chkResources[2].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxRareMineralsChange()
 {
-	mFacility->mine()->miningRareMinerals(chkRareMinerals.checked());
+	mFacility->mine()->miningRareMinerals(chkResources[3].checked());
 }
 
 
