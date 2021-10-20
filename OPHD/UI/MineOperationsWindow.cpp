@@ -223,12 +223,13 @@ void MineOperationsWindow::update()
 
 	renderer.drawLine(origin + NAS2D::Vector{11, 200}, origin + NAS2D::Vector{width - 11, 200}, NAS2D::Color{22, 22, 22});
 
+	const auto availableResources = mFacility->mine()->availableResources();
 	const std::array resources
 	{
-		std::tuple{46,  ResourceImageRectsOre[0], mFacility->mine()->commonMetalsAvailable()},
-		std::tuple{135, ResourceImageRectsOre[1], mFacility->mine()->commonMineralsAvailable()},
-		std::tuple{224, ResourceImageRectsOre[2], mFacility->mine()->rareMetalsAvailable()},
-		std::tuple{313, ResourceImageRectsOre[3], mFacility->mine()->rareMineralsAvailable()}
+		std::tuple{46,  ResourceImageRectsOre[0], availableResources.resources[0]},
+		std::tuple{135, ResourceImageRectsOre[1], availableResources.resources[1]},
+		std::tuple{224, ResourceImageRectsOre[2], availableResources.resources[2]},
+		std::tuple{313, ResourceImageRectsOre[3], availableResources.resources[3]}
 	};
 
 	for (const auto& [offsetX, iconRect, resourceCount] : resources)
