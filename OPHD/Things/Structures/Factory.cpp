@@ -6,9 +6,6 @@
 #include <algorithm>
 
 
-using ProductionTypeTable = std::map<ProductType, ProductionCost>;
-
-
 /**
  * Table with production information for each product that factories can produce.
  *
@@ -16,7 +13,7 @@ using ProductionTypeTable = std::map<ProductType, ProductionCost>;
  *			produce. It is up to the individual factory to determine what they are
  *			allowed to build.
  */
-const ProductionTypeTable PRODUCTION_TYPE_TABLE =
+const std::map<ProductType, ProductionCost> PRODUCTION_TYPE_TABLE =
 {
 	{ProductType::PRODUCT_NONE, ProductionCost{}},
 
