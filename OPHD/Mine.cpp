@@ -9,46 +9,55 @@
 #include <map>
 
 
-/**
- * Yield ore table
- *
- * \note Follows the array layout conventions of the StorableResources class
- *
- * [0] Common Metals
- * [1] Common Minerals
- * [2] Rare Metals
- * [3] Rare Minerals
- */
-static const std::map<MineProductionRate, std::array<int, 4>> YieldTable =
+namespace
 {
-	{MineProductionRate::Low, {600, 500, 600, 500}},
-	{MineProductionRate::Medium, {700, 550, 700, 550}},
-	{MineProductionRate::High, {850, 600, 850, 600}}
-};
-
-
-/**
- * Helper function that gets the total amount of ore
- */
-static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, int depth)
-{
-	int value = 0;
-	for (std::size_t i = 0; i < static_cast<std::size_t>(depth); ++i)
+	/**
+	 * Yield ore table
+	 *
+	 * \note Follows the array layout conventions of the StorableResources class
+	 *
+	 * [0] Common Metals
+	 * [1] Common Minerals
+	 * [2] Rare Metals
+	 * [3] Rare Minerals
+	 */
+	const std::map<MineProductionRate, Mine::MineVein> YieldTable =
 	{
-		value += veins[i][ore];
+		{MineProductionRate::Low, {600, 500, 600, 500}},
+		{MineProductionRate::Medium, {700, 550, 700, 550}},
+		{MineProductionRate::High, {850, 600, 850, 600}}
+	};
+
+
+	const std::array<std::string, 4> ResourceFieldNames =
+	{
+		"common_metals", "common_minerals", "rare_metals", "rare_minerals"
+	};
+
+
+	/**
+	 * Helper function that gets the total amount of ore
+	 */
+	StorableResources getOreCount(const Mine::MineVeins& veins, int depth)
+	{
+		StorableResources availableResources{};
+		for (std::size_t i = 0; i < static_cast<std::size_t>(depth); ++i)
+		{
+			availableResources += veins[i];
+		}
+		return availableResources;
 	}
-	return value;
-}
 
 
-static void setDefaultFlags(std::bitset<6>& flags)
-{
-	flags[Mine::OreType::ORE_COMMON_METALS] = true;
-	flags[Mine::OreType::ORE_COMMON_MINERALS] = true;
-	flags[Mine::OreType::ORE_RARE_METALS] = true;
-	flags[Mine::OreType::ORE_RARE_MINERALS] = true;
-	flags[4] = false;
-	flags[5] = false;
+	void setDefaultFlags(std::bitset<6>& flags)
+	{
+		flags[Mine::OreType::ORE_COMMON_METALS] = true;
+		flags[Mine::OreType::ORE_COMMON_MINERALS] = true;
+		flags[Mine::OreType::ORE_RARE_METALS] = true;
+		flags[Mine::OreType::ORE_RARE_MINERALS] = true;
+		flags[4] = false;
+		flags[5] = false;
+	}
 }
 
 
@@ -146,79 +155,15 @@ int Mine::depth() const
 }
 
 
-/**
- * Convenience function that gets the common metal ore available
- * given the current level.
- */
-int Mine::commonMetalsAvailable() const
+StorableResources Mine::availableResources() const
 {
-	return getOreCount(mVeins, OreType::ORE_COMMON_METALS, depth());
+	return getOreCount(mVeins, depth());
 }
 
 
-/**
- * Convenience function that gets the common mineral ore available
- * given the current level.
- */
-int Mine::commonMineralsAvailable() const
+StorableResources Mine::totalYield() const
 {
-	return getOreCount(mVeins, OreType::ORE_COMMON_MINERALS, depth());
-}
-
-
-/**
- * Convenience function that gets the rare metal ore available
- * given the current level.
- */
-int Mine::rareMetalsAvailable() const
-{
-	return getOreCount(mVeins, OreType::ORE_RARE_METALS, depth());
-}
-
-
-/**
- * Convenience function that gets the rare mineral ore available
- * given the current level.
- */
-int Mine::rareMineralsAvailable() const
-{
-	return getOreCount(mVeins, OreType::ORE_RARE_MINERALS, depth());
-}
-
-
-/**
- * Gets the available count of a specified resource
- *
- * Follows the array index conventions of a StorableResource
- *
- * [0] Common Metals
- * [1] Common Minerals
- * [2] Rare Metals
- * [3] Rare Minerals
- *
- * \throws std::out_of_range index is out of range
- */
-int Mine::oreAvailable(size_t index) const
-{
-	return getOreCount(mVeins, static_cast<Mine::OreType>(index), depth());
-}
-
-
-/**
- * Gets the total yield of a specified resource
- * 
- * Follows the array index conventions of a StorableResource
- * 
- * [0] Common Metals
- * [1] Common Minerals
- * [2] Rare Metals
- * [3] Rare Minerals
- * 
- * \throws std::out_of_range index is out of range
- */
-int Mine::oreTotalYield(size_t index) const
-{
-	return YieldTable.at(productionRate())[index] * depth();
+	return YieldTable.at(productionRate()) * depth();
 }
 
 
@@ -243,16 +188,13 @@ void Mine::checkExhausted()
 {
 	if (!active()) { return; }
 
-	int ore_count = 0;
+	int oreCount = 0;
 	for (auto vein : mVeins)
 	{
-		ore_count += vein[OreType::ORE_COMMON_METALS];
-		ore_count += vein[OreType::ORE_COMMON_MINERALS];
-		ore_count += vein[OreType::ORE_RARE_METALS];
-		ore_count += vein[OreType::ORE_RARE_MINERALS];
+		oreCount += vein.total();
 	}
 
-	mFlags[5] = (ore_count == 0);
+	mFlags[5] = (oreCount == 0);
 }
 
 
@@ -266,9 +208,9 @@ int Mine::pull(OreType type, int quantity)
 
 	for (auto& vein : mVeins)
 	{
-		const auto transferAmount = std::min(vein[type], quantity - pullCount);
+		const auto transferAmount = std::min(vein.resources[type], quantity - pullCount);
 		pullCount += transferAmount;
-		vein[type] -= transferAmount;
+		vein.resources[type] -= transferAmount;
 
 		if (pullCount == quantity) { break; }
 	}
@@ -302,10 +244,10 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 		element->linkEndChild(NAS2D::dictionaryToAttributes(
 			"vein",
 			{{
-				{"common_metals", mineVein[OreType::ORE_COMMON_METALS]},
-				{"common_minerals", mineVein[OreType::ORE_COMMON_MINERALS]},
-				{"rare_metals", mineVein[OreType::ORE_RARE_METALS]},
-				{"rare_minerals", mineVein[OreType::ORE_RARE_MINERALS]},
+				{ResourceFieldNames[0], mineVein.resources[0]},
+				{ResourceFieldNames[1], mineVein.resources[1]},
+				{ResourceFieldNames[2], mineVein.resources[2]},
+				{ResourceFieldNames[3], mineVein.resources[3]},
 			}}
 		));
 	}
@@ -331,13 +273,11 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 	for (auto* vein = element->firstChildElement(); vein != nullptr; vein = vein->nextSiblingElement())
 	{
 		const auto veinDictionary = NAS2D::attributesToDictionary(*vein);
-
-		MineVein mineVein{0, 0, 0, 0};
-		mineVein[OreType::ORE_COMMON_METALS] = veinDictionary.get<int>("common_metals");
-		mineVein[OreType::ORE_COMMON_MINERALS] = veinDictionary.get<int>("common_minerals");
-		mineVein[OreType::ORE_RARE_METALS] = veinDictionary.get<int>("rare_metals");
-		mineVein[OreType::ORE_RARE_MINERALS] = veinDictionary.get<int>("rare_minerals");
-
-		mVeins.push_back(mineVein);
+		mVeins.push_back({
+			veinDictionary.get<int>(ResourceFieldNames[0], 0),
+			veinDictionary.get<int>(ResourceFieldNames[1], 0),
+			veinDictionary.get<int>(ResourceFieldNames[2], 0),
+			veinDictionary.get<int>(ResourceFieldNames[3], 0),
+		});
 	}
 }

@@ -2,6 +2,7 @@
 
 #include "Common.h"
 #include "Constants.h"
+#include "StorableResources.h"
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Xml/XmlElement.h>
@@ -19,7 +20,7 @@ public:
 		ORE_RARE_MINERALS,
 	};
 
-	using MineVein = std::array<int, 4>;
+	using MineVein = StorableResources;
 	using MineVeins = std::vector<MineVein>;
 
 public:
@@ -37,13 +38,8 @@ public:
 	int depth() const;
 	void increaseDepth();
 
-	int commonMetalsAvailable() const;
-	int commonMineralsAvailable() const;
-	int rareMetalsAvailable() const;
-	int rareMineralsAvailable() const;
-
-	int oreAvailable(size_t) const;
-	int oreTotalYield(size_t) const;
+	StorableResources availableResources() const;
+	StorableResources totalYield() const;
 
 	bool miningCommonMetals() const;
 	bool miningCommonMinerals() const;
