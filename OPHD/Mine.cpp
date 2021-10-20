@@ -9,52 +9,55 @@
 #include <map>
 
 
-/**
- * Yield ore table
- *
- * \note Follows the array layout conventions of the StorableResources class
- *
- * [0] Common Metals
- * [1] Common Minerals
- * [2] Rare Metals
- * [3] Rare Minerals
- */
-static const std::map<MineProductionRate, Mine::MineVein> YieldTable =
+namespace
 {
-	{MineProductionRate::Low, {600, 500, 600, 500}},
-	{MineProductionRate::Medium, {700, 550, 700, 550}},
-	{MineProductionRate::High, {850, 600, 850, 600}}
-};
-
-
-static const std::array<std::string, 4> ResourceFieldNames =
-{
-	"common_metals", "common_minerals", "rare_metals", "rare_minerals"
-};
-
-
-/**
- * Helper function that gets the total amount of ore
- */
-static int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, int depth)
-{
-	int value = 0;
-	for (std::size_t i = 0; i < static_cast<std::size_t>(depth); ++i)
+	/**
+	 * Yield ore table
+	 *
+	 * \note Follows the array layout conventions of the StorableResources class
+	 *
+	 * [0] Common Metals
+	 * [1] Common Minerals
+	 * [2] Rare Metals
+	 * [3] Rare Minerals
+	 */
+	const std::map<MineProductionRate, Mine::MineVein> YieldTable =
 	{
-		value += veins[i].resources[ore];
+		{MineProductionRate::Low, {600, 500, 600, 500}},
+		{MineProductionRate::Medium, {700, 550, 700, 550}},
+		{MineProductionRate::High, {850, 600, 850, 600}}
+	};
+
+
+	const std::array<std::string, 4> ResourceFieldNames =
+	{
+		"common_metals", "common_minerals", "rare_metals", "rare_minerals"
+	};
+
+
+	/**
+	 * Helper function that gets the total amount of ore
+	 */
+	int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, int depth)
+	{
+		int value = 0;
+		for (std::size_t i = 0; i < static_cast<std::size_t>(depth); ++i)
+		{
+			value += veins[i].resources[ore];
+		}
+		return value;
 	}
-	return value;
-}
 
 
-static void setDefaultFlags(std::bitset<6>& flags)
-{
-	flags[Mine::OreType::ORE_COMMON_METALS] = true;
-	flags[Mine::OreType::ORE_COMMON_MINERALS] = true;
-	flags[Mine::OreType::ORE_RARE_METALS] = true;
-	flags[Mine::OreType::ORE_RARE_MINERALS] = true;
-	flags[4] = false;
-	flags[5] = false;
+	void setDefaultFlags(std::bitset<6>& flags)
+	{
+		flags[Mine::OreType::ORE_COMMON_METALS] = true;
+		flags[Mine::OreType::ORE_COMMON_MINERALS] = true;
+		flags[Mine::OreType::ORE_RARE_METALS] = true;
+		flags[Mine::OreType::ORE_RARE_MINERALS] = true;
+		flags[4] = false;
+		flags[5] = false;
+	}
 }
 
 
