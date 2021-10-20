@@ -38,6 +38,20 @@ namespace
 	/**
 	 * Helper function that gets the total amount of ore
 	 */
+	StorableResources getOreCount(const Mine::MineVeins& veins, int depth)
+	{
+		StorableResources availableResources{};
+		for (std::size_t i = 0; i < static_cast<std::size_t>(depth); ++i)
+		{
+			availableResources += veins[i];
+		}
+		return availableResources;
+	}
+
+
+	/**
+	 * Helper function that gets the total amount of ore
+	 */
 	int getOreCount(const Mine::MineVeins& veins, Mine::OreType ore, int depth)
 	{
 		int value = 0;
@@ -157,12 +171,7 @@ int Mine::depth() const
 
 StorableResources Mine::availableResources() const
 {
-	return {
-		getOreCount(mVeins, OreType::ORE_COMMON_METALS, depth()),
-		getOreCount(mVeins, OreType::ORE_COMMON_MINERALS, depth()),
-		getOreCount(mVeins, OreType::ORE_RARE_METALS, depth()),
-		getOreCount(mVeins, OreType::ORE_RARE_MINERALS, depth()),
-	};
+	return getOreCount(mVeins, depth());
 }
 
 
