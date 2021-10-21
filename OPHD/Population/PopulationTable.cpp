@@ -3,6 +3,7 @@
 #include <numeric>
 #include <stdexcept>
 #include <string>
+#include <algorithm>
 
 
 int& PopulationTable::operator[](std::size_t index)
@@ -89,6 +90,18 @@ PopulationTable PopulationTable::operator%(const PopulationTable& other) const
 		worker % other.worker,
 		scientist % other.scientist,
 		retiree % other.retiree,
+	};
+}
+
+
+PopulationTable PopulationTable::cap(const PopulationTable& other) const
+{
+	return {
+		std::min(child, other.child),
+		std::min(student, other.student),
+		std::min(worker, other.worker),
+		std::min(scientist, other.scientist),
+		std::min(retiree, other.retiree),
 	};
 }
 
