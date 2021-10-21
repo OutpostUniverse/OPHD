@@ -6,6 +6,21 @@
 #include <algorithm>
 
 
+int PopulationTable::adults() const
+{
+	return size() - child;
+}
+
+
+/**
+ * Gets the size of the entire population.
+ */
+int PopulationTable::size() const
+{
+	return child + student + worker + scientist + retiree;
+}
+
+
 int& PopulationTable::operator[](std::size_t index)
 {
 	switch (index)
@@ -103,19 +118,4 @@ PopulationTable PopulationTable::cap(const PopulationTable& other) const
 		std::min(scientist, other.scientist),
 		std::min(retiree, other.retiree),
 	};
-}
-
-
-/**
- * Gets the size of the entire population.
- */
-int PopulationTable::size() const
-{
-	return child + student + worker + scientist + retiree;
-}
-
-
-int PopulationTable::adults() const
-{
-	return size() - child;
 }

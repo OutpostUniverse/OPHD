@@ -11,6 +11,9 @@ struct PopulationTable
 	int retiree;
 
 
+	int adults() const;
+	int size() const;
+
 	int& operator[](std::size_t);
 	int operator[](std::size_t) const;
 
@@ -21,7 +24,4 @@ struct PopulationTable
 	PopulationTable operator%(const PopulationTable& other) const;
 
 	PopulationTable cap(const PopulationTable& other) const;
-
-	int size() const;
-	int adults() const;
 };
