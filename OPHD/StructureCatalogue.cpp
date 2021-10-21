@@ -1,5 +1,7 @@
 #include "StructureCatalogue.h"
 
+#include "Things/Structures/Structures.h"
+
 #include <string>
 #include <stdexcept>
 

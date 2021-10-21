@@ -2,10 +2,14 @@
 
 #include "Common.h"
 #include "Constants.h"
-#include "Things/Structures/Structures.h"
 #include "StorableResources.h"
 
 #include <map>
+
+
+class Structure;
+struct PopulationRequirements;
+
 
 /** 
  * Provides a means of instantiating new structures and getting build
