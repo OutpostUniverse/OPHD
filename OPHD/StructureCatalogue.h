@@ -36,6 +36,5 @@ private:
 	~StructureCatalogue() {} // Explicitly declared private to prevent instantiation.
 
 private:
-	static std::map<StructureID, StorableResources> mStructureRecycleValueTable;
 	static float mMeanSolarDistance;
 };

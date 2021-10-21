@@ -6,6 +6,9 @@
 
 namespace
 {
+	std::map<StructureID, StorableResources> buildRecycleValueTable();
+
+
 	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
 	const std::map<StructureID, StorableResources> StructureCostTable =
 	{{
@@ -39,6 +42,8 @@ namespace
 		{SID_UNIVERSITY, {20, 10, 10, 5}},
 		{SID_WAREHOUSE, {10, 8, 5, 5}},
 	}};
+
+	const std::map<StructureID, StorableResources> StructureRecycleValueTable = buildRecycleValueTable();
 
 	const std::map<StructureID, PopulationRequirements> PopulationRequirementsTable = {
 		{SID_NONE, {}},
@@ -121,7 +126,6 @@ namespace
 	}
 }
 
-std::map<StructureID, StorableResources> StructureCatalogue::mStructureRecycleValueTable;
 float StructureCatalogue::mMeanSolarDistance = 0;
 
 
@@ -341,7 +345,7 @@ const StorableResources& StructureCatalogue::costToBuild(StructureID type)
  */
 const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 {
-	return findOrDefault(mStructureRecycleValueTable, type);
+	return findOrDefault(StructureRecycleValueTable, type);
 }
 
 
@@ -351,7 +355,6 @@ const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 void StructureCatalogue::init(float meanSolarDistance)
 {
 	mMeanSolarDistance = meanSolarDistance;
-	mStructureRecycleValueTable = buildRecycleValueTable();
 }
 
 
