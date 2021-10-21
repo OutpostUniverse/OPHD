@@ -11,7 +11,7 @@ float StructureCatalogue::mMeanSolarDistance = 0;
 
 /**	Default recycle value. Currently set at 90% but this should probably be
  *	lowered for actual gameplay with modifiers to improve efficiency. */
-const float DEFAULT_RECYCLE_VALUE = 0.9f;
+const int DEFAULT_RECYCLE_VALUE = 90;
 
 
 /**
@@ -353,7 +353,7 @@ void StructureCatalogue::buildPopulationRequirementsTable()
  * 
  * \param	type	A valid StructureID value.
  */
-StorableResources StructureCatalogue::recycleValue(StructureID type, float percent)
+StorableResources StructureCatalogue::recycleValue(StructureID type, int percent)
 {
-	return mStructureCostTable[type] * static_cast<int>(percent * 100) / 100;
+	return mStructureCostTable[type] * percent / 100;
 }

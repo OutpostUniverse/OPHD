@@ -38,7 +38,7 @@ private:
 	static void buildPopulationRequirementsTable();
 	static void buildRecycleValueTable();
 
-	static StorableResources recycleValue(StructureID type, float percent);
+	static StorableResources recycleValue(StructureID type, int percent);
 
 private:
 	static std::array<StorableResources, StructureID::SID_COUNT> mStructureCostTable;
