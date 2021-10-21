@@ -1,6 +1,7 @@
 #pragma once
 
-#include <array>
+#include <cstddef>
+
 
 struct PopulationTable
 {
@@ -11,23 +12,18 @@ struct PopulationTable
 	int retiree;
 
 
-	enum class Role
-	{
-		Child,
-		Student,
-		Worker,
-		Scientist,
-		Retired
-	};
+	int employable() const;
+	int adults() const;
+	int size() const;
 
 	int& operator[](std::size_t);
 	int operator[](std::size_t) const;
 
-	int& operator[](Role);
-	int operator[](Role) const;
-
 	PopulationTable& operator+=(const PopulationTable& other);
+	PopulationTable& operator-=(const PopulationTable& other);
 
-	int size() const;
-	int adults() const;
+	PopulationTable operator/(const PopulationTable& other) const;
+	PopulationTable operator%(const PopulationTable& other) const;
+
+	PopulationTable cap(const PopulationTable& other) const;
 };

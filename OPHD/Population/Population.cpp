@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <array>
 
 
 namespace
@@ -61,46 +62,49 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 	int divisorAdult = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 45) * 4;
 	int divisorRetiree = ((std::max(totalAdults, adultToRetireeBase) / 40) * 3 + 40) * 4;
 
-	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisorChild);
-	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisorStudent);
-	const auto newWorker = spawnRole(PopulationTable::Role::Worker, growthWorker, divisorAdult);
-	const auto newScientist = spawnRole(PopulationTable::Role::Scientist, growthScientist, divisorAdult);
-	const auto newRetiree = spawnRole(PopulationTable::Role::Retired, totalAdults / 10, divisorRetiree);
+	const auto newRoles = spawnRoles(
+		{growthChild, mPopulation.child, growthWorker, growthScientist, totalAdults / 10},
+		{divisorChild, divisorStudent, divisorAdult, divisorAdult, divisorRetiree}
+	);
 
-	mBirthCount = newChildren;
-	mPopulation.child -= newStudents;
-	mPopulation.student -= (newWorker + newScientist);
+	mBirthCount = newRoles.child;
+	mPopulation.child -= newRoles.student;
+	mPopulation.student -= (newRoles.worker + newRoles.scientist);
 
 	/** Workers retire earlier than scientists. */
-	const auto retireRole = randomNumber.generate(0, 100) <= 45 ?
-		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
-	if (mPopulation[retireRole] > 0) { mPopulation[retireRole] -= newRetiree; }
+	auto& retireRole = randomNumber.generate(0, 100) <= 45 ?
+		mPopulation.scientist : mPopulation.worker;
+	if (retireRole > 0) { retireRole -= newRoles.retiree; }
 }
 
 
-int Population::spawnRole(PopulationTable::Role role, int growth, int divisor)
+PopulationTable Population::spawnRoles(const PopulationTable& growth, const PopulationTable& divisor)
 {
-	mPopulationGrowth[role] += growth;
-	const auto newRoleCount = mPopulationGrowth[role] / divisor;
-	mPopulationGrowth[role] = mPopulationGrowth[role] % divisor;
-	mPopulation[role] += newRoleCount;
-	return newRoleCount;
+	mPopulationGrowth += growth;
+	const auto newRoles = mPopulationGrowth / divisor;
+	mPopulationGrowth = mPopulationGrowth % divisor;
+	mPopulation += newRoles;
+	return newRoles;
 }
 
 
-void Population::killRole(PopulationTable::Role role, int divisor)
+void Population::killRoles(const PopulationTable& divisor)
 {
-	mPopulationDeath[role] += mPopulation[role];
+	mPopulationDeath += mPopulation;
 
-	int deaths = std::min(mPopulationDeath[role] / divisor, mPopulation[role]);
-	mPopulationDeath[role] = mPopulationDeath[role] % divisor;
+	const auto deaths = (mPopulationDeath / divisor).cap(mPopulation);
+	mPopulationDeath = mPopulationDeath % divisor;
 
-	mPopulation[role] -= deaths;
-	mDeathCount += deaths;
+	mPopulation -= deaths;
+	mDeathCount += deaths.size();
 
-	if (mPopulation[role] == 0)
+	const auto roleCount = sizeof(PopulationTable) / sizeof(int);
+	for (std::size_t role = 0; role < roleCount; ++role)
 	{
-		mPopulationDeath[role] = 0;
+		if (mPopulation[role] == 0)
+		{
+			mPopulationDeath[role] = 0;
+		}
 	}
 }
 
@@ -113,11 +117,7 @@ void Population::killPopulation(int morale, int nurseries, int hospitals)
 	int divisorStudent = mortalityRate + (hospitals * 65);
 	int divisorAdult = mortalityRate + 250 + (hospitals * 60);
 
-	killRole(PopulationTable::Role::Child, divisorChild);
-	killRole(PopulationTable::Role::Student, divisorStudent);
-	killRole(PopulationTable::Role::Worker, divisorAdult * 2 - 50);
-	killRole(PopulationTable::Role::Scientist, divisorAdult * 2 + 50);
-	killRole(PopulationTable::Role::Retired, divisorAdult);
+	killRoles({divisorChild, divisorStudent, divisorAdult * 2 - 50, divisorAdult * 2 + 50, divisorAdult});
 
 	if (mPopulation.child <= 0)
 	{

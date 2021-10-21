@@ -1,8 +1,29 @@
 #include "PopulationTable.h"
 
-#include <numeric>
 #include <stdexcept>
 #include <string>
+#include <algorithm>
+
+
+int PopulationTable::employable() const
+{
+	return worker + scientist;
+}
+
+
+int PopulationTable::adults() const
+{
+	return student + worker + scientist + retiree;
+}
+
+
+/**
+ * Gets the size of the entire population.
+ */
+int PopulationTable::size() const
+{
+	return child + student + worker + scientist + retiree;
+}
 
 
 int& PopulationTable::operator[](std::size_t index)
@@ -45,18 +66,6 @@ int PopulationTable::operator[](std::size_t index) const
 }
 
 
-int& PopulationTable::operator[](Role role)
-{
-	return operator[](static_cast<std::size_t>(role));
-}
-
-
-int PopulationTable::operator[](Role role) const
-{
-	return operator[](static_cast<std::size_t>(role));
-}
-
-
 PopulationTable& PopulationTable::operator+=(const PopulationTable& other)
 {
 	child += other.child;
@@ -69,16 +78,49 @@ PopulationTable& PopulationTable::operator+=(const PopulationTable& other)
 }
 
 
-/**
- * Gets the size of the entire population.
- */
-int PopulationTable::size() const
+PopulationTable& PopulationTable::operator-=(const PopulationTable& other)
 {
-	return child + student + worker + scientist + retiree;
+	child -= other.child;
+	student -= other.student;
+	worker -= other.worker;
+	scientist -= other.scientist;
+	retiree -= other.retiree;
+
+	return *this;
 }
 
 
-int PopulationTable::adults() const
+PopulationTable PopulationTable::operator/(const PopulationTable& other) const
 {
-	return size() - child;
+	return {
+		child / other.child,
+		student / other.student,
+		worker / other.worker,
+		scientist / other.scientist,
+		retiree / other.retiree,
+	};
+}
+
+
+PopulationTable PopulationTable::operator%(const PopulationTable& other) const
+{
+	return {
+		child % other.child,
+		student % other.student,
+		worker % other.worker,
+		scientist % other.scientist,
+		retiree % other.retiree,
+	};
+}
+
+
+PopulationTable PopulationTable::cap(const PopulationTable& other) const
+{
+	return {
+		std::min(child, other.child),
+		std::min(student, other.student),
+		std::min(worker, other.worker),
+		std::min(scientist, other.scientist),
+		std::min(retiree, other.retiree),
+	};
 }

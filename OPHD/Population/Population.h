@@ -3,8 +3,6 @@
 #include "Morale.h"
 #include "PopulationTable.h"
 
-#include <vector>
-
 
 class Population
 {
@@ -21,10 +19,10 @@ public:
 	void starveRate(float rate) { mStarveRate = rate; }
 
 private:
-	int spawnRole(PopulationTable::Role role, int growth, int divisor);
+	PopulationTable spawnRoles(const PopulationTable& growth, const PopulationTable& divisor);
 	void spawnPopulation(int morale, int residences, int nurseries, int universities);
 
-	void killRole(PopulationTable::Role role, int divisor);
+	void killRoles(const PopulationTable& divisor);
 	void killPopulation(int morale, int nurseries, int hospitals);
 
 	int consumeFood(int food);
