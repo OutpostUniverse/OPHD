@@ -16,10 +16,25 @@
 #include "../Population/Population.h"
 #include "../Things/Structures/Structure.h"
 
-#include "../UI/Gui.h"
 #include "../UI/NotificationArea.h"
 #include "../UI/NotificationWindow.h"
-#include "../UI/UI.h"
+#include "../UI/DiggerDirection.h"
+#include "../UI/FactoryProduction.h"
+#include "../UI/FileIo.h"
+#include "../UI/GameOverDialog.h"
+#include "../UI/GameOptionsDialog.h"
+#include "../UI/IconGrid.h"
+#include "../UI/MajorEventAnnouncement.h"
+#include "../UI/MineOperationsWindow.h"
+#include "../UI/PopulationPanel.h"
+#include "../UI/ResourceBreakdownPanel.h"
+#include "../UI/RobotInspector.h"
+#include "../UI/StructureInspector.h"
+#include "../UI/TileInspector.h"
+#include "../UI/WarehouseInspector.h"
+
+#include "../UI/Core/WindowStack.h"
+#include "../UI/Core/ToolTip.h"
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Math/Point.h>

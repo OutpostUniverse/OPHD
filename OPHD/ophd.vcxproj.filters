@@ -392,9 +392,6 @@
     <ClInclude Include="UI\TileInspector.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="UI\UI.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
     <ClInclude Include="UI\Core\Button.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
@@ -534,9 +531,6 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\FileIo.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Gui.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\GameOptionsDialog.h">
