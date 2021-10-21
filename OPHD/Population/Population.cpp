@@ -147,51 +147,24 @@ void Population::killPopulation(int morale, int nurseries, int hospitals)
  */
 int Population::consumeFood(int food)
 {
-	// If there's no food kill everybody (humans can survive up to 21 days without food, one turn == minimum 28 days)
-	if (food == 0)
+	const int PopulationPerFood = 10;
+	const int populationFed = food * PopulationPerFood;
+	const int populationUnfed = mPopulation.size() - populationFed;
+	const int minKill = std::clamp(populationUnfed, 0, 1);
+	const int populationToKill = std::clamp(static_cast<int>(populationUnfed * mStarveRate), minKill, mPopulation.size());
+	mDeathCount += populationToKill;
+
+	for (int i = populationToKill; i > 0; mStarveRoleIndex = (mStarveRoleIndex + 1) % 5)
 	{
-		mDeathCount = mPopulation.size();
-		clear();
-		return 0;
-	}
-
-	int PopulationFed = food * 10;
-	if (PopulationFed > mPopulation.size())
-	{
-		return mPopulation.size() / 10;
-	}
-
-
-	int populationToKill = static_cast<int>((mPopulation.size() - PopulationFed) * mStarveRate);
-	if (mPopulation.size() == 1) { populationToKill = 1; }
-
-	for (int i = 0; i < populationToKill; /**/)
-	{
-		std::size_t roleIndex = i % 5;
-
-		std::size_t counter = 0;
-		for (;;)
+		if (mPopulation[mStarveRoleIndex] > 0)
 		{
-			roleIndex = roleIndex + counter;
-			if (roleIndex > 4) { roleIndex = 0; }
-
-			if (mPopulation[roleIndex] > 0)
-			{
-				break;
-			}
-
-			++counter;
-			if (counter > 4) { counter = 0; }
+			--mPopulation[mStarveRoleIndex];
+			--i;
 		}
-
-		--mPopulation[roleIndex];
-		++i;
 	}
 
-	mDeathCount = populationToKill;
-
-	// actual amount of food used for the fed part of the population.
-	return PopulationFed / 10;
+	// Round up food consumption for remaining people
+	return (mPopulation.size() + (PopulationPerFood - 1)) / PopulationPerFood;
 }
 
 
