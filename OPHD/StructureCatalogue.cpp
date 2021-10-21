@@ -1,17 +1,135 @@
 #include "StructureCatalogue.h"
 
+#include "StorableResources.h"
+#include "Things/Structures/Structures.h"
+
 #include <string>
 #include <stdexcept>
 
 
-std::array<StorableResources, StructureID::SID_COUNT> StructureCatalogue::mStructureCostTable;
-std::array<StorableResources, StructureID::SID_COUNT> StructureCatalogue::mStructureRecycleValueTable;
-std::array<PopulationRequirements, StructureID::SID_COUNT> StructureCatalogue::mPopulationRequirementsTable = {};
-float StructureCatalogue::mMeanSolarDistance = 0;
+namespace
+{
+	std::map<StructureID, StorableResources> buildRecycleValueTable();
 
-/**	Default recycle value. Currently set at 90% but this should probably be
- *	lowered for actual gameplay with modifiers to improve efficiency. */
-const float DEFAULT_RECYCLE_VALUE = 0.9f;
+
+	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
+	const std::map<StructureID, StorableResources> StructureCostTable =
+	{{
+		{SID_NONE, {}},
+		{SID_AGRIDOME, {12, 10, 2, 2}},
+		{SID_CHAP, {25, 10, 10, 5}},
+		{SID_COMMAND_CENTER, {100, 75, 65, 35}},
+		{SID_COMMERCIAL, {15, 8, 5, 2}},
+		{SID_COMM_TOWER, {10, 5, 5, 3}},
+		{SID_FUSION_REACTOR, {50, 30, 25, 15}},
+		{SID_HOT_LABORATORY, {30, 10, 15, 5}},
+		{SID_LABORATORY, {20, 10, 10, 5}},
+		{SID_MAINTENANCE_FACILITY, {15, 10, 2, 1}},
+		{SID_MEDICAL_CENTER, {15, 5, 5, 3}},
+		{SID_NURSERY, {15, 5, 5, 3}},
+		{SID_PARK, {10, 10, 3, 2}},
+		{SID_SURFACE_POLICE, {15, 5, 8, 2}},
+		{SID_UNDERGROUND_POLICE, {15, 5, 8, 2}},
+		{SID_RECREATION_CENTER, {20, 5, 2, 0}},
+		{SID_RECYCLING, {15, 10, 8, 3}},
+		{SID_RED_LIGHT_DISTRICT, {20, 10, 10, 3}},
+		{SID_RESIDENCE, {15, 5, 2, 0}},
+		{SID_ROAD, {10, 15, 0, 0}},
+		{SID_ROBOT_COMMAND, {35, 20, 25, 10}},
+		{SID_SMELTER, {30, 20, 10, 5}},
+		{SID_SOLAR_PANEL1, {10, 20, 5, 5}},
+		{SID_SOLAR_PLANT, {50, 25, 50, 20}},
+		{SID_STORAGE_TANKS, {10, 5, 6, 1}},
+		{SID_SURFACE_FACTORY, {25, 10, 10, 5}},
+		{SID_UNDERGROUND_FACTORY, {25, 10, 10, 5}},
+		{SID_UNIVERSITY, {20, 10, 10, 5}},
+		{SID_WAREHOUSE, {10, 8, 5, 5}},
+	}};
+
+	const std::map<StructureID, StorableResources> StructureRecycleValueTable = buildRecycleValueTable();
+
+	const std::map<StructureID, PopulationRequirements> PopulationRequirementsTable = {
+		{SID_NONE, {}},
+		{SID_AGRIDOME, {1, 0}},
+		{SID_CHAP, {2, 0}},
+		{SID_COMMERCIAL, {1, 0}},
+		{SID_FUSION_REACTOR, {1, 2}},
+		{SID_HOT_LABORATORY, {1, 5}},
+		{SID_LABORATORY, {1, 5}},
+		{SID_MEDICAL_CENTER, {1, 2}},
+		{SID_NURSERY, {1, 1}},
+		{SID_PARK, {1, 0}},
+		{SID_SURFACE_POLICE, {3, 0}},
+		{SID_UNDERGROUND_POLICE, {3, 0}},
+		{SID_RECREATION_CENTER, {2, 0}},
+		{SID_RECYCLING, {1, 1}},
+		{SID_RED_LIGHT_DISTRICT, {2, 0}},
+		{SID_ROBOT_COMMAND, {4, 0}},
+		{SID_SEED_FACTORY, {2, 0}},
+		{SID_SEED_SMELTER, {2, 0}},
+		{SID_SMELTER, {4, 0}},
+		{SID_SOLAR_PANEL1, {0, 0}},
+		{SID_SURFACE_FACTORY, {4, 0}},
+		{SID_UNDERGROUND_FACTORY, {2, 0}},
+		{SID_UNIVERSITY, {1, 3}},
+		{SID_WAREHOUSE, {1, 0}},
+	};
+
+	/**	Default recycle value. Currently set at 90% but this should probably be
+	 *	lowered for actual gameplay with modifiers to improve efficiency. */
+	const int DEFAULT_RECYCLE_VALUE = 90;
+
+
+	template <typename Value>
+	const Value& findOrDefault(const std::map<StructureID, Value>& container, StructureID key)
+	{
+		const auto it = container.find(key);
+		if (it != container.end())
+		{
+			return it->second;
+		}
+		return container.at(StructureID::SID_NONE);
+	}
+
+
+	/**
+	 * Calculates the base recycling value of a given structure.
+	 *
+	 * \param	type	A valid StructureID value.
+	 */
+	StorableResources recycleValue(StructureID type, int percent)
+	{
+		return findOrDefault(StructureCostTable, type) * percent / 100;
+	}
+
+
+	/**
+	 * Fills out the recycle value for all structures.
+	 */
+	std::map<StructureID, StorableResources> buildRecycleValueTable()
+	{
+		std::map<StructureID, StorableResources> structureRecycleValueTable;
+
+		for (std::size_t i = 0; i < StructureID::SID_COUNT; ++i)
+		{
+			structureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), DEFAULT_RECYCLE_VALUE);
+		}
+
+		// Set recycling values for landers and automatically built structures.
+		// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
+		structureRecycleValueTable[StructureID::SID_MINE_FACILITY] = {15, 10, 5, 5};
+		structureRecycleValueTable[StructureID::SID_CARGO_LANDER] = {15, 10, 5, 5};
+		structureRecycleValueTable[StructureID::SID_COLONIST_LANDER] = {15, 10, 5, 5};
+		structureRecycleValueTable[StructureID::SID_SEED_LANDER] = {10, 5, 5, 5};
+		structureRecycleValueTable[StructureID::SID_SEED_FACTORY] = {15, 10, 5, 5};
+		structureRecycleValueTable[StructureID::SID_SEED_POWER] = {15, 10, 5, 5};
+		structureRecycleValueTable[StructureID::SID_SEED_SMELTER] = {15, 10, 5, 5};
+
+		return structureRecycleValueTable;
+	}
+}
+
+float StructureCatalogue::mMeanSolarDistance = 0;
 
 
 /**
@@ -208,7 +326,7 @@ Structure* StructureCatalogue::get(StructureID type)
  */
 const PopulationRequirements& StructureCatalogue::populationRequirements(StructureID type)
 {
-	return mPopulationRequirementsTable[type];
+	return findOrDefault(PopulationRequirementsTable, type);
 }
 
 
@@ -219,7 +337,7 @@ const PopulationRequirements& StructureCatalogue::populationRequirements(Structu
  */
 const StorableResources& StructureCatalogue::costToBuild(StructureID type)
 {
-	return mStructureCostTable[type];
+	return findOrDefault(StructureCostTable, type);
 }
 
 
@@ -228,9 +346,9 @@ const StorableResources& StructureCatalogue::costToBuild(StructureID type)
  * 
  * \param	type	A valid StructureID value.
  */
-const StorableResources StructureCatalogue::recyclingValue(StructureID type)
+const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 {
-	return mStructureRecycleValueTable[type];
+	return findOrDefault(StructureRecycleValueTable, type);
 }
 
 
@@ -240,9 +358,6 @@ const StorableResources StructureCatalogue::recyclingValue(StructureID type)
 void StructureCatalogue::init(float meanSolarDistance)
 {
 	mMeanSolarDistance = meanSolarDistance;
-	buildCostTable();
-	buildRecycleValueTable();
-	buildPopulationRequirementsTable();
 }
 
 
@@ -253,113 +368,4 @@ void StructureCatalogue::init(float meanSolarDistance)
 bool StructureCatalogue::canBuild(const StorableResources& source, StructureID type)
 {
 	return StructureCatalogue::costToBuild(type) <= source;
-}
-
-
-/**
- * Fills out the build costs for all structures.
- */
-void StructureCatalogue::buildCostTable()
-{
-	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
-	mStructureCostTable[StructureID::SID_AGRIDOME] = {12, 10, 2, 2};
-	mStructureCostTable[StructureID::SID_CHAP] = {25, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_COMMAND_CENTER] = {100, 75, 65, 35};
-	mStructureCostTable[StructureID::SID_COMMERCIAL] = {15, 8, 5, 2};
-	mStructureCostTable[StructureID::SID_COMM_TOWER] = {10, 5, 5, 3};
-	mStructureCostTable[StructureID::SID_FUSION_REACTOR] = {50, 30, 25, 15};
-	mStructureCostTable[StructureID::SID_HOT_LABORATORY] = {30, 10, 15, 5};
-	mStructureCostTable[StructureID::SID_LABORATORY] = {20, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_MAINTENANCE_FACILITY] = {15, 10, 2, 1};
-	mStructureCostTable[StructureID::SID_MEDICAL_CENTER] = {15, 5, 5, 3};
-	mStructureCostTable[StructureID::SID_NURSERY] = {15, 5, 5, 3};
-	mStructureCostTable[StructureID::SID_PARK] = {10, 10, 3, 2};
-	mStructureCostTable[StructureID::SID_SURFACE_POLICE] = {15, 5, 8, 2};
-	mStructureCostTable[StructureID::SID_UNDERGROUND_POLICE] = {15, 5, 8, 2};
-	mStructureCostTable[StructureID::SID_RECREATION_CENTER] = {20, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_RECYCLING] = {15, 10, 8, 3};
-	mStructureCostTable[StructureID::SID_RED_LIGHT_DISTRICT] = {20, 10, 10, 3};
-	mStructureCostTable[StructureID::SID_RESIDENCE] = {15, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_ROAD] = {10, 15, 0, 0};
-	mStructureCostTable[StructureID::SID_ROBOT_COMMAND] = {35, 20, 25, 10};
-	mStructureCostTable[StructureID::SID_SMELTER] = {30, 20, 10, 5};
-	mStructureCostTable[StructureID::SID_SOLAR_PANEL1] = {10, 20, 5, 5};
-	mStructureCostTable[StructureID::SID_SOLAR_PLANT] = {50, 25, 50, 20};
-	mStructureCostTable[StructureID::SID_STORAGE_TANKS] = {10, 5, 6, 1};
-	mStructureCostTable[StructureID::SID_SURFACE_FACTORY] = {25, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_UNDERGROUND_FACTORY] = {25, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_UNIVERSITY] = {20, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_WAREHOUSE] = {10, 8, 5, 5};
-}
-
-
-/**
- * Fills out the recycle value for all structures.
- */
-void StructureCatalogue::buildRecycleValueTable()
-{
-	for (std::size_t i = 0; i < StructureID::SID_COUNT; ++i)
-	{
-		mStructureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), DEFAULT_RECYCLE_VALUE);
-	}
-
-	// Set recycling values for landers and automatically built structures.
-	// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
-	mStructureRecycleValueTable[StructureID::SID_MINE_FACILITY] = {15, 10, 5, 5};
-	mStructureRecycleValueTable[StructureID::SID_CARGO_LANDER] = {15, 10, 5, 5};
-	mStructureRecycleValueTable[StructureID::SID_COLONIST_LANDER] = {15, 10, 5, 5};
-	mStructureRecycleValueTable[StructureID::SID_SEED_LANDER] = {10, 5, 5, 5};
-	mStructureRecycleValueTable[StructureID::SID_SEED_FACTORY] = {15, 10, 5, 5};
-	mStructureRecycleValueTable[StructureID::SID_SEED_POWER] = {15, 10, 5, 5};
-	mStructureRecycleValueTable[StructureID::SID_SEED_SMELTER] = {15, 10, 5, 5};
-
-}
-
-
-/**
- * Fills out the population requirements for all structures.
- */
-void StructureCatalogue::buildPopulationRequirementsTable()
-{
-	// WORKERS, SCIENTISTS
-	mPopulationRequirementsTable[StructureID::SID_AGRIDOME] = {1, 0};
-	mPopulationRequirementsTable[StructureID::SID_CHAP] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_COMMERCIAL] = {1, 0};
-	mPopulationRequirementsTable[StructureID::SID_FUSION_REACTOR] = {1, 2};
-	mPopulationRequirementsTable[StructureID::SID_HOT_LABORATORY] = {1, 5};
-	mPopulationRequirementsTable[StructureID::SID_LABORATORY] = {1, 5};
-	mPopulationRequirementsTable[StructureID::SID_MEDICAL_CENTER] = {1, 2};
-	mPopulationRequirementsTable[StructureID::SID_NURSERY] = {1, 1};
-	mPopulationRequirementsTable[StructureID::SID_PARK] = {1, 0};
-	mPopulationRequirementsTable[StructureID::SID_SURFACE_POLICE] = {3, 0};
-	mPopulationRequirementsTable[StructureID::SID_UNDERGROUND_POLICE] = {3, 0};
-	mPopulationRequirementsTable[StructureID::SID_RECREATION_CENTER] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_RECYCLING] = {1, 1};
-	mPopulationRequirementsTable[StructureID::SID_RED_LIGHT_DISTRICT] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_ROBOT_COMMAND] = {4, 0};
-	mPopulationRequirementsTable[StructureID::SID_SEED_FACTORY] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_SEED_SMELTER] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_SMELTER] = {4, 0};
-	mPopulationRequirementsTable[StructureID::SID_SOLAR_PANEL1] = {0, 0};
-	mPopulationRequirementsTable[StructureID::SID_SURFACE_FACTORY] = {4, 0};
-	mPopulationRequirementsTable[StructureID::SID_UNDERGROUND_FACTORY] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_UNIVERSITY] = {1, 3};
-	mPopulationRequirementsTable[StructureID::SID_WAREHOUSE] = {1, 0};
-}
-
-
-/**
- * Calculates the base recycling value of a given structure.
- * 
- * \param	type	A valid StructureID value.
- */
-StorableResources StructureCatalogue::recycleValue(StructureID type, float percent)
-{
-	auto recyclingValue = mStructureCostTable[type];
-	for (size_t i = 0; i < recyclingValue.resources.size(); ++i)
-	{
-		// Truncation of value from float to int cast is intended and desired behavior
-		recyclingValue.resources[i] = static_cast<int>(recyclingValue.resources[i] * percent);
-	}
-	return recyclingValue;
 }
