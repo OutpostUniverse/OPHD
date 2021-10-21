@@ -532,7 +532,7 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 {
 	if (element)
 	{
-		mPopulation.clear();
+		mPopulation = {};
 
 		const auto dictionary = NAS2D::attributesToDictionary(*element);
 
