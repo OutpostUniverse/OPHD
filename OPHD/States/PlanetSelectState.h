@@ -1,7 +1,11 @@
 #pragma once
 
 #include "Planet.h"
-#include "../UI/UI.h"
+
+#include "../Constants.h"
+
+#include "../UI/Core/Button.h"
+#include "../UI/Core/TextArea.h"
 
 #include <NAS2D/State.h>
 #include <NAS2D/Timer.h>
