@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <iostream>
 #include <array>
+#include <stdexcept>
+#include <string>
 
 
 namespace
@@ -70,6 +72,11 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 	mBirthCount = newRoles.child;
 	mPopulation.child -= newRoles.student;
 	mPopulation.student -= (newRoles.worker + newRoles.scientist);
+
+	if (newRoles.retiree > mPopulation.employable())
+	{
+		throw std::runtime_error("Retiring more people than employable population: Retiring: " + std::to_string(newRoles.retiree));
+	}
 
 	for (int toRetire = newRoles.retiree; toRetire > 0;)
 	{
