@@ -70,6 +70,18 @@ PopulationTable& PopulationTable::operator+=(const PopulationTable& other)
 }
 
 
+PopulationTable& PopulationTable::operator-=(const PopulationTable& other)
+{
+	child -= other.child;
+	student -= other.student;
+	worker -= other.worker;
+	scientist -= other.scientist;
+	retiree -= other.retiree;
+
+	return *this;
+}
+
+
 PopulationTable PopulationTable::operator/(const PopulationTable& other) const
 {
 	return {

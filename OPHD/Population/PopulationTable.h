@@ -27,6 +27,7 @@ struct PopulationTable
 	int operator[](Role) const;
 
 	PopulationTable& operator+=(const PopulationTable& other);
+	PopulationTable& operator-=(const PopulationTable& other);
 
 	PopulationTable operator/(const PopulationTable& other) const;
 	PopulationTable operator%(const PopulationTable& other) const;
