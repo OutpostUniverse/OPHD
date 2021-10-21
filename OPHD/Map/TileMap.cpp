@@ -43,6 +43,48 @@ const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYieldTable =
 };
 
 
+std::map<Tile::Overlay, NAS2D::Color> OverlayColorTable =
+{
+	{Tile::Overlay::None, NAS2D::Color::Normal},
+	{Tile::Overlay::Communications, {125, 200, 255}},
+	{Tile::Overlay::Connectedness, NAS2D::Color::Green},
+	{Tile::Overlay::TruckingRoutes, NAS2D::Color::Orange},
+	{Tile::Overlay::Police, NAS2D::Color::Red}
+};
+
+std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColorTable =
+{
+	{Tile::Overlay::None, NAS2D::Color{125, 200, 255}},
+	{Tile::Overlay::Communications, {100, 180, 230}},
+	{Tile::Overlay::Connectedness, NAS2D::Color{71, 224, 146}},
+	{Tile::Overlay::TruckingRoutes, NAS2D::Color{125, 200, 255}},
+	{Tile::Overlay::Police, NAS2D::Color{100, 180, 230}}
+};
+
+
+const NAS2D::Color& overlayColor(Tile::Overlay overlay)
+{
+	return OverlayColorTable.at(overlay);
+}
+
+
+const NAS2D::Color& overlayHighlightColor(Tile::Overlay overlay)
+{
+	return OverlayHighlightColorTable.at(overlay);
+}
+
+
+const NAS2D::Color& overlayColor(Tile::Overlay overlay, bool isHighlighted)
+{
+	if (isHighlighted)
+	{
+		return overlayHighlightColor(overlay);
+	}
+
+	return overlayColor(overlay);
+}
+
+
 TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
 	mSizeInTiles{MAP_WIDTH, MAP_HEIGHT},
 	mMaxDepth(maxDepth),
