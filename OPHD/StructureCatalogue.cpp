@@ -4,6 +4,20 @@
 #include <stdexcept>
 
 
+namespace
+{
+	template <typename Value>
+	const Value& findOrDefault(const std::map<StructureID, Value>& container, StructureID key)
+	{
+		const auto it = container.find(key);
+		if (it != container.end())
+		{
+			return it->second;
+		}
+		return container.at(StructureID::SID_NONE);
+	}
+}
+
 std::map<StructureID, StorableResources> StructureCatalogue::mStructureCostTable;
 std::map<StructureID, StorableResources> StructureCatalogue::mStructureRecycleValueTable;
 std::map<StructureID, PopulationRequirements> StructureCatalogue::mPopulationRequirementsTable = {};
@@ -208,7 +222,7 @@ Structure* StructureCatalogue::get(StructureID type)
  */
 const PopulationRequirements& StructureCatalogue::populationRequirements(StructureID type)
 {
-	return mPopulationRequirementsTable[type];
+	return findOrDefault(mPopulationRequirementsTable, type);
 }
 
 
@@ -219,7 +233,7 @@ const PopulationRequirements& StructureCatalogue::populationRequirements(Structu
  */
 const StorableResources& StructureCatalogue::costToBuild(StructureID type)
 {
-	return mStructureCostTable[type];
+	return findOrDefault(mStructureCostTable, type);
 }
 
 
@@ -230,7 +244,7 @@ const StorableResources& StructureCatalogue::costToBuild(StructureID type)
  */
 const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 {
-	return mStructureRecycleValueTable[type];
+	return findOrDefault(mStructureRecycleValueTable, type);
 }
 
 
@@ -264,6 +278,7 @@ void StructureCatalogue::buildCostTable()
 	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
 	mStructureCostTable =
 	{{
+		{SID_NONE, {}},
 		{SID_AGRIDOME, {12, 10, 2, 2}},
 		{SID_CHAP, {25, 10, 10, 5}},
 		{SID_COMMAND_CENTER, {100, 75, 65, 35}},
@@ -326,6 +341,7 @@ void StructureCatalogue::buildPopulationRequirementsTable()
 {
 	// WORKERS, SCIENTISTS
 	mPopulationRequirementsTable = {
+		{SID_NONE, {}},
 		{SID_AGRIDOME, {1, 0}},
 		{SID_CHAP, {2, 0}},
 		{SID_COMMERCIAL, {1, 0}},
@@ -360,5 +376,5 @@ void StructureCatalogue::buildPopulationRequirementsTable()
  */
 StorableResources StructureCatalogue::recycleValue(StructureID type, int percent)
 {
-	return mStructureCostTable[type] * percent / 100;
+	return findOrDefault(mStructureCostTable, type) * percent / 100;
 }
