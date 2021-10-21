@@ -12,8 +12,6 @@ public:
 	int birthCount() const { return mBirthCount; }
 	int deathCount() const { return mDeathCount; }
 
-	void clear();
-
 	const PopulationTable& getPopulations() const;
 
 	void addPopulation(const PopulationTable& population);
