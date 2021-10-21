@@ -1,5 +1,6 @@
 #include "StructureCatalogue.h"
 
+#include "StorableResources.h"
 #include "Things/Structures/Structures.h"
 
 #include <string>

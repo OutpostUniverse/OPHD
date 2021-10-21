@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Common.h"
-#include "StorableResources.h"
 
 #include <map>
 
 
 class Structure;
 struct PopulationRequirements;
+struct StorableResources;
 
 
 /** 
