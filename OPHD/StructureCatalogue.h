@@ -32,8 +32,7 @@ public:
 	static bool canBuild(const StorableResources& source, StructureID type);
 
 private:
-	StructureCatalogue() {} // Explicitly declared private to prevent instantiation.
-	~StructureCatalogue() {} // Explicitly declared private to prevent instantiation.
+	StructureCatalogue() = delete;
 
 private:
 	static float mMeanSolarDistance;
