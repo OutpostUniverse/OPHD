@@ -44,7 +44,7 @@ namespace {
 	};
 
 
-	std::map<Tile::Overlay, NAS2D::Color> OverlayColorTable =
+	const std::map<Tile::Overlay, NAS2D::Color> OverlayColorTable =
 	{
 		{Tile::Overlay::None, NAS2D::Color::Normal},
 		{Tile::Overlay::Communications, {125, 200, 255}},
@@ -53,7 +53,7 @@ namespace {
 		{Tile::Overlay::Police, NAS2D::Color::Red}
 	};
 
-	std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColorTable =
+	const std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColorTable =
 	{
 		{Tile::Overlay::None, NAS2D::Color{125, 200, 255}},
 		{Tile::Overlay::Communications, {100, 180, 230}},
