@@ -6,6 +6,12 @@
 #include <algorithm>
 
 
+int PopulationTable::employable() const
+{
+	return worker + scientist;
+}
+
+
 int PopulationTable::adults() const
 {
 	return student + worker + scientist + retiree;

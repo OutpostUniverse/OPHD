@@ -11,6 +11,7 @@ struct PopulationTable
 	int retiree;
 
 
+	int employable() const;
 	int adults() const;
 	int size() const;
 
