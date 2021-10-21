@@ -12,8 +12,6 @@ public:
 	int birthCount() const { return mBirthCount; }
 	int deathCount() const { return mDeathCount; }
 
-	void clear();
-
 	const PopulationTable& getPopulations() const;
 
 	void addPopulation(const PopulationTable& population);
@@ -30,9 +28,6 @@ private:
 	void killPopulation(int morale, int nurseries, int hospitals);
 
 	int consumeFood(int food);
-
-
-	using MoraleModifiers = std::array<MoraleModifier, 5>;
 
 
 	int mBirthCount{0};

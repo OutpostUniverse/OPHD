@@ -32,15 +32,6 @@ namespace
 }
 
 
-/**
- * Clears entire population.
- */
-void Population::clear()
-{
-	mPopulation = {};
-}
-
-
 const PopulationTable& Population::getPopulations() const
 {
 	return mPopulation;
