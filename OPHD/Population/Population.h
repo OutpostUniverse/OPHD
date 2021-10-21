@@ -30,9 +30,6 @@ private:
 	int consumeFood(int food);
 
 
-	using MoraleModifiers = std::array<MoraleModifier, 5>;
-
-
 	int mBirthCount{0};
 	int mDeathCount{0};
 
