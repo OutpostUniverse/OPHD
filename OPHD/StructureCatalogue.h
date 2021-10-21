@@ -26,7 +26,7 @@ public:
 
 	static const PopulationRequirements& populationRequirements(StructureID type);
 	static const StorableResources& costToBuild(StructureID type);
-	static const StorableResources recyclingValue(StructureID type);
+	static const StorableResources& recyclingValue(StructureID type);
 
 	static bool canBuild(const StorableResources& source, StructureID type);
 

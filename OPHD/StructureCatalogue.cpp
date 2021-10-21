@@ -228,7 +228,7 @@ const StorableResources& StructureCatalogue::costToBuild(StructureID type)
  * 
  * \param	type	A valid StructureID value.
  */
-const StorableResources StructureCatalogue::recyclingValue(StructureID type)
+const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 {
 	return mStructureRecycleValueTable[type];
 }
