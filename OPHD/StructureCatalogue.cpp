@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 
-std::array<StorableResources, StructureID::SID_COUNT> StructureCatalogue::mStructureCostTable;
+std::map<StructureID, StorableResources> StructureCatalogue::mStructureCostTable;
 std::array<StorableResources, StructureID::SID_COUNT> StructureCatalogue::mStructureRecycleValueTable;
 std::array<PopulationRequirements, StructureID::SID_COUNT> StructureCatalogue::mPopulationRequirementsTable = {};
 float StructureCatalogue::mMeanSolarDistance = 0;
@@ -262,34 +262,37 @@ bool StructureCatalogue::canBuild(const StorableResources& source, StructureID t
 void StructureCatalogue::buildCostTable()
 {
 	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
-	mStructureCostTable[StructureID::SID_AGRIDOME] = {12, 10, 2, 2};
-	mStructureCostTable[StructureID::SID_CHAP] = {25, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_COMMAND_CENTER] = {100, 75, 65, 35};
-	mStructureCostTable[StructureID::SID_COMMERCIAL] = {15, 8, 5, 2};
-	mStructureCostTable[StructureID::SID_COMM_TOWER] = {10, 5, 5, 3};
-	mStructureCostTable[StructureID::SID_FUSION_REACTOR] = {50, 30, 25, 15};
-	mStructureCostTable[StructureID::SID_HOT_LABORATORY] = {30, 10, 15, 5};
-	mStructureCostTable[StructureID::SID_LABORATORY] = {20, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_MAINTENANCE_FACILITY] = {15, 10, 2, 1};
-	mStructureCostTable[StructureID::SID_MEDICAL_CENTER] = {15, 5, 5, 3};
-	mStructureCostTable[StructureID::SID_NURSERY] = {15, 5, 5, 3};
-	mStructureCostTable[StructureID::SID_PARK] = {10, 10, 3, 2};
-	mStructureCostTable[StructureID::SID_SURFACE_POLICE] = {15, 5, 8, 2};
-	mStructureCostTable[StructureID::SID_UNDERGROUND_POLICE] = {15, 5, 8, 2};
-	mStructureCostTable[StructureID::SID_RECREATION_CENTER] = {20, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_RECYCLING] = {15, 10, 8, 3};
-	mStructureCostTable[StructureID::SID_RED_LIGHT_DISTRICT] = {20, 10, 10, 3};
-	mStructureCostTable[StructureID::SID_RESIDENCE] = {15, 5, 2, 0};
-	mStructureCostTable[StructureID::SID_ROAD] = {10, 15, 0, 0};
-	mStructureCostTable[StructureID::SID_ROBOT_COMMAND] = {35, 20, 25, 10};
-	mStructureCostTable[StructureID::SID_SMELTER] = {30, 20, 10, 5};
-	mStructureCostTable[StructureID::SID_SOLAR_PANEL1] = {10, 20, 5, 5};
-	mStructureCostTable[StructureID::SID_SOLAR_PLANT] = {50, 25, 50, 20};
-	mStructureCostTable[StructureID::SID_STORAGE_TANKS] = {10, 5, 6, 1};
-	mStructureCostTable[StructureID::SID_SURFACE_FACTORY] = {25, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_UNDERGROUND_FACTORY] = {25, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_UNIVERSITY] = {20, 10, 10, 5};
-	mStructureCostTable[StructureID::SID_WAREHOUSE] = {10, 8, 5, 5};
+	mStructureCostTable =
+	{{
+		{SID_AGRIDOME, {12, 10, 2, 2}},
+		{SID_CHAP, {25, 10, 10, 5}},
+		{SID_COMMAND_CENTER, {100, 75, 65, 35}},
+		{SID_COMMERCIAL, {15, 8, 5, 2}},
+		{SID_COMM_TOWER, {10, 5, 5, 3}},
+		{SID_FUSION_REACTOR, {50, 30, 25, 15}},
+		{SID_HOT_LABORATORY, {30, 10, 15, 5}},
+		{SID_LABORATORY, {20, 10, 10, 5}},
+		{SID_MAINTENANCE_FACILITY, {15, 10, 2, 1}},
+		{SID_MEDICAL_CENTER, {15, 5, 5, 3}},
+		{SID_NURSERY, {15, 5, 5, 3}},
+		{SID_PARK, {10, 10, 3, 2}},
+		{SID_SURFACE_POLICE, {15, 5, 8, 2}},
+		{SID_UNDERGROUND_POLICE, {15, 5, 8, 2}},
+		{SID_RECREATION_CENTER, {20, 5, 2, 0}},
+		{SID_RECYCLING, {15, 10, 8, 3}},
+		{SID_RED_LIGHT_DISTRICT, {20, 10, 10, 3}},
+		{SID_RESIDENCE, {15, 5, 2, 0}},
+		{SID_ROAD, {10, 15, 0, 0}},
+		{SID_ROBOT_COMMAND, {35, 20, 25, 10}},
+		{SID_SMELTER, {30, 20, 10, 5}},
+		{SID_SOLAR_PANEL1, {10, 20, 5, 5}},
+		{SID_SOLAR_PLANT, {50, 25, 50, 20}},
+		{SID_STORAGE_TANKS, {10, 5, 6, 1}},
+		{SID_SURFACE_FACTORY, {25, 10, 10, 5}},
+		{SID_UNDERGROUND_FACTORY, {25, 10, 10, 5}},
+		{SID_UNIVERSITY, {20, 10, 10, 5}},
+		{SID_WAREHOUSE, {10, 8, 5, 5}},
+	}};
 }
 
 

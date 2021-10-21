@@ -6,6 +6,7 @@
 #include "StorableResources.h"
 
 #include <array>
+#include <map>
 
 /** 
  * Provides a means of instantiating new structures and getting build
@@ -41,7 +42,7 @@ private:
 	static StorableResources recycleValue(StructureID type, int percent);
 
 private:
-	static std::array<StorableResources, StructureID::SID_COUNT> mStructureCostTable;
+	static std::map<StructureID, StorableResources> mStructureCostTable;
 	static std::array<StorableResources, StructureID::SID_COUNT> mStructureRecycleValueTable;
 	static std::array<PopulationRequirements, StructureID::SID_COUNT> mPopulationRequirementsTable;
 	static float mMeanSolarDistance;
