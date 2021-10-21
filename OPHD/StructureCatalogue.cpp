@@ -6,6 +6,41 @@
 
 namespace
 {
+	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
+	const std::map<StructureID, StorableResources> StructureCostTable =
+	{{
+		{SID_NONE, {}},
+		{SID_AGRIDOME, {12, 10, 2, 2}},
+		{SID_CHAP, {25, 10, 10, 5}},
+		{SID_COMMAND_CENTER, {100, 75, 65, 35}},
+		{SID_COMMERCIAL, {15, 8, 5, 2}},
+		{SID_COMM_TOWER, {10, 5, 5, 3}},
+		{SID_FUSION_REACTOR, {50, 30, 25, 15}},
+		{SID_HOT_LABORATORY, {30, 10, 15, 5}},
+		{SID_LABORATORY, {20, 10, 10, 5}},
+		{SID_MAINTENANCE_FACILITY, {15, 10, 2, 1}},
+		{SID_MEDICAL_CENTER, {15, 5, 5, 3}},
+		{SID_NURSERY, {15, 5, 5, 3}},
+		{SID_PARK, {10, 10, 3, 2}},
+		{SID_SURFACE_POLICE, {15, 5, 8, 2}},
+		{SID_UNDERGROUND_POLICE, {15, 5, 8, 2}},
+		{SID_RECREATION_CENTER, {20, 5, 2, 0}},
+		{SID_RECYCLING, {15, 10, 8, 3}},
+		{SID_RED_LIGHT_DISTRICT, {20, 10, 10, 3}},
+		{SID_RESIDENCE, {15, 5, 2, 0}},
+		{SID_ROAD, {10, 15, 0, 0}},
+		{SID_ROBOT_COMMAND, {35, 20, 25, 10}},
+		{SID_SMELTER, {30, 20, 10, 5}},
+		{SID_SOLAR_PANEL1, {10, 20, 5, 5}},
+		{SID_SOLAR_PLANT, {50, 25, 50, 20}},
+		{SID_STORAGE_TANKS, {10, 5, 6, 1}},
+		{SID_SURFACE_FACTORY, {25, 10, 10, 5}},
+		{SID_UNDERGROUND_FACTORY, {25, 10, 10, 5}},
+		{SID_UNIVERSITY, {20, 10, 10, 5}},
+		{SID_WAREHOUSE, {10, 8, 5, 5}},
+	}};
+
+
 	template <typename Value>
 	const Value& findOrDefault(const std::map<StructureID, Value>& container, StructureID key)
 	{
@@ -18,7 +53,6 @@ namespace
 	}
 }
 
-std::map<StructureID, StorableResources> StructureCatalogue::mStructureCostTable;
 std::map<StructureID, StorableResources> StructureCatalogue::mStructureRecycleValueTable;
 std::map<StructureID, PopulationRequirements> StructureCatalogue::mPopulationRequirementsTable = {};
 float StructureCatalogue::mMeanSolarDistance = 0;
@@ -233,7 +267,7 @@ const PopulationRequirements& StructureCatalogue::populationRequirements(Structu
  */
 const StorableResources& StructureCatalogue::costToBuild(StructureID type)
 {
-	return findOrDefault(mStructureCostTable, type);
+	return findOrDefault(StructureCostTable, type);
 }
 
 
@@ -254,7 +288,6 @@ const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 void StructureCatalogue::init(float meanSolarDistance)
 {
 	mMeanSolarDistance = meanSolarDistance;
-	buildCostTable();
 	buildRecycleValueTable();
 	buildPopulationRequirementsTable();
 }
@@ -267,47 +300,6 @@ void StructureCatalogue::init(float meanSolarDistance)
 bool StructureCatalogue::canBuild(const StorableResources& source, StructureID type)
 {
 	return StructureCatalogue::costToBuild(type) <= source;
-}
-
-
-/**
- * Fills out the build costs for all structures.
- */
-void StructureCatalogue::buildCostTable()
-{
-	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
-	mStructureCostTable =
-	{{
-		{SID_NONE, {}},
-		{SID_AGRIDOME, {12, 10, 2, 2}},
-		{SID_CHAP, {25, 10, 10, 5}},
-		{SID_COMMAND_CENTER, {100, 75, 65, 35}},
-		{SID_COMMERCIAL, {15, 8, 5, 2}},
-		{SID_COMM_TOWER, {10, 5, 5, 3}},
-		{SID_FUSION_REACTOR, {50, 30, 25, 15}},
-		{SID_HOT_LABORATORY, {30, 10, 15, 5}},
-		{SID_LABORATORY, {20, 10, 10, 5}},
-		{SID_MAINTENANCE_FACILITY, {15, 10, 2, 1}},
-		{SID_MEDICAL_CENTER, {15, 5, 5, 3}},
-		{SID_NURSERY, {15, 5, 5, 3}},
-		{SID_PARK, {10, 10, 3, 2}},
-		{SID_SURFACE_POLICE, {15, 5, 8, 2}},
-		{SID_UNDERGROUND_POLICE, {15, 5, 8, 2}},
-		{SID_RECREATION_CENTER, {20, 5, 2, 0}},
-		{SID_RECYCLING, {15, 10, 8, 3}},
-		{SID_RED_LIGHT_DISTRICT, {20, 10, 10, 3}},
-		{SID_RESIDENCE, {15, 5, 2, 0}},
-		{SID_ROAD, {10, 15, 0, 0}},
-		{SID_ROBOT_COMMAND, {35, 20, 25, 10}},
-		{SID_SMELTER, {30, 20, 10, 5}},
-		{SID_SOLAR_PANEL1, {10, 20, 5, 5}},
-		{SID_SOLAR_PLANT, {50, 25, 50, 20}},
-		{SID_STORAGE_TANKS, {10, 5, 6, 1}},
-		{SID_SURFACE_FACTORY, {25, 10, 10, 5}},
-		{SID_UNDERGROUND_FACTORY, {25, 10, 10, 5}},
-		{SID_UNIVERSITY, {20, 10, 10, 5}},
-		{SID_WAREHOUSE, {10, 8, 5, 5}},
-	}};
 }
 
 
@@ -376,5 +368,5 @@ void StructureCatalogue::buildPopulationRequirementsTable()
  */
 StorableResources StructureCatalogue::recycleValue(StructureID type, int percent)
 {
-	return findOrDefault(mStructureCostTable, type) * percent / 100;
+	return findOrDefault(StructureCostTable, type) * percent / 100;
 }

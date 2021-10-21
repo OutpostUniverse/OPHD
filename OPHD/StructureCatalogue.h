@@ -35,14 +35,12 @@ private:
 	StructureCatalogue() {} // Explicitly declared private to prevent instantiation.
 	~StructureCatalogue() {} // Explicitly declared private to prevent instantiation.
 
-	static void buildCostTable();
 	static void buildPopulationRequirementsTable();
 	static void buildRecycleValueTable();
 
 	static StorableResources recycleValue(StructureID type, int percent);
 
 private:
-	static std::map<StructureID, StorableResources> mStructureCostTable;
 	static std::map<StructureID, StorableResources> mStructureRecycleValueTable;
 	static std::map<StructureID, PopulationRequirements> mPopulationRequirementsTable;
 	static float mMeanSolarDistance;
