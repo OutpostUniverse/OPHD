@@ -28,6 +28,9 @@ struct PopulationTable
 
 	PopulationTable& operator+=(const PopulationTable& other);
 
+	PopulationTable operator/(const PopulationTable& other) const;
+	PopulationTable operator%(const PopulationTable& other) const;
+
 	int size() const;
 	int adults() const;
 };

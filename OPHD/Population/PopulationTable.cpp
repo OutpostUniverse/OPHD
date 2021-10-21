@@ -69,6 +69,30 @@ PopulationTable& PopulationTable::operator+=(const PopulationTable& other)
 }
 
 
+PopulationTable PopulationTable::operator/(const PopulationTable& other) const
+{
+	return {
+		child / other.child,
+		student / other.student,
+		worker / other.worker,
+		scientist / other.scientist,
+		retiree / other.retiree,
+	};
+}
+
+
+PopulationTable PopulationTable::operator%(const PopulationTable& other) const
+{
+	return {
+		child % other.child,
+		student % other.student,
+		worker % other.worker,
+		scientist % other.scientist,
+		retiree % other.retiree,
+	};
+}
+
+
 /**
  * Gets the size of the entire population.
  */
