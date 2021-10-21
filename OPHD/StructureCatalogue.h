@@ -44,6 +44,6 @@ private:
 private:
 	static std::map<StructureID, StorableResources> mStructureCostTable;
 	static std::array<StorableResources, StructureID::SID_COUNT> mStructureRecycleValueTable;
-	static std::array<PopulationRequirements, StructureID::SID_COUNT> mPopulationRequirementsTable;
+	static std::map<StructureID, PopulationRequirements> mPopulationRequirementsTable;
 	static float mMeanSolarDistance;
 };

@@ -6,7 +6,7 @@
 
 std::map<StructureID, StorableResources> StructureCatalogue::mStructureCostTable;
 std::array<StorableResources, StructureID::SID_COUNT> StructureCatalogue::mStructureRecycleValueTable;
-std::array<PopulationRequirements, StructureID::SID_COUNT> StructureCatalogue::mPopulationRequirementsTable = {};
+std::map<StructureID, PopulationRequirements> StructureCatalogue::mPopulationRequirementsTable = {};
 float StructureCatalogue::mMeanSolarDistance = 0;
 
 /**	Default recycle value. Currently set at 90% but this should probably be
@@ -325,29 +325,31 @@ void StructureCatalogue::buildRecycleValueTable()
 void StructureCatalogue::buildPopulationRequirementsTable()
 {
 	// WORKERS, SCIENTISTS
-	mPopulationRequirementsTable[StructureID::SID_AGRIDOME] = {1, 0};
-	mPopulationRequirementsTable[StructureID::SID_CHAP] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_COMMERCIAL] = {1, 0};
-	mPopulationRequirementsTable[StructureID::SID_FUSION_REACTOR] = {1, 2};
-	mPopulationRequirementsTable[StructureID::SID_HOT_LABORATORY] = {1, 5};
-	mPopulationRequirementsTable[StructureID::SID_LABORATORY] = {1, 5};
-	mPopulationRequirementsTable[StructureID::SID_MEDICAL_CENTER] = {1, 2};
-	mPopulationRequirementsTable[StructureID::SID_NURSERY] = {1, 1};
-	mPopulationRequirementsTable[StructureID::SID_PARK] = {1, 0};
-	mPopulationRequirementsTable[StructureID::SID_SURFACE_POLICE] = {3, 0};
-	mPopulationRequirementsTable[StructureID::SID_UNDERGROUND_POLICE] = {3, 0};
-	mPopulationRequirementsTable[StructureID::SID_RECREATION_CENTER] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_RECYCLING] = {1, 1};
-	mPopulationRequirementsTable[StructureID::SID_RED_LIGHT_DISTRICT] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_ROBOT_COMMAND] = {4, 0};
-	mPopulationRequirementsTable[StructureID::SID_SEED_FACTORY] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_SEED_SMELTER] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_SMELTER] = {4, 0};
-	mPopulationRequirementsTable[StructureID::SID_SOLAR_PANEL1] = {0, 0};
-	mPopulationRequirementsTable[StructureID::SID_SURFACE_FACTORY] = {4, 0};
-	mPopulationRequirementsTable[StructureID::SID_UNDERGROUND_FACTORY] = {2, 0};
-	mPopulationRequirementsTable[StructureID::SID_UNIVERSITY] = {1, 3};
-	mPopulationRequirementsTable[StructureID::SID_WAREHOUSE] = {1, 0};
+	mPopulationRequirementsTable = {
+		{SID_AGRIDOME, {1, 0}},
+		{SID_CHAP, {2, 0}},
+		{SID_COMMERCIAL, {1, 0}},
+		{SID_FUSION_REACTOR, {1, 2}},
+		{SID_HOT_LABORATORY, {1, 5}},
+		{SID_LABORATORY, {1, 5}},
+		{SID_MEDICAL_CENTER, {1, 2}},
+		{SID_NURSERY, {1, 1}},
+		{SID_PARK, {1, 0}},
+		{SID_SURFACE_POLICE, {3, 0}},
+		{SID_UNDERGROUND_POLICE, {3, 0}},
+		{SID_RECREATION_CENTER, {2, 0}},
+		{SID_RECYCLING, {1, 1}},
+		{SID_RED_LIGHT_DISTRICT, {2, 0}},
+		{SID_ROBOT_COMMAND, {4, 0}},
+		{SID_SEED_FACTORY, {2, 0}},
+		{SID_SEED_SMELTER, {2, 0}},
+		{SID_SMELTER, {4, 0}},
+		{SID_SOLAR_PANEL1, {0, 0}},
+		{SID_SURFACE_FACTORY, {4, 0}},
+		{SID_UNDERGROUND_FACTORY, {2, 0}},
+		{SID_UNIVERSITY, {1, 3}},
+		{SID_WAREHOUSE, {1, 0}},
+	};
 }
 
 
