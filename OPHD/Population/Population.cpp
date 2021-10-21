@@ -71,10 +71,17 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 	mPopulation.child -= newRoles.student;
 	mPopulation.student -= (newRoles.worker + newRoles.scientist);
 
-	/** Workers retire earlier than scientists. */
-	auto& retireRole = randomNumber.generate(0, 100) <= 45 ?
-		mPopulation.scientist : mPopulation.worker;
-	if (retireRole > 0) { retireRole -= newRoles.retiree; }
+	for (int toRetire = newRoles.retiree; toRetire > 0;)
+	{
+		/** Workers retire earlier than scientists. */
+		auto& retireRole = randomNumber.generate(0, 100) <= 45 ?
+			mPopulation.scientist : mPopulation.worker;
+		if (retireRole > 0)
+		{
+			--retireRole;
+			--toRetire;
+		}
+	}
 }
 
 
