@@ -8,7 +8,6 @@
 #include "Route.h"
 
 #include "../Map/TileMap.h"
-#include "../Things/Structures/Structures.h"
 
 #include "../Cache.h"
 #include "../Common.h"

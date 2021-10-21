@@ -9,7 +9,6 @@
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../Things/Robots/Robots.h"
-#include "../Things/Structures/Structures.h"
 
 #include <NAS2D/Utility.h>
 
