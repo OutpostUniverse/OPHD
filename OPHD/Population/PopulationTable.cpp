@@ -8,7 +8,7 @@
 
 int PopulationTable::adults() const
 {
-	return size() - child;
+	return student + worker + scientist + retiree;
 }
 
 
