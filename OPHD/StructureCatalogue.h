@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Common.h"
-#include "Constants.h"
 #include "StorableResources.h"
 
 #include <map>
