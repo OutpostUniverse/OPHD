@@ -35,7 +35,7 @@ private:
 	StructureCatalogue() {} // Explicitly declared private to prevent instantiation.
 	~StructureCatalogue() {} // Explicitly declared private to prevent instantiation.
 
-	static void buildRecycleValueTable();
+	static std::map<StructureID, StorableResources> buildRecycleValueTable();
 
 	static StorableResources recycleValue(StructureID type, int percent);
 
