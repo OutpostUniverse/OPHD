@@ -67,6 +67,10 @@ namespace
 		{SID_WAREHOUSE, {1, 0}},
 	};
 
+	/**	Default recycle value. Currently set at 90% but this should probably be
+	 *	lowered for actual gameplay with modifiers to improve efficiency. */
+	const int DEFAULT_RECYCLE_VALUE = 90;
+
 
 	template <typename Value>
 	const Value& findOrDefault(const std::map<StructureID, Value>& container, StructureID key)
@@ -82,10 +86,6 @@ namespace
 
 std::map<StructureID, StorableResources> StructureCatalogue::mStructureRecycleValueTable;
 float StructureCatalogue::mMeanSolarDistance = 0;
-
-/**	Default recycle value. Currently set at 90% but this should probably be
- *	lowered for actual gameplay with modifiers to improve efficiency. */
-const int DEFAULT_RECYCLE_VALUE = 90;
 
 
 /**
