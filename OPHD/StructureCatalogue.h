@@ -43,7 +43,7 @@ private:
 
 private:
 	static std::map<StructureID, StorableResources> mStructureCostTable;
-	static std::array<StorableResources, StructureID::SID_COUNT> mStructureRecycleValueTable;
+	static std::map<StructureID, StorableResources> mStructureRecycleValueTable;
 	static std::map<StructureID, PopulationRequirements> mPopulationRequirementsTable;
 	static float mMeanSolarDistance;
 };

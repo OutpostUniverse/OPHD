@@ -5,7 +5,7 @@
 
 
 std::map<StructureID, StorableResources> StructureCatalogue::mStructureCostTable;
-std::array<StorableResources, StructureID::SID_COUNT> StructureCatalogue::mStructureRecycleValueTable;
+std::map<StructureID, StorableResources> StructureCatalogue::mStructureRecycleValueTable;
 std::map<StructureID, PopulationRequirements> StructureCatalogue::mPopulationRequirementsTable = {};
 float StructureCatalogue::mMeanSolarDistance = 0;
 
