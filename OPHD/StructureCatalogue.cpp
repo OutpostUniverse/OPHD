@@ -40,6 +40,33 @@ namespace
 		{SID_WAREHOUSE, {10, 8, 5, 5}},
 	}};
 
+	const std::map<StructureID, PopulationRequirements> PopulationRequirementsTable = {
+		{SID_NONE, {}},
+		{SID_AGRIDOME, {1, 0}},
+		{SID_CHAP, {2, 0}},
+		{SID_COMMERCIAL, {1, 0}},
+		{SID_FUSION_REACTOR, {1, 2}},
+		{SID_HOT_LABORATORY, {1, 5}},
+		{SID_LABORATORY, {1, 5}},
+		{SID_MEDICAL_CENTER, {1, 2}},
+		{SID_NURSERY, {1, 1}},
+		{SID_PARK, {1, 0}},
+		{SID_SURFACE_POLICE, {3, 0}},
+		{SID_UNDERGROUND_POLICE, {3, 0}},
+		{SID_RECREATION_CENTER, {2, 0}},
+		{SID_RECYCLING, {1, 1}},
+		{SID_RED_LIGHT_DISTRICT, {2, 0}},
+		{SID_ROBOT_COMMAND, {4, 0}},
+		{SID_SEED_FACTORY, {2, 0}},
+		{SID_SEED_SMELTER, {2, 0}},
+		{SID_SMELTER, {4, 0}},
+		{SID_SOLAR_PANEL1, {0, 0}},
+		{SID_SURFACE_FACTORY, {4, 0}},
+		{SID_UNDERGROUND_FACTORY, {2, 0}},
+		{SID_UNIVERSITY, {1, 3}},
+		{SID_WAREHOUSE, {1, 0}},
+	};
+
 
 	template <typename Value>
 	const Value& findOrDefault(const std::map<StructureID, Value>& container, StructureID key)
@@ -54,7 +81,6 @@ namespace
 }
 
 std::map<StructureID, StorableResources> StructureCatalogue::mStructureRecycleValueTable;
-std::map<StructureID, PopulationRequirements> StructureCatalogue::mPopulationRequirementsTable = {};
 float StructureCatalogue::mMeanSolarDistance = 0;
 
 /**	Default recycle value. Currently set at 90% but this should probably be
@@ -256,7 +282,7 @@ Structure* StructureCatalogue::get(StructureID type)
  */
 const PopulationRequirements& StructureCatalogue::populationRequirements(StructureID type)
 {
-	return findOrDefault(mPopulationRequirementsTable, type);
+	return findOrDefault(PopulationRequirementsTable, type);
 }
 
 
@@ -289,7 +315,6 @@ void StructureCatalogue::init(float meanSolarDistance)
 {
 	mMeanSolarDistance = meanSolarDistance;
 	buildRecycleValueTable();
-	buildPopulationRequirementsTable();
 }
 
 
@@ -323,41 +348,6 @@ void StructureCatalogue::buildRecycleValueTable()
 	mStructureRecycleValueTable[StructureID::SID_SEED_POWER] = {15, 10, 5, 5};
 	mStructureRecycleValueTable[StructureID::SID_SEED_SMELTER] = {15, 10, 5, 5};
 
-}
-
-
-/**
- * Fills out the population requirements for all structures.
- */
-void StructureCatalogue::buildPopulationRequirementsTable()
-{
-	// WORKERS, SCIENTISTS
-	mPopulationRequirementsTable = {
-		{SID_NONE, {}},
-		{SID_AGRIDOME, {1, 0}},
-		{SID_CHAP, {2, 0}},
-		{SID_COMMERCIAL, {1, 0}},
-		{SID_FUSION_REACTOR, {1, 2}},
-		{SID_HOT_LABORATORY, {1, 5}},
-		{SID_LABORATORY, {1, 5}},
-		{SID_MEDICAL_CENTER, {1, 2}},
-		{SID_NURSERY, {1, 1}},
-		{SID_PARK, {1, 0}},
-		{SID_SURFACE_POLICE, {3, 0}},
-		{SID_UNDERGROUND_POLICE, {3, 0}},
-		{SID_RECREATION_CENTER, {2, 0}},
-		{SID_RECYCLING, {1, 1}},
-		{SID_RED_LIGHT_DISTRICT, {2, 0}},
-		{SID_ROBOT_COMMAND, {4, 0}},
-		{SID_SEED_FACTORY, {2, 0}},
-		{SID_SEED_SMELTER, {2, 0}},
-		{SID_SMELTER, {4, 0}},
-		{SID_SOLAR_PANEL1, {0, 0}},
-		{SID_SURFACE_FACTORY, {4, 0}},
-		{SID_UNDERGROUND_FACTORY, {2, 0}},
-		{SID_UNIVERSITY, {1, 3}},
-		{SID_WAREHOUSE, {1, 0}},
-	};
 }
 
 
