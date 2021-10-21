@@ -19,7 +19,9 @@
 #include "../UI/Gui.h"
 #include "../UI/NotificationArea.h"
 #include "../UI/NotificationWindow.h"
-#include "../UI/UI.h"
+
+#include "../UI/Core/WindowStack.h"
+#include "../UI/Core/ToolTip.h"
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Math/Point.h>
