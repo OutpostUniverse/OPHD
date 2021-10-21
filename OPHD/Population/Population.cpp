@@ -71,9 +71,9 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 	mPopulation.student -= (newRoles.worker + newRoles.scientist);
 
 	/** Workers retire earlier than scientists. */
-	const auto retireRole = randomNumber.generate(0, 100) <= 45 ?
-		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
-	if (mPopulation[retireRole] > 0) { mPopulation[retireRole] -= newRoles.retiree; }
+	auto& retireRole = randomNumber.generate(0, 100) <= 45 ?
+		mPopulation.scientist : mPopulation.worker;
+	if (retireRole > 0) { retireRole -= newRoles.retiree; }
 }
 
 
