@@ -18,29 +18,73 @@
 using namespace NAS2D;
 
 
-const std::string MAP_TERRAIN_EXTENSION = "_a.png";
+namespace {
+	const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 
-const int MAP_WIDTH = 300;
-const int MAP_HEIGHT = 150;
+	const int MAP_WIDTH = 300;
+	const int MAP_HEIGHT = 150;
 
-const int TILE_WIDTH = 128;
-const int TILE_HEIGHT = 64;
+	const int TILE_WIDTH = 128;
+	const int TILE_HEIGHT = 64;
 
-const int TILE_HALF_WIDTH = TILE_WIDTH / 2;
+	const int TILE_HALF_WIDTH = TILE_WIDTH / 2;
 
-const int TILE_HEIGHT_OFFSET = 9;
-const int TILE_HEIGHT_ABSOLUTE = TILE_HEIGHT - TILE_HEIGHT_OFFSET;
-const int TILE_HEIGHT_HALF_ABSOLUTE = TILE_HEIGHT_ABSOLUTE / 2;
+	const int TILE_HEIGHT_OFFSET = 9;
+	const int TILE_HEIGHT_ABSOLUTE = TILE_HEIGHT - TILE_HEIGHT_OFFSET;
+	const int TILE_HEIGHT_HALF_ABSOLUTE = TILE_HEIGHT_ABSOLUTE / 2;
 
-const double THROB_SPEED = 250.0; // Throb speed of mine beacon
+	const double THROB_SPEED = 250.0; // Throb speed of mine beacon
 
-/** Array indicates percent of mines that should be of yields LOW, MED, HIGH */
-const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYieldTable =
-{
-	{Planet::Hostility::Low, {30, 50, 20}},
-	{Planet::Hostility::Medium, {45, 35, 20}},
-	{Planet::Hostility::High, {35, 20, 45}},
-};
+	/** Array indicates percent of mines that should be of yields LOW, MED, HIGH */
+	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYieldTable =
+	{
+		{Planet::Hostility::Low, {30, 50, 20}},
+		{Planet::Hostility::Medium, {45, 35, 20}},
+		{Planet::Hostility::High, {35, 20, 45}},
+	};
+
+
+	const std::map<Tile::Overlay, NAS2D::Color> OverlayColorTable =
+	{
+		{Tile::Overlay::None, NAS2D::Color::Normal},
+		{Tile::Overlay::Communications, {125, 200, 255}},
+		{Tile::Overlay::Connectedness, NAS2D::Color::Green},
+		{Tile::Overlay::TruckingRoutes, NAS2D::Color::Orange},
+		{Tile::Overlay::Police, NAS2D::Color::Red}
+	};
+
+	const std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColorTable =
+	{
+		{Tile::Overlay::None, NAS2D::Color{125, 200, 255}},
+		{Tile::Overlay::Communications, {100, 180, 230}},
+		{Tile::Overlay::Connectedness, NAS2D::Color{71, 224, 146}},
+		{Tile::Overlay::TruckingRoutes, NAS2D::Color{125, 200, 255}},
+		{Tile::Overlay::Police, NAS2D::Color{100, 180, 230}}
+	};
+
+
+	const NAS2D::Color& overlayColor(Tile::Overlay overlay)
+	{
+		return OverlayColorTable.at(overlay);
+	}
+
+
+	const NAS2D::Color& overlayHighlightColor(Tile::Overlay overlay)
+	{
+		return OverlayHighlightColorTable.at(overlay);
+	}
+
+
+	const NAS2D::Color& overlayColor(Tile::Overlay overlay, bool isHighlighted)
+	{
+		if (isHighlighted)
+		{
+			return overlayHighlightColor(overlay);
+		}
+
+		return overlayColor(overlay);
+	}
+}
 
 
 TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
