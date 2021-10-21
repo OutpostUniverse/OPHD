@@ -11,20 +11,8 @@ struct PopulationTable
 	int retiree;
 
 
-	enum class Role
-	{
-		Child,
-		Student,
-		Worker,
-		Scientist,
-		Retired
-	};
-
 	int& operator[](std::size_t);
 	int operator[](std::size_t) const;
-
-	int& operator[](Role);
-	int operator[](Role) const;
 
 	PopulationTable& operator+=(const PopulationTable& other);
 	PopulationTable& operator-=(const PopulationTable& other);
