@@ -87,19 +87,23 @@ PopulationTable Population::spawnRoles(const PopulationTable& growth, const Popu
 }
 
 
-void Population::killRole(PopulationTable::Role role, int divisor)
+void Population::killRoles(const PopulationTable& divisor)
 {
-	mPopulationDeath[role] += mPopulation[role];
+	mPopulationDeath += mPopulation;
 
-	int deaths = std::min(mPopulationDeath[role] / divisor, mPopulation[role]);
-	mPopulationDeath[role] = mPopulationDeath[role] % divisor;
+	const auto deaths = (mPopulationDeath / divisor).cap(mPopulation);
+	mPopulationDeath = mPopulationDeath % divisor;
 
-	mPopulation[role] -= deaths;
-	mDeathCount += deaths;
+	mPopulation -= deaths;
+	mDeathCount += deaths.size();
 
-	if (mPopulation[role] == 0)
+	const auto roleCount = sizeof(PopulationTable) / sizeof(int);
+	for (std::size_t role = 0; role < roleCount; ++role)
 	{
-		mPopulationDeath[role] = 0;
+		if (mPopulation[role] == 0)
+		{
+			mPopulationDeath[role] = 0;
+		}
 	}
 }
 
@@ -112,11 +116,7 @@ void Population::killPopulation(int morale, int nurseries, int hospitals)
 	int divisorStudent = mortalityRate + (hospitals * 65);
 	int divisorAdult = mortalityRate + 250 + (hospitals * 60);
 
-	killRole(PopulationTable::Role::Child, divisorChild);
-	killRole(PopulationTable::Role::Student, divisorStudent);
-	killRole(PopulationTable::Role::Worker, divisorAdult * 2 - 50);
-	killRole(PopulationTable::Role::Scientist, divisorAdult * 2 + 50);
-	killRole(PopulationTable::Role::Retired, divisorAdult);
+	killRoles({divisorChild, divisorStudent, divisorAdult * 2 - 50, divisorAdult * 2 + 50, divisorAdult});
 
 	if (mPopulation.child <= 0)
 	{
