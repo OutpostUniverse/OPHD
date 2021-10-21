@@ -82,6 +82,43 @@ namespace
 		}
 		return container.at(StructureID::SID_NONE);
 	}
+
+
+	/**
+	 * Calculates the base recycling value of a given structure.
+	 *
+	 * \param	type	A valid StructureID value.
+	 */
+	StorableResources recycleValue(StructureID type, int percent)
+	{
+		return findOrDefault(StructureCostTable, type) * percent / 100;
+	}
+
+
+	/**
+	 * Fills out the recycle value for all structures.
+	 */
+	std::map<StructureID, StorableResources> buildRecycleValueTable()
+	{
+		std::map<StructureID, StorableResources> structureRecycleValueTable;
+
+		for (std::size_t i = 0; i < StructureID::SID_COUNT; ++i)
+		{
+			structureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), DEFAULT_RECYCLE_VALUE);
+		}
+
+		// Set recycling values for landers and automatically built structures.
+		// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
+		structureRecycleValueTable[StructureID::SID_MINE_FACILITY] = {15, 10, 5, 5};
+		structureRecycleValueTable[StructureID::SID_CARGO_LANDER] = {15, 10, 5, 5};
+		structureRecycleValueTable[StructureID::SID_COLONIST_LANDER] = {15, 10, 5, 5};
+		structureRecycleValueTable[StructureID::SID_SEED_LANDER] = {10, 5, 5, 5};
+		structureRecycleValueTable[StructureID::SID_SEED_FACTORY] = {15, 10, 5, 5};
+		structureRecycleValueTable[StructureID::SID_SEED_POWER] = {15, 10, 5, 5};
+		structureRecycleValueTable[StructureID::SID_SEED_SMELTER] = {15, 10, 5, 5};
+
+		return structureRecycleValueTable;
+	}
 }
 
 std::map<StructureID, StorableResources> StructureCatalogue::mStructureRecycleValueTable;
@@ -325,41 +362,4 @@ void StructureCatalogue::init(float meanSolarDistance)
 bool StructureCatalogue::canBuild(const StorableResources& source, StructureID type)
 {
 	return StructureCatalogue::costToBuild(type) <= source;
-}
-
-
-/**
- * Fills out the recycle value for all structures.
- */
-std::map<StructureID, StorableResources> StructureCatalogue::buildRecycleValueTable()
-{
-	std::map<StructureID, StorableResources> structureRecycleValueTable;
-
-	for (std::size_t i = 0; i < StructureID::SID_COUNT; ++i)
-	{
-		structureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), DEFAULT_RECYCLE_VALUE);
-	}
-
-	// Set recycling values for landers and automatically built structures.
-	// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
-	structureRecycleValueTable[StructureID::SID_MINE_FACILITY] = {15, 10, 5, 5};
-	structureRecycleValueTable[StructureID::SID_CARGO_LANDER] = {15, 10, 5, 5};
-	structureRecycleValueTable[StructureID::SID_COLONIST_LANDER] = {15, 10, 5, 5};
-	structureRecycleValueTable[StructureID::SID_SEED_LANDER] = {10, 5, 5, 5};
-	structureRecycleValueTable[StructureID::SID_SEED_FACTORY] = {15, 10, 5, 5};
-	structureRecycleValueTable[StructureID::SID_SEED_POWER] = {15, 10, 5, 5};
-	structureRecycleValueTable[StructureID::SID_SEED_SMELTER] = {15, 10, 5, 5};
-
-	return structureRecycleValueTable;
-}
-
-
-/**
- * Calculates the base recycling value of a given structure.
- * 
- * \param	type	A valid StructureID value.
- */
-StorableResources StructureCatalogue::recycleValue(StructureID type, int percent)
-{
-	return findOrDefault(StructureCostTable, type) * percent / 100;
 }
