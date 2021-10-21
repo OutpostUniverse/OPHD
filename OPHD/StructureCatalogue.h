@@ -18,7 +18,6 @@ struct StorableResources;
  * instantiated.
  * 
  * \note	StructureCatalogue::init() must be called prior to use.
- * 
  */
 class StructureCatalogue
 {
