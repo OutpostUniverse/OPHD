@@ -418,7 +418,6 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="UI\FileIo.h" />
     <ClInclude Include="UI\GameOptionsDialog.h" />
     <ClInclude Include="UI\GameOverDialog.h" />
-    <ClInclude Include="UI\Gui.h" />
     <ClInclude Include="UI\IconGrid.h" />
     <ClInclude Include="UI\MajorEventAnnouncement.h" />
     <ClInclude Include="UI\MineOperationsWindow.h" />
@@ -438,7 +437,6 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="UI\StructureListBox.h" />
     <ClInclude Include="UI\TextRender.h" />
     <ClInclude Include="UI\TileInspector.h" />
-    <ClInclude Include="UI\UI.h" />
     <ClInclude Include="UI\WarehouseInspector.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="XmlSerializer.h" />
