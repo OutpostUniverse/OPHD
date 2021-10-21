@@ -224,7 +224,7 @@ void StructureManager::updateEnergyConsumed()
 	{
 		for (auto structure : classListPair.second)
 		{
-			if (structure->operational() || structure->isIdle())
+			if (structure->operational())
 			{
 				mTotalEnergyUsed += structure->energyRequirement();
 			}
@@ -326,7 +326,7 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 
 		structure->enable();
 
-		if (structure->operational() || structure->isIdle())
+		if (structure->operational())
 		{
 			population.usePopulation(populationRequired);
 
