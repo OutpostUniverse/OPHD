@@ -61,30 +61,29 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 	int divisorAdult = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 45) * 4;
 	int divisorRetiree = ((std::max(totalAdults, adultToRetireeBase) / 40) * 3 + 40) * 4;
 
-	const auto newChildren = spawnRole(PopulationTable::Role::Child, growthChild, divisorChild);
-	const auto newStudents = spawnRole(PopulationTable::Role::Student, mPopulation.child, divisorStudent);
-	const auto newWorker = spawnRole(PopulationTable::Role::Worker, growthWorker, divisorAdult);
-	const auto newScientist = spawnRole(PopulationTable::Role::Scientist, growthScientist, divisorAdult);
-	const auto newRetiree = spawnRole(PopulationTable::Role::Retired, totalAdults / 10, divisorRetiree);
+	const auto newRoles = spawnRoles(
+		{growthChild, mPopulation.child, growthWorker, growthScientist, totalAdults / 10},
+		{divisorChild, divisorStudent, divisorAdult, divisorAdult, divisorRetiree}
+	);
 
-	mBirthCount = newChildren;
-	mPopulation.child -= newStudents;
-	mPopulation.student -= (newWorker + newScientist);
+	mBirthCount = newRoles.child;
+	mPopulation.child -= newRoles.student;
+	mPopulation.student -= (newRoles.worker + newRoles.scientist);
 
 	/** Workers retire earlier than scientists. */
 	const auto retireRole = randomNumber.generate(0, 100) <= 45 ?
 		PopulationTable::Role::Scientist : PopulationTable::Role::Worker;
-	if (mPopulation[retireRole] > 0) { mPopulation[retireRole] -= newRetiree; }
+	if (mPopulation[retireRole] > 0) { mPopulation[retireRole] -= newRoles.retiree; }
 }
 
 
-int Population::spawnRole(PopulationTable::Role role, int growth, int divisor)
+PopulationTable Population::spawnRoles(const PopulationTable& growth, const PopulationTable& divisor)
 {
-	mPopulationGrowth[role] += growth;
-	const auto newRoleCount = mPopulationGrowth[role] / divisor;
-	mPopulationGrowth[role] = mPopulationGrowth[role] % divisor;
-	mPopulation[role] += newRoleCount;
-	return newRoleCount;
+	mPopulationGrowth += growth;
+	const auto newRoles = mPopulationGrowth / divisor;
+	mPopulationGrowth = mPopulationGrowth % divisor;
+	mPopulation += newRoles;
+	return newRoles;
 }
 
 
