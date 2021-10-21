@@ -18,6 +18,16 @@ struct StorableResources
 		return result;
 	}
 
+	constexpr StorableResources operator/(int divisor) const
+	{
+		StorableResources result = *this;
+		for (size_t i = 0; i < resources.size(); ++i)
+		{
+			result.resources[i] /= divisor;
+		}
+		return result;
+	}
+
 	constexpr StorableResources& operator+=(const StorableResources& other)
 	{
 		for (size_t i = 0; i < resources.size(); ++i)
