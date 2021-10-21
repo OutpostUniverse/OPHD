@@ -5,7 +5,6 @@
 #include "Things/Structures/Structures.h"
 #include "StorableResources.h"
 
-#include <array>
 #include <map>
 
 /** 
