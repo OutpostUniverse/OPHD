@@ -1,6 +1,5 @@
 #include "PopulationTable.h"
 
-#include <numeric>
 #include <stdexcept>
 #include <string>
 #include <algorithm>
