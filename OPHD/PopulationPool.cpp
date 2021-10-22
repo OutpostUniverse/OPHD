@@ -95,3 +95,9 @@ int PopulationPool::populationEmployed()
 {
 	return scientistsEmployed() + scientistsAsWorkers() + workersEmployed();
 }
+
+
+int PopulationPool::size() const
+{
+	return mPopulation->getPopulations().size();
+}
