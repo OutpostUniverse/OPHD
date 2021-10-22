@@ -25,11 +25,7 @@ public:
 	void crimeRate(int val) { mCrimeRate = val; }
 	int crimeRate() const { return mCrimeRate; }
 
-	void addMoraleReason(const std::string& str, int val)
-	{
-		if (val == 0) { return; }
-		mMoraleChangeReasons.push_back(std::make_pair(str, val));
-	}
+	void addMoraleReason(const std::string& str, int val);
 
 	const auto& moraleReasonList() const { return mMoraleChangeReasons; }
 

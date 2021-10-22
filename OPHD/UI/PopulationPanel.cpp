@@ -93,6 +93,13 @@ void PopulationPanel::population(Population* pop)
 }
 
 
+void PopulationPanel::addMoraleReason(const std::string& str, int val)
+{
+	if (val == 0) { return; }
+	mMoraleChangeReasons.push_back(std::make_pair(str, val));
+}
+
+
 void PopulationPanel::update()
 {
 	auto& renderer = Utility<Renderer>::get();
