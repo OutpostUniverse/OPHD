@@ -100,7 +100,7 @@ install-dependencies:
 
 
 .PHONY: lint
-lint: cppcheck cppclean
+lint: cppcheck cppclean cppinclude
 
 .PHONY: cppcheck
 cppcheck:
@@ -109,6 +109,10 @@ cppcheck:
 .PHONY: cppclean
 cppclean:
 	cppclean --quiet --include-path "$(NAS2DINCLUDEDIR)" --include-path "/usr/include/SDL2" --exclude "MicroPather" "$(SRCDIR)"
+
+.PHONY: cppinclude
+cppinclude:
+	cppinclude
 
 .PHONY: format
 format:
