@@ -6,6 +6,7 @@
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 #include <vector>
+#include <utility>
 
 class Population;
 
