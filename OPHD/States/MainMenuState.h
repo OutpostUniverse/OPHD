@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../Constants.h"
 #include "../UI/FileIo.h"
 
 #include <NAS2D/State.h>

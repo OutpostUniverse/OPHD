@@ -4,7 +4,10 @@
 #include "MainReportsUiState.h"
 #include "Route.h"
 
-#include "../Constants.h"
+#include "../Constants/Numbers.h"
+#include "../Constants/Strings.h"
+#include "../Constants/UiConstants.h"
+
 #include "../DirectionOffset.h"
 #include "../Cache.h"
 #include "../GraphWalker.h"

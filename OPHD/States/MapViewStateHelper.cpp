@@ -9,7 +9,7 @@
 
 #include "MapViewStateHelper.h"
 
-#include "../Constants.h"
+#include "../Constants/Strings.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../DirectionOffset.h"

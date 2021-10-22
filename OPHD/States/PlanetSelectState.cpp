@@ -4,7 +4,8 @@
 #include "MapViewState.h"
 #include "MainMenuState.h"
 
-#include "../Constants.h"
+#include "../Constants/Strings.h"
+#include "../Constants/UiConstants.h"
 #include "../Cache.h"
 #include "../XmlSerializer.h"
 

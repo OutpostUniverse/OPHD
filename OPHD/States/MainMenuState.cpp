@@ -4,7 +4,8 @@
 #include "PlanetSelectState.h"
 
 #include "../Cache.h"
-#include "../Constants.h"
+#include "../Constants/Strings.h"
+#include "../Constants/UiConstants.h"
 
 #include "../UI/MessageBox.h"
 

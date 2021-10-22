@@ -2,8 +2,11 @@
 
 #include "../TextRender.h"
 
+#include "../../Constants/Numbers.h"
+#include "../../Constants/Strings.h"
+#include "../../Constants/UiConstants.h"
+
 #include "../../Cache.h"
-#include "../../Constants.h"
 #include "../../StructureManager.h"
 #include "../../ProductionCost.h"
 

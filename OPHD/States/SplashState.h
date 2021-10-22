@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../Constants.h"
-
 #include <NAS2D/State.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Timer.h>

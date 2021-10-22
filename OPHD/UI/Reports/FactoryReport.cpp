@@ -2,7 +2,8 @@
 
 #include "../TextRender.h"
 #include "../../Cache.h"
-#include "../../Constants.h"
+#include "../../Constants/Strings.h"
+#include "../../Constants/UiConstants.h"
 #include "../../StructureManager.h"
 #include "../../ProductionCost.h"
 
