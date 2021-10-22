@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../UI/NotificationArea.h"
 #include "../Things/Structures/Structures.h"
 #include "../Common.h"
 #include <vector>
@@ -8,6 +7,9 @@
 #include <map>
 #include <string>
 #include <utility>
+
+
+class NotificationArea;
 
 
 class CrimeExecution
