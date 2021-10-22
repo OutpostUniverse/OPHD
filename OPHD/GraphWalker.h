@@ -1,10 +1,15 @@
 #pragma once
 
 #include "Common.h"
-
-#include "Map/TileMap.h"
+#include "Map/MapCoordinate.h"
 
 #include <NAS2D/Math/Point.h>
+
+#include <vector>
+
+
+class Tile;
+class TileMap;
 
 
 /**
