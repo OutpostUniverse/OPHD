@@ -1,6 +1,6 @@
 #include "Cache.h"
 #include "Common.h"
-#include "Constants.h"
+#include "Constants/Numbers.h"
 #include "WindowEventWrapper.h"
 
 #include "States/GameState.h"

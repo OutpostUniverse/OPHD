@@ -1,6 +1,6 @@
 #include "StructureManager.h"
 
-#include "Constants.h"
+#include "Constants/Numbers.h"
 #include "ProductPool.h"
 #include "IOHelper.h"
 #include "PopulationPool.h"

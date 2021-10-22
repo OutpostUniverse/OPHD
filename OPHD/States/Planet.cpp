@@ -1,6 +1,6 @@
 #include "Planet.h"
 
-#include "../Constants.h"
+#include "../Constants/Numbers.h"
 #include "../XmlSerializer.h"
 
 #include <NAS2D/Utility.h>
