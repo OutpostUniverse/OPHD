@@ -2,12 +2,15 @@
 
 #include "Common.h"
 #include "Constants.h"
-#include "StorableResources.h"
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Xml/XmlElement.h>
 
 #include <bitset>
+
+
+struct StorableResources;
+
 
 class Mine
 {
