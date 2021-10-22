@@ -278,7 +278,7 @@ namespace constants
 	const std::string AlertLanderTerrain = "Landers cannot be placed on Impassable Terrain.";
 	const std::string AlertLanderCommRange = "Landers must be placed within 5 tiles of the Command Center.";
 
-	const std::string AlertStructureOutOfRange = "Cannot build structures more than " + std::to_string(constants::RobotCommRange) + " tiles away from Command Center.";
+	const std::string AlertStructureOutOfRange = "Cannot build structures more than " + std::to_string(RobotCommRange) + " tiles away from Command Center.";
 	const std::string AlertStructureTileObstructed = "The selected tile already has a structure on it. You must bulldoze the existing structure in order to build here.";
 	const std::string AlertStructureTileThing = "The selected tile is occupied by another object.";
 	const std::string AlertStructureTerrain = "The selected tile is not bulldozed. Structures can only be built on bulldozed tiles.";
