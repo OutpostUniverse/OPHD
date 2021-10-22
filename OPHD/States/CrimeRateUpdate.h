@@ -13,7 +13,7 @@ class Structure;
 class CrimeRateUpdate
 {
 public:
-	void update(const std::vector<TileList>& policeOverlays);
+	void update(const std::vector<std::vector<Tile*>>& policeOverlays);
 
 	int meanCrimeRate() const { return mMeanCrimeRate; }
 	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
@@ -35,7 +35,7 @@ private:
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
 	std::vector<Structure*> mStructuresCommittingCrimes;
 
-	bool isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure);
+	bool isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, Structure* structure);
 	int calculateMoraleChange();
 	void updateMoraleChanges();
 };

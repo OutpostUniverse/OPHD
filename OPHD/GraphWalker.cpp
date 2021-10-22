@@ -79,7 +79,7 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 }
 
 
-GraphWalker::GraphWalker(const MapCoordinate& position, TileMap& tileMap, TileList& tileList) :
+GraphWalker::GraphWalker(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList) :
 	mTileMap{tileMap},
 	mThisTile{tileMap.getTile(position)},
 	mTileList{tileList},

@@ -14,7 +14,7 @@
 class GraphWalker
 {
 public:
-	GraphWalker(const MapCoordinate&, TileMap&, TileList&);
+	GraphWalker(const MapCoordinate&, TileMap&, std::vector<Tile*>&);
 	~GraphWalker() = default;
 
 private:
@@ -29,7 +29,7 @@ private:
 private:
 	TileMap& mTileMap;
 	Tile& mThisTile;
-	TileList& mTileList;
+	std::vector<Tile*>& mTileList;
 
 	MapCoordinate mPosition{};
 };

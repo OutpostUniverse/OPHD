@@ -1499,17 +1499,17 @@ void MapViewState::resetPoliceOverlays()
 	mPoliceOverlays.clear();
 	for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 	{
-		mPoliceOverlays.push_back(TileList());
+		mPoliceOverlays.push_back(std::vector<Tile*>());
 	}
 }
 
 
-void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int range)
+void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range)
 {
 	fillRangedAreaList(tileList, centerTile, range, 0);
 }
 
-void MapViewState::fillRangedAreaList(TileList& tileList, Tile& centerTile, int range, int depth)
+void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range, int depth)
 {
 	auto area = buildAreaRectFromTile(centerTile, range + 1);
 
