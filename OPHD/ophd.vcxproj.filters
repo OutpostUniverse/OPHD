@@ -171,6 +171,9 @@
     <ClCompile Include="UI\MajorEventAnnouncement.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI\MessageBox.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
     <ClCompile Include="UI\FileIo.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -528,6 +531,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\MajorEventAnnouncement.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\MessageBox.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\FileIo.h">

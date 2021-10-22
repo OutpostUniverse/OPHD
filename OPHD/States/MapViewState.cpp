@@ -17,6 +17,8 @@
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
 
+#include "../UI/MessageBox.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>

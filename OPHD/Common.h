@@ -309,10 +309,6 @@ extern const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsOre;
 
 extern const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable;
 
-void doNonFatalErrorMessage(const std::string& title, const std::string& msg);
-void doAlertMessage(const std::string& title, const std::string& msg);
-bool doYesNoMessage(const std::string& title, const std::string msg);
-
 void checkSavegameVersion(const std::string& filename);
 NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
 
@@ -348,8 +344,6 @@ void drawBasicProgressBar(int x, int y, int width, int height, float percent, in
 
 NAS2D::Color structureColorFromIndex(StructureState structureState);
 NAS2D::Color structureTextColorFromIndex(StructureState structureState);
-
-bool windowMaximized();
 
 int getTruckAvailability();
 

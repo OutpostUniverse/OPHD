@@ -16,6 +16,8 @@
 #include "../Map/MapCoordinate.h"
 #include "../Map/TileMap.h"
 
+#include "../UI/MessageBox.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
