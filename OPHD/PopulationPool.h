@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Population/Population.h"
+class Population;
 
 
 struct PopulationRequirements

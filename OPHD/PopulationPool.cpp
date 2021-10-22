@@ -1,4 +1,5 @@
 #include "PopulationPool.h"
+#include "Population/Population.h"
 
 #include <string>
 #include <stdexcept>
