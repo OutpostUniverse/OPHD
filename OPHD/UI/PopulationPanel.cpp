@@ -87,6 +87,12 @@ PopulationPanel::PopulationPanel() :
 }
 
 
+void PopulationPanel::population(Population* pop)
+{
+	mPopulation = pop;
+}
+
+
 void PopulationPanel::update()
 {
 	auto& renderer = Utility<Renderer>::get();

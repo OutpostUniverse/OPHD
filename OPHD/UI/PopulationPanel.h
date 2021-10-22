@@ -15,7 +15,7 @@ class PopulationPanel : public Control
 public:
 	PopulationPanel();
 
-	void population(Population* pop) { mPopulation = pop; }
+	void population(Population* pop);
 
 	void morale(int val) { mMorale = val; }
 	void old_morale(int val) { mPreviousMorale = val; }
