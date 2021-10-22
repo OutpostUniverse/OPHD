@@ -9,6 +9,12 @@
 #include <string>
 
 
+namespace NAS2D
+{
+	class Font;
+}
+
+
 class CheckBox : public TextControl
 {
 public:
