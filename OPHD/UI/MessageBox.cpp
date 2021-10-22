@@ -9,30 +9,30 @@
 
 
 #if defined(WINDOWS) || defined(WIN32)
-/**
- * Gets a Windows API HWND handle to the main
- * window of the application.
- *
- * \note	This is only exposed for Windows applications.
- *
- * \warning	Uses internal knowledge of NAS2D to force an
- *			export that should not be exposed. This will
- *			break if NAS2D changes its structure.
- */
-HWND WIN32_getWindowHandle()
-{
-	SDL_SysWMinfo systemInfo;
-	SDL_VERSION(&systemInfo.version);
-
-	/** \fixme Evil hack exposing an internal NAS2D variable. */
-	extern SDL_Window* underlyingWindow;
-	if (SDL_GetWindowWMInfo(underlyingWindow, &systemInfo) != 1)
+	/**
+	 * Gets a Windows API HWND handle to the main
+	 * window of the application.
+	 *
+	 * \note	This is only exposed for Windows applications.
+	 *
+	 * \warning	Uses internal knowledge of NAS2D to force an
+	 *			export that should not be exposed. This will
+	 *			break if NAS2D changes its structure.
+	 */
+	HWND WIN32_getWindowHandle()
 	{
-		return nullptr;
-	}
+		SDL_SysWMinfo systemInfo;
+		SDL_VERSION(&systemInfo.version);
 
-	return systemInfo.info.win.window;
-}
+		/** \fixme Evil hack exposing an internal NAS2D variable. */
+		extern SDL_Window* underlyingWindow;
+		if (SDL_GetWindowWMInfo(underlyingWindow, &systemInfo) != 1)
+		{
+			return nullptr;
+		}
+
+		return systemInfo.info.win.window;
+	}
 #endif
 
 
