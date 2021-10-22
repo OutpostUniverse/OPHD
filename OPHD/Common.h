@@ -316,7 +316,7 @@ bool doYesNoMessage(const std::string& title, const std::string msg);
 void checkSavegameVersion(const std::string& filename);
 NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
 
-std::vector<std::string> splitString(const char* str, char delim);
+std::vector<std::string> splitString(const std::string& string, char delimiter);
 
 /**
  * Translates a ProductType enumerator into a string.
