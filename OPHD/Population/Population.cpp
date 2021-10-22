@@ -1,4 +1,5 @@
 #include "Population.h"
+#include "Morale.h"
 
 #include "../RandomNumberGenerator.h"
 

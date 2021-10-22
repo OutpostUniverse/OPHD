@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Morale.h"
 #include "PopulationTable.h"
 
 
