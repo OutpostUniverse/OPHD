@@ -18,8 +18,6 @@ namespace NAS2D
 	class Image;
 }
 
-class MineFacility;
-
 
 class MineReport : public ReportInterface
 {
