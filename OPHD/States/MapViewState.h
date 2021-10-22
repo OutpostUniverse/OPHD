@@ -1,6 +1,5 @@
 #pragma once
 
-#include "MapViewStateHelper.h"
 #include "Wrapper.h"
 #include "CrimeRateUpdate.h"
 #include "CrimeExecution.h"
