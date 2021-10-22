@@ -2,6 +2,7 @@
 
 #include "../Cache.h"
 #include "../Constants.h"
+#include "../Constants/UiConstants.h"
 
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/Renderer.h>

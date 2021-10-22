@@ -4,6 +4,7 @@
 #include "Label.h"
 #include "../../Cache.h"
 #include "../../Constants.h"
+#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>

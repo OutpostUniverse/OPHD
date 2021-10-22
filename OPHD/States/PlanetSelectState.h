@@ -3,6 +3,7 @@
 #include "Planet.h"
 
 #include "../Constants.h"
+#include "../Constants/UiConstants.h"
 
 #include "../UI/Core/Button.h"
 #include "../UI/Core/TextArea.h"

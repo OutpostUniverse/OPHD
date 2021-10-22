@@ -1,6 +1,7 @@
 #include "TileMap.h"
 
 #include "../Constants.h"
+#include "../Constants/UiConstants.h"
 #include "../DirectionOffset.h"
 #include "../Mine.h"
 #include "../Things/Structures/Structure.h"

@@ -3,6 +3,7 @@
 #include "Structure.h"
 
 #include "../../Constants.h"
+#include "../../Constants/UiConstants.h"
 
 
 class CommTower : public Structure

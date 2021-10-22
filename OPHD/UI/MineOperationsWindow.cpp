@@ -6,6 +6,7 @@
 #include "../Cache.h"
 #include "../Common.h"
 #include "../Constants.h"
+#include "../Constants/UiConstants.h"
 #include "../StructureManager.h"
 #include "../Things/Structures/MineFacility.h"
 #include "../Things/Structures/Warehouse.h"
