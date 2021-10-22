@@ -1,10 +1,15 @@
 #pragma once
 
 #include "Common.h"
-
-#include "Map/TileMap.h"
+#include "Map/MapCoordinate.h"
 
 #include <NAS2D/Math/Point.h>
+
+#include <vector>
+
+
+class Tile;
+class TileMap;
 
 
 /**
@@ -14,7 +19,7 @@
 class GraphWalker
 {
 public:
-	GraphWalker(const MapCoordinate&, TileMap&, TileList&);
+	GraphWalker(const MapCoordinate&, TileMap&, std::vector<Tile*>&);
 	~GraphWalker() = default;
 
 private:
@@ -29,7 +34,7 @@ private:
 private:
 	TileMap& mTileMap;
 	Tile& mThisTile;
-	TileList& mTileList;
+	std::vector<Tile*>& mTileList;
 
 	MapCoordinate mPosition{};
 };

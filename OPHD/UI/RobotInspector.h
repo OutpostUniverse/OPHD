@@ -1,10 +1,7 @@
 #pragma once
 
 #include "Core/Button.h"
-#include "Core/TextArea.h"
 #include "Core/Window.h"
-
-#include "StringTable.h"
 
 #include "../Common.h"
 

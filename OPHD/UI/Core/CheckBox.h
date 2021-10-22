@@ -4,9 +4,15 @@
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/Resource/Image.h>
 
 #include <string>
+
+
+namespace NAS2D
+{
+	class Font;
+	class Image;
+}
 
 
 class CheckBox : public TextControl

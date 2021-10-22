@@ -430,7 +430,7 @@ void MapViewState::drawUI()
 }
 
 
-void MapViewState::setOverlay(TileList& tileList, Tile::Overlay overlay)
+void MapViewState::setOverlay(std::vector<Tile*>& tileList, Tile::Overlay overlay)
 {
 	for (auto tile : tileList)
 	{
@@ -448,7 +448,7 @@ void MapViewState::clearOverlays()
 }
 
 
-void MapViewState::clearOverlay(TileList& tileList)
+void MapViewState::clearOverlay(std::vector<Tile*>& tileList)
 {
 	setOverlay(tileList, Tile::Overlay::None);
 }

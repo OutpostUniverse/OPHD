@@ -1,8 +1,8 @@
 #include "Mine.h"
 
-#include <NAS2D/ParserHelper.h>
+#include "StorableResources.h"
 
-#include <iostream>
+#include <NAS2D/ParserHelper.h>
 
 #include <algorithm>
 #include <array>

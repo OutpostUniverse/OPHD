@@ -2,12 +2,18 @@
 
 #include "Core/Control.h"
 
-#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 #include <vector>
+#include <utility>
+
 
 class Population;
+
+namespace NAS2D
+{
+	class Font;
+}
 
 
 class PopulationPanel : public Control
@@ -15,7 +21,7 @@ class PopulationPanel : public Control
 public:
 	PopulationPanel();
 
-	void population(Population* pop) { mPopulation = pop; }
+	void population(Population* pop);
 
 	void morale(int val) { mMorale = val; }
 	void old_morale(int val) { mPreviousMorale = val; }
@@ -25,11 +31,7 @@ public:
 	void crimeRate(int val) { mCrimeRate = val; }
 	int crimeRate() const { return mCrimeRate; }
 
-	void addMoraleReason(const std::string& str, int val)
-	{
-		if (val == 0) { return; }
-		mMoraleChangeReasons.push_back(std::make_pair(str, val));
-	}
+	void addMoraleReason(const std::string& str, int val);
 
 	const auto& moraleReasonList() const { return mMoraleChangeReasons; }
 

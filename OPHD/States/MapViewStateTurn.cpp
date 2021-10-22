@@ -5,6 +5,8 @@
 #include "MapViewState.h"
 #include "MapViewStateHelper.h"
 
+#include "Route.h"
+
 #include "../Map/TileMap.h"
 #include "../Things/Structures/Structures.h"
 

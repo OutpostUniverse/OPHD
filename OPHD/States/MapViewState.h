@@ -1,12 +1,10 @@
 #pragma once
 
-#include "MapViewStateHelper.h"
 #include "Wrapper.h"
 #include "CrimeRateUpdate.h"
 #include "CrimeExecution.h"
 
 #include "Planet.h"
-#include "Route.h"
 
 #include "../Common.h"
 #include "../Constants.h"
@@ -172,8 +170,8 @@ private:
 	void checkCommRangeOverlay();
 	void checkSurfacePoliceOverlay();
 	void resetPoliceOverlays();
-	void fillRangedAreaList(TileList& tileList, Tile& centerTile, int range);
-	void fillRangedAreaList(TileList& tileList, Tile& centerTile, int range, int depth);
+	void fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range);
+	void fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range, int depth);
 	void checkConnectedness();
 	void changeViewDepth(int);
 
@@ -239,9 +237,9 @@ private:
 
 	// UI EVENT HANDLERS
 	void onTurns();
-	void setOverlay(TileList& tileList, Tile::Overlay overlay);
+	void setOverlay(std::vector<Tile*>& tileList, Tile::Overlay overlay);
 	void clearOverlays();
-	void clearOverlay(TileList& tileList);
+	void clearOverlay(std::vector<Tile*>& tileList);
 	void updateOverlays();
 	void changePoliceOverlayDepth(int oldDepth, int newDepth);
 	void onToggleConnectedness();
@@ -367,10 +365,10 @@ private:
 
 	int mResidentialCapacity = 0;
 
-	TileList mConnectednessOverlay;
-	TileList mCommRangeOverlay;
-	std::vector<TileList> mPoliceOverlays;
-	TileList mTruckRouteOverlay;
+	std::vector<Tile*> mConnectednessOverlay;
+	std::vector<Tile*> mCommRangeOverlay;
+	std::vector<std::vector<Tile*>> mPoliceOverlays;
+	std::vector<Tile*> mTruckRouteOverlay;
 
 	NAS2D::Point<int> mTubeStart;
 	bool mPlacingTube = false;

@@ -6,6 +6,7 @@
 #include "../Population/Population.h"
 
 #include <NAS2D/Utility.h>
+#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <algorithm>
@@ -84,6 +85,19 @@ PopulationPanel::PopulationPanel() :
 
 
 	size({windowWidth, windowHeight});
+}
+
+
+void PopulationPanel::population(Population* pop)
+{
+	mPopulation = pop;
+}
+
+
+void PopulationPanel::addMoraleReason(const std::string& str, int val)
+{
+	if (val == 0) { return; }
+	mMoraleChangeReasons.push_back(std::make_pair(str, val));
 }
 
 

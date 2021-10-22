@@ -5,11 +5,11 @@
 
 struct PopulationTable
 {
-	int child;
-	int student;
-	int worker;
-	int scientist;
-	int retiree;
+	int child{};
+	int student{};
+	int worker{};
+	int scientist{};
+	int retiree{};
 
 
 	int employable() const;

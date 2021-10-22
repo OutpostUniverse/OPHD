@@ -4,8 +4,6 @@
 
 #include "../Core/Button.h"
 #include "../Core/CheckBox.h"
-#include "../Core/ComboBox.h"
-#include "../Core/TextArea.h"
 #include "../StructureListBox.h"
 #include "../../Common.h"
 
@@ -19,8 +17,6 @@ namespace NAS2D
 	class Font;
 	class Image;
 }
-
-class MineFacility;
 
 
 class MineReport : public ReportInterface

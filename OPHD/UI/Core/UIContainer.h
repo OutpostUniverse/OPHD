@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TextControl.h"
+#include "Control.h"
 
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/EventHandler.h>

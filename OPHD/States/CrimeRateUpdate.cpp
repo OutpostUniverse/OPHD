@@ -1,12 +1,14 @@
 #include "CrimeRateUpdate.h"
-#include "../UI/PopulationPanel.h"
+
+#include "../Map/Tile.h"
 #include "../Things/Structures/Structure.h"
 #include "../StructureManager.h"
 #include "../RandomNumberGenerator.h"
+
 #include <NAS2D/Utility.h>
 
 
-void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
+void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverlays)
 {
 	mMeanCrimeRate = 0;
 	mStructuresCommittingCrimes.clear();
@@ -44,7 +46,7 @@ void CrimeRateUpdate::update(const std::vector<TileList>& policeOverlays)
 }
 
 
-bool CrimeRateUpdate::isProtectedByPolice(const std::vector<TileList>& policeOverlays, Structure* structure)
+bool CrimeRateUpdate::isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, Structure* structure)
 {
 	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
 

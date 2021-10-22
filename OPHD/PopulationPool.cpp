@@ -1,4 +1,5 @@
 #include "PopulationPool.h"
+#include "Population/Population.h"
 
 #include <string>
 #include <stdexcept>
@@ -94,4 +95,10 @@ int PopulationPool::workersEmployed()
 int PopulationPool::populationEmployed()
 {
 	return scientistsEmployed() + scientistsAsWorkers() + workersEmployed();
+}
+
+
+int PopulationPool::size() const
+{
+	return mPopulation->getPopulations().size();
 }
