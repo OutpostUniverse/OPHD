@@ -2,16 +2,12 @@
 
 #include <NAS2D/Math/Vector.h>
 
-#include <chrono>
-
 
 /**
  * Numeric constants
  */
 namespace constants
 {
-	inline constexpr std::chrono::milliseconds FadeSpeed{300};
-
 	inline constexpr int PlanetAnimationSpeed{50};
 
 	inline constexpr int SmeltingMinimumResourcesCount{20};

@@ -2,12 +2,15 @@
 
 #include <NAS2D/Renderer/Color.h>
 
+#include <chrono>
 #include <limits>
 #include <string>
 
 
 namespace constants
 {
+	inline constexpr std::chrono::milliseconds FadeSpeed{300};
+
 	inline constexpr int BottomUiHeight{162};
 
 	inline constexpr int Margin{6};
