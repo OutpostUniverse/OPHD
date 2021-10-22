@@ -13,6 +13,8 @@ extern SDL_Window* underlyingWindow;
 
 
 #if defined(WINDOWS) || defined(WIN32)
+namespace
+{
 	/**
 	 * Gets a Windows API HWND handle to the main
 	 * window of the application.
@@ -35,6 +37,7 @@ extern SDL_Window* underlyingWindow;
 
 		return systemInfo.info.win.window;
 	}
+}
 #endif
 
 
