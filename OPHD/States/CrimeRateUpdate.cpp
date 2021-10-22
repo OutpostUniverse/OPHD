@@ -1,8 +1,11 @@
 #include "CrimeRateUpdate.h"
+
+#include "../Map/Tile.h"
 #include "../UI/PopulationPanel.h"
 #include "../Things/Structures/Structure.h"
 #include "../StructureManager.h"
 #include "../RandomNumberGenerator.h"
+
 #include <NAS2D/Utility.h>
 
 

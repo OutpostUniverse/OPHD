@@ -1,13 +1,15 @@
 #pragma once
 
-#include "../Map/Tile.h"
 #include "../Common.h"
+
 #include <vector>
 #include <map>
 #include <string>
 #include <utility>
 
+
 class Structure;
+class Tile;
 
 
 class CrimeRateUpdate
