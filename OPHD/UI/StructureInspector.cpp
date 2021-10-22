@@ -1,7 +1,7 @@
 #include "StructureInspector.h"
 
 #include "../Cache.h"
-#include "../Constants.h"
+#include "../Constants/Strings.h"
 #include "../Things/Structures/Structure.h"
 #include "StringTable.h"
 #include "TextRender.h"

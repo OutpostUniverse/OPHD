@@ -1,6 +1,7 @@
 #include "FileIo.h"
 
-#include "../Constants.h"
+#include "../Constants/Strings.h"
+#include "../Constants/UiConstants.h"
 #include "../Common.h"
 
 #include "MessageBox.h"

@@ -1,6 +1,7 @@
 #include "FactoryProduction.h"
 
 #include "StringTable.h"
+#include "../Constants/Strings.h"
 #include "../Things/Structures/Factory.h"
 
 #include <NAS2D/Utility.h>
