@@ -18,6 +18,8 @@
 #include "../Things/Structures/RobotCommand.h"
 #include "../Things/Structures/Warehouse.h"
 
+#include "../UI/MessageBox.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>

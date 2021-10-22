@@ -9,6 +9,8 @@
 #include "States/MapViewState.h"
 #include "States/MainReportsUiState.h"
 
+#include "UI/MessageBox.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/StateManager.h>

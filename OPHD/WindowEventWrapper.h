@@ -2,6 +2,8 @@
 
 #include "Common.h"
 
+#include "UI/MessageBox.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Configuration.h>
