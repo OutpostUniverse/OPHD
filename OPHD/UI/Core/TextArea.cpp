@@ -23,7 +23,7 @@ void TextArea::processString()
 
 	if (mRect.width < 10 || !mFont || text().empty()) { return; }
 
-	StringList tokenList = split_string(text().c_str(), ' ');
+	const auto tokenList = split_string(text().c_str(), ' ');
 
 	std::size_t i = 0;
 	int w = 0;
