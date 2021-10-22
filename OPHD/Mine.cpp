@@ -4,8 +4,6 @@
 
 #include <NAS2D/ParserHelper.h>
 
-#include <iostream>
-
 #include <algorithm>
 #include <array>
 #include <map>
