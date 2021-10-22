@@ -8,6 +8,10 @@
 #endif
 
 
+/** \fixme Evil hack exposing an internal NAS2D variable. */
+extern SDL_Window* underlyingWindow;
+
+
 #if defined(WINDOWS) || defined(WIN32)
 	/**
 	 * Gets a Windows API HWND handle to the main
@@ -24,8 +28,6 @@
 		SDL_SysWMinfo systemInfo;
 		SDL_VERSION(&systemInfo.version);
 
-		/** \fixme Evil hack exposing an internal NAS2D variable. */
-		extern SDL_Window* underlyingWindow;
 		if (SDL_GetWindowWMInfo(underlyingWindow, &systemInfo) != 1)
 		{
 			return nullptr;
@@ -103,7 +105,6 @@ bool doYesNoMessage(const std::string& title, const std::string msg)
  */
 bool windowMaximized()
 {
-	extern SDL_Window* underlyingWindow;
 	unsigned int flags = SDL_GetWindowFlags(underlyingWindow);
 	return (flags & SDL_WINDOW_MAXIMIZED);
 }
