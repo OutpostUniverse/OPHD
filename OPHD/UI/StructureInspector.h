@@ -3,13 +3,12 @@
 #include "Core/Window.h"
 #include "Core/Button.h"
 
-#include "StringTable.h"
-
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/Point.h>
 
 
 class Structure;
+class StringTable;
 
 
 class StructureInspector : public Window
