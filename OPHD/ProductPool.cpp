@@ -1,5 +1,7 @@
 #include "ProductPool.h"
 
+#include "Constants/Strings.h"
+
 #include <NAS2D/ParserHelper.h>
 
 #include <algorithm>

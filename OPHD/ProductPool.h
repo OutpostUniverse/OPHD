@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Common.h"
-#include "Constants.h"
+#include "Constants/Numbers.h"
 
 #include <NAS2D/Dictionary.h>
 
