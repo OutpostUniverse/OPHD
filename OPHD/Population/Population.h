@@ -33,7 +33,7 @@ private:
 	float mStarveRate{0.5f}; /**< Fraction of population that dies during food shortages. */
 	std::size_t mStarveRoleIndex{0};
 
-	PopulationTable mPopulation{}; /**< Current population. */
-	PopulationTable mPopulationGrowth{}; /**< Population growth table. */
-	PopulationTable mPopulationDeath{}; /**< Population death table. */
+	PopulationTable mPopulation; /**< Current population. */
+	PopulationTable mPopulationGrowth; /**< Population growth table. */
+	PopulationTable mPopulationDeath; /**< Population death table. */
 };
