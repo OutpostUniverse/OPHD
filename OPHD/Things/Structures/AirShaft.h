@@ -3,6 +3,7 @@
 #include "Structure.h"
 
 #include "../../Constants.h"
+#include "../../Constants/Strings.h"
 
 
 class AirShaft : public Structure

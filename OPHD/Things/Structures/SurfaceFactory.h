@@ -2,7 +2,7 @@
 
 #include "Factory.h"
 
-#include "../../Constants.h"
+#include "../../Constants/Strings.h"
 
 
 class SurfaceFactory : public Factory
