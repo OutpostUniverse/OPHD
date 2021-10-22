@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../States/Planet.h"
 #include "Numbers.h"
 
 #include <string>
