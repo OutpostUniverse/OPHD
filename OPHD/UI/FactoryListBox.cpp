@@ -68,7 +68,7 @@ void FactoryListBox::addItem(Factory* factory)
 	{
 		if (static_cast<FactoryListBoxItem*>(item)->factory == factory)
 		{
-			throw std::runtime_error("FactoryListBox::addItem(): annoying bug, fix it.");
+			throw std::runtime_error("FactoryListBox::addItem(): Can't add factory multiple times");
 		}
 	}
 
