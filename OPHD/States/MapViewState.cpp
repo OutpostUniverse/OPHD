@@ -323,12 +323,7 @@ int MapViewState::totalStorage(Structure::StructureClass structureClass, int cap
 
 int MapViewState::refinedResourcesInStorage()
 {
-	int total = 0;
-	for (size_t i = 0; i < mResourcesCount.resources.size(); ++i)
-	{
-		total += mResourcesCount.resources[i];
-	}
-	return total;
+	return mResourcesCount.total();
 }
 
 
