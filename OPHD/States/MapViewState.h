@@ -132,6 +132,9 @@ private:
 	void onDiggerTaskComplete(Robot* robot);
 	void onMinerTaskComplete(Robot* robot);
 
+	bool isResourcePanelVisible() const;
+	bool isPopulationPanelVisible() const;
+
 	// DRAWING FUNCTIONS
 	void drawUI();
 	void drawMiniMap();
