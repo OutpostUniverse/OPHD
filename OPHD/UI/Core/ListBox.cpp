@@ -14,7 +14,7 @@ unsigned int ListBoxItemText::Context::itemHeight() const
 }
 
 
-void ListBoxItemText::draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, const Context& context, bool isSelected, bool isHighlighted)
+void ListBoxItemText::draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, const Context& context, bool isSelected, bool isHighlighted) const
 {
 	// Draw background rect
 	const auto backgroundColor = isSelected ? context.backgroundColorSelected : context.backgroundColorNormal;

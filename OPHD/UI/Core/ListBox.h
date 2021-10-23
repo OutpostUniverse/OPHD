@@ -47,7 +47,7 @@ struct ListBoxItemText
 		unsigned int itemHeight() const;
 	};
 
-	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted);
+	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted) const;
 };
 
 
