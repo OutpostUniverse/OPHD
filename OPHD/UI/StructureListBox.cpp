@@ -65,7 +65,7 @@ void StructureListBox::addItem(Structure* structure)
 	{
 		if (static_cast<StructureListBoxItem*>(item)->structure == structure)
 		{
-			throw std::runtime_error("StructureListBox::addItem(): annoying bug, fix it.");
+			throw std::runtime_error("StructureListBox::addItem(): Can't add structure multiple times");
 		}
 	}
 
