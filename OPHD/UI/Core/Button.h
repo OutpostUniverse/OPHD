@@ -60,7 +60,7 @@ private:
 		Pressed
 	};
 
-	void draw() override;
+	void draw() const override;
 
 	State mState = State::Normal; /**< Current state of the Button. */
 	Type mType = Type::BUTTON_NORMAL; /**< Modifies Button behavior. */

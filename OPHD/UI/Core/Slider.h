@@ -70,7 +70,7 @@ private:
 	float positionInternal();
 	void positionInternal(float newPosition);
 
-	void draw() override; /**< Draw the widget on screen. */
+	void draw() const override; /**< Draw the widget on screen. */
 	void logic(); /**< Compute some values before drawing the control. */
 
 	void buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, float value);

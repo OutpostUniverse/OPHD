@@ -86,7 +86,7 @@ void TextArea::update()
 }
 
 
-void TextArea::draw()
+void TextArea::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 

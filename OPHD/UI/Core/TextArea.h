@@ -26,7 +26,7 @@ private:
 	void onTextChange() override;
 	virtual void onFontChange();
 
-	void draw() override;
+	void draw() const override;
 	void processString();
 
 	std::size_t mNumLines = 0;

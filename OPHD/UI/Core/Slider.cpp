@@ -329,7 +329,7 @@ void Slider::update()
 }
 
 
-void Slider::draw()
+void Slider::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 

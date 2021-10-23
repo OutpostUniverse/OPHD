@@ -84,5 +84,5 @@ protected:
 	bool mHighlight = false; /**< Flag indicating that this Control is highlighted. */
 
 private:
-	virtual void draw() {}
+	virtual void draw() const {}
 };
