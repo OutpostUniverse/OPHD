@@ -303,17 +303,6 @@ void Slider::update()
 	}
 
 	logic();
-	draw();
-}
-
-
-void Slider::draw()
-{
-	auto& renderer = Utility<Renderer>::get();
-
-	mSkins.skinMiddle.draw(renderer, mSlideBar); // Slide area
-	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
-	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
 
 	if (mSliderType == SliderType::Vertical)
 	{
@@ -336,6 +325,17 @@ void Slider::draw()
 		mSlider = {mSlideBar.x + relativeThumbPosition, mSlideBar.y, newSize, mSlideBar.height};
 	}
 
+	draw();
+}
+
+
+void Slider::draw()
+{
+	auto& renderer = Utility<Renderer>::get();
+
+	mSkins.skinMiddle.draw(renderer, mSlideBar); // Slide area
+	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
+	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
 	mSkins.skinSlider.draw(renderer, mSlider);
 
 	if (mDisplayPosition && mMouseHoverSlide)
