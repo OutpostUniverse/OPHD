@@ -42,19 +42,19 @@ public:
 	~Slider() override;
 
 	void thumbPosition(float value); /**< Set the current position. */
-	float thumbPosition(); /**< Get the current position. */
+	float thumbPosition() const; /**< Get the current position. */
 	void changeThumbPosition(float change); /**< Adds the change amount to the current position. */
 
 	void thumbPositionNormalized(float value); /**< Set the current position. */
-	float thumbPositionNormalized(); /**< Get the current position. */
+	float thumbPositionNormalized() const; /**< Get the current position. */
 
-	bool displayPosition() { return mDisplayPosition;} /**< Get the position display flag. */
+	bool displayPosition() const { return mDisplayPosition;} /**< Get the position display flag. */
 	void displayPosition(bool value) { mDisplayPosition = value; } /**< Set the position display flag. */
 
-	float length(); /**< Get the max value for the slide area. */
+	float length() const; /**< Get the max value for the slide area. */
 	void length(float length); /**< Set the max value for the slide area. */
 
-	bool backward() { return mBackward; } /**< Get the backward flag. */
+	bool backward() const { return mBackward; } /**< Get the backward flag. */
 	void backward(bool isBackward) { mBackward = isBackward; } /**< Set the backward flag. */
 
 	void update() override; /**< Called to display the slider. */

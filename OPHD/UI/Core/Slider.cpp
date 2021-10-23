@@ -369,7 +369,7 @@ void Slider::thumbPosition(float value)
 /**
 * Gets the current value of position
 */
-float Slider::thumbPosition()
+float Slider::thumbPosition() const
 {
 	float value = mPosition;
 	if (mBackward)
@@ -401,14 +401,14 @@ void Slider::thumbPositionNormalized(float value) {
 	mSignal(thumbPosition());
 }
 
-float Slider::thumbPositionNormalized() {
+float Slider::thumbPositionNormalized() const {
 	return mPosition / mLength;
 }
 
 /**
  * Returns the max value position can get
  */
-float Slider::length()
+float Slider::length() const
 {
 	return mLength;
 }
