@@ -311,8 +311,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 			break;
 
 		default:
-			std::cout << "Unknown robot type in savegame." << std::endl;
-			break;
+			throw std::runtime_error("Unknown robot type in savegame.");
 		}
 
 		// Could be done in the default handler in the above switch
