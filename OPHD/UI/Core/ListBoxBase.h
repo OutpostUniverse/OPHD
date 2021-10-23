@@ -62,6 +62,7 @@ public:
 	SelectionChangeSignal::Source& selectionChanged() { return mSelectionChanged; }
 
 	void update() override = 0;
+	void draw() const override;
 
 protected:
 	template <typename ItemType, typename... Args>
