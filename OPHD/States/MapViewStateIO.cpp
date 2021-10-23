@@ -29,9 +29,6 @@
 #include <stdexcept>
 #include <iostream>
 
-using namespace NAS2D;
-using namespace NAS2D::Xml;
-
 
 /// \fixme	Fugly, find a sane way to do this.
 extern const std::string MAP_TERRAIN_EXTENSION = "_a.png";
