@@ -64,7 +64,7 @@ protected:
 	void onTextInput(const std::string& newTextInput);
 
 private:
-	void drawCursor();
+	void drawCursor() const;
 	void updateScrollPosition();
 
 	int textAreaWidth() const;

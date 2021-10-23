@@ -260,7 +260,7 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 /**
  * Draws the insertion point cursor.
  */
-void TextField::drawCursor()
+void TextField::drawCursor() const
 {
 	if (hasFocus() && editable())
 	{
