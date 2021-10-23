@@ -86,7 +86,7 @@ void MapViewState::save(const std::string& filePath)
 	renderer.drawImage(*imageSaving, renderer.center() - imageSaving->size() / 2);
 	renderer.update();
 
-	XmlDocument doc;
+	NAS2D::Xml::XmlDocument doc;
 
 	auto* root = NAS2D::dictionaryToAttributes(
 		constants::SaveGameRootNode,
@@ -119,7 +119,7 @@ void MapViewState::save(const std::string& filePath)
 		}}
 	));
 
-	auto moraleChangeReasons = new XmlElement("morale_change");
+	auto moraleChangeReasons = new NAS2D::Xml::XmlElement("morale_change");
 	auto& moraleChangeList = mPopulationPanel.moraleReasonList();
 	for (auto& [message, value] : moraleChangeList)
 	{
@@ -130,14 +130,14 @@ void MapViewState::save(const std::string& filePath)
 	root->linkEndChild(moraleChangeReasons);
 
 	// Write out the XML file.
-	XmlMemoryBuffer buff;
+	NAS2D::Xml::XmlMemoryBuffer buff;
 	doc.accept(&buff);
 
 	NAS2D::Utility<NAS2D::Filesystem>::get().write(filePath, buff.buffer());
 }
 
 
-XmlElement* MapViewState::serializeProperties()
+NAS2D::Xml::XmlElement* MapViewState::serializeProperties()
 {
 	return NAS2D::dictionaryToAttributes(
 		"properties",
@@ -182,7 +182,7 @@ void MapViewState::load(const std::string& filePath)
 	auto xmlDocument = openSavegame(filePath);
 	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
 
-	XmlElement* map = root->firstChildElement("properties");
+	NAS2D::Xml::XmlElement* map = root->firstChildElement("properties");
 	const auto dictionary = NAS2D::attributesToDictionary(*map);
 
 	mPlanetAttributes.maxDepth = dictionary.get<int>("diggingdepth");
@@ -279,7 +279,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 	mRobots.clear();
 
 	ROBOT_ID_COUNTER = 0;
-	for (XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
+	for (NAS2D::Xml::XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*robotElement);
 
@@ -345,7 +345,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 
 void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 {
-	for (XmlElement* structureElement = element->firstChildElement(); structureElement != nullptr; structureElement = structureElement->nextSiblingElement())
+	for (NAS2D::Xml::XmlElement* structureElement = element->firstChildElement(); structureElement != nullptr; structureElement = structureElement->nextSiblingElement())
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
 
