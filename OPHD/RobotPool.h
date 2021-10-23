@@ -42,9 +42,9 @@ public:
 	void erase(Robot* robot);
 	bool insertRobotIntoTable(RobotTileTable& robotMap, Robot* robot, Tile* tile);
 
-	uint32_t robotControlMax() { return mRobotControlMax; }
-	uint32_t currentControlCount() { return mRobotControlCount; }
-	uint32_t availableControlCount() { return robotControlMax() - currentControlCount(); }
+	uint32_t robotControlMax() const { return mRobotControlMax; }
+	uint32_t currentControlCount() const { return mRobotControlCount; }
+	uint32_t availableControlCount() const { return robotControlMax() - currentControlCount(); }
 
 	const RobotList& robots() const { return mRobots; }
 
