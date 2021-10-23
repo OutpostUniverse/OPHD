@@ -63,7 +63,6 @@ FactoryListBox::FactoryListBox()
  */
 void FactoryListBox::addItem(Factory* factory)
 {
-	/// \fixme	Could be much more elegant via a lambda expression
 	for (auto item : mItems)
 	{
 		if (static_cast<FactoryListBoxItem*>(item)->factory == factory)
