@@ -321,12 +321,6 @@ int MapViewState::totalStorage(Structure::StructureClass structureClass, int cap
 }
 
 
-int MapViewState::refinedResourcesInStorage()
-{
-	return mResourcesCount.total();
-}
-
-
 void MapViewState::countPlayerResources()
 {
 	auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
