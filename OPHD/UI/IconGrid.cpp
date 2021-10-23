@@ -93,12 +93,6 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	{
 		mSelectedIndex = constants::NoSelection;
 	}
-	/* else if (!mIconItemList[mSelectedIndex].available)
-	{
-		cout << "Insufficient resources" <<endl;
-		mSelectedIndex = constants::NoSelection;
-		return;
-	} */
 
 	if (previousIndex != mSelectedIndex)
 	{
