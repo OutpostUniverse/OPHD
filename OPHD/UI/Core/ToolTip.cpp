@@ -102,7 +102,12 @@ void ToolTip::update()
 	{
 		return;
 	}
+	draw();
+}
 
+
+void ToolTip::draw() const
+{
 	if (mFocusedControl)
 	{
 		auto& renderer = Utility<Renderer>::get();
