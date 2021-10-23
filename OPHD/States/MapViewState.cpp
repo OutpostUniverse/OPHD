@@ -970,7 +970,14 @@ void MapViewState::placeRobodozer(Tile& tile)
 		/**
 		 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
 		 */
-		if (!recycledResources.isEmpty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
+		if (!recycledResources.isEmpty())
+		{
+			mNotificationArea.push(
+				"Resources wasted",
+				"Resources wasted demolishing " + structure->name(),
+				tile.xyz(),
+				NotificationArea::NotificationType::Warning);
+		}
 
 		updatePlayerResources();
 		updateStructuresAvailability();
