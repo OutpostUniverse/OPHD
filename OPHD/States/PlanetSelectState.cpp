@@ -17,9 +17,6 @@
 #include <limits>
 
 
-using namespace NAS2D;
-
-
 PlanetSelectState::PlanetSelectState() :
 	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
 	mTinyFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
