@@ -57,6 +57,7 @@ public:
 	void maxCharacters(std::size_t count);
 
 	void update() override;
+	void draw() const override;
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
@@ -64,11 +65,10 @@ protected:
 	void onTextInput(const std::string& newTextInput);
 
 private:
-	void drawCursor();
+	void drawCursor() const;
+	void updateScrollPosition();
 
 	int textAreaWidth() const;
-
-	void updateCursor();
 
 	const NAS2D::Font& mFont;
 	const NAS2D::RectangleSkin mSkinNormal;

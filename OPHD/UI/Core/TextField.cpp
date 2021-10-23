@@ -260,31 +260,23 @@ void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
 /**
  * Draws the insertion point cursor.
  */
-void TextField::drawCursor()
+void TextField::drawCursor() const
 {
 	if (hasFocus() && editable())
 	{
 		if (mShowCursor)
 		{
-			// updateCursor() should be called only on events relating to the cursor so this is temporary.
-			updateCursor();
 			auto& renderer = Utility<Renderer>::get();
 			const auto startPosition = NAS2D::Point{mCursorX, mRect.y + fieldPadding};
 			const auto endPosition = NAS2D::Point{mCursorX, mRect.y + mRect.height - fieldPadding - 1};
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
 			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
 		}
-
-		if (mCursorTimer.accumulator() > cursorBlinkDelay)
-		{
-			mCursorTimer.reset();
-			mShowCursor = !mShowCursor;
-		}
 	}
 }
 
 
-void TextField::updateCursor()
+void TextField::updateScrollPosition()
 {
 	int cursorX = mFont.width(text().substr(0, mCursorPosition));
 
@@ -313,6 +305,21 @@ void TextField::update()
 {
 	if (!visible()) { return; }
 
+	// Should be called only on events relating to the cursor so this is temporary.
+	updateScrollPosition();
+
+	if (mCursorTimer.accumulator() > cursorBlinkDelay)
+	{
+		mCursorTimer.reset();
+		mShowCursor = !mShowCursor;
+	}
+
+	draw();
+}
+
+
+void TextField::draw() const
+{
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto showFocused = hasFocus() && editable();

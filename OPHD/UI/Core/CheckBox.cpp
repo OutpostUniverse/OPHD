@@ -103,7 +103,12 @@ void CheckBox::onResize()
 void CheckBox::update()
 {
 	if (!visible()) { return; }
+	draw();
+}
 
+
+void CheckBox::draw() const
+{
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto uncheckedIconRect = NAS2D::Rectangle{0, 0, 13, 13};

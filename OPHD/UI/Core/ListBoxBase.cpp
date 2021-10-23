@@ -276,7 +276,13 @@ void ListBoxBase::item_height(int h)
 void ListBoxBase::update()
 {
 	if (!visible()) { return; }
+	draw();
+	mSlider.update();
+}
 
+
+void ListBoxBase::draw() const
+{
 	auto& renderer = Utility<Renderer>::get();
 
 	// CONTROL EXTENTS
@@ -289,8 +295,6 @@ void ListBoxBase::update()
 	// MOUSE HIGHLIGHT
 	int highlight_y = positionY() + (static_cast<int>(mHighlightIndex) * mItemHeight) - static_cast<int>(mScrollOffsetInPixels);
 	renderer.drawBoxFilled(NAS2D::Rectangle{positionX(), highlight_y, mItemWidth, mItemHeight}, NAS2D::Color{0, 185, 0, 50});
-
-	mSlider.update();
 
 	renderer.clipRectClear();
 }

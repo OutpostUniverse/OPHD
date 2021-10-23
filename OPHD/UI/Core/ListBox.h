@@ -47,7 +47,7 @@ struct ListBoxItemText
 		unsigned int itemHeight() const;
 	};
 
-	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted);
+	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted) const;
 };
 
 
@@ -152,7 +152,12 @@ public:
 	void update() override {
 		// Ignore if menu is empty or invisible
 		if (!visible()) { return; }
+		draw();
+		mSlider.update();
+	}
 
+	void draw() const override
+	{
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 		const auto borderColor = hasFocus() ? mContext.borderColorActive : mContext.borderColorNormal;
@@ -183,8 +188,6 @@ public:
 		renderer.drawBoxFilled(itemDrawArea, mContext.backgroundColorNormal);
 
 		renderer.clipRectClear();
-
-		mSlider.update();
 	}
 
 	SelectionChangeSignal::Source& selectionChanged() {

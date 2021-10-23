@@ -20,7 +20,7 @@ void Control::position(Point<int> pos)
 /**
  * Gets the X Position of the Control.
  */
-int Control::positionX()
+int Control::positionX() const
 {
 	return mRect.x;
 }
@@ -29,7 +29,7 @@ int Control::positionX()
 /**
  * Gets the Y Position of the Control.
  */
-int Control::positionY()
+int Control::positionY() const
 {
 	return mRect.y;
 }

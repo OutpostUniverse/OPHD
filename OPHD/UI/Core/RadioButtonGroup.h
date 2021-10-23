@@ -36,7 +36,7 @@ private:
 		void text(const std::string& text);
 		const std::string& text() const;
 
-		void update() override;
+		void draw() const override;
 
 	protected:
 		void onResize() override;
@@ -68,6 +68,7 @@ public:
 	void select(RadioButtonGroup::RadioButton& button);
 
 	void update() override;
+	void draw() const override;
 
 protected:
 	void onMove(NAS2D::Vector<int> displacement) override;

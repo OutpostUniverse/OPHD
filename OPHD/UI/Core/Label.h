@@ -32,7 +32,9 @@ public:
 	void font(const NAS2D::Font* font);
 	bool empty() const { return text().empty(); }
 	void clear() { mText.clear(); }
+
 	void update() override;
+	void draw() const override;
 
 	int textWidth() const;
 	NAS2D::Vector<int> textSize() const;

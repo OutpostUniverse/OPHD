@@ -67,9 +67,14 @@ void RadioButtonGroup::select(RadioButtonGroup::RadioButton& button)
 void RadioButtonGroup::update()
 {
 	if (!visible()) { return; }
+	draw();
+}
 
+
+void RadioButtonGroup::draw() const
+{
 	for (auto &control : mRadioButtons)
 	{
-		control.update();
+		control.draw();
 	}
 }

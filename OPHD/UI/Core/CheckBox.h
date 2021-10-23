@@ -30,6 +30,7 @@ public:
 	ClickSignal::Source& click();
 
 	void update() override;
+	void draw() const override;
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);

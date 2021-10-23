@@ -17,7 +17,9 @@ public:
 	~ToolTip() override;
 
 	void add(Control&, const std::string&);
+
 	void update() override;
+	void draw() const override;
 
 private:
 	void onMouseMove(int, int, int, int);
