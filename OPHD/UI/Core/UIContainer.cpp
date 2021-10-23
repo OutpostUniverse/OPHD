@@ -60,8 +60,7 @@ void UIContainer::bringToFront(Control* control)
 	auto control_iterator = std::find(mControls.begin(), mControls.end(), control);
 	if (control_iterator == mControls.end())
 	{
-		std::cout << "UIContainer::bringToFront(): Control is not managed by this container." << std::endl; // debug aid, can be pulled in release modes.
-		return;
+		throw std::runtime_error("UIContainer::bringToFront(): Control is not managed by this container.");
 	}
 
 	mControls.back()->hasFocus(false);
