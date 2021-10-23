@@ -34,9 +34,6 @@
 #pragma warning(disable : 4244) // possible loss of data (floats to int and vice versa)
 
 
-using namespace NAS2D;
-
-
 const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
