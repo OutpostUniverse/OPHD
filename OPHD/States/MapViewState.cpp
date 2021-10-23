@@ -34,17 +34,14 @@
 #pragma warning(disable : 4244) // possible loss of data (floats to int and vice versa)
 
 
-using namespace NAS2D;
-
-
 const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 const std::string MAP_DISPLAY_EXTENSION = "_b.png";
 
-extern Point<int> MOUSE_COORDS;
+extern NAS2D::Point<int> MOUSE_COORDS;
 
 
-Rectangle<int> RESOURCE_PANEL_PIN{0, 1, 8, 19};
-Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
+NAS2D::Rectangle<int> RESOURCE_PANEL_PIN{0, 1, 8, 19};
+NAS2D::Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
 
 std::string CURRENT_LEVEL_STRING;
 
@@ -58,7 +55,7 @@ std::map<int, std::string> LEVEL_STRING_TABLE =
 };
 
 
-const Font* MAIN_FONT = nullptr;
+const NAS2D::Font* MAIN_FONT = nullptr;
 
 
 /** \fixme Find a sane place for these */
@@ -124,7 +121,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mExistingToLoad(savegame)
 {
 	ccLocation() = CcNotPlaced;
-	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
+	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
 
 
@@ -133,12 +130,12 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mCrimeExecution(mNotificationArea),
 	mPlanetAttributes(planetAttributes),
-	mMapDisplay{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
-	mHeightMap{std::make_unique<Image>(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)}
+	mMapDisplay{std::make_unique<NAS2D::Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
+	mHeightMap{std::make_unique<NAS2D::Image>(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)}
 {
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
-	Utility<EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
+	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
 }
 
 
@@ -149,9 +146,9 @@ MapViewState::~MapViewState()
 	scrubRobotList();
 	delete mTileMap;
 
-	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
+	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.activate().disconnect(this, &MapViewState::onActivate);
 	eventHandler.keyDown().disconnect(this, &MapViewState::onKeyDown);
 	eventHandler.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
@@ -181,7 +178,7 @@ void MapViewState::initialize()
 {
 	// UI
 	initUi();
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.setCursor(PointerType::POINTER_NORMAL);
 
@@ -203,9 +200,9 @@ void MapViewState::initialize()
 
 	resetPoliceOverlays();
 
-	Utility<Renderer>::get().fadeIn(constants::FadeSpeed);
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeIn(constants::FadeSpeed);
 
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 
 	eventHandler.activate().connect(this, &MapViewState::onActivate);
 	eventHandler.keyDown().connect(this, &MapViewState::onKeyDown);
@@ -242,7 +239,7 @@ void MapViewState::_deactivate()
 void MapViewState::focusOnStructure(Structure* structure)
 {
 	if (!structure) { return; }
-	mTileMap->centerMapOnTile(&Utility<StructureManager>::get().tileFromStructure(structure));
+	mTileMap->centerMapOnTile(&NAS2D::Utility<StructureManager>::get().tileFromStructure(structure));
 }
 
 
@@ -257,9 +254,9 @@ void MapViewState::difficulty(Difficulty difficulty)
 /**
  * Updates the entire state of the game.
  */
-State* MapViewState::update()
+NAS2D::State* MapViewState::update()
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto renderArea = NAS2D::Rectangle<int>::Create({0, 0}, renderer.size());
 
 	// Game's over, don't bother drawing anything else
@@ -274,7 +271,7 @@ State* MapViewState::update()
 	renderer.drawImageStretched(mBackground, renderArea);
 
 	// explicit current level
-	const Font* font = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
+	const NAS2D::Font* font = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
 	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - font->size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
 	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
 
@@ -311,7 +308,7 @@ int MapViewState::totalStorage(Structure::StructureClass structureClass, int cap
 		storageCapacity += constants::BaseStorageCapacity;
 	}
 
-	const auto& structures = Utility<StructureManager>::get().structureList(structureClass);
+	const auto& structures = NAS2D::Utility<StructureManager>::get().structureList(structureClass);
 	for (auto structure : structures)
 	{
 		if (structure->operational() || structure->isIdle())
@@ -372,7 +369,7 @@ void MapViewState::onWindowResized(NAS2D::Vector<int> newSize)
 /**
  * Key down event handler.
  */
-void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier mod, bool /*repeat*/)
+void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool /*repeat*/)
 {
 	if (!active()) { return; }
 
@@ -382,89 +379,89 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 		return;
 	}
 
-	if (key == EventHandler::KeyCode::KEY_F1)
+	if (key == NAS2D::EventHandler::KeyCode::KEY_F1)
 	{
 		mReportsUiSignal();
 		return;
 	}
 
 	bool viewUpdated = false; // don't like flaggy code like this
-	Point<int> pt = mTileMap->mapViewLocation();
+	NAS2D::Point<int> pt = mTileMap->mapViewLocation();
 
 	switch(key)
 	{
-		case EventHandler::KeyCode::KEY_w:
-		case EventHandler::KeyCode::KEY_UP:
+		case NAS2D::EventHandler::KeyCode::KEY_w:
+		case NAS2D::EventHandler::KeyCode::KEY_UP:
 			viewUpdated = true;
 			pt += DirectionNorth;
 			break;
 
-		case EventHandler::KeyCode::KEY_s:
-		case EventHandler::KeyCode::KEY_DOWN:
+		case NAS2D::EventHandler::KeyCode::KEY_s:
+		case NAS2D::EventHandler::KeyCode::KEY_DOWN:
 			viewUpdated = true;
 			pt += DirectionSouth;
 			break;
 
-		case EventHandler::KeyCode::KEY_a:
-		case EventHandler::KeyCode::KEY_LEFT:
+		case NAS2D::EventHandler::KeyCode::KEY_a:
+		case NAS2D::EventHandler::KeyCode::KEY_LEFT:
 			viewUpdated = true;
 			pt += DirectionWest;
 			break;
 
-		case EventHandler::KeyCode::KEY_d:
-		case EventHandler::KeyCode::KEY_RIGHT:
+		case NAS2D::EventHandler::KeyCode::KEY_d:
+		case NAS2D::EventHandler::KeyCode::KEY_RIGHT:
 			viewUpdated = true;
 			pt += DirectionEast;
 			break;
 
-		case EventHandler::KeyCode::KEY_0:
+		case NAS2D::EventHandler::KeyCode::KEY_0:
 			viewUpdated = true;
 			changeViewDepth(0);
 			break;
 
-		case EventHandler::KeyCode::KEY_1:
+		case NAS2D::EventHandler::KeyCode::KEY_1:
 			viewUpdated = true;
 			changeViewDepth(1);
 			break;
 
-		case EventHandler::KeyCode::KEY_2:
+		case NAS2D::EventHandler::KeyCode::KEY_2:
 			viewUpdated = true;
 			changeViewDepth(2);
 			break;
 
-		case EventHandler::KeyCode::KEY_3:
+		case NAS2D::EventHandler::KeyCode::KEY_3:
 			viewUpdated = true;
 			changeViewDepth(3);
 			break;
 
-		case EventHandler::KeyCode::KEY_4:
+		case NAS2D::EventHandler::KeyCode::KEY_4:
 			viewUpdated = true;
 			changeViewDepth(4);
 			break;
 
-		case EventHandler::KeyCode::KEY_PAGEUP:
+		case NAS2D::EventHandler::KeyCode::KEY_PAGEUP:
 			viewUpdated = true;
 			changeViewDepth(mTileMap->currentDepth() - 1);
 			break;
 
-		case EventHandler::KeyCode::KEY_PAGEDOWN:
+		case NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN:
 			viewUpdated = true;
 			changeViewDepth(mTileMap->currentDepth() + 1);
 			break;
 
 
-		case EventHandler::KeyCode::KEY_HOME:
+		case NAS2D::EventHandler::KeyCode::KEY_HOME:
 			viewUpdated = true;
 			changeViewDepth(0);
 			break;
 
-		case EventHandler::KeyCode::KEY_END:
+		case NAS2D::EventHandler::KeyCode::KEY_END:
 			viewUpdated = true;
 			changeViewDepth(mTileMap->maxDepth());
 			break;
 
-		case EventHandler::KeyCode::KEY_F10:
-			if (Utility<EventHandler>::get().control(mod) && Utility<EventHandler>::get().shift(mod))
+		case NAS2D::EventHandler::KeyCode::KEY_F10:
+			if (NAS2D::Utility<NAS2D::EventHandler>::get().control(mod) && NAS2D::Utility<NAS2D::EventHandler>::get().shift(mod))
 			{
 				StorableResources resourcesToAdd{1000, 1000, 1000, 1000};
 				addRefinedResources(resourcesToAdd);
@@ -473,24 +470,24 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 			}
 			break;
 
-		case EventHandler::KeyCode::KEY_F2:
+		case NAS2D::EventHandler::KeyCode::KEY_F2:
 			mFileIoDialog.scanDirectory(constants::SaveGamePath);
 			mFileIoDialog.setMode(FileIo::FileOperation::Save);
 			mFileIoDialog.show();
 			break;
 
-		case EventHandler::KeyCode::KEY_F3:
+		case NAS2D::EventHandler::KeyCode::KEY_F3:
 			mFileIoDialog.scanDirectory(constants::SaveGamePath);
 			mFileIoDialog.setMode(FileIo::FileOperation::Load);
 			mFileIoDialog.show();
 			break;
 
-		case EventHandler::KeyCode::KEY_ESCAPE:
+		case NAS2D::EventHandler::KeyCode::KEY_ESCAPE:
 			clearMode();
 			resetUi();
 			break;
 
-		case EventHandler::KeyCode::KEY_ENTER:
+		case NAS2D::EventHandler::KeyCode::KEY_ENTER:
 			if (mBtnTurns.enabled()) { nextTurn(); }
 			break;
 
@@ -508,7 +505,7 @@ void MapViewState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifie
 /**
  * Mouse Down event handler.
  */
-void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int /*y*/)
+void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*/, int /*y*/)
 {
 	if (!active()) { return; }
 
@@ -520,7 +517,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		return;
 	}
 
-	if (button == EventHandler::MouseButton::Right || button == EventHandler::MouseButton::Middle)
+	if (button == NAS2D::EventHandler::MouseButton::Right || button == NAS2D::EventHandler::MouseButton::Middle)
 	{
 		if (mInsertMode != InsertMode::None)
 		{
@@ -549,8 +546,8 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		{
 			Structure* structure = tile.structure();
 
-			const bool inspectModifier = NAS2D::Utility<EventHandler>::get().query_shift() ||
-				button == EventHandler::MouseButton::Middle;
+			const bool inspectModifier = NAS2D::Utility<NAS2D::EventHandler>::get().query_shift() ||
+				button == NAS2D::EventHandler::MouseButton::Middle;
 
 			const bool notDisabled = structure->operational() || structure->isIdle();
 
@@ -581,11 +578,11 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		}
 	}
 
-	if (button == EventHandler::MouseButton::Left)
+	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		mLeftButtonDown = true;
 
-		Point<int> pt = mTileMap->mapViewLocation();
+		NAS2D::Point<int> pt = mTileMap->mapViewLocation();
 
 		if (mTooltipSystemButton.rect().contains(MOUSE_COORDS))
 		{
@@ -630,7 +627,7 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 		// Click was within the bounds of the TileMap.
 		else if (mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
-			auto& eventHandler = Utility<EventHandler>::get();
+			auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 			if (mInsertMode == InsertMode::Structure)
 			{
 				placeStructure();
@@ -652,11 +649,11 @@ void MapViewState::onMouseDown(EventHandler::MouseButton button, int /*x*/, int 
 }
 
 
-void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*/, int /*y*/)
+void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, int /*x*/, int /*y*/)
 {
 	if (!active()) { return; }
 
-	if (button == EventHandler::MouseButton::Left)
+	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 		if (!mTileMap->tileHighlightVisible()) { return; }
@@ -694,12 +691,12 @@ void MapViewState::onMouseDoubleClick(EventHandler::MouseButton button, int /*x*
 /**
 * Mouse Up event handler.
 */
-void MapViewState::onMouseUp(EventHandler::MouseButton button, int /*x*/, int /*y*/)
+void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int /*x*/, int /*y*/)
 {
-	if (button == EventHandler::MouseButton::Left)
+	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		mLeftButtonDown = false;
-		auto& eventHandler = Utility<EventHandler>::get();
+		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 		if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 		{
 			placeTubeEnd();
@@ -772,7 +769,7 @@ void MapViewState::setMinimapView()
 void MapViewState::clearMode()
 {
 	mInsertMode = InsertMode::None;
-	Utility<Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
+	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
 	mCurrentStructure = StructureID::SID_NONE;
 	mCurrentRobot = Robot::Type::None;
@@ -788,7 +785,7 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir paramter.");
 	}
 
-	Utility<StructureManager>::get().addStructure(new Tube(dir, depth != 0), tile);
+	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(dir, depth != 0), tile);
 }
 
 
@@ -810,7 +807,7 @@ void MapViewState::placeTubes()
 		insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(mTileMapMouseHover));
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
-		Utility<StructureManager>::get().disconnectAll();
+		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		checkConnectedness();
 	}
 	else
@@ -898,7 +895,7 @@ void MapViewState::placeTubeEnd()
 			insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(position));
 
 			// FIXME: Naive approach -- will be slow with larger colonies.
-			Utility<StructureManager>::get().disconnectAll();
+			NAS2D::Utility<StructureManager>::get().disconnectAll();
 			checkConnectedness();
 		}
 
@@ -935,7 +932,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
 			auto& mineShaftTile = mTileMap->getTile({mTileMap->tileMouseHover(), i});
-			Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
+			NAS2D::Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
 		}
 	}
 	else if (tile.thingIsStructure())
@@ -990,9 +987,9 @@ void MapViewState::placeRobodozer(Tile& tile)
 		updateStructuresAvailability();
 
 		tile.connected(false);
-		Utility<StructureManager>::get().removeStructure(structure);
+		NAS2D::Utility<StructureManager>::get().removeStructure(structure);
 		tile.deleteThing();
-		Utility<StructureManager>::get().disconnectAll();
+		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		robot.tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
 		checkConnectedness();
 	}
@@ -1077,7 +1074,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 		// Popup to the right of the mouse
 		auto position = MOUSE_COORDS + NAS2D::Vector{20, -32};
 		// Check if popup position is off the right edge of the display area
-		if (position.x + mDiggerDirection.size().x > Utility<Renderer>::get().size().x)
+		if (position.x + mDiggerDirection.size().x > NAS2D::Utility<NAS2D::Renderer>::get().size().x)
 		{
 			// Popup to the left of the mouse
 			position = MOUSE_COORDS + NAS2D::Vector{-20 - mDiggerDirection.size().x, -32};
@@ -1221,7 +1218,7 @@ void MapViewState::placeStructure()
 
 		ColonistLander* s = new ColonistLander(tile);
 		s->deploySignal().connect(this, &MapViewState::onDeployColonistLander);
-		Utility<StructureManager>::get().addStructure(s, tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(s, tile);
 
 		--mLandersColonist;
 		if (mLandersColonist == 0)
@@ -1237,7 +1234,7 @@ void MapViewState::placeStructure()
 
 		CargoLander* cargoLander = new CargoLander(tile);
 		cargoLander->deploySignal().connect(this, &MapViewState::onDeployCargoLander);
-		Utility<StructureManager>::get().addStructure(cargoLander, tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(cargoLander, tile);
 
 		--mLandersCargo;
 		if (mLandersCargo == 0)
@@ -1265,7 +1262,7 @@ void MapViewState::placeStructure()
 		Structure* structure = StructureCatalogue::get(mCurrentStructure);
 		if (!structure) { throw std::runtime_error("MapViewState::placeStructure(): NULL Structure returned from StructureCatalog."); }
 
-		Utility<StructureManager>::get().addStructure(structure, tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
 
 		// FIXME: Ugly
 		if (structure->isFactory())
@@ -1304,7 +1301,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 
 		SeedLander* s = new SeedLander(point);
 		s->deploySignal().connect(this, &MapViewState::onDeploySeedLander);
-		Utility<StructureManager>::get().addStructure(s, &mTileMap->getTile(point)); // Can only ever be placed on depth level 0
+		NAS2D::Utility<StructureManager>::get().addStructure(s, &mTileMap->getTile(point)); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();
@@ -1362,7 +1359,7 @@ void MapViewState::updateRobots()
 				tile->removeThing();
 			}
 
-			for (auto rcc : Utility<StructureManager>::get().getStructures<RobotCommand>())
+			for (auto rcc : NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>())
 			{
 				rcc->removeRobot(robot);
 			}
@@ -1412,7 +1409,7 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
 	mCurrentStructure = type;
 
 	mInsertMode = mode;
-	Utility<Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
+	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
 }
 
 

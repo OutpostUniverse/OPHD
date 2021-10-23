@@ -17,9 +17,6 @@
 #include <limits>
 
 
-using namespace NAS2D;
-
-
 PlanetSelectState::PlanetSelectState() :
 	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
 	mTinyFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
@@ -37,20 +34,20 @@ PlanetSelectState::PlanetSelectState() :
 
 PlanetSelectState::~PlanetSelectState()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().disconnect(this, &PlanetSelectState::onMouseDown);
 	eventHandler.mouseMotion().disconnect(this, &PlanetSelectState::onMouseMove);
 	eventHandler.windowResized().disconnect(this, &PlanetSelectState::onWindowResized);
 
 	for (auto planet : mPlanets) { delete planet; }
 
-	Utility<Mixer>::get().stopAllAudio();
+	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
 
 
 void PlanetSelectState::initialize()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect(this, &PlanetSelectState::onMouseDown);
 	eventHandler.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 	eventHandler.windowResized().connect(this, &PlanetSelectState::onWindowResized);
@@ -60,7 +57,7 @@ void PlanetSelectState::initialize()
 		mPlanets.push_back(new Planet(planetAttribute));
 	}
 
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto viewportSize = renderer.size().to<int>();
 	mPlanets[0]->position(viewportSize.x / 4 - 64, viewportSize.y / 2 - 64);
 	mPlanets[0]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
@@ -85,13 +82,13 @@ void PlanetSelectState::initialize()
 	renderer.showSystemPointer(true);
 	renderer.fadeIn(constants::FadeSpeed);
 
-	Utility<Mixer>::get().playMusic(mBgMusic);
+	NAS2D::Utility<NAS2D::Mixer>::get().playMusic(mBgMusic);
 }
 
 
-State* PlanetSelectState::update()
+NAS2D::State* PlanetSelectState::update()
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto size = renderer.size();
 	renderer.drawImageStretched(mBg, NAS2D::Rectangle<int>::Create({0, 0}, size));
@@ -136,16 +133,16 @@ State* PlanetSelectState::update()
 }
 
 
-void PlanetSelectState::onMouseDown(EventHandler::MouseButton, int, int)
+void PlanetSelectState::onMouseDown(NAS2D::EventHandler::MouseButton, int, int)
 {
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
 		if (mPlanets[i]->mouseHovering())
 		{
-			Utility<Mixer>::get().playSound(mSelect);
+			NAS2D::Utility<NAS2D::Mixer>::get().playSound(mSelect);
 			mPlanetSelection = i;
-			Utility<Renderer>::get().fadeOut(constants::FadeSpeed);
-			Utility<Mixer>::get().fadeOutMusic(constants::FadeSpeed);
+			NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(constants::FadeSpeed);
+			NAS2D::Utility<NAS2D::Mixer>::get().fadeOutMusic(constants::FadeSpeed);
 			return;
 		}
 	}
@@ -160,7 +157,7 @@ void PlanetSelectState::onMouseMove(int x, int y, int, int)
 
 void PlanetSelectState::onMousePlanetEnter()
 {
-	Utility<Mixer>::get().playSound(mHover);
+	NAS2D::Utility<NAS2D::Mixer>::get().playSound(mHover);
 
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
@@ -194,6 +191,6 @@ void PlanetSelectState::onWindowResized(NAS2D::Vector<int> newSize)
 
 void PlanetSelectState::onQuit()
 {
-	Utility<Renderer>::get().fadeOut(constants::FadeSpeed);
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(constants::FadeSpeed);
 	mReturnState = new MainMenuState();
 }

@@ -29,9 +29,6 @@
 #include <stdexcept>
 #include <iostream>
 
-using namespace NAS2D;
-using namespace NAS2D::Xml;
-
 
 /// \fixme	Fugly, find a sane way to do this.
 extern const std::string MAP_TERRAIN_EXTENSION = "_a.png";
@@ -80,15 +77,15 @@ static void readRccRobots(std::string robotIds, RobotCommand& robotCommand, Robo
 
 void MapViewState::save(const std::string& filePath)
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.drawBoxFilled(NAS2D::Rectangle{0, 0, renderer.size().x, renderer.size().y}, NAS2D::Color{0, 0, 0, 100});
 	const auto imageSaving = &imageCache.load("sys/saving.png");
 	renderer.drawImage(*imageSaving, renderer.center() - imageSaving->size() / 2);
 	renderer.update();
 
-	XmlDocument doc;
+	NAS2D::Xml::XmlDocument doc;
 
-	auto* root = dictionaryToAttributes(
+	auto* root = NAS2D::dictionaryToAttributes(
 		constants::SaveGameRootNode,
 		{{{"version", constants::SaveGameVersion}}}
 	);
@@ -96,14 +93,14 @@ void MapViewState::save(const std::string& filePath)
 
 	root->linkEndChild(serializeProperties());
 	mTileMap->serialize(root);
-	root->linkEndChild(Utility<StructureManager>::get().serialize());
+	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize());
 	root->linkEndChild(writeRobots(mRobotPool, mRobotList));
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 
-	root->linkEndChild(dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
+	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
 
 	const auto population = mPopulation.getPopulations();
-	root->linkEndChild(dictionaryToAttributes(
+	root->linkEndChild(NAS2D::dictionaryToAttributes(
 		"population",
 		{{
 			{"morale", mCurrentMorale},
@@ -119,27 +116,27 @@ void MapViewState::save(const std::string& filePath)
 		}}
 	));
 
-	auto moraleChangeReasons = new XmlElement("morale_change");
+	auto moraleChangeReasons = new NAS2D::Xml::XmlElement("morale_change");
 	auto& moraleChangeList = mPopulationPanel.moraleReasonList();
 	for (auto& [message, value] : moraleChangeList)
 	{
-		moraleChangeReasons->linkEndChild(dictionaryToAttributes(
+		moraleChangeReasons->linkEndChild(NAS2D::dictionaryToAttributes(
 			"change", {{{"message", message}, {"val", value}}}
 		));
 	}
 	root->linkEndChild(moraleChangeReasons);
 
 	// Write out the XML file.
-	XmlMemoryBuffer buff;
+	NAS2D::Xml::XmlMemoryBuffer buff;
 	doc.accept(&buff);
 
-	Utility<Filesystem>::get().write(filePath, buff.buffer());
+	NAS2D::Utility<NAS2D::Filesystem>::get().write(filePath, buff.buffer());
 }
 
 
-XmlElement* MapViewState::serializeProperties()
+NAS2D::Xml::XmlElement* MapViewState::serializeProperties()
 {
-	return dictionaryToAttributes(
+	return NAS2D::dictionaryToAttributes(
 		"properties",
 		{{
 			{"sitemap", mPlanetAttributes.mapImagePath},
@@ -157,7 +154,7 @@ void MapViewState::load(const std::string& filePath)
 	mPlanetAttributes = Planet::Attributes();
 	resetUi();
 
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.drawBoxFilled(NAS2D::Rectangle{0, 0, renderer.size().x, renderer.size().y}, NAS2D::Color{0, 0, 0, 100});
 	const auto imageLoading = &imageCache.load("sys/loading.png");
 	renderer.drawImage(*imageLoading, renderer.center() - imageLoading->size() / 2);
@@ -167,13 +164,13 @@ void MapViewState::load(const std::string& filePath)
 	mBtnToggleHeightmap.toggle(false);
 	mPopulationPanel.clearMoraleReasons();
 
-	if (!Utility<Filesystem>::get().exists(filePath))
+	if (!NAS2D::Utility<NAS2D::Filesystem>::get().exists(filePath))
 	{
 		throw std::runtime_error("File '" + filePath + "' was not found.");
 	}
 
 	scrubRobotList();
-	Utility<StructureManager>::get().dropAllStructures();
+	NAS2D::Utility<StructureManager>::get().dropAllStructures();
 	ccLocation() = CcNotPlaced;
 
 	delete mTileMap;
@@ -182,7 +179,7 @@ void MapViewState::load(const std::string& filePath)
 	auto xmlDocument = openSavegame(filePath);
 	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
 
-	XmlElement* map = root->firstChildElement("properties");
+	NAS2D::Xml::XmlElement* map = root->firstChildElement("properties");
 	const auto dictionary = NAS2D::attributesToDictionary(*map);
 
 	mPlanetAttributes.maxDepth = dictionary.get<int>("diggingdepth");
@@ -193,8 +190,8 @@ void MapViewState::load(const std::string& filePath)
 	difficulty(stringToEnum(difficultyTable, dictionary.get("difficulty", std::string{"Medium"})));
 
 	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
-	mMapDisplay = std::make_unique<Image>(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
-	mHeightMap = std::make_unique<Image>(mPlanetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION);
+	mMapDisplay = std::make_unique<NAS2D::Image>(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
+	mHeightMap = std::make_unique<NAS2D::Image>(mPlanetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION);
 	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.tilesetPath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
 
@@ -219,9 +216,9 @@ void MapViewState::load(const std::string& filePath)
 
 	checkConnectedness();
 
-	Utility<StructureManager>::get().updateEnergyProduction();
-	Utility<StructureManager>::get().updateEnergyConsumed();
-	Utility<StructureManager>::get().assignColonistsToResidences(mPopulationPool);
+	NAS2D::Utility<StructureManager>::get().updateEnergyProduction();
+	NAS2D::Utility<StructureManager>::get().updateEnergyConsumed();
+	NAS2D::Utility<StructureManager>::get().assignColonistsToResidences(mPopulationPool);
 
 	updateRobotControl(mRobotPool);
 	updateResidentialCapacity();
@@ -234,7 +231,7 @@ void MapViewState::load(const std::string& filePath)
 
 	if (mTurnCount == 0)
 	{
-		if (Utility<StructureManager>::get().count() == 0)
+		if (NAS2D::Utility<StructureManager>::get().count() == 0)
 		{
 			mBtnTurns.enabled(false);
 			populateStructureMenu();
@@ -245,7 +242,7 @@ void MapViewState::load(const std::string& filePath)
 			 * There should only ever be one structure if the turn count is 0, the
 			 * SEED Lander which at this point should not have been deployed.
 			 */
-			const auto& list = Utility<StructureManager>::get().getStructures<SeedLander>();
+			const auto& list = NAS2D::Utility<StructureManager>::get().getStructures<SeedLander>();
 			if (list.size() != 1) { throw std::runtime_error("MapViewState::load(): Turn counter at 0 but more than one structure in list."); }
 
 			SeedLander* seedLander = list[0];
@@ -272,14 +269,14 @@ void MapViewState::load(const std::string& filePath)
 }
 
 
-void MapViewState::readRobots(Xml::XmlElement* element)
+void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 {
 	mRobotPool.clear();
 	mRobotList.clear();
 	mRobots.clear();
 
 	ROBOT_ID_COUNTER = 0;
-	for (XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
+	for (NAS2D::Xml::XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*robotElement);
 
@@ -343,9 +340,9 @@ void MapViewState::readRobots(Xml::XmlElement* element)
 }
 
 
-void MapViewState::readStructures(Xml::XmlElement* element)
+void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 {
-	for (XmlElement* structureElement = element->firstChildElement(); structureElement != nullptr; structureElement = structureElement->nextSiblingElement())
+	for (NAS2D::Xml::XmlElement* structureElement = element->firstChildElement(); structureElement != nullptr; structureElement = structureElement->nextSiblingElement())
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
 
@@ -405,13 +402,13 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto trucks = structureElement->firstChildElement("trucks");
 			if (trucks)
 			{
-				mineFacility.assignedTrucks(attributesToDictionary(*trucks).get<int>("assigned"));
+				mineFacility.assignedTrucks(NAS2D::attributesToDictionary(*trucks).get<int>("assigned"));
 			}
 
 			auto extension = structureElement->firstChildElement("extension");
 			if (extension)
 			{
-				mineFacility.digTimeRemaining(attributesToDictionary(*extension).get<int>("turns_remaining"));
+				mineFacility.digTimeRemaining(NAS2D::attributesToDictionary(*extension).get<int>("turns_remaining"));
 			}
 		}
 
@@ -436,7 +433,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 				throw std::runtime_error("MapViewState::readStructures(): FoodProduction structure saved without a food level node.");
 			}
 
-			foodProduction.foodLevel(attributesToDictionary(*foodStorage).get<int>("level"));
+			foodProduction.foodLevel(NAS2D::attributesToDictionary(*foodStorage).get<int>("level"));
 		}
 
 		structure.age(age);
@@ -455,7 +452,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			if (waste)
 			{
 				auto& residence = *static_cast<Residence*>(&structure);
-				const auto wasteDictionary = attributesToDictionary(*waste);
+				const auto wasteDictionary = NAS2D::attributesToDictionary(*waste);
 				residence.wasteAccumulated(wasteDictionary.get<int>("accumulated"));
 				residence.wasteOverflow(wasteDictionary.get<int>("overflow"));
 			}
@@ -467,7 +464,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			if (personnel)
 			{
 				auto& maintenanceFacility = *static_cast<MaintenanceFacility*>(&structure);
-				maintenanceFacility.personnel(attributesToDictionary(*personnel).get<int>("assigned", 0));
+				maintenanceFacility.personnel(NAS2D::attributesToDictionary(*personnel).get<int>("assigned", 0));
 				maintenanceFacility.resources(mResourcesCount);
 			}
 		}
@@ -494,7 +491,7 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 			auto robotsElement = structureElement->firstChildElement("robots");
 			if (robotsElement)
 			{
-				const auto robotIds = attributesToDictionary(*robotsElement).get("robots");
+				const auto robotIds = NAS2D::attributesToDictionary(*robotsElement).get("robots");
 				auto& robotCommand = *static_cast<RobotCommand*>(&structure);
 				readRccRobots(robotIds, robotCommand, mRobotPool);
 			}
@@ -507,16 +504,16 @@ void MapViewState::readStructures(Xml::XmlElement* element)
 
 		structure.populationAvailable() = {pop0, pop1};
 
-		Utility<StructureManager>::get().addStructure(&structure, &tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(&structure, &tile);
 	}
 }
 
 
-void MapViewState::readTurns(Xml::XmlElement* element)
+void MapViewState::readTurns(NAS2D::Xml::XmlElement* element)
 {
 	if (element)
 	{
-		mTurnCount = attributesToDictionary(*element).get<int>("count");
+		mTurnCount = NAS2D::attributesToDictionary(*element).get<int>("count");
 
 		if (mTurnCount > 0)
 		{
@@ -530,7 +527,7 @@ void MapViewState::readTurns(Xml::XmlElement* element)
 /**
  * Reads the population tag.
  */
-void MapViewState::readPopulation(Xml::XmlElement* element)
+void MapViewState::readPopulation(NAS2D::Xml::XmlElement* element)
 {
 	if (element)
 	{
@@ -561,7 +558,7 @@ void MapViewState::readPopulation(Xml::XmlElement* element)
 }
 
 
-void MapViewState::readMoraleChanges(Xml::XmlElement* moraleChangeElement)
+void MapViewState::readMoraleChanges(NAS2D::Xml::XmlElement* moraleChangeElement)
 {
 	if (!moraleChangeElement) { return; }
 
