@@ -174,7 +174,7 @@ void Button::update()
 /**
  * Draws the button.
  */
-void Button::draw()
+void Button::draw() const
 {
 	if (!visible()) { return; }
 

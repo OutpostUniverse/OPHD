@@ -303,17 +303,6 @@ void Slider::update()
 	}
 
 	logic();
-	draw();
-}
-
-
-void Slider::draw()
-{
-	auto& renderer = Utility<Renderer>::get();
-
-	mSkins.skinMiddle.draw(renderer, mSlideBar); // Slide area
-	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
-	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
 
 	if (mSliderType == SliderType::Vertical)
 	{
@@ -336,6 +325,17 @@ void Slider::draw()
 		mSlider = {mSlideBar.x + relativeThumbPosition, mSlideBar.y, newSize, mSlideBar.height};
 	}
 
+	draw();
+}
+
+
+void Slider::draw() const
+{
+	auto& renderer = Utility<Renderer>::get();
+
+	mSkins.skinMiddle.draw(renderer, mSlideBar); // Slide area
+	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
+	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
 	mSkins.skinSlider.draw(renderer, mSlider);
 
 	if (mDisplayPosition && mMouseHoverSlide)
@@ -369,7 +369,7 @@ void Slider::thumbPosition(float value)
 /**
 * Gets the current value of position
 */
-float Slider::thumbPosition()
+float Slider::thumbPosition() const
 {
 	float value = mPosition;
 	if (mBackward)
@@ -401,14 +401,14 @@ void Slider::thumbPositionNormalized(float value) {
 	mSignal(thumbPosition());
 }
 
-float Slider::thumbPositionNormalized() {
+float Slider::thumbPositionNormalized() const {
 	return mPosition / mLength;
 }
 
 /**
  * Returns the max value position can get
  */
-float Slider::length()
+float Slider::length() const
 {
 	return mLength;
 }
