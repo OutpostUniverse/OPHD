@@ -32,12 +32,12 @@ MainMenuState::MainMenuState() :
 
 MainMenuState::~MainMenuState()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.windowResized().disconnect(this, &MainMenuState::onWindowResized);
 	eventHandler.keyDown().disconnect(this, &MainMenuState::onKeyDown);
 
-	Utility<Mixer>::get().stopAllAudio();
-	Utility<Renderer>::get().fadeComplete().disconnect(this, &MainMenuState::onFadeComplete);
+	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &MainMenuState::onFadeComplete);
 }
 
 
@@ -46,7 +46,7 @@ MainMenuState::~MainMenuState()
  */
 void MainMenuState::initialize()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.windowResized().connect(this, &MainMenuState::onWindowResized);
 	eventHandler.keyDown().connect(this, &MainMenuState::onKeyDown);
 
@@ -61,7 +61,7 @@ void MainMenuState::initialize()
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
-	const Font* tiny_font = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	const NAS2D::Font* tiny_font = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 	lblVersion.font(tiny_font);
 	lblVersion.color(NAS2D::Color::White);
 
@@ -74,7 +74,7 @@ void MainMenuState::initialize()
 	renderer.fadeIn(constants::FadeSpeed);
 	renderer.showSystemPointer(true);
 
-	Mixer& mixer = Utility<Mixer>::get();
+	NAS2D::Mixer& mixer = NAS2D::Utility<NAS2D::Mixer>::get();
 	if (!mixer.musicPlaying()) { mixer.playMusic(*trackMars); }
 }
 
@@ -84,7 +84,7 @@ void MainMenuState::initialize()
  */
 void MainMenuState::positionButtons()
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto center = renderer.center().to<int>();
 
 	auto buttonPosition = center - NAS2D::Vector{100, (35 * 4) / 2};
@@ -154,8 +154,8 @@ void MainMenuState::onFileIoAction(const std::string& filePath, FileIo::FileOper
 		gameState->mapviewstate(mapview);
 		mReturnState = gameState;
 
-		Utility<Renderer>::get().fadeOut(constants::FadeSpeed);
-		Utility<Mixer>::get().fadeOutMusic(constants::FadeSpeed);
+		NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(constants::FadeSpeed);
+		NAS2D::Utility<NAS2D::Mixer>::get().fadeOutMusic(constants::FadeSpeed);
 	}
 	catch (const std::exception& e)
 	{
@@ -186,7 +186,7 @@ void MainMenuState::onWindowResized(NAS2D::Vector<int> /*newSize*/)
  */
 void MainMenuState::onFadeComplete()
 {
-	if (Utility<Renderer>::get().isFaded()) { return; }
+	if (NAS2D::Utility<NAS2D::Renderer>::get().isFaded()) { return; }
 	enableButtons();
 }
 
@@ -202,8 +202,8 @@ void MainMenuState::onNewGame()
 
 	mReturnState = new PlanetSelectState();
 
-	Utility<Renderer>::get().fadeOut(constants::FadeSpeed);
-	Utility<Mixer>::get().fadeOutMusic(constants::FadeSpeed);
+	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(constants::FadeSpeed);
+	NAS2D::Utility<NAS2D::Mixer>::get().fadeOutMusic(constants::FadeSpeed);
 }
 
 
@@ -265,7 +265,7 @@ void MainMenuState::onQuit()
  */
 NAS2D::State* MainMenuState::update()
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.clearScreen();
 
