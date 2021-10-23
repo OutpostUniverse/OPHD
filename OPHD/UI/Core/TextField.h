@@ -57,6 +57,7 @@ public:
 	void maxCharacters(std::size_t count);
 
 	void update() override;
+	void draw() const override;
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);

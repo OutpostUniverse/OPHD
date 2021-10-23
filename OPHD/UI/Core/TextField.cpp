@@ -314,6 +314,12 @@ void TextField::update()
 		mShowCursor = !mShowCursor;
 	}
 
+	draw();
+}
+
+
+void TextField::draw() const
+{
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto showFocused = hasFocus() && editable();
