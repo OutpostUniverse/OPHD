@@ -137,12 +137,12 @@ private:
 
 	// DRAWING FUNCTIONS
 	void drawUI();
-	void drawMiniMap();
-	void drawNavInfo();
-	bool drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor);
 
-	void drawResourceInfo();
-	void drawRobotInfo();
+	void drawMiniMap() const;
+	void drawNavInfo() const;
+	bool drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) const;
+	void drawResourceInfo() const;
+	void drawRobotInfo() const;
 
 	// INSERT OBJECT HANDLING
 	void onDeployCargoLander();

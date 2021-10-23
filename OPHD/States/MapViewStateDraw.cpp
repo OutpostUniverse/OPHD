@@ -56,7 +56,7 @@ namespace
 /**
  * Draws the minimap and all icons/overlays for it.
  */
-void MapViewState::drawMiniMap()
+void MapViewState::drawMiniMap() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto miniMapBoxFloat = mMiniMapBoundingBox.to<float>();
@@ -133,7 +133,7 @@ void MapViewState::drawMiniMap()
 /**
  * Draws the resource information bar.
  */
-void MapViewState::drawResourceInfo()
+void MapViewState::drawResourceInfo() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
@@ -223,7 +223,7 @@ void MapViewState::drawResourceInfo()
 /**
  * Draws robot deployment information.
  */
-void MapViewState::drawRobotInfo()
+void MapViewState::drawRobotInfo() const
 {
 	if (ccLocation() == CcNotPlaced) { return; }
 
@@ -255,7 +255,8 @@ void MapViewState::drawRobotInfo()
 	}
 }
 
-bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
+bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) const
+{
 	bool isMouseInIcon = currentIconBounds.contains(MOUSE_COORDS);
 	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
 	renderer.drawSubImage(mUiIcons, currentIconBounds.startPoint(), subImageBounds, color);
@@ -265,7 +266,7 @@ bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle
 /**
  * Draws navigation UI.
  */
-void MapViewState::drawNavInfo()
+void MapViewState::drawNavInfo() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
