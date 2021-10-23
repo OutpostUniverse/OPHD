@@ -132,14 +132,17 @@ private:
 	void onDiggerTaskComplete(Robot* robot);
 	void onMinerTaskComplete(Robot* robot);
 
+	bool isResourcePanelVisible() const;
+	bool isPopulationPanelVisible() const;
+
 	// DRAWING FUNCTIONS
 	void drawUI();
-	void drawMiniMap();
-	void drawNavInfo();
-	bool drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor);
 
-	void drawResourceInfo();
-	void drawRobotInfo();
+	void drawMiniMap() const;
+	void drawNavInfo() const;
+	bool drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) const;
+	void drawResourceInfo() const;
+	void drawRobotInfo() const;
 
 	// INSERT OBJECT HANDLING
 	void onDeployCargoLander();
@@ -162,10 +165,9 @@ private:
 	void setStructureID(StructureID type, InsertMode mode);
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
-	void countFood();
+	void updateFood();
 	void transferFoodToCommandCenter();
-	int refinedResourcesInStorage();
-	int totalStorage(Structure::StructureClass, int);
+	int totalStorage(Structure::StructureClass, int) const;
 
 	void setMinimapView();
 
@@ -182,7 +184,7 @@ private:
 
 	void onMineFacilityExtend(MineFacility* mf);
 
-	void countPlayerResources();
+	void updatePlayerResources();
 
 	// TURN LOGIC
 	void checkColonyShip();

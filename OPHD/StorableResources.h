@@ -107,13 +107,13 @@ struct StorableResources
 
 
 	// Sum of all resource types
-	int total()
+	int total() const
 	{
 		return std::accumulate(resources.begin(), resources.end(), 0);
 	}
 
 
-	std::vector<std::size_t> getIndicesWithStock()
+	std::vector<std::size_t> getIndicesWithStock() const
 	{
 		std::vector<std::size_t> indicesWithStock;
 

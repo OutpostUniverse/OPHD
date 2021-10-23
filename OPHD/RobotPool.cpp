@@ -127,7 +127,7 @@ Robominer& RobotPool::getMiner()
  * 
  * \return	Returns true if the requested robot type is available. False otherwise.
  */
-bool RobotPool::robotAvailable(Robot::Type type)
+bool RobotPool::robotAvailable(Robot::Type type) const
 {
 	switch (type)
 	{
@@ -151,7 +151,7 @@ bool RobotPool::robotAvailable(Robot::Type type)
 }
 
 
-int RobotPool::getAvailableCount(Robot::Type type)
+int RobotPool::getAvailableCount(Robot::Type type) const
 {
 	switch (type)
 	{

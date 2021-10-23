@@ -26,6 +26,9 @@
 #include <cmath>
 
 
+extern NAS2D::Point<int> MOUSE_COORDS;
+
+
 /**
  * Sets up the user interface elements
  * 
@@ -390,6 +393,18 @@ bool MapViewState::modalUiElementDisplayed() const
 }
 
 
+bool MapViewState::isResourcePanelVisible() const
+{
+	return mPinResourcePanel || NAS2D::Rectangle{0, 1, mResourceBreakdownPanel.size().x, 19}.contains(MOUSE_COORDS);
+}
+
+
+bool MapViewState::isPopulationPanelVisible() const
+{
+	return mPinPopulationPanel || NAS2D::Rectangle{675, 1, 75, 19}.contains(MOUSE_COORDS);
+}
+
+
 /**
 * Updates and draws the UI.
 */
@@ -406,6 +421,9 @@ void MapViewState::drawUI()
 	drawResourceInfo();
 	drawNavInfo();
 	drawRobotInfo();
+
+	if (isPopulationPanelVisible()) { mPopulationPanel.update(); }
+	if (isResourcePanelVisible()) { mResourceBreakdownPanel.update(); }
 
 	mNotificationArea.update();
 

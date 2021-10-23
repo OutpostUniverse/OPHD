@@ -56,7 +56,7 @@ namespace
 /**
  * Draws the minimap and all icons/overlays for it.
  */
-void MapViewState::drawMiniMap()
+void MapViewState::drawMiniMap() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto miniMapBoxFloat = mMiniMapBoundingBox.to<float>();
@@ -133,7 +133,7 @@ void MapViewState::drawMiniMap()
 /**
  * Draws the resource information bar.
  */
-void MapViewState::drawResourceInfo()
+void MapViewState::drawResourceInfo() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
@@ -177,7 +177,7 @@ void MapViewState::drawResourceInfo()
 	const auto& sm = NAS2D::Utility<StructureManager>::get();
 	const std::array storageCapacities
 	{
-		std::tuple{NAS2D::Rectangle{96, 32, iconSize, iconSize}, refinedResourcesInStorage(), totalStorage(Structure::StructureClass::Storage, 1000), totalStorage(Structure::StructureClass::Storage, 1000) - refinedResourcesInStorage() <= 100},
+		std::tuple{NAS2D::Rectangle{96, 32, iconSize, iconSize}, mResourcesCount.total(), totalStorage(Structure::StructureClass::Storage, 1000), totalStorage(Structure::StructureClass::Storage, 1000) - mResourcesCount.total() <= 100},
 		std::tuple{NAS2D::Rectangle{64, 32, iconSize, iconSize}, mFood, totalStorage(Structure::StructureClass::FoodProduction, 1000), mFood <= 10},
 		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, sm.totalEnergyAvailable(), sm.totalEnergyProduction(), sm.totalEnergyAvailable() <= 5}
 	};
@@ -206,14 +206,6 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.getPopulations().size()), position + textOffset, NAS2D::Color::White);
 
-	bool isMouseInPopPanel = NAS2D::Rectangle{675, 1, 75, 19}.contains(MOUSE_COORDS);
-	bool shouldShowPopPanel = mPinPopulationPanel || isMouseInPopPanel;
-	if (shouldShowPopPanel) { mPopulationPanel.update(); }
-
-	bool isMouseInResourcePanel = NAS2D::Rectangle{0, 1, mResourceBreakdownPanel.size().x, 19}.contains(MOUSE_COORDS);
-	bool shouldShowResourcePanel = mPinResourcePanel || isMouseInResourcePanel;
-	if (shouldShowResourcePanel) { mResourceBreakdownPanel.update(); }
-
 	// Turns
 	position.x = renderer.size().x - 80;
 	const auto turnImageRect = NAS2D::Rectangle{128, 0, constants::ResourceIconSize, constants::ResourceIconSize};
@@ -231,7 +223,7 @@ void MapViewState::drawResourceInfo()
 /**
  * Draws robot deployment information.
  */
-void MapViewState::drawRobotInfo()
+void MapViewState::drawRobotInfo() const
 {
 	if (ccLocation() == CcNotPlaced) { return; }
 
@@ -263,7 +255,8 @@ void MapViewState::drawRobotInfo()
 	}
 }
 
-bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) {
+bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) const
+{
 	bool isMouseInIcon = currentIconBounds.contains(MOUSE_COORDS);
 	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
 	renderer.drawSubImage(mUiIcons, currentIconBounds.startPoint(), subImageBounds, color);
@@ -273,7 +266,7 @@ bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle
 /**
  * Draws navigation UI.
  */
-void MapViewState::drawNavInfo()
+void MapViewState::drawNavInfo() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
