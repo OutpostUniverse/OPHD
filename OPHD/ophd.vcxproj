@@ -313,7 +313,6 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
   <ItemGroup>
     <ClInclude Include="Cache.h" />
     <ClInclude Include="Common.h" />
-    <ClInclude Include="Constants.h" />
     <ClInclude Include="Constants\Numbers.h" />
     <ClInclude Include="Constants\Strings.h" />
     <ClInclude Include="Constants\UiConstants.h" />

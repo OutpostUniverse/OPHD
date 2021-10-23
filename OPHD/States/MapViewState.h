@@ -6,8 +6,10 @@
 
 #include "Planet.h"
 
+#include "../Constants/Numbers.h"
+#include "../Constants/UiConstants.h"
+
 #include "../Common.h"
-#include "../Constants.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
 #include "../PopulationPool.h"

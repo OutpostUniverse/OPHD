@@ -9,7 +9,9 @@
 
 #include "MainMenuState.h"
 
-#include "../Constants.h"
+#include "../Constants/Strings.h"
+#include "../Constants/UiConstants.h"
+
 #include "../DirectionOffset.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"

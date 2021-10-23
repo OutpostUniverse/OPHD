@@ -1,5 +1,5 @@
 #include "Common.h"
-#include "Constants.h"
+#include "Constants/Numbers.h"
 #include "StructureManager.h"
 #include "XmlSerializer.h"
 

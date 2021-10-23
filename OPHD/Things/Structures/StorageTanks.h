@@ -2,7 +2,7 @@
 
 #include "Structure.h"
 
-#include "../../Constants.h"
+#include "../../Constants/Strings.h"
 
 
 const int StorageTanksCapacity = 1000;

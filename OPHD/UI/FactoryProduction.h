@@ -5,7 +5,7 @@
 #include "Core/CheckBox.h"
 #include "IconGrid.h"
 
-#include "../Constants.h"
+#include "../Constants/UiConstants.h"
 #include "../Common.h"
 #include "../ProductionCost.h"
 

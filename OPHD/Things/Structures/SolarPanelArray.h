@@ -2,7 +2,7 @@
 
 #include "PowerStructure.h"
 
-#include "../../Constants.h"
+#include "../../Constants/Strings.h"
 
 
 const int SOLAR_PANEL_BASE_PRODUCUCTION = 50;

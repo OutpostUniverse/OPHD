@@ -1,7 +1,7 @@
 #include "ToolTip.h"
 
 #include "../../Cache.h"
-#include "../../Constants.h"
+#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Utility.h>

@@ -1,6 +1,7 @@
 #include "MineFacility.h"
 
-#include "../../Constants.h"
+#include "../../Constants/Numbers.h"
+#include "../../Constants/Strings.h"
 
 
 const int MineFacilityStorageCapacity = 500;

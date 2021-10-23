@@ -1,7 +1,7 @@
 #include "NotificationWindow.h"
 
 #include "../Cache.h"
-#include "../Constants.h"
+#include "../Constants/UiConstants.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>

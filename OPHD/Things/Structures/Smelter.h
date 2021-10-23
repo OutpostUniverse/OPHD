@@ -2,7 +2,7 @@
 
 #include "OreRefining.h"
 
-#include "../../Constants.h"
+#include "../../Constants/Strings.h"
 
 
 class Smelter : public OreRefining

@@ -1,7 +1,6 @@
 #include "TextArea.h"
 
 #include "../../Common.h"
-#include "../../Constants.h"
 #include "../../Cache.h"
 
 #include <NAS2D/Utility.h>

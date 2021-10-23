@@ -2,7 +2,7 @@
 
 #include "Structure.h"
 
-#include "../../Constants.h"
+#include "../../Constants/UiConstants.h"
 
 #include <string>
 

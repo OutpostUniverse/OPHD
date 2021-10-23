@@ -9,7 +9,7 @@
 #include "Route.h"
 
 #include "../Cache.h"
-#include "../Constants.h"
+#include "../Constants/Strings.h"
 #include "../IOHelper.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
