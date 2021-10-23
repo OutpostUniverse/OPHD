@@ -15,9 +15,6 @@
 #include <array>
 
 
-using namespace NAS2D;
-
-
 extern NAS2D::Point<int> MOUSE_COORDS;
 
 static const NAS2D::Image* WINDOW_BACKGROUND = nullptr;
