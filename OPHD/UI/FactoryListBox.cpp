@@ -9,6 +9,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <stdexcept>
+
 
 using namespace NAS2D;
 
@@ -66,8 +68,7 @@ void FactoryListBox::addItem(Factory* factory)
 	{
 		if (static_cast<FactoryListBoxItem*>(item)->factory == factory)
 		{
-			std::cout << "FactoryListBox::addItem(): annoying bug, fix it." << std::endl;
-			return;
+			throw std::runtime_error("FactoryListBox::addItem(): annoying bug, fix it.");
 		}
 	}
 
