@@ -1,5 +1,6 @@
 #pragma once
 
+#include "UIContainer.h"
 #include "Button.h"
 #include "ListBox.h"
 #include "TextField.h"
@@ -48,6 +49,7 @@ private:
 	void onMouseWheel(int x, int y);
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 
+	UIContainer mContainer;
 	Button btnDown;
 	ListBox<> lstItems;
 	TextField txtField;

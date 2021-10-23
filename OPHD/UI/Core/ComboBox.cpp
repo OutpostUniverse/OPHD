@@ -6,13 +6,15 @@
 #include <NAS2D/Math/MathUtils.h>
 #include <NAS2D/StringUtils.h>
 
+#include <utility>
 #include <algorithm>
 
 
 using namespace NAS2D;
 
 
-ComboBox::ComboBox()
+ComboBox::ComboBox() :
+	mContainer{{&btnDown, &txtField, &lstItems}}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseButtonDown().connect(this, &ComboBox::onMouseDown);
