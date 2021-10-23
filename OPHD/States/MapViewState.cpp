@@ -1335,8 +1335,6 @@ void MapViewState::updateRobots()
 
 		if (robot->dead())
 		{
-			std::cout << "dead robot" << std::endl;
-
 			const auto robotLocationText = "(" +  std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
 
 			if (robot->selfDestruct())
