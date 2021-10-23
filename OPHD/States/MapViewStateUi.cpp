@@ -422,6 +422,9 @@ void MapViewState::drawUI()
 	drawNavInfo();
 	drawRobotInfo();
 
+	if (isPopulationPanelVisible()) { mPopulationPanel.update(); }
+	if (isResourcePanelVisible()) { mResourceBreakdownPanel.update(); }
+
 	mNotificationArea.update();
 
 	// Buttons

@@ -206,9 +206,6 @@ void MapViewState::drawResourceInfo()
 	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.getPopulations().size()), position + textOffset, NAS2D::Color::White);
 
-	if (isPopulationPanelVisible()) { mPopulationPanel.update(); }
-	if (isResourcePanelVisible()) { mResourceBreakdownPanel.update(); }
-
 	// Turns
 	position.x = renderer.size().x - 80;
 	const auto turnImageRect = NAS2D::Rectangle{128, 0, constants::ResourceIconSize, constants::ResourceIconSize};
