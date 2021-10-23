@@ -18,12 +18,12 @@
 using namespace NAS2D;
 
 
-extern Point<int> MOUSE_COORDS;
+extern NAS2D::Point<int> MOUSE_COORDS;
 
-static const Image* WINDOW_BACKGROUND = nullptr;
+static const NAS2D::Image* WINDOW_BACKGROUND = nullptr;
 
-const Font* BIG_FONT = nullptr;
-const Font* BIG_FONT_BOLD = nullptr;
+const NAS2D::Font* BIG_FONT = nullptr;
+const NAS2D::Font* BIG_FONT_BOLD = nullptr;
 
 
 /**
@@ -59,12 +59,12 @@ public:
 public:
 	std::string Name;
 
-	const Image* Img = nullptr;
+	const NAS2D::Image* Img = nullptr;
 
-	Point<int> TextPosition;
-	Point<int> IconPosition;
+	NAS2D::Point<int> TextPosition;
+	NAS2D::Point<int> IconPosition;
 
-	Rectangle<int> Rect;
+	NAS2D::Rectangle<int> Rect;
 
 	ReportInterface* UiPanel = nullptr;
 
@@ -102,7 +102,7 @@ static void setPanelRects(int width)
 /**
  * Draws a UI panel.
  */
-static void drawPanel(Renderer& renderer, Panel& panel)
+static void drawPanel(NAS2D::Renderer& renderer, Panel& panel)
 {
 	if (panel.Rect.contains(MOUSE_COORDS)) { renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100}); }
 
@@ -125,7 +125,7 @@ static void drawPanel(Renderer& renderer, Panel& panel)
 
 MainReportsUiState::MainReportsUiState()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.windowResized().connect(this, &MainReportsUiState::onWindowResized);
 	eventHandler.keyDown().connect(this, &MainReportsUiState::onKeyDown);
 	eventHandler.mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
@@ -134,7 +134,7 @@ MainReportsUiState::MainReportsUiState()
 
 MainReportsUiState::~MainReportsUiState()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
 	eventHandler.keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
 	eventHandler.mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
@@ -173,7 +173,7 @@ void MainReportsUiState::initialize()
 	Panels[NavigationPanel::PANEL_SPACEPORT].Img = &imageCache.load("ui/icons/spaceport.png");
 	Panels[NavigationPanel::PANEL_SPACEPORT].Name = "Space Ports";
 
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto size = renderer.size().to<int>();
 	setPanelRects(size.x);
 
@@ -234,7 +234,7 @@ void MainReportsUiState::_deactivate()
 /**
  * Key down event handler.
  */
-void MainReportsUiState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
+void MainReportsUiState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!active()) { return; }
 	if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) { exit(); }
@@ -244,13 +244,13 @@ void MainReportsUiState::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyM
 /**
  * Mouse down event handler.
  */
-void MainReportsUiState::onMouseDown(EventHandler::MouseButton button, int x, int y)
+void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
 {
 	if (!active()) { return; }
 
-	if (!NAS2D::Rectangle{0, 0, Utility<Renderer>::get().size().x, 40}.contains(Point{x, y})) { return; } // ignore clicks in the UI area.
+	if (!NAS2D::Rectangle{0, 0, NAS2D::Utility<NAS2D::Renderer>::get().size().x, 40}.contains(NAS2D::Point{x, y})) { return; } // ignore clicks in the UI area.
 
-	if (button == EventHandler::MouseButton::Left)
+	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		for (Panel& panel : Panels)
 		{
@@ -370,9 +370,9 @@ MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
 /**
  * Draw
  */
-State* MainReportsUiState::update()
+NAS2D::State* MainReportsUiState::update()
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.clearScreen(NAS2D::Color{35, 35, 35});
 	renderer.drawBoxFilled(NAS2D::Rectangle{0, 0, renderer.size().x, 48}, NAS2D::Color::Black);
