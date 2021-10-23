@@ -1025,7 +1025,11 @@ void MapViewState::placeRobodigger(Tile& tile)
 		if (!doYesNoMessage(constants::AlertDiggerMineTile, constants::AlertDiggerMine)) { return; }
 
 		const auto position = tile.xy();
-		std::cout << "Digger destroyed a Mine at (" << position.x << ", " << position.y << ")." << std::endl;
+		mNotificationArea.push(
+			"Mine destroyed",
+			"Digger destroyed a Mine at (" + std::to_string(position.x) + ", " + std::to_string(position.y) + ").",
+			tile.xyz(),
+			NotificationArea::NotificationType::Information);
 		mTileMap->removeMineLocation(position);
 	}
 
