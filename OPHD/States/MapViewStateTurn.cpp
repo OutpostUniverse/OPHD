@@ -445,7 +445,7 @@ void MapViewState::updateBiowasteRecycling()
 }
 
 
-void MapViewState::countFood()
+void MapViewState::updateFood()
 {
 	mFood = 0;
 
@@ -635,7 +635,7 @@ void MapViewState::nextTurn()
 
 	updateResidentialCapacity();
 
-	countFood();
+	updateFood();
 	updatePopulation();
 
 	updateMaintenance();

@@ -226,7 +226,7 @@ void MapViewState::load(const std::string& filePath)
 
 	updateRoads();
 	findMineRoutes();
-	countFood();
+	updateFood();
 	countPlayerResources();
 
 	if (mTurnCount == 0)
