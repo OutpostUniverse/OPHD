@@ -38,6 +38,10 @@ public:
 	DozerList& dozers() { return mDozers; }
 	MinerList& miners() { return mMiners; }
 
+	const DiggerList& diggers() const { return mDiggers; }
+	const DozerList& dozers() const { return mDozers; }
+	const MinerList& miners() const { return mMiners; }
+
 	void clear();
 	void erase(Robot* robot);
 	bool insertRobotIntoTable(RobotTileTable& robotMap, Robot* robot, Tile* tile);
