@@ -24,8 +24,8 @@ public:
 	NAS2D::Point<int> position() const { return mRect.startPoint(); }
 	void position(NAS2D::Point<int> pos);
 
-	int positionX();
-	int positionY();
+	int positionX() const;
+	int positionY() const;
 
 	OnMoveSignal::Source& moved();
 
