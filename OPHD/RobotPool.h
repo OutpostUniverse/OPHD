@@ -26,8 +26,8 @@ public:
 	Robodozer& getDozer();
 	Robominer& getMiner();
 
-	bool robotAvailable(Robot::Type type);
-	int getAvailableCount(Robot::Type type);
+	bool robotAvailable(Robot::Type type) const;
+	int getAvailableCount(Robot::Type type) const;
 
 	void InitRobotCtrl(uint32_t MaxRobotCtrl);
 	bool robotCtrlAvailable() { return mRobotControlCount < mRobotControlMax; }
