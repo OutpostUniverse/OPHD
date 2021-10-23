@@ -13,6 +13,8 @@
 
 #include <NAS2D/Utility.h>
 
+#include <stdexcept>
+
 
 void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 {
@@ -89,8 +91,7 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 		}
 
 	default:
-		std::cout << "Unknown Product." << std::endl;
-		break;
+		throw std::runtime_error("Unknown product completed");
 	}
 }
 
