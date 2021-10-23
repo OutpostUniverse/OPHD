@@ -65,10 +65,9 @@ protected:
 
 private:
 	void drawCursor();
+	void updateScrollPosition();
 
 	int textAreaWidth() const;
-
-	void updateCursor();
 
 	const NAS2D::Font& mFont;
 	const NAS2D::RectangleSkin mSkinNormal;

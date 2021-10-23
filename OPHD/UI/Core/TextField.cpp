@@ -266,8 +266,8 @@ void TextField::drawCursor()
 	{
 		if (mShowCursor)
 		{
-			// updateCursor() should be called only on events relating to the cursor so this is temporary.
-			updateCursor();
+			// Should be called only on events relating to the cursor so this is temporary.
+			updateScrollPosition();
 			auto& renderer = Utility<Renderer>::get();
 			const auto startPosition = NAS2D::Point{mCursorX, mRect.y + fieldPadding};
 			const auto endPosition = NAS2D::Point{mCursorX, mRect.y + mRect.height - fieldPadding - 1};
@@ -284,7 +284,7 @@ void TextField::drawCursor()
 }
 
 
-void TextField::updateCursor()
+void TextField::updateScrollPosition()
 {
 	int cursorX = mFont.width(text().substr(0, mCursorPosition));
 
