@@ -18,7 +18,9 @@ public:
 	void anchored(bool isAnchored);
 
 	void show() override;
+
 	void update() override;
+	void draw() const override;
 
 	using TitleChangeSignal = NAS2D::Signal<Window*>;
 

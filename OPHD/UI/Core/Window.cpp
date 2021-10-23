@@ -87,6 +87,14 @@ void Window::update()
 {
 	if (!visible()) { return; }
 
+	draw();
+
+	UIContainer::update();
+}
+
+
+void Window::draw() const
+{
 	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawImage(mTitleBarLeft, mRect.startPoint());
@@ -96,9 +104,8 @@ void Window::update()
 	mBody.draw(renderer, NAS2D::Rectangle{mRect.x, mRect.y + 20, mRect.width, mRect.height - 20});
 
 	renderer.drawText(mTitleFont, title(), NAS2D::Point{mRect.x + 5, mRect.y + 2}, NAS2D::Color::White);
-
-	UIContainer::update();
 }
+
 
 void Window::title(const std::string& title)
 {
