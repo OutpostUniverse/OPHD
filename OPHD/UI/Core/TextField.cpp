@@ -272,12 +272,6 @@ void TextField::drawCursor()
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
 			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
 		}
-
-		if (mCursorTimer.accumulator() > cursorBlinkDelay)
-		{
-			mCursorTimer.reset();
-			mShowCursor = !mShowCursor;
-		}
 	}
 }
 
@@ -313,6 +307,12 @@ void TextField::update()
 
 	// Should be called only on events relating to the cursor so this is temporary.
 	updateScrollPosition();
+
+	if (mCursorTimer.accumulator() > cursorBlinkDelay)
+	{
+		mCursorTimer.reset();
+		mShowCursor = !mShowCursor;
+	}
 
 	auto& renderer = Utility<Renderer>::get();
 
