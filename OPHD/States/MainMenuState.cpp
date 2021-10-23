@@ -14,9 +14,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
 MainMenuState::MainMenuState() :
 	mBgImage{"sys/mainmenu.png"},
 	buttons{{
