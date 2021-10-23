@@ -70,6 +70,6 @@ void RadioButtonGroup::update()
 
 	for (auto &control : mRadioButtons)
 	{
-		control.update();
+		control.draw();
 	}
 }

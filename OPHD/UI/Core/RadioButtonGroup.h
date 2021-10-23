@@ -36,7 +36,7 @@ private:
 		void text(const std::string& text);
 		const std::string& text() const;
 
-		void update() override;
+		void draw() const override;
 
 	protected:
 		void onResize() override;

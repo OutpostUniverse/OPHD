@@ -54,7 +54,7 @@ const std::string& RadioButtonGroup::RadioButton::text() const
 }
 
 
-void RadioButtonGroup::RadioButton::update()
+void RadioButtonGroup::RadioButton::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
