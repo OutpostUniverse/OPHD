@@ -181,7 +181,7 @@ private:
 
 	void onMineFacilityExtend(MineFacility* mf);
 
-	void countPlayerResources();
+	void updatePlayerResources();
 
 	// TURN LOGIC
 	void checkColonyShip();

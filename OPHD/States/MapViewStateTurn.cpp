@@ -367,7 +367,7 @@ void MapViewState::updateResources()
 	findMineRoutes();
 	transportOreFromMines();
 	transportResourcesToStorage();
-	countPlayerResources();
+	updatePlayerResources();
 }
 
 
