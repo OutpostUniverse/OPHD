@@ -203,7 +203,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mMoveWestIconRect = {mMoveUpIconRect.x - 2 * navIconSpacing, mMoveUpIconRect.y + 8, 32, 16};
 
 	// Notification Area
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	mNotificationArea.height(mMoveUpIconRect.y - 22 - constants::Margin);
 	mNotificationArea.position({renderer.size().x - mNotificationArea.size().x, 22});
 
