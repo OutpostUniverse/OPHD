@@ -9,6 +9,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <stdexcept>
+
 
 using namespace NAS2D;
 
@@ -61,13 +63,11 @@ FactoryListBox::FactoryListBox()
  */
 void FactoryListBox::addItem(Factory* factory)
 {
-	/// \fixme	Could be much more elegant via a lambda expression
 	for (auto item : mItems)
 	{
 		if (static_cast<FactoryListBoxItem*>(item)->factory == factory)
 		{
-			std::cout << "FactoryListBox::addItem(): annoying bug, fix it." << std::endl;
-			return;
+			throw std::runtime_error("FactoryListBox::addItem(): Can't add factory multiple times");
 		}
 	}
 

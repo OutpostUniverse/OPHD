@@ -7,6 +7,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <stdexcept>
+
 
 using namespace NAS2D;
 
@@ -58,13 +60,11 @@ StructureListBox::StructureListBox()
  */
 void StructureListBox::addItem(Structure* structure)
 {
-	/// \fixme	Could be much more elegant via a lambda expression
 	for (auto item : mItems)
 	{
 		if (static_cast<StructureListBoxItem*>(item)->structure == structure)
 		{
-			std::cout << "StructureListBox::addItem(): annoying bug, fix it." << std::endl;
-			return;
+			throw std::runtime_error("StructureListBox::addItem(): Can't add structure multiple times");
 		}
 	}
 
