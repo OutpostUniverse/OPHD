@@ -17,6 +17,7 @@ class UIContainer: public Control
 {
 public:
 	UIContainer();
+	UIContainer(std::vector<Control*> controls);
 	~UIContainer() override;
 
 	void add(Control& control, NAS2D::Vector<int> offset);

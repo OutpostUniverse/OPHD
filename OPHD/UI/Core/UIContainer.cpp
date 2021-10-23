@@ -12,7 +12,13 @@
 using namespace NAS2D;
 
 
-UIContainer::UIContainer()
+UIContainer::UIContainer() : UIContainer{{}}
+{
+}
+
+
+UIContainer::UIContainer(std::vector<Control*> controls) :
+	mControls{std::move(controls)}
 {
 	Utility<EventHandler>::get().mouseButtonDown().connect(this, &UIContainer::onMouseDown);
 }
