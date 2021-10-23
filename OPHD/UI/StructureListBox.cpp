@@ -60,7 +60,6 @@ StructureListBox::StructureListBox()
  */
 void StructureListBox::addItem(Structure* structure)
 {
-	/// \fixme	Could be much more elegant via a lambda expression
 	for (auto item : mItems)
 	{
 		if (static_cast<StructureListBoxItem*>(item)->structure == structure)
