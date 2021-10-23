@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Common.h"
-#include "Constants/Numbers.h"
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Xml/XmlElement.h>
