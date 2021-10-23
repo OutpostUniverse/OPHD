@@ -5,7 +5,7 @@
 
 #include <algorithm>
 #include <iostream>
-
+#include <stdexcept>
 
 
 /**
@@ -17,8 +17,7 @@ void WindowStack::addWindow(Window* window)
 {
 	if (find(mWindowList.begin(), mWindowList.end(), window) != mWindowList.end())
 	{
-		std::cout << "WindowStack::addWindow(): Attempting to add a Window that's already in this stack." << std::endl;
-		return;
+		throw std::runtime_error("WindowStack::addWindow(): Attempting to add a Window that's already in this stack.");
 	}
 
 	mWindowList.push_back(window);
@@ -73,8 +72,7 @@ void WindowStack::bringToFront(Window* window)
 	const auto windowPosition = find(mWindowList.begin(), mWindowList.end(), window);
 	if (windowPosition == mWindowList.end())
 	{
-		std::cout << "WindowStack::bringToFront(): Window is not managed by this stack." << std::endl;
-		return;
+		throw std::runtime_error("WindowStack::bringToFront(): Window is not managed by this stack.");
 	}
 	if (windowPosition == mWindowList.begin())
 	{
