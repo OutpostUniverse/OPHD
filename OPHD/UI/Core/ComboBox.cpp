@@ -192,9 +192,7 @@ void ComboBox::setSelected(std::size_t index) {
 
 void ComboBox::update()
 {
-	txtField.update();
-	btnDown.update();
-	lstItems.update();
+	mContainer.update();
 }
 
 void ComboBox::text(const std::string& text) {
