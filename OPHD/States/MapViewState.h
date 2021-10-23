@@ -164,7 +164,7 @@ private:
 	// MISCELLANEOUS UTILITY FUNCTIONS
 	void countFood();
 	void transferFoodToCommandCenter();
-	int totalStorage(Structure::StructureClass, int);
+	int totalStorage(Structure::StructureClass, int) const;
 
 	void setMinimapView();
 

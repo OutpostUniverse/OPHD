@@ -298,7 +298,7 @@ NAS2D::State* MapViewState::update()
  * Get the total amount of storage given a structure class and capacity of each
  * structure.
  */
-int MapViewState::totalStorage(Structure::StructureClass structureClass, int capacity)
+int MapViewState::totalStorage(Structure::StructureClass structureClass, int capacity) const
 {
 	int storageCapacity = 0;
 
