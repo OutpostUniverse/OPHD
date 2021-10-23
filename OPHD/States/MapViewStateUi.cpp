@@ -26,9 +26,6 @@
 #include <cmath>
 
 
-using namespace NAS2D;
-
-
 /**
  * Sets up the user interface elements
  * 
