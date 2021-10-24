@@ -20,9 +20,7 @@ public:
 		mSprite(spritePath, initialAction)
 	{}
 
-	virtual ~Thing()
-	{
-	}
+	virtual ~Thing() = default;
 
 	virtual void update() = 0;
 
