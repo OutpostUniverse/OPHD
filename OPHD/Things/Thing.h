@@ -3,7 +3,6 @@
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Resource/Sprite.h>
 
-#include <iostream>
 #include <string>
 
 
@@ -21,12 +20,7 @@ public:
 		mSprite(spritePath, initialAction)
 	{}
 
-	virtual ~Thing()
-	{
-		#ifdef _DEBUG
-		std::cout << mName << ": He's dead Jim!" << std::endl;
-		#endif
-	}
+	virtual ~Thing() = default;
 
 	virtual void update() = 0;
 
