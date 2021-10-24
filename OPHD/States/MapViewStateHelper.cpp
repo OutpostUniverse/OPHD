@@ -183,14 +183,8 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 }
 
 
-void deleteRobotsInRCC(Robot* robotToDelete, RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt, Tile* /*tile*/)
+void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt)
 {
-	if (rcc->isControlling(robotToDelete))
-	{
-		std::cout << "Cannot bulldoze Robot Command Center by a Robot under its command." << std::endl;
-		return;
-	}
-
 	const RobotList& rl = rcc->robots();
 
 	for (auto robot : rl)

@@ -945,7 +945,19 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		if (structure->isRobotCommand())
 		{
-			deleteRobotsInRCC(&robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, &tile);
+			auto* rcc = static_cast<RobotCommand*>(structure);
+			if (rcc->isControlling(&robot))
+			{
+				mNotificationArea.push(
+					"Cannot bulldoze",
+					"Cannot bulldoze Robot Command Center by a Robot under its command.",
+					tile.xyz(),
+					NotificationArea::NotificationType::Information);
+			}
+			else
+			{
+				deleteRobotsInRCC(rcc, mRobotPool, mRobotList);
+			}
 		}
 
 		if (structure->isFactory() && static_cast<Factory*>(structure) == mFactoryProduction.factory())
