@@ -16,6 +16,9 @@
 class UIContainer : public Control
 {
 public:
+	void update() override;
+
+protected:
 	UIContainer();
 	UIContainer(std::vector<Control*> controls);
 	~UIContainer() override;
@@ -24,8 +27,6 @@ public:
 	void clear();
 
 	void bringToFront(Control* control);
-
-	void update() override;
 
 	const std::vector<Control*>& controls() const;
 
