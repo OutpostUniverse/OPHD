@@ -10,8 +10,6 @@
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlElement.h>
 
-#include <iostream>
-
 
 using namespace NAS2D;
 

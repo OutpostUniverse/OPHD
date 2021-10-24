@@ -27,7 +27,6 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
-#include <iostream>
 
 
 /// \fixme	Fugly, find a sane way to do this.
