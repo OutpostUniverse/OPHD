@@ -10,6 +10,9 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <array>
+#include <string>
+#include <iterator>
+#include <algorithm>
 
 
 using namespace NAS2D;
