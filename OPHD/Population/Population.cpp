@@ -4,7 +4,6 @@
 #include "../RandomNumberGenerator.h"
 
 #include <algorithm>
-#include <iostream>
 #include <array>
 #include <stdexcept>
 #include <string>

@@ -64,4 +64,4 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile);
 NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap);
 
 void updateRobotControl(RobotPool& robotPool);
-void deleteRobotsInRCC(Robot* robot, RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt, Tile* tile);
+void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt);

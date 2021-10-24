@@ -945,7 +945,19 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		if (structure->isRobotCommand())
 		{
-			deleteRobotsInRCC(&robot, static_cast<RobotCommand*>(structure), mRobotPool, mRobotList, &tile);
+			auto* rcc = static_cast<RobotCommand*>(structure);
+			if (rcc->isControlling(&robot))
+			{
+				mNotificationArea.push(
+					"Cannot bulldoze",
+					"Cannot bulldoze Robot Command Center by a Robot under its command.",
+					tile.xyz(),
+					NotificationArea::NotificationType::Information);
+			}
+			else
+			{
+				deleteRobotsInRCC(rcc, mRobotPool, mRobotList);
+			}
 		}
 
 		if (structure->isFactory() && static_cast<Factory*>(structure) == mFactoryProduction.factory())
@@ -970,7 +982,14 @@ void MapViewState::placeRobodozer(Tile& tile)
 		/**
 		 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
 		 */
-		if (!recycledResources.isEmpty()) { std::cout << "Resources wasted demolishing " << structure->name() << std::endl; }
+		if (!recycledResources.isEmpty())
+		{
+			mNotificationArea.push(
+				"Resources wasted",
+				"Resources wasted demolishing " + structure->name(),
+				tile.xyz(),
+				NotificationArea::NotificationType::Warning);
+		}
 
 		updatePlayerResources();
 		updateStructuresAvailability();
@@ -1018,7 +1037,11 @@ void MapViewState::placeRobodigger(Tile& tile)
 		if (!doYesNoMessage(constants::AlertDiggerMineTile, constants::AlertDiggerMine)) { return; }
 
 		const auto position = tile.xy();
-		std::cout << "Digger destroyed a Mine at (" << position.x << ", " << position.y << ")." << std::endl;
+		mNotificationArea.push(
+			"Mine destroyed",
+			"Digger destroyed a Mine at (" + std::to_string(position.x) + ", " + std::to_string(position.y) + ").",
+			tile.xyz(),
+			NotificationArea::NotificationType::Information);
 		mTileMap->removeMineLocation(position);
 	}
 
@@ -1324,8 +1347,6 @@ void MapViewState::updateRobots()
 
 		if (robot->dead())
 		{
-			std::cout << "dead robot" << std::endl;
-
 			const auto robotLocationText = "(" +  std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
 
 			if (robot->selfDestruct())
