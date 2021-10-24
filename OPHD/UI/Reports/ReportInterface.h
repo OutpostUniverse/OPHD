@@ -22,6 +22,8 @@ public:
 
 	ReportInterface() {}
 
+	using UIContainer::update;
+
 	/**
 	 * Instructs the Report UI to clear any selections it may have.
 	 */
