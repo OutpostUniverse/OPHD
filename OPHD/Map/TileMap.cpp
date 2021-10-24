@@ -96,13 +96,11 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 	mTileset(tilesetPath),
 	mMineBeacon("structures/mine_beacon.png")
 {
-	std::cout << "Loading '" << mapPath << "'... ";
 	buildTerrainMap(mapPath);
 	buildMouseMap();
 	initMapDrawParams(Utility<Renderer>::get().size());
 
 	if (shouldSetupMines) { setupMines(mineCount, hostility); }
-	std::cout << "finished!" << std::endl;
 }
 
 
