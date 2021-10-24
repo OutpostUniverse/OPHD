@@ -14,10 +14,9 @@ using namespace NAS2D;
 
 
 ComboBox::ComboBox() :
-	mContainer{{&btnDown, &txtField, &lstItems}}
+	UIContainer{{&btnDown, &txtField, &lstItems}}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonDown().connect(this, &ComboBox::onMouseDown);
 	eventHandler.mouseWheel().connect(this, &ComboBox::onMouseWheel);
 
 	btnDown.image("ui/icons/down.png");
@@ -35,7 +34,6 @@ ComboBox::~ComboBox()
 {
 	lstItems.selectionChanged().disconnect(this, &ComboBox::onListSelectionChange);
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonDown().disconnect(this, &ComboBox::onMouseDown);
 	eventHandler.mouseWheel().disconnect(this, &ComboBox::onMouseWheel);
 }
 
@@ -83,6 +81,8 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
  */
 void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	UIContainer::onMouseDown(button, x, y);
+
 	if (!enabled() || !visible()) { return; }
 
 	if (button != EventHandler::MouseButton::Left) { return; }
@@ -188,11 +188,6 @@ void ComboBox::setSelected(std::size_t index) {
 	lstItems.setSelected(index);
 	text(selectionText());
 	mSelectionChanged();
-}
-
-void ComboBox::update()
-{
-	mContainer.update();
 }
 
 void ComboBox::text(const std::string& text) {

@@ -13,9 +13,9 @@
  * 
  * Generally not intended to be used by itself.
  */
-class UIContainer: public Control
+class UIContainer : public Control
 {
-public:
+protected:
 	UIContainer();
 	UIContainer(std::vector<Control*> controls);
 	~UIContainer() override;

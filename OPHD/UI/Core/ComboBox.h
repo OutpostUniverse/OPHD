@@ -12,7 +12,7 @@
 #include <cstddef>
 
 
-class ComboBox : public Control
+class ComboBox : public UIContainer
 {
 public:
 	using SelectionChangeSignal = NAS2D::Signal<>;
@@ -36,8 +36,6 @@ public:
 	std::size_t selectedIndex() { return lstItems.selectedIndex(); }
 	void setSelected(std::size_t index);
 
-	void update() override;
-
 	void text(const std::string& text);
 	const std::string& text() const;
 
@@ -47,9 +45,8 @@ private:
 	void onListSelectionChange();
 
 	void onMouseWheel(int x, int y);
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
 
-	UIContainer mContainer;
 	Button btnDown;
 	ListBox<> lstItems;
 	TextField txtField;
