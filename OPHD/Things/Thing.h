@@ -3,7 +3,6 @@
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Resource/Sprite.h>
 
-#include <iostream>
 #include <string>
 
 
@@ -23,9 +22,6 @@ public:
 
 	virtual ~Thing()
 	{
-		#ifdef _DEBUG
-		std::cout << mName << ": He's dead Jim!" << std::endl;
-		#endif
 	}
 
 	virtual void update() = 0;
