@@ -24,35 +24,6 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 extern const NAS2D::Font* MAIN_FONT; /// yuck
 
 
-namespace
-{
-	uint8_t calcGlowIntensity()
-	{
-		static NAS2D::Timer glowTimer;
-		static int glowStepDelta = 20;
-		static int glowStep = 0;
-
-		if (glowTimer.accumulator() >= 10)
-		{
-			glowTimer.reset();
-
-			glowStep += glowStepDelta;
-			if (glowStep >= 255)
-			{
-				glowStep = 255;
-				glowStepDelta = -glowStepDelta;
-			}
-			else if (glowStep <= 0)
-			{
-				glowStep = 0;
-				glowStepDelta = -glowStepDelta;
-			}
-		}
-		return static_cast<uint8_t>(glowStep);
-	}
-}
-
-
 /**
  * Draws the minimap and all icons/overlays for it.
  */
@@ -130,84 +101,14 @@ void MapViewState::drawMiniMap() const
 }
 
 
-/**
- * Draws the resource information bar.
- */
-void MapViewState::drawResourceInfo() const
+void MapViewState::drawSystemButton() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	renderer.drawBoxFilled(NAS2D::Rectangle{0, 0, renderer.size().x, constants::ResourceIconSize + 4}, NAS2D::Color{39, 39, 39});
-	renderer.drawBox(NAS2D::Rectangle{0, 0, renderer.size().x, constants::ResourceIconSize + 4}, NAS2D::Color{21, 21, 21});
-	renderer.drawLine(NAS2D::Point{1, 0}, NAS2D::Point{renderer.size().x - 2, 0}, NAS2D::Color{56, 56, 56});
-
-	// Resources
-	int x = constants::MarginTight + 12;
-	int offsetX = constants::ResourceIconSize + 40;
-	auto position = NAS2D::Point{x, constants::MarginTight};
+	auto position = NAS2D::Point{renderer.size().x - 80, constants::MarginTight};
 	constexpr auto textOffset = NAS2D::Vector{constants::ResourceIconSize + constants::Margin, 3 - constants::MarginTight};
 
-	const auto unpinnedImageRect = NAS2D::Rectangle{0, 72, 8, 8};
-	const auto pinnedImageRect = NAS2D::Rectangle{8, 72, 8, 8};
-
-	renderer.drawSubImage(mUiIcons, NAS2D::Point{2, 7}, mPinResourcePanel ? unpinnedImageRect : pinnedImageRect);
-	renderer.drawSubImage(mUiIcons, NAS2D::Point{675, 7}, mPinPopulationPanel ? unpinnedImageRect : pinnedImageRect);
-
-	const auto glowIntensity = calcGlowIntensity();
-	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
-
-	constexpr auto iconSize = constants::ResourceIconSize;
-	const std::array resources
-	{
-		std::tuple{ResourceImageRectsRefined[0], mResourcesCount.resources[0], offsetX},
-		std::tuple{ResourceImageRectsRefined[1], mResourcesCount.resources[1], x + offsetX},
-		std::tuple{ResourceImageRectsRefined[2], mResourcesCount.resources[2], x + offsetX},
-		std::tuple{ResourceImageRectsRefined[3], mResourcesCount.resources[3], 0},
-	};
-
-	for (const auto& [imageRect, amount, spacing] : resources)
-	{
-		renderer.drawSubImage(mUiIcons, position, imageRect);
-		const auto color = (amount <= 10) ? glowColor : NAS2D::Color::White;
-		renderer.drawText(*MAIN_FONT, std::to_string(amount), position + textOffset, color);
-		position.x += spacing;
-	}
-
-	// Capacity (Storage, Food, Energy)
-	const auto& sm = NAS2D::Utility<StructureManager>::get();
-	const std::array storageCapacities
-	{
-		std::tuple{NAS2D::Rectangle{96, 32, iconSize, iconSize}, mResourcesCount.total(), totalStorage(Structure::StructureClass::Storage, 1000), totalStorage(Structure::StructureClass::Storage, 1000) - mResourcesCount.total() <= 100},
-		std::tuple{NAS2D::Rectangle{64, 32, iconSize, iconSize}, mFood, totalStorage(Structure::StructureClass::FoodProduction, 1000), mFood <= 10},
-		std::tuple{NAS2D::Rectangle{80, 32, iconSize, iconSize}, sm.totalEnergyAvailable(), sm.totalEnergyProduction(), sm.totalEnergyAvailable() <= 5}
-	};
-
-	position.x += x + offsetX;
-	for (const auto& [imageRect, parts, total, isHighlighted] : storageCapacities)
-	{
-		renderer.drawSubImage(mUiIcons, position, imageRect);
-		const auto color = isHighlighted ? glowColor : NAS2D::Color::White;
-		const auto text = std::to_string(parts) + "/" + std::to_string(total);
-		renderer.drawText(*MAIN_FONT, text, position + textOffset, color);
-		position.x += (x + offsetX) * 2;
-	}
-
-	// Population / Morale
-	position.x -= 13;
-	position.y += 4;
-	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 8 : 16);
-	const auto popMoraleDirectionImageRect = NAS2D::Rectangle{popMoraleDeltaImageOffsetX, 64, 8, 8};
-	renderer.drawSubImage(mUiIcons, position, popMoraleDirectionImageRect);
-
-	position.x += 13;
-	position.y -= 4;
-	const auto moraleLevel = (std::clamp(mCurrentMorale, 1, 999) / 200);
-	const auto popMoraleImageRect = NAS2D::Rectangle{176 + moraleLevel * constants::ResourceIconSize, 0, constants::ResourceIconSize, constants::ResourceIconSize};
-	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
-	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.getPopulations().size()), position + textOffset, NAS2D::Color::White);
-
 	// Turns
-	position.x = renderer.size().x - 80;
 	const auto turnImageRect = NAS2D::Rectangle{128, 0, constants::ResourceIconSize, constants::ResourceIconSize};
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
