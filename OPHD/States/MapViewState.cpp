@@ -118,7 +118,8 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mMainReportsState(mainReportsState),
 	mCrimeExecution(mNotificationArea),
 	mLoadingExisting(true),
-	mExistingToLoad(savegame)
+	mExistingToLoad(savegame),
+	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood}
 {
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
@@ -131,7 +132,8 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mCrimeExecution(mNotificationArea),
 	mPlanetAttributes(planetAttributes),
 	mMapDisplay{std::make_unique<NAS2D::Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
-	mHeightMap{std::make_unique<NAS2D::Image>(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)}
+	mHeightMap{std::make_unique<NAS2D::Image>(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)},
+	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood}
 {
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
@@ -291,33 +293,6 @@ NAS2D::State* MapViewState::update()
 	drawUI();
 
 	return this;
-}
-
-
-/**
- * Get the total amount of storage given a structure class and capacity of each
- * structure.
- */
-int MapViewState::totalStorage(Structure::StructureClass structureClass, int capacity) const
-{
-	int storageCapacity = 0;
-
-	// Command Center has a limited amount of storage for when colonists first land.
-	if (ccLocation() != CcNotPlaced)
-	{
-		storageCapacity += constants::BaseStorageCapacity;
-	}
-
-	const auto& structures = NAS2D::Utility<StructureManager>::get().structureList(structureClass);
-	for (auto structure : structures)
-	{
-		if (structure->operational() || structure->isIdle())
-		{
-			storageCapacity += capacity;
-		}
-	}
-
-	return storageCapacity;
 }
 
 
@@ -579,9 +554,6 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 			resetUi();
 			return;
 		}
-
-		if (RESOURCE_PANEL_PIN.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
-		if (POPULATION_PANEL_PIN.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
 
 		if (mMoveNorthIconRect.contains(MOUSE_COORDS))
 		{

@@ -32,6 +32,7 @@
 #include "../UI/StructureInspector.h"
 #include "../UI/TileInspector.h"
 #include "../UI/WarehouseInspector.h"
+#include "../UI/ResourceInfoBar.h"
 
 #include "../UI/Core/WindowStack.h"
 #include "../UI/Core/ToolTip.h"
@@ -132,16 +133,13 @@ private:
 	void onDiggerTaskComplete(Robot* robot);
 	void onMinerTaskComplete(Robot* robot);
 
-	bool isResourcePanelVisible() const;
-	bool isPopulationPanelVisible() const;
-
 	// DRAWING FUNCTIONS
 	void drawUI();
 
 	void drawMiniMap() const;
 	void drawNavInfo() const;
 	bool drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) const;
-	void drawResourceInfo() const;
+	void drawSystemButton() const;
 	void drawRobotInfo() const;
 
 	// INSERT OBJECT HANDLING
@@ -167,7 +165,6 @@ private:
 	// MISCELLANEOUS UTILITY FUNCTIONS
 	void updateFood();
 	void transferFoodToCommandCenter();
-	int totalStorage(Structure::StructureClass, int) const;
 
 	void setMinimapView();
 
@@ -312,11 +309,6 @@ private:
 	// Bare Control's use for ToolTips
 	Control mTooltipSystemButton;
 	Control mTooltipCurrentTurns;
-	Control mTooltipPopulation;
-	Control mTooltipEnergy;
-	Control mTooltipFoodStorage;
-	Control mTooltipResourceStorage;
-	Control mTooltipResourceBreakdown;
 
 	ToolTip mToolTip;
 
@@ -379,8 +371,8 @@ private:
 
 	bool mLeftButtonDown = false;
 	bool mLoadingExisting = false;
-	bool mPinResourcePanel = false;
-	bool mPinPopulationPanel = false;
 
 	std::string mExistingToLoad; /**< Filename of the existing game to load. */
+
+	ResourceInfoBar mResourceInfoBar;
 };

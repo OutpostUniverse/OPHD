@@ -147,19 +147,6 @@ void MapViewState::initUi()
 
 	// tooltip control sizes
 	constexpr auto hudHeight = constants::ResourceIconSize + constants::MarginTight * 2;
-	mTooltipResourceBreakdown.size({265, hudHeight});
-
-	mTooltipResourceStorage.position({275, 0});
-	mTooltipResourceStorage.size({85, hudHeight});
-
-	mTooltipFoodStorage.position({420, 0});
-	mTooltipFoodStorage.size({75, hudHeight});
-
-	mTooltipEnergy.position({560, 0});
-	mTooltipEnergy.size({55, hudHeight});
-
-	mTooltipPopulation.position({670, 0});
-	mTooltipPopulation.size({75, hudHeight});
 
 	mTooltipCurrentTurns.size({45, hudHeight});
 	mTooltipSystemButton.size({hudHeight, hudHeight});
@@ -171,11 +158,6 @@ void MapViewState::initUi()
 	mToolTip.add(mBtnToggleCommRangeOverlay, constants::ToolTipBtnCommRange);
 	mToolTip.add(mBtnToggleRouteOverlay, constants::ToolTipBtnRoutes);
 	mToolTip.add(mBtnTogglePoliceOverlay, constants::ToolTipBtnPolice);
-	mToolTip.add(mTooltipResourceBreakdown, constants::ToolTipRefinedResources);
-	mToolTip.add(mTooltipResourceStorage, constants::ToolTipResourceStorage);
-	mToolTip.add(mTooltipFoodStorage, constants::ToolTipFoodStorage);
-	mToolTip.add(mTooltipEnergy, constants::ToolTipEnergy);
-	mToolTip.add(mTooltipPopulation, constants::ToolTipPopulation);
 	mToolTip.add(mTooltipCurrentTurns, constants::ToolTipCurrentTurns);
 	mToolTip.add(mTooltipSystemButton, constants::ToolTipSystemMenu);
 }
@@ -393,18 +375,6 @@ bool MapViewState::modalUiElementDisplayed() const
 }
 
 
-bool MapViewState::isResourcePanelVisible() const
-{
-	return mPinResourcePanel || NAS2D::Rectangle{0, 1, mResourceBreakdownPanel.size().x, 19}.contains(MOUSE_COORDS);
-}
-
-
-bool MapViewState::isPopulationPanelVisible() const
-{
-	return mPinPopulationPanel || NAS2D::Rectangle{675, 1, 75, 19}.contains(MOUSE_COORDS);
-}
-
-
 /**
 * Updates and draws the UI.
 */
@@ -418,12 +388,14 @@ void MapViewState::drawUI()
 	renderer.drawLine(NAS2D::Point{mBottomUiRect.x + 1, mBottomUiRect.y}, NAS2D::Point{mBottomUiRect.x + mBottomUiRect.width - 2, mBottomUiRect.y}, NAS2D::Color{56, 56, 56});
 
 	drawMiniMap();
-	drawResourceInfo();
 	drawNavInfo();
 	drawRobotInfo();
 
-	if (isPopulationPanelVisible()) { mPopulationPanel.update(); }
-	if (isResourcePanelVisible()) { mResourceBreakdownPanel.update(); }
+	if (mResourceInfoBar.isPopulationPanelVisible()) { mPopulationPanel.update(); }
+	if (mResourceInfoBar.isResourcePanelVisible()) { mResourceBreakdownPanel.update(); }
+
+	mResourceInfoBar.update();
+	drawSystemButton();
 
 	mNotificationArea.update();
 

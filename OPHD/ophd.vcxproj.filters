@@ -276,6 +276,9 @@
     <ClCompile Include="UI\ResourceBreakdownPanel.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI\ResourceInfoBar.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
     <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
@@ -633,6 +636,9 @@
       <Filter>Header Files\UI\SpecializedListBox</Filter>
     </ClInclude>
     <ClInclude Include="UI\ResourceBreakdownPanel.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\ResourceInfoBar.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="MicroPather\micropather.h">
