@@ -173,11 +173,7 @@ int RobotPool::getAvailableCount(Robot::Type type) const
 void RobotPool::InitRobotCtrl(std::size_t maxRobotCtrl)
 {
 	mRobotControlMax = maxRobotCtrl;
-	mRobotControlCount = 0;
-
-	updateRobotControlCount(mDiggers, mRobotControlCount);
-	updateRobotControlCount(mDozers, mRobotControlCount);
-	updateRobotControlCount(mMiners, mRobotControlCount);
+	mRobotControlCount = robotControlCount(mDiggers) + robotControlCount(mDozers) + robotControlCount(mMiners);
 }
 
 

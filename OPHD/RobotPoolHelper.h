@@ -56,12 +56,14 @@ int getIdleCount(const T& t)
 
 
 template <class T>
-void updateRobotControlCount(const T& t, std::size_t& controlCounter)
+std::size_t robotControlCount(const T& t)
 {
+	std::size_t controlCounter{0};
 	for (auto robot : t)
 	{
 		if (!robot->idle() && !robot->dead()) { ++controlCounter; }
 	}
+	return controlCounter;
 }
 
 
