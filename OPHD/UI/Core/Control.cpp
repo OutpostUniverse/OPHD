@@ -4,6 +4,13 @@
 using namespace NAS2D;
 
 
+void Control::area(const NAS2D::Rectangle<int>& area)
+{
+	mRect = area;
+	onResize();
+}
+
+
 /**
  * Sets the position of the Control.
  * 

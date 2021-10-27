@@ -33,6 +33,7 @@
 #include "../UI/TileInspector.h"
 #include "../UI/WarehouseInspector.h"
 #include "../UI/ResourceInfoBar.h"
+#include "../UI/MiniMap.h"
 
 #include "../UI/Core/WindowStack.h"
 #include "../UI/Core/ToolTip.h"
@@ -136,7 +137,6 @@ private:
 	// DRAWING FUNCTIONS
 	void drawUI();
 
-	void drawMiniMap() const;
 	void drawNavInfo() const;
 	bool drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) const;
 	void drawSystemButton() const;
@@ -243,6 +243,7 @@ private:
 	void clearOverlay(std::vector<Tile*>& tileList);
 	void updateOverlays();
 	void changePoliceOverlayDepth(int oldDepth, int newDepth);
+	void onToggleHeightmap();
 	void onToggleConnectedness();
 	void onToggleCommRangeOverlay();
 	void onToggleRouteOverlay();
@@ -276,8 +277,6 @@ private:
 
 	const NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */
 	const NAS2D::Image mBackground{"sys/bg1.png"}; /**< Background image drawn behind the tile map. */
-	std::unique_ptr<NAS2D::Image> mMapDisplay; /**< Satellite view of the Site Map. */
-	std::unique_ptr<NAS2D::Image> mHeightMap; /**< Height view of the Site Map. */
 
 	NAS2D::Point<int> mTileMapMouseHover; /**< Tile position the mouse is currently hovering over. */
 
@@ -375,4 +374,5 @@ private:
 	std::string mExistingToLoad; /**< Filename of the existing game to load. */
 
 	ResourceInfoBar mResourceInfoBar;
+	std::unique_ptr<MiniMap> mMiniMap;
 };

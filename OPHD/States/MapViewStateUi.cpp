@@ -106,6 +106,7 @@ void MapViewState::initUi()
 	mBtnToggleHeightmap.image("ui/icons/height.png");
 	mBtnToggleHeightmap.size(constants::MainButtonSize);
 	mBtnToggleHeightmap.type(Button::Type::BUTTON_TOGGLE);
+	mBtnToggleHeightmap.click().connect(this, &MapViewState::onToggleHeightmap);
 
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
 	mBtnToggleConnectedness.size(constants::MainButtonSize);
@@ -191,6 +192,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	// Mini Map
 	mMiniMapBoundingBox = {size.x - 300 - constants::Margin, mBottomUiRect.y + constants::Margin, 300, 150};
+	mMiniMap->area(mMiniMapBoundingBox);
 
 	// Position UI Buttons
 	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
@@ -387,7 +389,8 @@ void MapViewState::drawUI()
 	renderer.drawBox(mBottomUiRect, NAS2D::Color{21, 21, 21});
 	renderer.drawLine(NAS2D::Point{mBottomUiRect.x + 1, mBottomUiRect.y}, NAS2D::Point{mBottomUiRect.x + mBottomUiRect.width - 2, mBottomUiRect.y}, NAS2D::Color{56, 56, 56});
 
-	drawMiniMap();
+	mMiniMap->draw();
+
 	drawNavInfo();
 	drawRobotInfo();
 
@@ -449,6 +452,12 @@ void MapViewState::changePoliceOverlayDepth(int oldDepth, int newDepth)
 {
 	clearOverlay(mPoliceOverlays[oldDepth]);
 	setOverlay(mPoliceOverlays[newDepth], Tile::Overlay::Police);
+}
+
+
+void MapViewState::onToggleHeightmap()
+{
+	mMiniMap->heightMapVisible(mBtnToggleHeightmap.toggled());
 }
 
 
@@ -668,6 +677,8 @@ void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOpera
 		try
 		{
 			load(constants::SaveGamePath + filePath + ".xml");
+			auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+			setupUiPositions(renderer.size());
 		}
 		catch (const std::exception& e)
 		{

@@ -21,6 +21,9 @@ public:
 	Control() = default;
 	virtual ~Control() = default;
 
+	const NAS2D::Rectangle<int>& area() const { return mRect; }
+	void area(const NAS2D::Rectangle<int>& area);
+
 	NAS2D::Point<int> position() const { return mRect.startPoint(); }
 	void position(NAS2D::Point<int> pos);
 

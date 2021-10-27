@@ -29,10 +29,6 @@
 #include <stdexcept>
 
 
-/// \fixme	Fugly, find a sane way to do this.
-extern const std::string MAP_TERRAIN_EXTENSION = "_a.png";
-extern const std::string MAP_DISPLAY_EXTENSION = "_b.png";
-
 extern std::string CURRENT_LEVEL_STRING;
 extern std::map<int, std::string> LEVEL_STRING_TABLE;
 
@@ -189,10 +185,9 @@ void MapViewState::load(const std::string& filePath)
 	difficulty(stringToEnum(difficultyTable, dictionary.get("difficulty", std::string{"Medium"})));
 
 	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
-	mMapDisplay = std::make_unique<NAS2D::Image>(mPlanetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION);
-	mHeightMap = std::make_unique<NAS2D::Image>(mPlanetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION);
 	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.tilesetPath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
+	mMiniMap = std::make_unique<MiniMap>(mTileMap, mRobotList, mPlanetAttributes.mapImagePath);
 
 	delete mPathSolver;
 	mPathSolver = new micropather::MicroPather(mTileMap);

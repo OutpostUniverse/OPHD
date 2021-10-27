@@ -34,9 +34,6 @@
 #pragma warning(disable : 4244) // possible loss of data (floats to int and vice versa)
 
 
-const std::string MAP_TERRAIN_EXTENSION = "_a.png";
-const std::string MAP_DISPLAY_EXTENSION = "_b.png";
-
 extern NAS2D::Point<int> MOUSE_COORDS;
 
 
@@ -131,9 +128,8 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mCrimeExecution(mNotificationArea),
 	mPlanetAttributes(planetAttributes),
-	mMapDisplay{std::make_unique<NAS2D::Image>(planetAttributes.mapImagePath + MAP_DISPLAY_EXTENSION)},
-	mHeightMap{std::make_unique<NAS2D::Image>(planetAttributes.mapImagePath + MAP_TERRAIN_EXTENSION)},
-	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood}
+	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
+	mMiniMap{std::make_unique<MiniMap>(mTileMap, mRobotList, planetAttributes.mapImagePath)}
 {
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
@@ -184,8 +180,6 @@ void MapViewState::initialize()
 
 	renderer.setCursor(PointerType::POINTER_NORMAL);
 
-	setupUiPositions(renderer.size());
-
 	CURRENT_LEVEL_STRING = constants::LevelSurface;
 
 	mPopulationPool.population(&mPopulation);
@@ -200,6 +194,7 @@ void MapViewState::initialize()
 		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
 	}
 
+	setupUiPositions(renderer.size());
 	resetPoliceOverlays();
 
 	NAS2D::Utility<NAS2D::Renderer>::get().fadeIn(constants::FadeSpeed);
