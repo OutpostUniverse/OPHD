@@ -762,7 +762,7 @@ void MapViewState::placeTubes()
 
 	if (validTubeConnection(*mTileMap, mMouseTilePosition, cd))
 	{
-		insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(mMouseTilePosition.xy));
+		insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(mMouseTilePosition));
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
