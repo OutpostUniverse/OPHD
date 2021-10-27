@@ -679,7 +679,7 @@ void MapViewState::onMouseMove(int /*x*/, int /*y*/, int /*rX*/, int /*rY*/)
 		}
 	}
 
-	mTileMapMouseHover = mTileMap->mouseTilePosition().xy;
+	mMouseTilePosition = mTileMap->mouseTilePosition();
 }
 
 
@@ -749,7 +749,7 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 
 void MapViewState::placeTubes()
 {
-	Tile* tile = mTileMap->getVisibleTile({mTileMapMouseHover, mTileMap->currentDepth()});
+	Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
 	if (!tile) { return; }
 
 	// Check the basics.
@@ -760,9 +760,9 @@ void MapViewState::placeTubes()
 	 */
 	auto cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	if (validTubeConnection(*mTileMap, {mTileMapMouseHover, mTileMap->currentDepth()}, cd))
+	if (validTubeConnection(*mTileMap, mMouseTilePosition, cd))
 	{
-		insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(mTileMapMouseHover));
+		insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(mMouseTilePosition.xy));
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -778,7 +778,7 @@ void MapViewState::placeTubeStart()
 {
 	mPlacingTube = false;
 
-	Tile* tile = mTileMap->getVisibleTile({mTileMapMouseHover, mTileMap->currentDepth()});
+	Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
 	if (!tile) { return; }
 
 	// Check the basics.
@@ -789,7 +789,7 @@ void MapViewState::placeTubeStart()
 	 */
 	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
-	if (!validTubeConnection(*mTileMap, {mTileMapMouseHover, mTileMap->currentDepth()}, cd))
+	if (!validTubeConnection(*mTileMap, mMouseTilePosition, cd))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeInvalidLocation);
 		return;
@@ -803,7 +803,7 @@ void MapViewState::placeTubeEnd()
 {
 	if (!mPlacingTube) return;
 	mPlacingTube = false;
-	Tile* tile = mTileMap->getVisibleTile({mTileMapMouseHover, mTileMap->currentDepth()});
+	Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
 	if (!tile) { return; }
 
 	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
@@ -989,7 +989,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 void MapViewState::placeRobodigger(Tile& tile)
 {
 	// Keep digger within a safe margin of the map boundaries.
-	if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(mTileMapMouseHover))
+	if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(mMouseTilePosition.xy))
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerEdgeBuffer);
 		return;
@@ -1192,7 +1192,7 @@ void MapViewState::placeStructure()
 	// The player may only place one seed lander per game.
 	if (mCurrentStructure == StructureID::SID_SEED_LANDER)
 	{
-		insertSeedLander(mTileMapMouseHover);
+		insertSeedLander(mMouseTilePosition.xy);
 	}
 	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
 	{
@@ -1228,7 +1228,7 @@ void MapViewState::placeStructure()
 	}
 	else
 	{
-		if (!validStructurePlacement(*mTileMap, {mTileMapMouseHover, mTileMap->currentDepth()}) && !selfSustained(mCurrentStructure))
+		if (!validStructurePlacement(*mTileMap, mMouseTilePosition) && !selfSustained(mCurrentStructure))
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureNoTube);
 			return;

@@ -278,7 +278,7 @@ private:
 	const NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */
 	const NAS2D::Image mBackground{"sys/bg1.png"}; /**< Background image drawn behind the tile map. */
 
-	NAS2D::Point<int> mTileMapMouseHover; /**< Tile position the mouse is currently hovering over. */
+	MapCoordinate mMouseTilePosition;
 
 	NAS2D::Rectangle<int> mMiniMapBoundingBox; /**< Area of the site map display. */
 
