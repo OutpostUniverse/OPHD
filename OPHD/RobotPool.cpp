@@ -179,7 +179,7 @@ void RobotPool::InitRobotCtrl(std::size_t maxRobotCtrl)
 
 void RobotPool::AddRobotCtrl()
 {
-	if (mRobotControlMax > mRobotControlCount)
+	if (mRobotControlCount < mRobotControlMax)
 	{
 		++mRobotControlCount;
 	}
