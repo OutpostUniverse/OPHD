@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * Templete helper functions used exclusively by RobotPool.
  * 
@@ -5,7 +7,10 @@
  * these are designed specifically to help improve code readability
  * and maintainability of the RobotPool class.
  */
-#pragma once
+
+#include <cstddef>
+#include <stdexcept>
+
 
 template <class T>
 void clearRobots(T& t)

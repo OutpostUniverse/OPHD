@@ -3,6 +3,10 @@
 
 #include "Things/Robots/Robots.h"
 
+#include <cstddef>
+#include <vector>
+#include <map>
+
 
 class Tile;
 
