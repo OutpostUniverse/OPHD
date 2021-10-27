@@ -59,6 +59,7 @@ public:
 
 	bool tileHighlightVisible() const;
 	NAS2D::Point<int> tileMouseHover() const { return mMapHighlight; }
+	MapCoordinate mouseTilePosition() const { return {mMapHighlight, mCurrentDepth}; }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
