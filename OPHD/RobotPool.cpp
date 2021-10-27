@@ -151,7 +151,7 @@ bool RobotPool::robotAvailable(Robot::Type type) const
 }
 
 
-int RobotPool::getAvailableCount(Robot::Type type) const
+std::size_t RobotPool::getAvailableCount(Robot::Type type) const
 {
 	switch (type)
 	{
@@ -170,20 +170,16 @@ int RobotPool::getAvailableCount(Robot::Type type) const
 }
 
 
-void RobotPool::InitRobotCtrl(uint32_t maxRobotCtrl)
+void RobotPool::InitRobotCtrl(std::size_t maxRobotCtrl)
 {
 	mRobotControlMax = maxRobotCtrl;
-	mRobotControlCount = 0;
-
-	updateRobotControlCount(mDiggers, mRobotControlCount);
-	updateRobotControlCount(mDozers, mRobotControlCount);
-	updateRobotControlCount(mMiners, mRobotControlCount);
+	mRobotControlCount = robotControlCount(mDiggers) + robotControlCount(mDozers) + robotControlCount(mMiners);
 }
 
 
 void RobotPool::AddRobotCtrl()
 {
-	if (mRobotControlMax > mRobotControlCount)
+	if (mRobotControlCount < mRobotControlMax)
 	{
 		++mRobotControlCount;
 	}

@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * Templete helper functions used exclusively by RobotPool.
  * 
@@ -5,7 +7,10 @@
  * these are designed specifically to help improve code readability
  * and maintainability of the RobotPool class.
  */
-#pragma once
+
+#include <cstddef>
+#include <stdexcept>
+
 
 template <class T>
 void clearRobots(T& t)
@@ -43,9 +48,9 @@ auto& getIdleRobot(const T& list)
 
 
 template <class T>
-int getIdleCount(const T& t)
+std::size_t getIdleCount(const T& t)
 {
-	int count = 0;
+	std::size_t count = 0;
 	for (auto robot : t)
 	{
 		if (robot->idle()) { ++count; }
@@ -56,12 +61,14 @@ int getIdleCount(const T& t)
 
 
 template <class T>
-void updateRobotControlCount(const T& t, uint32_t& controlCounter)
+std::size_t robotControlCount(const T& t)
 {
+	std::size_t controlCounter{0};
 	for (auto robot : t)
 	{
 		if (!robot->idle() && !robot->dead()) { ++controlCounter; }
 	}
+	return controlCounter;
 }
 
 

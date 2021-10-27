@@ -3,6 +3,10 @@
 
 #include "Things/Robots/Robots.h"
 
+#include <cstddef>
+#include <vector>
+#include <map>
+
 
 class Tile;
 
@@ -27,9 +31,9 @@ public:
 	Robominer& getMiner();
 
 	bool robotAvailable(Robot::Type type) const;
-	int getAvailableCount(Robot::Type type) const;
+	std::size_t getAvailableCount(Robot::Type type) const;
 
-	void InitRobotCtrl(uint32_t MaxRobotCtrl);
+	void InitRobotCtrl(std::size_t MaxRobotCtrl);
 	bool robotCtrlAvailable() { return mRobotControlCount < mRobotControlMax; }
 	bool commandCapacityAvailable() { return mRobots.size() < mRobotControlMax; }
 	void AddRobotCtrl();
@@ -46,9 +50,8 @@ public:
 	void erase(Robot* robot);
 	bool insertRobotIntoTable(RobotTileTable& robotMap, Robot* robot, Tile* tile);
 
-	uint32_t robotControlMax() const { return mRobotControlMax; }
-	uint32_t currentControlCount() const { return mRobotControlCount; }
-	uint32_t availableControlCount() const { return robotControlMax() - currentControlCount(); }
+	std::size_t robotControlMax() const { return mRobotControlMax; }
+	std::size_t currentControlCount() const { return mRobotControlCount; }
 
 	const RobotList& robots() const { return mRobots; }
 
@@ -59,6 +62,6 @@ private:
 
 	RobotList mRobots; // List of all robots by pointer to base class
 
-	uint32_t mRobotControlMax = 0;
-	uint32_t mRobotControlCount = 0;
+	std::size_t mRobotControlMax = 0;
+	std::size_t mRobotControlCount = 0;
 };
