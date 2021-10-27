@@ -56,7 +56,7 @@ int getIdleCount(const T& t)
 
 
 template <class T>
-void updateRobotControlCount(const T& t, uint32_t& controlCounter)
+void updateRobotControlCount(const T& t, std::size_t& controlCounter)
 {
 	for (auto robot : t)
 	{

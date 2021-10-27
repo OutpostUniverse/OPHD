@@ -170,7 +170,7 @@ int RobotPool::getAvailableCount(Robot::Type type) const
 }
 
 
-void RobotPool::InitRobotCtrl(uint32_t maxRobotCtrl)
+void RobotPool::InitRobotCtrl(std::size_t maxRobotCtrl)
 {
 	mRobotControlMax = maxRobotCtrl;
 	mRobotControlCount = 0;
