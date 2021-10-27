@@ -510,10 +510,11 @@ void MapViewState::updateRoads()
 		for (size_t i = 0; i < 4; ++i)
 		{
 			const auto tileToInspect = tileLocation + DirectionClockwise4[i];
-			if (!mTileMap->isValidPosition(tileToInspect)) { continue; }
-			if (!mTileMap->getTile(tileToInspect).thingIsStructure()) { continue; }
+			const auto surfacePosition = MapCoordinate{tileToInspect, 0};
+			if (!mTileMap->isValidPosition(surfacePosition)) { continue; }
+			if (!mTileMap->getTile(surfacePosition).thingIsStructure()) { continue; }
 
-			surroundingTiles[i] = mTileMap->getTile(tileToInspect).structure()->structureId() == StructureID::SID_ROAD;
+			surroundingTiles[i] = mTileMap->getTile(surfacePosition).structure()->structureId() == StructureID::SID_ROAD;
 		}
 
 		std::string tag = "";
