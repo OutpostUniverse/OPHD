@@ -57,7 +57,6 @@ public:
 	void centerMapOnTile(Tile*);
 
 	bool tileHighlightVisible() const;
-	NAS2D::Point<int> tileMouseHover() const { return mMouseTilePosition.xy; }
 	MapCoordinate mouseTilePosition() const { return mMouseTilePosition; }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
