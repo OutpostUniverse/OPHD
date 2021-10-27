@@ -41,7 +41,6 @@ public:
 	TileMap& operator=(const TileMap&) = delete;
 
 	bool isValidPosition(const MapCoordinate& position) const;
-	bool isValidPosition(NAS2D::Point<int> position, int level = 0) const { return isValidPosition({position, level}); }
 
 	Tile& getTile(const MapCoordinate& position);
 	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mCurrentDepth}); }
