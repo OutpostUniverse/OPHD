@@ -48,7 +48,6 @@ public:
 
 	uint32_t robotControlMax() const { return mRobotControlMax; }
 	uint32_t currentControlCount() const { return mRobotControlCount; }
-	uint32_t availableControlCount() const { return robotControlMax() - currentControlCount(); }
 
 	const RobotList& robots() const { return mRobots; }
 
