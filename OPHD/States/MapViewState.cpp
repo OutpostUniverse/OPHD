@@ -679,7 +679,7 @@ void MapViewState::onMouseMove(int /*x*/, int /*y*/, int /*rX*/, int /*rY*/)
 		}
 	}
 
-	mTileMapMouseHover = mTileMap->tileMouseHover();
+	mTileMapMouseHover = mTileMap->mouseTilePosition().xy;
 }
 
 
@@ -885,7 +885,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		}
 
 		mMineOperationsWindow.hide();
-		const auto tilePosition = mTileMap->tileMouseHover();
+		const auto tilePosition = mTileMap->mouseTilePosition().xy;
 		mTileMap->removeMineLocation(tilePosition);
 		tile.pushMine(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
