@@ -43,9 +43,9 @@ auto& getIdleRobot(const T& list)
 
 
 template <class T>
-int getIdleCount(const T& t)
+std::size_t getIdleCount(const T& t)
 {
-	int count = 0;
+	std::size_t count = 0;
 	for (auto robot : t)
 	{
 		if (robot->idle()) { ++count; }

@@ -151,7 +151,7 @@ bool RobotPool::robotAvailable(Robot::Type type) const
 }
 
 
-int RobotPool::getAvailableCount(Robot::Type type) const
+std::size_t RobotPool::getAvailableCount(Robot::Type type) const
 {
 	switch (type)
 	{

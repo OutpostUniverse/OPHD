@@ -27,7 +27,7 @@ public:
 	Robominer& getMiner();
 
 	bool robotAvailable(Robot::Type type) const;
-	int getAvailableCount(Robot::Type type) const;
+	std::size_t getAvailableCount(Robot::Type type) const;
 
 	void InitRobotCtrl(std::size_t MaxRobotCtrl);
 	bool robotCtrlAvailable() { return mRobotControlCount < mRobotControlMax; }
