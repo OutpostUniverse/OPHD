@@ -333,7 +333,7 @@ void TileMap::centerMapOnTile(Tile* tile)
  */
 bool TileMap::tileHighlightVisible() const
 {
-	return isVisibleTile({mMapHighlight, mCurrentDepth});
+	return isVisibleTile(mouseTilePosition());
 }
 
 
