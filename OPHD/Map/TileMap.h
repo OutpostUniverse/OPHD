@@ -47,7 +47,7 @@ public:
 	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mCurrentDepth}); }
 
 	Tile* getVisibleTile(const MapCoordinate& position);
-	Tile* getVisibleTile() { return getVisibleTile({tileMouseHover(), mCurrentDepth}); }
+	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
 
 	bool isVisibleTile(const MapCoordinate& position) const;
 
