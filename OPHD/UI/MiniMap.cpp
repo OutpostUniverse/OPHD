@@ -17,9 +17,8 @@
 
 namespace
 {
-	/// \fixme	Fugly, find a sane way to do this.
-	const std::string MAP_TERRAIN_EXTENSION = "_a.png";
-	const std::string MAP_DISPLAY_EXTENSION = "_b.png";
+	const std::string MapTerrainExtension = "_a.png";
+	const std::string MapDisplayExtension = "_b.png";
 }
 
 
@@ -27,8 +26,8 @@ MiniMap::MiniMap(TileMap* tileMap, const std::map<Robot*, Tile*>& robotList, con
 	mTileMap{tileMap},
 	mRobotList{robotList},
 	mIsHeightMapVisible{false},
-	mBackgroundSatellite{mapName + MAP_DISPLAY_EXTENSION},
-	mBackgroundHeightMap{mapName + MAP_TERRAIN_EXTENSION},
+	mBackgroundSatellite{mapName + MapDisplayExtension},
+	mBackgroundHeightMap{mapName + MapTerrainExtension},
 	mUiIcons{imageCache.load("ui/icons.png")}
 {}
 
