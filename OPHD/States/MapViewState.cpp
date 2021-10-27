@@ -885,11 +885,12 @@ void MapViewState::placeRobodozer(Tile& tile)
 		}
 
 		mMineOperationsWindow.hide();
-		mTileMap->removeMineLocation(mTileMap->tileMouseHover());
+		const auto tilePosition = mTileMap->tileMouseHover();
+		mTileMap->removeMineLocation(tilePosition);
 		tile.pushMine(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
-			auto& mineShaftTile = mTileMap->getTile({mTileMap->tileMouseHover(), i});
+			auto& mineShaftTile = mTileMap->getTile({tilePosition, i});
 			NAS2D::Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
 		}
 	}
