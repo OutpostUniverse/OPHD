@@ -485,9 +485,10 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 		}
 
 		if (!mTileMap->tileHighlightVisible()) { return; }
-		if (!mTileMap->isValidPosition(mTileMap->tileMouseHover())) { return; }
+		const auto tilePosition = mTileMap->mouseTilePosition();
+		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
-		auto& tile = mTileMap->getTile(mTileMap->tileMouseHover());
+		auto& tile = mTileMap->getTile(tilePosition);
 		if (tile.empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
 			clearSelections();
@@ -613,9 +614,10 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, i
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 		if (!mTileMap->tileHighlightVisible()) { return; }
-		if (!mTileMap->isValidPosition(mTileMap->tileMouseHover())) { return; }
+		const auto tilePosition = mTileMap->mouseTilePosition();
+		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
-		auto& tile = mTileMap->getTile(mTileMap->tileMouseHover());
+		auto& tile = mTileMap->getTile(tilePosition);
 		if (tile.thingIsStructure())
 		{
 			Structure* structure = tile.structure();
