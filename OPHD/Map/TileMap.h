@@ -131,7 +131,7 @@ private:
 
 	NAS2D::Timer mTimer;
 
-	MapCoordinate mMouseTilePosition; /**< Tile the mouse is pointing to. */
+	MapCoordinate mMouseTilePosition{}; /**< Tile the mouse is pointing to. */
 	NAS2D::Point<int> mMousePosition; /**< Current mouse position. */
 	NAS2D::Point<int> mMapViewLocation;
 
