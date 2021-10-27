@@ -43,7 +43,7 @@ public:
 	bool isValidPosition(const MapCoordinate& position) const;
 
 	Tile& getTile(const MapCoordinate& position);
-	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mCurrentDepth}); }
+	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mMouseTilePosition.z}); }
 
 	Tile* getVisibleTile(const MapCoordinate& position);
 	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
@@ -57,8 +57,8 @@ public:
 	void centerMapOnTile(Tile*);
 
 	bool tileHighlightVisible() const;
-	NAS2D::Point<int> tileMouseHover() const { return mMapHighlight; }
-	MapCoordinate mouseTilePosition() const { return {mMapHighlight, mCurrentDepth}; }
+	NAS2D::Point<int> tileMouseHover() const { return mMouseTilePosition.xy; }
+	MapCoordinate mouseTilePosition() const { return mMouseTilePosition; }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
@@ -66,8 +66,8 @@ public:
 	int edgeLength() const { return mEdgeLength; }
 	NAS2D::Vector<int> size() const { return mSizeInTiles; }
 
-	int currentDepth() const { return mCurrentDepth; }
-	void currentDepth(int i) { mCurrentDepth = std::clamp(i, 0, mMaxDepth); }
+	int currentDepth() const { return mMouseTilePosition.z; }
+	void currentDepth(int i) { mMouseTilePosition.z = std::clamp(i, 0, mMaxDepth); }
 
 	int maxDepth() const { return mMaxDepth; }
 
@@ -119,7 +119,6 @@ private:
 	const NAS2D::Vector<int> mSizeInTiles;
 
 	int mMaxDepth = 0; /**< Maximum digging depth. */
-	int mCurrentDepth = 0; /**< Current depth level to view. */
 
 	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 
@@ -133,8 +132,8 @@ private:
 
 	NAS2D::Timer mTimer;
 
+	MapCoordinate mMouseTilePosition; /**< Tile the mouse is pointing to. */
 	NAS2D::Point<int> mMousePosition; /**< Current mouse position. */
-	NAS2D::Point<int> mMapHighlight; /**< Tile the mouse is pointing to. */
 	NAS2D::Point<int> mMapViewLocation;
 
 	NAS2D::Point<int> mMapPosition; /** Where to start drawing the TileMap on the screen. */

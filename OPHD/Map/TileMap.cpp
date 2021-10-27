@@ -341,14 +341,14 @@ void TileMap::draw()
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	int tsetOffset = mCurrentDepth > 0 ? TILE_HEIGHT : 0;
-	const auto highlightOffset = mMapHighlight - mMapViewLocation;
+	int tsetOffset = mMouseTilePosition.z > 0 ? TILE_HEIGHT : 0;
+	const auto highlightOffset = mMouseTilePosition.xy - mMapViewLocation;
 
 	for (int row = 0; row < mEdgeLength; row++)
 	{
 		for (int col = 0; col < mEdgeLength; col++)
 		{
-			auto& tile = getTile({mMapViewLocation + NAS2D::Vector{col, row}, mCurrentDepth});
+			auto& tile = getTile({mMapViewLocation + NAS2D::Vector{col, row}, mMouseTilePosition.z});
 
 			if (tile.excavated())
 			{
@@ -420,7 +420,7 @@ void TileMap::updateTileHighlight()
 		break;
 	}
 
-	mMapHighlight = mMapViewLocation + highlightOffset;
+	mMouseTilePosition.xy = mMapViewLocation + highlightOffset;
 }
 
 
@@ -444,7 +444,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	element->linkEndChild(NAS2D::dictionaryToAttributes(
 		"view_parameters",
 		{{
-			{"currentdepth", mCurrentDepth},
+			{"currentdepth", mMouseTilePosition.z},
 			{"viewlocation_x", mMapViewLocation.x},
 			{"viewlocation_y", mMapViewLocation.y},
 		}}
@@ -570,7 +570,7 @@ bool TileMap::isVisibleTile(const MapCoordinate& position) const
 		return false;
 	}
 
-	if (position.z != mCurrentDepth)
+	if (position.z != mMouseTilePosition.z)
 	{
 		return false;
 	}
