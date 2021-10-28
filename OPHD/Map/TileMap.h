@@ -52,7 +52,7 @@ public:
 
 	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 
-	const NAS2D::Point<int>& mapViewLocation() const { return mMapViewLocation; }
+	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition; }
 	void mapViewLocation(NAS2D::Point<int> point);
 	void centerMapOnTile(Tile*);
 
@@ -133,8 +133,8 @@ private:
 
 	MapCoordinate mMouseTilePosition{}; /**< Tile the mouse is pointing to. */
 	NAS2D::Point<int> mMousePosition; /**< Current mouse position. */
-	NAS2D::Point<int> mMapViewLocation;
 
+	NAS2D::Point<int> mOriginTilePosition; // Top tile of detail view diamond, or top left edge of minimap view
 	NAS2D::Point<int> mMapPosition; /** Where to start drawing the TileMap on the screen. */
 
 	Point2dList mMineLocations; /**< Location of all mines on the map. */
