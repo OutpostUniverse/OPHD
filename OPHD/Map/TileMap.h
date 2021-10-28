@@ -70,7 +70,7 @@ public:
 
 	int maxDepth() const { return mMaxDepth; }
 
-	void injectMouse(NAS2D::Point<int> position) { mMousePosition = position; }
+	void injectMouse(NAS2D::Point<int> position) { mMousePixelPosition = position; }
 
 	void initMapDrawParams(NAS2D::Vector<int>);
 
@@ -132,7 +132,7 @@ private:
 	NAS2D::Timer mTimer;
 
 	MapCoordinate mMouseTilePosition{}; /**< Tile the mouse is pointing to. */
-	NAS2D::Point<int> mMousePosition; /**< Current mouse position. */
+	NAS2D::Point<int> mMousePixelPosition; /**< Current mouse position. */
 
 	NAS2D::Point<int> mOriginTilePosition; // Top tile of detail view diamond, or top left edge of minimap view
 	NAS2D::Point<int> mOriginPixelPosition; // Top left pixel of tile at top of diamond
