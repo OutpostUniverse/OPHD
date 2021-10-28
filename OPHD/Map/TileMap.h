@@ -52,7 +52,7 @@ public:
 
 	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 
-	const NAS2D::Point<int>& mapViewLocation() const { return mMapViewLocation; }
+	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition; }
 	void mapViewLocation(NAS2D::Point<int> point);
 	void centerMapOnTile(Tile*);
 
@@ -70,7 +70,7 @@ public:
 
 	int maxDepth() const { return mMaxDepth; }
 
-	void injectMouse(NAS2D::Point<int> position) { mMousePosition = position; }
+	void injectMouse(NAS2D::Point<int> position) { mMousePixelPosition = position; }
 
 	void initMapDrawParams(NAS2D::Vector<int>);
 
@@ -114,30 +114,28 @@ private:
 	MouseMapRegion getMouseMapRegion(int x, int y);
 
 
-	int mEdgeLength = 0;
 	const NAS2D::Vector<int> mSizeInTiles;
-
-	int mMaxDepth = 0; /**< Maximum digging depth. */
-
-	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
+	const int mMaxDepth = 0;
+	TileArray mTileMap;
+	Point2dList mMineLocations;
 
 	std::string mMapPath;
 	std::string mTsetPath;
-
-	TileArray mTileMap;
 
 	const NAS2D::Image mTileset;
 	const NAS2D::Image mMineBeacon;
 
 	NAS2D::Timer mTimer;
 
-	MapCoordinate mMouseTilePosition{}; /**< Tile the mouse is pointing to. */
-	NAS2D::Point<int> mMousePosition; /**< Current mouse position. */
-	NAS2D::Point<int> mMapViewLocation;
+	int mEdgeLength = 0;
 
-	NAS2D::Point<int> mMapPosition; /** Where to start drawing the TileMap on the screen. */
+	MapCoordinate mMouseTilePosition{};
+	NAS2D::Point<int> mMousePixelPosition;
 
-	Point2dList mMineLocations; /**< Location of all mines on the map. */
+	NAS2D::Point<int> mOriginTilePosition; // Top tile of detail view diamond, or top left corner of minimap view box
+	NAS2D::Point<int> mOriginPixelPosition; // Top left pixel of tile at top of diamond
 
-	NAS2D::Rectangle<int> mMapBoundingBox; /** Area that the TileMap fills when drawn. */
+	NAS2D::Rectangle<int> mMapBoundingBox; // Tightest pixel area containing all drawn tiles
+
+	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 };

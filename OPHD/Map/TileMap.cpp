@@ -300,14 +300,14 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 	mEdgeLength = std::max(3, std::min(lengthX, lengthY));
 
 	// Find top left corner of rectangle containing top tile of diamond
-	mMapPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BottomUiHeight - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
-	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, mMapPosition.y, TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
+	mOriginPixelPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BottomUiHeight - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
+	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, mOriginPixelPosition.y, TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
 }
 
 
 void TileMap::mapViewLocation(NAS2D::Point<int> point)
 {
-	mMapViewLocation = {
+	mOriginTilePosition = {
 		std::clamp(point.x, 0, mSizeInTiles.x - mEdgeLength),
 		std::clamp(point.y, 0, mSizeInTiles.y - mEdgeLength)
 	};
@@ -342,17 +342,17 @@ void TileMap::draw()
 	auto& renderer = Utility<Renderer>::get();
 
 	int tsetOffset = mMouseTilePosition.z > 0 ? TILE_HEIGHT : 0;
-	const auto highlightOffset = mMouseTilePosition.xy - mMapViewLocation;
+	const auto highlightOffset = mMouseTilePosition.xy - mOriginTilePosition;
 
 	for (int row = 0; row < mEdgeLength; row++)
 	{
 		for (int col = 0; col < mEdgeLength; col++)
 		{
-			auto& tile = getTile({mMapViewLocation + NAS2D::Vector{col, row}, mMouseTilePosition.z});
+			auto& tile = getTile({mOriginTilePosition + NAS2D::Vector{col, row}, mMouseTilePosition.z});
 
 			if (tile.excavated())
 			{
-				const auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
+				const auto position = mOriginPixelPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
 				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
 				const bool isTileHighlighted = NAS2D::Vector{col, row} == highlightOffset;
 
@@ -383,20 +383,20 @@ void TileMap::draw()
  */
 void TileMap::updateTileHighlight()
 {
-	if (!mMapBoundingBox.contains(mMousePosition))
+	if (!mMapBoundingBox.contains(mMousePixelPosition))
 	{
 		return;
 	}
 
 	/// In the case of even edge lengths, we need to adjust the mouse picking code a bit.
 	const int evenEdgeLengthAdjust = (edgeLength() % 2 == 0) ? TILE_HALF_WIDTH : 0;
-	const int offsetX = ((mMousePosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) / TILE_WIDTH);
-	const int offsetY = ((mMousePosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
-	const int transform = (mMapPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
+	const int offsetX = ((mMousePixelPosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) / TILE_WIDTH);
+	const int offsetY = ((mMousePixelPosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
+	const int transform = (mOriginPixelPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
 	NAS2D::Vector<int> highlightOffset = {-transform + offsetY + offsetX, transform + offsetY - offsetX};
 
-	const int mmOffsetX = std::clamp((mMousePosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) % TILE_WIDTH, 0, TILE_WIDTH);
-	const int mmOffsetY = (mMousePosition.y - mMapBoundingBox.y) % TILE_HEIGHT_ABSOLUTE;
+	const int mmOffsetX = std::clamp((mMousePixelPosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) % TILE_WIDTH, 0, TILE_WIDTH);
+	const int mmOffsetY = (mMousePixelPosition.y - mMapBoundingBox.y) % TILE_HEIGHT_ABSOLUTE;
 
 	switch (getMouseMapRegion(mmOffsetX, mmOffsetY))
 	{
@@ -420,7 +420,7 @@ void TileMap::updateTileHighlight()
 		break;
 	}
 
-	mMouseTilePosition.xy = mMapViewLocation + highlightOffset;
+	mMouseTilePosition.xy = mOriginTilePosition + highlightOffset;
 }
 
 
@@ -445,8 +445,8 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 		"view_parameters",
 		{{
 			{"currentdepth", mMouseTilePosition.z},
-			{"viewlocation_x", mMapViewLocation.x},
-			{"viewlocation_y", mMapViewLocation.y},
+			{"viewlocation_x", mOriginTilePosition.x},
+			{"viewlocation_y", mOriginTilePosition.y},
 		}}
 	));
 
@@ -565,7 +565,7 @@ Tile* TileMap::getVisibleTile(const MapCoordinate& position)
 
 bool TileMap::isVisibleTile(const MapCoordinate& position) const
 {
-	if (!NAS2D::Rectangle{mMapViewLocation.x, mMapViewLocation.y, mEdgeLength, mEdgeLength}.contains(position.xy))
+	if (!NAS2D::Rectangle{mOriginTilePosition.x, mOriginTilePosition.y, mEdgeLength, mEdgeLength}.contains(position.xy))
 	{
 		return false;
 	}
