@@ -114,22 +114,20 @@ private:
 	MouseMapRegion getMouseMapRegion(int x, int y);
 
 
-	int mEdgeLength = 0;
 	const NAS2D::Vector<int> mSizeInTiles;
-
 	int mMaxDepth = 0;
-
-	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
+	TileArray mTileMap;
+	Point2dList mMineLocations;
 
 	std::string mMapPath;
 	std::string mTsetPath;
-
-	TileArray mTileMap;
 
 	const NAS2D::Image mTileset;
 	const NAS2D::Image mMineBeacon;
 
 	NAS2D::Timer mTimer;
+
+	int mEdgeLength = 0;
 
 	MapCoordinate mMouseTilePosition{};
 	NAS2D::Point<int> mMousePixelPosition;
@@ -137,7 +135,7 @@ private:
 	NAS2D::Point<int> mOriginTilePosition; // Top tile of detail view diamond, or top left corner of minimap view box
 	NAS2D::Point<int> mOriginPixelPosition; // Top left pixel of tile at top of diamond
 
-	Point2dList mMineLocations;
-
 	NAS2D::Rectangle<int> mMapBoundingBox; // Tightest pixel area containing all drawn tiles
+
+	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 };
