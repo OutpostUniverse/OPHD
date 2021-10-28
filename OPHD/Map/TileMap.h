@@ -135,7 +135,7 @@ private:
 	NAS2D::Point<int> mMousePosition; /**< Current mouse position. */
 
 	NAS2D::Point<int> mOriginTilePosition; // Top tile of detail view diamond, or top left edge of minimap view
-	NAS2D::Point<int> mMapPosition; /** Where to start drawing the TileMap on the screen. */
+	NAS2D::Point<int> mOriginPixelPosition; // Top left pixel of tile at top of diamond
 
 	Point2dList mMineLocations; /**< Location of all mines on the map. */
 

@@ -300,8 +300,8 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 	mEdgeLength = std::max(3, std::min(lengthX, lengthY));
 
 	// Find top left corner of rectangle containing top tile of diamond
-	mMapPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BottomUiHeight - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
-	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, mMapPosition.y, TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
+	mOriginPixelPosition = NAS2D::Point{(size.x - TILE_WIDTH) / 2, (size.y - constants::BottomUiHeight - mEdgeLength * TILE_HEIGHT_ABSOLUTE) / 2};
+	mMapBoundingBox = {(size.x - TILE_WIDTH * mEdgeLength) / 2, mOriginPixelPosition.y, TILE_WIDTH * mEdgeLength, TILE_HEIGHT_ABSOLUTE * mEdgeLength};
 }
 
 
@@ -352,7 +352,7 @@ void TileMap::draw()
 
 			if (tile.excavated())
 			{
-				const auto position = mMapPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
+				const auto position = mOriginPixelPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
 				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
 				const bool isTileHighlighted = NAS2D::Vector{col, row} == highlightOffset;
 
@@ -392,7 +392,7 @@ void TileMap::updateTileHighlight()
 	const int evenEdgeLengthAdjust = (edgeLength() % 2 == 0) ? TILE_HALF_WIDTH : 0;
 	const int offsetX = ((mMousePosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) / TILE_WIDTH);
 	const int offsetY = ((mMousePosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
-	const int transform = (mMapPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
+	const int transform = (mOriginPixelPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
 	NAS2D::Vector<int> highlightOffset = {-transform + offsetY + offsetX, transform + offsetY - offsetX};
 
 	const int mmOffsetX = std::clamp((mMousePosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) % TILE_WIDTH, 0, TILE_WIDTH);
