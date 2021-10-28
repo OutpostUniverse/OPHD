@@ -115,7 +115,7 @@ private:
 
 
 	const NAS2D::Vector<int> mSizeInTiles;
-	int mMaxDepth = 0;
+	const int mMaxDepth = 0;
 	TileArray mTileMap;
 	Point2dList mMineLocations;
 
