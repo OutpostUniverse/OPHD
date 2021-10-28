@@ -117,7 +117,7 @@ private:
 	int mEdgeLength = 0;
 	const NAS2D::Vector<int> mSizeInTiles;
 
-	int mMaxDepth = 0; /**< Maximum digging depth. */
+	int mMaxDepth = 0;
 
 	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 
@@ -131,13 +131,13 @@ private:
 
 	NAS2D::Timer mTimer;
 
-	MapCoordinate mMouseTilePosition{}; /**< Tile the mouse is pointing to. */
-	NAS2D::Point<int> mMousePixelPosition; /**< Current mouse position. */
+	MapCoordinate mMouseTilePosition{};
+	NAS2D::Point<int> mMousePixelPosition;
 
 	NAS2D::Point<int> mOriginTilePosition; // Top tile of detail view diamond, or top left edge of minimap view
 	NAS2D::Point<int> mOriginPixelPosition; // Top left pixel of tile at top of diamond
 
-	Point2dList mMineLocations; /**< Location of all mines on the map. */
+	Point2dList mMineLocations;
 
 	NAS2D::Rectangle<int> mMapBoundingBox; /** Area that the TileMap fills when drawn. */
 };
