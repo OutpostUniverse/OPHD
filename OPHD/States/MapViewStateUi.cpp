@@ -173,6 +173,8 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mTooltipSystemButton.position({size.x - (constants::ResourceIconSize + constants::MarginTight * 2), 0});
 	mTooltipCurrentTurns.position({size.x - 80 , 0});
 
+	mRobotDeploymentSummary.area({8, size.y - constants::BottomUiHeight - 25 - 8 - 100, 200, 100});
+
 	// NAVIGATION BUTTONS
 	// Bottom line
 	const auto navIconSpacing = 32 + constants::MarginTight;

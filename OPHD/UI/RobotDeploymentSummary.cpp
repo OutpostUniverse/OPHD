@@ -29,7 +29,7 @@ void RobotDeploymentSummary::draw() const
 
 	// Robots: Miner (last one), Dozer (middle one), Digger (first one)
 	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
-	auto position = NAS2D::Point{8, renderer.size().y - constants::BottomUiHeight - 25 - 8};
+	auto position = mRect.crossYPoint();
 	constexpr auto textOffset = NAS2D::Vector{30, 7};
 
 	const auto minerImageRect = NAS2D::Rectangle{231, 18, 25, 25};
