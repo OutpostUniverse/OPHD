@@ -282,6 +282,9 @@
     <ClCompile Include="UI\ResourceInfoBar.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI\RobotDeploymentSummary.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
     <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
@@ -645,6 +648,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\ResourceInfoBar.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\RobotDeploymentSummary.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="MicroPather\micropather.h">
