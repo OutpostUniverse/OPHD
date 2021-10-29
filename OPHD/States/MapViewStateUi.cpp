@@ -392,7 +392,8 @@ void MapViewState::drawUI()
 	mMiniMap->draw();
 
 	drawNavInfo();
-	drawRobotInfo();
+
+	mRobotDeploymentSummary.draw();
 
 	if (mResourceInfoBar.isPopulationPanelVisible()) { mPopulationPanel.update(); }
 	if (mResourceInfoBar.isResourcePanelVisible()) { mResourceBreakdownPanel.update(); }
