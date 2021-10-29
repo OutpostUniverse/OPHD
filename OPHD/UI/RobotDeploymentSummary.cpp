@@ -18,9 +18,6 @@ RobotDeploymentSummary::RobotDeploymentSummary(const RobotPool& robotPool) :
 {}
 
 
-/**
- * Draws robot deployment information.
- */
 void RobotDeploymentSummary::draw() const
 {
 	if (ccLocation() == CcNotPlaced) { return; }
