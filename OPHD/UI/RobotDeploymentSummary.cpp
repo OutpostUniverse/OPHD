@@ -27,9 +27,7 @@ void RobotDeploymentSummary::draw() const
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	// Robots: Miner (last one), Dozer (middle one), Digger (first one)
-	// Start from the bottom - The bottom UI Height - Icons Height - 8 (1 offset to avoid the last to be glued with at the border)
-	auto position = mRect.crossYPoint();
+	auto position = mRect.startPoint();
 	constexpr auto textOffset = NAS2D::Vector{30, 7};
 
 	const auto minerImageRect = NAS2D::Rectangle{231, 18, 25, 25};
@@ -38,10 +36,10 @@ void RobotDeploymentSummary::draw() const
 	const auto robotSummaryImageRect = NAS2D::Rectangle{231, 43, 25, 25};
 
 	const std::array icons{
-		std::tuple{minerImageRect, mRobotPool.getAvailableCount(Robot::Type::Miner), mRobotPool.miners().size()},
-		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(Robot::Type::Dozer), mRobotPool.dozers().size()},
-		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(Robot::Type::Digger), mRobotPool.diggers().size()},
 		std::tuple{robotSummaryImageRect, mRobotPool.currentControlCount(), mRobotPool.robotControlMax()},
+		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(Robot::Type::Digger), mRobotPool.diggers().size()},
+		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(Robot::Type::Dozer), mRobotPool.dozers().size()},
+		std::tuple{minerImageRect, mRobotPool.getAvailableCount(Robot::Type::Miner), mRobotPool.miners().size()},
 	};
 
 	for (const auto& [imageRect, parts, total] : icons)
@@ -49,6 +47,6 @@ void RobotDeploymentSummary::draw() const
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto text = std::to_string(parts) + "/" + std::to_string(total);
 		renderer.drawText(*MAIN_FONT, text, position + textOffset, NAS2D::Color::White);
-		position.y -= 25;
+		position.y += 25;
 	}
 }
