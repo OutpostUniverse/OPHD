@@ -116,7 +116,8 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mCrimeExecution(mNotificationArea),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame),
-	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood}
+	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
+	mRobotDeploymentSummary{mRobotPool}
 {
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
@@ -129,7 +130,8 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mCrimeExecution(mNotificationArea),
 	mPlanetAttributes(planetAttributes),
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
-	mMiniMap{std::make_unique<MiniMap>(mTileMap, mRobotList, planetAttributes.mapImagePath)}
+	mMiniMap{std::make_unique<MiniMap>(mTileMap, mRobotList, planetAttributes.mapImagePath)},
+	mRobotDeploymentSummary{mRobotPool}
 {
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;

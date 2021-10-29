@@ -34,6 +34,7 @@
 #include "../UI/WarehouseInspector.h"
 #include "../UI/ResourceInfoBar.h"
 #include "../UI/MiniMap.h"
+#include "../UI/RobotDeploymentSummary.h"
 
 #include "../UI/Core/WindowStack.h"
 #include "../UI/Core/ToolTip.h"
@@ -140,7 +141,6 @@ private:
 	void drawNavInfo() const;
 	bool drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) const;
 	void drawSystemButton() const;
-	void drawRobotInfo() const;
 
 	// INSERT OBJECT HANDLING
 	void onDeployCargoLander();
@@ -375,4 +375,5 @@ private:
 
 	ResourceInfoBar mResourceInfoBar;
 	std::unique_ptr<MiniMap> mMiniMap;
+	RobotDeploymentSummary mRobotDeploymentSummary;
 };
