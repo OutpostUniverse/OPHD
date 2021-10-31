@@ -40,18 +40,6 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 NAS2D::Rectangle<int> RESOURCE_PANEL_PIN{0, 1, 8, 19};
 NAS2D::Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
 
-std::string CURRENT_LEVEL_STRING;
-
-std::map<int, std::string> LEVEL_STRING_TABLE =
-{
-	{constants::DepthSurface, constants::LevelSurface},
-	{constants::DepthUnderground1, constants::Levelunderground1},
-	{constants::DepthUnderground2, constants::Levelunderground2},
-	{constants::DepthUnderground3, constants::Levelunderground3},
-	{constants::DepthUnderground4, constants::Levelunderground4}
-};
-
-
 const NAS2D::Font* MAIN_FONT = nullptr;
 
 
@@ -182,8 +170,6 @@ void MapViewState::initialize()
 
 	renderer.setCursor(PointerType::POINTER_NORMAL);
 
-	CURRENT_LEVEL_STRING = constants::LevelSurface;
-
 	mPopulationPool.population(&mPopulation);
 
 	if (mLoadingExisting)
@@ -268,11 +254,6 @@ NAS2D::State* MapViewState::update()
 	}
 
 	renderer.drawImageStretched(mBackground, renderArea);
-
-	// explicit current level
-	const NAS2D::Font* font = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
-	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - font->size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
-	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
 
 	if (!modalUiElementDisplayed())
 	{
@@ -710,7 +691,6 @@ void MapViewState::changeViewDepth(int depth)
 
 	if (mInsertMode != InsertMode::Robot) { clearMode(); }
 	populateStructureMenu();
-	updateCurrentLevelString(mTileMap->currentDepth());
 }
 
 
@@ -1526,13 +1506,4 @@ void MapViewState::scrubRobotList()
 	{
 		it.second->removeThing();
 	}
-}
-
-
-/**
- * Update the value of the current level string
- */
-void MapViewState::updateCurrentLevelString(int currentDepth)
-{
-	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[currentDepth];
 }

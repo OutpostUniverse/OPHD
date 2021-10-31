@@ -139,7 +139,6 @@ private:
 	void drawUI();
 
 	void drawNavInfo() const;
-	bool drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) const;
 	void drawSystemButton() const;
 
 	// INSERT OBJECT HANDLING
@@ -233,7 +232,6 @@ private:
 
 	void populateStructureMenu();
 
-	void updateCurrentLevelString(int currentDepth);
 	void updateStructuresAvailability();
 
 	// UI EVENT HANDLERS
