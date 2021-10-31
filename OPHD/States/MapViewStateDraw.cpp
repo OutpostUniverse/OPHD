@@ -71,12 +71,19 @@ void MapViewState::drawNavInfo() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	drawNavIcon(renderer, mMoveDownIconRect, NAS2D::Rectangle{64, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, mMoveUpIconRect, NAS2D::Rectangle{96, 128, 32, 32}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, mMoveEastIconRect, NAS2D::Rectangle{32, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, mMoveWestIconRect, NAS2D::Rectangle{32, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, mMoveNorthIconRect, NAS2D::Rectangle{0, 128, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
-	drawNavIcon(renderer, mMoveSouthIconRect, NAS2D::Rectangle{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
+	const std::array buttonDrawAreas
+	{
+		std::tuple{mMoveDownIconRect, NAS2D::Rectangle{64, 128, 32, 32}},
+		std::tuple{mMoveUpIconRect, NAS2D::Rectangle{96, 128, 32, 32}},
+		std::tuple{mMoveEastIconRect, NAS2D::Rectangle{32, 128, 32, 16}},
+		std::tuple{mMoveWestIconRect, NAS2D::Rectangle{32, 144, 32, 16}},
+		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle{0, 128, 32, 16}},
+		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle{0, 144, 32, 16}},
+	};
+	for (const auto& [currentIconBounds, subImageBounds] : buttonDrawAreas)
+	{
+		drawNavIcon(renderer, currentIconBounds, subImageBounds, NAS2D::Color::White, NAS2D::Color::Red);
+	}
 
 	// Display the levels "bar"
 	const auto& font = fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
