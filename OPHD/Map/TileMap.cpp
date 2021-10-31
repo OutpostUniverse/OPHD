@@ -334,6 +334,15 @@ void TileMap::centerMapOnTile(Tile* tile)
 }
 
 
+void TileMap::moveView(Direction direction)
+{
+	mapViewLocation({
+		mOriginTilePosition + directionEnumToOffset(direction),
+		mMouseTilePosition.z + directionEnumToVerticalOffset(direction)
+	});
+}
+
+
 /**
  * Returns true if the current tile highlight is actually within the visible diamond map.
  */
