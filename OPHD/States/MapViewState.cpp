@@ -526,8 +526,6 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 	{
 		mLeftButtonDown = true;
 
-		NAS2D::Point<int> pt = mTileMap->mapViewLocation();
-
 		if (mTooltipSystemButton.rect().contains(MOUSE_COORDS))
 		{
 			mGameOptionsDialog.show();
@@ -535,6 +533,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 			return;
 		}
 
+		NAS2D::Point<int> pt = mTileMap->mapViewLocation();
 		if (mMoveNorthIconRect.contains(MOUSE_COORDS))
 		{
 			mTileMap->mapViewLocation(pt + DirectionNorth);
