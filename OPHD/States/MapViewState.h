@@ -330,12 +330,6 @@ private:
 
 	WindowStack mWindowStack;
 
-	NAS2D::Rectangle<int> mMoveNorthIconRect;
-	NAS2D::Rectangle<int> mMoveSouthIconRect;
-	NAS2D::Rectangle<int> mMoveEastIconRect;
-	NAS2D::Rectangle<int> mMoveWestIconRect;
-	NAS2D::Rectangle<int> mMoveUpIconRect;
-	NAS2D::Rectangle<int> mMoveDownIconRect;
 	NAS2D::Rectangle<int> mBottomUiRect;
 
 	// SIGNALS
