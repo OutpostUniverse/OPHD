@@ -34,8 +34,8 @@ void MapViewState::drawSystemButton() const
 	// Turns
 	const auto turnImageRect = NAS2D::Rectangle{128, 0, constants::ResourceIconSize, constants::ResourceIconSize};
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
-	const auto* font = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
-	renderer.drawText(*font, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
+	const auto& font = fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	renderer.drawText(font, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
 	position = mTooltipSystemButton.rect().startPoint() + NAS2D::Vector{constants::MarginTight, constants::MarginTight};
 	bool isMouseInMenu = mTooltipSystemButton.rect().contains(MOUSE_COORDS);
@@ -68,21 +68,21 @@ void MapViewState::drawNavInfo() const
 	drawNavIcon(renderer, mMoveSouthIconRect, NAS2D::Rectangle{0, 144, 32, 16}, NAS2D::Color::White, NAS2D::Color::Red);
 
 	// Display the levels "bar"
-	const auto* font = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
-	const auto stepSizeWidth = font->width("IX");
+	const auto& font = fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	const auto stepSizeWidth = font.width("IX");
 	auto position = NAS2D::Point{renderer.size().x - 5, mMiniMapBoundingBox.y - 30};
 	for (int i = mTileMap->maxDepth(); i >= 0; i--)
 	{
 		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i);
-		const auto textSize = font->size(levelString);
+		const auto textSize = font.size(levelString);
 		bool isCurrentDepth = i == mTileMap->currentDepth();
 		NAS2D::Color color = isCurrentDepth ? NAS2D::Color::Red : NAS2D::Color{200, 200, 200};
-		renderer.drawText(*font, levelString, position - textSize, color);
+		renderer.drawText(font, levelString, position - textSize, color);
 		position.x -= stepSizeWidth;
 	}
 
 	// Explicit current level
-	const NAS2D::Font* fontBoldMedium = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
-	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - fontBoldMedium->size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
-	renderer.drawText(*fontBoldMedium, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
+	const NAS2D::Font& fontBoldMedium = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
+	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - fontBoldMedium.size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
+	renderer.drawText(fontBoldMedium, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
 }
