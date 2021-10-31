@@ -60,7 +60,7 @@ public:
 	void moveView(Direction direction);
 
 	bool tileHighlightVisible() const;
-	MapCoordinate mouseTilePosition() const { return mMouseTilePosition; }
+	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
