@@ -82,7 +82,7 @@ void MapViewState::drawNavInfo() const
 	}
 
 	// Explicit current level
-	const NAS2D::Font& fontBoldMedium = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
+	const auto& fontBoldMedium = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
 	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - fontBoldMedium.size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
 	renderer.drawText(fontBoldMedium, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
 }
