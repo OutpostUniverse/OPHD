@@ -22,14 +22,17 @@
 
 extern NAS2D::Point<int> MOUSE_COORDS;
 
-std::map<int, std::string> LEVEL_STRING_TABLE =
+namespace
 {
-	{constants::DepthSurface, constants::LevelSurface},
-	{constants::DepthUnderground1, constants::Levelunderground1},
-	{constants::DepthUnderground2, constants::Levelunderground2},
-	{constants::DepthUnderground3, constants::Levelunderground3},
-	{constants::DepthUnderground4, constants::Levelunderground4}
-};
+	std::map<int, std::string> LEVEL_STRING_TABLE =
+	{
+		{constants::DepthSurface, constants::LevelSurface},
+		{constants::DepthUnderground1, constants::Levelunderground1},
+		{constants::DepthUnderground2, constants::Levelunderground2},
+		{constants::DepthUnderground3, constants::Levelunderground3},
+		{constants::DepthUnderground4, constants::Levelunderground4}
+	};
+}
 
 
 void MapViewState::drawSystemButton() const
