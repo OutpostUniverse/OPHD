@@ -187,11 +187,6 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mMoveNorthIconRect = {mMoveUpIconRect.x - navIconSpacing, mMoveUpIconRect.y + 8, 32, 16};
 	mMoveWestIconRect = {mMoveUpIconRect.x - 2 * navIconSpacing, mMoveUpIconRect.y + 8, 32, 16};
 
-	// Notification Area
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	mNotificationArea.height(mMoveUpIconRect.y - 22 - constants::Margin);
-	mNotificationArea.position({renderer.size().x - mNotificationArea.size().x, 22});
-
 	// Mini Map
 	mMiniMapBoundingBox = {size.x - 300 - constants::Margin, mBottomUiRect.y + constants::Margin, 300, 150};
 	mMiniMap->area(mMiniMapBoundingBox);
@@ -199,6 +194,11 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	const auto navControlEndPoint = NAS2D::Point{size.x, mBottomUiRect.y};
 	const auto navControlSize = NAS2D::Vector{navIconSpacing * 3, 99};
 	mNavControl->area(NAS2D::Rectangle<int>::Create(navControlEndPoint - navControlSize, navControlSize));
+
+	// Notification Area
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	mNotificationArea.height(mNavControl->position().y - 22 - constants::Margin);
+	mNotificationArea.position({renderer.size().x - mNotificationArea.size().x, 22});
 
 	// Position UI Buttons
 	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
