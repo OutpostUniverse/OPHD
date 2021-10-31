@@ -182,8 +182,6 @@ void MapViewState::initialize()
 
 	renderer.setCursor(PointerType::POINTER_NORMAL);
 
-	CURRENT_LEVEL_STRING = constants::LevelSurface;
-
 	mPopulationPool.population(&mPopulation);
 
 	if (mLoadingExisting)
@@ -705,7 +703,6 @@ void MapViewState::changeViewDepth(int depth)
 
 	if (mInsertMode != InsertMode::Robot) { clearMode(); }
 	populateStructureMenu();
-	updateCurrentLevelString(mTileMap->currentDepth());
 }
 
 
@@ -1521,13 +1518,4 @@ void MapViewState::scrubRobotList()
 	{
 		it.second->removeThing();
 	}
-}
-
-
-/**
- * Update the value of the current level string
- */
-void MapViewState::updateCurrentLevelString(int currentDepth)
-{
-	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[currentDepth];
 }

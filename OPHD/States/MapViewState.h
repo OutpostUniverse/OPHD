@@ -233,7 +233,6 @@ private:
 
 	void populateStructureMenu();
 
-	void updateCurrentLevelString(int currentDepth);
 	void updateStructuresAvailability();
 
 	// UI EVENT HANDLERS

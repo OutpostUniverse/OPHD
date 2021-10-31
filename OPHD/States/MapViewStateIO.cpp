@@ -29,7 +29,6 @@
 #include <stdexcept>
 
 
-extern std::string CURRENT_LEVEL_STRING;
 extern std::map<int, std::string> LEVEL_STRING_TABLE;
 
 
@@ -253,8 +252,6 @@ void MapViewState::load(const std::string& filePath)
 	{
 		populateStructureMenu();
 	}
-
-	CURRENT_LEVEL_STRING = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
 
 	checkCommRangeOverlay();
 	checkSurfacePoliceOverlay();
