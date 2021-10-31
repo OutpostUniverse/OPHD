@@ -534,25 +534,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 		}
 
 		const auto oldDepth = mTileMap->currentDepth();
-
-		const std::array directionOptions
-		{
-			std::tuple{mMoveNorthIconRect, Direction::North},
-			std::tuple{mMoveSouthIconRect, Direction::South},
-			std::tuple{mMoveEastIconRect, Direction::East},
-			std::tuple{mMoveWestIconRect, Direction::West},
-			std::tuple{mMoveUpIconRect, Direction::Up},
-			std::tuple{mMoveDownIconRect, Direction::Down},
-		};
-
-		for (const auto& [iconRect, direction] : directionOptions)
-		{
-			if (iconRect.contains(MOUSE_COORDS))
-			{
-				mTileMap->moveView(direction);
-			}
-		}
-
+		mNavControl->onClick(MOUSE_COORDS);
 		if (oldDepth != mTileMap->currentDepth())
 		{
 			changeViewDepth(mTileMap->currentDepth());

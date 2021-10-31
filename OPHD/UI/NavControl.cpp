@@ -27,7 +27,7 @@ namespace
 }
 
 
-NavControl::NavControl(const TileMap* tileMap) :
+NavControl::NavControl(TileMap* tileMap) :
 	mTileMap{tileMap},
 	mUiIcons{imageCache.load("ui/icons.png")}
 {
@@ -51,6 +51,29 @@ void NavControl::onMove(NAS2D::Vector<int> displacement)
 	mMoveEastIconRect = {position.x + navIconSpacing, position.y + navIconSpacing + 8, 32, 16};
 	mMoveDownIconRect = {position.x + 2 * navIconSpacing, position.y + navIconSpacing, 32, 32};
 }
+
+
+void NavControl::onClick(NAS2D::Point<int> mousePosition)
+{
+	const std::array directionOptions
+	{
+		std::tuple{mMoveNorthIconRect, Direction::North},
+		std::tuple{mMoveSouthIconRect, Direction::South},
+		std::tuple{mMoveEastIconRect, Direction::East},
+		std::tuple{mMoveWestIconRect, Direction::West},
+		std::tuple{mMoveUpIconRect, Direction::Up},
+		std::tuple{mMoveDownIconRect, Direction::Down},
+	};
+
+	for (const auto& [iconRect, direction] : directionOptions)
+	{
+		if (iconRect.contains(mousePosition))
+		{
+			mTileMap->moveView(direction);
+		}
+	}
+}
+
 
 /**
  * Draws navigation UI.
