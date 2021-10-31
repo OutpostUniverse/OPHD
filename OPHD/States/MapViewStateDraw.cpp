@@ -21,7 +21,6 @@
 #include <algorithm>
 
 extern NAS2D::Point<int> MOUSE_COORDS;
-extern const NAS2D::Font* MAIN_FONT; /// yuck
 extern std::string CURRENT_LEVEL_STRING;
 
 
@@ -35,7 +34,8 @@ void MapViewState::drawSystemButton() const
 	// Turns
 	const auto turnImageRect = NAS2D::Rectangle{128, 0, constants::ResourceIconSize, constants::ResourceIconSize};
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
-	renderer.drawText(*MAIN_FONT, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
+	const auto* font = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	renderer.drawText(*font, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
 	position = mTooltipSystemButton.rect().startPoint() + NAS2D::Vector{constants::MarginTight, constants::MarginTight};
 	bool isMouseInMenu = mTooltipSystemButton.rect().contains(MOUSE_COORDS);
