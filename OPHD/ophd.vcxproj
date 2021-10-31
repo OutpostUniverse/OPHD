@@ -293,6 +293,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClCompile Include="UI\MessageBox.cpp" />
     <ClCompile Include="UI\MineOperationsWindow.cpp" />
     <ClCompile Include="UI\MiniMap.cpp" />
+    <ClCompile Include="UI\NavControl.cpp" />
     <ClCompile Include="UI\NotificationArea.cpp" />
     <ClCompile Include="UI\NotificationWindow.cpp" />
     <ClCompile Include="UI\PopulationPanel.cpp" />
@@ -426,6 +427,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="UI\MessageBox.h" />
     <ClInclude Include="UI\MineOperationsWindow.h" />
     <ClInclude Include="UI\MiniMap.h" />
+    <ClInclude Include="UI\NavControl.h" />
     <ClInclude Include="UI\NotificationArea.h" />
     <ClInclude Include="UI\NotificationWindow.h" />
     <ClInclude Include="UI\PopulationPanel.h" />

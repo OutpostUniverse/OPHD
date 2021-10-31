@@ -216,6 +216,9 @@
     <ClCompile Include="UI\MiniMap.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI\NavControl.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
     <ClCompile Include="States\MainReportsUiState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
@@ -597,6 +600,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\MiniMap.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\NavControl.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="States\Wrapper.h">
