@@ -56,14 +56,6 @@ void MapViewState::drawSystemButton() const
 }
 
 
-bool MapViewState::drawNavIcon(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& currentIconBounds, const NAS2D::Rectangle<int>& subImageBounds, const NAS2D::Color& iconColor, const NAS2D::Color& iconHighlightColor) const
-{
-	bool isMouseInIcon = currentIconBounds.contains(MOUSE_COORDS);
-	NAS2D::Color color = isMouseInIcon ? iconHighlightColor : iconColor;
-	renderer.drawSubImage(mUiIcons, currentIconBounds.startPoint(), subImageBounds, color);
-	return isMouseInIcon;
-}
-
 /**
  * Draws navigation UI.
  */
@@ -82,7 +74,9 @@ void MapViewState::drawNavInfo() const
 	};
 	for (const auto& [currentIconBounds, subImageBounds] : buttonDrawAreas)
 	{
-		drawNavIcon(renderer, currentIconBounds, subImageBounds, NAS2D::Color::White, NAS2D::Color::Red);
+		bool isMouseInIcon = currentIconBounds.contains(MOUSE_COORDS);
+		NAS2D::Color color = isMouseInIcon ? NAS2D::Color::Red : NAS2D::Color::White;
+		renderer.drawSubImage(mUiIcons, currentIconBounds.startPoint(), subImageBounds, color);
 	}
 
 	// Display the levels "bar"
