@@ -22,6 +22,7 @@
 
 extern NAS2D::Point<int> MOUSE_COORDS;
 extern const NAS2D::Font* MAIN_FONT; /// yuck
+extern std::string CURRENT_LEVEL_STRING;
 
 
 void MapViewState::drawSystemButton() const
@@ -78,4 +79,9 @@ void MapViewState::drawNavInfo() const
 		renderer.drawText(*MAIN_FONT, levelString, position - textSize, color);
 		position.x -= stepSizeWidth;
 	}
+
+	// Explicit current level
+	const NAS2D::Font* font = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
+	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - font->size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
+	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
 }

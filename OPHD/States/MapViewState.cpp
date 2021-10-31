@@ -269,11 +269,6 @@ NAS2D::State* MapViewState::update()
 
 	renderer.drawImageStretched(mBackground, renderArea);
 
-	// explicit current level
-	const NAS2D::Font* font = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
-	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - font->size(CURRENT_LEVEL_STRING) - NAS2D::Vector{0, 12};
-	renderer.drawText(*font, CURRENT_LEVEL_STRING, currentLevelPosition, NAS2D::Color::White);
-
 	if (!modalUiElementDisplayed())
 	{
 		mTileMap->injectMouse(MOUSE_COORDS);
