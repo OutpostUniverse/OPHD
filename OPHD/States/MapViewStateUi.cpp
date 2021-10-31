@@ -175,30 +175,18 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	mRobotDeploymentSummary.area({8, size.y - constants::BottomUiHeight - 8 - 100, 200, 100});
 
-	// NAVIGATION BUTTONS
-	// Bottom line
-	const auto navIconSpacing = 32 + constants::MarginTight;
-	mMoveDownIconRect = {size.x - navIconSpacing, size.y - constants::BottomUiHeight - 65, 32, 32};
-	mMoveEastIconRect = {mMoveDownIconRect.x - navIconSpacing, mMoveDownIconRect.y + 8, 32, 16};
-	mMoveSouthIconRect = {mMoveDownIconRect.x - 2 * navIconSpacing, mMoveDownIconRect.y + 8, 32, 16};
-
-	// Top line
-	mMoveUpIconRect = {mMoveDownIconRect.x, mMoveDownIconRect.y - navIconSpacing, 32, 32};
-	mMoveNorthIconRect = {mMoveUpIconRect.x - navIconSpacing, mMoveUpIconRect.y + 8, 32, 16};
-	mMoveWestIconRect = {mMoveUpIconRect.x - 2 * navIconSpacing, mMoveUpIconRect.y + 8, 32, 16};
-
-	// Notification Area
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	mNotificationArea.height(mMoveUpIconRect.y - 22 - constants::Margin);
-	mNotificationArea.position({renderer.size().x - mNotificationArea.size().x, 22});
-
 	// Mini Map
 	mMiniMapBoundingBox = {size.x - 300 - constants::Margin, mBottomUiRect.y + constants::Margin, 300, 150};
 	mMiniMap->area(mMiniMapBoundingBox);
 
 	const auto navControlEndPoint = NAS2D::Point{size.x, mBottomUiRect.y};
-	const auto navControlSize = NAS2D::Vector{navIconSpacing * 3, 99};
+	const auto navControlSize = NAS2D::Vector{(32 + constants::MarginTight) * 3, 99};
 	mNavControl->area(NAS2D::Rectangle<int>::Create(navControlEndPoint - navControlSize, navControlSize));
+
+	// Notification Area
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	mNotificationArea.height(mNavControl->position().y - 22 - constants::Margin);
+	mNotificationArea.position({renderer.size().x - mNotificationArea.size().x, 22});
 
 	// Position UI Buttons
 	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});

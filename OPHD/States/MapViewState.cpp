@@ -120,7 +120,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mMiniMap{std::make_unique<MiniMap>(mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mRobotDeploymentSummary{mRobotPool},
-	mNavControl{std::make_unique<NavControl>(mTileMap)}
+	mNavControl{std::make_unique<NavControl>(*mTileMap)}
 {
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
@@ -526,8 +526,6 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 	{
 		mLeftButtonDown = true;
 
-		NAS2D::Point<int> pt = mTileMap->mapViewLocation();
-
 		if (mTooltipSystemButton.rect().contains(MOUSE_COORDS))
 		{
 			mGameOptionsDialog.show();
@@ -535,29 +533,11 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 			return;
 		}
 
-		if (mMoveNorthIconRect.contains(MOUSE_COORDS))
+		const auto oldDepth = mTileMap->currentDepth();
+		mNavControl->onClick(MOUSE_COORDS);
+		if (oldDepth != mTileMap->currentDepth())
 		{
-			mTileMap->mapViewLocation(pt + DirectionNorth);
-		}
-		else if (mMoveSouthIconRect.contains(MOUSE_COORDS))
-		{
-			mTileMap->mapViewLocation(pt + DirectionSouth);
-		}
-		else if (mMoveEastIconRect.contains(MOUSE_COORDS))
-		{
-			mTileMap->mapViewLocation(pt + DirectionEast);
-		}
-		else if (mMoveWestIconRect.contains(MOUSE_COORDS))
-		{
-			mTileMap->mapViewLocation(pt + DirectionWest);
-		}
-		else if (mMoveUpIconRect.contains(MOUSE_COORDS))
-		{
-			changeViewDepth(mTileMap->currentDepth() - 1);
-		}
-		else if (mMoveDownIconRect.contains(MOUSE_COORDS))
-		{
-			changeViewDepth(mTileMap->currentDepth() + 1);
+			changeViewDepth(mTileMap->currentDepth());
 		}
 
 		// MiniMap Check

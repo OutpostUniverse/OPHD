@@ -19,6 +19,7 @@ namespace NAS2D
 	}
 }
 
+enum class Direction;
 
 using Point2dList = std::vector<NAS2D::Point<int>>;
 
@@ -54,10 +55,12 @@ public:
 
 	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition; }
 	void mapViewLocation(NAS2D::Point<int> point);
+	void mapViewLocation(const MapCoordinate& position);
 	void centerMapOnTile(Tile*);
+	void moveView(Direction direction);
 
 	bool tileHighlightVisible() const;
-	MapCoordinate mouseTilePosition() const { return mMouseTilePosition; }
+	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
 
 	const Point2dList& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
