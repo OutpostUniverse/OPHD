@@ -24,7 +24,7 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	std::map<int, std::string> LEVEL_STRING_TABLE =
+	std::map<int, std::string> LevelStringTable =
 	{
 		{constants::DepthSurface, constants::LevelSurface},
 		{constants::DepthUnderground1, constants::Levelunderground1},
@@ -93,7 +93,7 @@ void MapViewState::drawNavInfo() const
 	}
 
 	// Explicit current level
-	const auto& currentLevelString = LEVEL_STRING_TABLE[mTileMap->currentDepth()];
+	const auto& currentLevelString = LevelStringTable[mTileMap->currentDepth()];
 	const auto& fontBoldMedium = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
 	const auto currentLevelPosition = mMiniMapBoundingBox.crossXPoint() - fontBoldMedium.size(currentLevelString) - NAS2D::Vector{0, 12};
 	renderer.drawText(fontBoldMedium, currentLevelString, currentLevelPosition, NAS2D::Color::White);
