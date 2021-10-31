@@ -120,7 +120,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mMiniMap{std::make_unique<MiniMap>(mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mRobotDeploymentSummary{mRobotPool},
-	mNavControl{std::make_unique<NavControl>(mTileMap)}
+	mNavControl{std::make_unique<NavControl>(*mTileMap)}
 {
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;

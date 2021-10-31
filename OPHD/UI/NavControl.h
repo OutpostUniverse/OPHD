@@ -19,7 +19,7 @@ class MapViewState;
 class NavControl : public Control
 {
 public:
-	NavControl(TileMap* tileMap);
+	NavControl(TileMap& tileMap);
 
 	void draw() const override;
 
@@ -30,7 +30,7 @@ protected:
 	void onClick(NAS2D::Point<int> mousePosition);
 
 private:
-	TileMap* const mTileMap;
+	TileMap& mTileMap;
 	const NAS2D::Image& mUiIcons;
 
 	NAS2D::Rectangle<int> mMoveNorthIconRect;
