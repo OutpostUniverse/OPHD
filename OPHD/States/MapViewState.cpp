@@ -533,30 +533,26 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 			return;
 		}
 
-		NAS2D::Point<int> pt = mTileMap->mapViewLocation();
-		if (mMoveNorthIconRect.contains(MOUSE_COORDS))
+		const std::array directionOptions
 		{
-			mTileMap->mapViewLocation(pt + DirectionNorth);
-		}
-		else if (mMoveSouthIconRect.contains(MOUSE_COORDS))
+			std::tuple{mMoveNorthIconRect, Direction::North},
+			std::tuple{mMoveSouthIconRect, Direction::South},
+			std::tuple{mMoveEastIconRect, Direction::East},
+			std::tuple{mMoveWestIconRect, Direction::West},
+			std::tuple{mMoveUpIconRect, Direction::Up},
+			std::tuple{mMoveDownIconRect, Direction::Down},
+		};
+
+		for (const auto& [iconRect, direction] : directionOptions)
 		{
-			mTileMap->mapViewLocation(pt + DirectionSouth);
-		}
-		else if (mMoveEastIconRect.contains(MOUSE_COORDS))
-		{
-			mTileMap->mapViewLocation(pt + DirectionEast);
-		}
-		else if (mMoveWestIconRect.contains(MOUSE_COORDS))
-		{
-			mTileMap->mapViewLocation(pt + DirectionWest);
-		}
-		else if (mMoveUpIconRect.contains(MOUSE_COORDS))
-		{
-			changeViewDepth(mTileMap->currentDepth() - 1);
-		}
-		else if (mMoveDownIconRect.contains(MOUSE_COORDS))
-		{
-			changeViewDepth(mTileMap->currentDepth() + 1);
+			if (iconRect.contains(MOUSE_COORDS))
+			{
+				mTileMap->moveView(direction);
+				if (direction == Direction::Up || direction == Direction::Down)
+				{
+					changeViewDepth(mTileMap->currentDepth());
+				}
+			}
 		}
 
 		// MiniMap Check
