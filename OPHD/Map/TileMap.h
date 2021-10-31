@@ -41,10 +41,16 @@ public:
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;
 
+	NAS2D::Vector<int> size() const { return mSizeInTiles; }
+	int maxDepth() const { return mMaxDepth; }
+
 	bool isValidPosition(const MapCoordinate& position) const;
 
 	Tile& getTile(const MapCoordinate& position);
 	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mMouseTilePosition.z}); }
+
+	const Point2dList& mineLocations() const { return mMineLocations; }
+	void removeMineLocation(const NAS2D::Point<int>& pt);
 
 	Tile* getVisibleTile(const MapCoordinate& position);
 	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
@@ -62,16 +68,10 @@ public:
 	bool tileHighlightVisible() const;
 	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
 
-	const Point2dList& mineLocations() const { return mMineLocations; }
-	void removeMineLocation(const NAS2D::Point<int>& pt);
-
 	int edgeLength() const { return mEdgeLength; }
-	NAS2D::Vector<int> size() const { return mSizeInTiles; }
 
 	int currentDepth() const { return mMouseTilePosition.z; }
 	void currentDepth(int i) { mMouseTilePosition.z = std::clamp(i, 0, mMaxDepth); }
-
-	int maxDepth() const { return mMaxDepth; }
 
 	void injectMouse(NAS2D::Point<int> position) { mMousePixelPosition = position; }
 
