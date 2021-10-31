@@ -314,6 +314,13 @@ void TileMap::mapViewLocation(NAS2D::Point<int> point)
 }
 
 
+void TileMap::mapViewLocation(const MapCoordinate& position)
+{
+	mapViewLocation(position.xy);
+	currentDepth(position.z);
+}
+
+
 /**
  * Convenience function to focus the TileMap's view on a specified tile.
  * 
@@ -511,8 +518,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	const auto view_y = dictionary.get<int>("viewlocation_y");
 	const auto view_depth = dictionary.get<int>("currentdepth");
 
-	mapViewLocation({view_x, view_y});
-	currentDepth(view_depth);
+	mapViewLocation({{view_x, view_y}, view_depth});
 
 	for (auto* mineElement = element->firstChildElement("mines")->firstChildElement("mine"); mineElement; mineElement = mineElement->nextSiblingElement())
 	{
