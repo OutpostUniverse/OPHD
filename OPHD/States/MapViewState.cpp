@@ -533,6 +533,8 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 			return;
 		}
 
+		const auto oldDepth = mTileMap->currentDepth();
+
 		const std::array directionOptions
 		{
 			std::tuple{mMoveNorthIconRect, Direction::North},
@@ -548,11 +550,12 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 			if (iconRect.contains(MOUSE_COORDS))
 			{
 				mTileMap->moveView(direction);
-				if (direction == Direction::Up || direction == Direction::Down)
-				{
-					changeViewDepth(mTileMap->currentDepth());
-				}
 			}
+		}
+
+		if (oldDepth != mTileMap->currentDepth())
+		{
+			changeViewDepth(mTileMap->currentDepth());
 		}
 
 		// MiniMap Check
