@@ -196,6 +196,10 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mMiniMapBoundingBox = {size.x - 300 - constants::Margin, mBottomUiRect.y + constants::Margin, 300, 150};
 	mMiniMap->area(mMiniMapBoundingBox);
 
+	const auto navControlEndPoint = NAS2D::Point{size.x, mBottomUiRect.y};
+	const auto navControlSize = NAS2D::Vector{navIconSpacing * 3, 99};
+	mNavControl->area(NAS2D::Rectangle<int>::Create(navControlEndPoint - navControlSize, navControlSize));
+
 	// Position UI Buttons
 	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
 	mBtnToggleHeightmap.position({mBtnTurns.positionX(), mMiniMapBoundingBox.y});
@@ -392,9 +396,7 @@ void MapViewState::drawUI()
 	renderer.drawLine(NAS2D::Point{mBottomUiRect.x + 1, mBottomUiRect.y}, NAS2D::Point{mBottomUiRect.x + mBottomUiRect.width - 2, mBottomUiRect.y}, NAS2D::Color{56, 56, 56});
 
 	mMiniMap->draw();
-
-	drawNavInfo();
-
+	mNavControl->draw();
 	mRobotDeploymentSummary.draw();
 
 	if (mResourceInfoBar.isPopulationPanelVisible()) { mPopulationPanel.update(); }

@@ -35,6 +35,7 @@
 #include "../UI/ResourceInfoBar.h"
 #include "../UI/MiniMap.h"
 #include "../UI/RobotDeploymentSummary.h"
+#include "../UI/NavControl.h"
 
 #include "../UI/Core/WindowStack.h"
 #include "../UI/Core/ToolTip.h"
@@ -137,8 +138,6 @@ private:
 
 	// DRAWING FUNCTIONS
 	void drawUI();
-
-	void drawNavInfo() const;
 	void drawSystemButton() const;
 
 	// INSERT OBJECT HANDLING
@@ -374,4 +373,5 @@ private:
 	ResourceInfoBar mResourceInfoBar;
 	std::unique_ptr<MiniMap> mMiniMap;
 	RobotDeploymentSummary mRobotDeploymentSummary;
+	std::unique_ptr<NavControl> mNavControl;
 };
