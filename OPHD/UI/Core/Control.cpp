@@ -6,7 +6,9 @@ using namespace NAS2D;
 
 void Control::area(const NAS2D::Rectangle<int>& area)
 {
+	const auto displacement = area.startPoint() - mRect.startPoint();
 	mRect = area;
+	onMove(displacement);
 	onResize();
 }
 
