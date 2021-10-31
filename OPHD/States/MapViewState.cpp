@@ -40,18 +40,6 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 NAS2D::Rectangle<int> RESOURCE_PANEL_PIN{0, 1, 8, 19};
 NAS2D::Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
 
-std::string CURRENT_LEVEL_STRING;
-
-std::map<int, std::string> LEVEL_STRING_TABLE =
-{
-	{constants::DepthSurface, constants::LevelSurface},
-	{constants::DepthUnderground1, constants::Levelunderground1},
-	{constants::DepthUnderground2, constants::Levelunderground2},
-	{constants::DepthUnderground3, constants::Levelunderground3},
-	{constants::DepthUnderground4, constants::Levelunderground4}
-};
-
-
 const NAS2D::Font* MAIN_FONT = nullptr;
 
 
