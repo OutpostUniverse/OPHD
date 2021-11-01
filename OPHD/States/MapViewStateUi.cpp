@@ -690,8 +690,7 @@ void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOpera
 
 void MapViewState::onNotificationWindowTakeMeThere(const MapCoordinate& position)
 {
-	mTileMap->centerMapOnTile(&mTileMap->getTile(position.xy));
-	mTileMap->currentDepth(position.z);
+	mTileMap->centerOn(position);
 }
 
 
