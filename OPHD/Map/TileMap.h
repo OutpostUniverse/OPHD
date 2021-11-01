@@ -54,7 +54,6 @@ public:
 	void mapViewLocation(NAS2D::Point<int> point);
 	void mapViewLocation(const MapCoordinate& position);
 	void centerOn(const MapCoordinate& position);
-	void centerMapOnTile(Tile*);
 	void moveView(Direction direction);
 
 	int currentDepth() const { return mMouseTilePosition.z; }

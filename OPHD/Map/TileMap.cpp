@@ -327,19 +327,6 @@ void TileMap::centerOn(const MapCoordinate& position)
 }
 
 
-/**
- * Convenience function to focus the TileMap's view on a specified tile.
- * 
- * \param	tile	Pointer to a Tile. Safe to pass nullptr.
- */
-void TileMap::centerMapOnTile(Tile* tile)
-{
-	if (!tile) { return; }
-
-	centerOn(tile->xyz());
-}
-
-
 void TileMap::moveView(Direction direction)
 {
 	mapViewLocation({
