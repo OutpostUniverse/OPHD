@@ -8,8 +8,6 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 
-#include <algorithm>
-
 
 namespace NAS2D
 {
