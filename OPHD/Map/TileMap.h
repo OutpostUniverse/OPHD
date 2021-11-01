@@ -59,7 +59,7 @@ public:
 	void moveView(Direction direction);
 
 	int currentDepth() const { return mMouseTilePosition.z; }
-	void currentDepth(int i) { mMouseTilePosition.z = std::clamp(i, 0, mMaxDepth); }
+	void currentDepth(int i);
 
 	bool isVisibleTile(const MapCoordinate& position) const;
 	bool tileHighlightVisible() const;

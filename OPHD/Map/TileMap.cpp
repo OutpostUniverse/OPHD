@@ -343,6 +343,12 @@ void TileMap::moveView(Direction direction)
 }
 
 
+void TileMap::currentDepth(int i)
+{
+	mMouseTilePosition.z = std::clamp(i, 0, mMaxDepth);
+}
+
+
 /**
  * Returns true if the current tile highlight is actually within the visible diamond map.
  */
