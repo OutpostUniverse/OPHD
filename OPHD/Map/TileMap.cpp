@@ -321,6 +321,12 @@ void TileMap::mapViewLocation(const MapCoordinate& position)
 }
 
 
+void TileMap::centerOn(const MapCoordinate& position)
+{
+	mapViewLocation({position.xy - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2, position.z});
+}
+
+
 /**
  * Convenience function to focus the TileMap's view on a specified tile.
  * 
@@ -330,7 +336,7 @@ void TileMap::centerMapOnTile(Tile* tile)
 {
 	if (!tile) { return; }
 
-	mapViewLocation({tile->xy() - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2, tile->depth()});
+	centerOn(tile->xyz());
 }
 
 
