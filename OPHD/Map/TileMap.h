@@ -52,26 +52,24 @@ public:
 	const Point2dList& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
 
-	Tile* getVisibleTile(const MapCoordinate& position);
-	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
-
-	bool isVisibleTile(const MapCoordinate& position) const;
-
-	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
-
 	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition; }
 	void mapViewLocation(NAS2D::Point<int> point);
 	void mapViewLocation(const MapCoordinate& position);
 	void centerMapOnTile(Tile*);
 	void moveView(Direction direction);
 
-	bool tileHighlightVisible() const;
-	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
-
-	int edgeLength() const { return mEdgeLength; }
-
 	int currentDepth() const { return mMouseTilePosition.z; }
 	void currentDepth(int i) { mMouseTilePosition.z = std::clamp(i, 0, mMaxDepth); }
+
+	bool isVisibleTile(const MapCoordinate& position) const;
+	bool tileHighlightVisible() const;
+
+	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
+	Tile* getVisibleTile(const MapCoordinate& position);
+	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
+
+	int edgeLength() const { return mEdgeLength; }
+	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 
 	void injectMouse(NAS2D::Point<int> position) { mMousePixelPosition = position; }
 
