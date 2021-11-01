@@ -8,8 +8,6 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 
-#include <algorithm>
-
 
 namespace NAS2D
 {
@@ -41,37 +39,35 @@ public:
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;
 
+	NAS2D::Vector<int> size() const { return mSizeInTiles; }
+	int maxDepth() const { return mMaxDepth; }
+
 	bool isValidPosition(const MapCoordinate& position) const;
 
 	Tile& getTile(const MapCoordinate& position);
 	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mMouseTilePosition.z}); }
 
-	Tile* getVisibleTile(const MapCoordinate& position);
-	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
-
-	bool isVisibleTile(const MapCoordinate& position) const;
-
-	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
+	const Point2dList& mineLocations() const { return mMineLocations; }
+	void removeMineLocation(const NAS2D::Point<int>& pt);
 
 	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition; }
 	void mapViewLocation(NAS2D::Point<int> point);
 	void mapViewLocation(const MapCoordinate& position);
-	void centerMapOnTile(Tile*);
+	void centerOn(const MapCoordinate& position);
 	void moveView(Direction direction);
 
-	bool tileHighlightVisible() const;
-	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
+	int currentDepth() const { return mMouseTilePosition.z; }
+	void currentDepth(int i);
 
-	const Point2dList& mineLocations() const { return mMineLocations; }
-	void removeMineLocation(const NAS2D::Point<int>& pt);
+	bool isVisibleTile(const MapCoordinate& position) const;
+	bool tileHighlightVisible() const;
+
+	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
+	Tile* getVisibleTile(const MapCoordinate& position);
+	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
 
 	int edgeLength() const { return mEdgeLength; }
-	NAS2D::Vector<int> size() const { return mSizeInTiles; }
-
-	int currentDepth() const { return mMouseTilePosition.z; }
-	void currentDepth(int i) { mMouseTilePosition.z = std::clamp(i, 0, mMaxDepth); }
-
-	int maxDepth() const { return mMaxDepth; }
+	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 
 	void injectMouse(NAS2D::Point<int> position) { mMousePixelPosition = position; }
 

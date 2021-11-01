@@ -225,7 +225,7 @@ void MapViewState::_deactivate()
 void MapViewState::focusOnStructure(Structure* structure)
 {
 	if (!structure) { return; }
-	mTileMap->centerMapOnTile(&NAS2D::Utility<StructureManager>::get().tileFromStructure(structure));
+	mTileMap->centerOn(NAS2D::Utility<StructureManager>::get().tileFromStructure(structure).xyz());
 }
 
 

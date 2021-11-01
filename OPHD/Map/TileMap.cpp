@@ -321,16 +321,9 @@ void TileMap::mapViewLocation(const MapCoordinate& position)
 }
 
 
-/**
- * Convenience function to focus the TileMap's view on a specified tile.
- * 
- * \param	tile	Pointer to a Tile. Safe to pass nullptr.
- */
-void TileMap::centerMapOnTile(Tile* tile)
+void TileMap::centerOn(const MapCoordinate& position)
 {
-	if (!tile) { return; }
-
-	mapViewLocation({tile->xy() - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2, tile->depth()});
+	mapViewLocation({position.xy - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2, position.z});
 }
 
 
@@ -340,6 +333,12 @@ void TileMap::moveView(Direction direction)
 		mOriginTilePosition + directionEnumToOffset(direction),
 		mMouseTilePosition.z + directionEnumToVerticalOffset(direction)
 	});
+}
+
+
+void TileMap::currentDepth(int i)
+{
+	mMouseTilePosition.z = std::clamp(i, 0, mMaxDepth);
 }
 
 
