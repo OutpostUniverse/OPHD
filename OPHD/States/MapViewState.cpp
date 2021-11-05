@@ -616,8 +616,7 @@ void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModi
 	}
 	else if (tile.thingIsStructure())
 	{
-		Structure* structure = tile.structure();
-		onInspectStructure(*structure, inspectModifier);
+		onInspectStructure(*tile.structure(), inspectModifier);
 	}
 }
 
