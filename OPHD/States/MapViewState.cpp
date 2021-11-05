@@ -558,7 +558,10 @@ void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int
 		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 		if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 		{
-			placeTubeEnd();
+			Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
+			if (!tile) { return; }
+
+			placeTubeEnd(tile);
 		}
 	}
 }
@@ -655,21 +658,24 @@ void MapViewState::onInspectTile(Tile& tile)
 
 void MapViewState::onClickMap(bool isShiftPressed)
 {
+	Tile* tile = mTileMap->getVisibleTile();
+	if (!tile) { return; }
+
 	if (mInsertMode == InsertMode::Structure)
 	{
-		placeStructure();
+		placeStructure(tile);
 	}
 	else if (mInsertMode == InsertMode::Robot)
 	{
-		placeRobot();
+		placeRobot(tile);
 	}
 	else if ((mInsertMode == InsertMode::Tube) && isShiftPressed)
 	{
-		placeTubeStart();
+		placeTubeStart(tile);
 	}
 	else if (mInsertMode == InsertMode::Tube)
 	{
-		placeTubes();
+		placeTubes(tile);
 	}
 }
 
@@ -724,11 +730,8 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 }
 
 
-void MapViewState::placeTubes()
+void MapViewState::placeTubes(Tile* tile)
 {
-	Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
-	if (!tile) { return; }
-
 	// Check the basics.
 	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
 
@@ -751,12 +754,9 @@ void MapViewState::placeTubes()
 	}
 }
 
-void MapViewState::placeTubeStart()
+void MapViewState::placeTubeStart(Tile* tile)
 {
 	mPlacingTube = false;
-
-	Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
-	if (!tile) { return; }
 
 	// Check the basics.
 	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
@@ -776,12 +776,10 @@ void MapViewState::placeTubeStart()
 }
 
 
-void MapViewState::placeTubeEnd()
+void MapViewState::placeTubeEnd(Tile* tile)
 {
 	if (!mPlacingTube) return;
 	mPlacingTube = false;
-	Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
-	if (!tile) { return; }
 
 	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 *			Should instead take advantage of the updated meta data in the IconGridItem.
@@ -1074,10 +1072,8 @@ void MapViewState::placeRobominer(Tile& tile)
 }
 
 
-void MapViewState::placeRobot()
+void MapViewState::placeRobot(Tile* tile)
 {
-	Tile* tile = mTileMap->getVisibleTile();
-	if (!tile) { return; }
 	if (!tile->excavated()) { return; }
 	if (!mRobotPool.robotCtrlAvailable()) { return; }
 
@@ -1121,12 +1117,9 @@ void MapViewState::checkRobotSelectionInterface(Robot::Type rType)
 /**
  * Places a structure into the map.
  */
-void MapViewState::placeStructure()
+void MapViewState::placeStructure(Tile* tile)
 {
 	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
-
-	Tile* tile = mTileMap->getVisibleTile();
-	if (!tile) { return; }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
 		!isPointInRange(tile->xy(), ccLocation(), constants::RobotCommRange))
