@@ -136,6 +136,8 @@ private:
 	void onInspectRobot(Robot& robot);
 	void onInspectTile(Tile& tile);
 
+	void onSystemMenu();
+
 	// ROBOT EVENT HANDLERS
 	void onDozerTaskComplete(Robot* robot);
 	void onDiggerTaskComplete(Robot* robot);

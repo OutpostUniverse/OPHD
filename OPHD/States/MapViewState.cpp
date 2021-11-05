@@ -482,8 +482,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 	{
 		if (mTooltipSystemButton.rect().contains(MOUSE_COORDS))
 		{
-			mGameOptionsDialog.show();
-			resetUi();
+			onSystemMenu();
 			return;
 		}
 
@@ -667,6 +666,13 @@ void MapViewState::onInspectTile(Tile& tile)
 	mTileInspector.tile(&tile);
 	mTileInspector.show();
 	mWindowStack.bringToFront(&mTileInspector);
+}
+
+
+void MapViewState::onSystemMenu()
+{
+	mGameOptionsDialog.show();
+	resetUi();
 }
 
 
