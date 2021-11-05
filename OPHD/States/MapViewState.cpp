@@ -606,7 +606,7 @@ void MapViewState::onMouseWheel(int /*x*/, int y)
 void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModifier)
 {
 	auto& tile = mTileMap->getTile(tilePosition);
-	if (tile.empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
+	if (tile.empty())
 	{
 		clearSelections();
 		mTileInspector.tile(&tile);
