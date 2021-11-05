@@ -483,7 +483,6 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		if (mTooltipSystemButton.rect().contains(MOUSE_COORDS))
 		{
 			onSystemMenu();
-			return;
 		}
 
 		const auto oldDepth = mTileMap->currentDepth();
