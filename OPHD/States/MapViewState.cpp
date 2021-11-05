@@ -472,54 +472,10 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		const auto tilePosition = mTileMap->mouseTilePosition();
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
-		auto& tile = mTileMap->getTile(tilePosition);
-		if (tile.empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
-		{
-			clearSelections();
-			mTileInspector.tile(&tile);
-			mTileInspector.show();
-			mWindowStack.bringToFront(&mTileInspector);
-		}
-		else if (tile.thingIsRobot())
-		{
-			mRobotInspector.focusOnRobot(tile.robot());
-			mRobotInspector.show();
-			mWindowStack.bringToFront(&mRobotInspector);
-		}
-		else if (tile.thingIsStructure())
-		{
-			Structure* structure = tile.structure();
+		const bool inspectModifier = NAS2D::Utility<NAS2D::EventHandler>::get().query_shift() ||
+			button == NAS2D::EventHandler::MouseButton::Middle;
 
-			const bool inspectModifier = NAS2D::Utility<NAS2D::EventHandler>::get().query_shift() ||
-				button == NAS2D::EventHandler::MouseButton::Middle;
-
-			const bool notDisabled = structure->operational() || structure->isIdle();
-
-			if (structure->isFactory() && notDisabled && !inspectModifier)
-			{
-				mFactoryProduction.factory(static_cast<Factory*>(structure));
-				mFactoryProduction.show();
-				mWindowStack.bringToFront(&mFactoryProduction);
-			}
-			else if (structure->isWarehouse() && notDisabled && !inspectModifier)
-			{
-				mWarehouseInspector.warehouse(static_cast<Warehouse*>(structure));
-				mWarehouseInspector.show();
-				mWindowStack.bringToFront(&mWarehouseInspector);
-			}
-			else if (structure->isMineFacility() && notDisabled && !inspectModifier)
-			{
-				mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(structure));
-				mMineOperationsWindow.show();
-				mWindowStack.bringToFront(&mMineOperationsWindow);
-			}
-			else
-			{
-				mStructureInspector.structure(structure);
-				mStructureInspector.show();
-				mWindowStack.bringToFront(&mStructureInspector);
-			}
-		}
+		onInspect(tilePosition, inspectModifier);
 	}
 
 	if (button == NAS2D::EventHandler::MouseButton::Left)
@@ -644,6 +600,56 @@ void MapViewState::onMouseWheel(int /*x*/, int y)
 	if (mInsertMode != InsertMode::Tube) { return; }
 
 	y > 0 ? mConnections.decrementSelection() : mConnections.incrementSelection();
+}
+
+
+void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModifier)
+{
+	auto& tile = mTileMap->getTile(tilePosition);
+	if (tile.empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
+	{
+		clearSelections();
+		mTileInspector.tile(&tile);
+		mTileInspector.show();
+		mWindowStack.bringToFront(&mTileInspector);
+	}
+	else if (tile.thingIsRobot())
+	{
+		mRobotInspector.focusOnRobot(tile.robot());
+		mRobotInspector.show();
+		mWindowStack.bringToFront(&mRobotInspector);
+	}
+	else if (tile.thingIsStructure())
+	{
+		Structure* structure = tile.structure();
+
+		const bool notDisabled = structure->operational() || structure->isIdle();
+
+		if (structure->isFactory() && notDisabled && !inspectModifier)
+		{
+			mFactoryProduction.factory(static_cast<Factory*>(structure));
+			mFactoryProduction.show();
+			mWindowStack.bringToFront(&mFactoryProduction);
+		}
+		else if (structure->isWarehouse() && notDisabled && !inspectModifier)
+		{
+			mWarehouseInspector.warehouse(static_cast<Warehouse*>(structure));
+			mWarehouseInspector.show();
+			mWindowStack.bringToFront(&mWarehouseInspector);
+		}
+		else if (structure->isMineFacility() && notDisabled && !inspectModifier)
+		{
+			mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(structure));
+			mMineOperationsWindow.show();
+			mWindowStack.bringToFront(&mMineOperationsWindow);
+		}
+		else
+		{
+			mStructureInspector.structure(structure);
+			mStructureInspector.show();
+			mWindowStack.bringToFront(&mStructureInspector);
+		}
+	}
 }
 
 

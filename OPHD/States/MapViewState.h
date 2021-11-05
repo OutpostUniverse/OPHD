@@ -131,6 +131,8 @@ private:
 	void onMouseWheel(int x, int y);
 	void onWindowResized(NAS2D::Vector<int> newSize);
 
+	void onInspect(const MapCoordinate& tilePosition, bool inspectModifier);
+
 	// ROBOT EVENT HANDLERS
 	void onDozerTaskComplete(Robot* robot);
 	void onDiggerTaskComplete(Robot* robot);
