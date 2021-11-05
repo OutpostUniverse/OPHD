@@ -624,20 +624,21 @@ void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModi
 void MapViewState::onInspectStructure(Structure& structure, bool inspectModifier)
 {
 	const bool notDisabled = structure.operational() || structure.isIdle();
+	const bool preferStructureSpecificView = notDisabled && !inspectModifier;
 
-	if (structure.isFactory() && notDisabled && !inspectModifier)
+	if (structure.isFactory() && preferStructureSpecificView)
 	{
 		mFactoryProduction.factory(&static_cast<Factory&>(structure));
 		mFactoryProduction.show();
 		mWindowStack.bringToFront(&mFactoryProduction);
 	}
-	else if (structure.isWarehouse() && notDisabled && !inspectModifier)
+	else if (structure.isWarehouse() && preferStructureSpecificView)
 	{
 		mWarehouseInspector.warehouse(&static_cast<Warehouse&>(structure));
 		mWarehouseInspector.show();
 		mWindowStack.bringToFront(&mWarehouseInspector);
 	}
-	else if (structure.isMineFacility() && notDisabled && !inspectModifier)
+	else if (structure.isMineFacility() && preferStructureSpecificView)
 	{
 		mMineOperationsWindow.mineFacility(&static_cast<MineFacility&>(structure));
 		mMineOperationsWindow.show();
