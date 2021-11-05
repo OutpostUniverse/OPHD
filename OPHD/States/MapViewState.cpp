@@ -608,63 +608,63 @@ void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModi
 	auto& tile = mTileMap->getTile(tilePosition);
 	if (tile.empty())
 	{
-		onInspectTile(&tile);
+		onInspectTile(tile);
 	}
 	else if (tile.thingIsRobot())
 	{
-		onInspectRobot(tile.robot());
+		onInspectRobot(*tile.robot());
 	}
 	else if (tile.thingIsStructure())
 	{
 		Structure* structure = tile.structure();
-		onInspectStructure(structure, inspectModifier);
+		onInspectStructure(*structure, inspectModifier);
 	}
 }
 
 
-void MapViewState::onInspectStructure(Structure* structure, bool inspectModifier)
+void MapViewState::onInspectStructure(Structure& structure, bool inspectModifier)
 {
-	const bool notDisabled = structure->operational() || structure->isIdle();
+	const bool notDisabled = structure.operational() || structure.isIdle();
 
-	if (structure->isFactory() && notDisabled && !inspectModifier)
+	if (structure.isFactory() && notDisabled && !inspectModifier)
 	{
-		mFactoryProduction.factory(static_cast<Factory*>(structure));
+		mFactoryProduction.factory(&static_cast<Factory&>(structure));
 		mFactoryProduction.show();
 		mWindowStack.bringToFront(&mFactoryProduction);
 	}
-	else if (structure->isWarehouse() && notDisabled && !inspectModifier)
+	else if (structure.isWarehouse() && notDisabled && !inspectModifier)
 	{
-		mWarehouseInspector.warehouse(static_cast<Warehouse*>(structure));
+		mWarehouseInspector.warehouse(&static_cast<Warehouse&>(structure));
 		mWarehouseInspector.show();
 		mWindowStack.bringToFront(&mWarehouseInspector);
 	}
-	else if (structure->isMineFacility() && notDisabled && !inspectModifier)
+	else if (structure.isMineFacility() && notDisabled && !inspectModifier)
 	{
-		mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(structure));
+		mMineOperationsWindow.mineFacility(&static_cast<MineFacility&>(structure));
 		mMineOperationsWindow.show();
 		mWindowStack.bringToFront(&mMineOperationsWindow);
 	}
 	else
 	{
-		mStructureInspector.structure(structure);
+		mStructureInspector.structure(&structure);
 		mStructureInspector.show();
 		mWindowStack.bringToFront(&mStructureInspector);
 	}
 }
 
 
-void MapViewState::onInspectRobot(Robot* robot)
+void MapViewState::onInspectRobot(Robot& robot)
 {
-	mRobotInspector.focusOnRobot(robot);
+	mRobotInspector.focusOnRobot(&robot);
 	mRobotInspector.show();
 	mWindowStack.bringToFront(&mRobotInspector);
 }
 
 
-void MapViewState::onInspectTile(Tile* tile)
+void MapViewState::onInspectTile(Tile& tile)
 {
 	clearSelections();
-	mTileInspector.tile(tile);
+	mTileInspector.tile(&tile);
 	mTileInspector.show();
 	mWindowStack.bringToFront(&mTileInspector);
 }

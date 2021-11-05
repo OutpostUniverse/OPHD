@@ -132,9 +132,9 @@ private:
 	void onWindowResized(NAS2D::Vector<int> newSize);
 
 	void onInspect(const MapCoordinate& tilePosition, bool inspectModifier);
-	void onInspectStructure(Structure* structure, bool inspectModifier);
-	void onInspectRobot(Robot* robot);
-	void onInspectTile(Tile* tile);
+	void onInspectStructure(Structure& structure, bool inspectModifier);
+	void onInspectRobot(Robot& robot);
+	void onInspectTile(Tile& tile);
 
 	// ROBOT EVENT HANDLERS
 	void onDozerTaskComplete(Robot* robot);
