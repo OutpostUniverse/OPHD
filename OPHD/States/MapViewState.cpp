@@ -493,12 +493,10 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		}
 
 		// MiniMap Check
-		if (mMiniMapBoundingBox.contains(MOUSE_COORDS))
-		{
-			mMiniMap->onMouseDown(button, x, y);
-		}
+		mMiniMap->onMouseDown(button, x, y);
+
 		// Click was within the bounds of the TileMap.
-		else if (mTileMap->boundingBox().contains(MOUSE_COORDS))
+		if (mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
 			auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 			onClickMap(eventHandler.query_shift());
