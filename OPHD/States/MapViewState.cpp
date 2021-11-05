@@ -677,10 +677,8 @@ void MapViewState::changeViewDepth(int depth)
 
 void MapViewState::setMinimapView()
 {
-	const auto viewSizeInTiles = NAS2D::Vector{mTileMap->edgeLength(), mTileMap->edgeLength()};
-	const auto position = NAS2D::Point{0, 0} + (MOUSE_COORDS - mMiniMapBoundingBox.startPoint()) - viewSizeInTiles / 2;
-
-	mTileMap->mapViewLocation(position);
+	const auto position = NAS2D::Point{0, 0} + (MOUSE_COORDS - mMiniMapBoundingBox.startPoint());
+	mTileMap->centerOn(position);
 }
 
 
