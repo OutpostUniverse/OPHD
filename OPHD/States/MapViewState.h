@@ -131,6 +131,15 @@ private:
 	void onMouseWheel(int x, int y);
 	void onWindowResized(NAS2D::Vector<int> newSize);
 
+	void onInspect(const MapCoordinate& tilePosition, bool inspectModifier);
+	void onInspectStructure(Structure& structure, bool inspectModifier);
+	void onInspectRobot(Robot& robot);
+	void onInspectTile(Tile& tile);
+
+	void onClickMap(bool isShiftPressed);
+
+	void onSystemMenu();
+
 	// ROBOT EVENT HANDLERS
 	void onDozerTaskComplete(Robot* robot);
 	void onDiggerTaskComplete(Robot* robot);
@@ -147,12 +156,12 @@ private:
 	void insertSeedLander(NAS2D::Point<int> point);
 	void insertTube(ConnectorDir dir, int depth, Tile* tile);
 
-	void placeRobot();
-	void placeStructure();
-	void placeTubes();
+	void placeRobot(Tile* tile);
+	void placeStructure(Tile* tile);
+	void placeTubes(Tile* tile);
 
-	void placeTubeStart();
-	void placeTubeEnd();
+	void placeTubeStart(Tile* tile);
+	void placeTubeEnd(Tile* tile);
 
 	void placeRobodozer(Tile&);
 	void placeRobodigger(Tile&);

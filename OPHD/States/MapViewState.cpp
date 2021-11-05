@@ -472,63 +472,17 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		const auto tilePosition = mTileMap->mouseTilePosition();
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
-		auto& tile = mTileMap->getTile(tilePosition);
-		if (tile.empty() && mTileMap->boundingBox().contains(MOUSE_COORDS))
-		{
-			clearSelections();
-			mTileInspector.tile(&tile);
-			mTileInspector.show();
-			mWindowStack.bringToFront(&mTileInspector);
-		}
-		else if (tile.thingIsRobot())
-		{
-			mRobotInspector.focusOnRobot(tile.robot());
-			mRobotInspector.show();
-			mWindowStack.bringToFront(&mRobotInspector);
-		}
-		else if (tile.thingIsStructure())
-		{
-			Structure* structure = tile.structure();
+		const bool inspectModifier = NAS2D::Utility<NAS2D::EventHandler>::get().query_shift() ||
+			button == NAS2D::EventHandler::MouseButton::Middle;
 
-			const bool inspectModifier = NAS2D::Utility<NAS2D::EventHandler>::get().query_shift() ||
-				button == NAS2D::EventHandler::MouseButton::Middle;
-
-			const bool notDisabled = structure->operational() || structure->isIdle();
-
-			if (structure->isFactory() && notDisabled && !inspectModifier)
-			{
-				mFactoryProduction.factory(static_cast<Factory*>(structure));
-				mFactoryProduction.show();
-				mWindowStack.bringToFront(&mFactoryProduction);
-			}
-			else if (structure->isWarehouse() && notDisabled && !inspectModifier)
-			{
-				mWarehouseInspector.warehouse(static_cast<Warehouse*>(structure));
-				mWarehouseInspector.show();
-				mWindowStack.bringToFront(&mWarehouseInspector);
-			}
-			else if (structure->isMineFacility() && notDisabled && !inspectModifier)
-			{
-				mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(structure));
-				mMineOperationsWindow.show();
-				mWindowStack.bringToFront(&mMineOperationsWindow);
-			}
-			else
-			{
-				mStructureInspector.structure(structure);
-				mStructureInspector.show();
-				mWindowStack.bringToFront(&mStructureInspector);
-			}
-		}
+		onInspect(tilePosition, inspectModifier);
 	}
 
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		if (mTooltipSystemButton.rect().contains(MOUSE_COORDS))
 		{
-			mGameOptionsDialog.show();
-			resetUi();
-			return;
+			onSystemMenu();
 		}
 
 		const auto oldDepth = mTileMap->currentDepth();
@@ -539,30 +493,13 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		}
 
 		// MiniMap Check
-		if (mMiniMapBoundingBox.contains(MOUSE_COORDS) && !mWindowStack.pointInWindow(MOUSE_COORDS))
-		{
-			mMiniMap->onMouseDown(button, x, y);
-		}
+		mMiniMap->onMouseDown(button, x, y);
+
 		// Click was within the bounds of the TileMap.
-		else if (mTileMap->boundingBox().contains(MOUSE_COORDS))
+		if (mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
 			auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-			if (mInsertMode == InsertMode::Structure)
-			{
-				placeStructure();
-			}
-			else if (mInsertMode == InsertMode::Robot)
-			{
-				placeRobot();
-			}
-			else if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
-			{
-				placeTubeStart();
-			}
-			else if (mInsertMode == InsertMode::Tube)
-			{
-				placeTubes();
-			}
+			onClickMap(eventHandler.query_shift());
 		}
 	}
 }
@@ -619,7 +556,10 @@ void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int
 		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 		if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 		{
-			placeTubeEnd();
+			Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
+			if (!tile) { return; }
+
+			placeTubeEnd(tile);
 		}
 	}
 }
@@ -644,6 +584,104 @@ void MapViewState::onMouseWheel(int /*x*/, int y)
 	if (mInsertMode != InsertMode::Tube) { return; }
 
 	y > 0 ? mConnections.decrementSelection() : mConnections.incrementSelection();
+}
+
+
+void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModifier)
+{
+	auto& tile = mTileMap->getTile(tilePosition);
+	if (tile.empty())
+	{
+		onInspectTile(tile);
+	}
+	else if (tile.thingIsRobot())
+	{
+		onInspectRobot(*tile.robot());
+	}
+	else if (tile.thingIsStructure())
+	{
+		onInspectStructure(*tile.structure(), inspectModifier);
+	}
+}
+
+
+void MapViewState::onInspectStructure(Structure& structure, bool inspectModifier)
+{
+	const bool notDisabled = structure.operational() || structure.isIdle();
+	const bool preferStructureSpecificView = notDisabled && !inspectModifier;
+
+	if (structure.isFactory() && preferStructureSpecificView)
+	{
+		mFactoryProduction.factory(&static_cast<Factory&>(structure));
+		mFactoryProduction.show();
+		mWindowStack.bringToFront(&mFactoryProduction);
+	}
+	else if (structure.isWarehouse() && preferStructureSpecificView)
+	{
+		mWarehouseInspector.warehouse(&static_cast<Warehouse&>(structure));
+		mWarehouseInspector.show();
+		mWindowStack.bringToFront(&mWarehouseInspector);
+	}
+	else if (structure.isMineFacility() && preferStructureSpecificView)
+	{
+		mMineOperationsWindow.mineFacility(&static_cast<MineFacility&>(structure));
+		mMineOperationsWindow.show();
+		mWindowStack.bringToFront(&mMineOperationsWindow);
+	}
+	else
+	{
+		mStructureInspector.structure(&structure);
+		mStructureInspector.show();
+		mWindowStack.bringToFront(&mStructureInspector);
+	}
+}
+
+
+void MapViewState::onInspectRobot(Robot& robot)
+{
+	mRobotInspector.focusOnRobot(&robot);
+	mRobotInspector.show();
+	mWindowStack.bringToFront(&mRobotInspector);
+}
+
+
+void MapViewState::onInspectTile(Tile& tile)
+{
+	clearSelections();
+	mTileInspector.tile(&tile);
+	mTileInspector.show();
+	mWindowStack.bringToFront(&mTileInspector);
+}
+
+
+void MapViewState::onClickMap(bool isShiftPressed)
+{
+	Tile* tile = mTileMap->getVisibleTile();
+	if (!tile) { return; }
+
+	if (mInsertMode == InsertMode::Structure)
+	{
+		placeStructure(tile);
+	}
+	else if (mInsertMode == InsertMode::Robot)
+	{
+		placeRobot(tile);
+	}
+	else if ((mInsertMode == InsertMode::Tube) && isShiftPressed)
+	{
+		placeTubeStart(tile);
+	}
+	else if (mInsertMode == InsertMode::Tube)
+	{
+		placeTubes(tile);
+	}
+}
+
+
+void MapViewState::onSystemMenu()
+{
+	mGameOptionsDialog.show();
+	resetUi();
 }
 
 
@@ -690,11 +728,8 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 }
 
 
-void MapViewState::placeTubes()
+void MapViewState::placeTubes(Tile* tile)
 {
-	Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
-	if (!tile) { return; }
-
 	// Check the basics.
 	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
 
@@ -717,12 +752,9 @@ void MapViewState::placeTubes()
 	}
 }
 
-void MapViewState::placeTubeStart()
+void MapViewState::placeTubeStart(Tile* tile)
 {
 	mPlacingTube = false;
-
-	Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
-	if (!tile) { return; }
 
 	// Check the basics.
 	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
@@ -742,12 +774,10 @@ void MapViewState::placeTubeStart()
 }
 
 
-void MapViewState::placeTubeEnd()
+void MapViewState::placeTubeEnd(Tile* tile)
 {
 	if (!mPlacingTube) return;
 	mPlacingTube = false;
-	Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
-	if (!tile) { return; }
 
 	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 *			Should instead take advantage of the updated meta data in the IconGridItem.
@@ -1040,10 +1070,8 @@ void MapViewState::placeRobominer(Tile& tile)
 }
 
 
-void MapViewState::placeRobot()
+void MapViewState::placeRobot(Tile* tile)
 {
-	Tile* tile = mTileMap->getVisibleTile();
-	if (!tile) { return; }
 	if (!tile->excavated()) { return; }
 	if (!mRobotPool.robotCtrlAvailable()) { return; }
 
@@ -1087,12 +1115,9 @@ void MapViewState::checkRobotSelectionInterface(Robot::Type rType)
 /**
  * Places a structure into the map.
  */
-void MapViewState::placeStructure()
+void MapViewState::placeStructure(Tile* tile)
 {
 	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
-
-	Tile* tile = mTileMap->getVisibleTile();
-	if (!tile) { return; }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
 		!isPointInRange(tile->xy(), ccLocation(), constants::RobotCommRange))
