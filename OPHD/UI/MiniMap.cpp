@@ -118,3 +118,49 @@ void MiniMap::draw() const
 
 	renderer.clipRectClear();
 }
+
+
+void MiniMap::onActivate()
+{
+	mLeftButtonDown = false;
+}
+
+
+void MiniMap::onMouseUp(NAS2D::EventHandler::MouseButton /*button*/, int /*x*/, int /*y*/)
+{
+	mLeftButtonDown = false;
+}
+
+
+void MiniMap::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
+{
+	if (button == NAS2D::EventHandler::MouseButton::Left)
+	{
+		mLeftButtonDown = true;
+		const auto mousePosition = NAS2D::Point{x, y};
+		if (mRect.contains(mousePosition))
+		{
+			onSetView(mousePosition);
+		}
+	}
+}
+
+
+void MiniMap::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
+{
+	if (mLeftButtonDown)
+	{
+		const auto mousePosition = NAS2D::Point{x, y};
+		if (mRect.contains(mousePosition))
+		{
+			onSetView(mousePosition);
+		}
+	}
+}
+
+
+void MiniMap::onSetView(NAS2D::Point<int> mousePixel)
+{
+	const auto position = NAS2D::Point{0, 0} + (mousePixel - mRect.startPoint());
+	mTileMap->centerOn(position);
+}

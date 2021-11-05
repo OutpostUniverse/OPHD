@@ -321,6 +321,12 @@ void TileMap::mapViewLocation(const MapCoordinate& position)
 }
 
 
+void TileMap::centerOn(NAS2D::Point<int> point)
+{
+	centerOn({point, mMouseTilePosition.z});
+}
+
+
 void TileMap::centerOn(const MapCoordinate& position)
 {
 	mapViewLocation({position.xy - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2, position.z});

@@ -164,8 +164,6 @@ private:
 	void updateFood();
 	void transferFoodToCommandCenter();
 
-	void setMinimapView();
-
 	void checkCommRangeOverlay();
 	void checkSurfacePoliceOverlay();
 	void resetPoliceOverlays();
@@ -359,7 +357,6 @@ private:
 	NAS2D::Point<int> mTubeStart;
 	bool mPlacingTube = false;
 
-	bool mLeftButtonDown = false;
 	bool mLoadingExisting = false;
 
 	std::string mExistingToLoad; /**< Filename of the existing game to load. */
