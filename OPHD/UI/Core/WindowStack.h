@@ -20,7 +20,6 @@ public:
 	bool pointInWindow(const NAS2D::Point<int>& point) const;
 
 	void updateStack(const NAS2D::Point<int>& point);
-	void updateStack(int x, int y) { updateStack({x, y}); }
 
 	void bringToFront(Window* window);
 
