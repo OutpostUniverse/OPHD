@@ -493,7 +493,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		}
 
 		// MiniMap Check
-		if (mMiniMapBoundingBox.contains(MOUSE_COORDS) && !mWindowStack.pointInWindow(MOUSE_COORDS))
+		if (mMiniMapBoundingBox.contains(MOUSE_COORDS))
 		{
 			mMiniMap->onMouseDown(button, x, y);
 		}
