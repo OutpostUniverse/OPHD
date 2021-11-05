@@ -298,7 +298,7 @@ void MapViewState::updatePlayerResources()
  */
 void MapViewState::onActivate(bool /*newActiveValue*/)
 {
-	mLeftButtonDown = false;
+	mMiniMap->onActivate();
 }
 
 
@@ -448,7 +448,7 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 /**
  * Mouse Down event handler.
  */
-void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*/, int /*y*/)
+void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
 {
 	if (!active()) { return; }
 
@@ -524,8 +524,6 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
-		mLeftButtonDown = true;
-
 		if (mTooltipSystemButton.rect().contains(MOUSE_COORDS))
 		{
 			mGameOptionsDialog.show();
@@ -543,7 +541,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int /*x*
 		// MiniMap Check
 		if (mMiniMapBoundingBox.contains(MOUSE_COORDS) && !mWindowStack.pointInWindow(MOUSE_COORDS))
 		{
-			setMinimapView();
+			mMiniMap->onMouseDown(button, x, y);
 		}
 		// Click was within the bounds of the TileMap.
 		else if (mTileMap->boundingBox().contains(MOUSE_COORDS))
@@ -613,11 +611,11 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, i
 /**
 * Mouse Up event handler.
 */
-void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int /*x*/, int /*y*/)
+void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y)
 {
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
-		mLeftButtonDown = false;
+		mMiniMap->onMouseUp(button, x, y);
 		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 		if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 		{
@@ -630,19 +628,10 @@ void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int /*x*/,
 /**
 * Mouse motion event handler.
 */
-void MapViewState::onMouseMove(int /*x*/, int /*y*/, int /*rX*/, int /*rY*/)
+void MapViewState::onMouseMove(int x, int y, int rX, int rY)
 {
 	if (!active()) { return; }
-
-
-	if (mLeftButtonDown)
-	{
-		if (mMiniMapBoundingBox.contains(MOUSE_COORDS))
-		{
-			setMinimapView();
-		}
-	}
-
+	mMiniMap->onMouseMove(x, y, rX, rY);
 	mMouseTilePosition = mTileMap->mouseTilePosition();
 }
 
@@ -672,13 +661,6 @@ void MapViewState::changeViewDepth(int depth)
 
 	if (mInsertMode != InsertMode::Robot) { clearMode(); }
 	populateStructureMenu();
-}
-
-
-void MapViewState::setMinimapView()
-{
-	const auto position = NAS2D::Point{0, 0} + (MOUSE_COORDS - mMiniMapBoundingBox.startPoint());
-	mTileMap->centerOn(position);
 }
 
 
