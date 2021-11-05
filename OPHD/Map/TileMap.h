@@ -53,6 +53,7 @@ public:
 	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition; }
 	void mapViewLocation(NAS2D::Point<int> point);
 	void mapViewLocation(const MapCoordinate& position);
+	void centerOn(NAS2D::Point<int> point);
 	void centerOn(const MapCoordinate& position);
 	void moveView(Direction direction);
 
