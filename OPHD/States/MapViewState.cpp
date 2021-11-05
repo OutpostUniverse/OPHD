@@ -608,10 +608,7 @@ void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModi
 	auto& tile = mTileMap->getTile(tilePosition);
 	if (tile.empty())
 	{
-		clearSelections();
-		mTileInspector.tile(&tile);
-		mTileInspector.show();
-		mWindowStack.bringToFront(&mTileInspector);
+		onInspectTile(&tile);
 	}
 	else if (tile.thingIsRobot())
 	{
@@ -661,6 +658,15 @@ void MapViewState::onInspectRobot(Robot* robot)
 	mRobotInspector.focusOnRobot(robot);
 	mRobotInspector.show();
 	mWindowStack.bringToFront(&mRobotInspector);
+}
+
+
+void MapViewState::onInspectTile(Tile* tile)
+{
+	clearSelections();
+	mTileInspector.tile(tile);
+	mTileInspector.show();
+	mWindowStack.bringToFront(&mTileInspector);
 }
 
 
