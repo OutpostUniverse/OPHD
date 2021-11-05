@@ -622,33 +622,38 @@ void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModi
 	else if (tile.thingIsStructure())
 	{
 		Structure* structure = tile.structure();
+		onInspectStructure(structure, inspectModifier);
+	}
+}
 
-		const bool notDisabled = structure->operational() || structure->isIdle();
 
-		if (structure->isFactory() && notDisabled && !inspectModifier)
-		{
-			mFactoryProduction.factory(static_cast<Factory*>(structure));
-			mFactoryProduction.show();
-			mWindowStack.bringToFront(&mFactoryProduction);
-		}
-		else if (structure->isWarehouse() && notDisabled && !inspectModifier)
-		{
-			mWarehouseInspector.warehouse(static_cast<Warehouse*>(structure));
-			mWarehouseInspector.show();
-			mWindowStack.bringToFront(&mWarehouseInspector);
-		}
-		else if (structure->isMineFacility() && notDisabled && !inspectModifier)
-		{
-			mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(structure));
-			mMineOperationsWindow.show();
-			mWindowStack.bringToFront(&mMineOperationsWindow);
-		}
-		else
-		{
-			mStructureInspector.structure(structure);
-			mStructureInspector.show();
-			mWindowStack.bringToFront(&mStructureInspector);
-		}
+void MapViewState::onInspectStructure(Structure* structure, bool inspectModifier)
+{
+	const bool notDisabled = structure->operational() || structure->isIdle();
+
+	if (structure->isFactory() && notDisabled && !inspectModifier)
+	{
+		mFactoryProduction.factory(static_cast<Factory*>(structure));
+		mFactoryProduction.show();
+		mWindowStack.bringToFront(&mFactoryProduction);
+	}
+	else if (structure->isWarehouse() && notDisabled && !inspectModifier)
+	{
+		mWarehouseInspector.warehouse(static_cast<Warehouse*>(structure));
+		mWarehouseInspector.show();
+		mWindowStack.bringToFront(&mWarehouseInspector);
+	}
+	else if (structure->isMineFacility() && notDisabled && !inspectModifier)
+	{
+		mMineOperationsWindow.mineFacility(static_cast<MineFacility*>(structure));
+		mMineOperationsWindow.show();
+		mWindowStack.bringToFront(&mMineOperationsWindow);
+	}
+	else
+	{
+		mStructureInspector.structure(structure);
+		mStructureInspector.show();
+		mWindowStack.bringToFront(&mStructureInspector);
 	}
 }
 
