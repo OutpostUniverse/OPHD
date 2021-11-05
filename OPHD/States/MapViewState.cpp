@@ -501,22 +501,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		else if (mTileMap->boundingBox().contains(MOUSE_COORDS))
 		{
 			auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-			if (mInsertMode == InsertMode::Structure)
-			{
-				placeStructure();
-			}
-			else if (mInsertMode == InsertMode::Robot)
-			{
-				placeRobot();
-			}
-			else if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
-			{
-				placeTubeStart();
-			}
-			else if (mInsertMode == InsertMode::Tube)
-			{
-				placeTubes();
-			}
+			onClickMap(eventHandler.query_shift());
 		}
 	}
 }
@@ -665,6 +650,27 @@ void MapViewState::onInspectTile(Tile& tile)
 	mTileInspector.tile(&tile);
 	mTileInspector.show();
 	mWindowStack.bringToFront(&mTileInspector);
+}
+
+
+void MapViewState::onClickMap(bool isShiftPressed)
+{
+	if (mInsertMode == InsertMode::Structure)
+	{
+		placeStructure();
+	}
+	else if (mInsertMode == InsertMode::Robot)
+	{
+		placeRobot();
+	}
+	else if ((mInsertMode == InsertMode::Tube) && isShiftPressed)
+	{
+		placeTubeStart();
+	}
+	else if (mInsertMode == InsertMode::Tube)
+	{
+		placeTubes();
+	}
 }
 
 
