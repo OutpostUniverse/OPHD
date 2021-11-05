@@ -615,9 +615,7 @@ void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModi
 	}
 	else if (tile.thingIsRobot())
 	{
-		mRobotInspector.focusOnRobot(tile.robot());
-		mRobotInspector.show();
-		mWindowStack.bringToFront(&mRobotInspector);
+		onInspectRobot(tile.robot());
 	}
 	else if (tile.thingIsStructure())
 	{
@@ -655,6 +653,14 @@ void MapViewState::onInspectStructure(Structure* structure, bool inspectModifier
 		mStructureInspector.show();
 		mWindowStack.bringToFront(&mStructureInspector);
 	}
+}
+
+
+void MapViewState::onInspectRobot(Robot* robot)
+{
+	mRobotInspector.focusOnRobot(robot);
+	mRobotInspector.show();
+	mWindowStack.bringToFront(&mRobotInspector);
 }
 
 

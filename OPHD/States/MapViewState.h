@@ -133,6 +133,7 @@ private:
 
 	void onInspect(const MapCoordinate& tilePosition, bool inspectModifier);
 	void onInspectStructure(Structure* structure, bool inspectModifier);
+	void onInspectRobot(Robot* robot);
 
 	// ROBOT EVENT HANDLERS
 	void onDozerTaskComplete(Robot* robot);
