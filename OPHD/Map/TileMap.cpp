@@ -431,39 +431,9 @@ void TileMap::updateTileHighlight()
 		return;
 	}
 
-	/// In the case of even edge lengths, we need to adjust the mouse picking code a bit.
-	const int evenEdgeLengthAdjust = (edgeLength() % 2 == 0) ? TILE_WIDTH / 2 : 0;
-	const int offsetX = ((mMousePixelPosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) / TILE_WIDTH);
-	const int offsetY = ((mMousePixelPosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
-	const int transform = (mOriginPixelPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
-	NAS2D::Vector<int> highlightOffset = {-transform + offsetY + offsetX, transform + offsetY - offsetX};
-
-	const int mmOffsetX = std::clamp((mMousePixelPosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) % TILE_WIDTH, 0, TILE_WIDTH);
-	const int mmOffsetY = (mMousePixelPosition.y - mMapBoundingBox.y) % TILE_HEIGHT_ABSOLUTE;
-
-	switch (getMouseMapRegion(mmOffsetX, mmOffsetY))
-	{
-	case MouseMapRegion::MMR_TOP_RIGHT:
-		--highlightOffset.y;
-		break;
-
-	case MouseMapRegion::MMR_TOP_LEFT:
-		--highlightOffset.x;
-		break;
-
-	case MouseMapRegion::MMR_BOTTOM_RIGHT:
-		++highlightOffset.x;
-		break;
-
-	case MouseMapRegion::MMR_BOTTOM_LEFT:
-		++highlightOffset.y;
-		break;
-
-	default:
-		break;
-	}
-
-	mMouseTilePosition.xy = mOriginTilePosition + highlightOffset;
+	const auto pixelOffset = mMousePixelPosition - (mOriginPixelPosition + NAS2D::Vector{TILE_WIDTH / 2, TILE_HEIGHT_OFFSET});
+	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TILE_HEIGHT_ABSOLUTE + pixelOffset.y * TILE_WIDTH, pixelOffset.y * TILE_WIDTH - pixelOffset.x * TILE_HEIGHT_ABSOLUTE} / (TILE_WIDTH * TILE_HEIGHT_ABSOLUTE);
+	mMouseTilePosition.xy = mOriginTilePosition + tileOffset;
 }
 
 
