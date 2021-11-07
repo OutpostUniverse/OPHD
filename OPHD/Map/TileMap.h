@@ -76,7 +76,7 @@ public:
 	void initMapDrawParams(NAS2D::Vector<int>);
 
 	void update();
-	void draw();
+	void draw() const;
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);

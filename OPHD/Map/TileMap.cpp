@@ -388,7 +388,7 @@ void TileMap::update()
 }
 
 
-void TileMap::draw()
+void TileMap::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
