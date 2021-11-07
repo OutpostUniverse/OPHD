@@ -389,7 +389,12 @@ void TileMap::draw()
 				}
 
 				// Tell an occupying thing to update itself.
-				if (tile.thing()) { tile.thing()->sprite().update(position); }
+				if (tile.thing())
+				{
+					auto& sprite = tile.thing()->sprite();
+					sprite.update();
+					sprite.draw(position);
+				}
 			}
 		}
 	}
