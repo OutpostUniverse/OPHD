@@ -85,6 +85,56 @@ namespace {
 
 		return overlayColor(overlay);
 	}
+
+
+	std::vector<NAS2D::Point<int>> generateMineLocations(NAS2D::Vector<int> mapSize, std::size_t mineCount)
+	{
+		auto mwidth = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, mapSize.x - 5);
+		auto mheight = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, mapSize.y - 5);
+		auto randPoint = [&mwidth, &mheight]() { return NAS2D::Point{mwidth(), mheight()}; };
+
+		std::vector<NAS2D::Point<int>> locations;
+		locations.reserve(mineCount);
+
+		// Some locations might not be acceptable, so try up to twice as many locations
+		// A high density of mines could result in many rejected locations
+		// Don't try indefinitely to avoid possibility of infinite loop
+		for (std::size_t i = 0; (locations.size() < mineCount) && (i < mineCount * 2); ++i)
+		{
+			// Generate a location and check surroundings for minimum spacing
+			const auto point = randPoint();
+			const auto closePredicate = [&point](auto existingPoint) {
+				return (point - existingPoint).lengthSquared() <= 2;
+			};
+			if (std::none_of(locations.begin(), locations.end(), closePredicate))
+			{
+				locations.push_back(point);
+			}
+		}
+
+		return locations;
+	}
+
+
+	void placeMines(TileMap& tileMap, Planet::Hostility hostility, const std::vector<NAS2D::Point<int>>& locations)
+	{
+		const auto& mineYields = HostilityMineYieldTable.at(hostility);
+		const auto total = std::accumulate(mineYields.begin(), mineYields.end(), 0);
+
+		const auto randYield = [mineYields, total]() {
+			const auto randValue = randomNumber.generate<int>(1, total);
+			return (randValue <= mineYields[0]) ? MineProductionRate::Low :
+				(randValue <= mineYields[0] + mineYields[1]) ? MineProductionRate::Medium :
+				MineProductionRate::High;
+		};
+
+		for (const auto& location : locations)
+		{
+			auto& tile = tileMap.getTile({location, 0});
+			tile.pushMine(new Mine(randYield()));
+			tile.index(TerrainType::Dozed);
+		}
+	}
 }
 
 
@@ -100,7 +150,11 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 	buildMouseMap();
 	initMapDrawParams(Utility<Renderer>::get().size());
 
-	if (shouldSetupMines) { setupMines(mineCount, hostility); }
+	if (shouldSetupMines)
+	{
+		mMineLocations = generateMineLocations(mSizeInTiles, mineCount);
+		placeMines(*this, hostility, mMineLocations);
+	}
 }
 
 
