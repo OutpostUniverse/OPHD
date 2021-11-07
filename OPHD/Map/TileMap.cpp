@@ -130,7 +130,8 @@ const Tile& TileMap::getTile(const MapCoordinate& position) const
 		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ", " + std::to_string(position.z) + "}");
 	}
 	const auto mapPosition = position.xy.to<std::size_t>();
-	return mTileMap[static_cast<std::size_t>(position.z)][mapPosition.y][mapPosition.x];
+	const auto level = static_cast<std::size_t>(position.z);
+	return mTileMap[((level * mSizeInTiles.y) + mapPosition.y) * mSizeInTiles.x + mapPosition.x];
 }
 
 
@@ -149,15 +150,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 	const Image heightmap(path + MAP_TERRAIN_EXTENSION);
 
 	const auto levelCount = static_cast<std::size_t>(mMaxDepth) + 1;
-	mTileMap.resize(levelCount);
-	for (std::size_t level = 0; level < levelCount; level++)
-	{
-		mTileMap[level].resize(static_cast<std::size_t>(mSizeInTiles.y));
-		for (std::size_t i = 0; i < mTileMap[level].size(); i++)
-		{
-			mTileMap[level][i].resize(static_cast<std::size_t>(mSizeInTiles.x));
-		}
-	}
+	mTileMap.resize(mSizeInTiles.x * mSizeInTiles.y * levelCount);
 
 	/**
 	 * Builds a terrain map based on the pixel color values in
