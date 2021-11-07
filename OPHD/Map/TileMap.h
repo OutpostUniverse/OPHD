@@ -102,8 +102,7 @@ protected:
 	std::vector<std::vector<MouseMapRegion>> mMouseMap;
 
 private:
-	using TileGrid = std::vector<std::vector<Tile>>;
-	using TileArray = std::vector<TileGrid>;
+	using TileArray = std::vector<Tile>;
 
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
