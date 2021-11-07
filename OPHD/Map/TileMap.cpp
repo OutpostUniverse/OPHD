@@ -28,11 +28,8 @@ namespace {
 	const int TILE_WIDTH = 128;
 	const int TILE_HEIGHT = 64;
 
-	const int TILE_HALF_WIDTH = TILE_WIDTH / 2;
-
 	const int TILE_HEIGHT_OFFSET = 9;
 	const int TILE_HEIGHT_ABSOLUTE = TILE_HEIGHT - TILE_HEIGHT_OFFSET;
-	const int TILE_HEIGHT_HALF_ABSOLUTE = TILE_HEIGHT_ABSOLUTE / 2;
 
 	const double THROB_SPEED = 250.0; // Throb speed of mine beacon
 
@@ -396,7 +393,7 @@ void TileMap::draw() const
 
 			if (tile.excavated())
 			{
-				const auto position = mOriginPixelPosition + NAS2D::Vector{(col - row) * TILE_HALF_WIDTH, (col + row) * TILE_HEIGHT_HALF_ABSOLUTE};
+				const auto position = mOriginPixelPosition + NAS2D::Vector{(col - row) * TILE_WIDTH / 2, (col + row) * TILE_HEIGHT_ABSOLUTE / 2};
 				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TILE_WIDTH, tsetOffset, TILE_WIDTH, TILE_HEIGHT};
 				const bool isTileHighlighted = NAS2D::Vector{col, row} == highlightOffset;
 
@@ -435,7 +432,7 @@ void TileMap::updateTileHighlight()
 	}
 
 	/// In the case of even edge lengths, we need to adjust the mouse picking code a bit.
-	const int evenEdgeLengthAdjust = (edgeLength() % 2 == 0) ? TILE_HALF_WIDTH : 0;
+	const int evenEdgeLengthAdjust = (edgeLength() % 2 == 0) ? TILE_WIDTH / 2 : 0;
 	const int offsetX = ((mMousePixelPosition.x - mMapBoundingBox.x - evenEdgeLengthAdjust) / TILE_WIDTH);
 	const int offsetY = ((mMousePixelPosition.y - mMapBoundingBox.y) / TILE_HEIGHT_ABSOLUTE);
 	const int transform = (mOriginPixelPosition.x - mMapBoundingBox.x) / TILE_WIDTH;
