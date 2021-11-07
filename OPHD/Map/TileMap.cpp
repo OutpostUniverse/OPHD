@@ -99,16 +99,19 @@ namespace {
 		// Some locations might not be acceptable, so try up to twice as many locations
 		// A high density of mines could result in many rejected locations
 		// Don't try indefinitely to avoid possibility of infinite loop
+		std::vector<bool> usedLocations(mapSize.x * mapSize.y);
 		for (std::size_t i = 0; (locations.size() < mineCount) && (i < mineCount * 2); ++i)
 		{
 			// Generate a location and check surroundings for minimum spacing
 			const auto point = randPoint();
-			const auto closePredicate = [&point](auto existingPoint) {
-				return (point - existingPoint).lengthSquared() <= 2;
-			};
-			if (std::none_of(locations.begin(), locations.end(), closePredicate))
+			if (!usedLocations[point.x + mapSize.x * point.y])
 			{
 				locations.push_back(point);
+				for (const auto& offset : DirectionScan3x3)
+				{
+					const auto usedPoint = point + offset;
+					usedLocations[usedPoint.x + mapSize.x * usedPoint.y] = true;
+				}
 			}
 		}
 
