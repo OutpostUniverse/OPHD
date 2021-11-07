@@ -104,9 +104,6 @@ protected:
 private:
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
-	void setupMines(int, Planet::Hostility);
-	void addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& plist, MineProductionRate rate);
-	NAS2D::Point<int> findSurroundingMineLocation(NAS2D::Point<int> centerPoint);
 
 	void updateTileHighlight();
 
