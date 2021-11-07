@@ -69,6 +69,7 @@ public:
 
 	void removeThing();
 
+	const Mine* mine() const { return mMine; }
 	Mine* mine() { return mMine; }
 	void pushMine(Mine*);
 
