@@ -44,6 +44,7 @@ public:
 
 	bool isValidPosition(const MapCoordinate& position) const;
 
+	const Tile& getTile(const MapCoordinate& position) const;
 	Tile& getTile(const MapCoordinate& position);
 	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mMouseTilePosition.z}); }
 

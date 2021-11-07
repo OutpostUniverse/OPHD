@@ -123,7 +123,7 @@ bool TileMap::isValidPosition(const MapCoordinate& position) const
 }
 
 
-Tile& TileMap::getTile(const MapCoordinate& position)
+const Tile& TileMap::getTile(const MapCoordinate& position) const
 {
 	if (!isValidPosition(position))
 	{
@@ -131,6 +131,13 @@ Tile& TileMap::getTile(const MapCoordinate& position)
 	}
 	const auto mapPosition = position.xy.to<std::size_t>();
 	return mTileMap[static_cast<std::size_t>(position.z)][mapPosition.y][mapPosition.x];
+}
+
+
+Tile& TileMap::getTile(const MapCoordinate& position)
+{
+	const auto& constThis = *this;
+	return const_cast<Tile&>(constThis.getTile(position));
 }
 
 
