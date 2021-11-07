@@ -44,6 +44,7 @@ public:
 
 	bool isValidPosition(const MapCoordinate& position) const;
 
+	const Tile& getTile(const MapCoordinate& position) const;
 	Tile& getTile(const MapCoordinate& position);
 	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mMouseTilePosition.z}); }
 
@@ -74,7 +75,8 @@ public:
 
 	void initMapDrawParams(NAS2D::Vector<int>);
 
-	void draw();
+	void update();
+	void draw() const;
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);

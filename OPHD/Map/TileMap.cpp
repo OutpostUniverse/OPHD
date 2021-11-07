@@ -123,7 +123,7 @@ bool TileMap::isValidPosition(const MapCoordinate& position) const
 }
 
 
-Tile& TileMap::getTile(const MapCoordinate& position)
+const Tile& TileMap::getTile(const MapCoordinate& position) const
 {
 	if (!isValidPosition(position))
 	{
@@ -131,6 +131,13 @@ Tile& TileMap::getTile(const MapCoordinate& position)
 	}
 	const auto mapPosition = position.xy.to<std::size_t>();
 	return mTileMap[static_cast<std::size_t>(position.z)][mapPosition.y][mapPosition.x];
+}
+
+
+Tile& TileMap::getTile(const MapCoordinate& position)
+{
+	const auto& constThis = *this;
+	return const_cast<Tile&>(constThis.getTile(position));
 }
 
 
@@ -357,7 +364,31 @@ bool TileMap::tileHighlightVisible() const
 }
 
 
-void TileMap::draw()
+void TileMap::update()
+{
+	for (int row = 0; row < mEdgeLength; row++)
+	{
+		for (int col = 0; col < mEdgeLength; col++)
+		{
+			auto& tile = getTile({mOriginTilePosition + NAS2D::Vector{col, row}, mMouseTilePosition.z});
+
+			if (tile.excavated())
+			{
+				// Tell an occupying thing to update itself.
+				if (tile.thing())
+				{
+					auto& sprite = tile.thing()->sprite();
+					sprite.update();
+				}
+			}
+		}
+	}
+
+	updateTileHighlight();
+}
+
+
+void TileMap::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
@@ -392,14 +423,11 @@ void TileMap::draw()
 				if (tile.thing())
 				{
 					auto& sprite = tile.thing()->sprite();
-					sprite.update();
 					sprite.draw(position);
 				}
 			}
 		}
 	}
-
-	updateTileHighlight();
 }
 
 
