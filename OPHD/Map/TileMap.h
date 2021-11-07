@@ -87,25 +87,10 @@ public:
 
 	void pathStartAndEnd(void* start, void* end);
 
-protected:
-	enum MouseMapRegion
-	{
-		MMR_MIDDLE,
-		MMR_TOP_RIGHT,
-		MMR_TOP_LEFT,
-		MMR_BOTTOM_RIGHT,
-		MMR_BOTTOM_LEFT
-	};
-
-	std::vector<std::vector<MouseMapRegion>> mMouseMap;
-
 private:
-	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
 
 	void updateTileHighlight();
-
-	MouseMapRegion getMouseMapRegion(int x, int y);
 
 
 	const NAS2D::Vector<int> mSizeInTiles;
