@@ -89,28 +89,13 @@ public:
 
 	void pathStartAndEnd(void* start, void* end);
 
-protected:
-	enum MouseMapRegion
-	{
-		MMR_MIDDLE,
-		MMR_TOP_RIGHT,
-		MMR_TOP_LEFT,
-		MMR_BOTTOM_RIGHT,
-		MMR_BOTTOM_LEFT
-	};
-
-	std::vector<std::vector<MouseMapRegion>> mMouseMap;
-
 private:
-	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
 	void setupMines(int, Planet::Hostility);
 	void addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& plist, MineProductionRate rate);
 	NAS2D::Point<int> findSurroundingMineLocation(NAS2D::Point<int> centerPoint);
 
 	void updateTileHighlight();
-
-	MouseMapRegion getMouseMapRegion(int x, int y);
 
 
 	const NAS2D::Vector<int> mSizeInTiles;

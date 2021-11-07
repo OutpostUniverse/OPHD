@@ -94,7 +94,6 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 	mMineBeacon("structures/mine_beacon.png")
 {
 	buildTerrainMap(mapPath);
-	buildMouseMap();
 	initMapDrawParams(Utility<Renderer>::get().size());
 
 	if (shouldSetupMines) { setupMines(mineCount, hostility); }
@@ -234,55 +233,6 @@ NAS2D::Point<int> TileMap::findSurroundingMineLocation(NAS2D::Point<int> centerP
 		}
 	}
 	return centerPoint;
-}
-
-
-/**
- * Build a logic map for determining what tile the mouse is pointing at.
- */
-void TileMap::buildMouseMap()
-{
-	const Image mousemap("ui/mouse_map.png");
-
-	// More sanity checks (mousemap should match dimensions of tile)
-	if (mousemap.size() != Vector{TILE_WIDTH, TILE_HEIGHT_ABSOLUTE})
-	{
-		throw std::runtime_error("Mouse map is the wrong dimensions.");
-	}
-
-	mMouseMap.resize(TILE_HEIGHT_ABSOLUTE);
-	for (std::size_t i = 0; i < mMouseMap.size(); i++)
-	{
-		mMouseMap[i].resize(TILE_WIDTH);
-	}
-
-	for (std::size_t row = 0; row < TILE_HEIGHT_ABSOLUTE; row++)
-	{
-		for (std::size_t col = 0; col < TILE_WIDTH; col++)
-		{
-			const Color c = mousemap.pixelColor({static_cast<int>(col), static_cast<int>(row)});
-			if (c == NAS2D::Color::Yellow)
-			{
-				mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_RIGHT;
-			}
-			else if (c == NAS2D::Color::Red)
-			{
-				mMouseMap[row][col] = MouseMapRegion::MMR_TOP_LEFT;
-			}
-			else if (c == NAS2D::Color::Blue)
-			{
-				mMouseMap[row][col] = MouseMapRegion::MMR_TOP_RIGHT;
-			}
-			else if (c == NAS2D::Color::Green)
-			{
-				mMouseMap[row][col] = MouseMapRegion::MMR_BOTTOM_LEFT;
-			}
-			else
-			{
-				mMouseMap[row][col] = MouseMapRegion::MMR_MIDDLE;
-			}
-		}
-	}
 }
 
 
@@ -434,18 +384,6 @@ void TileMap::updateTileHighlight()
 	const auto pixelOffset = mMousePixelPosition - (mOriginPixelPosition + NAS2D::Vector{TILE_WIDTH / 2, TILE_HEIGHT_OFFSET});
 	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TILE_HEIGHT_ABSOLUTE + pixelOffset.y * TILE_WIDTH, pixelOffset.y * TILE_WIDTH - pixelOffset.x * TILE_HEIGHT_ABSOLUTE} / (TILE_WIDTH * TILE_HEIGHT_ABSOLUTE);
 	mMouseTilePosition.xy = mOriginTilePosition + tileOffset;
-}
-
-
-/**
- * Takes a point and determines where in the mouse map that point lies.
- *
- * \note	Assumes coords are normalized to the boundaries of a tile.
- */
-TileMap::MouseMapRegion TileMap::getMouseMapRegion(int x, int y)
-{
-	const auto mapPosition = NAS2D::Point{x, y}.to<std::size_t>();
-	return mMouseMap[mapPosition.y][mapPosition.x];
 }
 
 
