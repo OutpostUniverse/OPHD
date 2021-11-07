@@ -19,8 +19,6 @@ namespace NAS2D
 
 enum class Direction;
 
-using Point2dList = std::vector<NAS2D::Point<int>>;
-
 
 class TileMap : public micropather::Graph
 {
@@ -48,7 +46,7 @@ public:
 	Tile& getTile(const MapCoordinate& position);
 	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mMouseTilePosition.z}); }
 
-	const Point2dList& mineLocations() const { return mMineLocations; }
+	const std::vector<NAS2D::Point<int>>& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
 
 	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition; }
@@ -113,7 +111,7 @@ private:
 	const NAS2D::Vector<int> mSizeInTiles;
 	const int mMaxDepth = 0;
 	std::vector<Tile> mTileMap;
-	Point2dList mMineLocations;
+	std::vector<NAS2D::Point<int>> mMineLocations;
 
 	std::string mMapPath;
 	std::string mTsetPath;
