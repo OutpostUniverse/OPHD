@@ -102,8 +102,6 @@ protected:
 	std::vector<std::vector<MouseMapRegion>> mMouseMap;
 
 private:
-	using TileArray = std::vector<Tile>;
-
 	void buildMouseMap();
 	void buildTerrainMap(const std::string& path);
 	void setupMines(int, Planet::Hostility);
@@ -117,7 +115,7 @@ private:
 
 	const NAS2D::Vector<int> mSizeInTiles;
 	const int mMaxDepth = 0;
-	TileArray mTileMap;
+	std::vector<Tile> mTileMap;
 	Point2dList mMineLocations;
 
 	std::string mMapPath;
