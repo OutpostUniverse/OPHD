@@ -85,6 +85,62 @@ namespace {
 
 		return overlayColor(overlay);
 	}
+
+
+	std::vector<NAS2D::Point<int>> generateMineLocations(NAS2D::Vector<int> mapSize, std::size_t mineCount)
+	{
+		auto randPoint = [mapSize]() {
+			return NAS2D::Point{
+				randomNumber.generate<int>(5, mapSize.x - 5),
+				randomNumber.generate<int>(5, mapSize.y - 5)
+			};
+		};
+
+		std::vector<NAS2D::Point<int>> locations;
+		locations.reserve(mineCount);
+
+		// Some locations might not be acceptable, so try up to twice as many locations
+		// A high density of mines could result in many rejected locations
+		// Don't try indefinitely to avoid possibility of infinite loop
+		std::vector<bool> usedLocations(mapSize.x * mapSize.y);
+		for (std::size_t i = 0; (locations.size() < mineCount) && (i < mineCount * 2); ++i)
+		{
+			// Generate a location and check surroundings for minimum spacing
+			const auto point = randPoint();
+			if (!usedLocations[point.x + mapSize.x * point.y])
+			{
+				locations.push_back(point);
+				for (const auto& offset : DirectionScan3x3)
+				{
+					const auto usedPoint = point + offset;
+					usedLocations[usedPoint.x + mapSize.x * usedPoint.y] = true;
+				}
+			}
+		}
+
+		return locations;
+	}
+
+
+	void placeMines(TileMap& tileMap, Planet::Hostility hostility, const std::vector<NAS2D::Point<int>>& locations)
+	{
+		const auto& mineYields = HostilityMineYieldTable.at(hostility);
+		const auto total = std::accumulate(mineYields.begin(), mineYields.end(), 0);
+
+		const auto randYield = [mineYields, total]() {
+			const auto randValue = randomNumber.generate<int>(1, total);
+			return (randValue <= mineYields[0]) ? MineProductionRate::Low :
+				(randValue <= mineYields[0] + mineYields[1]) ? MineProductionRate::Medium :
+				MineProductionRate::High;
+		};
+
+		for (const auto& location : locations)
+		{
+			auto& tile = tileMap.getTile({location, 0});
+			tile.pushMine(new Mine(randYield()));
+			tile.index(TerrainType::Dozed);
+		}
+	}
 }
 
 
@@ -100,7 +156,11 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 	buildMouseMap();
 	initMapDrawParams(Utility<Renderer>::get().size());
 
-	if (shouldSetupMines) { setupMines(mineCount, hostility); }
+	if (shouldSetupMines)
+	{
+		mMineLocations = generateMineLocations(mSizeInTiles, mineCount);
+		placeMines(*this, hostility, mMineLocations);
+	}
 }
 
 
@@ -173,70 +233,6 @@ void TileMap::buildTerrainMap(const std::string& path)
 			}
 		}
 	}
-}
-
-
-/**
- * Creates mining locations around the map area.
- */
-void TileMap::setupMines(int mineCount, Planet::Hostility hostility)
-{
-	if (hostility == Planet::Hostility::None) { return; }
-
-	int yieldLow = mineCount * HostilityMineYieldTable.at(hostility)[0] / 100;
-	int yieldMedium = mineCount * HostilityMineYieldTable.at(hostility)[1] / 100;
-	int yieldHigh = mineCount * HostilityMineYieldTable.at(hostility)[2] / 100;
-
-	// There will inevitably be cases where the total yield count will not match
-	// the required mine count. In these cases just tack on the difference to the
-	// low yield mines. Difficulty settings could shift this to other yields.
-	int yieldTotal = yieldLow + yieldMedium + yieldHigh;
-	if (yieldTotal < mineCount) { yieldLow += mineCount - yieldTotal; }
-
-	auto mwidth = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, mSizeInTiles.x - 5);
-	auto mheight = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, mSizeInTiles.y - 5);
-
-	auto randPoint = [&mwidth, &mheight]() { return NAS2D::Point{mwidth(), mheight()}; };
-
-	auto generateMines = [&](int mineCountAtYield, MineProductionRate yield)
-	{
-		for (int i = 0; i < mineCountAtYield; ++i)
-		{
-			addMineSet(randPoint(), mMineLocations, yield);
-		}
-	};
-
-	generateMines(yieldLow, MineProductionRate::Low);
-	generateMines(yieldMedium, MineProductionRate::Medium);
-	generateMines(yieldHigh, MineProductionRate::High);
-}
-
-
-void TileMap::addMineSet(NAS2D::Point<int> suggestedMineLocation, Point2dList& plist, MineProductionRate rate)
-{
-	// Mines should not be right next to each other
-	// If mines are right next to each other, then overwrite the old location with the new mine parameters
-	const auto mineLocation = findSurroundingMineLocation(suggestedMineLocation);
-
-	auto& tile = getTile({mineLocation, 0});
-	tile.pushMine(new Mine(rate));
-	tile.index(TerrainType::Dozed);
-
-	plist.push_back(mineLocation);
-}
-
-
-NAS2D::Point<int> TileMap::findSurroundingMineLocation(NAS2D::Point<int> centerPoint)
-{
-	if (getTile({centerPoint, 0}).hasMine())
-	{
-		for (const auto& direction : DirectionScan323)
-		{
-			const auto point = centerPoint + direction;
-			if (getTile({point, 0}).hasMine()) { return point; }
-		}
-	}
-	return centerPoint;
 }
 
 
