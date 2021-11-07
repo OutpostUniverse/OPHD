@@ -89,9 +89,12 @@ namespace {
 
 	std::vector<NAS2D::Point<int>> generateMineLocations(NAS2D::Vector<int> mapSize, std::size_t mineCount)
 	{
-		auto mwidth = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, mapSize.x - 5);
-		auto mheight = std::bind(&RandomNumberGenerator::generate<int>, &randomNumber, 5, mapSize.y - 5);
-		auto randPoint = [&mwidth, &mheight]() { return NAS2D::Point{mwidth(), mheight()}; };
+		auto randPoint = [mapSize]() {
+			return NAS2D::Point{
+				randomNumber.generate<int>(5, mapSize.x - 5),
+				randomNumber.generate<int>(5, mapSize.y - 5)
+			};
+		};
 
 		std::vector<NAS2D::Point<int>> locations;
 		locations.reserve(mineCount);
