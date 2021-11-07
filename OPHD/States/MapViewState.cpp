@@ -261,6 +261,7 @@ NAS2D::State* MapViewState::update()
 		mTileMap->injectMouse(MOUSE_COORDS);
 	}
 
+	mTileMap->update();
 	mTileMap->draw();
 
 	// FIXME: Ugly / hacky

@@ -357,6 +357,30 @@ bool TileMap::tileHighlightVisible() const
 }
 
 
+void TileMap::update()
+{
+	for (int row = 0; row < mEdgeLength; row++)
+	{
+		for (int col = 0; col < mEdgeLength; col++)
+		{
+			auto& tile = getTile({mOriginTilePosition + NAS2D::Vector{col, row}, mMouseTilePosition.z});
+
+			if (tile.excavated())
+			{
+				// Tell an occupying thing to update itself.
+				if (tile.thing())
+				{
+					auto& sprite = tile.thing()->sprite();
+					sprite.update();
+				}
+			}
+		}
+	}
+
+	updateTileHighlight();
+}
+
+
 void TileMap::draw()
 {
 	auto& renderer = Utility<Renderer>::get();
@@ -392,14 +416,11 @@ void TileMap::draw()
 				if (tile.thing())
 				{
 					auto& sprite = tile.thing()->sprite();
-					sprite.update();
 					sprite.draw(position);
 				}
 			}
 		}
 	}
-
-	updateTileHighlight();
 }
 
 
