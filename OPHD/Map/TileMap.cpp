@@ -392,7 +392,8 @@ void TileMap::draw()
 				if (tile.thing())
 				{
 					auto& sprite = tile.thing()->sprite();
-					sprite.update(position);
+					sprite.update();
+					sprite.draw(position);
 				}
 			}
 		}
