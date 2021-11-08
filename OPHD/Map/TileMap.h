@@ -64,7 +64,7 @@ public:
 
 	int edgeLength() const { return mEdgeLength; }
 
-	void onMouseMove(NAS2D::Point<int> position) { mMousePixelPosition = position; }
+	void onMouseMove(NAS2D::Point<int> position);
 	void onResize(NAS2D::Vector<int>);
 
 	void update();
@@ -83,7 +83,6 @@ public:
 
 private:
 	void buildTerrainMap(const std::string& path);
-	void updateMouseTilePosition();
 
 
 	const NAS2D::Vector<int> mSizeInTiles;
@@ -103,7 +102,6 @@ private:
 	NAS2D::Point<int> mOriginPixelPosition; // Top pixel at top of diamond
 
 	NAS2D::Point<int> mMouseTilePosition;
-	NAS2D::Point<int> mMousePixelPosition;
 
 	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 };
