@@ -5,8 +5,15 @@
 #include "../States/Planet.h"
 #include "../MicroPather/micropather.h"
 
+#include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
+#include <NAS2D/Math/Rectangle.h>
+#include <NAS2D/Resource/Image.h>
+
+#include <string>
+#include <vector>
+#include <utility>
 
 
 namespace NAS2D
@@ -23,17 +30,7 @@ enum class Direction;
 class TileMap : public micropather::Graph
 {
 public:
-	enum TileMapLevel
-	{
-		LEVEL_SURFACE = 0,
-		LEVEL_UG_1,
-		LEVEL_UG_2,
-		LEVEL_UG_3,
-		LEVEL_UG_4
-	};
-
-
-	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility /*= constants::Hostility::None*/, bool setupMines = true);
+	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool setupMines = true);
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;
 
