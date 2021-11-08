@@ -142,16 +142,16 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 }
 
 
-/**
- * Removes a mine location from the tilemap.
- * 
- * \note	Does no sanity checking, assumes that the point provided
- *			corresponds to a valid location.
- */
 void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 {
+	auto& tile = getTile({pt, 0});
+	if (!tile.hasMine())
+	{
+		throw std::runtime_error("No mine found to remove");
+	}
+
 	mMineLocations.erase(find(mMineLocations.begin(), mMineLocations.end(), pt));
-	getTile({pt, 0}).pushMine(nullptr);
+	tile.pushMine(nullptr);
 }
 
 
