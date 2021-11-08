@@ -112,7 +112,7 @@ private:
 	NAS2D::Point<int> mMousePixelPosition;
 
 	NAS2D::Point<int> mOriginTilePosition; // Top tile of detail view diamond, or top left corner of minimap view box
-	NAS2D::Point<int> mOriginPixelPosition; // Top left pixel of tile at top of diamond
+	NAS2D::Point<int> mOriginPixelPosition; // Top pixel at top of diamond
 
 	NAS2D::Rectangle<int> mMapBoundingBox; // Tightest pixel area containing all drawn tiles
 

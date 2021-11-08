@@ -239,8 +239,8 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 	mEdgeLength = std::max(3, std::min(lengthX, lengthY));
 
 	// Find top left corner of rectangle containing top tile of diamond
-	mOriginPixelPosition = NAS2D::Point{(size.x - TileSize.x) / 2, (size.y - constants::BottomUiHeight - mEdgeLength * TileSize.y) / 2};
-	mMapBoundingBox = {(size.x - TileSize.x * mEdgeLength) / 2, mOriginPixelPosition.y, TileSize.x * mEdgeLength, TileSize.y * mEdgeLength};
+	mOriginPixelPosition = NAS2D::Point{(size.x - TileSize.x) / 2, (size.y - constants::BottomUiHeight - mEdgeLength * TileSize.y) / 2} + TileDrawOffset;
+	mMapBoundingBox = {(size.x - TileSize.x * mEdgeLength) / 2, mOriginPixelPosition.y - TileDrawOffset.y, TileSize.x * mEdgeLength, TileSize.y * mEdgeLength};
 }
 
 
@@ -335,7 +335,7 @@ void TileMap::draw() const
 
 			if (tile.excavated())
 			{
-				const auto position = mOriginPixelPosition + NAS2D::Vector{(col - row) * TileSize.x / 2, (col + row) * TileSize.y / 2};
+				const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(col - row) * TileSize.x / 2, (col + row) * TileSize.y / 2};
 				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
 				const bool isTileHighlighted = NAS2D::Vector{col, row} == highlightOffset;
 
@@ -373,7 +373,7 @@ void TileMap::updateTileHighlight()
 		return;
 	}
 
-	const auto pixelOffset = mMousePixelPosition - (mOriginPixelPosition + TileDrawOffset);
+	const auto pixelOffset = mMousePixelPosition - mOriginPixelPosition;
 	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TileSize.y + pixelOffset.y * TileSize.x, pixelOffset.y * TileSize.x - pixelOffset.x * TileSize.y} / (TileSize.x * TileSize.y);
 	mMouseTilePosition.xy = mOriginTilePosition + tileOffset;
 }
