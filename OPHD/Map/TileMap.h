@@ -105,7 +105,7 @@ private:
 
 	int mEdgeLength = 0;
 
-	MapCoordinate mMouseTilePosition{};
+	MapCoordinate mMouseTilePosition{{-1, -1}, 0};
 	NAS2D::Point<int> mMousePixelPosition;
 
 	NAS2D::Point<int> mOriginTilePosition; // Top tile of detail view diamond, or top left corner of minimap view box
