@@ -487,17 +487,6 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-Tile* TileMap::getVisibleTile(const MapCoordinate& position)
-{
-	if (!isVisibleTile(position))
-	{
-		return nullptr;
-	}
-
-	return &getTile(position);
-}
-
-
 bool TileMap::isVisibleTile(const MapCoordinate& position) const
 {
 	if (!NAS2D::Rectangle{mOriginTilePosition.x, mOriginTilePosition.y, mEdgeLength, mEdgeLength}.contains(position.xy))

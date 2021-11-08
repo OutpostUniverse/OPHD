@@ -62,8 +62,6 @@ public:
 
 	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
 	Tile& mouseTile();
-	Tile* getVisibleTile(const MapCoordinate& position);
-	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
 
 	int edgeLength() const { return mEdgeLength; }
 
