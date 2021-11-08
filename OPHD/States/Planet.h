@@ -15,8 +15,6 @@ class Planet
 public:
 	enum class PlanetType
 	{
-		None,
-
 		Mercury,
 		Mars,
 		Ganymede,
@@ -33,7 +31,7 @@ public:
 
 	struct Attributes
 	{
-		PlanetType type = PlanetType::None;
+		PlanetType type;
 		std::string imagePath;
 		Hostility hostility = Hostility::None;
 		int maxDepth = 0;
