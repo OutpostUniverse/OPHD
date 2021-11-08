@@ -65,7 +65,6 @@ public:
 	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
 
 	int edgeLength() const { return mEdgeLength; }
-	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 
 	void injectMouse(NAS2D::Point<int> position) { mMousePixelPosition = position; }
 
