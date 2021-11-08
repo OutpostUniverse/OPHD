@@ -816,8 +816,9 @@ void MapViewState::placeTubeEnd(Tile* tile)
 	bool endReach = false;
 
 	do {
-		tile = mTileMap->getVisibleTile({mTubeStart, mTileMap->currentDepth()});
-		if (!tile) {
+		const auto tubeStartPosition = MapCoordinate{mTubeStart, mTileMap->currentDepth()};
+		tile = &mTileMap->getTile(tubeStartPosition);
+		if (!mTileMap->isVisibleTile(tubeStartPosition)) {
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
 			endReach = true;
