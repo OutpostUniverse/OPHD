@@ -298,6 +298,16 @@ bool TileMap::isMouseOverTile() const
 }
 
 
+Tile& TileMap::mouseTile()
+{
+	if (!isMouseOverTile())
+	{
+		throw std::runtime_error("Mouse not over a tile");
+	}
+	return getTile(mouseTilePosition());
+}
+
+
 void TileMap::update()
 {
 	for (const auto tilePosition : PointInRectangleRange{viewArea()})

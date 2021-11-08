@@ -61,6 +61,7 @@ public:
 	bool isMouseOverTile() const;
 
 	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
+	Tile& mouseTile();
 	Tile* getVisibleTile(const MapCoordinate& position);
 	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
 
