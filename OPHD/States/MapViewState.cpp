@@ -329,78 +329,62 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 		return;
 	}
 
-	bool viewUpdated = false; // don't like flaggy code like this
-	NAS2D::Point<int> pt = mTileMap->mapViewLocation();
-
 	switch(key)
 	{
 		case NAS2D::EventHandler::KeyCode::KEY_w:
 		case NAS2D::EventHandler::KeyCode::KEY_UP:
-			viewUpdated = true;
-			pt += DirectionNorth;
+			mTileMap->moveView(Direction::North);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_s:
 		case NAS2D::EventHandler::KeyCode::KEY_DOWN:
-			viewUpdated = true;
-			pt += DirectionSouth;
+			mTileMap->moveView(Direction::South);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_a:
 		case NAS2D::EventHandler::KeyCode::KEY_LEFT:
-			viewUpdated = true;
-			pt += DirectionWest;
+			mTileMap->moveView(Direction::West);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_d:
 		case NAS2D::EventHandler::KeyCode::KEY_RIGHT:
-			viewUpdated = true;
-			pt += DirectionEast;
+			mTileMap->moveView(Direction::East);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_0:
-			viewUpdated = true;
 			changeViewDepth(0);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_1:
-			viewUpdated = true;
 			changeViewDepth(1);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_2:
-			viewUpdated = true;
 			changeViewDepth(2);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_3:
-			viewUpdated = true;
 			changeViewDepth(3);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_4:
-			viewUpdated = true;
 			changeViewDepth(4);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEUP:
-			viewUpdated = true;
 			changeViewDepth(mTileMap->currentDepth() - 1);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN:
-			viewUpdated = true;
 			changeViewDepth(mTileMap->currentDepth() + 1);
 			break;
 
 
 		case NAS2D::EventHandler::KeyCode::KEY_HOME:
-			viewUpdated = true;
 			changeViewDepth(0);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_END:
-			viewUpdated = true;
 			changeViewDepth(mTileMap->maxDepth());
 			break;
 
@@ -437,11 +421,6 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 
 		default:
 			break;
-	}
-
-	if (viewUpdated)
-	{
-		mTileMap->mapViewLocation(pt);
 	}
 }
 

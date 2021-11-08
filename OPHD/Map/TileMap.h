@@ -46,8 +46,6 @@ public:
 	void removeMineLocation(const NAS2D::Point<int>& pt);
 
 	NAS2D::Rectangle<int> viewArea() const;
-	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition.xy; }
-	void mapViewLocation(NAS2D::Point<int> point);
 	void mapViewLocation(const MapCoordinate& position);
 	void centerOn(NAS2D::Point<int> point);
 	void centerOn(const MapCoordinate& position);
@@ -61,8 +59,6 @@ public:
 
 	MapCoordinate mouseTilePosition() const { return {mMouseTilePosition, mOriginTilePosition.z}; }
 	Tile& mouseTile();
-
-	int edgeLength() const { return mEdgeLength; }
 
 	void onMouseMove(NAS2D::Point<int> position);
 	void onResize(NAS2D::Vector<int>);
