@@ -557,7 +557,7 @@ void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int
 		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 		if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 		{
-			Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
+			Tile* tile = mTileMap->getVisibleTile();
 			if (!tile) { return; }
 
 			placeTubeEnd(tile);
