@@ -24,8 +24,8 @@ namespace {
 
 	const auto MapSize = NAS2D::Vector{300, 150};
 	const auto TileSize = NAS2D::Vector{128, 55};
+	const auto TileDrawSize = NAS2D::Vector{128, 64};
 
-	const int TILE_HEIGHT = 64;
 	const int TILE_HEIGHT_OFFSET = 9;
 
 	const double THROB_SPEED = 250.0; // Throb speed of mine beacon
@@ -325,7 +325,7 @@ void TileMap::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	int tsetOffset = mMouseTilePosition.z > 0 ? TILE_HEIGHT : 0;
+	int tsetOffset = mMouseTilePosition.z > 0 ? TileDrawSize.y : 0;
 	const auto highlightOffset = mMouseTilePosition.xy - mOriginTilePosition;
 
 	for (int row = 0; row < mEdgeLength; row++)
@@ -337,7 +337,7 @@ void TileMap::draw() const
 			if (tile.excavated())
 			{
 				const auto position = mOriginPixelPosition + NAS2D::Vector{(col - row) * TileSize.x / 2, (col + row) * TileSize.y / 2};
-				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileSize.x, tsetOffset, TileSize.x, TILE_HEIGHT};
+				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
 				const bool isTileHighlighted = NAS2D::Vector{col, row} == highlightOffset;
 
 				renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
