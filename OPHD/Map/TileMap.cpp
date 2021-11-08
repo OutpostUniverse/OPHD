@@ -23,11 +23,7 @@ using namespace NAS2D;
 
 namespace {
 	const std::string MapTerrainExtension = "_a.png";
-
 	const auto MapSize = NAS2D::Vector{300, 150};
-	const auto TileSize = NAS2D::Vector{128, 55};
-	const auto TileDrawSize = NAS2D::Vector{128, 64};
-	const auto TileDrawOffset = NAS2D::Vector{TileDrawSize.x / 2, TileDrawSize.y - TileSize.y};
 
 	// Relative proportion of mines with yields {low, med, high}
 	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYields =
@@ -36,34 +32,6 @@ namespace {
 		{Planet::Hostility::Medium, {45, 35, 20}},
 		{Planet::Hostility::High, {35, 20, 45}},
 	};
-
-
-	const std::map<Tile::Overlay, NAS2D::Color> OverlayColors =
-	{
-		{Tile::Overlay::None, NAS2D::Color::Normal},
-		{Tile::Overlay::Communications, {125, 200, 255}},
-		{Tile::Overlay::Connectedness, NAS2D::Color::Green},
-		{Tile::Overlay::TruckingRoutes, NAS2D::Color::Orange},
-		{Tile::Overlay::Police, NAS2D::Color::Red}
-	};
-
-	const std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColors =
-	{
-		{Tile::Overlay::None, NAS2D::Color{125, 200, 255}},
-		{Tile::Overlay::Communications, {100, 180, 230}},
-		{Tile::Overlay::Connectedness, NAS2D::Color{71, 224, 146}},
-		{Tile::Overlay::TruckingRoutes, NAS2D::Color{125, 200, 255}},
-		{Tile::Overlay::Police, NAS2D::Color{100, 180, 230}}
-	};
-
-	const double ThrobSpeed = 250.0; // Throb speed of mine beacon
-	NAS2D::Timer throbTimer;
-
-
-	const NAS2D::Color& overlayColor(Tile::Overlay overlay, bool isHighlighted)
-	{
-		return (isHighlighted ? OverlayHighlightColors : OverlayColors).at(overlay);
-	}
 
 
 	std::vector<NAS2D::Point<int>> generateMineLocations(NAS2D::Vector<int> mapSize, std::size_t mineCount)
@@ -123,16 +91,11 @@ namespace {
 }
 
 
-TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
+TileMap::TileMap(const std::string& mapPath, const std::string& /*tilesetPath*/, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
 	mSizeInTiles{MapSize},
-	mMaxDepth(maxDepth),
-	mMapPath(mapPath),
-	mTsetPath(tilesetPath),
-	mTileset(tilesetPath),
-	mMineBeacon("structures/mine_beacon.png")
+	mMaxDepth{maxDepth}
 {
 	buildTerrainMap(mapPath);
-	onResize(Utility<Renderer>::get().size());
 
 	if (shouldSetupMines)
 	{
@@ -208,17 +171,6 @@ void TileMap::buildTerrainMap(const std::string& path)
 }
 
 
-void TileMap::onResize(NAS2D::Vector<int> size)
-{
-	// Set up map draw position
-	const auto sizeInTiles = size.skewInverseBy(TileSize);
-	mEdgeLength = std::max(3, std::min(sizeInTiles.x, sizeInTiles.y));
-
-	// Find top left corner of rectangle containing top tile of diamond
-	mOriginPixelPosition = NAS2D::Point{size.x / 2, TileDrawOffset.y + (size.y - constants::BottomUiHeight - mEdgeLength * TileSize.y) / 2};
-}
-
-
 NAS2D::Rectangle<int> TileMap::viewArea() const
 {
 	return {mOriginTilePosition.xy.x, mOriginTilePosition.xy.y, mEdgeLength, mEdgeLength};
@@ -262,81 +214,15 @@ void TileMap::currentDepth(int i)
 }
 
 
-/**
- * Returns true if the current tile highlight is actually within the visible diamond map.
- */
-bool TileMap::isMouseOverTile() const
+int TileMap::viewSize() const
 {
-	return isVisibleTile(mouseTilePosition());
+	return mEdgeLength;
 }
 
 
-Tile& TileMap::mouseTile()
+void TileMap::viewSize(int sizeInTiles)
 {
-	if (!isMouseOverTile())
-	{
-		throw std::runtime_error("Mouse not over a tile");
-	}
-	return getTile(mouseTilePosition());
-}
-
-
-void TileMap::update()
-{
-	for (const auto tilePosition : PointInRectangleRange{viewArea()})
-	{
-		auto& tile = getTile({tilePosition, mOriginTilePosition.z});
-
-		if (tile.thing())
-		{
-			tile.thing()->sprite().update();
-		}
-	}
-}
-
-
-void TileMap::draw() const
-{
-	auto& renderer = Utility<Renderer>::get();
-
-	int tsetOffset = mOriginTilePosition.z > 0 ? TileDrawSize.y : 0;
-
-	for (const auto tilePosition : PointInRectangleRange{viewArea()})
-	{
-		auto& tile = getTile({tilePosition, mOriginTilePosition.z});
-
-		if (tile.excavated())
-		{
-			const auto offset = tilePosition - mOriginTilePosition.xy;
-			const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(offset.x - offset.y) * TileSize.x / 2, (offset.x + offset.y) * TileSize.y / 2};
-			const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
-			const bool isTileHighlighted = tilePosition == mMouseTilePosition;
-
-			renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
-
-			// Draw a beacon on an unoccupied tile with a mine
-			if (tile.mine() != nullptr && !tile.thing())
-			{
-				uint8_t glow = static_cast<uint8_t>(120 + sin(throbTimer.tick() / ThrobSpeed) * 57);
-				renderer.drawImage(mMineBeacon, position + NAS2D::Vector{0, -64});
-				renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{59, 15}, NAS2D::Rectangle{59, 79, 10, 7}, NAS2D::Color{glow, glow, glow});
-			}
-
-			// Tell an occupying thing to update itself.
-			if (tile.thing())
-			{
-				tile.thing()->sprite().draw(position);
-			}
-		}
-	}
-}
-
-
-void TileMap::onMouseMove(NAS2D::Point<int> position)
-{
-	const auto pixelOffset = position - mOriginPixelPosition;
-	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TileSize.y + pixelOffset.y * TileSize.x, pixelOffset.y * TileSize.x - pixelOffset.x * TileSize.y} / (TileSize.x * TileSize.y);
-	mMouseTilePosition = mOriginTilePosition.xy + tileOffset;
+	mEdgeLength = std::max(3, sizeInTiles);
 }
 
 

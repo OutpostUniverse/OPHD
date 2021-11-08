@@ -118,8 +118,9 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mCrimeExecution(mNotificationArea),
 	mPlanetAttributes(planetAttributes),
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
-	mMiniMap{std::make_unique<MiniMap>(mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mRobotDeploymentSummary{mRobotPool},
+	mMiniMap{std::make_unique<MiniMap>(mTileMap, mRobotList, planetAttributes.mapImagePath)},
+	mDetailMap{std::make_unique<DetailMap>(*mTileMap, planetAttributes.tilesetPath)},
 	mNavControl{std::make_unique<NavControl>(*mTileMap)}
 {
 	difficulty(selectedDifficulty);
@@ -258,11 +259,11 @@ NAS2D::State* MapViewState::update()
 
 	if (!modalUiElementDisplayed())
 	{
-		mTileMap->onMouseMove(MOUSE_COORDS);
+		mDetailMap->onMouseMove(MOUSE_COORDS);
 	}
 
-	mTileMap->update();
-	mTileMap->draw();
+	mDetailMap->update();
+	mDetailMap->draw();
 
 	// FIXME: Ugly / hacky
 	if (modalUiElementDisplayed())
@@ -306,7 +307,7 @@ void MapViewState::onActivate(bool /*newActiveValue*/)
 void MapViewState::onWindowResized(NAS2D::Vector<int> newSize)
 {
 	setupUiPositions(newSize);
-	mTileMap->onResize(newSize);
+	mDetailMap->resize(newSize);
 }
 
 
@@ -448,8 +449,8 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 			return;
 		}
 
-		if (!mTileMap->isMouseOverTile()) { return; }
-		const auto tilePosition = mTileMap->mouseTilePosition();
+		if (!mDetailMap->isMouseOverTile()) { return; }
+		const auto tilePosition = mDetailMap->mouseTilePosition();
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
 		const bool inspectModifier = NAS2D::Utility<NAS2D::EventHandler>::get().query_shift() ||
@@ -476,7 +477,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		mMiniMap->onMouseDown(button, x, y);
 
 		// Click was within the bounds of the TileMap.
-		if (mTileMap->isMouseOverTile())
+		if (mDetailMap->isMouseOverTile())
 		{
 			auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 			onClickMap(eventHandler.query_shift());
@@ -492,8 +493,8 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, i
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
-		if (!mTileMap->isMouseOverTile()) { return; }
-		const auto tilePosition = mTileMap->mouseTilePosition();
+		if (!mDetailMap->isMouseOverTile()) { return; }
+		const auto tilePosition = mDetailMap->mouseTilePosition();
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
 		auto& tile = mTileMap->getTile(tilePosition);
@@ -536,8 +537,8 @@ void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int
 		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 		if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 		{
-			if (!mTileMap->isMouseOverTile()) { return; }
-			placeTubeEnd(&mTileMap->mouseTile());
+			if (!mDetailMap->isMouseOverTile()) { return; }
+			placeTubeEnd(&mDetailMap->mouseTile());
 		}
 	}
 }
@@ -550,7 +551,7 @@ void MapViewState::onMouseMove(int x, int y, int rX, int rY)
 {
 	if (!active()) { return; }
 	mMiniMap->onMouseMove(x, y, rX, rY);
-	mMouseTilePosition = mTileMap->mouseTilePosition();
+	mMouseTilePosition = mDetailMap->mouseTilePosition();
 }
 
 
@@ -634,8 +635,8 @@ void MapViewState::onInspectTile(Tile& tile)
 
 void MapViewState::onClickMap(bool isShiftPressed)
 {
-	if (!mTileMap->isMouseOverTile()) { return; }
-	Tile* tile = &mTileMap->mouseTile();
+	if (!mDetailMap->isMouseOverTile()) { return; }
+	Tile* tile = &mDetailMap->mouseTile();
 
 	if (mInsertMode == InsertMode::Structure)
 	{
@@ -837,7 +838,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		}
 
 		mMineOperationsWindow.hide();
-		const auto tilePosition = mTileMap->mouseTilePosition().xy;
+		const auto tilePosition = mDetailMap->mouseTilePosition().xy;
 		mTileMap->removeMineLocation(tilePosition);
 		tile.pushMine(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)

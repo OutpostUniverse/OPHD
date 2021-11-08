@@ -187,6 +187,7 @@ void MapViewState::load(const std::string& filePath)
 	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.tilesetPath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
 	mMiniMap = std::make_unique<MiniMap>(mTileMap, mRobotList, mPlanetAttributes.mapImagePath);
+	mDetailMap = std::make_unique<DetailMap>(*mTileMap, mPlanetAttributes.tilesetPath);
 	mNavControl = std::make_unique<NavControl>(*mTileMap);
 
 	delete mPathSolver;

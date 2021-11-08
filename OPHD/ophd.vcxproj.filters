@@ -99,6 +99,9 @@
     <ClCompile Include="Things\Structures\Structure.cpp">
       <Filter>Source Files\Things\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="UI\DetailMap.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
     <ClCompile Include="UI\DiggerDirection.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -400,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="Things\Structures\Structures.h">
       <Filter>Header Files\Things\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\DetailMap.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\DiggerDirection.h">
       <Filter>Header Files\UI</Filter>

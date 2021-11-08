@@ -33,8 +33,9 @@
 #include "../UI/TileInspector.h"
 #include "../UI/WarehouseInspector.h"
 #include "../UI/ResourceInfoBar.h"
-#include "../UI/MiniMap.h"
 #include "../UI/RobotDeploymentSummary.h"
+#include "../UI/MiniMap.h"
+#include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
 
 #include "../UI/Core/WindowStack.h"
@@ -371,7 +372,8 @@ private:
 	std::string mExistingToLoad; /**< Filename of the existing game to load. */
 
 	ResourceInfoBar mResourceInfoBar;
-	std::unique_ptr<MiniMap> mMiniMap;
 	RobotDeploymentSummary mRobotDeploymentSummary;
+	std::unique_ptr<MiniMap> mMiniMap;
+	std::unique_ptr<DetailMap> mDetailMap;
 	std::unique_ptr<NavControl> mNavControl;
 };

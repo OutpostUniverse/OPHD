@@ -54,17 +54,10 @@ public:
 	int currentDepth() const { return mOriginTilePosition.z; }
 	void currentDepth(int i);
 
+	int viewSize() const;
+	void viewSize(int sizeInTiles);
+
 	bool isVisibleTile(const MapCoordinate& position) const;
-	bool isMouseOverTile() const;
-
-	MapCoordinate mouseTilePosition() const { return {mMouseTilePosition, mOriginTilePosition.z}; }
-	Tile& mouseTile();
-
-	void onMouseMove(NAS2D::Point<int> position);
-	void onResize(NAS2D::Vector<int>);
-
-	void update();
-	void draw() const;
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);
@@ -87,17 +80,10 @@ private:
 	std::vector<NAS2D::Point<int>> mMineLocations;
 
 	std::string mMapPath;
-	std::string mTsetPath;
-
-	const NAS2D::Image mTileset;
-	const NAS2D::Image mMineBeacon;
 
 	int mEdgeLength = 0;
 
 	MapCoordinate mOriginTilePosition{{0, 0}, 0}; // Top tile of detail view diamond, or top left corner of minimap view box
-	NAS2D::Point<int> mOriginPixelPosition; // Top pixel at top of diamond
-
-	NAS2D::Point<int> mMouseTilePosition;
 
 	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 };
