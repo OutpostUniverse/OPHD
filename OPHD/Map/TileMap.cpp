@@ -244,6 +244,12 @@ void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
 }
 
 
+NAS2D::Rectangle<int> TileMap::viewArea() const
+{
+	return {mOriginTilePosition.x, mOriginTilePosition.y, mEdgeLength, mEdgeLength};
+}
+
+
 void TileMap::mapViewLocation(NAS2D::Point<int> point)
 {
 	mOriginTilePosition = {

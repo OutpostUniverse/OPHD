@@ -46,6 +46,7 @@ public:
 	const std::vector<NAS2D::Point<int>>& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
 
+	NAS2D::Rectangle<int> viewArea() const;
 	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition; }
 	void mapViewLocation(NAS2D::Point<int> point);
 	void mapViewLocation(const MapCoordinate& position);
