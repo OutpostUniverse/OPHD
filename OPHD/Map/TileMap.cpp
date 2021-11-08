@@ -336,7 +336,8 @@ void TileMap::draw() const
 
 			if (tile.excavated())
 			{
-				const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(col - row) * TileSize.x / 2, (col + row) * TileSize.y / 2};
+				const auto offset = NAS2D::Vector{col, row};
+				const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(offset.x - offset.y) * TileSize.x / 2, (offset.x + offset.y) * TileSize.y / 2};
 				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
 				const bool isTileHighlighted = tilePosition == mMouseTilePosition.xy;
 
