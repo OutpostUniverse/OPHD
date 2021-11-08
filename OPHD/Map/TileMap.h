@@ -11,6 +11,10 @@
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Resource/Image.h>
 
+#include <string>
+#include <vector>
+#include <utility>
+
 
 namespace NAS2D
 {
