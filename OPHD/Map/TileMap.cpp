@@ -22,8 +22,7 @@ using namespace NAS2D;
 namespace {
 	const std::string MAP_TERRAIN_EXTENSION = "_a.png";
 
-	const int MAP_WIDTH = 300;
-	const int MAP_HEIGHT = 150;
+	const auto MapSize = NAS2D::Vector{300, 150};
 
 	const int TILE_WIDTH = 128;
 	const int TILE_HEIGHT = 64;
@@ -142,7 +141,7 @@ namespace {
 
 
 TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
-	mSizeInTiles{MAP_WIDTH, MAP_HEIGHT},
+	mSizeInTiles{MapSize},
 	mMaxDepth(maxDepth),
 	mMapPath(mapPath),
 	mTsetPath(tilesetPath),
