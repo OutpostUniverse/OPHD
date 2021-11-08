@@ -20,7 +20,7 @@ using namespace NAS2D;
 
 
 namespace {
-	const std::string MAP_TERRAIN_EXTENSION = "_a.png";
+	const std::string MapTerrainExtension = "_a.png";
 
 	const auto MapSize = NAS2D::Vector{300, 150};
 	const auto TileSize = NAS2D::Vector{128, 55};
@@ -199,7 +199,7 @@ Tile& TileMap::getTile(const MapCoordinate& position)
  */
 void TileMap::buildTerrainMap(const std::string& path)
 {
-	const Image heightmap(path + MAP_TERRAIN_EXTENSION);
+	const Image heightmap(path + MapTerrainExtension);
 
 	const auto levelCount = static_cast<std::size_t>(mMaxDepth) + 1;
 	mTileMap.resize(mSizeInTiles.x * mSizeInTiles.y * levelCount);
