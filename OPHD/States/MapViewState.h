@@ -137,7 +137,7 @@ private:
 	void onInspectRobot(Robot& robot);
 	void onInspectTile(Tile& tile);
 
-	void onClickMap(bool isShiftPressed);
+	void onClickMap();
 
 	void onSystemMenu();
 
@@ -160,9 +160,6 @@ private:
 	void placeRobot(Tile* tile);
 	void placeStructure(Tile* tile);
 	void placeTubes(Tile* tile);
-
-	void placeTubeStart(Tile* tile);
-	void placeTubeEnd(Tile* tile);
 
 	void placeRobodozer(Tile&);
 	void placeRobodigger(Tile&);
@@ -363,9 +360,6 @@ private:
 	std::vector<Tile*> mCommRangeOverlay;
 	std::vector<std::vector<Tile*>> mPoliceOverlays;
 	std::vector<Tile*> mTruckRouteOverlay;
-
-	NAS2D::Point<int> mTubeStart;
-	bool mPlacingTube = false;
 
 	bool mLoadingExisting = false;
 
