@@ -217,10 +217,10 @@ void TileMap::buildTerrainMap(const std::string& path)
 	{
 		for (const auto point : PointInRectangleRange{Rectangle<int>::Create({0, 0}, mSizeInTiles)})
 		{
-				auto color = heightmap.pixelColor(point);
-				auto& tile = getTile({point, depth});
-				tile = {{point, depth}, static_cast<TerrainType>(color.red / 50)};
-				if (depth > 0) { tile.excavated(false); }
+			auto color = heightmap.pixelColor(point);
+			auto& tile = getTile({point, depth});
+			tile = {{point, depth}, static_cast<TerrainType>(color.red / 50)};
+			if (depth > 0) { tile.excavated(false); }
 		}
 	}
 }
@@ -304,12 +304,12 @@ void TileMap::update()
 {
 	for (const auto tilePosition : PointInRectangleRange{viewArea()})
 	{
-			auto& tile = getTile({tilePosition, mMouseTilePosition.z});
+		auto& tile = getTile({tilePosition, mMouseTilePosition.z});
 
-			if (tile.thing())
-			{
-				tile.thing()->sprite().update();
-			}
+		if (tile.thing())
+		{
+			tile.thing()->sprite().update();
+		}
 	}
 
 	updateTileHighlight();
@@ -324,34 +324,34 @@ void TileMap::draw() const
 
 	for (const auto tilePosition : PointInRectangleRange{viewArea()})
 	{
-			auto& tile = getTile({tilePosition, mMouseTilePosition.z});
+		auto& tile = getTile({tilePosition, mMouseTilePosition.z});
 
-			if (tile.excavated())
+		if (tile.excavated())
+		{
+			const auto offset = tilePosition - mOriginTilePosition;
+			const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(offset.x - offset.y) * TileSize.x / 2, (offset.x + offset.y) * TileSize.y / 2};
+			const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
+			const bool isTileHighlighted = tilePosition == mMouseTilePosition.xy;
+
+			renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
+
+			// Draw a beacon on an unoccupied tile with a mine
+			if (tile.mine() != nullptr && !tile.thing())
 			{
-				const auto offset = tilePosition - mOriginTilePosition;
-				const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(offset.x - offset.y) * TileSize.x / 2, (offset.x + offset.y) * TileSize.y / 2};
-				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
-				const bool isTileHighlighted = tilePosition == mMouseTilePosition.xy;
+				uint8_t glow = static_cast<uint8_t>(120 + sin(mTimer.tick() / ThrobSpeed) * 57);
+				const auto mineBeaconPosition = position + NAS2D::Vector{0, -64};
 
-				renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
-
-				// Draw a beacon on an unoccupied tile with a mine
-				if (tile.mine() != nullptr && !tile.thing())
-				{
-					uint8_t glow = static_cast<uint8_t>(120 + sin(mTimer.tick() / ThrobSpeed) * 57);
-					const auto mineBeaconPosition = position + NAS2D::Vector{0, -64};
-
-					renderer.drawImage(mMineBeacon, mineBeaconPosition);
-					renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{59, 15}, NAS2D::Rectangle{59, 79, 10, 7}, NAS2D::Color{glow, glow, glow});
-				}
-
-				// Tell an occupying thing to update itself.
-				if (tile.thing())
-				{
-					auto& sprite = tile.thing()->sprite();
-					sprite.draw(position);
-				}
+				renderer.drawImage(mMineBeacon, mineBeaconPosition);
+				renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{59, 15}, NAS2D::Rectangle{59, 79, 10, 7}, NAS2D::Color{glow, glow, glow});
 			}
+
+			// Tell an occupying thing to update itself.
+			if (tile.thing())
+			{
+				auto& sprite = tile.thing()->sprite();
+				sprite.draw(position);
+			}
+		}
 	}
 }
 
