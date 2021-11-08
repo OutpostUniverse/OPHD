@@ -46,7 +46,6 @@ public:
 	void removeMineLocation(const NAS2D::Point<int>& pt);
 
 	NAS2D::Rectangle<int> viewArea() const;
-	void mapViewLocation(NAS2D::Point<int> point);
 	void mapViewLocation(const MapCoordinate& position);
 	void centerOn(NAS2D::Point<int> point);
 	void centerOn(const MapCoordinate& position);

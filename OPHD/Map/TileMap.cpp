@@ -225,18 +225,12 @@ NAS2D::Rectangle<int> TileMap::viewArea() const
 }
 
 
-void TileMap::mapViewLocation(NAS2D::Point<int> point)
-{
-	mOriginTilePosition.xy = {
-		std::clamp(point.x, 0, mSizeInTiles.x - mEdgeLength),
-		std::clamp(point.y, 0, mSizeInTiles.y - mEdgeLength)
-	};
-}
-
-
 void TileMap::mapViewLocation(const MapCoordinate& position)
 {
-	mapViewLocation(position.xy);
+	mOriginTilePosition.xy = {
+		std::clamp(position.xy.x, 0, mSizeInTiles.x - mEdgeLength),
+		std::clamp(position.xy.y, 0, mSizeInTiles.y - mEdgeLength)
+	};
 	currentDepth(position.z);
 }
 
