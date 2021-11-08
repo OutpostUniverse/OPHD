@@ -388,24 +388,24 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	{
 		for (const auto point : PointInRectangleRange{Rectangle<int>::Create({0, 0}, mSizeInTiles)})
 		{
-				auto& tile = getTile({point, depth});
-				if (
-					((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
-					(tile.empty() && tile.mine() == nullptr)
-				)
-				{
-					tiles->linkEndChild(
-						NAS2D::dictionaryToAttributes(
-							"tile",
-							{{
-								{"x", point.x},
-								{"y", point.y},
-								{"depth", depth},
-								{"index", static_cast<int>(tile.index())},
-							}}
-						)
-					);
-				}
+			auto& tile = getTile({point, depth});
+			if (
+				((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
+				(tile.empty() && tile.mine() == nullptr)
+			)
+			{
+				tiles->linkEndChild(
+					NAS2D::dictionaryToAttributes(
+						"tile",
+						{{
+							{"x", point.x},
+							{"y", point.y},
+							{"depth", depth},
+							{"index", static_cast<int>(tile.index())},
+						}}
+					)
+				);
+			}
 		}
 	}
 }
