@@ -227,13 +227,13 @@ void TileMap::onResize(NAS2D::Vector<int> size)
 
 NAS2D::Rectangle<int> TileMap::viewArea() const
 {
-	return {mOriginTilePosition.x, mOriginTilePosition.y, mEdgeLength, mEdgeLength};
+	return {mOriginTilePosition.xy.x, mOriginTilePosition.xy.y, mEdgeLength, mEdgeLength};
 }
 
 
 void TileMap::mapViewLocation(NAS2D::Point<int> point)
 {
-	mOriginTilePosition = {
+	mOriginTilePosition.xy = {
 		std::clamp(point.x, 0, mSizeInTiles.x - mEdgeLength),
 		std::clamp(point.y, 0, mSizeInTiles.y - mEdgeLength)
 	};
@@ -249,7 +249,7 @@ void TileMap::mapViewLocation(const MapCoordinate& position)
 
 void TileMap::centerOn(NAS2D::Point<int> point)
 {
-	centerOn({point, mMouseTilePosition.z});
+	centerOn({point, mOriginTilePosition.z});
 }
 
 
@@ -262,15 +262,15 @@ void TileMap::centerOn(const MapCoordinate& position)
 void TileMap::moveView(Direction direction)
 {
 	mapViewLocation({
-		mOriginTilePosition + directionEnumToOffset(direction),
-		mMouseTilePosition.z + directionEnumToVerticalOffset(direction)
+		mOriginTilePosition.xy + directionEnumToOffset(direction),
+		mOriginTilePosition.z + directionEnumToVerticalOffset(direction)
 	});
 }
 
 
 void TileMap::currentDepth(int i)
 {
-	mMouseTilePosition.z = std::clamp(i, 0, mMaxDepth);
+	mOriginTilePosition.z = std::clamp(i, 0, mMaxDepth);
 }
 
 
@@ -297,7 +297,7 @@ void TileMap::update()
 {
 	for (const auto tilePosition : PointInRectangleRange{viewArea()})
 	{
-		auto& tile = getTile({tilePosition, mMouseTilePosition.z});
+		auto& tile = getTile({tilePosition, mOriginTilePosition.z});
 
 		if (tile.thing())
 		{
@@ -313,18 +313,18 @@ void TileMap::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	int tsetOffset = mMouseTilePosition.z > 0 ? TileDrawSize.y : 0;
+	int tsetOffset = mOriginTilePosition.z > 0 ? TileDrawSize.y : 0;
 
 	for (const auto tilePosition : PointInRectangleRange{viewArea()})
 	{
-		auto& tile = getTile({tilePosition, mMouseTilePosition.z});
+		auto& tile = getTile({tilePosition, mOriginTilePosition.z});
 
 		if (tile.excavated())
 		{
-			const auto offset = tilePosition - mOriginTilePosition;
+			const auto offset = tilePosition - mOriginTilePosition.xy;
 			const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(offset.x - offset.y) * TileSize.x / 2, (offset.x + offset.y) * TileSize.y / 2};
 			const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
-			const bool isTileHighlighted = tilePosition == mMouseTilePosition.xy;
+			const bool isTileHighlighted = tilePosition == mMouseTilePosition;
 
 			renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
 
@@ -356,7 +356,7 @@ void TileMap::updateTileHighlight()
 {
 	const auto pixelOffset = mMousePixelPosition - mOriginPixelPosition;
 	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TileSize.y + pixelOffset.y * TileSize.x, pixelOffset.y * TileSize.x - pixelOffset.x * TileSize.y} / (TileSize.x * TileSize.y);
-	mMouseTilePosition.xy = mOriginTilePosition + tileOffset;
+	mMouseTilePosition = mOriginTilePosition.xy + tileOffset;
 }
 
 
@@ -368,9 +368,9 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	element->linkEndChild(NAS2D::dictionaryToAttributes(
 		"view_parameters",
 		{{
-			{"currentdepth", mMouseTilePosition.z},
-			{"viewlocation_x", mOriginTilePosition.x},
-			{"viewlocation_y", mOriginTilePosition.y},
+			{"currentdepth", mOriginTilePosition.z},
+			{"viewlocation_x", mOriginTilePosition.xy.x},
+			{"viewlocation_y", mOriginTilePosition.xy.y},
 		}}
 	));
 
@@ -474,7 +474,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 bool TileMap::isVisibleTile(const MapCoordinate& position) const
 {
-	return viewArea().contains(position.xy) && position.z == mMouseTilePosition.z;
+	return viewArea().contains(position.xy) && position.z == mOriginTilePosition.z;
 }
 
 

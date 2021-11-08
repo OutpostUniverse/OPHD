@@ -40,26 +40,26 @@ public:
 
 	const Tile& getTile(const MapCoordinate& position) const;
 	Tile& getTile(const MapCoordinate& position);
-	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mMouseTilePosition.z}); }
+	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mOriginTilePosition.z}); }
 
 	const std::vector<NAS2D::Point<int>>& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
 
 	NAS2D::Rectangle<int> viewArea() const;
-	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition; }
+	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition.xy; }
 	void mapViewLocation(NAS2D::Point<int> point);
 	void mapViewLocation(const MapCoordinate& position);
 	void centerOn(NAS2D::Point<int> point);
 	void centerOn(const MapCoordinate& position);
 	void moveView(Direction direction);
 
-	int currentDepth() const { return mMouseTilePosition.z; }
+	int currentDepth() const { return mOriginTilePosition.z; }
 	void currentDepth(int i);
 
 	bool isVisibleTile(const MapCoordinate& position) const;
 	bool isMouseOverTile() const;
 
-	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
+	MapCoordinate mouseTilePosition() const { return {mMouseTilePosition, mOriginTilePosition.z}; }
 	Tile& mouseTile();
 
 	int edgeLength() const { return mEdgeLength; }
@@ -101,11 +101,11 @@ private:
 
 	int mEdgeLength = 0;
 
-	MapCoordinate mMouseTilePosition{{-1, -1}, 0};
-	NAS2D::Point<int> mMousePixelPosition;
-
-	NAS2D::Point<int> mOriginTilePosition; // Top tile of detail view diamond, or top left corner of minimap view box
+	MapCoordinate mOriginTilePosition{{0, 0}, 0}; // Top tile of detail view diamond, or top left corner of minimap view box
 	NAS2D::Point<int> mOriginPixelPosition; // Top pixel at top of diamond
+
+	NAS2D::Point<int> mMouseTilePosition;
+	NAS2D::Point<int> mMousePixelPosition;
 
 	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 };
