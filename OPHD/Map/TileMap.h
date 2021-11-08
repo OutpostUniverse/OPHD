@@ -23,16 +23,6 @@ enum class Direction;
 class TileMap : public micropather::Graph
 {
 public:
-	enum TileMapLevel
-	{
-		LEVEL_SURFACE = 0,
-		LEVEL_UG_1,
-		LEVEL_UG_2,
-		LEVEL_UG_3,
-		LEVEL_UG_4
-	};
-
-
 	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility /*= constants::Hostility::None*/, bool setupMines = true);
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;
