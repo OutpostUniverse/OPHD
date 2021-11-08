@@ -469,7 +469,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 			return;
 		}
 
-		if (!mTileMap->tileHighlightVisible()) { return; }
+		if (!mTileMap->isMouseOverTile()) { return; }
 		const auto tilePosition = mTileMap->mouseTilePosition();
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
@@ -513,7 +513,7 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, i
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
-		if (!mTileMap->tileHighlightVisible()) { return; }
+		if (!mTileMap->isMouseOverTile()) { return; }
 		const auto tilePosition = mTileMap->mouseTilePosition();
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 

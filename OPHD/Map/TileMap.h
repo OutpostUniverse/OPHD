@@ -58,7 +58,7 @@ public:
 	void currentDepth(int i);
 
 	bool isVisibleTile(const MapCoordinate& position) const;
-	bool tileHighlightVisible() const;
+	bool isMouseOverTile() const;
 
 	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
 	Tile* getVisibleTile(const MapCoordinate& position);

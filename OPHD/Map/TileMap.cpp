@@ -293,7 +293,7 @@ void TileMap::currentDepth(int i)
 /**
  * Returns true if the current tile highlight is actually within the visible diamond map.
  */
-bool TileMap::tileHighlightVisible() const
+bool TileMap::isMouseOverTile() const
 {
 	return isVisibleTile(mouseTilePosition());
 }
