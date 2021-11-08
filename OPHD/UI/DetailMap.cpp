@@ -52,8 +52,8 @@ namespace {
 
 DetailMap::DetailMap(TileMap& tileMap, const std::string& tilesetPath) :
 	mTileMap{tileMap},
-	mTileset(tilesetPath),
-	mMineBeacon("structures/mine_beacon.png")
+	mTileset{tilesetPath},
+	mMineBeacon{"structures/mine_beacon.png"}
 {
 	resize(Utility<Renderer>::get().size());
 }
