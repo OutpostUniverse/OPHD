@@ -282,6 +282,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClCompile Include="UI\Core\UIContainer.cpp" />
     <ClCompile Include="UI\Core\Window.cpp" />
     <ClCompile Include="UI\Core\WindowStack.cpp" />
+    <ClCompile Include="UI\DetailMap.cpp" />
     <ClCompile Include="UI\DiggerDirection.cpp" />
     <ClCompile Include="UI\FactoryListBox.cpp" />
     <ClCompile Include="UI\FactoryProduction.cpp" />
@@ -417,6 +418,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="UI\Core\UIContainer.h" />
     <ClInclude Include="UI\Core\Window.h" />
     <ClInclude Include="UI\Core\WindowStack.h" />
+    <ClInclude Include="UI\DetailMap.h" />
     <ClInclude Include="UI\DiggerDirection.h" />
     <ClInclude Include="UI\FactoryProduction.h" />
     <ClInclude Include="UI\FileIo.h" />
