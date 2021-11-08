@@ -333,8 +333,7 @@ void TileMap::draw() const
 			// Tell an occupying thing to update itself.
 			if (tile.thing())
 			{
-				auto& sprite = tile.thing()->sprite();
-				sprite.draw(position);
+				tile.thing()->sprite().draw(position);
 			}
 		}
 	}
