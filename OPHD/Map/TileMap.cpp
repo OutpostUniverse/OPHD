@@ -180,9 +180,6 @@ Tile& TileMap::getTile(const MapCoordinate& position)
 }
 
 
-/**
- * Builds the terrain map.
- */
 void TileMap::buildTerrainMap(const std::string& path)
 {
 	const Image heightmap(path + MapTerrainExtension);
@@ -211,9 +208,6 @@ void TileMap::buildTerrainMap(const std::string& path)
 }
 
 
-/**
- * Sets up position and drawing parememters for the tile map.
- */
 void TileMap::onResize(NAS2D::Vector<int> size)
 {
 	// Set up map draw position
@@ -349,9 +343,6 @@ void TileMap::draw() const
 }
 
 
-/**
- * Brute Force but works.
- */
 void TileMap::updateTileHighlight()
 {
 	const auto pixelOffset = mMousePixelPosition - mOriginPixelPosition;
