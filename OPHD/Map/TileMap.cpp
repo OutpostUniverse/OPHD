@@ -60,26 +60,14 @@ namespace {
 	NAS2D::Timer throbTimer;
 
 
-	const NAS2D::Color& overlayColor(Tile::Overlay overlay)
-	{
-		return OverlayColorTable.at(overlay);
-	}
-
-
-	const NAS2D::Color& overlayHighlightColor(Tile::Overlay overlay)
-	{
-		return OverlayHighlightColorTable.at(overlay);
-	}
-
-
 	const NAS2D::Color& overlayColor(Tile::Overlay overlay, bool isHighlighted)
 	{
 		if (isHighlighted)
 		{
-			return overlayHighlightColor(overlay);
+			return OverlayHighlightColorTable.at(overlay);
 		}
 
-		return overlayColor(overlay);
+		return OverlayColorTable.at(overlay);
 	}
 
 
