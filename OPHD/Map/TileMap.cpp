@@ -419,14 +419,14 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	// VIEW PARAMETERS
-	auto* view_parameters = element->firstChildElement("view_parameters");
-	const auto dictionary = NAS2D::attributesToDictionary(*view_parameters);
+	auto* viewParameters = element->firstChildElement("view_parameters");
+	const auto dictionary = NAS2D::attributesToDictionary(*viewParameters);
 
-	const auto view_x = dictionary.get<int>("viewlocation_x");
-	const auto view_y = dictionary.get<int>("viewlocation_y");
-	const auto view_depth = dictionary.get<int>("currentdepth");
+	const auto viewX = dictionary.get<int>("viewlocation_x");
+	const auto viewY = dictionary.get<int>("viewlocation_y");
+	const auto viewDepth = dictionary.get<int>("currentdepth");
 
-	mapViewLocation({{view_x, view_y}, view_depth});
+	mapViewLocation({{viewX, viewY}, viewDepth});
 
 	for (auto* mineElement = element->firstChildElement("mines")->firstChildElement("mine"); mineElement; mineElement = mineElement->nextSiblingElement())
 	{
