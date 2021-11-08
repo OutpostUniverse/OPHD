@@ -60,8 +60,6 @@ public:
 	MapCoordinate mouseTilePosition() const { return {mMouseTilePosition, mOriginTilePosition.z}; }
 	Tile& mouseTile();
 
-	int edgeLength() const { return mEdgeLength; }
-
 	void onMouseMove(NAS2D::Point<int> position);
 	void onResize(NAS2D::Vector<int>);
 
