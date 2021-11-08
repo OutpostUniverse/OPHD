@@ -489,8 +489,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 bool TileMap::isVisibleTile(const MapCoordinate& position) const
 {
-	return NAS2D::Rectangle{mOriginTilePosition.x, mOriginTilePosition.y, mEdgeLength, mEdgeLength}.contains(position.xy) &&
-		position.z == mMouseTilePosition.z;
+	return viewArea().contains(position.xy) && position.z == mMouseTilePosition.z;
 }
 
 
