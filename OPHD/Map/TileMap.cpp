@@ -232,9 +232,8 @@ void TileMap::buildTerrainMap(const std::string& path)
 void TileMap::onResize(NAS2D::Vector<int> size)
 {
 	// Set up map draw position
-	const auto lengthX = size.x / TileSize.x;
-	const auto lengthY = size.y / TileSize.y;
-	mEdgeLength = std::max(3, std::min(lengthX, lengthY));
+	const auto sizeInTiles = size.skewInverseBy(TileSize);
+	mEdgeLength = std::max(3, std::min(sizeInTiles.x, sizeInTiles.y));
 
 	// Find top left corner of rectangle containing top tile of diamond
 	mOriginPixelPosition = NAS2D::Point{size.x / 2, TileDrawOffset.y + (size.y - constants::BottomUiHeight - mEdgeLength * TileSize.y) / 2};
