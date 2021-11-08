@@ -5,7 +5,6 @@
 #include "../States/Planet.h"
 #include "../MicroPather/micropather.h"
 
-#include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
@@ -99,8 +98,6 @@ private:
 
 	const NAS2D::Image mTileset;
 	const NAS2D::Image mMineBeacon;
-
-	NAS2D::Timer mTimer;
 
 	int mEdgeLength = 0;
 

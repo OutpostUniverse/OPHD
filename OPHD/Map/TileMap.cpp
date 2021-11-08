@@ -7,6 +7,7 @@
 #include "../Things/Structures/Structure.h"
 #include "../RandomNumberGenerator.h"
 
+#include <NAS2D/Timer.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
@@ -27,8 +28,6 @@ namespace {
 	const auto TileSize = NAS2D::Vector{128, 55};
 	const auto TileDrawSize = NAS2D::Vector{128, 64};
 	const auto TileDrawOffset = NAS2D::Vector{TileDrawSize.x / 2, TileDrawSize.y - TileSize.y};
-
-	const double ThrobSpeed = 250.0; // Throb speed of mine beacon
 
 	/** Array indicates percent of mines that should be of yields LOW, MED, HIGH */
 	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYieldTable =
@@ -56,6 +55,9 @@ namespace {
 		{Tile::Overlay::TruckingRoutes, NAS2D::Color{125, 200, 255}},
 		{Tile::Overlay::Police, NAS2D::Color{100, 180, 230}}
 	};
+
+	const double ThrobSpeed = 250.0; // Throb speed of mine beacon
+	NAS2D::Timer throbTimer;
 
 
 	const NAS2D::Color& overlayColor(Tile::Overlay overlay)
@@ -346,7 +348,7 @@ void TileMap::draw() const
 			// Draw a beacon on an unoccupied tile with a mine
 			if (tile.mine() != nullptr && !tile.thing())
 			{
-				uint8_t glow = static_cast<uint8_t>(120 + sin(mTimer.tick() / ThrobSpeed) * 57);
+				uint8_t glow = static_cast<uint8_t>(120 + sin(throbTimer.tick() / ThrobSpeed) * 57);
 				const auto mineBeaconPosition = position + NAS2D::Vector{0, -64};
 
 				renderer.drawImage(mMineBeacon, mineBeaconPosition);
