@@ -534,12 +534,6 @@ void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		mMiniMap->onMouseUp(button, x, y);
-		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-		if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
-		{
-			if (!mDetailMap->isMouseOverTile()) { return; }
-			placeTubeEnd(&mDetailMap->mouseTile());
-		}
 	}
 }
 
@@ -633,7 +627,7 @@ void MapViewState::onInspectTile(Tile& tile)
 }
 
 
-void MapViewState::onClickMap(bool isShiftPressed)
+void MapViewState::onClickMap(bool /*isShiftPressed*/)
 {
 	if (!mDetailMap->isMouseOverTile()) { return; }
 	Tile* tile = &mDetailMap->mouseTile();
@@ -645,10 +639,6 @@ void MapViewState::onClickMap(bool isShiftPressed)
 	else if (mInsertMode == InsertMode::Robot)
 	{
 		placeRobot(tile);
-	}
-	else if ((mInsertMode == InsertMode::Tube) && isShiftPressed)
-	{
-		placeTubeStart(tile);
 	}
 	else if (mInsertMode == InsertMode::Tube)
 	{
@@ -729,90 +719,6 @@ void MapViewState::placeTubes(Tile* tile)
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeInvalidLocation);
 	}
-}
-
-void MapViewState::placeTubeStart(Tile* tile)
-{
-	mPlacingTube = false;
-
-	// Check the basics.
-	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
-
-	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
-	 *			Should instead take advantage of the updated meta data in the IconGridItem.
-	 */
-	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
-
-	if (!validTubeConnection(*mTileMap, mMouseTilePosition, cd))
-	{
-		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeInvalidLocation);
-		return;
-	}
-	mTubeStart = tile->xy();
-	mPlacingTube = true;
-}
-
-
-void MapViewState::placeTubeEnd(Tile* tile)
-{
-	if (!mPlacingTube) return;
-	mPlacingTube = false;
-
-	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
-	 *			Should instead take advantage of the updated meta data in the IconGridItem.
-	 */
-	ConnectorDir cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
-
-	const auto startEndDirection = tile->xy() - mTubeStart;
-	NAS2D::Vector<int> tubeEndOffset;
-
-	switch (cd)
-	{
-	case ConnectorDir::CONNECTOR_INTERSECTION:
-		// Determine direction of largest change, and snap to that axis
-		if (abs(startEndDirection.x) >= abs(startEndDirection.y)){
-			tubeEndOffset = {startEndDirection.x, 0};
-		}else{
-			tubeEndOffset = {0, startEndDirection.y};
-		}
-		break;
-	case ConnectorDir::CONNECTOR_RIGHT:
-		tubeEndOffset = {startEndDirection.x, 0};
-		break;
-	case ConnectorDir::CONNECTOR_LEFT:
-		tubeEndOffset = {0, startEndDirection.y};
-		break;
-	default:
-		return;
-	}
-	// Tube is axis aligned, so either x or y is 0
-	const int tubeLength = abs(tubeEndOffset.x + tubeEndOffset.y);
-	const auto tubeDirection = tubeEndOffset / tubeLength;
-	const auto tubeEnd = mTubeStart + tubeEndOffset;
-
-	auto position = mTubeStart;
-	bool endReach = false;
-
-	do {
-		const auto tubeStartPosition = MapCoordinate{mTubeStart, mTileMap->currentDepth()};
-		tile = &mTileMap->getTile(tubeStartPosition);
-		if (!mTileMap->isVisibleTile(tubeStartPosition)) {
-			endReach = true;
-		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
-			endReach = true;
-		}else if (!validTubeConnection(*mTileMap, {position, mTileMap->currentDepth()}, cd)){
-			endReach = true;
-		}else{
-			insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(position));
-
-			// FIXME: Naive approach -- will be slow with larger colonies.
-			NAS2D::Utility<StructureManager>::get().disconnectAll();
-			checkConnectedness();
-		}
-
-		if (position == tubeEnd) endReach = true;
-		position += tubeDirection;
-	} while (!endReach);
 }
 
 

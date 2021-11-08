@@ -161,9 +161,6 @@ private:
 	void placeStructure(Tile* tile);
 	void placeTubes(Tile* tile);
 
-	void placeTubeStart(Tile* tile);
-	void placeTubeEnd(Tile* tile);
-
 	void placeRobodozer(Tile&);
 	void placeRobodigger(Tile&);
 	void placeRobominer(Tile&);
@@ -363,9 +360,6 @@ private:
 	std::vector<Tile*> mCommRangeOverlay;
 	std::vector<std::vector<Tile*>> mPoliceOverlays;
 	std::vector<Tile*> mTruckRouteOverlay;
-
-	NAS2D::Point<int> mTubeStart;
-	bool mPlacingTube = false;
 
 	bool mLoadingExisting = false;
 
