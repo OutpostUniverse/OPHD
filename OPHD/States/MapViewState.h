@@ -137,7 +137,7 @@ private:
 	void onInspectRobot(Robot& robot);
 	void onInspectTile(Tile& tile);
 
-	void onClickMap(bool isShiftPressed);
+	void onClickMap();
 
 	void onSystemMenu();
 

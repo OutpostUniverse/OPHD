@@ -479,8 +479,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		// Click was within the bounds of the TileMap.
 		if (mDetailMap->isMouseOverTile())
 		{
-			auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-			onClickMap(eventHandler.query_shift());
+			onClickMap();
 		}
 	}
 }
@@ -627,7 +626,7 @@ void MapViewState::onInspectTile(Tile& tile)
 }
 
 
-void MapViewState::onClickMap(bool /*isShiftPressed*/)
+void MapViewState::onClickMap()
 {
 	if (!mDetailMap->isMouseOverTile()) { return; }
 	Tile* tile = &mDetailMap->mouseTile();
