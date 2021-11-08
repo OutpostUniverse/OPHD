@@ -304,14 +304,11 @@ void TileMap::update()
 		{
 			auto& tile = getTile({mOriginTilePosition + NAS2D::Vector{col, row}, mMouseTilePosition.z});
 
-			if (tile.excavated())
+			// Tell an occupying thing to update itself.
+			if (tile.thing())
 			{
-				// Tell an occupying thing to update itself.
-				if (tile.thing())
-				{
-					auto& sprite = tile.thing()->sprite();
-					sprite.update();
-				}
+				auto& sprite = tile.thing()->sprite();
+				sprite.update();
 			}
 		}
 	}
