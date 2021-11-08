@@ -471,9 +471,6 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		tile.index(TerrainType::Dozed);
 
 		mMineLocations.push_back(Point{x, y});
-
-		/// \fixme	Legacy code to assist in updating older versions of save games between 0.7.5 and 0.7.6. Remove in 0.8.0
-		if (mine->depth() == 0 && mine->active()) { mine->increaseDepth(); }
 	}
 
 	// TILES AT INDEX 0 WITH NO THINGS
