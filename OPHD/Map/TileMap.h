@@ -69,7 +69,7 @@ public:
 
 	void injectMouse(NAS2D::Point<int> position) { mMousePixelPosition = position; }
 
-	void initMapDrawParams(NAS2D::Vector<int>);
+	void onResize(NAS2D::Vector<int>);
 
 	void update();
 	void draw() const;

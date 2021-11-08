@@ -147,7 +147,7 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 	mMineBeacon("structures/mine_beacon.png")
 {
 	buildTerrainMap(mapPath);
-	initMapDrawParams(Utility<Renderer>::get().size());
+	onResize(Utility<Renderer>::get().size());
 
 	if (shouldSetupMines)
 	{
@@ -229,7 +229,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 /**
  * Sets up position and drawing parememters for the tile map.
  */
-void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
+void TileMap::onResize(NAS2D::Vector<int> size)
 {
 	// Set up map draw position
 	const auto lengthX = size.x / TileSize.x;
