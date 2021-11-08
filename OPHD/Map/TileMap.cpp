@@ -25,8 +25,7 @@ namespace {
 	const auto MapSize = NAS2D::Vector{300, 150};
 	const auto TileSize = NAS2D::Vector{128, 55};
 	const auto TileDrawSize = NAS2D::Vector{128, 64};
-
-	const int TILE_HEIGHT_OFFSET = 9;
+	const auto TileDrawOffset = NAS2D::Vector{TileDrawSize.x / 2, TileDrawSize.y - TileSize.y};
 
 	const double THROB_SPEED = 250.0; // Throb speed of mine beacon
 
@@ -374,7 +373,7 @@ void TileMap::updateTileHighlight()
 		return;
 	}
 
-	const auto pixelOffset = mMousePixelPosition - (mOriginPixelPosition + NAS2D::Vector{TileSize.x / 2, TILE_HEIGHT_OFFSET});
+	const auto pixelOffset = mMousePixelPosition - (mOriginPixelPosition + TileDrawOffset);
 	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TileSize.y + pixelOffset.y * TileSize.x, pixelOffset.y * TileSize.x - pixelOffset.x * TileSize.y} / (TileSize.x * TileSize.y);
 	mMouseTilePosition.xy = mOriginTilePosition + tileOffset;
 }
