@@ -299,7 +299,7 @@ void TileMap::update()
 		}
 	}
 
-	updateTileHighlight();
+	updateMouseTilePosition();
 }
 
 
@@ -341,7 +341,7 @@ void TileMap::draw() const
 }
 
 
-void TileMap::updateTileHighlight()
+void TileMap::updateMouseTilePosition()
 {
 	const auto pixelOffset = mMousePixelPosition - mOriginPixelPosition;
 	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TileSize.y + pixelOffset.y * TileSize.x, pixelOffset.y * TileSize.x - pixelOffset.x * TileSize.y} / (TileSize.x * TileSize.y);

@@ -84,8 +84,7 @@ public:
 
 private:
 	void buildTerrainMap(const std::string& path);
-
-	void updateTileHighlight();
+	void updateMouseTilePosition();
 
 
 	const NAS2D::Vector<int> mSizeInTiles;
