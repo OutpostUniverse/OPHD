@@ -29,7 +29,7 @@ namespace {
 	const auto TileDrawSize = NAS2D::Vector{128, 64};
 	const auto TileDrawOffset = NAS2D::Vector{TileDrawSize.x / 2, TileDrawSize.y - TileSize.y};
 
-	/** Array indicates percent of mines that should be of yields LOW, MED, HIGH */
+	// Relative proportion of mines with yields {low, med, high}
 	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYields =
 	{
 		{Planet::Hostility::Low, {30, 50, 20}},
