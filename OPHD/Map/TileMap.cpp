@@ -237,7 +237,6 @@ void TileMap::onResize(NAS2D::Vector<int> size)
 
 	// Find top left corner of rectangle containing top tile of diamond
 	mOriginPixelPosition = NAS2D::Point{size.x / 2, TileDrawOffset.y + (size.y - constants::BottomUiHeight - mEdgeLength * TileSize.y) / 2};
-	mMapBoundingBox = {(size.x - TileSize.x * mEdgeLength) / 2, mOriginPixelPosition.y - TileDrawOffset.y, TileSize.x * mEdgeLength, TileSize.y * mEdgeLength};
 }
 
 
