@@ -30,7 +30,7 @@ namespace {
 	const auto TileDrawOffset = NAS2D::Vector{TileDrawSize.x / 2, TileDrawSize.y - TileSize.y};
 
 	/** Array indicates percent of mines that should be of yields LOW, MED, HIGH */
-	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYieldTable =
+	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYields =
 	{
 		{Planet::Hostility::Low, {30, 50, 20}},
 		{Planet::Hostility::Medium, {45, 35, 20}},
@@ -38,7 +38,7 @@ namespace {
 	};
 
 
-	const std::map<Tile::Overlay, NAS2D::Color> OverlayColorTable =
+	const std::map<Tile::Overlay, NAS2D::Color> OverlayColors =
 	{
 		{Tile::Overlay::None, NAS2D::Color::Normal},
 		{Tile::Overlay::Communications, {125, 200, 255}},
@@ -47,7 +47,7 @@ namespace {
 		{Tile::Overlay::Police, NAS2D::Color::Red}
 	};
 
-	const std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColorTable =
+	const std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColors =
 	{
 		{Tile::Overlay::None, NAS2D::Color{125, 200, 255}},
 		{Tile::Overlay::Communications, {100, 180, 230}},
@@ -62,7 +62,7 @@ namespace {
 
 	const NAS2D::Color& overlayColor(Tile::Overlay overlay, bool isHighlighted)
 	{
-		return (isHighlighted ? OverlayHighlightColorTable : OverlayColorTable).at(overlay);
+		return (isHighlighted ? OverlayHighlightColors : OverlayColors).at(overlay);
 	}
 
 
@@ -103,7 +103,7 @@ namespace {
 
 	void placeMines(TileMap& tileMap, Planet::Hostility hostility, const std::vector<NAS2D::Point<int>>& locations)
 	{
-		const auto& mineYields = HostilityMineYieldTable.at(hostility);
+		const auto& mineYields = HostilityMineYields.at(hostility);
 		const auto total = std::accumulate(mineYields.begin(), mineYields.end(), 0);
 
 		const auto randYield = [mineYields, total]() {
