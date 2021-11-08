@@ -10,6 +10,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
+#include <NAS2D/Math/PointInRectangleRange.h>
 
 #include <algorithm>
 #include <functional>
@@ -214,15 +215,12 @@ void TileMap::buildTerrainMap(const std::string& path)
 	 */
 	for (int depth = 0; depth <= mMaxDepth; depth++)
 	{
-		for (int row = 0; row < mSizeInTiles.y; row++)
+		for (const auto point : PointInRectangleRange{Rectangle<int>::Create({0, 0}, mSizeInTiles)})
 		{
-			for (int col = 0; col < mSizeInTiles.x; col++)
-			{
-				auto color = heightmap.pixelColor({col, row});
-				auto& tile = getTile({{col, row}, depth});
-				tile = {{{col, row}, depth}, static_cast<TerrainType>(color.red / 50)};
+				auto color = heightmap.pixelColor(point);
+				auto& tile = getTile({point, depth});
+				tile = {{point, depth}, static_cast<TerrainType>(color.red / 50)};
 				if (depth > 0) { tile.excavated(false); }
-			}
 		}
 	}
 }
@@ -304,17 +302,14 @@ bool TileMap::tileHighlightVisible() const
 
 void TileMap::update()
 {
-	for (int row = 0; row < mEdgeLength; row++)
+	for (const auto tilePosition : PointInRectangleRange{viewArea()})
 	{
-		for (int col = 0; col < mEdgeLength; col++)
-		{
-			auto& tile = getTile({mOriginTilePosition + NAS2D::Vector{col, row}, mMouseTilePosition.z});
+			auto& tile = getTile({tilePosition, mMouseTilePosition.z});
 
 			if (tile.thing())
 			{
 				tile.thing()->sprite().update();
 			}
-		}
 	}
 
 	updateTileHighlight();
@@ -327,16 +322,13 @@ void TileMap::draw() const
 
 	int tsetOffset = mMouseTilePosition.z > 0 ? TileDrawSize.y : 0;
 
-	for (int row = 0; row < mEdgeLength; row++)
+	for (const auto tilePosition : PointInRectangleRange{viewArea()})
 	{
-		for (int col = 0; col < mEdgeLength; col++)
-		{
-			const auto tilePosition = mOriginTilePosition + NAS2D::Vector{col, row};
 			auto& tile = getTile({tilePosition, mMouseTilePosition.z});
 
 			if (tile.excavated())
 			{
-				const auto offset = NAS2D::Vector{col, row};
+				const auto offset = tilePosition - mOriginTilePosition;
 				const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(offset.x - offset.y) * TileSize.x / 2, (offset.x + offset.y) * TileSize.y / 2};
 				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
 				const bool isTileHighlighted = tilePosition == mMouseTilePosition.xy;
@@ -360,7 +352,6 @@ void TileMap::draw() const
 					sprite.draw(position);
 				}
 			}
-		}
 	}
 }
 
