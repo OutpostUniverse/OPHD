@@ -62,12 +62,7 @@ namespace {
 
 	const NAS2D::Color& overlayColor(Tile::Overlay overlay, bool isHighlighted)
 	{
-		if (isHighlighted)
-		{
-			return OverlayHighlightColorTable.at(overlay);
-		}
-
-		return OverlayColorTable.at(overlay);
+		return (isHighlighted ? OverlayHighlightColorTable : OverlayColorTable).at(overlay);
 	}
 
 
