@@ -64,8 +64,7 @@ public:
 
 	int edgeLength() const { return mEdgeLength; }
 
-	void injectMouse(NAS2D::Point<int> position) { mMousePixelPosition = position; }
-
+	void onMouseMove(NAS2D::Point<int> position) { mMousePixelPosition = position; }
 	void onResize(NAS2D::Vector<int>);
 
 	void update();

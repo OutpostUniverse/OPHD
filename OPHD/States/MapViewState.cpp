@@ -258,7 +258,7 @@ NAS2D::State* MapViewState::update()
 
 	if (!modalUiElementDisplayed())
 	{
-		mTileMap->injectMouse(MOUSE_COORDS);
+		mTileMap->onMouseMove(MOUSE_COORDS);
 	}
 
 	mTileMap->update();
