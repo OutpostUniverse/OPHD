@@ -401,7 +401,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 
 	for (const auto& location : mMineLocations)
 	{
-		auto& mine = *getTile({location, TileMapLevel::LEVEL_SURFACE}).mine();
+		auto& mine = *getTile({location, 0}).mine();
 		mines->linkEndChild(mine.serialize(location));
 	}
 
