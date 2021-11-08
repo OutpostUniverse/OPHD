@@ -27,7 +27,7 @@ namespace {
 	const auto TileDrawSize = NAS2D::Vector{128, 64};
 	const auto TileDrawOffset = NAS2D::Vector{TileDrawSize.x / 2, TileDrawSize.y - TileSize.y};
 
-	const double THROB_SPEED = 250.0; // Throb speed of mine beacon
+	const double ThrobSpeed = 250.0; // Throb speed of mine beacon
 
 	/** Array indicates percent of mines that should be of yields LOW, MED, HIGH */
 	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYieldTable =
@@ -344,7 +344,7 @@ void TileMap::draw() const
 				// Draw a beacon on an unoccupied tile with a mine
 				if (tile.mine() != nullptr && !tile.thing())
 				{
-					uint8_t glow = static_cast<uint8_t>(120 + sin(mTimer.tick() / THROB_SPEED) * 57);
+					uint8_t glow = static_cast<uint8_t>(120 + sin(mTimer.tick() / ThrobSpeed) * 57);
 					const auto mineBeaconPosition = position + NAS2D::Vector{0, -64};
 
 					renderer.drawImage(mMineBeacon, mineBeaconPosition);
