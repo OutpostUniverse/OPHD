@@ -655,8 +655,8 @@ void MapViewState::onInspectTile(Tile& tile)
 
 void MapViewState::onClickMap(bool isShiftPressed)
 {
-	Tile* tile = mTileMap->getVisibleTile();
-	if (!tile) { return; }
+	if (!mTileMap->isMouseOverTile()) { return; }
+	Tile* tile = &mTileMap->mouseTile();
 
 	if (mInsertMode == InsertMode::Structure)
 	{
