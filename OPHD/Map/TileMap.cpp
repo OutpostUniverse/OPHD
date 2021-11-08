@@ -7,9 +7,11 @@
 #include "../Things/Structures/Structure.h"
 #include "../RandomNumberGenerator.h"
 
+#include <NAS2D/Timer.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
+#include <NAS2D/Math/PointInRectangleRange.h>
 
 #include <algorithm>
 #include <functional>
@@ -27,10 +29,8 @@ namespace {
 	const auto TileDrawSize = NAS2D::Vector{128, 64};
 	const auto TileDrawOffset = NAS2D::Vector{TileDrawSize.x / 2, TileDrawSize.y - TileSize.y};
 
-	const double ThrobSpeed = 250.0; // Throb speed of mine beacon
-
-	/** Array indicates percent of mines that should be of yields LOW, MED, HIGH */
-	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYieldTable =
+	// Relative proportion of mines with yields {low, med, high}
+	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYields =
 	{
 		{Planet::Hostility::Low, {30, 50, 20}},
 		{Planet::Hostility::Medium, {45, 35, 20}},
@@ -38,7 +38,7 @@ namespace {
 	};
 
 
-	const std::map<Tile::Overlay, NAS2D::Color> OverlayColorTable =
+	const std::map<Tile::Overlay, NAS2D::Color> OverlayColors =
 	{
 		{Tile::Overlay::None, NAS2D::Color::Normal},
 		{Tile::Overlay::Communications, {125, 200, 255}},
@@ -47,7 +47,7 @@ namespace {
 		{Tile::Overlay::Police, NAS2D::Color::Red}
 	};
 
-	const std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColorTable =
+	const std::map<Tile::Overlay, NAS2D::Color> OverlayHighlightColors =
 	{
 		{Tile::Overlay::None, NAS2D::Color{125, 200, 255}},
 		{Tile::Overlay::Communications, {100, 180, 230}},
@@ -56,27 +56,13 @@ namespace {
 		{Tile::Overlay::Police, NAS2D::Color{100, 180, 230}}
 	};
 
-
-	const NAS2D::Color& overlayColor(Tile::Overlay overlay)
-	{
-		return OverlayColorTable.at(overlay);
-	}
-
-
-	const NAS2D::Color& overlayHighlightColor(Tile::Overlay overlay)
-	{
-		return OverlayHighlightColorTable.at(overlay);
-	}
+	const double ThrobSpeed = 250.0; // Throb speed of mine beacon
+	NAS2D::Timer throbTimer;
 
 
 	const NAS2D::Color& overlayColor(Tile::Overlay overlay, bool isHighlighted)
 	{
-		if (isHighlighted)
-		{
-			return overlayHighlightColor(overlay);
-		}
-
-		return overlayColor(overlay);
+		return (isHighlighted ? OverlayHighlightColors : OverlayColors).at(overlay);
 	}
 
 
@@ -117,7 +103,7 @@ namespace {
 
 	void placeMines(TileMap& tileMap, Planet::Hostility hostility, const std::vector<NAS2D::Point<int>>& locations)
 	{
-		const auto& mineYields = HostilityMineYieldTable.at(hostility);
+		const auto& mineYields = HostilityMineYields.at(hostility);
 		const auto total = std::accumulate(mineYields.begin(), mineYields.end(), 0);
 
 		const auto randYield = [mineYields, total]() {
@@ -146,7 +132,7 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 	mMineBeacon("structures/mine_beacon.png")
 {
 	buildTerrainMap(mapPath);
-	initMapDrawParams(Utility<Renderer>::get().size());
+	onResize(Utility<Renderer>::get().size());
 
 	if (shouldSetupMines)
 	{
@@ -156,16 +142,16 @@ TileMap::TileMap(const std::string& mapPath, const std::string& tilesetPath, int
 }
 
 
-/**
- * Removes a mine location from the tilemap.
- * 
- * \note	Does no sanity checking, assumes that the point provided
- *			corresponds to a valid location.
- */
 void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 {
+	auto& tile = getTile({pt, 0});
+	if (!tile.hasMine())
+	{
+		throw std::runtime_error("No mine found to remove");
+	}
+
 	mMineLocations.erase(find(mMineLocations.begin(), mMineLocations.end(), pt));
-	getTile({pt, 0}).pushMine(nullptr);
+	tile.pushMine(nullptr);
 }
 
 
@@ -194,9 +180,6 @@ Tile& TileMap::getTile(const MapCoordinate& position)
 }
 
 
-/**
- * Builds the terrain map.
- */
 void TileMap::buildTerrainMap(const std::string& path)
 {
 	const Image heightmap(path + MapTerrainExtension);
@@ -214,39 +197,37 @@ void TileMap::buildTerrainMap(const std::string& path)
 	 */
 	for (int depth = 0; depth <= mMaxDepth; depth++)
 	{
-		for (int row = 0; row < mSizeInTiles.y; row++)
+		for (const auto point : PointInRectangleRange{Rectangle<int>::Create({0, 0}, mSizeInTiles)})
 		{
-			for (int col = 0; col < mSizeInTiles.x; col++)
-			{
-				auto color = heightmap.pixelColor({col, row});
-				auto& tile = getTile({{col, row}, depth});
-				tile = {{{col, row}, depth}, static_cast<TerrainType>(color.red / 50)};
-				if (depth > 0) { tile.excavated(false); }
-			}
+			auto color = heightmap.pixelColor(point);
+			auto& tile = getTile({point, depth});
+			tile = {{point, depth}, static_cast<TerrainType>(color.red / 50)};
+			if (depth > 0) { tile.excavated(false); }
 		}
 	}
 }
 
 
-/**
- * Sets up position and drawing parememters for the tile map.
- */
-void TileMap::initMapDrawParams(NAS2D::Vector<int> size)
+void TileMap::onResize(NAS2D::Vector<int> size)
 {
 	// Set up map draw position
-	const auto lengthX = size.x / TileSize.x;
-	const auto lengthY = size.y / TileSize.y;
-	mEdgeLength = std::max(3, std::min(lengthX, lengthY));
+	const auto sizeInTiles = size.skewInverseBy(TileSize);
+	mEdgeLength = std::max(3, std::min(sizeInTiles.x, sizeInTiles.y));
 
 	// Find top left corner of rectangle containing top tile of diamond
 	mOriginPixelPosition = NAS2D::Point{size.x / 2, TileDrawOffset.y + (size.y - constants::BottomUiHeight - mEdgeLength * TileSize.y) / 2};
-	mMapBoundingBox = {(size.x - TileSize.x * mEdgeLength) / 2, mOriginPixelPosition.y - TileDrawOffset.y, TileSize.x * mEdgeLength, TileSize.y * mEdgeLength};
+}
+
+
+NAS2D::Rectangle<int> TileMap::viewArea() const
+{
+	return {mOriginTilePosition.xy.x, mOriginTilePosition.xy.y, mEdgeLength, mEdgeLength};
 }
 
 
 void TileMap::mapViewLocation(NAS2D::Point<int> point)
 {
-	mOriginTilePosition = {
+	mOriginTilePosition.xy = {
 		std::clamp(point.x, 0, mSizeInTiles.x - mEdgeLength),
 		std::clamp(point.y, 0, mSizeInTiles.y - mEdgeLength)
 	};
@@ -262,7 +243,7 @@ void TileMap::mapViewLocation(const MapCoordinate& position)
 
 void TileMap::centerOn(NAS2D::Point<int> point)
 {
-	centerOn({point, mMouseTilePosition.z});
+	centerOn({point, mOriginTilePosition.z});
 }
 
 
@@ -275,48 +256,48 @@ void TileMap::centerOn(const MapCoordinate& position)
 void TileMap::moveView(Direction direction)
 {
 	mapViewLocation({
-		mOriginTilePosition + directionEnumToOffset(direction),
-		mMouseTilePosition.z + directionEnumToVerticalOffset(direction)
+		mOriginTilePosition.xy + directionEnumToOffset(direction),
+		mOriginTilePosition.z + directionEnumToVerticalOffset(direction)
 	});
 }
 
 
 void TileMap::currentDepth(int i)
 {
-	mMouseTilePosition.z = std::clamp(i, 0, mMaxDepth);
+	mOriginTilePosition.z = std::clamp(i, 0, mMaxDepth);
 }
 
 
 /**
  * Returns true if the current tile highlight is actually within the visible diamond map.
  */
-bool TileMap::tileHighlightVisible() const
+bool TileMap::isMouseOverTile() const
 {
 	return isVisibleTile(mouseTilePosition());
 }
 
 
+Tile& TileMap::mouseTile()
+{
+	if (!isMouseOverTile())
+	{
+		throw std::runtime_error("Mouse not over a tile");
+	}
+	return getTile(mouseTilePosition());
+}
+
+
 void TileMap::update()
 {
-	for (int row = 0; row < mEdgeLength; row++)
+	for (const auto tilePosition : PointInRectangleRange{viewArea()})
 	{
-		for (int col = 0; col < mEdgeLength; col++)
-		{
-			auto& tile = getTile({mOriginTilePosition + NAS2D::Vector{col, row}, mMouseTilePosition.z});
+		auto& tile = getTile({tilePosition, mOriginTilePosition.z});
 
-			if (tile.excavated())
-			{
-				// Tell an occupying thing to update itself.
-				if (tile.thing())
-				{
-					auto& sprite = tile.thing()->sprite();
-					sprite.update();
-				}
-			}
+		if (tile.thing())
+		{
+			tile.thing()->sprite().update();
 		}
 	}
-
-	updateTileHighlight();
 }
 
 
@@ -324,58 +305,44 @@ void TileMap::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	int tsetOffset = mMouseTilePosition.z > 0 ? TileDrawSize.y : 0;
-	const auto highlightOffset = mMouseTilePosition.xy - mOriginTilePosition;
+	int tsetOffset = mOriginTilePosition.z > 0 ? TileDrawSize.y : 0;
 
-	for (int row = 0; row < mEdgeLength; row++)
+	for (const auto tilePosition : PointInRectangleRange{viewArea()})
 	{
-		for (int col = 0; col < mEdgeLength; col++)
+		auto& tile = getTile({tilePosition, mOriginTilePosition.z});
+
+		if (tile.excavated())
 		{
-			auto& tile = getTile({mOriginTilePosition + NAS2D::Vector{col, row}, mMouseTilePosition.z});
+			const auto offset = tilePosition - mOriginTilePosition.xy;
+			const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(offset.x - offset.y) * TileSize.x / 2, (offset.x + offset.y) * TileSize.y / 2};
+			const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
+			const bool isTileHighlighted = tilePosition == mMouseTilePosition;
 
-			if (tile.excavated())
+			renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
+
+			// Draw a beacon on an unoccupied tile with a mine
+			if (tile.mine() != nullptr && !tile.thing())
 			{
-				const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(col - row) * TileSize.x / 2, (col + row) * TileSize.y / 2};
-				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
-				const bool isTileHighlighted = NAS2D::Vector{col, row} == highlightOffset;
+				uint8_t glow = static_cast<uint8_t>(120 + sin(throbTimer.tick() / ThrobSpeed) * 57);
+				renderer.drawImage(mMineBeacon, position + NAS2D::Vector{0, -64});
+				renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{59, 15}, NAS2D::Rectangle{59, 79, 10, 7}, NAS2D::Color{glow, glow, glow});
+			}
 
-				renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
-
-				// Draw a beacon on an unoccupied tile with a mine
-				if (tile.mine() != nullptr && !tile.thing())
-				{
-					uint8_t glow = static_cast<uint8_t>(120 + sin(mTimer.tick() / ThrobSpeed) * 57);
-					const auto mineBeaconPosition = position + NAS2D::Vector{0, -64};
-
-					renderer.drawImage(mMineBeacon, mineBeaconPosition);
-					renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{59, 15}, NAS2D::Rectangle{59, 79, 10, 7}, NAS2D::Color{glow, glow, glow});
-				}
-
-				// Tell an occupying thing to update itself.
-				if (tile.thing())
-				{
-					auto& sprite = tile.thing()->sprite();
-					sprite.draw(position);
-				}
+			// Tell an occupying thing to update itself.
+			if (tile.thing())
+			{
+				tile.thing()->sprite().draw(position);
 			}
 		}
 	}
 }
 
 
-/**
- * Brute Force but works.
- */
-void TileMap::updateTileHighlight()
+void TileMap::onMouseMove(NAS2D::Point<int> position)
 {
-	if (!mMapBoundingBox.contains(mMousePixelPosition))
-	{
-		return;
-	}
-
-	const auto pixelOffset = mMousePixelPosition - mOriginPixelPosition;
+	const auto pixelOffset = position - mOriginPixelPosition;
 	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TileSize.y + pixelOffset.y * TileSize.x, pixelOffset.y * TileSize.x - pixelOffset.x * TileSize.y} / (TileSize.x * TileSize.y);
-	mMouseTilePosition.xy = mOriginTilePosition + tileOffset;
+	mMouseTilePosition = mOriginTilePosition.xy + tileOffset;
 }
 
 
@@ -387,9 +354,9 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	element->linkEndChild(NAS2D::dictionaryToAttributes(
 		"view_parameters",
 		{{
-			{"currentdepth", mMouseTilePosition.z},
-			{"viewlocation_x", mOriginTilePosition.x},
-			{"viewlocation_y", mOriginTilePosition.y},
+			{"currentdepth", mOriginTilePosition.z},
+			{"viewlocation_x", mOriginTilePosition.xy.x},
+			{"viewlocation_y", mOriginTilePosition.xy.y},
 		}}
 	));
 
@@ -416,28 +383,25 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// underground and excavated or surface and bulldozed.
 	for (int depth = 0; depth <= maxDepth(); ++depth)
 	{
-		for (int y = 0; y < mSizeInTiles.y; ++y)
+		for (const auto point : PointInRectangleRange{Rectangle<int>::Create({0, 0}, mSizeInTiles)})
 		{
-			for (int x = 0; x < mSizeInTiles.x; ++x)
+			auto& tile = getTile({point, depth});
+			if (
+				((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
+				(tile.empty() && tile.mine() == nullptr)
+			)
 			{
-				auto& tile = getTile({{x, y}, depth});
-				if (
-					((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
-					(tile.empty() && tile.mine() == nullptr)
-				)
-				{
-					tiles->linkEndChild(
-						NAS2D::dictionaryToAttributes(
-							"tile",
-							{{
-								{"x", x},
-								{"y", y},
-								{"depth", depth},
-								{"index", static_cast<int>(tile.index())},
-							}}
-						)
-					);
-				}
+				tiles->linkEndChild(
+					NAS2D::dictionaryToAttributes(
+						"tile",
+						{{
+							{"x", point.x},
+							{"y", point.y},
+							{"depth", depth},
+							{"index", static_cast<int>(tile.index())},
+						}}
+					)
+				);
 			}
 		}
 	}
@@ -447,14 +411,14 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	// VIEW PARAMETERS
-	auto* view_parameters = element->firstChildElement("view_parameters");
-	const auto dictionary = NAS2D::attributesToDictionary(*view_parameters);
+	auto* viewParameters = element->firstChildElement("view_parameters");
+	const auto dictionary = NAS2D::attributesToDictionary(*viewParameters);
 
-	const auto view_x = dictionary.get<int>("viewlocation_x");
-	const auto view_y = dictionary.get<int>("viewlocation_y");
-	const auto view_depth = dictionary.get<int>("currentdepth");
+	const auto viewX = dictionary.get<int>("viewlocation_x");
+	const auto viewY = dictionary.get<int>("viewlocation_y");
+	const auto viewDepth = dictionary.get<int>("currentdepth");
 
-	mapViewLocation({{view_x, view_y}, view_depth});
+	mapViewLocation({{viewX, viewY}, viewDepth});
 
 	for (auto* mineElement = element->firstChildElement("mines")->firstChildElement("mine"); mineElement; mineElement = mineElement->nextSiblingElement())
 	{
@@ -491,30 +455,9 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-Tile* TileMap::getVisibleTile(const MapCoordinate& position)
-{
-	if (!isVisibleTile(position))
-	{
-		return nullptr;
-	}
-
-	return &getTile(position);
-}
-
-
 bool TileMap::isVisibleTile(const MapCoordinate& position) const
 {
-	if (!NAS2D::Rectangle{mOriginTilePosition.x, mOriginTilePosition.y, mEdgeLength, mEdgeLength}.contains(position.xy))
-	{
-		return false;
-	}
-
-	if (position.z != mMouseTilePosition.z)
-	{
-		return false;
-	}
-
-	return true;
+	return viewArea().contains(position.xy) && position.z == mOriginTilePosition.z;
 }
 
 

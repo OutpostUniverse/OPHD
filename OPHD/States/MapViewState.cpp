@@ -258,7 +258,7 @@ NAS2D::State* MapViewState::update()
 
 	if (!modalUiElementDisplayed())
 	{
-		mTileMap->injectMouse(MOUSE_COORDS);
+		mTileMap->onMouseMove(MOUSE_COORDS);
 	}
 
 	mTileMap->update();
@@ -306,7 +306,7 @@ void MapViewState::onActivate(bool /*newActiveValue*/)
 void MapViewState::onWindowResized(NAS2D::Vector<int> newSize)
 {
 	setupUiPositions(newSize);
-	mTileMap->initMapDrawParams(newSize);
+	mTileMap->onResize(newSize);
 }
 
 
@@ -469,7 +469,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 			return;
 		}
 
-		if (!mTileMap->tileHighlightVisible()) { return; }
+		if (!mTileMap->isMouseOverTile()) { return; }
 		const auto tilePosition = mTileMap->mouseTilePosition();
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
@@ -497,7 +497,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		mMiniMap->onMouseDown(button, x, y);
 
 		// Click was within the bounds of the TileMap.
-		if (mTileMap->boundingBox().contains(MOUSE_COORDS))
+		if (mTileMap->isMouseOverTile())
 		{
 			auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 			onClickMap(eventHandler.query_shift());
@@ -513,7 +513,7 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, i
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
-		if (!mTileMap->tileHighlightVisible()) { return; }
+		if (!mTileMap->isMouseOverTile()) { return; }
 		const auto tilePosition = mTileMap->mouseTilePosition();
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
@@ -557,10 +557,8 @@ void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int
 		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 		if ((mInsertMode == InsertMode::Tube) && eventHandler.query_shift())
 		{
-			Tile* tile = mTileMap->getVisibleTile(mMouseTilePosition);
-			if (!tile) { return; }
-
-			placeTubeEnd(tile);
+			if (!mTileMap->isMouseOverTile()) { return; }
+			placeTubeEnd(&mTileMap->mouseTile());
 		}
 	}
 }
@@ -657,8 +655,8 @@ void MapViewState::onInspectTile(Tile& tile)
 
 void MapViewState::onClickMap(bool isShiftPressed)
 {
-	Tile* tile = mTileMap->getVisibleTile();
-	if (!tile) { return; }
+	if (!mTileMap->isMouseOverTile()) { return; }
+	Tile* tile = &mTileMap->mouseTile();
 
 	if (mInsertMode == InsertMode::Structure)
 	{
@@ -816,8 +814,9 @@ void MapViewState::placeTubeEnd(Tile* tile)
 	bool endReach = false;
 
 	do {
-		tile = mTileMap->getVisibleTile({mTubeStart, mTileMap->currentDepth()});
-		if (!tile) {
+		const auto tubeStartPosition = MapCoordinate{mTubeStart, mTileMap->currentDepth()};
+		tile = &mTileMap->getTile(tubeStartPosition);
+		if (!mTileMap->isVisibleTile(tubeStartPosition)) {
 			endReach = true;
 		}else if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()){
 			endReach = true;

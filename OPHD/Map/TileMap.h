@@ -5,7 +5,6 @@
 #include "../States/Planet.h"
 #include "../MicroPather/micropather.h"
 
-#include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
@@ -41,34 +40,32 @@ public:
 
 	const Tile& getTile(const MapCoordinate& position) const;
 	Tile& getTile(const MapCoordinate& position);
-	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mMouseTilePosition.z}); }
+	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mOriginTilePosition.z}); }
 
 	const std::vector<NAS2D::Point<int>>& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
 
-	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition; }
+	NAS2D::Rectangle<int> viewArea() const;
+	const NAS2D::Point<int>& mapViewLocation() const { return mOriginTilePosition.xy; }
 	void mapViewLocation(NAS2D::Point<int> point);
 	void mapViewLocation(const MapCoordinate& position);
 	void centerOn(NAS2D::Point<int> point);
 	void centerOn(const MapCoordinate& position);
 	void moveView(Direction direction);
 
-	int currentDepth() const { return mMouseTilePosition.z; }
+	int currentDepth() const { return mOriginTilePosition.z; }
 	void currentDepth(int i);
 
 	bool isVisibleTile(const MapCoordinate& position) const;
-	bool tileHighlightVisible() const;
+	bool isMouseOverTile() const;
 
-	const MapCoordinate& mouseTilePosition() const { return mMouseTilePosition; }
-	Tile* getVisibleTile(const MapCoordinate& position);
-	Tile* getVisibleTile() { return getVisibleTile(mouseTilePosition()); }
+	MapCoordinate mouseTilePosition() const { return {mMouseTilePosition, mOriginTilePosition.z}; }
+	Tile& mouseTile();
 
 	int edgeLength() const { return mEdgeLength; }
-	const NAS2D::Rectangle<int>& boundingBox() const { return mMapBoundingBox; }
 
-	void injectMouse(NAS2D::Point<int> position) { mMousePixelPosition = position; }
-
-	void initMapDrawParams(NAS2D::Vector<int>);
+	void onMouseMove(NAS2D::Point<int> position);
+	void onResize(NAS2D::Vector<int>);
 
 	void update();
 	void draw() const;
@@ -87,8 +84,6 @@ public:
 private:
 	void buildTerrainMap(const std::string& path);
 
-	void updateTileHighlight();
-
 
 	const NAS2D::Vector<int> mSizeInTiles;
 	const int mMaxDepth = 0;
@@ -101,17 +96,12 @@ private:
 	const NAS2D::Image mTileset;
 	const NAS2D::Image mMineBeacon;
 
-	NAS2D::Timer mTimer;
-
 	int mEdgeLength = 0;
 
-	MapCoordinate mMouseTilePosition{};
-	NAS2D::Point<int> mMousePixelPosition;
-
-	NAS2D::Point<int> mOriginTilePosition; // Top tile of detail view diamond, or top left corner of minimap view box
+	MapCoordinate mOriginTilePosition{{0, 0}, 0}; // Top tile of detail view diamond, or top left corner of minimap view box
 	NAS2D::Point<int> mOriginPixelPosition; // Top pixel at top of diamond
 
-	NAS2D::Rectangle<int> mMapBoundingBox; // Tightest pixel area containing all drawn tiles
+	NAS2D::Point<int> mMouseTilePosition;
 
 	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 };
