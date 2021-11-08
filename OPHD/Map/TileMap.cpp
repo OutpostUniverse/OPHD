@@ -320,19 +320,19 @@ void TileMap::draw() const
 	auto& renderer = Utility<Renderer>::get();
 
 	int tsetOffset = mMouseTilePosition.z > 0 ? TileDrawSize.y : 0;
-	const auto highlightOffset = mMouseTilePosition.xy - mOriginTilePosition;
 
 	for (int row = 0; row < mEdgeLength; row++)
 	{
 		for (int col = 0; col < mEdgeLength; col++)
 		{
-			auto& tile = getTile({mOriginTilePosition + NAS2D::Vector{col, row}, mMouseTilePosition.z});
+			const auto tilePosition = mOriginTilePosition + NAS2D::Vector{col, row};
+			auto& tile = getTile({tilePosition, mMouseTilePosition.z});
 
 			if (tile.excavated())
 			{
 				const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(col - row) * TileSize.x / 2, (col + row) * TileSize.y / 2};
 				const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
-				const bool isTileHighlighted = NAS2D::Vector{col, row} == highlightOffset;
+				const bool isTileHighlighted = tilePosition == mMouseTilePosition.xy;
 
 				renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
 
