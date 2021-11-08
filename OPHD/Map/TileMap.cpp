@@ -386,11 +386,9 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// underground and excavated or surface and bulldozed.
 	for (int depth = 0; depth <= maxDepth(); ++depth)
 	{
-		for (int y = 0; y < mSizeInTiles.y; ++y)
+		for (const auto point : PointInRectangleRange{Rectangle<int>::Create({0, 0}, mSizeInTiles)})
 		{
-			for (int x = 0; x < mSizeInTiles.x; ++x)
-			{
-				auto& tile = getTile({{x, y}, depth});
+				auto& tile = getTile({point, depth});
 				if (
 					((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
 					(tile.empty() && tile.mine() == nullptr)
@@ -400,15 +398,14 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 						NAS2D::dictionaryToAttributes(
 							"tile",
 							{{
-								{"x", x},
-								{"y", y},
+								{"x", point.x},
+								{"y", point.y},
 								{"depth", depth},
 								{"index", static_cast<int>(tile.index())},
 							}}
 						)
 					);
 				}
-			}
 		}
 	}
 }
