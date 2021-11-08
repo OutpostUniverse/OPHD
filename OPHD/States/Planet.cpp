@@ -25,7 +25,7 @@ Planet::Planet(const Attributes& attributes) :
 	mAttributes(attributes),
 	mImage(NAS2D::Image(attributes.imagePath))
 {
-	if (attributes.type == PlanetType::None || attributes.type == PlanetType::Count)
+	if (attributes.type == PlanetType::None)
 	{
 		throw std::runtime_error("Instantiated Planet class with an invalid planet type.");
 	}

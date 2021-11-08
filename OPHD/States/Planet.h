@@ -20,8 +20,6 @@ public:
 		Mercury,
 		Mars,
 		Ganymede,
-
-		Count
 	};
 
 	enum class Hostility
