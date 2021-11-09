@@ -226,24 +226,6 @@ void Slider::onLayoutChange()
 		mButton2 = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
 		mSlideBar = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
 	}
-}
-
-
-void Slider::update()
-{
-	if (!visible()) { return; }
-
-	if (mButton1Held || mButton2Held)
-	{
-		if (mTimer.accumulator() >= mPressedAccumulator)
-		{
-			mPressedAccumulator = 30;
-			mTimer.reset();
-			changeValue((mButton1Held ? -1 : 1));
-		}
-	}
-
-	onLayoutChange();
 
 	if (mSliderType == SliderType::Vertical)
 	{
@@ -263,6 +245,24 @@ void Slider::update()
 
 		mSlider = {mSlideBar.x + relativevalue, mSlideBar.y, newSize, mSlideBar.height};
 	}
+}
+
+
+void Slider::update()
+{
+	if (!visible()) { return; }
+
+	if (mButton1Held || mButton2Held)
+	{
+		if (mTimer.accumulator() >= mPressedAccumulator)
+		{
+			mPressedAccumulator = 30;
+			mTimer.reset();
+			changeValue((mButton1Held ? -1 : 1));
+		}
+	}
+
+	onLayoutChange();
 
 	draw();
 }
