@@ -325,8 +325,7 @@ void Slider::thumbPosition(float value)
 
 float Slider::thumbPosition() const
 {
-	float value = mPosition;
-	return value;
+	return mPosition;
 }
 
 
