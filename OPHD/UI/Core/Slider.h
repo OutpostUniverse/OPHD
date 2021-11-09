@@ -71,5 +71,5 @@ private:
 	NAS2D::Rectangle<int> mButton1; /**< Area on screen where the second button is displayed. (Down/Left) */
 	NAS2D::Rectangle<int> mButton2; /**< Area on screen where the first button is displayed. (Up/Right)*/
 	NAS2D::Rectangle<int> mSlideBar; /**< Area on screen where the slide area is displayed. */
-	NAS2D::Rectangle<int> mSlider; /**< Area on screen where the slider is displayed. */
+	NAS2D::Rectangle<int> mThumb;
 };

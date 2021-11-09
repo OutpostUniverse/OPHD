@@ -203,7 +203,7 @@ void Slider::draw() const
 	mSkins.skinMiddle.draw(renderer, mSlideBar); // Slide area
 	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
 	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
-	mSkins.skinSlider.draw(renderer, mSlider);
+	mSkins.skinSlider.draw(renderer, mThumb);
 }
 
 
@@ -224,7 +224,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	if (button == EventHandler::MouseButton::Left)
 	{
 		const auto mousePosition = NAS2D::Point{x, y};
-		if (mSlider.contains(mousePosition))
+		if (mThumb.contains(mousePosition))
 		{
 			mThumbPressed = true;
 		}
@@ -251,12 +251,12 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	if (!enabled() || !visible()) { return; }
 
 	const auto mousePosition = NAS2D::Point{x, y};
-	if (mSlideBar.contains(mousePosition) && !mSlider.contains(mousePosition))
+	if (mSlideBar.contains(mousePosition) && !mThumb.contains(mousePosition))
 	{
 		changeValue(
 			(mSliderType == SliderType::Vertical) ?
-				(y < mSlider.y ? -3 : 3) :
-				(x < mSlider.x ? -3 : 3)
+				(y < mThumb.y ? -3 : 3) :
+				(x < mThumb.x ? -3 : 3)
 		);
 	}
 }
@@ -270,8 +270,8 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 	{
 		value(
 			(mSliderType == SliderType::Vertical) ?
-				mMax * (y - mSlideBar.y - mSlider.height / 2) / (mSlideBar.height - mSlider.height) :
-				mMax * (x - mSlideBar.x - mSlider.width / 2) / (mSlideBar.width - mSlider.width)
+				mMax * (y - mSlideBar.y - mThumb.height / 2) / (mSlideBar.height - mThumb.height) :
+				mMax * (x - mSlideBar.x - mThumb.width / 2) / (mSlideBar.width - mThumb.width)
 		);
 	}
 }
@@ -298,7 +298,7 @@ void Slider::onLayoutChange()
 		mSlideBar = {mRect.x, mRect.y + mRect.width, mRect.width, mRect.height - 2 * mRect.width};
 		const auto newSize = std::min(mSlideBar.height * mRect.height / std::max(mMax + mRect.height, 1), mSlideBar.height);
 		const auto drawOffset = (mSlideBar.height - newSize) * mValue / std::max(mMax, 1);
-		mSlider = {mSlideBar.x, mSlideBar.y + drawOffset, mSlideBar.width, newSize};
+		mThumb = {mSlideBar.x, mSlideBar.y + drawOffset, mSlideBar.width, newSize};
 	}
 	else
 	{
@@ -307,6 +307,6 @@ void Slider::onLayoutChange()
 		mSlideBar = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
 		const auto newSize = std::min(mSlideBar.width * mRect.width / std::max(mMax + mRect.width, 1), mSlideBar.width);
 		const auto drawOffset = (mSlideBar.width - newSize) * mValue / std::max(mMax, 1);
-		mSlider = {mSlideBar.x + drawOffset, mSlideBar.y, newSize, mSlideBar.height};
+		mThumb = {mSlideBar.x + drawOffset, mSlideBar.y, newSize, mSlideBar.height};
 	}
 }
