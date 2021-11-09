@@ -219,7 +219,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 			return;
 		}
 
-		value(mMax * ((y - mSlideBar.y) / mSlideBar.height));
+		value(mMax * (y - mSlideBar.y) / mSlideBar.height);
 	}
 	else
 	{
