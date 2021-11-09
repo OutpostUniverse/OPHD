@@ -55,9 +55,9 @@ protected:
 	virtual void onMouseMove(int x, int y, int dX, int dY);
 
 	void onButtonClick(bool& buttonFlag, ValueType value);
+	void onLayoutChange();
 
 	void draw() const override;
-	void logic(); /**< Compute some values before drawing the control. */
 
 private:
 	SliderType mSliderType{SliderType::Vertical};

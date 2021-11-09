@@ -212,7 +212,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 }
 
 
-void Slider::logic()
+void Slider::onLayoutChange()
 {
 	if (mSliderType == SliderType::Vertical)
 	{
@@ -243,7 +243,7 @@ void Slider::update()
 		}
 	}
 
-	logic();
+	onLayoutChange();
 
 	if (mSliderType == SliderType::Vertical)
 	{
