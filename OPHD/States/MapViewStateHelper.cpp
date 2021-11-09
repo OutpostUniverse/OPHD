@@ -104,7 +104,7 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
 bool validTubeConnection(TileMap& tilemap, MapCoordinate position, ConnectorDir dir)
 {
 	return std::any_of(AllDirections4.begin(), AllDirections4.end(), [&](Direction direction){
-		return checkTubeConnection(tilemap.getTile(position.offset(direction)), direction, dir);
+		return checkTubeConnection(tilemap.getTile(position.translate(direction)), direction, dir);
 	});
 }
 
@@ -115,7 +115,7 @@ bool validTubeConnection(TileMap& tilemap, MapCoordinate position, ConnectorDir 
 bool validStructurePlacement(TileMap& tilemap, MapCoordinate position)
 {
 	return std::any_of(AllDirections4.begin(), AllDirections4.end(), [&](Direction direction){
-		return checkStructurePlacement(tilemap.getTile(position.offset(direction)), direction);
+		return checkStructurePlacement(tilemap.getTile(position.translate(direction)), direction);
 	});
 }
 

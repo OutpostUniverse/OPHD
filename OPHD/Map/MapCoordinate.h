@@ -11,5 +11,5 @@ struct MapCoordinate
 	NAS2D::Point<int> xy;
 	int z;
 
-	MapCoordinate offset(Direction direction) const;
+	MapCoordinate translate(Direction direction) const;
 };
