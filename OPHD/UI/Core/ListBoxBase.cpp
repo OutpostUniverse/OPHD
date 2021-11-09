@@ -21,7 +21,7 @@ ListBoxBase::ListBoxBase()
 	eventHandler.mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
 	eventHandler.mouseMotion().connect(this, &ListBoxBase::onMouseMove);
 
-	mSlider.length(0);
+	mSlider.max(0);
 	mSlider.value(0);
 	mSlider.change().connect(this, &ListBoxBase::onSlideChange);
 
@@ -77,7 +77,7 @@ void ListBoxBase::updateScrollLayout()
 	{
 		mSlider.position({rect().x + mRect.width - 14, mRect.y});
 		mSlider.size({14, mRect.height});
-		mSlider.length(static_cast<Slider::ValueType>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
+		mSlider.max(static_cast<Slider::ValueType>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
 		mScrollOffsetInPixels = static_cast<unsigned int>(mSlider.value());
 		mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
 		mSlider.visible(true);
@@ -85,7 +85,7 @@ void ListBoxBase::updateScrollLayout()
 	else
 	{
 		mScrollOffsetInPixels = 0;
-		mSlider.length(0);
+		mSlider.max(0);
 		mSlider.visible(false);
 	}
 }

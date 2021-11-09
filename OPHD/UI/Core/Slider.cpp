@@ -328,15 +328,15 @@ void Slider::changeValue(ValueType change)
 }
 
 
-Slider::ValueType Slider::length() const
+Slider::ValueType Slider::max() const
 {
 	return mLength;
 }
 
 
-void Slider::length(ValueType length)
+void Slider::max(ValueType newMax)
 {
-	mLength = length;
+	mLength = newMax;
 	if (mPosition > mLength)
 	{
 		value(mLength);

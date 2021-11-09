@@ -42,8 +42,8 @@ public:
 	ValueType value() const; /**< Get the current position. */
 	void changeValue(ValueType change); /**< Adds the change amount to the current position. */
 
-	ValueType length() const; /**< Get the max value for the slide area. */
-	void length(ValueType length); /**< Set the max value for the slide area. */
+	ValueType max() const; /**< Get the max value for the slide area. */
+	void max(ValueType newMax); /**< Set the max value for the slide area. */
 
 	void update() override;
 

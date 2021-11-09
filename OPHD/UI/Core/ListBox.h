@@ -67,7 +67,7 @@ public:
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
 
-		mSlider.length(0);
+		mSlider.max(0);
 		mSlider.value(0);
 		mSlider.change().connect(this, &ListBox::onSlideChange);
 		updateScrollLayout();
@@ -250,7 +250,7 @@ private:
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<Slider::ValueType>(static_cast<int>(neededDisplaySize) - mRect.height));
+			mSlider.max(static_cast<Slider::ValueType>(static_cast<int>(neededDisplaySize) - mRect.height));
 			mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.value());
 			mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
 			mSlider.visible(true);
@@ -258,7 +258,7 @@ private:
 		else
 		{
 			mScrollOffsetInPixels = 0;
-			mSlider.length(0);
+			mSlider.max(0);
 			mSlider.visible(false);
 		}
 	}
