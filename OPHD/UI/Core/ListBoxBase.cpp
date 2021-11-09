@@ -21,7 +21,6 @@ ListBoxBase::ListBoxBase()
 	eventHandler.mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
 	eventHandler.mouseMotion().connect(this, &ListBoxBase::onMouseMove);
 
-	mSlider.displayPosition(false);
 	mSlider.length(0);
 	mSlider.thumbPosition(0);
 	mSlider.change().connect(this, &ListBoxBase::onSlideChange);

@@ -45,9 +45,6 @@ public:
 	void thumbPositionNormalized(float value); /**< Set the current position. */
 	float thumbPositionNormalized() const; /**< Get the current position. */
 
-	bool displayPosition() const { return mDisplayPosition;} /**< Get the position display flag. */
-	void displayPosition(bool value) { mDisplayPosition = value; } /**< Set the position display flag. */
-
 	float length() const; /**< Get the max value for the slide area. */
 	void length(float length); /**< Set the max value for the slide area. */
 
@@ -83,7 +80,6 @@ private:
 	// mouse event related vars
 	NAS2D::Point<int> mMousePosition;
 
-	bool mMouseHoverSlide = false; /**< Mouse is within the bounds of the Button. */
 	bool mThumbPressed = false; /**< Flag to indicate if this control is pressed. */
 
 	// Slider values
@@ -100,7 +96,6 @@ private:
 
 	// drawing vars
 	Skins mSkins;
-	bool mDisplayPosition = false; /**< Indicate if the slider display the value on mouse over. */
 	NAS2D::Rectangle<int> mButton1; /**< Area on screen where the second button is displayed. (Down/Left) */
 	NAS2D::Rectangle<int> mButton2; /**< Area on screen where the first button is displayed. (Up/Right)*/
 	NAS2D::Rectangle<int> mSlideBar; /**< Area on screen where the slide area is displayed. */
