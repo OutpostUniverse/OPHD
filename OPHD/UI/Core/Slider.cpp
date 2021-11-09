@@ -118,7 +118,8 @@ namespace
 }
 
 
-Slider::Slider(SliderType sliderType) : Slider(loadSkins(sliderType), sliderType)
+Slider::Slider(SliderType sliderType) :
+	Slider(loadSkins(sliderType), sliderType)
 {}
 
 
