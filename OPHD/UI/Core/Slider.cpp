@@ -218,7 +218,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 			return;
 		}
 
-		value(mLength * ((y - mSlideBar.y) / mSlideBar.height));
+		value(mMax * ((y - mSlideBar.y) / mSlideBar.height));
 	}
 	else
 	{
@@ -227,7 +227,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 			return;
 		}
 
-		value(mLength * (x - mSlideBar.x) / mSlideBar.width);
+		value(mMax * (x - mSlideBar.x) / mSlideBar.width);
 	}
 }
 
@@ -269,20 +269,20 @@ void Slider::update()
 	if (mSliderType == SliderType::Vertical)
 	{
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = static_cast<int>(mSlideBar.height / mLength);
+		const auto i = static_cast<int>(mSlideBar.height / mMax);
 		const auto newSize = std::max(i, mSlider.width);
 
-		const auto relativevalue = static_cast<int>((mSlideBar.height - mSlider.height) * mValue / mLength); //relative width
+		const auto relativevalue = static_cast<int>((mSlideBar.height - mSlider.height) * mValue / mMax); //relative width
 
 		mSlider = {mSlideBar.x, mSlideBar.y + relativevalue, mSlideBar.width, newSize};
 	}
 	else
 	{
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = static_cast<int>(mSlideBar.width / (mLength + 1.0f));
+		const auto i = static_cast<int>(mSlideBar.width / (mMax + 1.0f));
 		const auto newSize = std::max(i, mSlider.height);
 
-		const auto relativevalue = static_cast<int>((mSlideBar.width - mSlider.width) * mValue / mLength); //relative width
+		const auto relativevalue = static_cast<int>((mSlideBar.width - mSlider.width) * mValue / mMax); //relative width
 
 		mSlider = {mSlideBar.x + relativevalue, mSlideBar.y, newSize, mSlideBar.height};
 	}
@@ -304,7 +304,7 @@ void Slider::draw() const
 
 void Slider::value(ValueType newValue)
 {
-	mValue = std::clamp<ValueType>(newValue, 0, mLength);
+	mValue = std::clamp<ValueType>(newValue, 0, mMax);
 	mSignal(mValue);
 }
 
@@ -323,15 +323,15 @@ void Slider::changeValue(ValueType change)
 
 Slider::ValueType Slider::max() const
 {
-	return mLength;
+	return mMax;
 }
 
 
 void Slider::max(ValueType newMax)
 {
-	mLength = newMax;
-	if (mValue > mLength)
+	mMax = newMax;
+	if (mValue > mMax)
 	{
-		value(mLength);
+		value(mMax);
 	}
 }

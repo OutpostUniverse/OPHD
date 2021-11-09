@@ -75,7 +75,7 @@ private:
 
 	// Slider values
 	ValueType mValue = 0;
-	ValueType mLength = 0;
+	ValueType mMax = 0;
 
 	// Slider button responses
 	uint32_t mPressedAccumulator = 0; /**< Accumulation value for pressed responses. */
