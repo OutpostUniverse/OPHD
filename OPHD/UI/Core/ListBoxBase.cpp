@@ -77,7 +77,7 @@ void ListBoxBase::updateScrollLayout()
 	{
 		mSlider.position({rect().x + mRect.width - 14, mRect.y});
 		mSlider.size({14, mRect.height});
-		mSlider.length(static_cast<float>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
+		mSlider.length(static_cast<Slider::ValueType>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
 		mScrollOffsetInPixels = static_cast<unsigned int>(mSlider.thumbPosition());
 		mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
 		mSlider.visible(true);
@@ -169,7 +169,7 @@ void ListBoxBase::onMouseWheel(int /*x*/, int y)
 	if (!enabled() || !visible()) { return; }
 	if (!mHasFocus) { return; }
 
-	float change = static_cast<float>(mItemHeight);
+	auto change = static_cast<Slider::ValueType>(mItemHeight);
 
 	mSlider.changeThumbPosition((y < 0 ? change : -change));
 }
@@ -178,14 +178,9 @@ void ListBoxBase::onMouseWheel(int /*x*/, int y)
 /**
  * Slider changed event handler.
  */
-void ListBoxBase::onSlideChange(float newPosition)
+void ListBoxBase::onSlideChange(Slider::ValueType /*newPosition*/)
 {
 	updateScrollLayout();
-	auto pos = std::floor(newPosition);
-	if (pos != newPosition)
-	{
-		mSlider.thumbPosition(pos);
-	}
 }
 
 

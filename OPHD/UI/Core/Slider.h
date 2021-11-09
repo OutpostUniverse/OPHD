@@ -31,7 +31,7 @@ public:
 		NAS2D::RectangleSkin skinSlider;
 	};
 
-	using ValueType = float;
+	using ValueType = int;
 	using ValueChangeSignal = NAS2D::Signal<ValueType>;
 
 	Slider(SliderType sliderType = SliderType::Vertical);
@@ -74,8 +74,8 @@ private:
 	bool mThumbPressed = false; /**< Flag to indicate if this control is pressed. */
 
 	// Slider values
-	ValueType mPosition = 0.0f;
-	ValueType mLength = 0.0f;
+	ValueType mPosition = 0;
+	ValueType mLength = 0;
 
 	// Slider button responses
 	uint32_t mPressedAccumulator = 0; /**< Accumulation value for pressed responses. */

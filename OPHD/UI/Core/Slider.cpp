@@ -170,8 +170,8 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			return;
 		}
 
-		buttonCheck(mButton1Held, mButton1, -1.0);
-		buttonCheck(mButton2Held, mButton2, 1.0);
+		buttonCheck(mButton1Held, mButton1, -1);
+		buttonCheck(mButton2Held, mButton2, 1);
 	}
 }
 
@@ -191,13 +191,13 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	{
 		if (mSliderType == SliderType::Vertical)
 		{
-			if (y < mSlider.y) { changeThumbPosition(-3.0); }
-			else { changeThumbPosition(+3.0); }
+			if (y < mSlider.y) { changeThumbPosition(-3); }
+			else { changeThumbPosition(3); }
 		}
 		else
 		{
-			if (x < mSlider.x) { changeThumbPosition(-3.0); }
-			else { changeThumbPosition(+3.0); }
+			if (x < mSlider.x) { changeThumbPosition(-3); }
+			else { changeThumbPosition(3); }
 		}
 	}
 }
@@ -259,8 +259,8 @@ void Slider::update()
 		{
 			mPressedAccumulator = 30;
 			mTimer.reset();
-			if (mButton1Held) { changeThumbPosition(-1.0); }
-			else { changeThumbPosition(1.0); }
+			if (mButton1Held) { changeThumbPosition(-1); }
+			else { changeThumbPosition(1); }
 		}
 	}
 
@@ -304,7 +304,7 @@ void Slider::draw() const
 
 void Slider::thumbPosition(ValueType value)
 {
-	mPosition = std::clamp(value, 0.0f, mLength);
+	mPosition = std::clamp<ValueType>(value, 0, mLength);
 	mSignal(thumbPosition());
 }
 

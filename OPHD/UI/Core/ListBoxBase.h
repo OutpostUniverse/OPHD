@@ -85,7 +85,7 @@ protected:
 	std::vector<ListBoxItem*> mItems; /**< List of Items. Pointers used for polymorphism. */
 
 private:
-	void onSlideChange(float newPosition);
+	void onSlideChange(Slider::ValueType newPosition);
 
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int relX, int relY);

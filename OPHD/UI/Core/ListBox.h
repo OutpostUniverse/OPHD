@@ -220,17 +220,11 @@ protected:
 	void onMouseWheel(int /*x*/, int y) {
 		if (isEmpty() || !visible()) { return; }
 
-		mSlider.changeThumbPosition((y < 0 ? 16.0f : -16.0f));
+		mSlider.changeThumbPosition((y < 0 ? 16 : -16));
 	}
 
-	virtual void onSlideChange(float newPosition) {
+	virtual void onSlideChange(Slider::ValueType /*newPosition*/) {
 		updateScrollLayout();
-		// Intentional truncation of fractional value
-		const auto pos = std::floor(newPosition);
-		if (pos != newPosition)
-		{
-			mSlider.thumbPosition(pos);
-		}
 	}
 
 
@@ -256,7 +250,7 @@ private:
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(static_cast<int>(neededDisplaySize) - mRect.height));
+			mSlider.length(static_cast<Slider::ValueType>(static_cast<int>(neededDisplaySize) - mRect.height));
 			mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.thumbPosition());
 			mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
 			mSlider.visible(true);
