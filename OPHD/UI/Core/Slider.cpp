@@ -119,7 +119,7 @@ namespace
 
 
 Slider::Slider(SliderType sliderType) :
-	Slider(loadSkins(sliderType), sliderType)
+	Slider{loadSkins(sliderType), sliderType}
 {}
 
 
