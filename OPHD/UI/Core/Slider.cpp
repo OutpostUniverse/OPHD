@@ -148,7 +148,7 @@ void Slider::buttonCheck(bool& buttonFlag, Rectangle<int>& rect, ValueType value
 {
 	if (rect.contains(mMousePosition))
 	{
-		changeThumbPosition(value);
+		changeValue(value);
 		buttonFlag = true;
 
 		mTimer.reset();
@@ -191,13 +191,13 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	{
 		if (mSliderType == SliderType::Vertical)
 		{
-			if (y < mSlider.y) { changeThumbPosition(-3); }
-			else { changeThumbPosition(3); }
+			if (y < mSlider.y) { changeValue(-3); }
+			else { changeValue(3); }
 		}
 		else
 		{
-			if (x < mSlider.x) { changeThumbPosition(-3); }
-			else { changeThumbPosition(3); }
+			if (x < mSlider.x) { changeValue(-3); }
+			else { changeValue(3); }
 		}
 	}
 }
@@ -218,7 +218,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 			return;
 		}
 
-		thumbPosition(mLength * ((y - mSlideBar.y) / mSlideBar.height));
+		value(mLength * ((y - mSlideBar.y) / mSlideBar.height));
 	}
 	else
 	{
@@ -227,7 +227,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 			return;
 		}
 
-		thumbPosition(mLength * (x - mSlideBar.x) / mSlideBar.width);
+		value(mLength * (x - mSlideBar.x) / mSlideBar.width);
 	}
 }
 
@@ -259,8 +259,8 @@ void Slider::update()
 		{
 			mPressedAccumulator = 30;
 			mTimer.reset();
-			if (mButton1Held) { changeThumbPosition(-1); }
-			else { changeThumbPosition(1); }
+			if (mButton1Held) { changeValue(-1); }
+			else { changeValue(1); }
 		}
 	}
 
@@ -272,9 +272,9 @@ void Slider::update()
 		const auto i = static_cast<int>(mSlideBar.height / mLength);
 		const auto newSize = std::max(i, mSlider.width);
 
-		const auto relativeThumbPosition = static_cast<int>((mSlideBar.height - mSlider.height) * mPosition / mLength); //relative width
+		const auto relativevalue = static_cast<int>((mSlideBar.height - mSlider.height) * mPosition / mLength); //relative width
 
-		mSlider = {mSlideBar.x, mSlideBar.y + relativeThumbPosition, mSlideBar.width, newSize};
+		mSlider = {mSlideBar.x, mSlideBar.y + relativevalue, mSlideBar.width, newSize};
 	}
 	else
 	{
@@ -282,9 +282,9 @@ void Slider::update()
 		const auto i = static_cast<int>(mSlideBar.width / (mLength + 1.0f));
 		const auto newSize = std::max(i, mSlider.height);
 
-		const auto relativeThumbPosition = static_cast<int>((mSlideBar.width - mSlider.width) * mPosition / mLength); //relative width
+		const auto relativevalue = static_cast<int>((mSlideBar.width - mSlider.width) * mPosition / mLength); //relative width
 
-		mSlider = {mSlideBar.x + relativeThumbPosition, mSlideBar.y, newSize, mSlideBar.height};
+		mSlider = {mSlideBar.x + relativevalue, mSlideBar.y, newSize, mSlideBar.height};
 	}
 
 	draw();
@@ -302,14 +302,14 @@ void Slider::draw() const
 }
 
 
-void Slider::thumbPosition(ValueType value)
+void Slider::value(ValueType newValue)
 {
-	mPosition = std::clamp<ValueType>(value, 0, mLength);
-	mSignal(thumbPosition());
+	mPosition = std::clamp<ValueType>(newValue, 0, mLength);
+	mSignal(mPosition);
 }
 
 
-Slider::ValueType Slider::thumbPosition() const
+Slider::ValueType Slider::value() const
 {
 	return mPosition;
 }
@@ -322,9 +322,9 @@ Slider::ValueType Slider::thumbPosition() const
  *					slider's position. Must be between 0.0
  *					1.0.
  */
-void Slider::changeThumbPosition(ValueType change)
+void Slider::changeValue(ValueType change)
 {
-	thumbPosition(mPosition + change);
+	value(mPosition + change);
 }
 
 
@@ -339,6 +339,6 @@ void Slider::length(ValueType length)
 	mLength = length;
 	if (mPosition > mLength)
 	{
-		thumbPosition(mLength);
+		value(mLength);
 	}
 }

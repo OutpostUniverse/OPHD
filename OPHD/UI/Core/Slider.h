@@ -38,9 +38,9 @@ public:
 	Slider(Skins skins, SliderType sliderType = SliderType::Vertical);
 	~Slider() override;
 
-	void thumbPosition(ValueType value); /**< Set the current position. */
-	ValueType thumbPosition() const; /**< Get the current position. */
-	void changeThumbPosition(ValueType change); /**< Adds the change amount to the current position. */
+	void value(ValueType newValue); /**< Set the current position. */
+	ValueType value() const; /**< Get the current position. */
+	void changeValue(ValueType change); /**< Adds the change amount to the current position. */
 
 	ValueType length() const; /**< Get the max value for the slide area. */
 	void length(ValueType length); /**< Set the max value for the slide area. */
