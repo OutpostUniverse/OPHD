@@ -203,16 +203,6 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	{
 		// nothing
 	}
-	/*
-	else if (pointInRect_f(x, y, mButton2))
-	{
-		changeThumbPosition(+1.0);
-	}
-	else if (pointInRect_f(x, y, mButton1))
-	{
-		changeThumbPosition(-1.0);
-	}
-	*/
 	else if (mSlideBar.contains(NAS2D::Point{x, y}))
 	{
 		if (mSliderType == SliderType::Vertical)
