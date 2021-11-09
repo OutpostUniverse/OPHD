@@ -142,7 +142,7 @@ Slider::~Slider()
 }
 
 
-void Slider::buttonCheck(bool& buttonFlag, ValueType value)
+void Slider::onButtonClick(bool& buttonFlag, ValueType value)
 {
 	changeValue(value);
 	buttonFlag = true;
@@ -166,11 +166,11 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		}
 		else if (mButton1.contains(mousePosition))
 		{
-			buttonCheck(mButton1Held, -1);
+			onButtonClick(mButton1Held, -1);
 		}
 		else if (mButton2.contains(mousePosition))
 		{
-			buttonCheck(mButton2Held, 1);
+			onButtonClick(mButton2Held, 1);
 		}
 	}
 }
