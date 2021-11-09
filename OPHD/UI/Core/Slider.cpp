@@ -203,9 +203,8 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!enabled() || !visible()) { return; }
-	if (!mThumbPressed) { return; }
 
-	if (mSlideBar.contains({x, y}))
+	if (mThumbPressed && mSlideBar.contains({x, y}))
 	{
 		if (mSliderType == SliderType::Vertical)
 		{
