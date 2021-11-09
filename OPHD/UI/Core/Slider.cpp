@@ -219,22 +219,15 @@ void Slider::onLayoutChange()
 		mButton1 = {mRect.x, mRect.y, mRect.width, mRect.width};
 		mButton2 = {mRect.x, mRect.y + mRect.height - mRect.width, mRect.width, mRect.width};
 		mSlideBar = {mRect.x, mRect.y + mRect.width, mRect.width, mRect.height - 2 * mRect.width};
-	}
-	else
-	{
-		mButton1 = {mRect.x, mRect.y, mRect.height, mRect.height};
-		mButton2 = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
-		mSlideBar = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
-	}
-
-	if (mSliderType == SliderType::Vertical)
-	{
 		const auto newSize = std::min(mSlideBar.height * mRect.height / std::max(mMax + mRect.height, 1), mSlideBar.height);
 		const auto drawOffset = (mSlideBar.height - newSize) * mValue / std::max(mMax, 1);
 		mSlider = {mSlideBar.x, mSlideBar.y + drawOffset, mSlideBar.width, newSize};
 	}
 	else
 	{
+		mButton1 = {mRect.x, mRect.y, mRect.height, mRect.height};
+		mButton2 = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
+		mSlideBar = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
 		const auto newSize = std::min(mSlideBar.width * mRect.width / std::max(mMax + mRect.width, 1), mSlideBar.width);
 		const auto drawOffset = (mSlideBar.width - newSize) * mValue / std::max(mMax, 1);
 		mSlider = {mSlideBar.x + drawOffset, mSlideBar.y, newSize, mSlideBar.height};
