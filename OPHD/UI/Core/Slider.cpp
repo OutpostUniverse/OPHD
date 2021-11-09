@@ -317,8 +317,6 @@ void Slider::draw() const
 
 void Slider::thumbPosition(float value)
 {
-	if (mBackward) { value = mLength - value; }
-
 	mPosition = std::clamp(value, 0.0f, mLength);
 
 	mSignal(thumbPosition());
@@ -328,11 +326,6 @@ void Slider::thumbPosition(float value)
 float Slider::thumbPosition() const
 {
 	float value = mPosition;
-	if (mBackward)
-	{
-		value = mLength - value;
-	}
-
 	return value;
 }
 
@@ -352,7 +345,6 @@ void Slider::changeThumbPosition(float change)
 
 void Slider::thumbPositionNormalized(float value) {
 	value = std::clamp(value, 0.0f, 1.0f);
-	if (mBackward) { value = 1.0f - value; }
 	mPosition = mLength * value;
 	mSignal(thumbPosition());
 }

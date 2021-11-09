@@ -12,7 +12,6 @@
  * Base class for all sliding controls.
  * 
  * Handle horizontal and vertical slide bar.
- * The handle could go backward or forward.
  * the handle width/height depend on the max value.
  * the minimum width/height is the height/width of the slide bar
  */
@@ -48,9 +47,6 @@ public:
 	float length() const; /**< Get the max value for the slide area. */
 	void length(float length); /**< Set the max value for the slide area. */
 
-	bool backward() const { return mBackward; } /**< Get the backward flag. */
-	void backward(bool isBackward) { mBackward = isBackward; } /**< Set the backward flag. */
-
 	void update() override;
 
 	ValueChangeSignal::Source& change() { return mSignal; }
@@ -85,8 +81,6 @@ private:
 	// Slider values
 	float mPosition = 0.0f;
 	float mLength = 0.0f;
-
-	bool mBackward = false;
 
 	// Slider button responses
 	uint32_t mPressedAccumulator = 0; /**< Accumulation value for pressed responses. */
