@@ -255,8 +255,7 @@ void Slider::update()
 		{
 			mPressedAccumulator = 30;
 			mTimer.reset();
-			if (mButton1Held) { changeValue(-1); }
-			else { changeValue(1); }
+			changeValue((mButton1Held ? -1 : 1));
 		}
 	}
 
