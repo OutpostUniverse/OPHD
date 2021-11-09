@@ -206,14 +206,11 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 
 	if (mThumbPressed && mSlideBar.contains({x, y}))
 	{
-		if (mSliderType == SliderType::Vertical)
-		{
-			value(mMax * (y - mSlideBar.y) / mSlideBar.height);
-		}
-		else
-		{
-			value(mMax * (x - mSlideBar.x) / mSlideBar.width);
-		}
+		value(
+			(mSliderType == SliderType::Vertical) ?
+				mMax * (y - mSlideBar.y) / mSlideBar.height :
+				mMax * (x - mSlideBar.x) / mSlideBar.width
+		);
 	}
 }
 
