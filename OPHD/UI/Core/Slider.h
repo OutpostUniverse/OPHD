@@ -60,26 +60,18 @@ protected:
 	void buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, ValueType value);
 
 private:
-	NAS2D::Timer mTimer;
-
-	ValueChangeSignal mSignal;
-
 	SliderType mSliderType{SliderType::Vertical};
-
-	// mouse event related vars
-	NAS2D::Point<int> mMousePosition;
-
-	bool mThumbPressed = false; /**< Flag to indicate if this control is pressed. */
-
-	// Slider values
 	ValueType mValue = 0;
 	ValueType mMax = 0;
+	ValueChangeSignal mSignal;
 
 	// Slider button responses
+	NAS2D::Point<int> mMousePosition;
+	NAS2D::Timer mTimer;
 	uint32_t mPressedAccumulator = 0; /**< Accumulation value for pressed responses. */
+	bool mThumbPressed = false; /**< Flag to indicate if this control is pressed. */
 	bool mButton1Held = false;
 	bool mButton2Held = false;
-
 
 	// drawing vars
 	Skins mSkins;
