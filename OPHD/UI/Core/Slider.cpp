@@ -272,7 +272,7 @@ void Slider::update()
 		const auto i = static_cast<int>(mSlideBar.height / mLength);
 		const auto newSize = std::max(i, mSlider.width);
 
-		const auto relativevalue = static_cast<int>((mSlideBar.height - mSlider.height) * mPosition / mLength); //relative width
+		const auto relativevalue = static_cast<int>((mSlideBar.height - mSlider.height) * mValue / mLength); //relative width
 
 		mSlider = {mSlideBar.x, mSlideBar.y + relativevalue, mSlideBar.width, newSize};
 	}
@@ -282,7 +282,7 @@ void Slider::update()
 		const auto i = static_cast<int>(mSlideBar.width / (mLength + 1.0f));
 		const auto newSize = std::max(i, mSlider.height);
 
-		const auto relativevalue = static_cast<int>((mSlideBar.width - mSlider.width) * mPosition / mLength); //relative width
+		const auto relativevalue = static_cast<int>((mSlideBar.width - mSlider.width) * mValue / mLength); //relative width
 
 		mSlider = {mSlideBar.x + relativevalue, mSlideBar.y, newSize, mSlideBar.height};
 	}
@@ -304,20 +304,20 @@ void Slider::draw() const
 
 void Slider::value(ValueType newValue)
 {
-	mPosition = std::clamp<ValueType>(newValue, 0, mLength);
-	mSignal(mPosition);
+	mValue = std::clamp<ValueType>(newValue, 0, mLength);
+	mSignal(mValue);
 }
 
 
 Slider::ValueType Slider::value() const
 {
-	return mPosition;
+	return mValue;
 }
 
 
 void Slider::changeValue(ValueType change)
 {
-	value(mPosition + change);
+	value(mValue + change);
 }
 
 
@@ -330,7 +330,7 @@ Slider::ValueType Slider::max() const
 void Slider::max(ValueType newMax)
 {
 	mLength = newMax;
-	if (mPosition > mLength)
+	if (mValue > mLength)
 	{
 		value(mLength);
 	}

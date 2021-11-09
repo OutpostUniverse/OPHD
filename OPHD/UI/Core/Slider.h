@@ -74,7 +74,7 @@ private:
 	bool mThumbPressed = false; /**< Flag to indicate if this control is pressed. */
 
 	// Slider values
-	ValueType mPosition = 0;
+	ValueType mValue = 0;
 	ValueType mLength = 0;
 
 	// Slider button responses
