@@ -205,23 +205,16 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 	if (!enabled() || !visible()) { return; }
 	if (!mThumbPressed) { return; }
 
-	if (mSliderType == SliderType::Vertical)
+	if (mSlideBar.contains({x, y}))
 	{
-		if (y < mSlideBar.y || y > (mSlideBar.y + mSlideBar.height))
+		if (mSliderType == SliderType::Vertical)
 		{
-			return;
+			value(mMax * (y - mSlideBar.y) / mSlideBar.height);
 		}
-
-		value(mMax * (y - mSlideBar.y) / mSlideBar.height);
-	}
-	else
-	{
-		if (x < mSlideBar.x || x > (mSlideBar.x + mSlideBar.width))
+		else
 		{
-			return;
+			value(mMax * (x - mSlideBar.x) / mSlideBar.width);
 		}
-
-		value(mMax * (x - mSlideBar.x) / mSlideBar.width);
 	}
 }
 
