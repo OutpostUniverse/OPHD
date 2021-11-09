@@ -269,8 +269,7 @@ void Slider::update()
 
 	if (mSliderType == SliderType::Vertical)
 	{
-		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = static_cast<int>(mSlideBar.height / mMax);
+		const auto i = mSlideBar.height / mMax;
 		const auto newSize = std::max(i, mSlider.width);
 
 		const auto relativevalue = static_cast<int>((mSlideBar.height - mSlider.height) * mValue / mMax); //relative width
@@ -279,8 +278,7 @@ void Slider::update()
 	}
 	else
 	{
-		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = static_cast<int>(mSlideBar.width / (mMax + 1.0f));
+		const auto i = mSlideBar.width / (mMax + 1);
 		const auto newSize = std::max(i, mSlider.height);
 
 		const auto relativevalue = static_cast<int>((mSlideBar.width - mSlider.width) * mValue / mMax); //relative width
