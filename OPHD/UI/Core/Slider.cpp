@@ -7,7 +7,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <algorithm>
-#include <cmath>
 
 
 using namespace NAS2D;
