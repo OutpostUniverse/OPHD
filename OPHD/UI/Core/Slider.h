@@ -41,9 +41,6 @@ public:
 	float thumbPosition() const; /**< Get the current position. */
 	void changeThumbPosition(float change); /**< Adds the change amount to the current position. */
 
-	void thumbPositionNormalized(float value); /**< Set the current position. */
-	float thumbPositionNormalized() const; /**< Get the current position. */
-
 	float length() const; /**< Get the max value for the slide area. */
 	void length(float length); /**< Set the max value for the slide area. */
 

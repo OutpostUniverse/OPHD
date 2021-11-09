@@ -342,18 +342,6 @@ void Slider::changeThumbPosition(float change)
 }
 
 
-void Slider::thumbPositionNormalized(float value) {
-	value = std::clamp(value, 0.0f, 1.0f);
-	mPosition = mLength * value;
-	mSignal(thumbPosition());
-}
-
-
-float Slider::thumbPositionNormalized() const {
-	return mPosition / mLength;
-}
-
-
 float Slider::length() const
 {
 	return mLength;
