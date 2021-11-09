@@ -162,7 +162,6 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		if (mSlider.contains(mousePosition))
 		{
 			mThumbPressed = true;
-			return;
 		}
 		else if (mButton1.contains(mousePosition))
 		{
