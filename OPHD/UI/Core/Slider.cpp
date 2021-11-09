@@ -212,6 +212,18 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 }
 
 
+void Slider::onMove(NAS2D::Vector<int> /*displacement*/)
+{
+	onLayoutChange();
+}
+
+
+void Slider::onResize()
+{
+	onLayoutChange();
+}
+
+
 void Slider::onLayoutChange()
 {
 	if (mSliderType == SliderType::Vertical)
@@ -248,8 +260,6 @@ void Slider::update()
 			changeValue((mButton1Held ? -1 : 1));
 		}
 	}
-
-	onLayoutChange();
 
 	draw();
 }
