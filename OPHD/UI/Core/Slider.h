@@ -8,13 +8,6 @@
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 
- /**
- * Base class for all sliding controls.
- * 
- * Handle horizontal and vertical slide bar.
- * the handle width/height depend on the max value.
- * the minimum width/height is the height/width of the slide bar
- */
 class Slider : public Control
 {
 public:
@@ -25,10 +18,10 @@ public:
 	};
 
 	struct Skins {
-		NAS2D::RectangleSkin skinButton1;
-		NAS2D::RectangleSkin skinMiddle;
-		NAS2D::RectangleSkin skinButton2;
-		NAS2D::RectangleSkin skinSlider;
+		NAS2D::RectangleSkin skinTrack;
+		NAS2D::RectangleSkin skinThumb;
+		NAS2D::RectangleSkin skinButtonDecrease;
+		NAS2D::RectangleSkin skinButtonIncrease;
 	};
 
 	using ValueType = int;
@@ -38,55 +31,45 @@ public:
 	Slider(Skins skins, SliderType sliderType = SliderType::Vertical);
 	~Slider() override;
 
-	void value(ValueType newValue);
 	ValueType value() const;
+	void value(ValueType newValue);
 	void changeValue(ValueType change);
 
 	ValueType max() const;
 	void max(ValueType newMax);
 
 	void update() override;
+	void draw() const override;
 
 	ValueChangeSignal::Source& change() { return mSignal; }
 
 protected:
+	void onButtonClick(bool& buttonFlag, ValueType value);
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int dX, int dY);
 
-	void draw() const override;
-	void logic(); /**< Compute some values before drawing the control. */
-
-	void buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, ValueType value);
+	void onMove(NAS2D::Vector<int> displacement) override;
+	void onResize() override;
+	void onLayoutChange();
 
 private:
-	const NAS2D::Font& mFont;
-
-	NAS2D::Timer mTimer;
-
+	SliderType mSliderType{SliderType::Vertical};
+	ValueType mValue{0};
+	ValueType mMax{0};
 	ValueChangeSignal mSignal;
 
-	SliderType mSliderType{SliderType::Vertical};
-
-	// mouse event related vars
-	NAS2D::Point<int> mMousePosition;
-
-	bool mThumbPressed = false; /**< Flag to indicate if this control is pressed. */
-
-	// Slider values
-	ValueType mValue = 0;
-	ValueType mMax = 0;
-
 	// Slider button responses
-	uint32_t mPressedAccumulator = 0; /**< Accumulation value for pressed responses. */
-	bool mButton1Held = false;
-	bool mButton2Held = false;
+	NAS2D::Timer mTimer;
+	uint32_t mPressedAccumulator{0}; /**< Accumulation value for pressed responses. */
+	bool mThumbPressed{false}; /**< Flag to indicate if this control is pressed. */
+	bool mButtonDecreaseHeld{false};
+	bool mButtonIncreaseHeld{false};
 
-
-	// drawing vars
+	// Drawing vars
 	Skins mSkins;
-	NAS2D::Rectangle<int> mButton1; /**< Area on screen where the second button is displayed. (Down/Left) */
-	NAS2D::Rectangle<int> mButton2; /**< Area on screen where the first button is displayed. (Up/Right)*/
-	NAS2D::Rectangle<int> mSlideBar; /**< Area on screen where the slide area is displayed. */
-	NAS2D::Rectangle<int> mSlider; /**< Area on screen where the slider is displayed. */
+	NAS2D::Rectangle<int> mTrack;
+	NAS2D::Rectangle<int> mThumb;
+	NAS2D::Rectangle<int> mButtonDecrease; // Top/Left
+	NAS2D::Rectangle<int> mButtonIncrease; // Bottom/Right
 };

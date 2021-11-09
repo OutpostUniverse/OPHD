@@ -1,13 +1,11 @@
 #include "Slider.h"
 
 #include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <algorithm>
-#include <cmath>
 
 
 using namespace NAS2D;
@@ -20,18 +18,7 @@ namespace
 		if (sliderType == Slider::SliderType::Vertical)
 		{
 			return {
-				{ // Button1
-					imageCache.load("ui/skin/sv_bu_tl.png"),
-					imageCache.load("ui/skin/sv_bu_tm.png"),
-					imageCache.load("ui/skin/sv_bu_tr.png"),
-					imageCache.load("ui/skin/sv_bu_ml.png"),
-					imageCache.load("ui/skin/sv_bu_mm.png"),
-					imageCache.load("ui/skin/sv_bu_mr.png"),
-					imageCache.load("ui/skin/sv_bu_bl.png"),
-					imageCache.load("ui/skin/sv_bu_bm.png"),
-					imageCache.load("ui/skin/sv_bu_br.png")
-				},
-				{ // Middle
+				{ // Track
 					imageCache.load("ui/skin/sv_sa_tl.png"),
 					imageCache.load("ui/skin/sv_sa_tm.png"),
 					imageCache.load("ui/skin/sv_sa_tr.png"),
@@ -42,7 +29,29 @@ namespace
 					imageCache.load("ui/skin/sv_sa_bm.png"),
 					imageCache.load("ui/skin/sv_sa_br.png")
 				},
-				{ // Button2
+				{ // Thumb
+					imageCache.load("ui/skin/sv_sl_tl.png"),
+					imageCache.load("ui/skin/sv_sl_tm.png"),
+					imageCache.load("ui/skin/sv_sl_tr.png"),
+					imageCache.load("ui/skin/sv_sl_ml.png"),
+					imageCache.load("ui/skin/sv_sl_mm.png"),
+					imageCache.load("ui/skin/sv_sl_mr.png"),
+					imageCache.load("ui/skin/sv_sl_bl.png"),
+					imageCache.load("ui/skin/sv_sl_bm.png"),
+					imageCache.load("ui/skin/sv_sl_br.png")
+				},
+				{ // ButtonDecrease
+					imageCache.load("ui/skin/sv_bu_tl.png"),
+					imageCache.load("ui/skin/sv_bu_tm.png"),
+					imageCache.load("ui/skin/sv_bu_tr.png"),
+					imageCache.load("ui/skin/sv_bu_ml.png"),
+					imageCache.load("ui/skin/sv_bu_mm.png"),
+					imageCache.load("ui/skin/sv_bu_mr.png"),
+					imageCache.load("ui/skin/sv_bu_bl.png"),
+					imageCache.load("ui/skin/sv_bu_bm.png"),
+					imageCache.load("ui/skin/sv_bu_br.png")
+				},
+				{ // ButtonIncrease
 					imageCache.load("ui/skin/sv_bd_tl.png"),
 					imageCache.load("ui/skin/sv_bd_tm.png"),
 					imageCache.load("ui/skin/sv_bd_tr.png"),
@@ -53,34 +62,12 @@ namespace
 					imageCache.load("ui/skin/sv_bd_bm.png"),
 					imageCache.load("ui/skin/sv_bd_br.png")
 				},
-				{ // Slider
-					imageCache.load("ui/skin/sv_sl_tl.png"),
-					imageCache.load("ui/skin/sv_sl_tm.png"),
-					imageCache.load("ui/skin/sv_sl_tr.png"),
-					imageCache.load("ui/skin/sv_sl_ml.png"),
-					imageCache.load("ui/skin/sv_sl_mm.png"),
-					imageCache.load("ui/skin/sv_sl_mr.png"),
-					imageCache.load("ui/skin/sv_sl_bl.png"),
-					imageCache.load("ui/skin/sv_sl_bm.png"),
-					imageCache.load("ui/skin/sv_sl_br.png")
-				}
 			};
 		}
 		else
 		{
 			return {
-				{ // Button1
-					imageCache.load("ui/skin/sh_bl_tl.png"),
-					imageCache.load("ui/skin/sh_bl_tm.png"),
-					imageCache.load("ui/skin/sh_bl_tr.png"),
-					imageCache.load("ui/skin/sh_bl_ml.png"),
-					imageCache.load("ui/skin/sh_bl_mm.png"),
-					imageCache.load("ui/skin/sh_bl_mr.png"),
-					imageCache.load("ui/skin/sh_bl_bl.png"),
-					imageCache.load("ui/skin/sh_bl_bm.png"),
-					imageCache.load("ui/skin/sh_bl_br.png")
-				},
-				{ // Middle
+				{ // Track
 					imageCache.load("ui/skin/sh_sa_tl.png"),
 					imageCache.load("ui/skin/sh_sa_tm.png"),
 					imageCache.load("ui/skin/sh_sa_tr.png"),
@@ -91,7 +78,29 @@ namespace
 					imageCache.load("ui/skin/sh_sa_bm.png"),
 					imageCache.load("ui/skin/sh_sa_br.png")
 				},
-				{ // Button2
+				{ // Thumb
+					imageCache.load("ui/skin/sh_sl_tl.png"),
+					imageCache.load("ui/skin/sh_sl_tm.png"),
+					imageCache.load("ui/skin/sh_sl_tr.png"),
+					imageCache.load("ui/skin/sh_sl_ml.png"),
+					imageCache.load("ui/skin/sh_sl_mm.png"),
+					imageCache.load("ui/skin/sh_sl_mr.png"),
+					imageCache.load("ui/skin/sh_sl_bl.png"),
+					imageCache.load("ui/skin/sh_sl_bm.png"),
+					imageCache.load("ui/skin/sh_sl_br.png")
+				},
+				{ // ButtonDecrease
+					imageCache.load("ui/skin/sh_bl_tl.png"),
+					imageCache.load("ui/skin/sh_bl_tm.png"),
+					imageCache.load("ui/skin/sh_bl_tr.png"),
+					imageCache.load("ui/skin/sh_bl_ml.png"),
+					imageCache.load("ui/skin/sh_bl_mm.png"),
+					imageCache.load("ui/skin/sh_bl_mr.png"),
+					imageCache.load("ui/skin/sh_bl_bl.png"),
+					imageCache.load("ui/skin/sh_bl_bm.png"),
+					imageCache.load("ui/skin/sh_bl_br.png")
+				},
+				{ // ButtonIncrease
 					imageCache.load("ui/skin/sh_br_tl.png"),
 					imageCache.load("ui/skin/sh_br_tm.png"),
 					imageCache.load("ui/skin/sh_br_tr.png"),
@@ -102,29 +111,18 @@ namespace
 					imageCache.load("ui/skin/sh_br_bm.png"),
 					imageCache.load("ui/skin/sh_br_br.png")
 				},
-				{ // Slider
-					imageCache.load("ui/skin/sh_sl_tl.png"),
-					imageCache.load("ui/skin/sh_sl_tm.png"),
-					imageCache.load("ui/skin/sh_sl_tr.png"),
-					imageCache.load("ui/skin/sh_sl_ml.png"),
-					imageCache.load("ui/skin/sh_sl_mm.png"),
-					imageCache.load("ui/skin/sh_sl_mr.png"),
-					imageCache.load("ui/skin/sh_sl_bl.png"),
-					imageCache.load("ui/skin/sh_sl_bm.png"),
-					imageCache.load("ui/skin/sh_sl_br.png")
-				}
 			};
 		}
 	}
 }
 
 
-Slider::Slider(SliderType sliderType) : Slider(loadSkins(sliderType), sliderType)
+Slider::Slider(SliderType sliderType) :
+	Slider{loadSkins(sliderType), sliderType}
 {}
 
 
 Slider::Slider(Slider::Skins skins, SliderType sliderType) :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mSliderType{sliderType},
 	mSkins{skins}
 {
@@ -144,161 +142,9 @@ Slider::~Slider()
 }
 
 
-void Slider::buttonCheck(bool& buttonFlag, Rectangle<int>& rect, ValueType value)
+Slider::ValueType Slider::value() const
 {
-	if (rect.contains(mMousePosition))
-	{
-		changeValue(value);
-		buttonFlag = true;
-
-		mTimer.reset();
-		mPressedAccumulator = 300;
-		return;
-	}
-}
-
-
-void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	if (!enabled() || !visible()) { return; }
-
-	if (button == EventHandler::MouseButton::Left)
-	{
-		if (mSlider.contains(NAS2D::Point{x, y}))
-		{
-			mThumbPressed = true;
-			return;
-		}
-
-		buttonCheck(mButton1Held, mButton1, -1);
-		buttonCheck(mButton2Held, mButton2, 1);
-	}
-}
-
-
-void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
-{
-	if (button != EventHandler::MouseButton::Left) { return; }
-
-	mButton1Held = false;
-	mButton2Held = false;
-	mThumbPressed = false;
-
-	if (!enabled() || !visible()) { return; }
-
-	const auto mousePosition = NAS2D::Point{x, y};
-	if (mSlideBar.contains(mousePosition) && !mSlider.contains(mousePosition))
-	{
-		if (mSliderType == SliderType::Vertical)
-		{
-			if (y < mSlider.y) { changeValue(-3); }
-			else { changeValue(3); }
-		}
-		else
-		{
-			if (x < mSlider.x) { changeValue(-3); }
-			else { changeValue(3); }
-		}
-	}
-}
-
-
-void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
-{
-	if (!enabled() || !visible()) { return; }
-
-	mMousePosition = {x, y};
-
-	if (!mThumbPressed) { return; }
-
-	if (mSliderType == SliderType::Vertical)
-	{
-		if (y < mSlideBar.y || y >(mSlideBar.y + mSlideBar.height))
-		{
-			return;
-		}
-
-		value(mMax * ((y - mSlideBar.y) / mSlideBar.height));
-	}
-	else
-	{
-		if (x < mSlideBar.x || x >(mSlideBar.x + mSlideBar.width))
-		{
-			return;
-		}
-
-		value(mMax * (x - mSlideBar.x) / mSlideBar.width);
-	}
-}
-
-
-void Slider::logic()
-{
-	if (mSliderType == SliderType::Vertical)
-	{
-		mButton1 = {mRect.x, mRect.y, mRect.width, mRect.width};
-		mButton2 = {mRect.x, mRect.y + mRect.height - mRect.width, mRect.width, mRect.width};
-		mSlideBar = {mRect.x, mRect.y + mRect.width, mRect.width, mRect.height - 2 * mRect.width};
-	}
-	else
-	{
-		mButton1 = {mRect.x, mRect.y, mRect.height, mRect.height};
-		mButton2 = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
-		mSlideBar = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
-	}
-}
-
-
-void Slider::update()
-{
-	if (!visible()) { return; }
-
-	if (mButton1Held || mButton2Held)
-	{
-		if (mTimer.accumulator() >= mPressedAccumulator)
-		{
-			mPressedAccumulator = 30;
-			mTimer.reset();
-			if (mButton1Held) { changeValue(-1); }
-			else { changeValue(1); }
-		}
-	}
-
-	logic();
-
-	if (mSliderType == SliderType::Vertical)
-	{
-		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = static_cast<int>(mSlideBar.height / mMax);
-		const auto newSize = std::max(i, mSlider.width);
-
-		const auto relativevalue = static_cast<int>((mSlideBar.height - mSlider.height) * mValue / mMax); //relative width
-
-		mSlider = {mSlideBar.x, mSlideBar.y + relativevalue, mSlideBar.width, newSize};
-	}
-	else
-	{
-		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = static_cast<int>(mSlideBar.width / (mMax + 1.0f));
-		const auto newSize = std::max(i, mSlider.height);
-
-		const auto relativevalue = static_cast<int>((mSlideBar.width - mSlider.width) * mValue / mMax); //relative width
-
-		mSlider = {mSlideBar.x + relativevalue, mSlideBar.y, newSize, mSlideBar.height};
-	}
-
-	draw();
-}
-
-
-void Slider::draw() const
-{
-	auto& renderer = Utility<Renderer>::get();
-
-	mSkins.skinMiddle.draw(renderer, mSlideBar); // Slide area
-	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
-	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
-	mSkins.skinSlider.draw(renderer, mSlider);
+	return mValue;
 }
 
 
@@ -310,12 +156,6 @@ void Slider::value(ValueType newValue)
 	{
 		mSignal(mValue);
 	}
-}
-
-
-Slider::ValueType Slider::value() const
-{
-	return mValue;
 }
 
 
@@ -335,4 +175,138 @@ void Slider::max(ValueType newMax)
 {
 	mMax = newMax;
 	value(mValue); // Re-clamp to new max
+}
+
+
+void Slider::update()
+{
+	if (!visible()) { return; }
+
+	if (mButtonDecreaseHeld || mButtonIncreaseHeld)
+	{
+		if (mTimer.accumulator() >= mPressedAccumulator)
+		{
+			mPressedAccumulator = 30;
+			mTimer.reset();
+			changeValue((mButtonDecreaseHeld ? -1 : 1));
+		}
+	}
+
+	draw();
+}
+
+
+void Slider::draw() const
+{
+	auto& renderer = Utility<Renderer>::get();
+
+	mSkins.skinTrack.draw(renderer, mTrack);
+	mSkins.skinThumb.draw(renderer, mThumb);
+	mSkins.skinButtonDecrease.draw(renderer, mButtonDecrease);
+	mSkins.skinButtonIncrease.draw(renderer, mButtonIncrease);
+}
+
+
+void Slider::onButtonClick(bool& buttonFlag, ValueType value)
+{
+	changeValue(value);
+	buttonFlag = true;
+
+	mTimer.reset();
+	mPressedAccumulator = 300;
+}
+
+
+void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
+{
+	if (!enabled() || !visible()) { return; }
+
+	if (button == EventHandler::MouseButton::Left)
+	{
+		const auto mousePosition = NAS2D::Point{x, y};
+		if (mThumb.contains(mousePosition))
+		{
+			mThumbPressed = true;
+		}
+		else if (mButtonDecrease.contains(mousePosition))
+		{
+			onButtonClick(mButtonDecreaseHeld, -1);
+		}
+		else if (mButtonIncrease.contains(mousePosition))
+		{
+			onButtonClick(mButtonIncreaseHeld, 1);
+		}
+	}
+}
+
+
+void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
+{
+	if (button != EventHandler::MouseButton::Left) { return; }
+
+	mButtonDecreaseHeld = false;
+	mButtonIncreaseHeld = false;
+	mThumbPressed = false;
+
+	if (!enabled() || !visible()) { return; }
+
+	const auto mousePosition = NAS2D::Point{x, y};
+	if (mTrack.contains(mousePosition) && !mThumb.contains(mousePosition))
+	{
+		changeValue(
+			(mSliderType == SliderType::Vertical) ?
+				(y < mThumb.y ? -3 : 3) :
+				(x < mThumb.x ? -3 : 3)
+		);
+	}
+}
+
+
+void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
+{
+	if (!enabled() || !visible()) { return; }
+
+	if (mThumbPressed && mTrack.contains({x, y}))
+	{
+		value(
+			(mSliderType == SliderType::Vertical) ?
+				mMax * (y - mTrack.y - mThumb.height / 2) / (mTrack.height - mThumb.height) :
+				mMax * (x - mTrack.x - mThumb.width / 2) / (mTrack.width - mThumb.width)
+		);
+	}
+}
+
+
+void Slider::onMove(NAS2D::Vector<int> /*displacement*/)
+{
+	onLayoutChange();
+}
+
+
+void Slider::onResize()
+{
+	onLayoutChange();
+}
+
+
+void Slider::onLayoutChange()
+{
+	if (mSliderType == SliderType::Vertical)
+	{
+		mButtonDecrease = {mRect.x, mRect.y, mRect.width, mRect.width};
+		mButtonIncrease = {mRect.x, mRect.y + mRect.height - mRect.width, mRect.width, mRect.width};
+		mTrack = {mRect.x, mRect.y + mRect.width, mRect.width, mRect.height - 2 * mRect.width};
+		const auto newSize = std::min(mTrack.height * mRect.height / std::max(mMax + mRect.height, 1), mTrack.height);
+		const auto drawOffset = (mTrack.height - newSize) * mValue / std::max(mMax, 1);
+		mThumb = {mTrack.x, mTrack.y + drawOffset, mTrack.width, newSize};
+	}
+	else
+	{
+		mButtonDecrease = {mRect.x, mRect.y, mRect.height, mRect.height};
+		mButtonIncrease = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
+		mTrack = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
+		const auto newSize = std::min(mTrack.width * mRect.width / std::max(mMax + mRect.width, 1), mTrack.width);
+		const auto drawOffset = (mTrack.width - newSize) * mValue / std::max(mMax, 1);
+		mThumb = {mTrack.x + drawOffset, mTrack.y, newSize, mTrack.height};
+	}
 }
