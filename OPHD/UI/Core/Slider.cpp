@@ -188,14 +188,11 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	const auto mousePosition = NAS2D::Point{x, y};
 	if (mSlideBar.contains(mousePosition) && !mSlider.contains(mousePosition))
 	{
-		if (mSliderType == SliderType::Vertical)
-		{
-			changeValue((y < mSlider.y ? -3 : 3));
-		}
-		else
-		{
-			changeValue((x < mSlider.x ? -3 : 3));
-		}
+		changeValue(
+			(mSliderType == SliderType::Vertical) ?
+				(y < mSlider.y ? -3 : 3) :
+				(x < mSlider.x ? -3 : 3)
+		);
 	}
 }
 
