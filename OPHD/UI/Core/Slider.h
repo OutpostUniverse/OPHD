@@ -63,13 +63,13 @@ private:
 	NAS2D::Timer mTimer;
 	uint32_t mPressedAccumulator = 0; /**< Accumulation value for pressed responses. */
 	bool mThumbPressed = false; /**< Flag to indicate if this control is pressed. */
-	bool mButton1Held = false;
-	bool mButton2Held = false;
+	bool mButtonDecreaseHeld = false;
+	bool mButtonIncreaseHeld = false;
 
 	// Drawing vars
 	Skins mSkins;
-	NAS2D::Rectangle<int> mButton1; /**< Area on screen where the second button is displayed. (Down/Left) */
-	NAS2D::Rectangle<int> mButton2; /**< Area on screen where the first button is displayed. (Up/Right)*/
+	NAS2D::Rectangle<int> mButtonDecrease; // Top/Left
+	NAS2D::Rectangle<int> mButtonIncrease; // Bottom/Right
 	NAS2D::Rectangle<int> mTrack;
 	NAS2D::Rectangle<int> mThumb;
 };

@@ -182,13 +182,13 @@ void Slider::update()
 {
 	if (!visible()) { return; }
 
-	if (mButton1Held || mButton2Held)
+	if (mButtonDecreaseHeld || mButtonIncreaseHeld)
 	{
 		if (mTimer.accumulator() >= mPressedAccumulator)
 		{
 			mPressedAccumulator = 30;
 			mTimer.reset();
-			changeValue((mButton1Held ? -1 : 1));
+			changeValue((mButtonDecreaseHeld ? -1 : 1));
 		}
 	}
 
@@ -201,8 +201,8 @@ void Slider::draw() const
 	auto& renderer = Utility<Renderer>::get();
 
 	mSkins.skinMiddle.draw(renderer, mTrack);
-	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
-	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
+	mSkins.skinButton1.draw(renderer, mButtonDecrease);
+	mSkins.skinButton2.draw(renderer, mButtonIncrease);
 	mSkins.skinSlider.draw(renderer, mThumb);
 }
 
@@ -228,13 +228,13 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 		{
 			mThumbPressed = true;
 		}
-		else if (mButton1.contains(mousePosition))
+		else if (mButtonDecrease.contains(mousePosition))
 		{
-			onButtonClick(mButton1Held, -1);
+			onButtonClick(mButtonDecreaseHeld, -1);
 		}
-		else if (mButton2.contains(mousePosition))
+		else if (mButtonIncrease.contains(mousePosition))
 		{
-			onButtonClick(mButton2Held, 1);
+			onButtonClick(mButtonIncreaseHeld, 1);
 		}
 	}
 }
@@ -244,8 +244,8 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
 	if (button != EventHandler::MouseButton::Left) { return; }
 
-	mButton1Held = false;
-	mButton2Held = false;
+	mButtonDecreaseHeld = false;
+	mButtonIncreaseHeld = false;
 	mThumbPressed = false;
 
 	if (!enabled() || !visible()) { return; }
@@ -293,8 +293,8 @@ void Slider::onLayoutChange()
 {
 	if (mSliderType == SliderType::Vertical)
 	{
-		mButton1 = {mRect.x, mRect.y, mRect.width, mRect.width};
-		mButton2 = {mRect.x, mRect.y + mRect.height - mRect.width, mRect.width, mRect.width};
+		mButtonDecrease = {mRect.x, mRect.y, mRect.width, mRect.width};
+		mButtonIncrease = {mRect.x, mRect.y + mRect.height - mRect.width, mRect.width, mRect.width};
 		mTrack = {mRect.x, mRect.y + mRect.width, mRect.width, mRect.height - 2 * mRect.width};
 		const auto newSize = std::min(mTrack.height * mRect.height / std::max(mMax + mRect.height, 1), mTrack.height);
 		const auto drawOffset = (mTrack.height - newSize) * mValue / std::max(mMax, 1);
@@ -302,8 +302,8 @@ void Slider::onLayoutChange()
 	}
 	else
 	{
-		mButton1 = {mRect.x, mRect.y, mRect.height, mRect.height};
-		mButton2 = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
+		mButtonDecrease = {mRect.x, mRect.y, mRect.height, mRect.height};
+		mButtonIncrease = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
 		mTrack = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
 		const auto newSize = std::min(mTrack.width * mRect.width / std::max(mMax + mRect.width, 1), mTrack.width);
 		const auto drawOffset = (mTrack.width - newSize) * mValue / std::max(mMax, 1);
