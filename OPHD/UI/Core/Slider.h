@@ -8,13 +8,6 @@
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 
- /**
- * Base class for all sliding controls.
- * 
- * Handle horizontal and vertical slide bar.
- * the handle width/height depend on the max value.
- * the minimum width/height is the height/width of the slide bar
- */
 class Slider : public Control
 {
 public:
@@ -73,7 +66,7 @@ private:
 	bool mButton1Held = false;
 	bool mButton2Held = false;
 
-	// drawing vars
+	// Drawing vars
 	Skins mSkins;
 	NAS2D::Rectangle<int> mButton1; /**< Area on screen where the second button is displayed. (Down/Left) */
 	NAS2D::Rectangle<int> mButton2; /**< Area on screen where the first button is displayed. (Up/Right)*/
