@@ -53,7 +53,6 @@ protected:
 	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int dX, int dY);
 
-private:
 	float positionInternal();
 	void positionInternal(float newPosition);
 
@@ -62,6 +61,7 @@ private:
 
 	void buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, float value);
 
+private:
 	const NAS2D::Font& mFont;
 
 	NAS2D::Timer mTimer;
