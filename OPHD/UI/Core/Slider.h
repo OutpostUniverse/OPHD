@@ -57,7 +57,7 @@ protected:
 	void draw() const override;
 	void logic(); /**< Compute some values before drawing the control. */
 
-	void buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, ValueType value);
+	void buttonCheck(bool& buttonFlag, bool buttonHover, ValueType value);
 
 private:
 	SliderType mSliderType{SliderType::Vertical};
@@ -66,7 +66,8 @@ private:
 	ValueChangeSignal mSignal;
 
 	// Slider button responses
-	NAS2D::Point<int> mMousePosition;
+	bool mButton1Hover = false;
+	bool mButton2Hover = false;
 	NAS2D::Timer mTimer;
 	uint32_t mPressedAccumulator = 0; /**< Accumulation value for pressed responses. */
 	bool mThumbPressed = false; /**< Flag to indicate if this control is pressed. */

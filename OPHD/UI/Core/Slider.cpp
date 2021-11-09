@@ -143,9 +143,9 @@ Slider::~Slider()
 }
 
 
-void Slider::buttonCheck(bool& buttonFlag, Rectangle<int>& rect, ValueType value)
+void Slider::buttonCheck(bool& buttonFlag, bool buttonHover, ValueType value)
 {
-	if (rect.contains(mMousePosition))
+	if (buttonHover)
 	{
 		changeValue(value);
 		buttonFlag = true;
@@ -169,8 +169,8 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			return;
 		}
 
-		buttonCheck(mButton1Held, mButton1, -1);
-		buttonCheck(mButton2Held, mButton2, 1);
+		buttonCheck(mButton1Held, mButton1Hover, -1);
+		buttonCheck(mButton2Held, mButton2Hover, 1);
 	}
 }
 
@@ -206,7 +206,9 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!enabled() || !visible()) { return; }
 
-	mMousePosition = {x, y};
+	const auto mousePosition = NAS2D::Point{x, y};
+	mButton1Hover = mButton1.contains(mousePosition);
+	mButton2Hover = mButton2.contains(mousePosition);
 
 	if (!mThumbPressed) { return; }
 
