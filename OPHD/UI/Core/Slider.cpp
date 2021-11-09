@@ -200,7 +200,7 @@ void Slider::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	mSkins.skinMiddle.draw(renderer, mSlideBar); // Slide area
+	mSkins.skinMiddle.draw(renderer, mTrack);
 	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
 	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
 	mSkins.skinSlider.draw(renderer, mThumb);
@@ -251,7 +251,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	if (!enabled() || !visible()) { return; }
 
 	const auto mousePosition = NAS2D::Point{x, y};
-	if (mSlideBar.contains(mousePosition) && !mThumb.contains(mousePosition))
+	if (mTrack.contains(mousePosition) && !mThumb.contains(mousePosition))
 	{
 		changeValue(
 			(mSliderType == SliderType::Vertical) ?
@@ -266,12 +266,12 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (mThumbPressed && mSlideBar.contains({x, y}))
+	if (mThumbPressed && mTrack.contains({x, y}))
 	{
 		value(
 			(mSliderType == SliderType::Vertical) ?
-				mMax * (y - mSlideBar.y - mThumb.height / 2) / (mSlideBar.height - mThumb.height) :
-				mMax * (x - mSlideBar.x - mThumb.width / 2) / (mSlideBar.width - mThumb.width)
+				mMax * (y - mTrack.y - mThumb.height / 2) / (mTrack.height - mThumb.height) :
+				mMax * (x - mTrack.x - mThumb.width / 2) / (mTrack.width - mThumb.width)
 		);
 	}
 }
@@ -295,18 +295,18 @@ void Slider::onLayoutChange()
 	{
 		mButton1 = {mRect.x, mRect.y, mRect.width, mRect.width};
 		mButton2 = {mRect.x, mRect.y + mRect.height - mRect.width, mRect.width, mRect.width};
-		mSlideBar = {mRect.x, mRect.y + mRect.width, mRect.width, mRect.height - 2 * mRect.width};
-		const auto newSize = std::min(mSlideBar.height * mRect.height / std::max(mMax + mRect.height, 1), mSlideBar.height);
-		const auto drawOffset = (mSlideBar.height - newSize) * mValue / std::max(mMax, 1);
-		mThumb = {mSlideBar.x, mSlideBar.y + drawOffset, mSlideBar.width, newSize};
+		mTrack = {mRect.x, mRect.y + mRect.width, mRect.width, mRect.height - 2 * mRect.width};
+		const auto newSize = std::min(mTrack.height * mRect.height / std::max(mMax + mRect.height, 1), mTrack.height);
+		const auto drawOffset = (mTrack.height - newSize) * mValue / std::max(mMax, 1);
+		mThumb = {mTrack.x, mTrack.y + drawOffset, mTrack.width, newSize};
 	}
 	else
 	{
 		mButton1 = {mRect.x, mRect.y, mRect.height, mRect.height};
 		mButton2 = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
-		mSlideBar = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
-		const auto newSize = std::min(mSlideBar.width * mRect.width / std::max(mMax + mRect.width, 1), mSlideBar.width);
-		const auto drawOffset = (mSlideBar.width - newSize) * mValue / std::max(mMax, 1);
-		mThumb = {mSlideBar.x + drawOffset, mSlideBar.y, newSize, mSlideBar.height};
+		mTrack = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
+		const auto newSize = std::min(mTrack.width * mRect.width / std::max(mMax + mRect.width, 1), mTrack.width);
+		const auto drawOffset = (mTrack.width - newSize) * mValue / std::max(mMax, 1);
+		mThumb = {mTrack.x + drawOffset, mTrack.y, newSize, mTrack.height};
 	}
 }
