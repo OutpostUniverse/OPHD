@@ -200,10 +200,10 @@ void Slider::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	mSkins.skinMiddle.draw(renderer, mTrack);
-	mSkins.skinButton1.draw(renderer, mButtonDecrease);
-	mSkins.skinButton2.draw(renderer, mButtonIncrease);
-	mSkins.skinSlider.draw(renderer, mThumb);
+	mSkins.skinTrack.draw(renderer, mTrack);
+	mSkins.skinButtonDecrease.draw(renderer, mButtonDecrease);
+	mSkins.skinButtonIncrease.draw(renderer, mButtonIncrease);
+	mSkins.skinThumb.draw(renderer, mThumb);
 }
 
 

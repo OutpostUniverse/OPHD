@@ -18,10 +18,10 @@ public:
 	};
 
 	struct Skins {
-		NAS2D::RectangleSkin skinButton1;
-		NAS2D::RectangleSkin skinMiddle;
-		NAS2D::RectangleSkin skinButton2;
-		NAS2D::RectangleSkin skinSlider;
+		NAS2D::RectangleSkin skinButtonDecrease;
+		NAS2D::RectangleSkin skinTrack;
+		NAS2D::RectangleSkin skinButtonIncrease;
+		NAS2D::RectangleSkin skinThumb;
 	};
 
 	using ValueType = int;
