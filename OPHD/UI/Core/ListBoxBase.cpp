@@ -21,9 +21,9 @@ ListBoxBase::ListBoxBase()
 	eventHandler.mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
 	eventHandler.mouseMotion().connect(this, &ListBoxBase::onMouseMove);
 
-	mSlider.max(0);
-	mSlider.value(0);
-	mSlider.change().connect(this, &ListBoxBase::onSlideChange);
+	mScrollBar.max(0);
+	mScrollBar.value(0);
+	mScrollBar.change().connect(this, &ListBoxBase::onSlideChange);
 
 	updateScrollLayout();
 }
@@ -31,7 +31,7 @@ ListBoxBase::ListBoxBase()
 
 ListBoxBase::~ListBoxBase()
 {
-	mSlider.change().disconnect(this, &ListBoxBase::onSlideChange);
+	mScrollBar.change().disconnect(this, &ListBoxBase::onSlideChange);
 
 	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseWheel().disconnect(this, &ListBoxBase::onMouseWheel);
@@ -75,18 +75,18 @@ void ListBoxBase::updateScrollLayout()
 
 	if ((mItemHeight * static_cast<int>(mItems.size())) > mRect.height)
 	{
-		mSlider.position({rect().x + mRect.width - 14, mRect.y});
-		mSlider.size({14, mRect.height});
-		mSlider.max(static_cast<Slider::ValueType>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
-		mScrollOffsetInPixels = static_cast<unsigned int>(mSlider.value());
-		mItemWidth -= static_cast<unsigned int>(mSlider.size().x);
-		mSlider.visible(true);
+		mScrollBar.position({rect().x + mRect.width - 14, mRect.y});
+		mScrollBar.size({14, mRect.height});
+		mScrollBar.max(static_cast<ScrollBar::ValueType>(mItemHeight * static_cast<int>(mItems.size()) - mRect.height));
+		mScrollOffsetInPixels = static_cast<unsigned int>(mScrollBar.value());
+		mItemWidth -= static_cast<unsigned int>(mScrollBar.size().x);
+		mScrollBar.visible(true);
 	}
 	else
 	{
 		mScrollOffsetInPixels = 0;
-		mSlider.max(0);
-		mSlider.visible(false);
+		mScrollBar.max(0);
+		mScrollBar.visible(false);
 	}
 }
 
@@ -119,7 +119,7 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	// A few basic checks
 	if (!rect().contains(point) || mHighlightIndex == constants::NoSelection) { return; }
-	if (mSlider.visible() && mSlider.rect().contains(point)) { return; }
+	if (mScrollBar.visible() && mScrollBar.rect().contains(point)) { return; }
 	if (mHighlightIndex >= mItems.size()) { return; }
 
 	setSelection(mHighlightIndex);
@@ -143,8 +143,8 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 		return;
 	}
 
-	// if the mouse is on the slider then the slider should handle that
-	if (mSlider.visible() && mSlider.rect().contains(mousePosition))
+	// if the mouse is on the scroll bar then the scroll bar should handle that
+	if (mScrollBar.visible() && mScrollBar.rect().contains(mousePosition))
 	{
 		mHighlightIndex = constants::NoSelection;
 		return;
@@ -169,16 +169,16 @@ void ListBoxBase::onMouseWheel(int /*x*/, int y)
 	if (!enabled() || !visible()) { return; }
 	if (!mHasFocus) { return; }
 
-	auto change = static_cast<Slider::ValueType>(mItemHeight);
+	auto change = static_cast<ScrollBar::ValueType>(mItemHeight);
 
-	mSlider.changeValue((y < 0 ? change : -change));
+	mScrollBar.changeValue((y < 0 ? change : -change));
 }
 
 
 /**
- * Slider changed event handler.
+ * ScrollBar changed event handler.
  */
-void ListBoxBase::onSlideChange(Slider::ValueType /*newPosition*/)
+void ListBoxBase::onSlideChange(ScrollBar::ValueType /*newPosition*/)
 {
 	updateScrollLayout();
 }
@@ -271,7 +271,7 @@ void ListBoxBase::update()
 {
 	if (!visible()) { return; }
 	draw();
-	mSlider.update();
+	mScrollBar.update();
 }
 
 

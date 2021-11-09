@@ -8,10 +8,10 @@
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 
-class Slider : public Control
+class ScrollBar : public Control
 {
 public:
-	enum class SliderType
+	enum class ScrollBarType
 	{
 		Vertical,
 		Horizontal
@@ -27,9 +27,9 @@ public:
 	using ValueType = int;
 	using ValueChangeSignal = NAS2D::Signal<ValueType>;
 
-	Slider(SliderType sliderType = SliderType::Vertical);
-	Slider(Skins skins, SliderType sliderType = SliderType::Vertical);
-	~Slider() override;
+	ScrollBar(ScrollBarType scrollBarType = ScrollBarType::Vertical);
+	ScrollBar(Skins skins, ScrollBarType scrollBarType = ScrollBarType::Vertical);
+	~ScrollBar() override;
 
 	ValueType value() const;
 	void value(ValueType newValue);
@@ -54,12 +54,12 @@ protected:
 	void onLayoutChange();
 
 private:
-	SliderType mSliderType{SliderType::Vertical};
+	ScrollBarType mScrollBarType{ScrollBarType::Vertical};
 	ValueType mValue{0};
 	ValueType mMax{0};
 	ValueChangeSignal mSignal;
 
-	// Slider button responses
+	// ScrollBar button responses
 	NAS2D::Timer mTimer;
 	uint32_t mPressedAccumulator{0}; /**< Accumulation value for pressed responses. */
 	bool mThumbPressed{false}; /**< Flag to indicate if this control is pressed. */

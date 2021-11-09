@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Control.h"
-#include "Slider.h"
+#include "ScrollBar.h"
 #include "../../Cache.h"
 #include "../../Constants/UiConstants.h"
 
@@ -67,9 +67,9 @@ public:
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
 
-		mSlider.max(0);
-		mSlider.value(0);
-		mSlider.change().connect(this, &ListBox::onSlideChange);
+		mScrollBar.max(0);
+		mScrollBar.value(0);
+		mScrollBar.change().connect(this, &ListBox::onSlideChange);
 		updateScrollLayout();
 	}
 
@@ -78,7 +78,7 @@ public:
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect(this, &ListBox::onMouseMove);
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().disconnect(this, &ListBox::onMouseWheel);
 
-		mSlider.change().disconnect(this, &ListBox::onSlideChange);
+		mScrollBar.change().disconnect(this, &ListBox::onSlideChange);
 	}
 
 	bool isEmpty() const {
@@ -152,7 +152,7 @@ public:
 		// Ignore if menu is empty or invisible
 		if (!visible()) { return; }
 		draw();
-		mSlider.update();
+		mScrollBar.update();
 	}
 
 	void draw() const override
@@ -220,10 +220,10 @@ protected:
 	void onMouseWheel(int /*x*/, int y) {
 		if (isEmpty() || !visible()) { return; }
 
-		mSlider.changeValue((y < 0 ? 16 : -16));
+		mScrollBar.changeValue((y < 0 ? 16 : -16));
 	}
 
-	virtual void onSlideChange(Slider::ValueType /*newPosition*/) {
+	virtual void onSlideChange(ScrollBar::ValueType /*newPosition*/) {
 		updateScrollLayout();
 	}
 
@@ -248,18 +248,18 @@ private:
 		const auto neededDisplaySize = mContext.itemHeight() * mItems.size();
 		if (neededDisplaySize > static_cast<std::size_t>(mRect.height))
 		{
-			mSlider.position({rect().x + mRect.width - 14, mRect.y});
-			mSlider.size({14, mRect.height});
-			mSlider.max(static_cast<Slider::ValueType>(static_cast<int>(neededDisplaySize) - mRect.height));
-			mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.value());
-			mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
-			mSlider.visible(true);
+			mScrollBar.position({rect().x + mRect.width - 14, mRect.y});
+			mScrollBar.size({14, mRect.height});
+			mScrollBar.max(static_cast<ScrollBar::ValueType>(static_cast<int>(neededDisplaySize) - mRect.height));
+			mScrollOffsetInPixels = static_cast<std::size_t>(mScrollBar.value());
+			mScrollArea.width -= mScrollBar.size().x; // Remove scroll bar from scroll area
+			mScrollBar.visible(true);
 		}
 		else
 		{
 			mScrollOffsetInPixels = 0;
-			mSlider.max(0);
-			mSlider.visible(false);
+			mScrollBar.max(0);
+			mScrollBar.visible(false);
 		}
 	}
 
@@ -275,5 +275,5 @@ private:
 	NAS2D::Rectangle<int> mScrollArea;
 
 	SelectionChangeSignal mSelectionChanged; /**< Signal for selection changed callback. */
-	Slider mSlider;
+	ScrollBar mScrollBar;
 };

@@ -195,7 +195,7 @@
     <ClCompile Include="Common.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Core\Slider.cpp">
+    <ClCompile Include="UI\Core\ScrollBar.cpp">
       <Filter>Source Files\UI\Core</Filter>
     </ClCompile>
     <ClCompile Include="UI\Core\ListBox.cpp">
@@ -575,7 +575,7 @@
     <ClInclude Include="StructureCatalogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Core\Slider.h">
+    <ClInclude Include="UI\Core\ScrollBar.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
     <ClInclude Include="Population\Morale.h">

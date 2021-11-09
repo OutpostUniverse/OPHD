@@ -275,7 +275,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClCompile Include="UI\Core\ListBoxBase.cpp" />
     <ClCompile Include="UI\Core\RadioButton.cpp" />
     <ClCompile Include="UI\Core\RadioButtonGroup.cpp" />
-    <ClCompile Include="UI\Core\Slider.cpp" />
+    <ClCompile Include="UI\Core\ScrollBar.cpp" />
     <ClCompile Include="UI\Core\TextArea.cpp" />
     <ClCompile Include="UI\Core\TextControl.cpp" />
     <ClCompile Include="UI\Core\TextField.cpp" />
@@ -412,7 +412,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="UI\Core\ListBox.h" />
     <ClInclude Include="UI\Core\ListBoxBase.h" />
     <ClInclude Include="UI\Core\RadioButtonGroup.h" />
-    <ClInclude Include="UI\Core\Slider.h" />
+    <ClInclude Include="UI\Core\ScrollBar.h" />
     <ClInclude Include="UI\Core\TextArea.h" />
     <ClInclude Include="UI\Core\TextControl.h" />
     <ClInclude Include="UI\Core\TextField.h" />

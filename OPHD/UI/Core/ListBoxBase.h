@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Control.h"
-#include "Slider.h"
+#include "ScrollBar.h"
 #include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Signal/Signal.h>
@@ -85,7 +85,7 @@ protected:
 	std::vector<ListBoxItem*> mItems; /**< List of Items. Pointers used for polymorphism. */
 
 private:
-	void onSlideChange(Slider::ValueType newPosition);
+	void onSlideChange(ScrollBar::ValueType newPosition);
 
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	void onMouseMove(int x, int y, int relX, int relY);
@@ -108,5 +108,5 @@ private:
 	NAS2D::Color mHighlightText = NAS2D::Color::White; /**< Text Color for an item that is currently highlighted. */
 
 	SelectionChangeSignal mSelectionChanged; /**< Signal for selection changed callback. */
-	Slider mSlider; /**< Slider control. */
+	ScrollBar mScrollBar; /**< ScrollBar control. */
 };
