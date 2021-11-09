@@ -144,19 +144,6 @@ Slider::~Slider()
 }
 
 
-float Slider::positionInternal()
-{
-	return mPosition;
-}
-
-
-void Slider::positionInternal(float newPosition)
-{
-	mPosition = std::clamp(newPosition, 0.0f, mLength);
-	mSignal(mPosition);
-}
-
-
 void Slider::buttonCheck(bool& buttonFlag, Rectangle<int>& rect, float value)
 {
 	if (rect.contains(mMousePosition))
@@ -231,7 +218,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 			return;
 		}
 
-		positionInternal(mLength * ((y - mSlideBar.y) / mSlideBar.height));
+		thumbPosition(mLength * ((y - mSlideBar.y) / mSlideBar.height));
 	}
 	else
 	{
@@ -240,7 +227,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 			return;
 		}
 
-		positionInternal(mLength * (x - mSlideBar.x) / mSlideBar.width);
+		thumbPosition(mLength * (x - mSlideBar.x) / mSlideBar.width);
 	}
 }
 
@@ -318,7 +305,6 @@ void Slider::draw() const
 void Slider::thumbPosition(float value)
 {
 	mPosition = std::clamp(value, 0.0f, mLength);
-
 	mSignal(thumbPosition());
 }
 
@@ -338,7 +324,7 @@ float Slider::thumbPosition() const
  */
 void Slider::changeThumbPosition(float change)
 {
-	positionInternal(mPosition + change);
+	thumbPosition(mPosition + change);
 }
 
 

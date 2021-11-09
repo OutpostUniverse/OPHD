@@ -53,9 +53,6 @@ protected:
 	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int dX, int dY);
 
-	float positionInternal();
-	void positionInternal(float newPosition);
-
 	void draw() const override;
 	void logic(); /**< Compute some values before drawing the control. */
 
