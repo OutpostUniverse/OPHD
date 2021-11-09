@@ -144,7 +144,7 @@ Slider::~Slider()
 }
 
 
-void Slider::buttonCheck(bool& buttonFlag, Rectangle<int>& rect, float value)
+void Slider::buttonCheck(bool& buttonFlag, Rectangle<int>& rect, ValueType value)
 {
 	if (rect.contains(mMousePosition))
 	{
@@ -302,14 +302,14 @@ void Slider::draw() const
 }
 
 
-void Slider::thumbPosition(float value)
+void Slider::thumbPosition(ValueType value)
 {
 	mPosition = std::clamp(value, 0.0f, mLength);
 	mSignal(thumbPosition());
 }
 
 
-float Slider::thumbPosition() const
+Slider::ValueType Slider::thumbPosition() const
 {
 	return mPosition;
 }
@@ -322,19 +322,19 @@ float Slider::thumbPosition() const
  *					slider's position. Must be between 0.0
  *					1.0.
  */
-void Slider::changeThumbPosition(float change)
+void Slider::changeThumbPosition(ValueType change)
 {
 	thumbPosition(mPosition + change);
 }
 
 
-float Slider::length() const
+Slider::ValueType Slider::length() const
 {
 	return mLength;
 }
 
 
-void Slider::length(float length)
+void Slider::length(ValueType length)
 {
 	mLength = length;
 	if (mPosition > mLength)

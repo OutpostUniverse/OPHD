@@ -31,18 +31,19 @@ public:
 		NAS2D::RectangleSkin skinSlider;
 	};
 
-	using ValueChangeSignal = NAS2D::Signal<float>;
+	using ValueType = float;
+	using ValueChangeSignal = NAS2D::Signal<ValueType>;
 
 	Slider(SliderType sliderType = SliderType::Vertical);
 	Slider(Skins skins, SliderType sliderType = SliderType::Vertical);
 	~Slider() override;
 
-	void thumbPosition(float value); /**< Set the current position. */
-	float thumbPosition() const; /**< Get the current position. */
-	void changeThumbPosition(float change); /**< Adds the change amount to the current position. */
+	void thumbPosition(ValueType value); /**< Set the current position. */
+	ValueType thumbPosition() const; /**< Get the current position. */
+	void changeThumbPosition(ValueType change); /**< Adds the change amount to the current position. */
 
-	float length() const; /**< Get the max value for the slide area. */
-	void length(float length); /**< Set the max value for the slide area. */
+	ValueType length() const; /**< Get the max value for the slide area. */
+	void length(ValueType length); /**< Set the max value for the slide area. */
 
 	void update() override;
 
@@ -56,7 +57,7 @@ protected:
 	void draw() const override;
 	void logic(); /**< Compute some values before drawing the control. */
 
-	void buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, float value);
+	void buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, ValueType value);
 
 private:
 	const NAS2D::Font& mFont;
@@ -73,8 +74,8 @@ private:
 	bool mThumbPressed = false; /**< Flag to indicate if this control is pressed. */
 
 	// Slider values
-	float mPosition = 0.0f;
-	float mLength = 0.0f;
+	ValueType mPosition = 0.0f;
+	ValueType mLength = 0.0f;
 
 	// Slider button responses
 	uint32_t mPressedAccumulator = 0; /**< Accumulation value for pressed responses. */
