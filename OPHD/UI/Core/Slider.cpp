@@ -334,8 +334,5 @@ Slider::ValueType Slider::max() const
 void Slider::max(ValueType newMax)
 {
 	mMax = newMax;
-	if (mValue > mMax)
-	{
-		value(mMax);
-	}
+	value(mValue); // Re-clamp to new max
 }
