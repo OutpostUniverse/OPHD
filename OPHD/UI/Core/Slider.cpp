@@ -142,6 +142,71 @@ Slider::~Slider()
 }
 
 
+Slider::ValueType Slider::value() const
+{
+	return mValue;
+}
+
+
+void Slider::value(ValueType newValue)
+{
+	const auto oldValue = mValue;
+	mValue = std::clamp<ValueType>(newValue, 0, mMax);
+	if (mValue != oldValue)
+	{
+		mSignal(mValue);
+	}
+}
+
+
+void Slider::changeValue(ValueType change)
+{
+	value(mValue + change);
+}
+
+
+Slider::ValueType Slider::max() const
+{
+	return mMax;
+}
+
+
+void Slider::max(ValueType newMax)
+{
+	mMax = newMax;
+	value(mValue); // Re-clamp to new max
+}
+
+
+void Slider::update()
+{
+	if (!visible()) { return; }
+
+	if (mButton1Held || mButton2Held)
+	{
+		if (mTimer.accumulator() >= mPressedAccumulator)
+		{
+			mPressedAccumulator = 30;
+			mTimer.reset();
+			changeValue((mButton1Held ? -1 : 1));
+		}
+	}
+
+	draw();
+}
+
+
+void Slider::draw() const
+{
+	auto& renderer = Utility<Renderer>::get();
+
+	mSkins.skinMiddle.draw(renderer, mSlideBar); // Slide area
+	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
+	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
+	mSkins.skinSlider.draw(renderer, mSlider);
+}
+
+
 void Slider::onButtonClick(bool& buttonFlag, ValueType value)
 {
 	changeValue(value);
@@ -244,69 +309,4 @@ void Slider::onLayoutChange()
 		const auto drawOffset = (mSlideBar.width - newSize) * mValue / std::max(mMax, 1);
 		mSlider = {mSlideBar.x + drawOffset, mSlideBar.y, newSize, mSlideBar.height};
 	}
-}
-
-
-void Slider::update()
-{
-	if (!visible()) { return; }
-
-	if (mButton1Held || mButton2Held)
-	{
-		if (mTimer.accumulator() >= mPressedAccumulator)
-		{
-			mPressedAccumulator = 30;
-			mTimer.reset();
-			changeValue((mButton1Held ? -1 : 1));
-		}
-	}
-
-	draw();
-}
-
-
-void Slider::draw() const
-{
-	auto& renderer = Utility<Renderer>::get();
-
-	mSkins.skinMiddle.draw(renderer, mSlideBar); // Slide area
-	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
-	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
-	mSkins.skinSlider.draw(renderer, mSlider);
-}
-
-
-Slider::ValueType Slider::value() const
-{
-	return mValue;
-}
-
-
-void Slider::value(ValueType newValue)
-{
-	const auto oldValue = mValue;
-	mValue = std::clamp<ValueType>(newValue, 0, mMax);
-	if (mValue != oldValue)
-	{
-		mSignal(mValue);
-	}
-}
-
-
-void Slider::changeValue(ValueType change)
-{
-	value(mValue + change);
-}
-
-
-Slider::ValueType Slider::max() const
-{
-	return mMax;
-}
-
-
-void Slider::max(ValueType newMax)
-{
-	mMax = newMax;
-	value(mValue); // Re-clamp to new max
 }

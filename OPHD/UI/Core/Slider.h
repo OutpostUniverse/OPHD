@@ -46,20 +46,19 @@ public:
 	void max(ValueType newMax);
 
 	void update() override;
+	void draw() const override;
 
 	ValueChangeSignal::Source& change() { return mSignal; }
 
 protected:
+	void onButtonClick(bool& buttonFlag, ValueType value);
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseMove(int x, int y, int dX, int dY);
-	void onButtonClick(bool& buttonFlag, ValueType value);
 
 	void onMove(NAS2D::Vector<int> displacement) override;
 	void onResize() override;
 	void onLayoutChange();
-
-	void draw() const override;
 
 private:
 	SliderType mSliderType{SliderType::Vertical};
