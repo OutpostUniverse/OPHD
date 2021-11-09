@@ -161,14 +161,18 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 	if (button == EventHandler::MouseButton::Left)
 	{
-		if (mSlider.contains(NAS2D::Point{x, y}))
+		const auto mousePosition = NAS2D::Point{x, y};
+		if (mSlider.contains(mousePosition))
 		{
 			mThumbPressed = true;
 			return;
 		}
 
-		buttonCheck(mButton1Held, mButton1Hover, -1);
-		buttonCheck(mButton2Held, mButton2Hover, 1);
+		const auto button1Hover = mButton1.contains(mousePosition);
+		const auto button2Hover = mButton2.contains(mousePosition);
+
+		buttonCheck(mButton1Held, button1Hover, -1);
+		buttonCheck(mButton2Held, button2Hover, 1);
 	}
 }
 
@@ -203,11 +207,6 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!enabled() || !visible()) { return; }
-
-	const auto mousePosition = NAS2D::Point{x, y};
-	mButton1Hover = mButton1.contains(mousePosition);
-	mButton2Hover = mButton2.contains(mousePosition);
-
 	if (!mThumbPressed) { return; }
 
 	if (mSliderType == SliderType::Vertical)

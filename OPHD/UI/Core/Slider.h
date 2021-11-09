@@ -66,8 +66,6 @@ private:
 	ValueChangeSignal mSignal;
 
 	// Slider button responses
-	bool mButton1Hover = false;
-	bool mButton2Hover = false;
 	NAS2D::Timer mTimer;
 	uint32_t mPressedAccumulator = 0; /**< Accumulation value for pressed responses. */
 	bool mThumbPressed = false; /**< Flag to indicate if this control is pressed. */
