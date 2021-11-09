@@ -113,7 +113,7 @@ void GraphWalker::walkGraph()
  */
 void GraphWalker::check(const MapCoordinate& fromPosition, Direction direction)
 {
-	const auto position = fromPosition.offset(direction);
+	const auto position = fromPosition.translate(direction);
 
 	if (position.z < 0 || position.z > mTileMap.maxDepth()) { return; }
 	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap.size()).contains(position.xy)) { return; }

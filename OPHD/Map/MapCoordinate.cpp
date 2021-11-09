@@ -4,7 +4,7 @@
 #include "../DirectionOffset.h"
 
 
-MapCoordinate MapCoordinate::offset(Direction direction) const
+MapCoordinate MapCoordinate::translate(Direction direction) const
 {
 	return {
 		xy + directionEnumToOffset(direction),
