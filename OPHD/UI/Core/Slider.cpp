@@ -144,18 +144,12 @@ Slider::~Slider()
 }
 
 
-/**
- * Get internal slider position.
- */
 float Slider::positionInternal()
 {
 	return mPosition;
 }
 
 
-/**
- * set internal slider position
- */
 void Slider::positionInternal(float newPosition)
 {
 	mPosition = std::clamp(newPosition, 0.0f, mLength);
@@ -271,7 +265,6 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 
 void Slider::logic()
 {
-	// compute position of items
 	if (mSliderType == SliderType::Vertical)
 	{
 		mButton1 = {mRect.x, mRect.y, mRect.width, mRect.width};
@@ -353,9 +346,6 @@ void Slider::draw() const
 }
 
 
-/**
- * Set the current value
- */
 void Slider::thumbPosition(float value)
 {
 	if (mBackward) { value = mLength - value; }
@@ -366,9 +356,6 @@ void Slider::thumbPosition(float value)
 }
 
 
-/**
-* Gets the current value of position
-*/
 float Slider::thumbPosition() const
 {
 	float value = mPosition;
@@ -401,22 +388,18 @@ void Slider::thumbPositionNormalized(float value) {
 	mSignal(thumbPosition());
 }
 
+
 float Slider::thumbPositionNormalized() const {
 	return mPosition / mLength;
 }
 
-/**
- * Returns the max value position can get
- */
+
 float Slider::length() const
 {
 	return mLength;
 }
 
 
-/**
- * Set the max value position can get
- */
 void Slider::length(float length)
 {
 	mLength = length;
