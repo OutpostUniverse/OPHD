@@ -19,18 +19,7 @@ namespace
 		if (sliderType == Slider::SliderType::Vertical)
 		{
 			return {
-				{ // Button1
-					imageCache.load("ui/skin/sv_bu_tl.png"),
-					imageCache.load("ui/skin/sv_bu_tm.png"),
-					imageCache.load("ui/skin/sv_bu_tr.png"),
-					imageCache.load("ui/skin/sv_bu_ml.png"),
-					imageCache.load("ui/skin/sv_bu_mm.png"),
-					imageCache.load("ui/skin/sv_bu_mr.png"),
-					imageCache.load("ui/skin/sv_bu_bl.png"),
-					imageCache.load("ui/skin/sv_bu_bm.png"),
-					imageCache.load("ui/skin/sv_bu_br.png")
-				},
-				{ // Middle
+				{ // Track
 					imageCache.load("ui/skin/sv_sa_tl.png"),
 					imageCache.load("ui/skin/sv_sa_tm.png"),
 					imageCache.load("ui/skin/sv_sa_tr.png"),
@@ -41,7 +30,29 @@ namespace
 					imageCache.load("ui/skin/sv_sa_bm.png"),
 					imageCache.load("ui/skin/sv_sa_br.png")
 				},
-				{ // Button2
+				{ // Thumb
+					imageCache.load("ui/skin/sv_sl_tl.png"),
+					imageCache.load("ui/skin/sv_sl_tm.png"),
+					imageCache.load("ui/skin/sv_sl_tr.png"),
+					imageCache.load("ui/skin/sv_sl_ml.png"),
+					imageCache.load("ui/skin/sv_sl_mm.png"),
+					imageCache.load("ui/skin/sv_sl_mr.png"),
+					imageCache.load("ui/skin/sv_sl_bl.png"),
+					imageCache.load("ui/skin/sv_sl_bm.png"),
+					imageCache.load("ui/skin/sv_sl_br.png")
+				},
+				{ // ButtonDecrease
+					imageCache.load("ui/skin/sv_bu_tl.png"),
+					imageCache.load("ui/skin/sv_bu_tm.png"),
+					imageCache.load("ui/skin/sv_bu_tr.png"),
+					imageCache.load("ui/skin/sv_bu_ml.png"),
+					imageCache.load("ui/skin/sv_bu_mm.png"),
+					imageCache.load("ui/skin/sv_bu_mr.png"),
+					imageCache.load("ui/skin/sv_bu_bl.png"),
+					imageCache.load("ui/skin/sv_bu_bm.png"),
+					imageCache.load("ui/skin/sv_bu_br.png")
+				},
+				{ // ButtonIncrease
 					imageCache.load("ui/skin/sv_bd_tl.png"),
 					imageCache.load("ui/skin/sv_bd_tm.png"),
 					imageCache.load("ui/skin/sv_bd_tr.png"),
@@ -52,34 +63,12 @@ namespace
 					imageCache.load("ui/skin/sv_bd_bm.png"),
 					imageCache.load("ui/skin/sv_bd_br.png")
 				},
-				{ // Slider
-					imageCache.load("ui/skin/sv_sl_tl.png"),
-					imageCache.load("ui/skin/sv_sl_tm.png"),
-					imageCache.load("ui/skin/sv_sl_tr.png"),
-					imageCache.load("ui/skin/sv_sl_ml.png"),
-					imageCache.load("ui/skin/sv_sl_mm.png"),
-					imageCache.load("ui/skin/sv_sl_mr.png"),
-					imageCache.load("ui/skin/sv_sl_bl.png"),
-					imageCache.load("ui/skin/sv_sl_bm.png"),
-					imageCache.load("ui/skin/sv_sl_br.png")
-				}
 			};
 		}
 		else
 		{
 			return {
-				{ // Button1
-					imageCache.load("ui/skin/sh_bl_tl.png"),
-					imageCache.load("ui/skin/sh_bl_tm.png"),
-					imageCache.load("ui/skin/sh_bl_tr.png"),
-					imageCache.load("ui/skin/sh_bl_ml.png"),
-					imageCache.load("ui/skin/sh_bl_mm.png"),
-					imageCache.load("ui/skin/sh_bl_mr.png"),
-					imageCache.load("ui/skin/sh_bl_bl.png"),
-					imageCache.load("ui/skin/sh_bl_bm.png"),
-					imageCache.load("ui/skin/sh_bl_br.png")
-				},
-				{ // Middle
+				{ // Track
 					imageCache.load("ui/skin/sh_sa_tl.png"),
 					imageCache.load("ui/skin/sh_sa_tm.png"),
 					imageCache.load("ui/skin/sh_sa_tr.png"),
@@ -90,7 +79,29 @@ namespace
 					imageCache.load("ui/skin/sh_sa_bm.png"),
 					imageCache.load("ui/skin/sh_sa_br.png")
 				},
-				{ // Button2
+				{ // Thumb
+					imageCache.load("ui/skin/sh_sl_tl.png"),
+					imageCache.load("ui/skin/sh_sl_tm.png"),
+					imageCache.load("ui/skin/sh_sl_tr.png"),
+					imageCache.load("ui/skin/sh_sl_ml.png"),
+					imageCache.load("ui/skin/sh_sl_mm.png"),
+					imageCache.load("ui/skin/sh_sl_mr.png"),
+					imageCache.load("ui/skin/sh_sl_bl.png"),
+					imageCache.load("ui/skin/sh_sl_bm.png"),
+					imageCache.load("ui/skin/sh_sl_br.png")
+				},
+				{ // ButtonDecrease
+					imageCache.load("ui/skin/sh_bl_tl.png"),
+					imageCache.load("ui/skin/sh_bl_tm.png"),
+					imageCache.load("ui/skin/sh_bl_tr.png"),
+					imageCache.load("ui/skin/sh_bl_ml.png"),
+					imageCache.load("ui/skin/sh_bl_mm.png"),
+					imageCache.load("ui/skin/sh_bl_mr.png"),
+					imageCache.load("ui/skin/sh_bl_bl.png"),
+					imageCache.load("ui/skin/sh_bl_bm.png"),
+					imageCache.load("ui/skin/sh_bl_br.png")
+				},
+				{ // ButtonIncrease
 					imageCache.load("ui/skin/sh_br_tl.png"),
 					imageCache.load("ui/skin/sh_br_tm.png"),
 					imageCache.load("ui/skin/sh_br_tr.png"),
@@ -101,17 +112,6 @@ namespace
 					imageCache.load("ui/skin/sh_br_bm.png"),
 					imageCache.load("ui/skin/sh_br_br.png")
 				},
-				{ // Slider
-					imageCache.load("ui/skin/sh_sl_tl.png"),
-					imageCache.load("ui/skin/sh_sl_tm.png"),
-					imageCache.load("ui/skin/sh_sl_tr.png"),
-					imageCache.load("ui/skin/sh_sl_ml.png"),
-					imageCache.load("ui/skin/sh_sl_mm.png"),
-					imageCache.load("ui/skin/sh_sl_mr.png"),
-					imageCache.load("ui/skin/sh_sl_bl.png"),
-					imageCache.load("ui/skin/sh_sl_bm.png"),
-					imageCache.load("ui/skin/sh_sl_br.png")
-				}
 			};
 		}
 	}
@@ -201,9 +201,9 @@ void Slider::draw() const
 	auto& renderer = Utility<Renderer>::get();
 
 	mSkins.skinTrack.draw(renderer, mTrack);
+	mSkins.skinThumb.draw(renderer, mThumb);
 	mSkins.skinButtonDecrease.draw(renderer, mButtonDecrease);
 	mSkins.skinButtonIncrease.draw(renderer, mButtonIncrease);
-	mSkins.skinThumb.draw(renderer, mThumb);
 }
 
 

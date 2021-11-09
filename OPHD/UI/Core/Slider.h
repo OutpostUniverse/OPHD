@@ -18,10 +18,10 @@ public:
 	};
 
 	struct Skins {
-		NAS2D::RectangleSkin skinButtonDecrease;
 		NAS2D::RectangleSkin skinTrack;
-		NAS2D::RectangleSkin skinButtonIncrease;
 		NAS2D::RectangleSkin skinThumb;
+		NAS2D::RectangleSkin skinButtonDecrease;
+		NAS2D::RectangleSkin skinButtonIncrease;
 	};
 
 	using ValueType = int;
@@ -68,8 +68,8 @@ private:
 
 	// Drawing vars
 	Skins mSkins;
-	NAS2D::Rectangle<int> mButtonDecrease; // Top/Left
-	NAS2D::Rectangle<int> mButtonIncrease; // Bottom/Right
 	NAS2D::Rectangle<int> mTrack;
 	NAS2D::Rectangle<int> mThumb;
+	NAS2D::Rectangle<int> mButtonDecrease; // Top/Left
+	NAS2D::Rectangle<int> mButtonIncrease; // Bottom/Right
 };
