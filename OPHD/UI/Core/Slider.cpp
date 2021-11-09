@@ -151,7 +151,6 @@ void Slider::buttonCheck(bool& buttonFlag, bool buttonHover, ValueType value)
 
 		mTimer.reset();
 		mPressedAccumulator = 300;
-		return;
 	}
 }
 
