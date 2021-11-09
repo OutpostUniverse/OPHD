@@ -214,7 +214,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 
 	if (mSliderType == SliderType::Vertical)
 	{
-		if (y < mSlideBar.y || y >(mSlideBar.y + mSlideBar.height))
+		if (y < mSlideBar.y || y > (mSlideBar.y + mSlideBar.height))
 		{
 			return;
 		}
@@ -223,7 +223,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 	}
 	else
 	{
-		if (x < mSlideBar.x || x >(mSlideBar.x + mSlideBar.width))
+		if (x < mSlideBar.x || x > (mSlideBar.x + mSlideBar.width))
 		{
 			return;
 		}
