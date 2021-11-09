@@ -60,8 +60,6 @@ protected:
 	void buttonCheck(bool& buttonFlag, NAS2D::Rectangle<int>& rect, ValueType value);
 
 private:
-	const NAS2D::Font& mFont;
-
 	NAS2D::Timer mTimer;
 
 	ValueChangeSignal mSignal;
