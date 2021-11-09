@@ -272,7 +272,7 @@ void Slider::update()
 		const auto i = static_cast<int>(mSlideBar.height / mLength);
 		const auto newSize = std::max(i, mSlider.width);
 
-		const auto relativeThumbPosition = static_cast<int>((mSlideBar.height - mSlider.height) * (mPosition / mLength)); //relative width
+		const auto relativeThumbPosition = static_cast<int>((mSlideBar.height - mSlider.height) * mPosition / mLength); //relative width
 
 		mSlider = {mSlideBar.x, mSlideBar.y + relativeThumbPosition, mSlideBar.width, newSize};
 	}
@@ -282,7 +282,7 @@ void Slider::update()
 		const auto i = static_cast<int>(mSlideBar.width / (mLength + 1.0f));
 		const auto newSize = std::max(i, mSlider.height);
 
-		const auto relativeThumbPosition = static_cast<int>((mSlideBar.width - mSlider.width) * (mPosition / mLength)); //relative width
+		const auto relativeThumbPosition = static_cast<int>((mSlideBar.width - mSlider.width) * mPosition / mLength); //relative width
 
 		mSlider = {mSlideBar.x + relativeThumbPosition, mSlideBar.y, newSize, mSlideBar.height};
 	}
