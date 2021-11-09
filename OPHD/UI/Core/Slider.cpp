@@ -200,11 +200,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	if (!enabled() || !visible()) { return; }
 
 	const auto mousePosition = NAS2D::Point{x, y};
-	if (mSlider.contains(mousePosition))
-	{
-		// nothing
-	}
-	else if (mSlideBar.contains(mousePosition))
+	if (mSlideBar.contains(mousePosition) && !mSlider.contains(mousePosition))
 	{
 		if (mSliderType == SliderType::Vertical)
 		{
