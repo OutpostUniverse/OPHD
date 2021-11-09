@@ -171,75 +171,8 @@ void TileMap::buildTerrainMap(const std::string& path)
 }
 
 
-NAS2D::Rectangle<int> TileMap::viewArea() const
-{
-	return {mOriginTilePosition.xy.x, mOriginTilePosition.xy.y, mEdgeLength, mEdgeLength};
-}
-
-
-void TileMap::mapViewLocation(const MapCoordinate& position)
-{
-	mOriginTilePosition.xy = {
-		std::clamp(position.xy.x, 0, mSizeInTiles.x - mEdgeLength),
-		std::clamp(position.xy.y, 0, mSizeInTiles.y - mEdgeLength)
-	};
-	currentDepth(position.z);
-}
-
-
-void TileMap::centerOn(NAS2D::Point<int> point)
-{
-	centerOn({point, mOriginTilePosition.z});
-}
-
-
-void TileMap::centerOn(const MapCoordinate& position)
-{
-	mapViewLocation({position.xy - NAS2D::Vector{mEdgeLength, mEdgeLength} / 2, position.z});
-}
-
-
-void TileMap::moveView(Direction direction)
-{
-	mapViewLocation({
-		mOriginTilePosition.xy + directionEnumToOffset(direction),
-		mOriginTilePosition.z + directionEnumToVerticalOffset(direction)
-	});
-}
-
-
-void TileMap::currentDepth(int i)
-{
-	mOriginTilePosition.z = std::clamp(i, 0, mMaxDepth);
-}
-
-
-int TileMap::viewSize() const
-{
-	return mEdgeLength;
-}
-
-
-void TileMap::viewSize(int sizeInTiles)
-{
-	mEdgeLength = std::max(3, sizeInTiles);
-}
-
-
 void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 {
-	// ==========================================
-	// VIEW PARAMETERS
-	// ==========================================
-	element->linkEndChild(NAS2D::dictionaryToAttributes(
-		"view_parameters",
-		{{
-			{"currentdepth", mOriginTilePosition.z},
-			{"viewlocation_x", mOriginTilePosition.xy.x},
-			{"viewlocation_y", mOriginTilePosition.xy.y},
-		}}
-	));
-
 	// ==========================================
 	// MINES
 	// ==========================================
@@ -290,16 +223,6 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 
 void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 {
-	// VIEW PARAMETERS
-	auto* viewParameters = element->firstChildElement("view_parameters");
-	const auto dictionary = NAS2D::attributesToDictionary(*viewParameters);
-
-	const auto viewX = dictionary.get<int>("viewlocation_x");
-	const auto viewY = dictionary.get<int>("viewlocation_y");
-	const auto viewDepth = dictionary.get<int>("currentdepth");
-
-	mapViewLocation({{viewX, viewY}, viewDepth});
-
 	for (auto* mineElement = element->firstChildElement("mines")->firstChildElement("mine"); mineElement; mineElement = mineElement->nextSiblingElement())
 	{
 		const auto mineDictionary = NAS2D::attributesToDictionary(*mineElement);
@@ -332,12 +255,6 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 		if (depth > 0) { tile.excavated(true); }
 	}
-}
-
-
-bool TileMap::isVisibleTile(const MapCoordinate& position) const
-{
-	return viewArea().contains(position.xy) && position.z == mOriginTilePosition.z;
 }
 
 

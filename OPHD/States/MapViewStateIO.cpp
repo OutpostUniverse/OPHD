@@ -14,6 +14,7 @@
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
+#include "../Map/MapView.h"
 #include "../XmlSerializer.h"
 
 #include <NAS2D/Utility.h>
@@ -87,6 +88,7 @@ void MapViewState::save(const std::string& filePath)
 
 	root->linkEndChild(serializeProperties());
 	mTileMap->serialize(root);
+	mMapView->serialize(root);
 	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize());
 	root->linkEndChild(writeRobots(mRobotPool, mRobotList));
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
@@ -186,9 +188,11 @@ void MapViewState::load(const std::string& filePath)
 	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
 	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.tilesetPath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
-	mMiniMap = std::make_unique<MiniMap>(mTileMap, mRobotList, mPlanetAttributes.mapImagePath);
-	mDetailMap = std::make_unique<DetailMap>(*mTileMap, mPlanetAttributes.tilesetPath);
-	mNavControl = std::make_unique<NavControl>(*mTileMap);
+	mMapView = std::make_unique<MapView>(*mTileMap);
+	mMapView->deserialize(root);
+	mMiniMap = std::make_unique<MiniMap>(*mMapView, mTileMap, mRobotList, mPlanetAttributes.mapImagePath);
+	mDetailMap = std::make_unique<DetailMap>(*mMapView, *mTileMap, mPlanetAttributes.tilesetPath);
+	mNavControl = std::make_unique<NavControl>(*mMapView, *mTileMap);
 
 	delete mPathSolver;
 	mPathSolver = new micropather::MicroPather(mTileMap);

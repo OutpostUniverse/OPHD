@@ -13,13 +13,14 @@ namespace NAS2D
 }
 
 class TileMap;
+class MapView;
 class MapViewState;
 
 
 class NavControl : public Control
 {
 public:
-	NavControl(TileMap& tileMap);
+	NavControl(MapView& mapView, TileMap& tileMap);
 
 	void draw() const override;
 
@@ -30,6 +31,7 @@ protected:
 	void onClick(NAS2D::Point<int> mousePosition);
 
 private:
+	MapView& mMapView;
 	TileMap& mTileMap;
 	const NAS2D::Image& mUiIcons;
 

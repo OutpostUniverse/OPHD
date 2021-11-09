@@ -17,6 +17,7 @@
 #include "../StructureManager.h"
 #include "../Map/MapCoordinate.h"
 #include "../Map/TileMap.h"
+#include "../Map/MapView.h"
 
 #include "../UI/MessageBox.h"
 
@@ -301,12 +302,12 @@ void MapViewState::populateStructureMenu()
 	// Above Ground structures only
 	if (NAS2D::Utility<StructureManager>::get().count() == 0)
 	{
-		if (mTileMap->currentDepth() == constants::DepthSurface)
+		if (mMapView->currentDepth() == constants::DepthSurface)
 		{
 			mStructures.addItem(constants::SeedLander, 0, StructureID::SID_SEED_LANDER);
 		}
 	}
-	else if (mTileMap->currentDepth() == constants::DepthSurface)
+	else if (mMapView->currentDepth() == constants::DepthSurface)
 	{
 		mStructures.addItem(constants::Agridome, 5, StructureID::SID_AGRIDOME);
 		mStructures.addItem(constants::Chap, 3, StructureID::SID_CHAP);
@@ -430,7 +431,7 @@ void MapViewState::clearOverlays()
 {
 	clearOverlay(mConnectednessOverlay);
 	clearOverlay(mCommRangeOverlay);
-	clearOverlay(mPoliceOverlays[mTileMap->currentDepth()]);
+	clearOverlay(mPoliceOverlays[mMapView->currentDepth()]);
 	clearOverlay(mTruckRouteOverlay);
 }
 
@@ -496,7 +497,7 @@ void MapViewState::onTogglePoliceOverlay()
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
 
-		setOverlay(mPoliceOverlays[mTileMap->currentDepth()], Tile::Overlay::Police);
+		setOverlay(mPoliceOverlays[mMapView->currentDepth()], Tile::Overlay::Police);
 	}
 }
 
@@ -690,7 +691,7 @@ void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOpera
 
 void MapViewState::onNotificationWindowTakeMeThere(const MapCoordinate& position)
 {
-	mTileMap->centerOn(position);
+	mMapView->centerOn(position);
 }
 
 

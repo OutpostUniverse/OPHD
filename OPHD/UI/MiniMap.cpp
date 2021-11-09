@@ -2,6 +2,7 @@
 
 #include "../Cache.h"
 #include "../Map/TileMap.h"
+#include "../Map/MapView.h"
 #include "../Things/Robots/Robot.h"
 #include "../States/Route.h"
 #include "../StructureManager.h"
@@ -22,7 +23,8 @@ namespace
 }
 
 
-MiniMap::MiniMap(TileMap* tileMap, const std::map<Robot*, Tile*>& robotList, const std::string& mapName) :
+MiniMap::MiniMap(MapView& mapView, TileMap* tileMap, const std::map<Robot*, Tile*>& robotList, const std::string& mapName) :
+	mMapView{mapView},
 	mTileMap{tileMap},
 	mRobotList{robotList},
 	mIsHeightMapVisible{false},
@@ -108,7 +110,7 @@ void MiniMap::draw() const
 		renderer.drawPoint(robotPosition + miniMapOffset, NAS2D::Color::Cyan);
 	}
 
-	const auto& viewArea = mTileMap->viewArea();
+	const auto& viewArea = mMapView.viewArea();
 	renderer.drawBox(viewArea.offset(miniMapOffset + NAS2D::Vector{1, 1}), NAS2D::Color{0, 0, 0, 180});
 	renderer.drawBox(viewArea.offset(miniMapOffset), NAS2D::Color::White);
 
@@ -158,5 +160,5 @@ void MiniMap::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
 void MiniMap::onSetView(NAS2D::Point<int> mousePixel)
 {
 	const auto position = NAS2D::Point{0, 0} + (mousePixel - mRect.startPoint());
-	mTileMap->centerOn(position);
+	mMapView.centerOn(position);
 }
