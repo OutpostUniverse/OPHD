@@ -111,8 +111,8 @@ void MiniMap::draw() const
 	}
 
 	const auto& viewArea = mMapView.viewArea();
-	renderer.drawBox(viewArea.offset(miniMapOffset + NAS2D::Vector{1, 1}), NAS2D::Color{0, 0, 0, 180});
-	renderer.drawBox(viewArea.offset(miniMapOffset), NAS2D::Color::White);
+	renderer.drawBox(viewArea.translate(miniMapOffset + NAS2D::Vector{1, 1}), NAS2D::Color{0, 0, 0, 180});
+	renderer.drawBox(viewArea.translate(miniMapOffset), NAS2D::Color::White);
 
 	renderer.clipRectClear();
 }
