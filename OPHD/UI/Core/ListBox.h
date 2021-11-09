@@ -67,7 +67,6 @@ public:
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
 
-		mSlider.displayPosition(false);
 		mSlider.length(0);
 		mSlider.thumbPosition(0);
 		mSlider.change().connect(this, &ListBox::onSlideChange);

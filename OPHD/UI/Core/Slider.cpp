@@ -144,18 +144,12 @@ Slider::~Slider()
 }
 
 
-/**
- * Get internal slider position.
- */
 float Slider::positionInternal()
 {
 	return mPosition;
 }
 
 
-/**
- * set internal slider position
- */
 void Slider::positionInternal(float newPosition)
 {
 	mPosition = std::clamp(newPosition, 0.0f, mLength);
@@ -205,21 +199,8 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 	if (!enabled() || !visible()) { return; }
 
-	if (mSlider.contains(NAS2D::Point{x, y}))
-	{
-		// nothing
-	}
-	/*
-	else if (pointInRect_f(x, y, mButton2))
-	{
-		changeThumbPosition(+1.0);
-	}
-	else if (pointInRect_f(x, y, mButton1))
-	{
-		changeThumbPosition(-1.0);
-	}
-	*/
-	else if (mSlideBar.contains(NAS2D::Point{x, y}))
+	const auto mousePosition = NAS2D::Point{x, y};
+	if (mSlideBar.contains(mousePosition) && !mSlider.contains(mousePosition))
 	{
 		if (mSliderType == SliderType::Vertical)
 		{
@@ -240,11 +221,6 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 	if (!enabled() || !visible()) { return; }
 
 	mMousePosition = {x, y};
-
-	if (mDisplayPosition)
-	{
-		mMouseHoverSlide = mSlideBar.contains(NAS2D::Point{x, y});
-	}
 
 	if (!mThumbPressed) { return; }
 
@@ -271,7 +247,6 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 
 void Slider::logic()
 {
-	// compute position of items
 	if (mSliderType == SliderType::Vertical)
 	{
 		mButton1 = {mRect.x, mRect.y, mRect.width, mRect.width};
@@ -337,47 +312,20 @@ void Slider::draw() const
 	mSkins.skinButton1.draw(renderer, mButton1); // Top or left button
 	mSkins.skinButton2.draw(renderer, mButton2); // Bottom or right button
 	mSkins.skinSlider.draw(renderer, mSlider);
-
-	if (mDisplayPosition && mMouseHoverSlide)
-	{
-		std::string textHover = std::to_string(static_cast<int>(thumbPosition())) + " / " + std::to_string(static_cast<int>(mLength));
-		const auto boxSize = mFont.size(textHover) + NAS2D::Vector{4, 4};
-		const auto boxPosition = (mSliderType == SliderType::Vertical) ?
-			NAS2D::Point{mSlideBar.x + mSlideBar.width + 2, mMousePosition.y - boxSize.y} :
-			NAS2D::Point{mMousePosition.x + 2, mSlideBar.y - 2 - boxSize.y};
-
-		renderer.drawBox(NAS2D::Rectangle{boxPosition.x, boxPosition.y, boxSize.x, boxSize.y}, NAS2D::Color{255, 255, 255, 180});
-		renderer.drawBoxFilled(NAS2D::Rectangle{boxPosition.x + 1, boxPosition.y + 1, boxSize.x - 2, boxSize.y - 2}, NAS2D::Color{0, 0, 0, 180});
-		renderer.drawText(mFont, textHover, NAS2D::Point{boxPosition.x + 2, boxPosition.y + 2}, NAS2D::Color{220, 220, 220});
-	}
 }
 
 
-/**
- * Set the current value
- */
 void Slider::thumbPosition(float value)
 {
-	if (mBackward) { value = mLength - value; }
-
 	mPosition = std::clamp(value, 0.0f, mLength);
 
 	mSignal(thumbPosition());
 }
 
 
-/**
-* Gets the current value of position
-*/
 float Slider::thumbPosition() const
 {
-	float value = mPosition;
-	if (mBackward)
-	{
-		value = mLength - value;
-	}
-
-	return value;
+	return mPosition;
 }
 
 
@@ -394,29 +342,12 @@ void Slider::changeThumbPosition(float change)
 }
 
 
-void Slider::thumbPositionNormalized(float value) {
-	value = std::clamp(value, 0.0f, 1.0f);
-	if (mBackward) { value = 1.0f - value; }
-	mPosition = mLength * value;
-	mSignal(thumbPosition());
-}
-
-float Slider::thumbPositionNormalized() const {
-	return mPosition / mLength;
-}
-
-/**
- * Returns the max value position can get
- */
 float Slider::length() const
 {
 	return mLength;
 }
 
 
-/**
- * Set the max value position can get
- */
 void Slider::length(float length)
 {
 	mLength = length;
