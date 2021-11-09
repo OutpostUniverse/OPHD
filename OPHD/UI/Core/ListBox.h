@@ -67,8 +67,8 @@ public:
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
 
-		mSlider.length(0);
-		mSlider.thumbPosition(0);
+		mSlider.max(0);
+		mSlider.value(0);
 		mSlider.change().connect(this, &ListBox::onSlideChange);
 		updateScrollLayout();
 	}
@@ -220,17 +220,11 @@ protected:
 	void onMouseWheel(int /*x*/, int y) {
 		if (isEmpty() || !visible()) { return; }
 
-		mSlider.changeThumbPosition((y < 0 ? 16.0f : -16.0f));
+		mSlider.changeValue((y < 0 ? 16 : -16));
 	}
 
-	virtual void onSlideChange(float newPosition) {
+	virtual void onSlideChange(Slider::ValueType /*newPosition*/) {
 		updateScrollLayout();
-		// Intentional truncation of fractional value
-		const auto pos = std::floor(newPosition);
-		if (pos != newPosition)
-		{
-			mSlider.thumbPosition(pos);
-		}
 	}
 
 
@@ -256,15 +250,15 @@ private:
 		{
 			mSlider.position({rect().x + mRect.width - 14, mRect.y});
 			mSlider.size({14, mRect.height});
-			mSlider.length(static_cast<float>(static_cast<int>(neededDisplaySize) - mRect.height));
-			mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.thumbPosition());
+			mSlider.max(static_cast<Slider::ValueType>(static_cast<int>(neededDisplaySize) - mRect.height));
+			mScrollOffsetInPixels = static_cast<std::size_t>(mSlider.value());
 			mScrollArea.width -= mSlider.size().x; // Remove scroll bar from scroll area
 			mSlider.visible(true);
 		}
 		else
 		{
 			mScrollOffsetInPixels = 0;
-			mSlider.length(0);
+			mSlider.max(0);
 			mSlider.visible(false);
 		}
 	}

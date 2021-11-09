@@ -144,24 +144,11 @@ Slider::~Slider()
 }
 
 
-float Slider::positionInternal()
-{
-	return mPosition;
-}
-
-
-void Slider::positionInternal(float newPosition)
-{
-	mPosition = std::clamp(newPosition, 0.0f, mLength);
-	mSignal(mPosition);
-}
-
-
-void Slider::buttonCheck(bool& buttonFlag, Rectangle<int>& rect, float value)
+void Slider::buttonCheck(bool& buttonFlag, Rectangle<int>& rect, ValueType value)
 {
 	if (rect.contains(mMousePosition))
 	{
-		changeThumbPosition(value);
+		changeValue(value);
 		buttonFlag = true;
 
 		mTimer.reset();
@@ -183,8 +170,8 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			return;
 		}
 
-		buttonCheck(mButton1Held, mButton1, -1.0);
-		buttonCheck(mButton2Held, mButton2, 1.0);
+		buttonCheck(mButton1Held, mButton1, -1);
+		buttonCheck(mButton2Held, mButton2, 1);
 	}
 }
 
@@ -204,13 +191,13 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	{
 		if (mSliderType == SliderType::Vertical)
 		{
-			if (y < mSlider.y) { changeThumbPosition(-3.0); }
-			else { changeThumbPosition(+3.0); }
+			if (y < mSlider.y) { changeValue(-3); }
+			else { changeValue(3); }
 		}
 		else
 		{
-			if (x < mSlider.x) { changeThumbPosition(-3.0); }
-			else { changeThumbPosition(+3.0); }
+			if (x < mSlider.x) { changeValue(-3); }
+			else { changeValue(3); }
 		}
 	}
 }
@@ -231,7 +218,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 			return;
 		}
 
-		positionInternal(mLength * ((y - mSlideBar.y) / mSlideBar.height));
+		value(mMax * ((y - mSlideBar.y) / mSlideBar.height));
 	}
 	else
 	{
@@ -240,7 +227,7 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 			return;
 		}
 
-		positionInternal(mLength * (x - mSlideBar.x) / mSlideBar.width);
+		value(mMax * (x - mSlideBar.x) / mSlideBar.width);
 	}
 }
 
@@ -272,8 +259,8 @@ void Slider::update()
 		{
 			mPressedAccumulator = 30;
 			mTimer.reset();
-			if (mButton1Held) { changeThumbPosition(-1.0); }
-			else { changeThumbPosition(1.0); }
+			if (mButton1Held) { changeValue(-1); }
+			else { changeValue(1); }
 		}
 	}
 
@@ -282,22 +269,22 @@ void Slider::update()
 	if (mSliderType == SliderType::Vertical)
 	{
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = static_cast<int>(mSlideBar.height / mLength);
+		const auto i = static_cast<int>(mSlideBar.height / mMax);
 		const auto newSize = std::max(i, mSlider.width);
 
-		const auto relativeThumbPosition = static_cast<int>((mSlideBar.height - mSlider.height) * (mPosition / mLength)); //relative width
+		const auto relativevalue = static_cast<int>((mSlideBar.height - mSlider.height) * mValue / mMax); //relative width
 
-		mSlider = {mSlideBar.x, mSlideBar.y + relativeThumbPosition, mSlideBar.width, newSize};
+		mSlider = {mSlideBar.x, mSlideBar.y + relativevalue, mSlideBar.width, newSize};
 	}
 	else
 	{
 		// Fractional value can be dropped to avoid 'fuzzy' rendering due to texture filtering
-		const auto i = static_cast<int>(mSlideBar.width / (mLength + 1.0f));
+		const auto i = static_cast<int>(mSlideBar.width / (mMax + 1.0f));
 		const auto newSize = std::max(i, mSlider.height);
 
-		const auto relativeThumbPosition = static_cast<int>((mSlideBar.width - mSlider.width) * (mPosition / mLength)); //relative width
+		const auto relativevalue = static_cast<int>((mSlideBar.width - mSlider.width) * mValue / mMax); //relative width
 
-		mSlider = {mSlideBar.x + relativeThumbPosition, mSlideBar.y, newSize, mSlideBar.height};
+		mSlider = {mSlideBar.x + relativevalue, mSlideBar.y, newSize, mSlideBar.height};
 	}
 
 	draw();
@@ -315,44 +302,37 @@ void Slider::draw() const
 }
 
 
-void Slider::thumbPosition(float value)
+void Slider::value(ValueType newValue)
 {
-	mPosition = std::clamp(value, 0.0f, mLength);
-
-	mSignal(thumbPosition());
-}
-
-
-float Slider::thumbPosition() const
-{
-	return mPosition;
-}
-
-
-/**
- * Adds the change amount to the current position.
- *
- * \param	change	Amount to change in percent to change the
- *					slider's position. Must be between 0.0
- *					1.0.
- */
-void Slider::changeThumbPosition(float change)
-{
-	positionInternal(mPosition + change);
-}
-
-
-float Slider::length() const
-{
-	return mLength;
-}
-
-
-void Slider::length(float length)
-{
-	mLength = length;
-	if (mPosition > mLength)
+	const auto oldValue = mValue;
+	mValue = std::clamp<ValueType>(newValue, 0, mMax);
+	if (mValue != oldValue)
 	{
-		thumbPosition(mLength);
+		mSignal(mValue);
 	}
+}
+
+
+Slider::ValueType Slider::value() const
+{
+	return mValue;
+}
+
+
+void Slider::changeValue(ValueType change)
+{
+	value(mValue + change);
+}
+
+
+Slider::ValueType Slider::max() const
+{
+	return mMax;
+}
+
+
+void Slider::max(ValueType newMax)
+{
+	mMax = newMax;
+	value(mValue); // Re-clamp to new max
 }
