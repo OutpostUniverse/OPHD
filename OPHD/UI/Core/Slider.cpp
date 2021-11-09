@@ -205,8 +205,8 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 	{
 		value(
 			(mSliderType == SliderType::Vertical) ?
-				mMax * (y - mSlideBar.y) / mSlideBar.height :
-				mMax * (x - mSlideBar.x) / mSlideBar.width
+				mMax * (y - mSlideBar.y - mSlider.height / 2) / (mSlideBar.height - mSlider.height) :
+				mMax * (x - mSlideBar.x - mSlider.width / 2) / (mSlideBar.width - mSlider.width)
 		);
 	}
 }
