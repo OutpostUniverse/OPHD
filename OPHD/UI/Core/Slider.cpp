@@ -190,13 +190,11 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	{
 		if (mSliderType == SliderType::Vertical)
 		{
-			if (y < mSlider.y) { changeValue(-3); }
-			else { changeValue(3); }
+			changeValue((y < mSlider.y ? -3 : 3));
 		}
 		else
 		{
-			if (x < mSlider.x) { changeValue(-3); }
-			else { changeValue(3); }
+			changeValue((x < mSlider.x ? -3 : 3));
 		}
 	}
 }
