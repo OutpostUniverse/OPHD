@@ -16,6 +16,7 @@
 
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
+#include "../Map/MapView.h"
 
 #include "../Things/Robots/Robots.h"
 #include "../Things/Structures/Structures.h"
@@ -115,13 +116,14 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mMainReportsState(mainReportsState),
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
+	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mCrimeExecution(mNotificationArea),
 	mPlanetAttributes(planetAttributes),
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
-	mMiniMap{std::make_unique<MiniMap>(mTileMap, mRobotList, planetAttributes.mapImagePath)},
-	mDetailMap{std::make_unique<DetailMap>(*mTileMap, planetAttributes.tilesetPath)},
-	mNavControl{std::make_unique<NavControl>(*mTileMap)}
+	mMiniMap{std::make_unique<MiniMap>(*mMapView, mTileMap, mRobotList, planetAttributes.mapImagePath)},
+	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
+	mNavControl{std::make_unique<NavControl>(*mMapView, *mTileMap)}
 {
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
@@ -226,7 +228,7 @@ void MapViewState::_deactivate()
 void MapViewState::focusOnStructure(Structure* structure)
 {
 	if (!structure) { return; }
-	mTileMap->centerOn(NAS2D::Utility<StructureManager>::get().tileFromStructure(structure).xyz());
+	mMapView->centerOn(NAS2D::Utility<StructureManager>::get().tileFromStructure(structure).xyz());
 }
 
 
@@ -334,22 +336,22 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 	{
 		case NAS2D::EventHandler::KeyCode::KEY_w:
 		case NAS2D::EventHandler::KeyCode::KEY_UP:
-			mTileMap->moveView(Direction::North);
+			mMapView->moveView(Direction::North);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_s:
 		case NAS2D::EventHandler::KeyCode::KEY_DOWN:
-			mTileMap->moveView(Direction::South);
+			mMapView->moveView(Direction::South);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_a:
 		case NAS2D::EventHandler::KeyCode::KEY_LEFT:
-			mTileMap->moveView(Direction::West);
+			mMapView->moveView(Direction::West);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_d:
 		case NAS2D::EventHandler::KeyCode::KEY_RIGHT:
-			mTileMap->moveView(Direction::East);
+			mMapView->moveView(Direction::East);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_0:
@@ -373,11 +375,11 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEUP:
-			changeViewDepth(mTileMap->currentDepth() - 1);
+			changeViewDepth(mMapView->currentDepth() - 1);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN:
-			changeViewDepth(mTileMap->currentDepth() + 1);
+			changeViewDepth(mMapView->currentDepth() + 1);
 			break;
 
 
@@ -466,11 +468,11 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 			onSystemMenu();
 		}
 
-		const auto oldDepth = mTileMap->currentDepth();
+		const auto oldDepth = mMapView->currentDepth();
 		mNavControl->onClick(MOUSE_COORDS);
-		if (oldDepth != mTileMap->currentDepth())
+		if (oldDepth != mMapView->currentDepth())
 		{
-			changeViewDepth(mTileMap->currentDepth());
+			changeViewDepth(mMapView->currentDepth());
 		}
 
 		// MiniMap Check
@@ -660,10 +662,10 @@ void MapViewState::changeViewDepth(int depth)
 {
 	if (mBtnTogglePoliceOverlay.toggled())
 	{
-		changePoliceOverlayDepth(mTileMap->currentDepth(), depth);
+		changePoliceOverlayDepth(mMapView->currentDepth(), depth);
 	}
 
-	mTileMap->currentDepth(depth);
+	mMapView->currentDepth(depth);
 
 	if (mInsertMode != InsertMode::Robot) { clearMode(); }
 	populateStructureMenu();
@@ -708,7 +710,7 @@ void MapViewState::placeTubes(Tile* tile)
 
 	if (validTubeConnection(*mTileMap, mMouseTilePosition, cd))
 	{
-		insertTube(cd, mTileMap->currentDepth(), &mTileMap->getTile(mMouseTilePosition));
+		insertTube(cd, mMapView->currentDepth(), &mTileMap->getTile(mMouseTilePosition));
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -896,13 +898,13 @@ void MapViewState::placeRobodigger(Tile& tile)
 		}
 	}
 
-	if (!tile.thing() && mTileMap->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
+	if (!tile.thing() && mMapView->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
 	else { mDiggerDirection.downOnlyEnabled(); }
 
 	mDiggerDirection.setParameters(&tile);
 
 	// If we're placing on the top level we can only ever go down.
-	if (mTileMap->currentDepth() == constants::DepthSurface)
+	if (mMapView->currentDepth() == constants::DepthSurface)
 	{
 		mDiggerDirection.selectDown();
 	}
@@ -931,7 +933,7 @@ void MapViewState::placeRobominer(Tile& tile)
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerTileObstructed);
 		return;
 	}
-	if (mTileMap->currentDepth() != constants::DepthSurface)
+	if (mMapView->currentDepth() != constants::DepthSurface)
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerSurfaceOnly);
 		return;
@@ -1136,7 +1138,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 
 		SeedLander* s = new SeedLander(point);
 		s->deploySignal().connect(this, &MapViewState::onDeploySeedLander);
-		NAS2D::Utility<StructureManager>::get().addStructure(s, &mTileMap->getTile(point)); // Can only ever be placed on depth level 0
+		NAS2D::Utility<StructureManager>::get().addStructure(s, &mTileMap->getTile({point, 0})); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();

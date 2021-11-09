@@ -40,24 +40,9 @@ public:
 
 	const Tile& getTile(const MapCoordinate& position) const;
 	Tile& getTile(const MapCoordinate& position);
-	Tile& getTile(NAS2D::Point<int> position) { return getTile({position, mOriginTilePosition.z}); }
 
 	const std::vector<NAS2D::Point<int>>& mineLocations() const { return mMineLocations; }
 	void removeMineLocation(const NAS2D::Point<int>& pt);
-
-	NAS2D::Rectangle<int> viewArea() const;
-	void mapViewLocation(const MapCoordinate& position);
-	void centerOn(NAS2D::Point<int> point);
-	void centerOn(const MapCoordinate& position);
-	void moveView(Direction direction);
-
-	int currentDepth() const { return mOriginTilePosition.z; }
-	void currentDepth(int i);
-
-	int viewSize() const;
-	void viewSize(int sizeInTiles);
-
-	bool isVisibleTile(const MapCoordinate& position) const;
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);
@@ -80,10 +65,6 @@ private:
 	std::vector<NAS2D::Point<int>> mMineLocations;
 
 	std::string mMapPath;
-
-	int mEdgeLength = 0;
-
-	MapCoordinate mOriginTilePosition{{0, 0}, 0}; // Top tile of detail view diamond, or top left corner of minimap view box
 
 	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 };

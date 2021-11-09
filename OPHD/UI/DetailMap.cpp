@@ -3,6 +3,7 @@
 #include "../Constants/UiConstants.h"
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
+#include "../Map/MapView.h"
 #include "../Things/Thing.h"
 
 #include <NAS2D/Renderer/Color.h>
@@ -50,7 +51,8 @@ namespace {
 }
 
 
-DetailMap::DetailMap(TileMap& tileMap, const std::string& tilesetPath) :
+DetailMap::DetailMap(MapView& mapView, TileMap& tileMap, const std::string& tilesetPath) :
+	mMapView{mapView},
 	mTileMap{tileMap},
 	mTileset{tilesetPath},
 	mMineBeacon{"structures/mine_beacon.png"}
@@ -63,10 +65,10 @@ void DetailMap::resize(NAS2D::Vector<int> size)
 {
 	// Set up map draw position
 	const auto sizeInTiles = size.skewInverseBy(TileSize);
-	mTileMap.viewSize(std::min(sizeInTiles.x, sizeInTiles.y));
+	mMapView.viewSize(std::min(sizeInTiles.x, sizeInTiles.y));
 
 	// Find top left corner of rectangle containing top tile of diamond
-	mOriginPixelPosition = NAS2D::Point{size.x / 2, TileDrawOffset.y + (size.y - constants::BottomUiHeight - mTileMap.viewSize() * TileSize.y) / 2};
+	mOriginPixelPosition = NAS2D::Point{size.x / 2, TileDrawOffset.y + (size.y - constants::BottomUiHeight - mMapView.viewSize() * TileSize.y) / 2};
 }
 
 
@@ -75,13 +77,13 @@ void DetailMap::resize(NAS2D::Vector<int> size)
  */
 bool DetailMap::isMouseOverTile() const
 {
-	return mTileMap.isVisibleTile(mouseTilePosition());
+	return mMapView.isVisibleTile(mouseTilePosition());
 }
 
 
 MapCoordinate DetailMap::mouseTilePosition() const
 {
-	return {mMouseTilePosition, mTileMap.currentDepth()};
+	return {mMouseTilePosition, mMapView.currentDepth()};
 }
 
 
@@ -97,9 +99,9 @@ Tile& DetailMap::mouseTile()
 
 void DetailMap::update()
 {
-	for (const auto tilePosition : PointInRectangleRange{mTileMap.viewArea()})
+	for (const auto tilePosition : PointInRectangleRange{mMapView.viewArea()})
 	{
-		auto& tile = mTileMap.getTile({tilePosition, mTileMap.currentDepth()});
+		auto& tile = mTileMap.getTile({tilePosition, mMapView.currentDepth()});
 
 		if (tile.thing())
 		{
@@ -113,15 +115,15 @@ void DetailMap::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	int tsetOffset = mTileMap.currentDepth() > 0 ? TileDrawSize.y : 0;
+	int tsetOffset = mMapView.currentDepth() > 0 ? TileDrawSize.y : 0;
 
-	for (const auto tilePosition : PointInRectangleRange{mTileMap.viewArea()})
+	for (const auto tilePosition : PointInRectangleRange{mMapView.viewArea()})
 	{
-		auto& tile = mTileMap.getTile({tilePosition, mTileMap.currentDepth()});
+		auto& tile = mTileMap.getTile({tilePosition, mMapView.currentDepth()});
 
 		if (tile.excavated())
 		{
-			const auto offset = tilePosition - mTileMap.viewArea().startPoint();
+			const auto offset = tilePosition - mMapView.viewArea().startPoint();
 			const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(offset.x - offset.y) * TileSize.x / 2, (offset.x + offset.y) * TileSize.y / 2};
 			const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
 			const bool isTileHighlighted = tilePosition == mMouseTilePosition;
@@ -150,5 +152,5 @@ void DetailMap::onMouseMove(NAS2D::Point<int> position)
 {
 	const auto pixelOffset = position - mOriginPixelPosition;
 	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TileSize.y + pixelOffset.y * TileSize.x, pixelOffset.y * TileSize.x - pixelOffset.x * TileSize.y} / (TileSize.x * TileSize.y);
-	mMouseTilePosition = mTileMap.viewArea().startPoint() + tileOffset;
+	mMouseTilePosition = mMapView.viewArea().startPoint() + tileOffset;
 }

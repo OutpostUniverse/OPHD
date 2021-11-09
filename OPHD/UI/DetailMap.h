@@ -8,14 +8,15 @@
 #include <NAS2D/Timer.h>
 
 
-class TileMap;
 class Tile;
+class TileMap;
+class MapView;
 
 
 class DetailMap : public Control
 {
 public:
-	DetailMap(TileMap& tileMap, const std::string& tilesetPath);
+	DetailMap(MapView& mapView, TileMap& tileMap, const std::string& tilesetPath);
 
 	bool isMouseOverTile() const;
 
@@ -29,6 +30,7 @@ public:
 	void draw() const override;
 
 private:
+	MapView& mMapView;
 	TileMap& mTileMap;
 	const NAS2D::Image mTileset;
 	const NAS2D::Image mMineBeacon;

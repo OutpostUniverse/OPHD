@@ -65,6 +65,7 @@ namespace micropather
 struct MapCoordinate;
 class Tile;
 class TileMap;
+class MapView;
 class MainReportsUiState;
 
 
@@ -271,6 +272,7 @@ private:
 private:
 	MainReportsUiState& mMainReportsState;
 	TileMap* mTileMap{nullptr};
+	std::unique_ptr<MapView> mMapView;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 

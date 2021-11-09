@@ -4,6 +4,7 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../Map/TileMap.h"
+#include "../Map/MapView.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -27,7 +28,8 @@ namespace
 }
 
 
-NavControl::NavControl(TileMap& tileMap) :
+NavControl::NavControl(MapView& mapView, TileMap& tileMap) :
+	mMapView{mapView},
 	mTileMap{tileMap},
 	mUiIcons{imageCache.load("ui/icons.png")}
 {
@@ -69,7 +71,7 @@ void NavControl::onClick(NAS2D::Point<int> mousePosition)
 	{
 		if (iconRect.contains(mousePosition))
 		{
-			mTileMap.moveView(direction);
+			mMapView.moveView(direction);
 		}
 	}
 }
@@ -106,14 +108,14 @@ void NavControl::draw() const
 	{
 		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i);
 		const auto textSize = font.size(levelString);
-		bool isCurrentDepth = i == mTileMap.currentDepth();
+		bool isCurrentDepth = i == mMapView.currentDepth();
 		NAS2D::Color color = isCurrentDepth ? NAS2D::Color::Red : NAS2D::Color{200, 200, 200};
 		renderer.drawText(font, levelString, position - textSize, color);
 		position.x -= stepSizeWidth;
 	}
 
 	// Explicit current level
-	const auto& currentLevelString = LevelStringTable[mTileMap.currentDepth()];
+	const auto& currentLevelString = LevelStringTable[mMapView.currentDepth()];
 	const auto& fontBoldMedium = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
 	const auto currentLevelPosition = mRect.endPoint() - fontBoldMedium.size(currentLevelString) - NAS2D::Vector{constants::Margin, constants::Margin};
 	renderer.drawText(fontBoldMedium, currentLevelString, currentLevelPosition, NAS2D::Color::White);

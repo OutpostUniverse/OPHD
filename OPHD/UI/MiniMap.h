@@ -12,6 +12,7 @@
 
 class Tile;
 class TileMap;
+class MapView;
 class Robot;
 class MapViewState;
 
@@ -19,7 +20,7 @@ class MapViewState;
 class MiniMap : public Control
 {
 public:
-	MiniMap(TileMap* tileMap, const std::map<Robot*, Tile*>& robotList, const std::string& mapName);
+	MiniMap(MapView& mapView, TileMap* tileMap, const std::map<Robot*, Tile*>& robotList, const std::string& mapName);
 
 	bool heightMapVisible() const;
 	void heightMapVisible(bool isVisible);
@@ -35,6 +36,7 @@ protected:
 	void onSetView(NAS2D::Point<int> mousePixel);
 
 private:
+	MapView& mMapView;
 	TileMap* mTileMap;
 	const std::map<Robot*, Tile*>& mRobotList;
 	bool mIsHeightMapVisible;

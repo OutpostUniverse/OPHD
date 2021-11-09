@@ -160,7 +160,7 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 {
 	for (const auto& offset : DirectionScan3x3)
 	{
-		auto& tile = tilemap.getTile(position + offset);
+		auto& tile = tilemap.getTile({position + offset, 0});
 
 		if (tile.index() == TerrainType::Impassable)
 		{
