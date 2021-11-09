@@ -304,8 +304,12 @@ void Slider::draw() const
 
 void Slider::value(ValueType newValue)
 {
+	const auto oldValue = mValue;
 	mValue = std::clamp<ValueType>(newValue, 0, mMax);
-	mSignal(mValue);
+	if (mValue != oldValue)
+	{
+		mSignal(mValue);
+	}
 }
 
 
