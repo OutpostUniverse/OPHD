@@ -229,21 +229,15 @@ void Slider::onLayoutChange()
 
 	if (mSliderType == SliderType::Vertical)
 	{
-		const auto i = mSlideBar.height / mMax;
-		const auto newSize = std::max(i, mSlider.width);
-
-		const auto relativevalue = (mSlideBar.height - mSlider.height) * mValue / mMax; //relative width
-
-		mSlider = {mSlideBar.x, mSlideBar.y + relativevalue, mSlideBar.width, newSize};
+		const auto newSize = std::min(mSlideBar.height * mRect.height / std::max(mMax + mRect.height, 1), mSlideBar.height);
+		const auto drawOffset = (mSlideBar.height - newSize) * mValue / std::max(mMax, 1);
+		mSlider = {mSlideBar.x, mSlideBar.y + drawOffset, mSlideBar.width, newSize};
 	}
 	else
 	{
-		const auto i = mSlideBar.width / (mMax + 1);
-		const auto newSize = std::max(i, mSlider.height);
-
-		const auto relativevalue = (mSlideBar.width - mSlider.width) * mValue / mMax; //relative width
-
-		mSlider = {mSlideBar.x + relativevalue, mSlideBar.y, newSize, mSlideBar.height};
+		const auto newSize = std::min(mSlideBar.width * mRect.width / std::max(mMax + mRect.width, 1), mSlideBar.width);
+		const auto drawOffset = (mSlideBar.width - newSize) * mValue / std::max(mMax, 1);
+		mSlider = {mSlideBar.x + drawOffset, mSlideBar.y, newSize, mSlideBar.height};
 	}
 }
 
