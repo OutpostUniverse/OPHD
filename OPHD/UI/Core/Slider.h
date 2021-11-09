@@ -38,8 +38,8 @@ public:
 	Slider(Skins skins, SliderType sliderType = SliderType::Vertical);
 	~Slider() override;
 
-	void value(ValueType newValue);
 	ValueType value() const;
+	void value(ValueType newValue);
 	void changeValue(ValueType change);
 
 	ValueType max() const;

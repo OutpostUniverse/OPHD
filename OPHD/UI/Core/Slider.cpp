@@ -300,6 +300,12 @@ void Slider::draw() const
 }
 
 
+Slider::ValueType Slider::value() const
+{
+	return mValue;
+}
+
+
 void Slider::value(ValueType newValue)
 {
 	const auto oldValue = mValue;
@@ -308,12 +314,6 @@ void Slider::value(ValueType newValue)
 	{
 		mSignal(mValue);
 	}
-}
-
-
-Slider::ValueType Slider::value() const
-{
-	return mValue;
 }
 
 
