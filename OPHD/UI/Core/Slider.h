@@ -38,12 +38,12 @@ public:
 	Slider(Skins skins, SliderType sliderType = SliderType::Vertical);
 	~Slider() override;
 
-	void value(ValueType newValue); /**< Set the current position. */
-	ValueType value() const; /**< Get the current position. */
-	void changeValue(ValueType change); /**< Adds the change amount to the current position. */
+	void value(ValueType newValue);
+	ValueType value() const;
+	void changeValue(ValueType change);
 
-	ValueType max() const; /**< Get the max value for the slide area. */
-	void max(ValueType newMax); /**< Set the max value for the slide area. */
+	ValueType max() const;
+	void max(ValueType newMax);
 
 	void update() override;
 

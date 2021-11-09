@@ -315,13 +315,6 @@ Slider::ValueType Slider::value() const
 }
 
 
-/**
- * Adds the change amount to the current position.
- *
- * \param	change	Amount to change in percent to change the
- *					slider's position. Must be between 0.0
- *					1.0.
- */
 void Slider::changeValue(ValueType change)
 {
 	value(mPosition + change);
