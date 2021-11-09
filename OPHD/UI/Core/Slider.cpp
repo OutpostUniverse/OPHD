@@ -266,7 +266,7 @@ void Slider::update()
 		const auto i = mSlideBar.height / mMax;
 		const auto newSize = std::max(i, mSlider.width);
 
-		const auto relativevalue = static_cast<int>((mSlideBar.height - mSlider.height) * mValue / mMax); //relative width
+		const auto relativevalue = (mSlideBar.height - mSlider.height) * mValue / mMax; //relative width
 
 		mSlider = {mSlideBar.x, mSlideBar.y + relativevalue, mSlideBar.width, newSize};
 	}
@@ -275,7 +275,7 @@ void Slider::update()
 		const auto i = mSlideBar.width / (mMax + 1);
 		const auto newSize = std::max(i, mSlider.height);
 
-		const auto relativevalue = static_cast<int>((mSlideBar.width - mSlider.width) * mValue / mMax); //relative width
+		const auto relativevalue = (mSlideBar.width - mSlider.width) * mValue / mMax; //relative width
 
 		mSlider = {mSlideBar.x + relativevalue, mSlideBar.y, newSize, mSlideBar.height};
 	}
