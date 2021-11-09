@@ -142,16 +142,13 @@ Slider::~Slider()
 }
 
 
-void Slider::buttonCheck(bool& buttonFlag, bool buttonHover, ValueType value)
+void Slider::buttonCheck(bool& buttonFlag, ValueType value)
 {
-	if (buttonHover)
-	{
-		changeValue(value);
-		buttonFlag = true;
+	changeValue(value);
+	buttonFlag = true;
 
-		mTimer.reset();
-		mPressedAccumulator = 300;
-	}
+	mTimer.reset();
+	mPressedAccumulator = 300;
 }
 
 
@@ -167,12 +164,14 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			mThumbPressed = true;
 			return;
 		}
-
-		const auto button1Hover = mButton1.contains(mousePosition);
-		const auto button2Hover = mButton2.contains(mousePosition);
-
-		buttonCheck(mButton1Held, button1Hover, -1);
-		buttonCheck(mButton2Held, button2Hover, 1);
+		else if (mButton1.contains(mousePosition))
+		{
+			buttonCheck(mButton1Held, -1);
+		}
+		else if (mButton2.contains(mousePosition))
+		{
+			buttonCheck(mButton2Held, 1);
+		}
 	}
 }
 

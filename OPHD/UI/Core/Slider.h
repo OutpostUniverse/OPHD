@@ -57,7 +57,7 @@ protected:
 	void draw() const override;
 	void logic(); /**< Compute some values before drawing the control. */
 
-	void buttonCheck(bool& buttonFlag, bool buttonHover, ValueType value);
+	void buttonCheck(bool& buttonFlag, ValueType value);
 
 private:
 	SliderType mSliderType{SliderType::Vertical};
