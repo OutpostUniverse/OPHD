@@ -234,6 +234,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClCompile Include="IOHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map\MapCoordinate.cpp" />
+    <ClCompile Include="Map\MapView.cpp" />
     <ClCompile Include="Map\Tile.cpp" />
     <ClCompile Include="Map\TileMap.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
@@ -324,6 +325,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="GraphWalker.h" />
     <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Map\MapCoordinate.h" />
+    <ClInclude Include="Map\MapView.h" />
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\TileMap.h" />
     <ClInclude Include="MicroPather\micropather.h" />
