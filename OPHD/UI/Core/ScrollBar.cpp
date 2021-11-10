@@ -1,4 +1,4 @@
-#include "Slider.h"
+#include "ScrollBar.h"
 
 #include "../../Cache.h"
 
@@ -13,9 +13,9 @@ using namespace NAS2D;
 
 namespace
 {
-	Slider::Skins loadSkins(Slider::SliderType sliderType)
+	ScrollBar::Skins loadSkins(ScrollBar::ScrollBarType scrollBarType)
 	{
-		if (sliderType == Slider::SliderType::Vertical)
+		if (scrollBarType == ScrollBar::ScrollBarType::Vertical)
 		{
 			return {
 				{ // Track
@@ -117,38 +117,38 @@ namespace
 }
 
 
-Slider::Slider(SliderType sliderType) :
-	Slider{loadSkins(sliderType), sliderType}
+ScrollBar::ScrollBar(ScrollBarType scrollBarType) :
+	ScrollBar{loadSkins(scrollBarType), scrollBarType}
 {}
 
 
-Slider::Slider(Slider::Skins skins, SliderType sliderType) :
-	mSliderType{sliderType},
+ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType) :
+	mScrollBarType{scrollBarType},
 	mSkins{skins}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonDown().connect(this, &Slider::onMouseDown);
-	eventHandler.mouseButtonUp().connect(this, &Slider::onMouseUp);
-	eventHandler.mouseMotion().connect(this, &Slider::onMouseMove);
+	eventHandler.mouseButtonDown().connect(this, &ScrollBar::onMouseDown);
+	eventHandler.mouseButtonUp().connect(this, &ScrollBar::onMouseUp);
+	eventHandler.mouseMotion().connect(this, &ScrollBar::onMouseMove);
 }
 
 
-Slider::~Slider()
+ScrollBar::~ScrollBar()
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonDown().disconnect(this, &Slider::onMouseDown);
-	eventHandler.mouseButtonUp().disconnect(this, &Slider::onMouseUp);
-	eventHandler.mouseMotion().disconnect(this, &Slider::onMouseMove);
+	eventHandler.mouseButtonDown().disconnect(this, &ScrollBar::onMouseDown);
+	eventHandler.mouseButtonUp().disconnect(this, &ScrollBar::onMouseUp);
+	eventHandler.mouseMotion().disconnect(this, &ScrollBar::onMouseMove);
 }
 
 
-Slider::ValueType Slider::value() const
+ScrollBar::ValueType ScrollBar::value() const
 {
 	return mValue;
 }
 
 
-void Slider::value(ValueType newValue)
+void ScrollBar::value(ValueType newValue)
 {
 	const auto oldValue = mValue;
 	mValue = std::clamp<ValueType>(newValue, 0, mMax);
@@ -159,26 +159,26 @@ void Slider::value(ValueType newValue)
 }
 
 
-void Slider::changeValue(ValueType change)
+void ScrollBar::changeValue(ValueType change)
 {
 	value(mValue + change);
 }
 
 
-Slider::ValueType Slider::max() const
+ScrollBar::ValueType ScrollBar::max() const
 {
 	return mMax;
 }
 
 
-void Slider::max(ValueType newMax)
+void ScrollBar::max(ValueType newMax)
 {
 	mMax = newMax;
 	value(mValue); // Re-clamp to new max
 }
 
 
-void Slider::update()
+void ScrollBar::update()
 {
 	if (!visible()) { return; }
 
@@ -196,7 +196,7 @@ void Slider::update()
 }
 
 
-void Slider::draw() const
+void ScrollBar::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
@@ -207,7 +207,7 @@ void Slider::draw() const
 }
 
 
-void Slider::onButtonClick(bool& buttonFlag, ValueType value)
+void ScrollBar::onButtonClick(bool& buttonFlag, ValueType value)
 {
 	changeValue(value);
 	buttonFlag = true;
@@ -217,7 +217,7 @@ void Slider::onButtonClick(bool& buttonFlag, ValueType value)
 }
 
 
-void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
+void ScrollBar::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (!enabled() || !visible()) { return; }
 
@@ -240,7 +240,7 @@ void Slider::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
+void ScrollBar::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
 	if (button != EventHandler::MouseButton::Left) { return; }
 
@@ -254,7 +254,7 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	if (mTrack.contains(mousePosition) && !mThumb.contains(mousePosition))
 	{
 		changeValue(
-			(mSliderType == SliderType::Vertical) ?
+			(mScrollBarType == ScrollBarType::Vertical) ?
 				(y < mThumb.y ? -3 : 3) :
 				(x < mThumb.x ? -3 : 3)
 		);
@@ -262,14 +262,14 @@ void Slider::onMouseUp(EventHandler::MouseButton button, int x, int y)
 }
 
 
-void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
+void ScrollBar::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!enabled() || !visible()) { return; }
 
 	if (mThumbPressed && mTrack.contains({x, y}))
 	{
 		value(
-			(mSliderType == SliderType::Vertical) ?
+			(mScrollBarType == ScrollBarType::Vertical) ?
 				mMax * (y - mTrack.y - mThumb.height / 2) / (mTrack.height - mThumb.height) :
 				mMax * (x - mTrack.x - mThumb.width / 2) / (mTrack.width - mThumb.width)
 		);
@@ -277,21 +277,21 @@ void Slider::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 }
 
 
-void Slider::onMove(NAS2D::Vector<int> /*displacement*/)
+void ScrollBar::onMove(NAS2D::Vector<int> /*displacement*/)
 {
 	onLayoutChange();
 }
 
 
-void Slider::onResize()
+void ScrollBar::onResize()
 {
 	onLayoutChange();
 }
 
 
-void Slider::onLayoutChange()
+void ScrollBar::onLayoutChange()
 {
-	if (mSliderType == SliderType::Vertical)
+	if (mScrollBarType == ScrollBarType::Vertical)
 	{
 		mButtonDecrease = {mRect.x, mRect.y, mRect.width, mRect.width};
 		mButtonIncrease = {mRect.x, mRect.y + mRect.height - mRect.width, mRect.width, mRect.width};
