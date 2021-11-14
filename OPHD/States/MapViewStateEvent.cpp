@@ -30,21 +30,21 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 			robot = mRobotPool.addRobot(Robot::Type::Digger);
 			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 			factory.pullProduct();
-			checkRobotSelectionInterface(Robot::Type::Digger);
+			populateRobotMenu(Robot::Type::Digger);
 			break;
 
 		case ProductType::PRODUCT_DOZER:
 			robot = mRobotPool.addRobot(Robot::Type::Dozer);
 			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 			factory.pullProduct();
-			checkRobotSelectionInterface(Robot::Type::Dozer);
+			populateRobotMenu(Robot::Type::Dozer);
 			break;
 
 		case ProductType::PRODUCT_MINER:
 			robot = mRobotPool.addRobot(Robot::Type::Miner);
 			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 			factory.pullProduct();
-			checkRobotSelectionInterface(Robot::Type::Miner);
+			populateRobotMenu(Robot::Type::Miner);
 			break;
 
 		default:
@@ -177,7 +177,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
  */
 void MapViewState::onDozerTaskComplete(Robot* /*robot*/)
 {
-	checkRobotSelectionInterface(Robot::Type::Dozer);
+	populateRobotMenu(Robot::Type::Dozer);
 }
 
 
@@ -233,7 +233,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavated(true);
 	}
 
-	checkRobotSelectionInterface(Robot::Type::Digger);
+	populateRobotMenu(Robot::Type::Digger);
 }
 
 
