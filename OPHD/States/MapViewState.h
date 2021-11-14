@@ -233,7 +233,7 @@ private:
 
 	void setupUiPositions(NAS2D::Vector<int> size);
 
-	void populateRobotMenu(Robot::Type);
+	void populateRobotMenu();
 	void populateStructureMenu();
 
 	void updateStructuresAvailability();

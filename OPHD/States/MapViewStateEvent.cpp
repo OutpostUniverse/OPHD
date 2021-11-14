@@ -30,26 +30,25 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 			robot = mRobotPool.addRobot(Robot::Type::Digger);
 			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 			factory.pullProduct();
-			populateRobotMenu(Robot::Type::Digger);
 			break;
 
 		case ProductType::PRODUCT_DOZER:
 			robot = mRobotPool.addRobot(Robot::Type::Dozer);
 			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 			factory.pullProduct();
-			populateRobotMenu(Robot::Type::Dozer);
 			break;
 
 		case ProductType::PRODUCT_MINER:
 			robot = mRobotPool.addRobot(Robot::Type::Miner);
 			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 			factory.pullProduct();
-			populateRobotMenu(Robot::Type::Miner);
 			break;
 
 		default:
 			throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
 		}
+
+		populateRobotMenu();
 
 		if (robotCommand != nullptr) { robotCommand->addRobot(robot); }
 	}
@@ -177,7 +176,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
  */
 void MapViewState::onDozerTaskComplete(Robot* /*robot*/)
 {
-	populateRobotMenu(Robot::Type::Dozer);
+	populateRobotMenu();
 }
 
 
@@ -233,7 +232,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavated(true);
 	}
 
-	populateRobotMenu(Robot::Type::Digger);
+	populateRobotMenu();
 }
 
 

@@ -330,9 +330,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		}
 	}
 
-	if (mRobotPool.robotAvailable(Robot::Type::Digger)) { populateRobotMenu(Robot::Type::Digger); }
-	if (mRobotPool.robotAvailable(Robot::Type::Dozer)) { populateRobotMenu(Robot::Type::Dozer); }
-	if (mRobotPool.robotAvailable(Robot::Type::Miner)) { populateRobotMenu(Robot::Type::Miner); }
+	populateRobotMenu();
 }
 
 
