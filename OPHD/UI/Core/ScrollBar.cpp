@@ -253,9 +253,12 @@ void ScrollBar::onMouseUp(EventHandler::MouseButton button, int x, int y)
 	const auto mousePosition = NAS2D::Point{x, y};
 	if (mTrack.contains(mousePosition) && !mThumb.contains(mousePosition))
 	{
-		const auto isDecrease = (mScrollBarType == ScrollBarType::Vertical) ?
-			(y < mThumb.y) : (x < mThumb.x);
-		changeValue((isDecrease ? -3 : 3));
+		const auto [clickPosition, thumbPosition, viewSize] =
+			(mScrollBarType == ScrollBarType::Vertical) ?
+				std::tuple{y, mThumb.y, mRect.height} : std::tuple{x, mThumb.x, mRect.width};
+		const auto changeAmount = (clickPosition < thumbPosition) ?
+			-viewSize : viewSize;
+		changeValue(changeAmount);
 	}
 }
 
