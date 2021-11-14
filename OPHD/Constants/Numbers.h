@@ -8,7 +8,7 @@
  */
 namespace constants
 {
-	inline constexpr int PlanetAnimationSpeed{50};
+	inline constexpr int PlanetAnimationSpeed{35};
 
 	inline constexpr int SmeltingMinimumResourcesCount{20};
 
