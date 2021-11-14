@@ -993,9 +993,12 @@ void MapViewState::populateRobotMenu()
 {
 	mRobots.clear();
 
-	for (auto item : RobotMetaTable)
+	for (auto& item : RobotMetaTable)
 	{
-
+		if (mRobotPool.robotAvailable(item.first))
+		{
+			mRobots.addItemSorted(item.second.name, item.second.sheetIndex, static_cast<int>(item.first));
+		}
 	}
 }
 
