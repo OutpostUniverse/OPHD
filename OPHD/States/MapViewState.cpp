@@ -993,11 +993,11 @@ void MapViewState::populateRobotMenu()
 {
 	mRobots.clear();
 
-	for (auto& item : RobotMetaTable)
+	for (auto& [robotType, robotMeta] : RobotMetaTable)
 	{
-		if (mRobotPool.robotAvailable(item.first))
+		if (mRobotPool.robotAvailable(robotType))
 		{
-			mRobots.addItemSorted(item.second.name, item.second.sheetIndex, static_cast<int>(item.first));
+			mRobots.addItemSorted(robotMeta.name, robotMeta.sheetIndex, static_cast<int>(robotType));
 		}
 	}
 }
