@@ -11,6 +11,8 @@
 #include <NAS2D/Signal/Signal.h>
 
 #include <vector>
+#include <string>
+#include <cstddef>
 
 
 class NotificationArea : public Control
