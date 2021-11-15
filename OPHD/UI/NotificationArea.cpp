@@ -6,65 +6,55 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <utility>
+
 
 using namespace NAS2D;
 
 
-static const std::map<NotificationArea::NotificationType, Rectangle<float>> NotificationIconRect
+namespace
 {
-	{NotificationArea::NotificationType::Critical, {64, 64, 32, 32}},
-	{NotificationArea::NotificationType::Information, {32, 64, 32, 32}},
-	{NotificationArea::NotificationType::Warning, {96, 64, 32, 32}}
-};
+	constexpr auto IconSize = NAS2D::Vector{32, 32};
+	constexpr auto IconPadding = NAS2D::Vector{8, constants::MarginTight / 2};
+	constexpr auto IconPaddedSize = IconSize + IconPadding * 2;
+	constexpr std::size_t NoSelection = SIZE_MAX;
 
 
-static const std::map<NotificationArea::NotificationType, NAS2D::Color> NotificationIconColor
-{
-	{NotificationArea::NotificationType::Critical, Color::Red},
-	{NotificationArea::NotificationType::Information, Color::Green},
-	{NotificationArea::NotificationType::Warning, Color::Yellow}
-};
+	struct IconDrawParameters
+	{
+		NAS2D::Rectangle<int> iconRect;
+		NAS2D::Color color;
+	};
 
-
-static const std::map<NotificationArea::NotificationType, std::string> NotificationText
-{
-	{NotificationArea::NotificationType::Critical, "Critical"},
-	{NotificationArea::NotificationType::Information, "Information"},
-	{NotificationArea::NotificationType::Warning, "Warning"}
-};
-
-
-const Rectangle<float>& IconRectFromNotificationType(const NotificationArea::NotificationType type)
-{
-	return NotificationIconRect.at(type);
+	const std::map<NotificationArea::NotificationType, IconDrawParameters> NotificationIconDrawParameters
+	{
+		{NotificationArea::NotificationType::Critical, {{64, 64, 32, 32}, Color::Red}},
+		{NotificationArea::NotificationType::Information, {{32, 64, 32, 32}, Color::Green}},
+		{NotificationArea::NotificationType::Warning, {{96, 64, 32, 32}, Color::Yellow}}
+	};
 }
 
 
-const Color ColorFromNotification(const NotificationArea::NotificationType type)
+void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::NotificationType type, const NAS2D::Image& icons)
 {
-	return NotificationIconColor.at(type);
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	const auto& iconDrawParameters = NotificationIconDrawParameters.at(type);
+	renderer.drawSubImage(icons, position, {128, 64, 32, 32}, iconDrawParameters.color);
+	renderer.drawSubImage(icons, position, iconDrawParameters.iconRect, Color::Normal);
 }
-
-
-const std::string& StringFromNotificationType(const NotificationArea::NotificationType type)
-{
-	return NotificationText.at(type);
-}
-
-
-static constexpr int Offset = constants::MarginTight + 32;
 
 
 NotificationArea::NotificationArea() :
 	mIcons{imageCache.load("ui/icons.png")},
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)}
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mNotificationIndex{NoSelection}
 {
 	auto& eventhandler = Utility<EventHandler>::get();
 
 	eventhandler.mouseButtonDown().connect(this, &NotificationArea::onMouseDown);
 	eventhandler.mouseMotion().connect(this, &NotificationArea::onMouseMove);
 
-	width(Width);
+	width(IconPaddedSize.x);
 }
 
 
@@ -77,14 +67,34 @@ NotificationArea::~NotificationArea()
 }
 
 
-void NotificationArea::push(const std::string& brief, const std::string& message, const MapCoordinate& position, NotificationType type)
+void NotificationArea::push(Notification notification)
 {
-	mNotificationList.emplace_back(Notification{brief, message, position, type});
+	mNotificationList.push_back(std::move(notification));
+}
 
-	const int posX = positionX() + (Width / 2) - 16;
-	const int posY = positionY() + size().y - (Offset * static_cast<int>(mNotificationList.size()));
 
-	mNotificationRectList.emplace_back(Rectangle<int>{posX, posY, 32, 32});
+void NotificationArea::clear()
+{
+	mNotificationList.clear();
+}
+
+
+NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t index)
+{
+	auto rectPosition = position() + NAS2D::Vector{IconPadding.x, size().y - IconPaddedSize.y * static_cast<int>(index + 1)};
+	return NAS2D::Rectangle<int>::Create(rectPosition, IconSize);
+}
+
+
+std::size_t NotificationArea::notificationIndex(NAS2D::Point<int> pixelPosition)
+{
+	const auto estimatedIndex = static_cast<std::size_t>((mRect.endPoint().y - pixelPosition.y) / IconPaddedSize.y);
+	// Icon is clickable, but padding area around icon is not clickable
+	if (notificationRect(estimatedIndex).contains(pixelPosition))
+	{
+		return estimatedIndex;
+	}
+	return NoSelection;
 }
 
 
@@ -96,26 +106,16 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 		return;
 	}
 
-	const NAS2D::Point clickPoint{x, y};
-
-	size_t count = 0;
-	for (auto& rect : mNotificationRectList)
+	const auto index = notificationIndex({x, y});
+	if (index != NoSelection)
 	{
-		if (rect.contains(clickPoint))
+		if (button == EventHandler::MouseButton::Left)
 		{
-			if (button == EventHandler::MouseButton::Left)
-			{
-				mNotificationClicked(mNotificationList.at(count));
-			}
-
-			mNotificationList.erase(mNotificationList.begin() + count);
-			mNotificationRectList.erase(mNotificationRectList.begin() + count);
-			updateRectListPositions();
-			onMouseMove(x, y, 0, 0);
-			return;
+			mNotificationClicked(mNotificationList.at(index));
 		}
 
-		count++;
+		mNotificationList.erase(mNotificationList.begin() + index);
+		onMouseMove(x, y, 0, 0);
 	}
 }
 
@@ -123,56 +123,7 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!rect().contains({x, y})) { return; }
-
-	size_t count = 0;
-	for (auto& rect : mNotificationRectList)
-	{
-		if (rect.contains({x, y}))
-		{
-			mNotificationIndex = count;
-
-			const int stringWidth = mFont.width(mNotificationList[count].brief) + 8;
-			const int briefPositionX = positionX() - stringWidth;
-			const int briefPositionY = rect.y + (rect.height / 2) - (mFont.height() / 2) - 2;
-
-			mNotificationBriefRect = {briefPositionX, briefPositionY, stringWidth, mFont.height() + 4};
-
-			return;
-		}
-
-		count++;
-	}
-
-	mNotificationIndex = SIZE_MAX;
-}
-
-
-void NotificationArea::onMove(NAS2D::Vector<int> displacement)
-{
-	Control::onMove(displacement);
-	updateRectListPositions();
-}
-
-
-void NotificationArea::onResize()
-{
-	Control::onResize();
-	updateRectListPositions();
-}
-
-
-void NotificationArea::updateRectListPositions()
-{
-	size_t count = 1;
-	for (auto& rect : mNotificationRectList)
-	{
-		const int posX = positionX() + (Width / 2) - 16;
-		const int posY = positionY() + size().y - (Offset * static_cast<int>(count));
-
-		rect.startPoint({posX, posY});
-
-		count++;
-	}
+	mNotificationIndex = notificationIndex({x, y});
 }
 
 
@@ -183,17 +134,19 @@ void NotificationArea::update()
 	size_t count = 0;
 	for (auto& notification : mNotificationList)
 	{
-		auto& rect = mNotificationRectList.at(count);
-
-		renderer.drawSubImage(mIcons, rect.startPoint(), {128, 64, 32, 32}, NotificationIconColor.at(notification.type));
-		renderer.drawSubImage(mIcons, rect.startPoint(), NotificationIconRect.at(notification.type), Color::Normal);
+		const auto& rect = notificationRect(count);
+		drawNotificationIcon(rect.startPoint(), notification.type, mIcons);
 
 		if (mNotificationIndex == count)
 		{
-			renderer.drawBoxFilled(mNotificationBriefRect, Color::DarkGray);
-			renderer.drawBox(mNotificationBriefRect, Color::Black);
+			const auto textPadding = Vector<int>{4, 2};
+			const auto textAreaSize = mFont.size(notification.brief) + textPadding * 2;
+			const auto briefPosition = rect.startPoint() + NAS2D::Vector{-IconPadding.x - textAreaSize.x, (rect.height - textAreaSize.y) / 2};
+			const auto notificationBriefRect = NAS2D::Rectangle<int>::Create(briefPosition, textAreaSize);
+			const auto textPosition = briefPosition + textPadding;
 
-			const auto textPosition = mNotificationBriefRect.startPoint() + Vector<int>{4, 2};
+			renderer.drawBoxFilled(notificationBriefRect, Color::DarkGray);
+			renderer.drawBox(notificationBriefRect, Color::Black);
 			renderer.drawText(mFont, notification.brief, textPosition, Color::White);
 		}
 

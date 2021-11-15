@@ -235,20 +235,20 @@ void MapViewState::updateMorale()
 	// Push notifications
 	if (birthCount)
 	{
-		mNotificationArea.push(
+		mNotificationArea.push({
 			"Baby Born",
 			std::to_string(birthCount) + (birthCount > 1 ? " babies were born." : " baby was born."),
 			{{-1, -1}, 0},
-			NotificationArea::NotificationType::Information);
+			NotificationArea::NotificationType::Information});
 	}
 
 	if (deathCount)
 	{
-		mNotificationArea.push(
+		mNotificationArea.push({
 			"Colonist Died",
 			std::to_string(deathCount) + (birthCount > 1 ? " colonists met their demise." : " colonist met their demise."),
 			{{-1, -1}, 0},
-			NotificationArea::NotificationType::Warning);
+			NotificationArea::NotificationType::Warning});
 	}
 }
 
@@ -538,19 +538,19 @@ void MapViewState::checkAgingStructures()
 
 		if (structure->age() == structure->maxAge() - 10)
 		{
-			mNotificationArea.push(
+			mNotificationArea.push({
 				"Aging Structure",
 				structure->name() + " is getting old. You should replace it soon.",
 				structureTile.xyz(),
-				NotificationArea::NotificationType::Warning);
+				NotificationArea::NotificationType::Warning});
 		}
 		else if (structure->age() == structure->maxAge() - 5)
 		{
-			mNotificationArea.push(
+			mNotificationArea.push({
 				"Aging Structure",
 				structure->name() + " is about to collapse. You should replace it right away or consider demolishing it.",
 				structureTile.xyz(),
-				NotificationArea::NotificationType::Critical);
+				NotificationArea::NotificationType::Critical});
 		}
 	}
 }
@@ -564,11 +564,11 @@ void MapViewState::checkNewlyBuiltStructures()
 	{
 		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
 
-		mNotificationArea.push(
+		mNotificationArea.push({
 			"Construction Finished",
 			structure->name() + " completed construction.",
 			structureTile.xyz(),
-			NotificationArea::NotificationType::Information);
+			NotificationArea::NotificationType::Information});
 	}
 }
 
