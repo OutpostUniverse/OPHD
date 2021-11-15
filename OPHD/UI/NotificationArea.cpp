@@ -20,19 +20,17 @@ namespace
 	constexpr std::size_t NoSelection = SIZE_MAX;
 
 
-	const std::map<NotificationArea::NotificationType, Rectangle<float>> NotificationIconRect
+	struct IconDrawParameters
 	{
-		{NotificationArea::NotificationType::Critical, {64, 64, 32, 32}},
-		{NotificationArea::NotificationType::Information, {32, 64, 32, 32}},
-		{NotificationArea::NotificationType::Warning, {96, 64, 32, 32}}
+		NAS2D::Rectangle<int> iconRect;
+		NAS2D::Color color;
 	};
 
-
-	const std::map<NotificationArea::NotificationType, NAS2D::Color> NotificationIconColor
+	const std::map<NotificationArea::NotificationType, IconDrawParameters> NotificationIconDrawParameters
 	{
-		{NotificationArea::NotificationType::Critical, Color::Red},
-		{NotificationArea::NotificationType::Information, Color::Green},
-		{NotificationArea::NotificationType::Warning, Color::Yellow}
+		{NotificationArea::NotificationType::Critical, {{64, 64, 32, 32}, Color::Red}},
+		{NotificationArea::NotificationType::Information, {{32, 64, 32, 32}, Color::Green}},
+		{NotificationArea::NotificationType::Warning, {{96, 64, 32, 32}, Color::Yellow}}
 	};
 }
 
@@ -40,8 +38,9 @@ namespace
 void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::NotificationType type, const NAS2D::Image& icons)
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	renderer.drawSubImage(icons, position, {128, 64, 32, 32}, NotificationIconColor.at(type));
-	renderer.drawSubImage(icons, position, NotificationIconRect.at(type), Color::Normal);
+	const auto& iconDrawParameters = NotificationIconDrawParameters.at(type);
+	renderer.drawSubImage(icons, position, {128, 64, 32, 32}, iconDrawParameters.color);
+	renderer.drawSubImage(icons, position, iconDrawParameters.iconRect, Color::Normal);
 }
 
 
