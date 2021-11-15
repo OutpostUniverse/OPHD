@@ -14,32 +14,32 @@ using namespace NAS2D;
 
 namespace
 {
-constexpr int Width = 48;
-constexpr int Offset = constants::MarginTight + 32;
+	constexpr int Width = 48;
+	constexpr int Offset = constants::MarginTight + 32;
 
 
-const std::map<NotificationArea::NotificationType, Rectangle<float>> NotificationIconRect
-{
-	{NotificationArea::NotificationType::Critical, {64, 64, 32, 32}},
-	{NotificationArea::NotificationType::Information, {32, 64, 32, 32}},
-	{NotificationArea::NotificationType::Warning, {96, 64, 32, 32}}
-};
+	const std::map<NotificationArea::NotificationType, Rectangle<float>> NotificationIconRect
+	{
+		{NotificationArea::NotificationType::Critical, {64, 64, 32, 32}},
+		{NotificationArea::NotificationType::Information, {32, 64, 32, 32}},
+		{NotificationArea::NotificationType::Warning, {96, 64, 32, 32}}
+	};
 
 
-const std::map<NotificationArea::NotificationType, NAS2D::Color> NotificationIconColor
-{
-	{NotificationArea::NotificationType::Critical, Color::Red},
-	{NotificationArea::NotificationType::Information, Color::Green},
-	{NotificationArea::NotificationType::Warning, Color::Yellow}
-};
+	const std::map<NotificationArea::NotificationType, NAS2D::Color> NotificationIconColor
+	{
+		{NotificationArea::NotificationType::Critical, Color::Red},
+		{NotificationArea::NotificationType::Information, Color::Green},
+		{NotificationArea::NotificationType::Warning, Color::Yellow}
+	};
 
 
-const std::map<NotificationArea::NotificationType, std::string> NotificationText
-{
-	{NotificationArea::NotificationType::Critical, "Critical"},
-	{NotificationArea::NotificationType::Information, "Information"},
-	{NotificationArea::NotificationType::Warning, "Warning"}
-};
+	const std::map<NotificationArea::NotificationType, std::string> NotificationText
+	{
+		{NotificationArea::NotificationType::Critical, "Critical"},
+		{NotificationArea::NotificationType::Information, "Information"},
+		{NotificationArea::NotificationType::Warning, "Warning"}
+	};
 }
 
 
