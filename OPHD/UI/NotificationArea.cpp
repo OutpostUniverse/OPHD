@@ -97,9 +97,9 @@ void NotificationArea::clear()
 }
 
 
-NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t count)
+NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t index)
 {
-	auto rectPosition = position() + NAS2D::Vector{(Width / 2) - 16, size().y - Offset * static_cast<int>(count + 1)};
+	auto rectPosition = position() + NAS2D::Vector{(Width / 2) - 16, size().y - Offset * static_cast<int>(index + 1)};
 	return NAS2D::Rectangle<int>::Create(rectPosition, NAS2D::Vector{32, 32});
 }
 
@@ -126,15 +126,15 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 		return;
 	}
 
-	const auto count = notificationIndex({x, y});
-	if (count != NoSelection)
+	const auto index = notificationIndex({x, y});
+	if (index != NoSelection)
 	{
 		if (button == EventHandler::MouseButton::Left)
 		{
-			mNotificationClicked(mNotificationList.at(count));
+			mNotificationClicked(mNotificationList.at(index));
 		}
 
-		mNotificationList.erase(mNotificationList.begin() + count);
+		mNotificationList.erase(mNotificationList.begin() + index);
 		onMouseMove(x, y, 0, 0);
 	}
 }
