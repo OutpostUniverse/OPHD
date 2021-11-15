@@ -59,10 +59,7 @@ private:
 	const NAS2D::Font& mFont;
 
 	std::vector<Notification> mNotificationList;
-
 	std::size_t mNotificationIndex;
-	NAS2D::Rectangle<int> mNotificationBriefRect{0};
-
 	NotificationCallback mNotificationClicked;
 };
 
