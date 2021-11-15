@@ -80,11 +80,6 @@ NotificationArea::~NotificationArea()
 void NotificationArea::push(const std::string& brief, const std::string& message, const MapCoordinate& position, NotificationType type)
 {
 	mNotificationList.emplace_back(Notification{brief, message, position, type});
-
-	const int posX = positionX() + (Width / 2) - 16;
-	const int posY = positionY() + size().y - (Offset * static_cast<int>(mNotificationList.size()));
-
-	mNotificationRectList.emplace_back(Rectangle<int>{posX, posY, 32, 32});
 }
 
 
@@ -116,8 +111,6 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 			}
 
 			mNotificationList.erase(mNotificationList.begin() + count);
-			mNotificationRectList.erase(mNotificationRectList.begin() + count);
-			updateRectListPositions();
 			onMouseMove(x, y, 0, 0);
 			return;
 		}
@@ -153,25 +146,12 @@ void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 void NotificationArea::onMove(NAS2D::Vector<int> displacement)
 {
 	Control::onMove(displacement);
-	updateRectListPositions();
 }
 
 
 void NotificationArea::onResize()
 {
 	Control::onResize();
-	updateRectListPositions();
-}
-
-
-void NotificationArea::updateRectListPositions()
-{
-	auto rectPosition = position() + NAS2D::Vector{(Width / 2) - 16, size().y};
-	for (auto& rect : mNotificationRectList)
-	{
-		rectPosition.y -= Offset;
-		rect.startPoint(rectPosition);
-	}
 }
 
 

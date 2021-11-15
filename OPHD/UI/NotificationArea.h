@@ -44,7 +44,6 @@ public:
 	void clear()
 	{
 		mNotificationList.clear();
-		mNotificationRectList.clear();
 	}
 
 	NotificationCallback& notificationClicked() { return mNotificationClicked; }
@@ -66,13 +65,10 @@ protected:
 	void onResize() override;
 
 private:
-	void updateRectListPositions();
-
 	const NAS2D::Image& mIcons;
 	const NAS2D::Font& mFont;
 
 	std::vector<Notification> mNotificationList;
-	std::vector<NAS2D::Rectangle<int>> mNotificationRectList;
 
 	std::size_t mNotificationIndex{SIZE_MAX};
 	NAS2D::Rectangle<int> mNotificationBriefRect{0};
