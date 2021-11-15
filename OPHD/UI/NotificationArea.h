@@ -57,6 +57,8 @@ public:
 	void update() override;
 
 protected:
+	NAS2D::Rectangle<int> notificationRect(std::size_t count);
+
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
 	void onMouseMove(int x, int y, int dX, int dY);
 

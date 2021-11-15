@@ -88,6 +88,13 @@ void NotificationArea::push(const std::string& brief, const std::string& message
 }
 
 
+NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t count)
+{
+	auto rectPosition = position() + NAS2D::Vector{(Width / 2) - 16, size().y - Offset * static_cast<int>(count + 1)};
+	return NAS2D::Rectangle<int>::Create(rectPosition, NAS2D::Vector{32, 32});
+}
+
+
 void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (button != EventHandler::MouseButton::Left &&
