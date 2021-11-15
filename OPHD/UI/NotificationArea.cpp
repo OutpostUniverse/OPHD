@@ -34,14 +34,6 @@ namespace
 		{NotificationArea::NotificationType::Information, Color::Green},
 		{NotificationArea::NotificationType::Warning, Color::Yellow}
 	};
-
-
-	const std::map<NotificationArea::NotificationType, std::string> NotificationText
-	{
-		{NotificationArea::NotificationType::Critical, "Critical"},
-		{NotificationArea::NotificationType::Information, "Information"},
-		{NotificationArea::NotificationType::Warning, "Warning"}
-	};
 }
 
 
