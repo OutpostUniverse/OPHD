@@ -143,18 +143,6 @@ void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 }
 
 
-void NotificationArea::onMove(NAS2D::Vector<int> displacement)
-{
-	Control::onMove(displacement);
-}
-
-
-void NotificationArea::onResize()
-{
-	Control::onResize();
-}
-
-
 void NotificationArea::update()
 {
 	auto& renderer = Utility<Renderer>::get();

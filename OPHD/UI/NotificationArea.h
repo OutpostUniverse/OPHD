@@ -61,9 +61,6 @@ protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
 	void onMouseMove(int x, int y, int dX, int dY);
 
-	void onMove(NAS2D::Vector<int> displacement) override;
-	void onResize() override;
-
 private:
 	const NAS2D::Image& mIcons;
 	const NAS2D::Font& mFont;
