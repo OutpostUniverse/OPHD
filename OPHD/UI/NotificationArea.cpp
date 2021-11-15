@@ -125,22 +125,16 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 		return;
 	}
 
-	const NAS2D::Point clickPoint{x, y};
-
-	for (size_t count = 0; count < mNotificationList.size(); ++count)
+	const auto count = notificationIndex({x, y});
+	if (count != SIZE_MAX)
 	{
-		const auto& rect = notificationRect(count);
-		if (rect.contains(clickPoint))
+		if (button == EventHandler::MouseButton::Left)
 		{
-			if (button == EventHandler::MouseButton::Left)
-			{
-				mNotificationClicked(mNotificationList.at(count));
-			}
-
-			mNotificationList.erase(mNotificationList.begin() + count);
-			onMouseMove(x, y, 0, 0);
-			return;
+			mNotificationClicked(mNotificationList.at(count));
 		}
+
+		mNotificationList.erase(mNotificationList.begin() + count);
+		onMouseMove(x, y, 0, 0);
 	}
 }
 
@@ -149,24 +143,17 @@ void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!rect().contains({x, y})) { return; }
 
-	for (size_t count = 0; count < mNotificationList.size(); ++count)
+	mNotificationIndex = notificationIndex({x, y});
+	if (mNotificationIndex != SIZE_MAX)
 	{
-		const auto& rect = notificationRect(count);
-		if (rect.contains({x, y}))
-		{
-			mNotificationIndex = count;
+		const auto& rect = notificationRect(mNotificationIndex);
 
-			const int stringWidth = mFont.width(mNotificationList[count].brief) + 8;
-			const int briefPositionX = positionX() - stringWidth;
-			const int briefPositionY = rect.y + (rect.height / 2) - (mFont.height() / 2) - 2;
+		const int stringWidth = mFont.width(mNotificationList[mNotificationIndex].brief) + 8;
+		const int briefPositionX = positionX() - stringWidth;
+		const int briefPositionY = rect.y + (rect.height / 2) - (mFont.height() / 2) - 2;
 
-			mNotificationBriefRect = {briefPositionX, briefPositionY, stringWidth, mFont.height() + 4};
-
-			return;
-		}
+		mNotificationBriefRect = {briefPositionX, briefPositionY, stringWidth, mFont.height() + 4};
 	}
-
-	mNotificationIndex = SIZE_MAX;
 }
 
 
