@@ -105,7 +105,7 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 
 	const NAS2D::Point clickPoint{x, y};
 
-	for (size_t count = 0; count < mNotificationRectList.size(); ++count)
+	for (size_t count = 0; count < mNotificationList.size(); ++count)
 	{
 		const auto& rect = notificationRect(count);
 		if (rect.contains(clickPoint))
@@ -129,7 +129,7 @@ void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!rect().contains({x, y})) { return; }
 
-	for (size_t count = 0; count < mNotificationRectList.size(); ++count)
+	for (size_t count = 0; count < mNotificationList.size(); ++count)
 	{
 		const auto& rect = notificationRect(count);
 		if (rect.contains({x, y}))
