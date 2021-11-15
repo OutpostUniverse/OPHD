@@ -162,9 +162,7 @@ void NotificationArea::update()
 	for (auto& notification : mNotificationList)
 	{
 		const auto& rect = notificationRect(count);
-
-		renderer.drawSubImage(mIcons, rect.startPoint(), {128, 64, 32, 32}, NotificationIconColor.at(notification.type));
-		renderer.drawSubImage(mIcons, rect.startPoint(), NotificationIconRect.at(notification.type), Color::Normal);
+		drawNotificationIcon(rect.startPoint(), notification.type, mIcons);
 
 		if (mNotificationIndex == count)
 		{

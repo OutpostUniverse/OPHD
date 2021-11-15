@@ -58,10 +58,6 @@ void NotificationWindow::update()
 
 	btnTakeMeThere.visible(mTakeMeThereVisible); // bit of a hack
 
-	auto& renderer = Utility<Renderer>::get();
-
-	Point<float> iconLocation = position() + Vector{10, 30};
-
-	renderer.drawSubImage(mIcons, iconLocation, {128, 64, 32, 32}, ColorFromNotification(mNotification.type));
-	renderer.drawSubImage(mIcons, iconLocation, IconRectFromNotificationType(mNotification.type), Color::Normal);
+	const auto iconLocation = position() + Vector{10, 30};
+	drawNotificationIcon(iconLocation, mNotification.type, mIcons);
 }
