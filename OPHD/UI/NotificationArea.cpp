@@ -53,24 +53,6 @@ void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::Notifica
 }
 
 
-const Rectangle<float>& IconRectFromNotificationType(const NotificationArea::NotificationType type)
-{
-	return NotificationIconRect.at(type);
-}
-
-
-const Color ColorFromNotification(const NotificationArea::NotificationType type)
-{
-	return NotificationIconColor.at(type);
-}
-
-
-const std::string& StringFromNotificationType(const NotificationArea::NotificationType type)
-{
-	return NotificationText.at(type);
-}
-
-
 NotificationArea::NotificationArea() :
 	mIcons{imageCache.load("ui/icons.png")},
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
