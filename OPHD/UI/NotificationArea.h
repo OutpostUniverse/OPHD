@@ -45,7 +45,7 @@ public:
 	void push(Notification notification);
 	void clear();
 
-	NotificationCallback& notificationClicked() { return mNotificationClicked; }
+	NotificationCallback::Source& notificationClicked() { return mNotificationClicked; }
 
 	void update() override;
 
