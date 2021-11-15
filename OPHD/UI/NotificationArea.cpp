@@ -166,11 +166,10 @@ void NotificationArea::update()
 			const auto textAreaSize = mFont.size(notification.brief) + textPadding * 2;
 			const auto briefPosition = rect.startPoint() + NAS2D::Vector{-IconPadding.x - textAreaSize.x, (rect.height - textAreaSize.y) / 2};
 			const auto notificationBriefRect = NAS2D::Rectangle<int>::Create(briefPosition, textAreaSize);
+			const auto textPosition = briefPosition + textPadding;
 
 			renderer.drawBoxFilled(notificationBriefRect, Color::DarkGray);
 			renderer.drawBox(notificationBriefRect, Color::Black);
-
-			const auto textPosition = notificationBriefRect.startPoint() + textPadding;
 			renderer.drawText(mFont, notification.brief, textPosition, Color::White);
 		}
 
