@@ -103,6 +103,20 @@ NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t count)
 }
 
 
+std::size_t NotificationArea::notificationIndex(NAS2D::Point<int> pixelPosition)
+{
+	for (size_t count = 0; count < mNotificationList.size(); ++count)
+	{
+		const auto& rect = notificationRect(count);
+		if (rect.contains(pixelPosition))
+		{
+			return count;
+		}
+	}
+	return SIZE_MAX;
+}
+
+
 void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
 	if (button != EventHandler::MouseButton::Left &&
