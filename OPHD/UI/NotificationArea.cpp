@@ -143,18 +143,7 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!rect().contains({x, y})) { return; }
-
 	mNotificationIndex = notificationIndex({x, y});
-	if (mNotificationIndex != NoSelection)
-	{
-		const auto& rect = notificationRect(mNotificationIndex);
-
-		const int stringWidth = mFont.width(mNotificationList[mNotificationIndex].brief) + 8;
-		const int briefPositionX = positionX() - stringWidth;
-		const int briefPositionY = rect.y + (rect.height / 2) - (mFont.height() / 2) - 2;
-
-		mNotificationBriefRect = {briefPositionX, briefPositionY, stringWidth, mFont.height() + 4};
-	}
 }
 
 
@@ -172,6 +161,12 @@ void NotificationArea::update()
 
 		if (mNotificationIndex == count)
 		{
+			const int stringWidth = mFont.width(mNotificationList[mNotificationIndex].brief) + 8;
+			const int briefPositionX = positionX() - stringWidth;
+			const int briefPositionY = rect.y + (rect.height / 2) - (mFont.height() / 2) - 2;
+	
+			mNotificationBriefRect = {briefPositionX, briefPositionY, stringWidth, mFont.height() + 4};
+
 			renderer.drawBoxFilled(mNotificationBriefRect, Color::DarkGray);
 			renderer.drawBox(mNotificationBriefRect, Color::Black);
 
