@@ -48,11 +48,6 @@ public:
 
 	NotificationCallback& notificationClicked() { return mNotificationClicked; }
 
-	const Notification& notificationFromIndex(int index)
-	{
-		return mNotificationList.at(static_cast<size_t>(index));
-	}
-
 	void update() override;
 
 protected:
