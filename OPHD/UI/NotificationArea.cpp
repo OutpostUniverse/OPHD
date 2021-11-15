@@ -161,7 +161,7 @@ void NotificationArea::update()
 
 		if (mNotificationIndex == count)
 		{
-			const int stringWidth = mFont.width(mNotificationList[mNotificationIndex].brief) + 8;
+			const int stringWidth = mFont.width(notification.brief) + 8;
 			const int briefPositionX = positionX() - stringWidth;
 			const int briefPositionY = rect.y + (rect.height / 2) - (mFont.height() / 2) - 2;
 	
