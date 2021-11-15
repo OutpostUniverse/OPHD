@@ -105,9 +105,9 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 
 	const NAS2D::Point clickPoint{x, y};
 
-	size_t count = 0;
-	for (auto& rect : mNotificationRectList)
+	for (size_t count = 0; count < mNotificationRectList.size(); ++count)
 	{
+		const auto& rect = notificationRect(count);
 		if (rect.contains(clickPoint))
 		{
 			if (button == EventHandler::MouseButton::Left)
@@ -121,8 +121,6 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 			onMouseMove(x, y, 0, 0);
 			return;
 		}
-
-		count++;
 	}
 }
 
@@ -131,9 +129,9 @@ void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!rect().contains({x, y})) { return; }
 
-	size_t count = 0;
-	for (auto& rect : mNotificationRectList)
+	for (size_t count = 0; count < mNotificationRectList.size(); ++count)
 	{
+		const auto& rect = notificationRect(count);
 		if (rect.contains({x, y}))
 		{
 			mNotificationIndex = count;
@@ -146,8 +144,6 @@ void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 
 			return;
 		}
-
-		count++;
 	}
 
 	mNotificationIndex = SIZE_MAX;
@@ -186,7 +182,7 @@ void NotificationArea::update()
 	size_t count = 0;
 	for (auto& notification : mNotificationList)
 	{
-		auto& rect = mNotificationRectList.at(count);
+		const auto& rect = notificationRect(count);
 
 		renderer.drawSubImage(mIcons, rect.startPoint(), {128, 64, 32, 32}, NotificationIconColor.at(notification.type));
 		renderer.drawSubImage(mIcons, rect.startPoint(), NotificationIconRect.at(notification.type), Color::Normal);
