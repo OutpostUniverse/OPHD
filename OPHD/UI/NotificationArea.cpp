@@ -14,8 +14,10 @@ using namespace NAS2D;
 
 namespace
 {
-	constexpr int Width = 48;
-	constexpr int Offset = constants::MarginTight + 32;
+	constexpr auto IconSize = NAS2D::Vector{32, 32};
+	constexpr auto IconPadding = NAS2D::Vector{8, constants::MarginTight / 2};
+	constexpr int Width = IconSize.x + IconPadding.x * 2;
+	constexpr int Offset = IconSize.y + IconPadding.y * 2;
 	constexpr std::size_t NoSelection = SIZE_MAX;
 
 
