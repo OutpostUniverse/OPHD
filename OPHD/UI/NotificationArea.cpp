@@ -16,8 +16,7 @@ namespace
 {
 	constexpr auto IconSize = NAS2D::Vector{32, 32};
 	constexpr auto IconPadding = NAS2D::Vector{8, constants::MarginTight / 2};
-	constexpr int Width = IconSize.x + IconPadding.x * 2;
-	constexpr int Offset = IconSize.y + IconPadding.y * 2;
+	constexpr auto IconPaddedSize = IconSize + IconPadding * 2;
 	constexpr std::size_t NoSelection = SIZE_MAX;
 
 
@@ -74,7 +73,7 @@ NotificationArea::NotificationArea() :
 	eventhandler.mouseButtonDown().connect(this, &NotificationArea::onMouseDown);
 	eventhandler.mouseMotion().connect(this, &NotificationArea::onMouseMove);
 
-	width(Width);
+	width(IconPaddedSize.x);
 }
 
 
@@ -101,7 +100,7 @@ void NotificationArea::clear()
 
 NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t index)
 {
-	auto rectPosition = position() + NAS2D::Vector{(Width / 2) - 16, size().y - Offset * static_cast<int>(index + 1)};
+	auto rectPosition = position() + NAS2D::Vector{(IconPaddedSize.x / 2) - 16, size().y - IconPaddedSize.y * static_cast<int>(index + 1)};
 	return NAS2D::Rectangle<int>::Create(rectPosition, NAS2D::Vector{32, 32});
 }
 
