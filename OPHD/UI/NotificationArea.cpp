@@ -161,11 +161,11 @@ void NotificationArea::update()
 
 		if (mNotificationIndex == count)
 		{
-			const int stringWidth = mFont.width(notification.brief) + 8;
-			const int briefPositionX = positionX() - stringWidth;
-			const int briefPositionY = rect.y + (rect.height / 2) - (mFont.height() / 2) - 2;
+			const auto textAreaSize = mFont.size(notification.brief) + NAS2D::Vector{8, 4};
+			const int briefPositionX = positionX() - textAreaSize.x;
+			const int briefPositionY = rect.y + (rect.height / 2) - (textAreaSize.y / 2);
 	
-			const auto notificationBriefRect = NAS2D::Rectangle{briefPositionX, briefPositionY, stringWidth, mFont.height() + 4};
+			const auto notificationBriefRect = NAS2D::Rectangle{briefPositionX, briefPositionY, textAreaSize.x, textAreaSize.y};
 
 			renderer.drawBoxFilled(notificationBriefRect, Color::DarkGray);
 			renderer.drawBox(notificationBriefRect, Color::Black);
