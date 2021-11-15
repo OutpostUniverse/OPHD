@@ -989,12 +989,16 @@ void MapViewState::placeRobot(Tile* tile)
  * Checks the robot selection interface and if the robot is not available in it, adds
  * it back in.
  */
-void MapViewState::checkRobotSelectionInterface(Robot::Type rType)
+void MapViewState::populateRobotMenu()
 {
-	const auto& robotInfo = RobotMetaTable.at(rType);
-	if (!mRobots.itemExists(robotInfo.name))
+	mRobots.clear();
+
+	for (auto& [robotType, robotMeta] : RobotMetaTable)
 	{
-		mRobots.addItemSorted(robotInfo.name, robotInfo.sheetIndex, static_cast<int>(rType));
+		if (mRobotPool.robotAvailable(robotType))
+		{
+			mRobots.addItemSorted(robotMeta.name, robotMeta.sheetIndex, static_cast<int>(robotType));
+		}
 	}
 }
 
@@ -1216,7 +1220,7 @@ void MapViewState::updateRobots()
 			if (robot->taskCanceled())
 			{
 				resetTileIndexFromDozer(robot, tile);
-				checkRobotSelectionInterface(robot->type());
+				populateRobotMenu();
 				robot->reset();
 			}
 		}

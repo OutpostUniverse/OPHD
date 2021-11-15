@@ -657,6 +657,7 @@ void MapViewState::nextTurn()
 		factory->updateProduction();
 	}
 
+	populateRobotMenu();
 	populateStructureMenu();
 
 	checkColonyShip();
