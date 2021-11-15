@@ -100,7 +100,7 @@ void NotificationArea::clear()
 
 NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t index)
 {
-	auto rectPosition = position() + NAS2D::Vector{(IconPaddedSize.x / 2) - (IconSize.x / 2), size().y - IconPaddedSize.y * static_cast<int>(index + 1)};
+	auto rectPosition = position() + NAS2D::Vector{IconPadding.x, size().y - IconPaddedSize.y * static_cast<int>(index + 1)};
 	return NAS2D::Rectangle<int>::Create(rectPosition, IconSize);
 }
 
