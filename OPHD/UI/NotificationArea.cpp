@@ -163,11 +163,11 @@ void NotificationArea::onResize()
 
 void NotificationArea::updateRectListPositions()
 {
-	size_t count = 1;
+	int count = 1;
 	for (auto& rect : mNotificationRectList)
 	{
 		const int posX = positionX() + (Width / 2) - 16;
-		const int posY = positionY() + size().y - (Offset * static_cast<int>(count));
+		const int posY = positionY() + size().y - (Offset * count);
 
 		rect.startPoint({posX, posY});
 
