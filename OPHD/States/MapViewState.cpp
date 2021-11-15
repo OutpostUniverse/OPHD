@@ -83,19 +83,19 @@ static void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& posit
 
 	if (robot->fuelCellAge() == 190) /// \fixme magic number
 	{
-		notificationArea.push(
+		notificationArea.push({
 			"Aging Robot",
 			"Robot '" + robot->name() + "' at location " + robotLocationText + " is approaching its maximum age.",
 			position,
-			NotificationArea::NotificationType::Warning);
+			NotificationArea::NotificationType::Warning});
 	}
 	else if (robot->fuelCellAge() == 195) /// \fixme magic number
 	{
-		notificationArea.push(
+		notificationArea.push({
 			"Aging Robot",
 			"Robot '" + robot->name() + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.",
 			position,
-			NotificationArea::NotificationType::Critical);
+			NotificationArea::NotificationType::Critical});
 	}
 }
 
@@ -778,11 +778,11 @@ void MapViewState::placeRobodozer(Tile& tile)
 			auto* rcc = static_cast<RobotCommand*>(structure);
 			if (rcc->isControlling(&robot))
 			{
-				mNotificationArea.push(
+				mNotificationArea.push({
 					"Cannot bulldoze",
 					"Cannot bulldoze Robot Command Center by a Robot under its command.",
 					tile.xyz(),
-					NotificationArea::NotificationType::Information);
+					NotificationArea::NotificationType::Information});
 			}
 			else
 			{
@@ -814,11 +814,11 @@ void MapViewState::placeRobodozer(Tile& tile)
 		 */
 		if (!recycledResources.isEmpty())
 		{
-			mNotificationArea.push(
+			mNotificationArea.push({
 				"Resources wasted",
 				"Resources wasted demolishing " + structure->name(),
 				tile.xyz(),
-				NotificationArea::NotificationType::Warning);
+				NotificationArea::NotificationType::Warning});
 		}
 
 		updatePlayerResources();
@@ -867,11 +867,11 @@ void MapViewState::placeRobodigger(Tile& tile)
 		if (!doYesNoMessage(constants::AlertDiggerMineTile, constants::AlertDiggerMine)) { return; }
 
 		const auto position = tile.xy();
-		mNotificationArea.push(
+		mNotificationArea.push({
 			"Mine destroyed",
 			"Digger destroyed a Mine at (" + std::to_string(position.x) + ", " + std::to_string(position.y) + ").",
 			tile.xyz(),
-			NotificationArea::NotificationType::Information);
+			NotificationArea::NotificationType::Information});
 		mTileMap->removeMineLocation(position);
 	}
 
@@ -1180,16 +1180,16 @@ void MapViewState::updateRobots()
 
 			if (robot->selfDestruct())
 			{
-				mNotificationArea.push(
+				mNotificationArea.push({
 					"Robot Self-Destructed",
 					robot->name() + " at location " + robotLocationText + " self destructed.",
 					position,
-					NotificationArea::NotificationType::Critical);
+					NotificationArea::NotificationType::Critical});
 			}
 			else if (robot->type() != Robot::Type::Miner)
 			{
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
-				mNotificationArea.push("Robot Broke Down", text, position, NotificationArea::NotificationType::Critical);
+				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
 				resetTileIndexFromDozer(robot, tile);
 			}
 

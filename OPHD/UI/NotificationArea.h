@@ -42,7 +42,7 @@ public:
 	NotificationArea();
 	~NotificationArea() override;
 
-	void push(const std::string& brief, const std::string& message, const MapCoordinate& position, NotificationType type);
+	void push(Notification notification);
 	void clear();
 
 	NotificationCallback& notificationClicked() { return mNotificationClicked; }

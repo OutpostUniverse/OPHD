@@ -6,6 +6,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <utility>
+
 
 using namespace NAS2D;
 
@@ -77,9 +79,9 @@ NotificationArea::~NotificationArea()
 }
 
 
-void NotificationArea::push(const std::string& brief, const std::string& message, const MapCoordinate& position, NotificationType type)
+void NotificationArea::push(Notification notification)
 {
-	mNotificationList.emplace_back(Notification{brief, message, position, type});
+	mNotificationList.push_back(std::move(notification));
 }
 
 
