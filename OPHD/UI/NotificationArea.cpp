@@ -16,6 +16,7 @@ namespace
 {
 	constexpr int Width = 48;
 	constexpr int Offset = constants::MarginTight + 32;
+	constexpr std::size_t NoSelection = SIZE_MAX;
 
 
 	const std::map<NotificationArea::NotificationType, Rectangle<float>> NotificationIconRect
@@ -64,7 +65,7 @@ const std::string& StringFromNotificationType(const NotificationArea::Notificati
 NotificationArea::NotificationArea() :
 	mIcons{imageCache.load("ui/icons.png")},
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
-	mNotificationIndex{SIZE_MAX}
+	mNotificationIndex{NoSelection}
 {
 	auto& eventhandler = Utility<EventHandler>::get();
 
@@ -113,7 +114,7 @@ std::size_t NotificationArea::notificationIndex(NAS2D::Point<int> pixelPosition)
 			return count;
 		}
 	}
-	return SIZE_MAX;
+	return NoSelection;
 }
 
 
@@ -126,7 +127,7 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 	}
 
 	const auto count = notificationIndex({x, y});
-	if (count != SIZE_MAX)
+	if (count != NoSelection)
 	{
 		if (button == EventHandler::MouseButton::Left)
 		{
@@ -144,7 +145,7 @@ void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 	if (!rect().contains({x, y})) { return; }
 
 	mNotificationIndex = notificationIndex({x, y});
-	if (mNotificationIndex != SIZE_MAX)
+	if (mNotificationIndex != NoSelection)
 	{
 		const auto& rect = notificationRect(mNotificationIndex);
 
