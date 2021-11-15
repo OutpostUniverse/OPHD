@@ -107,7 +107,7 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 	}
 
 	const auto index = notificationIndex({x, y});
-	if (index != NoSelection)
+	if (index != NoSelection && index < mNotificationList.size())
 	{
 		if (button == EventHandler::MouseButton::Left)
 		{
