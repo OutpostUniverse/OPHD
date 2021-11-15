@@ -163,15 +163,11 @@ void NotificationArea::onResize()
 
 void NotificationArea::updateRectListPositions()
 {
-	int count = 1;
+	auto rectPosition = position() + NAS2D::Vector{(Width / 2) - 16, size().y};
 	for (auto& rect : mNotificationRectList)
 	{
-		const int posX = positionX() + (Width / 2) - 16;
-		const int posY = positionY() + size().y - (Offset * count);
-
-		rect.startPoint({posX, posY});
-
-		count++;
+		rectPosition.y -= Offset;
+		rect.startPoint(rectPosition);
 	}
 }
 
