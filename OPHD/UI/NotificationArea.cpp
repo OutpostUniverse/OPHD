@@ -54,6 +54,7 @@ const std::string& StringFromNotificationType(const NotificationArea::Notificati
 }
 
 
+static constexpr int Width = 48;
 static constexpr int Offset = constants::MarginTight + 32;
 
 
