@@ -12,6 +12,10 @@
 using namespace NAS2D;
 
 
+static constexpr int Width = 48;
+static constexpr int Offset = constants::MarginTight + 32;
+
+
 static const std::map<NotificationArea::NotificationType, Rectangle<float>> NotificationIconRect
 {
 	{NotificationArea::NotificationType::Critical, {64, 64, 32, 32}},
@@ -52,10 +56,6 @@ const std::string& StringFromNotificationType(const NotificationArea::Notificati
 {
 	return NotificationText.at(type);
 }
-
-
-static constexpr int Width = 48;
-static constexpr int Offset = constants::MarginTight + 32;
 
 
 NotificationArea::NotificationArea() :
