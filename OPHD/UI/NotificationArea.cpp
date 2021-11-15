@@ -45,6 +45,14 @@ namespace
 }
 
 
+void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::NotificationType type, const NAS2D::Image& icons)
+{
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	renderer.drawSubImage(icons, position, {128, 64, 32, 32}, NotificationIconColor.at(type));
+	renderer.drawSubImage(icons, position, NotificationIconRect.at(type), Color::Normal);
+}
+
+
 const Rectangle<float>& IconRectFromNotificationType(const NotificationArea::NotificationType type)
 {
 	return NotificationIconRect.at(type);
