@@ -161,7 +161,8 @@ void NotificationArea::update()
 
 		if (mNotificationIndex == count)
 		{
-			const auto textAreaSize = mFont.size(notification.brief) + NAS2D::Vector{8, 4};
+			const auto textPadding = Vector<int>{4, 2};
+			const auto textAreaSize = mFont.size(notification.brief) + textPadding * 2;
 			const int briefPositionX = positionX() - textAreaSize.x;
 			const int briefPositionY = rect.y + (rect.height / 2) - (textAreaSize.y / 2);
 	
@@ -170,7 +171,7 @@ void NotificationArea::update()
 			renderer.drawBoxFilled(notificationBriefRect, Color::DarkGray);
 			renderer.drawBox(notificationBriefRect, Color::Black);
 
-			const auto textPosition = notificationBriefRect.startPoint() + Vector<int>{4, 2};
+			const auto textPosition = notificationBriefRect.startPoint() + textPadding;
 			renderer.drawText(mFont, notification.brief, textPosition, Color::White);
 		}
 
