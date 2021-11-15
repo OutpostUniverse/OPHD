@@ -59,7 +59,8 @@ static constexpr int Offset = constants::MarginTight + 32;
 
 NotificationArea::NotificationArea() :
 	mIcons{imageCache.load("ui/icons.png")},
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)}
+	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mNotificationIndex{SIZE_MAX}
 {
 	auto& eventhandler = Utility<EventHandler>::get();
 
