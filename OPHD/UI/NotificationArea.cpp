@@ -83,6 +83,12 @@ void NotificationArea::push(const std::string& brief, const std::string& message
 }
 
 
+void NotificationArea::clear()
+{
+	mNotificationList.clear();
+}
+
+
 NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t count)
 {
 	auto rectPosition = position() + NAS2D::Vector{(Width / 2) - 16, size().y - Offset * static_cast<int>(count + 1)};
