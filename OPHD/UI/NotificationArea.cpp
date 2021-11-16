@@ -88,11 +88,11 @@ NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t index)
 
 std::size_t NotificationArea::notificationIndex(NAS2D::Point<int> pixelPosition)
 {
-	const auto estimatedIndex = static_cast<std::size_t>((mRect.endPoint().y - pixelPosition.y) / IconPaddedSize.y);
+	const auto index = static_cast<std::size_t>((mRect.endPoint().y - pixelPosition.y) / IconPaddedSize.y);
 	// Icon is clickable, but padding area around icon is not clickable
-	if (notificationRect(estimatedIndex).contains(pixelPosition))
+	if (index < mNotificationList.size() && notificationRect(index).contains(pixelPosition))
 	{
-		return estimatedIndex;
+		return index;
 	}
 	return NoSelection;
 }
@@ -107,7 +107,7 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 	}
 
 	const auto index = notificationIndex({x, y});
-	if (index != NoSelection && index < mNotificationList.size())
+	if (index != NoSelection)
 	{
 		if (button == EventHandler::MouseButton::Left)
 		{
