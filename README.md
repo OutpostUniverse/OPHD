@@ -3,6 +3,10 @@ OutpostHD is a reimplementation of OUTPOST published by Sierra On-Line in 1994. 
 
 For up to the minute information, please visit [The Outpost Universe's Forums](http://forum.outpost2.net). You may also view [OutpostHD's Forum Thread](http://forum.outpost2.net/index.php/topic,5718.0.html) for additional details or to participate in the discussion.
 
+## Playing
+
+OutpostHD is still a work in progress with lots of active development, so things may still be a bit rough and incomplete (not entirely unlike the original). To give it a try, head over to the [Releases page](https://github.com/OutpostUniverse/OPHD/releases) and download a recent copy.
+
 ## Installation
 Installation is simple: Extract the contents of the ZIP Archive into any folder. Double-click on OPHD.exe to launch the game.
 
