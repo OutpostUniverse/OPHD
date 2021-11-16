@@ -3,14 +3,6 @@ OutpostHD is a reimplementation of OUTPOST published by Sierra On-Line in 1994. 
 
 For up to the minute information, please visit [The Outpost Universe's Forums](http://forum.outpost2.net). You may also view [OutpostHD's Forum Thread](http://forum.outpost2.net/index.php/topic,5718.0.html) for additional details or to participate in the discussion.
 
-## Requirements
-*For Windows*
-
-* Windows 7 64bit (not tested on Vista or XP but probably works)
-* 2GB RAM
-* 32MB Available Hard Drive Space
-* Graphics card that can support OpenGL 3.0 & GLSL v1.0 (basically any modern GPU)
-
 ## Installation
 Installation is simple: Extract the contents of the ZIP Archive into any folder. Double-click on OPHD.exe to launch the game.
 
