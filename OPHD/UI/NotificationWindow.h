@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Core/Window.h"
 #include "Core/Button.h"
 #include "Core/TextArea.h"
-#include "Core/Window.h"
 
 #include "NotificationArea.h"
 
@@ -15,28 +15,28 @@ struct MapCoordinate;
 class NotificationWindow : public Window
 {
 public:
-	using Signal = NAS2D::Signal<const MapCoordinate&>;
+	using TakeMeThereSignal = NAS2D::Signal<const MapCoordinate&>;
 
 public:
 	NotificationWindow();
 
 	void notification(const NotificationArea::Notification&);
 
-	Signal& takeMeThere() { return mTakeMeThereClicked; }
+	TakeMeThereSignal::Source& takeMeThere() { return mTakeMeThereClicked; }
 
 	void update() override;
 
 private:
-	void btnOkayClicked();
-	void btnTakeMeThereClicked();
+	void onOkayClicked();
+	void onTakeMeThereClicked();
 
 	const NAS2D::Image& mIcons;
 
 	NotificationArea::Notification mNotification;
-	Button btnOkay{"Okay", {this, &NotificationWindow::btnOkayClicked}};
-	Button btnTakeMeThere{"Take Me There", {this, &NotificationWindow::btnTakeMeThereClicked}};
+	Button btnOkay{"Okay", {this, &NotificationWindow::onOkayClicked}};
+	Button btnTakeMeThere{"Take Me There", {this, &NotificationWindow::onTakeMeThereClicked}};
 	TextArea mMessageArea;
 	bool mTakeMeThereVisible{false};
 
-	Signal mTakeMeThereClicked;
+	TakeMeThereSignal mTakeMeThereClicked;
 };

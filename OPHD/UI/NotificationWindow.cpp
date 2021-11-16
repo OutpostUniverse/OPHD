@@ -37,13 +37,13 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 }
 
 
-void NotificationWindow::btnOkayClicked()
+void NotificationWindow::onOkayClicked()
 {
 	hide();
 }
 
 
-void NotificationWindow::btnTakeMeThereClicked()
+void NotificationWindow::onTakeMeThereClicked()
 {
 	mTakeMeThereClicked(mNotification.position);
 	hide();
