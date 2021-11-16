@@ -22,7 +22,7 @@ public:
 
 	void notification(const NotificationArea::Notification&);
 
-	TakeMeThereSignal& takeMeThere() { return mTakeMeThereClicked; }
+	TakeMeThereSignal::Source& takeMeThere() { return mTakeMeThereClicked; }
 
 	void update() override;
 
