@@ -27,14 +27,14 @@ public:
 	void update() override;
 
 private:
-	void btnOkayClicked();
-	void btnTakeMeThereClicked();
+	void onOkayClicked();
+	void onTakeMeThereClicked();
 
 	const NAS2D::Image& mIcons;
 
 	NotificationArea::Notification mNotification;
-	Button btnOkay{"Okay", {this, &NotificationWindow::btnOkayClicked}};
-	Button btnTakeMeThere{"Take Me There", {this, &NotificationWindow::btnTakeMeThereClicked}};
+	Button btnOkay{"Okay", {this, &NotificationWindow::onOkayClicked}};
+	Button btnTakeMeThere{"Take Me There", {this, &NotificationWindow::onTakeMeThereClicked}};
 	TextArea mMessageArea;
 	bool mTakeMeThereVisible{false};
 
