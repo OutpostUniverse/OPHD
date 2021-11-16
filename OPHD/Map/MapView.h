@@ -30,6 +30,8 @@ public:
 	void centerOn(const MapCoordinate& position);
 	void moveView(Direction direction);
 
+	void validateViewLocation();
+
 	int currentDepth() const { return mOriginTilePosition.z; }
 	void currentDepth(int i);
 
