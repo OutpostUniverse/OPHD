@@ -34,7 +34,7 @@ public:
 	void currentDepth(int i);
 
 	int viewSize() const;
-	void viewSize(int sizeInTiles);
+	void viewSize(int edgeSizeInTiles);
 
 	bool isVisibleTile(const MapCoordinate& position) const;
 
