@@ -15,14 +15,14 @@ struct MapCoordinate;
 class NotificationWindow : public Window
 {
 public:
-	using Signal = NAS2D::Signal<const MapCoordinate&>;
+	using TakeMeThereSignal = NAS2D::Signal<const MapCoordinate&>;
 
 public:
 	NotificationWindow();
 
 	void notification(const NotificationArea::Notification&);
 
-	Signal& takeMeThere() { return mTakeMeThereClicked; }
+	TakeMeThereSignal& takeMeThere() { return mTakeMeThereClicked; }
 
 	void update() override;
 
@@ -38,5 +38,5 @@ private:
 	TextArea mMessageArea;
 	bool mTakeMeThereVisible{false};
 
-	Signal mTakeMeThereClicked;
+	TakeMeThereSignal mTakeMeThereClicked;
 };
