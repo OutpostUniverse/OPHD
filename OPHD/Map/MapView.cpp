@@ -58,12 +58,6 @@ void MapView::moveView(Direction direction)
 }
 
 
-void MapView::validateViewLocation()
-{
-	centerOn(mOriginTilePosition);
-}
-
-
 void MapView::currentDepth(int i)
 {
 	mOriginTilePosition.z = std::clamp(i, 0, mTileMap.maxDepth());
@@ -79,6 +73,7 @@ int MapView::viewSize() const
 void MapView::viewSize(int sizeInTiles)
 {
 	mEdgeLength = std::max(3, sizeInTiles);
+	mapViewLocation(mOriginTilePosition);
 }
 
 
