@@ -66,7 +66,6 @@ void DetailMap::resize(NAS2D::Vector<int> size)
 	// Set up map draw position
 	const auto sizeInTiles = size.skewInverseBy(TileSize);
 	mMapView.viewSize(std::min(sizeInTiles.x, sizeInTiles.y));
-	mMapView.validateViewLocation();
 
 	// Find top left corner of rectangle containing top tile of diamond
 	mOriginPixelPosition = NAS2D::Point{size.x / 2, TileDrawOffset.y + (size.y - constants::BottomUiHeight - mMapView.viewSize() * TileSize.y) / 2};

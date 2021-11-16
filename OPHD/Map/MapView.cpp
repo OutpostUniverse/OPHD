@@ -58,12 +58,6 @@ void MapView::moveView(Direction direction)
 }
 
 
-void MapView::validateViewLocation()
-{
-	centerOn(mOriginTilePosition);
-}
-
-
 void MapView::currentDepth(int i)
 {
 	mOriginTilePosition.z = std::clamp(i, 0, mTileMap.maxDepth());
@@ -76,9 +70,15 @@ int MapView::viewSize() const
 }
 
 
-void MapView::viewSize(int sizeInTiles)
+void MapView::viewSize(int edgeSizeInTiles)
 {
-	mEdgeLength = std::max(3, sizeInTiles);
+	// Set a cap on view size at the smallest map dimension
+	// The view diamond needs to be square, and we don't want to overflow map bounds when drawing the sqaure
+	const auto sizeInTiles = mTileMap.size();
+	const auto maxViewSize = std::min(sizeInTiles.x, sizeInTiles.y);
+	mEdgeLength = std::clamp(edgeSizeInTiles, 3, maxViewSize);
+	// Re-clamp view location based on new edge length
+	mapViewLocation(mOriginTilePosition);
 }
 
 

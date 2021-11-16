@@ -30,13 +30,11 @@ public:
 	void centerOn(const MapCoordinate& position);
 	void moveView(Direction direction);
 
-	void validateViewLocation();
-
 	int currentDepth() const { return mOriginTilePosition.z; }
 	void currentDepth(int i);
 
 	int viewSize() const;
-	void viewSize(int sizeInTiles);
+	void viewSize(int edgeSizeInTiles);
 
 	bool isVisibleTile(const MapCoordinate& position) const;
 
