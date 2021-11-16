@@ -39,7 +39,7 @@ public:
 		NotificationType type{NotificationType::Information};
 	};
 
-	using NotificationCallback = NAS2D::Signal<const Notification&>;
+	using NotificationClickedSignal = NAS2D::Signal<const Notification&>;
 
 public:
 	NotificationArea();
@@ -48,7 +48,7 @@ public:
 	void push(Notification notification);
 	void clear();
 
-	NotificationCallback::Source& notificationClicked() { return mNotificationClicked; }
+	NotificationClickedSignal::Source& notificationClicked() { return mNotificationClicked; }
 
 	void update() override;
 
@@ -65,7 +65,7 @@ private:
 
 	std::vector<Notification> mNotificationList;
 	std::size_t mNotificationIndex;
-	NotificationCallback mNotificationClicked;
+	NotificationClickedSignal mNotificationClicked;
 };
 
 void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::NotificationType type, const NAS2D::Image& icons);
