@@ -357,6 +357,9 @@
     <ClCompile Include="Technology\Technology.cpp">
       <Filter>Source Files\Technology</Filter>
     </ClCompile>
+    <ClCompile Include="Technology\TechnologyReader.cpp">
+      <Filter>Source Files\Technology</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -771,6 +774,9 @@
       <Filter>Header Files\Population</Filter>
     </ClInclude>
     <ClInclude Include="Technology\Technology.h">
+      <Filter>Header Files\Technology</Filter>
+    </ClInclude>
+    <ClInclude Include="Technology\TechnologyReader.h">
       <Filter>Header Files\Technology</Filter>
     </ClInclude>
   </ItemGroup>
