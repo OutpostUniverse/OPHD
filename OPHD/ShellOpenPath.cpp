@@ -20,5 +20,5 @@ namespace
 
 void shellOpenPath(const std::string& path)
 {
-	system((std::string{ShellOpenCommand} + " " + path).c_str());
+	std::system((std::string{ShellOpenCommand} + " " + path).c_str());
 }
